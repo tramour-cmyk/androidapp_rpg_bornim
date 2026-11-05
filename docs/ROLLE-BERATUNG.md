@@ -69,6 +69,8 @@
 
 ## Lehren
 
+- Vor jeder Zusage an den Chef, die ein Werkzeug sperren kann (Probelauf, Filmwächter, Haken), im Werkzeug nachsehen, ob es die Zusage kennt; sonst Archivkopf so schreiben, dass das Werkzeug ihn liest (04.11., 21:03 „gleich Film“ zugesagt, Wächter 511 verlangte trotzdem das Standbild; Chef: „Hast du schlecht aufgeklärt“; 578).
+- Eine Vorlage „zur Kenntnis“ ist auch eine Vorlage: nach „keine Runde mehr“ abschließen statt Bilder schicken lassen (557: Ausbesserung, dann Ausrichtung, dann 557b; Chef 05.11.: „ich kriege wieder 12 Vorlagen“).
 - Fragt der Chef „sieht es besser aus? Ich weiß es nicht“, ist das eine Frage an mein Urteil, kein Auftrag: Votum mit Gegenargument geben, nie gleich als Bauauftrag eintragen; und im Votum nichts sagen, was dem eben Vereinbarten widerspricht (04.11., 17:41 Knopfgröße als Auftrag weitergegeben; 17:44 „leise Zeile“ gegen „gleich große Knöpfe“; Chef: „Du sollst mitdenken“, „heute ist es sehr anstrengend mit dir“).
 - Jede Rückmeldung des Chefs zu einer Vorlage, auch ohne Entscheid und auch, wenn sie über eine andere Rolle kam: im selben Commit Datei in `ansehen/` löschen und Stand auf „startbar“ setzen (`vorgang.py stand`); eine Zeile „Zu …“ allein startet nichts (04.11., 16:15: 557 lag nach 14:26 zwei Stunden auf „wartet auf Chef“; Chef: „wieso passiert das wieder?“).
 - Fasst der Chef Vorgänge zusammen, sofort alle offenen der Chefsache auf dieselbe Frage prüfen, nicht nur den genannten (04.11., 13:43: 524.1, 537, 525 einzeln gefunden; Chef: „bevor ich jetzt jedes Mal nachfragen muss … Echt nervig wieder heute“).

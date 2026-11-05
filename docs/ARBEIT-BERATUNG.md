@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (04.11., 19:49, `session_01Hmoj76tX5AcuwXNce8Fk7U`):** Chefrunde 16:46–19:49: 549a, 549b, 557 Runden 3/4, 505 Lauf 2, 512b, 531, 531a, 558, 568, t257 C–E entschieden und verteilt (Archiv), 569 bei Tom. Kosten auf: 557, 549a, 512, 505, 558, 568. Nachfolger: Sokrates – Chefrunde: 557 Runde 5, dann t257 ab D.
+**Übergabe (05.11., 08:30, `session_01Hmoj77fDQKFgka1aM9nbNz`):** Chefrunde 04.11., 19:50 – 05.11., 08:30: 557 (Runde 5, 557a B, abgeschlossen), 558 abgeschlossen (558.1), t257 fertig und Build 257 auf main, 475 Lauf 1 nein, 576 gebilligt, 572 Film, 468e B, 571–579 angelegt, Projektplan 2.13–2.17 (Archiv). Offen beim Chef: 415d.1 nach Film 572. Kosten auf: 557, 558, 475, 572, 468, 579. Nachfolger: Sokrates – Chefrunde: 415d.1 nach Film 572 (nur auf Zuruf, 468e).
 
 ## Zeilen
 
