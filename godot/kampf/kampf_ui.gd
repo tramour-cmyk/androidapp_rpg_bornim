@@ -526,12 +526,16 @@ func _button(label: String, enabled := true, go: Callable = Callable(), selected
 	b.add_theme_color_override("font_pressed_color", BRIGHT)
 	b.add_theme_color_override("font_disabled_color", Color(DIM, 0.6))
 	if not tip.is_empty():     # 536: langes Drücken zeigt, was der Knopf tut; losgelassen danach tut er nichts
+		# 564 (Chef 04.11., 17:06: „Lambda capture at index 0 was freed“): ein kurzer Druck baut die Knöpfe neu, bevor der Zeitgeber
+		# abläuft; der Zeitgeber hält den Knopf darum nur schwach (weakref), ein freigegebener Knopf ist dann einfach null
 		b.button_down.connect(func():
 			var t0 := Time.get_ticks_msec()
 			b.set_meta("unten", t0)
+			var schwach: WeakRef = weakref(b)
 			get_tree().create_timer(LANG_S, true, false, true).timeout.connect(func():
-				if is_instance_valid(b) and b.is_pressed() and int(b.get_meta("unten", -1)) == t0:
-					b.set_meta("lang", true)
+				var bb = schwach.get_ref()
+				if bb != null and bb.is_pressed() and int(bb.get_meta("unten", -1)) == t0:
+					bb.set_meta("lang", true)
 					show_tip(str(tip[lang]))))
 	if go.is_valid():
 		b.pressed.connect(func():
