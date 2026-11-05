@@ -101,6 +101,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 447.4.1 | M | **von Homer (447.4, Chef 03.11., 15:50 „1B 2A“):** Lehrmeister, Meisterschaften, Ruf in Kapitel 1 bauen nach `STORY-LEHRMEISTER-K1.md` und `STORY-RUF-K1.md` („Für Tom“, Varianten), Lehrmeister in der Karte | wartet auf 508 (Sokrates: Einladung in Kapitel 1 erreichbar?) | – |
 | 133 | K | Charisma-Wahlen Kapitel 2 (`STORY-WAHLEN.md`) | ruht: altes SRD-System (Chef 31.10.) | – |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (Kapitel 2 nicht im Spiel) | – |
+| 586a | K | **von Team Jerry (05.11., 09:37):** Rückfrage zu 586: Maß der Überschriften „7 bis 10“ oder „7 bis 12“ (`chefsache/entscheiden/586a-ueberschriften-mass.md`) | wartet auf Chef | – |
 | 586 | K | **von Chef über Jerry (05.11., 09:35; Zu 586):** Bilder 557 einheitlich: Rast am Feuer und an der Theke (7, 8) mit Zeichen links neben der Überschrift wie 3–6; Überschriften von 1 und 2 so groß wie 7–10 | wartet: nichts bauen (Chef: „nur als Kür“), nach dem Durchspielen (579) | – |
 | Pflege | K | **von Werkzeug (340.3, 05.11.):** 116640 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 11, 99; Zeile 522 wartet auf t257, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile 521 wartet auf t257, aber keine Datei in docs/chefsache/anse … | startbar |
 
