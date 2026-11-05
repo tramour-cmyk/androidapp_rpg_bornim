@@ -45,7 +45,7 @@ static func ersatz() -> String:
 ## Schatten, Kopfhöhe, Größe aus dem Kaufmodell (ersatz_art „kauf_<tier>“, aufruf.gd)
 const VIERBEINER := ["wolf", "boar", "giant_centipede", "stirge", "ochre_jelly", "giant_rat", "giant_bat"]     # Hundertfüßer, Riesenegel, Säureschnecke (494): langer Körper am Boden wie ein Vierbeiner; Ratte, Fledermaus mit eigenen Regeln wie bisher als Ersatz des Wolfs
 static func vier(fi) -> bool:
-	return fi != null and fi.monster != null and String(fi.monster.id) in VIERBEINER
+	return fi != null and fi.monster != null and Mars.koerper_of(fi.monster) in VIERBEINER     # 577: nach dem Körper
 ## 553 (Chef 04.11., 00:26, Build 249: „Was ist das für ein graues Tier??????“ im Flüsterwald): ersatz_art ist eine für alle
 ## Figuren; jeder Streuner der Karte und jeder Kampfbeginn setzt sie neu (aufruf.gd gegner). Die Figur las sie laufend, also nahm
 ## eine Kartenratte nach dem nächsten Wolf dessen Maße (Wenden, Absetzen, Kopf) und ein Wolf nach der nächsten Ratte deren
@@ -160,7 +160,7 @@ func setup(f, k) -> void:
 		_arm_kauf()
 	elif fighter.monster == null:
 		_arm()
-	elif fighter.monster.id in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG]:
+	elif Mars.koerper_of(fighter.monster) in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG]:
 		_arm_goblin()
 	if fighter.monster != null:
 		var sk: Skeleton3D = _find(model, "Skeleton3D")
@@ -362,14 +362,14 @@ func _model_path() -> String:
 		if ERSATZ_FELLE.has(art):
 			return "res://kampf/daten/%s-%s.bin" % [art, ERSATZ_FELLE[art][n % ERSATZ_FELLE[art].size()]]
 		return "res://kampf/daten/wolf-%s.bin" % WOLF_COATS[n % WOLF_COATS.size()]
-	if fighter.monster.id in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG]:     # 348.7: Goblin, Späher je Nummer eines der drei Kits (goblin.py, MonsterKits)
+	if Mars.koerper_of(fighter.monster) in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG]:     # 348.7: Goblin, Späher je Nummer eines der drei Kits (goblin.py, MonsterKits)
 		return "res://kampf/daten/%s-%s.bin" % [_gob_art(), _gob_kit()]
 	# 494 Riesenspinne (kaufspinne.py): gekaufte Gegner, die keine Vierbeiner sind, haben wie die Kauftiere drei Häute in
 	# <id>-info.json; je Nummer eine (drei Varianten, DESIGN-STIL „Abwechslung“)
-	var felle := _kauf_felle(fighter.monster.id)
+	var felle := _kauf_felle(Mars.koerper_of(fighter.monster))
 	if not felle.is_empty():
-		return "res://kampf/daten/%s-%s.bin" % [fighter.monster.id, felle[(maxi(fighter.nr, 1) - 1) % felle.size()]]
-	return "res://kampf/daten/%s.bin" % fighter.monster.id
+		return "res://kampf/daten/%s-%s.bin" % [Mars.koerper_of(fighter.monster), felle[(maxi(fighter.nr, 1) - 1) % felle.size()]]
+	return "res://kampf/daten/%s.bin" % Mars.koerper_of(fighter.monster)
 
 
 ## 348.12f eingebaut (Chef 28.10., 11:50, Archiv: Kaufwolf und Ratte abgenommen): gekaufte Modelle liegen im APK nur verschlüsselt
@@ -409,8 +409,8 @@ static func _kauf_felle(a: String) -> Array:
 ## 494: gekaufter Gegner mit eigenen Häuten in <id>-info.json (kaufspinne.py), weder Vierbeiner noch Zweibeiner (die haben dort
 ## Felle oder Kits), in echter Größe wie die Kauftiere
 static func eigene_haut(fi) -> bool:
-	return fi != null and fi.monster != null and not vier(fi) and not fi.monster.id in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG] \
-			and not _kauf_felle(String(fi.monster.id)).is_empty()
+	return fi != null and fi.monster != null and not vier(fi) and not Mars.koerper_of(fi.monster) in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG] \
+			and not _kauf_felle(Mars.koerper_of(fi.monster)).is_empty()
 
 
 ## 403 (von Team Tom zu 376.1; Chef 31.10.: nur Modell und Bewegungen): der Held je Klasse auf dem Kaufkörper wie im Dorf
@@ -539,7 +539,7 @@ func _arm() -> void:
 
 ## Goblin, Späher, Grak: Zweibeiner auf dem Gerüst aus goblin.py oder grak_gestalt.py
 func _zweibeiner() -> bool:
-	return fighter.monster != null and fighter.monster.id in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG]
+	return fighter.monster != null and Mars.koerper_of(fighter.monster) in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG]
 
 
 ## 403: Waffe und Schild am Kaufkörper. Der Kaufkörper ruht in der T-Pose, darum wie beim Goblin nach der Haltung in Stehen
@@ -589,17 +589,17 @@ func _schild() -> String:
 
 ## Goblin, Späher oder (Probe „Schamanen“) Schamane: Kennung der Modelle und der info.json
 func _gob_art() -> String:
-	if fighter.monster.id == Mars.CALLED and _mein_ersatz() in [SHAMAN, KOBOLD]:
+	if Mars.koerper_of(fighter.monster) == Mars.CALLED and _mein_ersatz() in [SHAMAN, KOBOLD]:
 		return _mein_ersatz()
-	return fighter.monster.id
+	return Mars.koerper_of(fighter.monster)
 
 
 func _gob_kit() -> String:
-	if fighter.monster.id == Mars.GRAK:
+	if Mars.koerper_of(fighter.monster) == Mars.GRAK:
 		return GRAK_KITS[0]
-	if fighter.monster.id == Mars.KROGG:
+	if Mars.koerper_of(fighter.monster) == Mars.KROGG:
 		return KROGG_KITS[0]
-	var kits: Array = SCOUT_KITS if fighter.monster.id == Mars.SCOUT else (SHAMAN_KITS if _gob_art() == SHAMAN else (KOBOLD_KITS if _gob_art() == KOBOLD else GOBLIN_KITS))
+	var kits: Array = SCOUT_KITS if Mars.koerper_of(fighter.monster) == Mars.SCOUT else (SHAMAN_KITS if _gob_art() == SHAMAN else (KOBOLD_KITS if _gob_art() == KOBOLD else GOBLIN_KITS))
 	return kits[(maxi(fighter.nr, 1) - 1) % kits.size()]
 
 
@@ -840,7 +840,7 @@ func _toon(c: Color) -> ShaderMaterial:
 	elif load("res://kampf/kampfort.gd").tusche() == "licht":     # 348.13a: Vorgabe Tusche nach Licht
 		m.shader = toon_gegner()
 		# 348.13a (Prüfer r9: der hintere Goblin hebt sich vom Weg kaum ab; Tom: Goblins aufhellen): Mindesthelligkeit im Schatten
-		if GOB_FILL > 0.0 and fighter != null and fighter.monster != null and String(fighter.monster.id).begins_with("goblin"):
+		if GOB_FILL > 0.0 and fighter != null and fighter.monster != null and String(Mars.koerper_of(fighter.monster)).begins_with("goblin"):
 			m.set_shader_parameter("fill", GOB_FILL)
 	else:
 		m.shader = load("res://kampf/toon.gdshader")
@@ -1255,8 +1255,8 @@ func _weg() -> Dictionary:
 	if fighter.monster == null:
 		return {}
 	var ia := _gob_art() if _zweibeiner() else art()     # 348.12: Grak (grak_gestalt.py) hat seinen Weg in hobgoblin_captain-info.json
-	if ia == "" and not _kauf_felle(fighter.monster.id).is_empty():     # 494 Riesenspinne (kaufspinne.py): Weg in <id>-info.json
-		ia = String(fighter.monster.id)
+	if ia == "" and not _kauf_felle(Mars.koerper_of(fighter.monster)).is_empty():     # 494 Riesenspinne (kaufspinne.py): Weg in <id>-info.json
+		ia = Mars.koerper_of(fighter.monster)
 	var ip := "res://kampf/daten/%s-info.json" % ia
 	if ia == "" or not FileAccess.file_exists(ip):
 		return {}
@@ -2020,7 +2020,7 @@ func strike(other, e: Dictionary) -> int:
 		get_tree().create_timer(0.6).timeout.connect(func(): _face(); _idle())
 		busy_ms = 700
 		return 700
-	var leap: bool = fighter.monster != null and pouncing and fighter.monster.id == Mars.WOLF
+	var leap: bool = fighter.monster != null and pouncing and Mars.koerper_of(fighter.monster) == Mars.WOLF
 	letzter_sprung = leap or (sprung_bereit and fighter.monster != null)
 	sprung_bereit = false
 	if kauf:
@@ -2892,7 +2892,7 @@ func die() -> void:
 		t.tween_property(model, "rotation:z", deg_to_rad(80), FALL_MS / 1000.0)
 	# 348.12 (Chef 28.10., 15:23: „Krag ist ein Hauptheld, der muss fulminant sterben am Schluss. Nicht einfach ausgeblendet werden,
 	# wir brauchen einen Zusammenbruch“): Grak bricht zusammen (Tod aus Death02: in die Knie, dann vornüber) und bleibt liegen
-	if fighter.side == "FOES" and fighter.monster.id not in [Mars.GRAK, Mars.KROGG]:     # 494: Krogg bricht zusammen wie Grak
+	if fighter.side == "FOES" and Mars.koerper_of(fighter.monster) not in [Mars.GRAK, Mars.KROGG]:     # 494: Krogg bricht zusammen wie Grak
 		# MARS: eigene Sterbebilder, dann ausgeblendet (LISTE-MARS.md); Körper und Bodenschatten zusammen (Helfer Lauf 126: der
 		# Schatten lag noch allein auf dem Weg)
 		await get_tree().create_timer((sterbe_ms() + LIEGT_MS) / 1000.0).timeout

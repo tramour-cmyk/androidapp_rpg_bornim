@@ -50,12 +50,12 @@ func _werte() -> void:
 		_soll(monsters.has(c[1]), "tabellen.json kennt %s" % c[1])
 		var foes: Array = AufrufS.gegner(c[0], monsters, Wuerfel.new(3))
 		var f = foes[0]
-		_soll(foes.size() == 3 and foes.all(func(x): return Mars.art_of(x.monster) == c[1] and x.monster.id == c[2] and x.monster.de == c[3]),
-			"%s: Art %s im Körper %s, Name %s" % [c[0], Mars.art_of(f.monster), f.monster.id, f.monster.de])
+		_soll(foes.size() == 3 and foes.all(func(x): return Mars.art_of(x.monster) == c[1] and x.monster.id == c[1] and Mars.koerper_of(x.monster) == c[2] and x.monster.de == c[3]),
+			"%s: Kennung %s (577), Körper %s, Name %s" % [c[0], f.monster.id, Mars.koerper_of(f.monster), f.monster.de])
 		_soll(int(f.monster.ac) == c[4] and int(f.monster.xp) == c[5], "%s: RK %s, EP %s" % [c[0], f.monster.ac, f.monster.xp])
 	# Wölfe und Grimmzahn bleiben, wie sie waren
 	var w: Array = AufrufS.gegner("WOLVES", monsters, Wuerfel.new(3))
-	_soll(Mars.art_of(w[0].monster) == Mars.WOLF and not w[0].monster.has("art"), "Wölfe ohne eigene Art")
+	_soll(Mars.art_of(w[0].monster) == Mars.WOLF and Mars.koerper_of(w[0].monster) == Mars.WOLF and not w[0].monster.has("koerper"), "Wölfe im eigenen Körper")
 
 
 func _ansagen() -> void:

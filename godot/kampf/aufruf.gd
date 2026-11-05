@@ -59,8 +59,8 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 		# 494 (Jerry 03.11., 18:4x): Riesenratte, Riesenfledermaus, Riesenspinne je allein mit ihren eigenen Regeln wie im alten Spiel
 		# (Roamers.kt: ein Monster, Packs.kt ohne Rudel für sie; Monsters.kt giant_rat, giant_bat, giant_spider). RATS, BATS, SPIDER
 		# bleiben die Probekämpfe von 348.7/348.9 (drei Felle mit Regeln des Wolfs, Spinne neben einem Wolf)
-		"RATTE": [["rat", "giant_rat", Vector2i(0, 0)]],
-		"FLEDERMAUS": [["bat", "giant_bat", Vector2i(0, 0)]],
+		"RATTE": [["rat", Mars.WOLF, Vector2i(0, 0)]],     # 577: Körper des Wolfs, Kennung und Regeln der eigenen Art (ART)
+		"FLEDERMAUS": [["bat", Mars.WOLF, Vector2i(0, 0)]],
 		"SPINNE": [["spider", Mars.SPIDER, Vector2i(0, 0)]],
 	}.get(foe, [])
 	Figur.ersatz_art = {"RATS": "giant_rat", "BATS": "giant_bat", "SHAMANS": Figur.SHAMAN, "KOBOLDS": Figur.KOBOLD, "BOARS": "kauf_keiler", "CENTIPEDES": "kauf_hundertfuesser", "LEECHES": "kauf_egel", "SLUGS": "kauf_schnecke", "RATTE": "giant_rat", "FLEDERMAUS": "giant_bat"}.get(foe, "")
@@ -92,10 +92,10 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 		elif ART.has(foe) and monsters.has(ART[foe]):
 			# 535 (Abgleich 512, Sokrates: „Ratten und Fledermäuse als Wölfe, Schamane ohne Heilen“): Werte, Name, Lohn und Regeln
 			# der eigenen Art (Monsters.kt giant_rat, giant_bat, kobold, goblin_shaman); Bewegung und Modell bleiben die des Körpers
-			# (id), die Regeln fragen „art“ (Mars.art_of); das Rudel zählt nach der Art (Kobolde wie alt Packs.kt kobolds, je 0,4)
+			# („koerper“, Mars.koerper_of); 577: die id bleibt die eigene Art (Regeln, Texte, Klang, Lohn); das Rudel zählt nach der Art
+			# (Kobolde wie alt Packs.kt kobolds, je 0,4)
 			m = (monsters[ART[foe]] as Dictionary).duplicate(true)
-			m.id = e[1]
-			m.art = ART[foe]
+			m.koerper = e[1]
 			m.pack = ART[foe]
 		elif foe in NAMEN_494:     # 494: Name nach LISTE-FIGUREN (Regeln noch unter dem alten Namen)
 			m = m.duplicate()
@@ -108,7 +108,7 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 
 
 ## 535: Gruppen, deren Tiere eigene Regeln haben, aber den Körper einer anderen Art tragen (gegner)
-const ART := {"RATS": Mars.RAT, "BATS": Mars.BAT, "KOBOLDS": Mars.KOBOLD, "SHAMANS": Mars.SHAMAN}
+const ART := {"RATS": Mars.RAT, "BATS": Mars.BAT, "KOBOLDS": Mars.KOBOLD, "SHAMANS": Mars.SHAMAN, "RATTE": Mars.RAT, "FLEDERMAUS": Mars.BAT}     # 494: je allein wie alt
 
 
 ## 399.2a (Chef 28.10., 14:19, Archiv: „Wolf mit 1 bis 2 Jungwölfen“, der Held allein): der Waldkampf wie im alten Spiel
