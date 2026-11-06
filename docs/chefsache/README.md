@@ -8,11 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [602](entscheiden/602-gemeinsamer-build.md) | **Muss** | B Betrieb | 06.11., 08:10 | Gemeinsamer Build nach Tom 591/592 und Jerry 548–544? | Ford |
-| [595](entscheiden/595-kampfbewegungen.md) | **Muss** | E Kampf | 06.11., 07:44 | Mehr Kampfbewegungen aus den Kaufpaketen, Goblins sterben echt | Jerry |
-| [598](entscheiden/598-umweltklang.md) | **Muss** | E Klang | 06.11., 07:40 | Umweltklang: was fehlt gegen alt, Regen zurück? | Jerry |
-| [601](entscheiden/601-schussbewegung.md) | **Muss** | C Kampf | 06.11., 07:35 | Goblin-Späher: Schussbewegung aus dem Kaufpaket Bow & Arrow | Jerry |
-| [587a](entscheiden/587a-karte-groesse.md) | **Muss** | E Kampf | 05.11., 12:17 | Auf der Gebietskarte so groß wie im Kampfort (eine Größe je Tier) oder echte Größe? | Team Jerry |
 | [415d.1](entscheiden/415d1-effekte-jetzt.md) | **Muss** | C Kampf | 04.11., 19:57 | Effektpakete jetzt kaufen, Einbau nach Bedarf | Sokrates |
 
 ## Zu billigen
@@ -50,10 +45,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 100, Muss 75, startbar 12
+**Tom** – offen 101, Muss 76, startbar 13
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 603 | M | von Ford (Chef 06.11., 09:36, 602: „602 ja, soviel rein wie geht (also mehr als 6), Testfr | startbar |
 | 512b | M | von Sokrates (Chef 04.11., 19:21: „512b ja“; chefsache/entscheiden/512b-nachweis.md in Git | wartet auf Test/Build (gebaut) |
 | 580 | M | von Tom (Abgleich 512b, Prüfer 08:17): Erschaffung Punktekauf: Attributnamen abgeschnitten | wartet auf Test/Build (gebaut) |
 | 581 | M | von Tom (Abgleich 512b): Reiter Ausrüstung: Seite 16 px breiter als der Schirm (Rand 11 st | wartet auf Test/Build (gebaut) |
@@ -155,7 +151,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „star
 | 586 | K | von Chef über Jerry (05.11., 09:35; Zu 586): Bilder 557 einheitlich: Rast am Feuer und an | startbar |
 | Pflege | K | von Werkzeug (340.3, 06.11.): 122117 Bytes (Grenze 15000), Erledigtes streichen; Tabellenz | startbar |
 
-**Jerry** – offen 85, Muss 71, startbar 11
+**Jerry** – offen 85, Muss 71, startbar 12
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -236,11 +232,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „star
 | 469 | M | von Sokrates: Kampf auf BRS: Ring ohne Klassen regeln | wartet auf 406.1 (wartet) |
 | 594 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Probekampf „Spinne“ (nicht allein): Wolf da | wartet auf Test/Build (gebaut) |
 | 597 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Ring ohne Ankündigung (Fledermaus); alle An | wartet auf Test/Build (gebaut) |
-| 601 | M | von Sokrates (Chef 05.11., 19:2x, t266.5; Zu 594–601): Goblin-Späher: Schuss ohne Bewegung | Chef (Datei in der Chefsache) |
+| 601 | M | von Sokrates (Chef 05.11., 19:2x, t266.5; Zu 594–601): Goblin-Späher: Schuss ohne Bewegung | ruht bis 07.11. |
 | 596 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Sterben je Gegnerart mehrfach, gespiegelt, | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
-| 595 | M | von Sokrates (Chef 05.11., 19:2x, t266.1; Zu 594–601): Kampfbewegungen Spinne, Riesenegel, | Chef (Datei in der Chefsache) |
+| 595 | M | von Sokrates (Chef 05.11., 19:2x, t266.1; Zu 594–601): Kampfbewegungen Spinne, Riesenegel, | ruht bis 07.11. |
 | 600 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Knopf zum Beschleunigen im Kampfort wie Wür | wartet auf Test/Build (gebaut) |
-| 598 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Umweltklang je Ort, Tageszeit, Wind, Wetter | Chef (Datei in der Chefsache) |
+| 598 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Umweltklang je Ort, Tageszeit, Wind, Wetter | startbar |
 | 593 | M? | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Ausweichen auch rückwärts | startbar |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 | Pflege | K | von Werkzeug (340.3, 06.11.): 41366 Bytes (Grenze 15000), Erledigtes streichen; Zeile 453. | startbar |
@@ -344,7 +340,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 407 (Projekt)
+Nicht gestellt: 587 (Kreativ), 407 (Projekt), 596 (Team Jerry)
 
 Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/572-effektfilm.md
 
