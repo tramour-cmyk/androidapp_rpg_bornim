@@ -60,6 +60,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 08:26 06.11.: Chef 08:26 „lass ihn doch noch sparsame Sachen erledigen, die er erledigen kann. Auch Jerry.“: Tom (591, 592 fertig) und Jerry per Nachricht weiter mit startbarem Muss, nur Code, bis etwa 10:30.
 - 08:10 06.11.: Chef 08:09 „andere noch wichtige Aufgaben … die nur Code betreffen … dann könnten ja … auch andere noch was machen“ (hebt 468c für heute auf): Startsperre 08:10 Start Jerry 548, 545, 562, 544 (Kampffehler aus Chef-Tests, nur Code), höchstens etwa 2 Stunden.
 - 08:08 06.11.: Chef 08:07 „Starte das, was am kostengünstigsten zu erledigen ist … das machst du jetzt“: Tom 591, 592 (nur Code, vorhandene Bewegungen und Klänge; 589, 590 brauchen Grafik). Startsperre 08:08 Start Tom, höchstens etwa 2 Stunden.
 - 08:05 06.11.: Neustart Jerry 38d0a7018 (Rückläufer t266 durch, 07:19–07:46; Nachfolger „Jerry – 565: Wer am Zug ist“ nur auf Zuruf, 468e), archiviert, 17,29 $ auf 588, 594, 596, 597, 600, 601. Offen beim Chef: entscheiden/595, 598, 601; Frage, ob Tom 589–592 heute.
