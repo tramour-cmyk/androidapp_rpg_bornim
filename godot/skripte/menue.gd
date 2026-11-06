@@ -138,7 +138,10 @@ func meldung(t: String) -> void:
 	meldung_.text = t
 	meldung_.visible = true
 	var mein := t
-	get_tree().create_timer(3.0, true).timeout.connect(func(): if is_instance_valid(meldung_) and meldung_.text == mein: meldung_.visible = false)
+	var schwach: WeakRef = weakref(meldung_)   # 574: wie Hauptmenue.hinweis, das Menue kann vorher zu sein
+	get_tree().create_timer(3.0, true).timeout.connect(func():
+		var f = schwach.get_ref()
+		if f != null and f.text == mein: f.visible = false)
 
 func zeile(t: String, sp: float, farbe := Stil.TEXT) -> Label:
 	var l := Erschaffung.txt(t, sp, farbe)

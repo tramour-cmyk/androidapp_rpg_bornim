@@ -105,6 +105,13 @@ static func datei(id: String) -> String:
 static func maske(id: String) -> String:
 	return "boden-maske" if id == "village" else id + "-boden-maske"
 
+# 574 (Laufprotokoll Build 257: „Condition "buffer_size == 0" is true“ = ein Bild aus leeren Bytes): nur laden, was es gibt
+static func maske_bild(id: String) -> Image:
+	var p := "res://daten/%s.bild" % maske(id)
+	if not FileAccess.file_exists(p): return null
+	var img := Image.new()
+	return img if img.load_png_from_buffer(FileAccess.get_file_as_bytes(p)) == OK else null
+
 static func lade_glb(p: String) -> Node3D:
 	var doc := GLTFDocument.new()
 	var state := GLTFState.new()
@@ -198,7 +205,10 @@ static func finde(n: Node, cls: String) -> Node:
 static func bild(name: String) -> ImageTexture:
 	if texcache.has(name): return texcache[name]
 	var img := Image.new()
-	img.load_png_from_buffer(FileAccess.get_file_as_bytes("res://daten/%s.bild" % name))
+	var p := "res://daten/%s.bild" % name
+	if not FileAccess.file_exists(p) or img.load_png_from_buffer(FileAccess.get_file_as_bytes(p)) != OK:   # 574: fehlt es, weiss statt Fehler
+		push_warning("Gebiet.bild: %s fehlt" % p)
+		img = Image.create(4, 4, false, Image.FORMAT_RGBA8); img.fill(Color.WHITE)
 	if not img.has_mipmaps(): img.generate_mipmaps()
 	var t := ImageTexture.create_from_image(img)
 	texcache[name] = t
@@ -482,8 +492,8 @@ static func kreuz() -> ArrayMesh:
 
 func baue_leben() -> void:
 	var ts := Karte.TS
-	var mimg := Image.new()
-	mimg.load_png_from_buffer(FileAccess.get_file_as_bytes("res://daten/%s.bild" % maske(karte.id)))
+	var mimg := Gebiet.maske_bild(karte.id)
+	if mimg == null: return   # 574: Grundrisse (Schenke, Laden, Aeltester, Tempel) haben keine Bodenmaske und kein Gras
 	var rng := RandomNumberGenerator.new(); rng.seed = 348
 	var xf: Array[Transform3D] = []; var cu: Array[Color] = []
 	var kxf: Array[Transform3D] = []; var kcu: Array[Color] = []

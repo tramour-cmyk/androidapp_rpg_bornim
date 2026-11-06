@@ -356,6 +356,7 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/kapitelende_537.gd 2>&1 | grep -E "FEHLER|KAPITELENDE|SCRIPT ERROR"   # 537 Kapitelende, Tempelszene, Morgen
           timeout 120 ~/godot/godot --headless --path . -s res://tests/tasten_4161.gd 2>&1 | grep -E "FEHLER|TASTEN|SCRIPT ERROR"   # 416.1
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/rueckfrage_526.gd 2>&1 | grep -E "FEHLER|RUECKFRAGE|SCRIPT ERROR"   # 526 Rückfragen: daneben tippen, Zurück
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/protokoll_574.gd 2>&1 | tee p574.log | grep -E "FALSCH|PROTOKOLL574|SCRIPT ERROR"; ! grep -E "Lambda capture|buffer_size" p574.log   # 574 Fehler im Laufprotokoll
           timeout 300 ~/godot/godot --headless --path . -s res://tests/kamin_501.gd 2>&1 | grep -E "FEHLER|KAMIN501|Kamin|SCRIPT ERROR"   # 501 Flamme auf den Scheiten
           timeout 120 ~/godot/godot --headless --path . -s res://tests/probeknoepfe_500.gd 2>&1 | grep -E "FEHLER|PROBEKNOEPFE500|SCRIPT ERROR"   # 500 Probeknoepfe weg
           timeout 120 ~/godot/godot --headless --path . -s res://tests/lizenz_497.gd 2>&1 | grep -E "FEHLER|LIZENZ497|ENGINE|SCRIPT ERROR"   # 497 Lizenzen der Engine
