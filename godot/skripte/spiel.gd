@@ -59,6 +59,7 @@ func _ready() -> void:
 	ui.knopf.connect(_knopf)
 	ui.windrose.zurueck.connect(kamera.nach_norden)
 	ui.leiste.menue.connect(oeffne_menue)
+	ui.leiste.karte.connect(func(): oeffne_menue("karte"))   # 528 (86.2)
 	ui.gelesen.connect(weiter)
 	ui.gewaehlt.connect(_rast_wahl)
 	licht.nacht_geaendert.connect(_nacht)
@@ -884,7 +885,8 @@ func rast_kachel(t: Vector2i) -> String:
 	return ""
 
 # 399.1 Menue wie alt (menue.gd): die Leiste oeffnet es, nur beim Erkunden (alt: game.mode == Mode.Explore); das Spiel steht so lange
-func oeffne_menue() -> void:
+# reiter: „karte“ vom Kartenzeichen der Leiste (528): die Karte gleich offen; der Reiter Karte noch einmal fuehrt zurueck ins Spiel
+func oeffne_menue(reiter := "") -> void:
 	if ui.spricht() or rast_ort != "" or laden != null or kampf != null or get_tree().paused: return
 	held.halt(); held.richtung = Vector3.ZERO
 	var ebene := CanvasLayer.new()
@@ -895,6 +897,9 @@ func oeffne_menue() -> void:
 	var figur_vorher := JSON.stringify(HeldFigur.wahl(held_werte(), zustand))   # 522: Ausruestung vorher
 	m.ort = platz()
 	m.dunkel = im_dunkeln()
+	if reiter != "":
+		m.reiter = reiter
+		m.karte_direkt = reiter == "karte"
 	ebene.add_child(m)
 	m.speichern.connect(speichere)
 	m.ankunft.connect(func():   # 399.1 Chronik „Die Ankunft ansehen“ (69d, vm.watchIntro)

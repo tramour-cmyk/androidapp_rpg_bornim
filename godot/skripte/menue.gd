@@ -44,6 +44,7 @@ var inhalt: VBoxContainer
 var rolle: ScrollContainer
 var bisher := false               # Chronik: „Bisher geschehen“ statt Auftraege
 var erledigt_auf := false
+var karte_direkt := false         # 528 (86.2, vm.mapDirect): vom Kartenzeichen geoeffnet; der Reiter Karte noch einmal schliesst
 var meldung_: Label                # 399.1: was Benutzen, Anlegen, Wegwerfen sagt (alt vm.toast), drei Sekunden
 var wuerfel := func(n: int, w: int) -> int:
 	var t := 0
@@ -106,7 +107,7 @@ func baue() -> void:
 	# 399.1: Reiter als Zeichen wie alt (TabSign, 60j); Woerter passten zu viert nicht in die Breite
 	for r in ["held", "tasche", "ausruestung", "karte", "chronik", "system"] + (["test"] if Testmodus.ist_an() else []):   # 399.1 wie alt Tab.TEST
 		var stern: bool = (r == "held" and hw.offen > 0) or (r == "chronik" and reiter != "chronik" and Chronik.frisch(z))
-		leiste.add_child(Reiterzeichen.knopf(r, wort(r), func(): reiter = r; geplant.clear(); schliesse_erklaerung(); baue(), r == reiter, stern))
+		leiste.add_child(Reiterzeichen.knopf(r, wort(r), func(): tippe_reiter(r), r == reiter, stern))
 	for c in inhalt.get_children():
 		inhalt.remove_child(c)
 		c.queue_free()
@@ -126,6 +127,14 @@ func baue() -> void:
 const CHRONIK := {"de": "Chronik", "en": "Chronicle"}   # MenuScreen.kt labels
 const KARTE := {"de": "Karte", "en": "Map"}
 const WORT := {"held": "hero", "tasche": "bag", "ausruestung": "equipment", "system": "system"}
+
+# 528 (MenuScreen.kt 122–126): die Karte, vom Kartenzeichen geoeffnet, noch einmal angetippt: gleich zurueck ins Spiel
+func tippe_reiter(r: String) -> void:
+	if karte_direkt and r == "karte" and reiter == "karte":
+		zu.emit()
+		return
+	if r != "karte": karte_direkt = false
+	reiter = r; geplant.clear(); schliesse_erklaerung(); baue()
 
 func wort(r: String) -> String:
 	if r == "chronik": return Sprache.t(CHRONIK)
@@ -191,7 +200,13 @@ func held() -> void:
 	balken(Sprache.u("hp"), hw.tp, hw.max_tp(), Leiste.HP_GRUEN if anteil > 0.5 else (Leiste.HP_GELB if anteil > 0.2 else Leiste.ROT))
 	if hw.max_zp() > 0: balken(Sprache.u("sp"), hw.zp, hw.max_zp(), Leiste.BLAU)
 	var tab: Array = Heldwerte.regel("ep_fuer_stufe")
-	if hw.stufe < int(Heldwerte.regel("max_stufe")):
+	if hw.stufe >= Geschichte.stufendeckel(z) and hw.stufe < int(Heldwerte.regel("max_stufe")):
+		# 528 (MenuScreen.kt 594–601, Story.capped): am Deckel des Kapitels zaehlen die EP fuer spaeter; der Balken voll mit der Zahl
+		balken(Sprache.u("xp"), 1, 1, Leiste.GOLD_HELL, str(hw.ep))
+		var satz := zeile("Höchststufe für Kapitel 1 erreicht. In diesem Kapitel gibt es keine weiteren EP; Kämpfe lohnen sich weiter für Beute und Ausrüstung." if de
+			else "Maximum level for Chapter 1 reached. No more XP this chapter; fights still pay off in loot and gear.", 13, Stil.DIM)
+		satz.name = "Hoechststufe"
+	elif hw.stufe < int(Heldwerte.regel("max_stufe")):
 		var von := int(tab[hw.stufe]); var bis := int(tab[hw.stufe + 1])
 		balken(Sprache.u("xp"), hw.ep - von, bis - von, Leiste.GOLD_HELL, "%d / %d" % [hw.ep, bis])
 	luecke(8)
@@ -1716,6 +1731,20 @@ func kaestchen(zeilen: Array) -> void:
 	p.add_child(v)
 	inhalt.add_child(p)
 
+# 528 (ChronicleTab.kt 100): „Auf der Karte“, nur wo die Karte ein Zeichen des Auftraggebers hat; oeffnet die Karte auf ihm
+func auf_der_karte(wer: String) -> Array:
+	if not Kartenreiter.hat_geber(z, wer): return []
+	var b := Erschaffung.knopf("Auf der Karte" if de_() else "On the map", func():
+		Kartenreiter.fokus_wer = wer
+		karte_direkt = false
+		reiter = "karte"; baue())
+	b.name = "AufDerKarte"
+	b.custom_minimum_size = Vector2(0, 32 * DP)
+	b.add_theme_font_size_override("font_size", int(round(13 * Stil.SP)))
+	b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	b.clip_text = false   # 503: mit clip_text und SHRINK 0 breit
+	return [b]
+
 func chronik() -> void:
 	var de := Sprache.aktiv() == "de"
 	Chronik.gelesen(z)
@@ -1764,7 +1793,7 @@ func chronik() -> void:
 			Erschaffung.txt(Sprache.t(j["aushang"]), 14),
 			Erschaffung.txt((("Bereit zur Abgabe – bei %s" if de else "Ready to turn in to %s") % wer) if bereit
 				else "%d %s %d · %s" % [hat, "von" if de else "of", int(j["anzahl"]), Laden.name(String(j["ding"]))], 14, GRUEN if bereit else Stil.GOLD),
-			Erschaffung.txt(("Lohn: " if de else "Reward: ") + Sprache.t(j["lohn"]), 13, Stil.DIM)])
+			Erschaffung.txt(("Lohn: " if de else "Reward: ") + Sprache.t(j["lohn"]), 13, Stil.DIM)] + auf_der_karte(String(j["geber"])))
 	var fertig := Chronik.fertig(z)
 	var fertig_j := Auftraege.alle().filter(func(j): return Auftraege.erledigt(z, j))
 	if not fertig.is_empty() or not fertig_j.is_empty():
