@@ -150,7 +150,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „star
 | 586 | K | von Chef über Jerry (05.11., 09:35; Zu 586): Bilder 557 einheitlich: Rast am Feuer und an | startbar |
 | Pflege | K | von Werkzeug (340.3, 06.11.): 122023 Bytes (Grenze 15000), Erledigtes streichen; Tabellenz | startbar |
 
-**Jerry** – offen 86, Muss 72, startbar 27
+**Jerry** – offen 86, Muss 72, startbar 26
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -229,7 +229,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „star
 | 59e | K | Händler: Vorrat je Laden | ruht |
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht |
 | 469 | M | von Sokrates: Kampf auf BRS: Ring ohne Klassen regeln | wartet auf 406.1 (wartet) |
-| 594 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Probekampf „Spinne“ (nicht allein): Wolf da | startbar |
+| 594 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Probekampf „Spinne“ (nicht allein): Wolf da | wartet auf Test/Build (gebaut) |
 | 597 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Ring ohne Ankündigung (Fledermaus); alle An | startbar |
 | 601 | M | von Sokrates (Chef 05.11., 19:2x, t266.5; Zu 594–601): Goblin-Späher: Schuss ohne Bewegung | startbar |
 | 599 | M | von Sokrates (Chef 05.11., 19:2x, t266; Zu 594–601): Gebietskarte: Kobolde zu schnell; Kam | startbar |
