@@ -245,6 +245,8 @@ func _scene_input(ev) -> void:
 		kampfort.test_end(false)
 	elif win_rect.has_point(p):
 		kampfort.test_end(true)
+	elif not kampfort.ring_open and _status_tip(p) != "":
+		show_tip(_status_tip(p))     # 536: ein Tipp auf ein Zustandsschild erklärt es
 	else:
 		kampfort.tap()
 		druck_t0 = Time.get_ticks_msec()     # 536: lange gedrückt auf eine Ansage oder einen Gegner sagt, was er vorhat
@@ -282,6 +284,7 @@ func _process(_dt: float) -> void:
 		var was := scene_tip(druck_pos)
 		if was != "":
 			show_tip(was)
+			names_until = Time.get_ticks_msec() + NAMES_MS     # 536: wie alt (SkirmishScreen namesUntil) zeigen dann alle ihre Namen
 	overlay.queue_redraw()
 
 
@@ -785,12 +788,18 @@ func _set_pick(p: String, arg = null) -> void:
 
 
 func show_tip(text: String) -> void:
+	# 536 (Chef 04.11., 16:56: „Das erste Fenster … war riesig … Die anderen waren dann okay“; namen_536: erstes 6445 px hoch,
+	# zweites 175 px): der Text kam, solange das Fenster noch 0 breit war, und brach nach jedem Wort um; erst die Breite, dann der Text
+	var vs: Vector2 = get_viewport().get_visible_rect().size
+	tip.size = Vector2(vs.x - 16 * dp, 0)
 	tip.text = text
 	tip.visible = true
-	var vs: Vector2 = get_viewport().get_visible_rect().size
 	tip.position = Vector2(8 * dp, kampfort.scene_rect().size.y - 70 * dp)
 	tip.size = Vector2(vs.x - 16 * dp, 0)
-	get_tree().create_timer(6.0).timeout.connect(func(): tip.visible = false)
+	tip_nr += 1
+	var nr := tip_nr     # die Uhr eines früheren Fensters schließt nicht das neue
+	get_tree().create_timer(6.0).timeout.connect(func(): if nr == tip_nr: tip.visible = false)
+var tip_nr := 0
 
 
 # ---------------------------------------------------------------- ring, rolls, verdict
@@ -823,8 +832,20 @@ func show_roll(e: Dictionary) -> void:
 # ---------------------------------------------------------------- drawing over the scene
 ## 536: was langes Drücken an [p] in der Szene sagt: auf einer Ansage, was sie heißt und was hilft (MarsTips intent, 210T);
 ## auf einem Gegner sein Name, seine Absicht und ihr Ziel (SkirmishScreen whoIs); sonst nichts.
+## 536 (Chef 04.11., 17:02: „Auch kein Hilfetext, wenn ich den Status-Text oder Status-Effekt anklicke.“): das Zustandsschild unter
+## [p] erklärt sich mit Namen und Wirkung (Status.kt title und desc, wortgetreu in Mars.STATUS_DESC); sonst „“
+func _status_tip(p: Vector2) -> String:
+	for e in status_rects:
+		if (e[0] as Rect2).grow(4 * dp).has_point(p):
+			var st: String = e[1]
+			return "%s: %s" % [Mars.STATUS[st][0][lang], Mars.STATUS_DESC.get(st, ["", ""])[lang]]
+	return ""
+
+
 func scene_tip(p: Vector2) -> String:
 	var k = kampfort
+	if _status_tip(p) != "":
+		return _status_tip(p)
 	for id in sign_of:
 		if (sign_of[id] as Rect2).grow(6 * dp).has_point(p) and k.shown.intents.has(id):
 			var tx = Tips.INTENTS.get(String(k.shown.intents[id][0].id))
@@ -968,12 +989,22 @@ func _draw_overlay() -> void:
 		overlay.draw_colored_polygon(tri, _friend_color(fig.fighter))
 		tri.append(tri[0])
 		overlay.draw_polyline(tri, Color(0, 0, 0, 0.8), maxf(1.0, dp), true)
-	# names only while choosing a target (NameTag)
-	if pick == "target" and current != null:
-		for tg in m.targets(current):
-			if k.figures.has(tg.id):
-				var fig = k.figures[tg.id]
-				_name_tag(_foot(fig), _tall(fig), tg.name(lang), false)
+	# names only while choosing a target (NameTag); 536 (Chef 04.11., 16:56: „In der alten Fassung war es so, dass die Bezeichnungen
+	# der Gegner eingeblendet wurden, auch wenn man länger drückt“; 17:00: „Ein Wolfsname steht da, die anderen stehen nicht da“):
+	# wie alt jeder Wählbare und nach langem Drücken alle drei Sekunden lang (sanft aus, SOFT_MS); die Ansage steigt dann über den
+	# Namen (_draw_intents named), vorher lag sie auf ihm
+	named.clear()
+	var weich := clampf(float(names_until - Time.get_ticks_msec()) / SOFT_MS, 0.0, 1.0)
+	var waehlbar: Array = m.targets(current) if pick == "target" and current != null else []
+	for id in k.figures:
+		var fig = k.figures[id]
+		var f = fig.fighter
+		if not fig.visible or fig.down or k.shown.hp.get(id, f.hp) <= 0:
+			continue
+		var a: float = 1.0 if waehlbar.has(f) else weich
+		if a > 0.0:
+			named[id] = true
+			_name_tag(_foot(fig), _tall(fig), f.name(lang), f == current, a)
 	_draw_spells()
 	# 249: Blut unter den Ansagen (Prüfer 26.10.: Tropfen lagen auf dem Text)
 	_draw_blood()
@@ -1480,6 +1511,7 @@ func _draw_blood() -> void:
 
 
 var placed_status := []
+var status_rects := []     # 536: [Rect2, Zustand] je gezeichnetes Schild
 
 
 ## Whether status signs at [r] would lie on another figure, an intent sign or signs placed before.
@@ -1507,6 +1539,7 @@ func _draw_statuses(sr: Rect2) -> void:
 	var fs := sp(11)
 	var gap := 4 * dp
 	placed_status.clear()
+	status_rects.clear()
 	for id in k.shown.get("status", {}):
 		if not k.figures.has(id):
 			continue
@@ -1519,7 +1552,7 @@ func _draw_statuses(sr: Rect2) -> void:
 			var left: int = k.shown.status[id][st]
 			var label: String = Mars.STATUS[st][1][lang] + ("" if left >= Mars.LASTING else " %d" % left)
 			var w := font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x + 10 * dp
-			chips.append([label, w, Mars.STATUS[st][2]])
+			chips.append([label, w, Mars.STATUS[st][2], st])
 			width += w + gap
 		var h := fs * 1.3 + 2 * dp
 		var foot := _foot(fig)
@@ -1550,6 +1583,7 @@ func _draw_statuses(sr: Rect2) -> void:
 		placed_status.append(row)
 		for c in chips:
 			var r := Rect2(row.position.x, row.position.y, c[1], h)
+			status_rects.append([r, c[3]])
 			overlay.draw_rect(r, c[2])
 			overlay.draw_rect(r, Color(0, 0, 0, 0.8), false, maxf(1.0, dp))
 			# Prüfer: Weiß auf Gelb und hellem Grün zu schwach; auf hellen Farben schwarz
@@ -1558,13 +1592,23 @@ func _draw_statuses(sr: Rect2) -> void:
 			row.position.x += c[1] + gap
 
 
-func _name_tag(foot: Vector2, tall: float, nm: String, now: bool) -> void:
+const NAMES_MS := 3000     # SkirmishScreen NAMES_MS
+const SOFT_MS := 400.0     # SkirmishScreen SOFT_MS
+var names_until := 0
+var named := {}     # 536: wer gerade seinen Namen trägt (die Ansage steigt darüber)
+
+func _name_h() -> float:
+	return sp(12) * 1.35 + 2 * dp
+
+func _name_tag(foot: Vector2, tall: float, nm: String, now: bool, alpha := 1.0) -> void:
 	var fs := sp(12)
 	var w := font.get_string_size(nm, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x + 12 * dp
-	var h := fs * 1.35 + 2 * dp
+	var h := _name_h()
 	var r := Rect2(foot.x - w / 2, foot.y - tall - 28 * dp - h, w, h)
-	_chip(r, Color.BLACK, GOLD if now else RIM, 1.0)
-	overlay.draw_string(font, Vector2(r.position.x + 6 * dp, r.position.y + h * 0.76), nm, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, BRIGHT if now else TEXT)
+	var rim: Color = GOLD if now else RIM
+	_chip(r, Color(0, 0, 0, alpha), Color(rim, rim.a * alpha), 1.0)
+	var tc: Color = BRIGHT if now else TEXT
+	overlay.draw_string(font, Vector2(r.position.x + 6 * dp, r.position.y + h * 0.76), nm, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, Color(tc, tc.a * alpha))
 
 
 ## Ansagen (IntentSign): „! Anspringen“ im Rahmen, Farbe des Angezielten; von unten nach oben ohne Überlappen (layOut).
@@ -1605,6 +1649,8 @@ func _draw_intents(sr: Rect2) -> void:
 		# über dem Kopf des Ansagenden, mittig (Prüfer Stand 7: „! Anspringen“ schwebte links daneben ohne Bezug)
 		var head_y := foot.y - _tall(fig) - 10 * dp
 		var want_y := head_y - 6 * dp - h
+		if named.has(id):     # 536 wie alt (242: „over the name while names show“)
+			want_y = foot.y - _tall(fig) - 28 * dp - _name_h() - 4 * dp - h
 		var x := clampf(foot.x - w / 2, 4 * dp, sr.size.x - w - 4 * dp)
 		# Prüfer Stand 9: Ansagen der vorderen Wölfe lagen auf dem hinteren; daneben am eigenen Kopf, wenn darüber ein anderer steht
 		var side := _tall(fig) * (0.8 if Figur.vier(fig.fighter) else 0.42) + 4 * dp
