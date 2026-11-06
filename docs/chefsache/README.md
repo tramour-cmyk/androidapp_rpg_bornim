@@ -50,7 +50,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 99, Muss 74, startbar 16
+**Tom** – offen 99, Muss 74, startbar 14
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -147,8 +147,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „star
 | 447.4.1 | M | von Homer (447.4, Chef 03.11., 15:50 „1B 2A“): Lehrmeister, Meisterschaften, Ruf in Kapite | wartet auf 508 (startbar) |
 | 589 | M | von Sokrates (Chef 05.11., 19:2x, t266; Zu 589): Marktplatz: geklonte Stände, identische S | startbar |
 | 590 | M | von Sokrates (Chef 05.11., 19:2x; Zu 590): Innenräume: Türseite bei gedrehter Kamera dunke | startbar |
-| 591 | M | von Sokrates (Chef 05.11., 19:2x; Zu 591): Hühner und Kaninchen fliehen vor dem Helden wie | startbar |
-| 592 | M | von Sokrates (Chef 05.11., 19:2x; Zu 592): Vorbeugen (Müde) nur bei Ausdauer null; sonst R | startbar |
+| 591 | M | von Sokrates (Chef 05.11., 19:2x; Zu 591): Hühner und Kaninchen fliehen vor dem Helden wie | wartet auf Test/Build (gebaut) |
+| 592 | M | von Sokrates (Chef 05.11., 19:2x; Zu 592): Vorbeugen (Müde) nur bei Ausdauer null; sonst R | wartet auf Test/Build (gebaut) |
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | 586 | K | von Chef über Jerry (05.11., 09:35; Zu 586): Bilder 557 einheitlich: Rast am Feuer und an | startbar |
