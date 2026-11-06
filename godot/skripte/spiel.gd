@@ -313,7 +313,7 @@ func vor_ihm(t: Vector2i) -> Vector2i:
 	if not karte.ausgang(t).is_empty(): return t
 	var vorn := Vector2i(roundi(sin(held.rotation.y)), roundi(cos(held.rotation.y)))
 	for d in [vorn] + NACHBARN:
-		if karte.tuer(t + d) or zeichen_lesbar(t + d) or brett(t + d) or rast_kachel(t + d) != "" or kiste(t + d) != {} or ansehbar(t + d): return t + d
+		if karte.tuer(t + d) or zeichen_lesbar(t + d) or brett(t + d) or rast_kachel(t + d) != "" or kiste(t + d) != {} or ansehbar(t + d) or fund(t + d): return t + d
 	return Vector2i(-1, -1)
 
 # wie Navigation.actionAt: Ausgang und Tuer (auch verschlossen) ENTER, Schild READ; dazu actionPlace: wohin, wenn offen
@@ -326,6 +326,7 @@ func angebot(t: Vector2i) -> Array:
 	if z.x < 0: return ["TALK", ""] if pv[0] else ["", ""]
 	if zeichen_lesbar(z) or brett(z): return ["READ", ""]
 	if kiste(z) != {}: return ["OPEN", ""]   # 490 Tile.CHEST (Navigation: OPEN)
+	if fund(z): return ["LOOK", ""]   # 542 Jobs.findAt: Jorins Fetzen am Steinkreis
 	var rk := rast_kachel(z)
 	if rk != "": return ["REST" if rk in ["feuer", "zimmer"] else "LOOK", ""]
 	if ansehbar(z): return ["UNLOCK" if karte.zeichen(z) == "L" else "LOOK", ""]   # 541 Navigation.actionAt
@@ -350,6 +351,9 @@ func _aktion() -> void:
 		return
 	if brett(z):
 		oeffne_brett()
+		return
+	if fund(z):
+		spiele(Auftraege.fund_bei(zustand, karte.id, karte.zeichen(z)))
 		return
 	if kiste(z) != {}:
 		oeffne_kiste(kiste(z))
@@ -645,8 +649,16 @@ func monster_vorn() -> Streuner:
 		if s != null: return s
 	return null
 
+# 542 Jobs.findAt: am Stein t liegt etwas fuer einen angenommenen Auftrag
+func fund(t: Vector2i) -> bool:
+	return not Auftraege.fund_bei(zustand, karte.id, karte.zeichen(t)).is_empty()
 func oeffne_kiste(k: Dictionary) -> void:
 	var id := "kiste:" + String(k["id"])   # GameState.openedChests
+	if Auftraege.ring_in(zustand, String(k["id"])):   # 542 Jobs.ringIn: Gwennas Ring, auch in einer schon leeren Truhe
+		zustand.setze(id)
+		klang("effekt", ["chest"])
+		spiele([{"art": "sagen", "text": Auftraege.RING_FUND}, {"art": "geben", "ding": Auftraege.RING, "anzahl": 1}])
+		return
 	if zustand.has(id):
 		ui.sage([{"text": Sprache.u("chestEmpty")}])
 		return
@@ -804,6 +816,9 @@ func weiter() -> void:
 				if String(c["ding"]).begins_with("@gear:"):   # 399.1 Game.kt Cmd.Give „@gear:RARITY:SLOT“ (Jorins Kopfschutz)
 					zeige({"text": Sprache.u("found", [gear_gabe(String(c["ding"]))])})
 					return
+				if einzelstueck(String(c["ding"])):   # 542 Uniques.exists: Aldrics Ring als Ausruestung, nicht als Ding
+					zeige({"text": Sprache.u("found", [einzel_gabe(String(c["ding"]))])})
+					return
 				zustand.dazu(String(c["ding"]), int(c["anzahl"]))
 				zeige({"text": Sprache.u("found", [Sprache.ding(String(c["ding"]), int(c["anzahl"]))])})
 				return
@@ -842,6 +857,22 @@ func weiter() -> void:
 		Ruf.gehoert(zustand, spricht_mit, true)
 		spricht_mit = ""
 	if held: _steht_auf(held.kachel)
+
+# 542 Uniques.make: das Einzelstueck mit Grundform, Seltenheit, Plus und Werten aus texte.json „einzelstuecke“, Stufe wie
+# maxOf(areaLevel, hero.level); zurueck „Name (Seltenheit)“
+static func einzelstueck(id: String) -> bool:
+	Sprache.lade()
+	return Sprache.texte.get("einzelstuecke", {}).get(id, {}).has("grundform")
+
+func einzel_gabe(id: String) -> String:
+	var e: Dictionary = Sprache.texte["einzelstuecke"][id]
+	var ilvl := maxi(int(karte.daten.get("stufe", 1)), held_werte().stufe)
+	var rolls := []
+	for r in e.get("rolls", []): rolls.append([String(r[0]), int(r[1])])
+	var g := {"uid": zustand.neue_uid(), "base": String(e["grundform"]), "rarity": String(e["rarity"]), "ilvl": ilvl, "plus": int(e.get("plus", 0)),
+		"rolls": rolls, "unique": id, "name_seed": 0}
+	zustand.ausruestung_dazu(g)
+	return "%s (%s)" % [Beute.name(g), Sprache.t(e["seltenheit"])]
 
 # Loot.generate mit Mindestseltenheit (rarityFor special, floor) und Platz, Stufe wie maxOf(areaLevel, hero.level)
 func gear_gabe(was: String) -> String:
