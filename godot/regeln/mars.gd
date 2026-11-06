@@ -71,6 +71,7 @@ const STATUS_DESC := {
 	"SLOW": ["−2 auf Angriff und Rüstungsklasse.", "−2 to attack and armor class."],
 	"WEAK": ["−2 auf Angriff und Schaden.", "−2 to attack and damage."],
 	"BLIND": ["Angriffe mit Nachteil.", "Attacks with disadvantage."],
+	"DRUNK": ["Angriffe und Flucht mit Nachteil, bis zur nächsten Rast.", "Attacks and fleeing at a disadvantage, until your next rest."],
 }
 ## A status that does not wear off by itself (Status.LASTING).
 const LASTING := 99
