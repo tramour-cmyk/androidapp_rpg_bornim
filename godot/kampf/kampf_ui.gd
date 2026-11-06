@@ -1823,8 +1823,10 @@ func _draw_switches(sr: Rect2) -> void:
 		var r: Rect2 = win_rect if win else lose_rect
 		var on: bool = kampfort.end_asked != null and bool(kampfort.end_asked) == win
 		var b := Rect2(r.position + Vector2(4, 4) * dp, Vector2(s, s))
-		_chip(b, Color(0, 0, 0, 0.35), Color(GOLD, 0.9 if on else 0.4), 1.0)
-		var col := Color(GOLD if win else WARN, 1.0 if on else 0.7)
+		# 545 (Chef 04.11., 17:15: „die waren halt so ausgegraut“): wie Würfel und Raster, schwarz und deckend mit Rand, Zeichen
+		# kräftig; angetippt goldener Rand
+		_chip(b, Color.BLACK, GOLD if on else RIM, 1.0)
+		var col := Color(GOLD if win else WARN, 1.0 if on else 0.9)
 		var q := b.grow(-10 * dp)
 		if win:
 			overlay.draw_line(q.position + Vector2(0, q.size.y * 0.55), q.position + Vector2(q.size.x * 0.38, q.size.y * 0.9), col, 2 * dp, true)
