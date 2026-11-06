@@ -151,7 +151,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | 586 | K | von Chef über Jerry (05.11., 09:35; Zu 586): Bilder 557 einheitlich: Rast am Feuer und an | startbar |
-| Pflege | K | von Werkzeug (340.3, 06.11.): 122023 Bytes (Grenze 15000), Erledigtes streichen; Tabellenz | startbar |
+| Pflege | K | von Werkzeug (340.3, 06.11.): 122117 Bytes (Grenze 15000), Erledigtes streichen; Tabellenz | startbar |
 
 **Jerry** – offen 85, Muss 71, startbar 20
 
@@ -241,7 +241,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „star
 | 598 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Umweltklang je Ort, Tageszeit, Wind, Wetter | Chef (Datei in der Chefsache) |
 | 593 | M? | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Ausweichen auch rückwärts | startbar |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
-| Pflege | K | von Werkzeug (340.3, 06.11.): 41529 Bytes (Grenze 15000), Erledigtes streichen; Zeile 453. | startbar |
+| Pflege | K | von Werkzeug (340.3, 06.11.): 41366 Bytes (Grenze 15000), Erledigtes streichen; Zeile 453. | startbar |
 
 **Perikles** – offen 31, Muss 25, startbar 5
 
