@@ -819,7 +819,9 @@ func waehle(platz: String) -> void:
 func ausruestung() -> void:
 	var de := Sprache.aktiv() == "de"
 	var puppe := HBoxContainer.new()
-	puppe.add_theme_constant_override("separation", int(6 * DP))
+	# 581 (Abgleich 512b): 2 × 96 + 165 + 2 × 6 dp waren 369 dp in 361 dp Kasten, die Seite wurde 16 px breiter und die Reiter
+	# sprangen; mit 2 dp Abstand passt die Puppe bei Figur in alter Groesse (520)
+	puppe.add_theme_constant_override("separation", int(2 * DP))
 	for seite in [["HEAD", "CLOAK", "CHEST", "ARMS", "LEGS"], ["AMULET", "RING", "MAIN_HAND", "OFF_HAND"]]:
 		var spalte := VBoxContainer.new()
 		spalte.add_theme_constant_override("separation", int(4 * DP))
