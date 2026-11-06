@@ -148,7 +148,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | 586 | K | von Chef über Jerry (05.11., 09:35; Zu 586): Bilder 557 einheitlich: Rast am Feuer und an | startbar |
-| Pflege | K | von Werkzeug (340.3, 05.11.): 121781 Bytes (Grenze 15000), Erledigtes streichen; Tabellenz | startbar |
+| Pflege | K | von Werkzeug (340.3, 06.11.): 122023 Bytes (Grenze 15000), Erledigtes streichen; Tabellenz | startbar |
 
 **Jerry** – offen 86, Muss 72, startbar 28
 
@@ -239,7 +239,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „star
 | 598 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Umweltklang je Ort, Tageszeit, Wind, Wetter | startbar |
 | 593 | M? | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Ausweichen auch rückwärts | startbar |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
-| Pflege | K | von Werkzeug (340.3, 05.11.): 41529 Bytes (Grenze 15000), Erledigtes streichen; Zeile 453. | startbar |
+| Pflege | K | von Werkzeug (340.3, 06.11.): 41529 Bytes (Grenze 15000), Erledigtes streichen; Zeile 453. | startbar |
 
 **Perikles** – offen 31, Muss 25, startbar 5
 
@@ -275,7 +275,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „star
 | 338.1 | M | von Sokrates (Chef 23.10., 09:01/09:05): „wird es mir nie vorgelegt, wie weit wir da eigen | wartet auf Test/Build (gebaut) |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | startbar |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
-| Pflege | K | von Werkzeug (340.3, 05.11.): 17327 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
+| Pflege | K | von Werkzeug (340.3, 06.11.): 17576 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
 **Diogenes** – offen 12, Muss 9, startbar 1
 
@@ -292,7 +292,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „star
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24): Umzug Godot: jedes Vergleichsbild alt/neu messen, | wartet auf Eingang |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
-| Pflege | K | von Werkzeug (340.3, 05.11.): Zeile 512b wartet auf t257, aber keine Datei in docs/chefsac | startbar |
+| Pflege | K | von Werkzeug (340.3, 06.11.): Zeile 512b wartet auf t257, aber keine Datei in docs/chefsac | startbar |
 
 **Sokrates** – offen 38, Muss 28, startbar 19
 
@@ -335,7 +335,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „star
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | wartet auf 142 (Chef) |
 | 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | ruht |
 | D63.7 | K | von Diogenes (434, Vortag 01.11.): entscheiden/3761-kettenhemd-heldin.md (20:55) ohne Zeil | startbar |
-| Pflege | K | von Werkzeug (340.3, 05.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabe | startbar |
+| Pflege | K | von Werkzeug (340.3, 06.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabe | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
