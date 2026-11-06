@@ -219,7 +219,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 597 | MARS: Ring ohne Ankündigung (Fledermaus); alle Angreifer prüfen (Chef 05.11., 19:2x) | E Kampf | M | – | Team Jerry | gebaut |
 | 598 | Umweltklang je Ort, Tageszeit, Wind und Wetter, lebendige Welt (Chef 05.11., 19:2x; Abnahme 6) | E Klang | M | – | Team Jerry | startbar |
 | 599 | Monster auf der Gebietskarte: Kobolde zu schnell; Kampf beginnt durch Hineinlaufen ohne Angreifen-Knopf (Chef 05.11., 19:2x, t266) | C Kampf | M | – | Team Jerry | startbar |
-| 600 | Kampfort: Knopf zum Beschleunigen wie Würfel und Raster (Chef 05.11., 19:2x) | E Kampf | M | – | Team Jerry | startbar |
+| 600 | Kampfort: Knopf zum Beschleunigen wie Würfel und Raster (Chef 05.11., 19:2x) | E Kampf | M | – | Team Jerry | gebaut |
 | 601 | Goblin-Späher: Schuss ohne Bewegung, falscher Pfeil, kein Pfeil beim Fehlschuss; Treffer trotz Schatten (Chef 05.11., 19:2x, t266.5) | C Kampf | M | – | Team Jerry | Chef |
 | 557 | Spielstände: Entwurf ohne Kasten (549a) als Bild, Inhalt wie alt mit Spieldauer und Heldenbild (Chef 04.11., 11:15) | A Spiel | M | 38,50 $ | Team Tom | gebaut |
 | 556 | Blenden reines Schwarz statt Leuchten in der Mitte (Ringe), lang genug zum Lesen (Chef 04.11., 07:52) | A Spiel | M | – | Team Tom | gebaut |

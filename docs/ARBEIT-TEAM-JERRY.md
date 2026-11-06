@@ -91,7 +91,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | 599 | M | **von Sokrates (Chef 05.11., 19:2x, t266; Zu 594–601):** Gebietskarte: Kobolde zu schnell; Kampf durch Hineinlaufen ohne Angreifen-Knopf | startbar | – |
 | 596 | M | **von Sokrates (Chef 05.11., 19:2x; Zu 594–601):** Sterben je Gegnerart mehrfach, gespiegelt, weich (Wolf, Keiler, Goblins); als Baustein der Bibliothek | startbar | – |
 | 595 | M | **von Sokrates (Chef 05.11., 19:2x, t266.1; Zu 594–601):** Kampfbewegungen Spinne, Riesenegel, Säureschnecke | startbar | – |
-| 600 | M | **von Sokrates (Chef 05.11., 19:2x; Zu 594–601):** Knopf zum Beschleunigen im Kampfort wie Würfel und Raster | startbar | – |
+| 600 | M | **von Sokrates (Chef 05.11., 19:2x; Zu 594–601):** Knopf zum Beschleunigen im Kampfort wie Würfel und Raster | gebaut, fährt im nächsten Build: Knopf links neben den Würfeln, 1–3 Spitzen, schaltet das Menütempo; Geprüft an: c7f621bbf | `claude/jerry-600-tempo` |
 | 598 | M | **von Sokrates (Chef 05.11., 19:2x; Zu 594–601):** Umweltklang je Ort, Tageszeit, Wind, Wetter | startbar | – |
 | 593 | M? | **von Sokrates (Chef 05.11., 19:2x; Zu 594–601):** Ausweichen auch rückwärts | startbar | – |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht: Klang zieht nach Godot; Rest `LISTE-IDEEN.md` „Klang“ | `claude/build-89` |
