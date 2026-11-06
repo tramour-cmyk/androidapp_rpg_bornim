@@ -214,8 +214,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 592 | Ruhebewegungen: Vorbeugen (Müde) nur bei Ausdauer null, sonst Ruhebewegungen wie alt aus der Bibliothek (Chef 05.11., 19:2x) | E Figuren | M | – | Team Tom | startbar |
 | 593 | MARS: Ausweichen auch rückwärts als Abwechslung zu links und rechts (Chef 05.11., 19:2x) | E Kampf | M? | – | Team Jerry | startbar |
 | 594 | Probekampf „Spinne“ (nicht allein): Wolf daneben, Wolfstext in der Blende (Chef 05.11., 19:2x) | C Kampf | M | – | Team Jerry | gebaut |
-| 595 | Kampfbewegungen der Kaufgegner: Spinne mehr Angriffe, Egel und Schnecke schneller, Treffhöhe, Ruckeln, Ruhe (Chef 05.11., 19:2x, t266.1) | E Kampf | M | – | Team Jerry | startbar |
-| 596 | Sterben: je Gegnerart mehrere Arten, gespiegelt, weich (Wolf, Keiler, Goblins wie Plastik); in die Bibliothek (Chef 05.11., 19:2x) | E Kampf | M | – | Team Jerry | startbar |
+| 595 | Kampfbewegungen der Kaufgegner: Spinne mehr Angriffe, Egel und Schnecke schneller, Treffhöhe, Ruckeln, Ruhe (Chef 05.11., 19:2x, t266.1) | E Kampf | M | – | Team Jerry | Chef |
+| 596 | Sterben: je Gegnerart mehrere Arten, gespiegelt, weich (Wolf, Keiler, Goblins wie Plastik); in die Bibliothek (Chef 05.11., 19:2x) | E Kampf | M | – | Team Jerry | Chef |
 | 597 | MARS: Ring ohne Ankündigung (Fledermaus); alle Angreifer prüfen (Chef 05.11., 19:2x) | E Kampf | M | – | Team Jerry | gebaut |
 | 598 | Umweltklang je Ort, Tageszeit, Wind und Wetter, lebendige Welt (Chef 05.11., 19:2x; Abnahme 6) | E Klang | M | – | Team Jerry | Chef |
 | 599 | Monster auf der Gebietskarte: Kobolde zu schnell; Kampf beginnt durch Hineinlaufen ohne Angreifen-Knopf (Chef 05.11., 19:2x, t266) | C Kampf | M | – | Team Jerry | erledigt |
