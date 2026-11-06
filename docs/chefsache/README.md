@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [602](entscheiden/602-gemeinsamer-build.md) | **Muss** | B Betrieb | 06.11., 08:10 | Gemeinsamer Build nach Tom 591/592 und Jerry 548–544? | Ford |
 | [595](entscheiden/595-kampfbewegungen.md) | **Muss** | E Kampf | 06.11., 07:44 | Mehr Kampfbewegungen aus den Kaufpaketen, Goblins sterben echt | Jerry |
 | [598](entscheiden/598-umweltklang.md) | **Muss** | E Klang | 06.11., 07:40 | Umweltklang: was fehlt gegen alt, Regen zurück? | Jerry |
 | [601](entscheiden/601-schussbewegung.md) | **Muss** | C Kampf | 06.11., 07:35 | Goblin-Späher: Schussbewegung aus dem Kaufpaket Bow & Arrow | Jerry |
