@@ -151,7 +151,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „star
 | 586 | K | von Chef über Jerry (05.11., 09:35; Zu 586): Bilder 557 einheitlich: Rast am Feuer und an | startbar |
 | Pflege | K | von Werkzeug (340.3, 06.11.): 122023 Bytes (Grenze 15000), Erledigtes streichen; Tabellenz | startbar |
 
-**Jerry** – offen 86, Muss 72, startbar 24
+**Jerry** – offen 86, Muss 72, startbar 23
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -236,7 +236,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „star
 | 599 | M | von Sokrates (Chef 05.11., 19:2x, t266; Zu 594–601): Gebietskarte: Kobolde zu schnell; Kam | startbar |
 | 596 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Sterben je Gegnerart mehrfach, gespiegelt, | startbar |
 | 595 | M | von Sokrates (Chef 05.11., 19:2x, t266.1; Zu 594–601): Kampfbewegungen Spinne, Riesenegel, | startbar |
-| 600 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Knopf zum Beschleunigen im Kampfort wie Wür | startbar |
+| 600 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Knopf zum Beschleunigen im Kampfort wie Wür | wartet auf Test/Build (gebaut) |
 | 598 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Umweltklang je Ort, Tageszeit, Wind, Wetter | startbar |
 | 593 | M? | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Ausweichen auch rückwärts | startbar |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
