@@ -20,13 +20,13 @@ func alle(n: Node, art, aus: Array) -> Array:
 	return aus
 
 func texte(n: Node) -> PackedStringArray:
-	return PackedStringArray(alle(n, Label, []).map(func(x): return (x as Label).text))
+	return PackedStringArray(alle(n, Label, []).map(func(x): return (x as Label).text.replace("\u00a0", " ")))   # 557 Vorlage 2: fest verbundene Wörter
 
 func farbe(l: Label) -> Color: return l.get_theme_color("font_color")
 
 func label(n: Node, t: String) -> Label:
 	for x in alle(n, Label, []):
-		if (x as Label).text == t: return x
+		if (x as Label).text.replace("\u00a0", " ") == t: return x
 	return null
 
 func _lauf() -> void:
