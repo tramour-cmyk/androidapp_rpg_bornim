@@ -20,7 +20,17 @@ const MSG399_FED := ["{0} ist gut gestärkt: +1 auf Angriffe und Schaden.", "{0}
 const MSG399_GROWLS := [["{0} knurrt, wagt aber keinen Biss.", "{0} snarls but dares no bite."],
 	["{0} duckt sich und fletscht die Zähne, kommt aber nicht heran.", "{0} crouches and bares its teeth, but does not come in."],
 	["{0} knurrt und hält Abstand.", "{0} growls and keeps its distance."]]
-var TX: Dictionary = load("res://regeln/mars_texte.gd").get_script_constant_map().merged({"MSG399_GROWLS": MSG399_GROWLS})
+var TX: Dictionary = load("res://regeln/mars_texte.gd").get_script_constant_map().merged({"MSG399_GROWLS": MSG399_GROWLS, "MSG547_AUF": MSG547_AUF, "MSG547_STOSS": MSG547_STOSS})
+## 547 (Chef 04.11., 00:01; 05.11., 19:2x: „Held geht zu Boden (Text) -> keine entsprechende Animation“): solange der Sturz 438a
+## eingefroren ist und das Bild nur zusammenzuckt, Homers Zwischenfassungen [547.auf] und [547.wolf.sprung.stoss] (STORY-SPIEL.md)
+## statt „steht wieder auf“ und „geht zu Boden“; danach sturz_zwischentext = false (die alten Zeilen, wie mars_golden)
+const MSG547_AUF := [["{0} fängt sich wieder: Zug verloren.", "{0} recovers: turn lost."],
+	["{0} atmet durch und steht wieder fest: Zug verloren.", "{0} draws a breath and stands firm again: turn lost."],
+	["{0} schüttelt den Stoß ab: Zug verloren.", "{0} shakes off the impact: turn lost."]]
+const MSG547_STOSS := [["{0} springt {1} an. {1} wird zurückgestoßen.", "{0} leaps at {1}. {1} is shoved back."],
+	["{0} prallt gegen {1}. {1} kommt aus dem Gleichgewicht.", "{0} slams into {1}. {1} is knocked off balance."],
+	["{0} wirft sich auf {1}. {1} hält dem Gewicht kaum stand.", "{0} throws itself at {1}. {1} barely withstands the weight."]]
+var sturz_zwischentext := true
 
 const FRONT := 0
 const BACK := 1
@@ -792,7 +802,7 @@ func _skip_to_choice(react: Callable) -> void:
 				_next_turn()
 		elif f.held:
 			f.held = false
-			_say(fmt(pick("MSG279_RISES" if f.prone else "MSG130_LOSES"), lang, [f.name(lang)]), f.id, null, 0, null, false, false, "RISES" if f.prone else "")
+			_say(fmt(pick(("MSG547_AUF" if sturz_zwischentext else "MSG279_RISES") if f.prone else "MSG130_LOSES"), lang, [f.name(lang)]), f.id, null, 0, null, false, false, "RISES" if f.prone else "")
 			f.prone = false
 			_next_turn()
 		elif f.side == "FOES" and surprised.has(f.id):
@@ -1404,7 +1414,7 @@ func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := 
 		"POUNCE":
 			t.held = true
 			t.prone = true
-			_say(fmt(pick("MSG130_POUNCEHITS"), lang, [foe.name(lang), t.name(lang)]), foe.id, t.id, 0, null, false, false, "POUNCED")
+			_say(fmt(pick("MSG547_STOSS" if sturz_zwischentext else "MSG130_POUNCEHITS"), lang, [foe.name(lang), t.name(lang)]), foe.id, t.id, 0, null, false, false, "POUNCED")
 		"WEB":
 			t.held = true
 			_say(fmt(pick("MSG130_WEBHOLDS"), lang, [foe.name(lang), t.name(lang)]), foe.id, t.id, 0, null, false, false, "WEB")
