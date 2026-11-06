@@ -1240,8 +1240,6 @@ func fackel_neu() -> void:
 func stufe_abgleichen() -> void:
 	zustand.stufe_held = held_werte().stufe
 
-# 539: im Spiel fuehrt die Uhr das Licht; Probebilder am Rechner (--bilder, --figuren …) stellen es selbst
-func folgt_uhr() -> bool: return OS.get_cmdline_user_args().is_empty()
 # 543 GameState.newGame: Startgold der Klasse (15–25) und was von ihren Startdingen keine Ausruestung ist (Heiltraenke) in die Tasche
 static func startvorrat(z: Zustand, klasse: String) -> void:
 	var d := Heldwerte.lade()

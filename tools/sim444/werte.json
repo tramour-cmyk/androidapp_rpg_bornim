@@ -349,6 +349,7 @@
       "_fertigkeiten": "N 3: 37 Fertigkeiten in acht Gruppen; Bergbau zeigt sich ab Kapitel 2 (461c), zur Wahl erst dann"
     },
     "nicht_waehlbar": ["Bergbau"]
+  },
   "kampftraenke": {
     "_quelle": "481.1 (Jerry 02.11.): Vorschlag Sokrates (Zu 481, Chat 18:58): Kampftraenke mit Preis, je ein Zug, Wirkung nach Kraeuterkunde statt Sperre; Chef 18:55 'zwei Runden unverwundbar'. Alle Zahlen A",
     "wirkung_grund": 0.5,
