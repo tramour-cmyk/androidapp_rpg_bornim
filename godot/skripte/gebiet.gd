@@ -138,7 +138,9 @@ static func entschluessele(b: PackedByteArray, p: String) -> PackedByteArray:
 # 397 (Chef 28.10., 11:15: Ruhebewegungen wie im alten Spiel, mindestens drei): wer steht, spielt Stehen zwei- bis viermal, dann
 # eine der anderen Ruhebewegungen (geruest.py RUHE, aus der UAL Pro) einmal, dann wieder Stehen; ohne die Kaufbewegungen nur Stehen.
 # Gibt [Name, Dauer in s] der naechsten zurueck
-const RUHE := ["Stehen", "Stehen_2", "Stehen_3"]
+# 592 (Chef 05.11., 22:0x: „592 so“): Stehen_3 (Idle_Tired, vornueber gebeugt) ist keine Ruhebewegung mehr, nur noch atemlos
+# (held.gd ATEM_HALT); es bleiben Stehen und Umsehen
+const RUHE := ["Stehen", "Stehen_2"]
 static func ruhe_naechste(anim: AnimationPlayer, jetzt: String, z: RandomNumberGenerator) -> Array:
 	var da := RUHE.filter(func(n): return anim.has_animation(n))
 	if jetzt != "Stehen" or da.size() < 2: return ["Stehen", anim.get_animation("Stehen").length * z.randi_range(2, 4)]
