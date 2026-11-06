@@ -1967,8 +1967,8 @@ func falling() -> bool:
 ## „Tod“), liegt LIEGT_MS und vergeht erst dann; so lange warten auch die anderen mit dem Aufrücken (kampfort.gd, 439).
 const LIEGT_MS := 1200
 func sterbe_ms() -> int:
-	if anim and anim.has_animation("Tod"):
-		return maxi(FALL_MS, int(anim.get_animation("Tod").length * 1000.0))     # die() spielt sie mit Tempo 1
+	if anim and anim.has_animation(tod_name):
+		return maxi(FALL_MS, int(anim.get_animation(tod_name).length * 1000.0))     # die() spielt sie mit Tempo 1
 	return FALL_MS
 
 
@@ -2904,7 +2904,19 @@ func die() -> void:
 	if _schatten_tw:
 		_schatten_tw.kill()
 	if anim and anim.has_animation("Tod"):
-		anim.play("Tod", 0.05)
+		# 596 (Chef 05.11., t266: „Sterbeanimation … von Wolf immer gleich und auf die gleiche Seite. Kann man es zumindest an der Achse
+		# spiegeln“; Keiler „tot sehr schnell und wenig smooth“): jeder Gegner fällt zufällig zur einen oder anderen Seite (Spiegelung
+		# quer zur Blickrichtung), aus der Bewegung weich in den Sturz statt in 0,05 s; hat er mehrere Sterbebewegungen (Tod, Tod2 …),
+		# eine davon. Gilt für jedes Modell mit „Tod“ (Bibliothek: sterbe_spiegeln)
+		var nm := "Tod"
+		if fighter.side == "FOES":
+			var alle := ["Tod"]
+			for i in range(2, 5):
+				if anim.has_animation("Tod%d" % i): alle.append("Tod%d" % i)
+			nm = alle[randi() % alle.size()]
+			tod_name = nm
+			if randf() < 0.5: sterbe_spiegeln()
+		anim.play(nm, TOD_BLEND)
 	else:
 		var t := create_tween()
 		t.tween_property(model, "rotation:z", deg_to_rad(80), FALL_MS / 1000.0)
@@ -2918,6 +2930,21 @@ func die() -> void:
 		t.tween_method(_fade_out, IM_SCHATTEN if schatten_an else 0.0, 1.0, FADE_MS / 1000.0)     # 566: blass im Schatten bleibt blass
 		await t.finished
 		visible = false
+
+
+## 596: aus der Bewegung in den Sturz (vorher 0,05 s: der Keiler kippte hart)
+const TOD_BLEND := 0.25
+var gespiegelt := false
+var tod_name := "Tod"     # 596: die gewählte Sterbebewegung (sterbe_ms)
+
+## 596: spiegelt die Figur quer zur Blickrichtung (Modell um 180° gedreht und längs gespiegelt, so bleibt scale.x die Größe, die
+## figur.gd an mehreren Stellen liest); Godot kehrt die Flächen gespiegelter Netze selbst um
+func sterbe_spiegeln() -> void:
+	if model == null or gespiegelt:
+		return
+	gespiegelt = true
+	model.rotation.y += PI
+	model.scale.z = -model.scale.z
 
 
 ## 566 (Chef 04.11., 17:15, Build 257: „steht in den Schatten, aber er schaut nicht aus, als würde er im Schatten stehen“): wer „In den
