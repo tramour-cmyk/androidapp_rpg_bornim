@@ -384,14 +384,14 @@ func _aktion() -> void:
 		return
 	match rast_kachel(z):
 		"feuer", "zimmer": oeffne_rast(rast_kachel(z)); return
-		"hoehle": ui.sage([{"text": Sprache.t(Rast.FEUER_HOEHLE)}]); return
-		"bett": ui.sage([{"text": Sprache.t(Rast.FREMDES_BETT)}]); return
+		"hoehle": ui.sage(zeilen(variiere([{"text": Rast.FEUER_HOEHLE}]))); return
+		"bett": ui.sage(zeilen(variiere([{"text": Rast.FREMDES_BETT}]))); return
 	var a := karte.ausgang(z)
 	if bool(a["verschlossen"]):
 		var nachts := licht.ist_nacht()   # 539 Game.isNight
 		if a.has("klopfen"):
 			var anders := Geschichte.klopfen(karte.id, z, zustand)   # 540: nach Kapitel 1 sagt 12/5 etwas anderes
-			ui.sage([{"text": Sprache.t(anders)}] if not anders.is_empty() else zeilen(a["klopfen"]["nacht" if nachts else "tag"]))
+			ui.sage([{"text": Sprache.t(anders)}] if not anders.is_empty() else zeilen(variiere(a["klopfen"]["nacht" if nachts else "tag"])))   # 504.1 Varianten
 			zustand.setze("heard_%d_%d" % [z.x, z.y])   # 399.1 Karte: wer hier wohnt (MapPeople.heard)
 		return
 	if a.has("braucht") and not karte.flaggen.has(a["braucht"]):
@@ -402,7 +402,7 @@ func _aktion() -> void:
 func _stoesst(t: Vector2i) -> void:
 	if await _schiebt(t): return
 	if karte.zeichen(t) == "z" and not karte.flaggen.has("barrier_open"):
-		ui.sage([{"text": Sprache.t(Geschichte.schlagbaum(zustand))}])   # 540: nach dem Auftrag „Sprich mit Wache Jorin“
+		ui.sage(zeilen(variiere([{"text": Geschichte.schlagbaum(zustand)}])))   # 540: nach dem Auftrag „Sprich mit Wache Jorin“; 504.1 Varianten
 		return
 	if karte.zeichen(t) == "L" and not karte.flaggen.has("gate_open"):   # 390: Game.gate
 		spiele(Geschichte.gitter(zustand))
@@ -444,6 +444,43 @@ func drueckt_gegen(wer: Leute) -> bool:
 func wo_ist(l: Leute) -> Vector2:   # ausserhalb des Baums (Proben) die Mitte ihrer Kachel
 	var p := l.position if l.is_inside_tree() else held.karte.kachel_pos(l.kachel)
 	return Vector2(p.x, p.z)
+
+# 504.1 (Chef 03.11., 07:52, STORY-VARIANTEN-K1-WALD.md „Türen, Schlagbaum, Rast“): Texte, die nicht aus geschichte.gd kommen
+# (Klopfen an Türen aus Story.kt, Schlagbaum aus Game.kt, Rast, Erwachen), erkennt man an Wortlaut 1; je Marke wie Skript.variante.
+# Gesagtes („…“) bleibt in Anführungszeichen, Erzähltes ohne
+const TEXT_MARKE := {
+	"„Wer ist da? … Ich mach nicht auf. Für niemanden.“": "504.tuer.edrik",
+	"„Du hast die Goblins vertrieben? … Morgen vielleicht. Heute nicht.“": "504.tuer.edrik.ende",
+	"„Geh weiter. Ich hab in meinem Leben genug an fremde Türen klopfen hören.“": "504.tuer.kael",
+	"Hier wohnt Gwenna. Seit ihr Mann nicht zurückkam, bleibt die Tür verschlossen.": "504.tuer.gwenna",
+	"„Nicht nachts. Nicht mehr.“": "504.tuer.gwenna.nacht",
+	"Das Haus von Schmied Dorran. Er ist wohl in seiner Werkstatt.": "504.tuer.dorran",
+	"„Die Esse ist kalt. Komm morgen.“": "504.tuer.dorran.nacht",
+	"„Pim ist nicht da. Wenn du ihn am Schlagbaum siehst, schick ihn heim.“": "504.tuer.pim",
+	"„Pim schläft. Und du solltest um diese Zeit auch nicht draußen sein.“": "504.tuer.pim.nacht",
+	"Der Schlagbaum ist unten. Ohne Erlaubnis des Ältesten kommst du hier nicht durch.": "504.schlagbaum",
+	"Der Schlagbaum ist unten. Sprich mit Wache Jorin, damit er ihn öffnet.": "504.schlagbaum.quest",
+	"Das Feuer der Goblins. Es ist viel zu gefährlich, hier in der Höhle zu rasten.": "504.rast.hoehle",
+	"Ein weiches Bett.": "504.rast.bett",
+	"Du erwachst an einem sicheren Ort … Der Heimweg hat Stunden gedauert.": "504.erwachen",
+}
+func variiere(liste: Array) -> Array:
+	if liste.size() != 1 or not (liste[0].get("text") is Dictionary): return liste
+	var de := String(liste[0]["text"].get("de", ""))
+	var marke := String(TEXT_MARKE.get(de, ""))
+	if marke == "": return liste
+	var alle: Array = [[[de, String(liste[0]["text"].get("en", ""))]]] + Array((Varianten.V.get(marke, {}) as Dictionary).get("v", []))
+	var i := Skript.wahl(zustand, marke, alle.size())
+	var vv: Array = zustand.varianten.get(marke, [0, -1])
+	zustand.varianten[marke] = [int(vv[0]) + 1, i]
+	var r: Array = []
+	for b in alle[i]:
+		var d := String(b[0]); var e := String(b[1])
+		if i > 0 and de.begins_with("„"): d = "„" + d + "“"; e = "“" + e + "”"
+		var z := {"text": {"de": d, "en": e}}
+		if liste[0].has("wer"): z["wer"] = liste[0]["wer"]
+		r.append(z)
+	return r
 
 func zeilen(liste: Array) -> Array:
 	var r: Array = []
@@ -595,7 +632,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 				if String(a["ziel"]["karte"]) == String(wk["karte"]): tuer = vor_tuer(alle, String(wk["karte"]), a)
 			held.setze(tuer, "DOWN")
 		kamera.springe(); await abblenden(0.0)
-		ui.sage([{"text": Sprache.t({"de": "Du erwachst an einem sicheren Ort … Der Heimweg hat Stunden gedauert.", "en": "You wake up somewhere safe… The way home took hours."})}])
+		ui.sage(zeilen(variiere([{"text": {"de": "Du erwachst an einem sicheren Ort … Der Heimweg hat Stunden gedauert.", "en": "You wake up somewhere safe… The way home took hours."}}])))
 		return ende[0]
 	hw.tp = clampi(tp_nach, 1, hw.max_tp())
 	if ende[0] == "WON": zustand.siege += 1   # 399.1: GameState.battlesWon (System „Siege“, Thessas Ware); zaehlte bisher nie
@@ -831,6 +868,10 @@ func weiter() -> void:
 			"flagge":
 				zustand.setze(String(c["flagge"]))
 				flaggen_neu()
+			"variante":   # 504.1: Wortlaut gehoert (Skript.variante)
+				var vm := String(c["marke"])
+				var vv: Array = zustand.varianten.get(vm, [0, -1])
+				zustand.varianten[vm] = [int(vv[0]) + 1, int(c["wahl"])]
 			"geben":
 				if String(c["ding"]).begins_with("@gear:"):   # 399.1 Game.kt Cmd.Give „@gear:RARITY:SLOT“ (Jorins Kopfschutz)
 					zeige({"text": Sprache.u("found", [gear_gabe(String(c["ding"]))])})
