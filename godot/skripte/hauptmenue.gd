@@ -353,11 +353,42 @@ func spielstaende() -> void:
 # Firmenzeichen, Jahr und Version; unten Zurueck. Schriften: nur noch Alegreya (DESIGN-STIL.md „Oberfläche“)
 # 497: Lizenztext der Engine, je Drittteil Name, Urheber und Lizenz, dann die Lizenztexte (Engine.get_license_text,
 # get_copyright_info, get_license_info), klein und matt; der Wortlaut bleibt englisch wie geliefert
+# 497 (Chef 03.11., 23:43: „nicht saubere Umbrüche“): die Texte sind fuer 80 Spalten fest umbrochen; am Handy bricht das Label
+# davor schon um, es entstehen Zeilenstummel. Darum: Zeilen eines Absatzes zusammenziehen, Absatz bei Leerzeile; eigene Zeile
+# fuer Aufzaehlung („1.“, „1.1.“, „(a)“, „a.“, „iv.“, „o“, „-“), „Copyright …“, „License: …“ und kurze Ueberschrift in Versalien; Unterstreichungen
+# (----, ====) und der Sternrahmen der MPL fallen weg; doppelte Leerzeichen einfach; „Â©“ (Kodierfehler der Engine) wird „©“.
+const AUFZAEHLUNG := "^(\\d+(\\.\\d+)*\\.|\\([a-zA-Z0-9]{1,4}\\)|[a-zA-Z]\\.|[ivx]{1,4}\\.|[o*•-])\\s|^(Copyright|©|License:)"
+
+static func umbrechen(t: String) -> String:
+	var punkt := RegEx.create_from_string(AUFZAEHLUNG)
+	var strich := RegEx.create_from_string("^[-=*_~]{3,}$")
+	var leer := RegEx.create_from_string("\\s+")
+	var absaetze: Array[String] = []
+	var zeilen: Array[String] = []
+	var schliessen := func() -> void:   # Arrays sind Verweise, das Lambda sieht dieselben
+		if not zeilen.is_empty(): absaetze.append("\n".join(zeilen))
+		zeilen.clear()
+	for roh in t.replace("Â©", "©").replace("\r", "").split("\n"):
+		var z := roh.strip_edges()
+		if z.length() >= 3 and z.begins_with("*") and z.ends_with("*"): z = z.substr(1, z.length() - 2).strip_edges()
+		z = leer.sub(z, " ", true)
+		if z == "" or strich.search(z):
+			schliessen.call()
+			continue
+		var kopf := zeilen.is_empty() and z.length() <= 60 and z == z.to_upper() and z != z.to_lower() and not z.ends_with(".")
+		if zeilen.is_empty() or punkt.search(z) or kopf:
+			zeilen.append(z)
+		else:
+			zeilen[zeilen.size() - 1] += " " + z
+		if kopf: schliessen.call()
+	schliessen.call()
+	return "\n\n".join(absaetze)
+
 static func lizenz_texte(box: VBoxContainer, de: bool) -> void:
 	var kopf := func(t: String) -> void:
 		box.add_child(Erschaffung.luecke(8))
 		box.add_child(Stil.zeile(t.to_upper(), 12, Stil.GOLD, 3.0))
-	var klein := func(t: String) -> void: box.add_child(Erschaffung.txt(t, 12, Stil.DIM))
+	var klein := func(t: String) -> void: box.add_child(Erschaffung.txt(umbrechen(t), 12, Stil.DIM))
 	kopf.call("Godot Engine")
 	klein.call(("Dieses Spiel nutzt die Godot Engine unter folgender Lizenz:" if de else "This game uses Godot Engine, available under the following license:"))
 	klein.call(Engine.get_license_text().strip_edges())
@@ -378,6 +409,7 @@ func ueber() -> void:
 	var seite := Control.new()
 	seite.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(seite)
+	Zurueck.melde(seite, func(): seite.queue_free())   # 526: Android-Zurück wie „Zurück“ (alt AboutScreen BackHandler)
 	var bg := ColorRect.new()
 	bg.color = Color.BLACK
 	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)

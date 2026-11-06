@@ -89,6 +89,8 @@ static func zeilen(vp: Viewport = null) -> Array:
 		int(Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME)), int(Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME) / 1000.0)])
 	if vp: z.append("Rand oben (Kamera): %.0f, beim Start %.0f; sichere Fläche %s, Fenster %s, Ausschnitt %s" % [Rand.oben(vp), Rand.beim_start,
 		DisplayServer.get_display_safe_area(), DisplayServer.window_get_size(), DisplayServer.get_display_cutouts()])   # 399.4: warum fehlt er (t143)?
+	var g: Dictionary = Stil.geraet   # 498: Schriftgroesse und Dichte des Handys (die alte Fassung folgte beiden)
+	z.append("Schrift: Faktor des Handys %.2f, Dichte %s, Breite %s" % [Stil.schriftfaktor, "%.3f" % g["dichte"] if g.has("dichte") else "–", "%.0f dp" % g["breite_dp"] if g.has("breite_dp") else "–"])
 	var fe := fehler()
 	z.append("Letzte Fehlermeldungen: " + ("keine" if fe.is_empty() else ""))
 	for x in fe: z.append("  " + x)

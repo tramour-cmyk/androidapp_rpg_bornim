@@ -92,6 +92,7 @@ func _ready() -> void:
 	raeume_bilder()
 	wald_bilder()
 	tiefwald_bilder()
+	gluehen_bilder()
 	if FigurenProbe.an(): add_child(FigurenProbe.new(self))   # 376.1 Probeblatt Quaternius-Figuren (figurenprobe.gd)
 
 # 399: Spielbeginn aus dem Hauptmenue: geladen an den gespeicherten Ort, sonst ein neues Spiel mit frischem Zustand (Test 139: das neue
@@ -103,6 +104,8 @@ func starte(w: Dictionary) -> void:
 	if not stand.is_empty():
 		zustand = Zustand.aus_daten(stand["zustand"])
 		werte = Heldwerte.aus_daten(stand["held"])
+		werte.ep_dazu(0, Geschichte.stufendeckel(zustand))   # 538 Game.begin: Erfahrung ueber dem Kapiteldeckel (aeltere Spielstaende) zurueck auf den Deckel
+		stufe_abgleichen()
 		var o: Dictionary = stand["ort"]
 		blende.color.a = 1.0
 		klang("verhuelle", [true])
@@ -166,6 +169,10 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	kamera.ziel = held
 	gebiet.held = held
 	gebiet.kamera = kamera
+	if gebiet.gluehwuermchen:
+		gebiet.gluehwuermchen.zustand = zustand   # 514: nur in manchen Naechten
+		var nb = get("nebel")   # 505 (eigener Zweig): ausser Sicht vergehen sie mit dem Nebel
+		if nb: gebiet.gluehwuermchen.sicht = nb.zeigt
 	kamera.springe()
 	ui.ort.text = karte.name()
 	klang("ort", [karte, held])   # 399.3 (Jerry): Ortsmusik, Schritte nach dem Boden
@@ -455,7 +462,7 @@ func tageszeit() -> String:   # Kampfort.tageszeit: tag, abend, nacht
 
 # gegner wie kampf/probe.gd FOES; [probe] (Test „MARS-Probekampf“, Skirmish.probe): Held und Soeldner [klasse, stufe] statt des eigenen
 # Helden, danach bleibt er, wie er war (kein Lohn, keine TP, kein Tod)
-func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroeffnung := "") -> String:
+func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroeffnung := "", nr := 0) -> String:
 	var hw := held_werte() if probe.is_empty() else Testmodus.probeheld(String(probe[0]), int(probe[1]))
 	var soeldner = null if probe.is_empty() else Testmodus.probeheld(String(probe[0]), int(probe[1]))
 	var erg := {"ende": "", "tp": {}, "lohn": {}, "rest": zustand.anzahl("potion"), "held": null}
@@ -466,6 +473,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 		if aufruf.kampf and aufruf.kampf.mars:
 			erg["rest"] = int(aufruf.kampf.mars.potions.get("potion", 0))
 			erg["held"] = aufruf.kampf.mars.find("hero")     # 532: ZP, Verbrauchtes, Zustände nach dem Kampf
+			erg["rauch"] = aufruf.kampf.mars.smoke_thrown     # 494: Morwens Rauchbündel geworfen (Battle.smokeBundle nimmt es weg)
 		erg["ende"] = String(o))
 	held.halt(); held.richtung = Vector3.ZERO
 	# die Welt ruht unsichtbar; Kamera und Umgebung des Kampforts gelten (sonst zeichnet unsere Kamera, unsere Umgebung zuerst)
@@ -485,8 +493,10 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	if Testmodus.ist_an(): lage["eroeffnung"] = Testmodus.eroeffnung   # 399.2 (Jerry): Eröffnung aus dem Reiter Test
 	if eroeffnung != "": lage["eroeffnung"] = eroeffnung   # 490: Ueberfall, Held zuerst (Opening) vom Monster auf der Karte
 	lage["blende"] = true   # 402 (Jerry): die Blende vor dem Kampf wie alt, auch im Probekampf
+	if nr > 0: lage["nr"] = nr   # 494 (Prüfer 512b): im Kampf dasselbe Fell wie das Monster auf der Karte (Streuner.nr)
 	if probe.is_empty(): lage["aussehen"] = zustand.aussehen   # 403 (Jerry): der Held im Kampf wie im Dorf (HeldFigur)
 	if probe.is_empty(): lage["leiden"] = zustand.leiden.duplicate()   # 532 (Jerry): Zustände aus dem letzten Kampf (GameState.ailments)
+	if probe.is_empty(): lage["rauch"] = zustand.anzahl(Geschichte.SMOKE_BUNDLE)   # 494 (Jerry, D4.1): Morwens Rauchbündel gegen Krogg
 	# 493 (Jerry): Kampfort im Wald nach dem, was um den Helden steht (wie alt BattleScene.spotFor); im Testmodus wählbar
 	lage["platz"] = Testmodus.kampfort if Testmodus.ist_an() and Testmodus.kampfort != "" else load("res://kampf/kampfort.gd").platz_fuer(karte, held.kachel)
 	var gestartet: bool = aufruf.starte(gegner, hw, soeldner, "wald", tageszeit(), zustand.anzahl("potion") if probe.is_empty() else 2, -1, -1, -1, beute, lage)
@@ -504,6 +514,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	kamera.make_current()
 	visible = true; ui.visible = true
 	if probe.is_empty() and int(erg["rest"]) < zustand.anzahl("potion"): zustand.weg("potion", zustand.anzahl("potion") - int(erg["rest"]))   # getrunken
+	if probe.is_empty() and bool(erg.get("rauch", false)) and zustand.anzahl(Geschichte.SMOKE_BUNDLE) > 0: zustand.weg(Geschichte.SMOKE_BUNDLE, 1)   # 494: geworfen
 	var lohn: Dictionary = erg["lohn"]
 	var ende := [String(erg["ende"])]
 	klang("nach_kampf", [ende[0] == "WON", karte])   # 399.3 (Jerry): Sieg mit sieg_, sonst Ortsmusik nach 10 s
@@ -546,7 +557,8 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 		zustand.gold += int(lohn.get("gold", 0))
 		for d in lohn.get("items", []): zustand.dazu(String(d))   # Beute (Felle, Zaehne)
 		for g in lohn.get("gear", []): zustand.ausruestung_dazu(g)   # 399.2 Ausruestung aus dem Kampflohn
-		hw.ep_dazu(int(lohn.get("xp", 0)))   # Hero.gainXp: Stufe hoeher heilt ganz
+		hw.ep_dazu(int(lohn.get("xp", 0)), Geschichte.stufendeckel(zustand))   # Hero.gainXp mit Story.levelCap (538): Stufe hoeher heilt ganz
+		stufe_abgleichen()
 	held.setze(zurueck, blick_nach)
 	kamera.springe()
 	await abblenden(0.0)
@@ -561,7 +573,7 @@ func _kampf_auf_karte(monster: String, eroeffnung: String, wer: Streuner) -> voi
 	ziel_person = null; ziel_stoss = Vector2i(-1, -1)
 	var hier := karte.id
 	blick_nach = held.blick()
-	var ende := await kampf_im_wald(held.kachel, String(Streuner.GRUPPE[monster]), [], eroeffnung)
+	var ende := await kampf_im_wald(held.kachel, String(Streuner.GRUPPE[monster]), [], eroeffnung, wer.nr if wer != null else 0)
 	blick_nach = "DOWN"
 	if herde and karte.id == hier: herde.nach_kampf(wer, ende)
 	im_kampf = false
@@ -727,6 +739,7 @@ func sprich(l: Leute) -> void:
 	Ruf.gehoert(zustand, String(l.daten["id"]), false)   # 399.1 Hail.heard vor dem Gespraech
 	spricht_mit = String(l.daten["id"])
 	rufe.erase(spricht_mit)
+	stufe_abgleichen()   # 538: auch nach dem Testmenue (Stufe) sprechen die Leute zur wahren Stufe
 	var abgabe := Auftraege.abgabe(zustand, String(l.daten["id"]))   # 399.1 Game.talk: Jobs.handIn vor dem Gespraech
 	spiele(abgabe if not abgabe.is_empty() else Geschichte.gespraech(String(l.daten["id"]), zustand))
 
@@ -1010,6 +1023,10 @@ func held_figur_neu(vorher: String) -> void:
 
 func fackel_neu() -> void:
 	if held: held.fackel_neu(Menue.fackel(held_werte()), String(karte.daten.get("art", "")) == "INTERIOR")
+
+# 538: die Gespraeche (Geschichte, s.stufe(): Garrick vor Krogg) fragen den Spielstand nach der Stufe des Helden (alt s.hero.level)
+func stufe_abgleichen() -> void:
+	zustand.stufe_held = held_werte().stufe
 
 func held_werte() -> Heldwerte:
 	if werte == null: werte = Heldwerte.erschaffe(zustand.name, "HUMAN", "FIGHTER")
@@ -1724,6 +1741,51 @@ func tiefwald_bilder() -> void:
 		ui.textfeld.visible = false
 		await knips("%s/%s.png" % [dir, o[0]])
 	print("TIEFWALDBILDER fertig")
+	get_tree().quit()
+
+# 514 Gluehwuermchen am Rechner: --gluehen=<ordner> knipst nachts (23 Uhr, eine Nacht mit Gluehwuermchen) je Gebietskarte den
+# groessten Schwarm aus Sicht des Helden, zwei Kacheln suedlich davon; im Augenblick, in dem die meisten dieses Schwarms leuchten
+# (fester Augenblick), dazu derselbe Ort 0,8 s spaeter (Takt, Nachbar antwortet). Wald nur, wenn seine Daten im Bau sind (490).
+func gluehen_bilder() -> void:
+	var dir := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--gluehen="): dir = a.substr(10)
+	if dir == "": return
+	DirAccess.make_dir_recursive_absolute(dir)
+	ui.mess.visible = false
+	ui.oben.visible = false
+	zustand.tag = 1
+	while not Gluehwuermchen.heute(zustand.tag, 23 * 60): zustand.tag += 1
+	for id in ["village", "forest"]:
+		if not FileAccess.file_exists("res://daten/" + Gebiet.datei(id) + ".bin"): continue
+		var k := Karte.lade(id)
+		var fl := Gluehwuermchen.schwaerme(k)
+		var zahl := {}
+		for f in fl: zahl[f["mitte"]] = int(zahl.get(f["mitte"], 0)) + 1
+		var best := Vector2i(-1, -1)
+		for m in zahl:
+			var st: Vector2i = m + Vector2i(0, 2)
+			if k.begehbar(st) and (best.x < 0 or zahl[m] > zahl[best]): best = m
+		if best.x < 0: continue
+		var uhr := 0; var meist := -1.0
+		for ms in range(0, 60000, 100):
+			var s := 0.0
+			for f in fl: if f["mitte"] == best: s += Gluehwuermchen.glanz(f, ms)
+			if s > meist: meist = s; uhr = ms
+		print("GLUEHEN %s Schwarm %s mit %d, Augenblick %d ms" % [id, best, zahl[best], uhr])
+		zustand.minuten = 23 * 60
+		betrete(id, best + Vector2i(0, 2), "UP")
+		var hd = get("herde")   # 490 (eigener Zweig): Monster ruhig
+		if hd: hd.aus = true
+		licht.ziel = 1.0
+		licht.stelle(1.0)
+		for t in [[uhr, "a"], [uhr + 800, "b"]]:
+			Gluehwuermchen.uhr_fest = t[0]
+			await get_tree().create_timer(1.5).timeout
+			ui.textfeld.visible = false
+			await knips("%s/%s_%s.png" % [dir, id, t[1]])
+	Gluehwuermchen.uhr_fest = -1
+	print("GLUEHBILDER fertig")
 	get_tree().quit()
 
 # 399.5 Grundrisse am Rechner: --raeume=<ordner> knipst je Grundriss aus der Grundansicht wie die alten Vergleichsbilder (Held wie

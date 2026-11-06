@@ -286,18 +286,14 @@ func erklaere(a: String) -> void:
 func frage_verteilen() -> void:
 	var de := Sprache.aktiv() == "de"
 	var d := Heldwerte.lade()
-	var schleier := ColorRect.new()
-	schleier.color = Color(0, 0, 0, 0.82)
-	schleier.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	add_child(schleier)
-	Zurueck.melde(schleier, func(): schleier.queue_free())   # 416.1: Android-Zurück wie „Abbrechen“
+	var schleier := Rueckfrage.schleier(self)   # 526: Tippen daneben und Android-Zurück wie „Abbrechen“ (416.1)
 	var mitte := CenterContainer.new()
 	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	schleier.add_child(mitte)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(8 * DP))
 	v.custom_minimum_size.x = get_viewport_rect().size.x - 48 * DP
-	mitte.add_child(Erschaffung.kasten(v))
+	mitte.add_child(Rueckfrage.halte(Erschaffung.kasten(v)))
 	v.add_child(Stil.zeile(("Punkte verteilen?" if de else "Spend points?").to_upper(), 14, Stil.GOLD, 3.0))
 	for a in geplant:
 		v.add_child(Erschaffung.txt("%s: %d → %d" % [Sprache.t(d["attribute"][a]["name"]), hw.wert(a), hw.wert(a) + int(geplant[a])], 17))
@@ -318,6 +314,21 @@ func tasche() -> void:
 	var de := Sprache.aktiv() == "de"
 	zeile(("Vorräte" if de else "Supplies").to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))
 	inhalt.add_child(posten(Sprache.u("gold"), str(z.gold), Stil.BRIGHT, Menue.vorrat_bild("gold")))   # 171: Gold zuerst, eine Zeile fuer sich
+	# 523 (Abgleich 512) wie alt (84.5): der Funke brennt bis zur naechsten Rast; „Löschen“, weg ist weg
+	if z.funke:
+		var fr := HBoxContainer.new()
+		var fn := Erschaffung.txt(Laden.name("spark_potion"), 15)
+		fn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		fr.add_child(fn)
+		var be: Dictionary = Sprache.texte.get("benutzen", {})
+		var kn := Erschaffung.knopf(Sprache.t(be.get("sparkOut", {"de": "Löschen", "en": "Put out"})), func():
+			z.funke = false
+			meldung(Sprache.t(be.get("sparkGone", {"de": "Der Funke verglimmt. Weg ist weg.", "en": "The spark fades. Gone is gone."})))
+			baue())
+		kn.custom_minimum_size = Vector2(110, 36) * DP
+		kn.size_flags_horizontal = Control.SIZE_SHRINK_END
+		fr.add_child(kn)
+		inhalt.add_child(fr)
 	if z.taschen.is_empty(): zeile(Sprache.u("nothing"), 16, Stil.DIM)
 	for id in z.taschen:
 		var dd := Laden.ding(String(id))
@@ -337,17 +348,58 @@ func tasche() -> void:
 		zeile("Besiege Monster und öffne Truhen, um Ausrüstung zu finden." if de else "Defeat monsters and open chests to find equipment.", 14, Stil.DIM)
 	for g in dinge:
 		# ▲ besser in allem, ▼ schlechter; nichts, wenn gemischt oder gleich (GearUi.kt upgradeVerdict)
-		var u = Vergleich.von(hw, g).urteil() if hw.kann_tragen(g) else null
-		var pfeil := "▲ " if u == 1 else ("▼ " if u == -1 else "")
-		var p := posten(Beute.name(g), pfeil + Beute.kennwert(g), Color(SELTEN.get(String(g["rarity"]), "e6ddcb")), Menue.stueck_rahmen(g, 42))
+		var p := ausruestungszeile(g)
 		inhalt.add_child(p)
 		tippbar(p, func(): frage_stueck(g))
 
 # nach Seltenheit, dann Gegenstandsstufe, absteigend (alt: rarity, slot, ilvl)
 const REIHE := ["COMMON", "UNCOMMON", "RARE", "VERY_RARE", "EPIC", "DIVINE"]
+# 523 (Abgleich 512): dazwischen nach Platz wie alt (GearSlot.ordinal: Kopf, Umhang, Oberkoerper, Arme, Beine, Amulett, Ring, Haupthand, Nebenhand)
+const PLATZ_REIHE := ["HEAD", "CLOAK", "CHEST", "ARMS", "LEGS", "AMULET", "RING", "MAIN_HAND", "OFF_HAND"]
 static func vor(a: Dictionary, b: Dictionary) -> bool:
 	var ra := REIHE.find(String(a["rarity"])); var rb := REIHE.find(String(b["rarity"]))
-	return ra > rb or (ra == rb and int(a["ilvl"]) > int(b["ilvl"]))
+	if ra != rb: return ra > rb
+	var pa := PLATZ_REIHE.find(String(Beute.grundform(String(a["base"]))["slot"])); var pb := PLATZ_REIHE.find(String(Beute.grundform(String(b["base"]))["slot"]))
+	if pa != pb: return pa < pb
+	return int(a["ilvl"]) > int(b["ilvl"])
+
+# 521, 523 (Chef 03.11., 23:23: „Leider kann man da die Items null unterscheiden … Zweihänder? Was überhaupt? Sind gesperrte
+# Gegenstände darunter?“; 23:26 „besser machen“): wie alt GearRow (GearUi.kt 119) in Tasche und Wechselschirm: Bild 42 dp, Name in
+# der Farbe der Seltenheit (bis zwei Zeilen), darunter listLine (Art, Waffe oder Platz, Kennwert), besser als alt dazu „zweihändig“;
+# nicht Tragbares „· nicht tragbar“ in Rot; rechts ▲ gruen besser in allem, ▼ rot schlechter (upgradeVerdict; Angelegtes nie)
+const BESSER := Color("2a8a3a")
+const AKZENT := Color("e05a3a")       # Colors.accent
+func ausruestungszeile(g: Dictionary) -> HBoxContainer:
+	var de := de_()
+	var r := HBoxContainer.new()
+	r.add_theme_constant_override("separation", int(8 * DP))
+	r.add_child(Menue.stueck_rahmen(g, 42))
+	var s := VBoxContainer.new()
+	s.add_theme_constant_override("separation", 0)
+	s.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	s.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	var n := Erschaffung.txt(Beute.name(g), 16, farbe_von(g))
+	n.max_lines_visible = 2
+	s.add_child(n)
+	var ok := hw.kann_tragen(g)
+	var unten := Beute.listen_zeile(g)
+	if unten == "": unten = Testmodus.gross_anfang(Sprache.t(Heldwerte.lade()["seltenheiten"][String(g["rarity"])].get("name", g["rarity"])))   # Ring, Amulett ohne Kennwert: alt leer
+	if zweihaendig(g) and not unten.containsn("zweih") and not Beute.name(g).containsn("zweih"): unten += " · " + ("zweihändig" if de else "two-handed")
+	if not ok: unten += " · " + ("nicht tragbar" if de else "can't wear")
+	s.add_child(Erschaffung.txt(unten, 12, Stil.DIM if ok else AKZENT))
+	r.add_child(s)
+	var angelegt := false
+	for pl in PLATZ_REIHE:
+		var x = hw.ding(pl)
+		if x != null and int(x["uid"]) == int(g["uid"]): angelegt = true
+	var u = Vergleich.von(hw, g).urteil() if ok and not angelegt else null
+	if u == 1 or u == -1:
+		var pf := Erschaffung.txt("▲" if u == 1 else "▼", 18, BESSER if u == 1 else AKZENT)
+		pf.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		r.add_child(pf)
+	r.set_meta("tragbar", ok)
+	r.set_meta("pfeil", 0 if u == null else int(u))
+	return r
 
 # ItemRow, GearRow: Bild, Name (in der Farbe der Seltenheit), rechts die Anzahl oder der Kennwert
 func posten(n: String, rechts: String, farbe: Color, bild: Control = null) -> HBoxContainer:
@@ -379,35 +431,36 @@ func tippbar(c: Control, was: Callable) -> void:
 
 # DialogSpec: Titel in der Farbe des Dings, Zeilen, Knoepfe [Text, Tat, an]; jeder Knopf schliesst erst den Kasten
 func dialog(titel: String, farbe: Color, zeilen: Array, knoepfe: Array) -> Control:
-	var schleier := ColorRect.new()
-	schleier.color = Color(0, 0, 0, 0.82)
-	schleier.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	add_child(schleier)
-	Zurueck.melde(schleier, func(): schleier.queue_free())   # 416.1: Android-Zurück wie „Abbrechen“
+	var schleier := Rueckfrage.schleier(self)   # 526: Tippen daneben und Android-Zurück wie „Abbrechen“ (416.1)
 	var mitte := CenterContainer.new()
 	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	schleier.add_child(mitte)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(8 * DP))
-	v.custom_minimum_size.x = get_viewport_rect().size.x - 48 * DP
-	mitte.add_child(Erschaffung.kasten(v))
-	v.add_child(Stil.zeile(titel.to_upper(), 14, farbe, 3.0))
-	for c in zeilen: v.add_child(c)
+	# 519 (Chef 03.11., 23:13: Fenster ragte rechts hinaus): wie ConfirmDialog alt der Kasten 16 dp vom Rand, innen 14 dp;
+	# kein Kind darf breiter sein (Titel bricht um, Knoepfe passen sich an), sonst schiebt es den Kasten aus dem Bild
+	var breite := get_viewport_rect().size.x - 2 * 16 * DP - 2 * 14 * DP
+	v.custom_minimum_size.x = breite
+	mitte.add_child(Rueckfrage.halte(Erschaffung.kasten(v)))   # 526: Tippen auf den Kasten schliesst nicht
+	v.add_child(Menue.dialog_kopf(titel, farbe, zeilen))
+	for c in zeilen:
+		if c.get_parent() == null: v.add_child(c)
 	# 503 (Chef 03.11., 07:40, „genau wie alt“): ConfirmDialog (Dialogs.kt 86–104): weitere Knoepfe nebeneinander in einer Reihe,
-	# darunter „Abbrechen“ (oder „Schliessen“) links und der erste Knopf rechts, je halb so breit, Schrift 15 sp; ein einzelner
-	# Knopf (OK, Schliessen) ueber die ganze Breite
-	var mach := func(k: Array) -> Button:
+	# darunter „Abbrechen“ (oder „Schliessen“) links und der erste Knopf rechts, je halb so breit; ein einzelner
+	# Knopf (OK, Schliessen) ueber die ganze Breite. 519: Schrift wie PixelButton(size = 15.sp) alt 13 sp (15 × 0,7, mindestens 13),
+	# zu lang: zwei Zeilen oder kleiner (Menue.passe_knopf)
+	var mach := func(k: Array, b_breite: float) -> Button:
 		var tat: Callable = k[1]
 		var b := Erschaffung.knopf(String(k[0]), func(): schleier.queue_free(); tat.call())
 		if k.size() > 2: b.disabled = not bool(k[2])
-		b.add_theme_font_size_override("font_size", int(round(15 * Stil.SP)))
-		b.clip_text = false
+		Menue.passe_knopf(b, b_breite)
 		return b
 	var reihe := func(ks: Array) -> void:
 		var r := HBoxContainer.new()
 		r.add_theme_constant_override("separation", int(8 * DP))
+		var b_breite := (breite - 8 * DP * (ks.size() - 1)) / ks.size()
 		for k in ks:
-			r.add_child(mach.call(k))
+			r.add_child(mach.call(k, b_breite))
 		v.add_child(r)
 	var ab := knoepfe.size() > 1 and String(knoepfe[-1][0]) in [abbrechen(), Sprache.u("close")]
 	if ab:
@@ -417,6 +470,63 @@ func dialog(titel: String, farbe: Color, zeilen: Array, knoepfe: Array) -> Contr
 	else:
 		for k in knoepfe: reihe.call([k])
 	return schleier
+
+# 519 Kopf wie ConfirmDialog alt (Dialogs.kt 65–77): das Bild des Dings (erste Zeile, 48 dp) links, 10 dp Abstand, daneben der Titel;
+# in der Farbe eines Dings 20 sp halbfett, bricht um (Txt mit titleColor); ohne eigene Farbe (Gold) MenuHead: Versalien 14 sp gesperrt
+static func dialog_kopf(titel: String, farbe: Color, zeilen: Array) -> Control:
+	var kopf := HBoxContainer.new()
+	kopf.add_theme_constant_override("separation", int(10 * DP))
+	if not zeilen.is_empty() and zeilen[0] is TextureRect:
+		var bild: Control = zeilen[0]
+		bild.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		kopf.add_child(bild)
+	var t: Label
+	if farbe == Stil.GOLD:
+		t = Stil.zeile(titel.to_upper(), 14, farbe, 3.0)
+	else:
+		t = Stil.zeile(titel, 20 * 0.95, farbe, 0.2)   # wie Erschaffung.txt (Txt-Groesse × 0,95)
+		t.add_theme_constant_override("outline_size", int(DP * 0.6)); t.add_theme_color_override("font_outline_color", farbe)
+	t.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	t.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	kopf.add_child(t)
+	return kopf
+
+# 519 wie PixelButton alt (Theme.kt 304–315): Versalien, gesperrt 1,2 sp, ein Wort bricht nie; mit Leerzeichen bis zwei Zeilen,
+# sonst kleiner (je 0,9, bis 0,55), bis es in die Breite passt (innen 6 dp Rand je Seite)
+static func passe_knopf(b: Button, breite: float, sp := 13.0) -> void:
+	var innen := breite - 12 * DP
+	var worte := b.text.split(" ", false)
+	var f := 1.0
+	while true:
+		var g := int(round(sp * Stil.SP * f))
+		var schrift := Stil.variante(1.2 * f)
+		var w := func(t: String) -> float: return schrift.get_string_size(t, HORIZONTAL_ALIGNMENT_LEFT, -1, g).x
+		var ganz: float = w.call(b.text)
+		var passt := ganz <= innen
+		var zwei := false
+		if not passt and worte.size() > 1:
+			# zwei Zeilen: gierig umbrechen wie Compose, jedes Wort ganz
+			var n := 1
+			var zeile := ""
+			var wort_passt := true
+			for x in worte:
+				wort_passt = wort_passt and w.call(x) <= innen
+				var probe: String = x if zeile == "" else zeile + " " + x
+				if w.call(probe) <= innen or zeile == "":
+					zeile = probe
+				else:
+					n += 1
+					zeile = x
+			zwei = wort_passt and n <= 2
+			passt = zwei
+		if passt or f <= 0.56:
+			b.add_theme_font_override("font", schrift)
+			b.add_theme_font_size_override("font_size", g)
+			b.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART if zwei else TextServer.AUTOWRAP_OFF
+			b.clip_text = not passt   # passt es selbst bei 0,55 nicht, schneidet der Knopf ab, statt den Kasten zu sprengen
+			return
+		f *= 0.9
 
 const ABBRECHEN := {"de": "Abbrechen", "en": "Cancel"}
 func abbrechen() -> String: return Sprache.t(ABBRECHEN)
@@ -494,30 +604,86 @@ static func stueck_zeilen_von(hw: Heldwerte, g: Dictionary) -> Array:
 	var b := Beute.grundform(String(g["base"]))
 	var d := Heldwerte.lade()
 	var z_: Array = []
+	var sp := "de" if de else "en"
+	var fett := func(l: Label) -> Label:
+		l.add_theme_constant_override("outline_size", int(DP * 0.6)); l.add_theme_color_override("font_outline_color", l.get_theme_color("font_color"))
+		return l
 	var bild := Menue.bild_feld("stueck-%s-%s" % [g["base"], g["rarity"]], 48)   # Dialogs.kt: GearPicture 48 dp
 	bild.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	z_.append(bild)
-	var zeile_ := Beute.listen_zeile(g)
-	if zeile_ != "": z_.append(Erschaffung.txt(zeile_, 14, farbe_von.call(g)))
-	var wo := ("Stufe " if de else "Level ") + str(int(g["ilvl"]))
-	if zweihaendig.call(g): wo = ("Beide Hände · " if de else "Both hands · ") + wo
-	z_.append(Erschaffung.txt(wo, 13, Stil.WARN if zweihaendig.call(g) else Stil.DIM))
+	# 524 (Abgleich 512, Chef 23:26 „besser machen“, alt ist die Untergrenze): Reihenfolge und Inhalt wie GearDetails alt (GearUi.kt 156–243)
+	# Gear.kindLine: Seltenheit und Art, wenn der Name sie nicht schon sagt
+	var plus := int(g.get("plus", 0))
+	var plus_t := (" +%d" % plus) if plus > 0 else ""
+	var selten := Sprache.t(d["seltenheiten"][String(g["rarity"])]["name"])
+	var gezeigt := Beute.name(g)
+	var art := String(b[sp])
+	var hat_art := gezeigt.containsn(art)
+	var art_zeile := ""
+	if not (hat_art and gezeigt.containsn(selten)):
+		var gross := selten.left(1).to_upper() + selten.substr(1)
+		art_zeile = gross + plus_t if hat_art else ((gross + String(d["endungen"][String(b["geschlecht"])]) + " " + art + plus_t) if de else (gross + " " + art + plus_t))
+	if art_zeile != "": z_.append(Erschaffung.txt(art_zeile, 14, farbe_von.call(g)))
+	# Gear.wearLine · Stufe · Gewicht; beidhaendige Waffe fett in Rot (ein Schild muss herunter)
+	var waffe := Beute.ist_waffe(b)
+	var wo := String(d["plaetze"][String(b["slot"])][sp])
+	if waffe and zweihaendig.call(g): wo = "Beide Hände" if de else "Both hands"
+	elif b.get("vielseitig") != null: wo = "Vielseitig: eine oder beide Hände" if de else "Versatile: one or both hands"
+	elif waffe: wo = "Haupt- oder Nebenhand" if de else "Main or off hand"
+	wo += (" · Stufe " if de else " · Level ") + str(int(g["ilvl"]))
+	var gewicht := String(b.get("gewicht", "NONE"))
+	if gewicht != "NONE": wo += " · " + Sprache.t(d["ruestungsarten"].get(gewicht, {"de": "Stoff", "en": "cloth"}))
+	var wl := Erschaffung.txt(wo, 13, Stil.WARN if waffe and zweihaendig.call(g) else Stil.DIM)
+	z_.append(fett.call(wl) if waffe and zweihaendig.call(g) else wl)
+	# [84.1.laden] wozu die Fackel ist (Light.torchAbout)
+	if String(b["art"]) == "LIGHT":
+		z_.append(Erschaffung.txt("Pech und Werg auf einem Stock. In der Nebenhand, statt eines Schilds. Im Dunkeln siehst du weiter als mit einem Leuchtfunken. Brennt, solange du sie trägst." if de else
+			"Pitch and tow on a stick. Held in the off hand, instead of a shield. In the dark you see further than with a Lightspark. Burns as long as you carry it.", 14))
+	# was dafuer abgelegt wird und das Urteil gleich oben, ohne Rollen; die Tabelle unten sagt warum (59.3: nie fuer Getragenes)
+	var v: Vergleich = Vergleich.von(hw, g) if hw.kann_tragen(g) and not hw.ausruestung.values().any(func(x): return x != null and int(x["uid"]) == int(g["uid"])) else null
+	if v:
+		if not v.ersetzt.is_empty():
+			var anderer := v.ersetzt.any(func(x): return String(Beute.grundform(String(x["base"]))["slot"]) != String(b["slot"]))
+			var el := Erschaffung.txt(("Ersetzt: " if de else "Replaces: ") + ", ".join(PackedStringArray(v.ersetzt.map(func(x): return Beute.name(x)))), 13, Stil.WARN if anderer else Stil.DIM)
+			z_.append(fett.call(el) if anderer else el)
+		z_.append(fett.call(Erschaffung.txt(v.satz(), 14, {1: GRUEN, -1: Stil.WARN}.get(v.urteil(), Stil.TEXT))))
+	# Grundzahlen: Schaden je Griff, Angriff, Eigenschaften der Waffe; RK der Ruestung mit GES; Schild; Zauberkraft
+	if b.get("schaden") != null:
+		var viel = b.get("vielseitig")
+		var w_ = hw.waffe()
+		var beide: bool = viel != null and w_ != null and int(w_["uid"]) == int(g["uid"]) and hw.beide_haende_mit(g)
+		var art_s := Sprache.t(d["schadensarten"].get(String(b["schadensart"]), {"de": "", "en": ""}))
+		z_.append(fett.call(Erschaffung.txt("%s: %s %s%s" % [Sprache.u("damage"), Beute.wuerfel_text(viel if beide else b["schaden"], plus, de), art_s,
+			((" (beide Hände)" if de else " (both hands)") if beide else "")], 16)))
+		if viel != null:
+			z_.append(Erschaffung.txt(((("Mit einer Hand (Schild oder Zweitwaffe): " if de else "In one hand (shield or second weapon): ") + Beute.wuerfel_text(b["schaden"], plus, de)) if beide else
+				(("Mit beiden Händen (andere Hand leer): " if de else "In both hands (other hand empty): ") + Beute.wuerfel_text(viel, plus, de))), 14, Stil.DIM))
+		if plus > 0: z_.append(fett.call(Erschaffung.txt("%s +%d" % [Sprache.u("attack"), plus], 15)))
+		var zuege: Array = []
+		if bool(b.get("finesse", false)): zuege.append("Finesse")
+		if bool(b.get("fern", false)): zuege.append("Fernkampf" if de else "Ranged")
+		if not zuege.is_empty(): z_.append(Erschaffung.txt(" · ".join(PackedStringArray(zuege)), 13, Stil.DIM))
+	if String(b["slot"]) == "CHEST" and int(b.get("ruestung", 0)) > 0:
+		var ges: String = {"LIGHT": " + GES" if de else " + DEX", "MEDIUM": " + GES (max 2)" if de else " + DEX (max 2)"}.get(gewicht, "")
+		z_.append(fett.call(Erschaffung.txt("%s %d%s" % [Sprache.u("ac"), int(b["ruestung"]) + plus, ges], 16)))
+	if String(b["art"]) == "SHIELD": z_.append(fett.call(Erschaffung.txt("%s +%d" % [Sprache.u("ac"), int(b["ruestung"]) + plus], 16)))
+	if int(b.get("fokus", 0)) > 0: z_.append(fett.call(Erschaffung.txt(("Zauberkraft +%d" if de else "Spell power +%d") % int(b["fokus"]), 16)))
+	# Eigenschaften (Affix.line), blau wie alt
 	for r in g["rolls"]:
 		var a := String(r[0]); var w := int(r[1])
 		var ad: Dictionary = d["affixdaten"][a]
 		var t := ("Kritisch ab %d" % (20 - w) if de else "Critical on %d–20" % (20 - w)) if a == "CRIT" else \
 			"+%d%s %s" % [w, "%" if bool(ad["prozent"]) else "", Sprache.t(ad["name"])]
-		z_.append(Erschaffung.txt(t, 15))
+		z_.append(Erschaffung.txt(t, 16, Color(SELTEN["RARE"])))
+	# Warnungen
 	if not hw.kann_tragen(g):
-		z_.append(Erschaffung.txt(("Als %s kannst du das nicht tragen." if de else "As a %s you cannot wear this.") % Sprache.t(d["klassen"][hw.klasse]["name"]), 13, Stil.DIM))
-	elif not hw.ausruestung.values().has(g):
-		# GearDetails: was dafuer abgelegt wird, das Urteil gleich sichtbar, darunter warum (GearCompare)
-		var v := Vergleich.von(hw, g)
-		if not v.ersetzt.is_empty():
-			var anderer := v.ersetzt.any(func(x): return String(Beute.grundform(String(x["base"]))["slot"]) != String(b["slot"]))
-			z_.append(Erschaffung.txt(("Ersetzt: " if de else "Replaces: ") + ", ".join(PackedStringArray(v.ersetzt.map(func(x): return Beute.name(x)))), 13, Stil.WARN if anderer else Stil.DIM))
-		z_.append(Erschaffung.txt(v.satz(), 14, {1: GRUEN, -1: Stil.WARN}.get(v.urteil(), Stil.TEXT)))
-		if not v.zeilen.is_empty(): z_.append(vergleich_tabelle(v.zeilen, de))
+		z_.append(Erschaffung.txt("Deine Klasse kann das nicht tragen." if de else "Your class can't wear this.", 15, Stil.WARN))
+	elif waffe and not hw.geuebt(g):
+		z_.append(Erschaffung.txt("Ungeübt: kein Übungsbonus auf Angriffe." if de else "Not proficient: no proficiency bonus to attacks.", 15, Stil.WARN))
+	if int(b.get("fokus", 0)) > 0 and not bool(hw.klassendaten()["zauberer"]):
+		z_.append(Erschaffung.txt("Zauberkraft nützt nur Zauberwirkern." if de else "Spell power only helps spellcasters.", 13, Stil.DIM))
+	# Vergleich: alles, was sich aendert, Getragenes neben dem Neuen, Gewinn gruen, Verlust rot, Hinweise darunter
+	if v and not v.zeilen.is_empty(): z_.append(vergleich_tabelle(v.zeilen, de))
 	return z_
 
 # 416.9 (Chef 01.11., 11:30 „pseudotabellarisch“, 02.11., 10:52 „tabellarische Gegenüberstellung“): wie GearDetails alt,
@@ -548,6 +714,12 @@ static func vergleich_tabelle(zeilen: Array, de: bool) -> Control:
 		h.add_child(spalte.call(String(r["vorher"]), 15.0, Stil.DIM, 0.9))
 		h.add_child(spalte.call(String(r["nachher"]), 15.0, {1: GRUEN, -1: Stil.WARN}.get(besser, Stil.DIM), 0.9, besser != 0))
 		t.add_child(h)
+		# 519 GearDetails: der Hinweis der Zeile (Obergrenze, Schnitt) darunter, 10 dp eingerueckt, matt
+		if String(r.get("notiz", "")) != "":
+			var n := MarginContainer.new()
+			n.add_theme_constant_override("margin_left", int(10 * DP))
+			n.add_child(Erschaffung.txt(String(r["notiz"]), 12, Stil.DIM))
+			t.add_child(n)
 	return t
 
 func im_beutel(g: Dictionary) -> int:
@@ -626,8 +798,16 @@ func waehle(platz: String) -> void:
 	if l.is_empty(): zeilen.append(Erschaffung.txt("Nichts Passendes im Beutel." if de else "Nothing in the bag fits.", 15, Stil.DIM))
 	var schleier := {}   # 399.1 (Test 139.10): ein Lambda haelt den Wert von damals; die Liste wird erst unten zum Kasten
 	for g in l:
-		var p := posten(Beute.name(g), Beute.kennwert(g), farbe_von(g))
-		if not hw.kann_tragen(g): p.modulate.a = 0.45
+		# 521: Zeile wie in der Tasche; nicht Tragbares matt mit dem Grund darunter wie alt (MenuScreen choose)
+		var p: Control = ausruestungszeile(g)
+		if not hw.kann_tragen(g):
+			var v := VBoxContainer.new()
+			v.add_theme_constant_override("separation", 0)
+			v.add_child(p)
+			var kl := Sprache.t(hw.klassendaten()["name"])
+			v.add_child(Erschaffung.txt(("Als %s kannst du das nicht tragen." if de else "As a %s you cannot wear this.") % kl, 13, Stil.DIM))
+			v.modulate.a = 0.45
+			p = v
 		tippbar(p, func():
 			schleier["k"].queue_free()
 			dialog(Beute.name(g), farbe_von(g), stueck_zeilen(g), [[Sprache.u("equip"), func(): meldung(lege_an(g, platz == "OFF_HAND" and String(Beute.grundform(String(g["base"]))["slot"]) != "OFF_HAND")); baue(), hw.kann_tragen(g)],
@@ -647,7 +827,9 @@ func ausruestung() -> void:
 		for platz in seite: spalte.add_child(fach(platz))
 		puppe.add_child(spalte)
 		if seite[0] == "HEAD":
-			var t := Drehteller.new(HeldFigur.wahl(hw, z))
+			# 520 (Chef 03.11., 23:19 „Warum ist der Held so klein?“, 23:21 „Größe jetzt“): wie PaperDoll alt (GearUi.kt 274)
+			# HeroTurntable mit 1,1 dp je Bildpunkt (150 × 230), nicht 0,62 wie im Reiter Held
+			var t := Drehteller.new(HeldFigur.wahl(hw, z), 1.1)
 			t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			puppe.add_child(t)
 	inhalt.add_child(puppe)

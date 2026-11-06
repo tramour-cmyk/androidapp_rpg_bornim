@@ -336,10 +336,26 @@ func kurz(t: String) -> void:
 	var vs := get_viewport().get_visible_rect().size
 	notiz_feld.custom_minimum_size = Vector2(0, 0)
 	notiz_feld.size = Vector2(0, 0)
-	lb.custom_minimum_size.x = minf(vs.x * 0.8, lb.get_theme_font("font").get_string_size(t, HORIZONTAL_ALIGNMENT_LEFT, -1, lb.get_theme_font_size("font_size")).x + 4)
-	notiz_feld.reset_size()
-	notiz_feld.position = Vector2((vs.x - notiz_feld.size.x) / 2, maxf(0.0, Rand.beim_start) + 72 * AktionsKnopf.DP)
-	notiz_feld.visible = true
+	var font := lb.get_theme_font("font")
+	var fs := lb.get_theme_font_size("font_size")
+	var breit := minf(vs.x * 0.8, font.get_string_size(t, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x + 4)
+	# 550 (Chef 04.11., 00:19: beim ersten Mal ein riesiger Kasten): eine umbrechende Zeile rechnet ihre Hoehe mit der Breite, die sie gerade
+	# hat, beim ersten Mal 0 (jedes Wort eine Zeile), danach die der vorigen Notiz. Darum Breite und Hoehe vorher ausmessen und fest setzen;
+	# passt der Text in eine Zeile, bricht er nicht um
+	var passt := font.get_string_size(t, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x + 4 <= vs.x * 0.8
+	lb.autowrap_mode = TextServer.AUTOWRAP_OFF if passt else TextServer.AUTOWRAP_WORD_SMART
+	lb.custom_minimum_size = Vector2(breit, 0.0 if passt else font.get_multiline_string_size(t, HORIZONTAL_ALIGNMENT_CENTER, breit, fs).y)
+	lb.size = lb.custom_minimum_size
+	var lege := func():
+		if notiz_feld == null: return
+		notiz_feld.reset_size()
+		notiz_feld.position = Vector2((vs.x - notiz_feld.size.x) / 2, maxf(0.0, Rand.beim_start) + 72 * AktionsKnopf.DP)
+		notiz_feld.visible = true
+	# bricht er um, kennt die Zeile ihre Hoehe erst nach dem ersten Bild mit der neuen Breite: so lange unsichtbar
+	if passt: lege.call()
+	else:
+		notiz_feld.visible = false
+		get_tree().process_frame.connect(lege, CONNECT_ONE_SHOT)
 	notiz_bis = Time.get_ticks_msec() + 1800
 	get_tree().create_timer(1.85).timeout.connect(func(): if Time.get_ticks_msec() >= notiz_bis and notiz_feld: notiz_feld.visible = false)
 

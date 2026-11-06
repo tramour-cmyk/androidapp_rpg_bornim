@@ -78,6 +78,16 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/signatur_457.gd > signatur.log 2>&1 || true
           grep -E "^FEHLER|Signatur 457|SCRIPT ERROR" signatur.log | head -40
           grep -q "Signatur 457: 0 Fehler" signatur.log
+      - name: Tote bleiben liegen (573)
+        run: |
+          cd godot
+          set -o pipefail; timeout 600 ~/godot/godot --headless --path . -s res://tests/tote_573.gd 2>&1 | grep -E "^(FEHLER|tote_573)|SCRIPT ERROR"
+      - name: Knöpfe mit Erklärung ohne „Lambda capture“ (564)
+        run: |
+          cd godot
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/lambda_564.gd > lambda564.log 2>&1 || true
+          grep -E "^564|Lambda|SCRIPT ERROR" lambda564.log
+          grep -q "564 fertig" lambda564.log && ! grep -q "Lambda capture" lambda564.log
       - name: Kampfort aus einem Aufruf (399.2, wie aus dem Dorf)
         run: |
           cd godot

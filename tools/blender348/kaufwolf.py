@@ -8,6 +8,9 @@
 # verschoben, Pfoten bleiben stehen, Läufe neu gebeugt wie kaufratte.py ducken()); Sprung = Biss (Attack).
 # Ortswechsel (Chef 27.10., 18:01, Archiv): Wurzelweg „weg“ für Gehen und Rennen aus dem Tempo der Pfoten am Boden (gleiten nicht).
 # Aufruf: KAUF=<ordner> OUT=<ordner> [FELL=grau] python -I kaufwolf.py  ->  <OUT>/kaufwolf-<fell>.glb, kaufwolf-info.json
+# 494 (Sokrates, Chef 03.11., 16:08: Grimmzahn „sieht … nicht aus wie unsere Wölfe aus dem Kampf“): ART=dire_wolf baut Grimmzahn auf
+# dem Kaufwolf: Felle schwarz, schimmer wie wolf.py ART=dire_wolf, Größe 1,75 im Modell, rot glühende Augen (Ecken mit Alpha 0,
+# toon.gdshader glut) -> <OUT>/dire_wolf-<fell>.glb, dire_wolf-info.json; Narbe und eingerissenes Ohr fehlen hier noch
 import os, sys, glob, json, math, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 T0 = time.time()
@@ -19,7 +22,9 @@ from kaufratte import lin, srgb, tris, aktion_von, weg as entferne, slot, welt_n
 KAUF = os.environ.get('KAUF', '')
 OUT = os.environ.get('OUT', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'out'))
 os.makedirs(OUT, exist_ok=True)
-ID = 'kaufwolf'
+ART = os.environ.get('ART', 'wolf')
+ID = 'dire_wolf' if ART == 'dire_wolf' else 'kaufwolf'
+GROESSE = 1.75 if ART == 'dire_wolf' else 1.0     # wolf.py: Chef 25.10., 21:03 „Grimmzahn Pony“ (Schulter 1,4 m)
 TEX = 1024                   # Handy: 1024² statt 2048² (wie kaufratte.py; fellstriche() zeichnet in TEX)
 SCHULTER = 0.8               # wolf.py: Schulter 0,8 m (schulterhoehe_m; Knochen, ohne Fell)
 # Größe wie unser Wolf am Bild (lokal gemessen 27.10. an wolf-grau.glb): Rücken über der Mitte (Netz mit Fell) 0,94 m, Ohren 1,24 m,
@@ -33,6 +38,8 @@ COATS = {
     'rost':   (0x74563E, 0x2A1C16, 0xB8A088, 0xF0A020),
     'asche':  (0x8E8A84, 0x3A3634, 0xCAC4B8, 0xE88A20),
 }
+if ART == 'dire_wolf':     # wolf.py ART=dire_wolf (fur, saddle, belly, eye)
+    COATS = {'schwarz': (0x343034, 0x0E0A0C, 0x5A5250, 0xF03A2A), 'schimmer': (0x5A6A8E, 0x141A30, 0xA8B8D4, 0x9AE4FF)}
 W_ = 'Wolf_'
 J = lambda n: W_ + n + 'SHJnt'
 COM, HALS, NACKEN = J('ROOT'), J('Neck_01'), J('Neck_Top')
@@ -51,7 +58,7 @@ TOD_AB, TOD_BIS = 40, 90
 # Prüfer r1 (Blatt, Wolfspixel eigen/gekauft): grau 62/82, dunkel 44/73, rost 31/70, Unterbeine und Bauch fast weiß (Quelle dort
 # hell; Leitbild „nie heller als alt“): Zeichnung nur noch von Sattel bis Fell (TMAX), Bauchfarbe nicht mehr; je Fell HELL
 TMAX = float(os.environ.get('TMAX', '0.5'))
-HELL = {'grau': 0.9, 'dunkel': 1.0, 'rost': 0.75, 'asche': 0.9}
+HELL = {'grau': 0.9, 'dunkel': 1.0, 'rost': 0.75, 'asche': 0.9, 'schwarz': 1.0, 'schimmer': 0.9}     # Grimmzahn: schwarz wie dunkel
 # Biss nachgemessen (probe.gd SCHAU=ort SCHAU_MESS=1, lokal 27.10.): mit Schnauze am weitesten vorn minus 0,07 m blieb die Nase
 # 0,04–0,08 m vor dem Rand der Heldin, zugebissen 0,77–1,03 s, Winkel +2 bis +5°: Abstand −0,06 m (Modell), Zeit, Winkel −4°
 BISS_KORR = (-0.03, 0.8, 0.0)     # Prüfer r1: Kopf verschwindet am Rumpf der Heldin; Nase dort 0,01–0,05 m im Rand: 3 cm zurück
@@ -307,6 +314,25 @@ def uv_masken(o):
     return tuple(np.asarray(m) > 127 for m in (bel, kopf, iris, lid))
 
 
+def augen_glut(meshes, fell):
+    """494 Grimmzahn: Eckfarbe weiß (Textur unverändert), die Iris in der Augenfarbe mit Alpha 0: toon.gdshader glüht dort (glut,
+    figur.gd setzt sie für dire_wolf), wie die Eckfarben in wolf.py."""
+    au = tuple(lin(COATS[fell][3])) + (0.0,)
+    A = [Vector(c) for c in AUGEN]
+    n = 0
+    for o in meshes:
+        me = o.data; M = o.matrix_world
+        ca = me.color_attributes.new('Col', 'FLOAT_COLOR', 'CORNER')
+        for i in range(len(ca.data)): ca.data[i].color = (1.0, 1.0, 1.0, 1.0)
+        for p in me.polygons:
+            if min((M @ p.center - c).length for c in A) < IRIS:
+                n += 1
+                for li in p.loop_indices: ca.data[li].color = au
+        me.color_attributes.active_color = ca
+    print('GLUT %s: %d Flächen der Iris glühen' % (fell, n))
+    if n == 0: print('FEHLT Glut: keine Fläche der Iris gefunden')
+
+
 def bemalung(texdir, fell, masken, striche):
     """Eigene Bemalung: Helligkeit der gekauften Textur (mit AO) als Zeichnung, Sattel/Fell/Bauch in unseren Farben (wolf.py),
     Augen in unserer Augenfarbe, darüber unsere Fellstriche."""
@@ -380,7 +406,7 @@ def baue(fell):
     pb = rig.pose.bones; Wr = rig.matrix_world
     ys = (Wr @ pb[J('Spine_02')].head).y
     widerrist = float(P[np.abs(P[:, 1] - ys) < 0.15][:, 2].max())     # Rücken über der Mitte, wie an wolf-grau.glb gemessen
-    s = RUECKEN / widerrist
+    s = RUECKEN / widerrist * GROESSE     # 494: Grimmzahn 1,75-fach im Modell (Weg, Biss, Maße wachsen mit, wie wolf.py)
     pf = [(Wr @ pb[J('%s_%s_Ball' % (a_, l))].head) for a_ in 'lr' for l in ('FrontLeg', 'HindLeg')]
     rumpf_y = sum(p.y for p in pf) / 4
     print('MASS Quelle (Welt, Stehen): x %.3f y %.3f z %.3f, Rücken %.3f m, Pfoten Mitte y %.3f, Maßstab %.4f' % (
@@ -453,6 +479,8 @@ def baue(fell):
     mat.node_tree.links.new(im.outputs['Color'], bs.inputs['Base Color'])
     for o in meshes:
         o.data.materials.clear(); o.data.materials.append(mat)
+    if ART == 'dire_wolf':
+        augen_glut(meshes, fell)
     # ------------------------------------------------ NLA-Spuren unter unseren Namen
     INFO = {'fps': FPS, 'fell': fell, 'dreiecke': tris(meshes), 'dreiecke_gekauft': tri0, 'quelle': 'Janpec Animal Pack Deluxe, Wolf (gekauft, 348.12f)'}
     def spur(nm, a, start=None, ende=None):
@@ -479,7 +507,7 @@ def baue(fell):
     P = welt_netz(meshes, f0); lo2, hi2 = P.min(0), P.max(0)
     rig.animation_data.action = None
     INFO['hoehe_m'] = round(float(hi2[2] - lo2[2]), 3); INFO['laenge_m'] = round(float(hi2[1] - lo2[1]), 3)
-    INFO['schulterhoehe_m'] = SCHULTER
+    INFO['schulterhoehe_m'] = round(SCHULTER * GROESSE, 3)
     INFO['rumpf_vor_m'] = round(float(-(rumpf_y * s + aussen.location[1])), 3)     # Mitte der Pfoten vor dem Ursprung (glTF +Z)
     # Biss: Schnauze am weitesten vorn (Welt nach dem Maßstab); figur.gd BITE: Abstand Ursprung–Rand des Ziels (Schnauze 0,07 m im
     # Rand), Zeitpunkt, Drehung des Körpers (Grad, + links), damit die Schnauze aufs Ziel zeigt
@@ -499,6 +527,7 @@ def baue(fell):
     path = os.path.join(OUT, '%s-%s.glb' % (ID, fell))
     bpy.ops.export_scene.gltf(filepath=path, export_format='GLB', use_selection=True, export_animations=True, export_skins=True,
                               export_animation_mode='NLA_TRACKS', export_yup=True, export_apply=False, export_image_format='JPEG',
+                              export_vertex_color='ACTIVE' if ART == 'dire_wolf' else 'MATERIAL',
                               export_jpeg_quality=88)
     INFO['sekunden_bau'] = round(time.time() - T0, 1)
     print('GLB', path, os.path.getsize(path), {k: v for k, v in INFO.items() if k != 'weg'})
@@ -509,4 +538,4 @@ if __name__ == '__main__':
     names = [os.environ['FELL']] if os.environ.get('FELL') else list(COATS)
     info = {n: baue(n) for n in names}
     json.dump(info, open(os.path.join(OUT, '%s-info.json' % ID), 'w'), indent=1)
-    print('KAUFWOLF FERTIG %.1f s' % (time.time() - T0))
+    print('%s FERTIG %.1f s' % (ID.upper(), time.time() - T0))

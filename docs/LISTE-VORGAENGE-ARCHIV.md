@@ -77,7 +77,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 106 | Rollen schärfen, Kennzahlen (106.1) | B Abläufe | – | 18,34 $ | Perikles | umgebaut |
 | 107 | Ford hält alle Aufträge nach | B Steuerung | – |  | Perikles | umgebaut |
 | 108 | Chefsache als Markdown im Repo | B Werkzeuge | – |  | Perikles | erledigt |
-| 110 | Sitzungstiefe, Ford von Hand | B Steuerung | – | 0,53 $ | Perikles | erledigt |
+| 110 | Sitzungstiefe, Ford von Hand | B Steuerung | – | 8,46 $ | Perikles | erledigt |
 | 113 | Begriff „Vorgang“ | B Abläufe | – |  | Perikles | erledigt |
 | 115 | Idee heißt prüfen | B Abläufe | – |  | Perikles | erledigt |
 | 116 | Zwischenbildschirm umbenennen | B Abläufe | – |  | Perikles | erledigt |
@@ -514,7 +514,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 446 | Wächter Lizenzhinweis SRD: `regelcheck` meldet, solange SRD-Abgeleitetes im Spiel ist; Hinweis fällt erst bei leerer Inventur (Chef 01.11., 09:41, 413a) | B Werkzeuge | M | 2,86 $ | Perikles | erledigt |
 | 449 | Commit-Haken weist gekaufte Rohdateien ab (aus 416.4a, 01.11.) | B Werkzeuge | M | 5,10 $ | Perikles | erledigt |
 | 450 | Jedes Blatt in der Chefsache mit Link auf Bild und Film; `meldung.sh` trägt ihn selbst ein (Chef 01.11., 10:55) | B Werkzeuge | M | 0,78 $ | Perikles | erledigt |
-| 448 | Tagesbericht mit Zahlen statt Ampeln (Chef 01.11., 10:46) | B Abläufe | M | 3,73 $ | Sokrates | erledigt |
+| 448 | Tagesbericht mit Zahlen statt Ampeln (Chef 01.11., 10:46) | B Abläufe | M | 14,43 $ | Sokrates | erledigt |
 | 448.1 | Erster Tagesbericht jetzt, mit Zahlen und den Meilensteinen (Chef 01.11., 10:59, „jetzt“) | B Abläufe | M | – | Perikles | erledigt |
 | 448.2 | Tagesbericht dauerhaft mit Werkzeug, ersetzt Stand zum Marktstart (Chef 01.11., 11:09) | B Werkzeuge | M | 5,10 $ | Perikles | erledigt |
 | 455 | Ausrüstung am Modell als Baukasten (Netz × Material × Zeichen), nur sichtbare Plätze mit Netz (Chef 01.11., 11:15) | D Design | M | – | Sokrates | erledigt |
@@ -554,3 +554,63 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 406a | Rückfrage: Schlussfilm Schilde am Tor angehalten, neue Läufe frei? | E Kampf | M | – | Team Jerry | erledigt |
 | 415b | Rückfrage: Strahlenprobe Film angehalten (Tor 461a), dritter Lauf oder Handy? | C Kampf | M | – | Team Jerry | erledigt |
 | 416.5 | Kampflog-Details nicht mehr schließbar (Chef 31.10., 20:4x) | B Umzug | M | 5,66 $ | Team Jerry | erledigt |
+| D23.3 | Magier und Kleriker sterben oft (Lauf 23) | G Balance | M |  | Jerry | erledigt |
+| 339 | Dashboard „Stand zum Marktstart“, immer aktuell (Plan, Ausgaben, Risiken) (Chef 23.10., 09:08) | B Abläufe | M | – | Perikles | erledigt |
+| 399.2 | Kampfort als aufrufbare Szene für die Spielfassung 399.1 (aus 399) | B Umzug | M | 40,83 $ | Team Jerry | erledigt |
+| 399.2b | Rudel allein: drei von vier Klassen verlieren; Ursache prüfen, Balance an Chef (aus 399.2a) | E Kampf | M | 16,00 $ | Team Jerry | erledigt |
+| 401 | Lebendige Welt: Laute für jedes Tier im Dorf, mindestens drei je Tier (Chef 28.10., 22:0x) | E Klang | M | 2,67 $ | Team Jerry | erledigt |
+| 468c | Rückfrage: Wochenlimit 79 % am Mittwoch, nur eine Entwicklersitzung zugleich? | B Abläufe | M | – | Sokrates | erledigt |
+| 470a | Rückfrage: BRS-Held in Stufe 1, Brücke zum SRD-Kampf bis 2.3? | E Regeln | M | – | Team Tom | erledigt |
+| 480 | Angehaltene Filme: klarere Blätter, dritter Lauf ohne Rückfrage (Chef 02.11., 18:43) | B Abläufe | M | – | Sokrates | erledigt |
+| 482 | Begriff „Blatt“ tilgen (Chef 02.11., 18:57): doppelt, aufgegangen in 480 bei Perikles | B Abläufe | M | – | Perikles | erledigt |
+| 484 | Keine Abkürzungen in Telegram-Meldungen; „NW“ für `DESIGN-SPIELSYSTEM-2-0-ENTWURF.md` nicht auffindbar (Chef 02.11., 19:27) | B Abläufe | M | – | Perikles | erledigt |
+| 486 | Homer bessert sich aus dem Rollenspiegel 02.11.: Notizen mit Regelwirkung vor „fertig“ fremd prüfen, Vorratsgrenzen anderer wöchentlich melden, Stiltext auf Godot-Fundstellen (Chef 02.11., 19:44 „Ja, mache das.“) | Q QS | M | – | Homer | erledigt |
+| 487 | Gemeinsamer Build aus den wartenden Änderungen beider Teams, ohne Figuren und Bewegung (die über den Grundstand 461.1), höchstens 6 je Build (Wochenziel 02.11. Reihe 6, Hinweis Team Tom 21:1x) | E Technik | M | 6,06 $ | Team Jerry | erledigt |
+| 509a | Rückfrage: dritter Lauf für den Teichfilm (Lauf 228 zeigt nur das Hauptmenü) | E Klang | M | – | Team Jerry | erledigt |
+| 494a | Rückfrage: dritter Lauf für Wildschwein und Hundertfüßer (Läufe 225, 229 brachen beim Bau ab) | E Kampf | M | – | Team Jerry | erledigt |
+| 510a | Rückfrage: zweiter Lauf für den Fledermaus-Vergleich (Lauf 235: freies Modell leer, Film nur mit unserer) | E Kampf | M | – | Team Jerry | erledigt |
+| 503a | Rückfrage: bei welchem Verkauf kam keine Rückfrage (Knopf „Gewöhnliche verkaufen“ oder einzelner Gegenstand)? | E Oberfläche | M | – | Team Tom | erledigt |
+| 504 | Gespräche nie gleich: jede Zeile, die man wiederholt hört, in mindestens drei Varianten (Chef 03.11., 07:52: „Lebendige Welt, keine monotone Welt“) | C Texte | M | – | Homer | erledigt |
+| 524a | Rückfrage: Gegenstandsfenster, Vorschlag „besser als alt“ noch? | A Spiel | M | – | Sokrates | erledigt |
+| 512a | Rückfrage: Abgleichsfunde 535, 543 bis zum BRS-Rechenkern (478) zurückstellen? | E Kampf | M | – | Sokrates | erledigt |
+| 548a | Rückfrage: wo hat der Chef im Rattenkampf und im Probekampf getippt (Ring, Haken)? | E Kampf | M | – | Team Jerry | erledigt |
+| 532a | Rückfrage: Tasche und Metrausch jetzt wie alt in MARS oder erst mit dem BRS-Rechenkern (478)? | E Kampf | M | – | Team Jerry | erledigt |
+| 534a | Rückfrage: Magierrüstung, Untote vertreiben, Spirituelle Waffe, Geisterwächter, Unglaubliches Ausweichen jetzt wie alt in MARS oder mit 478? | E Kampf | M | – | Team Jerry | erledigt |
+| 506a | Rückfrage zu 506: Zombie und Ghul auf dem CC0-Menschen oder Wiedergänger und Grabhund nach Archiv 348.12c? | B Abläufe | M | – | Perikles | erledigt |
+| 472 | Bau BRS 1.3 Heldenstufe aus Erfahrung (Wochenziel 02.11., Stufe 1) | E Regeln | M | – | Team Jerry | erledigt |
+| 473 | Bau BRS 1.4 Monsterwerte Kapitel 1 (Wochenziel 02.11., Stufe 1) | E Kampf | M | 5,89 $ | Team Jerry | erledigt |
+| 475a | Rückfrage: Kapuzen und Helme der Leute nur mit freiem Gesicht oder im Dorf gar nicht? | E Figuren | M | – | Sokrates | erledigt |
+| 466 | Neues Wort für „Handlung“ eines Pfads (Chef 01.11., 21:13: „Handlung ist alles“) | C Texte | M? | 23,56 $ | Homer | erledigt |
+| 461b.1 | Widersprüche aus Liste 461b nachziehen: Klassenbalance 38/399.2b/D23.3 gegen 406, Säureschnecke | E Kampf | M | – | Team Jerry | erledigt |
+| 461b.2 | Widerspruch aus Liste 461b: Eichung 431e in Grundstand B1 | E Figuren | M | – | Team Tom | erledigt |
+| 461b.3 | Widersprüche aus Liste 461b: Regelwerk gegen 466, SRD-Namen in DESIGN-STIL, B7 Wölfe | C Texte | M | – | Homer | erledigt |
+| 464.1 | Befunde D61.1–2 zu 464 nachbessern: Tageszahl roter Läufe im Protokoll, Grenze 25 Dateien mit Hinweis (Diogenes Lauf 59) | B Abläufe | M | 9,74 $ | Perikles | erledigt |
+| 465.1 | Befund D60.1 zu 465 nachbessern: „Seit“ aus Git statt geschätzter x-Zeit (Diogenes Lauf 58) | B Abläufe | M | – | Perikles | erledigt |
+| 462.1 | Befunde D59.1–3 zum Zeitstempel nachbessern: Zwischenmeldungen, Spalte stempel ohne Namen, „<Name>“ (Diogenes Lauf 57) | B Abläufe | M | – | Perikles | erledigt |
+| 461.2 | Befunde D58.1–5 zum Grundstand nachbessern: E1, F6, G2/C2/E3, Gehen aufrecht, Tor vor dem Versand (Diogenes Lauf 56) | B Abläufe | M | – | Perikles | erledigt |
+| 415c | Rückfrage: Strahlenprobe Lauf 181 am Tor angehalten, Film trotzdem oder zwei neue Läufe? | C Kampf | M | – | Team Jerry | erledigt |
+| 427 | Bestiarium: je Monsterart Name, Gebiet und Stufenband, Verhalten, Angriffe und Waffen, Werte für Spielsystem 2.0, Beute; Aussehen verweist auf `LISTE-FIGUREN.md` (Chef 31.10., 21:3x); Werte entschieden 02.11., 18:54 | D Design | M | 13,13 $ | Sokrates | erledigt |
+| 427.1 | Monsterwerte ins Spiel, Grimmzahn und Krogg mit Rudel, Umreißen, Überfall nachmessen (Chef 02.11., 18:54) | E Kampf | M | – | Team Jerry | erledigt |
+| 427.2 | Hinweis auf Morwens Rauch spätestens nach der ersten Niederlage gegen Krogg (Chef 02.11., 20:22, aus 427.1) | C Texte | M | – | Homer | erledigt |
+| 427.2a | Zweites Rauchbündel nach Niederlage gegen Krogg? (Chefsache entscheiden/4272a) | D Design | M | – | Homer | erledigt |
+| 431f | Rückfrage: Haut der Orkblütigen Frau, zwei weitere Probeläufe zum Nachstellen und Beheben? | E Figuren | M | – | Team Tom | erledigt |
+| 432.2 | Aschgeborene: Grundwerte und Merkmal (Chef 02.11., 16:29) | E Regeln | M? | – | Sokrates | erledigt |
+| 432.3 | Aschgeborene: Abnahmeliste in LISTE-FIGUREN, Erschaffungstext (Chef 02.11., 16:29) | C Texte | M? | – | Homer | erledigt |
+| 434 | Prüfung: jede Vorlage zu einem Eigenbau hat die Zeile „Bestand geprüft“ (377, 408); fehlt sie, an Team und Chef (Chef 31.10., 22:1x) | B Abläufe | M | 4,45 $ | Diogenes | erledigt |
+| 453b | Rückfrage: Film Wolfsatem B am Tor angehalten, neue Läufe frei? | E Kampf | M | – | Team Jerry | erledigt |
+| 453.1a | Rückfrage: Heldenatem, Film am Tor angehalten (Kleriker), dritter Lauf, A/B/C | E Kampf | M | – | Team Jerry | erledigt |
+| 458.2 | Gegenstandskatalog: Werte, Preise, Beute (Chef 01.11., 458) | D Design | M | 10,87 $ | Team Jerry | erledigt |
+| 447.4 | Texte Lehrmeister-Einladungen und Ruf-Gespräche für Stufe 3 (447) | C Texte | M | 28,78 $ | Homer | erledigt |
+| 468d | Rückfrage: Wochenlimit 82 %, bis Sa zusätzlich Nachtpause 23–7 Uhr? | B Abläufe | M | – | Sokrates | erledigt |
+| 479 | Projektplan: Abnahmeliste umbenennen, auf Stand bringen, Orte und Welt einzeln, Flüsterwald einplanen (Chef 02.11., 18:34) | B Abläufe | M | – | Perikles | erledigt |
+| 498 | Schriftbild wie in der Kotlin-Fassung: Größe, Sperrung, Halbfett (Chef 03.11., 07:13, „Über das Spiel“ wirkt kleiner) | E Oberfläche | M | – | Team Tom | erledigt |
+| 502 | Nebel des Krieges und Sichtfeld des Helden in der Welt wie alt (Fog.kt), fehlt in Godot und im Plan (Chef 03.11., 07:28) | B Abläufe | M | – | Perikles | erledigt |
+| 530 | Build 249: Schlagbaum am Nordweg öffnet sich nicht sichtbar (Chef 03.11., 23:40) | A Spiel | M | – | Team Tom | erledigt |
+| 538 | Heldenstufe kommt in Gesprächen nie an (Garrick warnt immer), Stufengrenze 6 für Kapitel 1 fehlt (Abgleich 512, Sokrates 03.11., 23:4x) | A Spiel | M | – | Team Tom | erledigt |
+| 549a | Rückfrage: Oberfläche ohne Kasten als Grundsatz (Linien trennen, Rahmen nur für die Entscheidung)? | A Spiel | M | – | Sokrates | erledigt |
+| 549b | Rückfrage: Rast mit leiser Zeile „Tag · Uhr · TP“? (Chef 04.11., 549 Frage 2) | A Spiel | M | – | Sokrates | erledigt |
+| 559 | Prüfung „wartet auf Chef“: Stand gegen neuere Rückmeldung des Chefs (Chef 04.11., 16:18) | B Werkzeuge | M | 3,53 $ | Perikles | erledigt |
+| 576 | Vorentscheid: Auflagen des letzten Chefurteils prüft der Helfer vor dem Versand (Chef 04.11., 20:49, 475 Kopfbedeckungen) | B Werkzeuge | M | – | Sokrates | erledigt |
+| 557a | Rückfrage: senkrechte Lage auf Fenstern und Schirmen, mittig, oben oder unten (Chef 04.11., 20:52) | A Spiel | M | – | Sokrates | erledigt |
+| 554 | Testmenü: Schalter „Monster beachten mich nicht“ fehlt (Chef 04.11., 00:27) | B Werkzeuge | M | – | Team Tom | erledigt |
+| 415d | Rückfrage: Status Effects VFX und Beams & Lasers kaufen, sobald der Handytest läuft? (Chef 02.11., 20:05) | C Kampf | M | – | Sokrates | erledigt |

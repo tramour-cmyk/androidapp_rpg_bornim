@@ -217,6 +217,8 @@ static func gitter(s: Zustand) -> Array:
 static func wants_smoke(s: Zustand) -> bool: return s.has(HUNTER_MET) and not s.has(KROGG_DEFEATED) and not s.has(SMOKE_GIVEN)
 
 static func kapitel(s: Zustand) -> int: return 2 if s.has(CHAPTER2_STARTED) else 1
+# 538 (Story.levelCap): hoechste Stufe im laufenden Kapitel; darueber sammelt der Held keine Erfahrung (Battle.kt, Game.begin)
+static func stufendeckel(s: Zustand) -> int: return int(Heldwerte.regel("max_stufe")) if s.has(CHAPTER2_STARTED) else CHAPTER1_LEVEL_CAP
 
 # beim Betreten einer Karte (MapDef.onEnter)
 static func betreten(karte_id: String, s: Zustand) -> Array:

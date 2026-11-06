@@ -18,8 +18,8 @@ Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 4
 
 **Stufe 2 · Kapitel 1 durchspielbar** (Prüfung: Zufallsspieler spielt Kapitel 1 durch; Kollision 0; Kapitelsimulation: jede Herkunft schafft die Bosse; der Chef spielt einmal grob durch)
 - [ ] **2.1** T · Kollision und Sprungtest 0 in jedem Ort; kein Schweben nach Start und Kartenwechsel (24); Tippen trifft, was gezeichnet ist.
-- [ ] **2.2** T · Kerntests der Regeln des BRS als GDScript-Tests grün; Zufallsspieler spielt Kapitel 1 im neuen Spiel durch (26).
-- [ ] **2.3** M · MARS und klassischer Kampf (212 A, 249) rund auf den Regeln des BRS: Kampf ohne W20 nach Stufen (E 7), jeder Angriff sichtbar, Ansage harter Schläge, Pechsträhne.
+- [ ] **2.2** T · Kerntests der Regeln des BRS als GDScript-Tests grün; Zufallsspieler spielt Kapitel 1 im neuen Spiel durch (26). · Stand: in Arbeit
+- [ ] **2.3** M · MARS und klassischer Kampf (212 A, 249) rund auf den Regeln des BRS: Kampf ohne W20 nach Stufen (E 7), jeder Angriff sichtbar, Ansage harter Schläge, Pechsträhne. · Stand: in Arbeit
 - [ ] **2.4** M · Kampf nie langweilig, echte Wahl (`DESIGN-LEITBILD.md`); Schwierigkeitsgrade (39).
 - [ ] **2.5** M · Ausgleich gemessen, nicht geschätzt: Simulation „Zeit bis Stufe“ und Kapitelsimulation auf den Regeln des BRS (444); jede Herkunft und der Wanderer schaffen die Bosse in vergleichbarem Maß; Zielwert mit dem Chef festlegen (38).
 - [ ] **2.6** G · Lehrmeister spricht an, sobald zwei Kernfertigkeiten eines Pfads Geselle sind; Anwärter möglich (E 63, E 79; Takt NW 5); Bewährungsprobe zum Gesellen siehe 3.1.
@@ -27,8 +27,30 @@ Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 4
 - [ ] **2.8** G · Schleichen mit Schleichtaste und Hinterhalt, Bosse wachsamer (E 55, E 47); Spähen durch Verweilen findet Fallen, Kräuter, Truhen, Wahrnehmung verstärkt (E 57, E 83), dann entschärfen; Truhen mit Dietrich, Truhen in Häusern der Leute zu (E 55, E 46); schwere Rüstung sperrt Schleichen, Metall sperrt Evokation, Illusion, Beschwörung (E 33, E 80); kein Stehlen, kein Barde (E 30, E 31).
 - [ ] **2.9** G · Kurze Erholung 2 h, Langes Ausruhen 9 h (E 26); Tragkraft mit Nimmersatt-Beutel, darüber langsamer (E 41).
 - [ ] **2.10** G · **Bauweise** (Chef 01.11., 09:43): Leute, Orte und Gegenstände haben beim Bau Datenfelder für Ruf, Rezept und Zustand (in Stufe 3 gefüllt); jede Zahl steht in einer Datendatei, nicht im Code (422, 444).
-- [ ] **2.11** W · Jeder Ort, jede Hauptquest und Nebenquest, jedes Gespräch, Laden, Anschlagbrett, Tagesablauf, Hilfe aus dem alten Spiel geht in Godot mindestens so (`LISTE-UMZUG-348.md`, 348.9), außer was das BRS ersetzt.
+- [ ] **2.11** W · Jeder Ort, jede Hauptquest und Nebenquest, jedes Gespräch, Laden, Anschlagbrett, Tagesablauf, Hilfe aus dem alten Spiel geht in Godot mindestens so (`LISTE-UMZUG-348.md`, 348.9), außer was das BRS ersetzt. · Stand: in Arbeit
 - [ ] **2.12** W · Spielerfreundlich (`DESIGN-LEITBILD.md` 3): auf „Normal“ ohne Grinden schaffbar.
+- [ ] **2.13** M · **Alle Gegner von Kapitel 1 im Spiel** (Chef 05.11., 08:2x; 579): jeder Gegner der alten Fassung (`Story.kt` Flüsterwald, Tiefer Wald, Blutzahnhöhle, Tag und Nacht) mit Modell auf der Karte und im Kampf, eigener Kennung (577), Klang und Kampfblende. Haken = vom Chef im Build gesehen. Stand 05.11., 08:2x:
+  - [x] Wolf (gekauft) · [x] Riesenratte (gekauft) · [x] Goblin · [x] Kobold · [x] Goblin-Schamane · [x] Goblin-Bogenschütze (alle im Build 257)
+  - [ ] Riesenfledermaus: nur Kapsel, Modell in 510
+  - [ ] Wildschwein · [ ] Riesenhundertfüßer · [ ] Riesenspinne · [ ] Riesenegel (für Stirge) · [ ] Säureschnecke (für Ockergallerte): gebaut auf `claude/jerry-494-gegner`, in keinem Build (494)
+  - [ ] Skelett · [ ] Zombie · [ ] Ghul: fehlen (506)
+  - [ ] **Bosse:** [ ] Grimmzahn neu auf dem Kaufwolf (533; heute altes Modell, Kampf und Leibwache gehen) · [ ] Krogg (bugbear) · [ ] Grak (hobgoblin_captain): mit der Blutzahnhöhle (492)
+- [ ] **2.14** W · **Alle Orte von Kapitel 1 begehbar** (Chef 05.11., 08:2x). Haken = im Build begehbar wie alt, vom Chef gesehen; „Ort fertig“ (4.3) kommt danach. Stand 05.11.:
+  - [x] Bornim (Dorf) · [x] Flüsterwald · [x] Tiefer Flüsterwald (491, „passt fürs Erste“; Schild am Eingang und Morwens Hütte offen)
+  - [ ] Zum Schlafenden Greif (Schänke) · [ ] Thessas Kramladen · [ ] Haus des Ältesten · [ ] Tempel des Morgenlichts: Grundrisse im Build (399.1), vom Chef noch nicht abgehakt
+  - [ ] **Blutzahnhöhle:** fehlt im Build (492; neu nach Signatur)
+- [ ] **2.15** W · **Hauptquest von Kapitel 1 einmal durchgespielt**, Station für Station (Testmenü „Stationen“, 555; Chef 05.11., 08:2x). Haken = der Chef hat die Station im Build gespielt. Stand 05.11.:
+  - [x] 1 Garrick (Schlagbaum, t257 251.7) · [x] 2 Morwen (t257 251.2) · [x] 3 Grimmzahn (Kampf, t257 252.7; Blende, Tod offen)
+  - [ ] 4 Höhle · [ ] 5 Krogg · [ ] 6 Grak · [ ] 7 Lyra: warten auf die Höhle (492)
+  - [ ] 8 Kapitelende (Aldric, Amulett, Brief)
+- [ ] **2.16** A · **Alle Leute von Kapitel 1 mit eigenem Gesicht** (475; Chef 05.11., 08:2x). Haken = Gesicht vom Chef abgenommen, keine zwei gleich, Gesicht frei. Stand 05.11.: keiner abgenommen (Lauf 1 nein, 04.11., 20:47)
+  - [ ] Aldric · [ ] Borin · [ ] Bram · [ ] Garrick · [ ] Gwenna · [ ] Jorin · [ ] Liska · [ ] Morwen · [ ] Osric · [ ] Pim · [ ] Rowena · [ ] Thessa · [ ] Lyra (mit 492)
+- [ ] **2.17** M · **Alle Zauber und Fähigkeiten bis Stufe 6 im Kampf zu sehen** (Chef 05.11., 08:2x). Haken = im Kampf gewirkt und vom Chef gesehen. Liste heute nach den alten Klassen (`regeln/tabellen.json`); mit dem BRS-Rechenkern (478) wird sie auf Fertigkeiten umgestellt. Laut t257 ruhen vier Zauber und Unglaubliches Ausweichen bis 478, Untote vertreiben kommt mit 506.
+  - Kämpfer: [ ] Kampfstil · [ ] Zweiter Atem · [ ] Tatendrang · [ ] Verbesserter kritischer Treffer · [ ] Zusätzlicher Angriff
+  - Magier: [ ] Feuerpfeil · [ ] Magisches Geschoss · [ ] Brennende Hände · [ ] Magierrüstung · [ ] Sengender Strahl · [ ] Feuerball
+  - Schurke: [ ] Hinterhältiger Angriff · [ ] Finte · [ ] Raffinierte Aktion · [ ] Unglaubliches Ausweichen
+  - Kleriker: [ ] Heilige Flamme · [ ] Wunden heilen · [ ] Segnen · [ ] Untote vertreiben · [ ] Spirituelle Waffe · [ ] Geisterwächter
+  - Effekte dazu nach dem Kauf (415d.1, Film 572)
 
 **Stufe 3 · Alle Systeme angelegt** (447 „mit K2b“, Chef 01.11.: „alle Elemente grundsätzlich drin … die Anlagen sollen schon erkennbar sein“; je System ein kleiner, ganzer Kreislauf mit spürbarer Wirkung, kein leerer Knopf. Prüfung: je Punkt ein Spieltest „merkt man, was das kann?“; 444 rechnet Gold, Reparatur und Tränke mit)
 - [ ] **3.1** G · Pfad und Lehrmeister: Einladung, Anwärter, Hinweise und Aufgaben des Lehrmeisters, Bewährungsprobe zum Gesellen je Pfad, den Kapitel 1 trägt (Jorin Wächter, Osric Heiler und Paladin, Garrick Waldläufer und Scharfschütze, Thessa Schatzjäger, Morwen Magier und Kriegsmagier; NW 5, E 79, Archiv 447.4a); Zwischenprüfung ab Kapitel 2 (447.5).
@@ -44,7 +66,7 @@ Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 4
 - [ ] **4.1** T · Kein Absturz, kein Hängenbleiben, kein Ruckeln auf den Testgeräten des Chefs (Handy und Tablet, 267); Spielstände halten über Updates.
 - [ ] **4.2** T · Jeder Fehler aus den Tests des Chefs behoben (Prüfer: Chef).
 - [ ] **4.3** A · Jeder Ort „Ort fertig“ nach `DESIGN-ABNAHME.md`, sinngemäß in Godot: Dorf, Räume, Flüsterwald, Tiefer Flüsterwald, Blutzahnhöhle.
-- [ ] **4.4** A · Jede Figur, jedes Haus, jedes Ding in `LISTE-UMZUG-348.md` auf „abgenommen“ (Prüfer: Chef; Diogenes misst nebenher, 373).
+- [ ] **4.4** A · Jede Figur, jedes Haus, jedes Ding in `LISTE-UMZUG-348.md` auf „abgenommen“ (Prüfer: Chef; Diogenes misst nebenher, 373). · Stand: in Arbeit
 - [ ] **4.5** A · Signatur nach `DESIGN-STIL.md`: schwarz-gold, Tusche, düster und lesbar; Hauptmenü, Erschaffung, Menüs, Vorspann und Zwischenbilder im selben Look (Prüfer: Chef).
 - [ ] **4.6** K · Musik je Ort, Tageszeit und Kampf; Umgebung aus echten Aufnahmen je Ort.
 - [ ] **4.7** K · Schritte je Untergrund (74), Raumklang in Innenräumen und Höhle (119), Stimmen der Gegner (18); bisher „wenn Zeit ist“, jetzt Muss, weil die Direktive Klang nennt (Prüfer: Chef).
@@ -73,7 +95,7 @@ Quelle: der alte Kotlin-Code (`core`, `app`), abgeglichen mit `LISTE-UMZUG-348.m
 | O5 | Tempel des Morgenlichts (Osric, Lyra nach der Rettung) | da | [ ] | [ ] |
 | O6 | **Flüsterwald** (Garrick, 11 Gegnerarten, Teiche, Frösche, Libellen) | **fehlt**: der Weg in den Wald startet nur einen Kampf (490, Spike) | [ ] | [ ] |
 | O7 | **Tiefer Flüsterwald** mit Morwens Hütte, Endgegner Grimmzahn | **fehlt** (491, Spike) | [ ] | [ ] |
-| O8 | **Blutzahnhöhle** (Lyra gefangen, Endgegner Krogg und Grak, 10 Gegnerarten) | **fehlt** (492, Tom) | [ ] | [ ] |
+| O8 | **Blutzahnhöhle** (Lyra gefangen, Endgegner Krogg und Grak, 10 Gegnerarten; Krogg erst abnehmen, wenn Morwens Rauch aus O7 im Spiel zu bekommen ist, 427.1) | **fehlt** (492, Tom) | [ ] | [ ] |
 | O9 | Kampforte Wald (Lichtung, Waldrand, Teich, Baum, Felsen, Steinkreis) | teils: nur die Lichtung (493, Spike) | [ ] | [ ] |
 | O10 | Kampforte Höhle (Eingang, Gang, Halle, Teich, Lager) | fehlt (507, Jerry) | [ ] | [ ] |
 

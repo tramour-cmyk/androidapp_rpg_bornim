@@ -39,6 +39,8 @@ Mensch sicher besser sehen.“): der Chef hat es gesehen, Eintrag im Vorgangsarc
   Helfer das Probebild genau: `python3 tools/probelauf.py --helfer <Nr> "ok: <was zu sehen ist>"`; erst dann der Film.
   Am Rechner muss der Name des Filmskripts im Filmbefehl stehen. Jeder Filmlauf verbraucht das Probebild.
   Push: filmt, wenn ein Schritt mit `--write-movie` bei dieser Commit-Nachricht läuft (`if: contains(…head_commit.message…)`).
+  578 (Chef 04.11., 21:03: „Also ich brauche den Film“): ein Archivkopf „<Nr>, gleich Film“ gibt den Film ohne Probebild
+  frei, solange danach kein neues Probebild zu <Nr> eingetragen ist; die Zahl der Läufe begrenzt weiter 389.
 
 513.1 (Chef 03.11., 15:56: „513 B“; Leitlinie: was der Chef an einer Figur abnimmt, gilt in jedem Zweig, der Figuren zeigt):
 jeder Probelauf und jedes Probebild hält an, wenn der Stand (Rechner: HEAD der Arbeitskopie; Push: HEAD; Start von Hand: der
@@ -507,7 +509,12 @@ def letzter_film(nr):
     return max((z[0] for z in zeilen(laeufe) + zeilen(lokal) if z[1] == nr and z[3].endswith("-film")), default="")
 
 
-def probebild_passt(nr):
+def gleich_film(nr):
+    """578 (Chef 04.11., 21:03: „Also ich brauche den Film“): Zeit des jüngsten Archivkopfs „<nr>, gleich Film“, sonst ""."""
+    return probebild_passt(nr, r",?\s*gleich Film", nur_kopf=True)
+
+
+def probebild_passt(nr, wort=r"[^;:]{0,30}?Probebild passt", nur_kopf=False):
     """511 (Chef 13:58): Zeit des jüngsten Archiveintrags „<nr> Probebild passt“, sonst ""; „13:5x“ zählt als 13:59."""
     _, archiv = zweig_lesen("docs/VORGANGSARCHIV.md", "main")
     if not archiv:
@@ -525,8 +532,10 @@ def probebild_passt(nr):
     for m in ARCHIV_KOPF.finditer(archiv):
         ende = archiv.find("\n- **", m.end())
         eintrag = archiv[m.end():ende if ende >= 0 else len(archiv)]
-        if re.search(nrx + r"[^;:]{0,30}?Probebild passt", m.group(1)):
+        if re.search(nrx + wort, m.group(1)):
             beste = max(beste, zeit(m.group(2), m.group(3), m.group(4), m.group(5), m.group(6)))
+        if nur_kopf:
+            continue
         for g in re.finditer(nrx + r"[^;→]{0,30}?Probebild passt\W{0,4}\(Chef\s+(?:(\d\d)\.(\d\d)\.,?\s*)?(\d\d):(\d)([\dx])",
                              eintrag):
             beste = max(beste, zeit(g.group(1) or m.group(2), g.group(2) or m.group(3), g.group(3), g.group(4), g.group(5)))
@@ -538,6 +547,9 @@ def film_sperre(nr, art, befehl):
     der Chef danach mit „<nr> Probebild passt“ freigegeben hat."""
     seit = letzter_film(nr)
     bilder = [b for b in probebilder(nr) if b[0] > seit]
+    gleich = gleich_film(nr)
+    if gleich and not [b for b in bilder if b[0][:16] > gleich[:16]]:
+        return None  # 578: „<nr>, gleich Film“ des Chefs gibt den Film ohne Probebild frei (Läufe zählt 389)
     if not bilder:
         return (f"511 (Chef 03.11., 13:50: „511 ja“): Filmlauf für {nr} ohne Probebild"
                 + (f" seit dem letzten Filmlauf {seit}" if seit else "") + ". Erst ein Einzelbild aus demselben Filmskript "
