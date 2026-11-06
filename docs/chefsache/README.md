@@ -154,7 +154,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „star
 | 586 | K | von Chef über Jerry (05.11., 09:35; Zu 586): Bilder 557 einheitlich: Rast am Feuer und an | startbar |
 | Pflege | K | von Werkzeug (340.3, 06.11.): 122117 Bytes (Grenze 15000), Erledigtes streichen; Tabellenz | startbar |
 
-**Jerry** – offen 85, Muss 71, startbar 16
+**Jerry** – offen 85, Muss 71, startbar 14
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -163,12 +163,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „star
 | 565 | M | von Sokrates (Chef 04.11., 17:10, t257 Bereich C, Bild; Zu 565): im Gruppenkasten unten is | startbar |
 | 562 | M | von Sokrates (Chef 04.11., 17:02, t257 Bereich C; Zu 562 und 563): Helden gehen zum Angrif | wartet auf Test/Build (gebaut) |
 | 563 | M | von Sokrates (Chef 04.11., 17:02, t257 Bereich C, Bild; Zu 562 und 563): Zustandsschilder | startbar |
-| 561 | M | von Sokrates (Chef 04.11., 16:56, t257 Bereich C, Bild; Zu 561): goldener Zugkreis liegt ü | startbar |
+| 561 | M | von Sokrates (Chef 04.11., 16:56, t257 Bereich C, Bild; Zu 561): goldener Zugkreis liegt ü | wartet auf Test/Build (gebaut) |
 | 560 | M? | von Sokrates (Chef 04.11., 16:22, allgemeiner Hinweis; Zu 560): Monster auf der Karte dreh | startbar |
 | 548 | M | von Sokrates (Chef 04.11., 00:03, Build 249, Bild; Zu 548): „Gegen Ratten gespielt. Die st | wartet auf Test/Build (gebaut) |
 | 551 | M | von Sokrates (Chef 04.11., 00:21, Build 249): „MARS Kasten links und rechts unten wird unt | startbar |
 | 545 | M | von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545): MARS-Probekampf: Testknöpfe „Gegner | wartet auf Test/Build (gebaut) |
-| 547 | M | von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545): MARS: Text sagt „geht in die Knie“, | startbar |
+| 547 | M | von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545): MARS: Text sagt „geht in die Knie“, | wartet auf Test/Build (gebaut) |
 | 544 | M | von Sokrates (Chef 03.11., 23:49, Build 249: „Stimmt die Schrift?“): Kampfschirm ohne Seri | wartet auf Test/Build (gebaut) |
 | 532 | M | von Sokrates (512; Zu 532): Kampf: Held ohne Zauberpunkte, Verbrauchtes, Zustände, Metraus | startbar |
 | 533 | M | von Sokrates (512; Zu 533): Kampf: Grimmzahn ist ein Wolf, kein Boss (Werte, Flucht, Leibw | startbar |
