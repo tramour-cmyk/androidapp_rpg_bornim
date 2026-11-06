@@ -202,8 +202,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 579 | Gegner zuerst: Lücke alt gegen neu in Kapitel 1, Vorrang 494, 506, 492 (Chef 05.11., 08:18) | B Abläufe | M | 5,88 $ | Perikles | startbar |
 | 580 | Erschaffung: Attributnamen beim Punktekauf abgeschnitten („Geschic…“; Abgleich 512b) | A Spiel | M | – | Team Tom | gebaut |
 | 581 | Ausrüstung: Seite breiter als der Schirm, Reiter springen (Abgleich 512b) | A Spiel | M | 2,31 $ | Team Tom | gebaut |
-| 582 | Laden: Vorräte ohne Kurzangabe und Seltenheitsfarbe, Ausrüstung ohne Platz, ▲/▼ in Namensfarbe statt grün/rot, Mengenfenster ohne Wirkung (Abgleich 512b) | A Spiel | M | – | Team Tom | gebaut |
-| 583 | Textkasten: ▼ liegt im Text, erzählter Text ohne i-Punkte und nicht schräg (Abgleich 512b) | A Spiel | M | 2,31 $ | Team Tom | gebaut |
+| 582 | Laden: Vorräte ohne Kurzangabe und Seltenheitsfarbe, Ausrüstung ohne Platz, ▲/▼ in Namensfarbe statt grün/rot, Mengenfenster ohne Wirkung (Abgleich 512b) | A Spiel | M | 3,68 $ | Team Tom | gebaut |
+| 583 | Textkasten: ▼ liegt im Text, erzählter Text ohne i-Punkte und nicht schräg (Abgleich 512b) | A Spiel | M | 5,99 $ | Team Tom | gebaut |
 | 584 | Kein halbfetter Schnitt: Köpfe und Titel in Erschaffung, Held, Chronik, Karte, System, Brett, Test nicht hervorgehoben wie alt (Abgleich 512b) | A Spiel | M? | – | Team Tom | wartet |
 | 585 | Menüs Kleinigkeiten: Titelumbruch Hauptmenü, Knopf Lizenzen, Bild in Rückfrage Wegwerfen, Test „Variante“ (Abgleich 512b) | A Spiel | M? | – | Team Tom | wartet |
 | 586 | Schirme 557 einheitlich: Zeichen neben der Überschrift bei Rast, Größe der Überschriften (Chef 05.11., 09:35, Kür) | A Spiel | K | – | Team Tom | wartet |
@@ -211,8 +211,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 588 | Fehler im Kampf im Wald (Build 266): Bild aus leerem Puffer in baue_leben, gebiet.gd:486, dreimal (Chef 05.11., zu t266 Punkt 6) | C Kampf | M | 2,88 $ | Team Jerry | gebaut |
 | 589 | Dorf: Marktplatz wirkt geklont (gleiche Stände, gleiche Säcke), Durchgang links am Stand hakelig (Chef 05.11., 19:2x, t266) | E Welt | M | – | Team Tom | startbar |
 | 590 | Innenräume: Türseite bei gedrehter Kamera dunkel und tot, mehr Licht (Kerzen) und Einrichtung (Chef 05.11., 19:2x) | E Innenräume | M | – | Team Tom | startbar |
-| 591 | Dorftiere (Hühner, Kaninchen) fliehen vor dem Helden wie alt, mit Alarmklang (Chef 05.11., 19:2x) | E Welt | M | – | Team Tom | gebaut |
-| 592 | Ruhebewegungen: Vorbeugen (Müde) nur bei Ausdauer null, sonst Ruhebewegungen wie alt aus der Bibliothek (Chef 05.11., 19:2x) | E Figuren | M | – | Team Tom | gebaut |
+| 591 | Dorftiere (Hühner, Kaninchen) fliehen vor dem Helden wie alt, mit Alarmklang (Chef 05.11., 19:2x) | E Welt | M | 3,68 $ | Team Tom | gebaut |
+| 592 | Ruhebewegungen: Vorbeugen (Müde) nur bei Ausdauer null, sonst Ruhebewegungen wie alt aus der Bibliothek (Chef 05.11., 19:2x) | E Figuren | M | 3,68 $ | Team Tom | gebaut |
 | 593 | MARS: Ausweichen auch rückwärts als Abwechslung zu links und rechts (Chef 05.11., 19:2x) | E Kampf | M? | – | Team Jerry | startbar |
 | 594 | Probekampf „Spinne“ (nicht allein): Wolf daneben, Wolfstext in der Blende (Chef 05.11., 19:2x) | C Kampf | M | 2,88 $ | Team Jerry | gebaut |
 | 595 | Kampfbewegungen der Kaufgegner: Spinne mehr Angriffe, Egel und Schnecke schneller, Treffhöhe, Ruckeln, Ruhe (Chef 05.11., 19:2x, t266.1) | E Kampf | M | – | Team Jerry | Chef |
@@ -223,7 +223,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 600 | Kampfort: Knopf zum Beschleunigen wie Würfel und Raster (Chef 05.11., 19:2x) | E Kampf | M | 2,88 $ | Team Jerry | gebaut |
 | 601 | Goblin-Späher: Schuss ohne Bewegung, falscher Pfeil, kein Pfeil beim Fehlschuss; Treffer trotz Schatten (Chef 05.11., 19:2x, t266.5) | C Kampf | M | 2,88 $ | Team Jerry | Chef |
 | 602 | Gemeinsamer Build nach Tom 591/592 und Jerry 548–544? (Ford 06.11., 08:10) | B Betrieb | M | – | Ford | Chef |
-| 557 | Spielstände: Entwurf ohne Kasten (549a) als Bild, Inhalt wie alt mit Spieldauer und Heldenbild (Chef 04.11., 11:15) | A Spiel | M | 38,50 $ | Team Tom | gebaut |
+| 557 | Spielstände: Entwurf ohne Kasten (549a) als Bild, Inhalt wie alt mit Spieldauer und Heldenbild (Chef 04.11., 11:15) | A Spiel | M | 42,18 $ | Team Tom | gebaut |
 | 556 | Blenden reines Schwarz statt Leuchten in der Mitte (Ringe), lang genug zum Lesen (Chef 04.11., 07:52) | A Spiel | M | – | Team Tom | gebaut |
 | 555 | Testmenü wie alt und schneller: fehlende Einträge der alten Fassung, dazu Sprünge an jede Station von Kapitel 1 (Chef 04.11., 00:30) | B Werkzeuge | M | 15,00 $ | Team Tom | gebaut |
 | 523 | Tasche wie alt und besser: „Funke löschen“, Seltenheit und Kurzangabe der Vorräte, Ausrüstungszeile mit Art, Platz, Wert, „nicht tragbar“, ▲/▼ farbig, Sortierung nach Platz, Klang beim Benutzen (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Tom | zu testen |
