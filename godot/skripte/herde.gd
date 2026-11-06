@@ -219,6 +219,16 @@ func _geh(s: Streuner, d: Vector2i, ms: int) -> bool:
 	s.schritt_ms = int(ms * Streuner.PACE * karte.schritt(n))
 	return true
 
+# 541 Game.roamerAt: das Monster auf Kachel t oder null
+func bei(t: Vector2i) -> Streuner:
+	for s in liste:
+		if s.kachel == t: return s
+	return null
+
+# 541 Game.interact -> engage: mit dem Aktionsknopf angreifen; von hinten (gleicher Blick) oder ein Lauerer im Versteck: Held zuerst
+func greife_an(s: Streuner) -> void:
+	_los(s, "HERO_FIRST" if s.blick == _held_blick() or (s.temper() == "LAUERER" and not s.jagt) else "NORMAL")
+
 func _merke(s: Streuner) -> void:
 	var i := liste.find(s)
 	if i >= 0 and i < bestand[karte.id].size(): bestand[karte.id][i] = s.als_daten()

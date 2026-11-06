@@ -313,12 +313,13 @@ func vor_ihm(t: Vector2i) -> Vector2i:
 	if not karte.ausgang(t).is_empty(): return t
 	var vorn := Vector2i(roundi(sin(held.rotation.y)), roundi(cos(held.rotation.y)))
 	for d in [vorn] + NACHBARN:
-		if karte.tuer(t + d) or zeichen_lesbar(t + d) or brett(t + d) or rast_kachel(t + d) != "" or kiste(t + d) != {}: return t + d
+		if karte.tuer(t + d) or zeichen_lesbar(t + d) or brett(t + d) or rast_kachel(t + d) != "" or kiste(t + d) != {} or ansehbar(t + d): return t + d
 	return Vector2i(-1, -1)
 
 # wie Navigation.actionAt: Ausgang und Tuer (auch verschlossen) ENTER, Schild READ; dazu actionPlace: wohin, wenn offen
 func angebot(t: Vector2i) -> Array:
 	# 390 (actionTarget): Ausgang unter dem Helden zuerst; dann Person im Faecher vor Ding, Ding vor Person ausserhalb
+	if karte.ausgang(t).is_empty() and monster_vorn() != null: return ["FIGHT", ""]   # 541 Navigation.actionAt: roamerAt
 	var pv := person_vorn() if karte.ausgang(t).is_empty() else [null, false]
 	if pv[0] and pv[1]: return ["TALK", ""]
 	var z := vor_ihm(t)
@@ -327,11 +328,16 @@ func angebot(t: Vector2i) -> Array:
 	if kiste(z) != {}: return ["OPEN", ""]   # 490 Tile.CHEST (Navigation: OPEN)
 	var rk := rast_kachel(z)
 	if rk != "": return ["REST" if rk in ["feuer", "zimmer"] else "LOOK", ""]
+	if ansehbar(z): return ["UNLOCK" if karte.zeichen(z) == "L" else "LOOK", ""]   # 541 Navigation.actionAt
 	var a := karte.ausgang(z)
 	if bool(a["verschlossen"]): return ["ENTER", ""] if a.has("klopfen") else ["", ""]
 	return ["ENTER", Sprache.t(Karte.namen.get(String(a["ziel"]["karte"]), ""))]
 
 func _aktion() -> void:
+	var m := monster_vorn() if karte.ausgang(held.kachel).is_empty() else null
+	if m != null:   # 541 Game.interact: roamerAt -> engage
+		herde.greife_an(m)
+		return
 	var pv := person_vorn() if karte.ausgang(held.kachel).is_empty() else [null, false]
 	var z := vor_ihm(held.kachel)
 	if pv[0] and (pv[1] or z.x < 0):
@@ -347,6 +353,11 @@ func _aktion() -> void:
 		return
 	if kiste(z) != {}:
 		oeffne_kiste(kiste(z))
+		return
+	if ansehbar(z):   # 541 Game.interact: Schlagbaum, Gitter, Brunnen, Regal, Altar …
+		match karte.zeichen(z):
+			"z", "L": _stoesst(z)   # Game.barrier, Game.gate: dasselbe wie beim Anstossen
+			_: ui.sage([{"text": Sprache.t(Geschichte.ansehen(karte.zeichen(z), z, zustand, licht.nacht > 0.5, licht.innen))}])
 		return
 	match rast_kachel(z):
 		"feuer", "zimmer": oeffne_rast(rast_kachel(z)); return
@@ -617,6 +628,22 @@ func kiste(t: Vector2i) -> Dictionary:
 	for k in karte.daten.get("kisten", []):
 		if int(k["x"]) == t.x and int(k["y"]) == t.y: return k
 	return {}
+
+# 541 Navigation.actionAt LOOK/UNLOCK: Dinge, die man untersuchen kann, der Schlagbaum, solange er zu ist, das Gitter, solange zu
+func ansehbar(t: Vector2i) -> bool:
+	var z := karte.zeichen(t)
+	if z == "z": return not karte.flaggen.has("barrier_open")
+	if z == "L": return not karte.flaggen.has("gate_open")
+	return not Geschichte.ansehen(z, t, zustand, false, licht.innen).is_empty()
+
+# 541 Game.roamerAt vor dem Helden: auf der Kachel vor ihm, sonst auf einer Nachbarkachel (wie vor_ihm)
+func monster_vorn() -> Streuner:
+	if herde == null or held == null: return null
+	var vorn := Vector2i(roundi(sin(held.rotation.y)), roundi(cos(held.rotation.y)))
+	for d in [vorn] + NACHBARN:
+		var s := herde.bei(held.kachel + d)
+		if s != null: return s
+	return null
 
 func oeffne_kiste(k: Dictionary) -> void:
 	var id := "kiste:" + String(k["id"])   # GameState.openedChests
