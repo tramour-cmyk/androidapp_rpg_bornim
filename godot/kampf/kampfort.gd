@@ -1122,7 +1122,9 @@ func _fx_of(e: Dictionary, by, tg, across: bool):
 	if across and e.roll != null and by.monster != null and by.monster.id == Mars.SPIDER:
 		var fs = figures.get(String(by.id))     # 494: nur der Netzwurf fliegt (Figur.strike), sonst beißt sie
 		return "WEB" if fs != null and fs.netz_los_ms >= 0 else null
-	if across and e.roll != null and by.ranged():
+	# 601 (Chef 05.11., Build 266: „Bei Fehlschuss mit Bogen ist gar kein Pfeil zu sehen“): duckt sich das Ziel (MSG130_DUCKS, ohne
+	# Wurf), schoss der Späher (Figur.strike) ohne Pfeil; jetzt fliegt er daneben wie alt (BattleFx, DUCKED als Fehlschuss)
+	if across and (e.roll != null or e.cue == "DUCKED") and by.ranged():
 		return "ARROW"
 	return null
 
