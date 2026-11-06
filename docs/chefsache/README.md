@@ -33,7 +33,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 ## Offen je Rolle
 
-Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 05.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
+Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
 **Homer** – offen 6, Muss 1, startbar 2
 
@@ -241,7 +241,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 05.11.; „star
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 | Pflege | K | von Werkzeug (340.3, 05.11.): 41529 Bytes (Grenze 15000), Erledigtes streichen; Zeile 453. | startbar |
 
-**Perikles** – offen 31, Muss 25, startbar 2
+**Perikles** – offen 31, Muss 25, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -250,7 +250,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 05.11.; „star
 | 549a.1 | M? | von Sokrates (549a ja, Chef 04.11., 19:28): ROLLE-ENTWICKLUNG.md Start 2: wer Menüschirm o | wartet auf Test/Build (gebaut) |
 | 512b | M | von Sokrates (Chef 04.11., 19:21: „512b ja“; chefsache/entscheiden/512b-nachweis.md in Git | wartet auf Test/Build (gebaut) |
 | 512.1 | M? | von Sokrates (512, Chef 03.11., 23:28, „Kümmer du dich um 512.“): Regel „Abgleich“ wirkt n | wartet auf Test/Build (gebaut) |
-| 516 | K | von Ford (Chef 03.11., 16:20, „gab es nicht ein Tool oder einen Haken für die Kostenerfass | ruht |
+| 516 | K | von Ford (Chef 03.11., 16:20, „gab es nicht ein Tool oder einen Haken für die Kostenerfass | Leiche: Frist 05.11. vorbei |
 | 513.1 | M | von Sokrates (Chef 03.11., 15:56, „513 B“, Archiv; „jetzt“ 03.11., 15:56): probelauf.py lä | wartet auf Test/Build (gebaut) |
 | 511 | M | von Sokrates (Chef 03.11., 13:50, „511 ja“, Archiv; „jetzt“ 03.11., 13:50): probelauf.py s | wartet auf Test/Build (gebaut) |
 | 488 | M | von Sokrates (Chef 03.11., 06:44, „488 ja“, Archiv 488; „jetzt“ 03.11., 06:44): Wochenziel | wartet auf Test/Build (gebaut) |
@@ -271,9 +271,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 05.11.; „star
 | 275 | M | von Sokrates (Chef 27.10., 15:09 ja, 15:15 „jetzt loslegen“, Archiv): Stufe 1 (Chefsache 2 | wartet auf Diogenes |
 | 347.2 | M | von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347): Paket Regeltreue umsetzen nach tool | wartet auf Sokrates |
 | 276 | K | von Sokrates (zu 274): Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in lauf. | ruht |
-| 341 | M | von Chef (23.10., 09:39): Zielvereinbarung Perikles, gegenprüfbar und nachhaltig (Zu 341) | Termin 06.11. |
+| 341 | M | von Chef (23.10., 09:39): Zielvereinbarung Perikles, gegenprüfbar und nachhaltig (Zu 341) | startbar |
 | 338.1 | M | von Sokrates (Chef 23.10., 09:01/09:05): „wird es mir nie vorgelegt, wie weit wir da eigen | wartet auf Test/Build (gebaut) |
-| 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
+| 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | startbar |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 | Pflege | K | von Werkzeug (340.3, 05.11.): 17327 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
