@@ -822,16 +822,36 @@ func go_on() -> void:
 	_run(func(): mars.proceed(_react))
 
 
-## 272 (Testmodus): gewinnen oder verlieren sofort; läuft der Kampf noch, gilt es, sobald er wartet (SkirmishScreen endAsked)
+## 272 (Testmodus): gewinnen oder verlieren sofort; läuft der Kampf noch, gilt es, sobald er wartet (SkirmishScreen endAsked).
+## 545 (Chef 05.11., 19:2x: „der Knopf erst greift, wenn Held am Zug -> muss vorher wirken“): läuft der Kampf, überspringt er den
+## Rest (_skip_beats), statt jeden Zug der Gegner abzuspielen; so gilt der Knopf gleich, auch wenn der Held nicht am Zug ist
 var end_asked = null
 func test_end(win: bool) -> void:
 	if mars.outcome != "ONGOING":
 		return
 	if busy:
 		end_asked = win
+		if ring_open:
+			_answer_ring(Mars.GOOD)
 		return
 	end_asked = null
 	_run(func(): mars.test_end(win))
+
+
+## 545: der Rest des laufenden Zugs ohne Bild: Worte fallen weg, Ringe gelten als gut (der Held fällt dabei nicht unnötig),
+## am Ende („done“) wirkt der Knopf (_done)
+func _skip_beats() -> void:
+	beats_lock.lock()
+	var rest := beats.duplicate()
+	beats.clear()
+	beats_lock.unlock()
+	for x in rest:
+		if x.has("ring"):
+			ring_answer = Mars.GOOD
+			ring_sem.post()
+		elif x.has("done"):
+			_done()
+			return
 
 
 func tap() -> void:
@@ -871,6 +891,9 @@ func _process(_dt: float) -> void:
 	if ring_open and Time.get_ticks_msec() > ring_start + RING_MS + GOOD_MS + 60:
 		_answer_ring(Mars.NONE)
 	if playing or verhuellt:     # 402: unter der Blende warten Worte und Züge
+		return
+	if end_asked != null:
+		_skip_beats()
 		return
 	beats_lock.lock()
 	var b = beats.pop_front() if not beats.is_empty() else null
@@ -1150,6 +1173,7 @@ func _done() -> void:
 	if end_asked != null and mars.outcome == "ONGOING":
 		test_end(bool(end_asked))
 		return
+	end_asked = null     # 545: schon vorher entschieden (Held fiel im übersprungenen Rest)
 	if mars.outcome == "WON" and reward.is_empty():
 		# 399.2: Ausrüstung als Beute (Loot.drops) würfelt die Welt, die Held und Tasche kennt (progress „beute“, aufruf.gd)
 		var beute: Callable = progress.get("beute", Callable())
