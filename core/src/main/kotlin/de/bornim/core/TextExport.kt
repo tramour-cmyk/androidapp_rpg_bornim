@@ -69,6 +69,9 @@ object TextExport {
                 // 399.1: was das Ding heilt (Wuerfel, Wurf, Bonus) und ob es Leiden heilt, fuer Benutzen in der Tasche
                 i.heal?.let { h -> putJsonArray("heilt") { add(h.count); add(h.sides); add(h.bonus) } }
                 if (i.cures) put("heilt_leiden", true)
+                // 582: Seltenheit (Farbe im Laden und in der Tasche, Items.kt) und die Kurzangabe unter dem Namen (ItemDef.stats, „heilt 2W4+2“)
+                put("seltenheit", i.rarity.name)
+                if (i.stats(Lang.DE).isNotEmpty()) put("kurz", text(T(i.stats(Lang.DE), i.stats(Lang.EN))))
             }
         }
         putJsonArray("rezepte") {

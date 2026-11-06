@@ -114,7 +114,7 @@ func kaufen() -> void:
 	for id_ in laden.waren:
 		var id := String(id_)
 		var p := Laden.kaufpreis(hw, id)
-		var unter := [Sprache.t(Laden.ding(id).get("info", ""))]
+		var unter := LadenSchirm.kurz(id)   # 582: Kurzangabe wie alt (ShopScreen.kt 244), der Langtext erst im Kasten
 		if z.anzahl(id) > 0: unter.append(("Im Besitz: " if de else "Owned: ") + str(z.anzahl(id)))
 		reihe(Menue.vorrat_bild(id), Laden.name(id), farbe_ding(id) if z.gold >= p else Stil.DIM, unter, preis_text(p), func(): menge(id, true, 1))
 	if laden.brauen: return   # Morwen handelt nur mit Kraeutern und Traenken
@@ -174,13 +174,22 @@ static func mit_zeichen(bild: Control, dp: float) -> Control:
 	h.add_child(zk)
 	return h
 
+# 582 (alt GearUi.kt 128–150): unter dem Namen die Listenzeile mit dem Platz („Kopf · RK 1“, Gear.listLine); ▲ gruen, ▼ rot als
+# eigenes Zeichen vor dem Preis, nicht in der Farbe des Namens
+const AUF := Color("2a8a3a")
 func stueck_reihe(g: Dictionary, kauf: bool, matt: bool) -> void:
 	var p := Laden.kaufpreis_von(hw, g) if kauf else Laden.verkaufspreis_von(hw, g)
 	var u = Vergleich.von(hw, g).urteil() if hw.kann_tragen(g) else null
-	var pfeil := "▲ " if u == 1 else ("▼ " if u == -1 else "")
 	var bild := Menue.stueck_rahmen(g, 42)
 	if not hw.kann_tragen(g): bild = LadenSchirm.mit_zeichen(bild, 42)
-	reihe(bild, pfeil + Beute.name(g), farbe_von(g), [Beute.kennwert(g)], preis_text(p), func(): stueck(g, kauf), matt)
+	reihe(bild, Beute.name(g), farbe_von(g), [Beute.listen_zeile(g)], preis_text(p), func(): stueck(g, kauf), matt)
+	if u == 1 or u == -1:
+		var r := inhalt.get_child(inhalt.get_child_count() - 1) as HBoxContainer
+		var pf := Stil.zeile("▲" if u == 1 else "▼", 18, AUF if u == 1 else Stil.WARN)
+		pf.name = "Urteil"
+		pf.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		r.add_child(pf)
+		r.move_child(pf, r.get_child_count() - 2)
 
 # ---------------------------------------------------------------- Verkaufen
 const ANGELEGT := ["HEAD", "CLOAK", "CHEST", "ARMS", "LEGS", "AMULET", "RING", "MAIN_HAND", "OFF_HAND"]
@@ -225,7 +234,7 @@ func verkaufen() -> void:
 	if verk.is_empty(): zeile(Sprache.u("nothing"), 14, Stil.DIM)
 	for id_ in verk:
 		var id := String(id_)
-		reihe(Menue.vorrat_bild(id), "%s  ×%d" % [Laden.name(id), z.anzahl(id)], farbe_ding(id), [Sprache.t(Laden.ding(id).get("info", ""))],
+		reihe(Menue.vorrat_bild(id), "%s  ×%d" % [Laden.name(id), z.anzahl(id)], farbe_ding(id), LadenSchirm.kurz(id),
 			preis_text(Laden.verkaufspreis(hw, id)), func(): menge(id, false, 1))
 	# 491: bei Morwen fehlt nur das Kaufen von Ausruestung; verkaufen geht wie alt (ShopScreen.kt 252 `!(brewing && buying)`)
 	luecke(8)
@@ -327,7 +336,7 @@ func braukasten(r: Dictionary, n_: int, alle := false) -> void:
 	var bild := Menue.bild_feld("ding-" + aus, 48)
 	bild.name = "DingBild"
 	bild.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-	var zl: Array = [bild, Erschaffung.txt(Sprache.t(Laden.ding(aus).get("info", "")), 14, Stil.DIM),
+	var zl: Array = [bild] + LadenSchirm.details(aus) + [
 		Erschaffung.txt(("Zutaten je Trank:" if de else "Ingredients per potion:"), 15, Stil.DIM), zutaten_reihe(r, 24, 15)]
 	if oft < 1:
 		zl.append(Erschaffung.txt(Sprache.t(Laden.FEHLT) + Laden.fehlt(z, r), 15, Stil.WARN))
@@ -361,7 +370,7 @@ func menge(id: String, kauf: bool, n_: int, alle := false) -> void:
 	var bild := Menue.bild_feld("ding-" + id, 48)
 	bild.name = "DingBild"
 	bild.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-	var zl: Array = [bild, Erschaffung.txt(Sprache.t(Laden.ding(id).get("info", "")), 14, Stil.DIM),
+	var zl: Array = [bild] + LadenSchirm.details(id) + [
 		Erschaffung.txt("%s: %d" % [Sprache.t(Laden.MENGE), n], 16),
 		Erschaffung.txt(Sprache.t(Laden.BESITZ) + "%d → %d" % [z.anzahl(id), z.anzahl(id) + (n if kauf else -n)], 15, Stil.DIM),
 		Erschaffung.txt("%s: %d → %d" % [Sprache.u("gold"), z.gold, z.gold - preis if kauf else z.gold + preis], 15, Stil.DIM if most >= 1 else Stil.WARN)]
@@ -412,6 +421,23 @@ func stueck(g: Dictionary, kauf: bool) -> void:
 			[Erschaffung.txt("%s (%s)" % [Beute.name(g), Sprache.t(Heldwerte.lade()["seltenheiten"][String(g["rarity"])].get("name", g["rarity"]))], 15, farbe_von(g))],
 			[["%s · %s" % [Sprache.u("sell"), preis_text(p)], tu], [abbrechen(), func(): pass]])
 	dialog(Beute.name(g), farbe_von(g), zl, [["%s · %s" % [Sprache.u("buy") if kauf else Sprache.u("sell"), preis_text(p)], frage, ok], [abbrechen(), func(): pass]])
+
+# 582: Kurzangabe (ItemDef.stats aus core, „heilt 2W4+2“) als Unterzeile; ohne Wirkung (Ausdauertrank) keine
+static func kurz(id: String) -> Array:
+	var k = Laden.ding(id).get("kurz")
+	return [Sprache.t(k)] if k is Dictionary else []
+
+# 582: Dialogs.ItemDetails: Seltenheit in ihrer Farbe, die Wirkung hell, dann der Langtext
+static func details(id: String) -> Array:
+	var d := Laden.ding(id)
+	var s := String(d.get("seltenheit", "COMMON"))
+	var sel: Dictionary = Heldwerte.lade()["seltenheiten"].get(s, {})
+	var r: Array = [Erschaffung.txt(Sprache.t(sel.get("name", s)), 14, Color(Menue.SELTEN.get(s, "e6ddcb")))]
+	var k = d.get("kurz")
+	if k is Dictionary:
+		r.append(Erschaffung.txt(Sprache.t(k), 16, Stil.BRIGHT))   # alt fett; einen halbfetten Schnitt gibt es noch nicht (584)
+	r.append(Erschaffung.txt(Sprache.t(d.get("info", "")), 14, Stil.DIM))
+	return r
 
 func farbe_ding(id: String) -> Color:
 	return Color(SELTEN.get(String(Laden.ding(id).get("seltenheit", "COMMON")), "e6ddcb"))
