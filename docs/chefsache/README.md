@@ -46,7 +46,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 101, Muss 75, startbar 4
+**Tom** – offen 101, Muss 75, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -59,7 +59,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „star
 | 584 | M? | von Tom (Abgleich 512b; Zu 584): kein halbfetter Schnitt, Köpfe wie alt (Theme.kt 216: hal | wartet auf Perikles |
 | 585 | M? | von Tom (Abgleich 512b; Zu 585): Kleinigkeiten Menüs: Titelumbruch Hauptmenü, Knopf „Lizen | wartet auf Perikles |
 | 569 | M | von Sokrates (Chef 04.11., 19:44, Bild 558 Probe 4 Wald Tag; Zu 569): Baumkronen ohne Umri | ruht bis 07.11. |
-| 568 | M? | von Sokrates (Chef 04.11., 19:42, „grundsätzlich bei 568. Für A.“; DESIGN-SPIELSYSTEM-2-0. | startbar |
+| 568 | M? | von Sokrates (Chef 04.11., 19:42, „grundsätzlich bei 568. Für A.“; DESIGN-SPIELSYSTEM-2-0. | ruht bis 07.11. |
 | 574 | M | von Sokrates (Chef 04.11., 20:40, Laufprotokoll Build 257 vom Handy; Zu 574): Fehler „Lamb | wartet auf Test/Build (gebaut) |
 | 571 | M | von Sokrates (Chef 04.11., 20:13, Build 257, „Ganz wichtig“; Zu 571): Wischen auf einer Sc | wartet auf Test/Build (gebaut) |
 | 557 | M | von Sokrates (Chef 04.11., 11:15; Zu 557): Spielstände als Entwurf im Stil „ohne Kasten“ ( | wartet auf Test/Build (gebaut) |
