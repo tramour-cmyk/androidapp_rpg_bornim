@@ -42,6 +42,9 @@ class TextExportTest {
         val dinge = j["dinge"]!!.jsonObject
         assertEquals(listOf("2", "4", "2"), dinge["potion"]!!.jsonObject["heilt"]!!.jsonArray.map { it.jsonPrimitive.content })
         assertEquals("true", dinge["remedy"]!!.jsonObject["heilt_leiden"]!!.jsonPrimitive.content)
+        // 582: Seltenheit und Kurzangabe wie im alten Laden
+        assertEquals("UNCOMMON", dinge["greater_potion"]!!.jsonObject["seltenheit"]!!.jsonPrimitive.content)
+        assertEquals("heilt 2W4+2", dinge["potion"]!!.jsonObject["kurz"]!!.jsonObject["de"]!!.jsonPrimitive.content)
     }
 
     @Test
