@@ -189,7 +189,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 565 | MARS: unten im Gruppenkasten sieht man nicht, welcher Held am Zug ist (Chef 04.11., 17:10, t257 C) | E Kampf | M | – | Team Jerry | startbar |
 | 566 | MARS: Goblin-Späher „In den Schatten“ ist im Bild nicht zu sehen (Chef 04.11., 17:15) | E Kampf | M | – | Team Jerry | erledigt |
 | 567 | MARS: Gegner stehen im Kampfort fast übereinander, Ansage hängt neben keinem (Bilder Chef 04.11., 17:00–17:15) | E Kampf | M | – | Team Jerry | erledigt |
-| 568 | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | A Spiel | M? | – | Team Tom | wartet |
+| 568 | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | A Spiel | M? | – | Team Tom | ruht |
 | 569 | Baumkronen ohne erkennbare Tuschelinie, „ein einziger Brei“ (Chef 04.11., 19:44, Bild 558 Probe 4) | A Spiel | M | – | Team Tom | ruht |
 | 570 | Theke: Wahl „Fleisch verkaufen · 12 Gold“ liest sich wie ein Preis (Prüfer 557 Runde 4) | A Spiel | M? | – | Homer | startbar |
 | 571 | Wischen auf Schaltflächen rollt Listen nicht (Testmenü, Erschaffung; Chef 04.11., 20:13) | A Spiel | M | – | Team Tom | gebaut |
