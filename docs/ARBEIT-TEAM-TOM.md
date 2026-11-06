@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (06.11., 08:22, `session_01Hmoj778kKyrCyPpZ6u1o7f`):** 591, 592 gebaut (je ein Zweig, ohne Gerätebild); beendet. Nachfolger: nur auf Zuruf (468e).
+**Übergabe (06.11., 09:10, `session_01Hmoj778kKyrCyPpZ6u1o7f`):** 591, 592, 582, 583 gebaut, 557 an; Rest braucht Bilder. Nachfolger: nur auf Zuruf (468e).
 
 ## Zeilen
 
