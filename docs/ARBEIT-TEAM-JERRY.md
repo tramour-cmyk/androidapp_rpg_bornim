@@ -86,7 +86,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht: SRD (Chef 31.10.) | – |
 | 469 | M | **von Sokrates:** Kampf auf BRS: Ring ohne Klassen regeln | wartet auf 406.1 | – |
 | 594 | M | **von Sokrates (Chef 05.11., 19:2x; Zu 594–601):** Probekampf „Spinne“ (nicht allein): Wolf daneben, Wolfstext in der Blende | gebaut, fährt im nächsten Build: Blende nennt wie alt den Gegner mit den meisten EP (Spinne), Menü „Riesenspinne und Wolf“; Balance mit 478; Geprüft an: e55d1c684 | `claude/jerry-594-blende` |
-| 597 | M | **von Sokrates (Chef 05.11., 19:2x; Zu 594–601):** Ring ohne Ankündigung (Fledermaus); alle Angreifer prüfen | startbar | – |
+| 597 | M | **von Sokrates (Chef 05.11., 19:2x; Zu 594–601):** Ring ohne Ankündigung (Fledermaus); alle Angreifer prüfen | gebaut, fährt im nächsten Build: kein Ring ohne Ansage (Liste an Chef 06.11.); Fledermaus, Wolf, Ratte nie Ring, wie alt; Ring bei jedem Nahangriff wäre 469; Geprüft an: 01fb0dbbf | `claude/jerry-597-ring` |
 | 601 | M | **von Sokrates (Chef 05.11., 19:2x, t266.5; Zu 594–601):** Goblin-Späher: Schuss ohne Bewegung, falscher Pfeil, kein Pfeil beim Fehlschuss; Treffer trotz Schatten | startbar | – |
 | 599 | M | **von Sokrates (Chef 05.11., 19:2x, t266; Zu 594–601):** Gebietskarte: Kobolde zu schnell; Kampf durch Hineinlaufen ohne Angreifen-Knopf | startbar | – |
 | 596 | M | **von Sokrates (Chef 05.11., 19:2x; Zu 594–601):** Sterben je Gegnerart mehrfach, gespiegelt, weich (Wolf, Keiler, Goblins); als Baustein der Bibliothek | startbar | – |
