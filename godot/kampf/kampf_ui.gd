@@ -280,6 +280,7 @@ func _process(_dt: float) -> void:
 		var was := scene_tip(druck_pos)
 		if was != "":
 			show_tip(was)
+			names_until = Time.get_ticks_msec() + NAMES_MS     # 536: wie alt (SkirmishScreen namesUntil) zeigen dann alle ihre Namen
 	overlay.queue_redraw()
 
 
@@ -783,12 +784,18 @@ func _set_pick(p: String, arg = null) -> void:
 
 
 func show_tip(text: String) -> void:
+	# 536 (Chef 04.11., 16:56: „Das erste Fenster … war riesig … Die anderen waren dann okay“; namen_536: erstes 6445 px hoch,
+	# zweites 175 px): der Text kam, solange das Fenster noch 0 breit war, und brach nach jedem Wort um; erst die Breite, dann der Text
+	var vs: Vector2 = get_viewport().get_visible_rect().size
+	tip.size = Vector2(vs.x - 16 * dp, 0)
 	tip.text = text
 	tip.visible = true
-	var vs: Vector2 = get_viewport().get_visible_rect().size
 	tip.position = Vector2(8 * dp, kampfort.scene_rect().size.y - 70 * dp)
 	tip.size = Vector2(vs.x - 16 * dp, 0)
-	get_tree().create_timer(6.0).timeout.connect(func(): tip.visible = false)
+	tip_nr += 1
+	var nr := tip_nr     # die Uhr eines früheren Fensters schließt nicht das neue
+	get_tree().create_timer(6.0).timeout.connect(func(): if nr == tip_nr: tip.visible = false)
+var tip_nr := 0
 
 
 # ---------------------------------------------------------------- ring, rolls, verdict
@@ -922,12 +929,22 @@ func _draw_overlay() -> void:
 		overlay.draw_colored_polygon(tri, _friend_color(fig.fighter))
 		tri.append(tri[0])
 		overlay.draw_polyline(tri, Color(0, 0, 0, 0.8), maxf(1.0, dp), true)
-	# names only while choosing a target (NameTag)
-	if pick == "target" and current != null:
-		for tg in m.targets(current):
-			if k.figures.has(tg.id):
-				var fig = k.figures[tg.id]
-				_name_tag(_foot(fig), _tall(fig), tg.name(lang), false)
+	# names only while choosing a target (NameTag); 536 (Chef 04.11., 16:56: „In der alten Fassung war es so, dass die Bezeichnungen
+	# der Gegner eingeblendet wurden, auch wenn man länger drückt“; 17:00: „Ein Wolfsname steht da, die anderen stehen nicht da“):
+	# wie alt jeder Wählbare und nach langem Drücken alle drei Sekunden lang (sanft aus, SOFT_MS); die Ansage steigt dann über den
+	# Namen (_draw_intents named), vorher lag sie auf ihm
+	named.clear()
+	var weich := clampf(float(names_until - Time.get_ticks_msec()) / SOFT_MS, 0.0, 1.0)
+	var waehlbar: Array = m.targets(current) if pick == "target" and current != null else []
+	for id in k.figures:
+		var fig = k.figures[id]
+		var f = fig.fighter
+		if not fig.visible or fig.down or k.shown.hp.get(id, f.hp) <= 0:
+			continue
+		var a: float = 1.0 if waehlbar.has(f) else weich
+		if a > 0.0:
+			named[id] = true
+			_name_tag(_foot(fig), _tall(fig), f.name(lang), f == current, a)
 	_draw_spells()
 	# 249: Blut unter den Ansagen (Prüfer 26.10.: Tropfen lagen auf dem Text)
 	_draw_blood()
@@ -1512,13 +1529,23 @@ func _draw_statuses(sr: Rect2) -> void:
 			row.position.x += c[1] + gap
 
 
-func _name_tag(foot: Vector2, tall: float, nm: String, now: bool) -> void:
+const NAMES_MS := 3000     # SkirmishScreen NAMES_MS
+const SOFT_MS := 400.0     # SkirmishScreen SOFT_MS
+var names_until := 0
+var named := {}     # 536: wer gerade seinen Namen trägt (die Ansage steigt darüber)
+
+func _name_h() -> float:
+	return sp(12) * 1.35 + 2 * dp
+
+func _name_tag(foot: Vector2, tall: float, nm: String, now: bool, alpha := 1.0) -> void:
 	var fs := sp(12)
 	var w := font.get_string_size(nm, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x + 12 * dp
-	var h := fs * 1.35 + 2 * dp
+	var h := _name_h()
 	var r := Rect2(foot.x - w / 2, foot.y - tall - 28 * dp - h, w, h)
-	_chip(r, Color.BLACK, GOLD if now else RIM, 1.0)
-	overlay.draw_string(font, Vector2(r.position.x + 6 * dp, r.position.y + h * 0.76), nm, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, BRIGHT if now else TEXT)
+	var rim: Color = GOLD if now else RIM
+	_chip(r, Color(0, 0, 0, alpha), Color(rim, rim.a * alpha), 1.0)
+	var tc: Color = BRIGHT if now else TEXT
+	overlay.draw_string(font, Vector2(r.position.x + 6 * dp, r.position.y + h * 0.76), nm, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, Color(tc, tc.a * alpha))
 
 
 ## Ansagen (IntentSign): „! Anspringen“ im Rahmen, Farbe des Angezielten; von unten nach oben ohne Überlappen (layOut).
@@ -1559,6 +1586,8 @@ func _draw_intents(sr: Rect2) -> void:
 		# über dem Kopf des Ansagenden, mittig (Prüfer Stand 7: „! Anspringen“ schwebte links daneben ohne Bezug)
 		var head_y := foot.y - _tall(fig) - 10 * dp
 		var want_y := head_y - 6 * dp - h
+		if named.has(id):     # 536 wie alt (242: „over the name while names show“)
+			want_y = foot.y - _tall(fig) - 28 * dp - _name_h() - 4 * dp - h
 		var x := clampf(foot.x - w / 2, 4 * dp, sr.size.x - w - 4 * dp)
 		# Prüfer Stand 9: Ansagen der vorderen Wölfe lagen auf dem hinteren; daneben am eigenen Kopf, wenn darüber ein anderer steht
 		var side := _tall(fig) * (0.8 if Figur.vier(fig.fighter) else 0.42) + 4 * dp
