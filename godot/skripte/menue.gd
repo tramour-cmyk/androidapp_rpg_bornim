@@ -25,6 +25,7 @@ signal sprache                     # die Welt wechselt die Sprache (spiel.gd spr
 signal hauptmenue                  # speichern und zum Hauptmenue (spiel.gd)
 signal ueber                       # 399.1 „Über“: wie hauptmenue, dort gleich „Über das Spiel“
 signal ankunft                     # 399.1 Chronik: die Ankunft (Intro) noch einmal ansehen (spiel.gd zwischenbild)
+signal andacht                     # 537 Chronik: die Morgenandacht (Tempelszene, 68) nach Kapitel 1 noch einmal ansehen
 signal test(was: String, mit: Array)   # 399.1 Reiter „Test“: teleport, kapitelende, kampf, probe (spiel.gd test_tat)
 
 const DP := AktionsKnopf.DP
@@ -287,8 +288,9 @@ func frage_verteilen() -> void:
 	var de := Sprache.aktiv() == "de"
 	var d := Heldwerte.lade()
 	var schleier := Rueckfrage.schleier(self)   # 526: Tippen daneben und Android-Zurück wie „Abbrechen“ (416.1)
-	var mitte := CenterContainer.new()
+	var mitte: Container = Spielstaende.oben() if Spielstaende.vorlage2 else CenterContainer.new()   # 557a B: oben wie jeder Schirm
 	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	mitte.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	schleier.add_child(mitte)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(8 * DP))
@@ -432,8 +434,9 @@ func tippbar(c: Control, was: Callable) -> void:
 # DialogSpec: Titel in der Farbe des Dings, Zeilen, Knoepfe [Text, Tat, an]; jeder Knopf schliesst erst den Kasten
 func dialog(titel: String, farbe: Color, zeilen: Array, knoepfe: Array) -> Control:
 	var schleier := Rueckfrage.schleier(self)   # 526: Tippen daneben und Android-Zurück wie „Abbrechen“ (416.1)
-	var mitte := CenterContainer.new()
+	var mitte: Container = Spielstaende.oben() if Spielstaende.vorlage2 else CenterContainer.new()   # 557a B: oben wie jeder Schirm
 	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	mitte.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	schleier.add_child(mitte)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(8 * DP))
@@ -700,7 +703,7 @@ static func vergleich_tabelle(zeilen: Array, de: bool) -> Control:
 		return l
 	var kopf := HBoxContainer.new()
 	kopf.add_child(spalte.call("Vergleich" if de else "Compare", 15.0, Stil.TEXT, 1.8, true))
-	kopf.add_child(spalte.call("Angelegt" if de else "Equipped", 13.7, Stil.DIM, 0.9))
+	kopf.add_child(spalte.call("Angelegt" if de else "Equipped", 13.7, Spielstaende.ANGABE if Spielstaende.vorlage2 else Stil.DIM, 0.9))   # Zu 557 (8)
 	kopf.add_child(spalte.call("Neu" if de else "New", 13.7, Stil.DIM, 0.9))
 	t.add_child(kopf)
 	var strich := ColorRect.new()
@@ -712,7 +715,7 @@ static func vergleich_tabelle(zeilen: Array, de: bool) -> Control:
 		var besser := int(r["besser"])
 		h.add_child(spalte.call(String(r["wort"]), 15.0, Stil.TEXT, 1.8))
 		h.add_child(spalte.call(String(r["vorher"]), 15.0, Stil.DIM, 0.9))
-		h.add_child(spalte.call(String(r["nachher"]), 15.0, {1: GRUEN, -1: Stil.WARN}.get(besser, Stil.DIM), 0.9, besser != 0))
+		h.add_child(spalte.call(String(r["nachher"]), 15.0, {1: GRUEN, -1: Spielstaende.mangel()}.get(besser, Stil.DIM), 0.9, besser != 0))   # 557 Runde 5 (Prüfer 19:47: „1 W6+3“ in Warnfarbe)
 		t.add_child(h)
 		# 519 GearDetails: der Hinweis der Zeile (Obergrenze, Schnitt) darunter, 10 dp eingerueckt, matt
 		if String(r.get("notiz", "")) != "":
@@ -756,6 +759,9 @@ func fackel_satz(war: bool) -> String:
 func frage_stueck(g: Dictionary) -> void:
 	var de := Sprache.aktiv() == "de"
 	var ok := hw.kann_tragen(g)
+	if entwurf == "B":   # 557: Entwurf B, im Spiel weiter „“
+		fenster_b(g)
+		return
 	var k: Array = [[Sprache.u("equip"), func(): meldung(lege_an(g)); baue(), ok]]
 	if ok and einhandwaffe(g): k.append(["Nebenhand" if de else "Off hand", func(): meldung(lege_an(g, true)); baue()])
 	k.append(["Wegwerfen" if de else "Discard", func(): frage_wegwerfen(g)])
@@ -767,6 +773,12 @@ func frage_wegwerfen(g: Dictionary) -> void:
 	var preis := Laden.verkaufspreis_von(hw, g)
 	if not Bedienung.rueckfragen:   # 399.1 Rückfragen aus (MenuScreen.kt: if (!vm.confirmations) discard())
 		wirf_weg(g)
+		return
+	if entwurf == "B" and Spielstaende.vorlage2:   # 557 Vorlage 2: Rueckfrage ohne Rahmen
+		Spielstaende.frage(self, "Wirklich wegwerfen?" if de else "Really discard?", [
+			Erschaffung.txt(Menue.name_mit_seltenheit(g), 16, farbe_von(g)),
+			Erschaffung.txt(("Der Gegenstand ist danach verloren. Beim Händler bekämst du dafür %d Gold." if de else "The item will be gone for good. A trader would pay you %d gold for it.") % preis, 15)],
+			"KREUZ", "Wegwerfen" if de else "Discard", Stil.WARN, func(): wirf_weg(g))
 		return
 	dialog("Wirklich wegwerfen?" if de else "Really discard?", farbe_von(g), [
 		Erschaffung.txt("%s (%s)" % [Beute.name(g), Sprache.t(Heldwerte.lade()["seltenheiten"][String(g["rarity"])].get("name", g["rarity"]))], 16, farbe_von(g)),
@@ -791,7 +803,14 @@ func passend(platz: String) -> Array:
 
 func platzname(platz: String) -> String: return Sprache.t(Heldwerte.lade()["plaetze"][platz])
 
+# 557 (Chef 04.11., 12:38: „noch eine andere Stelle im Spiel im neuen Design dazupacken, um einen besseren Eindruck (vorher-nachher)
+# zu gewinnen“): Wechselliste eines Platzes als Entwurf B „ohne Kasten“ (549a), im Spiel weiter „“ (Kasten wie alt) bis zum Urteil
+static var entwurf := "B"   # 557 eingeschaltet (Archiv 05.11., 08:18: „557 wie gebaut“; Runde 5 Vorlage 2 mit Mängelton, Chef 04.11., 19:54)
+
 func waehle(platz: String) -> void:
+	if entwurf == "B":
+		_waehle_b(platz)
+		return
 	var de := Sprache.aktiv() == "de"
 	var l := passend(platz)
 	var zeilen: Array = []
@@ -814,6 +833,366 @@ func waehle(platz: String) -> void:
 				[Sprache.u("back"), func(): waehle(platz)]]))
 		zeilen.append(p)
 	schleier["k"] = dialog(platzname(platz), Stil.GOLD, zeilen, [[Sprache.u("close"), func(): pass]])
+
+# 557 Entwurf B: ganzer Schirm schwarz, Titel ohne Rahmen mit Zierlinie, oben was angelegt ist (nur Auskunft, ohne „›“), darunter je
+# Stueck eine Zeile zwischen feinen Goldlinien, ueber die ganze Breite antippbar (mindestens 56 dp, dunkel beim Antippen): links das
+# Bild (Behaelter, Rahmen bleibt: 549a Punkt 5), Name in der Farbe der Seltenheit, darunter Art, Platz, Wert; rechts das Urteil
+# (▲ besser, ▼ schlechter, ◆ gemischt: Chef 12:01 „das in der Mitte … wird gar nicht bewertet“) und goldenes „›“; nicht Tragbares
+# matt mit dem Grund. Unten „‹ ZURÜCK“ als Nebenwahl. Antippen oeffnet das Fenster des Stuecks wie bisher (Anlegen, Zurueck).
+func _waehle_b(platz: String) -> void:
+	var de := Sprache.aktiv() == "de"
+	var schirm := ColorRect.new()
+	schirm.color = Color.BLACK
+	schirm.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	schirm.mouse_filter = Control.MOUSE_FILTER_STOP
+	add_child(schirm)
+	var zu := func(): schirm.queue_free()
+	Zurueck.melde(schirm, zu)
+	var rand := MarginContainer.new()
+	rand.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	for sd in ["left", "right"]: rand.add_theme_constant_override("margin_" + sd, int(20 * DP))
+	rand.add_theme_constant_override("margin_top", int(36 * DP)); rand.add_theme_constant_override("margin_bottom", int(16 * DP))
+	schirm.add_child(rand)
+	var spalte := VBoxContainer.new()
+	spalte.add_theme_constant_override("separation", 0)
+	rand.add_child(spalte)
+	var kopf := Stil.zeile(platzname(platz).to_upper(), 22, Stil.GOLD, 3.0)
+	kopf.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	spalte.add_child(kopf)
+	spalte.add_child(Erschaffung.luecke(6))
+	spalte.add_child(Spielstaende.zier())
+	spalte.add_child(Erschaffung.luecke(8))
+	var an = hw.ding(platz)
+	var jetzt := HBoxContainer.new()
+	jetzt.add_theme_constant_override("separation", int(14 * DP))
+	jetzt.custom_minimum_size.y = 56 * DP
+	var jt := Stil.zeile(("Angelegt" if de else "Equipped").to_upper(), 13, Spielstaende.ANGABE if Spielstaende.vorlage2 else Stil.DIM, 2.0)   # Zu 557 (8)
+	jt.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	jt.custom_minimum_size.x = 60 * DP
+	jetzt.add_child(jt)
+	if Spielstaende.vorlage2 and an != null:   # Pruefer 07:46 (557a B): nur dem Angelegten fehlte das Bild, jede Zeile darunter hat eines
+		var jb := Menue.bild_feld("stueck-%s-%s" % [an["base"], an["rarity"]], 40)
+		jb.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		jetzt.add_child(jb)
+	var jn := Stil.zeile(Beute.name(an) if an != null else ("nichts" if de else "nothing"), 16, farbe_von(an) if an != null else Stil.DIM)
+	jn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	jn.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	jn.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	if an != null:   # Helfer 13:04: angelegt nur der Name; darunter Art, Platz, Wert wie in den Zeilen
+		var jv := VBoxContainer.new()
+		jv.add_theme_constant_override("separation", int(2 * DP))
+		jv.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		jv.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		jv.add_child(jn)
+		var ju := Menue.listen_zeile_b(an)
+		if ju != "": jv.add_child(Stil.zeile(ju, 13, Stil.DIM))
+		jetzt.add_child(jv)
+	else: jetzt.add_child(jn)
+	spalte.add_child(jetzt)
+	spalte.add_child(Spielstaende.linie())
+	var rolle := ScrollContainer.new()
+	rolle.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	rolle.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
+	rolle.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	spalte.add_child(rolle)
+	var liste := VBoxContainer.new()
+	liste.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	liste.add_theme_constant_override("separation", 0)
+	rolle.add_child(liste)
+	var l := passend(platz)
+	if l.is_empty(): liste.add_child(Erschaffung.txt("Nichts Passendes im Beutel." if de else "Nothing in the bag fits.", 15, Stil.DIM))
+	for g in l:
+		if liste.get_child_count() > 0: liste.add_child(Spielstaende.linie())
+		liste.add_child(_wechsel_zeile_b(g, platz, zu, de))
+	spalte.add_child(Spielstaende.linie())
+	if Spielstaende.vorlage2:   # 557 Runde 4 (Chef 17:40, 549a (9)): „‹ ZURÜCK“ links, nicht mittig, so gross wie jeder Knopf
+		spalte.add_child(Spielstaende.knopfzeile(Spielstaende.knopf("neben", Sprache.u("back"), zu, true), null))
+		Spielstaende.folge_inhalt(spalte, rolle, liste)   # 557a B: „Zurück“ am Inhalt, fest unten nur, wenn die Liste rollt
+		Menue.wuerfel_lesbar(spalte)
+		return
+	var z := HBoxContainer.new()
+	z.custom_minimum_size.y = 52 * DP
+	z.alignment = BoxContainer.ALIGNMENT_CENTER
+	z.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	z.add_child(Stil.zeile("‹  " + Sprache.u("back").to_upper(), 14, Stil.GOLD, 2.0))   # Nebenwahl (549a Punkt 4)
+	spalte.add_child(Spielstaende.tippbar(z, zu))
+
+# 557 (Helfer 13:07: Roben zeigten keinen Wert, nur der Plattenpanzer „RK 18“): ohne Kennwert (Roben, Ringe, Umhaenge …) stehen die zwei
+# ersten Boni kurz an seiner Stelle („+2 GES · +2 RK“), damit jede Zeile eine Zahl hat; sonst wie Gear.listLine
+static func listen_zeile_b(g: Dictionary) -> String:
+	var t := Beute.listen_zeile(g)
+	if Beute.kennwert(g) != "" or g.get("rolls", []).is_empty(): return t
+	var d := Heldwerte.lade()
+	var de := Sprache.aktiv() == "de"
+	var teile: Array = []
+	for r in g["rolls"]:
+		var a := String(r[0]); var w := int(r[1])
+		var ad: Dictionary = d["affixdaten"].get(a, {})
+		if d["attribute"].has(a): teile.append("+%d %s" % [w, Sprache.t(d["attribute"][a]["kurz"])])
+		elif a == "AC": teile.append(("+%d RK" if de else "+%d AC") % w)
+		elif a == "ALL_STATS": teile.append(("+%d alle" if de else "+%d all") % w)
+		elif a == "CRIT": teile.append(("Krit. ab %d" if de else "Crit %d+") % (20 - w))
+		elif not ad.is_empty(): teile.append("+%d%s %s" % [w, "%" if bool(ad["prozent"]) else "", Sprache.t(ad["name"])])
+		if teile.size() == 2: break
+	var k := " · ".join(PackedStringArray(teile)) + (" …" if g["rolls"].size() > 2 else "")
+	return k if t == "" else t + " · " + k
+
+func _wechsel_zeile_b(g: Dictionary, platz: String, zu: Callable, de: bool) -> Control:
+	var ok := hw.kann_tragen(g)
+	var r := HBoxContainer.new()
+	r.add_theme_constant_override("separation", int(14 * DP))
+	r.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	r.custom_minimum_size.y = 64 * DP
+	var bild := Menue.stueck_rahmen(g, 46)
+	bild.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	if not ok: bild.modulate.a = 0.5
+	r.add_child(bild)
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", int(2 * DP))
+	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	v.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var n := Stil.zeile(Beute.name(g), 16, farbe_von(g) if ok else Color(farbe_von(g), 0.5))
+	n.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	n.custom_minimum_size.x = 60 * DP
+	v.add_child(n)
+	var unten := Menue.listen_zeile_b(g)
+	if unten == "": unten = Testmodus.gross_anfang(Sprache.t(Heldwerte.lade()["seltenheiten"][String(g["rarity"])].get("name", g["rarity"])))
+	if zweihaendig(g) and not unten.containsn("zweih") and not Beute.name(g).containsn("zweih"): unten += " · " + ("zweihändig" if de else "two-handed")
+	var u = Vergleich.von(hw, g).urteil() if ok else null
+	var wort := ""
+	if u == 1: wort = "besser" if de else "better"
+	elif u == -1: wort = "schlechter" if de else "worse"
+	elif u == 0: wort = "gemischt" if de else "mixed"
+	if wort != "": unten += " · " + wort
+	var ul := Stil.zeile(unten, 13, Stil.DIM if ok else Color(Stil.DIM, 0.6))
+	ul.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	ul.custom_minimum_size.x = 60 * DP
+	v.add_child(ul)
+	if not ok:
+		var kl := Sprache.t(hw.klassendaten()["name"])
+		# Helfer 13:04: in der matten Zeile war der rote Grund auf Schwarz kaum lesbar: nur Bild, Name, Angaben matt, der Grund in Warnfarbe voll
+		v.add_child(Stil.zeile(("Als %s kannst du das nicht tragen." if de else "As a %s you cannot wear this.") % kl, 13, Spielstaende.mangel()))
+	r.add_child(v)
+	if u != null:
+		var pf := Stil.zeile("▲" if u == 1 else ("▼" if u == -1 else "◆"), 18, GRUEN if u == 1 else (Spielstaende.mangel() if u == -1 else Stil.BRIGHT))   # wie das Fenster
+		pf.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		r.add_child(pf)
+	var c := Control.new()   # goldenes „›“ wie die Hauptwahl der Spielstaende
+	c.custom_minimum_size = Vector2(9 * DP, 16 * DP)
+	c.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	c.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	c.draw.connect(func():
+		var m := c.size / 2
+		var a := 4.0 * DP
+		c.draw_polyline(PackedVector2Array([m + Vector2(-a * 0.55, -a * 1.5), m + Vector2(a * 0.75, 0), m + Vector2(-a * 0.55, a * 1.5)]), Stil.BRIGHT if ok else Color(Stil.DIM, 0.6), 1.8 * DP, true))
+	r.add_child(c)
+	var rand := MarginContainer.new()
+	rand.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	rand.add_theme_constant_override("margin_top", int(6 * DP)); rand.add_theme_constant_override("margin_bottom", int(6 * DP))
+	rand.add_child(r)
+	return Spielstaende.tippbar(rand, func():
+		zu.call()
+		fenster_b(g, func(): meldung(lege_an(g, platz == "OFF_HAND" and String(Beute.grundform(String(g["base"]))["slot"]) != "OFF_HAND")); baue(), func(): waehle(platz)))
+
+# ---------------------------------------------------------------- 557 / 524.1 Gegenstandsfenster im Stil B
+# Chef 04.11., 13:32 („524.1 nach B in 557“): der aeussere Goldrahmen bleibt (Entscheidung, 549a (3)), innen nur Linien und Abstand.
+# Kopf: Bild (Behaelter mit Rahmen der Seltenheit, 549a (5)), Name in seiner Farbe, darunter Seltenheit und Art; gleich darunter das Urteil
+# als Zeile (▲ gruen „Besser“, ▼ rot „Schlechter“, ◆ gold „Gemischt“, dieselben Zeichen wie die Wechselliste) und was abgelegt wird.
+# Dann die Grundzahlen (Tragort, Schaden oder RK, Finesse und Fernkampf erklaert), die Boni in Gold (kein Hellblau), verpuffte und zum
+# Teil verpuffte matt mit „wirkt nicht“ oder „wirkt +n (Obergrenze)“, die Warnungen, die Tabelle, „Händler zahlt n Gold“. Unten
+# „× WEGWERFEN“ als Nebenwahl links, „ANLEGEN ›“ als Hauptwahl rechts; Abbrechen ueber Zurueck oder Tippen daneben (526).
+# [anlegen]: was „Anlegen“ tut (Tasche: lege_an; Wechselliste: an den gewaehlten Platz); [zurueck]: wohin Zurueck fuehrt (sonst nur zu)
+func fenster_b(g: Dictionary, anlegen := Callable(), zurueck := Callable()) -> Control:
+	var de := Sprache.aktiv() == "de"
+	var ok := hw.kann_tragen(g)
+	var h := {}
+	var schleier := Rueckfrage.schleier(self, func():
+		(h["s"] as Node).queue_free()
+		if zurueck.is_valid(): zurueck.call())
+	h["s"] = schleier
+	schleier.color = Color(0, 0, 0, 0.86)
+	var mitte: Container = Spielstaende.oben() if Spielstaende.vorlage2 else CenterContainer.new()   # 557a B: oben wie jeder Schirm
+	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	mitte.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	schleier.add_child(mitte)
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", int(8 * DP))
+	var breite := get_viewport_rect().size.x - 2 * 16 * DP - 2 * 14 * DP
+	if Spielstaende.vorlage2:   # Zu 557 (1), (2) (Chef 16:42: „beim Gegenstand neu, da ist er noch rum“): ohne Rahmen wie Rueckfrage
+		# und Mengenkasten, so breit wie sie, Grund deckend (Pruefer 16:43: Reiterkacheln, Seitenkasten, SCHLIESSEN schienen durch)
+		schleier.color = Color.BLACK
+		breite = get_viewport_rect().size.x - 48 * DP
+	v.custom_minimum_size.x = breite
+	mitte.add_child(Rueckfrage.halte(v if Spielstaende.vorlage2 else Erschaffung.kasten(v)))
+	for c in Menue.stueck_zeilen_b(hw, g): v.add_child(c)
+	v.add_child(Spielstaende.linie())
+	var zu := func(): schleier.queue_free()
+	var an_c := anlegen if anlegen.is_valid() else func(): meldung(lege_an(g)); baue()
+	if Spielstaende.vorlage2:   # 557 Vorlage 2 (Chef 14:26): „‹ ABBRECHEN“ links, ANLEGEN rechts
+		# 557 Runde 4 (Chef 17:44, Variante B): Wegwerfen und Nebenhand echte Knoepfe, so gross wie Abbrechen und Anlegen, in zwei Reihen
+		# zu je zwei: oben „× WEGWERFEN“ (Warnfarbe wie in der Rueckfrage, Chef 17:43) links und „NEBENHAND ›“ rechts, unten „‹ ABBRECHEN“
+		# und „ANLEGEN ›“ (Pruefer 17:12: Wegwerfen und Nebenhand standen zu nah beieinander)
+		var oben: Array = [Spielstaende.knopf("gefahr", "Wegwerfen" if de else "Discard", func(): zu.call(); frage_wegwerfen(g), true)]
+		if ok and einhandwaffe(g) and not anlegen.is_valid():
+			oben.append(Spielstaende.knopf("neben", "Nebenhand" if de else "Off hand", func(): zu.call(); meldung(lege_an(g, true)); baue()))
+		v.add_child(Spielstaende.fuss(func(): schleier.queue_free(); if zurueck.is_valid(): zurueck.call(), "", Sprache.u("equip"), Stil.BRIGHT, func(): zu.call(); an_c.call(), ok, oben))
+		Menue.wuerfel_lesbar(v)
+		return schleier
+	var unten := HBoxContainer.new()
+	unten.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	unten.add_child(Spielstaende.nebenwahl("KREUZ", "Wegwerfen" if de else "Discard", func(): zu.call(); frage_wegwerfen(g)))
+	var mitte_ := Control.new()
+	mitte_.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	mitte_.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	unten.add_child(mitte_)
+	var an_ := anlegen if anlegen.is_valid() else func(): meldung(lege_an(g)); baue()
+	if ok and einhandwaffe(g) and not anlegen.is_valid():
+		unten.add_child(Spielstaende.nebenwahl("", "Nebenhand" if de else "Off hand", func(): zu.call(); meldung(lege_an(g, true)); baue()))
+	unten.add_child(Spielstaende.hauptwahl(Sprache.u("equip"), func(): zu.call(); an_.call(), ok))
+	v.add_child(unten)
+	return schleier
+
+# Name mit Seltenheit in Klammern, „Göttlicher Ring Thors“ ohne „(göttlich)“ dahinter: steht sie schon im Namen, nicht doppelt
+# (Pruefer 17:12 zur Rueckfrage Wegwerfen)
+static func name_mit_seltenheit(g: Dictionary) -> String:
+	var n := Beute.name(g)
+	var s := Sprache.t(Heldwerte.lade()["seltenheiten"][String(g["rarity"])].get("name", g["rarity"]))
+	return n if n.containsn(s) else "%s (%s)" % [n, s]
+
+# Pruefer 17:12: „1W6“ liest sich in Alegreya wie „IW6“ (die Eins ist dort ein I mit Faehnchen, auch in den Ziffernformen lnum, tnum):
+# nur in der Darstellung ein festes Leerzeichen zwischen Anzahl und W („1 W6“), der Wuerfeltext aus den Daten bleibt
+const _WUERFEL := "(\\d)W(\\d)"
+static func wuerfel_lesbar(wurzel: Node) -> void:
+	var re := RegEx.create_from_string(_WUERFEL)
+	for l in wurzel.find_children("*", "Label", true, false):
+		if re.search(l.text): l.text = re.sub(l.text, "$1\u00a0W$2", true)
+
+static func stueck_zeilen_b(hw: Heldwerte, g: Dictionary) -> Array:
+	var de := Sprache.aktiv() == "de"
+	var sp := "de" if de else "en"
+	var d := Heldwerte.lade()
+	var b := Beute.grundform(String(g["base"]))
+	var farbe := Color(SELTEN.get(String(g["rarity"]), "e6ddcb"))
+	var fett := func(l: Label) -> Label:
+		l.add_theme_constant_override("outline_size", int(DP * 0.6)); l.add_theme_color_override("font_outline_color", l.get_theme_color("font_color"))
+		return l
+	var satz := func(t: String, gr: float, f: Color) -> Label:
+		var l := Stil.zeile(Spielstaende.ohne_waise(t), gr, f)
+		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		l.custom_minimum_size.x = 60 * DP
+		return l
+	var z_: Array = []
+	# Kopf
+	var kopf := HBoxContainer.new()
+	kopf.add_theme_constant_override("separation", int(12 * DP))
+	if Spielstaende.vorlage2:   # Zu 557 (1): Bild im Kopf frei, ohne Goldkaestchen (wie der Mengenkasten)
+		var bf := Menue.bild_feld("stueck-%s-%s" % [g["base"], g["rarity"]], 48)
+		bf.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		kopf.add_child(bf)
+	else: kopf.add_child(Menue.stueck_rahmen(g, 52))
+	var kv := VBoxContainer.new()
+	kv.add_theme_constant_override("separation", int(2 * DP))
+	kv.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	# Pruefer 07:46 (557a B): der Name stand mittig neben dem Bild 29 px tiefer als jeder Titel; oben wie der Kopf jedes Fensters
+	kv.size_flags_vertical = Control.SIZE_SHRINK_BEGIN if Spielstaende.vorlage2 else Control.SIZE_SHRINK_CENTER
+	var plus := int(g.get("plus", 0))
+	# 557 Runde 5 (Chef 19:23: „die plus x beim Gegenstand mit zum Namen dazu packen“): „Kettenpanzer +3“ in der Namenszeile, mit festem
+	# Leerzeichen, damit es mit dem letzten Wort umbricht (Bild 4: „+3“ stand allein unter dem Namen)
+	var nl: Label = fett.call(satz.call(Beute.name(g) + (("\u00a0+%d" % plus) if Spielstaende.vorlage2 and plus > 0 else ""), 19, farbe))
+	kv.add_child(nl)
+	var selten := Testmodus.gross_anfang(Sprache.t(d["seltenheiten"][String(g["rarity"])]["name"]))
+	var art := String(b[sp])
+	var art_z := selten + ((String(d["endungen"][String(b["geschlecht"])]) if de else "") + " " + art if not Beute.name(g).containsn(art) else "") + ((" +%d" % plus) if plus > 0 else "")
+	if Spielstaende.vorlage2 and Beute.name(g).containsn(art) and Beute.name(g).containsn(selten):   # Pruefer 17:12: „Göttlicher Ring …“, darunter
+		art_z = ("+%d" % plus) if plus > 0 else ""   # noch einmal „Göttlich“: was der Name sagt, steht nicht doppelt da (wie stueck_zeilen, 524)
+	if Spielstaende.vorlage2 and plus > 0:   # 557 Runde 5: „+x“ steht schon am Namen
+		art_z = art_z.trim_suffix(" +%d" % plus).trim_suffix("+%d" % plus).strip_edges()
+	if art_z != "": kv.add_child(satz.call(art_z, 13, Color(farbe, 0.8)))
+	kopf.add_child(kv)
+	z_.append(kopf)
+	if Spielstaende.vorlage2: z_.append(Spielstaende.zier())   # Chef 16:51 (549a (8)): Kopf zuerst, gleich darunter die Zierlinie
+	# Urteil als Zeile (statt Band): Zeichen und Satz in der Farbe des Urteils, darunter was abgelegt wird
+	var v: Vergleich = Vergleich.von(hw, g) if hw.kann_tragen(g) and not hw.ausruestung.values().any(func(x): return x != null and int(x["uid"]) == int(g["uid"])) else null
+	if v:
+		var u = v.urteil()
+		var uf: Color = {1: GRUEN, -1: Spielstaende.mangel(), 0: Stil.BRIGHT}.get(u, Stil.DIM)
+		var ur := HBoxContainer.new()
+		ur.add_theme_constant_override("separation", int(8 * DP))
+		if u != null:
+			var zl := Stil.zeile({1: "▲", -1: "▼", 0: "◆"}[u], 17, uf)
+			zl.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+			ur.add_child(zl)
+		var ut: Label = fett.call(satz.call(v.satz(), 15, uf))
+		ut.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		ur.add_child(ut)
+		z_.append(ur)
+		if not v.ersetzt.is_empty():
+			var anderer := v.ersetzt.any(func(x): return String(Beute.grundform(String(x["base"]))["slot"]) != String(b["slot"]))
+			z_.append(satz.call(("Ersetzt: " if de else "Replaces: ") + ", ".join(PackedStringArray(v.ersetzt.map(func(x): return Beute.name(x)))), 13, Spielstaende.mangel() if anderer else Stil.DIM))
+	# 549a (8): keine zweite schlichte Linie unter der Zierlinie; Abstand statt Linie
+	z_.append(Erschaffung.luecke(4) if Spielstaende.vorlage2 else Spielstaende.linie())
+	# Grundzahlen
+	var waffe := Beute.ist_waffe(b)
+	var zwei := waffe and bool(b["zweihaendig"])
+	var wo := String(d["plaetze"][String(b["slot"])][sp])
+	if zwei: wo = "Beide Hände" if de else "Both hands"
+	elif b.get("vielseitig") != null: wo = "Vielseitig: eine oder beide Hände" if de else "Versatile: one or both hands"
+	elif waffe: wo = "Haupt- oder Nebenhand" if de else "Main or off hand"
+	wo += (" · Stufe " if de else " · Level ") + str(int(g["ilvl"]))
+	var gewicht := String(b.get("gewicht", "NONE"))
+	if gewicht != "NONE": wo += " · " + Sprache.t(d["ruestungsarten"].get(gewicht, {"de": "Stoff", "en": "cloth"}))
+	var wl: Label = satz.call(wo, 13.5 if Spielstaende.vorlage2 else 13.0, Spielstaende.mangel() if zwei else (Spielstaende.ANGABE if Spielstaende.vorlage2 else Stil.DIM))   # Zu 557 (8)
+	z_.append(fett.call(wl) if zwei else wl)
+	if String(b["art"]) == "LIGHT":
+		z_.append(satz.call("Pech und Werg auf einem Stock. In der Nebenhand, statt eines Schilds. Im Dunkeln siehst du weiter als mit einem Leuchtfunken. Brennt, solange du sie trägst." if de else
+			"Pitch and tow on a stick. Held in the off hand, instead of a shield. In the dark you see further than with a Lightspark. Burns as long as you carry it.", 14, Stil.TEXT))
+	if b.get("schaden") != null:
+		var viel = b.get("vielseitig")
+		var art_s := Sprache.t(d["schadensarten"].get(String(b["schadensart"]), {"de": "", "en": ""}))
+		z_.append(fett.call(satz.call("%s: %s %s" % [Sprache.u("damage"), Beute.wuerfel_text(b["schaden"], plus, de), art_s], 16, Stil.TEXT)))
+		if viel != null: z_.append(satz.call(("Mit beiden Händen (andere Hand leer): " if de else "In both hands (other hand empty): ") + Beute.wuerfel_text(viel, plus, de), 14, Stil.DIM))
+		if plus > 0: z_.append(fett.call(satz.call("%s +%d" % [Sprache.u("attack"), plus], 15, Stil.TEXT)))
+		if bool(b.get("finesse", false)): z_.append(satz.call("Finesse: trifft mit GES oder STÄ, was höher ist" if de else "Finesse: hits with DEX or STR, whichever is higher", 13, Stil.DIM))
+		if bool(b.get("fern", false)): z_.append(satz.call("Fernkampf: trifft mit GES" if de else "Ranged: hits with DEX", 13, Stil.DIM))
+	if String(b["slot"]) == "CHEST" and int(b.get("ruestung", 0)) > 0:
+		var ges: String = {"LIGHT": " + GES" if de else " + DEX", "MEDIUM": " + GES (max 2)" if de else " + DEX (max 2)"}.get(gewicht, "")
+		z_.append(fett.call(satz.call("%s %d%s" % [Sprache.u("ac"), int(b["ruestung"]) + plus, ges], 16, Stil.TEXT)))
+	if String(b["art"]) == "SHIELD": z_.append(fett.call(satz.call("%s +%d" % [Sprache.u("ac"), int(b["ruestung"]) + plus], 16, Stil.TEXT)))
+	if int(b.get("fokus", 0)) > 0: z_.append(fett.call(satz.call(("Zauberkraft +%d" if de else "Spell power +%d") % int(b["fokus"]), 16, Stil.TEXT)))
+	# Boni: wirksam in Gold; was die Obergrenze ganz oder zum Teil schluckt, matt mit dem, was wirkt
+	if not g.get("rolls", []).is_empty():
+		z_.append(Spielstaende.linie())
+		var wk := Vergleich.wirkung(hw, g) if hw.kann_tragen(g) else {}
+		for r in g["rolls"]:
+			var a := String(r[0]); var w := int(r[1])
+			var ad: Dictionary = d["affixdaten"][a]
+			var t := ("Kritisch ab %d" % (20 - w) if de else "Critical on %d–20" % (20 - w)) if a == "CRIT" else \
+				"+%d%s %s" % [w, "%" if bool(ad["prozent"]) else "", Sprache.t(ad["name"])]
+			var e: Array = wk.get(a, [w, w])
+			if e.size() > 2 and int(e[1]) != int(e[2]):   # alle Attribute: je Attribut verschieden viel (Helfer 14:18: „wirkt nur teils“ sagte zu wenig)
+				z_.append(satz.call(t + (" – wirkt +%d bis +%d (Obergrenze)" if de else " – gives +%d to +%d (limit)") % [int(e[1]), int(e[2])], 15, Stil.DIM))
+			elif int(e[1]) == 0: z_.append(satz.call(t + (" – wirkt nicht (Obergrenze)" if de else " – no effect (limit)"), 15, Stil.DIM))
+			elif int(e[1]) < w:
+				var pz := "%" if bool(ad["prozent"]) else ""
+				z_.append(satz.call(t + (" – wirkt +%d%s (Obergrenze)" if de else " – gives +%d%s (limit)") % [int(e[1]), pz], 15, Stil.DIM))
+			else: z_.append(satz.call(t, 16, Stil.BRIGHT))
+	# Warnungen
+	if not hw.kann_tragen(g):
+		z_.append(satz.call(("Als %s kannst du das nicht tragen." if de else "As a %s you cannot wear this.") % Sprache.t(hw.klassendaten()["name"]), 15, Spielstaende.mangel()))
+	elif waffe and not hw.geuebt(g):
+		z_.append(satz.call("Ungeübt: kein Übungsbonus auf Angriffe." if de else "Not proficient: no proficiency bonus to attacks.", 15, Spielstaende.mangel()))
+	if int(b.get("fokus", 0)) > 0 and not bool(hw.klassendaten()["zauberer"]):
+		z_.append(satz.call("Zauberkraft nützt nur Zauberwirkern." if de else "Spell power only helps spellcasters.", 13, Stil.DIM))
+	# Helfer 14:18: die Sammelzeile „Attribute: … Bonus wirkt nicht“ der Tabelle widersprach den Bonuszeilen („wirkt +1“: was das Stueck
+	# selbst bringt; die Sammelzeile: gegen das, was es ersetzt). Jede Bonuszeile sagt schon, was die Obergrenze schluckt: hier ohne sie
+	var tz: Array = v.zeilen.filter(func(x): return not (String(x["vorher"]) == "" and String(x["nachher"]) == "")) if v else []
+	if not tz.is_empty():
+		z_.append(Spielstaende.linie())
+		z_.append(vergleich_tabelle(tz, de))
+	if Laden.ausruestung_verkaeuflich(g):
+		z_.append(satz.call(("Händler zahlt %d Gold" if de else "A trader pays %d gold") % Laden.verkaufspreis_von(hw, g), 13.5 if Spielstaende.vorlage2 else 13.0, Stil.BRIGHT if Spielstaende.vorlage2 else Stil.GOLD))   # Zu 557 (8)
+	return z_
 
 # PaperDoll: links Kopf, Umhang, Oberkoerper, Arme, Beine; rechts Amulett, Ring, Haupthand, Nebenhand; der Held dazwischen
 func ausruestung() -> void:
@@ -1349,6 +1728,13 @@ func chronik() -> void:
 			if i > 0: luecke(12)
 			zeile(Sprache.t(l[i]["titel"]), 17, Stil.BRIGHT if i == 0 else Stil.GOLD)
 			zeile(Sprache.t(l[i]["text"]).replace("{name}", hw.name), 15, Stil.TEXT if i == 0 else Stil.DIM)
+		# 68: die Morgenandacht am Ende von Kapitel 1 kann man wieder ansehen, sobald das Kapitel vorbei ist (ChronicleTab onTemple)
+		if Zwischenbild.da() and z.has(Geschichte.CHAPTER1_DONE):
+			luecke(12)
+			var t := Erschaffung.knopf("Die Morgenandacht ansehen" if de else "Watch the dawn service", func(): andacht.emit())
+			t.custom_minimum_size.y = 36 * DP
+			t.add_theme_font_size_override("font_size", int(round(14 * Stil.SP)))
+			inhalt.add_child(t)
 		# 69d: die Ankunft bei Nacht gehoert vor den ersten Eintrag; man kann sie wieder ansehen (ChronicleTab onIntro)
 		if Zwischenbild.da():
 			luecke(12)
