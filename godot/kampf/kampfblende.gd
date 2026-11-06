@@ -24,6 +24,7 @@ var art_name := ""
 var hinterhalt := false
 var ms := 0.0
 var verlassen := -1.0
+var lesen := 0.0                          # t63.1, 556: Lesezeit aller Worte (InterludeClock.readMs), Tippen beendet frueher
 var tippt := false
 var gegangen := false
 var worte: Control
@@ -72,25 +73,13 @@ func _init(eroeffnung: String, l: Dictionary, zufall: RandomNumberGenerator) -> 
 	var w := worte_fuer(eroeffnung, bool(l.get("rudel", false)), String(l.get("id", "")), boss, art_name != "FIGHT_SHORT", zufall)
 	letzter = w[0]
 	if w[1] != null: letzter_gegner = w[1]
+	# FightVeil: Zeichen des ersten Satzes, des Namens und des Satzes des Gegners (InterludeUi.kt 394)
+	lesen = Ortsblende.lese_ms((Sprache.t(w[0]).length() if w[0] != null else 0) + String(l.get("name", "")).length() \
+		+ (Sprache.t(w[1]).length() if w[1] != null else 0), daten())
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_STOP
-	# derselbe Grund wie zwischen den Orten: Schwarz mit einem Hauch Vignette (FightVeilBox)
-	var grund := TextureRect.new()
-	grund.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	grund.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	grund.stretch_mode = TextureRect.STRETCH_SCALE
-	grund.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var g := Gradient.new()
-	g.offsets = PackedFloat32Array([0.0, 0.55, 1.0])
-	g.colors = PackedColorArray([Ortsblende.KERN, Color("0a0807"), Color.BLACK])
-	var t := GradientTexture2D.new()
-	t.gradient = g
-	t.fill = GradientTexture2D.FILL_RADIAL
-	t.fill_from = Vector2(0.5, 0.46)
-	t.fill_to = Vector2(0.5, 0.46 + 0.62)
-	t.width = 64; t.height = 128
-	grund.texture = t
-	add_child(grund)
+	# derselbe Grund wie zwischen den Orten: reines Schwarz (556, Chef 04.11., 07:52 „Bitte klassische schwarz“)
+	add_child(Ortsblende.schwarz())
 	var mitte := CenterContainer.new()
 	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mitte.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -148,7 +137,7 @@ func _gui_input(e: InputEvent) -> void:
 ## InterludeClock.at, alles gezeichnet: [Schleier, Worte, vorbei]; der Hinterhalt hat die Worte sofort (ein_ms 0)
 func bei(t: float) -> Array:
 	var ein := float(art["ein_ms"]); var aus := float(art["aus_ms"]); var weg := float(art["schleier_aus_ms"])
-	if verlassen < 0.0 and (t >= float(art["mind_ms"]) or tippt): verlassen = t
+	if verlassen < 0.0 and (t >= maxf(float(art["mind_ms"]), lesen) or tippt): verlassen = t
 	var geht := 1.0 - clampf((t - verlassen) / maxf(1.0, aus), 0.0, 1.0) if verlassen >= 0.0 else 1.0
 	var w := Ortsblende.glatt(minf(1.0 if ein == 0.0 else clampf(t / ein, 0.0, 1.0), geht))
 	var s := 1.0 - Ortsblende.glatt(clampf((t - verlassen - aus * 2.0 / 3.0) / weg, 0.0, 1.0)) if verlassen >= 0.0 else 1.0
