@@ -30,6 +30,7 @@ const GRAK := "hobgoblin_captain"
 const CALLED := "goblin"
 const SCOUT := "goblin_archer"
 const WOLF := "wolf"
+const DIRE_WOLF := "dire_wolf"     # 533: Grimmzahn, Art eigen, Regeln des Rudels wie der Wolf
 const SPIDER := "giant_spider"
 ## 535 (Abgleich 512, Sokrates): Arten mit eigenen Regeln im Körper einer anderen (aufruf.gd ART): Ratte und Fledermaus bewegen
 ## sich als Wolf, Kobold und Schamane als Goblin. 577 (Chef 04.11., 21:00: „Wie wär's denn, wenn die Dinger die Kennung kriegen, die
@@ -87,7 +88,7 @@ const ST_DWARF := ["Zwergische Zähigkeit: {0} widersteht dem Gift!", "Dwarven r
 const ST_SHAKES := ["{0} schüttelt die Betäubung ab!", "{0} shrugs off the stun!"]
 const MSG296_DAMAGE := ["{0} Schaden.", "{0} damage."]
 ## 296.2: the kinds whose specials MARS plays through their own intents, not the old fight's.
-const OWN_INTENTS := [GRAK, CALLED, SCOUT, WOLF, SPIDER]
+const OWN_INTENTS := [GRAK, CALLED, SCOUT, WOLF, DIRE_WOLF, SPIDER]
 const CALL_MAX := 2
 const GATHER_HEAL := [2, 10, 0]
 const PROBE_LEVEL := 3
@@ -408,6 +409,11 @@ func pick(key: String) -> Array:
 	return l[i]
 
 
+## 533: Wolf oder Grimmzahn (beide kämpfen als Rudel: Anspringen, Einkreisen, Wolfszeilen)
+static func wolfig(m) -> bool:
+	return m != null and String(m.id) in [WOLF, DIRE_WOLF]
+
+
 ## 535, 577: die Art, nach der die Regeln eine Figur behandeln: ihre id
 static func art_of(m) -> String:
 	return "" if m == null else String(m.id)
@@ -419,7 +425,7 @@ static func koerper_of(m) -> String:
 
 
 func wolf(f: Fighter, own: String, general: String) -> Array:
-	return pick(own if f.monster != null and f.monster.id == "wolf" else general)
+	return pick(own if wolfig(f.monster) else general)
 
 
 static func fmt(t: Array, lang_i: int, args: Array) -> String:
@@ -1284,7 +1290,7 @@ func _foe_turn(foe: Fighter, react: Callable) -> void:
 		var t = first_aimed
 		if t != null:
 			_say(fmt(pick("MSG130_CIRCLECLOSED"), lang, [foe.name(lang)]), foe.id)
-			for w in all.filter(func(x): return x.side == "FOES" and x.standing() and art_of(x.monster) == WOLF):
+			for w in all.filter(func(x): return x.side == "FOES" and x.standing() and wolfig(x.monster)):
 				if outcome != "ONGOING" or not t.standing():
 					break
 				_strike(w, t, I_STAB, NONE)
@@ -1519,8 +1525,8 @@ func _pick_intent(foe: Fighter) -> Dictionary:
 		return I_BITE
 	if id == SHAMAN:     # 535: Heilen, Fluch, Feuerstoß des Schamanen fehlen noch (Ansagen über Homer); bis dahin kämpft er wie ein Goblin
 		id = CALLED
-	if id == WOLF:
-		var others := all.filter(func(x): return x.side == "FOES" and x.standing() and art_of(x.monster) == WOLF).size()
+	if id == WOLF or id == DIRE_WOLF:
+		var others := all.filter(func(x): return x.side == "FOES" and x.standing() and wolfig(x.monster)).size()
 		var circling := intents.values().any(func(p): return p[0].effect == "CIRCLE")
 		var can := [I_POUNCE, I_POUNCE]
 		if others >= 2 and not circling and chosen:
