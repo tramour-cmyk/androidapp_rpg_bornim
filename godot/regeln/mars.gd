@@ -62,6 +62,16 @@ const STATUS := {
 	"WEAK": [["Geschwächt", "Weakened"], ["Schwach", "Weak"], Color("8A58C8")],
 	"BLIND": [["Geblendet", "Blinded"], ["Blind", "Blind"], Color("6A6A7A")],
 }
+## 536: was ein Zustand bewirkt, wortgetreu aus Status.kt desc (der Tipp auf ein Zustandsschild im Kampf)
+const STATUS_DESC := {
+	"POISON": ["Schaden zu Beginn jeder Runde.", "Damage at the start of each round."],
+	"BURN": ["Starker Schaden zu Beginn jeder Runde.", "Heavy damage at the start of each round."],
+	"BLEED": ["Schaden jede Runde, Heilung nur halb so stark.", "Damage each round, healing is halved."],
+	"STUN": ["Setzt die nächste Runde aus.", "Loses the next turn."],
+	"SLOW": ["−2 auf Angriff und Rüstungsklasse.", "−2 to attack and armor class."],
+	"WEAK": ["−2 auf Angriff und Schaden.", "−2 to attack and damage."],
+	"BLIND": ["Angriffe mit Nachteil.", "Attacks with disadvantage."],
+}
 ## A status that does not wear off by itself (Status.LASTING).
 const LASTING := 99
 ## The lines of the old fight (Battle.kt StatusLines), the same words in MARS.

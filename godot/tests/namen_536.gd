@@ -58,5 +58,19 @@ func _lauf() -> void:
 	var h2: float = ui.tip.size.y
 	print("Erklärfenster: erstes %.0f px, zweites %.0f px hoch, Schirm %.0f" % [h1, h2, root.get_visible_rect().size.y])
 	if absf(h1 - h2) > 2.0: f += 1
+	# 536 (Chef 17:02): ein Tipp auf ein Zustandsschild erklärt es (Status.kt desc)
+	var wolf = k.mars.find("wolf1")
+	wolf.status = {"BLEED": 3}
+	k.shown["status"] = k.mars._statuses()
+	for i in 3: await process_frame
+	var tipp := ""
+	if not ui.status_rects.is_empty():
+		var ev := InputEventScreenTouch.new()
+		ev.pressed = true
+		ev.position = (ui.status_rects[0][0] as Rect2).get_center()
+		ui._scene_input(ev)
+		tipp = ui.tip.text if ui.tip.visible else ""
+	print("Zustandsschild: %d Schilder, Tipp „%s“" % [ui.status_rects.size(), tipp])
+	if tipp != "Blutend: Schaden jede Runde, Heilung nur halb so stark.": f += 1
 	print("NAMEN 536 %s" % ("ok" if f == 0 else "FEHLER %d" % f))
 	quit(f)

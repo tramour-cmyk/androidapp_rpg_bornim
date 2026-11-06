@@ -243,6 +243,8 @@ func _scene_input(ev) -> void:
 		kampfort.test_end(false)
 	elif win_rect.has_point(p):
 		kampfort.test_end(true)
+	elif not kampfort.ring_open and _status_tip(p) != "":
+		show_tip(_status_tip(p))     # 536: ein Tipp auf ein Zustandsschild erklärt es
 	else:
 		kampfort.tap()
 		druck_t0 = Time.get_ticks_msec()     # 536: lange gedrückt auf eine Ansage oder einen Gegner sagt, was er vorhat
@@ -828,8 +830,20 @@ func show_roll(e: Dictionary) -> void:
 # ---------------------------------------------------------------- drawing over the scene
 ## 536: was langes Drücken an [p] in der Szene sagt: auf einer Ansage, was sie heißt und was hilft (MarsTips intent, 210T);
 ## auf einem Gegner sein Name, seine Absicht und ihr Ziel (SkirmishScreen whoIs); sonst nichts.
+## 536 (Chef 04.11., 17:02: „Auch kein Hilfetext, wenn ich den Status-Text oder Status-Effekt anklicke.“): das Zustandsschild unter
+## [p] erklärt sich mit Namen und Wirkung (Status.kt title und desc, wortgetreu in Mars.STATUS_DESC); sonst „“
+func _status_tip(p: Vector2) -> String:
+	for e in status_rects:
+		if (e[0] as Rect2).grow(4 * dp).has_point(p):
+			var st: String = e[1]
+			return "%s: %s" % [Mars.STATUS[st][0][lang], Mars.STATUS_DESC.get(st, ["", ""])[lang]]
+	return ""
+
+
 func scene_tip(p: Vector2) -> String:
 	var k = kampfort
+	if _status_tip(p) != "":
+		return _status_tip(p)
 	for id in sign_of:
 		if (sign_of[id] as Rect2).grow(6 * dp).has_point(p) and k.shown.intents.has(id):
 			var tx = Tips.INTENTS.get(String(k.shown.intents[id][0].id))
@@ -1451,6 +1465,7 @@ func _draw_blood() -> void:
 
 
 var placed_status := []
+var status_rects := []     # 536: [Rect2, Zustand] je gezeichnetes Schild
 
 
 ## Whether status signs at [r] would lie on another figure, an intent sign or signs placed before.
@@ -1478,6 +1493,7 @@ func _draw_statuses(sr: Rect2) -> void:
 	var fs := sp(11)
 	var gap := 4 * dp
 	placed_status.clear()
+	status_rects.clear()
 	for id in k.shown.get("status", {}):
 		if not k.figures.has(id):
 			continue
@@ -1490,7 +1506,7 @@ func _draw_statuses(sr: Rect2) -> void:
 			var left: int = k.shown.status[id][st]
 			var label: String = Mars.STATUS[st][1][lang] + ("" if left >= Mars.LASTING else " %d" % left)
 			var w := font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x + 10 * dp
-			chips.append([label, w, Mars.STATUS[st][2]])
+			chips.append([label, w, Mars.STATUS[st][2], st])
 			width += w + gap
 		var h := fs * 1.3 + 2 * dp
 		var foot := _foot(fig)
@@ -1521,6 +1537,7 @@ func _draw_statuses(sr: Rect2) -> void:
 		placed_status.append(row)
 		for c in chips:
 			var r := Rect2(row.position.x, row.position.y, c[1], h)
+			status_rects.append([r, c[3]])
 			overlay.draw_rect(r, c[2])
 			overlay.draw_rect(r, Color(0, 0, 0, 0.8), false, maxf(1.0, dp))
 			# Prüfer: Weiß auf Gelb und hellem Grün zu schwach; auf hellen Farben schwarz
