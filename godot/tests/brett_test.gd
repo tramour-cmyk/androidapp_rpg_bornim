@@ -46,7 +46,7 @@ func _lauf() -> void:
 	await process_frame
 	m.reiter = "chronik"; m.baue()
 	await process_frame
-	var t := " | ".join(PackedStringArray(m.find_children("*", "Label", true, false).map(func(l): return l.text)))
+	var t := " | ".join(PackedStringArray(m.find_children("*", "Label", true, false).map(func(l): return l.text.replace("\u00a0", " "))))   # 557: fest verbundene Wörter
 	for soll in ["Nebenaufträge", "Felle für den Winter", "von Thessa", "Bereit zur Abgabe – bei Thessa", "Lohn: 60 Gold"]:
 		if not t.contains(soll): fehler += 1; print("FALSCH Chronik ohne ", soll)
 	m.free()

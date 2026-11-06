@@ -21,7 +21,7 @@ func alle(n: Node, art, aus: Array) -> Array:
 	return aus
 
 func texte(n: Node) -> PackedStringArray:
-	return PackedStringArray(alle(n, Label, []).map(func(x): return (x as Label).text))
+	return PackedStringArray(alle(n, Label, []).map(func(x): return (x as Label).text.replace("\u00a0", " ")))
 
 # Erschaffung.knopf(…, gewaehlt): Schrift Veil.bright
 func gewaehlt(b: Button) -> bool: return b.get_theme_color("font_color") == Stil.BRIGHT
@@ -34,6 +34,7 @@ func rezept(id: String) -> Dictionary:
 	return {}
 
 func _lauf() -> void:
+	LadenSchirm.entwurf_b = ""   # 557: dieser Test prüft die Brauenliste im alten Aussehen; B prüft gruppe_mass_557
 	Sprache.lade()
 	if Sprache.aktiv() != "de": Sprache.wechsle()
 	var z := Zustand.new()
@@ -76,7 +77,7 @@ func _lauf() -> void:
 		for x in zt:
 			var id := String(x.get_meta("zutat"))
 			var genug := z.gold >= int(r["gold"]) if id == "gold" else z.anzahl(id) >= int(r["zutaten"][id])
-			pruefe((farbe(x) == Stil.WARN) == (not genug), "%s/%s: Farbe passt nicht zu hat/braucht (%s)" % [r["ergebnis"], id, x.text])
+			pruefe((farbe(x) == Spielstaende.mangel()) == (not genug), "%s/%s: Farbe passt nicht zu hat/braucht (%s)" % [r["ergebnis"], id, x.text])
 		var ok := Laden.wie_oft(z, r) > 0
 		var fehlt_da := Array(texte(h)).any(func(s): return s.begins_with("Fehlt: "))
 		pruefe(fehlt_da == (not ok), "%s: „Fehlt:“ nur, wenn nicht brauar" % r["ergebnis"])

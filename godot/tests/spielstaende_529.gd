@@ -14,7 +14,7 @@ func _initialize() -> void:
 	_lauf.call_deferred()
 
 func texte(n: Node) -> PackedStringArray:
-	return PackedStringArray(n.find_children("*", "Label", true, false).map(func(x): return (x as Label).text))
+	return PackedStringArray(n.find_children("*", "Label", true, false).map(func(x): return (x as Label).text.replace("\u00a0", " ")))
 
 func _lauf() -> void:
 	Sprache.lade()

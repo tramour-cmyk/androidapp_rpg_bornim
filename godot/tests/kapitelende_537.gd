@@ -21,7 +21,7 @@ func finde(klasse) -> Node:
 	return null
 
 func texte(n: Node) -> String:
-	return " | ".join(PackedStringArray(n.find_children("*", "Label", true, false).map(func(l): return l.text)))
+	return " | ".join(PackedStringArray(n.find_children("*", "Label", true, false).map(func(l): return l.text.replace("\u00a0", " "))))   # 557: fest verbundene Wörter
 
 # Zeilen lesen, bis kein Text mehr offen ist; zurueck die gelesenen
 func lies(spiel) -> Array:
@@ -68,9 +68,9 @@ func _lauf() -> void:
 	if ks == null:
 		print("KAPITELENDE %d Fehler" % fehler); quit(1); return
 	var t := texte(ks)
-	pruefe("Titel", t.contains(Sprache.u("title")), true)
+	pruefe("Titel", t.to_upper().contains(Sprache.u("title").to_upper()), true)   # 557 B: Titel in Versalien
 	pruefe("ENDE VON KAPITEL 1", t.contains("ENDE VON KAPITEL 1"), true)
-	pruefe("Zeile des Helden", t.contains("%s · " % hw.name) and t.contains("%s %d" % [Sprache.u("level"), hw.stufe]), true)
+	pruefe("Zeile des Helden", t.containsn(hw.name) and t.contains("%s %d" % [Sprache.u("level"), hw.stufe]), true)   # 557 B: Name eigene Zeile in Versalien
 	pruefe("Spiel steht", paused, true)
 	pruefe("Welt dahinter schwarz", spiel.blende.color.a, 1.0)
 	pruefe("noch kein Morgen", [spiel.karte.id, z.minuten], ["elder", 20 * 60])
