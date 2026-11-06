@@ -60,6 +60,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 07:19 06.11.: Chef 07:17: Rückläufer t266 liegen seit gestern 19 Uhr bei Sokrates eingetragen (Tom 589–592, Jerry 588, 593–601), also nach 287 startbar. Startsperre 07:19 Start Jerry „588, 594–601: Rückläufer t266“ (468e: die eine Entwicklersitzung des Tages, Übergabe nach etwa 3 Stunden). Befund an Perikles: `lauf.py` las die Startmarken 07:04 vom 05.11. als heutige („jünger als 20 Minuten“).
 - 07:01 06.11.: Bild Chef 06:59: Woche 95 % (287: nur Rückläufer des Chefs). Kein Start: weder Entwicklersitzung (468e, nur auf Zuruf) noch Tagesbericht Perikles. Morgenmeldung gesendet.
 - 21:15 05.11.: Ford neu auf Tiefe 0 (Chef von Hand; alter Ford 570 Tsd. Token), Uhr `trig_01XdFp…` angelegt, alte gelöscht, alter Ford `c3tx` archiviert, 22,39 $ auf Betrieb. Kein Start (468e: Entwicklersitzung des Tages gelaufen; 468d ab 22:30).
 - 18:25 05.11.: Chef „Zu t266 6“ (Log-Fehler Kampf im Wald, Build 266) als Vorgang 588 in Jerrys Vorrat (nur auf Zuruf, 468e), Wortlaut gekürzt in „Zu 588“.
