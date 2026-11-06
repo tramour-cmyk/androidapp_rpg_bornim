@@ -101,8 +101,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 447.4.1 | M | **von Homer (447.4, Chef 03.11., 15:50 „1B 2A“):** Lehrmeister, Meisterschaften, Ruf in Kapitel 1 bauen nach `STORY-LEHRMEISTER-K1.md` und `STORY-RUF-K1.md` („Für Tom“, Varianten), Lehrmeister in der Karte | wartet auf 508 (Sokrates: Einladung in Kapitel 1 erreichbar?) | – |
 | 589 | M | **von Sokrates (Chef 05.11., 19:2x, t266; Zu 589):** Marktplatz: geklonte Stände, identische Säcke daneben, Durchgang links am Stand hakelig | startbar | – |
 | 590 | M | **von Sokrates (Chef 05.11., 19:2x; Zu 590):** Innenräume: Türseite bei gedrehter Kamera dunkel und tot; Licht (Kerzen) und Einrichtung | startbar | – |
-| 591 | M | **von Sokrates (Chef 05.11., 19:2x; Zu 591):** Hühner und Kaninchen fliehen vor dem Helden wie alt, Klang dazu | startbar | – |
-| 592 | M | **von Sokrates (Chef 05.11., 19:2x; Zu 592):** Vorbeugen (Müde) nur bei Ausdauer null; sonst Ruhebewegungen wie alt aus der Bibliothek | startbar | – |
+| 591 | M | **von Sokrates (Chef 05.11., 19:2x; Zu 591):** Hühner und Kaninchen fliehen vor dem Helden wie alt, Klang dazu; „jetzt“ 06.11., 08:07 (Chef: „was am effizientesten ist“) | startbar | – |
+| 592 | M | **von Sokrates (Chef 05.11., 19:2x; Zu 592):** Vorbeugen (Müde) nur bei Ausdauer null; sonst Ruhebewegungen wie alt aus der Bibliothek; „jetzt“ 06.11., 08:07 | startbar | – |
 | 133 | K | Charisma-Wahlen Kapitel 2 (`STORY-WAHLEN.md`) | ruht: altes SRD-System (Chef 31.10.) | – |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (Kapitel 2 nicht im Spiel) | – |
 | 586 | K | **von Chef über Jerry (05.11., 09:35; Zu 586):** Bilder 557 einheitlich: Rast am Feuer und an der Theke (7, 8) mit Zeichen links neben der Überschrift wie 3–6; Überschriften von 1 und 2 so groß wie 7–12 (586a) | wartet: nichts bauen (Chef: „nur als Kür“), nach dem Durchspielen (579) | – |
