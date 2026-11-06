@@ -223,7 +223,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 600 | Kampfort: Knopf zum Beschleunigen wie Würfel und Raster (Chef 05.11., 19:2x) | E Kampf | M | 2,88 $ | Team Jerry | zu testen |
 | 601 | Goblin-Späher: Schuss ohne Bewegung, falscher Pfeil, kein Pfeil beim Fehlschuss; Treffer trotz Schatten (Chef 05.11., 19:2x, t266.5) | C Kampf | M | 2,88 $ | Team Jerry | ruht |
 | 602 | Gemeinsamer Build nach Tom 591/592 und Jerry 548–544? (Ford 06.11., 08:10) | B Betrieb | M | – | Ford | erledigt |
-| 603 | Gemeinsamer Build nach t266, alle fertigen Zweige beider Teams (Chef 06.11., 09:36) | E Entwicklung | M | – | Team Tom | zu testen |
+| 603 | Gemeinsamer Build nach t266, alle fertigen Zweige beider Teams (Chef 06.11., 09:36) | E Entwicklung | M | 21,72 $ | Team Tom | zu testen |
 | 604 | Schenke Erdgeschoss: Bett raus, mehr Tische und Bänke; Schlafen oben nur im Text (Chef 06.11., 09:38) | E Entwicklung | K | – | Team Tom, Homer | startbar |
 | 557 | Spielstände: Entwurf ohne Kasten (549a) als Bild, Inhalt wie alt mit Spieldauer und Heldenbild (Chef 04.11., 11:15) | A Spiel | M | 42,18 $ | Team Tom | zu testen |
 | 556 | Blenden reines Schwarz statt Leuchten in der Mitte (Ringe), lang genug zum Lesen (Chef 04.11., 07:52) | A Spiel | M | – | Team Tom | zu testen |
