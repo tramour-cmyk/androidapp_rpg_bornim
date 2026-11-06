@@ -73,6 +73,7 @@ var spell_seed := 0
 var grid_on := false
 var dice_rect := Rect2()
 var grid_rect := Rect2()
+var tempo_rect := Rect2()      # 600: Tempo (im Spiel), links neben den Würfeln
 var win_rect := Rect2()        # 272 (Testmodus): Haken gewinnt, Kreuz verliert sofort
 var lose_rect := Rect2()
 
@@ -241,6 +242,8 @@ func _scene_input(ev) -> void:
 		dice_on = not dice_on
 	elif grid_rect.has_point(p):
 		grid_on = not grid_on
+	elif tempo_rect.has_point(p):
+		kampfort.tempo_wechseln()
 	elif lose_rect.has_point(p):
 		kampfort.test_end(false)
 	elif win_rect.has_point(p):
@@ -1054,6 +1057,7 @@ func _draw_overlay() -> void:
 	if ended:
 		grid_rect = Rect2()
 		dice_rect = Rect2()
+		tempo_rect = Rect2()
 		win_rect = Rect2()
 		lose_rect = Rect2()
 	else:
@@ -1859,14 +1863,30 @@ func _draw_switches(sr: Rect2) -> void:
 	var o := sq.size.x * 0.27
 	for e in [Vector2.ZERO, Vector2(-o, -o), Vector2(o, -o), Vector2(-o, o), Vector2(o, o)]:
 		overlay.draw_circle(c + e, 1.8 * dp, dc)
+	# 600: Tempo wie Würfel und Raster, ein bis drei Spitzen für Ruhig, Normal, Schnell; Gold, solange nicht Normal
+	tempo_rect = Rect2()
+	var links := sr.size.x - 100 * dp
+	if kampfort.tempo_knopf:
+		tempo_rect = Rect2(links - 48 * dp, y, 48 * dp, 48 * dp)
+		links -= 48 * dp
+		var stufe: int = Bedienung.tempo
+		var tr := Rect2(tempo_rect.position + Vector2(4, 4) * dp, Vector2(s, s))
+		_chip(tr, Color.BLACK, GOLD if stufe != 1 else RIM, 1.0)
+		var tcol := Color(GOLD, 0.9 if stufe != 1 else 0.5)
+		var mitte := tr.get_center()
+		var hoch := tr.size.y * 0.2
+		var breit := tr.size.x * 0.13
+		for i in stufe + 1:
+			var x0 := mitte.x + (i - stufe * 0.5) * breit * 1.1 - breit * 0.5
+			overlay.draw_polyline(PackedVector2Array([Vector2(x0, mitte.y - hoch), Vector2(x0 + breit, mitte.y), Vector2(x0, mitte.y + hoch)]), tcol, 1.8 * dp, true)
 	# 272 (Chef 20.10., nur im Testmodus, TestEndUi.kt): links neben den Würfeln Kreuz (verlieren) und Haken (gewinnen), solange
 	# der Kampf läuft und kein Ring offen ist; das angetippte leuchtet, bis es gilt
 	win_rect = Rect2()
 	lose_rect = Rect2()
 	if not Testmodus.ist_an() or kampfort.mars.outcome != "ONGOING" or kampfort.ring_open:
 		return
-	win_rect = Rect2(sr.size.x - 100 * dp - 48 * dp, y, 48 * dp, 48 * dp)
-	lose_rect = Rect2(sr.size.x - 100 * dp - 96 * dp, y, 48 * dp, 48 * dp)
+	win_rect = Rect2(links - 48 * dp, y, 48 * dp, 48 * dp)
+	lose_rect = Rect2(links - 96 * dp, y, 48 * dp, 48 * dp)
 	for win in [false, true]:
 		var r: Rect2 = win_rect if win else lose_rect
 		var on: bool = kampfort.end_asked != null and bool(kampfort.end_asked) == win

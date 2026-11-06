@@ -88,6 +88,9 @@ var platz := "lichtung"
 ## (der Ring misst in Echtzeit)
 var tempo := 1.0
 var _tempo_an := false
+## 600 (Chef 05.11., t266: „Beschleunigungsknopf einbauen (analog Würfelergebnis oder Raster)“): im Spiel (aufruf.gd) ein Knopf neben
+## Würfel und Raster, der das Tempo aus dem Menü weiterschaltet; nicht in Proben und Tests (die setzen die Zeit selbst)
+var tempo_knopf := false
 const PLAETZE := ["lichtung", "waldrand", "teich", "baum", "felsen", "steinkreis"]
 
 
@@ -199,6 +202,17 @@ func _ready() -> void:
 	else:
 		_tempo_setzen()
 	_run(func(): mars.start(_react))
+
+
+## 600: Ruhig, Normal, Schnell wie im Menü (Bedienung.tempo), gilt sofort, bleibt gespeichert; während der Blende erst, wenn sie geht
+func tempo_wechseln() -> void:
+	Bedienung.tempo = (Bedienung.tempo + 1) % 3
+	Bedienung.speichere()
+	tempo = Bedienung.tempo_faktor()
+	if verhuellt:
+		return
+	Engine.time_scale = 1.0 / tempo
+	_tempo_an = true
 
 
 func _tempo_setzen() -> void:

@@ -225,6 +225,7 @@ func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := 
 		foes[0].monster["fell"] = int(lage.nr)     # 494: Fell des Monsters der Karte (spiel.gd kampf_im_wald nr), Name ohne Nummer
 	kampf = Kampfort.new()
 	kampf.tempo = Bedienung.tempo_faktor()     # 527: Tempo aus dem Menue System
+	kampf.tempo_knopf = true     # 600: Knopf im Kampfort schaltet es weiter
 	kampf.tageszeit = tageszeit
 	kampf.ort = ort
 	kampf.platz = String(lage.get("platz", "lichtung"))     # 493: Kampfort im Wald nach der Kachel (Kampfort.platz_fuer)

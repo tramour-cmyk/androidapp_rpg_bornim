@@ -336,6 +336,7 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/skripte_pruefen.gd 2>&1 | grep -E "SKRIPTE|FALSCH"   # 399.1 Test 130
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/blende_594.gd 2>&1 | grep -E "BLENDE594|SCRIPT ERROR"   # 594 Gegner der Kampfblende wie alt
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/ring_597.gd 2>&1 | grep -E "RING597|SCRIPT ERROR"   # 597 kein Ring ohne Ansage
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/tempo_600.gd 2>&1 | grep -E "TEMPO600|SCRIPT ERROR"   # 600 Tempoknopf im Kampfort
           timeout 300 ~/godot/godot --headless --path . -s res://tests/held_klassen_376.gd 2>&1 | grep -E "HELDKLASSEN|FALSCH|SCRIPT ERROR"   # 376.1
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . -s res://tests/held_kampf_403.gd 2>&1 | grep -E "^(ok|FEHLER|Held 403)|SCRIPT ERROR"   # 403 (Jerry)
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4531.gd 2>&1 | grep -E "^(ok|FEHLER|Held|Söldner|nach|in den|im Kampf|Atem 453)|SCRIPT ERROR"   # 453.1 (Tuffy)
