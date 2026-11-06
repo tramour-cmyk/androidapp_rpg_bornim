@@ -10,7 +10,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 588 | M | **von Ford (Chef 05.11., 18:2x, zu t266 Punkt 6; Zu 588):** Fehler im Kampf im Wald, Build 266: `_load_from_buffer` mit `buffer_size == 0` dreimal beim Betreten, Ursache in `baue_leben` (`gebiet.gd:486`); Ursache nachstellen | gebaut, fährt im nächsten Build (Zu 588); Geprüft an: 1ce230204 | `claude/jerry-588-maske` |
+| 588 | M | **von Ford (Chef 05.11., 18:2x, zu t266 Punkt 6; Zu 588):** Fehler im Kampf im Wald, Build 266: `_load_from_buffer` mit `buffer_size == 0` dreimal beim Betreten, Ursache in `baue_leben` (`gebiet.gd:486`); Ursache nachstellen | gebaut, fährt mit Toms 574 (gleiche Ursache, gleich behoben); eigener Zweig entfällt; Geprüft an: 0c286504a | `claude/tom-574-protokoll` |
 | 572 | M | **von Sokrates (Chef 04.11., 20:27; „jetzt“ 04.11., 20:27; Zu 572):** Effektprobe vor dem Kauf: die 6 Effekte der zwei REEBOO-Gratisstücke an einem eigenen Helden (Klerikerin o. ä.) im Kampfort, ein Film | wartet auf Chef: Film (ansehen/572-effektfilm.md), dann 415d.1 | `claude/jerry-572-effekte` |
 | 565 | M | **von Sokrates (Chef 04.11., 17:10, t257 Bereich C, Bild; Zu 565):** im Gruppenkasten unten ist nicht zu sehen, welcher Held am Zug ist | startbar: Vorschlag als Bild vorher/nachher in `chefsache/ansehen/`, nichts einschalten | – |
 | 562 | M | **von Sokrates (Chef 04.11., 17:02, t257 Bereich C; Zu 562 und 563):** Helden gehen zum Angriff im „Schlaftabletten-Modus“, zurück gleiten sie flott; echte Schritte, Tempo wie alt | startbar: Ursache nachstellen, gegen alt und 438 vergleichen | – |
