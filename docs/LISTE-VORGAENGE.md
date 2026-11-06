@@ -210,8 +210,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 588 | Fehler im Kampf im Wald (Build 266): Bild aus leerem Puffer in baue_leben, gebiet.gd:486, dreimal (Chef 05.11., zu t266 Punkt 6) | C Kampf | M | 2,88 $ | Team Jerry | gebaut |
 | 589 | Dorf: Marktplatz wirkt geklont (gleiche Stände, gleiche Säcke), Durchgang links am Stand hakelig (Chef 05.11., 19:2x, t266) | E Welt | M | – | Team Tom | startbar |
 | 590 | Innenräume: Türseite bei gedrehter Kamera dunkel und tot, mehr Licht (Kerzen) und Einrichtung (Chef 05.11., 19:2x) | E Innenräume | M | – | Team Tom | startbar |
-| 591 | Dorftiere (Hühner, Kaninchen) fliehen vor dem Helden wie alt, mit Alarmklang (Chef 05.11., 19:2x) | E Welt | M | – | Team Tom | startbar |
-| 592 | Ruhebewegungen: Vorbeugen (Müde) nur bei Ausdauer null, sonst Ruhebewegungen wie alt aus der Bibliothek (Chef 05.11., 19:2x) | E Figuren | M | – | Team Tom | startbar |
+| 591 | Dorftiere (Hühner, Kaninchen) fliehen vor dem Helden wie alt, mit Alarmklang (Chef 05.11., 19:2x) | E Welt | M | – | Team Tom | gebaut |
+| 592 | Ruhebewegungen: Vorbeugen (Müde) nur bei Ausdauer null, sonst Ruhebewegungen wie alt aus der Bibliothek (Chef 05.11., 19:2x) | E Figuren | M | – | Team Tom | gebaut |
 | 593 | MARS: Ausweichen auch rückwärts als Abwechslung zu links und rechts (Chef 05.11., 19:2x) | E Kampf | M? | – | Team Jerry | startbar |
 | 594 | Probekampf „Spinne“ (nicht allein): Wolf daneben, Wolfstext in der Blende (Chef 05.11., 19:2x) | C Kampf | M | 2,88 $ | Team Jerry | gebaut |
 | 595 | Kampfbewegungen der Kaufgegner: Spinne mehr Angriffe, Egel und Schnecke schneller, Treffhöhe, Ruckeln, Ruhe (Chef 05.11., 19:2x, t266.1) | E Kampf | M | – | Team Jerry | Chef |
