@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [595](entscheiden/595-kampfbewegungen.md) | **Muss** | E Kampf | 06.11., 07:44 | Mehr Kampfbewegungen aus den Kaufpaketen, Goblins sterben echt | Jerry |
 | [598](entscheiden/598-umweltklang.md) | **Muss** | E Klang | 06.11., 07:40 | Umweltklang: was fehlt gegen alt, Regen zurück? | Jerry |
 | [601](entscheiden/601-schussbewegung.md) | **Muss** | C Kampf | 06.11., 07:35 | Goblin-Späher: Schussbewegung aus dem Kaufpaket Bow & Arrow | Jerry |
 | [587a](entscheiden/587a-karte-groesse.md) | **Muss** | E Kampf | 05.11., 12:17 | Auf der Gebietskarte so groß wie im Kampfort (eine Größe je Tier) oder echte Größe? | Team Jerry |
@@ -152,7 +153,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „star
 | 586 | K | von Chef über Jerry (05.11., 09:35; Zu 586): Bilder 557 einheitlich: Rast am Feuer und an | startbar |
 | Pflege | K | von Werkzeug (340.3, 06.11.): 122023 Bytes (Grenze 15000), Erledigtes streichen; Tabellenz | startbar |
 
-**Jerry** – offen 85, Muss 71, startbar 21
+**Jerry** – offen 85, Muss 71, startbar 20
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -234,8 +235,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „star
 | 594 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Probekampf „Spinne“ (nicht allein): Wolf da | wartet auf Test/Build (gebaut) |
 | 597 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Ring ohne Ankündigung (Fledermaus); alle An | wartet auf Test/Build (gebaut) |
 | 601 | M | von Sokrates (Chef 05.11., 19:2x, t266.5; Zu 594–601): Goblin-Späher: Schuss ohne Bewegung | Chef (Datei in der Chefsache) |
-| 596 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Sterben je Gegnerart mehrfach, gespiegelt, | startbar |
-| 595 | M | von Sokrates (Chef 05.11., 19:2x, t266.1; Zu 594–601): Kampfbewegungen Spinne, Riesenegel, | startbar |
+| 596 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Sterben je Gegnerart mehrfach, gespiegelt, | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
+| 595 | M | von Sokrates (Chef 05.11., 19:2x, t266.1; Zu 594–601): Kampfbewegungen Spinne, Riesenegel, | Chef (Datei in der Chefsache) |
 | 600 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Knopf zum Beschleunigen im Kampfort wie Wür | wartet auf Test/Build (gebaut) |
 | 598 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Umweltklang je Ort, Tageszeit, Wind, Wetter | Chef (Datei in der Chefsache) |
 | 593 | M? | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Ausweichen auch rückwärts | startbar |
