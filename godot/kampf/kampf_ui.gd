@@ -860,14 +860,57 @@ func _tall(fig) -> float:
 	return maxf(20 * dp, _foot(fig).y - kampfort.screen_of(fig.head()).y)
 
 
-## A circle on the ground round [p] (world), as the camera sees it.
+## A circle on the ground round [p] (world), as the camera sees it. 561 (Chef 04.11., 16:56: „der Zuganzeiger, der goldene Kreis,
+## wieder nicht dreidimensional richtig unterbrochen ist durch die Figur, die drin steht. Das war auch alles in der alten Fassung“;
+## 17:00 ebenso die Zielringe): nicht mehr über alles gemalt, sondern als flaches Band am Boden in der Welt (_ringe_bauen), so
+## verdecken Beine und Körper davor den Ring wie in BattleScene (CamRing); Breite [w] in Bildpunkten wie bisher, mit dunklem Rand
+var _ring_liste := []
 func _ground_ring(p: Vector3, r: float, c: Color, w: float) -> void:
-	var pts := PackedVector2Array()
-	for i in 41:
-		var a := TAU * i / 40.0
-		pts.append(kampfort.screen_of(p + Vector3(cos(a) * r, 0.02, sin(a) * r)))
-	overlay.draw_polyline(pts, Color(0, 0, 0, 0.5), w + 2 * dp, true)
-	overlay.draw_polyline(pts, c, w, true)
+	_ring_liste.append([p, r, c, w])
+
+
+var _ringe: MeshInstance3D
+var _ring_mesh: ImmediateMesh
+const RING_HOCH := 0.02
+func _ringe_bauen() -> void:
+	if _ringe == null or not is_instance_valid(_ringe):
+		_ring_mesh = ImmediateMesh.new()
+		_ringe = MeshInstance3D.new()
+		_ringe.name = "Ringe"
+		_ringe.mesh = _ring_mesh
+		_ringe.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		var mat := StandardMaterial3D.new()
+		mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		mat.vertex_color_use_as_albedo = true
+		mat.cull_mode = BaseMaterial3D.CULL_DISABLED
+		_ringe.material_override = mat
+		kampfort.add_child(_ringe)
+	_ring_mesh.clear_surfaces()
+	if _ring_liste.is_empty():
+		return
+	_ring_mesh.surface_begin(Mesh.PRIMITIVE_TRIANGLES)
+	for e in _ring_liste:
+		var mdp: float = kampfort.m_per_dp(e[0])
+		var w: float = float(e[3]) / dp * mdp
+		_band(e[0], float(e[1]), w + 2.0 * mdp, Color(0, 0, 0, 0.5), RING_HOCH)
+		_band(e[0], float(e[1]), w, e[2], RING_HOCH + 0.002)
+	_ring_mesh.surface_end()
+	_ring_liste.clear()
+
+
+func _band(p: Vector3, r: float, w: float, c: Color, hoch: float) -> void:
+	var innen := maxf(r - w * 0.5, 0.0)
+	var aussen := r + w * 0.5
+	for i in 40:
+		var a0 := TAU * i / 40.0
+		var a1 := TAU * (i + 1) / 40.0
+		var d0 := Vector3(cos(a0), 0.0, sin(a0))
+		var d1 := Vector3(cos(a1), 0.0, sin(a1))
+		var y := Vector3(0, hoch, 0)
+		for q in [d0 * innen, d0 * aussen, d1 * aussen, d0 * innen, d1 * aussen, d1 * innen]:
+			_ring_mesh.surface_set_color(c)
+			_ring_mesh.surface_add_vertex(p + y + q)
 
 
 func _chip(rect: Rect2, bg: Color, border: Color, rim_dp: float) -> void:
@@ -899,6 +942,7 @@ func _draw_overlay() -> void:
 				for slot in [0, 1]:
 					var ab: Vector2 = k._stand(side == "FOES", row == Mars.BACK, slot, false)
 					_ground_ring(k._ground(ab.x, ab.y), 0.45, Color(GOLD, 0.5), 1.5 * dp)
+	_ringe_bauen()     # 561
 	# triangles before the feet of those a foe aims at (CamAim)
 	var aimed_at := {}
 	for id in k.shown.intents:
