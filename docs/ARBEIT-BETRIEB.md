@@ -60,6 +60,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 08:10 06.11.: Chef 08:09 „andere noch wichtige Aufgaben … die nur Code betreffen … dann könnten ja … auch andere noch was machen“ (hebt 468c für heute auf): Startsperre 08:10 Start Jerry 548, 545, 562, 544 (Kampffehler aus Chef-Tests, nur Code), höchstens etwa 2 Stunden.
 - 08:08 06.11.: Chef 08:07 „Starte das, was am kostengünstigsten zu erledigen ist … das machst du jetzt“: Tom 591, 592 (nur Code, vorhandene Bewegungen und Klänge; 589, 590 brauchen Grafik). Startsperre 08:08 Start Tom, höchstens etwa 2 Stunden.
 - 08:05 06.11.: Neustart Jerry 38d0a7018 (Rückläufer t266 durch, 07:19–07:46; Nachfolger „Jerry – 565: Wer am Zug ist“ nur auf Zuruf, 468e), archiviert, 17,29 $ auf 588, 594, 596, 597, 600, 601. Offen beim Chef: entscheiden/595, 598, 601; Frage, ob Tom 589–592 heute.
 - 07:19 06.11.: Chef 07:17: Rückläufer t266 liegen seit gestern 19 Uhr bei Sokrates eingetragen (Tom 589–592, Jerry 588, 593–601), also nach 287 startbar. Startsperre 07:19 Start Jerry „588, 594–601: Rückläufer t266“ (468e: die eine Entwicklersitzung des Tages, Übergabe nach etwa 3 Stunden). Befund an Perikles: `lauf.py` las die Startmarken 07:04 vom 05.11. als heutige („jünger als 20 Minuten“).
