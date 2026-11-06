@@ -114,9 +114,11 @@ func rand_oben() -> float:
 	return Rand.beim_start if Rand.beim_start >= 0.0 else Rand.oben(get_viewport())
 
 
-## Schriftgröße wie Theme.kt im schwarzen Stil: sp × 0,95 × 1,04, mindestens 13,7 sp.
+## Schriftgröße wie Theme.kt im schwarzen Stil: sp × 0,95 × 1,04, mindestens 13,7 sp. 544 (Chef 04.11., 16:58: „relativ klein,
+## aber die Schriftart müsste passen“): wie alt und wie die übrigen Schirme seit 498 mit der Schriftgröße des Handys (Compose sp =
+## dp × fontScale; Stil.schriftfaktor), der Kampf rechnete fest mit 1
 func sp(v: float) -> int:
-	return int(maxf(v * 0.95 * 1.04, 13.7) * dp)
+	return int(maxf(v * 0.95 * 1.04, 13.7) * dp * Stil.schriftfaktor)
 
 
 static func hp_color(frac: float) -> Color:
