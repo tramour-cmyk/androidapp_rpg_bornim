@@ -150,11 +150,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „star
 | 586 | K | von Chef über Jerry (05.11., 09:35; Zu 586): Bilder 557 einheitlich: Rast am Feuer und an | startbar |
 | Pflege | K | von Werkzeug (340.3, 06.11.): 122023 Bytes (Grenze 15000), Erledigtes streichen; Tabellenz | startbar |
 
-**Jerry** – offen 86, Muss 72, startbar 28
+**Jerry** – offen 86, Muss 72, startbar 27
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 588 | M | von Ford (Chef 05.11., 18:2x, zu t266 Punkt 6; Zu 588): Fehler im Kampf im Wald, Build 266 | startbar |
+| 588 | M | von Ford (Chef 05.11., 18:2x, zu t266 Punkt 6; Zu 588): Fehler im Kampf im Wald, Build 266 | wartet auf Test/Build (gebaut) |
 | 572 | M | von Sokrates (Chef 04.11., 20:27; „jetzt“ 04.11., 20:27; Zu 572): Effektprobe vor dem Kauf | Chef |
 | 565 | M | von Sokrates (Chef 04.11., 17:10, t257 Bereich C, Bild; Zu 565): im Gruppenkasten unten is | startbar |
 | 562 | M | von Sokrates (Chef 04.11., 17:02, t257 Bereich C; Zu 562 und 563): Helden gehen zum Angrif | startbar |
