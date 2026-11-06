@@ -71,6 +71,8 @@ const STATUS := {
 	"SLOW": [["Verlangsamt", "Slowed"], ["Langsam", "Slow"], Color("4A90D8")],
 	"WEAK": [["Geschwächt", "Weakened"], ["Schwach", "Weak"], Color("8A58C8")],
 	"BLIND": [["Geblendet", "Blinded"], ["Blind", "Blind"], Color("6A6A7A")],
+	# 532 (Metrausch wie alt, Battle.drunk, Status.DRUNK): aus der Welt bis zur Rast (aufruf.gd lage „betrunken“), endet nie im Kampf
+	"DRUNK": [["Betrunken", "Drunk"], ["Betrunken", "Drunk"], Color("C89A3A")],
 }
 ## A status that does not wear off by itself (Status.LASTING).
 const LASTING := 99
@@ -961,6 +963,9 @@ func _row_mode(f: Fighter, t: Fighter, weapon: bool, extra := 0, cover := true) 
 	# 296.2: blinded, attacks at a disadvantage (as in the old fight)
 	if f.status.has("BLIND"):
 		dis += 1
+	# 532 (alt Battle.kt 462: Blind und betrunken je eins): betrunken, Angriffe mit Nachteil
+	if f.status.has("DRUNK"):
+		dis += 1
 	return clampi(extra - dis, -1, 1)
 
 
@@ -1033,7 +1038,8 @@ func _flee(f: Fighter) -> void:
 	for x in all:
 		if x.side == "FOES" and x.standing():
 			top = maxi(top, int(x.monster.dex))
-	if f.has("CUNNING_ACTION") or dice.d20() + int(f.hero.dex) + elf >= 10 + top:
+	# 532 (alt Battle.kt 616): betrunken flieht er mit Nachteil
+	if f.has("CUNNING_ACTION") or dice.d20(-1 if f.status.has("DRUNK") else 0) + int(f.hero.dex) + elf >= 10 + top:
 		_say(fmt(MSG296_FLED, lang, [f.name(lang)]), f.id)
 		outcome = "FLED"
 	else:
