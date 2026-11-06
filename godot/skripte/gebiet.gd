@@ -480,10 +480,18 @@ static func kreuz() -> ArrayMesh:
 			st.set_normal(Vector3.UP); st.set_uv(uv[k]); st.add_vertex(q[k])
 	return st.commit()
 
+# 588 (Build 266, Log nach verlorenem Kampf im Wald: Wiederkehr in der Schenke): die Grundrisse (raum.py) haben keine Bodenmaske,
+# ihr Boden traegt kein Gras; ohne Datei null statt „_load_from_buffer: buffer_size == 0“ bei jedem Betreten
+static func bodenmaske(id: String) -> Image:
+	var p := "res://daten/%s.bild" % maske(id)
+	if not FileAccess.file_exists(p): return null
+	var img := Image.new()
+	img.load_png_from_buffer(FileAccess.get_file_as_bytes(p))
+	return img
+
 func baue_leben() -> void:
 	var ts := Karte.TS
-	var mimg := Image.new()
-	mimg.load_png_from_buffer(FileAccess.get_file_as_bytes("res://daten/%s.bild" % maske(karte.id)))
+	var mimg := bodenmaske(karte.id)
 	var rng := RandomNumberGenerator.new(); rng.seed = 348
 	var xf: Array[Transform3D] = []; var cu: Array[Color] = []
 	var kxf: Array[Transform3D] = []; var kcu: Array[Color] = []
@@ -498,6 +506,7 @@ func baue_leben() -> void:
 			elif hoch: n = 22
 			elif t == "T": n = 5
 			elif korn: n = 36
+			if mimg == null: n = 0   # 588: ohne Bodenmaske kein Gras
 			for k in n:
 				var x := (c + rng.randf()) * ts; var z := (r + rng.randf()) * ts
 				if korn:   # Runde 11 (Urteil Chef 12:11: Gestruepwiese): gleichmaessig verteilt (6 x 6 je Kachel, verrueckt), aufrecht, fast gleich hoch
