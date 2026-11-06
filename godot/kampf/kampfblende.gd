@@ -54,15 +54,20 @@ static func worte_fuer(eroeffnung: String, rudel: bool, gegner_id: String, boss:
 		eigen = Ortsblende.waehle(daten().get("gegner", {}).get(gegner_id, []), letzter_gegner, zufall)
 	return [start, eigen]
 
-## Wer vorn steht (der Boss, sonst der erste Gegner), ob ein Rudel, wie er heißt (ohne Nummer)
+## Wer vorn steht, ob ein Rudel, wie er heißt (ohne Nummer). 594 (Chef 05.11., Build 266: im Probekampf „Spinne“ Wolfstext in der
+## Blende): wie alt SkirmishScreen der Boss, sonst der mit den meisten EP (bei Gleichstand der erste); Rudel nur, wenn mehr als einer
+## dieser Art kämpft (Riesenspinne mit Wolf: Spinnensatz, einzeln)
 static func lage(mars) -> Dictionary:
 	var feinde: Array = mars.fighters().filter(func(f): return f.side == "FOES")
 	if feinde.is_empty(): return {}
 	var vorn = feinde[0]
+	var wert := -1
 	for f in feinde:
-		if bool(f.monster.get("boss", false)): vorn = f
+		var w := (1000000 if bool(f.monster.get("boss", false)) else 0) + int(f.monster.get("xp", 0))
+		if w > wert: vorn = f; wert = w
+	var gleich := feinde.filter(func(f): return String(f.monster.id) == String(vorn.monster.id)).size()
 	return {"id": String(vorn.monster.id), "name": String([vorn.monster.de, vorn.monster.en][mars.lang]), "boss": bool(vorn.monster.get("boss", false)),
-		"rudel": feinde.size() > 1}
+		"rudel": gleich > 1}
 
 func _init(eroeffnung: String, l: Dictionary, zufall: RandomNumberGenerator) -> void:
 	hinterhalt = eroeffnung == "AMBUSHED"
