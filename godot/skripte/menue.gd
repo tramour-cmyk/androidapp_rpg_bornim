@@ -805,7 +805,7 @@ func platzname(platz: String) -> String: return Sprache.t(Heldwerte.lade()["plae
 
 # 557 (Chef 04.11., 12:38: „noch eine andere Stelle im Spiel im neuen Design dazupacken, um einen besseren Eindruck (vorher-nachher)
 # zu gewinnen“): Wechselliste eines Platzes als Entwurf B „ohne Kasten“ (549a), im Spiel weiter „“ (Kasten wie alt) bis zum Urteil
-static var entwurf := ""
+static var entwurf := "B"   # 557 eingeschaltet (Archiv 05.11., 08:18: „557 wie gebaut“; Runde 5 Vorlage 2 mit Mängelton, Chef 04.11., 19:54)
 
 func waehle(platz: String) -> void:
 	if entwurf == "B":

@@ -1139,13 +1139,42 @@ func zeige_rast() -> void:
 			k.append({"text": Sprache.r("meatSell", [Rast.fleisch_preis(z, held_werte())]), "info": "%d× %s" % [z.anzahl("raw_meat"), Laden.name("raw_meat")], "id": "fleisch"})
 		k.append({"text": Sprache.r("roomBuy", [Rast.ZIMMER_PREIS]), "info": Sprache.r("roomDoes" if lang_ok else "longDone"),
 			"an": lang_ok and z.gold >= Rast.ZIMMER_PREIS, "id": "lang"})
+	if Spielstaende.entwurf == "B":
+		zeige_rastfeld(titel, zeilen_, k)
+		return
 	ui.zeige_wahl(titel, zeilen_, k, Sprache.r("leave"), rast_notiz)
+
+# 549 in 557 (Archiv 05.11., 08:18: „557 wie gebaut“): die Rast im Stil B (rastfeld.gd) statt der allgemeinen Wahl; je Wahl Name und
+# Dauer oder Preis aus dem Text („Kurze Rast · 1 Stunde“), was sie bringt, und ein Zeichen wie in den Bildern 557 (Uhr, Mond, Krug,
+# Keule, Bett); Gold als kleine Angabe unter dem Titel, Rowenas Satz darunter, an der Theke das Wirtshausschild
+const RAST_ZEICHEN := {"kurz": "CLOCK", "lang": "MOON", "met": "MUG", "fleisch": "MEAT"}
+var rast_feld: Rastfeld
+
+func zeige_rastfeld(titel: String, zeilen_: Array, k: Array) -> void:
+	rast_feld_zu()
+	var wahlen: Array = []
+	for e in k:
+		var t := String(e["text"]).split(" · ")
+		var id := String(e["id"])
+		wahlen.append({"id": id, "name": t[0], "dauer": t[1] if t.size() > 1 else "", "tut": String(e.get("info", "")), "an": bool(e.get("an", true)),
+			"zeichen": "BED" if id == "lang" and rast_ort != "feuer" else String(RAST_ZEICHEN.get(id, "CLOCK"))})
+	var unter := String(zeilen_[0]) if rast_ort != "feuer" and not zeilen_.is_empty() else ""
+	var rest: Array = zeilen_.slice(1) if unter != "" else zeilen_
+	rast_feld = Rastfeld.neu("B", titel, unter, wahlen, Sprache.r("leave"), rast_notiz, rest, "SCHENKE" if rast_ort == "schenke" else "REST")
+	rast_feld.gewaehlt.connect(_rast_wahl)
+	Zurueck.melde(rast_feld, func(): _rast_wahl(""))   # 416.1: die Android-Taste wie „‹ Zurück“
+	ui.add_child(rast_feld)
+
+func rast_feld_zu() -> void:
+	if rast_feld and is_instance_valid(rast_feld): rast_feld.queue_free()
+	rast_feld = null
 
 func _rast_wahl(id: String) -> void:
 	if rast_ort == "": return
 	match id:
 		"":
 			rast_ort = ""
+			rast_feld_zu()
 			ui.schliesse_wahl()
 			weiter()
 			_steht_auf(held.kachel)
@@ -1163,6 +1192,7 @@ func _rast_wahl(id: String) -> void:
 # die Welt wird schwarz, die Zeit vergeht (Satz in Gold), dann die Welt zur neuen Stunde mit dem Satz der Rast
 func raste(art: String) -> void:
 	var ort := rast_ort
+	rast_feld_zu()
 	ui.schliesse_wahl()
 	await abblenden(1.0)
 	var satz := Label.new()

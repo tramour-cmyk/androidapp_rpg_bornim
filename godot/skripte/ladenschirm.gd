@@ -22,7 +22,7 @@ func _init(h: Heldwerte, zu_: Zustand, l: Laden) -> void:
 # Schwarz; Rezepte als Zeilen zwischen feinen Goldlinien, ueber die ganze Breite antippbar, rechts „Reicht für n×“ und „›“; was nicht
 # reicht, matt mit „Fehlt: …“ in Warnfarbe. Der Mengenkasten behaelt seinen Rahmen (549a (3), dort wird entschieden), innen Linien,
 # „BRAUEN ×n ›“ als Hauptwahl; Abbrechen ueber Zurueck oder Tippen daneben (526). Unten „‹ SCHLIESSEN“ als Nebenwahl.
-static var entwurf_b := ""
+static var entwurf_b := "B"   # 557 eingeschaltet (Archiv 05.11., 08:18: „557 wie gebaut“; Runde 5 Vorlage 2 mit Mängelton, Chef 04.11., 19:54)
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)

@@ -18,11 +18,11 @@ const DP := AktionsKnopf.DP
 # Chef 12:38 („557 B, mit 2, Löschen wie Sokrates“): Zeile Kapitel und Hauptauftrag immer; Vorschlaege 1 (Weiter steht im Hauptmenue,
 # 12:35) und 3 entfallen. Schaltflaechen in drei Stufen (549a Punkt 4): Hauptwahl „LADEN ›“ hell golden, Nebenwahl gleich gesetzt
 # (Versalien, gesperrt), kleiner, gedaempftes Gold, eigenes Zeichen („× LÖSCHEN“, „‹ ZURÜCK“), Gefahr in Warnfarbe erst in der Rueckfrage
-static var entwurf := ""
+static var entwurf := "B"   # 557 eingeschaltet (Archiv 05.11., 08:18: „557 wie gebaut“; Runde 5 Vorlage 2 mit Mängelton, Chef 04.11., 19:54)
 # 557 Vorlage 2 (Chef 04.11., 14:21–14:26, Zu 557): zuschaltbar neben B, damit jedes Bild heute (B) neben neu zeigt: Rueckfragen
 # und Mengenkasten ohne Rahmen, sichtbares „‹ ABBRECHEN“ links in jedem Fenster mit einer Wahl, der Knopf unten folgt dem Inhalt,
 # solange alles auf einen Schirm passt (fest unten nur, wenn die Liste rollt; Votum Perikles 14:2x)
-static var vorlage2 := false
+static var vorlage2 := true   # 557: Vorlage 2 ist die abgenommene (Mängelton nur dort)
 static var mit := {"ziel": true}
 # 557 (Chef 16:42, 16:51; Zu 557 (8)): kleine Angaben (Reicht für, Im Besitz, Gold, Stufe, Händler zahlt, Angelegt) mindestens 13 sp
 # und deutlich heller als Veil.dim (948a78), aber unter dem Text (e6ddcb)

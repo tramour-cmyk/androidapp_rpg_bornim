@@ -24,7 +24,7 @@ static func fett(l: Label, farbe: Color) -> Label:   # wie menue.gd: es gibt nur
 # Goldkasten; oben der Titel in gesperrten Versalien mit Zierlinie (nicht halbfett), der Text frei auf Schwarz, „Ende von Kapitel 1“
 # als eigene Zeile zwischen Linien, die Heldenzeile zwischen Linien in Gold und groesser, unten „WEITER ›“ als Hauptwahl in Gold
 # (Prueferbefunde 00:38: leere Kastenhaelfte, Heldenzeile klein, Weiter unauffaellig, Titel halbfett)
-static var entwurf := ""
+static var entwurf := "B"   # 557 eingeschaltet (Archiv 05.11., 08:18: „557 wie gebaut“; Runde 5 Vorlage 2 mit Mängelton, Chef 04.11., 19:54)
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
