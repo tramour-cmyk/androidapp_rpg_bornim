@@ -57,7 +57,9 @@ static func variante(sperrung_sp: float, schraeg := false) -> FontVariation:
 		v.base_font = schrift()
 		v.spacing_glyph = int(round(sperrung_sp * SP))
 		v.opentype_features = {TextServerManager.get_primary_interface().name_to_tag("lnum"): 1}   # Ziffern auf der Linie wie alt (Theme.kt Txt „lnum“); Alegreya hat sonst Mediaevalziffern
-		if schraeg: v.variation_transform = Transform2D(Vector2(1, 0), Vector2(0.2, 1), Vector2.ZERO)
+		# 583 (Abgleich 512b): Transform2D(xx, xy, yx, yy) geht als FreeType-Matrix an die Umrisse, x' = x + 0,2 · y kippt wie Italic
+		# (Godot-Handbuch zu variation_transform); die alte Zeile scherte senkrecht: nicht schraeg, i-Punkte verrutscht
+		if schraeg: v.variation_transform = Transform2D(Vector2(1, 0.2), Vector2(0, 1), Vector2.ZERO)
 		_varianten[k] = v
 	return _varianten[k]
 

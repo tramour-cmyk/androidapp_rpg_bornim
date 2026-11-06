@@ -177,11 +177,21 @@ func _ready() -> void:
 	text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	text.add_theme_constant_override("line_spacing", int(4 * Stil.SP))   # Zeilenhoehe 24 sp bei 17 sp
 	spalte.add_child(text)
+	# 583 (Abgleich 512b, „Sammel▼“): das ▼ lag unten rechts im Textbereich und damit auf der letzten Zeile; jetzt steht es unter
+	# dem Text im unteren Rand des Kastens (16 dp), rechts in den Seitenrand geschoben, und deckt nie ein Wort
+	var ecke := Control.new()
+	ecke.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	textfeld.add_child(ecke)
 	weiter_zeichen = Stil.zeile("▼", 12, Stil.GOLD)
 	weiter_zeichen.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	weiter_zeichen.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
+	weiter_zeichen.vertical_alignment = VERTICAL_ALIGNMENT_TOP
 	weiter_zeichen.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	textfeld.add_child(weiter_zeichen)
+	weiter_zeichen.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
+	weiter_zeichen.offset_left = -10 * AktionsKnopf.DP; weiter_zeichen.offset_right = 10 * AktionsKnopf.DP
+	weiter_zeichen.offset_top = 0; weiter_zeichen.offset_bottom = 0
+	weiter_zeichen.grow_horizontal = Control.GROW_DIRECTION_BEGIN
+	weiter_zeichen.grow_vertical = Control.GROW_DIRECTION_END
+	ecke.add_child(weiter_zeichen)
 	var blinken := Timer.new()
 	blinken.wait_time = 0.4
 	blinken.autostart = true
