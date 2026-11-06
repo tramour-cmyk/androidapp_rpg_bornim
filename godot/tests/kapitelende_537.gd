@@ -74,9 +74,14 @@ func _lauf() -> void:
 	pruefe("Spiel steht", paused, true)
 	pruefe("Welt dahinter schwarz", spiel.blende.color.a, 1.0)
 	pruefe("noch kein Morgen", [spiel.karte.id, z.minuten], ["elder", 20 * 60])
-	var weiter: Button = ks.find_child("Weiter", true, false)
-	pruefe("Weiter-Knopf", weiter != null and weiter.text == Sprache.u("next").to_upper(), true)
-	weiter.pressed.emit()
+	# 557 Stil B: „WEITER ›“ ist ein Knopf aus Spielstaende.knopf (PanelContainer mit Label „Text“), Tippen ueber gui_input
+	var weiter: Control = ks.find_child("Weiter", true, false)
+	var wt: Label = weiter.find_child("Text", true, false) if weiter else null
+	pruefe("Weiter-Knopf", wt != null and wt.text == Sprache.u("next").to_upper(), true)
+	for an in [true, false]:
+		var e := InputEventMouseButton.new()
+		e.button_index = MOUSE_BUTTON_LEFT; e.pressed = an; e.position = weiter.size * 0.5
+		weiter.gui_input.emit(e)
 	for i in 3: await process_frame
 	pruefe("Schirm zu", finde(KapitelSchirm) == null, true)
 	# Tempelszene

@@ -75,7 +75,8 @@ func knopf_in(r: ScrollContainer) -> Control:
 	return null
 
 func schleier(w: Node) -> int:
-	return w.find_children("*", "ColorRect", true, false).filter(func(c): return absf((c as ColorRect).color.a - 0.82) < 0.01).size()
+	# Rueckfrage.schleier (0,82); 557 Stil B: dieselben Schleier deckend schwarz oder 0,86/0,97 (menue.gd, ladenschirm.gd, spielstaende.gd)
+	return w.find_children("*", "ColorRect", true, false).filter(func(c): var f := (c as ColorRect).color; return f.r == 0.0 and f.g == 0.0 and f.b == 0.0 and f.a >= 0.8 and (c as ColorRect).mouse_filter == Control.MOUSE_FILTER_STOP).size()
 
 func schirm(name_: String, w: Node) -> void:
 	await warte(4)

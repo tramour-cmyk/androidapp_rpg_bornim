@@ -479,7 +479,13 @@ static func folge_inhalt(spalte: VBoxContainer, rolle: ScrollContainer, innen: C
 		var andere := 0.0
 		for c in spalte.get_children():
 			if c != rolle and c != rest and c is Control and (c as Control).visible: andere += (c as Control).get_combined_minimum_size().y
-		var frei := spalte.size.y - andere - spalte.get_theme_constant("separation") * maxi(0, spalte.get_child_count() - 1)
+		# 603 (Laden mit voller Tasche, Test wischen_571): die Spalte waechst mit der Liste ueber den Schirm, dann ist spalte.size kein
+		# Mass mehr (die Liste blieb 4000 px hoch auf 2400, nichts rollte); frei ist, was der Rand (MarginContainer) vom Schirm laesst
+		var hoehe := spalte.size.y
+		var rand := spalte.get_parent()
+		if rand is MarginContainer and not (rand.get_parent() is Container):
+			hoehe = (rand as Control).get_parent_area_size().y - rand.get_theme_constant("margin_top") - rand.get_theme_constant("margin_bottom")
+		var frei := hoehe - andere - spalte.get_theme_constant("separation") * maxi(0, spalte.get_child_count() - 1)
 		var h := minf(innen.get_combined_minimum_size().y, maxf(0.0, frei))
 		if absf(rolle.custom_minimum_size.y - h) > 0.5: rolle.custom_minimum_size.y = h
 	innen.minimum_size_changed.connect(passe)
