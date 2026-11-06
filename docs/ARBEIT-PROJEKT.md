@@ -39,7 +39,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 338.1 | M | **von Sokrates (Chef 23.10., 09:01/09:05):** „wird es mir nie vorgelegt, wie weit wir da eigentlich stehen“; „dazu brauche ich auch regelmäßige Feedback“. „Stand zum Marktstart“ in `PROJEKTPLAN.md` | gebaut 02.11., 20:02, Geprüft an: 4f3bacbda; Stand je Stufe im Projektplan |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | frühestens 06.11.: behalten (Chef 26.10., 11:15, Archiv); Zahlen mit Zielvereinbarung 341 |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`) |
-| Pflege | K | **von Werkzeug (340.3, 05.11.):** 17283 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 15; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 14, 19, 38, 40; CLAUDE.md: 15468 Bytes (Grenze 15000), kürzen; docs/LISTE-VORGAENGE.md: 44899 Bytes ( … | startbar |
+| Pflege | K | **von Werkzeug (340.3, 06.11.):** 17576 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 15; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 14, 19, 38, 40; CLAUDE.md: 15468 Bytes (Grenze 15000), kürzen; docs/LISTE-VORGAENGE.md: 47588 Bytes ( … | startbar |
 
 ## Einzelheiten
 
@@ -67,3 +67,5 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 - **Zu 347.2, offen:** Auswertung bei Sokrates (347 in seinem Vorrat); `tools/regeltreue/stufe2/LISTE-REGELN.md` trägt noch die alte Pause-Regel (bei Stufe 2 nachziehen).
 
 - **Zu 341** (Chef 23.10., 09:39: „Wie können wir beide eine Zielvereinbarung treffen, die für dich gegenprüfbar ist und nachhaltig?“; 09:53 ja, Probe bis 06.11.): Ziele Z1–Z6 in `ROLLE-PROJEKT.md` „Dein Maß“; Z1/Z2 prüft `regelcheck.py`, Z3–Z6 zählt Diogenes (`ROLLE-PRUEFUNG.md`). Gerüst für alle (Sokrates): je Rolle höchstens drei Ziele, Z3 und Z4 für alle, eins eigen; übernehmen, wenn bis 06.11. drei von sechs messbar laufen.
+
+- **von Ford (06.11., 07:19, Werkzeug `lauf.py`):** die Startmarken „07:04“ vom 05.11. (Tom, Jerry, Perikles) galten am 06.11., 07:17 als „jünger als 20 Minuten“; Marken scheinen ohne Datum verglichen zu werden. Bitte im Werkzeug beheben.

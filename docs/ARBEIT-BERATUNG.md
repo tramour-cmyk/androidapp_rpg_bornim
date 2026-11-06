@@ -43,10 +43,11 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 72c | K | **von Chef (19.10., 12:55):** Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunden); Wortlaut Vorgangsarchiv 72c | nach dem Meilenstein (Chef 20.10.); vorher einseitige Vorlage Sokrates |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | frühestens 31.10.: mit 347 prüfen, ob der Tagesbericht ihn ersetzt (Wiedervorlage 26.10. verpasst; Morgenbericht 19.10. in Git) |
 | 142.3 | M | **von Chef (27.10., 19:32):** Tester öffentlich suchen | in Arbeit (Sokrates 20:0x), A und C (Archiv): bis 28.10. C Organisationskonto klären; A Forenregeln, Aufruf de/en, Abspann, Datenschutz; Aufruf nach 109; dann Tom |
-| 142 | M | Pflichttest Play Store (von Perikles); Store-Text „jede Entscheidung zählt“ prüfen (72a) | wartet auf Chef: GewA 1 BornWire TCS prüfen, unterschreiben, senden (tun/142); dann Gewerbeschein; Tester bis 15.11. |
+| 142 | M | Pflichttest Play Store (von Perikles); Store-Text „jede Entscheidung zählt“ prüfen (72a) | startbar (nur auf Zuruf, 468e): Gewerbeanmeldung BornWire TCS bescheinigt (GewA 1, Landeshauptstadt Potsdam, 04.11.2026, Beginn 02.11.2026, Nebenerwerb, Gebühr 36,60 €; Chef 05.11., PDF liegt beim Chef, nicht in Git); Sokrates: Gewerbeschein gilt als da → Zahlungsprofil, Preis (45), Organisationskonto 142.3 C, neues Testziel; tun/142 Punkt 0 und 1 erledigt, Datei anpassen |
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | wartet auf 142 (Gewerbeschein); 45a/45c, 72g–72j entschieden ([Artefakt](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj), vertraulich); offen: Preis endgültig mit 142 (ab Gewerbeschein), bis 30.11.; iOS-Schätzung Tom nach Kapitel 2 |
 | 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | ruht bis Gewerbeschein (Chef 28.10., 10:26; 142); dann Chefsache neu |
 | D63.7 | K | **von Diogenes (434, Vortag 01.11.):** `entscheiden/3761-kettenhemd-heldin.md` (20:55) ohne Zeile „Bestand geprüft“ (Zu 374 in `ARBEIT-PRUEFUNG.md`) | offen |
+| Pflege | K | **von Werkzeug (340.3, 06.11.):** Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 46 | startbar |
 
 - **von Perikles (02.11., 19:5x, zu 480.1):** Läufe gibst du frei mit einem Archiveintrag, dessen Kopf „<Nr>, Läufe frei“ heißt (z. B. „- **453b, Läufe frei** (02.11., 19:50, Sokrates nach 480.1): …“); `probelauf.py` zählt ihn dann wie ein Urteil des Chefs, ab seiner Zeit zwei neue Läufe. Dazu 480: „Blatt“ steht noch in `ROLLE-BERATUNG.md` (Zeilen 72, 74); bitte nachziehen.
 - **von Perikles (02.11., 20:0x, Weitergabe von Homer, 01.11., 21:0x, zu 447.4, Regelwerk):** zwei Regelfragen aus den Lehrmeister-Texten, das Regelwerk deckt sie nicht: (1) kommt das erste Rezept einer Meisterschaft mit dem Ja zur Einladung (Projektplan 3.2 „je ein Rezept“, Abschnitt 10)? (2) fallen beim Pfadwechsel eines Anwärters in Kapitel 1 die Kernfertigkeiten auch um einen Rang (Abschnitt 5)? Antwort ändert je eine Zeile „Offen“ in `STORY-LEHRMEISTER-K1.md`.
@@ -59,10 +60,10 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Zu 142, Konto und 142.3 C (Organisationskonto, D-U-N-S):** Einzelheiten in Git vor 03.11., 08:52.
 - **Zu 142:** vor Marktstart Klangmarken DPMA/EUIPO suchen (292.1).
 - **Zu 461b:** 16 Funde (02.11., 19:1x) in Git vor 03.11., 08:50; verteilt Perikles; meine Punkte in 461b.4.
-- **Zu 253:** in Git vor 04.11., 07:12.
 - **Zu 142** (17.–20.10. in Git): Fahrplan im vertraulichen [Dokument](https://claude.ai/artifact/D2DeY5N8yUcFjzRyW9RXWM); offen: Anschrift vor dem Zahlungsprofil
 
 ## Einzelheiten
 
 - **Zu 461b.4:** Köpfe von `DESIGN-SPIELSYSTEM-2-0.md` (Zeile 3, Nr. 24), `LISTE-BESTIARIUM.md` (Zeile 3), `DESIGN-KAMPF.md` (Zeile 3) gegen Entscheidung 84; Säureschnecke mit Jerry (461b.1); Anhänge „→ ersetzt durch …“ im Archiv, wo dein Helfer den Ersatz fand: 376.1 (11:19), 72o, 72o.1, 348.12 (26.10.), 348.9 (13:26), 72.8, 414, F3/F4 Datum (Zu 461b; 415c, 480, 362, 418 hat Perikles gesetzt).
+- **Zu 512 (t266):** 266.7, 266.8 im Build unmöglich (539, 492 fehlten); Testbitte vorher nachgehen (Zu t266, Jerry).
 - **Zu 512 (Chef 23:26–23:28):** „Den angewiesenen Vergleich mit der alten Fassung hat ja eh keiner gemacht …“, „Sonst wäre es ja vorher aufgefallen, dass es nicht passt …“. Ursachen: Regel nur für berührte Schirme, nie berührte (Ausrüstung) vergleicht keiner; Abgleich 248 nur Bilder, Laden berührt und Rückfrage trotzdem übersehen. Schritt 1 Regel: Fenster und jede Bedienung mit, Zeile „verglichen“ in der Prüfliste. Schritt 2: einmal alle Menüschirme alt gegen neu, Funde als Vorgänge an Team Tom.

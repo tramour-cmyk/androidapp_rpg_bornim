@@ -32,7 +32,8 @@ const SCOUT := "goblin_archer"
 const WOLF := "wolf"
 const SPIDER := "giant_spider"
 ## 535 (Abgleich 512, Sokrates): Arten mit eigenen Regeln im Körper einer anderen (aufruf.gd ART): Ratte und Fledermaus bewegen
-## sich als Wolf, Kobold und Schamane als Goblin; die Regeln fragen die Art (art_of), Bild und Bewegung weiter die id
+## sich als Wolf, Kobold und Schamane als Goblin. 577 (Chef 04.11., 21:00: „Wie wär's denn, wenn die Dinger die Kennung kriegen, die
+## sie verdienen?“): die id ist die eigene Art (Regeln, Texte, Klang, Lohn), „koerper“ nur Modell und Bewegung (koerper_of)
 const RAT := "giant_rat"
 const BAT := "giant_bat"
 const KOBOLD := "kobold"
@@ -270,6 +271,14 @@ var srd_attacks := true
 ## 296.2: the statuses of the old fight (off for the replays of the Kotlin MARS on main, which has none).
 var statuses := true
 var potions := {}
+## D4.1, 494: Morwens Rauchbündel im Gepäck (Kampfort setup „rauch“); wie Battle.smokeBundle fliegt eins, sobald Krogg auftaucht,
+## ohne den Zug des Helden, und sein erster Schlag geht fehl (mit ihm der Überraschungsschlag); nach dem Kampf: was übrig ist
+var smoke := 0
+var smoke_thrown := false
+var smoke_spent := false
+const KROGG := "bugbear"
+const THROWS := ["{0} wirft {1}!", "{0} throws {1}!"]     # Battle.kt Msg.throws
+const SMOKE_BUNDLE := ["Rauchbündel", "Smoke Bundle"]     # Items.kt smoke_bundle
 var aim_spot := {}
 var retargeted := {}
 var chosen := false
@@ -399,9 +408,14 @@ func pick(key: String) -> Array:
 	return l[i]
 
 
-## 535: die Art, nach der die Regeln eine Figur behandeln (ohne „art“ die id)
+## 535, 577: die Art, nach der die Regeln eine Figur behandeln: ihre id
 static func art_of(m) -> String:
-	return "" if m == null else String(m.get("art", m.id))
+	return "" if m == null else String(m.id)
+
+
+## 577: der Körper, dessen Modell und Bewegungen eine Figur trägt (ohne „koerper“ ihre id)
+static func koerper_of(m) -> String:
+	return "" if m == null else String(m.get("koerper", m.id))
 
 
 func wolf(f: Fighter, own: String, general: String) -> Array:
@@ -690,9 +704,23 @@ func _opening() -> void:
 		_say(fmt(X.MSG72_WINDED, lang, [lead().name(lang)]))
 	if fed:
 		_say(fmt(MSG399_FED, lang, [lead().name(lang)]))
+	_smoke_bundle()
 	_cow()
 	for foe in intents.keys():
 		_say_announce(by_id(foe))
+
+
+## D4.1 (Battle.smokeBundle): the hero throws Morwen's smoke bundle as soon as Krogg shows up, by itself, before an ambush too.
+func _smoke_bundle() -> void:
+	if smoke <= 0 or not foes_of_kind(KROGG):
+		return
+	smoke -= 1
+	smoke_thrown = true
+	_say(fmt(THROWS, lang, [lead().name(lang), SMOKE_BUNDLE[lang]]), lead().id, foes_of_kind(KROGG)[0].id, 0, null, false, false, "THROW")
+
+
+func foes_of_kind(id: String) -> Array:
+	return fighters().filter(func(f): return f.side == "FOES" and f.monster != null and str(f.monster.id) == id)
 
 
 ## 534 (alt Battle.init, Perks.cowChance): wer Charisma hat, schüchtert zu Kampfbeginn einen gewöhnlichen Gegner ein (8 % je
@@ -1339,6 +1367,12 @@ func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := 
 	var atk: int = int(m.atk) - _penalty(foe)
 	var success := not (r == 1 or (r != 20 and r + atk < t.ac()))
 	var info := ["ATTACK", r, atk, t.ac(), success, mode, cover and from_back(foe)]
+	if str(m.id) == KROGG and smoke_thrown and not smoke_spent:
+		# D4.1: der Rauch brennt in den Augen, der erste Schlag geht fehl, mit ihm der Überraschungsschlag (Battle.enemyAttack)
+		smoke_spent = true
+		foe.has_hit = true
+		success = false
+		info[4] = false
 	if intent.effect == "POUNCE":
 		_leap_forward(foe)
 	if re == PERFECT:
@@ -1626,11 +1660,20 @@ func _say(text: String, actor = null, target = null, damage := 0, roll = null, a
 		"text": text, "actor": actor, "target": target, "damage": damage, "hp": hp, "places": places,
 		"intents": intents.duplicate(), "roll": roll, "queue": queue(), "sp": sp, "answer": answer, "wound": wound,
 		"spell": casting, "cue": cue if cue != "" else null,
-		"status": _statuses(),
+		"status": _statuses(), "hidden": _hidden(),
 	}
 	_log.append(e)
 	if not quick_run and listener.is_valid():
 		listener.call(e)
+
+
+## 566: who stands in the shadows now (hidden until its next turn), for the figure seen only dimly.
+func _hidden() -> Dictionary:
+	var out := {}
+	for f in all:
+		if f.hidden:
+			out[f.id] = true
+	return out
 
 
 ## 296.2: the statuses of each figure that has any, with the turns left, for their signs on the screen.
