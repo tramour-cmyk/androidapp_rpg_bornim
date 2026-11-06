@@ -773,7 +773,7 @@ func _tierlaute(dt_ms: float) -> void:
 		var art: Dictionary = TIERLAUT[String(n.daten["tier"])]
 		var d: float = Vector2(n.position.x - _held.position.x, n.position.z - _held.position.z).length() / 1.16     # Karte.TS
 		# 591: Huhn und Kaninchen fliehen schon vor der Nachbarkachel; der Laut kommt mit dem Losrennen (MapHen fled, HenSound)
-		var nah: bool = n.nah_am_held(n.kachel) or bool(n.get("flucht"))
+		var nah: bool = n.nah_am_held(n.kachel) or n.get("flucht") == true   # 603: Probetier ohne flucht (null)
 		if nah and not st.nah:
 			for l in art.held:
 				effekt(l[0], tier_pegel(d, l[1]), float(l[2]) if l.size() > 2 else 1.0)
