@@ -299,6 +299,8 @@ static func ansehen(zeichen: String, t: Vector2i, s: Zustand, nachts: bool, inne
 		"Z": return {"de": "Das Feuer knackt im Herd. Über der Glut hängt ein rußiger Kessel.", "en": "The fire crackles in the hearth. A sooty pot hangs over the embers."}
 		"n": return {"de": "Eine Bank, blank gesessen. Im Holz sind Namen eingeritzt.", "en": "A bench, worn smooth. Names are carved into the wood."} if innen else {"de": "Eine Bank zum Ausruhen. Von hier hat man den ganzen Dorfplatz im Blick.", "en": "A bench to rest on. From here you can see the whole village square."}
 		"A": return {"de": "Das Sonnenamulett strahlt auf dem Altar.", "en": "The Sun Amulet shines on the altar."} if s.has(CHAPTER1_DONE) else {"de": "Auf dem Altar ist eine leere Halterung. Hier lag das Sonnenamulett.", "en": "There's an empty mount on the altar. This is where the Sun Amulet lay."}
+	return {}
+
 static func ziel(s: Zustand) -> Dictionary:
 	if s.has(CHAPTER1_DONE): return {"de": "Kapitel 1 abgeschlossen! Erkunde die Welt und stärke deinen Helden.", "en": "Chapter 1 complete! Explore the world and strengthen your hero."}
 	if s.has(GRAK_DEFEATED) and s.has(LYRA_RESCUED): return {"de": "Bring das Sonnenamulett zu Ältestem Aldric nach Bornim.", "en": "Bring the Sun Amulet to Elder Aldric in Bornim."}
