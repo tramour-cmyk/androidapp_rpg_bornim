@@ -60,6 +60,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 08:28 06.11.: Chef 08:27 „Allein sinnlose Sitzungsstarts kosten ja auch wieder Guthaben.“ Lehre Ford: Start im Sparbetrieb immer mit Zeitrahmen und „danach weiter mit startbarem Muss“, nie nur zwei Zeilen.
 - 08:26 06.11.: Chef 08:26 „lass ihn doch noch sparsame Sachen erledigen, die er erledigen kann. Auch Jerry.“: Tom (591, 592 fertig) und Jerry per Nachricht weiter mit startbarem Muss, nur Code, bis etwa 10:30.
 - 08:10 06.11.: Chef 08:09 „andere noch wichtige Aufgaben … die nur Code betreffen … dann könnten ja … auch andere noch was machen“ (hebt 468c für heute auf): Startsperre 08:10 Start Jerry 548, 545, 562, 544 (Kampffehler aus Chef-Tests, nur Code), höchstens etwa 2 Stunden.
 - 08:08 06.11.: Chef 08:07 „Starte das, was am kostengünstigsten zu erledigen ist … das machst du jetzt“: Tom 591, 592 (nur Code, vorhandene Bewegungen und Klänge; 589, 590 brauchen Grafik). Startsperre 08:08 Start Tom, höchstens etwa 2 Stunden.
