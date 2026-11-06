@@ -22,7 +22,7 @@ var satt := false                     # 399.1: GameState.wellFed, nach dem Essen
 var lange_rast_tag := 0
 var met := 0
 var leiden := {}                       # Zustand -> Runden (GameState.ailments)
-var wiederkehr := {"karte": "inn", "x": 8, "y": 2, "blick": "DOWN"}   # GameState.respawn, anfangs Story.START
+var wiederkehr := {"karte": "temple", "x": 4, "y": 4, "blick": "UP"}   # GameState.respawn, anfangs Story.RESPAWN (543: Tempel wie alt)
 # 390 (Laden): Ausruestung in der Tasche (GameState.bag, Woerterbuecher wie Gear), Siege (battlesWon), schon gekaufte Ware (shopSold)
 var beutel: Array = []
 var siege := 0
