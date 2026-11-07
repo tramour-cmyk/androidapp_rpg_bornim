@@ -616,6 +616,18 @@ jobs:
             --fixed-fps 30 -s res://tests/film_gegner_494.gd > $B/gegnerbilder494.log 2>&1 || true
           grep -E "SCRIPT ERROR|^Film|^BILD|^Signatur|FEHLER" $B/gegnerbilder494.log | head -40 || true
           ls -l $B
+      # 565 (Chef 04.11., 17:10): Kasten dessen, der am Zug ist; heute gegen A, B, Gegner und Söldner am Zug (tests/am_zug_565_bild.gd),
+      # Renderer wie am Handy; nur von Hand auf einem Zweig mit „565“ und film=nein
+      - name: Am-Zug-Bilder 565 (nur von Hand, film=nein)
+        if: ${{ !cancelled() && github.event_name == 'workflow_dispatch' && contains(github.ref, '565') && github.event.inputs.film == 'nein' }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/am_zug565; mkdir -p $B
+          cd godot
+          sudo apt-get install -y -q mesa-vulkan-drivers xvfb > /dev/null || true
+          BILD565_AUS=$B VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 1080x2340 -s res://tests/am_zug_565_bild.gd 2>&1 | tee $B/am_zug565.log | grep -E "^(BILD|FEHLER|AMZUG565)|SCRIPT ERROR" || true
+          ls -l $B
       - name: Gegnerfilm 494 (nur von Hand mit gegner=…)
         if: ${{ !cancelled() && github.event.inputs.gegner != '' && github.event.inputs.gegner != 'FLEDERMAUS' && github.event.inputs.film != 'nein' }}
         continue-on-error: true
