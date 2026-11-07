@@ -145,7 +145,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 618 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): „Zurück“, „Abbrechen“, „Schließen“ na | startbar |
 | 612 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Dorf Süd: Heuhaufen, Weizenfeld, Gemü | startbar |
 | 613 | M | von Sokrates (Chef 07.11., 14:1x, t268.31; Zu 606–619): Intro und Outro wie alt: Tempelgän | startbar |
-| 614 | M? | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Jorin mit Speer, Schrank öffnen sicht | startbar |
+| 614 | M? | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Jorin mit Speer, Jorin öffnet den Sch | startbar |
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | 586 | K | von Chef über Jerry (05.11., 09:35; Zu 586): Bilder 557 einheitlich: Rast am Feuer und an | startbar |
