@@ -1,5 +1,7 @@
 # Vorrat Team Tom
 
+**Pause bis die neue Vorgangsliste läuft (275.2)** (von Sokrates, Chef 07.11., 21:5x: „alle Arbeiten fertig, dann wird erstmal nichts gemacht und dann machen wir jetzt mal endlich eine saubere Vorgangsliste“): laufende Sitzungen von Tom und Spike machen ihren Vorgang fertig und übergeben; keine neue Sitzung, bis Perikles nach dem Umschalten die Zeile streicht.
+
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 

@@ -1,5 +1,7 @@
 # Vorrat Sokrates
 
+**Pause bis die neue Vorgangsliste läuft (275.2)** (Chef 07.11., 21:5x): keine neue Sitzung außer auf Zuruf des Chefs; Perikles streicht die Zeile.
+
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
@@ -39,7 +41,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 72c | K | **von Chef (19.10., 12:55):** Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunden); Wortlaut Vorgangsarchiv 72c | nach dem Meilenstein (Chef 20.10.); vorher einseitige Vorlage Sokrates |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | startbar: gemeinsam auswerten mit der Wochenzählung Diogenes Mo 09.11. (Inventur 07.11.) |
 | 142.3 | M | **von Chef (27.10., 19:32):** Tester öffentlich suchen | ruht: bis das Konto umgestellt ist (142.4) |
-| 275.2 | M | **von Chef (07.11., 21:4x):** eine große Liste statt Liste plus Vorräte? | wartet auf Chef: entscheiden/2752 |
+| 275.2 | M | **von Chef (07.11., 21:4x):** eine große Liste statt Liste plus Vorräte? | wartet auf Perikles: Bau 275.2 (Archiv) |
 | 142.4 | M | **von Chef (07.11., 16:5x):** Pflichttest sparen? Organisationskonto mit D-U-N-S | wartet auf Chef: tun/1424 (D-U-N-S) |
 | 142 | M | Pflichttest Play Store (von Perikles); Store-Text „jede Entscheidung zählt“ prüfen (72a) | startbar: Gewerbeschein da (GewA 1 Potsdam 04.11., Chef 05.11.); als Nächstes Zahlungsprofil, Organisationskonto 142.3 C, Preis 45, neues Testziel; Vorlage nach der Prüfliste des Chefs |
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | startbar: Gewerbeschein da; Preis vor der Store-Seite mit 142.4 |

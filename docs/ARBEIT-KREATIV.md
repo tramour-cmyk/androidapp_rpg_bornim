@@ -1,5 +1,7 @@
 # Vorrat Homer
 
+**Pause bis die neue Vorgangsliste läuft (275.2)** (von Sokrates, Chef 07.11., 21:5x): laufende Arbeit fertig und übergeben; keine neue Sitzung, bis Perikles die Zeile streicht.
+
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
