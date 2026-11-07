@@ -30,11 +30,28 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
 
+## Lauf 78 · Auftrag 621.1 Probenregel A (Doppelpack 421; `main` nach `f8696fc76`; 07.11., 21:2x; ohne echten Bildlauf seit dem Bau: `pruefen_und_zaehlen()` aus `probelauf.py` mit Stand 0 und 1, Zählen und Anhalten abgefangen, nichts in `probelaeufe.tsv`)
+
+- **Bestanden:** `GRENZE = 1`; Stand 0 zählt und sagt „1 von 1 … danach vorlegen“, Stand 1 hält an, die Meldung nennt Rückfrage mit Wegen und Kosten und die Freigabe durch Urteil oder Sokrates (480.1). Text in `ROLLE-ENTWICKLUNG.md` und `LISTE-UMZUG-348.md` („höchstens eine Probe … ersetzt 389“). Nur `DESIGN-ABNAHME.md` hängt nach (D76.1).
+
+## Lauf 77 · Auftrag 623.3 Effekt-Wächter (Doppelpack 421; `main` nach `7b9cbedb0`; 07.11., 21:2x; ohne echten Effekt-Commit seit dem Bau: 4 Probedateien unter `godot/_probe623/` im Arbeitszweig nur bereitgestellt, `commit-pruefung.py` gerufen, danach entfernt)
+
+- **Bestanden:** der Haken liegt in Notiz- und Arbeitskopie (gemeinsames Verzeichnis, `notiz.sh`); neuer Shader und neuer `GPUParticles3D`-Knoten ohne Zeile in `LISTE-EFFEKTE.md` warnen, Exit 0 (nur Warnung, wie bestellt); `wasser.gdshader` (steht in der Liste) bleibt still.
+- **D79 (an Perikles, klein):** der Name wird als Teilwort gesucht: `ser.gdshader` geht durch, weil „wasser.gdshader“ in der Liste steht. Ganzes Wort prüfen.
+
+## Lauf 76 · Auftrag 512, 512.1, 512b an t266 und t268 (Inventur Sokrates 07.11.; `main` nach `fc3387f5f`; 07.11., 21:2x; Prüflisten aus `896a49a8d` und `faa5076a9`, neue Vorgänge aus den Auswertungen `db88012d1` und `e15c6d42b`, Regel aus `commit-pruefung.py` Zeilen 200–212 mit beiden Zeilen „Verglichen“ und 2 Probesätzen)
+
+- **Erstfunde des Chefs** (512b; neue Vorgänge aus seinem Test, ohne Fehlschläge einer Testfrage): vorher t257 Bereich C: 6. **t266** (Kampf, Abgleich durch Helfer): 11 (589–594, 596–600), dazu 3 an Testfragen (588, 595, 601); davon Kampf 6. **t268** (ganzes Spiel): 11 (606–612, 614–616, 618), dazu 3 an Testfragen (613, 617, 619); davon Kampf 1 (616). Im Kampf also 6 → 6 → 1. Funde, die der Abgleich alt gegen neu hätte finden müssen („wie alt“ im Titel): t266 3 (591, 592, 597), t268 4 (607, 611, 613, 614).
+- **D78.1 (an Perikles, 512/512b):** t268 „Verglichen“ deckt nur die Menüs (76 Zustände vom 05.11., vor Build 266), nicht Dorf, Kampf und Kapitelende, die der Build auch berührt; nach dem Umbau „ohne Kasten“ (557) kein neuer Vergleich („Woche über 95 %“). Aus Dorf und Leuten kamen 8 der 11 Erstfunde. t266 „Verglichen“ sagt selbst „ohne Bild“ (512b verlangt Bild oder Film). Beide Testbitten gingen trotzdem.
+- **D78.2 (an Perikles, 512.1):** der Wächter liest „ohne Bild“, „kein Film“ als Nachweis (Probe: „Helfer hat nichts gesehen, kein Film, kein Bild“ → keine Warnung); t268 kommt durch „Bildabgleich“ im Satz „Kein neuer Bildabgleich“ durch. Ein Doppelpunkt in einer Uhrzeit vor dem eigentlichen Doppelpunkt („(512b, fremder Helfer 05.11., 09:46, …):“) schneidet die Zeile falsch, so fehlt bei t266 der „Helfer“; die Warnung kam dort nur zufällig zu Recht.
+- **Bestanden:** 512.1 warnt ohne Zeile „Verglichen“ und bei Dateinamen (Regel gelesen, nicht gelaufen: keine neue Prüfliste seit dem Bau ohne die Zeile).
+
 ## Lauf 75 · Auftrag 465 „Seit“ mit Uhrzeit, 549a.1 „ohne Kasten“ (Inventur Sokrates 07.11.; `main` nach `cf7776783`; 07.11., 21:1x; `eintrag()` aus `zug-index.py` mit der alten Datei 474a aus `85bbba25b` und 3 Probedateien in einem Probe-Repo; heutige `chefsache/README.md`)
 
 - **Bestanden 465:** alle 4 offenen Zeilen der Übersicht haben „Seit“ mit Uhrzeit und „Wer“; Zeit und Wer in der Titelzeile werden erkannt, in Zeile 2 ebenso; ohne Zeit gilt die Anlagezeit des Commits (Probe: 21:14); 474a zeigt „02.11., 13:4x“ und „Tom“. Ohne Namen bleibt „Wer“ leer.
 - **Bestanden 549a.1:** `ROLLE-ENTWICKLUNG.md` Start 2 nennt „Fenster und Schirme ohne Kasten“ (549a); der Abschnitt steht in `DESIGN-STIL.md`.
 - **D77 (an Perikles, klein):** ein Bereich in der Titelzeile („… · Sokrates · 07.11., 20:1x · C Kampf“) wird nicht als Bereich gelesen, sondern bleibt im Text „Was“: heute „Effektpakete kaufen (623 A) · C Kampf“ unter „Zu tun“; die Spalte Bereich stimmt nur, weil sie aus `LISTE-VORGAENGE.md` kommt.
+- **D77.2 (an Perikles; zweite Sitzung desselben Auftrags, Kopie mit 4 Testvorlagen):** nennt eine Vorlage keinen Absender (weder Zeile 2 noch Titelzeile), bleibt „Wer“ leer ohne Warnung in der Commit-Prüfung oder unter „Lücken“; der Chef bemängelte bei 474a (02.11., 14:39) ausdrücklich auch „aber auch nicht wer“. Uhrzeit bei „x“, reinem Datum und ohne Datum stimmt in allen 4 Proben.
 
 ## Lauf 74 · Auftrag 461d, 461, 461a Grundstand einsortiert (Inventur Sokrates 07.11.; `main` nach `8518c8817`; 07.11., 21:1x; alte Liste aus `fa43a030e^`, alle Zeilen A1–G3 mit `diff` gegen den Stand beim Einsortieren und gegen heute)
 
