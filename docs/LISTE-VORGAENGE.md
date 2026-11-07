@@ -81,14 +81,14 @@
 | 606 | Schenke: Met kostet laut Liste 2 Gold, abgezogen werden 4 (Chef 07.11., t268) | Tom | M | gebaut, Geprüft an: a2add0154, 216dd5d09 (doppeltipp_605 lokal) | – | claude/tom-605-doppeltipp | 269 | A Spiel | – |
 | 609 | Dorf: Baum hinter der Schenke sperrt den Weg zum Schlagbaum; alle Häuser auf der Waldseite umrundbar (Chef 07.11., t268) | Tom | M | gebaut, Geprüft an: 72acd8e6d (VillageRoundTest) | – | claude/tom-609-schenke | 269 | E Welt | – |
 | 617 | Hauptmenü „Laden“: Wischen löst Laden aus; laden nur mit dem Knopf rechts (Chef 07.11., t268.1) | Tom | M | gebaut, Geprüft an: a2add0154, 216dd5d09 (doppeltipp_605 lokal) | – | claude/tom-605-doppeltipp | 269 | A Spiel | – |
-| 619 | Blende: derselbe Druck auf den Aktionsknopf drückt die Blende sofort weg (Chef 07.11., t268.18) | Tom | M | startbar | – | – | – | A Spiel | – |
-| 607 | Leute nachts: Pim läuft um 3 Uhr herum, sein Klopftext sagt, er schläft (Chef 07.11., t268) | Tom | M | startbar | – | – | – | A Spiel | – |
+| 619 | Blende: derselbe Druck auf den Aktionsknopf drückt die Blende sofort weg (Chef 07.11., t268.18) | Tom | M | gebaut, Geprüft an: 4d2df2462 (blende_619 lokal; Ursache am Gerät offen, Prüfschritt mit Frage) | – | claude/tom-619-blende | – | A Spiel | – |
+| 607 | Leute nachts: Pim läuft um 3 Uhr herum, sein Klopftext sagt, er schläft (Chef 07.11., t268) | Tom | M | gebaut, Geprüft an: 775ff5ae4 (nacht_607 lokal) | – | claude/tom-607-tuer | – | A Spiel | – |
 | 608 | Haus wird durchsichtig, wenn der Held dahinter steht, dann geht innen das Licht an (Pims Hütte, Tempel) (Chef 07.11., t268) | Tom | M | gebaut, Geprüft an: 491b05cad (glas_608) | – | claude/tom-608-glas | 269 | E Welt | – |
 | 610 | Held im Dorf: Finger am Stab zucken ohne Unterlass (Schild auf dem Rücken) (Chef 07.11., t268) | Tom | M | startbar | – | – | – | E Figuren | – |
 | 615 | Kamera dreht und zoomt um den Helden als Fixpunkt, läuft nicht aus dem Bild (Chef 07.11., t268) | Tom | M | gebaut, Geprüft an: 9ff7db62f (kamera_615) | – | claude/tom-615-kamera | 269 | E Welt | – |
 | 611 | Klopfen an Türen: deutlicher, mit Name des Hauses oder Sprechers; Zeichen an Pfeiler oder Laterne beim Zwerg wie alt (Chef 07.11., t268) | Tom | M | gebaut, Geprüft an: db36a81a3 (klopfen_611) | – | – | – | A Spiel | 31,40 $ |
 | 630 | Restliche Schirme im Stil „ohne Kasten“ (549a): Laden-Fenster und Rückfragen, Menü, Brett, Anleitung, Über das Spiel, Erschaffung (Liste aus 618, Sokrates 07.11.) · „jetzt“ 07.11., 22:28 | Tom | M | startbar | – | – | – | A Spiel | – |
-| 618 | Knöpfe einheitlich: „Zurück“, „Abbrechen“, „Schließen“ nach einer Regel auf allen Schirmen, Liste der Abweichungen (Chef 07.11., t268) | Tom | M | startbar | – | – | – | A Spiel | – |
+| 618 | Knöpfe einheitlich: „Zurück“, „Abbrechen“, „Schließen“ nach einer Regel auf allen Schirmen, Liste der Abweichungen (Chef 07.11., t268) | Tom | M | gebaut, Geprüft an: c4a83c8a7 (Wörter; gruppe_mass_557, rueckfrage_526 lokal; Stil mit 630) | – | claude/tom-618-woerter | – | A Spiel | – |
 | 612 | Dorf Süd: Heuhaufen geklont und wie aufgespießt, Wackelgras im Weizenfeld, Gemüsebeet mit Leerstreifen; drei Varianten je Ding (Chef 07.11., t268) | Tom | M | startbar | – | – | – | E Welt | – |
 | 613 | Intro und Outro wie alt: Tempelgänger, kleine Bewegungen (Chef 07.11., t268.31) | Tom | M | startbar | – | – | – | A Spiel | – |
 | 614 | Leute lebendig wie alt: Jorin mit Speer, Jorin öffnet den Schlagbaum sichtbar; Abgleich der Requisiten und Gesten (Chef 07.11., t268) | Tom | M? | startbar | – | – | – | E Figuren | – |
@@ -105,7 +105,7 @@
 | 431c | Rückfrage: Völker Runde 4 am Tor angehalten, neue Läufe frei? | Tom | M | ruht, ohne Vorratszeile, Liste „Chef“ (275.2) | – | – | – | E Figuren | – |
 | 431d | Rückfrage: Völker Lauf 3 am Tor angehalten (B1 Elf, C3, G3, A1/A3 Grak, A2), neue Läufe frei, Weg A2? | Tom | M | ruht, ohne Vorratszeile, Liste „Chef“ (275.2) | – | – | – | E Figuren | – |
 | 431e | Rückfrage: Gesicht des Helden im Dorflicht fast weiß, Hauteichung nach Messung? | Tom | M | ruht, ohne Vorratszeile, Liste „Chef“ (275.2) | – | – | – | E Figuren | – |
-| 629.1 | Klopfen: Sprechernamen hinter Türen bauen ([629.sprecher], von Homer) | Tom | M | startbar | – | – | – | S Story | – |
+| 629.1 | Klopfen: Sprechernamen hinter Türen bauen ([629.sprecher], von Homer) | Tom | M | gebaut, Geprüft an: 7a4e580db (klopfen_629 lokal) | – | claude/tom-629-sprecher | – | S Story | – |
 | Pflege | von Werkzeug (340.3, 07.11.): 111642 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
 | 565 | MARS: unten im Gruppenkasten sieht man nicht, welcher Held am Zug ist (Chef 04.11., 17:10, t257 C) | Jerry | M | in Arbeit, Sokrates: Kopf „565, Läufe frei“ ins Archiv (seine Zeile, 627) | – | claude/jerry-565-am-zug | – | E Kampf | 7,58 $ |
 | 562 | MARS: Helden laufen zum Angriff viel zu langsam, zurück gleiten sie flott (Chef 04.11., 17:02, t257 C) | Jerry | M | in Arbeit, bei Tuffy | – | claude/jerry-562-angriffsschritt | – | E Kampf | 8,78 $ |
