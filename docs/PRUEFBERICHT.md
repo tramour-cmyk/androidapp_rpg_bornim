@@ -30,6 +30,11 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
 
+## Lauf 77 · Auftrag 623.3 Effekt-Wächter (Doppelpack 421; `main` nach `7b9cbedb0`; 07.11., 21:2x; ohne echten Effekt-Commit seit dem Bau: 4 Probedateien unter `godot/_probe623/` im Arbeitszweig nur bereitgestellt, `commit-pruefung.py` gerufen, danach entfernt)
+
+- **Bestanden:** der Haken liegt in Notiz- und Arbeitskopie (gemeinsames Verzeichnis, `notiz.sh`); neuer Shader und neuer `GPUParticles3D`-Knoten ohne Zeile in `LISTE-EFFEKTE.md` warnen, Exit 0 (nur Warnung, wie bestellt); `wasser.gdshader` (steht in der Liste) bleibt still.
+- **D79 (an Perikles, klein):** der Name wird als Teilwort gesucht: `ser.gdshader` geht durch, weil „wasser.gdshader“ in der Liste steht. Ganzes Wort prüfen.
+
 ## Lauf 76 · Auftrag 512, 512.1, 512b an t266 und t268 (Inventur Sokrates 07.11.; `main` nach `fc3387f5f`; 07.11., 21:2x; Prüflisten aus `896a49a8d` und `faa5076a9`, neue Vorgänge aus den Auswertungen `db88012d1` und `e15c6d42b`, Regel aus `commit-pruefung.py` Zeilen 200–212 mit beiden Zeilen „Verglichen“ und 2 Probesätzen)
 
 - **Erstfunde des Chefs** (512b; neue Vorgänge aus seinem Test, ohne Fehlschläge einer Testfrage): vorher t257 Bereich C: 6. **t266** (Kampf, Abgleich durch Helfer): 11 (589–594, 596–600), dazu 3 an Testfragen (588, 595, 601); davon Kampf 6. **t268** (ganzes Spiel): 11 (606–612, 614–616, 618), dazu 3 an Testfragen (613, 617, 619); davon Kampf 1 (616). Im Kampf also 6 → 6 → 1. Funde, die der Abgleich alt gegen neu hätte finden müssen („wie alt“ im Titel): t266 3 (591, 592, 597), t268 4 (607, 611, 613, 614).
