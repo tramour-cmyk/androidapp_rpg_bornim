@@ -94,7 +94,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | 598 | M | **von Sokrates (Chef 05.11., 19:2x; Zu 594–601):** Umweltklang je Ort, Tageszeit, Wind, Wetter | startbar: Schenke nur mit Gästen, Klang im Takt (Chef 06.11.) | – |
 | 593 | M? | **von Sokrates (Chef 05.11., 19:2x; Zu 594–601):** Ausweichen auch rückwärts | startbar | – |
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht: Klang zieht nach Godot; Rest `LISTE-IDEEN.md` „Klang“ | `claude/build-89` |
-| Pflege | K | **von Werkzeug (340.3, 06.11.):** 41596 Bytes (Grenze 15000), Erledigtes streichen; Zeile 551 wartet auf t257, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile 453.1 wartet auf t249, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile 453 wartet auf t249, aber keine Datei … | startbar |
+| Pflege | K | **von Werkzeug (340.3, 07.11.):** 40483 Bytes (Grenze 15000), Erledigtes streichen; Zeile 588 wartet auf t266, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile 562 wartet auf t257, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile 561 wartet auf t257, aber keine Datei i … | startbar |
 ## Einzelheiten
 
 - **von Ford (Chef 06.11., 09:36):** Wortlaut zu 595, 601, 587a, 598 im Vorgangsarchiv.
