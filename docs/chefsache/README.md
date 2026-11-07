@@ -50,8 +50,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 605 | M | von Ford (Chef 06.11., 21:22, Test Build 268, Bild; Zu 605): Ausrüstung, leeres Kopffeld → | wartet auf Test/Build (gebaut) |
 | 581 | M | von Tom (Abgleich 512b): Reiter Ausrüstung: Seite 16 px breiter als der Schirm (Rand 11 st | startbar |
 | 583 | M | von Tom (Abgleich 512b): Textkasten: ▼ liegt im Text („Sammel▼“), erzählter Text ohne i-Pu | startbar |
-| 584 | K | von Tom (Abgleich 512b; Zu 584): kein halbfetter Schnitt, Köpfe wie alt (Theme.kt 216: hal | ruht |
-| 585 | K | von Tom (Abgleich 512b; Zu 585): Kleinigkeiten Menüs: Titelumbruch Hauptmenü, Knopf „Lizen | ruht |
+| 584 | K | von Tom (Abgleich 512b; Zu 584): kein halbfetter Schnitt, Köpfe wie alt (Theme.kt 216: hal | wartet auf 630 (startbar) |
+| 585 | K | von Tom (Abgleich 512b; Zu 585): Kleinigkeiten Menüs: Titelumbruch Hauptmenü, Knopf „Lizen | wartet auf 630 (startbar) |
 | 569 | M | von Sokrates (Chef 04.11., 19:44, Bild 558 Probe 4 Wald Tag; Zu 569): Baumkronen ohne Umri | startbar |
 | 568 | M? | von Sokrates (Chef 04.11., 19:42, „grundsätzlich bei 568. Für A.“; DESIGN-SPIELSYSTEM-2-0. | ruht |
 | 558 | M | von Sokrates (Chef 04.11., 11:31, Bild Build 257; Zu 558): Robe des Magiers zu glatt: Stof | startbar |
@@ -121,7 +121,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 610 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Finger am Stab zucken im Dorf (Schild | startbar |
 | 615 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Kamera um den Helden als Fixpunkt, ni | wartet auf Test/Build (gebaut) |
 | 611 | M | von Sokrates (Chef 07.11., 14:1x, t268, 268.8; Zu 606–619): Klopfen deutlicher, wessen Hau | wartet auf Test/Build (gebaut) |
-| 630 | M | von Sokrates (07.11., 22:2x, Chef: „Welcher Vorgang ist denn der neue Stil?“): restliche S | ruht |
+| 630 | M | von Sokrates (Chef 07.11., 22:2x: „ich will da eine Einheitlichkeit haben … 630 definitiv | startbar |
 | 618 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): „Zurück“, „Abbrechen“, „Schließen“ na | startbar |
 | 612 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Dorf Süd: Heuhaufen, Weizenfeld, Gemü | startbar |
 | 613 | M | von Sokrates (Chef 07.11., 14:1x, t268.31; Zu 606–619): Intro und Outro wie alt: Tempelgän | startbar |
@@ -131,7 +131,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 624 | M | von Sokrates (Chef 07.11., 17:5x: „das wäre auch gut, wenn die Anzeige dann ein bisschen g | startbar |
 | 622 | M | von Sokrates (07.11., aus 142.4; Chef 17:1x: „Wir hatten da schon doch was hochgeladen, wa | startbar |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
-| 586 | K | von Chef über Jerry (05.11., 09:35; Zu 586): Bilder 557 einheitlich: Rast am Feuer und an | startbar |
+| 586 | K | von Chef über Jerry (05.11., 09:35; Zu 586): Bilder 557 einheitlich: Rast am Feuer und an | wartet auf 630 (startbar) |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 123512 Bytes (Grenze 15000), Erledigtes streichen; Tabellenz | startbar |
 
 **Jerry** – offen 57, Muss 48, startbar 31, PAUSE bis **Pause bis die neue Vorgangsliste läuft (Datum nicht lesbar)
