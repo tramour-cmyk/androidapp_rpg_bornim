@@ -47,6 +47,7 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 - **Bestanden 465:** alle 4 offenen Zeilen der Übersicht haben „Seit“ mit Uhrzeit und „Wer“; Zeit und Wer in der Titelzeile werden erkannt, in Zeile 2 ebenso; ohne Zeit gilt die Anlagezeit des Commits (Probe: 21:14); 474a zeigt „02.11., 13:4x“ und „Tom“. Ohne Namen bleibt „Wer“ leer.
 - **Bestanden 549a.1:** `ROLLE-ENTWICKLUNG.md` Start 2 nennt „Fenster und Schirme ohne Kasten“ (549a); der Abschnitt steht in `DESIGN-STIL.md`.
 - **D77 (an Perikles, klein):** ein Bereich in der Titelzeile („… · Sokrates · 07.11., 20:1x · C Kampf“) wird nicht als Bereich gelesen, sondern bleibt im Text „Was“: heute „Effektpakete kaufen (623 A) · C Kampf“ unter „Zu tun“; die Spalte Bereich stimmt nur, weil sie aus `LISTE-VORGAENGE.md` kommt.
+- **D77.2 (an Perikles; zweite Sitzung desselben Auftrags, Kopie mit 4 Testvorlagen):** nennt eine Vorlage keinen Absender (weder Zeile 2 noch Titelzeile), bleibt „Wer“ leer ohne Warnung in der Commit-Prüfung oder unter „Lücken“; der Chef bemängelte bei 474a (02.11., 14:39) ausdrücklich auch „aber auch nicht wer“. Uhrzeit bei „x“, reinem Datum und ohne Datum stimmt in allen 4 Proben.
 
 ## Lauf 74 · Auftrag 461d, 461, 461a Grundstand einsortiert (Inventur Sokrates 07.11.; `main` nach `8518c8817`; 07.11., 21:1x; alte Liste aus `fa43a030e^`, alle Zeilen A1–G3 mit `diff` gegen den Stand beim Einsortieren und gegen heute)
 
