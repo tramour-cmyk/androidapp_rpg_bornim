@@ -9,6 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| D82 | M | **von Diogenes (07.11., 23:3x, Lauf 82, Nachprüfung D80, D81.1, Prüfbericht):** D80 und D81.1 bestanden, umschalten; im Umschalt-Commit `HAND` 275 `warte=["Diogenes", "09.11."]`, sonst startet Ford Diogenes für 275 (Bedingung der zweiten Zeile geht bei Doppelten verloren) | startbar |
 | D80 | M | **von Diogenes (07.11., 23:2x, Lauf 80, Quertest 275.2, Prüfbericht):** vor dem Umschalten: Automatik B nimmt jede in der Prüfliste genannte offene Zeile (D80.1); Fund-Absatz hält die Commit-Prüfung an bei Tom, Jerry über 15 KB (D80.2); dazu D80.3–D80.7 | gebaut 07.11., 23:3x im Zweig claude/perikles-2752-liste; Geprüft an: d5b84e21f; Nachprüfung Diogenes |
 | D81 | M | **von Diogenes (07.11., 23:2x, Lauf 81, Nachprüfung D74–D79, Prüfbericht):** Wächter 512.1 lässt „kein Film, kein Bild“ und „Bildabgleich“ noch als Nachweis durch (D81.1); D74 (b) in 4-spaltigen Vorräten (D81.2, entfällt mit 275.2) | gebaut 07.11., 23:3x (D81.1 im Zweig; D81.2 entfällt mit 275.2); Geprüft an: 909550399; Diogenes prüft |
 | 275.2 | M | **von Sokrates (Chef 07.11., 21:5x, „Pericles soll das machen … keinen Parallelbetrieb“; „jetzt“ 07.11., 21:55; Archiv 275.2; Zu 275.2):** eine Vorgangsliste mit Feldern und zwei Automatiken, alle Werkzeuge umstellen, Umschalten in einem Schritt nach Diogenes' Quertest | wartet auf Diogenes: Nachprüfung D80 (d5b84e21f), dann Umschalten | – |

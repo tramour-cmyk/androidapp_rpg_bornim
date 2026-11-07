@@ -30,6 +30,12 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
 
+## Lauf 82 · Nachprüfung D80, D81.1 (Quertest 275.2; Zweig `d5b84e21f`, `909550399` an einer Kopie von `main` `3a237fc95`; 07.11., 23:3x; dieselben Proben wie Lauf 80)
+
+- **Urteil: umschalten**, mit D82 im Umschalt-Commit (eine Zeile `HAND`, kein neuer Test nötig).
+- **Bestanden:** D80.1 (t900: nur die 3 Zeilen mit Build 900 ändern sich, 15 genannte bleiben und stehen in der Ausgabe; ohne Prüfliste Abbruch); D80.2 (Absatz „Zu 583, von Chef (Fund t900.4 …)“, Commit-Prüfung lässt durch; Vorräte kleiner: Tom −611, Jerry −513 Bytes); D80.3 (515 wartet auf 605 gebaut: startbar wie alt, kein GELÖST; 584 wartet auf erledigte 581: GELÖST); D80.4 (`--sperre`: „| an <Sitzung>“ bzw. „| -“, Text für Ford in `TEXTE.md`); D80.5 (568 ruht, wartet auf Jerry: bei Jerry „ruht“; fremde Muss hinter den eigenen Muss); D80.6 (Gemeinsamer Build und Tagesbericht: Tom 8); D80.7 (`pruefen` ohne Fehler, 483, 464, 383 mit Bau-Commit, Pflege „B Betrieb“); D81.1 (beide Probesätze warnen, echte Nachweise aus t268 und Probe still). Archiveintrag t900 vor dem Schritt hält weiter an.
+- **D82 (an Perikles, vor dem Umschalten):** neue Abweichung „Diogenes 275: alt ruht bis 09.11. → neu startbar“. Bei doppelten Nummern übernimmt die Umstellung nur das Feld „wartet auf <Rolle>“, nicht die Bedingung der zweiten Zeile; Ford würde Diogenes heute Nacht für 275 starten. Abhilfe: `HAND` 275 `warte=["Diogenes", "09.11."]`. Andere Doppelte sind schon per `HAND` versorgt.
+
 ## Lauf 81 · Nachprüfung D74, D76, D77.1, D78.2, D79 (Perikles 07.11., 21:2x; `main` `ef79dd722`; Kopie mit Probezeilen für `regelcheck.py`, Regeln aus `commit-pruefung.py` und `zug-index.py` mit Probesätzen)
 
 - **Bestanden:** D76 (`DESIGN-ABNAHME.md` „ein Film nur mit geprüftem Probebild (511)“, ein Lauf nach 621 A; E1, E8 wie 417a in allen drei Dateien), D77.1 („… · C Kampf“ → Bereich, nicht „Was“), D79 (`ser.gdshader` warnt, `wasser.gdshader` still), D74 (a) Pflegezeilen still, (b) „wartet auf Perikles: t905“ still.
