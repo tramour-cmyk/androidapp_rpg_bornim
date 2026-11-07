@@ -41,13 +41,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 87, Muss 65, startbar 54
+**Tom** – offen 87, Muss 65, startbar 51
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 625 | M | von Sokrates („jetzt“ 07.11., 20:54; Zu 625): Sammelbuild 269 wie 603: alle fertigen Zweig | startbar |
 | 620.2a | M | von Perikles (620.2, 621 D, Chef 07.11.): Abgleich alt einmal je Ort und Figur nach LISTE- | startbar |
-| 605 | M | von Ford (Chef 06.11., 21:22, Test Build 268, Bild; Zu 605): Ausrüstung, leeres Kopffeld → | startbar |
+| 605 | M | von Ford (Chef 06.11., 21:22, Test Build 268, Bild; Zu 605): Ausrüstung, leeres Kopffeld → | wartet auf Test/Build (gebaut) |
 | 581 | M | von Tom (Abgleich 512b): Reiter Ausrüstung: Seite 16 px breiter als der Schirm (Rand 11 st | startbar |
 | 583 | M | von Tom (Abgleich 512b): Textkasten: ▼ liegt im Text („Sammel▼“), erzählter Text ohne i-Pu | startbar |
 | 584 | M? | von Tom (Abgleich 512b; Zu 584): kein halbfetter Schnitt, Köpfe wie alt (Theme.kt 216: hal | wartet auf Perikles |
@@ -112,9 +112,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 590 | M | von Sokrates (Chef 05.11., 19:2x; Zu 590): Innenräume: Türseite bei gedrehter Kamera dunke | startbar |
 | 591 | M | von Sokrates (Chef 05.11., 19:2x; Zu 591): Hühner und Kaninchen fliehen vor dem Helden wie | startbar |
 | 621.2 | M | von Sokrates (Chef 07.11., 16:4x, „621, A, B und D“; Archiv 621 B): Vorrat auf etwa 15 KB: | startbar |
-| 606 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Met: Liste 2 Gold, abgezogen 4 | startbar |
+| 606 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Met: Liste 2 Gold, abgezogen 4 | wartet auf Test/Build (gebaut) |
 | 609 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Baum hinter der Schenke sperrt den We | startbar |
-| 617 | M | von Sokrates (Chef 07.11., 14:1x, t268.1; Zu 606–619): Hauptmenü „Laden“: Wischen lädt; nu | startbar |
+| 617 | M | von Sokrates (Chef 07.11., 14:1x, t268.1; Zu 606–619): Hauptmenü „Laden“: Wischen lädt; nu | wartet auf Test/Build (gebaut) |
 | 619 | M | von Sokrates (Chef 07.11., 14:1x, t268.18; Zu 606–619): Aktionsknopf drückt die Blende gle | startbar |
 | 607 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Pim läuft um 3 Uhr herum, sein Klopft | startbar |
 | 608 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): durchsichtiges Haus macht innen Licht | startbar |
@@ -194,7 +194,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 616 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu t268): Gegner weichen nach dem Angriff rückwärt | wartet auf 478 (startbar) |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 31749 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 22, Muss 15, startbar 5
+**Perikles** – offen 22, Muss 15, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -214,7 +214,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 347.2 | M | von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347): Paket Regeltreue umsetzen nach tool | wartet auf Sokrates |
 | 276 | K | von Sokrates (zu 274): Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in lauf. | ruht |
 | 341 | M | von Chef (23.10., 09:39): Zielvereinbarung Perikles, gegenprüfbar und nachhaltig (Zu 341) | ruht bis 09.11. |
-| 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | startbar |
+| 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | ruht |
 | D77 | K | von Diogenes (07.11., Lauf 75, Prüfbericht): zug-index.py liest einen Bereich in der Titel | startbar |
 | D75 | M? | von Diogenes (07.11., Lauf 73, Prüfbericht): Filmsperre 511 hat die Film-Pushes zu 572 nic | startbar |
 | 627 | M | von Team Jerry (Tuffy, 07.11., 21:15): probelauf.py zählt Pushes ohne Lauf (562: commit -F | wartet auf Test/Build (gebaut) |
