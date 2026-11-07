@@ -255,7 +255,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 410 | Waffen am Körper wegstecken, alle Waffenarten (aus 376.1, Chef 29.10., 10:52, 11:40) | E Figuren | M | – | Team Tom | ruht |
 | 415 | Handyprobe Beams-Free-Sample (aus 414, Chef 31.10., 20:3x; „jetzt“ 01.11.) | C Kampf | M | 49,16 $ | Team Jerry | startbar |
 | 623 | Effektpakete REEBOO Labs: Kauf, Ressourcenseite `LISTE-QUELLEN.md`, Zuordnung `LISTE-EFFEKTE.md`, Dank im Spiel (Chef 07.11.) | C Kampf | M | – | Sokrates | Chef |
-| 623.2 | Effekte aus 623 A einbauen mit 478, in `LISTE-BESTAND.md` und `LISTE-EFFEKTE.md` mit Datenfeld `fx` (Chef 07.11., 623) | E Kampf | M | – | Team Jerry | Chef |
+| 623.2 | Effekte aus 623 A einbauen mit 478, in `LISTE-BESTAND.md` und `LISTE-EFFEKTE.md` mit Datenfeld `fx` (Chef 07.11., 623) | E Kampf | M | – | Team Jerry | wartet |
 | 623.3 | Commit-Prüfung warnt bei neuem Shader oder Teilchenknoten ohne Zeile in `LISTE-EFFEKTE.md` (Chef 07.11., 623 E) | B Werkzeuge | M | – | Perikles | startbar |
 | 623.4 | Dank „Mit Dank an“ für alle fremden Quellen in „Über das Spiel“ (497), Wortlaut (Chef 07.11., 623 F) | C Texte | M | – | Homer | startbar |
 | 623.1 | Prüfschema auf bisher geprüfte Quellen anwenden (Chef 07.11., aus 623) | B Abläufe | M | – | Sokrates | startbar |
