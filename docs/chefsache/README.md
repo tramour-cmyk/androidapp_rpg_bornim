@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [621](entscheiden/621-sparen.md) | **Muss** | B Abläufe | 07.11., 16:42 | Wofür das Guthaben draufging, und was wir schlauer machen | Sokrates |
 | [415d.1](entscheiden/415d1-effekte-jetzt.md) | **Muss** | C Kampf | 04.11., 19:57 | Effektpakete jetzt kaufen, Einbau nach Bedarf | Sokrates |
 
 ## Zu billigen
@@ -47,7 +46,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 100, Muss 74, startbar 27
+**Tom** – offen 101, Muss 75, startbar 28
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -134,6 +133,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 590 | M | von Sokrates (Chef 05.11., 19:2x; Zu 590): Innenräume: Türseite bei gedrehter Kamera dunke | ruht |
 | 591 | M | von Sokrates (Chef 05.11., 19:2x; Zu 591): Hühner und Kaninchen fliehen vor dem Helden wie | startbar |
 | 532 | M | von Team Jerry (06.11., 09:2x): Metrausch im Kampf: in spiel.gd kampf_im_wald lage „betrun | startbar |
+| 621.2 | M | von Sokrates (Chef 07.11., 16:4x, „621, A, B und D“; Archiv 621 B): Vorrat auf etwa 15 KB: | startbar |
 | 606 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Met: Liste 2 Gold, abgezogen 4 | startbar |
 | 609 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Baum hinter der Schenke sperrt den We | startbar |
 | 617 | M | von Sokrates (Chef 07.11., 14:1x, t268.1; Zu 606–619): Hauptmenü „Laden“: Wischen lädt; nu | startbar |
@@ -236,12 +236,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 40483 Bytes (Grenze 15000), Erledigtes streichen; Zeile 588 | startbar |
 
-**Perikles** – offen 35, Muss 29, startbar 9
+**Perikles** – offen 36, Muss 30, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 478 | M | von Sokrates (Chef 07.11., 16:3x, „BRS auf jeden Fall jetzt auch mit dazu“; Archiv „478 je | startbar |
 | 620.1 | M | von Sokrates (Chef 07.11., 14:3x, 620; Zu 620): wiederholte Funde des Chefs vor jedem Neue | startbar |
+| 621.1 | M | von Sokrates (Chef 07.11., 16:4x, „621, A, B und D“; Archiv 621): Probenregel A in ROLLE-E | startbar |
 | 620.2 | M | von Sokrates (Chef 07.11., 14:3x, 620, 512; Zu 620): Abgleich alt einmal je Ort und Figur | startbar |
 | 620.4 | M | von Sokrates (Chef 07.11., 14:3x, 620; Zu 620): Referenzszene Dorf bis Wolfskampf im Flüst | startbar |
 | 579 | M | von Sokrates (Chef 05.11., 08:18, „jetzt ist gut erstmal. Weitermachen mit wichtigen Dinge | startbar |
@@ -293,13 +294,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 | Pflege | K | von Werkzeug (340.3, 07.11.): Zeile 512b wartet auf t257, aber keine Datei in docs/chefsac | startbar |
 
-**Sokrates** – offen 40, Muss 30, startbar 20
+**Sokrates** – offen 39, Muss 29, startbar 19
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 475 | M | von Team Tom (22:25): 475 Lauf 2 vor dem Versand angehalten (576: Grün der Kapuze am Hals | startbar |
 | 512 | M | von Chef (03.11., 23:28, „Kümmer du dich um 512.“; vorher Perikles): Abgleich alt gegen ne | startbar |
-| 621 | M | von Chef (07.11., 16:4x): Sparregeln A–D | Chef (Datei in der Chefsache) |
 | 620 | M | von Chef (07.11., 14:3x, „nachhalten … umsetzen … ganz entscheidend“): Stärken ausbauen, S | startbar |
 | 415d.1 | M | von Chef (04.11., 19:56, „Brauchen wir das jetzt? Brauchen wir es nicht? Wir haben noch ga | Chef (Datei in der Chefsache) |
 | 508 | M | von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5): | startbar |
@@ -310,7 +310,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 481 | M | von Chef (02.11., 18:54, „Herkünfte auch“; 18:55 Kräutersammler mit Tränken, Zu 481): Herk | startbar |
 | 398 | M | von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr g | wartet auf Perikles |
 | 391 | M | von Chef (28.10., 09:21): Repos dauerhaft ohne Ablehnung | ruht |
-| 383.2 | M | von Chef (27.10., 19:24, Archiv): frisch gegen groß, klein gegen groß messen (442) | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
+| 383.2 | M | von Chef (27.10., 19:24, Archiv): frisch gegen groß, klein gegen groß messen (442) | ruht |
 | 383 | M | von Chef (27.10., 17:44, „Sollen wir einfach aufhören damit?“; 17:47 Vorschlag „nicht grif | startbar |
 | 376 | M | von Chef (27.10., 12:00): Quaternius-Bausätze prüfen; Häuser leicht gedreht? | wartet auf Tom |
 | 374 | M | von Chef (27.10.): wer prüft 373? | startbar |
@@ -341,7 +341,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 383.2 (Beratung), 587 (Kreativ)
+Nicht gestellt: 587 (Kreativ), 407 (Projekt)
 
 Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/572-effektfilm.md
 
