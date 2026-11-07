@@ -456,11 +456,34 @@ func refresh() -> void:
 		log_area.queue_redraw()
 
 
+## 565 (Chef 04.11., 17:10: „unten sehe ich gar nicht, welcher von den beiden es ist“), nur Vorschlag, aus: "" wie alt (alle Kästen
+## gleich), "A" der Kasten dessen, der am Zug ist, wie sein Feld in der Zugleiste (▶ vor dem Namen, erhaben, Goldrand 1,5 dp, Name
+## hell), "B" dazu die übrigen der Gruppe mit gedämpftem Rand. Am Zug ist, wer in der Zugleiste das ▶ trägt; ist es ein Gegner, bleiben
+## alle Kästen wie alt.
+var am_zug_565 := OS.get_environment("AMZUG565")
+
+func _vorn():
+	for id in kampfort.shown.get("queue", []):
+		var o = kampfort.mars.find(id)
+		if o != null and kampfort.shown.hp.get(id, o.hp) > 0:
+			return o
+	return null
+
+func _am_zug(f) -> bool:
+	return _vorn() == f
+
+
 ## PartyBox: Farbmarke, Name; Balken in Lebensfarbe und „hp/max“, bei Zauberern „ZP sp/max“ (ohne „LP“).
 func _party_box(f) -> Control:
 	var box := PanelContainer.new()
 	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	box.add_theme_stylebox_override("panel", _box(Color.BLACK, RIM, 6, 3, 1.0))
+	var dran: bool = am_zug_565 != "" and kampfort.mars.outcome == "ONGOING" and _am_zug(f)
+	if dran:
+		box.add_theme_stylebox_override("panel", _box(RAISED, GOLD, 6, 3, 1.5))
+	elif am_zug_565 == "B" and kampfort.mars.outcome == "ONGOING" and _vorn() != null and _vorn().side == "PARTY":
+		box.add_theme_stylebox_override("panel", _box(Color.BLACK, Color(RIM, 0.3), 6, 3, 1.0))
+	else:
+		box.add_theme_stylebox_override("panel", _box(Color.BLACK, RIM, 6, 3, 1.0))
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(2 * dp))
 	box.add_child(v)
@@ -473,9 +496,9 @@ func _party_box(f) -> Control:
 	mark.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	top.add_child(mark)
 	var n := Label.new()
-	n.text = f.name(lang)
+	n.text = ("▶ " if dran else "") + f.name(lang)
 	n.add_theme_font_size_override("font_size", sp(13))
-	n.add_theme_color_override("font_color", WARN if hp <= 0 else TEXT)
+	n.add_theme_color_override("font_color", WARN if hp <= 0 else (BRIGHT if dran else TEXT))
 	n.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	n.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	n.clip_text = true

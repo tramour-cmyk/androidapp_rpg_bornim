@@ -339,6 +339,7 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/tempo_600.gd 2>&1 | grep -E "TEMPO600|SCRIPT ERROR"   # 600 Tempoknopf im Kampfort
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/sterben_596.gd 2>&1 | grep -E "STERBEN596|SCRIPT ERROR"   # 596 Sterben gespiegelt
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/pfeil_601.gd 2>&1 | grep -E "PFEIL601|SCRIPT ERROR"   # 601 Pfeil auch beim Ducken
+          set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/am_zug_565.gd 2>&1 | grep -E "^(FEHLER|AMZUG565)|SCRIPT ERROR"   # 565 Kasten am Zug (Vorschlag, aus)
           timeout 300 ~/godot/godot --headless --path . -s res://tests/held_klassen_376.gd 2>&1 | grep -E "HELDKLASSEN|FALSCH|SCRIPT ERROR"   # 376.1
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . -s res://tests/held_kampf_403.gd 2>&1 | grep -E "^(ok|FEHLER|Held 403)|SCRIPT ERROR"   # 403 (Jerry)
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4531.gd 2>&1 | grep -E "^(ok|FEHLER|Held|Söldner|nach|in den|im Kampf|Atem 453)|SCRIPT ERROR"   # 453.1 (Tuffy)
@@ -683,6 +684,16 @@ jobs:
           ls -l $GITHUB_WORKSPACE/bilder/tiefwald491
       # 514 Gluehwuermchen: je Gebietskarte der groesste Schwarm nachts aus Sicht des Helden, zwei Augenblicke; nur bei „514 Glühbilder“
       # im Commit oder von Hand auf einem Zweig mit „514“
+      - name: Am Zug 565 (Vorschlag Gruppenkasten, nur von Hand auf einem Zweig mit 565)
+        if: ${{ !cancelled() && github.event_name == 'workflow_dispatch' && contains(github.ref, '565') }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/am_zug565; mkdir -p $B
+          cd godot
+          BILD565_AUS=$B VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 1080x2340 -s res://tests/am_zug_565_bild.gd > $B/am_zug565.log 2>&1 || true
+          grep -E "SCRIPT ERROR|^BILD|^warte|^Mira|^Gegner|^Söldner|^FEHLER|^AMZUG565|Signatur" $B/am_zug565.log | cut -c1-300 | head -40 || true
+          ls -l $B
       - name: Glühwürmchenbilder (514)
         if: contains(github.event.head_commit.message, '514 Glühbilder') || (github.event_name == 'workflow_dispatch' && contains(github.ref, '514'))
         continue-on-error: true
