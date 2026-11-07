@@ -144,8 +144,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 570 | Theke: Wahl „Fleisch verkaufen · 12 Gold“ liest sich wie ein Preis (Prüfer 557 Runde 4) | A Spiel | M? | – | Homer | startbar |
 | 581 | Ausrüstung: Seite breiter als der Schirm, Reiter springen (Abgleich 512b) | A Spiel | M | 2,31 $ | Team Tom | startbar |
 | 583 | Textkasten: ▼ liegt im Text, erzählter Text ohne i-Punkte und nicht schräg (Abgleich 512b) | A Spiel | M | 5,99 $ | Team Tom | wartet |
-| 584 | Kein halbfetter Schnitt: Köpfe und Titel in Erschaffung, Held, Chronik, Karte, System, Brett, Test nicht hervorgehoben wie alt (Abgleich 512b) | A Spiel | K | – | Team Tom | ruht |
-| 585 | Menüs Kleinigkeiten: Titelumbruch Hauptmenü, Knopf Lizenzen, Bild in Rückfrage Wegwerfen, Test „Variante“ (Abgleich 512b) | A Spiel | K | – | Team Tom | ruht |
+| 584 | Kein halbfetter Schnitt: Köpfe und Titel in Erschaffung, Held, Chronik, Karte, System, Brett, Test nicht hervorgehoben wie alt (Abgleich 512b) | A Spiel | K | – | Team Tom | wartet |
+| 585 | Menüs Kleinigkeiten: Titelumbruch Hauptmenü, Knopf Lizenzen, Bild in Rückfrage Wegwerfen, Test „Variante“ (Abgleich 512b) | A Spiel | K | – | Team Tom | wartet |
 | 586 | Schirme 557 einheitlich: Zeichen neben der Überschrift bei Rast, Größe der Überschriften (Chef 05.11., 09:35, Kür) | A Spiel | K | – | Team Tom | wartet |
 | 587 | Gegnergröße im Kampfort: 1,3-fach wie alt und die Wölfe, echte Größe oder je Kapitel (Chef 05.11., zu Bild 494) | E Kampf | M | 2,93 $ | Team Jerry | startbar |
 | 589 | Dorf: Marktplatz wirkt geklont (gleiche Stände, gleiche Säcke), Durchgang links am Stand hakelig (Chef 05.11., 19:2x, t266) | E Welt | M | – | Team Tom | startbar |
@@ -171,7 +171,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 615 | Kamera dreht und zoomt um den Helden als Fixpunkt, läuft nicht aus dem Bild (Chef 07.11., t268) | E Welt | M | – | Team Tom | gebaut |
 | 616 | Kampf: Gegner weichen nach dem Angriff rückwärts zurück statt vorwärts zu laufen (Chef 07.11., t268) | E Kampf | M | – | Team Jerry | wartet |
 | 617 | Hauptmenü „Laden“: Wischen löst Laden aus; laden nur mit dem Knopf rechts (Chef 07.11., t268.1) | A Spiel | M | – | Team Tom | gebaut |
-| 630 | Restliche Schirme im Stil „ohne Kasten“ (549a): Laden-Fenster und Rückfragen, Menü, Brett, Anleitung, Über das Spiel, Erschaffung (Liste aus 618, Sokrates 07.11.) | A Spiel | M | – | Team Tom | ruht |
+| 630 | Restliche Schirme im Stil „ohne Kasten“ (549a): Laden-Fenster und Rückfragen, Menü, Brett, Anleitung, Über das Spiel, Erschaffung (Liste aus 618, Sokrates 07.11.) | A Spiel | M | – | Team Tom | startbar |
 | 618 | Knöpfe einheitlich: „Zurück“, „Abbrechen“, „Schließen“ nach einer Regel auf allen Schirmen, Liste der Abweichungen (Chef 07.11., t268) | A Spiel | M | – | Team Tom | startbar |
 | 619 | Blende: derselbe Druck auf den Aktionsknopf drückt die Blende sofort weg (Chef 07.11., t268.18) | A Spiel | M | – | Team Tom | wartet |
 | 620 | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build (Chef 07.11.) | F Firma | M | – | Sokrates | Dauer |
