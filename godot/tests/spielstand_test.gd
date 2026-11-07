@@ -89,6 +89,7 @@ func _lauf() -> void:
 		karten[1].gui_input.emit(tipp)
 		if int(w2.get("platz", 0)) != 2: fehler += 1; print("FEHLER Platzwahl: %s" % w2)
 	# Spielstaende: vier Karten, Loeschen fragt nach und loescht Platz 4
+	Spielstaende.entwurf = ""   # 557: Karten im alten Aussehen; B prüft spielstaende_529
 	var sp := Spielstaende.new()
 	root.add_child(sp)
 	await process_frame

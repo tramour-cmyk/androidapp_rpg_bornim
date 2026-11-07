@@ -17,7 +17,7 @@ func _initialize() -> void:
 
 func texte(n: Node) -> String:
 	var t := ""
-	if n is Label: t += (n as Label).text + "\n"
+	if n is Label: t += (n as Label).text.replace("\u00a0", " ") + "\n"   # 557 Vorlage 2: letzte zwei Wörter fest verbunden
 	for c in n.get_children(): t += texte(c)
 	return t
 

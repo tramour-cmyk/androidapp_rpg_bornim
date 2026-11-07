@@ -61,6 +61,8 @@ func film() -> void:
 	await fp.get_tree().create_timer(1.0).timeout
 	var sp := Signatur.pruefen(fp.spiel)
 	print("SIGNATUR Trachten: " + (sp if sp != "" else "Toon, Tusche nach Licht, Schatten"))
+	var kam := fp.spiel.kamera as Camera3D
+	print("KAMERA Trachten: Ort %s, Drehung %s, Projektion %d, Groesse %.2f, Wiese %s" % [str(kam.global_position), str(kam.global_rotation_degrees), kam.projection, kam.size, str(fp.spiel.karte.kachel_pos(FigurenProbe.FILM_ORT))])
 	for seite in SEITEN:
 		var namen := []
 		for i in (SEITEN[seite] as Array).size(): namen.append("%s_%d" % [seite, i + 1])

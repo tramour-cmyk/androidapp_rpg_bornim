@@ -32,7 +32,7 @@ Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 4
 - [ ] **2.13** M · **Alle Gegner von Kapitel 1 im Spiel** (Chef 05.11., 08:2x; 579): jeder Gegner der alten Fassung (`Story.kt` Flüsterwald, Tiefer Wald, Blutzahnhöhle, Tag und Nacht) mit Modell auf der Karte und im Kampf, eigener Kennung (577), Klang und Kampfblende. Haken = vom Chef im Build gesehen. Stand 05.11., 08:2x:
   - [x] Wolf (gekauft) · [x] Riesenratte (gekauft) · [x] Goblin · [x] Kobold · [x] Goblin-Schamane · [x] Goblin-Bogenschütze (alle im Build 257)
   - [ ] Riesenfledermaus: nur Kapsel, Modell in 510
-  - [ ] Wildschwein · [ ] Riesenhundertfüßer · [ ] Riesenspinne · [ ] Riesenegel (für Stirge) · [ ] Säureschnecke (für Ockergallerte): gebaut auf `claude/jerry-494-gegner`, in keinem Build (494)
+  - [ ] Wildschwein · [ ] Riesenhundertfüßer · [ ] Riesenspinne · [ ] Riesenegel (für Stirge) · [ ] Säureschnecke (für Ockergallerte): im Build 266 (auf `main` 05.11.), vom Chef im Probekampf gesehen (t266.1, Funde 595, 596); auf der Karte nachts und in der Höhle noch nicht prüfbar (539, 492); Stand 07.11.
   - [ ] Skelett · [ ] Zombie · [ ] Ghul: fehlen (506)
   - [ ] **Bosse:** [ ] Grimmzahn neu auf dem Kaufwolf (533; heute altes Modell, Kampf und Leibwache gehen) · [ ] Krogg (bugbear) · [ ] Grak (hobgoblin_captain): mit der Blutzahnhöhle (492)
 - [ ] **2.14** W · **Alle Orte von Kapitel 1 begehbar** (Chef 05.11., 08:2x). Haken = im Build begehbar wie alt, vom Chef gesehen; „Ort fertig“ (4.3) kommt danach. Stand 05.11.:
@@ -75,7 +75,7 @@ Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 4
 - [ ] **4.10** W · **Durchgespielt:** der Chef spielt Kapitel 1 einmal ganz durch und sagt „gut“ (Prüfer: Chef).
 
 **Stufe 5 · marktreif** (338; Prüfung: Kapitel 1 öffentlich im Play Store)
-- [ ] **5.1** S · Store-Seite, Texte und Bilder (Homer, Sokrates); Impressum (Datenschutzseite online, 252); Gewerbeschein und Preis (142, 45); Repo privat (109); 12 Tester, geschlossener Test 14 Tage, Prüfung durch Google. Vorlauf (142, 109, 142.3) läuft schon jetzt daneben, weil er lange dauert.
+- [ ] **5.1** S · Store-Seite, Texte und Bilder (Homer, Sokrates); Impressum (Datenschutzseite online, 252); Gewerbeschein und Preis (142, 45); Repo privat (109); 12 Tester, geschlossener Test 14 Tage, Prüfung durch Google. Vorlauf (142, 109, 142.3) läuft schon jetzt daneben, weil er lange dauert. · Stand: in Arbeit
 
 **Stufe 6 · SRD im Code abgelöst** (nach dem Marktstart; der Spieler sieht es nicht)
 - [ ] **6.1** G · Auch im Code keine SRD-Werte mehr, der Lizenzhinweis „SRD 5.1 · CC BY 4.0“ entfällt; `regelcheck` ohne Treffer (446).
@@ -141,16 +141,18 @@ Quelle: der alte Kotlin-Code (`core`, `app`), abgeglichen mit `LISTE-UMZUG-348.m
 | 2 | **Wald:** 490 Flüsterwald, 505 Nebel des Krieges, 491 Tiefer Flüsterwald mit Morwens Hütte und Grimmzahn (479 A), 493 Kampforte Wald, 506 Untote (Skelett, Zombie, Ghul) | Spike (Team Tom) | Held geht vom Dorf in den Wald und weiter, trifft Garrick und Morwen, Gegner stehen auf der Karte und starten den Kampf, Kräuter, Teiche, Kartenrand; geht wie alt (`Story.kt:524`, `:619`) | etwa 18 S: Wald 4, Tiefer Wald 3, Kampforte 3, Untote 8 (348.14, dort mit Bilderrunden) |
 | 3 | **Gegner:** 494 Wildschwein, Riesenspinne, Hundertfüßer, Stirge, Ockergallerte, Krogg, Ratten und Fledermäuse mit eigener Figur (348.12 Goblin gehört dazu); 507 Kampforte Höhle | Jerry | jeder Gegner aus dem alten Spiel kämpft an seinem Ort; Modelle in der Reihenfolge, in der du ihnen begegnest, je Gegner höchstens ein Lauf, Feinarbeit danach | etwa 18,5 S: Gegner 15,5, Kampforte Höhle 3 (348.14 vom 26.10., mit Bilderrunden) |
 | 4 | **Höhle und Prüfung:** 492 Blutzahnhöhle mit Grundriss, Krogg, Grak, Lyra, Tor und Schlüssel; 495 Zufallsspieler spielt Kapitel 1 in Godot durch (Abnahme 2.2) | Tom (nach den Befunden aus Build 204) | Höhle geht wie alt (`Story.kt:731`); ein Programm spielt Kapitel 1 bis „chapter1_done“ durch und meldet, wo es hängenbleibt, bevor du spielst | Höhle etwa 8 S, Zufallsspieler schätzt die erste Sitzung |
-| 5 | 496 Durchspiel-Build aus 2–4 | Jerry stellt zusammen | du spielst Kapitel 1 ganz durch; deine Befunde sind Muss, Aussehen nach Gewicht | – |
-| danach | 478 Rechenkern des Kampfs auf BRS, dann 2.3 mit Tom (470 Erschaffung, 471 Fertigkeiten, 472, 473 ins Spiel) | Jerry, Tom | wie Abnahme 2.3 | 3–4 Sitzungen (478) |
+| 5 | 496 Durchspiel-Build aus 2–4 und 478 (dein „jetzt“ 07.11.) | Jerry stellt zusammen | du spielst Kapitel 1 ganz durch; deine Befunde sind Muss, Aussehen nach Gewicht | – |
+| vor 5 (478 jetzt, 07.11.) | 478 Rechenkern des Kampfs auf BRS, dann 2.3 mit Tom (470 Erschaffung, 471 Fertigkeiten, 472, 473 ins Spiel) | Jerry, Tom | wie Abnahme 2.3 | 3–4 Sitzungen (478) |
 
-**Kampf im Durchspiel-Build:** er rechnet noch nach dem alten Regelwerk; das BRS kommt mit 2.3 gleich danach. **Stärkstes Gegenargument:** Was du beim ersten Durchspielen über Kämpfe sagst, gilt nur bedingt, weil 2.3 die Zahlen ändert; die Oberste Direktive verlangt das BRS. **Entkräftet:** Orte, Wege, Geschichte und Gegner hängen nicht an den Regeln; du sagtest „dass irgendwann das Spiel an sich fertig wird und ich durchspielen kann“, und mit 2.3 vorab kämen 3–4 Sitzungen vor dein erstes Durchspielen; Stufe 4 verlangt ohnehin ein zweites Durchspielen (4.10).
+**Kampf im Durchspiel-Build nach dem BRS** (478, Chef 07.11., 16:3x: „Wir packen das BRS auf jeden Fall jetzt auch mit dazu“; ersetzt die Abwägung darunter): 478 und danach 2.3 kommen vor 496, parallel zu 492 und 505. *Bisher (03.11.):* er rechnet noch nach dem alten Regelwerk; das BRS kommt mit 2.3 gleich danach. **Stärkstes Gegenargument:** Was du beim ersten Durchspielen über Kämpfe sagst, gilt nur bedingt, weil 2.3 die Zahlen ändert; die Oberste Direktive verlangt das BRS. **Entkräftet:** Orte, Wege, Geschichte und Gegner hängen nicht an den Regeln; du sagtest „dass irgendwann das Spiel an sich fertig wird und ich durchspielen kann“, und mit 2.3 vorab kämen 3–4 Sitzungen vor dein erstes Durchspielen; Stufe 4 verlangt ohnehin ein zweites Durchspielen (4.10).
 
 **Antworten an die Teams (Perikles, 488):** 471 Fertigkeiten ins Spiel mit 2.3 (Votum Tom A); 458.3, 455.2, 348.13 (Tom), 461.1, 460 (Jerry) nach dem Durchspielen; 348.12 Goblin geht in 494 auf; 417, 463, 406 (passt) in den nächsten gemeinsamen Build.
 
 ### Nach dem Durchspielen (488)
 
 Eingefroren am 03.11.; gestrichen wird nichts. Nach deinem ersten Durchspiel ordnet Perikles diese Liste nach dem Gewicht deiner Befunde. Einzelheiten in der Zeile des Vorgangs.
+
+**Erstes Wochenziel danach: Referenzszene** (620.4, Chef 07.11., 21:29: „620.4 A“; Archiv): Hauptmenü → Erschaffung → Vorspann → Dorf bei Tag (Marktplatz, Schänke innen, Schlagbaum mit Jorin und Garrick) → Flüsterwald → erster Wolfskampf bis zum Sieg, ganz fertig als Maß für alle weiteren Orte; fertig, wenn du sie durchspielst und „gut“ sagst. Tom (Dorf, Leute) und Jerry (Wolfskampf, Klang) schätzen sie, sobald 496 steht.
 
 - 463.1 Umhang und Robe: Ärmel, Stiefel, Kettenhemd, Haut, Boden (Tom)
 - 417 Tragart: Rumpf dreht beim Rennen, Füße rutschen, Schild steht ab, Kornfeld, Stabgang (Tom, Archiv 417)

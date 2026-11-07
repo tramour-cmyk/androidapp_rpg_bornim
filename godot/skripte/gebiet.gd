@@ -105,6 +105,13 @@ static func datei(id: String) -> String:
 static func maske(id: String) -> String:
 	return "boden-maske" if id == "village" else id + "-boden-maske"
 
+# 574 (Laufprotokoll Build 257: „Condition "buffer_size == 0" is true“ = ein Bild aus leeren Bytes): nur laden, was es gibt
+static func maske_bild(id: String) -> Image:
+	var p := "res://daten/%s.bild" % maske(id)
+	if not FileAccess.file_exists(p): return null
+	var img := Image.new()
+	return img if img.load_png_from_buffer(FileAccess.get_file_as_bytes(p)) == OK else null
+
 static func lade_glb(p: String) -> Node3D:
 	var doc := GLTFDocument.new()
 	var state := GLTFState.new()
@@ -131,7 +138,9 @@ static func entschluessele(b: PackedByteArray, p: String) -> PackedByteArray:
 # 397 (Chef 28.10., 11:15: Ruhebewegungen wie im alten Spiel, mindestens drei): wer steht, spielt Stehen zwei- bis viermal, dann
 # eine der anderen Ruhebewegungen (geruest.py RUHE, aus der UAL Pro) einmal, dann wieder Stehen; ohne die Kaufbewegungen nur Stehen.
 # Gibt [Name, Dauer in s] der naechsten zurueck
-const RUHE := ["Stehen", "Stehen_2", "Stehen_3"]
+# 592 (Chef 05.11., 22:0x: „592 so“): Stehen_3 (Idle_Tired, vornueber gebeugt) ist keine Ruhebewegung mehr, nur noch atemlos
+# (held.gd ATEM_HALT); es bleiben Stehen und Umsehen
+const RUHE := ["Stehen", "Stehen_2"]
 static func ruhe_naechste(anim: AnimationPlayer, jetzt: String, z: RandomNumberGenerator) -> Array:
 	var da := RUHE.filter(func(n): return anim.has_animation(n))
 	if jetzt != "Stehen" or da.size() < 2: return ["Stehen", anim.get_animation("Stehen").length * z.randi_range(2, 4)]
@@ -198,7 +207,10 @@ static func finde(n: Node, cls: String) -> Node:
 static func bild(name: String) -> ImageTexture:
 	if texcache.has(name): return texcache[name]
 	var img := Image.new()
-	img.load_png_from_buffer(FileAccess.get_file_as_bytes("res://daten/%s.bild" % name))
+	var p := "res://daten/%s.bild" % name
+	if not FileAccess.file_exists(p) or img.load_png_from_buffer(FileAccess.get_file_as_bytes(p)) != OK:   # 574: fehlt es, weiss statt Fehler
+		push_warning("Gebiet.bild: %s fehlt" % p)
+		img = Image.create(4, 4, false, Image.FORMAT_RGBA8); img.fill(Color.WHITE)
 	if not img.has_mipmaps(): img.generate_mipmaps()
 	var t := ImageTexture.create_from_image(img)
 	texcache[name] = t
@@ -482,8 +494,8 @@ static func kreuz() -> ArrayMesh:
 
 func baue_leben() -> void:
 	var ts := Karte.TS
-	var mimg := Image.new()
-	mimg.load_png_from_buffer(FileAccess.get_file_as_bytes("res://daten/%s.bild" % maske(karte.id)))
+	var mimg := Gebiet.maske_bild(karte.id)
+	if mimg == null: return   # 574: Grundrisse (Schenke, Laden, Aeltester, Tempel) haben keine Bodenmaske und kein Gras
 	var rng := RandomNumberGenerator.new(); rng.seed = 348
 	var xf: Array[Transform3D] = []; var cu: Array[Color] = []
 	var kxf: Array[Transform3D] = []; var kcu: Array[Color] = []

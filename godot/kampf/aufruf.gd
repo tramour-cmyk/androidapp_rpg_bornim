@@ -77,7 +77,10 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 			# Reißzähne +4, 2W6+1, Boss: keine Flucht, kein Autopilot; 450 EP, 4W10 Gold, großer Heiltrank zu 50 %); Bewegung,
 			# Texte und Modell bleiben die des Wolfs (id „wolf“), der Lohn zählt die Leibwache wie alt (pack „dire_wolf“, je 0,25)
 			m = (monsters.get("dire_wolf", m) as Dictionary).duplicate(true)
-			m.id = Mars.WOLF
+			# 533 (Chef 04.11., 20:30: in der Blende „gelbe Augen“, ein Satz des Wolfs; Sokrates 20:58 „einmal umdrehen“ wie 577):
+			# die id bleibt dire_wolf (Blende, Texte, Klang, Lohn), der Körper ist der des Wolfs (Modell, Bewegung), die Regeln des
+			# Rudels wie beim Wolf (Mars.wolfig)
+			m.koerper = Mars.WOLF
 			m.pack = "dire_wolf"
 			m.de = "Grimmzahn, der Leitwolf"
 			m.en = "Grimfang the Alpha"
@@ -210,6 +213,8 @@ func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := 
 	var party := [_kaempfer("hero", held, held_tp, Vector2i(Mars.FRONT, 0), skills)]
 	party[0].hero["look"] = lage.get("aussehen", {})     # 403: Kopf, Haar, Haut wie im Dorf (Zustand.aussehen, HeldFigur)
 	leiden_auf(party[0], lage.get("leiden", {}))     # 532
+	if bool(lage.get("betrunken", false)):     # 532 Metrausch wie alt (Battle.drunk): bis zur Rast, im Kampf ohne Ende
+		party[0].status["DRUNK"] = Mars.LASTING
 	if soeldner != null:
 		var sb := _als_blatt(soeldner)
 		var hinten: bool = sb.main.ranged or sb.cls == "WIZARD" or sb.cls == "CLERIC"
