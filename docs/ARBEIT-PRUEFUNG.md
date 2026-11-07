@@ -2,9 +2,9 @@
 
 Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang und Klasse, dann `send_message` an Ford „Auftrag Diogenes <Nr>“ (von Pro aus nur die Zeile); nur Chef oder Ford starten Diogenes.
 
-**Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D74 (Lauf 71: 578 gleich Film greift, D73 an Perikles; Lauf 70: 513.1 Figurensperre greift und gibt frei, D72 an Perikles; Lauf 69: Nachprüfung 275 D46.3/D46.5/D47.2, D69.1, D70.1, ohne Befund; Lauf 68: Nachprüfung D67.1, D68, 461b-Anhänge, D69, D70; Lauf 67: 340.4/340.5 ohne Nummer; Lauf 66: 480/480.1/340.3, D68; Lauf 65: 484 Abkürzungen, D67; Lauf 64: 447.4, D66, `5c3d13358`; Lauf 63: Nachprüfung D63/D64.1, D65, `036b48029`; Lauf 62: 407, D64, `bb1205e31`; Lauf 61: Woche, D63, `73ab91995`; ältere Läufe im Prüfbericht und in Git).
+**Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D75 (Lauf 72: Pflege, 27 Meldungen „wartet auf tNN“ gesichtet, 6 echt an Tom/Jerry, D74 an Perikles; Lauf 71: 578 gleich Film greift, D73 an Perikles; Lauf 70: 513.1 Figurensperre greift und gibt frei, D72 an Perikles; Lauf 69: Nachprüfung 275 D46.3/D46.5/D47.2, D69.1, D70.1, ohne Befund; Lauf 68: Nachprüfung D67.1, D68, 461b-Anhänge, D69, D70; Lauf 67: 340.4/340.5 ohne Nummer; Lauf 66: 480/480.1/340.3, D68; Lauf 65: 484 Abkürzungen, D67; Lauf 64: 447.4, D66, `5c3d13358`; Lauf 63: Nachprüfung D63/D64.1, D65, `036b48029`; Lauf 62: 407, D64, `bb1205e31`; Lauf 61: Woche, D63, `73ab91995`; ältere Läufe im Prüfbericht und in Git).
 
-**Übergabe (05.11., 07:1x, „Diogenes – 578: Filmwächter gleich Film“):** Lauf 71: 578 geprüft (494 gesperrt, 572 frei nachgestellt), Zeile gestrichen; D73 an Perikles (Zu 578): Kopf ohne Ergebnis gibt frei. Nachfolger: „Diogenes – 511: Filmsperre“ am ersten echten Filmlauf; sonst Wochenzählung Mo 09.11.
+**Übergabe (07.11., 20:09, „Diogenes – Pflege: Wartet-Meldungen“):** Lauf 72: Pflege-Zeile abgearbeitet und gestrichen; eigene Zeilen ohne echten Befund (512b nennt t257 nur als Verlauf); Hinweise an Tom (519, 521–524) und Jerry (496a), D74 an Perikles (Werkzeug meldet sich selbst). Nachfolger: „Diogenes – 511: Filmsperre“ am ersten echten Filmlauf; sonst Wochenzählung Mo 09.11.
 
 
 ## Zeilen
@@ -22,7 +22,6 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24):** Umzug Godot: jedes Vergleichsbild alt/neu messen, nur Hinweis an den Chef, hält nichts an (373); gedrehte Ansichten gegen Regeln (`LISTE-UMZUG-348.md` „Arbeitsteilung“ 3, 5) | wartet auf neue Bilder; selbst holen ab „Bilder geholt bis“ (Zu 485) |
 | Woche | K | **Wochenzählung (QM, 106.1):** alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht (`LISTE-PRUEFUNG.md` „Wochenzählung“), dazu „Anteil Spiel“ (167.4) und „Wochentermine gelaufen“ (485) | frühestens 09.11., montags ab 8 Uhr (dazu 374 und 434 der Woche, 461b, Nächte 371, rote Läufe 464) |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (`tools/pruefbogen/`, mit echten Bögen ungetestet) | ruht, bis Bögen der Tester da sind (190) |
-| Pflege | K | **von Werkzeug (340.3, 07.11.):** Zeile 512b wartet auf t257, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile Pflege wartet auf t257, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile Pflege wartet auf t257, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand  … | startbar |
 
 
 - **Zu 511** (Perikles, `d6d9eca8c`, `b3562a719`): `probelauf.py` hält jeden Filmlauf an bis Probebild, „<Nr> Probebild passt“ im Archiv, Helfer ok (511a); `LISTE-BAUEN-TESTEN.md` Prüftreppe 4 ersetzt Ausnahme 461a/480. Prüfen: greift am ersten echten Filmlauf seit 03.11., 14:03, Test-Pushes ohne Film frei; Arbeitskopie mit `settings.json` von vor ff8821827 (ohne MCP-Haken, Spike Lauf 244 ungezählt) wird angehalten, bis `main` gemischt ist.
