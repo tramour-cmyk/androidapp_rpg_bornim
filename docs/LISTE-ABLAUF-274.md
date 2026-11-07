@@ -1,5 +1,7 @@
 # Ablauf und Dateien (274)
 
+**Überholt seit 07.11. durch 275.2:** eine Vorgangsliste mit Feldern, Vorräte ohne Tabelle (`CLAUDE.md` „Wo was steht“, `tools/umstellung2752/README.md`). Unten nur noch die Bestandsaufnahme vom 21.10.
+
 Sokrates, 21.10., 07:2x, auf Frage des Chefs (Wortlaut Zu 274 in `ARBEIT-PROJEKT.md`). Bestandsaufnahme mit Empfehlung, noch nichts umgebaut.
 
 **Chef 07:10** (Wortlaut, gekürzt): „Stell mir doch mal anhand eines kleinen Flussdiagramms oder Ablaufdiagramms … wie unsere ganzen Arbeitsvorräte und Listenvorgänge … ineinander greifen … Welche Dateien gibt es da? Ist da eine überflüssig? … Welche brauchen wir zur Kostenermittlung? … Ziel sollte es mal sein, dass wir das Regelwerk für euch vereinfachen, dass ihr es leichter umsetzen könnt und dass die Dateien halt auch nicht immer so riesig sind.“ **07:22:** „… wenn es bei jemandem rauswandert … verschwindet dann der Vorgang bei dir aus deinem Vorrat oder steht er da weiter … Also warum wandert sozusagen der Eintrag-Vorgang, den es ja nur einmal gibt, nicht rüber?“
