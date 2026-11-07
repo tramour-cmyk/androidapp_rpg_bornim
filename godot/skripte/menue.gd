@@ -402,7 +402,8 @@ func ausruestungszeile(g: Dictionary) -> HBoxContainer:
 	n.max_lines_visible = 2
 	s.add_child(n)
 	var ok := hw.kann_tragen(g)
-	var unten := Beute.listen_zeile(g)
+	# 521/523 (Chef 04.11., 12:01: Robe des Ankers zeigte nur „Oberkörper“): ohne Kennwert die zwei ersten Boni wie im Wechselschirm (557)
+	var unten := Menue.listen_zeile_b(g)
 	if unten == "": unten = Testmodus.gross_anfang(Sprache.t(Heldwerte.lade()["seltenheiten"][String(g["rarity"])].get("name", g["rarity"])))   # Ring, Amulett ohne Kennwert: alt leer
 	if zweihaendig(g) and not unten.containsn("zweih") and not Beute.name(g).containsn("zweih"): unten += " · " + ("zweihändig" if de else "two-handed")
 	if not ok: unten += " · " + ("nicht tragbar" if de else "can't wear")
@@ -413,8 +414,9 @@ func ausruestungszeile(g: Dictionary) -> HBoxContainer:
 		var x = hw.ding(pl)
 		if x != null and int(x["uid"]) == int(g["uid"]): angelegt = true
 	var u = Vergleich.von(hw, g).urteil() if ok and not angelegt else null
-	if u == 1 or u == -1:
-		var pf := Erschaffung.txt("▲" if u == 1 else "▼", 18, BESSER if u == 1 else AKZENT)
+	# 521/523 (Chef 04.11., 12:01: „das in der Mitte … wird gar nicht bewertet“): gemischt mit ◆ in Gold wie der Wechselschirm (557)
+	if u != null:
+		var pf := Erschaffung.txt({1: "▲", -1: "▼", 0: "◆"}[int(u)], 18, {1: BESSER, -1: AKZENT, 0: Stil.BRIGHT}[int(u)])
 		pf.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		r.add_child(pf)
 	r.set_meta("tragbar", ok)
@@ -591,6 +593,17 @@ static func benutze(z: Zustand, hw: Heldwerte, id: String, wuerfel_: Callable) -
 	var geheilt: String = sag.call("healed", [hw.name, hw.tp - vor])
 	return (sag.call("cured", [hw.name]) + " " + geheilt) if heilt else geheilt
 
+# 523 (Abgleich 512, Game.kt useItemOutside): wie alt ein Klang, wenn etwas wirklich benutzt wurde: Essen „heal“, Traenke und Funke
+# „potion“; nichts, wenn der Held schon voll ist oder der Funke schon brennt
+func benutze_mit_klang(id: String, art: String) -> void:
+	var vor := z.anzahl(id)
+	meldung(Menue.benutze(z, hw, id, wuerfel))
+	var k := get_node_or_null("/root/Klang")
+	if k and z.anzahl(id) < vor: k.effekt("heal" if art == "FOOD" else "potion")
+	letzter_klang = ("heal" if art == "FOOD" else "potion") if z.anzahl(id) < vor else ""
+
+var letzter_klang := ""   # 523: fuer den Test ohne Klangknoten
+
 func frage_ding(id: String) -> void:
 	var dd := Laden.ding(id)
 	var art := String(dd.get("art", ""))
@@ -607,7 +620,7 @@ func frage_ding(id: String) -> void:
 	var farbe := Color(SELTEN.get(String(dd.get("seltenheit", "COMMON")), "e6ddcb"))
 	if trinkbar:
 		var wort := ("Essen" if de else "Eat") if art == "FOOD" else Sprache.u("use")
-		dialog(Laden.name(id), farbe, zeilen, [[wort, func(): meldung(Menue.benutze(z, hw, id, wuerfel)); baue()], [abbrechen(), func(): pass]])
+		dialog(Laden.name(id), farbe, zeilen, [[wort, func(): benutze_mit_klang(id, art); baue()], [abbrechen(), func(): pass]])
 	else:
 		dialog(Laden.name(id), farbe, zeilen, [["OK", func(): pass]])
 
