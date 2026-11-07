@@ -129,8 +129,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 534 | Kampf: Zauber und Fähigkeiten fehlen in „Können“ (Magierrüstung, Untote vertreiben, Spirituelle Waffe, Geisterwächter) oder wirken nicht (Unglaubliches Ausweichen, Unerbittlichkeit, Lebensraub, Schadensminderung der Ausrüstung); Talente zu Kampfbeginn (Einschüchtern, Schwächen kennen) (Abgleich 512, Sokrates 03.11., 23:4x) | E Kampf | M | 2,32 $ | Team Jerry | wartet |
 | 536 | Kampf: Erklärungen bei langem Drücken (MarsTips), Grund bei gesperrtem Zauber, „Kein Ziel in Sicht“, Knopf „Schnell“, Stufe und EP im Gruppenkasten, Seltenheitsfarbe der Beute (Abgleich 512, Sokrates 03.11., 23:4x) | E Kampf | M | 2,28 $ | Team Jerry | startbar |
 | 540 | Texte hängen am Spielbeginn: Südrand (immer Text vor dem Auftrag, „Kapitel 2 folgt“ fehlt, nichts gemerkt), Schlagbaum nach dem Auftrag, Klopfen an 12/5 nach Kapitel 1, Tipp beim Erwachen auch bei klassischer Steuerung (Abgleich 512, Sokrates 03.11., 23:4x) | A Spiel | M | – | Team Tom | wartet |
-| 542 | Aufträge: Jorins „Feuer am Steinkreis“ nicht abschließbar (Fetzen fehlt), Gwennas Ring am Brett ohne Höhle nicht findbar, Aldrics Ring als Ding statt Einzelstück (Abgleich 512, Sokrates 03.11., 23:4x) | A Spiel | M | – | Team Tom | startbar |
-| 543 | Startwerte gegen alt und BRS prüfen: Startgold 15–25 und Start-Heiltränke fehlen, Wiederkehrort Schenke statt Tempel, Beute im Tiefen Wald Stufe 1 statt 2 (Abgleich 512, Sokrates 03.11., 23:4x) | A Spiel | M | – | Team Tom | startbar |
+| 542 | Aufträge: Jorins „Feuer am Steinkreis“ nicht abschließbar (Fetzen fehlt), Gwennas Ring am Brett ohne Höhle nicht findbar, Aldrics Ring als Ding statt Einzelstück (Abgleich 512, Sokrates 03.11., 23:4x) | A Spiel | M | – | Team Tom | wartet |
+| 543 | Startwerte gegen alt und BRS prüfen: Startgold 15–25 und Start-Heiltränke fehlen, Wiederkehrort Schenke statt Tempel, Beute im Tiefen Wald Stufe 1 statt 2 (Abgleich 512, Sokrates 03.11., 23:4x) | A Spiel | M | – | Team Tom | wartet |
 | 549a.1 | ROLLE-ENTWICKLUNG: vor jedem Menüschirm „Fenster und Schirme“ lesen (zu 549a) | B Abläufe | M? | – | Perikles | erledigt |
 | 558 | Robe des Magiers zu glatt, wie eine blaue Fläche: Stoff lebendiger (Falten, Schatten, Schmutz, Abnutzung) (Chef 04.11., 11:31, Bild) | E Figuren | M | 96,33 $ | Team Tom | startbar |
 | 558.1 | Prüferrest Robe Probe 5 nachhalten, nicht bauen; Chef sieht es nach dem Durchspielen an (Chef 04.11., 22:23) | E Figuren | K | – | Team Tom | ruht |
@@ -149,7 +149,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 587 | Gegnergröße im Kampfort: 1,3-fach wie alt und die Wölfe, echte Größe oder je Kapitel (Chef 05.11., zu Bild 494) | E Kampf | M | 2,93 $ | Team Jerry | startbar |
 | 589 | Dorf: Marktplatz wirkt geklont (gleiche Stände, gleiche Säcke), Durchgang links am Stand hakelig (Chef 05.11., 19:2x, t266) | E Welt | M | – | Team Tom | startbar |
 | 590 | Innenräume: Türseite bei gedrehter Kamera dunkel und tot, mehr Licht (Kerzen) und Einrichtung (Chef 05.11., 19:2x) | E Innenräume | M | – | Team Tom | startbar |
-| 591 | Dorftiere (Hühner, Kaninchen) fliehen vor dem Helden wie alt, mit Alarmklang (Chef 05.11., 19:2x) | E Welt | M | 3,68 $ | Team Tom | startbar |
+| 591 | Dorftiere (Hühner, Kaninchen) fliehen vor dem Helden wie alt, mit Alarmklang (Chef 05.11., 19:2x) | E Welt | M | 3,68 $ | Team Tom | wartet |
 | 593 | MARS: Ausweichen auch rückwärts als Abwechslung zu links und rechts (Chef 05.11., 19:2x) | E Kampf | M? | – | Team Jerry | wartet |
 | 595 | Kampfbewegungen der Kaufgegner: Spinne mehr Angriffe, Egel und Schnecke schneller, Treffhöhe, Ruckeln, Ruhe (Chef 05.11., 19:2x, t266.1) | E Kampf | M | – | Team Jerry | wartet |
 | 597 | MARS: Ring ohne Ankündigung (Fledermaus); alle Angreifer prüfen (Chef 05.11., 19:2x) | E Kampf | M | 2,88 $ | Team Jerry | startbar |
@@ -159,9 +159,9 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 604 | Schenke Erdgeschoss: Bett raus, mehr Tische und Bänke; Schlafen oben nur im Text (Chef 06.11., 09:38) | E Entwicklung | K | – | Team Tom, Homer | startbar |
 | 605 | Ausrüstung: leeres Kopffeld, Auswahl zeigt falsch „Obergrenze“, kein Zurück (Chef 06.11., 21:22, t268) | E Entwicklung | M | – | Team Tom | gebaut |
 | 606 | Schenke: Met kostet laut Liste 2 Gold, abgezogen werden 4 (Chef 07.11., t268) | A Spiel | M | – | Team Tom | gebaut |
-| 607 | Leute nachts: Pim läuft um 3 Uhr herum, sein Klopftext sagt, er schläft (Chef 07.11., t268) | A Spiel | M | – | Team Tom | startbar |
+| 607 | Leute nachts: Pim läuft um 3 Uhr herum, sein Klopftext sagt, er schläft (Chef 07.11., t268) | A Spiel | M | – | Team Tom | wartet |
 | 608 | Haus wird durchsichtig, wenn der Held dahinter steht, dann geht innen das Licht an (Pims Hütte, Tempel) (Chef 07.11., t268) | E Welt | M | – | Team Tom | startbar |
-| 609 | Dorf: Baum hinter der Schenke sperrt den Weg zum Schlagbaum; alle Häuser auf der Waldseite umrundbar (Chef 07.11., t268) | E Welt | M | – | Team Tom | startbar |
+| 609 | Dorf: Baum hinter der Schenke sperrt den Weg zum Schlagbaum; alle Häuser auf der Waldseite umrundbar (Chef 07.11., t268) | E Welt | M | – | Team Tom | gebaut |
 | 610 | Held im Dorf: Finger am Stab zucken ohne Unterlass (Schild auf dem Rücken) (Chef 07.11., t268) | E Figuren | M | – | Team Tom | startbar |
 | 611 | Klopfen an Türen: deutlicher, mit Name des Hauses oder Sprechers; Zeichen an Pfeiler oder Laterne beim Zwerg wie alt (Chef 07.11., t268) | A Spiel | M | – | Team Tom | startbar |
 | 612 | Dorf Süd: Heuhaufen geklont und wie aufgespießt, Wackelgras im Weizenfeld, Gemüsebeet mit Leerstreifen; drei Varianten je Ding (Chef 07.11., t268) | E Welt | M | – | Team Tom | startbar |
@@ -179,13 +179,13 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 620.2b | Abgleich alt nach `LISTE-ABGLEICH-ALT.md`: Höhle, Klang, Gegner, Bosse (aus 620.2) | B Abläufe | M | – | Team Jerry | startbar |
 | 621.1 | Probenregel A: höchstens eine Aussehen-Probe je Thema, sonst Rückfrage mit Wegen und Kosten; ersetzt Rundenzahl 389 (Chef 07.11., 621) | B Abläufe | M | – | Perikles | erledigt |
 | 626 | Rückfrage: 14 alte Zeilen aus SRD-Zeit und Umzug streichen oder in 478 übernehmen (Inventur 07.11.) | B Abläufe | M | – | Sokrates | erledigt |
-| 625 | Sammelbuild 269: alle fertigen Zweige beider Teams (35 warten), Prüfliste als Weg durchs Spiel (Chef 07.11., 20:5x) | E Entwicklung | M | – | Team Tom | startbar |
+| 625 | Sammelbuild 269: alle fertigen Zweige beider Teams (35 warten), Prüfliste als Weg durchs Spiel (Chef 07.11., 20:5x) | E Entwicklung | M | – | Team Tom | in Arbeit |
 | 317.1 | `startbar.py`, `lauf.py`: Obergrenze 6 je Build streichen (Chef 07.11., 20:5x) | B Werkzeuge | M | – | Perikles | gebaut |
 | 624 | Testanzeigen größer: FPS und Standort über der Welt, Messwerte im Reiter „Test“ (Speicher u. a.) gut lesbar (Chef 07.11., 17:5x) | B Werkzeuge | M | – | Team Tom | startbar |
 | 622 | Godot-Build als AAB für Play: dieselbe App `de.bornim.game`, mit dem Upload-Schlüssel des alten AAB, höhere Versionsnummer (Sokrates 07.11., aus 142.4) | M Veröffentlichung | M | – | Team Tom | startbar |
 | 621.2 | Toms Vorrat auf etwa 15 KB: Erledigtes und alte „Zu“-Absätze ins Git (Chef 07.11., 621 B) | B Abläufe | M | – | Team Tom | startbar |
 | 620.4 | Referenzszene Dorf bis Wolfskampf im Flüsterwald ganz fertig als Maß für alles (aus 620) | B Abläufe | M | – | Perikles | erledigt |
-| 555 | Testmenü wie alt und schneller: fehlende Einträge der alten Fassung, dazu Sprünge an jede Station von Kapitel 1 (Chef 04.11., 00:30) | B Werkzeuge | M | 15,00 $ | Team Tom | startbar |
+| 555 | Testmenü wie alt und schneller: fehlende Einträge der alten Fassung, dazu Sprünge an jede Station von Kapitel 1 (Chef 04.11., 00:30) | B Werkzeuge | M | 15,00 $ | Team Tom | wartet |
 | 523 | Tasche wie alt und besser: „Funke löschen“, Seltenheit und Kurzangabe der Vorräte, Ausrüstungszeile mit Art, Platz, Wert, „nicht tragbar“, ▲/▼ farbig, Sortierung nach Platz, Klang beim Benutzen (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Tom | startbar |
 | 524 | Gegenstandsfenster, Inhalt wie alt und besser: Grundwerte (Seltenheit, Tragort, Gewicht, Schaden je Griffart, Angriff, RK + GES), Warnungen „Ungeübt“, „Zauberkraft nützt nur Zauberwirkern“, Vergleich mit „im Schnitt“ und Kapiteldeckel (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Tom | startbar |
 | 528 | Held, Karte, Chronik wie alt: Satz zur Höchststufe des Kapitels am EP-Balken, Kartenzeichen in der oberen Leiste, „Auf der Karte“ bei Nebenaufträgen (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Tom | wartet |
