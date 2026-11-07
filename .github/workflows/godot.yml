@@ -62,6 +62,7 @@ jobs:
           # 399.1 Bilder der Dinge (ThingArtExport): Vorraete und Ausruestung je Seltenheit wie im alten Spiel
           ./gradlew -p core exportThingArt -Pout=$GITHUB_WORKSPACE/godot/daten -q
           cp app/src/main/res/font/fondamento_regular.ttf godot/daten/fondamento.ttf
+          cp app/src/main/assets/OFL-Fondamento.txt godot/daten/   # 497 (Homer 07.11.): die OFL verlangt Copyright und Lizenztext bei der Weitergabe
           # 458.2: Stufe und Preis aller Gegenstaende nur aus dem Gegenstandskatalog (godot/skripte/katalog.gd)
           cp tools/gegenstaende/gegenstaende.json godot/daten/
       # 348.12e gekaufte Modelle aus dem privaten Repo bornim-kaufmodelle (348.12c a), danach unter $KAUF;
