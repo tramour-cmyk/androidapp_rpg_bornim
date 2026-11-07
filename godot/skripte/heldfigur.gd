@@ -435,7 +435,10 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 	var bi := sk.find_bone("spine_03")
 	if bi < 0: return
 	var brust := im_raum(m, sk) * sk.get_bone_global_rest(bi)
-	var schild := _modell(aus.get("OFF_HAND"))
+	# 522 (Chef 04.11., 11:55: Streitkolben und Dolch angelegt, am Helden nichts): ein Dolch in der Nebenhand ist kein Schild; bis er
+	# einen eigenen Platz am Koerper hat, haengt nur ein Schild auf dem Ruecken
+	var neben = aus.get("OFF_HAND")
+	var schild := _modell(neben) if neben is Dictionary and String(Beute.grundform(String(neben.get("base", ""))).get("art", "")) == "SHIELD" else ""
 	var waffe := _modell(aus.get("MAIN_HAND"))
 	# Ruhelage: die Figur blickt nach +Z, ihre linke Seite ist +X. Schild auf dem Ruecken (Vorderseite nach hinten), geneigt wie der
 	# Ruecken zwischen Schulterblatt und Kreuz (Pruefer Lauf 1: unten 5-7 cm Spalt); die Waffe schraeg, Griff ueber der rechten
