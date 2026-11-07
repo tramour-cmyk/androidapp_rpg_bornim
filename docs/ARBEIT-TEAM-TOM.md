@@ -11,7 +11,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 |---|---|---|---|---|
 | 625 | M | **von Sokrates („jetzt“ 07.11., 20:54; Zu 625):** Sammelbuild 269 wie 603: alle fertigen Zweige beider Teams und die Fehlerbehebungen dieser Nacht; Prüfliste als Weg durchs Spiel, nach Orten, jeder Schritt vorher im Build nachgegangen (512); 268.4, 268.14, 268.24, 268.12, 268.27 wieder abfragen | in Arbeit (Zu 625) | `claude/build-269` |
 | 620.2a | M | **von Perikles (620.2, 621 D, Chef 07.11.):** Abgleich alt einmal je Ort und Figur nach `LISTE-ABGLEICH-ALT.md`: Tom 1.1–1.6 und alle Leute (2), Spike 1.7–1.8 Wald; Spalte „Godot“ je Zeile, „fehlt“ wird Vorgang; ersetzt danach den Abgleich je Build (512b) | startbar | – |
-| 605 | M | **von Ford (Chef 06.11., 21:22, Test Build 268, Bild; Zu 605):** Ausrüstung, leeres Kopffeld → Auswahl: falsche Anzeige („wirkt nicht (Obergrenze)“ bei allen Werten, Vergleich gegen leeres Feld), kein Abbrechen oder Zurück | in Arbeit bei Tom (625) | – |
+| 605 | M | **von Ford (Chef 06.11., 21:22, Test Build 268, Bild; Zu 605):** Ausrüstung, leeres Kopffeld → Auswahl: falsche Anzeige („wirkt nicht (Obergrenze)“ bei allen Werten, Vergleich gegen leeres Feld), kein Abbrechen oder Zurück | gebaut, fährt im nächsten Build (269); Geprüft an: a2add0154, 216dd5d09 (doppeltipp_605 lokal) | `claude/tom-605-doppeltipp` |
 | 581 | M | **von Tom (Abgleich 512b):** Reiter Ausrüstung: Seite 16 px breiter als der Schirm (Rand 11 statt 27 px), Reiter springen beim Wechsel (`menue.gd` 821–835) | startbar: t268.11 (Zu 605) | `claude/tom-581-ausruestung` |
 | 583 | M | **von Tom (Abgleich 512b):** Textkasten: ▼ liegt im Text („Sammel▼“), erzählter Text ohne i-Punkte und nicht schräg | wartet auf 625: in die Prüfliste (Inventur 07.11.) | `claude/tom-583-textkasten` |
 | 584 | M? | **von Tom (Abgleich 512b; Zu 584):** kein halbfetter Schnitt, Köpfe wie alt (Theme.kt 216: halbfett ab 15 sp als Gold-Kopf) fehlen in Erschaffung, Held, Chronik, Karte, System, Brett, Test | wartet auf Perikles: Klasse (Aussehen eingefroren, 488) | – |
@@ -76,10 +76,10 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 590 | M | **von Sokrates (Chef 05.11., 19:2x; Zu 590):** Innenräume: Türseite bei gedrehter Kamera dunkel und tot; Licht (Kerzen) und Einrichtung | startbar (Inventur 07.11.) | – |
 | 591 | M | **von Sokrates (Chef 05.11., 19:2x; Zu 591):** Hühner und Kaninchen fliehen vor dem Helden wie alt, Klang dazu; „jetzt“ 06.11., 08:07 (Chef: „was am effizientesten ist“) | startbar: t268.6 nicht bestanden (Zu 591) | `claude/tom-591-tiere` |
 | 621.2 | M | **von Sokrates (Chef 07.11., 16:4x, „621, A, B und D“; Archiv 621 B):** Vorrat auf etwa 15 KB: Erledigtes und alte „Zu“-Absätze streichen (Verlauf in Git), am besten Spike | startbar | – |
-| 606 | M | **von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619):** Met: Liste 2 Gold, abgezogen 4 | in Arbeit bei Tom (625) | – |
+| 606 | M | **von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619):** Met: Liste 2 Gold, abgezogen 4 | gebaut, fährt im nächsten Build (269); Geprüft an: a2add0154, 216dd5d09 (doppeltipp_605 lokal) | `claude/tom-605-doppeltipp` |
 | 609 | M | **von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619):** Baum hinter der Schenke sperrt den Weg zum Schlagbaum; alle Häuser auf der Waldseite umrundbar | startbar | – |
-| 617 | M | **von Sokrates (Chef 07.11., 14:1x, t268.1; Zu 606–619):** Hauptmenü „Laden“: Wischen lädt; nur der Knopf rechts lädt | in Arbeit bei Tom (625) | – |
-| 619 | M | **von Sokrates (Chef 07.11., 14:1x, t268.18; Zu 606–619):** Aktionsknopf drückt die Blende gleich mit weg | in Arbeit bei Tom (625) | – |
+| 617 | M | **von Sokrates (Chef 07.11., 14:1x, t268.1; Zu 606–619):** Hauptmenü „Laden“: Wischen lädt; nur der Knopf rechts lädt | gebaut, fährt im nächsten Build (269); Geprüft an: a2add0154, 216dd5d09 (doppeltipp_605 lokal) | `claude/tom-605-doppeltipp` |
+| 619 | M | **von Sokrates (Chef 07.11., 14:1x, t268.18; Zu 606–619):** Aktionsknopf drückt die Blende gleich mit weg | in Arbeit bei Tom: nachgestellt, Ursache nicht gefunden (Zu 619) | – |
 | 607 | M | **von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619):** Pim läuft um 3 Uhr herum, sein Klopftext sagt, er schläft | startbar | – |
 | 608 | M | **von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619):** durchsichtiges Haus macht innen Licht an (Pim, Tempel) | startbar | – |
 | 610 | M | **von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619):** Finger am Stab zucken im Dorf (Schild auf dem Rücken) | startbar | – |
