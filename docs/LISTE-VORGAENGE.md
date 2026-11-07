@@ -107,6 +107,7 @@
 | 431e | Rückfrage: Gesicht des Helden im Dorflicht fast weiß, Hauteichung nach Messung? | Tom | M | ruht, ohne Vorratszeile, Liste „Chef“ (275.2) | – | – | – | E Figuren | – |
 | 629.1 | Klopfen: Sprechernamen hinter Türen bauen ([629.sprecher], von Homer) | Tom | M | gebaut, Geprüft an: 7a4e580db (klopfen_629 lokal) | – | claude/tom-629-sprecher | – | S Story | – |
 | Pflege | von Werkzeug (340.3, 07.11.): 111642 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
+| 632 | Truhe der Höhle (cave_3, 4/14) gibt „@class_weapon“ statt der Waffe der Klasse wie alt (Story.classWeapon, Game.kt 1108); von Jerry, Abgleich 620.2b | Tom | M | startbar | – | – | – | E Welt | – |
 | 565 | MARS: unten im Gruppenkasten sieht man nicht, welcher Held am Zug ist (Chef 04.11., 17:10, t257 C) | Jerry | M | in Arbeit, Sokrates: Kopf „565, Läufe frei“ ins Archiv (seine Zeile, 627) | – | claude/jerry-565-am-zug | – | E Kampf | 7,58 $ |
 | 562 | MARS: Helden laufen zum Angriff viel zu langsam, zurück gleiten sie flott (Chef 04.11., 17:02, t257 C) | Jerry | M | gebaut, in 269. Geprüft an: Lauf 272, 70f2b5145 | – | claude/jerry-562-angriffsschritt | – | E Kampf | 8,78 $ |
 | 563 | MARS: Zustandsschilder über Gegnern („Blut 3“) überlagern Ansage und Leisten, wirken grob (Chef 04.11., 17:02, t257 C) | Jerry | M | in Arbeit | – | claude/jerry-563-zustaende | – | E Kampf | 7,55 $ |
@@ -156,7 +157,7 @@
 | 595 | Kampfbewegungen der Kaufgegner: Spinne mehr Angriffe, Egel und Schnecke schneller, Treffhöhe, Ruckeln, Ruhe (Chef 05.11., 19:2x, t266.1) | Jerry | M | wartet | 478 | – | – | E Kampf | – |
 | 600 | Kampfort: Knopf zum Beschleunigen wie Würfel und Raster (Chef 05.11., 19:2x) | Jerry | M | gebaut, in 269. Geprüft an: fd2a55335 | – | claude/jerry-600-tempo | – | E Kampf | 2,88 $ |
 | 478 | Rechenkern des Kampfs in Stufe 1 auf BRS (470a C, Chef 02.11., 17:59) · „jetzt“ 07.11., 16:37 | Jerry | M | in Arbeit, Stufe 1 in 269 hinter Schalter (brs_kampf_478) | – | claude/jerry-478-brs | – | E Kampf | – |
-| 620.2b | Abgleich alt nach `LISTE-ABGLEICH-ALT.md`: Höhle, Klang, Gegner, Bosse (aus 620.2) | Jerry | M | startbar | – | – | – | B Abläufe | – |
+| 620.2b | Abgleich alt nach `LISTE-ABGLEICH-ALT.md`: Höhle, Klang, Gegner, Bosse (aus 620.2) | Jerry | M | erledigt | – | – | – | B Abläufe | – |
 | 623.5 | Probe Kampf mit den Gratisproben (Combat Mega, Projectiles, Trails, Pack 3, Character Shaders) im Kampfort, Compatibility, FPS, ein Film (Chef 07.11., 623) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 623.2 | Effekte aus 623 A einbauen mit 478, in `LISTE-BESTAND.md` und `LISTE-EFFEKTE.md` mit Datenfeld `fx` (Chef 07.11., 623) | Jerry | M | wartet | 623 | – | – | E Kampf | – |
 | 598 | Umweltklang je Ort, Tageszeit, Wind und Wetter, lebendige Welt (Chef 05.11., 19:2x; Abnahme 6) | Jerry | M | startbar | – | – | – | E Klang | – |
@@ -166,6 +167,8 @@
 | 348.7a | Rückfrage: Geschosse flach oder in 3D | Jerry | M | ruht, ohne Vorratszeile, Liste „in Arbeit“ (275.2) | – | – | – | E Technik | 58,17 $ |
 | 399.2d | Godot am Rechner freigeben (Auto-Modus lehnte Download ab), Tests ohne CI-Lauf (aus 399.2) | Jerry | M | ruht, ohne Vorratszeile, Liste „wartet“ (275.2) | – | – | – | E Kampf | – |
 | Pflege | von Werkzeug (340.3, 07.11.): 31710 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
+| 633 | Boss-Beute wie alt: Ogerhandschuhe (Krogg), Graks Streitaxt, Grimmzahn-Amulett fehlen im Loot; Beute.beute im Kampf mit boss=false (spiel.gd 573); von Jerry, Abgleich 620.2b | Jerry | M? | startbar | – | – | – | E Kampf | – |
+| 634 | Schenkenklang wie alt: Rowena wischt, gießt, stellt Becher ab, Borin Flasche und Stuhl, im Takt ihrer Bewegung (PlaceSound.folk, MapFolk.sounds; Aufnahmen da); von Jerry, Abgleich 620.2b | Jerry | M? | startbar | – | – | – | E Welt | – |
 | 629 | Klopfen: wer hinter der Tür spricht, wessen Haus (Chef 611) | Homer | M | erledigt, Text [629.sprecher]; Bau 629.1 Tom | – | – | – | S Story | 1,82 $ |
 | 432 | Eigenes Volk aus Bornim (etwa mit dem Grauen Propheten, „Tag der Asche“) prüfen, mit der Geschichte ab Kapitel 2 (Chef 31.10., 22:0x) | Homer | K | ruht | – | – | – | C Texte | 0,79 $ |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |

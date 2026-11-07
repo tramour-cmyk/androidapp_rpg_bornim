@@ -308,3 +308,12 @@ Gesten bei Neuem (`A/MapFolk.kt:216-229`): Hand (Normalfall; Bram), Segen (Osric
 - Tag/Nacht je Figur: nur Pim, Bram, Gwenna, Liska haben einen Tagesplan (`VD:16-26`); alle anderen stehen fest (Jorin patrouilliert immer, auch nachts).
 - Nur überflogen: `A/MapRest.kt`, `A/MapFoe.kt`, `A/MapFollow.kt`, Kampfdateien. Soll-Stand (beschlossen, aber alt nicht gebaut): `LISTE-FIGUREN.md` „neu“, `STORY-K1-WELT.md`.
 - Zeilenangaben `UI:…` sind Blockanfänge, auf etwa 10 Zeilen genau.
+
+## 4. Stand Jerry (620.2b, 08.11., 00:5x; Helfer am Code von `main` mit 478, nur gelesen)
+
+Statt der Spalte „Godot“ je Zeile hier gesammelt:
+- **1.9 Höhle:** auf `main` fehlt die Gebietskarte (kein `cave.bin`, „Grundriss folgt“), Kapitel 1 nicht zu Ende spielbar; gebaut in `claude/tom-492-hoehle` (492), Kampforte in `claude/jerry-507-hoehle` (507). Logik da: Gitter, Ziel-Hinweise, Rastverbot am Goblinfeuer, Blendentext, Kisten, Gwennas Ring, Krogg- und Grak-Auslöser. **Anders:** Truhe cave_3 gibt „@class_weapon“ als Ding (632, Tom); Lyras Abgang fehlt auf `main` (in 492); Untote fehlen als Gruppe (506); Kampf im Waldkampfort (507); Schlüsselton nicht gefunden.
+- **1.10:** da: Ortsblende, Musik je Szene, Hall, Tropfen, Grollen, Wind, Eulen, Grillen, Intro, Kapitelende. **Fehlt:** Regen, Böen, Blitz (598); Spuren nur als Regelcode (416.6).
+- **Klang 1.1–1.8:** da: Wind, Vögel, Grillen, Hühner, Fluss, Schritte, Dorfmusik mit Stille, Tempelhall, Tiefer Wald mit fernem Wolf. **Fehlt:** Regen (598); Rowena und Borin: Wischen, Gießen, Becher, Stuhl (634); Frösche und Libellen am Teich (509).
+- **Gegner 1.7, 1.8:** Streuner, Tabellen, Schutzzonen da; Skelett, Zombie, Ghul nachts fehlen (506).
+- **Krogg, Grak, Grimmzahn:** Bosse, Auslöser, Sprüche, Rauchbündel, Schlüssel, Amulett, Brief, Leibwache da. **Fehlt:** Ogerhandschuhe, Graks Streitaxt, Grimmzahn-Amulett als Beute, Boss-Ausrüstung (`boss=false`, 633).
