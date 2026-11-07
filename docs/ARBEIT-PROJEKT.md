@@ -29,7 +29,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 627 | M | **von Team Jerry (Tuffy, 07.11., 21:15):** `probelauf.py` zählt Pushes ohne Lauf (562: `commit -F - <<EOF`; 565: neuer Zweig; Zu 627) | gebaut 07.11., 21:2x; Geprüft an: 4bcd30e87; falsche Zählungen 562, 565 gibt Sokrates frei |
 | 631 | K | **von Ford (06.11., 07:19):** `lauf.py` vergleicht Startmarken ohne Datum (Marke vom Vortag sperrte 20 Minuten) | wartet auf 275.2 (lauf.py liegt im Zweig) |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`) |
-| Pflege | K | **von Werkzeug (340.3, 07.11.):** Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 14, 19, 38, 40; CLAUDE.md: 15468 Bytes (Grenze 15000), kürzen; docs/LISTE-VORGAENGE.md: 39542 Bytes (Grenze 15000), Erledigtes ins Archiv | startbar |
+| Pflege | K | **von Werkzeug (340.3, 07.11.):** Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 14, 19, 38, 40; CLAUDE.md: 15468 Bytes (Grenze 15000), kürzen; docs/LISTE-VORGAENGE.md: 39546 Bytes (Grenze 15000), Erledigtes ins Archiv | startbar |
 
 ## Einzelheiten
 
