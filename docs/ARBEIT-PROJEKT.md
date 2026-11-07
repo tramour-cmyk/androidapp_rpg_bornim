@@ -37,7 +37,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | D74 | M? | **von Diogenes (07.11.):** `regelcheck.py` „Test ohne Datei“ meldet 21 von 27 falsch, Pflege-Zeilen melden sich selbst (Zu D74) | startbar |
 | D75 | M? | **von Diogenes (07.11., Lauf 73, Prüfbericht):** Filmsperre 511 hat die Film-Pushes zu 572 nicht gezählt (D75.1); `meldung.sh --film` legte Film 572 nicht ab (D75.2, 483) | startbar |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`) |
-| Pflege | K | **von Werkzeug (340.3, 07.11.):** 16285 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 20; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 14, 19, 38, 40; Zeile Pflege wartet auf t266, aber keine Datei in docs/chefsache/ansehen/ (getestet?  … | startbar |
+| Pflege | K | **von Werkzeug (340.3, 07.11.):** 16530 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 20; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 14, 19, 38, 40; Zeile Pflege wartet auf t266, aber keine Datei in docs/chefsache/ansehen/ (getestet?  … | startbar |
 
 ## Einzelheiten
 
