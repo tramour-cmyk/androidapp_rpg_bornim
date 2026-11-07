@@ -70,6 +70,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | Pflege | K | **von Werkzeug (340.3, 07.11.):** 31749 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 ## Einzelheiten
 
+- **von Team Tom (07.11., 21:48, 625):** Build 269 sammelt auf `claude/build-269` (565 drin). Fertige Zweige heute Nacht dort hineinmischen (Kerntests, Push `[skip ci]`), je Punkt eine Prüfzeile (wo, tun, richtig, falsch) hier; PR und Prüfliste macht Tom. 268er Zweige sind schon auf `main` (Squash).
 - **In Git** (`git show 56056830f:docs/ARBEIT-TEAM-JERRY.md`): Zu-Absätze erledigter Vorgänge 496a, 545, 548, 533, 571, 575, 588, 453.1 (Jerry, Pflege 07.11., 21:2x); 572 (REEBOO-Gratisproben, Asset-Nummern) in `c3b686069`.
 
 - **Zu 478, von Sokrates (Chef 07.11., 16:3x):** „Wir packen das BRS auf jeden Fall jetzt auch mit dazu. Außerdem haben wir doch noch unsere 2 Leiharbeiter, die dann jetzt auch Rechenarbeit wieder übernehmen können ab 20 Uhr und wir da Sachen outsourcen können.“ Ab Sa 20:00 (Ende 468e): Jerry baut 478 selbst (Rechenkern in einer Hand, nach `DESIGN-SPIELSYSTEM-2-0-ENTWURF.md` Modell D, Zahlen aus Simulation 444); Tuffy nimmt parallel Jerrys Funde aus t266/t268, wiederholte zuerst (601 Pfeil, 597 Ring, 536 Jungwölfe, 600), 620.1. Kampfbewegungen, die das BRS ohnehin ändert (595, 616, 593), nach 478. Danach 2.3 mit Tom (Erschaffung, Fertigkeiten, Anzeige).
