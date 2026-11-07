@@ -189,6 +189,13 @@ def formfehler():
     """Testdateien in ansehen/ mit t<Build>-Namen: Team in Zeile 1, Bereichszeile („E Kampf · Team · TT.MM.“) als Zeile 2, Tabelle mit Spalten # | Nr. | Wo und wie | Richtig | Falsch."""
     pfad = os.path.join(ZUG, "ansehen")
     fehler = []
+    for o in ("entscheiden", "ansehen", "billigen", "tun"):  # D77.2: ohne Absender bleibt „Wer“ leer, jetzt gemeldet
+        d = os.path.join(ZUG, o)
+        for n in sorted(os.listdir(d)) if os.path.isdir(d) else []:
+            if not n.endswith(".md") or re.match(r"t\d+-", n): continue
+            try:
+                if eintrag(o, n)[1].split("|")[-2].strip() == "": fehler.append(f"{o}/{n}: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)")
+            except Exception: pass
     for n in sorted(os.listdir(pfad)) if os.path.isdir(pfad) else []:
         if not re.match(r"t\d+-.*\.md$", n): continue
         text = open(os.path.join(pfad, n), encoding="utf-8").read()
