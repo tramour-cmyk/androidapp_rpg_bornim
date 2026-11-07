@@ -133,7 +133,7 @@ def effekt_ohne_liste(dat):
         if os.path.exists(k): liste = open(k, encoding="utf-8").read(); break
     raus, tipp = [], "vorher dort und in LISTE-BESTAND.md nachsehen, dann Anlass, Effekt, Quelle und den Dateinamen eintragen (623 E)"
     for s, p in dat:
-        if s == "D" or not p.startswith("godot/") or os.path.basename(p) in liste: continue
+        if s == "D" or not p.startswith("godot/") or re.search(r"(?<![\w.-])" + re.escape(os.path.basename(p)) + r"(?![\w.-])", liste): continue  # D79: ganzer Name
         if s == "A" and p.endswith(".gdshader"):
             raus.append("%s: neuer Shader ohne Zeile in LISTE-EFFEKTE.md; %s" % (p, tipp))
         elif p.endswith((".gd", ".tscn", ".tres")):
@@ -207,12 +207,13 @@ def main():
     for s, p in dat:  # 512.1 (Chef 03.11., 23:28, „Kümmer du dich um 512.“): neue Prüfliste nennt, was alt gegen neu verglichen ist
         if not (s == "A" and re.match(r"docs/chefsache/ansehen/t\d+-[^/]+\.md$", p)):
             continue
-        vgl = re.search(r"(?m)^\**Verglichen\b[^:\n]*:(.*)$", git("show", ":" + p))
+        vgl = re.search(r"(?m)^\**Verglichen\b(.*)$", git("show", ":" + p))  # D78.2: ganze Zeile, Uhrzeit-Doppelpunkt schneidet nicht mehr
         if not vgl:
             warn.append("%s: Zeile „Verglichen (alt gegen neu): <Schirme, Fenster, Bedienungen>“ fehlt (512, LISTE-BAUEN-TESTEN)" % p)
             continue
         zeile = vgl.group(1)  # 512b (Chef 04.11., 19:21): Nachweis mit Helfer und Bild/Film, keine Dateinamen
-        if not re.search(r"Helfer", zeile) or not re.search(r"https?://|\.(png|webp|jpe?g|mp4)\b|Film|Bild", zeile):
+        if not re.search(r"Helfer", zeile) or re.search(r"\bohne (Bild|Film)\b", zeile) \
+                or not re.search(r"https?://|\.(png|webp|jpe?g|mp4)\b|Film|Bild", zeile):  # D78.2: „ohne Bild“ ist kein Nachweis
             warn.append("%s: „Verglichen“ ohne Helfer (nicht der Bauende) oder ohne Bild/Film; Nachweis nach 512b "
                         "(LISTE-UMZUG-348 „Abgleich“)" % p)
         if re.search(r"\b\w+\.(kt|gd|py|tscn)\b", zeile):

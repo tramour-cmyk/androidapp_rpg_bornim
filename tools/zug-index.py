@@ -37,7 +37,7 @@ def seit_text(m, pfad):
         if t == tag:
             return f"{tag}, {uhr}"
     return m.group(0)
-BEREICH = re.compile(r"^[EGQBM] [A-ZÄÖÜ]\w+$")
+BEREICH = re.compile(r"^[A-Z] [A-ZÄÖÜ]\w+$")  # D77: alle Bereichsbuchstaben der Vorgangsliste (C Kampf, F Firma …)
 WER = re.compile(r"^(?:Team )?(?:Tom|Jerry|Spike|Tuffy|Homer|Sokrates|Perikles|Diogenes|Ford)(?:\b.*)?$")
 
 
@@ -119,6 +119,9 @@ def eintrag(ordner, name):
     sort = (m.group(2) + m.group(1) + (m.group(3) or "")) if m else "0000"
     bereich, klasse = nachschlagen(nr)
     bereich = next((t.strip() for t in meta.split(" · ")[1:] if BEREICH.match(t.strip())), bereich)
+    tb = [x.strip() for x in was.split(" · ")]  # D77.1: Bereich in der Titelzeile („623 · … · C Kampf“) zählt als Bereich, nicht als „Was“
+    if len(tb) > 1 and any(BEREICH.match(x) for x in tb[1:]):
+        bereich = next(x for x in tb[1:] if BEREICH.match(x)); was = " · ".join(x for x in tb if not BEREICH.match(x))
     vorrang = KLASSE.get(klasse, klasse if klasse not in ("", "–") else "–")
     return (vorrang == "Muss", sort), f"| [{nr}]({ordner}/{name}) | {'**Muss**' if vorrang == 'Muss' else vorrang} | {bereich or '–'} | {seit} | {was.replace('|', '/')} | {wer} |"
 
