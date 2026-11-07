@@ -5,13 +5,13 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 07.11., 20:06
 
-**Übergabe (07.11., 20:1x):** Tagesbericht 07.11. (448) gemeldet; `startbar.py` zählt bei Pause (Prüfzeile 448); 478 im Wochenziel. Nächster Bericht: Zeile 5 (35 „gebaut“) prüfen. Nachfolger: Perikles – 621.1: Probenregel A
+**Übergabe (07.11., 20:1x):** Tagesbericht 07.11. gemeldet; 448 (startbar bei Pause), 478, 516, 621.1 erledigt oder gebaut; nächster Bericht prüft Zeile 5. Nachfolger: Perikles – 620.1: wiederholte Funde zuerst
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
 | 623.3 | M | **von Sokrates (Chef 07.11., 20:1x, „623 … E“; Archiv 623):** `tools/commit-pruefung.py` warnt, wenn ein neuer Shader oder Teilchenknoten in `godot/` ohne Zeile in `LISTE-EFFEKTE.md` kommt; Regel „Bibliothek vor Eigenbau“ in `ROLLE-ENTWICKLUNG.md` (Regelbilanz mit 377) | startbar |
 | 620.1 | M | **von Sokrates (Chef 07.11., 14:3x, 620; Zu 620):** wiederholte Funde des Chefs vor jedem Neuen; Grenze offener Muss in Arbeit je Team; als Regel vorschlagen (Regelbilanz) | startbar |
-| 621.1 | M | **von Sokrates (Chef 07.11., 16:4x, „621, A, B und D“; Archiv 621):** Probenregel A in `ROLLE-ENTWICKLUNG.md` und `probelauf.py`: je Aussehen-Thema höchstens eine Probe im Spielbild vor dem Chef, sonst Rückfrage mit Wegen und Kosten; ersetzt die Rundenzahl 389 | startbar |
+| 621.1 | M | **von Sokrates (Chef 07.11., 16:4x, „621, A, B und D“; Archiv 621):** Probenregel A (eine Probe je Aussehen-Thema, sonst Rückfrage; ersetzt 389) | gebaut 07.11., 20:1x; Geprüft an: 8a5a43875; Diogenes prüft |
 | 620.2 | M | **von Sokrates (Chef 07.11., 14:3x, 620, 512; Zu 620):** Abgleich alt einmal je Ort und Figur als Liste aus dem alten Code, an die Teams verteilen; Grundlage jeder Prüfliste | startbar |
 | 620.4 | M | **von Sokrates (Chef 07.11., 14:3x, 620; Zu 620):** Referenzszene Dorf bis Wolfskampf im Flüsterwald ganz fertig, Maß für alles; ins Wochenziel nach dem Durchspielen (488) | startbar |
 | 579 | M | **von Sokrates (Chef 05.11., 08:18, „jetzt ist gut erstmal. Weitermachen mit wichtigen Dingen“; Archiv; Zu 579):** Wochenziel und Vorrang auf die Gegner von Kapitel 1 stellen: 494 (Jerry) in den nächsten Build, 506 Untote, 492 Höhle mit Krogg und Grak; keine Menü-Vorlagen bis nach dem Durchspielen | startbar |

@@ -209,7 +209,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 620 | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build (Chef 07.11.) | F Firma | M | – | Sokrates | Dauer |
 | 620.1 | Wiederholte Funde des Chefs vor Neuem; wenige Muss je Team zugleich (aus 620) | B Abläufe | M | – | Perikles | startbar |
 | 620.2 | Abgleich alt einmal je Ort und Figur als Liste (Leute, Tiere, Requisiten, Gesten, Klänge) für alle Prüflisten (aus 620, 512) | B Abläufe | M | – | Perikles | startbar |
-| 621.1 | Probenregel A: höchstens eine Aussehen-Probe je Thema, sonst Rückfrage mit Wegen und Kosten; ersetzt Rundenzahl 389 (Chef 07.11., 621) | B Abläufe | M | – | Perikles | startbar |
+| 621.1 | Probenregel A: höchstens eine Aussehen-Probe je Thema, sonst Rückfrage mit Wegen und Kosten; ersetzt Rundenzahl 389 (Chef 07.11., 621) | B Abläufe | M | – | Perikles | gebaut |
 | 624 | Testanzeigen größer: FPS und Standort über der Welt, Messwerte im Reiter „Test“ (Speicher u. a.) gut lesbar (Chef 07.11., 17:5x) | B Werkzeuge | M | – | Team Tom | startbar |
 | 622 | Godot-Build als AAB für Play: dieselbe App `de.bornim.game`, mit dem Upload-Schlüssel des alten AAB, höhere Versionsnummer (Sokrates 07.11., aus 142.4) | M Veröffentlichung | M | – | Team Tom | startbar |
 | 621.2 | Toms Vorrat auf etwa 15 KB: Erledigtes und alte „Zu“-Absätze ins Git (Chef 07.11., 621 B) | B Abläufe | M | – | Team Tom | startbar |
