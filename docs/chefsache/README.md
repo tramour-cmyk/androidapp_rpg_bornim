@@ -194,30 +194,23 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 616 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu t268): Gegner weichen nach dem Angriff rückwärt | wartet auf 478 (startbar) |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 37532 Bytes (Grenze 15000), Erledigtes streichen; Zeile 494 | startbar |
 
-**Perikles** – offen 33, Muss 20, startbar 12
+**Perikles** – offen 26, Muss 14, startbar 11
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 623.3 | M | von Sokrates (Chef 07.11., 20:1x, „623 … E“; Archiv 623): Commit-Prüfung warnt bei neuem E | wartet auf Test/Build (gebaut) |
 | 584 | M? | von Sokrates (Inventur 07.11.): Tom wartet bei 584, 585 (Klasse) und 515 (Zeitpunkt), Jerr | startbar |
 | 317.1 | M | von Sokrates (Chef 07.11., 20:5x, Archiv „317, keine Obergrenze je Build“): Werkzeuge ohne | wartet auf Test/Build (gebaut) |
 | 620.1 | M | von Sokrates (Chef 07.11., 14:3x, 620; Zu 620): wiederholte Funde zuerst, Grenze offener M | Chef (Datei in der Chefsache) |
-| 621.1 | M | von Sokrates (Chef 07.11., 16:4x, „621, A, B und D“; Archiv 621): Probenregel A (eine Prob | wartet auf Test/Build (gebaut) |
 | 620.4 | M | von Sokrates (Chef 07.11., 14:3x, 620; Zu 620): Referenzszene Dorf bis Wolfskampf im Flüst | Chef (Datei in der Chefsache) |
-| 549a.1 | M? | von Sokrates (549a ja, Chef 04.11., 19:28): ROLLE-ENTWICKLUNG.md Start 2: wer Menüschirm o | wartet auf Test/Build (gebaut) |
 | 512b | M | von Sokrates (Chef 04.11., 19:21: „512b ja“; chefsache/entscheiden/512b-nachweis.md in Git | wartet auf Test/Build (gebaut) |
 | 512.1 | M? | von Sokrates (512, Chef 03.11., 23:28, „Kümmer du dich um 512.“): Regel „Abgleich“ wirkt n | wartet auf Test/Build (gebaut) |
 | 511 | M | von Sokrates (Chef 03.11., 13:50, „511 ja“, Archiv; „jetzt“ 03.11., 13:50): probelauf.py s | wartet auf Test/Build (gebaut) |
 | 483 | M | von Sokrates (Chef 02.11., 19:21, „483 ja“, Archiv): Film-Links reparieren: jsDelivr liefe | wartet auf Test/Build (gebaut) |
-| 461d | M | von Sokrates (Vorentscheid 22:5x): Liste 461 in die DESIGN-Dateien (Archiv 461d) | wartet auf Test/Build (gebaut) |
-| 465 | M | von Sokrates („jetzt“ 01.11., 20:50, Chef: „Warum ist eigentlich in der Chefsache zu entsc | wartet auf Test/Build (gebaut) |
 | 464 | M | von Sokrates (Chef 01.11., 20:4x, Wortlaut Zu 464): rote Läufe senken: Haken vor jedem Pus | wartet auf Test/Build (gebaut) |
-| 461 | M | von Sokrates („jetzt“ 01.11., 20:3x, Wortlaut in der Liste): Grundstand Figuren und Kampf: | wartet auf Test/Build (gebaut) |
-| 461a | M | von Perikles (D58.5): Rückfrage, ob ein Grundstand-Verstoß den Film anhält | wartet auf Test/Build (gebaut) |
 | 399 | M | von Chef über Sokrates („jetzt“ 28.10., 12:34, Archiv): Vorrang neu: erst eine Godot-Fassu | wartet auf Tom |
 | 398 | M | von Sokrates (Chef 28.10., 11:22): Termine je Block nachrechnen mit der Schätzung der 15 Z | wartet auf Diogenes |
 | 383 | M | von Sokrates (Chef 27.10., 17:53 „ja, 383“, Archiv): Wartewächter in lauf.py, Haken 63 ver | wartet auf Test/Build (gebaut) |
-| 275 | M | von Sokrates (Chef 27.10., 15:09 ja, 15:15 „jetzt loslegen“, Archiv): Stufe 1 (Chefsache 2 | startbar |
+| 275 | M | von Sokrates (Chef 27.10., 15:09 ja, 15:15 „jetzt loslegen“, Archiv): Stufe 1 (Chefsache 2 | wartet auf Test/Build (gebaut) |
 | 347.2 | M | von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347): Paket Regeltreue umsetzen nach tool | wartet auf Sokrates |
 | 276 | K | von Sokrates (zu 274): Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in lauf. | ruht |
 | 341 | M | von Chef (23.10., 09:39): Zielvereinbarung Perikles, gegenprüfbar und nachhaltig (Zu 341) | startbar |
@@ -232,11 +225,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 16852 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Diogenes** – offen 10, Muss 8, startbar 1
+**Diogenes** – offen 11, Muss 9, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 620.1 | M | von Perikles (Doppelpack 421, 07.11., 21:0x, 8518c8817): startbar.hochstufen stellt Zeilen | Chef (Datei in der Chefsache) |
+| 275 | M | von Perikles (Doppelpack 421, 07.11., 21:1x, e23a4ccb2): Stufe 2: vorgang.py neu zieht die | startbar |
 | 317.1 | M | von Perikles (Doppelpack 421, 07.11., 21:0x, 12837c9c3): keine Obergrenze 6 je Build mehr | ruht |
 | 511 | M | von Perikles (Doppelpack 421, 03.11., 14:0x, d6d9eca8c): Filmsperre probelauf.py am ersten | wartet auf Perikles |
 | 340.2 | M | von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv): Wirkung 340.3–340.5 zählen (Tabelle | ruht bis 09.11. |
