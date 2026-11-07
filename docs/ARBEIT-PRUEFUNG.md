@@ -11,6 +11,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
+| 623.3 | M | **von Perikles (Doppelpack 421, 07.11., 20:4x, `4e8195ab0`):** `commit-pruefung.py` warnt im Code-Commit bei neuem `.gdshader` oder neuem Teilchenknoten in `godot/`, dessen Dateiname nicht in `LISTE-EFFEKTE.md` steht; Regel in „Bestand zuerst“ (`ROLLE-ENTWICKLUNG.md`) | am nächsten Effekt-Commit |
 | 621.1 | M | **von Perikles (Doppelpack 421, 07.11., 20:1x, `8a5a43875`):** Probenregel A: `probelauf.py` hält schon den zweiten Lauf je Vorgang an (GRENZE 1), Meldung nennt Rückfrage mit Wegen und Kosten; Text in `ROLLE-ENTWICKLUNG.md` und `LISTE-UMZUG-348.md` | am nächsten Bildlauf |
 | 448 | M | **von Perikles (Doppelpack 421, 07.11., 20:1x, `76df26ba1`):** `startbar.py` gibt bei „Pause“ im Kopf weiter „offen, Muss, startbar“ und die Testzählung aus (Tagesbericht zählte Tom und Jerry mit 0); `weiter-haken.py` liest die PAUSE-Zeile unverändert | beim nächsten Vorrat mit Pause |
 | 512b | M | **von Sokrates (Chef 04.11., 19:21: „512b ja“; `chefsache/entscheiden/512b-nachweis.md` in Git):** Erstfunde des Chefs je Build zählen, vorher (t257: Bereich C sechs) und nachher; Zeile „Verglichen“ mit Helfer und Bild/Film prüfen | wartet auf die nächste Testbitte |

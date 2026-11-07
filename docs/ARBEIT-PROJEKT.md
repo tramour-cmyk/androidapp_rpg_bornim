@@ -5,11 +5,11 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 07.11., 20:06
 
-**Übergabe (07.11., 20:1x):** Tagesbericht 07.11. gemeldet; 448 (startbar bei Pause), 478, 516, 621.1 erledigt oder gebaut; nächster Bericht prüft Zeile 5. Nachfolger: Perikles – 620.1: wiederholte Funde zuerst
+**Übergabe (07.11., 20:4x):** Tagesbericht 07.11.; 448, 478, 516, 621.1, 623.3 fertig oder gebaut; nächster Bericht prüft Zeile 5. Nachfolger: Perikles – 620.1: wiederholte Funde zuerst
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 623.3 | M | **von Sokrates (Chef 07.11., 20:1x, „623 … E“; Archiv 623):** `tools/commit-pruefung.py` warnt, wenn ein neuer Shader oder Teilchenknoten in `godot/` ohne Zeile in `LISTE-EFFEKTE.md` kommt; Regel „Bibliothek vor Eigenbau“ in `ROLLE-ENTWICKLUNG.md` (Regelbilanz mit 377) | startbar |
+| 623.3 | M | **von Sokrates (Chef 07.11., 20:1x, „623 … E“; Archiv 623):** Commit-Prüfung warnt bei neuem Effekt ohne `LISTE-EFFEKTE.md`; Regel zu 377 | gebaut 07.11., 20:4x; Geprüft an: 4e8195ab0; Diogenes prüft |
 | 620.1 | M | **von Sokrates (Chef 07.11., 14:3x, 620; Zu 620):** wiederholte Funde des Chefs vor jedem Neuen; Grenze offener Muss in Arbeit je Team; als Regel vorschlagen (Regelbilanz) | startbar |
 | 621.1 | M | **von Sokrates (Chef 07.11., 16:4x, „621, A, B und D“; Archiv 621):** Probenregel A (eine Probe je Aussehen-Thema, sonst Rückfrage; ersetzt 389) | gebaut 07.11., 20:1x; Geprüft an: 8a5a43875; Diogenes prüft |
 | 620.2 | M | **von Sokrates (Chef 07.11., 14:3x, 620, 512; Zu 620):** Abgleich alt einmal je Ort und Figur als Liste aus dem alten Code, an die Teams verteilen; Grundlage jeder Prüfliste | startbar |
