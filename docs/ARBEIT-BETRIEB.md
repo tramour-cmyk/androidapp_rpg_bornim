@@ -78,3 +78,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:06 07.11.: Marke Wächter 591 06.11. 08:07 (lauf.py)
 - 20:06 07.11.: Marke Wächter 478 07.11. 16:37 (lauf.py)
 - 20:06 07.11.: Nachfolger-Warnung Diogenes (Übergabe 05.11., 07:19) (lauf.py)
+- 21:04 07.11.: Startsperre 21:04 Start Tom, Jerry, Diogenes, Homer, Tuffy (lauf.py)
