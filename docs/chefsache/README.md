@@ -139,8 +139,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 431c | M | Rückfrage: Völker Runde 4 am Tor angehalten, neue Läufe frei? | ruht |
 | 431d | M | Rückfrage: Völker Lauf 3 am Tor angehalten (B1 Elf, C3, G3, A1/A3 Grak, A2), neue Läufe fr | ruht |
 | 431e | M | Rückfrage: Gesicht des Helden im Dorflicht fast weiß, Hauteichung nach Messung? | ruht |
-| Pflege | K | von Werkzeug (340.3, 07.11.): 111097 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 629.1 | M | Klopfen: Sprechernamen hinter Türen bauen ([629.sprecher], von Homer) | startbar |
+| Pflege | K | von Werkzeug (340.3, 07.11.): 111642 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 59, Muss 49, startbar 31
 
