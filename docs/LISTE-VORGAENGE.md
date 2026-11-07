@@ -22,7 +22,7 @@
 | 568 | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | Tom | M? | ruht | – | – | – | A Spiel | – |
 | 558 | Robe des Magiers zu glatt, wie eine blaue Fläche: Stoff lebendiger (Falten, Schatten, Schmutz, Abnutzung) (Chef 04.11., 11:31, Bild) | Tom | M | startbar | – | – | – | E Figuren | 96,33 $ |
 | 531 | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere sichtbar mit der Fackel, Ruhebewegungen (Chef 03.11., 23:42) | Tom | M | startbar | – | – | – | A Spiel | 12,96 $ |
-| 522 | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Chef 03.11., 23:33) | Tom | M | startbar | – | claude/tom-522-figur | – | A Spiel | – |
+| 522 | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Chef 03.11., 23:33) | Tom | M | gebaut, Geprüft an: ef4cf1361 (waffen_522, ausruestung_522 lokal; Streitkolben u. a. ohne Modell, 458.3) | – | claude/tom-522-waffen | – | A Spiel | – |
 | 521 | Build 249, Ausrüstung: Wechselschirm eines Platzes wie alt (Bild, Art und Wert, ▲/▼, „nicht tragbar“ matt) (Chef 03.11., 23:23, Bild) | Tom | M | gebaut, Geprüft an: 27d769fa4 (roben_524 lokal) | – | claude/tom-521-tasche | – | A Spiel | – |
 | 519 | Build 249, Ausrüstung: Gegenstandsfenster („Göttlicher Ring des Eisernen Richters“) passt nicht auf den Bildschirm, rechts abgeschnitten (Chef 03.11., 23:13, Bild) | Tom | M | gebaut, Geprüft an: 27d769fa4 (roben_524 lokal) | – | claude/tom-521-tasche | – | A Spiel | 21,91 $ |
 | 555 | Testmenü wie alt und schneller: fehlende Einträge der alten Fassung, dazu Sprünge an jede Station von Kapitel 1 (Chef 04.11., 00:30) | Tom | M | startbar | – | – | – | B Werkzeuge | 15,00 $ |
@@ -84,7 +84,7 @@
 | 619 | Blende: derselbe Druck auf den Aktionsknopf drückt die Blende sofort weg (Chef 07.11., t268.18) | Tom | M | gebaut, Geprüft an: 4d2df2462 (blende_619 lokal; Ursache am Gerät offen, Prüfschritt mit Frage) | – | claude/tom-619-blende | – | A Spiel | – |
 | 607 | Leute nachts: Pim läuft um 3 Uhr herum, sein Klopftext sagt, er schläft (Chef 07.11., t268) | Tom | M | gebaut, Geprüft an: 775ff5ae4 (nacht_607 lokal) | – | claude/tom-607-tuer | – | A Spiel | – |
 | 608 | Haus wird durchsichtig, wenn der Held dahinter steht, dann geht innen das Licht an (Pims Hütte, Tempel) (Chef 07.11., t268) | Tom | M | gebaut, Geprüft an: 491b05cad (glas_608) | – | claude/tom-608-glas | 269 | E Welt | – |
-| 610 | Held im Dorf: Finger am Stab zucken ohne Unterlass (Schild auf dem Rücken) (Chef 07.11., t268) | Tom | M | startbar | – | – | – | E Figuren | – |
+| 610 | Held im Dorf: Finger am Stab zucken ohne Unterlass (Schild auf dem Rücken) (Chef 07.11., t268) | Tom | M | gebaut, Geprüft an: 832795a33 (finger_610 lokal: vorher 11 cm Sprung je Bild, jetzt 0) | – | claude/tom-610-finger | – | E Figuren | – |
 | 615 | Kamera dreht und zoomt um den Helden als Fixpunkt, läuft nicht aus dem Bild (Chef 07.11., t268) | Tom | M | gebaut, Geprüft an: 9ff7db62f (kamera_615) | – | claude/tom-615-kamera | 269 | E Welt | – |
 | 611 | Klopfen an Türen: deutlicher, mit Name des Hauses oder Sprechers; Zeichen an Pfeiler oder Laterne beim Zwerg wie alt (Chef 07.11., t268) | Tom | M | gebaut, Geprüft an: db36a81a3 (klopfen_611) | – | – | – | A Spiel | 31,40 $ |
 | 630 | Restliche Schirme im Stil „ohne Kasten“ (549a): Laden-Fenster und Rückfragen, Menü, Brett, Anleitung, Über das Spiel, Erschaffung (Liste aus 618, Sokrates 07.11.) · „jetzt“ 07.11., 22:28 | Tom | M | startbar | – | – | – | A Spiel | – |
