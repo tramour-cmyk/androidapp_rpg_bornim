@@ -11,7 +11,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 565 | M | **von Sokrates (Chef 04.11., 17:10, t257 Bereich C, Bild; Zu 565):** im Gruppenkasten unten ist nicht zu sehen, welcher Held am Zug ist | wartet auf Sokrates: ein Lauf frei (Zählfehler 627; Zu 565); dann Bild vorher/nachher in `chefsache/ansehen/`, nichts einschalten | `claude/jerry-565-am-zug` |
+| 565 | M | **von Sokrates (Chef 04.11., 17:10, t257 Bereich C, Bild; Zu 565):** im Gruppenkasten unten ist nicht zu sehen, welcher Held am Zug ist | startbar: ein Lauf frei (Archiv 07.11., 21:26; 627); dann Bild vorher/nachher in chefsache/ansehen/ | `claude/jerry-565-am-zug` |
 | 562 | M | **von Sokrates (Chef 04.11., 17:02, t257 Bereich C; Zu 562 und 563):** Helden gehen zum Angriff im „Schlaftabletten-Modus“, zurück gleiten sie flott; echte Schritte, Tempo wie alt | in Arbeit bei Tuffy | `claude/jerry-562-angriffsschritt` |
 | 563 | M | **von Sokrates (Chef 04.11., 17:02, t257 Bereich C, Bild; Zu 562 und 563):** Zustandsschilder über Gegnern („Blut 3“) überlagern Ansage und Lebensleiste, „gruselig“ | startbar: Vorschlag mit Bild vorher/nachher, gegen alt | – |
 | 560 | M? | **von Sokrates (Chef 04.11., 16:22, allgemeiner Hinweis; Zu 560):** Monster auf der Karte drehen sich zum Helden, sobald sie ihn wahrnehmen, mit Schritten statt auf der Stelle | startbar | – |
