@@ -5,7 +5,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 07.11., 20:06
 
-**Übergabe (07.11., 21:2x):** 448, 478, 516, 621.1, 623.3, 317.1, 620.1 A, 620.2, 275 Stufe 2, D74, D76, D77.1, D78, D79 fertig oder gebaut; 620.1 B, 620.4 beim Chef; offen D75, D77.2, 341. Nachfolger: Perikles – 448: Tagesbericht 08.11.
+**Übergabe (07.11., 21:2x):** 448, 478, 516, 621.1, 623.3, 317.1, 620.1 A, 620.2, 275 Stufe 2, 627, D74, D76, D77.1, D78, D79 fertig oder gebaut; 620.1 B, 620.4 beim Chef; offen D75, D77.2, 341. Nachfolger: Perikles – 448: Tagesbericht 08.11.
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
