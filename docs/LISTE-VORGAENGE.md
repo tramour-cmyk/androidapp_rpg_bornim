@@ -182,7 +182,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 624 | Testanzeigen größer: FPS und Standort über der Welt, Messwerte im Reiter „Test“ (Speicher u. a.) gut lesbar (Chef 07.11., 17:5x) | B Werkzeuge | M | – | Team Tom | startbar |
 | 622 | Godot-Build als AAB für Play: dieselbe App `de.bornim.game`, mit dem Upload-Schlüssel des alten AAB, höhere Versionsnummer (Sokrates 07.11., aus 142.4) | M Veröffentlichung | M | – | Team Tom | startbar |
 | 621.2 | Toms Vorrat auf etwa 15 KB: Erledigtes und alte „Zu“-Absätze ins Git (Chef 07.11., 621 B) | B Abläufe | M | – | Team Tom | startbar |
-| 620.4 | Referenzszene Dorf bis Wolfskampf im Flüsterwald ganz fertig als Maß für alles (aus 620) | B Abläufe | M | – | Perikles | startbar |
+| 620.4 | Referenzszene Dorf bis Wolfskampf im Flüsterwald ganz fertig als Maß für alles (aus 620) | B Abläufe | M | – | Perikles | Chef |
 | 555 | Testmenü wie alt und schneller: fehlende Einträge der alten Fassung, dazu Sprünge an jede Station von Kapitel 1 (Chef 04.11., 00:30) | B Werkzeuge | M | 15,00 $ | Team Tom | startbar |
 | 523 | Tasche wie alt und besser: „Funke löschen“, Seltenheit und Kurzangabe der Vorräte, Ausrüstungszeile mit Art, Platz, Wert, „nicht tragbar“, ▲/▼ farbig, Sortierung nach Platz, Klang beim Benutzen (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Tom | startbar |
 | 524 | Gegenstandsfenster, Inhalt wie alt und besser: Grundwerte (Seltenheit, Tragort, Gewicht, Schaden je Griffart, Angriff, RK + GES), Warnungen „Ungeübt“, „Zauberkraft nützt nur Zauberwirkern“, Vergleich mit „im Schnitt“ und Kapiteldeckel (Abgleich 512, Sokrates 03.11., 23:3x) | A Spiel | M | – | Team Tom | startbar |
