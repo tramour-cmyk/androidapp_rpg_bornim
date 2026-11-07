@@ -117,10 +117,10 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 499 | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 (Chef 03.11., 07:14, Build 204) | E Figuren | M | 9,32 $ | Team Tom | wartet |
 | 509 | Frösche und Libellen an den Teichen im Flüsterwald fehlen in Godot (Chef 03.11., 09:21; `PondLife.kt`, Projektplan O6, W22) | E Welt | M | – | Team Jerry | ruht |
 | 511 | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele sinnlose und kaputte Filme gemacht?“) | B Werkzeuge | M | 19,83 $ | Perikles | startbar |
-| 512.1 | Wächter: Testbitte ohne Zeile „Verglichen:“ warnt (zu 512) | B Werkzeuge | M? | – | Perikles | gebaut |
+| 512.1 | Wächter: Testbitte ohne Zeile „Verglichen:“ warnt (zu 512) | B Werkzeuge | M? | – | Perikles | erledigt |
 | 524.1 | Gegenstandsfenster besser als alt und spielerfreundlicher: Vorschlag (Chef 04.11., 00:52) | A Spiel | M | – | Team Tom | startbar |
 | 512 | Vor jeder Testbitte berührte Schirme alt gegen neu vergleichen (Sokrates 03.11., 07:45, nach Build 204: 9 Erstfunde des Chefs; Chef 23:28 an Sokrates) | B Abläufe | M | 58,93 $ | Sokrates | erledigt |
-| 512b | Testbitte nur mit Nachweis eines fremden Helfers (Chef 04.11., 19:21: ja) | B Abläufe | M | 72,73 $ | Perikles, Jerry, Tom, Diogenes | gebaut |
+| 512b | Testbitte nur mit Nachweis eines fremden Helfers (Chef 04.11., 19:21: ja) | B Abläufe | M | 72,73 $ | Perikles, Jerry, Tom, Diogenes | erledigt |
 | 531 | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere sichtbar mit der Fackel, Ruhebewegungen (Chef 03.11., 23:42) | A Spiel | M | 12,96 $ | Team Tom | startbar |
 | 531a | Rückfrage: Bewegungspaket „Campfire“ für Garrick und Rast kaufen? (Chef 04.11., 19:27) | A Spiel | M | – | Team Tom | wartet |
 | 551 | MARS: Rahmen des unteren Kastens links und rechts unterbrochen (Chef 04.11., 00:21) | E Kampf | M | – | Team Jerry | ruht |

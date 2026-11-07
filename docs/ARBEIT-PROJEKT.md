@@ -3,16 +3,14 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 07.11., 20:06
+**Gelesen bis:** `origin/main` 07.11., 21:30
 
-**Übergabe (07.11., 21:2x):** 448, 478, 516, 621.1, 623.3, 317.1, 620.1 A, 620.2, 275 Stufe 2, 627, D74, D76, D77.1, D78, D79 fertig oder gebaut; 620.1 B, 620.4 beim Chef; offen D75, D77.2, 341. Nachfolger: Perikles – 448: Tagesbericht 08.11.
+**Übergabe (07.11., 21:3x):** 448, 478, 516, 621.1, 623.3, 317.1, 620.1 A, 620.2, 620.4 A, 275 Stufe 2, 341, 627, M? 584/585/515/560, D74, D76, D77.1, D78, D79 fertig oder gebaut; 620.1 B beim Chef. Nachfolger: Perikles – 448: Tagesbericht 08.11.
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
 | 317.1 | M | **von Sokrates (Chef 07.11., 20:5x, Archiv „317, keine Obergrenze je Build“):** Werkzeuge ohne „höchstens 6 je Build“ | gebaut 07.11., 21:0x; Geprüft an: 12837c9c3; Diogenes prüft |
 | 620.1 | M | **von Sokrates (Chef 07.11., 14:3x, 620; Zu 620):** wiederholte Funde zuerst, Grenze offener Muss je Team | wartet auf Chef: entscheiden/6201 (B); A gebaut 8518c8817 |
-| 512b | M | **von Sokrates (Chef 04.11., 19:21: „512b ja“; `chefsache/entscheiden/512b-nachweis.md` in Git):** Regel „Abgleich“ (`LISTE-UMZUG-348.md`) um die Form des Nachweises schärfen: Zeile „Verglichen“ nennt Schirm, Bedienung, Helfer (nicht der Bauende), Bild oder Film; ersetzt „Verglichen: <Dateien>“; Wächter 512.1 warnt ohne Helfer und Bild/Film | gebaut 05.11., 07:1x: Regel „Nachweis“, Wächter warnt auch bei Dateinamen; Geprüft an: f684a36a4; Diogenes prüft (512b) |
-| 512.1 | M? | **von Sokrates (512, Chef 03.11., 23:28, „Kümmer du dich um 512.“):** Regel „Abgleich“ wirkt nur mit Wächter: `commit-pruefung.py` warnt bei neuer `chefsache/ansehen/t*.md` ohne Zeile „Verglichen:“ | gebaut 04.11., 14:0x: Warnung bei neuer Prüfliste ohne „Verglichen“; Geprüft an: bdf83b0f6; Diogenes prüft |
 | 511 | M | **von Sokrates (Chef 03.11., 13:50, „511 ja“, Archiv; „jetzt“ 03.11., 13:50):** `probelauf.py` startet einen Filmlauf nur mit geprüftem Probebild (Zu 511) | gebaut 03.11., 14:03, Geprüft an: d6d9eca8c; Diogenes prüft | – |
 | 483 | M | **von Sokrates (Chef 02.11., 19:21, „483 ja“, Archiv):** Film-Links reparieren: jsDelivr liefert aus Zweig `bilder` nichts (über 50 MB); `meldung.sh` je Film eine Marke mit nur dieser Datei, Link auf die Marke; alte Links in Chefsache nachziehen; Push ohne Gerätetest (Zu 483) | gebaut 02.11., 19:4x: je Film Zweig film/… (Tags lehnt der Proxy ab), Probe 200; Diogenes prüft |
 | 464 | M | **von Sokrates (Chef 01.11., 20:4x, Wortlaut Zu 464):** rote Läufe senken: Haken vor jedem Push, Ford meldet jeden roten Lauf dem Besitzer, ab 3 je Stunde dem Chef, Zählung im Tagesbericht | gebaut 01.11., 20:50: Push-Haken Parsefehler, Ford-Lauf, Tagesbericht (Zu 464); Godot im Setup-Skript (Chef 02.11., 10:57 „464 Setup drin“); Diogenes prüft (464) |
