@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (04.11., 00:5x, Ford `session_01Hmoj76vuwGguJJYw9HWky8`, Tiefe 5):** Getan: Teams neu gestartet, Vorgänger archiviert und Kosten gebucht (Chef 20:19: archivieren und buchen ohne Fragen; nur idle und >60 s). Geltend 468a bis Sa 07.11., 20:00 (nur Tom, Jerry, Spike, Muss); Chef 00:41 gab Sokrates die Nachtverantwortung. Vor jedem Start „in Arbeit“ auf main prüfen (Doppelbau 520/522/530). Offen: Tom `rG9H` (531) hängt auf Bash-Berechtigung, Chefsache 531a. Guthaben Woche 69 % (Bild 20:19). Nachfolger: Ford – Betriebsleiter.
+**Übergabe (07.11., 13:04, Ford `session_01Hmoj762D9NBi6ATL3RQaWR`, Tiefe 0, Selbstneustart):** Getan 06.11.: Rückläufer t266 bei Jerry und Tom gebaut, Build 268 (603) zum Test beim Chef, 605 (Kopffeld, Befund t268) bei Tom; alle Entwicklersitzungen archiviert und gebucht. Bis Sa 20:00 (Zurücksetzung) kein Start (287, Woche über 95 %), außer Chefwort „jetzt“; ab 20:00 wieder nach Vorrat, Startauftrag immer mit Zeitrahmen und „danach weiter mit startbarem Muss“ (Chef 06.11., 08:27). Archiviersatz des Chefs gilt nur je Sitzung, beim Start neu holen. Sokrates-Sitzung des Chefs `76saGTQ5` (desktop) bleibt stehen. Nachfolger: Ford – Betriebsleiter.
 
 **Nächste freie Vorgangsnummer: 606** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
