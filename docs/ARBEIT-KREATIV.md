@@ -12,6 +12,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 623.4 | M | **von Sokrates (Chef 07.11., 20:1x, „623 … F“; Archiv 623):** Wortlaut „Mit Dank an“ für „Über das Spiel“ (497, Tom): REEBOO Labs und alle fremden Quellen aus `LISTE-BESTAND.md` (Quaternius, Protofactor, Janpec, MadeCG, Game Ready Studios, Godot Engine und andere), de/en, nicht im Spielgeschehen | startbar |
 | 432 | K | **von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt mir sehr gut“):** eigenes Volk prüfen, mit der Geschichte ab Kapitel 2 | ruht: Storyplan, Kult-Antwort und Abgleich K2 fertig (STORY-PLAN.md, Aschgeborene); Chefsache erst nach dem Meilenstein, vor dem Bau; Volk selbst in 432.3 |
 | 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Stil wiedererkennbar, wie machen wir ihn einzigartig? (Zu 302) | wartet auf Tom (302.1 Schätzung) und Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv), Figuren zuerst; Umriss schätzt Tom (302.1); `DESIGN-STIL.md` „Signatur“ nachgezogen (Bestand, Linie im Zeichner, 07:58) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Storyplan und Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179); 5b bleibt „noch nicht“ (Zu 41) |

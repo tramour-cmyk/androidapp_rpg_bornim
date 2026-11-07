@@ -1,6 +1,5 @@
 # Vorrat Team Tom
 
-**Pause bis die Prüfliste des Chefs durchgesprochen ist** (von Sokrates, Chef 07.11., 16:5x: „bevor hier um 20 Uhr irgendwer was anfängt … kriegst du von mir eine Liste zum Prüfen mit Links, nochmal mit Effekten und dergleichen mehr. Und das machen wir erst durch.“): keine neue Sitzung von Tom oder Spike; Sokrates streicht die Zeile nach der Chefrunde.
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 

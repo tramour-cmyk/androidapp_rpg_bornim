@@ -1,6 +1,5 @@
 # Vorrat Team Jerry
 
-**Pause bis die Prüfliste des Chefs durchgesprochen ist** (von Sokrates, Chef 07.11., 16:5x: „bevor hier um 20 Uhr irgendwer was anfängt … kriegst du von mir eine Liste zum Prüfen mit Links, nochmal mit Effekten und dergleichen mehr. Und das machen wir erst durch.“): keine neue Sitzung von Jerry oder Tuffy, auch nicht für 478; Sokrates streicht die Zeile nach der Chefrunde.
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
@@ -12,6 +11,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 623.2 | M | **von Sokrates (Chef 07.11., 20:1x, „623 A B C D E F“; Archiv 623):** Effekte aus 623 A (Combat Mega, Projectiles, Trails, Pack 3, Character Shaders nur als Zusatzschicht, Status Effects) mit 478 einbauen; je Effekt Zeile in `LISTE-BESTAND.md` und `LISTE-EFFEKTE.md`, Datenfeld `fx`; FPS am ersten Kampf messen | wartet auf Chef: Kauf A, Dateien im privaten Repo | – |
 | 478 | M | **von Sokrates (Chef 07.11., 16:3x: „Wir packen das BRS auf jeden Fall jetzt auch mit dazu“; „jetzt“ 07.11., 16:37; ersetzt 470a B; Zu 478):** Rechenkern des Kampfs auf BRS (Modell D), danach 2.3 mit Tom | startbar ab 20:00 (468e), Jerry selbst; Tuffy nimmt die Funde | – |
 | 572 | M | **von Sokrates (Chef 04.11., 20:27; „jetzt“ 04.11., 20:27; Zu 572):** Effektprobe vor dem Kauf: die 6 Effekte der zwei REEBOO-Gratisstücke an einem eigenen Helden (Klerikerin o. ä.) im Kampfort, ein Film | wartet auf Chef: Film (ansehen/572-effektfilm.md), dann 415d.1 | `claude/jerry-572-effekte` |
 | 565 | M | **von Sokrates (Chef 04.11., 17:10, t257 Bereich C, Bild; Zu 565):** im Gruppenkasten unten ist nicht zu sehen, welcher Held am Zug ist | startbar: Vorschlag als Bild vorher/nachher in `chefsache/ansehen/`, nichts einschalten | – |
