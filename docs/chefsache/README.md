@@ -194,7 +194,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 616 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu t268): Gegner weichen nach dem Angriff rückwärt | wartet auf 478 (startbar) |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 37532 Bytes (Grenze 15000), Erledigtes streichen; Zeile 494 | startbar |
 
-**Perikles** – offen 26, Muss 14, startbar 11
+**Perikles** – offen 25, Muss 14, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -216,7 +216,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 341 | M | von Chef (23.10., 09:39): Zielvereinbarung Perikles, gegenprüfbar und nachhaltig (Zu 341) | startbar |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | startbar |
 | D74 | M? | von Diogenes (07.11.): regelcheck.py „Test ohne Datei“ meldet 21 von 27 falsch, Pflege-Zei | startbar |
-| D79 | K | von Diogenes (07.11., Lauf 77, Prüfbericht): Effekt-Wächter 623.3 sucht den Dateinamen als | startbar |
 | D78 | M? | von Diogenes (07.11., Lauf 76, Prüfbericht): t268 „Verglichen“ nur Menüs vom 05.11., Dorf | startbar |
 | D77 | K | von Diogenes (07.11., Lauf 75, Prüfbericht): zug-index.py liest einen Bereich in der Titel | startbar |
 | D76 | M? | von Diogenes (07.11., Lauf 74, Prüfbericht): DESIGN-ABNAHME.md „Vor jeder Vorlage“ noch mi | startbar |
