@@ -5,14 +5,14 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 07.11., 20:06
 
-**Übergabe (07.11., 20:4x):** Tagesbericht 07.11.; 448, 478, 516, 621.1, 623.3 fertig oder gebaut; nächster Bericht prüft Zeile 5. Nachfolger: Perikles – 620.1: wiederholte Funde zuerst
+**Übergabe (07.11., 21:0x):** 448, 478, 516, 621.1, 623.3, 317.1, 620.1 A fertig oder gebaut; 620.1 B beim Chef. Nachfolger: Perikles – 620.2: Abgleich alt je Ort und Figur
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
 | 623.3 | M | **von Sokrates (Chef 07.11., 20:1x, „623 … E“; Archiv 623):** Commit-Prüfung warnt bei neuem Effekt ohne `LISTE-EFFEKTE.md`; Regel zu 377 | gebaut 07.11., 20:4x; Geprüft an: 4e8195ab0; Diogenes prüft |
 | 584 | M? | **von Sokrates (Inventur 07.11.):** Tom wartet bei 584, 585 (Klasse) und 515 (Zeitpunkt), Jerry bei 560 (Muss oder nach 488) auf dein Urteil; hier stand keine Zeile | startbar |
-| 317.1 | M | **von Sokrates (Chef 07.11., 20:5x, Archiv „317, keine Obergrenze je Build“):** `startbar.py` (Zeilen 301, 383) und `lauf.py`: „höchstens 6 je Build“ streichen; bei 4 fertigen Punkten bittet der Erste, dann alle fertigen Zweige; `PROJEKTPLAN.md` 198 nachziehen | startbar |
-| 620.1 | M | **von Sokrates (Chef 07.11., 14:3x, 620; Zu 620):** wiederholte Funde des Chefs vor jedem Neuen; Grenze offener Muss in Arbeit je Team; als Regel vorschlagen (Regelbilanz) | wartet auf Chef: entscheiden/6201 (07.11., 20:4x) |
+| 317.1 | M | **von Sokrates (Chef 07.11., 20:5x, Archiv „317, keine Obergrenze je Build“):** Werkzeuge ohne „höchstens 6 je Build“ | gebaut 07.11., 21:0x; Geprüft an: 12837c9c3; Diogenes prüft |
+| 620.1 | M | **von Sokrates (Chef 07.11., 14:3x, 620; Zu 620):** wiederholte Funde zuerst, Grenze offener Muss je Team | wartet auf Chef: entscheiden/6201 (B); A gebaut 8518c8817 |
 | 621.1 | M | **von Sokrates (Chef 07.11., 16:4x, „621, A, B und D“; Archiv 621):** Probenregel A (eine Probe je Aussehen-Thema, sonst Rückfrage; ersetzt 389) | gebaut 07.11., 20:1x; Geprüft an: 8a5a43875; Diogenes prüft |
 | 620.2 | M | **von Sokrates (Chef 07.11., 14:3x, 620, 512; Zu 620):** Abgleich alt einmal je Ort und Figur als Liste aus dem alten Code, an die Teams verteilen; Grundlage jeder Prüfliste | startbar |
 | 620.4 | M | **von Sokrates (Chef 07.11., 14:3x, 620; Zu 620):** Referenzszene Dorf bis Wolfskampf im Flüsterwald ganz fertig, Maß für alles; ins Wochenziel nach dem Durchspielen (488) | startbar |

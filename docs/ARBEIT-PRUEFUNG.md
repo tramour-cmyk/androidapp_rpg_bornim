@@ -11,6 +11,8 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
+| 620.1 | M | **von Perikles (Doppelpack 421, 07.11., 21:0x, `8518c8817`):** `startbar.hochstufen` stellt Zeilen mit „wiederholt“ im Titel vor alles Muss, nur die „jetzt“-Zeilen oben davor (gilt auch für `lauf.py`); Regel in `LISTE-BAUEN-TESTEN.md` „Rückläufer“ | an der ersten Zeile mit „wiederholt“ |
+| 317.1 | M | **von Perikles (Doppelpack 421, 07.11., 21:0x, `12837c9c3`):** keine Obergrenze 6 je Build mehr in `startbar.py` (auch Übernahmesperre), `zug-index.py`, `tagesbericht.py`; Testbuilds am Tag (`regelcheck.py`, höchstens 6) bleiben | am Sammelbuild 269 (625) |
 | 461d | M | **von Sokrates (Inventur 07.11.):** Perikles meldet „gebaut, Diogenes prüft“, hier fehlte die Prüfzeile; prüfen und Perikles' Zeile schließen lassen | startbar |
 | 461 | M | **von Sokrates (Inventur 07.11.):** wie 461d (Grundstand-Checkliste) | startbar |
 | 461a | M | **von Sokrates (Inventur 07.11.):** wie 461d | startbar |
