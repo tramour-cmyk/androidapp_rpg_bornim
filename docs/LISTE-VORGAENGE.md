@@ -157,8 +157,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 600 | Kampfort: Knopf zum Beschleunigen wie Würfel und Raster (Chef 05.11., 19:2x) | E Kampf | M | 2,88 $ | Team Jerry | startbar |
 | 601 | Goblin-Späher: Schuss ohne Bewegung, falscher Pfeil, kein Pfeil beim Fehlschuss; Treffer trotz Schatten (Chef 05.11., 19:2x, t266.5) | C Kampf | M | 2,88 $ | Team Jerry | startbar |
 | 604 | Schenke Erdgeschoss: Bett raus, mehr Tische und Bänke; Schlafen oben nur im Text (Chef 06.11., 09:38) | E Entwicklung | K | – | Team Tom, Homer | startbar |
-| 605 | Ausrüstung: leeres Kopffeld, Auswahl zeigt falsch „Obergrenze“, kein Zurück (Chef 06.11., 21:22, t268) | E Entwicklung | M | – | Team Tom | in Arbeit |
-| 606 | Schenke: Met kostet laut Liste 2 Gold, abgezogen werden 4 (Chef 07.11., t268) | A Spiel | M | – | Team Tom | in Arbeit |
+| 605 | Ausrüstung: leeres Kopffeld, Auswahl zeigt falsch „Obergrenze“, kein Zurück (Chef 06.11., 21:22, t268) | E Entwicklung | M | – | Team Tom | gebaut |
+| 606 | Schenke: Met kostet laut Liste 2 Gold, abgezogen werden 4 (Chef 07.11., t268) | A Spiel | M | – | Team Tom | gebaut |
 | 607 | Leute nachts: Pim läuft um 3 Uhr herum, sein Klopftext sagt, er schläft (Chef 07.11., t268) | A Spiel | M | – | Team Tom | startbar |
 | 608 | Haus wird durchsichtig, wenn der Held dahinter steht, dann geht innen das Licht an (Pims Hütte, Tempel) (Chef 07.11., t268) | E Welt | M | – | Team Tom | startbar |
 | 609 | Dorf: Baum hinter der Schenke sperrt den Weg zum Schlagbaum; alle Häuser auf der Waldseite umrundbar (Chef 07.11., t268) | E Welt | M | – | Team Tom | startbar |
@@ -169,7 +169,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 614 | Leute lebendig wie alt: Jorin mit Speer, Jorin öffnet den Schlagbaum sichtbar; Abgleich der Requisiten und Gesten (Chef 07.11., t268) | E Figuren | M? | – | Team Tom | startbar |
 | 615 | Kamera dreht und zoomt um den Helden als Fixpunkt, läuft nicht aus dem Bild (Chef 07.11., t268) | E Welt | M | – | Team Tom | startbar |
 | 616 | Kampf: Gegner weichen nach dem Angriff rückwärts zurück statt vorwärts zu laufen (Chef 07.11., t268) | E Kampf | M | – | Team Jerry | wartet |
-| 617 | Hauptmenü „Laden“: Wischen löst Laden aus; laden nur mit dem Knopf rechts (Chef 07.11., t268.1) | A Spiel | M | – | Team Tom | in Arbeit |
+| 617 | Hauptmenü „Laden“: Wischen löst Laden aus; laden nur mit dem Knopf rechts (Chef 07.11., t268.1) | A Spiel | M | – | Team Tom | gebaut |
 | 618 | Knöpfe einheitlich: „Zurück“, „Abbrechen“, „Schließen“ nach einer Regel auf allen Schirmen, Liste der Abweichungen (Chef 07.11., t268) | A Spiel | M | – | Team Tom | startbar |
 | 619 | Blende: derselbe Druck auf den Aktionsknopf drückt die Blende sofort weg (Chef 07.11., t268.18) | A Spiel | M | – | Team Tom | in Arbeit |
 | 620 | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build (Chef 07.11.) | F Firma | M | – | Sokrates | Dauer |
