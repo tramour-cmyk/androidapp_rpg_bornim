@@ -194,7 +194,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 616 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu t268): Gegner weichen nach dem Angriff rückwärt | wartet auf 478 (startbar) |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 37532 Bytes (Grenze 15000), Erledigtes streichen; Zeile 494 | startbar |
 
-**Perikles** – offen 22, Muss 14, startbar 7
+**Perikles** – offen 22, Muss 15, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -217,7 +217,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | startbar |
 | D77 | K | von Diogenes (07.11., Lauf 75, Prüfbericht): zug-index.py liest einen Bereich in der Titel | startbar |
 | D75 | M? | von Diogenes (07.11., Lauf 73, Prüfbericht): Filmsperre 511 hat die Film-Pushes zu 572 nic | startbar |
-| 627 | M? | von Team Jerry (Tuffy, 07.11., 21:15): probelauf.py zählte einen Push als Probelauf 562, o | startbar |
+| 627 | M | von Team Jerry (Tuffy, 07.11., 21:15): probelauf.py zählt Pushes ohne Lauf (562: commit -F | wartet auf Test/Build (gebaut) |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 16852 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
