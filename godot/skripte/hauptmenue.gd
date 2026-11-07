@@ -409,6 +409,20 @@ static func lizenz_texte(box: VBoxContainer, de: bool) -> void:
 		klein.call(String(k))
 		klein.call(String(li[k]).strip_edges())
 
+# 623.7 (Chef 07.11., 623 F; Homer [623.dank.*] in STORY-SPIEL.md): „Mit Dank an“ unter „Lizenzen der Engine“, ueber dem Logo, nie im
+# Spielgeschehen; Schreibung der Haendlernamen wie auf RenderHub (Game-Ready Studios, Wernerkurt; 08.11. nachgesehen)
+const DANK_KOPF := {"de": "Mit Dank an", "en": "With thanks to"}
+const DANK_SATZ := {"de": "Diese Chronik entstand nicht allein. Dank allen, deren Werk sie trägt: in Bild und Bewegung, Licht und Klang, Musik und Schrift.", "en": "This chronicle was not made alone. Our thanks to everyone whose work carries it: in image and motion, light and sound, music and type."}
+const DANK := [
+	[{"de": "Effekte", "en": "Visual effects"}, {"de": "REEBOO Labs", "en": "REEBOO Labs"}],
+	[{"de": "Figuren, Tiere und Bewegung", "en": "Characters, creatures and motion"}, {"de": "Animated3D, Game-Ready Studios, Janpec, MadeCG, Protofactor, Quaternius, rubberduck, Wernerkurt, yughues", "en": "Animated3D, Game-Ready Studios, Janpec, MadeCG, Protofactor, Quaternius, rubberduck, Wernerkurt, yughues"}],
+	[{"de": "Dinge und Waffen", "en": "Props and weapons"}, {"de": "Anker's Assets, Avramania, MagicCGIStudios, Omie's Assets, PolyMech, Quaternius", "en": "Anker's Assets, Avramania, MagicCGIStudios, Omie's Assets, PolyMech, Quaternius"}],
+	[{"de": "Klang", "en": "Sound"}, {"de": "AlanCat, antumdeluge, arcadeparty, artisticdude, bart, bashar3a, betchkal, blukotek, bonebrah, Borgory, Breviceps, congusbongus, craigsmith, Defelozedd94, esperar, EZduzziteh, Gerent, haeldb, jaegrover, jaggedstone, jmehlferber, Joseph Sardin, Kenney, kingsrow, legit-audio, LilMati, magicjoshua, musicbrain, ondrosik, onehugeeye, owlishmedia, Paresh, Patrick_Corra, pauliuw, Pierre, qubodup, RandomMind, rubberduck, Sahand.Zangeneh, Sam Gossner, SkyRaeVoicing, syncopika, themightyglider, thimras, ValentinPetiteau, vehicle, vinrax, ZoshP – und allen, die ihre Aufnahmen bei BigSoundBank, Freesound und OpenGameArt teilen.", "en": "AlanCat, antumdeluge, arcadeparty, artisticdude, bart, bashar3a, betchkal, blukotek, bonebrah, Borgory, Breviceps, congusbongus, craigsmith, Defelozedd94, esperar, EZduzziteh, Gerent, haeldb, jaegrover, jaggedstone, jmehlferber, Joseph Sardin, Kenney, kingsrow, legit-audio, LilMati, magicjoshua, musicbrain, ondrosik, onehugeeye, owlishmedia, Paresh, Patrick_Corra, pauliuw, Pierre, qubodup, RandomMind, rubberduck, Sahand.Zangeneh, Sam Gossner, SkyRaeVoicing, syncopika, themightyglider, thimras, ValentinPetiteau, vehicle, vinrax, ZoshP – and everyone who shares their work on BigSoundBank, Freesound and OpenGameArt."}],
+	[{"de": "Musik", "en": "Music"}, {"de": "beardalaxy, carrieedick, cesisco, cleytonkauffman, cynicmusic, ElanHickler, eldritch-grim, emmama, Fission9, Flamiffer, jaggedstone, Kaiser (the-oracle), kindland, Kinoton, Magmi.Soundtracks, nene, nihilocrat, Paul Wortmann, RandomMind, rhayn, RutgerMuller, tinyworlds, trex0n, umplix, vitalezzz, yd", "en": "beardalaxy, carrieedick, cesisco, cleytonkauffman, cynicmusic, ElanHickler, eldritch-grim, emmama, Fission9, Flamiffer, jaggedstone, Kaiser (the-oracle), kindland, Kinoton, Magmi.Soundtracks, nene, nihilocrat, Paul Wortmann, RandomMind, rhayn, RutgerMuller, tinyworlds, trex0n, umplix, vitalezzz, yd"}],
+	[{"de": "Schriften", "en": "Typefaces"}, {"de": "Juan Pablo del Peral und Huerta Tipográfica (Alegreya), Brian J. Bonislawsky (Astigmatic, Fondamento)", "en": "Juan Pablo del Peral and Huerta Tipográfica (Alegreya), Brian J. Bonislawsky (Astigmatic, Fondamento)"}],
+	[{"de": "Engine", "en": "Engine"}, {"de": "Godot Engine – Juan Linietsky, Ariel Manzur und alle Mitwirkenden", "en": "Godot Engine – Juan Linietsky, Ariel Manzur and all contributors"}],
+]
+
 func ueber() -> void:
 	var seite := Control.new()
 	seite.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -457,6 +471,13 @@ func ueber() -> void:
 	auf.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	v.add_child(auf)
 	v.add_child(lizenzen)
+	v.add_child(Erschaffung.luecke(18))
+	v.add_child(Stil.zeile(String(DANK_KOPF["de" if de else "en"]).to_upper(), 12, Stil.BRIGHT, 3.0))   # 623.7
+	v.add_child(Erschaffung.luecke(8))
+	v.add_child(Erschaffung.txt(String(DANK_SATZ["de" if de else "en"]), 15))
+	for e in DANK:
+		v.add_child(Erschaffung.luecke(6))
+		v.add_child(Erschaffung.txt(String(e[0]["de" if de else "en"]) + ": " + String(e[1]["de" if de else "en"]), 13, Stil.DIM))
 	v.add_child(Erschaffung.luecke(18))
 	var tex: Texture2D = load(LOGO) if ResourceLoader.exists(LOGO) else null
 	if tex:
