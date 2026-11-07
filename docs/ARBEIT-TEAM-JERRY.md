@@ -40,37 +40,33 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: Feintuning nach 399 (Hühner hoppeln, Rind 78 s Fleck, 150°-Sprung) |
 | 385.2 | M | **von Chef:** Feuer aus dem Stab | wartet auf 623.2 (Stylized Projectiles; Inventur 07.11.) | – |
 | 397 | M | von Chef: Tiere, Monster mind. drei Ruhebewegungen | ruht (399) | – |
-| 348.12c | M | von Sokrates: Untote und Gewürm übernehmen Fähigkeiten der Vorgänger | ruht: SRD (Chef 31.10.) | – |
-| 390 | M | von Perikles: Funktionen ohne Bild | ruht: SRD (Chef 31.10.) | `claude/jerry-348-kampf` |
-| 304 | M | von Chef: Klassisch, Konter nach Abwehr regelrecht? | ruht: SRD (Chef 31.10.) | – |
+| 348.12c | M | von Sokrates: Untote und Gewürm übernehmen Fähigkeiten der Vorgänger | wartet auf 478: dort mitbauen (626) | – |
+| 304 | M | von Chef: Klassisch, Konter nach Abwehr regelrecht? | wartet auf 478: dort mitbauen (626) | – |
 | 257 | M | von Chef: App „hängt“, ging dann weiter | ruht: Hänger-Wächter (Tom) seit Build 49; bis zum nächsten Hänger mit Absturzbericht | – |
 | 211.14 | M | von Sokrates: Leistung am A56 messen | startbar (Inventur 07.11.) | – |
-| 249 | M | von Chef: MARS wie der klassische Kampf | ruht: SRD (Chef 31.10.) | – |
 | 289 | K | von Chef: MARS, verfügbare Züge zeigen | ruht: Chef 21.10., 20:59 „stellen wir mal zurück“ | – |
 | 296.1 | K | von Sokrates: `LISTE-MARS.md` gegen den Code | startbar (Inventur 07.11.) | – |
-| 296.2 | M | von Sokrates: MARS spielnötig | ruht: SRD (Chef 31.10.) | `claude/build-89` |
+| 296.2 | M | von Sokrates: MARS spielnötig | wartet auf 478: dort mitbauen (626) | `claude/build-89` |
 | 296.3 | K | von Sokrates: MARS-Schmuck | startbar (Inventur 07.11.) | – |
-| 344.2 | K | von Sokrates: Kampf mit der Fackel | ruht: SRD (Chef 31.10.) | `claude/jerry-344-2-fackel` |
+| 344.2 | K | von Sokrates: Kampf mit der Fackel | ruht: nach dem Durchspielen (626) | `claude/jerry-344-2-fackel` |
 | 168.1 | K | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab 3 | wartet auf 38, dann Bau Kapitel 2; Texte Homer (41) | – |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte | ruht bis 348.7 (Kampfort in Godot); Kür hinter dem Meilenstein (Chef 19.10.) | `claude/jerry-72u-standbild-2` |
-| 133 | K | Umsetzung 133: Charisma-Proben, Erfahrung für Konflikte | ruht: SRD (Chef 31.10.) | – |
-| 212 | M | Umsetzung 212: Schalter MARS oder klassisch | ruht: SRD (Chef 31.10.) | – |
 | 38 | M | Balance Kapitel 1 gemessen | wartet auf 478: dort mitbauen (Inventur 07.11.) | – |
-| 39 | M | Schwierigkeitsgrad im Menü | ruht: SRD (Chef 31.10.) | `claude/jerry-39-schwierigkeit` |
-| 59e | K | Händler: Vorrat je Laden | ruht: SRD (Chef 31.10.) | `claude/jerry-59e-haendlervorrat` |
-| 19 | K | Zeitablauf der Kampfbewegungen | ruht: SRD (Chef 31.10.) | – |
+| 39 | M | Schwierigkeitsgrad im Menü | ruht bis 2.5 (626) | `claude/jerry-39-schwierigkeit` |
+| 59e | K | Händler: Vorrat je Laden | ruht: nach dem Durchspielen (626) | `claude/jerry-59e-haendlervorrat` |
 | 469 | M | **von Sokrates:** Kampf auf BRS: Ring ohne Klassen regeln | wartet auf 478: dort mitbauen (Inventur 07.11.) | – |
 | 597 | M | **von Sokrates (Chef 05.11., 19:2x; Zu 594–601):** Ring ohne Ankündigung (Fledermaus); alle Angreifer prüfen | startbar: t268.21 Wolf ohne Ansage, nachstellen (Zu t268) | `claude/jerry-597-ring` |
 | 601 | M | **von Sokrates (Chef 05.11., 19:2x, t266.5; Zu 594–601):** Goblin-Späher: Schuss ohne Bewegung, falscher Pfeil, kein Pfeil beim Fehlschuss; Treffer trotz Schatten | startbar (Inventur 07.11.) | `claude/jerry-601-spaeher` |
 | 595 | M | **von Sokrates (Chef 05.11., 19:2x, t266.1; Zu 594–601):** Kampfbewegungen Spinne, Riesenegel, Säureschnecke | wartet auf 478 (Zu 478; Inventur 07.11.) | – |
 | 600 | M | **von Sokrates (Chef 05.11., 19:2x; Zu 594–601):** Knopf zum Beschleunigen im Kampfort wie Würfel und Raster | startbar: t268.22 Stufe 2 dunkler (Zu t268) | `claude/jerry-600-tempo` |
 | 478 | M | **von Sokrates (Chef 07.11., 16:3x: „Wir packen das BRS auf jeden Fall jetzt auch mit dazu“; „jetzt“ 07.11., 16:37; ersetzt 470a B; nach den Fehlern, Chef 20:2x; Zu 478):** Rechenkern des Kampfs auf BRS (Modell D), danach 2.3 mit Tom | startbar nach den Fehlern oben (Chef 07.11., 20:2x) | – |
+| 620.2b | M | **von Perikles (620.2, 621 D, Chef 07.11.):** Abgleich alt einmal nach `LISTE-ABGLEICH-ALT.md`: 1.9 Höhle (mit Tom, 492), 1.10, jede Zeile Klang und Gegner, Krogg, Grak, Grimmzahn; Spalte „Godot“ je Zeile, „fehlt“ wird Vorgang; Tuffy darf übernehmen | startbar | – |
 | 623.5 | M | **von Sokrates (Chef 07.11., 20:2x: „Holst du dir die Gratisamples zum Testen?“; 623):** Gratisproben Combat Mega, Projectiles, Trails, Pack 3, Character Shaders (privat `anhang/reeboo/`, Zweig `claude/brave-faraday-9mxupv`) im Kampfort, Compatibility, mit Tusche, FPS; ein Film (621 A), Tuffy | startbar | – |
 | 623.2 | M | **von Sokrates (Chef 07.11., 20:1x, „623 A B C D E F“; Archiv 623):** Effekte aus 623 A (Combat Mega, Projectiles, Trails, Pack 3, Character Shaders nur als Zusatzschicht, Status Effects) mit 478 einbauen; je Effekt Zeile in `LISTE-BESTAND.md` und `LISTE-EFFEKTE.md`, Datenfeld `fx`; FPS am ersten Kampf messen | wartet auf 623 (Kauf A durch den Chef, tun/623) | – |
 | 598 | M | **von Sokrates (Chef 05.11., 19:2x; Zu 594–601):** Umweltklang je Ort, Tageszeit, Wind, Wetter | startbar: Schenke nur mit Gästen, Klang im Takt (Chef 06.11.) | – |
 | 593 | M? | **von Sokrates (Chef 05.11., 19:2x; Zu 594–601):** Ausweichen auch rückwärts | wartet auf 478 (Zu 478; Inventur 07.11.) | – |
 | 616 | M | **von Sokrates (Chef 07.11., 14:1x, t268; Zu t268):** Gegner weichen nach dem Angriff rückwärts zurück, nicht vorwärts laufend | wartet auf 478 (Zu 478; Inventur 07.11.) | – |
-| Pflege | K | **von Werkzeug (340.3, 07.11.):** 37969 Bytes (Grenze 15000), Erledigtes streichen; Zeile 494 wartet auf t266, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile 595 wartet auf t266, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile 616 wartet auf t268, aber keine Datei i … | startbar |
+| Pflege | K | **von Werkzeug (340.3, 07.11.):** 37532 Bytes (Grenze 15000), Erledigtes streichen; Zeile 494 wartet auf t266, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile 595 wartet auf t266, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile 616 wartet auf t268, aber keine Datei i … | startbar |
 ## Einzelheiten
 
 - **Zu 496a, von Diogenes (07.11., 20:08, Pflege):** Stand „wartet auf Test: t249“ ist überholt: t249 erledigt und in t257 aufgegangen (`bd160d405`), t257 freigegeben (Chef 04.11., 20:45). Stand nachziehen.
