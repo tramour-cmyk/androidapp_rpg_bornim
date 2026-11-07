@@ -238,13 +238,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 41238 Bytes (Grenze 15000), Erledigtes streichen; Zeile 551 | startbar |
 
-**Perikles** – offen 36, Muss 30, startbar 10
+**Perikles** – offen 36, Muss 30, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 623.3 | M | von Sokrates (Chef 07.11., 20:1x, „623 … E“; Archiv 623): tools/commit-pruefung.py warnt, | startbar |
 | 620.1 | M | von Sokrates (Chef 07.11., 14:3x, 620; Zu 620): wiederholte Funde des Chefs vor jedem Neue | startbar |
-| 621.1 | M | von Sokrates (Chef 07.11., 16:4x, „621, A, B und D“; Archiv 621): Probenregel A in ROLLE-E | startbar |
+| 621.1 | M | von Sokrates (Chef 07.11., 16:4x, „621, A, B und D“; Archiv 621): Probenregel A (eine Prob | wartet auf Test/Build (gebaut) |
 | 620.2 | M | von Sokrates (Chef 07.11., 14:3x, 620, 512; Zu 620): Abgleich alt einmal je Ort und Figur | startbar |
 | 620.4 | M | von Sokrates (Chef 07.11., 14:3x, 620; Zu 620): Referenzszene Dorf bis Wolfskampf im Flüst | startbar |
 | 579 | M | von Sokrates (Chef 05.11., 08:18, „jetzt ist gut erstmal. Weitermachen mit wichtigen Dinge | startbar |
@@ -279,10 +279,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 19635 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Diogenes** – offen 12, Muss 10, startbar 1
+**Diogenes** – offen 13, Muss 11, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 621.1 | M | von Perikles (Doppelpack 421, 07.11., 20:1x, 8a5a43875): Probenregel A: probelauf.py hält | startbar |
 | 448 | M | von Perikles (Doppelpack 421, 07.11., 20:1x, 76df26ba1): startbar.py gibt bei „Pause“ im K | Leiche: in LISTE-VORGAENGE.md „erledigt“, Zeile noch im Vorrat |
 | 512b | M | von Sokrates (Chef 04.11., 19:21: „512b ja“; chefsache/entscheiden/512b-nachweis.md in Git | wartet auf Eingang |
 | 512.1 | M | von Perikles (Doppelpack 421, 04.11., 14:0x, bdf83b0f6): commit-pruefung.py warnt bei neue | wartet auf Eingang |
