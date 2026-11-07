@@ -394,7 +394,8 @@ func _aktion() -> void:
 			# drei Aufnahmen knock_1–3); in Godot fehlte der Klang ganz
 			klang("effekt", ["knock"])
 			var anders := Geschichte.klopfen(karte.id, z, zustand)   # 540: nach Kapitel 1 sagt 12/5 etwas anderes
-			ui.sage([{"text": Sprache.t(anders)}] if not anders.is_empty() else zeilen(variiere(a["klopfen"]["nacht" if nachts else "tag"])))   # 504.1 Varianten
+			var gesagt: Array = [{"text": anders}] if not anders.is_empty() else variiere(a["klopfen"]["nacht" if nachts else "tag"])   # 504.1 Varianten
+			ui.sage(zeilen(Geschichte.klopf_sprecher(karte.id, z, gesagt)))   # 629.1 mit dem Namen der Stimme
 			zustand.setze("heard_%d_%d" % [z.x, z.y])   # 399.1 Karte: wer hier wohnt (MapPeople.heard)
 		return
 	if a.has("braucht") and not karte.flaggen.has(a["braucht"]):
