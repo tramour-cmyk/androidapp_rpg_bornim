@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [142.4](entscheiden/1424-organisationskonto.md) | **Muss** | M Veröffentlichung | 07.11., 16:57 | Organisationskonto statt Pflichttest | Sokrates |
+| [142.4](entscheiden/1424-organisationskonto.md) | **Muss** | M Veröffentlichung | 07.11., 17:10 | Bestehendes Konto auf Organisation umstellen statt Pflichttest | Sokrates |
 | [415d.1](entscheiden/415d1-effekte-jetzt.md) | **Muss** | C Kampf | 04.11., 19:57 | Effektpakete jetzt kaufen, Einbau nach Bedarf | Sokrates |
 
 ## Zu billigen
