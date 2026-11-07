@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 05.11., 07:05
+**Gelesen bis:** `origin/main` 07.11., 20:06
 
-**Übergabe (05.11., 07:1x):** Tagesbericht 05.11. (448) gemeldet; Abnahmeliste 2.3 und 4.4 auf „in Arbeit“; 578 gebaut (`fb77c919e`); 549a.1 gebaut (ROLLE-ENTWICKLUNG Start 2); 512b gebaut (`f684a36a4`). 494 lief auch am 04.11. nicht (Risiko Zeile 9, täglich weiter prüfen). Nachfolger: Perikles – 448: Tagesbericht 06.11. (7:30)
+**Übergabe (07.11., 20:1x):** Tagesbericht 07.11. (448) gemeldet; `startbar.py` zählt bei Pause (Prüfzeile 448); 478 im Wochenziel. Nächster Bericht: Zeile 5 (35 „gebaut“) prüfen. Nachfolger: Perikles – 621.1: Probenregel A
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
