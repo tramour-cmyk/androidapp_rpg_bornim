@@ -550,7 +550,10 @@ func tagesplan() -> bool:
 	var ort := Vector2i(int(st[1]), int(st[2]))
 	heim = ort
 	streifen_n = int(st[3])
-	drinnen = bool(st[4]) and kachel == ort
+	# 607 (Chef 07.11.: Pim „läuft um 0300 Uhr immer noch rum“, nachgestellt in nacht_607): wer klopft, steht auf genau der Kachel, auf
+	# der die Person fuer die Nacht hineingeht; ist sie besetzt, geht sie von der Nachbarkachel aus hinein, statt davor zu warten
+	var vor_tuer := absi(kachel.x - ort.x) + absi(kachel.y - ort.y) == 1 and not frei_fuer_mich(ort)
+	drinnen = bool(st[4]) and (kachel == ort or vor_tuer)
 	visible = da and not drinnen
 	if drinnen:
 		warte = 5.0

@@ -43,6 +43,25 @@ func _lauf() -> void:
 			var st := l.plan_jetzt()
 			pruefe(l.drinnen and not l.visible, "%s um 3 Uhr (vorher %02d Uhr): %s nach %.0f s bei %s, Tuer %s" % [id, start_min / 60, "drinnen" if l.drinnen else "DRAUSSEN", t, l.kachel, Vector2i(int(st[1]), int(st[2])) if not st.is_empty() else "-"])
 			l.free()
+	# 607 (Chef 07.11.: „wenn man an der Tür klopft … läuft aber um 0300 Uhr immer noch rum“): wer klopft, steht auf der Kachel vor
+	# der Tuer, und das ist die Kachel, auf der die Person fuer die Nacht hineingeht; besetzt, kam sie nie hinein und lief herum
+	for p in k.daten.get("leute", []):
+		var id := String(p["id"])
+		if not Karte.tagesablauf.has(id) or not Karte.tagesablauf[id].any(func(e): return bool(e[4])): continue
+		uhr[0] = 3 * 60
+		var l := Leute.new(k, p, held)
+		var st := l.plan_jetzt()
+		var tuer := Vector2i(int(st[1]), int(st[2]))
+		l.kachel = tuer + Vector2i(2, 1)
+		if not k.begehbar(l.kachel): l.kachel = tuer + Vector2i(-2, 1)
+		eltern.add_child(l)
+		l.position = k.kachel_pos(l.kachel)
+		l.da = true
+		held.position = k.kachel_pos(tuer)   # der Held klopft
+		var t := lauf(l, 90.0)
+		pruefe(l.drinnen and not l.visible, "%s um 3 Uhr, Held klopft an der Tuer %s: %s nach %.0f s bei %s" % [id, tuer, "drinnen" if l.drinnen else "DRAUSSEN", t, l.kachel])
+		l.free()
+	held.position = k.kachel_pos(Vector2i(2, 30))
 	print("NACHT607 %s" % ("gut" if fehler == 0 else "%d Fehler" % fehler))
 	Leute.uhr = Callable()
 	quit(1 if fehler > 0 else 0)
