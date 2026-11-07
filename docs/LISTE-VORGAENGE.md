@@ -171,16 +171,12 @@
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 72 | Profil und Marktvergleich | Homer | K | ruht | – | – | – | E Kampf | 0,72; +0,61 $ |
 | 348.12g | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | Homer | M | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | – | – | – | G Story | 4,29 $ |
-| D82 | D80 und D81.1 bestanden, umschalten; im Umschalt-Commit HAND 275 warte=["Diogenes", "09.11."], sonst startet Ford Diogenes für 275 (Bedingung der zweiten Zeile geht bei Doppelten verloren) | Perikles | M | erledigt | – | – | – | ? | – |
-| D80 | vor dem Umschalten: Automatik B nimmt jede in der Prüfliste genannte offene Zeile (D80.1); Fund-Absatz hält die Commit-Prüfung an bei Tom, Jerry über 15 KB (D80.2); dazu D80.3–D80.7 | Perikles | M | erledigt | – | – | – | ? | – |
-| D81 | Wächter 512.1 lässt „kein Film, kein Bild“ und „Bildabgleich“ noch als Nachweis durch (D81.1); D74 (b) in 4-spaltigen Vorräten (D81.2, entfällt mit 275.2) | Perikles | M | erledigt | – | – | – | ? | – |
-| 275.2 | Rückfrage: eine Liste statt Liste plus Vorräte, mit „wartet auf“ als Feld und Abschluss beim Build (Chef 07.11., 21:4x) · „jetzt“ 07.11., 21:55 | Perikles | M | erledigt | – | claude/perikles-2752-liste | – | B Werkzeuge | 13,29 $ |
 | 317.1 | `startbar.py`, `lauf.py`: Obergrenze 6 je Build streichen (Chef 07.11., 20:5x) | Perikles | M | gebaut, Geprüft an: 12837c9c3 | Diogenes, t269 | – | – | B Werkzeuge | – |
 | 620.1 | Wiederholte Funde des Chefs vor Neuem; wenige Muss je Team zugleich (aus 620) | Perikles | M | Chef | Chef, Diogenes | – | – | B Abläufe | – |
 | 511 | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele sinnlose und kaputte Filme gemacht?“) · „jetzt“ 03.11., 13:50 | Perikles | M | gebaut, Geprüft an: d6d9eca8c | Diogenes, D75 | – | – | B Werkzeuge | 19,83 $ |
 | 483 | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Marke (Chef 02.11., 19:08) | Perikles | M | gebaut, Geprüft an: 62e922b30 | Diogenes, D75 | – | – | B Werkzeuge | – |
 | 464 | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählung im Tagesbericht (Chef 01.11., 20:4x) | Perikles | M | gebaut, Geprüft an: fcf9ab215 | – | – | – | B Abläufe | – |
-| 399 | Spielbare Godot-Fassung zuerst: Dorf begehbar, Kampf spielbar; Feintuning ruht (Chef 28.10., 12:34) · „jetzt“ 28.10., 12:34 | Perikles | M | wartet | 399.1, 399.2 | – | – | B Umzug | 12,45 $ |
+| 399 | Spielbare Godot-Fassung zuerst: Dorf begehbar, Kampf spielbar; Feintuning ruht (Chef 28.10., 12:34) · „jetzt“ 28.10., 12:34 | Perikles | M | startbar, gelöst 07.11.: 399.1, 399.2 | – | – | – | B Umzug | 12,45 $ |
 | 398 | Gegenprobe: Grundsätze aus DESIGN-Dateien, die im Umzug nach Godot fehlen (Chef 28.10., 11:22) | Perikles | M | wartet, Wochenzählung Diogenes | 09.11. | – | – | B Umzug | 12,07 $ |
 | 383 | Wartewächter und Haken 63 verschärfen (Chef 27.10., 17:53 ja); Sitzungsgröße messen (Sokrates) | Perikles | M | gebaut, Geprüft an: 4e1f16df6 | Sokrates | – | – | B Werkzeuge | 99,45 $ |
 | 275 | Zentrale Vorgangsliste als einzige Quelle (Chef 21.10.; Stufe 1 jetzt, 27.10.) | Perikles | M | gebaut, Geprüft an: e23a4ccb2 | Diogenes, 09.11. | – | – | B Werkzeuge | 31,69 $ |
@@ -190,7 +186,7 @@
 | 270 | Perikles und Diogenes auf das große Modell (Chef 21.10.) | Perikles | M | ruht | – | – | – | B Betrieb | –; +4,16 $ |
 | D75 | Filmsperre 511 zählte Film-Pushes 572 nicht (D75.1); meldung.sh --film legte Film 572 nicht ab (D75.2) | Perikles | M | Dauer, bis zum nächsten echten Film (D75.1 gebaut, D75.2 dann prüfen) | – | – | – | B Werkzeuge | – |
 | 627 | probelauf.py: Push mit `git commit -F -` im selben Befehl als Probelauf gezählt (562, ohne Lauf) | Perikles | M | gebaut, Geprüft an: 4bcd30e87 | – | – | – | B Werkzeuge | – |
-| 631 | lauf.py: Startmarken ohne Datum verglichen (Ford 06.11., 07:19) | Perikles | K | wartet | 275.2 | – | – | B Werkzeuge | – |
+| 631 | lauf.py: Startmarken ohne Datum verglichen (Ford 06.11., 07:19) | Perikles | K | startbar, gelöst 07.11.: 275.2 | – | – | – | B Werkzeuge | – |
 | 99 | Zwei Niederlassungen | Perikles | K | ruht | – | – | – | B Steuerung | 7,25 $ |
 | Pflege | Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 14, 19, 38, 40; CLAUDE.md: 15468 Bytes (Grenze 15000), kürzen; docs/LISTE-VORGAENGE.md: 39546 Bytes (Grenze 15000), Erledigtes ins Archiv | Perikles | K | startbar | – | – | – | B Betrieb | – |
 | 340.2 | Rollenspiegel C: `tools/rollenspiegel.sh`, eigene Antwort ohne fremde | Diogenes | M | ruht | 09.11. | – | – | B Abläufe | –; +6,35 $ |
