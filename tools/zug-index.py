@@ -194,12 +194,11 @@ def formfehler():
         if any(re.sub(r" \d+$", "", t.strip()) not in TEAMS for t in re.split(r" und | \+ |/|, ", kopf.lstrip("# ").split(" · ")[0])): fehler.append(f"{n}: Zeile 1 beginnt nicht mit dem Team")
         if not re.match(r"[A-Z] \w+ · ", meta): fehler.append(f"{n}: Zeile 2 ist keine Bereichszeile")
         if not re.search(r"^\|\s*#\s*\|(\s*Team\s*\|)?\s*Nr\.\s*\|\s*Wo und wie\s*\|\s*Richtig\s*\|\s*Falsch\s*\|", text, re.M): fehler.append(f"{n}: Tabelle `# | Nr. | Wo und wie | Richtig | Falsch` fehlt")
-        else:  # 317: gemeinsamer Build bündelt 3–6 Vorgänge (Ziel 4), weniger nur auf „jetzt“ des Chefs
+        else:  # 317: gemeinsamer Build bündelt mindestens 3 Vorgänge, keine Obergrenze (Chef 07.11., 20:5x), weniger nur auf „jetzt“ des Chefs
             zeilen = [[c.strip() for c in x.strip("|").split("|")] for x in z if x.startswith("|") and not re.match(r"\|[\s|:-]*$", x)]
             sp = zeilen[0].index("Nr.") if zeilen and "Nr." in zeilen[0] else 1
             nrn = {r[sp] for r in zeilen[1:] if len(r) > sp and r[sp]}
-            if len(nrn) > 6: fehler.append(f"{n}: {len(nrn)} Vorgänge, höchstens 6 je Build (317)")
-            elif len(nrn) < 3 and "jetzt" not in text: fehler.append(f"{n}: nur {len(nrn)} Vorgänge; ein Build bündelt 3–6, weniger nur auf „jetzt“ des Chefs (317)")
+            if len(nrn) < 3 and "jetzt" not in text: fehler.append(f"{n}: nur {len(nrn)} Vorgänge; ein Build bündelt mindestens 3, weniger nur auf „jetzt“ des Chefs (317)")
         kopfzeilen = [kopf] + [x for x in z if re.match(r"## Build \d+ · ", x)]
         if not any(VERSION.search(x) for x in kopfzeilen): fehler.append(f"{n}: Version 0.1.<Laufnummer> (Godot 0.348.<Laufnummer>) fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)")
     return fehler

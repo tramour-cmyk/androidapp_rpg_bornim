@@ -308,12 +308,12 @@ UEBERNAHME = {"Tom": "Jerry", "Jerry": "Tom"}
 GERAET = re.compile(r"Test|Gerät|Build|APK", re.I)
 
 def uebernahme(rolle, info):
-    """118/202: hat das Team nichts Startbares, die oberste freie Zeile des anderen Teams (ohne Gerätetest bevorzugt); Build-Grenze (317): warten beide Teams zusammen schon 6 Punkte auf Test, erst bauen."""
+    """118/202: hat das Team nichts Startbares, die oberste freie Zeile des anderen Teams (ohne Gerätetest bevorzugt); die Build-Grenze 6 (317) entfällt seit Chef 07.11., 20:5x (317.1)."""
     a = UEBERNAHME[rolle]
     if a not in info: return None
     frei, wartend, _ = info[a]
     if rolle not in info or info[rolle][2]: return None
-    if not frei or wartend + info[rolle][1] >= 6: return None
+    if not frei: return None
     ohne = [z for z in frei if not GERAET.search(z[2])]
     z = (ohne or frei)[0]
     return "%s %s (Übernahme 118 von Team %s%s)" % (z[0], re.sub(r"\*\*|`", "", z[2])[:60], a, "" if ohne else ", mit Gerätetest")
@@ -390,7 +390,7 @@ def main():
             u = uebernahme(r, info)
             if u: print("  Übernahme für %s: %s" % (r, u))
         if all(r in info for r in UEBERNAHME) and sum(info[r][1] for r in UEBERNAHME) >= 4:  # 317: ab 4 fertigen Punkten beider Teams bittet der Erste (Chef 24.10., 21:17)
-            print("  Gemeinsamer Build: %s warten auf Test (ab 4 bittet der Erste, höchstens 6 je Build; 317)" % ", ".join("%s %d" % (r, info[r][1]) for r in UEBERNAHME))
+            print("  Gemeinsamer Build: %s warten auf Test (ab 4 bittet der Erste, dann alle fertigen Zweige ohne Obergrenze; 317, Chef 07.11., 20:5x)" % ", ".join("%s %d" % (r, info[r][1]) for r in UEBERNAHME))
         ohne_vorrat(alle)
         if LEICHE and ("--leichen" in sys.argv or alle):
             for nr, (rolle, grund) in LEICHE.items(): print("  LEICHE %s %s: %s" % (rolle, nr, grund))
