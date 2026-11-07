@@ -10,7 +10,7 @@ Geprüft an: https://support.google.com/googleplay/android-developer/answer/1759
 
 ## Sachverhalt
 
-- **Konto:** Wir haben seit 23.10. ein **privates** Entwicklerkonto „BornWire TCS“ (341.1b, Anschrift erst vor dem Zahlungsprofil); ein Bild ist dort schon hochgeladen und in Gebrauch (Chef 07.11., 17:1x), es bleibt bei der Umstellung. Privat und nach dem 13.11.2023 angelegt heißt: Pflichttest mit 12 Testern über 14 Tage (Hilfe 14151465). Organisationskonten nennt die Regel nicht.
+- **Konto:** Wir haben seit 23.10. ein **privates** Entwicklerkonto „BornWire TCS“ (341.1b, Anschrift erst vor dem Zahlungsprofil); die App `de.bornim.game` ist dort schon mit einem Build zum Herunterladen angelegt (AAB des alten Stands 25.10., Build 90 über Play 27.10.; 142.1, 388; Chef 07.11., 17:1x); bei der Umstellung bleiben Konto und App, nichts zieht um. Privat und nach dem 13.11.2023 angelegt heißt: Pflichttest mit 12 Testern über 14 Tage (Hilfe 14151465). Organisationskonten nennt die Regel nicht.
 - **Umstellen geht** (Hilfe 13634885 und verwandte): in der Play Console unter „Über Sie“ „Kontotyp ändern“; Voraussetzung: verifizierte Website der Organisation (bornwire.de, 366), voll verifiziertes privates Konto, neues Zahlungsprofil mit **D-U-N-S**; danach 72 Stunden warten. Zurück zu privat geht nicht.
 - **Was öffentlich wird** (Hilfe 13628312 und 17594752):
 
