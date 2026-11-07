@@ -1,5 +1,7 @@
 # Vorrat Team Jerry
 
+**Pause bis die neue Vorgangsliste läuft (275.2)** (von Sokrates, Chef 07.11., 21:5x: „alle Arbeiten fertig, dann wird erstmal nichts gemacht und dann machen wir jetzt mal endlich eine saubere Vorgangsliste“): laufende Sitzungen von Jerry und Tuffy machen ihren Vorgang fertig und übergeben; keine neue Sitzung, bis Perikles nach dem Umschalten die Zeile streicht.
+
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 

@@ -11,6 +11,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
+| 275.2 | M | **von Sokrates (Chef 07.11., 21:5x: „Diogenes soll es noch quertesten“; Archiv 275.2):** neue Vorgangsliste vor dem Umschalten an einer Kopie testen: Startbar alt gegen neu gleich, jedes Werkzeug einmal, Automatik A und B mit Beispielen (Zu 275.2 in `ARBEIT-PROJEKT.md`) | wartet auf 275.2 bei Perikles |
 | D74–D79 | M | **von Perikles (Doppelpack 421, 07.11., 21:2x):** nachprüfen: D74 `regelcheck.py` „Test ohne Datei“ (ohne Pflegezeilen, nur tNN nach „wartet auf“), D76 `DESIGN-ABNAHME/-STIL/-KAMPF` auf 511/621 A, E1/E8, D77.1 `zug-index.py` Bereich aus Titelzeile, D78.2 Wächter 512.1 ganze Zeile, „ohne Bild“, D79 ganzer Dateiname | startbar |
 | 275 | M | **von Perikles (Doppelpack 421, 07.11., 21:1x, `e23a4ccb2`):** Stufe 2: `vorgang.py neu` zieht die Nummer aus dem Zähler; `vorgang.py` und `lauf.py` merken ihren Stand von `LISTE-VORGAENGE.md`, die Commit-Prüfung warnt bei Handänderung (Zusammenführen ausgenommen); eine Woche Warnungen zählen, dann Halt vorschlagen | Montagszählung 09.11. |
 | 620.1 | M | **von Perikles (Doppelpack 421, 07.11., 21:0x, `8518c8817`):** `startbar.hochstufen` stellt Zeilen mit „wiederholt“ im Titel vor alles Muss, nur die „jetzt“-Zeilen oben davor (gilt auch für `lauf.py`); Regel in `LISTE-BAUEN-TESTEN.md` „Rückläufer“ | an der ersten Zeile mit „wiederholt“ |
