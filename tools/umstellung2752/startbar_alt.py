@@ -1,0 +1,417 @@
+#!/usr/bin/env python3
+"""ALTE FASSUNG bis 275.2 (nur für Umstellung und Vergleich, tools/umstellung2752/). Startbares je Rolle (166): liest alle docs/ARBEIT-*.md und rechnet, was Ford starten darf.
+
+Aufruf: python3 tools/startbar.py [--alle] [--stand] [--md]   (Ford ruft es in jedem Lauf, LISTE-BETRIEB.md Schritt 1 und 4)
+Je Rolle: oberstes startbares Muss und oberste startbare Kür (Kl. „M?“ zählt als Kür, „–“ zählt nicht);
+dazu, warum andere Zeilen nicht startbar sind (--alle: jede Zeile). Es gibt keine Kopfzeile mehr (167.1):
+--stand rechnet je Rolle „offen n, Muss m, startbar s“ aus den Zeilen. Pause bis <Zeit> im Kopf sperrt die Rolle. Exit 1 bei erledigten, nicht gestrichenen oder unlesbaren Zeilen.
+Nicht startbar: „ruht“, „wartet auf X“ / „hängt an X“ / „nach X“ (solange X in LISTE-VORGAENGE.md nicht erledigt ist),
+Datei des Punkts in docs/chefsache/entscheiden/, „wartet auf Chef“, „wartet auf Test/Sammelbuild“, Datum in der Zukunft.
+Zusätzlich (166.2, D27): Stand beginnt mit „erledigt“/„auf main“ → „erledigt, nicht gestrichen“ (zählt nicht als offen, Exit 1);
+„Teil erledigt“, „erst mit X“, „wartet auf <Rolle>“, „wartet auf den Test“, „Chef entscheidet“, Dauerzeilen („mit 149, bis 24.10.“, „ab …“) nicht startbar;
+„gebaut“ gilt für Wartende als fertig (sie dürfen prüfen/weiterbauen; der Test läuft getrennt), die Zeile selbst mit Stand „gebaut …“ wartet auf Test/Build (190.1); „Pause bis TT.MM.[, HH Uhr]“ gilt nur bis dahin;
+Zeilen mit unlesbarer Klasse werden gemeldet. Zeilen „von X … Stellungnahme/prüfen“ mit Datei in der Chefsache sind startbar (der Auftrag ist die Datei).
+Laufende Sitzungen kennt das Werkzeug nicht; die liest Ford aus list_sessions.
+Muss durch Wartende (190.3, 162): wartet eine offene Zeile in einem anderen Vorrat auf Nummer X („wartet auf / hängt an / erst nach / erst mit X“), zählt die Zeile X
+in ihrem Vorrat als Muss, auch als Kür oder „M?“, wenn die wartende Zeile selbst Muss ist (162) (Ausgabe: „↑ Muss: <Rolle> wartet“).
+Am Ende (188): Vorgänge, die in LISTE-VORGAENGE.md nicht erledigt sind, aber in keinem Vorrat eine Zeile haben
+(„ohne Vorrat“, je Spalte „Vorrat“; --alle nennt alle Nummern). Der Besitzer legt die Zeile wieder an oder setzt den Stand.
+"""
+import os, re, sys, datetime
+
+DOCS = os.environ.get("BORNIM_DOCS") or os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "docs")  # 275.2: alte Fassung zum Vergleich
+ROLLEN = [("ARBEIT-KREATIV.md", "Homer"), ("ARBEIT-TEAM-TOM.md", "Tom"), ("ARBEIT-TEAM-JERRY.md", "Jerry"),
+          ("ARBEIT-PROJEKT.md", "Perikles"), ("ARBEIT-PRUEFUNG.md", "Diogenes"), ("ARBEIT-BERATUNG.md", "Sokrates")]
+FERTIG = re.compile(r"erledigt|auf main|getestet|gebaut", re.I)
+ROLLEN_NAMEN = r"(?:Homer|Tom|Jerry|Spike|Tuffy|Perikles|Diogenes|Sokrates|Ford(?: 2)?|Chef)"  # 394: Spike, Tuffy
+JETZT = datetime.datetime.now()
+LEICHEN_START = True  # 275 Stufe 1, der eine Schalter (D46.2; an seit 27.10., 17:2x, Lauf 47): Leichen zählen erst als startbar, wenn an; gilt auch für lauf.py
+
+def blank(t):
+    """Stand ohne Markdown-Zeichen am Anfang."""
+    return re.sub(r"^[\s*`_]+", "", re.sub(r"\*\*|`", "", t)).strip()
+
+def lesen(name):
+    p = os.path.join(DOCS, name)
+    return open(p, encoding="utf-8").read() if os.path.exists(p) else ""
+
+def liste_merken(docs=None):
+    """275 Stufe 2: nach jedem Schreiben eines Werkzeugs den Inhalt von LISTE-VORGAENGE.md merken (git hash-object, höchstens 200,
+    in <git-common-dir>/bornim-liste-ok); die Commit-Prüfung warnt bei einem Stand, den kein Werkzeug geschrieben hat. Fehler still."""
+    try:
+        import subprocess
+        d = docs or DOCS
+        h = subprocess.run(["git", "-C", d, "hash-object", "LISTE-VORGAENGE.md"], capture_output=True, text=True).stdout.strip()
+        g = subprocess.run(["git", "-C", d, "rev-parse", "--git-common-dir"], capture_output=True, text=True).stdout.strip()
+        if not h or not g: return
+        f = os.path.join(d, g, "bornim-liste-ok") if not os.path.isabs(g) else os.path.join(g, "bornim-liste-ok")
+        alt = open(f).read().split() if os.path.exists(f) else []
+        open(f, "w").write("\n".join((alt + [h])[-200:]) + "\n")
+    except Exception:
+        pass
+
+def vorgaenge():
+    """Nummer → Stand (letzte Spalte) aus LISTE-VORGAENGE.md."""
+    tafel = {}
+    for z in (lesen("LISTE-VORGAENGE.md") + "\n" + lesen("LISTE-VORGAENGE-ARCHIV.md")).splitlines():
+        t = [x.strip() for x in z.split("|")]
+        if z.startswith("| ") and len(t) > 7: tafel[t[1]] = t[-2]
+    return tafel
+
+VORG = vorgaenge()
+
+def stand_von(nr):
+    """72s.1 → 72s.1, 72s, 72: nächste Nummer mit Zeile in LISTE-VORGAENGE.md."""
+    while nr:
+        if nr in VORG: return nr, VORG[nr]
+        kurz = re.sub(r"(\.\d+[a-z]*|[a-zA-Z])$", "", nr)  # auch Suffix M, T (177M, 72.10a.11T)
+        if kurz == nr: break
+        nr = kurz
+    return None, None
+
+def chefdateien():
+    d = os.path.join(DOCS, "chefsache", "entscheiden")
+    return os.listdir(d) if os.path.isdir(d) else []
+
+ZEIT = re.compile(r"(?<![\d.])(\d{1,2})\.(\d{1,2})\.,? (\d{1,2}):(\d\d)")
+
+def _zeit(m):
+    d = jahr_von(int(m.group(1)), int(m.group(2)))
+    return datetime.datetime(d.year, d.month, d.day, int(m.group(3)), int(m.group(4)))
+
+def antworten(text=None):
+    """Vorgangsarchiv → {Dateikürzel (348.13a → 34813a): (Nr., Zeit der jüngsten Antwort des Chefs)}; Vorentscheide (→ **Vorentscheid**) zählen nicht."""
+    antwort = {}
+    for z in (lesen("VORGANGSARCHIV.md") if text is None else text).splitlines():
+        m = re.match(r"- \*\*([0-9A-Za-z][0-9A-Za-z.]*?)(?:,|\*\*| )", z)
+        t = ZEIT.search(z)
+        if not m or not t or z.rstrip().endswith("**Vorentscheid**"): continue
+        k = m.group(1).replace(".", "").lower()
+        try: w = _zeit(t)
+        except ValueError: continue
+        if k not in antwort or w > antwort[k][1]: antwort[k] = (m.group(1), w)
+    return antwort
+
+def ueberholt(name, inhalt, antwort):
+    """Ist die Vorlage name (z. B. 34813a-tusche.md) mit diesem Inhalt laut antwort beantwortet? Zeit aus Zeile 1 oder 2 der Datei."""
+    k = name.split("-")[0].lower()
+    t = ZEIT.search("\n".join(inhalt.splitlines()[:2]))
+    if k not in antwort or not t: return None
+    try: seit = _zeit(t)
+    except ValueError: return None
+    return antwort[k] if antwort[k][1] > seit else None
+
+def beantwortet():
+    """383.3 (Chef 27.10., 19:55: „Sachen, die nicht mehr zur Vorlage sind, dann weg“): Vorlagen in entscheiden/, ansehen/, billigen/,
+    zu deren Nummer das Vorgangsarchiv eine Antwort des Chefs hat, die jünger ist als die Zeit in Zeile 1 oder 2 der Datei.
+    Bleibt eine Frage trotz Antwort offen (Antwort galt einer anderen Frage derselben Nummer), setzt der Besitzer die Zeit neu.
+    Liefert [(ordner/datei, Nr. im Archiv, Archivzeit)]."""
+    antwort = antworten(); aus = []
+    for ordner in ("entscheiden", "ansehen", "billigen"):
+        d = os.path.join(DOCS, "chefsache", ordner)
+        for f in (sorted(os.listdir(d)) if os.path.isdir(d) else []):
+            if not f.endswith(".md"): continue
+            a = ueberholt(f, open(os.path.join(d, f), encoding="utf-8").read(), antwort)
+            if a: aus.append((ordner + "/" + f, a[0], a[1]))
+    return aus
+
+def jahr_von(tag, monat):
+    """Datum zu TT.MM.: dieses Jahr, liegt es mehr als ein halbes Jahr zurück, das nächste (Januartermine im Herbst, D28.4)."""
+    h = datetime.date.today()
+    d = datetime.date(h.year, monat, tag)
+    return d if d >= h - datetime.timedelta(days=183) else datetime.date(h.year + 1, monat, tag)
+
+def datum_nach(text, wort):
+    """Datum direkt hinter „wort“ (z. B. frühestens 31.10., nach dem 22.10.), wenn in der Zukunft, sonst None."""
+    h = datetime.date.today()
+    for m in re.finditer(r"\b" + wort + r"\s+(?:\w{1,3}\s+)?(\d\d)\.(\d\d)\.", text, re.I):
+        try: d = jahr_von(int(m.group(1)), int(m.group(2)))
+        except ValueError: continue
+        if d > h: return "%02d.%02d." % (d.day, d.month)
+    return None
+
+def datum_zukunft(text):
+    """Erstes „bis / erstmals / ab / nach dem / frühestens TT.MM.“ in der Zukunft, sonst None."""
+    return datum_nach(text, r"(?:bis|erstmals(?: \w+)?|ab|nach dem|frühestens)")
+
+def zeilen(inhalt, unles=None):
+    """Tabellenzeilen (Nr, Kl, Thema, Rest); Kopf und Trenner fallen weg. Rest = Stand/Zweig bzw. Auftrag/Bedingung.
+    Zeilen mit unlesbarer Klasse oder zu wenig Spalten landen in unles (D27.5), nicht still im Nichts."""
+    aus = []
+    for z in inhalt.splitlines():
+        if not z.startswith("| "): continue
+        t = [x.strip() for x in z.split("|")][1:-1]
+        if not t or t[0] in ("Nr.", "Nr") or set(t[0]) <= set("-: "): continue
+        if len(t) < 4 or t[1] not in ("M", "K", "M?", "–", "-"):
+            if unles is not None: unles.append(t[0])
+            continue
+        aus.append((t[0], t[1], t[2], " | ".join(t[3:])))
+    return aus
+
+# 424 (Chef 31.10., 21:3x: „keine Energie mehr in das alte SRD-System stecken“): eine sonst startbare Zeile,
+# die Regeln des alten Systems nennt, ruht; frei bleiben Zeilen zur Ablösung (Ersatznamen, Glossar, Lizenz)
+# und zum Bornimer Rollenspielsystem (BRS, früher Spielsystem 2.0). Absicht des Chefs für Altes: „Chef erlaubt alt“ in die Zeile schreiben.
+ALTES_SYSTEM = re.compile(r"\bSRD\b|\b[WwDd]20\b|Rettungsw[uü]rf|Trefferw[uü]rfel|Zauberpl[aä]tz|\bCharisma\b|vier Klassen"
+                          r"|Rüstungsklasse|Übungsbonus|\bTalente\b"  # nicht „Kleriker“, „Klasse“: sperrte Aussehen (Schild 406)
+                          r"|talente\.gd|klassisch\.gd|core/Rules\.kt|Monsters\.kt")  # D50: Wortliste erweitert (Diogenes Lauf 50)
+ALT_FREI = re.compile(r"Spielsystem 2\.0|Bornimer Rollenspielsystem|\bBRS\b|(?<![\d.])2\.0\b|^424\b|Ersatz|Ablösung|ablösen|ohne SRD|Glossar|Lizenz|Chef erlaubt alt")  # D50: „142.0“, „ersetz“ gaben zu weit frei
+
+def altes_system(thema, rest, nr=""):
+    t = nr + " " + thema + " " + rest
+    return bool(ALTES_SYSTEM.search(t)) and not ALT_FREI.search(t)
+
+def blocker(nr, rest, chef, thema=""):
+    """Grund, warum die Zeile nicht startbar ist, sonst None; Wächter 424 nur für sonst startbare Zeilen."""
+    b = _blocker(nr, rest, chef, thema)
+    if b is None and altes_system(thema, rest, nr): return "ruht (424: altes SRD-System)"
+    return b
+
+def _blocker(nr, rest, chef, thema=""):
+    """Grund, warum die Zeile nicht startbar ist, sonst None."""
+    pre = nr.replace(".", "")
+    b = blank(rest)
+    rest = re.sub(r"„[^“]*“", "", rest)  # Zitierte Wörter („nicht ‚wartet auf Chef‘“) sperren nicht
+    if re.match(r"(erledigt\b|auf main\s*(\(|–|$))", b, re.I): return "ERLEDIGT"
+    if re.match(r"(\w+ )?Teil erledigt", b): return "Teil erledigt, Rest wartet"
+    if re.match(r"gebaut\b", b, re.I): return "wartet auf Test/Build (gebaut)"  # 190.1
+    m = re.match(r"in Arbeit bei (Spike|Tuffy)\b", b)
+    if m: return "in Arbeit bei " + m.group(1)  # 433: das Team nimmt die Zeile nicht, lauf.py startet den Zusatzentwickler darauf wieder
+    if re.match(r"(mit \S+,? bis \d\d\.\d\d\.|ab Fords erstem Start|bis \d\d\.\d\d\.)", b):
+        d = datum_nach(b, "bis") or datum_nach(b, "nach dem")
+        return "Dauerzeile" + (" bis " + d if d else "")
+    stellung = re.search(r"Stellungnahme|\bprüfen\b", thema + rest) and re.search(r"Chefsache|chefsache/", thema + rest)
+    if not stellung and any(f.startswith(pre + "-") for f in chef): return "Chef (Datei in der Chefsache)"
+    if re.search(r"wartet auf (den )?Test", rest, re.I): return "wartet auf Test (Build)"
+    if re.search(r"wartet auf Chef|Chef entscheidet", rest, re.I): return "Chef"
+    if re.search(r"wartet auf (?:das |den |die )?(?:nächste|neue)", rest, re.I): return "wartet auf Eingang"  # 375: „wartet auf nächstes Blatt“
+    m = re.search(r"wartet auf (?:\*\*)?" + ROLLEN_NAMEN + r"\b", rest)
+    if m: return m.group(0).replace("*", "")
+    if re.search(r"wartet auf Chef|Entscheidung des Chefs", rest, re.I): return "Chef"
+    if re.search(r"(?<!Niederlassung )(?<!Niederlassung\* )(^|\*|\s)ruht\b(?! seit)|zurückgestellt", rest):
+        d = datum_zukunft(rest)
+        return "ruht" + (" bis " + d if d else "")
+    d = datum_nach(rest, r"(?:erstmals|frühestens|ab|nach dem)")
+    if d: return "Termin " + d
+    if re.search(r"(erst )?nach dem Meilenstein", rest): return "nach dem Meilenstein"
+    m = re.search(r"(?:wartet auf|hängt an|erst nach|erst mit)\s+(\d+[a-z0-9.]*)(?![:\d])|^nach\s+(\d+[a-z0-9.]*)(?![:\d])", b)
+    if m and not (m.group(1) or m.group(2)).startswith("20"):
+        x = (m.group(1) or m.group(2)).rstrip(".")
+        if x == nr or x.startswith(nr + "."): return None  # eigener Unterpunkt, kein fremdes Warten
+        n, st = stand_von(x)
+        if st is None: return "wartet auf %s (Nummer unbekannt)" % x
+        if not FERTIG.search(st): return "wartet auf %s (%s)" % (x, st)
+        return None
+    if re.search(r"wartet auf (Test|Sammelbuild|Build)", rest): return "wartet auf Test/Build"
+    return None
+
+LEICHE = {}  # 275 Stufe 1: Nummer → Grund; die Zeile zählt als startbar, damit Ford den Besitzer zum Berichtigen startet
+LISTE_FERTIG = re.compile(r"^(erledigt|fertig|entschieden|freigegeben)\b", re.I)
+
+def chef_datei(nr):
+    """Liegt zur Nummer eine Datei in entscheiden/, ansehen/, billigen/ oder tun/ (Name beginnt mit der Nummer ohne Punkte)?"""
+    pre = nr.replace(".", "").lower()
+    for ordner in ("entscheiden", "ansehen", "billigen", "tun"):
+        d = os.path.join(DOCS, "chefsache", ordner)
+        if os.path.isdir(d) and any(f.lower().startswith(pre + "-") or f.lower().startswith(pre + ".") for f in os.listdir(d)): return True
+    return False
+
+_ARCHIV = None
+def entschieden(x):
+    """Urteil zu X gefallen: Eintrag „**X …“ im Vorgangsarchiv oder X in LISTE-VORGAENGE fertig."""
+    global _ARCHIV
+    if _ARCHIV is None: _ARCHIV = lesen("VORGANGSARCHIV.md")
+    st = stand_von(x)[1]
+    # D46.3: nur „erledigt“/„fertig“ in der Liste (nicht „gebaut“, das wartet auf den Test des Chefs); im Archiv nur der Kopf
+    # „**X“ selbst, nicht „**X.1“ (Unternummer)
+    return bool(st and re.match(r"(erledigt|fertig)\b", st, re.I)) or \
+        re.search(r"\*\*" + re.escape(x) + r"(?:[ ,*:]|\.(?!\d))", _ARCHIV) is not None
+
+def leiche(nr, rest, sperre):
+    """275 Stufe 1: Stand, der nachweislich überholt ist; Grund oder None. Nur sichere Fälle, keine Vermutung."""
+    b = blank(rest)
+    r = re.sub(r"„[^“]*“", "", rest)
+    st = VORG.get(nr)  # D46.4: nur „erledigt“/„fertig“; „entschieden“, „freigegeben“ lassen Arbeit offen (347, 72u.1)
+    if st and re.match(r"(erledigt|fertig)\b", st, re.I): return "in LISTE-VORGAENGE.md „%s“, Zeile noch im Vorrat" % st
+    m = re.search(r"(?:ruht|zurückgestellt|wartet)\s+(?:bis|auf)\s+(?:das |dem |den )?(?:Urteil|Entscheidung)\s+(?:zu |von )?(\d+[a-z0-9.]*)", r)
+    if m and entschieden(m.group(1).rstrip(".")): return "Bedingung „Urteil %s“ erfüllt" % m.group(1).rstrip(".")
+    h = datetime.date.today()
+    for m in re.finditer(r"(?:^|ruht |zurückgestellt |beobachten |Dauerzeile )bis\s+(?:\w{1,3}\s+)?(\d\d)\.(\d\d)\.", b):
+        try: d = jahr_von(int(m.group(1)), int(m.group(2)))
+        except ValueError: continue
+        if d < h: return "Frist %s vorbei" % m.group(0).split("bis")[-1].strip()
+    if (sperre == "Chef" or re.search(r"\bbeim Chef\b", r)) and not chef_datei(nr):
+        c = re.search(r"Chefsache (\d+[a-z0-9.]*)", r)
+        if not (c and chef_datei(c.group(1).rstrip("."))): return "wartet auf den Chef ohne Datei in der Chefsache"
+    return None
+
+def leichen_von(zs, sperr):
+    """[(Nummer, Grund)] der überholten Zeilen eines Vorrats (ohne gestrichene)."""
+    return [(z[0], l) for z in zs if sperr.get(z[0]) != "ERLEDIGT" for l in [leiche(z[0], z[3], sperr.get(z[0]))] if l]
+
+WARTET = re.compile(r"(?:wartet auf|hängt an|erst nach|erst mit)\s+(\d+[a-z0-9.]*)(?![:\d])|^nach\s+(\d+[a-z0-9.]*)(?![:\d])")
+_FREMD = None
+
+def fremd_wartend():
+    """Nummer → Rollen, die in einem anderen Vorrat mit einer offenen Zeile darauf warten (190.3)."""
+    global _FREMD
+    if _FREMD is not None: return _FREMD
+    chef = chefdateien()
+    zeilen_je = {rolle: zeilen(lesen(datei)) for datei, rolle in ROLLEN}
+    besitz = {z[0]: rolle for rolle, zs in zeilen_je.items() for z in zs}
+    _FREMD = {}
+    for rolle, zs in zeilen_je.items():
+        for nr, kl, thema, rest in zs:
+            if kl != "M" or blocker(nr, rest, chef, thema) == "ERLEDIGT": continue  # nur wartende Muss-Zeilen vererben (162)
+            m = WARTET.search(blank(rest))
+            x = (m.group(1) or m.group(2)).rstrip(".") if m else None
+            if x and besitz.get(x) not in (None, rolle) and not x.startswith("20"):
+                _FREMD.setdefault(x, []).append(rolle)
+    return _FREMD
+
+def hochstufen(zs):
+    """Zeilen, auf die ein anderer Vorrat wartet, zählen als Muss (190.3)."""
+    f = fremd_wartend()
+    zs = [(nr, "M" if nr in f else kl, th, rest) for nr, kl, th, rest in zs]
+    # 620.1 A (Chef 07.11., 21:00): Zeilen mit „wiederholt“ (Fund zum zweiten Mal gemeldet) vor allem anderen, nur die „jetzt“-Zeilen
+    # oben im Vorrat bleiben davor; sonst bleibt die Reihenfolge des Vorrats
+    w = [z for z in zs if WIEDERHOLT.search(z[2] + " " + z[3])]
+    if not w: return zs
+    rest = [z for z in zs if z not in w]
+    k = 0
+    while k < len(rest) and "„jetzt“" in rest[k][2] + rest[k][3]: k += 1
+    return rest[:k] + w + rest[k:]
+
+WIEDERHOLT = re.compile(r"\bwiederholt\b", re.I)
+
+def pause(inhalt):
+    """„Pause bis TT.MM.[, HH[:MM] Uhr]“ in den ersten 14 Zeilen: Text, solange der Zeitpunkt nicht erreicht ist (D27.4).
+    Nicht lesbares Datum sperrt vorsichtshalber und sagt es."""
+    for z in inhalt.splitlines()[:14]:
+        m = re.search(r"Pause bis (?:\w{1,3},? )?(\d\d)\.(\d\d)\.(?:,? (\d\d)(?::(\d\d))?(?: Uhr)?)?", z)
+        if m:
+            try:
+                bis = datetime.datetime(JETZT.year, int(m.group(2)), int(m.group(1)), int(m.group(3) or 0), int(m.group(4) or 0))
+            except ValueError: return m.group(0)[10:] + " (nicht lesbar)"
+            if bis > JETZT: return m.group(0)[10:]
+        elif "Pause bis" in z and not re.search(r"Pause bis (?:\w{1,3},? )?\d\d\.\d\d\.", z) and z.lstrip().startswith(("**Pause", "Pause")):
+            return z.strip()[:40] + " (Datum nicht lesbar)"
+    return None
+
+ZU = re.compile(r"^(erledigt|fertig|entschieden|freigegeben|abgelehnt|verworfen|aufgeteilt|laufend|Idee)", re.I)
+
+def ohne_vorrat(alle):
+    """Vorgänge offen in LISTE-VORGAENGE.md ohne Zeile (erste Spalte) in einem Vorrat (188); 72 deckt 72s.1 und umgekehrt."""
+    nrn = set()
+    for datei in [d for d, _ in ROLLEN] + ["ARBEIT-BETRIEB.md"]:
+        for z in lesen(datei).splitlines():
+            t = [x.strip() for x in z.split("|")]
+            if z.startswith("| ") and len(t) > 2: nrn.add(re.sub(r"\*\*|`", "", t[1]))
+    def gedeckt(nr):
+        return any(n == nr or n.startswith(nr) and re.match(r"[.a-zA-Z]", n[len(nr):]) or nr.startswith(n) and n and re.match(r"[.a-zA-Z]", nr[len(n):]) for n in nrn)
+    je = {}
+    for z in lesen("LISTE-VORGAENGE.md").splitlines():
+        t = [x.strip() for x in z.split("|")]
+        if not z.startswith("| ") or len(t) < 8 or not re.match(r"^D?\d", t[1]): continue
+        if ZU.match(t[-2]) or t[-3] == "Ideen" or gedeckt(t[1]): continue
+        je.setdefault(t[-3] or "?", []).append(t[1])
+    if not je: return
+    n = sum(len(v) for v in je.values())
+    print("  OHNE VORRAT (offen in LISTE-VORGAENGE.md, keine Zeile in einem Vorrat): %d – " % n + "; ".join(
+        "%s %s" % (k, ", ".join(v if alle else v[:4]) + ("" if alle or len(v) <= 4 else " …")) for k, v in sorted(je.items())))
+
+UEBERNAHME = {"Tom": "Jerry", "Jerry": "Tom"}
+GERAET = re.compile(r"Test|Gerät|Build|APK", re.I)
+
+def uebernahme(rolle, info):
+    """118/202: hat das Team nichts Startbares, die oberste freie Zeile des anderen Teams (ohne Gerätetest bevorzugt); die Build-Grenze 6 (317) entfällt seit Chef 07.11., 20:5x (317.1)."""
+    a = UEBERNAHME[rolle]
+    if a not in info: return None
+    frei, wartend, _ = info[a]
+    if rolle not in info or info[rolle][2]: return None
+    if not frei: return None
+    ohne = [z for z in frei if not GERAET.search(z[2])]
+    z = (ohne or frei)[0]
+    return "%s %s (Übernahme 118 von Team %s%s)" % (z[0], re.sub(r"\*\*|`", "", z[2])[:60], a, "" if ohne else ", mit Gerätetest")
+
+def main():
+    alle = "--alle" in sys.argv
+    stand = "--stand" in sys.argv
+    md = "--md" in sys.argv
+    chef = chefdateien()
+    falsch = 0
+    info = {}
+    if md: print("## Offen je Rolle\n\nVom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand %s; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.\n" % datetime.date.today().strftime("%d.%m."))
+    else: print("Startbar am %s (Systemdatum):" % datetime.date.today().strftime("%d.%m."))
+    for datei, rolle in ROLLEN:
+        inhalt = lesen(datei)
+        if not inhalt:
+            print("  %s: Datei fehlt" % rolle); continue
+        unles = []
+        zs = hochstufen([z for z in zeilen(inhalt, unles) if z[1] not in ("–", "-")])
+        sperr = {z[0]: blocker(z[0], z[3], chef, z[2]) for z in zs}
+        erl = [z[0] for z in zs if sperr[z[0]] == "ERLEDIGT"]
+        zs = [z for z in zs if sperr[z[0]] != "ERLEDIGT"]
+        for nr, l in leichen_von(zs, sperr):
+            LEICHE[nr] = (rolle, l)
+            if LEICHEN_START: sperr[nr] = None
+        warn = ""
+        if erl: warn += "  ERLEDIGT, NICHT GESTRICHEN: " + ", ".join(erl)
+        if unles: warn += "  UNLESBAR (Klasse/Spalten): " + ", ".join(unles)
+        if warn: falsch += 1
+        p = pause(inhalt)
+        if md:
+            print("**%s** – offen %d, Muss %d, startbar %d%s\n" % (rolle, len(zs), sum(1 for z in zs if z[1] == "M"), sum(1 for z in zs if not sperr[z[0]]), (", PAUSE bis " + p) if p else ""))
+            print("| Nr. | Kl. | Was | Stand |\n|---|---|---|---|")
+            for nr, kl, thema, rest in zs:
+                w = re.sub(r"\*\*|`|\|", "", thema)[:90].strip()
+                print("| %s | %s | %s | %s |" % (nr, kl, w, ("Leiche: " + LEICHE[nr][1]) if nr in LEICHE else (sperr[nr] or "startbar")))
+            print()
+            continue
+        if p: print("  %s: PAUSE bis %s%s" % (rolle, p, warn))  # Zahlen und Testzählung laufen weiter (Tagesbericht 07.11.: Pause gab Tom 0, Jerry 0)
+        erstes = {"M": None, "K": None, "N": None}
+        sperren = []
+        for nr, kl, thema, rest in zs:
+            b = sperr[nr]
+            if b == "nach dem Meilenstein":  # 190.10: letzte Stufe vor Leerlauf
+                sperren.append((nr, b))
+                if erstes["N"] is None: erstes["N"] = (nr, kl, thema)
+                continue
+            if b: sperren.append((nr, b)); continue
+            art = "M" if kl == "M" else "K"
+            if erstes[art] is None: erstes[art] = (nr, kl, thema)
+        if rolle in UEBERNAHME:
+            info[rolle] = ([z for z in zs if not sperr[z[0]] and z[1] != "–"], sum(1 for n, b in sperren if b.startswith("wartet auf Test")), erstes["M"] or erstes["K"] or erstes["N"])
+        tote = [nr for nr, *_ in zs if nr in LEICHE and sperr.get(nr) != "ERLEDIGT"] if LEICHEN_START else []
+        if tote:  # D47.2: wie lauf.py eine Muss-Zeile „Leichen“ vor allem anderen, nicht je Klasse
+            erstes["M"] = ("Leichen", "M", "Stand berichtigen (275): " + "; ".join("%s %s" % (n, LEICHE[n][1]) for n in tote))
+            for k in ("K", "N"):
+                if erstes[k] and erstes[k][0] in LEICHE: erstes[k] = next(((z[0], z[1], z[2]) for z in zs if z[0] not in LEICHE
+                                                                         and not sperr[z[0]] and (z[1] != "M") == (k == "K")), None)
+        def kurz(e):
+            if not e: return "–"
+            if e[0] == "Leichen": return "Leichen: " + e[2][:160]
+            if e[0] in LEICHE and LEICHEN_START: return "%s Stand berichtigen (Leiche 275: %s)" % (e[0], LEICHE[e[0]][1])
+            return "%s %s%s" % (e[0], re.sub(r"\*\*|`", "", e[2])[:70], (" ↑ Muss: %s wartet" % ", ".join(fremd_wartend()[e[0]])) if e[0] in fremd_wartend() else "")
+        if not p: print("  %s: Muss %s | Kür %s%s%s" % (rolle, kurz(erstes["M"]), kurz(erstes["K"]), (" | nach dem Meilenstein " + kurz(erstes["N"])) if erstes["N"] else "", warn))
+        if stand:
+            st = sum(1 for z in zs if not sperr[z[0]])
+            print("      offen %d, Muss %d, startbar %d, gesperrt %d" % (len(zs), sum(1 for z in zs if z[1] == "M"), st, len(sperren)))
+        if alle:
+            for nr, b in sperren: print("      nicht startbar: %s: %s" % (nr, b))
+        elif sperren:
+            print("      nicht startbar: " + "; ".join("%s: %s" % s for s in sperren[:6]) + (" …" if len(sperren) > 6 else ""))
+    if not md:
+        for r in UEBERNAHME:
+            u = uebernahme(r, info)
+            if u: print("  Übernahme für %s: %s" % (r, u))
+        if all(r in info for r in UEBERNAHME) and sum(info[r][1] for r in UEBERNAHME) >= 4:  # 317: ab 4 fertigen Punkten beider Teams bittet der Erste (Chef 24.10., 21:17)
+            print("  Gemeinsamer Build: %s warten auf Test (ab 4 bittet der Erste, dann alle fertigen Zweige ohne Obergrenze; 317, Chef 07.11., 20:5x)" % ", ".join("%s %d" % (r, info[r][1]) for r in UEBERNAHME))
+        ohne_vorrat(alle)
+        if LEICHE and ("--leichen" in sys.argv or alle):
+            for nr, (rolle, grund) in LEICHE.items(): print("  LEICHE %s %s: %s" % (rolle, nr, grund))
+        elif LEICHE:
+            print("  Leichen (275, Stand überholt, %s): %d – %s" % ("zählen als startbar" if LEICHEN_START else "Schalter aus, zählen nicht", len(LEICHE), ", ".join("%s %s" % (r, n) for n, (r, _) in LEICHE.items())))
+    sys.exit(1 if falsch else 0)
+
+if __name__ == "__main__":
+    main()

@@ -75,6 +75,7 @@ GODOT_LAUF = re.compile(r"xvfb-run[^\n|;&]*godot[^\n|;&]*|\bgodot(?:\.\S+)?\s[^\
 SKRIPT = re.compile(r"tools/pruef348/(?!rechner\.sh)[\w.-]+\.sh|\b\w+_lauf\.sh")
 PUSH = re.compile(r"\bgit\s+(?:-C\s+(\S+)\s+)?push\b([^\n|;&]*)")
 COMMIT = re.compile(r"\bgit\s+(?:-C\s+\S+\s+)?commit\b[^\n]*?\s-[a-zA-Z]*m\s*(.+)", re.S)
+COMMIT_F = re.compile(r"\bgit\s+(?:-C\s+\S+\s+)?commit\b[^\n]*?\s-[a-zA-Z]*F\s*-\s[^\n]*?<<-?\s*['\"]?(\w+)['\"]?[^\n]*\n(.*?)\n\s*\1\b", re.S)  # 627: `commit -F - <<EOF`
 TEST_SKRIPT = re.compile(r"(?:^|\s)-s\s+[\"']?res://tests/([\w./-]+\.gd)\b")
 BILDBEFEHL = re.compile(r"save_png|save_jpg|save_webp|save_exr|get_image\s*\(|get_texture\s*\(|MovieWriter|screenshot", re.I)
 CD = re.compile(r"\bcd\s+([^\s;&|]+)")
@@ -226,10 +227,13 @@ def push_lauf(befehl, cwd):
     if not CI_ZWEIG.fullmatch(zweig):
         return None
     oben = git("rev-parse", "--verify", "-q", f"origin/{zweig}", cwd=wo).stdout.strip()
+    if not oben:  # 627 (Jerry 07.11., 21:2x): neuer Zweig, Pfade gegen den Abzweig von origin/main statt „alle Abläufe“
+        oben = git("merge-base", "origin/main", "HEAD", cwd=wo).stdout.strip()
     # Commit im selben Befehl vor dem Push (PreToolUse sieht ihn noch nicht): Nachricht aus -m, Pfade aus dem Arbeitsbaum
-    neu = COMMIT.search(befehl[:m.start()])
-    nachricht = re.sub(r"^\s*[\"']?(?:\$\(cat\s*<<-?\s*['\"]?\w+['\"]?\s*)?", "", neu.group(1)) if neu else \
-        git("log", "-1", "--format=%B", "HEAD", cwd=wo).stdout
+    neu_f = COMMIT_F.search(befehl[:m.start()])  # 627 (Tuffy 07.11., 21:15): Nachricht aus dem Heredoc, nicht die des alten HEAD
+    neu = neu_f or COMMIT.search(befehl[:m.start()])
+    nachricht = neu_f.group(2) if neu_f else (re.sub(r"^\s*[\"']?(?:\$\(cat\s*<<-?\s*['\"]?\w+['\"]?\s*)?", "", neu.group(1)) if neu else
+                                         git("log", "-1", "--format=%B", "HEAD", cwd=wo).stdout)
     if "[skip ci]" in nachricht or "[ci skip]" in nachricht:
         return None
     if oben:
@@ -731,6 +735,18 @@ def main():
         if hand:
             pruefen_und_zaehlen(*hand, wer, film=True)
         return
+    if re.search(r"(push_files|create_or_update_file)$", d.get("tool_name") or ""):  # D75.1: Push über den GitHub-Server zählt wie git push
+        try:
+            e = d.get("tool_input") or {}
+            zweig, nachricht = str(e.get("branch") or ""), str(e.get("message") or "")
+            pfade = [f.get("path", "") for f in (e.get("files") or []) if isinstance(f, dict)] + ([e["path"]] if e.get("path") else [])
+            if CI_ZWEIG.fullmatch(zweig) and "[skip ci]" not in nachricht and "[ci skip]" not in nachricht \
+                    and any(x.startswith(CI_PFADE) for x in pfade) and (los := loest_aus(cwd, zweig, pfade, nachricht)):
+                m = re.match(r"\s*(?:\w+:\s*)?(" + NR + r")\b", nachricht)
+                return pruefen_und_zaehlen(m.group(1) if m else zweig, "ci", wer, los == FILMT)
+        except (OSError, subprocess.SubprocessError, ValueError):
+            pass
+        return hinweis_geben()
     try:
         alt = alte_einstellungen(befehl, cwd)
     except (OSError, subprocess.SubprocessError, ValueError):

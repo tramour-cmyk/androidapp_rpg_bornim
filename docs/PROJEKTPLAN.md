@@ -152,6 +152,8 @@ Quelle: der alte Kotlin-Code (`core`, `app`), abgeglichen mit `LISTE-UMZUG-348.m
 
 Eingefroren am 03.11.; gestrichen wird nichts. Nach deinem ersten Durchspiel ordnet Perikles diese Liste nach dem Gewicht deiner Befunde. Einzelheiten in der Zeile des Vorgangs.
 
+**Erstes Wochenziel danach: Referenzszene** (620.4, Chef 07.11., 21:29: „620.4 A“; Archiv): Hauptmenü → Erschaffung → Vorspann → Dorf bei Tag (Marktplatz, Schänke innen, Schlagbaum mit Jorin und Garrick) → Flüsterwald → erster Wolfskampf bis zum Sieg, ganz fertig als Maß für alle weiteren Orte; fertig, wenn du sie durchspielst und „gut“ sagst. Tom (Dorf, Leute) und Jerry (Wolfskampf, Klang) schätzen sie, sobald 496 steht.
+
 - 463.1 Umhang und Robe: Ärmel, Stiefel, Kettenhemd, Haut, Boden (Tom)
 - 417 Tragart: Rumpf dreht beim Rennen, Füße rutschen, Schild steht ab, Kornfeld, Stabgang (Tom, Archiv 417)
 - 438a Hinfallen und Aufstehen: Klinge quer im Kleid, Hand ruckt (Jerry)

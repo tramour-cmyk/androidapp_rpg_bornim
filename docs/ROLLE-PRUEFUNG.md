@@ -38,6 +38,6 @@ Klasse 1 an das zuständige Team (Zeile in dessen Vorrat); Klasse 2 an Homer ode
 
 ## Start
 
-1. `tools/notiz.sh`, diese Datei, dein Vorrat (Prüfaufträge, Übergabe, „Geprüft bis“); aus `LISTE-PRUEFUNG.md` den Abschnitt deines Auftrags; Regeln nur für den geprüften Bereich.
+1. `tools/notiz.sh`, diese Datei, dein Vorrat (Prüfaufträge, Übergabe, „Geprüft bis“), deine Zeilen (`vorgang.py --rolle Diogenes`); aus `LISTE-PRUEFUNG.md` den Abschnitt deines Auftrags; Regeln nur für den geprüften Bereich.
 2. **Nur Neues prüfen:** `git log --oneline <Geprüft bis>..origin/main`; Bereiche ohne Änderung überspringen, außer der Auftrag verlangt sie.
 3. Auftrag abarbeiten; danach Übergabe im Vorrat, „Geprüft bis“ setzen.

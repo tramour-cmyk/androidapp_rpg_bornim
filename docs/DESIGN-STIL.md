@@ -70,7 +70,7 @@ Wunsch des Nutzers (09.10.): Wer auf der Karte steht, lebt. Jede Figur, auch der
 
 ## Figuren und Bewegung: was gilt (461)
 
-Chef 01.11., 20:3x: „auf ein Niveau kriegen, dass wir von da aus alle weiteren Vorlagen machen und nicht jedes Mal ich irgendwelche Sachen sehe, wo ich mir denke, das hat man doch schon 100 Mal entschieden.“ Was der Chef zu Figuren und Bewegung entschieden hat, steht nur hier (461d, 01.11., 22:5x; vorher `LISTE-GRUNDSTAND-461.md`); Waffe, Schild und Kampf (E, F) in `DESIGN-KAMPF.md`, Film und Vorlage (G) und wie geprüft wird in `DESIGN-ABNAHME.md` „Vor jeder Vorlage“. Spalte „Prüfer“: ja = Chefwort und prüfbar, ein Verstoß hält den Film an (461a); „Maß“ = Zahl von uns, nur Richtwert; – = Wirkung, nur Selbstprüfung. Neue Entscheidung: die Zeile hier im selben Commit ändern, am alten Archiveintrag „→ ersetzt durch …“ (461b).
+Chef 01.11., 20:3x: „auf ein Niveau kriegen, dass wir von da aus alle weiteren Vorlagen machen und nicht jedes Mal ich irgendwelche Sachen sehe, wo ich mir denke, das hat man doch schon 100 Mal entschieden.“ Was der Chef zu Figuren und Bewegung entschieden hat, steht nur hier (461d, 01.11., 22:5x; vorher `LISTE-GRUNDSTAND-461.md`); Waffe, Schild und Kampf (E, F) in `DESIGN-KAMPF.md`, Film und Vorlage (G) und wie geprüft wird in `DESIGN-ABNAHME.md` „Vor jeder Vorlage“. Spalte „Prüfer“: ja = Chefwort und prüfbar, ein Verstoß hält den Lauf an (461a, 511, 621.1; `DESIGN-ABNAHME.md`); „Maß“ = Zahl von uns, nur Richtwert; – = Wirkung, nur Selbstprüfung. Neue Entscheidung: die Zeile hier im selben Commit ändern, am alten Archiveintrag „→ ersetzt durch …“ (461b).
 
 ### A Bild und Signatur
 
