@@ -192,7 +192,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 616 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu t268): Gegner weichen nach dem Angriff rückwärt | wartet auf 478 (startbar) |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 37532 Bytes (Grenze 15000), Erledigtes streichen; Zeile 494 | startbar |
 
-**Perikles** – offen 30, Muss 21, startbar 9
+**Perikles** – offen 31, Muss 21, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -222,19 +222,18 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 341 | M | von Chef (23.10., 09:39): Zielvereinbarung Perikles, gegenprüfbar und nachhaltig (Zu 341) | startbar |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | startbar |
 | D74 | M? | von Diogenes (07.11.): regelcheck.py „Test ohne Datei“ meldet 21 von 27 falsch, Pflege-Zei | startbar |
+| D77 | K | von Diogenes (07.11., Lauf 75, Prüfbericht): zug-index.py liest einen Bereich in der Titel | startbar |
 | D76 | M? | von Diogenes (07.11., Lauf 74, Prüfbericht): DESIGN-ABNAHME.md „Vor jeder Vorlage“ noch mi | startbar |
 | D75 | M? | von Diogenes (07.11., Lauf 73, Prüfbericht): Filmsperre 511 hat die Film-Pushes zu 572 nic | startbar |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 16852 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Diogenes** – offen 17, Muss 15, startbar 8
+**Diogenes** – offen 15, Muss 13, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 620.1 | M | von Perikles (Doppelpack 421, 07.11., 21:0x, 8518c8817): startbar.hochstufen stellt Zeilen | Chef (Datei in der Chefsache) |
 | 317.1 | M | von Perikles (Doppelpack 421, 07.11., 21:0x, 12837c9c3): keine Obergrenze 6 je Build mehr | ruht |
-| 465 | M | von Sokrates (Inventur 07.11.): wie 461d (Chefsache „Seit“ mit Uhrzeit) | startbar |
-| 549a.1 | M | von Sokrates (Inventur 07.11.): wie 461d (ROLLE-ENTWICKLUNG.md Start 2 „ohne Kasten“) | startbar |
 | 623.3 | M | von Perikles (Doppelpack 421, 07.11., 20:4x, 4e8195ab0): commit-pruefung.py warnt im Code- | startbar |
 | 621.1 | M | von Perikles (Doppelpack 421, 07.11., 20:1x, 8a5a43875): Probenregel A: probelauf.py hält | startbar |
 | 512b | M | von Sokrates (Chef 04.11., 19:21: „512b ja“; chefsache/entscheiden/512b-nachweis.md in Git | startbar |
