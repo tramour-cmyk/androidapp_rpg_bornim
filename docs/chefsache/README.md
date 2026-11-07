@@ -40,7 +40,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 87, Muss 65, startbar 51
+**Tom** – offen 87, Muss 65, startbar 52
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -76,7 +76,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 416.4 | M | von Sokrates (Chef 31.10., 20:4x): Rennen des Helden wirkt „als würde er Hochsprung machen | startbar |
 | 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | ruht |
 | 455.1 | M | von Sokrates (Chef 01.11., 11:24, „Abzug von … unterschiedlichen Roben, Umhängen oder Stie | ruht |
-| 499 | M | von Sokrates (Chef 03.11., 07:14, Build 204; „jetzt“ 03.11., 07:14; Zu 499): Erschaffung: | wartet auf 513 (ruht) |
+| 499 | M | von Sokrates (Chef 03.11., 07:14, Build 204; „jetzt“ 07.11., 21:31: „499 jetzt“; Zu 499): | startbar |
 | 513 | M | von Sokrates (Chef 03.11., 15:56, „513 B“, „jetzt“ 03.11., 15:56; Archiv): Figurenstand 41 | ruht |
 | 470 | M | von Perikles (Wochenziel 02.11., Stufe 1): Bau BRS 1.1 Erschaffung: sechs Grundwerte, 21 P | ruht |
 | 604 | K | von Ford (Chef 06.11., 09:38): Schenke, Erdgeschoss: Bett raus, an seine Stelle mehr Tisch | startbar |
@@ -193,7 +193,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 616 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu t268): Gegner weichen nach dem Angriff rückwärt | wartet auf 478 (startbar) |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 31749 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 18, Muss 13, startbar 3
+**Perikles** – offen 17, Muss 13, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -210,7 +210,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 276 | K | von Sokrates (zu 274): Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in lauf. | ruht |
 | 341 | M | von Chef (23.10., 09:39): Zielvereinbarung Perikles, gegenprüfbar und nachhaltig (Zu 341) | ruht bis 09.11. |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | ruht |
-| D77 | K | von Diogenes (07.11., Lauf 75, Prüfbericht): zug-index.py liest einen Bereich in der Titel | startbar |
 | D75 | M? | von Diogenes (07.11., Lauf 73, Prüfbericht): Filmsperre 511 hat die Film-Pushes zu 572 nic | startbar |
 | 627 | M | von Team Jerry (Tuffy, 07.11., 21:15): probelauf.py zählt Pushes ohne Lauf (562: commit -F | wartet auf Test/Build (gebaut) |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
