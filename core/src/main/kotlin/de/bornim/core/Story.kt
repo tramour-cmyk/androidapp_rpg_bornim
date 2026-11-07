@@ -137,7 +137,7 @@ object Story {
         rows = listOf(
             "TTTTTTTTTTTTTTTTT==TTTTTTTTTTTTTTTTT",
             "TTT.......T.....x==x.....TT......TTT",
-            "TT.......T.....lxzzxlS..T.........TT",
+            "TT.............lxzzxlS..T.........TT",   // 609 (Chef 07.11.): ohne den Baum auf (9, 2) geht es hinter der Schenke zum Schlagbaum
             "T..^^^^^^........==.......^^^^^....T",
             "T..^^^^^^..^^^^..==....^^.^^^^^....T",
             "T.p#W#D#Wb.#D#W..==....D#.W#D#Wb...T",
