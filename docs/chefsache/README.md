@@ -196,11 +196,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 616 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu t268): Gegner weichen nach dem Angriff rückwärt | wartet auf 478 (startbar) |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 32223 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 19, Muss 15, startbar 1
+**Perikles** – offen 20, Muss 16, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 275.2 | M | von Sokrates (Chef 07.11., 21:5x, „Pericles soll das machen … keinen Parallelbetrieb“; „je | wartet auf Diogenes |
+| D80 | M | von Diogenes (07.11., 23:2x, Lauf 80, Quertest 275.2, Prüfbericht): vor dem Umschalten: Au | startbar |
+| 275.2 | M | von Sokrates (Chef 07.11., 21:5x, „Pericles soll das machen … keinen Parallelbetrieb“; „je | startbar |
 | 317.1 | M | von Sokrates (Chef 07.11., 20:5x, Archiv „317, keine Obergrenze je Build“): Werkzeuge ohne | wartet auf Test/Build (gebaut) |
 | 620.1 | M | von Sokrates (Chef 07.11., 14:3x, 620; Zu 620): wiederholte Funde zuerst, Grenze offener M | Chef (Datei in der Chefsache) |
 | 511 | M | von Sokrates (Chef 03.11., 13:50, „511 ja“, Archiv; „jetzt“ 03.11., 13:50): probelauf.py s | wartet auf Test/Build (gebaut) |
@@ -220,12 +221,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 | Pflege | K | von Werkzeug (340.3, 07.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabe | startbar |
 
-**Diogenes** – offen 13, Muss 11, startbar 3
+**Diogenes** – offen 13, Muss 11, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 620.1 | M | von Perikles (Doppelpack 421, 07.11., 21:0x, 8518c8817): startbar.hochstufen stellt Zeilen | Chef (Datei in der Chefsache) |
-| 275.2 | M | von Sokrates (Chef 07.11., 21:5x: „Diogenes soll es noch quertesten“; Archiv 275.2): neue | startbar |
+| 275.2 | M | von Sokrates (Chef 07.11., 21:5x: „Diogenes soll es noch quertesten“; Archiv 275.2): neue | wartet auf Perikles |
 | D74–D79 | M | von Perikles (Doppelpack 421, 07.11., 21:2x): nachprüfen: D74 regelcheck.py „Test ohne Dat | startbar |
 | 275 | M | von Perikles (Doppelpack 421, 07.11., 21:1x, e23a4ccb2): Stufe 2: vorgang.py neu zieht die | startbar |
 | 317.1 | M | von Perikles (Doppelpack 421, 07.11., 21:0x, 12837c9c3): keine Obergrenze 6 je Build mehr | ruht |
