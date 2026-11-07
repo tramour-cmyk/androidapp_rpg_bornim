@@ -55,6 +55,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 267 | Spiel ruckelt auf dem Tablet (Chef 20.10., Build 48) | E Technik | M | –; +13,77 $ | Tom | ruht |
 | 270 | Perikles und Diogenes auf das große Modell (Chef 21.10.) | B Betrieb | M | –; +4,16 $ | Perikles | ruht |
 | 275 | Zentrale Vorgangsliste als einzige Quelle (Chef 21.10.; Stufe 1 jetzt, 27.10.) | B Werkzeuge | M | 31,69 $ | Perikles | gebaut |
+| 275.2 | Rückfrage: eine Liste statt Liste plus Vorräte, mit „wartet auf“ als Feld und Abschluss beim Build (Chef 07.11., 21:4x) | B Werkzeuge | M | – | Sokrates | Chef |
 | 276 | Fords Anleitung auf eine Seite (Empfehlung Sokrates zu 274) | B Abläufe | K | – | Perikles | offen |
 | 283.1 | Hohes Gras sichtbar höher als ein Feldweg, stimmige Welt (Chef 21.10.) | G Stil | K | – | Ideenspeicher | offen |
 | 284 | Bis zum Durchspielen (26) am Kampf nur Fehlerbehebung, kein Feinschliff (Vorschlag Sokrates) | B Vorrang | M | – | Sokrates | entschieden |
@@ -167,7 +168,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 612 | Dorf Süd: Heuhaufen geklont und wie aufgespießt, Wackelgras im Weizenfeld, Gemüsebeet mit Leerstreifen; drei Varianten je Ding (Chef 07.11., t268) | E Welt | M | – | Team Tom | startbar |
 | 613 | Intro und Outro wie alt: Tempelgänger, kleine Bewegungen (Chef 07.11., t268.31) | A Spiel | M | – | Team Tom | startbar |
 | 614 | Leute lebendig wie alt: Jorin mit Speer, Jorin öffnet den Schlagbaum sichtbar; Abgleich der Requisiten und Gesten (Chef 07.11., t268) | E Figuren | M? | – | Team Tom | startbar |
-| 615 | Kamera dreht und zoomt um den Helden als Fixpunkt, läuft nicht aus dem Bild (Chef 07.11., t268) | E Welt | M | – | Team Tom | startbar |
+| 615 | Kamera dreht und zoomt um den Helden als Fixpunkt, läuft nicht aus dem Bild (Chef 07.11., t268) | E Welt | M | – | Team Tom | gebaut |
 | 616 | Kampf: Gegner weichen nach dem Angriff rückwärts zurück statt vorwärts zu laufen (Chef 07.11., t268) | E Kampf | M | – | Team Jerry | wartet |
 | 617 | Hauptmenü „Laden“: Wischen löst Laden aus; laden nur mit dem Knopf rechts (Chef 07.11., t268.1) | A Spiel | M | – | Team Tom | gebaut |
 | 618 | Knöpfe einheitlich: „Zurück“, „Abbrechen“, „Schließen“ nach einer Regel auf allen Schirmen, Liste der Abweichungen (Chef 07.11., t268) | A Spiel | M | – | Team Tom | startbar |

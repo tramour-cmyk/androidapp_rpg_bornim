@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [275.2](entscheiden/2752-eine-liste.md) | **Muss** | B Werkzeuge | 07.11., 21:50 | Eine Liste statt Liste plus Vorräte | Sokrates |
 | [620.1](entscheiden/6201-wiederholte-funde.md) | **Muss** | B Abläufe | 07.11., 21:02 | Grenze angefangener Arbeit je Team (B) | Perikles |
 
 ## Zu billigen
@@ -234,7 +235,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 34, Muss 25, startbar 19
+**Sokrates** – offen 35, Muss 26, startbar 19
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -267,17 +268,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 72c | K | von Chef (19.10., 12:55): Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband | nach dem Meilenstein |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | startbar |
 | 142.3 | M | von Chef (27.10., 19:32): Tester öffentlich suchen | ruht |
+| 275.2 | M | von Chef (07.11., 21:4x): eine große Liste statt Liste plus Vorräte? | Chef (Datei in der Chefsache) |
 | 142.4 | M | von Chef (07.11., 16:5x): Pflichttest sparen? Organisationskonto mit D-U-N-S | Chef |
 | 142 | M | Pflichttest Play Store (von Perikles); Store-Text „jede Entscheidung zählt“ prüfen (72a) | startbar |
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | startbar |
 | 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | startbar |
 | Pflege | K | von Werkzeug (340.3, 07.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabe | startbar |
-## Lücken
-
-Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
-
-Ohne Datei: 275 (Projekt)
-
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
