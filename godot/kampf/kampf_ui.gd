@@ -1940,12 +1940,17 @@ func _roll_tag(sr: Rect2, fig, r: Array, actor_id, alpha: float) -> void:
 	var hit: bool = r[4]
 	var by = kampfort.mars.find(actor_id) if actor_id != null else null
 	# gold, wenn es der Gruppe hilft: ihr Angriff trifft, ihr Ziel scheitert am Rettungswurf; gegen sie umgekehrt
-	var works: bool = hit if r[0] == "ATTACK" else not hit
+	var works: bool = hit if r[0] == "ATTACK" or r[0] == "BRS" else not hit
 	var helps: bool = works if by == null or by.side == "PARTY" else not works
 	# Wortlaut wie RollTag (SkirmishScreen.kt): Vorteil/Nachteil, kritisch, daneben; Rettungswurf „RW … gegen SG … · geschafft“
 	var bonus := ("− %d" % -int(r[2])) if int(r[2]) < 0 else ("+ %d" % int(r[2]))
 	var txt: String
-	if r[0] == "ATTACK":
+	if r[0] == "BRS":
+		# 478: nach dem BRS ein Wurf von 1 bis 100 gegen die Trefferchance (Wortlaut vorläufig mit den Wörtern des alten Kastens,
+		# die Anzeige kommt mit 2.3)
+		var res2 := t("kritisch", "critical") if (hit and r.size() > 7 and r[7]) else (t("Treffer", "hit") if hit else t("daneben", "miss"))
+		txt = "%d %s %d %% · %s" % [int(r[1]), t("gegen", "vs"), int(r[3]), res2]
+	elif r[0] == "ATTACK":
 		var mode := ""
 		if int(r[5]) > 0:
 			mode = t(" (Vorteil)", " (advantage)")

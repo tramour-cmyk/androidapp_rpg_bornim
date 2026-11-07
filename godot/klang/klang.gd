@@ -366,12 +366,12 @@ func kampf(e: Dictionary, mars, treffer_ms := -1) -> void:
 			"POUNCED": _bald(0, func(): effekt("hit_smash", 0.6))     # Rückläufer t53: zu Boden geworfen
 			"DUCKED": _bald(0, func(): effekt("arrow"))               # Rückläufer t58: der Pfeil zischt vorbei
 		return
-	var krit: bool = e.roll != null and e.roll[0] == "ATTACK" and e.roll[4] and e.roll[1] == 20
+	var krit: bool = e.roll != null and e.roll[4] and ((e.roll[0] == "ATTACK" and e.roll[1] == 20) or (e.roll[0] == "BRS" and e.roll.size() > 7 and e.roll[7]))     # 478: auch nach dem BRS
 	if e.spell != null:
 		if String(e.spell) in ["HEAL", "BLESS"] or (by != null and tg != null and by.side != tg.side):
 			_bald(0, func(): effekt(_fx_klang(String(e.spell), krit)))
 		return
-	if by == null or tg == null or by.side == tg.side or e.roll == null or e.roll[0] != "ATTACK":
+	if by == null or tg == null or by.side == tg.side or e.roll == null or not (e.roll[0] in ["ATTACK", "BRS"]):     # 478: auch nach dem BRS
 		return
 	var art := _angriff(by)
 	var ausfall := art != "ARROW"

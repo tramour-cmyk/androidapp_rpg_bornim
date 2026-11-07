@@ -1,0 +1,162 @@
+extends RefCounted
+# 478 (Chef 07.11., 16:3x: „Wir packen das BRS auf jeden Fall jetzt auch mit dazu“; 470a C: der Rechenkern des Kampfs zieht vor, die
+# Darstellung bleibt bei 2.3): MARS rechnet Treffer, Schaden und Leben nach dem BRS, Modell D (DESIGN-SPIELSYSTEM-2-0-ENTWURF.md
+# Abschnitt 7 und Entwurf A), mit denselben Formeln und Zahlen wie die Simulation 444 (tools/sim444/sim.py, daten/werte.json über
+# regeln/brs.gd). Hier stehen nur die Brücken: was ein Kämpfer nach dem BRS ist (Grundwerte, Fertigkeiten, Waffe, Rüstung, Schild,
+# Stufe) und ein Schlag mit allen Einzelheiten für Bericht, Bild und Zustände.
+# Schalter (bis der Chef den Kampf nach BRS abgenommen hat): BRS478=1 in der Umgebung oder an() = true (Testmenü, Tests).
+# Annahmen (A), bis 2.3 und die Pfade sie ersetzen: ohne Spielstand nach BRS (Probekampf, Söldner) gilt die Herkunft der alten Klasse
+# mit ihren Startfertigkeiten; Waffen und Rüstungen der Heldwerte zählen nach ihrer Gruppe; was noch in Würfeln des SRD rechnet
+# (Fähigkeiten der Klassen, Zauber mit Rettungswurf, Heilung, Tränke, Zustände), wird mit dem Verhältnis der Leben nach BRS zu SRD
+# des Getroffenen umgerechnet (massstab), so bleibt ihr Gewicht im Kampf, wie es war.
+
+const Brs = preload("res://regeln/brs.gd")
+const BrsHeldS = preload("res://regeln/brs_held.gd")
+
+static var schalter := OS.get_environment("BRS478") == "1"
+
+static func an() -> bool:
+	return schalter and not Brs.lade().is_empty()
+
+## Herkunft für eine alte Klasse (BrsHeld.KLASSE_ALT umgekehrt, je Klasse die erste)
+const KLASSE_HERKUNFT := {"FIGHTER": "Wachsoldat", "CLERIC": "Klosterschüler", "ROGUE": "Jägerkind", "WIZARD": "Zauberlehrling"}
+## Waffe der Heldwerte (Grundform) -> Waffengruppe des BRS (werte.json „waffen“); unbewaffnet Faustkampf
+const WAFFE := {"": "Faustkampf", "dagger": "Dolche", "shortsword": "Einhänder", "scimitar": "Einhänder", "handaxe": "Einhänder",
+	"longsword": "Einhänder", "battleaxe": "Einhänder", "rapier": "Einhänder", "mace": "Stumpfe Waffen", "quarterstaff": "Stumpfe Waffen",
+	"warhammer": "Stumpfe Waffen", "morningstar": "Stumpfe Waffen", "wand": "Stumpfe Waffen", "staff": "Stumpfe Waffen",
+	"spear": "Stangenwaffen", "halberd": "Stangenwaffen", "greatsword": "Zweihänder", "greataxe": "Zweihänder", "maul": "Zweihänder",
+	"shortbow": "Bogen", "longbow": "Bogen", "light_crossbow": "Armbrust"}
+## Gewicht der Brustrüstung (Heldwerte „gewicht“) -> Rüstung des BRS
+const RUESTUNG := {"LIGHT": "Leichte Rüstung", "MEDIUM": "Mittlere Rüstung", "HEAVY": "Schwere Rüstung"}
+## alte Zauber -> Zauber des BRS (werte.json „zauber“), Grundschaden im Verhältnis zum Feuerpfeil (1W10)
+const ZAUBER_ANGRIFF := ["FIRE_BOLT", "SCORCHING_RAY"]
+const FEUERPFEIL_SRD := [1, 10, 0]
+## Vorteil und Nachteil des MARS (Reihen, Deckung, Blind …) wie Umreißen: ±25 Prozentpunkte (werte.json „merkmale“)
+const NACHTEIL_SONST := -25.0
+## 1 Punkt auf den W20 des SRD = 5 % (werte.json „merkmale“ _quelle: 1 Punkt W20 = 10 Punkte Angriff bei 0,5 % je Punkt)
+const PROZENT_JE_W20 := 5.0
+
+
+static func w() -> Dictionary:
+	return Brs.lade()
+
+
+static func nachteil() -> float:
+	return float(w().get("merkmale", {}).get("umreissen", {}).get("naechster_angriff_treffer", NACHTEIL_SONST))
+
+
+static func mittel(expr) -> float:
+	if expr == null or not (expr is Array) or expr.size() < 3:
+		return 0.0
+	return float(expr[0]) * (float(expr[1]) + 1.0) / 2.0 + float(expr[2])
+
+
+## Was ein Held oder Söldner nach dem BRS ist. [sheet]: MARS-Blatt (aufruf.blatt, tabellen.json „probe“); [daten]: der Held nach BRS
+## aus dem Spielstand (BrsHeld.als_daten, zustand.brs) oder leer.
+static func held(sheet: Dictionary, daten := {}) -> Dictionary:
+	var W := w()
+	var h: Dictionary = W["held"]
+	var herkunft: String = KLASSE_HERKUNFT.get(String(sheet.get("cls", "")), "Wanderer")
+	var werte := {}
+	var fert := {}
+	if not daten.is_empty():
+		var bh = BrsHeldS.aus_daten(daten)
+		herkunft = bh.herkunft
+		werte = bh.werte()
+		fert = bh.fertigkeiten()
+	else:
+		var hk: Dictionary = W["herkuenfte"].get(herkunft, W["herkuenfte"]["Wanderer"])
+		for g in Brs.lade()["erschaffung"]["grundwerte"]:
+			werte[g] = int(h["grundwert_min"])
+		for g in hk["plus"]:
+			werte[g] += int(hk["plus"][g])
+		for g in hk.get("plus_variante", {}):     # 21 Punkte (Entscheidung 77), wie die Simulation (Spalte „21“)
+			werte[g] += int(hk["plus_variante"][g])
+		for g in werte:
+			werte[g] = mini(int(werte[g]), int(h["grundwert_max"]))
+		for f in hk["fertigkeiten"]:
+			fert[f] = int(h["startfertigkeit"])
+	for f in sheet.get("brs_fert", {}):     # was der Held seither geübt hat (2.3)
+		fert[f] = int(sheet.brs_fert[f])
+	var hk2: Dictionary = W["herkuenfte"].get(herkunft, {})
+	var ruestung: String = String(sheet.get("brs_ruestung", hk2.get("ruestung", "keine")))
+	var schild: bool = String(sheet.get("schild", "")) != "" if sheet.has("schild") else int(sheet.get("ac", 0)) > int(sheet.get("acDrawn", 0))
+	var zauber: Array = hk2.get("zauber", []).duplicate()
+	return {"stufe": int(sheet.get("level", 1)), "werte": werte, "fert": fert, "herkunft": herkunft, "ruestung": ruestung,
+		"schild": schild, "zauber": zauber}
+
+
+static func leben_held(b: Dictionary) -> int:
+	var h: Dictionary = w()["held"]
+	return int(h["leben_basis"]) + int(h["leben_je_stufe"]) * int(b.stufe) + int(h["leben_je_zaehigkeit"]) * int(b.werte.get("zaehigkeit", 0))
+
+
+static func waffe_von(wsheet) -> String:
+	var id: String = String(wsheet.get("id", "")) if wsheet is Dictionary else ""
+	return WAFFE.get(id, "Einhänder" if not (wsheet is Dictionary and bool(wsheet.get("ranged", false))) else "Bogen")
+
+
+## Werte eines Gegners nach dem Bestiarium „Werte 2.0“ (brs.gd monster). Abgeleitete Tiere ohne eigene Zeile (Jungwolf, Leibwache,
+## Gruppen mit fremdem Körper) nehmen die Zeile ihrer Art und tragen ihre Abweichung vom SRD-Eintrag der Art mit: Angriff je Punkt
+## auf den W20 10 Punkte, Schaden im Verhältnis der Mittel, Leben mit hp_share (Jungwolf 0,5). [m]: der Eintrag des Kämpfers,
+## [art]: der SRD-Eintrag der Art (tabellen.json) oder leer.
+static func gegner(m: Dictionary, art: Dictionary) -> Dictionary:
+	var b := Brs.monster(String(m.get("id", ""))).duplicate()
+	if b.is_empty():
+		return {}
+	if not art.is_empty() and art != m:
+		b.angriff = float(b.angriff) + 10.0 * (float(m.get("atk", art.get("atk", 0))) - float(art.get("atk", 0)))
+		var ma := mittel(art.get("dmg"))
+		if ma > 0.0:
+			b.schaden = float(b.schaden) * mittel(m.get("dmg", art.get("dmg"))) / ma
+	if m.has("chance") and m.has("scale"):     # 399.2a Jungwolf (aufruf.gd JUNGWOLF hp_share)
+		b.leben = maxi(1, Brs.runde(float(b.leben) * 0.5))
+	return b
+
+
+## Abwehr des Helden gegen einen Angriff der Art [art] („nah“, „fern“, „zauber“): der beste von Ausweichen (+2 je Gewandtheit), Schild
+## (nur mit Schild in der Hand) und halber Fertigkeit der Nahkampfwaffe (nur gegen Nahkampf). [drawn]: die zweite Waffe in der Hand.
+static func held_abwehr(b: Dictionary, art: String, waffe: String, schild_in_hand: bool) -> Array:
+	var k: Dictionary = w()["kampf"]
+	var wahl := [["Ausweichen", float(b.fert.get("Ausweichen", 0)) + float(k["ausweichen_je_gewandtheit"]) * float(b.werte.get("gewandtheit", 0))]]
+	if b.schild and schild_in_hand:
+		wahl.append(["Schild", float(b.fert.get("Schild", 0))])
+	var wd: Dictionary = w()["waffen"].get(waffe, {})
+	if art == "nah" and String(wd.get("art", "nah")) == "nah":
+		wahl.append([waffe, float(b.fert.get(waffe, 0)) * float(k["parieren_anteil_waffenfertigkeit"])])
+	var best: Array = wahl[0]
+	for x in wahl:
+		if float(x[1]) > float(best[1]):
+			best = x
+	return best
+
+
+## Abzug des Helden: Rüstung × (1 + Rüstungsfertigkeit/100), dazu der Schild × (1 + Schild/100), wenn er ihn trägt.
+static func held_abzug(b: Dictionary, schild_in_hand: bool) -> float:
+	var W := w()
+	var k: Dictionary = W["kampf"]
+	var r: Dictionary = W["ruestungen"].get(b.ruestung, W["ruestungen"]["keine"])
+	var je := float(k["ruestungsfertigkeit_im_abzug_je_punkt"])
+	var a := float(r["wert"]) * (1.0 + (float(b.fert.get(String(r["fertigkeit"]), 0)) if r["fertigkeit"] != null else 0.0) * je)
+	if b.schild and schild_in_hand:
+		a += float(W["ruestungen"]["schild_wert"]) * (1.0 + float(b.fert.get("Schild", 0)) * je)
+	return a
+
+
+## Ein Schlag mit den Würfeln aus [rng] in der Reihenfolge der Simulation (Treffer, Glück, kritisch, Streuung) wie Brs.schaden, mit
+## allen Einzelheiten: {treffer, wurf (1–100), chance (Prozent), kritisch, glueck, schaden}.
+static func schlag(rng: RandomNumberGenerator, fertigkeit: float, abwehr: float, grund: float, d: float, abzug: float, bonus := 0.0, kritisch_prozent := 0.0) -> Dictionary:
+	var k: Dictionary = w()["kampf"]
+	var chance := Brs.trefferchance(fertigkeit, abwehr, bonus)
+	var z := rng.randf()
+	var e := {"treffer": z < chance, "wurf": int(floor(z * 100.0)) + 1, "chance": roundi(chance * 100.0), "kritisch": false,
+		"glueck": false, "schaden": 0.0}
+	if not e.treffer:
+		return e
+	var zg := rng.randf()
+	var zk := rng.randf() if kritisch_prozent > 0.0 else 1.0
+	var zs := rng.randf()
+	e.glueck = zg < float(k["glueckstreffer_anteil"]) and Brs.stufenfaktor(d) < 1.0
+	e.kritisch = kritisch_prozent > 0.0 and zk * 100.0 < kritisch_prozent
+	e.schaden = Brs.endschaden(Brs.schaden_roh(grund, fertigkeit, d, zg, zk, zs, kritisch_prozent), abzug)
+	return e
