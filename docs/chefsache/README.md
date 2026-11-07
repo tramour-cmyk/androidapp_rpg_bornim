@@ -194,7 +194,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 616 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu t268): Gegner weichen nach dem Angriff rückwärt | wartet auf 478 (startbar) |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 31749 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 22, Muss 15, startbar 6
+**Perikles** – offen 22, Muss 15, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -213,7 +213,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 275 | M | von Sokrates (Chef 27.10., 15:09 ja, 15:15 „jetzt loslegen“, Archiv): Stufe 1 (Chefsache 2 | wartet auf Test/Build (gebaut) |
 | 347.2 | M | von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347): Paket Regeltreue umsetzen nach tool | wartet auf Sokrates |
 | 276 | K | von Sokrates (zu 274): Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in lauf. | ruht |
-| 341 | M | von Chef (23.10., 09:39): Zielvereinbarung Perikles, gegenprüfbar und nachhaltig (Zu 341) | startbar |
+| 341 | M | von Chef (23.10., 09:39): Zielvereinbarung Perikles, gegenprüfbar und nachhaltig (Zu 341) | ruht bis 09.11. |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | startbar |
 | D77 | K | von Diogenes (07.11., Lauf 75, Prüfbericht): zug-index.py liest einen Bereich in der Titel | startbar |
 | D75 | M? | von Diogenes (07.11., Lauf 73, Prüfbericht): Filmsperre 511 hat die Film-Pushes zu 572 nic | startbar |
@@ -238,12 +238,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 33, Muss 24, startbar 18
+**Sokrates** – offen 34, Muss 25, startbar 19
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 620 | M | von Chef (07.11., 14:3x, „nachhalten … umsetzen … ganz entscheidend“): Stärken ausbauen, S | startbar |
 | 565 | M | von Team Jerry (07.11., 21:2x; Zu 565 bei Jerry): ein Lauf frei für 565 (ein Bauserverlauf | startbar |
+| 341.1 | M | von Perikles (341, Chef 23.10., 09:53: „ja, Probe bis 06.11.“, dann Gerüst für alle): Prob | Leiche: in LISTE-VORGAENGE.md „erledigt“, Zeile noch im Vorrat |
 | 623 | M | von Chef (07.11., 17:2x, elf REEBOO-Links): Effektpakete; „623 A B C D E F“ 20:1x (Archiv) | Chef |
 | 623.1 | M | von Chef (07.11.): Prüfschema auf bisher geprüfte Quellen anwenden (LISTE-CC0-MODELLE.md → | startbar |
 | 508 | M | von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5): | startbar |
