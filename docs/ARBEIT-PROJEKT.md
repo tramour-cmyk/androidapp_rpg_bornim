@@ -30,6 +30,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
+- **Zu 627, von Team Tom (07.11., 22:03):** dritter Fall nach 4bcd30e87: erster Push von `claude/build-269` (nur Mischcommits, kein Bildlauf) zählte als Probelauf 1 von 1; der Sammelbuild lief darum als `bild=nein` (390a), Lauf 271.
+
 - **Zu 275.2, von Sokrates (Chef 07.11., 21:5x; Archiv; Begründung `docs/chefsache/entscheiden/2752-eine-liste.md` in Git):**
   - **Eine Tabelle** (von Sokrates; `LISTE-VORGAENGE.md` oder Nachfolger) mit festen Spalten: Nr · Titel · Besitzer (Rolle) · Kl. · Stand (Wortliste 275) · wartet auf · Zweig · Build. Vorräte behalten nur Übergabe, Pause und „Zu <Nr>“. Keine Sitzung liest die ganze Tabelle: `vorgang.py --rolle <Rolle>` zeigt die eigenen Zeilen (Bedingung des Chefs 27.10.: keine 1000 Tokens extra).
   - **Automatik A, „wartet auf“** (von Sokrates): nur Nr, Rolle oder Datum (TT.MM.[ HH:MM]), oder „Chef“ nur mit Datei in `docs/chefsache/`. Jeder Lauf von `startbar.py`: Nr erledigt, Datum vorbei, Chefsache-Datei weg → Zeile startbar und Meldung an den Besitzer. „wartet auf <Rolle>“ erscheint auch in der Ansicht dieser Rolle.
