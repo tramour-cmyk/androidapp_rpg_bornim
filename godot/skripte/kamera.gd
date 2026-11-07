@@ -130,16 +130,23 @@ func kneifen(faktor: float) -> void:
 	zoom = clampf(zoom * faktor, NAH * 0.8, FERN * 1.6)
 	nah = zoom < (NAH + FERN) * 0.5
 
+# 615 (Chef 07.11., t268: „Kamerabewegungen (Zoom/Drehung) um den Avatar als Fixpunkt. Bisher läuft die Kamera gerne aus dem Bild“):
+# weich folgt nur der Blickpunkt am Helden; die Kamera steht immer genau 40 m vor ihm auf der Blickachse, so dreht und zoomt sie um
+# ihn (vorher folgte die Lage der schon gedrehten Achse nach, der Held lief beim Drehen bis zwei Bildbreiten aus der Mitte; kamera_615)
+var blickpunkt := Vector3.INF
+
 func folge(k: float) -> void:
 	if ziel == null: return
 	gieren = lerpf(gieren, gieren_ziel, minf(1.0, k * 1.6))
 	rotation_degrees = Vector3(neigung, gieren, 0)
 	var auf := ziel.position + Vector3(0, 0.9 if nah else 0.0, 0)
-	position = position.lerp(auf + global_basis.z * 40.0, k)
+	blickpunkt = auf if blickpunkt == Vector3.INF else blickpunkt.lerp(auf, k)
+	position = blickpunkt + global_basis.z * 40.0
 	size = lerpf(size, zoom, k)
 
 func springe() -> void:
 	gieren = gieren_ziel
+	blickpunkt = Vector3.INF
 	folge(1.0)
 
 # Punkt am Boden unter einem Bildschirmpunkt
