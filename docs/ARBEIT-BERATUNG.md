@@ -10,6 +10,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 565 | M | **von Team Jerry (07.11., 21:2x; Zu 565 bei Jerry):** ein Lauf frei für 565 (ein Bauserverlauf, fünf Standbilder Gruppenkasten vorher/nachher)? `probelauf.py` zählte den ersten Push des neuen Zweigs als Lauf, ohne dass ein Ablauf startete (627) | startbar: Kopf „565, Läufe frei“ ins Archiv |
 | 620 | M | **von Chef (07.11., 14:3x, „nachhalten … umsetzen … ganz entscheidend“):** Stärken ausbauen, Schwächen verkleinern (`ROLLE-BERATUNG.md` Begründungen); 620.1, 620.2, 620.4 bei Perikles | Dauer: Lagebild und Wiederholquote nach jeder Testrückmeldung; Testbitte vor dem Versand gegenlesen; von Perikles (620.1 A, Chef 21:00): wiederholte Funde mit „wiederholt“ im Titel eintragen, auch die sechs aus t268 nachziehen |
 | 623 | M | **von Chef (07.11., 17:2x, elf REEBOO-Links):** Effektpakete; „623 A B C D E F“ 20:1x (Archiv); 623.2 Jerry, 623.3 Perikles, 623.4 Homer | wartet auf Chef: tun/623 (Kauf A); B1 offen |
 | 623.1 | M | **von Chef (07.11.):** Prüfschema auf bisher geprüfte Quellen anwenden (`LISTE-CC0-MODELLE.md` → `LISTE-QUELLEN.md`) | startbar |
