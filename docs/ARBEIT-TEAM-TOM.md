@@ -107,6 +107,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 612 | M | **von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619):** Dorf Süd: Heuhaufen, Weizenfeld, Gemüsebeet; drei Varianten je Ding | startbar | – |
 | 613 | M | **von Sokrates (Chef 07.11., 14:1x, t268.31; Zu 606–619):** Intro und Outro wie alt: Tempelgänger, kleine Bewegungen | startbar | – |
 | 614 | M? | **von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619):** Jorin mit Speer, Jorin öffnet den Schlagbaum sichtbar, Leute-Gesten wie alt | startbar | – |
+| 624 | M | **von Sokrates (Chef 07.11., 17:5x: „das wäre auch gut, wenn die Anzeige dann ein bisschen größer wäre, damit ich es besser lesen kann. Das ist schon alles eine sehr kleine Mikroschrift … Wie die FPS oder was war da noch? Speicherverbrauch“):** FPS und Standort über der Welt und die Messwerte im Reiter „Test“ (`testmodus.gd` 171, Größe 13) gut lesbar, mit der Schriftgröße des Handys | startbar | – |
 | 622 | M | **von Sokrates (07.11., aus 142.4; Chef 17:1x: „Wir hatten da schon doch was hochgeladen, was man runterladen kann. Einen Build“):** Godot heute nur Debug-APK (`godot.yml` 423); für Play ein AAB derselben App `de.bornim.game`, signiert mit dem Upload-Schlüssel des alten AAB (GitHub-Secrets), Versionsnummer über der des alten; vor Stufe 5, nach dem Durchspielen | startbar | – |
 | 133 | K | Charisma-Wahlen Kapitel 2 (`STORY-WAHLEN.md`) | ruht: altes SRD-System (Chef 31.10.) | – |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (Kapitel 2 nicht im Spiel) | – |
