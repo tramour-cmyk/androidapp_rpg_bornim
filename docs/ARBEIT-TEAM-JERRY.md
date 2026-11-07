@@ -1,75 +1,11 @@
 # Vorrat Team Jerry
 
-**Pause bis die neue Vorgangsliste läuft (275.2)** (von Sokrates, Chef 07.11., 21:5x: „alle Arbeiten fertig, dann wird erstmal nichts gemacht und dann machen wir jetzt mal endlich eine saubere Vorgangsliste“): laufende Sitzungen von Jerry und Tuffy machen ihren Vorgang fertig und übergeben; keine neue Sitzung, bis Perikles nach dem Umschalten die Zeile streicht.
-
-
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 **Übergabe (07.11., 22:26):** Pause 275.2. Bildläufe 565 (21:32) und 563 (22:23) laufen, `film=nein`, Artefakt `bornim-godot-bilder` (`am_zug565`, `zustaende563`); 563 gebaut, aus (Zu 563). Beides Vorschläge, nicht für Build 269. Nachfolger: Jerry – 565 und 563: Bilder vorlegen (ab 7 Uhr).
 
-## Zeilen
-
-| Nr. | Kl. | Titel | Stand | Zweig |
-|---|---|---|---|---|
-| 565 | M | **von Sokrates (Chef 04.11., 17:10, t257 Bereich C, Bild; Zu 565):** im Gruppenkasten unten ist nicht zu sehen, welcher Held am Zug ist | in Arbeit: Bilder am Bauserver (godot.yml von Hand, film=nein, 07.11., 21:32); dann Bild vorher/nachher in chefsache/ansehen/ am Morgen | `claude/jerry-565-am-zug` |
-| 562 | M | **von Sokrates (Chef 04.11., 17:02, t257 Bereich C; Zu 562 und 563):** Helden gehen zum Angriff im „Schlaftabletten-Modus“, zurück gleiten sie flott; echte Schritte, Tempo wie alt | in Arbeit bei Tuffy: hin 2,13 m/s gebaut; Messlauf 2 (angriff_562.gd) läuft, Auswertung nach 275.2 | `claude/jerry-562-angriffsschritt` |
-| 563 | M | **von Sokrates (Chef 04.11., 17:02, t257 Bereich C, Bild; Zu 562 und 563):** Zustandsschilder über Gegnern („Blut 3“) überlagern Ansage und Lebensleiste, „gruselig“ | in Arbeit: Vorschlag A gebaut (aus, Schalter ZUSTAND563), Bilder am Bauserver (film=nein, 07.11., 22:23); Vorlage am Morgen | `claude/jerry-563-zustaende` |
-| 560 | M | **von Sokrates (Chef 04.11., 16:22, allgemeiner Hinweis; Zu 560):** Monster auf der Karte drehen sich zum Helden, sobald sie ihn wahrnehmen, mit Schritten statt auf der Stelle | startbar (Perikles 07.11.: M, alt vorhanden, Roamers.kt; Abgleich 620.2b) | – |
-| 551 | M | **von Sokrates (Chef 04.11., 00:21, Build 249):** „MARS Kasten links und rechts unten wird unterbrochen angezeigt …“ | ruht: braucht Foto des Chefs, keine Datei (Inventur 07.11.) | – |
-| 547 | M | **von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545):** MARS: Text sagt „geht in die Knie“, Sturz ist aus (438a eingefroren): Text und Bild in Einklang bringen | wartet auf 625: in die Prüfliste (Inventur 07.11.) | `claude/jerry-547-sturztexte` |
-| 532 | M | **von Sokrates (512; Zu 532):** Kampf: Held ohne Zauberpunkte, Verbrauchtes, Zustände, Metrausch, Tasche; Zauber kosten nichts | wartet auf 625: in die Prüfliste (Inventur 07.11.) | `claude/jerry-532-metrausch` |
-| 534 | M | **von Sokrates (512; Zu 534):** Kampf: Zauber und Fähigkeiten fehlen in „Können“ oder wirken nicht; Talente zu Kampfbeginn | wartet auf 625: in die Prüfliste (Inventur 07.11.) | `claude/jerry-534-faehigkeiten` |
-| 536 | M | **von Sokrates (512; Zu 527–536):** Kampf: Erklärungen bei langem Drücken (MarsTips) und Kleines wie alt | startbar: t268.20 Jungwölfe weit weg (Zu t268) | `claude/jerry-536-namen` |
-| 467 | M | **von Sokrates (Chef 01.11., 21:52):** `regeln/ausdauer.gd` rechnet nach SRD; BRS: Ausdauer aus Zähigkeit, Wille, Stufe; nach der Formel aus 427 umstellen | wartet auf 478: dort mitbauen (Inventur 07.11.) | – |
-| 438 | M | **von Sokrates (Chef 31.10., 23:31, Film 403):** Wölfe gleiten (Angriff, Tempo, aneinander vorbei); echte Schritte, Zahlen (Zu 438) | wartet auf 625: in die Prüfliste (Inventur 07.11.) | `claude/jerry-438-wolf-kampf` |
-| 453 | M | **von Sokrates:** Ruhebewegungen der Wölfe | ruht: nach dem Durchspielen (488, 621 A; Inventur 07.11.) | – |
-| 438a | M | **von Sokrates (438a):** Hinfallen und Aufstehen des Kaufhelden, Waffe und Schild frei | ruht: eingefroren (488); Klinge quer im Kleid, Hand ruckt; im Spiel aus | `claude/jerry-438a-sturz-2` |
-| 416.6 | M | **von Sokrates:** Spuren (`core/Tracks.kt`): Blut, Staub, Fußspuren | ruht: nach dem Durchspielen (488, 621 A; Inventur 07.11.) | `claude/jerry-416-6-blut` |
-| 415 | M | **von Sokrates:** Probe Beams Free Sample im Kampfort; nichts kaufen | wartet auf 623.5: Renderer und FPS dort (Inventur 07.11.) | – |
-| 461.1 | M | **von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461):** Grundstand mit Tom: Kampfort, Wölfe, Helden (`LISTE-GRUNDSTAND-461.md`); vor 460 und 406.1 | ruht: nach dem Durchspielen (488) | `claude/grundstand-461` |
-| 460 | M | **von Sokrates (Chef 01.11., 20:2x, Archiv 460):** Probefilm Kamerafahrten: Eröffnung je Blende (402), kurze Wechsel nur ohne Eingabe | ruht: nach dem Durchspielen (488, Wochenziel 03.11.) | – |
-| 406.1 | M | **von Sokrates (406.1):** Schildstoß ins MARS/BRS, Bau mit `ShieldAttack1–3S&S` | wartet auf 478: dort mitbauen (Inventur 07.11.) | – |
-| 406.2 | M | **von Sokrates (Chef 03.11., 06:59, „jetzt“; Zu 406.2):** im Kampf zum Angriff gehen statt rennen, Parade mit Schild je Richtung; ein Lauf, dann eingefroren (488) | startbar: Zweig fertig, in 625 mitnehmen (Inventur 07.11.) | – |
-| 510 | M | **von Sokrates:** Fledermaus: freies OGA-Modell „Vampire Bat“ (CC0) mit unseren Fellen neben der eigenen, Film, Chef wählt (Zu 510) | ruht: nach dem Durchspielen (488, 621 A; Inventur 07.11.) | `claude/jerry-494-gegner` |
-| 509 | M | **von Sokrates (Chef 03.11., 09:21):** Frösche und Libellen an den Teichen wie alt (`PondLife.kt`, `PondSound.kt`; O6, W22) | ruht: nach dem Durchspielen (488, 621 A; Inventur 07.11.) | `claude/jerry-509-teich` |
-| 587 | M | **von Chef (05.11., 11:4x, zu Bild 494):** Gegner im Kampfort zu klein gegen alt? 1,3-fach wie alt und die Wölfe, echt, oder je Kapitel | startbar: 587a ja (Chef 06.11.) | – |
-| 494 | M | **von Perikles (488):** Gegner von Kapitel 1 im Kampf (Zu 494), je Gegner höchstens ein Lauf | wartet auf Tom: 492 (266.8 Höhle nicht erreichbar); sonst bestanden t266 (Chef 05.11., 19:2x), Funde in 594–601, Größe 587, Fledermaus 510 | `claude/jerry-494-gegner` |
-| 517 | M | **von Team Tom (03.11., 16:3x, 512):** Waldklang wie alt (`WildSound.kt`): Vögel am Tag, Eule und Grillen nachts, fernes Wolfsheulen | wartet auf 625: in die Prüfliste (Inventur 07.11.) | `claude/jerry-517-waldklang` |
-| 507 | M | **von Perikles (488; aus 492):** Kampforte Höhle wie alt: Eingang, Gang, Halle, Teich, Lager | startbar: Probebild am Bauserver mit film=nein (Perikles 04.11., 14:0x, Zu 494); hoehle_507 grün; ein Lauf frei | `claude/jerry-507-hoehle` |
-| 496 | M | **von Perikles (Wochenziel 03.11. Reihe 5, 488):** Durchspiel-Build aus 490–495: der Chef spielt Kapitel 1 von Anfang bis Ende am Handy | wartet auf 490, 491, 492, 493, 494, 495, 506, 507 | – |
-| 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: Feintuning nach 399 (Hühner hoppeln, Rind 78 s Fleck, 150°-Sprung) |
-| 385.2 | M | **von Chef:** Feuer aus dem Stab | wartet auf 623.2 (Stylized Projectiles; Inventur 07.11.) | – |
-| 397 | M | von Chef: Tiere, Monster mind. drei Ruhebewegungen | ruht (399) | – |
-| 348.12c | M | von Sokrates: Untote und Gewürm übernehmen Fähigkeiten der Vorgänger | wartet auf 478: dort mitbauen (626) | – |
-| 304 | M | von Chef: Klassisch, Konter nach Abwehr regelrecht? | wartet auf 478: dort mitbauen (626) | – |
-| 257 | M | von Chef: App „hängt“, ging dann weiter | ruht: Hänger-Wächter (Tom) seit Build 49; bis zum nächsten Hänger mit Absturzbericht | – |
-| 211.14 | M | von Sokrates: Leistung am A56 messen | startbar (Inventur 07.11.) | – |
-| 628 | M | **von Team Tom (07.11., 21:47, aus 543):** Lohn wie alt: `over` (Monsterstufe über Gebietsstufe, alt `Game.startBattle` 1268, `Battle.finishWin` 1067) geht nie in `Lohn.reward` (`kampfort.gd` 1196, immer 0); vor dem Bau klären, ob BRS (478) es ersetzt | startbar | – |
-| 289 | K | von Chef: MARS, verfügbare Züge zeigen | ruht: Chef 21.10., 20:59 „stellen wir mal zurück“ | – |
-| 296.1 | K | von Sokrates: `LISTE-MARS.md` gegen den Code | startbar (Inventur 07.11.) | – |
-| 296.2 | M | von Sokrates: MARS spielnötig | wartet auf 478: dort mitbauen (626) | `claude/build-89` |
-| 296.3 | K | von Sokrates: MARS-Schmuck | startbar (Inventur 07.11.) | – |
-| 344.2 | K | von Sokrates: Kampf mit der Fackel | ruht: nach dem Durchspielen (626) | `claude/jerry-344-2-fackel` |
-| 168.1 | K | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab 3 | wartet auf 38, dann Bau Kapitel 2; Texte Homer (41) | – |
-| 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte | ruht bis 348.7 (Kampfort in Godot); Kür hinter dem Meilenstein (Chef 19.10.) | `claude/jerry-72u-standbild-2` |
-| 38 | M | Balance Kapitel 1 gemessen | wartet auf 478: dort mitbauen (Inventur 07.11.) | – |
-| 39 | M | Schwierigkeitsgrad im Menü | ruht bis 2.5 (626) | `claude/jerry-39-schwierigkeit` |
-| 59e | K | Händler: Vorrat je Laden | ruht: nach dem Durchspielen (626) | `claude/jerry-59e-haendlervorrat` |
-| 469 | M | **von Sokrates:** Kampf auf BRS: Ring ohne Klassen regeln | wartet auf 478: dort mitbauen (Inventur 07.11.) | – |
-| 597 | M | **von Sokrates (Chef 05.11., 19:2x; Zu 594–601):** Ring ohne Ankündigung (Fledermaus); alle Angreifer prüfen | startbar: t268.21 Wolf ohne Ansage, nachstellen (Zu t268) | `claude/jerry-597-ring` |
-| 601 | M | **von Sokrates (Chef 05.11., 19:2x, t266.5; Zu 594–601):** Goblin-Späher: Schuss ohne Bewegung, falscher Pfeil, kein Pfeil beim Fehlschuss; Treffer trotz Schatten | startbar (Inventur 07.11.) | `claude/jerry-601-spaeher` |
-| 595 | M | **von Sokrates (Chef 05.11., 19:2x, t266.1; Zu 594–601):** Kampfbewegungen Spinne, Riesenegel, Säureschnecke | wartet auf 478 (Zu 478; Inventur 07.11.) | – |
-| 600 | M | **von Sokrates (Chef 05.11., 19:2x; Zu 594–601):** Knopf zum Beschleunigen im Kampfort wie Würfel und Raster | startbar: t268.22 Stufe 2 dunkler (Zu t268) | `claude/jerry-600-tempo` |
-| 478 | M | **von Sokrates (Chef 07.11., 16:3x: „Wir packen das BRS auf jeden Fall jetzt auch mit dazu“; „jetzt“ 07.11., 16:37; ersetzt 470a B; nach den Fehlern, Chef 20:2x; Zu 478):** Rechenkern des Kampfs auf BRS (Modell D), danach 2.3 mit Tom | startbar nach den Fehlern oben (Chef 07.11., 20:2x) | – |
-| 620.2b | M | **von Perikles (620.2, 621 D, Chef 07.11.):** Abgleich alt einmal nach `LISTE-ABGLEICH-ALT.md`: 1.9 Höhle (mit Tom, 492), 1.10, jede Zeile Klang und Gegner, Krogg, Grak, Grimmzahn; Spalte „Godot“ je Zeile, „fehlt“ wird Vorgang; Tuffy darf übernehmen | startbar | – |
-| 623.5 | M | **von Sokrates (Chef 07.11., 20:2x: „Holst du dir die Gratisamples zum Testen?“; 623):** Gratisproben Combat Mega, Projectiles, Trails, Pack 3, Character Shaders (privat `anhang/reeboo/`, Zweig `claude/brave-faraday-9mxupv`) im Kampfort, Compatibility, mit Tusche, FPS; ein Film (621 A), Tuffy | startbar | – |
-| 623.2 | M | **von Sokrates (Chef 07.11., 20:1x, „623 A B C D E F“; Archiv 623):** Effekte aus 623 A (Combat Mega, Projectiles, Trails, Pack 3, Character Shaders nur als Zusatzschicht, Status Effects) mit 478 einbauen; je Effekt Zeile in `LISTE-BESTAND.md` und `LISTE-EFFEKTE.md`, Datenfeld `fx`; FPS am ersten Kampf messen | wartet auf 623 (Kauf A durch den Chef, tun/623) | – |
-| 598 | M | **von Sokrates (Chef 05.11., 19:2x; Zu 594–601):** Umweltklang je Ort, Tageszeit, Wind, Wetter | startbar: Schenke nur mit Gästen, Klang im Takt (Chef 06.11.) | – |
-| 593 | M? | **von Sokrates (Chef 05.11., 19:2x; Zu 594–601):** Ausweichen auch rückwärts | wartet auf 478 (Zu 478; Inventur 07.11.) | – |
-| 616 | M | **von Sokrates (Chef 07.11., 14:1x, t268; Zu t268):** Gegner weichen nach dem Angriff rückwärts zurück, nicht vorwärts laufend | wartet auf 478 (Zu 478; Inventur 07.11.) | – |
-| Pflege | K | **von Werkzeug (340.3, 07.11.):** 32223 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 ## Einzelheiten
 
 - **von Team Tom (07.11., 21:48, 625):** Build 269 sammelt auf `claude/build-269` (565 drin). Fertige Zweige heute Nacht dort hineinmischen (Kerntests, Push `[skip ci]`), je Punkt eine Prüfzeile (wo, tun, richtig, falsch) hier; PR und Prüfliste macht Tom. 268er Zweige sind schon auf `main` (Squash).
@@ -86,7 +22,6 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 - **Zu 536, von Sokrates (Chef 05.11., 19:2x, t266.3 und t266.5):** „bei Drücken von Angriff des Wolfs beim ersten Mal wieder großer Textkasten!!! Beim zweiten Mal nicht“; „Angriffsknopf lang gedrückt und wieder ein großer Infokasten erschienen“. Vierte und fünfte Meldung; Lösung wie Tom in 550 (`notiz_550`), Test für den Kampf vor dem nächsten Build.
 - **Zu 587, von Sokrates (Chef 05.11., 19:2x, zu 587a):** „Größe der Mobs auf Karte sollte Größe im Kampf entsprechen (Ausnahme ggf. Bosse) – hier erscheinen mir die Kampfgegner in der aktuellen Godot-Fassung kleiner als in der alten Kotlin? Schön wäre eine Anhebung auf Karte und im Kampf um Faktor 1,3-1,5 (bei besonders kleinen Gegnern?); wir reden schließlich von Monstern und nicht von kleinen, niedlichen und possierlichen Tierchen. Was meinst du?“ Befund am Code (Build 266, `kampfort.gd` `_foe_scale`): Kauftiere und Spinne stehen mit 1,0, nur Wölfe und Goblins mit 1,3; 587 A war nicht im Build. Entschieden 06.11., 09:36 (Chef an Ford „587 ja“, Archiv 587a): eine Größe je Tier auf Karte und Kampfort, 1,3, Bosse 1,5; mein Votum „Bosse auf der Karte 1,3“ ist damit gegenstandslos (von Sokrates, 07.11.). Krogg und Grak in der Höhle auf Decke und Wand prüfen (dein Gegenargument).
 - **Zu 415, von Sokrates (Chef 04.11., 10:48, Bild ohne Worte, Build 250, 250.1):** Renderer mobile: Ohne Strahl Mittel 26 Bilder/s, Blauer Laser 24, Feuerstrom 24, Blitzbogen 25 (Kopfzeile „25 Bilder/s · Renderer mobile“). Strahlen kosten also 1–2 Bilder/s; die Grenze setzt der Kampfort selbst. Bild: `chefsache/bilder/415-strahlen-mobile.webp`. **10:51 gl_compatibility:** Ohne Strahl 44, Blauer Laser 33, Feuerstrom 34, Blitzbogen 34 (Bild `415-strahlen-gl.webp`): Grundlast deutlich niedriger, Strahlen kosten dort 10–11 Bilder/s. t250 damit erledigt; dein Renderervorschlag an den Chef (mit Bildvergleich beider Renderer, über das Aussehen urteilt er).
-
 
 - **Hinweis von Team Tom (00:50, 555):** Testschalter in `mars.gd` (`held_immer_krit`, `gegner_ohne_rettung`, `held_unsterblich`) bei Umbauten mitnehmen; in Build 257 mit 534 gemischt.
 
@@ -105,3 +40,62 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 - **Zu 534, 535:** Fundstellen von Sokrates (alt `Battle.kt`, `Game.kt`, `Packs.kt`) und Jerrys Stand 02:4x: `git show 1d5e56d43:docs/ARBEIT-TEAM-JERRY.md`. Gilt: Grinden lohnt neu nicht (Leitbild); was absichtlich anders ist (MARS, BRS), als Chefsache vorlegen, nicht still angleichen. Offen 534: vier Zauber, Ausweichen (534a). Offen 535: Stufe, Elite, EP je Gegner (512a); **von Sokrates (Durchspielregel, Chef 04.11., 13:18, Archiv 488):** 532a jetzt (übrige Tasche und Metrausch in den Kampf wie alt); 534a mit 478 (Magierrüstung, Spirituelle Waffe, Geisterwächter, Unglaubliches Ausweichen als Zeilen in 478), Untote vertreiben aber mit 506, sobald Skelette kämpfen; 512a ja (Stufe, Elite, EP, Gold je Gegner als Zeilen in 478). Neue Funde, die das BRS ändert: Zeile in 478, keine Rückfrage an den Chef; **für 478 von Sokrates (Chef 15:46, 558):** mit der Abnutzung (NW 11) reicht der Zustand je Gegenstand die Stärke der Spurenschicht an die Tracht weiter (Makellos, Benutzt, Beschädigt, Defekt; Shaderwert bei Tom, Zu 558); Schamane heilt nicht (Homer); Wolfstexte beim Fallen; 494 (`RATTE` mit eigenem Modell) kollidiert beim Mischen mit `aufruf.gd`.
 - **Zu 494 (Jerry 05.11., 09:4x):** erledigt aus den Hinweisen: film=nein (Perikles, Toms 59f225863) und Gegnerbilder am Bauserver; Krogg und Grak in `Streuner.GRUPPE` (Tom 06:40, Zufallsspieler). Offen: Einzelstücke als Beute (Tom 15:42, Bausteine `claude/tom-505-rand` 1f6ee1735: `Beute.einzelstueck` in `lohn.gd`). **Abgleich 512b (Helfer 09:46, t264), gebaut:** Fell der Karte im Kampf; Tote (Krogg, Grak) springen beim Einpassen der Kamera nicht mehr; Testliste „Riesenegel“, „Säureschnecke“. **Offen, gemeldet als bekannt:** Sonderregeln alt fehlen in MARS (Ansturm Keiler, Blutsaugen Egel, Säure und Resistenz Schnecke, Kroggs +2W6), Ansage „Stich“ statt Hauer, Rüssel, Scheinfuß, Morgenstern → mit 478 (BRS); Rauchwurf ohne Bewegung, Rauch, Klang; Egel mit Stimme der Stirge (Flügelsurren); Höhlenkämpfe im Waldkampfort, Beutestufe des Waldes (507; 543 Tom); Gruppen anders als alt (drei Goblins statt Goblin mit Späher, Späher und Schamane zu dritt, Kobolde immer drei; Elite, Schimmer fehlen; 535); fehlt beim Bau ein Kaufmodell, steht still ein Wolf (`godot.yml` 250 `continue`).
 - **Wortlaut in Git:** Einzelheiten zu 518 (Tom), 492/Krogg (Tom), 513.1 (Perikles), 507, 416.6, 494, 510, 406.2a, 415, 496a, 461c und ältere: `git show 9a2d84bd1:docs/ARBEIT-TEAM-JERRY.md` (Abschnitt Einzelheiten), davor `a97f67e7e`, `a18dd9473`, `a091e0433`, `8e133b464`.
+
+## Alte Zeilen (bis 275.2; Stand in der Liste, Gültiges als „Zu <Nr>“, Rest streichen)
+
+- **Alt 565:** **von Sokrates (Chef 04.11., 17:10, t257 Bereich C, Bild; Zu 565):** im Gruppenkasten unten ist nicht zu sehen, welcher Held am Zug ist · in Arbeit: Bilder am Bauserver (godot.yml von Hand, film=nein, 07.11., 21:32); dann Bild vorher/nachher in chefsache/ansehen/ am Morgen · `claude/jerry-565-am-zug`
+- **Alt 562:** **von Sokrates (Chef 04.11., 17:02, t257 Bereich C; Zu 562 und 563):** Helden gehen zum Angriff im „Schlaftabletten-Modus“, zurück gleiten sie flott; echte Schritte, Tempo wie alt · in Arbeit bei Tuffy: hin 2,13 m/s gebaut; Messlauf 2 (angriff_562.gd) läuft, Auswertung nach 275.2 · `claude/jerry-562-angriffsschritt`
+- **Alt 563:** **von Sokrates (Chef 04.11., 17:02, t257 Bereich C, Bild; Zu 562 und 563):** Zustandsschilder über Gegnern („Blut 3“) überlagern Ansage und Lebensleiste, „gruselig“ · in Arbeit: Vorschlag A gebaut (aus, Schalter ZUSTAND563), Bilder am Bauserver (film=nein, 07.11., 22:23); Vorlage am Morgen · `claude/jerry-563-zustaende`
+- **Alt 560:** **von Sokrates (Chef 04.11., 16:22, allgemeiner Hinweis; Zu 560):** Monster auf der Karte drehen sich zum Helden, sobald sie ihn wahrnehmen, mit Schritten statt auf der Stelle · startbar (Perikles 07.11.: M, alt vorhanden, Roamers.kt; Abgleich 620.2b)
+- **Alt 551:** **von Sokrates (Chef 04.11., 00:21, Build 249):** „MARS Kasten links und rechts unten wird unterbrochen angezeigt …“ · ruht: braucht Foto des Chefs, keine Datei (Inventur 07.11.)
+- **Alt 547:** **von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545):** MARS: Text sagt „geht in die Knie“, Sturz ist aus (438a eingefroren): Text und Bild in Einklang bringen · wartet auf 625: in die Prüfliste (Inventur 07.11.) · `claude/jerry-547-sturztexte`
+- **Alt 532:** **von Sokrates (512; Zu 532):** Kampf: Held ohne Zauberpunkte, Verbrauchtes, Zustände, Metrausch, Tasche; Zauber kosten nichts · wartet auf 625: in die Prüfliste (Inventur 07.11.) · `claude/jerry-532-metrausch`
+- **Alt 534:** **von Sokrates (512; Zu 534):** Kampf: Zauber und Fähigkeiten fehlen in „Können“ oder wirken nicht; Talente zu Kampfbeginn · wartet auf 625: in die Prüfliste (Inventur 07.11.) · `claude/jerry-534-faehigkeiten`
+- **Alt 536:** **von Sokrates (512; Zu 527–536):** Kampf: Erklärungen bei langem Drücken (MarsTips) und Kleines wie alt · startbar: t268.20 Jungwölfe weit weg (Zu t268) · `claude/jerry-536-namen`
+- **Alt 467:** **von Sokrates (Chef 01.11., 21:52):** `regeln/ausdauer.gd` rechnet nach SRD; BRS: Ausdauer aus Zähigkeit, Wille, Stufe; nach der Formel aus 427 umstellen · wartet auf 478: dort mitbauen (Inventur 07.11.)
+- **Alt 438:** **von Sokrates (Chef 31.10., 23:31, Film 403):** Wölfe gleiten (Angriff, Tempo, aneinander vorbei); echte Schritte, Zahlen (Zu 438) · wartet auf 625: in die Prüfliste (Inventur 07.11.) · `claude/jerry-438-wolf-kampf`
+- **Alt 453:** **von Sokrates:** Ruhebewegungen der Wölfe · ruht: nach dem Durchspielen (488, 621 A; Inventur 07.11.)
+- **Alt 438a:** **von Sokrates (438a):** Hinfallen und Aufstehen des Kaufhelden, Waffe und Schild frei · ruht: eingefroren (488); Klinge quer im Kleid, Hand ruckt; im Spiel aus · `claude/jerry-438a-sturz-2`
+- **Alt 416.6:** **von Sokrates:** Spuren (`core/Tracks.kt`): Blut, Staub, Fußspuren · ruht: nach dem Durchspielen (488, 621 A; Inventur 07.11.) · `claude/jerry-416-6-blut`
+- **Alt 415:** **von Sokrates:** Probe Beams Free Sample im Kampfort; nichts kaufen · wartet auf 623.5: Renderer und FPS dort (Inventur 07.11.)
+- **Alt 461.1:** **von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461):** Grundstand mit Tom: Kampfort, Wölfe, Helden (`LISTE-GRUNDSTAND-461.md`); vor 460 und 406.1 · ruht: nach dem Durchspielen (488) · `claude/grundstand-461`
+- **Alt 460:** **von Sokrates (Chef 01.11., 20:2x, Archiv 460):** Probefilm Kamerafahrten: Eröffnung je Blende (402), kurze Wechsel nur ohne Eingabe · ruht: nach dem Durchspielen (488, Wochenziel 03.11.)
+- **Alt 406.1:** **von Sokrates (406.1):** Schildstoß ins MARS/BRS, Bau mit `ShieldAttack1–3S&S` · wartet auf 478: dort mitbauen (Inventur 07.11.)
+- **Alt 406.2:** **von Sokrates (Chef 03.11., 06:59, „jetzt“; Zu 406.2):** im Kampf zum Angriff gehen statt rennen, Parade mit Schild je Richtung; ein Lauf, dann eingefroren (488) · startbar: Zweig fertig, in 625 mitnehmen (Inventur 07.11.)
+- **Alt 510:** **von Sokrates:** Fledermaus: freies OGA-Modell „Vampire Bat“ (CC0) mit unseren Fellen neben der eigenen, Film, Chef wählt (Zu 510) · ruht: nach dem Durchspielen (488, 621 A; Inventur 07.11.) · `claude/jerry-494-gegner`
+- **Alt 509:** **von Sokrates (Chef 03.11., 09:21):** Frösche und Libellen an den Teichen wie alt (`PondLife.kt`, `PondSound.kt`; O6, W22) · ruht: nach dem Durchspielen (488, 621 A; Inventur 07.11.) · `claude/jerry-509-teich`
+- **Alt 587:** **von Chef (05.11., 11:4x, zu Bild 494):** Gegner im Kampfort zu klein gegen alt? 1,3-fach wie alt und die Wölfe, echt, oder je Kapitel · startbar: 587a ja (Chef 06.11.)
+- **Alt 494:** **von Perikles (488):** Gegner von Kapitel 1 im Kampf (Zu 494), je Gegner höchstens ein Lauf · wartet auf Tom: 492 (266.8 Höhle nicht erreichbar); sonst bestanden t266 (Chef 05.11., 19:2x), Funde in 594–601, Größe 587, Fledermaus 510 · `claude/jerry-494-gegner`
+- **Alt 517:** **von Team Tom (03.11., 16:3x, 512):** Waldklang wie alt (`WildSound.kt`): Vögel am Tag, Eule und Grillen nachts, fernes Wolfsheulen · wartet auf 625: in die Prüfliste (Inventur 07.11.) · `claude/jerry-517-waldklang`
+- **Alt 507:** **von Perikles (488; aus 492):** Kampforte Höhle wie alt: Eingang, Gang, Halle, Teich, Lager · startbar: Probebild am Bauserver mit film=nein (Perikles 04.11., 14:0x, Zu 494); hoehle_507 grün; ein Lauf frei · `claude/jerry-507-hoehle`
+- **Alt 496:** **von Perikles (Wochenziel 03.11. Reihe 5, 488):** Durchspiel-Build aus 490–495: der Chef spielt Kapitel 1 von Anfang bis Ende am Handy · wartet auf 490, 491, 492, 493, 494, 495, 506, 507
+- **Alt 387:** **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau · ruht: Feintuning nach 399 (Hühner hoppeln, Rind 78 s Fleck, 150°-Sprung)
+- **Alt 385.2:** **von Chef:** Feuer aus dem Stab · wartet auf 623.2 (Stylized Projectiles; Inventur 07.11.)
+- **Alt 397:** von Chef: Tiere, Monster mind. drei Ruhebewegungen · ruht (399)
+- **Alt 348.12c:** von Sokrates: Untote und Gewürm übernehmen Fähigkeiten der Vorgänger · wartet auf 478: dort mitbauen (626)
+- **Alt 304:** von Chef: Klassisch, Konter nach Abwehr regelrecht? · wartet auf 478: dort mitbauen (626)
+- **Alt 257:** von Chef: App „hängt“, ging dann weiter · ruht: Hänger-Wächter (Tom) seit Build 49; bis zum nächsten Hänger mit Absturzbericht
+- **Alt 211.14:** von Sokrates: Leistung am A56 messen · startbar (Inventur 07.11.)
+- **Alt 628:** **von Team Tom (07.11., 21:47, aus 543):** Lohn wie alt: `over` (Monsterstufe über Gebietsstufe, alt `Game.startBattle` 1268, `Battle.finishWin` 1067) geht nie in `Lohn.reward` (`kampfort.gd` 1196, immer 0); vor dem Bau klären, ob BRS (478) es ersetzt · startbar
+- **Alt 289:** von Chef: MARS, verfügbare Züge zeigen · ruht: Chef 21.10., 20:59 „stellen wir mal zurück“
+- **Alt 296.1:** von Sokrates: `LISTE-MARS.md` gegen den Code · startbar (Inventur 07.11.)
+- **Alt 296.2:** von Sokrates: MARS spielnötig · wartet auf 478: dort mitbauen (626) · `claude/build-89`
+- **Alt 296.3:** von Sokrates: MARS-Schmuck · startbar (Inventur 07.11.)
+- **Alt 344.2:** von Sokrates: Kampf mit der Fackel · ruht: nach dem Durchspielen (626) · `claude/jerry-344-2-fackel`
+- **Alt 168.1:** Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab 3 · wartet auf 38, dann Bau Kapitel 2; Texte Homer (41)
+- **Alt 72u.1:** Umsetzung 72u: Kampfort aus der Karte · ruht bis 348.7 (Kampfort in Godot); Kür hinter dem Meilenstein (Chef 19.10.) · `claude/jerry-72u-standbild-2`
+- **Alt 38:** Balance Kapitel 1 gemessen · wartet auf 478: dort mitbauen (Inventur 07.11.)
+- **Alt 39:** Schwierigkeitsgrad im Menü · ruht bis 2.5 (626) · `claude/jerry-39-schwierigkeit`
+- **Alt 59e:** Händler: Vorrat je Laden · ruht: nach dem Durchspielen (626) · `claude/jerry-59e-haendlervorrat`
+- **Alt 469:** **von Sokrates:** Kampf auf BRS: Ring ohne Klassen regeln · wartet auf 478: dort mitbauen (Inventur 07.11.)
+- **Alt 597:** **von Sokrates (Chef 05.11., 19:2x; Zu 594–601):** Ring ohne Ankündigung (Fledermaus); alle Angreifer prüfen · startbar: t268.21 Wolf ohne Ansage, nachstellen (Zu t268) · `claude/jerry-597-ring`
+- **Alt 601:** **von Sokrates (Chef 05.11., 19:2x, t266.5; Zu 594–601):** Goblin-Späher: Schuss ohne Bewegung, falscher Pfeil, kein Pfeil beim Fehlschuss; Treffer trotz Schatten · startbar (Inventur 07.11.) · `claude/jerry-601-spaeher`
+- **Alt 595:** **von Sokrates (Chef 05.11., 19:2x, t266.1; Zu 594–601):** Kampfbewegungen Spinne, Riesenegel, Säureschnecke · wartet auf 478 (Zu 478; Inventur 07.11.)
+- **Alt 600:** **von Sokrates (Chef 05.11., 19:2x; Zu 594–601):** Knopf zum Beschleunigen im Kampfort wie Würfel und Raster · startbar: t268.22 Stufe 2 dunkler (Zu t268) · `claude/jerry-600-tempo`
+- **Alt 478:** **von Sokrates (Chef 07.11., 16:3x: „Wir packen das BRS auf jeden Fall jetzt auch mit dazu“; „jetzt“ 07.11., 16:37; ersetzt 470a B; nach den Fehlern, Chef 20:2x; Zu 478):** Rechenkern des Kampfs auf BRS (Modell D), danach 2.3 mit Tom · startbar nach den Fehlern oben (Chef 07.11., 20:2x)
+- **Alt 620.2b:** **von Perikles (620.2, 621 D, Chef 07.11.):** Abgleich alt einmal nach `LISTE-ABGLEICH-ALT.md`: 1.9 Höhle (mit Tom, 492), 1.10, jede Zeile Klang und Gegner, Krogg, Grak, Grimmzahn; Spalte „Godot“ je Zeile, „fehlt“ wird Vorgang; Tuffy darf übernehmen · startbar
+- **Alt 623.5:** **von Sokrates (Chef 07.11., 20:2x: „Holst du dir die Gratisamples zum Testen?“; 623):** Gratisproben Combat Mega, Projectiles, Trails, Pack 3, Character Shaders (privat `anhang/reeboo/`, Zweig `claude/brave-faraday-9mxupv`) im Kampfort, Compatibility, mit Tusche, FPS; ein Film (621 A), Tuffy · startbar
+- **Alt 623.2:** **von Sokrates (Chef 07.11., 20:1x, „623 A B C D E F“; Archiv 623):** Effekte aus 623 A (Combat Mega, Projectiles, Trails, Pack 3, Character Shaders nur als Zusatzschicht, Status Effects) mit 478 einbauen; je Effekt Zeile in `LISTE-BESTAND.md` und `LISTE-EFFEKTE.md`, Datenfeld `fx`; FPS am ersten Kampf messen · wartet auf 623 (Kauf A durch den Chef, tun/623)
+- **Alt 598:** **von Sokrates (Chef 05.11., 19:2x; Zu 594–601):** Umweltklang je Ort, Tageszeit, Wind, Wetter · startbar: Schenke nur mit Gästen, Klang im Takt (Chef 06.11.)
+- **Alt 593:** **von Sokrates (Chef 05.11., 19:2x; Zu 594–601):** Ausweichen auch rückwärts · wartet auf 478 (Zu 478; Inventur 07.11.)
+- **Alt 616:** **von Sokrates (Chef 07.11., 14:1x, t268; Zu t268):** Gegner weichen nach dem Angriff rückwärts zurück, nicht vorwärts laufend · wartet auf 478 (Zu 478; Inventur 07.11.)

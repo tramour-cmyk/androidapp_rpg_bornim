@@ -111,26 +111,23 @@ def chefdateien_je_rolle():
 GESPERRT = {}  # Rolle → {Nummer: Grund} der nicht startbaren Zeilen (276: Nachfolger auf gesperrter Zeile)
 
 def stand():
-    """Rolle → (Muss-Liste, Kür-Liste, Pause, Chef-Nummern) aus den Vorräten; Listen = alle startbaren Zeilen in Vorratsreihenfolge."""
-    chef = startbar.chefdateien()
+    """Rolle → (Muss-Liste, Kür-Liste, Pause, Chef-Nummern) aus der Vorgangsliste (275.2, startbar.plan); Listen = alle startbaren Zeilen
+    in Vorrangfolge, je Eintrag (Nr, Kl, Titel, Zeile als dict)."""
     aus = {}; m_fragen = []
     for datei, rolle in startbar.ROLLEN:
         inhalt = startbar.lesen(datei)
-        zs = startbar.hochstufen([x for x in startbar.zeilen(inhalt) if x[1] not in ("–", "-")])
-        sperr = {x[0]: startbar.blocker(x[0], x[3], chef, x[2]) for x in zs}
-        zs = [x for x in zs if sperr[x[0]] != "ERLEDIGT"]
-        leichen = startbar.leichen_von(zs, sperr)  # 275 Stufe 1: überholte Stände zuerst berichtigen, als eine Muss-Zeile wie „M?“
-        muss = [x for x in zs if x[1] == "M" and not sperr[x[0]]]
-        if leichen and startbar.LEICHEN_START: muss.insert(0, ("Leichen", "M", "Stand berichtigen (275): " + "; ".join("%s %s" % l for l in leichen) + " (startbar.py --leichen)", ""))
-        kuer = [x for x in zs if x[1] != "M" and not sperr[x[0]]]
-        kuer += [(x[0], "N", x[2], x[3]) for x in zs if sperr[x[0]] == "nach dem Meilenstein"]  # 190.10: letzte Stufe vor Leerlauf
-        wartet = [x[0] for x in zs if (sperr[x[0]] or "").startswith("Chef")]
+        zs = startbar.plan(rolle)
+        sperr = {x[0]: x[4] for x in zs}
+        muss = [x[:4] for x in zs if x[1] == "M" and not x[4]]
+        kuer = [x[:4] for x in zs if x[1] != "M" and not x[4]]
+        kuer += [(x[0], "N", x[2], x[3]) for x in zs if x[4] == "nach dem Meilenstein"]  # 190.10: letzte Stufe vor Leerlauf
+        wartet = [x[0] for x in zs if (x[4] or "").startswith("Chef")]
         aus[rolle] = (muss, kuer, startbar.pause(inhalt), wartet)
-        GESPERRT[rolle] = {x[0]: sperr[x[0]] for x in zs if sperr[x[0]]}
-        offen_m = [x[0] for x in zs if x[1] == "M?" and not sperr[x[0]]]
+        GESPERRT[rolle] = {x[0]: x[4] for x in zs if x[4]}
+        offen_m = [x[0] for x in zs if x[1] == "M?" and not x[4]]
         if offen_m: m_fragen.extend("%s (%s)" % (n, rolle) for n in offen_m)
     if m_fragen and "Perikles" in aus:  # 190.8: offene „M?“ als eine Muss-Zeile für Perikles, alle in einem Zug
-        z = ("M?", "M", "M? entscheiden: " + ", ".join(m_fragen) + " (190.8: je Vorgang M oder K mit einem Satz Grund)", "")
+        z = ("M?", "M", "M? entscheiden: " + ", ".join(m_fragen) + " (190.8: je Vorgang M oder K mit einem Satz Grund, vorgang.py klasse)", {})
         aus["Perikles"][0].insert(0, z)
     return aus
 
@@ -264,22 +261,23 @@ def aufraeumen():
         neu = t[:i] + "\n".join(kopf) + "\n\n" + "\n".join(taten + technik) + "\n"
         if neu != t:
             n += len(zeilen) - len(taten) - len(technik); open(p, "w", encoding="utf-8").write(neu)
-    p = os.path.join(DOCS, "LISTE-VORGAENGE.md"); t = lesen(p).split("\n")
-    weg = [l for l in t if l.startswith("| ") and l.rstrip(" |").split("|")[-1].strip().lower().startswith("erledigt")]
-    if weg:
-        open(p, "w", encoding="utf-8").write("\n".join(l for l in t if l not in weg)); startbar.liste_merken(DOCS)  # 275 Stufe 2
+    p = os.path.join(DOCS, "LISTE-VORGAENGE.md"); text = lesen(p)
+    zs = [d for d in startbar.vorgangsliste(text) if d["wort"] == "erledigt" and d["nr"] not in startbar.SONDER]
+    if zs:  # 275.2: ins Archiv im alten Format (Nr, Vorgang, Bereich, Kl., Kosten, Vorrat, Stand), damit Archivleser gleich bleiben
+        L = text.split("\n"); weg = {d["i"] for d in zs}
+        open(p, "w", encoding="utf-8").write("\n".join(l for i, l in enumerate(L) if i not in weg)); startbar.liste_merken(DOCS)  # 275 Stufe 2
         q = os.path.join(DOCS, "LISTE-VORGAENGE-ARCHIV.md")
         alt = lesen(q)  # erst lesen, dann öffnen: open(…, "w") leert die Datei
-        open(q, "w", encoding="utf-8").write(alt.rstrip("\n") + "\n" + "\n".join(weg) + "\n")
-        n += len(weg)
+        neu = ["| %s | %s | %s | %s | %s | %s | %s |" % (d["nr"], d["titel"], d["bereich"], d["kl"], d["kosten"] or "–", d["besitzer"], d["stand"]) for d in zs]
+        open(q, "w", encoding="utf-8").write(alt.rstrip("\n") + "\n" + "\n".join(neu) + "\n")
+        n += len(zs); startbar.neu_laden()
     return n
 
 def noch_offen(ausgabe, rolle, nrn):
     """275 (Chef 15:20, „Ford sichert“): endet eine Sitzung, deren Vorgang im Vorrat oder in der Liste noch „in Arbeit“ steht, meldet Ford es dem Besitzer."""
     for nr in [x for x in (nrn or "").split(",") if x and x != "Betrieb"]:
-        st = startbar.VORG.get(nr, "")
-        zeile = [z for d, ro in startbar.ROLLEN if ro == kosten.TEAM.get(rolle, rolle) for z in startbar.zeilen(startbar.lesen(d)) if z[0] == nr]
-        if re.match(r"in Arbeit", st) or (zeile and re.match(r"in Arbeit|begonnen", startbar.blank(zeile[0][3]))):
+        zeile = [d for d in startbar.zeilen_liste() if d["nr"] == nr]
+        if zeile and zeile[0]["wort"] == "in Arbeit":
             ausgabe.append("WARNUNG %s %s: Sitzung endet, Stand noch „in Arbeit“; Besitzer setzt ihn mit tools/vorgang.py stand (275)" % (rolle, nr))
 
 def notizen_frisch():
@@ -469,7 +467,6 @@ def main():
             thema = re.sub(r"\s*\([^)]*\)\s*$", "", offen_nf)
             titel = "%s (%s)" % (thema, berlin(JETZT))
             msg = "%s\n\nNachfolger laut Übergabe in %s: %s. Zuerst Start nach deiner Rollendatei, dann die Übergabe lesen und dort weiterarbeiten." % (r, VORRAT[r], offen_nf)
-            if muss and muss[0][0] == "Leichen": msg += " Vorher: " + muss[0][2] + "."
             ausgabe.append("START %s | %s | %s | %s | %s | %s | %s" % (r, MODELL[r], UMGEBUNG.get(r, MITTEL), REPO, REVISION, titel, msg.replace("\n", "\\n")))
             vorgaenger(r); sperren.append(r); continue
         if pause:
@@ -484,12 +481,14 @@ def main():
                 and (s.get("context_usage", {}).get("used_tokens") or s.get("external_metadata", {}).get("context_usage", {}).get("used_tokens") or 10**9) < WEITER_TOKEN]
         if alte:
             s = max(alte, key=lambda x: z(x["updated_at"]))
-            ausgabe.append("WEITER %s | %s | %s | Weiter: %s (%s) aus %s%s; wird send_message abgelehnt, stattdessen START" % (s["id"], r, nr, nr, "Muss" if kl == "M" else "nach dem Meilenstein" if kl == "N" else "Kür", VORRAT[r],
+            ausgabe.append("WEITER %s | %s | %s | Weiter: %s (%s) aus der Vorgangsliste (vorgang.py --rolle %s)%s; wird send_message abgelehnt, stattdessen START" % (s["id"], r, nr, nr, "Muss" if kl == "M" else "nach dem Meilenstein" if kl == "N" else "Kür", r,
                 ", Freitag: am Ende Rollenspiegel mit tools/rollenspiegel.sh <Rolle>, Datei nicht öffnen (340)" if JETZT.weekday() == 4 else ""))
             sperren.append(r); continue
         titel = "%s – %s (%s)" % (r, nr, berlin(JETZT))
-        msg = "%s\n\nArbeite Vorgang %s (%s) aus deinem Vorrat %s; zuerst Start nach deiner Rollendatei, dann den Vorgang lesen und die Übergabe beachten." % (r, nr, "Muss" if kl == "M" else "nach dem Meilenstein" if kl == "N" else "Kür", VORRAT[r])
-        if nr == "Leichen": msg += " Leichen: " + thema + "; danach weiter nach Vorrang."
+        fuer = wahl[3].get("fuer") if isinstance(wahl[3], dict) else None
+        msg = "%s\n\nArbeite Vorgang %s (%s) aus der Vorgangsliste (`python3 tools/vorgang.py --rolle %s`, Einzelheiten `vorgang.py %s`)%s; zuerst Start nach deiner Rollendatei, dann den Vorgang lesen und die Übergabe in %s beachten." % (
+            r, nr, "Muss" if kl == "M" else "nach dem Meilenstein" if kl == "N" else "Kür", r, nr,
+            (", Zeile von %s, die auf dich wartet; fertig: `vorgang.py warte %s –` oder das Feld kürzen" % (fuer, nr)) if fuer else "", VORRAT[r])
         if JETZT.weekday() == 4: msg += " Freitag: am Ende der Sitzung Rollenspiegel mit tools/rollenspiegel.sh <Rolle>, Datei nicht öffnen (340)."
         ausgabe.append("START %s | %s | %s | %s | %s | %s | %s" % (r, MODELL[r], UMGEBUNG.get(r, MITTEL), REPO, REVISION, titel, msg.replace("\n", "\\n")))
         vorgaenger(r); sperren.append(r)
@@ -511,21 +510,21 @@ def main():
             m = re.search(r"Vorgang (\S+) \(|^WEITER \S+ \| \w+ \| (\S+) \|", l) if not l.startswith("START") or "Nachfolger laut" not in l else None
             if m: besetzt.add(m.group(1) or m.group(2))
             elif l.startswith("START"): besetzt.add("Nachfolger")  # Nachfolger: Thema aus dem Titel
-        alle_m = st.get(team, ([], [], None, []))[0]
-        def zweig(x): return x[3].split("|")[-1].strip()
+        alle_m = [x for x in st.get(team, ([], [], None, []))[0] if not x[3].get("fuer")]  # nur eigene Zeilen des Teams
+        def zweig(x): return x[3].get("zweig", "–")
         zweige = {zweig(x) for x in alle_m if any(gleich(x[0], b) for b in besetzt)} - {"–", "-", ""}
-        frei = [x for x in alle_m if x[0] not in ausschluss and x[0] != "Leichen" and not any(gleich(x[0], b) for b in besetzt)
-                and zweig(x) not in zweige and not re.search(r"nur %s\b" % team, x[2] + x[3])]
+        frei = [x for x in alle_m if x[0] not in ausschluss and not any(gleich(x[0], b) for b in besetzt)
+                and zweig(x) not in zweige and not re.search(r"nur %s\b" % team, x[2] + x[3].get("stand", ""))]
         if besetzt == {"Nachfolger"} or not besetzt and not team_s:
             ausgabe.append("NICHTS %s: Arbeit von %s unbekannt (Nachfolger oder Titel ohne Nummer)" % (zusatz, team)); continue
         eigen = [n for n, g in GESPERRT.get(team, {}).items() if g == "in Arbeit bei " + zusatz]
-        if eigen: frei = [(eigen[0], "M", "", "")]
+        if eigen: frei = [(eigen[0], "M", "", {})]
         if not frei: ausgabe.append("NICHTS %s: kein zweites unabhängiges Muss bei %s" % (zusatz, team)); continue
         nr, kl, thema, _ = frei[0]
         titel = "%s – %s (%s)" % (zusatz, nr, berlin(JETZT))
-        msg = ("%s\n\nArbeite Vorgang %s (Muss) aus dem Vorrat %s als Zusatzentwickler von Team %s (433, ROLLE-ENTWICKLUNG.md); %s arbeitet an %s, das fasst du nicht an. "
-               "Zuerst Start nach der Rollendatei, dann sofort `python3 tools/vorgang.py stand %s 'in Arbeit bei %s'` und pushen (sonst nimmt %s die Zeile auch), dann den Vorgang lesen; eigener Zweig; fertig: Stand setzen, keine Übergabe im Vorrat, kein Nachfolger."
-               % (zusatz, nr, VORRAT[zusatz], team, team, ", ".join(sorted(besetzt - {"Nachfolger"})) or "Betrieb", nr, zusatz, team))
+        msg = ("%s\n\nArbeite Vorgang %s (Muss) aus der Vorgangsliste von Team %s (`vorgang.py %s`) als Zusatzentwickler (433, ROLLE-ENTWICKLUNG.md); %s arbeitet an %s, das fasst du nicht an. "
+               "Zuerst Start nach der Rollendatei, dann sofort `python3 tools/vorgang.py stand %s 'in Arbeit, bei %s'` und pushen (sonst nimmt %s die Zeile auch), dann den Vorgang lesen; eigener Zweig; fertig: Stand setzen, keine Übergabe im Vorrat, kein Nachfolger."
+               % (zusatz, nr, team, nr, team, ", ".join(sorted(besetzt - {"Nachfolger"})) or "Betrieb", nr, zusatz, team))
         ausgabe.append("START %s | %s | %s | %s | %s | %s | %s" % (zusatz, MODELL[team], UMGEBUNG.get(team, MITTEL), REPO, REVISION, titel, msg.replace("\n", "\\n")))
         vorgaenger(zusatz); sperren.append(zusatz)
     vorentscheid_marken = []
@@ -632,6 +631,11 @@ def main():
         open(p, "w", encoding="utf-8").write(t)
         print("Protokoll geschrieben: bitte committen und pushen%s." % (", erst dann create_session" if sperren else ""))
     if sperre:
+        for nr, wer, weg, neu_st in startbar.loesen(True):  # 275.2 Automatik A: erfüllte „wartet auf“ schreiben (Ford pusht)
+            # D80.4: „Meldung an den Besitzer“: läuft eine Sitzung der Rolle, ihre Kennung (Ford: send_message); sonst startet lauf.py sie wie jede startbare Zeile
+            sitz = [x for x in je_rolle.get(wer, []) if x["id"] not in archiviert]
+            print("GELÖST %s | %s | wartet auf %s erfüllt%s | %s (Notizen pushen)" % (nr, wer, ", ".join(weg), (" → " + neu_st) if neu_st else "",
+                                                                                   ("an " + juengste(sitz)["id"]) if sitz else "-"))
         n = aufraeumen()
         if n: print("Aufgeräumt: %d Zeilen aus Protokoll und LISTE-VORGAENGE.md (270; Notizen pushen)" % n)
     if besetz: besetzung_schreiben([s for s in leb if s["id"] not in archiviert])
@@ -674,10 +678,10 @@ def waechter(je_rolle, marke_text):
     nach drei Stunden ohne Vorlage eine Zeile WÄCHTER. Vorlage = Meldung eines anderen als Ford mit --laut, Bild, Film oder Datei
     zu dieser Nummer, oder eine Chefsache-Datei zur Nummer, seit dem „jetzt“ angelegt oder geändert. Lautlose Standzeilen zählen nicht."""
     offen = {}
-    for datei, rolle in startbar.ROLLEN:
-        for nr, kl, titel, rest in startbar.zeilen(startbar.lesen(datei)):
-            if kl in ("–", "-") or rest.strip().lower().startswith("ruht"): continue
-            zeile = titel + " | " + rest
+    for d in startbar.zeilen_liste():  # 275.2: „jetzt“ steht im Titel oder Stand der Listenzeile
+            nr, kl, rolle = d["nr"], d["kl"], d["besitzer"]
+            if kl in ("–", "-") or d["wort"] in ("ruht", "erledigt"): continue
+            zeile = d["titel"] + " | " + d["stand"]
             m = JETZT_FELD.search(zeile)
             if not m: continue
             if m.group(1): tag, mon = int(m.group(1)), int(m.group(2))
@@ -764,15 +768,29 @@ def kosten_addieren(nr, usd, sid=None):
         return
     _buchen(nr, usd)
 
+def kosten_neu(alt, usd):
+    alt = re.sub(r"^[–-]\s*(;\s*\+)?", "", alt)  # 375: „–“ und „–; +N $“ heißen nur N $, Ford las „Kosten …: –“
+    m = re.fullmatch(r"([\d,.]+)\s*\$", alt) if alt else None
+    if m or not alt:
+        return ("%.2f" % ((float(m.group(1).replace(",", ".")) if m else 0.0) + usd)).replace(".", ",") + " $"
+    m = re.fullmatch(r"(.*); \+([\d,.]+)\s*\$", alt)  # Nachträge in einem „+N $“ am Ende sammeln statt anhängen (Perikles 24.10.)
+    return (m.group(1) if m else alt) + "; +" + ("%.2f" % ((float(m.group(2).replace(",", ".")) if m else 0.0) + usd)).replace(".", ",") + " $"
+
 def _buchen(nr, usd):
     ziel = nr
     while ziel:
-      for dat in ("LISTE-VORGAENGE.md", "LISTE-VORGAENGE-ARCHIV.md"):  # abgeschlossene Zeilen liegen im Archiv, Kosten gehören trotzdem dorthin
+      p = os.path.join(DOCS, "LISTE-VORGAENGE.md"); text = lesen(p)  # 275.2: Liste mit Feldern, Spalte „Kosten“ über den Kopf
+      for d in startbar.vorgangsliste(text):
+          if d["nr"] == ziel:
+              L = text.split("\n"); d["kosten"] = kosten_neu(d.get("kosten", ""), usd); L[d["i"]] = startbar.zeile_text(d)
+              open(p, "w", encoding="utf-8").write("\n".join(L)); startbar.liste_merken(DOCS)
+              print("Kosten %s: +%s $, jetzt %s" % (ziel, ("%.2f" % usd).replace(".", ","), d["kosten"])); return
+      for dat in ("LISTE-VORGAENGE-ARCHIV.md",):  # abgeschlossene Zeilen liegen im Archiv (altes Format), Kosten gehören trotzdem dorthin
         p = os.path.join(DOCS, dat); L = lesen(p).split("\n")
         for i, l in enumerate(L):
             t = [x.strip() for x in l.split("|")]
             if l.startswith("| ") and len(t) > 7 and t[1] == ziel:
-                alt = re.sub(r"^[–-]\s*(;\s*\+)?", "", t[-4])  # 375: „–“ und „–; +N $“ heißen nur N $, Ford las „Kosten …: –“
+                alt = re.sub(r"^[–-]\s*(;\s*\+)?", "", t[-4])
                 m = re.fullmatch(r"([\d,.]+)\s*\$", alt) if alt else None
                 if m or not alt:
                     t[-4] = ("%.2f" % ((float(m.group(1).replace(",", ".")) if m else 0.0) + usd)).replace(".", ",") + " $"
