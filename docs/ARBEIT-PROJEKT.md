@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `187b9a0cd` (07.11., 23:08)
+**Gelesen bis:** `e0a63ca68` (07.11., 23:32)
 
-**Übergabe (07.11., 23:09):** 275.2 Werkzeuge im Zweig `claude/perikles-2752-liste` gebaut (c3de654f7), Quertest bei Diogenes. Nachfolger: Perikles – 448: Tagesbericht 08.11.
+**Übergabe (07.11., 23:3x):** D80 (alle sieben Funde des Quertests) und D81.1 im Zweig `claude/perikles-2752-liste` behoben (d5b84e21f, 909550399), Nachprüfung bei Diogenes über Ford angefordert. Nachfolger: Perikles – 275.2: Umschalten nach Nachprüfung.
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
