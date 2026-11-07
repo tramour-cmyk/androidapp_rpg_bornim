@@ -1505,8 +1505,7 @@ func erklaere_zeichen(name_: String, satz: String) -> void:
 	innen.add_theme_stylebox_override("panel", si)
 	innen.mouse_filter = Control.MOUSE_FILTER_STOP
 	innen.gui_input.connect(func(e: InputEvent):
-		if (e is InputEventMouseButton and e.button_index == MOUSE_BUTTON_LEFT and not e.pressed) or (e is InputEventScreenTouch and not e.pressed):
-			schliesse_erklaerung())
+		if Spielstaende.tipp(e) and not e.pressed: schliesse_erklaerung())   # 605: nur die Maus, sonst zweimal
 	aussen.add_child(innen)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(4 * DP))
