@@ -40,7 +40,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 87, Muss 65, startbar 52
+**Tom** – offen 87, Muss 65, startbar 51
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -112,7 +112,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 591 | M | von Sokrates (Chef 05.11., 19:2x; Zu 591): Hühner und Kaninchen fliehen vor dem Helden wie | startbar |
 | 621.2 | M | von Sokrates (Chef 07.11., 16:4x, „621, A, B und D“; Archiv 621 B): Vorrat auf etwa 15 KB: | startbar |
 | 606 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Met: Liste 2 Gold, abgezogen 4 | wartet auf Test/Build (gebaut) |
-| 609 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Baum hinter der Schenke sperrt den We | startbar |
+| 609 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Baum hinter der Schenke sperrt den We | wartet auf Test/Build (gebaut) |
 | 617 | M | von Sokrates (Chef 07.11., 14:1x, t268.1; Zu 606–619): Hauptmenü „Laden“: Wischen lädt; nu | wartet auf Test/Build (gebaut) |
 | 619 | M | von Sokrates (Chef 07.11., 14:1x, t268.18; Zu 606–619): Aktionsknopf drückt die Blende gle | startbar |
 | 607 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Pim läuft um 3 Uhr herum, sein Klopft | startbar |
