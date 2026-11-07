@@ -49,6 +49,22 @@ func _lauf() -> void:
 			await warte(3)
 			pruefe(b[0] != null, "%s: Knopf hat ausgeloest (%s zuerst)" % [art, "Beruehrung" if reihe else "Maus"])
 			if b[0] != null: pruefe(not bool(b[0].tippt), "%s: der Tipp, der sie oeffnete, beendet sie nicht (%s zuerst)" % [art, "Beruehrung" if reihe else "Maus"])
+			# 619: kommt die Blende schon beim Druck (Finger noch unten), beendet das Loslassen sie nicht; ein ganzer Tipp danach schon
+			if b[0] != null: b[0].queue_free()
+			b[0] = null
+			k.button_down.connect(func():
+				if b[0] != null: return
+				var o: Control = Ortsblende.new("FULL", "Flüsterwald", null) if art == "Ortsblende" else Kampfblende.new("NORMAL", {"id": "wolf", "rudel": true}, RandomNumberGenerator.new())
+				ui.add_child(o)
+				b[0] = o)
+			await warte(2)
+			finger(p, true, reihe); await process_frame; await process_frame; finger(p, false, reihe)
+			await warte(3)
+			pruefe(b[0] != null and not bool(b[0].tippt), "%s: kommt sie beim Druck, beendet das Loslassen sie nicht (%s zuerst)" % [art, "Beruehrung" if reihe else "Maus"])
+			if b[0] != null:
+				finger(p, true, reihe); await process_frame; finger(p, false, reihe)
+				await warte(2)
+				pruefe(bool(b[0].tippt), "%s: ein ganzer Tipp auf ihr beendet sie (%s zuerst)" % [art, "Beruehrung" if reihe else "Maus"])
 			ui.queue_free()
 			await warte()
 	print("BLENDE619 %s" % ("gut" if fehler == 0 else "%d Fehler" % fehler))
