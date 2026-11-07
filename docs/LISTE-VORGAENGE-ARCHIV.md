@@ -664,3 +664,52 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 417 | Prüfung: Waffen und Schild beim Gehen und Rennen in der Hand statt auf dem Rücken (zu 410, Chef 31.10., 21:1x) | E Figuren | M | 214,13 $ | Team Tom | erledigt |
 | 453.2 | Atmen-Schicht für Held unterwegs, Söldner, Leute in Dorf und Innenräumen (Chef 01.11., 13:0x, ganzes Spiel) | E Figuren | M | – | Team Tom | erledigt |
 | 416.9 | Laden Verkaufen: Reiter bei „angelegt“, Vergleichswerte, nicht tragbare Gegenstände, Icon bei Menge (aus 416.3, Chef 31.10., 22:20) | B Umzug | M | 38,00 $ | Team Tom | erledigt |
+| 86 | Bewegung und Übersicht: Ausdauer, Rennen, Rast, Kartenzeichen | E Kampf | K | 0,72; 1,21 $; +1,81 $ | Jerry | erledigt |
+| 142.2 | Pflichttest erst mit Bekannten, Webseite später (Chefsache); ersetzt durch 142.3, 142.4 | M Veröffentlichung | M |  | Sokrates | erledigt |
+| 217 | Wölfe (Grimmzahn, Rudelwolf) beißen im Kampf teils in die Luft, nach Süden am Helden vorbei (Chef 19.10.) | E Kampf | M | 3,24 $ | Jerry | erledigt |
+| 340.3 | Rollenspiegel A: Hinweise von notiz.sh gehen selbst an den Besitzer; Freitagstermin fest (Chef 02.11., 19:44) | B Werkzeuge | M | – | Perikles | erledigt |
+| 340.4 | Rollenspiegel B: Pflichtzeile „Geprüft an: <Link>“ (Chef 02.11., 19:44) | B Werkzeuge | M | – | Perikles | erledigt |
+| 340.5 | Rollenspiegel C: Uhrzeit nach jedem Arbeitsschritt (Chef 02.11., 19:44) | B Werkzeuge | M | – | Perikles | erledigt |
+| 338.1 | Stand zum Marktstart: jeden Montag eine Seite für den Chef, Ampel je Block (Chef 23.10., 09:01: Stand wird ihm nie vorgelegt) | B Abläufe | M | 26,69 $ | Perikles | erledigt |
+| 376 | Quaternius-Bausätze (Dorf, Natur, Dungeon, Outfits) und gedrehte Häuser prüfen (Chef 27.10., 12:00) | E Welt | M | 38,96 $ | Sokrates | erledigt |
+| 376.2 | RenderHub-Marktpaket: Brunnen, Stände als Form (Chef 27.10., 12:37) | E Welt | M | – | Team Tom | erledigt |
+| 348.6 | Umzug Godot: Fundament, Dorf als erste Gebietskarte | E Technik | M | 640,45 $ | Team Tom | erledigt |
+| 348.7 | Umzug Godot: Modellregel, Kampfort Wolfsrudel MARS | E Technik | M | –; +441,15 $ | Team Jerry | erledigt |
+| 348.12 | Fertige CC0-Grundmodelle prüfen, Probe Mensch (Chef 25.10., 21:21, 21:36) | E Technik | M | 186,48 $ | Sokrates, Jerry | erledigt |
+| 348.12f | Probe gekaufte Riesenratte in unserem Look | E Technik | M | 199,50 $ | Jerry | erledigt |
+| 348.12i | Kaufmodelle mit `AESContext` verschlüsseln, Bedingung für Kauf Protofactor (Chef 26.10., 19:41, B) | E Technik | M | – | Tom | erledigt |
+| 348.13a | Rückfrage: Kampfort Tusche alt oder nach Licht | G Aussehen | M | 30,71 $ | Tom | erledigt |
+| 355 | Kisten: zwei bis vier je Gebietskarte, gern versteckt (Chef 24.10., 17:17) | E Welt | K | – | Team Tom | erledigt |
+| 357 | Puppe beim Drehen nicht fein (Chef 24.10.) | E Figuren | K | – | Team Tom | erledigt |
+| 399.1 | Spielfassung: eine APK mit Dorf, Laden, Rast, Weg in den Wald, Kampf, zurück (aus 399) | B Umzug | M | 124,12 $ | Team Tom | erledigt |
+| 399.5 | Innenräume wie alt: Lichtquellen, Licht und Schatten, Einrichtung; Fenster außen wie innen (Chef „jetzt“ 28.10., 21:5x) | B Umzug | M | 51,75 $ | Team Tom | erledigt |
+| 403 | Kampfort: Held je Klasse auf dem Kaufkörper (heldfigur.gd aus 376.1) statt held.bin, Kampfbewegungen aus der UAL | E Kampf | M | 24,71 $ | Team Jerry | erledigt |
+| 468 | Sparplan bis Sa 19:59: Wochenlimit 36 % nach 36 h, halbes Tempo (Chef 02.11., 07:33, Bild Nutzung) | B Abläufe | M | 5,88 $ | Sokrates | erledigt |
+| 481.1 | Tränke in Simulation 444, Herkünfte neu messen (aus 481) | E Kampf | M | 3,68 $ | Team Jerry | erledigt |
+| 488 | Feinarbeit einfrieren, erst Kapitel 1 durchspielbar, dann polieren (Chef 02.11., 22:44: „wieder 20 Durchläufe für einen Umhang, das ist halt verschwendete Rechenleistung“) | B Abläufe | M | 10,79 $ | Sokrates | erledigt |
+| 489 | Hauptmenü: runde Schalter für Musik und Effekte an/aus wie in der alten Fassung (Chef 03.11., 07:07, Test Build 204) | C Klang | M | – | Team Jerry | erledigt |
+| 490 | Flüsterwald begehbar wie alt (Orte O6, 479 A; Wochenziel 03.11., 488) | B Umzug | M | 50,92 $ | Team Tom | erledigt |
+| 491 | Tiefer Flüsterwald mit Morwens Hütte und Grimmzahn begehbar (Orte O7, 479 A; Wochenziel 03.11., 488) | B Umzug | M | 29,56 $ | Team Tom | erledigt |
+| 496a | Rückfrage: abgenommene Kampfbilder (Grundstand 461) schon in den Durchspiel-Build? | E Technik | M | 51,18 $ | Team Jerry | erledigt |
+| 516 | Kostenerfassung ohne Handarbeit: Haken oder Werkzeug liest beim Archivieren `total_cost_usd` des letzten result-Ereignisses und bucht (Chef 03.11., 16:20, Ford) | B Abläufe | K | – | Perikles | erledigt |
+| 544 | Build 249, Kampf: Schrift ist Ersatzschrift ohne Serifen statt Alegreya (Chef 03.11., 23:49, Bild) | E Kampf | M | 2,28 $ | Team Jerry | erledigt |
+| 535 | Kampf: Gegnerstufe, Elite, schimmernde Gegner, Gruppen (Ratten und Fledermäuse als Wölfe, Schamane ohne Heilen), EP und Gold je Gegner, Nachlass in Stufe 1; gegen BRS klären, Balance entscheidet der Chef (Abgleich 512, Sokrates 03.11., 23:4x) | E Kampf | M | 18,19 $ | Team Jerry | erledigt |
+| 572 | Effektprobe: zwei REEBOO-Gratisstücke (Stylized VFX, Status Effects) an einem eigenen Helden im Film, vor dem Kauf (Chef 04.11., 20:27) | C Kampf | M | 28,81 $ | Team Jerry | erledigt |
+| 578 | Filmwächter 511 kennt „gleich Film“ des Chefs nicht (572: Chef 21:03, Wächter verlangte trotzdem Probebild) | B Werkzeuge | M | 0,54 $ | Perikles | erledigt |
+| 579 | Gegner zuerst: Lücke alt gegen neu in Kapitel 1, Vorrang 494, 506, 492 (Chef 05.11., 08:18) | B Abläufe | M | 5,88 $ | Perikles | erledigt |
+| 580 | Erschaffung: Attributnamen beim Punktekauf abgeschnitten („Geschic…“; Abgleich 512b) | A Spiel | M | – | Team Tom | erledigt |
+| 513.1 | probelauf.py sperrt Läufe ohne abgenommenen Figurenstand (513 B) | B Abläufe | M | 2,17 $ | Perikles | erledigt |
+| 463 | Umhang und Robe geschlossen: Durchscheinen und Knie, eine Ursache für alle Proben (Chef 01.11., 20:3x, „DAUERPROBLEM“) | E Figuren | M | 55,97 $ | Team Tom | erledigt |
+| 463.1 | Restmängel Umhang und Robe nach dem Einfrieren (Ärmel, Stiefel, Kettenhemd, Probenlicht) | E Figuren | K | – | Team Tom | erledigt |
+| 406 | Ausrüstung der Helden je Stück als eigenes Modell mit Abnahme, „noch steril“ (Chef 28.10., 23:0x, Archiv 376.1 Klassenentwürfe); zuerst Rundschild des Klerikers hell mit goldener Sonne wie alt | E Kampf | M | 150,36 $ | Team Jerry | erledigt |
+| 406.2a | Im Kampf zum Angriff rennen wie im Dorf (UAL), sonst schnelles Gehen; jetzt (Chef 03.11., 09:03) | E Kampf | M | 18,74 $ | Team Jerry | erledigt |
+| 407 | Probelauf-Grenze 389 greift nicht: neue Runde erst nach Urteil des Chefs, jeder Zweig zählt („jetzt“ 29.10., 10:05) | B Abläufe | M | 41,23 $ | Perikles | erledigt |
+| 416.2 | Platzwechsel mit Dorfbewohnern und Tieren, nicht stecken bleiben (Chef 31.10., 20:4x) | B Umzug | M | – | Team Tom | erledigt |
+| 439 | Kampfablauf: Neuformation vor dem Tod, Treffer vor dem Angriff (Film 403, Chef 31.10., 23:31) | E Kampf | M | – | Team Jerry | erledigt |
+| 440 | Wolf verschwindet ohne sichtbare Sterbeanimation (Film 403, Chef 31.10., 23:34) | E Kampf | M | – | Team Jerry | erledigt |
+| 453a | Rückfrage: Wolfsatem aus der Kampfkamera sichtbar machen, A/B/C | E Kampf | M | – | Team Jerry | erledigt |
+| 453.1 | Helden im Kampf: Atmen ruhiger, je Figur eigener Takt, nach Aktion schneller und abklingend (Chef 01.11., 13:0x) | E Kampf | M | 30,55 $ | Team Jerry | erledigt |
+| 454 | Wolfsbiss: Achse des Wolfs zielt rechts neben den Helden? messen (Chef 01.11., 11:05) | E Kampf | M | 10,78 $ | Team Jerry | erledigt |
+| 457.1 | Probeskripte Tom mit Spielshadern (457) | E Figuren | M | – | Team Tom | erledigt |
+| 457.2 | Probeskripte Jerry mit Spielshadern (457) | E Kampf | M | 5,56 $ | Team Jerry | erledigt |
+| 416.7 | Aktionsknopf am Tresen in Schenke und Laden (Chef 31.10., 20:5x) | B Umzug | M | – | Team Tom | erledigt |
