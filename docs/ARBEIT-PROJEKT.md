@@ -9,7 +9,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 584 | M? | **von Sokrates (Inventur 07.11.):** Tom wartet bei 584, 585 (Klasse) und 515 (Zeitpunkt), Jerry bei 560 (Muss oder nach 488) auf dein Urteil; hier stand keine Zeile | startbar |
 | 317.1 | M | **von Sokrates (Chef 07.11., 20:5x, Archiv „317, keine Obergrenze je Build“):** Werkzeuge ohne „höchstens 6 je Build“ | gebaut 07.11., 21:0x; Geprüft an: 12837c9c3; Diogenes prüft |
 | 620.1 | M | **von Sokrates (Chef 07.11., 14:3x, 620; Zu 620):** wiederholte Funde zuerst, Grenze offener Muss je Team | wartet auf Chef: entscheiden/6201 (B); A gebaut 8518c8817 |
 | 620.4 | M | **von Sokrates (Chef 07.11., 14:3x, 620; Zu 620):** Referenzszene Dorf bis Wolfskampf im Flüsterwald ganz fertig, Maß für alles; ins Wochenziel nach dem Durchspielen (488) | wartet auf Chef: entscheiden/6204 (07.11., 21:1x) |

@@ -134,7 +134,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 549a.1 | ROLLE-ENTWICKLUNG: vor jedem Menüschirm „Fenster und Schirme“ lesen (zu 549a) | B Abläufe | M? | – | Perikles | erledigt |
 | 558 | Robe des Magiers zu glatt, wie eine blaue Fläche: Stoff lebendiger (Falten, Schatten, Schmutz, Abnutzung) (Chef 04.11., 11:31, Bild) | E Figuren | M | 96,33 $ | Team Tom | startbar |
 | 558.1 | Prüferrest Robe Probe 5 nachhalten, nicht bauen; Chef sieht es nach dem Durchspielen an (Chef 04.11., 22:23) | E Figuren | K | – | Team Tom | ruht |
-| 560 | Monster auf der Karte drehen sich zum Helden, wenn sie ihn wahrnehmen, mit Schritten statt auf der Stelle (Chef 04.11., 16:22) | E Monster | M? | – | Team Jerry | startbar |
+| 560 | Monster auf der Karte drehen sich zum Helden, wenn sie ihn wahrnehmen, mit Schritten statt auf der Stelle (Chef 04.11., 16:22) | E Monster | M | – | Team Jerry | startbar |
 | 562 | MARS: Helden laufen zum Angriff viel zu langsam, zurück gleiten sie flott (Chef 04.11., 17:02, t257 C) | E Kampf | M | 2,28 $ | Team Jerry | in Arbeit |
 | 563 | MARS: Zustandsschilder über Gegnern („Blut 3“) überlagern Ansage und Leisten, wirken grob (Chef 04.11., 17:02, t257 C) | E Kampf | M | – | Team Jerry | startbar |
 | 565 | MARS: unten im Gruppenkasten sieht man nicht, welcher Held am Zug ist (Chef 04.11., 17:10, t257 C) | E Kampf | M | – | Team Jerry | startbar |
@@ -143,8 +143,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 570 | Theke: Wahl „Fleisch verkaufen · 12 Gold“ liest sich wie ein Preis (Prüfer 557 Runde 4) | A Spiel | M? | – | Homer | startbar |
 | 581 | Ausrüstung: Seite breiter als der Schirm, Reiter springen (Abgleich 512b) | A Spiel | M | 2,31 $ | Team Tom | startbar |
 | 583 | Textkasten: ▼ liegt im Text, erzählter Text ohne i-Punkte und nicht schräg (Abgleich 512b) | A Spiel | M | 5,99 $ | Team Tom | wartet |
-| 584 | Kein halbfetter Schnitt: Köpfe und Titel in Erschaffung, Held, Chronik, Karte, System, Brett, Test nicht hervorgehoben wie alt (Abgleich 512b) | A Spiel | M? | – | Team Tom | wartet |
-| 585 | Menüs Kleinigkeiten: Titelumbruch Hauptmenü, Knopf Lizenzen, Bild in Rückfrage Wegwerfen, Test „Variante“ (Abgleich 512b) | A Spiel | M? | – | Team Tom | wartet |
+| 584 | Kein halbfetter Schnitt: Köpfe und Titel in Erschaffung, Held, Chronik, Karte, System, Brett, Test nicht hervorgehoben wie alt (Abgleich 512b) | A Spiel | K | – | Team Tom | ruht |
+| 585 | Menüs Kleinigkeiten: Titelumbruch Hauptmenü, Knopf Lizenzen, Bild in Rückfrage Wegwerfen, Test „Variante“ (Abgleich 512b) | A Spiel | K | – | Team Tom | ruht |
 | 586 | Schirme 557 einheitlich: Zeichen neben der Überschrift bei Rast, Größe der Überschriften (Chef 05.11., 09:35, Kür) | A Spiel | K | – | Team Tom | wartet |
 | 587 | Gegnergröße im Kampfort: 1,3-fach wie alt und die Wölfe, echte Größe oder je Kapitel (Chef 05.11., zu Bild 494) | E Kampf | M | 2,93 $ | Team Jerry | startbar |
 | 589 | Dorf: Marktplatz wirkt geklont (gleiche Stände, gleiche Säcke), Durchgang links am Stand hakelig (Chef 05.11., 19:2x, t266) | E Welt | M | – | Team Tom | startbar |
@@ -194,7 +194,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 519 | Build 249, Ausrüstung: Gegenstandsfenster („Göttlicher Ring des Eisernen Richters“) passt nicht auf den Bildschirm, rechts abgeschnitten (Chef 03.11., 23:13, Bild) | A Spiel | M | 21,91 $ | Team Tom | startbar |
 | 517 | Waldklang wie alt: Vögel am Tag, Eule und Grillen nachts, fernes Wolfsheulen im Tiefen Wald (`WildSound.kt`; Abgleich 512, von Team Tom) | A Spiel | M | 2,32 $ | Jerry | wartet |
 | 513 | Ein Figurenstand für alle Zweige; Schild, Robe Magier, Umhang jetzt (Chef 03.11., 15:56, „513 B“) | E Figuren | M | 14,01 $ | Team Tom | ruht |
-| 515 | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 03.11., 16:07) | O Orte | M? | – | Team Tom | wartet |
+| 515 | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 03.11., 16:07) | O Orte | K | – | Team Tom | ruht |
 | 510 | Fledermaus: freies Modell (OGA „Vampire Bat“, CC0) neben der eigenen im Film, Chef wählt (Chef 03.11., 10:28–10:57, aus 494) | E Kampf | M | 17,92 $ | Team Jerry | ruht |
 | 508 | Lehrmeister in Kapitel 1 erreichbar (Geselle), Magie-Pflicht Paladin/Kriegsmagier, Wachsoldat zu Wächter (aus 447.4) | D Design | M? | – | Sokrates | startbar |
 | 505 | Bau Nebel des Krieges und Sichtfeld des Helden (Archiv 502; Welt W24, W25) | B Umzug | M | 69,46 $ | Team Tom | startbar |

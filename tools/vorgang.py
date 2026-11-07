@@ -6,6 +6,7 @@ Aufruf: python3 tools/vorgang.py NR [NR …]          zeigt je Nummer: Zeile in 
         python3 tools/vorgang.py stand NR "Stand" [--rolle NAME]   setzt den Stand der Vorratszeile und das Wort in LISTE-VORGAENGE.md zugleich
         python3 tools/vorgang.py neu "Titel" "Bereich" KLASSE "Besitzer" [--nr NR]   neue Zeile in LISTE-VORGAENGE.md; ohne --nr die nächste
                                                                     freie Nummer aus ARBEIT-BETRIEB.md (zählt hoch; 275 Stufe 2)
+        python3 tools/vorgang.py klasse NR M|K [--rolle NAME]      Klasse setzen (M?-Entscheid), Vorrat und Liste zugleich
         python3 tools/vorgang.py fertig NR [--rolle NAME]          streicht die Vorratszeile; Liste „erledigt“ nur, wenn kein anderer Vorrat die Nummer führt
                                                                     (mehrere Besitzer: Liste zeigt das offenste Wort, D47.1)
                                                                     (Absätze „Zu NR“ nennt es, streichen tut der Besitzer)
@@ -134,6 +135,15 @@ def neu(titel, bereich, klasse, besitzer, nr=None):
     print("vorgang.py: %s angelegt (%s, %s, %s); Vorratszeile selbst eintragen, dann pushen, dann die Nummer nennen" % (nr, bereich, klasse, besitzer))
     return nr
 
+def klasse(nr, kl, rolle=None):
+    """M?-Entscheid (190.8, Perikles): Klasse in Vorratszeile und LISTE-VORGAENGE.md zugleich setzen."""
+    if kl not in ("M", "K"): sys.exit("vorgang.py: Klasse M oder K")
+    datei, rolle, z = zeile_finden(nr, rolle)
+    t = z.split("|"); t[2] = " %s " % kl; schreiben(datei, z, "|".join(t))
+    l = listenzeile(nr)
+    if l: t = l.split("|"); t[4] = " %s " % kl; schreiben("LISTE-VORGAENGE.md", l, "|".join(t))
+    print("vorgang.py: %s (%s) Klasse %s" % (nr, rolle, kl))
+
 if __name__ == "__main__":
     rolle = None
     if "--rolle" in sys.argv:
@@ -148,7 +158,8 @@ if __name__ == "__main__":
         nr = sys.argv[sys.argv.index("--nr") + 1] if "--nr" in sys.argv else None
         a = [x for k, x in enumerate(sys.argv[2:], 2) if x != "--nr" and sys.argv[k - 1] != "--nr"]
         neu(a[0], a[1], a[2], a[3], nr); sys.exit(0)
-    if sys.argv[1] in ("stand", "fertig", "neu"): print(__doc__); sys.exit(2)
+    if sys.argv[1] == "klasse" and len(sys.argv) == 4: klasse(sys.argv[2], sys.argv[3], rolle); sys.exit(0)
+    if sys.argv[1] in ("stand", "fertig", "neu", "klasse"): print(__doc__); sys.exit(2)
     for nr in sys.argv[1:]:
         print("== %s" % nr)
         print("\n".join(treffer(nr)) or "nichts gefunden")
