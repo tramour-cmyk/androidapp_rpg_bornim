@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [623](entscheiden/623-effektpakete.md) | **Muss** | C Kampf | 07.11., 17:38 | Effektpakete REEBOO Labs: was kaufen, wie festhalten, Dank im Spiel | Sokrates |
+| [623](entscheiden/623-effektpakete.md) | **Muss** | C Kampf | 07.11., 17:45 | Effektpakete REEBOO Labs: was kaufen, wie festhalten, Dank im Spiel | Sokrates |
 | [142.4](entscheiden/1424-organisationskonto.md) | **Muss** | M Veröffentlichung | 07.11., 17:10 | Bestehendes Konto auf Organisation umstellen statt Pflichttest | Sokrates |
 
 ## Zu billigen
@@ -345,7 +345,7 @@ Nicht gestellt: 587 (Kreativ), 407 (Projekt)
 
 Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/572-effektfilm.md
 
-Ohne Datei: 3402 (Projekt), 275 (Projekt), 26 (Team Tom)
+Ohne Datei: 3402 (Projekt), 275 (Projekt)
 
 ## So geht's
 
