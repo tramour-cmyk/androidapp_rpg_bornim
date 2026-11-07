@@ -41,11 +41,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 87, Muss 65, startbar 49, PAUSE bis **Pause bis die neue Vorgangsliste läuft (Datum nicht lesbar)
+**Tom** – offen 87, Muss 65, startbar 48, PAUSE bis **Pause bis die neue Vorgangsliste läuft (Datum nicht lesbar)
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 625 | M | von Sokrates („jetzt“ 07.11., 20:54; Zu 625): Sammelbuild 269 wie 603: alle fertigen Zweig | startbar |
+| 625 | M | von Sokrates („jetzt“ 07.11., 20:54; Zu 625): Sammelbuild 269 wie 603: alle fertigen Zweig | wartet auf Test (Build) |
 | 620.2a | M | von Perikles (620.2, 621 D, Chef 07.11.): Abgleich alt einmal je Ort und Figur nach LISTE- | startbar |
 | 605 | M | von Ford (Chef 06.11., 21:22, Test Build 268, Bild; Zu 605): Ausrüstung, leeres Kopffeld → | wartet auf Test/Build (gebaut) |
 | 581 | M | von Tom (Abgleich 512b): Reiter Ausrüstung: Seite 16 px breiter als der Schirm (Rand 11 st | startbar |
