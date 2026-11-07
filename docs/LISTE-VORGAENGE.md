@@ -127,7 +127,7 @@
 | 406.2 | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) | Jerry | M | startbar | – | – | – | C Kampf | 41,37 $ |
 | 510 | Fledermaus: freies Modell (OGA „Vampire Bat“, CC0) neben der eigenen im Film, Chef wählt (Chef 03.11., 10:28–10:57, aus 494) | Jerry | M | ruht | – | claude/jerry-494-gegner | – | E Kampf | 17,92 $ |
 | 509 | Frösche und Libellen an den Teichen im Flüsterwald fehlen in Godot (Chef 03.11., 09:21; `PondLife.kt`, Projektplan O6, W22) | Jerry | M | ruht | – | claude/jerry-509-teich | – | E Welt | – |
-| 587 | Gegnergröße im Kampfort: 1,3-fach wie alt und die Wölfe, echte Größe oder je Kapitel (Chef 05.11., zu Bild 494) | Jerry | M | startbar | – | – | – | E Kampf | 2,93 $ |
+| 587 | Gegnergröße im Kampfort: 1,3-fach wie alt und die Wölfe, echte Größe oder je Kapitel (Chef 05.11., zu Bild 494) | Jerry | M | gebaut, in 269. Geprüft an: 436732e0b | – | claude/jerry-587-groesse | – | E Kampf | 2,93 $ |
 | 494 | Gegner von Kapitel 1 im Kampf außer den Untoten (506), je Gegner höchstens ein Lauf (Wochenziel 03.11., 488) | Jerry | M | wartet | 492 | claude/jerry-494-gegner | – | E Kampf | 128,77 $ |
 | 517 | Waldklang wie alt: Vögel am Tag, Eule und Grillen nachts, fernes Wolfsheulen im Tiefen Wald (`WildSound.kt`; Abgleich 512, von Team Tom) | Jerry | M | startbar | – | claude/jerry-517-waldklang | – | A Spiel | 2,32 $ |
 | 507 | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager (Orte O10; aus 492) | Jerry | M | startbar | – | claude/jerry-507-hoehle | – | E Kampf | 34,94 $ |
