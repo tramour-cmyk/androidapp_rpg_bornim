@@ -1,5 +1,7 @@
 # Vorrat Team Tom
 
+**Pause bis die Prüfliste des Chefs durchgesprochen ist** (von Sokrates, Chef 07.11., 16:5x: „bevor hier um 20 Uhr irgendwer was anfängt … kriegst du von mir eine Liste zum Prüfen mit Links, nochmal mit Effekten und dergleichen mehr. Und das machen wir erst durch.“): keine neue Sitzung von Tom oder Spike; Sokrates streicht die Zeile nach der Chefrunde.
+
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 **Übergabe (06.11., 12:37, `session_01Hmoj76FrCCcAeYVGoQL82C`):** 603 Build 268 (PR #186, 37 Zweige beider Teams, Prüfliste `ansehen/t268-sammelbuild.md`, Testbitte gestellt; Lauf 267 rot, behoben); 503 erledigt; Muss mit Bildläufen (475, 492, 505, 531, 569, 589, 590) und Kür 568, 604 ruhen bis Sa 20:00 (Guthaben). Nachfolger: nur auf Zuruf (468e).
