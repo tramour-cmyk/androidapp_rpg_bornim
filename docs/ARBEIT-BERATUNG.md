@@ -11,7 +11,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 620 | M | **von Chef (07.11., 14:3x, „nachhalten … umsetzen … ganz entscheidend“):** Stärken ausbauen, Schwächen verkleinern (`ROLLE-BERATUNG.md` Begründungen); 620.1, 620.2, 620.4 bei Perikles | Dauer: Lagebild und Wiederholquote nach jeder Testrückmeldung; Testbitte vor dem Versand gegenlesen; von Perikles (620.1 A, Chef 21:00): wiederholte Funde mit „wiederholt“ im Titel eintragen, auch die sechs aus t268 nachziehen |
-| 626 | M | **von Chef (07.11., Inventur):** alte SRD-Zeilen streichen oder in 478 | wartet auf Chef: entscheiden/626 |
+| 626 | M | **von Chef (07.11., Inventur):** alte SRD-Zeilen streichen oder in 478 | startbar: Chef 21:10 „626 ja“ (Archiv); Zeilen in den Vorräten umsetzen |
 | 623 | M | **von Chef (07.11., 17:2x, elf REEBOO-Links):** Effektpakete; „623 A B C D E F“ 20:1x (Archiv); 623.2 Jerry, 623.3 Perikles, 623.4 Homer | wartet auf Chef: tun/623 (Kauf A); B1 offen |
 | 623.1 | M | **von Chef (07.11.):** Prüfschema auf bisher geprüfte Quellen anwenden (`LISTE-CC0-MODELLE.md` → `LISTE-QUELLEN.md`) | startbar |
 | 508 | M? | **von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5):** Einladung der Lehrmeister in Kapitel 1 erreichbar? (Simulation 444: keine Fertigkeit Geselle bis Stufe 6); Regelfrage: Magie-Kernfertigkeit Pflicht für Paladin und Kriegsmagier?; Wachsoldat startet mit Mittlerer, Wächter verlangt Schwere Rüstung | startbar |
