@@ -86,8 +86,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 608 | M | **von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619):** durchsichtiges Haus macht innen Licht an (Pim, Tempel) | gebaut, fährt im nächsten Build (269); Geprüft an: 491b05cad (glas_608) | `claude/tom-608-glas` |
 | 610 | M | **von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619):** Finger am Stab zucken im Dorf (Schild auf dem Rücken) | startbar | – |
 | 615 | M | **von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619):** Kamera um den Helden als Fixpunkt, nie aus dem Bild | gebaut, fährt im nächsten Build (269); Geprüft an: 9ff7db62f (kamera_615) | `claude/tom-615-kamera` |
-| 611 | M | **von Sokrates (Chef 07.11., 14:1x, t268, 268.8; Zu 606–619):** Klopfen deutlicher, wessen Haus, wer spricht; Zeichen beim Zwerg mit Laterne wie alt | startbar | – |
-| 618 | M | **von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619):** „Zurück“, „Abbrechen“, „Schließen“ nach einer Regel auf allen Schirmen | startbar | – |
+| 611 | M | **von Sokrates (Chef 07.11., 14:1x, t268, 268.8; Zu 606–619):** Klopfen deutlicher, wessen Haus, wer spricht; Zeichen beim Zwerg mit Laterne wie alt | gebaut, fährt im nächsten Build (nach 271); Geprüft an: db36a81a3 (klopfen_611); Sprecher bei Homer (629) | – |
+| 618 | M | **von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619):** „Zurück“, „Abbrechen“, „Schließen“ nach einer Regel auf allen Schirmen | wartet auf Chef: entscheiden/618-verlassen.md | – |
 | 612 | M | **von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619):** Dorf Süd: Heuhaufen, Weizenfeld, Gemüsebeet; drei Varianten je Ding | startbar | – |
 | 613 | M | **von Sokrates (Chef 07.11., 14:1x, t268.31; Zu 606–619):** Intro und Outro wie alt: Tempelgänger, kleine Bewegungen | startbar | – |
 | 614 | M? | **von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619):** Jorin mit Speer, Jorin öffnet den Schlagbaum sichtbar, Leute-Gesten wie alt | startbar | – |
