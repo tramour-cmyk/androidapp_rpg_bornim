@@ -191,6 +191,13 @@ def main():
                 a = startbar.ueberholt(n, git("show", ":" + p), antwort)
                 if a: stop.append("%s: Chef hat %s beantwortet (%s), die Vorlage bleibt stehen; im selben Commit löschen (383.3), "
                                   "bleibt die Frage offen: Zeit in Zeile 1 oder 2 der Datei neu setzen" % (p, a[0], a[1].strftime("%d.%m., %H:%M")))
+    if any(p == "docs/LISTE-VORGAENGE.md" and s != "D" for s, p in dat) and not git("rev-parse", "-q", "--verify", "MERGE_HEAD").strip():
+        # 275 Stufe 2 (Chef 27.10., 15:20: Schreiben nur über das Werkzeug): Stand, den kein Werkzeug geschrieben hat → Warnung (noch kein Halt)
+        h = git("rev-parse", ":docs/LISTE-VORGAENGE.md").strip()
+        ok = os.path.join(git("rev-parse", "--git-common-dir").strip(), "bornim-liste-ok")
+        if h and h not in (open(ok).read().split() if os.path.exists(ok) else []):
+            warn.append("LISTE-VORGAENGE.md von Hand geändert; neue Zeile mit `vorgang.py neu \"Titel\" \"Bereich\" KLASSE \"Besitzer\" [--nr NR]`, "
+                        "Stand mit `vorgang.py stand|fertig` (275 Stufe 2; Diogenes zählt die Warnungen, danach hält sie an)")
     try: gueltig_pruefen(dat, stop, warn)
     except Exception as e: warn.append("461b-Prüfung übersprungen: %s" % e)
     for s, p in dat:  # 340.4 (Chef 02.11., 19:44, „340.2 ja“, B): jede Vorlage nennt „Geprüft an: <Link>“, ein Link, kein Wort

@@ -4,6 +4,8 @@
 Aufruf: python3 tools/vorgang.py NR [NR …]          zeigt je Nummer: Zeile in LISTE-VORGAENGE.md (oder -ARCHIV.md),
         Vorratszeile(n) mit Rolle, Absätze „Zu NR“, Entscheide im Vorgangsarchiv, Dateien in der Chefsache, Leiche laut startbar.py.
         python3 tools/vorgang.py stand NR "Stand" [--rolle NAME]   setzt den Stand der Vorratszeile und das Wort in LISTE-VORGAENGE.md zugleich
+        python3 tools/vorgang.py neu "Titel" "Bereich" KLASSE "Besitzer" [--nr NR]   neue Zeile in LISTE-VORGAENGE.md; ohne --nr die nächste
+                                                                    freie Nummer aus ARBEIT-BETRIEB.md (zählt hoch; 275 Stufe 2)
         python3 tools/vorgang.py fertig NR [--rolle NAME]          streicht die Vorratszeile; Liste „erledigt“ nur, wenn kein anderer Vorrat die Nummer führt
                                                                     (mehrere Besitzer: Liste zeigt das offenste Wort, D47.1)
                                                                     (Absätze „Zu NR“ nennt es, streichen tut der Besitzer)
@@ -55,6 +57,7 @@ def schreiben(name, alt, neu):
     t = open(p, encoding="utf-8").read()
     if t.count(alt) != 1: sys.exit("vorgang.py: Zeile in %s nicht eindeutig, nichts geschrieben" % name)
     open(p, "w", encoding="utf-8").write(t.replace(alt, neu))
+    if name == "LISTE-VORGAENGE.md": startbar.liste_merken(DOCS)  # 275 Stufe 2
 
 def zeilen_finden(nr):
     """[(Datei, Rolle, Zeile)] aller Vorratszeilen der Nummer."""
@@ -111,6 +114,26 @@ def fertig(nr, rolle=None):
     print("vorgang.py: %s aus %s gestrichen, Liste „%s“%s%s" % (nr, datei, w, (" (weiter bei %s)" % ", ".join(x[1] for x in rest)) if rest else "",
                                                              ("; Absätze noch da: " + " | ".join(zu)) if zu else ""))
 
+def neu(titel, bereich, klasse, besitzer, nr=None):
+    """275 Stufe 2: neue Zeile in LISTE-VORGAENGE.md (Stand „startbar“, Kosten „–“); ohne --nr nimmt sie die nächste freie Nummer aus
+    ARBEIT-BETRIEB.md und zählt sie hoch. Die Vorratszeile schreibt der Aufrufer wie bisher mit Edit."""
+    if klasse not in ("M", "K", "M?"): sys.exit("vorgang.py: Klasse M, K oder M?")
+    if not re.match(r"[A-Z] \S", bereich): sys.exit("vorgang.py: Bereich wie „B Abläufe“, „E Kampf“ (124)")
+    if any(c in titel + besitzer for c in "|\n"): sys.exit("vorgang.py: Titel und Besitzer ohne | und Zeilenumbruch")
+    if not nr:
+        b = startbar.lesen("ARBEIT-BETRIEB.md")
+        m = re.search(r"\*\*Nächste freie Vorgangsnummer: (\d+)\*\*", b)
+        if not m: sys.exit("vorgang.py: Zähler in ARBEIT-BETRIEB.md nicht gefunden")
+        nr = m.group(1)
+        schreiben("ARBEIT-BETRIEB.md", m.group(0), "**Nächste freie Vorgangsnummer: %d**" % (int(nr) + 1))
+    if listenzeile(nr): sys.exit("vorgang.py: %s steht schon in LISTE-VORGAENGE.md" % nr)
+    p = os.path.join(DOCS, "LISTE-VORGAENGE.md"); L = open(p, encoding="utf-8").read().split("\n")
+    i = max(k for k, z in enumerate(L) if z.startswith("| "))
+    L.insert(i + 1, "| %s | %s | %s | %s | – | %s | startbar |" % (nr, titel.strip(), bereich.strip(), klasse, besitzer.strip()))
+    open(p, "w", encoding="utf-8").write("\n".join(L)); startbar.liste_merken(DOCS)
+    print("vorgang.py: %s angelegt (%s, %s, %s); Vorratszeile selbst eintragen, dann pushen, dann die Nummer nennen" % (nr, bereich, klasse, besitzer))
+    return nr
+
 if __name__ == "__main__":
     rolle = None
     if "--rolle" in sys.argv:
@@ -121,7 +144,11 @@ if __name__ == "__main__":
     if len(sys.argv) < 2: print(__doc__); sys.exit(2)
     if sys.argv[1] == "stand" and len(sys.argv) == 4: stand_setzen(sys.argv[2], sys.argv[3], rolle); sys.exit(0)
     if sys.argv[1] == "fertig" and len(sys.argv) == 3: fertig(sys.argv[2], rolle); sys.exit(0)
-    if sys.argv[1] in ("stand", "fertig"): print(__doc__); sys.exit(2)
+    if sys.argv[1] == "neu" and len(sys.argv) in (6, 8):
+        nr = sys.argv[sys.argv.index("--nr") + 1] if "--nr" in sys.argv else None
+        a = [x for k, x in enumerate(sys.argv[2:], 2) if x != "--nr" and sys.argv[k - 1] != "--nr"]
+        neu(a[0], a[1], a[2], a[3], nr); sys.exit(0)
+    if sys.argv[1] in ("stand", "fertig", "neu"): print(__doc__); sys.exit(2)
     for nr in sys.argv[1:]:
         print("== %s" % nr)
         print("\n".join(treffer(nr)) or "nichts gefunden")

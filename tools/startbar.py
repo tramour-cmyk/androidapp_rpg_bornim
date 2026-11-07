@@ -35,6 +35,21 @@ def lesen(name):
     p = os.path.join(DOCS, name)
     return open(p, encoding="utf-8").read() if os.path.exists(p) else ""
 
+def liste_merken(docs=None):
+    """275 Stufe 2: nach jedem Schreiben eines Werkzeugs den Inhalt von LISTE-VORGAENGE.md merken (git hash-object, höchstens 200,
+    in <git-common-dir>/bornim-liste-ok); die Commit-Prüfung warnt bei einem Stand, den kein Werkzeug geschrieben hat. Fehler still."""
+    try:
+        import subprocess
+        d = docs or DOCS
+        h = subprocess.run(["git", "-C", d, "hash-object", "LISTE-VORGAENGE.md"], capture_output=True, text=True).stdout.strip()
+        g = subprocess.run(["git", "-C", d, "rev-parse", "--git-common-dir"], capture_output=True, text=True).stdout.strip()
+        if not h or not g: return
+        f = os.path.join(d, g, "bornim-liste-ok") if not os.path.isabs(g) else os.path.join(g, "bornim-liste-ok")
+        alt = open(f).read().split() if os.path.exists(f) else []
+        open(f, "w").write("\n".join((alt + [h])[-200:]) + "\n")
+    except Exception:
+        pass
+
 def vorgaenge():
     """Nummer → Stand (letzte Spalte) aus LISTE-VORGAENGE.md."""
     tafel = {}

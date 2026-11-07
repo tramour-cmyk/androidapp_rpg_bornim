@@ -267,7 +267,7 @@ def aufraeumen():
     p = os.path.join(DOCS, "LISTE-VORGAENGE.md"); t = lesen(p).split("\n")
     weg = [l for l in t if l.startswith("| ") and l.rstrip(" |").split("|")[-1].strip().lower().startswith("erledigt")]
     if weg:
-        open(p, "w", encoding="utf-8").write("\n".join(l for l in t if l not in weg))
+        open(p, "w", encoding="utf-8").write("\n".join(l for l in t if l not in weg)); startbar.liste_merken(DOCS)  # 275 Stufe 2
         q = os.path.join(DOCS, "LISTE-VORGAENGE-ARCHIV.md")
         alt = lesen(q)  # erst lesen, dann öffnen: open(…, "w") leert die Datei
         open(q, "w", encoding="utf-8").write(alt.rstrip("\n") + "\n" + "\n".join(weg) + "\n")
@@ -781,6 +781,7 @@ def _buchen(nr, usd):
                     t[-4] = (m.group(1) if m else alt) + "; +" + ("%.2f" % ((float(m.group(2).replace(",", ".")) if m else 0.0) + usd)).replace(".", ",") + " $"
                 L[i] = "| " + " | ".join(t[1:-1]) + " |"
                 open(p, "w", encoding="utf-8").write("\n".join(L))
+                if p.endswith("LISTE-VORGAENGE.md"): startbar.liste_merken(DOCS)  # 275 Stufe 2
                 print("Kosten %s: +%s $, jetzt %s" % (ziel, ("%.2f" % usd).replace(".", ","), t[-4])); return
       kurz = re.sub(r"(\.\d+[a-z]*|[a-z])$", "", ziel)
       if kurz == ziel: break
