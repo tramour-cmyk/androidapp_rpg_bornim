@@ -200,14 +200,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 616 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu t268): Gegner weichen nach dem Angriff rückwärt | wartet auf 478 (startbar) |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 41238 Bytes (Grenze 15000), Erledigtes streichen; Zeile 551 | startbar |
 
-**Perikles** – offen 28, Muss 21, startbar 9
+**Perikles** – offen 28, Muss 21, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 623.3 | M | von Sokrates (Chef 07.11., 20:1x, „623 … E“; Archiv 623): Commit-Prüfung warnt bei neuem E | wartet auf Test/Build (gebaut) |
 | 584 | M? | von Sokrates (Inventur 07.11.): Tom wartet bei 584, 585 (Klasse) und 515 (Zeitpunkt), Jerr | startbar |
-| 317.1 | M | von Sokrates (Chef 07.11., 20:5x, Archiv „317, keine Obergrenze je Build“): startbar.py (Z | startbar |
-| 620.1 | M | von Sokrates (Chef 07.11., 14:3x, 620; Zu 620): wiederholte Funde des Chefs vor jedem Neue | Chef (Datei in der Chefsache) |
+| 317.1 | M | von Sokrates (Chef 07.11., 20:5x, Archiv „317, keine Obergrenze je Build“): Werkzeuge ohne | wartet auf Test/Build (gebaut) |
+| 620.1 | M | von Sokrates (Chef 07.11., 14:3x, 620; Zu 620): wiederholte Funde zuerst, Grenze offener M | Chef (Datei in der Chefsache) |
 | 621.1 | M | von Sokrates (Chef 07.11., 16:4x, „621, A, B und D“; Archiv 621): Probenregel A (eine Prob | wartet auf Test/Build (gebaut) |
 | 620.2 | M | von Sokrates (Chef 07.11., 14:3x, 620, 512; Zu 620): Abgleich alt einmal je Ort und Figur | startbar |
 | 620.4 | M | von Sokrates (Chef 07.11., 14:3x, 620; Zu 620): Referenzszene Dorf bis Wolfskampf im Flüst | startbar |
@@ -233,10 +233,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 19635 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Diogenes** – offen 18, Muss 16, startbar 13
+**Diogenes** – offen 20, Muss 18, startbar 14
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 620.1 | M | von Perikles (Doppelpack 421, 07.11., 21:0x, 8518c8817): startbar.hochstufen stellt Zeilen | Chef (Datei in der Chefsache) |
+| 317.1 | M | von Perikles (Doppelpack 421, 07.11., 21:0x, 12837c9c3): keine Obergrenze 6 je Build mehr | startbar |
 | 461d | M | von Sokrates (Inventur 07.11.): Perikles meldet „gebaut, Diogenes prüft“, hier fehlte die | startbar |
 | 461 | M | von Sokrates (Inventur 07.11.): wie 461d (Grundstand-Checkliste) | startbar |
 | 461a | M | von Sokrates (Inventur 07.11.): wie 461d | startbar |
