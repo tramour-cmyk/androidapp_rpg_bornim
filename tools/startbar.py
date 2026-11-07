@@ -342,7 +342,7 @@ def main():
                 print("| %s | %s | %s | %s |" % (nr, kl, w, ("Leiche: " + LEICHE[nr][1]) if nr in LEICHE else (sperr[nr] or "startbar")))
             print()
             continue
-        if p: print("  %s: PAUSE bis %s%s" % (rolle, p, warn)); continue
+        if p: print("  %s: PAUSE bis %s%s" % (rolle, p, warn))  # Zahlen und Testzählung laufen weiter (Tagesbericht 07.11.: Pause gab Tom 0, Jerry 0)
         erstes = {"M": None, "K": None, "N": None}
         sperren = []
         for nr, kl, thema, rest in zs:
@@ -367,7 +367,7 @@ def main():
             if e[0] == "Leichen": return "Leichen: " + e[2][:160]
             if e[0] in LEICHE and LEICHEN_START: return "%s Stand berichtigen (Leiche 275: %s)" % (e[0], LEICHE[e[0]][1])
             return "%s %s%s" % (e[0], re.sub(r"\*\*|`", "", e[2])[:70], (" ↑ Muss: %s wartet" % ", ".join(fremd_wartend()[e[0]])) if e[0] in fremd_wartend() else "")
-        print("  %s: Muss %s | Kür %s%s%s" % (rolle, kurz(erstes["M"]), kurz(erstes["K"]), (" | nach dem Meilenstein " + kurz(erstes["N"])) if erstes["N"] else "", warn))
+        if not p: print("  %s: Muss %s | Kür %s%s%s" % (rolle, kurz(erstes["M"]), kurz(erstes["K"]), (" | nach dem Meilenstein " + kurz(erstes["N"])) if erstes["N"] else "", warn))
         if stand:
             st = sum(1 for z in zs if not sperr[z[0]])
             print("      offen %d, Muss %d, startbar %d, gesperrt %d" % (len(zs), sum(1 for z in zs if z[1] == "M"), st, len(sperren)))

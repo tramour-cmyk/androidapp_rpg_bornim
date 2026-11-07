@@ -32,7 +32,7 @@ Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 4
 - [ ] **2.13** M · **Alle Gegner von Kapitel 1 im Spiel** (Chef 05.11., 08:2x; 579): jeder Gegner der alten Fassung (`Story.kt` Flüsterwald, Tiefer Wald, Blutzahnhöhle, Tag und Nacht) mit Modell auf der Karte und im Kampf, eigener Kennung (577), Klang und Kampfblende. Haken = vom Chef im Build gesehen. Stand 05.11., 08:2x:
   - [x] Wolf (gekauft) · [x] Riesenratte (gekauft) · [x] Goblin · [x] Kobold · [x] Goblin-Schamane · [x] Goblin-Bogenschütze (alle im Build 257)
   - [ ] Riesenfledermaus: nur Kapsel, Modell in 510
-  - [ ] Wildschwein · [ ] Riesenhundertfüßer · [ ] Riesenspinne · [ ] Riesenegel (für Stirge) · [ ] Säureschnecke (für Ockergallerte): gebaut auf `claude/jerry-494-gegner`, in keinem Build (494)
+  - [ ] Wildschwein · [ ] Riesenhundertfüßer · [ ] Riesenspinne · [ ] Riesenegel (für Stirge) · [ ] Säureschnecke (für Ockergallerte): im Build 266 (auf `main` 05.11.), vom Chef im Probekampf gesehen (t266.1, Funde 595, 596); auf der Karte nachts und in der Höhle noch nicht prüfbar (539, 492); Stand 07.11.
   - [ ] Skelett · [ ] Zombie · [ ] Ghul: fehlen (506)
   - [ ] **Bosse:** [ ] Grimmzahn neu auf dem Kaufwolf (533; heute altes Modell, Kampf und Leibwache gehen) · [ ] Krogg (bugbear) · [ ] Grak (hobgoblin_captain): mit der Blutzahnhöhle (492)
 - [ ] **2.14** W · **Alle Orte von Kapitel 1 begehbar** (Chef 05.11., 08:2x). Haken = im Build begehbar wie alt, vom Chef gesehen; „Ort fertig“ (4.3) kommt danach. Stand 05.11.:
@@ -75,7 +75,7 @@ Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 4
 - [ ] **4.10** W · **Durchgespielt:** der Chef spielt Kapitel 1 einmal ganz durch und sagt „gut“ (Prüfer: Chef).
 
 **Stufe 5 · marktreif** (338; Prüfung: Kapitel 1 öffentlich im Play Store)
-- [ ] **5.1** S · Store-Seite, Texte und Bilder (Homer, Sokrates); Impressum (Datenschutzseite online, 252); Gewerbeschein und Preis (142, 45); Repo privat (109); 12 Tester, geschlossener Test 14 Tage, Prüfung durch Google. Vorlauf (142, 109, 142.3) läuft schon jetzt daneben, weil er lange dauert.
+- [ ] **5.1** S · Store-Seite, Texte und Bilder (Homer, Sokrates); Impressum (Datenschutzseite online, 252); Gewerbeschein und Preis (142, 45); Repo privat (109); 12 Tester, geschlossener Test 14 Tage, Prüfung durch Google. Vorlauf (142, 109, 142.3) läuft schon jetzt daneben, weil er lange dauert. · Stand: in Arbeit
 
 **Stufe 6 · SRD im Code abgelöst** (nach dem Marktstart; der Spieler sieht es nicht)
 - [ ] **6.1** G · Auch im Code keine SRD-Werte mehr, der Lizenzhinweis „SRD 5.1 · CC BY 4.0“ entfällt; `regelcheck` ohne Treffer (446).
