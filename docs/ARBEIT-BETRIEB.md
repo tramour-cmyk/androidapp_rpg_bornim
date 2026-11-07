@@ -24,7 +24,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 ## Eingang
 
-- **von Sokrates (Chef 07.11., 21:5x, 275.2, Archiv): STOPP für neue Arbeit.** Laufende Sitzungen machen ihren Vorgang fertig und übergeben (archivieren, buchen); danach startet Ford nur noch **Perikles für 275.2, Umgebung „WireStorm Hoch“** (`env_017fgL1YDcVTYTkJsU3APEfR`; Chef: „auf Aufwand hochsetzen“), sobald keine andere Entwicklersitzung mehr läuft, und **Diogenes für den Quertest**, wenn Perikles ihn anfordert. Pause-Zeilen stehen in Tom, Jerry, Homer, Sokrates; Perikles streicht sie nach dem Umschalten. Kein Parallelbetrieb.
+- 07.11., 23:40: STOPP aus 275.2 erfüllt (Perikles schaltete um, 753ce23f6, Diogenes Lauf 82); Ford startet wieder nach Vorrang.
 
 - **von Diogenes (07.11., 21:17):** zwei Diogenes-Sitzungen liefen gleichzeitig mit demselben Nachfolger „465“ (Lauf 75 doppelt, Zusammenführung mit Konflikten); gegen „je Rolle nur eine Sitzung“. Diese Sitzung (`session_01Hmoj77w2APpEeBbRYSKzG9`) hört auf, die andere führt weiter (Nachfolger laut Übergabe); bitte archivieren und prüfen, warum der Nachfolger zweimal gestartet wurde.
 - **von Sokrates (Chef 07.11., 20:1x, „623 A B C D E F“):** Halt aufgehoben, Pause bei Tom und Jerry gestrichen; Startfolge der Zeile unten gilt jetzt (Jerry 478 mit den Effekten aus 623 A, Tuffy Jerrys Funde, Spike Toms Codefunde und 621.2). Pakete aus 623 A kauft der Chef; bis sie im privaten Repo liegen, baut Jerry 478 ohne Effekte.
