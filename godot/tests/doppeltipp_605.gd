@@ -113,6 +113,20 @@ func _lauf() -> void:
 	if f: await tippe(mitte(f))
 	pruefe(hw.ding("HEAD") != null and int(hw.ding("HEAD")["uid"]) == int(g["uid"]), "ein Tipp auf Anlegen legt den Helm an")
 	pruefe(m.get_child_count() == vorher, "nach Anlegen kein Fenster mehr offen (%d)" % (m.get_child_count() - vorher))
+	m.queue_free(); await warte()
+	# 4. 606 (Chef 07.11., t268: „Kauf Met in Schänke – Preis laut Liste 2 Gold, abgezogen vom Vermögen werden 4 Gold“): ein Tipp auf
+	# „Met“ an der Theke waehlt einmal (Rastfeld, eigene Flaeche wie tippbar)
+	var rf := Rastfeld.neu("B", "Theke", "", [{"id": "met", "name": "Met", "dauer": "2 Gold", "tut": "", "an": true, "zeichen": "MUG"}], "Weitergehen")
+	root.add_child(rf)
+	await warte(4)
+	var met := [0]
+	rf.gewaehlt.connect(func(id): if id == "met": met[0] += 1)
+	var mf: Control = null
+	for k in rf.find_children("*", "PanelContainer", true, false):
+		if String(k.get_meta("id", "")) == "met": mf = k
+	pruefe(mf != null, "Theke: Wahl Met gefunden")
+	if mf: await tippe(mitte(mf))
+	pruefe(met[0] == 1, "ein Tipp auf Met trinkt einmal (%d)" % met[0])
 	print("DOPPELTIPP605 %s" % ("gut" if fehler == 0 else "%d Fehler" % fehler))
 	quit(1 if fehler > 0 else 0)
 
