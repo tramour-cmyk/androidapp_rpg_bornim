@@ -43,7 +43,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 102, Muss 76, startbar 29, PAUSE bis **Pause bis die Prüfliste des Chefs durc (Datum nicht lesbar)
+**Tom** – offen 103, Muss 77, startbar 30, PAUSE bis **Pause bis die Prüfliste des Chefs durc (Datum nicht lesbar)
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -144,6 +144,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 612 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Dorf Süd: Heuhaufen, Weizenfeld, Gemü | startbar |
 | 613 | M | von Sokrates (Chef 07.11., 14:1x, t268.31; Zu 606–619): Intro und Outro wie alt: Tempelgän | startbar |
 | 614 | M? | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Jorin mit Speer, Jorin öffnet den Sch | startbar |
+| 624 | M | von Sokrates (Chef 07.11., 17:5x: „das wäre auch gut, wenn die Anzeige dann ein bisschen g | startbar |
 | 622 | M | von Sokrates (07.11., aus 142.4; Chef 17:1x: „Wir hatten da schon doch was hochgeladen, wa | startbar |
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
