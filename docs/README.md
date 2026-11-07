@@ -36,6 +36,8 @@ Inhaltsverzeichnis (122). Wer eine wesentliche Datei umbenennt oder anlegt, änd
 - [Simulation 2.0](LISTE-SIMULATION-444.md): Rechensimulation Herkunft × Art × Stufe, Fortschritt bis Stufe 6, Befund (444)
 - [Grafikweg](LISTE-GRAFIKWEG.md): Engine, Grafikkerne, Blender-Modelle, Baukästen (348)
 - [Bestand](LISTE-BESTAND.md): Inventur aller gekauften und geladenen Bewegungen, Figuren, Tiere, Dinge, Bauteile; vor jedem Eigenbau lesen (377)
+- [Quellen](LISTE-QUELLEN.md): Ressourcenseite, jede geprüfte fremde Quelle mit Link und Prüfschema F1–F8 (623)
+- [Effekte](LISTE-EFFEKTE.md): Zuordnungsseite, welcher Effekt zu welchem Helden, Monster, Ort; vor jedem Eigenbau lesen (623)
 - [Freie Modelle und Bewegungen](LISTE-CC0-MODELLE.md): CC0-Gerüst, Bewegungsbibliothek, Kosten, Suche Tiere und Monster (348.12)
 - [Ideen](LISTE-IDEEN.md): lose Einfälle, noch nicht geprüft
 - [Rollenspiegel](LISTE-ROLLENSPIEGEL.md): Ist-Soll-Abgleich je Rolle, freitags (340)
