@@ -1,4 +1,4 @@
-# 621 · Wofür das Guthaben draufging, und was wir schlauer machen · Sokrates · 07.11., 17:0x
+# 621 · Wofür das Guthaben draufging, und was wir schlauer machen · Sokrates · 07.11., 16:4x
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/main/docs/LISTE-VORGAENGE.md (Spalte Kosten, Stand 07.11. gegen 31.10., 20:25)
 
