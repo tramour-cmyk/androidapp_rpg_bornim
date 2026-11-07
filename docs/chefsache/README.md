@@ -12,11 +12,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 ## Zu billigen
 
-Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers.
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [621.1](billigen/6211-probe-verstoss.md) | **Muss** | B Abläufe | 07.11., 20:18 | Eine Probe je Aussehen-Thema: was bei einem Verstoß vor dem Versand gilt | Perikles |
+Nichts offen.
 
 ## Anzusehen
 
