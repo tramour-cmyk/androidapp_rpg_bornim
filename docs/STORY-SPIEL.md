@@ -517,6 +517,8 @@ EN: There's a room free upstairs. Fresh sheets, and nobody snores through the wa
 Genug für heute, {name}. Geh schlafen, die Treppe ist links.
 EN: Enough for today, {name}. Go to bed, the stairs are on the left.
 
+`[570.fleisch]` (Wahl an der Theke, ersetzt `meatSell`; „Met · 5 Gold“ ist ein Preis, hier bekommt man Gold, darum das Plus wie bei `[86.kurzfertig]`) Fleisch verkaufen · +{0} Gold / EN: Sell meat · +{0} gold
+
 ## Zustände außerhalb des Kampfs (86.9)
 
 Wie die übrigen Zustände in `Status.kt` (Name, Kurzwort, Text), Zeichen in der oberen Leiste und im Kampf. Nicht „Vergiftet“ nennen: „Vergiftet“ heißt im Spiel Schaden jede Runde, das trifft hier nicht zu.
