@@ -68,7 +68,11 @@ func _ready() -> void:
 	chip.content_margin_left = 6 * AktionsKnopf.DP; chip.content_margin_right = 6 * AktionsKnopf.DP
 	chip.content_margin_top = 3 * AktionsKnopf.DP; chip.content_margin_bottom = 3 * AktionsKnopf.DP
 	ort.add_theme_stylebox_override("normal", chip)
-	mess = schild(Vector2(24, oy + 60), 22)
+	# 624 (Chef 07.11., 17:5x: „ein bisschen größer … sehr kleine Mikroschrift … FPS … Speicherverbrauch“): 14 sp mit der Schriftgroesse
+	# des Handys (Stil.SP) statt fest 22 px, bricht innerhalb des Schirms um
+	mess = schild(Vector2(24, oy + 60), int(round(14 * Stil.SP)))
+	mess.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	mess.custom_minimum_size.x = 1080 - 48
 	mess.visible = "--messen" in OS.get_cmdline_user_args()   # 399.1: im Spiel nur mit dem Testmodus (Bildrate, Standort), wie alt FrameMeter
 	windrose = Windrose.new()                # 348.6 Runde 11 (Chefrunde 25.10., 11:48): rechts oben, Probeknoepfe darunter
 	windrose.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
