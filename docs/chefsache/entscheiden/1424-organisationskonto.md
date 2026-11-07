@@ -1,4 +1,4 @@
-# 142.4 · Organisationskonto statt Pflichttest · Sokrates · 07.11., 17:0x
+# 142.4 · Organisationskonto statt Pflichttest · Sokrates · 07.11., 16:5x
 
 Geprüft an: https://support.google.com/googleplay/android-developer/answer/14151465
 
