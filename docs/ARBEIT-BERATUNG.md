@@ -1,52 +1,10 @@
 # Vorrat Sokrates
 
-**Pause bis die neue Vorgangsliste läuft (275.2)** (Chef 07.11., 21:5x): keine neue Sitzung außer auf Zuruf des Chefs; Perikles streicht die Zeile.
-
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
-
-
 
 **Übergabe (07.11., 22:0x, `session_01Hmoj76saGTQ5LicSQ4JBof`):** t266, t268 auf main; 589–627 angelegt; 592, 478 jetzt, 499 jetzt, 621 A B D, 623 A–F, 626, 142.4, 275.2 entschieden; Inventur 07.11. (281 → 225 offen); Stopp für die neue Vorgangsliste (275.2, Perikles Hoch, Diogenes Quertest, Chef 22:0x „so machen“). Kosten auf: 494, 587, 512, 592, 603, 620, 621, 623, 626, 275.2, 478, 142. Nachfolger: Sokrates – nach dem Umschalten 275.2: Auswertung 347 mit Diogenes, 508.
 
 ## Zeilen
-
-| Nr. | Kl. | Thema | Stand |
-|---|---|---|---|
-| 565 | M | **von Team Jerry (07.11., 21:2x; Zu 565 bei Jerry):** ein Lauf frei für 565 (ein Bauserverlauf, fünf Standbilder Gruppenkasten vorher/nachher)? `probelauf.py` zählte den ersten Push des neuen Zweigs als Lauf, ohne dass ein Ablauf startete (627) | startbar: Kopf „565, Läufe frei“ ins Archiv |
-| 620 | M | **von Chef (07.11., 14:3x, „nachhalten … umsetzen … ganz entscheidend“):** Stärken ausbauen, Schwächen verkleinern (`ROLLE-BERATUNG.md` Begründungen); 620.1, 620.2, 620.4 bei Perikles | Dauer: Lagebild und Wiederholquote nach jeder Testrückmeldung; Testbitte vor dem Versand gegenlesen; von Perikles (620.1 A, Chef 21:00): wiederholte Funde mit „wiederholt“ im Titel eintragen, auch die sechs aus t268 nachziehen |
-| 341.1 | M | **von Perikles (341, Chef 23.10., 09:53: „ja, Probe bis 06.11.“, dann Gerüst für alle):** Probe bestanden (alle sechs Ziele werden gemessen, Zu 341 bei Perikles); Zielvereinbarung je Rolle: höchstens drei Ziele, Z3 und Z4 für alle, eins eigen | startbar |
-| 623 | M | **von Chef (07.11., 17:2x, elf REEBOO-Links):** Effektpakete; „623 A B C D E F“ 20:1x (Archiv); 623.2 Jerry, 623.3 Perikles, 623.4 Homer | wartet auf Chef: tun/623 (Kauf A); B1 offen |
-| 623.1 | M | **von Chef (07.11.):** Prüfschema auf bisher geprüfte Quellen anwenden (`LISTE-CC0-MODELLE.md` → `LISTE-QUELLEN.md`) | startbar |
-| 508 | M? | **von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5):** Einladung der Lehrmeister in Kapitel 1 erreichbar? (Simulation 444: keine Fertigkeit Geselle bis Stufe 6); Regelfrage: Magie-Kernfertigkeit Pflicht für Paladin und Kriegsmagier?; Wachsoldat startet mit Mittlerer, Wächter verlangt Schwere Rüstung | startbar |
-| 461b.4 | M | **von Perikles (deine Liste 461b, 02.11., 19:1x, Punkte 7, 9; Zu 461b.4):** Köpfe der Design-Dateien gegen Entscheidung 84 nachziehen, Ersatz-Anhänge im Archiv | startbar (nur Notizen) |
-| 481 | M | **von Chef (02.11., 18:54, „Herkünfte auch“; 18:55 Kräutersammler mit Tränken, Zu 481):** Herkünfte ausgleichen, gemessen vorlegen; Namen, Morwen, Welt über Homer | startbar: Zahlen von Jerry 481.1 da (LISTE-SIMULATION-444 Abschnitt 6, Zu 481) |
-| 391 | M | **von Chef (28.10., 09:21):** Repos dauerhaft ohne Ablehnung | ruht: kein Repo-Feld in der Umgebung |
-| 383.2 | M | **von Chef (27.10., 19:24, Archiv):** frisch gegen groß, klein gegen groß messen (442) | ruht: 621 C zurückgestellt (Chef 07.11.) |
-| 383 | M | **von Chef (27.10., 17:44, „Sollen wir einfach aufhören damit?“; 17:47 Vorschlag „nicht griffig“):** Chef räumt nur hinter allen her | startbar: gemeinsam auswerten mit der Wochenzählung Diogenes Mo 09.11. (Inventur 07.11.) |
-| 374 | M | **von Chef (27.10.):** wer prüft 373? | startbar: gemeinsam auswerten mit der Wochenzählung Diogenes Mo 09.11. (Inventur 07.11.) |
-| 340.2 | M | **von Chef (25.10., 10:16, Vorgangsarchiv 340):** `tools/rollenspiegel.sh <Rolle>` zeigt nur Fragen und eigene Vorwochenantwort, hängt die neue an; ersetzt „erst antworten, dann lesen“ | wartet auf Perikles: ja 19:44 (Archiv), Bau 340.3–340.5; Wirkung zählt Diogenes Mo 09.11. |
-| 348 | M | **von Chef (24.10., 16:43; „jetzt“ 16:54):** fertige Spiel-Engine statt Selbstbau? | ruht bis Zuruf: begleiten nach `LISTE-UMZUG-348.md` (Nachturteil 362 gestrichen, außer der Chef ermächtigt, Archiv 373a); entschieden: Umzug nach Godot (Vorgangsarchiv) |
-| 26.1 | M | **von Chef (24.10., 16:56):** Durchspielbogen auswerten (Rest von 26) | ruht: nach dem ersten Durchspielen auf Godot |
-| 327 | K | **von Chef (23.10., 00:08):** Marktsichtung zweites Spiel (Denkspiele, ohne Werbung), vertraulich | nach dem Meilenstein: [Dokument](https://claude.ai/artifact/RP9WoDkAXsZAdDehmW59av) (Empfehlung Bildrätsel) |
-| 347 | M | **von Chef (24.10., 16:20; ja 16:30):** Paket Regeltreue | startbar: gemeinsam auswerten mit der Wochenzählung Diogenes Mo 09.11. (Inventur 07.11.) |
-| 318 | M | **von Chef (22.10., 21:34):** Antwortstil „Knapp“ und Anhang an die Systemanweisung, komplett umgesetzt 21:3x | startbar: gemeinsam auswerten mit der Wochenzählung Diogenes Mo 09.11. (Inventur 07.11.) |
-| 246.1 | K | **von Perikles (Übernahme 22.10., 17:50):** Rest übrige Artefakte: Originale löschen, Kartenmappe, Beschlüsse (Vorgangsarchiv 246) | nach dem Meilenstein |
-| 296 | K | **von Chef (22.10., 07:50):** Checkliste je großem System, MARS zuerst (Zu 296) | ruht, bis MARS sich bewährt: MARS-Lücken als 296.2 an Jerry (Chef 09:53), dann weitere Systeme |
-| 264 | K | **von Chef (20.10.):** Arbeitsorte neben GitHub (NAS, Proxmox, ALL-INKL)? | zurückgestellt bis Ruhe nach dem Umzug (Chef 25.10., 11:48) |
-| 263 | K | **von Chef (20.10.):** feste Rolle für Finanzen, EÜR, Geschäftszimmer? | Monatsabschluss erstmals 01.11. (Vorgangsarchiv 263), Sitzung „Sokrates – BornWire“, Ablage außerhalb des Repos; Beleg Entwicklerkonto 25 $ |
-| 366 | M | **von Chef (25.10., 18:39):** bornwire.de: Abschnitt „Stand“ und „Tester gesucht“ (Vorgangsarchiv 366) | wartet auf Godot-Fassung im Test: Tester gebaut 25.10., 23:1x (`inhalt/tester.*.html`, Helfer ohne Befund), offline bis zur Godot-Fassung im Test (142.2 ja, 23:33): dann `TESTER_ONLINE = True` in `bauen.py`; Stand mit Godot-Bildern, sobald sie taugen (Zu 366) |
-| 365 | M | **von Chef (25.10., 12:36):** bringt Aufwand „Hoch“ statt „Mittel“ einem Beschäftigten etwas, was kostet es? | startbar: gemeinsam auswerten mit der Wochenzählung Diogenes Mo 09.11. (Inventur 07.11.) |
-| 262 | K | **von Chef (20.10.):** monatliche API-Credits im Plan, was damit anfangen? | ruht, bis der Chef den Betrag nennt; Empfehlung: Routine auf kleines Modell, nie ins Spiel |
-| 253 | K | **von Chef (20.10.):** „BornWire“ = Firmensachen in eigener Sitzung (Archiv 253) | ruht: Neuanmeldung erledigt (Gewerbeschein 04.11.) |
-| 72c | K | **von Chef (19.10., 12:55):** Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunden); Wortlaut Vorgangsarchiv 72c | nach dem Meilenstein (Chef 20.10.); vorher einseitige Vorlage Sokrates |
-| 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | startbar: gemeinsam auswerten mit der Wochenzählung Diogenes Mo 09.11. (Inventur 07.11.) |
-| 142.3 | M | **von Chef (27.10., 19:32):** Tester öffentlich suchen | ruht: bis das Konto umgestellt ist (142.4) |
-| 275.2 | M | **von Chef (07.11., 21:4x):** eine große Liste statt Liste plus Vorräte? | wartet auf Perikles: Bau 275.2 (Archiv) |
-| 142.4 | M | **von Chef (07.11., 16:5x):** Pflichttest sparen? Organisationskonto mit D-U-N-S | wartet auf Chef: tun/1424 (D-U-N-S) |
-| 142 | M | Pflichttest Play Store (von Perikles); Store-Text „jede Entscheidung zählt“ prüfen (72a) | startbar: Gewerbeschein da (GewA 1 Potsdam 04.11., Chef 05.11.); als Nächstes Zahlungsprofil, Organisationskonto 142.3 C, Preis 45, neues Testziel; Vorlage nach der Prüfliste des Chefs |
-| 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | startbar: Gewerbeschein da; Preis vor der Store-Seite mit 142.4 |
-| 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | startbar: Gewerbeschein da; Chefsache neu (privat, Kosten) |
-| Pflege | K | **von Werkzeug (340.3, 07.11.):** Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 14 | startbar |
 
 - **von Perikles (02.11., 19:5x, zu 480.1):** Läufe gibst du frei mit einem Archiveintrag, dessen Kopf „<Nr>, Läufe frei“ heißt (z. B. „- **453b, Läufe frei** (02.11., 19:50, Sokrates nach 480.1): …“); `probelauf.py` zählt ihn dann wie ein Urteil des Chefs, ab seiner Zeit zwei neue Läufe. Dazu 480: „Blatt“ steht noch in `ROLLE-BERATUNG.md` (Zeilen 72, 74); bitte nachziehen.
 - **von Perikles (02.11., 20:0x, Weitergabe von Homer, 01.11., 21:0x, zu 447.4, Regelwerk):** zwei Regelfragen aus den Lehrmeister-Texten, das Regelwerk deckt sie nicht: (1) kommt das erste Rezept einer Meisterschaft mit dem Ja zur Einladung (Projektplan 3.2 „je ein Rezept“, Abschnitt 10)? (2) fallen beim Pfadwechsel eines Anwärters in Kapitel 1 die Kernfertigkeiten auch um einen Rang (Abschnitt 5)? Antwort ändert je eine Zeile „Offen“ in `STORY-LEHRMEISTER-K1.md`.
@@ -66,3 +24,40 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Zu 461b.4:** Köpfe von `DESIGN-SPIELSYSTEM-2-0.md` (Zeile 3, Nr. 24), `LISTE-BESTIARIUM.md` (Zeile 3), `DESIGN-KAMPF.md` (Zeile 3) gegen Entscheidung 84; Säureschnecke mit Jerry (461b.1); Anhänge „→ ersetzt durch …“ im Archiv, wo dein Helfer den Ersatz fand: 376.1 (11:19), 72o, 72o.1, 348.12 (26.10.), 348.9 (13:26), 72.8, 414, F3/F4 Datum (Zu 461b; 415c, 480, 362, 418 hat Perikles gesetzt).
 - **Zu 512 (t266):** 266.7, 266.8 im Build unmöglich (539, 492 fehlten); Testbitte vorher nachgehen (Zu t266, Jerry).
 - **Zu 512 (Chef 23:26–23:28):** „Den angewiesenen Vergleich mit der alten Fassung hat ja eh keiner gemacht …“, „Sonst wäre es ja vorher aufgefallen, dass es nicht passt …“. Ursachen: Regel nur für berührte Schirme, nie berührte (Ausrüstung) vergleicht keiner; Abgleich 248 nur Bilder, Laden berührt und Rückfrage trotzdem übersehen. Schritt 1 Regel: Fenster und jede Bedienung mit, Zeile „verglichen“ in der Prüfliste. Schritt 2: einmal alle Menüschirme alt gegen neu, Funde als Vorgänge an Team Tom.
+
+## Alte Zeilen (bis 275.2; Stand in der Liste, Gültiges als „Zu <Nr>“, Rest streichen)
+
+- **Alt 565:** **von Team Jerry (07.11., 21:2x; Zu 565 bei Jerry):** ein Lauf frei für 565 (ein Bauserverlauf, fünf Standbilder Gruppenkasten vorher/nachher)? `probelauf.py` zählte den ersten Push des neuen Zweigs als Lauf, ohne dass ein Ablauf startete (627) · startbar: Kopf „565, Läufe frei“ ins Archiv
+- **Alt 620:** **von Chef (07.11., 14:3x, „nachhalten … umsetzen … ganz entscheidend“):** Stärken ausbauen, Schwächen verkleinern (`ROLLE-BERATUNG.md` Begründungen); 620.1, 620.2, 620.4 bei Perikles · Dauer: Lagebild und Wiederholquote nach jeder Testrückmeldung; Testbitte vor dem Versand gegenlesen; von Perikles (620.1 A, Chef 21:00): wiederholte Funde mit „wiederholt“ im Titel eintragen, auch die sechs aus t268 nachziehen
+- **Alt 341.1:** **von Perikles (341, Chef 23.10., 09:53: „ja, Probe bis 06.11.“, dann Gerüst für alle):** Probe bestanden (alle sechs Ziele werden gemessen, Zu 341 bei Perikles); Zielvereinbarung je Rolle: höchstens drei Ziele, Z3 und Z4 für alle, eins eigen · startbar
+- **Alt 623:** **von Chef (07.11., 17:2x, elf REEBOO-Links):** Effektpakete; „623 A B C D E F“ 20:1x (Archiv); 623.2 Jerry, 623.3 Perikles, 623.4 Homer · wartet auf Chef: tun/623 (Kauf A); B1 offen
+- **Alt 623.1:** **von Chef (07.11.):** Prüfschema auf bisher geprüfte Quellen anwenden (`LISTE-CC0-MODELLE.md` → `LISTE-QUELLEN.md`) · startbar
+- **Alt 508:** **von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5):** Einladung der Lehrmeister in Kapitel 1 erreichbar? (Simulation 444: keine Fertigkeit Geselle bis Stufe 6); Regelfrage: Magie-Kernfertigkeit Pflicht für Paladin und Kriegsmagier?; Wachsoldat startet mit Mittlerer, Wächter verlangt Schwere Rüstung · startbar
+- **Alt 461b.4:** **von Perikles (deine Liste 461b, 02.11., 19:1x, Punkte 7, 9; Zu 461b.4):** Köpfe der Design-Dateien gegen Entscheidung 84 nachziehen, Ersatz-Anhänge im Archiv · startbar (nur Notizen)
+- **Alt 481:** **von Chef (02.11., 18:54, „Herkünfte auch“; 18:55 Kräutersammler mit Tränken, Zu 481):** Herkünfte ausgleichen, gemessen vorlegen; Namen, Morwen, Welt über Homer · startbar: Zahlen von Jerry 481.1 da (LISTE-SIMULATION-444 Abschnitt 6, Zu 481)
+- **Alt 391:** **von Chef (28.10., 09:21):** Repos dauerhaft ohne Ablehnung · ruht: kein Repo-Feld in der Umgebung
+- **Alt 383.2:** **von Chef (27.10., 19:24, Archiv):** frisch gegen groß, klein gegen groß messen (442) · ruht: 621 C zurückgestellt (Chef 07.11.)
+- **Alt 383:** **von Chef (27.10., 17:44, „Sollen wir einfach aufhören damit?“; 17:47 Vorschlag „nicht griffig“):** Chef räumt nur hinter allen her · startbar: gemeinsam auswerten mit der Wochenzählung Diogenes Mo 09.11. (Inventur 07.11.)
+- **Alt 374:** **von Chef (27.10.):** wer prüft 373? · startbar: gemeinsam auswerten mit der Wochenzählung Diogenes Mo 09.11. (Inventur 07.11.)
+- **Alt 340.2:** **von Chef (25.10., 10:16, Vorgangsarchiv 340):** `tools/rollenspiegel.sh <Rolle>` zeigt nur Fragen und eigene Vorwochenantwort, hängt die neue an; ersetzt „erst antworten, dann lesen“ · wartet auf Perikles: ja 19:44 (Archiv), Bau 340.3–340.5; Wirkung zählt Diogenes Mo 09.11.
+- **Alt 348:** **von Chef (24.10., 16:43; „jetzt“ 16:54):** fertige Spiel-Engine statt Selbstbau? · ruht bis Zuruf: begleiten nach `LISTE-UMZUG-348.md` (Nachturteil 362 gestrichen, außer der Chef ermächtigt, Archiv 373a); entschieden: Umzug nach Godot (Vorgangsarchiv)
+- **Alt 26.1:** **von Chef (24.10., 16:56):** Durchspielbogen auswerten (Rest von 26) · ruht: nach dem ersten Durchspielen auf Godot
+- **Alt 327:** **von Chef (23.10., 00:08):** Marktsichtung zweites Spiel (Denkspiele, ohne Werbung), vertraulich · nach dem Meilenstein: [Dokument](https://claude.ai/artifact/RP9WoDkAXsZAdDehmW59av) (Empfehlung Bildrätsel)
+- **Alt 347:** **von Chef (24.10., 16:20; ja 16:30):** Paket Regeltreue · startbar: gemeinsam auswerten mit der Wochenzählung Diogenes Mo 09.11. (Inventur 07.11.)
+- **Alt 318:** **von Chef (22.10., 21:34):** Antwortstil „Knapp“ und Anhang an die Systemanweisung, komplett umgesetzt 21:3x · startbar: gemeinsam auswerten mit der Wochenzählung Diogenes Mo 09.11. (Inventur 07.11.)
+- **Alt 246.1:** **von Perikles (Übernahme 22.10., 17:50):** Rest übrige Artefakte: Originale löschen, Kartenmappe, Beschlüsse (Vorgangsarchiv 246) · nach dem Meilenstein
+- **Alt 296:** **von Chef (22.10., 07:50):** Checkliste je großem System, MARS zuerst (Zu 296) · ruht, bis MARS sich bewährt: MARS-Lücken als 296.2 an Jerry (Chef 09:53), dann weitere Systeme
+- **Alt 264:** **von Chef (20.10.):** Arbeitsorte neben GitHub (NAS, Proxmox, ALL-INKL)? · zurückgestellt bis Ruhe nach dem Umzug (Chef 25.10., 11:48)
+- **Alt 263:** **von Chef (20.10.):** feste Rolle für Finanzen, EÜR, Geschäftszimmer? · Monatsabschluss erstmals 01.11. (Vorgangsarchiv 263), Sitzung „Sokrates – BornWire“, Ablage außerhalb des Repos; Beleg Entwicklerkonto 25 $
+- **Alt 366:** **von Chef (25.10., 18:39):** bornwire.de: Abschnitt „Stand“ und „Tester gesucht“ (Vorgangsarchiv 366) · wartet auf Godot-Fassung im Test: Tester gebaut 25.10., 23:1x (`inhalt/tester.*.html`, Helfer ohne Befund), offline bis zur Godot-Fassung im Test (142.2 ja, 23:33): dann `TESTER_ONLINE = True` in `bauen.py`; Stand mit Godot-Bildern, sobald sie taugen (Zu 366)
+- **Alt 365:** **von Chef (25.10., 12:36):** bringt Aufwand „Hoch“ statt „Mittel“ einem Beschäftigten etwas, was kostet es? · startbar: gemeinsam auswerten mit der Wochenzählung Diogenes Mo 09.11. (Inventur 07.11.)
+- **Alt 262:** **von Chef (20.10.):** monatliche API-Credits im Plan, was damit anfangen? · ruht, bis der Chef den Betrag nennt; Empfehlung: Routine auf kleines Modell, nie ins Spiel
+- **Alt 253:** **von Chef (20.10.):** „BornWire“ = Firmensachen in eigener Sitzung (Archiv 253) · ruht: Neuanmeldung erledigt (Gewerbeschein 04.11.)
+- **Alt 72c:** **von Chef (19.10., 12:55):** Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunden); Wortlaut Vorgangsarchiv 72c · nach dem Meilenstein (Chef 20.10.); vorher einseitige Vorlage Sokrates
+- **Alt 167.6:** Morgenbericht mit Kennzahlen (167 sonst erledigt) · startbar: gemeinsam auswerten mit der Wochenzählung Diogenes Mo 09.11. (Inventur 07.11.)
+- **Alt 142.3:** **von Chef (27.10., 19:32):** Tester öffentlich suchen · ruht: bis das Konto umgestellt ist (142.4)
+- **Alt 275.2:** **von Chef (07.11., 21:4x):** eine große Liste statt Liste plus Vorräte? · wartet auf Perikles: Bau 275.2 (Archiv)
+- **Alt 142.4:** **von Chef (07.11., 16:5x):** Pflichttest sparen? Organisationskonto mit D-U-N-S · wartet auf Chef: tun/1424 (D-U-N-S)
+- **Alt 142:** Pflichttest Play Store (von Perikles); Store-Text „jede Entscheidung zählt“ prüfen (72a) · startbar: Gewerbeschein da (GewA 1 Potsdam 04.11., Chef 05.11.); als Nächstes Zahlungsprofil, Organisationskonto 142.3 C, Preis 45, neues Testziel; Vorlage nach der Prüfliste des Chefs
+- **Alt 45:** Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite · startbar: Gewerbeschein da; Preis vor der Store-Seite mit 142.4
+- **Alt 109:** Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau · startbar: Gewerbeschein da; Chefsache neu (privat, Kosten)

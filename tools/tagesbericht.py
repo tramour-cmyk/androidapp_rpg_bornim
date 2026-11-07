@@ -45,15 +45,15 @@ def rev_vor(spec):
 
 def tafel(rev):
     d = {}
+    sys.path.insert(0, os.path.join(ROOT, "tools")); import startbar  # 275.2: Spalten über den Kopf, altes und neues Format
     for f in ("docs/LISTE-VORGAENGE.md", "docs/LISTE-VORGAENGE-ARCHIV.md"):
-        for z in git("show", "%s:%s" % (rev, f)).splitlines():
-            t = [x.strip() for x in z.split("|")]
-            if len(t) > 8 and z.startswith("| ") and t[1] not in ("Nr.",) and not t[1].startswith("-"):
-                k = sum(float(x.replace(".", "").replace(",", ".")) for x in re.findall(r"(\d[\d.]*,\d\d) ?\$", t[5]))
-                d.setdefault(t[1], dict(titel=t[2], bereich=t[3][:1], vorrat=t[6], stand=t[7], kosten=k))
+        for t in startbar.tafel_zeilen(git("show", "%s:%s" % (rev, f))):
+            if not t.get("nr") or t["nr"] in startbar.SONDER: continue
+            k = sum(float(x.replace(".", "").replace(",", ".")) for x in re.findall(r"(\d[\d.]*,\d\d) ?\$", t.get("kosten", "")))
+            d.setdefault(t["nr"], dict(titel=t.get("titel", ""), bereich=t.get("bereich", "")[:1], vorrat=t.get("besitzer", ""), stand=t.get("stand", ""), kosten=k))
     return d
 
-def fertig(s): return s.split(" ")[0].lower() in ("erledigt", "abgenommen", "verworfen")
+def fertig(s): return re.match(r"(erledigt|abgenommen|verworfen)\b", s.strip(), re.I) is not None
 
 def chefsache():
     t = lesen("chefsache/README.md"); teile = re.split(r"(?m)^## ", t); n, alt = {}, {}

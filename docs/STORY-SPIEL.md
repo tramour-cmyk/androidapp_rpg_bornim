@@ -607,7 +607,7 @@ EN: This chronicle was not made alone. Our thanks to everyone whose work carries
 `[623.dank.effekte]` Effekte: REEBOO Labs
 EN: Visual effects: REEBOO Labs
 
-`[623.dank.figuren]` Figuren, Tiere und Bewegung: Animated3D, Game Ready Studios, Janpec, MadeCG, Protofactor, Quaternius, rubberduck, wernerkurt, yughues
+`[623.dank.figuren]` Figuren, Tiere und Bewegung: Animated3D, Game-Ready Studios, Janpec, MadeCG, Protofactor, Quaternius, rubberduck, Wernerkurt, yughues
 EN: Characters, creatures and motion: (Namen wie oben)
 
 `[623.dank.dinge]` Dinge und Waffen: Anker's Assets, Avramania, MagicCGIStudios, Omie's Assets, PolyMech, Quaternius

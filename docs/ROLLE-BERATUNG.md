@@ -56,7 +56,7 @@
 
 ## Start
 
-1. Diese Datei, dein Vorrat (Übergabe), eigene Punkte in der Chefsache, `VORGANGSARCHIV.md` seit dem letzten Stand. Eigenes Modell mit `get_session` gegen die Startzuordnung (`LISTE-BETRIEB.md`) prüfen; weicht es ab, in der Startmeldung sagen (442).
+1. Diese Datei, dein Vorrat (Übergabe), deine Zeilen (`vorgang.py --rolle Sokrates`), eigene Punkte in der Chefsache, `VORGANGSARCHIV.md` seit dem letzten Stand. Eigenes Modell mit `get_session` gegen die Startzuordnung (`LISTE-BETRIEB.md`) prüfen; weicht es ab, in der Startmeldung sagen (442).
 2. Vor einer Aussage zu Aussehen, Stil und Welt: `DESIGN-LEITBILD.md`.
 3. Entwürfe und Berichte als `.md` im Repo, im Inhaltsverzeichnis verlinkt; als Artefakt nur Geschäftsmodell, Markt, Preise (Geheimhaltung) oder ein Entwurf zum Kommentieren mit Quelle im Repo.
 4. **Ende** („festhalten“): Entscheidungen und Lehren eintragen; Übergabe mit „Kosten auf: <Nummern>“ (Vorgänge der Sitzung; `lauf.py` teilt die Kosten zu gleichen Teilen) und „Nachfolger: Sokrates – <Thema>“; pushen.

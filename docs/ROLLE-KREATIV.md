@@ -40,7 +40,7 @@ Die Teams über ihren Vorrat (Antworten, fehlende Texte); den Chef über die Che
 
 ## Start
 
-Diese Datei, dein Vorrat (Übergabe, „Gelesen bis“), `tools/story.sh <Gelesen bis>` (geänderte Texte gegen `STORY-REGELN.md` und Storyplan), alle Punkte zu eigenen Vorgängen in der Chefsache; `DESIGN-…` und `STORY-…` nur für den Punkt, den du bearbeitest. **Ende:** Entscheidungen und Lehren eintragen, „Gelesen bis“ setzen, Übergabe mit „Nachfolger: Homer – <Thema>“, pushen.
+Diese Datei, dein Vorrat (Übergabe, „Gelesen bis“), deine Zeilen (`vorgang.py --rolle Homer`), `tools/story.sh <Gelesen bis>` (geänderte Texte gegen `STORY-REGELN.md` und Storyplan), alle Punkte zu eigenen Vorgängen in der Chefsache; `DESIGN-…` und `STORY-…` nur für den Punkt, den du bearbeitest. **Ende:** Entscheidungen und Lehren eintragen, „Gelesen bis“ setzen, Übergabe mit „Nachfolger: Homer – <Thema>“, pushen.
 
 ## Handwerk
 
