@@ -140,7 +140,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 431c | M | Rückfrage: Völker Runde 4 am Tor angehalten, neue Läufe frei? | ruht |
 | 431d | M | Rückfrage: Völker Lauf 3 am Tor angehalten (B1 Elf, C3, G3, A1/A3 Grak, A2), neue Läufe fr | ruht |
 | 431e | M | Rückfrage: Gesicht des Helden im Dorflicht fast weiß, Hauteichung nach Messung? | ruht |
-| Pflege | K | 111708 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzel | startbar |
+| Pflege | K | von Werkzeug (340.3, 07.11.): 111097 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 59, Muss 49, startbar 31
 
@@ -204,7 +204,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 24 | K | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | ruht |
 | 348.7a | M | Rückfrage: Geschosse flach oder in 3D | ruht |
 | 399.2d | M | Godot am Rechner freigeben (Auto-Modus lehnte Download ab), Tests ohne CI-Lauf (aus 399.2) | ruht |
-| Pflege | K | 32223 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 07.11.): 31710 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 18, Muss 14, startbar 3
 
@@ -227,7 +227,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 627 | M | probelauf.py: Push mit git commit -F - im selben Befehl als Probelauf gezählt (562, ohne L | wartet auf Test/Build (gebaut) |
 | 631 | K | lauf.py: Startmarken ohne Datum verglichen (Ford 06.11., 07:19) | startbar |
 | 99 | K | Zwei Niederlassungen | ruht |
-| Pflege | K | Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 14, 19, 38, 40; CLA | startbar |
+| Pflege | K | von Werkzeug (340.3, 07.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabe | startbar |
 
 **Diogenes** – offen 11, Muss 9, startbar 0
 
@@ -245,7 +245,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | Woche | K | Wochenzählung der Kennzahlen | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
 
-**Sokrates** – offen 36, Muss 26, startbar 18
+**Sokrates** – offen 35, Muss 26, startbar 17
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -284,7 +284,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 284 | M | Bis zum Durchspielen (26) am Kampf nur Fehlerbehebung, kein Feinschliff (Vorschlag Sokrate | ruht |
 | 340 | M | Rollenspiegel: zehn Fragen Ist-Soll an alle Rollen, Antwort am Sitzungsende mit Beleg (Che | ruht |
 | 344 | M | Fackel: brennt überall außer in hellen Grundrissen; Kampf mit der Fackel nach SRD (Chef 23 | ruht |
-| Pflege | K | Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 16 | startbar |
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
