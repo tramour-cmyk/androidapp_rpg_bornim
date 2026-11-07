@@ -133,7 +133,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | 586 | K | von Chef über Jerry (05.11., 09:35; Zu 586): Bilder 557 einheitlich: Rast am Feuer und an | startbar |
-| Pflege | K | von Werkzeug (340.3, 07.11.): 128022 Bytes (Grenze 15000), Erledigtes streichen; Tabellenz | startbar |
+| Pflege | K | von Werkzeug (340.3, 07.11.): 122449 Bytes (Grenze 15000), Erledigtes streichen; Tabellenz | startbar |
 
 **Jerry** – offen 60, Muss 48, startbar 27
 
@@ -198,7 +198,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 598 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Umweltklang je Ort, Tageszeit, Wind, Wetter | startbar |
 | 593 | M? | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Ausweichen auch rückwärts | wartet auf 478 (startbar) |
 | 616 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu t268): Gegner weichen nach dem Angriff rückwärt | wartet auf 478 (startbar) |
-| Pflege | K | von Werkzeug (340.3, 07.11.): 41238 Bytes (Grenze 15000), Erledigtes streichen; Zeile 551 | startbar |
+| Pflege | K | von Werkzeug (340.3, 07.11.): 37969 Bytes (Grenze 15000), Erledigtes streichen; Zeile 494 | startbar |
 
 **Perikles** – offen 28, Muss 21, startbar 8
 
@@ -231,7 +231,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | startbar |
 | D74 | M? | von Diogenes (07.11.): regelcheck.py „Test ohne Datei“ meldet 21 von 27 falsch, Pflege-Zei | startbar |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
-| Pflege | K | von Werkzeug (340.3, 07.11.): 19635 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
+| Pflege | K | von Werkzeug (340.3, 07.11.): 16285 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
 **Diogenes** – offen 20, Muss 18, startbar 14
 
@@ -258,7 +258,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 32, Muss 24, startbar 16
+**Sokrates** – offen 33, Muss 24, startbar 17
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -294,6 +294,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 142 | M | Pflichttest Play Store (von Perikles); Store-Text „jede Entscheidung zählt“ prüfen (72a) | startbar |
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | startbar |
 | 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | startbar |
+| Pflege | K | von Werkzeug (340.3, 07.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabe | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
