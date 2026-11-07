@@ -22,7 +22,7 @@
 | 568 | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | Tom | M? | ruht | – | – | – | A Spiel | – |
 | 558 | Robe des Magiers zu glatt, wie eine blaue Fläche: Stoff lebendiger (Falten, Schatten, Schmutz, Abnutzung) (Chef 04.11., 11:31, Bild) | Tom | M | startbar | – | – | – | E Figuren | 96,33 $ |
 | 531 | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere sichtbar mit der Fackel, Ruhebewegungen (Chef 03.11., 23:42) | Tom | M | startbar | – | – | – | A Spiel | 12,96 $ |
-| 522 | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Chef 03.11., 23:33) | Tom | M | startbar | – | claude/tom-522-figur | – | A Spiel | – |
+| 522 | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Chef 03.11., 23:33) | Tom | M | gebaut, Geprüft an: ef4cf1361 (waffen_522, ausruestung_522 lokal; Streitkolben u. a. ohne Modell, 458.3) | – | claude/tom-522-waffen | – | A Spiel | – |
 | 521 | Build 249, Ausrüstung: Wechselschirm eines Platzes wie alt (Bild, Art und Wert, ▲/▼, „nicht tragbar“ matt) (Chef 03.11., 23:23, Bild) | Tom | M | gebaut, Geprüft an: 27d769fa4 (roben_524 lokal) | – | claude/tom-521-tasche | – | A Spiel | – |
 | 519 | Build 249, Ausrüstung: Gegenstandsfenster („Göttlicher Ring des Eisernen Richters“) passt nicht auf den Bildschirm, rechts abgeschnitten (Chef 03.11., 23:13, Bild) | Tom | M | gebaut, Geprüft an: 27d769fa4 (roben_524 lokal) | – | claude/tom-521-tasche | – | A Spiel | 21,91 $ |
 | 555 | Testmenü wie alt und schneller: fehlende Einträge der alten Fassung, dazu Sprünge an jede Station von Kapitel 1 (Chef 04.11., 00:30) | Tom | M | startbar | – | – | – | B Werkzeuge | 15,00 $ |
@@ -81,14 +81,14 @@
 | 606 | Schenke: Met kostet laut Liste 2 Gold, abgezogen werden 4 (Chef 07.11., t268) | Tom | M | gebaut, Geprüft an: a2add0154, 216dd5d09 (doppeltipp_605 lokal) | – | claude/tom-605-doppeltipp | 269 | A Spiel | – |
 | 609 | Dorf: Baum hinter der Schenke sperrt den Weg zum Schlagbaum; alle Häuser auf der Waldseite umrundbar (Chef 07.11., t268) | Tom | M | gebaut, Geprüft an: 72acd8e6d (VillageRoundTest) | – | claude/tom-609-schenke | 269 | E Welt | – |
 | 617 | Hauptmenü „Laden“: Wischen löst Laden aus; laden nur mit dem Knopf rechts (Chef 07.11., t268.1) | Tom | M | gebaut, Geprüft an: a2add0154, 216dd5d09 (doppeltipp_605 lokal) | – | claude/tom-605-doppeltipp | 269 | A Spiel | – |
-| 619 | Blende: derselbe Druck auf den Aktionsknopf drückt die Blende sofort weg (Chef 07.11., t268.18) | Tom | M | startbar | – | – | – | A Spiel | – |
-| 607 | Leute nachts: Pim läuft um 3 Uhr herum, sein Klopftext sagt, er schläft (Chef 07.11., t268) | Tom | M | startbar | – | – | – | A Spiel | – |
+| 619 | Blende: derselbe Druck auf den Aktionsknopf drückt die Blende sofort weg (Chef 07.11., t268.18) | Tom | M | gebaut, Geprüft an: 4d2df2462 (blende_619 lokal; Ursache am Gerät offen, Prüfschritt mit Frage) | – | claude/tom-619-blende | – | A Spiel | – |
+| 607 | Leute nachts: Pim läuft um 3 Uhr herum, sein Klopftext sagt, er schläft (Chef 07.11., t268) | Tom | M | gebaut, Geprüft an: 775ff5ae4 (nacht_607 lokal) | – | claude/tom-607-tuer | – | A Spiel | – |
 | 608 | Haus wird durchsichtig, wenn der Held dahinter steht, dann geht innen das Licht an (Pims Hütte, Tempel) (Chef 07.11., t268) | Tom | M | gebaut, Geprüft an: 491b05cad (glas_608) | – | claude/tom-608-glas | 269 | E Welt | – |
-| 610 | Held im Dorf: Finger am Stab zucken ohne Unterlass (Schild auf dem Rücken) (Chef 07.11., t268) | Tom | M | startbar | – | – | – | E Figuren | – |
+| 610 | Held im Dorf: Finger am Stab zucken ohne Unterlass (Schild auf dem Rücken) (Chef 07.11., t268) | Tom | M | gebaut, Geprüft an: 832795a33 (finger_610 lokal: vorher 11 cm Sprung je Bild, jetzt 0) | – | claude/tom-610-finger | – | E Figuren | – |
 | 615 | Kamera dreht und zoomt um den Helden als Fixpunkt, läuft nicht aus dem Bild (Chef 07.11., t268) | Tom | M | gebaut, Geprüft an: 9ff7db62f (kamera_615) | – | claude/tom-615-kamera | 269 | E Welt | – |
 | 611 | Klopfen an Türen: deutlicher, mit Name des Hauses oder Sprechers; Zeichen an Pfeiler oder Laterne beim Zwerg wie alt (Chef 07.11., t268) | Tom | M | gebaut, Geprüft an: db36a81a3 (klopfen_611) | – | – | – | A Spiel | 31,40 $ |
 | 630 | Restliche Schirme im Stil „ohne Kasten“ (549a): Laden-Fenster und Rückfragen, Menü, Brett, Anleitung, Über das Spiel, Erschaffung (Liste aus 618, Sokrates 07.11.) · „jetzt“ 07.11., 22:28 | Tom | M | startbar | – | – | – | A Spiel | – |
-| 618 | Knöpfe einheitlich: „Zurück“, „Abbrechen“, „Schließen“ nach einer Regel auf allen Schirmen, Liste der Abweichungen (Chef 07.11., t268) | Tom | M | startbar | – | – | – | A Spiel | – |
+| 618 | Knöpfe einheitlich: „Zurück“, „Abbrechen“, „Schließen“ nach einer Regel auf allen Schirmen, Liste der Abweichungen (Chef 07.11., t268) | Tom | M | gebaut, Geprüft an: c4a83c8a7 (Wörter; gruppe_mass_557, rueckfrage_526 lokal; Stil mit 630) | – | claude/tom-618-woerter | – | A Spiel | – |
 | 612 | Dorf Süd: Heuhaufen geklont und wie aufgespießt, Wackelgras im Weizenfeld, Gemüsebeet mit Leerstreifen; drei Varianten je Ding (Chef 07.11., t268) | Tom | M | startbar | – | – | – | E Welt | – |
 | 613 | Intro und Outro wie alt: Tempelgänger, kleine Bewegungen (Chef 07.11., t268.31) | Tom | M | startbar | – | – | – | A Spiel | – |
 | 614 | Leute lebendig wie alt: Jorin mit Speer, Jorin öffnet den Schlagbaum sichtbar; Abgleich der Requisiten und Gesten (Chef 07.11., t268) | Tom | M? | startbar | – | – | – | E Figuren | – |
@@ -105,18 +105,18 @@
 | 431c | Rückfrage: Völker Runde 4 am Tor angehalten, neue Läufe frei? | Tom | M | ruht, ohne Vorratszeile, Liste „Chef“ (275.2) | – | – | – | E Figuren | – |
 | 431d | Rückfrage: Völker Lauf 3 am Tor angehalten (B1 Elf, C3, G3, A1/A3 Grak, A2), neue Läufe frei, Weg A2? | Tom | M | ruht, ohne Vorratszeile, Liste „Chef“ (275.2) | – | – | – | E Figuren | – |
 | 431e | Rückfrage: Gesicht des Helden im Dorflicht fast weiß, Hauteichung nach Messung? | Tom | M | ruht, ohne Vorratszeile, Liste „Chef“ (275.2) | – | – | – | E Figuren | – |
-| 629.1 | Klopfen: Sprechernamen hinter Türen bauen ([629.sprecher], von Homer) | Tom | M | startbar | – | – | – | S Story | – |
+| 629.1 | Klopfen: Sprechernamen hinter Türen bauen ([629.sprecher], von Homer) | Tom | M | gebaut, Geprüft an: 7a4e580db (klopfen_629 lokal) | – | claude/tom-629-sprecher | – | S Story | – |
 | Pflege | von Werkzeug (340.3, 07.11.): 111642 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
 | 565 | MARS: unten im Gruppenkasten sieht man nicht, welcher Held am Zug ist (Chef 04.11., 17:10, t257 C) | Jerry | M | in Arbeit, Sokrates: Kopf „565, Läufe frei“ ins Archiv (seine Zeile, 627) | – | claude/jerry-565-am-zug | – | E Kampf | 7,58 $ |
-| 562 | MARS: Helden laufen zum Angriff viel zu langsam, zurück gleiten sie flott (Chef 04.11., 17:02, t257 C) | Jerry | M | in Arbeit, bei Tuffy | – | claude/jerry-562-angriffsschritt | – | E Kampf | 8,78 $ |
+| 562 | MARS: Helden laufen zum Angriff viel zu langsam, zurück gleiten sie flott (Chef 04.11., 17:02, t257 C) | Jerry | M | gebaut, in 269. Geprüft an: Lauf 272, 70f2b5145 | – | claude/jerry-562-angriffsschritt | – | E Kampf | 8,78 $ |
 | 563 | MARS: Zustandsschilder über Gegnern („Blut 3“) überlagern Ansage und Leisten, wirken grob (Chef 04.11., 17:02, t257 C) | Jerry | M | in Arbeit | – | claude/jerry-563-zustaende | – | E Kampf | 7,55 $ |
 | 560 | Monster auf der Karte drehen sich zum Helden, wenn sie ihn wahrnehmen, mit Schritten statt auf der Stelle (Chef 04.11., 16:22) | Jerry | M | startbar | – | – | – | E Monster | – |
 | 551 | MARS: Rahmen des unteren Kastens links und rechts unterbrochen (Chef 04.11., 00:21) | Jerry | M | ruht | – | – | – | E Kampf | – |
-| 547 | MARS: Text sagt „geht in die Knie“, Sturz ist aus (438a eingefroren): Text und Bild in Einklang bringen (Chef 04.11., 00:01) | Jerry | M | startbar | – | claude/jerry-547-sturztexte | – | E Kampf | 5,43 $ |
-| 532 | Kampf: Held geht ohne Zauberpunkte, Verbrauchtes, Zustände, Metrausch und ohne die ganze Tasche (nur einfacher Heiltrank) in den Kampf, danach wird nur TP zurückgeschrieben; Zauber kosten nichts (Abgleich 512, Sokrates… | Jerry | M | startbar | – | claude/jerry-532-metrausch | – | E Kampf | 2,28 $ |
+| 547 | MARS: Text sagt „geht in die Knie“, Sturz ist aus (438a eingefroren): Text und Bild in Einklang bringen (Chef 04.11., 00:01) | Jerry | M | wartet, in die Prüfliste 269 | 625 | claude/jerry-547-sturztexte | – | E Kampf | 5,43 $ |
+| 532 | Kampf: Held geht ohne Zauberpunkte, Verbrauchtes, Zustände, Metrausch und ohne die ganze Tasche (nur einfacher Heiltrank) in den Kampf, danach wird nur TP zurückgeschrieben; Zauber kosten nichts (Abgleich 512, Sokrates… | Jerry | M | wartet, in die Prüfliste 269 | 625 | claude/jerry-532-metrausch | – | E Kampf | 2,28 $ |
 | 534 | Kampf: Zauber und Fähigkeiten fehlen in „Können“ (Magierrüstung, Untote vertreiben, Spirituelle Waffe, Geisterwächter) oder wirken nicht (Unglaubliches Ausweichen, Unerbittlichkeit, Lebensraub, Schadensminderung der Aus… | Jerry | M | ruht, 424: altes SRD-System | – | claude/jerry-534-faehigkeiten | – | E Kampf | 2,32 $ |
-| 536 | Kampf: Erklärungen bei langem Drücken (MarsTips), Grund bei gesperrtem Zauber, „Kein Ziel in Sicht“, Knopf „Schnell“, Stufe und EP im Gruppenkasten, Seltenheitsfarbe der Beute (Abgleich 512, Sokrates 03.11., 23:4x) | Jerry | M | startbar | – | claude/jerry-536-namen | – | E Kampf | 2,28 $ |
-| 467 | Ausdauer nach BRS statt SRD (ausdauer.gd: Konstitution, Stärke 13), Formel aus 427 (Chef 01.11., 21:52) | Jerry | M | startbar | – | – | – | E Kampf | – |
+| 536 | Kampf: Erklärungen bei langem Drücken (MarsTips), Grund bei gesperrtem Zauber, „Kein Ziel in Sicht“, Knopf „Schnell“, Stufe und EP im Gruppenkasten, Seltenheitsfarbe der Beute (Abgleich 512, Sokrates 03.11., 23:4x) | Jerry | M | in Arbeit, t268.20 Messlauf Bauserver 00:12 | – | claude/jerry-536-namen | – | E Kampf | 2,28 $ |
+| 467 | Ausdauer nach BRS statt SRD (ausdauer.gd: Konstitution, Stärke 13), Formel aus 427 (Chef 01.11., 21:52) | Jerry | M | wartet, dort mitbauen | 478 | – | – | E Kampf | – |
 | 438 | Wölfe im Kampf wirken gleitend: Angriff, Tempo, Vorbeigehen (Film 403, Chef 31.10., 23:31) | Jerry | M | startbar | – | claude/jerry-438-wolf-kampf | – | E Kampf | 124,52 $ |
 | 453 | Wölfe im Kampfort: Ruhebewegungen (atmen, scharren, umblicken, knurren) (Chef 01.11., 11:05) | Jerry | M | ruht | – | – | – | E Kampf | 47,52 $ |
 | 438a | Hinfallen und Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe und Schild frei (Archiv 438a) | Jerry | M | ruht | – | claude/jerry-438a-sturz-2 | – | E Kampf | 24,62 $ |
@@ -139,7 +139,7 @@
 | 304 | Klassischer Kampf: Konter nach Abwehr, obwohl getroffen, regeltechnisch richtig? (Chef 22.10., 13:22) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 257 | Build 46: Meldung „App reagiert nicht“, warten oder schließen, läuft dann weiter (Chef 20.10.) | Jerry | M | ruht | – | – | – | E Technik | – |
 | 211.14 | Rest 211.13: Leistung A56, Puppen-Gegner im Kamerawinkel, Winkel je Platz, Wechsel als Gang | Jerry | M | startbar | – | – | – | E Kampf | – |
-| 628 | Lohn: EP und Gold steigen nicht mit der Monsterstufe über der Gebietsstufe (over fehlt, alt Battle.finishWin) | Jerry | M | startbar | – | – | – | K Kampf | – |
+| 628 | Lohn: EP und Gold steigen nicht mit der Monsterstufe über der Gebietsstufe (over fehlt, alt Battle.finishWin) | Jerry | M | wartet, BRS ersetzt over (DESIGN-SPIELSYSTEM 119, 337) | 478 | – | – | K Kampf | – |
 | 289 | MARS: Wechsel „halber Zug“ missverständlich; Bewegung und Aktion im Kästchen zeigen? (Chef 21.10., 20:11) | Jerry | K | ruht | – | – | – | E Kampf | – |
 | 296.1 | Erste Fassung Checkliste MARS (`LISTE-MARS.md`) gegen den Code prüfen und pflegen | Jerry | K | startbar | – | – | – | E Kampf | – |
 | 296.2 | MARS spielnötig: Beute/Erfahrung, Fliehen, Eröffnung, Zustände, eigene Ausrüstung, Schalter (Chef 23.10., 18:25) | Jerry | M | startbar | – | claude/build-89 | – | E Kampf | 14,29 $ |
@@ -151,10 +151,10 @@
 | 39 | Schwierigkeitsgrad im Menü | Jerry | M | ruht | – | claude/jerry-39-schwierigkeit | – | E Kampf | 3,80 $ |
 | 59e | Händler: Vorrat je Laden | Jerry | K | ruht | – | claude/jerry-59e-haendlervorrat | – | ? | – |
 | 469 | Kampf auf BRS: Ring (MARS) ohne Klassen regeln (aus 406.1, Sokrates 02.11.) | Jerry | M | startbar | – | – | – | E Kampf | – |
-| 597 | MARS: Ring ohne Ankündigung (Fledermaus); alle Angreifer prüfen (Chef 05.11., 19:2x) | Jerry | M | startbar | – | claude/jerry-597-ring | – | E Kampf | 2,88 $ |
-| 601 | Goblin-Späher: Schuss ohne Bewegung, falscher Pfeil, kein Pfeil beim Fehlschuss; Treffer trotz Schatten (Chef 05.11., 19:2x, t266.5) | Jerry | M | startbar | – | claude/jerry-601-spaeher | – | C Kampf | 2,88 $ |
+| 597 | MARS: Ring ohne Ankündigung (Fledermaus); alle Angreifer prüfen (Chef 05.11., 19:2x) | Jerry | M | gebaut, in 269. Geprüft an: 9da89c6af | – | claude/jerry-597-ring | – | E Kampf | 2,88 $ |
+| 601 | Goblin-Späher: Schuss ohne Bewegung, falscher Pfeil, kein Pfeil beim Fehlschuss; Treffer trotz Schatten (Chef 05.11., 19:2x, t266.5) | Jerry | M | wartet, Pfeil R3 Arrow Streak (LISTE-EFFEKTE), Schussbewegung mit Film | 623 | claude/jerry-601-spaeher | – | C Kampf | 2,88 $ |
 | 595 | Kampfbewegungen der Kaufgegner: Spinne mehr Angriffe, Egel und Schnecke schneller, Treffhöhe, Ruckeln, Ruhe (Chef 05.11., 19:2x, t266.1) | Jerry | M | wartet | 478 | – | – | E Kampf | – |
-| 600 | Kampfort: Knopf zum Beschleunigen wie Würfel und Raster (Chef 05.11., 19:2x) | Jerry | M | startbar | – | claude/jerry-600-tempo | – | E Kampf | 2,88 $ |
+| 600 | Kampfort: Knopf zum Beschleunigen wie Würfel und Raster (Chef 05.11., 19:2x) | Jerry | M | gebaut, in 269. Geprüft an: fd2a55335 | – | claude/jerry-600-tempo | – | E Kampf | 2,88 $ |
 | 478 | Rechenkern des Kampfs in Stufe 1 auf BRS (470a C, Chef 02.11., 17:59) · „jetzt“ 07.11., 16:37 | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 620.2b | Abgleich alt nach `LISTE-ABGLEICH-ALT.md`: Höhle, Klang, Gegner, Bosse (aus 620.2) | Jerry | M | startbar | – | – | – | B Abläufe | – |
 | 623.5 | Probe Kampf mit den Gratisproben (Combat Mega, Projectiles, Trails, Pack 3, Character Shaders) im Kampfort, Compatibility, FPS, ein Film (Chef 07.11., 623) | Jerry | M | startbar | – | – | – | E Kampf | – |

@@ -48,8 +48,11 @@ const FOE_SIZE := 1.5
 ## Ratte Runde 11 (Chef 25.10., 18:32 „deutlich größer“): Modell 0,6 m Schulter (figur.gd ART_GROESSE), in echter Größe gegen den Wolf
 ## Chef 25.10., 19:05 („die Riesenratten jetzt so groß von der Risthöhe wie die Helden … übertrieben“): Ratte in echter Größe gegen
 ## die Helden (0,6 m), ohne die Bildvergrößerung FOE_SIZE·WOLF_SIZE der Gegner
-const ART_SIZE := {"boar": 90.0 / 76.0 * 0.8 / 0.9, "giant_rat": 1.0 / (FOE_SIZE * WOLF_SIZE),
-		"giant_bat": 1.0 / (FOE_SIZE * WOLF_SIZE)}     # 348.7 Riesenfledermaus: echte Größe (fledermaus.py, Abnahmeliste)
+## 587 A (Chef 05.11., 12:0x: „587 A“; 587a 06.11., 09:36: auf der Gebietskarte ebenso): Ratte und Riesenfledermaus wieder 1,3-fach wie
+## alle Gegner (vorher echte Größe: 1 / (FOE_SIZE · WOLF_SIZE))
+const ART_SIZE := {"boar": 90.0 / 76.0 * 0.8 / 0.9}
+## 587 A: Bosse 1,5-fach (Krogg, Grak); Grimmzahn bleibt, wie er ist (Wolf mit ART_GROESSE 1,75)
+const BOSS_SIZE := 1.5
 const WOLF_SIZE := 0.88         # 1,08 nach Messung (Schulter/Held alt 0,64, neu 0,52) wirkte im Bild „wie Kälber“ (Prüfer Lauf 14); zurück
 # SkirmishScreen.kt
 const SAY_MS := 1100
@@ -783,14 +786,19 @@ func foe_scale(f) -> float:
 	return _foe_scale(f) * float(f.monster.get("scale", 1.0))
 
 
+## 587 A (Chef 05.11.: „Gegner im Kampfort 1,3-fach wie alt und wie die Wölfe“, Bosse 1,5-fach; 587a: eine Größe je Tier auf Karte und
+## Kampfort, die Karte liest foe_scale über streuner.gd): alle Gegner FOE_SIZE · WOLF_SIZE (1,32 wie die Wölfe seit 438c), Krogg und Grak
+## BOSS_SIZE; vorher standen Kauftiere und Spinne in echter Größe (387, 494), nur Wölfe und Goblins vergrößert
 func _foe_scale(f) -> float:
 	if Figur.vier(f):
-		if Figur.ersatz().begins_with("kauf_"):     # 387: gekaufte Tiere (kauftier.py) in echter Größe wie im Kauf
-			return 1.0
+		if Figur.ersatz().begins_with("kauf_"):     # 387: gekaufte Tiere (kauftier.py), Maße wie im Kauf, 587 A 1,3-fach
+			return FOE_SIZE * WOLF_SIZE
 		return FOE_SIZE * WOLF_SIZE * ART_SIZE.get(Figur.ersatz(), 1.0)
 	if Figur.eigene_haut(f):
-		return 1.0     # 494 Riesenspinne (kaufspinne.py, Spannweite 1,69 m wie LISTE-FIGUREN): echte Größe wie die Kauftiere, nicht 1,5-fach
-	if Mars.koerper_of(f.monster) in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG]:     # 348.7: Goblin in echter Größe (goblin.py), im Bild wie FoeArt (PX 0,66 wie BeastArt, Held 0,75); 348.12 Grak ebenso
+		return FOE_SIZE * WOLF_SIZE     # 494 Riesenspinne (kaufspinne.py, Spannweite 1,69 m wie LISTE-FIGUREN), 587 A 1,3-fach
+	if Mars.koerper_of(f.monster) in [Mars.GRAK, Mars.KROGG]:     # 587 A: Bosse
+		return BOSS_SIZE
+	if Mars.koerper_of(f.monster) in [Mars.CALLED, Mars.SCOUT]:     # 348.7: Goblin (goblin.py), im Bild wie FoeArt (PX 0,66 wie BeastArt, Held 0,75)
 		return FOE_SIZE * WOLF_SIZE
 	return FOE_SIZE
 
