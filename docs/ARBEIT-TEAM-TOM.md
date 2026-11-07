@@ -83,7 +83,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 607 | M | **von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619):** Pim läuft um 3 Uhr herum, sein Klopftext sagt, er schläft | wartet auf 625: nachgestellt, im Test drinnen (nacht_607), Prüfschritt in 269 | – |
 | 608 | M | **von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619):** durchsichtiges Haus macht innen Licht an (Pim, Tempel) | startbar | – |
 | 610 | M | **von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619):** Finger am Stab zucken im Dorf (Schild auf dem Rücken) | startbar | – |
-| 615 | M | **von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619):** Kamera um den Helden als Fixpunkt, nie aus dem Bild | startbar | – |
+| 615 | M | **von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619):** Kamera um den Helden als Fixpunkt, nie aus dem Bild | gebaut, fährt im nächsten Build (269); Geprüft an: 9ff7db62f (kamera_615) | – |
 | 611 | M | **von Sokrates (Chef 07.11., 14:1x, t268, 268.8; Zu 606–619):** Klopfen deutlicher, wessen Haus, wer spricht; Zeichen beim Zwerg mit Laterne wie alt | startbar | – |
 | 618 | M | **von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619):** „Zurück“, „Abbrechen“, „Schließen“ nach einer Regel auf allen Schirmen | startbar | – |
 | 612 | M | **von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619):** Dorf Süd: Heuhaufen, Weizenfeld, Gemüsebeet; drei Varianten je Ding | startbar | – |
