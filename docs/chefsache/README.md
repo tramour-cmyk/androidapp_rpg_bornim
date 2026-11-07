@@ -241,7 +241,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 41238 Bytes (Grenze 15000), Erledigtes streichen; Zeile 551 | startbar |
 
-**Perikles** – offen 36, Muss 30, startbar 7
+**Perikles** – offen 26, Muss 20, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -250,58 +250,52 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 621.1 | M | von Sokrates (Chef 07.11., 16:4x, „621, A, B und D“; Archiv 621): Probenregel A (eine Prob | wartet auf Test/Build (gebaut) |
 | 620.2 | M | von Sokrates (Chef 07.11., 14:3x, 620, 512; Zu 620): Abgleich alt einmal je Ort und Figur | startbar |
 | 620.4 | M | von Sokrates (Chef 07.11., 14:3x, 620; Zu 620): Referenzszene Dorf bis Wolfskampf im Flüst | startbar |
-| 579 | M | von Sokrates (Chef 05.11., 08:18, „jetzt ist gut erstmal. Weitermachen mit wichtigen Dinge | startbar |
-| 578 | M | von Sokrates (Chef 04.11., 21:03, Archiv „572, gleich Film“): probelauf.py liest „<Nr>, gl | wartet auf Test/Build (gebaut) |
 | 549a.1 | M? | von Sokrates (549a ja, Chef 04.11., 19:28): ROLLE-ENTWICKLUNG.md Start 2: wer Menüschirm o | wartet auf Test/Build (gebaut) |
 | 512b | M | von Sokrates (Chef 04.11., 19:21: „512b ja“; chefsache/entscheiden/512b-nachweis.md in Git | wartet auf Test/Build (gebaut) |
 | 512.1 | M? | von Sokrates (512, Chef 03.11., 23:28, „Kümmer du dich um 512.“): Regel „Abgleich“ wirkt n | wartet auf Test/Build (gebaut) |
-| 513.1 | M | von Sokrates (Chef 03.11., 15:56, „513 B“, Archiv; „jetzt“ 03.11., 15:56): probelauf.py lä | wartet auf Test/Build (gebaut) |
 | 511 | M | von Sokrates (Chef 03.11., 13:50, „511 ja“, Archiv; „jetzt“ 03.11., 13:50): probelauf.py s | wartet auf Test/Build (gebaut) |
-| 488 | M | von Sokrates (Chef 03.11., 06:44, „488 ja“, Archiv 488; „jetzt“ 03.11., 06:44): Wochenziel | wartet auf Test/Build (gebaut) |
 | 483 | M | von Sokrates (Chef 02.11., 19:21, „483 ja“, Archiv): Film-Links reparieren: jsDelivr liefe | wartet auf Test/Build (gebaut) |
-| 340.3 | M | von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv): A: notiz.sh-Hinweise (Größe, Zeilen | wartet auf Test/Build (gebaut) |
-| 340.4 | M | von Sokrates (Archiv 340.2): B: Pflichtzeile „Geprüft an: <Link auf Film, Bild oder Lauf>“ | wartet auf Test/Build (gebaut) |
-| 340.5 | M | von Sokrates (Archiv 340.2): C: Haken hängt „Uhr: HH:MM“ an jedes Werkzeugergebnis; bekann | wartet auf Test/Build (gebaut) |
 | 461d | M | von Sokrates (Vorentscheid 22:5x): Liste 461 in die DESIGN-Dateien (Archiv 461d) | wartet auf Test/Build (gebaut) |
-| 461b | M | von Sokrates (Chef 22:26, Archiv): Commit-Prüfung: Archiveintrag ohne DESIGN-/Listenänderu | wartet auf Test/Build (gebaut) |
 | 465 | M | von Sokrates („jetzt“ 01.11., 20:50, Chef: „Warum ist eigentlich in der Chefsache zu entsc | wartet auf Test/Build (gebaut) |
 | 464 | M | von Sokrates (Chef 01.11., 20:4x, Wortlaut Zu 464): rote Läufe senken: Haken vor jedem Pus | wartet auf Test/Build (gebaut) |
 | 461 | M | von Sokrates („jetzt“ 01.11., 20:3x, Wortlaut in der Liste): Grundstand Figuren und Kampf: | wartet auf Test/Build (gebaut) |
 | 461a | M | von Perikles (D58.5): Rückfrage, ob ein Grundstand-Verstoß den Film anhält | wartet auf Test/Build (gebaut) |
-| 407 | M | „jetzt“ 02.11., 11:13 (468: erster Start nach dem Stopp, bis greift höchstens drei Sitzung | wartet auf Test/Build (gebaut) |
 | 399 | M | von Chef über Sokrates („jetzt“ 28.10., 12:34, Archiv): Vorrang neu: erst eine Godot-Fassu | wartet auf Tom |
 | 398 | M | von Sokrates (Chef 28.10., 11:22): Termine je Block nachrechnen mit der Schätzung der 15 Z | wartet auf Diogenes |
 | 383 | M | von Sokrates (Chef 27.10., 17:53 „ja, 383“, Archiv): Wartewächter in lauf.py, Haken 63 ver | wartet auf Test/Build (gebaut) |
-| 275 | M | von Sokrates (Chef 27.10., 15:09 ja, 15:15 „jetzt loslegen“, Archiv): Stufe 1 (Chefsache 2 | wartet auf Diogenes |
+| 275 | M | von Sokrates (Chef 27.10., 15:09 ja, 15:15 „jetzt loslegen“, Archiv): Stufe 1 (Chefsache 2 | startbar |
 | 347.2 | M | von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347): Paket Regeltreue umsetzen nach tool | wartet auf Sokrates |
 | 276 | K | von Sokrates (zu 274): Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in lauf. | ruht |
 | 341 | M | von Chef (23.10., 09:39): Zielvereinbarung Perikles, gegenprüfbar und nachhaltig (Zu 341) | startbar |
-| 338.1 | M | von Sokrates (Chef 23.10., 09:01/09:05): „wird es mir nie vorgelegt, wie weit wir da eigen | wartet auf Test/Build (gebaut) |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | startbar |
 | D74 | M? | von Diogenes (07.11.): regelcheck.py „Test ohne Datei“ meldet 21 von 27 falsch, Pflege-Zei | startbar |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 19635 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Diogenes** – offen 14, Muss 12, startbar 3
+**Diogenes** – offen 18, Muss 16, startbar 13
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 461d | M | von Sokrates (Inventur 07.11.): Perikles meldet „gebaut, Diogenes prüft“, hier fehlte die | startbar |
+| 461 | M | von Sokrates (Inventur 07.11.): wie 461d (Grundstand-Checkliste) | startbar |
+| 461a | M | von Sokrates (Inventur 07.11.): wie 461d | startbar |
+| 465 | M | von Sokrates (Inventur 07.11.): wie 461d (Chefsache „Seit“ mit Uhrzeit) | startbar |
+| 549a.1 | M | von Sokrates (Inventur 07.11.): wie 461d (ROLLE-ENTWICKLUNG.md Start 2 „ohne Kasten“) | startbar |
 | 623.3 | M | von Perikles (Doppelpack 421, 07.11., 20:4x, 4e8195ab0): commit-pruefung.py warnt im Code- | startbar |
 | 621.1 | M | von Perikles (Doppelpack 421, 07.11., 20:1x, 8a5a43875): Probenregel A: probelauf.py hält | startbar |
-| 448 | M | von Perikles (Doppelpack 421, 07.11., 20:1x, 76df26ba1): startbar.py gibt bei „Pause“ im K | Leiche: in LISTE-VORGAENGE.md „erledigt“, Zeile noch im Vorrat |
-| 512b | M | von Sokrates (Chef 04.11., 19:21: „512b ja“; chefsache/entscheiden/512b-nachweis.md in Git | wartet auf Eingang |
-| 512.1 | M | von Perikles (Doppelpack 421, 04.11., 14:0x, bdf83b0f6): commit-pruefung.py warnt bei neue | wartet auf Eingang |
-| 512 | M | von Perikles (Doppelpack 421, 03.11., 16:0x, e823b0ee7): Abgleich alt/neu vor jeder Testbi | wartet auf Eingang |
-| 511 | M | von Perikles (Doppelpack 421, 03.11., 14:0x, d6d9eca8c): Filmsperre probelauf.py am ersten | wartet auf Eingang |
+| 512b | M | von Sokrates (Chef 04.11., 19:21: „512b ja“; chefsache/entscheiden/512b-nachweis.md in Git | startbar |
+| 512.1 | M | von Perikles (Doppelpack 421, 04.11., 14:0x, bdf83b0f6): commit-pruefung.py warnt bei neue | startbar |
+| 512 | M | von Perikles (Doppelpack 421, 03.11., 16:0x, e823b0ee7): Abgleich alt/neu vor jeder Testbi | startbar |
+| 511 | M | von Perikles (Doppelpack 421, 03.11., 14:0x, d6d9eca8c): Filmsperre probelauf.py am ersten | startbar |
 | 340.2 | M | von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv): Wirkung 340.3–340.5 zählen (Tabelle | ruht bis 09.11. |
 | 485 | M | „jetzt“ 02.11., 19:37 (Chef: „1, 2, 3 ja, fang an.“): (1) Wochentermine „gelaufen ja/nein“ | ruht bis 09.11. |
-| 483 | M | von Perikles (Doppelpack 421, 02.11., 19:4x): meldung.sh --film legt je Film einen Zweig f | wartet auf Eingang |
+| 483 | M | von Perikles (Doppelpack 421, 02.11., 19:4x): meldung.sh --film legt je Film einen Zweig f | startbar |
 | 461b | M | von Sokrates (Chef 01.11., 22:26, „461b ja“, Archiv): Kennzahl Widersprüche: montags Stich | ruht bis 09.11. |
-| 348.9 | M | von Chef über Sokrates (25.10., 12:24): Umzug Godot: jedes Vergleichsbild alt/neu messen, | wartet auf Eingang |
+| 348.9 | M | von Chef über Sokrates (25.10., 12:24): Umzug Godot: jedes Vergleichsbild alt/neu messen, | startbar |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 32, Muss 24, startbar 16
+**Sokrates** – offen 31, Muss 23, startbar 16
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -311,7 +305,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 508 | M | von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5): | startbar |
 | 461b.4 | M | von Perikles (deine Liste 461b, 02.11., 19:1x, Punkte 7, 9; Zu 461b.4): Köpfe der Design-D | startbar |
 | 481 | M | von Chef (02.11., 18:54, „Herkünfte auch“; 18:55 Kräutersammler mit Tränken, Zu 481): Herk | startbar |
-| 398 | M | von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr g | wartet auf Perikles |
 | 391 | M | von Chef (28.10., 09:21): Repos dauerhaft ohne Ablehnung | ruht |
 | 383.2 | M | von Chef (27.10., 19:24, Archiv): frisch gegen groß, klein gegen groß messen (442) | ruht |
 | 383 | M | von Chef (27.10., 17:44, „Sollen wir einfach aufhören damit?“; 17:47 Vorschlag „nicht grif | startbar |
@@ -341,11 +334,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 407 (Projekt)
-
 Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/572-effektfilm.md
 
-Ohne Datei: 3402 (Projekt), 275 (Projekt), 26 (Team Tom)
+Ohne Datei: 275 (Projekt), 26 (Team Tom)
 
 ## So geht's
 
