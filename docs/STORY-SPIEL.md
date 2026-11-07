@@ -517,7 +517,11 @@ EN: There's a room free upstairs. Fresh sheets, and nobody snores through the wa
 Genug für heute, {name}. Geh schlafen, die Treppe ist links.
 EN: Enough for today, {name}. Go to bed, the stairs are on the left.
 
-`[570.fleisch]` (Wahl an der Theke, ersetzt `meatSell`; „Met · 5 Gold“ ist ein Preis, hier bekommt man Gold, darum das Plus wie bei `[86.kurzfertig]`) Fleisch verkaufen · +{0} Gold / EN: Sell meat · +{0} gold
+`[570.fleisch]` (Wahl an der Theke, ersetzt `meatSell`; „Met · 2 Gold“ ist ein Preis, hier bekommt man Gold, darum das Plus wie bei `[86.kurzfertig]`) Fleisch verkaufen · +{0} Gold / EN: Sell meat · +{0} gold
+
+`[604.zimmerwirkt]` (ersetzt `[86.zimmerwirkt]`; die Gaststube hat kein Bett mehr, geschlafen wird oben, nur im Text) Ein Bett oben unter dem Dach: lange Rast / EN: A bed upstairs under the roof: long rest
+
+`[604.zimmerfertig]` (nach dem Zimmer statt `[86.langfertig]`; Lagerfeuer bleibt bei `[86.langfertig]`) Du steigst die Treppe hinauf und schläfst acht Stunden. TP, ZP und Ausdauer sind voll. / EN: You climb the stairs and sleep for eight hours. HP, SP and stamina are full.
 
 ## Zustände außerhalb des Kampfs (86.9)
 

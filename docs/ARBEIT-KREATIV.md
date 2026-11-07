@@ -3,17 +3,15 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `485c3f5fb` (04.11., 14:06)
+**Gelesen bis:** `724bab1eb` (07.11., 20:11)
 
-**Übergabe (04.11., 14:05):** 547 Zwischentexte ohne Sturz `[547.auf]`, `[547.wolf.sprung.stoss]`; 535 Schamane `[535.schamane.…]` (beide `STORY-SPIEL.md`, fremd geprüft, Bau bei Jerry). Nachfolger: keiner (468a).
+**Übergabe (07.11., 20:11):** 587 Größenregel nach 587 A/587a in `LISTE-FIGUREN.md`, `DESIGN-STIL.md`, `LISTE-UMZUG-348.md` (Bau bei Jerry); 570 `[570.fleisch]` und 604 `[604.zimmerwirkt]`, `[604.zimmerfertig]` in `STORY-SPIEL.md` (Bau bei Tom); alles fremd geprüft. Nachfolger: keiner (468a).
 
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 604 | K | **von Ford (Chef 06.11., 09:38):** Rast in der Schenke: Text, dass oben geschlafen wird („das muss man ja nicht darstellen“); Tom nimmt das Bett aus der Gaststube | startbar |
-| 570 | M? | **von Team Tom (Prüfer 557 Runde 4, 04.11., 18:21):** Rast an der Theke, Wahl „Fleisch verkaufen · {0} Gold“ (`Resting.kt` `meatSell`) liest sich wie ein Preis, man bekommt aber Gold; Wortlaut prüfen, Bau bei Tom | startbar |
 | 432 | K | **von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt mir sehr gut“):** eigenes Volk prüfen, mit der Geschichte ab Kapitel 2 | ruht: Storyplan, Kult-Antwort und Abgleich K2 fertig (STORY-PLAN.md, Aschgeborene); Chefsache erst nach dem Meilenstein, vor dem Bau; Volk selbst in 432.3 |
 | 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Stil wiedererkennbar, wie machen wir ihn einzigartig? (Zu 302) | wartet auf Tom (302.1 Schätzung) und Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv), Figuren zuerst; Umriss schätzt Tom (302.1); `DESIGN-STIL.md` „Signatur“ nachgezogen (Bestand, Linie im Zeichner, 07:58) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Storyplan und Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179); 5b bleibt „noch nicht“ (Zu 41) |
