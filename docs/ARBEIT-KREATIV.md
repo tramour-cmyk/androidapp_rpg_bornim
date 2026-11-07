@@ -2,9 +2,9 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `71214de1e` (07.11., 21:12)
+**Gelesen bis:** `6d348b408` (07.11., 23:43)
 
-**Übergabe (07.11., 21:12):** 623.4 „Mit Dank an“ `[623.dank.*]` in `STORY-SPIEL.md` (fremd geprüft, Befunde eingearbeitet); Bau 623.7 bei Tom, dazu Hinweis Fondamento-Lizenztext zu 497. Nachfolger: keiner (468a).
+**Übergabe (07.11., 23:43):** 629 Sprechernamen beim Klopfen `[629.sprecher]` in `STORY-K1-WELT.md` (fremd geprüft, Befund Anführungszeichen eingearbeitet); Bau 629.1 bei Tom. Nachfolger: keiner (468a).
 
 ## Zeilen
 
@@ -18,7 +18,6 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 ## Alte Zeilen (bis 275.2; Stand in der Liste, Gültiges als „Zu <Nr>“, Rest streichen)
 
-- **Alt 629:** **von Team Tom (Chef 07.11., t268, 611: „Beim Klopfen an Türen steht nicht da, wessen Haus es ist oder wer spricht“):** je verschlossene Tür im Dorf (12/5, 23/5, 5/14, 30/13, 13/22) ein Sprechername oder „Hinter der Tür“ über dem Satz; alt ohne (`Story.lockedDoor`: `narrate`) · startbar
 - **Alt 432:** **von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt mir sehr gut“):** eigenes Volk prüfen, mit der Geschichte ab Kapitel 2 · ruht: Storyplan, Kult-Antwort und Abgleich K2 fertig (STORY-PLAN.md, Aschgeborene); Chefsache erst nach dem Meilenstein, vor dem Bau; Volk selbst in 432.3
 - **Alt 302:** **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Stil wiedererkennbar, wie machen wir ihn einzigartig? (Zu 302) · wartet auf Tom (302.1 Schätzung) und Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv), Figuren zuerst; Umriss schätzt Tom (302.1); `DESIGN-STIL.md` „Signatur“ nachgezogen (Bestand, Linie im Zeichner, 07:58)
 - **Alt 41:** Storyplan; Texte Kapitel 2 · ruht: Storyplan und Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179); 5b bleibt „noch nicht“ (Zu 41)

@@ -106,6 +106,7 @@
 | 431d | Rückfrage: Völker Lauf 3 am Tor angehalten (B1 Elf, C3, G3, A1/A3 Grak, A2), neue Läufe frei, Weg A2? | Tom | M | ruht, ohne Vorratszeile, Liste „Chef“ (275.2) | – | – | – | E Figuren | – |
 | 431e | Rückfrage: Gesicht des Helden im Dorflicht fast weiß, Hauteichung nach Messung? | Tom | M | ruht, ohne Vorratszeile, Liste „Chef“ (275.2) | – | – | – | E Figuren | – |
 | Pflege | 111708 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 75, 97 | Tom | K | startbar | – | – | – | B Betrieb | – |
+| 629.1 | Klopfen: Sprechernamen hinter Türen bauen ([629.sprecher], von Homer) | Tom | M | startbar | – | – | – | S Story | – |
 | 565 | MARS: unten im Gruppenkasten sieht man nicht, welcher Held am Zug ist (Chef 04.11., 17:10, t257 C) | Jerry | M | in Arbeit, Sokrates: Kopf „565, Läufe frei“ ins Archiv (seine Zeile, 627) | – | claude/jerry-565-am-zug | – | E Kampf | 7,58 $ |
 | 562 | MARS: Helden laufen zum Angriff viel zu langsam, zurück gleiten sie flott (Chef 04.11., 17:02, t257 C) | Jerry | M | in Arbeit, bei Tuffy | – | claude/jerry-562-angriffsschritt | – | E Kampf | 8,78 $ |
 | 563 | MARS: Zustandsschilder über Gegnern („Blut 3“) überlagern Ansage und Leisten, wirken grob (Chef 04.11., 17:02, t257 C) | Jerry | M | in Arbeit | – | claude/jerry-563-zustaende | – | E Kampf | 7,55 $ |
@@ -165,7 +166,7 @@
 | 348.7a | Rückfrage: Geschosse flach oder in 3D | Jerry | M | ruht, ohne Vorratszeile, Liste „in Arbeit“ (275.2) | – | – | – | E Technik | 58,17 $ |
 | 399.2d | Godot am Rechner freigeben (Auto-Modus lehnte Download ab), Tests ohne CI-Lauf (aus 399.2) | Jerry | M | ruht, ohne Vorratszeile, Liste „wartet“ (275.2) | – | – | – | E Kampf | – |
 | Pflege | 32223 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Betrieb | – |
-| 629 | Klopfen: wer hinter der Tür spricht, wessen Haus (Chef 611) | Homer | M | startbar | – | – | – | S Story | – |
+| 629 | Klopfen: wer hinter der Tür spricht, wessen Haus (Chef 611) | Homer | M | erledigt, Text [629.sprecher]; Bau 629.1 Tom | – | – | – | S Story | – |
 | 432 | Eigenes Volk aus Bornim (etwa mit dem Grauen Propheten, „Tag der Asche“) prüfen, mit der Geschichte ab Kapitel 2 (Chef 31.10., 22:0x) | Homer | K | ruht | – | – | – | C Texte | 0,79 $ |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
