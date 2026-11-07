@@ -735,6 +735,18 @@ def main():
         if hand:
             pruefen_und_zaehlen(*hand, wer, film=True)
         return
+    if re.search(r"(push_files|create_or_update_file)$", d.get("tool_name") or ""):  # D75.1: Push über den GitHub-Server zählt wie git push
+        try:
+            e = d.get("tool_input") or {}
+            zweig, nachricht = str(e.get("branch") or ""), str(e.get("message") or "")
+            pfade = [f.get("path", "") for f in (e.get("files") or []) if isinstance(f, dict)] + ([e["path"]] if e.get("path") else [])
+            if CI_ZWEIG.fullmatch(zweig) and "[skip ci]" not in nachricht and "[ci skip]" not in nachricht \
+                    and any(x.startswith(CI_PFADE) for x in pfade) and (los := loest_aus(cwd, zweig, pfade, nachricht)):
+                m = re.match(r"\s*(?:\w+:\s*)?(" + NR + r")\b", nachricht)
+                return pruefen_und_zaehlen(m.group(1) if m else zweig, "ci", wer, los == FILMT)
+        except (OSError, subprocess.SubprocessError, ValueError):
+            pass
+        return hinweis_geben()
     try:
         alt = alte_einstellungen(befehl, cwd)
     except (OSError, subprocess.SubprocessError, ValueError):
