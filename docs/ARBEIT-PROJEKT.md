@@ -10,6 +10,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
 | 623.3 | M | **von Sokrates (Chef 07.11., 20:1x, „623 … E“; Archiv 623):** Commit-Prüfung warnt bei neuem Effekt ohne `LISTE-EFFEKTE.md`; Regel zu 377 | gebaut 07.11., 20:4x; Geprüft an: 4e8195ab0; Diogenes prüft |
+| 584 | M? | **von Sokrates (Inventur 07.11.):** Tom wartet bei 584, 585 (Klasse) und 515 (Zeitpunkt), Jerry bei 560 (Muss oder nach 488) auf dein Urteil; hier stand keine Zeile | startbar |
 | 317.1 | M | **von Sokrates (Chef 07.11., 20:5x, Archiv „317, keine Obergrenze je Build“):** `startbar.py` (Zeilen 301, 383) und `lauf.py`: „höchstens 6 je Build“ streichen; bei 4 fertigen Punkten bittet der Erste, dann alle fertigen Zweige; `PROJEKTPLAN.md` 198 nachziehen | startbar |
 | 620.1 | M | **von Sokrates (Chef 07.11., 14:3x, 620; Zu 620):** wiederholte Funde des Chefs vor jedem Neuen; Grenze offener Muss in Arbeit je Team; als Regel vorschlagen (Regelbilanz) | wartet auf Chef: entscheiden/6201 (07.11., 20:4x) |
 | 621.1 | M | **von Sokrates (Chef 07.11., 16:4x, „621, A, B und D“; Archiv 621):** Probenregel A (eine Probe je Aussehen-Thema, sonst Rückfrage; ersetzt 389) | gebaut 07.11., 20:1x; Geprüft an: 8a5a43875; Diogenes prüft |
