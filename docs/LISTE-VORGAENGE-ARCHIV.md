@@ -514,7 +514,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 446 | Wächter Lizenzhinweis SRD: `regelcheck` meldet, solange SRD-Abgeleitetes im Spiel ist; Hinweis fällt erst bei leerer Inventur (Chef 01.11., 09:41, 413a) | B Werkzeuge | M | 2,86 $ | Perikles | erledigt |
 | 449 | Commit-Haken weist gekaufte Rohdateien ab (aus 416.4a, 01.11.) | B Werkzeuge | M | 5,10 $ | Perikles | erledigt |
 | 450 | Jedes Blatt in der Chefsache mit Link auf Bild und Film; `meldung.sh` trägt ihn selbst ein (Chef 01.11., 10:55) | B Werkzeuge | M | 0,78 $ | Perikles | erledigt |
-| 448 | Tagesbericht mit Zahlen statt Ampeln (Chef 01.11., 10:46) | B Abläufe | M | 14,43 $ | Sokrates | erledigt |
+| 448 | Tagesbericht mit Zahlen statt Ampeln (Chef 01.11., 10:46) | B Abläufe | M | 44,60 $ | Sokrates | erledigt |
 | 448.1 | Erster Tagesbericht jetzt, mit Zahlen und den Meilensteinen (Chef 01.11., 10:59, „jetzt“) | B Abläufe | M | – | Perikles | erledigt |
 | 448.2 | Tagesbericht dauerhaft mit Werkzeug, ersetzt Stand zum Marktstart (Chef 01.11., 11:09) | B Werkzeuge | M | 5,10 $ | Perikles | erledigt |
 | 455 | Ausrüstung am Modell als Baukasten (Netz × Material × Zeichen), nur sichtbare Plätze mit Netz (Chef 01.11., 11:15) | D Design | M | – | Sokrates | erledigt |
@@ -713,3 +713,28 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 457.1 | Probeskripte Tom mit Spielshadern (457) | E Figuren | M | – | Team Tom | erledigt |
 | 457.2 | Probeskripte Jerry mit Spielshadern (457) | E Kampf | M | 5,56 $ | Team Jerry | erledigt |
 | 416.7 | Aktionsknopf am Tresen in Schenke und Laden (Chef 31.10., 20:5x) | B Umzug | M | – | Team Tom | erledigt |
+| 19 | Zeitablauf der Kampfbewegungen (19e Beispiel) | E Kampf | K |  | Jerry | erledigt |
+| 133 | Wahlen im Spiel: vier Charisma-Wahlen in Kapitel 2 (Chef 19.10. ja) | G Story | K | 1,12 $ | Tom, Jerry | erledigt |
+| 212 | Kampfsystem wählbar: MARS oder klassisch, Schalter in den Einstellungen (Chef 19.10. A) | G Balance | M | 0,61 $ | Jerry | erledigt |
+| 249 | MARS wie der klassische Kampf: Gleiten, Hiebe, Zoom, Blut, Effekte, Zustände (Chef 20.10.) | E Kampf | M | –; +33,41 $ | Jerry | erledigt |
+| 292.2 | Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bewegung je Klasse (Chef 21.10., 22:28); Stufe 1 mit 292, Bewegung nach 284 | E Oberfläche | M | – | Team Tom | erledigt |
+| 512.1 | Wächter: Testbitte ohne Zeile „Verglichen:“ warnt (zu 512) | B Werkzeuge | M? | – | Perikles | erledigt |
+| 512 | Vor jeder Testbitte berührte Schirme alt gegen neu vergleichen (Sokrates 03.11., 07:45, nach Build 204: 9 Erstfunde des Chefs; Chef 23:28 an Sokrates) | B Abläufe | M | 58,93 $ | Sokrates | erledigt |
+| 512b | Testbitte nur mit Nachweis eines fremden Helfers (Chef 04.11., 19:21: ja) | B Abläufe | M | 72,73 $ | Perikles, Jerry, Tom, Diogenes | erledigt |
+| 549a.1 | ROLLE-ENTWICKLUNG: vor jedem Menüschirm „Fenster und Schirme“ lesen (zu 549a) | B Abläufe | M? | – | Perikles | erledigt |
+| 620.2 | Abgleich alt einmal je Ort und Figur als Liste (Leute, Tiere, Requisiten, Gesten, Klänge) für alle Prüflisten (aus 620, 512) | B Abläufe | M | – | Perikles | erledigt |
+| 621.1 | Probenregel A: höchstens eine Aussehen-Probe je Thema, sonst Rückfrage mit Wegen und Kosten; ersetzt Rundenzahl 389 (Chef 07.11., 621) | B Abläufe | M | – | Perikles | erledigt |
+| 626 | Rückfrage: 14 alte Zeilen aus SRD-Zeit und Umzug streichen oder in 478 übernehmen (Inventur 07.11.) | B Abläufe | M | – | Sokrates | erledigt |
+| 620.4 | Referenzszene Dorf bis Wolfskampf im Flüsterwald ganz fertig als Maß für alles (aus 620) | B Abläufe | M | – | Perikles | erledigt |
+| 465 | Chefsache „Zu entscheiden“ mit Uhrzeit in „Seit“ wie bei Anzusehen und Zu tun (Chef 01.11., 20:50) | B Abläufe | M | 4,18 $ | Perikles | erledigt |
+| 461 | Grundstand Figuren und Kampf: Checkliste des Entschiedenen, Prüfer prüft jede Vorlage dagegen („jetzt“ 01.11., 20:3x) | B Abläufe | M | 29,16 $ | Perikles | erledigt |
+| 461a | Rückfrage: hält ein Verstoß gegen den Grundstand den Film an? (D58.5) | B Abläufe | M | – | Perikles | erledigt |
+| 461d | Gültige Entscheidungen an einem Ort: Grundstand in die DESIGN-Dateien einsortieren (Vorentscheid Sokrates 01.11., 22:5x) | B Abläufe | M | 8,53 $ | Perikles, Homer | erledigt |
+| 410 | Waffen am Körper wegstecken, alle Waffenarten (aus 376.1, Chef 29.10., 10:52, 11:40) | E Figuren | M | – | Team Tom | erledigt |
+| 623.3 | Commit-Prüfung warnt bei neuem Shader oder Teilchenknoten ohne Zeile in `LISTE-EFFEKTE.md` (Chef 07.11., 623 E) | B Werkzeuge | M | – | Perikles | erledigt |
+| 623.4 | Dank „Mit Dank an“ für alle fremden Quellen in „Über das Spiel“ (497), Wortlaut (Chef 07.11., 623 F) | C Texte | M | 3,84 $ | Homer | erledigt |
+| 390 | Umzug: Punkte ohne Bilderrunde weiterbauen, solange Blätter beim Chef liegen (Perikles 28.10., Wochenziel 348) | E Technik | M | 39,54 $ | Team Tom, Team Jerry | erledigt |
+| D82 | D80 und D81.1 bestanden, umschalten; im Umschalt-Commit HAND 275 warte=["Diogenes", "09.11."], sonst startet Ford Diogenes für 275 (Bedingung der zweiten Zeile geht bei Doppelten verloren) | ? | M | – | Perikles | erledigt |
+| D80 | vor dem Umschalten: Automatik B nimmt jede in der Prüfliste genannte offene Zeile (D80.1); Fund-Absatz hält die Commit-Prüfung an bei Tom, Jerry über 15 KB (D80.2); dazu D80.3–D80.7 | ? | M | – | Perikles | erledigt |
+| D81 | Wächter 512.1 lässt „kein Film, kein Bild“ und „Bildabgleich“ noch als Nachweis durch (D81.1); D74 (b) in 4-spaltigen Vorräten (D81.2, entfällt mit 275.2) | ? | M | – | Perikles | erledigt |
+| 275.2 | Rückfrage: eine Liste statt Liste plus Vorräte, mit „wartet auf“ als Feld und Abschluss beim Build (Chef 07.11., 21:4x) · „jetzt“ 07.11., 21:55 | B Werkzeuge | M | 28,92 $ | Perikles | erledigt |

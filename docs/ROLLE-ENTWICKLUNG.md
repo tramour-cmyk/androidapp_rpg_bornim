@@ -44,7 +44,7 @@ Anderes Team, Homer, Perikles über deren Vorrat („von Team Tom“); den Chef 
 
 Kleiner Start (347): Abschnitte nur über ihre Überschrift laden; die Überschriften prüft `regelcheck.py`.
 
-1. Diese Datei; dein Vorrat bis „Einzelheiten“ ganz (`sed -n '1,/^## Einzelheiten/p' docs/ARBEIT-TEAM-<NAME>.md`); aus „Einzelheiten“ nur die Einträge „Von …“ und die zu Vorgängen, an die du gehst (`grep -E '^- \*\*(Von |Zu [^*]*\b<Nr>([^.0-9]|$))' docs/ARBEIT-TEAM-<NAME>.md`, `<Nr>` ersetzen, Punkt als `\.`).
+1. Diese Datei; `python3 tools/vorgang.py --rolle <NAME>` (deine Zeilen in Vorrangfolge, dazu fremde, die auf dich warten); dein Vorrat bis „Einzelheiten“ ganz (`sed -n '1,/^## Einzelheiten/p' docs/ARBEIT-TEAM-<NAME>.md`); aus „Einzelheiten“ nur die Einträge „Von …“ und die zu Vorgängen, an die du gehst (`grep -E '^- \*\*(Von |Zu [^*]*\b<Nr>([^.0-9]|$))' docs/ARBEIT-TEAM-<NAME>.md`, `<Nr>` ersetzen, Punkt als `\.`).
 2. `DESIGN-LEITBILD.md` ganz (gilt bei Widerspruch); `DESIGN-STIL.md` nur „Auf einen Blick“ (`sed -n '/^## Auf einen Blick/,/^## Signatur/p' docs/DESIGN-STIL.md`), die übrigen Abschnitte (Signatur, Karte und Räume, Oberfläche, Zwischensequenzen, Klang …), sobald die Aufgabe sie berührt; wer einen Menüschirm oder ein Fenster anfasst, vorher „Fenster und Schirme ohne Kasten“ (549a); `DESIGN-ABNAHME.md` ganz.
 3. `CHANGELOG.md`: nur die drei neuesten Einträge unter „Unveröffentlicht“ (`awk '/^## v/{exit} /^- \*\*/{n++} n<=3' CHANGELOG.md`).
 4. `LISTE-BAUEN-TESTEN.md` „Handwerk“ ganz, **vor dem ersten Build**; dann `tools/check-env.sh`.
