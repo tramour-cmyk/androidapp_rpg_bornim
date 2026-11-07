@@ -30,6 +30,12 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
 
+## Lauf 75 · Auftrag 465 „Seit“ mit Uhrzeit, 549a.1 „ohne Kasten“ (Inventur Sokrates 07.11.; `main` nach `cf7776783`; 07.11., 21:1x; `eintrag()` aus `zug-index.py` mit der alten Datei 474a aus `85bbba25b` und 3 Probedateien in einem Probe-Repo; heutige `chefsache/README.md`)
+
+- **Bestanden 465:** alle 4 offenen Zeilen der Übersicht haben „Seit“ mit Uhrzeit und „Wer“; Zeit und Wer in der Titelzeile werden erkannt, in Zeile 2 ebenso; ohne Zeit gilt die Anlagezeit des Commits (Probe: 21:14); 474a zeigt „02.11., 13:4x“ und „Tom“. Ohne Namen bleibt „Wer“ leer.
+- **Bestanden 549a.1:** `ROLLE-ENTWICKLUNG.md` Start 2 nennt „Fenster und Schirme ohne Kasten“ (549a); der Abschnitt steht in `DESIGN-STIL.md`.
+- **D77 (an Perikles, klein):** ein Bereich in der Titelzeile („… · Sokrates · 07.11., 20:1x · C Kampf“) wird nicht als Bereich gelesen, sondern bleibt im Text „Was“: heute „Effektpakete kaufen (623 A) · C Kampf“ unter „Zu tun“; die Spalte Bereich stimmt nur, weil sie aus `LISTE-VORGAENGE.md` kommt.
+
 ## Lauf 74 · Auftrag 461d, 461, 461a Grundstand einsortiert (Inventur Sokrates 07.11.; `main` nach `8518c8817`; 07.11., 21:1x; alte Liste aus `fa43a030e^`, alle Zeilen A1–G3 mit `diff` gegen den Stand beim Einsortieren und gegen heute)
 
 - **Bestanden 461d:** alle 40 Punkte stehen genau einmal (A–D `DESIGN-STIL.md`, E–F `DESIGN-KAMPF.md`, G `DESIGN-ABNAHME.md`), beim Einsortieren wortgleich bis auf 4 Zeilen (C1, C3, D1 verweisen auf „Lebendige Welt“, E3 auf „Selbst prüfen“; ohne Sinnverlust); spätere Änderungen (A2, B1, C1, D3, E1, E6–E8) tragen Chefwort mit Zeit. `LISTE-GRUNDSTAND-461.md` ist nur Wegweiser, `DESIGN-HELDENBAU.md` als überholt markiert. **461:** Prüfung vor dem Versand verankert. **461a:** Tor gebaut, inzwischen durch 511 und 621 A abgelöst.

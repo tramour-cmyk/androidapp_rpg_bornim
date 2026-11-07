@@ -66,7 +66,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | 598 | M | **von Sokrates (Chef 05.11., 19:2x; Zu 594–601):** Umweltklang je Ort, Tageszeit, Wind, Wetter | startbar: Schenke nur mit Gästen, Klang im Takt (Chef 06.11.) | – |
 | 593 | M? | **von Sokrates (Chef 05.11., 19:2x; Zu 594–601):** Ausweichen auch rückwärts | wartet auf 478 (Zu 478; Inventur 07.11.) | – |
 | 616 | M | **von Sokrates (Chef 07.11., 14:1x, t268; Zu t268):** Gegner weichen nach dem Angriff rückwärts zurück, nicht vorwärts laufend | wartet auf 478 (Zu 478; Inventur 07.11.) | – |
-| Pflege | K | **von Werkzeug (340.3, 07.11.):** 37938 Bytes (Grenze 15000), Erledigtes streichen; Zeile 494 wartet auf t266, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile 595 wartet auf t266, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile 616 wartet auf t268, aber keine Datei i … | startbar |
+| Pflege | K | **von Werkzeug (340.3, 07.11.):** 37532 Bytes (Grenze 15000), Erledigtes streichen; Zeile 494 wartet auf t266, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile 595 wartet auf t266, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile 616 wartet auf t268, aber keine Datei i … | startbar |
 ## Einzelheiten
 
 - **Zu 496a, von Diogenes (07.11., 20:08, Pflege):** Stand „wartet auf Test: t249“ ist überholt: t249 erledigt und in t257 aufgegangen (`bd160d405`), t257 freigegeben (Chef 04.11., 20:45). Stand nachziehen.
