@@ -26,7 +26,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | D75 | M | **von Diogenes (07.11., Lauf 73, Prüfbericht):** Filmsperre 511 hat die Film-Pushes zu 572 nicht gezählt (D75.1); `meldung.sh --film` legte Film 572 nicht ab (D75.2, 483) | wartet auf Test: D75.1 gebaut (Push über GitHub-Server zählt), D75.2 am nächsten echten Film (483) |
 | 627 | M | **von Team Jerry (Tuffy, 07.11., 21:15):** `probelauf.py` zählt Pushes ohne Lauf (562: `commit -F - <<EOF`; 565: neuer Zweig; Zu 627) | gebaut 07.11., 21:2x; Geprüft an: 4bcd30e87; falsche Zählungen 562, 565 gibt Sokrates frei |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`) |
-| Pflege | K | **von Werkzeug (340.3, 07.11.):** Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 16; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 14, 19, 38, 40; CLAUDE.md: 15468 Bytes (Grenze 15000), kürzen; docs/LISTE-VORGAENGE.md: 38593 Bytes (Grenze 15000), Erledigtes ins Archiv | startbar |
+| Pflege | K | **von Werkzeug (340.3, 07.11.):** 16017 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 14, 19, 38, 40; CLAUDE.md: 15468 Bytes (Grenze 15000), kürzen; docs/LISTE-VORGAENGE.md: 39422 Bytes (Grenze 15000), Erledigtes ins Archiv | startbar |
 
 ## Einzelheiten
 

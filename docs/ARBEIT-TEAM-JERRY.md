@@ -69,7 +69,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | 598 | M | **von Sokrates (Chef 05.11., 19:2x; Zu 594–601):** Umweltklang je Ort, Tageszeit, Wind, Wetter | startbar: Schenke nur mit Gästen, Klang im Takt (Chef 06.11.) | – |
 | 593 | M? | **von Sokrates (Chef 05.11., 19:2x; Zu 594–601):** Ausweichen auch rückwärts | wartet auf 478 (Zu 478; Inventur 07.11.) | – |
 | 616 | M | **von Sokrates (Chef 07.11., 14:1x, t268; Zu t268):** Gegner weichen nach dem Angriff rückwärts zurück, nicht vorwärts laufend | wartet auf 478 (Zu 478; Inventur 07.11.) | – |
-| Pflege | K | **von Werkzeug (340.3, 07.11.):** 31749 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | **von Werkzeug (340.3, 07.11.):** 32223 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 ## Einzelheiten
 
 - **von Team Tom (07.11., 21:48, 625):** Build 269 sammelt auf `claude/build-269` (565 drin). Fertige Zweige heute Nacht dort hineinmischen (Kerntests, Push `[skip ci]`), je Punkt eine Prüfzeile (wo, tun, richtig, falsch) hier; PR und Prüfliste macht Tom. 268er Zweige sind schon auf `main` (Squash).

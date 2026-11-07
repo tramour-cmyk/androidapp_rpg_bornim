@@ -46,7 +46,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 142 | M | Pflichttest Play Store (von Perikles); Store-Text „jede Entscheidung zählt“ prüfen (72a) | startbar: Gewerbeschein da (GewA 1 Potsdam 04.11., Chef 05.11.); als Nächstes Zahlungsprofil, Organisationskonto 142.3 C, Preis 45, neues Testziel; Vorlage nach der Prüfliste des Chefs |
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | startbar: Gewerbeschein da; Preis vor der Store-Seite mit 142.4 |
 | 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | startbar: Gewerbeschein da; Chefsache neu (privat, Kosten) |
-| Pflege | K | **von Werkzeug (340.3, 07.11.):** Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 14 | startbar |
+| Pflege | K | **von Werkzeug (340.3, 07.11.):** Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 16 | startbar |
 
 - **von Perikles (02.11., 19:5x, zu 480.1):** Läufe gibst du frei mit einem Archiveintrag, dessen Kopf „<Nr>, Läufe frei“ heißt (z. B. „- **453b, Läufe frei** (02.11., 19:50, Sokrates nach 480.1): …“); `probelauf.py` zählt ihn dann wie ein Urteil des Chefs, ab seiner Zeit zwei neue Läufe. Dazu 480: „Blatt“ steht noch in `ROLLE-BERATUNG.md` (Zeilen 72, 74); bitte nachziehen.
 - **von Perikles (02.11., 20:0x, Weitergabe von Homer, 01.11., 21:0x, zu 447.4, Regelwerk):** zwei Regelfragen aus den Lehrmeister-Texten, das Regelwerk deckt sie nicht: (1) kommt das erste Rezept einer Meisterschaft mit dem Ja zur Einladung (Projektplan 3.2 „je ein Rezept“, Abschnitt 10)? (2) fallen beim Pfadwechsel eines Anwärters in Kapitel 1 die Kernfertigkeiten auch um einen Rang (Abschnitt 5)? Antwort ändert je eine Zeile „Offen“ in `STORY-LEHRMEISTER-K1.md`.
