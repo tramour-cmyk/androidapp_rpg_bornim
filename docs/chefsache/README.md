@@ -31,11 +31,10 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 7, Muss 1, startbar 3
+**Homer** – offen 6, Muss 0, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 587 | M | von Team Jerry (Chef 05.11., 12:0x: „587 A“, Archiv): LISTE-FIGUREN.md „Echte Größe“ (348. | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 604 | K | von Ford (Chef 06.11., 09:38): Rast in der Schenke: Text, dass oben geschlafen wird („das | startbar |
 | 570 | M? | von Team Tom (Prüfer 557 Runde 4, 04.11., 18:21): Rast an der Theke, Wahl „Fleisch verkauf | startbar |
 | 432 | K | von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt | ruht |
@@ -191,7 +190,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 406 | M | von Team Tom: Ausrüstung der Helden aufwerten, Kaufschilde mit goldener Sonne | wartet auf Tom |
 | 510 | M | von Sokrates: Fledermaus: freies OGA-Modell „Vampire Bat“ (CC0) mit unseren Fellen neben d | wartet auf Perikles |
 | 509 | M | von Sokrates (Chef 03.11., 09:21): Frösche und Libellen an den Teichen wie alt (PondLife.k | wartet auf Perikles |
-| 587 | M | von Chef (05.11., 11:4x, zu Bild 494): Gegner im Kampfort zu klein gegen alt? 1,3-fach wie | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
+| 587 | M | von Chef (05.11., 11:4x, zu Bild 494): Gegner im Kampfort zu klein gegen alt? 1,3-fach wie | startbar |
 | 494 | M | von Perikles (488): Gegner von Kapitel 1 im Kampf (Zu 494), je Gegner höchstens ein Lauf | wartet auf Tom |
 | 517 | M | von Team Tom (03.11., 16:3x, 512): Waldklang wie alt (WildSound.kt): Vögel am Tag, Eule un | wartet auf Tom |
 | 507 | M | von Perikles (488; aus 492): Kampforte Höhle wie alt: Eingang, Gang, Halle, Teich, Lager | startbar |
@@ -341,7 +340,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 587 (Kreativ), 407 (Projekt)
+Nicht gestellt: 407 (Projekt)
 
 Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/572-effektfilm.md
 
