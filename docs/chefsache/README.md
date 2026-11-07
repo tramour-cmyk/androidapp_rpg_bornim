@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [618](entscheiden/618-verlassen.md) | **Muss** | E Oberfläche | 07.11., 22:10 | Wie heißt der Knopf, der einen Schirm verlässt? · Team Tom · 07.11., 22:10 | Team Tom |
 | [620.1](entscheiden/6201-wiederholte-funde.md) | **Muss** | B Abläufe | 07.11., 21:02 | Grenze angefangener Arbeit je Team (B) | Perikles |
 
 ## Zu billigen
@@ -42,7 +41,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 87, Muss 65, startbar 46, PAUSE bis **Pause bis die neue Vorgangsliste läuft (Datum nicht lesbar)
+**Tom** – offen 87, Muss 65, startbar 47, PAUSE bis **Pause bis die neue Vorgangsliste läuft (Datum nicht lesbar)
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -122,7 +121,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 610 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Finger am Stab zucken im Dorf (Schild | startbar |
 | 615 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Kamera um den Helden als Fixpunkt, ni | wartet auf Test/Build (gebaut) |
 | 611 | M | von Sokrates (Chef 07.11., 14:1x, t268, 268.8; Zu 606–619): Klopfen deutlicher, wessen Hau | wartet auf Test/Build (gebaut) |
-| 618 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): „Zurück“, „Abbrechen“, „Schließen“ na | Chef (Datei in der Chefsache) |
+| 618 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): „Zurück“, „Abbrechen“, „Schließen“ na | startbar |
 | 612 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Dorf Süd: Heuhaufen, Weizenfeld, Gemü | startbar |
 | 613 | M | von Sokrates (Chef 07.11., 14:1x, t268.31; Zu 606–619): Intro und Outro wie alt: Tempelgän | startbar |
 | 614 | M? | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Jorin mit Speer, Jorin öffnet den Sch | startbar |
