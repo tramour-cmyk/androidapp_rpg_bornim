@@ -221,12 +221,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 16852 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Diogenes** – offen 11, Muss 9, startbar 0
+**Diogenes** – offen 12, Muss 10, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 620.1 | M | von Perikles (Doppelpack 421, 07.11., 21:0x, 8518c8817): startbar.hochstufen stellt Zeilen | Chef (Datei in der Chefsache) |
-| 275 | M | von Perikles (Doppelpack 421, 07.11., 21:1x, e23a4ccb2): Stufe 2: vorgang.py neu zieht die | ruht bis 09.11. |
+| D74–D79 | M | von Perikles (Doppelpack 421, 07.11., 21:2x): nachprüfen: D74 regelcheck.py „Test ohne Dat | startbar |
+| 275 | M | von Perikles (Doppelpack 421, 07.11., 21:1x, e23a4ccb2): Stufe 2: vorgang.py neu zieht die | startbar |
 | 317.1 | M | von Perikles (Doppelpack 421, 07.11., 21:0x, 12837c9c3): keine Obergrenze 6 je Build mehr | ruht |
 | 511 | M | von Perikles (Doppelpack 421, 03.11., 14:0x, d6d9eca8c): Filmsperre probelauf.py am ersten | wartet auf Perikles |
 | 340.2 | M | von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv): Wirkung 340.3–340.5 zählen (Tabelle | ruht bis 09.11. |
