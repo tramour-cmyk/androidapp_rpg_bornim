@@ -133,7 +133,7 @@ def effekt_ohne_liste(dat):
         if os.path.exists(k): liste = open(k, encoding="utf-8").read(); break
     raus, tipp = [], "vorher dort und in LISTE-BESTAND.md nachsehen, dann Anlass, Effekt, Quelle und den Dateinamen eintragen (623 E)"
     for s, p in dat:
-        if s == "D" or not p.startswith("godot/") or os.path.basename(p) in liste: continue
+        if s == "D" or not p.startswith("godot/") or re.search(r"(?<![\w.-])" + re.escape(os.path.basename(p)) + r"(?![\w.-])", liste): continue  # D79: ganzer Name
         if s == "A" and p.endswith(".gdshader"):
             raus.append("%s: neuer Shader ohne Zeile in LISTE-EFFEKTE.md; %s" % (p, tipp))
         elif p.endswith((".gd", ".tscn", ".tres")):
