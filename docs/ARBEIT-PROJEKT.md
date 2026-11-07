@@ -36,7 +36,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | startbar: Frist 06.11. vorbei, Probe jetzt bewerten (Inventur 07.11.) |
 | D74 | M? | **von Diogenes (07.11.):** `regelcheck.py` „Test ohne Datei“ meldet 21 von 27 falsch, Pflege-Zeilen melden sich selbst (Zu D74) | startbar |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`) |
-| Pflege | K | **von Werkzeug (340.3, 07.11.):** 16286 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 20; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 14, 19, 38, 40; Zeile 3 wartet auf t266, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand … | startbar |
+| Pflege | K | **von Werkzeug (340.3, 07.11.):** 16285 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 20; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 14, 19, 38, 40; Zeile Pflege wartet auf t266, aber keine Datei in docs/chefsache/ansehen/ (getestet?  … | startbar |
 
 ## Einzelheiten
 
