@@ -235,10 +235,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 40483 Bytes (Grenze 15000), Erledigtes streichen; Zeile 588 | startbar |
 
-**Perikles** – offen 31, Muss 25, startbar 5
+**Perikles** – offen 34, Muss 28, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 620.1 | M | von Sokrates (Chef 07.11., 14:3x, 620; Zu 620): wiederholte Funde des Chefs vor jedem Neue | startbar |
+| 620.2 | M | von Sokrates (Chef 07.11., 14:3x, 620, 512; Zu 620): Abgleich alt einmal je Ort und Figur | startbar |
+| 620.4 | M | von Sokrates (Chef 07.11., 14:3x, 620; Zu 620): Referenzszene Dorf bis Wolfskampf im Flüst | startbar |
 | 579 | M | von Sokrates (Chef 05.11., 08:18, „jetzt ist gut erstmal. Weitermachen mit wichtigen Dinge | startbar |
 | 578 | M | von Sokrates (Chef 04.11., 21:03, Archiv „572, gleich Film“): probelauf.py liest „<Nr>, gl | wartet auf Test/Build (gebaut) |
 | 549a.1 | M? | von Sokrates (549a ja, Chef 04.11., 19:28): ROLLE-ENTWICKLUNG.md Start 2: wer Menüschirm o | wartet auf Test/Build (gebaut) |
@@ -288,12 +291,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 | Pflege | K | von Werkzeug (340.3, 07.11.): Zeile 512b wartet auf t257, aber keine Datei in docs/chefsac | startbar |
 
-**Sokrates** – offen 38, Muss 28, startbar 19
+**Sokrates** – offen 39, Muss 29, startbar 20
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 475 | M | von Team Tom (22:25): 475 Lauf 2 vor dem Versand angehalten (576: Grün der Kapuze am Hals | startbar |
 | 512 | M | von Chef (03.11., 23:28, „Kümmer du dich um 512.“; vorher Perikles): Abgleich alt gegen ne | startbar |
+| 620 | M | von Chef (07.11., 14:3x, „nachhalten … umsetzen … ganz entscheidend“): Stärken ausbauen, S | startbar |
 | 415d.1 | M | von Chef (04.11., 19:56, „Brauchen wir das jetzt? Brauchen wir es nicht? Wir haben noch ga | Chef (Datei in der Chefsache) |
 | 508 | M | von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5): | startbar |
 | 488 | M | von Chef (02.11., 22:44, „dann frieren wir das mal ab einem gewissen Punkt ein … kümmern u | wartet auf Perikles |
