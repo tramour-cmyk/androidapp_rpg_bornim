@@ -25,6 +25,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | ruht: Modellfrage liegt in 621 C, vom Chef 07.11., 16:4x zurückgestellt; bis dahin großes Modell (Archiv 270) |
 | D75 | M | **von Diogenes (07.11., Lauf 73, Prüfbericht):** Filmsperre 511 hat die Film-Pushes zu 572 nicht gezählt (D75.1); `meldung.sh --film` legte Film 572 nicht ab (D75.2, 483) | wartet auf Test: D75.1 gebaut (Push über GitHub-Server zählt), D75.2 am nächsten echten Film (483) |
 | 627 | M | **von Team Jerry (Tuffy, 07.11., 21:15):** `probelauf.py` zählt Pushes ohne Lauf (562: `commit -F - <<EOF`; 565: neuer Zweig; Zu 627) | gebaut 07.11., 21:2x; Geprüft an: 4bcd30e87; falsche Zählungen 562, 565 gibt Sokrates frei |
+| 631 | K | **von Ford (06.11., 07:19):** `lauf.py` vergleicht Startmarken ohne Datum (Marke vom Vortag sperrte 20 Minuten) | wartet auf 275.2 (lauf.py liegt im Zweig) |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`) |
 | Pflege | K | **von Werkzeug (340.3, 07.11.):** 16017 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 14, 19, 38, 40; CLAUDE.md: 15468 Bytes (Grenze 15000), kürzen; docs/LISTE-VORGAENGE.md: 39422 Bytes (Grenze 15000), Erledigtes ins Archiv | startbar |
 
@@ -61,4 +62,4 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 - **Zu 341** (Chef 23.10., 09:39: „Wie können wir beide eine Zielvereinbarung treffen, die für dich gegenprüfbar ist und nachhaltig?“; 09:53 ja, Probe bis 06.11.): Ziele Z1–Z6 in `ROLLE-PROJEKT.md` „Dein Maß“; Z1/Z2 prüft `regelcheck.py`, Z3–Z6 zählt Diogenes (`ROLLE-PRUEFUNG.md`). Gerüst für alle (Sokrates): je Rolle höchstens drei Ziele, Z3 und Z4 für alle, eins eigen; übernehmen, wenn bis 06.11. drei von sechs messbar laufen. **07.11.:** alle sechs gemessen (Z1, Z2 `regelcheck.py`; Z3–Z6 `PRUEFBERICHT.md`), → 341.1.
 
-- **von Ford (06.11., 07:19, Werkzeug `lauf.py`):** die Startmarken „07:04“ vom 05.11. (Tom, Jerry, Perikles) galten am 06.11., 07:17 als „jünger als 20 Minuten“; Marken scheinen ohne Datum verglichen zu werden. Bitte im Werkzeug beheben.
+- **Zu 631, von Ford (06.11., 07:19, Werkzeug `lauf.py`):** die Startmarken „07:04“ vom 05.11. (Tom, Jerry, Perikles) galten am 06.11., 07:17 als „jünger als 20 Minuten“; Marken scheinen ohne Datum verglichen zu werden. Bitte im Werkzeug beheben.

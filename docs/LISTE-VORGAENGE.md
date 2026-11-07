@@ -252,3 +252,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 341.1 | Zielvereinbarung für alle Rollen: je Rolle höchstens drei Ziele, Z3 und Z4 für alle, eins eigen (aus 341) | B Abläufe | M | – | Sokrates | startbar |
 | 628 | Lohn: EP und Gold steigen nicht mit der Monsterstufe über der Gebietsstufe (over fehlt, alt Battle.finishWin) | K Kampf | M | – | Team Jerry | startbar |
 | 629 | Klopfen: wer hinter der Tür spricht, wessen Haus (Chef 611) | S Story | M | – | Homer | startbar |
+| 631 | lauf.py: Startmarken ohne Datum verglichen (Ford 06.11., 07:19) | B Werkzeuge | K | – | Perikles | startbar |
