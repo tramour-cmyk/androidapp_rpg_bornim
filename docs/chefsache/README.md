@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [626](entscheiden/626-alte-zeilen.md) | **Muss** | B Abläufe | 07.11., 20:58 | Alte Zeilen aus SRD-Zeit und Umzug: streichen oder übernehmen | Sokrates |
 | [620.1](entscheiden/6201-wiederholte-funde.md) | **Muss** | B Abläufe | 07.11., 20:48 | Wiederholte Funde zuerst, Grenze angefangener Arbeit je Team | Perikles |
 | [142.4](entscheiden/1424-organisationskonto.md) | **Muss** | M Veröffentlichung | 07.11., 17:10 | Bestehendes Konto auf Organisation umstellen statt Pflichttest | Sokrates |
 
@@ -17,11 +18,7 @@ Nichts offen.
 
 ## Anzusehen
 
-**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
-
-| Nr. | Was | Wer | Seit |
-|---|---|---|---|
-| [572](ansehen/572-effektfilm.md) | Effektprobe als Film (REEBOO-Gratisstücke), vor dem Kauf 415d.1 | – | 05.11., 00:07 |
+Nichts offen.
 
 ## Zu tun
 
@@ -138,90 +135,69 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 586 | K | von Chef über Jerry (05.11., 09:35; Zu 586): Bilder 557 einheitlich: Rast am Feuer und an | startbar |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 128022 Bytes (Grenze 15000), Erledigtes streichen; Tabellenz | startbar |
 
-**Jerry** – offen 81, Muss 67, startbar 21
+**Jerry** – offen 60, Muss 48, startbar 27
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 572 | M | von Sokrates (Chef 04.11., 20:27; „jetzt“ 04.11., 20:27; Zu 572): Effektprobe vor dem Kauf | Chef |
 | 565 | M | von Sokrates (Chef 04.11., 17:10, t257 Bereich C, Bild; Zu 565): im Gruppenkasten unten is | startbar |
 | 562 | M | von Sokrates (Chef 04.11., 17:02, t257 Bereich C; Zu 562 und 563): Helden gehen zum Angrif | startbar |
 | 563 | M | von Sokrates (Chef 04.11., 17:02, t257 Bereich C, Bild; Zu 562 und 563): Zustandsschilder | startbar |
 | 560 | M? | von Sokrates (Chef 04.11., 16:22, allgemeiner Hinweis; Zu 560): Monster auf der Karte dreh | startbar |
-| 551 | M | von Sokrates (Chef 04.11., 00:21, Build 249): „MARS Kasten links und rechts unten wird unt | startbar |
+| 551 | M | von Sokrates (Chef 04.11., 00:21, Build 249): „MARS Kasten links und rechts unten wird unt | ruht |
 | 547 | M | von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545): MARS: Text sagt „geht in die Knie“, | startbar |
-| 544 | M | von Sokrates (Chef 03.11., 23:49, Build 249: „Stimmt die Schrift?“): Kampfschirm ohne Seri | startbar |
 | 532 | M | von Sokrates (512; Zu 532): Kampf: Held ohne Zauberpunkte, Verbrauchtes, Zustände, Metraus | startbar |
-| 534 | M | von Sokrates (512; Zu 534): Kampf: Zauber und Fähigkeiten fehlen in „Können“ oder wirken n | wartet auf Test (Build) |
-| 535 | M | von Sokrates (512; Zu 535): Kampf: Gegnerstufe, Elite, schimmernde Gegner, Gruppen, EP und | wartet auf Test/Build (gebaut) |
+| 534 | M | von Sokrates (512; Zu 534): Kampf: Zauber und Fähigkeiten fehlen in „Können“ oder wirken n | ruht (424: altes SRD-System) |
 | 536 | M | von Sokrates (512; Zu 527–536): Kampf: Erklärungen bei langem Drücken (MarsTips) und Klein | startbar |
-| 481.1 | M | von Sokrates (427): Tränke in sim444, Herkünfte neu messen, Zahlen an Sokrates | wartet auf Test/Build (gebaut) |
-| 467 | M | von Sokrates (Chef 01.11., 21:52): regeln/ausdauer.gd rechnet nach SRD; BRS: Ausdauer aus | wartet auf Sokrates |
-| 438 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Wölfe gleiten (Angriff, Tempo, aneinander vor | wartet auf Test/Build (gebaut) |
-| 457.2 | M | von Perikles (Chef 01.11., 11:49): Probeskripte zeichnen standardmäßig mit Toon-Licht, Tus | wartet auf Test/Build (gebaut) |
-| 453.1 | M | von Sokrates: Helden im Kampf atmen ruhiger, je Figur eigener Takt | wartet auf Test (Build) |
-| 453 | M | von Sokrates: Ruhebewegungen der Wölfe | wartet auf Perikles |
-| 453a | M | Wolfsatem B | wartet auf Test (Build) |
-| 454 | M | von Sokrates: Bissachse des Wolfs | wartet auf Test (Build) |
+| 467 | M | von Sokrates (Chef 01.11., 21:52): regeln/ausdauer.gd rechnet nach SRD; BRS: Ausdauer aus | startbar |
+| 438 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Wölfe gleiten (Angriff, Tempo, aneinander vor | startbar |
+| 453 | M | von Sokrates: Ruhebewegungen der Wölfe | ruht |
 | 438a | M | von Sokrates (438a): Hinfallen und Aufstehen des Kaufhelden, Waffe und Schild frei | ruht |
-| 439 | M | von Sokrates: Reihenfolge Angriff, Treffer, Tod, Neuformation | wartet auf Test (Build) |
-| 440 | M | von Sokrates: Wolf-Tod zu schnell weg | wartet auf Test (Build) |
-| 416.6 | M | von Sokrates: Spuren (core/Tracks.kt): Blut, Staub, Fußspuren | wartet auf Perikles |
-| 415 | M | von Sokrates: Probe Beams Free Sample im Kampfort; nichts kaufen | startbar |
-| 403 | M | von Team Tom: Kampfort: Held je Klasse wie im Dorf | wartet auf Tom |
+| 416.6 | M | von Sokrates: Spuren (core/Tracks.kt): Blut, Staub, Fußspuren | ruht |
+| 415 | M | von Sokrates: Probe Beams Free Sample im Kampfort; nichts kaufen | wartet auf 623 (Chef) |
 | 461.1 | M | von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461): Grundstand mit Tom: Kampfort, Wölfe, Hel | ruht |
 | 460 | M | von Sokrates (Chef 01.11., 20:2x, Archiv 460): Probefilm Kamerafahrten: Eröffnung je Blend | ruht |
-| 406.1 | M | von Sokrates (406.1): Schildstoß ins MARS/BRS, Bau mit ShieldAttack1–3S&S | wartet auf 481 (startbar) |
-| 489 | M | von Sokrates: Hauptmenü: Schalter Musik und Effekte wie alt | wartet auf Tom |
-| 406.2a | M | von Sokrates: Angriffsweg im Kampf mit UAL-Rennen wie im Dorf, alle Waffen (Zu 406.2a) | wartet auf Perikles |
-| 406.2 | M | von Sokrates (Chef 03.11., 06:59, „jetzt“; Zu 406.2): im Kampf zum Angriff gehen statt ren | wartet auf Test/Build (gebaut) |
-| 406 | M | von Team Tom: Ausrüstung der Helden aufwerten, Kaufschilde mit goldener Sonne | wartet auf Tom |
-| 510 | M | von Sokrates: Fledermaus: freies OGA-Modell „Vampire Bat“ (CC0) mit unseren Fellen neben d | wartet auf Perikles |
-| 509 | M | von Sokrates (Chef 03.11., 09:21): Frösche und Libellen an den Teichen wie alt (PondLife.k | wartet auf Perikles |
+| 406.1 | M | von Sokrates (406.1): Schildstoß ins MARS/BRS, Bau mit ShieldAttack1–3S&S | startbar |
+| 406.2 | M | von Sokrates (Chef 03.11., 06:59, „jetzt“; Zu 406.2): im Kampf zum Angriff gehen statt ren | startbar |
+| 510 | M | von Sokrates: Fledermaus: freies OGA-Modell „Vampire Bat“ (CC0) mit unseren Fellen neben d | ruht |
+| 509 | M | von Sokrates (Chef 03.11., 09:21): Frösche und Libellen an den Teichen wie alt (PondLife.k | ruht |
 | 587 | M | von Chef (05.11., 11:4x, zu Bild 494): Gegner im Kampfort zu klein gegen alt? 1,3-fach wie | startbar |
 | 494 | M | von Perikles (488): Gegner von Kapitel 1 im Kampf (Zu 494), je Gegner höchstens ein Lauf | wartet auf Tom |
-| 517 | M | von Team Tom (03.11., 16:3x, 512): Waldklang wie alt (WildSound.kt): Vögel am Tag, Eule un | wartet auf Tom |
+| 517 | M | von Team Tom (03.11., 16:3x, 512): Waldklang wie alt (WildSound.kt): Vögel am Tag, Eule un | startbar |
 | 507 | M | von Perikles (488; aus 492): Kampforte Höhle wie alt: Eingang, Gang, Halle, Teich, Lager | startbar |
-| 496a | M | Rückfrage: abgenommene Kampfbilder schon in den Durchspiel-Build? | wartet auf Test (Build) |
 | 496 | M | von Perikles (Wochenziel 03.11. Reihe 5, 488): Durchspiel-Build aus 490–495: der Chef spie | startbar |
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | ruht |
-| 348.12f | M | von Sokrates (348.12c b): gekaufte Riesenratte, unsere Haut | wartet auf Test/Build (gebaut) |
-| 385.2 | M | von Chef: Feuer aus dem Stab | ruht |
-| 348.13a | M | von Team Tom (Chef 08:09, Archiv: r9 ja): Tusche nach Licht im Kampf, Linie 1,3 (Zu 348.13 | wartet auf Test/Build (gebaut) |
+| 385.2 | M | von Chef: Feuer aus dem Stab | wartet auf 623.2 (wartet) |
 | 397 | M | von Chef: Tiere, Monster mind. drei Ruhebewegungen | ruht |
 | 348.12c | M | von Sokrates: Untote und Gewürm übernehmen Fähigkeiten der Vorgänger | ruht |
-| 348.7 | M | von Sokrates: Umzug Godot, Kampfort Wolfsrudel in MARS | ruht |
 | 390 | M | von Perikles: Funktionen ohne Bild | ruht |
 | 304 | M | von Chef: Klassisch, Konter nach Abwehr regelrecht? | ruht |
 | 257 | M | von Chef: App „hängt“, ging dann weiter | ruht |
-| 211.14 | M | von Sokrates: Leistung am A56 messen | ruht |
-| 217 | M | von Chef: Wölfe beißen in die Luft | ruht |
+| 211.14 | M | von Sokrates: Leistung am A56 messen | startbar |
 | 249 | M | von Chef: MARS wie der klassische Kampf | ruht |
 | 289 | K | von Chef: MARS, verfügbare Züge zeigen | ruht |
-| 296.1 | K | von Sokrates: LISTE-MARS.md gegen den Code | ruht |
+| 296.1 | K | von Sokrates: LISTE-MARS.md gegen den Code | startbar |
 | 296.2 | M | von Sokrates: MARS spielnötig | ruht |
-| 296.3 | K | von Sokrates: MARS-Schmuck | ruht |
+| 296.3 | K | von Sokrates: MARS-Schmuck | startbar |
 | 344.2 | K | von Sokrates: Kampf mit der Fackel | ruht |
-| 168.1 | K | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab 3 | wartet auf 38 (ruht) |
+| 168.1 | K | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab 3 | wartet auf 38 (wartet) |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte | ruht |
 | 133 | K | Umsetzung 133: Charisma-Proben, Erfahrung für Konflikte | ruht |
 | 212 | M | Umsetzung 212: Schalter MARS oder klassisch | ruht |
-| 86 | K | Keuchen, Initiative, Rennen | ruht |
-| 38 | M | Balance Kapitel 1 gemessen | ruht |
+| 38 | M | Balance Kapitel 1 gemessen | startbar |
 | 39 | M | Schwierigkeitsgrad im Menü | ruht |
 | 59e | K | Händler: Vorrat je Laden | ruht |
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht |
-| 469 | M | von Sokrates: Kampf auf BRS: Ring ohne Klassen regeln | wartet auf 406.1 (wartet) |
+| 469 | M | von Sokrates: Kampf auf BRS: Ring ohne Klassen regeln | startbar |
 | 597 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Ring ohne Ankündigung (Fledermaus); alle An | startbar |
-| 601 | M | von Sokrates (Chef 05.11., 19:2x, t266.5; Zu 594–601): Goblin-Späher: Schuss ohne Bewegung | ruht |
-| 595 | M | von Sokrates (Chef 05.11., 19:2x, t266.1; Zu 594–601): Kampfbewegungen Spinne, Riesenegel, | ruht |
+| 601 | M | von Sokrates (Chef 05.11., 19:2x, t266.5; Zu 594–601): Goblin-Späher: Schuss ohne Bewegung | startbar |
+| 595 | M | von Sokrates (Chef 05.11., 19:2x, t266.1; Zu 594–601): Kampfbewegungen Spinne, Riesenegel, | wartet auf 478 (startbar) |
 | 600 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Knopf zum Beschleunigen im Kampfort wie Wür | startbar |
 | 478 | M | von Sokrates (Chef 07.11., 16:3x: „Wir packen das BRS auf jeden Fall jetzt auch mit dazu“; | startbar |
 | 623.5 | M | von Sokrates (Chef 07.11., 20:2x: „Holst du dir die Gratisamples zum Testen?“; 623): Grati | startbar |
 | 623.2 | M | von Sokrates (Chef 07.11., 20:1x, „623 A B C D E F“; Archiv 623): Effekte aus 623 A (Comba | wartet auf 623 (Chef) |
 | 598 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Umweltklang je Ort, Tageszeit, Wind, Wetter | startbar |
-| 593 | M? | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Ausweichen auch rückwärts | startbar |
-| 616 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu t268): Gegner weichen nach dem Angriff rückwärt | startbar |
-| D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
+| 593 | M? | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Ausweichen auch rückwärts | wartet auf 478 (startbar) |
+| 616 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu t268): Gegner weichen nach dem Angriff rückwärt | wartet auf 478 (startbar) |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 41238 Bytes (Grenze 15000), Erledigtes streichen; Zeile 551 | startbar |
 
 **Perikles** – offen 27, Muss 21, startbar 8
@@ -279,11 +255,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 31, Muss 23, startbar 16
+**Sokrates** – offen 32, Muss 24, startbar 16
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 620 | M | von Chef (07.11., 14:3x, „nachhalten … umsetzen … ganz entscheidend“): Stärken ausbauen, S | startbar |
+| 626 | M | von Chef (07.11., Inventur): alte SRD-Zeilen streichen oder in 478 | Chef (Datei in der Chefsache) |
 | 623 | M | von Chef (07.11., 17:2x, elf REEBOO-Links): Effektpakete; „623 A B C D E F“ 20:1x (Archiv) | Chef |
 | 623.1 | M | von Chef (07.11.): Prüfschema auf bisher geprüfte Quellen anwenden (LISTE-CC0-MODELLE.md → | startbar |
 | 508 | M | von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5): | startbar |
@@ -317,8 +294,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
-
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/572-effektfilm.md
 
 Ohne Datei: 275 (Projekt)
 
