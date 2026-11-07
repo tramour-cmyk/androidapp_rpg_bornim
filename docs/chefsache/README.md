@@ -41,7 +41,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 
-**Tom** – offen 96, Muss 73, startbar 24
+**Tom** – offen 95, Muss 72, startbar 23
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -111,7 +111,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 589 | M | Dorf: Marktplatz wirkt geklont (gleiche Stände, gleiche Säcke), Durchgang links am Stand h | startbar |
 | 590 | M | Innenräume: Türseite bei gedrehter Kamera dunkel und tot, mehr Licht (Kerzen) und Einricht | startbar |
 | 591 | M | Dorftiere (Hühner, Kaninchen) fliehen vor dem Helden wie alt, mit Alarmklang (Chef 05.11., | startbar |
-| 621.2 | M | Toms Vorrat auf etwa 15 KB: Erledigtes und alte „Zu“-Absätze ins Git (Chef 07.11., 621 B) | startbar |
 | 606 | M | Schenke: Met kostet laut Liste 2 Gold, abgezogen werden 4 (Chef 07.11., t268) | wartet auf Test/Build (gebaut) |
 | 609 | M | Dorf: Baum hinter der Schenke sperrt den Weg zum Schlagbaum; alle Häuser auf der Waldseite | wartet auf Test/Build (gebaut) |
 | 617 | M | Hauptmenü „Laden“: Wischen löst Laden aus; laden nur mit dem Knopf rechts (Chef 07.11., t2 | wartet auf Test/Build (gebaut) |
