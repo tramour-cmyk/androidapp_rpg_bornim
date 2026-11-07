@@ -41,7 +41,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 
-**Tom** – offen 95, Muss 72, startbar 22
+**Tom** – offen 96, Muss 73, startbar 23
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -140,8 +140,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 431e | M | Rückfrage: Gesicht des Helden im Dorflicht fast weiß, Hauteichung nach Messung? | ruht |
 | 629.1 | M | Klopfen: Sprechernamen hinter Türen bauen ([629.sprecher], von Homer) | wartet auf Test/Build (gebaut) |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 111642 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 632 | M | Truhe der Höhle (cave_3, 4/14) gibt „@class_weapon“ statt der Waffe der Klasse wie alt (St | startbar |
 
-**Jerry** – offen 59, Muss 49, startbar 25
+**Jerry** – offen 60, Muss 48, startbar 26
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -194,7 +195,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 595 | M | Kampfbewegungen der Kaufgegner: Spinne mehr Angriffe, Egel und Schnecke schneller, Treffhö | wartet auf 478 (in Arbeit) |
 | 600 | M | Kampfort: Knopf zum Beschleunigen wie Würfel und Raster (Chef 05.11., 19:2x) | wartet auf Test/Build (gebaut) |
 | 478 | M | Rechenkern des Kampfs in Stufe 1 auf BRS (470a C, Chef 02.11., 17:59) · „jetzt“ 07.11., 16 | startbar |
-| 620.2b | M | Abgleich alt nach LISTE-ABGLEICH-ALT.md: Höhle, Klang, Gegner, Bosse (aus 620.2) | startbar |
 | 623.5 | M | Probe Kampf mit den Gratisproben (Combat Mega, Projectiles, Trails, Pack 3, Character Shad | startbar |
 | 623.2 | M | Effekte aus 623 A einbauen mit 478, in LISTE-BESTAND.md und LISTE-EFFEKTE.md mit Datenfeld | wartet auf 623 (Chef) |
 | 598 | M | Umweltklang je Ort, Tageszeit, Wind und Wetter, lebendige Welt (Chef 05.11., 19:2x; Abnahm | startbar |
@@ -204,6 +204,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 348.7a | M | Rückfrage: Geschosse flach oder in 3D | ruht |
 | 399.2d | M | Godot am Rechner freigeben (Auto-Modus lehnte Download ab), Tests ohne CI-Lauf (aus 399.2) | ruht |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 31710 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 633 | M? | Boss-Beute wie alt: Ogerhandschuhe (Krogg), Graks Streitaxt, Grimmzahn-Amulett fehlen im L | startbar |
+| 634 | M? | Schenkenklang wie alt: Rowena wischt, gießt, stellt Becher ab, Borin Flasche und Stuhl, im | startbar |
 
 **Perikles** – offen 17, Muss 13, startbar 2
 
