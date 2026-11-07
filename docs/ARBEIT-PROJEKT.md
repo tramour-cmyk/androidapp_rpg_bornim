@@ -39,7 +39,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | D76 | M? | **von Diogenes (07.11., Lauf 74, Prüfbericht):** `DESIGN-ABNAHME.md` „Vor jeder Vorlage“ noch mit Tor 461a und zwei Läufen statt 511 und 621 A (D76.1); Stichworte E1, E8 widersprechen 417a (D76.2); 461, 461a, 461d sonst bestanden, Zeilen schließen | startbar |
 | D75 | M? | **von Diogenes (07.11., Lauf 73, Prüfbericht):** Filmsperre 511 hat die Film-Pushes zu 572 nicht gezählt (D75.1); `meldung.sh --film` legte Film 572 nicht ab (D75.2, 483) | startbar |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`) |
-| Pflege | K | **von Werkzeug (340.3, 07.11.):** 16530 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 20; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 14, 19, 38, 40; Zeile Pflege wartet auf t266, aber keine Datei in docs/chefsache/ansehen/ (getestet?  … | startbar |
+| Pflege | K | **von Werkzeug (340.3, 07.11.):** 16852 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 20; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 14, 19, 38, 40; Zeile Pflege wartet auf t266, aber keine Datei in docs/chefsache/ansehen/ (getestet?  … | startbar |
 
 ## Einzelheiten
 
