@@ -24,7 +24,11 @@ Nichts offen.
 
 ## Zu tun
 
-Nichts offen.
+Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Datei löschen.
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [623](tun/623-kauf.md) | **Muss** | C Kampf | 07.11., 20:13 | Effektpakete kaufen (623 A) · C Kampf | Sokrates |
 
 ## Offen je Rolle
 
@@ -293,14 +297,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 40, Muss 31, startbar 21
+**Sokrates** – offen 40, Muss 31, startbar 20
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 475 | M | von Team Tom (22:25): 475 Lauf 2 vor dem Versand angehalten (576: Grün der Kapuze am Hals | startbar |
 | 512 | M | von Chef (03.11., 23:28, „Kümmer du dich um 512.“; vorher Perikles): Abgleich alt gegen ne | startbar |
 | 620 | M | von Chef (07.11., 14:3x, „nachhalten … umsetzen … ganz entscheidend“): Stärken ausbauen, S | startbar |
-| 623 | M | von Chef (07.11., 17:2x, elf REEBOO-Links): Effektpakete; „623 A B C D E F“ 20:1x (Archiv) | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
+| 623 | M | von Chef (07.11., 17:2x, elf REEBOO-Links): Effektpakete; „623 A B C D E F“ 20:1x (Archiv) | Chef |
 | 623.1 | M | von Chef (07.11.): Prüfschema auf bisher geprüfte Quellen anwenden (LISTE-CC0-MODELLE.md → | startbar |
 | 508 | M | von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5): | startbar |
 | 488 | M | von Chef (02.11., 22:44, „dann frieren wir das mal ab einem gewissen Punkt ein … kümmern u | wartet auf Perikles |
@@ -341,7 +345,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 623 (Beratung), 407 (Projekt), 623.2 (Team Jerry)
+Nicht gestellt: 407 (Projekt)
 
 Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/572-effektfilm.md
 
