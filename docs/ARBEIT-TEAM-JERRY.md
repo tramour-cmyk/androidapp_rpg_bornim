@@ -7,7 +7,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
-**Übergabe (07.11., 21:24):** 565 gebaut, aus, auf `claude/jerry-565-am-zug` (Test `am_zug_565` grün am Rechner; Spieldaten dafür aus dem Artefakt `bornim-godot-apk`: `assets/daten`, `assets/kampf/daten` nach `godot/`, gekaufte Modelle bleiben verschlüsselt); Bilder `am_zug_565_bild` nach „565, Läufe frei“ (Sokrates) mit `godot.yml` von Hand auf dem Zweig, `film=nein`, dann `chefsache/ansehen/` am Morgen (21–7 Uhr nur Technik); Pflege: Zu-Absätze erledigter Vorgänge ins Git. Nachfolger: Jerry – 563: Zustandsschilder.
+**Übergabe (07.11., 22:26):** Pause 275.2. Bildläufe 565 (21:32) und 563 (22:23) laufen, `film=nein`, Artefakt `bornim-godot-bilder` (`am_zug565`, `zustaende563`); 563 gebaut, aus (Zu 563). Beides Vorschläge, nicht für Build 269. Nachfolger: Jerry – 565 und 563: Bilder vorlegen (ab 7 Uhr).
 
 ## Zeilen
 
