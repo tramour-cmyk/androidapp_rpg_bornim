@@ -63,14 +63,10 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
 - 13:07 06.11.: Tom `FrCC` (603) fertig: Build 268 zum Test (PR #186, ansehen/t268), archiviert, 21,72 $ auf 603. Keine Sitzung läuft; Tom und Jerry ohne Muss als Code, Rest ruht bis Sa 20:00. Heute gesamt Entwicklung 77,97 $.
-- 09:38 06.11.: Chef 09:36 „595, 601 ab Samstsg 2000 Uhr. 587 ja. 598 … in Sync mit Animationen … 602 ja, soviel rein wie geht“: in Jerrys Vorrat (Zu 595, 601, 587, 598), Dateien gelöscht; Build als 603 bei Tom. Jerry `LgDT` archiviert, 20,55 $ auf 548, 545, 562, 544, 547, 561, 536, 533, 532. Startsperre 09:38 Start Tom 603.
 - 09:23 06.11.: Tom `8kKy` fertig (591, 592, 582, 583, 557; Sparauftrag leer, Rest braucht Bild/Film), archiviert, 18,41 $ auf 591, 592, 582, 583, 557. Jerry `LgDT` fertig (548, 545, 562, 544, 547, 561, 536, 533, 532), archiviere nach Ruhe. Offen beim Chef: 602.
 - 08:28 06.11.: Chef 08:27 „Allein sinnlose Sitzungsstarts kosten ja auch wieder Guthaben.“ Lehre Ford: Start im Sparbetrieb immer mit Zeitrahmen und „danach weiter mit startbarem Muss“, nie nur zwei Zeilen.
 - 08:26 06.11.: Chef 08:26 „lass ihn doch noch sparsame Sachen erledigen, die er erledigen kann. Auch Jerry.“: Tom (591, 592 fertig) und Jerry per Nachricht weiter mit startbarem Muss, nur Code, bis etwa 10:30.
-- 08:10 06.11.: Chef 08:09 „andere noch wichtige Aufgaben … die nur Code betreffen … dann könnten ja … auch andere noch was machen“ (hebt 468c für heute auf): Startsperre 08:10 Start Jerry 548, 545, 562, 544 (Kampffehler aus Chef-Tests, nur Code), höchstens etwa 2 Stunden.
-- 08:08 06.11.: Chef 08:07 „Starte das, was am kostengünstigsten zu erledigen ist … das machst du jetzt“: Tom 591, 592 (nur Code, vorhandene Bewegungen und Klänge; 589, 590 brauchen Grafik). Startsperre 08:08 Start Tom, höchstens etwa 2 Stunden.
 - 08:05 06.11.: Neustart Jerry 38d0a7018 (Rückläufer t266 durch, 07:19–07:46; Nachfolger „Jerry – 565: Wer am Zug ist“ nur auf Zuruf, 468e), archiviert, 17,29 $ auf 588, 594, 596, 597, 600, 601. Offen beim Chef: entscheiden/595, 598, 601; Frage, ob Tom 589–592 heute.
-- 07:19 06.11.: Chef 07:17: Rückläufer t266 liegen seit gestern 19 Uhr bei Sokrates eingetragen (Tom 589–592, Jerry 588, 593–601), also nach 287 startbar. Startsperre 07:19 Start Jerry „588, 594–601: Rückläufer t266“ (468e: die eine Entwicklersitzung des Tages, Übergabe nach etwa 3 Stunden). Befund an Perikles: `lauf.py` las die Startmarken 07:04 vom 05.11. als heutige („jünger als 20 Minuten“).
 - 07:01 06.11.: Bild Chef 06:59: Woche 95 % (287: nur Rückläufer des Chefs). Kein Start: weder Entwicklersitzung (468e, nur auf Zuruf) noch Tagesbericht Perikles. Morgenmeldung gesendet.
 - 21:15 05.11.: Ford neu auf Tiefe 0 (Chef von Hand; alter Ford 570 Tsd. Token), Uhr `trig_01XdFp…` angelegt, alte gelöscht, alter Ford `c3tx` archiviert, 22,39 $ auf Betrieb. Kein Start (468e: Entwicklersitzung des Tages gelaufen; 468d ab 22:30).
 - 18:25 05.11.: Chef „Zu t266 6“ (Log-Fehler Kampf im Wald, Build 266) als Vorgang 588 in Jerrys Vorrat (nur auf Zuruf, 468e), Wortlaut gekürzt in „Zu 588“.
@@ -86,37 +82,14 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:13 05.11.: Neustart-Meldung Jerry 80f16571d (Übergabe da, Nachfolger „Jerry – 572 Urteil, Kampf-Build“); Nachtpause 468d: Nachfolger NICHT gestartet, startet `lauf.py` ab 7 Uhr. Alter Jerry `zop1` archiviert, 22,93 $ auf 572.
 - 23:05 04.11.: Nachtpause 468d. Tom `ArQnx` (475, nichts mehr startbar, idle) archiviert, 3,78 $ auf 475; Nachfolger Tom ab 7 Uhr (lauf.py). Jerry `2zop` (572) idle/wartet, unberührt. Kein Start bis 7 Uhr.
 - 22:28 04.11.: Neustart Tom 40ea02630 → `UCbYo7ArQnx` „475: Grün am Hals, Tusche an den Kaufleuten“ (vor 22:30, mit Hinweis 468d: Übergabe bis 23 Uhr); alter Tom `4jyCYv` archiviert, 21,98 $ auf 475 und 558.
-- 20:55 04.11.: Neustart Tom d011dc8cb → `4jyCYv` „475, 558: Prüferbefund 475 bauen (Lauf 2), Probe 5“ (nach idle); alter Tom `Bhmo` archiviert, 18,55 $ auf 475 und 531.
-- 20:31 04.11.: Jerry `zop1` „572: Effektprobe REEBOO-Gratisstücke“ gestartet auf Chefwort „jetzt“ 20:27 (Sokrates 20:29); Ausnahme zu 468c (Tom läuft 475/531 zugleich), weil das Chefwort jünger ist und die Zeile „zwei Läufe frei“ trägt. Alter Jerry `wfZL` (idle seit 03:31, Chef-Test t257 inzwischen als 562/563/565 im Vorrat) archiviert, 6,97 $ auf 535, 534, 517.
-- 20:00 04.11.: Neustart Tom 9650baf00 → `Bhmo` „475, 531: Lauf laden, Gesichter an den Chef; dann 531 Film“ (nach idle); alter Tom `vd1jVA` archiviert, 18,67 $ auf 558 und 475.
-- 19:51 04.11.: Neustart Sokrates c4753355c → `a1aM` „Chefrunde: 557 Runde 5, dann t257 ab D“ (nach idle); alter Sokrates `X5Ac` archiviert, 19,78 $ auf 512.
-- 19:20 04.11.: Neustart Tom dc5f2c355 → `vd1jVA` „558, 475: Läufe laden, Bilder an den Chef; dann 566, 567 bauen“ (nach idle); alter Tom `NXxN` archiviert, 19,13 $ auf 558 und 505.
-- 18:33 04.11.: Neustart Tom 3613eaa94 → `NXxN` „505, 558: Läufe laden, Bilder sofort an den Chef“ (nach idle); alter Tom `Ex9g` archiviert, 25,22 $ auf 558.
-- 17:24 04.11.: Neustart Tom 7fd69dfc9 → `Ex9g` „558: Robe Probe 3 vorlegen, dann 505 Lauf 2“ (nach idle); alter Tom `egcj` archiviert, 19,55 $ auf 558.
-- 17:05 04.11.: Perikles `U6AU` (559) fertig, archiviert, 3,53 $ auf 559. Tom 558 und Sokrates (idle, Chefrunde) laufen. Perikles-Befund: Toms Vorratsumbau (93 KB) ohne Vorgang offen, liegt bei Tom.
-- 16:47 04.11.: Neustart Tom 40bc3bda3 → `egcj` „558: Robe Probe 3 vorlegen, dann 505 zweiter Durchgang“; alter Tom `ueHQ` archiviert, 29,06 $ auf 505.
-- 16:46 04.11.: Neustart Sokrates dade115c3 → `X5Ac` „Chefrunde: 557 Rückfragen und Rast, dann 549a“ (nach idle); alter Sokrates `xVie` archiviert, 18,38 $ auf 512.
-- 16:20 04.11.: Perikles `U6AU` „559: Prüfung wartet auf Chef“ gestartet auf Zuruf des Chefs (Sokrates 16:19, Chef 16:18), Ausnahme zu 468a.
-- 15:33 04.11.: Neustart Tom aea27c713 → `ueHQ` „505: Vorlage Nebel, Rand, Ausgänge aus Lauf 1“ (nach idle); alter Tom `RCQS` archiviert, 15,38 $ auf 505.
-- 15:05 04.11.: Diogenes 513.1 (2,17 $) und Perikles Tagesbericht (4,84 $) fertig, archiviert und gebucht; kein Nachfolger (468a). Homer `777B` idle, wartet auf Wahl zu 547 (Zwischentexte gelten ohne Antwort), bleibt stehen. Tom `RCQS` läuft (505).
-- 14:46 04.11.: Fehler Ford: 13:58 Homer, Diogenes, Perikles gestartet, obwohl 468a bis Sa 20:00 nur Tom, Jerry, Spike und Ford arbeiten lässt (Hinweis Sokrates 14:44); `lauf.py` kennt 468a nicht. Folge: Homer 547, Diogenes 513.1/512.1, Perikles-Tagesbericht laufen zu Ende, **kein Nachfolger** für sie bis Sa 20:00; künftig jeden Lauf `--ohne` für Homer, Perikles, Diogenes, Sokrates (außer Chef-Zuruf/Ausnahmen in 468a). 468d (23–7 Uhr keine Entwicklersitzung, nach 22:30 kein Start) vermerkt.
-- 14:24 04.11.: Neustart Tom c6ac78ffb → `RCQS` „505: Nebel B, Randwald, Kamera, Ausgänge“ (nach idle); alter Tom `Zfp2` archiviert, 12,06 $ auf 557.
-- 13:59 04.11.: Ford neu auf Tiefe 0 (Chef von Hand, 110 erledigt), Uhr `trig_01Ba5…`, alte gelöscht, alter Ford archiviert, 7,93 $ auf 110. Lauf `--nur-muss`: gestartet Tom 557 `8Zfp`, Diogenes 513.1 `6dRi`, Homer 547 `777B`, Perikles Tagesbericht `8YrwDT` (fehlte um 13:58); archiviert und gebucht Tom 558 0,93 $, Homer 461d 8,53 $, Perikles 511 17,15 $. **Abweichung vom Plan (468c, nie mehr als eine Entwicklersitzung, Woche 79 %):** Jerry „Urteil zu t257“ und Spike 524.1 nicht gestartet (Chef testet t257 gerade, Sokrates begleitet); Startmarken stehen trotzdem. Wächter 513.1, 511, 465, 407 (Perikles) mit dem Start erledigt.
-- 13:16 04.11.: Neustart Tom bade90a46 → `gUXc` „558: Robe Probebild vorlegen“ (nach idle, mit Dauerregel); alter Tom `TjcN` archiviert, 14,86 $ auf 558.
-- 13:58 04.11.: Startsperre 13:58 Start Tom, Jerry, Diogenes, Homer, Perikles, Spike (lauf.py)
-- 13:58 04.11.: Marke Tagesbericht 04.11. (lauf.py)
-- 13:58 04.11.: Marke Tagesbericht fehlt 04.11. (lauf.py)
-- 13:58 04.11.: Marke Wächter 513.1 03.11. 15:56 (lauf.py)
-- 13:58 04.11.: Marke Wächter 511 03.11. 13:50 (lauf.py)
-- 13:58 04.11.: Marke Wächter 465 01.11. 20:50 (lauf.py)
-- 13:58 04.11.: Marke Wächter 407 02.11. 11:13 (lauf.py)
-- 13:58 04.11.: Marke Archiv session_01Hmoj76gUXcSQWWhKE3LVJm (lauf.py)
-- 13:58 04.11.: Marke Archiv session_01Hmoj75wfZL4VSLMGHvtGFa (lauf.py)
-- 13:58 04.11.: Marke Archiv session_01Hmoj78Ga9V6Fx9myzwYsVe (lauf.py)
-- 13:58 04.11.: Marke Archiv session_01Hmoj76diLbY3sMkPCUwT1D (lauf.py)
-- 13:58 04.11.: Marke Archiv session_01Hmoj76JLm6RreiKJ2eQNiN (lauf.py)
-- 13:58 04.11.: Nachfolger-Warnung Diogenes (Übergabe 03.11., 15:29) (lauf.py)
-- 07:04 05.11.: Startsperre 07:04 Start Tom, Jerry, Perikles, Spike, Tuffy (lauf.py)
-- 07:04 05.11.: Marke Stellungnahme Sokrates 05.11. (lauf.py)
-- 07:04 05.11.: Nachfolger-Warnung Jerry (Übergabe 05.11., 00:10) (lauf.py)
-- 07:04 05.11.: Nachfolger-Warnung Diogenes (Übergabe 04.11., 14:09) (lauf.py)
+- 09:38 06.11.: Chef 09:36 „595, 601 ab Samstsg 2000 Uhr. 587 ja. 598 … in Sync mit Animationen … 602 ja, soviel rein wie geht“: in Jerrys Vorrat (Zu 595, 601, 587, 598), Dateien gelöscht; Build als 603 bei Tom. Jerry `LgDT` archiviert, 20,55 $ auf 548, 545, 562, 544, 547, 561, 536, 533, 532. Startsperre 09:38 Start Tom 603.
+- 08:10 06.11.: Chef 08:09 „andere noch wichtige Aufgaben … die nur Code betreffen … dann könnten ja … auch andere noch was machen“ (hebt 468c für heute auf): Startsperre 08:10 Start Jerry 548, 545, 562, 544 (Kampffehler aus Chef-Tests, nur Code), höchstens etwa 2 Stunden.
+- 08:08 06.11.: Chef 08:07 „Starte das, was am kostengünstigsten zu erledigen ist … das machst du jetzt“: Tom 591, 592 (nur Code, vorhandene Bewegungen und Klänge; 589, 590 brauchen Grafik). Startsperre 08:08 Start Tom, höchstens etwa 2 Stunden.
+- 07:19 06.11.: Chef 07:17: Rückläufer t266 liegen seit gestern 19 Uhr bei Sokrates eingetragen (Tom 589–592, Jerry 588, 593–601), also nach 287 startbar. Startsperre 07:19 Start Jerry „588, 594–601: Rückläufer t266“ (468e: die eine Entwicklersitzung des Tages, Übergabe nach etwa 3 Stunden). Befund an Perikles: `lauf.py` las die Startmarken 07:04 vom 05.11. als heutige („jünger als 20 Minuten“).
+- 20:06 07.11.: Startsperre 20:06 Start Diogenes, Homer, Perikles (lauf.py; Tom nicht gestartet: Pause Prüfliste, Sokrates-Stellungnahme an Chef-Sokrates statt Neustart)
+- 20:06 07.11.: Marke Tagesbericht 07.11. (lauf.py)
+- 20:06 07.11.: Marke Tagesbericht fehlt 07.11. (lauf.py)
+- 20:06 07.11.: Marke Stellungnahme Sokrates 07.11. (lauf.py)
+- 20:06 07.11.: Marke Wächter 591 06.11. 08:07 (lauf.py)
+- 20:06 07.11.: Marke Wächter 478 07.11. 16:37 (lauf.py)
+- 20:06 07.11.: Nachfolger-Warnung Diogenes (Übergabe 05.11., 07:19) (lauf.py)
