@@ -19,8 +19,9 @@ Schreiben (Chef 27.10., 15:20: nur über dieses Werkzeug; danach committen und p
   vorgang.py build N --mit NR,NR …     Testbuild N trägt diese Vorgänge: Build N, Stand „zu testen“
   vorgang.py build N [--datei PFAD] [--probe]   Automatik B nach dem Test des Chefs: liest die Prüfliste ansehen/tN-….md (auch gelöscht,
                                        aus Git) mit Abschnitt „## Ergebnis“ („- N.k ✓“, „- N.k ✗ <Fund>“, „- Rest ✓“) oder Spalte „Chef“;
-                                       je Vorgang: alle Punkte ✓ → erledigt; ein ✗ → startbar mit dem Fund (Absatz „Zu NR“ beim Besitzer);
-                                       ohne Rückmeldung → „zu testen“ ohne Build (in die nächste Prüfliste). Erst danach den Archiveintrag tN
+                                       je Vorgang mit Build N: alle Punkte ✓ → erledigt; ein ✗ → startbar mit dem Fund (Absatz „Zu NR, von Chef
+                                       (Fund tN.k …)“ beim Besitzer); ohne Rückmeldung → „zu testen“ ohne Build (in die nächste Prüfliste).
+                                       Genannte Nummern ohne Build N bleiben unverändert (D80.1). Erst danach den Archiveintrag tN
                                        committen; sonst hält die Commit-Prüfung an.
   --rolle ROLLE ist Pflicht, wo eine Nummer mehrfach steht (nur Pflege, Spiegel).
 """
@@ -68,7 +69,7 @@ def warte_aus(text):
     t = text.strip()
     return [] if t in ("", "–", "-") else [x.strip() for x in t.split(",") if x.strip()]
 
-GEPRUEFT = re.compile(r"Geprüft an:?\s*(?:https?://\S+|bilder:\S+|`?[0-9a-f]{7,40}`?|Lauf \d{3,})")
+GEPRUEFT = startbar.GEPRUEFT
 
 def stand_pruefen(stand, nr):
     w = startbar.wort_von(stand)
@@ -241,7 +242,7 @@ def zu_absatz(besitzer, nr, kopf, text):
     datei = startbar.VORRAT.get(besitzer)
     if not datei: return
     t = startbar.lesen(datei).rstrip("\n")
-    zeile = "- **Zu %s, %s:** %s" % (nr, kopf, text)
+    zeile = "- **Zu %s, von Chef (%s):** %s" % (nr, kopf, text)  # D80.2: Absender Chef; geht als fremder Hinweis durch (commit-pruefung 400)
     if zeile in t: return
     m = re.search(r"(?m)^## Einzelheiten\s*\n", t)
     if m: t = t[:m.end()] + "\n" + zeile + "\n" + t[m.end():]
@@ -257,7 +258,11 @@ def build_abschluss(n, datei=None, probe=False):
     for k, (nrs, e, f) in punkte.items():
         for nr in nrs: je.setdefault(nr, []).append((k, e, f))
     zs = startbar.vorgangsliste(text_liste())
-    betroffen = [d for d in zs if d.get("build") == str(n) and d["wort"] != "erledigt"] + [d for d in zs if d["nr"] in je and d.get("build") != str(n) and d["wort"] != "erledigt"]
+    # D80.1: nur die Vorgänge des Builds (Feld Build = N, eingetragen mit build N --mit); in der Prüfliste genannte Nummern ohne Build N
+    # bleiben, wie sie sind (Hinweis unten), sonst fielen startbare Zeilen anderer Arbeit aus der Rechnung
+    betroffen = [d for d in zs if d.get("build") == str(n) and d["wort"] != "erledigt"]
+    fremd = sorted({d["nr"] for d in zs if d["nr"] in je and d.get("build") != str(n) and d["wort"] != "erledigt"})
+    if not betroffen: sys.exit("vorgang.py: kein Vorgang mit Build %s in der Liste; erst vorgang.py build %s --mit <Nr,…>%s" % (n, n, ("; in der Prüfliste genannt: " + ", ".join(fremd)) if fremd else ""))
     aus = []
     for d in betroffen:
         p = je.get(d["nr"], [])
@@ -273,14 +278,16 @@ def build_abschluss(n, datei=None, probe=False):
         aus.append((d, neu_d, durch, was))
     for d, neu_d, durch, was in aus:
         print("%s %s (%s): %s" % ("PROBE" if probe else "BUILD", d["nr"], d["besitzer"], was))
+    if fremd: print("%s genannt, nicht in Build %s, bleibt: %s" % ("PROBE" if probe else "BUILD", n, ", ".join(fremd)))
     if probe: return
     for d, neu_d, durch, was in aus:
         alt = finden(d["nr"], d["besitzer"] if d["nr"] in startbar.SONDER else None)
         ersetzen(alt, neu_d)
-        for k, e, f in durch: zu_absatz(d["besitzer"], d["nr"], "Fund t%s (Test des Chefs, Build %s, Automatik B)" % (k, n), f or "✗ ohne Text, Prüfpunkt %s" % k)
+        for k, e, f in durch: zu_absatz(d["besitzer"], d["nr"], "Fund t%s, Test Build %s, Automatik B" % (k, n), f or "✗ ohne Text, Prüfpunkt %s" % k)
     ohne = sorted(nr for nr in je if not any(d["nr"] == nr for d in zs))
-    print("vorgang.py build %s: %d Vorgänge (%s); Prüfliste %s%s" % (n, len(aus), ", ".join("%s %s" % (d["nr"], w.split()[0]) for d, _, _, w in aus), os.path.relpath(pfad, os.path.dirname(DOCS)) if not pfad.startswith("git:") else pfad,
-                                                          ("; ohne Listenzeile: " + ", ".join(ohne)) if ohne else ""))
+    print("vorgang.py build %s: %d Vorgänge (%s); Prüfliste %s%s%s" % (n, len(aus), ", ".join("%s %s" % (d["nr"], w.split()[0]) for d, _, _, w in aus), os.path.relpath(pfad, os.path.dirname(DOCS)) if not pfad.startswith("git:") else pfad,
+                                                          ("; ohne Listenzeile: " + ", ".join(ohne)) if ohne else "",
+                                                          ("; genannt, aber nicht in Build %s (unverändert; gehört eine dazu: build %s --mit, dann erneut): %s" % (n, n, ", ".join(fremd))) if fremd else ""))
 
 # ---------------------------------------------------------------- Lesen
 

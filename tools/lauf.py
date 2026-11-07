@@ -632,7 +632,10 @@ def main():
         print("Protokoll geschrieben: bitte committen und pushen%s." % (", erst dann create_session" if sperren else ""))
     if sperre:
         for nr, wer, weg, neu_st in startbar.loesen(True):  # 275.2 Automatik A: erfüllte „wartet auf“ schreiben (Ford pusht)
-            print("GELÖST %s | %s | wartet auf %s erfüllt%s (Notizen pushen)" % (nr, wer, ", ".join(weg), (" → " + neu_st) if neu_st else ""))
+            # D80.4: „Meldung an den Besitzer“: läuft eine Sitzung der Rolle, ihre Kennung (Ford: send_message); sonst startet lauf.py sie wie jede startbare Zeile
+            sitz = [x for x in je_rolle.get(wer, []) if x["id"] not in archiviert]
+            print("GELÖST %s | %s | wartet auf %s erfüllt%s | %s (Notizen pushen)" % (nr, wer, ", ".join(weg), (" → " + neu_st) if neu_st else "",
+                                                                                   ("an " + juengste(sitz)["id"]) if sitz else "-"))
         n = aufraeumen()
         if n: print("Aufgeräumt: %d Zeilen aus Protokoll und LISTE-VORGAENGE.md (270; Notizen pushen)" % n)
     if besetz: besetzung_schreiben([s for s in leb if s["id"] not in archiviert])

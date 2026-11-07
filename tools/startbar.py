@@ -9,7 +9,8 @@ Je Rolle: oberstes startbares Muss und oberste startbare Kür (Kl. „M?“ zäh
 Stand = ein Wort der Liste WORTE, dahinter nach Komma oder Doppelpunkt höchstens ein kurzer Zusatz; gerechnet wird nur mit dem Wort
 (und „in Arbeit bei Spike|Tuffy“, 433).
 **Automatik A „wartet auf“** (275.2): Feld mit Nummern, Rollen, Daten (TT.MM.[ HH:MM]) oder „Chef[ <Dateinummer>]“, mit Komma getrennt.
-Erfüllt: Nummer erledigt, gebaut oder zu testen (190.1: „gebaut“ gilt für Wartende als fertig); Datum vorbei; Chefsache-Datei weg.
+Erfüllt: Nummer erledigt (für die Sperre auch gebaut oder zu testen, 190.1; geschrieben wird nur bei erledigt, D80.3); Datum vorbei;
+Chefsache-Datei weg; t<Build> mit Archiveintrag.
 Eine Rolle erfüllt sich nie von selbst: die Zeile erscheint bei dieser Rolle als ihre Arbeit (Klasse der wartenden Zeile), bis die Rolle
 das Feld mit `vorgang.py warte <Nr> –` leert. Jeder Lauf zeigt erfüllte Felder als „GELÖST“; mit --loesen (lauf.py --sperre) schreibt
 er sie: erfüllte Teile fallen weg, ist das Feld leer und das Wort wartet, Chef, ruht oder Dauer, wird die Zeile „startbar, gelöst …“.
@@ -270,8 +271,9 @@ def datum_von(token):
     d = jahr_von(int(m.group(1)), int(m.group(2)))
     return datetime.datetime(d.year, d.month, d.day, int(m.group(3) or 0), int(m.group(4) or 0))
 
-def erfuellt(token, nr=""):
-    """Ist der Teil des Felds erfüllt? Rolle: nie von selbst."""
+def erfuellt(token, nr="", streng=False):
+    """Ist der Teil des Felds erfüllt? Rolle: nie von selbst. Nummer: für die Sperre auch „gebaut“, „zu testen“ (190.1: Wartende dürfen
+    weiterbauen); streng (Automatik A schreibt, D80.3): nur „erledigt“, sonst ginge die Abhängigkeit verloren, wenn der Test scheitert."""
     a = art(token)
     if a == "datum":
         try: return datum_von(token) <= JETZT
@@ -283,13 +285,16 @@ def erfuellt(token, nr=""):
         return re.search(r"(?m)^- \*\*" + token + r"\b", lesen("VORGANGSARCHIV.md")) is not None
     if a == "nr":
         for d in zeilen_liste():
-            if d["nr"] == token: return d["wort"] in ("erledigt", "gebaut", "zu testen")
+            if d["nr"] == token: return d["wort"] == "erledigt" if streng else d["wort"] in ("erledigt", "gebaut", "zu testen")
         n, st = stand_von(token)  # Archiv oder Oberzeile (72s.1 → 72)
+        if streng: return bool(st) and bool(re.match(r"(fertig|erledigt|auf main|getestet)\b", blank(st), re.I))
         return bool(st) and bool(FERTIG.search(st) or re.match(r"(fertig|erledigt)\b", blank(st), re.I))
     return False
 
 def offen_warte(d):
     return [t for t in d["warte"] if not erfuellt(t, d["nr"])]
+
+GEPRUEFT = re.compile(r"Geprüft an:?\s*(?:https?://\S+|bilder:\S+|`?[0-9a-f]{7,40}`?|Lauf \d{3,})")  # 340.4
 
 def pruefen_zeile(d, alle_nr=None):
     """Formfehler einer Listenzeile (275.2); leer = gut."""
@@ -310,6 +315,7 @@ def pruefen_zeile(d, alle_nr=None):
     if d["wort"] in ("wartet", "Chef") and not d["warte"]:
         f.append("„%s“ ohne Feld „wartet auf“ (Test des Chefs: Stand „gebaut“ oder „zu testen“ mit Build; Ereignis ohne Nummer: „ruht“ mit Zusatz)" % d["wort"])
     if d["wort"] == "Chef" and not any(art(t) == "chef" for t in d["warte"]): f.append("„Chef“ ohne „Chef“ im Feld „wartet auf“")
+    if d["wort"] == "gebaut" and not GEPRUEFT.search(d.get("stand", "")): f.append("„gebaut“ ohne „Geprüft an: <Link, Lauf oder Commit>“ (340.4, D80.7)")
     if len(d.get("zeile", "")) > 400: f.append("Zeile über 400 Zeichen (Einzelheiten als „Zu %s“ in den Vorrat)" % d["nr"])
     return f
 
@@ -328,7 +334,7 @@ def pruefen_liste(zs=None):
 def loesbar(d):
     """Automatik A: (neues Feld, neuer Stand oder None, erfüllte Teile) oder None, wenn nichts erfüllt ist."""
     if d["wort"] == "erledigt" or not d["warte"]: return None
-    weg = [t for t in d["warte"] if erfuellt(t, d["nr"])]
+    weg = [t for t in d["warte"] if erfuellt(t, d["nr"], streng=True)]
     if not weg: return None
     rest = [t for t in d["warte"] if t not in weg]
     stand = None
@@ -420,12 +426,23 @@ def plan(rolle):
             kl = "M" if d["nr"] in f and d["kl"] != "–" else d["kl"]
             eigen.append((d["nr"], kl, d["titel"], d, sperre(d)))
         elif rolle in offen_warte(d):
-            # die Rolle ist dran, sobald alle übrigen Teile des Felds erfüllt sind (z. B. „Diogenes, 625“: prüfen nach Build 269)
+            # die Rolle ist dran, sobald alle übrigen Teile des Felds erfüllt sind (z. B. „Diogenes, 625“: prüfen nach Build 269);
+            # ruht die Zeile (ruht, Dauer, nach Meilenstein, aufgeteilt, Idee), ruht sie auch für die Rolle (D80.5)
             rest = [t for t in offen_warte(d) if art(t) != "rolle"]
-            grund = sperre(dict(d, wort="startbar", zusatz="", warte=rest)) if rest else None
+            w = d["wort"] if d["wort"] in ("ruht", "Dauer", "nach Meilenstein", "aufgeteilt", "Idee") else "startbar"
+            grund = sperre(dict(d, wort=w, zusatz=d["zusatz"] if w != "startbar" else "", warte=rest)) if rest or w != "startbar" else None
             fremd.append((d["nr"], d["kl"], d["titel"] + " (für %s)" % d["besitzer"], dict(d, fuer=d["besitzer"]), grund))
-    fremd.sort(key=lambda x: x[1] != "M")
-    zs = eigen + fremd  # fremde Arbeit nach den eigenen Zeilen: deren Vorrang setzt Perikles, den der fremden nicht
+    # D80.5: fremde Arbeit hinter der letzten eigenen startbaren Zeile derselben Stufe (Muss, Kür, nach Meilenstein, Pflege), nicht ganz
+    # ans Ende; den eigenen Vorrang behält die Rolle, ihre Stelle in einer fremden Reihe kennt die Liste nicht
+    def stufe(z):
+        if z[0] in SONDER: return 3
+        if "fuer" not in z[3] and z[3]["wort"] == "nach Meilenstein": return 2
+        return 0 if z[1] == "M" else 1
+    zs = list(eigen)
+    for z in sorted(fremd, key=lambda x: x[1] != "M"):
+        pos = max([k + 1 for k, e in enumerate(zs) if ("fuer" in e[3] or e[4] is None) and stufe(e) <= stufe(z)]
+                  or [k + 1 for k, e in enumerate(zs) if stufe(e) < stufe(z)] or [0])
+        zs.insert(pos, z)
     w = [z for z in zs if WIEDERHOLT.search(z[2])]  # 620.1 A (Chef 07.11., 21:00): wiederholte Funde vor allem anderen, nur „jetzt“ davor
     if w:
         rest = [z for z in zs if z not in w]
@@ -519,7 +536,8 @@ def main():
             art_ = "M" if kl == "M" else "K"
             if erstes[art_] is None: erstes[art_] = (nr, kl, thema)
         if rolle in UEBERNAHME:
-            gebaut = sum(1 for z in zs if "fuer" not in z[3] and z[3]["wort"] == "gebaut" and z[3].get("build") in ("", "–", "-", None))
+            # wie bisher alle eigenen Zeilen, die auf einen Test warten, auch die schon einem Build zugeordneten (D80.6)
+            gebaut = sum(1 for z in zs if "fuer" not in z[3] and (z[4] or "").startswith("wartet auf Test"))
             info[rolle] = ([z for z in zs if not z[4]], gebaut, erstes["M"] or erstes["K"] or erstes["N"])
         def kurz(e):
             if not e: return "–"

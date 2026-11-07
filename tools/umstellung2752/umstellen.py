@@ -24,7 +24,9 @@ HAND = {
     "317.1": dict(warte=["Diogenes", "t269"], _grund="Diogenes prüft nach Sammelbuild 269 (seine Zeile: ruht bis 269)"),
     "620.1": dict(warte=["Chef", "Diogenes"], _grund="A gebaut, B beim Chef (entscheiden/6201); Diogenes prüft A an der ersten Zeile mit „wiederholt“"),
     "511": dict(warte=["Diogenes", "D75"], _grund="Diogenes prüft am nächsten echten Filmlauf (D75 Dauer bis dahin)"),
-    "483": dict(warte=["Diogenes", "D75"], _grund="Diogenes prüft am nächsten echten Film (D75 Dauer bis dahin)"),
+    "483": dict(warte=["Diogenes", "D75"], zusatz="Geprüft an: 62e922b30", _grund="Diogenes prüft am nächsten echten Film (D75 Dauer bis dahin); Bau-Commit nachgetragen (D80.7)"),
+    "464": dict(zusatz="Geprüft an: fcf9ab215", _grund="Bau-Commit nachgetragen („gebaut“ braucht „Geprüft an“, D80.7)"),
+    "383": dict(zusatz="Geprüft an: 4e1f16df6", _grund="Bau-Commit nachgetragen („gebaut“ braucht „Geprüft an“, D80.7)"),
     "D75": dict(wort="Dauer", zusatz="bis zum nächsten echten Film (D75.1 gebaut, D75.2 dann prüfen)", warte=[], bereich="B Werkzeuge",
                 titel="Filmsperre 511 zählte Film-Pushes 572 nicht (D75.1); meldung.sh --film legte Film 572 nicht ab (D75.2)",
                 _grund="Prüfbefund Diogenes Lauf 73; wartet auf ein Ereignis (Film), nicht auf eine Nummer"),
@@ -160,7 +162,7 @@ KOPFTEXT = """# Vorgänge
 
 - **Reihenfolge** der Zeilen eines Besitzers = Vorrang (`vorgang.py rang`). **Besitzer:** Homer, Tom, Jerry, Perikles, Diogenes, Sokrates, Ford, Ideen (wird nie gestartet). **Kl.** (126): M Muss, K Kür, M? (Perikles entscheidet), – abgeschlossen.
 - **Stand** (275): ein Wort aus offen, startbar, in Arbeit, wartet, Chef, ruht, gebaut, zu testen, Dauer, nach Meilenstein, aufgeteilt, Idee, erledigt; dahinter nach Komma höchstens ein kurzer Zusatz (bei „gebaut“ Pflicht: „Geprüft an: <Link, Lauf oder Commit>“, 340.4).
-- **wartet auf** (Automatik A): Nummer, Rolle, Datum `TT.MM.[ HH:MM]` oder `Chef[ <Dateinummer>]` (nur mit Datei in `docs/chefsache/`), mit Komma getrennt. Nummer erledigt, gebaut oder zu testen, Datum vorbei oder Chefsache-Datei weg: `startbar.py` meldet „GELÖST“, `lauf.py --sperre` setzt die Zeile auf startbar. Eine Rolle löst sich nicht von selbst: die Zeile steht bei ihr als Arbeit, bis sie das Feld mit `vorgang.py warte <Nr> –` leert.
+- **wartet auf** (Automatik A): Nummer, Rolle, Datum `TT.MM.[ HH:MM]` oder `Chef[ <Dateinummer>]` (nur mit Datei in `docs/chefsache/`), mit Komma getrennt. Nummer erledigt, Datum vorbei oder Chefsache-Datei weg: `startbar.py` meldet „GELÖST“, `lauf.py --sperre` setzt die Zeile auf startbar und meldet es der laufenden Sitzung des Besitzers. Ist die Nummer erst gebaut oder zu testen, hält sie nicht auf (190.1), das Feld bleibt aber stehen, bis sie erledigt ist. Eine Rolle löst sich nicht von selbst: die Zeile steht bei ihr als Arbeit, bis sie das Feld mit `vorgang.py warte <Nr> –` leert.
 - **Zweig** `claude/…`; **Build** die Nummer des Testbuilds, der den Vorgang trägt (`vorgang.py build <n> --mit <Nr,…>`); nach dem Test des Chefs schließt `vorgang.py build <n>` ab (Automatik B: bestanden → erledigt, ✗ → startbar mit dem Fund, ohne Rückmeldung → zu testen).
 - **Bereich** (124): E Entwicklung, G Gestaltung, Q Qualität, B Betrieb, M Markt. **Kosten** in $ (`usage.cost_usd`, ab 17.10.): bucht Ford (`lauf.py --kosten`).
 - Erledigte Zeilen schiebt `lauf.py --aufraeumen` ins [Archiv](LISTE-VORGAENGE-ARCHIV.md).
@@ -183,7 +185,7 @@ def umstellen(docs, probe=False):
             if j and "„jetzt“" not in titel: titel += " · " + j
             if alt.WIEDERHOLT.search(vt + " " + vs) and not re.search(r"\bwiederholt\b", titel, re.I): titel += " · wiederholt"
             n, _ = alt.stand_von(nr)
-            bereich = t[2] if t else (la[n][2] if n in la else "?")
+            bereich = t[2] if t else (la[n][2] if n in la else "B Betrieb" if nr in ("Pflege", "Spiegel") else "?")  # D80.7: Werkzeugzeilen
             d = dict(nr=nr, titel=kurz(titel, 220), besitzer=rolle, kl=kl if kl != "-" else "–", wort=wort, zusatz=kurz(zusatz, 100), warte=warte,
                      zweig=zweig if zweig.startswith("claude/") else "–", build=build or "–", bereich=bereich, kosten=t[4] if t else "–", grund_alt=grund)
             gesehen.setdefault(nr, []).append(d)
@@ -237,6 +239,7 @@ def schreiben(docs, alt, zeilen, archiv, alte_zeilen):
     import startbar as neu_sb
     text = KOPFTEXT + neu_sb.KOPF + "\n" + "|" + "---|" * len(neu_sb.SPALTEN) + "\n" + "\n".join(neu_sb.zeile_text(d) for d in zeilen) + "\n"
     open(os.path.join(docs, "LISTE-VORGAENGE.md"), "w", encoding="utf-8").write(text)
+    neu_sb.liste_merken(docs)  # vom Werkzeug geschrieben: keine Warnung „von Hand geändert“ im Umschalt-Commit
     if archiv:
         p = os.path.join(docs, "LISTE-VORGAENGE-ARCHIV.md")
         a = open(p, encoding="utf-8").read()
@@ -258,9 +261,16 @@ def schreiben(docs, alt, zeilen, archiv, alte_zeilen):
         t = re.sub(r"\n{3,}", "\n\n", t)
         alt_z = alte_zeilen.get(rolle, [])
         if alt_z:
-            t = t.rstrip("\n") + "\n\n## Alte Zeilen (bis 275.2)\n\nDie Zeilen dieses Vorrats vor der einen Vorgangsliste, wörtlich; gilt nur noch als Einzelheit, der Stand steht in `LISTE-VORGAENGE.md`. Der Besitzer übernimmt, was noch gilt, als „Zu <Nr>“ und streicht den Rest.\n\n" + \
-                "\n".join("- **Alt %s:** %s" % (nr, " · ".join(x.strip() for x in roh.strip().strip("|").split("|")[1:])) for nr, roh in alt_z if nr not in ("Pflege", "Spiegel")) + "\n"
+            # D80.2: knapp, damit kein Vorrat wächst (Commit-Prüfung): Kurzkopf; Klasse und leere Zellen stehen schon in der Liste
+            t = t.rstrip("\n") + "\n\n## Alte Zeilen (bis 275.2; Stand in der Liste, Gültiges als „Zu <Nr>“, Rest streichen)\n\n" + \
+                "\n".join("- **Alt %s:** %s" % (nr, alt_zellen(roh)) for nr, roh in alt_z if nr not in ("Pflege", "Spiegel")) + "\n"
         open(p, "w", encoding="utf-8").write(t)
+
+def alt_zellen(roh):
+    """Zellen einer alten Vorratszeile ohne Nummer und Klasse (beides in der Liste), ohne leere Zellen am Ende, mit „ · “."""
+    z = [x.strip() for x in roh.strip().strip("|").split("|")][2:]
+    while z and z[-1] in ("", "–", "-"): z.pop()
+    return " · ".join(z)
 
 def vergleich(docs, alt_ergebnis):
     """Alte gegen neue Startbar-Rechnung je Nummer und Rolle: [(Rolle, Nr, alt, neu)] mit Unterschied startbar ja/nein."""

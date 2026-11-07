@@ -19,7 +19,7 @@ Diese Ersetzungen macht Perikles im Umschalt-Commit auf `main` mit Edit (nicht p
 
 - `ROLLE-ENTWICKLUNG.md` Start 1: „dein Vorrat bis „Einzelheiten“ ganz (…)“ → „`python3 tools/vorgang.py --rolle <NAME>` (deine Zeilen in Vorrangfolge, dazu fremde, die auf dich warten); dein Vorrat bis „Einzelheiten“ ganz (…)“, Rest unverändert.
 - `ROLLE-PROJEKT.md` Start 1, `ROLLE-PRUEFUNG.md` Start 1, `ROLLE-BERATUNG.md` Start 1, `ROLLE-KREATIV.md` Start: hinter „dein Vorrat (…)“ jeweils „, deine Zeilen (`vorgang.py --rolle <Rolle>`)“.
-- `LISTE-BETRIEB.md` Schritt 4: hinter „`WARNUNG …` → lautlos melden.“ einfügen „`GELÖST <Nr> | Rolle | …` → nichts; `lauf.py --sperre` hat die Zeile schon gesetzt (Automatik A, 275.2), Ford pusht die Notizen.“
+- `LISTE-BETRIEB.md` Schritt 4: hinter „`WARNUNG …` → lautlos melden.“ einfügen „`GELÖST <Nr> | Rolle | … | an <id>` → `send_message` an `<id>`: „GELÖST <Nr>: wartet auf … erfüllt, startbar“ (bei `-` nichts: `lauf.py` startet die Rolle wie bei jeder startbaren Zeile); `lauf.py --sperre` hat die Zeile schon gesetzt (Automatik A, 275.2), Ford pusht die Notizen.“
 - `LISTE-BAUEN-TESTEN.md` „Gemeinsamer Build“: hinter „öffnet einen PR und schreibt die Prüfliste“ einfügen „, trägt die Vorgänge ein (`vorgang.py build <n> --mit <Nr,…>`)“; „Zu jedem Build“: Prüfliste bekommt nach dem Test einen Abschnitt „## Ergebnis“ („- n.k ✓“, „- n.k ✗ <Fund>“, „- Rest ✓“), dann `vorgang.py build <n>` (Automatik B) vor dem Archiveintrag „tn“.
 - `ROLLE-BERATUNG.md` 77 (Rückmeldung zu einer Vorlage): bleibt; „Stand auf „startbar“ setzen (`vorgang.py …`)“ gilt weiter.
 

@@ -25,7 +25,8 @@ def fremd_hinweis(p):
     eig = BESITZER.get(re.match(r"docs/ARBEIT-(.*)\.md$", p).group(1))
     zeilen = [z[1:] for z in git("diff", "--cached", "-U0", "--", p).splitlines() if z.startswith("+") and not z.startswith("+++") and z[1:].strip()]
     andere = "|".join(n for n in NAMEN if n != eig)
-    return bool(zeilen) and all(re.search(r"\bvon (Team |Chef über )?(%s)\b" % andere, z) for z in zeilen)
+    # D80.2: Fund aus dem Test des Chefs, von Automatik B geschrieben („Zu NR, von Chef (Fund tN.k, …)“), ist ebenso ein fremder Hinweis
+    return bool(zeilen) and all(re.search(r"\bvon (Team |Chef über )?(%s)\b|\bvon Chef \(Fund t\d+" % andere, z) for z in zeilen)
 
 # 449: Ordner, in die tools/blender348/kauf_laden.sh lädt (Ziel kauf/kaufroh, Anhänge unter anhang/), und Endungen der Kaufpakete
 # (Protofactor .rar/.fbx, Janpec .unitypackage, MadeCG .zip/.max/.blend; Quellformate der Werkzeuge). Eigene Modelle kommen als .glb aus Skripten.
