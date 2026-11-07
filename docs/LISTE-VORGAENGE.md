@@ -117,19 +117,19 @@
 | 534 | Kampf: Zauber und Fähigkeiten fehlen in „Können“ (Magierrüstung, Untote vertreiben, Spirituelle Waffe, Geisterwächter) oder wirken nicht (Unglaubliches Ausweichen, Unerbittlichkeit, Lebensraub, Schadensminderung der Aus… | Jerry | M | ruht, 424: altes SRD-System | – | claude/jerry-534-faehigkeiten | – | E Kampf | 2,32 $ |
 | 536 | Kampf: Erklärungen bei langem Drücken (MarsTips), Grund bei gesperrtem Zauber, „Kein Ziel in Sicht“, Knopf „Schnell“, Stufe und EP im Gruppenkasten, Seltenheitsfarbe der Beute (Abgleich 512, Sokrates 03.11., 23:4x) | Jerry | M | in Arbeit, t268.20 Messlauf Bauserver 00:12 | – | claude/jerry-536-namen | – | E Kampf | 2,28 $ |
 | 467 | Ausdauer nach BRS statt SRD (ausdauer.gd: Konstitution, Stärke 13), Formel aus 427 (Chef 01.11., 21:52) | Jerry | M | wartet, dort mitbauen | 478 | – | – | E Kampf | – |
-| 438 | Wölfe im Kampf wirken gleitend: Angriff, Tempo, Vorbeigehen (Film 403, Chef 31.10., 23:31) | Jerry | M | startbar | – | claude/jerry-438-wolf-kampf | – | E Kampf | 124,52 $ |
+| 438 | Wölfe im Kampf wirken gleitend: Angriff, Tempo, Vorbeigehen (Film 403, Chef 31.10., 23:31) | Jerry | M | wartet, in die Prüfliste 269 | 625 | claude/jerry-438-wolf-kampf | – | E Kampf | 124,52 $ |
 | 453 | Wölfe im Kampfort: Ruhebewegungen (atmen, scharren, umblicken, knurren) (Chef 01.11., 11:05) | Jerry | M | ruht | – | – | – | E Kampf | 47,52 $ |
 | 438a | Hinfallen und Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe und Schild frei (Archiv 438a) | Jerry | M | ruht | – | claude/jerry-438a-sturz-2 | – | E Kampf | 24,62 $ |
 | 416.6 | Spuren des Helden, auch bei Regen; Blutspuren in der Welt zuerst (Chef 31.10., 20:4x; 03.11., 07:31) | Jerry | M | ruht | – | claude/jerry-416-6-blut | – | B Umzug | – |
 | 415 | Handyprobe Beams-Free-Sample (aus 414, Chef 31.10., 20:3x; „jetzt“ 01.11.) | Jerry | M | wartet | 623 | – | – | C Kampf | 49,16 $ |
 | 460 | Kamerafahrten im Kampfort: Eröffnung wie Drohnenflug je Blende, Wechsel der Perspektive ohne Eingabe; erst Probefilm (Chef 01.11., 20:2x) | Jerry | M | ruht | – | – | – | E Kampf | – |
 | 406.1 | Schildstoß im MARS: Reaktion oder Konter am Ring, vielleicht Angriff; Regelvorschlag, dann Bau (Chef 01.11., 20:2x) | Jerry | M | startbar | – | – | – | E Kampf | – |
-| 406.2 | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) | Jerry | M | startbar | – | – | – | C Kampf | 41,37 $ |
+| 406.2 | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) | Jerry | M | wartet, in die Prüfliste 269 | 625 | – | – | C Kampf | 41,37 $ |
 | 510 | Fledermaus: freies Modell (OGA „Vampire Bat“, CC0) neben der eigenen im Film, Chef wählt (Chef 03.11., 10:28–10:57, aus 494) | Jerry | M | ruht | – | claude/jerry-494-gegner | – | E Kampf | 17,92 $ |
 | 509 | Frösche und Libellen an den Teichen im Flüsterwald fehlen in Godot (Chef 03.11., 09:21; `PondLife.kt`, Projektplan O6, W22) | Jerry | M | ruht | – | claude/jerry-509-teich | – | E Welt | – |
 | 587 | Gegnergröße im Kampfort: 1,3-fach wie alt und die Wölfe, echte Größe oder je Kapitel (Chef 05.11., zu Bild 494) | Jerry | M | gebaut, in 269. Geprüft an: 436732e0b | – | claude/jerry-587-groesse | – | E Kampf | 2,93 $ |
 | 494 | Gegner von Kapitel 1 im Kampf außer den Untoten (506), je Gegner höchstens ein Lauf (Wochenziel 03.11., 488) | Jerry | M | wartet | 492 | claude/jerry-494-gegner | – | E Kampf | 128,77 $ |
-| 517 | Waldklang wie alt: Vögel am Tag, Eule und Grillen nachts, fernes Wolfsheulen im Tiefen Wald (`WildSound.kt`; Abgleich 512, von Team Tom) | Jerry | M | startbar | – | claude/jerry-517-waldklang | – | A Spiel | 2,32 $ |
+| 517 | Waldklang wie alt: Vögel am Tag, Eule und Grillen nachts, fernes Wolfsheulen im Tiefen Wald (`WildSound.kt`; Abgleich 512, von Team Tom) | Jerry | M | wartet, in die Prüfliste 269 | 625 | claude/jerry-517-waldklang | – | A Spiel | 2,32 $ |
 | 507 | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager (Orte O10; aus 492) | Jerry | M | startbar | – | claude/jerry-507-hoehle | – | E Kampf | 34,94 $ |
 | 496 | Durchspiel-Build: Kapitel 1 von Anfang bis Ende am Handy (Wochenziel 03.11., 488) | Jerry | M | startbar | – | – | – | E Technik | – |
 | 387 | Gekaufte Tiere schnell auf Bewegungen und unsere Haut prüfen, vor Eigenbau (Chef 27.10., 21:27) | Jerry | M | ruht | – | – | – | E Monster | 98,99 $ |
@@ -155,7 +155,7 @@
 | 601 | Goblin-Späher: Schuss ohne Bewegung, falscher Pfeil, kein Pfeil beim Fehlschuss; Treffer trotz Schatten (Chef 05.11., 19:2x, t266.5) | Jerry | M | wartet, Pfeil R3 Arrow Streak (LISTE-EFFEKTE), Schussbewegung mit Film | 623 | claude/jerry-601-spaeher | – | C Kampf | 2,88 $ |
 | 595 | Kampfbewegungen der Kaufgegner: Spinne mehr Angriffe, Egel und Schnecke schneller, Treffhöhe, Ruckeln, Ruhe (Chef 05.11., 19:2x, t266.1) | Jerry | M | wartet | 478 | – | – | E Kampf | – |
 | 600 | Kampfort: Knopf zum Beschleunigen wie Würfel und Raster (Chef 05.11., 19:2x) | Jerry | M | gebaut, in 269. Geprüft an: fd2a55335 | – | claude/jerry-600-tempo | – | E Kampf | 2,88 $ |
-| 478 | Rechenkern des Kampfs in Stufe 1 auf BRS (470a C, Chef 02.11., 17:59) · „jetzt“ 07.11., 16:37 | Jerry | M | startbar | – | – | – | E Kampf | – |
+| 478 | Rechenkern des Kampfs in Stufe 1 auf BRS (470a C, Chef 02.11., 17:59) · „jetzt“ 07.11., 16:37 | Jerry | M | in Arbeit, Stufe 1 in 269 hinter Schalter (brs_kampf_478) | – | claude/jerry-478-brs | – | E Kampf | – |
 | 620.2b | Abgleich alt nach `LISTE-ABGLEICH-ALT.md`: Höhle, Klang, Gegner, Bosse (aus 620.2) | Jerry | M | startbar | – | – | – | B Abläufe | – |
 | 623.5 | Probe Kampf mit den Gratisproben (Combat Mega, Projectiles, Trails, Pack 3, Character Shaders) im Kampfort, Compatibility, FPS, ein Film (Chef 07.11., 623) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 623.2 | Effekte aus 623 A einbauen mit 478, in `LISTE-BESTAND.md` und `LISTE-EFFEKTE.md` mit Datenfeld `fx` (Chef 07.11., 623) | Jerry | M | wartet | 623 | – | – | E Kampf | – |
