@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [142.4](entscheiden/1424-organisationskonto.md) | **Muss** | M Veröffentlichung | 07.11., 16:57 | Organisationskonto statt Pflichttest | Sokrates |
 | [415d.1](entscheiden/415d1-effekte-jetzt.md) | **Muss** | C Kampf | 04.11., 19:57 | Effektpakete jetzt kaufen, Einbau nach Bedarf | Sokrates |
 
 ## Zu billigen
@@ -290,7 +291,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 | Pflege | K | von Werkzeug (340.3, 07.11.): Zeile 512b wartet auf t257, aber keine Datei in docs/chefsac | startbar |
 
-**Sokrates** – offen 39, Muss 29, startbar 20
+**Sokrates** – offen 40, Muss 30, startbar 20
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -328,6 +329,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 72c | K | von Chef (19.10., 12:55): Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband | nach dem Meilenstein |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | startbar |
 | 142.3 | M | von Chef (27.10., 19:32): Tester öffentlich suchen | startbar |
+| 142.4 | M | von Chef (07.11., 16:5x): Pflichttest sparen? Organisationskonto mit D-U-N-S | Chef (Datei in der Chefsache) |
 | 142 | M | Pflichttest Play Store (von Perikles); Store-Text „jede Entscheidung zählt“ prüfen (72a) | startbar |
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | wartet auf 142 (startbar) |
 | 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | startbar |
