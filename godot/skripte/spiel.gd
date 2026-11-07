@@ -390,6 +390,9 @@ func _aktion() -> void:
 	if bool(a["verschlossen"]):
 		var nachts := licht.ist_nacht()   # 539 Game.isNight
 		if a.has("klopfen"):
+			# 611 (Chef 07.11., 268.8: „Klopfen sollte deutlicher sein“): man hoert es klopfen wie alt (Game.kt 1024: Sound.KNOCK, 215.1,
+			# drei Aufnahmen knock_1–3); in Godot fehlte der Klang ganz
+			klang("effekt", ["knock"])
 			var anders := Geschichte.klopfen(karte.id, z, zustand)   # 540: nach Kapitel 1 sagt 12/5 etwas anderes
 			ui.sage([{"text": Sprache.t(anders)}] if not anders.is_empty() else zeilen(variiere(a["klopfen"]["nacht" if nachts else "tag"])))   # 504.1 Varianten
 			zustand.setze("heard_%d_%d" % [z.x, z.y])   # 399.1 Karte: wer hier wohnt (MapPeople.heard)
