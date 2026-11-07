@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Probelauf-Haken (389; Chef 27.10., 23:55: „389 ja, höchstens zwei Läufe und die Betonung hierbei liegt auf höchstens.“).
+"""Probelauf-Haken (621 A, Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef; ersetzt die Rundenzahl 389).
 
-PreToolUse-Haken für Bash, alle Rollen. Je Vorlage höchstens zwei Probeläufe, dann vorlegen: beim dritten Lauf für denselben
+PreToolUse-Haken für Bash, alle Rollen. Je Vorlage höchstens ein Probelauf, dann vorlegen: beim zweiten Lauf für denselben
 Vorgang hält der Haken den Befehl an (Exit 2), ohne Ausweg. Seit 407 (Chef 29.10., 10:05: „nach 2 ist maximal Schluss …
-Ich habe noch nichts geguckt und freigegeben. Also, warten, bis ich gucke.“) gibt erst das Urteil des Chefs zwei neue Läufe frei,
+Ich habe noch nichts geguckt und freigegeben. Also, warten, bis ich gucke.“) gibt erst das Urteil des Chefs (nach „nein“: seine Wahl aus der Rückfrage mit Wegen und Kosten, 621 A) einen neuen Lauf frei,
 nicht schon die Vorlage: Urteil = Eintrag im Vorgangsarchiv (`origin/main`), dessen fette Kopfzeile die Nummer nennt, mit Datum
 nach dem letzten gezählten Lauf; gilt für jeden Zweig `claude/tom-…` und `claude/jerry-…`.
 
@@ -58,7 +58,7 @@ import time
 import uuid
 import zoneinfo
 
-GRENZE = 2
+GRENZE = 1  # 621 A (Chef 07.11., 16:4x), vorher 2 (389)
 BERLIN = zoneinfo.ZoneInfo("Europe/Berlin")
 REPO = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 LOKAL = os.environ.get("BORNIM_PROBELAEUFE") or os.path.expanduser("~/.bornim-probelaeufe.tsv")
@@ -756,7 +756,7 @@ def main():
         if bildlauf(befehl, cwd):
             m = PROBE.search(befehl)
             if not m:
-                anhalten("389 (Chef 27.10., 23:55, höchstens zwei Probeläufe je Vorlage): Bildlauf erkannt. "
+                anhalten("621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. "
                          "Vorgang davorsetzen: `PROBE=<Nr> <Befehl>`; der Haken zählt je Vorgang.")
             nr, art, film = m.group(1), "rechner", filmlauf_rechner(befehl, cwd)
             STAND_REF.update(wo=arbeitskopie(befehl, cwd), rev="HEAD")
@@ -781,16 +781,16 @@ def pruefen_und_zaehlen(nr, art, wer, film=False, befehl=""):
     except (OSError, subprocess.SubprocessError, ValueError):
         return hinweis_geben()
     if n >= GRENZE:
-        anhalten(f"389 (Chef 27.10., 23:55: „höchstens zwei Läufe und die Betonung hierbei liegt auf höchstens“): für {nr} "
-                 f"schon {n} Probeläufe seit {'deinem Urteil ' + vorlage if vorlage else 'Beginn der Zählung'}. Kein weiterer Lauf: "
+        anhalten(f"621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für {nr} "
+                 f"schon {n} Probelauf seit {'deinem Urteil ' + vorlage if vorlage else 'Beginn der Zählung'}. Kein weiterer Lauf: "
                  f"jetzt vorlegen, was da ist (Datei in docs/chefsache/ansehen/, `meldung.sh --bild` oder `--film` mit „{nr}:“), "
-                 "Befund der Fehlerprüfung danach als Text (396). Erst das Urteil des Chefs (Eintrag im Vorgangsarchiv) gibt zwei neue "
-                 "Läufe frei (407), oder Sokrates mit einem Archiveintrag „<Nr>, Läufe frei“ (480.1; Bitte an ihn per Vorrat, nie "
+                 "Befund der Fehlerprüfung danach als Text (396). Passt die Probe nicht: Rückfrage mit Wegen und Kosten in docs/chefsache/entscheiden/, keine neue Runde (621 A). Erst das Urteil des Chefs (Eintrag im Vorgangsarchiv) gibt einen neuen "
+                 "Lauf frei (407), oder Sokrates mit einem Archiveintrag „<Nr>, Läufe frei“ (480.1; Bitte an ihn per Vorrat, nie "
                  "Chefsache); bis dahin an einem anderen Vorgang weiter.")
     if sperre:
         anhalten(sperre)
     zaehlen(nr, wer, art + ("-film" if film else ""))
-    hinweis_geben(f"389: Probelauf {n + 1} von {GRENZE} für {nr}" + ("; danach vorlegen." if n + 1 == GRENZE else "."))
+    hinweis_geben(f"621 A: Probelauf {n + 1} von {GRENZE} für {nr}" + ("; danach vorlegen." if n + 1 == GRENZE else "."))
 
 
 def hinweis_geben(text=""):
