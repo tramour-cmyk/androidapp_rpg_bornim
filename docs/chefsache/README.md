@@ -153,11 +153,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 586 | K | von Chef über Jerry (05.11., 09:35; Zu 586): Bilder 557 einheitlich: Rast am Feuer und an | startbar |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 128022 Bytes (Grenze 15000), Erledigtes streichen; Tabellenz | startbar |
 
-**Jerry** – offen 80, Muss 66, startbar 21
+**Jerry** – offen 80, Muss 66, startbar 20
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 623.2 | M | von Sokrates (Chef 07.11., 20:1x, „623 A B C D E F“; Archiv 623): Effekte aus 623 A (Comba | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
+| 623.2 | M | von Sokrates (Chef 07.11., 20:1x, „623 A B C D E F“; Archiv 623): Effekte aus 623 A (Comba | wartet auf 623 (Chef) |
 | 478 | M | von Sokrates (Chef 07.11., 16:3x: „Wir packen das BRS auf jeden Fall jetzt auch mit dazu“; | startbar |
 | 572 | M | von Sokrates (Chef 04.11., 20:27; „jetzt“ 04.11., 20:27; Zu 572): Effektprobe vor dem Kauf | Chef |
 | 565 | M | von Sokrates (Chef 04.11., 17:10, t257 Bereich C, Bild; Zu 565): im Gruppenkasten unten is | startbar |
