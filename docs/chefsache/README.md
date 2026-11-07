@@ -41,15 +41,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 
-**Tom** – offen 96, Muss 73, startbar 48
+**Tom** – offen 96, Muss 73, startbar 39
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 625 | M | Sammelbuild 269: alle fertigen Zweige beider Teams (35 warten), Prüfliste als Weg durchs S | wartet auf Test (Build 269) |
 | 620.2a | M | Abgleich alt nach LISTE-ABGLEICH-ALT.md: Dorf, Innenräume, Leute, Wald (aus 620.2) | startbar |
 | 605 | M | Ausrüstung: leeres Kopffeld, Auswahl zeigt falsch „Obergrenze“, kein Zurück (Chef 06.11., | wartet auf Test/Build (gebaut) |
-| 581 | M | Ausrüstung: Seite breiter als der Schirm, Reiter springen (Abgleich 512b) | startbar |
-| 583 | M | Textkasten: ▼ liegt im Text, erzählter Text ohne i-Punkte und nicht schräg (Abgleich 512b) | startbar |
+| 581 | M | Ausrüstung: Seite breiter als der Schirm, Reiter springen (Abgleich 512b) | wartet auf Test/Build (gebaut) |
+| 583 | M | Textkasten: ▼ liegt im Text, erzählter Text ohne i-Punkte und nicht schräg (Abgleich 512b) | wartet auf Test/Build (gebaut) |
 | 584 | K | Kein halbfetter Schnitt: Köpfe und Titel in Erschaffung, Held, Chronik, Karte, System, Bre | wartet auf 630 (startbar) |
 | 585 | K | Menüs Kleinigkeiten: Titelumbruch Hauptmenü, Knopf Lizenzen, Bild in Rückfrage Wegwerfen, | wartet auf 630 (startbar) |
 | 569 | M | Baumkronen ohne erkennbare Tuschelinie, „ein einziger Brei“ (Chef 04.11., 19:44, Bild 558 | startbar |
@@ -57,16 +57,16 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 558 | M | Robe des Magiers zu glatt, wie eine blaue Fläche: Stoff lebendiger (Falten, Schatten, Schm | startbar |
 | 531 | M | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere | startbar |
 | 522 | M | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Ch | startbar |
-| 521 | M | Build 249, Ausrüstung: Wechselschirm eines Platzes wie alt (Bild, Art und Wert, ▲/▼, „nich | startbar |
-| 519 | M | Build 249, Ausrüstung: Gegenstandsfenster („Göttlicher Ring des Eisernen Richters“) passt | startbar |
+| 521 | M | Build 249, Ausrüstung: Wechselschirm eines Platzes wie alt (Bild, Art und Wert, ▲/▼, „nich | wartet auf Test/Build (gebaut) |
+| 519 | M | Build 249, Ausrüstung: Gegenstandsfenster („Göttlicher Ring des Eisernen Richters“) passt | wartet auf Test/Build (gebaut) |
 | 555 | M | Testmenü wie alt und schneller: fehlende Einträge der alten Fassung, dazu Sprünge an jede | startbar |
-| 523 | M | Tasche wie alt und besser: „Funke löschen“, Seltenheit und Kurzangabe der Vorräte, Ausrüst | startbar |
+| 523 | M | Tasche wie alt und besser: „Funke löschen“, Seltenheit und Kurzangabe der Vorräte, Ausrüst | wartet auf Test/Build (gebaut) |
 | 524.1 | M | Gegenstandsfenster besser als alt und spielerfreundlicher: Vorschlag (Chef 04.11., 00:52) | startbar |
-| 524 | M | Gegenstandsfenster, Inhalt wie alt und besser: Grundwerte (Seltenheit, Tragort, Gewicht, S | startbar |
+| 524 | M | Gegenstandsfenster, Inhalt wie alt und besser: Grundwerte (Seltenheit, Tragort, Gewicht, S | wartet auf Test/Build (gebaut) |
 | 528 | M | Held, Karte, Chronik wie alt: Satz zur Höchststufe des Kapitels am EP-Balken, Kartenzeiche | startbar |
-| 540 | M | Texte hängen am Spielbeginn: Südrand (immer Text vor dem Auftrag, „Kapitel 2 folgt“ fehlt, | startbar |
-| 542 | M | Aufträge: Jorins „Feuer am Steinkreis“ nicht abschließbar (Fetzen fehlt), Gwennas Ring am | startbar |
-| 543 | M | Startwerte gegen alt und BRS prüfen: Startgold 15–25 und Start-Heiltränke fehlen, Wiederke | startbar |
+| 540 | M | Texte hängen am Spielbeginn: Südrand (immer Text vor dem Auftrag, „Kapitel 2 folgt“ fehlt, | wartet auf Test/Build (gebaut) |
+| 542 | M | Aufträge: Jorins „Feuer am Steinkreis“ nicht abschließbar (Fetzen fehlt), Gwennas Ring am | wartet auf Test/Build (gebaut) |
+| 543 | M | Startwerte gegen alt und BRS prüfen: Startgold 15–25 und Start-Heiltränke fehlen, Wiederke | wartet auf Test/Build (gebaut) |
 | 495 | M | Zufallsspieler spielt Kapitel 1 in Godot durch (Abnahme 2.2; Wochenziel 03.11., 488) | wartet auf 492 (startbar) |
 | 505 | M | Bau Nebel des Krieges und Sichtfeld des Helden (Archiv 502; Welt W24, W25) | startbar |
 | 515 | K | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 0 | ruht |
