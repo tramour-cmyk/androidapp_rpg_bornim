@@ -75,6 +75,7 @@ GODOT_LAUF = re.compile(r"xvfb-run[^\n|;&]*godot[^\n|;&]*|\bgodot(?:\.\S+)?\s[^\
 SKRIPT = re.compile(r"tools/pruef348/(?!rechner\.sh)[\w.-]+\.sh|\b\w+_lauf\.sh")
 PUSH = re.compile(r"\bgit\s+(?:-C\s+(\S+)\s+)?push\b([^\n|;&]*)")
 COMMIT = re.compile(r"\bgit\s+(?:-C\s+\S+\s+)?commit\b[^\n]*?\s-[a-zA-Z]*m\s*(.+)", re.S)
+COMMIT_F = re.compile(r"\bgit\s+(?:-C\s+\S+\s+)?commit\b[^\n]*?\s-[a-zA-Z]*F\s*-\s[^\n]*?<<-?\s*['\"]?(\w+)['\"]?[^\n]*\n(.*?)\n\s*\1\b", re.S)  # 627: `commit -F - <<EOF`
 TEST_SKRIPT = re.compile(r"(?:^|\s)-s\s+[\"']?res://tests/([\w./-]+\.gd)\b")
 BILDBEFEHL = re.compile(r"save_png|save_jpg|save_webp|save_exr|get_image\s*\(|get_texture\s*\(|MovieWriter|screenshot", re.I)
 CD = re.compile(r"\bcd\s+([^\s;&|]+)")
@@ -226,10 +227,13 @@ def push_lauf(befehl, cwd):
     if not CI_ZWEIG.fullmatch(zweig):
         return None
     oben = git("rev-parse", "--verify", "-q", f"origin/{zweig}", cwd=wo).stdout.strip()
+    if not oben:  # 627 (Jerry 07.11., 21:2x): neuer Zweig, Pfade gegen den Abzweig von origin/main statt „alle Abläufe“
+        oben = git("merge-base", "origin/main", "HEAD", cwd=wo).stdout.strip()
     # Commit im selben Befehl vor dem Push (PreToolUse sieht ihn noch nicht): Nachricht aus -m, Pfade aus dem Arbeitsbaum
-    neu = COMMIT.search(befehl[:m.start()])
-    nachricht = re.sub(r"^\s*[\"']?(?:\$\(cat\s*<<-?\s*['\"]?\w+['\"]?\s*)?", "", neu.group(1)) if neu else \
-        git("log", "-1", "--format=%B", "HEAD", cwd=wo).stdout
+    neu_f = COMMIT_F.search(befehl[:m.start()])  # 627 (Tuffy 07.11., 21:15): Nachricht aus dem Heredoc, nicht die des alten HEAD
+    neu = neu_f or COMMIT.search(befehl[:m.start()])
+    nachricht = neu_f.group(2) if neu_f else (re.sub(r"^\s*[\"']?(?:\$\(cat\s*<<-?\s*['\"]?\w+['\"]?\s*)?", "", neu.group(1)) if neu else
+                                         git("log", "-1", "--format=%B", "HEAD", cwd=wo).stdout)
     if "[skip ci]" in nachricht or "[ci skip]" in nachricht:
         return None
     if oben:
