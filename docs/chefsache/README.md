@@ -32,17 +32,16 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 1, startbar 1
+**Homer** – offen 4, Muss 0, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 623.4 | M | von Sokrates (Chef 07.11., 20:1x, „623 … F“; Archiv 623): Wortlaut „Mit Dank an“ für „Über | startbar |
 | 432 | K | von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt | ruht |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 85, Muss 63, startbar 52
+**Tom** – offen 86, Muss 64, startbar 53
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -125,6 +124,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 612 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Dorf Süd: Heuhaufen, Weizenfeld, Gemü | startbar |
 | 613 | M | von Sokrates (Chef 07.11., 14:1x, t268.31; Zu 606–619): Intro und Outro wie alt: Tempelgän | startbar |
 | 614 | M? | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Jorin mit Speer, Jorin öffnet den Sch | startbar |
+| 623.7 | M | von Homer (Chef 07.11., 623 F): „Mit Dank an“ in „Über das Spiel“ (497) einbauen, Wortlaut | startbar |
 | 623.6 | M | von Sokrates (Chef 07.11., 20:2x: „Holst du dir die Gratisamples zum Testen?“; 623 B1, D): | startbar |
 | 624 | M | von Sokrates (Chef 07.11., 17:5x: „das wäre auch gut, wenn die Anzeige dann ein bisschen g | startbar |
 | 622 | M | von Sokrates (07.11., aus 142.4; Chef 17:1x: „Wir hatten da schon doch was hochgeladen, wa | startbar |
