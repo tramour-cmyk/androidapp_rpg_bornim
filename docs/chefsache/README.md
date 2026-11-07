@@ -41,7 +41,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 
-**Tom** – offen 96, Muss 73, startbar 33
+**Tom** – offen 96, Muss 73, startbar 30
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -59,11 +59,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 522 | M | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Ch | wartet auf Test/Build (gebaut) |
 | 521 | M | Build 249, Ausrüstung: Wechselschirm eines Platzes wie alt (Bild, Art und Wert, ▲/▼, „nich | wartet auf Test/Build (gebaut) |
 | 519 | M | Build 249, Ausrüstung: Gegenstandsfenster („Göttlicher Ring des Eisernen Richters“) passt | wartet auf Test/Build (gebaut) |
-| 555 | M | Testmenü wie alt und schneller: fehlende Einträge der alten Fassung, dazu Sprünge an jede | startbar |
+| 555 | M | Testmenü wie alt und schneller: fehlende Einträge der alten Fassung, dazu Sprünge an jede | wartet auf Test/Build (gebaut) |
 | 523 | M | Tasche wie alt und besser: „Funke löschen“, Seltenheit und Kurzangabe der Vorräte, Ausrüst | wartet auf Test/Build (gebaut) |
 | 524.1 | M | Gegenstandsfenster besser als alt und spielerfreundlicher: Vorschlag (Chef 04.11., 00:52) | startbar |
 | 524 | M | Gegenstandsfenster, Inhalt wie alt und besser: Grundwerte (Seltenheit, Tragort, Gewicht, S | wartet auf Test/Build (gebaut) |
-| 528 | M | Held, Karte, Chronik wie alt: Satz zur Höchststufe des Kapitels am EP-Balken, Kartenzeiche | startbar |
+| 528 | M | Held, Karte, Chronik wie alt: Satz zur Höchststufe des Kapitels am EP-Balken, Kartenzeiche | wartet auf Test/Build (gebaut) |
 | 540 | M | Texte hängen am Spielbeginn: Südrand (immer Text vor dem Auftrag, „Kapitel 2 folgt“ fehlt, | wartet auf Test/Build (gebaut) |
 | 542 | M | Aufträge: Jorins „Feuer am Steinkreis“ nicht abschließbar (Fetzen fehlt), Gwennas Ring am | wartet auf Test/Build (gebaut) |
 | 543 | M | Startwerte gegen alt und BRS prüfen: Startgold 15–25 und Start-Heiltränke fehlen, Wiederke | wartet auf Test/Build (gebaut) |
@@ -92,7 +92,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 458.3 | M | Gegenstandskatalog: Netze, Modelle, Läden (Chef 01.11., 458) | ruht |
 | 423.1 | K | Spielerhandbuch BRS als Seite im Spiel, Platzhalter aus der Datendatei (Archiv 423) | ruht |
 | 455.2 | M | Netzliste je sichtbarem Platz, Eigenbau geschätzt, Größenfilm der Völker (Chef 01.11., 11: | ruht |
-| 399.3.1 | M | Klang: Haken in spiel.gd übernehmen, Klangregler im Menü System (aus 399.3) | startbar |
+| 399.3.1 | M | Klang: Haken in spiel.gd übernehmen, Klangregler im Menü System (aus 399.3) | wartet auf Test/Build (gebaut) |
 | 385 | M | Protofactor-Animsets (Zauberer u. a.) auf die Listen, Probe ob nutzbar (Chef 27.10., 20:59 | ruht |
 | 372 | M | Feinschliff Held am Ende des Umzugs: Kettenhemd, Helm, Kragen (aus 338a B, Chef 27.10., 09 | ruht |
 | 348.13 | M | Tusche nach Licht wie entschieden (Chef 26.10.) | ruht |
