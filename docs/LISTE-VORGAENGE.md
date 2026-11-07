@@ -174,7 +174,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 619 | Blende: derselbe Druck auf den Aktionsknopf drückt die Blende sofort weg (Chef 07.11., t268.18) | A Spiel | M | – | Team Tom | startbar |
 | 620 | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build (Chef 07.11.) | F Firma | M | – | Sokrates | Dauer |
 | 620.1 | Wiederholte Funde des Chefs vor Neuem; wenige Muss je Team zugleich (aus 620) | B Abläufe | M | – | Perikles | Chef |
-| 620.2 | Abgleich alt einmal je Ort und Figur als Liste (Leute, Tiere, Requisiten, Gesten, Klänge) für alle Prüflisten (aus 620, 512) | B Abläufe | M | – | Perikles | startbar |
+| 620.2 | Abgleich alt einmal je Ort und Figur als Liste (Leute, Tiere, Requisiten, Gesten, Klänge) für alle Prüflisten (aus 620, 512) | B Abläufe | M | – | Perikles | in Arbeit |
 | 621.1 | Probenregel A: höchstens eine Aussehen-Probe je Thema, sonst Rückfrage mit Wegen und Kosten; ersetzt Rundenzahl 389 (Chef 07.11., 621) | B Abläufe | M | – | Perikles | gebaut |
 | 626 | Rückfrage: 14 alte Zeilen aus SRD-Zeit und Umzug streichen oder in 478 übernehmen (Inventur 07.11.) | B Abläufe | M | – | Sokrates | Chef |
 | 625 | Sammelbuild 269: alle fertigen Zweige beider Teams (35 warten), Prüfliste als Weg durchs Spiel (Chef 07.11., 20:5x) | E Entwicklung | M | – | Team Tom | startbar |
