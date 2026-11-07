@@ -77,10 +77,23 @@ static func feinde(alle := false) -> Dictionary:
 	for g in s.FOES:
 		if alle or gruppe_da(String(g)): r[g] = s.FOES[g]
 	return r
+# 555 (Chef 04.11., 11:52: „wenn ich auf eine Spinne klicke, dann kommt die nicht“): jede Figur der Aufstellung braucht ihr Modell. Vorher
+# zaehlten nur Gruppen, die ein Monster der Karte traegt; „Riesenspinne und Wolf“ (SPIDER) traegt keines und galt immer als da
+static var _gruppe_da := {}
 static func gruppe_da(g: String) -> bool:
-	for mo in Streuner.GRUPPE:
-		if String(Streuner.GRUPPE[mo]) == g and not Streuner.da(String(mo)): return false
-	return true
+	if _gruppe_da.has(g): return _gruppe_da[g]
+	var tab: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	var monsters := {}
+	for m in tab.monsters: monsters[m.id] = m
+	var ja := true
+	for f in Streuner.AufrufS.gegner(g, monsters, Streuner.Wuerfel.new(null)):
+		var fig = Streuner.Figur.new()
+		fig.fighter = f
+		if not FileAccess.file_exists(String(fig._model_path())): ja = false
+		fig.free()
+		if not ja: break
+	_gruppe_da[g] = ja
+	return ja
 static func ohne_modell() -> Array:
 	var alle := feinde(true)
 	return alle.keys().filter(func(g): return not gruppe_da(String(g))).map(func(g): return String(alle[g]))
@@ -244,9 +257,10 @@ static func reiter(m: Menue) -> void:
 				if String(f).begins_with("kiste:"): z.flaggen.erase(f)
 			z.gepflueckt.clear()
 			m.test.emit("ort_neu", [t.call("Truhen und Kräuter zurückgesetzt.", "Chests and herbs reset.")]), "GEM")]
-	welt4.append(zk.call(t.call("Merker", "Flags"), "%d" % MERKER.filter(func(f): return z.has(String(f[0]))).size(),
-		t.call("Zeigt die Merker der Geschichte von Kapitel 1; Antippen setzt oder löscht einen, „Ort neu“ zeigt den Ort danach.",
-			"Shows the story flags of chapter 1; a tap sets or clears one, “Reload place” shows the place afterwards."), func(): merker_auf = not merker_auf, "FLAG", "", merker_auf))
+	# 555 (Chef 04.11., 20:11: „warum heißt das Ding Merker?“; Vorschlag Sokrates): „Geschichte“, Stand der Geschichte von Kapitel 1
+	welt4.append(zk.call(t.call("Geschichte", "Story"), "%d" % MERKER.filter(func(f): return z.has(String(f[0]))).size(),
+		t.call("Stand der Geschichte von Kapitel 1: was schon geschehen ist. Antippen setzt oder löscht einen Schritt, „Ort neu“ zeigt den Ort danach.",
+			"Story so far in chapter 1. A tap sets or clears a step; “Reload place” shows the place afterwards."), func(): merker_auf = not merker_auf, "FLAG", "", merker_auf))
 	m.zeichenreihe(welt4)
 	if merker_auf:
 		for i in range(0, MERKER.size(), 2):
