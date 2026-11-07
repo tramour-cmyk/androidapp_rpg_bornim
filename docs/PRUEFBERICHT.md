@@ -30,6 +30,12 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
 
+## Lauf 81 · Nachprüfung D74, D76, D77.1, D78.2, D79 (Perikles 07.11., 21:2x; `main` `ef79dd722`; Kopie mit Probezeilen für `regelcheck.py`, Regeln aus `commit-pruefung.py` und `zug-index.py` mit Probesätzen)
+
+- **Bestanden:** D76 (`DESIGN-ABNAHME.md` „ein Film nur mit geprüftem Probebild (511)“, ein Lauf nach 621 A; E1, E8 wie 417a in allen drei Dateien), D77.1 („… · C Kampf“ → Bereich, nicht „Was“), D79 (`ser.gdshader` warnt, `wasser.gdshader` still), D74 (a) Pflegezeilen still, (b) „wartet auf Perikles: t905“ still.
+- **D81.1 (an Perikles, 512.1, klein):** D78.2 nur halb: „ohne Bild“ warnt, aber die beiden Probesätze aus Lauf 76 gehen weiter still durch: „Helfer hat nichts gesehen, kein Film, kein Bild“ und „Kein neuer Bildabgleich“ (Teilwort „Bild“). Die Uhrzeit vor dem Doppelpunkt schneidet nicht mehr.
+- **D81.2 (an Perikles, klein, entfällt mit 275.2):** D74 (b) liest den Stand nur in Tabellen mit 5 Spalten; in den 4-spaltigen Vorräten (Homer, Perikles, Diogenes, Sokrates) zählt noch die ganze Zeile (Probe: „wartet auf t902“ im Titel meldet).
+
 ## Lauf 80 · Auftrag 275.2 Quertest der einen Vorgangsliste (Chef 07.11., 21:5x; Zweig `claude/perikles-2752-liste` `c3de654f7` an einer Kopie von `main` `06bfb0a32`, nachgerechnet an `61e2f9d79`; 07.11., 23:1x; alte Werkzeuge in zweiter Kopie, Meldungen aus `meldungen.tsv`, Probe-Prüfliste t900 aus t268 mit 3 Ergebnissen)
 
 - **Urteil: noch nicht umschalten.** D80.1 und D80.2 treffen schon den Abschluss von Build 269; vorher beheben, dann Nachprüfung (kurz, nur Automatik B).

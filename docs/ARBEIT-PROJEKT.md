@@ -10,6 +10,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
 | D80 | M | **von Diogenes (07.11., 23:2x, Lauf 80, Quertest 275.2, Prüfbericht):** vor dem Umschalten: Automatik B nimmt jede in der Prüfliste genannte offene Zeile (D80.1); Fund-Absatz hält die Commit-Prüfung an bei Tom, Jerry über 15 KB (D80.2); dazu D80.3–D80.7 | startbar |
+| D81 | M | **von Diogenes (07.11., 23:2x, Lauf 81, Nachprüfung D74–D79, Prüfbericht):** Wächter 512.1 lässt „kein Film, kein Bild“ und „Bildabgleich“ noch als Nachweis durch (D81.1); D74 (b) in 4-spaltigen Vorräten (D81.2, entfällt mit 275.2) | startbar |
 | 275.2 | M | **von Sokrates (Chef 07.11., 21:5x, „Pericles soll das machen … keinen Parallelbetrieb“; „jetzt“ 07.11., 21:55; Archiv 275.2; Zu 275.2):** eine Vorgangsliste mit Feldern und zwei Automatiken, alle Werkzeuge umstellen, Umschalten in einem Schritt nach Diogenes' Quertest | startbar: Quertest Lauf 80, erst D80 (von Diogenes) | – |
 | 317.1 | M | **von Sokrates (Chef 07.11., 20:5x, Archiv „317, keine Obergrenze je Build“):** Werkzeuge ohne „höchstens 6 je Build“ | gebaut 07.11., 21:0x; Geprüft an: 12837c9c3; Diogenes prüft |
 | 620.1 | M | **von Sokrates (Chef 07.11., 14:3x, 620; Zu 620):** wiederholte Funde zuerst, Grenze offener Muss je Team | wartet auf Chef: entscheiden/6201 (B); A gebaut 8518c8817 |
