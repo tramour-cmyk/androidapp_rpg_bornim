@@ -46,42 +46,29 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 115, Muss 88, startbar 27
+**Tom** – offen 100, Muss 74, startbar 27
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 603 | M | von Ford (Chef 06.11., 09:36, 602: „602 ja, soviel rein wie geht (also mehr als 6), Testfr | wartet auf Test/Build (gebaut) |
 | 605 | M | von Ford (Chef 06.11., 21:22, Test Build 268, Bild; Zu 605): Ausrüstung, leeres Kopffeld → | startbar |
-| 512b | M | von Sokrates (Chef 04.11., 19:21: „512b ja“; chefsache/entscheiden/512b-nachweis.md in Git | wartet auf Test/Build (gebaut) |
 | 580 | M | von Tom (Abgleich 512b, Prüfer 08:17): Erschaffung Punktekauf: Attributnamen abgeschnitten | wartet auf Test/Build (gebaut) |
 | 581 | M | von Tom (Abgleich 512b): Reiter Ausrüstung: Seite 16 px breiter als der Schirm (Rand 11 st | startbar |
-| 582 | M | von Tom (Abgleich 512b; Zu 582): Laden wie alt: Kurzangabe der Vorräte, Seltenheitsfarbe, | wartet auf Test/Build (gebaut) |
 | 583 | M | von Tom (Abgleich 512b): Textkasten: ▼ liegt im Text („Sammel▼“), erzählter Text ohne i-Pu | startbar |
 | 584 | M? | von Tom (Abgleich 512b; Zu 584): kein halbfetter Schnitt, Köpfe wie alt (Theme.kt 216: hal | wartet auf Perikles |
 | 585 | M? | von Tom (Abgleich 512b; Zu 585): Kleinigkeiten Menüs: Titelumbruch Hauptmenü, Knopf „Lizen | wartet auf Perikles |
 | 569 | M | von Sokrates (Chef 04.11., 19:44, Bild 558 Probe 4 Wald Tag; Zu 569): Baumkronen ohne Umri | ruht |
 | 568 | M? | von Sokrates (Chef 04.11., 19:42, „grundsätzlich bei 568. Für A.“; DESIGN-SPIELSYSTEM-2-0. | ruht |
-| 574 | M | von Sokrates (Chef 04.11., 20:40, Laufprotokoll Build 257 vom Handy; Zu 574): Fehler „Lamb | wartet auf Test/Build (gebaut) |
-| 571 | M | von Sokrates (Chef 04.11., 20:13, Build 257, „Ganz wichtig“; Zu 571): Wischen auf einer Sc | wartet auf Test/Build (gebaut) |
-| 557 | M | von Sokrates (Chef 04.11., 11:15; Zu 557): Spielstände als Entwurf im Stil „ohne Kasten“ ( | wartet auf Test/Build (gebaut) |
 | 558 | M | von Sokrates (Chef 04.11., 11:31, Bild Build 257; Zu 558): Robe des Magiers zu glatt: Stof | wartet auf Test/Build (gebaut) |
-| 556 | M | von Sokrates (Chef 04.11., 07:52; Zu 556): Blenden reines Schwarz statt Leuchten, Lesezeit | wartet auf Test/Build (gebaut) |
 | 531 | M | von Sokrates (Chef 03.11., 23:42, Build 249; Zu 531): Garrick: „Gesicht wirkt sonderbar, B | ruht |
 | 522 | M | von Sokrates (Chef 03.11., 23:33, Build 249; Zu 522): „im Testmenü Ausrüstung des Helden g | wartet auf Test (Build) |
 | 521 | M | von Sokrates (Chef 03.11., 23:23, Build 249, Bild; Zu 521): Wechselschirm (Platz antippen) | wartet auf Test (Build) |
 | 519 | M | von Sokrates (Chef 03.11., 23:13, Build 249, Bild): Ausrüstung, Fenster eines Gegenstands | wartet auf Test (Build) |
-| 537 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 537): Kapitelende fehlt: nach Aldric kei | wartet auf Test/Build (gebaut) |
-| 549 | M | von Sokrates (Chef 04.11., 00:07, Build 249, Bild; Zu 549): „Rastscreen wirkt sehr klein u | wartet auf Test/Build (gebaut) |
 | 555 | M | von Sokrates (Chef 04.11., 00:30, „Fehlt vielleicht noch mehr im Testmenü??? Wäre zum Test | startbar |
 | 523 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 523): Tasche wie alt und besser: „Funke | wartet auf Test (Build) |
 | 524.1 | M | von Sokrates (Chef 04.11., 00:52, „Vorschlag zum Verbessern und spielerfreundlicher machen | startbar |
 | 524 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 524): Gegenstandsfenster, Inhalt wie alt | wartet auf Test (Build) |
-| 525 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 525): Laden, Morwen, Rast wie alt und be | wartet auf Test/Build (gebaut) |
 | 528 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 528): Held, Karte, Chronik wie alt: Satz | startbar |
-| 529 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 529): Spielstände: Heldenbild und Spielz | wartet auf Test/Build (gebaut) |
-| 539 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 539): Licht folgt der Uhr nicht: wechsel | wartet auf Test/Build (gebaut) |
 | 540 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 540): Texte hängen am Spielbeginn: Südra | startbar |
-| 541 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 541): Welt-Bedienung: Untersuchen fehlt | wartet auf Test/Build (gebaut) |
 | 542 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 542): Aufträge: Jorins „Feuer am Steinkr | startbar |
 | 543 | M | von Sokrates (512, Abgleich Build 249 im Code; Zu 543): Startwerte gegen alt und BRS prüfe | startbar |
 | 490 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488): Flüsterwald begehbar wie alt (Story.kt:524, | wartet auf Test/Build (gebaut) |
@@ -141,12 +128,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 463.1 | K | nach dem Durchspielen (aus 463, eingefroren Chef 22:44): Ärmel an der Schulter durch den U | ruht |
 | 417.1 | K | nach dem Durchspielen (aus 417, „417 passt“ Chef 03.11., 06:54): offene Prüferbefunde Lauf | ruht |
 | 558.1 | K | von Sokrates, nach dem Durchspielen (Chef 04.11., 22:23: „was der Prüfer noch anmerkt, kön | ruht |
-| 504.1 | M? | von Homer (504, Chef 03.11., 07:52: „Mindestens 3 … Lebendige Welt“): Gespräche in Kapitel | wartet auf Test/Build (gebaut) |
 | 447.4.1 | M | von Homer (447.4, Chef 03.11., 15:50 „1B 2A“): Lehrmeister, Meisterschaften, Ruf in Kapite | wartet auf 508 (startbar) |
 | 589 | M | von Sokrates (Chef 05.11., 19:2x, t266; Zu 589): Marktplatz: geklonte Stände, identische S | ruht |
 | 590 | M | von Sokrates (Chef 05.11., 19:2x; Zu 590): Innenräume: Türseite bei gedrehter Kamera dunke | ruht |
 | 591 | M | von Sokrates (Chef 05.11., 19:2x; Zu 591): Hühner und Kaninchen fliehen vor dem Helden wie | startbar |
-| 592 | M | von Sokrates (Chef 05.11., 19:2x; Zu 592): Vorbeugen (Müde) nur bei Ausdauer null; sonst R | wartet auf Test/Build (gebaut) |
 | 532 | M | von Team Jerry (06.11., 09:2x): Metrausch im Kampf: in spiel.gd kampf_im_wald lage „betrun | startbar |
 | 606 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Met: Liste 2 Gold, abgezogen 4 | startbar |
 | 609 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Baum hinter der Schenke sperrt den We | startbar |
@@ -166,24 +151,19 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 586 | K | von Chef über Jerry (05.11., 09:35; Zu 586): Bilder 557 einheitlich: Rast am Feuer und an | startbar |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 121550 Bytes (Grenze 15000), Erledigtes streichen; Tabellenz | startbar |
 
-**Jerry** – offen 86, Muss 72, startbar 19
+**Jerry** – offen 79, Muss 65, startbar 19
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 588 | M | von Ford (Chef 05.11., 18:2x, zu t266 Punkt 6; Zu 588): Fehler im Kampf im Wald, Build 266 | wartet auf Test/Build (gebaut) |
 | 572 | M | von Sokrates (Chef 04.11., 20:27; „jetzt“ 04.11., 20:27; Zu 572): Effektprobe vor dem Kauf | Chef |
 | 565 | M | von Sokrates (Chef 04.11., 17:10, t257 Bereich C, Bild; Zu 565): im Gruppenkasten unten is | startbar |
 | 562 | M | von Sokrates (Chef 04.11., 17:02, t257 Bereich C; Zu 562 und 563): Helden gehen zum Angrif | startbar |
 | 563 | M | von Sokrates (Chef 04.11., 17:02, t257 Bereich C, Bild; Zu 562 und 563): Zustandsschilder | startbar |
-| 561 | M | von Sokrates (Chef 04.11., 16:56, t257 Bereich C, Bild; Zu 561): goldener Zugkreis liegt ü | wartet auf Test/Build (gebaut) |
 | 560 | M? | von Sokrates (Chef 04.11., 16:22, allgemeiner Hinweis; Zu 560): Monster auf der Karte dreh | startbar |
-| 548 | M | von Sokrates (Chef 04.11., 00:03, Build 249, Bild; Zu 548): „Gegen Ratten gespielt. Die st | wartet auf Test/Build (gebaut) |
 | 551 | M | von Sokrates (Chef 04.11., 00:21, Build 249): „MARS Kasten links und rechts unten wird unt | startbar |
-| 545 | M | von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545): MARS-Probekampf: Testknöpfe „Gegner | wartet auf Test/Build (gebaut) |
 | 547 | M | von Sokrates (Chef 04.11., 00:01, Build 249; Zu 545): MARS: Text sagt „geht in die Knie“, | startbar |
 | 544 | M | von Sokrates (Chef 03.11., 23:49, Build 249: „Stimmt die Schrift?“): Kampfschirm ohne Seri | startbar |
 | 532 | M | von Sokrates (512; Zu 532): Kampf: Held ohne Zauberpunkte, Verbrauchtes, Zustände, Metraus | startbar |
-| 533 | M | von Sokrates (512; Zu 533): Kampf: Grimmzahn ist ein Wolf, kein Boss (Werte, Flucht, Leibw | wartet auf Test/Build (gebaut) |
 | 534 | M | von Sokrates (512; Zu 534): Kampf: Zauber und Fähigkeiten fehlen in „Können“ oder wirken n | wartet auf Test (Build) |
 | 535 | M | von Sokrates (512; Zu 535): Kampf: Gegnerstufe, Elite, schimmernde Gegner, Gruppen, EP und | wartet auf Test/Build (gebaut) |
 | 536 | M | von Sokrates (512; Zu 527–536): Kampf: Erklärungen bei langem Drücken (MarsTips) und Klein | startbar |
@@ -245,10 +225,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 59e | K | Händler: Vorrat je Laden | ruht |
 | 19 | K | Zeitablauf der Kampfbewegungen | ruht |
 | 469 | M | von Sokrates: Kampf auf BRS: Ring ohne Klassen regeln | wartet auf 406.1 (wartet) |
-| 594 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Probekampf „Spinne“ (nicht allein): Wolf da | wartet auf Test/Build (gebaut) |
 | 597 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Ring ohne Ankündigung (Fledermaus); alle An | startbar |
 | 601 | M | von Sokrates (Chef 05.11., 19:2x, t266.5; Zu 594–601): Goblin-Späher: Schuss ohne Bewegung | ruht |
-| 596 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Sterben je Gegnerart mehrfach, gespiegelt, | wartet auf Test/Build (gebaut) |
 | 595 | M | von Sokrates (Chef 05.11., 19:2x, t266.1; Zu 594–601): Kampfbewegungen Spinne, Riesenegel, | ruht |
 | 600 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Knopf zum Beschleunigen im Kampfort wie Wür | startbar |
 | 598 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Umweltklang je Ort, Tageszeit, Wind, Wetter | startbar |
