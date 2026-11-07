@@ -33,7 +33,7 @@ Jeder Vorschlag zu Grafik, Animation, Klang nennt kurz die berührten Punkte aus
 
 ### Rückläufer (76f)
 
-Fällt ein Punkt beim Chef durch, steht im `CHANGELOG.md`-Eintrag des späteren Erfolgs „(Rückläufer: n)“. Diogenes zählt sie einmal die Woche (Kennzahl der Entwickler).
+Fällt ein Punkt beim Chef durch, steht im `CHANGELOG.md`-Eintrag des späteren Erfolgs „(Rückläufer: n)“. Diogenes zählt sie einmal die Woche (Kennzahl der Entwickler). **Wiederholt** (620.1 A, Chef 07.11., 21:00): meldet der Chef einen Fund zum zweiten Mal, setzt wer ihn einträgt das Wort „wiederholt“ in den Titel der Zeile (der Stand bleibt, wie er ist); `startbar.py` und `lauf.py` stellen sie vor jedes andere Muss, nur „jetzt“-Zeilen oben bleiben davor.
 
 ### Nicht warten (54)
 

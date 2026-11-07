@@ -256,7 +256,17 @@ def fremd_wartend():
 def hochstufen(zs):
     """Zeilen, auf die ein anderer Vorrat wartet, zählen als Muss (190.3)."""
     f = fremd_wartend()
-    return [(nr, "M" if nr in f else kl, th, rest) for nr, kl, th, rest in zs]
+    zs = [(nr, "M" if nr in f else kl, th, rest) for nr, kl, th, rest in zs]
+    # 620.1 A (Chef 07.11., 21:00): Zeilen mit „wiederholt“ (Fund zum zweiten Mal gemeldet) vor allem anderen, nur die „jetzt“-Zeilen
+    # oben im Vorrat bleiben davor; sonst bleibt die Reihenfolge des Vorrats
+    w = [z for z in zs if WIEDERHOLT.search(z[2] + " " + z[3])]
+    if not w: return zs
+    rest = [z for z in zs if z not in w]
+    k = 0
+    while k < len(rest) and "„jetzt“" in rest[k][2] + rest[k][3]: k += 1
+    return rest[:k] + w + rest[k:]
+
+WIEDERHOLT = re.compile(r"\bwiederholt\b", re.I)
 
 def pause(inhalt):
     """„Pause bis TT.MM.[, HH[:MM] Uhr]“ in den ersten 14 Zeilen: Text, solange der Zeitpunkt nicht erreicht ist (D27.4).
