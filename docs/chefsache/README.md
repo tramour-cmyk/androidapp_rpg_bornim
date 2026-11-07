@@ -26,7 +26,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [623](tun/623-kauf.md) | **Muss** | C Kampf | 07.11., 20:13 | Effektpakete kaufen (623 A) · C Kampf | Sokrates |
+| [623](tun/623-kauf.md) | **Muss** | C Kampf | 07.11., 20:13 | Effektpakete kaufen (623 A) | Sokrates |
 
 ## Offen je Rolle
 
