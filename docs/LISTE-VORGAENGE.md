@@ -258,6 +258,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 623.2 | Effekte aus 623 A einbauen mit 478, in `LISTE-BESTAND.md` und `LISTE-EFFEKTE.md` mit Datenfeld `fx` (Chef 07.11., 623) | E Kampf | M | – | Team Jerry | wartet |
 | 623.3 | Commit-Prüfung warnt bei neuem Shader oder Teilchenknoten ohne Zeile in `LISTE-EFFEKTE.md` (Chef 07.11., 623 E) | B Werkzeuge | M | – | Perikles | startbar |
 | 623.4 | Dank „Mit Dank an“ für alle fremden Quellen in „Über das Spiel“ (497), Wortlaut (Chef 07.11., 623 F) | C Texte | M | – | Homer | startbar |
+| 623.5 | Probe Kampf mit den Gratisproben (Combat Mega, Projectiles, Trails, Pack 3, Character Shaders) im Kampfort, Compatibility, FPS, ein Film (Chef 07.11., 623) | E Kampf | M | – | Team Jerry | startbar |
+| 623.6 | Probe Welt mit den Gratisproben (Gras und Wind, Wasser, Wetter, Oberflächen) gegen unsere Fassung, Dorfbach und Flüsterwald, FPS, ein Film (Chef 07.11., 623 B1, D) | E Welt | M | – | Team Tom | startbar |
 | 623.1 | Prüfschema auf bisher geprüfte Quellen anwenden (Chef 07.11., aus 623) | B Abläufe | M | – | Sokrates | startbar |
 | 416.2 | Platzwechsel mit Dorfbewohnern und Tieren, nicht stecken bleiben (Chef 31.10., 20:4x) | B Umzug | M | – | Team Tom | ruht |
 | 416.4 | Rennen des Helden wirkt wie Hochsprung (Chef 31.10., 20:4x) | B Umzug | M | 41,57 $ | Team Tom | wartet |
