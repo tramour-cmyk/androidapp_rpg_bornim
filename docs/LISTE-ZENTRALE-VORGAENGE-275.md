@@ -1,5 +1,7 @@
 # Zentrale Vorgangsliste: Pro und Contra (275)
 
+**Umgesetzt am 07.11. als 275.2** (Archiv): eine Liste, Automatik A („wartet auf“ löst sich selbst) und B (`vorgang.py build`). Unten die Abwägung vom 21.10.
+
 Sokrates, 21.10., 07:4x. Vorbereitung, nichts gebaut; umsetzen frühestens nach dem Meilenstein Kapitel 1 (Vorgangsarchiv 274).
 
 **Chef 07:30** (gekürzt): „Angenommen, wir hätten jetzt eine Vorgangsdatei mit 10.000 Zeilen … jeder schreibt da bloß dahinter … das ist meins … Kannst du das gezielt suchen oder musst du immer alles einlesen?“ **07:39:** „Und dann eine Pro- und Kontra-Abwägung zu einer zentralen Vorgangsdatei … das größte Problem sehe ich persönlich ja darin, dass es zu Konflikten im Zugriff kommt, aber das sollte ja eigentlich lösbar sein … Und dann bräuchte man ja auch nicht mal zwangsweise eine großartige Archivdatei … Weil wenn ihr gezielt suchen könnt und es nicht mehr Token braucht und alles, dann ist doch das perfekt.“

@@ -106,6 +106,19 @@ func _ready() -> void:
 	setze_stand(stand)
 	stelle(0.0)
 
+# 539 (Game.daylight): Tageslicht nach der Uhr, 7–19 Uhr ganz, 19–21 Uhr Abenddaemmerung, 5–7 Uhr Morgendaemmerung, sonst Nacht;
+# nacht = 1 − Tageslicht (Game.isNight bei Tageslicht unter 0,35)
+static func nacht_um(minuten: int) -> float:
+	var m := posmod(minuten, 24 * 60)
+	var tag := 0.0
+	if m >= 7 * 60 and m < 19 * 60: tag = 1.0
+	elif m >= 19 * 60 and m < 21 * 60: tag = 1.0 - (m - 19 * 60) / 120.0
+	elif m >= 5 * 60 and m < 7 * 60: tag = (m - 5 * 60) / 120.0
+	return 1.0 - tag
+
+const NACHT_AB := 0.65                       # 539 Game.isNight: Tageslicht unter 0,35
+func ist_nacht() -> bool: return nacht > NACHT_AB
+
 func umschalten() -> void:
 	ziel = 0.0 if ziel > 0.5 else 1.0
 

@@ -1967,8 +1967,8 @@ func falling() -> bool:
 ## „Tod“), liegt LIEGT_MS und vergeht erst dann; so lange warten auch die anderen mit dem Aufrücken (kampfort.gd, 439).
 const LIEGT_MS := 1200
 func sterbe_ms() -> int:
-	if anim and anim.has_animation("Tod"):
-		return maxi(FALL_MS, int(anim.get_animation("Tod").length * 1000.0))     # die() spielt sie mit Tempo 1
+	if anim and anim.has_animation(tod_name):
+		return maxi(FALL_MS, int(anim.get_animation(tod_name).length * 1000.0))     # die() spielt sie mit Tempo 1
 	return FALL_MS
 
 
@@ -2106,7 +2106,11 @@ func _held_mps(nm: String) -> float:
 	return v if v > 0.1 else (WALK_MPS * 2.0 if nm == "Rennen" else WALK_MPS)
 
 
-const ANGRIFF_GANG := 1.3     # 406.2: Gehen zum Angriff so viel schneller als das Gehen des Satzes (Bewegung und Weg)
+## 406.2: Gehen zum Angriff so viel schneller als das Gehen des Satzes (Bewegung und Weg). 562 (Chef 04.11., 17:02: „völlig im
+## Schlaf-Tabletten-Modus … gleiten sie nach dem Angriff doch relativ flott zurück“; Lauf 266 SS TEMPO: vor 0,67, rückwärts 0,75 m/s):
+## mit 1,3 ging er 0,87 m/s hin, zurück im Mittel 1,75 m/s mit Sinuskurve (Spitze 2,7 m/s bei gleichem Schritttempo: Gleiten).
+## Jetzt hin 1,34 und zurück 1,5 m/s, je Schritte im Tempo des Wegs (Füße stehen), zurück ohne Kurve
+const ANGRIFF_GANG := 2.0
 const VERFEHLT_M := 0.3
 const HIEB_VOR := 0.12
 const HIEB_ZURUECK_M := 0.3
@@ -2186,7 +2190,10 @@ func _held_schlag(other, weiter := 0.0) -> int:
 	tween.tween_callback(func(): gang = "hieb"; _face(to - start); _play(hn, 0.08))
 	tween.tween_interval(bl)
 	var heim := start.distance_to(home)
-	var back := maxf(HERO_BACK_S, heim / (_held_mps("Gehen") * HELD_ZURUECK))
+	var back_mps := _held_mps("Gehen") * HELD_ZURUECK
+	if _gang_ss("Zurück") == "SS_WalkBackwards":
+		back_mps = _held_mps("SS_WalkBackwards") * ANGRIFF_GANG     # 562: zurück im Schritt wie hin
+	var back := maxf(HERO_BACK_S, heim / back_mps)
 	tween.tween_callback(func(): _back_home(back, other))
 	busy_ms = int((t_run + bl + back) * 1000.0)
 	anlauf_ms = 0
@@ -2199,19 +2206,23 @@ func _back_home(back: float, skip) -> void:
 	var from := position
 	var via := _detour(from, home, skip)
 	var way := from.distance_to(via) + via.distance_to(home) if via != from else from.distance_to(home)
+	# 562: mit Schild gleichmäßig (die Schritte laufen in einem Tempo; eine Kurve im Weg ließ die Füße in der Mitte gleiten)
+	var gleich := false
 	if anim and _gang_ss("Zurück") == "SS_WalkBackwards" and way > 0.2:
 		# 406: mit Schild rückwärts wie der Satz (Schild bleibt oben), im Tempo seiner Schritte
 		anim.play("SS_WalkBackwards", 0.12, clampf(way / back / _held_mps("SS_WalkBackwards"), 1.0, WALK_MAX))
+		gleich = true
 	elif anim and anim.has_animation("Gehen") and way > 0.2:
 		_guard(true)
 		anim.play("Gehen", 0.12, -clampf(way / back / (_held_mps("Gehen") if kauf else WALK_MPS), 1.0, WALK_MAX))
 	tween = create_tween()
+	var kurve := Tween.TRANS_LINEAR if gleich else Tween.TRANS_SINE
 	if via != from:
 		var b1 := from.distance_to(via) / way * back
-		tween.tween_property(self, "position", via, b1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
-		tween.tween_property(self, "position", home, back - b1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+		tween.tween_property(self, "position", via, b1).set_trans(kurve).set_ease(Tween.EASE_IN)
+		tween.tween_property(self, "position", home, back - b1).set_trans(kurve).set_ease(Tween.EASE_OUT)
 	else:
-		tween.tween_property(self, "position", home, back).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		tween.tween_property(self, "position", home, back).set_trans(kurve).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_callback(func(): _guard(false); _face(); _idle())
 
 
@@ -2893,7 +2904,19 @@ func die() -> void:
 	if _schatten_tw:
 		_schatten_tw.kill()
 	if anim and anim.has_animation("Tod"):
-		anim.play("Tod", 0.05)
+		# 596 (Chef 05.11., t266: „Sterbeanimation … von Wolf immer gleich und auf die gleiche Seite. Kann man es zumindest an der Achse
+		# spiegeln“; Keiler „tot sehr schnell und wenig smooth“): jeder Gegner fällt zufällig zur einen oder anderen Seite (Spiegelung
+		# quer zur Blickrichtung), aus der Bewegung weich in den Sturz statt in 0,05 s; hat er mehrere Sterbebewegungen (Tod, Tod2 …),
+		# eine davon. Gilt für jedes Modell mit „Tod“ (Bibliothek: sterbe_spiegeln)
+		var nm := "Tod"
+		if fighter.side == "FOES":
+			var alle := ["Tod"]
+			for i in range(2, 5):
+				if anim.has_animation("Tod%d" % i): alle.append("Tod%d" % i)
+			nm = alle[randi() % alle.size()]
+			tod_name = nm
+			if randf() < 0.5: sterbe_spiegeln()
+		anim.play(nm, TOD_BLEND)
 	else:
 		var t := create_tween()
 		t.tween_property(model, "rotation:z", deg_to_rad(80), FALL_MS / 1000.0)
@@ -2907,6 +2930,21 @@ func die() -> void:
 		t.tween_method(_fade_out, IM_SCHATTEN if schatten_an else 0.0, 1.0, FADE_MS / 1000.0)     # 566: blass im Schatten bleibt blass
 		await t.finished
 		visible = false
+
+
+## 596: aus der Bewegung in den Sturz (vorher 0,05 s: der Keiler kippte hart)
+const TOD_BLEND := 0.25
+var gespiegelt := false
+var tod_name := "Tod"     # 596: die gewählte Sterbebewegung (sterbe_ms)
+
+## 596: spiegelt die Figur quer zur Blickrichtung (Modell um 180° gedreht und längs gespiegelt, so bleibt scale.x die Größe, die
+## figur.gd an mehreren Stellen liest); Godot kehrt die Flächen gespiegelter Netze selbst um
+func sterbe_spiegeln() -> void:
+	if model == null or gespiegelt:
+		return
+	gespiegelt = true
+	model.rotation.y += PI
+	model.scale.z = -model.scale.z
 
 
 ## 566 (Chef 04.11., 17:15, Build 257: „steht in den Schatten, aber er schaut nicht aus, als würde er im Schatten stehen“): wer „In den

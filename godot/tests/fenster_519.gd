@@ -49,6 +49,7 @@ func pruefe_fenster(m: Menue, was: String) -> void:
 			for w in b.text.split(" "): pruefe(text_breite(b, w) <= br.size.x + 0.5, "%s: Wort „%s“ im Knopf gebrochen" % [was, w])
 
 func _lauf() -> void:
+	Menue.entwurf = ""   # 557: prüft den Kasten des alten Fensters; B ohne Kasten prüft gruppe_mass_557 (auch 360 dp)
 	root.size = Vector2i(1080, 2340)   # Handy hochkant wie das Projekt (ohne Fenster sonst 1152 × 648, gestreckt breit)
 	await process_frame
 	print("Schirm ", root.get_visible_rect().size)

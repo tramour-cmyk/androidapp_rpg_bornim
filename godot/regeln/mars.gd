@@ -20,7 +20,17 @@ const MSG399_FED := ["{0} ist gut gestärkt: +1 auf Angriffe und Schaden.", "{0}
 const MSG399_GROWLS := [["{0} knurrt, wagt aber keinen Biss.", "{0} snarls but dares no bite."],
 	["{0} duckt sich und fletscht die Zähne, kommt aber nicht heran.", "{0} crouches and bares its teeth, but does not come in."],
 	["{0} knurrt und hält Abstand.", "{0} growls and keeps its distance."]]
-var TX: Dictionary = load("res://regeln/mars_texte.gd").get_script_constant_map().merged({"MSG399_GROWLS": MSG399_GROWLS})
+var TX: Dictionary = load("res://regeln/mars_texte.gd").get_script_constant_map().merged({"MSG399_GROWLS": MSG399_GROWLS, "MSG547_AUF": MSG547_AUF, "MSG547_STOSS": MSG547_STOSS})
+## 547 (Chef 04.11., 00:01; 05.11., 19:2x: „Held geht zu Boden (Text) -> keine entsprechende Animation“): solange der Sturz 438a
+## eingefroren ist und das Bild nur zusammenzuckt, Homers Zwischenfassungen [547.auf] und [547.wolf.sprung.stoss] (STORY-SPIEL.md)
+## statt „steht wieder auf“ und „geht zu Boden“; danach sturz_zwischentext = false (die alten Zeilen, wie mars_golden)
+const MSG547_AUF := [["{0} fängt sich wieder: Zug verloren.", "{0} recovers: turn lost."],
+	["{0} atmet durch und steht wieder fest: Zug verloren.", "{0} draws a breath and stands firm again: turn lost."],
+	["{0} schüttelt den Stoß ab: Zug verloren.", "{0} shakes off the impact: turn lost."]]
+const MSG547_STOSS := [["{0} springt {1} an. {1} wird zurückgestoßen.", "{0} leaps at {1}. {1} is shoved back."],
+	["{0} prallt gegen {1}. {1} kommt aus dem Gleichgewicht.", "{0} slams into {1}. {1} is knocked off balance."],
+	["{0} wirft sich auf {1}. {1} hält dem Gewicht kaum stand.", "{0} throws itself at {1}. {1} barely withstands the weight."]]
+var sturz_zwischentext := true
 
 const FRONT := 0
 const BACK := 1
@@ -30,6 +40,7 @@ const GRAK := "hobgoblin_captain"
 const CALLED := "goblin"
 const SCOUT := "goblin_archer"
 const WOLF := "wolf"
+const DIRE_WOLF := "dire_wolf"     # 533: Grimmzahn, Art eigen, Regeln des Rudels wie der Wolf
 const SPIDER := "giant_spider"
 ## 535 (Abgleich 512, Sokrates): Arten mit eigenen Regeln im Körper einer anderen (aufruf.gd ART): Ratte und Fledermaus bewegen
 ## sich als Wolf, Kobold und Schamane als Goblin. 577 (Chef 04.11., 21:00: „Wie wär's denn, wenn die Dinger die Kennung kriegen, die
@@ -61,6 +72,19 @@ const STATUS := {
 	"SLOW": [["Verlangsamt", "Slowed"], ["Langsam", "Slow"], Color("4A90D8")],
 	"WEAK": [["Geschwächt", "Weakened"], ["Schwach", "Weak"], Color("8A58C8")],
 	"BLIND": [["Geblendet", "Blinded"], ["Blind", "Blind"], Color("6A6A7A")],
+	# 532 (Metrausch wie alt, Battle.drunk, Status.DRUNK): aus der Welt bis zur Rast (aufruf.gd lage „betrunken“), endet nie im Kampf
+	"DRUNK": [["Betrunken", "Drunk"], ["Betrunken", "Drunk"], Color("C89A3A")],
+}
+## 536: was ein Zustand bewirkt, wortgetreu aus Status.kt desc (der Tipp auf ein Zustandsschild im Kampf)
+const STATUS_DESC := {
+	"POISON": ["Schaden zu Beginn jeder Runde.", "Damage at the start of each round."],
+	"BURN": ["Starker Schaden zu Beginn jeder Runde.", "Heavy damage at the start of each round."],
+	"BLEED": ["Schaden jede Runde, Heilung nur halb so stark.", "Damage each round, healing is halved."],
+	"STUN": ["Setzt die nächste Runde aus.", "Loses the next turn."],
+	"SLOW": ["−2 auf Angriff und Rüstungsklasse.", "−2 to attack and armor class."],
+	"WEAK": ["−2 auf Angriff und Schaden.", "−2 to attack and damage."],
+	"BLIND": ["Angriffe mit Nachteil.", "Attacks with disadvantage."],
+	"DRUNK": ["Angriffe und Flucht mit Nachteil, bis zur nächsten Rast.", "Attacks and fleeing at a disadvantage, until your next rest."],
 }
 ## 536: was ein Zustand bewirkt, wortgetreu aus Status.kt desc (der Tipp auf ein Zustandsschild im Kampf)
 const STATUS_DESC := {
@@ -98,7 +122,7 @@ const ST_DWARF := ["Zwergische Zähigkeit: {0} widersteht dem Gift!", "Dwarven r
 const ST_SHAKES := ["{0} schüttelt die Betäubung ab!", "{0} shrugs off the stun!"]
 const MSG296_DAMAGE := ["{0} Schaden.", "{0} damage."]
 ## 296.2: the kinds whose specials MARS plays through their own intents, not the old fight's.
-const OWN_INTENTS := [GRAK, CALLED, SCOUT, WOLF, SPIDER]
+const OWN_INTENTS := [GRAK, CALLED, SCOUT, WOLF, DIRE_WOLF, SPIDER]
 const CALL_MAX := 2
 const GATHER_HEAL := [2, 10, 0]
 const PROBE_LEVEL := 3
@@ -419,6 +443,11 @@ func pick(key: String) -> Array:
 	return l[i]
 
 
+## 533: Wolf oder Grimmzahn (beide kämpfen als Rudel: Anspringen, Einkreisen, Wolfszeilen)
+static func wolfig(m) -> bool:
+	return m != null and String(m.id) in [WOLF, DIRE_WOLF]
+
+
 ## 535, 577: die Art, nach der die Regeln eine Figur behandeln: ihre id
 static func art_of(m) -> String:
 	return "" if m == null else String(m.id)
@@ -430,7 +459,7 @@ static func koerper_of(m) -> String:
 
 
 func wolf(f: Fighter, own: String, general: String) -> Array:
-	return pick(own if f.monster != null and f.monster.id == "wolf" else general)
+	return pick(own if wolfig(f.monster) else general)
 
 
 static func fmt(t: Array, lang_i: int, args: Array) -> String:
@@ -803,7 +832,7 @@ func _skip_to_choice(react: Callable) -> void:
 				_next_turn()
 		elif f.held:
 			f.held = false
-			_say(fmt(pick("MSG279_RISES" if f.prone else "MSG130_LOSES"), lang, [f.name(lang)]), f.id, null, 0, null, false, false, "RISES" if f.prone else "")
+			_say(fmt(pick(("MSG547_AUF" if sturz_zwischentext else "MSG279_RISES") if f.prone else "MSG130_LOSES"), lang, [f.name(lang)]), f.id, null, 0, null, false, false, "RISES" if f.prone else "")
 			f.prone = false
 			_next_turn()
 		elif f.side == "FOES" and surprised.has(f.id):
@@ -962,6 +991,9 @@ func _row_mode(f: Fighter, t: Fighter, weapon: bool, extra := 0, cover := true) 
 	# 296.2: blinded, attacks at a disadvantage (as in the old fight)
 	if f.status.has("BLIND"):
 		dis += 1
+	# 532 (alt Battle.kt 462: Blind und betrunken je eins): betrunken, Angriffe mit Nachteil
+	if f.status.has("DRUNK"):
+		dis += 1
 	return clampi(extra - dis, -1, 1)
 
 
@@ -1034,7 +1066,8 @@ func _flee(f: Fighter) -> void:
 	for x in all:
 		if x.side == "FOES" and x.standing():
 			top = maxi(top, int(x.monster.dex))
-	if f.has("CUNNING_ACTION") or dice.d20() + int(f.hero.dex) + elf >= 10 + top:
+	# 532 (alt Battle.kt 616): betrunken flieht er mit Nachteil
+	if f.has("CUNNING_ACTION") or dice.d20(-1 if f.status.has("DRUNK") else 0) + int(f.hero.dex) + elf >= 10 + top:
 		_say(fmt(MSG296_FLED, lang, [f.name(lang)]), f.id)
 		outcome = "FLED"
 	else:
@@ -1295,7 +1328,7 @@ func _foe_turn(foe: Fighter, react: Callable) -> void:
 		var t = first_aimed
 		if t != null:
 			_say(fmt(pick("MSG130_CIRCLECLOSED"), lang, [foe.name(lang)]), foe.id)
-			for w in all.filter(func(x): return x.side == "FOES" and x.standing() and art_of(x.monster) == WOLF):
+			for w in all.filter(func(x): return x.side == "FOES" and x.standing() and wolfig(x.monster)):
 				if outcome != "ONGOING" or not t.standing():
 					break
 				_strike(w, t, I_STAB, NONE)
@@ -1415,7 +1448,7 @@ func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := 
 		"POUNCE":
 			t.held = true
 			t.prone = true
-			_say(fmt(pick("MSG130_POUNCEHITS"), lang, [foe.name(lang), t.name(lang)]), foe.id, t.id, 0, null, false, false, "POUNCED")
+			_say(fmt(pick("MSG547_STOSS" if sturz_zwischentext else "MSG130_POUNCEHITS"), lang, [foe.name(lang), t.name(lang)]), foe.id, t.id, 0, null, false, false, "POUNCED")
 		"WEB":
 			t.held = true
 			_say(fmt(pick("MSG130_WEBHOLDS"), lang, [foe.name(lang), t.name(lang)]), foe.id, t.id, 0, null, false, false, "WEB")
@@ -1530,8 +1563,8 @@ func _pick_intent(foe: Fighter) -> Dictionary:
 		return I_BITE
 	if id == SHAMAN:     # 535: Heilen, Fluch, Feuerstoß des Schamanen fehlen noch (Ansagen über Homer); bis dahin kämpft er wie ein Goblin
 		id = CALLED
-	if id == WOLF:
-		var others := all.filter(func(x): return x.side == "FOES" and x.standing() and art_of(x.monster) == WOLF).size()
+	if id == WOLF or id == DIRE_WOLF:
+		var others := all.filter(func(x): return x.side == "FOES" and x.standing() and wolfig(x.monster)).size()
 		var circling := intents.values().any(func(p): return p[0].effect == "CIRCLE")
 		var can := [I_POUNCE, I_POUNCE]
 		if others >= 2 and not circling and chosen:

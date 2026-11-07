@@ -740,7 +740,8 @@ const TIERLAUT := {
 	"huhn": {"fressen": ["hen_scratch", 0.12, 700.0, 1600.0], "anfang": ["hen_cluck", 0.3], "ruf": ["hen_cluck", 0.25, 15000.0, 35000.0],
 		"held": [["hen_alarm", 0.45], ["hen_flap", 0.3]]},
 	"ziege": {"fressen": ["goat_graze", 0.25, 2500.0, 4500.0], "ruf": ["goat_bleat", 0.4, 20000.0, 45000.0], "held": [["goat_bleat", 0.5]]},
-	"kaninchen": {"fressen": ["rabbit_munch", 0.2, 2500.0, 4000.0], "held": []},
+	# 591: das fliehende Kaninchen huscht hoerbar durchs Gras (Schritt im Gras, hoch und leise); Klopfen bleibt raus
+	"kaninchen": {"fressen": ["rabbit_munch", 0.2, 2500.0, 4000.0], "held": [["step_grass", 0.22, 1.7], ["step_grass", 0.16, 1.9]]},
 }
 var _tiere := {}                         # Tier (Knoten) -> {pause, nah, fressen_ms, ruf_ms}
 var _tiere_suche := 0.0
@@ -771,10 +772,11 @@ func _tierlaute(dt_ms: float) -> void:
 		var st: Dictionary = _tiere[n]
 		var art: Dictionary = TIERLAUT[String(n.daten["tier"])]
 		var d: float = Vector2(n.position.x - _held.position.x, n.position.z - _held.position.z).length() / 1.16     # Karte.TS
-		var nah: bool = n.nah_am_held(n.kachel)
+		# 591: Huhn und Kaninchen fliehen schon vor der Nachbarkachel; der Laut kommt mit dem Losrennen (MapHen fled, HenSound)
+		var nah: bool = n.nah_am_held(n.kachel) or n.get("flucht") == true   # 603: Probetier ohne flucht (null)
 		if nah and not st.nah:
 			for l in art.held:
-				effekt(l[0], tier_pegel(d, l[1]))
+				effekt(l[0], tier_pegel(d, l[1]), float(l[2]) if l.size() > 2 else 1.0)
 		st.nah = nah
 		var pause := String(n.pause)
 		if pause != st.pause:

@@ -90,6 +90,15 @@ static func met_trinken(z: Zustand, name: String) -> String:
 	z.met += 1
 	return Sprache.r("drunkNow") if z.betrunken() else Sprache.r("meadDrunk")
 
+# 525 (Game.sellMeat, 139): Rowena kauft an der Theke alles rohe Fleisch zum Preis von Thessa und Morwen; null, wenn keins da
+static func fleisch_preis(z: Zustand, hw: Heldwerte) -> int: return z.anzahl("raw_meat") * Laden.verkaufspreis(hw, "raw_meat")
+
+static func fleisch_verkaufen(z: Zustand, hw: Heldwerte) -> String:
+	var n := z.anzahl("raw_meat")
+	if n < 1: return ""
+	Laden.new().verkaufe(z, hw, "raw_meat", n)
+	return Sprache.r("meatThanks")
+
 # Resting.rowenaSays: was Rowena sagt, wenn die Theke aufgeht; zweites = Zimmer statt Met
 static func rowena_sagt(z: Zustand, name: String, zweites: bool) -> String:
 	var k := "rowenaEnough" if z.betrunken() else ("rowenaRoom" if zweites else "rowenaMead")

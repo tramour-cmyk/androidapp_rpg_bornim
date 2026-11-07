@@ -11,7 +11,7 @@ ANSICHT = lage.pop('_ansicht', None)   # Spike 01.11. (455.1 Lauf 41321140618): 
 GOLD, WEISS, GRUND = (212, 174, 92), (237, 230, 214), (10, 9, 8)
 f_titel = ImageFont.truetype(SCHRIFT, 32)
 f_name = ImageFont.truetype(SCHRIFT, 24)
-BREITE, HOEHE, OBEN, UNTER = 1080, 2340, 120, 62
+BREITE, HOEHE, OBEN, UNTER = 1080, 2340, 120, 72   # 463a G1 (Pruefer Lauf 1, 22:4x): Unterlaengen der zweiten Zeile am Rahmen und am Bildrand abgeschnitten
 HERKUNFT = {'WACHSOLDAT': 'Wachsoldat', 'ZAUBERLEHRLING': 'Zauberlehrling', 'KLOSTERSCHUELER': 'Klosterschüler', 'JAEGERKIND': 'Jägerkind',
             'HERUMTREIBER': 'Herumtreiber', 'WANDERER': 'Wanderer, Kräutersammler,', 'KRAEUTERSAMMLER': 'Kräutersammler',
             'SCHMIEDELEHRLING': 'Schmiedelehrling'}
@@ -59,7 +59,7 @@ def seite(titel, teile):
         else:
             zeile = (zeile + ' ' + w).strip()
     d.text((20, y), zeile, font=f_titel, fill=GOLD)
-    h = (HOEHE - OBEN) // len(teile) - UNTER
+    h = (HOEHE - OBEN - 6) // len(teile) - UNTER
     y = OBEN
     for bild, name in teile:
         c.paste(streifen(bild, name, h), (0, y)); y += h + UNTER

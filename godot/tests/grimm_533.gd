@@ -31,7 +31,9 @@ func _lauf() -> void:
 	_soll(monsters.has("dire_wolf"), "tabellen.json kennt dire_wolf")
 	var foes: Array = AufrufS.gegner("GRIMM", monsters, Wuerfel.new(7))
 	var g = foes[0]
-	_soll(g.id == Figur.GRIMM and g.monster.id == Mars.WOLF, "Grimmzahn vorn, Bewegung des Wolfs (id %s, Art %s)" % [g.id, g.monster.id])
+	# 533 (Chef 04.11., 20:30, Blende mit „gelben Augen“): Art dire_wolf, Körper und Rudelregeln des Wolfs
+	_soll(g.id == Figur.GRIMM and g.monster.id == Mars.DIRE_WOLF and Mars.koerper_of(g.monster) == Mars.WOLF and Mars.wolfig(g.monster) and Figur.vier(g),
+		"Grimmzahn vorn, Art dire_wolf, Körper des Wolfs (id %s, Art %s, Körper %s)" % [g.id, g.monster.id, Mars.koerper_of(g.monster)])
 	_soll(int(g.monster.ac) == 14 and int(g.monster.atk) == 4 and (g.monster.dmg as Array).map(func(x): return int(x)) == [2, 6, 1] and g.max_hp >= 8 and g.max_hp <= 44,
 		"Werte RK %s, Angriff %s, Schaden %s, TP %d" % [g.monster.ac, g.monster.atk, g.monster.dmg, g.max_hp])
 	_soll(g.boss() and int(g.monster.xp) == 450, "Boss %s, EP %s" % [g.boss(), g.monster.xp])
@@ -49,6 +51,8 @@ func _lauf() -> void:
 		await process_frame
 	var k = a.kampf
 	var held_f = k.mars.lead()
+	var blende: Dictionary = Kampfblende.lage(k.mars)
+	_soll(blende.get("id") == "dire_wolf", "Blende nimmt Grimmzahns Sätze (id %s)" % blende.get("id"))
 	_soll(not k.mars.can_flee(held_f), "keine Flucht vor Grimmzahn")
 	_soll(k.mars.autopilot_blocked() != null, "kein Autopilot gegen Grimmzahn")
 	var t0 := Time.get_ticks_msec()

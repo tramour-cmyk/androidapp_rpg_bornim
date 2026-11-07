@@ -73,6 +73,7 @@ var spell_seed := 0
 var grid_on := false
 var dice_rect := Rect2()
 var grid_rect := Rect2()
+var tempo_rect := Rect2()      # 600: Tempo (im Spiel), links neben den Würfeln
 var win_rect := Rect2()        # 272 (Testmodus): Haken gewinnt, Kreuz verliert sofort
 var lose_rect := Rect2()
 
@@ -114,9 +115,11 @@ func rand_oben() -> float:
 	return Rand.beim_start if Rand.beim_start >= 0.0 else Rand.oben(get_viewport())
 
 
-## Schriftgröße wie Theme.kt im schwarzen Stil: sp × 0,95 × 1,04, mindestens 13,7 sp.
+## Schriftgröße wie Theme.kt im schwarzen Stil: sp × 0,95 × 1,04, mindestens 13,7 sp. 544 (Chef 04.11., 16:58: „relativ klein,
+## aber die Schriftart müsste passen“): wie alt und wie die übrigen Schirme seit 498 mit der Schriftgröße des Handys (Compose sp =
+## dp × fontScale; Stil.schriftfaktor), der Kampf rechnete fest mit 1
 func sp(v: float) -> int:
-	return int(maxf(v * 0.95 * 1.04, 13.7) * dp)
+	return int(maxf(v * 0.95 * 1.04, 13.7) * dp * Stil.schriftfaktor)
 
 
 static func hp_color(frac: float) -> Color:
@@ -239,6 +242,8 @@ func _scene_input(ev) -> void:
 		dice_on = not dice_on
 	elif grid_rect.has_point(p):
 		grid_on = not grid_on
+	elif tempo_rect.has_point(p):
+		kampfort.tempo_wechseln()
 	elif lose_rect.has_point(p):
 		kampfort.test_end(false)
 	elif win_rect.has_point(p):
@@ -881,14 +886,57 @@ func _tall(fig) -> float:
 	return maxf(20 * dp, _foot(fig).y - kampfort.screen_of(fig.head()).y)
 
 
-## A circle on the ground round [p] (world), as the camera sees it.
+## A circle on the ground round [p] (world), as the camera sees it. 561 (Chef 04.11., 16:56: „der Zuganzeiger, der goldene Kreis,
+## wieder nicht dreidimensional richtig unterbrochen ist durch die Figur, die drin steht. Das war auch alles in der alten Fassung“;
+## 17:00 ebenso die Zielringe): nicht mehr über alles gemalt, sondern als flaches Band am Boden in der Welt (_ringe_bauen), so
+## verdecken Beine und Körper davor den Ring wie in BattleScene (CamRing); Breite [w] in Bildpunkten wie bisher, mit dunklem Rand
+var _ring_liste := []
 func _ground_ring(p: Vector3, r: float, c: Color, w: float) -> void:
-	var pts := PackedVector2Array()
-	for i in 41:
-		var a := TAU * i / 40.0
-		pts.append(kampfort.screen_of(p + Vector3(cos(a) * r, 0.02, sin(a) * r)))
-	overlay.draw_polyline(pts, Color(0, 0, 0, 0.5), w + 2 * dp, true)
-	overlay.draw_polyline(pts, c, w, true)
+	_ring_liste.append([p, r, c, w])
+
+
+var _ringe: MeshInstance3D
+var _ring_mesh: ImmediateMesh
+const RING_HOCH := 0.02
+func _ringe_bauen() -> void:
+	if _ringe == null or not is_instance_valid(_ringe):
+		_ring_mesh = ImmediateMesh.new()
+		_ringe = MeshInstance3D.new()
+		_ringe.name = "Ringe"
+		_ringe.mesh = _ring_mesh
+		_ringe.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		var mat := StandardMaterial3D.new()
+		mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		mat.vertex_color_use_as_albedo = true
+		mat.cull_mode = BaseMaterial3D.CULL_DISABLED
+		_ringe.material_override = mat
+		kampfort.add_child(_ringe)
+	_ring_mesh.clear_surfaces()
+	if _ring_liste.is_empty():
+		return
+	_ring_mesh.surface_begin(Mesh.PRIMITIVE_TRIANGLES)
+	for e in _ring_liste:
+		var mdp: float = kampfort.m_per_dp(e[0])
+		var w: float = float(e[3]) / dp * mdp
+		_band(e[0], float(e[1]), w + 2.0 * mdp, Color(0, 0, 0, 0.5), RING_HOCH)
+		_band(e[0], float(e[1]), w, e[2], RING_HOCH + 0.002)
+	_ring_mesh.surface_end()
+	_ring_liste.clear()
+
+
+func _band(p: Vector3, r: float, w: float, c: Color, hoch: float) -> void:
+	var innen := maxf(r - w * 0.5, 0.0)
+	var aussen := r + w * 0.5
+	for i in 40:
+		var a0 := TAU * i / 40.0
+		var a1 := TAU * (i + 1) / 40.0
+		var d0 := Vector3(cos(a0), 0.0, sin(a0))
+		var d1 := Vector3(cos(a1), 0.0, sin(a1))
+		var y := Vector3(0, hoch, 0)
+		for q in [d0 * innen, d0 * aussen, d1 * aussen, d0 * innen, d1 * aussen, d1 * innen]:
+			_ring_mesh.surface_set_color(c)
+			_ring_mesh.surface_add_vertex(p + y + q)
 
 
 func _chip(rect: Rect2, bg: Color, border: Color, rim_dp: float) -> void:
@@ -920,6 +968,7 @@ func _draw_overlay() -> void:
 				for slot in [0, 1]:
 					var ab: Vector2 = k._stand(side == "FOES", row == Mars.BACK, slot, false)
 					_ground_ring(k._ground(ab.x, ab.y), 0.45, Color(GOLD, 0.5), 1.5 * dp)
+	_ringe_bauen()     # 561
 	# triangles before the feet of those a foe aims at (CamAim)
 	var aimed_at := {}
 	for id in k.shown.intents:
@@ -1008,6 +1057,7 @@ func _draw_overlay() -> void:
 	if ended:
 		grid_rect = Rect2()
 		dice_rect = Rect2()
+		tempo_rect = Rect2()
 		win_rect = Rect2()
 		lose_rect = Rect2()
 	else:
@@ -1813,20 +1863,38 @@ func _draw_switches(sr: Rect2) -> void:
 	var o := sq.size.x * 0.27
 	for e in [Vector2.ZERO, Vector2(-o, -o), Vector2(o, -o), Vector2(-o, o), Vector2(o, o)]:
 		overlay.draw_circle(c + e, 1.8 * dp, dc)
+	# 600: Tempo wie Würfel und Raster, ein bis drei Spitzen für Ruhig, Normal, Schnell; Gold, solange nicht Normal
+	tempo_rect = Rect2()
+	var links := sr.size.x - 100 * dp
+	if kampfort.tempo_knopf:
+		tempo_rect = Rect2(links - 48 * dp, y, 48 * dp, 48 * dp)
+		links -= 48 * dp
+		var stufe: int = Bedienung.tempo
+		var tr := Rect2(tempo_rect.position + Vector2(4, 4) * dp, Vector2(s, s))
+		_chip(tr, Color.BLACK, GOLD if stufe != 1 else RIM, 1.0)
+		var tcol := Color(GOLD, 0.9 if stufe != 1 else 0.5)
+		var mitte := tr.get_center()
+		var hoch := tr.size.y * 0.2
+		var breit := tr.size.x * 0.13
+		for i in stufe + 1:
+			var x0 := mitte.x + (i - stufe * 0.5) * breit * 1.1 - breit * 0.5
+			overlay.draw_polyline(PackedVector2Array([Vector2(x0, mitte.y - hoch), Vector2(x0 + breit, mitte.y), Vector2(x0, mitte.y + hoch)]), tcol, 1.8 * dp, true)
 	# 272 (Chef 20.10., nur im Testmodus, TestEndUi.kt): links neben den Würfeln Kreuz (verlieren) und Haken (gewinnen), solange
 	# der Kampf läuft und kein Ring offen ist; das angetippte leuchtet, bis es gilt
 	win_rect = Rect2()
 	lose_rect = Rect2()
 	if not Testmodus.ist_an() or kampfort.mars.outcome != "ONGOING" or kampfort.ring_open:
 		return
-	win_rect = Rect2(sr.size.x - 100 * dp - 48 * dp, y, 48 * dp, 48 * dp)
-	lose_rect = Rect2(sr.size.x - 100 * dp - 96 * dp, y, 48 * dp, 48 * dp)
+	win_rect = Rect2(links - 48 * dp, y, 48 * dp, 48 * dp)
+	lose_rect = Rect2(links - 96 * dp, y, 48 * dp, 48 * dp)
 	for win in [false, true]:
 		var r: Rect2 = win_rect if win else lose_rect
 		var on: bool = kampfort.end_asked != null and bool(kampfort.end_asked) == win
 		var b := Rect2(r.position + Vector2(4, 4) * dp, Vector2(s, s))
-		_chip(b, Color(0, 0, 0, 0.35), Color(GOLD, 0.9 if on else 0.4), 1.0)
-		var col := Color(GOLD if win else WARN, 1.0 if on else 0.7)
+		# 545 (Chef 04.11., 17:15: „die waren halt so ausgegraut“): wie Würfel und Raster, schwarz und deckend mit Rand, Zeichen
+		# kräftig; angetippt goldener Rand
+		_chip(b, Color.BLACK, GOLD if on else RIM, 1.0)
+		var col := Color(GOLD if win else WARN, 1.0 if on else 0.9)
 		var q := b.grow(-10 * dp)
 		if win:
 			overlay.draw_line(q.position + Vector2(0, q.size.y * 0.55), q.position + Vector2(q.size.x * 0.38, q.size.y * 0.9), col, 2 * dp, true)
