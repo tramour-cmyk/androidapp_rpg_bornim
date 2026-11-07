@@ -38,7 +38,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 ## Offen je Rolle
 
-Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
+Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
 **Homer** – offen 7, Muss 1, startbar 3
 
@@ -65,14 +65,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „star
 | 583 | M | von Tom (Abgleich 512b): Textkasten: ▼ liegt im Text („Sammel▼“), erzählter Text ohne i-Pu | wartet auf Test (Build) |
 | 584 | M? | von Tom (Abgleich 512b; Zu 584): kein halbfetter Schnitt, Köpfe wie alt (Theme.kt 216: hal | wartet auf Perikles |
 | 585 | M? | von Tom (Abgleich 512b; Zu 585): Kleinigkeiten Menüs: Titelumbruch Hauptmenü, Knopf „Lizen | wartet auf Perikles |
-| 569 | M | von Sokrates (Chef 04.11., 19:44, Bild 558 Probe 4 Wald Tag; Zu 569): Baumkronen ohne Umri | ruht bis 07.11. |
-| 568 | M? | von Sokrates (Chef 04.11., 19:42, „grundsätzlich bei 568. Für A.“; DESIGN-SPIELSYSTEM-2-0. | ruht bis 07.11. |
+| 569 | M | von Sokrates (Chef 04.11., 19:44, Bild 558 Probe 4 Wald Tag; Zu 569): Baumkronen ohne Umri | ruht |
+| 568 | M? | von Sokrates (Chef 04.11., 19:42, „grundsätzlich bei 568. Für A.“; DESIGN-SPIELSYSTEM-2-0. | ruht |
 | 574 | M | von Sokrates (Chef 04.11., 20:40, Laufprotokoll Build 257 vom Handy; Zu 574): Fehler „Lamb | wartet auf Test (Build) |
 | 571 | M | von Sokrates (Chef 04.11., 20:13, Build 257, „Ganz wichtig“; Zu 571): Wischen auf einer Sc | wartet auf Test (Build) |
 | 557 | M | von Sokrates (Chef 04.11., 11:15; Zu 557): Spielstände als Entwurf im Stil „ohne Kasten“ ( | wartet auf Test (Build) |
 | 558 | M | von Sokrates (Chef 04.11., 11:31, Bild Build 257; Zu 558): Robe des Magiers zu glatt: Stof | wartet auf Test/Build (gebaut) |
 | 556 | M | von Sokrates (Chef 04.11., 07:52; Zu 556): Blenden reines Schwarz statt Leuchten, Lesezeit | wartet auf Test (Build) |
-| 531 | M | von Sokrates (Chef 03.11., 23:42, Build 249; Zu 531): Garrick: „Gesicht wirkt sonderbar, B | ruht bis 07.11. |
+| 531 | M | von Sokrates (Chef 03.11., 23:42, Build 249; Zu 531): Garrick: „Gesicht wirkt sonderbar, B | ruht |
 | 522 | M | von Sokrates (Chef 03.11., 23:33, Build 249; Zu 522): „im Testmenü Ausrüstung des Helden g | wartet auf Test (Build) |
 | 521 | M | von Sokrates (Chef 03.11., 23:23, Build 249, Bild; Zu 521): Wechselschirm (Platz antippen) | wartet auf Test (Build) |
 | 519 | M | von Sokrates (Chef 03.11., 23:13, Build 249, Bild): Ausrüstung, Fenster eines Gegenstands | wartet auf Test (Build) |
@@ -93,10 +93,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „star
 | 490 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488): Flüsterwald begehbar wie alt (Story.kt:524, | wartet auf Test/Build (gebaut) |
 | 495 | M | von Perikles (Wochenziel 03.11. Reihe 4, 488): Zufallsspieler spielt Kapitel 1 in Godot bi | wartet auf Jerry |
 | 491 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; 479 A: Spike): Tiefer Flüsterwald begehbar w | wartet auf Test/Build (gebaut) |
-| 505 | M | von Perikles (Archiv 502, Chef 03.11., 07:30, Zu 502 in ARBEIT-PROJEKT): Nebel des Krieges | ruht bis 07.11. |
+| 505 | M | von Perikles (Archiv 502, Chef 03.11., 07:30, Zu 502 in ARBEIT-PROJEKT): Nebel des Krieges | ruht |
 | 515 | M? | von Sokrates (Chef 03.11., 16:07, zu 491; Zu 515): Truhen je Karte, einige verschlossen na | wartet auf Perikles |
 | 506 | M | von Perikles (Wochenziel 03.11. Reihe 2, 488; Spike, aus 494): Untote im Kampf: Skelett, Z | wartet auf Jerry |
-| 492 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488): Blutzahnhöhle begehbar wie alt (Story.kt:73 | ruht bis 07.11. |
+| 492 | M | von Perikles (Wochenziel 03.11. Reihe 3, 488): Blutzahnhöhle begehbar wie alt (Story.kt:73 | ruht |
 | 431 | M | von Sokrates (Chef 31.10., 22:0x): Völker als Modelle: erst Bibliothek sichten (408), Kand | wartet auf Sokrates |
 | 416.7 | M | von Sokrates (Chef 31.10., 20:5x, für den nächsten Build): am Tresen in Schenke und Laden | wartet auf Test/Build |
 | 416.8 | M | von Sokrates (Chef 31.10., 20:5x, allgemeiner Hinweis): NPC dreht sich bei Interaktion zum | wartet auf Test/Build |
@@ -110,11 +110,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „star
 | 513 | M | von Sokrates (Chef 03.11., 15:56, „513 B“, „jetzt“ 03.11., 15:56; Archiv): Figurenstand 41 | ruht |
 | 463 | M | von Sokrates (Chef 01.11., 20:3x, Zu 463): Umhang und lange Robe geschlossen: eine Ursache | wartet auf Test/Build (gebaut) |
 | 470 | M | von Perikles (Wochenziel 02.11., Stufe 1): Bau BRS 1.1 Erschaffung: sechs Grundwerte, 21 P | ruht |
-| 604 | K | von Ford (Chef 06.11., 09:38): Schenke, Erdgeschoss: Bett raus, an seine Stelle mehr Tisch | ruht bis 07.11. |
+| 604 | K | von Ford (Chef 06.11., 09:38): Schenke, Erdgeschoss: Bett raus, an seine Stelle mehr Tisch | ruht |
 | 470.1 | K | von Sokrates (Idee Chef 02.11., 18:37: Held in der Erschaffung „auf Klick groß … damit man | wartet auf 431e (Chef) |
 | 471 | M | von Perikles (Wochenziel 02.11., Stufe 1): Bau BRS 1.2 Fertigkeiten durch Tun, vier Ränge, | ruht |
 | 474 | M? | von Team Jerry (Tuffy, 02.11., 02:4x; aus 399.1a): Debug-Schlüssel nur im Cache, verdrängt | ruht |
-| 475 | M | von Sokrates (Chef 02.11., 10:52, Build 146; erneut 03.11., 07:45, Build 204, Zu 475): Row | ruht bis 07.11. |
+| 475 | M | von Sokrates (Chef 02.11., 10:52, Build 146; erneut 03.11., 07:45, Build 204, Zu 475): Row | ruht |
 | 476 | M? | von Sokrates (Chef 02.11., 14:43: „Werden … die Symbole der Ausrüstungsgegenstände … durch | wartet auf 458.3 (ruht) |
 | 477 | M? | von Sokrates (Chef 02.11., 14:59, Zu 477): Godot-APKs zeigen im MuMu Player am Rechner nur | wartet auf Test (Build) |
 | 461.1 | M | von Sokrates („jetzt“ 01.11., 20:3x, Archiv 461): Grundstand: alles Entschiedene zu Figure | ruht |
@@ -149,8 +149,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „star
 | 558.1 | K | von Sokrates, nach dem Durchspielen (Chef 04.11., 22:23: „was der Prüfer noch anmerkt, kön | ruht |
 | 504.1 | M? | von Homer (504, Chef 03.11., 07:52: „Mindestens 3 … Lebendige Welt“): Gespräche in Kapitel | wartet auf Test (Build) |
 | 447.4.1 | M | von Homer (447.4, Chef 03.11., 15:50 „1B 2A“): Lehrmeister, Meisterschaften, Ruf in Kapite | wartet auf 508 (startbar) |
-| 589 | M | von Sokrates (Chef 05.11., 19:2x, t266; Zu 589): Marktplatz: geklonte Stände, identische S | ruht bis 07.11. |
-| 590 | M | von Sokrates (Chef 05.11., 19:2x; Zu 590): Innenräume: Türseite bei gedrehter Kamera dunke | ruht bis 07.11. |
+| 589 | M | von Sokrates (Chef 05.11., 19:2x, t266; Zu 589): Marktplatz: geklonte Stände, identische S | ruht |
+| 590 | M | von Sokrates (Chef 05.11., 19:2x; Zu 590): Innenräume: Türseite bei gedrehter Kamera dunke | ruht |
 | 591 | M | von Sokrates (Chef 05.11., 19:2x; Zu 591): Hühner und Kaninchen fliehen vor dem Helden wie | wartet auf Test (Build) |
 | 592 | M | von Sokrates (Chef 05.11., 19:2x; Zu 592): Vorbeugen (Müde) nur bei Ausdauer null; sonst R | wartet auf Test (Build) |
 | 532 | M | von Team Jerry (06.11., 09:2x): Metrausch im Kampf: in spiel.gd kampf_im_wald lage „betrun | wartet auf Test (Build) |
@@ -240,9 +240,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 06.11.; „star
 | 469 | M | von Sokrates: Kampf auf BRS: Ring ohne Klassen regeln | wartet auf 406.1 (wartet) |
 | 594 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Probekampf „Spinne“ (nicht allein): Wolf da | wartet auf Test (Build) |
 | 597 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Ring ohne Ankündigung (Fledermaus); alle An | wartet auf Test (Build) |
-| 601 | M | von Sokrates (Chef 05.11., 19:2x, t266.5; Zu 594–601): Goblin-Späher: Schuss ohne Bewegung | ruht bis 07.11. |
+| 601 | M | von Sokrates (Chef 05.11., 19:2x, t266.5; Zu 594–601): Goblin-Späher: Schuss ohne Bewegung | ruht |
 | 596 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Sterben je Gegnerart mehrfach, gespiegelt, | wartet auf Test (Build) |
-| 595 | M | von Sokrates (Chef 05.11., 19:2x, t266.1; Zu 594–601): Kampfbewegungen Spinne, Riesenegel, | ruht bis 07.11. |
+| 595 | M | von Sokrates (Chef 05.11., 19:2x, t266.1; Zu 594–601): Kampfbewegungen Spinne, Riesenegel, | ruht |
 | 600 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Knopf zum Beschleunigen im Kampfort wie Wür | wartet auf Test (Build) |
 | 598 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Umweltklang je Ort, Tageszeit, Wind, Wetter | startbar |
 | 593 | M? | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Ausweichen auch rückwärts | startbar |
