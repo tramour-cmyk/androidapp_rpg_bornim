@@ -170,6 +170,9 @@ jobs:
           [ -f $W ] || { git fetch -q --depth 1 origin claude/jerry-348-kampf && git show FETCH_HEAD:$W > $RUNNER_TEMP/waffen.py && W=$RUNNER_TEMP/waffen.py; } || true
           dinge=$(python3 -c "import json; l=json.load(open('tools/blender348/v3/leute.json')); print(' '.join(sorted({v['traegt'] for k, v in l.items() if k != '_liesmich' and v.get('traegt')})))")
           dinge="$dinge longsword shield shortsword quarterstaff round_shield"   # 376.1 Grundausruestung der vier Klassen (heldfigur.gd, auf dem Ruecken)
+          # 522 (Chef 04.11., 11:55: „die alte Bewaffnung … war weg, aber die neue ist nicht sichtbar“): jede Waffe, die waffen.py bauen
+          # kann, auch fuer den Helden; Streitkolben, Kriegshammer und die uebrigen haben noch kein Modell (458.3)
+          dinge="$dinge dagger scimitar handaxe shortbow"
           mkdir -p godot/daten/waffen
           for w in $dinge; do
             OUT=$RUNNER_TEMP/waffen WAFFE=$w bl/bin/python -I $W > $RUNNER_TEMP/waffe-$w.log 2>&1 && cp $RUNNER_TEMP/waffen/$w.glb godot/daten/waffen/$w.bin || echo "keine Waffe $w"
@@ -375,6 +378,7 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/lizenz_497.gd 2>&1 | grep -E "FEHLER|LIZENZ497|ENGINE|SCRIPT ERROR"   # 497 Lizenzen der Engine
           timeout 120 ~/godot/godot --headless --path . -s res://tests/tresen_4167.gd 2>&1 | grep -E "FEHLER|TRESEN|SCRIPT ERROR"   # 416.7
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/ausruestung_522.gd 2>&1 | grep -E "^(gut|FEHLER|AUSRUESTUNG522|ohne)|SCRIPT ERROR"   # 522 Figur nach Ausruestungswechsel
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/waffen_522.gd 2>&1 | grep -E "^FALSCH|^bekannt|WAFFEN522|SCRIPT ERROR"   # 522 jede baubare Waffe am Helden, Dolch nicht als Schild (Tom)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/tasche_521.gd 2>&1 | grep -E "^(gut|FEHLER|TASCHE521)|SCRIPT ERROR"   # 521, 523 Ausruestungszeile wie alt
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/untersuchen_541.gd 2>&1 | grep -E "FEHLER|UNTERSUCHEN|SCRIPT ERROR"   # 541 Untersuchen, Angriff mit dem Knopf
           timeout 120 ~/godot/godot --headless --path . -s res://tests/platzwechsel_4162.gd 2>&1 | grep -E "FEHLER|PLATZWECHSEL|SCRIPT ERROR"   # 416.2
