@@ -58,6 +58,10 @@ func _lauf() -> void:
 	pruefe("Grundwerte wie sim.py (Kraft 6, Gewandtheit 4, Zähigkeit 6)", b.werte.kraft == 6 and b.werte.gewandtheit == 4 and b.werte.zaehigkeit == 6, str(b.werte))
 	pruefe("Leben Stufe 1: 10 + 5 + 2 × 6 = 27", BrsKampf.leben_held(b) == 27, str(BrsKampf.leben_held(b)))
 	pruefe("Schild in der Hand", b.schild)
+	# der Held nach BRS aus dem Spielstand (zustand.brs, BrsHeld.als_daten): seine Herkunft und Werte statt der Klasse
+	var bh = load("res://regeln/brs_held.gd").neu("Zwerg", "Jägerkind")
+	var bd := BrsKampf.held(h, bh.als_daten())
+	pruefe("Held aus dem Spielstand: Herkunft Jägerkind, Bogen 10, Werte wie BrsHeld", bd.herkunft == "Jägerkind" and int(bd.fert.get("Bogen", 0)) == 10 and bd.werte == bh.werte(), "%s %s" % [bd.herkunft, bd.fert])
 	b.ruestung = "Mittlere Rüstung"
 	pruefe("Abzug Mittlere Rüstung und Schild 3 × 1,1 + 2 × 1,1 = 5,5", is_equal_approx(BrsKampf.held_abzug(b, true), 5.5), str(BrsKampf.held_abzug(b, true)))
 	var abw: Array = BrsKampf.held_abwehr(b, "nah", "Einhänder", true)
