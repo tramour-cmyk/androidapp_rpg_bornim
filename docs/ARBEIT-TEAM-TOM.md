@@ -112,7 +112,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 133 | K | Charisma-Wahlen Kapitel 2 (`STORY-WAHLEN.md`) | ruht: altes SRD-System (Chef 31.10.) | – |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (Kapitel 2 nicht im Spiel) | – |
 | 586 | K | **von Chef über Jerry (05.11., 09:35; Zu 586):** Bilder 557 einheitlich: Rast am Feuer und an der Theke (7, 8) mit Zeichen links neben der Überschrift wie 3–6; Überschriften von 1 und 2 so groß wie 7–12 (586a) | wartet: nichts bauen (Chef: „nur als Kür“), nach dem Durchspielen (579) | – |
-| Pflege | K | **von Werkzeug (340.3, 07.11.):** 121550 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 101; Zeile 522 wartet auf t257, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile 521 wartet auf t257, aber keine Datei in docs/chefsache/ansehen … | startbar |
+| Pflege | K | **von Werkzeug (340.3, 07.11.):** 128022 Bytes (Grenze 15000), Erledigtes streichen; Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 90, 110; Zeile 522 wartet auf t257, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen); Zeile 521 wartet auf t257, aber keine Datei in docs/chefsache/ans … | startbar |
 
 ## Einzelheiten
 
