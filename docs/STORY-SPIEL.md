@@ -594,6 +594,37 @@ EN: Rules, classes, races, spells and monsters are simplified and based on the S
 `[312.eigen]` Geschichte, Orte und Figuren sind eigene Erfindungen.
 EN: The story, places and characters are original.
 
+### Mit Dank an (623.4, Chef 07.11., 623 F)
+
+Nur auf der Seite „Über das Spiel“, nie im Spielgeschehen (Bau Tom, 623.7). Platz: unter „Lizenzen der Engine“, über dem Logo; Kopf wie die Kopfzeilen der Lizenzen (Gold, Großbuchstaben), Satz in Textgröße, je Gruppe Name der Gruppe gold, Namen gedämpft wie die Schriftenzeile, durch Kommas getrennt. Namen genau so geschrieben wie hier (Schreibung der Urheber, auch klein), in jeder Sprache gleich. Quellen: `LISTE-BESTAND.md`, `tools/klang/QUELLEN.md`, `tools/schrift/QUELLEN.md` (Stand 07.11.; alle fremden Quellen, die wir besitzen, auch noch nicht eingebaute). Kommt eine Quelle hinzu: Name in seine Gruppe (Vorgang an Homer).
+
+`[623.dank.kopf]` Mit Dank an
+EN: With thanks to
+
+`[623.dank.satz]` Diese Chronik entstand nicht allein. Dank allen, deren Werk sie trägt: in Bild und Bewegung, Licht und Klang, Musik und Schrift.
+EN: This chronicle was not made alone. Our thanks to everyone whose work carries it: in image and motion, light and sound, music and type.
+
+`[623.dank.effekte]` Effekte: REEBOO Labs
+EN: Visual effects: REEBOO Labs
+
+`[623.dank.figuren]` Figuren, Tiere und Bewegung: Animated3D, Game Ready Studios, Janpec, MadeCG, Protofactor, Quaternius, rubberduck, wernerkurt, yughues
+EN: Characters, creatures and motion: (Namen wie oben)
+
+`[623.dank.dinge]` Dinge und Waffen: Anker's Assets, Avramania, MagicCGIStudios, Omie's Assets, PolyMech, Quaternius
+EN: Props and weapons: (Namen wie oben)
+
+`[623.dank.klang]` Klang: AlanCat, antumdeluge, arcadeparty, artisticdude, bart, bashar3a, betchkal, blukotek, bonebrah, Borgory, Breviceps, congusbongus, craigsmith, Defelozedd94, esperar, EZduzziteh, Gerent, haeldb, jaegrover, jaggedstone, jmehlferber, Joseph Sardin, Kenney, kingsrow, legit-audio, LilMati, magicjoshua, musicbrain, ondrosik, onehugeeye, owlishmedia, Paresh, Patrick_Corra, pauliuw, Pierre, qubodup, RandomMind, rubberduck, Sahand.Zangeneh, Sam Gossner, SkyRaeVoicing, syncopika, themightyglider, thimras, ValentinPetiteau, vehicle, vinrax, ZoshP – und allen, die ihre Aufnahmen bei BigSoundBank, Freesound und OpenGameArt teilen.
+EN: Sound: (Namen wie oben) – and everyone who shares their work on BigSoundBank, Freesound and OpenGameArt.
+
+`[623.dank.musik]` Musik: beardalaxy, carrieedick, cesisco, cleytonkauffman, cynicmusic, ElanHickler, eldritch-grim, emmama, Fission9, Flamiffer, jaggedstone, Kaiser (the-oracle), kindland, Kinoton, Magmi.Soundtracks, nene, nihilocrat, Paul Wortmann, RandomMind, rhayn, RutgerMuller, tinyworlds, trex0n, umplix, vitalezzz, yd
+EN: Music: (Namen wie oben)
+
+`[623.dank.schrift]` Schriften: Juan Pablo del Peral und Huerta Tipográfica (Alegreya), Brian J. Bonislawsky (Astigmatic, Fondamento)
+EN: Typefaces: Juan Pablo del Peral and Huerta Tipográfica (Alegreya), Brian J. Bonislawsky (Astigmatic, Fondamento)
+
+`[623.dank.engine]` Engine: Godot Engine – Juan Linietsky, Ariel Manzur und alle Mitwirkenden
+EN: Engine: Godot Engine – Juan Linietsky, Ariel Manzur and all contributors
+
 ## Ansage vor harten Schlägen (354.1)
 
 Klassischer Kampf, alle Klassen (354 a, Chef 24.10., 21:37). Die Zeile steht im Textfeld, bevor du wählst; der Gegner hält dazu die Ausholbewegung länger. Sie sagt, was kommt, nicht, was zu tun ist. Wann: Grak vor jeder „Lücke in deiner Deckung“ (1., 4., 7. … Zug, entfällt, wenn er einen Trank nimmt); Wildschwein und Krogg vor jedem Angriff bis zu ihrem ersten Treffer. Die Trefferzeilen danach bleiben (`Msg.martial`, `Msg.charge`, `Msg.brutal`). `{0}` = Name des Gegners wie im Kampf.
