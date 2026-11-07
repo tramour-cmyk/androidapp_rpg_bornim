@@ -123,6 +123,25 @@ def gueltig_pruefen(dat, stop, warn):
             if ks and not re.search(r"\b[A-G]\d\b|461", git("show", ":" + p)):
                 warn.append("%s: Vorlage zu einem Vorgang mit Kennung (%s), nennt aber keinen berührten Punkt A–G (461b)" % (p, ", ".join(ks)))
 
+TEILCHEN = re.compile(r"\b(GPUParticles[23]D|CPUParticles[23]D|ParticleProcessMaterial)\b")
+
+def effekt_ohne_liste(dat):
+    """623.3 (Chef 07.11., 623 E): neuer Shader (.gdshader) oder neuer Teilchenknoten in godot/, dessen Dateiname in LISTE-EFFEKTE.md
+    nicht vorkommt: Warnung; erst dort und in LISTE-BESTAND.md nachsehen (Bibliothek vor Eigenbau), dann eintragen."""
+    liste = ""
+    for k in ("/home/user/bornim-main/docs/LISTE-EFFEKTE.md", "docs/LISTE-EFFEKTE.md"):
+        if os.path.exists(k): liste = open(k, encoding="utf-8").read(); break
+    raus, tipp = [], "vorher dort und in LISTE-BESTAND.md nachsehen, dann Anlass, Effekt, Quelle und den Dateinamen eintragen (623 E)"
+    for s, p in dat:
+        if s == "D" or not p.startswith("godot/") or os.path.basename(p) in liste: continue
+        if s == "A" and p.endswith(".gdshader"):
+            raus.append("%s: neuer Shader ohne Zeile in LISTE-EFFEKTE.md; %s" % (p, tipp))
+        elif p.endswith((".gd", ".tscn", ".tres")):
+            neu = [z for z in git("diff", "--cached", "-U0", "--", p).splitlines() if z.startswith("+") and not z.startswith("+++")]
+            if any(TEILCHEN.search(z) for z in neu):
+                raus.append("%s: neuer Teilchenknoten ohne Zeile in LISTE-EFFEKTE.md; %s" % (p, tipp))
+    return raus
+
 def main():
     ge = git("diff", "--cached", "--name-status", "--no-renames").splitlines()
     dat = [(l.split("\t")[0], l.split("\t")[1]) for l in ge if "\t" in l]
@@ -132,6 +151,9 @@ def main():
     kauf = kaufdateien([(s, p) for s, p in dat if s != "D"])
     if kauf:  # 449: gekaufte Rohdateien nur im privaten Repo bornim-kaufmodelle, nie hier (CLAUDE.md „Fremde Inhalte“, 348.12c a)
         print("Commit-Prüfung HÄLT AN: gekaufte Rohdatei (%s); gehört nur ins private Repo bornim-kaufmodelle (449)" % "; ".join(kauf), file=sys.stderr); return 1
+    try:
+        for w in effekt_ohne_liste(dat): print("Commit-Prüfung Warnung: " + w, file=sys.stderr)  # 623.3 (623 E): nur Warnung
+    except Exception as e: print("Commit-Prüfung: 623.3 übersprungen (%s)" % e, file=sys.stderr)
     if not dat or not all(p.startswith("docs/") or p in ("CLAUDE.md", "CHANGELOG.md") or p.startswith("tools/") for _, p in dat):
         return 0
     stop, warn = [], []
