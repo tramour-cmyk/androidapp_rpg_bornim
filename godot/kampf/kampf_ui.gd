@@ -1863,7 +1863,8 @@ func _draw_switches(sr: Rect2) -> void:
 	var o := sq.size.x * 0.27
 	for e in [Vector2.ZERO, Vector2(-o, -o), Vector2(o, -o), Vector2(-o, o), Vector2(o, o)]:
 		overlay.draw_circle(c + e, 1.8 * dp, dc)
-	# 600: Tempo wie Würfel und Raster, ein bis drei Spitzen für Ruhig, Normal, Schnell; Gold, solange nicht Normal
+	# 600: Tempo wie Würfel und Raster, ein bis drei Spitzen für Ruhig, Normal, Schnell. t268.22 (Chef 07.11.: „Stufe 1 und 3 heller,
+	# Stufe 2 dunkler?“): kein Schalter mit an und aus, sondern ein Wert; jede Stufe gleich hell, nur die Zahl der Spitzen wechselt
 	tempo_rect = Rect2()
 	var links := sr.size.x - 100 * dp
 	if kampfort.tempo_knopf:
@@ -1871,8 +1872,8 @@ func _draw_switches(sr: Rect2) -> void:
 		links -= 48 * dp
 		var stufe: int = Bedienung.tempo
 		var tr := Rect2(tempo_rect.position + Vector2(4, 4) * dp, Vector2(s, s))
-		_chip(tr, Color.BLACK, GOLD if stufe != 1 else RIM, 1.0)
-		var tcol := Color(GOLD, 0.9 if stufe != 1 else 0.5)
+		_chip(tr, Color.BLACK, RIM, 1.0)
+		var tcol := Color(GOLD, 0.9)
 		var mitte := tr.get_center()
 		var hoch := tr.size.y * 0.2
 		var breit := tr.size.x * 0.13
