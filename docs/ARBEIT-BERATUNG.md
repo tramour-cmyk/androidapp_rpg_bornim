@@ -4,14 +4,15 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (05.11., 08:30, `session_01Hmoj77fDQKFgka1aM9nbNz`):** Chefrunde 04.11., 19:50 – 05.11., 08:30: 557 (Runde 5, 557a B, abgeschlossen), 558 abgeschlossen (558.1), t257 fertig und Build 257 auf main, 475 Lauf 1 nein, 576 gebilligt, 572 Film, 468e B, 571–579 angelegt, Projektplan 2.13–2.17 (Archiv). Offen beim Chef: 415d.1 nach Film 572. Kosten auf: 557, 558, 475, 572, 468, 579. Nachfolger: Sokrates – Chefrunde: 415d.1 nach Film 572 (nur auf Zuruf, 468e).
+**Übergabe (07.11., 14:4x, `session_01Hmoj76saGTQ5LicSQ4JBof`):** t266 und t268 ausgewertet und auf main, 589–620 angelegt, 592 so, 620 Stärken und Schwächen. Nachfolger: Sokrates – 620: Lagebild nach jeder Testrückmeldung.
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 475 | M | **von Team Tom (22:25):** 475 Lauf 2 vor dem Versand angehalten (576: Grün der Kapuze am Hals bei Garrick, Morwen); zwei neue Läufe frei? (480.1; Zu 475 in ARBEIT-TEAM-TOM) | startbar |
-| 512 | M | **von Chef (03.11., 23:28, „Kümmer du dich um 512.“; vorher Perikles):** Abgleich alt gegen neu wirkt nicht: Funde des Chefs in Build 249 (503, 519, 520, 521) | in Arbeit: wirkt nicht, Chef 16:56 t257 C: Gegnernamen, Zugkreis (561) wieder nicht verglichen; Abgleich je Schirm vor Build prüfen |
+| 512 | M | **von Chef (03.11., 23:28, „Kümmer du dich um 512.“; vorher Perikles):** Abgleich alt gegen neu wirkt nicht: Funde des Chefs in Build 249 (503, 519, 520, 521) | in Arbeit: geht in 620 auf (620.2, Testbitte gegenlesen) |
+| 620 | M | **von Chef (07.11., 14:3x, „nachhalten … umsetzen … ganz entscheidend“):** Stärken ausbauen, Schwächen verkleinern (`ROLLE-BERATUNG.md` Begründungen); 620.1, 620.2, 620.4 bei Perikles | Dauer: Lagebild und Wiederholquote nach jeder Testrückmeldung; Testbitte vor dem Versand gegenlesen |
 | 415d.1 | M | **von Chef (04.11., 19:56, „Brauchen wir das jetzt? Brauchen wir es nicht? Wir haben noch ganz viele Gegner, wir haben viele Zauber“):** Effektpakete jetzt kaufen, Einbau nach Bedarf | wartet auf Chef: entscheiden/415d1 |
 | 508 | M? | **von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5):** Einladung der Lehrmeister in Kapitel 1 erreichbar? (Simulation 444: keine Fertigkeit Geselle bis Stufe 6); Regelfrage: Magie-Kernfertigkeit Pflicht für Paladin und Kriegsmagier?; Wachsoldat startet mit Mittlerer, Wächter verlangt Schwere Rüstung | startbar |
 | 488 | M | **von Chef (02.11., 22:44, „dann frieren wir das mal ab einem gewissen Punkt ein … kümmern uns um wichtige Dinge, dass irgendwann das Spiel an sich fertig wird und ich durchspielen kann. Und dann können wir wieder polieren“):** Feinarbeit einfrieren | wartet auf Perikles: ja (Chef 03.11., 06:44, Archiv); Wochenziel nach Durchspielbarkeit (488 in ARBEIT-PROJEKT) |

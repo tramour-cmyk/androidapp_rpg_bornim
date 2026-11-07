@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (07.11., 13:04, Ford `session_01Hmoj762D9NBi6ATL3RQaWR`, Tiefe 0, Selbstneustart):** Getan 06.11.: Rückläufer t266 bei Jerry und Tom gebaut, Build 268 (603) zum Test beim Chef, 605 (Kopffeld, Befund t268) bei Tom; alle Entwicklersitzungen archiviert und gebucht. Bis Sa 20:00 (Zurücksetzung) kein Start (287, Woche über 95 %), außer Chefwort „jetzt“; ab 20:00 wieder nach Vorrat, Startauftrag immer mit Zeitrahmen und „danach weiter mit startbarem Muss“ (Chef 06.11., 08:27). Archiviersatz des Chefs gilt nur je Sitzung, beim Start neu holen. Sokrates-Sitzung des Chefs `76saGTQ5` (desktop) bleibt stehen. Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 620** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 621** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
