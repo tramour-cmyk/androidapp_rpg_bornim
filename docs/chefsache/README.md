@@ -31,10 +31,11 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 4, Muss 0, startbar 0
+**Homer** – offen 5, Muss 1, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 629 | M | von Team Tom (Chef 07.11., t268, 611: „Beim Klopfen an Türen steht nicht da, wessen Haus e | startbar |
 | 432 | K | von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt | ruht |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
@@ -132,7 +133,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 586 | K | von Chef über Jerry (05.11., 09:35; Zu 586): Bilder 557 einheitlich: Rast am Feuer und an | startbar |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 123512 Bytes (Grenze 15000), Erledigtes streichen; Tabellenz | startbar |
 
-**Jerry** – offen 56, Muss 47, startbar 30
+**Jerry** – offen 57, Muss 48, startbar 31
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -169,6 +170,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 304 | M | von Chef: Klassisch, Konter nach Abwehr regelrecht? | startbar |
 | 257 | M | von Chef: App „hängt“, ging dann weiter | ruht |
 | 211.14 | M | von Sokrates: Leistung am A56 messen | startbar |
+| 628 | M | von Team Tom (07.11., 21:47, aus 543): Lohn wie alt: over (Monsterstufe über Gebietsstufe, | startbar |
 | 289 | K | von Chef: MARS, verfügbare Züge zeigen | ruht |
 | 296.1 | K | von Sokrates: LISTE-MARS.md gegen den Code | startbar |
 | 296.2 | M | von Sokrates: MARS spielnötig | startbar |
