@@ -301,31 +301,24 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 40, Muss 31, startbar 20
+**Sokrates** – offen 32, Muss 24, startbar 16
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 475 | M | von Team Tom (22:25): 475 Lauf 2 vor dem Versand angehalten (576: Grün der Kapuze am Hals | startbar |
-| 512 | M | von Chef (03.11., 23:28, „Kümmer du dich um 512.“; vorher Perikles): Abgleich alt gegen ne | startbar |
 | 620 | M | von Chef (07.11., 14:3x, „nachhalten … umsetzen … ganz entscheidend“): Stärken ausbauen, S | startbar |
 | 623 | M | von Chef (07.11., 17:2x, elf REEBOO-Links): Effektpakete; „623 A B C D E F“ 20:1x (Archiv) | Chef |
 | 623.1 | M | von Chef (07.11.): Prüfschema auf bisher geprüfte Quellen anwenden (LISTE-CC0-MODELLE.md → | startbar |
 | 508 | M | von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5): | startbar |
-| 488 | M | von Chef (02.11., 22:44, „dann frieren wir das mal ab einem gewissen Punkt ein … kümmern u | wartet auf Perikles |
 | 461b.4 | M | von Perikles (deine Liste 461b, 02.11., 19:1x, Punkte 7, 9; Zu 461b.4): Köpfe der Design-D | startbar |
-| 468 | M | von Chef (02.11., 07:33, Bild „Nutzung“: 36 %): weiter mit Wächter bis Sa 19:59 (ja 11:13, | startbar |
-| 483 | M | von Chef (02.11., 19:08, „Das mit den Filmen klappt nicht, da ich konstant wieder Fehler a | wartet auf Perikles |
 | 481 | M | von Chef (02.11., 18:54, „Herkünfte auch“; 18:55 Kräutersammler mit Tränken, Zu 481): Herk | startbar |
 | 398 | M | von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr g | wartet auf Perikles |
 | 391 | M | von Chef (28.10., 09:21): Repos dauerhaft ohne Ablehnung | ruht |
 | 383.2 | M | von Chef (27.10., 19:24, Archiv): frisch gegen groß, klein gegen groß messen (442) | ruht |
 | 383 | M | von Chef (27.10., 17:44, „Sollen wir einfach aufhören damit?“; 17:47 Vorschlag „nicht grif | startbar |
-| 376 | M | von Chef (27.10., 12:00): Quaternius-Bausätze prüfen; Häuser leicht gedreht? | wartet auf Tom |
 | 374 | M | von Chef (27.10.): wer prüft 373? | startbar |
-| 348.12 | M | von Chef (25.10., 21:21, „b prüfen“): fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit | wartet auf Jerry |
 | 340.2 | M | von Chef (25.10., 10:16, Vorgangsarchiv 340): tools/rollenspiegel.sh <Rolle> zeigt nur Fra | wartet auf Perikles |
 | 348 | M | von Chef (24.10., 16:43; „jetzt“ 16:54): fertige Spiel-Engine statt Selbstbau? | ruht |
-| 26.1 | M | von Chef (24.10., 16:56): Durchspielbogen auswerten (Rest von 26) | wartet auf 348 (in Arbeit) |
+| 26.1 | M | von Chef (24.10., 16:56): Durchspielbogen auswerten (Rest von 26) | ruht |
 | 327 | K | von Chef (23.10., 00:08): Marktsichtung zweites Spiel (Denkspiele, ohne Werbung), vertraul | nach dem Meilenstein |
 | 347 | M | von Chef (24.10., 16:20; ja 16:30): Paket Regeltreue | startbar |
 | 318 | M | von Chef (22.10., 21:34): Antwortstil „Knapp“ und Anhang an die Systemanweisung, komplett | startbar |
@@ -339,12 +332,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 253 | K | von Chef (20.10.): „BornWire“ = Firmensachen in eigener Sitzung (Archiv 253) | ruht |
 | 72c | K | von Chef (19.10., 12:55): Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband | nach dem Meilenstein |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | startbar |
-| 142.3 | M | von Chef (27.10., 19:32): Tester öffentlich suchen | startbar |
+| 142.3 | M | von Chef (27.10., 19:32): Tester öffentlich suchen | ruht |
 | 142.4 | M | von Chef (07.11., 16:5x): Pflichttest sparen? Organisationskonto mit D-U-N-S | Chef (Datei in der Chefsache) |
 | 142 | M | Pflichttest Play Store (von Perikles); Store-Text „jede Entscheidung zählt“ prüfen (72a) | startbar |
-| 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | wartet auf 142 (startbar) |
+| 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | startbar |
 | 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | startbar |
-| D63.7 | K | von Diogenes (434, Vortag 01.11.): entscheiden/3761-kettenhemd-heldin.md (20:55) ohne Zeil | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
