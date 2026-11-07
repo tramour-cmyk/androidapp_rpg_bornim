@@ -30,6 +30,11 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
 
+## Lauf 75 · Auftrag 465 Chefsache „Seit“ mit Uhrzeit (Inventur Sokrates 07.11.; `main` nach `eff9081d9`; 07.11., 21:1x; `zug-index.py` auf einer Kopie mit vier Testvorlagen: ohne Wer und Zeit wie 474a, nur Datum, „21:2x“ in der Titelzeile, „09:4x“ ohne passenden Commit)
+
+- **Bestanden 465, 465.1:** alle vier Testvorlagen und alle echten (620.4, 620.1, 142.4, 623) zeigen Datum mit Uhrzeit; „x“ und reines Datum nehmen die Commit-Zeit, Wer und Zeit aus der Titelzeile werden erkannt und aus „Was“ entfernt.
+- **D77.1 (an Perikles):** nennt eine Vorlage keinen Absender (474a-Fall: weder Zeile 2 noch Titelzeile), bleibt „Wer“ leer, ohne Warnung in der Commit-Prüfung oder unter „Lücken“. Der Chef bemängelte bei 474a (02.11., 14:39) ausdrücklich auch „aber auch nicht wer“; die Uhrzeit ist behoben, das Fehlen von Wer nur, wenn der Absender irgendwo in Zeile 1 oder 2 steht.
+
 ## Lauf 74 · Auftrag 461d, 461, 461a Grundstand einsortiert (Inventur Sokrates 07.11.; `main` nach `8518c8817`; 07.11., 21:1x; alte Liste aus `fa43a030e^`, alle Zeilen A1–G3 mit `diff` gegen den Stand beim Einsortieren und gegen heute)
 
 - **Bestanden 461d:** alle 40 Punkte stehen genau einmal (A–D `DESIGN-STIL.md`, E–F `DESIGN-KAMPF.md`, G `DESIGN-ABNAHME.md`), beim Einsortieren wortgleich bis auf 4 Zeilen (C1, C3, D1 verweisen auf „Lebendige Welt“, E3 auf „Selbst prüfen“; ohne Sinnverlust); spätere Änderungen (A2, B1, C1, D3, E1, E6–E8) tragen Chefwort mit Zeit. `LISTE-GRUNDSTAND-461.md` ist nur Wegweiser, `DESIGN-HELDENBAU.md` als überholt markiert. **461:** Prüfung vor dem Versand verankert. **461a:** Tor gebaut, inzwischen durch 511 und 621 A abgelöst.

@@ -35,6 +35,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 341 | M | **von Chef (23.10., 09:39):** Zielvereinbarung Perikles, gegenprüfbar und nachhaltig (Zu 341) | startbar: Frist 06.11. vorbei, Probe jetzt bewerten (Inventur 07.11.) |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | startbar: Frist 06.11. vorbei, Probe jetzt bewerten (Inventur 07.11.) |
 | D74 | M? | **von Diogenes (07.11.):** `regelcheck.py` „Test ohne Datei“ meldet 21 von 27 falsch, Pflege-Zeilen melden sich selbst (Zu D74) | startbar |
+| D77 | M? | **von Diogenes (07.11., Lauf 75, Prüfbericht):** Chefsache-Vorlage ohne Absender zeigt „Wer“ leer ohne Warnung (D77.1, Rest von 474a); 465 sonst bestanden, Zeile schließen | startbar |
 | D76 | M? | **von Diogenes (07.11., Lauf 74, Prüfbericht):** `DESIGN-ABNAHME.md` „Vor jeder Vorlage“ noch mit Tor 461a und zwei Läufen statt 511 und 621 A (D76.1); Stichworte E1, E8 widersprechen 417a (D76.2); 461, 461a, 461d sonst bestanden, Zeilen schließen | startbar |
 | D75 | M? | **von Diogenes (07.11., Lauf 73, Prüfbericht):** Filmsperre 511 hat die Film-Pushes zu 572 nicht gezählt (D75.1); `meldung.sh --film` legte Film 572 nicht ab (D75.2, 483) | startbar |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`) |
