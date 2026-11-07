@@ -90,7 +90,8 @@ func _ready() -> void:
 	inhalt.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	inhalt.add_theme_constant_override("separation", 0)
 	rolle.add_child(inhalt)
-	spalte.add_child(Erschaffung.knopf(Sprache.u("close"), func(): zu.emit()))
+	# 618 (Chef 07.11., 22:21: „Zurück für alles“): was ins Spiel zurueckfuehrt, heisst „Zurück“ wie die Zurueck-Taste von Android
+	spalte.add_child(Erschaffung.knopf(Sprache.u("back"), func(): zu.emit()))
 	baue()
 
 var _gebaut := ""   # der Reiter, den baue() zuletzt zeigte
@@ -320,7 +321,7 @@ func frage_verteilen() -> void:
 	v.add_child(Erschaffung.txt("Das kann nicht rückgängig gemacht werden." if de else "This can't be undone.", 14, Stil.DIM))
 	var r := HBoxContainer.new()
 	r.add_theme_constant_override("separation", int(8 * DP))
-	r.add_child(Erschaffung.knopf("Nein" if de else "No", func(): schleier.queue_free()))
+	r.add_child(Erschaffung.knopf(abbrechen(), func(): schleier.queue_free()))   # 618: „Abbrechen“ verwirft, statt „Nein“
 	r.add_child(Erschaffung.knopf("Ja, verteilen" if de else "Yes, spend", func():
 		for a in geplant:
 			for i in int(geplant[a]): hw.steigern(a)   # Hero.applyPoints
@@ -485,7 +486,7 @@ func dialog(titel: String, farbe: Color, zeilen: Array, knoepfe: Array) -> Contr
 		for k in ks:
 			r.add_child(mach.call(k, b_breite))
 		v.add_child(r)
-	var ab := knoepfe.size() > 1 and String(knoepfe[-1][0]) in [abbrechen(), Sprache.u("close")]
+	var ab := knoepfe.size() > 1 and String(knoepfe[-1][0]) in [abbrechen(), Sprache.u("close"), Sprache.u("back")]
 	if ab:
 		if knoepfe.size() > 2:
 			reihe.call(knoepfe.slice(1, knoepfe.size() - 1))
@@ -852,7 +853,7 @@ func waehle(platz: String) -> void:
 			dialog(Beute.name(g), farbe_von(g), stueck_zeilen(g), [[Sprache.u("equip"), func(): meldung(lege_an(g, platz == "OFF_HAND" and String(Beute.grundform(String(g["base"]))["slot"]) != "OFF_HAND")); baue(), hw.kann_tragen(g)],
 				[Sprache.u("back"), func(): waehle(platz)]]))
 		zeilen.append(p)
-	schleier["k"] = dialog(platzname(platz), Stil.GOLD, zeilen, [[Sprache.u("close"), func(): pass]])
+	schleier["k"] = dialog(platzname(platz), Stil.GOLD, zeilen, [[Sprache.u("back"), func(): pass]])   # 618
 
 # 557 Entwurf B: ganzer Schirm schwarz, Titel ohne Rahmen mit Zierlinie, oben was angelegt ist (nur Auskunft, ohne „›“), darunter je
 # Stueck eine Zeile zwischen feinen Goldlinien, ueber die ganze Breite antippbar (mindestens 56 dp, dunkel beim Antippen): links das
@@ -1345,7 +1346,7 @@ func tippe_fach(platz: String) -> void:
 	if g == null: waehle(platz); return
 	var k: Array = [[Sprache.u("unequip"), func(): lege_ab(platz); baue()]]
 	if not passend(platz).is_empty(): k.append(["Wechseln" if de else "Swap", func(): waehle(platz)])
-	k.append([Sprache.u("close"), func(): pass])
+	k.append([abbrechen(), func(): pass])   # 618: angelegtes Stueck „Abbrechen“ statt „Schließen“
 	dialog(Beute.name(g), farbe_von(g), stueck_zeilen(g), k)
 
 # ---------------------------------------------------------------- System (SystemSigns)
