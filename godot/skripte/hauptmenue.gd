@@ -330,7 +330,11 @@ func hinweis(t: String) -> void:
 	l.offset_bottom = -48 * DP; l.offset_top = l.offset_bottom - l.get_combined_minimum_size().y
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(l)
-	get_tree().create_timer(3.0).timeout.connect(func(): if is_instance_valid(l): l.queue_free())
+	# 574: der Zeitgeber haelt die Zeile nur schwach; schliesst der Schirm vorher, ist sie einfach weg („Lambda capture … was freed“)
+	var schwach: WeakRef = weakref(l)
+	get_tree().create_timer(3.0).timeout.connect(func():
+		var ll = schwach.get_ref()
+		if ll != null: ll.queue_free())
 
 # 399.1 Erschaffung wie alt (erschaffung.gd): eine Seite ueber dem Menue; Zurueck fuehrt ins Hauptmenue. ziel: Platz aus den
 # Spielstaenden, sonst der erste freie

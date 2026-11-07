@@ -24,7 +24,9 @@ static func speichere(z: Zustand, hw: Heldwerte, ort: Dictionary) -> void:
 	var f := FileAccess.open(datei(platz), FileAccess.WRITE)
 	if f == null: return
 	f.store_string(JSON.stringify({"version": 1, "zustand": z.als_daten(), "held": hw.als_daten(), "ort": ort,
-		"gespeichert": int(Time.get_unix_time_from_system() * 1000.0)}))   # ms wie alt savedAt
+		"gespeichert": int(Time.get_unix_time_from_system() * 1000.0),   # ms wie alt savedAt
+		# 529: die Ortszeit beim Speichern; die Karte zeigt sie, so stimmt „Gespeichert“ auch nach einer Zeitumstellung
+		"gespeichert_ortszeit": Time.get_datetime_dict_from_system(false)}))
 
 # n = 0: der zuletzt gespeicherte; den Platz zum aktiven macht spiel.gd (Spielstand.platz)
 static func lade(n: int = 0) -> Dictionary:

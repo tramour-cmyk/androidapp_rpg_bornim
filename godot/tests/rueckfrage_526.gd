@@ -29,6 +29,8 @@ func schleier_von(n: Node) -> ColorRect:
 	return s
 
 func kasten_in(s: Node) -> Control:
+	# 557 Stil B: Rueckfragen ohne Kasten; was Rueckfrage.halte haelt, ist der Kasten (sonst traefe der erste Knopf)
+	for c in s.find_children("*", "Control", true, false): if c.has_meta("haelt"): return c
 	for c in s.find_children("*", "PanelContainer", true, false): return c
 	return null
 
