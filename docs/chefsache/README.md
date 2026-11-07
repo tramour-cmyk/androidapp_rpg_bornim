@@ -45,10 +45,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 105, Muss 78, startbar 32
+**Tom** – offen 106, Muss 79, startbar 33
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 625 | M | von Sokrates (Chef 07.11., 20:5x: „Das Größenlimit von 6 Sachen pro Build heben wir auf … | startbar |
 | 605 | M | von Ford (Chef 06.11., 21:22, Test Build 268, Bild; Zu 605): Ausrüstung, leeres Kopffeld → | startbar |
 | 580 | M | von Tom (Abgleich 512b, Prüfer 08:17): Erschaffung Punktekauf: Attributnamen abgeschnitten | wartet auf Test/Build (gebaut) |
 | 581 | M | von Tom (Abgleich 512b): Reiter Ausrüstung: Seite 16 px breiter als der Schirm (Rand 11 st | startbar |
@@ -241,11 +242,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 41238 Bytes (Grenze 15000), Erledigtes streichen; Zeile 551 | startbar |
 
-**Perikles** – offen 26, Muss 20, startbar 7
+**Perikles** – offen 27, Muss 21, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 623.3 | M | von Sokrates (Chef 07.11., 20:1x, „623 … E“; Archiv 623): Commit-Prüfung warnt bei neuem E | wartet auf Test/Build (gebaut) |
+| 317.1 | M | von Sokrates (Chef 07.11., 20:5x, Archiv „317, keine Obergrenze je Build“): startbar.py (Z | startbar |
 | 620.1 | M | von Sokrates (Chef 07.11., 14:3x, 620; Zu 620): wiederholte Funde des Chefs vor jedem Neue | Chef (Datei in der Chefsache) |
 | 621.1 | M | von Sokrates (Chef 07.11., 16:4x, „621, A, B und D“; Archiv 621): Probenregel A (eine Prob | wartet auf Test/Build (gebaut) |
 | 620.2 | M | von Sokrates (Chef 07.11., 14:3x, 620, 512; Zu 620): Abgleich alt einmal je Ort und Figur | startbar |
