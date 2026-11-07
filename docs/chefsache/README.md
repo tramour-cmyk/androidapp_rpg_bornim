@@ -46,7 +46,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 625 | M | von Sokrates (Chef 07.11., 20:5x: „Das Größenlimit von 6 Sachen pro Build heben wir auf … | startbar |
+| 625 | M | von Sokrates („jetzt“ 07.11., 20:54; Zu 625): Sammelbuild 269 wie 603: alle fertigen Zweig | startbar |
 | 605 | M | von Ford (Chef 06.11., 21:22, Test Build 268, Bild; Zu 605): Ausrüstung, leeres Kopffeld → | startbar |
 | 581 | M | von Tom (Abgleich 512b): Reiter Ausrüstung: Seite 16 px breiter als der Schirm (Rand 11 st | startbar |
 | 583 | M | von Tom (Abgleich 512b): Textkasten: ▼ liegt im Text („Sammel▼“), erzählter Text ohne i-Pu | startbar |
@@ -200,7 +200,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 616 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu t268): Gegner weichen nach dem Angriff rückwärt | wartet auf 478 (startbar) |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 37969 Bytes (Grenze 15000), Erledigtes streichen; Zeile 494 | startbar |
 
-**Perikles** – offen 28, Muss 21, startbar 8
+**Perikles** – offen 29, Muss 21, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -230,10 +230,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 341 | M | von Chef (23.10., 09:39): Zielvereinbarung Perikles, gegenprüfbar und nachhaltig (Zu 341) | startbar |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | startbar |
 | D74 | M? | von Diogenes (07.11.): regelcheck.py „Test ohne Datei“ meldet 21 von 27 falsch, Pflege-Zei | startbar |
+| D75 | M? | von Diogenes (07.11., Lauf 73, Prüfbericht): Filmsperre 511 hat die Film-Pushes zu 572 nic | startbar |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 16285 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Diogenes** – offen 20, Muss 18, startbar 14
+**Diogenes** – offen 20, Muss 18, startbar 12
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -249,10 +250,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 512b | M | von Sokrates (Chef 04.11., 19:21: „512b ja“; chefsache/entscheiden/512b-nachweis.md in Git | startbar |
 | 512.1 | M | von Perikles (Doppelpack 421, 04.11., 14:0x, bdf83b0f6): commit-pruefung.py warnt bei neue | startbar |
 | 512 | M | von Perikles (Doppelpack 421, 03.11., 16:0x, e823b0ee7): Abgleich alt/neu vor jeder Testbi | startbar |
-| 511 | M | von Perikles (Doppelpack 421, 03.11., 14:0x, d6d9eca8c): Filmsperre probelauf.py am ersten | startbar |
+| 511 | M | von Perikles (Doppelpack 421, 03.11., 14:0x, d6d9eca8c): Filmsperre probelauf.py am ersten | wartet auf Perikles |
 | 340.2 | M | von Sokrates (Chef 02.11., 19:44, „340.2 ja“, Archiv): Wirkung 340.3–340.5 zählen (Tabelle | ruht bis 09.11. |
 | 485 | M | „jetzt“ 02.11., 19:37 (Chef: „1, 2, 3 ja, fang an.“): (1) Wochentermine „gelaufen ja/nein“ | ruht bis 09.11. |
-| 483 | M | von Perikles (Doppelpack 421, 02.11., 19:4x): meldung.sh --film legt je Film einen Zweig f | startbar |
+| 483 | M | von Perikles (Doppelpack 421, 02.11., 19:4x): meldung.sh --film legt je Film einen Zweig f | wartet auf Perikles |
 | 461b | M | von Sokrates (Chef 01.11., 22:26, „461b ja“, Archiv): Kennzahl Widersprüche: montags Stich | ruht bis 09.11. |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24): Umzug Godot: jedes Vergleichsbild alt/neu messen, | startbar |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
