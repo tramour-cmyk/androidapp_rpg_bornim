@@ -42,7 +42,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 87, Muss 65, startbar 50
+**Tom** – offen 87, Muss 65, startbar 49
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -118,7 +118,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 617 | M | von Sokrates (Chef 07.11., 14:1x, t268.1; Zu 606–619): Hauptmenü „Laden“: Wischen lädt; nu | wartet auf Test/Build (gebaut) |
 | 619 | M | von Sokrates (Chef 07.11., 14:1x, t268.18; Zu 606–619): Aktionsknopf drückt die Blende gle | startbar |
 | 607 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Pim läuft um 3 Uhr herum, sein Klopft | startbar |
-| 608 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): durchsichtiges Haus macht innen Licht | startbar |
+| 608 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): durchsichtiges Haus macht innen Licht | wartet auf Test/Build (gebaut) |
 | 610 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Finger am Stab zucken im Dorf (Schild | startbar |
 | 615 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Kamera um den Helden als Fixpunkt, ni | wartet auf Test/Build (gebaut) |
 | 611 | M | von Sokrates (Chef 07.11., 14:1x, t268, 268.8; Zu 606–619): Klopfen deutlicher, wessen Hau | startbar |
