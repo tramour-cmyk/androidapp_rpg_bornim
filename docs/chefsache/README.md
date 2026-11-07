@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [620.1](entscheiden/6201-wiederholte-funde.md) | **Muss** | B Abläufe | 07.11., 21:02 | Grenze angefangener Arbeit je Team (B) | Perikles |
-| [626](entscheiden/626-alte-zeilen.md) | **Muss** | B Abläufe | 07.11., 20:58 | Alte Zeilen aus SRD-Zeit und Umzug: streichen oder übernehmen | Sokrates |
 | [142.4](entscheiden/1424-organisationskonto.md) | **Muss** | M Veröffentlichung | 07.11., 17:10 | Bestehendes Konto auf Organisation umstellen statt Pflichttest | Sokrates |
 
 ## Zu billigen
@@ -234,12 +233,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 16530 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Diogenes** – offen 20, Muss 18, startbar 12
+**Diogenes** – offen 20, Muss 18, startbar 11
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 620.1 | M | von Perikles (Doppelpack 421, 07.11., 21:0x, 8518c8817): startbar.hochstufen stellt Zeilen | Chef (Datei in der Chefsache) |
-| 317.1 | M | von Perikles (Doppelpack 421, 07.11., 21:0x, 12837c9c3): keine Obergrenze 6 je Build mehr | startbar |
+| 317.1 | M | von Perikles (Doppelpack 421, 07.11., 21:0x, 12837c9c3): keine Obergrenze 6 je Build mehr | ruht |
 | 461d | M | von Sokrates (Inventur 07.11.): Perikles meldet „gebaut, Diogenes prüft“, hier fehlte die | startbar |
 | 461 | M | von Sokrates (Inventur 07.11.): wie 461d (Grundstand-Checkliste) | startbar |
 | 461a | M | von Sokrates (Inventur 07.11.): wie 461d | startbar |
@@ -264,7 +263,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 620 | M | von Chef (07.11., 14:3x, „nachhalten … umsetzen … ganz entscheidend“): Stärken ausbauen, S | startbar |
-| 626 | M | von Chef (07.11., Inventur): alte SRD-Zeilen streichen oder in 478 | Chef (Datei in der Chefsache) |
+| 626 | M | von Chef (07.11., Inventur): alte SRD-Zeilen streichen oder in 478 | ruht (424: altes SRD-System) |
 | 623 | M | von Chef (07.11., 17:2x, elf REEBOO-Links): Effektpakete; „623 A B C D E F“ 20:1x (Archiv) | Chef |
 | 623.1 | M | von Chef (07.11.): Prüfschema auf bisher geprüfte Quellen anwenden (LISTE-CC0-MODELLE.md → | startbar |
 | 508 | M | von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5): | startbar |
