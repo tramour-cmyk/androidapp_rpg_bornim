@@ -151,10 +151,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 586 | K | von Chef über Jerry (05.11., 09:35; Zu 586): Bilder 557 einheitlich: Rast am Feuer und an | startbar |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 121550 Bytes (Grenze 15000), Erledigtes streichen; Tabellenz | startbar |
 
-**Jerry** – offen 79, Muss 65, startbar 19
+**Jerry** – offen 79, Muss 65, startbar 20
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 478 | M | von Sokrates (Chef 07.11., 16:3x: „Wir packen das BRS auf jeden Fall jetzt auch mit dazu“; | startbar |
 | 572 | M | von Sokrates (Chef 04.11., 20:27; „jetzt“ 04.11., 20:27; Zu 572): Effektprobe vor dem Kauf | Chef |
 | 565 | M | von Sokrates (Chef 04.11., 17:10, t257 Bereich C, Bild; Zu 565): im Gruppenkasten unten is | startbar |
 | 562 | M | von Sokrates (Chef 04.11., 17:02, t257 Bereich C; Zu 562 und 563): Helden gehen zum Angrif | startbar |
@@ -167,7 +168,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 534 | M | von Sokrates (512; Zu 534): Kampf: Zauber und Fähigkeiten fehlen in „Können“ oder wirken n | wartet auf Test (Build) |
 | 535 | M | von Sokrates (512; Zu 535): Kampf: Gegnerstufe, Elite, schimmernde Gegner, Gruppen, EP und | wartet auf Test/Build (gebaut) |
 | 536 | M | von Sokrates (512; Zu 527–536): Kampf: Erklärungen bei langem Drücken (MarsTips) und Klein | startbar |
-| 478 | M | von Sokrates (Chef 02.11., 17:59 „470a C“): Rechenkern des Kampfs in Stufe 1 auf BRS (Mode | ruht |
 | 481.1 | M | von Sokrates (427): Tränke in sim444, Herkünfte neu messen, Zahlen an Sokrates | wartet auf Test/Build (gebaut) |
 | 467 | M | von Sokrates (Chef 01.11., 21:52): regeln/ausdauer.gd rechnet nach SRD; BRS: Ausdauer aus | wartet auf Sokrates |
 | 438 | M | von Sokrates (Chef 31.10., 23:31, Film 403): Wölfe gleiten (Angriff, Tempo, aneinander vor | wartet auf Test/Build (gebaut) |
@@ -235,10 +235,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 40483 Bytes (Grenze 15000), Erledigtes streichen; Zeile 588 | startbar |
 
-**Perikles** – offen 34, Muss 28, startbar 8
+**Perikles** – offen 35, Muss 29, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 478 | M | von Sokrates (Chef 07.11., 16:3x, „BRS auf jeden Fall jetzt auch mit dazu“; Archiv „478 je | startbar |
 | 620.1 | M | von Sokrates (Chef 07.11., 14:3x, 620; Zu 620): wiederholte Funde des Chefs vor jedem Neue | startbar |
 | 620.2 | M | von Sokrates (Chef 07.11., 14:3x, 620, 512; Zu 620): Abgleich alt einmal je Ort und Figur | startbar |
 | 620.4 | M | von Sokrates (Chef 07.11., 14:3x, 620; Zu 620): Referenzszene Dorf bis Wolfskampf im Flüst | startbar |
