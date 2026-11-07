@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [620.4](entscheiden/6204-referenzszene.md) | **Muss** | B Abläufe | 07.11., 21:11 | Referenzszene Dorf bis Wolfskampf: Umfang, Abnahme, Zeitpunkt | Perikles |
 | [620.1](entscheiden/6201-wiederholte-funde.md) | **Muss** | B Abläufe | 07.11., 21:02 | Grenze angefangener Arbeit je Team (B) | Perikles |
 | [142.4](entscheiden/1424-organisationskonto.md) | **Muss** | M Veröffentlichung | 07.11., 17:10 | Bestehendes Konto auf Organisation umstellen statt Pflichttest | Sokrates |
 
@@ -41,7 +42,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 88, Muss 64, startbar 52
+**Tom** – offen 85, Muss 63, startbar 52
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -74,7 +75,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 431 | M | von Sokrates (Chef 31.10., 22:0x): Völker als Modelle: erst Bibliothek sichten (408), Kand | ruht |
 | 416.8 | M | von Sokrates (Chef 31.10., 20:5x, allgemeiner Hinweis): NPC dreht sich bei Interaktion zum | startbar |
 | 416.4 | M | von Sokrates (Chef 31.10., 20:4x): Rennen des Helden wirkt „als würde er Hochsprung machen | startbar |
-| 410 | M | von Sokrates (Chef 29.10., 10:52, 11:40; aus 376.1): Waffen am Körper wegstecken, alle Waf | ruht |
 | 376.1 | M | von Sokrates (Archiv 376): Quaternius-Figuren | ruht |
 | 455.1 | M | von Sokrates (Chef 01.11., 11:24, „Abzug von … unterschiedlichen Roben, Umhängen oder Stie | ruht |
 | 499 | M | von Sokrates (Chef 03.11., 07:14, Build 204; „jetzt“ 03.11., 07:14; Zu 499): Erschaffung: | wartet auf 513 (ruht) |
@@ -101,7 +101,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 302.3 | M | von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3): Intro und Outro mit Tusche, etwas | ruht |
 | 302.2 | K | von Chef über Sokrates (22.10., 23:50): Tusche auf der Gebietskarte | ruht |
 | 302.1 | M | von Sokrates (Vorgangsarchiv 302.1; 338 b): Tuschelinie für Menschengestalten (Zu 302.1) | ruht |
-| 292.2 | K | von Chef (21.10., 22:28): Hauptmenü: seltene, gute Bewegung je Klasse (Zu 292.2) | ruht |
 | 292.4 | K | aus 292.3: Hauptmenü B am Feuer: Feuerlicht, Animation, Klang (Zu 292.4) | ruht |
 | 356.2 | K | von Perikles (Chef über Sokrates 24.10., 21:33, „356b … Folge der Empfehlung“; Anschlagbre | startbar |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
@@ -129,12 +128,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 623.6 | M | von Sokrates (Chef 07.11., 20:2x: „Holst du dir die Gratisamples zum Testen?“; 623 B1, D): | startbar |
 | 624 | M | von Sokrates (Chef 07.11., 17:5x: „das wäre auch gut, wenn die Anzeige dann ein bisschen g | startbar |
 | 622 | M | von Sokrates (07.11., aus 142.4; Chef 17:1x: „Wir hatten da schon doch was hochgeladen, wa | startbar |
-| 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | 586 | K | von Chef über Jerry (05.11., 09:35; Zu 586): Bilder 557 einheitlich: Rast am Feuer und an | startbar |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 123063 Bytes (Grenze 15000), Erledigtes streichen; Tabellenz | startbar |
 
-**Jerry** – offen 60, Muss 48, startbar 26
+**Jerry** – offen 55, Muss 45, startbar 29
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -167,25 +165,20 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 387 | M | von Sokrates (Chef 21:27): gekaufte Tiere prüfen, vor Eigenbau | ruht |
 | 385.2 | M | von Chef: Feuer aus dem Stab | wartet auf 623.2 (wartet) |
 | 397 | M | von Chef: Tiere, Monster mind. drei Ruhebewegungen | ruht |
-| 348.12c | M | von Sokrates: Untote und Gewürm übernehmen Fähigkeiten der Vorgänger | ruht |
-| 390 | M | von Perikles: Funktionen ohne Bild | ruht |
-| 304 | M | von Chef: Klassisch, Konter nach Abwehr regelrecht? | ruht |
+| 348.12c | M | von Sokrates: Untote und Gewürm übernehmen Fähigkeiten der Vorgänger | startbar |
+| 304 | M | von Chef: Klassisch, Konter nach Abwehr regelrecht? | startbar |
 | 257 | M | von Chef: App „hängt“, ging dann weiter | ruht |
 | 211.14 | M | von Sokrates: Leistung am A56 messen | startbar |
-| 249 | M | von Chef: MARS wie der klassische Kampf | ruht |
 | 289 | K | von Chef: MARS, verfügbare Züge zeigen | ruht |
 | 296.1 | K | von Sokrates: LISTE-MARS.md gegen den Code | startbar |
-| 296.2 | M | von Sokrates: MARS spielnötig | ruht |
+| 296.2 | M | von Sokrates: MARS spielnötig | startbar |
 | 296.3 | K | von Sokrates: MARS-Schmuck | startbar |
 | 344.2 | K | von Sokrates: Kampf mit der Fackel | ruht |
 | 168.1 | K | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab 3 | wartet auf 38 (wartet) |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte | ruht |
-| 133 | K | Umsetzung 133: Charisma-Proben, Erfahrung für Konflikte | ruht |
-| 212 | M | Umsetzung 212: Schalter MARS oder klassisch | ruht |
 | 38 | M | Balance Kapitel 1 gemessen | startbar |
 | 39 | M | Schwierigkeitsgrad im Menü | ruht |
 | 59e | K | Händler: Vorrat je Laden | ruht |
-| 19 | K | Zeitablauf der Kampfbewegungen | ruht |
 | 469 | M | von Sokrates: Kampf auf BRS: Ring ohne Klassen regeln | startbar |
 | 597 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Ring ohne Ankündigung (Fledermaus); alle An | startbar |
 | 601 | M | von Sokrates (Chef 05.11., 19:2x, t266.5; Zu 594–601): Goblin-Späher: Schuss ohne Bewegung | startbar |
@@ -199,7 +192,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 616 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu t268): Gegner weichen nach dem Angriff rückwärt | wartet auf 478 (startbar) |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 37938 Bytes (Grenze 15000), Erledigtes streichen; Zeile 494 | startbar |
 
-**Perikles** – offen 29, Muss 21, startbar 9
+**Perikles** – offen 29, Muss 21, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -209,7 +202,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 620.1 | M | von Sokrates (Chef 07.11., 14:3x, 620; Zu 620): wiederholte Funde zuerst, Grenze offener M | Chef (Datei in der Chefsache) |
 | 621.1 | M | von Sokrates (Chef 07.11., 16:4x, „621, A, B und D“; Archiv 621): Probenregel A (eine Prob | wartet auf Test/Build (gebaut) |
 | 620.2 | M | von Sokrates (Chef 07.11., 14:3x, 620, 512; Zu 620): Abgleich alt einmal je Ort und Figur | startbar |
-| 620.4 | M | von Sokrates (Chef 07.11., 14:3x, 620; Zu 620): Referenzszene Dorf bis Wolfskampf im Flüst | startbar |
+| 620.4 | M | von Sokrates (Chef 07.11., 14:3x, 620; Zu 620): Referenzszene Dorf bis Wolfskampf im Flüst | Chef (Datei in der Chefsache) |
 | 549a.1 | M? | von Sokrates (549a ja, Chef 04.11., 19:28): ROLLE-ENTWICKLUNG.md Start 2: wer Menüschirm o | wartet auf Test/Build (gebaut) |
 | 512b | M | von Sokrates (Chef 04.11., 19:21: „512b ja“; chefsache/entscheiden/512b-nachweis.md in Git | wartet auf Test/Build (gebaut) |
 | 512.1 | M? | von Sokrates (512, Chef 03.11., 23:28, „Kümmer du dich um 512.“): Regel „Abgleich“ wirkt n | wartet auf Test/Build (gebaut) |
@@ -258,12 +251,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 33, Muss 24, startbar 17
+**Sokrates** – offen 32, Muss 23, startbar 17
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 620 | M | von Chef (07.11., 14:3x, „nachhalten … umsetzen … ganz entscheidend“): Stärken ausbauen, S | startbar |
-| 626 | M | von Chef (07.11., Inventur): alte SRD-Zeilen streichen oder in 478 | ruht (424: altes SRD-System) |
 | 623 | M | von Chef (07.11., 17:2x, elf REEBOO-Links): Effektpakete; „623 A B C D E F“ 20:1x (Archiv) | Chef |
 | 623.1 | M | von Chef (07.11.): Prüfschema auf bisher geprüfte Quellen anwenden (LISTE-CC0-MODELLE.md → | startbar |
 | 508 | M | von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5): | startbar |

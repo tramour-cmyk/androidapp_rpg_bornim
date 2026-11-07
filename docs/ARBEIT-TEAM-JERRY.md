@@ -40,25 +40,20 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere prüfen, vor Eigenbau | ruht: Feintuning nach 399 (Hühner hoppeln, Rind 78 s Fleck, 150°-Sprung) |
 | 385.2 | M | **von Chef:** Feuer aus dem Stab | wartet auf 623.2 (Stylized Projectiles; Inventur 07.11.) | – |
 | 397 | M | von Chef: Tiere, Monster mind. drei Ruhebewegungen | ruht (399) | – |
-| 348.12c | M | von Sokrates: Untote und Gewürm übernehmen Fähigkeiten der Vorgänger | ruht: SRD (Chef 31.10.) | – |
-| 390 | M | von Perikles: Funktionen ohne Bild | ruht: SRD (Chef 31.10.) | `claude/jerry-348-kampf` |
-| 304 | M | von Chef: Klassisch, Konter nach Abwehr regelrecht? | ruht: SRD (Chef 31.10.) | – |
+| 348.12c | M | von Sokrates: Untote und Gewürm übernehmen Fähigkeiten der Vorgänger | wartet auf 478: dort mitbauen (626) | – |
+| 304 | M | von Chef: Klassisch, Konter nach Abwehr regelrecht? | wartet auf 478: dort mitbauen (626) | – |
 | 257 | M | von Chef: App „hängt“, ging dann weiter | ruht: Hänger-Wächter (Tom) seit Build 49; bis zum nächsten Hänger mit Absturzbericht | – |
 | 211.14 | M | von Sokrates: Leistung am A56 messen | startbar (Inventur 07.11.) | – |
-| 249 | M | von Chef: MARS wie der klassische Kampf | ruht: SRD (Chef 31.10.) | – |
 | 289 | K | von Chef: MARS, verfügbare Züge zeigen | ruht: Chef 21.10., 20:59 „stellen wir mal zurück“ | – |
 | 296.1 | K | von Sokrates: `LISTE-MARS.md` gegen den Code | startbar (Inventur 07.11.) | – |
-| 296.2 | M | von Sokrates: MARS spielnötig | ruht: SRD (Chef 31.10.) | `claude/build-89` |
+| 296.2 | M | von Sokrates: MARS spielnötig | wartet auf 478: dort mitbauen (626) | `claude/build-89` |
 | 296.3 | K | von Sokrates: MARS-Schmuck | startbar (Inventur 07.11.) | – |
-| 344.2 | K | von Sokrates: Kampf mit der Fackel | ruht: SRD (Chef 31.10.) | `claude/jerry-344-2-fackel` |
+| 344.2 | K | von Sokrates: Kampf mit der Fackel | ruht: nach dem Durchspielen (626) | `claude/jerry-344-2-fackel` |
 | 168.1 | K | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab 3 | wartet auf 38, dann Bau Kapitel 2; Texte Homer (41) | – |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte | ruht bis 348.7 (Kampfort in Godot); Kür hinter dem Meilenstein (Chef 19.10.) | `claude/jerry-72u-standbild-2` |
-| 133 | K | Umsetzung 133: Charisma-Proben, Erfahrung für Konflikte | ruht: SRD (Chef 31.10.) | – |
-| 212 | M | Umsetzung 212: Schalter MARS oder klassisch | ruht: SRD (Chef 31.10.) | – |
 | 38 | M | Balance Kapitel 1 gemessen | wartet auf 478: dort mitbauen (Inventur 07.11.) | – |
-| 39 | M | Schwierigkeitsgrad im Menü | ruht: SRD (Chef 31.10.) | `claude/jerry-39-schwierigkeit` |
-| 59e | K | Händler: Vorrat je Laden | ruht: SRD (Chef 31.10.) | `claude/jerry-59e-haendlervorrat` |
-| 19 | K | Zeitablauf der Kampfbewegungen | ruht: SRD (Chef 31.10.) | – |
+| 39 | M | Schwierigkeitsgrad im Menü | ruht bis 2.5 (626) | `claude/jerry-39-schwierigkeit` |
+| 59e | K | Händler: Vorrat je Laden | ruht: nach dem Durchspielen (626) | `claude/jerry-59e-haendlervorrat` |
 | 469 | M | **von Sokrates:** Kampf auf BRS: Ring ohne Klassen regeln | wartet auf 478: dort mitbauen (Inventur 07.11.) | – |
 | 597 | M | **von Sokrates (Chef 05.11., 19:2x; Zu 594–601):** Ring ohne Ankündigung (Fledermaus); alle Angreifer prüfen | startbar: t268.21 Wolf ohne Ansage, nachstellen (Zu t268) | `claude/jerry-597-ring` |
 | 601 | M | **von Sokrates (Chef 05.11., 19:2x, t266.5; Zu 594–601):** Goblin-Späher: Schuss ohne Bewegung, falscher Pfeil, kein Pfeil beim Fehlschuss; Treffer trotz Schatten | startbar (Inventur 07.11.) | `claude/jerry-601-spaeher` |
