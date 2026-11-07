@@ -44,6 +44,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | 304 | M | von Chef: Klassisch, Konter nach Abwehr regelrecht? | wartet auf 478: dort mitbauen (626) | – |
 | 257 | M | von Chef: App „hängt“, ging dann weiter | ruht: Hänger-Wächter (Tom) seit Build 49; bis zum nächsten Hänger mit Absturzbericht | – |
 | 211.14 | M | von Sokrates: Leistung am A56 messen | startbar (Inventur 07.11.) | – |
+| 628 | M | **von Team Tom (07.11., 21:47, aus 543):** Lohn wie alt: `over` (Monsterstufe über Gebietsstufe, alt `Game.startBattle` 1268, `Battle.finishWin` 1067) geht nie in `Lohn.reward` (`kampfort.gd` 1196, immer 0); vor dem Bau klären, ob BRS (478) es ersetzt | startbar | – |
 | 289 | K | von Chef: MARS, verfügbare Züge zeigen | ruht: Chef 21.10., 20:59 „stellen wir mal zurück“ | – |
 | 296.1 | K | von Sokrates: `LISTE-MARS.md` gegen den Code | startbar (Inventur 07.11.) | – |
 | 296.2 | M | von Sokrates: MARS spielnötig | wartet auf 478: dort mitbauen (626) | `claude/build-89` |
