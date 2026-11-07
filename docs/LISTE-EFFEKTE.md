@@ -61,6 +61,6 @@ Vorgang 623, Sokrates, angelegt 07.11. (Chef 07.11., 17:2x). Hier steht **je Anl
 | Steinkreis (Jorins Auftrag) | Runen glimmen | R11 Glowing Runes | Vorschlag |
 | Blutzahnhöhle | Teich, Tropfen, Kristalle, Fels | R10 pond, R4 Crystal Growth, R11 Stylized Rock | Vorschlag (507, 492) |
 | Wetter je Ort | Regen, Sturm mit Blitz, Nebel; ein Wind für Gras, Bäume, Klang | R8, R9; Klang 598 | Frage (neues Spielgefühl) |
-| Bach, Fluss | eigener Shader bleibt (`wasser.gdshader`, wie alt) | eigen | gilt |
-| Gras | eigener Shader bleibt, Ausweichen und Böen aus R9 dazu | eigen + R9 | Vorschlag |
+| Bach, Fluss | Fluss des Kits statt `wasser.gdshader`, wenn die Probe am Dorfbach besser ist (Chef 07.11.: „ernsthaft etwas besser“) | R10 river | Vorschlag (Probe) |
+| Gras, Blumen | Gräser, Blumen, Windrichtungen, Ausweichen des Kits statt `halm.gdshader`, wenn die Probe im Flüsterwald besser ist (Chef 07.11.: „sah schon wirklich sehr gut aus“) | R9 | Vorschlag (Probe) |
 | Lagerfeuer (Garrick), Kamin | eigene Flamme bleibt (Signatur), Funken und Rauch dazu | eigen + R7 campfire | Vorschlag |
