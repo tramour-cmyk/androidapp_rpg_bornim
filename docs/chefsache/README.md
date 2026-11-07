@@ -162,9 +162,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 623.5 | M | von Sokrates (Chef 07.11., 20:2x: „Holst du dir die Gratisamples zum Testen?“; 623): Grati | startbar |
-| 623.2 | M | von Sokrates (Chef 07.11., 20:1x, „623 A B C D E F“; Archiv 623): Effekte aus 623 A (Comba | wartet auf 623 (Chef) |
-| 478 | M | von Sokrates (Chef 07.11., 16:3x: „Wir packen das BRS auf jeden Fall jetzt auch mit dazu“; | startbar |
 | 572 | M | von Sokrates (Chef 04.11., 20:27; „jetzt“ 04.11., 20:27; Zu 572): Effektprobe vor dem Kauf | Chef |
 | 565 | M | von Sokrates (Chef 04.11., 17:10, t257 Bereich C, Bild; Zu 565): im Gruppenkasten unten is | startbar |
 | 562 | M | von Sokrates (Chef 04.11., 17:02, t257 Bereich C; Zu 562 und 563): Helden gehen zum Angrif | startbar |
@@ -238,6 +235,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 601 | M | von Sokrates (Chef 05.11., 19:2x, t266.5; Zu 594–601): Goblin-Späher: Schuss ohne Bewegung | ruht |
 | 595 | M | von Sokrates (Chef 05.11., 19:2x, t266.1; Zu 594–601): Kampfbewegungen Spinne, Riesenegel, | ruht |
 | 600 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Knopf zum Beschleunigen im Kampfort wie Wür | startbar |
+| 478 | M | von Sokrates (Chef 07.11., 16:3x: „Wir packen das BRS auf jeden Fall jetzt auch mit dazu“; | startbar |
+| 623.5 | M | von Sokrates (Chef 07.11., 20:2x: „Holst du dir die Gratisamples zum Testen?“; 623): Grati | startbar |
+| 623.2 | M | von Sokrates (Chef 07.11., 20:1x, „623 A B C D E F“; Archiv 623): Effekte aus 623 A (Comba | wartet auf 623 (Chef) |
 | 598 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Umweltklang je Ort, Tageszeit, Wind, Wetter | startbar |
 | 593 | M? | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Ausweichen auch rückwärts | startbar |
 | 616 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu t268): Gegner weichen nach dem Angriff rückwärt | startbar |
