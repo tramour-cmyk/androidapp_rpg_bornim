@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [621](entscheiden/621-sparen.md) | **Muss** | B Abläufe | 07.11., 16:42 | Wofür das Guthaben draufging, und was wir schlauer machen | Sokrates |
 | [415d.1](entscheiden/415d1-effekte-jetzt.md) | **Muss** | C Kampf | 04.11., 19:57 | Effektpakete jetzt kaufen, Einbau nach Bedarf | Sokrates |
 
 ## Zu billigen
@@ -292,12 +293,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 | Pflege | K | von Werkzeug (340.3, 07.11.): Zeile 512b wartet auf t257, aber keine Datei in docs/chefsac | startbar |
 
-**Sokrates** – offen 39, Muss 29, startbar 20
+**Sokrates** – offen 40, Muss 30, startbar 20
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 475 | M | von Team Tom (22:25): 475 Lauf 2 vor dem Versand angehalten (576: Grün der Kapuze am Hals | startbar |
 | 512 | M | von Chef (03.11., 23:28, „Kümmer du dich um 512.“; vorher Perikles): Abgleich alt gegen ne | startbar |
+| 621 | M | von Chef (07.11., 16:4x): Sparregeln A–D | Chef (Datei in der Chefsache) |
 | 620 | M | von Chef (07.11., 14:3x, „nachhalten … umsetzen … ganz entscheidend“): Stärken ausbauen, S | startbar |
 | 415d.1 | M | von Chef (04.11., 19:56, „Brauchen wir das jetzt? Brauchen wir es nicht? Wir haben noch ga | Chef (Datei in der Chefsache) |
 | 508 | M | von Homer (447.4; deine Stellungnahme 02.11. „Hängt an 427“, Diogenes D66 Punkte 2, 3, 5): | startbar |
@@ -308,10 +310,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 481 | M | von Chef (02.11., 18:54, „Herkünfte auch“; 18:55 Kräutersammler mit Tränken, Zu 481): Herk | startbar |
 | 398 | M | von Chef (28.10., 11:22, „Wieder was durchgerutscht … gegenprüfst, ob da nicht noch mehr g | wartet auf Perikles |
 | 391 | M | von Chef (28.10., 09:21): Repos dauerhaft ohne Ablehnung | ruht |
-| 383.2 | M | von Chef (27.10., 19:24, „wo steckt jetzt hier wieder die Wahrheit? Und wer hat damit gepr | startbar |
+| 383.2 | M | von Chef (27.10., 19:24, Archiv): frisch gegen groß, klein gegen groß messen (442) | Leiche: wartet auf den Chef ohne Datei in der Chefsache |
 | 383 | M | von Chef (27.10., 17:44, „Sollen wir einfach aufhören damit?“; 17:47 Vorschlag „nicht grif | startbar |
 | 376 | M | von Chef (27.10., 12:00): Quaternius-Bausätze prüfen; Häuser leicht gedreht? | wartet auf Tom |
-| 374 | M | von Chef (27.10., 11:54): wer prüft 373? | startbar |
+| 374 | M | von Chef (27.10.): wer prüft 373? | startbar |
 | 348.12 | M | von Chef (25.10., 21:21, „b prüfen“): fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit | wartet auf Jerry |
 | 340.2 | M | von Chef (25.10., 10:16, Vorgangsarchiv 340): tools/rollenspiegel.sh <Rolle> zeigt nur Fra | wartet auf Perikles |
 | 348 | M | von Chef (24.10., 16:43; „jetzt“ 16:54): fertige Spiel-Engine statt Selbstbau? | ruht |
@@ -339,7 +341,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 587 (Kreativ), 407 (Projekt)
+Nicht gestellt: 383.2 (Beratung), 587 (Kreativ)
 
 Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/572-effektfilm.md
 
