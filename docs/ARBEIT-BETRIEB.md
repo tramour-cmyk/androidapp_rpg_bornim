@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford“ (Tiefe 0, vom Chef von Hand gestartet 05.11., 21:12) `session_01Hmoj762D9NBi6ATL3RQaWR`; Stundenuhr „Ford-Lauf“ `trig_01XdFpzQgj9GjkhyxdRvYhTK` (:03); der Nachfolger legt seine Uhr an, löscht diese und archiviert diese Sitzung (idle, >60 s, Kosten buchen). Davor alter Ford archiviert, 22,39 $ auf Betrieb.
+- **Ford lebt in einer Sitzung** „Ford“ (Tiefe 1, Selbstneustart 07.11., 13:04) `session_01Hmoj76HFnAA46mUTzwaQoK`; Stundenuhr „Ford-Lauf“ `trig_01XX9vc5EKBbCxN1oJDuihTe` (:03); der Nachfolger legt seine Uhr an, löscht diese und archiviert diese Sitzung (idle, >60 s, Kosten buchen). Alter Ford `session_01Hmoj762D9NBi6ATL3RQaWR`: Uhr gelöscht, Archivierung 13:05 vom Prüfer abgelehnt (ohne Satz des Chefs), Kosten noch zu buchen.
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus; Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
 
