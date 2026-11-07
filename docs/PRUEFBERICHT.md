@@ -30,6 +30,10 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
 
+## Lauf 78 · Auftrag 621.1 Probenregel A (Doppelpack 421; `main` nach `f8696fc76`; 07.11., 21:2x; ohne echten Bildlauf seit dem Bau: `pruefen_und_zaehlen()` aus `probelauf.py` mit Stand 0 und 1, Zählen und Anhalten abgefangen, nichts in `probelaeufe.tsv`)
+
+- **Bestanden:** `GRENZE = 1`; Stand 0 zählt und sagt „1 von 1 … danach vorlegen“, Stand 1 hält an, die Meldung nennt Rückfrage mit Wegen und Kosten und die Freigabe durch Urteil oder Sokrates (480.1). Text in `ROLLE-ENTWICKLUNG.md` und `LISTE-UMZUG-348.md` („höchstens eine Probe … ersetzt 389“). Nur `DESIGN-ABNAHME.md` hängt nach (D76.1).
+
 ## Lauf 77 · Auftrag 623.3 Effekt-Wächter (Doppelpack 421; `main` nach `7b9cbedb0`; 07.11., 21:2x; ohne echten Effekt-Commit seit dem Bau: 4 Probedateien unter `godot/_probe623/` im Arbeitszweig nur bereitgestellt, `commit-pruefung.py` gerufen, danach entfernt)
 
 - **Bestanden:** der Haken liegt in Notiz- und Arbeitskopie (gemeinsames Verzeichnis, `notiz.sh`); neuer Shader und neuer `GPUParticles3D`-Knoten ohne Zeile in `LISTE-EFFEKTE.md` warnen, Exit 0 (nur Warnung, wie bestellt); `wasser.gdshader` (steht in der Liste) bleibt still.
