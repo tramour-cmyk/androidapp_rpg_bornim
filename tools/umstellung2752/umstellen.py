@@ -33,6 +33,7 @@ HAND = {
     "340.2": dict(besitzer="Diogenes", warte=["09.11."], _grund="übrig ist Diogenes' Zählung der Wirkung Mo 09.11.; Sokrates' Zeile wartete auf den Bau 340.3–340.5 (gebaut)"),
     "565": dict(warte=[], zusatz="Sokrates: Kopf „565, Läufe frei“ ins Archiv (seine Zeile, 627)",
                 _grund="Jerrys Bildläufe liefen schon (21:32); Sokrates' Rest ist Buchhaltung für probelauf.py, hält Jerry nicht auf"),
+    "275": dict(warte=["Diogenes", "09.11."], _grund="Diogenes zählt die Warnungen der Stufe 2 in der Montagszählung 09.11. (seine Zeile: ruht bis 09.11.; D82)"),
     "398": dict(warte=["09.11."], zusatz="Wochenzählung Diogenes", _grund="wartete auf Diogenes' Wochenzählung 02.11. (vorbei); nächste Zählung Mo 09.11."),
 }
 
