@@ -238,11 +238,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | D29.1 | K | von Diogenes: Ortsklang ohne Richtung | ruht |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 41238 Bytes (Grenze 15000), Erledigtes streichen; Zeile 551 | startbar |
 
-**Perikles** – offen 37, Muss 31, startbar 11
+**Perikles** – offen 36, Muss 30, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 478 | M | von Sokrates (Chef 07.11., 16:3x, „BRS auf jeden Fall jetzt auch mit dazu“; Archiv „478 je | startbar |
 | 623.3 | M | von Sokrates (Chef 07.11., 20:1x, „623 … E“; Archiv 623): tools/commit-pruefung.py warnt, | startbar |
 | 620.1 | M | von Sokrates (Chef 07.11., 14:3x, 620; Zu 620): wiederholte Funde des Chefs vor jedem Neue | startbar |
 | 621.1 | M | von Sokrates (Chef 07.11., 16:4x, „621, A, B und D“; Archiv 621): Probenregel A in ROLLE-E | startbar |
