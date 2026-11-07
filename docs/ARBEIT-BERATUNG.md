@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (07.11., 14:4x, `session_01Hmoj76saGTQ5LicSQ4JBof`):** t266 und t268 ausgewertet und auf main, 589–620 angelegt, 592 so, 620 Stärken und Schwächen. Nachfolger: Sokrates – 620: Lagebild nach jeder Testrückmeldung.
+**Übergabe (07.11., 17:2x, `session_01Hmoj76saGTQ5LicSQ4JBof`):** t266, t268 auf main; 589–622 angelegt; 592, 478 jetzt, 621 A B D entschieden; Pause Tom/Jerry bis zur Prüfliste des Chefs (streichen nach der Chefrunde); offen beim Chef 142.4, 415d.1. Kosten auf: 494, 587, 512, 592, 603, 620, 621, 478, 142. Nachfolger: Sokrates – Prüfliste des Chefs (Links, Effekte), dann Pause streichen.
 
 ## Zeilen
 
