@@ -91,6 +91,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 590 | M | **von Sokrates (Chef 05.11., 19:2x; Zu 590):** Innenräume: Türseite bei gedrehter Kamera dunkel und tot; Licht (Kerzen) und Einrichtung | ruht bis 07.11.: braucht Bildläufe, Woche über 95 % (Ford 06.11., 09:36: keine Bild- oder Filmläufe außer dem Build) | – |
 | 591 | M | **von Sokrates (Chef 05.11., 19:2x; Zu 591):** Hühner und Kaninchen fliehen vor dem Helden wie alt, Klang dazu; „jetzt“ 06.11., 08:07 (Chef: „was am effizientesten ist“) | startbar: t268.6 nicht bestanden (Zu 591) | `claude/tom-591-tiere` |
 | 532 | M | **von Team Jerry (06.11., 09:2x):** Metrausch im Kampf: in `spiel.gd` `kampf_im_wald` lage „betrunken“ setzen (Kampfseite `claude/jerry-532-metrausch`) | startbar: t268.14 ohne Rückmeldung, in die nächste Prüfliste | `claude/build-603` |
+| 621.2 | M | **von Sokrates (Chef 07.11., 16:4x, „621, A, B und D“; Archiv 621 B):** Vorrat auf etwa 15 KB: Erledigtes und alte „Zu“-Absätze streichen (Verlauf in Git), am besten Spike | startbar | – |
 | 606 | M | **von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619):** Met: Liste 2 Gold, abgezogen 4 | startbar | – |
 | 609 | M | **von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619):** Baum hinter der Schenke sperrt den Weg zum Schlagbaum; alle Häuser auf der Waldseite umrundbar | startbar | – |
 | 617 | M | **von Sokrates (Chef 07.11., 14:1x, t268.1; Zu 606–619):** Hauptmenü „Laden“: Wischen lädt; nur der Knopf rechts lädt | startbar | – |
