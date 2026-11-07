@@ -168,7 +168,7 @@ static func reiter(m: Menue) -> void:
 	m.gruppe(t.call("Anzeigen", "Displays"))
 	# 425 wie alt (TestTab.kt): nur die Messwerte offen, Geraet, System und Grafik erst hinter „Gerät zeigen …“ (DeviceBox)
 	var ml := Engine.get_main_loop()
-	for r in Messung.zeilen(ml.root if ml is SceneTree else null): m.zeile(String(r), 13, Stil.TEXT)
+	for r in Messung.zeilen(ml.root if ml is SceneTree else null): m.zeile(String(r), 15, Stil.TEXT)   # 624: lesbar (vorher 13 sp)
 	m.luecke(8)
 	m.zeichenreihe([zk.call(t.call("Bildrate", "Frame rate"), an_aus.call(bildrate), t.call("Zeigt über der Welt die Bilder je Sekunde.", "Shows frames per second over the world."),
 			func(): bildrate = not bildrate, "FPS", "", bildrate),

@@ -1549,7 +1549,7 @@ func geraet_box() -> void:
 		b.size_flags_stretch_ratio = 0.5
 		reihe_.add_child(b)
 	inhalt.add_child(reihe_)
-	if geraet_auf: zeile(geraeteangaben(), 11, Stil.TEXT)
+	if geraet_auf: zeile(geraeteangaben(), 14, Stil.TEXT)   # 624: lesbar (vorher 11 sp)
 
 var geraet_auf := false
 
