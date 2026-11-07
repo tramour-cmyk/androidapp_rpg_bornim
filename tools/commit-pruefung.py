@@ -226,8 +226,8 @@ def main():
             warn.append("%s: Zeile „Verglichen (alt gegen neu): <Schirme, Fenster, Bedienungen>“ fehlt (512, LISTE-BAUEN-TESTEN)" % p)
             continue
         zeile = vgl.group(1)  # 512b (Chef 04.11., 19:21): Nachweis mit Helfer und Bild/Film, keine Dateinamen
-        if not re.search(r"Helfer", zeile) or re.search(r"\bohne (Bild|Film)\b", zeile) \
-                or not re.search(r"https?://|\.(png|webp|jpe?g|mp4)\b|Film|Bild", zeile):  # D78.2: „ohne Bild“ ist kein Nachweis
+        if not re.search(r"Helfer", zeile) or re.search(r"\b(?:ohne|kein\w*)\s+(?:\w+\s+)?(?:Bild|Film)", zeile, re.I) \
+                or not re.search(r"https?://|\.(png|webp|jpe?g|mp4)\b|Film|Bild", zeile):  # D78.2, D81.1: „ohne Bild“, „kein Film“, „kein neuer Bildabgleich“ sind kein Nachweis
             warn.append("%s: „Verglichen“ ohne Helfer (nicht der Bauende) oder ohne Bild/Film; Nachweis nach 512b "
                         "(LISTE-UMZUG-348 „Abgleich“)" % p)
         if re.search(r"\b\w+\.(kt|gd|py|tscn)\b", zeile):
