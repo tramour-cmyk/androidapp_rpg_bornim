@@ -12,7 +12,7 @@ Inhaltsverzeichnis (122). Wer eine wesentliche Datei umbenennt oder anlegt, änd
 - [Betrieb](ARBEIT-BETRIEB.md): Guthaben, Protokoll der Läufe
 - [Vorgangsarchiv](VORGANGSARCHIV.md): was entschieden ist, neueste oben
 - [Prüfbericht](PRUEFBERICHT.md): offene Befunde von Diogenes und Kennzahlen der Woche; erledigte Läufe im [Archiv](PRUEFBERICHT-ARCHIV.md)
-- [Vorgänge](LISTE-VORGAENGE.md): jede Nummer mit Bereich, Muss oder Kür, Kosten; abgeschlossene im [Archiv](LISTE-VORGAENGE-ARCHIV.md)
+- [Vorgänge](LISTE-VORGAENGE.md): **die eine Vorgangsliste** (275.2, seit 07.11.): je Vorgang eine Zeile mit Besitzer, Klasse, Stand, „wartet auf“, Zweig, Build, Kosten; nie ganz lesen, sondern `python3 tools/vorgang.py --rolle <Rolle>`; abgeschlossene im [Archiv](LISTE-VORGAENGE-ARCHIV.md)
 - [Checkliste MARS](LISTE-MARS.md): was im Kampfsystem steht, was fehlt, klassisch ↔ MARS (296)
 - [Testgeräte](LISTE-TESTGERAETE.md): Geräteangaben und Messwerte der Tester (388)
 - [Umzug nach Godot](LISTE-UMZUG-348.md): was aus der alten Fassung übernommen ist und was fehlt (348, 398)
@@ -28,7 +28,7 @@ Inhaltsverzeichnis (122). Wer eine wesentliche Datei umbenennt oder anlegt, änd
 - [Kampf](DESIGN-KAMPF.md), [Balance](DESIGN-BALANCE.md), [Heldenbau](DESIGN-HELDENBAU.md), [Blende](DESIGN-BLENDE.md), [Nachschlagewerk Bornimer Rollenspielsystem (BRS)](DESIGN-SPIELSYSTEM-2-0-ENTWURF.md) (gilt seit 01.11., 422; Zahlen nach 444), [Verlauf und Begründungen](DESIGN-SPIELSYSTEM-2-0.md) (413)
 - [Spielerhandbuch](STORY-HANDBUCH-1.md) (Entwurf 423, Teile [2](STORY-HANDBUCH-2.md), [3](STORY-HANDBUCH-3.md)): das Spielsystem für den Spieler erklärt, das gebündelte Lesestück
 - [Storyplan](STORY-PLAN.md): Plot und Figuren je Kapitel, Kapitel 2 mit Karte und [Textentwurf](STORY-K2-ENTWURF.md)
-- [Story-Verzeichnis](STORY-REGELN.md): alle Spieltexte mit Marken; Kapitel 1 [Handlung](STORY-K1-HANDLUNG.md) und [Welt](STORY-K1-WELT.md), [Blende](STORY-BLENDE.md)
+- [Story-Verzeichnis](STORY-REGELN.md): alle Spieltexte mit Marken; Kapitel 1 [Handlung](STORY-K1-HANDLUNG.md) und [Welt](STORY-K1-WELT.md), [Blende](STORY-BLENDE.md); Gesprächsvarianten [Dorf](STORY-VARIANTEN-K1.md) und [Wald, Höhle, Türen, Rast](STORY-VARIANTEN-K1-WALD.md)
 - Aus Artefakten übernommen (246.1): [Roter Faden](STORY-ROTER-FADEN.md), [Chronik-Texte Kapitel 1](STORY-CHRONIK-TEXTE-K1.md), [Kapitel-2-Landkarte](STORY-K2-LANDKARTE.md), [Spielanleitung MARS 72.10a](DESIGN-KAMPF-SPIELANLEITUNG-72-10A.md), [MARS-Aufstellung](DESIGN-MARS-AUFSTELLUNG.md), [Prüfbogen Tester](LISTE-PRUEFBOGEN-TESTER.md)
 - [Durchspielbogen](LISTE-DURCHSPIELBOGEN.md): Vorlage für Durchspiele (26); [Englisch-Korrekturliste](LISTE-ENGLISCH-338-1B.md) (338.1b, alte Fassung)
 - [Figuren](LISTE-FIGUREN.md): festes Aussehen wiederkehrender Leute und Monster
@@ -51,7 +51,7 @@ Inhaltsverzeichnis (122). Wer eine wesentliche Datei umbenennt oder anlegt, änd
 - [Handbuch](FIRMA.md) und [Regeln für alle](../CLAUDE.md)
 - [Logo und Geschäftspapiere](firma/README.md) (251.1)
 - Rollen: [Entwickler](ROLLE-ENTWICKLUNG.md) · [Perikles](ROLLE-PROJEKT.md) · [Homer](ROLLE-KREATIV.md) · [Sokrates](ROLLE-BERATUNG.md) · [Diogenes](ROLLE-PRUEFUNG.md) · [Ford](ROLLE-BETRIEB.md)
-- Vorräte: [Tom](ARBEIT-TEAM-TOM.md) · [Jerry](ARBEIT-TEAM-JERRY.md) · [Perikles](ARBEIT-PROJEKT.md) · [Homer](ARBEIT-KREATIV.md) · [Sokrates](ARBEIT-BERATUNG.md) · [Diogenes](ARBEIT-PRUEFUNG.md) · [Betrieb](ARBEIT-BETRIEB.md) · [Besetzung](ARBEIT-BESETZUNG.md)
+- Vorräte (seit 275.2 nur Übergabe, Pause und Einzelheiten „Zu <Nr.>“, keine Tabelle): [Tom](ARBEIT-TEAM-TOM.md) · [Jerry](ARBEIT-TEAM-JERRY.md) · [Perikles](ARBEIT-PROJEKT.md) · [Homer](ARBEIT-KREATIV.md) · [Sokrates](ARBEIT-BERATUNG.md) · [Diogenes](ARBEIT-PRUEFUNG.md) · [Betrieb](ARBEIT-BETRIEB.md) · [Besetzung](ARBEIT-BESETZUNG.md)
 - Handwerk: [Bauen und Testen](LISTE-BAUEN-TESTEN.md) · [Betrieb](LISTE-BETRIEB.md) ([Ford 2](LISTE-FORD2.md), ruht) · [Prüfen](LISTE-PRUEFUNG.md) · [Auswertung Prüfbögen](LISTE-AUSWERTUNG-PRUEFBOGEN.md) · [Release und Neustart](LISTE-RELEASE-NEUSTART.md) · [Regeltreue](LISTE-REGELTREUE.md)
 - Gelöscht 21.10. (274), in Git bis `f3ec7200`: Archiv bis 16.10., Niederlassung, Zwischenbild, Rollenkonzept 98, Morgenbericht 19.10.
-- [Ablauf und Dateien](LISTE-ABLAUF-274.md): Weg einer Idee, welche Datei wozu (274); [Zentrale Vorgangsliste](LISTE-ZENTRALE-VORGAENGE-275.md): Pro und Contra (275)
+- Überholt durch 275.2, nur noch Geschichte: [Ablauf und Dateien](LISTE-ABLAUF-274.md) (274, 21.10.); [Zentrale Vorgangsliste](LISTE-ZENTRALE-VORGAENGE-275.md): Pro und Contra (275); Umstellung selbst: `tools/umstellung2752/README.md`
