@@ -193,7 +193,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 616 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu t268): Gegner weichen nach dem Angriff rückwärt | wartet auf 478 (startbar) |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 31749 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 17, Muss 13, startbar 2
+**Perikles** – offen 17, Muss 14, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -210,7 +210,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 276 | K | von Sokrates (zu 274): Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in lauf. | ruht |
 | 341 | M | von Chef (23.10., 09:39): Zielvereinbarung Perikles, gegenprüfbar und nachhaltig (Zu 341) | ruht bis 09.11. |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | ruht |
-| D75 | M? | von Diogenes (07.11., Lauf 73, Prüfbericht): Filmsperre 511 hat die Film-Pushes zu 572 nic | startbar |
+| D75 | M | von Diogenes (07.11., Lauf 73, Prüfbericht): Filmsperre 511 hat die Film-Pushes zu 572 nic | wartet auf Test (Build) |
 | 627 | M | von Team Jerry (Tuffy, 07.11., 21:15): probelauf.py zählt Pushes ohne Lauf (562: commit -F | wartet auf Test/Build (gebaut) |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 | Pflege | K | von Werkzeug (340.3, 07.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabe | startbar |
