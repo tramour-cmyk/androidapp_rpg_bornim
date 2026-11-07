@@ -11,7 +11,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 625 | M | **von Sokrates („jetzt“ 07.11., 20:54; Zu 625):** Sammelbuild 269 wie 603: alle fertigen Zweige beider Teams und die Fehlerbehebungen dieser Nacht; Prüfliste als Weg durchs Spiel, nach Orten, jeder Schritt vorher im Build nachgegangen (512); 268.4, 268.14, 268.24, 268.12, 268.27 wieder abfragen | in Arbeit: claude/build-269 (Zu 625) | `claude/build-269` |
+| 625 | M | **von Sokrates („jetzt“ 07.11., 20:54; Zu 625):** Sammelbuild 269 wie 603: alle fertigen Zweige beider Teams und die Fehlerbehebungen dieser Nacht; Prüfliste als Weg durchs Spiel, nach Orten, jeder Schritt vorher im Build nachgegangen (512); 268.4, 268.14, 268.24, 268.12, 268.27 wieder abfragen | wartet auf Test/Build: Lauf 271, PR #187 | `claude/build-269` |
 | 620.2a | M | **von Perikles (620.2, 621 D, Chef 07.11.):** Abgleich alt einmal je Ort und Figur nach `LISTE-ABGLEICH-ALT.md`: Tom 1.1–1.6 und alle Leute (2), Spike 1.7–1.8 Wald; Spalte „Godot“ je Zeile, „fehlt“ wird Vorgang; ersetzt danach den Abgleich je Build (512b) | startbar | – |
 | 605 | M | **von Ford (Chef 06.11., 21:22, Test Build 268, Bild; Zu 605):** Ausrüstung, leeres Kopffeld → Auswahl: falsche Anzeige („wirkt nicht (Obergrenze)“ bei allen Werten, Vergleich gegen leeres Feld), kein Abbrechen oder Zurück | gebaut, fährt im nächsten Build (269); Geprüft an: a2add0154, 216dd5d09 (doppeltipp_605 lokal) | `claude/tom-605-doppeltipp` |
 | 581 | M | **von Tom (Abgleich 512b):** Reiter Ausrüstung: Seite 16 px breiter als der Schirm (Rand 11 statt 27 px), Reiter springen beim Wechsel (`menue.gd` 821–835) | startbar: t268.11 (Zu 605) | `claude/tom-581-ausruestung` |
