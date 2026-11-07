@@ -9,7 +9,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 478 | M | **von Sokrates (Chef 07.11., 16:3x, „BRS auf jeden Fall jetzt auch mit dazu“; Archiv „478 jetzt“):** Projektplan und Wochenziel: 478 und danach 2.3 vor den Durchspiel-Build 496, parallel zu 492 und 505; Kampf im Durchspiel-Build dann nach BRS | startbar |
 | 623.3 | M | **von Sokrates (Chef 07.11., 20:1x, „623 … E“; Archiv 623):** `tools/commit-pruefung.py` warnt, wenn ein neuer Shader oder Teilchenknoten in `godot/` ohne Zeile in `LISTE-EFFEKTE.md` kommt; Regel „Bibliothek vor Eigenbau“ in `ROLLE-ENTWICKLUNG.md` (Regelbilanz mit 377) | startbar |
 | 620.1 | M | **von Sokrates (Chef 07.11., 14:3x, 620; Zu 620):** wiederholte Funde des Chefs vor jedem Neuen; Grenze offener Muss in Arbeit je Team; als Regel vorschlagen (Regelbilanz) | startbar |
 | 621.1 | M | **von Sokrates (Chef 07.11., 16:4x, „621, A, B und D“; Archiv 621):** Probenregel A in `ROLLE-ENTWICKLUNG.md` und `probelauf.py`: je Aussehen-Thema höchstens eine Probe im Spielbild vor dem Chef, sonst Rückfrage mit Wegen und Kosten; ersetzt die Rundenzahl 389 | startbar |
