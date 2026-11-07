@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [275.2](entscheiden/2752-eine-liste.md) | **Muss** | B Werkzeuge | 07.11., 21:50 | Eine Liste statt Liste plus Vorräte | Sokrates |
 | [620.1](entscheiden/6201-wiederholte-funde.md) | **Muss** | B Abläufe | 07.11., 21:02 | Grenze angefangener Arbeit je Team (B) | Perikles |
 
 ## Zu billigen
@@ -32,7 +31,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 1, startbar 1
+**Homer** – offen 5, Muss 1, startbar 1, PAUSE bis **Pause bis die neue Vorgangsliste läuft (Datum nicht lesbar)
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -42,7 +41,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 87, Muss 65, startbar 49
+**Tom** – offen 87, Muss 65, startbar 49, PAUSE bis **Pause bis die neue Vorgangsliste läuft (Datum nicht lesbar)
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -134,7 +133,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 586 | K | von Chef über Jerry (05.11., 09:35; Zu 586): Bilder 557 einheitlich: Rast am Feuer und an | startbar |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 123512 Bytes (Grenze 15000), Erledigtes streichen; Tabellenz | startbar |
 
-**Jerry** – offen 57, Muss 48, startbar 31
+**Jerry** – offen 57, Muss 48, startbar 31, PAUSE bis **Pause bis die neue Vorgangsliste läuft (Datum nicht lesbar)
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -196,10 +195,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 616 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu t268): Gegner weichen nach dem Angriff rückwärt | wartet auf 478 (startbar) |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 31749 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 17, Muss 14, startbar 1
+**Perikles** – offen 18, Muss 15, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 275.2 | M | von Sokrates (Chef 07.11., 21:5x, „Pericles soll das machen … keinen Parallelbetrieb“; „je | startbar |
 | 317.1 | M | von Sokrates (Chef 07.11., 20:5x, Archiv „317, keine Obergrenze je Build“): Werkzeuge ohne | wartet auf Test/Build (gebaut) |
 | 620.1 | M | von Sokrates (Chef 07.11., 14:3x, 620; Zu 620): wiederholte Funde zuerst, Grenze offener M | Chef (Datei in der Chefsache) |
 | 511 | M | von Sokrates (Chef 03.11., 13:50, „511 ja“, Archiv; „jetzt“ 03.11., 13:50): probelauf.py s | wartet auf Test/Build (gebaut) |
@@ -218,11 +218,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 | Pflege | K | von Werkzeug (340.3, 07.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabe | startbar |
 
-**Diogenes** – offen 12, Muss 10, startbar 2
+**Diogenes** – offen 13, Muss 11, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 620.1 | M | von Perikles (Doppelpack 421, 07.11., 21:0x, 8518c8817): startbar.hochstufen stellt Zeilen | Chef (Datei in der Chefsache) |
+| 275.2 | M | von Sokrates (Chef 07.11., 21:5x: „Diogenes soll es noch quertesten“; Archiv 275.2): neue | startbar |
 | D74–D79 | M | von Perikles (Doppelpack 421, 07.11., 21:2x): nachprüfen: D74 regelcheck.py „Test ohne Dat | startbar |
 | 275 | M | von Perikles (Doppelpack 421, 07.11., 21:1x, e23a4ccb2): Stufe 2: vorgang.py neu zieht die | startbar |
 | 317.1 | M | von Perikles (Doppelpack 421, 07.11., 21:0x, 12837c9c3): keine Obergrenze 6 je Build mehr | ruht |
@@ -235,7 +236,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 35, Muss 26, startbar 19
+**Sokrates** – offen 35, Muss 26, startbar 19, PAUSE bis **Pause bis die neue Vorgangsliste läuft (Datum nicht lesbar)
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -268,12 +269,18 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 72c | K | von Chef (19.10., 12:55): Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband | nach dem Meilenstein |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | startbar |
 | 142.3 | M | von Chef (27.10., 19:32): Tester öffentlich suchen | ruht |
-| 275.2 | M | von Chef (07.11., 21:4x): eine große Liste statt Liste plus Vorräte? | Chef (Datei in der Chefsache) |
+| 275.2 | M | von Chef (07.11., 21:4x): eine große Liste statt Liste plus Vorräte? | wartet auf Perikles |
 | 142.4 | M | von Chef (07.11., 16:5x): Pflichttest sparen? Organisationskonto mit D-U-N-S | Chef |
 | 142 | M | Pflichttest Play Store (von Perikles); Store-Text „jede Entscheidung zählt“ prüfen (72a) | startbar |
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | startbar |
 | 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | startbar |
 | Pflege | K | von Werkzeug (340.3, 07.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabe | startbar |
+## Lücken
+
+Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
+
+Ohne Datei: 275 (Projekt)
+
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
