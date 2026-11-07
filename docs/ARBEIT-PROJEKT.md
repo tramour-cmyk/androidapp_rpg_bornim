@@ -5,7 +5,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 07.11., 20:06
 
-**Übergabe (07.11., 21:1x):** 448, 478, 516, 621.1, 623.3, 317.1, 620.1 A, 620.2, 275 Stufe 2 fertig oder gebaut; 620.1 B, 620.4 beim Chef. Nachfolger: Perikles – 448: Tagesbericht 08.11.
+**Übergabe (07.11., 21:2x):** 448, 478, 516, 621.1, 623.3, 317.1, 620.1 A, 620.2, 275 Stufe 2, D74, D76, D77.1, D78, D79 fertig oder gebaut; 620.1 B, 620.4 beim Chef; offen D75, D77.2, 341. Nachfolger: Perikles – 448: Tagesbericht 08.11.
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
@@ -34,7 +34,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
-- **Zu D74, von Diogenes (07.11., 20:08, Pflege; `tools/regelcheck.py` Abschnitt „Test ohne Datei“):** von 27 Meldungen „wartet auf tNN, aber keine Datei“ sind 6 echt (Tom 519/521–524, Jerry 496a; dort eingetragen), 21 falsch: (a) 8 aus Zeilen „Pflege“, die die Meldung zitieren und sich so selbst melden, jeden Tag mehr; (b) 13 aus tNN als Verlauf in Zeilen, die auf jemand anderen warten („wartet auf Tom: t249 bestanden“; 512b „vorher (t257 …)“). Vorschlag: Zeile „Pflege“ auslassen; nur tNN direkt nach „wartet auf (den )?Test:?“ zählen. Nachgestellt mit `regelcheck.py --kurz` am Stand `37b48b27c`.
 - **Zu 620, von Sokrates (Chef 07.11., 14:3x: „Deine Ausführungen zu Stärken und Schwächen sind gut. Jetzt muss man es nur noch nachhalten und schauen, wie wir es umsetzen. Das wäre dann ganz entscheidend.“):** Lage und Gegenmittel in `ROLLE-BERATUNG.md` „Begründungen“. Maß ist die Wiederholquote je Build (Funde, die der Chef schon einmal gemeldet hat; t268: 6); ich zähle sie im Lagebild, Vorschlag: Diogenes übernimmt sie in die Montagszählung. 620.1 gegen Gegenargument „Funde warten länger“: Nummer sofort, gebaut der Reihe nach. 620.4: Umfang, Abnahme und Zeitpunkt legst du dem Chef vor (Aussehen und Spielgefühl entscheidet er). BRS früh (478) bleibt nach 470a B; ob früher, nur der Chef (von Sokrates).
 
 - **Zu 579, von Sokrates (Abgleich am Code 05.11., 08:2x):** Gegner von Kapitel 1 laut alt (`Story.kt` 599, 714, 803): Flüsterwald Ratte, Wolf, Goblin, Goblin-Bogenschütze, Wildschwein, Kobold, Hundertfüßer, Stirge; nachts Wolf, Skelett, Zombie, Riesenfledermaus, Goblin, Kobold, Stirge. Tiefer Wald dazu Riesenspinne, Goblin-Schamane; nachts Ghul. Höhle Goblin, Bogenschütze, Schamane, Skelett, Zombie, Fledermaus, Ratte, Ghul, Spinne, Ockergallerte; Bosse Grimmzahn, Krogg (bugbear), Grak (hobgoblin_captain). Im Build 257 (`godot.yml`) gebaut: Wolf (Kauf), Ratte (Kauf), Goblin-Körper (Goblin, Kobold, Schamane, Bogenschütze), Fledermaus nur Kapsel, Grimmzahn auf Wolfskörper. **Fehlen im Spiel:** Wildschwein, Hundertfüßer, Stirge (Riesenegel), Riesenspinne, Ockergallerte (Säureschnecke), Fledermaus-Modell (510) — gebaut auf `claude/jerry-494-gegner`, Bilder ungeprüft, nicht im Build (494); Skelett, Zombie, Ghul (506, wartet); Höhle, Krogg, Grak, Lyra (492; Krogg, Grak nur angelegt, wenn ein Modell da ist, Zu 494). Ohne diese ist Kapitel 1 nicht durchspielbar. Läufe für Menüschirme 04.11.: 557 zehn am Rechner, 558 vier am Bauserver.
