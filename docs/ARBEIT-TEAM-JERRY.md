@@ -12,7 +12,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 565 | M | **von Sokrates (Chef 04.11., 17:10, t257 Bereich C, Bild; Zu 565):** im Gruppenkasten unten ist nicht zu sehen, welcher Held am Zug ist | startbar: Vorschlag als Bild vorher/nachher in `chefsache/ansehen/`, nichts einschalten | – |
-| 562 | M | **von Sokrates (Chef 04.11., 17:02, t257 Bereich C; Zu 562 und 563):** Helden gehen zum Angriff im „Schlaftabletten-Modus“, zurück gleiten sie flott; echte Schritte, Tempo wie alt | startbar: t268.19 Held noch nicht zügig (Zu t268) | `claude/jerry-562-angriffsschritt` |
+| 562 | M | **von Sokrates (Chef 04.11., 17:02, t257 Bereich C; Zu 562 und 563):** Helden gehen zum Angriff im „Schlaftabletten-Modus“, zurück gleiten sie flott; echte Schritte, Tempo wie alt | in Arbeit bei Tuffy | `claude/jerry-562-angriffsschritt` |
 | 563 | M | **von Sokrates (Chef 04.11., 17:02, t257 Bereich C, Bild; Zu 562 und 563):** Zustandsschilder über Gegnern („Blut 3“) überlagern Ansage und Lebensleiste, „gruselig“ | startbar: Vorschlag mit Bild vorher/nachher, gegen alt | – |
 | 560 | M? | **von Sokrates (Chef 04.11., 16:22, allgemeiner Hinweis; Zu 560):** Monster auf der Karte drehen sich zum Helden, sobald sie ihn wahrnehmen, mit Schritten statt auf der Stelle | startbar | – |
 | 551 | M | **von Sokrates (Chef 04.11., 00:21, Build 249):** „MARS Kasten links und rechts unten wird unterbrochen angezeigt …“ | ruht: braucht Foto des Chefs, keine Datei (Inventur 07.11.) | – |
