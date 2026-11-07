@@ -16,6 +16,7 @@ Inhaltsverzeichnis (122). Wer eine wesentliche Datei umbenennt oder anlegt, änd
 - [Checkliste MARS](LISTE-MARS.md): was im Kampfsystem steht, was fehlt, klassisch ↔ MARS (296)
 - [Testgeräte](LISTE-TESTGERAETE.md): Geräteangaben und Messwerte der Tester (388)
 - [Umzug nach Godot](LISTE-UMZUG-348.md): was aus der alten Fassung übernommen ist und was fehlt (348, 398)
+- [Abgleich alt](LISTE-ABGLEICH-ALT.md): was die alte Fassung je Ort und Figur von Kapitel 1 hat, einmal gegen Godot geprüft (620.2)
 - Was zu Figuren und Kampf entschieden ist (461): Kennungen in [Abnahme](DESIGN-ABNAHME.md) „Vor jeder Vorlage“; Text in Stil und Kampf; jede Vorlage wird dagegen geprüft
 - [Netzliste](LISTE-NETZE.md): je sichtbarem Platz die Netze (Bestand, unser, Eigenbau) und welche Gegenstände sie tragen (455.2)
 

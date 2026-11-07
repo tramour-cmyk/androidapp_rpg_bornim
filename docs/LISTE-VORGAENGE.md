@@ -117,10 +117,10 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 499 | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 (Chef 03.11., 07:14, Build 204) | E Figuren | M | 9,32 $ | Team Tom | wartet |
 | 509 | Frösche und Libellen an den Teichen im Flüsterwald fehlen in Godot (Chef 03.11., 09:21; `PondLife.kt`, Projektplan O6, W22) | E Welt | M | – | Team Jerry | ruht |
 | 511 | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele sinnlose und kaputte Filme gemacht?“) | B Werkzeuge | M | 19,83 $ | Perikles | startbar |
-| 512.1 | Wächter: Testbitte ohne Zeile „Verglichen:“ warnt (zu 512) | B Werkzeuge | M? | – | Perikles | startbar |
+| 512.1 | Wächter: Testbitte ohne Zeile „Verglichen:“ warnt (zu 512) | B Werkzeuge | M? | – | Perikles | gebaut |
 | 524.1 | Gegenstandsfenster besser als alt und spielerfreundlicher: Vorschlag (Chef 04.11., 00:52) | A Spiel | M | – | Team Tom | startbar |
-| 512 | Vor jeder Testbitte berührte Schirme alt gegen neu vergleichen (Sokrates 03.11., 07:45, nach Build 204: 9 Erstfunde des Chefs; Chef 23:28 an Sokrates) | B Abläufe | M | 58,93 $ | Sokrates | startbar |
-| 512b | Testbitte nur mit Nachweis eines fremden Helfers (Chef 04.11., 19:21: ja) | B Abläufe | M | 72,73 $ | Perikles, Jerry, Tom, Diogenes | startbar |
+| 512 | Vor jeder Testbitte berührte Schirme alt gegen neu vergleichen (Sokrates 03.11., 07:45, nach Build 204: 9 Erstfunde des Chefs; Chef 23:28 an Sokrates) | B Abläufe | M | 58,93 $ | Sokrates | erledigt |
+| 512b | Testbitte nur mit Nachweis eines fremden Helfers (Chef 04.11., 19:21: ja) | B Abläufe | M | 72,73 $ | Perikles, Jerry, Tom, Diogenes | gebaut |
 | 531 | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere sichtbar mit der Fackel, Ruhebewegungen (Chef 03.11., 23:42) | A Spiel | M | 12,96 $ | Team Tom | startbar |
 | 531a | Rückfrage: Bewegungspaket „Campfire“ für Garrick und Rast kaufen? (Chef 04.11., 19:27) | A Spiel | M | – | Team Tom | wartet |
 | 551 | MARS: Rahmen des unteren Kastens links und rechts unterbrochen (Chef 04.11., 00:21) | E Kampf | M | – | Team Jerry | ruht |
@@ -174,7 +174,9 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 619 | Blende: derselbe Druck auf den Aktionsknopf drückt die Blende sofort weg (Chef 07.11., t268.18) | A Spiel | M | – | Team Tom | in Arbeit |
 | 620 | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build (Chef 07.11.) | F Firma | M | – | Sokrates | Dauer |
 | 620.1 | Wiederholte Funde des Chefs vor Neuem; wenige Muss je Team zugleich (aus 620) | B Abläufe | M | – | Perikles | Chef |
-| 620.2 | Abgleich alt einmal je Ort und Figur als Liste (Leute, Tiere, Requisiten, Gesten, Klänge) für alle Prüflisten (aus 620, 512) | B Abläufe | M | – | Perikles | in Arbeit |
+| 620.2 | Abgleich alt einmal je Ort und Figur als Liste (Leute, Tiere, Requisiten, Gesten, Klänge) für alle Prüflisten (aus 620, 512) | B Abläufe | M | – | Perikles | erledigt |
+| 620.2a | Abgleich alt nach `LISTE-ABGLEICH-ALT.md`: Dorf, Innenräume, Leute, Wald (aus 620.2) | B Abläufe | M | – | Team Tom | startbar |
+| 620.2b | Abgleich alt nach `LISTE-ABGLEICH-ALT.md`: Höhle, Klang, Gegner, Bosse (aus 620.2) | B Abläufe | M | – | Team Jerry | startbar |
 | 621.1 | Probenregel A: höchstens eine Aussehen-Probe je Thema, sonst Rückfrage mit Wegen und Kosten; ersetzt Rundenzahl 389 (Chef 07.11., 621) | B Abläufe | M | – | Perikles | gebaut |
 | 626 | Rückfrage: 14 alte Zeilen aus SRD-Zeit und Umzug streichen oder in 478 übernehmen (Inventur 07.11.) | B Abläufe | M | – | Sokrates | erledigt |
 | 625 | Sammelbuild 269: alle fertigen Zweige beider Teams (35 warten), Prüfliste als Weg durchs Spiel (Chef 07.11., 20:5x) | E Entwicklung | M | – | Team Tom | startbar |
