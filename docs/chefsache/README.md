@@ -142,7 +142,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 629.1 | M | Klopfen: Sprechernamen hinter Türen bauen ([629.sprecher], von Homer) | wartet auf Test/Build (gebaut) |
 | Pflege | K | von Werkzeug (340.3, 07.11.): 111642 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 59, Muss 49, startbar 26
+**Jerry** – offen 59, Muss 49, startbar 25
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -166,7 +166,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 406.2 | M | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) | startbar |
 | 510 | M | Fledermaus: freies Modell (OGA „Vampire Bat“, CC0) neben der eigenen im Film, Chef wählt ( | ruht |
 | 509 | M | Frösche und Libellen an den Teichen im Flüsterwald fehlen in Godot (Chef 03.11., 09:21; Po | ruht |
-| 587 | M | Gegnergröße im Kampfort: 1,3-fach wie alt und die Wölfe, echte Größe oder je Kapitel (Chef | startbar |
+| 587 | M | Gegnergröße im Kampfort: 1,3-fach wie alt und die Wölfe, echte Größe oder je Kapitel (Chef | wartet auf Test/Build (gebaut) |
 | 494 | M | Gegner von Kapitel 1 im Kampf außer den Untoten (506), je Gegner höchstens ein Lauf (Woche | wartet auf 492 (startbar) |
 | 517 | M | Waldklang wie alt: Vögel am Tag, Eule und Grillen nachts, fernes Wolfsheulen im Tiefen Wal | startbar |
 | 507 | M | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager (Orte O10; aus 492) | startbar |
