@@ -133,14 +133,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 133 | K | Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | ruht |
 | 41.2 | K | Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 | 586 | K | von Chef über Jerry (05.11., 09:35; Zu 586): Bilder 557 einheitlich: Rast am Feuer und an | startbar |
-| Pflege | K | von Werkzeug (340.3, 07.11.): 128022 Bytes (Grenze 15000), Erledigtes streichen; Tabellenz | startbar |
+| Pflege | K | von Werkzeug (340.3, 07.11.): 122449 Bytes (Grenze 15000), Erledigtes streichen; Tabellenz | startbar |
 
-**Jerry** – offen 60, Muss 48, startbar 27
+**Jerry** – offen 60, Muss 48, startbar 26
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 565 | M | von Sokrates (Chef 04.11., 17:10, t257 Bereich C, Bild; Zu 565): im Gruppenkasten unten is | startbar |
-| 562 | M | von Sokrates (Chef 04.11., 17:02, t257 Bereich C; Zu 562 und 563): Helden gehen zum Angrif | startbar |
+| 562 | M | von Sokrates (Chef 04.11., 17:02, t257 Bereich C; Zu 562 und 563): Helden gehen zum Angrif | in Arbeit bei Tuffy |
 | 563 | M | von Sokrates (Chef 04.11., 17:02, t257 Bereich C, Bild; Zu 562 und 563): Zustandsschilder | startbar |
 | 560 | M? | von Sokrates (Chef 04.11., 16:22, allgemeiner Hinweis; Zu 560): Monster auf der Karte dreh | startbar |
 | 551 | M | von Sokrates (Chef 04.11., 00:21, Build 249): „MARS Kasten links und rechts unten wird unt | ruht |
@@ -198,16 +198,16 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 598 | M | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Umweltklang je Ort, Tageszeit, Wind, Wetter | startbar |
 | 593 | M? | von Sokrates (Chef 05.11., 19:2x; Zu 594–601): Ausweichen auch rückwärts | wartet auf 478 (startbar) |
 | 616 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu t268): Gegner weichen nach dem Angriff rückwärt | wartet auf 478 (startbar) |
-| Pflege | K | von Werkzeug (340.3, 07.11.): 41238 Bytes (Grenze 15000), Erledigtes streichen; Zeile 551 | startbar |
+| Pflege | K | von Werkzeug (340.3, 07.11.): 37969 Bytes (Grenze 15000), Erledigtes streichen; Zeile 494 | startbar |
 
-**Perikles** – offen 28, Muss 21, startbar 9
+**Perikles** – offen 28, Muss 21, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 623.3 | M | von Sokrates (Chef 07.11., 20:1x, „623 … E“; Archiv 623): Commit-Prüfung warnt bei neuem E | wartet auf Test/Build (gebaut) |
 | 584 | M? | von Sokrates (Inventur 07.11.): Tom wartet bei 584, 585 (Klasse) und 515 (Zeitpunkt), Jerr | startbar |
-| 317.1 | M | von Sokrates (Chef 07.11., 20:5x, Archiv „317, keine Obergrenze je Build“): startbar.py (Z | startbar |
-| 620.1 | M | von Sokrates (Chef 07.11., 14:3x, 620; Zu 620): wiederholte Funde des Chefs vor jedem Neue | Chef (Datei in der Chefsache) |
+| 317.1 | M | von Sokrates (Chef 07.11., 20:5x, Archiv „317, keine Obergrenze je Build“): Werkzeuge ohne | wartet auf Test/Build (gebaut) |
+| 620.1 | M | von Sokrates (Chef 07.11., 14:3x, 620; Zu 620): wiederholte Funde zuerst, Grenze offener M | Chef (Datei in der Chefsache) |
 | 621.1 | M | von Sokrates (Chef 07.11., 16:4x, „621, A, B und D“; Archiv 621): Probenregel A (eine Prob | wartet auf Test/Build (gebaut) |
 | 620.2 | M | von Sokrates (Chef 07.11., 14:3x, 620, 512; Zu 620): Abgleich alt einmal je Ort und Figur | startbar |
 | 620.4 | M | von Sokrates (Chef 07.11., 14:3x, 620; Zu 620): Referenzszene Dorf bis Wolfskampf im Flüst | startbar |
@@ -231,12 +231,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | startbar |
 | D74 | M? | von Diogenes (07.11.): regelcheck.py „Test ohne Datei“ meldet 21 von 27 falsch, Pflege-Zei | startbar |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
-| Pflege | K | von Werkzeug (340.3, 07.11.): 19635 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
+| Pflege | K | von Werkzeug (340.3, 07.11.): 16285 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Diogenes** – offen 18, Muss 16, startbar 13
+**Diogenes** – offen 20, Muss 18, startbar 14
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 620.1 | M | von Perikles (Doppelpack 421, 07.11., 21:0x, 8518c8817): startbar.hochstufen stellt Zeilen | Chef (Datei in der Chefsache) |
+| 317.1 | M | von Perikles (Doppelpack 421, 07.11., 21:0x, 12837c9c3): keine Obergrenze 6 je Build mehr | startbar |
 | 461d | M | von Sokrates (Inventur 07.11.): Perikles meldet „gebaut, Diogenes prüft“, hier fehlte die | startbar |
 | 461 | M | von Sokrates (Inventur 07.11.): wie 461d (Grundstand-Checkliste) | startbar |
 | 461a | M | von Sokrates (Inventur 07.11.): wie 461d | startbar |
@@ -256,7 +258,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 32, Muss 24, startbar 16
+**Sokrates** – offen 33, Muss 24, startbar 17
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -292,6 +294,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 142 | M | Pflichttest Play Store (von Perikles); Store-Text „jede Entscheidung zählt“ prüfen (72a) | startbar |
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | startbar |
 | 109 | M | Repo öffentlich; Chef 27.10., 19:53: Sorge vor Klau | startbar |
+| Pflege | K | von Werkzeug (340.3, 07.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabe | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
