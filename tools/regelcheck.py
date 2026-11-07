@@ -117,9 +117,10 @@ an = os.listdir(os.path.join(DOCS, "chefsache", "ansehen")) if os.path.isdir(os.
 for p in sorted(glob.glob(os.path.join(DOCS, "ARBEIT-*.md"))):
     if p.endswith("ARBEIT-ARCHIV.md"): continue
     for z in lesen(p).splitlines():
-        if not z.startswith("| "): continue
+        if not z.startswith("| ") or z.startswith("| Pflege |"): continue  # D74 (a): Pflegezeilen zitieren die Meldung
         if "wartet" not in z: continue
-        for m in re.finditer(r"(?<![\w/.-])(t\d+)\b", z):
+        stand = z.rstrip(" |").split("|")[4] if z.count("|") >= 6 else z
+        for m in re.finditer(r"wartet auf (?:den )?(?:Test(?:bericht)?:? |Chef: ansehen/)?(t\d+)\b", stand):  # D74 (b): nur tNN direkt nach „wartet auf“
             if not any(f.startswith(m.group(1) + "-") for f in an):
                 fund.append("%s: Zeile %s wartet auf %s, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen)" % (os.path.basename(p), z.split("|")[1].strip(), m.group(1)))
 # Gemeinsamer Build (317): höchstens 6 Testbuilds am Tag für Tom und Jerry zusammen; gezählt: neue Prüflisten tNN in docs/chefsache/ansehen/ heute
