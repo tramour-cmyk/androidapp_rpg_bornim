@@ -41,7 +41,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 87, Muss 65, startbar 47, PAUSE bis **Pause bis die neue Vorgangsliste läuft (Datum nicht lesbar)
+**Tom** – offen 88, Muss 66, startbar 47, PAUSE bis **Pause bis die neue Vorgangsliste läuft (Datum nicht lesbar)
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -121,6 +121,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 07.11.; „star
 | 610 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Finger am Stab zucken im Dorf (Schild | startbar |
 | 615 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Kamera um den Helden als Fixpunkt, ni | wartet auf Test/Build (gebaut) |
 | 611 | M | von Sokrates (Chef 07.11., 14:1x, t268, 268.8; Zu 606–619): Klopfen deutlicher, wessen Hau | wartet auf Test/Build (gebaut) |
+| 630 | M | von Sokrates (07.11., 22:2x, Chef: „Welcher Vorgang ist denn der neue Stil?“): restliche S | ruht |
 | 618 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): „Zurück“, „Abbrechen“, „Schließen“ na | startbar |
 | 612 | M | von Sokrates (Chef 07.11., 14:1x, t268; Zu 606–619): Dorf Süd: Heuhaufen, Weizenfeld, Gemü | startbar |
 | 613 | M | von Sokrates (Chef 07.11., 14:1x, t268.31; Zu 606–619): Intro und Outro wie alt: Tempelgän | startbar |
