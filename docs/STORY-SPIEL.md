@@ -517,6 +517,12 @@ EN: There's a room free upstairs. Fresh sheets, and nobody snores through the wa
 Genug für heute, {name}. Geh schlafen, die Treppe ist links.
 EN: Enough for today, {name}. Go to bed, the stairs are on the left.
 
+`[570.fleisch]` (Wahl an der Theke, ersetzt `meatSell`; „Met · 2 Gold“ ist ein Preis, hier bekommt man Gold, darum das Plus wie bei `[86.kurzfertig]`) Fleisch verkaufen · +{0} Gold / EN: Sell meat · +{0} gold
+
+`[604.zimmerwirkt]` (ersetzt `[86.zimmerwirkt]`; die Gaststube hat kein Bett mehr, geschlafen wird oben, nur im Text) Ein Bett oben unter dem Dach: lange Rast / EN: A bed upstairs under the roof: long rest
+
+`[604.zimmerfertig]` (nach dem Zimmer statt `[86.langfertig]`; Lagerfeuer bleibt bei `[86.langfertig]`) Du steigst die Treppe hinauf und schläfst acht Stunden. TP, ZP und Ausdauer sind voll. / EN: You climb the stairs and sleep for eight hours. HP, SP and stamina are full.
+
 ## Zustände außerhalb des Kampfs (86.9)
 
 Wie die übrigen Zustände in `Status.kt` (Name, Kurzwort, Text), Zeichen in der oberen Leiste und im Kampf. Nicht „Vergiftet“ nennen: „Vergiftet“ heißt im Spiel Schaden jede Runde, das trifft hier nicht zu.
@@ -587,6 +593,37 @@ EN: Rules, classes, races, spells and monsters are simplified and based on the S
 
 `[312.eigen]` Geschichte, Orte und Figuren sind eigene Erfindungen.
 EN: The story, places and characters are original.
+
+### Mit Dank an (623.4, Chef 07.11., 623 F)
+
+Nur auf der Seite „Über das Spiel“, nie im Spielgeschehen (Bau Tom, 623.7). Platz: unter „Lizenzen der Engine“, über dem Logo; Kopf wie die Kopfzeilen der Lizenzen (Gold, Großbuchstaben), Satz in Textgröße, je Gruppe Name der Gruppe gold, Namen gedämpft wie die Schriftenzeile, durch Kommas getrennt. Namen genau so geschrieben wie hier (Schreibung der Urheber, auch klein), in jeder Sprache gleich. Quellen: `LISTE-BESTAND.md`, `tools/klang/QUELLEN.md`, `tools/schrift/QUELLEN.md` (Stand 07.11.; alle fremden Quellen, die wir besitzen, auch noch nicht eingebaute). Kommt eine Quelle hinzu: Name in seine Gruppe (Vorgang an Homer).
+
+`[623.dank.kopf]` Mit Dank an
+EN: With thanks to
+
+`[623.dank.satz]` Diese Chronik entstand nicht allein. Dank allen, deren Werk sie trägt: in Bild und Bewegung, Licht und Klang, Musik und Schrift.
+EN: This chronicle was not made alone. Our thanks to everyone whose work carries it: in image and motion, light and sound, music and type.
+
+`[623.dank.effekte]` Effekte: REEBOO Labs
+EN: Visual effects: REEBOO Labs
+
+`[623.dank.figuren]` Figuren, Tiere und Bewegung: Animated3D, Game Ready Studios, Janpec, MadeCG, Protofactor, Quaternius, rubberduck, wernerkurt, yughues
+EN: Characters, creatures and motion: (Namen wie oben)
+
+`[623.dank.dinge]` Dinge und Waffen: Anker's Assets, Avramania, MagicCGIStudios, Omie's Assets, PolyMech, Quaternius
+EN: Props and weapons: (Namen wie oben)
+
+`[623.dank.klang]` Klang: AlanCat, antumdeluge, arcadeparty, artisticdude, bart, bashar3a, betchkal, blukotek, bonebrah, Borgory, Breviceps, congusbongus, craigsmith, Defelozedd94, esperar, EZduzziteh, Gerent, haeldb, jaegrover, jaggedstone, jmehlferber, Joseph Sardin, Kenney, kingsrow, legit-audio, LilMati, magicjoshua, musicbrain, ondrosik, onehugeeye, owlishmedia, Paresh, Patrick_Corra, pauliuw, Pierre, qubodup, RandomMind, rubberduck, Sahand.Zangeneh, Sam Gossner, SkyRaeVoicing, syncopika, themightyglider, thimras, ValentinPetiteau, vehicle, vinrax, ZoshP – und allen, die ihre Aufnahmen bei BigSoundBank, Freesound und OpenGameArt teilen.
+EN: Sound: (Namen wie oben) – and everyone who shares their work on BigSoundBank, Freesound and OpenGameArt.
+
+`[623.dank.musik]` Musik: beardalaxy, carrieedick, cesisco, cleytonkauffman, cynicmusic, ElanHickler, eldritch-grim, emmama, Fission9, Flamiffer, jaggedstone, Kaiser (the-oracle), kindland, Kinoton, Magmi.Soundtracks, nene, nihilocrat, Paul Wortmann, RandomMind, rhayn, RutgerMuller, tinyworlds, trex0n, umplix, vitalezzz, yd
+EN: Music: (Namen wie oben)
+
+`[623.dank.schrift]` Schriften: Juan Pablo del Peral und Huerta Tipográfica (Alegreya), Brian J. Bonislawsky (Astigmatic, Fondamento)
+EN: Typefaces: Juan Pablo del Peral and Huerta Tipográfica (Alegreya), Brian J. Bonislawsky (Astigmatic, Fondamento)
+
+`[623.dank.engine]` Engine: Godot Engine – Juan Linietsky, Ariel Manzur und alle Mitwirkenden
+EN: Engine: Godot Engine – Juan Linietsky, Ariel Manzur and all contributors
 
 ## Ansage vor harten Schlägen (354.1)
 

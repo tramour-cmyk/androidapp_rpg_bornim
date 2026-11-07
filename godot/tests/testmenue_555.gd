@@ -166,3 +166,8 @@ func _mars() -> void:
 		mars._hurt(hero, 99999, "w1", "x")
 		pruefe("Held unsterblich", hero.hp == 1, str(hero.hp))
 	pruefe("Held immer kritisch", wuerfe > 0 and fehl == 0, "%d von %d Wuerfen verfehlt" % [fehl, wuerfe])
+	# 555 (Chef 11:52, „Spinne kommt nicht“): Kampf beschwoeren nur mit Gruppen, deren Monster ein Modell haben; die anderen als Zeile
+	var fs := Testmodus.feinde()
+	var spinne := Streuner.da("giant_spider")
+	pruefe("Spinne nur mit Modell", fs.has("SPIDER") == spinne and (spinne or "Spinne" in Testmodus.ohne_modell()), "Modell %s, Liste %s" % [spinne, fs.keys()])
+	pruefe("Wolfsrudel bleibt", fs.has("WOLVES"), str(fs.keys()))

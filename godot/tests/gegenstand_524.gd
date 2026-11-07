@@ -19,7 +19,7 @@ func texte(zeilen: Array) -> String:
 	for c in zeilen:
 		if c is Label: aus.append((c as Label).text)
 		for l in (c as Node).find_children("*", "Label", true, false): aus.append((l as Label).text)
-	return " | ".join(aus)
+	return " | ".join(aus).replace("\u00a0", " ")   # 557 Vorlage 2: die letzten zwei Wörter fest verbunden
 
 func stueck(z: Zustand, base: String, rarity := "UNCOMMON", plus := 0) -> Dictionary:
 	return {"uid": z.neue_uid.call(), "base": base, "rarity": rarity, "ilvl": 3, "plus": plus, "rolls": [], "unique": null, "name_seed": 1}

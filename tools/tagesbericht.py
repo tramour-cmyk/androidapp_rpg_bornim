@@ -45,15 +45,15 @@ def rev_vor(spec):
 
 def tafel(rev):
     d = {}
+    sys.path.insert(0, os.path.join(ROOT, "tools")); import startbar  # 275.2: Spalten über den Kopf, altes und neues Format
     for f in ("docs/LISTE-VORGAENGE.md", "docs/LISTE-VORGAENGE-ARCHIV.md"):
-        for z in git("show", "%s:%s" % (rev, f)).splitlines():
-            t = [x.strip() for x in z.split("|")]
-            if len(t) > 8 and z.startswith("| ") and t[1] not in ("Nr.",) and not t[1].startswith("-"):
-                k = sum(float(x.replace(".", "").replace(",", ".")) for x in re.findall(r"(\d[\d.]*,\d\d) ?\$", t[5]))
-                d.setdefault(t[1], dict(titel=t[2], bereich=t[3][:1], vorrat=t[6], stand=t[7], kosten=k))
+        for t in startbar.tafel_zeilen(git("show", "%s:%s" % (rev, f))):
+            if not t.get("nr") or t["nr"] in startbar.SONDER: continue
+            k = sum(float(x.replace(".", "").replace(",", ".")) for x in re.findall(r"(\d[\d.]*,\d\d) ?\$", t.get("kosten", "")))
+            d.setdefault(t["nr"], dict(titel=t.get("titel", ""), bereich=t.get("bereich", "")[:1], vorrat=t.get("besitzer", ""), stand=t.get("stand", ""), kosten=k))
     return d
 
-def fertig(s): return s.split(" ")[0].lower() in ("erledigt", "abgenommen", "verworfen")
+def fertig(s): return re.match(r"(erledigt|abgenommen|verworfen)\b", s.strip(), re.I) is not None
 
 def chefsache():
     t = lesen("chefsache/README.md"); teile = re.split(r"(?m)^## ", t); n, alt = {}, {}
@@ -132,7 +132,7 @@ def zeilen(d):
         ("Rest geschätzt", ein.get("Rest geschätzt", "noch keine Schätzung"), "Sitzungen bis zur nächsten Stufe, Tom und Jerry, montags neu"),
         ("Wartet auf dich", warte or "nichts", "ältestes: %s; [Chefsache](chefsache/README.md)" % aeltest),
         ("Builds", "Änderungen warten auf deinen Test: **%d** (Tom %d, Jerry %d)" % (t1 + t2, t1, t2),
-         "bei dir zum Testen: %s; höchstens 6 je Build (317)" % (", ".join(re.findall(r"\[(Build \d+)\]", lesen("chefsache/README.md"))) or "kein Build")),
+         "bei dir zum Testen: %s; ein Build nimmt alle fertigen Zweige (317)" % (", ".join(re.findall(r"\[(Build \d+)\]", lesen("chefsache/README.md"))) or "kein Build")),
         ("Fehler", fehler(d["jetzt"]), "offene Vorgänge des Spiels mit Fehler oder Befund im Titel, dazu jeder mit Build-Nummer (D55.3)"),
         ("Geld", ("Woche **%s %%** (dein Bild %s, %s)" % (gut.group(3), gut.group(1), gut.group(2)) if gut else "Woche unbekannt") +
          "; gestern %d $ Rechenwert, Spiel %d %%" % (ks, 100 * k["Spiel"] / ks if ks else 0), "Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal)"),

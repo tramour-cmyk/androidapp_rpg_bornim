@@ -5,7 +5,7 @@ extends SceneTree
 func _initialize() -> void: _lauf.call_deferred()
 
 func texte(n: Node) -> String:
-	return " | ".join(PackedStringArray(n.find_children("*", "Label", true, false).map(func(l): return l.text)))
+	return " | ".join(PackedStringArray(n.find_children("*", "Label", true, false).map(func(l): return l.text.replace("\u00a0", " "))))
 
 func _lauf() -> void:
 	var fehler := 0

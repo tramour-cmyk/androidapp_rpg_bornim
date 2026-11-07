@@ -19,6 +19,9 @@ Zwei Teile:
   5. Wirtschaft (447.3, Stufe 3): Fortschritt wie 1 mit Gold, Beute, Zerlegen (Jagd), Abnutzung,
      Reparatur (Handwerker oder selbst), Traenken (kaufen, brauen, trinken) und Tiere beruhigen;
      Zahlen im Block "wirtschaft". Nur dieser Teil: --nur-wirtschaft.
+  6. Traenke im Bosskampf (481.1): je Herkunft und Boss Siegquote ohne Traenke, mit Heiltraenken,
+     mit Kampftraenken (Steinhaut, Berserkertrank, Alchemistenfeuer; Wirkung nach Kraeuterkunde);
+     Zahlen im Block "kampftraenke". Nur dieser Teil: --nur-traenke.
 """
 import argparse
 import json
@@ -229,9 +232,10 @@ def held_abwehr(W, held, art, waffe_name=None, schild=True):
 
 # ---------------------------------------------------------------- Kampf
 
-def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False):
+def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False, beutel=None):
     """wirt: Zustand, Traenke und Zaehler der Wirtschaft (Teil 5) oder None (Teile 1 bis 4 unveraendert).
-    tier_zuerst: misslungenes Beruhigen, das Tier handelt in Runde 1 vor dem Helden."""
+    tier_zuerst: misslungenes Beruhigen, das Tier handelt in Runde 1 vor dem Helden.
+    beutel: Heil- und Kampftraenke fuer einen Bosskampf (Teil 6, 481.1) oder None."""
     k = W["kampf"]
     z = W["zauber"]
     d_held = held.stufe - mon["stufe"]
@@ -257,6 +261,11 @@ def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False):
     umr = mk["umreissen"] if mon.get("umreissen") else None
     rud = mk["rudel"][mon["rudel"]] if mon.get("rudel") else None
     zust = {"erster": True, "betaeubt": 0, "liegt": False}
+    # 481.1: Kampftraenke (werte.json "kampftraenke"), Wirkung nach Kraeuterkunde
+    tb = wirt if wirt is not None else beutel
+    kt = W.get("kampftraenke", {})
+    wirkung = beutel.wirkung if beutel is not None else 1.0
+    trank = {"stein": 0, "bers": 0}
 
     def auf_held(angriff, schaden, faktor=1.0):
         """Ein Angriff auf den Helden (Monster oder Begleiter); True bei Treffer."""
@@ -264,7 +273,10 @@ def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False):
         abw_name, abw = held_abwehr(W, held, mon["art"], waffe_name, l_schild > 0)
         if rng.random() < trefferchance(W, angriff, abw):
             s = schaden_roh(W, schaden, angriff, -d_held, rng) * faktor
-            leben -= endschaden(W, s, held_abzug(W, held, bann, l_ruestung, l_schild))
+            e = endschaden(W, s, held_abzug(W, held, bann, l_ruestung, l_schild))
+            if trank["stein"] > 0:
+                e *= max(0.0, 1 - kt["Steinhaut"]["schutz"] * wirkung)
+            leben -= e
             if wirt is not None:
                 wirt.nutze("ruestung", held, mon)
                 wirt.nutze("schild", held, mon)
@@ -312,18 +324,44 @@ def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False):
         if (tier_zuerst and runde == 1) or zust["betaeubt"] > 0:
             zust["betaeubt"] = max(0, zust["betaeubt"] - 1)
             aktion = "warten"
-        elif wirt is not None and leben < lmax * W["wirtschaft"]["traenke"]["trinken_unter"] and wirt.hat_trank():
+        elif tb is not None and leben < lmax * W["wirtschaft"]["traenke"]["trinken_unter"] and tb.hat_trank():
             aktion = "trank"
+        elif beutel is not None and beutel.hat("Steinhaut") and trank["stein"] <= 0:
+            aktion = "Steinhaut"
+        elif (beutel is not None and beutel.hat("Berserkertrank") and trank["bers"] <= 0
+              and "Funkenpfeil" not in held.zauber):
+            aktion = "Berserkertrank"
         elif "Bannschild" in held.zauber and runde == 1 and mana >= z["Bannschild"]["kosten"]:
             aktion = "Bannschild"
         elif "Wundsegen" in held.zauber and leben < lmax * z["Wundsegen"]["heilen_unter"] and mana >= z["Wundsegen"]["kosten"]:
             aktion = "Wundsegen"
         elif "Funkenpfeil" in held.zauber and mana >= z["Funkenpfeil"]["kosten"]:
             aktion = "Funkenpfeil"
+        # 481.1: Feuer statt eines schwaecheren Angriffs (Grundschaden verglichen)
+        if aktion in (None, "Funkenpfeil") and beutel is not None and beutel.hat("Alchemistenfeuer"):
+            if aktion == "Funkenpfeil":
+                g_jetzt = z["Funkenpfeil"]["schaden"] + held.werte["wille"]
+            else:
+                gw = waffe["grundwert"]
+                g_jetzt = (waffe["schaden"] + (held.werte[gw] if gw else 0)) * l_waffe
+                if trank["bers"] > 0:
+                    g_jetzt *= 1 + kt["Berserkertrank"]["schaden_plus"] * wirkung
+            if kt["Alchemistenfeuer"]["schaden"] * wirkung > g_jetzt:
+                aktion = "Alchemistenfeuer"
+        if trank["stein"] > 0:
+            trank["stein"] -= 1
+        if trank["bers"] > 0:
+            trank["bers"] -= 1
         if aktion == "warten":
             pass
         elif aktion == "trank":
-            leben = min(lmax, leben + wirt.trinke())
+            leben = min(lmax, leben + tb.trinke())
+        elif aktion == "Steinhaut":
+            beutel.nimm("Steinhaut")
+            trank["stein"] = kt["Steinhaut"]["runden"]
+        elif aktion == "Berserkertrank":
+            beutel.nimm("Berserkertrank")
+            trank["bers"] = kt["Berserkertrank"]["runden"] + 1   # zaehlt ab dem naechsten Zug
         elif aktion == "Bannschild":
             zb = z["Bannschild"]
             mana -= zb["kosten"]
@@ -340,7 +378,14 @@ def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False):
                 held.uebe(zb["schule"], mon["stufe"])
                 benutzt.add(zb["schule"])
         else:
-            if aktion == "Funkenpfeil":
+            if aktion == "Alchemistenfeuer":
+                beutel.nimm("Alchemistenfeuer")
+                fe = kt["Alchemistenfeuer"]
+                fert_name = fe["fertigkeit"]
+                grund = fe["schaden"] * wirkung
+                bonus = k["fernkampf_treffer_je_wahrnehmung"] * held.werte["wahrnehmung"]
+                typ = fe["typ"]
+            elif aktion == "Funkenpfeil":
                 zb = z["Funkenpfeil"]
                 mana -= zb["kosten"]
                 fert_name = zb["schule"]
@@ -351,6 +396,8 @@ def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False):
                 fert_name = waffe_name
                 gw = waffe["grundwert"]
                 grund = (waffe["schaden"] + (held.werte[gw] if gw else 0)) * l_waffe
+                if trank["bers"] > 0:
+                    grund *= 1 + kt["Berserkertrank"]["schaden_plus"] * wirkung
                 bonus = k["fernkampf_treffer_je_wahrnehmung"] * held.werte["wahrnehmung"] if waffe["art"] == "fern" else 0.0
                 typ = waffe["typ"]
             fw = held.f(fert_name)
@@ -491,6 +538,141 @@ def matrix(W, herkunft, fert_bei, kaempfe, rng, variante=False):
                 "runden": statistics.mean(runden) if runden else None,
                 "leben": statistics.mean(leben) if leben else None,
             }
+    return out
+
+
+# ---------------------------------------------------------------- Teil 6: Traenke im Bosskampf (481.1)
+
+def wirkung_von(W, kraeuterkunde):
+    kt = W["kampftraenke"]
+    return min(kt["wirkung_max"], kt["wirkung_grund"] + kt["wirkung_je_kraeuterkunde"] * kraeuterkunde)
+
+
+class Beutel:
+    """Traenke fuer einen Kampf; gleiche Schnittstelle fuer Heiltraenke wie Wirt."""
+
+    def __init__(self, W, heiltraenke, satz, kraeuterkunde):
+        self.W = W
+        self.n = {"Heiltrank": heiltraenke}
+        self.n.update(satz)
+        self.wirkung = wirkung_von(W, kraeuterkunde)
+
+    def hat(self, name):
+        return self.n.get(name, 0) > 0
+
+    def nimm(self, name):
+        self.n[name] -= 1
+
+    def hat_trank(self):
+        return self.hat("Heiltrank")
+
+    def trinke(self):
+        self.nimm("Heiltrank")
+        return self.W["wirtschaft"]["traenke"]["Heiltrank"]["heilung"]
+
+
+def satz_preis(W):
+    kt = W["kampftraenke"]
+    preise = W["wirtschaft"]["preise"]
+    p = kt["heiltraenke"] * preise["Heiltrank"]
+    for name, n in kt["satz"].items():
+        p += n * (kt[name]["preis"] if "preis" in kt[name] else preise[name])
+    return p
+
+
+def traenke_boss(W, herkunft, fert_bei, kaempfe, rng):
+    """Je Boss auf seiner Stufe: Siegquote ohne Traenke, mit Heiltraenken, mit Kampftraenken
+    (Kraeuterkunde wie gerechnet) und mit Kraeuterkunde an der Decke (nur wer damit beginnt)."""
+    kt = W["kampftraenke"]
+    out = {}
+    hat_kk = "Kräuterkunde" in W["herkuenfte"][herkunft]["fertigkeiten"]
+    for name, mon in ohne_info(W["monster"]).items():
+        if not mon.get("boss"):
+            continue
+        h = held_auf_stufe(W, herkunft, mon["stufe"], fert_bei.get(mon["stufe"]) or fert_bei[max(fert_bei)])
+        kk = h.f("Kräuterkunde")
+        faelle = {"ohne": None, "heil": (kt["heiltraenke"], {}, kk), "kampf": (kt["heiltraenke"], kt["satz"], kk)}
+        if hat_kk:
+            faelle["kampf_decke"] = (kt["heiltraenke"], kt["satz"], max(kk, kt["kraeuterkunde_decke"]))
+        for fall, b in faelle.items():
+            siege = 0
+            for _ in range(kaempfe):
+                beutel = Beutel(W, b[0], dict(b[1]), b[2]) if b else None
+                if kampf(W, h, mon, rng, beutel=beutel)["sieg"]:
+                    siege += 1
+            out[(name, fall)] = siege / kaempfe
+        out[(name, "kk")] = kk
+    return out
+
+
+def bericht_traenke(W, tr, kaempfe, proben=None):
+    kt = W["kampftraenke"]
+    zeilen = []
+    a = zeilen.append
+    a("## 6. Tränke im Bosskampf (481.1)")
+    a("")
+    a(f"Held auf der Stufe des Bosses, Fertigkeiten aus Abschnitt 1 (18 Punkte); je Fall {kaempfe} Kämpfe; Sieg in %. "
+      f"„ohne“ wie Abschnitt 2; „Heil“: {kt['heiltraenke']} Heiltränke; „Kampf“: dazu "
+      + ", ".join(f"{n} {name}" for name, n in kt["satz"].items())
+      + f" (Beutel {satz_preis(W)} Gold), Wirkung nach Kräuterkunde wie gerechnet; „Kampf, KK {kt['kraeuterkunde_decke']}“: nur wer mit Kräuterkunde beginnt, geübt bis zur Decke von Kapitel 1.")
+    a("")
+    a(f"- **Wirkung** = {kt['wirkung_grund']} + {kt['wirkung_je_kraeuterkunde']} × Kräuterkunde, höchstens {kt['wirkung_max']} "
+      f"(ohne 0,5, Startwert 10 = 1, 24 = 1,7). Steinhaut: {kt['Steinhaut']['runden']} Runden Schaden × (1 − {kt['Steinhaut']['schutz']} × Wirkung), bei 2 unverwundbar; "
+      f"Berserkertrank: {kt['Berserkertrank']['runden']} Angriffe mit Waffenschaden × (1 + {kt['Berserkertrank']['schaden_plus']} × Wirkung), nicht für Zauberer; "
+      f"Alchemistenfeuer: geworfen, Grundschaden {kt['Alchemistenfeuer']['schaden']} × Wirkung, Feuer. Jeder Trank kostet einen Zug. Alle Zahlen Annahmen (`werte.json` „kampftraenke“).")
+    a("")
+    hks = list(tr)
+    bosse = [n for n, m in ohne_info(W["monster"]).items() if m.get("boss")]
+    for b in bosse:
+        a(f"**{b}**")
+        a("")
+        a(f"| Herkunft | Kräuterkunde | ohne | Heil | Kampf | Kampf, KK {kt['kraeuterkunde_decke']} |")
+        a("|---|---|---|---|---|---|")
+        zaehl = {"ohne": 0, "heil": 0, "kampf": 0}
+        for hk in hks:
+            t = tr[hk]
+            def z(f):
+                v = t.get((b, f))
+                if v is None:
+                    return "–"
+                txt = str(round(100 * v))
+                return f"**{txt}**" if v >= 0.5 else txt
+            for f in zaehl:
+                if t[(b, f)] >= 0.5:
+                    zaehl[f] += 1
+            a(f"| {hk} | {t[(b, 'kk')]} | {z('ohne')} | {z('heil')} | {z('kampf')} | {z('kampf_decke')} |")
+        a(f"| ab 50 % | | {zaehl['ohne']} | {zaehl['heil']} | {zaehl['kampf']} | |")
+        a("")
+    if proben:
+        a("### 6b. Kräutersammler mit anderem Beutel")
+        a("")
+        a("Sieg in %, je 2 Heiltränke dazu; Kräuterkunde gesetzt. Preis des Beutels in Gold.")
+        a("")
+        a("| Kräuterkunde | Beutel | Gold | " + " | ".join(bosse) + " |")
+        a("|---|---|---|" + "---|" * len(bosse))
+        for (kk, satzname), werte in proben.items():
+            zellen = [f"**{round(100 * werte[b])}**" if werte[b] >= 0.5 else str(round(100 * werte[b])) for b in bosse]
+            a(f"| {kk} | {satzname} | {werte['preis']} | " + " | ".join(zellen) + " |")
+        a("")
+    return "\n".join(zeilen) + "\n"
+
+
+def traenke_proben(W, fert_bei, kaempfe, rng, herkunft="Kräutersammler"):
+    kt = W["kampftraenke"]
+    preise = W["wirtschaft"]["preise"]
+    out = {}
+    for kk in kt["proben_kraeuterkunde"]:
+        for satzname, satz in kt["proben"].items():
+            r = {"preis": kt["heiltraenke"] * preise["Heiltrank"]
+                 + sum(n * kt[t].get("preis", preise.get(t, 0)) for t, n in satz.items())}
+            for name, mon in ohne_info(W["monster"]).items():
+                if not mon.get("boss"):
+                    continue
+                h = held_auf_stufe(W, herkunft, mon["stufe"], fert_bei.get(mon["stufe"]) or fert_bei[max(fert_bei)])
+                siege = sum(kampf(W, h, mon, rng, beutel=Beutel(W, kt["heiltraenke"], dict(satz), kk))["sieg"]
+                            for _ in range(kaempfe))
+                r[name] = siege / kaempfe
+            out[(kk, satzname)] = r
     return out
 
 
@@ -819,6 +1001,10 @@ def pruefen(W):
         k, fert = reparatur_kosten(W, hs, "Stumpfe Waffen", 100)
         ist("Reparatur Streitkolben selbst (Schmieden 10, Anfaenger)", k, 1, tol=0.001)
         ist("Reparatur Kettenhemd selbst erst als Geselle", 1 if reparatur_kosten(W, hs, "Mittlere Rüstung", 100)[1] is None else 0, 1, tol=0)
+    if "kampftraenke" in W:   # 481.1
+        ist("Trankwirkung ohne Kraeuterkunde", wirkung_von(W, 0), 0.5, tol=0.001)
+        ist("Trankwirkung Kraeuterkunde 10", wirkung_von(W, 10), 1.0, tol=0.001)
+        ist("Trankwirkung Kraeuterkunde 40 (Deckel)", wirkung_von(W, 40), 2.0, tol=0.001)
     print("Ergebnis:", "in Ordnung" if fehler == 0 else f"{fehler} Fehler")
     return fehler
 
@@ -1044,6 +1230,7 @@ def main():
     p.add_argument("--json", help="Rohdaten zusaetzlich als JSON")
     p.add_argument("--nur-wirtschaft", action="store_true", help="nur Abschnitt 5 (Wirtschaft) rechnen und ausgeben")
     p.add_argument("--ohne-wirtschaft", action="store_true", help="Abschnitt 5 nicht rechnen")
+    p.add_argument("--nur-traenke", action="store_true", help="nur Abschnitt 6 (Traenke im Bosskampf, 481.1) ausgeben")
     args = p.parse_args()
     W = lade(args.werte)
     # 427.1: Boss mit Ueberfall auch mit Morwens Rauch (D4.1: der erste Hieb geht fehl), nur in Bossen und Matrix
@@ -1083,11 +1270,27 @@ def main():
             print(f"  {hk}{' (21)' if variante else ''} fertig", file=sys.stderr)
         return erg
 
+    def rechne_traenke(erg):
+        rng = random.Random(W["lauf"]["zufallskeim"] + 6)
+        tr = {hk: traenke_boss(W, hk, e["fortschritt"]["fert_bei"], kaempfe, rng) for hk, e in erg.items()}
+        pr = traenke_proben(W, erg["Kräutersammler"]["fortschritt"]["fert_bei"], kaempfe, rng) if "Kräutersammler" in erg else None
+        return bericht_traenke(W, tr, kaempfe, pr)
+
+    if args.nur_traenke:
+        text = rechne_traenke(rechne(False))
+        if args.aus:
+            with open(args.aus, "w", encoding="utf-8") as f:
+                f.write(text)
+        else:
+            sys.stdout.write(text)
+        return
+
     erg = rechne(False)
     var = None if args.ohne_variante else rechne(True)
     text = bericht(W, erg, var, args)
     if not args.ohne_wirtschaft:
         text += "\n" + rechne_wirtschaft()
+    text += "\n" + rechne_traenke(erg)
     if args.aus:
         with open(args.aus, "w", encoding="utf-8") as f:
             f.write(text)
