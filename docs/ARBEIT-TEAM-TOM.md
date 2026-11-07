@@ -9,6 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 625 | M | **von Sokrates (Chef 07.11., 20:5x: „Das Größenlimit von 6 Sachen pro Build heben wir auf … Viel zusammenpacken, was geht, und eine sinnvolle Testreihenfolge aufbauen“; „jetzt“ 07.11., 20:58):** Sammelbuild 269 wie 603: alle fertigen Zweige beider Teams (`startbar.py`: Tom 21, Jerry 14 warten), dazu die Fehlerbehebungen dieser Nacht; Prüfliste als Weg durchs Spiel, nach Orten; jeder Schritt vorher im Build nachgegangen (512); 268.4, 268.14, 268.24, 268.12, 268.27 wieder abfragen | startbar | – |
 | 605 | M | **von Ford (Chef 06.11., 21:22, Test Build 268, Bild; Zu 605):** Ausrüstung, leeres Kopffeld → Auswahl: falsche Anzeige („wirkt nicht (Obergrenze)“ bei allen Werten, Vergleich gegen leeres Feld), kein Abbrechen oder Zurück | startbar | – |
 | 580 | M | **von Tom (Abgleich 512b, Prüfer 08:17):** Erschaffung Punktekauf: Attributnamen abgeschnitten („Geschic…“, „Konstit…“); in `erschaffung_brs.gd` 330 schon gelöst | gebaut: nichts zu tun, gekürzt war nur alt; Geprüft an: 601ecb2a5 | – |
 | 581 | M | **von Tom (Abgleich 512b):** Reiter Ausrüstung: Seite 16 px breiter als der Schirm (Rand 11 statt 27 px), Reiter springen beim Wechsel (`menue.gd` 821–835) | startbar: t268.11 (Zu 605) | `claude/tom-581-ausruestung` |
