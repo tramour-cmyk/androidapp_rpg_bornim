@@ -12,7 +12,6 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 587 | M | **von Team Jerry (Chef 05.11., 12:0x: „587 A“, Archiv):** `LISTE-FIGUREN.md` „Echte Größe“ (348.11 b) ändern: im Kampfort Gegner 1,3-fach, Bosse 1,5-fach wie alt und die Wölfe; Gebietskarte nach 587a (Chefsache); Bau bei Jerry | wartet auf Chef: 587a |
 | 604 | K | **von Ford (Chef 06.11., 09:38):** Rast in der Schenke: Text, dass oben geschlafen wird („das muss man ja nicht darstellen“); Tom nimmt das Bett aus der Gaststube | startbar |
 | 570 | M? | **von Team Tom (Prüfer 557 Runde 4, 04.11., 18:21):** Rast an der Theke, Wahl „Fleisch verkaufen · {0} Gold“ (`Resting.kt` `meatSell`) liest sich wie ein Preis, man bekommt aber Gold; Wortlaut prüfen, Bau bei Tom | startbar |
 | 432 | K | **von Sokrates (Chef 31.10., 22:0x: „deine Idee mit einem besonderen Volk aus Bornim gefällt mir sehr gut“):** eigenes Volk prüfen, mit der Geschichte ab Kapitel 2 | ruht: Storyplan, Kult-Antwort und Abgleich K2 fertig (STORY-PLAN.md, Aschgeborene); Chefsache erst nach dem Meilenstein, vor dem Bau; Volk selbst in 432.3 |
