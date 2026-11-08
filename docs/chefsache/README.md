@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [644](entscheiden/644-werte-je-gegenstand.md) | **Muss** | E Kampf | 08.11., 11:06 | Werte je Gegenstand ohne Würfel: Vorgang anlegen? | Sokrates |
 
 ## Zu billigen
 
@@ -218,7 +222,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 642 | M | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test |
 | 643 | M | Langbogen mit Köcher als Waffenmodell (daten/waffen/longbow.bin, Griff = Ursprung, Schaft | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test |
 
-**Perikles** – offen 17, Muss 14, startbar 1
+**Perikles** – offen 16, Muss 14, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -238,7 +242,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 627 | M | probelauf.py: Push mit git commit -F - im selben Befehl als Probelauf gezählt (562, ohne L | wartet auf Test/Build (gebaut) |
 | 99 | K | Zwei Niederlassungen | ruht |
 | 641 | M | lauf.py startet Nachfolger „auf Abruf“, obwohl nichts startbar ist (Diogenes 08.11., 09:07 | wartet auf Test/Build (gebaut) |
-| Pflege | K | von Werkzeug (340.3, 08.11.): 15658 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Diogenes** – offen 11, Muss 9, startbar 1
 
@@ -256,7 +259,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | Woche | K | Wochenzählung der Kennzahlen | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
 
-**Sokrates** – offen 36, Muss 27, startbar 18
+**Sokrates** – offen 37, Muss 28, startbar 18
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -296,6 +299,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 284 | M | Bis zum Durchspielen (26) am Kampf nur Fehlerbehebung, kein Feinschliff (Vorschlag Sokrate | ruht |
 | 340 | M | Rollenspiegel: zehn Fragen Ist-Soll an alle Rollen, Antwort am Sitzungsende mit Beleg (Che | ruht |
 | 344 | M | Fackel: brennt überall außer in hellen Grundrissen; Kampf mit der Fackel nach SRD (Chef 23 | ruht |
+| 644 | M | Werte je Gegenstand ohne Würfel: Gegenstandsstufe, Güte, Zustand in Zahlen (Frage Chef 08. | Chef (Datei in der Chefsache) |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
