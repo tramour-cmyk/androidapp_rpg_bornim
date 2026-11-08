@@ -299,7 +299,12 @@ func punktekauf() -> void:
 		n.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		n.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		r.add_child(n)
-		for z in [[str(v + bon), 16, Stil.TEXT, 30], ["+%d" % bon if bon > 0 else "", 13, Stil.GOLD, 30], ["(%s)" % vorzeichen(Heldwerte.mod_von(v + bon)), 13.5, Spielstaende.ANGABE, 40]]:
+		n.resized.connect(func():   # 630: der Name ganz, notfalls kleiner bis 13 sp (549a), statt mit „…“ gekuerzt
+			for sp_ in [14.0, 13.5, 13.0]:
+				var gg := int(round(sp_ * 0.95 * Stil.SP))
+				n.add_theme_font_size_override("font_size", gg)
+				if n.get_theme_font("font").get_string_size(n.text, HORIZONTAL_ALIGNMENT_LEFT, -1, gg).x <= n.size.x: break, CONNECT_ONE_SHOT)
+		for z in [[str(v + bon), 16, Stil.TEXT, 26], ["+%d" % bon if bon > 0 else "", 13, Stil.GOLD, 26], ["(%s)" % vorzeichen(Heldwerte.mod_von(v + bon)), 13.5, Spielstaende.ANGABE, 34]]:
 			var l := txt(z[0], z[1], z[2])
 			l.autowrap_mode = TextServer.AUTOWRAP_OFF
 			l.custom_minimum_size.x = z[3] * DP

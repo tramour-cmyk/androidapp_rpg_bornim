@@ -98,7 +98,10 @@ func _lauf() -> void:
 	await _bild("laden_gewoehnliche")
 	await _weg(l)
 	ebene3.queue_free()
+	var eb := CanvasLayer.new()   # wie spiel.gd: Ebene 40 ueber der Leiste
+	eb.layer = 40
+	root.add_child(eb)
 	var b := BrettSchirm.new(z)
-	root.add_child(b)
+	eb.add_child(b)
 	await _bild("brett")
 	quit(0)

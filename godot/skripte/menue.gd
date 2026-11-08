@@ -547,8 +547,18 @@ static func passe_knopf(p: Control, breite: float) -> void:
 			return
 	l.add_theme_font_size_override("font_size", int(round(13.0 * Stil.SP)))
 	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	l.custom_minimum_size.x = innen
-	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	# Breite der laengeren Zeile (gierig wie der Umbruch), dann steht „›“ bzw. „‹“ direkt am Text (Pruefer 10:06: abgesetzt rechts)
+	var g := int(round(13.0 * Stil.SP))
+	var worte := l.text.split(" ", false)
+	var zeile := ""; var breit := 0.0
+	for w in worte:
+		var probe: String = w if zeile == "" else zeile + " " + w
+		if zeile != "" and schrift.get_string_size(probe, HORIZONTAL_ALIGNMENT_LEFT, -1, g).x > innen:
+			breit = maxf(breit, schrift.get_string_size(zeile, HORIZONTAL_ALIGNMENT_LEFT, -1, g).x); zeile = w
+		else: zeile = probe
+	breit = maxf(breit, schrift.get_string_size(zeile, HORIZONTAL_ALIGNMENT_LEFT, -1, g).x)
+	l.custom_minimum_size.x = minf(innen, ceilf(breit) + 2.0)
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT if bool(p.get_meta("links", false)) else HORIZONTAL_ALIGNMENT_RIGHT
 
 const ABBRECHEN := {"de": "Abbrechen", "en": "Cancel"}
 func abbrechen() -> String: return Sprache.t(ABBRECHEN)
