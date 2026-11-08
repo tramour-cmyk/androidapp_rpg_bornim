@@ -876,6 +876,7 @@ func weiter() -> void:
 				return
 			"flagge":
 				zustand.setze(String(c["flagge"]))
+				if String(c["flagge"]) == Geschichte.BARRIER_OPEN: klang("effekt", ["door"])   # 636 Game.kt SetFlag: Schlagbaum auf mit Türgeräusch
 				flaggen_neu()
 			"variante":   # 504.1: Wortlaut gehoert (Skript.variante)
 				var vm := String(c["marke"])
