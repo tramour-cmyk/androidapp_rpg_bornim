@@ -428,7 +428,7 @@ static func frage(eltern: Control, titel: String, zeilen: Array, zeichen: String
 	mitte.add_child(Rueckfrage.halte(v))
 	# Chef 16:51 (549a (8): „für jedes Fenster gleich“): oben der Titel, darunter genau eine Zierlinie mit Raute, keine Linie darueber
 	# und keine zweite schlichte darunter; dann Inhalt, schlichte Linie, Knoepfe
-	var t := Stil.zeile(titel.to_upper().replace("ß", "SS"), 15, Stil.GOLD, 3.0)
+	var t := Stil.zeile(titel.to_upper().replace("ß", "SS"), Stil.TITEL_SP, Stil.GOLD, 3.0)   # 586a: so gross wie die Titel der Schirme
 	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	t.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	v.add_child(t)

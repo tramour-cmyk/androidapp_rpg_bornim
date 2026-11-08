@@ -161,7 +161,7 @@ func platzwahl() -> void:
 	v.add_theme_constant_override("separation", int(10 * DP))
 	v.custom_minimum_size.x = get_viewport_rect().size.x - 48 * DP
 	mitte.add_child(Rueckfrage.halte(v))
-	var t := Stil.zeile(("Alle Spielstand-Plätze sind belegt" if de else "All save slots are taken").to_upper(), 15, Stil.GOLD, 3.0)
+	var t := Stil.zeile(("Alle Spielstand-Plätze sind belegt" if de else "All save slots are taken").to_upper(), Stil.TITEL_SP, Stil.GOLD, 3.0)   # 586a
 	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	t.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	v.add_child(t)
