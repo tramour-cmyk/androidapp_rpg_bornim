@@ -6,6 +6,10 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **von Sokrates (08.11., 15:32, zu 668, Chef):** „Das Testmenü ist nicht ans neue Design angepasst … wegen zurück und so und Trennlinien und allem.“
+
+- **von Sokrates (08.11., 15:31, zu 665, Chef, Build 269 auf MuMu Player):** „es ist jetzt Nacht (2:30 Uhr) und irgendwie ist es gar nicht dunkel … überall ist Licht an in den Häusern, insofern schläft auch keiner … das Problem vom letzten Mal, ich laufe hinter ein Haus … vom Pim … dann brennt das Licht an, gibt es gar nicht, weil es ist überall Licht an.“ Erst am Rechner nachstellen (gleicher Zeichner wie MuMu?); 608 (269.7) lässt sich so nicht beurteilen.
+
 - **Zu 664 (Chef 08.11., 15:28, an Sokrates, Build 269):** „das Haus vom Kael ist immer noch so ein halbes Haus, das ich schon mehrfach angemerkt habe, das gleiche mit der Kräuterhexe. Im tiefen Flüsterwald.“ Frühere Meldungen stehen in keiner Zeile (gesucht 15:29). Erst nachstellen, warum das Haus halb ist (Netz, Ausschnitt, Sichtschnitt?), dann beheben, Bild beider Häuser rundum.
 
 - **Zu 663 (Chef 08.11., 15:24, an Sokrates, t269.3):** „Ernsthaft, wir nehmen die alte Steuerung raus, es gibt kein Steuerkreuz mehr. Das verschwindet einfach komplett ganz. Es gibt nur die Touch … Wir sind jetzt hier dreidimensional und nicht mehr flach und nicht nur Süd-Ost-West, sondern diagonal … Ausbauen. Alte Steuerung mit Steuerkreuz und Funktionstasten entfernen und dann können wir uns die Rückfrage auch [sparen]“. Damit entfällt t269.3 (Tipp bei klassischer Steuerung); Einstellung, Rückfrage zur Wahl der Steuerung und Tipps dazu raus.

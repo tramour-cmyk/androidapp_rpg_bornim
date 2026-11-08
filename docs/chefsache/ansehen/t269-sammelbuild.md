@@ -71,3 +71,4 @@ Chef 08.11., 15:23 (an Sokrates), laufend:
 - 269.4 ✓
 - 269.5 ✓
 - 269.8 ✓
+- 269.9 ✓ (dazu 665: nachts kaum dunkel, alle Fenster hell)
