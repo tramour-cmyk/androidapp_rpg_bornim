@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [702](entscheiden/702-anspringen.md) | **Muss** | E Kampf | 08.11., 21:52 | Anspringen nimmt dem Helden heute rund 70 % seiner Züge. Welche Regel soll gelten (Empfehlung C)? | Tuffy (Team Jerry) |
 | [636](entscheiden/636-schlagbaum.md) | **Muss** | E Welt | 08.11., 20:41 | Kam bei Jorin der Satz „Jorin löst das Seil, und der Schlagbaum schwingt knarrend nach oben“? | Tom |
 | [657](entscheiden/657-drei-stichpunkte.md) | **Muss** | B Abläufe | 08.11., 15:15 | Regeln radikal kürzen: eine Seite für alle (Empfehlung: :) | Sokrates |
 
@@ -150,12 +151,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 700 | M? | Erschaffung, Platzwahl „Alle Spielstand-Plätze sind belegt“: Rahmen um jeden Platz gegen 5 | startbar |
 | 701 | M | Gegenstandsfenster: Hinweis Obergrenze nur einmal statt je Grundwert (Chef t270.5, 08.11., | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test |
 
-**Jerry** – offen 69, Muss 62, startbar 37
+**Jerry** – offen 71, Muss 62, startbar 39
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 682 | M | Kampf flüssiger: Held geht zügig zum Angriff, Gegner laufen in weichen Bögen statt eckig g | startbar |
-| 702 | M | Wölfe: Anspringen nimmt dem Helden jeden Zug, Rudel hält ihn dauerhaft fest (Chef t270, 08 | in Arbeit bei Tuffy |
+| 702 | M | Wölfe: Anspringen nimmt dem Helden jeden Zug, Rudel hält ihn dauerhaft fest (Chef t270, 08 | Chef (Datei in der Chefsache) |
 | 703 | M | Ausweichen: Gegner bleibt am Ausweichplatz statt zurückzutappeln, 703 A (Chef t270.12, 08. | wartet auf Test/Build (gebaut) |
 | 680 | M | Absturz: Testmenü Sprung Wald → Dorf, in der Schenke schon hakelig, nach Met immer zäher, | startbar |
 | 679 | M | Kampf: im ersten Testkampf (Kleriker gegen Wölfe) fehlten Befehle und Knöpfe (Gewinnen, Ve | startbar |
@@ -223,6 +224,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 662 | M | Kampf (vorher 653): Parade des Helden mit Schild dreht über _face_sanft ohne Pfotenhalt, S | startbar |
 | 681 | M | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | startbar |
 | Pflege | K | von Werkzeug (340.3, 08.11.): 18984 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 704 | M? | Wolf allein ist harmlos, wenn der Held jedem angekündigten Sprung ausweicht: 300 von 300 S | startbar |
+| 705 | M? | Magier Stufe 1 gewinnt gegen Wolf und Rudel selten (BRS 2–30 %, Messung anspringen_702; Be | startbar |
 
 **Perikles** – offen 23, Muss 19, startbar 0
 
