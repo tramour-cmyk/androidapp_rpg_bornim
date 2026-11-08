@@ -33,8 +33,10 @@ func _initialize() -> void:
 
 
 func _run() -> void:
-	for x in OS.get_environment("BILD_S").split(",", false):
-		bilder.append(float(x))
+	# 656 (Lauf 310): „vorn“ wurde als Zahl 0 gelesen, das Bild entstand nach 0,03 s im Kampfstehen statt mitten in jeder Pose
+	if OS.get_environment("BILD_S") != "vorn":
+		for x in OS.get_environment("BILD_S").split(",", false):
+			bilder.append(float(x))
 	var p = Probe.new()
 	p.hero_cls = "FIGHTER"
 	p.merc_cls = "CLERIC"
