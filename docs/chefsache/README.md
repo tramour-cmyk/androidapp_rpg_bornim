@@ -167,10 +167,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 677 | M? | Leuchtfunke wirkt nicht: Benutzen aus der Tasche tut nichts, nur „Der Funke verglimmt“ (Ch | startbar |
 | 678 | M | Testmenü: Heldenstufe +1 geht über die Kapitelgrenze (Stufe 9 in Kapitel 1), Grenze auch b | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
 
-**Jerry** – offen 66, Muss 58, startbar 3
+**Jerry** – offen 67, Muss 59, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 679 | M | Kampf: Knöpfe fehlen (Gewinnen, Verlieren, Raster einblenden, Würfelergebnisse einblenden) | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test |
 | 623.5 | M | Probe Kampf mit den Gratisproben (Combat Mega, Projectiles, Trails, Pack 3, Character Shad | startbar |
 | 565 | M | MARS: unten im Gruppenkasten sieht man nicht, welcher Held am Zug ist (Chef 04.11., 17:10, | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test |
 | 562 | M | MARS: Helden laufen zum Angriff viel zu langsam, zurück gleiten sie flott (Chef 04.11., 17 | wartet auf Test/Build (gebaut) |
