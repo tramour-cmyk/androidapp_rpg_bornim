@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [645](entscheiden/645-499-ohne-signatur.md) | **Muss** | C Betrieb | 08.11., 12:33 | 499 Schild: Bilder der Probe 292 ohne Signatur schicken? | Sokrates |
 | [646](entscheiden/646-zeigen-statt-messen.md) | **Muss** | C Betrieb | 08.11., 12:29 | Zeigen statt messen: zählen Messläufe als Probe? | Sokrates |
 
 ## Zu billigen
@@ -258,7 +259,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | Woche | K | Wochenzählung der Kennzahlen | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
 
-**Sokrates** – offen 38, Muss 29, startbar 19
+**Sokrates** – offen 39, Muss 30, startbar 19
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -299,6 +300,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 644 | M | Werte je Gegenstand ohne Würfel: Gegenstandsstufe, Güte, Zustand in Zahlen (Frage Chef 08. | startbar |
 | 569 | M | Baumkronen ohne erkennbare Tuschelinie, „ein einziger Brei“ (Chef 04.11., 19:44, Bild 558 | startbar |
 | 383 | M | Wartewächter und Haken 63 verschärfen (Chef 27.10., 17:53 ja); Sitzungsgröße messen (Sokra | startbar |
+| 645 | M | 499 Probebild Lauf 292 (Drehteller): Helfer meldet vor dem Versand Verstöße A1, A4, B4, E3 | Chef (Datei in der Chefsache) |
 | 646 | M | Zeigen statt messen: Messläufe zählen als Probe, nach einer Probe immer Bild an den Chef ( | Chef (Datei in der Chefsache) |
 ## Lücken
 
