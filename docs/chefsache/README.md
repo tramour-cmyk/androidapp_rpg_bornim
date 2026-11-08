@@ -23,7 +23,6 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [613](ansehen/613-film.md) | Film der Zwischensequenzen im Spiel (Godot) | – | 08.11., 21:10 |
-| [623.5](ansehen/6235-unsere.md) | Effektprobe, Fassung „unsere“ (am Rechner) | Jerry | 08.11., 17:59 |
 
 ## Zu tun
 
