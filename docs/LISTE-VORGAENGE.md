@@ -11,8 +11,8 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 625 | Sammelbuild 269: alle fertigen Zweige beider Teams (35 warten), Prüfliste als Weg durchs Spiel (Chef 07.11., 20:5x) · „jetzt“ 07.11., 20:54 | Tom | M | zu testen | – | claude/build-269 | 269 | E Entwicklung | 65,77 $ |
-| 499 | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 (Chef 03.11., 07:14, Build 204) · „jetzt“ 07.11., 21:31 | Tom | M | in Arbeit, Probelauf 292 läuft | – | claude/tom-499-drehteller | – | E Figuren | 9,32 $ |
+| 625 | Sammelbuild 269: alle fertigen Zweige beider Teams (35 warten), Prüfliste als Weg durchs Spiel (Chef 07.11., 20:5x) · „jetzt“ 07.11., 20:54 | Tom | M | zu testen | – | claude/build-269 | 269 | E Entwicklung | 76,53 $ |
+| 499 | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 (Chef 03.11., 07:14, Build 204) · „jetzt“ 07.11., 21:31 | Tom | M | in Arbeit, Probelauf 292 läuft | – | claude/tom-499-drehteller | – | E Figuren | 28,28 $ |
 | 635 | Lyra fehlt als Figur im Tempel und in der Höhle: Kennung lyra_temple/lyra_cave, gebaut wird nur „lyra“ (Abgleich 620.2a) | Tom | M | gebaut, Geprüft an: 8a2f85b98 (lyra_635 lokal), fährt im nächsten Build | – | claude/tom-635-lyra | – | E Welt | – |
 | 605 | Ausrüstung: leeres Kopffeld, Auswahl zeigt falsch „Obergrenze“, kein Zurück (Chef 06.11., 21:22, t268) | Tom | M | zu testen | – | claude/tom-605-doppeltipp | 269 | E Entwicklung | – |
 | 581 | Ausrüstung: Seite breiter als der Schirm, Reiter springen (Abgleich 512b) | Tom | M | zu testen | – | claude/tom-581-ausruestung | 269 | A Spiel | 2,31 $ |
@@ -111,15 +111,15 @@
 | 638 | Kleinleben wie alt: Dorfhund, Katze in der Schenke, sichtbare Vögel, fallende Blätter im Wald, Hühner ziehen sich in der Dämmerung zurück (Abgleich 620.2a) | Tom | M? | startbar | – | – | – | E Welt | – |
 | 639 | Leute tragen ihre Dinge wie alt: Jorins Speer, Aldrics Stab quer auf der Schulter (Garricks Langbogen: 531; Abgleich 620.2a) | Tom | M? | startbar | – | – | – | E Welt | – |
 | 640 | Innenräume und Häuser, Varianten wie alt: Werkzeugregal, Wandbehänge und Stock bei Aldric, Altartuch, leere Amulett-Halterung; geschlossene Läden, Morwens Rauch grünlich (Abgleich 620.2a) | Tom | M? | startbar | – | – | – | E Welt | – |
-| 565 | MARS: unten im Gruppenkasten sieht man nicht, welcher Held am Zug ist (Chef 04.11., 17:10, t257 C) | Jerry | M | wartet, Bilder A/B 07:00 an den Chef | Chef | claude/jerry-565-am-zug | – | E Kampf | 7,58 $ |
+| 565 | MARS: unten im Gruppenkasten sieht man nicht, welcher Held am Zug ist (Chef 04.11., 17:10, t257 C) | Jerry | M | wartet, Bilder A/B 07:00 an den Chef | Chef | claude/jerry-565-am-zug | – | E Kampf | 13,51 $ |
 | 562 | MARS: Helden laufen zum Angriff viel zu langsam, zurück gleiten sie flott (Chef 04.11., 17:02, t257 C) | Jerry | M | gebaut, Ursache 438 rückwärts schräg behoben. Geprüft an: 7cd54621e (am Rechner wolf_mess_438 0 Befunde) | – | claude/jerry-562-angriffsschritt | – | E Kampf | 8,78 $ |
-| 563 | MARS: Zustandsschilder über Gegnern („Blut 3“) überlagern Ansage und Leisten, wirken grob (Chef 04.11., 17:02, t257 C) | Jerry | M | wartet, Bild A 07:00 an den Chef | Chef | claude/jerry-563-zustaende | – | E Kampf | 7,55 $ |
+| 563 | MARS: Zustandsschilder über Gegnern („Blut 3“) überlagern Ansage und Leisten, wirken grob (Chef 04.11., 17:02, t257 C) | Jerry | M | wartet, Bild A 07:00 an den Chef | Chef | claude/jerry-563-zustaende | – | E Kampf | 13,48 $ |
 | 560 | Monster auf der Karte drehen sich zum Helden, wenn sie ihn wahrnehmen, mit Schritten statt auf der Stelle (Chef 04.11., 16:22) | Jerry | M | gebaut, fährt im nächsten Build. Geprüft an: 94420e34d (am Rechner mit Kaufmodellen wenden_560 0 Fehler) | – | claude/jerry-560-wenden | – | E Monster | – |
 | 551 | MARS: Rahmen des unteren Kastens links und rechts unterbrochen (Chef 04.11., 00:21) | Jerry | M | ruht | – | – | – | E Kampf | – |
 | 547 | MARS: Text sagt „geht in die Knie“, Sturz ist aus (438a eingefroren): Text und Bild in Einklang bringen (Chef 04.11., 00:01) | Jerry | M | wartet, in die Prüfliste 269 | 625 | claude/jerry-547-sturztexte | 269 | E Kampf | 5,43 $ |
 | 532 | Kampf: Held geht ohne Zauberpunkte, Verbrauchtes, Zustände, Metrausch und ohne die ganze Tasche (nur einfacher Heiltrank) in den Kampf, danach wird nur TP zurückgeschrieben; Zauber kosten nichts (Abgleich 512, Sokrates… | Jerry | M | wartet, in die Prüfliste 269 | 625 | claude/jerry-532-metrausch | 269 | E Kampf | 2,28 $ |
 | 534 | Kampf: Zauber und Fähigkeiten fehlen in „Können“ (Magierrüstung, Untote vertreiben, Spirituelle Waffe, Geisterwächter) oder wirken nicht (Unglaubliches Ausweichen, Unerbittlichkeit, Lebensraub, Schadensminderung der Aus… | Jerry | M | ruht, 424: altes SRD-System | – | claude/jerry-534-faehigkeiten | – | E Kampf | 2,32 $ |
-| 536 | Kampf: Erklärungen bei langem Drücken (MarsTips), Grund bei gesperrtem Zauber, „Kein Ziel in Sicht“, Knopf „Schnell“, Stufe und EP im Gruppenkasten, Seltenheitsfarbe der Beute (Abgleich 512, Sokrates 03.11., 23:4x) | Jerry | M | gebaut, Namen wie alt (jerry-536-namen 32d50b21f). Geprüft an: Lauf 284 | – | claude/jerry-536-namen | – | E Kampf | 31,54 $ |
+| 536 | Kampf: Erklärungen bei langem Drücken (MarsTips), Grund bei gesperrtem Zauber, „Kein Ziel in Sicht“, Knopf „Schnell“, Stufe und EP im Gruppenkasten, Seltenheitsfarbe der Beute (Abgleich 512, Sokrates 03.11., 23:4x) | Jerry | M | gebaut, Namen wie alt (jerry-536-namen 32d50b21f). Geprüft an: Lauf 284 | – | claude/jerry-536-namen | – | E Kampf | 37,47 $ |
 | 467 | Ausdauer nach BRS statt SRD (ausdauer.gd: Konstitution, Stärke 13), Formel aus 427 (Chef 01.11., 21:52) | Jerry | M | wartet, dort mitbauen | 478 | – | – | E Kampf | – |
 | 438 | Wölfe im Kampf wirken gleitend: Angriff, Tempo, Vorbeigehen (Film 403, Chef 31.10., 23:31) | Jerry | M | wartet, in die Prüfliste 269 | 625 | claude/jerry-438-wolf-kampf | 269 | E Kampf | 124,52 $ |
 | 453 | Wölfe im Kampfort: Ruhebewegungen (atmen, scharren, umblicken, knurren) (Chef 01.11., 11:05) | Jerry | M | ruht | – | – | – | E Kampf | 47,52 $ |
@@ -131,8 +131,8 @@
 | 406.2 | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) | Jerry | M | wartet, in die Prüfliste 269 | 625 | – | 269 | C Kampf | 41,37 $ |
 | 510 | Fledermaus: freies Modell (OGA „Vampire Bat“, CC0) neben der eigenen im Film, Chef wählt (Chef 03.11., 10:28–10:57, aus 494) | Jerry | M | ruht | – | claude/jerry-494-gegner | – | E Kampf | 17,92 $ |
 | 509 | Frösche und Libellen an den Teichen im Flüsterwald fehlen in Godot (Chef 03.11., 09:21; `PondLife.kt`, Projektplan O6, W22) | Jerry | M | ruht | – | claude/jerry-509-teich | – | E Welt | – |
-| 587 | Gegnergröße im Kampfort: 1,3-fach wie alt und die Wölfe, echte Größe oder je Kapitel (Chef 05.11., zu Bild 494) | Jerry | M | gebaut, fährt im nächsten Build. Geprüft an: 7762e8f2b (am Rechner mit Kaufmodellen groesse_587 0, wolf_mess_438 0) | – | claude/jerry-587-groesse | – | E Kampf | 2,93 $ |
-| 494 | Gegner von Kapitel 1 im Kampf außer den Untoten (506), je Gegner höchstens ein Lauf (Wochenziel 03.11., 488) | Jerry | M | wartet | 492 | claude/jerry-494-gegner | – | E Kampf | 128,77 $ |
+| 587 | Gegnergröße im Kampfort: 1,3-fach wie alt und die Wölfe, echte Größe oder je Kapitel (Chef 05.11., zu Bild 494) | Jerry | M | gebaut, fährt im nächsten Build. Geprüft an: 7762e8f2b (am Rechner mit Kaufmodellen groesse_587 0, wolf_mess_438 0) | – | claude/jerry-587-groesse | – | E Kampf | 9,42 $ |
+| 494 | Gegner von Kapitel 1 im Kampf außer den Untoten (506), je Gegner höchstens ein Lauf (Wochenziel 03.11., 488) | Jerry | M | wartet | 492 | claude/jerry-494-gegner | – | E Kampf | 135,26 $ |
 | 517 | Waldklang wie alt: Vögel am Tag, Eule und Grillen nachts, fernes Wolfsheulen im Tiefen Wald (`WildSound.kt`; Abgleich 512, von Team Tom) | Jerry | M | wartet, in die Prüfliste 269 | 625 | claude/jerry-517-waldklang | 269 | A Spiel | 2,32 $ |
 | 507 | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager (Orte O10; aus 492) | Jerry | M | in Arbeit, Bilder 287 zurückgezogen: Prüfer (Tusche fehlt draußen und am Wasser, Teile ohne Halt, Gang/Halle) | – | claude/jerry-507-hoehle | – | E Kampf | 34,94 $ |
 | 496 | Durchspiel-Build: Kapitel 1 von Anfang bis Ende am Handy (Wochenziel 03.11., 488) | Jerry | M | startbar | – | – | – | E Technik | – |
@@ -159,7 +159,7 @@
 | 601 | Goblin-Späher: Schuss ohne Bewegung, falscher Pfeil, kein Pfeil beim Fehlschuss; Treffer trotz Schatten (Chef 05.11., 19:2x, t266.5) | Jerry | M | wartet, Pfeil R3 Arrow Streak (LISTE-EFFEKTE), Schussbewegung mit Film | 623 | claude/jerry-601-spaeher | – | C Kampf | 2,88 $ |
 | 595 | Kampfbewegungen der Kaufgegner: Spinne mehr Angriffe, Egel und Schnecke schneller, Treffhöhe, Ruckeln, Ruhe (Chef 05.11., 19:2x, t266.1) | Jerry | M | wartet | 478 | – | – | E Kampf | – |
 | 600 | Kampfort: Knopf zum Beschleunigen wie Würfel und Raster (Chef 05.11., 19:2x) | Jerry | M | zu testen | – | claude/jerry-600-tempo | 269 | E Kampf | 2,88 $ |
-| 478 | Rechenkern des Kampfs in Stufe 1 auf BRS (470a C, Chef 02.11., 17:59) · „jetzt“ 07.11., 16:37 | Jerry | M | zu testen | – | claude/jerry-478-brs | 269 | E Kampf | – |
+| 478 | Rechenkern des Kampfs in Stufe 1 auf BRS (470a C, Chef 02.11., 17:59) · „jetzt“ 07.11., 16:37 | Jerry | M | zu testen | – | claude/jerry-478-brs | 269 | E Kampf | 6,49 $ |
 | 623.5 | Probe Kampf mit den Gratisproben (Combat Mega, Projectiles, Trails, Pack 3, Character Shaders) im Kampfort, Compatibility, FPS, ein Film (Chef 07.11., 623) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 623.2 | Effekte aus 623 A einbauen mit 478, in `LISTE-BESTAND.md` und `LISTE-EFFEKTE.md` mit Datenfeld `fx` (Chef 07.11., 623) | Jerry | M | wartet | 623 | – | – | E Kampf | – |
 | 598 | Umweltklang je Ort, Tageszeit, Wind und Wetter, lebendige Welt (Chef 05.11., 19:2x; Abnahme 6) | Jerry | M | startbar | – | – | – | E Klang | – |
@@ -200,9 +200,9 @@
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | Woche | Wochenzählung der Kennzahlen | Diogenes | K | wartet | 09.11. | – | – | Q QM | – |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q Qualität | – |
-| 620 | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build (Chef 07.11.) · wiederholt | Sokrates | M | startbar | – | – | – | F Firma | – |
+| 620 | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build (Chef 07.11.) · wiederholt | Sokrates | M | startbar | – | – | – | F Firma | 6,49 $ |
 | 341.1 | Zielvereinbarung für alle Rollen: je Rolle höchstens drei Ziele, Z3 und Z4 für alle, eins eigen (aus 341) | Sokrates | M | startbar, prüfen (alte Leiche: in LISTE-VORGAENGE.md „erledigt“, Zeile noch im Vorrat) | – | – | – | B Abläufe | – |
-| 623 | Effektpakete REEBOO Labs: Kauf, Ressourcenseite `LISTE-QUELLEN.md`, Zuordnung `LISTE-EFFEKTE.md`, Dank im Spiel (Chef 07.11.) | Sokrates | M | Chef | Chef | – | – | C Kampf | – |
+| 623 | Effektpakete REEBOO Labs: Kauf, Ressourcenseite `LISTE-QUELLEN.md`, Zuordnung `LISTE-EFFEKTE.md`, Dank im Spiel (Chef 07.11.) | Sokrates | M | Chef | Chef | – | – | C Kampf | 6,49 $ |
 | 623.1 | Prüfschema auf bisher geprüfte Quellen anwenden (Chef 07.11., aus 623) | Sokrates | M | startbar | – | – | – | B Abläufe | – |
 | 508 | Lehrmeister in Kapitel 1 erreichbar (Geselle), Magie-Pflicht Paladin/Kriegsmagier, Wachsoldat zu Wächter (aus 447.4) | Sokrates | M? | startbar | – | – | – | D Design | – |
 | 461b.4 | Widersprüche aus Liste 461b: Köpfe Regelwerk, Bestiarium, DESIGN-KAMPF gegen Entscheidung 84 | Sokrates | M | startbar | – | – | – | D Design | 33,44 $ |
@@ -227,14 +227,14 @@
 | 167.6 | Morgenbericht mit Kennzahlen und Kostenbilanz (Chef 18.10.) | Sokrates | M | startbar | – | – | – | B Steuerung | 2,29 $ |
 | 142.3 | Tester öffentlich suchen (Chef 27.10., 19:32) | Sokrates | M | ruht | – | – | – | M Veröffentlichung | – |
 | 142.4 | Rückfrage: D-U-N-S jetzt, Organisationskonto statt Pflichttest (Chef 07.11.) | Sokrates | M | Chef | Chef | – | – | M Veröffentlichung | – |
-| 142 | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | Sokrates | M | startbar | – | – | – | M Veröffentlichung | 13,47 $ |
+| 142 | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | Sokrates | M | startbar | – | – | – | M Veröffentlichung | 19,96 $ |
 | 45 | Geschäftsmodell und Umsetzung (Play Store) | Sokrates | M | startbar | – | – | – | M Veröffentlichung | 4,68 $ |
 | 109 | Repo öffentlich | Sokrates | M | startbar | – | – | – | M Veröffentlichung | – |
 | 246 | Dokumente grundsätzlich ins Repo statt als Artefakt; Wochenplan aktualisiert (Chef 20.10.) | Sokrates | K | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | – | – | – | Q Ablauf | –; +7,03 $ |
 | 284 | Bis zum Durchspielen (26) am Kampf nur Fehlerbehebung, kein Feinschliff (Vorschlag Sokrates) | Sokrates | M | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | – | – | – | B Vorrang | – |
 | 340 | Rollenspiegel: zehn Fragen Ist-Soll an alle Rollen, Antwort am Sitzungsende mit Beleg (Chef 23.10., 09:34) | Sokrates | M | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | – | – | – | B Abläufe | –; +3,54 $ |
 | 344 | Fackel: brennt überall außer in hellen Grundrissen; Kampf mit der Fackel nach SRD (Chef 23.10., 16:05) | Sokrates | M | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | – | – | – | E Welt | – |
-| Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +829,12 $ |
+| Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +841,08 $ |
 | Pflege | von Werkzeug (340.3, 08.11.): 19837 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
