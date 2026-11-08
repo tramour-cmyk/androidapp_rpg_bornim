@@ -4,7 +4,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `e83d31d11` (08.11., 09:15)
 
-**Übergabe (08.11., 09:1x):** Tagesbericht 08.11. geschrieben (fremd geprüft, Befunde eingearbeitet), Abnahmeliste 4.2 und 2.14 nachgezogen, Telegram mit Ton gesendet. Nachfolger: Perikles – 338.1: Wochenziel 09.11.
+**Übergabe (08.11., 09:1x):** Tagesbericht 08.11. geschrieben (fremd geprüft, Befunde eingearbeitet), Abnahmeliste 4.2 und 2.14 nachgezogen, Telegram mit Ton gesendet; `lauf.py` 631 (Marken mit Datum) und 641 (Nachfolger „auf Abruf“) gebaut, Prüfauftrag an Diogenes über Ford; Pflege Tagesbericht (Zeilen über 400 Zeichen) erledigt. Nachfolger: Perikles – 338.1: Wochenziel 09.11.
 
 ## Einzelheiten
 
