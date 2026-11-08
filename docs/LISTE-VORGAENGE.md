@@ -63,7 +63,7 @@
 | 302.2 | Tusche auf der Gebietskarte (Chef 22.10., 23:50); zurückgestellt (Chef 23.10., 10:45) | Tom | K | ruht | – | claude/tom-3022-tuschebild | – | G Stil | – |
 | 302.1 | Tuschelinie für Menschengestalten (Chef 22.10., 20:25, über Sokrates); jetzt nicht (Chef 23:37); M seit 338 (b), Charaktererstellung | Tom | M | ruht | – | claude/tom-3021-tusche | – | G Stil | – |
 | 292.4 | Hauptmenü B am Feuer: Feuerlicht, Animation, Klang (aus 292.3 zurückgestellt, Chef 22.10., 15:10) | Tom | K | ruht | – | claude/tom-2923-titelmodus | – | G Stil | – |
-| 356.2 | Sammelaufträge: Felle 3, Pelzumhang, Hauerdolch (356 b, Chef 24.10., 21:33) | Tom | K | startbar | – | – | – | G Balance | – |
+| 356.2 | Sammelaufträge: Felle 3, Pelzumhang, Hauerdolch (356 b, Chef 24.10., 21:33) | Tom | K | gebaut, fährt im nächsten Build. Geprüft an: a483cdeea (brett_test, katalog_test lokal) | – | claude/tom-3562-auftraege | – | G Balance | – |
 | 30 | Abstürze beim Testen | Tom | K | ruht | – | – | – | Q QS | – |
 | 145 | Karten je Kapitel zum Drucken | Tom | K | ruht | – | claude/tom-145-kartenmappe | – | E Welt | 6,22 $ |
 | 417.1 | Restmängel Tragart nach „417 passt“ (Schildabstand, Rumpfdrehen, Fußrutschen, Kornfeld, Stabgang) | Tom | K | ruht | – | claude/tom-417-tragart | – | E Figuren | – |
@@ -71,7 +71,7 @@
 | 447.4.1 | Bau Lehrmeister, Meisterschaften, Ruf Kapitel 1 (447.4) | Tom | M | wartet | 508 | – | – | G Story | – |
 | 589 | Dorf: Marktplatz wirkt geklont (gleiche Stände, gleiche Säcke), Durchgang links am Stand hakelig (Chef 05.11., 19:2x, t266) | Tom | M | startbar | – | – | – | E Welt | – |
 | 590 | Innenräume: Türseite bei gedrehter Kamera dunkel und tot, mehr Licht (Kerzen) und Einrichtung (Chef 05.11., 19:2x) | Tom | M | startbar | – | – | – | E Welt | – |
-| 591 | Dorftiere (Hühner, Kaninchen) fliehen vor dem Helden wie alt, mit Alarmklang (Chef 05.11., 19:2x) · „jetzt“ 06.11., 08:07 | Tom | M | in Arbeit, Klang gebaut (f22334feb), Auffliegen beim Chef | Chef | claude/tom-591-laut2 | – | E Welt | 3,68 $ |
+| 591 | Dorftiere (Hühner, Kaninchen) fliehen vor dem Helden wie alt, mit Alarmklang (Chef 05.11., 19:2x) · „jetzt“ 06.11., 08:07 | Tom | M | gebaut, C nur Klang (Chef 18:27). Geprüft an: f22334feb | – | claude/tom-591-laut2 | – | E Welt | 3,68 $ |
 | 617 | Hauptmenü „Laden“: Wischen löst Laden aus; laden nur mit dem Knopf rechts (Chef 07.11., t268.1) | Tom | M | startbar, Fund t269.16 | – | claude/tom-605-doppeltipp | – | E Oberfläche | – |
 | 610 | Held im Dorf: Finger am Stab zucken ohne Unterlass (Schild auf dem Rücken) (Chef 07.11., t268) | Tom | M | startbar, Fund t269.12 | – | claude/tom-610-finger | – | E Figuren | – |
 | 630 | Restliche Schirme im Stil „ohne Kasten“ (549a): Laden-Fenster und Rückfragen, Menü, Brett, Anleitung, Über das Spiel, Erschaffung (Liste aus 618, Sokrates 07.11.) · „jetzt“ 07.11., 22:28 | Tom | M | in Arbeit, Bilder Lauf 302 beim Chef (ansehen/630-schirme.md) | Chef | claude/tom-630-schirme | – | E Oberfläche | 8,06 $ |
@@ -106,7 +106,7 @@
 | 683 | Oberfläche noch mit SRD-Wörtern: Gegenstandsfenster und Vergleich zeigen Zauberpunkte, Attribute, Stärke, Konstitution, Weisheit, Charisma statt BRS (Mana, Kraft, Zähigkeit …; Regelwerk Abschnitt 12) (Sokrates nach Bild des Chefs 08.11., 15:57) | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 691 | Platzwechsel mit Leuten und Tieren: beide gleiten ineinander (Chef 03.11., 07:44, Test 204.6: „Im Zweifelsfall lassen wir das so“; Zeile nach dem Durchspielen zugesagt, aus 416.2; zurückgeholt 675) | Tom | K | ruht, nach dem Durchspielen (488) | – | – | – | E Figuren | – |
 | 687 | Tiefer Flüsterwald: Grimmzahn auf der Karte „steht ganz alleine rum und schaut eher aus wie damals noch aus Kotlin“: Leibwache und Modell prüfen (Chef 03.11., 16:04, aus 491 (5); zurückgeholt 675) | Tom | K | ruht, nach dem Durchspielen (488) | – | – | – | E Welt | – |
-| 688 | Frage des Chefs je Karte: wie viel Sammelbares offen und versteckt liegt (alt gegen neu: Truhen, Kräuter, Verstecktes) und ob die Signatur A1–A3 da ist, „für unsere Karten ganz entscheidend“ (Chef 03.11., 16:04, aus 491 (6); unbeantwortet; zurückgeholt 675) | Tom | K | ruht, nach dem Durchspielen (488) | Chef | – | – | E Welt | – |
+| 688 | Frage des Chefs je Karte: wie viel Sammelbares offen und versteckt liegt (alt gegen neu: Truhen, Kräuter, Verstecktes) und ob die Signatur A1–A3 da ist, „für unsere Karten ganz entscheidend“ (Chef 03.11., 16:04, aus 491 (6); unbeantwortet; zurückgeholt 675) | Tom | K | ruht, nach dem Durchspielen (688 A, Chef 18:30) | – | – | – | E Welt | – |
 | 689 | Dorf, Urteil Chef 25.10., 12:11 (aus 348.6, offen geblieben): Büsche über Dachfirsten, Laternenpfahl am Steg, Lichtstreifen nachts, Korn wie Gestrüppwiese, Schatten ohne Werfer, Flimmern, Südrand ohne Abschluss; erst prüfen, was in Godot heute noch gilt (zurückgeholt 675) | Tom | K | ruht, nach dem Durchspielen (488) | – | – | – | E Welt | – |
 | Pflege | von Werkzeug (340.3, 08.11.): 20573 Bytes (Grenze 15000), Erledigtes streichen; Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Tom | K | startbar | – | – | – | B Abläufe | – |
 | 682 | Kampf flüssiger: Held geht zügig zum Angriff, Gegner laufen in weichen Bögen statt eckig gerade-diagonal, weniger Warten auf Hin- und Zurücklaufen bei Fehlschlägen; grundsätzlich für alle Gegner (Chef 08.11., 16:22, t269) | Jerry | M | startbar | – | – | – | E Kampf | 8,35 $ |
@@ -182,6 +182,7 @@
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 72 | Profil und Marktvergleich | Homer | K | ruht | – | – | – | E Kampf | 0,72; +0,61 $ |
 | 348.12g | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | Homer | M | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | – | – | – | G Story | 4,29 $ |
+| 694 | Von Tom (356.2): Katalogtext je ein Satz für Thessas Pelzumhang (cloak_thessa) und Borins Hauerdolch (dagger_borin) | Homer | K | startbar | – | – | – | G Story | – |
 | 658 | Telegram-Reaktionen auslesen: 👍 auf eine Meldung = gebilligt/passt, ✅ = erledigt, Eintrag mit Zeit ins Archiv (Chef 08.11., 15:00; Probe 15:02 geht) | Perikles | M | erledigt | – | – | – | B Werkzeuge | – |
 | 317.1 | `startbar.py`, `lauf.py`: Obergrenze 6 je Build streichen (Chef 07.11., 20:5x) | Perikles | M | gebaut, Geprüft an: 12837c9c3 | – | – | – | B Werkzeuge | – |
 | 620.1 | Wiederholte Funde des Chefs vor Neuem; wenige Muss je Team zugleich (aus 620) | Perikles | M | gebaut, Geprüft an: 5b65bf6bb (startbar --stand 11:05: Tom 33, Jerry 12 gesperrt) | – | – | – | B Abläufe | 4,11 $ |

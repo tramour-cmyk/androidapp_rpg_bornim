@@ -8,9 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [591](entscheiden/591-auffliegen.md) | **Muss** | E Welt | 08.11., 17:00 | Wie soll das Huhn auffliegen? (Empfehlung: :) | Tom |
 | [657](entscheiden/657-drei-stichpunkte.md) | **Muss** | B Abläufe | 08.11., 15:15 | Regeln radikal kürzen: eine Seite für alle (Empfehlung: :) | Sokrates |
-| [688](entscheiden/688-sammelbares-jetzt.md) | Kür | E Welt | 08.11., 16:41 | Sammelbares und Signatur je Karte: jetzt oder nach dem Durchspielen? (Empfehlung: :) | Perikles |
 
 ## Zu billigen
 
@@ -41,7 +39,7 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 1, startbar 0
+**Homer** – offen 6, Muss 1, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -50,8 +48,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
+| 694 | K | Von Tom (356.2): Katalogtext je ein Satz für Thessas Pelzumhang (cloak_thessa) und Borins | startbar |
 
-**Tom** – offen 98, Muss 73, startbar 7
+**Tom** – offen 98, Muss 73, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -59,21 +58,21 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 656 | M | Umhang Kämpfer mit Beulen, große Beule unter dem Schwertarm: woher, weg (Chef 08.11., 14:5 | startbar |
 | 605 | M | Ausrüstung: leeres Kopffeld, Auswahl zeigt falsch „Obergrenze“, kein Zurück; Stück aus der | wartet auf Test (Build 270) |
 | 416.8 | M | NPC dreht sich zum Helden mit kleinen Schritten, nicht auf der Stelle (Chef 31.10., 20:5x; | wartet auf Test/Build (gebaut) |
-| 670 | M | Build 269: Menü des Helden (Held, Tasche, Ausrüstung, Karte, Chronik, System) noch im alte | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
+| 670 | M | Build 269: Menü des Helden (Held, Tasche, Ausrüstung, Karte, Chronik, System) noch im alte | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
 | 613 | M | Zwischensequenzen neu wie alt: leichte Bewegungen, Signatur, Tusche (mit 302.3), an Spike | Chef (Datei in der Chefsache) |
 | 623.6 | M | Probe Welt mit den Gratisproben (Gras und Wind, Wasser, Wetter, Oberflächen) gegen unsere | startbar |
 | 499 | M | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 | wartet auf Test (Build 270) |
 | 635 | M | Lyra fehlt als Figur im Tempel und in der Höhle: Kennung lyra_temple/lyra_cave, gebaut wir | wartet auf Test (Build 270) |
-| 581 | M | Ausrüstung: Seite breiter als der Schirm, Reiter springen (Abgleich 512b) | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
-| 583 | M | Textkasten: ▼ liegt im Text, erzählter Text ohne i-Punkte und nicht schräg (Abgleich 512b) | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
+| 581 | M | Ausrüstung: Seite breiter als der Schirm, Reiter springen (Abgleich 512b) | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
+| 583 | M | Textkasten: ▼ liegt im Text, erzählter Text ohne i-Punkte und nicht schräg (Abgleich 512b) | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
 | 584 | K | Kein halbfetter Schnitt: Köpfe und Titel in Erschaffung, Held, Chronik, Karte, System, Bre | wartet auf 630 (in Arbeit) |
 | 585 | K | Menüs Kleinigkeiten: Titelumbruch Hauptmenü, Knopf Lizenzen, Bild in Rückfrage Wegwerfen, | wartet auf 630 (in Arbeit) |
-| 569 | M | Baumkronen ohne erkennbare Tuschelinie, „ein einziger Brei“ (Chef 04.11., 19:44, Bild 558 | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
+| 569 | M | Baumkronen ohne erkennbare Tuschelinie, „ein einziger Brei“ (Chef 04.11., 19:44, Bild 558 | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
 | 568 | K | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | ruht |
 | 531 | M | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere | wartet auf 643 (startbar) |
-| 522 | M | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Ch | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
-| 521 | M | Build 249, Ausrüstung: Wechselschirm eines Platzes wie alt (Bild, Art und Wert, ▲/▼, „nich | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
-| 540 | M | Texte hängen am Spielbeginn: Südrand (immer Text vor dem Auftrag, „Kapitel 2 folgt“ fehlt, | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
+| 522 | M | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Ch | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
+| 521 | M | Build 249, Ausrüstung: Wechselschirm eines Platzes wie alt (Bild, Art und Wert, ▲/▼, „nich | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
+| 540 | M | Texte hängen am Spielbeginn: Südrand (immer Text vor dem Auftrag, „Kapitel 2 folgt“ fehlt, | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
 | 542 | M | Aufträge: Jorins „Feuer am Steinkreis“ nicht abschließbar (Fetzen fehlt), Gwennas Ring am | wartet auf Test/Build (gebaut) |
 | 543 | M | Startwerte gegen alt und BRS prüfen: Startgold 15–25 und Start-Heiltränke fehlen, Wiederke | wartet auf Test (Build) |
 | 495 | M | Zufallsspieler spielt Kapitel 1 in Godot durch (Abnahme 2.2; Wochenziel 03.11., 488) | wartet auf 492 (in Arbeit) |
@@ -87,9 +86,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 513 | M | Ein Figurenstand für alle Zweige; Schild, Robe Magier, Umhang jetzt (Chef 03.11., 15:56, „ | ruht |
 | 470 | M | Bau BRS 1.1 Erschaffung (Wochenziel 02.11., Stufe 1) | ruht |
 | 604 | K | Schenke Erdgeschoss: Bett raus, mehr Tische und Bänke; Schlafen oben nur im Text (Chef 06. | wartet auf Test (Build 270) |
-| 570 | M | Theke: Wahl „Fleisch verkaufen · 12 Gold“ liest sich wie ein Preis (Prüfer 557 Runde 4) | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
+| 570 | M | Theke: Wahl „Fleisch verkaufen · 12 Gold“ liest sich wie ein Preis (Prüfer 557 Runde 4) | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
 | 470.1 | K | Erschaffung: Held auf Antippen bildschirmgroß (Idee Chef 02.11., 18:37) | ruht |
-| 471 | M | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
+| 471 | M | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
 | 474 | M | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, M | ruht |
 | 475 | M | Leute des Dorfs (Rowena, Borin …) auf Kaufkörper ihres Volks mit Gesicht, statt der alten | startbar |
 | 476 | K | Symbole der Gegenstände aus den 3D-Modellen statt Pixelbild (Chef 02.11., 14:43) | wartet auf 458.3 (ruht) |
@@ -107,21 +106,21 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 302.2 | K | Tusche auf der Gebietskarte (Chef 22.10., 23:50); zurückgestellt (Chef 23.10., 10:45) | ruht |
 | 302.1 | M | Tuschelinie für Menschengestalten (Chef 22.10., 20:25, über Sokrates); jetzt nicht (Chef 2 | ruht |
 | 292.4 | K | Hauptmenü B am Feuer: Feuerlicht, Animation, Klang (aus 292.3 zurückgestellt, Chef 22.10., | ruht |
-| 356.2 | K | Sammelaufträge: Felle 3, Pelzumhang, Hauerdolch (356 b, Chef 24.10., 21:33) | startbar |
+| 356.2 | K | Sammelaufträge: Felle 3, Pelzumhang, Hauerdolch (356 b, Chef 24.10., 21:33) | wartet auf Test/Build (gebaut) |
 | 30 | K | Abstürze beim Testen | ruht |
 | 145 | K | Karten je Kapitel zum Drucken | ruht |
 | 417.1 | K | Restmängel Tragart nach „417 passt“ (Schildabstand, Rumpfdrehen, Fußrutschen, Kornfeld, St | ruht |
 | 558.1 | K | Prüferrest Robe Probe 5 nachhalten, nicht bauen; Chef sieht es nach dem Durchspielen an (C | ruht |
 | 447.4.1 | M | Bau Lehrmeister, Meisterschaften, Ruf Kapitel 1 (447.4) | wartet auf 508 (startbar) |
-| 589 | M | Dorf: Marktplatz wirkt geklont (gleiche Stände, gleiche Säcke), Durchgang links am Stand h | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
-| 590 | M | Innenräume: Türseite bei gedrehter Kamera dunkel und tot, mehr Licht (Kerzen) und Einricht | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
-| 591 | M | Dorftiere (Hühner, Kaninchen) fliehen vor dem Helden wie alt, mit Alarmklang (Chef 05.11., | Chef (Datei in der Chefsache) |
-| 617 | M | Hauptmenü „Laden“: Wischen löst Laden aus; laden nur mit dem Knopf rechts (Chef 07.11., t2 | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
-| 610 | M | Held im Dorf: Finger am Stab zucken ohne Unterlass (Schild auf dem Rücken) (Chef 07.11., t | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
+| 589 | M | Dorf: Marktplatz wirkt geklont (gleiche Stände, gleiche Säcke), Durchgang links am Stand h | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
+| 590 | M | Innenräume: Türseite bei gedrehter Kamera dunkel und tot, mehr Licht (Kerzen) und Einricht | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
+| 591 | M | Dorftiere (Hühner, Kaninchen) fliehen vor dem Helden wie alt, mit Alarmklang (Chef 05.11., | wartet auf Test/Build (gebaut) |
+| 617 | M | Hauptmenü „Laden“: Wischen löst Laden aus; laden nur mit dem Knopf rechts (Chef 07.11., t2 | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
+| 610 | M | Held im Dorf: Finger am Stab zucken ohne Unterlass (Schild auf dem Rücken) (Chef 07.11., t | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
 | 630 | M | Restliche Schirme im Stil „ohne Kasten“ (549a): Laden-Fenster und Rückfragen, Menü, Brett, | Chef (Datei in der Chefsache) |
-| 612 | M | Dorf Süd: Heuhaufen geklont und wie aufgespießt, Wackelgras im Weizenfeld, Gemüsebeet mit | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
-| 614 | M | Leute lebendig wie alt: Jorin mit Speer, Jorin öffnet den Schlagbaum sichtbar; Abgleich de | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
-| 622 | M | Godot-Build als AAB für Play: dieselbe App de.bornim.game, mit dem Upload-Schlüssel des al | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
+| 612 | M | Dorf Süd: Heuhaufen geklont und wie aufgespießt, Wackelgras im Weizenfeld, Gemüsebeet mit | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
+| 614 | M | Leute lebendig wie alt: Jorin mit Speer, Jorin öffnet den Schlagbaum sichtbar; Abgleich de | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
+| 622 | M | Godot-Build als AAB für Play: dieselbe App de.bornim.game, mit dem Upload-Schlüssel des al | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
 | 41.2 | K | Ansel fährt nach N3 auch nachts (Prüfpunkt 6.4) | wartet auf 41 (ruht) |
 | 586 | K | Schirme 557 einheitlich: Zeichen neben der Überschrift bei Rast, Größe der Überschriften ( | wartet auf 630 (in Arbeit) |
 | 134 | K | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | aufgeteilt |
@@ -133,24 +132,24 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 431e | M | Rückfrage: Gesicht des Helden im Dorflicht fast weiß, Hauteichung nach Messung? | ruht |
 | 632 | M | Truhe der Höhle (cave_3, 4/14) gibt „@class_weapon“ statt der Waffe der Klasse wie alt (St | wartet auf Test/Build (gebaut) |
 | 636 | M | Schlagbaum öffnet ohne Türgeräusch (alt G:1162 Sound.DOOR; Abgleich 620.2a) | wartet auf Test (Build 270) |
-| 637 | M | Anschlagbrett: frischer blasser Zettel, solange ein ungelesener Auftrag hängt (A/MapTownIs | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
-| 638 | M | Kleinleben wie alt: Dorfhund, Katze in der Schenke, sichtbare Vögel, fallende Blätter im W | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
-| 639 | M | Leute tragen ihre Dinge wie alt: Jorins Speer, Aldrics Stab quer auf der Schulter (Garrick | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
-| 640 | M | Innenräume und Häuser, Varianten wie alt: Werkzeugregal, Wandbehänge und Stock bei Aldric, | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
+| 637 | M | Anschlagbrett: frischer blasser Zettel, solange ein ungelesener Auftrag hängt (A/MapTownIs | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
+| 638 | M | Kleinleben wie alt: Dorfhund, Katze in der Schenke, sichtbare Vögel, fallende Blätter im W | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
+| 639 | M | Leute tragen ihre Dinge wie alt: Jorins Speer, Aldrics Stab quer auf der Schulter (Garrick | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
+| 640 | M | Innenräume und Häuser, Varianten wie alt: Werkzeugregal, Wandbehänge und Stock bei Aldric, | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
 | 649.3 | M | Figurenkatalog: Bewohner, Händler, Lehrmeister, Söldner füllen (Tagesablauf, Laden, Stimme | wartet auf 649.2 (startbar) |
 | 644.4 | M | Gegenstandskatalog: Ladenbestand und Rezepte aus texte.json und Kotlin in den Katalog umst | wartet auf 644.1 (startbar) |
-| 653 | M | Halt für Waffen und Schilde einmal je Modell festlegen statt je Figur nachmessen: Griffpun | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
-| 661 | M | Blende zwischen Orten an Schirme ohne Kasten angleichen: Schrift größer, Zierleiste wie do | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
-| 663 | M | Klassische Steuerung ausbauen: Steuerkreuz und Funktionstasten ganz raus, nur Touch; Auswa | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
-| 665 | M | Nacht im Dorf: um 2:30 kaum dunkel; in allen Häusern Licht, keiner schläft: tiefe Nacht du | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
-| 668 | M | Testmenü an Schirme ohne Kasten angleichen: Zurück, Trennlinien, Aufbau wie 549a/618 (Chef | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
-| 673 | M | Emulator: Kamera drehen und zoomen mit Maus und Tasten (rechte Maustaste ziehen, Mausrad), | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
+| 653 | M | Halt für Waffen und Schilde einmal je Modell festlegen statt je Figur nachmessen: Griffpun | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
+| 661 | M | Blende zwischen Orten an Schirme ohne Kasten angleichen: Schrift größer, Zierleiste wie do | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
+| 663 | M | Klassische Steuerung ausbauen: Steuerkreuz und Funktionstasten ganz raus, nur Touch; Auswa | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
+| 665 | M | Nacht im Dorf: um 2:30 kaum dunkel; in allen Häusern Licht, keiner schläft: tiefe Nacht du | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
+| 668 | M | Testmenü an Schirme ohne Kasten angleichen: Zurück, Trennlinien, Aufbau wie 549a/618 (Chef | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
+| 673 | M | Emulator: Kamera drehen und zoomen mit Maus und Tasten (rechte Maustaste ziehen, Mausrad), | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
 | 677 | M? | Leuchtfunke wirkt nicht: Benutzen aus der Tasche tut nichts, nur „Der Funke verglimmt“ (Ch | wartet auf Test (Build 270) |
-| 678 | M | Testmenü: Heldenstufe +1 geht über die Kapitelgrenze (Stufe 9 in Kapitel 1), Grenze auch b | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
-| 683 | M | Oberfläche noch mit SRD-Wörtern: Gegenstandsfenster und Vergleich zeigen Zauberpunkte, Att | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
+| 678 | M | Testmenü: Heldenstufe +1 geht über die Kapitelgrenze (Stufe 9 in Kapitel 1), Grenze auch b | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
+| 683 | M | Oberfläche noch mit SRD-Wörtern: Gegenstandsfenster und Vergleich zeigen Zauberpunkte, Att | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
 | 691 | K | Platzwechsel mit Leuten und Tieren: beide gleiten ineinander (Chef 03.11., 07:44, Test 204 | ruht |
 | 687 | K | Tiefer Flüsterwald: Grimmzahn auf der Karte „steht ganz alleine rum und schaut eher aus wi | ruht |
-| 688 | K | Frage des Chefs je Karte: wie viel Sammelbares offen und versteckt liegt (alt gegen neu: T | Chef (Datei in der Chefsache) |
+| 688 | K | Frage des Chefs je Karte: wie viel Sammelbares offen und versteckt liegt (alt gegen neu: T | ruht |
 | 689 | K | Dorf, Urteil Chef 25.10., 12:11 (aus 348.6, offen geblieben): Büsche über Dachfirsten, Lat | ruht |
 | Pflege | K | von Werkzeug (340.3, 08.11.): 20573 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
 
