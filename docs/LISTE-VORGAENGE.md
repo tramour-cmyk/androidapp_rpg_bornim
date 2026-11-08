@@ -13,7 +13,7 @@
 |---|---|---|---|---|---|---|---|---|---|
 | 635 | Lyra fehlt als Figur im Tempel und in der Höhle: Kennung lyra_temple/lyra_cave, gebaut wird nur „lyra“ (Abgleich 620.2a) | Tom | M | startbar | – | – | – | E Welt | – |
 | 625 | Sammelbuild 269: alle fertigen Zweige beider Teams (35 warten), Prüfliste als Weg durchs Spiel (Chef 07.11., 20:5x) · „jetzt“ 07.11., 20:54 | Tom | M | zu testen | – | claude/build-269 | 269 | E Entwicklung | 28,43 $ |
-| 620.2a | Abgleich alt nach `LISTE-ABGLEICH-ALT.md`: Dorf, Innenräume, Leute, Wald (aus 620.2) | Tom | M | in Arbeit, Helfer lesen Orte 1.1–1.8 und Leute | – | – | – | B Abläufe | – |
+| 620.2a | Abgleich alt nach `LISTE-ABGLEICH-ALT.md`: Dorf, Innenräume, Leute, Wald (aus 620.2) | Tom | M | erledigt | – | – | – | B Abläufe | – |
 | 605 | Ausrüstung: leeres Kopffeld, Auswahl zeigt falsch „Obergrenze“, kein Zurück (Chef 06.11., 21:22, t268) | Tom | M | gebaut, Geprüft an: a2add0154, 216dd5d09 (doppeltipp_605 lokal) | – | claude/tom-605-doppeltipp | 269 | E Entwicklung | – |
 | 581 | Ausrüstung: Seite breiter als der Schirm, Reiter springen (Abgleich 512b) | Tom | M | gebaut, Geprüft an: 638435e6e (menue_breite_581 lokal) | – | claude/tom-581-ausruestung | – | A Spiel | 2,31 $ |
 | 583 | Textkasten: ▼ liegt im Text, erzählter Text ohne i-Punkte und nicht schräg (Abgleich 512b) | Tom | M | gebaut, Geprüft an: 7eaef68b4 (textkasten_583 lokal) | – | claude/tom-583-textkasten | – | A Spiel | 5,99 $ |
@@ -109,6 +109,11 @@
 | 629.1 | Klopfen: Sprechernamen hinter Türen bauen ([629.sprecher], von Homer) | Tom | M | gebaut, Geprüft an: 7a4e580db (klopfen_629 lokal) | – | claude/tom-629-sprecher | – | S Story | – |
 | 632 | Truhe der Höhle (cave_3, 4/14) gibt „@class_weapon“ statt der Waffe der Klasse wie alt (Story.classWeapon, Game.kt 1108); von Jerry, Abgleich 620.2b | Tom | M | startbar | – | – | – | E Welt | – |
 | Pflege | von Werkzeug (340.3, 08.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Tom | K | startbar | – | – | – | B Abläufe | – |
+| 636 | Schlagbaum wie alt: Balken schwingt am Drehpfosten, Türgeräusch beim Öffnen (G:1162; Abgleich 620.2a) | Tom | M | startbar | – | – | – | E Welt | – |
+| 637 | Anschlagbrett wie alt: frischer blasser Zettel bei ungelesenem Auftrag, Auftrag „Zurücklegen“ (J:123, G:1141; Abgleich 620.2a) | Tom | M | startbar | – | – | – | E Welt | – |
+| 638 | Kleinleben wie alt: Dorfhund, Katze in der Schenke, sichtbare Vögel, fallende Blätter im Wald, Hühner ziehen sich in der Dämmerung zurück (Abgleich 620.2a) | Tom | M? | startbar | – | – | – | E Welt | – |
+| 639 | Leute tragen ihre Dinge wie alt: Jorins Speer, Aldrics Stab quer auf der Schulter (Garricks Langbogen: 531; Abgleich 620.2a) | Tom | M? | startbar | – | – | – | E Welt | – |
+| 640 | Innenräume und Häuser, Varianten wie alt: Werkzeugregal, Wandbehänge und Stock bei Aldric, Altartuch, leere Amulett-Halterung; geschlossene Läden, Morwens Rauch grünlich (Abgleich 620.2a) | Tom | M? | startbar | – | – | – | E Welt | – |
 | 565 | MARS: unten im Gruppenkasten sieht man nicht, welcher Held am Zug ist (Chef 04.11., 17:10, t257 C) | Jerry | M | in Arbeit, Sokrates: Kopf „565, Läufe frei“ ins Archiv (seine Zeile, 627) | – | claude/jerry-565-am-zug | – | E Kampf | 7,58 $ |
 | 562 | MARS: Helden laufen zum Angriff viel zu langsam, zurück gleiten sie flott (Chef 04.11., 17:02, t257 C) | Jerry | M | gebaut, in 269. Geprüft an: Lauf 272, 70f2b5145 | – | claude/jerry-562-angriffsschritt | – | E Kampf | 8,78 $ |
 | 563 | MARS: Zustandsschilder über Gegnern („Blut 3“) überlagern Ansage und Leisten, wirken grob (Chef 04.11., 17:02, t257 C) | Jerry | M | in Arbeit | – | claude/jerry-563-zustaende | – | E Kampf | 7,55 $ |
