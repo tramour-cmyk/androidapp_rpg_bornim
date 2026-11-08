@@ -144,11 +144,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 677 | M? | Leuchtfunke wirkt nicht: Benutzen aus der Tasche tut nichts, nur „Der Funke verglimmt“ (Ch | wartet auf Test/Build (gebaut) |
 | 678 | M | Testmenü: Heldenstufe +1 geht über die Kapitelgrenze (Stufe 9 in Kapitel 1), Grenze auch b | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
 | 683 | M | Oberfläche noch mit SRD-Wörtern: Gegenstandsfenster und Vergleich zeigen Zauberpunkte, Att | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
-| Pflege | K | von Werkzeug (340.3, 08.11.): 18288 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 691 | K | Platzwechsel mit Leuten und Tieren: beide gleiten ineinander (Chef 03.11., 07:44, Test 204 | ruht |
 | 687 | K | Tiefer Flüsterwald: Grimmzahn auf der Karte „steht ganz alleine rum und schaut eher aus wi | ruht |
 | 688 | K | Frage des Chefs je Karte: wie viel Sammelbares offen und versteckt liegt (alt gegen neu: T | Chef (Datei in der Chefsache) |
 | 689 | K | Dorf, Urteil Chef 25.10., 12:11 (aus 348.6, offen geblieben): Büsche über Dachfirsten, Lat | ruht |
+| Pflege | K | von Werkzeug (340.3, 08.11.): 19265 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 68, Muss 60, startbar 0
 
@@ -223,7 +223,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 662 | M | Kampf (vorher 653): Parade des Helden mit Schild dreht über _face_sanft ohne Pfotenhalt, S | wartet auf Test/Build (gebaut) |
 | 681 | M | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
 
-**Perikles** – offen 23, Muss 20, startbar 0
+**Perikles** – offen 24, Muss 20, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -250,6 +250,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 651 | M | Kostenauswertung: Bereiche als feste Liste, fehlende Kosten (533 von 980 Zeilen) über Comm | wartet auf Test/Build (gebaut) |
 | 650.1 | M | Liste für docs/alt/ nach zwei Gegenprüfungen (aus 650) | Termin 09.11. |
 | 654.1 | M | Systemfrage vor jedem Bau in ROLLE-ENTWICKLUNG.md und Prüfliste, Wiederholungswächter in v | wartet auf Test/Build (gebaut) |
+| Pflege | K | von Werkzeug (340.3, 08.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 
 **Diogenes** – offen 10, Muss 8, startbar 0
 
