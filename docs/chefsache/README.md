@@ -52,7 +52,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 
-**Tom** – offen 100, Muss 75, startbar 22
+**Tom** – offen 101, Muss 75, startbar 23
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -156,8 +156,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 638 | M? | Kleinleben wie alt: Dorfhund, Katze in der Schenke, sichtbare Vögel, fallende Blätter im W | startbar |
 | 639 | M? | Leute tragen ihre Dinge wie alt: Jorins Speer, Aldrics Stab quer auf der Schulter (Garrick | startbar |
 | 640 | M? | Innenräume und Häuser, Varianten wie alt: Werkzeugregal, Wandbehänge und Stock bei Aldric, | startbar |
+| Pflege | K | von Werkzeug (340.3, 08.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 
-**Jerry** – offen 60, Muss 48, startbar 26
+**Jerry** – offen 59, Muss 48, startbar 25
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -220,7 +221,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 399.2d | M | Godot am Rechner freigeben (Auto-Modus lehnte Download ab), Tests ohne CI-Lauf (aus 399.2) | ruht |
 | 633 | M? | Boss-Beute wie alt: Ogerhandschuhe (Krogg), Graks Streitaxt, Grimmzahn-Amulett fehlen im L | startbar |
 | 634 | M? | Schenkenklang wie alt: Rowena wischt, gießt, stellt Becher ab, Borin Flasche und Stuhl, im | startbar |
-| Pflege | K | von Werkzeug (340.3, 08.11.): 31691 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
 
 **Perikles** – offen 17, Muss 13, startbar 2
 
