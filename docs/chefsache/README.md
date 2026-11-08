@@ -23,6 +23,7 @@ Nichts offen.
 |---|---|---|---|
 | [585](ansehen/585-titel.md) | Titel im Hauptmenü bricht wie alt um | Tom | 08.11., 20:18 |
 | [586](ansehen/586-titel.md) | Titel der Rückfragen und Fenster so groß wie die der Schirme | Tom | 08.11., 20:25 |
+| [613](ansehen/613-film.md) | Film der Zwischensequenzen im Spiel (Godot) | – | 08.11., 21:10 |
 | [623.5](ansehen/6235-unsere.md) | Effektprobe, Fassung „unsere“ (am Rechner) | Jerry | 08.11., 17:59 |
 | [656](ansehen/656-umhang.md) | Umhang des Kämpfers vorher und nachher | Tom | 08.11., 20:56 |
 | [700](ansehen/700-platzwahl.md) | Platzwahl der Erschaffung ohne Rahmen | Tom | 08.11., 20:34 |
