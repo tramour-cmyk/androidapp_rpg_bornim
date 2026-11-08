@@ -16,12 +16,6 @@ Nichts offen.
 
 ## Anzusehen
 
-**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
-
-| Nr. | Was | Wer | Seit |
-|---|---|---|---|
-| [630](ansehen/630-schirme.md) | Restliche Schirme ohne Kasten, jeder Schirm einzeln | – | 08.11., 15:09 |
-
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
 | Folge | Version | Build | Was | Wer | Seit |
@@ -30,7 +24,12 @@ Nichts offen.
 
 ## Zu tun
 
-Nichts offen.
+Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Datei löschen.
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [623.6](tun/6236-lauf.md) | **Muss** | E Welt | 08.11., 15:07 | Einen Lauf für neue Bilder der Probe Welt freigeben | Tom |
+| [660](tun/660-kaufmodelle-zugriff.md) | **Muss** | E Technik | 08.11., 14:47 | Einbinden von bornim-kaufmodelle in Tom-Sitzungen erlauben | Tom |
 
 ## Offen je Rolle
 
@@ -48,20 +47,20 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 652 | M | Englisch-Regeln 1–7 aus LISTE-ENGLISCH-338-1B nach STORY-REGELN.md, dann Datei nach docs/a | startbar |
 | 659 | M | DESIGN-STIL.md: Abschnitt „Muster“ mit Bild je abgenommenem Muster (Fenster ohne Kasten 54 | startbar |
 
-**Tom** – offen 102, Muss 83, startbar 6
+**Tom** – offen 103, Muss 84, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 656 | M | Umhang Kämpfer mit Beulen, große Beule unter dem Schwertarm: woher, weg (Chef 08.11., 14:5 | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
-| 623.6 | M | Probe Welt mit den Gratisproben (Gras und Wind, Wasser, Wetter, Oberflächen) gegen unsere | startbar |
+| 623.6 | M | Probe Welt mit den Gratisproben (Gras und Wind, Wasser, Wetter, Oberflächen) gegen unsere | Chef (Datei in der Chefsache) |
 | 625 | M | Sammelbuild 269: alle fertigen Zweige beider Teams (35 warten), Prüfliste als Weg durchs S | wartet auf Test (Build 269) |
 | 499 | M | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 | wartet auf Test/Build (gebaut) |
 | 635 | M | Lyra fehlt als Figur im Tempel und in der Höhle: Kennung lyra_temple/lyra_cave, gebaut wir | wartet auf Test/Build (gebaut) |
 | 605 | M | Ausrüstung: leeres Kopffeld, Auswahl zeigt falsch „Obergrenze“, kein Zurück (Chef 06.11., | wartet auf Test (Build 269) |
 | 581 | M | Ausrüstung: Seite breiter als der Schirm, Reiter springen (Abgleich 512b) | wartet auf Test (Build 269) |
 | 583 | M | Textkasten: ▼ liegt im Text, erzählter Text ohne i-Punkte und nicht schräg (Abgleich 512b) | wartet auf Test (Build 269) |
-| 584 | K | Kein halbfetter Schnitt: Köpfe und Titel in Erschaffung, Held, Chronik, Karte, System, Bre | wartet auf 630 (wartet) |
-| 585 | K | Menüs Kleinigkeiten: Titelumbruch Hauptmenü, Knopf Lizenzen, Bild in Rückfrage Wegwerfen, | wartet auf 630 (wartet) |
+| 584 | K | Kein halbfetter Schnitt: Köpfe und Titel in Erschaffung, Held, Chronik, Karte, System, Bre | wartet auf 630 (startbar) |
+| 585 | K | Menüs Kleinigkeiten: Titelumbruch Hauptmenü, Knopf Lizenzen, Bild in Rückfrage Wegwerfen, | wartet auf 630 (startbar) |
 | 569 | M | Baumkronen ohne erkennbare Tuschelinie, „ein einziger Brei“ (Chef 04.11., 19:44, Bild 558 | wartet auf Sokrates |
 | 568 | K | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | ruht |
 | 558 | M | Robe des Magiers zu glatt, wie eine blaue Fläche: Stoff lebendiger (Falten, Schatten, Schm | wartet auf Test (Build 269) |
@@ -127,7 +126,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 610 | M | Held im Dorf: Finger am Stab zucken ohne Unterlass (Schild auf dem Rücken) (Chef 07.11., t | wartet auf Test (Build 269) |
 | 615 | M | Kamera dreht und zoomt um den Helden als Fixpunkt, läuft nicht aus dem Bild (Chef 07.11., | wartet auf Test (Build 269) |
 | 611 | M | Klopfen an Türen: deutlicher, mit Name des Hauses oder Sprechers; Zeichen an Pfeiler oder | wartet auf Test (Build 269) |
-| 630 | M | Restliche Schirme im Stil „ohne Kasten“ (549a): Laden-Fenster und Rückfragen, Menü, Brett, | Chef (Datei in der Chefsache) |
+| 630 | M | Restliche Schirme im Stil „ohne Kasten“ (549a): Laden-Fenster und Rückfragen, Menü, Brett, | startbar |
 | 618 | M | Knöpfe einheitlich: „Zurück“, „Abbrechen“, „Schließen“ nach einer Regel auf allen Schirmen | wartet auf Test (Build 269) |
 | 612 | M | Dorf Süd: Heuhaufen geklont und wie aufgespießt, Wackelgras im Weizenfeld, Gemüsebeet mit | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
 | 613 | M | Intro und Outro wie alt: Tempelgänger, kleine Bewegungen (Chef 07.11., t268.31) | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
@@ -136,7 +135,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 624 | M | Testanzeigen größer: FPS und Standort über der Welt, Messwerte im Reiter „Test“ (Speicher | wartet auf Test (Build 269) |
 | 622 | M | Godot-Build als AAB für Play: dieselbe App de.bornim.game, mit dem Upload-Schlüssel des al | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
 | 41.2 | K | Ansel fährt nach N3 auch nachts (Prüfpunkt 6.4) | wartet auf 41 (ruht) |
-| 586 | K | Schirme 557 einheitlich: Zeichen neben der Überschrift bei Rast, Größe der Überschriften ( | wartet auf 630 (wartet) |
+| 586 | K | Schirme 557 einheitlich: Zeichen neben der Überschrift bei Rast, Größe der Überschriften ( | wartet auf 630 (startbar) |
 | 134 | K | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | aufgeteilt |
 | 348.1 | M | Vergleichsbild Gebietskarte alt/neu, 64 (heute) und 128 je Kachel (Chef 24.10., 16:51, „je | ruht |
 | 348.2 | M | Tusche nach Licht auch am Helden, Innenlinien an Bäumen: zweites Vergleichsbild jetzt (Che | ruht |
@@ -154,6 +153,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 649.3 | M | Figurenkatalog: Bewohner, Händler, Lehrmeister, Söldner füllen (Tagesablauf, Laden, Stimme | wartet auf 649.2 (startbar) |
 | 644.4 | M | Gegenstandskatalog: Ladenbestand und Rezepte aus texte.json und Kotlin in den Katalog umst | wartet auf 644.1 (startbar) |
 | 653 | M | Halt für Waffen und Schilde einmal je Modell festlegen statt je Figur nachmessen: Griffpun | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
+| 660 | M | Zugriff auf bornim-kaufmodelle in Tom-Sitzungen: add_repo vom Automodus abgelehnt (Tom 08. | Chef (Datei in der Chefsache) |
 
 **Jerry** – offen 66, Muss 58, startbar 3
 
