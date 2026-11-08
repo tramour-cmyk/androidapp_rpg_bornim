@@ -11,8 +11,9 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 635 | Lyra fehlt als Figur im Tempel und in der Höhle: Kennung lyra_temple/lyra_cave, gebaut wird nur „lyra“ (Abgleich 620.2a) | Tom | M | gebaut, Geprüft an: 8a2f85b98 (lyra_635 lokal), fährt im nächsten Build | – | claude/tom-635-lyra | – | E Welt | – |
 | 625 | Sammelbuild 269: alle fertigen Zweige beider Teams (35 warten), Prüfliste als Weg durchs Spiel (Chef 07.11., 20:5x) · „jetzt“ 07.11., 20:54 | Tom | M | zu testen | – | claude/build-269 | 269 | E Entwicklung | 28,43 $ |
+| 499 | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 (Chef 03.11., 07:14, Build 204) · „jetzt“ 07.11., 21:31 | Tom | M | startbar | – | claude/spike-499-drehteller | – | E Figuren | 9,32 $ |
+| 635 | Lyra fehlt als Figur im Tempel und in der Höhle: Kennung lyra_temple/lyra_cave, gebaut wird nur „lyra“ (Abgleich 620.2a) | Tom | M | gebaut, Geprüft an: 8a2f85b98 (lyra_635 lokal), fährt im nächsten Build | – | claude/tom-635-lyra | – | E Welt | – |
 | 620.2a | Abgleich alt nach `LISTE-ABGLEICH-ALT.md`: Dorf, Innenräume, Leute, Wald (aus 620.2) | Tom | M | erledigt | – | – | – | B Abläufe | – |
 | 605 | Ausrüstung: leeres Kopffeld, Auswahl zeigt falsch „Obergrenze“, kein Zurück (Chef 06.11., 21:22, t268) | Tom | M | gebaut, Geprüft an: a2add0154, 216dd5d09 (doppeltipp_605 lokal) | – | claude/tom-605-doppeltipp | 269 | E Entwicklung | – |
 | 581 | Ausrüstung: Seite breiter als der Schirm, Reiter springen (Abgleich 512b) | Tom | M | gebaut, Geprüft an: 638435e6e (menue_breite_581 lokal) | – | claude/tom-581-ausruestung | – | A Spiel | 2,31 $ |
@@ -44,7 +45,6 @@
 | 416.4 | Rennen des Helden wirkt wie Hochsprung (Chef 31.10., 20:4x) | Tom | M | gebaut, Geprüft an: 8b2b9cc00 (Lauf 41317137978 ohne Sprung; in 269) | – | claude/tom-416-4-rennen | – | B Umzug | 41,57 $ |
 | 376.1 | Probeblatt Quaternius-Figuren mit Bewegungsraster als Film (Chef kaufte 27.10., 12:20) | Tom | M | ruht | – | claude/spike-376-1-tracht | – | E Figuren | 221,15 $ |
 | 455.1 | Probeblatt Baukasten: Roben, Umhänge, Stiefel je Netz × Material × Zeichen (Chef 01.11., 11:24) | Tom | M | ruht | – | claude/spike-455-1-baukasten | – | E Figuren | 30,05 $ |
-| 499 | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 (Chef 03.11., 07:14, Build 204) · „jetzt“ 07.11., 21:31 | Tom | M | startbar | – | claude/spike-499-drehteller | – | E Figuren | 9,32 $ |
 | 513 | Ein Figurenstand für alle Zweige; Schild, Robe Magier, Umhang jetzt (Chef 03.11., 15:56, „513 B“) · „jetzt“ 03.11., 15:56 | Tom | M | ruht | – | claude/figurenstand-513 | – | E Figuren | 14,01 $ |
 | 470 | Bau BRS 1.1 Erschaffung (Wochenziel 02.11., Stufe 1) | Tom | M | ruht | – | claude/spike-470-erschaffung | – | E Regeln | 43,23 $ |
 | 604 | Schenke Erdgeschoss: Bett raus, mehr Tische und Bänke; Schlafen oben nur im Text (Chef 06.11., 09:38) | Tom | K | startbar | – | – | – | E Entwicklung | – |
