@@ -1,5 +1,7 @@
 # 623.5 · Probebild der Effektprobe im Kampfort · Team Jerry · 08.11., 14:4x
 
+[Bild von 08.11., 14:45](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/08-1445-623.5-Jerry.png) (eingetragen von meldung.sh, Jerry)
+
 Kurz: Probebild aus dem Film der Effektprobe (Bild über Telegram). Kämpfer und Magier gegen das Wolfsrudel, alle 21 Effekte der Gratisproben von REEBOO Labs je einmal an ihrem Anlass (Hiebe mit Klingenspur, Blut, Parade, Bodenstoß, Geschosse, Strahl, Kettenblitz, Explosion, Gift, Rüstung, Stärkung, Aura, Glitzern, Auflösen). Renderer Compatibility wie die übrigen Filme, Bau am Rechner mit allen Kaufmodellen; am Rechner laufen alle 21 durch, keiner fehlt, ohne Skriptfehler.
 
 Zu prüfen: Kämpfer mit Schwert und Schild, Magier mit Stab, drei Wölfe, roter Treffer (Element Blut) am Wolf vor dem Kämpfer, Zeile oben mit Effekt und Paket, kein Menü.
