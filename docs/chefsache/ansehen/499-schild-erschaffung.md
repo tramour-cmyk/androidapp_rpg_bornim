@@ -1,5 +1,7 @@
 # 499 · Schild in der Erschaffung: Sitz am Rücken ansehen · Tom (vorgelegt von Sokrates) · 08.11., 12:3x
 
+[Bild von 08.11., 12:36](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/08-1236-499-Sokrates.png) (eingetragen von meldung.sh, Sokrates)
+
 [Bild von 08.11., 12:36](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/08-1235-499-Sokrates.png) (eingetragen von meldung.sh, Sokrates)
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/42469159224
