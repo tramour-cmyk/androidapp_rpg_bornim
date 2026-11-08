@@ -42,7 +42,8 @@ func _lauf() -> void:
 	spiel.betrete("village", Vector2i(11, 7), "DOWN")
 	for i in 5: await process_frame
 	var k: Karte = spiel.karte
-	var p := Leute.new(k, {"id": "probe_4168", "x": 11, "y": 9, "streifen": 0}, spiel.held)
+	# 4 Kacheln vom Helden (11, 7): weiter als 3, sonst schaut sie von selbst her (schauen_4168), hier nur das Wenden
+	var p := Leute.new(k, {"id": "probe_4168", "x": 11, "y": 11, "streifen": 0}, spiel.held)
 	spiel.add_child(p)
 	await process_frame
 	p.warte = 999.0
