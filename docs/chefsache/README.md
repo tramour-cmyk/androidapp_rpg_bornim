@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [406.1](entscheiden/4061-schildring-simulation.md) | **Muss** | E Kampf | 08.11., 07:35 | Schildring: die Simulation zeigt, dass der Schildträger mit Ring keinen Schaden mehr nimmt; was jetzt? | Jerry |
+| [406.1](entscheiden/4061-schildring-simulation.md) | **Muss** | E Kampf | 08.11., 07:34 | Schildring: mit Ring nimmt der Schildträger kaum noch Schaden, wenn Gegner oft ansagen; bauen oder warten? | Jerry |
 | [620.1](entscheiden/6201-wiederholte-funde.md) | **Muss** | B Abläufe | 07.11., 21:02 | Grenze angefangener Arbeit je Team (B) | Perikles |
 
 ## Zu billigen
