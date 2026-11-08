@@ -145,7 +145,15 @@ def zahlen_md(d):
     zeilen_ = zeilen(d)
     md = ["**Stand %s, %s** (Werkzeug `tools/tagesbericht.py`)" % (JETZT.strftime("%d.%m."), JETZT.strftime("%H:%M")), "",
           "| # | Kennzahl | heute | Bemerkung |", "|---|---|---|---|"]
-    md += ["| %d | %s | %s | %s |" % (i + 1, a, b, c) for i, (a, b, c) in enumerate(zeilen_)]
+    def kurz(i, a, b, c):
+        """Pflege 169 (08.11.): Tabellenzeile höchstens 400 Zeichen; lange Eingaben (Zeilen 3, 8, 9) nur mit dem ersten Satz, ganz unter „Eingaben“ und im Telegram."""
+        z = "| %d | %s | %s | %s |" % (i + 1, a, b, c)
+        if len(z) <= 400 or i not in (2, 7, 8): return z
+        rest = 400 - len("| %d | %s |  | %s |" % (i + 1, a, c)) - len(" (ganz unter „Eingaben“)")
+        satz = re.split(r"(?<=[a-zäöüß)]\.)\s(?=[A-ZÄÖÜ])", b, maxsplit=1)[0]  # Satzende, nicht „08.11.“
+        if len(satz) > rest: satz = satz[:rest - 1].rsplit(" ", 1)[0] + " …"
+        return "| %d | %s | %s (ganz unter „Eingaben“) | %s |" % (i + 1, a, satz, c)
+    md += [kurz(i, a, b, c) for i, (a, b, c) in enumerate(zeilen_)]
     md += ["", "| Rolle | offen | davon Muss | startbar | erledigt 24 h | erledigt 7 Tage |", "|---|---|---|---|---|---|"]
     for r in ("Tom", "Jerry", "Homer", "Sokrates", "Perikles", "Diogenes"):
         o = d["rollen"].get(r, (0, 0, 0))
