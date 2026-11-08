@@ -26,7 +26,7 @@ Verglichen: die geänderten Schirme (Tasche, Ausrüstung, Gegenstandsfenster, Bl
 | 269.10 ✗ | Tom | 591 | auf ein Huhn, dann ein Kaninchen zugehen | Huhn gackert und flattert hörbar beim Weglaufen, Kaninchen huscht hörbar. **Frage: meint „kein Flattern“ den Laut oder die Flügel, die sich nicht bewegen?** | stumm |
 | 269.11 ✗ | Tom | 416.8 | vor Aldric oder einer Dorfperson stehen bleiben, etwa 10 s warten, dann um sie herumgehen | sie dreht sich mit kleinen Schritten zum Helden | dreht sich auf der Stelle wie eine Plastikfigur |
 | 269.12 ✗ | Tom | 610, 522 | Held mit Stab und Schild auf dem Rücken im Dorf stehen lassen; Reiter „Test“, „Waffe“: Dolch, Krummsäbel, Handbeil, Kurzbogen; „Andere Hand“: Dolch | Finger am Stab ruhig; jede dieser Waffen ist am Helden zu sehen; der Dolch der anderen Hand hängt nicht als Schild auf dem Rücken | Finger zucken; Waffe unsichtbar |
-| 269.13 | Tom | 558 | Magier mit Robe ansehen | Stoff lebendig wie in Probe 5: Falten, Schatten, Schmutz am Saum | glatte blaue Fläche |
+| 269.13 ✓ | Tom | 558 | Magier mit Robe ansehen | Stoff lebendig wie in Probe 5: Falten, Schatten, Schmutz am Saum | glatte blaue Fläche |
 
 ## C · Menü des Helden
 
@@ -79,3 +79,4 @@ Chef 08.11., 15:23 (an Sokrates), laufend:
 - 269.7 ✓ (Chef 15:51)
 - 269.14 ✓ (Chef 15:52)
 - 269.15 ✓ Leuchtfunke benutzen, danach „Löschen“ geht („Der Funke verglimmt“); Abbrechen/Benutzen und Löschen noch altes Design mit Kasten (→ 670); Leuchtfunke selbst wirkt noch nicht; Prüfzeile für den Chef unverständlich formuliert (Chef 15:54)
+- 269.13 ✓ Robe nicht mehr klinisch, längliche Muster, Saum etwas schmutzig (Chef 15:55)
