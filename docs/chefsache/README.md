@@ -49,12 +49,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 
-**Tom** – offen 98, Muss 79, startbar 6
+**Tom** – offen 98, Muss 79, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 625 | M | Sammelbuild 269: alle fertigen Zweige beider Teams (35 warten), Prüfliste als Weg durchs S | wartet auf Test (Build 269) |
-| 499 | M | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 | wartet auf 645 (startbar) |
+| 499 | M | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 | startbar |
 | 635 | M | Lyra fehlt als Figur im Tempel und in der Höhle: Kennung lyra_temple/lyra_cave, gebaut wir | wartet auf Test/Build (gebaut) |
 | 605 | M | Ausrüstung: leeres Kopffeld, Auswahl zeigt falsch „Obergrenze“, kein Zurück (Chef 06.11., | wartet auf Test (Build 269) |
 | 581 | M | Ausrüstung: Seite breiter als der Schirm, Reiter springen (Abgleich 512b) | wartet auf Test (Build 269) |
@@ -254,7 +254,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | Woche | K | Wochenzählung der Kennzahlen | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
 
-**Sokrates** – offen 38, Muss 29, startbar 20
+**Sokrates** – offen 37, Muss 28, startbar 19
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -293,7 +293,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 340 | M | Rollenspiegel: zehn Fragen Ist-Soll an alle Rollen, Antwort am Sitzungsende mit Beleg (Che | ruht |
 | 344 | M | Fackel: brennt überall außer in hellen Grundrissen; Kampf mit der Fackel nach SRD (Chef 23 | ruht |
 | 644 | M | Werte je Gegenstand ohne Würfel: Gegenstandsstufe, Güte, Zustand in Zahlen (Frage Chef 08. | startbar |
-| 645 | M | 499 Probebild Lauf 292 (Drehteller): Helfer meldet vor dem Versand Verstöße A1, A4, B4, E3 | startbar |
 | 569 | M | Baumkronen ohne erkennbare Tuschelinie, „ein einziger Brei“ (Chef 04.11., 19:44, Bild 558 | startbar |
 | 383 | M | Wartewächter und Haken 63 verschärfen (Chef 27.10., 17:53 ja); Sitzungsgröße messen (Sokra | startbar |
 ## Lücken
