@@ -2,11 +2,11 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 08.11., 13:52 (lauf.py)
+**Stand:** 08.11., 15:20 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
 | Ford | [Ford – Betriebsleiter (08.11., 09:05)](https://claude.ai/code/session_01Hmoj78NKRazEf1Gp5XtnWY) | Betrieb | – | 08.11., 09:04 |
-| Sokrates | [Sokrates – Chefrunde: alle Vorgänge beim Chef außer dem Bildtest (08.11., 12:55)](https://claude.ai/code/session_01Hmoj761ahhMcMPxLvLnPmp) | Betrieb | – | 08.11., 12:55 |
-| Tom | [Tom – 499: Schild hoch wie alt, Film Gehen (08.11., 12:57)](https://claude.ai/code/session_01Hmoj76CmQ8eTXeRSCSARte) | 499 | – | 08.11., 12:57 |
-| Jerry | [Jerry – 507: Messlauf 2 auswerten, dann Bitte um einen Lauf an Sokrates (08.11., 13:32)](https://claude.ai/code/session_01Hmoj78HCbqB15v4YqSqZqQ) | 507 | – | 08.11., 13:32 |
+| Sokrates | [Sokrates – 644.3: Seltenheit ins Regelwerk, Systemrunde 654 (09.11.) (08.11., 14:47)](https://claude.ai/code/session_01Hmoj788NYaFm6Hdk3ZdVRi) | 644.3 | – | 08.11., 14:47 |
+| Jerry | [Jerry – 623.5: Film und Spiel nach „Probebild passt“ (08.11., 14:47)](https://claude.ai/code/session_01Hmoj78vecVQJuktwpC1va7) | 623.5 | – | 08.11., 14:48 |
+| Tom | [Tom – 630: Knopf, Held und Befunde der Schirme beheben (08.11., 15:14)](https://claude.ai/code/session_01Hmoj75k72j6x1cQt2UT8ww) | 630 | – | 08.11., 15:14 |
