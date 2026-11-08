@@ -50,7 +50,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 
-**Tom** – offen 99, Muss 79, startbar 9
+**Tom** – offen 100, Muss 80, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -153,8 +153,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 639 | M | Leute tragen ihre Dinge wie alt: Jorins Speer, Aldrics Stab quer auf der Schulter (Garrick | Sperre 620.1 B: 33 ungetestete Muss, erst gemeinsamer Build und Test |
 | 640 | M | Innenräume und Häuser, Varianten wie alt: Werkzeugregal, Wandbehänge und Stock bei Aldric, | Sperre 620.1 B: 33 ungetestete Muss, erst gemeinsamer Build und Test |
 | Pflege | K | von Werkzeug (340.3, 08.11.): 15750 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 649.3 | M | Figurenkatalog: Bewohner, Händler, Lehrmeister, Söldner füllen (Tagesablauf, Laden, Stimme | wartet auf 649.2 (startbar) |
 
-**Jerry** – offen 60, Muss 52, startbar 2
+**Jerry** – offen 63, Muss 55, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -218,6 +219,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 634 | M | Schenkenklang wie alt: Rowena wischt, gießt, stellt Becher ab, Borin Flasche und Stuhl, im | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test |
 | 642 | M | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test |
 | 643 | M | Langbogen mit Köcher als Waffenmodell (daten/waffen/longbow.bin, Griff = Ursprung, Schaft | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test |
+| 649.1 | M | Figurenkatalog Schritt 1: eine Kennung je Monsterart, werte.json und tabellen.json zu BRS | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test |
+| 649.2 | M | Figurenkatalog Schritt 2: Werkzeug figuren.py und tools/figuren/figuren.json (Art und Auft | wartet auf 649.1 (startbar) |
+| 649.4 | M | Zwei bis drei Handlungen je gewöhnlicher Monsterart vorschlagen und in 444 messen, nur wo | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test |
 
 **Perikles** – offen 22, Muss 17, startbar 6
 
@@ -262,7 +266,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | Woche | K | Wochenzählung der Kennzahlen | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
 
-**Sokrates** – offen 40, Muss 31, startbar 21
+**Sokrates** – offen 40, Muss 31, startbar 20
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -301,7 +305,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 340 | M | Rollenspiegel: zehn Fragen Ist-Soll an alle Rollen, Antwort am Sitzungsende mit Beleg (Che | ruht |
 | 344 | M | Fackel: brennt überall außer in hellen Grundrissen; Kampf mit der Fackel nach SRD (Chef 23 | ruht |
 | 644 | M | Alle Gegenstände an einer Stelle: Katalog 458 mit BRS-Werten, Voraussetzungen, Seltenheit, | Chef (Datei in der Chefsache) |
-| 649 | M | Figurenkatalog: alle Figuren an einer Stelle (Monster, Bewohner, Gefährten), Bestiarium ge | startbar |
+| 649 | M | Figurenkatalog: alle Figuren an einer Stelle (Monster, Bewohner, Gefährten), Bestiarium ge | wartet auf 649.3 (startbar) |
 | 650 | M | docs aufräumen: 88 Dateien, Erledigtes nach docs/alt/, Zusammenlegen, Inhaltsverzeichnis n | startbar |
 | 569 | M | Baumkronen ohne erkennbare Tuschelinie, „ein einziger Brei“ (Chef 04.11., 19:44, Bild 558 | startbar |
 | 507 | M | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager (Orte O10; aus 492) (für Jerry) | startbar |
