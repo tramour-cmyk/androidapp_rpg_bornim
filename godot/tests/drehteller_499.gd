@@ -53,7 +53,24 @@ func _lauf() -> void:
 	Sprache.lade()
 	var aus := OS.get_environment("OBERFLAECHE_AUS")
 	var bild := DisplayServer.get_name() != "headless" and aus != ""
-	for k in KLASSEN:
+	# 499 Lauf 290: Schild unten 28-30 cm vom Ruecken. Zweiter Durchgang: Kandidat Lage nach der Haltung „Stehen“ (HeldFigur.schild_haltung),
+	# nur Kaempfer und Kleriker, Fehler getrennt gezaehlt („KANDIDAT“), ohne Bild
+	for durchgang in ["", "Stehen"]:
+		HeldFigur.schild_haltung = durchgang
+		var vorher := fehler
+		for k in KLASSEN:
+			if durchgang != "" and not SCHILD[k]: continue
+			if durchgang != "": print("[Haltung %s]" % durchgang)
+			await klasse(k, bild and durchgang == "", aus)
+		if durchgang != "":
+			print("KANDIDAT Haltung %s: %d Fehler" % [durchgang, fehler - vorher])
+			fehler = vorher
+	HeldFigur.schild_haltung = ""
+	print("DREHTELLER499 %d Fehler" % fehler)
+	quit(1 if fehler else 0)
+
+func klasse(k: String, bild: bool, aus: String) -> void:
+	if true:
 		var z := Zustand.new()
 		var hw := Heldwerte.erschaffe("Thora", "HUMAN", k, {}, z.neue_uid)
 		var w := HeldFigur.wahl(hw, z)
@@ -62,7 +79,7 @@ func _lauf() -> void:
 		root.add_child(dt)
 		for i in 20: await process_frame
 		var modell: Node3D = dt.teller.get_child(0) if dt.teller and dt.teller.get_child_count() > 0 else null
-		if modell == null: fehler += 1; print("FEHLER %s: kein Held im Drehteller" % k); dt.queue_free(); continue
+		if modell == null: fehler += 1; print("FEHLER %s: kein Held im Drehteller" % k); dt.queue_free(); return
 		var ms := modell.global_basis.get_scale().y
 		var sk := Gebiet.finde(modell, "Skeleton3D") as Skeleton3D
 		var mh: Variant = w.get("ausruestung", {}).get("MAIN_HAND"); var oh: Variant = w.get("ausruestung", {}).get("OFF_HAND")
@@ -106,6 +123,7 @@ func _lauf() -> void:
 						for i in range(0, sel.size(), maxi(1, sel.size() / 8)): best = minf(best, koerper_abstand(modell, sel[i]))
 						return best
 					var du: float = band.call(true); var do_: float = band.call(false)
+					diagnose(modell, sk, mi as MeshInstance3D)
 					print("  Schild-Spalt: unten %.3f m, oben %.3f m (Höhe %.2f bis %.2f)" % [du, do_, y0, y1])
 					pruefe(du <= SPALT_M, "%s: Schild unten %.0f cm vom Rücken" % [k, du * 100])
 		if bild:
@@ -126,5 +144,30 @@ func _lauf() -> void:
 			print("BILD ", aus + "/499_%s.png" % k)
 		dt.queue_free()
 		for i in 3: await process_frame
-	print("DREHTELLER499 %d Fehler" % fehler)
-	quit(1 if fehler else 0)
+
+# 499 Ursache: Brust (spine_03), Becken und Wirbel in Ruhe gegen „Stehen“; je Netz die hinterste Stelle (Mitte, |x| < 0,12) auf Hoehe
+# der Ober- und Unterkante, wie bewaffne sie nimmt (Ruhe) und wie sie in der Haltung steht; Lage des Schilds im Raum der Figur
+func diagnose(m: Node3D, sk: Skeleton3D, schild: MeshInstance3D) -> void:
+	var ks := HeldFigur.im_raum(m, sk)
+	var bi := sk.find_bone("spine_03")
+	var y := (ks * sk.get_bone_global_rest(bi)).origin.y
+	for kn in ["pelvis", "spine_01", "spine_02", "spine_03", "neck_01"]:
+		var b := sk.find_bone(kn)
+		if b < 0: continue
+		var r := ks * sk.get_bone_global_rest(b); var p := ks * sk.get_bone_global_pose(b)
+		print("  %s: Ruhe y %.3f z %.3f, Stehen y %.3f z %.3f, gekippt %.1f Grad (vor +)" % [kn, r.origin.y, r.origin.z, p.origin.y, p.origin.z,
+			rad_to_deg(signf(p.basis.y.z - r.basis.y.z) * r.basis.y.angle_to(p.basis.y))])
+	for mi in m.find_children("*", "MeshInstance3D", true, false):
+		var x := mi as MeshInstance3D
+		if not x.skin: continue
+		for haltung in [false, true]:
+			var r := HeldFigur.ruecken_aus(HeldFigur.haut_punkte(m, sk, haltung, x), y - 0.63, y + 0.1)
+			print("  Netz %s (%s): hinten oben %.3f, unten %.3f, ganz %.3f" % [x.name, "Stehen" if haltung else "Ruhe", r[0], r[1], r[2]])
+	var inv := m.global_transform.affine_inverse() * schild.global_transform
+	var lo := Vector3(0, INF, 0); var hi := Vector3(0, -INF, 0)
+	for s in schild.mesh.get_surface_count():
+		for v in schild.mesh.surface_get_arrays(s)[Mesh.ARRAY_VERTEX]:
+			var p: Vector3 = inv * v
+			if p.y < lo.y: lo = p
+			if p.y > hi.y: hi = p
+	print("  Schild im Raum der Figur: unten y %.3f z %.3f, oben y %.3f z %.3f, Brust Ruhe y %.3f" % [lo.y, lo.z, hi.y, hi.z, y])

@@ -435,13 +435,22 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 	var bi := sk.find_bone("spine_03")
 	if bi < 0: return
 	var brust := im_raum(m, sk) * sk.get_bone_global_rest(bi)
+	# 499 Messung (Lauf 290: Schild unten 28-30 cm vom Ruecken, oben 4 cm): mit [schild_haltung] Ruecken und Brust aus der Haltung statt
+	# der Ruhelage; die Anhaenge sitzen dann in dieser Haltung genau, wo sie hier berechnet werden
+	var pts := PackedVector3Array()
+	if schild_haltung != "" and halte(m, sk, schild_haltung):
+		brust = im_raum(m, sk) * sk.get_bone_global_pose(bi)
+		pts = haut_punkte(m, sk, true)
+		sk.reset_bone_poses()
+	else:
+		pts = haut_punkte(m, sk, false)
 	var schild := _modell(aus.get("OFF_HAND"))
 	var waffe := _modell(aus.get("MAIN_HAND"))
 	# Ruhelage: die Figur blickt nach +Z, ihre linke Seite ist +X. Schild auf dem Ruecken (Vorderseite nach hinten), geneigt wie der
 	# Ruecken zwischen Schulterblatt und Kreuz (Pruefer Lauf 1: unten 5-7 cm Spalt); die Waffe schraeg, Griff ueber der rechten
 	# Schulter, hinter allem, was hinten am weitesten absteht (Lauf 1: Schwert hinter dem Schild verdeckt, Parierstange im Umhang)
 	var y := brust.origin.y
-	var r := ruecken(m, y - 0.63, y + 0.1)   # [z oben, z unten, hinterste z]: Ruecken an Ober- und Unterkante des Schilds
+	var r := ruecken_aus(pts, y - 0.63, y + 0.1)   # [z oben, z unten, hinterste z]: Ruecken an Ober- und Unterkante des Schilds
 	var aussen: float = r[2]
 	if schild != "":
 		# Pruefer Lauf 2 (Kaempfer: Schild ragt von vorn ueber die Schultern; Schild 0,72 m, Oberkante 1,54 m, Schultern 1,46 m):
@@ -506,21 +515,64 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 
 # hinterste Stelle des Rumpfs (z, Ruhelage) auf Hoehe des Schulterblatts (y1 - 0,15) und des Kreuzes (y0 + 0,1), dazu die hinterste
 # zwischen y0 und y1; nur die Mitte (|x| < 0,12), alle Netze mit Haut (Koerper, Kleidung, Umhang)
-static func ruecken(m: Node3D, y0: float, y1: float) -> Array:
+static func ruecken(m: Node3D, y0: float, y1: float) -> Array: return ruecken_aus(haut_punkte(m, null, false), y0, y1)
+
+static func ruecken_aus(pts: PackedVector3Array, y0: float, y1: float) -> Array:
 	var oben := 9.0; var unten := 9.0; var ganz := 9.0
-	for mi in m.find_children("*", "MeshInstance3D", true, false):
-		if not (mi as MeshInstance3D).skin: continue
-		var t := im_raum(m, mi)
-		var me := (mi as MeshInstance3D).mesh
-		for s in me.get_surface_count():
-			for v in me.surface_get_arrays(s)[Mesh.ARRAY_VERTEX]:
-				var p: Vector3 = t * v
-				if absf(p.x) > 0.12 or p.y < y0 or p.y > y1: continue
-				ganz = minf(ganz, p.z)
-				if absf(p.y - (y1 - 0.15)) < 0.04: oben = minf(oben, p.z)
-				if absf(p.y - (y0 + 0.1)) < 0.04: unten = minf(unten, p.z)
+	for p in pts:
+		if absf(p.x) > 0.12 or p.y < y0 or p.y > y1: continue
+		ganz = minf(ganz, p.z)
+		if absf(p.y - (y1 - 0.15)) < 0.04: oben = minf(oben, p.z)
+		if absf(p.y - (y0 + 0.1)) < 0.04: unten = minf(unten, p.z)
 	if ganz > 8.0: ganz = -0.15
 	return [oben if oben < 8.0 else ganz, unten if unten < 8.0 else ganz, ganz]
+
+# 499 Messung: Haltung [name] (Zeit 0) aus dem AnimationPlayer der Figur auf das Skelett, ohne Baum (Spuren „Pfad:Knochen“)
+static var schild_haltung := ""
+static func halte(m: Node3D, sk: Skeleton3D, name: String) -> bool:
+	var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
+	if ap == null or not ap.has_animation(name): return false
+	var an := ap.get_animation(name)
+	for t in an.get_track_count():
+		var b := sk.find_bone(String(an.track_get_path(t)).get_slice(":", 1))
+		if b < 0: continue
+		match an.track_get_type(t):
+			Animation.TYPE_ROTATION_3D: sk.set_bone_pose_rotation(b, an.rotation_track_interpolate(t, 0.0))
+			Animation.TYPE_POSITION_3D: sk.set_bone_pose_position(b, an.position_track_interpolate(t, 0.0))
+	return true
+
+# Ecken aller Netze mit Haut im Raum der Wurzel m (ohne deren eigene Lage): Ruhelage, oder mit [haltung] nach der Lage der Knochen
+# (wie die Haut sie zeichnet); [nur]: ein Netz. Mit Haltung nur die Mitte (Ruhe |x| < 0,2), sonst dauert es zu lange
+static func haut_punkte(m: Node3D, _sk: Skeleton3D, haltung: bool, nur: MeshInstance3D = null) -> PackedVector3Array:
+	var aus := PackedVector3Array()
+	for mi in ([nur] if nur else m.find_children("*", "MeshInstance3D", true, false)):
+		var x := mi as MeshInstance3D
+		if not x.skin: continue
+		var t := im_raum(m, x)
+		var sk := x.get_node_or_null(x.skeleton) as Skeleton3D
+		if sk == null: sk = _sk
+		var ks := im_raum(m, sk) if sk else Transform3D.IDENTITY
+		for s in x.mesh.get_surface_count():
+			var arr := x.mesh.surface_get_arrays(s)
+			var vs: PackedVector3Array = arr[Mesh.ARRAY_VERTEX]
+			if not haltung or sk == null:
+				for v in vs: aus.append(t * v)
+				continue
+			var bo = arr[Mesh.ARRAY_BONES]; var we = arr[Mesh.ARRAY_WEIGHTS]
+			if bo == null or vs.is_empty(): continue
+			var n := int(bo.size() / vs.size())
+			for i in vs.size():
+				if absf((t * vs[i]).x) > 0.2: continue
+				var w := Vector3.ZERO
+				for j in n:
+					var g: float = we[i * n + j]
+					if g <= 0.0: continue
+					var bind: int = bo[i * n + j]
+					var bone := x.skin.get_bind_bone(bind)
+					if bone < 0: bone = sk.find_bone(x.skin.get_bind_name(bind))
+					w += (ks * sk.get_bone_global_pose(bone) * x.skin.get_bind_pose(bind) * vs[i]) * g
+				aus.append(w)
+	return aus
 
 ## 406: wie weit der Schild außerhalb der Mitte (mehr als 15 cm seitlich der Fessel) hinter die Fessel reicht (glTF: vorn +z), in m
 static func rand_hinten(was: String) -> float:
