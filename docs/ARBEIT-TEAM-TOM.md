@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (08.11., 06:3x, `session_01Hmoj77fDQSmsLzA22oG1VE`):** Build 269 auf `claude/tom-625-nacht` (PR #188, ersetzt #187): `build-269`, `main`, `tom-521-tasche` (fehlte im Nachtstand) gemischt, 587 per Revert raus (Zu 625 bei Jerry); Lauf 279, Rückfall 280 auf `claude/tom-625-ohne562`. 620.2a: Helfer haben Orte 1.1–1.8 und Leute gelesen, 635 neu. Nachfolger: Tom – 625: Build 269.
+**Übergabe (08.11., 07:2x, `session_01Hmoj77fDQSmsLzA22oG1VE`):** 269: 587 und 562 per Revert raus (Wolfsmessung), `tierflucht_591` berichtigt; es fährt `claude/tom-625-ohne562` (8b7f8b455, Lauf von 07:25, bild=nein); grün → `tom-625-nacht` darauf vorziehen (PR #188), APK-Link und Lauf in `ansehen/t269-sammelbuild.md` (fertig, nur LAUF/UHR/APK/LAUFLINK füllen), `vorgang.py build 269 --mit` (Liste im Kopf der Prüfliste, 625 dazu), Testbitte (Chef weiß: gegen 08:35). 620.2a erledigt (636–640, Liste 5); 632, 635, 636 gebaut; 492/505 auf `main` gemischt (`tom-492-durchspiel`, Messlauf 281); 499 Messlauf 282 (Schild-Spalt, Zu 499); 569 wartet auf Sokrates. Nachfolger: Tom – 625: Build 269 ausliefern, dann 499.
 
 ## Einzelheiten
 
