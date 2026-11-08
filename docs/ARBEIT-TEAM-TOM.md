@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (08.11., 19:48, `session_01Hmoj78FRCRbrPhHDYfA1w4`):** 630 ins Archiv; 623.6 Testbitte gesendet; 656 gemessen; 492 Raster behoben, Fassung B; t270 berichtigt; 697 angelegt; 506 Balken; 492 Lauf 308 gestartet. Nachfolger: Tom – 492, 656: Läufe frei (Sokrates 19:50), dann 584
+**Übergabe (08.11., 20:42, `session_01Hmoj75jgjQoFDaBXksa8CD`):** 656 Prüfschritt vorher/nachher, Lauf 310 gestartet; 584 gebaut (Lauf bei Sokrates); 585, 586, 700 gebaut, Bilder beim Chef; 699 gebaut; 635 Weg an den Chef; 636 Rückfrage beim Chef; 506, 475 Bitte um Läufe an Sokrates; 698 wartet auf 623. Nachfolger: Tom – 492, 656: Bilder der Läufe 308, 310 an den Chef
 
 ## Einzelheiten
 
@@ -18,7 +18,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 
 - **Zu 492 (Tom, 08.11., 19:36):** `claude/tom-492-durchspiel`. Lauf 305 grün, Bilder (Artefakt `bornim-godot-bilder`, Lauf 42502301041) als Vorlage alt/neu gebaut (Muster: je Spalte oben alt aus `bilder:2026-11/03-2330-492-Tom.png` Reihe 1 und 3, unten neu); Helfer vor dem Versand 19:29: Verstoß (Licht ohne Quelle in Gang, Gitter, Eingang; Raster Halle, Krogg, Westflügel; G1 Lager Gestalt am Rand; Nebel „gesehen gedämpft“ nicht belegt). Behoben: Fels weich schattiert (ac9698a49), Fassung B (Umgebung 0,12, Farbe kalt) als `<ort>_b.png` in derselben Reihe; offen G1 Lager (Ausschnitt). Lauf frei (Sokrates 19:50), Lauf 308 (42512022579, film=nein) läuft seit 19:50: Bilder einzeln (auch `<ort>_b.png`) sofort an den Chef, Befund mit Zeit dabei; danach Vorlage mit Befund an den Chef, erst nach „passt“ in den Build. Prüferbefunde 505 (04.11., 19:07) bleiben offen.
-- **Zu 656 (Tom, 08.11., 19:25):** bdd32b68a (Armgewichte ans Schlüsselbein), `pruef_umhang_arm.py` mit wirkender Bewegung (af3d5ea00). Am Rechner (`bau_am_rechner.py --laden`, tex/held3/rig, `held_klassen.py TRACHTEN=WACHE GESCHLECHT=M`, einmal `UMHANG_ARM=1`): Armanteil ab 0,1 m unter der Schulter vorher bis 0,67, jetzt 0; Ruhelage (Arme gehoben) unter der Achsel vorher bis 42 cm verschoben, jetzt 13; Reden mit Gesten 24 → 1 cm; Schwerthieb beide 43 cm (Rumpf). Ursache an den Chef (Telegram 19:25). Lauf frei (Sokrates 19:50): Prüfschritt „Umhang 656“ (b243b8c52, `kampf=656 film=nein`): Siegerposen von vorn und 150° von hinten, Kämpfer neu und mit `UMHANG_ARM=1`, Blätter `umhang656/vergleich-<Ansicht>-<n>.png` links vorher, rechts nachher; Lauf 310 (42512716761) seit 19:59. Danach ansehen, einzeln an den Chef, `ansehen/656-umhang.md`; erst nach „passt“ in den Build.
+- **Zu 656 (Tom, 08.11., 19:25):** bdd32b68a (Armgewichte ans Schlüsselbein), gemessen mit `pruef_umhang_arm.py` (Werte in `git show 5996d4321:docs/ARBEIT-TEAM-TOM.md`). Ursache an den Chef (Telegram 19:25). Lauf frei (Sokrates 19:50): Prüfschritt „Umhang 656“ (b243b8c52, `kampf=656 film=nein`): Siegerposen von vorn und 150° von hinten, Kämpfer neu und mit `UMHANG_ARM=1`, Blätter `umhang656/vergleich-<Ansicht>-<n>.png` links vorher, rechts nachher; Lauf 310 (42512716761) seit 19:59. Danach ansehen, einzeln an den Chef, `ansehen/656-umhang.md`; erst nach „passt“ in den Build.
 
 
 
