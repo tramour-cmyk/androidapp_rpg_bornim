@@ -35,7 +35,10 @@ func _run() -> void:
 		print("Film 623.5: ohne Kauf, nichts zu filmen")
 		quit(0)
 		return
-	var bild_s := float(OS.get_environment("BILD_S")) if OS.get_environment("BILD_S") != "" else -1.0
+	# BILD_S=a,b,…: je Zeit ein Bild BILD (mehrere: BILD mit -1, -2 … vor .png), nach dem letzten Ende
+	var bilder: Array = []
+	for x in OS.get_environment("BILD_S").split(",", false):
+		bilder.append(float(x))
 	var deck := CanvasLayer.new()
 	deck.layer = 128
 	schwarz = ColorRect.new()
@@ -74,12 +77,17 @@ func _run() -> void:
 		if s.jetzt != "" and s.jetzt != vorher:
 			print("Film 623.5: %5.1f s %s (%s)" % [t, s.jetzt, s.paket])
 			vorher = s.jetzt
-		if bild_s > 0.0 and t >= bild_s:
+		if not bilder.is_empty() and t >= float(bilder[0]):
+			bilder.pop_front()
 			await RenderingServer.frame_post_draw
-			root.get_texture().get_image().save_png(OS.get_environment("BILD"))
-			print("Probebild 623.5: %.1f s, %s" % [t, s.jetzt])
-			quit(0)
-			return
+			var pfad := OS.get_environment("BILD")
+			if OS.get_environment("BILD_S").contains(","):
+				pfad = pfad.get_basename() + "-%d.png" % (OS.get_environment("BILD_S").split(",", false).size() - bilder.size())
+			root.get_texture().get_image().save_png(pfad)
+			print("Probebild 623.5: %.2f s, %s → %s" % [t, s.jetzt, pfad.get_file()])
+			if bilder.is_empty():
+				quit(0)
+				return
 	print("Film 623.5: %s nach %.1f s; gezeigt %d: %s; fehlt: %s" % ["fertig" if s.fertig else "abgebrochen", t, s.gespielt.size(),
 		", ".join(s.gespielt), ", ".join(s.fehlen) if not s.fehlen.is_empty() else "nichts"])
 	await _blende(1.0)

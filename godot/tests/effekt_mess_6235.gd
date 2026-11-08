@@ -20,7 +20,11 @@ func _run() -> void:
 	root.add_child(s)
 	var t := 0.0
 	var vorher := ""
+	var bereit_t := -1.0
 	while not s.fertig and t < 150.0:
+		if s.bereit and bereit_t < 0.0:
+			bereit_t = t
+			print("Effekte 623.5: bereit bei %.1f s, Bild %d" % [t, Engine.get_process_frames()])
 		await process_frame
 		t += 1.0 / 30.0
 		if s.jetzt != vorher:

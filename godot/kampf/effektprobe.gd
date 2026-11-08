@@ -207,7 +207,7 @@ func _setze(pfad: String, pos: Vector3, weg_von = null, eigen := {}) -> Node:
 	kf.add_child(fx)
 	(fx as Node3D).global_position = pos
 	if OS.get_environment("MESS") != "":
-		print("MESS Effekt %s: %s, Höhe %.2f m" % [pfad.get_file(), pos, pos.y - kf.global_position.y])
+		print("MESS Effekt %s: %s, Höhe %.2f m, Bild %d" % [pfad.get_file(), pos, pos.y - kf.global_position.y, Engine.get_process_frames()])
 	if weg_von is Vector3:
 		var vom: Vector3 = (weg_von as Vector3) - pos
 		vom.y = 0.0
