@@ -1,5 +1,7 @@
 # 613 · Figur im Tempel neu: Tempel 1 und Tempel 4 · Tom (Spike) · 08.11., 19:31
 
+[Bild von 08.11., 19:30](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/08-1930-613-Spike.png) (eingetragen von meldung.sh, Spike)
+
 Zu deinem Wort von 19:18 („weißer Knubbel … weißer Kegel als Kopf und sehr rechtwinklige, stilisierte Beine“). Beide weißen Köpfe waren Frauen mit Leinenhaube. Die Haube war ein helles Ei über dem ganzen Kopf, im Profil auch über dem Gesicht. Die Beine einer Sitzenden im Profil waren zwei Rechtecke.
 
 Jetzt:
