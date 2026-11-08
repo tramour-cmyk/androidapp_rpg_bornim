@@ -62,6 +62,9 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 		"RATTE": [["rat", Mars.WOLF, Vector2i(0, 0)]],     # 577: Körper des Wolfs, Kennung und Regeln der eigenen Art (ART)
 		"FLEDERMAUS": [["bat", Mars.WOLF, Vector2i(0, 0)]],
 		"SPINNE": [["spider", Mars.SPIDER, Vector2i(0, 0)]],
+		# 506: drei Skelette wie im alten Spiel (MonsterKit.kt skeleton: Kurzschwert und Helm, Kurzschwert und Schild, Speer und Helm),
+		# Regeln aus Monsters.kt skeleton (tabellen.json), im Bild der gekaufte Skelettritter (kaufskelett.py, je Nummer ein Kit)
+		"SKELETONS": [["skel1", "skeleton", Vector2i(0, 0)], ["skel2", "skeleton", Vector2i(0, 1)], ["skel3", "skeleton", Vector2i(1, 0)]],
 	}.get(foe, [])
 	Figur.ersatz_art = {"RATS": "giant_rat", "BATS": "giant_bat", "SHAMANS": Figur.SHAMAN, "KOBOLDS": Figur.KOBOLD, "BOARS": "kauf_keiler", "CENTIPEDES": "kauf_hundertfuesser", "LEECHES": "kauf_egel", "SLUGS": "kauf_schnecke", "RATTE": "giant_rat", "FLEDERMAUS": "giant_bat"}.get(foe, "")
 	# 348.12f eingebaut (Chef 28.10., 11:50: Kaufwolf abgenommen, Archiv 27.10., 21:51: „eigener entfällt“): Wölfe sind der gekaufte
