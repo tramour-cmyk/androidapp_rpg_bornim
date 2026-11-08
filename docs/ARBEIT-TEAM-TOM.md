@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (08.11., 19:36, `session_01Hmoj78FRCRbrPhHDYfA1w4`):** 630 passt (Telegram); 623.6 Testbitte beim Chef; 656 gemessen, Lauf bei Sokrates; 492 Lauf 305 angehalten, behoben, Lauf bei Sokrates. Nachfolger: Tom – 270: Prüfzeilen berichtigen (Jerry 17:10)
+**Übergabe (08.11., 19:48, `session_01Hmoj78FRCRbrPhHDYfA1w4`):** 630 ins Archiv; 623.6 Testbitte gesendet; 656 gemessen; 492 Raster behoben, Fassung B; t270 berichtigt; 697 angelegt; 506 Balken. Nachfolger: Tom – 584: halbfette Köpfe (Kür, 630 gebaut)
 
 ## Einzelheiten
 
