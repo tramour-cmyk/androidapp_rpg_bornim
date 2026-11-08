@@ -6,6 +6,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+
+- **Zu 636, von Chef (Fund t270.4, Test Build 270, Automatik B):** kein Geräusch am Schlagbaum (Chef 20:30)
 - **Zu 585, 586 (Tom, 08.11., 20:25):** Bilder beim Chef (`ansehen/585-titel.md`, `ansehen/586-titel.md`), Zweige `claude/tom-585-kleinigkeiten` (c304c5842), `claude/tom-586-rast` (3d56c4077), beide auf 630; erst nach „passt“ in den Build. 586 ändert die Tabelle „Schrift“ in `DESIGN-STIL.md` (Fenstertitel 22 statt 15 sp): nach „passt“ an Homer.
 - **Zu 584 (Tom, 08.11., 20:11):** `claude/tom-584-halbfett` auf 630: Alegreya SemiBold (`Stil.variante/zeile` fett, `Erschaffung.txt` fett), gesetzt wie alt (Theme.kt Txt bold), aber halbfett statt MenuHead-Versalien für Werte, Namen, Zahlen (549a); Köpfe nur Lautstärke, Helligkeit, Testmodus. `menues_512b_schritte` an 630 angepasst. Probelauf 20:07 zeigte noch die erste Fassung (Versalien) und ab Zustand 41 nur das Fenster „Amulett“: nicht vorlegen. Lauf bei Sokrates; dann `PROBE=584` vorher (630) und nachher, Einzelbilder Erschaffung, Held, Chronik, Karte, System, Test, Brett, Anleitung an den Chef.
 - **Zu 506 (Tom, 08.11., 19:46):** `claude/tom-506-skelett` mit main gemischt; Balken und Name über dem Scheitel (5c023b5fb, gemessen: vorher 26 cm unter dem Scheitel). Offen aus dem Helferbefund 12:55 (`git show f60748174:docs/ARBEIT-TEAM-TOM.md`, „Zu 506“): Schatten als Scheibe, Nahbild angeschnitten, Schädel ohne Zähne und Höhlen, Kits kaum unterscheidbar, Nahbild gebeugt; Klinge und Speer in Stehen 68–79 Grad zur Senkrechten (Haltung des Kaufs, Wahl des Chefs?). Probeläufe 2 von 1: neuer Lauf nur mit Freigabe Sokrates.
@@ -66,4 +68,3 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 
 **Ältere Einzelheiten** (621.2; Pflege 08.11., 18:24, 19:07, 20:28, 21:12: „Zu 613 (19:03)“ und „Zu 635 (20:24)“ erledigt, in `git show 461185464:docs/ARBEIT-TEAM-TOM.md`; „Zu 613 (19:18)“ erledigt, in `git show 14ec32902:docs/ARBEIT-TEAM-TOM.md`): „Zu 605 (16:4x)“ und „Zu 687–689, 691, von Perikles“ sowie die Absätze „Zu 623.6“ (Chef 16:56 Film, Lauf 298, Sokrates 14:46), „Zu 644.4“, „Zu 499 (14:2x)“, „Zu 650.1“, „Zu 649.3“, „Zu 531“, „Zu 506“ und die Verweise auf 492/505/635, 591/522, t268 und 07.11. stehen in `git show f60748174:docs/ARBEIT-TEAM-TOM.md` (je Vorgang `grep "Zu [^*]*<Nr>"`); alles bis 08.11., 00:35 in `git show 519d2420d:docs/ARBEIT-TEAM-TOM.md`.
-

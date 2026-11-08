@@ -15,9 +15,9 @@
 | 670 | Build 269: Menü des Helden (Held, Tasche, Ausrüstung, Karte, Chronik, System) noch im alten Design statt 557/549a; Zweig tom-557-einschalten war im Build? (Chef 08.11., 15:32) | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 664 | Halbes Haus: Haus des alten Kael und Hütte der Kräuterhexe im tiefen Flüsterwald nur halb da (Chef 08.11., 15:28, mehrfach gemeldet, nie eingetragen) · wiederholt | Tom | M | gebaut, fährt im nächsten Build. Geprüft an: 3bc19a09f (Bild passt, Chef 👍 16:42) | – | claude/tom-664-haeuser | – | E Welt | 8,06 $ |
 | 656 | Umhang Kämpfer mit Beulen, große Beule unter dem Schwertarm: woher, weg (Chef 08.11., 14:52, schon zu 623.5 gefragt, Antwort verloren; 16:44 wieder auf den Siegerposen 296.3) · wiederholt | Tom | M | Chef, Bild ansehen/656-umhang.md, Werkzeug behoben cfbd72e0f | Chef | claude/tom-656-umhang | – | E Figuren | 4,86 $ |
-| 499 | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 (Chef 03.11., 07:14, Build 204) · „jetzt“ 07.11., 21:31 | Tom | M | zu testen | – | claude/tom-499-drehteller | 270 | E Figuren | 64,66 $ |
-| 635 | Lyra fehlt als Figur im Tempel und in der Höhle: Kennung lyra_temple/lyra_cave, gebaut wird nur „lyra“ (Abgleich 620.2a) | Tom | M | zu testen | – | claude/tom-635-lyra | 270 | E Welt | – |
-| 605 | Ausrüstung: leeres Kopffeld, Auswahl zeigt falsch „Obergrenze“, kein Zurück; Stück aus der Auswahl hat nur „Wegwerfen“, kein „Anlegen“ (Chef 06.11., 21:22, t268; t269.16 08.11., 15:57) · wiederholt | Tom | M | zu testen | – | claude/tom-605-ausruestung | 270 | E Technik | 20,19 $ |
+| 499 | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 (Chef 03.11., 07:14, Build 204) · „jetzt“ 07.11., 21:31 | Tom | M | erledigt, t270 bestanden | – | claude/tom-499-drehteller | 270 | E Figuren | 64,66 $ |
+| 635 | Lyra fehlt als Figur im Tempel und in der Höhle: Kennung lyra_temple/lyra_cave, gebaut wird nur „lyra“ (Abgleich 620.2a) | Tom | M | zu testen, ohne Rückmeldung t270 | – | claude/tom-635-lyra | – | E Welt | – |
+| 605 | Ausrüstung: leeres Kopffeld, Auswahl zeigt falsch „Obergrenze“, kein Zurück; Stück aus der Auswahl hat nur „Wegwerfen“, kein „Anlegen“ (Chef 06.11., 21:22, t268; t269.16 08.11., 15:57) · wiederholt | Tom | M | erledigt, t270 bestanden | – | claude/tom-605-ausruestung | 270 | E Technik | 20,19 $ |
 | 581 | Ausrüstung: Seite breiter als der Schirm, Reiter springen (Abgleich 512b) | Tom | M | startbar, Fund t269.16 | – | claude/tom-581-ausruestung | – | E Oberfläche | 2,31 $ |
 | 583 | Textkasten: ▼ liegt im Text, erzählter Text ohne i-Punkte und nicht schräg (Abgleich 512b) | Tom | M | startbar, Fund t269.3 | – | claude/tom-583-textkasten | – | E Oberfläche | 5,99 $ |
 | 584 | Kein halbfetter Schnitt: Köpfe und Titel in Erschaffung, Held, Chronik, Karte, System, Brett, Test nicht hervorgehoben wie alt (Abgleich 512b) | Tom | K | in Arbeit, gebaut 0fcdd69d5, Bild nach Lauf | Sokrates | claude/tom-584-halbfett | – | E Oberfläche | 23,80 $ |
@@ -41,7 +41,7 @@
 | 455.1 | Probeblatt Baukasten: Roben, Umhänge, Stiefel je Netz × Material × Zeichen (Chef 01.11., 11:24) | Tom | M | ruht | – | claude/spike-455-1-baukasten | – | E Figuren | 30,05 $ |
 | 513 | Ein Figurenstand für alle Zweige; Schild, Robe Magier, Umhang jetzt (Chef 03.11., 15:56, „513 B“) · „jetzt“ 03.11., 15:56 | Tom | M | ruht | – | claude/figurenstand-513 | – | E Figuren | 14,01 $ |
 | 470 | Bau BRS 1.1 Erschaffung (Wochenziel 02.11., Stufe 1) | Tom | M | ruht | – | claude/spike-470-erschaffung | – | E Kampf | 43,23 $ |
-| 604 | Schenke Erdgeschoss: Bett raus, mehr Tische und Bänke; Schlafen oben nur im Text (Chef 06.11., 09:38) | Tom | K | zu testen | – | claude/tom-604-schenke | 270 | E Technik | – |
+| 604 | Schenke Erdgeschoss: Bett raus, mehr Tische und Bänke; Schlafen oben nur im Text (Chef 06.11., 09:38) | Tom | K | erledigt, t270 bestanden | – | claude/tom-604-schenke | 270 | E Technik | – |
 | 570 | Theke: Wahl „Fleisch verkaufen · 12 Gold“ liest sich wie ein Preis (Prüfer 557 Runde 4) | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 470.1 | Erschaffung: Held auf Antippen bildschirmgroß (Idee Chef 02.11., 18:37) | Tom | K | ruht | – | – | – | E Oberfläche | – |
 | 471 | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | Tom | M | startbar, gelöst 08.11.: 478 | – | – | – | E Kampf | – |
@@ -87,7 +87,7 @@
 | 431d | Rückfrage: Völker Lauf 3 am Tor angehalten (B1 Elf, C3, G3, A1/A3 Grak, A2), neue Läufe frei, Weg A2? | Tom | M | ruht, ohne Vorratszeile, Liste „Chef“ (275.2) | – | – | – | E Figuren | – |
 | 431e | Rückfrage: Gesicht des Helden im Dorflicht fast weiß, Hauteichung nach Messung? | Tom | M | ruht, ohne Vorratszeile, Liste „Chef“ (275.2) | – | – | – | E Figuren | – |
 | 632 | Truhe der Höhle (cave_3, 4/14) gibt „@class_weapon“ statt der Waffe der Klasse wie alt (Story.classWeapon, Game.kt 1108); von Jerry, Abgleich 620.2b | Tom | M | gebaut, Geprüft an: ca508b846 (truhe_632 lokal), fährt mit der Höhle (492) | – | claude/tom-632-truhe | – | E Welt | – |
-| 636 | Schlagbaum öffnet ohne Türgeräusch (alt G:1162 Sound.DOOR; Abgleich 620.2a) | Tom | M | Chef, Rückfrage entscheiden/636-schlagbaum.md | Chef | claude/tom-636-schlagbaum | 270 | E Welt | – |
+| 636 | Schlagbaum öffnet ohne Türgeräusch (alt G:1162 Sound.DOOR; Abgleich 620.2a) | Tom | M | startbar, Fund t270.4 | Chef | claude/tom-636-schlagbaum | – | E Welt | – |
 | 637 | Anschlagbrett: frischer blasser Zettel, solange ein ungelesener Auftrag hängt (A/MapTownIso.kt 646, J:123; „Aufgeben“ war alt nicht erreichbar: JobList ohne Aufruf; Abgleich 620.2a) | Tom | M | startbar | – | – | – | E Welt | – |
 | 638 | Kleinleben wie alt: Dorfhund, Katze in der Schenke, sichtbare Vögel, fallende Blätter im Wald, Hühner ziehen sich in der Dämmerung zurück (Abgleich 620.2a) | Tom | M | startbar | – | – | – | E Welt | – |
 | 639 | Leute tragen ihre Dinge wie alt: Jorins Speer, Aldrics Stab quer auf der Schulter (Garricks Langbogen: 531; Abgleich 620.2a) | Tom | M | startbar | – | – | – | E Welt | – |
@@ -100,7 +100,7 @@
 | 665 | Nacht im Dorf: um 2:30 kaum dunkel; in allen Häusern Licht, keiner schläft: tiefe Nacht dunkel, Fenster nach Schlafenszeit aus (Chef 08.11., 15:31, Build 269 auf MuMu) | Tom | M | startbar | – | – | – | E Welt | – |
 | 668 | Testmenü an Schirme ohne Kasten angleichen: Zurück, Trennlinien, Aufbau wie 549a/618 (Chef 08.11., 15:32, Build 269) | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 673 | Emulator: Kamera drehen und zoomen mit Maus und Tasten (rechte Maustaste ziehen, Mausrad), nur am Rechner, Handy unverändert (Rückfrage Sokrates 08.11., 15:34) | Tom | M | startbar, ja (Chef 15:39) | – | – | – | E Technik | – |
-| 677 | Leuchtfunke wirkt nicht: Benutzen aus der Tasche tut nichts, nur „Der Funke verglimmt“ (Chef 08.11., 15:54, t269.15) | Tom | M | zu testen | – | claude/tom-677-funke | 270 | E Welt | – |
+| 677 | Leuchtfunke wirkt nicht: Benutzen aus der Tasche tut nichts, nur „Der Funke verglimmt“ (Chef 08.11., 15:54, t269.15) | Tom | M | erledigt, t270 bestanden | – | claude/tom-677-funke | 270 | E Welt | – |
 | 678 | Testmenü: Heldenstufe +1 geht über die Kapitelgrenze (Stufe 9 in Kapitel 1), Grenze auch beim Hochstufen im Testmenü einhalten (Chef 08.11., 16:01, Build 269) | Tom | M | startbar | – | – | – | B Werkzeuge | – |
 | 683 | Oberfläche noch mit SRD-Wörtern: Gegenstandsfenster und Vergleich zeigen Zauberpunkte, Attribute, Stärke, Konstitution, Weisheit, Charisma statt BRS (Mana, Kraft, Zähigkeit …; Regelwerk Abschnitt 12) (Sokrates nach Bild des Chefs 08.11., 15:57) | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 691 | Platzwechsel mit Leuten und Tieren: beide gleiten ineinander (Chef 03.11., 07:44, Test 204.6: „Im Zweifelsfall lassen wir das so“; Zeile nach dem Durchspielen zugesagt, aus 416.2; zurückgeholt 675) | Tom | K | ruht, nach dem Durchspielen (488) | – | – | – | E Figuren | – |
@@ -113,18 +113,20 @@
 | 700 | Erschaffung, Platzwahl „Alle Spielstand-Plätze sind belegt“: Rahmen um jeden Platz gegen 549a (Tom, gesehen bei 586, 20:22) | Tom | M? | Chef, Bild ansehen/700-platzwahl.md. Geprüft an: 506b7f577 | Chef | claude/tom-700-platzwahl | – | E Oberfläche | – |
 | 701 | Gegenstandsfenster: Hinweis Obergrenze nur einmal statt je Grundwert (Chef t270.5, 08.11., 20:37: „wirkt überbordend“) | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | Pflege | von Werkzeug (340.3, 08.11.): 15349 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | erledigt | – | – | – | B Abläufe | – |
-| 682 | Kampf flüssiger: Held geht zügig zum Angriff, Gegner laufen in weichen Bögen statt eckig gerade-diagonal, weniger Warten auf Hin- und Zurücklaufen bei Fehlschlägen; grundsätzlich für alle Gegner (Chef 08.11., 16:22, t269) | Jerry | M | startbar | – | – | – | E Kampf | 8,35 $ |
+| 682 | Kampf flüssiger: Held geht zügig zum Angriff, Gegner laufen in weichen Bögen statt eckig gerade-diagonal, weniger Warten auf Hin- und Zurücklaufen bei Fehlschlägen; grundsätzlich für alle Gegner (Chef 08.11., 16:22, t269; „Schienenbahnen“ t270) · „jetzt“ 08.11., 21:36 | Jerry | M | startbar | – | – | – | E Kampf | 8,35 $ |
+| 702 | Wölfe: Anspringen nimmt dem Helden jeden Zug, Rudel hält ihn dauerhaft fest (Chef t270, 08.11., 21:27: „1 Minute lang zugeguckt … sinnlos“, Balance) · „jetzt“ 08.11., 21:36 | Jerry | M | startbar | – | – | – | E Kampf | – |
+| 703 | Ausweichen: Gegner bleibt am Ausweichplatz statt zurückzutappeln, 703 A (Chef t270.12, 08.11., 21:33; ändert DESIGN-KAMPF F5) · „jetzt“ 08.11., 21:36 | Jerry | M | startbar, A (Chef 21:36) | – | – | – | E Kampf | – |
 | 680 | Absturz: Testmenü Sprung Wald → Dorf, in der Schenke schon hakelig, nach Met immer zäher, beim Öffnen des Testmenüs (Sprung in den Wald) Absturz, ohne Fehlerzeile (Chef 08.11., 16:16, 16:18, Build 269, Handy) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 679 | Kampf: im ersten Testkampf (Kleriker gegen Wölfe) fehlten Befehle und Knöpfe (Gewinnen, Verlieren, Raster, Würfelergebnisse), „null Einfluss“; im zweiten Kampf gegen das Wolfsrudel waren sie da: Ursache nachstellen (Chef 08.11., 16:06, 16:07, Build 269) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 565 | MARS: unten im Gruppenkasten sieht man nicht, welcher Held am Zug ist (Chef 04.11., 17:10, t257 C) | Jerry | M | startbar, A (Chef 13:11) | – | claude/jerry-565-am-zug | – | E Kampf | 13,51 $ |
-| 562 | MARS: Helden laufen zum Angriff viel zu langsam, zurück gleiten sie flott (Chef 04.11., 17:02, t257 C) | Jerry | M | zu testen | – | claude/jerry-562-angriffsschritt | 270 | E Kampf | 17,49 $ |
+| 562 | MARS: Helden laufen zum Angriff viel zu langsam, zurück gleiten sie flott (Chef 04.11., 17:02, t257 C) | Jerry | M | startbar, Fund t270.8 | – | claude/jerry-562-angriffsschritt | – | E Kampf | 17,49 $ |
 | 563 | MARS: Zustandsschilder über Gegnern („Blut 3“) überlagern Ansage und Leisten, wirken grob (Chef 04.11., 17:02, t257 C) | Jerry | M | startbar, A Rot heller (Chef 13:09) | – | claude/jerry-563-zustaende | – | E Kampf | 13,48 $ |
-| 560 | Monster auf der Karte drehen sich zum Helden, wenn sie ihn wahrnehmen, mit Schritten statt auf der Stelle (Chef 04.11., 16:22) | Jerry | M | zu testen | – | claude/jerry-560-wenden | 270 | E Figuren | – |
+| 560 | Monster auf der Karte drehen sich zum Helden, wenn sie ihn wahrnehmen, mit Schritten statt auf der Stelle (Chef 04.11., 16:22) | Jerry | M | startbar, Fund t270.7 | – | claude/jerry-560-wenden | – | E Figuren | – |
 | 551 | MARS: Rahmen des unteren Kastens links und rechts unterbrochen (Chef 04.11., 00:21) | Jerry | M | ruht | – | – | – | E Kampf | – |
 | 547 | MARS: Text sagt „geht in die Knie“, Sturz ist aus (438a eingefroren): Text und Bild in Einklang bringen (Chef 04.11., 00:01) | Jerry | M | zu testen, ohne Rückmeldung t269 | – | claude/jerry-547-sturztexte | – | E Kampf | 5,43 $ |
 | 532 | Kampf: Held geht ohne Zauberpunkte, Verbrauchtes, Zustände, Metrausch und ohne die ganze Tasche (nur einfacher Heiltrank) in den Kampf, danach wird nur TP zurückgeschrieben; Zauber kosten nichts (Abgleich 512, Sokrates… | Jerry | M | startbar, Fund t269.25 | – | claude/jerry-532-metrausch | – | E Kampf | 2,28 $ |
 | 534 | Kampf: Zauber und Fähigkeiten fehlen in „Können“ (Magierrüstung, Untote vertreiben, Spirituelle Waffe, Geisterwächter) oder wirken nicht (Unglaubliches Ausweichen, Unerbittlichkeit, Lebensraub, Schadensminderung der Aus… | Jerry | M | ruht, 424: altes SRD-System | – | claude/jerry-534-faehigkeiten | – | E Kampf | 2,32 $ |
-| 536 | Kampf: Erklärungen bei langem Drücken (MarsTips), Grund bei gesperrtem Zauber, „Kein Ziel in Sicht“, Knopf „Schnell“, Stufe und EP im Gruppenkasten, Seltenheitsfarbe der Beute (Abgleich 512, Sokrates 03.11., 23:4x) | Jerry | M | zu testen | – | claude/jerry-536-namen | 270 | E Kampf | 37,47 $ |
+| 536 | Kampf: Erklärungen bei langem Drücken (MarsTips), Grund bei gesperrtem Zauber, „Kein Ziel in Sicht“, Knopf „Schnell“, Stufe und EP im Gruppenkasten, Seltenheitsfarbe der Beute (Abgleich 512, Sokrates 03.11., 23:4x) | Jerry | M | startbar, Fund t270.10 | – | claude/jerry-536-namen | – | E Kampf | 37,47 $ |
 | 467 | Ausdauer nach BRS statt SRD (ausdauer.gd: Konstitution, Stärke 13), Formel aus 427 (Chef 01.11., 21:52) | Jerry | M | startbar, gelöst 08.11.: 478 | – | – | – | E Kampf | – |
 | 438 | Wölfe im Kampf wirken gleitend: Angriff, Tempo, Vorbeigehen (Film 403, Chef 31.10., 23:31) | Jerry | M | startbar, Fund t269.21 | – | claude/jerry-438-wolf-kampf | – | E Kampf | 124,52 $ |
 | 453 | Wölfe im Kampfort: Ruhebewegungen (atmen, scharren, umblicken, knurren) (Chef 01.11., 11:05) | Jerry | M | ruht | – | – | – | E Kampf | 47,52 $ |
@@ -136,7 +138,7 @@
 | 406.2 | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) | Jerry | M | startbar, Fund t269.21 | – | – | – | E Kampf | 41,37 $ |
 | 510 | Fledermaus: freies Modell (OGA „Vampire Bat“, CC0) neben der eigenen im Film, Chef wählt (Chef 03.11., 10:28–10:57, aus 494) | Jerry | M | ruht | – | claude/jerry-494-gegner | – | E Kampf | 17,92 $ |
 | 509 | Frösche und Libellen an den Teichen im Flüsterwald fehlen in Godot (Chef 03.11., 09:21; `PondLife.kt`, Projektplan O6, W22) | Jerry | M | ruht | – | claude/jerry-509-teich | – | E Welt | – |
-| 587 | Gegnergröße im Kampfort: 1,3-fach wie alt und die Wölfe, echte Größe oder je Kapitel (Chef 05.11., zu Bild 494) | Jerry | M | zu testen | – | claude/jerry-587-groesse | 270 | E Kampf | 9,42 $ |
+| 587 | Gegnergröße im Kampfort: 1,3-fach wie alt und die Wölfe, echte Größe oder je Kapitel (Chef 05.11., zu Bild 494) | Jerry | M | erledigt, t270 bestanden | – | claude/jerry-587-groesse | 270 | E Kampf | 9,42 $ |
 | 494 | Gegner von Kapitel 1 im Kampf außer den Untoten (506), je Gegner höchstens ein Lauf (Wochenziel 03.11., 488) | Jerry | M | wartet | 492 | claude/jerry-494-gegner | – | E Kampf | 135,26 $ |
 | 517 | Waldklang wie alt: Vögel am Tag, Eule und Grillen nachts, fernes Wolfsheulen im Tiefen Wald (`WildSound.kt`; Abgleich 512, von Team Tom) | Jerry | M | startbar, Fund t269.26 | – | claude/jerry-517-waldklang | – | E Oberfläche | 2,32 $ |
 | 507 | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager (Orte O10; aus 492) | Jerry | M | startbar, Bildlauf frei 16:28 | – | claude/jerry-507-hoehle | – | E Kampf | 61,39 $ |
@@ -151,7 +153,7 @@
 | 628 | Lohn: EP und Gold steigen nicht mit der Monsterstufe über der Gebietsstufe (over fehlt, alt Battle.finishWin) | Jerry | M | startbar, gelöst 08.11.: 478 | – | – | – | E Kampf | – |
 | 289 | MARS: Wechsel „halber Zug“ missverständlich; Bewegung und Aktion im Kästchen zeigen? (Chef 21.10., 20:11) | Jerry | K | ruht | – | – | – | E Kampf | – |
 | 296.2 | MARS spielnötig: Beute/Erfahrung, Fliehen, Eröffnung, Zustände, eigene Ausrüstung, Schalter (Chef 23.10., 18:25) | Jerry | M | startbar | – | claude/build-89 | – | E Kampf | 14,29 $ |
-| 296.3 | MARS-Schmuck: Todesschrei, Flucht/Zerfall, Zustände gezeichnet, Siegerpose (Chef 23.10., 18:25) | Jerry | K | wartet, Probebild verworfen, Film nach 656 | 656 | claude/jerry-2963-todesschrei | 270 | E Kampf | – |
+| 296.3 | MARS-Schmuck: Todesschrei, Flucht/Zerfall, Zustände gezeichnet, Siegerpose (Chef 23.10., 18:25) | Jerry | K | startbar, Fund t270.11 | 656 | claude/jerry-2963-todesschrei | – | E Kampf | – |
 | 344.2 | Kampf mit der Fackel: Feuerschaden, Verscheuchen, beide Systeme (Chef 23.10., 18:27) | Jerry | K | ruht | – | claude/jerry-344-2-fackel | – | E Kampf | – |
 | 168.1 | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | Jerry | K | wartet | 38 | – | – | G Story | – |
 | 72u.1 | Umsetzung 72u: Kampfort aus der Karte (Standbild 2, Bau) | Jerry | K | ruht | – | claude/jerry-72u-standbild-2 | – | E Kampf | 2,38 $ |
@@ -164,7 +166,7 @@
 | 595 | Kampfbewegungen der Kaufgegner: Spinne mehr Angriffe, Egel und Schnecke schneller, Treffhöhe, Ruckeln, Ruhe (Chef 05.11., 19:2x, t266.1) | Jerry | M | startbar, gelöst 08.11.: 478 | – | – | – | E Kampf | – |
 | 623.2 | Effekte aus 623 A einbauen mit 478, in `LISTE-BESTAND.md` und `LISTE-EFFEKTE.md` mit Datenfeld `fx` (Chef 07.11., 623) | Jerry | M | wartet | 623 | – | – | E Kampf | – |
 | 598 | Umweltklang je Ort, Tageszeit, Wind und Wetter, lebendige Welt (Chef 05.11., 19:2x; Abnahme 6) | Jerry | M | startbar | – | – | – | E Klang | – |
-| 593 | MARS: Ausweichen auch rückwärts als Abwechslung zu links und rechts (Chef 05.11., 19:2x) | Jerry | K | zu testen | – | claude/jerry-593-ausweichen | 270 | E Kampf | – |
+| 593 | MARS: Ausweichen auch rückwärts als Abwechslung zu links und rechts (Chef 05.11., 19:2x) | Jerry | K | startbar, Fund t270.12 | – | claude/jerry-593-ausweichen | – | E Kampf | – |
 | 616 | Kampf: Gegner weichen nach dem Angriff rückwärts zurück statt vorwärts zu laufen (Chef 07.11., t268) | Jerry | M | startbar, gelöst 08.11.: 478 | – | – | – | E Kampf | – |
 | 24 | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | Jerry | K | ruht | – | – | – | E Oberfläche | – |
 | 348.7a | Rückfrage: Geschosse flach oder in 3D | Jerry | M | ruht, ohne Vorratszeile, Liste „in Arbeit“ (275.2) | – | – | – | E Technik | 58,17 $ |
@@ -178,11 +180,9 @@
 | 649.4 | Zwei bis drei Handlungen je gewöhnlicher Monsterart vorschlagen und in 444 messen, nur wo eine Bewegung da ist (649 B, Chef 13:28) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 644.1 | Gegenstandskatalog: Werkzeug mit Spalten, Teil Rezepte und Prüfungen (644 A), zusammen mit 649.2; Ablösung held.json, tabellen.json items, beute.gd | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 644.2 | Gegenstandskatalog: Zahlen nach 469 in 444 (Tempo, Parieren, Durchschlag, Güte, Stufe), C1 Fertigkeit +1/+2 ab episch ohne Pflicht-Nachteil (Chef 14:32), C2 Seltenheitsdecke je Kapitel in die Regelwerte (644 C) | Jerry | M | startbar | – | – | – | E Kampf | – |
-| 662 | Kampf (vorher 653): Parade des Helden mit Schild dreht über _face_sanft ohne Pfotenhalt, Skriptfehler „halt“ Nil, gang bleibt „dreh“ (Jerry 08.11., effekt_mess_6235) | Jerry | M | zu testen | – | claude/jerry-653-parade | 270 | E Kampf | – |
+| 662 | Kampf (vorher 653): Parade des Helden mit Schild dreht über _face_sanft ohne Pfotenhalt, Skriptfehler „halt“ Nil, gang bleibt „dreh“ (Jerry 08.11., effekt_mess_6235) | Jerry | M | startbar, Fund t270.9 | – | claude/jerry-653-parade | – | E Kampf | – |
 | 681 | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | Jerry | M | startbar | – | – | – | E Klang | – |
 | Pflege | von Werkzeug (340.3, 08.11.): 15397 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
-| 702 | Wölfe: Anspringen nimmt dem Helden jeden Zug, Rudel hält ihn dauerhaft fest (Chef t270, 08.11., 21:27: „1 Minute lang zugeguckt … sinnlos“, Balance) | Jerry | M | startbar | – | – | – | E Kampf | – |
-| 703 | Ausweichen: Gegner bleibt am Ausweichplatz statt zurückzutappeln (Chef t270.12, 08.11., 21:33; ändert DESIGN-KAMPF F5) | Jerry | M | wartet, Frage beim Chef | Chef | – | – | E Kampf | – |
 | 432 | Eigenes Volk aus Bornim (etwa mit dem Grauen Propheten, „Tag der Asche“) prüfen, mit der Geschichte ab Kapitel 2 (Chef 31.10., 22:0x) | Homer | K | ruht | – | – | – | G Story | 0,79 $ |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
