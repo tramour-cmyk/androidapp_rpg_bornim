@@ -130,7 +130,7 @@
 | 416.6 | Spuren des Helden, auch bei Regen; Blutspuren in der Welt zuerst (Chef 31.10., 20:4x; 03.11., 07:31) | Jerry | M | ruht | – | claude/jerry-416-6-blut | – | B Umzug | – |
 | 415 | Handyprobe Beams-Free-Sample (aus 414, Chef 31.10., 20:3x; „jetzt“ 01.11.) | Jerry | M | wartet | 623 | – | – | C Kampf | 49,16 $ |
 | 460 | Kamerafahrten im Kampfort: Eröffnung wie Drohnenflug je Blende, Wechsel der Perspektive ohne Eingabe; erst Probefilm (Chef 01.11., 20:2x) | Jerry | M | ruht | – | – | – | E Kampf | – |
-| 406.1 | Schildstoß im MARS: Reaktion oder Konter am Ring, vielleicht Angriff; Regelvorschlag, dann Bau (Chef 01.11., 20:2x) | Jerry | M | startbar | – | – | – | E Kampf | – |
+| 406.1 | Schildstoß im MARS: Reaktion oder Konter am Ring, vielleicht Angriff; Regelvorschlag, dann Bau (Chef 01.11., 20:2x) | Jerry | M | wartet, Simulation 444 Teil 7: mit Ring kein Schaden | Chef | – | – | E Kampf | – |
 | 406.2 | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) | Jerry | M | wartet, in die Prüfliste 269 | 625 | – | – | C Kampf | 41,37 $ |
 | 510 | Fledermaus: freies Modell (OGA „Vampire Bat“, CC0) neben der eigenen im Film, Chef wählt (Chef 03.11., 10:28–10:57, aus 494) | Jerry | M | ruht | – | claude/jerry-494-gegner | – | E Kampf | 17,92 $ |
 | 509 | Frösche und Libellen an den Teichen im Flüsterwald fehlen in Godot (Chef 03.11., 09:21; `PondLife.kt`, Projektplan O6, W22) | Jerry | M | ruht | – | claude/jerry-509-teich | – | E Welt | – |
