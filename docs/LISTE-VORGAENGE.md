@@ -185,6 +185,7 @@
 | 72 | Profil und Marktvergleich | Homer | K | ruht | – | – | – | E Kampf | 0,72; +0,61 $ |
 | 348.12g | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | Homer | M | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | – | – | – | G Story | 4,29 $ |
 | 652 | Englisch-Regeln 1–7 aus LISTE-ENGLISCH-338-1B nach STORY-REGELN.md, dann Datei nach docs/alt (aus 650.1, Chef 08.11., 13:36) | Homer | M | startbar | – | – | – | G Story | – |
+| 655.1 | Regel 300 streichen: Ersteller sieht Bild oder Film selbst an, dann sofort an den Chef; Helfer danach entfällt (CLAUDE.md Melden, ROLLE-ENTWICKLUNG.md; 655 ja) | Perikles | M | startbar | – | – | – | B Abläufe | – |
 | 658 | Telegram-Reaktionen auslesen: 👍 auf eine Meldung = gebilligt/passt, ✅ = erledigt, Eintrag mit Zeit ins Archiv (Chef 08.11., 15:00; Probe 15:02 geht) | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
 | 317.1 | `startbar.py`, `lauf.py`: Obergrenze 6 je Build streichen (Chef 07.11., 20:5x) | Perikles | M | gebaut, Geprüft an: 12837c9c3 | Diogenes, t269 | – | – | B Werkzeuge | – |
 | 620.1 | Wiederholte Funde des Chefs vor Neuem; wenige Muss je Team zugleich (aus 620) | Perikles | M | gebaut, Geprüft an: 5b65bf6bb (startbar --stand 11:05: Tom 33, Jerry 12 gesperrt) | – | – | – | B Abläufe | 4,11 $ |
@@ -255,7 +256,7 @@
 | 650 | docs aufräumen: 88 Dateien, Erledigtes nach docs/alt/, Zusammenlegen, Inhaltsverzeichnis neu (Chef 08.11., 13:24) | Sokrates | M | startbar, ja mit Gegenprüfung (Chef 13:27) | – | – | – | B Abläufe | – |
 | 644.3 | Seltenheit als Achse ins Regelwerk, Abschnitt Ausrüstung (644 B) | Sokrates | M | startbar | – | – | – | G Balance | – |
 | 654 | Mitdenken vor dem Bauen: Systemfrage je Fund („kommt das wieder?“), Wiederholungswächter, wöchentliche Runde über die teuersten Vorgänge (Chef 08.11., 14:39) | Sokrates | M | wartet, ja (Chef 14:42); Systemrunde ab 09.11. bei Sokrates | 654.1 | – | – | B Abläufe | 7,02 $ |
-| 655 | Bilder: Ersteller sieht sein Bild selbst an, Regel 300 streichen statt neuer Vorprüfung (Chef 08.11., 14:51: „warum entsteht überhaupt das Falsche?“) | Sokrates | M | startbar | Chef | – | – | B Abläufe | 7,02 $ |
+| 655 | Bilder: Ersteller sieht sein Bild selbst an, Regel 300 streichen statt neuer Vorprüfung (Chef 08.11., 14:51: „warum entsteht überhaupt das Falsche?“) | Sokrates | M | wartet, entschieden ja (Chef 15:04) | 655.1 | – | – | B Abläufe | 7,02 $ |
 | Pflege | von Werkzeug (340.3, 08.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Sokrates | K | startbar | – | – | – | B Abläufe | – |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +842,76 $ |
 | Pflege | von Werkzeug (340.3, 08.11.): startbar.py: Tom: Muss 506 Untote im Kampf: Skelett, Zombie, Ghul (aus 494, Spike; Wochenziel 03. / Kür 604 Schenke Erdgeschoss: Bett raus, mehr Tische und Bänke; Schlafen oben n  UNLESBAR (Liste): … | Ford | K | startbar | – | – | – | B Abläufe | – |
