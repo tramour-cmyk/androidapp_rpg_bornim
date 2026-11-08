@@ -487,7 +487,7 @@ jobs:
           OBERFLAECHE_AUS=$GITHUB_WORKSPACE/bilder/drehteller VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -s res://tests/drehteller_bild_499.gd 2>&1 | grep -E "SCRIPT ERROR|^BILD|FEHLER|DREHTELLER|^[A-Z]+:|^  " | cut -c1-300 | tee $GITHUB_WORKSPACE/bilder/drehteller/messung.log || true
           BILDER=$GITHUB_WORKSPACE/bilder/drehteller VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
-            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 --fixed-fps 30 -s res://tests/drehteller_film_499.gd 2>&1 | grep -E "SCRIPT ERROR|^BILD|FEHLER|DREHTELLER|^Film|^  " | cut -c1-300 | tee $GITHUB_WORKSPACE/bilder/drehteller/gehen.log || true
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 --fixed-fps 30 -- --gehen499=$GITHUB_WORKSPACE/bilder/drehteller 2>&1 | grep -E "SCRIPT ERROR|^BILD|FEHLER|^GEHEN499" | cut -c1-300 | tee $GITHUB_WORKSPACE/bilder/drehteller/gehen.log || true   # 499: Gehen im Dorf, Spielkamera (spiel.gd gehen_499)
           ls -l $GITHUB_WORKSPACE/bilder/drehteller
       - name: Gehfilm 499 (nur von Hand mit drehteller=ja)
         if: ${{ !cancelled() && github.event.inputs.drehteller == 'ja' && github.event.inputs.film != 'nein' }}
@@ -498,8 +498,8 @@ jobs:
           sudo apt-get install -y -qq ffmpeg > /dev/null || true
           VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 1200 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 --write-movie $RUNNER_TEMP/gehen499.avi \
-            --fixed-fps 30 -s res://tests/drehteller_film_499.gd > $B/gehen499.log 2>&1 || true
-          grep -E "SCRIPT ERROR|FEHLER|DREHTELLER|^Film|^  " $B/gehen499.log | cut -c1-300 | head -40 || true
+            --fixed-fps 30 -- --gehen499=$B --gehen499film > $B/gehen499.log 2>&1 || true
+          grep -E "SCRIPT ERROR|FEHLER|^GEHEN499" $B/gehen499.log | cut -c1-300 | head -40 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/gehen499.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/499-gehen.mp4 || true
           ls -l $B
       # 348.13b Tusche nach Laterne, Fenster, Fackel: nachts je Ort mit und ohne, Kosten je Bild (Renderer wie am Handy), nur bei „348.13b“
