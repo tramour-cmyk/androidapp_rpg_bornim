@@ -25,7 +25,7 @@ Verglichen: die geänderten Schirme (Tasche, Ausrüstung, Gegenstandsfenster, Bl
 | 269.9 ✓ | Tom | 607 | Reiter „Test“, Uhrzeit auf etwa 3 Uhr, an Pims Tür klopfen und warten | Pim (auch Liska, Gwenna) ist im Haus oder geht hinein, sobald es Nacht ist | Pim läuft um 3 Uhr vor dem Haus herum |
 | 269.10 ✗ | Tom | 591 | auf ein Huhn, dann ein Kaninchen zugehen | Huhn gackert und flattert hörbar beim Weglaufen, Kaninchen huscht hörbar. **Frage: meint „kein Flattern“ den Laut oder die Flügel, die sich nicht bewegen?** | stumm |
 | 269.11 ✗ | Tom | 416.8 | vor Aldric oder einer Dorfperson stehen bleiben, etwa 10 s warten, dann um sie herumgehen | sie dreht sich mit kleinen Schritten zum Helden | dreht sich auf der Stelle wie eine Plastikfigur |
-| 269.12 | Tom | 610, 522 | Held mit Stab und Schild auf dem Rücken im Dorf stehen lassen; Reiter „Test“, „Waffe“: Dolch, Krummsäbel, Handbeil, Kurzbogen; „Andere Hand“: Dolch | Finger am Stab ruhig; jede dieser Waffen ist am Helden zu sehen; der Dolch der anderen Hand hängt nicht als Schild auf dem Rücken | Finger zucken; Waffe unsichtbar |
+| 269.12 ✗ | Tom | 610, 522 | Held mit Stab und Schild auf dem Rücken im Dorf stehen lassen; Reiter „Test“, „Waffe“: Dolch, Krummsäbel, Handbeil, Kurzbogen; „Andere Hand“: Dolch | Finger am Stab ruhig; jede dieser Waffen ist am Helden zu sehen; der Dolch der anderen Hand hängt nicht als Schild auf dem Rücken | Finger zucken; Waffe unsichtbar |
 | 269.13 | Tom | 558 | Magier mit Robe ansehen | Stoff lebendig wie in Probe 5: Falten, Schatten, Schmutz am Saum | glatte blaue Fläche |
 
 ## C · Menü des Helden
@@ -74,3 +74,4 @@ Chef 08.11., 15:23 (an Sokrates), laufend:
 - 269.9 ✓ (dazu 665: nachts kaum dunkel, alle Fenster hell)
 - 269.10 ✗ Kaninchen nicht hörbar; Huhn gackert kaum, Flattern kaum hörbar; Huhn soll wie alt wirklich wegflattern (Flügel schlagen, kurz auffliegen „tschack, tschack, tschack … weg“), nicht nur laufen (Chef 15:41)
 - 269.11 ✗ Leute drehen sich auf der Stelle; beim Annähern richtet sich keiner zum Helden aus (Stil: bis 3 Felder anschauen), Hineinlaufen schiebt sie weg; so nicht testbar (Chef 15:43); Drehen weiter auf der Stelle wie eine Plastikfigur, keine Schritte zu erkennen (Chef 15:44, wiederholt)
+- 269.12 ✗ Kämpfer im Testmenü auf Langstab umgestellt: Schwert und Schild weg, aber kein Stab in der Hand; Hand nicht prüfbar (Chef 15:46)
