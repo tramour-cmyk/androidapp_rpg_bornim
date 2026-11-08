@@ -1030,7 +1030,7 @@ func _draw_overlay() -> void:
 		var a: float = 1.0 if waehlbar.has(f) else weich
 		if a > 0.0:
 			named[id] = true
-			_name_tag(_foot(fig), _tall(fig), f.name(lang), f == current, a)
+			_name_tag(_foot(fig), _tall(fig), f.name(lang), f == current, a, f.side == "FOES")
 	_draw_spells()
 	# 249: Blut unter den Ansagen (Prüfer 26.10.: Tropfen lagen auf dem Text)
 	_draw_blood()
@@ -1627,11 +1627,16 @@ var named := {}     # 536: wer gerade seinen Namen trägt (die Ansage steigt dar
 func _name_h() -> float:
 	return sp(12) * 1.35 + 2 * dp
 
-func _name_tag(foot: Vector2, tall: float, nm: String, now: bool, alpha := 1.0) -> void:
+## 536 t268.20 (Chef 07.11.: „Aktion der Jungwölfe dann sehr weit von Wolf weg“): Oberkante wie alt (SkirmishScreen NameTag:
+## y - tall - 28 dp mit Leiste, sonst 24 dp); vorher lag hier die Unterkante, Name und Ansage standen 18 dp zu hoch
+func _name_top(foot: Vector2, tall: float, bar: bool) -> float:
+	return foot.y - tall - (28.0 if bar else 24.0) * dp
+
+func _name_tag(foot: Vector2, tall: float, nm: String, now: bool, alpha := 1.0, bar := true) -> void:
 	var fs := sp(12)
 	var w := font.get_string_size(nm, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x + 12 * dp
 	var h := _name_h()
-	var r := Rect2(foot.x - w / 2, foot.y - tall - 28 * dp - h, w, h)
+	var r := Rect2(foot.x - w / 2, _name_top(foot, tall, bar), w, h)
 	var rim: Color = GOLD if now else RIM
 	_chip(r, Color(0, 0, 0, alpha), Color(rim, rim.a * alpha), 1.0)
 	var tc: Color = BRIGHT if now else TEXT
@@ -1677,7 +1682,7 @@ func _draw_intents(sr: Rect2) -> void:
 		var head_y := foot.y - _tall(fig) - 10 * dp
 		var want_y := head_y - 6 * dp - h
 		if named.has(id):     # 536 wie alt (242: „over the name while names show“)
-			want_y = foot.y - _tall(fig) - 28 * dp - _name_h() - 4 * dp - h
+			want_y = _name_top(foot, _tall(fig), true) - 4 * dp - h
 		var x := clampf(foot.x - w / 2, 4 * dp, sr.size.x - w - 4 * dp)
 		# Prüfer Stand 9: Ansagen der vorderen Wölfe lagen auf dem hinteren; daneben am eigenen Kopf, wenn darüber ein anderer steht
 		var side := _tall(fig) * (0.8 if Figur.vier(fig.fighter) else 0.42) + 4 * dp
