@@ -469,10 +469,11 @@ func _draussen_mat() -> ShaderMaterial:
 ## 507 Messlauf (probe.gd HELL): Faktor auf Umgebung und Lampen der Höhle. Vorgabe 3 nach Messlauf 242: bei 1 Halle, Teich, Lager
 ## Mittel 6–7 von 255, Held innen 26, Wölfe 8–10 (Prüfer 234 „fast schwarz“); bei 3 Held innen 40–54, Wölfe 16–22, Fackeln
 ## nicht ausgebrannt (97–129), Szene im Mittel 10–22 (Lichtung 91): düster, Figuren lesbar
-## Lauf 287: mit der Tönung statt doppelter Farbe (kampfort_hoehle.py) ist die Höhle etwa siebenmal heller; Vorgabe 1 bis zum
-## Messlauf (bild=nein, Licht 0,5/1/1,8/3)
+## Lauf 287: mit der Tönung statt doppelter Farbe (kampfort_hoehle.py) ist die Höhle heller. Messlauf 293 (bild=nein): bei 1
+## Szene im Mittel 77–102 wie die Lichtung (91), bei 0,5 54–75, fast schwarz 13–16 % (vorher 44 %), Held innen 64–84, Boden
+## neben den Wölfen 34–76; Vorgabe 0,5
 static func hoehle_licht() -> float:
-	return float(OS.get_environment("HOEHLE_LICHT")) if OS.get_environment("HOEHLE_LICHT") != "" else 1.0
+	return float(OS.get_environment("HOEHLE_LICHT")) if OS.get_environment("HOEHLE_LICHT") != "" else 0.5
 
 func _build_cave() -> void:
 	if not platz in HOEHLENPLAETZE:

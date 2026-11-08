@@ -725,7 +725,9 @@ stoerer()
 # Lauf 234 (Gang: rechte Wand gleichmäßig hell ohne Quelle): Reichweite nur bis zu den Plätzen, die Wände leuchten Fackel und Pilz
 # Lauf 287 (Teichwände grün-lila): in Halle und Teich war es türkis wie die Pilze; jetzt kühl, fast weiß
 licht = {'eingang': 0xFFF0E0, 'gang': 0xFFB070, 'halle': 0xC8D4DC, 'teich': 0xC8D4DC, 'lager': 0xFFC890}[SPOT]
-lampe(fight(0.5, 0.0, 4.0), licht, 8.5, 0.55, 'kampf')
+# Messlauf 293 (Licht 0,5): in Halle und Teich, ohne Fackel nahe den Gegnern, der vordere Wolf innen 10–11 von 255, im Gang 24
+# (Fackeln nah); dort das Licht über dem Kampf stärker
+lampe(fight(0.5, 0.0, 4.0), licht, 8.5, 0.9 if SPOT in ('halle', 'teich') else 0.55, 'kampf')
 if SPOT == 'eingang':     # Tageslicht aus dem Mund, weit und kühl-hell
     # Lauf 287 (Prüfer: „heller Sichelbogen oben rechts“; Bildplan: der Bogen des kurzen Gangs zieht oben rechts durchs Bild): die
     # Lampe hing oben im Mund und strahlte die Innenseite des Bogens an; jetzt tief am Ausgang, das Licht fällt herein über den Boden

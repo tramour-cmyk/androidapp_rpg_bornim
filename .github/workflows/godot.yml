@@ -490,7 +490,7 @@ jobs:
           if [ "${{ github.event.inputs.bild }}" = nein ]; then
             # Messlauf ohne Bild (Lauf 234: Halle und Teich fast schwarz): Helligkeit je Ort und Lichtfaktor, dazu die Lichtung zum Vergleich
             # 507 Lauf 287: dazu Licht 0,5 (Tönung statt doppelter Farbe, etwa siebenmal heller) und Halle mit dem alten Dunst
-            for l in 0.5 1 1.8 3; do for o in eingang gang halle teich lager; do
+            for l in 0.4 0.5 0.7; do for o in eingang gang halle teich lager; do
               HELL=1 HOEHLE_LICHT=$l ORT=hoehle PLATZ=$o VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 400 xvfb-run -a -s "-screen 0 1080x2340x24" \
                 ~/godot/godot --path . res://kampf/probe.tscn --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --bild=/tmp/x.png 2>&1 | grep -E "SCRIPT ERROR|^HELL" | cut -c1-300 || true
             done; done
