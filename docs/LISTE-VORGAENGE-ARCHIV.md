@@ -786,5 +786,5 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 693 | Zwei Tom-Sitzungen auf 656 (18:04), Spike nicht genutzt; Chef 08.11., 18:10 · „jetzt“ 08.11., 18:10 | B Steuerung | M | – | Ford | erledigt |
 | 623.6 | Probe Welt mit den Gratisproben (Gras und Wind, Wasser, Wetter, Oberflächen) gegen unsere Fassung, Dorfbach und Flüsterwald, FPS, ein Film; vor dem Kauf (Chef 07.11., 623 B1, D) · „jetzt“ 08.11., 13:48 | E Welt | M | 13,23 $ | Tom | erledigt |
 | 623.5 | Probe Kampf mit den Gratisproben (Combat Mega, Projectiles, Trails, Pack 3, Character Shaders, Status Effects mit Bleeding) im Kampfort, Compatibility, FPS, ein Film; vor dem Kauf 623 (Chef 07.11., 623; 08.11., 13:14) · „jetzt“ 08.11., 13:48 | E Kampf | M | 59,64 $ | Jerry | erledigt |
-| 694 | Von Tom (356.2): Katalogtext je ein Satz für Thessas Pelzumhang (cloak_thessa) und Borins Hauerdolch (dagger_borin) | G Story | K | – | Homer | erledigt |
-| 695 | Antwort auf eine Frage des Chefs ohne Handlung für ihn: nur Telegram, keine Datei in ansehen/ (656, Chef 19:00); Regel in chefsache/README.md | B Abläufe | M | – | Perikles | erledigt |
+| 694 | Von Tom (356.2): Katalogtext je ein Satz für Thessas Pelzumhang (cloak_thessa) und Borins Hauerdolch (dagger_borin) | G Story | K | 1,69 $ | Homer | erledigt |
+| 695 | Antwort auf eine Frage des Chefs ohne Handlung für ihn: nur Telegram, keine Datei in ansehen/ (656, Chef 19:00); Regel in chefsache/README.md | B Abläufe | M | 0,88 $ | Perikles | erledigt |
