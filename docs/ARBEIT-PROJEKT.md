@@ -4,7 +4,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `36cff7b9d` (08.11., 15:28)
 
-**Übergabe (08.11., 16:4x):** 675 erledigt: 202 gestrichene Zeilen aus 3600d77ce gegen Liste und Archiv geprüft; offene Zeilen behalten ihren Wortlaut in `519d2420d` (Toms Verweis); ohne Zeile waren nur Funde erledigter Zeilen: 687–689, 691 (Tom, K, ruht nach 488) neu (686 doppelt gezogen, meine zu 691), Hinweise ohne „Zu“-Kopf als Verweis in Toms „Zu 687–689, 691“; 690 (Systemfrage Schatten) legte `vorgang.py` selbst für Sokrates an. Nachfolger: Perikles – 338.1: Wochenziel 09.11. ab 10:00
+**Übergabe (08.11., 16:4x):** 675 erledigt: 202 gestrichene Zeilen aus 3600d77ce gegen Liste und Archiv geprüft; offene Zeilen behalten ihren Wortlaut in `519d2420d` (Toms Verweis); ohne Zeile waren nur Funde erledigter Zeilen: 687–689, 691 (Tom, K, ruht nach 488) neu (686 doppelt gezogen, meine zu 691), Hinweise ohne „Zu“-Kopf als Verweis in Toms „Zu 687–689, 691“; 690 (Systemfrage Schatten) legte `vorgang.py` selbst für Sokrates an; Chefsache `entscheiden/688`. 685 erledigt: Betrieb Liste 961 $ gegen Schätzung 225 $ hat drei Ursachen: (1) 14 gebuchte Ford-Sitzungen ohne einen Commit mit Sitzungszeile (103 $) fielen ganz heraus, jetzt nach Startdatum auf „Betrieb“ (`kostenbericht.py` `ford_sitzungen`; Schätzung 327 $); (2) 40 Ford-Sitzungen nie mit Kennung gebucht, Kosten nur in der Liste (Rest +634 $, die Liste ist hier die bessere Zahl); (3) Ford 78NK (08.11., 09:05–16:32) ohne Systemzeilen, ungebucht: an Ford (Eingang). Nachfolger: Perikles – 338.1: Wochenziel 09.11. ab 10:00
 
 ## Einzelheiten
 

@@ -95,6 +95,21 @@ def commits():
     return aus
 
 
+def ford_sitzungen():
+    """Kennung → Starttag aller Ford-Sitzungen aus dem Verlauf von ARBEIT-BETRIEB.md („Ford lebt in einer Sitzung …“; 685):
+    eine gebuchte Ford-Sitzung ohne Commit mit Sitzungszeile geht so trotzdem auf „Betrieb“ (D88.1)."""
+    aus = {}
+    roh = git("log", "--reverse", "-p", "--format=\x1e%aI", "--", "docs/ARBEIT-BETRIEB.md")
+    for satz in roh.split("\x1e")[1:]:
+        kopf, _, rest = satz.partition("\n")
+        tag = datetime.datetime.fromisoformat(kopf.strip()).astimezone(BERLIN).date()
+        for z in rest.splitlines():
+            if z.startswith("+") and "Ford lebt in einer Sitzung" in z:
+                for s in re.findall(r"session_\w+", z):
+                    aus.setdefault(s, tag)
+    return aus
+
+
 def geld(x):
     return f"{x:,.0f} $".replace(",", ".") if x >= 100 else f"{x:.2f} $".replace(".", ",")
 
@@ -131,6 +146,13 @@ def main():
                 ohne_nr += teil
             bereich_k[b] += teil
             tag_k[tag][b[:1]] += teil
+    ford_ohne = {s: t for s, t in ford_sitzungen().items() if s in kosten and s not in je_sitzung}
+    for s, tag in ford_ohne.items():  # 685: Ford-Sitzung ohne Commit mit Sitzungszeile → Betrieb, Tag = Start der Sitzung
+        if "Betrieb" in vg:
+            vorgang_k["Betrieb"] += kosten[s]
+        bereich_k["B Steuerung"] += kosten[s]
+        tag_k[tag]["B"] += kosten[s]
+        je_sitzung[s] = []
     summe = sum(kosten.values())
     zugeordnet = sum(bereich_k.values())
     ohne_commit = [s for s in kosten if s not in je_sitzung]
@@ -147,6 +169,7 @@ def main():
            "Bereich aus dem Vorgang (feste Liste `tools/bereiche.py`), Tag aus dem Commit. Weg und Grenzen im Kopf des Werkzeugs.", "",
            f"**Gebucht:** {geld(summe)} in {len(kosten)} Sitzungen · **über Commits zugeordnet:** {geld(zugeordnet)} "
            f"({round(100 * zugeordnet / summe) if summe else 0} %), davon {geld(ohne_nr)} an Commits ohne Vorgangsnummer (Bereich nach Rolle) · "
+           f"davon {len(ford_ohne)} Ford-Sitzungen ohne Commit mit Sitzungszeile, {geld(sum(kosten[s] for s in ford_ohne))}, nach Startdatum auf „Betrieb“ (685) · "
            f"**ohne Commit:** {len(ohne_commit)} Sitzungen, {geld(sum(kosten[s] for s in ohne_commit))} (keinem Bereich zuzuordnen) · "
            f"**Spalte „Kosten“ der Liste:** {geld(liste_summe)} in {sum(1 for v in vg.values() if v[1])} von {len(vg)} Zeilen. "
            "Laufende Sitzungen zählen erst, wenn Ford sie beim Neustart bucht: der laufende Tag und die laufende Woche sind zu niedrig.", "",
