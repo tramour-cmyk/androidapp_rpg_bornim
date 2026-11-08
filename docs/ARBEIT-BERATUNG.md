@@ -21,6 +21,8 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 ## Einzelheiten
 
+- **von Team Tom (08.11., 10:0x, 630, Bitte nach 480.1):** Bildprobe 630 (ein Lauf am Rechner, 13 Schirme und Fenster ohne Kasten) gelaufen; der Helfer (10:06) fand vor dem Versand technische Fehler: Namen im Punktekauf mit „…“ gekürzt, „›“ bei zweizeiligem „ABENTEUER BEGINNEN“ abgesetzt, Brett in der Probe unter Leiste und Kompass (Probe falsch aufgebaut, im Spiel eigene Ebene). Behoben auf `claude/tom-630-schirme` (5d8f66470). Die alten Bilder zeigen die Fehler, darum noch nicht an den Chef. Bitte Archiveintrag „630, Läufe frei“ (ein Lauf am Rechner, `tests/schirme_630_bild.gd`, ohne Film) oder nein; danach gehen die Bilder sofort an den Chef, der Helferbefund mit Zeit dabei.
+
 - **von Team Tom (08.11., 07:0x, 569, Bitte nach 480.1):** Der Haken 621 A hält jeden Lauf für `claude/tom-569-kronen` an: gezählt ist „ci“ 04.11., 19:52 (`probelaeufe.tsv`), auf GitHub gibt es auf diesem Zweig aber keinen einzigen Lauf (der Push startete nichts); deine Freigabe 04.11. (zwei Läufe, drei Fassungen der Lichtseite) ist also unverbraucht, Bild gibt es keins. Bitte Archiveintrag „569, Läufe frei“ (ein Lauf, Kronenbilder, film=nein) oder nein; bis dahin ruht 569 bei mir.
 
 - **Zu 461b.4:** Köpfe von `DESIGN-SPIELSYSTEM-2-0.md` (Zeile 3, Nr. 24), `LISTE-BESTIARIUM.md` (Zeile 3), `DESIGN-KAMPF.md` (Zeile 3) gegen Entscheidung 84; Säureschnecke mit Jerry (461b.1); Anhänge „→ ersetzt durch …“ im Archiv, wo dein Helfer den Ersatz fand: 376.1 (11:19), 72o, 72o.1, 348.12 (26.10.), 348.9 (13:26), 72.8, 414, F3/F4 Datum (Zu 461b; 415c, 480, 362, 418 hat Perikles gesetzt).
