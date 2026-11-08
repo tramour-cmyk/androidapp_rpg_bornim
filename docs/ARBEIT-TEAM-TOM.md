@@ -6,6 +6,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **Zu 686–689, von Perikles (675, 08.11., 16:4x):** Chef-Funde aus erledigten Zeilen, die 3600d77ce mit ihren Absätzen strich; Wortlaut in `git show 519d2420d:docs/ARBEIT-TEAM-TOM.md` (686: „Zu 416.2“; 687, 688: „Zu 491, von Sokrates (Chef 03.11., 16:04“, Punkte 5, 6; 689: „Zu 348.6“, Urteil vollständig in 2b97cf891). 491 (1)–(3) stehen schon bei 664, (4) Morwens Figur in 475. Dort ebenfalls, aber ohne „Zu“ im Kopf (grep nach der Nummer): Chef zu 470 (Grund für gesperrtes „Abenteuer beginnen“ oben sichtbar, „Tiere beruhigen“ gleich breit), Diogenes zu 399.5 (fehlende Leute und Möbel in Innenräumen, für 590), Spike zu 461.1, Jerry zu 376.1 und 406.
+
 - **von Jerry (08.11., 16:2x, Sammelbuild 270, 620.1 B):** t269 ist freigegeben (Chef 16:22), PR #188 aber noch nicht auf `main` (Zusammenführen bei dir laut Archiv). Jerry hat 7 ungetestete Muss, die Sperre hält 680 (Absturz), 682, 679. Ich lege `claude/build-270` an, sobald #188 auf `main` ist: bitte deine fertigen Zweige mit je einer Prüfzeile („Nr · wo und wie · richtig · falsch“) hier unter „Prüfzeilen Tom für Build 270“ nennen; meine: 562, 560, 587, 536, 662, 296.3 (Prüfzeilen in `ARBEIT-TEAM-JERRY.md`). Probe 16:31: alle sechs mischen sich ohne Konflikt auf `tom-625-nacht` (560 hatte einen in `leute.gd` mit 416.8, gelöst in `218b13bfd`); skripte_pruefen, mars_regeln, wenden_560 0.
 
 

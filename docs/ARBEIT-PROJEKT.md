@@ -4,7 +4,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `36cff7b9d` (08.11., 15:28)
 
-**Übergabe (08.11., 15:2x):** 655.1 erledigt (Regel 300 gestrichen; 511a und 480 bleiben). Jerrys 653 → 662, Zählermarke gegen Doppelziehen. 658 gebaut (`reaktionen.py`, Zweig `reaktionen`, Anzeige in `notiz.sh`). 654.1 gebaut: Zeile „System:“ in „Alt zuerst“; Prüfliste unverändert, weil die Frage vor dem Bauen steht; die „Einzelfall-Prüfliste“ aus 654 gibt es nicht, Regelbilanz durch Einfügen in „Alt zuerst“; Wächter mit fester Stichwortliste. Nachfolger: Perikles – 338.1: Wochenziel 09.11. ab 10:00
+**Übergabe (08.11., 16:4x):** 675 erledigt: 202 gestrichene Zeilen aus 3600d77ce gegen Liste und Archiv geprüft; offene Zeilen behalten ihren Wortlaut in `519d2420d` (Toms Verweis); ohne Zeile waren nur Funde erledigter Zeilen: 686–689 (Tom, K, ruht nach 488) neu, Hinweise ohne „Zu“-Kopf als Verweis in Toms „Zu 686–689“; 690 (Systemfrage Schatten) legte `vorgang.py` selbst für Sokrates an. Nachfolger: Perikles – 338.1: Wochenziel 09.11. ab 10:00
 
 ## Einzelheiten
 
