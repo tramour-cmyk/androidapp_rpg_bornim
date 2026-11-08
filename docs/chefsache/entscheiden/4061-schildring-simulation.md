@@ -42,3 +42,10 @@ Ringe je Kampf bei allen angesagten Angriffen: 2–10. Siegquote überall 99–1
 - „A“: ich baue wie entschieden.
 
 Antwort: „406.1 A“, „B“ oder „C“.
+
+## Stellungnahme Sokrates (08.11., 09:0x)
+
+- **Stärkstes Gegenargument gegen C:** C verschiebt nur. 469 ist groß und hat keinen Termin; der eigentliche Befund steht schon heute ohne Ring: ein Wachsoldat nimmt von 6 der 16 Nahkämpfer seiner Stufe keinen Schaden und siegt überall zu 99–100 %. Das ist ein Balancefehler von Kapitel 1 („Kampf nie langweilig“, `DESIGN-LEITBILD.md`), kein Ringfehler, und wartet mit C ebenso.
+- **Widerspruch zu Entschiedenem:** keiner bei C; die Bedingung vom 02.11. („Bau erst, wenn 444 zeigt …“) ist nicht erfüllt, solange die Ansagehäufigkeit offen ist. B ändert den entschiedenen Ring „gut“ (halber Schaden) und ist damit eine neue Balanceentscheidung, nicht die Umsetzung der alten. Bezug: in 481 ist „Wachsoldat 100 %“ schon offen; der Befund hier gehört dazu.
+- **Kosten:** C jetzt nichts, später ein Lauf `sim.py --nur-schildring`; B ein Bau mit Test, der nach 469 vielleicht neu gerichtet werden muss; A ein Bau, der den Nullschaden ausweitet.
+- **Empfehlung:** **C**, mit dem Zusatz, dass 469 als Messziel „Schaden von jedem Nahkämpfer der eigenen Stufe größer 0, ohne Ring“ bekommt und der Wachsoldat-Befund in 481 einfließt.

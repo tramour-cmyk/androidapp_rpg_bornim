@@ -25,3 +25,10 @@ Ohne 3 ist B nur ein Auslöser für den Build; mit 3 wächst der Stapel ungetest
 Bei „1, 2, 3 ja“: `startbar.py` und `lauf.py` sperren neues Muss ab 6 Wartenden je Team und melden die Bitte um den Build (Perikles, zusammen mit 317.1). Bei „1, 2 ja“: nur die Meldung, keine Sperre.
 
 **Zu sagen:** „1, 2, 3 ja“, „1, 2 ja“ oder was anders sein soll.
+
+## Stellungnahme Sokrates (08.11., 09:0x)
+
+- **Stärkstes Gegenargument gegen 3:** Laut Werkzeug warten schon Tom 21 und Jerry 14 auf deinen Test; mit 3 stünden beide Teams ab sofort bei neuer Pflichtarbeit still, und zwar auf Zahlen, die teils überholt sind. Außerdem kann „gerne auch mehr rein“ heißen, dass die Grenze über 6 liegen soll; Punkt 1 nimmt 6 als gegeben.
+- **Widerspruch zu Entschiedenem:** keiner; 2 deckt sich mit 317 (07.11., 20:5x, keine Obergrenze je Build), 3 mit meinem Gegenmittel zu 620 („wenige Muss je Team zugleich“) und der Obersten Direktive (Qualität vor Eile). 3 schränkt „Arbeiten, solange Startbares da ist“ ein, hebt es aber nicht auf.
+- **Kosten:** Werkzeug bei Perikles klein (mit 317.1); der Preis ist Wartezeit der Teams, wenn du einige Tage nicht testest.
+- **Empfehlung:** **1, 2, 3 ja**, die Sperre aber erst scharf, wenn Perikles die überholten Stände bereinigt hat und der Sammelbuild t269 getestet ist, damit sie nicht am ersten Tag beide Teams auf falsche Zahlen hin anhält.
