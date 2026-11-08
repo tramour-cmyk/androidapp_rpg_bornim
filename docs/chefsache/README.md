@@ -21,6 +21,7 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [296.3](ansehen/2963-probebild.md) | Probebild der Siegerposen im Kampfort | – | 08.11., 16:17 |
+| [623.6](ansehen/6236-welt.md) | Probe Welt: Gratisproben Gras, Wasser, Wetter, Oberflächen gegen unsere Fassung | – | 08.11., 16:20 |
 | [664](ansehen/664-haeuser.md) | Kaels Haus und Morwens Hütte nicht mehr halb | Tom | 08.11., 16:00 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
@@ -51,7 +52,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 
-**Tom** – offen 112, Muss 92, startbar 5
+**Tom** – offen 112, Muss 92, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -61,7 +62,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 670 | M | Build 269: Menü des Helden (Held, Tasche, Ausrüstung, Karte, Chronik, System) noch im alte | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
 | 613 | M | Zwischensequenzen neu wie alt: leichte Bewegungen, Signatur, Tusche (mit 302.3), an Spike | wartet auf 613.1 (startbar) |
 | 656 | M | Umhang Kämpfer mit Beulen, große Beule unter dem Schwertarm: woher, weg (Chef 08.11., 14:5 | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
-| 623.6 | M | Probe Welt mit den Gratisproben (Gras und Wind, Wasser, Wetter, Oberflächen) gegen unsere | startbar |
+| 623.6 | M | Probe Welt mit den Gratisproben (Gras und Wind, Wasser, Wetter, Oberflächen) gegen unsere | Chef (Datei in der Chefsache) |
 | 625 | M | Sammelbuild 269: alle fertigen Zweige beider Teams (35 warten), Prüfliste als Weg durchs S | wartet auf Test (Build 269) |
 | 499 | M | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 | wartet auf Test/Build (gebaut) |
 | 635 | M | Lyra fehlt als Figur im Tempel und in der Höhle: Kennung lyra_temple/lyra_cave, gebaut wir | wartet auf Test/Build (gebaut) |
