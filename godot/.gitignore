@@ -5,3 +5,9 @@ kampf/daten/
 *.import
 # 415 (Jerry): Beams Free Sample (reeboolabs), Lizenz verbietet Weitergabe; im Bau aus bornim-kaufmodelle (godot.yml)
 addons/reeboo_beams/
+# 623.5 (Jerry): Gratisproben REEBOO Labs, Lizenz verbietet Weitergabe; im Bau aus bornim-kaufmodelle (tools/godot/effekte_6235.sh)
+addons/reeboo_combat/
+addons/reeboo_projectiles/
+addons/reeboo_trails/
+addons/reeboo_vfx/
+addons/character_shaders/

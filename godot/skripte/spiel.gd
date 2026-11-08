@@ -1119,6 +1119,12 @@ func test_tat(was: String, mit: Array) -> void:
 			get_tree().root.add_child(s)
 			get_tree().current_scene.queue_free()
 			get_tree().current_scene = s
+		"effekte":   # 623.5 (Jerry): Effektprobe im Kampfort (kampf/effektprobe.gd); dort lädt „Zurück“ das Spiel neu
+			speichere()
+			var s = load("res://kampf/effektprobe.gd").new()
+			get_tree().root.add_child(s)
+			get_tree().current_scene.queue_free()
+			get_tree().current_scene = s
 		"erschaffung_brs":   # 470a B: Seite nach BRS 1.1 nur ansehen; der Held bleibt, wie er ist
 			var ebene := CanvasLayer.new()
 			ebene.layer = 40
