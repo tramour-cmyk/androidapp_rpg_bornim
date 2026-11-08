@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [623.6](entscheiden/6236-wasser.md) | **Muss** | E Welt | 08.11., 16:57 | Welches Wasser in den Film? | Sokrates für Team Tom |
 | [657](entscheiden/657-drei-stichpunkte.md) | **Muss** | B Abläufe | 08.11., 15:15 | Regeln radikal kürzen: eine Seite für alle (Empfehlung: :) | Sokrates |
 | [688](entscheiden/688-sammelbares-jetzt.md) | Kür | E Welt | 08.11., 16:41 | Sammelbares und Signatur je Karte: jetzt oder nach dem Durchspielen? | Perikles |
 
