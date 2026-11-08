@@ -139,8 +139,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 431d | M | Rückfrage: Völker Lauf 3 am Tor angehalten (B1 Elf, C3, G3, A1/A3 Grak, A2), neue Läufe fr | ruht |
 | 431e | M | Rückfrage: Gesicht des Helden im Dorflicht fast weiß, Hauteichung nach Messung? | ruht |
 | 629.1 | M | Klopfen: Sprechernamen hinter Türen bauen ([629.sprecher], von Homer) | wartet auf Test/Build (gebaut) |
-| Pflege | K | von Werkzeug (340.3, 07.11.): 111642 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 632 | M | Truhe der Höhle (cave_3, 4/14) gibt „@class_weapon“ statt der Waffe der Klasse wie alt (St | startbar |
+| Pflege | K | von Werkzeug (340.3, 08.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 
 **Jerry** – offen 60, Muss 48, startbar 26
 
@@ -203,9 +203,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 24 | K | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | ruht |
 | 348.7a | M | Rückfrage: Geschosse flach oder in 3D | ruht |
 | 399.2d | M | Godot am Rechner freigeben (Auto-Modus lehnte Download ab), Tests ohne CI-Lauf (aus 399.2) | ruht |
-| Pflege | K | von Werkzeug (340.3, 07.11.): 31710 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 633 | M? | Boss-Beute wie alt: Ogerhandschuhe (Krogg), Graks Streitaxt, Grimmzahn-Amulett fehlen im L | startbar |
 | 634 | M? | Schenkenklang wie alt: Rowena wischt, gießt, stellt Becher ab, Borin Flasche und Stuhl, im | startbar |
+| Pflege | K | von Werkzeug (340.3, 08.11.): 31025 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
 
 **Perikles** – offen 17, Muss 13, startbar 2
 
@@ -227,7 +227,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 627 | M | probelauf.py: Push mit git commit -F - im selben Befehl als Probelauf gezählt (562, ohne L | wartet auf Test/Build (gebaut) |
 | 631 | K | lauf.py: Startmarken ohne Datum verglichen (Ford 06.11., 07:19) | startbar |
 | 99 | K | Zwei Niederlassungen | ruht |
-| Pflege | K | von Werkzeug (340.3, 07.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabe | startbar |
+| Pflege | K | von Werkzeug (340.3, 08.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabe | startbar |
 
 **Diogenes** – offen 11, Muss 9, startbar 0
 
