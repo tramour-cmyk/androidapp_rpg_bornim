@@ -93,6 +93,7 @@ func _ready() -> void:
 	wald_bilder()
 	tiefwald_bilder()
 	gluehen_bilder()
+	WeltProbe.lauf(self)   # 623.6 Probe Welt (--welt623=<ordner>), nur mit den Kits im Bau
 	if FigurenProbe.an(): add_child(FigurenProbe.new(self))   # 376.1 Probeblatt Quaternius-Figuren (figurenprobe.gd)
 
 # 399: Spielbeginn aus dem Hauptmenue: geladen an den gespeicherten Ort, sonst ein neues Spiel mit frischem Zustand (Test 139: das neue
