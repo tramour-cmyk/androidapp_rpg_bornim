@@ -24,6 +24,11 @@ var film := false
 var unser_gras: Array[MultiMeshInstance3D] = []
 var zusatz: Array[Node] = []
 var schild: Label
+# Wetter: der WeatherController3D schreibt in Umgebung und Sonne und laesst sie beim Freigeben so (Lauf 298: Nebel blieb an);
+# darum bekommt er eine Kopie der Umgebung, und die Sonne und neue Kinder der Kamera werden zurueckgesetzt
+var umwelt_alt: Dictionary = {}
+var sonne_alt: Dictionary = {}
+var kamera_kinder: Array[Node] = []
 
 static func lauf(s: Node) -> void:
 	var w := WeltProbe.new()
@@ -100,8 +105,20 @@ func miss(ort_: String, fassung: String) -> void:
 		RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_DRAW_CALLS_IN_FRAME), RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_PRIMITIVES_IN_FRAME)])
 
 func zuruecksetzen() -> void:
+	for z in zusatz:
+		if is_instance_valid(z) and z.has_method("clear"): z.call("clear")
+		if is_instance_valid(z): z.set_process(false)
 	for z in zusatz: if is_instance_valid(z): z.queue_free()
 	zusatz.clear()
+	for we in umwelt_alt: if is_instance_valid(we): (we as WorldEnvironment).environment = umwelt_alt[we]
+	umwelt_alt.clear()
+	for su in sonne_alt:
+		if not is_instance_valid(su): continue
+		for k in sonne_alt[su]: (su as Node).set(k, sonne_alt[su][k])
+	sonne_alt.clear()
+	var kam := sp.get_viewport().get_camera_3d()
+	if kam:
+		for k in kam.get_children(): if not kamera_kinder.has(k): k.queue_free()
 	var g: Gebiet = sp.gebiet
 	for m in unser_gras: if is_instance_valid(m): m.visible = true
 	if g.wasser:
@@ -169,19 +186,32 @@ func wetter(was: String) -> void:
 	c.set("start_weather", pr)
 	c.set("transition_time", 0.0)
 	var we := sp.find_children("*", "WorldEnvironment", true, false)
-	if not we.is_empty(): c.set("world_environment", we[0])
+	if not we.is_empty():
+		var w0 := we[0] as WorldEnvironment
+		if not umwelt_alt.has(w0): umwelt_alt[w0] = w0.environment
+		if w0.environment: w0.environment = w0.environment.duplicate(true)
+		c.set("world_environment", w0)
 	var su := sp.find_children("*", "DirectionalLight3D", true, false)
-	if not su.is_empty(): c.set("sun", su[0])
+	if not su.is_empty():
+		var s0 := su[0] as DirectionalLight3D
+		if not sonne_alt.has(s0):
+			sonne_alt[s0] = {}
+			for k in ["light_color", "light_energy", "rotation", "shadow_enabled", "visible"]: sonne_alt[s0][k] = s0.get(k)
+		c.set("sun", s0)
+	var kam := sp.get_viewport().get_camera_3d()
+	kamera_kinder.clear()
+	if kam: kamera_kinder.assign(kam.get_children())
 	sp.add_child(c)
 	zusatz.append(c)
 	if c.has_method("set_weather"): c.call("set_weather", pr)
 	print("WELT623 Wetter %s (Umgebung %d, Sonne %d)" % [was, we.size(), su.size()])
 
-# Stylized Surface Shaders: Felsen des Demos am Weg mit Runen (Glut, gruen), Schnee, Eis, Lava, vor dem Helden
+# Stylized Surface Shaders: Felsen des Demos am Weg mit Runen (Glut, gruen), Schnee, Eis, Lava, vor dem Helden,
+# je knapp 1 m gross auf dem Boden in Hoehe der Fuesse des Helden (Lauf 298: 0,6 m, schwebend auf Hoehe 0 des Gebiets)
 func flaechen() -> void:
 	var mats := ["arcane_energy/runes_ember", "arcane_energy/runes_verdant", "ice/snow_moonlit", "ice/ice_lake", "fire/lava_cooling"]
 	var netze := ["stone_block", "rock_a", "rock_b", "rock_a", "rock_b"]
-	var vor: Vector3 = sp.held.position
+	var vor: Vector3 = sp.held.global_position
 	for i in mats.size():
 		var mp := FLAECHE + "materials/%s.tres" % mats[i]
 		var np := FLAECHE + "demo_meshes/%s.obj" % netze[i]
@@ -190,11 +220,11 @@ func flaechen() -> void:
 		mi.mesh = load(np)
 		mi.material_override = load(mp)
 		var w := deg_to_rad(-60.0 + 30.0 * i)
-		mi.position = vor + Vector3(sin(w), 0, -cos(w)) * 2.2
 		var a := mi.mesh.get_aabb()
-		var s := 0.6 / maxf(0.01, maxf(a.size.x, maxf(a.size.y, a.size.z)))
+		var s := 0.9 / maxf(0.01, maxf(a.size.x, maxf(a.size.y, a.size.z)))
 		mi.scale = Vector3.ONE * s
-		mi.position.y = -a.position.y * s
 		sp.gebiet.add_child(mi)
 		zusatz.append(mi)
+		mi.global_position = vor + Vector3(sin(w), 0, -cos(w)) * 2.4
+		mi.global_position.y = vor.y - a.position.y * s
 	print("WELT623 Oberflaechen gesetzt")

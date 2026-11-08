@@ -258,7 +258,6 @@ jobs:
           # 348.12i: gekauft, also nur verschluesselt ins APK
           (cd godot && ls daten/dorftiere/*.bin 2>/dev/null >> daten/kauf.txt) || true
       - name: Kampfort bauen (Jerry 348.7, 399.1)
-        if: ${{ github.event.inputs.welt == '' }}   # 623.6: Probe Welt braucht keinen Kampfort
         run: |
           # 399.1 (Chef 28.10., 12:34): Kampf im selben Spiel wie das Dorf; Modelle wie godot-kampf.yml (Jerry), Held und Gras aus „Modelle bauen“
           export OUT=$RUNNER_TEMP/out
