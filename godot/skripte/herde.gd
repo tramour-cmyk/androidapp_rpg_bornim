@@ -154,6 +154,7 @@ func schritt(dt: float) -> void:
 				_auf(s, h, false, 560 if s.art == "zombie" else 380)
 		elif not ruhig and not angst and s.temper() != "WANDERER" and sieht and not s.heimweg:
 			s.jagt = true
+			s.blick = _richtung(h - s.kachel)     # 560: bemerkt den Helden und wendet sich ihm zu, bevor es losgeht
 			s.alarm_bis = jetzt + 800
 			s.naechst_ms = jetzt + 500
 			spiel.klang("effekt", ["alert", 0.8 * _gehoert(dist)])
@@ -192,7 +193,7 @@ func _streife(s: Streuner) -> void:
 			var n: Vector2i = s.kachel + d
 			if absi(n.x - s.heim.x) + absi(n.y - s.heim.y) > 3: continue
 			if _geh(s, d, 420): break
-	s.naechst_ms = jetzt + 900 + zufall.randi_range(0, 1600)
+	s.naechst_ms = maxi(jetzt + 900 + zufall.randi_range(0, 1600), s.bewegt_ms + s.schritt_ms + 40)     # 560: nach Wende und Schritt
 
 ## ein Schritt zu (oder weg von) ziel entlang der besseren Achse, sonst die andere (stepTowards)
 func _auf(s: Streuner, ziel: Vector2i, weg: bool, ms: int) -> void:
@@ -207,15 +208,15 @@ func _auf(s: Streuner, ziel: Vector2i, weg: bool, ms: int) -> void:
 	var ging := false
 	for d in folge + rest:
 		if _geh(s, d, ms): ging = true; break
-	s.naechst_ms = jetzt + (s.schritt_ms if ging else int(ms * Streuner.PACE)) + 40
+	s.naechst_ms = (s.bewegt_ms + s.schritt_ms if ging else jetzt + int(ms * Streuner.PACE)) + 40     # 560: nach der Wende
 
 func _geh(s: Streuner, d: Vector2i, ms: int) -> bool:
 	var n := s.kachel + d
 	if not frei(n): return false
 	s.von = s.kachel
 	s.kachel = n
+	s.bewegt_ms = jetzt + s.wende_ms(d)     # 560: weite Wende erst auf der Stelle (Roamers.step)
 	s.blick = d
-	s.bewegt_ms = jetzt
 	s.schritt_ms = int(ms * Streuner.PACE * karte.schritt(n))
 	return true
 

@@ -302,9 +302,10 @@ object Story {
         name = T("Zum Schlafenden Greif", "The Sleeping Griffin"),
         kind = MapKind.INTERIOR,
         rows = listOf(
+            // 604 (Chef 06.11., 09:38): kein Bett in der Gaststube, geschlafen wird oben (nur im Text); dafuer ein Tisch mit Bank (5/2 und 6/2 bleiben frei: Platz und Weg der Katze, MapCat)
             "###ZZ#W###",
-            "#QQkkJbBu#",
-            "#kkkkkkBk#",
+            "#QQkkJbnu#",
+            "#kkkkkkYk#",
             "#KKKkkkkJW",
             "#kkYJkYYk#",
             "#bkRRRnnJ#",

@@ -83,6 +83,7 @@ func _ready() -> void:
 	gang_film()
 	leute_blatt()
 	held_film()
+	gehen_499()
 	tusche_blatt()
 	probe_blatt()
 	haeuser_blatt()
@@ -875,6 +876,7 @@ func weiter() -> void:
 				return
 			"flagge":
 				zustand.setze(String(c["flagge"]))
+				if String(c["flagge"]) == Geschichte.BARRIER_OPEN: klang("effekt", ["door"])   # 636 Game.kt SetFlag: Schlagbaum auf mit Türgeräusch
 				flaggen_neu()
 			"variante":   # 504.1: Wortlaut gehoert (Skript.variante)
 				var vm := String(c["marke"])
@@ -996,6 +998,7 @@ func rufe_neu() -> void:
 			if int(rufe[id]) >= 0:
 				l.ruft_bis = jetzt + Ruf.WIEDER_MS + Ruf.ZEIGT_MS   # 306 Hail.calms
 				var st := Ruf.stimme(id)                             # 134.3 mit dem Zeichen ein Ruf ohne Worte, nie zwei zugleich
+				if st == "": st = Ruf.stimme(String(l.daten.get("aussehen", "")))   # 635: lyra_temple ruft wie „lyra“
 				if st != "" and jetzt >= naechster_ruf:
 					klang("effekt", [st, Ruf.pegel(d)])
 					naechster_ruf = jetzt + Ruf.RUF_ABSTAND_MS
@@ -1419,6 +1422,7 @@ func _process(dt: float) -> void:
 	Messung.bild(dt, "%s %d/%d" % [karte.id, held.kachel.x, held.kachel.y])   # 399.1 Gerät: Messwerte wie alt
 	held.laeuft = Ausdauer.schritt(zustand, held_werte(), dt * 1000.0, held.geht(), laufen_will)   # 399.1 Stamina.step
 	held.atemlos_neu(zustand.atemlos and kampf == null)   # 592: leer kurz stehen, Haende auf den Knien
+	if held.funke_an != zustand.funke: held.funke_neu(zustand.funke)   # 677: getrunken, geloescht, nach der Rast verglommen
 	ui.ausdauer_balken.z = zustand
 	klang("atme", [zustand.atemlos and kampf == null, zustand.ausdauer])   # 399.3 (Jerry): atemlos keucht er (Panting.kt)
 	rufe_neu()
@@ -1722,6 +1726,58 @@ func held_film() -> void:
 			await knips(dir + "/rennen_nah_%s_%02d.png" % ["nacht" if nacht else "tag", f])
 			await get_tree().create_timer(1.0 / 30.0).timeout
 		held.richtung = Vector3.ZERO
+	get_tree().quit()
+
+# 499 (Chef 08.11., 12:41: „Und wie bewegen die sich dann mit beim Gehen?“; 646: Bewegung als Film): Kaempfer und Kleriker mit der
+# Grundausruestung gehen im Dorf die Strasse im Norden (6/8) 4 s nach Osten und 4 s zurueck, Spielkamera nah (Tusche, Signatur wie im
+# Spiel), die Kamera kreist dabei einmal um den Helden; ohne Leute. --gehen499=<ordner>: Probebild, je Held ein Streifen (nach 1, 3,
+# 5, 7 s); mit --write-movie derselbe Ablauf als Film (dann ohne Bilder)
+func gehen_499() -> void:
+	var dir := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--gehen499="): dir = a.substr(11)
+	if dir == "": return
+	var film := OS.get_cmdline_args().has("--write-movie") or "--gehen499film" in OS.get_cmdline_user_args()
+	DirAccess.make_dir_recursive_absolute(dir)
+	ui.mess.visible = false
+	ui.oben.visible = false
+	ui.leiste.visible = false
+	zustand.minuten = 11 * 60
+	for k in ["FIGHTER", "CLERIC"]:
+		werte = Heldwerte.erschaffe("Thora", "HUMAN", k, {}, zustand.neue_uid)
+		betrete("village", Vector2i(6, 8), "RIGHT")
+		for l in leute.get_children(): l.free()
+		held.leute = []
+		if not kamera.nah: kamera.nah_fern()
+		kamera.nach_norden()
+		kamera.springe()
+		laufen_will = false
+		await get_tree().create_timer(1.5).timeout
+		ui.textfeld.visible = false
+		var reihe: Array[Image] = []
+		var zeiten := [1.0, 3.0, 5.0, 7.0]
+		var t := 0.0
+		var dt := 1.0 / 30.0
+		while t < 8.0:
+			held.richtung = Vector3(1, 0, 0) if t < 4.0 else Vector3(-1, 0, 0)
+			kamera.drehe(45.0 * dt)
+			await get_tree().process_frame
+			t += dt
+			if not film and not zeiten.is_empty() and t >= zeiten[0]:
+				zeiten.pop_front()
+				await RenderingServer.frame_post_draw
+				var b := get_viewport().get_texture().get_image(); b.convert(Image.FORMAT_RGBA8)
+				reihe.append(b)
+		held.richtung = Vector3.ZERO
+		print("GEHEN499 %s: Held bei %s, Kamera %.0f Grad" % [k, held.kachel, kamera.gieren])
+		if not reihe.is_empty():
+			var bb := reihe[0].get_width(); var hh := reihe[0].get_height()
+			var ges := Image.create(bb * reihe.size(), hh, false, Image.FORMAT_RGBA8)
+			for i in reihe.size(): ges.blit_rect(reihe[i], Rect2i(0, 0, bb, hh), Vector2i(bb * i, 0))
+			ges.save_png("%s/499_gehen_%s.png" % [dir, k])
+			print("BILD %s/499_gehen_%s.png" % [dir, k])
+		await get_tree().create_timer(0.5).timeout
+	print("GEHEN499 fertig")
 	get_tree().quit()
 
 # 348.13 Zoom-Blatt (Chef 20:24: „nicht vergessen, dass wir zoomen koennen“): --tusche=<ordner> legt je Ort und Sonnenstand
