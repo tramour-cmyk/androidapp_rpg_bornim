@@ -91,9 +91,11 @@ func baue() -> void:
 	var kopf := HBoxContainer.new()
 	kopf.add_theme_constant_override("separation", int(6 * DP))
 	add_child(kopf)
-	var titel := Stil.zeile(wort("landkarte") if uebersicht else Sprache.t(karte_daten().get("name", gezeigt)), 20, Stil.TEXT)
+	# 584 (Abgleich 512b): Gebietsname als Kopf wie alt (MenuScreen.kt 178: Txt fett 20 sp = MenuHead, Versalien 14 sp gesperrt in Gold)
+	var titel := Stil.zeile((wort("landkarte") if uebersicht else Sprache.t(karte_daten().get("name", gezeigt))).to_upper().replace("ß", "SS"), 14, Stil.GOLD, 3.0)
 	titel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	titel.clip_text = true
+	titel.size_flags_vertical = Control.SIZE_SHRINK_CENTER   # 584: der kleinere Kopf mittig neben dem Knopf
 	kopf.add_child(titel)
 	if not uebersicht:   # 62r: eine Stufe hoeher, der Knopf nennt wohin; auf der Landkarte keiner
 		var oben := String(karte_daten().get("oben", ""))

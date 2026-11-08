@@ -105,7 +105,7 @@ func baue() -> void:
 	var bon := []
 	for a in Heldwerte.ATTRIBUTE:
 		if vd["bonus"].has(a): bon.append("%s %s" % [kurz(a), vorzeichen(int(vd["bonus"][a]))])
-	vk.add_child(txt("  ".join(PackedStringArray(bon)), 15))
+	vk.add_child(txt("  ".join(PackedStringArray(bon)), 15, Stil.TEXT, true))   # 584: fett wie alt (CreateScreen.kt 130)
 	vk.add_child(txt(Sprache.t(vd["merkmal"]), 15, Stil.GOLD))
 	inhalt.add_child(vk)
 	inhalt.add_child(Spielstaende.linie())
@@ -118,7 +118,7 @@ func baue() -> void:
 	kk.add_child(txt(Sprache.t(kd["text"]), 15))
 	kk.add_child(luecke(4))
 	kk.add_child(txt("%s: %s%d · %s: %s" % [Sprache.u("hitDie"), "W" if Sprache.aktiv() == "de" else "d", int(kd["trefferwuerfel"]), Sprache.u("primary"),
-		Sprache.t(d["attribute"][String(kd["haupt"])]["name"])], 15))
+		Sprache.t(d["attribute"][String(kd["haupt"])]["name"])], 15, Stil.TEXT, true))   # 584: CreateScreen.kt 151
 	var ru: Array = (kd["ruestung"] as Array).map(func(r): return Sprache.t(d["ruestungsarten"][String(r)]))
 	kk.add_child(txt("%s: %s%s" % [Sprache.u("armorProf"), "—" if ru.is_empty() else ", ".join(PackedStringArray(ru)),
 		(" + " + Sprache.t(Heldwerte.grundform("shield"))) if bool(kd["schilde"]) else ""], 15))
@@ -126,7 +126,7 @@ func baue() -> void:
 	for f in d["faehigkeiten"]:
 		var fd: Dictionary = d["faehigkeiten"][f]
 		if String(fd["klasse"]) != klasse or int(fd["stufe"]) != 1 or bool(fd.get("mars", false)): continue
-		kk.add_child(txt("• " + Sprache.t(fd["name"]), 15))
+		kk.add_child(txt("• " + Sprache.t(fd["name"]), 15, Stil.TEXT, true))   # 584: CreateScreen.kt 156
 		kk.add_child(txt(Sprache.t(fd["text"]), 14, Spielstaende.ANGABE))   # 549a: DIM heisst gesperrt
 	inhalt.add_child(kk)
 	inhalt.add_child(Spielstaende.linie())
@@ -197,7 +197,7 @@ func kopf_neu() -> void:
 	kopf.add_child(txt("%s · %s · %s %d" % [Sprache.t(d["voelker"][volk]["name"]), Sprache.t(d["klassen"][klasse]["name"]), Sprache.u("level"), h.stufe], 14))
 	var w := "%s %d   %s %d" % [Sprache.u("hp"), h.max_tp(), Sprache.u("ac"), h.rk()]
 	if h.max_zp() > 0: w += "   %s %d" % [Sprache.u("sp"), h.max_zp()]
-	kopf.add_child(txt(w, 15))
+	kopf.add_child(txt(w, 15, Stil.TEXT, true))   # 584: CreateScreen.kt 259
 	kopf.add_child(luecke(4))
 	for i in range(0, 6, 2):
 		var r := HBoxContainer.new()
@@ -282,7 +282,7 @@ func punktekauf() -> void:
 	inhalt.add_child(kopfz)
 	var p := VBoxContainer.new()
 	p.add_theme_constant_override("separation", int(4 * DP))
-	p.add_child(txt(("Punkte übrig: " if de else "Points left: ") + "%d / %d" % [uebrig, alle], 15, Stil.BRIGHT if uebrig > 0 else Stil.TEXT))
+	p.add_child(txt(("Punkte übrig: " if de else "Points left: ") + "%d / %d" % [uebrig, alle], 15, Stil.BRIGHT if uebrig > 0 else Stil.TEXT, true))   # 584: CreateScreen.kt 194
 	p.add_child(txt("Werte 8–15 vor Volksbonus. Höhere Werte kosten mehr (14: 7 Punkte, 15: 9 Punkte)." if de
 		else "Scores 8–15 before racial bonus. Higher scores cost more (14: 7 points, 15: 9 points).", 13.5, Spielstaende.ANGABE))
 	var d := Heldwerte.lade()
@@ -307,7 +307,7 @@ func punktekauf() -> void:
 				n.add_theme_font_size_override("font_size", gg)
 				if n.get_theme_font("font").get_string_size(n.text, HORIZONTAL_ALIGNMENT_LEFT, -1, gg).x <= n.size.x: break)   # 630: bei jeder Groesse, nicht nur der ersten (0 px)
 		for z in [[str(v + bon), 16, Stil.TEXT, 26], ["+%d" % bon if bon > 0 else "", 13, Stil.GOLD, 26], ["(%s)" % vorzeichen(Heldwerte.mod_von(v + bon)), 13.5, Spielstaende.ANGABE, 34]]:
-			var l := txt(z[0], z[1], z[2])
+			var l := txt(z[0], z[1], z[2], z[1] == 16)   # 584: der Wert fett wie alt (CreateScreen.kt 207)
 			l.autowrap_mode = TextServer.AUTOWRAP_OFF
 			l.custom_minimum_size.x = z[3] * DP
 			l.size_flags_horizontal = Control.SIZE_FILL   # 630 (Bild 2): feste Spalten; den Rest bekommt der Name („Geschickli…“, weil txt dehnt)
@@ -411,8 +411,16 @@ static func kurz(a: String) -> String: return Sprache.t(Heldwerte.lade()["attrib
 static func vorzeichen(n: int) -> String: return "+%d" % n if n >= 0 else str(n)
 
 # Txt auf Schwarz: Alegreya, 0,95 der Groesse, nie kleiner als 13,7 sp, leicht gesperrt
-static func txt(t: String, groesse_sp: float, farbe := Stil.TEXT) -> Label:
-	var l := Stil.zeile(Spielstaende.ohne_waise(t), maxf(groesse_sp, 13.7) * 0.95, farbe, 0.2)   # 557 Runde 5: kein Wort allein in der letzten Zeile (nur Vorlage 2)
+# 584 (Abgleich 512b): [fett] wie Theme.kt Txt(bold = true): in Textfarbe ab 15 sp ein Kopf (MenuHead: Versalien 14 sp, Sperrung
+# 3 sp, Gold; 549a Zwischenueberschrift), sonst der halbfette Schnitt in der Farbe; [kopf] = false: immer halbfett (alt mit Veil.text
+# statt Colors.text, etwa ChronicleTab)
+static func txt(t: String, groesse_sp: float, farbe := Stil.TEXT, fett := false, kopf := true) -> Label:
+	if fett and kopf and groesse_sp >= 15.0 and farbe == Stil.TEXT:
+		var k := Stil.zeile(t.to_upper().replace("ß", "SS"), 14, Stil.GOLD, 3.0)
+		k.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		k.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		return k
+	var l := Stil.zeile(Spielstaende.ohne_waise(t), maxf(groesse_sp, 13.7) * 0.95, farbe, 0.2, false, fett)   # 557 Runde 5: kein Wort allein in der letzten Zeile (nur Vorlage 2)
 	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	return l

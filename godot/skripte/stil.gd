@@ -43,18 +43,26 @@ static func _geraet():
 	return g
 
 static var _schrift: FontFile
+static var _halbfett: FontFile
 static var _varianten := {}
 
 static func schrift() -> FontFile:
 	if _schrift == null: _schrift = load("res://kampf/schrift/alegreya_regular.ttf")
 	return _schrift
 
+# 584 (Abgleich 512b: „kein halbfetter Schnitt“): der halbfette Schnitt wie alt (Theme.kt Serif: alegreya_semibold, FontWeight.SemiBold),
+# echt statt kuenstlich verdickt; fehlt die Datei, der gerade Schnitt
+static func halbfett() -> FontFile:
+	if _halbfett == null:
+		_halbfett = load("res://kampf/schrift/alegreya_semibold.ttf") if ResourceLoader.exists("res://kampf/schrift/alegreya_semibold.ttf") else schrift()
+	return _halbfett
+
 # Alegreya mit Sperrung (sp) und, fuer erzaehlten Text, schraeg wie Compose FontStyle.Italic (es gibt nur den geraden Schnitt)
-static func variante(sperrung_sp: float, schraeg := false) -> FontVariation:
-	var k := "%.2f/%s" % [sperrung_sp, schraeg]
+static func variante(sperrung_sp: float, schraeg := false, fett := false) -> FontVariation:
+	var k := "%.2f/%s/%s" % [sperrung_sp, schraeg, fett]
 	if not _varianten.has(k):
 		var v := FontVariation.new()
-		v.base_font = schrift()
+		v.base_font = halbfett() if fett else schrift()
 		v.spacing_glyph = int(round(sperrung_sp * SP))
 		v.opentype_features = {TextServerManager.get_primary_interface().name_to_tag("lnum"): 1}   # Ziffern auf der Linie wie alt (Theme.kt Txt „lnum“); Alegreya hat sonst Mediaevalziffern
 		# 583 (Abgleich 512b): Transform2D(xx, xy, yx, yy) geht als FreeType-Matrix an die Umrisse, x' = x + 0,2 · y kippt wie Italic
@@ -63,10 +71,10 @@ static func variante(sperrung_sp: float, schraeg := false) -> FontVariation:
 		_varianten[k] = v
 	return _varianten[k]
 
-static func zeile(t: String, groesse_sp: float, farbe: Color, sperrung_sp := 0.0, schraeg := false) -> Label:
+static func zeile(t: String, groesse_sp: float, farbe: Color, sperrung_sp := 0.0, schraeg := false, fett := false) -> Label:
 	var l := Label.new()
 	l.text = t
-	l.add_theme_font_override("font", variante(sperrung_sp, schraeg))
+	l.add_theme_font_override("font", variante(sperrung_sp, schraeg, fett))
 	l.add_theme_font_size_override("font_size", int(round(groesse_sp * SP)))
 	l.add_theme_color_override("font_color", farbe)
 	return l

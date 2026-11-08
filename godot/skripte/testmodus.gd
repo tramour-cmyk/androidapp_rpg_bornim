@@ -175,7 +175,7 @@ static func reiter(m: Menue) -> void:
 			r.add_child(b)
 		m.inhalt.add_child(r)
 		m.luecke(6)
-	m.zeile(t.call("Testmodus", "Test mode"), 18, Stil.BRIGHT)
+	m.zeile(t.call("Testmodus", "Test mode"), 18, Stil.TEXT, true)   # 584: Kopf wie alt (TestTab.kt 50, fett = MenuHead)
 	m.luecke(8)
 	absturz(m, t)
 	m.gruppe(t.call("Anzeigen", "Displays"))
