@@ -80,4 +80,4 @@ Chef 08.11., 15:23 (an Sokrates), laufend:
 - 269.14 ✓ (Chef 15:52)
 - 269.15 ✓ Leuchtfunke benutzen, danach „Löschen“ geht („Der Funke verglimmt“); Abbrechen/Benutzen und Löschen noch altes Design mit Kasten (→ 670); Leuchtfunke selbst wirkt noch nicht; Prüfzeile für den Chef unverständlich formuliert (Chef 15:54)
 - 269.13 ✓ Robe nicht mehr klinisch, längliche Muster, Saum etwas schmutzig (Chef 15:55)
-- 269.16 ✗ Abbrechen geht; aus leerem Kopffeld ein Stück gewählt (göttliche Kapuze der Stirnjägerin): nur „Wegwerfen“, kein „Anlegen“, „genau der alte Fehler“, wiederholt; Bildschirmfoto des Chefs folgt (Chef 15:57)
+- 269.16 ✗ Abbrechen geht; aus leerem Kopffeld ein Stück gewählt (göttliche Kapuze der Stirnjägerin): nur „Wegwerfen“, kein „Anlegen“, „genau der alte Fehler“, wiederholt; Bildschirmfoto des Chefs 15:57; „Ansicht ist sowieso scheiße“, Zurück fehlt; dagegen Wechseln → Zurück und Wechseln → Anlegen gehen mit einem Druck (Chef 15:58)
