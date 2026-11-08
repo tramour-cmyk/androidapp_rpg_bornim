@@ -8,7 +8,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 ## Einzelheiten
 
-- **von Sokrates (08.11., 16:23, zu 682, Chef 16:22):** „wenn der Held jetzt mal flotter hinginge und wenn die Monster, die mich angreifen, nicht alle mal so in Linien gehen würden, so Stück gerade, dann diagonal, dann gerade, dann diagonal und das ist so eckig … das betrifft ja dann nicht nur jetzt die Riesenratten … grundsätzlich. Wie unser Kampf abläuft. Weil wenn ich ja 3 Stunden immer auf die Animation warten muss, dass da einer mal vor und zurückläuft, mit dem Ergebnis, dass er mich 20 Mal nicht trifft … Das muss flutschiger werden, flüssiger.“ Mit 562 (Angriffsgang) zusammen denken.
+- **von Sokrates (08.11., 16:23, zu 682, Chef 16:22):** „wenn der Held jetzt mal flotter hinginge und wenn die Monster, die mich angreifen, nicht alle mal so in Linien gehen würden, so Stück gerade, dann diagonal, dann gerade, dann diagonal und das ist so eckig … das betrifft ja dann nicht nur jetzt die Riesenratten … grundsätzlich. Wie unser Kampf abläuft. Weil wenn ich ja 3 Stunden immer auf die Animation warten muss, dass da einer mal vor und zurückläuft, mit dem Ergebnis, dass er mich 20 Mal nicht trifft … Das muss flutschiger werden, flüssiger.“ Chef 16:24: „die Ratte läuft nicht hoppelig, das betrifft alle Gegner. Die gehen irgendwie in geraden Linien halt und dann drehen sie halt wieder auf der Stelle und dann laufen sie auf den Held zu und dann genauso eckig gehen sie zurück … Und der Held macht es ja auch nicht besser. Das ist nicht flüssig.“ Also: Wege als Kurve, Drehen im Gehen statt auf der Stelle, für Gegner und Held. Mit 562 (Angriffsgang) zusammen denken.
 
 
 
