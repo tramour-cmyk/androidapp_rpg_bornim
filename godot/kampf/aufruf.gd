@@ -185,7 +185,15 @@ static func blatt(h, zweite = null) -> Dictionary:
 		"tenacity": h.standhaft(), "schild": String(schild["base"]) if schild != null else "",   # 406: Modell in der Hand (figur.gd)
 		"hits": {"POISON": h.bonus("POISON_HIT"), "BLEED": h.bonus("BLEED_HIT"), "STUN": h.bonus("STUN_HIT")},
 		# 534 (alt Hero.lifeSteal, damageReduction, Perks.cowChance): Lebensraub, Schadensminderung, Charisma für mars.gd
-		"lifesteal": mini(h.bonus("LIFESTEAL"), 30), "reduction": h.bonus("RESIST"), "cha": h.mod("CHA")}
+		"lifesteal": mini(h.bonus("LIFESTEAL"), 30), "reduction": h.bonus("RESIST"), "cha": h.mod("CHA"),
+		"brs_ruestung": _brs_ruestung(h)}     # 478: Rüstung nach dem BRS (brs_kampf.gd), aus dem Gewicht der Brustrüstung
+
+
+## 478: die Rüstung des BRS aus dem Gewicht der Brustrüstung (Heldwerte „gewicht“: LIGHT, MEDIUM, HEAVY), sonst keine
+static func _brs_ruestung(h) -> String:
+	var r = h.ding("CHEST")
+	var gew: String = String(h.grundform(r["base"]).get("gewicht", "")) if r != null else ""
+	return {"LIGHT": "Leichte Rüstung", "MEDIUM": "Mittlere Rüstung", "HEAVY": "Schwere Rüstung"}.get(gew, "keine")
 
 
 static func _waffe(h, w, nebenhand := false) -> Dictionary:
@@ -212,6 +220,8 @@ func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := 
 		monsters[m.id] = m
 	var party := [_kaempfer("hero", held, held_tp, Vector2i(Mars.FRONT, 0), skills)]
 	party[0].hero["look"] = lage.get("aussehen", {})     # 403: Kopf, Haar, Haut wie im Dorf (Zustand.aussehen, HeldFigur)
+	if not (lage.get("brs", {}) as Dictionary).is_empty():
+		party[0].hero["brs_daten"] = lage.brs     # 478: der Held nach BRS aus dem Spielstand (zustand.brs, BrsHeld.als_daten)
 	leiden_auf(party[0], lage.get("leiden", {}))     # 532
 	if bool(lage.get("betrunken", false)):     # 532 Metrausch wie alt (Battle.drunk): bis zur Rast, im Kampf ohne Ende
 		party[0].status["DRUNK"] = Mars.LASTING
@@ -290,6 +300,8 @@ func _fertig(ergebnis: String) -> void:
 		for f in kampf.mars.fighters():
 			if f.side == "PARTY":
 				tp[f.id] = f.hp
+				if kampf.mars.brs and f.srd_hp > 0:     # 478: zurück in die Leben der Welt (SRD), im selben Anteil
+					tp[f.id] = clampi(roundi(float(f.hp) * f.srd_hp / maxf(1.0, f.max_hp)), 1 if f.hp > 0 else 0, f.srd_hp)
 		lohn = kampf.reward
 	ende.emit(ergebnis, tp, lohn)
 	queue_free()
