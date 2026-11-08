@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (08.11., 09:05, Ford `session_01Hmoj76HFnAA46mUTzwaQoK`, Tiefe 1, Selbstneustart):** Getan 07./08.11.: Zurücksetzung 07.11. 20:00 durch, Sperren vom Chef aufgehoben; 275.2 (eine Vorgangsliste) von Perikles umgeschaltet, STOPP gestrichen; Nachtplan Tom/Jerry (Eingang); Build 269 (625) läuft bei Tom (Lauf auf `claude/tom-625-ohne562`, fertig gegen 08:30, Testbitte von Tom gegen 08:35). Laufend: Tom `session_01Hmoj79X6oAEPabaMyCRc4B` (Build 269 ausliefern, dann 499), Jerry `session_01Hmoj76PuNTd7NgcaM1MYtR` (536 auswerten, 565/563 vorlegen). Morgenmeldung 08.11. gesendet; Tagesbericht 08.11. ab 9:30 (Perikles-Nachfolger, `lauf.py` gibt TAGESBERICHT). Archiviersatz des Chefs (07.11., 14:04) gilt nur je Sitzung, beim Start neu holen. Neu in `lauf.py`: Zeilen „GELÖST …“ (Schritt 4). Sitzungsliste `list_sessions` ist seitenweise; `lauf.py` warnt bei abgeschnittener Seite. Chef-Sokrates `76saGTQ5` (desktop) bleibt stehen, Stellungnahmen gehen per send_message an ihn. Nachfolger: Ford – Betriebsleiter.
+**Übergabe (08.11., 09:05, Ford `session_01Hmoj76HFnAA46mUTzwaQoK`, Selbstneustart):** Getan: Sperren vom Chef aufgehoben, 275.2 umgeschaltet, Nachtplan Tom/Jerry durch, Morgenmeldung 08.11. gesendet, Kosten gebucht. Laufend: Tom `session_01Hmoj79X6oAEPabaMyCRc4B` (Build 269, Testbitte gegen 08:35), Jerry `session_01Hmoj76PuNTd7NgcaM1MYtR`. Tagesbericht 08.11. ab 9:30 aus `lauf.py`. Archiviersatz gilt nur je Sitzung. Nachfolger: Ford – Betriebsleiter.
 
 **Nächste freie Vorgangsnummer: 641** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
