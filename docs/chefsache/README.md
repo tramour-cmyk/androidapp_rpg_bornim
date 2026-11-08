@@ -9,7 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [673](entscheiden/673-drehen-emulator.md) | **Muss** | E Technik | 08.11., 15:34 | Kamera drehen und zoomen am Emulator mit der Maus | Sokrates |
-| [657](entscheiden/657-drei-stichpunkte.md) | **Muss** | B Abläufe | 08.11., 15:15 | Regeln radikal kürzen: eine Seite für alle | Sokrates |
+| [657](entscheiden/657-drei-stichpunkte.md) | **Muss** | B Abläufe | 08.11., 15:15 | Regeln radikal kürzen: eine Seite für alle (Empfehlung: :) | Sokrates |
 
 ## Zu billigen
 
@@ -260,11 +260,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 650.1 | M | Liste für docs/alt/ nach zwei Gegenprüfungen (aus 650) | Termin 09.11. |
 | 654.1 | M | Systemfrage vor jedem Bau in ROLLE-ENTWICKLUNG.md und Prüfliste, Wiederholungswächter in v | wartet auf Test/Build (gebaut) |
 
-**Diogenes** – offen 15, Muss 12, startbar 4
+**Diogenes** – offen 14, Muss 11, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 657.1 | M | 657 prüfen: ganzes Konzept „eine Seite für alle“ (Stil, Team, Ablauf, Werkzeuge an Übergab | startbar |
 | 317.1 | M | startbar.py, lauf.py: Obergrenze 6 je Build streichen (Chef 07.11., 20:5x) (für Perikles) | wartet auf Test t269 (Chef) |
 | 511 | M | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele | wartet auf D75 (Dauer) |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
@@ -280,12 +279,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
 | 644.5 | M | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noc | wartet auf 644.1 (startbar) |
 
-**Sokrates** – offen 52, Muss 35, startbar 31
+**Sokrates** – offen 52, Muss 35, startbar 32
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 620 | M | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build | startbar |
-| 657 | M | Regeln radikal kürzen: eine Seite für alle mit Stil, Team, Ablauf (Chef 08.11., 14:58, 15: | wartet auf 657.1 (startbar) |
+| 657 | M | Regeln radikal kürzen: eine Seite für alle mit Stil, Team, Ablauf (Chef 08.11., 14:58, 15: | startbar |
 | 341.1 | M | Zielvereinbarung für alle Rollen: je Rolle höchstens drei Ziele, Z3 und Z4 für alle, eins | startbar |
 | 623 | M | Effektpakete REEBOO Labs: Kauf, Ressourcenseite LISTE-QUELLEN.md, Zuordnung LISTE-EFFEKTE. | wartet auf 623.5 (startbar) |
 | 623.1 | M | Prüfschema auf bisher geprüfte Quellen anwenden (Chef 07.11., aus 623) | startbar |
