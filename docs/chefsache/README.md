@@ -53,7 +53,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 
-**Tom** – offen 99, Muss 74, startbar 6
+**Tom** – offen 100, Muss 74, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -156,6 +156,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 689 | K | Dorf, Urteil Chef 25.10., 12:11 (aus 348.6, offen geblieben): Büsche über Dachfirsten, Lat | ruht |
 | Pflege | K | von Werkzeug (340.3, 08.11.): 15773 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 697 | M | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test |
+| 698 | M? | Grafikstufen im Systemmenü mit Effekten (Niedrig/Mittel/Hoch, Automatisch per Leistungstes | startbar |
 
 **Jerry** – offen 68, Muss 60, startbar 0
 
