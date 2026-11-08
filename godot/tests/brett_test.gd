@@ -76,8 +76,11 @@ func _lauf() -> void:
 	root.add_child(ebene)
 	await process_frame
 	pruefe("Brett offen", [spiel.brett_offen, spiel.brett_schirm.is_visible_in_tree(), ui.waehlt()], [true, true, false])
-	var knoepfe: Array = spiel.brett_schirm.liste.find_children("*", "Button", true, false).map(func(b): return [b.text, b.disabled])
-	pruefe("Knoepfe", knoepfe.slice(0, 2), [["ANGENOMMEN", true], ["ANNEHMEN", false]])
+	# 630: ohne Kasten (549a): je Aushang „ANNEHMEN ›“ als Hauptwahl oder matt „ANGENOMMEN“, keine Buttons mehr
+	var aus: Array = spiel.brett_schirm.liste.get_children().filter(func(c): return String(c.name).begins_with("Aushang_")).map(func(v):
+		return "ANGENOMMEN" if v.find_child("Angenommen", true, false) else ("ANNEHMEN" if v.find_child("Annehmen", true, false) else "-"))
+	pruefe("Knoepfe", aus.slice(0, 2), ["ANGENOMMEN", "ANNEHMEN"])
+	pruefe("ohne Kasten", spiel.brett_schirm.find_children("*", "Button", true, false).size(), 0)
 	var schirm: BrettSchirm = spiel.brett_schirm
 	spiel._brett_wahl("nimm:stones")
 	pruefe("Jorin angenommen", Auftraege.angenommen(z, Auftraege.von("stones")), true)

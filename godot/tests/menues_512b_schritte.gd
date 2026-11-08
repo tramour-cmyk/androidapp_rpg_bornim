@@ -545,7 +545,7 @@ func brett() -> void:
 	buehne.add_child(b)
 	await frames(4)
 	await host.knips("71_brett")
-	await druecke(b, "Annehmen")
+	await tippe_text(b, "ANNEHMEN", "=")   # 630: Knopf ohne Kasten
 	await frames(2)
 	await host.knips("72_brett_angenommen")
 	await leeren()

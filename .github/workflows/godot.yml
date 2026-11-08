@@ -349,6 +349,7 @@ jobs:
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/ring_597.gd 2>&1 | grep -E "RING597|SCRIPT ERROR"   # 597 kein Ring ohne Ansage
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/ansage_597.gd 2>&1 | grep -E "ANSAGE597|FEHLER|SCRIPT ERROR"   # 597 t268.21 Ansage der Wölfe im Bild
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/tempo_600.gd 2>&1 | grep -E "TEMPO600|SCRIPT ERROR"   # 600 Tempoknopf im Kampfort
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/titel_585.gd 2>&1 | grep -E "TITEL585|SCRIPT ERROR"   # 585 Titel ausgewogen umgebrochen
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/sterben_596.gd 2>&1 | grep -E "STERBEN596|SCRIPT ERROR"   # 596 Sterben gespiegelt
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/pfeil_601.gd 2>&1 | grep -E "PFEIL601|SCRIPT ERROR"   # 601 Pfeil auch beim Ducken
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/am_zug_565.gd 2>&1 | grep -E "^(FEHLER|AMZUG565)|SCRIPT ERROR"   # 565 Kasten am Zug (Vorschlag, aus)
@@ -424,6 +425,7 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/finger_610.gd 2>&1 | grep -E "^FALSCH|FINGER610|SCRIPT ERROR"   # 610 Finger am Stab zucken nicht (Tom)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/fenster_519.gd 2>&1 | tee fenster519.log | grep -E "FEHLER|FENSTER519|SCRIPT ERROR"; grep -q "^FENSTER519 0 Fehler" fenster519.log   # 519 Gegenstandsfenster passt auf den Schirm
           timeout 120 ~/godot/godot --headless --path . -s res://tests/funke_677.gd 2>&1 | tee funke677.log | grep -E "FEHLER|FUNKE677|SCRIPT ERROR"; grep -q "^FUNKE677 0 Fehler" funke677.log   # 677 Leuchtfunke über dem Kopf (Chef 08.11., 15:54)
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/knopf_630.gd 2>&1 | tee knopf630.log | grep -E "FEHLER|KNOPF630|SCRIPT ERROR"; grep -q "^KNOPF630 0 Fehler" knopf630.log   # 630 „Abenteuer beginnen“ in einer Zeile (Chef 08.11., 15:11)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/gegenstand_524.gd 2>&1 | tee gegenstand524.log | grep -E "FEHLER|GEGENSTAND524|SCRIPT ERROR"; grep -q "^GEGENSTAND524 0 Fehler" gegenstand524.log   # 524 Inhalt wie GearDetails alt
           timeout 120 ~/godot/godot --headless --path . -s res://tests/roben_524.gd 2>&1 | tee roben524.log | grep -E "FEHLER|ROBEN524|SCRIPT ERROR"; grep -q "^ROBEN524 0 Fehler" roben524.log   # 521, 523, 524 zwei Roben des Chefs: Vergleich, ◆, Wert, Klang
           timeout 120 ~/godot/godot --headless --path . -s res://tests/groesse_520.gd 2>&1 | tee groesse520.log | grep -E "FEHLER|GROESSE520|SCRIPT ERROR"; grep -q "^GROESSE520 0 Fehler" groesse520.log   # 520 Held im Reiter Ausruestung so gross wie alt
@@ -713,6 +715,19 @@ jobs:
           sudo apt-get install -y -q mesa-vulkan-drivers xvfb > /dev/null || true
           BILD565_AUS=$B VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 1080x2340 -s res://tests/am_zug_565_bild.gd 2>&1 | tee $B/am_zug565.log | grep -E "^(BILD|FEHLER|AMZUG565)|SCRIPT ERROR" || true
+          ls -l $B
+      # 630 (Chef 08.11., 15:11: „Links oben der Held … fehlt“): die Schirmbilder der Probe (tests/schirme_630_bild.gd) mit dem Helden
+      # aus den Kaufmodellen, die es am Rechner nicht gibt; Renderer wie am Handy; nur von Hand auf einem Zweig mit „630“ und film=nein
+      - name: Schirmbilder 630 (nur von Hand, film=nein)
+        if: ${{ !cancelled() && github.event_name == 'workflow_dispatch' && contains(github.ref, '630') && github.event.inputs.film == 'nein' }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/schirme630; mkdir -p $B
+          cd godot
+          sudo apt-get install -y -q mesa-vulkan-drivers xvfb > /dev/null || true
+          ls -l daten/held.bin || echo "kein Held (ohne Kaufmodelle)"
+          OBERFLAECHE_AUS=$B VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 1080x2340 -s res://tests/schirme_630_bild.gd 2>&1 | tee $B/schirme630.log | grep -E "^BILD|SCRIPT ERROR" || true
           ls -l $B
       - name: Gegnerfilm 494 (nur von Hand mit gegner=…)
         if: ${{ !cancelled() && github.event.inputs.gegner != '' && github.event.inputs.gegner != 'FLEDERMAUS' && github.event.inputs.film != 'nein' }}
