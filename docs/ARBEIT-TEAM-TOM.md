@@ -64,6 +64,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 698, von Sokrates (Chef 08.11., 19:46):** „Wenn wir die Möglichkeit bieten, Effekte abzuschalten im Menü, das hatten wir doch auch irgendwo vorgesehen. Das war sagen, ja, einen Leistungstest sozusagen laufen lassen und dann die Effekte anpassen.“ Grundlage `LISTE-IDEEN.md` „Grafik-Einstellungen“ (Hebel dort), A22 in `LISTE-TESTGERAETE.md`; neu: Effekte aus 623 je Stufe; Bildrate t623 Dorf 33, Wald 25 auf dem Gerät des Chefs (Galaxy A56, obere Mittelklasse). Klasse entscheidet Perikles (M?); vor dem Bau Vorschlag Stufen und Untergrenze Bildrate an den Chef.
 - **Zu 636, von Sokrates (Chef 08.11., 20:30, t270.4 ✗):** „270.4 ich hab nichts gehört am Schlagbaum“. Türgeräusch beim Öffnen fehlt; ob der Balken aufsprang, sagte er nicht. Erst Ursache am Rechner nachstellen (334), dann beheben.
 - **Zu 701, von Sokrates (Chef 08.11., 20:37, t270.5 ✓):** „Zu 270.5 passt soweit, scrollen möglich, aber die wiederholte Anzeige des Caps macht keinen Sinn und wirkt überbordend.“ Foto: Amulett, unter jedem der sechs Grundwerte „mehr Bonus, wirkt nicht: Obergrenze für dieses Kapitel erreicht“, oben schon „+1 alle Attribute – wirkt nicht (Obergrenze)“. Vorschlag: Hinweis einmal (oben am Bonus), in der Vergleichstabelle keine Zeile je Wert; Vorschau an den Chef vor dem Build.
+- **Zu 492, von Sokrates (Chef 08.11., 21:46, Archiv):** „492b.“ Fassung B für die ganze Höhle; Fels passt. Offen aus deinem Prüferbefund: Gestalt im Lager am Bildrand. Danach 492 in den nächsten Build.
 
 
 
