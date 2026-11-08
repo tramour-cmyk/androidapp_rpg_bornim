@@ -99,5 +99,7 @@ if [ ! -f "$hk" ] || ! grep -q "commit-pruefung (D55.4)" "$hk" 2>/dev/null; then
     printf '#!/bin/sh\n# commit-pruefung (D55.4)\nf=/home/user/bornim-main/tools/commit-pruefung.py; [ -f "$f" ] || f=tools/commit-pruefung.py\nif [ -f "$f" ]; then python3 "$f" || exit 1; fi\nexit 0\n' > "$hk" && chmod +x "$hk"
 fi
 echo "$neu" > "$mark"
+# 658: Reaktionen und Nachrichten des Chefs auf Telegram (👍 gebilligt, ✅ erledigt), letzte 120 Minuten; nur Text, still ohne Schlüssel
+[ -f "$wt/tools/reaktionen.py" ] && timeout 40 python3 "$wt/tools/reaktionen.py" 2>/dev/null
 echo "Arbeitskopie für Notizen: $wt"
 schluss
