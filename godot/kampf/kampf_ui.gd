@@ -967,7 +967,14 @@ func _chip(rect: Rect2, bg: Color, border: Color, rim_dp: float) -> void:
 	overlay.draw_rect(rect, border, false, maxf(1.0, rim_dp * dp))
 
 
+## 623.5 (Effektprobe, Fassung „unsere“): nur Zauber und Blut, ohne Ringe, Ansagen, Leisten, Zugleiste und Schalter
+var nur_effekte := false
+
 func _draw_overlay() -> void:
+	if nur_effekte:
+		_draw_spells()
+		_draw_blood()
+		return
 	var k = kampfort
 	var m = k.mars
 	var sr: Rect2 = k.scene_rect()
