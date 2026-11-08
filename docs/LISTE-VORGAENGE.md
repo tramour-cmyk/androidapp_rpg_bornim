@@ -38,7 +38,7 @@
 | 505 | Bau Nebel des Krieges und Sichtfeld des Helden (Archiv 502; Welt W24, W25) | Tom | M | startbar | – | – | – | B Umzug | 69,46 $ |
 | 515 | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 03.11., 16:07) | Tom | K | ruht | – | – | – | O Orte | – |
 | 506 | Untote im Kampf: Skelett, Zombie, Ghul (aus 494, Spike; Wochenziel 03.11., 488) | Tom | M | startbar | – | – | – | E Kampf | 26,61 $ |
-| 492 | Blutzahnhöhle begehbar mit Krogg, Grak, Lyra (Orte O8; Wochenziel 03.11., 488; von Jerry an Tom, Chef 07:54) | Tom | M | startbar | – | claude/tom-492-hoehle | – | B Umzug | 29,10 $ |
+| 492 | Blutzahnhöhle begehbar mit Krogg, Grak, Lyra (Orte O8; Wochenziel 03.11., 488; von Jerry an Tom, Chef 07:54) | Tom | M | in Arbeit, Zweig mit main gemischt, Tests laufen | – | claude/tom-492-durchspiel | – | B Umzug | 29,10 $ |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x) | Tom | M | ruht | – | claude/tom-431-voelker | – | E Figuren | 50,10 $ |
 | 416.8 | NPC dreht sich zum Helden, nach etwa 10 s Leerlauf (Chef 31.10., 20:5x) | Tom | M | gebaut, Geprüft an: 5df00b9c8 (Probelauf 2 von 2; in 269) | – | claude/tom-416-8-schritte | – | B Umzug | 19,24 $ |
 | 416.4 | Rennen des Helden wirkt wie Hochsprung (Chef 31.10., 20:4x) | Tom | M | gebaut, Geprüft an: 8b2b9cc00 (Lauf 41317137978 ohne Sprung; in 269) | – | claude/tom-416-4-rennen | – | B Umzug | 41,57 $ |
