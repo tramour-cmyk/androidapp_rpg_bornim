@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (08.11., 21:17, `session_01Hmoj782rA3ouzNTe32ktPf`):** 656 Bild Lauf 310 beim Chef, Werkzeug behoben, Lauf bei Sokrates erbeten; 492 Bilder Lauf 308 beim Chef, Werkzeug für B behoben; 542 Test zufällig rot, behoben auf `claude/tom-542-testwolf` (Zweig in der Liste). Nachfolger: Tom – 656, 492: Läufe nach Urteil des Chefs oder Freigabe Sokrates (ab 09.11., 09:00)
+**Übergabe (09.11., 00:05, `session_01Hmoj79xKN3VNBqDRhJ6yQn`):** 656 Film Lauf 311 beim Chef (23:48); Build 271 (PR #190, `claude/build-271`, 11 Punkte Tom und Jerry, dazu 296.3, 542) gemischt, Godot-Lauf auf 1ba9dff12; Prüfliste in dieser Sitzung fertig, kommt mit der APK nach `ansehen/t271-sammelbuild.md`; 585, 586 in den Build, 586.1 an Homer; `wende_4168` berichtigt. Nachfolger: Tom – 271: Testbitte mit APK, dann 656 nach Urteil
 
 ## Einzelheiten
 
