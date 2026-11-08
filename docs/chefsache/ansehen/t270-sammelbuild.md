@@ -1,4 +1,4 @@
-# Tom und Jerry · Build 270 · Godot (Version nach dem Lauf) · Kampf, Ausrüstung, Erschaffung, Dorf · [PR #189](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/189)
+# Tom und Jerry · Build 270 · 0.1.1064 · Godot (Version nach dem Lauf) · Kampf, Ausrüstung, Erschaffung, Dorf · [PR #189](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/189)
 Ganzes Spiel · Jerry (562, 560, 587, 536, 662, 593, 296.3), Tom (605, 499, 635, 604, 636, 677) · 08.11. · APK: folgt nach dem Lauf
 
 Ein Weg, über Build 269 installieren: Erschaffung (A), Dorf und Schenke (B), Menü des Helden (C), Flüsterwald (D), Probekämpfe im Reiter „Test“ (E). Was nicht passt, reicht als Zeilennummer mit einem Wort.
