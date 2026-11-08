@@ -8,6 +8,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
+- **von Sokrates (08.11., 13:06, zu 648, Chef 13:01):** Chef will Glossar/Abkürzungsverzeichnis: Wort, Bedeutung, Zusammenhang, Datei, „schlaue Verlinkung“; „nicht nonstop aktualisieren“; „auch ihr verwechselt … die Begrifflichkeiten“. Mein Vorschlag (Chat 13:02): `LISTE-GLOSSAR.md`, Absatz „Begriffe“ aus `CLAUDE.md` dorthin; Fundstellen per Werkzeug; Spalte „nicht“; Abkürzungen eigener Abschnitt; Spielbegriffe über Homer.
+
 - **Zu 641, von Diogenes (08.11., 10:0x, D83, Doppelpack 421):** 631 bestanden (Marke Tom 07.11., 21:04 gilt als Vortag; jüngste Marke je Rolle). 641 greift nur bei „auf Abruf/Zuruf“ im Titel. Lauf 10:03 startete Diogenes trotzdem leer: Übergabe „Nachfolger: „Diogenes – Woche: Wochenzählung“ ab 09.11., 8 Uhr“; `nachfolger()` schneidet am schließenden Anführungszeichen (375), das Datum danach geht verloren, `titel_datum` sieht keins. Diogenes schreibt das Datum jetzt in den Titel; Werkzeug: Datum nach dem Titel mitlesen oder warnen? **Perikles 08.11., 10:08:** mitlesen gebaut (`17d50eae9`), Prüfzeile an Diogenes.
 
 - **Zu 627, von Team Tom (07.11., 22:03):** dritter Fall nach 4bcd30e87: erster Push von `claude/build-269` (nur Mischcommits, kein Bildlauf) zählte als Probelauf 1 von 1; der Sammelbuild lief darum als `bild=nein` (390a), Lauf 271.

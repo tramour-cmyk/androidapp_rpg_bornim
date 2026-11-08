@@ -198,6 +198,7 @@
 | 646 | Zeigen statt messen: Messläufe zählen als Probe, nach einer Probe immer Bild an den Chef (Chef 08.11., 12:28) | Perikles | M | startbar, Chef ja (12:34), Perikles baut | – | – | – | C Betrieb | – |
 | 647 | Abgleich alt schon vor dem Bauen: Fundstelle alter Code lesen und nennen, nicht erst vor der Testbitte (Chef 08.11., 12:44; aus 512, 499) | Perikles | M | startbar | – | – | – | B Abläufe | – |
 | Pflege | von Werkzeug (340.3, 08.11.): 15841 Bytes (Grenze 15000), Erledigtes streichen | Perikles | K | startbar | – | – | – | B Abläufe | – |
+| 648 | Glossar und Abkürzungsverzeichnis LISTE-GLOSSAR.md: Wort, Bedeutung, Zusammenhang, Fundstellen per Werkzeug, Link zur Festlegung (Chef 08.11., 13:01) | Perikles | M? | startbar | – | – | – | B Betrieb | – |
 | 340.2 | Rollenspiegel C: `tools/rollenspiegel.sh`, eigene Antwort ohne fremde | Diogenes | M | ruht | 09.11. | – | – | B Abläufe | –; +6,35 $ |
 | 485 | Diogenes bessert sich aus dem Rollenspiegel 02.11.: Wochentermine zählen, Vergleichsblätter selbst holen, Meldungen ohne Abkürzungen (Chef 02.11., 19:37 „1, 2, 3 ja“) · „jetzt“ 02.11., 19:37 | Diogenes | M | ruht | 09.11. | – | – | Q QS | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | ruht | 09.11. | – | – | B Abläufe | – |
