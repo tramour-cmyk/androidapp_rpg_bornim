@@ -1037,6 +1037,7 @@ func _wechsel_zeile_b(g: Dictionary, platz: String, zu: Callable, de: bool) -> C
 # Teil verpuffte matt mit „wirkt nicht“ oder „wirkt +n (Obergrenze)“, die Warnungen, die Tabelle, „Händler zahlt n Gold“. Unten
 # „× WEGWERFEN“ als Nebenwahl links, „ANLEGEN ›“ als Hauptwahl rechts; Abbrechen ueber Zurueck oder Tippen daneben (526).
 # [anlegen]: was „Anlegen“ tut (Tasche: lege_an; Wechselliste: an den gewaehlten Platz); [zurueck]: wohin Zurueck fuehrt (sonst nur zu)
+const FENSTER_UNTEN_DP := 48.0     # 605: unten frei für die runde Ecke (551: 118 px am Gerät des Chefs, 45 dp) und den Daumen
 func fenster_b(g: Dictionary, anlegen := Callable(), zurueck := Callable()) -> Control:
 	var de := Sprache.aktiv() == "de"
 	var ok := hw.kann_tragen(g)
@@ -1059,8 +1060,22 @@ func fenster_b(g: Dictionary, anlegen := Callable(), zurueck := Callable()) -> C
 		breite = get_viewport_rect().size.x - 48 * DP
 	v.custom_minimum_size.x = breite
 	mitte.add_child(Rueckfrage.halte(v if Spielstaende.vorlage2 else Erschaffung.kasten(v)))
-	for c in Menue.stueck_zeilen_b(hw, g): v.add_child(c)
-	v.add_child(Spielstaende.linie())
+	# 605 wiederholt (Chef 08.11., 15:57, t269.16: göttliche Kapuze aus dem leeren Kopffeld „nur Wegwerfen, kein Anlegen … Zurück fehlt“;
+	# nachgestellt in anlegen_605: Zauberer und Kleriker mit vielen Boni, unter dem Rand der Kamera standen Abbrechen und Anlegen unter
+	# dem Bild): der Inhalt rollt, die Knöpfe stehen immer im Bild, über der runden Ecke unten
+	var koerper: VBoxContainer = v
+	var rolle: ScrollContainer = null
+	if Spielstaende.vorlage2:
+		rolle = ScrollContainer.new()
+		rolle.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+		rolle.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
+		koerper = VBoxContainer.new()
+		koerper.add_theme_constant_override("separation", int(8 * DP))
+		koerper.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		rolle.add_child(koerper)
+		v.add_child(rolle)
+	for c in Menue.stueck_zeilen_b(hw, g): koerper.add_child(c)
+	koerper.add_child(Spielstaende.linie())
 	var zu := func(): schleier.queue_free()
 	var an_c := anlegen if anlegen.is_valid() else func(): meldung(lege_an(g)); baue()
 	if Spielstaende.vorlage2:   # 557 Vorlage 2 (Chef 14:26): „‹ ABBRECHEN“ links, ANLEGEN rechts
@@ -1070,8 +1085,17 @@ func fenster_b(g: Dictionary, anlegen := Callable(), zurueck := Callable()) -> C
 		var oben: Array = [Spielstaende.knopf("gefahr", "Wegwerfen" if de else "Discard", func(): zu.call(); frage_wegwerfen(g), true)]
 		if ok and einhandwaffe(g) and not anlegen.is_valid():
 			oben.append(Spielstaende.knopf("neben", "Nebenhand" if de else "Off hand", func(): zu.call(); meldung(lege_an(g, true)); baue()))
-		v.add_child(Spielstaende.fuss(func(): schleier.queue_free(); if zurueck.is_valid(): zurueck.call(), "", Sprache.u("equip"), Stil.BRIGHT, func(): zu.call(); an_c.call(), ok, oben))
+		var fuss := Spielstaende.fuss(func(): schleier.queue_free(); if zurueck.is_valid(): zurueck.call(), "", Sprache.u("equip"), Stil.BRIGHT, func(): zu.call(); an_c.call(), ok, oben)
+		v.add_child(fuss)
 		Menue.wuerfel_lesbar(v)
+		var passe := func():
+			if not is_instance_valid(rolle): return
+			var hoehe := get_viewport_rect().size.y - Rand.oben(get_viewport()) - Spielstaende.OBEN_DP * DP - FENSTER_UNTEN_DP * DP
+			var frei := hoehe - fuss.get_combined_minimum_size().y - v.get_theme_constant("separation")
+			var hr := minf(koerper.get_combined_minimum_size().y, maxf(0.0, frei))
+			if absf(rolle.custom_minimum_size.y - hr) > 0.5: rolle.custom_minimum_size.y = hr
+		koerper.minimum_size_changed.connect(passe)
+		passe.call()
 		return schleier
 	var unten := HBoxContainer.new()
 	unten.mouse_filter = Control.MOUSE_FILTER_IGNORE
