@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       kampf:
-        description: "Kampfort-Filme: ja (453 r3, 453.1 Vergleich), 461 (Grundstand-Film Kampfort) oder 4531 (Heldenatem Feld 2 gegen neu)"
+        description: "Kampfort-Filme: ja (453 r3, 453.1 Vergleich), 461 (Grundstand-Film Kampfort), 4531 (Heldenatem Feld 2 gegen neu) oder 2963 (Siegerposen)"
         default: ""
       dorf:
         description: "Dorf-Film Grundstand (461.1): ja"
@@ -360,6 +360,7 @@ jobs:
           # 415 r3 (Jerry): Strahlenprobe ohne Bild, Stabspitze hinter dem Körper (F6), Strahl durch eine Figur (E3), Richtung (F2); meldet nur
           timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/strahl_mess_415.gd 2>&1 | grep -E "^(Strahl|STRAHL)|SCRIPT ERROR" || true
           timeout 120 ~/godot/godot --headless --path . -s res://tests/klang_test.gd 2>&1 | grep -E "^(gut|FALSCH)|KLANG|SCRIPT ERROR"   # 399.3
+          set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/todesschrei_2963.gd 2>&1 | grep -E "^(ok|FEHLER|Todesschrei 296.3)|SCRIPT ERROR"   # 296.3 Todesschrei auch bei Zauber- und Zustandstod (Jerry)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_473.gd 2>&1 | grep -E "FALSCH|BRS473|SCRIPT ERROR"   # 473 Monsterwerte BRS wie sim444
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/brs_kampf_478.gd 2>&1 | grep -E "^(ok|FALSCH)|BRS478|SCRIPT ERROR"   # 478 Kampf nach BRS wie sim444
           timeout 60 ~/godot/godot --headless --path . -s res://tests/masse_498.gd 2>&1 | tee masse498.log | grep -E "FEHLER|MASSE498|SCRIPT ERROR"; grep -q "^MASSE498 0 Fehler" masse498.log   # 498 Schrift wie alt
@@ -541,8 +542,33 @@ jobs:
       # schon weiter???“): Wölfe r3 mit und ohne Atemschicht; Helden im Kampf (film_403, gleiche Würfel) in fünf Fassungen, je ein
       # Kandidat seit Film 403 an: Atemschicht (ATEM_ALT), Schwert-und-Schild-Bewegungen (OHNE_SS), Signatur (OHNE_SIGNATUR).
       # Nur von Hand mit kampf=ja; läuft auch nach rotem Prüfschritt (wolf_mess_438)
+      # 296.3 (Jerry; Siegerpose, Bestand zuerst 377, drehend in einem Film 408): Kandidaten aus den Protofactor-Sätzen (sieger2963.py)
+      # und Celebration der UAL Pro am Kaufhelden im Kampfort (film_sieger_2963.gd); nur von Hand mit kampf=2963; mit film=nein nur das
+      # Probebild (511: je Kandidat ein Bild von vorn aus demselben Skript), sonst der Film
+      - name: Siegerposen 296.3 (nur von Hand mit kampf=2963)
+        if: ${{ !cancelled() && github.event.inputs.kampf == '2963' }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/sieger2963; mkdir -p $B
+          U=$(find ${KAUF:-/kein} -path '*Unreal-Godot/UAL1.glb' 2>/dev/null | sort | head -1)
+          [ -n "$U" ] || { echo "Siegerposen 296.3: ohne Kauf (UAL Pro) nichts"; exit 0; }
+          KAUF=$KAUF ZIEL=$U OUT=$RUNNER_TEMP/sieger2963 BL=$GITHUB_WORKSPACE/bl/bin/python python3 -I tools/blender348/v3/sieger2963.py > $B/sieger2963-bau.log 2>&1 || true
+          grep -E "^SIEGER" $B/sieger2963-bau.log | sed "s|$KAUF/||g" | cut -c1-200 || true
+          cd godot
+          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
+          if [ "${{ github.event.inputs.film }}" = "nein" ]; then
+            B2963=$RUNNER_TEMP/sieger2963 UAL_PRO=$U BILD=$B/2963-probebild.png BILD_S=vorn timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" \
+              ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --fixed-fps 30 -s res://tests/film_sieger_2963.gd > $B/sieger2963-bild.log 2>&1 || true
+            grep -E "SCRIPT ERROR|^Film|^Probebild|^Signatur|FEHLER|^fehlt" $B/sieger2963-bild.log | head -30 || true
+          else
+            B2963=$RUNNER_TEMP/sieger2963 UAL_PRO=$U timeout 1500 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . \
+              --resolution 540x1170 --write-movie $RUNNER_TEMP/sieger2963.avi --fixed-fps 30 -s res://tests/film_sieger_2963.gd > $B/sieger2963.log 2>&1 || true
+            grep -E "SCRIPT ERROR|^Film|^Signatur|FEHLER|^fehlt" $B/sieger2963.log | head -30 || true
+            ffmpeg -loglevel error -y -i $RUNNER_TEMP/sieger2963.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/2963-siegerposen.mp4 || true
+          fi
+          ls -l $B
       - name: Kampfort-Filme Grundstand (453 r3, 453.1; nur von Hand mit kampf=ja)
-        if: ${{ !cancelled() && github.event.inputs.kampf != '' && github.event.inputs.film != 'nein' }}
+        if: ${{ !cancelled() && github.event.inputs.kampf != '' && github.event.inputs.kampf != '2963' && github.event.inputs.film != 'nein' }}
         continue-on-error: true
         run: |
           B=$GITHUB_WORKSPACE/bilder/kampf461; mkdir -p $B
