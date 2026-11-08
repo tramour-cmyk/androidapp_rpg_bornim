@@ -6,7 +6,7 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/main/CLA
 
 **Frage:** Ersetzt die Seite unten `CLAUDE.md` (heute mit den Rollendateien etwa 75 KB, rund 300 Regeln)? Rollendateien schrumpfen auf ihre Zeile in der Tabelle plus Handwerk; alles Übrige geht nach `docs/alt/` (in Git). `DESIGN-STIL.md` bleibt als Nachschlagewerk für Einzelheiten.
 
-**Votum Sokrates: ja.**
+**Votum Sokrates: ja, mit drei Bedingungen (unten).**
 
 ---
 
@@ -54,11 +54,33 @@ Jeden gibt es einmal. Wer du bist, sagt deine erste Nachricht. Braucht ein ander
 
 ---
 
-## Auswertung
-- **Stärkstes Gegenargument:** jede gestrichene Regel stammt aus einem echten Fehler; ohne sie kommt er wieder. **Antwort:** er kommt heute schon wieder, weil keiner 300 Regeln behält (499, 623.6, 656 allein heute). Was wirklich schützt, prüfen Werkzeuge und Haken von selbst.
-- Gegenargument: die Haken sprechen in Regelnummern (63, 340, 383 …) und verlangen Formen. **Antwort:** Teil von 657: Perikles streicht jeden Haken, der nur Form prüft und kein Spiel schützt; bleiben dürfen Tests, Nummern, Sicherheit.
-- Gegenargument: Rollendateien enthalten Handwerk (wie man baut, Läufe, Releases). **Antwort:** Handwerk bleibt als `LISTE-…` zum Nachschlagen, nicht als Regel, die man im Kopf haben muss.
-- Was ich bewusst weglasse: Kennzahlen je Rolle, Wochenzählung, Regelbilanz, Ford-Wache, Kostenzeilen, Startmeldungsform. Wer eines davon vermisst, sagt es dir; dann kommt es zurück, wenn eine andere Zeile geht.
+## Auswertung (Beratung, Chef 15:14: „überhaupt nicht beraten … Bringt uns das etwas? … Risiken?“)
+
+**Befund heute:** Keiner der heutigen Fehler kam daher, dass jemand eine Regel nicht kannte. 499: die Antwort kam an, wurde aber in den Vorrat statt ins Archiv geschrieben. 623.6: der Ersteller durfte sein Bild nicht ansehen (Regel 300). 656: deine Frage zu 623.5 wurde nirgends eingetragen. Nummer 660 doppelt: zwei Sitzungen zogen gleichzeitig dieselbe Nummer. Alle vier passierten an einer **Übergabe**, nicht beim Bauen.
+
+**Was 657 bringt (sicher):**
+- Jede Sitzung liest beim Start etwa 75 KB Regeln; mit einer Seite bleibt Aufmerksamkeit für das Spiel (Stil, Muster) und es spart Guthaben bei jedem Start.
+- Widersprüche verschwinden (heute: „Zwischensequenzen ohne Animation“ gegen dein Wort, Regel 300 gegen „selbst prüfen“ im Leitbild).
+- Die Rollen sind auf einen Blick klar: wer was, an wen wenden.
+
+**Was 657 allein nicht löst (klar absehbar):**
+- Die Übergabefehler oben. Weniger Text macht sie seltener, nicht unmöglich. Sicher wird es nur, wo ein Werkzeug den Schritt selbst macht: deine Antwort → Archiv und Vorlage weg in einem Befehl (Vorschlag: `vorgang.py antwort <Nr> "<Wortlaut>"`), Daumen auf Telegram (658), Nummern ohne Doppelvergabe.
+- Die Haken: sie hängen heute an jede Antwort Regelnummern (heute zweimal falscher Alarm des Chefsache-Hakens, Abkürzungsprüfung). Kürzt man den Text und lässt die Haken, bleibt das Rauschen.
+
+**Risiken:**
+1. **Verlorene Entscheidungen:** in den 75 KB stecken Urteile von dir; beim Kürzen geht eines verloren (Bekannte Fehler: „über drei Übergaben verloren“). Gegenmittel: Diogenes prüft vorher jede Entscheidung im Archiv: steht sie noch in `DESIGN-…` oder auf der Seite?
+2. **Handwerk verschwindet:** wie man einen Lauf startet, einen Build baut, ein Release macht, steht heute in den Rollendateien. Landet das in `docs/alt/`, raten die Sitzungen. Gegenmittel: Handwerk bleibt als `LISTE-…`, verlinkt von der Seite.
+3. **Umbau-Unruhe:** ein Tag, an dem Perikles umschreibt und nichts gebaut wird. Gegenmittel: in einem Schritt, Rückweg über Git.
+4. **Es wächst wieder:** jede neue Panne erzeugt einen neuen Satz. Gegenmittel: Obergrenze eine Seite; neuer Satz nur, wenn einer geht (Perikles hält das).
+
+**Jobs:** heute steht je Rolle eine Seite, aber kein Ergebnis. Auf der Seite bekommt jede Rolle drei Dinge: Aufgabe, **woran man sieht, dass sie erledigt ist**, an wen man sich wendet. Beispiel Sokrates: Aufgabe „berät dich“; erledigt, wenn du zu einer Frage Nutzen, Risiken, stärkstes Gegenargument und eine Empfehlung hast; **nicht** meine Aufgabe: Umsetzungsentwürfe schreiben (das ist Perikles). Diesen Fehler habe ich bei 657 selbst gemacht.
+
+**Woran wir merken, ob es wirkt:** Diogenes zählt schon, was du als Erster findest. Eine Woche vorher gegen eine Woche nachher; wird es nicht weniger, zurück über Git.
+
+**Soll noch einer draufschauen?** Ja, Diogenes, vor deinem „ja“: Risiko 1 und 2 prüfen (geht etwas Entschiedenes oder Handwerk verloren?), etwa eine Sitzung.
+
+## Votum
+**657 ja mit drei Bedingungen:** (a) Diogenes prüft vorher auf Verlorenes; (b) die Übergaben bekommen Werkzeuge (Antwort ins Archiv in einem Befehl, 658, Nummern), sonst bleibt die Hälfte des Nutzens liegen; (c) Formhaken fallen mit. Ohne (b) wäre mein Votum „noch nicht“: kürzer, aber dieselben Pannen.
 
 ## Folgerungen
-„657 ja“: Perikles schreibt `CLAUDE.md` nach diesem Entwurf (Wortlaut ändern nur mit dir), kürzt die Rollendateien, verschiebt den Rest nach `docs/alt/`, streicht Formhaken; Diogenes prüft vor dem Umschalten; in einem Schritt, kein Parallelbetrieb.
+„657 ja“: Diogenes prüft den Entwurf gegen Archiv und Rollendateien; danach schreibt Perikles die Seite (Wortlaut ändern nur mit dir), Handwerk in `LISTE-…`, Rest nach `docs/alt/`, Formhaken raus, `vorgang.py antwort`; in einem Schritt.
