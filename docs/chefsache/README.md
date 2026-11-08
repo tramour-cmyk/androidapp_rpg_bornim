@@ -4,12 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [645](entscheiden/645-499-ohne-signatur.md) | **Muss** | C Betrieb | 08.11., 12:33 | 499 Schild: Bilder der Probe 292 ohne Signatur schicken? | Sokrates |
-| [646](entscheiden/646-zeigen-statt-messen.md) | **Muss** | C Betrieb | 08.11., 12:29 | Zeigen statt messen: zählen Messläufe als Probe? | Sokrates |
+Nichts offen.
 
 ## Zu billigen
 
@@ -21,6 +16,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [499](ansehen/499-schild-erschaffung.md) | Schild in der Erschaffung: Sitz am Rücken ansehen | – | 08.11., 12:35 |
 | [563](ansehen/563-zustaende.md) | Zustandsschilder über Gegnern im Stil der Ansage | Jerry | 08.11., 06:52 |
 | [565](ansehen/565-am-zug.md) | Wer am Zug ist, im Gruppenkasten | Jerry | 08.11., 06:52 |
 | [630](ansehen/630-schirme.md) | Restliche Schirme ohne Kasten | – | 08.11., 10:11 |
@@ -54,12 +50,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 
-**Tom** – offen 98, Muss 79, startbar 7
+**Tom** – offen 98, Muss 79, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 625 | M | Sammelbuild 269: alle fertigen Zweige beider Teams (35 warten), Prüfliste als Weg durchs S | wartet auf Test (Build 269) |
-| 499 | M | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 | startbar |
+| 499 | M | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 | Chef (Datei in der Chefsache) |
 | 635 | M | Lyra fehlt als Figur im Tempel und in der Höhle: Kennung lyra_temple/lyra_cave, gebaut wir | wartet auf Test/Build (gebaut) |
 | 605 | M | Ausrüstung: leeres Kopffeld, Auswahl zeigt falsch „Obergrenze“, kein Zurück (Chef 06.11., | wartet auf Test (Build 269) |
 | 581 | M | Ausrüstung: Seite breiter als der Schirm, Reiter springen (Abgleich 512b) | wartet auf Test (Build 269) |
@@ -222,7 +218,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 642 | M | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test |
 | 643 | M | Langbogen mit Köcher als Waffenmodell (daten/waffen/longbow.bin, Griff = Ursprung, Schaft | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test |
 
-**Perikles** – offen 16, Muss 14, startbar 0
+**Perikles** – offen 17, Muss 15, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -242,6 +238,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 627 | M | probelauf.py: Push mit git commit -F - im selben Befehl als Probelauf gezählt (562, ohne L | wartet auf Test/Build (gebaut) |
 | 99 | K | Zwei Niederlassungen | ruht |
 | 641 | M | lauf.py startet Nachfolger „auf Abruf“, obwohl nichts startbar ist (Diogenes 08.11., 09:07 | wartet auf Test/Build (gebaut) |
+| 646 | M | Zeigen statt messen: Messläufe zählen als Probe, nach einer Probe immer Bild an den Chef ( | startbar |
 
 **Diogenes** – offen 11, Muss 9, startbar 1
 
@@ -259,7 +256,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | Woche | K | Wochenzählung der Kennzahlen | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
 
-**Sokrates** – offen 39, Muss 30, startbar 19
+**Sokrates** – offen 37, Muss 28, startbar 19
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -300,8 +297,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 644 | M | Werte je Gegenstand ohne Würfel: Gegenstandsstufe, Güte, Zustand in Zahlen (Frage Chef 08. | startbar |
 | 569 | M | Baumkronen ohne erkennbare Tuschelinie, „ein einziger Brei“ (Chef 04.11., 19:44, Bild 558 | startbar |
 | 383 | M | Wartewächter und Haken 63 verschärfen (Chef 27.10., 17:53 ja); Sitzungsgröße messen (Sokra | startbar |
-| 645 | M | 499 Probebild Lauf 292 (Drehteller): Helfer meldet vor dem Versand Verstöße A1, A4, B4, E3 | Chef (Datei in der Chefsache) |
-| 646 | M | Zeigen statt messen: Messläufe zählen als Probe, nach einer Probe immer Bild an den Chef ( | Chef (Datei in der Chefsache) |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
