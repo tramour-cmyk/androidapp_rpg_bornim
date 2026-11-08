@@ -55,7 +55,7 @@ Verglichen: die geänderten Schirme (Tasche, Ausrüstung, Gegenstandsfenster, Bl
 
 | # | Team | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|---|
-| 269.27 | Tom | 555 | (268.27 neu gestellt) „Kampf beschwören“ | wählbar sind nur Gruppen, für die alle Gegner ein Modell haben; fehlt eines, steht unter den Gruppen grau „Noch ohne Modell: …“ (in 268 hatten alle eins, darum war die Zeile nicht da) | Gruppe wählbar, die dann Wölfe statt Spinne zeigt |
+| 269.27 ✓ | Tom | 555 | (268.27 neu gestellt) „Kampf beschwören“ | wählbar sind nur Gruppen, für die alle Gegner ein Modell haben; fehlt eines, steht unter den Gruppen grau „Noch ohne Modell: …“ (in 268 hatten alle eins, darum war die Zeile nicht da) | Gruppe wählbar, die dann Wölfe statt Spinne zeigt |
 | 269.28 | Jerry | 478 | nur wer mag: Kampfhilfen, „Rechnung“ auf BRS, dann Probekampf Ratte, Wölfe, Spinne | Wurfzeile „37 gegen 70 % · Treffer“; Ratte leicht, Spinne meist verloren | Absturz; W20-Zeile |
 
 **Zur Frage aus 268.26 (543):** „Stufe 2“ heißt bei uns nur Gegenstandsstufe 2 (je Kampf 38 % ein Stück; in Kapitel 1 ab Heldenstufe 2 zu 15 % ungewöhnlich, sonst gewöhnlich) und andere Gegner. EP und Gold nach Gegnerart: Wolf 50 EP und 1W6 Gold, je Jungwolf 30 % mehr (65 EP). Die alte Fassung gab bei Gegnern über der Gebietsstufe mehr (EP bis etwa ×1,4, Gold ×1,3 je Stufe darüber); Godot noch nicht, das liegt bei Jerry.
@@ -89,3 +89,4 @@ Chef 08.11., 15:23 (an Sokrates), laufend:
 - 269.23 ✓ (Chef 16:08)
 - 269.26 ✗ Wald nachts: Eule da; Tiefer Wald nachts: Vogelgezwitscher und Grillen (Vögel nachts falsch), fernes Heulen kommt spät; prüfen, was im Tiefen Wald nachts alles spielt (Chef 16:13)
 - 269.25 ✗ „Betrunken“ steht am Helden; im Kampf danach wird das Spiel langsam und stürzt ab (→ 680); Trinken ohne Klang (→ 681) (Chef 16:16)
+- 269.27 ✓ alle Gruppen haben Modelle, kein „Noch ohne Modell“ (Chef 16:19)
