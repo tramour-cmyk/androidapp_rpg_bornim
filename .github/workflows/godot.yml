@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       kampf:
-        description: "Kampfort-Filme: ja (453 r3, 453.1 Vergleich), 461 (Grundstand-Film Kampfort), 4531 (Heldenatem Feld 2 gegen neu) oder 2963 (Siegerposen)"
+        description: "Kampfort-Filme: ja (453 r3, 453.1 Vergleich), 461 (Grundstand-Film Kampfort), 4531 (Heldenatem Feld 2 gegen neu), 2963 (Siegerposen) oder 656 (Umhang vorher/nachher, mit film=nein)"
         default: ""
       dorf:
         description: "Dorf-Film Grundstand (461.1): ja"
@@ -151,6 +151,14 @@ jobs:
           # 406 (Tuffy): Tempo, Griff und Kontaktzeiten der Bewegungen aus Sword & Shield (figur.gd kampf_info); nur Zahlen
           cp $RUNNER_TEMP/klassen/kampf-bewegungen.json $D/
           ls -l $D/held_*.bin $D/haare.bin $D/haare_w.bin $D/bewegungen.bin $D/kampf-bewegungen.bin
+          # 656 (Chef 08.11., 14:52, Beule unter dem Schwertarm): der Kämpfer noch einmal wie vorher (UMHANG_ARM=1, Umhang mit den
+          # Armgewichten) für den Vergleich vorher/nachher im Schritt „Umhang 656“; nur von Hand mit kampf=656
+          if [ "${{ github.event.inputs.kampf }}" = "656" ]; then
+            UMHANG_ARM=1 TRACHTEN=WACHE GESCHLECHT=M GANG=$RUNNER_TEMP/gang OUT=$RUNNER_TEMP/out ZIEL=$RUNNER_TEMP/klassen_alt Q=~/cc0 \
+              bl/bin/python -I tools/blender348/v3/held_klassen.py > klassen_alt.log 2>&1 || tail -20 klassen_alt.log
+            grep -E "^UMHANG|HELD TRACHTEN|FEHLT" klassen_alt.log || true
+            ls -l $RUNNER_TEMP/klassen_alt/held_*.glb || true
+          fi
       - name: Leute bauen (Dorf)
         run: |
           # 348.6 Leute: jede Person des Dorfs, die leute.json kennt, als Figur (held3 FIGUR=<id>, rig), 4 zugleich
@@ -309,6 +317,7 @@ jobs:
           grep -q "$K" godot/skripte/schluessel.gd || { echo "Schluessel nicht gesetzt"; exit 1; }
           touch godot/daten/kauf.txt
           cd godot && cat daten/kauf.txt kampf/daten/kauf.txt 2>/dev/null | sort -u | xargs -r bash ../tools/blender348/verschluesseln.sh $K   # 399.1: auch Jerrys Kampfort
+          ls $RUNNER_TEMP/klassen_alt/held_*.glb > /dev/null 2>&1 && bash ../tools/blender348/verschluesseln.sh $K $RUNNER_TEMP/klassen_alt/held_*.glb || true   # 656: Held vorher
       - uses: actions/cache@v4
         with:
           path: ~/godot
@@ -567,8 +576,40 @@ jobs:
             ffmpeg -loglevel error -y -i $RUNNER_TEMP/sieger2963.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/2963-siegerposen.mp4 || true
           fi
           ls -l $B
+      # 656 (Sokrates 19:50: Bild vorher/nachher gleiche Pose, beschriftet): Siegerposen von vorn und schräg von hinten (150°) am
+      # Kämpfer, erst neu (Umhang am Schlüsselbein), dann mit dem Kämpfer von vorher (UMHANG_ARM=1); je Pose und Ansicht ein Blatt
+      # links vorher, rechts nachher (umhang656/vergleich-<Ansicht>-<n>.png); nur von Hand mit kampf=656 und film=nein
+      - name: Umhang 656 vorher/nachher (nur von Hand mit kampf=656)
+        if: ${{ !cancelled() && github.event.inputs.kampf == '656' }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/umhang656; mkdir -p $B
+          U=$(find ${KAUF:-/kein} -path '*Unreal-Godot/UAL1.glb' 2>/dev/null | sort | head -1)
+          [ -n "$U" ] || { echo "Umhang 656: ohne Kauf (UAL Pro) nichts"; exit 0; }
+          ls $RUNNER_TEMP/klassen_alt/held_*.glb || { echo "Umhang 656: Kämpfer vorher fehlt"; exit 0; }
+          KAUF=$KAUF ZIEL=$U OUT=$RUNNER_TEMP/sieger2963 BL=$GITHUB_WORKSPACE/bl/bin/python python3 -I tools/blender348/v3/sieger2963.py > $B/sieger-bau.log 2>&1 || true
+          grep -E "^SIEGER" $B/sieger-bau.log | sed "s|$KAUF/||g" | cut -c1-200 || true
+          cd godot
+          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
+          bilder() {
+            for d in 0 150; do
+              B2963=$RUNNER_TEMP/sieger2963 UAL_PRO=$U BILD=$B/$1-$d.png BILD_S=vorn BILD_DREH=$d BILD_TEXT=$1 timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" \
+                ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --fixed-fps 30 -s res://tests/film_sieger_2963.gd > $B/$1-$d.log 2>&1 || true
+              grep -E "SCRIPT ERROR|^Film|^Probebild|FEHLER|^fehlt" $B/$1-$d.log | head -20 || true
+            done
+          }
+          bilder nachher
+          mkdir -p $RUNNER_TEMP/neu656 && cp daten/held_*.bin $RUNNER_TEMP/neu656/
+          for f in $RUNNER_TEMP/klassen_alt/held_*.glb; do cp $f daten/$(basename $f .glb).bin; echo "vorher: daten/$(basename $f .glb).bin"; done
+          bilder vorher
+          cp $RUNNER_TEMP/neu656/held_*.bin daten/
+          for v in $B/vorher-*.png; do
+            n=${v#$B/vorher-}; [ -f $B/nachher-$n ] || continue
+            ffmpeg -loglevel error -y -i $v -i $B/nachher-$n -filter_complex hstack=inputs=2 $B/vergleich-$n || true
+          done
+          ls -l $B
       - name: Kampfort-Filme Grundstand (453 r3, 453.1; nur von Hand mit kampf=ja)
-        if: ${{ !cancelled() && github.event.inputs.kampf != '' && github.event.inputs.kampf != '2963' && github.event.inputs.film != 'nein' }}
+        if: ${{ !cancelled() && github.event.inputs.kampf != '' && github.event.inputs.kampf != '2963' && github.event.inputs.kampf != '656' && github.event.inputs.film != 'nein' }}
         continue-on-error: true
         run: |
           B=$GITHUB_WORKSPACE/bilder/kampf461; mkdir -p $B
