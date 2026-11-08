@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [623.5](entscheiden/6235-proben-ohne-sperre.md) | **Muss** | E Kampf | 08.11., 13:48 | Proben 623.5 und 623.6 von der Sperre ausnehmen | Sokrates |
 | [644](entscheiden/644-gegenstandskatalog.md) | **Muss** | E Kampf | 08.11., 12:55 | Gegenstandskatalog: Aufbau, eine Stelle für alle Gegenstände | Sokrates |
 
 ## Zu billigen
@@ -159,7 +160,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 623.5 | M | Probe Kampf mit den Gratisproben (Combat Mega, Projectiles, Trails, Pack 3, Character Shad | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test |
+| 623.5 | M | Probe Kampf mit den Gratisproben (Combat Mega, Projectiles, Trails, Pack 3, Character Shad | Chef (Datei in der Chefsache) |
 | 565 | M | MARS: unten im Gruppenkasten sieht man nicht, welcher Held am Zug ist (Chef 04.11., 17:10, | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test |
 | 562 | M | MARS: Helden laufen zum Angriff viel zu langsam, zurück gleiten sie flott (Chef 04.11., 17 | wartet auf Test/Build (gebaut) |
 | 563 | M | MARS: Zustandsschilder über Gegnern („Blut 3“) überlagern Ansage und Leisten, wirken grob | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test |
