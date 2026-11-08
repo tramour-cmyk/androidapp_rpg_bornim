@@ -1221,9 +1221,12 @@ func _face_sanft() -> void:
 		gang = "dreh"
 		dreh_ziel = r0 + dw
 		tween = create_tween()
-		tween.tween_callback(func(): halt.an())
+		# 623.5 (effekt_mess_6235: „Nonexistent function 'an' in base 'Nil'“): auch der Held ohne Pfotenhalt kommt hierher (abwehr)
+		tween.tween_callback(func(): if halt: halt.an())
 		tween.tween_property(self, "rotation:y", r0 + dw, absf(rad_to_deg(dw)) / TURN_DPS_TRITT)
-		tween.tween_callback(func(): halt.los(true); gang = "")
+		tween.tween_callback(func():
+			if halt: halt.los(true)
+			gang = "")
 	else:
 		rotation.y = r0 + clampf(dw, -deg_to_rad(40.0) * get_process_delta_time(), deg_to_rad(40.0) * get_process_delta_time())
 
