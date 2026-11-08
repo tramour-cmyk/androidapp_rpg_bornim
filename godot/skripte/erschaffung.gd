@@ -300,14 +300,17 @@ func punktekauf() -> void:
 		n.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		r.add_child(n)
 		n.resized.connect(func():   # 630: der Name ganz, notfalls kleiner bis 13 sp (549a), statt mit „…“ gekuerzt
+			if is_equal_approx(float(n.get_meta("breite", -1.0)), n.size.x): return   # nur bei neuer Breite (die Schrift aendert die Hoehe)
+			n.set_meta("breite", n.size.x)
 			for sp_ in [14.0, 13.5, 13.0]:
 				var gg := int(round(sp_ * 0.95 * Stil.SP))
 				n.add_theme_font_size_override("font_size", gg)
-				if n.get_theme_font("font").get_string_size(n.text, HORIZONTAL_ALIGNMENT_LEFT, -1, gg).x <= n.size.x: break, CONNECT_ONE_SHOT)
+				if n.get_theme_font("font").get_string_size(n.text, HORIZONTAL_ALIGNMENT_LEFT, -1, gg).x <= n.size.x: break)   # 630: bei jeder Groesse, nicht nur der ersten (0 px)
 		for z in [[str(v + bon), 16, Stil.TEXT, 26], ["+%d" % bon if bon > 0 else "", 13, Stil.GOLD, 26], ["(%s)" % vorzeichen(Heldwerte.mod_von(v + bon)), 13.5, Spielstaende.ANGABE, 34]]:
 			var l := txt(z[0], z[1], z[2])
 			l.autowrap_mode = TextServer.AUTOWRAP_OFF
 			l.custom_minimum_size.x = z[3] * DP
+			l.size_flags_horizontal = Control.SIZE_FILL   # 630 (Bild 2): feste Spalten; den Rest bekommt der Name („Geschickli…“, weil txt dehnt)
 			l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER   # Helfer: „Charisma10“ klebte am Namen
 			l.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 			r.add_child(l)
