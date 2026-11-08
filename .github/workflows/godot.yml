@@ -600,6 +600,38 @@ jobs:
           grep -E "SCRIPT ERROR|^Film|^Signatur|FEHLER" $B/strahlen415.log | head -12 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/strahlen415.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/415-strahlen.mp4 || true
           ls -l $B
+      # 613 (Chef 08.11., 19:18: „Leichte Animationen sehe ich nicht auf dem Bild.“): die Zwischensequenzen im Spiel mit Bewegung
+      # (tests/zwischenbild_film.tscn): Intro Bild 3 mit dem Fackelzug, dann die Tempelszene ganz (Kerzen, Licht, Staub im
+      # Sonnenstrahl), mit Ton; nur von Hand auf einem Zweig mit 613; film=nein: nur die Standbilder (Probebild 511)
+      - name: Zwischensequenzen 613 (nur von Hand auf einem Zweig mit 613)
+        if: ${{ !cancelled() && github.event_name == 'workflow_dispatch' && contains(github.ref, '613') && github.event.inputs.bild != 'nein' }}
+        continue-on-error: true
+        env:
+          NURBILD: ${{ github.event.inputs.film }}
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/zwischen613; mkdir -p $B
+          cd godot
+          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
+          for art in intro tempel; do
+            if [ "$NURBILD" = nein ]; then
+              timeout 300 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+                res://tests/zwischenbild_film.tscn -- --art=$art --bilder=$B > $B/$art.log 2>&1 || true
+            else
+              timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+                --write-movie $RUNNER_TEMP/$art.avi --fixed-fps 30 res://tests/zwischenbild_film.tscn -- --art=$art > $B/$art.log 2>&1 || true
+            fi
+            grep -E "SCRIPT ERROR|^BILD|FEHLER" $B/$art.log | head -12 || true
+          done
+          if [ "$NURBILD" != nein ]; then
+            # Intro: nur Bild 3 mit dem Zug (Uhr 14,4 bis 21,6 s, das Skript wartet vorher 1 s); dann die Tempelszene ganz
+            ffmpeg -loglevel error -y -ss 15.0 -t 7.6 -i $RUNNER_TEMP/intro.avi -i $RUNNER_TEMP/tempel.avi \
+              -filter_complex "[0:v]fps=30,format=yuv420p[a];[1:v]fps=30,format=yuv420p[b];[0:a]aresample=44100[c];[1:a]aresample=44100[d];[a][c][b][d]concat=n=2:v=1:a=1[v][o]" \
+              -map "[v]" -map "[o]" -c:v libx264 -crf 24 -preset veryfast -c:a aac -b:a 128k $B/613-zwischensequenzen.mp4 \
+            || ffmpeg -loglevel error -y -ss 15.0 -t 7.6 -i $RUNNER_TEMP/intro.avi -i $RUNNER_TEMP/tempel.avi \
+              -filter_complex "[0:v]fps=30,format=yuv420p[a];[1:v]fps=30,format=yuv420p[b];[a][b]concat=n=2:v=1:a=0[v]" \
+              -map "[v]" -c:v libx264 -crf 24 -preset veryfast $B/613-zwischensequenzen.mp4 || true   # ohne Ton, falls die Aufnahme keinen hat
+          fi
+          ls -l $B
       # 494 (Wochenziel 03.11. Reihe 3): je Gegner ein kurzer Film (tests/film_gegner_494.gd), nur von Hand mit gegner=<FOES,…>
       # 494 Probebild (511): je Gegner zwei Bilder aus demselben Skript und derselben Szene wie der Film (nah, Spielkamera mit
       # Kampfschirm); nur von Hand mit gegner=<FOES,…> und film=nein, Renderer wie am Handy
