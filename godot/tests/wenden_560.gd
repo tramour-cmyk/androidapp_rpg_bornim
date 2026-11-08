@@ -53,7 +53,7 @@ func _run() -> void:
 			tritte += 1
 		if halbe == 0.0 and absf(angle_difference(s.gedreht, ziel)) <= PI / 2.0:
 			halbe = dauer
-	_pruefe(dauer >= 1.0 and dauer <= 1.6, "180 Grad in %.2f s (soll 1,0–1,6; vorher weich, nach 0,3 s zu 90 %)" % dauer)
+	_pruefe(dauer >= 1.0 and dauer <= 1.6, "180 Grad in %.2f s (soll 1,0–1,6; vorher weich, nach 0,3 s zu 90 %%)" % dauer)
 	_pruefe(halbe >= 0.5, "halb herum nach %.2f s (feste Rate, nicht weich)" % halbe)
 	if mit_bild:
 		_pruefe(tritte >= bilder * 0.8, "tritt beim Wenden: %d von %d Bildern Gehen" % [tritte, bilder])
