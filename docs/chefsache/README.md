@@ -23,6 +23,7 @@ Nichts offen.
 | [585](ansehen/585-titel.md) | Titel im Hauptmenü bricht wie alt um | Tom | 08.11., 20:18 |
 | [586](ansehen/586-titel.md) | Titel der Rückfragen und Fenster so groß wie die der Schirme | Tom | 08.11., 20:25 |
 | [623.5](ansehen/6235-unsere.md) | Effektprobe, Fassung „unsere“ (am Rechner) | Jerry | 08.11., 17:59 |
+| [700](ansehen/700-platzwahl.md) | Platzwahl der Erschaffung ohne Rahmen | Tom | 08.11., 20:34 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
@@ -52,7 +53,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 
-**Tom** – offen 100, Muss 74, startbar 5
+**Tom** – offen 100, Muss 74, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -155,7 +156,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 697 | M | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test |
 | 698 | K | Grafikstufen im Systemmenü mit Effekten (Niedrig/Mittel/Hoch, Automatisch per Leistungstes | wartet auf 623 (wartet) |
 | 699 | M? | Laden: Rückfrage „Alle gewöhnlichen verkaufen“ sagt „1 GEGENSTÄNDE:“ statt Einzahl (Tom, g | wartet auf Test/Build (gebaut) |
-| 700 | M? | Erschaffung, Platzwahl „Alle Spielstand-Plätze sind belegt“: Rahmen um jeden Platz gegen 5 | startbar |
+| 700 | M? | Erschaffung, Platzwahl „Alle Spielstand-Plätze sind belegt“: Rahmen um jeden Platz gegen 5 | Chef (Datei in der Chefsache) |
 
 **Jerry** – offen 67, Muss 59, startbar 0
 
