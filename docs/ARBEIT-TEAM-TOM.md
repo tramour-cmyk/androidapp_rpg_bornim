@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (08.11., 20:42, `session_01Hmoj75jgjQoFDaBXksa8CD`):** 656 Prüfschritt vorher/nachher, Lauf 310 gestartet; 584 gebaut (Lauf bei Sokrates); 585, 586, 700 gebaut, Bilder beim Chef; 699 gebaut; 635 Weg an den Chef; 636 Rückfrage beim Chef; 506, 475 Bitte um Läufe an Sokrates; 698 wartet auf 623. Nachfolger: Tom – 492, 656: Bilder der Läufe 308, 310 an den Chef
+**Übergabe (08.11., 21:17, `session_01Hmoj782rA3ouzNTe32ktPf`):** 656 Bild Lauf 310 beim Chef, Werkzeug behoben, Lauf bei Sokrates erbeten; 492 Bilder Lauf 308 beim Chef, Werkzeug für B behoben; 542 Test zufällig rot, behoben auf `claude/tom-542-testwolf` (Zweig in der Liste). Nachfolger: Tom – 656, 492: Läufe nach Urteil des Chefs oder Freigabe Sokrates (ab 09.11., 09:00)
 
 ## Einzelheiten
 
