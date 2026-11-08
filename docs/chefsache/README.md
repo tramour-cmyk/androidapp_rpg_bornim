@@ -26,11 +26,7 @@ Nichts offen.
 
 ## Zu tun
 
-Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Datei löschen.
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [142.4](tun/1424-duns-umstellung.md) | **Muss** | M Veröffentlichung | 07.11., 21:39 | D-U-N-S beantragen, Konto auf Organisation umstellen | Sokrates |
+Nichts offen.
 
 ## Offen je Rolle
 
@@ -299,7 +295,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 72c | K | Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunde | nach dem Meilenstein |
 | 167.6 | M | Morgenbericht mit Kennzahlen und Kostenbilanz (Chef 18.10.) | startbar |
 | 142.3 | M | Tester öffentlich suchen (Chef 27.10., 19:32) | ruht |
-| 142.4 | M | Rückfrage: D-U-N-S jetzt, Organisationskonto statt Pflichttest (Chef 07.11.) | Chef (Datei in der Chefsache) |
+| 142.4 | M | Rückfrage: D-U-N-S jetzt, Organisationskonto statt Pflichttest (Chef 07.11.) | Termin 08.12. |
 | 142 | M | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | startbar |
 | 45 | M | Geschäftsmodell und Umsetzung (Play Store) | startbar |
 | 109 | M | Repo öffentlich | startbar |
