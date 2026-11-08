@@ -106,8 +106,8 @@
 | 431d | Rückfrage: Völker Lauf 3 am Tor angehalten (B1 Elf, C3, G3, A1/A3 Grak, A2), neue Läufe frei, Weg A2? | Tom | M | ruht, ohne Vorratszeile, Liste „Chef“ (275.2) | – | – | – | E Figuren | – |
 | 431e | Rückfrage: Gesicht des Helden im Dorflicht fast weiß, Hauteichung nach Messung? | Tom | M | ruht, ohne Vorratszeile, Liste „Chef“ (275.2) | – | – | – | E Figuren | – |
 | 629.1 | Klopfen: Sprechernamen hinter Türen bauen ([629.sprecher], von Homer) | Tom | M | gebaut, Geprüft an: 7a4e580db (klopfen_629 lokal) | – | claude/tom-629-sprecher | – | S Story | – |
-| Pflege | von Werkzeug (340.3, 07.11.): 111642 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
 | 632 | Truhe der Höhle (cave_3, 4/14) gibt „@class_weapon“ statt der Waffe der Klasse wie alt (Story.classWeapon, Game.kt 1108); von Jerry, Abgleich 620.2b | Tom | M | startbar | – | – | – | E Welt | – |
+| Pflege | von Werkzeug (340.3, 08.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Tom | K | startbar | – | – | – | B Abläufe | – |
 | 565 | MARS: unten im Gruppenkasten sieht man nicht, welcher Held am Zug ist (Chef 04.11., 17:10, t257 C) | Jerry | M | in Arbeit, Sokrates: Kopf „565, Läufe frei“ ins Archiv (seine Zeile, 627) | – | claude/jerry-565-am-zug | – | E Kampf | 7,58 $ |
 | 562 | MARS: Helden laufen zum Angriff viel zu langsam, zurück gleiten sie flott (Chef 04.11., 17:02, t257 C) | Jerry | M | gebaut, in 269. Geprüft an: Lauf 272, 70f2b5145 | – | claude/jerry-562-angriffsschritt | – | E Kampf | 8,78 $ |
 | 563 | MARS: Zustandsschilder über Gegnern („Blut 3“) überlagern Ansage und Leisten, wirken grob (Chef 04.11., 17:02, t257 C) | Jerry | M | in Arbeit | – | claude/jerry-563-zustaende | – | E Kampf | 7,55 $ |
@@ -166,9 +166,9 @@
 | 24 | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | Jerry | K | ruht | – | – | – | E Oberfläche | – |
 | 348.7a | Rückfrage: Geschosse flach oder in 3D | Jerry | M | ruht, ohne Vorratszeile, Liste „in Arbeit“ (275.2) | – | – | – | E Technik | 58,17 $ |
 | 399.2d | Godot am Rechner freigeben (Auto-Modus lehnte Download ab), Tests ohne CI-Lauf (aus 399.2) | Jerry | M | ruht, ohne Vorratszeile, Liste „wartet“ (275.2) | – | – | – | E Kampf | – |
-| Pflege | von Werkzeug (340.3, 07.11.): 31710 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 633 | Boss-Beute wie alt: Ogerhandschuhe (Krogg), Graks Streitaxt, Grimmzahn-Amulett fehlen im Loot; Beute.beute im Kampf mit boss=false (spiel.gd 573); von Jerry, Abgleich 620.2b | Jerry | M? | startbar | – | – | – | E Kampf | – |
 | 634 | Schenkenklang wie alt: Rowena wischt, gießt, stellt Becher ab, Borin Flasche und Stuhl, im Takt ihrer Bewegung (PlaceSound.folk, MapFolk.sounds; Aufnahmen da); von Jerry, Abgleich 620.2b | Jerry | M? | startbar | – | – | – | E Welt | – |
+| Pflege | von Werkzeug (340.3, 08.11.): 31025 Bytes (Grenze 15000), Erledigtes streichen; Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 629 | Klopfen: wer hinter der Tür spricht, wessen Haus (Chef 611) | Homer | M | erledigt, Text [629.sprecher]; Bau 629.1 Tom | – | – | – | S Story | 1,82 $ |
 | 432 | Eigenes Volk aus Bornim (etwa mit dem Grauen Propheten, „Tag der Asche“) prüfen, mit der Geschichte ab Kapitel 2 (Chef 31.10., 22:0x) | Homer | K | ruht | – | – | – | C Texte | 0,79 $ |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
@@ -192,7 +192,7 @@
 | 627 | probelauf.py: Push mit `git commit -F -` im selben Befehl als Probelauf gezählt (562, ohne Lauf) | Perikles | M | gebaut, Geprüft an: 4bcd30e87 | – | – | – | B Werkzeuge | – |
 | 631 | lauf.py: Startmarken ohne Datum verglichen (Ford 06.11., 07:19) | Perikles | K | startbar, gelöst 07.11.: 275.2 | – | – | – | B Werkzeuge | – |
 | 99 | Zwei Niederlassungen | Perikles | K | ruht | – | – | – | B Steuerung | 7,25 $ |
-| Pflege | von Werkzeug (340.3, 07.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 14, 19, 38, 40; CLAUDE.md: 15564 Bytes (Grenze 15000), kürzen | Perikles | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 08.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 14, 19, 38, 40; CLAUDE.md: 15564 Bytes (Grenze 15000), kürzen | Perikles | K | startbar | – | – | – | B Abläufe | – |
 | 340.2 | Rollenspiegel C: `tools/rollenspiegel.sh`, eigene Antwort ohne fremde | Diogenes | M | ruht | 09.11. | – | – | B Abläufe | –; +6,35 $ |
 | 485 | Diogenes bessert sich aus dem Rollenspiegel 02.11.: Wochentermine zählen, Vergleichsblätter selbst holen, Meldungen ohne Abkürzungen (Chef 02.11., 19:37 „1, 2, 3 ja“) · „jetzt“ 02.11., 19:37 | Diogenes | M | ruht | 09.11. | – | – | Q QS | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | ruht | 09.11. | – | – | B Abläufe | – |
@@ -234,7 +234,7 @@
 | 340 | Rollenspiegel: zehn Fragen Ist-Soll an alle Rollen, Antwort am Sitzungsende mit Beleg (Chef 23.10., 09:34) | Sokrates | M | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | – | – | – | B Abläufe | –; +3,54 $ |
 | 344 | Fackel: brennt überall außer in hellen Grundrissen; Kampf mit der Fackel nach SRD (Chef 23.10., 16:05) | Sokrates | M | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | – | – | – | E Welt | – |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +829,12 $ |
-| Pflege | von Werkzeug (340.3, 07.11.): 19452 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 08.11.): 19452 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
