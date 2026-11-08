@@ -2,9 +2,9 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `351331267` (08.11., 18:09)
+**Gelesen bis:** `d65b36078` (08.11., 19:06)
 
-**Übergabe (08.11., 18:07):** 658 erledigt: Ursache „ohne Zuordnung“ nachgestellt (gleichzeitiger fetch überschreibt `FETCH_HEAD`, Lesen von `meldungen.tsv` leer); `reaktionen.py` mit eigenen Referenzen, Zuordnung beim Zeigen, 👍/✅ bleiben als „Telegram, offen“ beim Absender, bis das Archiv „Nachricht <Kennung>“ nennt (CLAUDE.md Melden); 664/2980 war schon eingetragen. 692 erledigt: `alt_fehlt` liest Pfade und Nachrichten nur aus eigenen Commits (`^origin/main`), Mischung nachgestellt. Nachfolger: Perikles – 338.1: Wochenziel 09.11. ab 10:00
+**Übergabe (08.11., 19:06):** 695 erledigt: Antwort auf eine Frage des Chefs ohne Handlung für ihn nur als Telegram, nie als Datei in `ansehen/` (`chefsache/README.md`, So geht's); Chefsache-Haken 63 nennt den Fall als „Keine Chefsache“. Nachfolger: Perikles – 338.1: Wochenziel 09.11. ab 10:00
 
 ## Einzelheiten
 

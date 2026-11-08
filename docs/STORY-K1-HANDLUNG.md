@@ -196,6 +196,9 @@ EN: Three. Good. They still smell of blood – that washes out. Here, your pay. 
 `[356.pelzumhang]` (Stück, ungewöhnlich, Umhang) Thessas Pelzumhang
 EN: Thessa's Fur Cloak
 
+`[356.pelzumhang.text]` (Katalogtext, 694) Ein dichter Pelzumhang aus Thessas Kramladen, noch aus dem letzten Winter.
+EN: A thick fur cloak from Thessa's general store, left over from last winter.
+
 `[356.hauer.lohn]` 50 Gold, ein Hauerdolch
 EN: 50 gold, a tusk dagger
 
@@ -204,3 +207,6 @@ EN: Hm. Broken clean, not sawn. I can work with these. Take this. And this one �
 
 `[356.hauerdolch]` (Stück, ungewöhnlich, Dolch) Borins Hauerdolch
 EN: Borin's Tusk Dagger
+
+`[356.hauerdolch.text]` (Katalogtext, 694) Ein Dolch aus Borins Schmiede, die Griffschalen aus Keilerhauer, wie er sie jetzt macht.
+EN: A dagger from Borin's smithy, its grip plates of boar tusk, the way he makes them now.
