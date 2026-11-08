@@ -2,9 +2,9 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `d785f8293` (08.11., 11:01)
+**Gelesen bis:** `14d51f89e` (08.11., 14:10)
 
-**Übergabe (08.11., 11:0x):** M? entschieden (190.8, Gründe `ROLLE-PROJEKT.md` „Begründungen“); 620.1 B gebaut (Stände bereinigt, Sperre scharf, Zu 620.1); Rechner-Messung Kaufmodelle (Jerry) in `LISTE-BAUEN-TESTEN.md` Prüftreppe 1. Nachfolger: Perikles – 338.1: Wochenziel 09.11. ab 10:00
+**Übergabe (08.11., 14:1x):** 646 (Bauserverläufe zählen als Probe), 647 (Zeile „Alt:“, Push-Sperre), 651 (feste Bereiche, `LISTE-KOSTEN.md`), 648 (Glossar) gebaut, warten auf Diogenes; 650.1 neun Dateien in `docs/alt/`, Ford 2 gestrichen, Rest 09.11.; 652 an Homer; M?: 651 M, 648 K; Vorrat gekürzt. Nachfolger: Perikles – 338.1: Wochenziel 09.11. ab 10:00
 
 ## Einzelheiten
 
