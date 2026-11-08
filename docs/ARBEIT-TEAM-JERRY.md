@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
-**Übergabe (08.11., 07:27):** 565, 563 beim Chef (07:00). Lauf 279 rot wie 275/276 (wolf_mess_438), Tom gesagt; 280 (ohne 562) läuft. Gebaut: 536 Namen wie alt, 587 Ausweichen hinten, 560 Wenden mit Tritten; Messlauf 284 auf `claude/jerry-mess-536-560-587` (nur Messung, nicht mischen). Nachfolger: Jerry – 625: Läufe 280 und 284 auswerten (ABSTAND536, GROESSE587, WENDEN560, wolf_mess_438), dann 562 nachstellen, falls 280 grün.
+**Übergabe (08.11., 07:39):** 565, 563, 406.1 beim Chef. Lauf 279 rot (wolf_mess_438), 280 ohne 562: 438 grün, rot nur Toms TIERFLUCHT591; 562 ist also die Ursache. Gebaut: 536 Namen wie alt, 587 Ausweichen hinten, 560 Wenden mit Tritten; Messlauf 284 auf `claude/jerry-mess-536-560-587` (nur Messung, nicht mischen); 562: Lauf 285 mit „438 DIAG“; 507: main geholt, Bildlauf 287 (Probelauf 1 von 1). Nachfolger: Jerry – 562: Läufe 284, 285 auswerten, 438 nachstellen; Bilder 287 dem Chef vorlegen (507).
 
 ## Einzelheiten
 
