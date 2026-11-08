@@ -222,7 +222,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 633 | M? | Boss-Beute wie alt: Ogerhandschuhe (Krogg), Graks Streitaxt, Grimmzahn-Amulett fehlen im L | startbar |
 | 634 | M? | Schenkenklang wie alt: Rowena wischt, gießt, stellt Becher ab, Borin Flasche und Stuhl, im | startbar |
 
-**Perikles** – offen 18, Muss 14, startbar 1
+**Perikles** – offen 17, Muss 14, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -243,7 +243,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 631 | K | lauf.py: Startmarken ohne Datum verglichen (Ford 06.11., 07:19) | wartet auf Test/Build (gebaut) |
 | 99 | K | Zwei Niederlassungen | ruht |
 | 641 | M | lauf.py startet Nachfolger „auf Abruf“, obwohl nichts startbar ist (Diogenes 08.11., 09:07 | wartet auf Test/Build (gebaut) |
-| Pflege | K | von Werkzeug (340.3, 08.11.): CLAUDE.md: 15564 Bytes (Grenze 15000), kürzen | startbar |
 
 **Diogenes** – offen 11, Muss 9, startbar 0
 
