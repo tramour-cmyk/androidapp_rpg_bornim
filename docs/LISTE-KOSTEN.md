@@ -1,6 +1,6 @@
 # Kosten je Bereich, Tag und Woche (651)
 
-Erzeugt 08.11., 16:44 mit `python3 tools/kostenbericht.py` (nicht von Hand ändern; neu erzeugen). **Schätzung**, keine Rechnung: API-Preis je Sitzung (`KOSTEN-GEBUCHT.tsv`) zu gleichen Teilen auf ihre Commits verteilt; Bereich aus dem Vorgang (feste Liste `tools/bereiche.py`), Tag aus dem Commit. Weg und Grenzen im Kopf des Werkzeugs.
+Erzeugt 08.11., 16:45 mit `python3 tools/kostenbericht.py` (nicht von Hand ändern; neu erzeugen). **Schätzung**, keine Rechnung: API-Preis je Sitzung (`KOSTEN-GEBUCHT.tsv`) zu gleichen Teilen auf ihre Commits verteilt; Bereich aus dem Vorgang (feste Liste `tools/bereiche.py`), Tag aus dem Commit. Weg und Grenzen im Kopf des Werkzeugs.
 
 **Gebucht:** 8.329 $ in 853 Sitzungen · **über Commits zugeordnet:** 8.047 $ (97 %), davon 623 $ an Commits ohne Vorgangsnummer (Bereich nach Rolle) · davon 14 Ford-Sitzungen ohne Commit mit Sitzungszeile, 103 $, nach Startdatum auf „Betrieb“ (685) · **ohne Commit:** 46 Sitzungen, 282 $ (keinem Bereich zuzuordnen) · **Spalte „Kosten“ der Liste:** 8.750 $ in 460 von 1029 Zeilen. Laufende Sitzungen zählen erst, wenn Ford sie beim Neustart bucht: der laufende Tag und die laufende Woche sind zu niedrig.
 
@@ -8,24 +8,24 @@ Erzeugt 08.11., 16:44 mit `python3 tools/kostenbericht.py` (nicht von Hand ände
 
 | Bereich | geschätzt | Anteil | laut Liste |
 |---|---|---|---|
-| **E Entwicklung** | **5.828 $** | **72 %** | 5.774 $ |
-| E Welt (Orte, Dorf, Wald, Höhle, Innenräume, Karten) | 179 $ | 2 % | 233 $ |
-| E Figuren (Leute, Held, Monster, Tiere, Bewegungen) | 963 $ | 12 % | 1.027 $ |
-| E Kampf (MARS, Regeln, Kampfort) | 1.458 $ | 18 % | 1.498 $ |
-| E Klang (Musik, Geräusche) | 70,93 $ | 1 % | 66,88 $ |
-| E Oberfläche (Menüs, Fenster, Bedienung, Schrift) | 426 $ | 5 % | 251 $ |
-| E Technik (Godot, Umzug, Build, Speichern, Werkzeuge der Teams) | 2.732 $ | 34 % | 2.697 $ |
-| **G Gestaltung** | **457 $** | **6 %** | 435 $ |
-| G Story (Handlung, Spieltexte, Englisch) | 133 $ | 2 % | 120 $ |
-| G Stil (Aussehen, Licht, Farbe, Design) | 228 $ | 3 % | 187 $ |
-| G Balance (Werte, Geld, Handel, Spielgefühl) | 95,14 $ | 1 % | 129 $ |
-| **Q Qualität** | **109 $** | **1 %** | 101 $ |
-| Q QS (Builds, Prüflisten, Rückläufer, Tests) | 47,15 $ | 1 % | 45,39 $ |
-| Q QM (Prüfläufe, Kennzahlen, Diogenes) | 61,85 $ | 1 % | 55,89 $ |
-| **B Betrieb** | **1.341 $** | **17 %** | 2.334 $ |
-| B Steuerung (Ford, Starts, Guthaben, Kosten) | 364 $ | 5 % | 1.031 $ |
-| B Abläufe (Regeln, Notizen, Vorrang, Chefsache) | 771 $ | 10 % | 1.044 $ |
-| B Werkzeuge (Haken und Skripte unter tools/) | 205 $ | 3 % | 259 $ |
+| **E Entwicklung** | **5.878 $** | **73 %** | 5.792 $ |
+| E Welt (Orte, Dorf, Wald, Höhle, Innenräume, Karten) | 203 $ | 3 % | 239 $ |
+| E Figuren (Leute, Held, Monster, Tiere, Bewegungen) | 962 $ | 12 % | 1.031 $ |
+| E Kampf (MARS, Regeln, Kampfort) | 1.466 $ | 18 % | 1.505 $ |
+| E Klang (Musik, Geräusche) | 74,98 $ | 1 % | 66,88 $ |
+| E Oberfläche (Menüs, Fenster, Bedienung, Schrift) | 407 $ | 5 % | 229 $ |
+| E Technik (Godot, Umzug, Build, Speichern, Werkzeuge der Teams) | 2.763 $ | 34 % | 2.722 $ |
+| **G Gestaltung** | **428 $** | **5 %** | 441 $ |
+| G Story (Handlung, Spieltexte, Englisch) | 151 $ | 2 % | 148 $ |
+| G Stil (Aussehen, Licht, Farbe, Design) | 139 $ | 2 % | 134 $ |
+| G Balance (Werte, Geld, Handel, Spielgefühl) | 139 $ | 2 % | 160 $ |
+| **Q Qualität** | **89,14 $** | **1 %** | 59,87 $ |
+| Q QS (Builds, Prüflisten, Rückläufer, Tests) | 46,21 $ | 1 % | 44,45 $ |
+| Q QM (Prüfläufe, Kennzahlen, Diogenes) | 42,93 $ | 1 % | 15,42 $ |
+| **B Betrieb** | **1.339 $** | **17 %** | 2.351 $ |
+| B Steuerung (Ford, Starts, Guthaben, Kosten) | 406 $ | 5 % | 1.071 $ |
+| B Abläufe (Regeln, Notizen, Vorrang, Chefsache) | 728 $ | 9 % | 1.005 $ |
+| B Werkzeuge (Haken und Skripte unter tools/) | 205 $ | 3 % | 274 $ |
 | **M Markt** | **258 $** | **3 %** | 105 $ |
 | M Markt (Strategie, Geschäftsmodell) | 187 $ | 2 % | 59,62 $ |
 | M Veröffentlichung (Release, Store) | 70,77 $ | 1 % | 45,29 $ |
@@ -35,35 +35,35 @@ Erzeugt 08.11., 16:44 mit `python3 tools/kostenbericht.py` (nicht von Hand ände
 
 | Woche | E Entwicklung | G Gestaltung | Q Qualität | B Betrieb | M Markt | zusammen | Anteil Spiel (E+G) |
 |---|---|---|---|---|---|---|---|
-| 02.11.–08.11. | 2.105 $ | 63,24 $ | 19,61 $ | 428 $ | 66,14 $ | **2.692 $** | 81 % |
-| 26.10.–01.11. | 2.457 $ | 188 $ | 15,72 $ | 462 $ | 50,55 $ | **3.177 $** | 83 % |
-| 19.10.–25.10. | 1.266 $ | 204 $ | 73,10 $ | 449 $ | 140 $ | **2.174 $** | 68 % |
+| 02.11.–08.11. | 2.098 $ | 69,94 $ | 26,95 $ | 420 $ | 66,14 $ | **2.692 $** | 81 % |
+| 26.10.–01.11. | 2.489 $ | 172 $ | 13,69 $ | 449 $ | 50,55 $ | **3.177 $** | 84 % |
+| 19.10.–25.10. | 1.290 $ | 186 $ | 47,93 $ | 469 $ | 140 $ | **2.174 $** | 68 % |
 | 12.10.–18.10. | 0,00 $ | 1,14 $ | 0,57 $ | 1,71 $ | 0,57 $ | **4,00 $** | 29 % |
 
 ## Je Tag
 
 | Tag | E Entwicklung | G Gestaltung | Q Qualität | B Betrieb | M Markt | zusammen | Anteil Spiel (E+G) |
 |---|---|---|---|---|---|---|---|
-| So 08.11. | 316 $ | 7,28 $ | 3,35 $ | 62,61 $ | 14,23 $ | **405 $** | 80 % |
-| Sa 07.11. | 99,00 $ | 5,66 $ | 6,15 $ | 93,98 $ | 16,24 $ | **221 $** | 47 % |
+| So 08.11. | 316 $ | 7,28 $ | 5,19 $ | 60,77 $ | 14,23 $ | **405 $** | 80 % |
+| Sa 07.11. | 99,00 $ | 5,66 $ | 11,65 $ | 88,48 $ | 16,24 $ | **221 $** | 47 % |
 | Fr 06.11. | 77,97 $ | 0,00 $ | 0,00 $ | 24,94 $ | 0,00 $ | **103 $** | 76 % |
 | Do 05.11. | 114 $ | 0,00 $ | 0,00 $ | 33,98 $ | 0,84 $ | **149 $** | 77 % |
-| Mi 04.11. | 475 $ | 4,25 $ | 1,31 $ | 54,46 $ | 16,98 $ | **559 $** | 86 % |
+| Mi 04.11. | 469 $ | 10,96 $ | 1,31 $ | 54,46 $ | 16,98 $ | **559 $** | 86 % |
 | Di 03.11. | 523 $ | 22,16 $ | 0,00 $ | 54,61 $ | 9,65 $ | **612 $** | 89 % |
 | Mo 02.11. | 499 $ | 23,88 $ | 8,80 $ | 103 $ | 8,20 $ | **643 $** | 81 % |
-| So 01.11. | 510 $ | 72,63 $ | 5,22 $ | 119 $ | 5,32 $ | **715 $** | 81 % |
-| Sa 31.10. | 73,80 $ | 36,46 $ | 0,00 $ | 35,17 $ | 0,46 $ | **147 $** | 75 % |
-| Do 29.10. | 156 $ | 4,33 $ | 0,00 $ | 19,46 $ | 2,58 $ | **183 $** | 88 % |
-| Mi 28.10. | 627 $ | 16,73 $ | 0,00 $ | 52,90 $ | 11,46 $ | **708 $** | 91 % |
-| Di 27.10. | 605 $ | 29,86 $ | 2,65 $ | 170 $ | 16,32 $ | **823 $** | 77 % |
-| Mo 26.10. | 485 $ | 27,98 $ | 7,85 $ | 65,48 $ | 14,42 $ | **601 $** | 85 % |
+| So 01.11. | 521 $ | 60,42 $ | 5,22 $ | 121 $ | 5,32 $ | **715 $** | 81 % |
+| Sa 31.10. | 74,71 $ | 35,55 $ | 0,00 $ | 35,17 $ | 0,46 $ | **147 $** | 75 % |
+| Do 29.10. | 157 $ | 3,47 $ | 0,00 $ | 19,46 $ | 2,58 $ | **183 $** | 88 % |
+| Mi 28.10. | 631 $ | 15,14 $ | 0,00 $ | 51,29 $ | 11,46 $ | **708 $** | 91 % |
+| Di 27.10. | 620 $ | 29,86 $ | 0,62 $ | 156 $ | 16,32 $ | **823 $** | 79 % |
+| Mo 26.10. | 486 $ | 27,16 $ | 7,85 $ | 65,48 $ | 14,42 $ | **601 $** | 85 % |
 | So 25.10. | 495 $ | 11,81 $ | 3,56 $ | 142 $ | 63,58 $ | **716 $** | 71 % |
 | Sa 24.10. | 113 $ | 29,88 $ | 8,66 $ | 30,38 $ | 10,12 $ | **195 $** | 73 % |
 | Fr 23.10. | 131 $ | 26,91 $ | 16,51 $ | 79,00 $ | 14,53 $ | **299 $** | 53 % |
 | Do 22.10. | 134 $ | 55,17 $ | 2,13 $ | 49,98 $ | 5,22 $ | **250 $** | 76 % |
-| Mi 21.10. | 155 $ | 10,79 $ | 3,61 $ | 83,39 $ | 24,84 $ | **278 $** | 60 % |
-| Di 20.10. | 129 $ | 19,44 $ | 16,39 $ | 22,57 $ | 15,19 $ | **203 $** | 73 % |
-| Mo 19.10. | 109 $ | 50,36 $ | 22,25 $ | 42,10 $ | 6,79 $ | **233 $** | 68 % |
+| Mi 21.10. | 155 $ | 10,79 $ | 2,91 $ | 84,09 $ | 24,84 $ | **278 $** | 60 % |
+| Di 20.10. | 139 $ | 9,50 $ | 7,97 $ | 30,99 $ | 15,19 $ | **203 $** | 73 % |
+| Mo 19.10. | 123 $ | 41,61 $ | 6,19 $ | 52,27 $ | 6,79 $ | **233 $** | 71 % |
 | So 18.10. | 0,00 $ | 1,14 $ | 0,57 $ | 1,71 $ | 0,57 $ | **4,00 $** | 29 % |
 
 ## Vorgänge ohne Betrag in der Liste, geschätzt (377 Vorgänge, 1.214 $)

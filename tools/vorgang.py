@@ -23,6 +23,8 @@ Schreiben (Chef 27.10., 15:20: nur über dieses Werkzeug; danach committen und p
                                        (Fund tN.k …)“ beim Besitzer); ohne Rückmeldung → „zu testen“ ohne Build (in die nächste Prüfliste).
                                        Genannte Nummern ohne Build N bleiben unverändert (D80.1). Erst danach den Archiveintrag tN
                                        committen; sonst hält die Commit-Prüfung an.
+  vorgang.py archivbereich [NR=Bereich …]   Bereichsfeld im Archiv (LISTE-VORGAENGE-ARCHIV.md): jedes ungültige nach
+                                       bereiche.einordnen(), die genannten Nummern fest (686, D90.3); meldet, was „? unbekannt“ bleibt
   --rolle ROLLE ist Pflicht, wo eine Nummer mehrfach steht (nur Pflege, Spiegel).
 """
 import os, re, sys, subprocess
@@ -359,6 +361,30 @@ def ansicht(rolle, nur_startbar=False):
     gel = [x for x in startbar.loesen(False) if x[1] == rolle]
     for nr, wer, weg, st in gel: print("GELÖST %s: wartet auf %s erfüllt (setzt lauf.py)" % (nr, ", ".join(weg)))
 
+def archivbereich(paare):
+    """686: alte Bereichsnamen im Archiv berichtigen; feste Zuordnung je Nummer geht vor einordnen()."""
+    fest = {}
+    for p in paare:
+        nr, _, b = p.partition("=")
+        if not bereiche.gueltig(b.strip()): sys.exit("vorgang.py: %s ist kein gültiger Bereich (%s)" % (b, p))
+        fest[nr.strip()] = b.strip()
+    name = "LISTE-VORGAENGE-ARCHIV.md"
+    aus, geaendert, unbekannt, gesehen = [], 0, [], set()
+    for z in startbar.lesen(name).split("\n"):
+        t = z.split(" | ")
+        if z.startswith("| ") and len(t) >= 4 and t[0][2:].strip() not in ("Nr.",) and not z.startswith("|---"):
+            nr, alt = t[0][2:].strip(), t[2].strip()
+            neu_b = fest.get(nr) or (alt if bereiche.gueltig(alt) else bereiche.einordnen(alt))
+            if nr in fest: gesehen.add(nr)
+            if neu_b.startswith("?"): unbekannt.append(nr)
+            elif neu_b != alt:
+                t[2] = neu_b; z = " | ".join(t); geaendert += 1
+        aus.append(z)
+    schreiben(name, "\n".join(aus))
+    fehlt = sorted(set(fest) - gesehen)
+    print("vorgang.py archivbereich: %d Felder berichtigt%s%s" % (geaendert,
+          ("; bleibt unbekannt: " + ", ".join(unbekannt)) if unbekannt else "", ("; nicht im Archiv: " + ", ".join(fehlt)) if fehlt else ""))
+
 def haupt(a):
     rolle = None
     if "--rolle" in a:
@@ -373,6 +399,7 @@ def haupt(a):
         f = startbar.pruefen_liste()
         for nr, x in f: print("%s: %s" % (nr, x))
         print("vorgang.py pruefen: %s" % ("%d Fehler" % len(f) if f else "ohne Fehler")); sys.exit(1 if f else 0)
+    if b == "archivbereich": return archivbereich(a[1:])
     if b == "stand" and len(a) == 3: return stand_setzen(a[1], a[2], rolle)
     if b == "warte" and len(a) == 3: return warte_setzen(a[1], a[2], rolle)
     if b == "setze" and len(a) >= 3: return setzen(a[1], a[2:], rolle)
