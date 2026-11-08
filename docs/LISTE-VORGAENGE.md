@@ -263,7 +263,7 @@
 | 655 | Bilder: Ersteller sieht sein Bild selbst an, Regel 300 streichen statt neuer Vorprüfung (Chef 08.11., 14:51: „warum entsteht überhaupt das Falsche?“) | Sokrates | M | wartet, entschieden ja (Chef 15:04) | 655.1 | – | – | B Abläufe | 7,02 $ |
 | Pflege | von Werkzeug (340.3, 08.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Sokrates | K | startbar | – | – | – | B Abläufe | – |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +842,76 $ |
-| Pflege | von Werkzeug (340.3, 08.11.): startbar.py: Tom: Muss 623.6 Probe Welt mit den Gratisproben (Gras und Wind, Wasser, Wetter, Oberfl / Kür 477 Godot-APKs laufen nicht im MuMu Player am Rechner (Chef 02.11., 14:59)  UNLESBAR (Liste … | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 08.11.): startbar.py: Tom: Muss 613 Zwischensequenzen neu wie alt: leichte Bewegungen, Signatur, Tusche (m / Kür 477 Godot-APKs laufen nicht im MuMu Player am Rechner (Chef 02.11., 14:59)  UNLESBAR (Liste): … | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
