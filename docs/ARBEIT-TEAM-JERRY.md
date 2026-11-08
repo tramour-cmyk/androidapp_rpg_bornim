@@ -8,6 +8,8 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 ## Einzelheiten
 
+- **Zu 563, von Chef (08.11., 13:09, an Sokrates):** „563 A mit hellerem Rot“ (Archiv); Schalter `ZUSTAND563` einschalten, Rot heller, in den nächsten Build.
+
 - **Zu 643, von Tom (08.11., 10:5x, zu 531):** Chef 03.11., 23:42 (531): Garrick „wie alt und besser … Langbogen auf dem Rücken“; alt (`MapFolk.kt` garrick): „the longbow slung across his back over the quiver, both hands free“. Es gibt in `waffen.py` nur `shortbow`; Kandidat aus dem Kauf: `SM_Bow&ArrowsProp` (ANIMSET.BOW.ARROW) oder `sm_bow` (Medieval Weapon Pack Godot). Gebraucht: `daten/waffen/longbow.bin` (+ Köcher) nach Modellregel 4; die Lage auf dem Rücken baut Tom (`bewaffne`). 531 wartet darauf (zweiter und letzter freier Lauf).
 
 Pflege 08.11., 07:2x: Abschnitt „Alte Zeilen“ (Stand steht in der Liste) und Chefwortlaute zu 536, 561, 562, 563, 565, 594–601, 534, 510 gekürzt; voller Stand: `git show 9aa6eeb64:docs/ARBEIT-TEAM-JERRY.md`. Ältere: `56056830f`, `9a2d84bd1`, `1d5e56d43`, `9ac8a4a76`, `9a1970f71`, `9602911e7`.
