@@ -220,7 +220,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 642 | M? | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 | startbar |
 | 643 | M | Langbogen mit Köcher als Waffenmodell (daten/waffen/longbow.bin, Griff = Ursprung, Schaft | startbar |
 
-**Perikles** – offen 17, Muss 14, startbar 0
+**Perikles** – offen 18, Muss 14, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -241,6 +241,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 631 | K | lauf.py: Startmarken ohne Datum verglichen (Ford 06.11., 07:19) | wartet auf Test/Build (gebaut) |
 | 99 | K | Zwei Niederlassungen | ruht |
 | 641 | M | lauf.py startet Nachfolger „auf Abruf“, obwohl nichts startbar ist (Diogenes 08.11., 09:07 | wartet auf Test/Build (gebaut) |
+| Pflege | K | von Werkzeug (340.3, 08.11.): 15658 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Diogenes** – offen 11, Muss 9, startbar 1
 
