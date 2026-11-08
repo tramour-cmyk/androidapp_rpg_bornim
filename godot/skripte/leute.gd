@@ -56,7 +56,16 @@ const WENDE_BLEND := 0.2                # s Uebergang aus dem Stehen in die Wend
 var wende_kurve := {}                   # Name -> PackedFloat32Array, Drehung in rad je Bild (30 Bilder/s) seit Beginn
 var wende := ""                         # laufende Wende
 var wende_start := 0.0                  # rotation.y beim Beginn der Wende
+var monster := false                   # 560 (Jerry): ein Monster der Geschichte (Grimmzahn, aussehen „monster:…“)
+const MONSTER_SIEHT := 4               # 560: Kacheln, ab denen es sich dem Helden zuwendet (herde.gd Lauerer 9i.2)
 var da := true                         # 390: nach der Geschichte zu sehen (Story.kt visible: besiegt, befreit)
+
+## 635: Figurdatei einer Person der Karte: nach Kennung, sonst nach Aussehen; "" ohne Modell
+static func datei_von(d: Dictionary) -> String:
+	for n in [String(d.get("id", "")), String(d.get("aussehen", ""))]:
+		if n != "" and not n.begins_with("monster:") and FileAccess.file_exists("res://daten/leute/%s.bin" % n):
+			return "res://daten/leute/%s.bin" % n
+	return ""
 
 static func alle(k: Karte, h: Node3D) -> Array:
 	var r := []
@@ -65,8 +74,15 @@ static func alle(k: Karte, h: Node3D) -> Array:
 		if mo.begins_with("monster:"):   # 491: Grimmzahn (Npc „monster:dire_wolf“) als Modell des Kampforts, wie die Monster der Karte
 			if Streuner.da(mo.trim_prefix("monster:")): r.append(Leute.new(k, d, h))
 			continue
-		if not FileAccess.file_exists("res://daten/leute/%s.bin" % d["id"]): continue
-		var l := Leute.new(k, d, h)
+		# 635 (Abgleich 620.2a): Lyra heisst auf den Karten lyra_temple und lyra_cave, gebaut ist sie als ihr Aussehen „lyra“
+		# (Story.kt Npc(id, x, y, look)); ohne Datei der Kennung gilt die des Aussehens
+		var datei := datei_von(d)
+		if datei == "": continue
+		var dd: Dictionary = d
+		if datei != "res://daten/leute/%s.bin" % d["id"]:
+			dd = d.duplicate()
+			dd["datei"] = datei
+		var l := Leute.new(k, dd, h)
 		r.append(l)
 	return r
 
@@ -249,6 +265,7 @@ func _ready() -> void:
 		fig.set_process(true)
 		modell = fig
 		anim = fig.anim
+		monster = true
 		gang = 1.0
 		leib = 0.8
 		position = karte.kachel_pos(kachel)
@@ -448,6 +465,10 @@ func _process(dt: float) -> void:
 	stehen(dt)
 	if ziel.x >= 0: return
 	tempo_jetzt = 0.0
+	if monster and anim and anim.has_animation("Gehen") and absf(angle_difference(rotation.y, blick)) > Streuner.DREH_TRITT:
+		if anim.current_animation != "Gehen": anim.play("Gehen", 0.2)     # 560: wendet mit Tritten
+		anim.speed_scale = Streuner.TRITT_TEMPO
+		return
 	if anim and anim.current_animation != pause and wende == "":
 		anim.play(pause, Held.ueberblendung(anim.current_animation, false))
 		anim.speed_scale = 1.0
@@ -461,7 +482,14 @@ func stehen(dt: float) -> void:
 			zugewandt_bis = 0
 			blick = blick_vorher
 			ruhe_bis = -1.0   # die Ruhebewegung beginnt neu
-	drehe_stehend(dt, DREH_ZU if zugewandt_bis > 0 else DREH_STEH)
+	# 560 (Chef 04.11., 16:22, Grimmzahn: „wenn sich die Monster … alles zum Held drehen … mit Bewegung drehen“): ein Monster der
+	# Geschichte wendet sich dem nahen Helden zu, mit fester Rate und Tritten (_process), wie die Monster der Karte (streuner.gd)
+	if monster and held and zugewandt_bis == 0 and held_abstand() <= MONSTER_SIEHT:
+		blick = atan2(held.global_position.x - global_position.x, held.global_position.z - global_position.z)
+	if monster:
+		rotation.y = drehe(rotation.y, blick, Streuner.DREH * dt)
+	else:
+		drehe_stehend(dt, DREH_ZU if zugewandt_bis > 0 else DREH_STEH)     # 416.8 (Tom): Wende mit Schritten
 	if still or not da: return
 	if zugewandt_bis > 0: return
 	if Time.get_ticks_msec() < ruft_bis: return   # 399.1 (306): wer ruft, haelt still, bis das zweite Zeichen vorbei ist

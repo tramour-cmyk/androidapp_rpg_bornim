@@ -1059,8 +1059,11 @@ func fenster_b(g: Dictionary, anlegen := Callable(), zurueck := Callable()) -> C
 		breite = get_viewport_rect().size.x - 48 * DP
 	v.custom_minimum_size.x = breite
 	mitte.add_child(Rueckfrage.halte(v if Spielstaende.vorlage2 else Erschaffung.kasten(v)))
-	for c in Menue.stueck_zeilen_b(hw, g): v.add_child(c)
-	v.add_child(Spielstaende.linie())
+	var inhalt: VBoxContainer = v
+	if Spielstaende.vorlage2:   # 605 (Chef 08.11., 15:57, Bild t268-kopffeld): bei vielen Boni und Notizen im Vergleich lag der Fuss unter dem Schirm
+		inhalt = _rollend(v)
+	for c in Menue.stueck_zeilen_b(hw, g): inhalt.add_child(c)
+	inhalt.add_child(Spielstaende.linie())
 	var zu := func(): schleier.queue_free()
 	var an_c := anlegen if anlegen.is_valid() else func(): meldung(lege_an(g)); baue()
 	if Spielstaende.vorlage2:   # 557 Vorlage 2 (Chef 14:26): „‹ ABBRECHEN“ links, ANLEGEN rechts
@@ -1086,6 +1089,36 @@ func fenster_b(g: Dictionary, anlegen := Callable(), zurueck := Callable()) -> C
 	unten.add_child(Spielstaende.hauptwahl(Sprache.u("equip"), func(): zu.call(); an_.call(), ok))
 	v.add_child(unten)
 	return schleier
+
+# 605 (Chef 08.11., 15:57: aus leerem Kopffeld die goettliche Kapuze, „nur Wegwerfen, kein Anlegen“, Zurueck fehlt; Bild t268-kopffeld):
+# Kopf, Boni und Vergleich (je gedeckeltem Attribut eine Notiz in zwei Zeilen) wurden hoeher als der Schirm, „Abbrechen“ und „Anlegen“
+# lagen darunter. Wie alt (Dialogs.kt 64–104: Inhalt in verticalScroll mit heightIn, Knoepfe fest darunter): der Inhalt rollt in [v],
+# so hoch er ist, hoechstens bis der Fuss unten noch ganz im Schirm steht; besser als alt: die Hoehe aus dem Schirm statt fester 520 dp.
+# Gibt die Spalte zurueck, in die der Inhalt kommt; was danach in [v] kommt (der Fuss), steht unter der Rolle fest.
+func _rollend(v: VBoxContainer) -> VBoxContainer:
+	var rolle := ScrollContainer.new()
+	rolle.name = "Rolle"
+	rolle.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	rolle.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
+	v.add_child(rolle)
+	var innen := VBoxContainer.new()
+	innen.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	innen.add_theme_constant_override("separation", v.get_theme_constant("separation"))
+	rolle.add_child(innen)
+	var passe := func():
+		if not is_instance_valid(rolle) or not rolle.is_inside_tree(): return
+		var fuss := 0.0
+		for c in v.get_children():
+			if c != rolle and c is Control and (c as Control).visible: fuss += (c as Control).get_combined_minimum_size().y + v.get_theme_constant("separation")
+		var frei := get_viewport_rect().size.y - Spielstaende.OBEN_DP * DP - 16 * DP - fuss
+		var h := minf(innen.get_combined_minimum_size().y, maxf(0.0, frei))
+		if absf(rolle.custom_minimum_size.y - h) > 0.5: rolle.custom_minimum_size.y = h
+	innen.minimum_size_changed.connect(passe)
+	v.child_entered_tree.connect(func(_k): passe.call_deferred())
+	get_viewport().size_changed.connect(passe)
+	rolle.tree_exiting.connect(func(): if get_viewport().size_changed.is_connected(passe): get_viewport().size_changed.disconnect(passe))
+	passe.call_deferred()
+	return innen
 
 # Name mit Seltenheit in Klammern, „Göttlicher Ring Thors“ ohne „(göttlich)“ dahinter: steht sie schon im Namen, nicht doppelt
 # (Pruefer 17:12 zur Rueckfrage Wegwerfen)
