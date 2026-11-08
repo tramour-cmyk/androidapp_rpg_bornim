@@ -29,7 +29,7 @@ Nichts offen.
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.1064](ansehen/t270-sammelbuild.md) | [Build 270](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/189) | Godot (Version nach dem Lauf) | Tom und Jerry | 08.11., 17:10 |
+| 1 | [0.348.304](ansehen/t270-sammelbuild.md) | [Build 270](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/42498993200/artifacts/13626749176) | Kampf, Ausrüstung, Erschaffung, Dorf | Tom und Jerry | 08.11., 18:35 |
 
 ## Zu tun
 
