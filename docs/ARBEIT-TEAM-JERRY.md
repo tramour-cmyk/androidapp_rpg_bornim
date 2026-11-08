@@ -4,16 +4,15 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
-**Übergabe (08.11., 22:09):** 270 auf `main`; 703, 296.3, 565, 563 gebaut; 682, 709, Fehlzeilen brauchen 708. Nachfolger: Jerry – 271: Sammelbuild Kampf
+**Übergabe (08.11., 22:19):** 703, 296.3, 565, 563 gebaut; 708 erlaubt; 682 Entwurf. Nachfolger: Jerry – 682: Kurven messen, Sammelbuild 271
 
 ## Einzelheiten
 - **Zu 682, 703, 709, von Ford (Chef 08.11., 21:43, über Sokrates):** „ich möchte jetzt irgendwann mal ein Mars-Kampf-Spielerlebnis haben … die Gegner sich vernünftig bewegen, richtig angreifen, nicht wie Roboter in komischen Bahnen … Ausweichbewegung zur Seite oder nach hinten, ja, dann bleibe ich halt da stehen … Leute, überlegt halt auch mal bitte mit. … Und dann bauen wir da noch den richtigen Sound dazu und dann die richtigen Effekte. Die kaufe ich morgen dann. … Das ist das Herzstück des Ganzen … Mit guten Animationen, lebendige Welt, unsere Signatur.“ Dazu: neue Begriffe des BRS verwenden (nicht „Magier“). Mitdenken, nicht nur Zeilen abarbeiten.
 - **Zu 709, von Perikles (Chef 08.11., 21:36, über Sokrates):** „… dass die Angriffe so sind, dass sie den Gegner treffen“. Keine eigene Zeile gefunden; erst nachstellen (Abstand Waffe/Körper beim Treffer, alle Angreifer), dann Befund; Vorrang Kampf vor allem (Folge in der Liste).
 - **Zu 702, von Jerry an Tuffy (08.11., 21:55):** 702 bleibt bei dir; meine Nachstellung `claude/jerry-702-wolfzug` a73b354c7 (`wolf_zug_702.gd`, Zahlen und Varianten im Commit): jetzt 38 % der Züge verloren, längste Folge 9; Schutz nach verlorenem Zug 27 %, Folge 1; Rettungswurf 10 %, Folge 3.
-- **Zu 682 (Jerry, 08.11., 21:58):** Ursache im Code: Heimweg und Umweg der Gegner (`_walk_home`, `HEIMWEG_BOGEN = false` seit r3c) = Drehen auf der Stelle, Gerade zum Umweg, Drehen am Umweg, Gerade heim, Drehen auf der Stelle (die „Schienen“); Held hin mit `SS_WalkForward` × 2,0 (Schildgang geduckt, 1,34 m/s). Bauen erst mit `wolf_mess_438` am Rechner (708).
+- **Zu 682 (Jerry, 08.11., 21:58):** Ursache im Code: Heimweg und Umweg der Gegner (`_walk_home`, `HEIMWEG_BOGEN = false` seit r3c) = Drehen auf der Stelle, Gerade zum Umweg, Drehen am Umweg, Gerade heim, Drehen auf der Stelle (die „Schienen“); Held hin mit `SS_WalkForward` × 2,0 (Schildgang geduckt). Entwurf `claude/jerry-682-boegen` f5e91418f (Kurve `_glatt`, Rückfall auf alten Weg); messen mit `kurven_682` (GLATT682=0 alt) und `wolf_mess_438` nach `bau_am_rechner.py --laden` (etwa 1 h). 662: Angriffe fast von vorn, unter `PARADE_SEITE` 30° nur Mitte? film_406 MESS=1.
 - **Zu 662, von Chef (Fund t270.9, Test Build 270, Automatik B):** Schildabwehr wie immer, keine Seite erkennbar (Chef 20:50)
 - **Zu 593, von Chef (Fund t270.12, Test Build 270, Automatik B):** kein Ausweichen nach hinten gegen drei Ratten; Zurücktappeln (Chef 21:33, 703 A)
-- **Zu 296.3, von Chef (Fund t270.11, Test Build 270, Automatik B):** Jaulen etwa 3 s nach dem Sturz (Chef 21:28)
 - **Zu 536, von Chef (Fund t270.10, Test Build 270, Automatik B):** Ansagen seitlich mit langer Linie, verdecken Namen (Chef 20:54)
 - **Zu 560, von Chef (Fund t270.7, Test Build 270, Automatik B):** Wölfe gut, Grimmzahn dreht auf der Stelle wie ein Zinnsoldat (Chef 20:47)
 - **Zu 562, von Chef (Fund t270.8, Test Build 270, Automatik B):** Held geht weiter lahm auf die Wölfe zu, nichts Neues (Chef 20:50)
@@ -55,7 +54,6 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 - **Zu 536, offen (Chef 04.11., 05.11.):** großes erstes Erklärfenster (wie Tom 550), Ziele mit Namen, Zustandsschild erklärt (`MarsTips.kt`), „ganzer Bericht“ nach 549a, Grund bei gesperrtem Zauber, „Kein Ziel in Sicht“, „Schnell“, Stufe und EP, Seltenheitsfarbe; vor dem Build Kampfschirm gegen alt (512). Wortlaut: `git show 948eff198:docs/ARBEIT-TEAM-JERRY.md`.
 - **Zu 587 (Chef 05.11., 587a):** eine Größe je Tier, 1,3, Bosse 1,5; offen: Krogg und Grak in der Höhle gegen Decke und Wand (507).
 - **Zu 415, von Sokrates (Chef 04.11., 10:48, Build 250):** mobile 26 Bilder/s ohne, 24–25 mit Strahl; gl_compatibility 44, 33–34 (`415-strahlen-*.webp`). Renderervorschlag mit Bildvergleich an den Chef.
-- **Hinweis von Team Tom (00:50, 555):** Testschalter in `mars.gd` (`held_immer_krit`, `gegner_ohne_rettung`, `held_unsterblich`) bei Umbauten mitnehmen.
 - **Zu 510, von Sokrates (Chef 04.11., 20:14):** „Das ist die coolste Riesenfledermaus, die ich jemals gesehen habe. Aber zumindest der Text passt.“ Graue Kapseln statt Fledermäusen (kein Modell); Vorrang von 510 entscheidet Perikles.
 - **Zu 534, 535 (ruhen, 424 SRD):** Unerbittlichkeit, Fundstellen alt und Liste für 478: `git show 948eff198:docs/ARBEIT-TEAM-JERRY.md`.
 - **Zu 560, von Sokrates (Chef 04.11., 16:22):** „Wenn man sich nähert, macht das schon Sinn, wenn sich die Monster und Mobs … alles zum Held drehen. Also wenn sie einen wahrgenommen haben … Und jetzt nicht wieder so auf der Scheibe drehen, sondern gerne mit Bewegung drehen.“ Alle Monster und Tiere auf der Karte, Grimmzahn zuerst; Technik bei Tom (416.8).
