@@ -42,7 +42,7 @@
 | 495 | Zufallsspieler spielt Kapitel 1 in Godot durch (Abnahme 2.2; Wochenziel 03.11., 488) | Tom | M | wartet | 492 | – | – | E Technik | 27,75 $ |
 | 505 | Bau Nebel des Krieges und Sichtfeld des Helden (Archiv 502; Welt W24, W25) | Tom | M | startbar | 492 | – | – | E Technik | 69,46 $ |
 | 515 | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 03.11., 16:07) | Tom | K | ruht | – | – | – | E Welt | – |
-| 506 | Untote im Kampf: Skelett, Zombie, Ghul (aus 494, Spike; Wochenziel 03.11., 488) | Tom | M | in Arbeit, Probebild vom Helfer angehalten (Zu 506) | – | claude/tom-506-skelett | – | E Kampf | 42,52 $ |
+| 506 | Untote im Kampf: Skelett, Zombie, Ghul (aus 494, Spike; Wochenziel 03.11., 488) | Tom | M | in Arbeit, Probebild vom Helfer angehalten (Zu 506) | 660 | claude/tom-506-skelett | – | E Kampf | 42,52 $ |
 | 492 | Blutzahnhöhle begehbar mit Krogg, Grak, Lyra (Orte O8; Wochenziel 03.11., 488; von Jerry an Tom, Chef 07:54) | Tom | M | in Arbeit, Zweig mit main gemischt, Tests laufen | – | claude/tom-492-durchspiel | – | E Technik | 29,10 $ |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x) | Tom | M | ruht | – | claude/tom-431-voelker | – | E Figuren | 50,10 $ |
 | 416.8 | NPC dreht sich zum Helden mit kleinen Schritten, nicht auf der Stelle (Chef 31.10., 20:5x; t269.11 15:44 wieder Plastikfigur) · wiederholt | Tom | M | zu testen | – | claude/tom-416-8-schritte | 269 | E Technik | 19,24 $ |
@@ -55,7 +55,7 @@
 | 470.1 | Erschaffung: Held auf Antippen bildschirmgroß (Idee Chef 02.11., 18:37) | Tom | K | ruht | – | – | – | E Oberfläche | – |
 | 471 | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | Tom | M | wartet | 478 | – | – | E Kampf | – |
 | 474 | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, Meldung Tuffy): nächster Build einmal deinstallieren; dauerhaft ohne Cache | Tom | M | ruht | – | – | – | E Technik | 8,66 $ |
-| 475 | Leute des Dorfs (Rowena, Borin …) auf Kaufkörper ihres Volks mit Gesicht, statt der alten Figuren (Chef 02.11., 10:52, Build 146: „Kommt da noch was?“) · „jetzt“ 04.11., 00:53 | Tom | M | startbar | – | – | – | E Figuren | 64,38 $ |
+| 475 | Leute des Dorfs (Rowena, Borin …) auf Kaufkörper ihres Volks mit Gesicht, statt der alten Figuren (Chef 02.11., 10:52, Build 146: „Kommt da noch was?“) · „jetzt“ 04.11., 00:53 | Tom | M | startbar | 660 | – | – | E Figuren | 64,38 $ |
 | 476 | Symbole der Gegenstände aus den 3D-Modellen statt Pixelbild (Chef 02.11., 14:43) | Tom | K | wartet | 458.3 | – | – | E Oberfläche | – |
 | 477 | Godot-APKs laufen nicht im MuMu Player am Rechner (Chef 02.11., 14:59) | Tom | K | startbar | – | – | – | E Technik | – |
 | 461.1 | Grundstand zusammenführen: ein Zweig für Tom und Jerry, jede Probe baut darauf (01.11.) | Tom | M | ruht | – | claude/grundstand-461 | – | E Technik | 30,19 $ |
