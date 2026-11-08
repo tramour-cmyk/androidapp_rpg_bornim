@@ -1,9 +1,9 @@
-# Tom und Jerry · Build 270 · 0.1.1064 · Godot (Version nach dem Lauf) · Kampf, Ausrüstung, Erschaffung, Dorf · [PR #189](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/189)
-Ganzes Spiel · Jerry (562, 560, 587, 536, 662, 593, 296.3), Tom (605, 499, 635, 604, 636, 677) · 08.11. · APK: folgt nach dem Lauf
+# Tom und Jerry · Build 270 · Godot 0.348.304 · Kampf, Ausrüstung, Erschaffung, Dorf · [PR #189](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/189)
+Ganzes Spiel · Jerry (562, 560, 587, 536, 662, 593, 296.3), Tom (605, 499, 635, 604, 636, 677) · 08.11., 18:35 · [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/42498993200/artifacts/13626749176) · Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/42498993200
 
 Ein Weg, über Build 269 installieren: Erschaffung (A), Dorf und Schenke (B), Menü des Helden (C), Flüsterwald (D), Probekämpfe im Reiter „Test“ (E). Was nicht passt, reicht als Zeilennummer mit einem Wort.
 
-Verglichen: keine Schirme neu (nur Gegenstandsfenster 605, am Rechner mit `kopffeld_605`); Kampf am Rechner mit Kaufmodellen gemessen (`wolf_mess_438`, `wenden_560`, `groesse_587`, `effekt_mess_6235` je 0 Befunde).
+Verglichen: keine Schirme neu (nur Gegenstandsfenster 605, am Rechner mit `kopffeld_605`); Kampf am Rechner mit Kaufmodellen gemessen (`groesse_587`, `effekt_mess_6235` je 0 Befunde); im Bau `wolf_mess_438`, `wenden_560`, `ausweichen_593`, `lyra_635`, `schlagbaum_636`, `funke_677` je 0.
 
 ## A · Erschaffung
 
@@ -11,7 +11,7 @@ Verglichen: keine Schirme neu (nur Gegenstandsfenster 605, am Rechner mit `kopff
 |---|---|---|---|---|---|
 | 270.1 | Tom | 499 | neues Spiel, Held im Drehteller mit Schwert und Schild ansehen | Schild und Schwert in der Tragart (auf dem Rücken, an der Seite), Held nicht durchscheinend | Schild steht ab oder schwebt; Modell halbtransparent |
 
-Bekannt: Drehung um die Mittelachse statt ums Standbein (Chef 17:03) ist noch nicht drin.
+Bekannt: Drehung um die Mittelachse statt ums Standbein (Chef 17:03) ist noch nicht drin. Messung im Bau: beim Kleriker steht der Schild unten 7–15 cm vom Rücken ab (`drehteller_499`, Tom).
 
 ## B · Dorf und Schenke
 
