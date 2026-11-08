@@ -227,7 +227,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 644.2 | M | Gegenstandskatalog: Zahlen nach 469 in 444 (Tempo, Parieren, Durchschlag, Güte, Stufe), C1 | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test |
 | 681 | M | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test |
 
-**Perikles** – offen 23, Muss 19, startbar 0
+**Perikles** – offen 23, Muss 19, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -236,12 +236,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 511 | M | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele | wartet auf Diogenes |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf Diogenes |
 | 464 | M | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählu | wartet auf Test/Build (gebaut) |
-| 398 | M | Gegenprobe: Grundsätze aus DESIGN-Dateien, die im Umzug nach Godot fehlen (Chef 28.10., 11 | Termin 09.11. |
+| 398 | M | Gegenprobe: Grundsätze aus DESIGN-Dateien, die im Umzug nach Godot fehlen (Chef 28.10., 11 | startbar |
 | 383 | M | Wartewächter und Haken 63 verschärfen (Chef 27.10., 17:53 ja); Sitzungsgröße messen (Sokra | wartet auf Sokrates |
 | 275 | M | Zentrale Vorgangsliste als einzige Quelle (Chef 21.10.; Stufe 1 jetzt, 27.10.) | wartet auf Diogenes |
 | 347.2 | M | Umsetzung Plan 347 nach Gegenprüfung (Chef 24.10., 16:30) | wartet auf 347 (startbar) |
 | 276 | K | Fords Anleitung auf eine Seite (Empfehlung Sokrates zu 274) | ruht |
-| 341 | M | Zielvereinbarung Perikles bis zum Marktstart: sechs messbare Ziele, geprüft von Werkzeug u | ruht bis 09.11. |
+| 341 | M | Zielvereinbarung Perikles bis zum Marktstart: sechs messbare Ziele, geprüft von Werkzeug u | startbar |
 | 270 | M | Perikles und Diogenes auf das große Modell (Chef 21.10.) | ruht |
 | D75 | M | Filmsperre 511 zählte Film-Pushes 572 nicht (D75.1); meldung.sh --film legte Film 572 nich | Dauerzeile |
 | 627 | M | probelauf.py: Push mit git commit -F - im selben Befehl als Probelauf gezählt (562, ohne L | wartet auf Test/Build (gebaut) |
@@ -251,22 +251,22 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 647 | M | Abgleich alt schon vor dem Bauen: Fundstelle alter Code lesen und nennen, nicht erst vor d | wartet auf Test/Build (gebaut) |
 | 648 | K | Glossar und Abkürzungsverzeichnis LISTE-GLOSSAR.md: Wort, Bedeutung, Zusammenhang, Fundste | wartet auf Test/Build (gebaut) |
 | 651 | M | Kostenauswertung: Bereiche als feste Liste, fehlende Kosten (533 von 980 Zeilen) über Comm | wartet auf Test/Build (gebaut) |
-| 650.1 | M | Liste für docs/alt/ nach zwei Gegenprüfungen (aus 650) | Termin 09.11. |
+| 650.1 | M | Liste für docs/alt/ nach zwei Gegenprüfungen (aus 650) | startbar |
 | 654.1 | M | Systemfrage vor jedem Bau in ROLLE-ENTWICKLUNG.md und Prüfliste, Wiederholungswächter in v | wartet auf Test/Build (gebaut) |
 | 696 | K | meldung.sh: mehrere Bilder in derselben Minute überschreiben sich im Zweig bilder (Pfad TT | wartet auf Test/Build (gebaut) |
 
-**Diogenes** – offen 10, Muss 8, startbar 0
+**Diogenes** – offen 10, Muss 8, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 340.2 | M | Rollenspiegel C: tools/rollenspiegel.sh, eigene Antwort ohne fremde | startbar |
+| 485 | M | Diogenes bessert sich aus dem Rollenspiegel 02.11.: Wochentermine zählen, Vergleichsblätte | startbar |
+| 461b | M | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | startbar |
 | 511 | M | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele | wartet auf D75 (Dauer) |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
-| 275 | M | Zentrale Vorgangsliste als einzige Quelle (Chef 21.10.; Stufe 1 jetzt, 27.10.) (für Perikl | Termin 09.11. |
-| 340.2 | M | Rollenspiegel C: tools/rollenspiegel.sh, eigene Antwort ohne fremde | ruht bis 09.11. |
-| 485 | M | Diogenes bessert sich aus dem Rollenspiegel 02.11.: Wochentermine zählen, Vergleichsblätte | ruht bis 09.11. |
-| 461b | M | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | ruht bis 09.11. |
+| 275 | M | Zentrale Vorgangsliste als einzige Quelle (Chef 21.10.; Stufe 1 jetzt, 27.10.) (für Perikl | startbar |
 | 348.9 | M | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | ruht |
-| Woche | K | Wochenzählung der Kennzahlen | Termin 09.11. |
+| Woche | K | Wochenzählung der Kennzahlen | startbar |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
 | 644.5 | M | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noc | wartet auf 644.1 (startbar) |
 
