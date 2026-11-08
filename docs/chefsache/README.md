@@ -171,7 +171,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 679 | M | Kampf: Knöpfe fehlen (Gewinnen, Verlieren, Raster einblenden, Würfelergebnisse einblenden) | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test |
+| 679 | M | Kampf: im ersten Testkampf (Kleriker gegen Wölfe) fehlten Befehle und Knöpfe (Gewinnen, Ve | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test |
 | 623.5 | M | Probe Kampf mit den Gratisproben (Combat Mega, Projectiles, Trails, Pack 3, Character Shad | startbar |
 | 565 | M | MARS: unten im Gruppenkasten sieht man nicht, welcher Held am Zug ist (Chef 04.11., 17:10, | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test |
 | 562 | M | MARS: Helden laufen zum Angriff viel zu langsam, zurück gleiten sie flott (Chef 04.11., 17 | wartet auf Test/Build (gebaut) |
