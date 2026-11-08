@@ -411,15 +411,10 @@ static func kurz(a: String) -> String: return Sprache.t(Heldwerte.lade()["attrib
 static func vorzeichen(n: int) -> String: return "+%d" % n if n >= 0 else str(n)
 
 # Txt auf Schwarz: Alegreya, 0,95 der Groesse, nie kleiner als 13,7 sp, leicht gesperrt
-# 584 (Abgleich 512b): [fett] wie Theme.kt Txt(bold = true): in Textfarbe ab 15 sp ein Kopf (MenuHead: Versalien 14 sp, Sperrung
-# 3 sp, Gold; 549a Zwischenueberschrift), sonst der halbfette Schnitt in der Farbe; [kopf] = false: immer halbfett (alt mit Veil.text
-# statt Colors.text, etwa ChronicleTab)
-static func txt(t: String, groesse_sp: float, farbe := Stil.TEXT, fett := false, kopf := true) -> Label:
-	if fett and kopf and groesse_sp >= 15.0 and farbe == Stil.TEXT:
-		var k := Stil.zeile(t.to_upper().replace("ß", "SS"), 14, Stil.GOLD, 3.0)
-		k.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		k.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		return k
+# 584 (Abgleich 512b): [fett] = der halbfette Schnitt wie alt (Theme.kt Txt bold: SemiBold). Wo alt aus fettem Text in Textfarbe ab 15 sp
+# einen Kopf in Versalien machte (MenuHead), bleibt es hier halbfett: Versalien nur fuer Titel, Zwischenueberschriften und Knoepfe, nie fuer
+# Saetze, Namen oder Zahlen (549a, DESIGN-STIL.md „Schrift“); echte Koepfe setzt der Aufrufer selbst
+static func txt(t: String, groesse_sp: float, farbe := Stil.TEXT, fett := false) -> Label:
 	var l := Stil.zeile(Spielstaende.ohne_waise(t), maxf(groesse_sp, 13.7) * 0.95, farbe, 0.2, false, fett)   # 557 Runde 5: kein Wort allein in der letzten Zeile (nur Vorlage 2)
 	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL

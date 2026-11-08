@@ -1468,14 +1468,14 @@ func system() -> void:
 	# 399.3.1 Lautstaerke wie alt (SoundSettings.kt SoundAndLight, 40): Gesamt, Musik, Effekte und Ortsklang, in Schritten zu 5 (Mix.STEP);
 	# Loslassen bei Gesamt und Effekten klickt einmal, so hoert man, wie laut es nun ist (40a)
 	if k:
-		zeile(t.call("Lautstärke", "Volume"), 15, Stil.TEXT, true)   # 584: SoundSettings.kt 43, Kopf wie alt
+		zeile(t.call("Lautstärke", "Volume").to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))   # 584: Kopf wie alt (SoundSettings.kt 43, MenuHead)
 		for r in [["all", t.call("Gesamt", "Overall"), true], ["music", t.call("Musik", "Music"), false], ["fx", t.call("Effekte und Ortsklang", "Effects and ambience"), true]]:
 			var an_: bool = k.musik_an if r[0] == "music" else (k.effekte_an if r[0] == "fx" else true)
 			inhalt.add_child(Regler.new(String(r[1]), int(k.lautstaerke[r[0]]) if an_ else 0, t.call("Aus", "Off"),
 				func(v: int): k.stelle(r[0], v), (func(): k.effekt("click", 0.35)) if r[2] else Callable()))
 		luecke(4)
 	# Helligkeit wie alt (SoundAndLight, 13e.6): „Dunkle Töne“ hebt das Schwarz, das Probezeichen liegt mit unter der Hebung
-	zeile(t.call("Helligkeit", "Brightness"), 15, Stil.TEXT, true)   # 584: SoundSettings.kt 48
+	zeile(t.call("Helligkeit", "Brightness").to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))   # 584: SoundSettings.kt 48 (MenuHead)
 	inhalt.add_child(Regler.new(t.call("Dunkle Töne", "Shadows"), Helligkeit.lade(), t.call("Aus", "Off"), func(v: int): Helligkeit.setze(v), Callable()))
 	inhalt.add_child(Probezeichen.new())
 	zeile(t.call("So einstellen, dass das Zeichen gerade noch zu sehen ist. Die Höhle bleibt dunkel.", "Adjust until the sign is barely visible. The cave stays dark."), 13, Stil.DIM)
@@ -1800,7 +1800,7 @@ func chronik() -> void:
 	kaestchen([Erschaffung.txt("Hauptauftrag" if de else "Main quest", 13, Stil.GOLD), Erschaffung.txt(Sprache.t(Geschichte.ziel(z)), 16, Stil.BRIGHT, true)])   # 584: ChronicleTab.kt 72, 78, 92 halbfett
 	for t in Chronik.offen(z):
 		luecke(8)
-		kaestchen([Erschaffung.txt(Sprache.t(t["titel"]), 16, Stil.TEXT, true, false), Erschaffung.txt(Sprache.t(t["text"]).replace("{name}", hw.name), 14)])
+		kaestchen([Erschaffung.txt(Sprache.t(t["titel"]), 16, Stil.TEXT, true), Erschaffung.txt(Sprache.t(t["text"]).replace("{name}", hw.name), 14)])
 	# 399.1 Nebenauftraege vom Anschlagbrett (ChronicleTab): Titel, von wem, Aushang, Stand oder „Bereit zur Abgabe“, Lohn
 	var getragen := Auftraege.getragen(z)
 	if not getragen.is_empty():
@@ -1811,7 +1811,7 @@ func chronik() -> void:
 		var hat := Auftraege.stand(z, j)
 		var bereit := hat >= int(j["anzahl"])
 		var wer := Sprache.t(j["geber_name"])
-		kaestchen([Erschaffung.txt(Sprache.t(j["titel"]), 16, Stil.TEXT, true, false), Erschaffung.txt(("von " if de else "from ") + wer, 13, Stil.DIM),
+		kaestchen([Erschaffung.txt(Sprache.t(j["titel"]), 16, Stil.TEXT, true), Erschaffung.txt(("von " if de else "from ") + wer, 13, Stil.DIM),
 			Erschaffung.txt(Sprache.t(j["aushang"]), 14),
 			Erschaffung.txt((("Bereit zur Abgabe – bei %s" if de else "Ready to turn in to %s") % wer) if bereit
 				else "%d %s %d · %s" % [hat, "von" if de else "of", int(j["anzahl"]), Laden.name(String(j["ding"]))], 14, GRUEN if bereit else Stil.GOLD),
