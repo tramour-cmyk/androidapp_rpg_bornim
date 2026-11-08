@@ -12,7 +12,7 @@
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
 | 625 | Sammelbuild 269: alle fertigen Zweige beider Teams (35 warten), Prüfliste als Weg durchs Spiel (Chef 07.11., 20:5x) · „jetzt“ 07.11., 20:54 | Tom | M | zu testen | – | claude/build-269 | 269 | E Entwicklung | 76,53 $ |
-| 499 | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 (Chef 03.11., 07:14, Build 204) · „jetzt“ 07.11., 21:31 | Tom | M | in Arbeit, Probe 292 beim Helfer durchgefallen (Zu 645) | 645 | claude/tom-499-drehteller | – | E Figuren | 28,28 $ |
+| 499 | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 (Chef 03.11., 07:14, Build 204) · „jetzt“ 07.11., 21:31 | Tom | M | in Arbeit, Probe 292 beim Helfer durchgefallen (Zu 645) | 645 | claude/tom-499-drehteller | – | E Figuren | 48,69 $ |
 | 635 | Lyra fehlt als Figur im Tempel und in der Höhle: Kennung lyra_temple/lyra_cave, gebaut wird nur „lyra“ (Abgleich 620.2a) | Tom | M | gebaut, Geprüft an: 8a2f85b98 (lyra_635 lokal), fährt im nächsten Build | – | claude/tom-635-lyra | – | E Welt | – |
 | 605 | Ausrüstung: leeres Kopffeld, Auswahl zeigt falsch „Obergrenze“, kein Zurück (Chef 06.11., 21:22, t268) | Tom | M | zu testen | – | claude/tom-605-doppeltipp | 269 | E Entwicklung | – |
 | 581 | Ausrüstung: Seite breiter als der Schirm, Reiter springen (Abgleich 512b) | Tom | M | zu testen | – | claude/tom-581-ausruestung | 269 | A Spiel | 2,31 $ |
@@ -112,7 +112,7 @@
 | 639 | Leute tragen ihre Dinge wie alt: Jorins Speer, Aldrics Stab quer auf der Schulter (Garricks Langbogen: 531; Abgleich 620.2a) | Tom | M | startbar | – | – | – | E Welt | – |
 | 640 | Innenräume und Häuser, Varianten wie alt: Werkzeugregal, Wandbehänge und Stock bei Aldric, Altartuch, leere Amulett-Halterung; geschlossene Läden, Morwens Rauch grünlich (Abgleich 620.2a) | Tom | M | startbar | – | – | – | E Welt | – |
 | 565 | MARS: unten im Gruppenkasten sieht man nicht, welcher Held am Zug ist (Chef 04.11., 17:10, t257 C) | Jerry | M | wartet, Bilder A/B 07:00 an den Chef | Chef | claude/jerry-565-am-zug | – | E Kampf | 13,51 $ |
-| 562 | MARS: Helden laufen zum Angriff viel zu langsam, zurück gleiten sie flott (Chef 04.11., 17:02, t257 C) | Jerry | M | gebaut, Ursache 438 rückwärts schräg behoben. Geprüft an: 7cd54621e (am Rechner wolf_mess_438 0 Befunde) | – | claude/jerry-562-angriffsschritt | – | E Kampf | 8,78 $ |
+| 562 | MARS: Helden laufen zum Angriff viel zu langsam, zurück gleiten sie flott (Chef 04.11., 17:02, t257 C) | Jerry | M | gebaut, Ursache 438 rückwärts schräg behoben. Geprüft an: 7cd54621e (am Rechner wolf_mess_438 0 Befunde) | – | claude/jerry-562-angriffsschritt | – | E Kampf | 17,49 $ |
 | 563 | MARS: Zustandsschilder über Gegnern („Blut 3“) überlagern Ansage und Leisten, wirken grob (Chef 04.11., 17:02, t257 C) | Jerry | M | wartet, Bild A 07:00 an den Chef | Chef | claude/jerry-563-zustaende | – | E Kampf | 13,48 $ |
 | 560 | Monster auf der Karte drehen sich zum Helden, wenn sie ihn wahrnehmen, mit Schritten statt auf der Stelle (Chef 04.11., 16:22) | Jerry | M | gebaut, fährt im nächsten Build. Geprüft an: 94420e34d (am Rechner mit Kaufmodellen wenden_560 0 Fehler) | – | claude/jerry-560-wenden | – | E Monster | – |
 | 551 | MARS: Rahmen des unteren Kastens links und rechts unterbrochen (Chef 04.11., 00:21) | Jerry | M | ruht | – | – | – | E Kampf | – |
@@ -134,7 +134,7 @@
 | 587 | Gegnergröße im Kampfort: 1,3-fach wie alt und die Wölfe, echte Größe oder je Kapitel (Chef 05.11., zu Bild 494) | Jerry | M | gebaut, fährt im nächsten Build. Geprüft an: 7762e8f2b (am Rechner mit Kaufmodellen groesse_587 0, wolf_mess_438 0) | – | claude/jerry-587-groesse | – | E Kampf | 9,42 $ |
 | 494 | Gegner von Kapitel 1 im Kampf außer den Untoten (506), je Gegner höchstens ein Lauf (Wochenziel 03.11., 488) | Jerry | M | wartet | 492 | claude/jerry-494-gegner | – | E Kampf | 135,26 $ |
 | 517 | Waldklang wie alt: Vögel am Tag, Eule und Grillen nachts, fernes Wolfsheulen im Tiefen Wald (`WildSound.kt`; Abgleich 512, von Team Tom) | Jerry | M | zu testen | – | claude/jerry-517-waldklang | 269 | A Spiel | 2,32 $ |
-| 507 | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager (Orte O10; aus 492) | Jerry | M | in Arbeit, Ursachen nachgesehen (Zu 507), nachzeichnen | – | claude/jerry-507-hoehle | – | E Kampf | 34,94 $ |
+| 507 | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager (Orte O10; aus 492) | Jerry | M | in Arbeit, Ursachen nachgesehen (Zu 507), nachzeichnen | – | claude/jerry-507-hoehle | – | E Kampf | 43,65 $ |
 | 496 | Durchspiel-Build: Kapitel 1 von Anfang bis Ende am Handy (Wochenziel 03.11., 488) | Jerry | M | startbar | – | – | – | E Technik | – |
 | 387 | Gekaufte Tiere schnell auf Bewegungen und unsere Haut prüfen, vor Eigenbau (Chef 27.10., 21:27) | Jerry | M | ruht | – | – | – | E Monster | 98,99 $ |
 | 385.2 | Feuer aus der Stabspitze bei Feuerpfeil, Feuerball (aus 385.1, Chef 28.10., 19:1x) | Jerry | M | wartet | 623.2 | – | – | E Kampf | 9,99 $ |
