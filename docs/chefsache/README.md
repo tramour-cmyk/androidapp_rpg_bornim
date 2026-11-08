@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [673](entscheiden/673-drehen-emulator.md) | **Muss** | E Technik | 08.11., 15:34 | Kamera drehen und zoomen am Emulator mit der Maus | Sokrates |
 | [657](entscheiden/657-drei-stichpunkte.md) | **Muss** | B Abläufe | 08.11., 15:15 | Regeln radikal kürzen: eine Seite für alle | Sokrates |
 
 ## Zu billigen
@@ -44,7 +45,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 
-**Tom** – offen 109, Muss 90, startbar 8
+**Tom** – offen 110, Muss 91, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -157,6 +158,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 663 | M | Klassische Steuerung ausbauen: Steuerkreuz und Funktionstasten ganz raus, nur Touch; Auswa | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
 | 665 | M | Nacht im Dorf: um 2:30 kaum dunkel; in allen Häusern Licht, keiner schläft: tiefe Nacht du | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
 | 668 | M | Testmenü an Schirme ohne Kasten angleichen: Zurück, Trennlinien, Aufbau wie 549a/618 (Chef | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
+| 673 | M | Emulator: Kamera drehen und zoomen mit Maus und Tasten (rechte Maustaste ziehen, Mausrad), | Chef (Datei in der Chefsache) |
 
 **Jerry** – offen 66, Muss 58, startbar 3
 
@@ -277,7 +279,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
 | 644.5 | M | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noc | wartet auf 644.1 (startbar) |
 
-**Sokrates** – offen 50, Muss 35, startbar 29
+**Sokrates** – offen 51, Muss 35, startbar 30
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -331,6 +333,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 669 | K | Systemlösung? Kasten: 7 frühere Vorgänge (551, 659, 153, 549a, 557 …), neu 668; einmal gru | startbar |
 | 671 | K | Systemlösung? Menü: 10 frühere Vorgänge (345, 426, 425, 549a.1, 399.3.1 …), neu 670; einma | startbar |
 | 672 | K | Systemlösung? Karte: 20 frühere Vorgänge (322, 500, 553, 529, 86 …), neu 670; einmal grund | startbar |
+| 674 | K | Systemlösung? Kamera: 5 frühere Vorgänge (590, 615, 460, 211.14, 399.4), neu 673; einmal g | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
