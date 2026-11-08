@@ -9,24 +9,26 @@ Verglichen: keine Schirme neu (nur Gegenstandsfenster 605, am Rechner mit `kopff
 
 | # | Team | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|---|
-| 270.1 | Tom | 499 | neues Spiel, Held im Drehteller mit Schwert und Schild ansehen | Schild und Schwert in der Tragart (auf dem Rücken, an der Seite), Held nicht durchscheinend | Schild steht ab oder schwebt; Modell halbtransparent |
+| 270.1 | Tom | 499 | neues Spiel, Kämpfer wählen, Held im Drehteller einmal ganz drehen | Schild auf dem Rücken, Oberkante am Nacken wie früher, liegt an; Schwert an der Seite | Schild steht unten ab oder schwebt; Schwert in der Luft |
 
-Bekannt: Drehung um die Mittelachse statt ums Standbein (Chef 17:03) ist noch nicht drin. Messung im Bau: beim Kleriker steht der Schild unten 7–15 cm vom Rücken ab (`drehteller_499`, Tom).
+Bekannt: Drehung um die Mittelachse statt ums Standbein (Chef 17:03) ist noch nicht drin; „halbtransparent“ (Chef 15:23) ist in diesem Build nicht behoben (697). Messung im Bau: beim Kleriker steht der Schild unten 7–15 cm vom Rücken ab (`drehteller_499`, Tom).
 
 ## B · Dorf und Schenke
 
 | # | Team | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|---|
 | 270.2 | Tom | 604 | Erwachen in der Schenke, Erdgeschoss ansehen | kein Bett unten, dafür mehr Tische und Bänke | Bett im Gastraum |
-| 270.3 | Tom | 635 | in den Tempel gehen | Lyra steht als Figur dort | Platz leer |
-| 270.4 | Tom | 636 | zum Schlagbaum gehen, er öffnet sich | Türgeräusch beim Öffnen | stumm |
+| 270.3 | Tom | 635 | in den Tempel gehen | Lyra steht als Figur dort (in der Höhle nur am Rechner geprüft) | Platz leer |
+| 270.4 | Tom | 636 | mit Jorin am Schlagbaum sprechen, bis er ihn öffnet | Türgeräusch beim Öffnen; der Balken springt auf offen wie früher | stumm |
 
 ## C · Menü des Helden
 
 | # | Team | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|---|
-| 270.5 | Tom | 605 | Tasche: göttliche Kapuze aufs leere Kopffeld legen, dann ein Stück, das die Obergrenze schon füllt (269.17) | „Anlegen“ und „Abbrechen“ unten sichtbar, der Inhalt rollt; Anlegen geht | nur „Wegwerfen“ zu sehen; Fenster höher als der Schirm |
-| 270.6 | Tom | 677 | Leuchtfunke aus der Tasche benutzen | der Funke leuchtet über dem Kopf des Helden | nur „Der Funke verglimmt“ |
+| 270.5 | Tom | 605 | Reiter „Ausrüstung“: leeres Kopffeld antippen, die göttliche Kapuze (aus dem Testmenü) wählen | Fenster passt in den Schirm, der Inhalt rollt, unten „Abbrechen“ und „Anlegen“; ein Tipp auf „Anlegen“ legt sie an | nur „Wegwerfen“ zu sehen; Fenster unten abgeschnitten |
+| 270.6 | Tom | 677 | im Dunkeln (nachts oder in der Höhle) Leuchtfunke aus der Tasche benutzen | kühl weißer Funke treibt und wippt über dem Kopf, leuchtet schwächer als die Fackel | nichts zu sehen, nur „Der Funke verglimmt“ |
+
+Bekannt: das Aussehen des Gegenstandsfensters (Zeilen „wirkt nicht (Obergrenze)“, alte Wörter, kein Zurück aus der Auswahl) ist 521, 581, 683, nicht drin.
 
 ## D · Flüsterwald
 
