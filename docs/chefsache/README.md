@@ -34,7 +34,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 7, Muss 3, startbar 2
+**Homer** – offen 6, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -43,14 +43,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
-| 652 | M | Englisch-Regeln 1–7 aus LISTE-ENGLISCH-338-1B nach STORY-REGELN.md, dann Datei nach docs/a | startbar |
 | 659 | M | DESIGN-STIL.md: Abschnitt „Muster“ mit Bild je abgenommenem Muster (Fenster ohne Kasten 54 | startbar |
 
-**Tom** – offen 104, Muss 85, startbar 8
+**Tom** – offen 104, Muss 85, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 613 | M | Zwischensequenzen neu wie alt: leichte Bewegungen, Signatur, Tusche (mit 302.3), an Spike | startbar |
+| 613 | M | Zwischensequenzen neu wie alt: leichte Bewegungen, Signatur, Tusche (mit 302.3), an Spike | in Arbeit bei Spike |
 | 656 | M | Umhang Kämpfer mit Beulen, große Beule unter dem Schwertarm: woher, weg (Chef 08.11., 14:5 | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
 | 623.6 | M | Probe Welt mit den Gratisproben (Gras und Wind, Wasser, Wetter, Oberflächen) gegen unsere | startbar |
 | 625 | M | Sammelbuild 269: alle fertigen Zweige beider Teams (35 warten), Prüfliste als Weg durchs S | wartet auf Test (Build 269) |
