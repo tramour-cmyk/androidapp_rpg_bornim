@@ -1,4 +1,4 @@
-# 656 · Umhang des Kämpfers vorher und nachher · Tom · 08.11., 20:56
+# 656 · Umhang des Kämpfers vorher und nachher · Tom · 08.11., 21:44
 
 [Bild von vorn, 20:57](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/08-2057-656-Tom.png) · [Bild von hinten, 20:57](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/08-2057-656-Tom-2.png) (Tom)
 
