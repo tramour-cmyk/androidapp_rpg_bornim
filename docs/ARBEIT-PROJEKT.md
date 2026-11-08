@@ -2,9 +2,9 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `e0a63ca68` (07.11., 23:32)
+**Gelesen bis:** `e83d31d11` (08.11., 09:15)
 
-**Übergabe (07.11., 23:4x):** 275.2 umgeschaltet: eine Vorgangsliste mit Feldern, Automatik A und B, Werkzeuge und Regeltexte in einem Commit auf `main` nach Diogenes' Lauf 82 (D80, D81.1, D82 bestanden); Pausen gestrichen; Chef gemeldet. Nachfolger: Perikles – 448: Tagesbericht 08.11.
+**Übergabe (08.11., 09:1x):** Tagesbericht 08.11. geschrieben (fremd geprüft, Befunde eingearbeitet), Abnahmeliste 4.2 und 2.14 nachgezogen, Telegram mit Ton gesendet. Nachfolger: Perikles – 338.1: Wochenziel 09.11.
 
 ## Einzelheiten
 
