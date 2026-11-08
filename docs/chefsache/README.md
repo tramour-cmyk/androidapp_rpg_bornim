@@ -53,7 +53,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 
-**Tom** – offen 101, Muss 75, startbar 23
+**Tom** – offen 100, Muss 75, startbar 22
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -157,7 +157,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 638 | M? | Kleinleben wie alt: Dorfhund, Katze in der Schenke, sichtbare Vögel, fallende Blätter im W | startbar |
 | 639 | M? | Leute tragen ihre Dinge wie alt: Jorins Speer, Aldrics Stab quer auf der Schulter (Garrick | startbar |
 | 640 | M? | Innenräume und Häuser, Varianten wie alt: Werkzeugregal, Wandbehänge und Stock bei Aldric, | startbar |
-| Pflege | K | von Werkzeug (340.3, 08.11.): 15205 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 59, Muss 48, startbar 27
 
@@ -223,7 +222,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 633 | M? | Boss-Beute wie alt: Ogerhandschuhe (Krogg), Graks Streitaxt, Grimmzahn-Amulett fehlen im L | startbar |
 | 634 | M? | Schenkenklang wie alt: Rowena wischt, gießt, stellt Becher ab, Borin Flasche und Stuhl, im | startbar |
 
-**Perikles** – offen 17, Muss 14, startbar 0
+**Perikles** – offen 18, Muss 14, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -244,6 +243,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 631 | K | lauf.py: Startmarken ohne Datum verglichen (Ford 06.11., 07:19) | wartet auf Test/Build (gebaut) |
 | 99 | K | Zwei Niederlassungen | ruht |
 | 641 | M | lauf.py startet Nachfolger „auf Abruf“, obwohl nichts startbar ist (Diogenes 08.11., 09:07 | wartet auf Test/Build (gebaut) |
+| Pflege | K | von Werkzeug (340.3, 08.11.): CLAUDE.md: 15564 Bytes (Grenze 15000), kürzen | startbar |
 
 **Diogenes** – offen 11, Muss 9, startbar 0
 
