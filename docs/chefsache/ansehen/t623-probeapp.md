@@ -30,3 +30,8 @@ Ein Weg: Reiter „Test“ → „Bildrate“ an; Teleport Dorf, zum Bach im Sü
 | C2 | Jerry | 623.5 | Knopf „Fassung“: zwischen Paket und unserer Fassung wechseln | derselbe Effekt in unserer Fassung; Paket deutlich besser? | kein Unterschied zu sehen |
 
 Bekannt: Blumenwiese gibt es in der Gratisprobe Grass & Wind nicht (nur die Fassungen Frühling und Sommer). Unsere Felsen sind mit dem Boden zu einem Netz verschmolzen, darum stellt „Oberflächen“ eigene Felsen des Pakets vor den Helden. In unserer Fassung der Effekte stehen in dieser Probe noch Kampfleisten und Ansagen (behoben f32cac483, nicht in Lauf 306).
+
+## Ergebnis
+
+- A2 ✗ Blitz und Donner kamen nicht (Chef 19:42); nicht nachbessern (19:44)
+- Rest ✓ (Chef 19:32–19:42: „Also die Effekte sind besser als unsere eigenen.“; Bildrate Dorf 33, Flüsterwald 25)
