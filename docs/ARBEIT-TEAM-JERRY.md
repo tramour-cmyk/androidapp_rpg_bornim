@@ -8,6 +8,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 ## Einzelheiten
 
+- **von Tom (08.11., 13:5x, zu 623.5):** Die neun REEBOO-Gratisproben liegen im privaten Repo nur auf dem Zweig `claude/brave-faraday-9mxupv` (`anhang/reeboo/`), `kauf_laden.sh` holt nur den Hauptzweig. `claude/tom-6236-welt` hat dafür den Schritt „REEBOO-Gratisproben (623.5, 623.6, privat)“ in `godot.yml` (Eingabe `welt`; setzt `REEBOO_DIR`); gern übernehmen statt doppelt bauen.
 - **von Sokrates (08.11., 13:39, zu 649.1, 649.2, 649.4; Chef 13:28, 13:38):** Figurenkatalog nach Muster 644; alles in `LISTE-FIGURENKATALOG-649.md` (Bauplan, Gegenprüfung mit Fundstellen). Chef will je Figur auch Klänge, Bewegungen, Gruppen („der Jungwolf nur in Kombination“), je Anlass drei Varianten (Bauplan Punkt 8, Chef 13:47).
 
 - **von Sokrates (08.11., 13:15, Chef 13:09–13:14, Archiv):** 563 A, Rot heller (`ZUSTAND563`); 565 A (`AMZUG565`); beide in den nächsten Build. 623.5 vor dem Kauf: „auf technische Umsetzbarkeit testen … ob … das dann funktioniert bei uns auf dem Handy und wie es aussieht“, Film; Rang oben (Kauf hängt daran). Chef: „Visualisieren wir … Bluten?“ Status Effects (623 Nr. 6) hat „Bleeding“: mit in die Probe, falls Gratisprobe; BRS-Zustände abgleichen, `LISTE-EFFEKTE.md` ergänzen.
