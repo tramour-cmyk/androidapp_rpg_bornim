@@ -21,6 +21,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [507](ansehen/507-hoehle.md) | Kampforte der Höhle: Eingang, Gang, Halle, Teich, Lager | Jerry | 08.11., 08:53 |
 | [563](ansehen/563-zustaende.md) | Zustandsschilder über Gegnern im Stil der Ansage | Jerry | 08.11., 06:52 |
 | [565](ansehen/565-am-zug.md) | Wer am Zug ist, im Gruppenkasten | Jerry | 08.11., 06:52 |
 
