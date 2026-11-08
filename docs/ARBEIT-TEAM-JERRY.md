@@ -8,6 +8,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 ## Einzelheiten
 - **Zu 702, von Jerry an Tuffy (08.11., 21:55):** doppelt angefangen, bevor ich „in Arbeit bei Tuffy“ sah; 702 bleibt bei dir. Meine Nachstellung als Zutat: `claude/jerry-702-wolfzug` a73b354c7, `godot/tests/wolf_zug_702.gd` (Autopilot, Kämpfer Stufe 3 gegen Rudel, 400 Kämpfe): jetzt 38 % der Züge verloren, 24 % der Kämpfe 3+ in Folge, längste Folge 9; Schutz nach verlorenem Zug 27 %, 0, 1; Rettungswurf Stärke gegen 11 (+5) 10 %, 1, 3; Kleriker hinten verliert nie; alle Kämpfe gewonnen. Mein Entwurf der Vorlage (Votum A, ein Schutz für alle Zug-Verlierer wie stun_guard) liegt nicht in der Chefsache; nimm, was passt.
+- **Zu 682 (Jerry, 08.11., 21:58):** Ursache im Code: Heimweg und Umweg der Gegner (`_walk_home`, `HEIMWEG_BOGEN = false` seit r3c) = Drehen auf der Stelle, Gerade zum Umweg, Drehen am Umweg, Gerade heim, Drehen auf der Stelle (die „Schienen“); Held hin mit `SS_WalkForward` × 2,0 (Schildgang geduckt, 1,34 m/s). Bauen erst mit `wolf_mess_438` am Rechner; `add_repo` bornim-kaufmodelle 21:50 abgelehnt (Auto-Modus), beim Chef.
 - **Zu 662, von Chef (Fund t270.9, Test Build 270, Automatik B):** Schildabwehr wie immer, keine Seite erkennbar (Chef 20:50)
 - **Zu 593, von Chef (Fund t270.12, Test Build 270, Automatik B):** kein Ausweichen nach hinten gegen drei Ratten; Zurücktappeln (Chef 21:33, 703 A)
 - **Zu 296.3, von Chef (Fund t270.11, Test Build 270, Automatik B):** Jaulen etwa 3 s nach dem Sturz (Chef 21:28)
@@ -42,7 +43,6 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 - **Zu 643, von Tom (08.11., 10:5x, zu 531):** Chef 03.11., 23:42 (531): Garrick „wie alt und besser … Langbogen auf dem Rücken“; alt (`MapFolk.kt` garrick): „the longbow slung across his back over the quiver, both hands free“. Es gibt in `waffen.py` nur `shortbow`; Kandidat aus dem Kauf: `SM_Bow&ArrowsProp` (ANIMSET.BOW.ARROW) oder `sm_bow` (Medieval Weapon Pack Godot). Gebraucht: `daten/waffen/longbow.bin` (+ Köcher) nach Modellregel 4; die Lage auf dem Rücken baut Tom (`bewaffne`). 531 wartet darauf (zweiter und letzter freier Lauf).
 
 
-- **Zu 560 (Prüfzeile):** Wald, langsam auf einen Wolf zugehen, bis er „!“ zeigt; Grimmzahn ab 4 Kacheln · richtig: dreht sich mit Schritten zum Helden · falsch: dreht auf der Stelle. Messungen 560, 562, 587 alle 0 (`git show 948eff198:docs/ARBEIT-TEAM-JERRY.md`).
 - **Zu 642 (Jerry, 08.11., 10:1x):** SEED=1 und 3 Wolf in Wolf bis 0,15 m (Anlauf am ruhenden Wolf vorbei), auch ohne 562; im Bau misst wolf_mess_438 nur Seed 7.
 - **Zu 507, nachgezeichnet (Jerry, 08.11., 12:1x):** Befunde behoben, Einzelheiten und Bestand im Commit `ba0511bb5` (Hauptursache „fast schwarz“: Eckfarbe mal gemaltes Bild, jetzt Tönung, `tests/hoehle_farben_507.gd`).
 - **Zu 507, Messlauf 293 (Jerry, 08.11., 13:3x):** Zahlen im Commit `06adfaf60` (Vorgabe Licht 0,5, Kampflicht Halle/Teich 0,9; vorderer Wolf dort vorher 10–11). Messlauf 2 nach 646 abgebrochen; mit Freigabe Sokrates: Lauf bild=ja, film=nein auf `06adfaf60`, Bilder sofort an den Chef mit Vermerk (Wolf innen Halle/Teich), Helferbefund danach.
@@ -52,7 +52,6 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 - **Zu 478, von Sokrates (Chef 07.11., 16:3x):** BRS jetzt mit dazu; danach 2.3 mit Tom (Erschaffung, Fertigkeiten, Anzeige). Offen aus Stufe 1: Erfahrung und Gold nach BRS (628, 512a), Üben, Ausdauer (467), Wundsegen, Bannschild, Merkmale Überfall, Umreißen, Rudel, Wurfzeile (Homer, 2.3), Ausrüstung der Probehelden, 304, 296.2. Wortlaut: `git show 948eff198:…`.
 
-- **Zu t268, von Sokrates (Chef 07.11., 14:1x):** Funde 268.19–268.30 und Wortlaut 616, 560: `git show 948eff198:docs/ARBEIT-TEAM-JERRY.md`; je Fund eine eigene Zeile (562, 536, 544, 597, 600, 601, 616, 560).
 
 
 - **Zu 595, 598, 601, von Sokrates (Chef 05.11., 19:2x, Test Build 266; Wortlaut ganz in `9a1970f71`):** **595:** „Animation Spinne sehr gut, gibt es mehr Angriffsbewegungen/Abwechslung?“; Riesenegel schneller in den Angriff und beim Ausweichen, Schurke schlägt darüber; Säureschnecke trifft daneben, springt ruckartig auf den Platz, Ruhe, Atmen? Erst prüfen, was die Kaufpakete an Bewegungen haben (Liste). **598:** „Umwelt – Naturgeräusche passend zum Ort, Wetter, Wind? Lebendige Welt!“: Liste je Ort alt gegen neu (Dorf, Wald, Tiefer Wald, Höhle, Innenräume; Tag, Nacht; Wind); Wetter gab es alt nicht: Vorschlag an den Chef, nicht bauen. **601:** Goblin-Späher ohne Schussbewegung, Pfeil passt nicht, beim Fehlschuss kein Pfeil; Frage nach der Herkunft der Schussbewegung als Text beantworten; Schatten alt nur Nachteil für den Angreifer (`MarsTips.kt:63`, `mars.gd` 921): zeigen, dass der Nachteil gewürfelt wurde.
