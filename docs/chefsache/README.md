@@ -26,6 +26,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [708](tun/708-kaufmodelle-jerry.md) | **Muss** | E Technik | 08.11., 22:38 | Einbinden von bornim-kaufmodelle in der neuen Jerry-Sitzung erlauben | Jerry |
 | [623](tun/623-kauf.md) | **Muss** | E Kampf | 07.11., 20:13 | Effektpakete kaufen | Sokrates |
 
 ## Offen je Rolle
@@ -146,13 +147,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 613.2 | M | Zwischensequenzen: Bewegung sichtbar wie alt (Kerzenflackern, atmendes Licht, Staub im Str | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
 | Pflege | K | von Werkzeug (340.3, 08.11.): 15997 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 71, Muss 65, startbar 1
+**Jerry** – offen 72, Muss 66, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 682 | M | Kampf flüssiger: Held geht zügig zum Angriff, Gegner laufen in weichen Bögen statt eckig g | startbar |
+| 682 | M | Kampf flüssiger: Held geht zügig zum Angriff, Gegner laufen in weichen Bögen statt eckig g | wartet auf 708 (Chef) |
 | 702 | M | Wölfe: Anspringen nimmt dem Helden jeden Zug, Rudel hält ihn dauerhaft fest (Chef t270, 08 | Chef (Datei in der Chefsache) |
 | 703 | M | Ausweichen: Gegner bleibt am Ausweichplatz statt zurückzutappeln, 703 A (Chef t270.12, 08. | wartet auf Test (Build 271) |
+| 708 | M | Zugriff auf bornim-kaufmodelle in Jerry-Sitzungen: add_repo vom Automodus abgelehnt (Jerry | Chef (Datei in der Chefsache) |
 | 562 | M | MARS: Helden laufen zum Angriff viel zu langsam, zurück gleiten sie flott (Chef 04.11., 17 | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test |
 | 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test |
 | 560 | M | Monster auf der Karte drehen sich zum Helden, wenn sie ihn wahrnehmen, mit Schritten statt | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test |
