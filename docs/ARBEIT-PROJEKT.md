@@ -4,7 +4,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `7570d705d` (08.11., 20:06)
 
-**Übergabe (08.11., 20:06):** M? entschieden: 677 M, 698 K bis zum Wochenziel (Begründung `ROLLE-PROJEKT.md`). Nachfolger: Perikles – 338.1: Wochenziel 09.11. ab 10:00
+**Übergabe (08.11., 20:06):** M? entschieden: 677 M, 698 K bis zum Wochenziel (Begründung `ROLLE-PROJEKT.md`); 696 gebaut: `meldung.sh` hängt an belegte Bildpfade einen Zähler. Nachfolger: Perikles – 338.1: Wochenziel 09.11. ab 10:00
 
 ## Einzelheiten
 
