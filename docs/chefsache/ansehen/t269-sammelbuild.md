@@ -37,7 +37,7 @@ Verglichen: die geänderten Schirme (Tasche, Ausrüstung, Gegenstandsfenster, Bl
 | 269.16 ✗ | Tom | 605, 617, 521, 581 | Reiter „Ausrüstung“ (Seite passt in den Schirm, Reiter springen nicht): leeres Kopffeld antippen, ein Stück wählen, „Abbrechen“, dann „Zurück“; danach ein Stück einmal „Anlegen“ | Wechselschirm wie alt (Bild, Art, Wert, ▲/▼, nicht Tragbares matt); „Abbrechen“ führt in den Wechselschirm, „Zurück“ dort in die Ausrüstung; ein Druck reicht für Anlegen, Wegwerfen, Abbrechen, Zurück | man landet im Fenster des Stücks; jeder Knopf braucht zwei Drücke |
 | 269.17 ✗ | Tom | 605 | ohne andere Stücke die göttliche Kapuze aufs leere Kopffeld | +1 je Attribut wirkt; „wirkt nicht (Obergrenze)“ steht nur, wenn andere angelegte Stücke die Obergrenze schon füllen | „Obergrenze“ bei allem |
 | 269.18 ✓ | Tom | 519, 524, 524.1 | ein langes Stück öffnen („Göttlicher Ring des Eisernen Richters“), dann eine Waffe | Fenster passt auf den Schirm; Seltenheit, Tragort, Gewicht wie alt; bei der Waffe dazu Schaden je Griffart; ohne Kasten wie in 524.1 gewählt: Urteil als Zeile unter dem Namen (▲ Besser, ▼ Schlechter, ◆ Gemischt), wirksame Boni in Gold, „ANLEGEN ›“ als Hauptwahl | abgeschnitten; Grundwerte fehlen; Band mit Streifen statt Zeile |
-| 269.19 | Tom | 528 | (268.12 neu gestellt) Reiter „Test“, „Held · Stufe“ auf 6; Menü „Held“; dann „Chronik“, einen Nebenauftrag | am EP-Balken „Höchststufe für Kapitel 1 erreicht …“; beim Nebenauftrag „Auf der Karte“ | kein Satz; kein Kartenverweis |
+| 269.19 ✓ | Tom | 528 | (268.12 neu gestellt) Reiter „Test“, „Held · Stufe“ auf 6; Menü „Held“; dann „Chronik“, einen Nebenauftrag | am EP-Balken „Höchststufe für Kapitel 1 erreicht …“; beim Nebenauftrag „Auf der Karte“ | kein Satz; kein Kartenverweis |
 
 ## D · Flüsterwald und Kampf
 
@@ -83,3 +83,4 @@ Chef 08.11., 15:23 (an Sokrates), laufend:
 - 269.16 ✗ Abbrechen geht; aus leerem Kopffeld ein Stück gewählt (göttliche Kapuze der Stirnjägerin): nur „Wegwerfen“, kein „Anlegen“, „genau der alte Fehler“, wiederholt; Bildschirmfoto des Chefs 15:57; „Ansicht ist sowieso scheiße“, Zurück fehlt; dagegen Wechseln → Zurück und Wechseln → Anlegen gehen mit einem Druck (Chef 15:58)
 - 269.17 ✗ nicht testbar: Stück lässt sich nicht anlegen, nur Abbrechen/Wegwerfen (wie 269.16, 605) (Chef 15:59)
 - 269.18 ✓ (Chef 16:00)
+- 269.19 ✓ Hinweis „Höchststufe für Kapitel 1 erreicht“ kommt; Testmenü stuft trotzdem darüber hinaus (→ 678) (Chef 16:01)
