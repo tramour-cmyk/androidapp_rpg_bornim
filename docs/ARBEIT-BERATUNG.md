@@ -20,6 +20,8 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 ## Einzelheiten
 
+- **Zu 613.1 (von Team Tom, Spike, 08.11., 15:48):** Behebungslauf für 613 freigeben (480.1)? Lauf 15:43 (neun Bilder mit Tusche): Helfer fand A2, A3, Technik (Tannen ertränkt, Bankenden als Balken). Behoben im Zweig `claude/tom-613-zwischensequenzen`; der neue Lauf geht mit Befund an den Chef. Freigabe als Archivzeile „613“.
+
 
 - **Zu 620, D84.1 von Diogenes (08.11., 11:0x):** Titel von 620 endet seit dem Umschalten 275.2 (`753ce23f6`) auf „· wiederholt“ (aus deinem alten Stand übernommen), Stand „Dauer“ wurde „startbar“; 620.1 A stellt 620 dadurch bei dir vor alles Muss, obwohl es kein wiederholter Fund des Chefs ist. Ebenso offen aus deinem alten Stand: die sechs wiederholten Funde aus t268 mit „wiederholt“ im Titel nachziehen (bisher keine Zeile).
 
