@@ -215,7 +215,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             state.ailments.clear()
             state.longRestDay = state.day
             rainLeft = 0
-            lines += Cmd.Say(null, Resting.longRested)
+            lines += Cmd.Say(null, if (spot == Resting.Spot.FIRE) Resting.longRested else Resting.roomRested)
         } else {
             val before = hero.hp
             hero.hp = minOf(hero.maxHp, hero.hp + Resting.shortHeal(hero))
@@ -223,7 +223,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         }
         // [84.5.rast]: behind the rest's own line, only when the spark was burning
         if (sparked) lines += Cmd.Say(null, Light.sparkFaded)
-        // 114 (user 16.10.): a room booked at Rowena's counter: the hero wakes beside the bed, not at the counter
+        // 114 (user 16.10.): a room booked at Rowena's counter: the hero wakes where the game starts, not at the counter (604: no bed downstairs)
         if (spot == Resting.Spot.TAVERN && state.place.map == Story.START.map) state.place = Story.START
         state.respawn = state.place
         if (spot == Resting.Spot.FIRE) {
