@@ -223,7 +223,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 633 | M? | Boss-Beute wie alt: Ogerhandschuhe (Krogg), Graks Streitaxt, Grimmzahn-Amulett fehlen im L | startbar |
 | 634 | M? | Schenkenklang wie alt: Rowena wischt, gießt, stellt Becher ab, Borin Flasche und Stuhl, im | startbar |
 
-**Perikles** – offen 17, Muss 13, startbar 2
+**Perikles** – offen 18, Muss 14, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -241,9 +241,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 270 | M | Perikles und Diogenes auf das große Modell (Chef 21.10.) | ruht |
 | D75 | M | Filmsperre 511 zählte Film-Pushes 572 nicht (D75.1); meldung.sh --film legte Film 572 nich | Dauerzeile |
 | 627 | M | probelauf.py: Push mit git commit -F - im selben Befehl als Probelauf gezählt (562, ohne L | wartet auf Test/Build (gebaut) |
-| 631 | K | lauf.py: Startmarken ohne Datum verglichen (Ford 06.11., 07:19) | startbar |
+| 631 | K | lauf.py: Startmarken ohne Datum verglichen (Ford 06.11., 07:19) | wartet auf Test/Build (gebaut) |
 | 99 | K | Zwei Niederlassungen | ruht |
 | Pflege | K | von Werkzeug (340.3, 08.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabe | startbar |
+| 641 | M | lauf.py startet Nachfolger „auf Abruf“, obwohl nichts startbar ist (Diogenes 08.11., 09:07 | wartet auf Test/Build (gebaut) |
 
 **Diogenes** – offen 11, Muss 9, startbar 0
 
