@@ -41,7 +41,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 
-**Tom** – offen 101, Muss 75, startbar 25
+**Tom** – offen 100, Muss 75, startbar 24
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -140,7 +140,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 431e | M | Rückfrage: Gesicht des Helden im Dorflicht fast weiß, Hauteichung nach Messung? | ruht |
 | 629.1 | M | Klopfen: Sprechernamen hinter Türen bauen ([629.sprecher], von Homer) | wartet auf Test/Build (gebaut) |
 | 632 | M | Truhe der Höhle (cave_3, 4/14) gibt „@class_weapon“ statt der Waffe der Klasse wie alt (St | wartet auf Test/Build (gebaut) |
-| Pflege | K | von Werkzeug (340.3, 08.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 | 636 | M | Schlagbaum öffnet ohne Türgeräusch (alt G:1162 Sound.DOOR; Abgleich 620.2a) | wartet auf Test/Build (gebaut) |
 | 637 | M | Anschlagbrett: frischer blasser Zettel, solange ein ungelesener Auftrag hängt (A/MapTownIs | startbar |
 | 638 | M? | Kleinleben wie alt: Dorfhund, Katze in der Schenke, sichtbare Vögel, fallende Blätter im W | startbar |
@@ -210,7 +209,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 399.2d | M | Godot am Rechner freigeben (Auto-Modus lehnte Download ab), Tests ohne CI-Lauf (aus 399.2) | ruht |
 | 633 | M? | Boss-Beute wie alt: Ogerhandschuhe (Krogg), Graks Streitaxt, Grimmzahn-Amulett fehlen im L | startbar |
 | 634 | M? | Schenkenklang wie alt: Rowena wischt, gießt, stellt Becher ab, Borin Flasche und Stuhl, im | startbar |
-| Pflege | K | von Werkzeug (340.3, 08.11.): 31025 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
+| Pflege | K | von Werkzeug (340.3, 08.11.): 31691 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
 
 **Perikles** – offen 17, Muss 13, startbar 2
 
