@@ -16,6 +16,12 @@ Nichts offen.
 
 ## Anzusehen
 
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [664](ansehen/664-haeuser.md) | Kaels Haus und Morwens Hütte nicht mehr halb | Tom | 08.11., 16:00 |
+
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
 | Folge | Version | Build | Was | Wer | Seit |
@@ -44,11 +50,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 
-**Tom** – offen 111, Muss 91, startbar 9
+**Tom** – offen 111, Muss 91, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 664 | M | Halbes Haus: Haus des alten Kael und Hütte der Kräuterhexe im tiefen Flüsterwald nur halb | startbar |
+| 664 | M | Halbes Haus: Haus des alten Kael und Hütte der Kräuterhexe im tiefen Flüsterwald nur halb | Chef (Datei in der Chefsache) |
 | 605 | M | Ausrüstung: leeres Kopffeld, Auswahl zeigt falsch „Obergrenze“, kein Zurück; Stück aus der | wartet auf Test (Build 269) |
 | 416.8 | M | NPC dreht sich zum Helden mit kleinen Schritten, nicht auf der Stelle (Chef 31.10., 20:5x; | wartet auf Test (Build 269) |
 | 670 | M | Build 269: Menü des Helden (Held, Tasche, Ausrüstung, Karte, Chronik, System) noch im alte | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
