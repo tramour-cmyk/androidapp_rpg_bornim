@@ -9,6 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [655](entscheiden/655-vorpruefung-bilder.md) | **Muss** | B Abläufe | 08.11., 14:52 | Warum das falsche Bild entsteht: der Maler sieht sein Bild nie | Sokrates |
+| [657](entscheiden/657-drei-stichpunkte.md) | **Muss** | B Abläufe | 08.11., 14:59 | Regeln radikal kürzen: je Rolle drei Stichpunkte | Sokrates |
 
 ## Zu billigen
 
@@ -273,11 +274,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
 | 644.5 | M | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noc | wartet auf 644.1 (startbar) |
 
-**Sokrates** – offen 44, Muss 34, startbar 22
+**Sokrates** – offen 45, Muss 35, startbar 22
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 620 | M | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build | startbar |
+| 657 | M | Regeln radikal kürzen: je Rolle drei Stichpunkte, CLAUDE.md eine Seite (Chef 08.11., 14:58 | Chef (Datei in der Chefsache) |
 | 341.1 | M | Zielvereinbarung für alle Rollen: je Rolle höchstens drei Ziele, Z3 und Z4 für alle, eins | startbar |
 | 623 | M | Effektpakete REEBOO Labs: Kauf, Ressourcenseite LISTE-QUELLEN.md, Zuordnung LISTE-EFFEKTE. | wartet auf 623.5 (wartet) |
 | 623.1 | M | Prüfschema auf bisher geprüfte Quellen anwenden (Chef 07.11., aus 623) | startbar |
