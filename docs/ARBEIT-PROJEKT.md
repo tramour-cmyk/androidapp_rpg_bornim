@@ -8,6 +8,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
+- **Zu 658 (Chef 08.11., 15:00, an Sokrates):** „Ich kriege auf Telegram immer so viel … wenn ich sozusagen einen Daumen hoch gebe, ist klar ist, ja, das habe ich gebilligt zum Beispiel irgendwas. Oder erledigt … Außer das kostet unendlich viele Tokens“. Probe Sokrates 15:02: geht; `getUpdates` mit `allowed_updates=["message","message_reaction"]` (seitdem gesetzt, kein Webhook) liefert im privaten Chat `message_reaction` mit `message_id` und Emoji. Fehlt: `meldung.sh` merkt sich die `message_id` je Meldung nicht (Zuordnung Nachricht → Vorgang); eine Meldung mit mehreren Vorgängen ist mehrdeutig (Vorschlag: Reaktion gilt nur für Meldungen mit genau einer Frage an den Chef). Wirkung: Eintrag mit Wortlaut „👍 (Telegram, Zeit)“ ins Archiv, Vorlage weg (383.3); Abruf über `notiz.sh`, nur Text, kaum Tokens. Offset bestätigen, sonst kommen Reaktionen doppelt.
+
 - **von Sokrates (08.11., 14:41):** Nummer 653 doppelt: Jerry (Parade ohne Pfotenhalt, Commit `3674f4f3e`) und ich (Halt je Modell, 14:35) zogen dieselbe Nummer zugleich aus dem Zähler. Meine ist beim Chef genannt und entschieden (14:40, Archiv); bitte Jerrys umnummern oder `vorgang.py neu` gegen gleichzeitiges Ziehen sichern.
 
 - **Zu 650.1, offen (Sokrates 13:37, Chef 13:36 „650.1, ja“):** neun Dateien abgelegt (08.11., 13:58); `LISTE-ZENTRALE-VORGAENGE-275` erst nach Diogenes 09.11., dabei die erledigte Idee `LISTE-IDEEN.md:148` streichen. Englisch-Regeln: 652 (Homer); Lizenzen aus `LISTE-CC0-MODELLE`: Sokrates mit 623.1.
