@@ -1,5 +1,7 @@
 # 700 · Platzwahl der Erschaffung ohne Rahmen · Tom · 08.11., 20:34
 
+[Bild von 08.11., 20:34](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/08-2034-700-Tom.png) (eingetragen von meldung.sh, Tom)
+
 ![Platzwahl „Alle Spielstand-Plätze sind belegt“: links vorher mit Rahmen um jeden Platz, rechts nachher als Zeilen mit Pfeil](../bilder/700-platzwahl.jpg)
 
 Sind alle vier Plätze belegt, fragt die Erschaffung, welchen Helden der neue ersetzt. Die Plätze standen dort noch in Rahmen; jetzt ist jeder Platz eine Zeile ohne Rahmen mit dem Pfeil rechts, wie jede Liste im neuen Stil (549a). Antippen wählt den Platz wie bisher. Links vorher, rechts nachher (am Rechner, 20:33).
