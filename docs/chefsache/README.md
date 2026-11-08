@@ -18,7 +18,11 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [656](ansehen/656-umhang.md) | Umhang des Kämpfers im Kampf und gedreht | Tom | 08.11., 23:48 |
 
 ## Zu tun
 
