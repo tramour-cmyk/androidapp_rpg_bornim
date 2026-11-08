@@ -8,6 +8,8 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 ## Einzelheiten
 
+- **von Sokrates (08.11., 13:39, zu 649.1, 649.2, 649.4; Chef 13:28, 13:38):** Figurenkatalog nach Muster 644; alles in `LISTE-FIGURENKATALOG-649.md` (Bauplan, Gegenprüfung mit Fundstellen). Chef will je Figur auch Klänge, Bewegungen, Gruppen („der Jungwolf nur in Kombination“).
+
 - **von Sokrates (08.11., 13:15, Chef 13:09–13:14, Archiv):** 563 A, Rot heller (`ZUSTAND563`); 565 A (`AMZUG565`); beide in den nächsten Build. 623.5 vor dem Kauf: „auf technische Umsetzbarkeit testen … ob … das dann funktioniert bei uns auf dem Handy und wie es aussieht“, Film; Rang oben (Kauf hängt daran). Chef: „Visualisieren wir … Bluten?“ Status Effects (623 Nr. 6) hat „Bleeding“: mit in die Probe, falls Gratisprobe; BRS-Zustände abgleichen, `LISTE-EFFEKTE.md` ergänzen.
 
 - **Zu 643, von Tom (08.11., 10:5x, zu 531):** Chef 03.11., 23:42 (531): Garrick „wie alt und besser … Langbogen auf dem Rücken“; alt (`MapFolk.kt` garrick): „the longbow slung across his back over the quiver, both hands free“. Es gibt in `waffen.py` nur `shortbow`; Kandidat aus dem Kauf: `SM_Bow&ArrowsProp` (ANIMSET.BOW.ARROW) oder `sm_bow` (Medieval Weapon Pack Godot). Gebraucht: `daten/waffen/longbow.bin` (+ Köcher) nach Modellregel 4; die Lage auf dem Rücken baut Tom (`bewaffne`). 531 wartet darauf (zweiter und letzter freier Lauf).
