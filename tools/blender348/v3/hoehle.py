@@ -240,39 +240,59 @@ def laeufe():
         out.append((s, lauf))
     return out
 
+# 492 (Chef 04.11., 19:20 zur Hoehle: „Wie eine Betonwanne“; Pruefer 19:07: Fels glatt, hell bis zur Kante, darueber der schwarze
+# Deckel): wie alt MapCaveIso.relief der Kopf der Wand im Dunkel der Decke verloren (ab 45 % bis 85 % der hohen Wand fast schwarz), der
+# Fuss im Staub dunkler, Mulden zwischen den Buckeln halten das Dunkel, Risse laufen herab, nasse Bahnen; der Deckel im selben Ton,
+# so gibt es oben keine harte Kante hell gegen schwarz mehr
 def fels_ton(dunkel=1.0):
     def f(p, n):
-        k = (0.72 + 0.4 * fbm(p.x / 45 + p.y / 45, p.z / 38, 21)) * (1.0 - 0.45 * ss(60, TALL, p.z)) * dunkel
+        w = (p.x + p.y) / TS                                                                        # entlang der Wand, Kacheln
+        k = (0.72 + 0.4 * fbm(p.x / 45 + p.y / 45, p.z / 38, 21)) * dunkel
+        b0 = 0.62 * vn(w * 2.6 + p.z / 70, p.z / 70, 26) + 0.28 * vn(w * 7 + p.z / 28, p.z / 28, 27) + 0.1 * vn(w * 20 + p.z / 10, p.z / 10, 28)
+        k *= 1.0 - 0.5 * ss(0.42, 0.18, b0)                                                         # Mulden (alt: 0,4 - b0)
+        k *= 1.0 - 0.45 * ss(0.035, 0.0, abs(vn(w * 2.4 + p.z / 300, p.z / 90, 29) - 0.5))           # Risse herab
+        k *= 1.0 - 0.12 * ss(0.72, 0.78, vn(w * 9, p.z / 200, 30))                                  # nasse Bahnen
+        k *= 1.0 - 0.3 * ss(24, 0, p.z)                                                             # Fuss im Staub
+        k *= 1.0 - 0.88 * ss(TALL * 0.45, TALL * 0.85, p.z)                                         # Kopf im Dunkel der Decke
         c = mixc(ROCK_D, ROCK, 0.35 + 0.65 * vn(p.x / 30 + p.y / 30, p.z / 22, 22))
         c = mixc(c, SINTER, 0.5 * ss(0.62, 0.8, vn(p.x / 70 + p.y / 70, p.z / 90, 23)))               # helle Sinterbahnen
         c = mixc(c, MOOS, 0.7 * ss(30, 0, p.z) * ss(0.55, 0.75, vn(p.x / 35 + p.y / 35, 0, 24)))    # Moos am feuchten Fuss
         return sc(c, k)
     return f
-def deckel_ton(p, n): return sc(ROCK_D, 0.45 + 0.25 * vn(p.x / 40, p.y / 40, 25))
+_fels_oben = fels_ton()
+def deckel_ton(p, n): return sc(_fels_oben(p, n), 0.75 + 0.2 * vn(p.x / 40, p.y / 40, 25))     # wie die Wand in dieser Hoehe, etwas dunkler
 
-def tiefe(u, z, L, seed):
-    """wie weit die Felsflaeche hinter der Kachelkante liegt (cm, + in den Fels): Fuss wulstet in den Raum, oben zurueck"""
+def tiefe(u, z, L, seed, hn=TALL):
+    """wie weit die Felsflaeche hinter der Kachelkante liegt (cm, + in den Fels): Fuss wulstet in den Raum, oben zurueck.
+    492 (Betonwanne): wie alt MapCaveIso.heights steil vom Fuss, oben gerundet (alt 0,16 Kachel bei (h/Kappe)^(1/0,45)), statt
+    gleichmaessig schraeg; Buckel tiefer (alt: grosse ein Drittel Kachel)"""
     rand = ss(0, 26, u) * ss(0, 26, L - u)                  # an den Enden genau auf der Kante: Ecken schliessen
     fuss = -(4 + 10 * vn(u / 35, 0.5, seed)) * (1 - ss(0, 45, z))
-    rau = ss(0, 50, z) * (8 + 26 * fbm(u / 42, z / 36, seed + 1) + 7 * (0.5 + 0.5 * math.sin(z / 21 + 3 * fbm(u / 80, 0.3, seed + 2)))) + 0.1 * z   # Lauf 1: Waende wie Kaesten
+    rund = 24 * min(1.2, max(0.0, z / hn)) ** 2.2
+    rau = ss(0, 50, z) * (10 + 32 * fbm(u / 40, z / 34, seed + 1) + 7 * (0.5 + 0.5 * math.sin(z / 21 + 3 * fbm(u / 80, 0.3, seed + 2)))) + rund   # Lauf 1: Waende wie Kaesten
     return rand * (fuss + rau)
 
 def flaeche(P, a, e, n, L, hoehen, ton, seed, deckel=True):
     """raue Felswand von a entlang e (Laenge L), Hoehe je Kachel aus hoehen (sanft uebergeblendet), nach n gewandt"""
-    nu = max(2, round(L / 20)); nz = max(2, round(max(hoehen) / 24))
-    def H(u):
+    nu = max(2, round(L / 14)); nz = max(2, round(max(hoehen) / 16))   # 492: feiner fuer die Buckel (vorher 20 und 24 cm)
+    def nenn(u):
         i = min(len(hoehen) - 1, int(u // TS)); f = u - i * TS
         h = hoehen[i]
         if f < 25 and i > 0: h = hoehen[i - 1] + (h - hoehen[i - 1]) * ss(-25, 25, f)
         if f > TS - 25 and i < len(hoehen) - 1: h = h + (hoehen[i + 1] - h) * ss(TS - 25, TS + 25, f)
-        return h * (0.93 + 0.12 * vn(u / 55, 3.3, seed + 5))
+        return h
+    def H(u):
+        # 492 (Betonwanne): Knubbel obenauf wie alt (0,8 + 0,28 x Rauschen mit 1,7 und 4,5 je Kachel), damit keine Kante gerade
+        # laeuft; nach dem Ort in der Welt, so treffen sich zwei Laeufe an der Ecke in derselben Hoehe (vorher 0,93-1,05 je Lauf)
+        q = a + e * u
+        return nenn(u) * (0.8 + 0.28 * (0.75 * vn(q.x / 68, q.y / 68, 31) + 0.25 * vn(q.x / 26, q.y / 26, 32)))
     pts = []
     for i in range(nu + 1):
-        u = L * i / nu; hu = H(u)
+        u = L * i / nu; hu = H(u); hn = nenn(u)
         col = []
         for j in range(nz + 1):
             z = hu * j / nz
-            col.append(a + e * u - n * tiefe(u, z, L, seed) + Vector((0, 0, z)))
+            col.append(a + e * u - n * tiefe(u, z, L, seed, hn) + Vector((0, 0, z)))
         pts.append(col)
     for i in range(nu):
         for j in range(nz):
@@ -310,7 +330,7 @@ def wandpunkt(f, s, t, z):
     hoch, k, a, e, L, seed = WAND_VON[(f[0], f[1], s)]
     n = SEITEN[s][2]
     u = (k['a'] - a).dot(e) + TS * t
-    return a + e * u - n * tiefe(u, z, L, seed) + Vector((0, 0, z)), n, hoch
+    return a + e * u - n * tiefe(u, z, L, seed, k['hoch']) + Vector((0, 0, z)), n, hoch
 
 def schatten(p, rx, ry=None, k=0.35):
     """weicher Fussschatten (alt MapCave 896, 1015): flache Scheibe knapp ueber dem Boden, innen dunkel, am Rand Bodenfarbe"""

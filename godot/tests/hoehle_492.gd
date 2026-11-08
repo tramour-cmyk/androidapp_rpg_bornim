@@ -55,7 +55,9 @@ func _lauf() -> void:
 	pruefe(gl != null and absf(gl.rotation.y) < 0.01, "Gitter zu (Gitter_L an der Angel)")
 	pruefe(not spiel.karte.begehbar(Vector2i(10, 5)), "Gitter sperrt (10, 5)")
 	var zu: Array = Geschichte.gitter(spiel.zustand)
-	pruefe(zu.size() == 1 and String(zu[0]["art"]) == "sagen" and not spiel.zustand.has(Geschichte.GATE_OPEN), "ohne Schluessel: „Ein schweres Eisengitter. Es ist verschlossen.“")
+	# seit 504 (main) haengt an jedem Satz mit Varianten ein Befehl „variante“: nur die gesagten Saetze zaehlen
+	var gesagt := zu.filter(func(b): return String(b["art"]) == "sagen")
+	pruefe(gesagt.size() == 1 and String(gesagt[0]["text"]["de"]).begins_with("Ein schweres Eisengitter") and not spiel.zustand.has(Geschichte.GATE_OPEN), "ohne Schluessel: „Ein schweres Eisengitter. Es ist verschlossen.“")
 	spiel.zustand.dazu("rusty_key")
 	spiel.held.setze(Vector2i(10, 6), "UP")
 	pruefe(spiel.angebot(Vector2i(10, 6))[0] == "UNLOCK", "vor dem Gitter bietet der Knopf „Aufschließen“ (Navigation UNLOCK): %s" % [spiel.angebot(Vector2i(10, 6))])
