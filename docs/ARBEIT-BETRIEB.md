@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford“ (Tiefe 1, Selbstneustart 07.11., 13:04) `session_01Hmoj76HFnAA46mUTzwaQoK`; Stundenuhr „Ford-Lauf“ `trig_01XX9vc5EKBbCxN1oJDuihTe` (:03); der Nachfolger legt seine Uhr an, löscht diese und archiviert diese Sitzung (idle, >60 s, Kosten buchen). Alter Ford archiviert 07.11., 14:04 (Satz des Chefs), 28,50 $ auf Betrieb.
+- **Ford lebt in einer Sitzung** „Ford“ (Tiefe 2, Selbstneustart 08.11., 09:05) `session_01Hmoj78NKRazEf1Gp5XtnWY`; Stundenuhr „Ford-Lauf“ `trig_018KFM8p48SdbzgBWQ3TzWRR` (:03); der Nachfolger legt seine Uhr an, löscht diese und archiviert diese Sitzung (idle, >60 s, Kosten buchen). Alter Ford `session_01Hmoj76HFnAA46mUTzwaQoK` (10,17 $, idle) wartet auf den Archiviersatz des Chefs (Meldung 09:07); Uhr gelöscht. Vorheriger Ford archiviert 07.11., 14:04, 28,50 $ auf Betrieb.
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus; Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
 
@@ -52,6 +52,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 09:07 08.11.: Selbstneustart (Tiefe 2), neue Uhr, alte gelöscht. Gestartet: Diogenes, Perikles (Tagesbericht 08.11.), Sokrates (Stellungnahme 4061, 6201). Spike (499) und Tuffy (562) nicht gestartet, Grund: Woche über tragbarem Tempo (Bild Chef 08:44, ≈ 0,8 statt 0,58 %/h); Startmarke steht, an Perikles melden. Wächter 499, 630 an Tom und Chef. Abgleich-Warnung 416.4 (Tom): „gebaut“ ohne Build, Zweig auf main.
 - 13:07 06.11.: Tom `FrCC` (603) fertig: Build 268 zum Test (PR #186, ansehen/t268), archiviert, 21,72 $ auf 603. Keine Sitzung läuft; Tom und Jerry ohne Muss als Code, Rest ruht bis Sa 20:00. Heute gesamt Entwicklung 77,97 $.
 - 09:23 06.11.: Tom `8kKy` fertig (591, 592, 582, 583, 557; Sparauftrag leer, Rest braucht Bild/Film), archiviert, 18,41 $ auf 591, 592, 582, 583, 557. Jerry `LgDT` fertig (548, 545, 562, 544, 547, 561, 536, 533, 532), archiviere nach Ruhe. Offen beim Chef: 602.
 - 08:28 06.11.: Chef 08:27 „Allein sinnlose Sitzungsstarts kosten ja auch wieder Guthaben.“ Lehre Ford: Start im Sparbetrieb immer mit Zeitrahmen und „danach weiter mit startbarem Muss“, nie nur zwei Zeilen.
