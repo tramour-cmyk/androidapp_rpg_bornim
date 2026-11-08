@@ -49,16 +49,16 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 | 694 | K | Von Tom (356.2): Katalogtext je ein Satz für Thessas Pelzumhang (cloak_thessa) und Borins | startbar |
 
-**Tom** – offen 98, Muss 73, startbar 6
+**Tom** – offen 98, Muss 73, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 613 | M | Zwischensequenzen neu wie alt: leichte Bewegungen, Signatur, Tusche (mit 302.3), an Spike | startbar |
 | 664 | M | Halbes Haus: Haus des alten Kael und Hütte der Kräuterhexe im tiefen Flüsterwald nur halb | wartet auf Test/Build (gebaut) |
 | 656 | M | Umhang Kämpfer mit Beulen, große Beule unter dem Schwertarm: woher, weg (Chef 08.11., 14:5 | startbar |
 | 605 | M | Ausrüstung: leeres Kopffeld, Auswahl zeigt falsch „Obergrenze“, kein Zurück; Stück aus der | wartet auf Test (Build 270) |
 | 416.8 | M | NPC dreht sich zum Helden mit kleinen Schritten, nicht auf der Stelle (Chef 31.10., 20:5x; | wartet auf Test/Build (gebaut) |
 | 670 | M | Build 269: Menü des Helden (Held, Tasche, Ausrüstung, Karte, Chronik, System) noch im alte | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
-| 613 | M | Zwischensequenzen neu wie alt: leichte Bewegungen, Signatur, Tusche (mit 302.3), an Spike | Chef (Datei in der Chefsache) |
 | 623.6 | M | Probe Welt mit den Gratisproben (Gras und Wind, Wasser, Wetter, Oberflächen) gegen unsere | startbar |
 | 499 | M | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 | wartet auf Test (Build 270) |
 | 635 | M | Lyra fehlt als Figur im Tempel und in der Höhle: Kennung lyra_temple/lyra_cave, gebaut wir | wartet auf Test (Build 270) |
