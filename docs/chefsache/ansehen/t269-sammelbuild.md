@@ -73,4 +73,4 @@ Chef 08.11., 15:23 (an Sokrates), laufend:
 - 269.8 ✓
 - 269.9 ✓ (dazu 665: nachts kaum dunkel, alle Fenster hell)
 - 269.10 ✗ Kaninchen nicht hörbar; Huhn gackert kaum, Flattern kaum hörbar; Huhn soll wie alt wirklich wegflattern (Flügel schlagen, kurz auffliegen „tschack, tschack, tschack … weg“), nicht nur laufen (Chef 15:41)
-- 269.11 ✗ Leute drehen sich auf der Stelle; beim Annähern richtet sich keiner zum Helden aus (Stil: bis 3 Felder anschauen), Hineinlaufen schiebt sie weg; so nicht testbar (Chef 15:43)
+- 269.11 ✗ Leute drehen sich auf der Stelle; beim Annähern richtet sich keiner zum Helden aus (Stil: bis 3 Felder anschauen), Hineinlaufen schiebt sie weg; so nicht testbar (Chef 15:43); Drehen weiter auf der Stelle wie eine Plastikfigur, keine Schritte zu erkennen (Chef 15:44, wiederholt)
