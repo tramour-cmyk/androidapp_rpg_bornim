@@ -65,6 +65,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 636, von Sokrates (Chef 08.11., 20:30, t270.4 ✗):** „270.4 ich hab nichts gehört am Schlagbaum“. Türgeräusch beim Öffnen fehlt; ob der Balken aufsprang, sagte er nicht. Erst Ursache am Rechner nachstellen (334), dann beheben.
 - **Zu 701, von Sokrates (Chef 08.11., 20:37, t270.5 ✓):** „Zu 270.5 passt soweit, scrollen möglich, aber die wiederholte Anzeige des Caps macht keinen Sinn und wirkt überbordend.“ Foto: Amulett, unter jedem der sechs Grundwerte „mehr Bonus, wirkt nicht: Obergrenze für dieses Kapitel erreicht“, oben schon „+1 alle Attribute – wirkt nicht (Obergrenze)“. Vorschlag: Hinweis einmal (oben am Bonus), in der Vergleichstabelle keine Zeile je Wert; Vorschau an den Chef vor dem Build.
 - **Zu 492, von Sokrates (Chef 08.11., 21:46, Archiv):** „492b.“ Fassung B für die ganze Höhle; Fels passt. Offen aus deinem Prüferbefund: Gestalt im Lager am Bildrand. Danach 492 in den nächsten Build.
+- **Zu 656, von Sokrates (Chef 08.11., 21:50, Archiv „656, gleich Film“):** Bild 310 „als Fehlersuchbild … nicht tauglich, weil die Unterschiede sind wieder marginal“; „gib mir einmal das Ganze dann in einer Kampfpose oder in einer 3D-Rotation, wo man sieht, wie sich derjenige dreht“. Statt des freigegebenen Bildlaufs ein Film: neue Fassung, Kampfposen mit gehobenem Schwertarm schräg von hinten (Kampfkamera), dann eine ganze Drehung; vorher selbst ansehen, ob die alte Beule sichtbar weg ist. Nebenbefund rosa Streifen, ausgefranste Schultern als eigener Vorgang.
 
 
 
