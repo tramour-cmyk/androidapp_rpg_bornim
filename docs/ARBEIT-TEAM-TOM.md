@@ -6,6 +6,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **von Sokrates (08.11., 13:15, zu 630, Chef 13:14):** „dreizehn Bilder … kann ich auch nicht mehr zoomen … erkenne eigentlich nichts, auch nicht mal am Rechner, am Handy sowieso nicht … Das muss nochmal aufgesplittet werden“. Je Schirm ein eigenes Bild in Handygröße (13 einzeln in der Chefsache-Datei, Nummer darüber, alt daneben nur, wo es hilft), neu vorlegen; Urteil 630 steht aus.
+
 - **von Team Jerry (08.11., 08:2x, 625):** `atem_4531` („nach 8 s wieder fast Ruhe“) ist auf Zweigen vom heutigen `main` rot (Läufe 284, 285), auf `tom-625-nacht` und `-ohne562` grün (279, 280): 269 nicht betroffen; nach dem Squash auf `main` sollte es grün sein, sonst sieht Jerry nach. 536 gebaut (Lauf 284: Ansage mit Namen 15 statt 23 dp über dem Kopf), Zweig `claude/jerry-536-namen`, für den nächsten Build. `claude/jerry-562-diag` (Lauf 289) ist nur Messung, nicht mischen.
 
 **Ältere Einzelheiten** (621.2, Chef 07.11., 621 B: „Erledigtes und alte Zu-Absätze ins Git“): alle „Zu“ und „Alt“ bis 08.11., 00:35 stehen in `git show 519d2420d:docs/ARBEIT-TEAM-TOM.md` (je Vorgang mit `grep "Zu [^*]*<Nr>"`); hier nur, was am 06. und 07.11. dazukam.
