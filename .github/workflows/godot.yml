@@ -32,7 +32,7 @@ on:
         description: "Kamine 501 (Spike): ja = Grundrisse am Tag und nachts (--raeume), Lage der Kaminflammen"
         default: ""
       welt:
-        description: "Probe Welt 623.6 (Tom): liste = nur Dateinamen der REEBOO-Gratisproben, dann Ende"
+        description: "Probe Welt 623.6 (Tom): liste = Dateinamen der REEBOO-Gratisproben ins Protokoll; bild = Probebild; film = Film"
         default: ""
 
 jobs:
@@ -103,7 +103,7 @@ jobs:
             for f in $(find . -name '*.tres' -path '*presets*' -o -name '*.tres' -path '*materials*'); do echo "REEBOO-RES $f $(head -1 $f | grep -oE 'type="[A-Za-z0-9]+"|script_class="[A-Za-z0-9]+"' | tr '\n' ' ')"; done
             for f in $(find . -name 'minimal_meadow.tscn' -o -name 'pond_toon.tscn' -o -name 'pond_clear.tscn'); do grep -hoE '^\[node name="[^"]+" type="[A-Za-z0-9]+"( parent="[^"]*")?' $f | sed "s#^#REEBOO-SZENE $(basename $f): #"; done
             grep -hoE '^\[autoload\]|^[A-Za-z]+="\*res://[^"]+"|^shader_globals/[a-z_0-9]+' $(find . -name project.godot) | sort | uniq -c | sed 's/^/REEBOO-PROJEKT /'
-            echo "REEBOO: nur Liste, Ende"; exit 1
+            echo "REEBOO: Liste fertig"   # kein exit 1: jeder rote Lauf schickt dem Chef eine Fehler-Mail (Sokrates 14:06)
           fi
           # 623.6: die vier Welt-Kits als Addons in den Bau (godot/.gitignore), dazu die Demo-Felsen der Oberflaechen
           mkdir -p godot/addons
