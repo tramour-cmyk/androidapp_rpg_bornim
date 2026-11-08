@@ -222,7 +222,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 681 | M | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | startbar |
 | Pflege | K | von Werkzeug (340.3, 08.11.): 18984 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 704 | M? | Wolf allein ist harmlos, wenn der Held jedem angekündigten Sprung ausweicht: 300 von 300 S | startbar |
-| 705 | M? | Magier Stufe 1 gewinnt gegen Wolf und Rudel selten (BRS 2–30 %, Messung anspringen_702; Be | startbar |
+| 705 | M? | Zauberlehrling Stufe 1 gewinnt gegen Wolf und Rudel selten (BRS 2–30 %, Messung anspringen | startbar |
 
 **Perikles** – offen 23, Muss 19, startbar 0
 
