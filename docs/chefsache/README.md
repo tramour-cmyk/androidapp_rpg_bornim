@@ -169,7 +169,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 677 | M? | Leuchtfunke wirkt nicht: Benutzen aus der Tasche tut nichts, nur „Der Funke verglimmt“ (Ch | wartet auf Test/Build (gebaut) |
 | 678 | M | Testmenü: Heldenstufe +1 geht über die Kapitelgrenze (Stufe 9 in Kapitel 1), Grenze auch b | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
 
-**Jerry** – offen 69, Muss 61, startbar 3
+**Jerry** – offen 69, Muss 61, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -211,7 +211,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 628 | M | Lohn: EP und Gold steigen nicht mit der Monsterstufe über der Gebietsstufe (over fehlt, al | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test |
 | 289 | K | MARS: Wechsel „halber Zug“ missverständlich; Bewegung und Aktion im Kästchen zeigen? (Chef | ruht |
 | 296.2 | M | MARS spielnötig: Beute/Erfahrung, Fliehen, Eröffnung, Zustände, eigene Ausrüstung, Schalte | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test |
-| 296.3 | K | MARS-Schmuck: Todesschrei, Flucht/Zerfall, Zustände gezeichnet, Siegerpose (Chef 23.10., 1 | startbar |
+| 296.3 | K | MARS-Schmuck: Todesschrei, Flucht/Zerfall, Zustände gezeichnet, Siegerpose (Chef 23.10., 1 | Chef (Datei in der Chefsache) |
 | 344.2 | K | Kampf mit der Fackel: Feuerschaden, Verscheuchen, beide Systeme (Chef 23.10., 18:27) | ruht |
 | 168.1 | K | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | wartet auf 38 (startbar) |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Standbild 2, Bau) | ruht |
@@ -296,7 +296,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 613.1 | M | Freigabe eines Behebungslaufs für 613 Tusche (Prüferbefund 15:45: A2, A3, Technik; von Spi | startbar |
 | 657 | M | Regeln radikal kürzen: eine Seite für alle mit Stil, Team, Ablauf (Chef 08.11., 14:58, 15: | startbar |
 | 341.1 | M | Zielvereinbarung für alle Rollen: je Rolle höchstens drei Ziele, Z3 und Z4 für alle, eins | startbar |
-| 623 | M | Effektpakete REEBOO Labs: Kauf, Ressourcenseite LISTE-QUELLEN.md, Zuordnung LISTE-EFFEKTE. | wartet auf 623.5 (startbar) |
+| 623 | M | Effektpakete REEBOO Labs: Kauf, Ressourcenseite LISTE-QUELLEN.md, Zuordnung LISTE-EFFEKTE. | wartet auf 623.5 (in Arbeit) |
 | 623.1 | M | Prüfschema auf bisher geprüfte Quellen anwenden (Chef 07.11., aus 623) | startbar |
 | 508 | M | Lehrmeister in Kapitel 1 erreichbar (Geselle), Magie-Pflicht Paladin/Kriegsmagier, Wachsol | startbar |
 | 461b.4 | M | Widersprüche aus Liste 461b: Köpfe Regelwerk, Bestiarium, DESIGN-KAMPF gegen Entscheidung | startbar |
