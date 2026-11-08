@@ -111,7 +111,6 @@
 | 638 | Kleinleben wie alt: Dorfhund, Katze in der Schenke, sichtbare Vögel, fallende Blätter im Wald, Hühner ziehen sich in der Dämmerung zurück (Abgleich 620.2a) | Tom | M? | startbar | – | – | – | E Welt | – |
 | 639 | Leute tragen ihre Dinge wie alt: Jorins Speer, Aldrics Stab quer auf der Schulter (Garricks Langbogen: 531; Abgleich 620.2a) | Tom | M? | startbar | – | – | – | E Welt | – |
 | 640 | Innenräume und Häuser, Varianten wie alt: Werkzeugregal, Wandbehänge und Stock bei Aldric, Altartuch, leere Amulett-Halterung; geschlossene Läden, Morwens Rauch grünlich (Abgleich 620.2a) | Tom | M? | startbar | – | – | – | E Welt | – |
-| Pflege | von Werkzeug (340.3, 08.11.): 15205 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
 | 565 | MARS: unten im Gruppenkasten sieht man nicht, welcher Held am Zug ist (Chef 04.11., 17:10, t257 C) | Jerry | M | wartet, Bilder A/B 07:00 an den Chef | Chef | claude/jerry-565-am-zug | – | E Kampf | 7,58 $ |
 | 562 | MARS: Helden laufen zum Angriff viel zu langsam, zurück gleiten sie flott (Chef 04.11., 17:02, t257 C) | Jerry | M | in Arbeit, Lauf 289 abgebrochen (grep verwarf 438 DIAG), Nachstellen am Rechner mit Kaufmodellen | – | claude/jerry-562-angriffsschritt | – | E Kampf | 8,78 $ |
 | 563 | MARS: Zustandsschilder über Gegnern („Blut 3“) überlagern Ansage und Leisten, wirken grob (Chef 04.11., 17:02, t257 C) | Jerry | M | wartet, Bild A 07:00 an den Chef | Chef | claude/jerry-563-zustaende | – | E Kampf | 7,55 $ |
@@ -192,8 +191,8 @@
 | 627 | probelauf.py: Push mit `git commit -F -` im selben Befehl als Probelauf gezählt (562, ohne Lauf) | Perikles | M | gebaut, Geprüft an: 4bcd30e87 | – | – | – | B Werkzeuge | – |
 | 631 | lauf.py: Startmarken ohne Datum verglichen (Ford 06.11., 07:19) | Perikles | K | gebaut, Geprüft an: 12e003a3e (Probe 06.11. 07:17 gegen Marke 05.11.) | – | – | – | B Werkzeuge | – |
 | 99 | Zwei Niederlassungen | Perikles | K | ruht | – | – | – | B Steuerung | 7,25 $ |
-| Pflege | von Werkzeug (340.3, 08.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 14, 19, 38, 40; CLAUDE.md: 15564 Bytes (Grenze 15000), kürzen | Perikles | K | erledigt | – | – | – | B Abläufe | – |
 | 641 | lauf.py startet Nachfolger „auf Abruf“, obwohl nichts startbar ist (Diogenes 08.11., 09:07, Leerstart) | Perikles | M | gebaut, Geprüft an: af1a4da5a (Probe: Übergabe „Diogenes – Prüfer (auf Abruf)“, alt START, neu NICHTS) | – | – | – | B Werkzeuge | – |
+| Pflege | von Werkzeug (340.3, 08.11.): CLAUDE.md: 15564 Bytes (Grenze 15000), kürzen | Perikles | K | startbar | – | – | – | B Abläufe | – |
 | 340.2 | Rollenspiegel C: `tools/rollenspiegel.sh`, eigene Antwort ohne fremde | Diogenes | M | ruht | 09.11. | – | – | B Abläufe | –; +6,35 $ |
 | 485 | Diogenes bessert sich aus dem Rollenspiegel 02.11.: Wochentermine zählen, Vergleichsblätter selbst holen, Meldungen ohne Abkürzungen (Chef 02.11., 19:37 „1, 2, 3 ja“) · „jetzt“ 02.11., 19:37 | Diogenes | M | ruht | 09.11. | – | – | Q QS | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | ruht | 09.11. | – | – | B Abläufe | – |
@@ -235,7 +234,7 @@
 | 340 | Rollenspiegel: zehn Fragen Ist-Soll an alle Rollen, Antwort am Sitzungsende mit Beleg (Chef 23.10., 09:34) | Sokrates | M | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | – | – | – | B Abläufe | –; +3,54 $ |
 | 344 | Fackel: brennt überall außer in hellen Grundrissen; Kampf mit der Fackel nach SRD (Chef 23.10., 16:05) | Sokrates | M | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | – | – | – | E Welt | – |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +829,12 $ |
-| Pflege | von Werkzeug (340.3, 08.11.): 18567 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 08.11.): 19113 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
