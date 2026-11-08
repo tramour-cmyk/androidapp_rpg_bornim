@@ -2,7 +2,7 @@
 
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
-**Übergabe (08.11., 12:5x, `session_01Hmoj76mdq7nhTC9BDJe8YH`):** Stellungnahmen 406.1, 620.1; entschieden 406.1 C, 620.1 B (Sperre nach Aufräumen), 644 ja, 645 ja, 646 ja nach Sinn; 630 Lauf frei; 499 Bilder an den Chef, Urteil 12:41 an Tom; 644 Entwurf in `entscheiden/644-gegenstandskatalog.md` (Gegenprüfung durch Helfer noch anhängen, vor der Vorlage wiederholen); 647 an Perikles (Abgleich alt vor dem Bauen); Lehre 360 Grad. Kosten auf: 406.1, 620.1, 630, 644, 645, 646, 647, 499. Nachfolger: Sokrates – Chefrunde: alle Vorgänge beim Chef außer dem Bildtest (08.11.).
+**Übergabe (08.11., 12:5x, `session_01Hmoj76mdq7nhTC9BDJe8YH`):** Stellungnahmen 406.1, 620.1; entschieden 406.1 C, 620.1 B (Sperre nach Aufräumen), 644 ja, 645 ja, 646 ja nach Sinn; 630 Lauf frei; 499 Bilder an den Chef, Urteil 12:41 an Tom; 644 Entwurf in `entscheiden/644-gegenstandskatalog.md` (Befund der Gegenprüfung 12:55 angehängt, einarbeiten); 647 an Perikles (Abgleich alt vor dem Bauen); Lehre 360 Grad. Kosten auf: 406.1, 620.1, 630, 644, 645, 646, 647, 499. Nachfolger: Sokrates – Chefrunde: alle Vorgänge beim Chef außer dem Bildtest (08.11.).
 
 ## Zeilen
 
