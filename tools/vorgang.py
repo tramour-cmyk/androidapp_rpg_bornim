@@ -28,6 +28,7 @@ Schreiben (Chef 27.10., 15:20: nur über dieses Werkzeug; danach committen und p
 import os, re, sys, subprocess
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import startbar
+import bereiche  # 651
 
 DOCS = startbar.DOCS
 ROLLEN = startbar.BESITZER
@@ -109,6 +110,7 @@ def setzen(nr, paare, rolle=None):
         if k == "warte": n[k] = warte_aus(v)
         elif k == "stand": stand_pruefen(v, nr); n[k] = v
         elif k == "build": n[k] = v.lstrip("t") or "–"
+        elif k == "bereich" and not bereiche.gueltig(v): sys.exit("vorgang.py: Bereich aus der festen Liste (651), Vorschlag „%s“:\n%s" % (bereiche.einordnen(v), bereiche.liste_text()))
         else: n[k] = v.strip() or "–"
     if n["besitzer"] != d["besitzer"]:  # neuer Besitzer: Zeile ans Ende seiner Zeilen
         ersetzen(d, n); rang(nr, "unten", None, n["besitzer"])
@@ -157,7 +159,7 @@ def rang(nr, wie, ziel=None, rolle=None):
 def neu(titel, bereich, kl, besitzer, nr=None, oben=False):
     """275 Stufe 2, 275.2: neue Zeile (Stand startbar, Kosten –); ohne --nr die nächste freie Nummer aus ARBEIT-BETRIEB.md, die hochzählt."""
     if kl not in ("M", "K", "M?"): sys.exit("vorgang.py: Klasse M, K oder M?")
-    if not re.match(r"[A-Z] \S", bereich): sys.exit("vorgang.py: Bereich wie „B Abläufe“, „E Kampf“ (124)")
+    if not bereiche.gueltig(bereich): sys.exit("vorgang.py: Bereich aus der festen Liste (651), Vorschlag „%s“:\n%s" % (bereiche.einordnen(bereich), bereiche.liste_text()))
     besitzer = {"Team Tom": "Tom", "Team Jerry": "Jerry", "Spike": "Tom", "Tuffy": "Jerry"}.get(besitzer.strip(), besitzer.strip())
     if besitzer not in ROLLEN: sys.exit("vorgang.py: Besitzer eine Rolle: " + ", ".join(ROLLEN))
     if any(c in titel for c in "|\n"): sys.exit("vorgang.py: Titel ohne | und Zeilenumbruch")
