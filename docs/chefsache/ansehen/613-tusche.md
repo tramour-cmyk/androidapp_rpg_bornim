@@ -1,10 +1,6 @@
 # 613 · Zwischensequenzen mit Tusche: Intro und Tempelszene · Tom (Spike) · 08.11., 19:10
 
-[Bild von 08.11., 19:11](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/08-1911-613-Spike.png) (eingetragen von meldung.sh, Spike)
-
-[Bild von 08.11., 19:10](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/08-1910-613-Spike.png) (eingetragen von meldung.sh, Spike)
-
-Die zehn Bilder einzeln, in voller Größe auf Telegram (je eine Meldung mit Bildname). Inhalt wie um 17:14, nur nicht mehr in einer Tafel.
+Die zehn Bilder einzeln, in voller Größe auf Telegram, 08.11., 19:10 bis 19:11 (je eine Meldung mit Bildname, „Bild 1 von 10“ bis „Bild 10 von 10“). Inhalt wie um 17:14, nur nicht mehr in einer Tafel.
 
 Alle Bilder des Intros und der Tempelszene haben jetzt die Tuschelinie der Signatur (302.3), etwas kräftiger als bei Intro 4, das du am 23.10. abgenommen hast (Strich 8,5 statt 6,5, auch an Intro 4 selbst). Sonst ist nichts verändert. Der Prüferbefund vom Lauf um 15:43 ist behoben: die Tannen werden von der Linie nicht mehr zugedeckt, die Bankenden sind dünner, und beleuchtete Seiten bekommen keine Linie.
 
