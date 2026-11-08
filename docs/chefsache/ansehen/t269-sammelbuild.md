@@ -48,8 +48,8 @@ Verglichen: die geänderten Schirme (Tasche, Ausrüstung, Gegenstandsfenster, Bl
 | 269.22 | Jerry | 597 | Wölfe, dann Probekampf Ratten, Fledermäuse | über jedem Wolf vor dem Sprung „! Anspringen“ (oder „Einkreisen“), das Ziel an der Farbe des Rahmens; Wolf, Ratte, Fledermaus nie mit Ring | Sprung ohne Ansage; Ring ohne Ansage |
 | 269.23 ✓ | Jerry | 600 | Knopf links neben den Würfeln dreimal antippen | 1, 2, 3 Spitzen, jede Stufe gleich hell, Tempo wechselt, Menü „Tempo“ gleich | Stufe 2 dunkler |
 | 269.24 | Jerry | 547 | (268.24 offen) warten, bis ein Wolf den Helden niederstößt | Homers Zwischentext | „geht in die Knie“, „steht wieder auf“ |
-| 269.25 | Jerry | 532 | (268.14 offen) Met bis betrunken, dann Kampf im Wald, aufs Schild tippen | „Betrunken“ am Helden mit Erklärung; Werte wie in der Welt | kein Schild; Werte des Probekampfs |
-| 269.26 | Jerry | 517 | Wald bei Tag, nachts, Tiefer Wald | Vögel am Tag, Grillen und Eule nachts, im Tiefen Wald fernes Heulen | Stille; Vögel nachts |
+| 269.25 ✗ | Jerry | 532 | (268.14 offen) Met bis betrunken, dann Kampf im Wald, aufs Schild tippen | „Betrunken“ am Helden mit Erklärung; Werte wie in der Welt | kein Schild; Werte des Probekampfs |
+| 269.26 ✗ | Jerry | 517 | Wald bei Tag, nachts, Tiefer Wald | Vögel am Tag, Grillen und Eule nachts, im Tiefen Wald fernes Heulen | Stille; Vögel nachts |
 
 ## E · Reiter „Test“
 
@@ -87,3 +87,5 @@ Chef 08.11., 15:23 (an Sokrates), laufend:
 - 269.20 ✓ (Chef 16:03)
 - 269.21 ✗ Kleriker gegen Wölfe: Wölfe laufen nicht ineinander (438 ✓), gehen aber nicht rückwärts zurück (562, nicht im Build); Abwehr zur Seite „schwer zu beurteilen“, Eindruck: Schild immer gehoben wie vorher (406.2 offen) (Chef 16:06)
 - 269.23 ✓ (Chef 16:08)
+- 269.26 ✗ Wald nachts: Eule da; Tiefer Wald nachts: Vogelgezwitscher und Grillen (Vögel nachts falsch), fernes Heulen kommt spät; prüfen, was im Tiefen Wald nachts alles spielt (Chef 16:13)
+- 269.25 ✗ „Betrunken“ steht am Helden; im Kampf danach wird das Spiel langsam und stürzt ab (→ 680); Trinken ohne Klang (→ 681) (Chef 16:16)
