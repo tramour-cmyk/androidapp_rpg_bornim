@@ -51,15 +51,15 @@ Alle Vorräte sind gleich gebaut. Jede Zeile: Nummer, Vorgang mit Wortlaut des C
 
 ## Hauptthemen und Kosten (124)
 
-Jeder Vorgang hat in `LISTE-VORGAENGE.md` einen Bereich: Hauptthema und Unterthema.
+Jeder Vorgang hat in `LISTE-VORGAENGE.md` einen Bereich: Hauptthema und Teilbereich, nur aus der **festen Liste** (651; `python3 tools/bereiche.py` zeigt sie, `vorgang.py` und die Commit-Prüfung lassen nur diese zu). Auswertung je Bereich, Tag und Woche: [`LISTE-KOSTEN.md`](LISTE-KOSTEN.md), erzeugt mit `tools/kostenbericht.py`.
 
-| Kürzel | Hauptthema | Unterthemen |
+| Kürzel | Hauptthema | Teilbereiche |
 |---|---|---|
-| **E** | Entwicklung | Welt und Orte · Figuren und Monster · Kampf und Regeln · Klang · Oberfläche |
-| **G** | Gestaltung | Story und Texte · Stil und Aussehen · Balance und Spielgefühl |
-| **Q** | Qualität | QS: Builds, Prüflisten, Rückläufer · QM: Prüfläufe, Kennzahlen |
-| **B** | Betrieb | Steuerung (Ford, Ford 2) · Abläufe und Notizen · Werkzeuge |
-| **M** | Markt und Strategie | Beratung, Veröffentlichung |
+| **E** | Entwicklung | Welt · Figuren · Kampf · Klang · Oberfläche · Technik |
+| **G** | Gestaltung | Story · Stil · Balance |
+| **Q** | Qualität | QS (Builds, Prüflisten, Rückläufer) · QM (Prüfläufe, Kennzahlen) |
+| **B** | Betrieb | Steuerung (Ford, Guthaben, Kosten) · Abläufe (Regeln, Notizen) · Werkzeuge |
+| **M** | Markt | Markt (Strategie, Geschäftsmodell) · Veröffentlichung |
 
 **Preis je Vorgang:** Ford und Ford 2 lesen beim Neustart `usage.cost_usd` des Vorgängers und addieren es in der Spalte „Kosten“ (mehrere Vorgänge zu gleichen Teilen; Fords eigene Läufe auf Vorgang „Betrieb“; fehlt die Zahl, „fehlt“). Der Betrag ist der API-Preis, keine Rechnung (Max und Pro sind Pauschalen); als Maß für Anteile taugt er. Testzeit des Chefs ist nicht enthalten, dafür zählen Testrunden. Vier Augen: Ford erfasst, Diogenes zählt, Perikles bewertet.
 
