@@ -22,7 +22,7 @@
 | 569 | Baumkronen ohne erkennbare Tuschelinie, „ein einziger Brei“ (Chef 04.11., 19:44, Bild 558 Probe 4) | Tom | M | wartet, Läufe frei (gezählter Push ohne Lauf) | Sokrates | – | – | A Spiel | – |
 | 568 | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | Tom | M? | ruht | – | – | – | A Spiel | – |
 | 558 | Robe des Magiers zu glatt, wie eine blaue Fläche: Stoff lebendiger (Falten, Schatten, Schmutz, Abnutzung) (Chef 04.11., 11:31, Bild) | Tom | M | zu testen | – | – | 269 | E Figuren | 96,33 $ |
-| 531 | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere sichtbar mit der Fackel, Ruhebewegungen (Chef 03.11., 23:42) | Tom | M | in Arbeit, Ursachen nachgestellt (Zu 531) | – | claude/tom-531-film | – | A Spiel | 12,96 $ |
+| 531 | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere sichtbar mit der Fackel, Ruhebewegungen (Chef 03.11., 23:42) | Tom | M | in Arbeit, Ursachen nachgestellt (Zu 531) | 643 | claude/tom-531-film | – | A Spiel | 12,96 $ |
 | 522 | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Chef 03.11., 23:33) | Tom | M | zu testen | – | claude/tom-522-waffen | 269 | A Spiel | – |
 | 521 | Build 249, Ausrüstung: Wechselschirm eines Platzes wie alt (Bild, Art und Wert, ▲/▼, „nicht tragbar“ matt) (Chef 03.11., 23:23, Bild) | Tom | M | zu testen | – | claude/tom-521-tasche | 269 | A Spiel | – |
 | 519 | Build 249, Ausrüstung: Gegenstandsfenster („Göttlicher Ring des Eisernen Richters“) passt nicht auf den Bildschirm, rechts abgeschnitten (Chef 03.11., 23:13, Bild) | Tom | M | zu testen | – | claude/tom-521-tasche | 269 | A Spiel | 21,91 $ |
@@ -171,6 +171,7 @@
 | 633 | Boss-Beute wie alt: Ogerhandschuhe (Krogg), Graks Streitaxt, Grimmzahn-Amulett fehlen im Loot; Beute.beute im Kampf mit boss=false (spiel.gd 573); von Jerry, Abgleich 620.2b | Jerry | M? | startbar | – | – | – | E Kampf | – |
 | 634 | Schenkenklang wie alt: Rowena wischt, gießt, stellt Becher ab, Borin Flasche und Stuhl, im Takt ihrer Bewegung (PlaceSound.folk, MapFolk.sounds; Aufnahmen da); von Jerry, Abgleich 620.2b | Jerry | M? | startbar | – | – | – | E Welt | – |
 | 642 | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 Seeds 1, 3 am Rechner; im Bau misst nur Seed 7), auch mit altem Heldentempo; von Jerry zu 438 | Jerry | M? | startbar | – | – | – | E Kampf | – |
+| 643 | Langbogen mit Köcher als Waffenmodell (daten/waffen/longbow.bin, Griff = Ursprung, Schaft +Y) für Garrick auf dem Rücken, wie alt (MapFolk.kt: longbow over the quiver; von Tom zu 531) | Jerry | M | startbar | – | – | – | E Welt | – |
 | 432 | Eigenes Volk aus Bornim (etwa mit dem Grauen Propheten, „Tag der Asche“) prüfen, mit der Geschichte ab Kapitel 2 (Chef 31.10., 22:0x) | Homer | K | ruht | – | – | – | C Texte | 0,79 $ |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
