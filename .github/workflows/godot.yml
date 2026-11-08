@@ -356,7 +356,7 @@ jobs:
           timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/schild_406.gd 2>&1 | grep -E "^(ok|FEHLER|  |SCHILD|Schild|Kampf )|SCRIPT ERROR" || true
           # 406a G1 (Jerry): Kampfkamera des Schlussfilms ohne Bild, angeschnittene Figuren je Kampf; meldet nur
           MESS=1 TEIL=kampf timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/film_406.gd 2>&1 | grep -E "^Film 406|AUSSERHALB|SCRIPT ERROR" || true
-          set -o pipefail; timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/wolf_mess_438.gd 2>&1 | grep -E "^(— |  |Befunde|Wolf 438|Kampf )|SCRIPT ERROR"   # 438, 439, 440 (Jerry): Wölfe ohne Gleiten, Reihenfolge, Tod
+          set -o pipefail; timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/wolf_mess_438.gd 2>&1 | grep -E "^(— |  |Befunde|Wolf 438|Kampf |438 DIAG)|SCRIPT ERROR"   # 438, 439, 440 (Jerry): Wölfe ohne Gleiten, Reihenfolge, Tod
           # 415 r3 (Jerry): Strahlenprobe ohne Bild, Stabspitze hinter dem Körper (F6), Strahl durch eine Figur (E3), Richtung (F2); meldet nur
           timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/strahl_mess_415.gd 2>&1 | grep -E "^(Strahl|STRAHL)|SCRIPT ERROR" || true
           timeout 120 ~/godot/godot --headless --path . -s res://tests/klang_test.gd 2>&1 | grep -E "^(gut|FALSCH)|KLANG|SCRIPT ERROR"   # 399.3
