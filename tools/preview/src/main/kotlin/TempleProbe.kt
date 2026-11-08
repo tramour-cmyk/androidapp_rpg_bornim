@@ -701,6 +701,32 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
      * across his shoulder, Lyra's white robe and circlet, Osric's bald head and the sun on his breast with the candle, Jorin's
      * helmet and spear, Kael's blanket, the dwarf's breadth, the child's size, scarves and hoods.
      */
+    /**
+     * 613: the linen kerchief of the village women. From behind it covers crown and back of the head and ends in a point at
+     * the nape over the knot; in profile it leaves brow and face free and runs behind the ear to the nape; turned to us it frames
+     * the face. [hs] is the head's radius in pixels, [side] and [toUs] as in [person].
+     */
+    fun coifShape(hx: Double, top: Double, hs: Double, side: Double, toUs: Double): java.awt.Shape {
+        if (toUs > 0.3) return java.awt.geom.Area(Ellipse2D.Double(hx - hs * 1.08, top - hs * 0.12, hs * 2.16, hs * 2.75)).apply {
+            subtract(java.awt.geom.Area(Ellipse2D.Double(hx - hs * 0.68, top + hs * 0.55, hs * 1.36, hs * 1.75))) }
+        if (abs(side) > 0.5) { val d = if (side > 0) 1.0 else -1.0
+            return Path2D.Double().apply {
+                moveTo(hx + d * hs * 0.62, top + hs * 0.5)
+                curveTo(hx + d * hs * 0.5, top - hs * 0.14, hx - d * hs * 0.95, top - hs * 0.1, hx - d * hs * 1.05, top + hs * 1.0)
+                curveTo(hx - d * hs * 1.08, top + hs * 1.6, hx - d * hs * 0.85, top + hs * 2.1, hx - d * hs * 0.55, top + hs * 2.45)
+                curveTo(hx - d * hs * 0.3, top + hs * 2.1, hx - d * hs * 0.05, top + hs * 1.85, hx + d * hs * 0.02, top + hs * 1.55)
+                curveTo(hx + d * hs * 0.12, top + hs * 1.1, hx + d * hs * 0.3, top + hs * 0.75, hx + d * hs * 0.62, top + hs * 0.5)
+                closePath() } }
+        val o = -side * hs * 0.25
+        return Path2D.Double().apply {
+            moveTo(hx - hs * 1.0, top + hs * 1.05)
+            curveTo(hx - hs * 1.06, top - hs * 0.1, hx + hs * 1.06, top - hs * 0.1, hx + hs * 1.0, top + hs * 1.05)
+            curveTo(hx + hs * 0.98, top + hs * 1.5, hx + hs * 0.8 + o * 0.5, top + hs * 1.85, hx + o + hs * 0.08, top + hs * 2.5)
+            lineTo(hx + o - hs * 0.08, top + hs * 2.5)
+            curveTo(hx - hs * 0.8 + o * 0.5, top + hs * 1.85, hx - hs * 0.98, top + hs * 1.5, hx - hs * 1.0, top + hs * 1.05)
+            closePath() }
+    }
+
     fun person(p: Who) {
         val z = cz(p.tx, p.ty); if (z < 0.35) return
         val s = f / z
@@ -751,13 +777,44 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         // body that ends in the air at the height of the seat
         // (seen from behind the seat and the back hide them)
         if (p.seated && abs(side) > 0.25 && toUs > -0.3) {
-            val legC = mix(robeC, Color(0x050406), 0.35); val knee = px + side * 0.42 * s; val back = px - side * shoulder * 0.9
-            poly(legC, back, hem - 0.13 * s, knee + side * 0.05 * s, hem - 0.11 * s, knee + side * 0.05 * s, hem + 0.02 * s, back, hem + 0.02 * s)
-            poly(legC, knee - side * 0.07 * s, hem, knee + side * 0.05 * s, hem, knee + side * 0.03 * s, py, knee - side * 0.09 * s, py)
-            g.color = alpha(Color(0x050406), 0.6); g.fill(Ellipse2D.Double(knee - side * 0.1 * s - 0.06 * s, py - 0.02 * s, 0.16 * s, 0.04 * s))
-            // ink: thigh and shin as one outline (the body covers it at the hip)
-            if (tusche) inkFig(java.awt.geom.Area(polyPath(back, hem - 0.13 * s, knee + side * 0.05 * s, hem - 0.11 * s, knee + side * 0.05 * s, hem + 0.02 * s, back, hem + 0.02 * s))
-                .apply { add(java.awt.geom.Area(polyPath(knee - side * 0.07 * s, hem, knee + side * 0.05 * s, hem, knee + side * 0.03 * s, py, knee - side * 0.09 * s, py))) }, 0.02, 0.025, false)
+            // 613 (Chef 08.11., 19:18: „sehr rechtwinklige, stilisierte Beine“): the robe lies over the thighs, rounds over the knee
+            // and falls to the middle of the shin in a soft hem; below it the shin, a little drawn back, and the shoe on the flags
+            val d = if (side >= 0) 1.0 else -1.0; val ks = abs(side)
+            val knee = px + side * 0.42 * s; val back = px - side * shoulder * 0.9
+            val drapeC = mix(robeC, Color(0x050406), 0.2); val shinC = mix(night(0x3A3028, 1.0), Color(0x050406), 0.3)
+            val drape = Path2D.Double().apply {
+                moveTo(back, hem - 0.17 * s)
+                curveTo(back + d * 0.12 * s * ks, hem - 0.17 * s, knee - d * 0.08 * s * ks, hem - 0.15 * s, knee + d * 0.02 * s * ks, hem - 0.13 * s)
+                quadTo(knee + d * 0.1 * s * ks, hem - 0.1 * s, knee + d * 0.085 * s * ks, hem - 0.01 * s)
+                curveTo(knee + d * 0.09 * s * ks, hem + 0.06 * s, knee + d * 0.11 * s * ks, hem + 0.13 * s, knee + d * 0.12 * s * ks, hem + 0.17 * s)
+                curveTo(knee + d * 0.05 * s * ks, hem + 0.2 * s, knee - d * 0.04 * s * ks, hem + 0.19 * s, knee - d * 0.1 * s * ks, hem + 0.16 * s)
+                curveTo(knee - d * 0.1 * s * ks, hem + 0.09 * s, knee - d * 0.14 * s * ks, hem + 0.03 * s, knee - d * 0.2 * s * ks, hem + 0.02 * s)
+                curveTo(back + d * 0.12 * s * ks, hem + 0.01 * s, back + d * 0.04 * s * ks, hem + 0.02 * s, back, hem + 0.02 * s)
+                closePath() }
+            val ankleX = knee - d * 0.05 * s * ks
+            val shin = Path2D.Double().apply {
+                moveTo(knee - d * 0.07 * s * ks, hem + 0.15 * s); lineTo(knee + d * 0.03 * s * ks, hem + 0.15 * s)
+                curveTo(knee + d * 0.02 * s * ks, hem + 0.24 * s, ankleX + d * 0.03 * s * ks, py - 0.1 * s, ankleX + d * 0.025 * s * ks, py - 0.04 * s)
+                lineTo(ankleX - d * 0.025 * s * ks, py - 0.04 * s)
+                curveTo(ankleX - d * 0.035 * s * ks, py - 0.12 * s, knee - d * 0.08 * s * ks, hem + 0.24 * s, knee - d * 0.07 * s * ks, hem + 0.15 * s)
+                closePath() }
+            val shoe = Path2D.Double().apply {
+                moveTo(ankleX - d * 0.04 * s * ks, py - 0.055 * s)
+                curveTo(ankleX + d * 0.02 * s * ks, py - 0.06 * s, ankleX + d * 0.11 * s * ks, py - 0.035 * s, ankleX + d * 0.12 * s * ks, py - 0.01 * s)
+                lineTo(ankleX - d * 0.045 * s * ks, py - 0.005 * s); closePath() }
+            g.color = alpha(Color(0x050406), 0.55); g.fill(Ellipse2D.Double(knee - d * 0.14 * s - 0.04 * s, py - 0.025 * s, 0.24 * s, 0.045 * s))
+            g.color = shinC; g.fill(shin)
+            g.color = Color(0x16100C); g.fill(shoe)
+            g.color = drapeC; g.fill(drape)
+            run { val c0 = g.clip; g.clip(drape) // the top of the lap catches the light, its underside and the falling cloth lie in shade
+                g.paint = GradientPaint(0f, (hem - 0.15 * s).toFloat(), alpha(Color(0x050406), 0.0), 0f, (hem + 0.17 * s).toFloat(), alpha(Color(0x050406), 0.5)); g.fill(drape)
+                line(alpha(Color(0x050406), 0.35), maxOf(1.0, 0.01 * s), knee + d * 0.03 * s * ks, hem - 0.02 * s, knee + d * 0.05 * s * ks, hem + 0.17 * s)
+                line(alpha(Color(0x050406), 0.25), maxOf(1.0, 0.008 * s), knee - d * 0.05 * s * ks, hem + 0.05 * s, knee - d * 0.04 * s * ks, hem + 0.18 * s)
+                val rw = warmth(p.tx, 0.6, p.ty).coerceAtMost(1.0)
+                if (!dawn) line(alpha(Color(0xFFB060), 0.05 + 0.45 * rw), maxOf(1.0, 0.016 * s), back, hem - 0.165 * s, knee + d * 0.03 * s * ks, hem - 0.125 * s)
+                g.clip = c0 }
+            // ink: lap, shin and shoe as one outline (the body covers it at the hip)
+            if (tusche) inkFig(java.awt.geom.Area(drape).apply { add(java.awt.geom.Area(shin)); add(java.awt.geom.Area(shoe)) }, 0.02, 0.025, false)
         }
         // 68 Test 35.11: one standing stands on the flags: a shadow under him and the shoes under the hem
         if (!p.seated) {
@@ -860,9 +917,27 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
                 if (cap) { g.color = night(listOf(0x4A3A28, 0x3A4030, 0x5A3020)[(pick * 30).toInt() % 3], 1.0)
                     g.fill(Ellipse2D.Double(hx - head * s * 1.05, top - 0.03 * s, head * s * 2.1, head * s * 1.15))
                     line(alpha(Color(0x000000), 0.5), maxOf(1.0, 0.012 * s), hx - head * s * 1.05, top + head * s * 0.55, hx + head * s * 1.05, top + head * s * 0.55) }
-                if (coif) { val linen = if (dawn) Color(0x9A9EA8) else mix(night(0xD8D0C0, 1.3), Color(0xF0C890), w * 0.6)
-                    g.color = linen; g.fill(Ellipse2D.Double(hx - head * s * 1.02, top - 0.02 * s, head * s * 2.04, head * s * 2.3))
-                    for (k in -1..1) line(alpha(Color(0x000000), 0.12), maxOf(0.8, 0.01 * s), hx + k * head * s * 0.5, top + head * s * 0.6, hx + k * head * s * 0.7, top + head * s * 2.2) }
+                if (coif) { // 613 (Chef 08.11., 19:18: „weißer Knubbel … weißer Kegel als Kopf“): a kerchief, not a white egg
+                    val linen = if (dawn) Color(0x80848E) else mix(night(0xD0C6B4, 1.05), Color(0xD8A870), w * 0.45)
+                    val cloth = coifShape(hx, top, head * s, side, toUs)
+                    g.color = linen; g.fill(cloth)
+                    val c0 = g.clip; g.clip(cloth)
+                    // shade as on the robe: the side away from the candles and the lower edge dark, so it reads as cloth round a head
+                    g.paint = GradientPaint((hx - head * s * lightX).toFloat(), 0f, alpha(Color(0x050406), 0.5), (hx + head * s * lightX).toFloat(), 0f, alpha(Color(0x050406), 0.0)); g.fill(cloth)
+                    g.paint = GradientPaint(0f, (top + head * s * 0.8).toFloat(), alpha(Color(0x050406), 0.0), 0f, (top + head * s * 2.5).toFloat(), alpha(Color(0x050406), 0.45)); g.fill(cloth)
+                    // folds drawn together towards the knot at the nape
+                    val kx = hx - side * head * s * 0.55; val ky = top + head * s * 1.95
+                    for (k in -2..2) line(alpha(Color(0x050406), 0.3), maxOf(0.8, 0.011 * s), hx + k * head * s * 0.38 - side * head * s * 0.2, top + head * s * 0.3, kx + k * head * s * 0.08, ky)
+                    g.clip = c0
+                    if (toUs <= 0.3) { // the knot and its two short ends over the nape
+                        val kc = mix(linen, Color(0x050406), 0.35)
+                        g.color = kc; g.fill(Ellipse2D.Double(kx - head * s * 0.22, ky - head * s * 0.16, head * s * 0.44, head * s * 0.32))
+                        for (e in listOf(-1.0, 1.0)) poly(kc, kx + e * head * s * 0.05, ky, kx + e * head * s * 0.24, ky + head * s * 0.55, kx + e * head * s * 0.08, ky + head * s * 0.6)
+                    }
+                    if (toUs > -0.3 || abs(side) > 0.5) { // the hair shows as a dark line along the front edge, over the brow
+                        val fx = if (toUs > 0.3) hx else hx + side * head * s * 0.55
+                        line(night(hairs[(pick * 70).toInt() % hairs.size], 1.0), maxOf(1.0, 0.018 * s), fx - head * s * (if (toUs > 0.3) 0.55 else 0.12), top + head * s * 0.62, fx + head * s * (if (toUs > 0.3) 0.55 else 0.12), top + head * s * 0.6) }
+                }
                 if (tusche) { // ink: the head's outline as painted (neck, skin, hair, cap, coif), not where it sits on the body; no face
                     val hs = head * s; val long = p.kind == Kind.WOMAN || p.kind == Kind.LYRA
                     val hd = java.awt.geom.Area(Ellipse2D.Double(hx - hs * 0.92, top, hs * 1.84, hs * 2.2))
@@ -873,7 +948,7 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
                     if (toUs <= 0.3 && p.kind != Kind.OSRIC) { hd.add(java.awt.geom.Area(Ellipse2D.Double(hx - hs * 0.96 - side * abs(side) * hs * 0.3, top - 0.01 * s, hs * 1.92, hs * (if (long) 2.0 else 1.55))))
                         if (long && !coif) hd.add(java.awt.geom.Area(java.awt.geom.Rectangle2D.Double(hx - hs * 0.7, top + hs * 1.2, hs * 1.4, hs * 1.6))) }
                     if (cap) hd.add(java.awt.geom.Area(Ellipse2D.Double(hx - hs * 1.05, top - 0.03 * s, hs * 2.1, hs * 1.15)))
-                    if (coif) hd.add(java.awt.geom.Area(Ellipse2D.Double(hx - hs * 1.02, top - 0.02 * s, hs * 2.04, hs * 2.3)))
+                    if (coif) hd.add(java.awt.geom.Area(coifShape(hx, top, hs, side, toUs)))
                     inkFig(hd, 0.016, 0.02, true)
                 }
                 run { // the rim of light only on the side and top towards the candles, not round the whole head
@@ -1064,3 +1139,4 @@ internal fun templePlan(): java.awt.image.BufferedImage {
     g.dispose()
     return img
 }
+
