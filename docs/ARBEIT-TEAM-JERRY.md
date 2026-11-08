@@ -8,8 +8,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 ## Einzelheiten
 
-- **Zu 565, von Chef (08.11., 13:11, an Sokrates):** „565 A“ (Archiv); Schalter `AMZUG565` einschalten, in den nächsten Build.
-- **Zu 563, von Chef (08.11., 13:09, an Sokrates):** „563 A mit hellerem Rot“ (Archiv); Schalter `ZUSTAND563` einschalten, Rot heller, in den nächsten Build. Chef 13:09 dazu: „Visualisieren wir eigentlich so Statuseffekte wie Bluten?“ Heute nur Schild und Blut im Augenblick des Treffers (249); Zustand am Körper steht in `LISTE-EFFEKTE.md` als Vorschlag (Paket 623), Bluten fehlt dort: Zeile ergänzen, mit 623.2 einbauen. Status Effects VFX (623 Nr. 6) hat „Bleeding“ (Tropfen, Flecken am Boden; Händlerseite 13:12), dazu Poisoned, Weakened, Cursed u. a.: alle Zustände des BRS damit abgleichen.
+- **von Sokrates (08.11., 13:15, Chef 13:09–13:14, Archiv):** 563 A, Rot heller (`ZUSTAND563`); 565 A (`AMZUG565`); beide in den nächsten Build. 623.5 vor dem Kauf: „auf technische Umsetzbarkeit testen … ob … das dann funktioniert bei uns auf dem Handy und wie es aussieht“, Film; Rang oben (Kauf hängt daran). Chef: „Visualisieren wir … Bluten?“ Status Effects (623 Nr. 6) hat „Bleeding“: mit in die Probe, falls Gratisprobe; BRS-Zustände abgleichen, `LISTE-EFFEKTE.md` ergänzen.
 
 - **Zu 643, von Tom (08.11., 10:5x, zu 531):** Chef 03.11., 23:42 (531): Garrick „wie alt und besser … Langbogen auf dem Rücken“; alt (`MapFolk.kt` garrick): „the longbow slung across his back over the quiver, both hands free“. Es gibt in `waffen.py` nur `shortbow`; Kandidat aus dem Kauf: `SM_Bow&ArrowsProp` (ANIMSET.BOW.ARROW) oder `sm_bow` (Medieval Weapon Pack Godot). Gebraucht: `daten/waffen/longbow.bin` (+ Köcher) nach Modellregel 4; die Lage auf dem Rücken baut Tom (`bewaffne`). 531 wartet darauf (zweiter und letzter freier Lauf).
 
