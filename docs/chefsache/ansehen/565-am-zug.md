@@ -1,5 +1,7 @@
 # 565 · Wer am Zug ist, im Gruppenkasten · Jerry · 08.11., 06:52
 
+[Bild von 08.11., 07:00](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/08-0700-565-Jerry.png) (eingetragen von meldung.sh, Jerry)
+
 E Kampf · Bilder vom Bauserver (Lauf 270, Renderer wie am Handy), Probekampf Wölfe, zwei Helden; noch nichts eingeschaltet (Schalter `AMZUG565`).
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/42411525868
