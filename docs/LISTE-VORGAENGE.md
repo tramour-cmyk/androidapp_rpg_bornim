@@ -218,7 +218,7 @@
 | 657 | Regeln radikal kürzen: eine Seite für alle mit Stil, Team, Ablauf (Chef 08.11., 14:58, 15:05) | Sokrates | M | wartet, Votum nach 657.1 | Chef | – | – | B Abläufe | – |
 | 620 | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build (Chef 07.11.) | Sokrates | M | startbar | – | – | – | B Abläufe | 6,49 $ |
 | 341.1 | Zielvereinbarung für alle Rollen: je Rolle höchstens drei Ziele, Z3 und Z4 für alle, eins eigen (aus 341) | Sokrates | M | startbar, prüfen (alte Leiche: in LISTE-VORGAENGE.md „erledigt“, Zeile noch im Vorrat) | – | – | – | B Abläufe | – |
-| 623 | Effektpakete REEBOO Labs: Kauf, Ressourcenseite `LISTE-QUELLEN.md`, Zuordnung `LISTE-EFFEKTE.md`, Dank im Spiel (Chef 07.11.) | Sokrates | M | wartet, Kauf erst nach Probe und Film (Chef 13:14) | 623.5 | – | – | E Kampf | 6,49 $ |
+| 623 | Effektpakete REEBOO Labs: Kauf, Ressourcenseite `LISTE-QUELLEN.md`, Zuordnung `LISTE-EFFEKTE.md`, Dank im Spiel (Chef 07.11.) | Sokrates | M | wartet, Kauf beim Chef | Chef | – | – | E Kampf | 6,49 $ |
 | 623.1 | Prüfschema auf bisher geprüfte Quellen anwenden (Chef 07.11., aus 623) | Sokrates | M | startbar | – | – | – | B Abläufe | – |
 | 508 | Lehrmeister in Kapitel 1 erreichbar (Geselle), Magie-Pflicht Paladin/Kriegsmagier, Wachsoldat zu Wächter (aus 447.4) | Sokrates | M | startbar | – | – | – | G Stil | – |
 | 461b.4 | Widersprüche aus Liste 461b: Köpfe Regelwerk, Bestiarium, DESIGN-KAMPF gegen Entscheidung 84 | Sokrates | M | startbar | – | – | – | G Stil | 33,44 $ |
