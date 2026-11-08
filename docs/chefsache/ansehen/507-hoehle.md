@@ -1,5 +1,7 @@
 # 507 · Kampforte der Höhle: Eingang, Gang, Halle, Teich, Lager · Jerry · 08.11., 08:53
 
+[Bild von 08.11., 08:53](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/08-0853-507-Jerry.png) (eingetragen von meldung.sh, Jerry)
+
 E Kampf · je Ort ein Standbild vom Bauserver (Lauf 287, Renderer wie am Handy, Probekampf gegen das Wolfsrudel); welcher Ort gilt, richtet sich wie alt (`CaveScene.spotFor`) nach der Kachel, auf der der Kampf beginnt. Noch nicht im Spiel.
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/42455595272
