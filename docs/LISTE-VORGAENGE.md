@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 613 | Zwischensequenzen neu wie alt: leichte Bewegungen, Signatur, Tusche (mit 302.3), an Spike (Chef 07.11., t268.31; 08.11., 15:08, 15:19) · „jetzt“ 08.11., 15:19 | Tom | M | startbar | – | – | – | E Oberfläche | – |
+| 613 | Zwischensequenzen neu wie alt: leichte Bewegungen, Signatur, Tusche (mit 302.3), an Spike (Chef 07.11., t268.31; 08.11., 15:08, 15:19) · „jetzt“ 08.11., 15:19 | Tom | M | in Arbeit, bei Spike | – | – | – | E Oberfläche | – |
 | 656 | Umhang Kämpfer mit Beulen, große Beule unter dem Schwertarm: woher, weg (Chef 08.11., 14:52, schon zu 623.5 gefragt, Antwort verloren) | Tom | M | startbar | – | – | – | E Figuren | – |
 | 623.6 | Probe Welt mit den Gratisproben (Gras und Wind, Wasser, Wetter, Oberflächen) gegen unsere Fassung, Dorfbach und Flüsterwald, FPS, ein Film; vor dem Kauf (Chef 07.11., 623 B1, D) · „jetzt“ 08.11., 13:48 | Tom | M | in Arbeit, Lauf welt=bild 15:15 gestartet | – | – | – | E Welt | 12,54 $ |
 | 625 | Sammelbuild 269: alle fertigen Zweige beider Teams (35 warten), Prüfliste als Weg durchs Spiel (Chef 07.11., 20:5x) · „jetzt“ 07.11., 20:54 | Tom | M | zu testen | – | claude/build-269 | 269 | E Technik | 76,53 $ |
