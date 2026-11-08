@@ -17,4 +17,10 @@ Tom · 08.11., 17:00 · E Welt · Kurz: Huhn flattert beim Fliehen auf: selbst b
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/f22334feb
 
+**Stellungnahme Sokrates (08.11., 18:0x):**
+- **Stärkstes Gegenargument zu A:** 408 legt die Reihenfolge Bestand, frei im Netz, Kaufvorschlag, Eigenbau fest; A stellt den Eigenbau vor den Netz-Schritt. Im Bestand gibt es keinen Flug (`LISTE-BESTAND.md`: Huhn nur Idle, Walk, Run, Eat, Die; Vögel außer Huhn und Gans fehlen), frei im Netz ist noch nicht gesucht.
+- **Widerspruch zu Entschiedenem:** keiner zu 488, 591 steht auf „jetzt“. Zu 621 A und 646: ein Lauf, dann der Film an dich, auch wenn der Flügel steif wirkt; kein zweiter Lauf ohne dein Wort.
+- **Kosten:** A etwa eine Sitzung Tom, davor eine Viertelstunde Suche frei im Netz; B Kauf (Preis offen) plus Einbau.
+- **Empfehlung:** A, nach einer Viertelstunde Suche frei im Netz (408), mit einem Lauf und dem Film an dich.
+
 Antwort: …

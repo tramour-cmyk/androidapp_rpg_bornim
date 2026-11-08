@@ -133,3 +133,9 @@ Jeden gibt es einmal. Wer du bist, sagt deine erste Nachricht. Braucht ein ander
 - *Verweise ins Leere:* `DESIGN-ABNAHME.md` schickt für Abläufe nach `CLAUDE.md`; `LISTE-QUELLEN.md` für die Lizenz ebenso.
 - *Handwerk ohne Ziel:* Projekt (etwa 2,6 KB: Wochenziel, Kosten, Tagesbericht, Doppelpack) und Beratung (etwa 2,3 KB: Chefrunde, Archiv eintragen) haben noch keine `LISTE-…`; Betrieb (3,6 KB), Entwicklung (4,6 KB), Prüfung (3,8 KB) müssen in ihre vorhandenen Listen.
 - *Nebenbefund:* `CLAUDE.md` Bekannte Fehler „Helferbefund … nachsenden (396)“ und `DESIGN-ABNAHME.md` „(300)“ sind seit 655 veraltet (an Perikles mit 655.1).
+
+## Stellungnahme Sokrates (08.11., 18:0x)
+- **Stärkstes Gegenargument zum Votum (vier Schritte):** vier Schritte nacheinander strecken den Umbau über Tage; jeder Tag mit 75 KB Regeln kostet beim Start Guthaben und Aufmerksamkeit, und neue Regeln wachsen in der Zwischenzeit nach.
+- **Widerspruch zu Entschiedenem:** der Entwurf widerspricht 646, 621 A, 201a, 396, 480 und lässt 348.12c, den SRD-Hinweis und die App-Kennung fallen (Prüfung Diogenes 2, 3); das Votum mit Schritt (2) behebt das, bevor etwas ersetzt wird.
+- **Kosten (geschätzt):** Werkzeuge (1) etwa eine Sitzung Perikles, Korrektur (2) eine, Werkzeug- und Hakenliste (3) eine Diogenes, Umbau (4) eine bis zwei; dazu eine Woche Messung ohne Zusatzkosten.
+- **Empfehlung:** „657 ja zur Reihenfolge“: Richtung ja, Umbau erst nach den Schritten 1 bis 3.
