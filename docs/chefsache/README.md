@@ -144,7 +144,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 700 | M | Erschaffung, Platzwahl „Alle Spielstand-Plätze sind belegt“: Rahmen um jeden Platz gegen 5 | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
 | 701 | M | Gegenstandsfenster: Hinweis Obergrenze nur einmal statt je Grundwert (Chef t270.5, 08.11., | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
 | 613.2 | M | Zwischensequenzen: Bewegung sichtbar wie alt (Kerzenflackern, atmendes Licht, Staub im Str | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
-| Pflege | K | von Werkzeug (340.3, 08.11.): 16244 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 08.11.): 15997 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 71, Muss 65, startbar 1
 
