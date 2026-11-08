@@ -708,6 +708,7 @@ func _ui_fuer(an: bool) -> void:
 	if ui == null:
 		return
 	ui.visible = an
+	ui.nur_effekte = true
 	if an and ui.root != null:
 		for c in ui.root.get_children():
 			c.visible = c == ui.overlay
