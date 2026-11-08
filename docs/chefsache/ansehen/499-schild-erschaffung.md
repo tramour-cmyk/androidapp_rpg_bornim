@@ -1,5 +1,7 @@
 # 499 · Schild in der Erschaffung: Sitz am Rücken ansehen · Tom (vorgelegt von Sokrates) · 08.11., 12:3x
 
+[Bild von 08.11., 12:36](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/08-1235-499-Sokrates.png) (eingetragen von meldung.sh, Sokrates)
+
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/42469159224
 
 **Anzusehen:** zwei Bilder auf Telegram (Probe 292, Drehteller; Chef erlaubt ohne Signatur, 645): Kämpfer, Spalt unten 1,8 cm (vorher 28–30); Kleriker, Spalt an der Schildspitze 11 cm über den Oberschenkeln (vorher 30).
