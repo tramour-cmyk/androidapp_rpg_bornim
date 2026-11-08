@@ -14,7 +14,7 @@
 | 670 | Build 269: Menü des Helden (Held, Tasche, Ausrüstung, Karte, Chronik, System) noch im alten Design statt 557/549a; Zweig tom-557-einschalten war im Build? (Chef 08.11., 15:32) | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 664 | Halbes Haus: Haus des alten Kael und Hütte der Kräuterhexe im tiefen Flüsterwald nur halb da (Chef 08.11., 15:28, mehrfach gemeldet, nie eingetragen) · wiederholt | Tom | M | in Arbeit, Bild beim Chef (ansehen/664-haeuser.md) | Chef | claude/tom-664-haeuser | – | E Welt | 8,06 $ |
 | 613 | Zwischensequenzen neu wie alt: leichte Bewegungen, Signatur, Tusche (mit 302.3), an Spike (Chef 07.11., t268.31; 08.11., 15:08, 15:19) · „jetzt“ 08.11., 15:19 | Tom | M | startbar, Lauf frei 16:28 | – | – | – | E Oberfläche | 16,54 $ |
-| 656 | Umhang Kämpfer mit Beulen, große Beule unter dem Schwertarm: woher, weg (Chef 08.11., 14:52, schon zu 623.5 gefragt, Antwort verloren) | Tom | M | startbar | – | – | – | E Figuren | – |
+| 656 | Umhang Kämpfer mit Beulen, große Beule unter dem Schwertarm: woher, weg (Chef 08.11., 14:52, schon zu 623.5 gefragt, Antwort verloren; 16:44 wieder auf den Siegerposen 296.3) · wiederholt | Tom | M | startbar | – | – | – | E Figuren | – |
 | 623.6 | Probe Welt mit den Gratisproben (Gras und Wind, Wasser, Wetter, Oberflächen) gegen unsere Fassung, Dorfbach und Flüsterwald, FPS, ein Film; vor dem Kauf (Chef 07.11., 623 B1, D) · „jetzt“ 08.11., 13:48 | Tom | M | in Arbeit, Bilder Lauf 301 beim Chef (ansehen/6236-welt.md) | Chef | – | – | E Welt | 12,54 $ |
 | 499 | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 (Chef 03.11., 07:14, Build 204) · „jetzt“ 07.11., 21:31 | Tom | M | gebaut, Geprüft an: Lauf 294 (1be5a03bf), Chef 14:19 passt; Gehfilm-Probebild Lauf 299 | – | claude/tom-499-drehteller | – | E Figuren | 64,66 $ |
 | 635 | Lyra fehlt als Figur im Tempel und in der Höhle: Kennung lyra_temple/lyra_cave, gebaut wird nur „lyra“ (Abgleich 620.2a) | Tom | M | gebaut, Geprüft an: 8a2f85b98 (lyra_635 lokal), fährt im nächsten Build | – | claude/tom-635-lyra | – | E Welt | – |
@@ -149,7 +149,7 @@
 | 628 | Lohn: EP und Gold steigen nicht mit der Monsterstufe über der Gebietsstufe (over fehlt, alt Battle.finishWin) | Jerry | M | startbar, gelöst 08.11.: 478 | – | – | – | E Kampf | – |
 | 289 | MARS: Wechsel „halber Zug“ missverständlich; Bewegung und Aktion im Kästchen zeigen? (Chef 21.10., 20:11) | Jerry | K | ruht | – | – | – | E Kampf | – |
 | 296.2 | MARS spielnötig: Beute/Erfahrung, Fliehen, Eröffnung, Zustände, eigene Ausrüstung, Schalter (Chef 23.10., 18:25) | Jerry | M | startbar | – | claude/build-89 | – | E Kampf | 14,29 $ |
-| 296.3 | MARS-Schmuck: Todesschrei, Flucht/Zerfall, Zustände gezeichnet, Siegerpose (Chef 23.10., 18:25) | Jerry | K | wartet, Probebild Siegerposen beim Chef | Chef | claude/jerry-2963-todesschrei | – | E Kampf | – |
+| 296.3 | MARS-Schmuck: Todesschrei, Flucht/Zerfall, Zustände gezeichnet, Siegerpose (Chef 23.10., 18:25) | Jerry | K | wartet, Probebild verworfen, Film nach 656 | 656 | claude/jerry-2963-todesschrei | – | E Kampf | – |
 | 344.2 | Kampf mit der Fackel: Feuerschaden, Verscheuchen, beide Systeme (Chef 23.10., 18:27) | Jerry | K | ruht | – | claude/jerry-344-2-fackel | – | E Kampf | – |
 | 168.1 | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | Jerry | K | wartet | 38 | – | – | G Story | – |
 | 72u.1 | Umsetzung 72u: Kampfort aus der Karte (Standbild 2, Bau) | Jerry | K | ruht | – | claude/jerry-72u-standbild-2 | – | E Kampf | 2,38 $ |
