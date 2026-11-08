@@ -44,7 +44,7 @@ Verglichen: die geänderten Schirme (Tasche, Ausrüstung, Gegenstandsfenster, Bl
 | # | Team | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|---|
 | 269.20 ✓ | Tom | 619 | Ortswechsel und Kampfbeginn; die Blende mit einem ganzen Tipp beenden, einmal den Finger beim Kommen der Blende schon unten lassen | sie endet nur durch einen ganzen Tipp auf ihr. **Frage: wann sprang sie in 268 weg, beim Tipp auf den Aktionsknopf oder von selbst?** | sie springt weg, bevor sie gelesen ist |
-| 269.21 | Jerry | 438, 406.2 | Kampf gegen Wölfe, Held mit Schild; auf Wölfe und Abwehr achten | Wölfe laufen mit Schritten, nicht ineinander, Kopf nicht im Helden; der Held wehrt zur Seite des Angreifers ab | Gleiten; Rennen mit Gehopse |
+| 269.21 ✗ | Jerry | 438, 406.2 | Kampf gegen Wölfe, Held mit Schild; auf Wölfe und Abwehr achten | Wölfe laufen mit Schritten, nicht ineinander, Kopf nicht im Helden; der Held wehrt zur Seite des Angreifers ab | Gleiten; Rennen mit Gehopse |
 | 269.22 | Jerry | 597 | Wölfe, dann Probekampf Ratten, Fledermäuse | über jedem Wolf vor dem Sprung „! Anspringen“ (oder „Einkreisen“), das Ziel an der Farbe des Rahmens; Wolf, Ratte, Fledermaus nie mit Ring | Sprung ohne Ansage; Ring ohne Ansage |
 | 269.23 | Jerry | 600 | Knopf links neben den Würfeln dreimal antippen | 1, 2, 3 Spitzen, jede Stufe gleich hell, Tempo wechselt, Menü „Tempo“ gleich | Stufe 2 dunkler |
 | 269.24 | Jerry | 547 | (268.24 offen) warten, bis ein Wolf den Helden niederstößt | Homers Zwischentext | „geht in die Knie“, „steht wieder auf“ |
@@ -85,3 +85,4 @@ Chef 08.11., 15:23 (an Sokrates), laufend:
 - 269.18 ✓ (Chef 16:00)
 - 269.19 ✓ Hinweis „Höchststufe für Kapitel 1 erreicht“ kommt; Testmenü stuft trotzdem darüber hinaus (→ 678) (Chef 16:01)
 - 269.20 ✓ (Chef 16:03)
+- 269.21 ✗ Kleriker gegen Wölfe: Wölfe laufen nicht ineinander (438 ✓), gehen aber nicht rückwärts zurück (562, nicht im Build); Abwehr zur Seite „schwer zu beurteilen“, Eindruck: Schild immer gehoben wie vorher (406.2 offen) (Chef 16:06)
