@@ -6,6 +6,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **von Sokrates (08.11., 15:32, zu 670, Chef, Build 269):** „Weder Held noch Tasche noch Ausrüstung noch Karte noch Chronik noch System. Okay, also ist alles noch wie vor der Umstellung auf das neue Design.“
+
 - **von Sokrates (08.11., 15:32, zu 668, Chef):** „Das Testmenü ist nicht ans neue Design angepasst … wegen zurück und so und Trennlinien und allem.“
 
 - **von Sokrates (08.11., 15:31, zu 665, Chef, Build 269 auf MuMu Player):** „es ist jetzt Nacht (2:30 Uhr) und irgendwie ist es gar nicht dunkel … überall ist Licht an in den Häusern, insofern schläft auch keiner … das Problem vom letzten Mal, ich laufe hinter ein Haus … vom Pim … dann brennt das Licht an, gibt es gar nicht, weil es ist überall Licht an.“ Erst am Rechner nachstellen (gleicher Zeichner wie MuMu?); 608 (269.7) lässt sich so nicht beurteilen.
