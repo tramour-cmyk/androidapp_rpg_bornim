@@ -6,7 +6,7 @@ Pause bis 09.11., 09:00 (Systemrunde braucht die Wochenkosten 651).
 
 **Übergabe (08.11., 18:0x, `session_01Hmoj78wViGJevxgkcBvEek`):** Stellungnahmen 591, 657, 688 in der Chefsache (194.2). Kosten auf: 591, 657, 688. Nachfolger: Sokrates – 654: Systemrunde (09.11.)
 
-- **Zu 623, Probe-App t623 (Chef 08.11., 19:32–19:42, Archiv):** Fotos: Dorf 33 Bilder/s, Grafik 1,8 GB; Wald 25 Bilder/s, 2,0 GB; Zielbildrate nirgends festgelegt, schwächere Handys nicht gemessen. Blitz und Donner kamen nicht (Tom, 623.6). Nächster Schritt: Kauf der geprobten Pakete durch den Chef, Pack 2 und Beams ungeprobt.
+- **Zu 623 (Chef 19:32–19:46, Archiv):** Dorf 33, Wald 25 Bilder/s, Grafik bis 2 GB; Gerät des Chefs unbekannt; Untergrenze offen (698). Kauf `tun/623-kauf.md`.
 - **Zu 654, Stoff für die Systemrunde 09.11.:** (a) Wiederholungswächter legt bei Allerweltswörtern („Licht“, „Karte“, „Kasten“) Vorgänge an (666, 667, 669, 671, 672, 674, 676): Stichwortliste schärfen (Perikles 654.1). (b) Lagebild t269, drei Arten mit je einer einmaligen Lösung prüfen: Bewegung der Figuren für alle (416.8 Tom, 406.2, 562, 682 Jerry: ein Bewegungsbaustein für beide Teams, Chefsache); Menü des Helden einmal ganz alt gegen neu (605, 670, 683); Klangliste alt gegen neu (591, 517, 681). Dazu Kosten 651 der Woche.
 
 ## Zeilen
@@ -31,7 +31,6 @@ Pause bis 09.11., 09:00 (Systemrunde braucht die Wochenkosten 651).
 - **Zu 620, D84.1 von Diogenes (08.11., 11:0x):** Titel erledigt; offen: die sechs wiederholten Funde aus t268 mit „wiederholt“ im Titel nachziehen.
 
 - **Zu 461b.4:** Köpfe von `DESIGN-SPIELSYSTEM-2-0.md` (Zeile 3, Nr. 24), `LISTE-BESTIARIUM.md` (Zeile 3), `DESIGN-KAMPF.md` (Zeile 3) gegen Entscheidung 84; Säureschnecke mit Jerry (461b.1); Anhänge „→ ersetzt durch …“ im Archiv, wo dein Helfer den Ersatz fand: 376.1 (11:19), 72o, 72o.1, 348.12 (26.10.), 348.9 (13:26), 72.8, 414, F3/F4 Datum (Zu 461b; 415c, 480, 362, 418 hat Perikles gesetzt).
-- **Zu 512 (t266):** 266.7, 266.8 im Build unmöglich (539, 492 fehlten); Testbitte vorher nachgehen (Zu t266, Jerry).
 - **Zu 512 (Chef 23:26–23:28):** „Den angewiesenen Vergleich mit der alten Fassung hat ja eh keiner gemacht …“, „Sonst wäre es ja vorher aufgefallen, dass es nicht passt …“. Ursachen: Regel nur für berührte Schirme, nie berührte (Ausrüstung) vergleicht keiner; Abgleich 248 nur Bilder, Laden berührt und Rückfrage trotzdem übersehen. Schritt 1 Regel: Fenster und jede Bedienung mit, Zeile „verglichen“ in der Prüfliste. Schritt 2: einmal alle Menüschirme alt gegen neu, Funde als Vorgänge an Team Tom.
 
 ## Alte Zeilen (bis 275.2; Stand in der Liste, Gültiges als „Zu <Nr>“, Rest streichen)
