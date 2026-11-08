@@ -30,9 +30,9 @@ on:
         description: "Gegnerfilm 494 (Jerry): Gegner der Probe, mit Komma (BOARS, …); FLEDERMAUS: Vergleich 510"
       kamin:
         description: "Kamine 501 (Spike): ja = Grundrisse am Tag und nachts (--raeume), Lage der Kaminflammen"
+        default: ""
       welt:
         description: "Probe Welt 623.6 (Tom): liste = nur Dateinamen der REEBOO-Gratisproben, dann Ende"
-        default: ""
         default: ""
 
 jobs:
