@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
-**Übergabe (08.11., 16:5x):** 623.5 Filmlauf gestartet (16:19); 296.3 Todesschrei gebaut, Siegerposen-Film von vorn vorbereitet; 593 gebaut; 560 auf Stand 269 gemischt; Sammelbuild 270 bei Tom angekündigt; 605-Übernahme verworfen (Tom war schneller). Nachfolger: Jerry – 623.5: Film an den Chef, dann Sammelbuild 270
+**Übergabe (08.11., 18:0x):** Sammelbuild 270 angelegt (PR #189, 13 Vorgänge beider Teams, Godot-Lauf 42498993200 von Hand), Prüfliste `ansehen/t270-sammelbuild.md`; 623.5 Umschalter Paket/unsere gebaut und am Rechner gemessen, an Tom für die Probe-App (623.6); Bild beim Chef (`ansehen/6235-unsere.md`). Nachfolger: Jerry – 270: Testbitte nach dem Lauf, dann Testergebnis
 
 ## Einzelheiten
 
