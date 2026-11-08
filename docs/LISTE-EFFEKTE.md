@@ -64,6 +64,7 @@ Vorgang 623, Sokrates, angelegt 07.11. (Chef 07.11., 17:2x). Hier steht **je Anl
 | Bach, Fluss | Fluss des Kits statt `wasser.gdshader`, wenn die Probe am Dorfbach besser ist (Chef 07.11.: „ernsthaft etwas besser“) | R10 river | Vorschlag (Probe) |
 | Gras, Blumen | Gräser, Blumen, Windrichtungen, Ausweichen des Kits statt `halm.gdshader`, wenn die Probe im Flüsterwald besser ist (Chef 07.11.: „sah schon wirklich sehr gut aus“) | R9 | Vorschlag (Probe) |
 | Lagerfeuer (Garrick), Kamin | eigene Flamme bleibt (Signatur), Funken und Rauch dazu | eigen + R7 campfire | Vorschlag |
+| Leuchtfunke über dem Kopf (84.5, 677) | kühl weißer Kern mit Hof, treibt und wippt, Licht nur im Dunkeln, im Raum auf Schulterhöhe (wie alt `WorldScreen.kt` 1443) | eigen (`held.gd` baue_funke) | gebaut, Zweig `claude/tom-677-funke` |
 
 ## Zustände im Kampf gegen Status Effects (623.5, Jerry 08.11.)
 

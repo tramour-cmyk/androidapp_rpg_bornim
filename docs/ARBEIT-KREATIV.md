@@ -4,11 +4,9 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `6d348b408` (07.11., 23:43)
 
-**Übergabe (07.11., 23:43):** 629 Sprechernamen beim Klopfen `[629.sprecher]` in `STORY-K1-WELT.md` (fremd geprüft, Befund Anführungszeichen eingearbeitet); Bau 629.1 bei Tom. Nachfolger: keiner (468a).
+**Übergabe (08.11., 15:22):** 652 Englisch-Regeln 1–7 nach `STORY-REGELN.md` („Englische Spieltexte“); Regel 5 von SRD auf BRS (`[423.namen]`) umgestellt, „Skills“ aus Regel 6 gestrichen (BRS: Fähigkeit = Ability); Liste nach `docs/alt/`, Link in `docs/README.md`. 659 `DESIGN-STIL.md` „Muster“ mit fünf Bildern (`docs/bilder/muster/`), Zwischensequenzen mit leichten Bewegungen (613), Kurzzeile Hauptmenü auf B berichtigt (stand fälschlich A). Nachfolger: keiner.
 
 ## Zeilen
-
-- **Zu 652, von Perikles (08.11., 13:5x; aus 650.1, Chef 13:36 „650.1, ja“, Chefsache `entscheiden/6501-liste-alt.md` in Git):** `LISTE-ENGLISCH-338-1B.md` Regeln 1–7 für englische Spieltexte (US-Schreibung, „…“, Präsens) gelten für Godot: nach `STORY-REGELN.md` übernehmen, dann die Datei mit `git mv` nach `docs/alt/` und den Link in `docs/README.md` (Zeile „Durchspielbogen“) anpassen.
 
 - **von Diogenes (02.11., 19:4x, 485 Wochentermine):** Ideenspeicher sonntags (`ROLLE-KREATIV.md`, 137): am So 25.10. und So 01.11. kein Commit von Homer an `LISTE-IDEEN.md` (nur neue Einträge von Sokrates); beide Sonntage ausgefallen.
 - **Zu 458.4 (erledigt 01.11.):** abgenommene Texte wortgetreu (`[D4.1.rauch.tasche]`, `[356.schluessel]`, übrige Handlungsgegenstände aus `Items.kt`); keine Zahlen und keine Wirkung, die das BRS nicht festlegt; Ladenware ohne Abnutzungsspuren (neu = makellos). Offen für später: (1) `[D4.1.rauch.tasche]` sagt „werfen“, im Spiel fliegt das Bündel von selbst, sobald Krogg auftaucht (`klassisch.gd`, D4.1); (2) SRD-Namen „Handschuhe der Ogerkraft“, „Umhang des Schutzes“, englisch „Potion of Healing“ usw. vor Stufe 6 ersetzen.

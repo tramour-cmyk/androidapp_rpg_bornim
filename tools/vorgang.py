@@ -169,16 +169,47 @@ def neu(titel, bereich, kl, besitzer, nr=None, oben=False):
     fehler_oder(d)
     if not nr:
         b = startbar.lesen("ARBEIT-BETRIEB.md")
-        m = re.search(r"\*\*Nächste freie Vorgangsnummer: (\d+)\*\*", b)
+        m = re.search(r"\*\*Nächste freie Vorgangsnummer: (\d+)\*\*( \(zuletzt [^)]*\))?", b)
         if not m: sys.exit("vorgang.py: Zähler in ARBEIT-BETRIEB.md nicht gefunden")
         nr = m.group(1); d["nr"] = nr
-        schreiben("ARBEIT-BETRIEB.md", b.replace(m.group(0), "**Nächste freie Vorgangsnummer: %d**" % (int(nr) + 1), 1))
+        # 653 doppelt: zwei Sitzungen zogen dieselbe Nummer, die gleiche Zählerzeile mischte git still.
+        # Die Marke macht jede Ziehung verschieden, gleichzeitiges Ziehen wird ein Mischkonflikt.
+        import secrets, time
+        marke = " (zuletzt %s %s %s %s)" % (nr, besitzer, time.strftime("%d.%m. %H:%M:%S"), secrets.token_hex(2))
+        schreiben("ARBEIT-BETRIEB.md", b.replace(m.group(0), "**Nächste freie Vorgangsnummer: %d**%s" % (int(nr) + 1, marke), 1))
     L = text_liste().split("\n")
     eigen, ende = gruppe(L, besitzer)
     L.insert(eigen[0] if oben and eigen else ende, startbar.zeile_text(d))
     schreiben(startbar.LISTE, "\n".join(L))
     print("vorgang.py: %s angelegt (%s, %s, %s); Einzelheiten als „Zu %s“ in den Vorrat, dann pushen, dann die Nummer nennen" % (nr, bereich, kl, besitzer, nr))
+    if not titel.startswith(SYSTEM): waechter(nr, titel, bereich)
     return nr
+
+# 654 (Chef 08.11., 14:42): Wiederholungswächter. Teilt ein neuer Vorgang ein Stichwort mit zwei oder mehr früheren
+# (offen oder im Archiv), legt das Werkzeug eine Zeile „Systemlösung?“ für Sokrates an (Systemrunde montags), je Stichwort eine offene.
+SYSTEM = "Systemlösung?"
+STICHWORTE = ["Schild", "Waffe", "Schwert", "Bogen", "Axt", "Klinge", "Griff", "Halt", "Pfote", "Haar", "Kapuze", "Umhang",
+              "Rüstung", "Fackel", "Schrift", "Kasten", "Fenster", "Knopf", "Menü", "Kamera", "Licht", "Schatten", "Nebel",
+              "Wetter", "Wasser", "Teich", "Tür", "Treppe", "Ebene", "Karte", "Kollision", "Drehung", "Parade", "Klang", "Musik",
+              "Speichern", "Zwischensequenz", "Probebild", "Film"]
+
+def waechter(nr, titel, bereich):
+    def hat(t, w): return re.search(r"(?<![\w])" + w, t, re.I) is not None  # Wortanfang, auch Zusammensetzungen (Schildhöhe)
+    titel_alle = []
+    for name in (startbar.LISTE, "LISTE-VORGAENGE-ARCHIV.md"):
+        for m in re.finditer(r"(?m)^\| ([^|\s]+) \| ([^|]*) \|", startbar.lesen(name)):
+            if m.group(1) not in (nr, "Nr.") and not m.group(2).startswith(SYSTEM): titel_alle.append((m.group(1), m.group(2)))
+    offen = " ".join(d["titel"] for d in startbar.zeilen_liste() if d["titel"].startswith(SYSTEM))
+    for w in STICHWORTE:
+        if not hat(titel, w): continue
+        frueher = [n for n, t in titel_alle if hat(t, w)]
+        if len(frueher) < 2: continue
+        if re.search(re.escape(SYSTEM) + " " + w + r"\b", offen):
+            print("vorgang.py: Stichwort „%s“ schon in %d Vorgängen, Zeile „%s %s“ für Sokrates offen (654)" % (w, len(frueher), SYSTEM, w)); continue
+        zeige = ", ".join(frueher[-5:]) + (" …" if len(frueher) > 5 else "")
+        n2 = neu("%s %s: %d frühere Vorgänge (%s), neu %s; einmal grundsätzlich lösen? (654)" % (SYSTEM, w, len(frueher), zeige, nr), bereich, "K", "Sokrates")
+        offen += " %s %s" % (SYSTEM, w)
+        print("vorgang.py: Wiederholung „%s“ → %s für Sokrates (654); vor dem Bauen die Systemfrage" % (w, n2))
 
 # ---------------------------------------------------------------- Automatik B
 
