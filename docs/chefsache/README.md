@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [655](entscheiden/655-vorpruefung-bilder.md) | **Muss** | B Abläufe | 08.11., 14:47 | Technische Vorprüfung vor jedem Bild an den Chef | Sokrates |
+| [655](entscheiden/655-vorpruefung-bilder.md) | **Muss** | B Abläufe | 08.11., 14:52 | Warum das falsche Bild entsteht: der Maler sieht sein Bild nie | Sokrates |
 
 ## Zu billigen
 
@@ -20,7 +20,6 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [499](ansehen/499-probebild.md) | Schild hoch wie alt, Sitz im Drehteller | – | 08.11., 14:18 |
 | [623.5](ansehen/6235-probebild.md) | Probebild der Effektprobe im Kampfort | – | 08.11., 14:44 |
 | [623.6](ansehen/6236-welt.md) | Probe Welt: Gratisproben Gras, Wasser, Wetter, Oberflächen gegen unsere Fassung | – | 08.11., 14:40 |
 
@@ -49,10 +48,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 | 652 | M | Englisch-Regeln 1–7 aus LISTE-ENGLISCH-338-1B nach STORY-REGELN.md, dann Datei nach docs/a | startbar |
 
-**Tom** – offen 101, Muss 82, startbar 7
+**Tom** – offen 102, Muss 83, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 656 | M | Umhang Kämpfer mit Beulen, große Beule unter dem Schwertarm: woher, weg (Chef 08.11., 14:5 | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
 | 623.6 | M | Probe Welt mit den Gratisproben (Gras und Wind, Wasser, Wetter, Oberflächen) gegen unsere | Chef (Datei in der Chefsache) |
 | 625 | M | Sammelbuild 269: alle fertigen Zweige beider Teams (35 warten), Prüfliste als Weg durchs S | wartet auf Test (Build 269) |
 | 499 | M | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 | wartet auf Test/Build (gebaut) |
@@ -319,7 +319,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 507 | M | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager (Orte O10; aus 492) (für Jerry) | startbar |
 | 383 | M | Wartewächter und Haken 63 verschärfen (Chef 27.10., 17:53 ja); Sitzungsgröße messen (Sokra | startbar |
 | 654 | M | Mitdenken vor dem Bauen: Systemfrage je Fund („kommt das wieder?“), Wiederholungswächter, | wartet auf 654.1 (startbar) |
-| 655 | M | Technische Vorprüfung vor jedem Bild an den Chef (Boden, Farbe, Figur erkennbar; kein Urte | Chef (Datei in der Chefsache) |
+| 655 | M | Bilder: Ersteller sieht sein Bild selbst an, Regel 300 streichen statt neuer Vorprüfung (C | Chef (Datei in der Chefsache) |
 | Pflege | K | von Werkzeug (340.3, 08.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 ## Lücken
 

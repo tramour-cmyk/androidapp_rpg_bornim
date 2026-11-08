@@ -11,6 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
+| 656 | Umhang Kämpfer mit Beulen, große Beule unter dem Schwertarm: woher, weg (Chef 08.11., 14:52, schon zu 623.5 gefragt, Antwort verloren) | Tom | M | startbar | – | – | – | E Figuren | – |
 | 623.6 | Probe Welt mit den Gratisproben (Gras und Wind, Wasser, Wetter, Oberflächen) gegen unsere Fassung, Dorfbach und Flüsterwald, FPS, ein Film; vor dem Kauf (Chef 07.11., 623 B1, D) · „jetzt“ 08.11., 13:48 | Tom | M | wartet, Bilder Lauf 298 beim Chef | Chef | – | – | E Welt | – |
 | 625 | Sammelbuild 269: alle fertigen Zweige beider Teams (35 warten), Prüfliste als Weg durchs Spiel (Chef 07.11., 20:5x) · „jetzt“ 07.11., 20:54 | Tom | M | zu testen | – | claude/build-269 | 269 | E Technik | 76,53 $ |
 | 499 | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 (Chef 03.11., 07:14, Build 204) · „jetzt“ 07.11., 21:31 | Tom | M | gebaut, Geprüft an: Lauf 294 (1be5a03bf), Chef 14:19 passt; Gehfilm-Probebild Lauf 299 | – | claude/tom-499-drehteller | – | E Figuren | 64,66 $ |
@@ -252,7 +253,7 @@
 | 650 | docs aufräumen: 88 Dateien, Erledigtes nach docs/alt/, Zusammenlegen, Inhaltsverzeichnis neu (Chef 08.11., 13:24) | Sokrates | M | startbar, ja mit Gegenprüfung (Chef 13:27) | – | – | – | B Abläufe | – |
 | 644.3 | Seltenheit als Achse ins Regelwerk, Abschnitt Ausrüstung (644 B) | Sokrates | M | startbar | – | – | – | G Balance | – |
 | 654 | Mitdenken vor dem Bauen: Systemfrage je Fund („kommt das wieder?“), Wiederholungswächter, wöchentliche Runde über die teuersten Vorgänge (Chef 08.11., 14:39) | Sokrates | M | wartet, ja (Chef 14:42); Systemrunde ab 09.11. bei Sokrates | 654.1 | – | – | B Abläufe | 7,02 $ |
-| 655 | Technische Vorprüfung vor jedem Bild an den Chef (Boden, Farbe, Figur erkennbar; kein Urteil über Aussehen), ändert 396 (Chef 08.11., 14:46: „Warum wird sowas vorgelegt?“) | Sokrates | M | startbar | Chef | – | – | B Abläufe | 7,02 $ |
+| 655 | Bilder: Ersteller sieht sein Bild selbst an, Regel 300 streichen statt neuer Vorprüfung (Chef 08.11., 14:51: „warum entsteht überhaupt das Falsche?“) | Sokrates | M | startbar | Chef | – | – | B Abläufe | 7,02 $ |
 | Pflege | von Werkzeug (340.3, 08.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Sokrates | K | startbar | – | – | – | B Abläufe | – |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +842,76 $ |
 | Pflege | von Werkzeug (340.3, 08.11.): startbar.py: Tom: Muss 506 Untote im Kampf: Skelett, Zombie, Ghul (aus 494, Spike; Wochenziel 03. / Kür 604 Schenke Erdgeschoss: Bett raus, mehr Tische und Bänke; Schlafen oben n  UNLESBAR (Liste): … | Ford | K | startbar | – | – | – | B Abläufe | – |
