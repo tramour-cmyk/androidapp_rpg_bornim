@@ -38,7 +38,7 @@ Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 4
 - [ ] **2.14** W · **Alle Orte von Kapitel 1 begehbar** (Chef 05.11., 08:2x). Haken = im Build begehbar wie alt, vom Chef gesehen; „Ort fertig“ (4.3) kommt danach. Stand 05.11.:
   - [x] Bornim (Dorf) · [x] Flüsterwald · [x] Tiefer Flüsterwald (491, „passt fürs Erste“; Schild am Eingang und Morwens Hütte offen)
   - [ ] Zum Schlafenden Greif (Schänke) · [ ] Thessas Kramladen · [ ] Haus des Ältesten · [ ] Tempel des Morgenlichts: Grundrisse im Build (399.1), vom Chef noch nicht abgehakt
-  - [ ] **Blutzahnhöhle:** fehlt im Build (492; neu nach Signatur)
+  - [ ] **Blutzahnhöhle:** fehlt im Build (492 seit 08.11. wieder in Arbeit; neu nach Signatur)
 - [ ] **2.15** W · **Hauptquest von Kapitel 1 einmal durchgespielt**, Station für Station (Testmenü „Stationen“, 555; Chef 05.11., 08:2x). Haken = der Chef hat die Station im Build gespielt. Stand 05.11.:
   - [x] 1 Garrick (Schlagbaum, t257 251.7) · [x] 2 Morwen (t257 251.2) · [x] 3 Grimmzahn (Kampf, t257 252.7; Blende, Tod offen)
   - [ ] 4 Höhle · [ ] 5 Krogg · [ ] 6 Grak · [ ] 7 Lyra: warten auf die Höhle (492)
@@ -64,7 +64,7 @@ Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 4
 
 **Stufe 4 · Kapitel 1 fertig** (Prüfung: der Chef spielt ganz durch und sagt „gut“)
 - [ ] **4.1** T · Kein Absturz, kein Hängenbleiben, kein Ruckeln auf den Testgeräten des Chefs (Handy und Tablet, 267); Spielstände halten über Updates.
-- [ ] **4.2** T · Jeder Fehler aus den Tests des Chefs behoben (Prüfer: Chef).
+- [ ] **4.2** T · Jeder Fehler aus den Tests des Chefs behoben (Prüfer: Chef). · Stand: in Arbeit
 - [ ] **4.3** A · Jeder Ort „Ort fertig“ nach `DESIGN-ABNAHME.md`, sinngemäß in Godot: Dorf, Räume, Flüsterwald, Tiefer Flüsterwald, Blutzahnhöhle.
 - [ ] **4.4** A · Jede Figur, jedes Haus, jedes Ding in `LISTE-UMZUG-348.md` auf „abgenommen“ (Prüfer: Chef; Diogenes misst nebenher, 373). · Stand: in Arbeit
 - [ ] **4.5** A · Signatur nach `DESIGN-STIL.md`: schwarz-gold, Tusche, düster und lesbar; Hauptmenü, Erschaffung, Menüs, Vorspann und Zwischenbilder im selben Look (Prüfer: Chef).

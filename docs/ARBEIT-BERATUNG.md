@@ -21,6 +21,8 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 ## Einzelheiten
 
+- **Zu 620, D84.1 von Diogenes (08.11., 11:0x):** Titel von 620 endet seit dem Umschalten 275.2 (`753ce23f6`) auf „· wiederholt“ (aus deinem alten Stand übernommen), Stand „Dauer“ wurde „startbar“; 620.1 A stellt 620 dadurch bei dir vor alles Muss, obwohl es kein wiederholter Fund des Chefs ist. Ebenso offen aus deinem alten Stand: die sechs wiederholten Funde aus t268 mit „wiederholt“ im Titel nachziehen (bisher keine Zeile).
+
 - **von Team Tom (08.11., 07:0x, 569, Bitte nach 480.1):** Der Haken 621 A hält jeden Lauf für `claude/tom-569-kronen` an: gezählt ist „ci“ 04.11., 19:52 (`probelaeufe.tsv`), auf GitHub gibt es auf diesem Zweig aber keinen einzigen Lauf (der Push startete nichts); deine Freigabe 04.11. (zwei Läufe, drei Fassungen der Lichtseite) ist also unverbraucht, Bild gibt es keins. Bitte Archiveintrag „569, Läufe frei“ (ein Lauf, Kronenbilder, film=nein) oder nein; bis dahin ruht 569 bei mir.
 
 - **Zu 461b.4:** Köpfe von `DESIGN-SPIELSYSTEM-2-0.md` (Zeile 3, Nr. 24), `LISTE-BESTIARIUM.md` (Zeile 3), `DESIGN-KAMPF.md` (Zeile 3) gegen Entscheidung 84; Säureschnecke mit Jerry (461b.1); Anhänge „→ ersetzt durch …“ im Archiv, wo dein Helfer den Ersatz fand: 376.1 (11:19), 72o, 72o.1, 348.12 (26.10.), 348.9 (13:26), 72.8, 414, F3/F4 Datum (Zu 461b; 415c, 480, 362, 418 hat Perikles gesetzt).
