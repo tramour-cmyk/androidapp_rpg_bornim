@@ -151,7 +151,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 687 | K | Tiefer Flüsterwald: Grimmzahn auf der Karte „steht ganz alleine rum und schaut eher aus wi | ruht |
 | 688 | K | Frage des Chefs je Karte: wie viel Sammelbares offen und versteckt liegt (alt gegen neu: T | Chef (Datei in der Chefsache) |
 | 689 | K | Dorf, Urteil Chef 25.10., 12:11 (aus 348.6, offen geblieben): Büsche über Dachfirsten, Lat | ruht |
-| Pflege | K | von Werkzeug (340.3, 08.11.): 20007 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 08.11.): 20573 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
 
 **Jerry** – offen 68, Muss 60, startbar 0
 
@@ -253,8 +253,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 651 | M | Kostenauswertung: Bereiche als feste Liste, fehlende Kosten (533 von 980 Zeilen) über Comm | wartet auf Test/Build (gebaut) |
 | 650.1 | M | Liste für docs/alt/ nach zwei Gegenprüfungen (aus 650) | Termin 09.11. |
 | 654.1 | M | Systemfrage vor jedem Bau in ROLLE-ENTWICKLUNG.md und Prüfliste, Wiederholungswächter in v | wartet auf Test/Build (gebaut) |
-| Pflege | K | von Werkzeug (340.3, 08.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 | 692 | K | Von Tom: probelauf.py 647 sieht Mischungen mit main nicht (git log --no-merges), hält den | startbar |
+| Pflege | K | von Werkzeug (340.3, 08.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 
 **Diogenes** – offen 10, Muss 8, startbar 0
 
