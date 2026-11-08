@@ -6,7 +6,7 @@ Pause bis 09.11., 09:00 (Systemrunde braucht die Wochenkosten 651).
 
 **Übergabe (08.11., 18:0x, `session_01Hmoj78wViGJevxgkcBvEek`):** Stellungnahmen 591, 657, 688 in der Chefsache (194.2). Kosten auf: 591, 657, 688. Nachfolger: Sokrates – 654: Systemrunde (09.11.)
 
-- **Zu 623 (Chef 19:32–19:46, Archiv):** Dorf 33, Wald 25 Bilder/s, Grafik bis 2 GB; Gerät des Chefs unbekannt; Untergrenze offen (698). Kauf `tun/623-kauf.md`.
+- **Zu 623 (Chef 19:32–19:46, Archiv):** Dorf 33, Wald 25 Bilder/s, Grafik bis 2 GB; Gerät des Chefs Samsung Galaxy A56 (SM-A566B, Xclipse 540), obere Mittelklasse; Untergrenze offen (698). Kauf `tun/623-kauf.md`.
 - **Zu 654, Stoff für die Systemrunde 09.11.:** (a) Wiederholungswächter legt bei Allerweltswörtern („Licht“, „Karte“, „Kasten“) Vorgänge an (666, 667, 669, 671, 672, 674, 676): Stichwortliste schärfen (Perikles 654.1). (b) Lagebild t269, drei Arten mit je einer einmaligen Lösung prüfen: Bewegung der Figuren für alle (416.8 Tom, 406.2, 562, 682 Jerry: ein Bewegungsbaustein für beide Teams, Chefsache); Menü des Helden einmal ganz alt gegen neu (605, 670, 683); Klangliste alt gegen neu (591, 517, 681). Dazu Kosten 651 der Woche.
 
 ## Zeilen
