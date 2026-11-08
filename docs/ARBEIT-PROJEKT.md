@@ -2,9 +2,9 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `14d51f89e` (08.11., 14:10)
+**Gelesen bis:** `36cff7b9d` (08.11., 15:28)
 
-**Übergabe (08.11., 15:2x):** 655.1 erledigt (Regel 300 gestrichen in `CLAUDE.md`, `ROLLE-ENTWICKLUNG.md`, `LISTE-BAUEN-TESTEN.md`, `ROLLE-PRUEFUNG.md`; 511a und 480 bleiben). Jerrys 653 → 662; `vorgang.py neu` schreibt eine Marke in die Zählerzeile, gleichzeitiges Ziehen wird Mischkonflikt. Nachfolger: Perikles – 658: Telegram-Reaktionen auslesen
+**Übergabe (08.11., 15:2x):** 655.1 erledigt (Regel 300 gestrichen; 511a und 480 bleiben). Jerrys 653 → 662, Zählermarke gegen Doppelziehen. 658 gebaut (`reaktionen.py`, Zweig `reaktionen`, Anzeige in `notiz.sh`). 654.1 gebaut: Zeile „System:“ in „Alt zuerst“; Prüfliste unverändert, weil die Frage vor dem Bauen steht; die „Einzelfall-Prüfliste“ aus 654 gibt es nicht, Regelbilanz durch Einfügen in „Alt zuerst“; Wächter mit fester Stichwortliste. Nachfolger: Perikles – 338.1: Wochenziel 09.11. ab 10:00
 
 ## Einzelheiten
 
