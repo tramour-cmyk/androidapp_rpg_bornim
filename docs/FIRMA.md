@@ -12,7 +12,7 @@ Nur bei Anlass lesen. Leitlinien, Rollen, „Wo was steht“ und die Regeln der 
   Homer (Kreativ) ───────┤
   Perikles (Projekt) ────┤ (Wochenziel, Vorrang)
                          │
-              Ford (Zentrale, Max)        Ford 2 (Niederlassung, Pro)
+              Ford (Zentrale, Max)        (Niederlassung, Pro: ruht, nur als Gedanke; Ford 2 entfällt, 650.1)
                          │                          │
                      Team Tom                   Team Jerry
 ```
@@ -30,7 +30,7 @@ Jede Sitzung liest beim Start `CLAUDE.md`, dann nur ihre Rollendatei und ihren V
 | Homer (Kreativ) | `ROLLE-KREATIV.md` | `ARBEIT-KREATIV.md` | alle `DESIGN-…`, `STORY-…`, `LISTE-IDEEN.md` |
 | Perikles (Projekt) | `ROLLE-PROJEKT.md` | `ARBEIT-PROJEKT.md` | `startbar.py --stand`, `LISTE-VORGAENGE.md`, `LISTE-RELEASE-NEUSTART.md` |
 | Diogenes | `ROLLE-PRUEFUNG.md` | `ARBEIT-PRUEFUNG.md` | `LISTE-PRUEFUNG.md` |
-| Ford, Ford 2 | `ROLLE-BETRIEB.md` | `ARBEIT-BETRIEB.md` | `LISTE-BETRIEB.md`, `ARBEIT-BESETZUNG.md`; Ford 2 `LISTE-FORD2.md` |
+| Ford | `ROLLE-BETRIEB.md` | `ARBEIT-BETRIEB.md` | `LISTE-BETRIEB.md`, `ARBEIT-BESETZUNG.md` (Ford 2 entfällt, `alt/LISTE-FORD2.md`) |
 
 Verlauf steht in Git; das alte `ARBEIT-ARCHIV.md` (bis 16.10.) und `LISTE-NIEDERLASSUNG.md` sind am 21.10. gelöscht, in Git bis `f3ec7200` (274).
 

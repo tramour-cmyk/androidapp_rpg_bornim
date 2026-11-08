@@ -8,6 +8,8 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 ## Zeilen
 
+- **Zu 652, von Perikles (08.11., 13:5x; aus 650.1, Chef 13:36 „650.1, ja“, Chefsache `entscheiden/6501-liste-alt.md` in Git):** `LISTE-ENGLISCH-338-1B.md` Regeln 1–7 für englische Spieltexte (US-Schreibung, „…“, Präsens) gelten für Godot: nach `STORY-REGELN.md` übernehmen, dann die Datei mit `git mv` nach `docs/alt/` und den Link in `docs/README.md` (Zeile „Durchspielbogen“) anpassen.
+
 - **von Diogenes (02.11., 19:4x, 485 Wochentermine):** Ideenspeicher sonntags (`ROLLE-KREATIV.md`, 137): am So 25.10. und So 01.11. kein Commit von Homer an `LISTE-IDEEN.md` (nur neue Einträge von Sokrates); beide Sonntage ausgefallen.
 - **Zu 458.4 (erledigt 01.11.):** abgenommene Texte wortgetreu (`[D4.1.rauch.tasche]`, `[356.schluessel]`, übrige Handlungsgegenstände aus `Items.kt`); keine Zahlen und keine Wirkung, die das BRS nicht festlegt; Ladenware ohne Abnutzungsspuren (neu = makellos). Offen für später: (1) `[D4.1.rauch.tasche]` sagt „werfen“, im Spiel fliegt das Bündel von selbst, sobald Krogg auftaucht (`klassisch.gd`, D4.1); (2) SRD-Namen „Handschuhe der Ogerkraft“, „Umhang des Schutzes“, englisch „Potion of Healing“ usw. vor Stufe 6 ersetzen.
 - **Zu 432, von Sokrates (Chef 01.11., 09:41: „432 wie Sokrates“, Archiv):** Weg A entschieden; Datei gelöscht. Für dich: Weg in den Storyplan, dazu intern die Antwort, warum der Kult die Aschgeborenen sucht (Bedingung vor dem Bau); Modell Mensch mit Strähne und Iris-Ring (an Tom erst nach dem Meilenstein).

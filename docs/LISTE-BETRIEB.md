@@ -1,6 +1,6 @@
-# Betrieb: Handwerk von Ford und Ford 2
+# Betrieb: Handwerk von Ford
 
-Mechanik zu `ROLLE-BETRIEB.md`: Stellung, Uhr, Neustart, Ablauf eines Laufs, Ford 2, Meldungen. Liest Ford beim Start ganz; andere nur bei Anlass. Vorgänge 81a–81v, 99f, 99h, 110, 124, 126, 128 (`VORGANGSARCHIV.md`).
+Mechanik zu `ROLLE-BETRIEB.md`: Stellung, Uhr, Neustart, Ablauf eines Laufs, Meldungen. Liest Ford beim Start ganz; andere nur bei Anlass. Vorgänge 81a–81v, 99f, 99h, 110, 124, 126, 128 (`VORGANGSARCHIV.md`).
 
 ## Stellung (81g)
 
@@ -45,7 +45,7 @@ Steht oben in `ARBEIT-BETRIEB.md` („Ford: aus / Co-Pilot / Pilot“). Der Chef
 
 ## Jerry in der Zentrale (Niederlassung ruht)
 
-**Ruht die Niederlassung** (Zeile oben in `ARBEIT-BETRIEB.md`, 159): Regeln von Ford 2 stehen in `LISTE-FORD2.md` (beim Start nicht lesen). Team Jerry läuft in der Zentrale (opus, „WireStorm Mittel“) wie Team Tom: dieselben Regeln, keine eigene Bremse, Übernahme (118) zwischen den Teams gilt (190.6, `CLAUDE.md` 6); hat ein Team viel und das andere nichts, schichtet Ford Zeilen in den anderen Vorrat um (mit „umgeschichtet von …“; Chef 17.10.). Unterschied nur: Ford schreibt Jerrys Zeilen in `ARBEIT-BESETZUNG.md`, Jerrys „Neustart“-Meldung geht an Ford, kein „stiller Ausfall“, keine 10-%-Regel.
+**Ruht die Niederlassung** (Zeile oben in `ARBEIT-BETRIEB.md`, 159; nur noch als Gedanke, Ford 2 entfällt, 650.1, Chef 08.11., 13:36; alte Regeln in `alt/LISTE-FORD2.md`). Team Jerry läuft in der Zentrale (opus, „WireStorm Mittel“) wie Team Tom: dieselben Regeln, keine eigene Bremse, Übernahme (118) zwischen den Teams gilt (190.6, `CLAUDE.md` 6); hat ein Team viel und das andere nichts, schichtet Ford Zeilen in den anderen Vorrat um (mit „umgeschichtet von …“; Chef 17.10.). Unterschied nur: Ford schreibt Jerrys Zeilen in `ARBEIT-BESETZUNG.md`, Jerrys „Neustart“-Meldung geht an Ford, kein „stiller Ausfall“, keine 10-%-Regel.
 
 ## Meldung und Laufbericht (81a, 81l, 81p)
 

@@ -36,7 +36,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
 | **Homer** | Kreativdirektor: Story, Texte, Stil, Spielgefühl, Ideen | `ROLLE-KREATIV.md` |
 | **Perikles** | Projektmanager: Wochenziel, Vorrang, Kosten, Abläufe | `ROLLE-PROJEKT.md` |
 | **Diogenes** | Prüfer: prüft `main`, zählt Kennzahlen, ändert nichts; nur Chef oder Ford starten ihn | `ROLLE-PRUEFUNG.md` |
-| **Ford** | Betriebsleiter: startet Sitzungen, verteilt Arbeit, schreibt die Besetzung (Ford 2 ruht) | `ROLLE-BETRIEB.md` |
+| **Ford** | Betriebsleiter: startet Sitzungen, verteilt Arbeit, schreibt die Besetzung | `ROLLE-BETRIEB.md` |
 | **Team Tom** | Entwickler: Leute, Dorf, Innenräume, Technik der Blende | `ROLLE-ENTWICKLUNG.md` |
 | **Team Jerry** | Entwickler: Monster, Höhle, Kampf, Klang | `ROLLE-ENTWICKLUNG.md` |
 

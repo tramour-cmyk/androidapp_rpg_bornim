@@ -4,9 +4,9 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (08.11., 09:05, Ford `session_01Hmoj76HFnAA46mUTzwaQoK`, Selbstneustart):** Getan: Sperren vom Chef aufgehoben, 275.2 umgeschaltet, Nachtplan Tom/Jerry durch, Morgenmeldung 08.11. gesendet, Kosten gebucht. Laufend: Tom `session_01Hmoj79X6oAEPabaMyCRc4B` (Build 269, Testbitte gegen 08:35), Jerry `session_01Hmoj76PuNTd7NgcaM1MYtR`. Tagesbericht 08.11. ab 9:30 aus `lauf.py`. Archiviersatz gilt nur je Sitzung. Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 652** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 653** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
-**Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
+**Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
 **Ford: Pilot** (seit Sa 17.10., 21:05; 81g)
 
@@ -20,7 +20,6 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 - **Ford lebt in einer Sitzung** „Ford“ (Tiefe 2, Selbstneustart 08.11., 09:05) `session_01Hmoj78NKRazEf1Gp5XtnWY`; Stundenuhr „Ford-Lauf“ `trig_018KFM8p48SdbzgBWQ3TzWRR` (:03); der Nachfolger legt seine Uhr an, löscht diese und archiviert diese Sitzung (idle, >60 s, Kosten buchen). Alter Ford `session_01Hmoj76HFnAA46mUTzwaQoK` (10,17 $, idle) wartet auf den Archiviersatz des Chefs (Meldung 09:07); Uhr gelöscht. Vorheriger Ford archiviert 07.11., 14:04, 28,50 $ auf Betrieb.
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
-- **(ruht, 159)** Ford 2: Stundenuhr aus; Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
 
 ## Eingang
 

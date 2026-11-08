@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **650.1 Notizen abgelegt** (Perikles): neun erledigte oder ruhende Dateien nach `docs/alt/` (274, Grundstand 461, Ford 2, Proxmox, Arbeitsorte, Prüfbogen Tester, MARS 72.10a, MARS-Aufstellung, Grafikweg), Links angepasst, Lizenzzeile Blender/Godot nach `LISTE-QUELLEN.md`; Ford 2 aus `CLAUDE.md`, `LISTE-BETRIEB.md`, `ROLLE-BETRIEB.md`, `FIRMA.md`, `lauf.py`; `notiz.sh` warnt nicht mehr über `docs/alt`.
+
 - **646 Zeigen statt messen** (Perikles, Werkzeug): `probelauf.py` zählt jeden Lauf auf dem Bauserver als die eine Probe, auch Messläufe mit `bild=nein` (Filmsperre 511 greift dort nicht); Sammelbuild `claude/build-<n>` zählt nicht; Hinweis nach der Probe: Ergebnis an den Chef mit offenen Punkten, Sitz und Aussehen als Bild, Bewegung als Film. Regel in `ROLLE-ENTWICKLUNG.md`.
 
 - **Build 257 auf `main`** (04.11., 20:46, PR #184, vom Chef getestet und freigegeben): enthält 251, 252, 255; bestanden u. a. Hauptmenü und Lizenzen, Schriftgröße, Schlagbaum, „Monster beachten mich nicht“, Ausweichen der Wölfe, Kampftempo, Zugreihe, Rattenlohn, Wölfe nach Rattenkampf, Grimmzahn ohne Flucht, Stufengrenze 6, Heilkraut-Hinweis; offene Funde stehen in den Vorräten (t257 in Git).

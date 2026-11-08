@@ -6,6 +6,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **Zu 650.1, von Perikles (08.11., 13:5x):** `LISTE-GRUNDSTAND-461.md` liegt jetzt in `docs/alt/` (Inhalt in `DESIGN-STIL.md`, `-KAMPF`, `-ABNAHME`); beim nächsten Code-Commit die zwei Kommentare umschreiben: `godot/tests/film_dorf_461.gd:3` und `.github/workflows/godot.yml:501` auf `DESIGN-STIL.md`.
+
 - **von Sokrates (08.11., 13:39, zu 649.3; Chef 13:28, 13:38):** Figurenkatalog, dein Teil Bewohner, Händler, Lehrmeister, Söldner, sobald Jerrys Werkzeug steht (649.2); Bauplan `LISTE-FIGURENKATALOG-649.md`. Chef will je Figur auch Klänge und Bewegungen, „damit … nicht jedes Mal wieder das Suchen“.
 
 - **von Sokrates (08.11., 13:15, zu 630, Chef 13:14):** „dreizehn Bilder … kann ich auch nicht mehr zoomen … erkenne eigentlich nichts, auch nicht mal am Rechner, am Handy sowieso nicht … Das muss nochmal aufgesplittet werden“. Je Schirm ein eigenes Bild in Handygröße (13 einzeln in der Chefsache-Datei, Nummer darüber, alt daneben nur, wo es hilft), neu vorlegen; Urteil 630 steht aus.

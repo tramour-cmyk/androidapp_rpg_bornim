@@ -8,7 +8,7 @@ Sokrates, 21.10., 07:4x. Vorbereitung, nichts gebaut; umsetzen frühestens nach 
 
 ## Heute
 
-Ein Vorgang steht an bis zu sieben Stellen (`LISTE-ABLAUF-274.md`): Zeile im Vorrat und in `LISTE-VORGAENGE.md` (Stand und Klasse doppelt), Wortlaut in Vorrat, Chefsache und Vorgangsarchiv, erledigt in `LISTE-VORGAENGE-ARCHIV.md`. Wandert er, wird abgeschrieben; jede Abweichung ist ein Pflegefehler.
+Ein Vorgang steht an bis zu sieben Stellen (`alt/LISTE-ABLAUF-274.md`): Zeile im Vorrat und in `LISTE-VORGAENGE.md` (Stand und Klasse doppelt), Wortlaut in Vorrat, Chefsache und Vorgangsarchiv, erledigt in `LISTE-VORGAENGE-ARCHIV.md`. Wandert er, wird abgeschrieben; jede Abweichung ist ein Pflegefehler.
 
 ## Vorschlag
 
