@@ -72,7 +72,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:05 05.11.: Lauf `--nur-muss`: gestartet Tom 512b, Perikles Tagesbericht 05.11. Abweichung vom Plan (468a, 468c): Jerry 512b (gleiche Zeile wie Tom), Spike 569, Tuffy 565 (ruht) nicht gestartet, Sokrates-Stellungnahme nicht (Sokrates läuft, idle). Startmarken stehen trotzdem.
 - 00:13 05.11.: Neustart-Meldung Jerry 80f16571d (Übergabe da, Nachfolger „Jerry – 572 Urteil, Kampf-Build“); Nachtpause 468d: Nachfolger NICHT gestartet, startet `lauf.py` ab 7 Uhr. Alter Jerry `zop1` archiviert, 22,93 $ auf 572.
 - 23:05 04.11.: Nachtpause 468d. Tom `ArQnx` (475, nichts mehr startbar, idle) archiviert, 3,78 $ auf 475; Nachfolger Tom ab 7 Uhr (lauf.py). Jerry `2zop` (572) idle/wartet, unberührt. Kein Start bis 7 Uhr.
-- 22:28 04.11.: Neustart Tom 40ea02630 → `UCbYo7ArQnx` „475: Grün am Hals, Tusche an den Kaufleuten“ (vor 22:30, mit Hinweis 468d: Übergabe bis 23 Uhr); alter Tom `4jyCYv` archiviert, 21,98 $ auf 475 und 558.
 - 20:06 07.11.: Startsperre 20:06 Start Diogenes, Homer, Perikles (lauf.py; Tom nicht gestartet: Pause Prüfliste, Sokrates-Stellungnahme an Chef-Sokrates statt Neustart)
 - 20:06 07.11.: Marke Tagesbericht 07.11. (lauf.py)
 - 20:06 07.11.: Marke Tagesbericht fehlt 07.11. (lauf.py)
@@ -87,3 +86,10 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:06 08.11.: Marke Stellungnahme Sokrates 08.11. (lauf.py)
 - 09:06 08.11.: Marke Wächter 499 07.11. 21:31 (lauf.py)
 - 09:06 08.11.: Marke Wächter 630 07.11. 22:28 (lauf.py)
+- 10:03 08.11.: Startsperre 10:03 Start Jerry, Diogenes, Perikles, Spike, Tuffy (lauf.py)
+- 10:03 08.11.: Marke Archiv session_01Hmoj76PuNTd7NgcaM1MYtR (lauf.py)
+- 10:03 08.11.: Marke Archiv session_01Hmoj76saGTQ5LicSQ4JBof (lauf.py)
+- 10:03 08.11.: Marke Archiv session_01Hmoj79X6oAEPabaMyCRc4B (lauf.py)
+- 10:03 08.11.: Marke Archiv session_01Hmoj77QbZtBr66SrPaFxoA (lauf.py)
+- 10:03 08.11.: Marke Archiv session_01Hmoj79SGLcs9Wxx2YdimcZ (lauf.py)
+- 10:03 08.11.: Marke Archiv session_01Hmoj78bddb4eakYh7H1cQC (lauf.py)
