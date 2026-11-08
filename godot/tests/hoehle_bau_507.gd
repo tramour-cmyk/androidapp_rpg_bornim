@@ -44,21 +44,36 @@ func _alles() -> void:
 			for i in mi.mesh.get_surface_count():
 				var m = mi.get_surface_override_material(i)
 				var g = m.get_shader_parameter("glow") if m is ShaderMaterial else null
-				if g != null and float(g) > 0.5: leuchtet += 1
+				if g != null and float(g) > 0.3: leuchtet += 1     # Lauf 287: Pilze 0,35
 		_pruef("%s: etwas leuchtet (Flamme, Himmel oder Pilz)" % o, leuchtet >= 1, "%d Stoffe" % leuchtet)
 		_pruef("%s: Wand und Decke ohne Schlagschatten" % o, schatten == 0)
-		# Lauf 247 (Eingang: grüner Block, weiße Zacken): draußen ohne Höhlenlicht und Dunst, Eckfarbe; drinnen nichts davon
+		# Lauf 247 (Eingang: grüner Block, weiße Zacken): Himmel ohne Licht und Dunst. Lauf 287 (Prüfer: draußen flach, ohne Textur
+		# und Tusche): Wiese, Kronen, Stämme als eigenes Netz „Draussen“ im Toon-Licht mit Bild, ohne Dunst, auf eigener Lichtebene,
+		# die keine Lampe der Höhle erreicht; drinnen nichts davon
+		var himmel := 0
 		var draussen := 0
+		var draussen_falsch := 0
 		for mi in netze:
+			var ist_draussen := String(mi.name).begins_with("Draussen")
 			for i in mi.mesh.get_surface_count():
 				var src: Material = mi.mesh.surface_get_material(i)
+				var m = mi.get_surface_override_material(i)
+				var code: String = (m as ShaderMaterial).shader.code if m is ShaderMaterial else ""
 				if src != null and src.resource_name in KampfortS.DRAUSSEN:
-					var m = mi.get_surface_override_material(i)
-					if m is ShaderMaterial and (m as ShaderMaterial).shader.code.contains("unshaded, fog_disabled"):
+					if code.contains("unshaded, fog_disabled"): himmel += 1
+				elif ist_draussen:
+					var bild = m.get_shader_parameter("tex") if m is ShaderMaterial else null
+					if code.contains("fog_disabled") and not code.contains("unshaded") and mi.layers == KampfortS.LICHTEBENE_DRAUSSEN \
+							and bild is Texture2D and (bild as Texture2D).get_width() > 4:
 						draussen += 1
-		_pruef("%s: draußen ohne Höhlenlicht (Himmel, Bäume, Wiese)" % o, draussen == (2 if ziel == "eingang" else 0), "%d Stoffe" % draussen)
+					else:
+						draussen_falsch += 1
+		_pruef("%s: Himmel ohne Höhlenlicht" % o, himmel == (1 if ziel == "eingang" else 0), "%d" % himmel)
+		_pruef("%s: draußen gemalt im Toon-Licht, ohne Dunst, eigene Lichtebene (Wiese, Kronen, Stämme)" % o,
+			draussen == (3 if ziel == "eingang" else 0) and draussen_falsch == 0, "%d gut, %d falsch" % [draussen, draussen_falsch])
 		for l in lampen:
 			_pruef("%s: Lampe in der Höhle (über dem Boden, höchstens 30 m weit)" % o, l.position.y > 0.2 and l.position.length() < 30.0, "%s" % l.position)
+			_pruef("%s: Lampe erreicht draußen nicht" % o, (l.light_cull_mask & KampfortS.LICHTEBENE_DRAUSSEN) == 0)
 		k.queue_free()
 		await process_frame
 	print("HOEHLEBAU507 %s, %d Fehler" % ["gut" if fehler == 0 else "FEHLER", fehler])

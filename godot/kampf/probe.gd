@@ -379,14 +379,21 @@ func _hell_mess() -> void:
 	var sr: Rect2 = fight.scene_rect()
 	sr = Rect2(sr.position * kb, sr.size * kb)
 	print("HELL Bild %s, Schirm %s, Faktor %.2f" % [img.get_size(), get_viewport().get_visible_rect().size, kb])
-	var tag := "%s/%s Licht %s" % [fight.ort, fight.platz, OS.get_environment("HOEHLE_LICHT") if OS.get_environment("HOEHLE_LICHT") != "" else "1"]
+	var tag := "%s/%s Licht %s%s" % [fight.ort, fight.platz, OS.get_environment("HOEHLE_LICHT") if OS.get_environment("HOEHLE_LICHT") != "" else "Vorgabe",
+		" Nebel alt" if OS.get_environment("HOEHLE_NEBEL") == "alt" else ""]
 	var werte: Array = []
 	for y in range(int(sr.position.y), int(sr.end.y), 3):
 		for x in range(0, img.get_width(), 3):
 			werte.append(_luma(img, x, y))
 	werte.sort()
 	var n := werte.size()
-	print("HELL %s Szene: p10 %.0f, p50 %.0f, p90 %.0f, Mittel %.1f" % [tag, werte[n / 10], werte[n / 2], werte[n * 9 / 10], _mittel(werte)])
+	# 507 Lauf 287 (Prüfer: 44 % fast schwarz): Anteil der Szene unter 12 von 255, oben (erstes Drittel) und unten (letztes) getrennt
+	var schwarz := 0
+	for w in werte:
+		if w < 12.0:
+			schwarz += 1
+	print("HELL %s Szene: p10 %.0f, p50 %.0f, p90 %.0f, Mittel %.1f, fast schwarz %.0f %%, oben %.0f %%, unten %.0f %%" % [tag, werte[n / 10],
+		werte[n / 2], werte[n * 9 / 10], _mittel(werte), 100.0 * schwarz / n, _schwarz_anteil(img, sr, 0.0, 0.33), _schwarz_anteil(img, sr, 0.67, 1.0)])
 	for id in fight.figures:
 		var fg = fight.figures[id]
 		if not fg.visible:
@@ -420,6 +427,17 @@ func _hell_mess() -> void:
 			var um := (_feld(img, Rect2(q + Vector2(-30, -5), Vector2(10, 10))) + _feld(img, Rect2(q + Vector2(20, -5), Vector2(10, 10))) +
 				_feld(img, Rect2(q + Vector2(-5, -30), Vector2(10, 10))) + _feld(img, Rect2(q + Vector2(-5, 20), Vector2(10, 10)))) / 4.0
 			print("HELL %s Merk %s bei %d,%d: %.1f, Umgebung %.1f" % [tag, m.name, q.x, q.y, kern, um])
+
+
+func _schwarz_anteil(img: Image, sr: Rect2, von: float, bis: float) -> float:
+	var n := 0
+	var s := 0
+	for y in range(int(sr.position.y + sr.size.y * von), int(sr.position.y + sr.size.y * bis), 3):
+		for x in range(0, img.get_width(), 3):
+			n += 1
+			if _luma(img, x, y) < 12.0:
+				s += 1
+	return 100.0 * s / maxf(n, 1.0)
 
 
 static func _luma(img: Image, x: int, y: int) -> float:

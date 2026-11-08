@@ -419,6 +419,7 @@ jobs:
           timeout 300 ~/godot/godot --headless --path . -s res://tests/wald_491.gd 2>&1 | tee wald491.log | grep -E "FEHLER|WALD491|SCRIPT ERROR"; grep -q "^WALD491 0 Fehler" wald491.log   # 491
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/hoehle_507.gd 2>&1 | grep -E "FALSCH|HOEHLE507|SCRIPT ERROR"   # 507 Kampforte der Höhle
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/hoehle_bau_507.gd 2>&1 | grep -E "FALSCH|HOEHLEBAU507|SCRIPT ERROR"   # 507 Bau je Ort
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/hoehle_farben_507.gd 2>&1 | grep -E "FALSCH|HOEHLEFARBE fertig|SCRIPT ERROR"   # 507 Lauf 287: Eckfarbe ist Tönung
           set -o pipefail; OHNE_ALT=1 ORT=hoehle PLATZ=halle timeout 300 ~/godot/godot --headless --path . -s res://tests/ansage_507.gd 2>&1 | grep -E "ANSAGE507|Strich von|SCRIPT ERROR"   # 507 Ansage mit Strich (Prüfer Lauf 247)
       # fester Schluessel ueber alle Laeufe, sonst lehnt Android das Update ab (348.5, Build 9). 399.1a (Chef 28.10., 14:41): der Cache
       # eines Zweigs galt nur dort (Build 130 bekam einen neuen); jetzt nur lesen, angelegt wird er auf main (godot-schluessel.yml)
@@ -488,10 +489,13 @@ jobs:
           cd godot
           if [ "${{ github.event.inputs.bild }}" = nein ]; then
             # Messlauf ohne Bild (Lauf 234: Halle und Teich fast schwarz): Helligkeit je Ort und Lichtfaktor, dazu die Lichtung zum Vergleich
-            for l in 1 1.8 3; do for o in eingang gang halle teich lager; do
+            # 507 Lauf 287: dazu Licht 0,5 (Tönung statt doppelter Farbe, etwa siebenmal heller) und Halle mit dem alten Dunst
+            for l in 0.5 1 1.8 3; do for o in eingang gang halle teich lager; do
               HELL=1 HOEHLE_LICHT=$l ORT=hoehle PLATZ=$o VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 400 xvfb-run -a -s "-screen 0 1080x2340x24" \
                 ~/godot/godot --path . res://kampf/probe.tscn --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --bild=/tmp/x.png 2>&1 | grep -E "SCRIPT ERROR|^HELL" | cut -c1-300 || true
             done; done
+            HELL=1 HOEHLE_NEBEL=alt ORT=hoehle PLATZ=halle VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 400 xvfb-run -a -s "-screen 0 1080x2340x24" \
+              ~/godot/godot --path . res://kampf/probe.tscn --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --bild=/tmp/x.png 2>&1 | grep -E "SCRIPT ERROR|^HELL" | cut -c1-300 || true
             HELL=1 PLATZ=lichtung VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 400 xvfb-run -a -s "-screen 0 1080x2340x24" \
               ~/godot/godot --path . res://kampf/probe.tscn --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --bild=/tmp/x.png 2>&1 | grep -E "SCRIPT ERROR|^HELL" | cut -c1-300 || true
             exit 0

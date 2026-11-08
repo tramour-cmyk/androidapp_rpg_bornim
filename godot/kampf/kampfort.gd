@@ -306,6 +306,12 @@ func _setup_world() -> void:
 		env.fog_light_color = Color(0.02, 0.02, 0.025)
 		env.fog_depth_begin = 24.0
 		env.fog_depth_end = 45.0
+		# Lauf 287 (Prüfer: Halle oben fast schwarz): die Kurve 0,4 des Walds legte schon 2 m hinter dem Beginn 40 % Dunst auf die
+		# Rückwand (26 m); jetzt gleichmäßig von 28 bis 55 m. Messlauf HOEHLE_NEBEL=alt: wie vorher
+		if OS.get_environment("HOEHLE_NEBEL") != "alt":
+			env.fog_depth_begin = 28.0
+			env.fog_depth_end = 55.0
+			env.fog_depth_curve = 1.0
 		sun.light_energy *= (0.45 if platz != "eingang" else 0.7) * sqrt(hoehle_licht())
 		sun.light_color = Color(0.85, 0.82, 0.78)
 	add_child(sun)
@@ -415,6 +421,16 @@ func _toon_all(n: Node) -> void:
 		_toon_all(c)
 
 
+var _ohne_dunst: Shader = null
+## 507 Lauf 287: Toon wie überall, aber ohne den Dunst der Höhle (der lag ab 24 m fast schwarz auf draußen)
+func _toon_ohne_dunst() -> Shader:
+	if _ohne_dunst == null:
+		_ohne_dunst = Shader.new()
+		var code: String = (load("res://kampf/toon.gdshader") as Shader).code
+		_ohne_dunst.code = code.replace("render_mode cull_disabled, specular_disabled;", "render_mode cull_disabled, specular_disabled, fog_disabled;")
+	return _ohne_dunst
+
+
 var _inkless: Shader = null
 func _inkless_toon() -> Shader:
 	if _inkless == null:
@@ -432,11 +448,16 @@ const HOEHLE_UMGEBUNG := {"eingang": Color(0.40, 0.40, 0.42), "gang": Color(0.34
 	"teich": Color(0.24, 0.34, 0.40), "lager": Color(0.36, 0.30, 0.28)}
 const LEUCHTEN := {"flamme": Color(1.0, 0.62, 0.22), "glut": Color(0.9, 0.32, 0.08),
 	"pilz": Color(0.48, 0.94, 0.88)}
+## 507 Lauf 287 (Prüfer: „grelle weiße Pilze“): die Pilze leuchteten mit Stärke 1 einfarbig; jetzt schwach, Licht und Tusche bleiben
+const LEUCHT_STAERKE := {"pilz": 0.35}
+## 507 Lauf 287 (Prüfer: draußen „flache Flächen ohne Textur und Tusche“, 457): draußen ist ein eigenes Netz „Draussen“ im Toon-Licht
+## der Sonne (Bilder gras, laub, rinde), auf eigener Lichtebene: die Lampen der Höhle (Ebene 1) und ihr Dunst erreichen es nicht
+const LICHTEBENE_DRAUSSEN := 2
 var _flackern: Array = []     # [OmniLight3D, Grundstärke, Versatz]
 ## 507 Lauf 247 (Prüfer: Eingang „grüner Block statt Tageslicht“, oben weiße Zacken): Himmel leuchtete mit glow 1 und die Lampe am
 ## Mund (Stärke 8) färbte Bäume und Wiese mit ihrer Moosbildtextur hell; der Dunst der Höhle (ab 24 m fast schwarz) lag darauf.
 ## Draußen zeichnet darum ohne Licht und ohne Dunst seine Eckfarbe (CaveScene: glow(x, y, col, 1.0)); Tusche bleibt (Tiefe)
-const DRAUSSEN := ["himmel", "draussen"]
+const DRAUSSEN := ["himmel"]
 var _draussen: ShaderMaterial
 func _draussen_mat() -> ShaderMaterial:
 	if _draussen == null:
@@ -448,8 +469,10 @@ func _draussen_mat() -> ShaderMaterial:
 ## 507 Messlauf (probe.gd HELL): Faktor auf Umgebung und Lampen der Höhle. Vorgabe 3 nach Messlauf 242: bei 1 Halle, Teich, Lager
 ## Mittel 6–7 von 255, Held innen 26, Wölfe 8–10 (Prüfer 234 „fast schwarz“); bei 3 Held innen 40–54, Wölfe 16–22, Fackeln
 ## nicht ausgebrannt (97–129), Szene im Mittel 10–22 (Lichtung 91): düster, Figuren lesbar
+## Lauf 287: mit der Tönung statt doppelter Farbe (kampfort_hoehle.py) ist die Höhle etwa siebenmal heller; Vorgabe 1 bis zum
+## Messlauf (bild=nein, Licht 0,5/1/1,8/3)
 static func hoehle_licht() -> float:
-	return float(OS.get_environment("HOEHLE_LICHT")) if OS.get_environment("HOEHLE_LICHT") != "" else 3.0
+	return float(OS.get_environment("HOEHLE_LICHT")) if OS.get_environment("HOEHLE_LICHT") != "" else 1.0
 
 func _build_cave() -> void:
 	if not platz in HOEHLENPLAETZE:
@@ -468,18 +491,23 @@ func _build_cave() -> void:
 				var mi := knoten as MeshInstance3D
 				# Wand und Decke werfen keinen Schatten: sonst läge der ganze Kampf im Schatten der Decke; unter den Figuren bleibt er
 				mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+				var draussen := String(mi.name).begins_with("Draussen")
+				if draussen:
+					mi.layers = LICHTEBENE_DRAUSSEN
 				for i in mi.mesh.get_surface_count():
 					var src := mi.mesh.surface_get_material(i)
 					var rn: String = src.resource_name if src else ""
-					if rn in DRAUSSEN:     # Lauf 247 (Eingang: grüner Block, weiße Zacken): draußen ohne Höhlenlicht, Eckfarbe wie CaveScene
+					if rn in DRAUSSEN:     # Lauf 247 (Eingang: grüner Block, weiße Zacken): Himmel ohne Licht, Verlauf wie CaveScene
 						mi.set_surface_override_material(i, _draussen_mat())
+					elif draussen:
+						(mi.get_surface_override_material(i) as ShaderMaterial).shader = _toon_ohne_dunst()
 					elif LEUCHTEN.has(rn):
 						var m := mi.get_surface_override_material(i) as ShaderMaterial
-						m.set_shader_parameter("glow", 1.0)
+						m.set_shader_parameter("glow", LEUCHT_STAERKE.get(rn, 1.0))
 						m.set_shader_parameter("glow_col", LEUCHTEN[rn])
-					elif rn == "wasser":     # Lauf 234 (Teich ohne Wasser): matter Schimmer der Pilze auf dem Wasser
+					elif rn == "teichwasser":     # Lauf 234 (Teich ohne Wasser): matter Schimmer der Pilze auf dem Wasser
 						var m := mi.get_surface_override_material(i) as ShaderMaterial
-						m.set_shader_parameter("glow", 0.25)
+						m.set_shader_parameter("glow", 0.15)
 						m.set_shader_parameter("glow_col", Color(0.16, 0.36, 0.4))
 					elif rn == "dunkel":
 						(mi.get_surface_override_material(i) as ShaderMaterial).shader = _inkless_toon()
@@ -499,6 +527,7 @@ func _build_cave() -> void:
 		o.light_energy = float(l.staerke) * 1.5 * hoehle_licht()
 		o.omni_attenuation = 1.2
 		o.shadow_enabled = false     # Handy: Schatten nur von der Sonne (Signatur A4)
+		o.light_cull_mask = 0xFFFFF & ~LICHTEBENE_DRAUSSEN     # Lauf 287: draußen nur die Sonne
 		forest.add_child(o)
 		if String(l.art) in ["fackel", "feuer"]:
 			_flackern.append([o, o.light_energy, k * 1.7])
