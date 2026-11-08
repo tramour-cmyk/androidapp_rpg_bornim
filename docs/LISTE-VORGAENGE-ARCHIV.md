@@ -743,3 +743,8 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 620.2b | Abgleich alt nach `LISTE-ABGLEICH-ALT.md`: Höhle, Klang, Gegner, Bosse (aus 620.2) | B Abläufe | M | – | Jerry | erledigt |
 | 629 | Klopfen: wer hinter der Tür spricht, wessen Haus (Chef 611) | S Story | M | 1,82 $ | Homer | erledigt, Text [629.sprecher]; Bau 629.1 Tom |
 | 399 | Spielbare Godot-Fassung zuerst: Dorf begehbar, Kampf spielbar; Feintuning ruht (Chef 28.10., 12:34) · „jetzt“ 28.10., 12:34 | B Umzug | M | 12,45 $ | Perikles | erledigt |
+| 416.4 | Rennen des Helden wirkt wie Hochsprung (Chef 31.10., 20:4x) | B Umzug | M | 41,57 $ | Tom | erledigt |
+| 399.3.1 | Klang: Haken in spiel.gd übernehmen, Klangregler im Menü System (aus 399.3) | B Umzug | M | – | Tom | erledigt |
+| 296.1 | Erste Fassung Checkliste MARS (`LISTE-MARS.md`) gegen den Code prüfen und pflegen | E Kampf | K | – | Jerry | erledigt, MARS-Spalte für Godot nachgezogen 08.11. |
+| 631 | lauf.py: Startmarken ohne Datum verglichen (Ford 06.11., 07:19) | B Werkzeuge | K | – | Perikles | erledigt |
+| 645 | 499 Probebild Lauf 292 (Drehteller): Helfer meldet vor dem Versand Verstöße A1, A4, B4, E3, G1, Schild selbst behoben; vorlegen mit Vermerk oder Lauf frei für G1? (von Tom, zu 499) | C Betrieb | M | – | Sokrates | erledigt |
