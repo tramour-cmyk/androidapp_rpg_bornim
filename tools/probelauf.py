@@ -510,8 +510,10 @@ def alt_fehlt(befehl, cwd):
         git("merge-base", "origin/main", "HEAD", cwd=wo).stdout.strip()
     if not oben:
         return None
-    pfade = git("diff", "--name-only", f"{oben}..HEAD", cwd=wo).stdout.split()
-    texte = git("log", "--no-merges", "--format=%B%x00", f"{oben}..HEAD", cwd=wo).stdout
+    # 692: Pfade wie Nachrichten nur aus eigenen Commits; nach `git merge origin/main` lagen sonst Dateien aus main im Diff
+    eigen = [f"{oben}..HEAD"] + (["^origin/main"] if git("rev-parse", "--verify", "-q", "origin/main", cwd=wo).stdout.strip() else [])
+    pfade = git("log", "--no-merges", "--name-only", "--format=", *eigen, cwd=wo).stdout.split()
+    texte = git("log", "--no-merges", "--format=%B%x00", *eigen, cwd=wo).stdout
     neu_f = COMMIT_F.search(befehl[:m.start()])
     neu = neu_f or COMMIT.search(befehl[:m.start()])
     if neu:
