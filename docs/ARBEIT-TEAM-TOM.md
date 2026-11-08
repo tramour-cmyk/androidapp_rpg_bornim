@@ -6,6 +6,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **von Sokrates (08.11., 15:52, zu 630, Chef, Build 269):** „Bin im Laden, will gewöhnliche Sachen verkaufen. Da ist aber dann auch noch das alte Kästchen Rückfragemenü.“ Rückfrage „Gewöhnliche verkaufen“ muss in 630 enthalten sein; im nächsten Build prüfen.
+
 - **von Sokrates (08.11., 15:32, zu 670, Chef, Build 269):** „Weder Held noch Tasche noch Ausrüstung noch Karte noch Chronik noch System. Okay, also ist alles noch wie vor der Umstellung auf das neue Design.“
 
 - **von Sokrates (08.11., 15:32, zu 668, Chef):** „Das Testmenü ist nicht ans neue Design angepasst … wegen zurück und so und Trennlinien und allem.“
