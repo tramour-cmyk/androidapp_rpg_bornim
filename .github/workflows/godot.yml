@@ -94,6 +94,15 @@ jobs:
             grep -rhoE '^@export[a-z_]* var [a-z_0-9]+' --include='*.gd' . | sort -u | head -150 | sed 's/^/REEBOO-EXPORT /'
             grep -rhoE '^\[node name="[^"]+" type="[A-Za-z0-9]+"' --include='*.tscn' . | sort | uniq -c | sort -rn | head -60 | sed 's/^/REEBOO-KNOTEN /'
             grep -rhoE '^shader_type [a-z_]+|^render_mode [a-z_, ]+' --include='*.gdshader' . | sort | uniq -c | sed 's/^/REEBOO-SHADER /'
+            for f in grass-wind-free-sample/addons/grass_wind_kit/wind/*.gd water-kit-free-sample/addons/water_kit/scripts/water_surface_3d.gd \
+                     weather-fx-free-sample/*/addons/weather_fx/weather_controller_3d.gd weather-fx-free-sample/*/addons/weather_fx/weather_preset.gd \
+                     surface-shaders-free-sample/*/addons/reeboo_surfaces/scripts/*.gd; do
+              for g in godot-$f; do [ -f "$g" ] && grep -hoE '^(@export[a-z_]* var [a-z_0-9]+(: *[A-Za-z0-9_]+)?|signal [a-z_]+|func [a-z_0-9]+\(|class_name [A-Za-z0-9]+|extends [A-Za-z0-9]+)' "$g" | sed "s#^#REEBOO-API $(basename $g): #" || true; done
+            done
+            grep -rhoE 'global uniform [a-z0-9_]+ [a-z_0-9]+|add_autoload_singleton\("[A-Za-z_]+"|ProjectSettings\.(set_setting|get_setting)\("[a-z_/0-9]+"|RenderingServer\.global_shader_parameter_[a-z]+\("[a-z_0-9]+"' . | sort | uniq -c | sed 's/^/REEBOO-GLOBAL /'
+            for f in $(find . -name '*.tres' -path '*presets*' -o -name '*.tres' -path '*materials*'); do echo "REEBOO-RES $f $(head -1 $f | grep -oE 'type="[A-Za-z0-9]+"|script_class="[A-Za-z0-9]+"' | tr '\n' ' ')"; done
+            for f in $(find . -name 'minimal_meadow.tscn' -o -name 'pond_toon.tscn' -o -name 'pond_clear.tscn'); do grep -hoE '^\[node name="[^"]+" type="[A-Za-z0-9]+"( parent="[^"]*")?' $f | sed "s#^#REEBOO-SZENE $(basename $f): #"; done
+            grep -hoE '^\[autoload\]|^[A-Za-z]+="\*res://[^"]+"|^shader_globals/[a-z_0-9]+' $(find . -name project.godot) | sort | uniq -c | sed 's/^/REEBOO-PROJEKT /'
             echo "REEBOO: nur Liste, Ende"; exit 1
           fi
       # 415 (Jerry, Chef „415 jetzt“ 02.11., 10:55; „415d muss ins nächste Build“ 22:05): Beams Free Sample (reeboolabs) aus
