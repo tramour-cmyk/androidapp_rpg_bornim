@@ -167,10 +167,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 677 | M? | Leuchtfunke wirkt nicht: Benutzen aus der Tasche tut nichts, nur „Der Funke verglimmt“ (Ch | wartet auf Test/Build (gebaut) |
 | 678 | M | Testmenü: Heldenstufe +1 geht über die Kapitelgrenze (Stufe 9 in Kapitel 1), Grenze auch b | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
 
-**Jerry** – offen 67, Muss 59, startbar 3
+**Jerry** – offen 69, Muss 61, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 680 | M | Absturz: Kampf im Wald nach Met (betrunken), Spiel wird langsam und stürzt ab (Chef 08.11. | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test |
 | 679 | M | Kampf: im ersten Testkampf (Kleriker gegen Wölfe) fehlten Befehle und Knöpfe (Gewinnen, Ve | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test |
 | 623.5 | M | Probe Kampf mit den Gratisproben (Combat Mega, Projectiles, Trails, Pack 3, Character Shad | startbar |
 | 565 | M | MARS: unten im Gruppenkasten sieht man nicht, welcher Held am Zug ist (Chef 04.11., 17:10, | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test |
@@ -238,6 +239,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 644.1 | M | Gegenstandskatalog: Werkzeug mit Spalten, Teil Rezepte und Prüfungen (644 A), zusammen mit | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test |
 | 644.2 | M | Gegenstandskatalog: Zahlen nach 469 in 444 (Tempo, Parieren, Durchschlag, Güte, Stufe), C1 | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test |
 | 662 | M | Kampf (vorher 653): Parade des Helden mit Schild dreht über _face_sanft ohne Pfotenhalt, S | wartet auf Test/Build (gebaut) |
+| 681 | M | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test |
 
 **Perikles** – offen 24, Muss 21, startbar 1
 
