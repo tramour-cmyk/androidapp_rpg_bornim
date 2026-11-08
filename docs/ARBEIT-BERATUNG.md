@@ -6,7 +6,7 @@ Pause bis 09.11., 09:00 (Systemrunde braucht die Wochenkosten 651).
 
 **Übergabe (08.11., 18:0x, `session_01Hmoj78wViGJevxgkcBvEek`):** Stellungnahmen 591, 657, 688 in der Chefsache (194.2). Kosten auf: 591, 657, 688. Nachfolger: Sokrates – 654: Systemrunde (09.11.)
 
-- **Zu 623, Probe-App t623 (Chef 08.11., 19:32, Bildschirmfoto Dorfbach):** „Mit allen neuen Effekten.... Läuft gut.“ Foto: Regen, Wasser „Paket klar“, fünf Felsen „Oberflächen“, Bilder/s 33 (Mittel 30,0 ms, 95 % unter 33,4 ms), Grafik 1793 MB, Dreiecke 2528k. Damit Frage 2 (Bildrate) auf seinem Gerät ja; Frage 1 „deutlich besser als unseres?“ je Paket noch offen (t623 A1, A2, B1, B3, C2). Gegenargument: 1,8 GB Grafikspeicher auf einem starken Gerät; schwächere Handys nicht gemessen.
+- **Zu 623, Probe-App t623 (Chef 08.11., 19:32–19:42, Archiv):** Fotos: Dorf 33 Bilder/s, Grafik 1,8 GB; Wald 25 Bilder/s, 2,0 GB; Zielbildrate nirgends festgelegt, schwächere Handys nicht gemessen. Blitz und Donner kamen nicht (Tom, 623.6). Nächster Schritt: Kauf der geprobten Pakete durch den Chef, Pack 2 und Beams ungeprobt.
 - **Zu 654, Stoff für die Systemrunde 09.11.:** (a) Wiederholungswächter legt bei Allerweltswörtern („Licht“, „Karte“, „Kasten“) Vorgänge an (666, 667, 669, 671, 672, 674, 676): Stichwortliste schärfen (Perikles 654.1). (b) Lagebild t269, drei Arten mit je einer einmaligen Lösung prüfen: Bewegung der Figuren für alle (416.8 Tom, 406.2, 562, 682 Jerry: ein Bewegungsbaustein für beide Teams, Chefsache); Menü des Helden einmal ganz alt gegen neu (605, 670, 683); Klangliste alt gegen neu (591, 517, 681). Dazu Kosten 651 der Woche.
 
 ## Zeilen
