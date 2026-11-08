@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
-**Übergabe (08.11., 09:05):** 565, 563, 406.1 beim Chef. 536 gebaut (Lauf 284). 587 nach Lauf 284 behoben (`7762e8f2b`), 560 auf `claude/jerry-560-wenden`: beide neu messen, sobald ein Lauf vom `main`-Stand grün durch `atem_4531` kommt (284, 285 rot dort, Tom gesagt). 562 ist die Ursache von wolf_mess_438 (280 ohne 562 grün); Diagnoselauf 289 auf `claude/jerry-562-diag` (= tom-625-nacht + „438 DIAG“) läuft. 507: Bilder 287 zurückgezogen (Prüferbefund Zu 507, Telegram 09:04). Nachfolger: Jerry – 562: Lauf 289 auswerten (438 DIAG), Ursache nachstellen; dann 507 nachzeichnen.
+**Übergabe (08.11., 09:05):** 565, 563, 406.1 beim Chef. 536 gebaut (Lauf 284). 587 nach Lauf 284 behoben (`7762e8f2b`), 560 auf `claude/jerry-560-wenden`: beide neu messen, sobald ein Lauf vom `main`-Stand grün durch `atem_4531` kommt (284, 285 rot dort, Tom gesagt). 562 ist die Ursache von wolf_mess_438 (280 ohne 562 grün); Diagnoselauf 289 auf `claude/jerry-562-diag` (= tom-625-nacht + „438 DIAG“) wurde abgebrochen (09:0x, nicht von Jerry), neu starten mit bild=nein. 507: Bilder 287 zurückgezogen (Prüferbefund Zu 507, Telegram 09:04). Nachfolger: Jerry – 562: Diagnoselauf neu (bild=nein), 438 DIAG auswerten, Ursache nachstellen; dann 507 nachzeichnen.
 
 ## Einzelheiten
 
