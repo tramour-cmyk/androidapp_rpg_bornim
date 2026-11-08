@@ -29,6 +29,7 @@ Nichts offen.
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.348.304](ansehen/t270-sammelbuild.md) | [Build 270](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/42498993200/artifacts/13626749176) | Kampf, Ausrüstung, Erschaffung, Dorf | Tom und Jerry | 08.11., 18:35 |
+| 2 | [0.348.306](ansehen/t623-probeapp.md) | [Build 623](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/42503105716) | Probe 623 (Lauf 306) | Tom und Jerry | 08.11., 19:06 |
 
 ## Zu tun
 
@@ -225,11 +226,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 662 | M | Kampf (vorher 653): Parade des Helden mit Schild dreht über _face_sanft ohne Pfotenhalt, S | wartet auf Test (Build 270) |
 | 681 | M | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test |
 
-**Perikles** – offen 23, Muss 20, startbar 1
+**Perikles** – offen 22, Muss 19, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 695 | M | Antwort auf eine Frage des Chefs ohne Handlung für ihn: nur Telegram, keine Datei in anseh | startbar |
 | 317.1 | M | startbar.py, lauf.py: Obergrenze 6 je Build streichen (Chef 07.11., 20:5x) | wartet auf Test/Build (gebaut) |
 | 620.1 | M | Wiederholte Funde des Chefs vor Neuem; wenige Muss je Team zugleich (aus 620) | wartet auf Test/Build (gebaut) |
 | 511 | M | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele | wartet auf Diogenes |
