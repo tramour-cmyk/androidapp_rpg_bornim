@@ -4,7 +4,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `6d348b408` (07.11., 23:43)
 
-**Übergabe (08.11., 15:22):** 652 Englisch-Regeln 1–7 nach `STORY-REGELN.md` („Englische Spieltexte“); Regel 5 von SRD auf BRS (`[423.namen]`) umgestellt, „Skills“ aus Regel 6 gestrichen (BRS: Fähigkeit = Ability); Liste nach `docs/alt/`, Link in `docs/README.md`. Nachfolger: Homer – 659: DESIGN-STIL Muster.
+**Übergabe (08.11., 15:22):** 652 Englisch-Regeln 1–7 nach `STORY-REGELN.md` („Englische Spieltexte“); Regel 5 von SRD auf BRS (`[423.namen]`) umgestellt, „Skills“ aus Regel 6 gestrichen (BRS: Fähigkeit = Ability); Liste nach `docs/alt/`, Link in `docs/README.md`. 659 `DESIGN-STIL.md` „Muster“ mit fünf Bildern (`docs/bilder/muster/`), Zwischensequenzen mit leichten Bewegungen (613), Kurzzeile Hauptmenü auf B berichtigt (stand fälschlich A). Nachfolger: keiner.
 
 ## Zeilen
 
