@@ -24,6 +24,12 @@ Nichts offen.
 |---|---|---|---|
 | [656](ansehen/656-umhang.md) | Umhang des Kämpfers im Kampf und gedreht | Tom | 08.11., 23:48 |
 
+**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
+
+| Folge | Version | Build | Was | Wer | Seit |
+|---|---|---|---|---|---|
+| 1 | [0.348.313](ansehen/t271-sammelbuild.md) | [Build 271](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/42527060528/artifacts/13638067648) | Dorf, Menüs, Kampf | Tom und Jerry | 09.11., 00:14 |
+
 ## Zu tun
 
 Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Datei löschen.
@@ -331,6 +337,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 711 | K | Systemlösung? Schrift: 8 frühere Vorgänge (292.3, 312, 498, 497, 544 …), neu 586.1; einmal | startbar |
 | 584 | K | Kein halbfetter Schnitt: Köpfe und Titel in Erschaffung, Held, Chronik, Karte, System, Bre | startbar |
 | 477 | K | Godot-APKs laufen nicht im MuMu Player am Rechner (Chef 02.11., 14:59) (für Tom) | startbar |
+## Lücken
+
+Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
+
+Format (Muster: „So geht's“ unten): t271-sammelbuild.md: Zeile 2 ist keine Bereichszeile
+
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
