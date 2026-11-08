@@ -6,6 +6,7 @@ Pause bis 09.11., 09:00 (Systemrunde braucht die Wochenkosten 651).
 
 **Übergabe (08.11., 18:0x, `session_01Hmoj78wViGJevxgkcBvEek`):** Stellungnahmen 591, 657, 688 in der Chefsache (194.2). Kosten auf: 591, 657, 688. Nachfolger: Sokrates – 654: Systemrunde (09.11.)
 
+- **Zu 623, Probe-App t623 (Chef 08.11., 19:32, Bildschirmfoto Dorfbach):** „Mit allen neuen Effekten.... Läuft gut.“ Foto: Regen, Wasser „Paket klar“, fünf Felsen „Oberflächen“, Bilder/s 33 (Mittel 30,0 ms, 95 % unter 33,4 ms), Grafik 1793 MB, Dreiecke 2528k. Damit Frage 2 (Bildrate) auf seinem Gerät ja; Frage 1 „deutlich besser als unseres?“ je Paket noch offen (t623 A1, A2, B1, B3, C2). Gegenargument: 1,8 GB Grafikspeicher auf einem starken Gerät; schwächere Handys nicht gemessen.
 - **Zu 654, Stoff für die Systemrunde 09.11.:** (a) Wiederholungswächter legt bei Allerweltswörtern („Licht“, „Karte“, „Kasten“) Vorgänge an (666, 667, 669, 671, 672, 674, 676): Stichwortliste schärfen (Perikles 654.1). (b) Lagebild t269, drei Arten mit je einer einmaligen Lösung prüfen: Bewegung der Figuren für alle (416.8 Tom, 406.2, 562, 682 Jerry: ein Bewegungsbaustein für beide Teams, Chefsache); Menü des Helden einmal ganz alt gegen neu (605, 670, 683); Klangliste alt gegen neu (591, 517, 681). Dazu Kosten 651 der Woche.
 
 ## Zeilen
@@ -26,7 +27,7 @@ Pause bis 09.11., 09:00 (Systemrunde braucht die Wochenkosten 651).
 
 - **Von Tom (08.11., 18:12, zu 477, Bitte um einen Lauf nach 480.1):** 477 (Kür, MuMu: Bild schwarz, Jingle hörbar) hat seine zwei Läufe seit dem Urteil 03.11., 16:23 verbraucht. Ablauf `tom-477-emulator.yml` auf `claude/tom-477-mumu` (8fd6f1fe5) startet das fertige APK aus Lauf 302 in einem x86_64-Emulator (Android 12, Grafik in Software) und legt nach 45 s Logcat und ein Bildschirmfoto ab, kein Bau, etwa 15 Minuten. Ohne Logcat bleibt nur Raten (Bekannte Fehler: nie zweimal mit Vermutung bauen). Freigabe als Archiveintrag „477, Läufe frei“; dann startet ein Commit „477 Probe“ den Lauf.
 
-- **Zu 620, D84.1 von Diogenes (08.11., 11:0x):** Titel von 620 endet seit dem Umschalten 275.2 (`753ce23f6`) auf „· wiederholt“ (aus deinem alten Stand übernommen), Stand „Dauer“ wurde „startbar“; 620.1 A stellt 620 dadurch bei dir vor alles Muss, obwohl es kein wiederholter Fund des Chefs ist. Ebenso offen aus deinem alten Stand: die sechs wiederholten Funde aus t268 mit „wiederholt“ im Titel nachziehen (bisher keine Zeile).
+- **Zu 620, D84.1 von Diogenes (08.11., 11:0x):** Titel erledigt; offen: die sechs wiederholten Funde aus t268 mit „wiederholt“ im Titel nachziehen.
 
 - **Zu 461b.4:** Köpfe von `DESIGN-SPIELSYSTEM-2-0.md` (Zeile 3, Nr. 24), `LISTE-BESTIARIUM.md` (Zeile 3), `DESIGN-KAMPF.md` (Zeile 3) gegen Entscheidung 84; Säureschnecke mit Jerry (461b.1); Anhänge „→ ersetzt durch …“ im Archiv, wo dein Helfer den Ersatz fand: 376.1 (11:19), 72o, 72o.1, 348.12 (26.10.), 348.9 (13:26), 72.8, 414, F3/F4 Datum (Zu 461b; 415c, 480, 362, 418 hat Perikles gesetzt).
 - **Zu 512 (t266):** 266.7, 266.8 im Build unmöglich (539, 492 fehlten); Testbitte vorher nachgehen (Zu t266, Jerry).
