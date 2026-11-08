@@ -86,8 +86,9 @@ func _lauf() -> void:
 	var karten: Array = e2.get_child(e2.get_child_count() - 1).find_children("*", "PanelContainer", true, false).filter(func(c): return c.gui_input.get_connections().size() > 0 and not c.has_meta("knopf") and c.find_child("Fenster", true, false) == null)
 	if karten.size() != 4: fehler += 1; print("FEHLER Platzwahl: %d Karten %s" % [karten.size(), karten.map(func(c): return KH.text(c))])
 	else:
-		var tipp := InputEventMouseButton.new(); tipp.pressed = true; tipp.button_index = MOUSE_BUTTON_LEFT
-		karten[1].gui_input.emit(tipp)
+		for gedrueckt in [true, false]:   # 700: tippbare Zeile (549a), ausgeloest beim Loslassen an derselben Stelle
+			var tipp := InputEventMouseButton.new(); tipp.pressed = gedrueckt; tipp.button_index = MOUSE_BUTTON_LEFT; tipp.position = Vector2(10, 10)
+			karten[1].gui_input.emit(tipp)
 		if int(w2.get("platz", 0)) != 2: fehler += 1; print("FEHLER Platzwahl: %s" % w2)
 	# Spielstaende: vier Karten, Loeschen fragt nach und loescht Platz 4
 	Spielstaende.entwurf = ""   # 557: Karten im alten Aussehen; B prüft spielstaende_529
