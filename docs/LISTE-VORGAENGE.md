@@ -262,6 +262,7 @@
 | 674 | Systemlösung? Kamera: 5 frühere Vorgänge (590, 615, 460, 211.14, 399.4), neu 673; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Technik | – |
 | 676 | Systemlösung? Schild: 14 frühere Vorgänge (662, 58, 406a, 417, 645 …), neu 675; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | B Abläufe | – |
 | 690 | Systemlösung? Schatten: 10 frühere Vorgänge (208, 242.2, 566, 399.5, 558 …), neu 689; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Welt | – |
+| 693.1 | kosten.py: unbekannter Status (z. B. „running“) gilt als ruhend → Doppelstart; als laufend werten oder Lauf anhalten (Sokrates zu 693, Chef 18:41) · „jetzt“ 08.11., 18:41 | Ford | M | startbar | – | – | – | B Werkzeuge | – |
 | 693 | Zwei Tom-Sitzungen auf 656 (18:04), Spike nicht genutzt; Chef 08.11., 18:10 · „jetzt“ 08.11., 18:10 | Ford | M | erledigt | – | – | – | B Steuerung | – |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +849,68 $ |
 | Pflege | von Werkzeug (340.3, 08.11.): 22659 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
