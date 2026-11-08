@@ -61,3 +61,9 @@ Verglichen: die geänderten Schirme (Tasche, Ausrüstung, Gegenstandsfenster, Bl
 **Zur Frage aus 268.26 (543):** „Stufe 2“ heißt bei uns nur Gegenstandsstufe 2 (je Kampf 38 % ein Stück; in Kapitel 1 ab Heldenstufe 2 zu 15 % ungewöhnlich, sonst gewöhnlich) und andere Gegner. EP und Gold nach Gegnerart: Wolf 50 EP und 1W6 Gold, je Jungwolf 30 % mehr (65 EP). Die alte Fassung gab bei Gegnern über der Gebietsstufe mehr (EP bis etwa ×1,4, Gold ×1,3 je Stufe darüber); Godot noch nicht, das liegt bei Jerry.
 
 **Bekannt:** Nicht drin sind 562 (zügiger Angriffsgang: damit liefen die Wölfe in der Messung ineinander) und 587 (alle Gegner 1,3-fach: die Spinne steckte im Wolf); Jerry baut beide nach. 565 (Kasten dessen, der am Zug ist) ist aus, Bilder kommen eigens. Der Held zeigt nur Waffen und Schild, keine Kopf- und Rüstungsteile (Trachten 463). Ohne Modell bleiben Streitkolben, Speer, Rapier, Äxte, Hämmer, Hellebarde, Langbogen, Armbrust, Turmschild, Fokusse (458.3). Das Zeichen am Pfeiler beim Zwerg (611) fehlt noch. Die Höhle (Ende von Kapitel 1) kommt mit dem nächsten Build.
+
+## Ergebnis
+
+Chef 08.11., 15:23 (an Sokrates), laufend:
+- 269.1 ✓
+- 269.2 ✓

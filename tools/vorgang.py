@@ -169,10 +169,14 @@ def neu(titel, bereich, kl, besitzer, nr=None, oben=False):
     fehler_oder(d)
     if not nr:
         b = startbar.lesen("ARBEIT-BETRIEB.md")
-        m = re.search(r"\*\*Nächste freie Vorgangsnummer: (\d+)\*\*", b)
+        m = re.search(r"\*\*Nächste freie Vorgangsnummer: (\d+)\*\*( \(zuletzt [^)]*\))?", b)
         if not m: sys.exit("vorgang.py: Zähler in ARBEIT-BETRIEB.md nicht gefunden")
         nr = m.group(1); d["nr"] = nr
-        schreiben("ARBEIT-BETRIEB.md", b.replace(m.group(0), "**Nächste freie Vorgangsnummer: %d**" % (int(nr) + 1), 1))
+        # 653 doppelt: zwei Sitzungen zogen dieselbe Nummer, die gleiche Zählerzeile mischte git still.
+        # Die Marke macht jede Ziehung verschieden, gleichzeitiges Ziehen wird ein Mischkonflikt.
+        import secrets, time
+        marke = " (zuletzt %s %s %s %s)" % (nr, besitzer, time.strftime("%d.%m. %H:%M:%S"), secrets.token_hex(2))
+        schreiben("ARBEIT-BETRIEB.md", b.replace(m.group(0), "**Nächste freie Vorgangsnummer: %d**%s" % (int(nr) + 1, marke), 1))
     L = text_liste().split("\n")
     eigen, ende = gruppe(L, besitzer)
     L.insert(eigen[0] if oben and eigen else ende, startbar.zeile_text(d))

@@ -180,7 +180,7 @@
 | 649.4 | Zwei bis drei Handlungen je gewöhnlicher Monsterart vorschlagen und in 444 messen, nur wo eine Bewegung da ist (649 B, Chef 13:28) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 644.1 | Gegenstandskatalog: Werkzeug mit Spalten, Teil Rezepte und Prüfungen (644 A), zusammen mit 649.2; Ablösung held.json, tabellen.json items, beute.gd | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 644.2 | Gegenstandskatalog: Zahlen nach 469 in 444 (Tempo, Parieren, Durchschlag, Güte, Stufe), C1 Fertigkeit +1/+2 ab episch ohne Pflicht-Nachteil (Chef 14:32), C2 Seltenheitsdecke je Kapitel in die Regelwerte (644 C) | Jerry | M | startbar | – | – | – | E Kampf | – |
-| 653 | Kampf: Parade des Helden mit Schild dreht über _face_sanft ohne Pfotenhalt, Skriptfehler „halt“ Nil, gang bleibt „dreh“ (Jerry 08.11., effekt_mess_6235) | Jerry | M | gebaut, fährt im nächsten Build. Geprüft an: 275c8dba8 (am Rechner, effekt_mess_6235) | – | claude/jerry-653-parade | – | E Kampf | – |
+| 662 | Kampf (vorher 653): Parade des Helden mit Schild dreht über _face_sanft ohne Pfotenhalt, Skriptfehler „halt“ Nil, gang bleibt „dreh“ (Jerry 08.11., effekt_mess_6235) | Jerry | M | gebaut, fährt im nächsten Build. Geprüft an: 275c8dba8 (am Rechner, effekt_mess_6235) | – | claude/jerry-653-parade | – | E Kampf | – |
 | 432 | Eigenes Volk aus Bornim (etwa mit dem Grauen Propheten, „Tag der Asche“) prüfen, mit der Geschichte ab Kapitel 2 (Chef 31.10., 22:0x) | Homer | K | ruht | – | – | – | G Story | 0,79 $ |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
@@ -188,7 +188,7 @@
 | 348.12g | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | Homer | M | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | – | – | – | G Story | 4,29 $ |
 | 652 | Englisch-Regeln 1–7 aus LISTE-ENGLISCH-338-1B nach STORY-REGELN.md, dann Datei nach docs/alt (aus 650.1, Chef 08.11., 13:36) | Homer | M | erledigt | – | – | – | G Story | – |
 | 659 | DESIGN-STIL.md: Abschnitt „Muster“ mit Bild je abgenommenem Muster (Fenster ohne Kasten 549a, Zwischensequenz 613, Zeichen 326, Hauptmenü 292); „Zwischensequenzen ohne Animation“ nachziehen (Chef 08.11., 15:08) | Homer | M | erledigt | – | – | – | G Stil | – |
-| 655.1 | Regel 300 streichen: Ersteller sieht Bild oder Film selbst an, dann sofort an den Chef; Helfer danach entfällt (CLAUDE.md Melden, ROLLE-ENTWICKLUNG.md; 655 ja) | Perikles | M | startbar | – | – | – | B Abläufe | – |
+| 655.1 | Regel 300 streichen: Ersteller sieht Bild oder Film selbst an, dann sofort an den Chef; Helfer danach entfällt (CLAUDE.md Melden, ROLLE-ENTWICKLUNG.md; 655 ja) | Perikles | M | erledigt | – | – | – | B Abläufe | – |
 | 658 | Telegram-Reaktionen auslesen: 👍 auf eine Meldung = gebilligt/passt, ✅ = erledigt, Eintrag mit Zeit ins Archiv (Chef 08.11., 15:00; Probe 15:02 geht) | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
 | 317.1 | `startbar.py`, `lauf.py`: Obergrenze 6 je Build streichen (Chef 07.11., 20:5x) | Perikles | M | gebaut, Geprüft an: 12837c9c3 | Diogenes, t269 | – | – | B Werkzeuge | – |
 | 620.1 | Wiederholte Funde des Chefs vor Neuem; wenige Muss je Team zugleich (aus 620) | Perikles | M | gebaut, Geprüft an: 5b65bf6bb (startbar --stand 11:05: Tom 33, Jerry 12 gesperrt) | – | – | – | B Abläufe | 4,11 $ |
@@ -206,7 +206,7 @@
 | 627 | probelauf.py: Push mit `git commit -F -` im selben Befehl als Probelauf gezählt (562, ohne Lauf) | Perikles | M | gebaut, Geprüft an: 4bcd30e87 | – | – | – | B Werkzeuge | – |
 | 99 | Zwei Niederlassungen | Perikles | K | ruht | – | – | – | B Steuerung | 7,25 $ |
 | 641 | lauf.py startet Nachfolger „auf Abruf“, obwohl nichts startbar ist (Diogenes 08.11., 09:07, Leerstart) | Perikles | M | gebaut, Geprüft an: af1a4da5a (Probe: Übergabe „Diogenes – Prüfer (auf Abruf)“, alt START, neu NICHTS) | – | – | – | B Werkzeuge | – |
-| 646 | Zeigen statt messen: Messläufe zählen als Probe, nach einer Probe immer Bild an den Chef (Chef 08.11., 12:28) | Perikles | M | gebaut, Geprüft an: 18b80b3b4 | Diogenes | – | – | B Abläufe | 10,02 $ |
+| 646 | Zeigen statt messen: Messläufe zählen als Probe, nach einer Probe immer Bild an den Chef (Chef 08.11., 12:28) | Perikles | M | gebaut, Geprüft an: 18b80b3b4 | – | – | – | B Abläufe | 10,02 $ |
 | 647 | Abgleich alt schon vor dem Bauen: Fundstelle alter Code lesen und nennen, nicht erst vor der Testbitte (Chef 08.11., 12:44; aus 512, 499) | Perikles | M | gebaut, Geprüft an: d1c316652 | Diogenes | – | – | B Abläufe | – |
 | 648 | Glossar und Abkürzungsverzeichnis LISTE-GLOSSAR.md: Wort, Bedeutung, Zusammenhang, Fundstellen per Werkzeug, Link zur Festlegung (Chef 08.11., 13:01) | Perikles | K | gebaut, Geprüft an: 42e11acf4 | Diogenes | – | – | B Abläufe | – |
 | 651 | Kostenauswertung: Bereiche als feste Liste, fehlende Kosten (533 von 980 Zeilen) über Commits je Sitzung schätzen, Auswertung je Bereich, Tag, Woche (Chef 08.11., 13:29) | Perikles | M | gebaut, Geprüft an: 50bf4011a | Diogenes | – | – | B Steuerung | 3,00 $ |

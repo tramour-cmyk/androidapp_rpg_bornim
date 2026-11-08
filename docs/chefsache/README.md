@@ -225,11 +225,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 644.2 | M | Gegenstandskatalog: Zahlen nach 469 in 444 (Tempo, Parieren, Durchschlag, Güte, Stufe), C1 | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test |
 | 653 | M | Kampf: Parade des Helden mit Schild dreht über _face_sanft ohne Pfotenhalt, Skriptfehler „ | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 24, Muss 21, startbar 3
+**Perikles** – offen 23, Muss 20, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 655.1 | M | Regel 300 streichen: Ersteller sieht Bild oder Film selbst an, dann sofort an den Chef; He | startbar |
 | 658 | M | Telegram-Reaktionen auslesen: 👍 auf eine Meldung = gebilligt/passt, ✅ = erledigt, Eintrag | startbar |
 | 317.1 | M | startbar.py, lauf.py: Obergrenze 6 je Build streichen (Chef 07.11., 20:5x) | wartet auf Diogenes |
 | 620.1 | M | Wiederholte Funde des Chefs vor Neuem; wenige Muss je Team zugleich (aus 620) | wartet auf Test/Build (gebaut) |
@@ -247,14 +246,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 627 | M | probelauf.py: Push mit git commit -F - im selben Befehl als Probelauf gezählt (562, ohne L | wartet auf Test/Build (gebaut) |
 | 99 | K | Zwei Niederlassungen | ruht |
 | 641 | M | lauf.py startet Nachfolger „auf Abruf“, obwohl nichts startbar ist (Diogenes 08.11., 09:07 | wartet auf Test/Build (gebaut) |
-| 646 | M | Zeigen statt messen: Messläufe zählen als Probe, nach einer Probe immer Bild an den Chef ( | wartet auf Diogenes |
+| 646 | M | Zeigen statt messen: Messläufe zählen als Probe, nach einer Probe immer Bild an den Chef ( | wartet auf Test/Build (gebaut) |
 | 647 | M | Abgleich alt schon vor dem Bauen: Fundstelle alter Code lesen und nennen, nicht erst vor d | wartet auf Diogenes |
 | 648 | K | Glossar und Abkürzungsverzeichnis LISTE-GLOSSAR.md: Wort, Bedeutung, Zusammenhang, Fundste | wartet auf Diogenes |
 | 651 | M | Kostenauswertung: Bereiche als feste Liste, fehlende Kosten (533 von 980 Zeilen) über Comm | wartet auf Diogenes |
 | 650.1 | M | Liste für docs/alt/ nach zwei Gegenprüfungen (aus 650) | Termin 09.11. |
 | 654.1 | M | Systemfrage vor jedem Bau in ROLLE-ENTWICKLUNG.md und Prüfliste, Wiederholungswächter in v | startbar |
 
-**Diogenes** – offen 16, Muss 13, startbar 5
+**Diogenes** – offen 15, Muss 12, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -263,7 +262,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 511 | M | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele | wartet auf D75 (Dauer) |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
 | 275 | M | Zentrale Vorgangsliste als einzige Quelle (Chef 21.10.; Stufe 1 jetzt, 27.10.) (für Perikl | Termin 09.11. |
-| 646 | M | Zeigen statt messen: Messläufe zählen als Probe, nach einer Probe immer Bild an den Chef ( | startbar |
 | 647 | M | Abgleich alt schon vor dem Bauen: Fundstelle alter Code lesen und nennen, nicht erst vor d | startbar |
 | 651 | M | Kostenauswertung: Bereiche als feste Liste, fehlende Kosten (533 von 980 Zeilen) über Comm | startbar |
 | 648 | K | Glossar und Abkürzungsverzeichnis LISTE-GLOSSAR.md: Wort, Bedeutung, Zusammenhang, Fundste | startbar |
@@ -275,7 +273,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
 | 644.5 | M | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noc | wartet auf 644.1 (startbar) |
 
-**Sokrates** – offen 45, Muss 35, startbar 22
+**Sokrates** – offen 45, Muss 35, startbar 23
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -318,11 +316,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 649 | M | Figurenkatalog: alle Figuren an einer Stelle (Monster, Bewohner, Gefährten), Bestiarium ge | wartet auf 649.3 (startbar) |
 | 650 | M | docs aufräumen: 88 Dateien, Erledigtes nach docs/alt/, Zusammenlegen, Inhaltsverzeichnis n | startbar |
 | 644.3 | M | Seltenheit als Achse ins Regelwerk, Abschnitt Ausrüstung (644 B) | startbar |
+| 654 | M | Mitdenken vor dem Bauen: Systemfrage je Fund („kommt das wieder?“), Wiederholungswächter, | wartet auf 654.1 (startbar) |
+| 655 | M | Bilder: Ersteller sieht sein Bild selbst an, Regel 300 streichen statt neuer Vorprüfung (C | startbar |
 | 569 | M | Baumkronen ohne erkennbare Tuschelinie, „ein einziger Brei“ (Chef 04.11., 19:44, Bild 558 | startbar |
 | 507 | M | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager (Orte O10; aus 492) (für Jerry) | startbar |
 | 383 | M | Wartewächter und Haken 63 verschärfen (Chef 27.10., 17:53 ja); Sitzungsgröße messen (Sokra | startbar |
-| 654 | M | Mitdenken vor dem Bauen: Systemfrage je Fund („kommt das wieder?“), Wiederholungswächter, | wartet auf 654.1 (startbar) |
-| 655 | M | Bilder: Ersteller sieht sein Bild selbst an, Regel 300 streichen statt neuer Vorprüfung (C | wartet auf 655.1 (startbar) |
 | Pflege | K | von Werkzeug (340.3, 08.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 ## Lücken
 
