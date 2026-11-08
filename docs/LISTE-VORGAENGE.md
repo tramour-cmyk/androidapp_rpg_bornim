@@ -112,7 +112,7 @@
 | 649.3 | Figurenkatalog: Bewohner, Händler, Lehrmeister, Söldner füllen (Tagesablauf, Laden, Stimme, Gang, Klänge, Bewegungen, Text-Marken; aus 649) | Tom | M | startbar | 649.2 | – | – | E Figuren | – |
 | 644.4 | Gegenstandskatalog: Ladenbestand und Rezepte aus texte.json und Kotlin in den Katalog umstellen (644 A, Ablösung) | Tom | M | startbar | 644.1 | – | – | E Welt | – |
 | 653 | Halt für Waffen und Schilde einmal je Modell festlegen statt je Figur nachmessen: Griffpunkt je Gegenstand, Halterung je Körper, eine Anlegefunktion, Prüfbild aller Kombinationen (Chef 08.11., 14:35) | Tom | M | startbar, ja (Chef 14:40), Jerry stellt den Kampf um | – | – | – | E Figuren | – |
-| 623.5 | Probe Kampf mit den Gratisproben (Combat Mega, Projectiles, Trails, Pack 3, Character Shaders, Status Effects mit Bleeding) im Kampfort, Compatibility, FPS, ein Film; vor dem Kauf 623 (Chef 07.11., 623; 08.11., 13:14) · „jetzt“ 08.11., 13:48 | Jerry | M | in Arbeit, Bau am Rechner, dann Probebild | – | claude/jerry-6235-effektprobe | – | E Kampf | – |
+| 623.5 | Probe Kampf mit den Gratisproben (Combat Mega, Projectiles, Trails, Pack 3, Character Shaders, Status Effects mit Bleeding) im Kampfort, Compatibility, FPS, ein Film; vor dem Kauf 623 (Chef 07.11., 623; 08.11., 13:14) · „jetzt“ 08.11., 13:48 | Jerry | M | wartet, Probebild | Chef | claude/jerry-6235-effektprobe | – | E Kampf | – |
 | 565 | MARS: unten im Gruppenkasten sieht man nicht, welcher Held am Zug ist (Chef 04.11., 17:10, t257 C) | Jerry | M | startbar, A (Chef 13:11) | – | claude/jerry-565-am-zug | – | E Kampf | 13,51 $ |
 | 562 | MARS: Helden laufen zum Angriff viel zu langsam, zurück gleiten sie flott (Chef 04.11., 17:02, t257 C) | Jerry | M | gebaut, Ursache 438 rückwärts schräg behoben. Geprüft an: 7cd54621e (am Rechner wolf_mess_438 0 Befunde) | – | claude/jerry-562-angriffsschritt | – | E Kampf | 17,49 $ |
 | 563 | MARS: Zustandsschilder über Gegnern („Blut 3“) überlagern Ansage und Leisten, wirken grob (Chef 04.11., 17:02, t257 C) | Jerry | M | startbar, A Rot heller (Chef 13:09) | – | claude/jerry-563-zustaende | – | E Kampf | 13,48 $ |
@@ -206,6 +206,7 @@
 | 648 | Glossar und Abkürzungsverzeichnis LISTE-GLOSSAR.md: Wort, Bedeutung, Zusammenhang, Fundstellen per Werkzeug, Link zur Festlegung (Chef 08.11., 13:01) | Perikles | K | gebaut, Geprüft an: 42e11acf4 | Diogenes | – | – | B Abläufe | – |
 | 651 | Kostenauswertung: Bereiche als feste Liste, fehlende Kosten (533 von 980 Zeilen) über Commits je Sitzung schätzen, Auswertung je Bereich, Tag, Woche (Chef 08.11., 13:29) | Perikles | M | gebaut, Geprüft an: 50bf4011a | Diogenes | – | – | B Steuerung | – |
 | 650.1 | Liste für docs/alt/ nach zwei Gegenprüfungen (aus 650) | Perikles | M | wartet, neun Dateien abgelegt; LISTE-ZENTRALE-VORGAENGE-275 nach Diogenes | 09.11. | – | – | B Abläufe | – |
+| 654.1 | Systemfrage vor jedem Bau in ROLLE-ENTWICKLUNG.md und Prüfliste, Wiederholungswächter in vorgang.py neu (Stichwort in zwei früheren → Zeile „Systemlösung?“ für Sokrates); Regelbilanz (654, Chef 14:42) | Perikles | M | startbar | – | – | – | B Abläufe | – |
 | 340.2 | Rollenspiegel C: `tools/rollenspiegel.sh`, eigene Antwort ohne fremde | Diogenes | M | ruht | 09.11. | – | – | B Abläufe | –; +6,35 $ |
 | 485 | Diogenes bessert sich aus dem Rollenspiegel 02.11.: Wochentermine zählen, Vergleichsblätter selbst holen, Meldungen ohne Abkürzungen (Chef 02.11., 19:37 „1, 2, 3 ja“) · „jetzt“ 02.11., 19:37 | Diogenes | M | ruht | 09.11. | – | – | Q QS | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | ruht | 09.11. | – | – | B Abläufe | – |
@@ -252,7 +253,7 @@
 | 650 | docs aufräumen: 88 Dateien, Erledigtes nach docs/alt/, Zusammenlegen, Inhaltsverzeichnis neu (Chef 08.11., 13:24) | Sokrates | M | startbar, ja mit Gegenprüfung (Chef 13:27) | – | – | – | B Abläufe | – |
 | Pflege | von Werkzeug (340.3, 08.11.): 15471 Bytes (Grenze 15000), Erledigtes streichen | Sokrates | K | startbar | – | – | – | B Abläufe | – |
 | 644.3 | Seltenheit als Achse ins Regelwerk, Abschnitt Ausrüstung (644 B) | Sokrates | M | startbar | – | – | – | G Balance | – |
-| 654 | Mitdenken vor dem Bauen: Systemfrage je Fund („kommt das wieder?“), Wiederholungswächter, wöchentliche Runde über die teuersten Vorgänge (Chef 08.11., 14:39) | Sokrates | M | startbar | Chef | – | – | B Abläufe | – |
+| 654 | Mitdenken vor dem Bauen: Systemfrage je Fund („kommt das wieder?“), Wiederholungswächter, wöchentliche Runde über die teuersten Vorgänge (Chef 08.11., 14:39) | Sokrates | M | wartet, ja (Chef 14:42); Systemrunde ab 09.11. bei Sokrates | 654.1 | – | – | B Abläufe | – |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +842,76 $ |
 | Pflege | von Werkzeug (340.3, 08.11.): 20446 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
