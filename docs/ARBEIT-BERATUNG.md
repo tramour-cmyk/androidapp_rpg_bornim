@@ -2,6 +2,8 @@
 
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
+Pause bis 09.11., 09:00 (Systemrunde braucht die Wochenkosten 651).
+
 **Übergabe (08.11., 16:3x, `session_01Hmoj788ZCSrdh53V6fSssd`):** Läufe frei 613, 569, 507 (Archiv); 613.1 erledigt; 620 Titel ohne „wiederholt“ (D84.1); Lagebild t269 auf Telegram und an Perikles. Kosten auf: 613.1, 620. Nachfolger: Sokrates – 654: Systemrunde (09.11.)
 
 - **Zu 654, Stoff für die Systemrunde 09.11.:** (a) Wiederholungswächter legt bei Allerweltswörtern („Licht“, „Karte“, „Kasten“) Vorgänge an (666, 667, 669, 671, 672, 674, 676): Stichwortliste schärfen (Perikles 654.1). (b) Lagebild t269, drei Arten mit je einer einmaligen Lösung prüfen: Bewegung der Figuren für alle (416.8 Tom, 406.2, 562, 682 Jerry: ein Bewegungsbaustein für beide Teams, Chefsache); Menü des Helden einmal ganz alt gegen neu (605, 670, 683); Klangliste alt gegen neu (591, 517, 681). Dazu Kosten 651 der Woche.
