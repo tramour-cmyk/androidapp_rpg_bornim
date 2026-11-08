@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (08.11., 09:05, Ford `session_01Hmoj76HFnAA46mUTzwaQoK`, Selbstneustart):** Getan: Sperren vom Chef aufgehoben, 275.2 umgeschaltet, Nachtplan Tom/Jerry durch, Morgenmeldung 08.11. gesendet, Kosten gebucht. Laufend: Tom `session_01Hmoj79X6oAEPabaMyCRc4B` (Build 269, Testbitte gegen 08:35), Jerry `session_01Hmoj76PuNTd7NgcaM1MYtR`. Tagesbericht 08.11. ab 9:30 aus `lauf.py`. Archiviersatz gilt nur je Sitzung. Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 660** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 661** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
