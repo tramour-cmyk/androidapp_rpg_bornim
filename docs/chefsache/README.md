@@ -20,7 +20,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [613](ansehen/613-tusche.md) | Zwischensequenzen mit Tusche: Intro und Tempelszene | – | 08.11., 17:14 |
+| [613](ansehen/613-tusche.md) | Zwischensequenzen mit Tusche: Intro und Tempelszene | – | 08.11., 19:10 |
 | [623.5](ansehen/6235-unsere.md) | Effektprobe, Fassung „unsere“ (am Rechner) | Jerry | 08.11., 17:59 |
 | [630](ansehen/630-schirme.md) | Erschaffung und Menü Held mit Held, Knopf in einer Zeile | Tom | 08.11., 16:52 |
 
