@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
-**Übergabe (08.11., 18:0x):** Sammelbuild 270 angelegt (PR #189, 13 Vorgänge beider Teams, Godot-Lauf 42498993200 von Hand), Prüfliste `ansehen/t270-sammelbuild.md`; 623.5 Umschalter Paket/unsere gebaut und am Rechner gemessen, an Tom für die Probe-App (623.6); Bild beim Chef (`ansehen/6235-unsere.md`). Nachfolger: Jerry – 270: Testbitte nach dem Lauf, dann Testergebnis
+**Übergabe (08.11., 18:37):** Sammelbuild 270 angelegt (PR #189, 13 Vorgänge beider Teams, Godot 0.348.304, Lauf 42498993200 von Hand, grün), Prüfliste `ansehen/t270-sammelbuild.md`, Testbitte an den Chef 18:36; 623.5 Umschalter Paket/unsere gebaut und am Rechner gemessen, an Tom für die Probe-App (623.6); Bild beim Chef (`ansehen/6235-unsere.md`). Nachfolger: Jerry – 270: Testergebnis einarbeiten
 
 ## Einzelheiten
 
