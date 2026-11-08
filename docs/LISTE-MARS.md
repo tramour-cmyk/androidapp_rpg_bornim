@@ -36,18 +36,18 @@ Zeichen: ✓ umgesetzt (auf `main`) · ◐ gebaut, wartet auf Test · ○ offen 
 | Gegner flieht vor heiligem Licht oder zerfällt | ✓ | ○ | 296.3 |
 | Sturz zu Boden, Aufstehen | ✓ | ✓ | 295 |
 | Zoom, Blut, Erschütterung, Zaubereffekte | ✓ | ✓ | 249 |
-| Zustände (Gift, Brand, Blutung, Betäubt …) mit Rundenzähler | ✓ | ○ nur Festgehalten, Liegend, Gift; ohne Anzeige | 296.2 |
-| Zustände am Gegner gezeichnet | ✓ | ○ | 296.3 |
+| Zustände (Gift, Brand, Blutung, Betäubt …) mit Rundenzähler | ✓ | ✓ Godot (`zustaende.gd`); Erklärung beim Tippen ◐ | 296.2, 536 |
+| Zustände am Gegner gezeichnet | ✓ | ◐ als Schild über dem Gegner (Aussehen beim Chef) | 296.3, 563 |
 | Kampfblende mit Text, Ladebalken | ✓ | ✓ | 24.6 |
 | Ziel tauscht nach hinten: vorderer wird angegriffen, mit Nachteil | – | ✓ | 301 |
-| Eröffnung (Hinterhalt, Held zuerst) | ✓ | ○ | 296.2 |
-| Fliehen | ✓ | ○ | 296.2 |
+| Eröffnung (Hinterhalt, Held zuerst) | ✓ | ✓ Godot, dazu Einschüchtern zu Beginn | 296.2, 534 |
+| Fliehen | ✓ | ✓ Godot (Knopf „Flucht“, nie vor einem Boss) | 296.2 |
 | Trank, Zauber, Abwehr | ✓ | ✓ | 249 |
 | Fehlschlag sichtbar (Ausweichen) | ✓ | ✓ | 249 |
 | Klang je Treffer, Biss, Zauber | ✓ | ✓ | 249 |
 | Siegesmusik | ✓ | ✓ | – |
 | Siegerpose, letzter Schlag inszeniert | ✓ | ○ | 296.3 |
-| Beute, Erfahrung, Stufenaufstieg | ✓ | ○ (Probekampf ohne Beute) | 296.2 |
+| Beute, Erfahrung, Stufenaufstieg | ✓ | ✓ Godot (`lohn.gd`); Lohn nach Monsterstufe ○ | 296.2, 628 |
 | Eigene Ausrüstung des Helden (Waffe, Schild oder Fackel, Tränke) | ✓ | ○ fest: zwei Heiltränke, Armbrust, Schwert | 296.2 |
 | Wählbar im Spiel: Schalter MARS oder klassisch | – | ○ nur Probekampf im Systemmenü | 296.2, 212 |
 | Fackel: Stoß mit Feuerschaden, Tiere verscheuchen | ○ | ○ | 344.2 |
@@ -63,4 +63,4 @@ Alle offenen Punkte haben einen Vorgang (Chef 23.10., 18:25 und 18:27, Vorgangsa
 
 Nachgezogen von Sokrates 23.10., 18:29 (Build 83 auf `main`: 320, 333, 335).
 
-Gegen den Code geprüft am 23.10., 12:36 (Jerry, 296.1; `main` bis B81, Zweige 333, 335–337). In keinem der beiden Systeme gibt es Schadenszahlen oder Musik bei einer Niederlage.
+Gegen den Code geprüft am 23.10., 12:36 (Jerry, 296.1; `main` bis B81, Zweige 333, 335–337); Spalte MARS für Godot nachgezogen 08.11., 12:1x (Jerry, `main` bis `7b590c3da`; Todesschrei, Siegerpose weiter ○, eigene Ausrüstung ruht mit 534). In keinem der beiden Systeme gibt es Schadenszahlen oder Musik bei einer Niederlage.
