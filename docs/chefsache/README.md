@@ -21,6 +21,7 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [585](ansehen/585-titel.md) | Titel im Hauptmenü bricht wie alt um | Tom | 08.11., 20:18 |
+| [586](ansehen/586-titel.md) | Titel der Rückfragen und Fenster so groß wie die der Schirme | Tom | 08.11., 20:25 |
 | [623.5](ansehen/6235-unsere.md) | Effektprobe, Fassung „unsere“ (am Rechner) | Jerry | 08.11., 17:59 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
@@ -51,7 +52,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 
-**Tom** – offen 98, Muss 74, startbar 6
+**Tom** – offen 98, Muss 74, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -122,7 +123,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 614 | M | Leute lebendig wie alt: Jorin mit Speer, Jorin öffnet den Schlagbaum sichtbar; Abgleich de | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test |
 | 622 | M | Godot-Build als AAB für Play: dieselbe App de.bornim.game, mit dem Upload-Schlüssel des al | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test |
 | 41.2 | K | Ansel fährt nach N3 auch nachts (Prüfpunkt 6.4) | wartet auf 41 (ruht) |
-| 586 | K | Schirme 557 einheitlich: Zeichen neben der Überschrift bei Rast, Größe der Überschriften ( | startbar |
+| 586 | K | Schirme 557 einheitlich: Zeichen neben der Überschrift bei Rast, Größe der Überschriften ( | Chef (Datei in der Chefsache) |
 | 134 | K | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | aufgeteilt |
 | 348.1 | M | Vergleichsbild Gebietskarte alt/neu, 64 (heute) und 128 je Kachel (Chef 24.10., 16:51, „je | ruht |
 | 348.2 | M | Tusche nach Licht auch am Helden, Innenlinien an Bäumen: zweites Vergleichsbild jetzt (Che | ruht |
