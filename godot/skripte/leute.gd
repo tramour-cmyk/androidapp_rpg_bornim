@@ -60,6 +60,13 @@ var monster := false                   # 560 (Jerry): ein Monster der Geschichte
 const MONSTER_SIEHT := 4               # 560: Kacheln, ab denen es sich dem Helden zuwendet (herde.gd Lauerer 9i.2)
 var da := true                         # 390: nach der Geschichte zu sehen (Story.kt visible: besiegt, befreit)
 
+## 635: Figurdatei einer Person der Karte: nach Kennung, sonst nach Aussehen; "" ohne Modell
+static func datei_von(d: Dictionary) -> String:
+	for n in [String(d.get("id", "")), String(d.get("aussehen", ""))]:
+		if n != "" and not n.begins_with("monster:") and FileAccess.file_exists("res://daten/leute/%s.bin" % n):
+			return "res://daten/leute/%s.bin" % n
+	return ""
+
 static func alle(k: Karte, h: Node3D) -> Array:
 	var r := []
 	for d in k.daten.get("leute", []):
@@ -67,8 +74,15 @@ static func alle(k: Karte, h: Node3D) -> Array:
 		if mo.begins_with("monster:"):   # 491: Grimmzahn (Npc „monster:dire_wolf“) als Modell des Kampforts, wie die Monster der Karte
 			if Streuner.da(mo.trim_prefix("monster:")): r.append(Leute.new(k, d, h))
 			continue
-		if not FileAccess.file_exists("res://daten/leute/%s.bin" % d["id"]): continue
-		var l := Leute.new(k, d, h)
+		# 635 (Abgleich 620.2a): Lyra heisst auf den Karten lyra_temple und lyra_cave, gebaut ist sie als ihr Aussehen „lyra“
+		# (Story.kt Npc(id, x, y, look)); ohne Datei der Kennung gilt die des Aussehens
+		var datei := datei_von(d)
+		if datei == "": continue
+		var dd: Dictionary = d
+		if datei != "res://daten/leute/%s.bin" % d["id"]:
+			dd = d.duplicate()
+			dd["datei"] = datei
+		var l := Leute.new(k, dd, h)
 		r.append(l)
 	return r
 

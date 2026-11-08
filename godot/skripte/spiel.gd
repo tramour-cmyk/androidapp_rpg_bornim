@@ -997,6 +997,7 @@ func rufe_neu() -> void:
 			if int(rufe[id]) >= 0:
 				l.ruft_bis = jetzt + Ruf.WIEDER_MS + Ruf.ZEIGT_MS   # 306 Hail.calms
 				var st := Ruf.stimme(id)                             # 134.3 mit dem Zeichen ein Ruf ohne Worte, nie zwei zugleich
+				if st == "": st = Ruf.stimme(String(l.daten.get("aussehen", "")))   # 635: lyra_temple ruft wie „lyra“
 				if st != "" and jetzt >= naechster_ruf:
 					klang("effekt", [st, Ruf.pegel(d)])
 					naechster_ruf = jetzt + Ruf.RUF_ABSTAND_MS
