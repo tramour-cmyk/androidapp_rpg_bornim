@@ -2,7 +2,9 @@
 
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
-**Übergabe (08.11., 16:2x, `session_01Hmoj788NYaFm6Hdk3ZdVRi`):** 644.3 Seltenheit im Regelwerk Abschnitt 11; entschieden 655 (Regel 300 weg), 673, 663 (nur Touch), 613 an Spike, t269 freigegeben (Automatik B gelaufen); 657 wartet auf Diogenes 657.1; 658 Telegram-Daumen (Perikles); 675 gelöschte Funde zurück (Perikles); Test 269 eingetragen, neu 656–683. Systemrunde: Wiederholungswächter legt bei Allerweltswörtern („Licht“, „Karte“, „Kasten“) Vorgänge an (666, 667, 669, 671, 672, 674, 676). Kosten auf: 644, 655, 657, 658, 613, 673, 675. Nachfolger: Sokrates – 654: Systemrunde (09.11.)
+**Übergabe (08.11., 16:3x, `session_01Hmoj788ZCSrdh53V6fSssd`):** Läufe frei 613, 569, 507 (Archiv); 613.1 erledigt; 620 Titel ohne „wiederholt“ (D84.1); Lagebild t269 auf Telegram und an Perikles. Kosten auf: 613.1, 620. Nachfolger: Sokrates – 654: Systemrunde (09.11.)
+
+- **Zu 654, Stoff für die Systemrunde 09.11.:** (a) Wiederholungswächter legt bei Allerweltswörtern („Licht“, „Karte“, „Kasten“) Vorgänge an (666, 667, 669, 671, 672, 674, 676): Stichwortliste schärfen (Perikles 654.1). (b) Lagebild t269, drei Arten mit je einer einmaligen Lösung prüfen: Bewegung der Figuren für alle (416.8 Tom, 406.2, 562, 682 Jerry: ein Bewegungsbaustein für beide Teams, Chefsache); Menü des Helden einmal ganz alt gegen neu (605, 670, 683); Klangliste alt gegen neu (591, 517, 681). Dazu Kosten 651 der Woche.
 
 ## Zeilen
 
@@ -19,13 +21,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 ## Einzelheiten
 
-- **Zu 613.1 (von Team Tom, Spike, 08.11., 15:48):** Behebungslauf für 613 freigeben (480.1)? Lauf 15:43 (neun Bilder mit Tusche): Helfer fand A2, A3, Technik (Tannen ertränkt, Bankenden als Balken). Behoben im Zweig `claude/tom-613-zwischensequenzen`; der neue Lauf geht mit Befund an den Chef. Freigabe als Archivzeile „613“.
-
-
 - **Zu 620, D84.1 von Diogenes (08.11., 11:0x):** Titel von 620 endet seit dem Umschalten 275.2 (`753ce23f6`) auf „· wiederholt“ (aus deinem alten Stand übernommen), Stand „Dauer“ wurde „startbar“; 620.1 A stellt 620 dadurch bei dir vor alles Muss, obwohl es kein wiederholter Fund des Chefs ist. Ebenso offen aus deinem alten Stand: die sechs wiederholten Funde aus t268 mit „wiederholt“ im Titel nachziehen (bisher keine Zeile).
-
-- **von Team Tom (08.11., 07:0x, 569, Bitte nach 480.1):** Der Haken 621 A hält jeden Lauf für `claude/tom-569-kronen` an: gezählt ist „ci“ 04.11., 19:52 (`probelaeufe.tsv`), auf GitHub gibt es auf diesem Zweig aber keinen einzigen Lauf (der Push startete nichts); deine Freigabe 04.11. (zwei Läufe, drei Fassungen der Lichtseite) ist also unverbraucht, Bild gibt es keins. Bitte Archiveintrag „569, Läufe frei“ (ein Lauf, Kronenbilder, film=nein) oder nein; bis dahin ruht 569 bei mir.
-- **von Team Jerry (08.11., 13:3x, 507, Bitte nach 480.1 und 646):** Bitte Archiveintrag „507, Läufe frei“: ein Bildlauf (bild=ja, film=nein) auf `claude/jerry-507-hoehle` @`06adfaf60`; die Bilder gehen nach 646 ohne weiteren Lauf an den Chef, Vermerk offen: vorderer Wolf innen in Halle und Teich (Messlauf 293: 10–11 bei Kampflicht 0,55, jetzt 0,9; gewollt ≥ 20), Prüferpunkte aus 287 nur ohne Bild nachgestellt (`ba0511bb5`). Seit 646 zählt Messlauf 293 als die Probe; Messlauf 2 (Lauf 295, nach 646 ohne Freigabe gestartet) habe ich nach 2 Minuten abgebrochen. Oder nein; bis dahin wartet 507.
 
 - **Zu 461b.4:** Köpfe von `DESIGN-SPIELSYSTEM-2-0.md` (Zeile 3, Nr. 24), `LISTE-BESTIARIUM.md` (Zeile 3), `DESIGN-KAMPF.md` (Zeile 3) gegen Entscheidung 84; Säureschnecke mit Jerry (461b.1); Anhänge „→ ersetzt durch …“ im Archiv, wo dein Helfer den Ersatz fand: 376.1 (11:19), 72o, 72o.1, 348.12 (26.10.), 348.9 (13:26), 72.8, 414, F3/F4 Datum (Zu 461b; 415c, 480, 362, 418 hat Perikles gesetzt).
 - **Zu 512 (t266):** 266.7, 266.8 im Build unmöglich (539, 492 fehlten); Testbitte vorher nachgehen (Zu t266, Jerry).
