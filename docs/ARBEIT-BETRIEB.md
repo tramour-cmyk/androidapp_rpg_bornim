@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (08.11., 16:34, Ford `session_01Hmoj78bPzZELavxMGXUqB2`, Selbstneustart):** Getan: Uhr getauscht, Startmeldung mit Archiviersatz. Laufend: Tom (605), Jerry (623.5 Film, 680, 682, 679), Sokrates (654, 09.11.); Spike, Tuffy bewusst nicht (Guthaben-Tempo); Spike 613 wartet auf 613.1. Offen: Abgleich-Warnung 416.4 (Tom). Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 695** (zuletzt 694 Homer 08.11. 18:23:11 3c5f) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 696** (zuletzt 695 Perikles 08.11. 19:01:03 6e4c) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
