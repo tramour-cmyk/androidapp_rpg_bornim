@@ -482,7 +482,7 @@ jobs:
           mkdir -p $GITHUB_WORKSPACE/bilder/drehteller
           cd godot
           OBERFLAECHE_AUS=$GITHUB_WORKSPACE/bilder/drehteller VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
-            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -s res://tests/drehteller_499.gd 2>&1 | grep -E "SCRIPT ERROR|^BILD|FEHLER|DREHTELLER|^[A-Z]+:|^  " | cut -c1-300 | tee $GITHUB_WORKSPACE/bilder/drehteller/messung.log || true
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -s res://tests/drehteller_bild_499.gd 2>&1 | grep -E "SCRIPT ERROR|^BILD|FEHLER|DREHTELLER|^[A-Z]+:|^  " | cut -c1-300 | tee $GITHUB_WORKSPACE/bilder/drehteller/messung.log || true
           ls -l $GITHUB_WORKSPACE/bilder/drehteller
       # 348.13b Tusche nach Laterne, Fenster, Fackel: nachts je Ort mit und ohne, Kosten je Bild (Renderer wie am Handy), nur bei „348.13b“
       - name: Tusche nachts (348.13b)

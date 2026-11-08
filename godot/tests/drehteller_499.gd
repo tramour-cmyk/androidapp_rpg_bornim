@@ -3,7 +3,8 @@ extends SceneTree
 # der Held im Drehteller (Erschaffung, Menü Held, Ausrüstung) mit der Grundausrüstung jeder Klasse. Je Waffe und Schild: Abstand zur
 # Faust (Tragen, 417) bzw. zum Rücken (RueckenSchild, an spine_03), Größe gegen die Figur. Mit Fenster: je Klasse ein Bild in drei
 # Drehungen nebeneinander (PNG nach OBERFLAECHE_AUS). Soll: Waffe höchstens 3 cm von der Faust, Schild höchstens 6 cm vom Rücken,
-# Größe wie die Figur (± 2 %). Aufruf: im Ordner godot mit -s res://tests/drehteller_499.gd -> „DREHTELLER499 n Fehler“
+# Größe wie die Figur (± 2 %). Aufruf: im Ordner godot mit -s res://tests/drehteller_499.gd -> „DREHTELLER499 n Fehler“; die Bilder macht
+# drehteller_bild_499.gd (dieselbe Messung, mit Fenster), damit die Messung ohne Bild am Rechner kein Bildlauf ist (390a, 621 A)
 
 const KLASSEN := ["FIGHTER", "CLERIC", "ROGUE", "WIZARD"]
 # 417a (Archiv 417, 03.11., 06:54 „417 passt“, Stand 3b29ac0cb): Waffe in der Hand, Schild auf dem Ruecken; Schwert mit dem Einhandgang
@@ -56,6 +57,10 @@ func _lauf() -> void:
 	for k in KLASSEN: await klasse(k, bild, aus)
 	print("DREHTELLER499 %d Fehler" % fehler)
 	quit(1 if fehler else 0)
+
+## Bilder je Klasse: nur drehteller_bild_499.gd
+func bilder(_dt: Drehteller, _k: String, _aus: String) -> void:
+	pass
 
 func klasse(k: String, bild: bool, aus: String) -> void:
 	if true:
@@ -118,22 +123,7 @@ func klasse(k: String, bild: bool, aus: String) -> void:
 					diagnose(modell, sk, mi as MeshInstance3D)
 					print("  Schild-Spalt: unten %.3f m, oben %.3f m (Höhe %.2f bis %.2f)" % [du, do_, y0, y1])
 					pruefe(du <= SPALT_M, "%s: Schild unten %.0f cm vom Rücken" % [k, du * 100])
-		if bild:
-			var bilder: Array[Image] = []
-			for winkel in [0.0, 90.0, 200.0]:
-				dt.teller.rotation.y = deg_to_rad(winkel)
-				dt.set_process(false)
-				for i in 4: await process_frame
-				await RenderingServer.frame_post_draw
-				bilder.append(dt.get_child(0).get_texture().get_image())
-			var b := bilder[0].get_width(); var h := bilder[0].get_height()
-			var ges := Image.create(b * 3, h, false, Image.FORMAT_RGBA8)
-			ges.fill(Color(0.05, 0.04, 0.03))
-			for i in 3:
-				var x := bilder[i]; x.convert(Image.FORMAT_RGBA8)
-				ges.blend_rect(x, Rect2i(0, 0, b, h), Vector2i(b * i, 0))
-			ges.save_png(aus + "/499_%s.png" % k)
-			print("BILD ", aus + "/499_%s.png" % k)
+		if bild: await bilder(dt, k, aus)
 		dt.queue_free()
 		for i in 3: await process_frame
 

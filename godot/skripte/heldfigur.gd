@@ -458,10 +458,27 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 		t.origin += t.basis.z * weg
 		# 499 (Chef 07.11.: „Schild unten zu weit weg“; Lauf 291): in „Stehen“ kippt spine_03 21,8 Grad vor, Becken und spine_01 7-8 Grad
 		# zurueck; am Brustwirbel schwang die Unterkante 28-30 cm vom Ruecken (oben 4 cm). Der Schild haengt darum am mittleren Wirbel
-		# (spine_02, 2 Grad), der zwischen Ober- und Unterkante liegt; die Lage bleibt wie in der Ruhe berechnet
+		# (spine_02, 2 Grad), der zwischen Ober- und Unterkante liegt, und liegt am Ruecken, wie er in „Stehen“ steht (Drehteller,
+		# Erschaffung, Ruhe im Spiel; am Rechner mit spine_02 aus der Ruhe noch 4 bzw. 8 cm unten)
 		var mi := sk.find_bone("spine_02")
 		if mi < 0: mi = bi
-		_haenge(m, sk, mi, im_raum(m, sk) * sk.get_bone_global_rest(mi), schild, t, "RueckenSchild")
+		var anker := im_raum(m, sk) * sk.get_bone_global_rest(mi)
+		var lagen := haltung_lagen(m, sk, "Stehen")
+		if not lagen.is_empty():
+			# Mitte 29 cm unter spine_03 wie oben; die Neigung nach dem ganzen Schild (Kleriker 0,72 m reicht unter das Kreuz: am Rechner
+			# 6,6 cm unten): die Gerade, die hinter allem zwischen Unter- und Oberkante liegt und in der Mitte am naechsten am Ruecken ist
+			var ys := (im_raum(m, sk) * (lagen[bi] as Transform3D)).origin.y
+			var yc := ys - 0.29
+			var hh := schild_hoehe(schild)
+			var li := ruecken_linie(haut_punkte(m, sk, true, null, lagen), yc + hh.x, yc + hh.y)
+			if not li.is_empty():
+				var o2 := Vector3(0, yc + hh.y, float(li[0]) + float(li[1]) * (yc + hh.y) - 0.03)
+				var u2 := Vector3(0, yc + hh.x, float(li[0]) + float(li[1]) * (yc + hh.x) - 0.03)
+				var h2 := (o2 - u2).normalized()
+				t = Transform3D(Basis(Vector3.LEFT, h2, Vector3.LEFT.cross(h2)), Vector3(0, yc, float(li[0]) + float(li[1]) * yc - 0.03))
+				t.origin += t.basis.z * weg
+			anker = im_raum(m, sk) * (lagen[mi] as Transform3D)
+		_haenge(m, sk, mi, anker, schild, t, "RueckenSchild")
 		aussen = minf(aussen, (oben.z + unten.z) * 0.5) - 0.10 - weg   # Schild mit Buckel (376.1 Lauf 2: bei 7 cm durchdrang der Buckel das Schwert)
 	# 417 Runde 6: Godot benennt den zweiten gleichnamigen Knoten „@Getragen@…“ bzw. „@Tragen@…“; „Getragen*“ fand ihn nicht, beim
 	# Wechsel der Ausruestung blieb der Schild der Paketbewegung in der Hand (Messung: zweiter Tragen-Knoten nie gefunden)
@@ -524,9 +541,36 @@ static func ruecken_aus(pts: PackedVector3Array, y0: float, y1: float) -> Array:
 	if ganz > 8.0: ganz = -0.15
 	return [oben if oben < 8.0 else ganz, unten if unten < 8.0 else ganz, ganz]
 
+# 499: Lagen aller Knochen (im Raum des Skeletts) in der Haltung [name] zur Zeit 0, aus dem AnimationPlayer der Figur, von Hand
+# vorwaerts gerechnet: ausserhalb des Baums rechnet das Skelett set_bone_pose nicht nach (Lauf 291 und am Rechner: der Versuch mit
+# „Stehen“ aenderte nichts). Leer, wenn die Haltung fehlt
+static func haltung_lagen(m: Node3D, sk: Skeleton3D, name: String) -> Array:
+	var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
+	if ap == null or not ap.has_animation(name): return []
+	var an := ap.get_animation(name)
+	var sp := _spuren(an)
+	var lagen := []
+	lagen.resize(sk.get_bone_count())
+	var fertig := []
+	fertig.resize(sk.get_bone_count())
+	fertig.fill(false)
+	var rechne := func(selbst: Callable, b: int) -> Transform3D:
+		if fertig[b]: return lagen[b]
+		var rest := sk.get_bone_rest(b)
+		var e: Dictionary = sp.get(sk.get_bone_name(b), {})
+		var q: Quaternion = an.rotation_track_interpolate(e["rot"], 0.0) if e.has("rot") else rest.basis.get_rotation_quaternion()
+		var p: Vector3 = an.position_track_interpolate(e["pos"], 0.0) if e.has("pos") else rest.origin
+		var l := Transform3D(Basis(q).scaled(sk.get_bone_pose_scale(b)), p)
+		var v := sk.get_bone_parent(b)
+		if v >= 0: l = selbst.call(selbst, v) * l
+		lagen[b] = l; fertig[b] = true
+		return l
+	for b in sk.get_bone_count(): rechne.call(rechne, b)
+	return lagen
+
 # Ecken aller Netze mit Haut im Raum der Wurzel m (ohne deren eigene Lage): Ruhelage, oder mit [haltung] nach der Lage der Knochen
 # (wie die Haut sie zeichnet); [nur]: ein Netz. Mit Haltung nur die Mitte (Ruhe |x| < 0,2), sonst dauert es zu lange
-static func haut_punkte(m: Node3D, _sk: Skeleton3D, haltung: bool, nur: MeshInstance3D = null) -> PackedVector3Array:
+static func haut_punkte(m: Node3D, _sk: Skeleton3D, haltung: bool, nur: MeshInstance3D = null, lagen := []) -> PackedVector3Array:
 	var aus := PackedVector3Array()
 	for mi in ([nur] if nur else m.find_children("*", "MeshInstance3D", true, false)):
 		var x := mi as MeshInstance3D
@@ -553,7 +597,8 @@ static func haut_punkte(m: Node3D, _sk: Skeleton3D, haltung: bool, nur: MeshInst
 					var bind: int = bo[i * n + j]
 					var bone := x.skin.get_bind_bone(bind)
 					if bone < 0: bone = sk.find_bone(x.skin.get_bind_name(bind))
-					w += (ks * sk.get_bone_global_pose(bone) * x.skin.get_bind_pose(bind) * vs[i]) * g
+					var gl: Transform3D = lagen[bone] if bone < lagen.size() else sk.get_bone_global_pose(bone)
+					w += (ks * gl * x.skin.get_bind_pose(bind) * vs[i]) * g
 				aus.append(w)
 	return aus
 
@@ -571,6 +616,48 @@ static func rand_hinten(was: String) -> float:
 				if absf(p.x) > 0.15: h = maxf(h, -p.z)
 	d.free()
 	return h
+
+## 499: Unter- und Oberkante des Schilds (y im Raum des Modells, Vector2(unten, oben))
+static func schild_hoehe(was: String) -> Vector2:
+	var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % was)
+	if d == null: return Vector2(-0.24, 0.24)
+	var r := Vector2(INF, -INF)
+	for mi in d.find_children("*", "MeshInstance3D", true, false) + ([d] if d is MeshInstance3D else []):
+		var me := (mi as MeshInstance3D).mesh
+		var tr := im_raum(d, mi)
+		for s in me.get_surface_count():
+			for v in me.surface_get_arrays(s)[Mesh.ARRAY_VERTEX]:
+				var y: float = (tr * v).y
+				r = Vector2(minf(r.x, y), maxf(r.y, y))
+	d.free()
+	return r if r.x < r.y else Vector2(-0.24, 0.24)
+
+## 499: Ruecken als Gerade z = a + b * y zwischen y0 und y1 (Mitte |x| < 0,12, Baender zu 3 cm, je die hinterste Stelle): die Gerade
+## durch zwei Baender, hinter der kein Band liegt und die in der Mitte am wenigsten Abstand hat; [a, b], leer ohne zwei Baender
+static func ruecken_linie(pts: PackedVector3Array, y0: float, y1: float) -> Array:
+	var n := maxi(2, int((y1 - y0) / 0.03))
+	var z := []
+	z.resize(n); z.fill(INF)
+	for p in pts:
+		if absf(p.x) > 0.12 or p.y < y0 or p.y > y1: continue
+		var i := mini(n - 1, int((p.y - y0) / (y1 - y0) * n))
+		z[i] = minf(z[i], p.z)
+	var bd := []
+	for i in n:
+		if z[i] < INF: bd.append(Vector2(y0 + (i + 0.5) * (y1 - y0) / n, z[i]))
+	if bd.size() < 2: return []
+	var ym := (y0 + y1) * 0.5
+	var best := []
+	var bester := -INF
+	for i in bd.size():
+		for j in range(i + 1, bd.size()):
+			var b: float = (bd[j].y - bd[i].y) / (bd[j].x - bd[i].x)
+			var a: float = bd[i].y - b * bd[i].x
+			var ok := true
+			for q in bd:
+				if a + b * q.x > q.y + 0.001: ok = false; break
+			if ok and a + b * ym > bester: bester = a + b * ym; best = [a, b]
+	return best
 
 static func _modell(g) -> String:
 	if not g is Dictionary: return ""
