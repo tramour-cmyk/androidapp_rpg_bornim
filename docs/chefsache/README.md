@@ -44,7 +44,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 
-**Tom** – offen 104, Muss 85, startbar 7
+**Tom** – offen 105, Muss 86, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -152,6 +152,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 653 | M | Halt für Waffen und Schilde einmal je Modell festlegen statt je Figur nachmessen: Griffpun | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
 | 660 | M | Zugriff auf bornim-kaufmodelle in Tom-Sitzungen: add_repo vom Automodus abgelehnt (Tom 08. | Chef (Datei in der Chefsache) |
 | 661 | M | Blende zwischen Orten an Schirme ohne Kasten angleichen: Schrift größer, Zierleiste wie do | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
+| 663 | M | Klassische Steuerung ausbauen: Steuerkreuz und Funktionstasten ganz raus, nur Touch; Auswa | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
 
 **Jerry** – offen 66, Muss 58, startbar 3
 
