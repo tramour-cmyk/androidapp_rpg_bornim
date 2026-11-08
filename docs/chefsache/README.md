@@ -20,7 +20,6 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [499](ansehen/499-probebild.md) | Schild hoch wie alt, Sitz im Drehteller | – | 08.11., 14:18 |
 | [623.5](ansehen/6235-probebild.md) | Probebild der Effektprobe im Kampfort | – | 08.11., 14:44 |
 | [623.6](ansehen/6236-welt.md) | Probe Welt: Gratisproben Gras, Wasser, Wetter, Oberflächen gegen unsere Fassung | – | 08.11., 14:40 |
 
