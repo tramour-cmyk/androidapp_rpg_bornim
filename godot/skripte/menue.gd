@@ -454,105 +454,109 @@ func tippbar(c: Control, was: Callable) -> void:
 				da["p"] = Vector2.INF
 				was.call())
 
-# DialogSpec: Titel in der Farbe des Dings, Zeilen, Knoepfe [Text, Tat, an]; jeder Knopf schliesst erst den Kasten
+# 630 (549a, Chef 04.11., 19:28; 557a B): jedes Laden- und Menuefenster ohne Kasten wie Spielstaende.frage: schwarz und ganz deckend,
+# oben der Kopf (Titel; beim Ding Bild links, Name daneben), genau eine Zierlinie, der Inhalt, eine schlichte Linie, die Knoepfe.
+# Knoepfe [Text, Tat, an?]: der letzte „Abbrechen“/„Schliessen“/„Zurueck“ links unten (Nebenwahl), der erste rechts unten
+# (Hauptwahl, Wegwerfen/Loeschen in Warnfarbe), weitere in Reihen darueber (Gefahr links, sonst rechts); ein einzelnes „OK“ ist ein
+# Fenster ohne Wahl: „‹ SCHLIESSEN“ links. Rueckfragen (Titel mit „?“) mittig, Text ab vier Zeilen linksbuendig
 func dialog(titel: String, farbe: Color, zeilen: Array, knoepfe: Array) -> Control:
 	var schleier := Rueckfrage.schleier(self)   # 526: Tippen daneben und Android-Zurück wie „Abbrechen“ (416.1)
-	var mitte: Container = Spielstaende.oben() if Spielstaende.vorlage2 else CenterContainer.new()   # 557a B: oben wie jeder Schirm
-	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	mitte.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	schleier.color = Color.BLACK   # 549a: ganz deckend, nichts scheint durch
+	var mitte := Spielstaende.oben()   # 557a B: Titel in derselben Hoehe wie auf jedem Schirm
 	schleier.add_child(mitte)
 	var v := VBoxContainer.new()
-	v.add_theme_constant_override("separation", int(8 * DP))
-	# 519 (Chef 03.11., 23:13: Fenster ragte rechts hinaus): wie ConfirmDialog alt der Kasten 16 dp vom Rand, innen 14 dp;
-	# kein Kind darf breiter sein (Titel bricht um, Knoepfe passen sich an), sonst schiebt es den Kasten aus dem Bild
-	var breite := get_viewport_rect().size.x - 2 * 16 * DP - 2 * 14 * DP
-	v.custom_minimum_size.x = breite
-	mitte.add_child(Rueckfrage.halte(Erschaffung.kasten(v)))   # 526: Tippen auf den Kasten schliesst nicht
-	v.add_child(Menue.dialog_kopf(titel, farbe, zeilen))
+	v.name = "Fenster"
+	v.add_theme_constant_override("separation", int(10 * DP))
+	v.custom_minimum_size.x = get_viewport_rect().size.x - 48 * DP
+	mitte.add_child(Rueckfrage.halte(v))   # 526: Tippen ins Fenster schliesst nicht
+	var frage := titel.strip_edges().ends_with("?")
+	v.add_child(Menue.dialog_kopf(titel, farbe, zeilen, frage))
+	v.add_child(Spielstaende.zier())
 	for c in zeilen:
-		if c.get_parent() == null: v.add_child(c)
-	# 503 (Chef 03.11., 07:40, „genau wie alt“): ConfirmDialog (Dialogs.kt 86–104): weitere Knoepfe nebeneinander in einer Reihe,
-	# darunter „Abbrechen“ (oder „Schliessen“) links und der erste Knopf rechts, je halb so breit; ein einzelner
-	# Knopf (OK, Schliessen) ueber die ganze Breite. 519: Schrift wie PixelButton(size = 15.sp) alt 13 sp (15 × 0,7, mindestens 13),
-	# zu lang: zwei Zeilen oder kleiner (Menue.passe_knopf)
-	var mach := func(k: Array, b_breite: float) -> Button:
-		var tat: Callable = k[1]
-		var b := Erschaffung.knopf(String(k[0]), func(): schleier.queue_free(); tat.call())
-		if k.size() > 2: b.disabled = not bool(k[2])
-		Menue.passe_knopf(b, b_breite)
-		return b
-	var reihe := func(ks: Array) -> void:
-		var r := HBoxContainer.new()
-		r.add_theme_constant_override("separation", int(8 * DP))
-		var b_breite := (breite - 8 * DP * (ks.size() - 1)) / ks.size()
-		for k in ks:
-			r.add_child(mach.call(k, b_breite))
-		v.add_child(r)
-	var ab := knoepfe.size() > 1 and String(knoepfe[-1][0]) in [abbrechen(), Sprache.u("close"), Sprache.u("back")]
-	if ab:
-		if knoepfe.size() > 2:
-			reihe.call(knoepfe.slice(1, knoepfe.size() - 1))
-		reihe.call([knoepfe[-1], knoepfe[0]])
-	else:
-		for k in knoepfe: reihe.call([k])
+		if c.get_parent() != null: continue
+		v.add_child(c)
+		if frage and c is Label:
+			var l := c as Label
+			l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			l.resized.connect(func(): l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER if l.get_line_count() <= 3 else HORIZONTAL_ALIGNMENT_LEFT)
+		elif frage and c is Control:
+			(c as Control).size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	v.add_child(Spielstaende.linie())
+	v.add_child(Menue.dialog_fuss(knoepfe, func(): schleier.queue_free(), v.custom_minimum_size.x))
 	return schleier
 
-# 519 Kopf wie ConfirmDialog alt (Dialogs.kt 65–77): das Bild des Dings (erste Zeile, 48 dp) links, 10 dp Abstand, daneben der Titel;
-# in der Farbe eines Dings 20 sp halbfett, bricht um (Txt mit titleColor); ohne eigene Farbe (Gold) MenuHead: Versalien 14 sp gesperrt
-static func dialog_kopf(titel: String, farbe: Color, zeilen: Array) -> Control:
+# 549a Kopf: Titel eines Fensters 15 sp Versalien gesperrt in Gold, mittig; beim Ding (eigene Farbe) das Bild (erste Zeile) links,
+# daneben der Name 16 sp normal in der Farbe der Seltenheit; eine Rueckfrage hat immer den Titel in Gold (Spielstaende.frage)
+static func dialog_kopf(titel: String, farbe: Color, zeilen: Array, frage := false) -> Control:
+	if farbe == Stil.GOLD or frage:
+		var t := Stil.zeile(titel.to_upper().replace("ß", "SS"), 15, Stil.GOLD, 3.0)
+		t.name = "Titel"
+		t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		t.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		return t
 	var kopf := HBoxContainer.new()
-	kopf.add_theme_constant_override("separation", int(10 * DP))
+	kopf.add_theme_constant_override("separation", int(12 * DP))
 	if not zeilen.is_empty() and zeilen[0] is TextureRect:
 		var bild: Control = zeilen[0]
 		bild.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		bild.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		kopf.add_child(bild)
-	var t: Label
-	if farbe == Stil.GOLD:
-		t = Stil.zeile(titel.to_upper(), 14, farbe, 3.0)
-	else:
-		t = Stil.zeile(titel, 20 * 0.95, farbe, 0.2)   # wie Erschaffung.txt (Txt-Groesse × 0,95)
-		t.add_theme_constant_override("outline_size", int(DP * 0.6)); t.add_theme_color_override("font_outline_color", farbe)
-	t.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	t.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	kopf.add_child(t)
+	var n := Stil.zeile(titel, 16, farbe)
+	n.name = "Titel"
+	n.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	n.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	n.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	kopf.add_child(n)
 	return kopf
 
-# 519 wie PixelButton alt (Theme.kt 304–315): Versalien, gesperrt 1,2 sp, ein Wort bricht nie; mit Leerzeichen bis zwei Zeilen,
-# sonst kleiner (je 0,9, bis 0,55), bis es in die Breite passt (innen 6 dp Rand je Seite)
-static func passe_knopf(b: Button, breite: float, sp := 13.0) -> void:
-	var innen := breite - 12 * DP
-	var worte := b.text.split(" ", false)
-	var f := 1.0
-	while true:
-		var g := int(round(sp * Stil.SP * f))
-		var schrift := Stil.variante(1.2 * f)
-		var w := func(t: String) -> float: return schrift.get_string_size(t, HORIZONTAL_ALIGNMENT_LEFT, -1, g).x
-		var ganz: float = w.call(b.text)
-		var passt := ganz <= innen
-		var zwei := false
-		if not passt and worte.size() > 1:
-			# zwei Zeilen: gierig umbrechen wie Compose, jedes Wort ganz
-			var n := 1
-			var zeile := ""
-			var wort_passt := true
-			for x in worte:
-				wort_passt = wort_passt and w.call(x) <= innen
-				var probe: String = x if zeile == "" else zeile + " " + x
-				if w.call(probe) <= innen or zeile == "":
-					zeile = probe
-				else:
-					n += 1
-					zeile = x
-			zwei = wort_passt and n <= 2
-			passt = zwei
-		if passt or f <= 0.56:
-			b.add_theme_font_override("font", schrift)
-			b.add_theme_font_size_override("font_size", g)
-			b.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART if zwei else TextServer.AUTOWRAP_OFF
-			b.clip_text = not passt   # passt es selbst bei 0,55 nicht, schneidet der Knopf ab, statt den Kasten zu sprengen
+const GEFAHR := ["Wegwerfen", "Discard", "Löschen", "Delete"]
+
+# 549a Knoepfe (Spielstaende.knopf, knopfzeile): je die halbe Breite, Seite nach Bedeutung; [zu] schliesst das Fenster vor der Tat
+static func dialog_fuss(knoepfe: Array, zu: Callable, breite: float) -> Control:
+	var zurueck := [Sprache.t(ABBRECHEN), Sprache.u("close"), Sprache.u("back")]
+	var ks := knoepfe.duplicate()
+	var neben: Array = []
+	if ks.size() == 1 and String(ks[0][0]) == "OK": neben = [Sprache.u("close"), ks.pop_back()[1]]
+	elif not ks.is_empty() and String(ks[-1][0]) in zurueck: neben = ks.pop_back()
+	var halb := (breite - 8 * DP) / 2.0
+	var mach := func(k: Array, art: String, links: bool) -> Control:
+		var tat: Callable = k[1]
+		var an := k.size() < 3 or bool(k[2])
+		if art == "haupt" and String(k[0]) in GEFAHR: art = "gefahr"
+		var p := Spielstaende.knopf(art, String(k[0]), func(): zu.call(); tat.call(), links, an)
+		Menue.passe_knopf(p, halb)
+		return p
+	var v := VBoxContainer.new()
+	v.name = "Knoepfe"
+	v.add_theme_constant_override("separation", 0)
+	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var haupt: Array = ks.pop_front() if not ks.is_empty() else []
+	var l: Array = ks.filter(func(k): return String(k[0]) in GEFAHR)
+	var r: Array = ks.filter(func(k): return not String(k[0]) in GEFAHR)
+	for i in maxi(l.size(), r.size()):
+		v.add_child(Spielstaende.knopfzeile(mach.call(l[i], "gefahr", true) if i < l.size() else null,
+			mach.call(r[i], "neben", false) if i < r.size() else null))
+	v.add_child(Spielstaende.knopfzeile(mach.call(neben, "neben", true) if not neben.is_empty() else null,
+		mach.call(haupt, "haupt", false) if not haupt.is_empty() else null))
+	return v
+
+# 549a Knopfschrift 15 sp; passt der Text nicht in die halbe Breite („VERKAUFEN ×5 · 120 GOLD“): kleiner bis 13 sp (nie darunter,
+# 549a Schrift), dann zwei Zeilen
+static func passe_knopf(p: Control, breite: float) -> void:
+	var l := p.find_child("Text", true, false) as Label
+	if l == null: return
+	var innen := breite - 9 * DP - 6 * DP   # Winkel „›“ bzw. „×“ und Abstand
+	var schrift := l.get_theme_font("font")
+	for sp in [15.0, 14.0, 13.0]:
+		var g := int(round(sp * Stil.SP))
+		if schrift.get_string_size(l.text, HORIZONTAL_ALIGNMENT_LEFT, -1, g).x <= innen:
+			l.add_theme_font_size_override("font_size", g)
 			return
-		f *= 0.9
+	l.add_theme_font_size_override("font_size", int(round(13.0 * Stil.SP)))
+	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	l.custom_minimum_size.x = innen
+	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 
 const ABBRECHEN := {"de": "Abbrechen", "en": "Cancel"}
 func abbrechen() -> String: return Sprache.t(ABBRECHEN)

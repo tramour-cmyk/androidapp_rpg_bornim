@@ -448,6 +448,7 @@ static func knopf(art: String, text: String, tat: Callable, links := false, an :
 	var p := tippbar(h, tat if an else func(): pass)
 	p.set_meta("knopf", art)
 	p.set_meta("links", links)
+	p.set_meta("an", an)   # 630: Tests erkennen gesperrte Knoepfe
 	return p
 
 # eine Reihe Knoepfe: [links] links, [rechts] rechts (null: frei), jeder die halbe Breite, damit alle Knoepfe eines Fensters gleich
