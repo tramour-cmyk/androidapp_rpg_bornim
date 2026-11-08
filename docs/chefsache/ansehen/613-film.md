@@ -1,5 +1,7 @@
 # 613 · Film der Zwischensequenzen im Spiel (Godot) · Tom (Spike) · 08.11., 21:10
 
+[Film von 08.11., 21:10](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261108-211031-613/2026-11/08-2110-613-Spike.mp4) (eingetragen von meldung.sh, Spike)
+
 ![Standbild aus dem Film: Tempel 4 mit Sonnenstrahl und Staub](../bilder/613-film.webp)
 
 Der Film ist 47 Sekunden lang, mit Ton, aufgenommen im Spiel (Godot, Lauf 309). Zuerst kommt Bild 3 des Intros (der Platz), danach die ganze Tempelszene mit der neuen Figur.
