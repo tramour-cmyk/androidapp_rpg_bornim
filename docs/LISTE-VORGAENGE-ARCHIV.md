@@ -775,3 +775,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 657.1 | 657 prüfen: ganzes Konzept „eine Seite für alle“ (Stil, Team, Ablauf, Werkzeuge an Übergaben), Risiken, Verlorenes aus Archiv und Rollendateien; nur Prüfung, keine Umsetzung (Chef 08.11., 15:20) · „jetzt“ 08.11., 15:20 | Q QM | M | 3,24 $ | Diogenes | erledigt |
 | 613.1 | Freigabe eines Behebungslaufs für 613 Tusche (Prüferbefund 15:45: A2, A3, Technik; von Spike) | E Oberfläche | M | – | Sokrates | erledigt |
 | 644.3 | Seltenheit als Achse ins Regelwerk, Abschnitt Ausrüstung (644 B) | G Balance | M | 8,35 $ | Sokrates | erledigt |
+| 675 | Gelöschte Chef-Funde zurückholen: Tom 3600d77ce (08.11., 621.2) strich 220 Zeilen Zu/Alt ohne offene Listenzeile, darunter 491 (halbe Häuser, Schild); jeden Fund ohne Zeile wieder anlegen (Sokrates 08.11., 15:35) | B Abläufe | M | – | Perikles | erledigt |
+| 685 | D88.1 klären: Betrieb Liste 961 $ gegen Schätzung 225 $, 8 von 14 Ford-Läufen ohne Sitzungszeile; vor Systemrunde 09.11. (von Sokrates nach Frage Chef 08.11., 16:3x, zu 651) | B Steuerung | M | – | Perikles | erledigt |
+| 686 | Bereiche im Archiv berichtigen: 183 alte Namen nach einordnen(), 64 Ausnahmen laut Prüfbericht Lauf 90 D90.3 (von Diogenes, zu 684) | B Steuerung | M | – | Perikles | erledigt |
+| 684 | Bereiche im Archiv: Stichprobe 50 Zeilen inhaltlich, stimmt der Bereich; 180 alte Namen berichtigen (von Sokrates nach Frage Chef 08.11., 16:3x, zu 651) | Q QM | M | – | Diogenes | erledigt |
