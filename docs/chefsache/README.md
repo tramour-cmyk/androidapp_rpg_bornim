@@ -51,7 +51,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 | 652 | M | Englisch-Regeln 1–7 aus LISTE-ENGLISCH-338-1B nach STORY-REGELN.md, dann Datei nach docs/a | startbar |
 
-**Tom** – offen 100, Muss 80, startbar 9
+**Tom** – offen 99, Muss 80, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -154,7 +154,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 639 | M | Leute tragen ihre Dinge wie alt: Jorins Speer, Aldrics Stab quer auf der Schulter (Garrick | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
 | 640 | M | Innenräume und Häuser, Varianten wie alt: Werkzeugregal, Wandbehänge und Stock bei Aldric, | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
 | 649.3 | M | Figurenkatalog: Bewohner, Händler, Lehrmeister, Söldner füllen (Tagesablauf, Laden, Stimme | wartet auf 649.2 (startbar) |
-| Pflege | K | von Werkzeug (340.3, 08.11.): 16061 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 64, Muss 55, startbar 4
 
@@ -223,7 +222,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 649.1 | M | Figurenkatalog Schritt 1: eine Kennung je Monsterart, werte.json und tabellen.json zu BRS | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test |
 | 649.2 | M | Figurenkatalog Schritt 2: Werkzeug figuren.py und tools/figuren/figuren.json (Art und Auft | wartet auf 649.1 (startbar) |
 | 649.4 | M | Zwei bis drei Handlungen je gewöhnlicher Monsterart vorschlagen und in 444 messen, nur wo | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test |
-| Pflege | K | von Werkzeug (340.3, 08.11.): 15330 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 08.11.): 15697 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 21, Muss 18, startbar 0
 
