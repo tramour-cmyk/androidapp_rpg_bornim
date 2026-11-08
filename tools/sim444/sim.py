@@ -22,6 +22,10 @@ Zwei Teile:
   6. Traenke im Bosskampf (481.1): je Herkunft und Boss Siegquote ohne Traenke, mit Heiltraenken,
      mit Kampftraenken (Steinhaut, Berserkertrank, Alchemistenfeuer; Wirkung nach Kraeuterkunde);
      Zahlen im Block "kampftraenke". Nur dieser Teil: --nur-traenke.
+  7. Schildring (406.1, Chef 02.11.: Bau erst, wenn 444 zeigt, dass der Schildtraeger in Kapitel 1 weiter
+     Schaden nimmt): Schildtraeger gegen jeden Nahkaempfer, angesagte Nahangriffe oeffnen den Ring, die
+     Automatik faengt ihn mit "gut" (halber Schaden vor dem Abzug); misst Ringe je Kampf und Schaden je
+     Kampf ohne und mit Ring. Zahlen im Block "schildring". Nur dieser Teil: --nur-schildring.
 """
 import argparse
 import json
@@ -232,10 +236,11 @@ def held_abwehr(W, held, art, waffe_name=None, schild=True):
 
 # ---------------------------------------------------------------- Kampf
 
-def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False, beutel=None):
+def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False, beutel=None, schildring=None):
     """wirt: Zustand, Traenke und Zaehler der Wirtschaft (Teil 5) oder None (Teile 1 bis 4 unveraendert).
     tier_zuerst: misslungenes Beruhigen, das Tier handelt in Runde 1 vor dem Helden.
-    beutel: Heil- und Kampftraenke fuer einen Bosskampf (Teil 6, 481.1) oder None."""
+    beutel: Heil- und Kampftraenke fuer einen Bosskampf (Teil 6, 481.1) oder None.
+    schildring: Anteil angesagter Nahangriffe mit Ring "gut" fuer den Schildtraeger (Teil 7, 406.1) oder None."""
     k = W["kampf"]
     z = W["zauber"]
     d_held = held.stufe - mon["stufe"]
@@ -266,13 +271,22 @@ def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False, beutel=
     kt = W.get("kampftraenke", {})
     wirkung = beutel.wirkung if beutel is not None else 1.0
     trank = {"stein": 0, "bers": 0}
+    ringe = [0]
+    ring_gut = W.get("schildring", {}).get("ring_gut_faktor", 1.0)
 
-    def auf_held(angriff, schaden, faktor=1.0):
-        """Ein Angriff auf den Helden (Monster oder Begleiter); True bei Treffer."""
+    def auf_held(angriff, schaden, faktor=1.0, ring_moeglich=False):
+        """Ein Angriff auf den Helden (Monster oder Begleiter); True bei Treffer.
+        ring_moeglich: der Hauptangriff eines Nahkaempfers (406.1: angesagt oeffnet er den Ring)."""
         nonlocal leben
+        ring = (schildring is not None and ring_moeglich and held.schild and l_schild > 0 and mon["art"] == "nah"
+                and rng.random() < schildring)
+        if ring:
+            ringe[0] += 1
         abw_name, abw = held_abwehr(W, held, mon["art"], waffe_name, l_schild > 0)
         if rng.random() < trefferchance(W, angriff, abw):
             s = schaden_roh(W, schaden, angriff, -d_held, rng) * faktor
+            if ring:
+                s *= ring_gut     # 406.1 Block: der Schlag trifft den Schild, halber Schaden, dann der Abzug
             e = endschaden(W, s, held_abzug(W, held, bann, l_ruestung, l_schild))
             if trank["stein"] > 0:
                 e *= max(0.0, 1 - kt["Steinhaut"]["schutz"] * wirkung)
@@ -300,11 +314,11 @@ def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False, beutel=
         if ueb and zust["erster"] and mon.get("rauch"):
             zust["erster"] = False     # der erste Hieb geht im Rauch fehl, mit ihm Wucht und Betaeubung
         elif ueb and zust["erster"]:
-            if auf_held(mon["angriff"], mon["schaden"], ueb["erster_treffer_faktor"]):
+            if auf_held(mon["angriff"], mon["schaden"], ueb["erster_treffer_faktor"], True):
                 zust["erster"] = False
                 if rng.random() < ueb["betaeubt_chance"]:
                     zust["betaeubt"] = ueb["betaeubt_zuege"]
-        elif auf_held(mon["angriff"], mon["schaden"]):
+        elif auf_held(mon["angriff"], mon["schaden"], 1.0, True):
             if umr and rng.random() < umr["chance_bei_treffer"]:
                 zust["liegt"] = True
         if rud:
@@ -316,7 +330,7 @@ def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False, beutel=
     if ueb and ueb["gegner_zuerst"]:
         gegner_handelt()
         if leben <= 0:
-            return {"sieg": False, "runden": 0, "leben": 0.0, "benutzt": benutzt}
+            return {"sieg": False, "runden": 0, "leben": 0.0, "benutzt": benutzt, "ringe": ringe[0], "verlust": lmax - max(0.0, leben)}
     while runde < W["lauf"]["max_runden"]:
         runde += 1
         # ---- Held handelt
@@ -414,12 +428,12 @@ def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False, beutel=
                     held.uebe(fert_name, mon["stufe"])
                     benutzt.add(fert_name)
             if mleben <= 0:
-                return {"sieg": True, "runden": runde, "leben": leben / lmax, "benutzt": benutzt}
+                return {"sieg": True, "runden": runde, "leben": leben / lmax, "benutzt": benutzt, "ringe": ringe[0], "verlust": lmax - max(0.0, leben)}
         # ---- Monster handelt (427.1: mit Merkmalen, danach das Rudel)
         gegner_handelt()
         if leben <= 0:
-            return {"sieg": False, "runden": runde, "leben": 0.0, "benutzt": benutzt}
-    return {"sieg": False, "runden": runde, "leben": leben / lmax, "benutzt": benutzt, "remis": True}
+            return {"sieg": False, "runden": runde, "leben": 0.0, "benutzt": benutzt, "ringe": ringe[0], "verlust": lmax - max(0.0, leben)}
+    return {"sieg": False, "runden": runde, "leben": leben / lmax, "benutzt": benutzt, "ringe": ringe[0], "verlust": lmax - max(0.0, leben), "remis": True}
 
 
 def ep_fuer(W, held, mon):
@@ -539,6 +553,56 @@ def matrix(W, herkunft, fert_bei, kaempfe, rng, variante=False):
                 "leben": statistics.mean(leben) if leben else None,
             }
     return out
+
+
+# ---------------------------------------------------------------- Teil 7: Schildring (406.1)
+
+def schildring(W, fert_je_herkunft, kaempfe, rng):
+    """Je Herkunft mit Schild und Nahkaempfer: Held auf der Stufe des Gegners (Fertigkeiten aus Teil 1),
+    ohne Ring und je Anteil angesagter Angriffe mit Ring "gut"."""
+    sr = W["schildring"]
+    out = {}
+    for hk, fert_bei in fert_je_herkunft.items():
+        if not W["herkuenfte"][hk].get("schild"):
+            continue
+        for name, mon in ohne_info(W["monster"]).items():
+            if mon["art"] != "nah" or mon.get("rauch"):
+                continue
+            st = min(mon["stufe"], max(fert_bei))
+            h = held_auf_stufe(W, hk, st, fert_bei.get(st) or fert_bei[max(fert_bei)])
+            zeile = {"stufe": st}
+            for anteil in [None] + sr["angesagt_anteile"]:
+                verlust, ringe, null, siege = [], [], 0, 0
+                for _ in range(kaempfe):
+                    r = kampf(W, h, mon, rng, schildring=anteil)
+                    verlust.append(r["verlust"])
+                    ringe.append(r["ringe"])
+                    null += r["verlust"] <= 0.0
+                    siege += r["sieg"]
+                zeile[anteil] = {"verlust": statistics.mean(verlust), "leben": h.leben_max(), "ringe": statistics.mean(ringe),
+                                 "null": null / kaempfe, "quote": siege / kaempfe}
+            out[(hk, name)] = zeile
+    return out
+
+
+def bericht_schildring(W, sr, kaempfe):
+    an = W["schildring"]["angesagt_anteile"]
+    t = ["## 7. Schildring (406.1)", "",
+         f"Je Fall {kaempfe} Kämpfe; Held auf der Stufe des Gegners (höchstens Kapitelgrenze), Fertigkeiten aus Teil 1. "
+         f"Ring „gut“ (Automatik): Schaden × {W['schildring']['ring_gut_faktor']} vor dem Abzug. Angesagt: Anteil der "
+         "Hauptangriffe des Gegners, die den Ring öffnen (Annahme; Rudelbisse ohne Ring). "
+         "Schaden = verlorene Leben je Kampf (Mittel), in Klammern Anteil am Höchstleben; „ohne Schaden“ = Kämpfe ohne Verlust.", "",
+         "| Herkunft | Gegner | Stufe | ohne Ring: Schaden | ohne Schaden | Sieg | " + " | ".join(
+             f"{int(a * 100)} % angesagt: Ringe, Schaden, ohne Schaden, Sieg" for a in an) + " |",
+         "|---|---|---|---|---|---|" + "---|" * len(an)]
+    for (hk, name), z in sr.items():
+        o = z[None]
+        zellen = [hk, name, str(z["stufe"]), f"{zahl(o['verlust'])} ({pz(o['verlust'] / o['leben'])})", pz(o["null"]), pz(o["quote"])]
+        for a in an:
+            m = z[a]
+            zellen.append(f"{zahl(m['ringe'])}, {zahl(m['verlust'])} ({pz(m['verlust'] / m['leben'])}), {pz(m['null'])}, {pz(m['quote'])}")
+        t.append("| " + " | ".join(zellen) + " |")
+    return "\n".join(t) + "\n"
 
 
 # ---------------------------------------------------------------- Teil 6: Traenke im Bosskampf (481.1)
@@ -1231,6 +1295,7 @@ def main():
     p.add_argument("--nur-wirtschaft", action="store_true", help="nur Abschnitt 5 (Wirtschaft) rechnen und ausgeben")
     p.add_argument("--ohne-wirtschaft", action="store_true", help="Abschnitt 5 nicht rechnen")
     p.add_argument("--nur-traenke", action="store_true", help="nur Abschnitt 6 (Traenke im Bosskampf, 481.1) ausgeben")
+    p.add_argument("--nur-schildring", action="store_true", help="nur Abschnitt 7 (Schildring, 406.1) ausgeben")
     args = p.parse_args()
     W = lade(args.werte)
     # 427.1: Boss mit Ueberfall auch mit Morwens Rauch (D4.1: der erste Hieb geht fehl), nur in Bossen und Matrix
@@ -1276,6 +1341,20 @@ def main():
         pr = traenke_proben(W, erg["Kräutersammler"]["fortschritt"]["fert_bei"], kaempfe, rng) if "Kräutersammler" in erg else None
         return bericht_traenke(W, tr, kaempfe, pr)
 
+    def rechne_schildring():
+        rng = random.Random(W["lauf"]["zufallskeim"] + 7)
+        fert = {hk: fortschritt_alle(W, hk, laeufe, rng)["fert_bei"] for hk in ohne_info(W["herkuenfte"]) if W["herkuenfte"][hk].get("schild")}
+        return bericht_schildring(W, schildring(W, fert, kaempfe, rng), kaempfe)
+
+    if args.nur_schildring:
+        text = rechne_schildring()
+        if args.aus:
+            with open(args.aus, "w", encoding="utf-8") as f:
+                f.write(text)
+        else:
+            sys.stdout.write(text)
+        return
+
     if args.nur_traenke:
         text = rechne_traenke(rechne(False))
         if args.aus:
@@ -1291,6 +1370,7 @@ def main():
     if not args.ohne_wirtschaft:
         text += "\n" + rechne_wirtschaft()
     text += "\n" + rechne_traenke(erg)
+    text += "\n" + rechne_schildring()
     if args.aus:
         with open(args.aus, "w", encoding="utf-8") as f:
             f.write(text)

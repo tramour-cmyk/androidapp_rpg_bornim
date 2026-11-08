@@ -350,6 +350,11 @@
     },
     "nicht_waehlbar": ["Bergbau"]
   },
+  "schildring": {
+    "_quelle": "406.1 A (Chef 02.11., 11:21): Ring nur bei angesagten Nahangriffen, Automatik faengt ihn mit gut; Block = halber Schaden vor dem Abzug (Chefsache 406.1). Anteile angesagter Angriffe: Annahme (A)",
+    "ring_gut_faktor": 0.5,
+    "angesagt_anteile": [0.33, 1.0]
+  },
   "kampftraenke": {
     "_quelle": "481.1 (Jerry 02.11.): Vorschlag Sokrates (Zu 481, Chat 18:58): Kampftraenke mit Preis, je ein Zug, Wirkung nach Kraeuterkunde statt Sperre; Chef 18:55 'zwei Runden unverwundbar'. Alle Zahlen A",
     "wirkung_grund": 0.5,
