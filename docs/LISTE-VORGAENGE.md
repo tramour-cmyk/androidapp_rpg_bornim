@@ -42,7 +42,6 @@
 | 492 | Blutzahnhöhle begehbar mit Krogg, Grak, Lyra (Orte O8; Wochenziel 03.11., 488; von Jerry an Tom, Chef 07:54) | Tom | M | in Arbeit, Zweig mit main gemischt, Tests laufen | – | claude/tom-492-durchspiel | – | B Umzug | 29,10 $ |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x) | Tom | M | ruht | – | claude/tom-431-voelker | – | E Figuren | 50,10 $ |
 | 416.8 | NPC dreht sich zum Helden, nach etwa 10 s Leerlauf (Chef 31.10., 20:5x) | Tom | M | zu testen | – | claude/tom-416-8-schritte | 269 | B Umzug | 19,24 $ |
-| 416.4 | Rennen des Helden wirkt wie Hochsprung (Chef 31.10., 20:4x) | Tom | M | erledigt | – | claude/tom-416-4-rennen | – | B Umzug | 41,57 $ |
 | 376.1 | Probeblatt Quaternius-Figuren mit Bewegungsraster als Film (Chef kaufte 27.10., 12:20) | Tom | M | ruht | – | claude/spike-376-1-tracht | – | E Figuren | 221,15 $ |
 | 455.1 | Probeblatt Baukasten: Roben, Umhänge, Stiefel je Netz × Material × Zeichen (Chef 01.11., 11:24) | Tom | M | ruht | – | claude/spike-455-1-baukasten | – | E Figuren | 30,05 $ |
 | 513 | Ein Figurenstand für alle Zweige; Schild, Robe Magier, Umhang jetzt (Chef 03.11., 15:56, „513 B“) · „jetzt“ 03.11., 15:56 | Tom | M | ruht | – | claude/figurenstand-513 | – | E Figuren | 14,01 $ |
@@ -59,7 +58,6 @@
 | 458.3 | Gegenstandskatalog: Netze, Modelle, Läden (Chef 01.11., 458) | Tom | M | ruht | – | claude/spike-458-3-staffel | – | E Figuren | 12,15 $ |
 | 423.1 | Spielerhandbuch BRS als Seite im Spiel, Platzhalter aus der Datendatei (Archiv 423) | Tom | K | ruht | – | – | – | A Technik | – |
 | 455.2 | Netzliste je sichtbarem Platz, Eigenbau geschätzt, Größenfilm der Völker (Chef 01.11., 11:27, 455 ja) | Tom | M | ruht | – | claude/spike-455-2-groesse | – | E Figuren | – |
-| 399.3.1 | Klang: Haken in spiel.gd übernehmen, Klangregler im Menü System (aus 399.3) | Tom | M | erledigt | – | – | – | B Umzug | – |
 | 385 | Protofactor-Animsets (Zauberer u. a.) auf die Listen, Probe ob nutzbar (Chef 27.10., 20:59) · „jetzt“ 28.10., 10:00 | Tom | M | ruht | – | – | – | E Figuren | 40,87 $ |
 | 372 | Feinschliff Held am Ende des Umzugs: Kettenhemd, Helm, Kragen (aus 338a B, Chef 27.10., 09:36) | Tom | M | ruht | – | claude/tom-348-fundament | – | E Figuren | – |
 | 348.13 | Tusche nach Licht wie entschieden (Chef 26.10.) | Tom | M | ruht | – | – | – | E Technik | 89,13 $ |
@@ -148,7 +146,6 @@
 | 211.14 | Rest 211.13: Leistung A56, Puppen-Gegner im Kamerawinkel, Winkel je Platz, Wechsel als Gang | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 628 | Lohn: EP und Gold steigen nicht mit der Monsterstufe über der Gebietsstufe (over fehlt, alt Battle.finishWin) | Jerry | M | wartet, BRS ersetzt over (DESIGN-SPIELSYSTEM 119, 337) | 478 | – | – | K Kampf | – |
 | 289 | MARS: Wechsel „halber Zug“ missverständlich; Bewegung und Aktion im Kästchen zeigen? (Chef 21.10., 20:11) | Jerry | K | ruht | – | – | – | E Kampf | – |
-| 296.1 | Erste Fassung Checkliste MARS (`LISTE-MARS.md`) gegen den Code prüfen und pflegen | Jerry | K | erledigt, MARS-Spalte für Godot nachgezogen 08.11. | – | – | – | E Kampf | – |
 | 296.2 | MARS spielnötig: Beute/Erfahrung, Fliehen, Eröffnung, Zustände, eigene Ausrüstung, Schalter (Chef 23.10., 18:25) | Jerry | M | startbar | – | claude/build-89 | – | E Kampf | 14,29 $ |
 | 296.3 | MARS-Schmuck: Todesschrei, Flucht/Zerfall, Zustände gezeichnet, Siegerpose (Chef 23.10., 18:25) | Jerry | K | startbar | – | – | – | E Kampf | – |
 | 344.2 | Kampf mit der Fackel: Feuerschaden, Verscheuchen, beide Systeme (Chef 23.10., 18:27) | Jerry | K | ruht | – | claude/jerry-344-2-fackel | – | E Kampf | – |
@@ -196,7 +193,6 @@
 | 270 | Perikles und Diogenes auf das große Modell (Chef 21.10.) | Perikles | M | ruht | – | – | – | B Betrieb | –; +4,16 $ |
 | D75 | Filmsperre 511 zählte Film-Pushes 572 nicht (D75.1); meldung.sh --film legte Film 572 nicht ab (D75.2) | Perikles | M | Dauer, bis zum nächsten echten Film (D75.1 gebaut, D75.2 dann prüfen) | – | – | – | B Werkzeuge | – |
 | 627 | probelauf.py: Push mit `git commit -F -` im selben Befehl als Probelauf gezählt (562, ohne Lauf) | Perikles | M | gebaut, Geprüft an: 4bcd30e87 | – | – | – | B Werkzeuge | – |
-| 631 | lauf.py: Startmarken ohne Datum verglichen (Ford 06.11., 07:19) | Perikles | K | erledigt | – | – | – | B Werkzeuge | – |
 | 99 | Zwei Niederlassungen | Perikles | K | ruht | – | – | – | B Steuerung | 7,25 $ |
 | 641 | lauf.py startet Nachfolger „auf Abruf“, obwohl nichts startbar ist (Diogenes 08.11., 09:07, Leerstart) | Perikles | M | gebaut, Geprüft an: af1a4da5a (Probe: Übergabe „Diogenes – Prüfer (auf Abruf)“, alt START, neu NICHTS) | – | – | – | B Werkzeuge | – |
 | 646 | Zeigen statt messen: Messläufe zählen als Probe, nach einer Probe immer Bild an den Chef (Chef 08.11., 12:28) | Perikles | M | startbar, Chef ja (12:34), Perikles baut | – | – | – | C Betrieb | – |
@@ -246,7 +242,6 @@
 | 340 | Rollenspiegel: zehn Fragen Ist-Soll an alle Rollen, Antwort am Sitzungsende mit Beleg (Chef 23.10., 09:34) | Sokrates | M | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | – | – | – | B Abläufe | –; +3,54 $ |
 | 344 | Fackel: brennt überall außer in hellen Grundrissen; Kampf mit der Fackel nach SRD (Chef 23.10., 16:05) | Sokrates | M | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | – | – | – | E Welt | – |
 | 644 | Alle Gegenstände an einer Stelle: Katalog 458 mit BRS-Werten, Voraussetzungen, Seltenheit, Bild je Stück, ohne Würfel (Chef 08.11., 11:05–12:39) | Sokrates | M | Chef, Entwurf mit Befund der Gegenprüfung | Chef 644 | – | – | E Kampf | 13,53 $ |
-| 645 | 499 Probebild Lauf 292 (Drehteller): Helfer meldet vor dem Versand Verstöße A1, A4, B4, E3, G1, Schild selbst behoben; vorlegen mit Vermerk oder Lauf frei für G1? (von Tom, zu 499) | Sokrates | M | erledigt | – | – | – | C Betrieb | – |
 | 649 | Figurenkatalog: alle Figuren an einer Stelle (Monster, Bewohner, Gefährten), Bestiarium geht darin auf; mehr als eine Handlung je Monsterart (Chef 08.11., 13:19, 13:24) | Sokrates | M | startbar, ja mit Gegenprüfung der Spalten (Chef 13:28) | 649.3, 649.4 | – | – | E Kampf | – |
 | 650 | docs aufräumen: 88 Dateien, Erledigtes nach docs/alt/, Zusammenlegen, Inhaltsverzeichnis neu (Chef 08.11., 13:24) | Sokrates | M | startbar, ja mit Gegenprüfung (Chef 13:27) | – | – | – | B Betrieb | – |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +842,76 $ |
