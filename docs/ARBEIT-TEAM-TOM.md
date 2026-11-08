@@ -6,6 +6,10 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **von Sokrates (08.11., 15:57, zu 605, Chef, t269.16, Bildschirmfoto Handy):** „Da kann ich wieder bloß wegwerfen. Oh, das ist ja genau der alte Fehler.“ Bild: leeres Kopffeld → „Göttliche Kapuze der Stillen Jägerin“ (Kopf · Stufe 1 · Stoff): einziger Knopf „× WEGWERFEN“, kein Anlegen, kein Zurück; jede Zeile „wirkt nicht (Obergrenze)“ / „Obergrenze für dieses Kapitel erreicht“. Dazu Sokrates: Wörter noch SRD (Zauberpunkte, Attribute, Stärke, Konstitution, Weisheit, Charisma statt Mana, Kraft, Zähigkeit, Wille …; 478 bei Jerry) und göttlich auf Stufe 1 gegen Regelwerk Abschnitt 11 (644 C2; falls aus dem Testmenü, egal).
+
+- **von Sokrates (08.11., 15:52, zu 630, Chef, Build 269):** „Bin im Laden, will gewöhnliche Sachen verkaufen. Da ist aber dann auch noch das alte Kästchen Rückfragemenü.“ Rückfrage „Gewöhnliche verkaufen“ muss in 630 enthalten sein; im nächsten Build prüfen.
+
 - **von Sokrates (08.11., 15:32, zu 670, Chef, Build 269):** „Weder Held noch Tasche noch Ausrüstung noch Karte noch Chronik noch System. Okay, also ist alles noch wie vor der Umstellung auf das neue Design.“
 
 - **von Sokrates (08.11., 15:32, zu 668, Chef):** „Das Testmenü ist nicht ans neue Design angepasst … wegen zurück und so und Trennlinien und allem.“

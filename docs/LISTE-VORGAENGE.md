@@ -13,13 +13,13 @@
 |---|---|---|---|---|---|---|---|---|---|
 | 670 | Build 269: Menü des Helden (Held, Tasche, Ausrüstung, Karte, Chronik, System) noch im alten Design statt 557/549a; Zweig tom-557-einschalten war im Build? (Chef 08.11., 15:32) | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 664 | Halbes Haus: Haus des alten Kael und Hütte der Kräuterhexe im tiefen Flüsterwald nur halb da (Chef 08.11., 15:28, mehrfach gemeldet, nie eingetragen) · wiederholt | Tom | M | in Arbeit, gebaut am Rechner, Bild beider Häuser folgt | – | claude/tom-664-haeuser | – | E Welt | – |
-| 613 | Zwischensequenzen neu wie alt: leichte Bewegungen, Signatur, Tusche (mit 302.3), an Spike (Chef 07.11., t268.31; 08.11., 15:08, 15:19) · „jetzt“ 08.11., 15:19 | Tom | M | in Arbeit, bei Spike | – | – | – | E Oberfläche | – |
+| 613 | Zwischensequenzen neu wie alt: leichte Bewegungen, Signatur, Tusche (mit 302.3), an Spike (Chef 07.11., t268.31; 08.11., 15:08, 15:19) · „jetzt“ 08.11., 15:19 | Tom | M | wartet, bei Spike, Behebung gebaut | 613.1 | – | – | E Oberfläche | – |
 | 656 | Umhang Kämpfer mit Beulen, große Beule unter dem Schwertarm: woher, weg (Chef 08.11., 14:52, schon zu 623.5 gefragt, Antwort verloren) | Tom | M | startbar | – | – | – | E Figuren | – |
 | 623.6 | Probe Welt mit den Gratisproben (Gras und Wind, Wasser, Wetter, Oberflächen) gegen unsere Fassung, Dorfbach und Flüsterwald, FPS, ein Film; vor dem Kauf (Chef 07.11., 623 B1, D) · „jetzt“ 08.11., 13:48 | Tom | M | in Arbeit, Lauf welt=bild 15:15 gestartet | – | – | – | E Welt | 12,54 $ |
 | 625 | Sammelbuild 269: alle fertigen Zweige beider Teams (35 warten), Prüfliste als Weg durchs Spiel (Chef 07.11., 20:5x) · „jetzt“ 07.11., 20:54 | Tom | M | zu testen | – | claude/build-269 | 269 | E Technik | 76,53 $ |
 | 499 | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 (Chef 03.11., 07:14, Build 204) · „jetzt“ 07.11., 21:31 | Tom | M | gebaut, Geprüft an: Lauf 294 (1be5a03bf), Chef 14:19 passt; Gehfilm-Probebild Lauf 299 | – | claude/tom-499-drehteller | – | E Figuren | 64,66 $ |
 | 635 | Lyra fehlt als Figur im Tempel und in der Höhle: Kennung lyra_temple/lyra_cave, gebaut wird nur „lyra“ (Abgleich 620.2a) | Tom | M | gebaut, Geprüft an: 8a2f85b98 (lyra_635 lokal), fährt im nächsten Build | – | claude/tom-635-lyra | – | E Welt | – |
-| 605 | Ausrüstung: leeres Kopffeld, Auswahl zeigt falsch „Obergrenze“, kein Zurück (Chef 06.11., 21:22, t268) | Tom | M | zu testen | – | claude/tom-605-doppeltipp | 269 | E Technik | – |
+| 605 | Ausrüstung: leeres Kopffeld, Auswahl zeigt falsch „Obergrenze“, kein Zurück; Stück aus der Auswahl hat nur „Wegwerfen“, kein „Anlegen“ (Chef 06.11., 21:22, t268; t269.16 08.11., 15:57) · wiederholt | Tom | M | zu testen | – | claude/tom-605-doppeltipp | 269 | E Technik | – |
 | 581 | Ausrüstung: Seite breiter als der Schirm, Reiter springen (Abgleich 512b) | Tom | M | zu testen | – | claude/tom-581-ausruestung | 269 | E Oberfläche | 2,31 $ |
 | 583 | Textkasten: ▼ liegt im Text, erzählter Text ohne i-Punkte und nicht schräg (Abgleich 512b) | Tom | M | zu testen | – | claude/tom-583-textkasten | 269 | E Oberfläche | 5,99 $ |
 | 584 | Kein halbfetter Schnitt: Köpfe und Titel in Erschaffung, Held, Chronik, Karte, System, Brett, Test nicht hervorgehoben wie alt (Abgleich 512b) | Tom | K | wartet | 630 | – | – | E Oberfläche | – |
@@ -45,7 +45,7 @@
 | 506 | Untote im Kampf: Skelett, Zombie, Ghul (aus 494, Spike; Wochenziel 03.11., 488) | Tom | M | in Arbeit, Probebild vom Helfer angehalten (Zu 506) | – | claude/tom-506-skelett | – | E Kampf | 42,52 $ |
 | 492 | Blutzahnhöhle begehbar mit Krogg, Grak, Lyra (Orte O8; Wochenziel 03.11., 488; von Jerry an Tom, Chef 07:54) | Tom | M | in Arbeit, Zweig mit main gemischt, Tests laufen | – | claude/tom-492-durchspiel | – | E Technik | 29,10 $ |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x) | Tom | M | ruht | – | claude/tom-431-voelker | – | E Figuren | 50,10 $ |
-| 416.8 | NPC dreht sich zum Helden, nach etwa 10 s Leerlauf (Chef 31.10., 20:5x) | Tom | M | zu testen | – | claude/tom-416-8-schritte | 269 | E Technik | 19,24 $ |
+| 416.8 | NPC dreht sich zum Helden mit kleinen Schritten, nicht auf der Stelle (Chef 31.10., 20:5x; t269.11 15:44 wieder Plastikfigur) · wiederholt | Tom | M | zu testen | – | claude/tom-416-8-schritte | 269 | E Technik | 19,24 $ |
 | 376.1 | Probeblatt Quaternius-Figuren mit Bewegungsraster als Film (Chef kaufte 27.10., 12:20) | Tom | M | ruht | – | claude/spike-376-1-tracht | – | E Figuren | 221,15 $ |
 | 455.1 | Probeblatt Baukasten: Roben, Umhänge, Stiefel je Netz × Material × Zeichen (Chef 01.11., 11:24) | Tom | M | ruht | – | claude/spike-455-1-baukasten | – | E Figuren | 30,05 $ |
 | 513 | Ein Figurenstand für alle Zweige; Schild, Robe Magier, Umhang jetzt (Chef 03.11., 15:56, „513 B“) · „jetzt“ 03.11., 15:56 | Tom | M | ruht | – | claude/figurenstand-513 | – | E Figuren | 14,01 $ |
@@ -121,6 +121,7 @@
 | 665 | Nacht im Dorf: um 2:30 kaum dunkel; in allen Häusern Licht, keiner schläft: tiefe Nacht dunkel, Fenster nach Schlafenszeit aus (Chef 08.11., 15:31, Build 269 auf MuMu) | Tom | M | startbar | – | – | – | E Welt | – |
 | 668 | Testmenü an Schirme ohne Kasten angleichen: Zurück, Trennlinien, Aufbau wie 549a/618 (Chef 08.11., 15:32, Build 269) | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 673 | Emulator: Kamera drehen und zoomen mit Maus und Tasten (rechte Maustaste ziehen, Mausrad), nur am Rechner, Handy unverändert (Rückfrage Sokrates 08.11., 15:34) | Tom | M | startbar, ja (Chef 15:39) | – | – | – | E Technik | – |
+| 677 | Leuchtfunke wirkt nicht: Benutzen aus der Tasche tut nichts, nur „Der Funke verglimmt“ (Chef 08.11., 15:54, t269.15) | Tom | M? | startbar | – | – | – | E Welt | – |
 | 623.5 | Probe Kampf mit den Gratisproben (Combat Mega, Projectiles, Trails, Pack 3, Character Shaders, Status Effects mit Bleeding) im Kampfort, Compatibility, FPS, ein Film; vor dem Kauf 623 (Chef 07.11., 623; 08.11., 13:14) · „jetzt“ 08.11., 13:48 | Jerry | M | startbar, Probebild passt (Chef 15:06), Film | – | claude/jerry-6235-effektprobe | – | E Kampf | 23,51 $ |
 | 565 | MARS: unten im Gruppenkasten sieht man nicht, welcher Held am Zug ist (Chef 04.11., 17:10, t257 C) | Jerry | M | startbar, A (Chef 13:11) | – | claude/jerry-565-am-zug | – | E Kampf | 13,51 $ |
 | 562 | MARS: Helden laufen zum Angriff viel zu langsam, zurück gleiten sie flott (Chef 04.11., 17:02, t257 C) | Jerry | M | gebaut, Ursache 438 rückwärts schräg behoben. Geprüft an: 7cd54621e (am Rechner wolf_mess_438 0 Befunde) | – | claude/jerry-562-angriffsschritt | – | E Kampf | 17,49 $ |
@@ -227,6 +228,7 @@
 | Woche | Wochenzählung der Kennzahlen | Diogenes | K | wartet | 09.11. | – | – | Q QM | – |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
 | 644.5 | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noch aus den Katalogen (keine alten Datenwege), Seiten auffindbar für den Chef, Stichprobe im Spiel (Chef 08.11., 14:30) | Diogenes | M | startbar | 644.1, 644.2, 644.4, 649.2, 649.3 | – | – | Q QM | – |
+| 613.1 | Freigabe eines Behebungslaufs für 613 Tusche (Prüferbefund 15:45: A2, A3, Technik; von Spike) | Sokrates | M | startbar | – | – | – | E Oberfläche | – |
 | 657 | Regeln radikal kürzen: eine Seite für alle mit Stil, Team, Ablauf (Chef 08.11., 14:58, 15:05) | Sokrates | M | startbar | 657.1 | – | – | B Abläufe | – |
 | 620 | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build (Chef 07.11.) · wiederholt | Sokrates | M | startbar | – | – | – | B Abläufe | 6,49 $ |
 | 341.1 | Zielvereinbarung für alle Rollen: je Rolle höchstens drei Ziele, Z3 und Z4 für alle, eins eigen (aus 341) | Sokrates | M | startbar, prüfen (alte Leiche: in LISTE-VORGAENGE.md „erledigt“, Zeile noch im Vorrat) | – | – | – | B Abläufe | – |
