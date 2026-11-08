@@ -158,7 +158,32 @@ internal abstract class IntroPainter : BridgePainter(true) {
      * A person as a silhouette (70.2: recognised by outline, not by face), standing at (x, z), [h] tall:
      * a hooded cloak widening to the hem; [torch] raises a burning torch in the right hand.
      */
-    fun cloaked(x: Double, z: Double, h: Double, c: Color, torch: Boolean, lean: Double = 0.0): Pair<Double, Double>? {
+    /**
+     * 613 / 302.3: the line of ink along a rod that [line] has just drawn [w] px wide from (x0, y0) to (x1, y1) (a post, a rail,
+     * a beam): one stroke along each long edge, laid just outside it so a thin rod keeps its colour; [px] on the lit side,
+     * [heavy] on the [side] away from the light (+1: right of the way from (x0, y0) to (x1, y1) on screen, −1: left).
+     * Rods under 3 px get none.
+     */
+    fun inkRod(x0: Double, y0: Double, x1: Double, y1: Double, w: Double, px: Double, heavy: Double = px, side: Int = 1) {
+        if (!tusche || w < 3.0) return
+        val len = Math.hypot(x1 - x0, y1 - y0); if (len < 3.0) return
+        val ux = -(y1 - y0) / len; val uy = (x1 - x0) / len
+        for ((k, pen) in listOf(side to heavy, -side to px)) {
+            val o = (w / 2 + minOf(pen, inkMax) * 0.25) * k
+            inkStroke(x0 + ux * o, y0 + uy * o, x1 + ux * o, y1 + uy * o, pen)
+        }
+    }
+
+    /** 613: ink round [s], [px] all round and [heavy] on its half left (side −1) or right (+1) of screen x [cut]. */
+    fun inkSided(s: java.awt.Shape, px: Double, heavy: Double, cut: Double, side: Int) {
+        if (!tusche) return
+        inkShape(s, px)
+        val clip0 = g.clip
+        g.clip(java.awt.geom.Rectangle2D.Double(if (side < 0) cut - 2.0 * W else cut, -H.toDouble(), 2.0 * W, 3.0 * H))
+        inkShape(s, heavy); g.clip = clip0
+    }
+
+    fun cloaked(x: Double, z: Double, h: Double, c: Color, torch: Boolean, lean: Double = 0.0, inkSide: Int = -1): Pair<Double, Double>? {
         val s = f / z
         val px = sx(x, z); val py = sy(0.0, z)
         val p = Path2D.Double()
@@ -170,11 +195,16 @@ internal abstract class IntroPainter : BridgePainter(true) {
         p.curveTo(px + hw * 1.05, py - h * s * 0.7, px + hw * 1.25, py - h * s * 0.4, px + hw * 1.4, py)
         p.closePath()
         g.color = c; g.fill(p)
+        // ink: the cloak's outline, fine all round, heavier on the side away from the light ([inkSide])
+        inkSided(p, inkPx(0.01, z), inkPx(0.016, z), px, inkSide)
         if (!torch) return null
         // the arm up, the torch above the hood
         val ax = px + hw * 0.8 + lean * s; val ay = py - h * s * 0.72
         val tx = px + hw * 1.25 + lean * s; val ty = top - 0.25 * s
         line(c, maxOf(1.5, 0.09 * s), ax, ay, tx, ty + 0.12 * s)
+        inkRod(ax, ay, tx, ty + 0.12 * s, maxOf(1.5, 0.09 * s), inkPx(0.01, z))
+        // ink: the shaft is thinner than a pen, so its line lies just under it, a little wider (where the flame lights it, it goes)
+        inkStroke(tx - 0.02 * s, ty + 0.5 * s, tx, ty, maxOf(1.2, 0.05 * s) + inkPx(0.008, z))
         line(Color(0x2A1A10), maxOf(1.2, 0.05 * s), tx - 0.02 * s, ty + 0.5 * s, tx, ty)
         return tx to ty
     }
@@ -337,10 +367,14 @@ internal class RoadPainter : IntroPainter() {
             val hgt = 1.15 + 0.15 * rnd(k, 62)
             val c = far(night(dTimber, 1.2), z)
             line(c, maxOf(1.2, f * 0.12 / z), sx(x, z), sy(0.0, z), sx(x + lean, z), sy(hgt, z))
+            // ink: the post's edges, fine on the moonlit left, heavy on the right (none on far posts under 3 px)
+            inkRod(sx(x, z), sy(0.0, z), sx(x + lean, z), sy(hgt, z), maxOf(1.2, f * 0.12 / z), inkPx(0.01, z), inkPx(0.02, z), 1)
             line(alpha(far(night(0xB0A690, 1.2), z), 0.5), maxOf(0.8, f * 0.02 / z), sx(x - 0.04, z), sy(0.1, z), sx(x + lean - 0.04, z), sy(hgt, z))
             if (prev != null && k % 7 != 4) {
                 val (px, pz) = prev
-                for (ry in listOf(0.95, 0.5)) line(far(night(dTimber, 1.05), z), maxOf(1.0, f * 0.07 / z), sx(px, pz), sy(ry, pz), sx(x, z), sy(ry - 0.05 * rnd(k, 63), z))
+                for (ry in listOf(0.95, 0.5)) { line(far(night(dTimber, 1.05), z), maxOf(1.0, f * 0.07 / z), sx(px, pz), sy(ry, pz), sx(x, z), sy(ry - 0.05 * rnd(k, 63), z))
+                    // ink: the rail's underside heavy, its moonlit top fine
+                    inkRod(sx(px, pz), sy(ry, pz), sx(x, z), sy(ry - 0.05 * rnd(k, 63), z), maxOf(1.0, f * 0.07 / z), inkPx(0.008, z), inkPx(0.016, z), 1) }
             }
             prev = x to z
             z += 2.4; k++
@@ -360,6 +394,10 @@ internal class RoadPainter : IntroPainter() {
         // the top and the left face in the moon, the right in shadow
         poly(alpha(Color(0xB8C0D4), 0.3), px - 0.2 * s, py - 0.5 * s, px - 0.05 * s, py - 0.56 * s, px + 0.14 * s, py - 0.52 * s, px + 0.05 * s, py - 0.46 * s, px - 0.15 * s, py - 0.45 * s)
         g.paint = GradientPaint(px.toFloat(), 0f, alpha(Color(0x05060A), 0.0), (px + 0.27 * s).toFloat(), 0f, alpha(Color(0x05060A), 0.55)); g.fill(p)
+        // ink: the stone's outline, heavier on the shaded right; the fine edge between its moonlit top and its faces
+        inkSided(p, inkPx(0.016, z), inkPx(0.024, z), px, 1)
+        inkStroke(px - 0.2 * s, py - 0.5 * s, px - 0.15 * s, py - 0.45 * s, inkPx(0.008, z)); inkStroke(px - 0.15 * s, py - 0.45 * s, px + 0.05 * s, py - 0.46 * s, inkPx(0.008, z))
+        inkStroke(px + 0.05 * s, py - 0.46 * s, px + 0.14 * s, py - 0.52 * s, inkPx(0.008, z))
         // the notch: a cut mark for the miles, worn
         line(Color(0x1E1E22), maxOf(1.0, 0.03 * s), px - 0.1 * s, py - 0.34 * s, px + 0.06 * s, py - 0.36 * s)
         line(Color(0x1E1E22), maxOf(1.0, 0.03 * s), px - 0.03 * s, py - 0.42 * s, px - 0.02 * s, py - 0.27 * s)
@@ -372,7 +410,7 @@ internal class RoadPainter : IntroPainter() {
         val list = listOf(Triple(-14.0, 40.0, 13.0), Triple(-9.0, 58.0, 11.0), Triple(16.0, 34.0, 12.0), Triple(22.0, 46.0, 15.0), Triple(-22.0, 30.0, 14.0), Triple(11.0, 70.0, 10.0))
         for ((x, z, h) in list.sortedByDescending { it.second }) {
             g.color = alpha(Color(0x05080A), 0.5); g.fill(Ellipse2D.Double(sx(x, z) - f * 2.2 / z, sy(0.0, z) - f * 0.5 / z, f * 4.4 / z, f * 1.0 / z))
-            firShape(sx(x, z), sy(0.0, z), f * h / z, f * h * 0.42 / z, far(fir, z), far(firLit, z), 0.7)
+            firShape(sx(x, z), sy(0.0, z), f * h / z, f * h * 0.42 / z, far(fir, z), far(firLit, z), 0.7, inkPx(0.022, z))
         }
         // an old leafless oak on the right against the sky: crooked limbs, finer and finer twigs, the moon on their left sides
         val x = 11.5; val z = 26.0; val s = f / z
@@ -384,6 +422,8 @@ internal class RoadPainter : IntroPainter() {
             val mx = (x0 + x1) / 2 + (rnd(seed, 961) - 0.5) * len * 0.25; val my = (y0 + y1) / 2 + (rnd(seed, 962) - 0.5) * len * 0.2
             val p = Path2D.Double(); p.moveTo(x0, y0); p.quadTo(mx, my, x1, y1)
             g.color = Color(0x0C0A0A); g.stroke = BasicStroke(maxOf(0.8f, w.toFloat()), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND); g.draw(p)
+            // ink: the coarse outline of the trunk's big limbs only, not of the twigs
+            if (tusche && w > 3) inkShape(BasicStroke(w.toFloat(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND).createStrokedShape(p), inkPx(0.01, z))
             if (w > 3) { val q = Path2D.Double(); q.moveTo(x0 - w * 0.3, y0); q.quadTo(mx - w * 0.3, my, x1 - w * 0.3, y1)
                 g.color = alpha(Color(0x6A7088), 0.35); g.stroke = BasicStroke(maxOf(0.8f, (w * 0.18).toFloat())); g.draw(q) }
             if (depth == 0) return
@@ -398,6 +438,8 @@ internal class RoadPainter : IntroPainter() {
         trunk.moveTo(bx - 0.45 * s, by); trunk.quadTo(bx - 0.2 * s, by - 1.6 * s, bx - 0.3 * s, by - 3.2 * s); trunk.lineTo(bx + 0.1 * s, by - 3.3 * s)
         trunk.quadTo(bx + 0.15 * s, by - 1.6 * s, bx + 0.5 * s, by); trunk.closePath()
         g.color = Color(0x0C0A0A); g.fill(trunk)
+        // ink: the trunk's outline, heavier on the right away from the moon
+        inkSided(trunk, inkPx(0.012, z), inkPx(0.018, z), bx, 1)
         line(alpha(Color(0x6A7088), 0.4), 0.06 * s, bx - 0.36 * s, by - 0.1 * s, bx - 0.26 * s, by - 3.0 * s)
         limb(bx - 0.1 * s, by - 3.2 * s, Math.PI * 0.6, 2.2 * s, 0.32 * s, 6, 3)
         limb(bx - 0.1 * s, by - 3.2 * s, Math.PI * 0.38, 2.0 * s, 0.28 * s, 6, 5)
@@ -429,6 +471,13 @@ internal class RoadPainter : IntroPainter() {
         // ear tufts and the moon on the left of the head
         poly(Color(0x16120E), px - 0.1 * s, py - 0.44 * s, px - 0.08 * s, py - 0.56 * s, px - 0.04 * s, py - 0.46 * s)
         poly(Color(0x16120E), px + 0.1 * s, py - 0.44 * s, px + 0.08 * s, py - 0.56 * s, px + 0.04 * s, py - 0.46 * s)
+        // ink: the owl's outline (body, head, ear tufts as one), heavier on the right away from the moon; the eyes stay clear
+        if (tusche) {
+            val owl = java.awt.geom.Area(Ellipse2D.Double(px - 0.13 * s, py - 0.36 * s, 0.26 * s, 0.38 * s))
+            owl.add(java.awt.geom.Area(Ellipse2D.Double(px - 0.11 * s, py - 0.5 * s, 0.22 * s, 0.2 * s)))
+            for (e in listOf(-1.0, 1.0)) owl.add(java.awt.geom.Area(Path2D.Double().apply { moveTo(px + e * 0.1 * s, py - 0.44 * s); lineTo(px + e * 0.08 * s, py - 0.56 * s); lineTo(px + e * 0.04 * s, py - 0.46 * s); closePath() }))
+            inkSided(owl, inkPx(0.006, z), inkPx(0.009, z), px, 1)
+        }
         line(alpha(Color(0x8A90A0), 0.5), 1.2, px - 0.12 * s, py - 0.45 * s, px - 0.13 * s, py - 0.1 * s)
         for (ex in listOf(-0.045, 0.045)) { glow(px + ex * s, py - 0.41 * s, 0.05 * s, Color(0xE0B040), 0.6)
             g.color = Color(0xF0C860); g.fill(Ellipse2D.Double(px + ex * s - 0.018 * s, py - 0.43 * s, 0.036 * s, 0.036 * s)) }
@@ -648,6 +697,8 @@ internal class SquarePainter : IntroPainter() {
     fun haystack(tx: Double, ty: Double) {
         val x = cx(tx, ty); val z = cz(tx, ty); val px = sx(x, z); val py = sy(0.0, z); val r = f * 0.8 / z
         g.color = far(night(dHay, 0.55), z); g.fill(Ellipse2D.Double(px - r, py - r * 1.5, r * 2, r * 1.7))
+        // ink: the dome's outline (the light map thins it on the moonlit shoulder)
+        inkShape(Ellipse2D.Double(px - r, py - r * 1.5, r * 2, r * 1.7), inkPx(0.02, z))
         g.color = alpha(far(night(dHay, 0.95), z), 0.5); g.fill(Ellipse2D.Double(px - r * 0.1, py - r * 1.45, r * 0.9, r * 1.0))
     }
 
@@ -663,6 +714,8 @@ internal class SquarePainter : IntroPainter() {
         softShadow(px - 0.6 * s, py, 2.4 * s)
         val dark = far(Color(0x08100C), z); val mid = far(night(0x3E6034, 0.95), z); val lit = far(night(0x8AB07A, 1.25), z)
         line(far(Color(0x1A1410), z), maxOf(1.0, 0.32 * s), px, py, px, py - (h - r) * s)
+        // ink: the trunk's edges, heavier on the left away from the moon
+        inkRod(px, py, px, py - (h - r) * s, maxOf(1.0, 0.32 * s), inkPx(0.01, z), inkPx(0.02, z), -1)
         val ccx = px; val ccy = py - (h - r * 0.8) * s
         // the crown: clusters from the back and bottom to the front and top
         val n = if (z < 40) 26 else 14
@@ -676,6 +729,12 @@ internal class SquarePainter : IntroPainter() {
             g.paint = RadialGradientPaint(Point2D.Double(bx + br * 0.35, by - br * 0.4), (br * 1.3).toFloat(), floatArrayOf(0f, 0.55f, 1f),
                 arrayOf(mix(mid, lit, 0.3 + 0.5 * up), mid, dark), MultipleGradientPaint.CycleMethod.NO_CYCLE)
             g.fill(Ellipse2D.Double(bx - br, by - br * 0.9, br * 2, br * 1.8))
+        }
+        // ink: the crown's coarse outer outline only (clusters and core as one); the moonlit leaves come after
+        if (tusche) {
+            val crown = java.awt.geom.Area(Ellipse2D.Double(ccx - r * s, ccy - r * s * 0.9, 2 * r * s, 1.8 * r * s))
+            for ((bx, by, br) in blobs) crown.add(java.awt.geom.Area(Ellipse2D.Double(bx - br, by - br * 0.9, br * 2, br * 1.8)))
+            inkShape(crown, inkPx(0.022, z))
         }
         // leaves catching the moon along the upper right rim
         if (z < 60) for (k in 0 until 120) {
@@ -710,14 +769,24 @@ internal class SquarePainter : IntroPainter() {
             val open = Path2D.Double().apply { val b0 = if (face == 0) M(bx0, 12.0, a0) else M(a0, 12.0, by0); moveTo(b0.x, b0.y)
                 for (p in pts) lineTo(p.x, p.y); val b1 = if (face == 0) M(bx0, 12.0, a1) else M(a1, 12.0, by0); lineTo(b1.x, b1.y); closePath() }
             g.color = far(Color(0x080A10), tz); g.fill(open)
+            inkShape(open, inkPx(0.008, tz)) // ink: the belfry's arch, fine
             for (k in 0 until 4) { val v = 12.3 + k * 0.4; val pa = if (face == 0) M(bx0, v, a0) else M(a0, v, by0); val pb = if (face == 0) M(bx0, v, a1) else M(a1, v, by0)
                 line(alpha(far(night(0x6A5038, 1.1), tz), 0.9), 1.2, pa.x, pa.y, pb.x, pb.y) }
         }
+        // ink: the tower's two faces, the shaded north face heavy, the west face finer
+        inkShape(shape(M(bx0, 0.0, by0), M(bx1, 0.0, by0), M(bx1, bt, by0), M(bx0, bt, by0)), inkPx(0.02, tz))
+        inkShape(shape(M(bx0, 0.0, by1), M(bx0, 0.0, by0), M(bx0, bt, by0), M(bx0, bt, by1)), inkPx(0.012, tz))
         fillM(far(night(0x8A867A, 1.1), tz), M(bx0 - 0.15, bt, by1 + 0.15), M(bx0 - 0.15, bt, by0 - 0.15), M(bx0 - 0.15, bt + 0.35, by0 - 0.15), M(bx0 - 0.15, bt + 0.35, by1 + 0.15))
         fillM(far(night(0x8A867A, 0.9), tz), M(bx0 - 0.15, bt, by0 - 0.15), M(bx1 + 0.15, bt, by0 - 0.15), M(bx1 + 0.15, bt + 0.35, by0 - 0.15), M(bx0 - 0.15, bt + 0.35, by0 - 0.15))
+        // ink: the cornice, fine
+        inkShape(shape(M(bx0 - 0.15, bt, by1 + 0.15), M(bx0 - 0.15, bt, by0 - 0.15), M(bx0 - 0.15, bt + 0.35, by0 - 0.15), M(bx0 - 0.15, bt + 0.35, by1 + 0.15)), inkPx(0.01, tz))
+        inkShape(shape(M(bx0 - 0.15, bt, by0 - 0.15), M(bx1 + 0.15, bt, by0 - 0.15), M(bx1 + 0.15, bt + 0.35, by0 - 0.15), M(bx0 - 0.15, bt + 0.35, by0 - 0.15)), inkPx(0.01, tz))
         val apex = M((bx0 + bx1) / 2, bcap, (by0 + by1) / 2)
         fillM(far(night(dSlate, 0.85), tz), M(bx0 - 0.25, bt + 0.35, by1 + 0.25), M(bx0 - 0.25, bt + 0.35, by0 - 0.25), apex)
         fillM(far(night(dSlate, 0.65), tz), M(bx0 - 0.25, bt + 0.35, by0 - 0.25), M(bx1 + 0.25, bt + 0.35, by0 - 0.25), apex)
+        // ink: the pointed cap, its shaded side heavy; the moon's edge and the finial come after
+        inkShape(shape(M(bx0 - 0.25, bt + 0.35, by1 + 0.25), M(bx0 - 0.25, bt + 0.35, by0 - 0.25), apex), inkPx(0.012, tz))
+        inkShape(shape(M(bx0 - 0.25, bt + 0.35, by0 - 0.25), M(bx1 + 0.25, bt + 0.35, by0 - 0.25), apex), inkPx(0.02, tz))
         M(bx0 - 0.25, bt + 0.35, by0 - 0.25).let { a -> line(far(night(0x8A9AB8, 1.3), tz), 1.4, a.x, a.y, apex.x, apex.y) }
         line(far(night(0xC8A050, 1.2), tz), 1.4, apex.x, apex.y, apex.x, apex.y - 0.9 * f / tz)
         // the roof's north slope, slate in rows, the ridge in the moon
@@ -729,6 +798,9 @@ internal class SquarePainter : IntroPainter() {
             val a = M(x0 - ov, yy, ty); val b = M(x1 + ov, yy, ty); line(alpha(Color(0x0C0E14), 0.7), 1.0, a.x, a.y, b.x, b.y) }
         texture(roofN, zt, Color(0x101016), night(0x8A9AC0), 400, 0.05, 0.35)
         g.clip = clip
+        // ink: the north slope's outline, the eave heavy (the wall below lies in its shadow); the ridge's moon comes after
+        inkShape(roofN, inkPx(0.014, zt))
+        M(x0 - ov, wall - 0.2, y0 - ov).let { a -> M(x1 + ov, wall - 0.2, y0 - ov).let { b -> inkStroke(a.x, a.y, b.x, b.y, inkPx(0.024, zt)) } }
         M(x0 - ov, ridge, ym).let { a -> M(x1 + ov, ridge, ym).let { b -> line(far(night(0x8A9AB8, 1.4), zt), 1.8, a.x, a.y, b.x, b.y) } }
         // the north wall: in the shade, stone courses, two tall windows faintly warm
         val north = shape(M(x0, 0.0, y0), M(x1, 0.0, y0), M(x1, wall, y0), M(x0, wall, y0))
@@ -739,6 +811,8 @@ internal class SquarePainter : IntroPainter() {
         while (yy < wall) { val a = M(x0, yy, y0); val b = M(x1, yy, y0); line(far(Color(0x2A2A30), zt), 1.0, a.x, a.y, b.x, b.y); yy += 0.44 + 0.08 * rnd(c++, 641) }
         g.paint = GradientPaint(M(x0, 0.0, y0).x.toFloat(), 0f, alpha(Color(0x05060A), 0.15), M(x1, 0.0, y0).x.toFloat(), 0f, alpha(Color(0x05060A), 0.45)); g.fill(north)
         g.clip = clip
+        // ink: the north wall in the shade, heavy all round (before its windows' candlelight)
+        inkShape(north, inkPx(0.02, zt))
         for (wa in listOf(27.6, 29.6)) archWindow({ u, v -> M(u, v, y0) }, wa, 0.38, 1.9, 4.7, cz(wa, y0), 0.35)
         // the west wall with its gable, towards us; the moon only grazes it
         val west = shape(M(x0, 0.0, y1), M(x0, 0.0, y0), M(x0, wall, y0), M(x0, ridge, ym), M(x0, wall, y1))
@@ -762,6 +836,13 @@ internal class SquarePainter : IntroPainter() {
                 qy += 0.42; k++ } }
         fillM(far(night(0x6A665C), zt), M(x0, 0.0, y1), M(x0, 0.0, y0), M(x0, 0.5, y0), M(x0, 0.5, y1))
         fillM(far(night(0x5A564C), zt), M(x0, 0.0, y0), M(x1, 0.0, y0), M(x1, 0.5, y0), M(x0, 0.5, y0))
+        // ink: the west wall and its gable finer (the moon grazes it), the corner to the shaded north wall heavy, the plinth's
+        // top edge fine; the verge's moonlit edge comes after
+        inkShape(west, inkPx(0.014, zt))
+        M(x0, 0.0, y0).let { a -> M(x0, wall, y0).let { b -> inkStroke(a.x, a.y, b.x, b.y, inkPx(0.022, zt)) } }
+        M(x0, 0.5, y1).let { a -> M(x0, 0.5, y0).let { b -> M(x1, 0.5, y0).let { d ->
+            inkStroke(a.x, a.y, b.x, b.y, inkPx(0.01, zt)); inkStroke(b.x, b.y, d.x, d.y, inkPx(0.01, zt)) } } }
+        M(x0, 0.0, y0).let { a -> M(x1, 0.0, y0).let { b -> inkStroke(a.x, a.y, b.x, b.y, inkPx(0.02, zt)) } }
         // the gable's verge, catching the moon
         M(x0, wall - 0.05, y1 + ov).let { a -> M(x0, ridge + 0.1, ym).let { b -> M(x0, wall - 0.05, y0 - ov).let { d ->
             line(far(night(0x8A9AB8, 1.35), zt), 2.0, a.x, a.y, b.x, b.y); line(far(night(0x8A9AB8, 1.1), zt), 1.6, b.x, b.y, d.x, d.y) } } }
@@ -770,6 +851,7 @@ internal class SquarePainter : IntroPainter() {
         run {
             val o = M(x0, 7.5, ym); val r = 0.45 * f / zt
             g.color = far(night(0x9A968A, 1.15), zt); g.fill(Ellipse2D.Double(o.x - r * 0.62, o.y - r * 1.15, r * 1.24, r * 2.3))
+            inkShape(Ellipse2D.Double(o.x - r * 0.62, o.y - r * 1.15, r * 1.24, r * 2.3), inkPx(0.012, zt)) // ink: the opening's stone frame
             g.color = Color(0x0C1018); g.fill(Ellipse2D.Double(o.x - r * 0.48, o.y - r * 0.9, r * 0.96, r * 1.8))
             g.color = alpha(Color(0x8A96B4), 0.35); g.fill(Ellipse2D.Double(o.x - r * 0.1, o.y - r * 0.85, r * 0.5, r * 0.8))
             for (k in 0 until 4) { val a = Math.PI * k / 4; line(Color(0x2A2A30), 1.0, o.x - cos(a) * r * 0.48, o.y - sin(a) * r * 0.9, o.x + cos(a) * r * 0.48, o.y + sin(a) * r * 0.9) }
@@ -790,8 +872,10 @@ internal class SquarePainter : IntroPainter() {
             at(m + rr, a).let { p.lineTo(it.x, it.y) }; p.closePath(); return p
         }
         g.color = far(night(0x6A665C, 1.2), z); g.fill(arch(r + 0.14, v0 - 0.1, v1 + 0.12))
+        inkShape(arch(r + 0.14, v0 - 0.1, v1 + 0.12), inkPx(0.012, z)) // ink: the stone frame's outline
         val a = arch(r, v0, v1); val b = a.bounds2D
         g.color = mix(Color(0x3A2410), Color(0xB06A28), warmth); g.fill(a)
+        inkShape(a, inkPx(0.008, z)) // ink: the glass's edge, fine; the candlelight is laid on after it
         g.paint = GradientPaint(0f, b.y.toFloat(), alpha(Color(0xFFC060), 0.45 * warmth), 0f, (b.y + b.height).toFloat(), alpha(Color(0xFFC060), 0.05)); g.fill(a)
         at(m, v0).let { p -> at(m, v1).let { q -> line(Color(0x2A1A10), 1.0, p.x, p.y, q.x, q.y) } }
         glow(b.centerX, b.centerY, b.height * 0.9, warmDeep, 0.18 * warmth)
@@ -809,7 +893,7 @@ internal class SquarePainter : IntroPainter() {
         val zz = z - 2.6; val dx = -0.9
         p.lineTo(sx(x + dx + 0.3, zz), sy(0.0, zz)); p.lineTo(sx(x + dx - 0.3, zz), sy(0.0, zz)); p.closePath()
         g.paint = GradientPaint(0f, sy(0.0, z).toFloat(), alpha(Color(0x060508), 0.5), 0f, sy(0.0, zz).toFloat(), alpha(Color(0x060508), 0.0)); g.fill(p)
-        val t = cloaked(x, z, b.h.toDouble(), far(Color(0x0C0908), z), b.torch, lean = b.lean.toDouble())
+        val t = cloaked(x, z, b.h.toDouble(), far(Color(0x0C0908), z), b.torch, lean = b.lean.toDouble(), inkSide = if (b.torch) -1 else 1)
         val side = if (b.torch) 1.0 else -1.0
         line(alpha(warm, if (b.torch) 0.5 else 0.25), maxOf(1.0, 0.03 * s), sx(x + 0.3 * side, z), sy(0.1, z), sx(x + 0.22 * side, z), sy(1.35, z))
         line(alpha(warm, if (b.torch) 0.35 else 0.18), maxOf(1.0, 0.025 * s), sx(x + 0.2 * side, z), sy(1.4, z), sx(x + 0.08 * side, z), sy(1.62, z))
@@ -825,10 +909,19 @@ internal class SquarePainter : IntroPainter() {
         for (e in listOf(-l + 0.15, l - 0.15)) {
             fillM(night(dTimber, 1.1), M(tx + e - 0.06, 0.0, ty - d), M(tx + e + 0.06, 0.0, ty - d), M(tx + e + 0.06, h, ty - d), M(tx + e - 0.06, h, ty - d))
             fillM(night(dTimber, 1.3), M(tx + e - 0.06, 0.0, ty + d), M(tx + e - 0.06, 0.0, ty - d), M(tx + e - 0.06, h, ty - d), M(tx + e - 0.06, h, ty + d))
+            // ink: the block's two faces, fine
+            inkShape(shape(M(tx + e - 0.06, 0.0, ty - d), M(tx + e + 0.06, 0.0, ty - d), M(tx + e + 0.06, h, ty - d), M(tx + e - 0.06, h, ty - d)), inkPx(0.01, z))
+            inkShape(shape(M(tx + e - 0.06, 0.0, ty + d), M(tx + e - 0.06, 0.0, ty - d), M(tx + e - 0.06, h, ty - d), M(tx + e - 0.06, h, ty + d)), inkPx(0.008, z))
         }
         fillM(night(dPlank, 1.25), M(tx - l, h, ty - d), M(tx + l, h, ty - d), M(tx + l, h, ty + d), M(tx - l, h, ty + d))
         fillM(night(dPlank, 0.9), M(tx - l, h - 0.07, ty + d), M(tx - l, h - 0.07, ty - d), M(tx - l, h, ty - d), M(tx - l, h, ty + d))
         fillM(night(dPlank, 0.75), M(tx - l, h - 0.07, ty - d), M(tx + l, h - 0.07, ty - d), M(tx + l, h, ty - d), M(tx - l, h, ty - d))
+        // ink: the seat's top and end fine, its shaded front edge and underside heavy; the moon on its far edge comes after
+        inkShape(shape(M(tx - l, h, ty - d), M(tx + l, h, ty - d), M(tx + l, h, ty + d), M(tx - l, h, ty + d)), inkPx(0.008, z))
+        inkShape(shape(M(tx - l, h - 0.07, ty + d), M(tx - l, h - 0.07, ty - d), M(tx - l, h, ty - d), M(tx - l, h, ty + d)), inkPx(0.008, z))
+        M(tx - l, h - 0.07, ty + d).let { a -> M(tx - l, h - 0.07, ty - d).let { b -> M(tx + l, h - 0.07, ty - d).let { c ->
+            inkStroke(a.x, a.y, b.x, b.y, inkPx(0.016, z)); inkStroke(b.x, b.y, c.x, c.y, inkPx(0.016, z)) } } }
+        M(tx + l, h - 0.07, ty - d).let { a -> M(tx + l, h, ty - d).let { b -> inkStroke(a.x, a.y, b.x, b.y, inkPx(0.012, z)) } }
         M(tx - l, h, ty + d).let { a -> M(tx + l, h, ty + d).let { b -> line(alpha(Color(0xA8B4D0), 0.4), 1.0, a.x, a.y, b.x, b.y) } }
     }
 
@@ -840,13 +933,19 @@ internal class SquarePainter : IntroPainter() {
         val top = 2.35
         for (dx in listOf(-r + 0.1, r - 0.1)) {
             quad(night(dTimber, 1.2), x + dx - 0.08, 0.6, z + 0.1, x + dx + 0.08, 0.6, z + 0.1, x + dx + 0.08, top, z + 0.1, x + dx - 0.08, top, z + 0.1)
+            // ink: the post's outline, its right edge (away from the moon) heavy
+            inkQuad(0.012, x + dx - 0.08, 0.6, z + 0.1, x + dx + 0.08, 0.6, z + 0.1, x + dx + 0.08, top, z + 0.1, x + dx - 0.08, top, z + 0.1)
+            inkSeg(0.022, x + dx + 0.08, 0.6, z + 0.1, x + dx + 0.08, top, z + 0.1)
             line(alpha(Color(0xA0A8C0), 0.4), 1.2, sx(x + dx - 0.08, z + 0.1), sy(0.6, z + 0.1), sx(x + dx - 0.08, z + 0.1), sy(top, z + 0.1))
         }
         // the winch, its rope down into the well
         line(Color(0x2A1E14), 0.11 * s, sx(x - r + 0.1, z + 0.1), sy(1.55, z + 0.1), sx(x + r - 0.1, z + 0.1), sy(1.55, z + 0.1))
+        // ink: the winch beam, its underside heavy
+        inkRod(sx(x - r + 0.1, z + 0.1), sy(1.55, z + 0.1), sx(x + r - 0.1, z + 0.1), sy(1.55, z + 0.1), 0.11 * s, inkPx(0.01, z + 0.1), inkPx(0.02, z + 0.1), 1)
         for (k in 0 until 6) { val wx = x - 0.25 + k * 0.1; line(Color(0x5A4A38), 1.5, sx(wx, z + 0.1), sy(1.5, z + 0.1), sx(wx + 0.05, z + 0.1), sy(1.6, z + 0.1)) }
         line(Color(0x4A3E30), 0.018 * s, sx(x + 0.05, z + 0.1), sy(1.55, z + 0.1), sx(x + 0.05, z + 0.1), sy(0.85, z + 0.1))
         line(Color(0x2A1E14), 0.05 * s, sx(x + r - 0.1, z + 0.1), sy(1.55, z + 0.1), sx(x + r + 0.15, z + 0.1), sy(1.3, z + 0.1))
+        inkRod(sx(x + r - 0.1, z + 0.1), sy(1.55, z + 0.1), sx(x + r + 0.15, z + 0.1), sy(1.3, z + 0.1), 0.05 * s, inkPx(0.008, z + 0.1), inkPx(0.012, z + 0.1), 1) // ink: the crank
         // the ring: its top, the dark water, then the stone wall in courses
         val ringTop = Ellipse2D.Double(px - r * s, py - 0.8 * s - 0.17 * s, 2 * r * s, 0.34 * s)
         val ring = Path2D.Double()
@@ -854,6 +953,7 @@ internal class SquarePainter : IntroPainter() {
         ring.curveTo(px - r * s, py + 0.22 * s, px + r * s, py + 0.22 * s, px + r * s, py)
         ring.lineTo(px + r * s, py - 0.8 * s); ring.curveTo(px + r * s, py - 0.58 * s, px - r * s, py - 0.58 * s, px - r * s, py - 0.8 * s); ring.closePath()
         g.color = night(0x7A766A, 0.9); g.fill(ringTop)
+        inkShape(ringTop, inkPx(0.012, z)) // ink: the ring's far rim (its near lip is the wall's edge below)
         g.color = Color(0x06080E); g.fill(Ellipse2D.Double(px - r * s * 0.78, py - 0.8 * s - 0.12 * s, 2 * r * s * 0.78, 0.24 * s))
         g.color = night(0x6E6A60, 0.9); g.fill(ring)
         val clip = g.clip; g.clip(ring)
@@ -873,9 +973,13 @@ internal class SquarePainter : IntroPainter() {
         g.paint = GradientPaint((px - r * s).toFloat(), 0f, alpha(Color(0xC8CCD8), 0.25), (px + r * s * 0.3).toFloat(), 0f, alpha(Color(0xC8CCD8), 0.0)); g.fill(ring)
         g.paint = GradientPaint((px - r * s * 0.2).toFloat(), 0f, alpha(Color(0x04060A), 0.0), (px + r * s).toFloat(), 0f, alpha(Color(0x04060A), 0.5)); g.fill(ring)
         g.clip = clip
+        // ink: the ring wall's outline, heavier on the shaded right
+        inkSided(ring, inkPx(0.016, z), inkPx(0.024, z), px, 1)
         // the bucket on the rim
         val bxp = sx(x - 0.45, z - 0.1); val byp = sy(0.82, z - 0.1)
         poly(night(0x5A4430, 1.1), bxp - 0.13 * s, byp, bxp + 0.13 * s, byp, bxp + 0.15 * s, byp - 0.25 * s, bxp - 0.15 * s, byp - 0.25 * s)
+        // ink: the bucket's outline
+        inkShape(Path2D.Double().apply { moveTo(bxp - 0.13 * s, byp); lineTo(bxp + 0.13 * s, byp); lineTo(bxp + 0.15 * s, byp - 0.25 * s); lineTo(bxp - 0.15 * s, byp - 0.25 * s); closePath() }, inkPx(0.01, z - 0.1))
         line(Color(0x1A1818), 0.02 * s, bxp - 0.14 * s, byp - 0.08 * s, bxp + 0.14 * s, byp - 0.08 * s)
         g.color = Color(0x1A1818); g.stroke = BasicStroke((0.015 * s).toFloat()); g.draw(java.awt.geom.Arc2D.Double(bxp - 0.15 * s, byp - 0.42 * s, 0.3 * s, 0.34 * s, 0.0, 180.0, java.awt.geom.Arc2D.OPEN))
         // the roof: two slopes of shingles over the posts, the moon on the left one
@@ -883,8 +987,10 @@ internal class SquarePainter : IntroPainter() {
         val e1 = rp(x - r - 0.45, top - 0.2); val apex = rp(x, top + 0.75); val e2 = rp(x + r + 0.45, top - 0.2)
         rl.moveTo(e1.x, e1.y); rl.lineTo(apex.x, apex.y); rl.lineTo(apex.x, apex.y + 0.22 * s); rl.lineTo(e1.x, e1.y + 0.22 * s); rl.closePath()
         g.color = night(0x6A645C, 1.3); g.fill(rl)
+        inkShape(rl, inkPx(0.012, z + 0.1)) // ink: the moonlit slope, fine (the light map takes it where the moon lies on it)
         val rr = Path2D.Double(); rr.moveTo(e2.x, e2.y); rr.lineTo(apex.x, apex.y); rr.lineTo(apex.x, apex.y + 0.22 * s); rr.lineTo(e2.x, e2.y + 0.22 * s); rr.closePath()
         g.color = night(0x3E3A36); g.fill(rr)
+        inkShape(rr, inkPx(0.022, z + 0.1)) // ink: the shaded slope, heavy
         for (k in 1..5) { val t = k / 6.0
             line(alpha(Color(0x141210), 0.8), 1.0, e1.x + (apex.x - e1.x) * t, e1.y + (apex.y - e1.y) * t, e1.x + (apex.x - e1.x) * t, e1.y + (apex.y - e1.y) * t + 0.22 * s)
             line(alpha(Color(0x141210), 0.8), 1.0, e2.x + (apex.x - e2.x) * t, e2.y + (apex.y - e2.y) * t, e2.x + (apex.x - e2.x) * t, e2.y + (apex.y - e2.y) * t + 0.22 * s) }
@@ -896,14 +1002,20 @@ internal class SquarePainter : IntroPainter() {
         val s = f / z
         softShadow(sx(x, z) + 0.5 * s, sy(0.0, z), 0.7 * s)
         line(Color(0x14120F), 0.12 * s, sx(x, z), sy(0.0, z), sx(x, z), sy(2.9, z))
+        // ink: the post's edges, heavier on the right (its moonlit edge is the left, as on the well)
+        inkRod(sx(x, z), sy(0.0, z), sx(x, z), sy(2.9, z), 0.12 * s, inkPx(0.01, z), inkPx(0.02, z), 1)
         line(alpha(Color(0x8A90A0), 0.5), 0.025 * s, sx(x - 0.05, z), sy(0.0, z), sx(x - 0.05, z), sy(2.9, z))
         line(Color(0x14120F), 0.05 * s, sx(x, z), sy(2.75, z), sx(x + 0.35, z), sy(2.9, z))
         val lx = sx(x + 0.35, z); val ly = sy(2.85, z)
         poly(Color(0x14110E), lx - 0.15 * s, ly - 0.02 * s, lx + 0.15 * s, ly - 0.02 * s, lx + 0.08 * s, ly - 0.14 * s, lx - 0.08 * s, ly - 0.14 * s)
+        // ink: the lantern's cap
+        inkShape(Path2D.Double().apply { moveTo(lx - 0.15 * s, ly - 0.02 * s); lineTo(lx + 0.15 * s, ly - 0.02 * s); lineTo(lx + 0.08 * s, ly - 0.14 * s); lineTo(lx - 0.08 * s, ly - 0.14 * s); closePath() }, inkPx(0.01, z))
         g.color = Color(0x1C2230); g.fill(java.awt.geom.Rectangle2D.Double(lx - 0.11 * s, ly, 0.22 * s, 0.3 * s))
         g.color = alpha(Color(0x8A96B4), 0.4); g.fill(java.awt.geom.Rectangle2D.Double(lx - 0.11 * s, ly, 0.05 * s, 0.3 * s))
         g.color = Color(0x14110E); g.fill(java.awt.geom.Rectangle2D.Double(lx - 0.13 * s, ly + 0.28 * s, 0.26 * s, 0.05 * s))
         for (u in listOf(-0.11, 0.0, 0.11)) g.fill(java.awt.geom.Rectangle2D.Double(lx + u * s - 0.01 * s, ly, 0.02 * s, 0.3 * s))
+        // ink: the lantern's glass box and its base, fine (the lantern is dark: no light on it)
+        inkShape(java.awt.geom.Rectangle2D.Double(lx - 0.12 * s, ly, 0.24 * s, 0.33 * s), inkPx(0.008, z))
     }
 
 
@@ -1027,7 +1139,7 @@ internal class InnPainter : IntroPainter() {
     fun beyond() {
         val n = House(9.0, 17.0, 9.0, 7.0, 3.8, 3.4, listOf(0))
         houseWin[n] = listOf(6.0, 11.0) to 8.4
-        firShape(sx(4.6, 24.0), sy(0.0, 24.0), f * 11.0 / 24, f * 4.6 / 24, far(fir, 24.0), far(firLit, 24.0), 0.6)
+        firShape(sx(4.6, 24.0), sy(0.0, 24.0), f * 11.0 / 24, f * 4.6 / 24, far(fir, 24.0), far(firLit, 24.0), 0.6, inkPx(0.022, 24.0))
         house(n, false)
     }
 

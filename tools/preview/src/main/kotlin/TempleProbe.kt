@@ -36,25 +36,7 @@ fun renderTempleProbe() {
     )
     // TEMPEL68=app: the five pictures as the app's assets (JPEG, like the intro's)
     if (System.getenv("TEMPEL68") == "app") {
-        val dir = File("../../app/src/main/assets/tempel").apply { mkdirs() }
-        val life = StringBuilder("# 112 (7): Leben der Tempelszene, geschrieben von tools/preview TempleProbe.kt (TEMPEL68=app); de.bornim.core.TempleLife liest es\n")
-        for (n in 1..5) {
-            val painter = TemplePainter(n)
-            val img = painter.paint()
-            // only the flames still seen in the finished picture: one behind a figure or a pew must not flicker over it
-            fun seen(x: Double, y: Double, s: Double): Boolean { val px = x.toInt(); val py = (y - 0.08 * s).toInt()
-                if (px !in 0 until img.width || py !in 0 until img.height) return false
-                val c = Color(img.getRGB(px, py)); return c.red > 215 && c.green > 140 }
-            for ((x, y, s) in painter.flames.filter { (x, y, s) -> seen(x, y, s) }) life.append("flamme $n ${"%.1f".format(java.util.Locale.ROOT, x)} ${"%.1f".format(java.util.Locale.ROOT, y)} ${"%.2f".format(java.util.Locale.ROOT, s)}\n")
-            if (painter.shaft.isNotEmpty()) life.append("strahl $n " + painter.shaft.joinToString(" ") { "%.1f %.1f".format(java.util.Locale.ROOT, it.x, it.y) } + "\n")
-            val rgb = java.awt.image.BufferedImage(img.width, img.height, java.awt.image.BufferedImage.TYPE_INT_RGB).also { it.createGraphics().drawImage(img, 0, 0, null) }
-            val writer = ImageIO.getImageWritersByFormatName("jpg").next()
-            val param = writer.defaultWriteParam.apply { compressionMode = javax.imageio.ImageWriteParam.MODE_EXPLICIT; compressionQuality = 0.9f }
-            javax.imageio.stream.FileImageOutputStream(File(dir, "tempel_$n.jpg")).use { out -> writer.output = out; writer.write(null, javax.imageio.IIOImage(rgb, null, null), param) }
-            writer.dispose()
-        }
-        File(dir, "leben.txt").writeText(life.toString())
-        println("wrote ${dir.path}/tempel_1..5.jpg, leben.txt")
+        writeTempleAssets(ink = false)
         return
     }
     val only = System.getenv("TEMPEL68")?.toIntOrNull()
@@ -66,6 +48,33 @@ fun renderTempleProbe() {
         ImageIO.write(withText(img, texts.getValue(n)), "png", File("build/screens/tempel68_${n}_text.png"))
         println("wrote build/screens/tempel68_${n}_text.png")
     }
+}
+
+/**
+ * The five pictures as the app's assets (`app/src/main/assets/tempel`, JPEG like the intro's) and where their candles and the
+ * sun shaft lie (`leben.txt`, read by de.bornim.core.TempleLife and Godot's zwischenbild.gd); with [ink] (613 / 302.3) drawn
+ * with the line of ink ([withInk]). Gives each picture without and as written.
+ */
+internal fun writeTempleAssets(ink: Boolean): List<Triple<Int, java.awt.image.BufferedImage, java.awt.image.BufferedImage>> {
+    val dir = File("../../app/src/main/assets/tempel").apply { mkdirs() }
+    val life = StringBuilder("# 112 (7): Leben der Tempelszene, geschrieben von tools/preview TempleProbe.kt (TEMPEL68=app, ZWISCHEN613=app); de.bornim.core.TempleLife liest es\n")
+    val out = ArrayList<Triple<Int, java.awt.image.BufferedImage, java.awt.image.BufferedImage>>()
+    for (n in 1..5) {
+        val painter = TemplePainter(n)
+        val plain = painter.paint()
+        val img = if (ink) TemplePainter(n).apply { tusche = true; litMap = lightMap(plain) }.paint() else plain
+        // only the flames still seen in the finished picture: one behind a figure or a pew must not flicker over it
+        fun seen(x: Double, y: Double, s: Double): Boolean { val px = x.toInt(); val py = (y - 0.08 * s).toInt()
+            if (px !in 0 until plain.width || py !in 0 until plain.height) return false
+            val c = Color(plain.getRGB(px, py)); return c.red > 215 && c.green > 140 }
+        for ((x, y, s) in painter.flames.filter { (x, y, s) -> seen(x, y, s) }) life.append("flamme $n ${"%.1f".format(java.util.Locale.ROOT, x)} ${"%.1f".format(java.util.Locale.ROOT, y)} ${"%.2f".format(java.util.Locale.ROOT, s)}\n")
+        if (painter.shaft.isNotEmpty()) life.append("strahl $n " + painter.shaft.joinToString(" ") { "%.1f %.1f".format(java.util.Locale.ROOT, it.x, it.y) } + "\n")
+        writeJpeg613(img, File(dir, "tempel_$n.jpg"))
+        out += Triple(n, plain, img)
+    }
+    File(dir, "leben.txt").writeText(life.toString())
+    println("wrote ${dir.path}/tempel_1..5.jpg, leben.txt")
+    return out
 }
 
 /**
@@ -115,6 +124,40 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
     fun fillR(c: Color, vararg q: Triple<Double, Double, Double>) { room(*q)?.let { g.color = c; g.fill(it) } }
     fun t3(tx: Double, y: Double, ty: Double) = Triple(tx, y, ty)
     fun depth(tx: Double, ty: Double) = cz(tx, ty)
+
+    // ---- 613 / 302.3: the chronicle's line of ink in the temple (pen and lightness in [BridgePainter])
+    /**
+     * One factor on all pen widths here: the temple is seen from close by (f 600–760, things 2 to 10 m away, a seated
+     * villager's head 20 to 80 px), so the widths of intro picture 4 (0.02–0.03 m silhouettes, 0.008–0.014 m fine edges) would
+     * stand at [inkMax] everywhere and drown the small figures; a quarter keeps the line as heavy against a figure as Rowena's.
+     */
+    val inkScale = 0.25
+    /**
+     * ink: a stroke of the pen along the room from [a] to [b] (tile x, height, tile y), [w] metres wide (before [inkScale]
+     * is applied by the caller), in short pieces so it thins with the depth; nothing before the eye.
+     */
+    fun inkR(w: Double, a: Triple<Double, Double, Double>, b: Triple<Double, Double, Double>, lit: Double = 0.0) {
+        if (!tusche) return
+        val n = (hypot(b.first - a.first, b.third - a.third) * T / 0.6).toInt().coerceIn(1, 24)
+        fun at(t: Double) = Triple(a.first + (b.first - a.first) * t, a.second + (b.second - a.second) * t, a.third + (b.third - a.third) * t)
+        for (k in 0 until n) {
+            val p = at(k / n.toDouble()); val q = at((k + 1) / n.toDouble())
+            val zp = cz(p.first, p.third); val zq = cz(q.first, q.third); if (minOf(zp, zq) < 0.3) continue
+            val s0 = P(p.first, p.second, p.third); val s1 = P(q.first, q.second, q.third)
+            inkStroke(s0.x, s0.y, s1.x, s1.y, inkPx(w, minOf(zp, zq)), lit)
+        }
+    }
+    /** ink: round a polygon of the room, edge by edge as [inkR]. */
+    fun inkRoomPoly(w: Double, vararg q: Triple<Double, Double, Double>, lit: Double = 0.0) {
+        if (!tusche) return
+        for (i in q.indices) inkR(w, q[i], q[(i + 1) % q.size], lit)
+    }
+    /** A closed polygon on the screen (x, y pairs), the same as [poly] fills, for the pen. */
+    fun polyPath(vararg p: Double) = Path2D.Double().apply { moveTo(p[0], p[1]); for (i in 2 until p.size step 2) lineTo(p[i], p[i + 1]); closePath() }
+    /** The outline of a straight stroke [w] px wide from (x0, y0) to (x1, y1), for the pen. */
+    fun strokeShape(w: Double, x0: Double, y0: Double, x1: Double, y1: Double, round: Boolean = true): java.awt.Shape =
+        java.awt.BasicStroke(w.toFloat(), if (round) java.awt.BasicStroke.CAP_ROUND else java.awt.BasicStroke.CAP_BUTT, java.awt.BasicStroke.JOIN_ROUND)
+            .createStrokedShape(java.awt.geom.Line2D.Double(x0, y0, x1, y1))
 
     // ---- the light of each picture
     val dawn = shot == 5
@@ -238,6 +281,11 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
             val mid = at(len / 2, 2.0)
             // 112 (1, 6): the wall itself dark and cool; light lies on it only round a candle or a window
             g.color = if (dawn) Color(0x22262E) else Color(0x181C26); g.fill(shape)
+            // ink: the corner where this wall meets the one painted before it (the last wall both its corners), its foot on the
+            // flags; the walls never overlap, so the later wall's line is the one seen whole
+            inkR(0.025 * inkScale, at(0.0, 0.0), at(0.0, wallH))
+            if (w === list[3]) inkR(0.025 * inkScale, at(len, 0.0), at(len, wallH))
+            inkR(0.02 * inkScale, at(0.0, 0.0), at(len, 0.0))
             val clip = g.clip; g.clip(shape)
             for ((wx, wy, wh) in windows) {
                 val onWall = abs((wx - w.ax) * (w.by - w.ay) - (wy - w.ay) * (w.bx - w.ax)) / len < 0.05
@@ -308,6 +356,9 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         val frame = arch(hw + 0.12, v1 + 0.12) ?: return
         val mid = at(u, (v0 + v1) / 2)
         g.color = stoneAt(mid.first, mid.second, mid.third, 1.15); g.fill(frame)
+        // ink: the edge of the stone reveal against the wall (the sky's glow comes after it)
+        val zo = cz(mid.first, mid.third)
+        if (zo > 0.5) inkShape(frame, inkPx(0.022 * inkScale, zo))
         val glass = arch(hw, v1) ?: return
         val b = glass.bounds2D
         val sky = when {
@@ -320,6 +371,8 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         // 112 (2): the grey-blue of the sky spills round the window onto the stone, the counter-light to the candles
         if (!(sun && east)) glow(b.centerX, b.centerY, b.height * (if (door) 1.6 else 1.25), coolSky, if (dawn) 0.3 else if (grey) 0.32 else 0.22)
         g.paint = sky; g.fill(glass)
+        // ink: the fine edge of the opening (gone where the sky or the sun is bright)
+        if (zo > 0.5) inkShape(glass, inkPx(0.01 * inkScale, zo))
         if (door) { if (dawn) outside(glass); return }
         val clip = g.clip; g.clip(glass)
         // the lead: diamonds
@@ -402,13 +455,19 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         val side = if (cam.tx < a) room(t3(a, 0.0, n), t3(a, 0.0, s), t3(a, h, s), t3(a, h, n)) else if (cam.tx > b) room(t3(b, 0.0, s), t3(b, 0.0, n), t3(b, h, n), t3(b, h, s)) else null
         val top = room(t3(a - 0.05, h, n - 0.05), t3(b + 0.05, h, n - 0.05), t3(b + 0.05, h, s + 0.05), t3(a - 0.05, h, s + 0.05))
         side?.let { g.color = stoneAt(a, 0.5, s, 0.9); g.fill(it); texture(it, maxOf(1.0, cz(a, s)), Color(0x101014), Color(0xC8BCA8), 120, 0.006) }
+        // ink: round the end of the block
+        if (side != null) { val e = if (cam.tx < a) a else b; inkRoomPoly(0.025 * inkScale, t3(e, 0.0, n), t3(e, 0.0, s), t3(e, h, s), t3(e, h, n)) }
         front?.let { g.color = stoneAt(4.5, 0.6, s, 1.25); g.fill(it)
             // the front in three courses of blocks with joints
             for (yy in listOf(0.33, 0.66)) { val p0 = P(a, yy, s); val p1 = P(b, yy, s); line(alpha(Color(0x0A0A0E), 0.5), maxOf(1.0, 0.012 * f / cz(4.5, s)), p0.x, p0.y, p1.x, p1.y) }
             for (j in 0 until 9) { val u = a + (b - a) * (j + 0.5 + 0.3 * rnd(j, 553)) / 9; val r0 = (j % 3) / 3.0; val p0 = P(u, r0 * h, s); val p1 = P(u, r0 * h + h / 3, s)
                 line(alpha(Color(0x0A0A0E), 0.45), maxOf(1.0, 0.01 * f / cz(u, s)), p0.x, p0.y, p1.x, p1.y) }
-            texture(it, maxOf(1.0, cz(4.5, s)), Color(0x101014), Color(0xC8BCA8), 250, 0.006) }
-        top?.let { g.color = stoneAt(4.5, h, 1.5, 1.4); g.fill(it); texture(it, maxOf(1.0, cz(4.5, s)), Color(0x101014), Color(0xC8BCA8), 150, 0.006, 0.4) }
+            texture(it, maxOf(1.0, cz(4.5, s)), Color(0x101014), Color(0xC8BCA8), 250, 0.006)
+            // ink: round the front (its top edge lies under the slab)
+            inkRoomPoly(0.025 * inkScale, t3(a, 0.0, s), t3(b, 0.0, s), t3(b, h, s), t3(a, h, s)) }
+        top?.let { g.color = stoneAt(4.5, h, 1.5, 1.4); g.fill(it); texture(it, maxOf(1.0, cz(4.5, s)), Color(0x101014), Color(0xC8BCA8), 150, 0.006, 0.4)
+            // ink: the slab's edges, fine (the altar candles light it)
+            inkRoomPoly(0.012 * inkScale, t3(a - 0.05, h, n - 0.05), t3(b + 0.05, h, n - 0.05), t3(b + 0.05, h, s + 0.05), t3(a - 0.05, h, s + 0.05)) }
         // the cloth over the middle of the front, with the sun in gold thread
         val cl = room(t3(3.6, 0.25, s + 0.01), t3(5.4, 0.25, s + 0.01), t3(5.4, h + 0.01, s + 0.01), t3(3.6, h + 0.01, s + 0.01))
         // 68: the cloth plainly white against the stone, its hem a little darker, so the sun sits on it and does not float
@@ -417,7 +476,9 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
             val clip = g.clip; g.clip(it)
             for (k in 0 until 26) { val u = 3.6 + 1.8 * (k + 0.5) / 26; val a0 = P(u, h, s + 0.012); val a1 = P(u + (rnd(k, 551) - 0.5) * 0.05, 0.25, s + 0.012)
                 line(alpha(if (k % 2 == 0) Color(0x1A140E) else Color(0xFFF4E0), 0.1 + 0.1 * rnd(k, 552)), maxOf(1.0, 0.03 * f / cz(u, s)), a0.x, a0.y, a1.x, a1.y) }
-            g.clip = clip }
+            g.clip = clip
+            // ink: the cloth's edges, fine
+            inkRoomPoly(0.01 * inkScale, t3(3.6, 0.25, s + 0.01), t3(5.4, 0.25, s + 0.01), t3(5.4, h + 0.01, s + 0.01), t3(3.6, h + 0.01, s + 0.01)) }
         val h0 = P(3.6, 0.25, s + 0.012); val h1 = P(5.4, 0.25, s + 0.012)
         if (cl != null) line(alpha(Color(0x2A2018), 0.45), maxOf(1.0, 0.02 * f / cz(4.5, s)), h0.x, h0.y, h1.x, h1.y)
         val sc = P(4.5, 0.62, s + 0.02); val sz = cz(4.5, s); val r = 0.17 * f / sz
@@ -449,6 +510,8 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         val base = P(tx, 1.0, ty); val c = P(tx, 1.5, ty)
         line(Color(0x8A6A2A), maxOf(1.5, 0.035 * s), base.x, base.y, c.x, c.y + 0.12 * s)
         g.color = Color(0x6A5020); g.fill(Ellipse2D.Double(base.x - 0.09 * s, base.y - 0.025 * s, 0.18 * s, 0.05 * s))
+        // ink: the foot of the stand, fine (the gold ring and rays catch the light and stay without)
+        inkShape(Ellipse2D.Double(base.x - 0.09 * s, base.y - 0.025 * s, 0.18 * s, 0.05 * s), inkPx(0.01 * inkScale, z))
         val r = 0.13 * s
         for (k in 0 until 16) { val ang = PI * 2 * k / 16; val l = if (k % 2 == 0) 1.9 else 1.5
             line(if (sun) Color(0xFFD070) else Color(0xA8823A), maxOf(1.0, 0.012 * s), c.x + cos(ang) * r, c.y + sin(ang) * r, c.x + cos(ang) * r * l, c.y + sin(ang) * r * l) }
@@ -463,6 +526,8 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         val r = 0.07 * s
         g.color = mix(Color(0xB08A3A), Color(0xFFE6A0), shine); g.fill(Ellipse2D.Double(x - r, y - r, r * 2, r * 2))
         g.color = mix(Color(0xD8D0B8), Color(0xFFFFF0), shine); g.fill(Ellipse2D.Double(x - r * 0.45, y - r * 0.45, r * 0.9, r * 0.9))
+        // ink: the rim of the disc, fine; where it shines the pen leaves it
+        inkShape(Ellipse2D.Double(x - r, y - r, r * 2, r * 2), inkPx(0.01 * inkScale, f / s))
     }
 
     /** One of the two tall iron candlesticks beside the altar: three feet, a long shaft, a dish, the candle. */
@@ -477,6 +542,10 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         line(Color(0x18151A), maxOf(1.2, 0.035 * s), a.x, a.y, b.x, b.y)
         line(alpha(Color(0xC08A50), 0.5 * warmth(tx, 1.0, ty).coerceAtMost(1.0)), maxOf(0.8, 0.01 * s), a.x + 0.012 * s, a.y, b.x + 0.012 * s, b.y)
         g.color = Color(0x18151A); g.fill(Ellipse2D.Double(b.x - 0.08 * s, b.y - 0.02 * s, 0.16 * s, 0.04 * s))
+        // ink (the iron is dark lines already): the dish, and the shaft's edge away from the altar's light, fine
+        inkShape(Ellipse2D.Double(b.x - 0.08 * s, b.y - 0.02 * s, 0.16 * s, 0.04 * s), inkPx(0.012 * inkScale, z))
+        run { val away = if (P(4.5, 1.0, 1.45).x > a.x) -1.0 else 1.0
+            inkStroke(a.x + away * 0.018 * s, a.y, b.x + away * 0.018 * s, b.y, inkPx(0.012 * inkScale, z)) }
         candle(tx, ty, top, 0.2, flameOn = candles.any { abs(it.first - tx) < 0.01 && abs(it.third - ty) < 0.01 })
     }
 
@@ -486,8 +555,12 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         val s = f / z; val wood = mix(night(woodDay, 0.7), Color(0xA06A38), warmth(tx, 1.0, ty) * 0.5)
         val a = P(tx, 0.0, ty); val b = P(tx, 1.0, ty)
         line(wood, maxOf(1.5, 0.08 * s), a.x, a.y, b.x, b.y)
+        // ink: the post, the foot, the board (not the open book)
+        inkShape(strokeShape(maxOf(1.5, 0.08 * s), a.x, a.y, b.x, b.y, round = false), inkPx(0.02 * inkScale, z))
         fillR(wood, t3(tx - 0.2, 0.0, ty - 0.12), t3(tx + 0.2, 0.0, ty - 0.12), t3(tx + 0.2, 0.06, ty + 0.12), t3(tx - 0.2, 0.06, ty + 0.12))
+        inkRoomPoly(0.02 * inkScale, t3(tx - 0.2, 0.0, ty - 0.12), t3(tx + 0.2, 0.0, ty - 0.12), t3(tx + 0.2, 0.06, ty + 0.12), t3(tx - 0.2, 0.06, ty + 0.12))
         fillR(mix(wood, Color(0x000000), 0.2), t3(tx - 0.24, 1.0, ty + 0.12), t3(tx + 0.24, 1.0, ty + 0.12), t3(tx + 0.24, 1.18, ty - 0.12), t3(tx - 0.24, 1.18, ty - 0.12))
+        inkRoomPoly(0.02 * inkScale, t3(tx - 0.24, 1.0, ty + 0.12), t3(tx + 0.24, 1.0, ty + 0.12), t3(tx + 0.24, 1.18, ty - 0.12), t3(tx - 0.24, 1.18, ty - 0.12))
         fillR(mix(Color(0xD8CCB0), Color(0xFFD8A0), warmth(tx, 1.1, ty) * 0.4), t3(tx - 0.2, 1.03, ty + 0.1), t3(tx + 0.2, 1.03, ty + 0.1), t3(tx + 0.2, 1.19, ty - 0.1), t3(tx - 0.2, 1.19, ty - 0.1))
     }
 
@@ -496,7 +569,10 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         val z = cz(tx, ty); if (z < 0.3) return
         val s = f / z; val c = P(tx, 0.85, ty); val b = P(tx, 0.0, ty)
         line(stoneAt(tx, 0.4, ty, 1.0), maxOf(2.0, 0.16 * s), b.x, b.y, c.x, c.y)
+        // ink: the column and the basin's rim
+        inkShape(strokeShape(maxOf(2.0, 0.16 * s), b.x, b.y, c.x, c.y, round = false), inkPx(0.022 * inkScale, z))
         g.color = stoneAt(tx, 0.9, ty, 1.15); g.fill(Ellipse2D.Double(c.x - 0.28 * s, c.y - 0.07 * s, 0.56 * s, 0.2 * s))
+        inkShape(Ellipse2D.Double(c.x - 0.28 * s, c.y - 0.07 * s, 0.56 * s, 0.2 * s), inkPx(0.022 * inkScale, z))
         g.color = if (dawn) Color(0x4A5060) else Color(0x10141C); g.fill(Ellipse2D.Double(c.x - 0.22 * s, c.y - 0.05 * s, 0.44 * s, 0.11 * s))
     }
 
@@ -539,6 +615,8 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
             room(t3(a, seatH, n), t3(b, seatH, n), t3(b, seatH, sb), t3(a, seatH, sb))?.let { g.color = lit(m, seatH, n, 1.1); g.fill(it); grain(it, t3(a, seatH, n), t3(b, seatH, n), 0.0, 1, 3) }
             // the front edge of the plank
             room(t3(a, seatH - 0.06, n), t3(b, seatH - 0.06, n), t3(b, seatH, n), t3(a, seatH, n))?.let { g.color = lit(m, seatH, n, 0.75); g.fill(it); outline(it) }
+            // ink: the lower edge of the plank heavy (the dark under the seat), its upper edge fine
+            inkR(0.02 * inkScale, t3(a, seatH - 0.06, n), t3(b, seatH - 0.06, n)); inkR(0.01 * inkScale, t3(a, seatH, n), t3(b, seatH, n))
         }
         fun back() {
             // two broad boards one above the other, a joint between them
@@ -548,12 +626,19 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
                 val j0 = P(a, (seatH + backH) / 2, sb); val j1 = P(b, (seatH + backH) / 2, sb)
                 if (cz(a, sb) > 0.3 && cz(b, sb) > 0.3) line(alpha(Color(0x0A0806), 0.5), maxOf(1.0, 0.01 * f / maxOf(cz(a, sb), 0.5)), j0.x, j0.y, j1.x, j1.y)
                 outline(shape) }
+            // ink: the back's ends, its foot over the seat heavier (its top lies under the rail)
+            inkR(0.016 * inkScale, t3(a, seatH, sb), t3(a, backH, sb)); inkR(0.016 * inkScale, t3(b, seatH, sb), t3(b, backH, sb))
+            inkR(0.022 * inkScale, t3(a, seatH, sb), t3(b, seatH, sb))
             // the rail along the top, catching the candlelight
             fillR(lit(m, backH, sb, 1.35), t3(a, backH, sb - 0.04), t3(b, backH, sb - 0.04), t3(b, backH + 0.04, sb + 0.04), t3(a, backH + 0.04, sb + 0.04))
+            // ink: round the rail, fine (the light thins it further)
+            inkRoomPoly(0.012 * inkScale, t3(a, backH, sb - 0.04), t3(b, backH, sb - 0.04), t3(b, backH + 0.04, sb + 0.04), t3(a, backH + 0.04, sb + 0.04))
         }
         // the ends (68 Test 32, 2 and 35.9): a plain upright board, as deep as seat and back, its top level with the rail
         fun end(e: Double) = room(t3(e, 0.0, n - 0.02), t3(e, backH + 0.04, n - 0.02), t3(e, backH + 0.04, sb + 0.04), t3(e, 0.0, sb + 0.04))?.let { shape ->
-            g.color = lit(e, 0.6, (n + sb) / 2, 0.85); g.fill(shape); grain(shape, t3(e, 0.0, n), t3(e, 0.0, sb + 0.04), backH, 12, (e * 100).toInt()); outline(shape) }
+            g.color = lit(e, 0.6, (n + sb) / 2, 0.85); g.fill(shape); grain(shape, t3(e, 0.0, n), t3(e, 0.0, sb + 0.04), backH, 12, (e * 100).toInt()); outline(shape)
+            // ink: round the end board, the outer silhouette of the pew
+            inkRoomPoly(0.025 * inkScale, t3(e, 0.0, n - 0.02), t3(e, backH + 0.04, n - 0.02), t3(e, backH + 0.04, sb + 0.04), t3(e, 0.0, sb + 0.04)) }
         val (farE, nearE) = if (cz(a, (n + sb) / 2) > cz(b, (n + sb) / 2)) a to b else b to a
         end(farE)
         under()
@@ -644,6 +729,20 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         body.lineTo(px + shoulder * 1.05, neck + 0.3 * s)
         body.curveTo(px + shoulder * 1.1, neck + 0.12 * s, px + shoulder * 1.05, neck, px + shoulder * 0.55, neck - 0.02 * s)
         body.closePath()
+        // ink (613 / 302.3): the figure is known by its outline, so its silhouette is drawn as each part is painted, heavier on
+        // the side away from the candles (the shaded side of the robe below), before the rim of light that is laid on it
+        val shadeLeft = p.tx < 4.5
+        val notBody by lazy { java.awt.geom.Area(java.awt.geom.Rectangle2D.Double(-W.toDouble(), -H.toDouble(), 3.0 * W, 3.0 * H)).apply { subtract(java.awt.geom.Area(body)) } }
+        /** ink round [shape], [w] metres (before [inkScale]), [wShade] on the shaded side; [outside]: only where it stands off the body. */
+        fun inkFig(shape: java.awt.Shape, w: Double, wShade: Double, outside: Boolean) {
+            if (!tusche) return
+            val c0 = g.clip
+            if (outside) g.clip(notBody)
+            inkShape(shape, inkPx(w * inkScale, z))
+            g.clip(if (shadeLeft) java.awt.geom.Rectangle2D.Double(-W.toDouble(), -H.toDouble(), px + W, 3.0 * H) else java.awt.geom.Rectangle2D.Double(px, -H.toDouble(), 2.0 * W, 3.0 * H))
+            inkShape(shape, inkPx(wShade * inkScale, z))
+            g.clip = c0
+        }
         // 68 Test 35.11: one sitting, seen from the side, has thighs forward over the seat and shins down to the floor, not a
         // body that ends in the air at the height of the seat
         // (seen from behind the seat and the back hide them)
@@ -652,6 +751,9 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
             poly(legC, back, hem - 0.13 * s, knee + side * 0.05 * s, hem - 0.11 * s, knee + side * 0.05 * s, hem + 0.02 * s, back, hem + 0.02 * s)
             poly(legC, knee - side * 0.07 * s, hem, knee + side * 0.05 * s, hem, knee + side * 0.03 * s, py, knee - side * 0.09 * s, py)
             g.color = alpha(Color(0x050406), 0.6); g.fill(Ellipse2D.Double(knee - side * 0.1 * s - 0.06 * s, py - 0.02 * s, 0.16 * s, 0.04 * s))
+            // ink: thigh and shin as one outline (the body covers it at the hip)
+            if (tusche) inkFig(java.awt.geom.Area(polyPath(back, hem - 0.13 * s, knee + side * 0.05 * s, hem - 0.11 * s, knee + side * 0.05 * s, hem + 0.02 * s, back, hem + 0.02 * s))
+                .apply { add(java.awt.geom.Area(polyPath(knee - side * 0.07 * s, hem, knee + side * 0.05 * s, hem, knee + side * 0.03 * s, py, knee - side * 0.09 * s, py))) }, 0.02, 0.025, false)
         }
         // 68 Test 35.11: one standing stands on the flags: a shadow under him and the shoes under the hem
         if (!p.seated) {
@@ -659,6 +761,8 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
             for (e in listOf(-1.0, 1.0)) { g.color = Color(0x16100C); g.fill(Ellipse2D.Double(px + e * shoulder * 0.45 - 0.06 * s + side * 0.04 * s, py - 0.05 * s, 0.12 * s, 0.05 * s)) }
         }
         g.color = robeC; g.fill(body)
+        // ink: the body's silhouette
+        inkFig(body, 0.025, 0.032, false)
         // light: the candles are ahead (north), so the rim sits on the side and the top; the rest lies in shade
         val clip = g.clip; g.clip(body)
         val lightX = if (p.tx < 4.5) 1.0 else -1.0
@@ -684,10 +788,16 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         }
         // marks on the body
         when (p.kind) {
-            Kind.KAEL -> { g.color = night(0x6A5A44, 0.8); g.fill(Ellipse2D.Double(px - shoulder * 1.2, neck - 0.05 * s, shoulder * 2.4, 0.42 * s)) }
+            Kind.KAEL -> { g.color = night(0x6A5A44, 0.8); g.fill(Ellipse2D.Double(px - shoulder * 1.2, neck - 0.05 * s, shoulder * 2.4, 0.42 * s))
+                // ink: the blanket fine on the robe, as silhouette where it stands off the shoulders
+                val bl = Ellipse2D.Double(px - shoulder * 1.2, neck - 0.05 * s, shoulder * 2.4, 0.42 * s); inkFig(bl, 0.012, 0.012, false); inkFig(bl, 0.025, 0.032, true) }
             Kind.GUARD -> { g.color = night(0x2A4A8A, 0.85); g.fill(java.awt.geom.Rectangle2D.Double(px - shoulder * 0.8, neck + 0.12 * s, shoulder * 1.6, 0.7 * s))
                 line(Color(0x2A2420), maxOf(1.0, 0.03 * s), px + shoulder * 0.9, py, px + shoulder * 1.1, top - 0.45 * s)
-                poly(Color(0x8A8A90), px + shoulder * 1.1 - 0.03 * s, top - 0.45 * s, px + shoulder * 1.1 + 0.03 * s, top - 0.45 * s, px + shoulder * 1.12, top - 0.62 * s) }
+                poly(Color(0x8A8A90), px + shoulder * 1.1 - 0.03 * s, top - 0.45 * s, px + shoulder * 1.1 + 0.03 * s, top - 0.45 * s, px + shoulder * 1.12, top - 0.62 * s)
+                // ink: the spear's shaft on its shaded edge, the blade round, fine
+                run { val e = if (shadeLeft) -0.016 * s else 0.016 * s
+                    inkStroke(px + shoulder * 0.9 + e, py, px + shoulder * 1.1 + e, top - 0.45 * s, inkPx(0.012 * inkScale, z)) }
+                inkShape(polyPath(px + shoulder * 1.1 - 0.03 * s, top - 0.45 * s, px + shoulder * 1.1 + 0.03 * s, top - 0.45 * s, px + shoulder * 1.12, top - 0.62 * s), inkPx(0.01 * inkScale, z)) }
             Kind.OSRIC -> if (toUs > -0.4) { val sx0 = px + side * shoulder * 0.3; val sy0 = neck + 0.25 * s
                 for (k in 0 until 8) { val a = PI * 2 * k / 8; line(Color(0xC8A050), maxOf(1.0, 0.01 * s), sx0 + cos(a) * 0.03 * s, sy0 + sin(a) * 0.03 * s, sx0 + cos(a) * 0.06 * s, sy0 + sin(a) * 0.06 * s) }
                 g.color = Color(0xD0A850); g.fill(Ellipse2D.Double(sx0 - 0.028 * s, sy0 - 0.028 * s, 0.056 * s, 0.056 * s)) }
@@ -706,6 +816,9 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
             val cx0 = hx0 + (ex - hx0) * 0.12; val cy0 = hy0 + (ey - hy0) * 0.12
             line(mix(c, Color(0x050406), 0.3), maxOf(2.0, 0.08 * s), cx0, cy0, cx0 + (ex - hx0) * 0.05, cy0 + (ey - hy0) * 0.05)
             g.color = skin; g.fill(Ellipse2D.Double(hx0 - 0.04 * s, hy0 - 0.032 * s, 0.08 * s, 0.064 * s))
+            // ink: sleeve and hand where they stand off the body
+            if (tusche) inkFig(java.awt.geom.Area(strokeShape(maxOf(2.5, 0.095 * s), ax, ay, ex, ey)).apply { add(java.awt.geom.Area(strokeShape(maxOf(2.0, 0.075 * s), ex, ey, hx0, hy0)))
+                add(java.awt.geom.Area(Ellipse2D.Double(hx0 - 0.04 * s, hy0 - 0.032 * s, 0.08 * s, 0.064 * s))) }, 0.016, 0.02, true)
         }
         // 68 Test 35.10: Aldric's hair grey-white in the shade, no white cap
         val hair = when (p.kind) { Kind.ALDRIC -> mix(Color(0x7A7672), Color(0xC8B898), w * 0.3); Kind.LYRA -> night(0x6A4A30, 0.7); Kind.OSRIC -> skin; Kind.CHILD -> night(0x8A6A40, 0.9); else -> night(hairs[(rnd((p.tx * 100).toInt(), (p.ty * 100).toInt()) * hairs.size).toInt()], 1.0) }
@@ -713,9 +826,13 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         val pick = rnd((p.tx * 37).toInt(), (p.ty * 53).toInt())
         val cap = p.kind == Kind.MAN && pick < 0.4; val coif = p.kind == Kind.WOMAN && pick < 0.55
         when (p.kind) {
-            Kind.HOOD -> { g.color = robeC; g.fill(Ellipse2D.Double(hx - head * s * 1.25, top - 0.03 * s, head * s * 2.5, head * s * 2.6)) }
-            Kind.SCARF -> { g.color = night(0x8A3A30, 0.7); g.fill(Ellipse2D.Double(hx - head * s * 1.1, top, head * s * 2.2, head * s * 2.3)) }
-            Kind.GUARD -> { g.color = Color(0x6A6A70); g.fill(Ellipse2D.Double(hx - head * s * 1.1, top - 0.02 * s, head * s * 2.2, head * s * 2.0)) }
+            // ink: round hood, scarf and helmet where they stand off the body
+            Kind.HOOD -> { g.color = robeC; g.fill(Ellipse2D.Double(hx - head * s * 1.25, top - 0.03 * s, head * s * 2.5, head * s * 2.6))
+                inkFig(Ellipse2D.Double(hx - head * s * 1.25, top - 0.03 * s, head * s * 2.5, head * s * 2.6), 0.016, 0.02, true) }
+            Kind.SCARF -> { g.color = night(0x8A3A30, 0.7); g.fill(Ellipse2D.Double(hx - head * s * 1.1, top, head * s * 2.2, head * s * 2.3))
+                inkFig(Ellipse2D.Double(hx - head * s * 1.1, top, head * s * 2.2, head * s * 2.3), 0.016, 0.02, true) }
+            Kind.GUARD -> { g.color = Color(0x6A6A70); g.fill(Ellipse2D.Double(hx - head * s * 1.1, top - 0.02 * s, head * s * 2.2, head * s * 2.0))
+                inkFig(Ellipse2D.Double(hx - head * s * 1.1, top - 0.02 * s, head * s * 2.2, head * s * 2.0), 0.016, 0.02, true) }
             else -> {
                 // the neck and the nape in skin, the hair over the back of the head, its lighter strands catching the light
                 g.color = mix(skin, Color(0x000000), 0.25); g.fill(java.awt.geom.Rectangle2D.Double(hx - head * s * 0.45, top + head * s * 1.6, head * s * 0.9, (neck - top) - head * s * 1.5))
@@ -742,6 +859,19 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
                 if (coif) { val linen = if (dawn) Color(0x9A9EA8) else mix(night(0xD8D0C0, 1.3), Color(0xF0C890), w * 0.6)
                     g.color = linen; g.fill(Ellipse2D.Double(hx - head * s * 1.02, top - 0.02 * s, head * s * 2.04, head * s * 2.3))
                     for (k in -1..1) line(alpha(Color(0x000000), 0.12), maxOf(0.8, 0.01 * s), hx + k * head * s * 0.5, top + head * s * 0.6, hx + k * head * s * 0.7, top + head * s * 2.2) }
+                if (tusche) { // ink: the head's outline as painted (neck, skin, hair, cap, coif), not where it sits on the body; no face
+                    val hs = head * s; val long = p.kind == Kind.WOMAN || p.kind == Kind.LYRA
+                    val hd = java.awt.geom.Area(Ellipse2D.Double(hx - hs * 0.92, top, hs * 1.84, hs * 2.2))
+                    hd.add(java.awt.geom.Area(java.awt.geom.Rectangle2D.Double(hx - hs * 0.45, top + hs * 1.6, hs * 0.9, (neck - top) - hs * 1.5)))
+                    if (toUs > 0.3 && p.kind != Kind.OSRIC && !coif) hd.add(java.awt.geom.Area(Ellipse2D.Double(hx - hs * 1.05, top - 0.012 * s, hs * 2.1, hs * (if (long) 2.9 else 2.15))))
+                    if (toUs > 0.3 && p.kind != Kind.OSRIC && !coif && !cap) hd.add(java.awt.geom.Area(Ellipse2D.Double(hx - hs * 0.98, top - 0.012 * s, hs * 1.96, hs * 2.2))
+                        .apply { intersect(java.awt.geom.Area(java.awt.geom.Rectangle2D.Double(hx - hs * 1.1, top - 0.02 * s, hs * 2.2, hs * 0.62))) })
+                    if (toUs <= 0.3 && p.kind != Kind.OSRIC) { hd.add(java.awt.geom.Area(Ellipse2D.Double(hx - hs * 0.96 - side * abs(side) * hs * 0.3, top - 0.01 * s, hs * 1.92, hs * (if (long) 2.0 else 1.55))))
+                        if (long && !coif) hd.add(java.awt.geom.Area(java.awt.geom.Rectangle2D.Double(hx - hs * 0.7, top + hs * 1.2, hs * 1.4, hs * 1.6))) }
+                    if (cap) hd.add(java.awt.geom.Area(Ellipse2D.Double(hx - hs * 1.05, top - 0.03 * s, hs * 2.1, hs * 1.15)))
+                    if (coif) hd.add(java.awt.geom.Area(Ellipse2D.Double(hx - hs * 1.02, top - 0.02 * s, hs * 2.04, hs * 2.3)))
+                    inkFig(hd, 0.016, 0.02, true)
+                }
                 run { // the rim of light only on the side and top towards the candles, not round the whole head
                     val hd = Ellipse2D.Double(hx - head * s, top, head * s * 2, head * s * 2.2); val c0 = g.clip; g.clip(hd)
                     g.stroke = java.awt.BasicStroke(maxOf(1.2, 0.03 * s).toFloat()); g.color = if (dawn) alpha(Color(0xD8DCE4), 0.4) else alpha(Color(0xFFC078), 0.05 + 0.55 * w)
@@ -760,11 +890,18 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         if (p.kind == Kind.ALDRIC) {
             // the long white beard in profile, the staff across his shoulder
             if (abs(side) > 0.3 || toUs > 0.3) { val bx = hx + side * head * s * 0.5
-                poly(hair, bx - side * 0.03 * s, headY + 0.04 * s, bx + side * 0.1 * s, headY + 0.05 * s, bx + side * 0.06 * s, neck + 0.34 * s, bx - side * 0.02 * s, neck + 0.16 * s) }
+                poly(hair, bx - side * 0.03 * s, headY + 0.04 * s, bx + side * 0.1 * s, headY + 0.05 * s, bx + side * 0.06 * s, neck + 0.34 * s, bx - side * 0.02 * s, neck + 0.16 * s)
+                // ink: the beard's outline, fine, not over the face
+                if (tusche) { val c0 = g.clip
+                    g.clip(java.awt.geom.Area(java.awt.geom.Rectangle2D.Double(-W.toDouble(), -H.toDouble(), 3.0 * W, 3.0 * H)).apply { subtract(java.awt.geom.Area(Ellipse2D.Double(hx - head * s * 0.92, top, head * s * 1.84, head * s * 2.2))) })
+                    inkShape(polyPath(bx - side * 0.03 * s, headY + 0.04 * s, bx + side * 0.1 * s, headY + 0.05 * s, bx + side * 0.06 * s, neck + 0.34 * s, bx - side * 0.02 * s, neck + 0.16 * s), inkPx(0.012 * inkScale, z))
+                    g.clip = c0 } }
             // 68 Test 32 (3): the staff upright in the hand away from where he faces, its foot on the flags, its head over his own
             // 68 Test 35.10: held by an arm from the shoulder, bent at the elbow, the fist round the staff
             val sgn = if (side < 0) -1.0 else 1.0; val stx = px - sgn * shoulder * 1.4; val grip = neck + 0.4 * s
             line(mix(Color(0x3A2818), Color(0xA07040), w * 0.6), maxOf(1.5, 0.028 * s), stx, py, stx, top - 0.12 * s)
+            // ink: the staff on its shaded edge only (both edges would swallow it)
+            run { val e = if (shadeLeft) -0.014 * s else 0.014 * s; inkStroke(stx + e, py, stx + e, top - 0.12 * s, inkPx(0.012 * inkScale, z)) }
             arm(px - sgn * shoulder * 0.9, neck + 0.07 * s, px - sgn * shoulder * 1.2, neck + 0.3 * s, stx, grip)
         }
         if (p.kind == Kind.OSRIC && shot == 3) {

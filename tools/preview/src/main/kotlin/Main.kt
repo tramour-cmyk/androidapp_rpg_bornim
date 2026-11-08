@@ -773,6 +773,8 @@ fun main() {
     if (System.getenv("INTRO69") != null) { renderIntroProbe(); System.exit(0) }
     // TEMPEL68=1..5 (anything else: all): the temple scene at the end of chapter 1 in the style of the intro (68, draft)
     if (System.getenv("TEMPEL68") != null) { renderTempleProbe(); System.exit(0) }
+    // ZWISCHEN613=app (613 / 302.3): every intro and temple picture with the line of ink as the app's assets, before/after to look at
+    if (System.getenv("ZWISCHEN613") != null) { renderZwischen613(); System.exit(0) }
     if (System.getenv("BACKVIEW") != null) { renderBackViews(); System.exit(0) }
     if (System.getenv("ATTACKVIEW") != null) { renderAttackViews(); System.exit(0) }
     if (System.getenv("RANGED") != null) { renderRangedViews(); System.exit(0) }
