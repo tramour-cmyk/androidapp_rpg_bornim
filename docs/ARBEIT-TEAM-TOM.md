@@ -6,6 +6,28 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+
+
+
+
+
+
+
+
+
+
+
+- **Zu 610, von Chef (Fund t269.12, Test Build 269, Automatik B):** Kämpfer im Testmenü auf Langstab umgestellt: Schwert und Schild weg, aber kein Stab in der Hand; Hand nicht prüfbar (Chef 15:46)
+- **Zu 617, von Chef (Fund t269.16, Test Build 269, Automatik B):** Abbrechen geht; aus leerem Kopffeld ein Stück gewählt (göttliche Kapuze der Stirnjägerin): nur „Wegwerfen“, kein „Anlegen“, „genau der alte Fehler“, wiederholt; Bildschirmfoto des Chefs 15:57; „Ansicht ist sowieso scheiße“, Zurück fehlt; dagegen Wechseln → Zurück und Wechseln → Anlegen gehen mit einem Druck (Chef 15:58)
+- **Zu 591, von Chef (Fund t269.10, Test Build 269, Automatik B):** Kaninchen nicht hörbar; Huhn gackert kaum, Flattern kaum hörbar; Huhn soll wie alt wirklich wegflattern (Flügel schlagen, kurz auffliegen „tschack, tschack, tschack … weg“), nicht nur laufen (Chef 15:41)
+- **Zu 416.8, von Chef (Fund t269.11, Test Build 269, Automatik B):** Leute drehen sich auf der Stelle; beim Annähern richtet sich keiner zum Helden aus (Stil: bis 3 Felder anschauen), Hineinlaufen schiebt sie weg; so nicht testbar (Chef 15:43); Drehen weiter auf der Stelle wie eine Plastikfigur, keine Schritte zu erkennen (Chef 15:44, wiederholt)
+- **Zu 540, von Chef (Fund t269.3, Test Build 269, Automatik B):** klassische Steuerung ganz raus, nur Touch (Vorgang 663)
+- **Zu 521, von Chef (Fund t269.16, Test Build 269, Automatik B):** Abbrechen geht; aus leerem Kopffeld ein Stück gewählt (göttliche Kapuze der Stirnjägerin): nur „Wegwerfen“, kein „Anlegen“, „genau der alte Fehler“, wiederholt; Bildschirmfoto des Chefs 15:57; „Ansicht ist sowieso scheiße“, Zurück fehlt; dagegen Wechseln → Zurück und Wechseln → Anlegen gehen mit einem Druck (Chef 15:58)
+- **Zu 522, von Chef (Fund t269.12, Test Build 269, Automatik B):** Kämpfer im Testmenü auf Langstab umgestellt: Schwert und Schild weg, aber kein Stab in der Hand; Hand nicht prüfbar (Chef 15:46)
+- **Zu 583, von Chef (Fund t269.3, Test Build 269, Automatik B):** klassische Steuerung ganz raus, nur Touch (Vorgang 663)
+- **Zu 581, von Chef (Fund t269.16, Test Build 269, Automatik B):** Abbrechen geht; aus leerem Kopffeld ein Stück gewählt (göttliche Kapuze der Stirnjägerin): nur „Wegwerfen“, kein „Anlegen“, „genau der alte Fehler“, wiederholt; Bildschirmfoto des Chefs 15:57; „Ansicht ist sowieso scheiße“, Zurück fehlt; dagegen Wechseln → Zurück und Wechseln → Anlegen gehen mit einem Druck (Chef 15:58)
+- **Zu 605, von Chef (Fund t269.17, Test Build 269, Automatik B):** nicht testbar: Stück lässt sich nicht anlegen, nur Abbrechen/Wegwerfen (wie 269.16, 605) (Chef 15:59)
+- **Zu 605, von Chef (Fund t269.16, Test Build 269, Automatik B):** Abbrechen geht; aus leerem Kopffeld ein Stück gewählt (göttliche Kapuze der Stirnjägerin): nur „Wegwerfen“, kein „Anlegen“, „genau der alte Fehler“, wiederholt; Bildschirmfoto des Chefs 15:57; „Ansicht ist sowieso scheiße“, Zurück fehlt; dagegen Wechseln → Zurück und Wechseln → Anlegen gehen mit einem Druck (Chef 15:58)
 - **von Sokrates (08.11., 15:57, zu 605, Chef, t269.16, Bildschirmfoto Handy):** „Da kann ich wieder bloß wegwerfen. Oh, das ist ja genau der alte Fehler.“ Bild: leeres Kopffeld → „Göttliche Kapuze der Stillen Jägerin“ (Kopf · Stufe 1 · Stoff): einziger Knopf „× WEGWERFEN“, kein Anlegen, kein Zurück; jede Zeile „wirkt nicht (Obergrenze)“ / „Obergrenze für dieses Kapitel erreicht“. Dazu Sokrates: Wörter noch SRD (Zauberpunkte, Attribute, Stärke, Konstitution, Weisheit, Charisma statt Mana, Kraft, Zähigkeit, Wille …; 478 bei Jerry). Göttlich kommt aus dem Testmenü, kein Fehler (Chef 15:59). Chef 15:58/15:59: „die Ansicht ist sowieso scheiße … Die Frage ist, warum das so ausschaut, wie es ausschaut.“ Gemeint ist das Fenster des Stücks selbst: lange Liste „wirkt nicht (Obergrenze)“ je Wert, Vergleichstabelle mit sechs Zeilen „mehr Bonus, wirkt nicht“, alte Wörter. Vorschlag zum Bild vorlegen (Muster 549a, BRS-Wörter, Obergrenze einmal statt je Zeile).
 
 - **von Sokrates (08.11., 15:52, zu 630, Chef, Build 269):** „Bin im Laden, will gewöhnliche Sachen verkaufen. Da ist aber dann auch noch das alte Kästchen Rückfragemenü.“ Rückfrage „Gewöhnliche verkaufen“ muss in 630 enthalten sein; im nächsten Build prüfen.
