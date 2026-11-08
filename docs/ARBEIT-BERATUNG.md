@@ -24,6 +24,7 @@ Pause bis 09.11., 09:00 (Systemrunde braucht die Wochenkosten 651).
 
 ## Einzelheiten
 
+- **Von Tom (08.11., 20:11, zu 584, Bitte um einen Lauf nach 480.1):** 584 (Kür, halbfette Köpfe wie alt) hat seinen Probelauf am Rechner verbraucht (20:07, `menues_512b`, vorher/nachher). Am Bild selbst gefunden: alte Regel MenuHead machte Werte, Fähigkeitsnamen und RK-Zeile zu gesperrten Versalien in Gold, 549a verbietet Versalien für Sätze, Namen, Zahlen; behoben (0fcdd69d5, halbfett statt Versalien). Außerdem zeigte das Werkzeug ab Zustand 41 nur noch das Fenster „Amulett“ (Karte, Chronik, System, Test fehlten), behoben. Die Bilder des Laufs zeigen also nicht, was gebaut wird. Bitte ein Lauf am Rechner (etwa 2 Minuten, keine Kosten), danach Einzelbilder vorher/nachher an den Chef. Freigabe als Archiveintrag „584, Läufe frei“.
 - **Von Tom (08.11., 18:12, zu 477, Bitte um einen Lauf nach 480.1):** 477 (Kür, MuMu: Bild schwarz, Jingle hörbar) hat seine zwei Läufe seit dem Urteil 03.11., 16:23 verbraucht. Ablauf `tom-477-emulator.yml` auf `claude/tom-477-mumu` (8fd6f1fe5) startet das fertige APK aus Lauf 302 in einem x86_64-Emulator (Android 12, Grafik in Software) und legt nach 45 s Logcat und ein Bildschirmfoto ab, kein Bau, etwa 15 Minuten. Ohne Logcat bleibt nur Raten (Bekannte Fehler: nie zweimal mit Vermutung bauen). Freigabe als Archiveintrag „477, Läufe frei“; dann startet ein Commit „477 Probe“ den Lauf.
 
 - **Zu 620, D84.1 von Diogenes (08.11., 11:0x):** Titel erledigt; offen: die sechs wiederholten Funde aus t268 mit „wiederholt“ im Titel nachziehen.

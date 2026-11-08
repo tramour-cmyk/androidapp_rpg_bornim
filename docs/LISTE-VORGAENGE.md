@@ -20,7 +20,7 @@
 | 605 | Ausrüstung: leeres Kopffeld, Auswahl zeigt falsch „Obergrenze“, kein Zurück; Stück aus der Auswahl hat nur „Wegwerfen“, kein „Anlegen“ (Chef 06.11., 21:22, t268; t269.16 08.11., 15:57) · wiederholt | Tom | M | zu testen | – | claude/tom-605-ausruestung | 270 | E Technik | 20,19 $ |
 | 581 | Ausrüstung: Seite breiter als der Schirm, Reiter springen (Abgleich 512b) | Tom | M | startbar, Fund t269.16 | – | claude/tom-581-ausruestung | – | E Oberfläche | 2,31 $ |
 | 583 | Textkasten: ▼ liegt im Text, erzählter Text ohne i-Punkte und nicht schräg (Abgleich 512b) | Tom | M | startbar, Fund t269.3 | – | claude/tom-583-textkasten | – | E Oberfläche | 5,99 $ |
-| 584 | Kein halbfetter Schnitt: Köpfe und Titel in Erschaffung, Held, Chronik, Karte, System, Brett, Test nicht hervorgehoben wie alt (Abgleich 512b) | Tom | K | wartet | 630 | – | – | E Oberfläche | – |
+| 584 | Kein halbfetter Schnitt: Köpfe und Titel in Erschaffung, Held, Chronik, Karte, System, Brett, Test nicht hervorgehoben wie alt (Abgleich 512b) | Tom | K | in Arbeit, gebaut 0fcdd69d5, Bild nach Lauf | Sokrates | claude/tom-584-halbfett | – | E Oberfläche | – |
 | 585 | Menüs Kleinigkeiten: Titelumbruch Hauptmenü, Knopf Lizenzen, Bild in Rückfrage Wegwerfen, Test „Variante“ (Abgleich 512b) | Tom | K | wartet | 630 | – | – | E Oberfläche | – |
 | 569 | Baumkronen ohne erkennbare Tuschelinie, „ein einziger Brei“ (Chef 04.11., 19:44, Bild 558 Probe 4) | Tom | M | startbar, Lauf frei 16:28 | – | – | – | E Oberfläche | – |
 | 568 | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | Tom | K | ruht | – | – | – | E Oberfläche | – |
