@@ -184,12 +184,17 @@ func _tippbar(inhalt: Control, id: String, an: bool) -> PanelContainer:
 	p.mouse_filter = Control.MOUSE_FILTER_STOP if an else Control.MOUSE_FILTER_IGNORE
 	p.add_child(inhalt)
 	p.set_meta("id", id)
+	var ab := [Vector2.INF]
 	p.gui_input.connect(func(e: InputEvent):
-		if not (e is InputEventMouseButton and e.button_index == MOUSE_BUTTON_LEFT) and not e is InputEventScreenTouch: return
-		if e.pressed: p.add_theme_stylebox_override("panel", gedrueckt)
+		if not Spielstaende.tipp(e): return   # 605: sonst jeder Tipp zweimal (Beruehrung und nachgebildete Maus)
+		if e.pressed:
+			p.add_theme_stylebox_override("panel", gedrueckt)
+			ab[0] = e.global_position
 		else:
 			p.add_theme_stylebox_override("panel", leer)
-			if Rect2(Vector2.ZERO, p.size).has_point(e.position): gewaehlt.emit(id))
+			var gewischt: bool = ab[0] == Vector2.INF or (e.global_position as Vector2).distance_to(ab[0]) > Spielstaende.WISCH * DP   # 617
+			ab[0] = Vector2.INF
+			if not gewischt and Rect2(Vector2.ZERO, p.size).has_point(e.position): gewaehlt.emit(id))
 	return p
 
 func _weiter(text: String) -> Control:

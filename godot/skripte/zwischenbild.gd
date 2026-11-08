@@ -444,7 +444,7 @@ func frage() -> void:
 	v.add_child(Stil.zeile(("Überspringen?" if de else "Skip?").to_upper(), 14, Stil.TEXT, 3.0))
 	v.add_child(Erschaffung.txt("Die Zwischensequenz endet, du kannst sie in der Chronik wieder ansehen." if de else "This ends the cutscene; you can watch it again in the Chronicle.", 16))
 	v.add_child(Erschaffung.knopf("Überspringen" if de else "Skip", func(): beende()))
-	v.add_child(Erschaffung.knopf("Weiter ansehen" if de else "Keep watching", func(): fragt.queue_free(); fragt = null))
+	v.add_child(Erschaffung.knopf(Sprache.t(Menue.ABBRECHEN), func(): fragt.queue_free(); fragt = null))   # 618: „Abbrechen“ statt „Weiter ansehen“
 
 func beende() -> void:
 	if vorbei: return
