@@ -120,6 +120,7 @@
 | 663 | Klassische Steuerung ausbauen: Steuerkreuz und Funktionstasten ganz raus, nur Touch; Auswahl der Steuerung samt Rückfrage weg (Chef 08.11., 15:24, t269.3) | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 665 | Nacht im Dorf: um 2:30 kaum dunkel; in allen Häusern Licht, keiner schläft: tiefe Nacht dunkel, Fenster nach Schlafenszeit aus (Chef 08.11., 15:31, Build 269 auf MuMu) | Tom | M | startbar | – | – | – | E Welt | – |
 | 668 | Testmenü an Schirme ohne Kasten angleichen: Zurück, Trennlinien, Aufbau wie 549a/618 (Chef 08.11., 15:32, Build 269) | Tom | M | startbar | – | – | – | E Oberfläche | – |
+| 673 | Emulator: Kamera drehen und zoomen mit Maus und Tasten (rechte Maustaste ziehen, Mausrad), nur am Rechner, Handy unverändert (Rückfrage Sokrates 08.11., 15:34) | Tom | M | startbar | Chef | – | – | E Technik | – |
 | 623.5 | Probe Kampf mit den Gratisproben (Combat Mega, Projectiles, Trails, Pack 3, Character Shaders, Status Effects mit Bleeding) im Kampfort, Compatibility, FPS, ein Film; vor dem Kauf 623 (Chef 07.11., 623; 08.11., 13:14) · „jetzt“ 08.11., 13:48 | Jerry | M | startbar, Probebild passt (Chef 15:06), Film | – | claude/jerry-6235-effektprobe | – | E Kampf | 23,51 $ |
 | 565 | MARS: unten im Gruppenkasten sieht man nicht, welcher Held am Zug ist (Chef 04.11., 17:10, t257 C) | Jerry | M | startbar, A (Chef 13:11) | – | claude/jerry-565-am-zug | – | E Kampf | 13,51 $ |
 | 562 | MARS: Helden laufen zum Angriff viel zu langsam, zurück gleiten sie flott (Chef 04.11., 17:02, t257 C) | Jerry | M | gebaut, Ursache 438 rückwärts schräg behoben. Geprüft an: 7cd54621e (am Rechner wolf_mess_438 0 Befunde) | – | claude/jerry-562-angriffsschritt | – | E Kampf | 17,49 $ |
@@ -272,6 +273,7 @@
 | 669 | Systemlösung? Kasten: 7 frühere Vorgänge (551, 659, 153, 549a, 557 …), neu 668; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Oberfläche | – |
 | 671 | Systemlösung? Menü: 10 frühere Vorgänge (345, 426, 425, 549a.1, 399.3.1 …), neu 670; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Oberfläche | – |
 | 672 | Systemlösung? Karte: 20 frühere Vorgänge (322, 500, 553, 529, 86 …), neu 670; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Oberfläche | – |
+| 674 | Systemlösung? Kamera: 5 frühere Vorgänge (590, 615, 460, 211.14, 399.4), neu 673; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Technik | – |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +842,76 $ |
 | Pflege | von Werkzeug (340.3, 08.11.): startbar.py: Tom: Muss 613 Zwischensequenzen neu wie alt: leichte Bewegungen, Signatur, Tusche (m / Kür 477 Godot-APKs laufen nicht im MuMu Player am Rechner (Chef 02.11., 14:59)  UNLESBAR (Liste): … | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
