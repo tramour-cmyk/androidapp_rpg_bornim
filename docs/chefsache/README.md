@@ -22,6 +22,7 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [623.6](ansehen/6236-welt.md) | Probe Welt: Gratisproben Gras, Wasser, Wetter, Oberflächen gegen unsere Fassung | – | 08.11., 16:20 |
+| [630](ansehen/630-schirme.md) | Erschaffung und Menü Held mit Held, Knopf in einer Zeile | Tom | 08.11., 16:52 |
 | [664](ansehen/664-haeuser.md) | Kaels Haus und Morwens Hütte nicht mehr halb | Tom | 08.11., 16:00 |
 
 ## Zu tun
@@ -46,7 +47,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 
-**Tom** – offen 99, Muss 74, startbar 9
+**Tom** – offen 99, Muss 74, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -113,7 +114,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 591 | M | Dorftiere (Hühner, Kaninchen) fliehen vor dem Helden wie alt, mit Alarmklang (Chef 05.11., | startbar |
 | 617 | M | Hauptmenü „Laden“: Wischen löst Laden aus; laden nur mit dem Knopf rechts (Chef 07.11., t2 | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
 | 610 | M | Held im Dorf: Finger am Stab zucken ohne Unterlass (Schild auf dem Rücken) (Chef 07.11., t | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
-| 630 | M | Restliche Schirme im Stil „ohne Kasten“ (549a): Laden-Fenster und Rückfragen, Menü, Brett, | startbar |
+| 630 | M | Restliche Schirme im Stil „ohne Kasten“ (549a): Laden-Fenster und Rückfragen, Menü, Brett, | Chef (Datei in der Chefsache) |
 | 612 | M | Dorf Süd: Heuhaufen geklont und wie aufgespießt, Wackelgras im Weizenfeld, Gemüsebeet mit | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
 | 614 | M | Leute lebendig wie alt: Jorin mit Speer, Jorin öffnet den Schlagbaum sichtbar; Abgleich de | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
 | 622 | M | Godot-Build als AAB für Play: dieselbe App de.bornim.game, mit dem Upload-Schlüssel des al | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
