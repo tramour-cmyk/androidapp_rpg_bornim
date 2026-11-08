@@ -11,6 +11,7 @@
 extends Node
 
 const Probe = preload("res://kampf/probe.gd")
+const Zauber = preload("res://kampf/zauber.gd")
 const RENDERER_CFG := "user://renderer_415.cfg"
 const PAUSE_S := 0.7
 const C := "res://addons/reeboo_combat/effects/"
@@ -58,6 +59,21 @@ var paket := ""
 var fehlen: Array = []     # Effekte, deren Paket nicht im Build ist
 var gespielt: Array = []   # Schlüssel der gezeigten Effekte (Film, Prüfung)
 var aufgeloest: Array = []   # [MeshInstance3D, Stoffe vorher] des aufgelösten Wolfs
+## 623.5 (Chef 08.11., 17:05, Archiv „623.5, 623.6, Probe-APK statt Film“): je Effekt umschaltbar zwischen dem Paket und unserer
+## Fassung am selben Anlass (Kaufkriterium: „sieht es am Handy deutlich besser aus als unsere Fassung“); wirkt ab dem nächsten Effekt
+var unsere := OS.get_environment("UNSERE") != ""     # Messprobe am Rechner ohne Pakete
+var k_fassung: Button
+## unsere Fassung je Effekt: [MARS-Zauber für Kampf-UI.cast oder "" , was bei uns zu sehen ist]; "" und Text: nur Bewegung und Treffer
+const UNSERE := {
+	"stahl": ["", "Hieb ohne Spur"], "krit": ["", "Hieb, Blut"], "feuerklinge": ["", "Hieb ohne Feuer"],
+	"hiebbogen": ["", "Hieb ohne Bogen"], "stoss": ["", "Hieb, kein Bodenstoß"], "parade": ["", "Parade ohne Funken"],
+	"feuerpfeil": ["FIRE_BOLT", "Feuerpfeil"], "blitzgeschoss": ["MISSILES", "Magisches Geschoss"],
+	"feuerball": ["FIREBALL", "Feuerball"], "eis": ["MISSILES", "Magisches Geschoss (kein Eis)"],
+	"strahl": ["RAYS", "Sengender Strahl"], "kette": ["", "kein Kettenblitz"], "blitztreffer": ["", "kein Blitz"],
+	"plasma": ["", "kein Einschlag"], "explosion": ["FIREBALL", "Feuerball"], "gift": ["", "nur Zustandsschild"],
+	"ruestung": ["", "nur Zustandsschild"], "staerke": ["", "nur Zustandsschild"], "aura": ["BLESS", "Segen"],
+	"glitzer": ["", "kein Glitzern"], "aufloesen": ["", "kein Auflösen"],
+}
 
 
 ## ist wenigstens ein Paket im Build (Testmenü, Film)
@@ -94,7 +110,7 @@ func _lauf() -> void:
 		var f = kf.figures[id]
 		if f != held and f.fighter.monster == null:
 			magier = f
-	if not da():
+	if not da() and not unsere:
 		lb.text = "Effekte fehlen: Pakete nicht im Build (bornim-kaufmodelle, anhang/reeboo)"
 		return
 	await _bis_still()
@@ -103,12 +119,12 @@ func _lauf() -> void:
 	await _warte(0.5)     # Film: Blende auf, bevor der erste Effekt beginnt
 	while true:
 		for s in SCHRITTE:
-			if not ResourceLoader.exists(String(s[3])):
+			if not unsere and not ResourceLoader.exists(String(s[3])):
 				if not fehlen.has(s[1]):
 					fehlen.append(s[1])
 				continue
 			jetzt = String(s[1])
-			paket = String(s[2])
+			paket = String(UNSERE.get(s[0], ["", "–"])[1]) if unsere else String(s[2])
 			await _spiele(String(s[0]))
 			gespielt.append(s[0])
 			jetzt = ""
@@ -122,6 +138,10 @@ func _lauf() -> void:
 # ---------------------------------------------------------------- Hilfen
 
 func _spiele(k: String) -> void:
+	_ui_fuer(unsere)
+	if unsere:
+		await _unsere(k)
+		return
 	match k:
 		"stahl": await _stahl()
 		"krit": await _krit()
@@ -573,7 +593,7 @@ func _process(_dt: float) -> void:
 		mittel[jetzt] = m
 	var kopf := "623.5 Effektprobe · %s" % (jetzt if jetzt != "" else "–")
 	if jetzt != "":
-		kopf += "\n" + paket
+		kopf += "\n" + (("unsere Fassung: " + paket) if unsere else paket)
 	if film:     # im Film zählen die Bilder je Sekunde des Rechners, nicht des Handys
 		lb.text = kopf
 		return
@@ -611,6 +631,11 @@ func _oberflaeche() -> void:
 	reihe.position = Vector2(vs.x * 0.05, vs.y * 0.86)
 	reihe.add_theme_constant_override("separation", int(vs.x * 0.04))
 	cl.add_child(reihe)
+	k_fassung = Button.new()
+	k_fassung.text = "Fassung: Paket"
+	k_fassung.pressed.connect(func():
+		unsere = not unsere
+		k_fassung.text = "Fassung: unsere" if unsere else "Fassung: Paket")
 	var k1 := Button.new()
 	k1.text = "Renderer wechseln"
 	k1.pressed.connect(_renderer_wechseln)
@@ -622,9 +647,15 @@ func _oberflaeche() -> void:
 			kf.queue_free()
 		get_tree().change_scene_to_file(ProjectSettings.get_setting("application/run/main_scene")))
 	reihe.add_child(k2)
+	var reihe0 := HBoxContainer.new()     # 623.5: Fassung darüber, ganze Breite
+	reihe0.position = Vector2(vs.x * 0.05, vs.y * 0.79)
+	cl.add_child(reihe0)
+	reihe0.add_child(k_fassung)
 	for k in [k1, k2]:
 		k.add_theme_font_size_override("font_size", int(vs.x / 412.0 * 16.0))
 		k.custom_minimum_size = Vector2(vs.x * 0.4, vs.y * 0.06)
+	k_fassung.add_theme_font_size_override("font_size", int(vs.x / 412.0 * 16.0))
+	k_fassung.custom_minimum_size = Vector2(vs.x * 0.84, vs.y * 0.06)
 
 
 ## Mobile <-> Kompatibilität (OpenGL); wirkt nach Neustart (wie 415)
@@ -666,3 +697,66 @@ func _bis_still() -> void:
 				weit = maxf(weit, p.distance_to(alt[id]))
 			alt[id] = p
 		ruhig = ruhig + dt if weit < 0.02 * dt else 0.0
+
+
+# ---------------------------------------------------------------- unsere Fassung (623.5, Chef 17:05)
+
+## unsere Zauber und das Blut malt die Kampf-UI auf ihrer Fläche (overlay); für unsere Fassung ist nur diese Fläche an, Kasten,
+## Hintergrund und Knöpfe des Kampfs bleiben aus
+func _ui_fuer(an: bool) -> void:
+	var ui = kf.ui if kf != null else null
+	if ui == null:
+		return
+	ui.visible = an
+	if an and ui.root != null:
+		for c in ui.root.get_children():
+			c.visible = c == ui.overlay
+
+
+func _id(fig) -> String:
+	for id in kf.figures:
+		if kf.figures[id] == fig:
+			return String(id)
+	return ""
+
+
+## derselbe Anlass wie beim Paket, mit dem, was das Spiel heute zeigt (UNSERE)
+func _unsere(k: String) -> void:
+	var art: String = UNSERE.get(k, ["", ""])[0]
+	if art != "":
+		var nach_held: bool = art == "BLESS"
+		var w = _wolf(magier)
+		if w == null or magier == null:
+			return
+		var ziel = held if nach_held else w
+		magier.strike(ziel, {"spell": "MAGIC_MISSILE", "roll": null})
+		await _warte(0.45)
+		kf.ui.cast(art, _id(magier), _id(ziel), false, false)
+		await _warte(Zauber.arrives(art) / 1000.0)
+		if not nach_held:
+			w.hurt(0, false, false, "fern")
+		await _warte(maxf(Zauber.duration(art) - Zauber.arrives(art), 0.0) / 1000.0 + 0.6)
+		await _frei(magier)
+		return
+	if k == "parade":
+		var w = _wolf(held)
+		if w == null:
+			return
+		var auf := _schlag(w, held, false)
+		held.abwehr(int(auf * 1000.0), "nah", w.global_position, true, w.niedrig())
+		await _warte(auf)
+		await _frei(w)
+		return
+	if k in ["gift", "ruestung", "staerke", "glitzer", "aufloesen", "kette", "blitztreffer", "plasma"]:
+		await _warte(1.5)     # bei uns nichts an diesem Anlass: die Pause zeigt es
+		return
+	var w = _wolf(held)
+	if w == null:
+		return
+	var auf := _schlag(held, w)
+	await _warte(auf)
+	w.hurt(0, false, false, "nah")
+	if k == "krit":
+		kf.ui.bleed(_id(held), _id(w), true, 0.6, "")
+	await _warte(0.6)
+	await _frei(held)
