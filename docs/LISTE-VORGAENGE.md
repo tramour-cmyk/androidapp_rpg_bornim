@@ -14,7 +14,7 @@
 | 613 | Zwischensequenzen neu wie alt: leichte Bewegungen, Signatur, Tusche (mit 302.3), an Spike (Chef 07.11., t268.31; 08.11., 15:08, 15:19) · „jetzt“ 08.11., 15:19 | Tom | M | Chef, Film 21:10; Fackelzug: Messlauf erst nach Urteil (Zu 613) | Chef 613 | claude/tom-613-zwischensequenzen | – | E Oberfläche | 29,39 $ |
 | 670 | Build 269: Menü des Helden (Held, Tasche, Ausrüstung, Karte, Chronik, System) noch im alten Design statt 557/549a; Zweig tom-557-einschalten war im Build? (Chef 08.11., 15:32) | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 664 | Halbes Haus: Haus des alten Kael und Hütte der Kräuterhexe im tiefen Flüsterwald nur halb da (Chef 08.11., 15:28, mehrfach gemeldet, nie eingetragen) · wiederholt | Tom | M | gebaut, fährt im nächsten Build. Geprüft an: 3bc19a09f (Bild passt, Chef 👍 16:42) | – | claude/tom-664-haeuser | – | E Welt | 8,06 $ |
-| 656 | Umhang Kämpfer mit Beulen, große Beule unter dem Schwertarm: woher, weg (Chef 08.11., 14:52, schon zu 623.5 gefragt, Antwort verloren; 16:44 wieder auf den Siegerposen 296.3) · wiederholt | Tom | M | Chef, Bild ansehen/656-umhang.md, Werkzeug behoben cfbd72e0f | Chef | claude/tom-656-umhang | – | E Figuren | 4,86 $ |
+| 656 | Umhang Kämpfer mit Beulen, große Beule unter dem Schwertarm: woher, weg (Chef 08.11., 14:52, schon zu 623.5 gefragt, Antwort verloren; 16:44 wieder auf den Siegerposen 296.3) · wiederholt | Tom | M | Chef, Bild ansehen/656-umhang.md, Werkzeug behoben cfbd72e0f | Chef | claude/tom-656-umhang | – | E Figuren | 12,65 $ |
 | 635 | Lyra fehlt als Figur im Tempel und in der Höhle: Kennung lyra_temple/lyra_cave, gebaut wird nur „lyra“ (Abgleich 620.2a) | Tom | M | zu testen, ohne Rückmeldung t270 | – | claude/tom-635-lyra | – | E Welt | – |
 | 581 | Ausrüstung: Seite breiter als der Schirm, Reiter springen (Abgleich 512b) | Tom | M | startbar, Fund t269.16 | – | claude/tom-581-ausruestung | – | E Oberfläche | 2,31 $ |
 | 583 | Textkasten: ▼ liegt im Text, erzählter Text ohne i-Punkte und nicht schräg (Abgleich 512b) | Tom | M | startbar, Fund t269.3 | – | claude/tom-583-textkasten | – | E Oberfläche | 5,99 $ |
@@ -194,7 +194,7 @@
 | 347.2 | Umsetzung Plan 347 nach Gegenprüfung (Chef 24.10., 16:30) | Perikles | M | wartet | 347 | – | – | B Abläufe | – |
 | 276 | Fords Anleitung auf eine Seite (Empfehlung Sokrates zu 274) | Perikles | K | ruht | – | – | – | B Abläufe | – |
 | 341 | Zielvereinbarung Perikles bis zum Marktstart: sechs messbare Ziele, geprüft von Werkzeug und Diogenes (Chef 23.10., 09:39) | Perikles | M | ruht | 09.11. | – | – | B Abläufe | – |
-| 270 | Perikles und Diogenes auf das große Modell (Chef 21.10.) | Perikles | M | ruht | – | – | – | B Abläufe | –; +4,16 $ |
+| 270 | Perikles und Diogenes auf das große Modell (Chef 21.10.) | Perikles | M | ruht | – | – | – | B Abläufe | 5,58 $ |
 | D75 | Filmsperre 511 zählte Film-Pushes 572 nicht (D75.1); meldung.sh --film legte Film 572 nicht ab (D75.2) | Perikles | M | Dauer, bis zum nächsten echten Film (D75.1 gebaut, D75.2 dann prüfen) | – | – | – | B Werkzeuge | – |
 | 627 | probelauf.py: Push mit `git commit -F -` im selben Befehl als Probelauf gezählt (562, ohne Lauf) | Perikles | M | gebaut, Geprüft an: 4bcd30e87 | – | – | – | B Werkzeuge | – |
 | 99 | Zwei Niederlassungen | Perikles | K | ruht | – | – | – | B Steuerung | 7,25 $ |
