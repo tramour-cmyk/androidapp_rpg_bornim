@@ -748,3 +748,30 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 296.1 | Erste Fassung Checkliste MARS (`LISTE-MARS.md`) gegen den Code prüfen und pflegen | E Kampf | K | – | Jerry | erledigt, MARS-Spalte für Godot nachgezogen 08.11. |
 | 631 | lauf.py: Startmarken ohne Datum verglichen (Ford 06.11., 07:19) | B Werkzeuge | K | – | Perikles | erledigt |
 | 645 | 499 Probebild Lauf 292 (Drehteller): Helfer meldet vor dem Versand Verstöße A1, A4, B4, E3, G1, Schild selbst behoben; vorlegen mit Vermerk oder Lauf frei für G1? (von Tom, zu 499) | C Betrieb | M | – | Sokrates | erledigt |
+| 625 | Sammelbuild 269: alle fertigen Zweige beider Teams (35 warten), Prüfliste als Weg durchs Spiel (Chef 07.11., 20:5x) · „jetzt“ 07.11., 20:54 | E Technik | M | 76,53 $ | Tom | erledigt, t269 getestet |
+| 558 | Robe des Magiers zu glatt, wie eine blaue Fläche: Stoff lebendiger (Falten, Schatten, Schmutz, Abnutzung) (Chef 04.11., 11:31, Bild) | E Figuren | M | 96,33 $ | Tom | erledigt, t269 bestanden |
+| 519 | Build 249, Ausrüstung: Gegenstandsfenster („Göttlicher Ring des Eisernen Richters“) passt nicht auf den Bildschirm, rechts abgeschnitten (Chef 03.11., 23:13, Bild) | E Oberfläche | M | 21,91 $ | Tom | erledigt, t269 bestanden |
+| 555 | Testmenü wie alt und schneller: fehlende Einträge der alten Fassung, dazu Sprünge an jede Station von Kapitel 1 (Chef 04.11., 00:30) | B Werkzeuge | M | 15,00 $ | Tom | erledigt, t269 bestanden |
+| 523 | Tasche wie alt und besser: „Funke löschen“, Seltenheit und Kurzangabe der Vorräte, Ausrüstungszeile mit Art, Platz, Wert, „nicht tragbar“, ▲/▼ farbig, Sortierung nach Platz, Klang beim Benutzen (Abgleich 512, Sokrates 0… | E Oberfläche | M | – | Tom | erledigt, t269 bestanden |
+| 524.1 | Gegenstandsfenster besser als alt und spielerfreundlicher: Vorschlag (Chef 04.11., 00:52) | E Oberfläche | M | – | Tom | erledigt, t269 bestanden |
+| 524 | Gegenstandsfenster, Inhalt wie alt und besser: Grundwerte (Seltenheit, Tragort, Gewicht, Schaden je Griffart, Angriff, RK + GES), Warnungen „Ungeübt“, „Zauberkraft nützt nur Zauberwirkern“, Vergleich mit „im Schnitt“ un… | E Oberfläche | M | – | Tom | erledigt, t269 bestanden |
+| 528 | Held, Karte, Chronik wie alt: Satz zur Höchststufe des Kapitels am EP-Balken, Kartenzeichen in der oberen Leiste, „Auf der Karte“ bei Nebenaufträgen (Abgleich 512, Sokrates 03.11., 23:3x) | E Oberfläche | M | – | Tom | erledigt, t269 bestanden |
+| 606 | Schenke: Met kostet laut Liste 2 Gold, abgezogen werden 4 (Chef 07.11., t268) | E Oberfläche | M | – | Tom | erledigt, t269 bestanden |
+| 609 | Dorf: Baum hinter der Schenke sperrt den Weg zum Schlagbaum; alle Häuser auf der Waldseite umrundbar (Chef 07.11., t268) | E Welt | M | – | Tom | erledigt, t269 bestanden |
+| 619 | Blende: derselbe Druck auf den Aktionsknopf drückt die Blende sofort weg (Chef 07.11., t268.18) | E Oberfläche | M | – | Tom | erledigt, t269 bestanden |
+| 607 | Leute nachts: Pim läuft um 3 Uhr herum, sein Klopftext sagt, er schläft (Chef 07.11., t268) | E Oberfläche | M | – | Tom | erledigt, t269 bestanden |
+| 608 | Haus wird durchsichtig, wenn der Held dahinter steht, dann geht innen das Licht an (Pims Hütte, Tempel) (Chef 07.11., t268) | E Welt | M | – | Tom | erledigt, t269 bestanden |
+| 615 | Kamera dreht und zoomt um den Helden als Fixpunkt, läuft nicht aus dem Bild (Chef 07.11., t268) | E Welt | M | – | Tom | erledigt, t269 bestanden |
+| 611 | Klopfen an Türen: deutlicher, mit Name des Hauses oder Sprechers; Zeichen an Pfeiler oder Laterne beim Zwerg wie alt (Chef 07.11., t268) | E Oberfläche | M | 31,40 $ | Tom | erledigt, t269 bestanden |
+| 618 | Knöpfe einheitlich: „Zurück“, „Abbrechen“, „Schließen“ nach einer Regel auf allen Schirmen, Liste der Abweichungen (Chef 07.11., t268) | E Oberfläche | M | – | Tom | erledigt, t269 bestanden |
+| 623.7 | „Mit Dank an“ (623.4) in „Über das Spiel“ (497) einbauen, de/en (Chef 07.11., 623 F) | G Story | M | – | Tom | erledigt, t269 bestanden |
+| 624 | Testanzeigen größer: FPS und Standort über der Welt, Messwerte im Reiter „Test“ (Speicher u. a.) gut lesbar (Chef 07.11., 17:5x) | B Werkzeuge | M | – | Tom | erledigt, t269 bestanden |
+| 629.1 | Klopfen: Sprechernamen hinter Türen bauen ([629.sprecher], von Homer) | G Story | M | – | Tom | erledigt, t269 bestanden |
+| 600 | Kampfort: Knopf zum Beschleunigen wie Würfel und Raster (Chef 05.11., 19:2x) | E Kampf | M | 2,88 $ | Jerry | erledigt, t269 bestanden |
+| 478 | Rechenkern des Kampfs in Stufe 1 auf BRS (470a C, Chef 02.11., 17:59) · „jetzt“ 07.11., 16:37 | E Kampf | M | 6,49 $ | Jerry | erledigt, t269 bestanden |
+| 652 | Englisch-Regeln 1–7 aus LISTE-ENGLISCH-338-1B nach STORY-REGELN.md, dann Datei nach docs/alt (aus 650.1, Chef 08.11., 13:36) | G Story | M | 1,11 $ | Homer | erledigt |
+| 659 | DESIGN-STIL.md: Abschnitt „Muster“ mit Bild je abgenommenem Muster (Fenster ohne Kasten 549a, Zwischensequenz 613, Zeichen 326, Hauptmenü 292); „Zwischensequenzen ohne Animation“ nachziehen (Chef 08.11., 15:08) | G Stil | M | 1,11 $ | Homer | erledigt |
+| 655.1 | Regel 300 streichen: Ersteller sieht Bild oder Film selbst an, dann sofort an den Chef; Helfer danach entfällt (CLAUDE.md Melden, ROLLE-ENTWICKLUNG.md; 655 ja) | B Abläufe | M | 3,47 $ | Perikles | erledigt |
+| 657.1 | 657 prüfen: ganzes Konzept „eine Seite für alle“ (Stil, Team, Ablauf, Werkzeuge an Übergaben), Risiken, Verlorenes aus Archiv und Rollendateien; nur Prüfung, keine Umsetzung (Chef 08.11., 15:20) · „jetzt“ 08.11., 15:20 | Q QM | M | 3,24 $ | Diogenes | erledigt |
+| 613.1 | Freigabe eines Behebungslaufs für 613 Tusche (Prüferbefund 15:45: A2, A3, Technik; von Spike) | E Oberfläche | M | – | Sokrates | erledigt |
+| 644.3 | Seltenheit als Achse ins Regelwerk, Abschnitt Ausrüstung (644 B) | G Balance | M | 8,35 $ | Sokrates | erledigt |
