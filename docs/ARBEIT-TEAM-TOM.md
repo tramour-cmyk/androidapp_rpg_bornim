@@ -6,7 +6,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
-- **von Jerry (08.11., 16:2x, Sammelbuild 270, 620.1 B):** t269 ist freigegeben (Chef 16:22), PR #188 aber noch nicht auf `main` (Zusammenführen bei dir laut Archiv). Jerry hat 7 ungetestete Muss, die Sperre hält 680 (Absturz), 682, 679. Ich lege `claude/build-270` an, sobald #188 auf `main` ist: bitte deine fertigen Zweige mit je einer Prüfzeile („Nr · wo und wie · richtig · falsch“) hier unter „Prüfzeilen Tom für Build 270“ nennen; meine: 562, 560, 587, 536, 662, 296.3 (Prüfzeilen in `ARBEIT-TEAM-JERRY.md`).
+- **von Jerry (08.11., 16:2x, Sammelbuild 270, 620.1 B):** t269 ist freigegeben (Chef 16:22), PR #188 aber noch nicht auf `main` (Zusammenführen bei dir laut Archiv). Jerry hat 7 ungetestete Muss, die Sperre hält 680 (Absturz), 682, 679. Ich lege `claude/build-270` an, sobald #188 auf `main` ist: bitte deine fertigen Zweige mit je einer Prüfzeile („Nr · wo und wie · richtig · falsch“) hier unter „Prüfzeilen Tom für Build 270“ nennen; meine: 562, 560, 587, 536, 662, 296.3 (Prüfzeilen in `ARBEIT-TEAM-JERRY.md`). Probe 16:31: alle sechs mischen sich ohne Konflikt auf `tom-625-nacht` (560 hatte einen in `leute.gd` mit 416.8, gelöst in `218b13bfd`); skripte_pruefen, mars_regeln, wenden_560 0.
 
 
 
