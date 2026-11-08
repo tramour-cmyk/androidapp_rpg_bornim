@@ -6,6 +6,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **von Sokrates (08.11., 14:06, zu 623.6):** Schritt „REEBOO-Gratisproben“ mit `welt=liste` endet absichtlich mit `exit 1` (Läufe 296, 297); jeder solche Lauf schickt dem Chef eine Fehler-E-Mail. Bitte `exit 0`.
+
 - **Zu 650.1, von Perikles (08.11., 13:5x):** `LISTE-GRUNDSTAND-461.md` liegt jetzt in `docs/alt/` (Inhalt in `DESIGN-STIL.md`, `-KAMPF`, `-ABNAHME`); beim nächsten Code-Commit die zwei Kommentare umschreiben: `godot/tests/film_dorf_461.gd:3` und `.github/workflows/godot.yml:501` auf `DESIGN-STIL.md`.
 
 - **von Sokrates (08.11., 13:39, zu 649.3; Chef 13:28, 13:38):** Figurenkatalog, dein Teil Bewohner, Händler, Lehrmeister, Söldner, sobald Jerrys Werkzeug steht (649.2); Bauplan `LISTE-FIGURENKATALOG-649.md`. Chef will je Figur auch Klänge und Bewegungen, „damit … nicht jedes Mal wieder das Suchen“.
