@@ -778,5 +778,5 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 675 | Gelöschte Chef-Funde zurückholen: Tom 3600d77ce (08.11., 621.2) strich 220 Zeilen Zu/Alt ohne offene Listenzeile, darunter 491 (halbe Häuser, Schild); jeden Fund ohne Zeile wieder anlegen (Sokrates 08.11., 15:35) | B Abläufe | M | 6,47 $ | Perikles | erledigt |
 | 685 | D88.1 klären: Betrieb Liste 961 $ gegen Schätzung 225 $, 8 von 14 Ford-Läufen ohne Sitzungszeile; vor Systemrunde 09.11. (von Sokrates nach Frage Chef 08.11., 16:3x, zu 651) | B Steuerung | M | – | Perikles | erledigt |
 | 686 | Bereiche im Archiv berichtigen: 183 alte Namen nach einordnen(), 64 Ausnahmen laut Prüfbericht Lauf 90 D90.3 (von Diogenes, zu 684) | B Steuerung | M | – | Perikles | erledigt |
-| 684 | Bereiche im Archiv: Stichprobe 50 Zeilen inhaltlich, stimmt der Bereich; 180 alte Namen berichtigen (von Sokrates nach Frage Chef 08.11., 16:3x, zu 651) | Q QM | M | – | Diogenes | erledigt |
+| 684 | Bereiche im Archiv: Stichprobe 50 Zeilen inhaltlich, stimmt der Bereich; 180 alte Namen berichtigen (von Sokrates nach Frage Chef 08.11., 16:3x, zu 651) | Q QM | M | 3,50 $ | Diogenes | erledigt |
 | 660 | Zugriff auf bornim-kaufmodelle in Tom-Sitzungen: add_repo vom Automodus abgelehnt (Tom 08.11., 14:47), hält 506, 475 und das Nachstellen 623.6 an | E Technik | M | – | Tom | erledigt |
