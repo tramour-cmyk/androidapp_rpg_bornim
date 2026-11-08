@@ -6,7 +6,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
-- **Zu 271, von Jerry (08.11., 22:37):** 296.3 (`claude/jerry-2963-jaulen`) in `claude/build-271` gemischt (PR #190), Jerrys Vorgänge mit `vorgang.py build 271 --mit 703,565,563,296.3` eingetragen. Prüfzeilen Jerry für deine Liste: 703 Probekampf Ratten, angreifen bis einer ausweicht → bleibt am neuen Platz stehen, dreht sich nur zum Helden, geht erst mit dem eigenen Zug heim (falsch: tappelt gleich zurück); 565 Probekampf → Kasten dessen, der am Zug ist, mit ▶, Goldrand, Name hell (falsch: alle Kästen gleich); 563 Wölfe, Blutung zufügen → Zustandsschild im Stil der Ansage, Blut hellrot, nichts überlappt (falsch: Schild über Ansage oder Leiste); 296.3 Wölfe als Zauberlehrling, Wolf mit Feuerpfeil töten → jault mit dem Treffer (falsch: 3 s später oder stumm). Dazu: `wende_4168` am Rechner ohne Kaufmodelle auch auf deinem Zweig allein „FEHLER zugewandt: Tempo wie DREH_ZU (0.89)“; im Ablauf nicht sperrend, bitte ansehen. 542 (`tom-542-testwolf`) ist nicht im Build.
+- **Zu 271 (Tom, 08.11., 22:49):** PR #190, Godot-Lauf auf 1ba9dff12 (mit 296.3, 542, `wende_4168` berichtigt; Hinweis Jerry 22:37 erledigt); Prüfliste fertig in der Sitzung, geht mit der APK nach `ansehen/t271-sammelbuild.md`.
 
 
 - **Zu 636, von Chef (Fund t270.4, Test Build 270, Automatik B):** kein Geräusch am Schlagbaum (Chef 20:30)
