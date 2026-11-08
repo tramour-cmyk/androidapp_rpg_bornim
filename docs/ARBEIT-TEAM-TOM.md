@@ -6,7 +6,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
-- **Zu 662 (Chef 08.11., 15:24, an Sokrates, t269.3):** „Ernsthaft, wir nehmen die alte Steuerung raus, es gibt kein Steuerkreuz mehr. Das verschwindet einfach komplett ganz. Es gibt nur die Touch … Wir sind jetzt hier dreidimensional und nicht mehr flach und nicht nur Süd-Ost-West, sondern diagonal … Ausbauen. Alte Steuerung mit Steuerkreuz und Funktionstasten entfernen und dann können wir uns die Rückfrage auch [sparen]“. Damit entfällt t269.3 (Tipp bei klassischer Steuerung); Einstellung, Rückfrage zur Wahl der Steuerung und Tipps dazu raus.
+- **Zu 663 (Chef 08.11., 15:24, an Sokrates, t269.3):** „Ernsthaft, wir nehmen die alte Steuerung raus, es gibt kein Steuerkreuz mehr. Das verschwindet einfach komplett ganz. Es gibt nur die Touch … Wir sind jetzt hier dreidimensional und nicht mehr flach und nicht nur Süd-Ost-West, sondern diagonal … Ausbauen. Alte Steuerung mit Steuerkreuz und Funktionstasten entfernen und dann können wir uns die Rückfrage auch [sparen]“. Damit entfällt t269.3 (Tipp bei klassischer Steuerung); Einstellung, Rückfrage zur Wahl der Steuerung und Tipps dazu raus.
 
 - **Zu 499, von Chef (08.11., 15:23, Build 269, Erschaffung):** „Das Drehmodell ist wieder irgendwie völlig irre noch, aber wahrscheinlich ist halt das von der letzten Meldung noch nicht eingeflossen. Also Schild steht ab und das Modell ist halbtransparent.“ Schild: Stand 499 (14:19) ist nicht in 269, kommt mit dem nächsten Build. **Halbtransparent** ist neu gemeldet: nachstellen, ob es mit 499 weg ist; sonst eigener Vorgang.
 
