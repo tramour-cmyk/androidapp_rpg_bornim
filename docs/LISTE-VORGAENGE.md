@@ -35,7 +35,7 @@
 | 505 | Bau Nebel des Krieges und Sichtfeld des Helden (Archiv 502; Welt W24, W25) | Tom | M | startbar | 492 | – | – | E Technik | 69,46 $ |
 | 515 | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 03.11., 16:07) | Tom | K | ruht | – | – | – | E Welt | – |
 | 506 | Untote im Kampf: Skelett, Zombie, Ghul (aus 494, Spike; Wochenziel 03.11., 488) | Tom | M | in Arbeit, Probebild vom Helfer angehalten (Zu 506) | 660 | claude/tom-506-skelett | – | E Kampf | 42,52 $ |
-| 492 | Blutzahnhöhle begehbar mit Krogg, Grak, Lyra (Orte O8; Wochenziel 03.11., 488; von Jerry an Tom, Chef 07:54) | Tom | M | in Arbeit, Zweig mit main gemischt, Tests laufen | – | claude/tom-492-durchspiel | – | E Technik | 29,10 $ |
+| 492 | Blutzahnhöhle begehbar mit Krogg, Grak, Lyra (Orte O8; Wochenziel 03.11., 488; von Jerry an Tom, Chef 07:54) | Tom | M | in Arbeit, Fels gegen Betonwanne, dann Vorlage mit Nebel | – | claude/tom-492-durchspiel | – | E Technik | 29,10 $ |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x) | Tom | M | ruht | – | claude/tom-431-voelker | – | E Figuren | 50,10 $ |
 | 416.8 | NPC dreht sich zum Helden mit kleinen Schritten, nicht auf der Stelle (Chef 31.10., 20:5x; t269.11 15:44 wieder Plastikfigur) · wiederholt | Tom | M | gebaut, fährt im nächsten Build. Geprüft an: 98af8d5cc (gier ±90 am Rechner, schauen_4168) | – | claude/tom-4168-wende | – | E Technik | 19,24 $ |
 | 376.1 | Probeblatt Quaternius-Figuren mit Bewegungsraster als Film (Chef kaufte 27.10., 12:20) | Tom | M | ruht | – | claude/spike-376-1-tracht | – | E Figuren | 221,15 $ |
@@ -207,6 +207,7 @@
 | 650.1 | Liste für docs/alt/ nach zwei Gegenprüfungen (aus 650) | Perikles | M | wartet, neun Dateien abgelegt; LISTE-ZENTRALE-VORGAENGE-275 nach Diogenes | 09.11. | – | – | B Abläufe | 3,00 $ |
 | 654.1 | Systemfrage vor jedem Bau in ROLLE-ENTWICKLUNG.md und Prüfliste, Wiederholungswächter in vorgang.py neu (Stichwort in zwei früheren → Zeile „Systemlösung?“ für Sokrates); Regelbilanz (654, Chef 14:42) | Perikles | M | gebaut, Geprüft an: 36cff7b9d (Probe in Kopie: Schild → Systemlösung?, zweite blockiert) | – | – | – | B Abläufe | – |
 | Pflege | von Werkzeug (340.3, 08.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Perikles | K | startbar | – | – | – | B Abläufe | – |
+| 692 | Von Tom: probelauf.py 647 sieht Mischungen mit main nicht (git log --no-merges), hält den Push eines gemischten Teamzweigs wegen fremden Spielcodes aus main an | Perikles | K | startbar | – | – | – | B Abläufe | – |
 | 340.2 | Rollenspiegel C: `tools/rollenspiegel.sh`, eigene Antwort ohne fremde | Diogenes | M | ruht | 09.11. | – | – | B Abläufe | –; +6,35 $ |
 | 485 | Diogenes bessert sich aus dem Rollenspiegel 02.11.: Wochentermine zählen, Vergleichsblätter selbst holen, Meldungen ohne Abkürzungen (Chef 02.11., 19:37 „1, 2, 3 ja“) · „jetzt“ 02.11., 19:37 | Diogenes | M | ruht | 09.11. | – | – | Q QS | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | ruht | 09.11. | – | – | B Abläufe | – |
