@@ -77,6 +77,7 @@ Montags meldest du die Zahlen von Diogenes unverändert mit Link: „Zielvereinb
 ## Begründungen
 
 - **M?-Entscheid 08.11., 11:01 (190.8):** M für 614, 638, 639, 640, 633, 634 (Abgleich alt, Abnahme 2.11 „mindestens so“), 642 (Kollision, 2.1), 508 (Lehrmeister erreichbar, 2.6), 570 (Ladentext missverständlich, Prüferfund); K für 477 (MuMu nur Rechner, nicht Abnahme; Chef 03.11. „Genug Zeit verschwendet“); 474 M (Update ohne Deinstallieren, technischer Fehler); 476, 568, 593 K (Aussehen eingefroren bis zum Durchspielen, 488). Gegenargument „zu viele Muss“: Vorrang regelt die Folge, Fehler aus Chef-Tests bleiben oben (620.1).
+- **M?-Entscheid 08.11., 14:0x (190.8):** 651 M (Chef wollte die Auswertung heute, Lauf 13:52); 648 K (Glossar: nicht im Wochenziel, kein „jetzt“; Gegenargument „auch ihr verwechselt die Begriffe“ zählt, aber Kapitel 1 geht vor, oberste Direktive; die Begriffe stehen bis dahin in `CLAUDE.md`).
 
 - **Ein Text an einem Ort:** Doppelungen kosten Token und laufen auseinander; nichts Aufgabenrelevantes verlieren.
 - **Rückfragen als Holschuld:** wiederholte Fragen verdeckten das Neue; die Chefsache ist der eine Ort.
