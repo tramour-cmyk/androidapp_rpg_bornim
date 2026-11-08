@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **655.1 Bilder selbst ansehen** (Perikles): Regel 300 gestrichen; wer Bild oder Film macht, sieht es vor dem Senden selbst an (beim Film ein Standbild), schickt es dann sofort, kein Helfer danach (`CLAUDE.md` Melden, `ROLLE-ENTWICKLUNG.md`, `LISTE-BAUEN-TESTEN.md` 4, `ROLLE-PRUEFUNG.md`). Probebild-Prüfung vor dem Film (511a) und „Prüfer: ja“ (480) bleiben.
+
 - **648 Glossar** (Perikles): `docs/LISTE-GLOSSAR.md` mit fünf Sachgebieten (Firma, Vorgänge, Bauen und Testen, Betrieb, Spielwelt), je Begriff Bedeutung, Ober- und Unterbegriff, verbotene Wörter und Fundort, Abkürzungen, A–Z; Spielnamen bleiben im Glossar des Spielsystems. `tools/glossar.py` zeigt Fundstellen und zählt verbotene Wörter (heute 14: „Blatt“ 13, „Bühne“ 1).
 
 - **647 Alt zuerst** (Perikles, Werkzeug): `probelauf.py` hält einen Push auf einen Teamzweig mit Spielcode unter `godot/` an, wenn keine Commit-Nachricht die Zeile „Alt: <Fundstelle der alten Fassung>“ (oder „Alt: keine (<Grund>)“) trägt; Regel „Alt zuerst“ in `ROLLE-ENTWICKLUNG.md`, Verweis im Abgleich (`LISTE-UMZUG-348.md`).
