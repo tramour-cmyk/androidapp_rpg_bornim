@@ -1,5 +1,5 @@
-# Tom und Jerry · Build 269 · Godot 0.348.LAUF · Fehler aus 268, Dorf, Ausrüstung, Kampf · [PR #188](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/188)
-Ganzes Spiel · Tom (Vorgänge 497, 519, 521–524, 524.1, 528, 581, 540, 555, 558, 583, 591, 605–611, 615, 617–619, 623.7, 624, 629.1, 416.8), Jerry (406.2, 438, 478, 517, 532, 547, 597, 600) · 08.11., UHR · [APK](APK) · Geprüft an: LAUFLINK
+# Tom und Jerry · Build 269 · Godot 0.348.283 · Fehler aus 268, Dorf, Ausrüstung, Kampf · [PR #188](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/188)
+Ganzes Spiel · Tom (Vorgänge 497, 519, 521–524, 524.1, 528, 581, 540, 555, 558, 583, 591, 605–611, 615, 617–619, 623.7, 624, 629.1, 416.8), Jerry (406.2, 438, 478, 517, 532, 547, 597, 600) · 08.11., 08:24 · [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/42454656773/artifacts/13607963652) · Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/42454656773
 
 Ein Weg, über Build 268 installieren: Hauptmenü (A), Dorf und Schenke (B), Menü des Helden (C), Flüsterwald mit Kampf (D), Reiter „Test“ (E). Was nicht passt, reicht als Zeilennummer mit einem Wort. Fragen stehen fett in der Zeile.
 
