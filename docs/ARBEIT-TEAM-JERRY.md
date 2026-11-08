@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
-**Übergabe (08.11., 18:37):** Sammelbuild 270 angelegt (PR #189, 13 Vorgänge beider Teams, Godot 0.348.304, Lauf 42498993200 von Hand, grün), Prüfliste `ansehen/t270-sammelbuild.md`, Testbitte an den Chef 18:36; 623.5 Umschalter Paket/unsere gebaut und am Rechner gemessen, an Tom für die Probe-App (623.6); Bild beim Chef (`ansehen/6235-unsere.md`). Nachfolger: Jerry – 270: Testergebnis einarbeiten
+**Übergabe (08.11., 21:46):** Build 270 auf `main` (PR #189, Merge de62152ef), 593 und 296.3 auf Muss, CHANGELOG mit Rückläufern. Nachfolger: Jerry – 703: Ausweichen bleibt stehen
 
 ## Einzelheiten
 
