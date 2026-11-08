@@ -49,7 +49,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 
-**Tom** – offen 98, Muss 73, startbar 6
+**Tom** – offen 99, Muss 74, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -151,6 +151,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 688 | K | Frage des Chefs je Karte: wie viel Sammelbares offen und versteckt liegt (alt gegen neu: T | ruht |
 | 689 | K | Dorf, Urteil Chef 25.10., 12:11 (aus 348.6, offen geblieben): Büsche über Dachfirsten, Lat | ruht |
 | Pflege | K | von Werkzeug (340.3, 08.11.): 15773 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 697 | M | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test |
 
 **Jerry** – offen 68, Muss 60, startbar 0
 
