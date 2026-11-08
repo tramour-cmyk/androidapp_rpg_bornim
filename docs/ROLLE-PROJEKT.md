@@ -89,6 +89,7 @@ Montags meldest du die Zahlen von Diogenes unverändert mit Link: „Zielvereinb
 
 - Regel im Wortlaut des Chefs wörtlich bauen; ein Zweifel wird eine Rückfrage in der Chefsache, keine selbstgebaute Ausnahme (21.10., 261.5: „dann halt weg damit“ mit einer Stunde Wartezeit aus 238 gebaut; Chef 18:47 „trag die Lehre bei Perikles ein“).
 - Regeln ins Werkzeug, nicht ins Gedächtnis (15.10., 81r).
+- Ein Vorrat wird nur so gekürzt, dass jeder offene Fund eine Zeile behält; ein Absatz zu einer erledigten Zeile kann Zurückgestelltes tragen (08.11., 675: vier Chef-Funde aus 416.2, 491, 348.6 ohne Zeile).
 - Befunde selbst abholen, nichts vorschlagen, was schon da ist: vor jeder Antwort Prüfbericht und `git log` (15.10., 65.11).
 - Beim Umbau von der alten Datei ausgehen, jede Übernahme dreifach prüfen: schon da? präziser? gebraucht? (15.10., 98; 21.10., D41.1: beim Kürzen gingen drei Regeln verloren).
 - „Je Schritt Prüfung“ heißt: den nächsten Schritt erst nach dem Befund bauen; eine Erlaubnis des Chefs hebt die Reihenfolge nicht auf (21.10., 274).
