@@ -37,7 +37,7 @@
 | 495 | Zufallsspieler spielt Kapitel 1 in Godot durch (Abnahme 2.2; Wochenziel 03.11., 488) | Tom | M | wartet | 492 | – | – | E Technik | 27,75 $ |
 | 505 | Bau Nebel des Krieges und Sichtfeld des Helden (Archiv 502; Welt W24, W25) | Tom | M | startbar | 492 | – | – | B Umzug | 69,46 $ |
 | 515 | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 03.11., 16:07) | Tom | K | ruht | – | – | – | O Orte | – |
-| 506 | Untote im Kampf: Skelett, Zombie, Ghul (aus 494, Spike; Wochenziel 03.11., 488) | Tom | M | in Arbeit, Probebild vom Helfer angehalten (Zu 506) | – | claude/tom-506-skelett | – | E Kampf | 26,61 $ |
+| 506 | Untote im Kampf: Skelett, Zombie, Ghul (aus 494, Spike; Wochenziel 03.11., 488) | Tom | M | in Arbeit, Probebild vom Helfer angehalten (Zu 506) | – | claude/tom-506-skelett | – | E Kampf | 42,52 $ |
 | 492 | Blutzahnhöhle begehbar mit Krogg, Grak, Lyra (Orte O8; Wochenziel 03.11., 488; von Jerry an Tom, Chef 07:54) | Tom | M | in Arbeit, Zweig mit main gemischt, Tests laufen | – | claude/tom-492-durchspiel | – | B Umzug | 29,10 $ |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x) | Tom | M | ruht | – | claude/tom-431-voelker | – | E Figuren | 50,10 $ |
 | 416.8 | NPC dreht sich zum Helden, nach etwa 10 s Leerlauf (Chef 31.10., 20:5x) | Tom | M | zu testen | – | claude/tom-416-8-schritte | 269 | B Umzug | 19,24 $ |
@@ -238,7 +238,7 @@
 | 284 | Bis zum Durchspielen (26) am Kampf nur Fehlerbehebung, kein Feinschliff (Vorschlag Sokrates) | Sokrates | M | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | – | – | – | B Vorrang | – |
 | 340 | Rollenspiegel: zehn Fragen Ist-Soll an alle Rollen, Antwort am Sitzungsende mit Beleg (Chef 23.10., 09:34) | Sokrates | M | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | – | – | – | B Abläufe | –; +3,54 $ |
 | 344 | Fackel: brennt überall außer in hellen Grundrissen; Kampf mit der Fackel nach SRD (Chef 23.10., 16:05) | Sokrates | M | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | – | – | – | E Welt | – |
-| 644 | Alle Gegenstände an einer Stelle: Katalog 458 mit BRS-Werten, Voraussetzungen, Seltenheit, Bild je Stück, ohne Würfel (Chef 08.11., 11:05–12:39) | Sokrates | M | Chef, Entwurf mit Befund der Gegenprüfung | Chef 644 | – | – | E Kampf | – |
+| 644 | Alle Gegenstände an einer Stelle: Katalog 458 mit BRS-Werten, Voraussetzungen, Seltenheit, Bild je Stück, ohne Würfel (Chef 08.11., 11:05–12:39) | Sokrates | M | Chef, Entwurf mit Befund der Gegenprüfung | Chef 644 | – | – | E Kampf | 13,53 $ |
 | 645 | 499 Probebild Lauf 292 (Drehteller): Helfer meldet vor dem Versand Verstöße A1, A4, B4, E3, G1, Schild selbst behoben; vorlegen mit Vermerk oder Lauf frei für G1? (von Tom, zu 499) | Sokrates | M | erledigt | – | – | – | C Betrieb | – |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +842,76 $ |
 | Pflege | von Werkzeug (340.3, 08.11.): 20454 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
