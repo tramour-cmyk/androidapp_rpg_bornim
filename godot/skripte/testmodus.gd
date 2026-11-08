@@ -304,7 +304,10 @@ static func reiter(m: Menue) -> void:
 			func(): Mars.BrsKampf.schalter = not Mars.BrsKampf.schalter, "DICE", "", Mars.BrsKampf.schalter)])
 	# 415 (Jerry, Chef „415 jetzt“ 02.11., 10:55): Handyprobe der Beams-Probe im Kampfort (kampf/strahlprobe.gd)
 	m.zeichenreihe([zk.call(t.call("Strahlen", "Beams"), null, t.call("415: drei Strahlen der Beams-Probe im Kampfort, mit Bildern je Sekunde; Renderer umschaltbar.",
-		"415: three beams of the Beams sample in the battle place, with frames per second; renderer switchable."), func(): m.test.emit("strahlen", []), "FPS")])
+		"415: three beams of the Beams sample in the battle place, with frames per second; renderer switchable."), func(): m.test.emit("strahlen", []), "FPS"),
+		# 623.5 (Jerry, Chef 08.11., 13:14, „jetzt“ 13:48): Gratisproben REEBOO Labs im Kampfort, vor dem Kauf 623 (kampf/effektprobe.gd)
+		zk.call(t.call("Effekte", "Effects"), null, t.call("623.5: alle Gratisproben der Effektpakete im Kampfort, je Effekt Bilder je Sekunde; Renderer umschaltbar.",
+		"623.5: all free samples of the effect packs in the battle place, frames per second for each; renderer switchable."), func(): m.test.emit("effekte", []), "FPS")])
 	var fs := feinde()
 	if not fs.is_empty():
 		m.gruppe(t.call("Kampf beschwören", "Summon a fight"))

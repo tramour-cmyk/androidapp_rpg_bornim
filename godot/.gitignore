@@ -10,3 +10,9 @@ addons/grass_wind_kit/
 addons/water_kit/
 addons/weather_fx/
 addons/reeboo_surfaces/
+# 623.5 (Jerry): Gratisproben REEBOO Labs, Lizenz verbietet Weitergabe; im Bau aus bornim-kaufmodelle (tools/godot/effekte_6235.sh)
+addons/reeboo_combat/
+addons/reeboo_projectiles/
+addons/reeboo_trails/
+addons/reeboo_vfx/
+addons/character_shaders/

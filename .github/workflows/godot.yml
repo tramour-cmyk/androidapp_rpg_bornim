@@ -26,6 +26,9 @@ on:
       strahlen:
         description: "Strahlenfilm 415 (Jerry, Beams-Probe im Kampfort): ja"
         default: ""
+      effekte:
+        description: "Effektfilm 623.5 (Jerry, Gratisproben REEBOO Labs im Kampfort): ja"
+        default: ""
       gegner:
         description: "Gegnerfilm 494 (Jerry): Gegner der Probe, mit Komma (BOARS, …); FLEDERMAUS: Vergleich 510"
       kamin:
@@ -132,6 +135,10 @@ jobs:
         run: |
           d=$(find "$KAUF/anhang/beams" -type d -path '*addons/reeboo_beams' 2>/dev/null | head -1)
           if [ -n "$d" ]; then mkdir -p godot/addons && cp -r "$d" godot/addons/ && echo "Beams-Probe: $(ls godot/addons/reeboo_beams/beams_3d)"; else echo "Beams-Probe: nicht da"; fi
+      # 623.5 (Jerry, Chef 08.11., 13:14, „jetzt“ 13:48): Gratisproben REEBOO Labs aus bornim-kaufmodelle nach godot/addons, nur in den
+      # Bau (Lizenz: Dateien nie weitergeben; godot/.gitignore); ohne Kauf nichts
+      - name: Effektproben 623.5 (privat)
+        run: bash tools/godot/effekte_6235.sh "$KAUF" godot/addons || true
       - uses: actions/setup-python@v5
         id: py
         with:
@@ -412,6 +419,8 @@ jobs:
           set -o pipefail; timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/wolf_mess_438.gd 2>&1 | grep -E "^(— |  |Befunde|Wolf 438|Kampf )|SCRIPT ERROR"   # 438, 439, 440 (Jerry): Wölfe ohne Gleiten, Reihenfolge, Tod
           # 415 r3 (Jerry): Strahlenprobe ohne Bild, Stabspitze hinter dem Körper (F6), Strahl durch eine Figur (E3), Richtung (F2); meldet nur
           timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/strahl_mess_415.gd 2>&1 | grep -E "^(Strahl|STRAHL)|SCRIPT ERROR" || true
+          # 623.5 (Jerry): Effektprobe ohne Bild, Paket und unsere Fassung (Chef 08.11., 17:05); meldet nur
+          for u in "" 1; do UNSERE=$u timeout 400 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/effekt_mess_6235.gd 2>&1 | grep -E "^Effekte 623.5 \(|ohne Pakete|SCRIPT ERROR" || true; done
           timeout 120 ~/godot/godot --headless --path . -s res://tests/klang_test.gd 2>&1 | grep -E "^(gut|FALSCH)|KLANG|SCRIPT ERROR"   # 399.3
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_473.gd 2>&1 | grep -E "FALSCH|BRS473|SCRIPT ERROR"   # 473 Monsterwerte BRS wie sim444
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/brs_kampf_478.gd 2>&1 | grep -E "^(ok|FALSCH)|BRS478|SCRIPT ERROR"   # 478 Kampf nach BRS wie sim444
@@ -675,6 +684,21 @@ jobs:
             --write-movie $RUNNER_TEMP/strahlen415.avi --fixed-fps 30 -s res://tests/film_415.gd > $B/strahlen415.log 2>&1 || true
           grep -E "SCRIPT ERROR|^Film|^Signatur|FEHLER" $B/strahlen415.log | head -12 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/strahlen415.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/415-strahlen.mp4 || true
+          ls -l $B
+      # 623.5 (Jerry): Film der Effektprobe im Kampfort (tests/film_6235.gd), Renderer Compatibility wie die übrigen Filme; nur von Hand
+      - name: Effektfilm 623.5 (nur von Hand mit effekte=ja)
+        if: ${{ !cancelled() && github.event.inputs.effekte != '' && github.event.inputs.film != 'nein' }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/effekte6235; mkdir -p $B
+          cd godot
+          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
+          timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+            --write-movie $RUNNER_TEMP/effekte6235.avi --fixed-fps 30 -s res://tests/film_6235.gd > $B/effekte6235.log 2>&1 || true
+          grep -E "SCRIPT ERROR|SHADER ERROR|^Film|^Signatur|^BEGINN|FEHLER" $B/effekte6235.log | head -40 || true
+          # das schwarze Warten auf die Aufstellung abschneiden (BEGINN im Protokoll, Sekunden ab dem ersten Bild)
+          S=$(grep -oE "^BEGINN [0-9.]+" $B/effekte6235.log | cut -d" " -f2); S=${S:-0}
+          ffmpeg -loglevel error -y -ss "$S" -i $RUNNER_TEMP/effekte6235.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/6235-effekte.mp4 || true
           ls -l $B
       # 494 (Wochenziel 03.11. Reihe 3): je Gegner ein kurzer Film (tests/film_gegner_494.gd), nur von Hand mit gegner=<FOES,…>
       # 494 Probebild (511): je Gegner zwei Bilder aus demselben Skript und derselben Szene wie der Film (nah, Spielkamera mit
