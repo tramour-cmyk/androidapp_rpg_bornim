@@ -4,6 +4,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **Build 269 auf main** (PR #188, Sammelbuild 625, Chef 08.11., 16:22 „freigegeben mit den Einschränkungen“, Archiv „t269“): Tom 497, 519, 521–524, 528, 540, 555, 558, 583, 591, 605–611, 615, 617–619, 623.7, 624, 629.1, 416.8; Jerry 406.2, 438, 478 (Schalter aus), 517, 532, 547, 562, 597, 600; 565 aus (Schalter). Durchgefallen und als Vorgang zurück: 269.3, .10, .11, .12, .16, .17, .21, .25, .26; neu 663–683. (Rückläufer: 9)
 - **654.1 Mitdenken vor dem Bauen** (Perikles): Systemfrage „Kommt das wieder?“ als Zeile „System:“ neben „Alt:“ in der Commit-Nachricht (`ROLLE-ENTWICKLUNG.md` „Alt zuerst“); `vorgang.py neu` legt bei einem Stichwort aus mindestens zwei früheren Vorgängen (offen oder Archiv) eine Zeile „Systemlösung? <Stichwort>“ für Sokrates an, je Stichwort eine offene.
 
 - **658 Telegram-Reaktionen** (Perikles): `meldung.sh` merkt sich die Telegram-Kennung jeder Meldung (fünfte Spalte in `meldungen.tsv`); `tools/reaktionen.py` holt Reaktionen und Nachrichten des Chefs, legt sie im Zweig `reaktionen` ab und zeigt sie bei jedem `notiz.sh` (letzte 120 Minuten, mit Vorgang und Absender der Meldung). 👍 = gebilligt, ✅ = erledigt; den Archiveintrag schreibt der Besitzer.
