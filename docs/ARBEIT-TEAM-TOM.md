@@ -6,6 +6,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **Zu 613 (Chef 08.11., 15:08, an Sokrates):** „Zwischensequenzen, wenn die jetzt nochmal neu gemacht, mit leichten Animationen, die wir ja auch hier in der alten Fassung hatten, respektive ja, Signatur, Tusche und so.“ Also: alle Zwischensequenzen in Godot neu, leichte Bewegungen wie in der alten Fassung, mit Signatur (Licht aus Quelle, Tusche); 302.3 (Tusche, ruht) gehört dazu. `DESIGN-STIL.md` „Zwischensequenzen“ sagt noch „ohne Animation“: überholt durch dieses Wort, Homer zieht nach.
+
 - **Zu 656 (Chef 08.11., 14:52, an Sokrates):** „Warum eigentlich der Kämpfer mit dem Mantel so ausschaut, als ob er irgendwie schwanger wäre wie ein Känguru … wo die ganzen Beulen herkommen in dem Mantel. Vor allem unter dem Schlagarm. In der linken hält er ein Schild, rechts hat er das Schwert, da ist eine riesen Beule darunter. Was soll das sein? Hatte ich schon mal gestellt … Antwort dann wieder untergegangen … Ist das der Glöckner von Notre Dame?“ Erst Ursache nachstellen (Umhang über Schild, Schwert oder Arm?), Antwort an den Chef, dann beheben.
 
 

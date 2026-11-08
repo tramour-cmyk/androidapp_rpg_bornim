@@ -24,6 +24,7 @@ Kapitel 1 fertig: ohne Fehler, gut aussehend, düster, immersiv durch Klang, Mus
 4. **Abwechslung:** alles, was wiederkommt (Gegner, Bewegung, Klang, Gesprächszeile), in mindestens drei Varianten.
 5. **Klang:** echte Aufnahmen, man hört, was da ist; Musik orchestral und düster, Dorf mittelalterlich.
 6. **Eine Sicht:** diagonal; schwarz-gold in der Oberfläche, eine Schrift (Alegreya).
+7. **Muster statt Neuerfinden:** wer etwas baut, das es schon gibt, nimmt das abgenommene Muster und schaut es an, bevor er anfängt: Fenster und Rückfragen ohne Kasten (549a), Zwischensequenz wie das Intro mit leichten Bewegungen (613), Zeichen wie die Reiterzeichen (326), Hauptmenü (292). Die Muster mit Bild stehen in `DESIGN-STIL.md` „Muster“; neue Muster trägt Homer nach deiner Abnahme ein.
 
 ### Das Team
 | Wer | Aufgabe | an ihn wendest du dich bei |
