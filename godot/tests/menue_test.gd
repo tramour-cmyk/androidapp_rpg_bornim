@@ -45,8 +45,9 @@ func _lauf() -> void:
 	else:
 		ueb[0].pressed.emit()
 		await process_frame
-		var ja: Array = m.find_children("*", "Button", true, false).filter(func(b): return b.text in ["JA, VERTEILEN", "YES, SPEND"])
-		ja[0].pressed.emit()
+		var ja := KH.finde(m, "JA, VERTEILEN") if KH.finde(m, "JA, VERTEILEN") else KH.finde(m, "YES, SPEND")   # 630: Rückfrage ohne Kasten
+		if ja == null: fehler += 1; print("FEHLER kein Ja, verteilen: ", KH.texte(m))
+		else: KH.tippe(ja)
 		await process_frame; await process_frame
 		if hw.wert("INT") != int_vor + 1: fehler += 1; print("FEHLER INT %d -> %d" % [int_vor, hw.wert("INT")])
 	# Tasche

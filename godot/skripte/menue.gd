@@ -65,14 +65,18 @@ func _ready() -> void:
 	add_child(bg)
 	var rand := MarginContainer.new()
 	rand.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	for s in ["left", "right", "top", "bottom"]: rand.add_theme_constant_override("margin_" + s, int(10 * DP))
+	# 630 (549a „Schirm“): Seitenrand 24 dp, Titel oben in derselben Hoehe wie jeder Schirm (OBEN_DP)
+	for s in ["left", "right"]: rand.add_theme_constant_override("margin_" + s, int(24 * DP))
+	rand.add_theme_constant_override("margin_top", int(Spielstaende.OBEN_DP * DP)); rand.add_theme_constant_override("margin_bottom", int(12 * DP))
 	add_child(rand)
 	var spalte := VBoxContainer.new()
-	spalte.add_theme_constant_override("separation", int(8 * DP))
+	spalte.add_theme_constant_override("separation", int(10 * DP))
 	rand.add_child(spalte)
-	kopf = Stil.zeile("", 20, Stil.BRIGHT, 5.0)   # 326: Name des Reiters gross wie der Titel des Hauptmenues
+	kopf = Stil.zeile("", 22, Stil.GOLD, 3.0)   # 630 (549a): Titel eines Schirms 22 sp Versalien gesperrt in Gold, darunter die Zierlinie
+	kopf.name = "Titel"
 	kopf.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	spalte.add_child(kopf)
+	spalte.add_child(Spielstaende.zier())
 	leiste = HBoxContainer.new()
 	leiste.add_theme_constant_override("separation", int(6 * DP))
 	spalte.add_child(leiste)
@@ -83,15 +87,15 @@ func _ready() -> void:
 	rolle = ScrollContainer.new()
 	rolle.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	rolle.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
-	var k := Erschaffung.kasten(rolle)
-	k.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	spalte.add_child(k)
+	rolle.size_flags_vertical = Control.SIZE_EXPAND_FILL   # 630: ohne Kasten (549a)
+	spalte.add_child(rolle)
 	inhalt = VBoxContainer.new()
 	inhalt.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	inhalt.add_theme_constant_override("separation", 0)
 	rolle.add_child(inhalt)
 	# 618 (Chef 07.11., 22:21: „Zurück für alles“): was ins Spiel zurueckfuehrt, heisst „Zurück“ wie die Zurueck-Taste von Android
-	spalte.add_child(Erschaffung.knopf(Sprache.u("back"), func(): zu.emit()))
+	spalte.add_child(Spielstaende.linie())   # 630 (549a): schlichte Linie, darunter „‹ ZURÜCK“ links
+	spalte.add_child(Spielstaende.knopfzeile(Spielstaende.knopf("neben", Sprache.u("back"), func(): zu.emit(), true), null))
 	baue()
 
 var _gebaut := ""   # der Reiter, den baue() zuletzt zeigte
@@ -101,7 +105,7 @@ func baue() -> void:
 	# Rollzustand); nur derselbe Reiter behaelt nach Antippen seine Stelle
 	var y := rolle.scroll_vertical if reiter == _gebaut else 0
 	_gebaut = reiter
-	kopf.text = wort(reiter).to_upper()
+	kopf.text = wort(reiter).to_upper().replace("ß", "SS")
 	for c in leiste.get_children():
 		leiste.remove_child(c)
 		c.queue_free()
@@ -304,31 +308,19 @@ func erklaere(a: String) -> void:
 	dialog(Sprache.t(Heldwerte.lade()["attribute"][a]["name"]), Stil.GOLD, z_, [["OK", func(): pass]])
 
 func frage_verteilen() -> void:
+	# 630 (549a): Rueckfrage ohne Kasten wie jede (Spielstaende.frage): Titel, Zierlinie, Zeilen mittig, „‹ ABBRECHEN“ links,
+	# „JA, VERTEILEN ›“ rechts; Tippen daneben und Android-Zurück wie Abbrechen (526)
 	var de := Sprache.aktiv() == "de"
 	var d := Heldwerte.lade()
-	var schleier := Rueckfrage.schleier(self)   # 526: Tippen daneben und Android-Zurück wie „Abbrechen“ (416.1)
-	var mitte: Container = Spielstaende.oben() if Spielstaende.vorlage2 else CenterContainer.new()   # 557a B: oben wie jeder Schirm
-	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	mitte.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	schleier.add_child(mitte)
-	var v := VBoxContainer.new()
-	v.add_theme_constant_override("separation", int(8 * DP))
-	v.custom_minimum_size.x = get_viewport_rect().size.x - 48 * DP
-	mitte.add_child(Rueckfrage.halte(Erschaffung.kasten(v)))
-	v.add_child(Stil.zeile(("Punkte verteilen?" if de else "Spend points?").to_upper(), 14, Stil.GOLD, 3.0))
+	var zl: Array = []
 	for a in geplant:
-		v.add_child(Erschaffung.txt("%s: %d → %d" % [Sprache.t(d["attribute"][a]["name"]), hw.wert(a), hw.wert(a) + int(geplant[a])], 17))
-	v.add_child(Erschaffung.txt("Das kann nicht rückgängig gemacht werden." if de else "This can't be undone.", 14, Stil.DIM))
-	var r := HBoxContainer.new()
-	r.add_theme_constant_override("separation", int(8 * DP))
-	r.add_child(Erschaffung.knopf(abbrechen(), func(): schleier.queue_free()))   # 618: „Abbrechen“ verwirft, statt „Nein“
-	r.add_child(Erschaffung.knopf("Ja, verteilen" if de else "Yes, spend", func():
+		zl.append(Erschaffung.txt("%s: %d → %d" % [Sprache.t(d["attribute"][a]["name"]), hw.wert(a), hw.wert(a) + int(geplant[a])], 16))
+	zl.append(Erschaffung.txt("Das kann nicht rückgängig gemacht werden." if de else "This can't be undone.", 13.5, Spielstaende.ANGABE))
+	Spielstaende.frage(self, "Punkte verteilen?" if de else "Spend points?", zl, "", "Ja, verteilen" if de else "Yes, spend", Stil.BRIGHT, func():
 		for a in geplant:
 			for i in int(geplant[a]): hw.steigern(a)   # Hero.applyPoints
 		geplant.clear()
-		schleier.queue_free()
-		baue()))
-	v.add_child(r)
+		baue())
 
 # ---------------------------------------------------------------- Tasche (BagTab)
 func tasche() -> void:
@@ -1588,31 +1580,9 @@ static func stuecke(t: String) -> Array:
 	return r
 
 func anleitung() -> void:
-	var seite := Control.new()
-	seite.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	add_child(seite)
-	var bg := ColorRect.new()
-	bg.color = Color.BLACK
-	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	seite.add_child(bg)
-	var rand := MarginContainer.new()
-	rand.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	for r in ["left", "right", "top", "bottom"]: rand.add_theme_constant_override("margin_" + r, int(16 * DP))
-	seite.add_child(rand)
-	var spalte := VBoxContainer.new()
-	spalte.add_theme_constant_override("separation", int(12 * DP))
-	rand.add_child(spalte)
-	var rolle_ := ScrollContainer.new()
-	rolle_.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	rolle_.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
-	var k := Erschaffung.kasten(rolle_)
-	k.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	spalte.add_child(k)
-	var v := VBoxContainer.new()
-	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	v.add_theme_constant_override("separation", int(10 * DP))
-	rolle_.add_child(v)
-	v.add_child(Stil.zeile(Sprache.t(Sprache.texte.get("anleitung", {}).get("titel", "")).to_upper(), 12, Stil.BRIGHT, 3.0))
+	# 630 (549a „Schirm“): ohne Kasten, Titel 22 sp mit Zierlinie, unten „‹ ZURÜCK“ (Spielstaende.schirm)
+	var d := Spielstaende.schirm(self, Sprache.t(Sprache.texte.get("anleitung", {}).get("titel", "")), func(): pass)
+	var v: VBoxContainer = d["inhalt"]
 	var halbfett := FontVariation.new()
 	halbfett.base_font = Stil.schrift()
 	halbfett.variation_embolden = 0.5   # nur der gerade Schnitt; Compose setzt SemiBold kuenstlich
@@ -1649,7 +1619,6 @@ func anleitung() -> void:
 		rt.text = b
 		absatz.add_child(rt)
 		v.add_child(absatz)
-	spalte.add_child(Erschaffung.knopf(Sprache.u("back"), func(): seite.queue_free()))
 
 # DeviceInfo.lines: was Geraet, System und Grafik sind, dazu die Messwerte des Spiels
 static func geraeteangaben() -> String:

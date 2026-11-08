@@ -7,6 +7,7 @@ extends SceneTree
 
 var fehler := 0
 
+const KH := preload("res://tests/knopf_hilfe.gd")
 func _initialize() -> void:
 	_lauf.call_deferred()
 
@@ -55,9 +56,9 @@ func schlucker(wurzel: Node, wo: String) -> void:
 			pruefe(false, "%s: %s in %s schluckt das Tippen" % [wo, x.get_class(), c.get_class()])
 	pruefe(true, "%s: %d Tippflaechen geprueft" % [wo, n])
 
-func knopf_mit(c: Node, t: String) -> Button:
-	for b in c.find_children("*", "Button", true, false):
-		if (b as Button).text == t and (b as Button).is_visible_in_tree(): return b
+func knopf_mit(c: Node, t: String) -> Control:   # 630: auch Wahlfelder ohne Rahmen (Erschaffung.wahlfeld)
+	for b in KH.alle(c):
+		if KH.text(b) == t and b.is_visible_in_tree(): return b
 	return null
 
 func _lauf() -> void:

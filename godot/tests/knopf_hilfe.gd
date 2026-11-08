@@ -5,7 +5,7 @@ extends RefCounted
 # alle antippbaren Flaechen unter [n]: Button und PanelContainer, die Tippen annehmen und Text tragen
 static func alle(n: Node, aus: Array = []) -> Array:
 	if n is Button: aus.append(n)
-	elif n is PanelContainer and (n as Control).mouse_filter == Control.MOUSE_FILTER_STOP and text(n as Control) != "": aus.append(n)
+	elif n is PanelContainer and (n as Control).mouse_filter != Control.MOUSE_FILTER_IGNORE and text(n as Control) != "": aus.append(n)
 	for c in n.get_children(): alle(c, aus)
 	return aus
 
