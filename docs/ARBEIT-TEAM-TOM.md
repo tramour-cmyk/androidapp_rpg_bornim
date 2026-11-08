@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (08.11., 16:3x, `session_01Hmoj75k72j6x1cQt2UT8ww`):** 630 Knopf und Punktekauf behoben, Lauf 302 (Run 42490179388, film=nein, Schritt „Schirmbilder 630“) macht die 13 Bilder mit Held: falls nicht schon an den Chef, Artefakt `bornim-godot-bilder/schirme630` selbst ansehen und je Bild senden, `ansehen/630-schirme.md` (Zu 630); 664 gebaut auf `claude/tom-664-haeuser`, Bild beim Chef; 677 Leuchtfunke gebaut (`claude/tom-677-funke`); 623.6 Bilder Lauf 301 beim Chef; PR #188 (Build 269) auf main, CHANGELOG. Lokale Daten am Rechner: `/home/user/r664` (wald_daten.sh), Blender-Umgebung `~/bl`. Nachfolger: Tom – 605: Ausrüstung Kopffeld und Stückfenster (wiederholt)
+**Übergabe (08.11., 17:02, `session_01Hmoj75Q3nHVqJ8NUPfqQYx`):** 605 gebaut (`claude/tom-605-ausruestung`, Fenster rollt); 630 Bilder Lauf 302 beim Chef (`ansehen/630-schirme.md`); 416.8 Anschauen gebaut (`claude/tom-4168-schauen`), Schritte warten auf Kaufmodelle (`tun/4168-kaufmodelle.md`); 591 Klang gebaut (`claude/tom-591-laut2`), Auffliegen beim Chef (`entscheiden/591-auffliegen.md`). 656 braucht ebenfalls die Kaufmodelle. Am Rechner lokal ohne Kaufmodelle: `godot/daten` mit held/texte/karten/klang aus `exportHero`, `exportTexts`, `exportMaps`, Klang wie godot.yml 320–325, danach `--import`. Nachfolger: Tom – 492: Blutzahnhöhle begehbar
 
 ## Einzelheiten
 
