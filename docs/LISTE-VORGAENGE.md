@@ -11,6 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
+| 613 | Zwischensequenzen neu wie alt: leichte Bewegungen, Signatur, Tusche (mit 302.3), an Spike (Chef 07.11., t268.31; 08.11., 15:08, 15:19) · „jetzt“ 08.11., 15:19 | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 656 | Umhang Kämpfer mit Beulen, große Beule unter dem Schwertarm: woher, weg (Chef 08.11., 14:52, schon zu 623.5 gefragt, Antwort verloren) | Tom | M | startbar | – | – | – | E Figuren | – |
 | 623.6 | Probe Welt mit den Gratisproben (Gras und Wind, Wasser, Wetter, Oberflächen) gegen unsere Fassung, Dorfbach und Flüsterwald, FPS, ein Film; vor dem Kauf (Chef 07.11., 623 B1, D) · „jetzt“ 08.11., 13:48 | Tom | M | in Arbeit, Ursache belegt, behoben 35e4c163c; Lauf welt=bild offen | Chef | – | – | E Welt | – |
 | 625 | Sammelbuild 269: alle fertigen Zweige beider Teams (35 warten), Prüfliste als Weg durchs Spiel (Chef 07.11., 20:5x) · „jetzt“ 07.11., 20:54 | Tom | M | zu testen | – | claude/build-269 | 269 | E Technik | 76,53 $ |
@@ -89,7 +90,6 @@
 | 630 | Restliche Schirme im Stil „ohne Kasten“ (549a): Laden-Fenster und Rückfragen, Menü, Brett, Anleitung, Über das Spiel, Erschaffung (Liste aus 618, Sokrates 07.11.) · „jetzt“ 07.11., 22:28 | Tom | M | in Arbeit, Chef 15:11 Funde 1, 2, 4, Rest passt | – | claude/tom-630-schirme | – | E Oberfläche | – |
 | 618 | Knöpfe einheitlich: „Zurück“, „Abbrechen“, „Schließen“ nach einer Regel auf allen Schirmen, Liste der Abweichungen (Chef 07.11., t268) | Tom | M | zu testen | – | claude/tom-618-woerter | 269 | E Oberfläche | – |
 | 612 | Dorf Süd: Heuhaufen geklont und wie aufgespießt, Wackelgras im Weizenfeld, Gemüsebeet mit Leerstreifen; drei Varianten je Ding (Chef 07.11., t268) | Tom | M | startbar | – | – | – | E Welt | – |
-| 613 | Intro und Outro wie alt: Tempelgänger, kleine Bewegungen (Chef 07.11., t268.31) | Tom | M | startbar | Chef | – | – | E Oberfläche | – |
 | 614 | Leute lebendig wie alt: Jorin mit Speer, Jorin öffnet den Schlagbaum sichtbar; Abgleich der Requisiten und Gesten (Chef 07.11., t268) | Tom | M | startbar | – | – | – | E Figuren | – |
 | 623.7 | „Mit Dank an“ (623.4) in „Über das Spiel“ (497) einbauen, de/en (Chef 07.11., 623 F) | Tom | M | zu testen | – | claude/tom-6237-dank | 269 | G Story | – |
 | 624 | Testanzeigen größer: FPS und Standort über der Welt, Messwerte im Reiter „Test“ (Speicher u. a.) gut lesbar (Chef 07.11., 17:5x) | Tom | M | zu testen | – | claude/tom-624-testanzeige | 269 | B Werkzeuge | – |
