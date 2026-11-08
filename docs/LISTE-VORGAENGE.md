@@ -12,7 +12,7 @@
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
 | 670 | Build 269: Menü des Helden (Held, Tasche, Ausrüstung, Karte, Chronik, System) noch im alten Design statt 557/549a; Zweig tom-557-einschalten war im Build? (Chef 08.11., 15:32) | Tom | M | startbar | – | – | – | E Oberfläche | – |
-| 664 | Halbes Haus: Haus des alten Kael und Hütte der Kräuterhexe im tiefen Flüsterwald nur halb da (Chef 08.11., 15:28, mehrfach gemeldet, nie eingetragen) · wiederholt | Tom | M | startbar | – | – | – | E Welt | – |
+| 664 | Halbes Haus: Haus des alten Kael und Hütte der Kräuterhexe im tiefen Flüsterwald nur halb da (Chef 08.11., 15:28, mehrfach gemeldet, nie eingetragen) · wiederholt | Tom | M | in Arbeit, gebaut am Rechner, Bild beider Häuser folgt | – | claude/tom-664-haeuser | – | E Welt | – |
 | 613 | Zwischensequenzen neu wie alt: leichte Bewegungen, Signatur, Tusche (mit 302.3), an Spike (Chef 07.11., t268.31; 08.11., 15:08, 15:19) · „jetzt“ 08.11., 15:19 | Tom | M | wartet, bei Spike, Behebung gebaut | 613.1 | – | – | E Oberfläche | – |
 | 656 | Umhang Kämpfer mit Beulen, große Beule unter dem Schwertarm: woher, weg (Chef 08.11., 14:52, schon zu 623.5 gefragt, Antwort verloren) | Tom | M | startbar | – | – | – | E Figuren | – |
 | 623.6 | Probe Welt mit den Gratisproben (Gras und Wind, Wasser, Wetter, Oberflächen) gegen unsere Fassung, Dorfbach und Flüsterwald, FPS, ein Film; vor dem Kauf (Chef 07.11., 623 B1, D) · „jetzt“ 08.11., 13:48 | Tom | M | in Arbeit, Lauf welt=bild 15:15 gestartet | – | – | – | E Welt | 12,54 $ |
