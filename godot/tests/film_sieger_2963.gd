@@ -1,12 +1,13 @@
 # 296.3 (Siegerpose, Chef 23.10., 18:25; Bestand zuerst 377; 408: „wenn es sich dreht, wie es aus allen Perspektiven ausschaut“):
 # Sichtungsfilm der Siegerposen aus dem Bestand am Kaufhelden (Kämpfer mit Schwert und Schild) im Kampfort, im Spiellicht (Toon,
 # Tusche nach Licht, Schatten), Spielkamera herangezogen. Je Kandidat: Kampfstehen, die Bewegung ganz, kurz halten, Kampfstehen;
-# der Held dreht sich dabei einmal ganz herum. Nummer, Paket und Name oben. Die Regeln laufen nicht. Wie film_438a.gd.
+# erst von vorn, dann dieselbe Bewegung, während der Held sich einmal ganz herumdreht. Nummer, Paket und Name oben. Die Regeln laufen nicht. Wie film_438a.gd.
 # Quellen: die Protofactor-Sätze (sieger2963.py: Spott, Sieg, Jubel; je Bewegung eine .glb auf dem Gerüst der UAL) und
 # Celebration aus der UAL Pro.
 # Aufruf: B2963=<ordner mit den .glb> UAL_PRO=<UAL1.glb> PROBE=296.3 xvfb-run godot --path godot --rendering-driver opengl3
 #   --resolution 540x1170 --write-movie <datei>.avi --fixed-fps 30 -s res://tests/film_sieger_2963.gd
-# Probebild (511): BILD_S=a,b,… (Sekunden ab dem ersten Kandidaten) je ein Bild nach BILD (mehrere: -1, -2 … vor .png), dann Ende
+# Probebild (511): BILD_S=a,b,… (Sekunden ab dem ersten Kandidaten) je ein Bild nach BILD (mehrere: -1, -2 … vor .png), dann Ende;
+# BILD_S=vorn: je Kandidat ein Bild mitten in der Bewegung von vorn (BILDER=<n>: nur die ersten n)
 extends SceneTree
 
 const Probe = preload("res://kampf/probe.gd")
@@ -117,8 +118,25 @@ func _run() -> void:
 		lb.text = "%d · %s" % [i, _paket(n)]
 		lz.text = n
 		var lang := anim.get_animation(n).length
+		# 296.3 (Chef 08.11., 16:44: „dreimal den Helden von hinten … was soll ich jetzt da für Siegerposen beurteilen?“; die ganze
+		# Drehung stand im Probebild mitten in der Bewegung bei 180°): erst von vorn ohne Drehung, dann dieselbe Bewegung einmal drehend
 		var ganz := maxf(lang, 3.0) + 1.0     # eine ganze Drehung über Bewegung, Halten und das Kampfstehen danach
 		await _stueck("Kampfstehen", 0.6, 0.0)
+		if OS.get_environment("BILD_S") == "vorn":     # Probebild: je Kandidat ein Bild mitten in der Bewegung von vorn, dann Ende
+			_spiel_ab(n)
+			await _warte(lang * 0.5, 0.0)
+			await RenderingServer.frame_post_draw
+			var pfad := OS.get_environment("BILD").get_basename() + "-%d.png" % i
+			root.get_texture().get_image().save_png(pfad)
+			print("Probebild 296.3: %s von vorn → %s" % [n, pfad.get_file()])
+			if i >= int(OS.get_environment("BILDER")) if OS.get_environment("BILDER") != "" else i >= namen.size():
+				quit(0)
+				return
+			continue
+		await _stueck(n, lang, 0.0)
+		await _stueck("halt", 0.4, 0.0)
+		lz.text = n + (" · gedreht" if Sprache.aktiv() == "de" else " · turning")
+		await _stueck("Kampfstehen", 0.4, 0.0)
 		await _stueck(n, lang, TAU * lang / ganz)
 		await _stueck("halt", 0.4, TAU * 0.4 / ganz)
 		await _stueck("Kampfstehen", ganz - lang - 0.4, TAU * (ganz - lang - 0.4) / ganz)
@@ -156,6 +174,11 @@ func _stueck(n: String, dauer: float, dreh: float) -> void:
 	await _warte(dauer, dreh)
 	if n != "Kampfstehen":
 		print("Stück %s %.2f s" % [n, dauer])
+
+
+func _spiel_ab(n: String) -> void:
+	anim.play(n, 0.2, 1.0, false)
+	anim.seek(0.0, true)
 
 
 func _spiel(n: String, blend: float) -> void:

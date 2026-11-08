@@ -520,7 +520,7 @@ jobs:
       # Nur von Hand mit kampf=ja; läuft auch nach rotem Prüfschritt (wolf_mess_438)
       # 296.3 (Jerry; Siegerpose, Bestand zuerst 377, drehend in einem Film 408): Kandidaten aus den Protofactor-Sätzen (sieger2963.py)
       # und Celebration der UAL Pro am Kaufhelden im Kampfort (film_sieger_2963.gd); nur von Hand mit kampf=2963; mit film=nein nur das
-      # Probebild (511: drei Bilder aus demselben Skript), sonst der Film
+      # Probebild (511: je Kandidat ein Bild von vorn aus demselben Skript), sonst der Film
       - name: Siegerposen 296.3 (nur von Hand mit kampf=2963)
         if: ${{ !cancelled() && github.event.inputs.kampf == '2963' }}
         continue-on-error: true
@@ -533,7 +533,7 @@ jobs:
           cd godot
           sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
           if [ "${{ github.event.inputs.film }}" = "nein" ]; then
-            B2963=$RUNNER_TEMP/sieger2963 UAL_PRO=$U BILD=$B/2963-probebild.png BILD_S=2.4,7.0,11.6 timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" \
+            B2963=$RUNNER_TEMP/sieger2963 UAL_PRO=$U BILD=$B/2963-probebild.png BILD_S=vorn timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" \
               ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --fixed-fps 30 -s res://tests/film_sieger_2963.gd > $B/sieger2963-bild.log 2>&1 || true
             grep -E "SCRIPT ERROR|^Film|^Probebild|^Signatur|FEHLER|^fehlt" $B/sieger2963-bild.log | head -30 || true
           else
