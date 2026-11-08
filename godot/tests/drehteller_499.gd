@@ -11,6 +11,7 @@ const GANG := {"FIGHTER": "einhand", "CLERIC": "", "ROGUE": "einhand", "WIZARD":
 const SCHILD := {"FIGHTER": true, "CLERIC": true, "ROGUE": false, "WIZARD": false}
 const FAUST_M := 0.03
 const RUECKEN_M := 0.06
+const SPALT_M := 0.04   # 499: Spalt an der Unterkante des Schilds (Prüfer Lauf 1: 5–7 cm war zu viel)
 
 var fehler := 0
 
@@ -89,6 +90,24 @@ func _lauf() -> void:
 				var d := koerper_abstand(modell, c)
 				print("  auf dem Rücken (%s): Mitte %.3f m vom Körper" % [ba.name, d])
 				pruefe(d <= RUECKEN_M + 0.10, "%s: %s %.0f cm vom Körper" % [k, ba.name, d * 100])
+				if String(ba.name).begins_with("RueckenSchild"):
+					# 499 (Chef 07.11.: „Modell Avatar Schild (immer noch) unten zu weit weg“): Spalt an Unter- und Oberkante, je die
+					# kleinste Entfernung von 8 Ecken des untersten bzw. obersten Bands (5 cm) zur Haut in der Haltung „Stehen“
+					var gt := (mi as MeshInstance3D).global_transform
+					var pts: Array[Vector3] = []
+					var me := (mi as MeshInstance3D).mesh
+					for s in me.get_surface_count():
+						for v in me.surface_get_arrays(s)[Mesh.ARRAY_VERTEX]: pts.append(gt * v)
+					var y0 := INF; var y1 := -INF
+					for p in pts: y0 = minf(y0, p.y); y1 = maxf(y1, p.y)
+					var band := func(unten: bool) -> float:
+						var sel := pts.filter(func(p): return p.y < y0 + 0.05 if unten else p.y > y1 - 0.05)
+						var best := INF
+						for i in range(0, sel.size(), maxi(1, sel.size() / 8)): best = minf(best, koerper_abstand(modell, sel[i]))
+						return best
+					var du: float = band.call(true); var do_: float = band.call(false)
+					print("  Schild-Spalt: unten %.3f m, oben %.3f m (Höhe %.2f bis %.2f)" % [du, do_, y0, y1])
+					pruefe(du <= SPALT_M, "%s: Schild unten %.0f cm vom Rücken" % [k, du * 100])
 		if bild:
 			var bilder: Array[Image] = []
 			for winkel in [0.0, 90.0, 200.0]:
