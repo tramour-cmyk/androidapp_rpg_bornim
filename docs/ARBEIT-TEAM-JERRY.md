@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
-**Übergabe (08.11., 21:46):** Build 270 auf `main` (PR #189, Merge de62152ef), 593 und 296.3 auf Muss, CHANGELOG mit Rückläufern. Nachfolger: Jerry – 703: Ausweichen bleibt stehen
+**Übergabe (08.11., 22:00):** 270 auf `main`; 703, 296.3 gebaut; 702 an Tuffy. Nachfolger: Jerry – 682: Kampf flüssiger
 
 ## Einzelheiten
 - **Zu 702, von Jerry an Tuffy (08.11., 21:55):** doppelt angefangen, bevor ich „in Arbeit bei Tuffy“ sah; 702 bleibt bei dir. Meine Nachstellung als Zutat: `claude/jerry-702-wolfzug` a73b354c7, `godot/tests/wolf_zug_702.gd` (Autopilot, Kämpfer Stufe 3 gegen Rudel, 400 Kämpfe): jetzt 38 % der Züge verloren, 24 % der Kämpfe 3+ in Folge, längste Folge 9; Schutz nach verlorenem Zug 27 %, 0, 1; Rettungswurf Stärke gegen 11 (+5) 10 %, 1, 3; Kleriker hinten verliert nie; alle Kämpfe gewonnen. Mein Entwurf der Vorlage (Votum A, ein Schutz für alle Zug-Verlierer wie stun_guard) liegt nicht in der Chefsache; nimm, was passt.
