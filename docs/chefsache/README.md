@@ -255,10 +255,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 650.1 | M | Liste für docs/alt/ nach zwei Gegenprüfungen (aus 650) | Termin 09.11. |
 | 654.1 | M | Systemfrage vor jedem Bau in ROLLE-ENTWICKLUNG.md und Prüfliste, Wiederholungswächter in v | startbar |
 
-**Diogenes** – offen 15, Muss 12, startbar 4
+**Diogenes** – offen 16, Muss 13, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 657.1 | M | 657 prüfen: ganzes Konzept „eine Seite für alle“ (Stil, Team, Ablauf, Werkzeuge an Übergab | startbar |
 | 317.1 | M | startbar.py, lauf.py: Obergrenze 6 je Build streichen (Chef 07.11., 20:5x) (für Perikles) | wartet auf Test t269 (Chef) |
 | 511 | M | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele | wartet auf D75 (Dauer) |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
@@ -280,7 +281,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 620 | M | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build | startbar |
-| 657 | M | Regeln radikal kürzen: eine Seite für alle mit Stil, Team, Ablauf (Chef 08.11., 14:58, 15: | Chef (Datei in der Chefsache) |
+| 657 | M | Regeln radikal kürzen: eine Seite für alle mit Stil, Team, Ablauf (Chef 08.11., 14:58, 15: | wartet auf 657.1 (startbar) |
 | 341.1 | M | Zielvereinbarung für alle Rollen: je Rolle höchstens drei Ziele, Z3 und Z4 für alle, eins | startbar |
 | 623 | M | Effektpakete REEBOO Labs: Kauf, Ressourcenseite LISTE-QUELLEN.md, Zuordnung LISTE-EFFEKTE. | wartet auf 623.5 (startbar) |
 | 623.1 | M | Prüfschema auf bisher geprüfte Quellen anwenden (Chef 07.11., aus 623) | startbar |
