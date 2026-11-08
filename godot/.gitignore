@@ -5,3 +5,8 @@ kampf/daten/
 *.import
 # 415 (Jerry): Beams Free Sample (reeboolabs), Lizenz verbietet Weitergabe; im Bau aus bornim-kaufmodelle (godot.yml)
 addons/reeboo_beams/
+# 623.6 (Tom): REEBOO-Gratisproben fuer die Welt, Lizenz verbietet Weitergabe; im Bau aus bornim-kaufmodelle (godot.yml)
+addons/grass_wind_kit/
+addons/water_kit/
+addons/weather_fx/
+addons/reeboo_surfaces/

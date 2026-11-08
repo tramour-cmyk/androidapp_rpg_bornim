@@ -31,6 +31,9 @@ on:
       kamin:
         description: "Kamine 501 (Spike): ja = Grundrisse am Tag und nachts (--raeume), Lage der Kaminflammen"
         default: ""
+      welt:
+        description: "Probe Welt 623.6 (Tom): liste = Dateinamen der REEBOO-Gratisproben ins Protokoll; bild = Probebild; film = Film"
+        default: ""
 
 jobs:
   apk:
@@ -73,6 +76,56 @@ jobs:
         run: |
           echo "KAUF=$RUNNER_TEMP/kauf" >> $GITHUB_ENV
           bash tools/blender348/kauf_laden.sh $RUNNER_TEMP/kauf
+      # 623.6 (Chef 07.11., 623 B1, D; „jetzt“ 08.11., 13:48): neun REEBOO-Gratisproben liegen im privaten Repo nur auf dem Zweig
+      # claude/brave-faraday-9mxupv (anhang/reeboo/<seite>-free-sample.zip, LISTE-BESTAND); Lizenz: Dateien nie weitergeben, darum nur in
+      # den Bau (nie ins Repo, nie als Artefakt); im Protokoll nur Dateinamen und Klassennamen
+      - name: REEBOO-Gratisproben (623.5, 623.6, privat)
+        if: ${{ github.event.inputs.welt != '' }}
+        env:
+          GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
+        run: |
+          [ -n "$GH_TOKEN" ] || { echo "REEBOO: kein Zugang"; exit 0; }
+          git -C $KAUF fetch -q --depth 1 origin claude/brave-faraday-9mxupv && git -C $KAUF checkout -q FETCH_HEAD -- anhang/reeboo || { echo "REEBOO: Zweig fehlt"; exit 0; }
+          for z in $KAUF/anhang/reeboo/*.zip; do [ -d "${z%.zip}" ] || unzip -q -o "$z" -d "${z%.zip}"; done
+          echo "REEBOO_DIR=$KAUF/anhang/reeboo" >> $GITHUB_ENV
+          if [ "${{ github.event.inputs.welt }}" = "liste" ]; then
+            cd $KAUF/anhang/reeboo
+            find . -type f ! -name '*.import' ! -name '*.uid' ! -name '*.png' ! -name '*.jpg' | sort | sed 's/^/REEBOO /'
+            grep -rhoE '^(class_name|extends) [A-Za-z0-9_."/:]+' --include='*.gd' . | sort | uniq -c | sed 's/^/REEBOO-KLASSE /'
+            grep -rhoE '^@export[a-z_]* var [a-z_0-9]+' --include='*.gd' . | sort -u | head -150 | sed 's/^/REEBOO-EXPORT /'
+            grep -rhoE '^\[node name="[^"]+" type="[A-Za-z0-9]+"' --include='*.tscn' . | sort | uniq -c | sort -rn | head -60 | sed 's/^/REEBOO-KNOTEN /'
+            grep -rhoE '^shader_type [a-z_]+|^render_mode [a-z_, ]+' --include='*.gdshader' . | sort | uniq -c | sed 's/^/REEBOO-SHADER /'
+            for f in grass-wind-free-sample/addons/grass_wind_kit/wind/*.gd water-kit-free-sample/addons/water_kit/scripts/water_surface_3d.gd \
+                     weather-fx-free-sample/*/addons/weather_fx/weather_controller_3d.gd weather-fx-free-sample/*/addons/weather_fx/weather_preset.gd \
+                     surface-shaders-free-sample/*/addons/reeboo_surfaces/scripts/*.gd; do
+              for g in godot-$f; do [ -f "$g" ] && grep -hoE '^(@export[a-z_]* var [a-z_0-9]+(: *[A-Za-z0-9_]+)?|signal [a-z_]+|func [a-z_0-9]+\(|class_name [A-Za-z0-9]+|extends [A-Za-z0-9]+)' "$g" | sed "s#^#REEBOO-API $(basename $g): #" || true; done
+            done
+            grep -rhoE 'global uniform [a-z0-9_]+ [a-z_0-9]+|add_autoload_singleton\("[A-Za-z_]+"|ProjectSettings\.(set_setting|get_setting)\("[a-z_/0-9]+"|RenderingServer\.global_shader_parameter_[a-z]+\("[a-z_0-9]+"' . | sort | uniq -c | sed 's/^/REEBOO-GLOBAL /'
+            for f in $(find . -name '*.tres' -path '*presets*' -o -name '*.tres' -path '*materials*'); do echo "REEBOO-RES $f $(head -1 $f | grep -oE 'type="[A-Za-z0-9]+"|script_class="[A-Za-z0-9]+"' | tr '\n' ' ')"; done
+            for f in $(find . -name 'minimal_meadow.tscn' -o -name 'pond_toon.tscn' -o -name 'pond_clear.tscn'); do grep -hoE '^\[node name="[^"]+" type="[A-Za-z0-9]+"( parent="[^"]*")?' $f | sed "s#^#REEBOO-SZENE $(basename $f): #"; done
+            grep -hoE '^\[autoload\]|^[A-Za-z]+="\*res://[^"]+"|^shader_globals/[a-z_0-9]+' $(find . -name project.godot) | sort | uniq -c | sed 's/^/REEBOO-PROJEKT /'
+            echo "REEBOO: Liste fertig"   # kein exit 1: jeder rote Lauf schickt dem Chef eine Fehler-Mail (Sokrates 14:06)
+          fi
+          # 623.6: die vier Welt-Kits als Addons in den Bau (godot/.gitignore), dazu die Demo-Felsen der Oberflaechen
+          mkdir -p godot/addons
+          for a in grass_wind_kit water_kit weather_fx reeboo_surfaces; do
+            d=$(find $KAUF/anhang/reeboo -type d -path "*addons/$a" | head -1)
+            [ -n "$d" ] && cp -r "$d" godot/addons/ && echo "REEBOO: $a"
+          done
+          m=$(find $KAUF/anhang/reeboo -type d -path '*Surface_Shaders_Free_Sample/demo/meshes' | head -1)
+          [ -n "$m" ] && mkdir -p godot/addons/reeboo_surfaces/demo_meshes && cp $m/*.obj godot/addons/reeboo_surfaces/demo_meshes/ || true
+          # Grass & Wind braucht sein Autoload GrassWind und die globalen Shaderwerte gw_* (wie im project.godot des Kits), nur im Bau
+          if [ -d godot/addons/grass_wind_kit ]; then
+            python3 - << 'PY'
+          p = 'godot/project.godot'
+          s = open(p).read()
+          s = s.replace('[autoload]\n', '[autoload]\n\nGrassWind="*res://addons/grass_wind_kit/wind/grass_wind.gd"\n', 1)
+          g = ''.join('%s={\n"type": "vec4",\n"value": Vector4(0, 0, 0, 0)\n}\n' % n for n in ['gw_push_0', 'gw_push_1', 'gw_push_2', 'gw_push_3', 'gw_wind', 'gw_wind_time'])
+          s += '\n[shader_globals]\n\n' + g if '[shader_globals]' not in s else ''
+          open(p, 'w').write(s)
+          PY
+            grep -n "GrassWind\|gw_" godot/project.godot | head -8
+          fi
       # 415 (Jerry, Chef „415 jetzt“ 02.11., 10:55; „415d muss ins nächste Build“ 22:05): Beams Free Sample (reeboolabs) aus
       # bornim-kaufmodelle anhang/beams; die Lizenz verbietet die Weitergabe der Dateien, darum nie ins Repo (godot/.gitignore), nur in den Bau
       - name: Beams-Probe (415, privat)
@@ -697,6 +750,29 @@ jobs:
           ls -l $B
       # 490 Flüsterwald: aus Sicht des Helden (Ankunft, Feuer, Teich, Kraeuter, Hoehle, Rand, Monster mit „!“, nachts Feuer und Ankunft),
       # mit Kaufheld wie im Build; nur bei „490 Waldbilder“ im Commit oder von Hand auf dem Zweig claude/spike-490-…
+      # 623.6 Probe Welt (Chef 07.11., 623 B1, D; „jetzt“ 08.11., 13:48): Dorfbach und Flüsterwald, unsere Fassung gegen die REEBOO-Kits
+      # (skripte/weltprobe.gd); welt=bild mit film=nein: Probebild (je Ort ein Streifen), Renderer wie am Handy (Mobile) und Kompatibilität;
+      # welt=film: derselbe Lauf als Film
+      - name: Probe Welt 623.6 (nur von Hand mit welt=bild oder welt=film)
+        if: ${{ !cancelled() && (github.event.inputs.welt == 'bild' || github.event.inputs.welt == 'film') }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/welt623; mkdir -p $B/mobil $B/kompat
+          cd godot
+          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
+          if [ "${{ github.event.inputs.welt }}" = "bild" ]; then
+            VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
+              ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --welt623=$B/mobil 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|ERROR|^BILD|^WELT623" | cut -c1-400 | tee $B/mobil.log || true
+            timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
+              ~/godot/godot --path . --rendering-driver opengl3 --rendering-method gl_compatibility --resolution 540x1170 -- --welt623=$B/kompat 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|ERROR|^BILD|^WELT623" | cut -c1-400 | tee $B/kompat.log || true
+          else
+            VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 1500 xvfb-run -a -s "-screen 0 1080x2340x24" \
+              ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 --write-movie $RUNNER_TEMP/welt623.avi --fixed-fps 30 \
+              -- --welt623=$B/mobil --welt623film > $B/film.log 2>&1 || true
+            grep -E "SCRIPT ERROR|SHADER ERROR|^WELT623" $B/film.log | head -40 || true
+            ffmpeg -loglevel error -y -i $RUNNER_TEMP/welt623.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/6236-welt.mp4 || true
+          fi
+          ls -lR $B
       - name: Waldbilder (490)
         if: contains(github.event.head_commit.message, '490 Waldbilder') || (github.event_name == 'workflow_dispatch' && contains(github.ref, 'spike-490'))
         continue-on-error: true
