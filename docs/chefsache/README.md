@@ -23,16 +23,10 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [630](ansehen/630-schirme.md) | Erschaffung und Menü Held mit Held, Knopf in einer Zeile | Tom | 08.11., 16:52 |
-| [664](ansehen/664-haeuser.md) | Kaels Haus und Morwens Hütte nicht mehr halb | Tom | 08.11., 16:00 |
 
 ## Zu tun
 
-Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Datei löschen.
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [416.8](tun/4168-kaufmodelle.md) | **Muss** | E Technik | 08.11., 17:00 | Tom das Einbinden der Kaufmodelle erlauben | Tom |
-| [660](tun/660-kaufmodelle-zugriff.md) | **Muss** | E Technik | 08.11., 14:47 | Einbinden von bornim-kaufmodelle in Tom-Sitzungen erlauben | Tom |
+Nichts offen.
 
 ## Offen je Rolle
 
@@ -48,14 +42,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 
-**Tom** – offen 99, Muss 74, startbar 6
+**Tom** – offen 98, Muss 73, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 664 | M | Halbes Haus: Haus des alten Kael und Hütte der Kräuterhexe im tiefen Flüsterwald nur halb | Chef (Datei in der Chefsache) |
+| 664 | M | Halbes Haus: Haus des alten Kael und Hütte der Kräuterhexe im tiefen Flüsterwald nur halb | startbar |
 | 656 | M | Umhang Kämpfer mit Beulen, große Beule unter dem Schwertarm: woher, weg (Chef 08.11., 14:5 | wartet auf 416.8 (in Arbeit) |
 | 605 | M | Ausrüstung: leeres Kopffeld, Auswahl zeigt falsch „Obergrenze“, kein Zurück; Stück aus der | wartet auf Test/Build (gebaut) |
-| 416.8 | M | NPC dreht sich zum Helden mit kleinen Schritten, nicht auf der Stelle (Chef 31.10., 20:5x; | Chef (Datei in der Chefsache) |
+| 416.8 | M | NPC dreht sich zum Helden mit kleinen Schritten, nicht auf der Stelle (Chef 31.10., 20:5x; | startbar |
 | 670 | M | Build 269: Menü des Helden (Held, Tasche, Ausrüstung, Karte, Chronik, System) noch im alte | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
 | 613 | M | Zwischensequenzen neu wie alt: leichte Bewegungen, Signatur, Tusche (mit 302.3), an Spike | startbar |
 | 623.6 | M | Probe Welt mit den Gratisproben (Gras und Wind, Wasser, Wetter, Oberflächen) gegen unsere | startbar |
@@ -76,7 +70,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 495 | M | Zufallsspieler spielt Kapitel 1 in Godot durch (Abnahme 2.2; Wochenziel 03.11., 488) | wartet auf 492 (in Arbeit) |
 | 505 | M | Bau Nebel des Krieges und Sichtfeld des Helden (Archiv 502; Welt W24, W25) | wartet auf 492 (in Arbeit) |
 | 515 | K | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 0 | ruht |
-| 506 | M | Untote im Kampf: Skelett, Zombie, Ghul (aus 494, Spike; Wochenziel 03.11., 488) | wartet auf 660 (wartet) |
+| 506 | M | Untote im Kampf: Skelett, Zombie, Ghul (aus 494, Spike; Wochenziel 03.11., 488) | startbar |
 | 492 | M | Blutzahnhöhle begehbar mit Krogg, Grak, Lyra (Orte O8; Wochenziel 03.11., 488; von Jerry a | startbar |
 | 431 | M | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, da | ruht |
 | 376.1 | M | Probeblatt Quaternius-Figuren mit Bewegungsraster als Film (Chef kaufte 27.10., 12:20) | ruht |
@@ -88,7 +82,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 470.1 | K | Erschaffung: Held auf Antippen bildschirmgroß (Idee Chef 02.11., 18:37) | ruht |
 | 471 | M | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
 | 474 | M | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, M | ruht |
-| 475 | M | Leute des Dorfs (Rowena, Borin …) auf Kaufkörper ihres Volks mit Gesicht, statt der alten | wartet auf 660 (wartet) |
+| 475 | M | Leute des Dorfs (Rowena, Borin …) auf Kaufkörper ihres Volks mit Gesicht, statt der alten | startbar |
 | 476 | K | Symbole der Gegenstände aus den 3D-Modellen statt Pixelbild (Chef 02.11., 14:43) | wartet auf 458.3 (ruht) |
 | 477 | K | Godot-APKs laufen nicht im MuMu Player am Rechner (Chef 02.11., 14:59) | startbar |
 | 461.1 | M | Grundstand zusammenführen: ein Zweig für Tom und Jerry, jede Probe baut darauf (01.11.) | ruht |
@@ -137,7 +131,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 649.3 | M | Figurenkatalog: Bewohner, Händler, Lehrmeister, Söldner füllen (Tagesablauf, Laden, Stimme | wartet auf 649.2 (startbar) |
 | 644.4 | M | Gegenstandskatalog: Ladenbestand und Rezepte aus texte.json und Kotlin in den Katalog umst | wartet auf 644.1 (startbar) |
 | 653 | M | Halt für Waffen und Schilde einmal je Modell festlegen statt je Figur nachmessen: Griffpun | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
-| 660 | M | Zugriff auf bornim-kaufmodelle in Tom-Sitzungen: add_repo vom Automodus abgelehnt (Tom 08. | Chef (Datei in der Chefsache) |
 | 661 | M | Blende zwischen Orten an Schirme ohne Kasten angleichen: Schrift größer, Zierleiste wie do | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
 | 663 | M | Klassische Steuerung ausbauen: Steuerkreuz und Funktionstasten ganz raus, nur Touch; Auswa | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
 | 665 | M | Nacht im Dorf: um 2:30 kaum dunkel; in allen Häusern Licht, keiner schläft: tiefe Nacht du | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
@@ -225,11 +218,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 662 | M | Kampf (vorher 653): Parade des Helden mit Schild dreht über _face_sanft ohne Pfotenhalt, S | wartet auf Test/Build (gebaut) |
 | 681 | M | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
 
-**Perikles** – offen 24, Muss 20, startbar 1
+**Perikles** – offen 24, Muss 20, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 658 | M | Telegram-Reaktionen auslesen: 👍 auf eine Meldung = gebilligt/passt, ✅ = erledigt, Eintrag | wartet auf Test/Build (gebaut) |
+| 658 | M | Telegram-Reaktionen auslesen: 👍 auf eine Meldung = gebilligt/passt, ✅ = erledigt, Eintrag | startbar |
 | 317.1 | M | startbar.py, lauf.py: Obergrenze 6 je Build streichen (Chef 07.11., 20:5x) | wartet auf Test/Build (gebaut) |
 | 620.1 | M | Wiederholte Funde des Chefs vor Neuem; wenige Muss je Team zugleich (aus 620) | wartet auf Test/Build (gebaut) |
 | 511 | M | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele | wartet auf Diogenes |
