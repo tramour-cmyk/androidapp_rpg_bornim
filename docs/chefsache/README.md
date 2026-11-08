@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [650.1](entscheiden/6501-liste-alt.md) | **Muss** | B Betrieb | 08.11., 13:31 | Liste für `docs/alt/` nach zwei Gegenprüfungen | Sokrates |
 | [644](entscheiden/644-gegenstandskatalog.md) | **Muss** | E Kampf | 08.11., 12:55 | Gegenstandskatalog: Aufbau, eine Stelle für alle Gegenstände | Sokrates |
 
 ## Zu billigen
@@ -219,7 +220,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 642 | M | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test |
 | 643 | M | Langbogen mit Köcher als Waffenmodell (daten/waffen/longbow.bin, Griff = Ursprung, Schaft | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test |
 
-**Perikles** – offen 20, Muss 16, startbar 4
+**Perikles** – offen 21, Muss 16, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -243,6 +244,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 647 | M | Abgleich alt schon vor dem Bauen: Fundstelle alter Code lesen und nennen, nicht erst vor d | startbar |
 | Pflege | K | von Werkzeug (340.3, 08.11.): 15841 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 648 | M? | Glossar und Abkürzungsverzeichnis LISTE-GLOSSAR.md: Wort, Bedeutung, Zusammenhang, Fundste | startbar |
+| 651 | M? | Kostenauswertung: Bereiche als feste Liste, fehlende Kosten (533 von 980 Zeilen) über Comm | startbar |
 
 **Diogenes** – offen 11, Muss 9, startbar 1
 
@@ -260,7 +262,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | Woche | K | Wochenzählung der Kennzahlen | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
 
-**Sokrates** – offen 39, Muss 30, startbar 20
+**Sokrates** – offen 40, Muss 31, startbar 20
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -303,6 +305,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 650 | M | docs aufräumen: 88 Dateien, Erledigtes nach docs/alt/, Zusammenlegen, Inhaltsverzeichnis n | startbar |
 | 569 | M | Baumkronen ohne erkennbare Tuschelinie, „ein einziger Brei“ (Chef 04.11., 19:44, Bild 558 | startbar |
 | 383 | M | Wartewächter und Haken 63 verschärfen (Chef 27.10., 17:53 ja); Sitzungsgröße messen (Sokra | startbar |
+| 650.1 | M | Liste für docs/alt/ nach zwei Gegenprüfungen (aus 650) | Chef (Datei in der Chefsache) |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
