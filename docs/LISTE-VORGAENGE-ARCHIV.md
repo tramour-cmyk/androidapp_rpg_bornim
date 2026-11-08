@@ -788,3 +788,8 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 623.5 | Probe Kampf mit den Gratisproben (Combat Mega, Projectiles, Trails, Pack 3, Character Shaders, Status Effects mit Bleeding) im Kampfort, Compatibility, FPS, ein Film; vor dem Kauf 623 (Chef 07.11., 623; 08.11., 13:14) · „jetzt“ 08.11., 13:48 | E Kampf | M | 59,64 $ | Jerry | erledigt |
 | 694 | Von Tom (356.2): Katalogtext je ein Satz für Thessas Pelzumhang (cloak_thessa) und Borins Hauerdolch (dagger_borin) | G Story | K | 1,69 $ | Homer | erledigt |
 | 695 | Antwort auf eine Frage des Chefs ohne Handlung für ihn: nur Telegram, keine Datei in ansehen/ (656, Chef 19:00); Regel in chefsache/README.md | B Abläufe | M | 0,88 $ | Perikles | erledigt |
+| 499 | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 (Chef 03.11., 07:14, Build 204) · „jetzt“ 07.11., 21:31 | E Figuren | M | 64,66 $ | Tom | erledigt, t270 bestanden |
+| 605 | Ausrüstung: leeres Kopffeld, Auswahl zeigt falsch „Obergrenze“, kein Zurück; Stück aus der Auswahl hat nur „Wegwerfen“, kein „Anlegen“ (Chef 06.11., 21:22, t268; t269.16 08.11., 15:57) · wiederholt | E Technik | M | 20,19 $ | Tom | erledigt, t270 bestanden |
+| 604 | Schenke Erdgeschoss: Bett raus, mehr Tische und Bänke; Schlafen oben nur im Text (Chef 06.11., 09:38) | E Technik | K | – | Tom | erledigt, t270 bestanden |
+| 677 | Leuchtfunke wirkt nicht: Benutzen aus der Tasche tut nichts, nur „Der Funke verglimmt“ (Chef 08.11., 15:54, t269.15) | E Welt | M | – | Tom | erledigt, t270 bestanden |
+| 587 | Gegnergröße im Kampfort: 1,3-fach wie alt und die Wölfe, echte Größe oder je Kapitel (Chef 05.11., zu Bild 494) | E Kampf | M | 9,42 $ | Jerry | erledigt, t270 bestanden |
