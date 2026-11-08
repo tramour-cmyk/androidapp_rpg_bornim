@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [655](entscheiden/655-vorpruefung-bilder.md) | **Muss** | B Abläufe | 08.11., 14:47 | Technische Vorprüfung vor jedem Bild an den Chef | Sokrates |
 
 ## Zu billigen
 
@@ -151,7 +155,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 644.4 | M | Gegenstandskatalog: Ladenbestand und Rezepte aus texte.json und Kotlin in den Katalog umst | wartet auf 644.1 (startbar) |
 | 653 | M | Halt für Waffen und Schilde einmal je Modell festlegen statt je Figur nachmessen: Griffpun | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
 
-**Jerry** – offen 67, Muss 58, startbar 3
+**Jerry** – offen 66, Muss 58, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -218,7 +222,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 649.1 | M | Figurenkatalog Schritt 1: eine Kennung je Monsterart, werte.json und tabellen.json zu BRS | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test |
 | 649.2 | M | Figurenkatalog Schritt 2: Werkzeug figuren.py und tools/figuren/figuren.json (Art und Auft | wartet auf 649.1 (startbar) |
 | 649.4 | M | Zwei bis drei Handlungen je gewöhnlicher Monsterart vorschlagen und in 444 messen, nur wo | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test |
-| Pflege | K | von Werkzeug (340.3, 08.11.): 15697 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 644.1 | M | Gegenstandskatalog: Werkzeug mit Spalten, Teil Rezepte und Prüfungen (644 A), zusammen mit | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test |
 | 644.2 | M | Gegenstandskatalog: Zahlen nach 469 in 444 (Tempo, Parieren, Durchschlag, Güte, Stufe), C1 | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test |
 | 653 | M | Kampf: Parade des Helden mit Schild dreht über _face_sanft ohne Pfotenhalt, Skriptfehler „ | wartet auf Test/Build (gebaut) |
@@ -270,7 +273,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
 | 644.5 | M | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noc | wartet auf 644.1 (startbar) |
 
-**Sokrates** – offen 43, Muss 33, startbar 22
+**Sokrates** – offen 44, Muss 34, startbar 22
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -311,12 +314,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 644 | M | Alle Gegenstände an einer Stelle: Katalog 458 mit BRS-Werten, Voraussetzungen, Seltenheit, | wartet auf 644.1 (startbar) |
 | 649 | M | Figurenkatalog: alle Figuren an einer Stelle (Monster, Bewohner, Gefährten), Bestiarium ge | wartet auf 649.3 (startbar) |
 | 650 | M | docs aufräumen: 88 Dateien, Erledigtes nach docs/alt/, Zusammenlegen, Inhaltsverzeichnis n | startbar |
-| Pflege | K | von Werkzeug (340.3, 08.11.): 15471 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 644.3 | M | Seltenheit als Achse ins Regelwerk, Abschnitt Ausrüstung (644 B) | startbar |
 | 569 | M | Baumkronen ohne erkennbare Tuschelinie, „ein einziger Brei“ (Chef 04.11., 19:44, Bild 558 | startbar |
 | 507 | M | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager (Orte O10; aus 492) (für Jerry) | startbar |
 | 383 | M | Wartewächter und Haken 63 verschärfen (Chef 27.10., 17:53 ja); Sitzungsgröße messen (Sokra | startbar |
 | 654 | M | Mitdenken vor dem Bauen: Systemfrage je Fund („kommt das wieder?“), Wiederholungswächter, | wartet auf 654.1 (startbar) |
+| 655 | M | Technische Vorprüfung vor jedem Bild an den Chef (Boden, Farbe, Figur erkennbar; kein Urte | Chef (Datei in der Chefsache) |
+| Pflege | K | von Werkzeug (340.3, 08.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
