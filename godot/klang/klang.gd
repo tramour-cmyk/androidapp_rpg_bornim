@@ -343,6 +343,8 @@ func stimme(id: String, ruf: String, elite := false, pegel := 0.8) -> void:
 const LANDS_MS := 170                    # der Hieb landet nach dem halben Ausfall (SWING_IN_MS)
 const CRY_MS := LANDS_MS + 90            # der Schrei gleich nach dem Klang des Treffers, nie darüber
 const SCHWER := ["mace", "maul", "morningstar", "warhammer"]     # Icon.HAMMER, Icon.MACE
+var _tod_kampf = null                    # 296.3: der Kampf (MARS), für den _tod_gerufen gilt
+var _tod_gerufen := {}                   # 296.3: Gegner (id), deren Todesschrei schon kam
 
 ## Die Klänge einer MARS-Meldung [e] (kampfort.gd _play_say) nach MarsSound.of: Hiebe nach Waffe oder Angriff des Gegners,
 ## kritisch, Zauber nach Art, Heilung, Gift, Fallen; der Schwung der Gruppe vor dem Treffer, die Stimme des Gegners.
@@ -351,6 +353,9 @@ const SCHWER := ["mace", "maul", "morningstar", "warhammer"]     # Icon.HAMMER, 
 func kampf(e: Dictionary, mars, treffer_ms := -1) -> void:
 	var by = mars.find(e.actor) if e.actor != null else null
 	var tg = mars.find(e.target) if e.target != null else null
+	if _tod_kampf != mars:
+		_tod_kampf = mars
+		_tod_gerufen.clear()
 	if e.cue != null:
 		match String(e.cue):
 			"FOE_STRIKES":
@@ -361,7 +366,13 @@ func kampf(e: Dictionary, mars, treffer_ms := -1) -> void:
 			"GATHER": _bald(0, func(): effekt(_fx_klang("ENEMY_HEAL")))
 			"VENOM": _bald(0, func(): effekt("poison"))
 			"WEB": _bald(0, func(): effekt("throw"))
-			"FOE_FALLS": _bald(0, func(): effekt("enemy_down"))
+			"FOE_FALLS":
+				_bald(0, func(): effekt("enemy_down"))
+				# 296.3 (Todesschrei; alt BattleScreen ENEMY_FAINT „its death cry once, if no blow struck it down“): fiel er durch
+				# einen Zauber oder einen Zustand, schreit er mit dem Sturz, einmal; wer flieht, schreit nicht
+				if tg != null and tg.monster != null and not tg.fled and not _tod_gerufen.has(tg.id):
+					_tod_gerufen[tg.id] = true
+					_bald(0, func(): stimme(art_von(tg.monster), "tod", _elite(tg)))
 			"HERO_FALLS", "KNOCKED_OUT": _bald(0, func(): effekt("hero_down"))
 			"POUNCED": _bald(0, func(): effekt("hit_smash", 0.6))     # Rückläufer t53: zu Boden geworfen
 			"DUCKED": _bald(0, func(): effekt("arrow"))               # Rückläufer t58: der Pfeil zischt vorbei
@@ -384,6 +395,8 @@ func kampf(e: Dictionary, mars, treffer_ms := -1) -> void:
 		_bald(landet, func(): effekt(_fx_klang(art, krit)))
 		if tg.monster != null:
 			var stirbt: bool = int(e.hp.get(tg.id, 1)) <= 0
+			if stirbt:
+				_tod_gerufen[tg.id] = true     # 296.3: der Todesschrei kam mit dem Hieb, nicht noch einmal beim Sturz
 			_bald(landet + CRY_MS - LANDS_MS, func(): stimme(art_von(tg.monster), "tod" if stirbt else "schmerz", _elite(tg)))
 	elif art == "ARROW":
 		_bald(0, func(): effekt("arrow"))
