@@ -19,7 +19,7 @@ Verglichen: die geänderten Schirme (Tasche, Ausrüstung, Gegenstandsfenster, Bl
 | 269.3 ✗ → 663 | Tom | 540, 583 | (268.4 noch offen) neues Spiel mit klassischer Steuerung; Erwachen in der Schenke, Text lesen | Tipp zur Steuerung kommt auch bei klassischer Steuerung; ▼ unter der letzten Zeile im Rand, Erzähltes schräg, Gesprochenes gerade | kein Tipp; ▼ mitten im Wort; Erzähltes gerade |
 | 269.4 ✓ | Tom | 606, 605, 617 | Schenke: an der Theke einen Met kaufen, Gold vorher und nachher ansehen | genau 2 Gold weniger, ein Met | 4 Gold weniger; zwei Fenster nacheinander |
 | 269.5 ✓ | Tom | 609 | hinter der Schenke vorbei zum Schlagbaum gehen; dann hinter den anderen Häusern der Waldseite | überall frei | ein Baum oder Busch sperrt |
-| 269.6 | Tom | 615 | im Dorf die Kamera drehen und zoomen | der Held bleibt in der Bildmitte, die Kamera dreht um ihn | der Held wandert zum Rand, bis zwei Bildbreiten daneben |
+| 269.6 ✓ | Tom | 615 | im Dorf die Kamera drehen und zoomen | der Held bleibt in der Bildmitte, die Kamera dreht um ihn | der Held wandert zum Rand, bis zwei Bildbreiten daneben |
 | 269.7 | Tom | 608 | tagsüber hinter Pims Hütte und hinter den Tempel gehen, bis das Haus durchsichtig wird | die Fenster leuchten nur abends und nachts | Licht geht am Tag an |
 | 269.8 ✓ | Tom | 611, 629.1 | an verschlossene Türen klopfen: Bäcker, alter Kael, nachts Gwenna und Dorran, Pims Haus | Klopfen ist zu hören; über gesprochenen Zeilen der Name (Bäcker Edrik, Der alte Kael, Gwenna, Schmied Dorran, Pims Mutter), ohne Anführungszeichen; Erzähltes ohne Namen | stumm; kein Name; Name über erzähltem Text |
 | 269.9 ✓ | Tom | 607 | Reiter „Test“, Uhrzeit auf etwa 3 Uhr, an Pims Tür klopfen und warten | Pim (auch Liska, Gwenna) ist im Haus oder geht hinein, sobald es Nacht ist | Pim läuft um 3 Uhr vor dem Haus herum |
@@ -75,3 +75,4 @@ Chef 08.11., 15:23 (an Sokrates), laufend:
 - 269.10 ✗ Kaninchen nicht hörbar; Huhn gackert kaum, Flattern kaum hörbar; Huhn soll wie alt wirklich wegflattern (Flügel schlagen, kurz auffliegen „tschack, tschack, tschack … weg“), nicht nur laufen (Chef 15:41)
 - 269.11 ✗ Leute drehen sich auf der Stelle; beim Annähern richtet sich keiner zum Helden aus (Stil: bis 3 Felder anschauen), Hineinlaufen schiebt sie weg; so nicht testbar (Chef 15:43); Drehen weiter auf der Stelle wie eine Plastikfigur, keine Schritte zu erkennen (Chef 15:44, wiederholt)
 - 269.12 ✗ Kämpfer im Testmenü auf Langstab umgestellt: Schwert und Schild weg, aber kein Stab in der Hand; Hand nicht prüfbar (Chef 15:46)
+- 269.6 ✓ (am Handy, Chef 15:50)
