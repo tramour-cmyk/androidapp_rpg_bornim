@@ -1034,6 +1034,10 @@ func _draw_overlay() -> void:
 	_draw_spells()
 	# 249: Blut unter den Ansagen (Prüfer 26.10.: Tropfen lagen auf dem Text)
 	_draw_blood()
+	if zustand_563 != "":
+		# 563: nur die Leisten dieses Bilds (Zustände weichen ihnen aus); die des letzten Bilds meiden die Ansagen
+		balken_vor = balken_of.duplicate()
+		balken_of.clear()
 	_draw_intents(sr)
 	# life bars only over foes (MarsLabels.barsOnlyFoes); wer eine Ansage hat, trägt ihn unter ihr (_draw_intents)
 	for id in k.figures:
@@ -1059,6 +1063,12 @@ func _draw_overlay() -> void:
 				if r.grow(3 * dp).intersects(Rect2(of.x - half, of.y - ot, half * 2.0, ot + 6 * dp)):
 					unten = below + r.size.y <= sr.size.y - 4 * dp
 					break
+		# 563 (Chef 04.11., 17:02: die grüne Leiste lief durch die Schrift der Ansage): auch nie auf der Ansage eines anderen
+		if zustand_563 != "" and not unten:
+			for o in sign_rects:
+				if r.grow(2 * dp).intersects(o):
+					unten = below + r.size.y <= sr.size.y - 4 * dp
+					break
 		# 438 (Prüfer Film r2: Leisten springen über und unter, 18,6 s, 33,0 s): der Platz wechselt erst, wenn der andere 0,8 s lang
 		# besser ist (vorher 0,3 s: 9 Wechsel in 48 s), und gleitet dann hin
 		var bu = bar_unten.get(id, [unten, -1.0])
@@ -1076,6 +1086,8 @@ func _draw_overlay() -> void:
 		balken_of[id] = r.position
 		overlay.draw_rect(r.grow(1), Color(0, 0, 0, 0.7))
 		overlay.draw_rect(Rect2(r.position, Vector2(w * clampf(float(hp) / f.max_hp, 0, 1), r.size.y)), hp_color(float(hp) / f.max_hp))
+	if zustand_563 != "":
+		_paint_signs()
 	_draw_statuses(sr)
 	if ended:
 		grid_rect = Rect2()
@@ -1538,7 +1550,13 @@ func _draw_blood() -> void:
 
 
 var placed_status := []
+var placed_status_of := []     # 563: wem die Zeile gehört (Messung tests/zustaende_563.gd)
 var status_rects := []     # 536: [Rect2, Zustand] je gezeichnetes Schild
+## 563 (Chef 04.11., 17:02: „die Statuseffekte sind ja gruselig“); 563 A (Chef 08.11., 13:09: „563 A mit hellerem Rot“) ist die
+## Vorgabe, ZUSTAND563 (auch leer: wie vorher) bleibt für Vergleichsbilder
+var zustand_563 := OS.get_environment("ZUSTAND563") if OS.has_environment("ZUSTAND563") else "A"
+const ROT_HELLER_563 := 0.3     # Blut (C8283A) um so viel heller, auf Schwarz lesbar
+var balken_vor := {}    # 563: Leisten des letzten Bilds
 
 
 ## Whether status signs at [r] would lie on another figure, an intent sign or signs placed before.
@@ -1547,6 +1565,11 @@ func _status_clash(r: Rect2, own: String) -> bool:
 	for o in sign_rects + placed_status:
 		if r.intersects(o.grow(2 * dp)):
 			return true
+	# 563: auch nie auf einer Lebensleiste
+	if zustand_563 != "":
+		for bid in balken_of:
+			if r.intersects(Rect2(balken_of[bid], Vector2(44 * dp, 4 * dp)).grow(2 * dp)):
+				return true
 	for id in k.figures:
 		var o = k.figures[id]
 		if id == own or not o.visible or k.shown.hp.get(id, o.fighter.hp) <= 0:
@@ -1559,13 +1582,35 @@ func _status_clash(r: Rect2, own: String) -> bool:
 	return false
 
 
+## 563: die Schilder der Zustände von [id]: [[Text, Breite, Farbe, Zustand], …], Gesamtbreite, Höhe; leer ohne Zustand
+func _status_chips(id) -> Array:
+	var k = kampfort
+	var st_of: Dictionary = k.shown.get("status", {})
+	if not st_of.has(id) or (st_of[id] as Dictionary).is_empty():
+		return []
+	var fs := sp(11)
+	var gap := 4 * dp
+	var chips := []
+	var width := -gap
+	for st in st_of[id]:
+		var left: int = st_of[id][st]
+		var label: String = Mars.STATUS[st][1][lang] + ("" if left >= Mars.LASTING else " %d" % left)
+		var w := font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x + 10 * dp
+		chips.append([label, w, Mars.STATUS[st][2], st])
+		width += w + gap
+	return [chips, width, fs * 1.3 + 2 * dp]
+
+
 ## 296.2: the statuses with the turns left, as in the old fight (StatusChips), under the feet of each who has any;
 ## lower still where an intent sign lies there.
+## 563 (Vorschlag, aus): "A" im Stil der Ansage (schwarz, Rand und Schrift in der Farbe des Zustands), weicht auch den Lebensleisten
+## aus; die Leisten weichen den Ansagen, die Ansagen den Leisten
 func _draw_statuses(sr: Rect2) -> void:
 	var k = kampfort
 	var fs := sp(11)
 	var gap := 4 * dp
 	placed_status.clear()
+	placed_status_of.clear()
 	status_rects.clear()
 	for id in k.shown.get("status", {}):
 		if not k.figures.has(id):
@@ -1573,15 +1618,12 @@ func _draw_statuses(sr: Rect2) -> void:
 		var fig = k.figures[id]
 		if not fig.visible or k.shown.hp.get(id, fig.fighter.hp) <= 0:
 			continue
-		var chips := []
-		var width := -gap
-		for st in k.shown.status[id]:
-			var left: int = k.shown.status[id][st]
-			var label: String = Mars.STATUS[st][1][lang] + ("" if left >= Mars.LASTING else " %d" % left)
-			var w := font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x + 10 * dp
-			chips.append([label, w, Mars.STATUS[st][2], st])
-			width += w + gap
-		var h := fs * 1.3 + 2 * dp
+		var zs := _status_chips(id)
+		if zs.is_empty():
+			continue
+		var chips: Array = zs[0]
+		var width: float = zs[1]
+		var h: float = zs[2]
 		var foot := _foot(fig)
 		var x := clampf(foot.x - width / 2, 4 * dp, sr.size.x - width - 4 * dp)
 		var y := foot.y + 8 * dp + _tall(fig) * 0.12
@@ -1608,15 +1650,29 @@ func _draw_statuses(sr: Rect2) -> void:
 				row = r
 				break
 		placed_status.append(row)
-		for c in chips:
-			var r := Rect2(row.position.x, row.position.y, c[1], h)
-			status_rects.append([r, c[3]])
+		placed_status_of.append(id)
+		_status_row(row, chips, h, fs, gap)
+
+
+## die Schilder einer Zeile ab [row]; 563 A, B im Stil der Ansage
+func _status_row(row: Rect2, chips: Array, h: float, fs: int, gap: float) -> void:
+	for c in chips:
+		var r := Rect2(row.position.x, row.position.y, c[1], h)
+		status_rects.append([r, c[3]])
+		if zustand_563 != "":
+			# wie die Ansage (_draw_intents): schwarz, Rand in der Farbe, Schrift etwas heller, damit Dunkelrot auf Schwarz lesbar bleibt
+			var c2: Color = c[2]
+			if c[3] == "BLEED":
+				c2 = c2.lightened(ROT_HELLER_563)     # 563 A (Chef 08.11., 13:09: „mit hellerem Rot“)
+			_chip(r, Color(0, 0, 0, 0.85), c2, 1.0)
+			overlay.draw_string(font, Vector2(r.position.x + 5 * dp, r.position.y + h * 0.76), c[0], HORIZONTAL_ALIGNMENT_LEFT, -1, fs, c2.lerp(Color.WHITE, 0.3))
+		else:
 			overlay.draw_rect(r, c[2])
 			overlay.draw_rect(r, Color(0, 0, 0, 0.8), false, maxf(1.0, dp))
 			# Prüfer: Weiß auf Gelb und hellem Grün zu schwach; auf hellen Farben schwarz
 			var ink: Color = Color.BLACK if c[2].get_luminance() > 0.45 else Color.WHITE
 			overlay.draw_string(font, Vector2(r.position.x + 5 * dp, r.position.y + h * 0.76), c[0], HORIZONTAL_ALIGNMENT_LEFT, -1, fs, ink)
-			row.position.x += c[1] + gap
+		row.position.x += c[1] + gap
 
 
 const NAMES_MS := 3000     # SkirmishScreen NAMES_MS
@@ -1719,6 +1775,10 @@ func _draw_intents(sr: Rect2) -> void:
 			for id in bodies:
 				if id != s.id and (r.intersects(bodies[id]) or (strict and _seg_hits(a, e, bodies[id].grow(-2 * dp)))):
 					return true
+			# 563: nie auf der Lebensleiste eines anderen (die grüne Leiste lief durch die Schrift)
+			for bid in balken_vor:
+				if bid != s.id and r.intersects(Rect2(balken_vor[bid], Vector2(44 * dp, 4 * dp)).grow(2 * dp)):
+					return true
 			return false
 		var spots: Array = [Vector2(s.x, s.y)] + s.alts
 		var y: float = s.y
@@ -1774,6 +1834,21 @@ func _draw_intents(sr: Rect2) -> void:
 	for s in placed:
 		sign_rects.append(Rect2(s.x, s.y, s.w, s.h))
 		sign_of[s.id] = Rect2(s.x, s.y, s.w, s.h)
+	signs_placed = placed
+	# 563 A: gemalt erst nach den Lebensleisten (_draw_overlay), damit keine fremde Leiste durch die Schrift läuft (Chef 04.11., 17:02,
+	# Bild: die grüne Leiste eines anderen Wolfs über „pringen“ von „! Anspringen“)
+	if zustand_563 == "":
+		_paint_signs()
+
+
+var signs_placed := []     # 563: die Ansagen dieses Bilds, gesetzt, noch nicht gemalt
+
+## die gesetzten Ansagen malen: Strich zum Ansagenden, eigene Leiste, Schild mit Zeichen und Namen
+func _paint_signs() -> void:
+	var k = kampfort
+	var m = k.mars
+	var fs := sp(14)
+	for s in signs_placed:
 		var r := Rect2(s.x, s.y, s.w, s.h)
 		# a thin stroke down to the one who announces it, so a sign pushed up still belongs to someone
 		var a := _stroke_from(r, s.fx, s.head)
