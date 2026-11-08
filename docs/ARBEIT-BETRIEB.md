@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (08.11., 16:32, Ford `session_01Hmoj78NKRazEf1Gp5XtnWY`, Selbstneustart):** Getan: Archiviersatz des Chefs 10:58 (gilt für diese Sitzung, neuer Ford holt ihn neu), alle fertigen Sitzungen archiviert und Kosten gebucht, Build 269 freigegeben (Chef 16:22), Tagesbericht 08.11. durch. Laufend: Tom `session_01Hmoj75Q3nHVqJ8NUPfqQYx` (605, wiederholt), Jerry `session_01Hmoj78vecVQJuktwpC1va7` (623.5 Film, dann 680, 682, 679), Sokrates `session_01Hmoj788ZCSrdh53V6fSssd` (654 Systemrunde 09.11.). Spike und Tuffy bewusst nicht gestartet (Guthaben-Tempo, Bild 08:44); Spike 613 wartet auf Freigabe 613.1. Offen: Abgleich-Warnung 416.4 (Tom, „gebaut“ ohne Build). Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 684** (zuletzt 683 Tom 08.11. 16:23:14 d854) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 686** (zuletzt 685 Perikles 08.11. 16:32:27 4279) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
