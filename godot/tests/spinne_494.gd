@@ -126,13 +126,11 @@ func _kampf(foe := "SPIDER", seed := 3) -> void:
 			if fig._weg().is_empty():
 				fehler += 1
 				print("FEHLER Spinne ohne Weg neben dem Kaufwolf")
-			# 587 A (Chef 05.11.): 1,3-fach wie alle Gegner (FOE_SIZE · WOLF_SIZE), vorher echte Größe
-			var soll: float = kf.FOE_SIZE * kf.WOLF_SIZE
-			if absf(kf.foe_scale(fig.fighter) - soll) > 0.01:
+			if absf(kf.foe_scale(fig.fighter) - 1.0) > 0.01:
 				fehler += 1
-				print("FEHLER Spinne %.2f-fach statt %.2f" % [kf.foe_scale(fig.fighter), soll])
+				print("FEHLER Spinne %.2f-fach statt echter Größe" % kf.foe_scale(fig.fighter))
 			var kopf: float = fig.head().y - fig.position.y
-			if kopf > 1.0 * soll:
+			if kopf > 1.0:
 				fehler += 1
 				print("FEHLER Balken der Spinne %.2f m hoch" % kopf)
 			print("Spinne 494 neben Kaufwolf: Weg %s, Größe %.2f, Balken %.2f m" % [fig._weg().keys(), kf.foe_scale(fig.fighter), kopf])
