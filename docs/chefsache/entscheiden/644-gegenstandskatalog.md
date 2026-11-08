@@ -15,13 +15,13 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/main/too
 | Stelle | Was dort steht | Was dort nicht steht |
 |---|---|---|
 | **Gegenstandskatalog** (`tools/gegenstaende/gegenstaende.json`, heute 458), Teil **Gegenstände** | jede **Grundform** mit allen Werten je Stück | Formeln, Figuren |
-| ebenda, Teil **Rezepte** | je Rezept ein Datensatz (Regelwerk Abschnitt Handwerk): Zutaten mit Menge, Ergebnis, Fertigkeit und Rang, Werkort, Gebühr beim Handwerker, wo man das Rezept bekommt (Lehrmeister, Buch, Belohnung, Händler) | Werte der Zutaten und Ergebnisse (stehen beim Gegenstand) |
-| **Regelwerte** (`tools/sim444/werte.json`) | Formeln und Werte je **Gruppe**: Waffenart, Rüstungsart, Faktor je Güte, Zustand, Stufe, Seltenheit, Verkaufsanteil, Preisformel, Ausbeute beim Zerlegen, Seltenheitsdecke je Kapitel, erlaubte Zusatzeigenschaften je Platz | Werte je Stück (heute: 17 Preise, Kampftränke mit Preisen, Beute, Zerlegeteile, Startausrüstung, Braukosten) |
+| ebenda, Teil **Rezepte** | je Rezept ein Datensatz (Regelwerk Abschnitt Handwerk): Zutaten mit Menge, Ergebnis mit Menge, Fertigkeit und Rang, Werkort, Güte und Gegenstandsstufe des Ergebnisses nach Rang und Material, welche Fertigkeit es übt, wer es gegen Gebühr herstellt (Handwerker, z. B. Morwen) und wie viel, wo man das Rezept bekommt (Lehrmeister, Buch, Belohnung, Händler); die drei Zustände der Rezeptliste (herstellbar, eine Zutat fehlt, gesperrt) leitet das Spiel aus Rang, Freischaltung und Tasche ab, nie gepflegt | Werte der Zutaten und Ergebnisse (stehen beim Gegenstand) |
+| **Regelwerte** (`tools/sim444/werte.json`) | Formeln und Werte je **Gruppe**: Waffenart, Rüstungsart, Faktor je Güte, Zustand, Stufe, Seltenheit, Verkaufsanteil, Preisformel, Ausbeute beim Zerlegen, Seltenheitsdecke je Kapitel (heute fest in `beute.gd:12`), erlaubte Zusatzeigenschaften je Platz, Deckel der Zusatzeigenschaften, Mindeststufe je Seltenheit | Werte je Stück (heute: 17 Preise, Heilung der Tränke, Kampftränke mit Preisen, Beute, Zerlegeteile unter deutschen Namen statt Kennungen, Startausrüstung, Braukosten) |
 | **Figurenkatalog** (649, Bestiarium geht darin auf) | je Art, was sie fallen lässt (Chance, Menge) und was Zerlegen bringt, nur als Kennung aus dem Gegenstandskatalog | Preis, Wirkung, Name des Dings |
 
 Simulation, Laden, Beute, Tasche, Werkort lesen alle aus dem Katalog. Das Werkzeug erzeugt die Seite zum Ansehen (Bild je Stück, je Art nur ihre Spalten) und die Rückverweise „fällt bei“, „wird gebraucht für“, „wird hergestellt aus“.
 
-**Grundform und Fundstück:** der Katalog beschreibt die Grundform („Langschwert“). Was beim einzelnen Fund gewürfelt wird (Seltenheit, Zusatzeigenschaften, Güte, Zustand), steht nicht im Katalog, sondern entsteht nach den Regelwerten; nur Einzelstücke (feste Werte) stehen ganz im Katalog.
+**Grundform und Fundstück:** der Katalog beschreibt die Grundform („Langschwert“). Was beim einzelnen Fund gewürfelt oder beim Herstellen bestimmt wird (Gegenstandsstufe, Güte, Seltenheit, Zusatzeigenschaften, Zustand), steht nicht im Katalog, sondern entsteht nach den Regelwerten (Regelwerk 386: Stufe und Güte nach Fund, Händler, Material und Rang); nur Einzelstücke (feste Werte) stehen ganz im Katalog. Die heutige Art `einzelstueck` entfällt (Merkmal ja/nein), der Verweis `grundform` bleibt.
 
 ## Ablösung: heute fünf Wege im Spiel
 
@@ -30,7 +30,7 @@ Simulation, Laden, Beute, Tasche, Werkort lesen alle aus dem Katalog. Das Werkze
 | `godot/daten/held.json` (beim Bau aus Kotlin erzeugt) | Grundformen mit SRD-Werten; nur Preis und Stufe kommen schon aus dem Katalog (`heldwerte.gd`) | aus dem Katalog erzeugt, Kotlin-Export entfällt |
 | `godot/regeln/tabellen.json` | `items` (Heilwürfel), `monsters.loot` mit Chancen | Werte in den Katalog, Beute in den Figurenkatalog |
 | `texte.json` (Kotlin: `Recipes.kt`, `Story.kt` Laden) | Namen, Rezepte, Ladenbestand | Katalog (Texte bleiben bei Homer, nur die Stelle wechselt) |
-| `beute.gd` | Seltenheitsgewichte, Preisformel 3/8/20/50/150 im Code | Formeln in die Regelwerte |
+| `beute.gd` | Seltenheitsgewichte, Kapitel-1-Decke, Zusatzeigenschaften, Preisformel 3/8/20/50/150 im Code | Formeln in die Regelwerte |
 | `werte.json` | Stückwerte, Beute, Zerlegeteile | nur noch Formeln und Gruppenwerte |
 
 Reihenfolge: erst die Prüfung im Werkzeug (zeigt jede Abweichung), dann je Weg umstellen, je Weg ein Vorgang.
@@ -39,15 +39,15 @@ Reihenfolge: erst die Prüfung im Werkzeug (zeigt jede Abweichung), dann je Weg 
 
 **Für alle Arten**
 - Kennung, Name (de, en), Genus (für zusammengesetzte Texte), Art, Text (ein Satz, Homer), Bild (aus dem Modell im Spielstil gerendert), Modell (Verweis `LISTE-BESTAND.md`), Netz, Material, Zeichen (wie Seltenheit sichtbar wird, 455, 458)
-- Mindeststufe (eine Stufe; „erhältlich ab“ und Gegenstandsstufe gehen darin auf), Einzelstück ja/nein
+- Gegenstandsstufe der Grundform (gibt Stärke und Mindeststufe zum Tragen, Regelwerk 386; „erhältlich ab“ geht darin auf; das Fundstück kann abweichen), Einzelstück ja/nein, nutzt sich ab ja/nein (heutige Spalte `zustand`)
 - Voraussetzungen über die Mindeststufe hinaus, **für alle Arten** (Chef 12:39: „betrifft ja alles … Tränke … Bomben“): Grundwert, Fertigkeit und Rang, Pfad, Quest, Ruf
 - Grundpreis (verkäuflich ergibt sich: Preis 0 = nicht verkäuflich), ablegbar (Handlungsgegenstände nicht)
 - Bezug: Laden (welcher), Beute (Rückverweis aus dem Figurenkatalog), Zerlegen, Sammeln (wo), Herstellen (Rückverweis aus den Rezepten), Fund (Ort), Handlung (Quest)
 - Verwendung: wofür gut (Rezept, Quest, Händler), damit nichts sinnlos in der Tasche liegt
 - benutzbar: im Kampf, außerhalb, beides; wirkt nur gegen (z. B. Weihwasser: Untote)
 - Stapel (wie viele je Fach), **Gewicht** (Entscheidung 41: Tragkraft bleibt, mehr tragen macht langsamer)
-- Werkstoff (Metall, Leder, Stoff, Holz, Glas …): daraus abgeleitet Reparatur, Sperren, Klang, zerbrechlich
-- Klänge (Aufheben, Anlegen, Benutzen): je Anlass drei Varianten (`DESIGN-STIL.md`), über den Werkstoff, nicht je Stück
+- Werkstoff (Metall, Leder, Stoff, Holz, Glas …): daraus abgeleitet Reparatur (Metall Schmieden, Leder und Stoff Lederarbeit; Holz und Glas regelt das Regelwerk nicht: offen), Sperren, Klang, zerbrechlich
+- Klänge (Aufheben, Anlegen, Benutzen): je Werkstoff und Anlass drei Varianten (`DESIGN-STIL.md`), nicht je Stück; ein Stück darf eigene Klänge haben, die dann vorgehen. Das Werkzeug meldet jeden Werkstoff und Anlass unter drei. (Die zweite Prüfung hielt Klänge für überflüssig; ich behalte sie, weil sie sonst im Code verstreut landen, aber billig über den Werkstoff.)
 
 **Anlegbares** (Waffe, Schild, Rüstungsteil, Schmuck, Fokus, Licht)
 - Platz (Kopf, Oberkörper, Arme, Beine, Umhang, Hals, Finger, Haupthand, Nebenhand, beide Hände)
@@ -61,9 +61,9 @@ Reihenfolge: erst die Prüfung im Werkzeug (zeigt jede Abweichung), dann je Weg 
 **Schmuck, Fokus:** Fokus: Schule, Zauberkraft
 **Licht:** Leuchtweite; Kampfwerte der Fackel (1 Feuerschaden, Verscheuchen; 344), kein Abbrennen
 **Trank, Bombe, Wurf:** Wirkung, Stärke nach Fertigkeit (Kräuterkunde, Alchemie; Formel in den Regelwerten), Dauer in Runden, Ziel, Kosten im Zug; Nebenwirkung offen bis 481
-**Nahrung:** Wirkung (Rast, Ausdauer, Vorteil vor dem Kampf), roh/gekocht
-**Rohstoff, Zerlegeteil:** Ausbeute nach Rang in **Jagd** (Zerlegen gehört zur Jagd; Formel in den Regelwerten)
-**Werkzeug:** Güte, Bruchchance, Wiederherstellung (Dietriche, Reparaturset, Angel, Hammer)
+**Nahrung:** Wirkung (Kurze Erholung, Langes Ausruhen, Ausdauer, Gunst vor dem Kampf), roh/gekocht
+**Rohstoff, Zerlegeteil:** Ausbeute nach Rang der Sammelfertigkeit: Kräuterkunde, Bergbau, Angeln, **Jagd** (Zerlegen gehört zur Jagd; Regelwerk 233–236; Formel in den Regelwerten)
+**Werkzeug, Behälter:** Güte, Bruchchance, Wiederherstellung (Dietriche, Reparaturset, Angel, Hammer); Taschen, Köcher, Nimmersatt-Beutel (Tragkraft, Entscheidung 41)
 **Rezeptbuch:** ist ein Gegenstand, der ein Rezept freischaltet (Verweis in den Rezepten)
 
 ## Was das Werkzeug prüft
@@ -76,13 +76,14 @@ Reihenfolge: erst die Prüfung im Werkzeug (zeigt jede Abweichung), dann je Weg 
 
 ## C: Balance (Vorschläge, deine Entscheidung)
 - **C1 Preis eines „Fertigkeit +n“:** nur ab episch, +1 bis +2, dafür ein spürbarer Nachteil am selben Stück (z. B. −1 auf eine andere Fertigkeit oder schnellerer Verschleiß); Fluch nur bei Einzelstücken mit Geschichte (Homer). Chef 12:36: „ganz selten … nicht ausschließen … wow“.
-- **C2 Seltenheitsdecke je Kapitel:** Kapitel 1 höchstens ungewöhnlich als Beute, Bosse selten; „episch“ in Kapitel 1 nur als Einzelstück mit Geschichte.
+- **C2 Seltenheitsdecke je Kapitel:** Kapitel 1 höchstens ungewöhnlich als Beute (so heute schon im Code, `beute.gd:12`), Bosse selten; „episch“ in Kapitel 1 nur als Einzelstück mit Geschichte.
 
 ## Auswertung
 - **Stärkstes Gegenargument** (Prüfer 12:58): nicht der Umfang, sondern die Laufzeit; das Spiel rechnet mit fünf anderen Wegen, der Katalog würde eine weitere Kopie. **Antwort:** die Ablösung ist Teil von A; ohne sie wäre mein Votum nein.
 - Umfang (hunderte Stücke bis Kapitel 7): Spalten gelten für alle, gefüllt wird nur, was Kapitel 1 braucht; Prüfungen macht das Werkzeug.
 - Rezepte als eigener Teil statt Spalte am Gegenstand: ein Rezept hat Zutaten, Werkort, Rang, Gebühr und eine Herkunft; als Spalte am Ergebnis stünde das verstreut (heute dreifach: Katalog `bezug.rezept`, `texte.json`, `werte.json`).
-- Eingearbeitet aus den Prüfungen: alles außer „Gewicht überflüssig“ (12:58, Punkt 10; Entscheidung 41 geht vor), „Tragart je Gegenstand“ gestrichen (417a).
+- Eingearbeitet aus den Prüfungen: alles außer „Gewicht und Klang überflüssig“ (12:58, Punkt 10; Gewicht: Entscheidung 41 geht vor; Klang: über den Werkstoff, s. oben); „Tragart je Gegenstand“ gestrichen (417a).
+- **Dritte Gegenprüfung** (Helfer, 14:24) an dieser Fassung: Gegenstandsstufe war fälschlich gestrichen (Regelwerk 386), Rezeptteil unvollständig (drei Zustände, Handwerker, Ergebnismenge, Güte, Übung), SRD-Wörter „Rast“, „Vorteil“, fehlend: Deckel und Mindeststufe je Seltenheit, Spalte `zustand`, Heilung als Stückwert, Kapitel-1-Decke in `beute.gd:12`, Zerlegeteile unter deutschen Namen, Nimmersatt-Beutel, Sammelfertigkeiten außer Jagd, Reparatur von Holz und Glas, Prüfung der drei Varianten. **Alles eingearbeitet** (14:2x). Beute steht im Einklang mit dem Figurenkatalog.
 
 ## Folgerungen
 „644 A“: Werkzeug bekommt Spalten, Rezeptteil und Prüfungen (Jerry, zusammen mit 649.2), Jerry rechnet die Zahlen nach 469 in 444, je abzulösendem Weg ein Vorgang an das Team, dem er gehört. „644 B“: Seltenheit ins Regelwerk (Abschnitt Ausrüstung). „644 C“: Vorschläge C1, C2 in die Regelwerte.
