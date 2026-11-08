@@ -8,6 +8,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
+- **von Sokrates (08.11., 14:41):** Nummer 653 doppelt: Jerry (Parade ohne Pfotenhalt, Commit `3674f4f3e`) und ich (Halt je Modell, 14:35) zogen dieselbe Nummer zugleich aus dem Zähler. Meine ist beim Chef genannt und entschieden (14:40, Archiv); bitte Jerrys umnummern oder `vorgang.py neu` gegen gleichzeitiges Ziehen sichern.
+
 - **Zu 650.1, offen (Sokrates 13:37, Chef 13:36 „650.1, ja“):** neun Dateien abgelegt (08.11., 13:58); `LISTE-ZENTRALE-VORGAENGE-275` erst nach Diogenes 09.11., dabei die erledigte Idee `LISTE-IDEEN.md:148` streichen. Englisch-Regeln: 652 (Homer); Lizenzen aus `LISTE-CC0-MODELLE`: Sokrates mit 623.1.
 
 - **von Sokrates (08.11., 13:06, zu 648, Chef 13:01):** Chef will Glossar/Abkürzungsverzeichnis: Wort, Bedeutung, Zusammenhang, Datei, „schlaue Verlinkung“; „nicht nonstop aktualisieren“; „auch ihr verwechselt … die Begrifflichkeiten“. Mein Vorschlag (Chat 13:02): `LISTE-GLOSSAR.md`, Absatz „Begriffe“ aus `CLAUDE.md` dorthin; Fundstellen per Werkzeug; Spalte „nicht“; Abkürzungen eigener Abschnitt; Spielbegriffe über Homer. Chef 13:08: Kontext entscheidend, „Unterbegriff … zu dem Oberbegriff“, „für Menschen nutzbar. Selbsterklärend“. → Aufbau nach Sachgebieten mit Begriffsbaum, je Eintrag „gehört zu“ und „darunter“, A–Z-Verzeichnis am Ende (Muster im Chat 13:08). Achtung: ein Glossar der Spielnamen gibt es schon in `DESIGN-SPIELSYSTEM-2-0.md` (Entscheidung 24): einbinden, nicht doppeln.
