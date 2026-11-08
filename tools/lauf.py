@@ -169,8 +169,12 @@ def nachfolger(rolle):
             except ValueError: pass
         roh = NACHFOLGER.search(l).group(1).strip().lstrip("*").strip()
         q = re.match(r"[„\"]([^“\"]+)[“\"]", roh)  # 375: Titel in Anführungszeichen endet beim schließenden („…“; schickt zuerst …)
-        if q: roh = q.group(1)
-        roh = re.split(r"\.(?=\s+[A-ZÄÖÜ„*]|\s*$)|;", roh, maxsplit=1)[0].strip(" *„“\"")
+        satzende = r"(?<!\d\.\d\d)\.(?=\s+[A-ZÄÖÜ„*]|\s*$)|;"  # nicht am Datum: „Wochenziel 09.11.“ verlor sonst den Punkt, titel_datum sah keins (Perikles 08.11.)
+        if q:
+            # D83 (Diogenes 08.11.): „…“ ab 09.11., 8 Uhr: Datum hinter dem Titel bleibt als Klammer, damit titel_datum es sieht
+            rest = re.split(satzende, roh[q.end():], maxsplit=1)[0]
+            roh = q.group(1) + (" (%s)" % rest.strip(" ()*") if re.search(r"(?<!\d)\d\d?\.\d\d\.", rest) else "")
+        roh = re.split(satzende, roh, maxsplit=1)[0].strip(" *„“\"")
         if re.search(r"startet\s+`?lauf\.py`?", roh): return None, zeit, "bedingt: " + roh[:60]  # 375: Termin, den lauf.py selbst startet
         if re.match(r"keine[rn]?\b", roh, re.I): return None, zeit, "keiner"
         if re.search(r"\b(nur wenn|falls|sobald|bis )", roh, re.I): return None, zeit, "bedingt: " + roh[:60]
