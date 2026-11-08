@@ -231,10 +231,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 644.2 | M | Gegenstandskatalog: Zahlen nach 469 in 444 (Tempo, Parieren, Durchschlag, Güte, Stufe), C1 | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test |
 | 662 | M | Kampf (vorher 653): Parade des Helden mit Schild dreht über _face_sanft ohne Pfotenhalt, S | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 23, Muss 20, startbar 0
+**Perikles** – offen 24, Muss 21, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 675 | M | Gelöschte Chef-Funde zurückholen: Tom 3600d77ce (08.11., 621.2) strich 220 Zeilen Zu/Alt o | startbar |
 | 658 | M | Telegram-Reaktionen auslesen: 👍 auf eine Meldung = gebilligt/passt, ✅ = erledigt, Eintrag | wartet auf Test/Build (gebaut) |
 | 317.1 | M | startbar.py, lauf.py: Obergrenze 6 je Build streichen (Chef 07.11., 20:5x) | wartet auf Diogenes |
 | 620.1 | M | Wiederholte Funde des Chefs vor Neuem; wenige Muss je Team zugleich (aus 620) | wartet auf Test/Build (gebaut) |
@@ -279,7 +280,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
 | 644.5 | M | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noc | wartet auf 644.1 (startbar) |
 
-**Sokrates** – offen 51, Muss 35, startbar 30
+**Sokrates** – offen 52, Muss 35, startbar 31
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -334,6 +335,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 671 | K | Systemlösung? Menü: 10 frühere Vorgänge (345, 426, 425, 549a.1, 399.3.1 …), neu 670; einma | startbar |
 | 672 | K | Systemlösung? Karte: 20 frühere Vorgänge (322, 500, 553, 529, 86 …), neu 670; einmal grund | startbar |
 | 674 | K | Systemlösung? Kamera: 5 frühere Vorgänge (590, 615, 460, 211.14, 399.4), neu 673; einmal g | startbar |
+| 676 | K | Systemlösung? Schild: 14 frühere Vorgänge (662, 58, 406a, 417, 645 …), neu 675; einmal gru | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
