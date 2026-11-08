@@ -16,7 +16,12 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [563](ansehen/563-zustaende.md) | Zustandsschilder über Gegnern im Stil der Ansage | Jerry | 08.11., 06:52 |
+| [565](ansehen/565-am-zug.md) | Wer am Zug ist, im Gruppenkasten | Jerry | 08.11., 06:52 |
 
 ## Zu tun
 
