@@ -34,7 +34,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 6, Muss 2, startbar 1
+**Homer** – offen 5, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -43,7 +43,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
-| 659 | M | DESIGN-STIL.md: Abschnitt „Muster“ mit Bild je abgenommenem Muster (Fenster ohne Kasten 54 | startbar |
 
 **Tom** – offen 104, Muss 85, startbar 7
 
