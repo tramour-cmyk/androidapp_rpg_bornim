@@ -23,7 +23,6 @@ Nichts offen.
 | [613](ansehen/613-tusche.md) | Zwischensequenzen mit Tusche: Intro und Tempelszene | – | 08.11., 17:14 |
 | [623.5](ansehen/6235-unsere.md) | Effektprobe, Fassung „unsere“ (am Rechner) | Jerry | 08.11., 17:59 |
 | [630](ansehen/630-schirme.md) | Erschaffung und Menü Held mit Held, Knopf in einer Zeile | Tom | 08.11., 16:52 |
-| [656](ansehen/656-umhang.md) | Umhang: woher die Beule unter dem Schwertarm kommt | Tom | 08.11., 18:15 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
