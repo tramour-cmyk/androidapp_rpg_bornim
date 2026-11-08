@@ -29,7 +29,6 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [623.6](tun/6236-lauf.md) | **Muss** | E Welt | 08.11., 15:07 | Einen Lauf für neue Bilder der Probe Welt freigeben | Tom |
 | [660](tun/660-kaufmodelle-zugriff.md) | **Muss** | E Technik | 08.11., 14:47 | Einbinden von bornim-kaufmodelle in Tom-Sitzungen erlauben | Tom |
 
 ## Offen je Rolle
@@ -48,12 +47,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 652 | M | Englisch-Regeln 1–7 aus LISTE-ENGLISCH-338-1B nach STORY-REGELN.md, dann Datei nach docs/a | startbar |
 | 659 | M | DESIGN-STIL.md: Abschnitt „Muster“ mit Bild je abgenommenem Muster (Fenster ohne Kasten 54 | startbar |
 
-**Tom** – offen 103, Muss 84, startbar 6
+**Tom** – offen 104, Muss 85, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 656 | M | Umhang Kämpfer mit Beulen, große Beule unter dem Schwertarm: woher, weg (Chef 08.11., 14:5 | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
-| 623.6 | M | Probe Welt mit den Gratisproben (Gras und Wind, Wasser, Wetter, Oberflächen) gegen unsere | Chef (Datei in der Chefsache) |
+| 623.6 | M | Probe Welt mit den Gratisproben (Gras und Wind, Wasser, Wetter, Oberflächen) gegen unsere | startbar |
 | 625 | M | Sammelbuild 269: alle fertigen Zweige beider Teams (35 warten), Prüfliste als Weg durchs S | wartet auf Test (Build 269) |
 | 499 | M | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 | wartet auf Test/Build (gebaut) |
 | 635 | M | Lyra fehlt als Figur im Tempel und in der Höhle: Kennung lyra_temple/lyra_cave, gebaut wir | wartet auf Test/Build (gebaut) |
@@ -155,6 +154,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 644.4 | M | Gegenstandskatalog: Ladenbestand und Rezepte aus texte.json und Kotlin in den Katalog umst | wartet auf 644.1 (startbar) |
 | 653 | M | Halt für Waffen und Schilde einmal je Modell festlegen statt je Figur nachmessen: Griffpun | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
 | 660 | M | Zugriff auf bornim-kaufmodelle in Tom-Sitzungen: add_repo vom Automodus abgelehnt (Tom 08. | Chef (Datei in der Chefsache) |
+| 661 | M | Blende zwischen Orten an Schirme ohne Kasten angleichen: Schrift größer, Zierleiste wie do | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
 
 **Jerry** – offen 66, Muss 58, startbar 3
 
