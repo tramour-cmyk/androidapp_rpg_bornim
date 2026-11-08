@@ -163,7 +163,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 700 | M? | Erschaffung, Platzwahl „Alle Spielstand-Plätze sind belegt“: Rahmen um jeden Platz gegen 5 | Chef (Datei in der Chefsache) |
 | 701 | M | Gegenstandsfenster: Hinweis Obergrenze nur einmal statt je Grundwert (Chef t270.5, 08.11., | Sperre 620.1 B: 11 ungetestete Muss, erst gemeinsamer Build und Test |
 
-**Jerry** – offen 68, Muss 59, startbar 1
+**Jerry** – offen 69, Muss 60, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -235,6 +235,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 662 | M | Kampf (vorher 653): Parade des Helden mit Schild dreht über _face_sanft ohne Pfotenhalt, S | wartet auf Test (Build 270) |
 | 681 | M | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
 | Pflege | K | von Werkzeug (340.3, 08.11.): 15397 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 702 | M | Wölfe: Anspringen nimmt dem Helden jeden Zug, Rudel hält ihn dauerhaft fest (Chef t270, 08 | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
 
 **Perikles** – offen 23, Muss 19, startbar 0
 
