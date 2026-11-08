@@ -50,6 +50,36 @@ fun renderBridgeProbe() {
     println("wrote build/screens/probe69e_r4_text.png")
 }
 
+/**
+ * 613 / 302.3: [make]'s painter with the line of ink: the same picture is painted once without it, and how lit each place of
+ * that picture is ([lightMap]) tells the pen where to grow fine.
+ */
+internal fun <P : BridgePainter> withInk(make: () -> P): P {
+    val plain = make().paint()
+    return make().apply { tusche = true; litMap = lightMap(plain) }
+}
+
+/**
+ * How lit each pixel of [img] is (0..1), blurred over about 9 px so one bright pebble does not cut a line: dark night is 0,
+ * moonlit plaster about 0.2, the warm light of a window or a flame 1.
+ */
+internal fun lightMap(img: BufferedImage): FloatArray {
+    val w = img.width; val h = img.height
+    val lum = FloatArray(w * h)
+    for (y in 0 until h) for (x in 0 until w) {
+        val c = img.getRGB(x, y)
+        val l = (0.3 * ((c shr 16) and 0xFF) + 0.55 * ((c shr 8) and 0xFF) + 0.15 * (c and 0xFF)) / 255.0
+        lum[y * w + x] = ((l - 0.16) / 0.34).coerceIn(0.0, 1.0).toFloat()
+    }
+    val r = 4
+    val tmp = FloatArray(w * h); val out = FloatArray(w * h)
+    for (y in 0 until h) { var s = 0f; for (x in -r..r) s += lum[y * w + x.coerceIn(0, w - 1)]
+        for (x in 0 until w) { tmp[y * w + x] = s / (2 * r + 1); s += lum[y * w + (x + r + 1).coerceAtMost(w - 1)] - lum[y * w + (x - r).coerceAtLeast(0)] } }
+    for (x in 0 until w) { var s = 0f; for (y in -r..r) s += tmp[y.coerceIn(0, h - 1) * w + x]
+        for (y in 0 until h) { out[y * w + x] = s / (2 * r + 1); s += tmp[(y + r + 1).coerceAtMost(h - 1) * w + x] - tmp[(y - r).coerceAtLeast(0) * w + x] } }
+    return out
+}
+
 internal open class BridgePainter(val detail: Boolean = true) {
     companion object { const val W = 1080; const val H = 1200 }
 
@@ -124,6 +154,94 @@ internal open class BridgePainter(val detail: Boolean = true) {
         g.paint = RadialGradientPaint(Point2D.Double(x, y), r.toFloat(), floatArrayOf(0f, 0.35f, 1f),
             arrayOf(alpha(c, a), alpha(c, a * 0.35), alpha(c, 0.0)), MultipleGradientPaint.CycleMethod.NO_CYCLE)
         g.fill(Ellipse2D.Double(x - r, y - r, r * 2, r * 2))
+    }
+
+    // ---------------------------------------------------------------- 613 / 302.3: die Tuschelinie der Chronik im Zeichner
+
+    /**
+     * 302.3, 613 (`DESIGN-STIL.md` Signatur 2): every outline that is inked is drawn with the scene, as it is painted, so what
+     * stands before it covers it; the light (glows, flames, windows) is laid on afterwards and keeps its brightness. How lit a
+     * place is comes from [litMap]: the same picture painted once without ink ([withInk]). Where it is lit the line grows fine
+     * and goes away (lit 0.5 and more), in the dark it is heavy. Chef 23.10., 10:45: a little heavier than intro picture 4
+     * (c8cc89dd, weight 6.5).
+     */
+    var tusche = false
+    var inkWeight = (System.getenv("TUSCHESTAERKE") ?: "8.5").toDouble()
+    val inkC = Color(0x0D0809)
+    /** The heaviest line in px (at 15 px a corner post looked swollen, 302.3). */
+    var inkMax = 12.0
+    /** How lit each pixel of the finished picture is (0..1), [W] × [H], blurred; null: everything counts as dark. */
+    var litMap: FloatArray? = null
+
+    /** How lit the picture is at screen point (x, y), 0..1. */
+    fun litAt(x: Double, y: Double): Double {
+        val m = litMap ?: return 0.0
+        val ix = x.toInt().coerceIn(0, W - 1); val iy = y.toInt().coerceIn(0, H - 1)
+        return m[iy * W + ix].toDouble()
+    }
+
+    /** A pen [w] metres wide at depth [z], in px. */
+    fun inkPx(w: Double, z: Double) = inkWeight * f * w / z.coerceAtLeast(0.5)
+
+    /**
+     * The outline of [s] in ink, [px] wide in the dark: every short piece of it as heavy as the light at that place allows,
+     * so one outline runs heavy on its shadow side and thins out into the light; [lit] adds light where the painter knows it.
+     */
+    fun inkShape(s: java.awt.Shape, px: Double, lit: Double = 0.0, a: Double = 0.95) {
+        if (!tusche || px <= 0.0) return
+        val b = s.bounds2D
+        if (maxOf(b.width, b.height) < 3.0) return
+        val it = s.getPathIterator(null, 0.6)
+        val c = DoubleArray(6)
+        var mx = 0.0; var my = 0.0; var lx = 0.0; var ly = 0.0
+        val stroke0 = g.stroke; val paint0 = g.paint
+        while (!it.isDone) {
+            when (it.currentSegment(c)) {
+                java.awt.geom.PathIterator.SEG_MOVETO -> { mx = c[0]; my = c[1]; lx = mx; ly = my }
+                java.awt.geom.PathIterator.SEG_LINETO -> { inkPiece(lx, ly, c[0], c[1], px, lit, a); lx = c[0]; ly = c[1] }
+                java.awt.geom.PathIterator.SEG_CLOSE -> { inkPiece(lx, ly, mx, my, px, lit, a); lx = mx; ly = my }
+            }
+            it.next()
+        }
+        g.stroke = stroke0; g.paint = paint0
+    }
+
+    /** One straight stroke of ink from (x0, y0) to (x1, y1), [px] wide in the dark, split where the light changes along it. */
+    fun inkStroke(x0: Double, y0: Double, x1: Double, y1: Double, px: Double, lit: Double = 0.0, a: Double = 0.95) {
+        if (!tusche || px <= 0.0) return
+        val stroke0 = g.stroke; val paint0 = g.paint
+        inkPiece(x0, y0, x1, y1, px, lit, a)
+        g.stroke = stroke0; g.paint = paint0
+    }
+
+    private fun inkPiece(x0: Double, y0: Double, x1: Double, y1: Double, px: Double, lit: Double, a: Double) {
+        val len = Math.hypot(x1 - x0, y1 - y0)
+        if (len < 0.01) return
+        val n = (len / 6.0).toInt().coerceAtLeast(1)
+        for (k in 0 until n) {
+            val ta = k / n.toDouble(); val tb = (k + 1) / n.toDouble()
+            val ax = x0 + (x1 - x0) * ta; val ay = y0 + (y1 - y0) * ta; val bx = x0 + (x1 - x0) * tb; val by = y0 + (y1 - y0) * tb
+            val l = (litAt((ax + bx) / 2, (ay + by) / 2) + lit).coerceIn(0.0, 1.0)
+            if (l >= 0.5) continue
+            // fine where the light falls, heavy in the shadow; a little uneven, as a pen drawn by hand
+            val wob = 0.85 + 0.3 * rnd((ax * 7).toInt() + (ay * 3).toInt() * 131, 613)
+            val w = (px * (1 - 1.6 * l) * wob).coerceIn(1.0, inkMax)
+            g.color = alpha(inkC, a * (1 - 0.6 * l))
+            g.stroke = BasicStroke(w.toFloat(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND)
+            g.draw(java.awt.geom.Line2D.Double(ax, ay, bx, by))
+        }
+    }
+
+    /** Ink round a quad in the world (corners as for [quad]), [w] metres wide at its nearest corner. */
+    fun inkQuad(w: Double, vararg q: Double, lit: Double = 0.0) {
+        if (!tusche) return
+        inkShape(quadShape(*q), inkPx(w, minOf(q[2], q[5], q[8], q[11])), lit)
+    }
+
+    /** A stroke of ink between two points of the world, [w] metres wide. */
+    fun inkSeg(w: Double, x0: Double, y0: Double, z0: Double, x1: Double, y1: Double, z1: Double, lit: Double = 0.0) {
+        if (!tusche) return
+        inkStroke(sx(x0, z0), sy(y0, z0), sx(x1, z1), sy(y1, z1), inkPx(w, minOf(z0, z1)), lit)
     }
 
     /** The scene itself; [paint] draws it at twice the size and scales it down. */
