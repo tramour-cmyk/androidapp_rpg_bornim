@@ -14,9 +14,10 @@ Diese Datei ist das Stilhandbuch: jede gültige Design-Regel steht hier oder hat
 | Richtung | erwachsene, etwas düstere Fantasy; lebendige Diagonalwelt | – | „Richtung“ |
 | Schrift | eine Schrift (Alegreya) überall, Pixelschrift und Cinzel nicht mehr | 292.3 | „Oberfläche“ |
 | Kästen, Farben | Menüs und Fenster ohne Kasten (549a, Aufbau „Fenster und Schirme“); Goldrand nur im Kampf und an Behältern; Text gebrochenes Weiß; Held golden, Gegner rot | 60, 292.3, 549a | „Oberfläche“ |
-| Hauptmenü | schwarz, warmer Lichtkegel von oben, vier Helden zur Mitte gedreht (Entwurf A); Feuer (B) zurückgestellt | 292, 292.2, 292.3 | [Blende](DESIGN-BLENDE.md) „Vorspann und Hauptmenü“ |
+| Hauptmenü | **B am Feuer** nach Entwurf 4 (Chef 22.10., 12:08: „Wir bleiben auf jeden Fall bei B. Also A und C sind raus.“); Gesichter erkennbar | 292, 292.2, 292.3 | [Blende](DESIGN-BLENDE.md) „Vorspann und Hauptmenü“ |
 | Logo | Leiterbahn mit Lötaugen auf Schwarz | 251 | [Blende](DESIGN-BLENDE.md) Punkt 7 |
-| Zwischensequenzen | fünf Standbilder, Überblendung, Maß ist das Intro | 70, 112 | „Zwischensequenzen“ |
+| Zwischensequenzen | fünf Bilder mit leichten Bewegungen wie in der alten Fassung, Signatur, Überblendung, Maß ist das Intro | 70, 112, 613 | „Zwischensequenzen“ |
+| Muster | Abgenommenes nachbauen statt neu erfinden, mit Bild | 659 | „Muster“ |
 | Figuren, Bewegung | Prüfpunkte A–D (Bild, Gestalt, Leben, Bewegung); jede Vorlage wird dagegen geprüft | 461, 461d | „Figuren und Bewegung: was gilt“; E, F (Waffe, Schild, Kampf) [Kampf](DESIGN-KAMPF.md), G (Film) [Abnahme](DESIGN-ABNAHME.md) |
 | Gegner, Figuren | drei Varianten, düster, nie niedlich, keine Figur starr | – | „Abwechslung“, „Lebendige Welt“ |
 | Karte, Räume | Sichtbarkeit, Maßstab, Karte und Kampfort gehören zusammen | 43, 77e.3 | „Karte und Räume“ |
@@ -25,6 +26,18 @@ Diese Datei ist das Stilhandbuch: jede gültige Design-Regel steht hier oder hat
 | Klang | echte Aufnahmen, drei Varianten, Systemklänge einmal | 18 | „Klang“ |
 | Musik | orchestral, keine E-Gitarre, kein Rock; Dorf mittelalterlich | 28, 281 | „Klang“ |
 | Klanglogo | Probe 5: Harfe da-da … daa, Glocke; orchestral, höchstens 1,5 s, auf Bild 1 des Vorspanns mit dem Logo; Probe 15 bleibt Variante für später | 292.1 | Vorgangsarchiv 292.1 (Chef 22.10., 17:07: „5 ist unser Erkennungston“) |
+
+## Muster (659)
+
+Wer etwas baut, das es schon gibt, schaut zuerst das abgenommene Muster an und baut danach; Abweichung nur mit neuer Abnahme des Chefs. Neue Muster trägt Homer nach der Abnahme ein (Bild nach `docs/bilder/muster/`, höchstens 60 KB).
+
+| Muster | Bild | abgenommen | Regeln |
+|---|---|---|---|
+| Rückfragen ohne Kasten (549a) | ![Löschen, Wegwerfen](bilder/muster/549a-rueckfragen.webp) | 557 Runde 5, Chef 04.11., 19:54 | „Fenster und Schirme ohne Kasten“ |
+| Gegenstand im Fenster ohne Kasten (549a) | ![Ring, Kettenpanzer](bilder/muster/549a-gegenstand.webp) | ebenda | ebenda; Schirme ohne Lichthof und Dunkelverlauf (Bilder 7, 8 der Runde nicht) |
+| Zeichen statt Text (326) | ![Menü System, Erklärung beim Gedrückthalten, Testmenü](bilder/muster/326-zeichen-system.webp) | 425, Chef 31.10., 22:5x: „425 passt“ | „Zeichen“ |
+| Hauptmenü B am Feuer (292.3) | ![Hauptmenü Entwurf 4](bilder/muster/292-hauptmenue.webp) | Entwurf 4, Chef 22.10., 12:08 | [Blende](DESIGN-BLENDE.md) „Vorspann und Hauptmenü“ |
+| Zwischensequenz (Intro, 112; Tusche 302.3) | ![Intro Bild 4, Rowena in der Tür, mit Tusche](bilder/muster/613-intro4.jpg) | 112 (17.10.), 302.3 (23.10., 10:45) | „Zwischensequenzen“; das Bild aus 613 ersetzt dieses nach der Abnahme |
 
 ## Signatur (302)
 
@@ -225,7 +238,7 @@ Versalien mit Sperrung nur für Titel, Zwischenüberschriften und Knöpfe; nie f
 ## Zwischensequenzen (Thema 70)
 
 Alle Zwischensequenzen (Intro 69, Tempelszene 68, spätere Wendepunkte) sind gleich gebaut, damit sie als eine Reihe erkennbar sind:
-- etwa **fünf gerenderte Standbilder** ohne Animation, verbunden durch **weiche Überblendungen**; zusammen etwa 30–40 Sekunden
+- etwa **fünf gerenderte Bilder mit leichten Bewegungen** wie in der alten Fassung (`core/.../IntroLife.kt`), mit Signatur (Licht aus Quelle, Tusche im Zeichner, 302.3), verbunden durch **weiche Überblendungen**; zusammen etwa 30–40 Sekunden (Chef 08.11., 15:08: „Zwischensequenzen, wenn die jetzt nochmal neu gemacht, mit leichten Animationen, die wir ja auch hier in der alten Fassung hatten, respektive ja, Signatur, Tusche und so.“; ersetzt „ohne Animation“; Bau 613)
 - je Bild **ein kurzer Text** im Textkasten-Stil; Texte legen Nutzer und Berater fest (`STORY-REGELN.md`)
 - **Klang je Szene**: leise Geräusche (Intro) oder ein eigenes Musikstück (Tempel: „Ancient Legend“), Geräusche bleiben darunter leise
 - Antippen überspringt; danach in der Chronik unter „Bisher geschehen“ wieder ansehbar
@@ -240,7 +253,7 @@ Alle Zwischensequenzen (Intro 69, Tempelszene 68, spätere Wendepunkte) sind gle
   5. **Figuren wenige und glaubhaft:** Umriss mit Kleidung, Werkzeug, Merkmal (Rowena: Schürze, Krug); keine Kegel mit Kugelkopf, keine gleichen Figuren nebeneinander.
   6. **Leben:** was leuchtet oder Luft ist, bewegt sich (70.3), Ton darunter.
 - **Blickwinkel:** Ich-Perspektive des Helden oder ein Bild ohne ihn (Stimmung, anderer Schauplatz); der Held erscheint nie, weil er wählbar ist (Geschlecht, Klasse, Ausrüstung); andere Figuren dürfen ins Bild (wie Lyra in der Tempeltür)
-- **Leises Leben** (Flackern, Lichtfall, Staub) wird nach der Stilwahl in einem Test-Build an einer Szene entschieden (70.3)
+- **Leises Leben** (70.3) ist entschieden: leichte Bewegungen wie oben (613)
 
 ## Klang
 
