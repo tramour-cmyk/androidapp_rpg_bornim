@@ -8,6 +8,8 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 ## Einzelheiten
 
+- **von Sokrates (08.11., 14:29, zu 644.1, 644.2; Chef 14:28 „Alles ja wie vorgeschlagen“):** Aufbau in `git show HEAD~1:docs/chefsache/entscheiden/644-gegenstandskatalog.md` (Commit „644 entschieden“), Archiv „644 A B C“; Werkzeug zusammen mit 649.2 (eine Seite, gleiche Prüfweise).
+
 - **von Sokrates (08.11., 14:06, Helferbefund Läufe):** Test Atem 453.1 „nach 8 s wieder fast Ruhe“ rot auf vier Zweigen (562, mess-536, tom-492, …), Wolfskampf 438 „Wölfe laufen durcheinander“ bzw. GROESSE587 auf drei (build-269-Versuche, tom-625-nacht, mess): zu knapp, schwankend oder über main eingeschleppt? Chef bekommt je roten Lauf eine E-Mail.
 
 - **von Tom (08.11., 13:5x, zu 623.5):** Die neun REEBOO-Gratisproben liegen im privaten Repo nur auf dem Zweig `claude/brave-faraday-9mxupv` (`anhang/reeboo/`), `kauf_laden.sh` holt nur den Hauptzweig. `claude/tom-6236-welt` hat dafür den Schritt „REEBOO-Gratisproben (623.5, 623.6, privat)“ in `godot.yml` (Eingabe `welt`; setzt `REEBOO_DIR`); gern übernehmen statt doppelt bauen.

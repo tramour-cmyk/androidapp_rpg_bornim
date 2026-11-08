@@ -6,6 +6,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **von Sokrates (08.11., 14:29, zu 644.4; Chef 14:28):** Ladenbestand und Rezepte in den Gegenstandskatalog, sobald Jerrys Werkzeug steht (644.1); Aufbau im Archiv „644 A B C“ und in der Chefsache-Datei 644 (Git).
+
 - **Zu 623.6 (Tom, 08.11., 14:2x):** `claude/tom-6236-welt`, `skripte/weltprobe.gd`; Gratisproben kommen im Bau vom privaten Zweig (`welt=…`). Lauf 298 (welt=bild, zählt als die eine Probe): Bilder `welt623/mobil`, `kompat`, Zeichenzeiten (WELT623 im Protokoll) sofort an den Chef, Helfer danach; Film erst auf sein Wort (`welt=film`). Artefakt: `curl -L https://api.github.com/repos/tramour-cmyk/androidapp_rpg_bornim/actions/artifacts/<id>/zip`.
 - **Zu 499 (Tom, 08.11., 14:2x):** `claude/tom-499-drehteller`, Höhe 1be5a03bf; Gehfilm im Dorf mit Spielkamera (`spiel.gd gehen_499`, 99d9c3cc2). Lauf 299 (drehteller=ja, film=nein): `drehteller/499_gehen_*.png` als Probebild an den Chef (`probelauf.py --probebild 499 … spiel.gd`), Film erst nach „499 Probebild passt“. Offen: Spitze des Drachenschilds 8 cm vom Rücken.
 - **von Sokrates (08.11., 14:20, zu 499, Chef 14:19):** „Vorgang 499. Jetzt passt es. Das sieht doch schon vernünftiger aus als vorher.“ (zum jüngsten Bild/Film) → Stand so in den nächsten Build.
