@@ -10,7 +10,6 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 
 - **Zu 636, von Chef (Fund t270.4, Test Build 270, Automatik B):** kein Geräusch am Schlagbaum (Chef 20:30)
-- **Zu 585, 586 (Tom, 08.11., 20:25):** Bilder beim Chef (`ansehen/585-titel.md`, `ansehen/586-titel.md`), Zweige `claude/tom-585-kleinigkeiten` (c304c5842), `claude/tom-586-rast` (3d56c4077), beide auf 630; erst nach „passt“ in den Build. 586 ändert die Tabelle „Schrift“ in `DESIGN-STIL.md` (Fenstertitel 22 statt 15 sp): nach „passt“ an Homer.
 - **Zu 584 (Tom, 08.11., 20:11):** `claude/tom-584-halbfett` auf 630: Alegreya SemiBold (`Stil.variante/zeile` fett, `Erschaffung.txt` fett), gesetzt wie alt (Theme.kt Txt bold), aber halbfett statt MenuHead-Versalien für Werte, Namen, Zahlen (549a); Köpfe nur Lautstärke, Helligkeit, Testmodus. `menues_512b_schritte` an 630 angepasst. Probelauf 20:07 unbrauchbar. Lauf bei Sokrates; dann `PROBE=584` vorher/nachher je Schirm an den Chef.
 - **Zu 506 (Tom, 08.11., 19:46):** `claude/tom-506-skelett` mit main gemischt; Balken und Name über dem Scheitel (5c023b5fb, gemessen: vorher 26 cm unter dem Scheitel). Offen aus dem Helferbefund 12:55 (Liste in `git show f60748174:docs/ARBEIT-TEAM-TOM.md`, „Zu 506“), dazu Klinge und Speer in Stehen 68–79 Grad (Haltung des Kaufs, Wahl des Chefs?). Neuer Lauf nur mit Freigabe Sokrates.
 - **Zu 697 (Tom, 08.11., 19:39):** Wortlaut im „Zu 499, von Chef (15:23)“. Verdacht, nicht nachgestellt: `drehteller.gd` 28 `transparent_bg = true`, ein Stoff mit ALPHA unter 1 (Spielshader, Haar, Haut) scheint dann durch; erst am Rechner nachstellen (Fehler vom Chef gemeldet), dann bauen. Nicht in Build 270.
@@ -20,7 +19,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 
 - **Zu 492 (Tom, 08.11., 22:26):** `claude/tom-492-durchspiel`, Fassung B (Umgebung 0,12, Farbe kalt; Chef 21:46 „492b“); offen G1 Lager (Ausschnitt) und Prüferbefunde 505 (04.11., 19:07). Verlauf (Läufe 305, 308, Helfer 19:29) in `git show 32b74e537:docs/ARBEIT-TEAM-TOM.md`.
-- **Zu 656 (Tom, 08.11., 22:16):** bdd32b68a (Werte in `git show 5996d4321:docs/ARBEIT-TEAM-TOM.md`). Film nach „gleich Film“: `film_umhang_656.gd`, aa0336261, Lauf ab 22:15 (`kampf=656`): `umhang656/656-umhang.mp4` an den Chef, `656-vorher-neu.mp4` nur zum eigenen Abgleich. Erst nach „passt“ in den Build.
+- **Zu 656 (Tom, 08.11., 23:49):** bdd32b68a (Werte in `git show 5996d4321:docs/ARBEIT-TEAM-TOM.md`). Film Lauf 311 (`film_umhang_656.gd`) beim Chef 23:48; offen: Wölbung hinten über der Schulter von der Schwertseite. Nach „passt“ in den Build.
 - **Zu 542 (Tom, 08.11., 21:09):** Lauf 310 „Skripte pruefen“ rot an `auftraege_542` („Knopf am Stein: FIGHT statt LOOK“): Wolf der Herde zufällig neben dem Stein, also zufällig rot in jedem Build. Nachgestellt (Wolf von Hand), Test räumt jetzt die Herde: `claude/tom-542-testwolf` (0670cb295), fährt im nächsten Build mit.
 
 
