@@ -40,6 +40,7 @@ Inhaltsverzeichnis (122). Wer eine wesentliche Datei umbenennt oder anlegt, änd
 - [Quellen](LISTE-QUELLEN.md): Ressourcenseite, jede geprüfte fremde Quelle mit Link und Prüfschema F1–F8 (623)
 - [Effekte](LISTE-EFFEKTE.md): Zuordnungsseite, welcher Effekt zu welchem Helden, Monster, Ort; vor jedem Eigenbau lesen (623)
 - [Freie Modelle und Bewegungen](LISTE-CC0-MODELLE.md): CC0-Gerüst, Bewegungsbibliothek, Kosten, Suche Tiere und Monster (348.12)
+- [Glossar](LISTE-GLOSSAR.md): unsere Begriffe mit Ober- und Unterbegriff, Abkürzungen, A–Z; Fundstellen mit `tools/glossar.py` (648)
 - [Ideen](LISTE-IDEEN.md): lose Einfälle, noch nicht geprüft
 - [Rollenspiegel](LISTE-ROLLENSPIEGEL.md): Ist-Soll-Abgleich je Rolle, freitags (340)
 - [Änderungshistorie](../CHANGELOG.md): was gebaut ist
