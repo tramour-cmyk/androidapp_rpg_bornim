@@ -16,6 +16,8 @@ das Feld mit `vorgang.py warte <Nr> –` leert. Jeder Lauf zeigt erfüllte Felde
 er sie: erfüllte Teile fallen weg, ist das Feld leer und das Wort wartet, Chef, ruht oder Dauer, wird die Zeile „startbar, gelöst …“.
 Muss durch Wartende (190.3, 162): wartet eine Muss-Zeile auf Nummer X, zählt X als Muss (Ausgabe „↑ Muss: <Rolle> wartet“).
 Zeilen mit „wiederholt“ im Titel stehen vor allem anderen, nur die „jetzt“-Zeilen davor (620.1 A).
+Ab 6 gebauten oder zu testenden Muss eines Teams (ohne Sammelbuild) sperrt neues Muss bis zum Test; frei bleiben wiederholt, „jetzt“,
+Rückläufer mit Build und Angefangenes (620.1 B, Chef 08.11., 10:55/10:57).
 Wächter 424: eine sonst startbare Zeile, die Regeln des alten Systems nennt, ruht. Exit 1 bei unlesbaren oder ungültigen Zeilen.
 Laufende Sitzungen kennt das Werkzeug nicht; die liest Ford aus list_sessions.
 """
@@ -443,13 +445,32 @@ def plan(rolle):
         pos = max([k + 1 for k, e in enumerate(zs) if ("fuer" in e[3] or e[4] is None) and stufe(e) <= stufe(z)]
                   or [k + 1 for k, e in enumerate(zs) if stufe(e) < stufe(z)] or [0])
         zs.insert(pos, z)
-    w = [z for z in zs if WIEDERHOLT.search(z[2])]  # 620.1 A (Chef 07.11., 21:00): wiederholte Funde vor allem anderen, nur „jetzt“ davor
+    w = [z for z in zs if WIEDERHOLT.search(z[2]) and z[1] == "M"]  # D84.2: nur Muss; 620.1 A (Chef 07.11., 21:00): wiederholte Funde vor allem anderen, nur „jetzt“ davor
     if w:
         rest = [z for z in zs if z not in w]
         k = 0
         while k < len(rest) and jetzt_zeile(rest[k][3]): k += 1
         zs = rest[:k] + w + rest[k:]
+    n = ungetestet(rolle)
+    if n >= GRENZE_UNGETESTET:  # 620.1 B (Chef 08.11., 10:55/10:57): bis zum Test kein neues Muss, außer wiederholt, „jetzt“, Rückläufer
+        g = "Sperre 620.1 B: %d ungetestete Muss, erst gemeinsamer Build und Test" % n
+        zs = [z[:4] + (g,) if z[4] is None and z[1] == "M" and "fuer" not in z[3] and neu_gesperrt(z) else z for z in zs]
     return [z for z in zs if z[1] not in ("–", "-")]
+
+GRENZE_UNGETESTET = 6
+
+def ungetestet(rolle):
+    """620.1 B: eigene Muss-Zeilen eines Teams, gebaut oder zu testen; der Sammelbuild selbst (Zweig claude/build-…) zählt nicht."""
+    if rolle not in UEBERNAHME: return 0
+    return sum(1 for d in zeilen_liste() if d["besitzer"] == rolle and d["kl"] == "M" and d["wort"] in ("gebaut", "zu testen")
+               and not (d.get("zweig") or "").startswith("claude/build-"))
+
+def neu_gesperrt(z):
+    """620.1 B: True für nicht angefangene Arbeit (auch „wartet“ mit erfülltem Feld), weder wiederholt noch „jetzt“ noch Rückläufer."""
+    d = z[3]
+    if d["wort"] == "in Arbeit": return False
+    if WIEDERHOLT.search(z[2]) or jetzt_zeile(d): return False
+    return d.get("build") in ("", "–", "-", None)
 
 def pause(inhalt):
     """„Pause bis TT.MM.[, HH[:MM] Uhr]“ in den ersten 14 Zeilen: Text, solange der Zeitpunkt nicht erreicht ist (D27.4).
@@ -554,7 +575,8 @@ def main():
             u = uebernahme(r, info)
             if u: print("  Übernahme für %s: %s" % (r, u))
         if all(r in info for r in UEBERNAHME) and sum(info[r][1] for r in UEBERNAHME) >= 4:  # 317: ab 4 fertigen Punkten beider Teams bittet der Erste
-            print("  Gemeinsamer Build: %s warten auf Test (ab 4 bittet der Erste, dann alle fertigen Zweige ohne Obergrenze; 317, Chef 07.11., 20:5x)" % ", ".join("%s %d" % (r, info[r][1]) for r in UEBERNAHME))
+            print("  Gemeinsamer Build: %s warten auf Test (ab 4 bittet der Erste, dann alle fertigen Zweige ohne Obergrenze; 317, Chef 07.11., 20:5x)%s" % (", ".join("%s %d" % (r, info[r][1]) for r in UEBERNAHME),
+                  "".join("; Sperre 620.1 B für %s (%d ungetestete Muss)" % (r, ungetestet(r)) for r in UEBERNAHME if ungetestet(r) >= GRENZE_UNGETESTET)))
         if "--loesen" not in sys.argv:
             for nr, wer, weg, st in loesen(False): print("  GELÖST %s (%s): wartet auf %s erfüllt (schreibt lauf.py --sperre)" % (nr, wer, ", ".join(weg)))
         for nr, f in fehler: print("  UNLESBAR %s: %s" % (nr, f))

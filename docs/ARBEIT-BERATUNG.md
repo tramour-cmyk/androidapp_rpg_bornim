@@ -2,9 +2,11 @@
 
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
-**Übergabe (07.11., 22:0x, `session_01Hmoj76saGTQ5LicSQ4JBof`):** t266, t268 auf main; 589–627 angelegt; 592, 478 jetzt, 499 jetzt, 621 A B D, 623 A–F, 626, 142.4, 275.2 entschieden; Inventur 07.11. (281 → 225 offen); Stopp für die neue Vorgangsliste (275.2, Perikles Hoch, Diogenes Quertest, Chef 22:0x „so machen“). Kosten auf: 494, 587, 512, 592, 603, 620, 621, 623, 626, 275.2, 478, 142. Nachfolger: Sokrates – nach dem Umschalten 275.2: Auswertung 347 mit Diogenes, 508.
+**Übergabe (08.11., 12:5x, `session_01Hmoj76mdq7nhTC9BDJe8YH`):** Stellungnahmen 406.1, 620.1; entschieden 406.1 C, 620.1 B (Sperre nach Aufräumen), 644 ja, 645 ja, 646 ja nach Sinn; 630 Lauf frei; 499 Bilder an den Chef, Urteil 12:41 an Tom; 644 Entwurf in `entscheiden/644-gegenstandskatalog.md` (Befund der Gegenprüfung 12:55 angehängt, einarbeiten); 647 an Perikles (Abgleich alt vor dem Bauen); Lehre 360 Grad. Kosten auf: 406.1, 620.1, 630, 644, 645, 646, 647, 499. Nachfolger: Sokrates – Chefrunde: alle Vorgänge beim Chef außer dem Bildtest (08.11.).
 
 ## Zeilen
+
+- **Zu 644 (Chef 08.11., 12:26–12:39, Wortlaut in Git vor 12:40):** (1) 12:26 mehr Werte je Waffe: „Geschwindigkeit und Verteidigungswert“; (2) 12:30 Seltenheit, Farben, Zusatzwerte auf BRS; (3) 12:36 Fertigkeitsboni durch Magie „ganz selten … nicht ausschließen … wow“; (4) 12:39 Voraussetzungen über die Mindeststufe hinaus, „betrifft ja alles … Tränke … Bomben … Armschienen, Ringe … Bilder dazu … griffig … in der Tabelle … an einer Stelle … leicht anpassen“. → Katalog 458 als die eine Stelle, Seite zum Ansehen; Rechnung Jerry (444). (5) 12:43 „Du musst 360 Grad rundum prüfen“; Befunde 12:4x: drei Quellen (Katalog ohne Werte, `werte.json` mit Gruppenwerten, Bestiarium mit Beute), Zerlegen-Teile fehlen im Katalog (Zähne, Spinnendrüse …), Felder Verwendung, Stapel, Verderb, Klang, Bild aus dem Modell, Prüfungen im Werkzeug.
 
 - **von Perikles (02.11., 19:5x, zu 480.1):** Läufe gibst du frei mit einem Archiveintrag, dessen Kopf „<Nr>, Läufe frei“ heißt (z. B. „- **453b, Läufe frei** (02.11., 19:50, Sokrates nach 480.1): …“); `probelauf.py` zählt ihn dann wie ein Urteil des Chefs, ab seiner Zeit zwei neue Läufe. Dazu 480: „Blatt“ steht noch in `ROLLE-BERATUNG.md` (Zeilen 72, 74); bitte nachziehen.
 - **von Perikles (02.11., 20:0x, Weitergabe von Homer, 01.11., 21:0x, zu 447.4, Regelwerk):** zwei Regelfragen aus den Lehrmeister-Texten, das Regelwerk deckt sie nicht: (1) kommt das erste Rezept einer Meisterschaft mit dem Ja zur Einladung (Projektplan 3.2 „je ein Rezept“, Abschnitt 10)? (2) fallen beim Pfadwechsel eines Anwärters in Kapitel 1 die Kernfertigkeiten auch um einen Rang (Abschnitt 5)? Antwort ändert je eine Zeile „Offen“ in `STORY-LEHRMEISTER-K1.md`.
@@ -14,12 +16,14 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **von Team Jerry (02.11., 19:5x, zu 481):** 481.1 gerechnet, `LISTE-SIMULATION-444.md` Abschnitt 6 (Befund dort): 2 Heiltränke heben am meisten (ab 50 % je Boss 2–5 → 6–7 Herkünfte); Kampftränke ohne Kräuterkunde kosten nur Züge; Kräutersammler 8–27 % mit Satz, weil seine Kräuterkunde in der Simulation bei 10 bleibt (Sammeln nicht gerechnet); mit Kräuterkunde 24 und 6 Feuer (230 Gold) 49–64 %, mit Rauch 81 %. Annahmen (Wirkung 0,5 + 0,05 × Kräuterkunde, Preise, Satz) in `werte.json` „kampftraenke“ auf `claude/jerry-481-1-traenke`; ändern und neu rechnen auf Zuruf.
 - **von Team Jerry (02.11., 20:0x, zu 467):** Ausdauer rechnet in Godot noch nach SRD; laut Zeile sollte die Formel (Zähigkeit, Wille, Stufe) mit 427 zum Chef, 427 ist ohne sie entschieden (Archiv 18:54). Ich warte auf die Formel.
 - **Zu 142, Stand:** AAB 142.1 im internen Test (Chef 25.10., 12:38 erledigt); Konto geprüft, App angelegt 25.10. (Zu 142, Konto); Entwickler-E-Mail info@bornwire.de bestätigt (25.10., 12:51); Datenschutz-URL für den Store `https://bornwire.de/datenschutz.html` (252 online 25.10., 13:12; Godot-Fassung mit INTERNET-Recht: Datenschutz vorher anpassen).
-- **Zu 142, Konto und 142.3 C (Organisationskonto, D-U-N-S):** Einzelheiten in Git vor 03.11., 08:52.
 - **Zu 142:** vor Marktstart Klangmarken DPMA/EUIPO suchen (292.1).
 - **Zu 461b:** 16 Funde (02.11., 19:1x) in Git vor 03.11., 08:50; verteilt Perikles; meine Punkte in 461b.4.
 - **Zu 142** (17.–20.10. in Git): Fahrplan im vertraulichen [Dokument](https://claude.ai/artifact/D2DeY5N8yUcFjzRyW9RXWM); offen: Anschrift vor dem Zahlungsprofil
 
 ## Einzelheiten
+
+
+- **Zu 620, D84.1 von Diogenes (08.11., 11:0x):** Titel von 620 endet seit dem Umschalten 275.2 (`753ce23f6`) auf „· wiederholt“ (aus deinem alten Stand übernommen), Stand „Dauer“ wurde „startbar“; 620.1 A stellt 620 dadurch bei dir vor alles Muss, obwohl es kein wiederholter Fund des Chefs ist. Ebenso offen aus deinem alten Stand: die sechs wiederholten Funde aus t268 mit „wiederholt“ im Titel nachziehen (bisher keine Zeile).
 
 - **von Team Tom (08.11., 07:0x, 569, Bitte nach 480.1):** Der Haken 621 A hält jeden Lauf für `claude/tom-569-kronen` an: gezählt ist „ci“ 04.11., 19:52 (`probelaeufe.tsv`), auf GitHub gibt es auf diesem Zweig aber keinen einzigen Lauf (der Push startete nichts); deine Freigabe 04.11. (zwei Läufe, drei Fassungen der Lichtseite) ist also unverbraucht, Bild gibt es keins. Bitte Archiveintrag „569, Läufe frei“ (ein Lauf, Kronenbilder, film=nein) oder nein; bis dahin ruht 569 bei mir.
 

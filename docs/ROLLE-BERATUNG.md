@@ -71,6 +71,8 @@
 
 ## Lehren
 
+- Beraten heißt ergänzen, nicht bestätigen: auf jede Idee des Chefs zuerst selbst prüfen, was im Zusammenhang fehlt, was es schon gibt (Datei, Werkzeug, alte Fassung) und was dagegen spricht, und das ungefragt vorlegen; bei Figuren und Abläufen immer zuerst die alte Fassung lesen (08.11., 12:43: Katalog auf alle Gegenstände selbst erweitert, Schildhöhe alt erst auf Zuruf verglichen; Chef: „warum muss ich das jetzt wieder alles entwickeln? … 360 Grad rundum prüfen“, „War schon die Regel“).
+
 - Vor jeder Zusage an den Chef, die ein Werkzeug sperren kann (Probelauf, Filmwächter, Haken), im Werkzeug nachsehen, ob es die Zusage kennt; sonst Archivkopf so schreiben, dass das Werkzeug ihn liest (04.11., 21:03 „gleich Film“ zugesagt, Wächter 511 verlangte trotzdem das Standbild; Chef: „Hast du schlecht aufgeklärt“; 578).
 - Eine Vorlage „zur Kenntnis“ ist auch eine Vorlage: nach „keine Runde mehr“ abschließen statt Bilder schicken lassen (557: Ausbesserung, dann Ausrichtung, dann 557b; Chef 05.11.: „ich kriege wieder 12 Vorlagen“).
 - Fragt der Chef „sieht es besser aus? Ich weiß es nicht“, ist das eine Frage an mein Urteil, kein Auftrag: Votum mit Gegenargument geben, nie gleich als Bauauftrag eintragen; und im Votum nichts sagen, was dem eben Vereinbarten widerspricht (04.11., 17:41 Knopfgröße als Auftrag weitergegeben; 17:44 „leise Zeile“ gegen „gleich große Knöpfe“; Chef: „Du sollst mitdenken“, „heute ist es sehr anstrengend mit dir“).

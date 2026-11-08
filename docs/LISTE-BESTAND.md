@@ -187,7 +187,7 @@ Fehlt im Paket: Hund, Katze, Pferd, Schaf, Vögel außer Huhn und Gans.
 
 - **Omie:** Langschwert, Kurzschwert, Krummsäbel, Dolch; Handaxt, Streitaxt, große Axt; Speer, Hellebarde, Dreizack; Streitkolben, Kriegshammer, Kriegspicke, Flegel; Bogen, Armbrust; Zauberstab („Staff Magic“, ein Stück, ohne Kugel); Rund-, Kite-, Faustschild.
 - **Anker:** 8 Schwerter (Claymore, Zweihänder, Falchion, Messer …), Dolch, 4 Äxte (mit Bardiche), 5 Stangenwaffen (Lanze, Wurfspeer …), 7 Schlagwaffen (Morgenstern-Keule, Zweihandhammer …), Lang- und Reiterbogen, Armbrust, Pfeil, Bolzen, Köcher; Zauberbuch offen und zu, Schriftrolle, 6 Tränke; Schilde A–F; Heugabel, Sense, Sichel, Besen, Laute, Krug; 9 Belagerungsgeräte (über 3.000 Dreiecke). Kein Stab.
-- **In Gebrauch:** Anker `Maces/Spiked Mace.fbx` (265 Flächen, zwei Grundfarben) als Kroggs Morgenstern (494, `krogg_gestalt.py`, auf 0,92 m, Eisen mit Blutflecken).
+- **In Gebrauch:** Anker `Maces/Spiked Mace.fbx` (265 Flächen, zwei Grundfarben) als Kroggs Morgenstern (494, `krogg_gestalt.py`, auf 0,92 m, Eisen mit Blutflecken); Anker `Spears/Spear.fbx` (186 Dreiecke) als Speer des Skeletts, Kit 3 (506, `kaufskelett.py`, auf 1,75 m, Eisen rostig, Schaft altes Holz).
 - **Avramania:** Schwert, Kurzschwert, Holzschwert, Dolch, Messer, Handaxt, Speer, Streitkolben, Kurzbogen, Armbrust, Pfeil, Bolzen, Köcher, Stab; Rund-, Faust-, Übungsschild; Scheide, Waffenständer.
 - **PolyMech:** Kite, vier runde (Holz, Metallrand, offen), Holz mit Metallrahmen, zwei lange (Eisen, Löwenherz), Löwenherz klein.
 - **Überschneidung:** Dolch, Streitkolben, Bogen, Armbrust, Schwert, Handaxt, Speer, Rundschild in drei Paketen. Nur Omie: Dreizack, Kriegspicke, Krummsäbel; nur Anker: Bücher, Tränke, Belagerung, Werkzeug.
