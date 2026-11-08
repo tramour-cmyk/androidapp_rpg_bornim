@@ -84,3 +84,51 @@ Jeden gibt es einmal. Wer du bist, sagt deine erste Nachricht. Braucht ein ander
 
 ## Folgerungen
 „657 ja“: Diogenes prüft den Entwurf gegen Archiv und Rollendateien; danach schreibt Perikles die Seite (Wortlaut ändern nur mit dir), Handwerk in `LISTE-…`, Rest nach `docs/alt/`, Formhaken raus, `vorgang.py antwort`; in einem Schritt.
+
+## Prüfung Diogenes (08.11., 15:3x; Auftrag Chef 15:20: „das ganze Konzept … gut durchprüfen … noch nicht zur Umsetzung“)
+
+**Urteil: Die Richtung trägt, der Entwurf in dieser Fassung nicht.** Eine Seite für Ziel, Stil, Team und Ablauf ist richtig. Aber der Entwurf widerspricht zwei Entscheidungen von heute, lässt Regeln mit rechtlicher Wirkung weg, und Werkzeuge lesen aus den Dateien, die schrumpfen sollen. Vor einem „ja“ müssten die Punkte 1 bis 4 unten erledigt sein.
+
+**1. Der Befund trägt nur zur Hälfte.** Sokrates: alle Pannen von heute an Übergaben, keine aus Unkenntnis. Nachgezählt an den Vorgängen, die du heute neu angestoßen hast:
+- an einer Übergabe: 656 (Antwort zu 623.5 verloren), 499 (Antwort in den Vorrat statt ins Archiv, Archiv 14:5x), 660 (Nummer doppelt vergeben, Blende auf 661 verschoben, Commit 15:14). Das stimmt.
+- **beim Bauen**, weil Wissen fehlte oder nicht angesehen wurde: 661 (Blende nicht an das Muster „ohne Kasten“ angeglichen), 659 (Regel „Zwischensequenzen ohne Animation“ gegen dein Wort), 647 (alter Code erst nach dem Bauen gelesen, aus 512 und 499), 653 (Halt je Figur nachgemessen statt einmal festgelegt), 654 und 655 (dein Wort 14:51: „warum entsteht überhaupt das Falsche?“).
+- Folge: der Entwurf löst die zweite Hälfte teilweise selbst (Muster, Selbst ansehen). Die erste Hälfte löst er nicht; da hat Sokrates recht: nur Werkzeuge (Bedingung b).
+
+**2. Widersprüche zu Entscheidungen von heute.**
+- „Vorlegen: Bild sofort an den Chef“ gegen **646** (12:34: „Bewegung … geht halt nur ein Film“). Richtig wäre: Sitz und Aussehen als Bild, Bewegung als Film.
+- „Selbst ansehen … zeigt es nicht, was es soll, schickst du es nicht“ gegen **646** und **621 A**: nach der einen Probe geht das Ergebnis an dich, auch mit offenen Punkten. Mit dem Entwurf hängt eine Sitzung fest: zurückhalten darf sie, neu laufen lassen darf sie nicht (der Haken hält den zweiten Lauf an, heute geprüft). „Selbst ansehen“ selbst stimmt mit **655** (15:04) überein.
+- Was du entscheidest: Entwurf „Story, Aussehen, Balance, Geld“; heute zusätzlich **Spielgefühl, Umbauten über mehrere Orte oder beide Teams, Code auf `main`**. Diese drei fehlen.
+- Doppelt mit dem Leitbild: der Stilteil wiederholt `DESIGN-LEITBILD.md`, und dort steht „bei Widerspruch gilt das Leitbild“. Zwei Stellen für denselben Inhalt gegen „jeder Text an einem Ort“. Vorschlag: die Seite verweist auf das Leitbild und nennt nur die Signatur, oder das Leitbild geht in der Seite auf, nicht beides. Das Leitbild verweist außerdem auf „`CLAUDE.md` Fremde Inhalte“ und „Erst reden, dann bauen“; beides fehlt im Entwurf.
+
+**3. Was fehlt (Auswahl, verifiziert).**
+- **Rechtliches:** Lizenzregel nur noch „freie oder gekaufte Lizenz“; dein Wort 348.12c (kommerziell, jede Engine, unbefristet, ohne Nennung, ohne Umsatzgrenze; kauft nur du; Rohdateien nur im Zweit-Repo; Quelle je Datei) und der Hinweis „SRD 5.1 · CC BY 4.0“, bis alles SRD-Abgeleitete ersetzt ist. App-Kennung `de.bornim.game` nie ändern. Das muss wörtlich bleiben.
+- **Spiel:** aus dem Leitbild fehlen „Grinden darf man, muss man nie“, Kampf mit echter Wahl, „du wirst, was du tust“ (BRS), flüssig auf echten Geräten, sieben Kapitel.
+- **Ablauf:** 621 A (eine Probe je Aussehen-Thema, sonst Rückfrage mit Wegen und Kosten), 654 Systemfrage vor dem Bauen (14:42), 647 alter Code vor dem Bauen, 511 Probebild vor dem Film, 21 bis 7 Uhr nur Technik, Notizen nur auf `main`, Telegram-Meldung, Idee heißt prüfen statt bauen, „noch nicht“ hält auf, Vorentscheid-Rechte von Perikles, Homer, Sokrates („Entscheidet selbst“ steht nur in deren Rollendateien).
+- **Haltung:** prüfen statt zustimmen, nicht raten, Bekannte Fehler, Begriffe (Glossar 648). Jobs mit „erledigt, wenn“ nennt die Auswertung, der Entwurf hat sie noch nicht.
+- Weitere Entscheidungen ohne Ort: siehe Helferbefund unten.
+
+**4. Werkzeuge lesen aus Dateien, die schrumpfen sollen.** Wer das übersieht, legt den Betrieb still:
+- `notiz.sh` erkennt Tom und Jerry an den Kennungen in `ROLLE-BETRIEB.md` (Zeile 3); fehlen sie, meldet jede Teamsitzung „unbekannt“ und fängt nichts an.
+- `regelcheck.py` prüft Überschriften in `ROLLE-ENTWICKLUNG.md`, nach denen der Startbefehl liest (347); `lauf.py` schickt neue Sitzungen dorthin (433).
+- `regelcheck.py` und `commit-pruefung.py` messen `CLAUDE.md` (Grenze 15 KB); `neustart-haken.py` liest die Kernregeln.
+- Vor dem Umbau: Liste aller Werkzeuge, die `CLAUDE.md` oder `ROLLE-…` lesen, und je eine Zeile, wohin.
+
+**5. Haken: welche nur Form prüfen.**
+- Nur Form (können fallen): Zeitstempel und Entschuldigung in jeder Antwort zählen (`zug-haken.py`), Chefsache-Erkennung im Antworttext (Wortmuster, heute zweimal falscher Alarm), Größen von Vorräten, Übergaben, Listenzeilen (`regelcheck.py`, `commit-pruefung.py`), Tabellenzeile im Vorrat, Uhrzeit in der Zukunft, Abkürzungsprüfung in `meldung.sh` (aber: keine Abkürzungen ist dein Wunsch 485, dann als Satz auf der Seite).
+- Inhalt (müssen bleiben): Probezählung, Filmsperre, Figurensperre, alter Code vor dem Push (`probelauf.py`: 621 A, 646, 511, 513.1, 647), **Sperre gegen gekaufte Rohdateien** (`commit-pruefung.py`, Lizenz), Arbeiten solange Startbares da ist (`weiter-haken.py`), Neustart bei vollem Gedächtnis (`neustart-haken.py`), Antwort im Archiv und Vorlage weg im selben Commit (383.3).
+- „Formhaken fallen mit“ nur mit dieser Liste beschließen, sonst fällt die Kaufsperre mit.
+
+**6. Was sicher nicht klappt.**
+- **„Obergrenze eine Seite, neuer Satz nur, wenn einer geht“** gibt es schon (Haltung 6 „Regelbilanz“, Bekannte Fehler höchstens 10 Zeilen); `CLAUDE.md` ist trotzdem auf 15 KB gewachsen. Ohne Werkzeug, das die Seite misst und den Commit anhält, wächst sie wieder. Das wäre ein Formhaken, der bleiben muss.
+- **„in einem Schritt“** über `CLAUDE.md`, acht Rollendateien und die Werkzeuge aus 4: an einem Tag, an dem zugleich Build 269 offen ist und 650 docs aufräumt. Besser: erst Werkzeuge (Bedingung b und Punkt 4), dann die Seite.
+- **„Wortlaut ändern nur mit dir“** und „Diogenes prüft vorher jede Entscheidung im Archiv“: das Archiv hat 400 KB; vollständig in einer Sitzung geht nicht. Machbar: Prüfung gegen `CLAUDE.md` und Rollendateien vollständig (die stehen ja zur Streichung), Archiv nur nach Stichworten (wie hier).
+
+**Empfehlung:** „noch nicht“ zur Seite in dieser Fassung; ja zur Richtung. Reihenfolge: (1) Werkzeuge an den Übergaben (Antwort ins Archiv in einem Befehl, 658, Nummern ohne Doppelvergabe), (2) Entwurf korrigieren nach 2 und 3, Rechtliches wörtlich, Jobs mit „erledigt, wenn“, (3) Werkzeugliste nach 4 und Hakenliste nach 5, (4) dann Umbau, mit Messung Erstfunde eine Woche vorher gegen nachher (zähle ich).
+**Stärkstes Gegenargument zu meinem „noch nicht“:** jede Woche mit 75 KB Regeln kostet beim Start Guthaben und Aufmerksamkeit, und Korrekturen am Entwurf sind in einer Stunde gemacht. Darum: nicht warten, bis alles perfekt ist, aber Punkte 2 bis 4 vor dem Umbau.
+
+**Helferbefund (15:28, Abgleich `CLAUDE.md` und Rollendateien gegen den Entwurf, Archiv nach Stichworten; ungekürzt in den Punkten, gekürzt im Wortlaut):**
+- *Weitere Widersprüche:* „nur Bauten mit Test des Chefs auf `main`“ streicht die Ausnahme Kleinigkeit ohne Spiellogik nach deinem Ja (201a). „Zurückhalten“ widerspricht auch 396 (28.10.: „schickt's mir doch dann einfach“) und 480 (Film geht nach dem freigegebenen Lauf immer an dich). Was du entscheidest, steht in `ROLLE-BERATUNG.md` noch weiter: Release, neue Rollen oder Accounts, Geld über etwa 10 $ oder laufende Kosten. „Jeden gibt es einmal“ mit acht Rollen: Spike und Tuffy (394, 433) fehlen. „Vorgang beim Chef“ (480) fehlt im Glossar; 648 ist Kür, weil die Begriffe „bis dahin in `CLAUDE.md`“ stehen.
+- *Entscheidungen, die nur in Rollendateien oder `CLAUDE.md` leben* (fielen sie nach `docs/alt/`, liest sie keiner mehr): 646, 228 (Aussehen erst als Bild, nur mit Datei in der Chefsache), 373/373a (21–7 Uhr nur Technik; zwei, drei Fassungen in einem Bild), Testbitte nur mit Build (17.10.), 408 (Bestand, frei im Netz, Kaufvorschlag, Eigenbau), 647, 654, BRS-Nachschlagewerk bei Sokrates (02.11.), 464 rote Läufe an dich, 369.1, 516, 261.5 (Ford: Archivieren von Sitzungen), 196 Muss vor Kür vor Leerlauf, 341 Zielvereinbarung, Kostenauswertung mit Sparvorschlägen (17.10.), 486, 277 (jedes Bild der Chefsache auch auf Telegram), 75 und 374 (mein Auftrag); nur in `CLAUDE.md`: 436 Sitzungsnamen, 412 ein Vorgang je Thema, 383 „jetzt“ im Titel, 315 „1, 2, 3 richtig verstanden?“, „wie in einer Firma“ (21.10.), generisches Maskulinum, alle sechs Bekannten Fehler, 418 „fertig ist, was die Abnahmeliste erfüllt“ (steht noch im Projektplan).
+- *Verweise ins Leere:* `DESIGN-ABNAHME.md` schickt für Abläufe nach `CLAUDE.md`; `LISTE-QUELLEN.md` für die Lizenz ebenso.
+- *Handwerk ohne Ziel:* Projekt (etwa 2,6 KB: Wochenziel, Kosten, Tagesbericht, Doppelpack) und Beratung (etwa 2,3 KB: Chefrunde, Archiv eintragen) haben noch keine `LISTE-…`; Betrieb (3,6 KB), Entwicklung (4,6 KB), Prüfung (3,8 KB) müssen in ihre vorhandenen Listen.
+- *Nebenbefund:* `CLAUDE.md` Bekannte Fehler „Helferbefund … nachsenden (396)“ und `DESIGN-ABNAHME.md` „(300)“ sind seit 655 veraltet (an Perikles mit 655.1).
