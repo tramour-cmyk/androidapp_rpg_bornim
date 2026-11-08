@@ -337,7 +337,20 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
         bpy.ops.import_scene.gltf(filepath=pro)
         for o in [o for o in bpy.data.objects if o not in vor2]: bpy.data.objects.remove(o, do_unlink=True)
         print('RUHE aus', pro, [q for _, q in RUHE if q in bpy.data.actions])
-        print('WENDE aus', pro, [wende_quelle(q) for _, q in WENDE], sorted(a.name for a in bpy.data.actions if 'Turn' in a.name))
+        # 416.8 (Chef 08.11., 15:44, t269.11: „Drehen weiter auf der Stelle wie eine Plastikfigur“): in UAL1.glb ist die Drehung der
+        # Turn90 herausgerechnet (Wurzel steht, Becken pendelt nur: gier endete bei 0, leute.gd wendete nie mit Schritten); die 90 Grad
+        # liegen am Wurzelknochen in UAL1_RM.glb (gemessen 08.11.: 90,0 Grad um die Hochachse, 61 Bilder). Darum die Wenden von dort
+        rm = os.path.join(os.path.dirname(pro), 'UAL1_RM.glb')
+        if os.path.exists(rm):
+            for _, q in WENDE:
+                a = bpy.data.actions.get(wende_quelle(q) or '')
+                if a: a.name = q + '_ohne_Wurzel'
+            vor3 = set(bpy.data.objects); vor_akt = set(bpy.data.actions)
+            bpy.ops.import_scene.gltf(filepath=rm)
+            for o in [o for o in bpy.data.objects if o not in vor3]: bpy.data.objects.remove(o, do_unlink=True)
+            behalten = {n for _, q in WENDE for n in (q, q + '_Loop')}
+            for a in [a for a in bpy.data.actions if a not in vor_akt and a.name not in behalten]: bpy.data.actions.remove(a)
+        print('WENDE aus', rm if os.path.exists(rm) else pro, [wende_quelle(q) for _, q in WENDE], sorted(a.name for a in bpy.data.actions if 'Turn' in a.name))
     uad = ual.animation_data_create()
     for t in list(uad.nla_tracks): uad.nla_tracks.remove(t)
     UB = ual.data.bones; UP = ual.pose.bones
