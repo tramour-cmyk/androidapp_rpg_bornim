@@ -728,6 +728,59 @@ func _stand(foe: bool, back: bool, slot: int, alone: bool) -> Vector2:
 
 
 func _spot_pos(f, spot: Vector2i) -> Vector3:
+	var ab := _spot_ab(f, spot)
+	# 587 (Läufe 275/276, groesse_587: mit 1,3-fach stand die Riesenspinne hinten 0,22 m im Wolf vorn; Grimmzahn 0,84 m im Wolf
+	# hinten): wer hinten steht, weicht den Umrissen der vorderen aus (Wölfe des Rudels reichen schon, bleiben wie 438)
+	if f.side == "FOES" and spot.x == Mars.BACK:
+		ab = _ausweichen(f, ab)
+	return _ground(ab.x, ab.y)
+
+
+const AUSWEICH_LUFT := 0.08     # 587: Meter zwischen den Umrissen
+## 587: rückt ab (a in die Tiefe, b zur Seite) so weit, dass der Umriss von f am Boden (wie groesse_587: Kasten im Raum) keinen
+## vorderen Gegner deckt: zur Seite oder nach hinten, je nachdem, was weniger weit ist
+func _ausweichen(f, ab: Vector2) -> Vector2:
+	var b := _umriss(f)
+	if b.size == Vector2.ZERO:
+		return ab
+	var vorn := []
+	for o in mars.fighters():
+		if o != f and o.side == "FOES" and shown.places.has(o.id) and shown.places[o.id].x == Mars.FRONT and _present(o):
+			var a := _umriss(o)
+			if a.size != Vector2.ZERO:
+				var ao := _spot_ab(o, shown.places[o.id])
+				var g := _ground(ao.x, ao.y)
+				vorn.append(Rect2(a.position + Vector2(g.x, g.z), a.size).grow(AUSWEICH_LUFT / 2.0))
+	if vorn.is_empty():
+		return ab
+	var frei := func(q: Vector2) -> bool:
+		var g := _ground(q.x, q.y)
+		var r := Rect2(b.position + Vector2(g.x, g.z), b.size).grow(AUSWEICH_LUFT / 2.0)
+		for v in vorn:
+			if r.intersects(v):
+				return false
+		return true
+	if frei.call(ab):
+		return ab
+	var w := 0.05
+	while w <= 4.0:
+		for q in [ab + Vector2(0.0, w), ab + Vector2(0.0, -w), ab + Vector2(w, 0.0)]:
+			if frei.call(q):
+				return q
+		w += 0.05
+	return ab
+
+
+## 587: Umriss einer Figur am Boden als Kasten im Raum um ihren Ursprung (x, z; figur.gd footprint, wie groesse_587), leer ohne Figur
+func _umriss(f) -> Rect2:
+	if f == null or not figures.has(f.id) or not figures[f.id].is_inside_tree():
+		return Rect2()
+	var fig = figures[f.id]
+	var bb: AABB = Transform3D(fig.global_transform.basis, Vector3.ZERO) * fig.footprint()
+	return Rect2(bb.position.x, bb.position.z, bb.size.x, bb.size.z)
+
+
+func _spot_ab(f, spot: Vector2i) -> Vector2:
 	var alone := _alone(f, spot.x)
 	var ab := _stand(f.side == "FOES", spot.x == Mars.BACK, spot.y, alone)
 	# a foe alone in the back behind two in front stands between and behind them, not hidden behind the right one
@@ -750,7 +803,7 @@ func _spot_pos(f, spot: Vector2i) -> Vector3:
 			ab.x += PAIR_BACK_A
 			ab.y += PAIR_BACK_B * (-1.0 if spot.y == 0 else 1.0)
 			ab.y += PAIR_BACK_SHIFT
-	return _ground(ab.x, ab.y)
+	return ab
 
 
 func _alone(f, row: int, side := "") -> bool:
