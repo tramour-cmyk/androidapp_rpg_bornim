@@ -204,6 +204,7 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	spiele(Geschichte.betreten(id, zustand))   # 390: MapDef.onEnter
 	speichere()   # 399: wie alt beim Kartenwechsel
 	Messung.geladen(id, (Time.get_ticks_usec() - t0) / 1000.0)
+	WeltProbe.im_spiel_neu(self)   # 623.6 Probe-APK: Wasser, Gras, Regen, Oberflaechen der Gratisproben, wenn im Testmenue an
 
 func speichere() -> void:
 	if held and karte and not OS.get_cmdline_user_args().size():
@@ -1053,6 +1054,11 @@ func oeffne_menue(reiter := "") -> void:
 				"nacht": m.meldung(("Nacht, 23:00 Uhr" if de else "Night, 11 pm") if licht.ziel > 0.5 else ("Tag, 12:00 Uhr" if de else "Day, noon"))
 				"tiere": m.meldung("Tiere umgeschaltet" if de else "Animals toggled")
 			return
+		if was == "welt623":   # 623.6 Probe-APK: der Schalter bleibt im Menue, die Welt dahinter wechselt gleich
+			test_tat(was, mit)
+			var de := Sprache.aktiv() == "de"
+			m.meldung("%s: %s" % [String(mit[0]).capitalize(), WeltProbe.name_von(String(mit[0]), de)])
+			return
 		m.zu.emit()
 		test_tat(was, mit))
 	m.ueber.connect(func():   # 399.1 System „Über“ wie alt: vm.toMenu, dann Screen.ABOUT
@@ -1077,6 +1083,9 @@ func oeffne_menue(reiter := "") -> void:
 func test_tat(was: String, mit: Array) -> void:
 	match was:
 		"nacht", "tiere": _knopf(was)   # 500: aus dem Testmenue statt der Probeknoepfe
+		"welt623":   # 623.6 Probe-APK (Chef 08.11., 17:05): Fassung der Gratisprobe am Ort umschalten
+			WeltProbe.schalte(String(mit[0]))
+			WeltProbe.im_spiel_neu(self)
 		"teleport":
 			await abblenden(1.0)
 			var von := karte.id

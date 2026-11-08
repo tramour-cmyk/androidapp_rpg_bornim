@@ -276,6 +276,20 @@ static func reiter(m: Menue) -> void:
 		welt2.append(zk.call(t.call("Tiere", "Animals"), null, t.call("Stellt alle Tiermodelle zum Anschauen um den Helden; noch einmal: weg.", "Puts every animal model around the hero to look at; again: gone."),
 			func(): m.test.emit("tiere", []), "STEPS"))
 	m.zeichenreihe(welt2)
+	# 623.6 Probe-APK (Chef 08.11., 17:05: „Ja, Probe-APK für Welt und Effekte zusammen.“): die Gratisproben am Ort des Helden gegen unsere
+	# Fassung umschalten; nur, wenn die Kits im Bau sind (nie auf main)
+	if WeltProbe.kits_da():
+		m.zeile(t.call("Proben 623.6, vor dem Kauf: Antippen schaltet am Ort um, gilt auch nach dem Ortswechsel.",
+			"Samples 623.6, before buying: a tap switches here, and stays after changing place."), 13, Stil.DIM)
+		m.luecke(4)
+		m.zeichenreihe([zk.call(t.call("Wasser", "Water"), WeltProbe.name_von("wasser", de), t.call("Bach und Teich: unser Wasser oder „klar“ aus dem Water Kit.",
+				"Stream and pond: our water or “clear” from the Water Kit."), func(): m.test.emit("welt623", ["wasser"]), "", "W"),
+			zk.call(t.call("Gras", "Grass"), WeltProbe.name_von("gras", de), t.call("Unser Gras oder die Fassungen Frühling und Sommer aus Grass & Wind; der Held schiebt es beiseite.",
+				"Our grass or the spring and summer styles from Grass & Wind; the hero pushes it aside."), func(): m.test.emit("welt623", ["gras"]), "", "G"),
+			zk.call(t.call("Regen", "Rain"), WeltProbe.name_von("regen", de), t.call("Nur das Regenmodul aus Weather FX, ohne Nebel; Blitz mit Donner.",
+				"Only the rain module from Weather FX, no fog; lightning with thunder."), func(): m.test.emit("welt623", ["regen"]), "", "R", WeltProbe.regen_an),
+			zk.call(t.call("Oberflächen", "Surfaces"), WeltProbe.name_von("flaechen", de), t.call("Fünf Felsen mit Runen, Schnee, Eis und Lava aus den Surface Shaders vor dem Helden.",
+				"Five rocks with runes, snow, ice and lava from the Surface Shaders in front of the hero."), func(): m.test.emit("welt623", ["flaechen"]), "", "O", WeltProbe.flaechen_an)])
 	m.gruppe("Teleport")
 	var orte := [[t.call("Dorf", "Village"), "village", 11, 7, "DOWN", "HOME", ""], [t.call("Wald", "Forest"), "forest", 10, 20, "UP", "", "W"],
 		[t.call("Tiefer Wald", "Deep forest"), "deep_forest", 1, 18, "RIGHT", "", "T"], [t.call("Höhle", "Cave"), "cave", 10, 18, "UP", "", "H"]]

@@ -29,6 +29,7 @@ var schild: Label
 var umwelt_alt: Dictionary = {}
 var sonne_alt: Dictionary = {}
 var kamera_kinder: Array[Node] = []
+var kamera_gemerkt := false
 
 static func lauf(s: Node) -> void:
 	var w := WeltProbe.new()
@@ -117,11 +118,13 @@ func zuruecksetzen() -> void:
 		for k in sonne_alt[su]: (su as Node).set(k, sonne_alt[su][k])
 	sonne_alt.clear()
 	var kam := sp.get_viewport().get_camera_3d()
-	if kam:
+	if kam and kamera_gemerkt:   # 623.6 Probe-APK: nur was das Wetter an die Kamera haengte, nie die Tusche des Spiels
 		for k in kam.get_children(): if not kamera_kinder.has(k): k.queue_free()
+	kamera_gemerkt = false
 	var g: Gebiet = sp.gebiet
 	for m in unser_gras: if is_instance_valid(m): m.visible = true
-	if g.wasser:
+	unser_gras.clear()
+	if g and g.wasser:
 		for mi in g.find_children("*Wasser*", "MeshInstance3D", true, false):
 			(mi as MeshInstance3D).material_override = null
 
@@ -201,6 +204,7 @@ func wetter(was: String) -> void:
 	var kam := sp.get_viewport().get_camera_3d()
 	kamera_kinder.clear()
 	if kam: kamera_kinder.assign(kam.get_children())
+	kamera_gemerkt = true
 	sp.add_child(c)
 	zusatz.append(c)
 	if c.has_method("set_weather"): c.call("set_weather", pr)
@@ -228,3 +232,121 @@ func flaechen() -> void:
 		mi.global_position = vor + Vector3(sin(w), 0, -cos(w)) * 2.4
 		mi.global_position.y = vor.y - a.position.y * s
 	print("WELT623 Oberflaechen gesetzt")
+
+# ---------------------------------------------------------------- 623.6 Probe-APK (Chef 08.11., 17:05: „Ja, Probe-APK für Welt und
+# Effekte zusammen.“): im Spiel umschaltbar (Testmenü, Gruppe „Welt“, Reihe „Proben 623.6“), wirkt am Ort des Helden und nach jedem
+# Ortswechsel neu; ohne Kits im Bau bleibt alles unsere Fassung. Aus dem Urteil zu Lauf 301 (Chef 16:56, 17:02): Wasser nur „klar“
+# (Toon ausgeschlossen), Regen nur das Regenmodul ohne Nebel, mit Blitz und Donner; Gras mit den Fassungen der Gratisprobe.
+const WASSER_WAHL := ["", "pond_clear"]
+const GRAS_WAHL := ["", "grass_spring", "grass_summer"]
+const REGEN_SCHICHTEN := ["rain", "splash", "ripples"]   # layers_3d der Gratisprobe ohne fog, mist, sky
+static var wasser_wahl := ""
+static var gras_wahl := ""
+static var regen_an := false
+static var flaechen_an := false
+static var im_spiel: WeltProbe
+var blitz: Timer
+
+static func kits_da() -> bool:
+	return DirAccess.dir_exists_absolute(GRAS) or DirAccess.dir_exists_absolute(WASSER) or DirAccess.dir_exists_absolute(WETTER) or DirAccess.dir_exists_absolute(FLAECHE)
+
+static func probe_an() -> bool:
+	return wasser_wahl != "" or gras_wahl != "" or regen_an or flaechen_an
+
+## nach dem Betreten eines Orts und nach jedem Umschalten im Testmenü (spiel.gd betrete, test_tat „welt623“)
+static func im_spiel_neu(s: Node) -> void:
+	if not kits_da() and not probe_an(): return
+	if im_spiel == null or im_spiel.sp != s:
+		im_spiel = WeltProbe.new()
+		im_spiel.sp = s
+	if s.gebiet == null: return
+	im_spiel.zuruecksetzen()
+	if wasser_wahl != "": im_spiel.wasser(wasser_wahl)
+	if gras_wahl != "": im_spiel.gras(gras_wahl)
+	if flaechen_an: im_spiel.flaechen()
+	if regen_an: im_spiel.regen()
+	else: s.klang("schleife_stellen", ["probe_regen", "rain", 0.0])
+
+## nächste Fassung („wasser“, „gras“) oder an/aus („regen“, „flaechen“)
+static func schalte(was: String) -> void:
+	match was:
+		"wasser": wasser_wahl = WASSER_WAHL[(WASSER_WAHL.find(wasser_wahl) + 1) % WASSER_WAHL.size()]
+		"gras": gras_wahl = GRAS_WAHL[(GRAS_WAHL.find(gras_wahl) + 1) % GRAS_WAHL.size()]
+		"regen": regen_an = not regen_an
+		"flaechen": flaechen_an = not flaechen_an
+
+static func name_von(was: String, de: bool) -> String:
+	match was:
+		"wasser": return ("unser" if de else "ours") if wasser_wahl == "" else ("Paket klar" if de else "pack clear")
+		"gras":
+			if gras_wahl == "": return "unser" if de else "ours"
+			return ("Paket Frühling" if de else "pack spring") if gras_wahl == "grass_spring" else ("Paket Sommer" if de else "pack summer")
+		"regen": return ("an" if de else "on") if regen_an else ("aus" if de else "off")
+		"flaechen": return ("an" if de else "on") if flaechen_an else ("aus" if de else "off")
+	return ""
+
+## Regen (Chef 16:56: „Regen bitte mal einfach ohne Nebel, sondern nur das Regenmodul nehmen … Regen und Blitz und Donner gerne mal
+## auch testen, aber vielleicht ohne diese graue Nebelsuppe“): das Preset rain mit nur den Schichten rain, splash, ripples; Nebel der
+## Umgebung wie bei uns; Blitz alle 9 bis 22 s (strike des Kits), Donner aus unseren Aufnahmen 0,6 bis 2,5 s danach, Regen als Schleife
+func regen() -> void:
+	var c_p := WETTER + "weather_controller_3d.gd"
+	var pr_p := WETTER + "presets/3d/rain.tres"
+	if not ResourceLoader.exists(c_p) or not ResourceLoader.exists(pr_p): print("WELT623 FEHLT Wetter"); return
+	var pr: Resource = (load(pr_p) as Resource).duplicate(true)
+	var schichten = pr.get("layers")
+	if schichten is Dictionary:
+		var nur := {}
+		for k in schichten:
+			if String(k) in REGEN_SCHICHTEN: nur[k] = schichten[k]
+		print("WELT623 Regen: Schichten %s, behalten %s" % [schichten.keys(), nur.keys()])
+		if not nur.is_empty(): pr.set("layers", nur)
+	var c: Node3D = (load(c_p) as GDScript).new()
+	c.set("start_weather", pr)
+	c.set("transition_time", 0.0)
+	var we := sp.find_children("*", "WorldEnvironment", true, false)
+	var eigen: Environment = null
+	if not we.is_empty():
+		var w0 := we[0] as WorldEnvironment
+		if not umwelt_alt.has(w0): umwelt_alt[w0] = w0.environment
+		eigen = umwelt_alt[w0]
+		if w0.environment: w0.environment = w0.environment.duplicate(true)
+		c.set("world_environment", w0)
+	var su := sp.find_children("*", "DirectionalLight3D", true, false)
+	if not su.is_empty():
+		var s0 := su[0] as DirectionalLight3D
+		if not sonne_alt.has(s0):
+			sonne_alt[s0] = {}
+			for k in ["light_color", "light_energy", "rotation", "shadow_enabled", "visible"]: sonne_alt[s0][k] = s0.get(k)
+		c.set("sun", s0)
+	var kam := sp.get_viewport().get_camera_3d()
+	kamera_kinder.clear()
+	if kam: kamera_kinder.assign(kam.get_children())
+	kamera_gemerkt = true
+	sp.add_child(c)
+	zusatz.append(c)
+	if c.has_method("set_weather"): c.call("set_weather", pr)
+	sp.klang("schleife_stellen", ["probe_regen", "rain", 0.45])
+	# kein Nebel: die Umgebung behaelt unseren Nebel, auch wenn das Kit ihn je Bild schreibt
+	blitz = Timer.new()
+	blitz.wait_time = 0.5
+	blitz.autostart = true
+	var naechster := [Time.get_ticks_msec() + randi_range(4000, 9000)]
+	var w_ := we[0] as WorldEnvironment if not we.is_empty() else null
+	blitz.timeout.connect(func():
+		if w_ and w_.environment and eigen:
+			w_.environment.fog_enabled = eigen.fog_enabled
+			w_.environment.volumetric_fog_enabled = eigen.volumetric_fog_enabled
+		if Time.get_ticks_msec() < naechster[0]: return
+		naechster[0] = Time.get_ticks_msec() + randi_range(9000, 22000)
+		if c.has_method("strike") and _ohne_pflicht(c, "strike"): c.call("strike")
+		var nach := randf_range(0.6, 2.5)
+		sp.get_tree().create_timer(nach).timeout.connect(func(): if is_instance_valid(sp): sp.klang("effekt", ["thunder", 0.7])))
+	sp.add_child(blitz)
+	zusatz.append(blitz)
+	print("WELT623 Regen mit Blitz und Donner")
+
+## hat die Methode keine Pflichtargumente (strike des Kits ist nicht beschrieben)
+static func _ohne_pflicht(o: Object, m: String) -> bool:
+	for d in o.get_method_list():
+		if String(d["name"]) == m: return (d["args"] as Array).size() <= (d["default_args"] as Array).size()
+	return false
