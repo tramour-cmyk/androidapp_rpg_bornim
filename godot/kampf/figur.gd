@@ -2856,6 +2856,15 @@ func dodge(after_ms: int, nm := "") -> void:
 	_schnaufen(0.8)
 	# 348.12f: mit Wurzelweg zur Seite oder zurück, wie die Quelle (Ausweichen links nicht: Kopf unter den Vorderbeinen, Prüfer r7),
 	# dann heim; [nm] wählt (Probe SCHAU=ort), sonst der Zufall
+	# 593 (Chef 05.11., 19:2x, Build 266: „Ausweichbewegungen müssen nicht links – rechts sein, sondern können auch rückwärts gehen
+	# (so als Alternative)“): jedes dritte Ausweichen rückwärts, reihum statt Zufall (wie die Abwehr), nur wenn dort Platz ist; mit
+	# eigener Bewegung der Quelle (Ratte: dodgeBackwards), sonst rasch rückwärts im Gang (Spinne; Grak mit Jog_Bwd „Zurück“)
+	ausweich_nr += 1
+	if nm == "" and not down and not lunging() and (ausweich_nr + hash(String(fighter.id))) % 3 == 0:
+		if weg.has("Ausweichen zurück") and weg.has("Ausweichen links") and anim.has_animation("Ausweichen zurück") and _weg_frei("Ausweichen zurück"):
+			nm = "Ausweichen zurück"
+		elif not weg.has("Ausweichen zurück") and weg.has("Ausweichen") and _absetzen_rasch():
+			return
 	if nm == "" and weg.has("Ausweichen links"):
 		nm = _ausweich_seite()
 	if nm == "":
@@ -2955,6 +2964,33 @@ func _ausweich_seite() -> String:
 
 ## nach dem Biss ohne „Ausweichen zurück“ der Quelle so weit (Modellmeter) rückwärts, bevor es sich umdreht (Kopf bleibt vor der Heldin)
 const ABSETZEN := 0.6
+
+var ausweich_nr := 0     # 593: zählt das Ausweichen, jedes dritte rückwärts
+const AUSWEICH_RUECK_TEMPO := 1.8     # 593: rückwärts im Gang so rasch wie der Satz (546: Gehen × 1,8), nie als Schlaftablette
+
+
+## 593: geht der Wurzelweg der Bewegung [nm] frei (Abstand zu den anderen wie _ausweich_seite) und bleibt im Bild?
+func _weg_frei(nm: String) -> bool:
+	var ende := _weg_at(position, basis, nm, (weg[nm].size() - 1) / weg_fps)
+	return _seg_gap(position, ende, null) >= 0.25 and _im_bild(ende, Vector3(sin(rotation.y), 0.0, cos(rotation.y)))
+
+
+## 593: rasch rückwärts absetzen (ABSETZEN), Gesicht zum Gegner, dann heim; false, wenn hinten kein Platz ist oder es aus dem Bild ginge
+func _absetzen_rasch() -> bool:
+	var rn := "Zurück" if weg.has("Zurück") and anim.has_animation("Zurück") else "Gehen"
+	if not weg.has(rn) or not anim.has_animation(rn):
+		return false
+	var g0 := minf(_rumpf_luft(position, rotation.y), PLATZ_LUFT)
+	var zurueck := position - Vector3(basis.z.x, 0.0, basis.z.z).normalized() * ABSETZEN * _scale()
+	if _rumpf_luft(zurueck, rotation.y) < g0 or not _im_bild(zurueck, Vector3(sin(rotation.y), 0.0, cos(rotation.y))):
+		return false
+	var k := 1.0 if rn == "Zurück" else AUSWEICH_RUECK_TEMPO
+	bahn = [zurueck, home]
+	tween = create_tween()
+	tween.tween_callback(func(): gang = "zurück"; anim.play(rn, 0.1, k if rn == "Zurück" else -float(tempo.get("Gehen", 1.0)) * k))
+	_lauf(tween, position, zurueck, rn, k)
+	tween.tween_callback(_walk_home)
+	return true
 
 
 ## Satz beim Ausweichen ohne Wurzelweg der Quelle (Modellmeter, Grad): zur Seite (seitlich, zurück), schräg zurück (seitlich, zurück),
