@@ -1,7 +1,7 @@
 # Tom und Jerry · Probe 623 (Lauf 306) · 0.348.306 · Welt und Effekte vor dem Kauf · Zweig claude/tom-6236-probeapk
 E Welt · Tom und Jerry · 08.11., 19:22 · [APK: Artefakt „bornim-godot-apk“ im Lauf 306](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/42503105716/artifacts/13628378603)
 
-623.6 und 623.5 (Chef 17:05: „Ja, Probe-APK für Welt und Effekte zusammen.“): eigene App „Bornim Probe 623“ neben dem Spiel, kein Build und kein PR, darum sieben Zeilen je Ort und Effekt statt der Buildregel; Build 270 und dein Spielstand bleiben unberührt. ZIP laden, `bornim-godot.apk` installieren, öffnen, neues Spiel. Gekauft wird ein Paket nur, wenn beide Fragen mit Ja beantwortet sind: sieht es am Handy deutlich besser aus als unsere Fassung, und bleibt die Bildrate flüssig? Die Lizenz aller elf REEBOO-Pakete ist geprüft (`LISTE-QUELLEN.md`, 07.11.).
+623.6 und 623.5 (Chef 17:05: „Ja, Probe-APK für Welt und Effekte zusammen.“): eigene App „Bornim Probe 623“ neben dem Spiel, kein Build und kein PR, darum sieben Zeilen je Ort und Effekt statt der Buildregel; Build 270 und dein Spielstand bleiben unberührt. Archiv laden, entpacken, `bornim-godot.apk` installieren, öffnen, neues Spiel. Gekauft wird ein Paket nur, wenn beide Fragen mit Ja beantwortet sind: sieht es am Handy deutlich besser aus als unsere Fassung, und bleibt die Bildrate flüssig? Die Lizenz aller elf REEBOO-Pakete ist geprüft (`LISTE-QUELLEN.md`, 07.11.).
 
 Verglichen (alt gegen neu): Reiter „Test“ mit der neuen Reihe „Proben 623.6“ (Zeichen und Meldung wie die anderen Schalter); sonst keine Schirme neu.
 
