@@ -286,7 +286,7 @@
 | 674 | Systemlösung? Kamera: 5 frühere Vorgänge (590, 615, 460, 211.14, 399.4), neu 673; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Technik | – |
 | 676 | Systemlösung? Schild: 14 frühere Vorgänge (662, 58, 406a, 417, 645 …), neu 675; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | B Abläufe | – |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +842,76 $ |
-| Pflege | von Werkzeug (340.3, 08.11.): 20568 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 08.11.): 20989 Bytes (Grenze 15000), Erledigtes streichen; Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
