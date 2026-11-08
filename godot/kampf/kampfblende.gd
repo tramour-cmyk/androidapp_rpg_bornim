@@ -134,10 +134,15 @@ func _ready() -> void:
 				herz.play()
 	_stelle()
 
+# 619 (Chef 07.11., 268.18: „Aktionsknopf drückt die Blende gleich mit weg“): wie alt (InterludeUi detectTapGestures) zaehlt nur ein
+# ganzer Tipp auf der Blende, Druck und Loslassen; ein Finger, der schon unten war, als sie kam, beendet sie nicht
+var unten := false
+
 func _gui_input(e: InputEvent) -> void:
-	if (e is InputEventMouseButton and e.pressed) or (e is InputEventScreenTouch and e.pressed):
-		tippt = true
-		accept_event()
+	if not (e is InputEventMouseButton and e.button_index == MOUSE_BUTTON_LEFT) and not e is InputEventScreenTouch: return
+	if e.pressed: unten = true
+	elif unten: tippt = true
+	accept_event()
 
 ## InterludeClock.at, alles gezeichnet: [Schleier, Worte, vorbei]; der Hinterhalt hat die Worte sofort (ein_ms 0)
 func bei(t: float) -> Array:

@@ -242,13 +242,13 @@ func _runde(v2: bool) -> void:
 	await process_frame
 	l.seite = "brauen"; l.baue()
 	await _messe("Brauen", l)
-	var sch: Array = l.find_children("*", "Label", true, false).filter(func(x): return x.text.contains("SCHLIESSEN"))
+	var sch: Array = l.find_children("*", "Label", true, false).filter(func(x): return x.text.contains("ZURÜCK"))
 	if not sch.is_empty():
 		print("Brauen: Schliessen bei %.0f von 2340" % sch[0].get_global_rect().position.y)
 		if v2: pruefe("Schliessen folgt der Liste (Vorlage 2)", sch[0].get_global_rect().position.y < 2340 - 160 * DP, "%.0f" % sch[0].get_global_rect().position.y)
 	if v2:
 		var k := _knoepfe("Brauen", l)
-		pruefe("Brauen: SCHLIESSEN", k.has("SCHLIESSEN"), str(k.keys()))
+		pruefe("Brauen: ZURÜCK (618)", k.has("ZURÜCK"), str(k.keys()))
 	var heil: Dictionary = Laden.rezepte().filter(func(r): return String(r["ergebnis"]) == "potion")[0]
 	var oft := Laden.wie_oft(z, heil)
 	print("Heiltrank reicht für %d" % oft)
