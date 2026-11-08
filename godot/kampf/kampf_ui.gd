@@ -460,7 +460,8 @@ func refresh() -> void:
 ## gleich), "A" der Kasten dessen, der am Zug ist, wie sein Feld in der Zugleiste (▶ vor dem Namen, erhaben, Goldrand 1,5 dp, Name
 ## hell), "B" dazu die übrigen der Gruppe mit gedämpftem Rand. Am Zug ist, wer in der Zugleiste das ▶ trägt; ist es ein Gegner, bleiben
 ## alle Kästen wie alt.
-var am_zug_565 := OS.get_environment("AMZUG565")
+## 565 A (Chef 08.11., 13:11: „565 A“): A ist die Vorgabe; AMZUG565 (auch leer: wie alt) bleibt für Vergleichsbilder
+var am_zug_565 := OS.get_environment("AMZUG565") if OS.has_environment("AMZUG565") else "A"
 
 func _vorn():
 	for id in kampfort.shown.get("queue", []):
