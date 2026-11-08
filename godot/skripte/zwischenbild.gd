@@ -5,12 +5,16 @@ extends Control
 # die Szene laeuft derweil weiter. Ueber Bild 3 der Fackelzug (IntroLife.kt, IntroScreen.kt squareLife), darunter Wind, Fluss,
 # Grillen, unter dem schwarzen Bild Glocke und Rufe (IntroSoundUi.kt, IntroSound.kt); die Titelmusik leise, mit dem schwarzen
 # Bild voll (Music.kt INTRO_LEVEL). Zeiten, Saetze und der Zug aus core: daten/intro.json (IntroExport.kt), die Bilder aus
-# app/src/main/assets/intro als .bild (godot.yml). Die Tempelszene (68) laeuft spaeter ueber dieselbe Uhr („tempel“).
+# app/src/main/assets/intro als .bild (godot.yml). Die Tempelszene (68) laeuft ueber dieselbe Uhr („tempel“); ueber ihren Bildern
+# flackern die gemalten Kerzen und im Sonnenstrahl von Bild 4 treibt Staub (613 wie alt: IntroScreen.kt drawTempleLife,
+# TempleLife.kt; Orte aus assets/tempel/leben.txt, geschrieben vom Zeichner TempleProbe.kt, godot.yml).
 
 signal fertig
 
 const DATEN := "res://daten/intro.json"
 const BILDER := "res://daten/intro/"
+const TEMPEL_LEBEN := "res://daten/intro/tempel_leben.txt"
+const STAUB := Color("ffe6b0")
 const DP := AktionsKnopf.DP
 const WARM := Color("ffc060")
 const WARM_TIEF := Color("e07a28")
@@ -34,6 +38,7 @@ var bilder := {}                                     # Nummer -> Texture2D
 var zug: Texture2D
 var vorn: Texture2D
 var leben: Dictionary
+var tempel: Dictionary                               # 613: {"flammen": {Bild: [[x, y, s] …]}, "strahlen": {Bild: [[x, y] …]}}
 var unter_bild: TextureRect
 var ober_bild: TextureRect
 var unter_leben: Control
@@ -63,6 +68,7 @@ func _ready() -> void:
 	saetze = d.get(art, {}).get("saetze", [])
 	schwarz = int(d.get(art, {}).get("schwarz", -1))
 	if art == "intro": leben = d.get("leben", {})
+	if art == "tempel" and FileAccess.file_exists(TEMPEL_LEBEN): tempel = tempel_leben(FileAccess.get_file_as_string(TEMPEL_LEBEN))
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	var grund := ColorRect.new()
@@ -256,6 +262,9 @@ func _male_licht(c: Control, i: int) -> void:
 	c.draw_set_transform(Vector2.ZERO)
 
 func _male_zug(c: Control, i: int) -> void:
+	if art == "tempel":
+		_male_tempel(c, i + 1)
+		return
 	if art != "intro" or i != int(leben.get("bild", 2)) or leben.is_empty(): return
 	var u := ms - i * float(uhr.get("schritt_ms", 7200))
 	var fackel: Array = leben.get("fackel", [])
@@ -353,6 +362,85 @@ static func _schein(mitte: float, anteil: float) -> Texture2D:
 		t.width = 128; t.height = 128
 		_scheine[k] = t
 	return _scheine[k]
+
+# ---------------------------------------------------------------- Leben der Tempelszene (613; TempleLife.kt, drawTempleLife)
+
+# TempleLife.parse: „flamme <Bild 1..5> <x> <y> <Groesse>“ und „strahl <Bild> <x> <y> <x> <y> …“ (Umriss des Strahls);
+# was es nicht kennt, laesst es aus, damit eine alte Datei die Szene nie bricht
+static func tempel_leben(text: String) -> Dictionary:
+	var flammen := {}
+	var strahlen := {}
+	for zeile in text.split("\n"):
+		var w := Array(zeile.strip_edges().split(" ", false))
+		if w.size() < 2 or String(w[0]).begins_with("#"): continue
+		var v := []
+		for x in w.slice(1):
+			if not String(x).is_valid_float(): break
+			v.append(float(x))
+		if v.size() != w.size() - 1: continue
+		if w[0] == "flamme" and v.size() == 4:
+			if not flammen.has(int(v[0])): flammen[int(v[0])] = []
+			flammen[int(v[0])].append([v[1], v[2], v[3]])
+		elif w[0] == "strahl" and v.size() >= 7 and v.size() % 2 == 1:
+			var pts := []
+			for k in range(1, v.size(), 2): pts.append(Vector2(v[k], v[k + 1]))
+			strahlen[int(v[0])] = pts
+	return {"flammen": flammen, "strahlen": strahlen}
+
+# TempleLife.flicker: der Atem des Intros, um 40 verschoben
+static func tempel_flackern(i: int, t_ms: float) -> float: return flackern(i + 40, t_ms)
+
+# ueber Bild [bild] (1..5), in den Pixeln des Bilds: jede gemalte Kerze flackert, das Licht um sie atmet; die Flamme liegt neu
+# ueber der gemalten, an ihrem hellsten etwas groesser, damit die gemalte nie daneben zu sehen ist. Im Strahl treibt Staub.
+func _male_tempel(c: Control, bild: int) -> void:
+	if tempel.is_empty(): return
+	c.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE * c.size.x / 1080.0)
+	var fl: Array = tempel["flammen"].get(bild, [])
+	for i in fl.size():
+		var x: float = fl[i][0]; var y: float = fl[i][1]; var s: float = fl[i][2]
+		var k := tempel_flackern(i, ms)
+		_glimmen(c, x, y, s * 4.5, WARM_TIEF, 0.12 * (k - 0.8) * 2.5)
+		_glimmen(c, x, y, s * 1.3, WARM, 0.3 * k)
+		for q in 3:
+			var w := s * (0.13 - q * 0.03)
+			var h := s * (0.34 - q * 0.07) * (0.9 + 0.3 * (k - 0.8) * 2.5) * tempel_flackern(i * 3 + q + 7, ms)
+			var lean := 0.35 * sin(ms / 1000.0 * 5.3 + i * 1.7 + q) * w
+			c.draw_colored_polygon(flamme(x, y, w, h, lean), FLAMME[q])
+	var strahl: Array = tempel["strahlen"].get(bild, [])
+	for m in staub(strahl, ms): c.draw_circle(Vector2(m[0], m[1]), m[2], Color(STAUB, m[3]), true, -1.0, true)
+	c.draw_set_transform(Vector2.ZERO)
+
+# TempleLife.motes: [n] Staubkoerner im Strahl, jedes treibt langsam das Licht hinab, schwankt ein wenig, blendet an den Enden
+# seines Wegs ein und aus und beginnt neu; nur die im Umriss: je [x, y, Radius, Deckkraft]
+static func staub(strahl: Array, t_ms: float, n := 140) -> Array:
+	if strahl.size() < 3: return []
+	var x0 := INF; var x1 := -INF; var y0 := INF; var y1 := -INF
+	for p in strahl:
+		x0 = minf(x0, p.x); x1 = maxf(x1, p.x); y0 = minf(y0, p.y); y1 = maxf(y1, p.y)
+	var t := t_ms / 1000.0
+	var aus := []
+	for i in n:
+		var periode := 9.0 + 7.0 * _h(i, 1)
+		var phase := t / periode + _h(i, 2)
+		var p := phase - floorf(phase)
+		var x := x0 + (x1 - x0) * _frac(_h(i, 3) + p * 0.25) + 6.0 * sin(t * (0.6 + _h(i, 4)) + i)
+		var y := y0 + (y1 - y0) * _frac(_h(i, 5) + p * 0.35) + 4.0 * sin(t * (0.5 + _h(i, 6)) + i * 2)
+		if not Geometry2D.is_point_in_polygon(Vector2(x, y), PackedVector2Array(strahl)): continue
+		var weg := minf(p, 1.0 - p) * 4.0
+		aus.append([x, y, 0.8 + 1.6 * _h(i, 7), (0.25 + 0.55 * _h(i, 8)) * minf(weg, 1.0)])
+	return aus
+
+static func _frac(v: float) -> float: return v - floorf(v)
+
+# TempleLife.h mit der 32-Bit-Arithmetik von Kotlin (Ueberlauf, ushr), damit der Staub wie alt faellt
+static func _i32(v: int) -> int:
+	v = v & 0xFFFFFFFF
+	return v - 0x100000000 if v >= 0x80000000 else v
+
+static func _h(i: int, s: int) -> float:
+	var k := _i32(i * 374761393 + s * 668265263)
+	k = _i32((k ^ ((k & 0xFFFFFFFF) >> 13)) * 1274126177)
+	return float(((k ^ ((k & 0xFFFFFFFF) >> 16)) & 0x7FFFFFFF) % 100000) / 100000.0
 
 # ---------------------------------------------------------------- Klang (IntroSound.kt, IntroSoundUi.kt)
 

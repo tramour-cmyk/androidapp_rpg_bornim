@@ -53,6 +53,26 @@ func _lauf() -> void:
 	var mx := 0.0
 	for p in rand: mx += float(p[0]) / rand.size()
 	pruefe("Pfuetze", Zwischenbild._pfuetze_bei(rand, mx).size(), 2)
+	# 613 Tempelszene wie alt (TempleLife.kt): leben.txt gelesen, Kerzen in jedem Bild, Staub im Strahl von Bild 4, er treibt
+	var tl := Zwischenbild.tempel_leben("# Kommentar\nflamme 1 100.0 200.0 30.5\nflamme 4 500 600 12\nflamme x 1 2 3\nstrahl 4 100 100 400 300 380 340 80 140\nunbekannt 1 2")
+	pruefe("Tempel lesen", [tl["flammen"].size(), tl["flammen"][1], tl["strahlen"][4].size()], [2, [[100.0, 200.0, 30.5]], 4])
+	var sa := Zwischenbild.staub(tl["strahlen"][4], 1000.0)
+	var sb := Zwischenbild.staub(tl["strahlen"][4], 3000.0)
+	pruefe("Staub", [sa.size() > 20, sa.all(func(m): return m[3] >= 0.0 and m[3] <= 1.0), sa.slice(0, 10) != sb.slice(0, 10)], [true, true, true])
+	pruefe("Hash wie Kotlin", ["%.5f" % Zwischenbild._h(0, 1), "%.5f" % Zwischenbild._h(7, 3)], ["0.30437", "0.49479"])
+	var zt := Zwischenbild.new("tempel")
+	root.add_child(zt)
+	await process_frame
+	pruefe("Tempelbilder", [zt.bilder.size(), zt.bilder.values().all(func(t): return t != null)], [5, true])
+	var kerzen := true
+	for n in range(1, 6): kerzen = kerzen and zt.tempel["flammen"].get(n, []).size() > 0
+	pruefe("Kerzen in jedem Bild", kerzen, true)
+	pruefe("Strahl Bild 4", zt.tempel["strahlen"].has(4), true)
+	zt.ms = 3 * 7200 + 3000
+	zt._zeige()
+	await process_frame
+	await process_frame
+	zt.free()
 	# 292 Vorspann (Prelude.kt): Firma ein, steht, aus; Pause; Name; Menue
 	var h := Hauptmenue.new(null)
 	h.vorspann = Zwischenbild.daten()["vorspann"]
