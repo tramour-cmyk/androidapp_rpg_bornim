@@ -465,10 +465,10 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 		var anker := im_raum(m, sk) * sk.get_bone_global_rest(mi)
 		var lagen := haltung_lagen(m, sk, "Stehen")
 		if not lagen.is_empty():
-			# Mitte 29 cm unter spine_03 wie oben; die Neigung nach dem ganzen Schild (Kleriker 0,72 m reicht unter das Kreuz: am Rechner
-			# 6,6 cm unten): die Gerade, die hinter allem zwischen Unter- und Oberkante liegt und in der Mitte am naechsten am Ruecken ist
-			var ys := (im_raum(m, sk) * (lagen[bi] as Transform3D)).origin.y
-			var yc := ys - 0.29
+			# Mitte 29 cm unter spine_03 wie oben; die Neigung nach dem ganzen Schild: die Gerade, die hinter allem zwischen Unter- und
+			# Oberkante liegt und in der Mitte am naechsten am Ruecken ist (am Rechner Kaempfer unten 3,6 cm, oben 1,9 cm; Kleriker oben
+			# 2,6 cm, die Spitze des Drachenschilds 8 cm ueber den Oberschenkeln, das Gesaess steht 5 cm weiter ab)
+			var yc := y - 0.29   # Hoehe wie in der Ruhe (Oberkante etwa 1,32 m, Pruefer Lauf 2); in „Stehen“ sinkt spine_03 um 4 cm
 			var hh := schild_hoehe(schild)
 			var li := ruecken_linie(haut_punkte(m, sk, true, null, lagen), yc + hh.x, yc + hh.y)
 			if not li.is_empty():
