@@ -28,9 +28,12 @@ func _lauf() -> void:
 	pruefe(kl != null, "Klang geladen")
 	if kl == null: quit(1); return
 	var huhn = null
+	var huehner: Array = []   # Lauf 280: zwei Hühner je Heuballen; floh das Nachbarhuhn (Laute da), blieb das gemessene stehen
 	for n in spiel.find_children("*", "Node3D", true, false):
 		var d = n.get("daten")
-		if d is Dictionary and String(d.get("tier", "")) == "huhn": huhn = n; break
+		if d is Dictionary and String(d.get("tier", "")) == "huhn":
+			huehner.append(n)
+			if huhn == null: huhn = n
 	pruefe(huhn != null, "ein Huhn im Dorf")
 	if huhn == null: quit(1); return
 	print("Huhn bei %s, Eltern %s, Held-Eltern %s, ortsart %s, ruhig %s" % [huhn.kachel, huhn.get_parent().name, spiel.held.get_parent().name, kl.ortsart, kl._ruhig()])
@@ -49,14 +52,14 @@ func _lauf() -> void:
 		t += schritt
 		spiel.held.setze(t, "RIGHT")
 		for i in 12: await process_frame
-		floh = floh or bool(huhn.flucht)
+		for h in huehner: floh = floh or (bool(h.flucht) and h.kachel.distance_to(t) <= 4.0)   # ein Huhn nahe beim Helden flieht
 	for i in 30: await process_frame
 	var laute: Array = []
 	for i in range(vorher, kl._naechster):
 		var p = kl._effekte[i % kl._effekte.size()]
 		if p.stream: laute.append(String(p.stream.resource_path).get_file())
 	print("Held bis %s, Huhn floh %s, jetzt %s; Laute: %s" % [t, floh, huhn.kachel, laute])
-	pruefe(floh, "das Huhn flieht")
+	pruefe(floh, "ein Huhn nahe beim Helden flieht")
 	pruefe(laute.any(func(n): return String(n).begins_with("hen_alarm") or String(n).begins_with("hen_flap")), "Gackern oder Flügel zu hören")
 	print("TIERFLUCHT591 %s" % ("gut" if fehler == 0 else "%d Fehler" % fehler))
 	quit(1 if fehler > 0 else 0)
