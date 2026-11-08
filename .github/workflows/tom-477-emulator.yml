@@ -1,0 +1,59 @@
+name: Tom Probe Emulator (477)
+
+# 477 (Chef 02.11., 14:59: Godot-APKs laufen nicht im MuMu Player; 03.11., 16:23: Bild schwarz, Jingle hoerbar, mit Vulkan und OpenGL,
+# „Genug Zeit verschwendet“, Ursache sucht Tom ohne Chef): das APK eines fertigen Laufs (APK_LAUF) in einem x86_64-Emulator wie MuMu
+# (Android 12, Google APIs, Grafik in Software), starten, 45 s warten; ins Artefakt nur Logcat (Godot, Fehler) und ein Bildschirmfoto.
+# Nur bei Commits, die mit „477 Probe“ beginnen (Haken probelauf.py zaehlt den Push).
+on:
+  push:
+    branches: ["claude/tom-477-**"]
+
+env:
+  APK_LAUF: "42490179388"     # Lauf 302 (claude/tom-630-schirme, gruen, Stand 269), Artefakt bornim-godot-apk
+
+jobs:
+  emulator:
+    if: startsWith(github.event.head_commit.message, '477 Probe')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    permissions:
+      actions: read
+      contents: read
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: bornim-godot-apk
+          run-id: ${{ env.APK_LAUF }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: apk
+      - name: KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules && sudo udevadm trigger --name-match=kvm
+          ls -l apk
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 31
+          arch: x86_64
+          target: google_apis
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
+          disable-animations: true
+          disk-size: 6000M
+          ram-size: 4096M
+          script: |
+            mkdir -p aus
+            adb install -r apk/bornim-godot.apk 2>&1 | tail -2
+            adb logcat -c
+            adb shell monkey -p de.bornim.game.godot -c android.intent.category.LAUNCHER 1 > /dev/null
+            sleep 45
+            adb exec-out screencap -p > aus/477-emulator-45s.png
+            adb logcat -d > aus/logcat.txt
+            grep -iE "godot|vulkan|opengl|gles|egl|fatal|crash|E/" aus/logcat.txt | grep -viE "chatty|gms" | head -300 > aus/logcat-godot.txt || true
+            grep -iE "ERROR|SCRIPT ERROR|USER ERROR|Vulkan|OpenGL|renderer|Rendering" aus/logcat-godot.txt | head -60 || true
+            adb shell dumpsys activity top | grep -iE "ACTIVITY|godot" | head -5 || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tom-477-emulator
+          path: aus/
+          if-no-files-found: ignore
