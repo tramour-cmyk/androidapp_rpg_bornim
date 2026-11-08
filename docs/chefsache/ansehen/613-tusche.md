@@ -1,5 +1,7 @@
 # 613 · Zwischensequenzen mit Tusche: Intro und Tempelszene · Tom (Spike) · 08.11., 19:10
 
+[Bild von 08.11., 19:11](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/08-1911-613-Spike.png) (eingetragen von meldung.sh, Spike)
+
 [Bild von 08.11., 19:10](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/08-1910-613-Spike.png) (eingetragen von meldung.sh, Spike)
 
 Die zehn Bilder einzeln, in voller Größe auf Telegram (je eine Meldung mit Bildname). Inhalt wie um 17:14, nur nicht mehr in einer Tafel.
