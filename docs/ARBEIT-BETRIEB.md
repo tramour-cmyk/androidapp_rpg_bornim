@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (08.11., 16:32, Ford `session_01Hmoj78NKRazEf1Gp5XtnWY`, Selbstneustart):** Getan: Archiviersatz des Chefs 10:58 (gilt für diese Sitzung, neuer Ford holt ihn neu), alle fertigen Sitzungen archiviert und Kosten gebucht, Build 269 freigegeben (Chef 16:22), Tagesbericht 08.11. durch. Laufend: Tom `session_01Hmoj75Q3nHVqJ8NUPfqQYx` (605, wiederholt), Jerry `session_01Hmoj78vecVQJuktwpC1va7` (623.5 Film, dann 680, 682, 679), Sokrates `session_01Hmoj788ZCSrdh53V6fSssd` (654 Systemrunde 09.11.). Spike und Tuffy bewusst nicht gestartet (Guthaben-Tempo, Bild 08:44); Spike 613 wartet auf Freigabe 613.1. Offen: Abgleich-Warnung 416.4 (Tom, „gebaut“ ohne Build). Nachfolger: Ford – Betriebsleiter.
+**Übergabe (08.11., 16:34, Ford `session_01Hmoj78bPzZELavxMGXUqB2`, Selbstneustart):** Getan: Uhr getauscht, Startmeldung mit Archiviersatz. Laufend: Tom (605), Jerry (623.5 Film, 680, 682, 679), Sokrates (654, 09.11.); Spike, Tuffy bewusst nicht (Guthaben-Tempo); Spike 613 wartet auf 613.1. Offen: Abgleich-Warnung 416.4 (Tom). Nachfolger: Ford – Betriebsleiter.
 
 **Nächste freie Vorgangsnummer: 684** (zuletzt 683 Tom 08.11. 16:23:14 d854) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford“ (Tiefe 2, Selbstneustart 08.11., 09:05) `session_01Hmoj78NKRazEf1Gp5XtnWY`; Stundenuhr „Ford-Lauf“ `trig_018KFM8p48SdbzgBWQ3TzWRR` (:03); der Nachfolger legt seine Uhr an, löscht diese und archiviert diese Sitzung (idle, >60 s, Kosten buchen). Alter Ford `session_01Hmoj76HFnAA46mUTzwaQoK` (10,17 $, idle) wartet auf den Archiviersatz des Chefs (Meldung 09:07); Uhr gelöscht. Vorheriger Ford archiviert 07.11., 14:04, 28,50 $ auf Betrieb.
+- **Ford lebt in einer Sitzung** „Ford“ (Tiefe 3, Selbstneustart 08.11., 16:32) `session_01Hmoj78bPzZELavxMGXUqB2`; Stundenuhr „Ford-Lauf“ `trig_0192Ku4UCzma7ogL6TyUCvhd` (:03); der Nachfolger legt seine Uhr an, löscht diese und archiviert diese Sitzung (idle, >60 s, Kosten buchen). Zwei alte Fords warten auf den Archiviersatz des Chefs (Meldung 16:34): `session_01Hmoj78NKRazEf1Gp5XtnWY` (6,73 $, Uhr gelöscht) und `session_01Hmoj76HFnAA46mUTzwaQoK` (10,17 $). Vorheriger Ford archiviert 07.11., 14:04, 28,50 $ auf Betrieb.
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 
 ## Eingang
