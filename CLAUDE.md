@@ -67,7 +67,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
 9. **Melden:** Telegram ist das Protokoll: `/home/user/bornim-main/tools/meldung.sh <Name> "<Nr>: <Stand>"` (nie die Kopie im Arbeitszweig).
    - so ausführlich wie nötig, Inhalt nach Haltung 5; je Thema ein Absatz (`\n`); höchstens 4096 Zeichen, mit `--bild` 1024; Chefsache als Sprungmarke `[72o.1](cs:72o1)`; lautlos, `--laut` nur, wenn der Chef dran ist;
    - Standbilder als PNG mit `--bild` (Pixelprüfung `--datei`), Bewegung nur als Film mit `--film` (MP4 bis 50 MB, Standbild höchstens dazu; 381), vor dem Senden selbst ansehen, ob es zeigt, was es zeigen soll (beim Film ein Standbild daraus; 655, ersetzt 300), dann sofort an den Chef, kein Helfer danach (396); Text vorher fremd prüfen (338.2); etwa alle 5 Minuten eine Standzeile;
-   - im Chat erst Rückmeldungen beantworten; Neustart genau „Weiter in <Titel>: <Link>“; Vorrat leer: eine Zeile; zu Prüfendes fett, nie nur kursiv.
+   - im Chat erst Rückmeldungen beantworten, auch „Telegram, offen“ aus `notiz.sh` (👍 gebilligt, ✅ erledigt: Archiveintrag mit „Nachricht <Kennung>“, 658); Neustart genau „Weiter in <Titel>: <Link>“; Vorrat leer: eine Zeile; zu Prüfendes fett, nie nur kursiv.
 
 ## Notizen nur auf `main`
 
