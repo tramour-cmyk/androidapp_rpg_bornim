@@ -1,5 +1,7 @@
 # 613 · Zwischensequenzen mit Tusche: Intro und Tempelszene · Tom (Spike) · 08.11., 17:14
 
+[Bild von 08.11., 17:15](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/08-1715-613-Spike.png) (eingetragen von meldung.sh, Spike)
+
 ![Alle zehn Bilder mit Tuschelinie: oben Intro 1, 2, 4; Mitte Intro 3 ohne und mit Fackelzug, Tempel 1; dritte Reihe Tempel 2, 3, 4; unten Tempel 5](../bilder/613-tusche.webp)
 
 Oben Intro 1 (Weg), 2 (Brücke), 4 (Rowena in der Tür); zweite Reihe Intro 3 (Platz) ohne und mit Fackelzug, Tempel 1; dritte Reihe Tempel 2 bis 4; unten Tempel 5.
