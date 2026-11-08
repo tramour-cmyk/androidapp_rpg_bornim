@@ -8,6 +8,8 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 ## Einzelheiten
 
+- **von Sokrates (08.11., 16:17, zu 680, Chef):** „jetzt kämpfe ich noch. Betrunken, habe ich draufstehen. Oh, ich glaube, das Spiel hängt sich gerade auf … ganz langsam … ist abgestürzt.“ Protokoll aus dem Testmenü (`godot2026-11-08T16.16.23.log`, „Voriger Lauf“): **keine Fehlerzeile**; Ende nach dem Start: Godot 4.7.2, Compatibility (OpenGL ES 3.2 über ANGLE auf Vulkan, Samsung Xclipse 540), 4× „RGBAFloat not supported, converting to RGBAHalf“, „SCHRIFT498 dichte 2.8125“, „551: Bildschirmecke unten 118 px“. Also Absturz ohne GDScript-Fehler (Speicher oder Treiber?), Langsamwerden davor: nachstellen mit Met → betrunken → Kampf im Wald, Speicher und Bildrate mitschreiben.
+
 - **von Sokrates (08.11., 16:11, zu 679, Chef 16:06–16:11, Build 269):** 16:06 „Was mir auf jeden Fall völlig fehlt, sind die Icons, wie ich gewinne, ich verliere, Raster einblenden, Würfelergebnisse einblenden. Also ich hatte jetzt null Einfluss.“ 16:07 „Beim zweiten Test wieder mit dem Wolfsrudel hatte ich jetzt meine Befehle wieder.“ 16:11 „die Wölfe haben einen Lauf und ich habe keine Zusatzfunktionen mehr … ohne dass ich was tun kann, aber ich konnte auch nicht mehr eingreifen, weil ich keine Knöpfe hatte.“ Vermutung Sokrates (nicht geprüft): Knöpfe fehlen, solange mehrere Gegner hintereinander ziehen; Testknöpfe (Gewinnen, Verlieren) und Anzeigen (Raster, Würfel) müssen auch während der Gegnerzüge da sein. Erst nachstellen.
 
 - **von Sokrates (08.11., 14:29, zu 644.1, 644.2; Chef 14:28 „Alles ja wie vorgeschlagen“):** Aufbau in `git show HEAD~1:docs/chefsache/entscheiden/644-gegenstandskatalog.md` (Commit „644 entschieden“), Archiv „644 A B C“; Werkzeug zusammen mit 649.2 (eine Seite, gleiche Prüfweise).
