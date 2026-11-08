@@ -43,7 +43,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 
-**Tom** – offen 97, Muss 72, startbar 4
+**Tom** – offen 98, Muss 72, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -144,6 +144,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 700 | M? | Erschaffung, Platzwahl „Alle Spielstand-Plätze sind belegt“: Rahmen um jeden Platz gegen 5 | startbar |
 | 701 | M | Gegenstandsfenster: Hinweis Obergrenze nur einmal statt je Grundwert (Chef t270.5, 08.11., | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test |
 | 613.2 | M | Zwischensequenzen: Bewegung sichtbar wie alt (Kerzenflackern, atmendes Licht, Staub im Str | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test |
+| Pflege | K | von Werkzeug (340.3, 08.11.): 16244 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 72, Muss 63, startbar 38
 
@@ -217,10 +218,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 644.2 | M | Gegenstandskatalog: Zahlen nach 469 in 444 (Tempo, Parieren, Durchschlag, Güte, Stufe), C1 | startbar |
 | 662 | M | Kampf (vorher 653): Parade des Helden mit Schild dreht über _face_sanft ohne Pfotenhalt, S | startbar |
 | 681 | M | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | startbar |
-| Pflege | K | von Werkzeug (340.3, 08.11.): 18984 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 704 | M? | Wolf allein ist harmlos, wenn der Held jedem angekündigten Sprung ausweicht: 300 von 300 S | startbar |
 | 705 | M? | Zauberlehrling Stufe 1 gewinnt gegen Wolf und Rudel selten (BRS 2–30 %, Messung anspringen | startbar |
 | 708 | M | Zugriff auf bornim-kaufmodelle in Jerry-Sitzungen: add_repo vom Automodus abgelehnt (Jerry | Chef (Datei in der Chefsache) |
+| Pflege | K | von Werkzeug (340.3, 08.11.): 17371 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 23, Muss 19, startbar 0
 
@@ -265,7 +266,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
 | 644.5 | M | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noc | wartet auf 644.1 (startbar) |
 
-**Sokrates** – offen 56, Muss 34, startbar 35, PAUSE bis 09.11., 09:00
+**Sokrates** – offen 55, Muss 34, startbar 34, PAUSE bis 09.11., 09:00
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -320,7 +321,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 674 | K | Systemlösung? Kamera: 5 frühere Vorgänge (590, 615, 460, 211.14, 399.4), neu 673; einmal g | startbar |
 | 676 | K | Systemlösung? Schild: 14 frühere Vorgänge (662, 58, 406a, 417, 645 …), neu 675; einmal gru | startbar |
 | 690 | K | Systemlösung? Schatten: 10 frühere Vorgänge (208, 242.2, 566, 399.5, 558 …), neu 689; einm | startbar |
-| Pflege | K | von Werkzeug (340.3, 08.11.): 15642 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 706 | K | Systemlösung? Fackel: 17 frühere Vorgänge (322, 345, 344.1, 332.1, 539 …), neu 613.2; einm | startbar |
 | 707 | K | Systemlösung? Zwischensequenz: 4 frühere Vorgänge (613, 70, 314, 659), neu 613.2; einmal g | startbar |
 | 584 | K | Kein halbfetter Schnitt: Köpfe und Titel in Erschaffung, Held, Chronik, Karte, System, Bre | startbar |
