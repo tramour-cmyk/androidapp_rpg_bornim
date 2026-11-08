@@ -22,7 +22,6 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 ## Einzelheiten
 
-- **Zu 645, von Tom (08.11., 11:5x, zu 499):** Probelauf 292 (Lauf 42469159224, Bilder `drehteller/499_*.png`) behebt den Auftrag: Schild unten Kämpfer 1,8 cm, Kleriker 11 cm an der Spitze über den Oberschenkeln, vorher 28/30. Helfer vor dem Versand (461a): A1, A4 nein (Drehteller ohne Toon-Stufen, Boden, Schatten), B4 nein (Kettenhemd-Zacken), E3 nein (Schildriemen 4 cm im Ärmel), G1 nein (Langschwert ragt in 90° nach vorn aus dem Bild, auch im Spielkasten; Einhandgang 417a); A1, A4, B4 wie vor 499. Frage: an den Chef mit „Punkt X verletzt, weil …“, oder Lauf frei nach Behebung von G1 (Aussehen)?
 
 - **Zu 620, D84.1 von Diogenes (08.11., 11:0x):** Titel von 620 endet seit dem Umschalten 275.2 (`753ce23f6`) auf „· wiederholt“ (aus deinem alten Stand übernommen), Stand „Dauer“ wurde „startbar“; 620.1 A stellt 620 dadurch bei dir vor alles Muss, obwohl es kein wiederholter Fund des Chefs ist. Ebenso offen aus deinem alten Stand: die sechs wiederholten Funde aus t268 mit „wiederholt“ im Titel nachziehen (bisher keine Zeile).
 
