@@ -187,6 +187,8 @@ class Fighter:
 	var sneaked := false
 	var held := false
 	var prone := false
+	## 702 (Messung „fest“): ist eben aufgestanden; bis zum Ende seines nächsten eigenen Zugs wirft ihn kein Sprung um
+	var fest := false
 	var waited := false
 	var hidden := false
 	var moved := false
@@ -389,6 +391,11 @@ static func ist_krit(roll) -> bool:
 		return roll.size() > 7 and bool(roll[7])
 	return roll[0] == "ATTACK" and int(roll[1]) == 20
 
+
+## 702 (Chef 08.11., 21:27, Messung tests/anspringen_702.gd): wie Anspringen umwirft; "" wie heute (jeder Treffer wirft um,
+## Aufstehen kostet den Zug), "fest" nach dem Aufstehen eine Runde fest, "handeln" Aufstehen kostet nur den Platzwechsel,
+## "chance" wirft nur zur Hälfte um. Nur für die Messung, bis der Chef entscheidet (Balance).
+var anspringen := ""
 
 ## 478: der Kampf rechnet nach dem BRS (Modell D, brs_kampf.gd); Leben der Gruppe im selben Anteil wie vorher, Gegner nach dem Bestiarium
 var brs := false
@@ -878,6 +885,12 @@ func _skip_to_choice(react: Callable) -> void:
 		elif f.held:
 			f.held = false
 			_say(fmt(pick(("MSG547_AUF" if sturz_zwischentext else "MSG279_RISES") if f.prone else "MSG130_LOSES"), lang, [f.name(lang)]), f.id, null, 0, null, false, false, "RISES" if f.prone else "")
+			if f.prone and anspringen == "fest":
+				f.fest = true
+			if f.prone and anspringen == "handeln":
+				f.prone = false
+				f.moved = true
+				continue
 			f.prone = false
 			_next_turn()
 		elif f.side == "FOES" and surprised.has(f.id):
@@ -905,6 +918,7 @@ func _skip_to_choice(react: Callable) -> void:
 
 
 func _perform(f: Fighter, o: Array) -> void:
+	f.fest = false
 	f.waited = o[0] == "wait"
 	f.cover_from = []
 	match o[0]:
@@ -1513,6 +1527,8 @@ func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := 
 			return
 	match intent.effect:
 		"POUNCE":
+			if t.fest or (anspringen == "chance" and not dice.chance(0.5)):
+				return
 			t.held = true
 			t.prone = true
 			_say(fmt(pick("MSG547_STOSS" if sturz_zwischentext else "MSG130_POUNCEHITS"), lang, [foe.name(lang), t.name(lang)]), foe.id, t.id, 0, null, false, false, "POUNCED")
