@@ -780,3 +780,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 686 | Bereiche im Archiv berichtigen: 183 alte Namen nach einordnen(), 64 Ausnahmen laut Prüfbericht Lauf 90 D90.3 (von Diogenes, zu 684) | B Steuerung | M | – | Perikles | erledigt |
 | 684 | Bereiche im Archiv: Stichprobe 50 Zeilen inhaltlich, stimmt der Bereich; 180 alte Namen berichtigen (von Sokrates nach Frage Chef 08.11., 16:3x, zu 651) | Q QM | M | 3,50 $ | Diogenes | erledigt |
 | 660 | Zugriff auf bornim-kaufmodelle in Tom-Sitzungen: add_repo vom Automodus abgelehnt (Tom 08.11., 14:47), hält 506, 475 und das Nachstellen 623.6 an | E Technik | M | – | Tom | erledigt |
+| 658 | Telegram-Reaktionen auslesen: 👍 auf eine Meldung = gebilligt/passt, ✅ = erledigt, Eintrag mit Zeit ins Archiv (Chef 08.11., 15:00; Probe 15:02 geht) | B Werkzeuge | M | 1,81 $ | Perikles | erledigt |
+| 692 | Von Tom: probelauf.py 647 sieht Mischungen mit main nicht (git log --no-merges), hält den Push eines gemischten Teamzweigs wegen fremden Spielcodes aus main an | B Abläufe | K | – | Perikles | erledigt |
+| 693.1 | kosten.py: unbekannter Status (z. B. „running“) gilt als ruhend → Doppelstart; als laufend werten oder Lauf anhalten (Sokrates zu 693, Chef 18:41) · „jetzt“ 08.11., 18:41 | B Werkzeuge | M | – | Ford | erledigt |
+| 693 | Zwei Tom-Sitzungen auf 656 (18:04), Spike nicht genutzt; Chef 08.11., 18:10 · „jetzt“ 08.11., 18:10 | B Steuerung | M | – | Ford | erledigt |
