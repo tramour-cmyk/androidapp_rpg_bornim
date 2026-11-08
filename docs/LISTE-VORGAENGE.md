@@ -137,7 +137,7 @@
 | 587 | Gegnergröße im Kampfort: 1,3-fach wie alt und die Wölfe, echte Größe oder je Kapitel (Chef 05.11., zu Bild 494) | Jerry | M | in Arbeit, Lauf 284 rot (Umriss früh gemessen), behoben 7762e8f2b | – | claude/jerry-587-groesse | – | E Kampf | 2,93 $ |
 | 494 | Gegner von Kapitel 1 im Kampf außer den Untoten (506), je Gegner höchstens ein Lauf (Wochenziel 03.11., 488) | Jerry | M | wartet | 492 | claude/jerry-494-gegner | – | E Kampf | 128,77 $ |
 | 517 | Waldklang wie alt: Vögel am Tag, Eule und Grillen nachts, fernes Wolfsheulen im Tiefen Wald (`WildSound.kt`; Abgleich 512, von Team Tom) | Jerry | M | wartet, in die Prüfliste 269 | 625 | claude/jerry-517-waldklang | 269 | A Spiel | 2,32 $ |
-| 507 | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager (Orte O10; aus 492) | Jerry | M | in Arbeit, main geholt 7b590c3da, Bildlauf 287 (hoehle=ja, film=nein) | – | claude/jerry-507-hoehle | – | E Kampf | 34,94 $ |
+| 507 | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager (Orte O10; aus 492) | Jerry | M | wartet, Bilder Lauf 287 beim Chef | Chef | claude/jerry-507-hoehle | – | E Kampf | 34,94 $ |
 | 496 | Durchspiel-Build: Kapitel 1 von Anfang bis Ende am Handy (Wochenziel 03.11., 488) | Jerry | M | startbar | – | – | – | E Technik | – |
 | 387 | Gekaufte Tiere schnell auf Bewegungen und unsere Haut prüfen, vor Eigenbau (Chef 27.10., 21:27) | Jerry | M | ruht | – | – | – | E Monster | 98,99 $ |
 | 385.2 | Feuer aus der Stabspitze bei Feuerpfeil, Feuerball (aus 385.1, Chef 28.10., 19:1x) | Jerry | M | wartet | 623.2 | – | – | E Kampf | 9,99 $ |
