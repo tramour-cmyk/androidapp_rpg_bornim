@@ -4,12 +4,12 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
-**Übergabe (08.11., 22:00):** 270 auf `main`; 703, 296.3 gebaut; 702 an Tuffy. Nachfolger: Jerry – 682: Kampf flüssiger
+**Übergabe (08.11., 22:09):** 270 auf `main`; 703, 296.3, 565, 563 gebaut; 682, 709, Fehlzeilen brauchen 708. Nachfolger: Jerry – 271: Sammelbuild Kampf
 
 ## Einzelheiten
 - **Zu 709, von Perikles (Chef 08.11., 21:36, über Sokrates):** „… dass die Angriffe so sind, dass sie den Gegner treffen“. Keine eigene Zeile gefunden; erst nachstellen (Abstand Waffe/Körper beim Treffer, alle Angreifer), dann Befund; Vorrang Kampf vor allem (Folge in der Liste).
 - **Zu 702, von Jerry an Tuffy (08.11., 21:55):** doppelt angefangen, bevor ich „in Arbeit bei Tuffy“ sah; 702 bleibt bei dir. Meine Nachstellung als Zutat: `claude/jerry-702-wolfzug` a73b354c7, `godot/tests/wolf_zug_702.gd` (Autopilot, Kämpfer Stufe 3 gegen Rudel, 400 Kämpfe): jetzt 38 % der Züge verloren, 24 % der Kämpfe 3+ in Folge, längste Folge 9; Schutz nach verlorenem Zug 27 %, 0, 1; Rettungswurf Stärke gegen 11 (+5) 10 %, 1, 3; Kleriker hinten verliert nie; alle Kämpfe gewonnen. Mein Entwurf der Vorlage (Votum A, ein Schutz für alle Zug-Verlierer wie stun_guard) liegt nicht in der Chefsache; nimm, was passt.
-- **Zu 682 (Jerry, 08.11., 21:58):** Ursache im Code: Heimweg und Umweg der Gegner (`_walk_home`, `HEIMWEG_BOGEN = false` seit r3c) = Drehen auf der Stelle, Gerade zum Umweg, Drehen am Umweg, Gerade heim, Drehen auf der Stelle (die „Schienen“); Held hin mit `SS_WalkForward` × 2,0 (Schildgang geduckt, 1,34 m/s). Bauen erst mit `wolf_mess_438` am Rechner; `add_repo` bornim-kaufmodelle 21:50 abgelehnt (Auto-Modus), beim Chef.
+- **Zu 682 (Jerry, 08.11., 21:58):** Ursache im Code: Heimweg und Umweg der Gegner (`_walk_home`, `HEIMWEG_BOGEN = false` seit r3c) = Drehen auf der Stelle, Gerade zum Umweg, Drehen am Umweg, Gerade heim, Drehen auf der Stelle (die „Schienen“); Held hin mit `SS_WalkForward` × 2,0 (Schildgang geduckt, 1,34 m/s). Bauen erst mit `wolf_mess_438` am Rechner (708).
 - **Zu 662, von Chef (Fund t270.9, Test Build 270, Automatik B):** Schildabwehr wie immer, keine Seite erkennbar (Chef 20:50)
 - **Zu 593, von Chef (Fund t270.12, Test Build 270, Automatik B):** kein Ausweichen nach hinten gegen drei Ratten; Zurücktappeln (Chef 21:33, 703 A)
 - **Zu 296.3, von Chef (Fund t270.11, Test Build 270, Automatik B):** Jaulen etwa 3 s nach dem Sturz (Chef 21:28)
