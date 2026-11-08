@@ -1,5 +1,7 @@
 # 585 · Titel im Hauptmenü bricht wie alt um · Tom · 08.11., 20:18
 
+[Bild von 08.11., 20:18](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/08-2018-585-Tom.png) (eingetragen von meldung.sh, Tom)
+
 ![Hauptmenü: links vorher „CHRONIKEN VON / BORNIM“, rechts nachher „CHRONIKEN / VON BORNIM“](../bilder/585-titel.jpg)
 
 Der Titel bricht wie in der alten Kotlin-Fassung um: „CHRONIKEN / VON BORNIM“ statt „CHRONIKEN VON / BORNIM“. Links vorher, rechts nachher (am Rechner, 20:16).
