@@ -289,7 +289,7 @@ func alle_gewoehnlichen(gew: Array) -> void:
 	var summe := 0
 	for g in gew: summe += Laden.verkaufspreis_von(hw, g)
 	dialog("Alle gewöhnlichen verkaufen?" if de else "Sell all common items?", Stil.GOLD,
-		[Stil.zeile((("%d Gegenstände:" if de else "%d items:") % gew.size()).to_upper(), 14, Stil.GOLD, 3.0), Erschaffung.txt(", ".join(PackedStringArray(gew.map(func(g): return Beute.name(g)))), 14, Stil.DIM),
+		[Stil.zeile(Laden.anzahl_gegenstaende(gew.size(), de).to_upper(), 14, Stil.GOLD, 3.0), Erschaffung.txt(", ".join(PackedStringArray(gew.map(func(g): return Beute.name(g)))), 14, Stil.DIM),
 		Erschaffung.txt("%s: %d → %d" % [Sprache.u("gold"), z.gold, z.gold + summe], 15, Stil.DIM)],   # 525 (Helfer): Gold vorher → nachher
 		[[("Verkaufen · " if de else "Sell · ") + preis_text(summe), tu], [abbrechen(), func(): pass]])
 
