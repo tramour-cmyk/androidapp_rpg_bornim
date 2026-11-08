@@ -478,11 +478,11 @@ func dialog(titel: String, farbe: Color, zeilen: Array, knoepfe: Array) -> Contr
 	v.add_child(Menue.dialog_fuss(knoepfe, func(): schleier.queue_free(), v.custom_minimum_size.x))
 	return schleier
 
-# 549a Kopf: Titel eines Fensters 15 sp Versalien gesperrt in Gold, mittig; beim Ding (eigene Farbe) das Bild (erste Zeile) links,
+# 549a Kopf: Titel eines Fensters (586a: 22 sp wie ein Schirm) Versalien gesperrt in Gold, mittig; beim Ding (eigene Farbe) das Bild (erste Zeile) links,
 # daneben der Name 16 sp normal in der Farbe der Seltenheit; eine Rueckfrage hat immer den Titel in Gold (Spielstaende.frage)
 static func dialog_kopf(titel: String, farbe: Color, zeilen: Array, frage := false) -> Control:
 	if farbe == Stil.GOLD or frage:
-		var t := Stil.zeile(titel.to_upper().replace("ß", "SS"), 15, Stil.GOLD, 3.0)
+		var t := Stil.zeile(titel.to_upper().replace("ß", "SS"), Stil.TITEL_SP, Stil.GOLD, 3.0)   # 586a
 		t.name = "Titel"
 		t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		t.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
