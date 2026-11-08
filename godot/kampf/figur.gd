@@ -1406,6 +1406,14 @@ func _walk_home(skip = null) -> float:
 						tr2 += _lauf(tween, via, home, "Gehen", RUECK_TEMPO)
 					tween.tween_callback(_turn_home)
 					return tr2
+		# 682: eine weiche Kurve heim statt Drehen am Ort, Gerade, Drehen am Umweg, Gerade (wenn sie frei bleibt)
+		if _glatt_an_682() and fighter.monster != null and not lang:
+			var kurve := _glatt(position, rotation.y, ([via] if via != position else []) + [home], skip)
+			if not kurve.is_empty():
+				gang = "heim"
+				var tk := _glatt_an(tween, kurve, nm, AUSWEICH_BOGEN if nm == "Rennen" else BOGEN_TEMPO)
+				tween.tween_callback(_turn_home)
+				return tk
 		var tt := _turn(tween, atan2(first.x, first.z), false, lang)
 		tween.tween_callback(func(): _play(nm, 0.15))
 		var tg := 0.0
@@ -1601,6 +1609,85 @@ func _auf_zeit(pts: Array, t: float, lauf: String) -> void:
 			anim.play(nm, 0.15, (1.0 if b[3] == "G" else (_bogen_lauf if _bogen_lauf > 0.0 else BOGEN_TEMPO)) * float(tempo.get(nm, 1.0)))
 
 
+## 682 (Chef 08.11., 16:22–16:24: „so Stück gerade, dann diagonal, dann gerade … und dann drehen sie halt wieder auf der Stelle“;
+## t270, 20:50: „Die Wölfe laufen immer noch in komischen Schienenbahnen“): Weg zum Biss und heim als eine weiche Kurve statt
+## Drehen am Ort, Gerade, Drehen am Umweg, Gerade. Das Tier folgt den Punkten [ziele] (Umweg, Ziel) wie ein Läufer, der im Gehen
+## lenkt (Verfolgung eines Punkts LENK_VOR voraus, Krümmung höchstens 1/Wenderadius, nah am Ziel enger, damit es ankommt).
+## Je Punkt [Ort, Weg, Drehung, Art] wie _dubins ("B" im Bogen, "G" gerade). [] wenn der Weg einem anderen näher käme als
+## erlaubt oder nicht ankommt; dann bleibt der alte Weg (438: nie ineinander).
+const GLATT_682 := true
+func _glatt_an_682() -> bool:
+	return GLATT_682 and not has_meta("glatt_aus")     # kurven_682 GLATT682=0: der alte Weg zum Vergleich
+const LENK_VOR := 0.6        # m × Größe: so weit voraus liegt der Punkt, auf den es lenkt
+const LENK_R := 0.45         # m × Größe: kleinster Wenderadius im Gehen
+const LENK_BOGEN := 0.35     # ab diesem Anteil der größten Krümmung gilt der Schritt als Bogen (langsamer)
+func _glatt(von: Vector3, yaw0: float, ziele: Array, skip = null) -> Array:
+	var sc := _scale()
+	var ds := PFAD_SCHRITT
+	var vor := LENK_VOR * sc
+	var kmax := 1.0 / (LENK_R * sc)
+	var poly: Array = [Vector2(von.x, von.z)]
+	for z in ziele:
+		poly.append(Vector2(z.x, z.z))
+	var ende: Vector2 = poly[poly.size() - 1]
+	var gerade := 0.0
+	for i in range(1, poly.size()):
+		gerade += (poly[i] - poly[i - 1]).length()
+	var p := Vector2(von.x, von.z)
+	var th := PI / 2.0 - yaw0     # wie _dubins: vorn = (cos th, sin th)
+	var seg := 1
+	var s := 0.0
+	var pts: Array = [[von, 0.0, yaw0, "B"]]
+	var g0 := INF
+	if fighter.monster != null and _foot_ok:
+		g0 = minf(_rumpf_luft(von, yaw0, skip), _rumpf_luft(Vector3(ende.x, von.y, ende.y), yaw0, skip))
+		g0 = minf(g0, PLATZ_LUFT) - WEG_LUFT
+	var n_max := int(gerade * 3.0 / ds) + 200
+	for n in n_max:
+		var rest := (ende - p).length()
+		if rest <= ds:
+			break
+		# Punkt LENK_VOR voraus auf dem Linienzug (ab dem nächsten Abschnitt, der noch vor ihm liegt)
+		while seg < poly.size() - 1 and (poly[seg] - p).length() < vor:
+			seg += 1
+		var ziel: Vector2 = poly[seg]
+		var zu := ziel - p
+		var fehl := wrapf(atan2(zu.y, zu.x) - th, -PI, PI)
+		# Verfolgung: Krümmung 2 sin(Fehler) / Abstand; nah am Ende darf es enger werden, sonst kreiste es um das Ziel
+		var k := 2.0 * sin(fehl) / maxf(zu.length(), ds)
+		var grenze := maxf(kmax, 2.0 / maxf(rest, ds) if seg == poly.size() - 1 else kmax)
+		k = clampf(k, -grenze, grenze)
+		th += k * ds
+		p += Vector2(cos(th), sin(th)) * ds
+		s += ds
+		var pos := Vector3(p.x, von.y, p.y)
+		var yaw := PI / 2.0 - th
+		pts.append([pos, s, yaw, "B" if absf(k) > LENK_BOGEN * kmax else "G"])
+		if g0 < INF and pts.size() % 3 == 0 and _rumpf_luft(pos, yaw, skip) < g0:
+			if OS.get_environment("SCHAU_MESS") != "":
+				print("682 Kurve %s verworfen bei %s (Luft %.2f < %.2f)" % [fighter.id, pos, _rumpf_luft(pos, yaw, skip), g0])
+			return []
+	if (ende - p).length() > ds * 2.0 or s > gerade * 2.0 + 1.0:
+		return []
+	pts.append([Vector3(ende.x, von.y, ende.y), s + (ende - p).length(), PI / 2.0 - th, pts[pts.size() - 1][3]])
+	return pts
+
+
+## 682: hängt [pts] an [tw] an (wie _pfad_fahren, aber im laufenden tween, nach Drehung oder vor dem Biss); [lauf] auf Geraden,
+## im Bogen [bogen] × lauf (Bewegung und Schrittfolge zugleich); gibt die Dauer (s) zurück
+func _glatt_an(tw: Tween, pts: Array, lauf: String, bogen: float) -> float:
+	var t := 0.0
+	pts[0].append(0.0)
+	for i in range(1, pts.size()):
+		var v: float = _mps(lauf) * (1.0 if pts[i][3] == "G" else bogen)
+		t += (pts[i][1] - pts[i - 1][1]) / maxf(v, 0.05)
+		pts[i].append(t)
+	tw.tween_callback(func(): _pfad_anim = ""; _bogen_lauf = bogen)
+	tw.tween_method(func(x: float): _auf_zeit(pts, x, lauf), 0.0, t, t)
+	tw.tween_callback(func(): _bogen_lauf = 0.0)
+	return t
+
+
 ## Grad je Sekunde, mit denen ein Tier mit Wurzelweg sich umdreht (180° in 0,4 s)
 const TURN_DPS := 450.0
 ## r4: mit Pfotenhalt (pfotenhalt.gd) langsamer, 180° in 0,75 s: bei 450°/s läge zwischen zwei Tritten einer Pfote über 0,5 m Weg
@@ -1765,21 +1852,36 @@ func _bite(other, leap: bool, weiter := 0.0) -> int:
 		var gn := "Rennen" if way > RUN_FROM and weg.has("Rennen") else "Gehen"
 		var auf := via - position
 		var erst := atan2(auf.x, auf.z) if via != position else schnauze
-		t_run = _turn(tween, erst, false)
-		tween.tween_callback(func(): _play(gn, 0.1))
-		# 438: anfahren und vor dem Biss abbremsen (_lauf), am Umweg mit Tritten drehen statt in einem Bild
-		if via != position:
-			var ab := start - via
-			var d1 := wrapf(atan2(ab.x, ab.z) - erst, -PI, PI)
-			var d2 := wrapf(schnauze - atan2(ab.x, ab.z), -PI, PI)
-			t_run += _lauf(tween, position, via, gn)
-			tween.tween_property(self, "rotation:y", erst + d1, absf(rad_to_deg(d1)) / _turn_dps())
-			tween.tween_callback(func(): _play(gn, 0.1))
-			t_run += absf(rad_to_deg(d1)) / _turn_dps() + _lauf(tween, via, start, gn)
-			tween.tween_property(self, "rotation:y", erst + d1 + d2, absf(rad_to_deg(d2)) / _turn_dps())
-			t_run += absf(rad_to_deg(d2)) / _turn_dps()
+		# 682: eine weiche Kurve zum Bissplatz, die zuletzt auf das Ziel zuläuft (Punkt LENK_VOR vor dem Platz in Bissrichtung)
+		var kurve: Array = []
+		if _glatt_an_682():
+			var ziele: Array = [via] if via != position else []
+			var vorher := start - dir * LENK_VOR * _scale()
+			if run > LENK_VOR * _scale() * 1.5:
+				ziele.append(vorher)
+			ziele.append(start)
+			kurve = _glatt(position, rotation.y, ziele, other)
+		if not kurve.is_empty():
+			t_run = _glatt_an(tween, kurve, gn, AUSWEICH_BOGEN if gn == "Rennen" else BOGEN_TEMPO)
+			var rest := wrapf(schnauze - float(kurve[kurve.size() - 1][2]), -PI, PI)
+			tween.tween_property(self, "rotation:y", float(kurve[kurve.size() - 1][2]) + rest, absf(rad_to_deg(rest)) / _turn_dps())
+			t_run += absf(rad_to_deg(rest)) / _turn_dps()
 		else:
-			t_run += _lauf(tween, position, start, gn)
+			t_run = _turn(tween, erst, false)
+			tween.tween_callback(func(): _play(gn, 0.1))
+			# 438: anfahren und vor dem Biss abbremsen (_lauf), am Umweg mit Tritten drehen statt in einem Bild
+			if via != position:
+				var ab := start - via
+				var d1 := wrapf(atan2(ab.x, ab.z) - erst, -PI, PI)
+				var d2 := wrapf(schnauze - atan2(ab.x, ab.z), -PI, PI)
+				t_run += _lauf(tween, position, via, gn)
+				tween.tween_property(self, "rotation:y", erst + d1, absf(rad_to_deg(d1)) / _turn_dps())
+				tween.tween_callback(func(): _play(gn, 0.1))
+				t_run += absf(rad_to_deg(d1)) / _turn_dps() + _lauf(tween, via, start, gn)
+				tween.tween_property(self, "rotation:y", erst + d1 + d2, absf(rad_to_deg(d2)) / _turn_dps())
+				t_run += absf(rad_to_deg(d2)) / _turn_dps()
+			else:
+				t_run += _lauf(tween, position, start, gn)
 	else:
 		t_run = _turn(tween, schnauze, true)
 	var bl: float = anim.get_animation(nm).length if anim and anim.has_animation(nm) else 0.8
