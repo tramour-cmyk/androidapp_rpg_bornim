@@ -200,6 +200,7 @@
 | 648 | Glossar und Abkürzungsverzeichnis LISTE-GLOSSAR.md: Wort, Bedeutung, Zusammenhang, Fundstellen per Werkzeug, Link zur Festlegung (Chef 08.11., 13:01) | Perikles | M? | startbar | – | – | – | B Betrieb | – |
 | 651 | Kostenauswertung: Bereiche als feste Liste, fehlende Kosten (533 von 980 Zeilen) über Commits je Sitzung schätzen, Auswertung je Bereich, Tag, Woche (Chef 08.11., 13:29) | Perikles | M? | startbar | – | – | – | B Kosten | – |
 | Pflege | von Werkzeug (340.3, 08.11.): 17271 Bytes (Grenze 15000), Erledigtes streichen | Perikles | K | startbar | – | – | – | B Abläufe | – |
+| 650.1 | Liste für docs/alt/ nach zwei Gegenprüfungen (aus 650) | Perikles | M | startbar, ja (Chef 13:36) | – | – | – | B Betrieb | – |
 | 340.2 | Rollenspiegel C: `tools/rollenspiegel.sh`, eigene Antwort ohne fremde | Diogenes | M | ruht | 09.11. | – | – | B Abläufe | –; +6,35 $ |
 | 485 | Diogenes bessert sich aus dem Rollenspiegel 02.11.: Wochentermine zählen, Vergleichsblätter selbst holen, Meldungen ohne Abkürzungen (Chef 02.11., 19:37 „1, 2, 3 ja“) · „jetzt“ 02.11., 19:37 | Diogenes | M | ruht | 09.11. | – | – | Q QS | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | ruht | 09.11. | – | – | B Abläufe | – |
@@ -244,7 +245,6 @@
 | 645 | 499 Probebild Lauf 292 (Drehteller): Helfer meldet vor dem Versand Verstöße A1, A4, B4, E3, G1, Schild selbst behoben; vorlegen mit Vermerk oder Lauf frei für G1? (von Tom, zu 499) | Sokrates | M | erledigt | – | – | – | C Betrieb | – |
 | 649 | Figurenkatalog: alle Figuren an einer Stelle (Monster, Bewohner, Gefährten), Bestiarium geht darin auf; mehr als eine Handlung je Monsterart (Chef 08.11., 13:19, 13:24) | Sokrates | M | startbar, ja mit Gegenprüfung der Spalten (Chef 13:28) | – | – | – | E Kampf | – |
 | 650 | docs aufräumen: 88 Dateien, Erledigtes nach docs/alt/, Zusammenlegen, Inhaltsverzeichnis neu (Chef 08.11., 13:24) | Sokrates | M | startbar, ja mit Gegenprüfung (Chef 13:27) | – | – | – | B Betrieb | – |
-| 650.1 | Liste für docs/alt/ nach zwei Gegenprüfungen (aus 650) | Sokrates | M | startbar | Chef | – | – | B Betrieb | – |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +842,76 $ |
 | Pflege | von Werkzeug (340.3, 08.11.): 20454 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
