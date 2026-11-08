@@ -7,7 +7,11 @@ import numpy as np
 from mathutils import Vector
 
 # Regler (0 = wie gekauft): breite, kiefer, laenge = Anteil (0,1 = 10 %); kinn (vor), wangen (aussen), brauen (vor) in m; nase Anteil
-REGLER = ('breite', 'kiefer', 'laenge', 'kinn', 'nase', 'wangen', 'brauen')
+REGLER = ('breite', 'kiefer', 'laenge', 'kinn', 'nase', 'wangen', 'brauen', 'ohren', 'augen')
+# 475 (Chef 04.11., 13:26: „ein Gesicht definiert sich über die Form … unterschiedliche Nasen, Ohren“): ohren Anteil (0,1 = Ohr 5 mm weiter
+# ab und 10 % groesser), augen in m je Seite (Abstand der Augen). feld ist linear in jedem Regler: je Regler ein Formschluessel mit
+# EINHEIT (held_klassen.py schluessel, „r_<regler>“), Godot setzt Wert / EINHEIT je Person (heldfigur.gd gesicht)
+EINHEIT = {'breite': 0.1, 'kiefer': 0.1, 'laenge': 0.1, 'kinn': 0.01, 'nase': 0.1, 'wangen': 0.01, 'brauen': 0.01, 'ohren': 0.1, 'augen': 0.01}
 FORMEN = {   # Pruefer 20:2x/20:33: schmal = hager = gekauft, kantig einseitig gebeult: schmal nur eng, hager lang mit hohen Wangen
              # und langer Nase, kantig der Kiefer breit mit Kinn und Brauen vor (Kiefer weicher nach hinten, kopf.feld)
     'gekauft': {},
@@ -72,6 +76,11 @@ def merkpunkte(haut, augen=None):
     p = {'augen_z': az, 'augen_y': ay, 'augen_x': ax, 'nase': n.copy(), 'kinn_z': kz, 'kinn_y': kv, 'oben': oben,
          'mund_z': kz + 0.6 * (float(n[2]) - kz), 'hoehe': oben - kz}
     p['mitte'] = np.array([0.0, float(V[(np.abs(V[:, 2] - az) < 0.01)][:, 1].mean()), az])
+    # 475: Ohr je Seite: aeusserster Punkt auf Augenhoehe bis 5 cm darunter, nicht vor der Augenmitte (Wange)
+    m = (V[:, 2] < az + 0.01) & (V[:, 2] > az - 0.05) & (V[:, 1] > p['mitte'][1] - 0.01) & (V[:, 2] < oben)
+    for s, k in ((1.0, 'ohr_r'), (-1.0, 'ohr_l')):
+        ms = m & (V[:, 0] * s > 0)
+        p[k] = V[ms][np.argmax(V[ms][:, 0] * s)].copy() if ms.any() else np.array([s * 0.075, p['mitte'][1] + 0.02, az - 0.02])
     return p
 
 
@@ -106,6 +115,14 @@ def feld(W, p, f):
         if f.get('brauen'):
             c = np.array([s * p['augen_x'] * 0.9, p['augen_y'] - 0.006, p['augen_z'] + 0.02])
             D[:, 1] -= f['brauen'] * gauss(c, np.array([0.028, 0.02, 0.014]))
+        if f.get('ohren'):
+            c = p['ohr_r' if s > 0 else 'ohr_l'] + np.array([-s * 0.012, 0.0, 0.0])
+            g = gauss(c, np.array([0.022, 0.03, 0.035])) * (x * s > 0)
+            D[:, 0] += s * 0.05 * f['ohren'] * g
+            D += 1.0 * f['ohren'] * g[:, None] * (W - c) * np.array([0.0, 1.0, 1.0])
+        if f.get('augen'):
+            c = np.array([s * p['augen_x'] / 0.6 * 0.72, p['augen_y'] + 0.004, p['augen_z']])   # Augenmitte: 0,72 der Aussenkante
+            D[:, 0] += s * f['augen'] * gauss(c, np.array([0.02, 0.025, 0.018])) * (x * s > 0)
     return D
 
 

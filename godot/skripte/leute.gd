@@ -23,6 +23,11 @@ var held: Node3D
 var modell: Node3D
 var anim: AnimationPlayer
 var gang := 1.08                       # m/s ohne Gleiten (held-info.json der Figur)
+# 475 Kaufkoerper: die Bewegung laeuft ohne Gleiten mit gang (umgetaktet, heldfigur.gd TAKT_GEHEN); gehen ist das Tempo der Person
+# (wie die alte Figur, etwas flotter), geh_anim „Gehen“ oder mit getragenem Ding „Gehen_<gang>“ (417, heldfigur.gd bewaffne)
+var gehen := -1.0
+var geh_anim := "Gehen"
+const KAUF_GEHEN := 0.62               # Anteil von TAKT_GEHEN: die Leute gehen gemaechlicher als der Held
 var mats: Array = []
 var heim := Vector2i.ZERO
 var kachel := Vector2i.ZERO
@@ -248,6 +253,7 @@ func _ready() -> void:
 		rotation.y = blick
 		if anim and anim.has_animation("Stehen"): anim.play("Stehen")
 		return
+	if not daten.has("datei") and baue_kauf(p): return
 	modell = Gebiet.lade_glb(datei)
 	add_child(modell)
 	Gebiet.male(modell, null, 2, mats)
@@ -276,6 +282,34 @@ func _ready() -> void:
 	position = karte.kachel_pos(kachel)
 	blick = {"UP": PI, "DOWN": 0.0, "LEFT": -PI / 2, "RIGHT": PI / 2}.get(String(daten.get("blick", "DOWN")), 0.0)
 	rotation.y = blick
+
+# 475: die Person auf dem Kaufkoerper mit eigenem Gesicht (heldfigur.gd person); false ohne Kaufdateien
+func baue_kauf(info_datei: String) -> bool:
+	var m := HeldFigur.person(String(daten["id"]), mats)
+	if m == null: return false
+	modell = m
+	add_child(modell)
+	anim = modell.get_node_or_null("AnimationPlayer") as AnimationPlayer
+	gang = float(modell.get_meta("gehen_m_je_s", HeldFigur.TAKT_GEHEN))
+	var alt := 1.08
+	if FileAccess.file_exists(info_datei):
+		var info: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(info_datei))
+		alt = float(info.get("gehen_m_je_s", alt))
+	gehen = HeldFigur.TAKT_GEHEN * KAUF_GEHEN * clampf(alt / 1.08, 0.8, 1.2)
+	var wg := String(modell.get_meta("gang", ""))
+	if wg != "" and anim and anim.has_animation("Gehen_" + wg) and float(modell.get_meta("gang_gehen_m_je_s", 0.0)) > 0.01:
+		geh_anim = "Gehen_" + wg
+		gang = float(modell.get_meta("gang_gehen_m_je_s"))
+	if anim:
+		anim.play("Stehen")
+		anim.seek(zufall.randf() * 2.0, true)
+	Gebiet.atem_an(modell, anim, hash(String(daten.get("id", ""))) ^ 4532)
+	position = karte.kachel_pos(kachel)
+	blick = {"UP": PI, "DOWN": 0.0, "LEFT": -PI / 2, "RIGHT": PI / 2}.get(String(daten.get("blick", "DOWN")), 0.0)
+	rotation.y = blick
+	return true
+
+func tempo_soll() -> float: return gehen if gehen > 0.0 else gang
 
 # 348.6 Leute Runde 4b (Chef 25.10., 21:33: „Wieso tragen die … NPC nicht Objekte“): Stab, Speer, Hammer als eigene .glb aus
 # Jerrys waffen.py (Modellregel 4, daten/waffen/<kennung>.bin, Griff = Ursprung, Schaft nach +Y) in der rechten Faust; die Haltung
@@ -366,7 +400,10 @@ func richte_ding() -> void:
 		p = stab_fuss + y * ding_unten   # der Schaft laeuft durch den Griff, das untere Ende steht auf stab_fuss
 	ding.global_position = p
 
+var nacht_k := 0.0
 func nacht(k: float) -> void:
+	nacht_k = k
+	if abwehr: abwehr.nacht_k = k
 	for m in mats: (m as ShaderMaterial).set_shader_parameter("fill", 0.42 * (1.0 - k))
 
 # fuer Held.frei: steht hier jemand?
@@ -440,7 +477,25 @@ func _process(dt: float) -> void:
 		anim.play(pause, Held.ueberblendung(anim.current_animation, false))
 		anim.speed_scale = 1.0
 
+# 531: Garrick wehrt am Schutzort ein Tier mit der Fackel ab (herde.gd abgewehrt, abwehr.gd); so lange steht er und schaut zum Tier
+var abwehr: Abwehr
+func wehre_ab(wo: Vector3) -> void:
+	if abwehr == null:
+		var sk := Gebiet.finde(modell, "Skeleton3D") as Skeleton3D if modell else null
+		if sk == null: return
+		abwehr = Abwehr.baue(sk, self)
+		abwehr.nacht_k = nacht_k
+	if abwehr.laeuft(): return
+	# 531 Film: das Feuer liegt eine Kachel in seiner Blickrichtung (Story.kt: Garrick links vom Feuer, Blick RECHTS)
+	var k := (karte.kachel_pos(Vector2i(1, 0)) - karte.kachel_pos(Vector2i(0, 0))).length()
+	abwehr.los(wo, global_position + Vector3(sin(blick), 0, cos(blick)) * k)
+
 func stehen(dt: float) -> void:
+	if abwehr and abwehr.laeuft():
+		var soll := atan2(abwehr.ziel.x - global_position.x, abwehr.ziel.z - global_position.z) if abwehr.zum_tier() else blick
+		rotation.y = drehe(rotation.y, soll, DREH_ZU * dt)
+		warte = maxf(warte, 1.0)
+		return
 	if zugewandt_bis > 0:
 		if still: zugewandt_bis = Time.get_ticks_msec() + int(ZUGEWANDT * 1000)   # waehrend des Gespraechs zaehlt die Zeit nicht
 		if Time.get_ticks_msec() < zugewandt_bis and held:
@@ -590,14 +645,14 @@ func laufe(dt: float) -> void:
 	var zp := karte.kachel_pos(ziel)
 	var to := zp - position
 	to.y = 0
-	var tempo := (flucht_tempo() if flucht else gang * TEMPO) / karte.schritt(ziel)
+	var tempo := (flucht_tempo() if flucht else tempo_soll() * TEMPO) / karte.schritt(ziel)
 	var soll := atan2(to.x, to.z)
 	rotation.y = drehe(rotation.y, soll, DREH * (2.0 if flucht else 1.0) * dt)   # 591: rennend schnell herum (MapHen.TURN_RUN)
 	var ab := absf(angle_difference(rotation.y, soll))
 	tempo *= lerpf(BOGEN_TEMPO, 1.0, (cos(ab) + 1.0) * 0.5)
 	# 416.4: anlaufen und vor dem letzten Schritt langsamer werden wie der Held (Held.tempo_schritt, Held.bremse)
-	if weg.is_empty() and not flucht: tempo = Held.bremse(tempo, to.length(), gang * TEMPO)   # letzte Kachel des Wegs (Runde, Tagesplan) oder Streifen
-	tempo_jetzt = Held.tempo_schritt(tempo_jetzt, tempo, flucht_tempo() if flucht else gang * TEMPO, dt)
+	if weg.is_empty() and not flucht: tempo = Held.bremse(tempo, to.length(), tempo_soll() * TEMPO)   # letzte Kachel des Wegs (Runde, Tagesplan) oder Streifen
+	tempo_jetzt = Held.tempo_schritt(tempo_jetzt, tempo, flucht_tempo() if flucht else tempo_soll() * TEMPO, dt)
 	tempo = tempo_jetzt
 	var s := tempo * dt
 	if ab < BOGEN and to.length() <= s:
@@ -613,8 +668,8 @@ func laufe(dt: float) -> void:
 	if karte.begehbar(karte.pos_kachel(neu)): position = neu   # der Bogen fuehrt nie auf eine gesperrte Kachel
 	kachel = karte.pos_kachel(position)
 	if anim:
-		# 591: auf der Flucht das Rennen (Huhn, Kaninchen aus kauftier.py), sonst Gehen
-		var gangart := "Rennen" if flucht and renn > 0.0 and anim.has_animation("Rennen") else "Gehen"
+		# 591: auf der Flucht das Rennen (Huhn, Kaninchen aus kauftier.py), sonst Gehen (531: mit getragenem Ding Gehen_<gang>)
+		var gangart := "Rennen" if flucht and renn > 0.0 and anim.has_animation("Rennen") else geh_anim
 		if anim.current_animation != gangart:   # CC0-Geruest Runde 2 (Fremdpruefung: Gleichschritt): jede mit eigenem Schritt
 			# 416.4: aus dem Stand weich (Held.ueberblendung, 0,5 s statt 0,18 s); der Schritt beginnt an zufaelliger Stelle, nur
 			# beim Anlaufen (die Pause steht noch voll im Bild, der Sprung im Gang faellt nicht auf)

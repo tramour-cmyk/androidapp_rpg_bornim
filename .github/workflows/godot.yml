@@ -31,6 +31,12 @@ on:
       kamin:
         description: "Kamine 501 (Spike): ja = Grundrisse am Tag und nachts (--raeume), Lage der Kaminflammen"
         default: ""
+      leute:
+        description: "Gesichter der Leute 475 (Tom): ja"
+        default: ""
+      garrick:
+        description: "Garrick 531 (Tom): bild = Probebild (511), ja = Film"
+        default: ""
 
 jobs:
   apk:
@@ -137,12 +143,20 @@ jobs:
           KAUF=$KAUF ZIEL=$U OUT=$RUNNER_TEMP/gang BL=$GITHUB_WORKSPACE/bl/bin/python bl/bin/python -I tools/blender348/v3/waffengang.py > gang.log 2>&1 || { tail -30 gang.log; exit 1; }
           grep -E "^(GANG|FEHLT|WAFFENGANG)" gang.log | sed "s|$KAUF/||g" | cut -c1-200
           GANG=$RUNNER_TEMP/gang OUT=$RUNNER_TEMP/out ZIEL=$RUNNER_TEMP/klassen Q=~/cc0 bl/bin/python -I tools/blender348/v3/held_klassen.py > klassen.log 2>&1 || { tail -40 klassen.log; exit 1; }
-          grep -E "^TRACHT|^STATUR|HELD TRACHTEN|FEHLT" klassen.log
+          grep -E "^TRACHT|^STATUR|HELD TRACHTEN|FEHLT|^UAL531" klassen.log
           D=godot/daten
           for f in $RUNNER_TEMP/klassen/held_*.glb; do n=$(basename $f .glb); cp $f $D/$n.bin; echo daten/$n.bin >> $D/kauf.txt; done
           cp $RUNNER_TEMP/klassen/haare.glb $D/haare.bin && cp $RUNNER_TEMP/klassen/bewegungen.glb $D/bewegungen.bin && cp $RUNNER_TEMP/klassen/held-klassen.json $D/
           cp $RUNNER_TEMP/klassen/haare_w.glb $D/haare_w.bin   # 376.1 Heldin
           printf 'daten/haare.bin\ndaten/haare_w.bin\ndaten/bewegungen.bin\n' >> $D/kauf.txt
+          # 475 (Chef 03.11., 07:45/07:47): die Leute des Dorfs auf dem Kaufkoerper in ihrer Kleidung (held_klassen.py LEUTE_KAUF), Gesicht
+          # je Person waehlt Godot (heldfigur.gd person, leute.json kauf); scheitert eine Person, bleibt ihre alte Figur
+          LEUTE_KAUF=alle OUT=$RUNNER_TEMP/out ZIEL=$RUNNER_TEMP/leutekauf Q=~/cc0 timeout 2400 bl/bin/python -I tools/blender348/v3/held_klassen.py > leutekauf.log 2>&1 || { echo "LEUTE KAUF abgebrochen"; tail -40 leutekauf.log; }
+          grep -E "^LEUTE|^KOPFTEIL|^KOPFSITZ|^FEHLT|^KAUFKLEID OK|^OHNE" leutekauf.log | cut -c1-240 || true
+          if [ -f $RUNNER_TEMP/leutekauf/leute-kauf.json ]; then
+            for f in $RUNNER_TEMP/leutekauf/held_L_*.glb; do [ -f "$f" ] || continue; n=$(basename $f .glb); cp $f $D/$n.bin; echo daten/$n.bin >> $D/kauf.txt; done
+            cp $RUNNER_TEMP/leutekauf/leute-kauf.json $D/
+          fi
           # 403 (Jerry): Kampfbewegungen fuer den Kaufkoerper (unsere aus held.glb umgerechnet, Kandidaten aus der UAL Pro), gekauft
           SRC=$RUNNER_TEMP/out/held.glb ZIEL=$RUNNER_TEMP/klassen bl/bin/python -I tools/blender348/v3/held_kampf.py > held_kampf.log 2>&1 || { tail -30 held_kampf.log; exit 1; }
           grep -E "^KAMPF|^SS (GRIFF|TEMPO)|^ohne Sword" held_kampf.log
@@ -377,6 +391,7 @@ jobs:
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/ausruestung_522.gd 2>&1 | grep -E "^(gut|FEHLER|AUSRUESTUNG522|ohne)|SCRIPT ERROR"   # 522 Figur nach Ausruestungswechsel
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/tasche_521.gd 2>&1 | grep -E "^(gut|FEHLER|TASCHE521)|SCRIPT ERROR"   # 521, 523 Ausruestungszeile wie alt
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/untersuchen_541.gd 2>&1 | grep -E "FEHLER|UNTERSUCHEN|SCRIPT ERROR"   # 541 Untersuchen, Angriff mit dem Knopf
+          set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/garrick_531.gd 2>&1 | grep -E "^(gut|FEHLER|GARRICK531|ohne)|SCRIPT ERROR"   # 531 Garrick wehrt mit der Fackel ab
           timeout 120 ~/godot/godot --headless --path . -s res://tests/platzwechsel_4162.gd 2>&1 | grep -E "FEHLER|PLATZWECHSEL|SCRIPT ERROR"   # 416.2
           timeout 120 ~/godot/godot --headless --path . -s res://tests/ziege_4162.gd 2>&1 | grep -E "FEHLER|ZIEGE|SCRIPT ERROR"   # 416.2 Ziege (146.5)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/zeichen_425.gd 2>&1 | grep -E "FEHLER|ZEICHEN|SCRIPT ERROR"   # 425
@@ -449,6 +464,36 @@ jobs:
           VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --bilder=$GITHUB_WORKSPACE/bilder 2>&1 | grep -E "Vulkan|SCRIPT ERROR" || true
           ls -l $GITHUB_WORKSPACE/bilder
+      # 475 (Chef 03.11., 07:47): alle Gesichter der Leute nebeneinander (spiel.gd gesichter), dazu das Leuteblatt (Tag, nah, Gang, Nacht)
+      - name: Gesichter der Leute 475 (nur von Hand mit leute=ja)
+        if: ${{ !cancelled() && github.event.inputs.leute == 'ja' }}
+        continue-on-error: true
+        run: |
+          sudo apt-get install -y -q mesa-vulkan-drivers xvfb > /dev/null
+          mkdir -p $GITHUB_WORKSPACE/bilder
+          cd godot
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --leute=$GITHUB_WORKSPACE/bilder/leute475 --gesichter 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^GESICHT|^LEUTE BLATT" | cut -c1-300 || true
+          ls -l $GITHUB_WORKSPACE/bilder/leute475
+      # 531 (Chef 04.11., 19:27): Film Garrick am Feuer (Fackel Tag und Nacht, Ruhe aus dem Bestand), Spielkamera, opengl3 wie Dorftiere
+      - name: Garrick-Film 531 (nur von Hand mit garrick=ja)
+        if: ${{ !cancelled() && github.event.inputs.garrick != '' }}
+        continue-on-error: true
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/bilder/garrick531
+          cd godot
+          command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
+          sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
+          if [ "${{ github.event.inputs.garrick }}" = "bild" ]; then
+            timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --fixed-fps 30 -s res://tests/garrick_film_531.gd -- --probebild=$GITHUB_WORKSPACE/bilder/garrick531/probebild.png 2>&1 | grep -E "SCRIPT ERROR|^GARRICKFILM" | cut -c1-300 | tee $GITHUB_WORKSPACE/bilder/garrick531/film.log || true
+            grep -h 'UAL531' $GITHUB_WORKSPACE/klassen.log 2>/dev/null | tee -a $GITHUB_WORKSPACE/bilder/garrick531/film.log || true
+            ls -l $GITHUB_WORKSPACE/bilder/garrick531; exit 0
+          fi
+          timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" \
+            ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/garrick531.avi --fixed-fps 30 -s res://tests/garrick_film_531.gd 2>&1 | grep -E "SCRIPT ERROR|^GARRICKFILM" | cut -c1-300 | tee $GITHUB_WORKSPACE/bilder/garrick531/film.log || true
+          ffmpeg -loglevel error -y -ss 0.5 -i $RUNNER_TEMP/garrick531.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $GITHUB_WORKSPACE/bilder/garrick531/garrick531.mp4 || true
+          grep -h 'UAL531' $GITHUB_WORKSPACE/klassen.log 2>/dev/null | tee -a $GITHUB_WORKSPACE/bilder/garrick531/film.log || true
+          ls -l $GITHUB_WORKSPACE/bilder/garrick531
       # 501 (Chef 03.11., 07:26): Kamine in den Grundrissen, Renderer wie am Handy; KAMIN-Zeilen: Lage der Flamme im Bild (Ausschnitt)
       - name: Kamine 501 (nur von Hand mit kamin=ja)
         if: ${{ !cancelled() && github.event.inputs.kamin == 'ja' }}

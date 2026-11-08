@@ -92,14 +92,63 @@ def kopfnetze(netze):
     return haut, augen, brauen
 
 
+KOPFTEILE = ('hood', 'kapuze', 'gugel', 'helm', 'armet', 'tuch', 'scarf', 'schal', 'circlet', 'reif')
+
+
+def kopfsitz(netze, haut, p):
+    """475 (Prueferbefund 04.11., 06:37; 475a 1, Chef 13:32: „das Gesicht bleibt frei und erkennbar: Visier offen, Tuch auf dem Kopf,
+    Kapuze zurueck oder hoeher, nichts scheint durch“): Kopfbedeckungen der Leute auf dem Kaufkopf setzen, mit Zahlen im Protokoll.
+    Kopftuch (unser Teil aus held3, fuer unseren Kopf gebaut): so weit hoch, dass es 1,2 cm ueber dem Scheitel liegt (Pruefer: ueber Mund
+    und Kinn). Visier des Kaufhelms (Armet): Flaechen vor dem Gesicht zwischen Kinn und 2,5 cm ueber den Augen weg. Dann jede Ecke einer
+    Kopfbedeckung, die weniger als 6 mm ueber der Haut liegt (oder darunter), entlang der Hautnormale hinaus (Kapuze scheint durch).
+    Gibt die Netze zurueck: sie bekommen die Formschluessel des Kopfs (sonst stiesse das Gesicht der Person durch)."""
+    import bmesh
+    from mathutils.kdtree import KDTree
+    teile = [o for o in netze if o is not haut and any(k in o.name.lower() for k in KOPFTEILE)]
+    if not teile: return []
+    W = KO._welt(haut)
+    me = haut.data; N = np.empty(len(me.vertices) * 3); me.vertices.foreach_get('normal', N)
+    N = N.reshape(-1, 3) @ np.array(haut.matrix_world.to_3x3().inverted().transposed()).T
+    N /= np.maximum(np.linalg.norm(N, axis=1, keepdims=True), 1e-9)
+    kopf = np.where((W[:, 2] > p['kinn_z'] - 0.04) & (np.linalg.norm(W - p['mitte'], axis=1) < 0.2))[0]
+    kd = KDTree(len(kopf))
+    for j, i in enumerate(kopf): kd.insert(Vector(W[i]), j)
+    kd.balance()
+    for o in teile:
+        n = o.name.lower()
+        if 'tuch' in n:
+            V = KO._welt(o)
+            dz = p['oben'] + 0.012 - float(V[:, 2].max())
+            if dz > 0.003:
+                KO._zurueck(o, V + np.array([0.0, 0.0, dz])); print('KOPFSITZ', o.name, 'Tuch hoch um %.3f m' % dz)
+        if 'armet' in n:
+            bm = bmesh.new(); bm.from_mesh(o.data); mw = o.matrix_world
+            weg = [f for f in bm.faces if all(((mw @ v.co).y < p['mitte'][1] - 0.02) and (p['kinn_z'] - 0.01 < (mw @ v.co).z < p['augen_z'] + 0.025)
+                                               for v in f.verts)]
+            bmesh.ops.delete(bm, geom=weg, context='FACES'); bm.to_mesh(o.data); bm.free(); o.data.update()
+            print('KOPFSITZ', o.name, 'Visier offen:', len(weg), 'Flaechen weg')
+        V = KO._welt(o); durch = 0; tief = 0.0
+        for k in range(len(V)):
+            q, j, d = kd.find(Vector(V[k]))
+            if q is None or d > 0.05: continue
+            i = kopf[j]; h = float(np.dot(V[k] - W[i], N[i]))
+            if h < 0.006:
+                durch += h < 0.0; tief = min(tief, h)
+                V[k] = V[k] + N[i] * (0.006 - h)
+        KO._zurueck(o, V)
+        print('KOPFSITZ', o.name, 'unter der Haut vorher %d Ecken (tiefste %.1f mm), alle jetzt 6 mm darueber' % (durch, -tief * 1000))
+    return teile
+
+
 def schluessel(netze, p, augen=None):
     # je Form ein Formschluessel: Verschiebung aus kopf.feld (Augen je Seite als Ganzes, wie kopf.forme)
     for o in netze:
         W = KO._welt(o)
         if not o.data.shape_keys: o.shape_key_add(name='Basis', from_mix=False)
         Mi = np.array(o.matrix_world.inverted())
-        for n in FORMEN:
-            f = KO.FORMEN[n]
+        # 475 (Chef 04.11., 13:26: Gesichter nicht „wie geklont“): dazu je Regler ein Schluessel „r_<regler>“ mit KO.EINHEIT; feld ist
+        # linear, Godot mischt daraus das Gesicht jeder Person (heldfigur.gd gesicht, leute.json kauf.gesicht), auch an Haar und Bart
+        for n, f in [(n, KO.FORMEN[n]) for n in FORMEN] + [('r_' + r, {r: KO.EINHEIT[r]}) for r in KO.REGLER]:
             if o is augen:
                 D = np.zeros_like(W)
                 for s in (W[:, 0] < 0, W[:, 0] >= 0):
@@ -243,12 +292,12 @@ def beine_weg(o):
     print('BEINE WEG', len(weg), 'Ecken')
 
 
-def held3_tracht(figur, sex='m'):
+def held3_tracht(figur, sex='m', liste='trachten.json'):
     # Tracht aus held3.py und rig.py (FIGUR aus trachten.json, „held“: unser Held) in einem eigenen Ordner; Texturen und Karten aus OUT;
-    # sex w: dieselbe Tracht auf unserem Frauenkoerper (held3.py SEX)
+    # sex w: dieselbe Tracht auf unserem Frauenkoerper (held3.py SEX); 475: liste leute.json fuer die Leute des Dorfs
     o = os.path.join(ZIEL, 'roh_%s_%s' % (figur, sex)); os.makedirs(o, exist_ok=True)
     if not os.path.exists(os.path.join(o, 'tex')): os.symlink(os.path.join(OUT, 'tex'), os.path.join(o, 'tex'))
-    env = dict(os.environ, OUT=o, FIGUR=figur, LEUTE=os.path.join(HIER, 'trachten.json'), SEX=sex)
+    env = dict(os.environ, OUT=o, FIGUR=figur, LEUTE=os.path.join(HIER, liste), SEX=sex)
     # 376.1 Urteil Tracht (Chef 01.11., 20:2x: Farbstreifen durch den Umhang, Flecken in der Robe): rig.py baute auf 6000 Dreiecke fuer die
     # ganze alte Figur ab; der Kauffigur blieben Umhang 418, Robe 500 Dreiecke, die Lagen kreuzten sich (pruef_flecken.py). Hier ohne Abbau,
     # Umhang, Robe und Wappenrock als Gitter ausgeduennt (rig.py GITTER): Umhang 3028, Robe 3600 Dreiecke, Figur 25 000 bis 34 000
@@ -260,15 +309,25 @@ def held3_tracht(figur, sex='m'):
     return o
 
 
-def kaempfer(k, g, figur='', fuesse='', stiefel_bis=0.0):
+def kaempfer(k, g, figur='', fuesse='', stiefel_bis=0.0, liste='trachten.json', kopfteile=()):
     # unsere Tracht auf dem Kaufkoerper (kauf_kleid.py), dann Formschluessel am Kopf; figur: andere Tracht aus trachten.json;
     # fuesse: Stiefel aus den Kauftrachten statt unserer; g: Geschlecht (GESCHLECHTER)
+    # 475: liste leute.json (Leute des Dorfs, Kleidung und Kopfbedeckung aus held3 mit uebertragen, LEUTE_KLEID); kopfteile: Teile der
+    # Kauftrachten (Helm, Kapuze, Schal) statt unserer, wenn im Bestand
     G = GESCHLECHTER[g]
     roh = os.path.join(ZIEL, 'roh'); os.makedirs(roh, exist_ok=True)
     env = dict(os.environ, KOERPER=G['koerper'], KOPF='', HAAR='', BART='', FARBE='keine', STOPPELN='0', HAUT='mittel', FORM='',
                KENNUNG='held_' + k, ZIEL=roh)
     ohne = []
-    if figur:
+    kauf_kopf = []
+    for t in kopfteile:   # 475: Kaufteil je Geschlecht (Male_…_Head_Hood); fehlt es, bleibt unser Teil aus held3
+        n = sorted(x for x in QT.DATEIEN if x.startswith(G['v'] + '_') and x.endswith(t['kauf']))
+        if n: kauf_kopf.append(n[0]); ohne += t['statt']
+        else: print('FEHLT', G['v'], t['kauf'], '(bleibt', t['statt'], ')')
+    if liste != 'trachten.json':
+        env['OUT'] = held3_tracht(figur, G['sex'], liste)
+        env['KLEID_MEHR'] = ','.join(LEUTE_KLEID)
+    elif figur:
         env['OUT'] = held3_tracht(figur, G['sex'])
         ohne = json.load(open(os.path.join(HIER, 'trachten.json')))[figur].get('ohne', [])
     else:
@@ -295,10 +354,20 @@ def kaempfer(k, g, figur='', fuesse='', stiefel_bis=0.0):
                 bmesh.ops.delete(bm, geom=weg, context='VERTS'); bm.to_mesh(o.data); bm.free()
                 print('STIEFEL BIS', stiefel_bis, 'm,', len(weg), 'Ecken weg')
         netze += fm
+    for kt in kauf_kopf:   # 475: Helm, Kapuze, Schal aus den Kauftrachten
+        kn, kp = QT.datei(kt)
+        ko = [o for o in QT.importiere(kp)]
+        km = [o for o in ko if o.type == 'MESH']
+        a2 = next((o for o in ko if o.type == 'ARMATURE'), None)
+        vs = (QT.kopf_pos(arm) - QT.kopf_pos(a2)) if a2 and 'Head' in a2.data.bones else Vector()
+        QT.an_geruest(ko, arm, vs)
+        netze += km
+        print('KOPFTEIL', k, kt, len(km), 'Netze')
     haut, augen, brauen = kopfnetze(netze)
     beine_weg(haut)
     p = KO.merkpunkte(haut, augen)
-    schluessel([haut, augen] + brauen if augen else [haut] + brauen, p, augen)
+    kopfteile = kopfsitz(netze, haut, p) if liste != 'trachten.json' else []
+    schluessel(([haut, augen] if augen else [haut]) + brauen + kopfteile, p, augen)
     statur(arm, netze)
     vorrang_marke(netze, os.path.join(env['OUT'], 'teile.json'))
     exportiere(os.path.join(ZIEL, 'held_%s.glb' % k), [arm] + netze, farbe=True)
@@ -529,7 +598,11 @@ def haare(g):
 # Bewegungen fuer held.gd (Namen wie held.bin): aus der UAL (gekauft Pro, sonst Standard), nur Geruest und diese Bewegungen. Die von
 # rig.py (held.bin) passen nicht: sie sind auf unsere Ruhelage (Arme haengend) umgerechnet, der Kaufkoerper ruht in der T-Pose
 BEWEGUNGEN = [('Stehen', 'Idle_Loop'), ('Gehen', 'Walk_Loop'), ('Rennen', 'Jog_Fwd_Loop'), ('Stehen_2', 'Idle_LookAround_Loop'),
-              ('Stehen_3', 'Idle_Tired_Loop'), ('Sitzen', 'Sitting_Idle_Loop'), ('Gesten', 'Idle_Talking_Loop')]
+              ('Stehen_3', 'Idle_Tired_Loop'), ('Sitzen', 'Sitting_Idle_Loop'), ('Gesten', 'Idle_Talking_Loop'),
+              # 531 (Chef 04.11., 19:27, Film): Garricks Ruhe am Feuer aus dem Bestand (UAL Pro): am Boden sitzen, einnicken, hocken;
+              # Name der Quelle ohne Endung, gilt auch mit _Loop (der genaue Name steht im Protokoll „UAL531“)
+              ('Bodensitz_rein', 'GroundSit_Enter'), ('Bodensitz', 'GroundSit_Idle'), ('Bodensitz_raus', 'GroundSit_Exit'),
+              ('Sitzen_rein', 'Sitting_Enter'), ('Sitzen_raus', 'Sitting_Exit'), ('Nicken', 'Sitting_Nodding'), ('Hocken', 'Crouch_Idle')]
 
 
 def schritt_tempo(arm, a, fuesse=('foot_l', 'foot_r'), toleranz=0.02):
@@ -562,9 +635,12 @@ def bewegungen():
     arm = next(o for o in bpy.data.objects if o.type == 'ARMATURE')
     for o in [o for o in bpy.data.objects if o != arm]: bpy.data.objects.remove(o)
     namen = dict((q, n) for n, q in BEWEGUNGEN)
+    print('UAL531', sorted(a.name for a in bpy.data.actions if any(k in a.name for k in ('Sit', 'Crouch', 'Kneel', 'Warm', 'Fire'))))
     for a in list(bpy.data.actions):
-        if a.name in namen: a.name = namen[a.name]; a.use_fake_user = True
+        q = a.name if a.name in namen else next((k for k in namen if a.name in (k + '_Loop', k + '_Anim')), None)
+        if q and namen[q] not in bpy.data.actions: a.name = namen[q]; a.use_fake_user = True
         else: bpy.data.actions.remove(a)
+    print('UAL531 fehlt', [n for n, q in BEWEGUNGEN if n not in bpy.data.actions])
     # 417 Runde 4 (Chef 01.11., 12:21; 348.12c): Gehen und Rennen je Waffenart aus den Protofactor-Paketen (waffengang.py, GANG=<ordner>
     # mit Gehen_<art>.glb, Rennen_<art>.glb auf demselben UAL-Geruest), Name wie die Datei
     gang = sorted(glob.glob(os.path.join(os.environ.get('GANG', ''), '*_*.glb'))) if os.environ.get('GANG') else []
@@ -589,6 +665,36 @@ def bewegungen():
             'gehen_m_je_s': tempo.get('Gehen', 0.0), 'rennen_m_je_s': tempo.get('Rennen', 0.0), 'becken_m': round(arm.data.bones['pelvis'].head_local.z, 4),
             'bewegungen': sorted(a.name for a in bpy.data.actions), 'ual': os.path.basename(pro) if pro else 'UAL1_Standard.glb', 'gekauft': bool(pro)}
 
+
+# 475 (Chef 03.11., 07:45/07:47): die Leute des Dorfs auf dem Kaufkoerper, je Person ihre Kleidung aus held3 (leute.json) und ein
+# eigenes Gesicht (Godot: heldfigur.gd person); LEUTE_KAUF=alle oder Kennungen mit Komma -> <ZIEL>/held_L_<id>_<M|W>.glb, leute-kauf.json
+# (nur trachten; Haare und Bewegungen kommen aus dem Heldenlauf). Uebertragen werden ausser der Kleidung des Helden (kauf_kleid KLEID):
+LEUTE_KLEID = ['apron', 'schal', 'latz', 'sun', 'sun_grund', 'sun_strahl', 'circlet', 'circlet_stein', 'tuch', 'tuch_zipfel',
+               'tuch_knoten', 'helm', 'helmrim', 'nasal', 'hood', 'kapuze', 'gugel']
+# Kopfbedeckung aus dem Bestand (LISTE-BESTAND, Modular Character Outfits): Kaufteil (Ende des Namens) statt unserer Teile
+LEUTE_KOPF = {'helm': {'kauf': 'Knight_Head_Armet', 'statt': ['helm', 'helmrim', 'nasal']},
+              'kapuze': {'kauf': 'Ranger_Head_Hood', 'statt': ['hood', 'kapuze', 'gugel']}}
+LEUTE_KAUF = [s for s in os.environ.get('LEUTE_KAUF', '').split(',') if s]
+if LEUTE_KAUF:
+    L = json.load(open(os.path.join(HIER, 'leute.json')))
+    ids = [i for i in L if i != '_liesmich'] if LEUTE_KAUF == ['alle'] else LEUTE_KAUF
+    lk = {'trachten': {}}
+    for i in ids:
+        f = L[i]
+        g = 'W' if f.get('sex') == 'w' else 'M'
+        k = 'L_%s_%s' % (i, g)
+        robe = f.get('rock') == 'robe'
+        kt = [LEUTE_KOPF[f['kopf']]] if f.get('kopf') in LEUTE_KOPF else []
+        try:
+            arm, netze = kaempfer(k, g, i, GESCHLECHTER[g]['fuesse'], 0.18 if robe else 0.0, 'leute.json', kt)
+        except SystemExit as e:
+            print('LEUTE FEHLER', i, e); continue
+        lk['trachten'][k] = {'kleid': 'leute:' + i, 'geschlecht': g, 'kopf': godot(QT.kopf_pos(arm)), 'dreiecke': dreiecke(netze),
+                             'netze': sorted(o.name for o in netze)}
+        print('LEUTE', k, lk['trachten'][k]['dreiecke'], 'Dreiecke')
+    json.dump(lk, open(os.path.join(ZIEL, 'leute-kauf.json'), 'w'), indent=1, ensure_ascii=False)
+    print('LEUTE KAUF OK', sorted(lk['trachten']))
+    raise SystemExit(0)
 
 info = {'formen': FORMEN, 'statur': list(STATUR), 'haut': {k: list(v) for k, v in KO.HAUT.items()},
         'haarfarben': {k: list(v) for k, v in QT.HAAR.items()}, 'herkuenfte': HERKUENFTE, 'klasse_herkunft': KLASSE_HERKUNFT,

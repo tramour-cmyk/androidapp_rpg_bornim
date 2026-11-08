@@ -183,6 +183,7 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 		add_child(herde)
 		herde.kampf.connect(_kampf_auf_karte)
 		herde.gemeldet.connect(func(t): ui.kurz(t))
+		herde.abgewehrt.connect(_abwehr)
 	kraut_tag = -1
 	kraeuter_neu()
 	sichtbar_neu()
@@ -1234,6 +1235,18 @@ func held_figur_neu(vorher: String) -> void:
 	if held == null or JSON.stringify(w) == vorher: return
 	held.neu_figur(w)
 
+# 531 (wie alt WorldScreen lastWardOff: wer am Schutzort steht, npc.x == wo.x): die Person naechst der Mitte nimmt die Fackel
+func _abwehr(schutz: Dictionary, wo: Vector3) -> void:
+	var mitte := Vector2i(int(schutz.get("x", -99)), int(schutz.get("y", -99)))
+	var r := int(schutz.get("radius", 0)) + 1
+	var wer: Leute = null
+	var best := 999
+	for l in leute.get_children():
+		if not (l is Leute) or not l.da or l.drinnen: continue
+		var d := absi(l.kachel.x - mitte.x) + absi(l.kachel.y - mitte.y)
+		if d <= r and d < best: best = d; wer = l
+	if wer: wer.wehre_ab(wo)
+
 func fackel_neu() -> void:
 	if held: held.fackel_neu(Menue.fackel(held_werte()), String(karte.daten.get("art", "")) == "INTERIOR")
 
@@ -1608,6 +1621,8 @@ func leute_blatt() -> void:
 		if r == 0 and k == reihe / 2: mitte_n = l
 	held.leute = leute.get_children()
 	print("LEUTE BLATT ", ids)
+	if "--gesichter" in OS.get_cmdline_user_args():   # 475: zuerst alle Gesichter nebeneinander
+		await gesichter(dir)
 	kamera.ziel = mitte_n
 	kamera.springe()
 	await get_tree().create_timer(1.5).timeout
@@ -1647,6 +1662,82 @@ func leute_blatt() -> void:
 	await get_tree().create_timer(2.5).timeout
 	await knips(dir + "/leute_nacht.png")
 	get_tree().quit()
+
+# 475 (Chef 03.11., 07:47: „mit individuellem Gesicht … damit die alle wieder gleich ausschauen“): je Person ein Bild des Kopfs mit der
+# Spielkamera (Tusche, Licht wie im Spiel), schmal und flacher wie das Kopfblatt (figurenprobe.gd), die anderen ausgeblendet; zusammen
+# in leute_gesichter.png (4 Spalten, Name darunter). Zeilen GESICHT: Person, Kaufkoerper oder alt
+const GESICHT_BREITE := 0.55          # m Bildbreite der Kamera
+const GESICHT_KACHEL := 420           # Punkte je Bild (Quadrat um den Kopf)
+func gesichter(dir: String) -> void:
+	var alle: Array = leute.get_children()
+	var mk := Node3D.new()
+	leute.add_child(mk)
+	var neig_vorher: float = kamera.neigung
+	var zoom_vorher: float = kamera.zoom
+	kamera.neigung = -12.0
+	kamera.zoom = GESICHT_BREITE
+	# Lauf 258 (Pruefer 05:16: fuenf von zwoelf Bildern zeigten nur Dachziegel): die Kamera steht 40 m zurueck (kamera.gd folge), Haeuser
+	# davor verdeckten den Kopf; die Nahebene kurz vor die Person, was davor steht, faellt weg
+	var near_vorher: float = kamera.near
+	kamera.near = 40.0 - 1.5
+	var name_l := Label.new()
+	name_l.add_theme_font_override("font", Stil.schrift())
+	name_l.add_theme_font_size_override("font_size", 30)
+	name_l.add_theme_color_override("font_color", Color("f0c850"))
+	name_l.add_theme_color_override("font_outline_color", Color("201408"))
+	name_l.add_theme_constant_override("outline_size", 8)
+	name_l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	var ebene := CanvasLayer.new()
+	ebene.layer = 50
+	add_child(ebene)
+	ebene.add_child(name_l)
+	var vp := get_viewport().get_visible_rect().size
+	name_l.size = Vector2(GESICHT_KACHEL, 40)
+	name_l.size = Vector2(vp.x, 60)
+	name_l.add_theme_font_size_override("font_size", 64)   # das Quadrat wird von der Bildbreite auf 420 Punkte verkleinert
+	name_l.position = Vector2(0, vp.y * 0.5 + vp.x * 0.5 - 90)
+	var kacheln: Array[Image] = []
+	for l in alle:
+		if l == mk: continue
+		for x in alle: x.visible = x == l
+		var kopf: Vector3 = l.global_position + Vector3.UP * (l.kopfhoehe() - 0.13)
+		var sk := Gebiet.finde(l.modell, "Skeleton3D") as Skeleton3D
+		if sk and sk.find_bone("Head") >= 0:
+			kopf = sk.global_transform * sk.get_bone_global_pose(sk.find_bone("Head")).origin + Vector3.UP * 0.09
+		mk.position = leute.to_local(kopf)
+		# zur Kamera gewandt (Lauf 258: Gesichter nicht zu sehen); die Kamera sitzt auf ihrer +Z-Seite, die Person blickt nach +Z (leute.gd)
+		var blick_vorher: float = l.blick
+		l.blick = deg_to_rad(kamera.gieren_ziel); l.rotation.y = l.blick
+		kamera.ziel = mk
+		kamera.springe()
+		name_l.text = String(l.daten["id"]).capitalize()
+		await get_tree().create_timer(0.6).timeout
+		await RenderingServer.frame_post_draw
+		var im := get_viewport().get_texture().get_image()
+		# Lauf 258 (Pruefer 05:16: je Bild nur das Viertel oben links, Rest schwarz): vp ist die Flaeche der Oberflaeche (1080 x 2340,
+		# canvas_items), das Bild hat die Fenstergroesse (--resolution 540x1170); Ausschnitt in Bildpunkten des Bilds
+		# und das Quadrat ueber die ganze Bildbreite (GESICHT_BREITE 0,55 m), 420 von 1080 Punkten waren nur 0,21 m, enger als ein Kopf
+		var kk := im.get_width()
+		var c := Vector2i(im.get_width() / 2 - kk / 2, im.get_height() / 2 - kk / 2)
+		var stueck := im.get_region(Rect2i(c, Vector2i(kk, kk)))
+		if kk != GESICHT_KACHEL: stueck.resize(GESICHT_KACHEL, GESICHT_KACHEL, Image.INTERPOLATE_LANCZOS)
+		kacheln.append(stueck)
+		l.blick = blick_vorher; l.rotation.y = blick_vorher
+		print("GESICHT ", l.daten["id"], " ", "Kaufkoerper" if String(l.modell.name).begins_with("Person_") else "alt", " Kopf ", kopf)
+	var sp := 4
+	var zeilen := ceili(kacheln.size() / float(sp))
+	var blatt := Image.create(sp * GESICHT_KACHEL, zeilen * GESICHT_KACHEL, false, kacheln[0].get_format() if kacheln.size() > 0 else Image.FORMAT_RGBA8)
+	blatt.fill(Color("0e0b08"))
+	for i in kacheln.size():
+		blatt.blit_rect(kacheln[i], Rect2i(Vector2i.ZERO, kacheln[i].get_size()), Vector2i((i % sp) * GESICHT_KACHEL, (i / sp) * GESICHT_KACHEL))
+	blatt.save_png(dir + "/leute_gesichter.png")
+	print("GESICHTER ", kacheln.size(), " ", dir + "/leute_gesichter.png")
+	ebene.queue_free()
+	mk.queue_free()
+	kamera.near = near_vorher
+	for x in alle: x.visible = true
+	kamera.neigung = neig_vorher
+	kamera.zoom = zoom_vorher
 
 # 348.6 Held (Chef 18:06/18:20 zur Dorf-APK): --held=<ordner> Brunnen und Marktstand, Gehen in Rennen (Bild je 1/15 s),
 # Rennen seitlich nah, nachts Stehen, Gehen, Rennen mit der Fackel
