@@ -468,8 +468,19 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 			# Mitte 29 cm unter spine_03 wie oben; die Neigung nach dem ganzen Schild: die Gerade, die hinter allem zwischen Unter- und
 			# Oberkante liegt und in der Mitte am naechsten am Ruecken ist (am Rechner Kaempfer unten 3,6 cm, oben 1,9 cm; Kleriker oben
 			# 2,6 cm, die Spitze des Drachenschilds 8 cm ueber den Oberschenkeln, das Gesaess steht 5 cm weiter ab)
-			var yc := y - 0.29   # Hoehe wie in der Ruhe (Oberkante etwa 1,32 m, Pruefer Lauf 2); in „Stehen“ sinkt spine_03 um 4 cm
 			var hh := schild_hoehe(schild)
+			# 499 (Chef 08.11., 12:41: „früher … eher am Nackenabschluss … jetzt … eher über den Arsch“): Oberkante wie alt (Dress.kt
+			# shieldOnBack) 0,045 x Koerperhoehe ueber der Schulterlinie (Schultergelenke 0,022 x Hoehe tiefer), in „Stehen“; vorher Mitte
+			# 29 cm unter spine_03 (Oberkante 1,32 m, etwa Brusthoehe)
+			var yc := y - 0.29
+			var ul := sk.find_bone("upperarm_l"); var ur := sk.find_bone("upperarm_r")
+			if ul >= 0 and ur >= 0:
+				var ks := im_raum(m, sk)
+				var sy := ((ks * (lagen[ul] as Transform3D)).origin.y + (ks * (lagen[ur] as Transform3D)).origin.y) * 0.5
+				var hy := Vector2(INF, -INF)
+				for p in pts: hy = Vector2(minf(hy.x, p.y), maxf(hy.y, p.y))
+				var koerper := hy.y - hy.x if hy.x < hy.y else 1.8
+				yc = sy + 0.023 * koerper - hh.y
 			var li := ruecken_linie(haut_punkte(m, sk, true, null, lagen), yc + hh.x, yc + hh.y)
 			if not li.is_empty():
 				var o2 := Vector3(0, yc + hh.y, float(li[0]) + float(li[1]) * (yc + hh.y) - 0.03)
