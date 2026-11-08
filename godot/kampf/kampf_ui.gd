@@ -456,11 +456,34 @@ func refresh() -> void:
 		log_area.queue_redraw()
 
 
+## 565 (Chef 04.11., 17:10: „unten sehe ich gar nicht, welcher von den beiden es ist“), nur Vorschlag, aus: "" wie alt (alle Kästen
+## gleich), "A" der Kasten dessen, der am Zug ist, wie sein Feld in der Zugleiste (▶ vor dem Namen, erhaben, Goldrand 1,5 dp, Name
+## hell), "B" dazu die übrigen der Gruppe mit gedämpftem Rand. Am Zug ist, wer in der Zugleiste das ▶ trägt; ist es ein Gegner, bleiben
+## alle Kästen wie alt.
+var am_zug_565 := OS.get_environment("AMZUG565")
+
+func _vorn():
+	for id in kampfort.shown.get("queue", []):
+		var o = kampfort.mars.find(id)
+		if o != null and kampfort.shown.hp.get(id, o.hp) > 0:
+			return o
+	return null
+
+func _am_zug(f) -> bool:
+	return _vorn() == f
+
+
 ## PartyBox: Farbmarke, Name; Balken in Lebensfarbe und „hp/max“, bei Zauberern „ZP sp/max“ (ohne „LP“).
 func _party_box(f) -> Control:
 	var box := PanelContainer.new()
 	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	box.add_theme_stylebox_override("panel", _box(Color.BLACK, RIM, 6, 3, 1.0))
+	var dran: bool = am_zug_565 != "" and kampfort.mars.outcome == "ONGOING" and _am_zug(f)
+	if dran:
+		box.add_theme_stylebox_override("panel", _box(RAISED, GOLD, 6, 3, 1.5))
+	elif am_zug_565 == "B" and kampfort.mars.outcome == "ONGOING" and _vorn() != null and _vorn().side == "PARTY":
+		box.add_theme_stylebox_override("panel", _box(Color.BLACK, Color(RIM, 0.3), 6, 3, 1.0))
+	else:
+		box.add_theme_stylebox_override("panel", _box(Color.BLACK, RIM, 6, 3, 1.0))
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(2 * dp))
 	box.add_child(v)
@@ -473,9 +496,9 @@ func _party_box(f) -> Control:
 	mark.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	top.add_child(mark)
 	var n := Label.new()
-	n.text = f.name(lang)
+	n.text = ("▶ " if dran else "") + f.name(lang)
 	n.add_theme_font_size_override("font_size", sp(13))
-	n.add_theme_color_override("font_color", WARN if hp <= 0 else TEXT)
+	n.add_theme_color_override("font_color", WARN if hp <= 0 else (BRIGHT if dran else TEXT))
 	n.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	n.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	n.clip_text = true
@@ -1863,7 +1886,8 @@ func _draw_switches(sr: Rect2) -> void:
 	var o := sq.size.x * 0.27
 	for e in [Vector2.ZERO, Vector2(-o, -o), Vector2(o, -o), Vector2(-o, o), Vector2(o, o)]:
 		overlay.draw_circle(c + e, 1.8 * dp, dc)
-	# 600: Tempo wie Würfel und Raster, ein bis drei Spitzen für Ruhig, Normal, Schnell; Gold, solange nicht Normal
+	# 600: Tempo wie Würfel und Raster, ein bis drei Spitzen für Ruhig, Normal, Schnell. t268.22 (Chef 07.11.: „Stufe 1 und 3 heller,
+	# Stufe 2 dunkler?“): kein Schalter mit an und aus, sondern ein Wert; jede Stufe gleich hell, nur die Zahl der Spitzen wechselt
 	tempo_rect = Rect2()
 	var links := sr.size.x - 100 * dp
 	if kampfort.tempo_knopf:
@@ -1871,8 +1895,8 @@ func _draw_switches(sr: Rect2) -> void:
 		links -= 48 * dp
 		var stufe: int = Bedienung.tempo
 		var tr := Rect2(tempo_rect.position + Vector2(4, 4) * dp, Vector2(s, s))
-		_chip(tr, Color.BLACK, GOLD if stufe != 1 else RIM, 1.0)
-		var tcol := Color(GOLD, 0.9 if stufe != 1 else 0.5)
+		_chip(tr, Color.BLACK, RIM, 1.0)
+		var tcol := Color(GOLD, 0.9)
 		var mitte := tr.get_center()
 		var hoch := tr.size.y * 0.2
 		var breit := tr.size.x * 0.13
@@ -1940,12 +1964,17 @@ func _roll_tag(sr: Rect2, fig, r: Array, actor_id, alpha: float) -> void:
 	var hit: bool = r[4]
 	var by = kampfort.mars.find(actor_id) if actor_id != null else null
 	# gold, wenn es der Gruppe hilft: ihr Angriff trifft, ihr Ziel scheitert am Rettungswurf; gegen sie umgekehrt
-	var works: bool = hit if r[0] == "ATTACK" else not hit
+	var works: bool = hit if r[0] == "ATTACK" or r[0] == "BRS" else not hit
 	var helps: bool = works if by == null or by.side == "PARTY" else not works
 	# Wortlaut wie RollTag (SkirmishScreen.kt): Vorteil/Nachteil, kritisch, daneben; Rettungswurf „RW … gegen SG … · geschafft“
 	var bonus := ("− %d" % -int(r[2])) if int(r[2]) < 0 else ("+ %d" % int(r[2]))
 	var txt: String
-	if r[0] == "ATTACK":
+	if r[0] == "BRS":
+		# 478: nach dem BRS ein Wurf von 1 bis 100 gegen die Trefferchance (Wortlaut vorläufig mit den Wörtern des alten Kastens,
+		# die Anzeige kommt mit 2.3)
+		var res2 := t("kritisch", "critical") if (hit and r.size() > 7 and r[7]) else (t("Treffer", "hit") if hit else t("daneben", "miss"))
+		txt = "%d %s %d %% · %s" % [int(r[1]), t("gegen", "vs"), int(r[3]), res2]
+	elif r[0] == "ATTACK":
 		var mode := ""
 		if int(r[5]) > 0:
 			mode = t(" (Vorteil)", " (advantage)")
