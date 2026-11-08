@@ -1,5 +1,7 @@
 # 499 · Schild hoch wie alt, Sitz im Drehteller · Team Tom · 08.11., 14:2x
 
+[Bild von 08.11., 14:18](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/08-1418-499-Tom.png) (eingetragen von meldung.sh, Tom)
+
 Kurz: Der Schild sitzt jetzt wie in der alten Fassung: Oberkante 5 cm über den Schultergelenken (alt 0,045 × Körperhöhe über der Schulterlinie), vorher 18 cm tiefer auf Brusthöhe. Bilder: Kämpfer und Kleriker im Drehteller der Erschaffung, drei Seiten (Chef erlaubt ohne Signatur, 645: der Drehteller zeichnet wie in der Erschaffung).
 
 Zu prüfen: Höhe des Schilds wie früher („am Nackenabschluss“), Abstand zum Rücken.
