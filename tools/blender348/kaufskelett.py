@@ -1,7 +1,7 @@
 # 506 Skelett (Wochenziel 03.11. Reihe 2; Kauf 348.12c A, Chef 03.11., 15:40: „506 baut die Untoten aus dem Kauf, nicht auf dem
 # CC0-Menschen“): gekaufter Protofactor „Skeleton Knight“ (privates Repo, $KAUF, nie hierher und nie als Artefakt) nach
 # `LISTE-FIGUREN.md` „Skelett“ (348.11 b, gebilligt Chef 25.10., 23:33):
-#   1 Größe 160–185 cm (hier 176 cm Scheitel, im Kampfort 1,32-fach wie jeder Zweibeiner, kampfort.gd _foe_scale)
+#   1 Größe 160–185 cm (hier 172–179 cm Scheitel je Statur, im Kampfort 1,32-fach wie jeder Zweibeiner, kampfort.gd _foe_scale)
 #   2 menschlich, nur Knochen, sehr dünn (der Brustpanzer des Kaufs bleibt weg: MonsterKit.kt „the dead keep only helm and weapon“)
 #   3 Schädel mit Kiefer und Zahnreihen, schwarze Augenhöhlen mit je einem schwachen Glutpunkt (Eckfarbe mit Alpha 0, toon.gdshader glut)
 #   4 vergilbter, fleckiger Knochen; drei Kits, alles rostig: Kurzschwert und Helm; Kurzschwert und Schild; Speer und Helm
@@ -25,7 +25,6 @@ KAUF = os.environ.get('KAUF', '')
 OUT = os.environ.get('OUT', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'out'))
 os.makedirs(OUT, exist_ok=True)
 ID = 'skeleton'
-HOEHE = float(os.environ.get('HOEHE', '1.76'))          # Liste 1: 160–185 cm, Scheitel des Schädels (ohne Helm)
 KOERPER_DREIECKE = int(os.environ.get('DREIECKE', '4200'))   # Modellregel 7: ganze Figur unter 6.000 (Kauf: Körper 10.634)
 TEX = 1024
 FPS = 30
@@ -38,10 +37,13 @@ UMBENENNEN = {HALS: 'hals', KOPF: 'kopf'}               # kopfdreh.gd: Kopf zum 
 
 # Liste 4: drei Kits; Knochenton je Kit etwas anders (Abwechslung), alle vergilbt und fleckig
 KITS = {
-    'schwert': {'teile': ['SM_Sword', 'SM_Helmet'], 'knochen': (0xB8A57E, 0x4A3E2C, 0x6E5434)},
-    'schild': {'teile': ['SM_Sword', 'SM_Shield'], 'knochen': (0xA89C84, 0x423A30, 0x5E4E3A)},
-    'speer': {'teile': ['SPEER', 'SM_Helmet'], 'knochen': (0xB09A70, 0x463A28, 0x705030)},
+    'schwert': {'teile': ['SM_Sword', 'SM_Helmet'], 'knochen': (0xB8A57E, 0x4A3E2C, 0x6E5434), 'statur': 'mittel'},
+    'schild': {'teile': ['SM_Sword', 'SM_Shield'], 'knochen': (0xA89C84, 0x423A30, 0x5E4E3A), 'statur': 'kraeftig'},
+    'speer': {'teile': ['SPEER', 'SM_Helmet'], 'knochen': (0xB09A70, 0x463A28, 0x705030), 'statur': 'schlank'},
 }
+# LISTE-FIGUREN (348.11 b): jeder Untote zufällig schlank, mittel oder kräftig; hier je Kit eine Statur (wie goblin.py): Knochen
+# dicker oder dünner um ihre Achse (Schädel und Hals nicht, der Helm sitzt starr), dazu etwas kleiner oder größer
+STATUR = {'schlank': (0.86, 1.79), 'mittel': (1.0, 1.76), 'kraeftig': (1.16, 1.72)}     # (Dicke, Scheitel m)
 WEG_KAUF = ['SK_Armor', 'SM_2HandedSword', 'WEAPON_BONE']     # Brustpanzer (Liste 2), Zweihänder, Knochenkeule
 EISEN, ROST, ROST_TIEF = 0x4A4846, 0x7A4424, 0x3A2214
 HOLZ = 0x3E2E22
@@ -210,6 +212,32 @@ def speer(rig, schwert):
     return sp
 
 
+def statur(rig, koerper, dicke):
+    """Jede Ecke um die Achse ihres Hauptknochens (Ruhelage) dicker oder dünner; Kopf und Hals bleiben (Helm, Glutpunkte)."""
+    if abs(dicke - 1.0) < 1e-3:
+        return
+    namen = {g.index: g.name for g in koerper.vertex_groups}
+    Mr = rig.matrix_world
+    Mk = koerper.matrix_world
+    Mi = Mk.inverted()
+    n = 0
+    for v in koerper.data.vertices:
+        if not v.groups:
+            continue
+        g = max(v.groups, key=lambda g: g.weight)
+        b = rig.data.bones.get(namen.get(g.group, ''))
+        if b is None or b.name in (KOPF, HALS, K + 'Neck'):
+            continue
+        h, t = Mr @ b.head_local, Mr @ b.tail_local
+        p = Mk @ v.co
+        ax = t - h
+        u = max(0.0, min(1.0, (p - h).dot(ax) / max(ax.length_squared, 1e-9)))
+        q = h + ax * u
+        v.co = Mi @ (q + (p - q) * dicke)
+        n += 1
+    print('STATUR Dicke %.2f an %d Ecken' % (dicke, n))
+
+
 def augen(rig, koerper):
     """Liste 3: schwarze Augenhöhlen mit je einem schwachen Glutpunkt. Lage gemessen am Schädel (Ruhelage): Ecken am Kopf,
     die Höhlen sind die tiefsten Stellen der Vorderseite links und rechts der Mitte in Augenhöhe."""
@@ -335,6 +363,9 @@ def baue(kit_name):
                               ('SM_Shield', 'T_Shield_Albedo.jpg', True)):
         if n in netze:
             material(netze[n], speichere(rost_bild(os.path.join(tex_dir, bildname), holz), n.lower() + '-' + kit_name), n)
+    dicke, hoehe = STATUR[kit['statur']]
+    statur(rig, koerper, dicke)
+    INFO['statur'] = kit['statur']
     glut = augen(rig, koerper)
     netze.update({o.name: o for o in glut})
     # Bewegungen
@@ -349,7 +380,7 @@ def baue(kit_name):
     P = welt_netz([koerper], f0)
     lo, hi = P.min(0), P.max(0)
     print('MASS gekauft (Stehen): breit %.3f tief %.3f hoch %.3f, Boden %.3f' % (hi[0] - lo[0], hi[1] - lo[1], hi[2] - lo[2], lo[2]))
-    s = HOEHE / max(hi[2] - lo[2], 1e-4)
+    s = float(os.environ.get('HOEHE', hoehe)) / max(hi[2] - lo[2], 1e-4)
     aussen = bpy.data.objects.new('Skelett', None)
     scn.collection.objects.link(aussen)
     rig.parent = aussen
