@@ -30,6 +30,9 @@ on:
         description: "Gegnerfilm 494 (Jerry): Gegner der Probe, mit Komma (BOARS, …); FLEDERMAUS: Vergleich 510"
       kamin:
         description: "Kamine 501 (Spike): ja = Grundrisse am Tag und nachts (--raeume), Lage der Kaminflammen"
+      welt:
+        description: "Probe Welt 623.6 (Tom): liste = nur Dateinamen der REEBOO-Gratisproben, dann Ende"
+        default: ""
         default: ""
 
 jobs:
@@ -72,6 +75,27 @@ jobs:
         run: |
           echo "KAUF=$RUNNER_TEMP/kauf" >> $GITHUB_ENV
           bash tools/blender348/kauf_laden.sh $RUNNER_TEMP/kauf
+      # 623.6 (Chef 07.11., 623 B1, D; „jetzt“ 08.11., 13:48): neun REEBOO-Gratisproben liegen im privaten Repo nur auf dem Zweig
+      # claude/brave-faraday-9mxupv (anhang/reeboo/<seite>-free-sample.zip, LISTE-BESTAND); Lizenz: Dateien nie weitergeben, darum nur in
+      # den Bau (nie ins Repo, nie als Artefakt); im Protokoll nur Dateinamen und Klassennamen
+      - name: REEBOO-Gratisproben (623.5, 623.6, privat)
+        if: ${{ github.event.inputs.welt != '' }}
+        env:
+          GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
+        run: |
+          [ -n "$GH_TOKEN" ] || { echo "REEBOO: kein Zugang"; exit 0; }
+          git -C $KAUF fetch -q --depth 1 origin claude/brave-faraday-9mxupv && git -C $KAUF checkout -q FETCH_HEAD -- anhang/reeboo || { echo "REEBOO: Zweig fehlt"; exit 0; }
+          for z in $KAUF/anhang/reeboo/*.zip; do [ -d "${z%.zip}" ] || unzip -q -o "$z" -d "${z%.zip}"; done
+          echo "REEBOO_DIR=$KAUF/anhang/reeboo" >> $GITHUB_ENV
+          if [ "${{ github.event.inputs.welt }}" = "liste" ]; then
+            cd $KAUF/anhang/reeboo
+            find . -type f ! -name '*.import' ! -name '*.uid' ! -name '*.png' ! -name '*.jpg' | sort | sed 's/^/REEBOO /'
+            grep -rhoE '^(class_name|extends) [A-Za-z0-9_."/:]+' --include='*.gd' . | sort | uniq -c | sed 's/^/REEBOO-KLASSE /'
+            grep -rhoE '^@export[a-z_]* var [a-z_0-9]+' --include='*.gd' . | sort -u | head -150 | sed 's/^/REEBOO-EXPORT /'
+            grep -rhoE '^\[node name="[^"]+" type="[A-Za-z0-9]+"' --include='*.tscn' . | sort | uniq -c | sort -rn | head -60 | sed 's/^/REEBOO-KNOTEN /'
+            grep -rhoE '^shader_type [a-z_]+|^render_mode [a-z_, ]+' --include='*.gdshader' . | sort | uniq -c | sed 's/^/REEBOO-SHADER /'
+            echo "REEBOO: nur Liste, Ende"; exit 1
+          fi
       # 415 (Jerry, Chef „415 jetzt“ 02.11., 10:55; „415d muss ins nächste Build“ 22:05): Beams Free Sample (reeboolabs) aus
       # bornim-kaufmodelle anhang/beams; die Lizenz verbietet die Weitergabe der Dateien, darum nie ins Repo (godot/.gitignore), nur in den Bau
       - name: Beams-Probe (415, privat)
