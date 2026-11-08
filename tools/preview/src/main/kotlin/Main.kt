@@ -101,6 +101,8 @@ fun main() {
     de.bornim.game.ui.IntroLook.auto = false
     // 24.6: the stills and films of a fight show it at once; KAMPFBLENDE=1 shows the black screen before it
     de.bornim.game.ui.FightVeilMemory.off = System.getenv("KAMPFBLENDE") == null
+    // MENUE512B=1: 512b, every menu screen with its windows, for the comparison with Godot (Menue512b.kt)
+    if (System.getenv("MENUE512B") != null) { menue512b(); System.exit(0) }
     // MENU326=1: 326, the player's menu in the look of the main menu: every tab but the map, a long press on a sign,
     // and the action buttons by day, by night and in the forest
     if (System.getenv("MENU326") != null) {
@@ -966,6 +968,15 @@ fun main() {
         if (System.getenv("HAENDLER") == "morwen") {
             de.bornim.game.ui.ShopLook.previewTab = 0; de.bornim.game.ui.ShopLook.previewDialog = -1
             shot("59_morwen_neu", settle = 60) { vm -> shop(vm); val g = vm.game!!; g.advance(); g.enqueue(listOf(Cmd.OpenShop(listOf("potion", "remedy"), brewing = true))); vm.refresh() }
+            System.exit(0)
+        }
+        if (System.getenv("HAENDLER") == "503") {
+            // 503: Verkaufen, Knopf „Gewöhnliche verkaufen“ unter „Ausrüstung“, dann seine Rueckfrage (Tippen je Kandidat)
+            de.bornim.game.ui.ShopLook.previewTab = 1; de.bornim.game.ui.ShopLook.previewDialog = -1
+            val wenig = { vm: GameViewModel -> shop(vm); val st = vm.game!!.state; st.inventory.keys.toList().forEach { if (it != "potion") st.inventory.remove(it) }; vm.refresh() }
+            shot("503_knopf_alt", settle = 60) { vm -> wenig(vm) }
+            // die Hoehe des Knopfs steht erst im Bild: je Kandidat ein Bild, das mit der Rueckfrage zeigt sie
+            for (y in 700..2000 step 100) shot("503_rueckfrage_alt_$y", settle = 60, taps = listOf(Offset(200f, y.toFloat()))) { vm -> wenig(vm) }
             System.exit(0)
         }
         if (System.getenv("HAENDLER") == "alle") {

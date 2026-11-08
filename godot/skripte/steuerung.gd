@@ -79,12 +79,8 @@ func _ready() -> void:
 	oben.position = Vector2(-300, oy + Windrose.GROESSE + 16 * AktionsKnopf.DP)
 	oben.add_theme_constant_override("separation", 12)
 	add_child(oben)
-	var knoepfe := [["Tag / Nacht", "nacht"], ["Nah / Fern", "nah"], ["Drehen ◀", "links"], ["Drehen ▶", "rechts"], ["Deutsch / English", "sprache"]]   # 390: Sprache wie alt im Systemmenue, hier nur zum Testen
-	if DirAccess.dir_exists_absolute("res://daten/tiere"): knoepfe.append(["Tiere", "tiere"])   # 348.6: Tiere zum Anschauen (Chef 16:52), nur Test
-	for spec in knoepfe:
-		var b := knopf_neu(spec[0], Vector2(260, 84), 28)
-		b.pressed.connect(func(): knopf.emit(spec[1]))
-		oben.add_child(b)
+	# 500 (Chef 03.11., 07:24): die Probeknoepfe (Tag/Nacht, Nah/Fern, Drehen, Sprache, Tiere) sind weg; Tag/Nacht und Tiere im
+	# Testmenue (Reiter „Test“, Welt), Sprache im Hauptmenue, Drehen und Zoomen mit zwei Fingern; „Karte Näher/Normal“ im System bleibt
 	# 348.6 (Befund 7): rund mit Zeichen wie alt (76 dp, 22 dp vom Rand), das Schild links daneben (106 dp, 46 dp)
 	aktion_knopf = AktionsKnopf.new()
 	aktion_knopf.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
@@ -181,11 +177,21 @@ func _ready() -> void:
 	text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	text.add_theme_constant_override("line_spacing", int(4 * Stil.SP))   # Zeilenhoehe 24 sp bei 17 sp
 	spalte.add_child(text)
+	# 583 (Abgleich 512b, „Sammel▼“): das ▼ lag unten rechts im Textbereich und damit auf der letzten Zeile; jetzt steht es unter
+	# dem Text im unteren Rand des Kastens (16 dp), rechts in den Seitenrand geschoben, und deckt nie ein Wort
+	var ecke := Control.new()
+	ecke.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	textfeld.add_child(ecke)
 	weiter_zeichen = Stil.zeile("▼", 12, Stil.GOLD)
 	weiter_zeichen.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	weiter_zeichen.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
+	weiter_zeichen.vertical_alignment = VERTICAL_ALIGNMENT_TOP
 	weiter_zeichen.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	textfeld.add_child(weiter_zeichen)
+	weiter_zeichen.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
+	weiter_zeichen.offset_left = -10 * AktionsKnopf.DP; weiter_zeichen.offset_right = 10 * AktionsKnopf.DP
+	weiter_zeichen.offset_top = 0; weiter_zeichen.offset_bottom = 0
+	weiter_zeichen.grow_horizontal = Control.GROW_DIRECTION_BEGIN
+	weiter_zeichen.grow_vertical = Control.GROW_DIRECTION_END
+	ecke.add_child(weiter_zeichen)
 	var blinken := Timer.new()
 	blinken.wait_time = 0.4
 	blinken.autostart = true
@@ -316,6 +322,52 @@ func sage(neu: Array) -> void:
 	naechste()
 
 func spricht() -> bool: return textfeld.visible
+
+# 490: kurze Notiz oben in der Mitte wie alt (App.kt toast, Game.notices): schwarz mit Goldrand, 1,8 s, die naechste ersetzt sie
+var notiz_feld: PanelContainer
+var notiz_bis := 0
+func kurz(t: String) -> void:
+	if notiz_feld == null:
+		notiz_feld = PanelContainer.new()
+		var k := Stil.kasten(Color.BLACK, Stil.RIM, 1.0)
+		k.content_margin_left = 14 * AktionsKnopf.DP; k.content_margin_right = 14 * AktionsKnopf.DP
+		k.content_margin_top = 8 * AktionsKnopf.DP; k.content_margin_bottom = 8 * AktionsKnopf.DP
+		notiz_feld.add_theme_stylebox_override("panel", k)
+		notiz_feld.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var l := Label.new()
+		l.add_theme_font_size_override("font_size", int(16 * Stil.SP))
+		l.add_theme_color_override("font_color", Stil.TEXT)
+		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		notiz_feld.add_child(l)
+		add_child(notiz_feld)
+	var lb := notiz_feld.get_child(0) as Label
+	lb.text = t
+	var vs := get_viewport().get_visible_rect().size
+	notiz_feld.custom_minimum_size = Vector2(0, 0)
+	notiz_feld.size = Vector2(0, 0)
+	var font := lb.get_theme_font("font")
+	var fs := lb.get_theme_font_size("font_size")
+	var breit := minf(vs.x * 0.8, font.get_string_size(t, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x + 4)
+	# 550 (Chef 04.11., 00:19: beim ersten Mal ein riesiger Kasten): eine umbrechende Zeile rechnet ihre Hoehe mit der Breite, die sie gerade
+	# hat, beim ersten Mal 0 (jedes Wort eine Zeile), danach die der vorigen Notiz. Darum Breite und Hoehe vorher ausmessen und fest setzen;
+	# passt der Text in eine Zeile, bricht er nicht um
+	var passt := font.get_string_size(t, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x + 4 <= vs.x * 0.8
+	lb.autowrap_mode = TextServer.AUTOWRAP_OFF if passt else TextServer.AUTOWRAP_WORD_SMART
+	lb.custom_minimum_size = Vector2(breit, 0.0 if passt else font.get_multiline_string_size(t, HORIZONTAL_ALIGNMENT_CENTER, breit, fs).y)
+	lb.size = lb.custom_minimum_size
+	var lege := func():
+		if notiz_feld == null: return
+		notiz_feld.reset_size()
+		notiz_feld.position = Vector2((vs.x - notiz_feld.size.x) / 2, maxf(0.0, Rand.beim_start) + 72 * AktionsKnopf.DP)
+		notiz_feld.visible = true
+	# bricht er um, kennt die Zeile ihre Hoehe erst nach dem ersten Bild mit der neuen Breite: so lange unsichtbar
+	if passt: lege.call()
+	else:
+		notiz_feld.visible = false
+		get_tree().process_frame.connect(lege, CONNECT_ONE_SHOT)
+	notiz_bis = Time.get_ticks_msec() + 1800
+	get_tree().create_timer(1.85).timeout.connect(func(): if Time.get_ticks_msec() >= notiz_bis and notiz_feld: notiz_feld.visible = false)
 
 # ---------------------------------------------------------------- Wahlfeld (390, RestScreen): Titel gold, Zeilen darunter,
 # je Wahl ein Knopf und darunter matt, was sie tut oder warum nicht; unten „Weiter“

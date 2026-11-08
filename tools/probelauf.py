@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Probelauf-Haken (389; Chef 27.10., 23:55: „389 ja, höchstens zwei Läufe und die Betonung hierbei liegt auf höchstens.“).
+"""Probelauf-Haken (621 A, Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef; ersetzt die Rundenzahl 389).
 
-PreToolUse-Haken für Bash, alle Rollen. Je Vorlage höchstens zwei Probeläufe, dann vorlegen: beim dritten Lauf für denselben
+PreToolUse-Haken für Bash, alle Rollen. Je Vorlage höchstens ein Probelauf, dann vorlegen: beim zweiten Lauf für denselben
 Vorgang hält der Haken den Befehl an (Exit 2), ohne Ausweg. Seit 407 (Chef 29.10., 10:05: „nach 2 ist maximal Schluss …
-Ich habe noch nichts geguckt und freigegeben. Also, warten, bis ich gucke.“) gibt erst das Urteil des Chefs zwei neue Läufe frei,
+Ich habe noch nichts geguckt und freigegeben. Also, warten, bis ich gucke.“) gibt erst das Urteil des Chefs (nach „nein“: seine Wahl aus der Rückfrage mit Wegen und Kosten, 621 A) einen neuen Lauf frei,
 nicht schon die Vorlage: Urteil = Eintrag im Vorgangsarchiv (`origin/main`), dessen fette Kopfzeile die Nummer nennt, mit Datum
 nach dem letzten gezählten Lauf; gilt für jeden Zweig `claude/tom-…` und `claude/jerry-…`.
 
@@ -39,6 +39,8 @@ Mensch sicher besser sehen.“): der Chef hat es gesehen, Eintrag im Vorgangsarc
   Helfer das Probebild genau: `python3 tools/probelauf.py --helfer <Nr> "ok: <was zu sehen ist>"`; erst dann der Film.
   Am Rechner muss der Name des Filmskripts im Filmbefehl stehen. Jeder Filmlauf verbraucht das Probebild.
   Push: filmt, wenn ein Schritt mit `--write-movie` bei dieser Commit-Nachricht läuft (`if: contains(…head_commit.message…)`).
+  578 (Chef 04.11., 21:03: „Also ich brauche den Film“): ein Archivkopf „<Nr>, gleich Film“ gibt den Film ohne Probebild
+  frei, solange danach kein neues Probebild zu <Nr> eingetragen ist; die Zahl der Läufe begrenzt weiter 389.
 
 513.1 (Chef 03.11., 15:56: „513 B“; Leitlinie: was der Chef an einer Figur abnimmt, gilt in jedem Zweig, der Figuren zeigt):
 jeder Probelauf und jedes Probebild hält an, wenn der Stand (Rechner: HEAD der Arbeitskopie; Push: HEAD; Start von Hand: der
@@ -56,7 +58,7 @@ import time
 import uuid
 import zoneinfo
 
-GRENZE = 2
+GRENZE = 1  # 621 A (Chef 07.11., 16:4x), vorher 2 (389)
 BERLIN = zoneinfo.ZoneInfo("Europe/Berlin")
 REPO = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 LOKAL = os.environ.get("BORNIM_PROBELAEUFE") or os.path.expanduser("~/.bornim-probelaeufe.tsv")
@@ -73,6 +75,7 @@ GODOT_LAUF = re.compile(r"xvfb-run[^\n|;&]*godot[^\n|;&]*|\bgodot(?:\.\S+)?\s[^\
 SKRIPT = re.compile(r"tools/pruef348/(?!rechner\.sh)[\w.-]+\.sh|\b\w+_lauf\.sh")
 PUSH = re.compile(r"\bgit\s+(?:-C\s+(\S+)\s+)?push\b([^\n|;&]*)")
 COMMIT = re.compile(r"\bgit\s+(?:-C\s+\S+\s+)?commit\b[^\n]*?\s-[a-zA-Z]*m\s*(.+)", re.S)
+COMMIT_F = re.compile(r"\bgit\s+(?:-C\s+\S+\s+)?commit\b[^\n]*?\s-[a-zA-Z]*F\s*-\s[^\n]*?<<-?\s*['\"]?(\w+)['\"]?[^\n]*\n(.*?)\n\s*\1\b", re.S)  # 627: `commit -F - <<EOF`
 TEST_SKRIPT = re.compile(r"(?:^|\s)-s\s+[\"']?res://tests/([\w./-]+\.gd)\b")
 BILDBEFEHL = re.compile(r"save_png|save_jpg|save_webp|save_exr|get_image\s*\(|get_texture\s*\(|MovieWriter|screenshot", re.I)
 CD = re.compile(r"\bcd\s+([^\s;&|]+)")
@@ -224,10 +227,13 @@ def push_lauf(befehl, cwd):
     if not CI_ZWEIG.fullmatch(zweig):
         return None
     oben = git("rev-parse", "--verify", "-q", f"origin/{zweig}", cwd=wo).stdout.strip()
+    if not oben:  # 627 (Jerry 07.11., 21:2x): neuer Zweig, Pfade gegen den Abzweig von origin/main statt „alle Abläufe“
+        oben = git("merge-base", "origin/main", "HEAD", cwd=wo).stdout.strip()
     # Commit im selben Befehl vor dem Push (PreToolUse sieht ihn noch nicht): Nachricht aus -m, Pfade aus dem Arbeitsbaum
-    neu = COMMIT.search(befehl[:m.start()])
-    nachricht = re.sub(r"^\s*[\"']?(?:\$\(cat\s*<<-?\s*['\"]?\w+['\"]?\s*)?", "", neu.group(1)) if neu else \
-        git("log", "-1", "--format=%B", "HEAD", cwd=wo).stdout
+    neu_f = COMMIT_F.search(befehl[:m.start()])  # 627 (Tuffy 07.11., 21:15): Nachricht aus dem Heredoc, nicht die des alten HEAD
+    neu = neu_f or COMMIT.search(befehl[:m.start()])
+    nachricht = neu_f.group(2) if neu_f else (re.sub(r"^\s*[\"']?(?:\$\(cat\s*<<-?\s*['\"]?\w+['\"]?\s*)?", "", neu.group(1)) if neu else
+                                         git("log", "-1", "--format=%B", "HEAD", cwd=wo).stdout)
     if "[skip ci]" in nachricht or "[ci skip]" in nachricht:
         return None
     if oben:
@@ -507,7 +513,12 @@ def letzter_film(nr):
     return max((z[0] for z in zeilen(laeufe) + zeilen(lokal) if z[1] == nr and z[3].endswith("-film")), default="")
 
 
-def probebild_passt(nr):
+def gleich_film(nr):
+    """578 (Chef 04.11., 21:03: „Also ich brauche den Film“): Zeit des jüngsten Archivkopfs „<nr>, gleich Film“, sonst ""."""
+    return probebild_passt(nr, r",?\s*gleich Film", nur_kopf=True)
+
+
+def probebild_passt(nr, wort=r"[^;:]{0,30}?Probebild passt", nur_kopf=False):
     """511 (Chef 13:58): Zeit des jüngsten Archiveintrags „<nr> Probebild passt“, sonst ""; „13:5x“ zählt als 13:59."""
     _, archiv = zweig_lesen("docs/VORGANGSARCHIV.md", "main")
     if not archiv:
@@ -525,8 +536,10 @@ def probebild_passt(nr):
     for m in ARCHIV_KOPF.finditer(archiv):
         ende = archiv.find("\n- **", m.end())
         eintrag = archiv[m.end():ende if ende >= 0 else len(archiv)]
-        if re.search(nrx + r"[^;:]{0,30}?Probebild passt", m.group(1)):
+        if re.search(nrx + wort, m.group(1)):
             beste = max(beste, zeit(m.group(2), m.group(3), m.group(4), m.group(5), m.group(6)))
+        if nur_kopf:
+            continue
         for g in re.finditer(nrx + r"[^;→]{0,30}?Probebild passt\W{0,4}\(Chef\s+(?:(\d\d)\.(\d\d)\.,?\s*)?(\d\d):(\d)([\dx])",
                              eintrag):
             beste = max(beste, zeit(g.group(1) or m.group(2), g.group(2) or m.group(3), g.group(3), g.group(4), g.group(5)))
@@ -538,6 +551,9 @@ def film_sperre(nr, art, befehl):
     der Chef danach mit „<nr> Probebild passt“ freigegeben hat."""
     seit = letzter_film(nr)
     bilder = [b for b in probebilder(nr) if b[0] > seit]
+    gleich = gleich_film(nr)
+    if gleich and not [b for b in bilder if b[0][:16] > gleich[:16]]:
+        return None  # 578: „<nr>, gleich Film“ des Chefs gibt den Film ohne Probebild frei (Läufe zählt 389)
     if not bilder:
         return (f"511 (Chef 03.11., 13:50: „511 ja“): Filmlauf für {nr} ohne Probebild"
                 + (f" seit dem letzten Filmlauf {seit}" if seit else "") + ". Erst ein Einzelbild aus demselben Filmskript "
@@ -719,6 +735,18 @@ def main():
         if hand:
             pruefen_und_zaehlen(*hand, wer, film=True)
         return
+    if re.search(r"(push_files|create_or_update_file)$", d.get("tool_name") or ""):  # D75.1: Push über den GitHub-Server zählt wie git push
+        try:
+            e = d.get("tool_input") or {}
+            zweig, nachricht = str(e.get("branch") or ""), str(e.get("message") or "")
+            pfade = [f.get("path", "") for f in (e.get("files") or []) if isinstance(f, dict)] + ([e["path"]] if e.get("path") else [])
+            if CI_ZWEIG.fullmatch(zweig) and "[skip ci]" not in nachricht and "[ci skip]" not in nachricht \
+                    and any(x.startswith(CI_PFADE) for x in pfade) and (los := loest_aus(cwd, zweig, pfade, nachricht)):
+                m = re.match(r"\s*(?:\w+:\s*)?(" + NR + r")\b", nachricht)
+                return pruefen_und_zaehlen(m.group(1) if m else zweig, "ci", wer, los == FILMT)
+        except (OSError, subprocess.SubprocessError, ValueError):
+            pass
+        return hinweis_geben()
     try:
         alt = alte_einstellungen(befehl, cwd)
     except (OSError, subprocess.SubprocessError, ValueError):
@@ -744,7 +772,7 @@ def main():
         if bildlauf(befehl, cwd):
             m = PROBE.search(befehl)
             if not m:
-                anhalten("389 (Chef 27.10., 23:55, höchstens zwei Probeläufe je Vorlage): Bildlauf erkannt. "
+                anhalten("621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. "
                          "Vorgang davorsetzen: `PROBE=<Nr> <Befehl>`; der Haken zählt je Vorgang.")
             nr, art, film = m.group(1), "rechner", filmlauf_rechner(befehl, cwd)
             STAND_REF.update(wo=arbeitskopie(befehl, cwd), rev="HEAD")
@@ -769,16 +797,16 @@ def pruefen_und_zaehlen(nr, art, wer, film=False, befehl=""):
     except (OSError, subprocess.SubprocessError, ValueError):
         return hinweis_geben()
     if n >= GRENZE:
-        anhalten(f"389 (Chef 27.10., 23:55: „höchstens zwei Läufe und die Betonung hierbei liegt auf höchstens“): für {nr} "
-                 f"schon {n} Probeläufe seit {'deinem Urteil ' + vorlage if vorlage else 'Beginn der Zählung'}. Kein weiterer Lauf: "
+        anhalten(f"621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für {nr} "
+                 f"schon {n} Probelauf seit {'deinem Urteil ' + vorlage if vorlage else 'Beginn der Zählung'}. Kein weiterer Lauf: "
                  f"jetzt vorlegen, was da ist (Datei in docs/chefsache/ansehen/, `meldung.sh --bild` oder `--film` mit „{nr}:“), "
-                 "Befund der Fehlerprüfung danach als Text (396). Erst das Urteil des Chefs (Eintrag im Vorgangsarchiv) gibt zwei neue "
-                 "Läufe frei (407), oder Sokrates mit einem Archiveintrag „<Nr>, Läufe frei“ (480.1; Bitte an ihn per Vorrat, nie "
+                 "Befund der Fehlerprüfung danach als Text (396). Passt die Probe nicht: Rückfrage mit Wegen und Kosten in docs/chefsache/entscheiden/, keine neue Runde (621 A). Erst das Urteil des Chefs (Eintrag im Vorgangsarchiv) gibt einen neuen "
+                 "Lauf frei (407), oder Sokrates mit einem Archiveintrag „<Nr>, Läufe frei“ (480.1; Bitte an ihn per Vorrat, nie "
                  "Chefsache); bis dahin an einem anderen Vorgang weiter.")
     if sperre:
         anhalten(sperre)
     zaehlen(nr, wer, art + ("-film" if film else ""))
-    hinweis_geben(f"389: Probelauf {n + 1} von {GRENZE} für {nr}" + ("; danach vorlegen." if n + 1 == GRENZE else "."))
+    hinweis_geben(f"621 A: Probelauf {n + 1} von {GRENZE} für {nr}" + ("; danach vorlegen." if n + 1 == GRENZE else "."))
 
 
 def hinweis_geben(text=""):

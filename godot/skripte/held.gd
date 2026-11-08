@@ -17,6 +17,7 @@ var renn := 0.0                        # m/s, mit denen „Rennen“ ohne Gleite
 var waffengang := ""                   # 417 Runde 4: Gehen_<gang>, Rennen_<gang> aus den Paketen (heldfigur.gd bewaffne), leer: ohne
 var gang_w := 0.0                      # m/s ohne Gleiten der Paketbewegungen
 var renn_w := 0.0
+static var schnell := 1.0              # 555 Testmenue „Schnell“: Gehen und Laufen dreifach, damit das Durchspielen flott geht
 var tempo_jetzt := 0.0                 # Chef 25.10., 18:20: „Übergang von Gehen zu Rennen ist zu krass“: das Tempo steigt und faellt weich
 const BESCHL := 5.0                    # m/s²: von Gehen (2,1) auf Rennen (4,3) in gut 0,4 s
 var weg: Array[Vector3] = []
@@ -29,6 +30,18 @@ var zeit := 0.0
 var ruhe := "Stehen"                  # 397: jetzige Ruhebewegung (Gebiet.ruhe_naechste)
 var ruhe_bis := -1.0
 var ruhe_zufall := RandomNumberGenerator.new()
+# 592 (Chef 05.11., 19:3x und 22:0x „592 so“): geht ihm die Ausdauer aus, bleibt er etwa 1 s stehen, die Haende auf den Knien
+# (Stehen_3, Idle_Tired), und atmet schwer (Keuchen: klang.gd atme); danach geht er steuerbar weiter, bis ein Viertel zurueck ist
+# (Ausdauer.WIEDER). Steht er atemlos, bleibt er so gebeugt; das Stehen erholt doppelt so schnell wie das Gehen (Ausdauer)
+const ATEM_HALT := 1.0                 # s
+const MUEDE := "Stehen_3"
+var atemlos := false
+var atem_halt_bis := -1.0              # zeit
+
+# jedes Bild aus spiel.gd mit Zustand.atemlos
+func atemlos_neu(an: bool) -> void:
+	if an and not atemlos and anim and anim.has_animation(MUEDE): atem_halt_bis = zeit + ATEM_HALT
+	atemlos = an
 var gestossen := Vector2i(-1, -1)
 var stoss_zeit := -9.0
 var leute: Array = []                  # Leute der Karte (spiel.gd): durch sie geht er nicht
@@ -50,6 +63,25 @@ func _init(k: Karte, w: Dictionary = {}) -> void:
 	name = "Held"
 
 func _ready() -> void:
+	baue_figur()
+
+# 522 (Chef 03.11., 23:33, Build 249: „Ausrüstung geändert (Schild gegeben), aber im Spiel kein Schild“): die Figur wurde nur beim
+# Betreten einer Karte gebaut; nach einer Aenderung der Ausruestung (Testmenue, Ausruestungsschirm) baut spiel.gd sie hier neu,
+# Ort, Blick, Weg und Fackel bleiben, die Bewegung laeuft weiter
+func neu_figur(w: Dictionary) -> void:
+	var war: String = String(anim.current_animation) if anim else ""
+	if modell:
+		remove_child(modell)
+		modell.queue_free()
+	modell = null; anim = null; atem = null; fackel = null; flamme = null
+	mats.clear()
+	waffengang = ""; gang_w = 0.0; renn_w = 0.0
+	wahl = w
+	baue_figur()
+	nacht(nacht_k)
+	if anim and war != "" and anim.has_animation(war): anim.play(war, 0.0)
+
+func baue_figur() -> void:
 	# 376.1: je Klasse der Held auf dem Kaufkoerper (heldfigur.gd), sonst der bisherige (held.bin, rig.py)
 	modell = HeldFigur.baue(wahl, mats) if not wahl.is_empty() else null
 	var kauf := modell != null
@@ -292,14 +324,15 @@ func _process(dt: float) -> void:
 				break
 			position = Vector3(weg[0].x, position.y, weg[0].z)
 			weg.pop_front()
+	if zeit < atem_halt_bis: dir = Vector3.ZERO   # 592: kurz stehen und schnaufen; ein angetippter Weg geht danach weiter
 	var moving := dir.length() > 0.05
 	var vorher := position
 	var tempo := 0.0
 	if moving:
 		var kps := karte.laufen if laeuft else karte.gehen
-		tempo = kps * Karte.TS / karte.schritt(karte.pos_kachel(position)) * clampf(dir.length(), 0.5, 1.0)
+		tempo = kps * Karte.TS / karte.schritt(karte.pos_kachel(position)) * clampf(dir.length(), 0.5, 1.0) * schnell
 		# aus dem Stand mit ANLAUF los (416.4), schneller oder langsamer werden weich
-		var geh_t := karte.gehen * Karte.TS / karte.schritt(karte.pos_kachel(position))
+		var geh_t := karte.gehen * Karte.TS / karte.schritt(karte.pos_kachel(position)) * schnell
 		var ab := ABBREMS   # 416.4: langsamer werden ohne Halt (Rennen -> Gehen) gut 1 s
 		if richtung.length() <= 0.15 and weg.size() > 0:   # 416.4: vor dem Ende des Wegs langsamer
 			var bis := Vector2(weg[0].x - position.x, weg[0].z - position.z).length()
@@ -386,7 +419,7 @@ func _process(dt: float) -> void:
 		elif zeit >= ruhe_bis:
 			var r := Gebiet.ruhe_naechste(anim, ruhe, ruhe_zufall)
 			ruhe = r[0]; ruhe_bis = zeit + float(r[1])
-		var want := ("Rennen" if rennt else "Gehen") if moving else ruhe
+		var want := ("Rennen" if rennt else "Gehen") if moving else (MUEDE if atemlos and anim.has_animation(MUEDE) else ruhe)   # 592
 		var mit := moving and waffengang != "" and anim.has_animation(want + "_" + waffengang) and (gang_w if not rennt else renn_w) > 0.01
 		if mit: want += "_" + waffengang
 		if fackel and traegt_fackel:

@@ -148,11 +148,7 @@ func beginne(p: int = 0) -> void:
 # SlotChooser: alle Plaetze belegt; der gewaehlte Spielstand geht verloren
 func platzwahl() -> void:
 	var de := Sprache.aktiv() == "de"
-	var schleier := ColorRect.new()
-	schleier.color = Color(0, 0, 0, 0.82)
-	schleier.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	schleier.gui_input.connect(func(e): if e is InputEventMouseButton and e.pressed: schleier.queue_free())
-	add_child(schleier)
+	var schleier := Rueckfrage.schleier(self)   # 526: Tippen daneben und Android-Zurück schliessen; ein Tippen in den Kasten nicht mehr
 	var rand := MarginContainer.new()
 	rand.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	for s in ["left", "right", "top", "bottom"]: rand.add_theme_constant_override("margin_" + s, int(16 * DP))
@@ -160,7 +156,7 @@ func platzwahl() -> void:
 	schleier.add_child(rand)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(8 * DP))
-	var k := kasten(v)
+	var k := Rueckfrage.halte(kasten(v))
 	k.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	rand.add_child(k)
 	v.add_child(txt("Alle Spielstand-Plätze sind belegt" if de else "All save slots are taken", 19))
@@ -379,7 +375,7 @@ static func vorzeichen(n: int) -> String: return "+%d" % n if n >= 0 else str(n)
 
 # Txt auf Schwarz: Alegreya, 0,95 der Groesse, nie kleiner als 13,7 sp, leicht gesperrt
 static func txt(t: String, groesse_sp: float, farbe := Stil.TEXT) -> Label:
-	var l := Stil.zeile(t, maxf(groesse_sp, 13.7) * 0.95, farbe, 0.2)
+	var l := Stil.zeile(Spielstaende.ohne_waise(t), maxf(groesse_sp, 13.7) * 0.95, farbe, 0.2)   # 557 Runde 5: kein Wort allein in der letzten Zeile (nur Vorlage 2)
 	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	return l

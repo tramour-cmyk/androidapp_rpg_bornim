@@ -1,7 +1,9 @@
 # 453.1: Held und Söldner atmen im Kampfort als eigene Schicht (atem.gd). Ohne Bild gemessen, je Figur:
-#  - Ruhe: Atemzug 3,5–5 s (14 je Minute; vorher Idle_Loop 1,25 s), Schulter hebt sich 0,6–1,6 cm, Kopf neigt sich höchstens 1,5°
+#  - Ruhe: Atemzug 3,0–4,2 s (17 je Minute, Feld 2 „einen Tick schneller“ als 4,3 s; vorher Idle_Loop 1,25 s), Schulter hebt sich
+#    0,6–1,6 cm, Kopf neigt sich höchstens 1,5°
 #  - eigener Takt: die beiden Atemzüge unterscheiden sich um mindestens 5 %, die Einatmungen fallen nicht zusammen (Gleichtakt)
-#  - nach Anstrengung schneller (in den ersten 3 s mindestens 1,35-mal so viele Atemzüge wie in Ruhe) und tiefer, nach 6 s wieder fast Ruhe (unter 1,15 der Ruhe)
+#  - nach Anstrengung schneller (in den ersten 3 s mindestens 1,6-mal so viele Atemzüge wie in Ruhe) und sichtbar tiefer (Schulter
+#    mindestens 1,8-mal so hoch wie in Ruhe; Feld 2 „steigert sich … und dann wieder normalisiert“), nach 8 s wieder fast Ruhe
 #  - die Ruhebewegung selbst atmet nicht mehr (Kampfstehen ein Schlüssel je Spur)
 #  - der fernere Held atmet so viel tiefer, wie er im Bild kleiner ist (höchstens 1,6; Chef 19:5x „etwas deutlicher“), Maße oben im Bild
 #  - der Kampf läuft auf Autopilot zu Ende ohne Skriptfehler
@@ -128,7 +130,7 @@ func _run() -> void:
 			print("%s Kopf %s" % [n, " ".join(s.kopf.slice(0, 600, 10).map(func(x): return "%.2f" % x))])
 			print("%s Züge %s" % [n, str(s.zuege)])
 		print("%s: Atemzug in Ruhe %.2f s (%d Züge), Takt %.2f s, Schulter %.1f cm, Kopf %.2f°" % [n, mittel, d.size(), s.fig.atem.takt, _spanne(s.schulter) * 100.0, _spanne(s.kopf)])
-		_check(mittel >= 3.5 and mittel <= 5.0, "%s: Atemzug in Ruhe 3,5–5 s (%.2f)" % [n, mittel])
+		_check(mittel >= 3.0 and mittel <= 4.2, "%s: Atemzug in Ruhe 3,0–4,2 s (%.2f)" % [n, mittel])
 		# 453.1 Urteil 19:5x („etwas deutlicher“ beim vorderen): Maße im Bild, also geteilt durch den Ausgleich nach Kameraabstand
 		var si: float = s.fig.atem.sicht
 		print("%s: Ausgleich nach Kameraabstand %.2f, Abstand %.2f m" % [n, si, _kamera_abstand(s)])
@@ -149,24 +151,33 @@ func _run() -> void:
 			beide += 1
 	var gleich: float = float(beide) / sh.tiefe.size()
 	_check(gleich < 0.45, "kein Gleichtakt: beide zugleich eingeatmet in %.0f %% der Bilder" % (gleich * 100.0))
-	# 2) nach Anstrengung: der Held schlägt zu (Autopilot bis zu seinem ersten Hieb), dann 8 s messen
+	var ruhe_sch := _spanne(sh.schulter)
+	# 2) nach Anstrengung: wie ein Hieb (der Held bleibt in der Ruhebewegung, damit die Schulter nur den Atem zeigt), dann 13 s messen
+	# (Lauf 214: in 10 s endete der letzte Atemzug bei 7,8 s, der nächste nach 8 s erst bei etwa 10,9 s; das Fenster muss mindestens
+	# 8 s plus einen Ruheatemzug mit Spielraum fassen, 8 + 1,15 · 4,2 s)
 	held.atem.anstrengen(1.0)
 	var t0 := t
 	sh.zuege.clear()
 	var weit := 0.0     # Atemzüge in den ersten 3 s (Phase ohne Umbruch)
-	for i in 360:
+	var sch_an: Array = []     # Schulterhöhe in den ersten 4 s
+	for i in 390:
 		var p0: float = held.atem.phase
 		await process_frame
 		t += 1.0 / 30.0
 		_messe(sh, t, false)
 		if i < 90:
 			weit += fposmod(held.atem.phase - p0, 1.0)
+		if i < 120:
+			sch_an.append(sh.sch_y)
+	var steig: float = _spanne(sch_an) / maxf(ruhe_sch, 0.0001)
+	print("nach Anstrengung: Schulter %.1f cm (Ruhe %.1f cm), %.2f-mal" % [_spanne(sch_an) * 100.0, ruhe_sch * 100.0, steig])
+	_check(steig >= 1.8, "Steigerung sichtbar: Schulter in den ersten 4 s %.2f-mal so hoch wie in Ruhe" % steig)
 	var ruhe_s: float = held.atem.takt
-	var spaete: Array = sh.zuege.filter(func(z): return z[0] - t0 >= 6.0).map(func(z): return z[1])
+	var spaete: Array = sh.zuege.filter(func(z): return z[0] - t0 >= 8.0).map(func(z): return z[1])
 	print("nach Anstrengung: Atemzüge %s s (Ruhe %.2f)" % [", ".join(sh.zuege.map(func(z): return "%.2f@%.1f" % [z[1], z[0] - t0])), ruhe_s])
 	var mal: float = weit / (3.0 / ruhe_s)
-	_check(mal >= 1.35, "in den ersten 3 s nach Anstrengung %.2f-mal so schnell wie in Ruhe" % mal)
-	_check(not spaete.is_empty() and spaete.max() < 1.15 * ruhe_s and spaete.max() > 0.85 * ruhe_s, "nach 6 s wieder fast Ruhe (%s)" % str(spaete))
+	_check(mal >= 1.6, "in den ersten 3 s nach Anstrengung %.2f-mal so schnell wie in Ruhe" % mal)
+	_check(not spaete.is_empty() and spaete.max() < 1.15 * ruhe_s and spaete.max() > 0.85 * ruhe_s, "nach 8 s wieder fast Ruhe (%s)" % str(spaete))
 	# 3) Kampf zu Ende auf Autopilot; der Hieb strengt an
 	var vorher_a: float = 0.0
 	var hieb_a := 0.0
@@ -175,10 +186,16 @@ func _run() -> void:
 	if not kf.busy:
 		kf.go_on()
 	var w0 := Time.get_ticks_msec()
+	var bilder := 0
+	var hoch := 0
 	while Time.get_ticks_msec() - w0 < 120000:
 		await process_frame
 		hieb_a = maxf(hieb_a, held.atem.anstrengung - vorher_a)
 		vorher_a = held.atem.anstrengung
+		if held.atem.active:
+			bilder += 1
+			if held.atem.anstrengung > 0.5:
+				hoch += 1
 		if kf.mars.outcome != "ONGOING" and not kf.busy and not kf.playing and kf.beats.is_empty():
 			break
 		if not kf.busy and not kf.playing and kf.beats.is_empty() and kf.mars.outcome == "ONGOING":
@@ -189,6 +206,7 @@ func _run() -> void:
 				var ts: Array = kf.mars.targets(c)
 				kf.order(["attack", ts[0].id] if not ts.is_empty() else ["wait"])
 	_check(hieb_a > 0.3, "Kampfzüge strengen an (größter Sprung %.2f)" % hieb_a)
+	print("im Kampf: Held über halb angestrengt in %.0f %% der Bilder" % (100.0 * hoch / maxf(1, bilder)))
 	_check(kf.mars.outcome != "ONGOING", "Kampf endet (%s)" % kf.mars.outcome)
 	print("Atem 453.1: %d Fehler" % fails)
 	quit(1 if fails > 0 else 0)

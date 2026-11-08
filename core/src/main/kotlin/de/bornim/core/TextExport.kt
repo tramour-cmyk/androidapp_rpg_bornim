@@ -7,6 +7,7 @@ import kotlinx.serialization.json.put
 import kotlinx.serialization.json.putJsonObject
 import kotlinx.serialization.json.putJsonArray
 import kotlinx.serialization.json.addJsonObject
+import kotlinx.serialization.json.addJsonArray
 import kotlinx.serialization.json.add
 import java.io.File
 
@@ -44,6 +45,7 @@ object TextExport {
         val msgs = Class.forName("de.bornim.core.Game\$Msgs").getDeclaredField("INSTANCE").apply { isAccessible = true }.get(null)
         return felder(msgs).filterKeys { it in setOf("ate", "alreadyFed", "cured") } +
             ("sparkDrunk" to Light.sparkDrunk) + ("sparkAlready" to Light.sparkAlready) +
+            ("sparkOut" to Light.sparkOut) + ("sparkGone" to Light.sparkGone) +   // 523: Funke löschen in der Tasche [84.5.aus]
             ("torchLit" to Light.torchLit) + ("torchSnuffed" to Light.torchSnuffed) +   // 399.1 [84.1.an], [84.1.aus]
             ("healed" to T("{0} heilt {1} TP.", "{0} recovers {1} HP."))
     }
@@ -68,6 +70,9 @@ object TextExport {
                 // 399.1: was das Ding heilt (Wuerfel, Wurf, Bonus) und ob es Leiden heilt, fuer Benutzen in der Tasche
                 i.heal?.let { h -> putJsonArray("heilt") { add(h.count); add(h.sides); add(h.bonus) } }
                 if (i.cures) put("heilt_leiden", true)
+                // 582: Seltenheit (Farbe im Laden und in der Tasche, Items.kt) und die Kurzangabe unter dem Namen (ItemDef.stats, „heilt 2W4+2“)
+                put("seltenheit", i.rarity.name)
+                if (i.stats(Lang.DE).isNotEmpty()) put("kurz", text(T(i.stats(Lang.DE), i.stats(Lang.EN))))
             }
         }
         putJsonArray("rezepte") {
@@ -77,7 +82,13 @@ object TextExport {
             }
         }
         putJsonObject("einzelstuecke") {
-            for (id in Uniques.ids) putJsonObject(id) { put("name", text(Uniques.name(id))); put("seltenheit", text(Uniques.rarity(id).title)) }
+            for (id in Uniques.ids) putJsonObject(id) {
+                put("name", text(Uniques.name(id))); put("seltenheit", text(Uniques.rarity(id).title))
+                // 542: Grundform, Seltenheit, Plus und Werte wie Uniques.make, damit Godot das Einzelstueck als Ausruestung gibt
+                val u = Uniques.get(id)
+                put("grundform", u.base); put("rarity", u.rarity.name); put("plus", u.plus)
+                putJsonArray("rolls") { for (r in u.rolls) addJsonArray { add(r.affix.name); add(r.value) } }
+            }
         }
         // 399.1 Anschlagbrett (29): die Aushaenge wortgleich aus [Jobs], mit Lohn, Wunsch, Abgabe und Welle; die Regeln in auftraege.gd
         putJsonArray("auftraege") {

@@ -202,8 +202,12 @@ A_FAR = 14.0       # Prüfer Stand 9: Lichtung beginnt bei 26 % der Höhe (alt 2
 SPOT = os.environ.get('SPOT', 'lichtung')
 assert SPOT in ('lichtung', 'waldrand', 'teich', 'baum', 'felsen', 'steinkreis'), SPOT
 NAME = '' if SPOT == 'lichtung' else '-' + SPOT
+B_SEITE = 4.8      # Halbachse der Lichtung quer
 if SPOT == 'waldrand':
-    A_FAR = 8.5    # ForestCam EDGE: der Wald steht näher (alt „among many trees the edge of the wood“)
+    # ForestCam EDGE: der Wald steht näher (alt „among many trees the edge of the wood“, Wand 3,8 statt 7 m hinter dem fernsten
+    # Gegner). Lauf 1: nur A_FAR 8,5 sah aus wie die Lichtung, weil in der Bildmitte die Querachse die Kante setzt; darum auch
+    # quer enger (Kante in der Bildmitte etwa 1,5 m hinter dem hinteren Wolf statt 3 m) und eine dichte Reihe an der Kante
+    A_FAR = 8.0; B_SEITE = 3.8
 ZONEN = []         # (x, y, r): dort steht kein Baum, Busch oder Stein (der Ort selbst)
 SCHATTEN = []      # (x, y, r, stärke): weicher Schatten der Dinge des Orts in der Maske
 def fight(a, b): return Vector((a, -b, 0))     # Kampfrahmen: a zu den Gegnern, b quer nach rechts
@@ -213,11 +217,11 @@ def clearing(p):
     wob = 1.0 + 0.12 * math.sin(math.atan2(b, a) * 5 + 1.3)
     # hinter den Gegnern weiter (10 m statt 7): Prüfer Lauf 14, Wald oben zu dunkel; im alten Bild beginnt die Lichtung
     # bei 20 % der Höhe, hier erst bei 28 %
-    return (a / (A_FAR if a > 0 else 7.0)) ** 2 + (b / 4.8) ** 2 < wob
+    return (a / (A_FAR if a > 0 else 7.0)) ** 2 + (b / B_SEITE) ** 2 < wob
 def crown_over(p, r=2.8):
     """hinge eine Krone (Halbmesser r) über die Lichtung hinter den Gegnern?"""
     a, b = p.x, -p.y
-    return a > 0 and (a / (A_FAR + r)) ** 2 + (b / (4.8 + r * 0.5)) ** 2 < 1.0
+    return a > 0 and (a / (A_FAR + r)) ** 2 + (b / (B_SEITE + r * 0.5)) ** 2 < 1.0
 def in_view(fwd, lat, margin=2.0):
     return 7 < fwd < 90 and abs(lat) < 0.22 * fwd + margin
 placed = []
@@ -235,9 +239,17 @@ put(oak, from_view(11.5, -3.6), 2.0, size=1.15)
 RAHMEN_F, RAHMEN_V = len(P.F), len(P.V)
 
 # 493: was den Ort ausmacht (ForestCam.kt 211.13, in Metern), mit eigenem Zufall: die Lichtung bleibt Baum für Baum wie bisher.
-# Die Gegner stehen bis a = 4,5, quer ±3; alles hier steht dahinter (a ab 5,5) oder an der Seite
+# ForestCam misst im Blick der Kamera (x quer, d Tiefe ab dem fernsten Gegner „far“), nicht entlang der Kampflinie: Lauf 1 hatte
+# die alten Maße als (a, b) genommen, so lagen Stamm, Steine rechts und der halbe Steinkreis rechts außerhalb des Bildes, der
+# Teich hinter dem hinteren Wolf. vor(tiefe, quer): Tiefe hinter dem fernsten Gegner (a 5,3, b −1 nach kampfort.gd, im Blick
+# 5,1 m hinter der Kampfmitte), quer zur Bildmitte (+ rechts); quer etwas enger als alt, damit alles im Bild steht (sichtbar
+# etwa ±0,19 m je Meter Entfernung)
+FAR = 5.1
+def vor(tiefe, quer):
+    F = FAR + tiefe
+    return 0.866 * F + 0.5 * quer, -0.5 * F + 0.866 * quer
 PR = random.Random(493)
-TEICH = None        # (Mitte a, b, Halbachse a, b) für die Maske
+TEICH = None        # (Mitte a, b, Halbachse im Blick tief, quer) für die Maske
 def stamm(a0, b0, a1, b1, r, s):
     """umgestürzter Stamm (ForestCam log): liegend, oben Moos, am abgebrochenen Ende Jahresringe, ein Aststummel"""
     p0, p1 = fight(a0, b0), fight(a1, b1)
@@ -317,31 +329,40 @@ def schilf(p, h, s):
             cylinder(q, 0.018, h * PR.uniform(0.75, 1.0), 3, lambda v, n: mixc(lin(0x3E5A2A), lin(0x8C9A5A), ss(0, h, v.z)), r2=0.006,
                      lean=Vector((PR.uniform(-0.12, 0.12), PR.uniform(-0.12, 0.12), 0)))
 if SPOT == 'teich':
-    # stilles Wasser mit schlammigem Rand hinter den Gegnern links (ForestCam: pondX = midX − 2,9, 2,4 × 1,5 m); Schilf am fernen Ufer
-    TEICH = (8.6, -2.6, 2.0, 3.0)
+    # stilles Wasser mit schlammigem Rand hinter den Gegnern links (ForestCam: pondX = midX − 2,9, pondD = far + 2,6, 2,4 × 1,5 m);
+    # hier quer −1,0 und 1,6 m tief, Halbachsen 1,9 quer und 1,4 tief: im Bild links der Mitte zwischen dem linken und dem
+    # hinteren Wolf, noch auf der Lichtung (weiter links beginnt dort der Wald); Schilf am fernen Ufer
+    TEICH = vor(1.6, -1.0) + (1.4, 1.9)     # Mitte a, b; Halbachse im Blick tief, quer
     ca, cb, ra, rb = TEICH
+    def ufer(t, k=1.0):
+        F, L = math.cos(t) * ra * k, math.sin(t) * rb * k     # im Blick: tief, quer
+        return fight(ca + 0.866 * F + 0.5 * L, cb - 0.5 * F + 0.866 * L)
     rand = []
     for k in range(48):
         t = 2 * math.pi * k / 48
         w = 1 + 0.07 * math.sin(t * 3 + 1.1) + 0.04 * math.sin(t * 7)
-        rand.append(fight(ca + ra * w * math.cos(t), cb + rb * w * math.sin(t)) + Vector((0, 0, 0.015)))
+        rand.append(ufer(t, w) + Vector((0, 0, 0.015)))
     with use('wasser'):
         mitte = fight(ca, cb) + Vector((0, 0, 0.015))
         for k in range(48):
             add_face([mitte, rand[k], rand[(k + 1) % 48]], lambda v, n: lin(0x3A5260))
     for k in range(46):
-        t = math.pi * (0.0 + 1.0 * PR.random()) - math.pi * 0.5     # fernes Ufer: a > ca
-        p = fight(ca + ra * 1.04 * math.cos(t), cb + rb * 1.04 * math.sin(t))
-        schilf(p, PR.uniform(0.7, 1.3), k)
+        t = math.pi * (PR.random() - 0.5)     # fernes Ufer: tiefer als die Mitte
+        schilf(ufer(t, 1.04), PR.uniform(0.7, 1.3), k)
     ZONEN.append((fight(ca, cb).x, fight(ca, cb).y, max(ra, rb) + 0.6))
 elif SPOT == 'baum':
-    stamm(6.2, 2.0, 9.4, 4.6, 0.34, 7)
+    # ForestCam log(midX + 2,4, far + 1,2, midX + 4,6, far + 4,4): rechts hinter dem Kampf, schräg in die Tiefe; hier quer 3,0 bis
+    # 4,5 (rechts am hinteren Wolf vorbei), Tiefe 1,2 bis 4,6
+    stamm(*vor(1.2, 3.0), *vor(4.6, 4.5), 0.34, 7)
 elif SPOT == 'felsen':
-    fels(7.4, -3.0, 0.75, 81); fels(8.7, -4.1, 0.55, 82); fels(8.0, 3.5, 0.6, 83); fels(6.0, -3.7, 0.35, 84)
+    # ForestCam boulder (quer, Tiefe): (−2,8, 1,8) 0,75 · (−3,9, 2,9) 0,55 · (3,2, 2,4) 0,6 · (−3,3, 0,6) 0,35; quer enger
+    for (q, t, r, s_) in ((-2.4, 1.6, 0.75, 81), (-3.3, 2.8, 0.55, 82), (3.4, 2.2, 0.6, 83), (-2.6, 0.6, 0.35, 84)):
+        fels(*vor(t, q), r, s_)
 elif SPOT == 'steinkreis':
+    # ForestCam: x = midX − 3,6·cos t, d = far + 1,3 + 2,6·sin t; hier Halbmesser quer 3,4, um 0,3 nach rechts, Tiefe 1,6 + 2,4·sin t
     for i in range(6):
         t = math.pi * (0.12 + 0.76 * i / 5)
-        menhir(7.2 + 2.4 * math.sin(t), -3.6 * math.cos(t), 1.3 + 0.6 * PR.random(), 0.3 + 0.08 * PR.random(), 90 + i)
+        menhir(*vor(1.6 + 2.4 * math.sin(t), 0.3 - 3.4 * math.cos(t)), 1.3 + 0.6 * PR.random(), 0.3 + 0.08 * PR.random(), 90 + i)
 print('ORT', SPOT, 'Zonen', len(ZONEN))
 
 # Waldrand etwa 7 m hinter den Gegnern und an den Seiten der Lichtung: dicht, gewellt
@@ -360,6 +381,18 @@ for k in range(260):
     elif r < 0.82: put(spruce, p, 0, size=rnd.uniform(0.85, 1.25), far=far)
     elif r < 0.88 and not far: put(dead, p, 0, size=rnd.uniform(0.8, 1.1))
     else: placed.append(p)
+# 493 Waldrand (ForestCam: „a close row along the edge“): eine dichte Reihe knapp hinter der Kante, eigener Zufall; Kronen dürfen
+# näher an die Lichtung (1 m statt 2,8), sonst bliebe die Reihe so weit weg wie auf der Lichtung
+if SPOT == 'waldrand':
+    for k in range(90):
+        th = PR.uniform(-1.45, 1.45); kk = PR.uniform(1.08, 1.4)
+        p = fight(A_FAR * math.cos(th) * kk, B_SEITE * math.sin(th) * kk)
+        fwd, lat = view(p)
+        if clearing(p) or not in_view(fwd, lat, 3) or fwd < 17: continue
+        if fwd < D0 + 4 and abs(lat) < 0.2 * fwd - 0.6: continue
+        if crown_over(p, 1.0) or not free(p, 1.9): continue
+        if PR.random() < 0.62: put(oak, p, 0, size=PR.uniform(0.8, 1.1), beech=PR.random() < 0.35)
+        else: put(spruce, p, 0, size=PR.uniform(0.85, 1.15))
 # Unterholz am Rand der Lichtung, Steine, ein Stumpf
 for k in range(140):
     fwd = rnd.uniform(9, 45); lat = rnd.uniform(-0.24 * fwd - 2, 0.24 * fwd + 2)
@@ -469,7 +502,7 @@ R *= 1.0 - 0.9 * np.clip((0.3 - noise(220, 9)) * 8.0, 0, 1)                     
 # Waldboden außerhalb der Lichtung: kahle, dunkle Erde in Flecken (Laub), Schatten
 A_ = X; B_ = -BY
 wob = 1.0 + 0.12 * np.sin(np.arctan2(B_, A_) * 5 + 1.3)
-inside = (A_ / np.where(A_ > 0, A_FAR, 7.0)) ** 2 + (B_ / 4.8) ** 2      # wie clearing(): Waldboden erst, wo der Wald steht
+inside = (A_ / np.where(A_ > 0, A_FAR, 7.0)) ** 2 + (B_ / B_SEITE) ** 2      # wie clearing(): Waldboden erst, wo der Wald steht
 edge = np.clip((inside - wob) / 1.2, 0, 1)                                     # 0 Lichtung, 1 Wald
 R = np.maximum(R, edge * np.clip((noise(40, 3) - 0.35) * 2.0, 0, 0.75))
 B = edge * 0.78      # Chef 21:03 „dunklen Waldrand“ (Diogenes: fehlt): Waldboden unter den Bäumen dunkler (vorher 0,55)
@@ -487,9 +520,11 @@ for (sx, sy, sr) in ZONEN:              # 493: kein Gras unter Stamm und Steinen
     if SPOT != 'teich': G = np.maximum(G, (np.sqrt((X - sx) ** 2 + (BY - sy) ** 2) < sr - 0.25).astype(np.float32))
 if TEICH:   # 493: im Wasser kein Weg, kein Gras; am Ufer ein Saum aus Schlamm (Erde), 0,3–0,5 m breit
     ca, cb, ra, rb = TEICH
-    t = np.arctan2((-BY - cb) / rb, (X - ca) / ra)
+    dA, dB = X - ca, -BY - cb
+    tief, quer = 0.866 * dA - 0.5 * dB, 0.5 * dA + 0.866 * dB     # im Blick der Kamera wie ufer()
+    t = np.arctan2(quer / rb, tief / ra)
     w = 1 + 0.07 * np.sin(t * 3 + 1.1) + 0.04 * np.sin(t * 7)
-    q = np.sqrt(((X - ca) / ra) ** 2 + ((-BY - cb) / rb) ** 2) / w
+    q = np.sqrt((tief / ra) ** 2 + (quer / rb) ** 2) / w
     nass = q < 1.0
     ufer = np.clip(1.0 - (q - 1.0) / (0.18 + 0.08 * noise(80, 12)), 0, 1) * (q >= 1.0)
     R = np.where(nass, 0.0, np.maximum(R, ufer)); G = np.maximum(G, (q < 1.12).astype(np.float32))
