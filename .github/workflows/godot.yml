@@ -105,6 +105,14 @@ jobs:
             grep -hoE '^\[autoload\]|^[A-Za-z]+="\*res://[^"]+"|^shader_globals/[a-z_0-9]+' $(find . -name project.godot) | sort | uniq -c | sed 's/^/REEBOO-PROJEKT /'
             echo "REEBOO: nur Liste, Ende"; exit 1
           fi
+          # 623.6: die vier Welt-Kits als Addons in den Bau (godot/.gitignore), dazu die Demo-Felsen der Oberflaechen
+          mkdir -p godot/addons
+          for a in grass_wind_kit water_kit weather_fx reeboo_surfaces; do
+            d=$(find $KAUF/anhang/reeboo -type d -path "*addons/$a" | head -1)
+            [ -n "$d" ] && cp -r "$d" godot/addons/ && echo "REEBOO: $a"
+          done
+          m=$(find $KAUF/anhang/reeboo -type d -path '*Surface_Shaders_Free_Sample/demo/meshes' | head -1)
+          [ -n "$m" ] && mkdir -p godot/addons/reeboo_surfaces/demo_meshes && cp $m/*.obj godot/addons/reeboo_surfaces/demo_meshes/ || true
       # 415 (Jerry, Chef „415 jetzt“ 02.11., 10:55; „415d muss ins nächste Build“ 22:05): Beams Free Sample (reeboolabs) aus
       # bornim-kaufmodelle anhang/beams; die Lizenz verbietet die Weitergabe der Dateien, darum nie ins Repo (godot/.gitignore), nur in den Bau
       - name: Beams-Probe (415, privat)
@@ -238,6 +246,7 @@ jobs:
           # 348.12i: gekauft, also nur verschluesselt ins APK
           (cd godot && ls daten/dorftiere/*.bin 2>/dev/null >> daten/kauf.txt) || true
       - name: Kampfort bauen (Jerry 348.7, 399.1)
+        if: ${{ github.event.inputs.welt == '' }}   # 623.6: Probe Welt braucht keinen Kampfort
         run: |
           # 399.1 (Chef 28.10., 12:34): Kampf im selben Spiel wie das Dorf; Modelle wie godot-kampf.yml (Jerry), Held und Gras aus „Modelle bauen“
           export OUT=$RUNNER_TEMP/out
