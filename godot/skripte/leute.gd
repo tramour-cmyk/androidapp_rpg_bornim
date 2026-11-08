@@ -56,6 +56,8 @@ const WENDE_BLEND := 0.2                # s Uebergang aus dem Stehen in die Wend
 var wende_kurve := {}                   # Name -> PackedFloat32Array, Drehung in rad je Bild (30 Bilder/s) seit Beginn
 var wende := ""                         # laufende Wende
 var wende_start := 0.0                  # rotation.y beim Beginn der Wende
+var monster := false                   # 560 (Jerry): ein Monster der Geschichte (Grimmzahn, aussehen „monster:…“)
+const MONSTER_SIEHT := 4               # 560: Kacheln, ab denen es sich dem Helden zuwendet (herde.gd Lauerer 9i.2)
 var da := true                         # 390: nach der Geschichte zu sehen (Story.kt visible: besiegt, befreit)
 
 static func alle(k: Karte, h: Node3D) -> Array:
@@ -249,6 +251,7 @@ func _ready() -> void:
 		fig.set_process(true)
 		modell = fig
 		anim = fig.anim
+		monster = true
 		gang = 1.0
 		leib = 0.8
 		position = karte.kachel_pos(kachel)
@@ -448,6 +451,10 @@ func _process(dt: float) -> void:
 	stehen(dt)
 	if ziel.x >= 0: return
 	tempo_jetzt = 0.0
+	if monster and anim and anim.has_animation("Gehen") and absf(angle_difference(rotation.y, blick)) > Streuner.DREH_TRITT:
+		if anim.current_animation != "Gehen": anim.play("Gehen", 0.2)     # 560: wendet mit Tritten
+		anim.speed_scale = Streuner.TRITT_TEMPO
+		return
 	if anim and anim.current_animation != pause and wende == "":
 		anim.play(pause, Held.ueberblendung(anim.current_animation, false))
 		anim.speed_scale = 1.0
@@ -461,7 +468,14 @@ func stehen(dt: float) -> void:
 			zugewandt_bis = 0
 			blick = blick_vorher
 			ruhe_bis = -1.0   # die Ruhebewegung beginnt neu
-	drehe_stehend(dt, DREH_ZU if zugewandt_bis > 0 else DREH_STEH)
+	# 560 (Chef 04.11., 16:22, Grimmzahn: „wenn sich die Monster … alles zum Held drehen … mit Bewegung drehen“): ein Monster der
+	# Geschichte wendet sich dem nahen Helden zu, mit fester Rate und Tritten (_process), wie die Monster der Karte (streuner.gd)
+	if monster and held and zugewandt_bis == 0 and held_abstand() <= MONSTER_SIEHT:
+		blick = atan2(held.global_position.x - global_position.x, held.global_position.z - global_position.z)
+	if monster:
+		rotation.y = drehe(rotation.y, blick, Streuner.DREH * dt)
+	else:
+		drehe_stehend(dt, DREH_ZU if zugewandt_bis > 0 else DREH_STEH)     # 416.8 (Tom): Wende mit Schritten
 	if still or not da: return
 	if zugewandt_bis > 0: return
 	if Time.get_ticks_msec() < ruft_bis: return   # 399.1 (306): wer ruft, haelt still, bis das zweite Zeichen vorbei ist
