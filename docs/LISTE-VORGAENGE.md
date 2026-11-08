@@ -162,7 +162,7 @@
 | 595 | Kampfbewegungen der Kaufgegner: Spinne mehr Angriffe, Egel und Schnecke schneller, Treffhöhe, Ruckeln, Ruhe (Chef 05.11., 19:2x, t266.1) | Jerry | M | startbar, gelöst 08.11.: 478 | – | – | – | E Kampf | – |
 | 623.2 | Effekte aus 623 A einbauen mit 478, in `LISTE-BESTAND.md` und `LISTE-EFFEKTE.md` mit Datenfeld `fx` (Chef 07.11., 623) | Jerry | M | wartet | 623 | – | – | E Kampf | – |
 | 598 | Umweltklang je Ort, Tageszeit, Wind und Wetter, lebendige Welt (Chef 05.11., 19:2x; Abnahme 6) | Jerry | M | startbar | – | – | – | E Klang | – |
-| 593 | MARS: Ausweichen auch rückwärts als Abwechslung zu links und rechts (Chef 05.11., 19:2x) | Jerry | K | startbar, gelöst 08.11.: 478 | – | – | – | E Kampf | – |
+| 593 | MARS: Ausweichen auch rückwärts als Abwechslung zu links und rechts (Chef 05.11., 19:2x) | Jerry | K | gebaut, fährt im nächsten Build. Geprüft an: dc7bc26ef (am Rechner ohne Kauf nicht messbar, ausweichen_593 im Bau) | – | claude/jerry-593-ausweichen | – | E Kampf | – |
 | 616 | Kampf: Gegner weichen nach dem Angriff rückwärts zurück statt vorwärts zu laufen (Chef 07.11., t268) | Jerry | M | startbar, gelöst 08.11.: 478 | – | – | – | E Kampf | – |
 | 24 | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | Jerry | K | ruht | – | – | – | E Oberfläche | – |
 | 348.7a | Rückfrage: Geschosse flach oder in 3D | Jerry | M | ruht, ohne Vorratszeile, Liste „in Arbeit“ (275.2) | – | – | – | E Technik | 58,17 $ |
