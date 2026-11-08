@@ -113,7 +113,7 @@
 | 638 | Kleinleben wie alt: Dorfhund, Katze in der Schenke, sichtbare Vögel, fallende Blätter im Wald, Hühner ziehen sich in der Dämmerung zurück (Abgleich 620.2a) | Tom | M? | startbar | – | – | – | E Welt | – |
 | 639 | Leute tragen ihre Dinge wie alt: Jorins Speer, Aldrics Stab quer auf der Schulter (Garricks Langbogen: 531; Abgleich 620.2a) | Tom | M? | startbar | – | – | – | E Welt | – |
 | 640 | Innenräume und Häuser, Varianten wie alt: Werkzeugregal, Wandbehänge und Stock bei Aldric, Altartuch, leere Amulett-Halterung; geschlossene Läden, Morwens Rauch grünlich (Abgleich 620.2a) | Tom | M? | startbar | – | – | – | E Welt | – |
-| Pflege | von Werkzeug (340.3, 08.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Tom | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 08.11.): 15205 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
 | 565 | MARS: unten im Gruppenkasten sieht man nicht, welcher Held am Zug ist (Chef 04.11., 17:10, t257 C) | Jerry | M | wartet, Bilder A/B 07:00 an den Chef | Chef | claude/jerry-565-am-zug | – | E Kampf | 7,58 $ |
 | 562 | MARS: Helden laufen zum Angriff viel zu langsam, zurück gleiten sie flott (Chef 04.11., 17:02, t257 C) | Jerry | M | in Arbeit, Diagnoselauf 289 (tom-625-nacht + 438 DIAG) | – | claude/jerry-562-angriffsschritt | – | E Kampf | 8,78 $ |
 | 563 | MARS: Zustandsschilder über Gegnern („Blut 3“) überlagern Ansage und Leisten, wirken grob (Chef 04.11., 17:02, t257 C) | Jerry | M | wartet, Bild A 07:00 an den Chef | Chef | claude/jerry-563-zustaende | – | E Kampf | 7,55 $ |
