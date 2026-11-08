@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **647 Alt zuerst** (Perikles, Werkzeug): `probelauf.py` hält einen Push auf einen Teamzweig mit Spielcode unter `godot/` an, wenn keine Commit-Nachricht die Zeile „Alt: <Fundstelle der alten Fassung>“ (oder „Alt: keine (<Grund>)“) trägt; Regel „Alt zuerst“ in `ROLLE-ENTWICKLUNG.md`, Verweis im Abgleich (`LISTE-UMZUG-348.md`).
+
 - **651 Kostenauswertung** (Perikles, Werkzeug): feste Liste der Bereiche (`tools/bereiche.py`, 16 Teilbereiche in E, G, Q, B, M; `vorgang.py` und Commit-Prüfung lassen nur diese zu; 77 offene Zeilen eingeordnet, 45 alte Schreibweisen zugeordnet); `tools/kostenbericht.py` schätzt die Kosten aller gebuchten Sitzungen über ihre Commits je Bereich, Tag und Woche, auch für Vorgänge ohne Betrag, und schreibt `docs/LISTE-KOSTEN.md`.
 
 - **650.1 Notizen abgelegt** (Perikles): neun erledigte oder ruhende Dateien nach `docs/alt/` (274, Grundstand 461, Ford 2, Proxmox, Arbeitsorte, Prüfbogen Tester, MARS 72.10a, MARS-Aufstellung, Grafikweg), Links angepasst, Lizenzzeile Blender/Godot nach `LISTE-QUELLEN.md`; Ford 2 aus `CLAUDE.md`, `LISTE-BETRIEB.md`, `ROLLE-BETRIEB.md`, `FIRMA.md`, `lauf.py`; `notiz.sh` warnt nicht mehr über `docs/alt`.

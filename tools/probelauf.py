@@ -485,6 +485,49 @@ def parse_pruefen(befehl, cwd):
     return None
 
 
+TEAMZWEIG = re.compile(r"claude/(?:tom|jerry|spike|tuffy)-[\w./-]+")
+ALT_ZEILE = re.compile(r"^Alt:\s*\S", re.M)
+
+
+def alt_fehlt(befehl, cwd):
+    """647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen, die schon da sind,
+    übernehmen und besser machen“): ein Push auf einen Teamzweig mit Spielcode unter godot/ (ohne tests/) braucht in einer
+    seiner Commit-Nachrichten die Zeile „Alt: <Datei:Zeilen der alten Fassung, was übernommen, was besser>“ oder
+    „Alt: keine (<Grund>)“. Grund zum Anhalten oder None."""
+    m = PUSH.search(befehl)
+    if not m:
+        return None
+    cds = CD.findall(befehl[:m.start()])
+    wo = m.group(1) or (os.path.join(cwd, os.path.expanduser(cds[-1].strip("\"'"))) if cds else cwd)
+    ziel = CI_ZWEIG.search(m.group(2))
+    teile = [t for t in m.group(2).split() if not t.startswith("-")]
+    if not ziel and len(teile) >= 2:  # `git push origin main`: ausdrücklich ein anderer Zweig
+        return None
+    zweig = ziel.group(0).split(":")[-1] if ziel else git("rev-parse", "--abbrev-ref", "HEAD", cwd=wo).stdout.strip()
+    if not TEAMZWEIG.fullmatch(zweig):
+        return None
+    oben = git("rev-parse", "--verify", "-q", f"origin/{zweig}", cwd=wo).stdout.strip() or \
+        git("merge-base", "origin/main", "HEAD", cwd=wo).stdout.strip()
+    if not oben:
+        return None
+    pfade = git("diff", "--name-only", f"{oben}..HEAD", cwd=wo).stdout.split()
+    texte = git("log", "--no-merges", "--format=%B%x00", f"{oben}..HEAD", cwd=wo).stdout
+    neu_f = COMMIT_F.search(befehl[:m.start()])
+    neu = neu_f or COMMIT.search(befehl[:m.start()])
+    if neu:
+        pfade += git("diff", "--name-only", "HEAD", cwd=wo).stdout.split()
+        texte += "\n" + (neu_f.group(2) if neu_f else neu.group(1))
+    spiel = [p for p in pfade if p.startswith("godot/") and not p.startswith("godot/tests/")
+             and not p.endswith((".uid", ".import"))]
+    if not spiel or ALT_ZEILE.search(texte):
+        return None
+    return ("647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser "
+            f"machen“): Push auf {zweig} ändert Spielcode ({', '.join(spiel[:3])}{' …' if len(spiel) > 3 else ''}), aber keine "
+            "Commit-Nachricht nennt die alte Fassung. Vor dem Bauen die Fundstelle in app/ oder core/ lesen, dann eine Zeile "
+            "„Alt: <Datei:Zeilen>, übernommen: …, besser: …“ in die Nachricht (git commit --amend, solange nicht gepusht), "
+            "oder „Alt: keine (<Grund>)“, wenn es nichts Altes gibt.")
+
+
 def filmlauf_rechner(befehl, cwd):
     """511: filmt dieser Bildlauf am Rechner? Marke im Befehl oder ein Laufskript, das filmt (`--write-movie`, mp4, ffmpeg)."""
     if FILM.search(befehl):
@@ -761,6 +804,12 @@ def main():
         alt = None
     if alt:
         anhalten(alt)
+    try:
+        grund = alt_fehlt(roh, cwd)  # 647: Fundstelle der alten Fassung vor dem Push
+    except (OSError, subprocess.SubprocessError, ValueError):
+        grund = None
+    if grund:
+        anhalten(grund)
     try:
         grund = parse_pruefen(roh, cwd)  # 464: vor dem Zählen, ein angehaltener Push ist kein Lauf
     except (OSError, subprocess.SubprocessError, ValueError):
