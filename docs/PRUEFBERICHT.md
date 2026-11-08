@@ -30,6 +30,11 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
 
+## Lauf 91 · Auftrag 317.1 am Sammelbuild 269 (Doppelpack 421; `main` nach `5710235fb`; 08.11., 16:4x; Prüfliste `ansehen/t269-sammelbuild.md` aus `5710235fb^`)
+
+- **Greift:** Build 269 mit 28 Prüfzeilen (Tom 21, Jerry 7) lief ohne Halt und ohne Lücke wegen der Zahl durch `zug-index.py` (einzige Lücke: Zeile 2 keine Bereichszeile, eine Formfrage); `startbar.py` zeigt „alle fertigen Zweige ohne Obergrenze“, `tagesbericht.py` „ein Build nimmt alle fertigen Zweige (317)“; `regelcheck.py` hält nur noch 6 Testbuilds am Tag (so gewollt). Feld „wartet auf Diogenes“ geleert.
+- **D91.1 (klein, an Perikles):** der Text „mit 3–6 Vorgängen (317, Ziel 4 …)“ steht noch in `tools/zug-index.py` Zeile 89 und daraus in `chefsache/README.md` „So geht's“ (Zeile 358); widerspricht 317 neu und `LISTE-BAUEN-TESTEN.md` „Gemeinsamer Build“ (mindestens 4, ohne Obergrenze). Text ändern, die Prüfung (Zeile 211–215, mindestens 3) stimmt.
+
 ## Lauf 90 · Auftrag 684 Bereiche im Archiv (Sokrates nach Frage Chef 08.11., 16:3x, zu 651; `main` `579304d59`; 08.11., 16:3x; `bereiche.einordnen()` gegen den Titel jeder Zeile, eigenes Urteil nach `ERKLAERUNG` in `tools/bereiche.py`)
 
 - **D90.1 Stichprobe 50 Zeilen** (`LISTE-VORGAENGE-ARCHIV.md`, 771 Zeilen, Zufall mit Samen 684): Bereich nach `einordnen()` stimmt inhaltlich 40 · falsch 4 (185 Ford seltener neu starten: B Abläufe statt B Steuerung; 222.2 Stop-Haken: Q QM statt B Werkzeuge; 345 Fackel im Menü: E Welt statt E Oberfläche; 539 Licht folgt der Uhr nicht: E Oberfläche statt E Welt) · fraglich 6 (377.1, 447.3, 192.5b, 277, 188, 433). Die offene Liste hat 0 ungültige Bereiche.
