@@ -186,7 +186,7 @@
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 72 | Profil und Marktvergleich | Homer | K | ruht | – | – | – | E Kampf | 0,72; +0,61 $ |
 | 348.12g | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | Homer | M | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | – | – | – | G Story | 4,29 $ |
-| 652 | Englisch-Regeln 1–7 aus LISTE-ENGLISCH-338-1B nach STORY-REGELN.md, dann Datei nach docs/alt (aus 650.1, Chef 08.11., 13:36) | Homer | M | startbar | – | – | – | G Story | – |
+| 652 | Englisch-Regeln 1–7 aus LISTE-ENGLISCH-338-1B nach STORY-REGELN.md, dann Datei nach docs/alt (aus 650.1, Chef 08.11., 13:36) | Homer | M | erledigt | – | – | – | G Story | – |
 | 659 | DESIGN-STIL.md: Abschnitt „Muster“ mit Bild je abgenommenem Muster (Fenster ohne Kasten 549a, Zwischensequenz 613, Zeichen 326, Hauptmenü 292); „Zwischensequenzen ohne Animation“ nachziehen (Chef 08.11., 15:08) | Homer | M | startbar | – | – | – | G Stil | – |
 | 655.1 | Regel 300 streichen: Ersteller sieht Bild oder Film selbst an, dann sofort an den Chef; Helfer danach entfällt (CLAUDE.md Melden, ROLLE-ENTWICKLUNG.md; 655 ja) | Perikles | M | startbar | – | – | – | B Abläufe | – |
 | 658 | Telegram-Reaktionen auslesen: 👍 auf eine Meldung = gebilligt/passt, ✅ = erledigt, Eintrag mit Zeit ins Archiv (Chef 08.11., 15:00; Probe 15:02 geht) | Perikles | M | startbar | – | – | – | B Werkzeuge | – |

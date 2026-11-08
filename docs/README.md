@@ -30,7 +30,7 @@ Inhaltsverzeichnis (122). Wer eine wesentliche Datei umbenennt oder anlegt, änd
 - [Storyplan](STORY-PLAN.md): Plot und Figuren je Kapitel, Kapitel 2 mit Karte und [Textentwurf](STORY-K2-ENTWURF.md)
 - [Story-Verzeichnis](STORY-REGELN.md): alle Spieltexte mit Marken; Kapitel 1 [Handlung](STORY-K1-HANDLUNG.md) und [Welt](STORY-K1-WELT.md), [Blende](STORY-BLENDE.md); Gesprächsvarianten [Dorf](STORY-VARIANTEN-K1.md) und [Wald, Höhle, Türen, Rast](STORY-VARIANTEN-K1-WALD.md)
 - Aus Artefakten übernommen (246.1): [Roter Faden](STORY-ROTER-FADEN.md), [Chronik-Texte Kapitel 1](STORY-CHRONIK-TEXTE-K1.md), [Kapitel-2-Landkarte](STORY-K2-LANDKARTE.md)
-- [Durchspielbogen](LISTE-DURCHSPIELBOGEN.md): Vorlage für Durchspiele (26); [Englisch-Korrekturliste](LISTE-ENGLISCH-338-1B.md) (338.1b, alte Fassung)
+- [Durchspielbogen](LISTE-DURCHSPIELBOGEN.md): Vorlage für Durchspiele (26); [Englisch-Korrekturliste](alt/LISTE-ENGLISCH-338-1B.md) (338.1b, alte Fassung; Regeln jetzt in `STORY-REGELN.md`)
 - [Figuren](LISTE-FIGUREN.md): festes Aussehen wiederkehrender Leute und Monster
 - [Gegenstände](LISTE-GEGENSTAENDE.md): alles, was es gibt, nach Art und Bezugsweg; erzeugt aus `tools/gegenstaende/gegenstaende.json` mit `tools/gegenstaende.py` (458)
 - [Bestiarium](LISTE-BESTIARIUM.md): Monsterarten mit Angriffen, Beute, Werten für das BRS (427)
