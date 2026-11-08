@@ -13,8 +13,8 @@ Probelauf heißt:
   kein Probelauf: `godot --headless --path <dir> -s res://tests/<datei>.gd` ohne Bildbefehl in der Testdatei (390a);
 - ein Ablauf auf GitHub, von Hand gestartet (407, 02.11.: 20 Filme zu 417 über `tom-probe-417.yml` ungezählt): `actions_run_trigger`
   (run_workflow) oder `gh workflow run`/API `…/dispatches`; Vorgang = erste Nummer der Commit-Nachricht oben auf dem Zweig,
-  sonst Nummer in Klammern im Namen des Ablaufs; mit Eingabe bild=nein oder film=nein kein Probelauf (390a); Neustart eines
-  Laufs (rerun) hält der Haken an;
+  sonst Nummer in Klammern im Namen des Ablaufs; auch ein Messlauf mit bild=nein (646, ersetzt 390a für den Bauserver),
+  nur ein Sammelbuild `claude/build-<n>` für den Gerätetest nicht; Neustart eines Laufs (rerun) hält der Haken an;
 - ein Push auf einen Zweig `claude/…`, der einen Ablauf auslöst (letzter Commit ohne „[skip ci]“, Änderung
   unter godot/, tools/blender348/, core/src/main/ oder am Workflow); der Vorgang ist die erste Nummer der Commit-Nachricht.
 Vorlage heißt: eine Meldung mit Bild, Film oder Datei zu dem Vorgang (Zeile im Zweig „meldungen“, schreibt `meldung.sh`, 383).
@@ -224,7 +224,7 @@ def push_lauf(befehl, cwd):
     wo = m.group(1) or (os.path.join(cwd, os.path.expanduser(cds[-1].strip("\"'"))) if cds else cwd)
     ziel = CI_ZWEIG.search(m.group(2))
     zweig = ziel.group(0).split(":")[-1] if ziel else git("rev-parse", "--abbrev-ref", "HEAD", cwd=wo).stdout.strip()
-    if not CI_ZWEIG.fullmatch(zweig):
+    if not CI_ZWEIG.fullmatch(zweig) or SAMMELBUILD.fullmatch(zweig):  # 646, 627: Sammelbuild für den Gerätetest ist keine Probe
         return None
     oben = git("rev-parse", "--verify", "-q", f"origin/{zweig}", cwd=wo).stdout.strip()
     if not oben:  # 627 (Jerry 07.11., 21:2x): neuer Zweig, Pfade gegen den Abzweig von origin/main statt „alle Abläufe“
@@ -356,9 +356,14 @@ def vorgang_aus_ref(ref, ablauf):
     return nr.group(1) if nr else (ref or ablauf or "?")
 
 
-def ohne_bild(eingaben):
-    """390a: Ablauf nur mit Messung ohne Bild (Eingabe bild=nein oder film=nein) ist kein Probelauf."""
+def ohne_film(eingaben):
+    """646 (Chef 08.11., 12:34: „646 grundsätzlich ja … Es sollte logisch sein“; ersetzt 390a für den Bauserver): jeder
+    Lauf auf dem Bauserver zählt als die eine Probe, auch ein Messlauf ohne Bild (bild=nein); ohne Film (bild=nein oder
+    film=nein) greift nur die Filmsperre 511 nicht."""
     return any(str(eingaben.get(k, "")).strip().lower() == "nein" for k in ("bild", "film"))
+
+
+SAMMELBUILD = re.compile(r"(?:refs/heads/)?claude/build-\d+")  # 646: Sammelbuild für den Gerätetest des Chefs ist keine Probe
 
 
 def handlauf_mcp(d):
@@ -367,9 +372,9 @@ def handlauf_mcp(d):
     methode = e.get("method", "")
     if methode in ("rerun_workflow_run", "rerun_failed_jobs"):
         return RERUN
-    if methode != "run_workflow" or ohne_bild(e.get("inputs") or {}):
+    if methode != "run_workflow" or SAMMELBUILD.fullmatch(str(e.get("ref") or "")):
         return None
-    return vorgang_aus_ref(e.get("ref"), str(e.get("workflow_id") or "")), "hand"
+    return vorgang_aus_ref(e.get("ref"), str(e.get("workflow_id") or "")), "hand", not ohne_film(e.get("inputs") or {})
 
 
 def handlauf_bash(befehl):
@@ -382,9 +387,10 @@ def handlauf_bash(befehl):
         ablauf = next((t for t in teile if not t.startswith("-")), "")
         ref = re.search(r"(?:--ref|-r)[=\s]+(\S+)", m.group(1))
         eing = dict(re.findall(r"(?:-f|-F|--field|--raw-field)[=\s]+[\"']?(\w+)=([^\s\"']*)", m.group(1)))
-        if ohne_bild(eing):
+        ref = ref.group(1).strip("\"'") if ref else ""
+        if SAMMELBUILD.fullmatch(ref):
             return None
-        return vorgang_aus_ref(ref.group(1).strip("\"'") if ref else "", ablauf), "hand"
+        return vorgang_aus_ref(ref, ablauf), "hand", not ohne_film(eing)
     m = API_LAUF.search(befehl)
     if m:
         # JSON (curl -d '{"ref":…}') oder Felder (gh api -f ref=…, -F, --field, --raw-field; D64.1)
@@ -392,9 +398,10 @@ def handlauf_bash(befehl):
             re.search(r"(?:-f|-F|--field|--raw-field)[=\s]+[\"']?ref=([^\s\"']+)", befehl)
         eing = dict(re.findall(r"\\?[\"'](bild|film)\\?[\"']\s*:\s*\\?[\"'](\w+)", befehl))
         eing.update(re.findall(r"(?:-f|-F|--field|--raw-field)[=\s]+[\"']?inputs\[(bild|film)\]=(\w+)", befehl))
-        if ohne_bild(eing):
+        ref = ref.group(1) if ref else ""
+        if SAMMELBUILD.fullmatch(ref):
             return None
-        return vorgang_aus_ref(ref.group(1) if ref else "", m.group(1)), "hand"
+        return vorgang_aus_ref(ref, m.group(1)), "hand", not ohne_film(eing)
     return None
 
 
@@ -733,14 +740,15 @@ def main():
         if hand == RERUN:
             anhalten(RERUN)
         if hand:
-            pruefen_und_zaehlen(*hand, wer, film=True)
+            nr, art, film = hand
+            pruefen_und_zaehlen(nr, art, wer, film=film)
         return
     if re.search(r"(push_files|create_or_update_file)$", d.get("tool_name") or ""):  # D75.1: Push über den GitHub-Server zählt wie git push
         try:
             e = d.get("tool_input") or {}
             zweig, nachricht = str(e.get("branch") or ""), str(e.get("message") or "")
             pfade = [f.get("path", "") for f in (e.get("files") or []) if isinstance(f, dict)] + ([e["path"]] if e.get("path") else [])
-            if CI_ZWEIG.fullmatch(zweig) and "[skip ci]" not in nachricht and "[ci skip]" not in nachricht \
+            if CI_ZWEIG.fullmatch(zweig) and not SAMMELBUILD.fullmatch(zweig) and "[skip ci]" not in nachricht and "[ci skip]" not in nachricht \
                     and any(x.startswith(CI_PFADE) for x in pfade) and (los := loest_aus(cwd, zweig, pfade, nachricht)):
                 m = re.match(r"\s*(?:\w+:\s*)?(" + NR + r")\b", nachricht)
                 return pruefen_und_zaehlen(m.group(1) if m else zweig, "ci", wer, los == FILMT)
@@ -779,7 +787,7 @@ def main():
         elif (hand := handlauf_bash(befehl)):
             if hand == RERUN:
                 anhalten(RERUN)
-            (nr, art), film = hand, True
+            nr, art, film = hand
         else:
             push = push_lauf(roh, cwd)
             if not push:
@@ -799,14 +807,17 @@ def pruefen_und_zaehlen(nr, art, wer, film=False, befehl=""):
     if n >= GRENZE:
         anhalten(f"621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für {nr} "
                  f"schon {n} Probelauf seit {'deinem Urteil ' + vorlage if vorlage else 'Beginn der Zählung'}. Kein weiterer Lauf: "
-                 f"jetzt vorlegen, was da ist (Datei in docs/chefsache/ansehen/, `meldung.sh --bild` oder `--film` mit „{nr}:“), "
+                 f"jetzt vorlegen, was da ist, auch ein Messlauf (646; Datei in docs/chefsache/ansehen/, Sitz und Aussehen `meldung.sh --bild`, Bewegung `--film`, mit „{nr}:“ und offenen Punkten als Vermerk), "
                  "Befund der Fehlerprüfung danach als Text (396). Passt die Probe nicht: Rückfrage mit Wegen und Kosten in docs/chefsache/entscheiden/, keine neue Runde (621 A). Erst das Urteil des Chefs (Eintrag im Vorgangsarchiv) gibt einen neuen "
                  "Lauf frei (407), oder Sokrates mit einem Archiveintrag „<Nr>, Läufe frei“ (480.1; Bitte an ihn per Vorrat, nie "
                  "Chefsache); bis dahin an einem anderen Vorgang weiter.")
     if sperre:
         anhalten(sperre)
     zaehlen(nr, wer, art + ("-film" if film else ""))
-    hinweis_geben(f"621 A: Probelauf {n + 1} von {GRENZE} für {nr}" + ("; danach vorlegen." if n + 1 == GRENZE else "."))
+    hinweis_geben(f"621 A: Probelauf {n + 1} von {GRENZE} für {nr}" + (
+        "; danach geht das Ergebnis an den Chef, auch mit offenen Punkten (Vermerk: Punkt, warum offen; 646): Sitz und "
+        "Aussehen als Bild, Bewegung als Film. Nachstellen am Rechner nur zur Ursache eines Fehlers, den der Chef gemeldet hat."
+        if n + 1 == GRENZE else "."))
 
 
 def hinweis_geben(text=""):

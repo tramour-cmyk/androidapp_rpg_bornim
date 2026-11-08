@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **646 Zeigen statt messen** (Perikles, Werkzeug): `probelauf.py` zählt jeden Lauf auf dem Bauserver als die eine Probe, auch Messläufe mit `bild=nein` (Filmsperre 511 greift dort nicht); Sammelbuild `claude/build-<n>` zählt nicht; Hinweis nach der Probe: Ergebnis an den Chef mit offenen Punkten, Sitz und Aussehen als Bild, Bewegung als Film. Regel in `ROLLE-ENTWICKLUNG.md`.
+
 - **Build 257 auf `main`** (04.11., 20:46, PR #184, vom Chef getestet und freigegeben): enthält 251, 252, 255; bestanden u. a. Hauptmenü und Lizenzen, Schriftgröße, Schlagbaum, „Monster beachten mich nicht“, Ausweichen der Wölfe, Kampftempo, Zugreihe, Rattenlohn, Wölfe nach Rattenkampf, Grimmzahn ohne Flucht, Stufengrenze 6, Heilkraut-Hinweis; offene Funde stehen in den Vorräten (t257 in Git).
 
 - **559 Wächter „wartet auf Chef“** (Perikles, Werkzeug): Fords Stundenlauf meldet Besitzer und Ford, wenn ein Vorgang auf den Chef wartet, obwohl seine Rückmeldung („Zu <Nr>“ mit Chefzeit oder Archiveintrag) neuer ist als die Chefsache-Datei (`regelcheck.py --rueckmeldung`).
