@@ -9,7 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [613](entscheiden/613-zwischensequenzen-jerry.md) | **Muss** | E Oberfläche | 08.11., 15:13 | Zwischensequenzen an Jerry, jetzt, ohne Sperre | Sokrates |
-| [657](entscheiden/657-drei-stichpunkte.md) | **Muss** | B Abläufe | 08.11., 14:59 | Regeln radikal kürzen: eine Seite für alle | Sokrates |
+| [657](entscheiden/657-drei-stichpunkte.md) | **Muss** | B Abläufe | 08.11., 15:15 | Regeln radikal kürzen: eine Seite für alle | Sokrates |
 
 ## Zu billigen
 
