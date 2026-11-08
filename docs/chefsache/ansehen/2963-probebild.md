@@ -1,5 +1,7 @@
 # 296.3 · Probebild der Siegerposen im Kampfort · Team Jerry · 08.11., 16:1x
 
+[Bild von 08.11., 16:18](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/08-1617-296.3-Jerry.png) (eingetragen von meldung.sh, Jerry)
+
 Kurz: drei Bilder aus dem Film zur Wahl der Siegerpose (Bild über Telegram). Der Kämpfer mit Schwert und Schild im Kampfort, Spiellicht, ohne Gegner und Menü; er dreht sich während jeder Bewegung einmal ganz herum. Sechs Kandidaten aus dem Bestand: Schwert & Schild Spott 1, 2, 3; Zweihandwaffe Spott A, B; Celebration aus dem Quaternius-Bewegungspaket. Auf den Bildern die ersten drei, je mitten in der Bewegung.
 
 Zu prüfen: Kämpfer mit Schwert und Schild, ganz im Bild, Zeile oben mit Nummer, Paket und Name der Bewegung, kein Menü.
