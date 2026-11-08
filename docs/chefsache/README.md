@@ -25,7 +25,6 @@ Nichts offen.
 | [586](ansehen/586-titel.md) | Titel der Rückfragen und Fenster so groß wie die der Schirme | Tom | 08.11., 20:25 |
 | [613](ansehen/613-film.md) | Film der Zwischensequenzen im Spiel (Godot) | – | 08.11., 21:10 |
 | [623.5](ansehen/6235-unsere.md) | Effektprobe, Fassung „unsere“ (am Rechner) | Jerry | 08.11., 17:59 |
-| [700](ansehen/700-platzwahl.md) | Platzwahl der Erschaffung ohne Rahmen | Tom | 08.11., 20:34 |
 
 ## Zu tun
 
@@ -49,7 +48,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 
-**Tom** – offen 97, Muss 72, startbar 1
+**Tom** – offen 97, Muss 72, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -148,16 +147,16 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 697 | M | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test |
 | 698 | K | Grafikstufen im Systemmenü mit Effekten (Niedrig/Mittel/Hoch, Automatisch per Leistungstes | wartet auf 623 (wartet) |
 | 699 | M? | Laden: Rückfrage „Alle gewöhnlichen verkaufen“ sagt „1 GEGENSTÄNDE:“ statt Einzahl (Tom, g | wartet auf Test/Build (gebaut) |
-| 700 | M? | Erschaffung, Platzwahl „Alle Spielstand-Plätze sind belegt“: Rahmen um jeden Platz gegen 5 | Chef (Datei in der Chefsache) |
+| 700 | M? | Erschaffung, Platzwahl „Alle Spielstand-Plätze sind belegt“: Rahmen um jeden Platz gegen 5 | startbar |
 | 701 | M | Gegenstandsfenster: Hinweis Obergrenze nur einmal statt je Grundwert (Chef t270.5, 08.11., | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test |
 
-**Jerry** – offen 69, Muss 62, startbar 38
+**Jerry** – offen 69, Muss 62, startbar 37
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 682 | M | Kampf flüssiger: Held geht zügig zum Angriff, Gegner laufen in weichen Bögen statt eckig g | startbar |
 | 702 | M | Wölfe: Anspringen nimmt dem Helden jeden Zug, Rudel hält ihn dauerhaft fest (Chef t270, 08 | in Arbeit bei Tuffy |
-| 703 | M | Ausweichen: Gegner bleibt am Ausweichplatz statt zurückzutappeln, 703 A (Chef t270.12, 08. | startbar |
+| 703 | M | Ausweichen: Gegner bleibt am Ausweichplatz statt zurückzutappeln, 703 A (Chef t270.12, 08. | wartet auf Test/Build (gebaut) |
 | 680 | M | Absturz: Testmenü Sprung Wald → Dorf, in der Schenke schon hakelig, nach Met immer zäher, | startbar |
 | 679 | M | Kampf: im ersten Testkampf (Kleriker gegen Wölfe) fehlten Befehle und Knöpfe (Gewinnen, Ve | startbar |
 | 565 | M | MARS: unten im Gruppenkasten sieht man nicht, welcher Held am Zug ist (Chef 04.11., 17:10, | startbar |
