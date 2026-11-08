@@ -738,3 +738,8 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | D80 | vor dem Umschalten: Automatik B nimmt jede in der Prüfliste genannte offene Zeile (D80.1); Fund-Absatz hält die Commit-Prüfung an bei Tom, Jerry über 15 KB (D80.2); dazu D80.3–D80.7 | ? | M | – | Perikles | erledigt |
 | D81 | Wächter 512.1 lässt „kein Film, kein Bild“ und „Bildabgleich“ noch als Nachweis durch (D81.1); D74 (b) in 4-spaltigen Vorräten (D81.2, entfällt mit 275.2) | ? | M | – | Perikles | erledigt |
 | 275.2 | Rückfrage: eine Liste statt Liste plus Vorräte, mit „wartet auf“ als Feld und Abschluss beim Build (Chef 07.11., 21:4x) · „jetzt“ 07.11., 21:55 | B Werkzeuge | M | 28,92 $ | Perikles | erledigt |
+| 620.2a | Abgleich alt nach `LISTE-ABGLEICH-ALT.md`: Dorf, Innenräume, Leute, Wald (aus 620.2) | B Abläufe | M | – | Tom | erledigt |
+| 621.2 | Toms Vorrat auf etwa 15 KB: Erledigtes und alte „Zu“-Absätze ins Git (Chef 07.11., 621 B) | B Abläufe | M | – | Tom | erledigt |
+| 620.2b | Abgleich alt nach `LISTE-ABGLEICH-ALT.md`: Höhle, Klang, Gegner, Bosse (aus 620.2) | B Abläufe | M | – | Jerry | erledigt |
+| 629 | Klopfen: wer hinter der Tür spricht, wessen Haus (Chef 611) | S Story | M | 1,82 $ | Homer | erledigt, Text [629.sprecher]; Bau 629.1 Tom |
+| 399 | Spielbare Godot-Fassung zuerst: Dorf begehbar, Kampf spielbar; Feintuning ruht (Chef 28.10., 12:34) · „jetzt“ 28.10., 12:34 | B Umzug | M | 12,45 $ | Perikles | erledigt |

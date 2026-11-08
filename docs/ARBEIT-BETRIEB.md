@@ -72,10 +72,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:13 05.11.: Neustart-Meldung Jerry 80f16571d (Übergabe da, Nachfolger „Jerry – 572 Urteil, Kampf-Build“); Nachtpause 468d: Nachfolger NICHT gestartet, startet `lauf.py` ab 7 Uhr. Alter Jerry `zop1` archiviert, 22,93 $ auf 572.
 - 23:05 04.11.: Nachtpause 468d. Tom `ArQnx` (475, nichts mehr startbar, idle) archiviert, 3,78 $ auf 475; Nachfolger Tom ab 7 Uhr (lauf.py). Jerry `2zop` (572) idle/wartet, unberührt. Kein Start bis 7 Uhr.
 - 22:28 04.11.: Neustart Tom 40ea02630 → `UCbYo7ArQnx` „475: Grün am Hals, Tusche an den Kaufleuten“ (vor 22:30, mit Hinweis 468d: Übergabe bis 23 Uhr); alter Tom `4jyCYv` archiviert, 21,98 $ auf 475 und 558.
-- 09:38 06.11.: Chef 09:36 „595, 601 ab Samstsg 2000 Uhr. 587 ja. 598 … in Sync mit Animationen … 602 ja, soviel rein wie geht“: in Jerrys Vorrat (Zu 595, 601, 587, 598), Dateien gelöscht; Build als 603 bei Tom. Jerry `LgDT` archiviert, 20,55 $ auf 548, 545, 562, 544, 547, 561, 536, 533, 532. Startsperre 09:38 Start Tom 603.
-- 08:10 06.11.: Chef 08:09 „andere noch wichtige Aufgaben … die nur Code betreffen … dann könnten ja … auch andere noch was machen“ (hebt 468c für heute auf): Startsperre 08:10 Start Jerry 548, 545, 562, 544 (Kampffehler aus Chef-Tests, nur Code), höchstens etwa 2 Stunden.
-- 08:08 06.11.: Chef 08:07 „Starte das, was am kostengünstigsten zu erledigen ist … das machst du jetzt“: Tom 591, 592 (nur Code, vorhandene Bewegungen und Klänge; 589, 590 brauchen Grafik). Startsperre 08:08 Start Tom, höchstens etwa 2 Stunden.
-- 07:19 06.11.: Chef 07:17: Rückläufer t266 liegen seit gestern 19 Uhr bei Sokrates eingetragen (Tom 589–592, Jerry 588, 593–601), also nach 287 startbar. Startsperre 07:19 Start Jerry „588, 594–601: Rückläufer t266“ (468e: die eine Entwicklersitzung des Tages, Übergabe nach etwa 3 Stunden). Befund an Perikles: `lauf.py` las die Startmarken 07:04 vom 05.11. als heutige („jünger als 20 Minuten“).
 - 20:06 07.11.: Startsperre 20:06 Start Diogenes, Homer, Perikles (lauf.py; Tom nicht gestartet: Pause Prüfliste, Sokrates-Stellungnahme an Chef-Sokrates statt Neustart)
 - 20:06 07.11.: Marke Tagesbericht 07.11. (lauf.py)
 - 20:06 07.11.: Marke Tagesbericht fehlt 07.11. (lauf.py)
@@ -86,3 +82,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:04 07.11.: Startsperre 21:04 Start Tom, Jerry, Diogenes, Homer, Tuffy (lauf.py)
 - 23:39 07.11.: Startsperre 23:39 Start Homer (lauf.py; Tom, Jerry, Diogenes nicht gestartet: nachts, Nachfolger „ab 7 Uhr“ bzw. „nur auf Zuruf“; Sokrates-Stellungnahme an Chef-Sokrates)
 - 23:39 07.11.: Marke Stellungnahme Sokrates 07.11. (lauf.py)
+- 09:06 08.11.: Startsperre 09:06 Start Diogenes, Perikles, Spike, Tuffy (lauf.py)
+- 09:06 08.11.: Marke Stellungnahme Sokrates 08.11. (lauf.py)
+- 09:06 08.11.: Marke Wächter 499 07.11. 21:31 (lauf.py)
+- 09:06 08.11.: Marke Wächter 630 07.11. 22:28 (lauf.py)
