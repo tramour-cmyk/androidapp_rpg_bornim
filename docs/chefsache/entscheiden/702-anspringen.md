@@ -33,7 +33,7 @@ Kurz: Anspringen nimmt dem Helden heute rund 70 % seiner Züge. Welche Regel sol
 - **Magier:** Ein Magier der Stufe 1 gewinnt gegen das Rudel bei jeder Regel selten (2 bis 21 %). Das ist eine eigene Frage; sie liegt als Befund bei Team Jerry (Vorgang 705), nicht bei 702.
 </details>
 
-**Folgerungen:** Nach deiner Antwort baut Team Jerry die gewählte Regel fest ein (mit Homers Texten); sie kommt in den nächsten Sammelbuild.
+**Folgerungen:** Nach deiner Antwort baut Team Jerry die gewählte Regel dauerhaft ein (mit Homers Texten); sie kommt in den nächsten Sammelbuild.
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/07f2840a8 (Messung `godot/tests/anspringen_702.gd` am Rechner, 08.11., 21:49)
 
