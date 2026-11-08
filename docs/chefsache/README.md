@@ -25,6 +25,7 @@ Nichts offen.
 | [613](ansehen/613-tusche.md) | Zwischensequenzen mit Tusche: Intro und Tempelszene | – | 08.11., 17:14 |
 | [623.5](ansehen/6235-unsere.md) | Effektprobe, Fassung „unsere“ (am Rechner) | Jerry | 08.11., 17:59 |
 | [630](ansehen/630-schirme.md) | Erschaffung und Menü Held mit Held, Knopf in einer Zeile | Tom | 08.11., 16:52 |
+| [656](ansehen/656-umhang.md) | Umhang: woher die Beule unter dem Schwertarm kommt | Tom | 08.11., 18:15 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
@@ -196,7 +197,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 628 | M | Lohn: EP und Gold steigen nicht mit der Monsterstufe über der Gebietsstufe (over fehlt, al | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test |
 | 289 | K | MARS: Wechsel „halber Zug“ missverständlich; Bewegung und Aktion im Kästchen zeigen? (Chef | ruht |
 | 296.2 | M | MARS spielnötig: Beute/Erfahrung, Fliehen, Eröffnung, Zustände, eigene Ausrüstung, Schalte | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test |
-| 296.3 | K | MARS-Schmuck: Todesschrei, Flucht/Zerfall, Zustände gezeichnet, Siegerpose (Chef 23.10., 1 | wartet auf 656 (startbar) |
+| 296.3 | K | MARS-Schmuck: Todesschrei, Flucht/Zerfall, Zustände gezeichnet, Siegerpose (Chef 23.10., 1 | wartet auf 656 (in Arbeit) |
 | 344.2 | K | Kampf mit der Fackel: Feuerschaden, Verscheuchen, beide Systeme (Chef 23.10., 18:27) | ruht |
 | 168.1 | K | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | wartet auf 38 (startbar) |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Standbild 2, Bau) | ruht |
