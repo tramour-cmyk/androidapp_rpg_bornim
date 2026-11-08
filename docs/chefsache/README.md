@@ -20,7 +20,6 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [613](ansehen/613-tusche.md) | Zwischensequenzen mit Tusche: Intro und Tempelszene | – | 08.11., 19:10 |
 | [623.5](ansehen/6235-unsere.md) | Effektprobe, Fassung „unsere“ (am Rechner) | Jerry | 08.11., 17:59 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
@@ -48,11 +47,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 
-**Tom** – offen 98, Muss 73, startbar 9
+**Tom** – offen 98, Muss 73, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 613 | M | Zwischensequenzen neu wie alt: leichte Bewegungen, Signatur, Tusche (mit 302.3), an Spike | Chef (Datei in der Chefsache) |
+| 613 | M | Zwischensequenzen neu wie alt: leichte Bewegungen, Signatur, Tusche (mit 302.3), an Spike | startbar |
 | 664 | M | Halbes Haus: Haus des alten Kael und Hütte der Kräuterhexe im tiefen Flüsterwald nur halb | wartet auf Test/Build (gebaut) |
 | 656 | M | Umhang Kämpfer mit Beulen, große Beule unter dem Schwertarm: woher, weg (Chef 08.11., 14:5 | startbar |
 | 605 | M | Ausrüstung: leeres Kopffeld, Auswahl zeigt falsch „Obergrenze“, kein Zurück; Stück aus der | wartet auf Test (Build 270) |
