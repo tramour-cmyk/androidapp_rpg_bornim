@@ -1,0 +1,60 @@
+# 644 · Gegenstandskatalog: Aufbau, eine Stelle für alle Gegenstände · Sokrates · 08.11., 12:5x
+
+Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/main/tools/gegenstaende.py
+
+**Frage:** Aufbau des Gegenstandskatalogs wie unten, bevor Zahlen gerechnet und gebaut werden?
+**Votum Sokrates: ja**, nach Gegenprüfung durch einen Helfer (lief 12:50 in der Vorgängersitzung; der Nachfolger lässt sie wiederholen und hängt den Befund an, bevor du entscheidest).
+**Berührt:** 458, 478, 469, 481, 447, Bestiarium, Laden, Beute, Simulation 444.
+
+## Grundsatz: jede Angabe an genau einer Stelle
+
+| Stelle | Was dort steht | Was dort nicht steht |
+|---|---|---|
+| **Gegenstandskatalog** (`tools/gegenstaende/gegenstaende.json`, heute 458) | jedes Ding im Spiel, je Stück alle Werte: Waffen, Schilde, Rüstungsteile, Schmuck, Fokus, Licht, Tränke, Bomben und Wurfgeschosse, Nahrung, Rohstoffe und Zerlegeteile, Werkzeug, Handlungsgegenstände, Einzelstücke | Formeln, Monster |
+| **Regelwerte** (`tools/sim444/werte.json`) | nur Formeln und Faktoren: Schaden = …, Abzug = …, Faktor je Güte, Zustand, Gegenstandsstufe, Seltenheit → Zahl der Zusatzeigenschaften, Verkaufsanteil | keine Werte je Stück (heute doppelt: Waffengruppen, Rüstungen, Kampftränke mit Preisen) |
+| **Bestiarium** (`LISTE-BESTIARIUM.md`) | je Monster, was es fallen lässt und was Zerlegen bringt, nur als Kennung aus dem Katalog | Preis, Wirkung, Name des Dings |
+| **Rezepte** (heute verstreut: Morwen, Lehrmeister, 447) | Zutaten → Ergebnis, nur Kennungen | Werte |
+
+Simulation, Laden, Beute, Tasche lesen alle aus dem Katalog. Das Werkzeug erzeugt daraus die Seite zum Ansehen (mit Bild je Stück, je Art nur die Spalten, die dort gelten).
+
+## Spalten
+
+**Für alle Arten**
+- Kennung, Name (de, en), Art, Text (ein Satz, Homer), Bild (aus dem Modell im Spielstil gerendert), Modell mit Quelle und Lizenz
+- Gegenstandsstufe, Seltenheit (gewöhnlich bis göttlich, Farbe), Einzelstück ja/nein (Grundform)
+- Preis (Grundpreis; Verkauf über den Anteil in den Regelwerten), verkäuflich, ablegbar (Handlungsgegenstände nicht)
+- Bezug: Laden (welcher), Beute (welches Monster), Zerlegen, Sammeln (wo), Herstellen (Rezept), Fund (Ort), Handlung (Quest)
+- Verwendung: wofür gut (Rezept, Quest, Händler, der es kauft), damit nichts sinnlos in der Tasche liegt
+- Stapel (wie viele je Fach); Gewicht nur, falls Traglast kommt (heute keine)
+- Klang beim Aufheben, Anlegen, Benutzen (Verweis Klangliste)
+
+**Anlegbares** (Waffe, Schild, Rüstungsteil, Schmuck, Fokus, Licht)
+- Platz (Kopf, Oberkörper, Arme, Beine, Umhang, Hals, Finger, Haupthand, Nebenhand, beide Hände)
+- Voraussetzungen: Mindeststufe; bei Besonderem zusätzlich Grundwert, Fertigkeit, Pfad, Quest, Ruf
+- Güte (Normal, Gut, Meisterhaft; Faktor in den Regelwerten), Zustand (nutzt sich ab), Reparatur mit (Schmieden, Lederarbeit, Runenkunde) und Rang
+- Zusatzeigenschaften (nach Seltenheit 0–5; fest bei Einzelstücken, zufällig bei Beute); Fertigkeitsbonus nur ab episch, nur solange getragen, mit Preis (Malus, Fluch, Verschleiß; Chef 12:36)
+- Tragart unterwegs (417), innen ausgeblendet; sichtbarer Effekt ab episch (458.3, 415)
+
+**Waffe:** Waffenart (gibt Grundschaden und Grundwert aus den Regelwerten), Fertigkeit, die zählt; Schaden (Abweichung von der Art), Tempo, Parieren, Durchschlag, Reichweite (nah, Stange, fern), Schadensart (Klinge, stumpf, Stich, Feuer …), ein- oder zweihändig, Munition
+**Schild:** Schildwert (Abzug), Blockgüte (406.1), Wirkung auf Ausweichen
+**Rüstungsteil:** Rüstungswert (Abzug), Klasse (leicht, mittel, schwer: welche Fertigkeit zählt), Malus (Schleichen, Zauber, Ausweichen)
+**Schmuck, Fokus:** Zusatzeigenschaften; Fokus: Schule, Zauberkraft
+**Licht:** Brenndauer, Leuchtweite (344)
+**Trank, Bombe, Wurf:** Wirkung (Heilung, Schaden, Zustand), Stärke nach Fertigkeit (Kräuterkunde, Alchemie; Formel in den Regelwerten), Dauer in Runden, Ziel (selbst, einer, Fläche), Kosten im Zug, Nebenwirkung (für andere giftig, 481)
+**Nahrung:** Wirkung (Rast, Ausdauer, Vorteil vor dem Kampf), roh/gekocht, Verderb nur als Vorteil (frisch gibt mehr)
+**Rohstoff, Zerlegeteil:** von welchen Monstern (Rückverweis aus dem Bestiarium erzeugt), Güte des Teils (nach Rang im Zerlegen)
+
+## Was das Werkzeug prüft
+- jede Kennung aus Bestiarium, Rezepten, Läden und Code steht im Katalog (heute fehlen u. a. Wolfszähne, Spinnendrüse, kleines Fell, Schutzumhang)
+- kein Stück ohne Bild, Text, Preis, Stufe, wenn es in Kapitel 1 erhältlich ist
+- jeder Rohstoff hat eine Verwendung; jedes Rezept aus Kapitel 1 ist mit Zutaten aus Kapitel 1 herstellbar
+- Preise passen zum Gold aus Kapitel 1 ohne Grinden (Simulation 444)
+- keine Werte je Stück in den Regelwerten
+
+## Auswertung
+- **Stärkstes Gegenargument:** Umfang; mit Kapitel 2–7 hunderte Stücke und viele Spalten. **Entkräftet:** Spalten gelten für alle, gefüllt wird nur, was Kapitel 1 braucht; die Seite zeigt je Art nur ihre Spalten; Prüfungen macht das Werkzeug.
+- „Verbesserung +1“ der alten Fassung (`Gear.plus`): Vorschlag, in Güte und Runenkunde (Verzaubern) aufgehen lassen, sonst vier Achsen (Stufe, Güte, Seltenheit, Verbesserung).
+- Zusatzeigenschaften alt (`Gear.kt` Affix) sind SRD-Werte und werden auf BRS übertragen.
+
+## Folgerungen
+„644 ja“: Aufbau gilt; Jerry rechnet die Zahlen (Tempo, Parieren, Durchschlag, Güte, Stufe) nach 469 in 444, das Werkzeug (`gegenstaende.py`) bekommt die Spalten und Prüfungen, Werte je Stück wandern aus `werte.json` in den Katalog. „nein“ oder Änderungen: Entwurf wird angepasst.

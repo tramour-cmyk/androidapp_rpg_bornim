@@ -2,7 +2,7 @@
 
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
-**Übergabe (07.11., 22:0x, `session_01Hmoj76saGTQ5LicSQ4JBof`):** t266, t268 auf main; 589–627 angelegt; 592, 478 jetzt, 499 jetzt, 621 A B D, 623 A–F, 626, 142.4, 275.2 entschieden; Inventur 07.11. (281 → 225 offen); Stopp für die neue Vorgangsliste (275.2, Perikles Hoch, Diogenes Quertest, Chef 22:0x „so machen“). Kosten auf: 494, 587, 512, 592, 603, 620, 621, 623, 626, 275.2, 478, 142. Nachfolger: Sokrates – nach dem Umschalten 275.2: Auswertung 347 mit Diogenes, 508.
+**Übergabe (08.11., 12:5x, `session_01Hmoj76mdq7nhTC9BDJe8YH`):** Stellungnahmen 406.1, 620.1; entschieden 406.1 C, 620.1 B (Sperre nach Aufräumen), 644 ja, 645 ja, 646 ja nach Sinn; 630 Lauf frei; 499 Bilder an den Chef, Urteil 12:41 an Tom; 644 Entwurf in `entscheiden/644-gegenstandskatalog.md` (Gegenprüfung durch Helfer noch anhängen, vor der Vorlage wiederholen); 647 an Perikles (Abgleich alt vor dem Bauen); Lehre 360 Grad. Kosten auf: 406.1, 620.1, 630, 644, 645, 646, 647, 499. Nachfolger: Sokrates – Chefrunde: alle Vorgänge beim Chef außer dem Bildtest (08.11.).
 
 ## Zeilen
 
