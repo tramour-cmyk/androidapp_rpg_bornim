@@ -168,8 +168,10 @@ internal abstract class IntroPainter : BridgePainter(true) {
         if (!tusche || w < 3.0) return
         val len = Math.hypot(x1 - x0, y1 - y0); if (len < 3.0) return
         val ux = -(y1 - y0) / len; val uy = (x1 - x0) / len
-        for ((k, pen) in listOf(side to heavy, -side to px)) {
-            val o = (w / 2 + minOf(pen, inkMax) * 0.25) * k
+        // 613 (Prüfer 15:45: thin posts looked doubled): the pen at most 0.4 of the rod, lying on its edge, not beside it
+        for ((k, pen0) in listOf(side to heavy, -side to px)) {
+            val pen = minOf(pen0, maxOf(1.0, 0.4 * w))
+            val o = (w / 2) * k
             inkStroke(x0 + ux * o, y0 + uy * o, x1 + ux * o, y1 + uy * o, pen)
         }
     }

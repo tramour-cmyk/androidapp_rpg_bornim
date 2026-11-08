@@ -54,6 +54,9 @@ fun renderBridgeProbe() {
  * 613 / 302.3: [make]'s painter with the line of ink: the same picture is painted once without it, and how lit each place of
  * that picture is ([lightMap]) tells the pen where to grow fine.
  */
+/** How lit a picture is, 0..1 per pixel ([W] × [H]): [blur] over about 9 px for strokes in the open, [sharp] for the inside of a shape. */
+internal class LightMap(val blur: FloatArray, val sharp: FloatArray)
+
 internal fun <P : BridgePainter> withInk(make: () -> P): P {
     val plain = make().paint()
     return make().apply { tusche = true; litMap = lightMap(plain) }
@@ -63,13 +66,14 @@ internal fun <P : BridgePainter> withInk(make: () -> P): P {
  * How lit each pixel of [img] is (0..1), blurred over about 9 px so one bright pebble does not cut a line: dark night is 0,
  * moonlit plaster about 0.2, the warm light of a window or a flame 1.
  */
-internal fun lightMap(img: BufferedImage): FloatArray {
+internal fun lightMap(img: BufferedImage): LightMap {
     val w = img.width; val h = img.height
     val lum = FloatArray(w * h)
     for (y in 0 until h) for (x in 0 until w) {
         val c = img.getRGB(x, y)
         val l = (0.3 * ((c shr 16) and 0xFF) + 0.55 * ((c shr 8) and 0xFF) + 0.15 * (c and 0xFF)) / 255.0
-        lum[y * w + x] = ((l - 0.16) / 0.34).coerceIn(0.0, 1.0).toFloat()
+        // 613 (Prüfer 15:45: the moonlit side kept its full line): moonlit plaster and stone count as half lit already
+        lum[y * w + x] = ((l - 0.10) / 0.30).coerceIn(0.0, 1.0).toFloat()
     }
     val r = 4
     val tmp = FloatArray(w * h); val out = FloatArray(w * h)
@@ -77,7 +81,7 @@ internal fun lightMap(img: BufferedImage): FloatArray {
         for (x in 0 until w) { tmp[y * w + x] = s / (2 * r + 1); s += lum[y * w + (x + r + 1).coerceAtMost(w - 1)] - lum[y * w + (x - r).coerceAtLeast(0)] } }
     for (x in 0 until w) { var s = 0f; for (y in -r..r) s += tmp[y.coerceIn(0, h - 1) * w + x]
         for (y in 0 until h) { out[y * w + x] = s / (2 * r + 1); s += tmp[(y + r + 1).coerceAtMost(h - 1) * w + x] - tmp[(y - r).coerceAtLeast(0) * w + x] } }
-    return out
+    return LightMap(out, lum)
 }
 
 internal open class BridgePainter(val detail: Boolean = true) {
@@ -171,13 +175,13 @@ internal open class BridgePainter(val detail: Boolean = true) {
     /** The heaviest line in px (at 15 px a corner post looked swollen, 302.3). */
     var inkMax = 12.0
     /** How lit each pixel of the finished picture is (0..1), [W] × [H], blurred; null: everything counts as dark. */
-    var litMap: FloatArray? = null
+    var litMap: LightMap? = null
 
-    /** How lit the picture is at screen point (x, y), 0..1. */
-    fun litAt(x: Double, y: Double): Double {
+    /** How lit the picture is at screen point (x, y), 0..1, blurred ([sharp]: the pixel itself). */
+    fun litAt(x: Double, y: Double, sharp: Boolean = false): Double {
         val m = litMap ?: return 0.0
         val ix = x.toInt().coerceIn(0, W - 1); val iy = y.toInt().coerceIn(0, H - 1)
-        return m[iy * W + ix].toDouble()
+        return (if (sharp) m.sharp else m.blur)[iy * W + ix].toDouble()
     }
 
     /** A pen [w] metres wide at depth [z], in px. */
@@ -191,6 +195,9 @@ internal open class BridgePainter(val detail: Boolean = true) {
         if (!tusche || px <= 0.0) return
         val b = s.bounds2D
         if (maxOf(b.width, b.height) < 3.0) return
+        // 613 (Prüfer 15:45: small firs drowned in ink, a bench end became a black bar): never heavier than an eighth of the thing
+        val pen = px.coerceAtMost(maxOf(1.0, 0.12 * minOf(b.width, b.height)))
+        inShape = s
         val it = s.getPathIterator(null, 0.6)
         val c = DoubleArray(6)
         var mx = 0.0; var my = 0.0; var lx = 0.0; var ly = 0.0
@@ -198,12 +205,30 @@ internal open class BridgePainter(val detail: Boolean = true) {
         while (!it.isDone) {
             when (it.currentSegment(c)) {
                 java.awt.geom.PathIterator.SEG_MOVETO -> { mx = c[0]; my = c[1]; lx = mx; ly = my }
-                java.awt.geom.PathIterator.SEG_LINETO -> { inkPiece(lx, ly, c[0], c[1], px, lit, a); lx = c[0]; ly = c[1] }
-                java.awt.geom.PathIterator.SEG_CLOSE -> { inkPiece(lx, ly, mx, my, px, lit, a); lx = mx; ly = my }
+                java.awt.geom.PathIterator.SEG_LINETO -> { inkPiece(lx, ly, c[0], c[1], pen, lit, a); lx = c[0]; ly = c[1] }
+                java.awt.geom.PathIterator.SEG_CLOSE -> { inkPiece(lx, ly, mx, my, pen, lit, a); lx = mx; ly = my }
             }
             it.next()
         }
+        inShape = null
         g.stroke = stroke0; g.paint = paint0
+    }
+
+    /** The shape whose outline is being inked: its light is read just inside it, on its own surface. */
+    private var inShape: java.awt.Shape? = null
+
+    /**
+     * How lit the thing is beside the piece from (ax, ay) to (bx, by): inside the shape being inked, 3 px in from its edge, so a
+     * dark figure before a bright door keeps its line and a lit wall loses it (Prüfer 15:45: backlit figures had none);
+     * a stroke in the open reads the blurred light at its middle.
+     */
+    private fun litBeside(ax: Double, ay: Double, bx: Double, by: Double): Double {
+        val mx = (ax + bx) / 2; val my = (ay + by) / 2
+        val s = inShape ?: return litAt(mx, my)
+        val len = Math.hypot(bx - ax, by - ay).coerceAtLeast(1e-6)
+        val nx = -(by - ay) / len; val ny = (bx - ax) / len
+        for (d in listOf(3.0, -3.0, 1.5, -1.5)) if (s.contains(mx + nx * d, my + ny * d)) return litAt(mx + nx * d, my + ny * d, sharp = true)
+        return litAt(mx, my)
     }
 
     /** One straight stroke of ink from (x0, y0) to (x1, y1), [px] wide in the dark, split where the light changes along it. */
@@ -221,7 +246,7 @@ internal open class BridgePainter(val detail: Boolean = true) {
         for (k in 0 until n) {
             val ta = k / n.toDouble(); val tb = (k + 1) / n.toDouble()
             val ax = x0 + (x1 - x0) * ta; val ay = y0 + (y1 - y0) * ta; val bx = x0 + (x1 - x0) * tb; val by = y0 + (y1 - y0) * tb
-            val l = (litAt((ax + bx) / 2, (ay + by) / 2) + lit).coerceIn(0.0, 1.0)
+            val l = (litBeside(ax, ay, bx, by) + lit).coerceIn(0.0, 1.0)
             if (l >= 0.5) continue
             // fine where the light falls, heavy in the shadow; a little uneven, as a pen drawn by hand
             val wob = 0.85 + 0.3 * rnd((ax * 7).toInt() + (ay * 3).toInt() * 131, 613)

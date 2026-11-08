@@ -150,7 +150,11 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
     /** ink: round a polygon of the room, edge by edge as [inkR]. */
     fun inkRoomPoly(w: Double, vararg q: Triple<Double, Double, Double>, lit: Double = 0.0) {
         if (!tusche) return
-        for (i in q.indices) inkR(w, q[i], q[(i + 1) % q.size], lit)
+        // 613 (Prüfer 15:45: the near pew end, seen edge-on, became a black bar beside the pew): one shape, clipped before the
+        // eye like its fill, its pen no heavier than an eighth of it
+        val shape = room(*q) ?: return
+        val z = q.minOf { cz(it.first, it.third) }.coerceAtLeast(0.3)
+        inkShape(shape, inkPx(w, z), lit)
     }
     /** A closed polygon on the screen (x, y pairs), the same as [poly] fills, for the pen. */
     fun polyPath(vararg p: Double) = Path2D.Double().apply { moveTo(p[0], p[1]); for (i in 2 until p.size step 2) lineTo(p[i], p[i + 1]); closePath() }
