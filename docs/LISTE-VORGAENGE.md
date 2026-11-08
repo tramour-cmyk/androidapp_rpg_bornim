@@ -22,7 +22,7 @@
 | 569 | Baumkronen ohne erkennbare Tuschelinie, „ein einziger Brei“ (Chef 04.11., 19:44, Bild 558 Probe 4) | Tom | M | wartet, Läufe frei (gezählter Push ohne Lauf) | Sokrates | – | – | A Spiel | – |
 | 568 | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | Tom | M? | ruht | – | – | – | A Spiel | – |
 | 558 | Robe des Magiers zu glatt, wie eine blaue Fläche: Stoff lebendiger (Falten, Schatten, Schmutz, Abnutzung) (Chef 04.11., 11:31, Bild) | Tom | M | zu testen | – | – | 269 | E Figuren | 96,33 $ |
-| 531 | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere sichtbar mit der Fackel, Ruhebewegungen (Chef 03.11., 23:42) | Tom | M | in Arbeit, Probebild Garrick auf dem Bauserver (Zweig auf main nachgezogen) | – | claude/tom-531-film | – | A Spiel | 12,96 $ |
+| 531 | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere sichtbar mit der Fackel, Ruhebewegungen (Chef 03.11., 23:42) | Tom | M | in Arbeit, Probebild 288 nicht vorlegbar (Zu 531) | – | claude/tom-531-film | – | A Spiel | 12,96 $ |
 | 522 | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Chef 03.11., 23:33) | Tom | M | zu testen | – | claude/tom-522-waffen | 269 | A Spiel | – |
 | 521 | Build 249, Ausrüstung: Wechselschirm eines Platzes wie alt (Bild, Art und Wert, ▲/▼, „nicht tragbar“ matt) (Chef 03.11., 23:23, Bild) | Tom | M | zu testen | – | claude/tom-521-tasche | 269 | A Spiel | – |
 | 519 | Build 249, Ausrüstung: Gegenstandsfenster („Göttlicher Ring des Eisernen Richters“) passt nicht auf den Bildschirm, rechts abgeschnitten (Chef 03.11., 23:13, Bild) | Tom | M | zu testen | – | claude/tom-521-tasche | 269 | A Spiel | 21,91 $ |
