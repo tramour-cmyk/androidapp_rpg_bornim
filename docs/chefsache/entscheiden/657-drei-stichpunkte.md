@@ -6,7 +6,7 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/main/CLA
 
 **Frage:** Ersetzt die Seite unten `CLAUDE.md` (heute mit den Rollendateien etwa 75 KB, rund 300 Regeln)? Rollendateien schrumpfen auf ihre Zeile in der Tabelle plus Handwerk; alles Übrige geht nach `docs/alt/` (in Git). `DESIGN-STIL.md` bleibt als Nachschlagewerk für Einzelheiten.
 
-**Votum Sokrates: ja, mit drei Bedingungen (unten).**
+**Votum Sokrates (nach Diogenes, 16:3x): Richtung ja, diese Fassung noch nicht; vier Schritte (unten).**
 
 ---
 
@@ -79,11 +79,12 @@ Jeden gibt es einmal. Wer du bist, sagt deine erste Nachricht. Braucht ein ander
 
 **Soll noch einer draufschauen?** Ja, Diogenes, vor deinem „ja“: Risiko 1 und 2 prüfen (geht etwas Entschiedenes oder Handwerk verloren?), etwa eine Sitzung.
 
-## Votum
-**657 ja mit drei Bedingungen:** (a) Diogenes prüft vorher auf Verlorenes; (b) die Übergaben bekommen Werkzeuge (Antwort ins Archiv in einem Befehl, 658, Nummern), sonst bleibt die Hälfte des Nutzens liegen; (c) Formhaken fallen mit. Ohne (b) wäre mein Votum „noch nicht“: kürzer, aber dieselben Pannen.
+## Votum (neu 08.11., 16:3x, nach der Prüfung Diogenes unten)
+**Richtung ja, diese Fassung noch nicht.** Ich schließe mich Diogenes an: der Entwurf widerspricht 646 und 621 A, lässt das Rechtliche (348.12c, SRD-Hinweis, App-Kennung) und rund 30 Entscheidungen ohne anderen Ort fallen, und vier Werkzeuge lesen aus den Dateien, die schrumpfen sollen. „In einem Schritt“ (meine alte Folgerung) hätte den Betrieb angehalten.
+**Stärkstes Gegenargument:** jede Woche mit 75 KB Regeln kostet Guthaben und Aufmerksamkeit. Darum kein Warten auf Vollkommenheit, sondern vier kurze Schritte nacheinander, jeder für sich nützlich.
 
 ## Folgerungen
-„657 ja“: Diogenes prüft den Entwurf gegen Archiv und Rollendateien; danach schreibt Perikles die Seite (Wortlaut ändern nur mit dir), Handwerk in `LISTE-…`, Rest nach `docs/alt/`, Formhaken raus, `vorgang.py antwort`; in einem Schritt.
+„657 ja zur Reihenfolge“: (1) Perikles baut die Werkzeuge an den Übergaben (Antwort ins Archiv und Vorlage weg in einem Befehl, 658, Nummern ohne Doppelvergabe); (2) Perikles korrigiert den Entwurf nach Diogenes 2 und 3, Rechtliches wörtlich, je Rolle „erledigt, wenn“; (3) Liste der Werkzeuge, die `CLAUDE.md` und `ROLLE-…` lesen, und der Haken, die nur Form prüfen (Diogenes 4, 5); (4) Umbau, du siehst die Seite vorher; Diogenes misst eine Woche vorher gegen nachher, was du als Erster findest. Ein Haken misst die Seite, sonst wächst sie wieder.
 
 ## Prüfung Diogenes (08.11., 15:3x; Auftrag Chef 15:20: „das ganze Konzept … gut durchprüfen … noch nicht zur Umsetzung“)
 
