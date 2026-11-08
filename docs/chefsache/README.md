@@ -16,7 +16,6 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [499](ansehen/499-schild-erschaffung.md) | Schild in der Erschaffung: Sitz am Rücken ansehen | – | 08.11., 12:35 |
 | [563](ansehen/563-zustaende.md) | Zustandsschilder über Gegnern im Stil der Ansage | Jerry | 08.11., 06:52 |
 | [565](ansehen/565-am-zug.md) | Wer am Zug ist, im Gruppenkasten | Jerry | 08.11., 06:52 |
 | [630](ansehen/630-schirme.md) | Restliche Schirme ohne Kasten | – | 08.11., 10:11 |
@@ -50,12 +49,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 
-**Tom** – offen 98, Muss 79, startbar 6
+**Tom** – offen 98, Muss 79, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 625 | M | Sammelbuild 269: alle fertigen Zweige beider Teams (35 warten), Prüfliste als Weg durchs S | wartet auf Test (Build 269) |
-| 499 | M | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 | Chef (Datei in der Chefsache) |
+| 499 | M | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 | startbar |
 | 635 | M | Lyra fehlt als Figur im Tempel und in der Höhle: Kennung lyra_temple/lyra_cave, gebaut wir | wartet auf Test/Build (gebaut) |
 | 605 | M | Ausrüstung: leeres Kopffeld, Auswahl zeigt falsch „Obergrenze“, kein Zurück (Chef 06.11., | wartet auf Test (Build 269) |
 | 581 | M | Ausrüstung: Seite breiter als der Schirm, Reiter springen (Abgleich 512b) | wartet auf Test (Build 269) |
