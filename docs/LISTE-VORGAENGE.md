@@ -19,7 +19,7 @@
 | 583 | Textkasten: ▼ liegt im Text, erzählter Text ohne i-Punkte und nicht schräg (Abgleich 512b) | Tom | M | gebaut, Geprüft an: 7eaef68b4 (textkasten_583 lokal) | – | claude/tom-583-textkasten | – | A Spiel | 5,99 $ |
 | 584 | Kein halbfetter Schnitt: Köpfe und Titel in Erschaffung, Held, Chronik, Karte, System, Brett, Test nicht hervorgehoben wie alt (Abgleich 512b) | Tom | K | wartet | 630 | – | – | A Spiel | – |
 | 585 | Menüs Kleinigkeiten: Titelumbruch Hauptmenü, Knopf Lizenzen, Bild in Rückfrage Wegwerfen, Test „Variante“ (Abgleich 512b) | Tom | K | wartet | 630 | – | – | A Spiel | – |
-| 569 | Baumkronen ohne erkennbare Tuschelinie, „ein einziger Brei“ (Chef 04.11., 19:44, Bild 558 Probe 4) | Tom | M | startbar | – | – | – | A Spiel | – |
+| 569 | Baumkronen ohne erkennbare Tuschelinie, „ein einziger Brei“ (Chef 04.11., 19:44, Bild 558 Probe 4) | Tom | M | wartet, Läufe frei (gezählter Push ohne Lauf) | Sokrates | – | – | A Spiel | – |
 | 568 | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | Tom | M? | ruht | – | – | – | A Spiel | – |
 | 558 | Robe des Magiers zu glatt, wie eine blaue Fläche: Stoff lebendiger (Falten, Schatten, Schmutz, Abnutzung) (Chef 04.11., 11:31, Bild) | Tom | M | gebaut, Geprüft an: 63ac71762 (Probe 5, Chef 04.11., 19:48 „grundsätzlich passt es“; in 269) | – | – | – | E Figuren | 96,33 $ |
 | 531 | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere sichtbar mit der Fackel, Ruhebewegungen (Chef 03.11., 23:42) | Tom | M | startbar | – | – | – | A Spiel | 12,96 $ |
