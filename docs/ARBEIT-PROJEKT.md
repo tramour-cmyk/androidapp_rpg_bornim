@@ -2,9 +2,9 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `d65b36078` (08.11., 19:06)
+**Gelesen bis:** `7570d705d` (08.11., 20:06)
 
-**Übergabe (08.11., 19:06):** 695 erledigt: Antwort auf eine Frage des Chefs ohne Handlung für ihn nur als Telegram, nie als Datei in `ansehen/` (`chefsache/README.md`, So geht's); Chefsache-Haken 63 nennt den Fall als „Keine Chefsache“. Nachfolger: Perikles – 338.1: Wochenziel 09.11. ab 10:00
+**Übergabe (08.11., 20:06):** M? entschieden: 677 M, 698 K bis zum Wochenziel (Begründung `ROLLE-PROJEKT.md`). Nachfolger: Perikles – 338.1: Wochenziel 09.11. ab 10:00
 
 ## Einzelheiten
 
