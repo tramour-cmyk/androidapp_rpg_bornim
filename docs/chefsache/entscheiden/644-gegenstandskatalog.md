@@ -2,8 +2,8 @@
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/main/tools/gegenstaende.py
 
-**Frage:** Aufbau des Gegenstandskatalogs wie unten, bevor Zahlen gerechnet und gebaut werden?
-**Votum Sokrates: ja**, nach Gegenprüfung durch einen Helfer (lief 12:50 in der Vorgängersitzung; der Nachfolger lässt sie wiederholen und hängt den Befund an, bevor du entscheidest).
+**Frage:** (A) Grundsatz „jede Angabe an einer Stelle“ wie unten, **samt Ablösung** der Wege, aus denen das Spiel heute liest (`held.json`, `texte.json`, `tabellen.json`, `beute.gd`, Stückwerte in `werte.json`)? (B) Seltenheit als eigene Achse ins BRS (heute nur Stufe, Güte, Zustand; Seltenheit stammt aus der SRD-Fassung; dein Wort 12:30 „Seltenheit, Farben, Zusatzwerte auf BRS“)? (C) Die Spalten arbeite ich nach beiden Gegenprüfungen unten um und lege sie dir erneut vor; Balancefragen darin (Preis des Fertigkeitsbonus, Seltenheitsdecke je Kapitel) einzeln.
+**Votum Sokrates: A ja, B ja, C so.** Zwei Gegenprüfungen (12:55, 12:58) fanden 25 und 11 Punkte; die Spalten unten sind daher nicht entscheidungsreif, der Grundsatz schon. Ohne Ablösung (zweite Prüfung, Punkt 4) wäre mein Votum zu A nein: der Katalog würde nur eine weitere Kopie.
 **Berührt:** 458, 478, 469, 481, 447, Bestiarium, Laden, Beute, Simulation 444.
 
 ## Grundsatz: jede Angabe an genau einer Stelle
@@ -97,3 +97,19 @@ Wichtigste zuerst; „E“ = Entwurf oben.
 25. In den Regelwerten fehlen: Seltenheitsdecke je Kapitel (Kapitel 1 höchstens ungewöhnlich, Bosse selten; „ab episch“ in Kapitel 1 nur Einzelstücke), Deckel der Eigenschaften, erlaubte Eigenschaften je Platz, Mindeststufe je Seltenheit, Preisformel.
 
 Nebenbei: Die Fackel hat im Katalog den Bezug „Beute“, fällt laut alter Fassung und `beute.gd` aber nie als Beute.
+
+## Zweite Gegenprüfung (Helfer, 08.11., 12:58; noch nicht eingearbeitet, urteilen tust du)
+
+1. „Werte doppelt in `werte.json`“ nur zum Teil: `waffen` und `ruestungen` sind Gruppenwerte (gehören laut Entwurf selbst in die Regelwerte); je Stück sind `kampftraenke` (Preis 40), `wirtschaft.preise` (17 Preise), dazu doppeln `wirtschaft.beute` und `zerlegen.teile` das Bestiarium.
+2. Spinnendrüse fehlt nicht, Namen vertauscht (`spider_gland` heißt im Katalog „Giftdrüse“, 30; `werte.json` Spinnendrüse 30, Giftdrüse 20).
+3. Schutzumhang fehlt nicht: `cloak_protection` „Umhang des Schutzes“ steht im Katalog, nur der Name im Bestiarium (Zeile 30) weicht ab. Zähne, kleines Fell fehlen wirklich; dazu Schwarte, Panzerplatten, Spinnseide, Knochen, Säure, Flügelhaut/Fledermausflügel, Steinhaut, Berserkertrank.
+4. **Stärkstes Gegenargument: Laufzeit statt Umfang.** Godot liest Grundformen mit SRD-Werten aus `godot/daten/held.json` (beim Bau aus Kotlin erzeugt, `godot.yml:52`; nur Preis und Stufe aus dem Katalog, `heldwerte.gd:30–36`), Texte, Rezepte, Laden aus `texte.json` (`Recipes.kt`, `Story.kt:109`), Heilwürfel und Beutechancen aus `godot/regeln/tabellen.json` (dritte Beuteliste), Seltenheitsgewichte und Preisformel 3/8/20/50/150 fest in `beute.gd:10, 263–271`. Ohne Ablöseplan dieser Wege wird der Katalog eine weitere Kopie.
+5. Rezepte stehen schon im Katalog (`bezug.rezept`); eine eigene Rezeptstelle würde sie doppeln.
+6. Seltenheit „gewöhnlich bis göttlich“ steht nicht im BRS (aus `Gear.kt:6–13`, SRD); das BRS kennt Stufe, Güte, Zustand (Regelwerk 386f.). Seltenheit braucht erst einen Beschluss.
+7. Reparatur nur Schmieden und Lederarbeit; Runenkunde nur beim Großmeister für magische Stücke (Regelwerk 389).
+8. Zerlegen gehört zur Fertigkeit **Jagd** (Regelwerk 83, 236), nicht zu einem „Rang im Zerlegen“; das Ergebnis heißt in `werte.json` „Ausbeute“.
+9. Reichweite „Stange“ gibt es in `werte.json` nicht; Stangenwaffen gelten als „nah“.
+10. Überflüssig für Kapitel 1: Gewicht, Klang je Handlung, Tragart.
+11. Fehlt: Abgleich der Namen mit den Kennungen; Ablösung der Kotlin-Exporte; Beute nur an einer Stelle (heute Katalog, Bestiarium, `werte.json`, `tabellen.json`).
+
+Abweichend: zweite Prüfung Punkt 10 (Gewicht überflüssig) gegen erste Prüfung Punkt 2 (Gewicht nach Entscheidung 41 fest); ich folge der ersten.
