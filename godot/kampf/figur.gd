@@ -2041,7 +2041,7 @@ func strike(other, e: Dictionary) -> int:
 	if kauf:
 		_schnaufen(1.0)
 		# 438 (Prüfer Film r2: Klinge 31,2 s durch Wolf 2 ohne Treffer): daneben bleibt der Held VERFEHLT_M weiter weg
-		return _held_schlag(other, VERFEHLT_M if e.get("roll") != null and e.roll[0] == "ATTACK" and not e.roll[4] else 0.0)
+		return _held_schlag(other, VERFEHLT_M if e.get("roll") != null and Mars.ist_angriff(e.roll) and not e.roll[4] else 0.0)
 	if _zweibeiner() and weg.has("Gehen") and hieb.size() >= 3:
 		return _hieb(other)
 	if fighter.monster != null and weg.has("Gehen"):
@@ -2050,7 +2050,7 @@ func strike(other, e: Dictionary) -> int:
 		if leap:
 			pouncing = false
 		# 438 (wolf_mess_438: beim Verfehlen wich der Held aus, sein Schild fuhr bis 6 cm um die Schnauze): daneben bleibt der Wolf weiter weg
-		return _bite(other, leap, VERFEHLT_M if e.get("roll") != null and e.roll[0] == "ATTACK" and not e.roll[4] else 0.0)
+		return _bite(other, leap, VERFEHLT_M if e.get("roll") != null and Mars.ist_angriff(e.roll) and not e.roll[4] else 0.0)
 	var ms := BEAST_LUNGE_MS if fighter.monster != null else BLOW_MS
 	var to: Vector3 = other.position
 	var reach := (to - position) * (0.8 if leap else 0.6)

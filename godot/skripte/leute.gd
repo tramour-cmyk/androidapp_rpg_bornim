@@ -48,6 +48,14 @@ static var still := false              # 390: waehrend eines Gespraechs bleiben 
 const ZUGEWANDT := 10.0
 var zugewandt_bis := 0                  # ms (Time.get_ticks_msec); 0: niemandem zugewandt
 var blick_vorher := 0.0
+# 416.8 (Chef 03.11., 07:44: „völlig ohne irgendeine Form der Bewegung … auf der Stelle drehen … wie eine Schachfigur“): im Stehen
+# wendet die Person mit Schritten (Drehen_L/R aus Turn90 der UAL Pro, geruest.py ohne die Drehung des Beckens gebacken); der Knoten
+# dreht nach der gemessenen Kurve der Bewegung (held-info.json gier), so bleibt der Standfuss stehen; Tempo wie bisher (rate)
+const WENDE_AB := 0.44                  # rad (25 Grad): kleinere Wenden ohne Schritte
+const WENDE_BLEND := 0.2                # s Uebergang aus dem Stehen in die Wende
+var wende_kurve := {}                   # Name -> PackedFloat32Array, Drehung in rad je Bild (30 Bilder/s) seit Beginn
+var wende := ""                         # laufende Wende
+var wende_start := 0.0                  # rotation.y beim Beginn der Wende
 var da := true                         # 390: nach der Geschichte zu sehen (Story.kt visible: besiegt, befreit)
 
 static func alle(k: Karte, h: Node3D) -> Array:
@@ -267,6 +275,10 @@ func _ready() -> void:
 		var info: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(p))
 		gang = float(info.get("gehen_m_je_s", gang))
 		baue_ding(info)
+		for n in ["Drehen_L", "Drehen_R"]:   # 416.8
+			var g: Array = info.get("bewegungen", {}).get(n, {}).get("gier", [])
+			if g.size() > 1 and absf(float(g[g.size() - 1])) > 30.0:
+				wende_kurve[n] = PackedFloat32Array(g.map(func(x): return deg_to_rad(float(x))))
 	anim = Gebiet.finde(modell, "AnimationPlayer") as AnimationPlayer
 	if anim: Gebiet.bewegungen(anim, ["Gehen", "Rennen", "Stehen", "Fressen", "Stehen_2", "Stehen_3"])   # 591: Rennen der Flucht
 	if anim:
@@ -436,7 +448,7 @@ func _process(dt: float) -> void:
 	stehen(dt)
 	if ziel.x >= 0: return
 	tempo_jetzt = 0.0
-	if anim and anim.current_animation != pause:
+	if anim and anim.current_animation != pause and wende == "":
 		anim.play(pause, Held.ueberblendung(anim.current_animation, false))
 		anim.speed_scale = 1.0
 
@@ -449,7 +461,7 @@ func stehen(dt: float) -> void:
 			zugewandt_bis = 0
 			blick = blick_vorher
 			ruhe_bis = -1.0   # die Ruhebewegung beginnt neu
-	rotation.y = drehe(rotation.y, blick, (DREH_ZU if zugewandt_bis > 0 else DREH_STEH) * dt)
+	drehe_stehend(dt, DREH_ZU if zugewandt_bis > 0 else DREH_STEH)
 	if still or not da: return
 	if zugewandt_bis > 0: return
 	if Time.get_ticks_msec() < ruft_bis: return   # 399.1 (306): wer ruft, haelt still, bis das zweite Zeichen vorbei ist
@@ -550,7 +562,10 @@ func tagesplan() -> bool:
 	var ort := Vector2i(int(st[1]), int(st[2]))
 	heim = ort
 	streifen_n = int(st[3])
-	drinnen = bool(st[4]) and kachel == ort
+	# 607 (Chef 07.11.: Pim „läuft um 0300 Uhr immer noch rum“, nachgestellt in nacht_607): wer klopft, steht auf genau der Kachel, auf
+	# der die Person fuer die Nacht hineingeht; ist sie besetzt, geht sie von der Nachbarkachel aus hinein, statt davor zu warten
+	var vor_tuer := absi(kachel.x - ort.x) + absi(kachel.y - ort.y) == 1 and not frei_fuer_mich(ort)
+	drinnen = bool(st[4]) and (kachel == ort or vor_tuer)
 	visible = da and not drinnen
 	if drinnen:
 		warte = 5.0
@@ -587,6 +602,7 @@ func runde() -> void:
 	gehe_nach(p)
 
 func laufe(dt: float) -> void:
+	wende = ""
 	var zp := karte.kachel_pos(ziel)
 	var to := zp - position
 	to.y = 0
@@ -621,6 +637,43 @@ func laufe(dt: float) -> void:
 			anim.play(gangart, 0.15 if flucht else Held.ueberblendung(anim.current_animation, true))
 			anim.seek(zufall.randf() * anim.current_animation_length)
 		anim.speed_scale = tempo / (renn if gangart == "Rennen" else gang)
+
+# 416.8: im Stehen zu blick drehen; ab WENDE_AB mit Schritten (Drehen_L/R), der Knoten folgt der Kurve der Bewegung; Ziel erreicht
+# oder Bewegung zu Ende: zurueck ins Stehen, ist noch viel uebrig, gleich die naechste Wende (180 Grad = zwei)
+func drehe_stehend(dt: float, rate: float) -> void:
+	if wende != "":
+		var k: PackedFloat32Array = wende_kurve[wende]
+		var spielt := anim != null and anim.current_animation == wende
+		var t := anim.current_animation_position if spielt else INF
+		var soll := wende_start + kurve(k, t)
+		var vorbei := signf(angle_difference(soll, blick)) != signf(k[k.size() - 1])   # Ziel erreicht oder ueberholt
+		if not vorbei: rotation.y = soll   # ueberholt: stehen lassen, den Rest dreht drehe (der Held kann auch die Seite gewechselt haben)
+		if spielt and not vorbei and t < anim.current_animation_length - 0.02: return
+		wende = ""
+		if absf(angle_difference(rotation.y, blick)) <= WENDE_AB:
+			anim.play(pause, 0.3)
+			anim.speed_scale = 1.0
+			return
+	var rest := angle_difference(rotation.y, blick)
+	if absf(rest) > WENDE_AB and anim and not drinnen and visible:
+		for n in wende_kurve:
+			var k: PackedFloat32Array = wende_kurve[n]
+			if signf(k[k.size() - 1]) != signf(rest) or not anim.has_animation(n): continue
+			var gleich: bool = anim.current_animation == n   # zweite Wende derselben Seite: play liefe nur weiter
+			wende = n
+			wende_start = rotation.y
+			anim.play(n, WENDE_BLEND)
+			if gleich: anim.seek(0.0, true)
+			anim.speed_scale = clampf(rate * anim.get_animation(n).length / absf(k[k.size() - 1]), 0.7, 2.0)
+			return
+	rotation.y = drehe(rotation.y, blick, rate * dt)
+
+# Drehung der Kurve k (je Bild, 30 Bilder/s) nach t Sekunden, zwischen den Bildern linear; nach dem Ende der letzte Wert
+static func kurve(k: PackedFloat32Array, t: float) -> float:
+	var f := t * 30.0
+	if f >= k.size() - 1: return k[k.size() - 1]
+	var i := int(f)
+	return lerpf(k[i], k[i + 1], f - i)
 
 # 416.8: dem Helden zuwenden (spiel.gd sprich)
 func wende_zu() -> void:

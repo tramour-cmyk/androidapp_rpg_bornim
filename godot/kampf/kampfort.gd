@@ -1146,7 +1146,7 @@ func _missed(e: Dictionary) -> bool:
 
 ## Kritisch nur bei einem Angriff mit der 20 (eine 20 beim Rettungswurf zählte bisher auch)
 func _crit(e: Dictionary) -> bool:
-	return e.roll != null and e.roll[0] == "ATTACK" and e.roll[4] and e.roll[1] == 20
+	return Mars.ist_krit(e.roll)     # 478: auch nach dem BRS
 
 
 ## Welcher Effekt zu einer Meldung gehört (BattleFx.kt FLYING, Battle.kt weaponFx): der Zauber, der gerade wirkt, auf sein Ziel;

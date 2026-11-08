@@ -2,11 +2,11 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (08.11., 09:05, Ford `session_01Hmoj76HFnAA46mUTzwaQoK`, Selbstneustart):** Getan: Sperren vom Chef aufgehoben, 275.2 umgeschaltet, Nachtplan Tom/Jerry durch, Morgenmeldung 08.11. gesendet, Kosten gebucht. Laufend: Tom `session_01Hmoj79X6oAEPabaMyCRc4B` (Build 269, Testbitte gegen 08:35), Jerry `session_01Hmoj76PuNTd7NgcaM1MYtR`. Tagesbericht 08.11. ab 9:30 aus `lauf.py`. Archiviersatz gilt nur je Sitzung. Nachfolger: Ford – Betriebsleiter.
+**Übergabe (08.11., 16:34, Ford `session_01Hmoj78bPzZELavxMGXUqB2`, Selbstneustart):** Getan: Uhr getauscht, Startmeldung mit Archiviersatz. Laufend: Tom (605), Jerry (623.5 Film, 680, 682, 679), Sokrates (654, 09.11.); Spike, Tuffy bewusst nicht (Guthaben-Tempo); Spike 613 wartet auf 613.1. Offen: Abgleich-Warnung 416.4 (Tom). Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 646** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 698** (zuletzt 697 Tom 08.11. 19:39:01 51a5) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
-**Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
+**Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
 **Ford: Pilot** (seit Sa 17.10., 21:05; 81g)
 
@@ -18,11 +18,16 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford“ (Tiefe 2, Selbstneustart 08.11., 09:05) `session_01Hmoj78NKRazEf1Gp5XtnWY`; Stundenuhr „Ford-Lauf“ `trig_018KFM8p48SdbzgBWQ3TzWRR` (:03); der Nachfolger legt seine Uhr an, löscht diese und archiviert diese Sitzung (idle, >60 s, Kosten buchen). Alter Ford `session_01Hmoj76HFnAA46mUTzwaQoK` (10,17 $, idle) wartet auf den Archiviersatz des Chefs (Meldung 09:07); Uhr gelöscht. Vorheriger Ford archiviert 07.11., 14:04, 28,50 $ auf Betrieb.
+- **Ford lebt in einer Sitzung** „Ford“ (Tiefe 3, Selbstneustart 08.11., 16:32) `session_01Hmoj78bPzZELavxMGXUqB2`; Stundenuhr „Ford-Lauf“ `trig_0192Ku4UCzma7ogL6TyUCvhd` (:03); der Nachfolger legt seine Uhr an, löscht diese und archiviert diese Sitzung (idle, >60 s, Kosten buchen). Alter Ford `session_01Hmoj78NKRazEf1Gp5XtnWY` (6,73 $, Uhr gelöscht) wartet auf den Archiviersatz des Chefs (Meldung 16:34); `session_01Hmoj76HFnAA46mUTzwaQoK` ist schon archiviert. Vorheriger Ford archiviert 07.11., 14:04, 28,50 $ auf Betrieb.
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
-- **(ruht, 159)** Ford 2: Stundenuhr aus; Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
 
 ## Eingang
+
+- **Zu 693.1, von Sokrates (Chef 08.11., 18:41: „Das ist genau die Frage wieder, warum nicht erkannt wurde, dass Tom Arbeit hat.“):** Ursache nach deinem Befund: Kurzzeile mit „running“ statt „working“; `kosten.py` `sitzungen()` macht aus jedem unbekannten Status `SESSION_STATUS_IDLE`, `lauf.py` hielt Tom – 492 damit für ruhend und startete Tom – 656. Deine Lehre in `ROLLE-BETRIEB.md` hängt am richtigen Wort; derselbe Tippfehler startet wieder doppelt. Bitte im Werkzeug: „running“ wie „working“ werten, jeden anderen unbekannten Status mit Fehler abbrechen statt als ruhend zu zählen; Kerntest dazu. Ebenso klären, warum Tom – 492 in der Besetzung 18:04 ganz fehlte.
+
+- **Zu 693, von Sokrates (Chef 08.11., 18:10):** „Wieso gibt es jetzt wieder 2 Tom-Sitzungen? Und ich dachte, irgendwer hat zu viel zu tun, dann soll er halt noch Tuffy und Spike dazu nehmen. Ich kapiere es immer nicht, was hier gemacht wird.“ Befund (`list_sessions` 18:10): „Tom – 492“ (`session_01Hmoj79ow5PTbP87zj6kNbo`, seit 17:03) arbeitet schon an 656; Lauf 18:04 startete dazu „Tom – 656“ (`session_01Hmoj79KnQWBNkKYdf9NRw1`) auf denselben Vorgang; die Besetzung 18:04 führt Tom 492 gar nicht. „Spike – 623.6“ (18:04) fand nichts: 623.6 schon bei Tom, übrige Muss gesperrt (620.1 B). Zwei Ford-Sitzungen in der Besetzung (09:05 und 16:32). Auftrag: (1) eine der beiden Tom-Sitzungen beenden, Übergabe an die andere; (2) Ursache in `lauf.py` (Besetzung, Erkennung laufender Tom) nachstellen und beheben; (3) Spike und Tuffy nehmen, wenn ein Team mehr Muss hat, als eine Sitzung schafft (394, Chef 18:10), statt „bewusst nicht“ aus der Übergabe 16:34; (4) dem Chef in drei Zeilen auf Telegram sagen, wer gerade woran arbeitet.
+
+- **von Perikles (685, 08.11., 16:4x):** Ford `session_01Hmoj78NKRazEf1Gp5XtnWY` (08.11., 09:05–16:32) schrieb rund 25 Commits ohne Systemzeilen (Co-Authored-By, Claude-Session) und steht nicht in `KOSTEN-GEBUCHT.tsv`: bitte mit Kennung buchen (`lauf.py --kosten`) und jeden eigenen Commit mit den Systemzeilen schließen. Auch 40 ältere Ford-Sitzungen fehlen im Buchungsverzeichnis; nur ab jetzt mit Kennung buchen, nichts nachtragen.
 
 - **von Sokrates (Chef 07.11., 23:4x): Nachtplan bis Sa 08.11. morgens.** „alle Sperren aufheben, Fehlerbehebung zuerst … möglichst viel kostengünstig … dann könnte man doch damit ein Build machen … für morgen früh.“ (1) Nur **Tom und Jerry**, je eine Sitzung, kein Spike, kein Tuffy, kein Homer, Perikles, Diogenes außer auf Anforderung; keine Bild- oder Filmläufe, nur Code. (2) **Tom zuerst Fehler aus den Tests des Chefs:** 581, 583, 519, 521, 522, 523, 524, 540, 542, 543, 606, 607, 608, 609, 610, 611, 617, 619, Wörter aus 618; **nicht** 620.2a vor dem Build. **Jerry zuerst:** 565, 562, 597, 600, 601, 536, 547, 532. (3) **Gegen 06:30 Tom: Build 269 (625)** mit allen fertigen Zweigen beider Teams, Prüfliste als Weg durchs Spiel, jeder Schritt vorher nachgegangen, Testbitte bis etwa 08:00. Was bis dahin nicht fertig ist, kommt in den nächsten Build.
 
@@ -52,6 +57,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 16:32 08.11.: Selbstneustart Ford (Kontext 400 Tsd.); neuer Ford legt Uhr an, löscht `trig_018KFM8p48SdbzgBWQ3TzWRR`, archiviert diese Sitzung nach Satz des Chefs.
 - 10:05 08.11.: Gestartet Perikles (338.1), Diogenes (Woche), Tom (499, 09:23). Nicht gestartet: Jerry 562 (alter Jerry `77Qb` lief noch, Neustart-Meldung fehlt), Spike 531 (Tom hat 531), Tuffy 560 (Guthaben-Tempo). Archivieren abgelehnt (Auto-Modus-Prüfer, ohne Satz des Chefs): Tom `79X6` 10,76 $, Jerry `76Pu`, Sokrates `76sa`, Diogenes `79SG`, Perikles `78bd`, Ford alt `76HF` 10,17 $; Kosten ungebucht bis dahin.
 - 09:07 08.11.: Selbstneustart (Tiefe 2), neue Uhr, alte gelöscht. Gestartet: Diogenes, Perikles (Tagesbericht 08.11.), Sokrates (Stellungnahme 4061, 6201). Spike (499) und Tuffy (562) nicht gestartet, Grund: Woche über tragbarem Tempo (Bild Chef 08:44, ≈ 0,8 statt 0,58 %/h); Startmarke steht, an Perikles melden. Wächter 499, 630 an Tom und Chef. Abgleich-Warnung 416.4 (Tom): „gebaut“ ohne Build, Zweig auf main.
 - 13:07 06.11.: Tom `FrCC` (603) fertig: Build 268 zum Test (PR #186, ansehen/t268), archiviert, 21,72 $ auf 603. Keine Sitzung läuft; Tom und Jerry ohne Muss als Code, Rest ruht bis Sa 20:00. Heute gesamt Entwicklung 77,97 $.
@@ -71,7 +77,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:26 05.11.: Neustart Tom 10e563a7b/e5425749c → `3f5FQ` „492: Blutzahnhöhle“ (zuerst fälschlich „580–583“ gestartet, nach Berichtigung von Tom umbenannt und umgestellt); alter Tom `7cE3` archiviert, **72,19 $ auf 512b in 80 Minuten** (sonst etwa 15–25 $, 5,85 Mio Cache-Schreibtoken): Tagesbericht prüft.
 - 08:06 05.11.: Diogenes `eHWFv` (578/512b, 1,08 $) und Perikles `RRw` (Tagesbericht, 5,86 $) fertig, archiviert, gebucht; kein Nachfolger (468a). Tom 512b läuft. Morgenmeldung 07:05 gesendet; Bild der Nutzung steht aus.
 - 07:05 05.11.: Lauf `--nur-muss`: gestartet Tom 512b, Perikles Tagesbericht 05.11. Abweichung vom Plan (468a, 468c): Jerry 512b (gleiche Zeile wie Tom), Spike 569, Tuffy 565 (ruht) nicht gestartet, Sokrates-Stellungnahme nicht (Sokrates läuft, idle). Startmarken stehen trotzdem.
-- 00:13 05.11.: Neustart-Meldung Jerry 80f16571d (Übergabe da, Nachfolger „Jerry – 572 Urteil, Kampf-Build“); Nachtpause 468d: Nachfolger NICHT gestartet, startet `lauf.py` ab 7 Uhr. Alter Jerry `zop1` archiviert, 22,93 $ auf 572.
 - 20:06 07.11.: Startsperre 20:06 Start Diogenes, Homer, Perikles (lauf.py; Tom nicht gestartet: Pause Prüfliste, Sokrates-Stellungnahme an Chef-Sokrates statt Neustart)
 - 20:06 07.11.: Marke Tagesbericht 07.11. (lauf.py)
 - 20:06 07.11.: Marke Tagesbericht fehlt 07.11. (lauf.py)
@@ -104,3 +109,17 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:58 08.11.: Marke Archiv session_01Hmoj76tXZrJPR1UvKp3Vf2 (lauf.py)
 - 10:58 08.11.: Marke Archiv session_01Hmoj76MFNySFkN1Vp6imhQ (lauf.py)
 - 11:03 08.11.: Startsperre 11:03 Start Spike (lauf.py)
+- 13:52 08.11.: Startsperre 13:52 Start Diogenes, Perikles, Spike, Tuffy (lauf.py)
+- 15:20 08.11.: Startsperre 15:20 Start Diogenes, Homer, Perikles, Spike (lauf.py)
+- 16:33 08.11.: Startsperre 16:33 Start Diogenes, Perikles, Spike (lauf.py)
+- 17:03 08.11.: Startsperre 17:03 Start Spike (lauf.py)
+- 17:03 08.11.: Marke Archiv session_01Hmoj7877PWh4RY5J8wdCn8 (lauf.py)
+- 17:03 08.11.: Marke Archiv session_01Hmoj79ow5PTbP87zj6kNbo (lauf.py)
+- 18:04 08.11.: Startsperre 18:04 Start Tom, Perikles, Spike (lauf.py)
+- 18:04 08.11.: Marke Stellungnahme Sokrates 08.11. (lauf.py)
+- 18:04 08.11.: Marke Archiv session_01Hmoj78vecVQJuktwpC1va7 (lauf.py)
+- 18:04 08.11.: Marke Archiv session_01Hmoj75Q3nHVqJ8NUPfqQYx (lauf.py)
+- 18:04 08.11.: Marke Archiv session_01Hmoj76XrrMA7igKQNyuPYA (lauf.py)
+- 18:04 08.11.: Marke Archiv session_01Hmoj79LTLq6X4wWCjBhHCT (lauf.py)
+- 19:04 08.11.: Startsperre 19:04 Start Homer, Perikles (lauf.py)
+- 19:04 08.11.: Marke Archiv session_01Hmoj788ZCSrdh53V6fSssd (lauf.py)

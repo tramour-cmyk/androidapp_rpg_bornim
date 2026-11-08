@@ -22,6 +22,8 @@ Wächter 424: eine sonst startbare Zeile, die Regeln des alten Systems nennt, ru
 Laufende Sitzungen kennt das Werkzeug nicht; die liest Ford aus list_sessions.
 """
 import os, re, sys, datetime
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import bereiche  # 651: feste Liste der Bereiche
 
 DOCS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "docs")
 ROLLEN = [("ARBEIT-KREATIV.md", "Homer"), ("ARBEIT-TEAM-TOM.md", "Tom"), ("ARBEIT-TEAM-JERRY.md", "Jerry"),
@@ -319,6 +321,8 @@ def pruefen_zeile(d, alle_nr=None):
     if d["wort"] == "Chef" and not any(art(t) == "chef" for t in d["warte"]): f.append("„Chef“ ohne „Chef“ im Feld „wartet auf“")
     if d["wort"] == "gebaut" and not GEPRUEFT.search(d.get("stand", "")): f.append("„gebaut“ ohne „Geprüft an: <Link, Lauf oder Commit>“ (340.4, D80.7)")
     if len(d.get("zeile", "")) > 400: f.append("Zeile über 400 Zeichen (Einzelheiten als „Zu %s“ in den Vorrat)" % d["nr"])
+    if d["nr"] not in SONDER and not bereiche.gueltig(d.get("bereich")):  # 651: feste Liste
+        f.append("Bereich „%s“ nicht in der festen Liste (`python3 tools/bereiche.py`; Vorschlag „%s“)" % (d.get("bereich"), bereiche.einordnen(d.get("bereich"))))
     return f
 
 def pruefen_liste(zs=None):

@@ -4,7 +4,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `6d348b408` (07.11., 23:43)
 
-**Übergabe (07.11., 23:43):** 629 Sprechernamen beim Klopfen `[629.sprecher]` in `STORY-K1-WELT.md` (fremd geprüft, Befund Anführungszeichen eingearbeitet); Bau 629.1 bei Tom. Nachfolger: keiner (468a).
+**Übergabe (08.11., 19:09):** 694 Katalogtexte `[356.pelzumhang.text]`, `[356.hauerdolch.text]` in `STORY-K1-HANDLUNG.md` (fremd geprüft); an Tom als „Zu 356.2“, dazu EN „handle scales“ → „grip plates“ in `Jobs.kt`. Nachfolger: keiner.
 
 ## Zeilen
 

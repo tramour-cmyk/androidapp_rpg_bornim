@@ -64,3 +64,21 @@ Vorgang 623, Sokrates, angelegt 07.11. (Chef 07.11., 17:2x). Hier steht **je Anl
 | Bach, Fluss | Fluss des Kits statt `wasser.gdshader`, wenn die Probe am Dorfbach besser ist (Chef 07.11.: „ernsthaft etwas besser“) | R10 river | Vorschlag (Probe) |
 | Gras, Blumen | Gräser, Blumen, Windrichtungen, Ausweichen des Kits statt `halm.gdshader`, wenn die Probe im Flüsterwald besser ist (Chef 07.11.: „sah schon wirklich sehr gut aus“) | R9 | Vorschlag (Probe) |
 | Lagerfeuer (Garrick), Kamin | eigene Flamme bleibt (Signatur), Funken und Rauch dazu | eigen + R7 campfire | Vorschlag |
+| Leuchtfunke über dem Kopf (84.5, 677) | kühl weißer Kern mit Hof, treibt und wippt, Licht nur im Dunkeln, im Raum auf Schulterhöhe (wie alt `WorldScreen.kt` 1443) | eigen (`held.gd` baue_funke) | gebaut, Zweig `claude/tom-677-funke` |
+
+## Zustände im Kampf gegen Status Effects (623.5, Jerry 08.11.)
+
+Zustände des Spiels aus `godot/regeln/mars.gd` STATUS; volles Paket Status Effects (23 Effekte, Liste von der Händlerseite 08.11.), Gratisprobe nur Armor Up, Poisoned, Buff Gain. Bluten (Chef 13:09 „Visualisieren wir … Bluten?“): im vollen Paket als „Bleeding“; in der Probe 623.5 zeigt der kritische Treffer das Element Blut aus Combat VFX Mega (R1).
+
+| Zustand im Spiel | Effekt im vollen Paket | in der Gratisprobe |
+|---|---|---|
+| Vergiftet (POISON) | Poisoned | ja |
+| Blutend (BLEED) | Bleeding | nein (Treffer mit Element Blut, R1) |
+| Brennend (BURN) | keiner; Feuer aus R1/R2 am Körper | nein |
+| Betäubt (STUN) | Shocked oder Confused; R7 stun_stars | nein |
+| Verlangsamt (SLOW) | Chilled | nein |
+| Geschwächt (WEAK) | Weakened | nein |
+| Geblendet (BLIND) | keiner (Cursed am nächsten) | nein |
+| Betrunken (DRUNK) | keiner (Confused am nächsten) | nein |
+| Gestärkt, Segen, Rüstung (Zauber) | Blessed, Armor Up, Buff Gain | Armor Up, Buff Gain |
+| Im Schatten (566) | keiner; R5 Ghost/Cloak | nein |

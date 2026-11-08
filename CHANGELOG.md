@@ -4,6 +4,25 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **658 Telegram-Reaktionen** (Perikles): `reaktionen.py` liest Zweige über eigene Referenzen statt `FETCH_HEAD` (ein gleichzeitiger fetch ließ 👍 16:42 auf 2980 ohne Zuordnung), ordnet beim Zeigen neu zu und zeigt 👍/✅ als „Telegram, offen“ beim Absender ohne Zeitgrenze, bis ein Archiveintrag „Nachricht <Kennung>“ nennt.
+
+- **Build 269 auf main** (PR #188, Sammelbuild 625, Chef 08.11., 16:22 „freigegeben mit den Einschränkungen“, Archiv „t269“): Tom 497, 519, 521–524, 528, 540, 555, 558, 583, 591, 605–611, 615, 617–619, 623.7, 624, 629.1, 416.8; Jerry 406.2, 438, 478 (Schalter aus), 517, 532, 547, 562, 597, 600; 565 aus (Schalter). Durchgefallen und als Vorgang zurück: 269.3, .10, .11, .12, .16, .17, .21, .25, .26; neu 663–683. (Rückläufer: 9)
+- **654.1 Mitdenken vor dem Bauen** (Perikles): Systemfrage „Kommt das wieder?“ als Zeile „System:“ neben „Alt:“ in der Commit-Nachricht (`ROLLE-ENTWICKLUNG.md` „Alt zuerst“); `vorgang.py neu` legt bei einem Stichwort aus mindestens zwei früheren Vorgängen (offen oder Archiv) eine Zeile „Systemlösung? <Stichwort>“ für Sokrates an, je Stichwort eine offene.
+
+- **658 Telegram-Reaktionen** (Perikles): `meldung.sh` merkt sich die Telegram-Kennung jeder Meldung (fünfte Spalte in `meldungen.tsv`); `tools/reaktionen.py` holt Reaktionen und Nachrichten des Chefs, legt sie im Zweig `reaktionen` ab und zeigt sie bei jedem `notiz.sh` (letzte 120 Minuten, mit Vorgang und Absender der Meldung). 👍 = gebilligt, ✅ = erledigt; den Archiveintrag schreibt der Besitzer.
+
+- **655.1 Bilder selbst ansehen** (Perikles): Regel 300 gestrichen; wer Bild oder Film macht, sieht es vor dem Senden selbst an (beim Film ein Standbild), schickt es dann sofort, kein Helfer danach (`CLAUDE.md` Melden, `ROLLE-ENTWICKLUNG.md`, `LISTE-BAUEN-TESTEN.md` 4, `ROLLE-PRUEFUNG.md`). Probebild-Prüfung vor dem Film (511a) und „Prüfer: ja“ (480) bleiben.
+
+- **648 Glossar** (Perikles): `docs/LISTE-GLOSSAR.md` mit fünf Sachgebieten (Firma, Vorgänge, Bauen und Testen, Betrieb, Spielwelt), je Begriff Bedeutung, Ober- und Unterbegriff, verbotene Wörter und Fundort, Abkürzungen, A–Z; Spielnamen bleiben im Glossar des Spielsystems. `tools/glossar.py` zeigt Fundstellen und zählt verbotene Wörter (heute 14: „Blatt“ 13, „Bühne“ 1).
+
+- **647 Alt zuerst** (Perikles, Werkzeug): `probelauf.py` hält einen Push auf einen Teamzweig mit Spielcode unter `godot/` an, wenn keine Commit-Nachricht die Zeile „Alt: <Fundstelle der alten Fassung>“ (oder „Alt: keine (<Grund>)“) trägt; Regel „Alt zuerst“ in `ROLLE-ENTWICKLUNG.md`, Verweis im Abgleich (`LISTE-UMZUG-348.md`).
+
+- **651 Kostenauswertung** (Perikles, Werkzeug): feste Liste der Bereiche (`tools/bereiche.py`, 16 Teilbereiche in E, G, Q, B, M; `vorgang.py` und Commit-Prüfung lassen nur diese zu; 77 offene Zeilen eingeordnet, 45 alte Schreibweisen zugeordnet); `tools/kostenbericht.py` schätzt die Kosten aller gebuchten Sitzungen über ihre Commits je Bereich, Tag und Woche, auch für Vorgänge ohne Betrag, und schreibt `docs/LISTE-KOSTEN.md`.
+
+- **650.1 Notizen abgelegt** (Perikles): neun erledigte oder ruhende Dateien nach `docs/alt/` (274, Grundstand 461, Ford 2, Proxmox, Arbeitsorte, Prüfbogen Tester, MARS 72.10a, MARS-Aufstellung, Grafikweg), Links angepasst, Lizenzzeile Blender/Godot nach `LISTE-QUELLEN.md`; Ford 2 aus `CLAUDE.md`, `LISTE-BETRIEB.md`, `ROLLE-BETRIEB.md`, `FIRMA.md`, `lauf.py`; `notiz.sh` warnt nicht mehr über `docs/alt`.
+
+- **646 Zeigen statt messen** (Perikles, Werkzeug): `probelauf.py` zählt jeden Lauf auf dem Bauserver als die eine Probe, auch Messläufe mit `bild=nein` (Filmsperre 511 greift dort nicht); Sammelbuild `claude/build-<n>` zählt nicht; Hinweis nach der Probe: Ergebnis an den Chef mit offenen Punkten, Sitz und Aussehen als Bild, Bewegung als Film. Regel in `ROLLE-ENTWICKLUNG.md`.
+
 - **Build 257 auf `main`** (04.11., 20:46, PR #184, vom Chef getestet und freigegeben): enthält 251, 252, 255; bestanden u. a. Hauptmenü und Lizenzen, Schriftgröße, Schlagbaum, „Monster beachten mich nicht“, Ausweichen der Wölfe, Kampftempo, Zugreihe, Rattenlohn, Wölfe nach Rattenkampf, Grimmzahn ohne Flucht, Stufengrenze 6, Heilkraut-Hinweis; offene Funde stehen in den Vorräten (t257 in Git).
 
 - **559 Wächter „wartet auf Chef“** (Perikles, Werkzeug): Fords Stundenlauf meldet Besitzer und Ford, wenn ein Vorgang auf den Chef wartet, obwohl seine Rückmeldung („Zu <Nr>“ mit Chefzeit oder Archiveintrag) neuer ist als die Chefsache-Datei (`regelcheck.py --rueckmeldung`).

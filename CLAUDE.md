@@ -36,7 +36,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
 | **Homer** | Kreativdirektor: Story, Texte, Stil, Spielgefühl, Ideen | `ROLLE-KREATIV.md` |
 | **Perikles** | Projektmanager: Wochenziel, Vorrang, Kosten, Abläufe | `ROLLE-PROJEKT.md` |
 | **Diogenes** | Prüfer: prüft `main`, zählt Kennzahlen, ändert nichts; nur Chef oder Ford starten ihn | `ROLLE-PRUEFUNG.md` |
-| **Ford** | Betriebsleiter: startet Sitzungen, verteilt Arbeit, schreibt die Besetzung (Ford 2 ruht) | `ROLLE-BETRIEB.md` |
+| **Ford** | Betriebsleiter: startet Sitzungen, verteilt Arbeit, schreibt die Besetzung | `ROLLE-BETRIEB.md` |
 | **Team Tom** | Entwickler: Leute, Dorf, Innenräume, Technik der Blende | `ROLLE-ENTWICKLUNG.md` |
 | **Team Jerry** | Entwickler: Monster, Höhle, Kampf, Klang | `ROLLE-ENTWICKLUNG.md` |
 
@@ -66,8 +66,8 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
 8. **Rückfragen sind Holschuld des Chefs:** **eine Rückfrage gilt nur mit Datei in `docs/chefsache/entscheiden/`** (Nummer = Dateiname); ohne Datei wartet keiner. Im Chat einmal die Nummer, beim Start der Satz aus 2, sonst nie wiederholen (außer „Vorrat leer, auf Chefsache n offen von mir“). Auf „Hast du Rückfragen?“ alle eigenen im Wortlaut. Aufträge anderer Sitzungen einmal mit Stellungnahme einbringen. „Kritisch: <Nr.>, weil …“ nur, wenn die Arbeit steht, einmal je Gespräch.
 9. **Melden:** Telegram ist das Protokoll: `/home/user/bornim-main/tools/meldung.sh <Name> "<Nr>: <Stand>"` (nie die Kopie im Arbeitszweig).
    - so ausführlich wie nötig, Inhalt nach Haltung 5; je Thema ein Absatz (`\n`); höchstens 4096 Zeichen, mit `--bild` 1024; Chefsache als Sprungmarke `[72o.1](cs:72o1)`; lautlos, `--laut` nur, wenn der Chef dran ist;
-   - Standbilder als PNG mit `--bild` (Pixelprüfung `--datei`), Bewegung nur als Film mit `--film` (MP4 bis 50 MB, Standbild höchstens dazu; 381), nie im eigenen Gespräch ansehen: das tut ein Helfer (Auftrag mit Wortlaut, zurück nur Text; 300); Bild und Film, sobald fertig, sofort an den Chef, Helferbefund höchstens danach (396); Text vorher fremd prüfen (338.2); etwa alle 5 Minuten eine Standzeile;
-   - im Chat erst Rückmeldungen beantworten; Neustart genau „Weiter in <Titel>: <Link>“; Vorrat leer: eine Zeile; zu Prüfendes fett, nie nur kursiv.
+   - Standbilder als PNG mit `--bild` (Pixelprüfung `--datei`), Bewegung nur als Film mit `--film` (MP4 bis 50 MB, Standbild höchstens dazu; 381), vor dem Senden selbst ansehen, ob es zeigt, was es zeigen soll (beim Film ein Standbild daraus; 655, ersetzt 300), dann sofort an den Chef, kein Helfer danach (396); Text vorher fremd prüfen (338.2); etwa alle 5 Minuten eine Standzeile;
+   - im Chat erst Rückmeldungen beantworten, auch „Telegram, offen“ (658); Neustart genau „Weiter in <Titel>: <Link>“; Vorrat leer: eine Zeile; zu Prüfendes fett, nie nur kursiv.
 
 ## Notizen nur auf `main`
 
@@ -87,7 +87,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
   - eine Übergabe je Rolle: nur Getanes und Nachfolger, kein Stand; die alte ersetzen; vor Pause oder Neustart pushen.
 - **Story und Dialoge:** Plot und Texte legen Chef und Homer fest; Verzeichnis `STORY-REGELN.md`, über die Marke `[Thema.kurz]` suchen, wortgetreu übernehmen, Englisch selbst übersetzen. Fehlt ein Text: Vorgang an Homer, nie erfinden. Tippfehler direkt korrigieren (Commit „Text:“).
 - **Chefsache:** je Punkt eine Datei, jeder nur seine; beantwortet heißt weg, im selben Commit wie die Antwort (383.3; Regeln `docs/chefsache/README.md`, Bilder höchstens 60 KB). Entschieden wird in der Chefrunde mit Sokrates (`ROLLE-BERATUNG.md`).
-- **Begriffe** (auch im Spiel): **Vorgang** („Vorgang 72s.1“, in Meldungen „72s.1:“; nicht „Thema“, nicht „Nummer“, nie „Blatt“; was beim Chef liegt: „Vorgang beim Chef“, 480). **Landkarte** → **Gebietskarte** (unter freiem Himmel) → **Grundriss** (hinter einem Eingang); übereinanderliegende Teile eines Grundrisses: **Ebene** (nie „Stockwerk“, nie für Kartenstufen). Kampfsystem **MARS**; wo gekämpft wird: **Kampfort** (nie „Bühne“). Menschen an der Seite des Helden: **Gefährte** oder **Söldner**, sonst **Begleiter**. Erster Schirm mit Auswahl: **Hauptmenü** (nie „Titelbild“; 292).
+- **Begriffe** (auch im Spiel): **Vorgang** („Vorgang 72s.1“, in Meldungen „72s.1:“; nicht „Thema“, nicht „Nummer“, nie „Blatt“; was beim Chef liegt: „Vorgang beim Chef“, 480). **Landkarte** → **Gebietskarte** (unter freiem Himmel) → **Grundriss** (hinter einem Eingang); übereinanderliegende Teile eines Grundrisses: **Ebene** (nie „Stockwerk“, nie für Kartenstufen). Kampfsystem **MARS**; wo gekämpft wird: **Kampfort** (nie „Bühne“). Menschen an der Seite des Helden: **Gefährte** oder **Söldner**, sonst **Begleiter**. Erster Schirm mit Auswahl: **Hauptmenü** (nie „Titelbild“; 292). Alle Begriffe mit Ober- und Unterbegriff: `LISTE-GLOSSAR.md` (648).
 - **Ford steht:** kommt um 7 Uhr (Sa, So, Urlaub 9 Uhr) keine Morgenmeldung, ein Wort an Team Tom oder Perikles („Ford-Wache“, `LISTE-BETRIEB.md`).
 
 ## Technik und Sicherheit
