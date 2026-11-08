@@ -33,7 +33,7 @@ Verglichen: die geänderten Schirme (Tasche, Ausrüstung, Gegenstandsfenster, Bl
 | # | Team | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|---|
 | 269.14 ✓ | Tom | 618 | Menü und Laden verlassen; „Punkte verteilen?“ ablehnen | überall „Zurück“ statt „Schließen“; bei Rückfragen „Abbrechen“ | „Schließen“, „Nein“, „Weiter ansehen“ |
-| 269.15 | Tom | 523 | Menü „Tasche“ | je Vorrat Seltenheitsfarbe und Kurzangabe („heilt 2W4+2“); bei Ausrüstung Art und Platz und die ersten Boni (Robe des Ankers nicht nur „Oberkörper“); nach einem Leuchtfunken die Zeile „Leuchtfunke“ mit „Löschen“; Benutzen klingt wie alt | nur Namen; nur „Oberkörper“ |
+| 269.15 ✓ | Tom | 523 | Menü „Tasche“ | je Vorrat Seltenheitsfarbe und Kurzangabe („heilt 2W4+2“); bei Ausrüstung Art und Platz und die ersten Boni (Robe des Ankers nicht nur „Oberkörper“); nach einem Leuchtfunken die Zeile „Leuchtfunke“ mit „Löschen“; Benutzen klingt wie alt | nur Namen; nur „Oberkörper“ |
 | 269.16 | Tom | 605, 617, 521, 581 | Reiter „Ausrüstung“ (Seite passt in den Schirm, Reiter springen nicht): leeres Kopffeld antippen, ein Stück wählen, „Abbrechen“, dann „Zurück“; danach ein Stück einmal „Anlegen“ | Wechselschirm wie alt (Bild, Art, Wert, ▲/▼, nicht Tragbares matt); „Abbrechen“ führt in den Wechselschirm, „Zurück“ dort in die Ausrüstung; ein Druck reicht für Anlegen, Wegwerfen, Abbrechen, Zurück | man landet im Fenster des Stücks; jeder Knopf braucht zwei Drücke |
 | 269.17 | Tom | 605 | ohne andere Stücke die göttliche Kapuze aufs leere Kopffeld | +1 je Attribut wirkt; „wirkt nicht (Obergrenze)“ steht nur, wenn andere angelegte Stücke die Obergrenze schon füllen | „Obergrenze“ bei allem |
 | 269.18 | Tom | 519, 524, 524.1 | ein langes Stück öffnen („Göttlicher Ring des Eisernen Richters“), dann eine Waffe | Fenster passt auf den Schirm; Seltenheit, Tragort, Gewicht wie alt; bei der Waffe dazu Schaden je Griffart; ohne Kasten wie in 524.1 gewählt: Urteil als Zeile unter dem Namen (▲ Besser, ▼ Schlechter, ◆ Gemischt), wirksame Boni in Gold, „ANLEGEN ›“ als Hauptwahl | abgeschnitten; Grundwerte fehlen; Band mit Streifen statt Zeile |
@@ -78,3 +78,4 @@ Chef 08.11., 15:23 (an Sokrates), laufend:
 - 269.6 ✓ (am Handy, Chef 15:50)
 - 269.7 ✓ (Chef 15:51)
 - 269.14 ✓ (Chef 15:52)
+- 269.15 ✓ Leuchtfunke benutzen, danach „Löschen“ geht („Der Funke verglimmt“); Abbrechen/Benutzen und Löschen noch altes Design mit Kasten (→ 670); Leuchtfunke selbst wirkt noch nicht; Prüfzeile für den Chef unverständlich formuliert (Chef 15:54)
