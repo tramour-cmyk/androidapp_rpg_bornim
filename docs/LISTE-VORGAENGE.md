@@ -192,12 +192,12 @@
 | 511 | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele sinnlose und kaputte Filme gemacht?“) · „jetzt“ 03.11., 13:50 | Perikles | M | gebaut, Geprüft an: d6d9eca8c | Diogenes, D75 | – | – | B Werkzeuge | 19,83 $ |
 | 483 | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Marke (Chef 02.11., 19:08) | Perikles | M | gebaut, Geprüft an: 62e922b30 | Diogenes, D75 | – | – | B Werkzeuge | – |
 | 464 | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählung im Tagesbericht (Chef 01.11., 20:4x) | Perikles | M | gebaut, Geprüft an: fcf9ab215 | – | – | – | B Abläufe | – |
-| 398 | Gegenprobe: Grundsätze aus DESIGN-Dateien, die im Umzug nach Godot fehlen (Chef 28.10., 11:22) | Perikles | M | wartet, Wochenzählung Diogenes | 09.11. | – | – | E Technik | 12,07 $ |
+| 398 | Gegenprobe: Grundsätze aus DESIGN-Dateien, die im Umzug nach Godot fehlen (Chef 28.10., 11:22) | Perikles | M | startbar, gelöst 09.11.: 09.11. | – | – | – | E Technik | 12,07 $ |
 | 383 | Wartewächter und Haken 63 verschärfen (Chef 27.10., 17:53 ja); Sitzungsgröße messen (Sokrates) | Perikles | M | gebaut, Geprüft an: 4e1f16df6 | Sokrates | – | – | B Werkzeuge | 99,45 $ |
-| 275 | Zentrale Vorgangsliste als einzige Quelle (Chef 21.10.; Stufe 1 jetzt, 27.10.) | Perikles | M | gebaut, Geprüft an: e23a4ccb2 | Diogenes, 09.11. | – | – | B Werkzeuge | 31,69 $ |
+| 275 | Zentrale Vorgangsliste als einzige Quelle (Chef 21.10.; Stufe 1 jetzt, 27.10.) | Perikles | M | gebaut, Geprüft an: e23a4ccb2 | Diogenes | – | – | B Werkzeuge | 31,69 $ |
 | 347.2 | Umsetzung Plan 347 nach Gegenprüfung (Chef 24.10., 16:30) | Perikles | M | wartet | 347 | – | – | B Abläufe | – |
 | 276 | Fords Anleitung auf eine Seite (Empfehlung Sokrates zu 274) | Perikles | K | ruht | – | – | – | B Abläufe | – |
-| 341 | Zielvereinbarung Perikles bis zum Marktstart: sechs messbare Ziele, geprüft von Werkzeug und Diogenes (Chef 23.10., 09:39) | Perikles | M | ruht | 09.11. | – | – | B Abläufe | – |
+| 341 | Zielvereinbarung Perikles bis zum Marktstart: sechs messbare Ziele, geprüft von Werkzeug und Diogenes (Chef 23.10., 09:39) | Perikles | M | startbar, gelöst 09.11.: 09.11. | – | – | – | B Abläufe | – |
 | 270 | Perikles und Diogenes auf das große Modell (Chef 21.10.) | Perikles | M | ruht | – | – | – | B Abläufe | 5,58 $ |
 | D75 | Filmsperre 511 zählte Film-Pushes 572 nicht (D75.1); meldung.sh --film legte Film 572 nicht ab (D75.2) | Perikles | M | Dauer, bis zum nächsten echten Film (D75.1 gebaut, D75.2 dann prüfen) | – | – | – | B Werkzeuge | – |
 | 627 | probelauf.py: Push mit `git commit -F -` im selben Befehl als Probelauf gezählt (562, ohne Lauf) | Perikles | M | gebaut, Geprüft an: 4bcd30e87 | – | – | – | B Werkzeuge | – |
@@ -207,14 +207,14 @@
 | 647 | Abgleich alt schon vor dem Bauen: Fundstelle alter Code lesen und nennen, nicht erst vor der Testbitte (Chef 08.11., 12:44; aus 512, 499) | Perikles | M | gebaut, Geprüft an: d1c316652 | – | – | – | B Abläufe | – |
 | 648 | Glossar und Abkürzungsverzeichnis LISTE-GLOSSAR.md: Wort, Bedeutung, Zusammenhang, Fundstellen per Werkzeug, Link zur Festlegung (Chef 08.11., 13:01) | Perikles | K | gebaut, Geprüft an: 42e11acf4 | – | – | – | B Abläufe | – |
 | 651 | Kostenauswertung: Bereiche als feste Liste, fehlende Kosten (533 von 980 Zeilen) über Commits je Sitzung schätzen, Auswertung je Bereich, Tag, Woche (Chef 08.11., 13:29) | Perikles | M | gebaut, Geprüft an: 50bf4011a | – | – | – | B Steuerung | 3,00 $ |
-| 650.1 | Liste für docs/alt/ nach zwei Gegenprüfungen (aus 650) | Perikles | M | wartet, neun Dateien abgelegt; LISTE-ZENTRALE-VORGAENGE-275 nach Diogenes | 09.11. | – | – | B Abläufe | 3,00 $ |
+| 650.1 | Liste für docs/alt/ nach zwei Gegenprüfungen (aus 650) | Perikles | M | startbar, gelöst 09.11.: 09.11. | – | – | – | B Abläufe | 3,00 $ |
 | 654.1 | Systemfrage vor jedem Bau in ROLLE-ENTWICKLUNG.md und Prüfliste, Wiederholungswächter in vorgang.py neu (Stichwort in zwei früheren → Zeile „Systemlösung?“ für Sokrates); Regelbilanz (654, Chef 14:42) | Perikles | M | gebaut, Geprüft an: 36cff7b9d (Probe in Kopie: Schild → Systemlösung?, zweite blockiert) | – | – | – | B Abläufe | – |
 | 696 | meldung.sh: mehrere Bilder in derselben Minute überschreiben sich im Zweig bilder (Pfad TT-HHMM-Nr-Name ohne Zähler; 613 am 08.11. 19:10/19:11: zehn gesendet, zwei abgelegt), Links in ansehen/ zeigen nur das letzte (von Spike) | Perikles | K | gebaut, Geprüft an: d5e584b7a (Probe Wegwerf-Repo) | – | – | – | B Werkzeuge | 1,41 $ |
-| 340.2 | Rollenspiegel C: `tools/rollenspiegel.sh`, eigene Antwort ohne fremde | Diogenes | M | ruht | 09.11. | – | – | B Abläufe | –; +6,35 $ |
-| 485 | Diogenes bessert sich aus dem Rollenspiegel 02.11.: Wochentermine zählen, Vergleichsblätter selbst holen, Meldungen ohne Abkürzungen (Chef 02.11., 19:37 „1, 2, 3 ja“) · „jetzt“ 02.11., 19:37 | Diogenes | M | ruht | 09.11. | – | – | Q QS | – |
-| 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | ruht | 09.11. | – | – | B Abläufe | – |
+| 340.2 | Rollenspiegel C: `tools/rollenspiegel.sh`, eigene Antwort ohne fremde | Diogenes | M | startbar, gelöst 09.11.: 09.11. | – | – | – | B Abläufe | –; +6,35 $ |
+| 485 | Diogenes bessert sich aus dem Rollenspiegel 02.11.: Wochentermine zählen, Vergleichsblätter selbst holen, Meldungen ohne Abkürzungen (Chef 02.11., 19:37 „1, 2, 3 ja“) · „jetzt“ 02.11., 19:37 | Diogenes | M | startbar, gelöst 09.11.: 09.11. | – | – | – | Q QS | – |
+| 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | – | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
-| Woche | Wochenzählung der Kennzahlen | Diogenes | K | wartet | 09.11. | – | – | Q QM | – |
+| Woche | Wochenzählung der Kennzahlen | Diogenes | K | startbar, gelöst 09.11.: 09.11. | – | – | – | Q QM | – |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
 | 644.5 | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noch aus den Katalogen (keine alten Datenwege), Seiten auffindbar für den Chef, Stichprobe im Spiel (Chef 08.11., 14:30) | Diogenes | M | startbar | 644.1, 644.2, 644.4, 649.2, 649.3 | – | – | Q QM | – |
 | 657 | Regeln radikal kürzen: eine Seite für alle mit Stil, Team, Ablauf (Chef 08.11., 14:58, 15:05) | Sokrates | M | wartet, Votum nach 657.1 | Chef | – | – | B Abläufe | – |

@@ -77,16 +77,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:26 05.11.: Neustart Tom 10e563a7b/e5425749c → `3f5FQ` „492: Blutzahnhöhle“ (zuerst fälschlich „580–583“ gestartet, nach Berichtigung von Tom umbenannt und umgestellt); alter Tom `7cE3` archiviert, **72,19 $ auf 512b in 80 Minuten** (sonst etwa 15–25 $, 5,85 Mio Cache-Schreibtoken): Tagesbericht prüft.
 - 08:06 05.11.: Diogenes `eHWFv` (578/512b, 1,08 $) und Perikles `RRw` (Tagesbericht, 5,86 $) fertig, archiviert, gebucht; kein Nachfolger (468a). Tom 512b läuft. Morgenmeldung 07:05 gesendet; Bild der Nutzung steht aus.
 - 07:05 05.11.: Lauf `--nur-muss`: gestartet Tom 512b, Perikles Tagesbericht 05.11. Abweichung vom Plan (468a, 468c): Jerry 512b (gleiche Zeile wie Tom), Spike 569, Tuffy 565 (ruht) nicht gestartet, Sokrates-Stellungnahme nicht (Sokrates läuft, idle). Startmarken stehen trotzdem.
-- 20:06 07.11.: Startsperre 20:06 Start Diogenes, Homer, Perikles (lauf.py; Tom nicht gestartet: Pause Prüfliste, Sokrates-Stellungnahme an Chef-Sokrates statt Neustart)
-- 20:06 07.11.: Marke Tagesbericht 07.11. (lauf.py)
-- 20:06 07.11.: Marke Tagesbericht fehlt 07.11. (lauf.py)
-- 20:06 07.11.: Marke Stellungnahme Sokrates 07.11. (lauf.py)
-- 20:06 07.11.: Marke Wächter 591 06.11. 08:07 (lauf.py)
-- 20:06 07.11.: Marke Wächter 478 07.11. 16:37 (lauf.py)
-- 20:06 07.11.: Nachfolger-Warnung Diogenes (Übergabe 05.11., 07:19) (lauf.py)
-- 21:04 07.11.: Startsperre 21:04 Start Tom, Jerry, Diogenes, Homer, Tuffy (lauf.py)
-- 23:39 07.11.: Startsperre 23:39 Start Homer (lauf.py; Tom, Jerry, Diogenes nicht gestartet: nachts, Nachfolger „ab 7 Uhr“ bzw. „nur auf Zuruf“; Sokrates-Stellungnahme an Chef-Sokrates)
-- 23:39 07.11.: Marke Stellungnahme Sokrates 07.11. (lauf.py)
 - 09:06 08.11.: Startsperre 09:06 Start Diogenes, Perikles, Spike, Tuffy (lauf.py)
 - 09:06 08.11.: Marke Stellungnahme Sokrates 08.11. (lauf.py)
 - 09:06 08.11.: Marke Wächter 499 07.11. 21:31 (lauf.py)
@@ -133,3 +123,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:40 08.11.: Marke Archiv session_01Hmoj77CKdvoeF2B2rfiyzX (lauf.py)
 - 22:03 08.11.: Startsperre 22:03 Start Tom, Perikles (lauf.py)
 - 23:03 08.11.: Marke Archiv session_01Hmoj78gU5W9vAuVxjTNHQ7 (lauf.py)
+- 00:03 09.11.: Startsperre 00:03 Start Diogenes, Perikles (lauf.py)
+- 00:03 09.11.: Marke Stellungnahme Sokrates 09.11. (lauf.py)
