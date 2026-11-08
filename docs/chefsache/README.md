@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [591](entscheiden/591-auffliegen.md) | **Muss** | E Welt | 08.11., 17:00 | Wie soll das Huhn auffliegen? | Tom |
 | [623.6](entscheiden/6236-wasser.md) | **Muss** | E Welt | 08.11., 16:57 | Welches Wasser in den Film? | Sokrates für Team Tom |
 | [657](entscheiden/657-drei-stichpunkte.md) | **Muss** | B Abläufe | 08.11., 15:15 | Regeln radikal kürzen: eine Seite für alle (Empfehlung: :) | Sokrates |
 | [688](entscheiden/688-sammelbares-jetzt.md) | Kür | E Welt | 08.11., 16:41 | Sammelbares und Signatur je Karte: jetzt oder nach dem Durchspielen? | Perikles |
@@ -31,6 +32,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [416.8](tun/4168-kaufmodelle.md) | **Muss** | E Technik | 08.11., 17:00 | Tom das Einbinden der Kaufmodelle erlauben | Tom |
 | [660](tun/660-kaufmodelle-zugriff.md) | **Muss** | E Technik | 08.11., 14:47 | Einbinden von bornim-kaufmodelle in Tom-Sitzungen erlauben | Tom |
 
 ## Offen je Rolle
@@ -47,14 +49,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 
-**Tom** – offen 99, Muss 74, startbar 9
+**Tom** – offen 99, Muss 74, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 664 | M | Halbes Haus: Haus des alten Kael und Hütte der Kräuterhexe im tiefen Flüsterwald nur halb | Chef (Datei in der Chefsache) |
 | 656 | M | Umhang Kämpfer mit Beulen, große Beule unter dem Schwertarm: woher, weg (Chef 08.11., 14:5 | startbar |
 | 605 | M | Ausrüstung: leeres Kopffeld, Auswahl zeigt falsch „Obergrenze“, kein Zurück; Stück aus der | wartet auf Test/Build (gebaut) |
-| 416.8 | M | NPC dreht sich zum Helden mit kleinen Schritten, nicht auf der Stelle (Chef 31.10., 20:5x; | startbar |
+| 416.8 | M | NPC dreht sich zum Helden mit kleinen Schritten, nicht auf der Stelle (Chef 31.10., 20:5x; | Chef (Datei in der Chefsache) |
 | 670 | M | Build 269: Menü des Helden (Held, Tasche, Ausrüstung, Karte, Chronik, System) noch im alte | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
 | 613 | M | Zwischensequenzen neu wie alt: leichte Bewegungen, Signatur, Tusche (mit 302.3), an Spike | startbar |
 | 623.6 | M | Probe Welt mit den Gratisproben (Gras und Wind, Wasser, Wetter, Oberflächen) gegen unsere | startbar |
@@ -111,7 +113,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 447.4.1 | M | Bau Lehrmeister, Meisterschaften, Ruf Kapitel 1 (447.4) | wartet auf 508 (startbar) |
 | 589 | M | Dorf: Marktplatz wirkt geklont (gleiche Stände, gleiche Säcke), Durchgang links am Stand h | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
 | 590 | M | Innenräume: Türseite bei gedrehter Kamera dunkel und tot, mehr Licht (Kerzen) und Einricht | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
-| 591 | M | Dorftiere (Hühner, Kaninchen) fliehen vor dem Helden wie alt, mit Alarmklang (Chef 05.11., | startbar |
+| 591 | M | Dorftiere (Hühner, Kaninchen) fliehen vor dem Helden wie alt, mit Alarmklang (Chef 05.11., | Chef (Datei in der Chefsache) |
 | 617 | M | Hauptmenü „Laden“: Wischen löst Laden aus; laden nur mit dem Knopf rechts (Chef 07.11., t2 | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
 | 610 | M | Held im Dorf: Finger am Stab zucken ohne Unterlass (Schild auf dem Rücken) (Chef 07.11., t | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
 | 630 | M | Restliche Schirme im Stil „ohne Kasten“ (549a): Laden-Fenster und Rückfragen, Menü, Brett, | Chef (Datei in der Chefsache) |
