@@ -535,12 +535,12 @@ static func dialog_fuss(knoepfe: Array, zu: Callable, breite: float) -> Control:
 
 # 549a Knopfschrift 15 sp; passt der Text nicht in die halbe Breite („VERKAUFEN ×5 · 120 GOLD“): kleiner bis 13 sp (nie darunter,
 # 549a Schrift), dann zwei Zeilen
-static func passe_knopf(p: Control, breite: float) -> void:
+static func passe_knopf(p: Control, breite: float, groessen := [15.0, 14.0, 13.0]) -> void:
 	var l := p.find_child("Text", true, false) as Label
 	if l == null: return
 	var innen := breite - 9 * DP - 6 * DP   # Winkel „›“ bzw. „×“ und Abstand
 	var schrift := l.get_theme_font("font")
-	for sp in [15.0, 14.0, 13.0]:
+	for sp in groessen:
 		var g := int(round(sp * Stil.SP))
 		if schrift.get_string_size(l.text, HORIZONTAL_ALIGNMENT_LEFT, -1, g).x <= innen:
 			l.add_theme_font_size_override("font_size", g)
@@ -559,6 +559,33 @@ static func passe_knopf(p: Control, breite: float) -> void:
 	breit = maxf(breit, schrift.get_string_size(zeile, HORIZONTAL_ALIGNMENT_LEFT, -1, g).x)
 	l.custom_minimum_size.x = minf(innen, ceilf(breit) + 2.0)
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT if bool(p.get_meta("links", false)) else HORIZONTAL_ALIGNMENT_RIGHT
+
+# 630 (Chef 08.11., 15:11: „Abenteuer R bricht um … der Kasten rechts unten muss schon mal größer sein“): Breite, die ein Knopf in
+# einer Zeile bei [sp] braucht (Text mit Sperrung, Winkel, Abstand)
+static func knopf_breite(p: Control, sp: float) -> float:
+	var l := p.find_child("Text", true, false) as Label
+	if l == null: return 0.0
+	return ceilf(l.get_theme_font("font").get_string_size(l.text, HORIZONTAL_ALIGNMENT_LEFT, -1, int(round(sp * Stil.SP))).x) + 2.0 + 9 * DP + 6 * DP
+
+# eine Knopfzeile (Spielstaende.knopfzeile) in [breite]: je die halbe Breite, wenn beide in eine Zeile passen; sonst bekommt der
+# rechte (Hauptwahl) so viel, wie er in einer Zeile braucht, der linke den Rest, beide in derselben Groesse; erst wenn auch das nicht
+# geht, bricht der Text um (passe_knopf)
+static func passe_knopfzeile(zeile: HBoxContainer, breite: float) -> void:
+	var k := zeile.get_children()
+	if k.size() != 2: return
+	var frei := breite - zeile.get_theme_constant("separation")
+	for sp in [15.0, 14.0, 13.0]:
+		var bl := knopf_breite(k[0], sp)
+		var br := knopf_breite(k[1], sp)
+		if bl + br > frei: continue
+		var wr := maxf(frei / 2.0, br)
+		if bl > frei / 2.0: wr = frei - bl
+		(k[0] as Control).size_flags_stretch_ratio = frei - wr
+		(k[1] as Control).size_flags_stretch_ratio = wr
+		passe_knopf(k[0], frei - wr, [sp])
+		passe_knopf(k[1], wr, [sp])
+		return
+	for c in k: passe_knopf(c, frei / 2.0)
 
 const ABBRECHEN := {"de": "Abbrechen", "en": "Cancel"}
 func abbrechen() -> String: return Sprache.t(ABBRECHEN)

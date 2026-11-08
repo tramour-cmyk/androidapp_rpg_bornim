@@ -79,7 +79,7 @@ func _ready() -> void:
 	var unten := Spielstaende.knopfzeile(Spielstaende.knopf("neben", Sprache.u("back"), func(): zurueck.emit(), true),
 		Spielstaende.knopf("haupt", Sprache.u("start"), func(): beginne()))
 	unten.name = "Unten"
-	for k in unten.get_children(): Menue.passe_knopf(k, (get_viewport_rect().size.x - 48 * DP - 8 * DP) / 2.0)
+	Menue.passe_knopfzeile(unten, get_viewport_rect().size.x - 48 * DP)   # 630: Hauptwahl in einer Zeile, nie mitten im Wort
 	spalte.add_child(unten)
 	baue()
 
