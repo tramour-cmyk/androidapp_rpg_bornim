@@ -4,11 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [654](entscheiden/654-mitdenken.md) | **Muss** | B Abläufe | 08.11., 14:40 | Mitdenken vor dem Bauen | Sokrates |
+Nichts offen.
 
 ## Zu billigen
 
@@ -226,7 +222,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 644.2 | M | Gegenstandskatalog: Zahlen nach 469 in 444 (Tempo, Parieren, Durchschlag, Güte, Stufe), C1 | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test |
 | 653 | M | Kampf: Parade des Helden mit Schild dreht über _face_sanft ohne Pfotenhalt, Skriptfehler „ | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 21, Muss 18, startbar 0
+**Perikles** – offen 22, Muss 19, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -251,6 +247,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 648 | K | Glossar und Abkürzungsverzeichnis LISTE-GLOSSAR.md: Wort, Bedeutung, Zusammenhang, Fundste | wartet auf Diogenes |
 | 651 | M | Kostenauswertung: Bereiche als feste Liste, fehlende Kosten (533 von 980 Zeilen) über Comm | wartet auf Diogenes |
 | 650.1 | M | Liste für docs/alt/ nach zwei Gegenprüfungen (aus 650) | Termin 09.11. |
+| 654.1 | M | Systemfrage vor jedem Bau in ROLLE-ENTWICKLUNG.md und Prüfliste, Wiederholungswächter in v | startbar |
 
 **Diogenes** – offen 15, Muss 12, startbar 4
 
@@ -318,7 +315,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 569 | M | Baumkronen ohne erkennbare Tuschelinie, „ein einziger Brei“ (Chef 04.11., 19:44, Bild 558 | startbar |
 | 507 | M | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager (Orte O10; aus 492) (für Jerry) | startbar |
 | 383 | M | Wartewächter und Haken 63 verschärfen (Chef 27.10., 17:53 ja); Sitzungsgröße messen (Sokra | startbar |
-| 654 | M | Mitdenken vor dem Bauen: Systemfrage je Fund („kommt das wieder?“), Wiederholungswächter, | Chef (Datei in der Chefsache) |
+| 654 | M | Mitdenken vor dem Bauen: Systemfrage je Fund („kommt das wieder?“), Wiederholungswächter, | wartet auf 654.1 (startbar) |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
