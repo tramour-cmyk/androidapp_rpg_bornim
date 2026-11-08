@@ -214,7 +214,7 @@
 | Woche | Wochenzählung der Kennzahlen | Diogenes | K | wartet | 09.11. | – | – | Q QM | – |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
 | 644.5 | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noch aus den Katalogen (keine alten Datenwege), Seiten auffindbar für den Chef, Stichprobe im Spiel (Chef 08.11., 14:30) | Diogenes | M | startbar | 644.1, 644.2, 644.4, 649.2, 649.3 | – | – | Q QM | – |
-| 657 | Regeln radikal kürzen: je Rolle drei Stichpunkte, CLAUDE.md eine Seite (Chef 08.11., 14:58) | Sokrates | M | startbar | – | – | – | B Abläufe | – |
+| 657 | Regeln radikal kürzen: je Rolle drei Stichpunkte, CLAUDE.md eine Seite (Chef 08.11., 14:58) | Sokrates | M | startbar | Chef | – | – | B Abläufe | – |
 | 620 | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build (Chef 07.11.) · wiederholt | Sokrates | M | startbar | – | – | – | B Abläufe | 6,49 $ |
 | 341.1 | Zielvereinbarung für alle Rollen: je Rolle höchstens drei Ziele, Z3 und Z4 für alle, eins eigen (aus 341) | Sokrates | M | startbar, prüfen (alte Leiche: in LISTE-VORGAENGE.md „erledigt“, Zeile noch im Vorrat) | – | – | – | B Abläufe | – |
 | 623 | Effektpakete REEBOO Labs: Kauf, Ressourcenseite `LISTE-QUELLEN.md`, Zuordnung `LISTE-EFFEKTE.md`, Dank im Spiel (Chef 07.11.) | Sokrates | M | wartet, Kauf erst nach Probe und Film (Chef 13:14) | 623.5 | – | – | E Kampf | 6,49 $ |
