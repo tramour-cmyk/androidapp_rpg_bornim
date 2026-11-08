@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 623.6 | Probe Welt mit den Gratisproben (Gras und Wind, Wasser, Wetter, Oberflächen) gegen unsere Fassung, Dorfbach und Flüsterwald, FPS, ein Film; vor dem Kauf (Chef 07.11., 623 B1, D) · „jetzt“ 08.11., 13:48 | Tom | M | in Arbeit, Zweig claude/tom-6236-welt, Messlauf Dateiliste | – | – | – | E Welt | – |
+| 623.6 | Probe Welt mit den Gratisproben (Gras und Wind, Wasser, Wetter, Oberflächen) gegen unsere Fassung, Dorfbach und Flüsterwald, FPS, ein Film; vor dem Kauf (Chef 07.11., 623 B1, D) · „jetzt“ 08.11., 13:48 | Tom | M | in Arbeit, Probelauf läuft (welt=bild, Zweig claude/tom-6236-welt) | – | – | – | E Welt | – |
 | 625 | Sammelbuild 269: alle fertigen Zweige beider Teams (35 warten), Prüfliste als Weg durchs Spiel (Chef 07.11., 20:5x) · „jetzt“ 07.11., 20:54 | Tom | M | zu testen | – | claude/build-269 | 269 | E Technik | 76,53 $ |
 | 499 | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 (Chef 03.11., 07:14, Build 204) · „jetzt“ 07.11., 21:31 | Tom | M | in Arbeit, Schild hoch wie alt (1be5a03bf), Probebildlauf läuft | – | claude/tom-499-drehteller | – | E Figuren | 48,69 $ |
 | 635 | Lyra fehlt als Figur im Tempel und in der Höhle: Kennung lyra_temple/lyra_cave, gebaut wird nur „lyra“ (Abgleich 620.2a) | Tom | M | gebaut, Geprüft an: 8a2f85b98 (lyra_635 lokal), fährt im nächsten Build | – | claude/tom-635-lyra | – | E Welt | – |
