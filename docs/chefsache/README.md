@@ -46,7 +46,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 
-**Tom** – offen 95, Muss 74, startbar 9
+**Tom** – offen 99, Muss 74, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -145,6 +145,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 678 | M | Testmenü: Heldenstufe +1 geht über die Kapitelgrenze (Stufe 9 in Kapitel 1), Grenze auch b | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test |
 | 683 | M | Oberfläche noch mit SRD-Wörtern: Gegenstandsfenster und Vergleich zeigen Zauberpunkte, Att | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test |
 | Pflege | K | von Werkzeug (340.3, 08.11.): 18288 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 691 | K | Platzwechsel mit Leuten und Tieren: beide gleiten ineinander (Chef 03.11., 07:44, Test 204 | ruht |
+| 687 | K | Tiefer Flüsterwald: Grimmzahn auf der Karte „steht ganz alleine rum und schaut eher aus wi | ruht |
+| 688 | K | Frage des Chefs je Karte: wie viel Sammelbares offen und versteckt liegt (alt gegen neu: T | ruht |
+| 689 | K | Dorf, Urteil Chef 25.10., 12:11 (aus 348.6, offen geblieben): Büsche über Dachfirsten, Lat | ruht |
 
 **Jerry** – offen 69, Muss 60, startbar 2
 
@@ -220,11 +224,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 681 | M | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
 | Pflege | K | von Werkzeug (340.3, 08.11.): 17119 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 26, Muss 23, startbar 3
+**Perikles** – offen 25, Muss 22, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 675 | M | Gelöschte Chef-Funde zurückholen: Tom 3600d77ce (08.11., 621.2) strich 220 Zeilen Zu/Alt o | startbar |
 | 658 | M | Telegram-Reaktionen auslesen: 👍 auf eine Meldung = gebilligt/passt, ✅ = erledigt, Eintrag | wartet auf Test/Build (gebaut) |
 | 317.1 | M | startbar.py, lauf.py: Obergrenze 6 je Build streichen (Chef 07.11., 20:5x) | wartet auf Test/Build (gebaut) |
 | 620.1 | M | Wiederholte Funde des Chefs vor Neuem; wenige Muss je Team zugleich (aus 620) | wartet auf Test/Build (gebaut) |
@@ -266,7 +269,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
 | 644.5 | M | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noc | wartet auf 644.1 (startbar) |
 
-**Sokrates** – offen 48, Muss 32, startbar 27, PAUSE bis 09.11., 09:00
+**Sokrates** – offen 49, Muss 32, startbar 28, PAUSE bis 09.11., 09:00
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -318,6 +321,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 672 | K | Systemlösung? Karte: 20 frühere Vorgänge (322, 500, 553, 529, 86 …), neu 670; einmal grund | startbar |
 | 674 | K | Systemlösung? Kamera: 5 frühere Vorgänge (590, 615, 460, 211.14, 399.4), neu 673; einmal g | startbar |
 | 676 | K | Systemlösung? Schild: 14 frühere Vorgänge (662, 58, 406a, 417, 645 …), neu 675; einmal gru | startbar |
+| 690 | K | Systemlösung? Schatten: 10 frühere Vorgänge (208, 242.2, 566, 399.5, 558 …), neu 689; einm | startbar |
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
