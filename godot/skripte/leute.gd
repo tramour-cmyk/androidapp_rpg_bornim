@@ -57,7 +57,7 @@ static func alle(k: Karte, h: Node3D) -> Array:
 		if mo.begins_with("monster:"):   # 491: Grimmzahn (Npc „monster:dire_wolf“) als Modell des Kampforts, wie die Monster der Karte
 			if Streuner.da(mo.trim_prefix("monster:")): r.append(Leute.new(k, d, h))
 			continue
-		if not FileAccess.file_exists("res://daten/leute/%s.bin" % d["id"]): continue
+		if not FileAccess.file_exists("res://daten/leute/%s.bin" % d["id"]) and not FileAccess.file_exists("res://daten/leute/%s.bin" % mo): continue
 		var l := Leute.new(k, d, h)
 		r.append(l)
 	return r
@@ -209,6 +209,14 @@ func kopfhoehe() -> float:
 			oben = maxf(oben, (t * bb).end.y)
 	return oben if oben > 0.5 else 1.75
 
+# 492 (Story.kt Leave, Game.leave): geht auf dem kuerzesten Weg zu fort_nach, dort ist sie fort (fertig wird gerufen)
+var fort_nach := Vector2i(-1, -1)
+var fort_fertig := Callable()
+func geht_fort(nach: Vector2i, fertig: Callable) -> void:
+	if fort_nach == nach: return
+	fort_nach = nach; fort_fertig = fertig
+	zugewandt_bis = 0; weg.clear(); warte = 0.4
+
 func zeige(ja: bool) -> void:
 	da = ja
 	visible = da and not drinnen
@@ -225,6 +233,8 @@ func plan_jetzt() -> Array:
 
 func _ready() -> void:
 	var datei := String(daten.get("datei", "res://daten/leute/%s.bin" % daten["id"]))
+	var aus := "res://daten/leute/%s.bin" % String(daten.get("aussehen", ""))   # 492: Lyra (lyra_cave, lyra_temple) als Figur „lyra“
+	if not daten.has("datei") and not FileAccess.file_exists(datei) and FileAccess.file_exists(aus): datei = aus
 	var p := datei.get_basename() + "-info.json"
 	var mo := String(daten.get("aussehen", ""))
 	if mo.begins_with("monster:"):
@@ -441,6 +451,7 @@ func _process(dt: float) -> void:
 		anim.speed_scale = 1.0
 
 func stehen(dt: float) -> void:
+	if fort_nach.x >= 0 and not still: zugewandt_bis = 0   # 492: wer fortgeht, geht gleich nach dem Gespraech (Game.leave)
 	if zugewandt_bis > 0:
 		if still: zugewandt_bis = Time.get_ticks_msec() + int(ZUGEWANDT * 1000)   # waehrend des Gespraechs zaehlt die Zeit nicht
 		if Time.get_ticks_msec() < zugewandt_bis and held:
@@ -455,6 +466,13 @@ func stehen(dt: float) -> void:
 	if Time.get_ticks_msec() < ruft_bis: return   # 399.1 (306): wer ruft, haelt still, bis das zweite Zeichen vorbei ist
 	warte -= dt
 	if warte > 0: return
+	if fort_nach.x >= 0:
+		if kachel == fort_nach:
+			fort_nach = Vector2i(-1, -1)
+			if fort_fertig.is_valid(): fort_fertig.call()
+			return
+		gehe_nach(fort_nach)
+		return
 	if tagesplan(): return
 	if nah_am_held(kachel):
 		warte = 0.8

@@ -7,6 +7,7 @@ uniform sampler2D gras : source_color, filter_linear_mipmap_anisotropic, repeat_
 uniform sampler2D erde : source_color, filter_linear_mipmap_anisotropic, repeat_enable;
 uniform sampler2D pflaster : source_color, filter_linear_mipmap_anisotropic, repeat_enable;
 uniform vec2 karte = vec2(41.76, 37.12);   // Kartengroesse in Metern
+uniform float rand_m = 0.0;                 // 505c: so viele Meter reicht die Maske ueber den Kartenrand (<maske>-rand)
 // 348.6 (Befund 2): Lichtinseln nachts wie MapLight.add (Laterne Reichweite 2,6 Kacheln, Fenster 1,6; Abfall steiler als exp(-2 (d/r)^2), am Rechner gegen alt gemessen);
 // hier statt Lampen, weil der Mobile-Renderer je Netz nur 8 Lampen nimmt (Kirchenlaternen blieben dunkel). x, z, Reichweite, Staerke
 uniform vec4 inseln[64];
@@ -22,7 +23,7 @@ float vnoise(vec2 p) {
 	return mix(mix(h21(i), h21(i + vec2(1, 0)), f.x), mix(h21(i + vec2(0, 1)), h21(i + vec2(1, 1)), f.x), f.y);
 }
 void fragment() {
-	vec4 m = texture(maske, wpos.xz / karte);
+	vec4 m = texture(maske, (wpos.xz + rand_m) / (karte + 2.0 * rand_m));   // 505c: Maske reicht rand_m ueber den Rand (dorf.py RAND_E)
 	vec2 p = wpos.xz;
 	float nz = vnoise(p * 0.35) * 0.65 + vnoise(p * 1.1) * 0.35;
 	vec3 g = mix(texture(gras, p / 2.32).rgb, texture(gras, vec2(p.y, -p.x) / 3.07 + 0.37).rgb, smoothstep(0.35, 0.65, nz));
