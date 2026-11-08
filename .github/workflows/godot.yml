@@ -652,6 +652,19 @@ jobs:
           BILD565_AUS=$B VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 1080x2340 -s res://tests/am_zug_565_bild.gd 2>&1 | tee $B/am_zug565.log | grep -E "^(BILD|FEHLER|AMZUG565)|SCRIPT ERROR" || true
           ls -l $B
+      # 630 (Chef 08.11., 15:11: „Links oben der Held … fehlt“): die Schirmbilder der Probe (tests/schirme_630_bild.gd) mit dem Helden
+      # aus den Kaufmodellen, die es am Rechner nicht gibt; Renderer wie am Handy; nur von Hand auf einem Zweig mit „630“ und film=nein
+      - name: Schirmbilder 630 (nur von Hand, film=nein)
+        if: ${{ !cancelled() && github.event_name == 'workflow_dispatch' && contains(github.ref, '630') && github.event.inputs.film == 'nein' }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/schirme630; mkdir -p $B
+          cd godot
+          sudo apt-get install -y -q mesa-vulkan-drivers xvfb > /dev/null || true
+          ls -l daten/held.bin || echo "kein Held (ohne Kaufmodelle)"
+          OBERFLAECHE_AUS=$B VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 1080x2340 -s res://tests/schirme_630_bild.gd 2>&1 | tee $B/schirme630.log | grep -E "^BILD|SCRIPT ERROR" || true
+          ls -l $B
       - name: Gegnerfilm 494 (nur von Hand mit gegner=…)
         if: ${{ !cancelled() && github.event.inputs.gegner != '' && github.event.inputs.gegner != 'FLEDERMAUS' && github.event.inputs.film != 'nein' }}
         continue-on-error: true
