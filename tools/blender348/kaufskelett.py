@@ -278,6 +278,58 @@ def augen(rig, koerper):
     return obs
 
 
+def waffe_heben(o, rig, a, scn):
+    """E3 (nichts durch etwas): im Tod fällt die Waffe mit der Faust und stach in den Boden (Speer 20 cm, Lauf 2). Je Bild um die
+    Faust so wenig wie möglich aufrichten, bis keine Ecke unter dem Boden liegt; als eigene Spur „Tod“ des Teils."""
+    rig.animation_data.action = a
+    if slot(a) is not None:
+        rig.animation_data.action_slot = slot(a)
+    o.rotation_mode = 'QUATERNION'
+    b0 = o.matrix_basis.copy()
+    o.animation_data_create()
+    act = bpy.data.actions.new('Tod %s' % o.name)
+    act.use_fake_user = True
+    o.animation_data.action = act
+    pb = rig.pose.bones[HAND_R if o.parent_bone == HAND_R else o.parent_bone]
+    r0, r1 = int(a.frame_range[0]), int(a.frame_range[1])
+    gedreht, rest = 0.0, 0.0
+    for f in range(r0, r1 + 1):
+        scn.frame_set(f)
+        o.matrix_basis = b0
+        bpy.context.view_layer.update()
+        V = [o.matrix_world @ v.co for v in o.data.vertices]
+        if min(p.z for p in V) < 0.003:
+            g = (rig.matrix_world @ pb.matrix).translation
+            fern = max(V, key=lambda p: (p - g).length)
+            ach = (fern - g).cross(Vector((0, 0, 1)))
+            if ach.length > 1e-6:
+                ach.normalize()
+                M0 = o.matrix_world.copy()
+                wahl = None
+                for w in range(2, 92, 2):
+                    for vz in (1, -1):
+                        R = Matrix.Translation(g) @ Matrix.Rotation(math.radians(w * vz), 4, ach) @ Matrix.Translation(-g)
+                        if min((R @ M0 @ v.co).z for v in o.data.vertices) >= 0.003:
+                            wahl = R; break
+                    if wahl is not None:
+                        gedreht = max(gedreht, w); break
+                if wahl is not None:
+                    o.matrix_world = wahl @ M0
+                    bpy.context.view_layer.update()
+        rest = min(rest, min((o.matrix_world @ v.co).z for v in o.data.vertices))
+        o.keyframe_insert('location', frame=f)
+        o.keyframe_insert('rotation_quaternion', frame=f)
+        o.keyframe_insert('scale', frame=f)
+    o.animation_data.action = None
+    o.matrix_basis = b0
+    tr = o.animation_data.nla_tracks.new(); tr.name = 'Tod'
+    st = tr.strips.new('Tod', r0, act)
+    if slot(act) is not None and hasattr(st, 'action_slot'):
+        st.action_slot = slot(act)
+    print('TOD %s um die Faust aufgerichtet, höchstens %d Grad, tiefster Punkt %.3f m' % (o.name, gedreht, rest))
+    return round(rest, 3)
+
+
 def aktionen(d, rig):
     akt = {}
     for nm, q in NAMEN:
@@ -424,10 +476,11 @@ def baue(kit_name):
         if slot(a) is not None:
             rig.animation_data.action_slot = slot(a)
         r0, r1 = int(a.frame_range[0]), int(a.frame_range[1])
+        # jede Bewegung setzt den Ort des Gerüsts selbst (auch auf 0), sonst bliebe der Hub der vorigen stehen
+        rig.location.z = 0.0
+        for f in range(r0, r1 + 1):
+            rig.keyframe_insert('location', frame=f)
         if nm not in IM_BODEN_ERLAUBT:
-            rig.location.z = 0.0
-            for f in range(r0, r1 + 1):
-                rig.keyframe_insert('location', frame=f)
             hoch = 0.0
             for _ in range(4):
                 rest = 0.0
@@ -446,6 +499,10 @@ def baue(kit_name):
         tief[nm] = round(min(float(welt_netz(basis, f)[:, 2].min()) for f in range(r0, r1 + 1)), 3)
         if waffen_teile:
             waffe_tief[nm] = round(min(float(welt_netz(waffen_teile, f)[:, 2].min()) for f in range(r0, r1 + 1)), 3)
+    rig.animation_data.action = None
+    for o in waffen_teile:
+        if waffe_tief.get('Tod', 0.0) < -0.002 and 'Tod' in gespielt:
+            waffe_tief['Tod'] = waffe_heben(o, rig, gespielt['Tod'], scn)
     rig.animation_data.action = None
     rig.location.z = 0.0
     INFO['gehoben_m'] = gehoben
@@ -490,6 +547,7 @@ def baue(kit_name):
     bpy.ops.export_scene.gltf(filepath=pfad, export_format='GLB', use_selection=True, export_animations=True, export_skins=True,
                               export_animation_mode='NLA_TRACKS', export_yup=True, export_apply=False,
                               export_image_format='JPEG', export_jpeg_quality=88, export_vertex_color='ACTIVE',
+                              export_optimize_animation_keep_anim_object=True, export_optimize_animation_keep_anim_armature=True,
                               export_all_vertex_colors=False)
     INFO['sekunden_bau'] = round(time.time() - T0, 1)
     print('GLB %s %d Bytes' % (pfad, os.path.getsize(pfad)))
