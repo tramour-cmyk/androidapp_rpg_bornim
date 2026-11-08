@@ -136,6 +136,13 @@ func _wolf(f) -> bool:
 
 func _bild(kf, n: int, k: String) -> void:
 	var figs: Array = kf.figures.values()
+	var spur := OS.get_environment("SPUR438")     # 562 am Rechner: SPUR438=<von>-<bis> schreibt je Bild jede Figur
+	if spur != "" and n >= int(spur.get_slice("-", 0)) and n <= int(spur.get_slice("-", 1)):
+		for f in figs:
+			if f.fighter.id.begins_with("wolf"):
+				print("SPUR %d %s rot=%.0f anim=%s gang=%s auf=(%.2f,%.2f) heim=(%.2f,%.2f) tween=%s unterwegs=%s bahn=%s warte=%d" % [n, f.fighter.id, rad_to_deg(f.rotation.y),
+					f.anim.current_animation if f.anim else "", f.gang, f.position.x, f.position.z, f.home.x, f.home.z,
+					f.tween != null and f.tween.is_running(), f.unterwegs(), f.bahn, f._warte_n])
 	if log_an and String(kf.shown.get("text", "")) != _letzt:
 		_letzt = String(kf.shown.get("text", ""))
 		print("Meldung %d %s | cue %s schaden %s sprung %s" % [n, _letzt, kf.shown.get("cue"), kf.shown.get("damage"), str(kf.figures[kf.shown.actor].letzter_sprung) if kf.shown.get("actor") != null and kf.figures.has(kf.shown.actor) else "-"])
