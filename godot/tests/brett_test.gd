@@ -30,14 +30,14 @@ func _lauf() -> void:
 	pruefe("Chronik neu", Chronik.frisch(z), true)
 	Chronik.gelesen(z)
 	pruefe("Chronik gelesen", Chronik.frisch(z), false)
-	z.dazu("wolf_pelt", 3)
-	pruefe("Stand", Auftraege.stand(z, Auftraege.von("pelts")), 3)
+	z.dazu("wolf_pelt", 2)   # 356.2 (356 b): drei Felle statt fuenf, dazu Thessas Pelzumhang
+	pruefe("Stand", Auftraege.stand(z, Auftraege.von("pelts")), 2)
 	pruefe("noch nicht abzugeben", Auftraege.abgabe(z, "thessa"), [])
 	z.dazu("wolf_pelt", 4)
 	var c := Auftraege.abgabe(z, "thessa")
-	pruefe("Abgabe", c.map(func(x): return x["art"]), ["sagen", "sagen", "nehmen", "flagge", "gold"])
-	pruefe("Abgabe Werte", [c[2]["ding"], c[2]["anzahl"], c[3]["flagge"], c[4]["anzahl"]], ["wolf_pelt", 5, "job_pelts_done", 60])
-	pruefe("Dank wortgleich", Sprache.t(c[1]["text"]), "Fünf. Gut. Die Felle riechen noch nach Blut – das wäscht sich aus. Hier, dein Lohn.")
+	pruefe("Abgabe", c.map(func(x): return x["art"]), ["sagen", "sagen", "nehmen", "flagge", "gold", "geben"])
+	pruefe("Abgabe Werte", [c[2]["ding"], c[2]["anzahl"], c[3]["flagge"], c[4]["anzahl"], c[5]["ding"]], ["wolf_pelt", 3, "job_pelts_done", 60, "cloak_thessa"])
+	pruefe("Dank wortgleich", Sprache.t(c[1]["text"]), "Drei. Gut. Die Felle riechen noch nach Blut – das wäscht sich aus. Hier, dein Lohn. Und den Umhang hab ich aus dem letzten Winter. Der hält warm.")
 	pruefe("andere nicht", Auftraege.abgabe(z, "borin"), [])
 	# Menue Chronik zeigt den Auftrag mit Stand
 	var hw := Heldwerte.erschaffe("Mira", "ELF", "WIZARD", {}, z.neue_uid)
@@ -95,7 +95,8 @@ func _lauf() -> void:
 	for i in 12:   # spiel liegt nicht im Baum: „gelesen“ ist nicht verbunden, darum weiter() von Hand
 		if ui.spricht(): ui.naechste()
 		if not ui.spricht(): spiel.weiter()
-	pruefe("nach der Abgabe", [z.anzahl("wolf_pelt"), z.gold - gold, Auftraege.erledigt(z, Auftraege.von("pelts")), ids(Auftraege.am_brett(z)).has("pelts")], [2, 60, true, false])
+	pruefe("nach der Abgabe", [z.anzahl("wolf_pelt"), z.gold - gold, Auftraege.erledigt(z, Auftraege.von("pelts")), ids(Auftraege.am_brett(z)).has("pelts")], [3, 60, true, false])
+	pruefe("Pelzumhang in der Tasche (356.2)", z.beutel.any(func(x): return String(x.get("unique", "")) == "cloak_thessa"), true)
 	h.free(); spiel.free(); ui.free()
 	# 399.1 Ruf (Hail.kt): nur wer bekannt ist und Neues hat; Abgabe bereit zaehlt; gehoert nach dem Gespraech
 	var y := Zustand.new()
@@ -111,7 +112,7 @@ func _lauf() -> void:
 	Ruf.gehoert(y, "thessa", true)
 	Auftraege.nimm(y, Auftraege.von("pelts"))
 	pruefe("Ruf ohne Felle", Ruf.neu(y, "thessa"), false)
-	y.dazu("wolf_pelt", 5)
+	y.dazu("wolf_pelt", 3)
 	pruefe("Ruf Abgabe", Ruf.neu(y, "thessa"), true)
 	pruefe("Ruf Zeiten", [Ruf.zeigt(0), Ruf.zeigt(1500), Ruf.zeigt(3300), Ruf.zeigt(4700)], [true, false, true, false])
 	# 134.3 Ruf ohne Worte (Hail.voice, callVolume); leute.json wie im Bau
