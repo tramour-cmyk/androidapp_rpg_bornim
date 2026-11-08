@@ -422,7 +422,7 @@ internal open class BridgePainter(val detail: Boolean = true) {
                     val bx = sx(x + shift + (tileHash(tx, ty, 3) - 0.5), z); val by = sy(0.0, z)
                     softShadow(bx, by, f * 2.2 / z)
                     if (shift > 0) firVolume(bx, by, f * hgt * 1.15 / z, f * hgt * 0.68 / z, z)
-                    else firShape(bx, by, f * hgt / z, f * hgt * 0.42 / z, far(night(dFir), z), far(night(0x4E7A5A), z), if (detail) 0.7 else 0.5) }
+                    else firShape(bx, by, f * hgt / z, f * hgt * 0.42 / z, far(night(dFir), z), far(night(0x4E7A5A), z), if (detail) 0.7 else 0.5, inkPx(0.022, z)) }
                 'c' -> items += z to { wheatTile(tx, ty) }
                 'y' -> items += z to { hay(x, z) }
                 'x' -> items += z to { fence(tx, ty) }
@@ -558,17 +558,25 @@ internal open class BridgePainter(val detail: Boolean = true) {
     fun hay(x: Double, z: Double) {
         val px = sx(x, z); val py = sy(0.0, z); val r = f * 1.0 / z
         g.color = far(night(dHay), z); g.fill(Ellipse2D.Double(px - r, py - r * 1.3, r * 2, r * 1.5))
+        inkShape(Ellipse2D.Double(px - r, py - r * 1.3, r * 2, r * 1.5), inkPx(0.022, z)) // ink: the stack's outline
         g.color = alpha(far(night(dHay, 1.5), z), 0.6); g.fill(Ellipse2D.Double(px - r * 0.9, py - r * 1.25, r * 0.9, r * 1.0))
     }
     fun fence(tx: Int, ty: Int) {
         val z = wz(ty + 0.5); val x0 = wx(tx.toDouble()); val x1 = wx(tx + 1.0)
         val c = far(night(dTimber, 1.4), z)
+        // ink: the lower (shadow) edge of each rail and both edges of the post, where they are wide enough to carry a line
+        val rail = f * 0.06 / z >= 3.0; val post = f * 0.1 / z >= 3.0
         line(c, maxOf(1.0, f * 0.06 / z), sx(x0, z), sy(0.8, z), sx(x1, z), sy(0.8, z))
+        if (rail) inkSeg(0.006, x0, 0.77, z, x1, 0.77, z)
         line(c, maxOf(1.0, f * 0.06 / z), sx(x0, z), sy(0.45, z), sx(x1, z), sy(0.45, z))
+        if (rail) inkSeg(0.006, x0, 0.42, z, x1, 0.42, z)
         line(c, maxOf(1.0, f * 0.1 / z), sx(x0, z), sy(0.0, z), sx(x0, z), sy(1.0, z))
+        if (post) for (e in listOf(-0.05, 0.05)) inkSeg(0.008, x0 + e, 0.0, z, x0 + e, 1.0, z)
     }
     fun lamp(x: Double, z: Double) {
         line(far(Color(0x14120F), z), maxOf(1.0, f * 0.1 / z), sx(x, z), sy(0.0, z), sx(x, z), sy(2.4, z))
+        // ink: the post's two edges, before its light
+        if (f * 0.1 / z >= 3.0) for (e in listOf(-0.05, 0.05)) inkSeg(0.008, x + e, 0.0, z, x + e, 2.4, z)
         glow(sx(x, z), sy(2.4, z), f * 3.0 / z, warmDeep, 0.35); glow(sx(x, z), sy(2.4, z), f * 0.5 / z, warm, 0.9)
     }
     fun flowers(tx: Int, ty: Int) {
@@ -620,8 +628,11 @@ internal open class BridgePainter(val detail: Boolean = true) {
         poly(far(fir, 150.0), 0.0, sy(0.0, 150.0) - 6, W.toDouble(), sy(0.0, 150.0) - 6, W.toDouble(), hy + 4, 0.0, hy + 4)
     }
 
-    fun firShape(x: Double, base: Double, h: Double, w: Double, c: Color, lit: Color, litA: Double) {
+    /** [inkW]: the pen in px for the fir's outline (613), 0 for none (the far wood on the horizon). */
+    fun firShape(x: Double, base: Double, h: Double, w: Double, c: Color, lit: Color, litA: Double, inkW: Double = 0.0) {
         val tiers = 6
+        // ink: only the coarse outline of the whole fir (all tiers and the trunk as one), no line between the tiers
+        val sil = if (tusche && inkW > 0) java.awt.geom.Area() else null
         for (k in 0 until tiers) {
             val t0 = k / tiers.toDouble(); val t1 = (k + 1.6) / tiers
             val yb = base - h * 0.12 - h * 0.88 * t0; val yt = base - h * 0.12 - h * 0.88 * t1.coerceAtMost(1.0)
@@ -637,10 +648,16 @@ internal open class BridgePainter(val detail: Boolean = true) {
             }
             pts += listOf(x - half, yb)
             poly(c, *pts.toDoubleArray())
+            sil?.add(java.awt.geom.Area(Path2D.Double().apply { moveTo(pts[0], pts[1]); for (i in 2 until pts.size step 2) lineTo(pts[i], pts[i + 1]); closePath() }))
             // the moon is on the left: the left edge of every tier catches it
             if (litA > 0) poly(alpha(lit, litA), x - half, yb, x, yt, x - half * 0.5, yb - h * 0.05, x - half * 0.75, yb - h * 0.01)
         }
         line(Color(0x141010), maxOf(1.0, w * 0.06), x, base, x, base - h * 0.14)
+        if (sil != null) {
+            val tw = maxOf(1.0, w * 0.06)
+            sil.add(java.awt.geom.Area(java.awt.geom.Rectangle2D.Double(x - tw / 2, base - h * 0.14, tw, h * 0.14)))
+            inkShape(sil, inkW)
+        }
     }
 
     fun groundStrokes(z0: Double, z1: Double, c: Color, n: Int) {
@@ -675,7 +692,7 @@ internal open class BridgePainter(val detail: Boolean = true) {
 
     fun houses() {
         val items = houseList.map { it.z to { house(it, it.temple) } } +
-            northFirs.map { (x, z, h) -> z + 3 to { firShape(sx(x, z), sy(0.0, z), f * h / z, f * h * 0.42 / z, far(fir, z), far(firLit, z), 0.6) } }
+            northFirs.map { (x, z, h) -> z + 3 to { firShape(sx(x, z), sy(0.0, z), f * h / z, f * h * 0.42 / z, far(fir, z), far(firLit, z), 0.6, inkPx(0.022, z)) } }
         for ((_, draw) in items.sortedByDescending { it.first }) draw()
     }
 
@@ -777,10 +794,33 @@ internal open class BridgePainter(val detail: Boolean = true) {
                 val b1 = 1.0 / bays
                 beam(0.0, fy, b1, 1.2); beam(1.0, fy, 1 - b1, 1.2)
                 beam(0.0, 1.2, b1, hs.wall - 0.06); beam(1.0, 1.2, 1 - b1, hs.wall - 0.06)
+                // ink: only the shadow edge (below, right) of the frame's rails and inner posts, as structure; not the braces
+                fun beamInk(ta: Double, ya: Double, tb: Double, yb: Double) {
+                    val dt = if (ta == tb) 0.075 / len else 0.0; val dy = if (ta == tb) 0.0 else -0.075
+                    val ax = xa + (xb - xa) * (ta + dt); val az = za + (zb - za) * (ta + dt); val bx = xa + (xb - xa) * (tb + dt); val bz = za + (zb - za) * (tb + dt)
+                    inkSeg(0.01, ax, ya + dy, az, bx, yb + dy, bz)
+                }
+                beamInk(0.0, fy + 0.05, 1.0, fy + 0.05); beamInk(0.0, 1.2, 1.0, 1.2); beamInk(0.0, hs.wall - 0.06, 1.0, hs.wall - 0.06)
+                for (k in 1 until bays) beamInk(k / bays.toDouble(), fy, k / bays.toDouble(), hs.wall)
             }
         } else if (detail) {
             // ashlar courses on the temple
             for (k in 1..9) { val y = hs.wall * k / 10; line(far(Color(0x22242C), z0), 1.0, sx(x0, z0), sy(y, z0), sx(x1, z0), sy(y, z0)) }
+        }
+        // ink: the walls' outline (the front with its corner posts, the foot and the far corner of the side, the gable against
+        // the night), before the roof, so its eave covers the top of it
+        run {
+            val hp = if (temple) 0.0 else 0.08 // half a corner post
+            inkQuad(0.022, x0 - hp, 0.0, z0, x1 + hp, 0.0, z0, x1 + hp, hs.wall, z0, x0 - hp, hs.wall, z0)
+            inkSeg(0.02, sideX, 0.0, z0, sideX, 0.0, z1)
+            val farX = sx(sideX, z1) + Math.signum(sx(sideX, z1) - sx(sideX, z0)) * (if (temple) 0.0 else maxOf(1.5, f * 0.16 / z0) / 2)
+            inkStroke(farX, sy(0.0, z1), farX, sy(hs.wall, z1), inkPx(0.022, z1))
+            inkSeg(0.02, sideX, hs.wall, z1, sideX, top, zr)
+            if (!temple) {
+                // the inner edges of the two front corner posts, and the top of the stone footing
+                inkSeg(0.01, x0 + hp, 0.7, z0, x0 + hp, hs.wall, z0); inkSeg(0.01, x1 - hp, 0.7, z0, x1 - hp, hs.wall, z0)
+                if (!near) { inkSeg(0.01, x0, 0.7, z0, x1, 0.7, z0); inkSeg(0.01, sideX, 0.7, z0, sideX, 0.7, z1) }
+            }
         }
         // the roof: the slope towards us, its eave a little over the wall
         val ov = 0.5
@@ -816,11 +856,18 @@ internal open class BridgePainter(val detail: Boolean = true) {
             }
             g.clip = clip
         }
+        // ink: the roof slope's outline, eave, verges and ridge (the moon on the ridge is laid on after)
+        inkQuad(0.022, x0 - ov, hs.wall - 0.3, z0 - ov, x1 + ov, hs.wall - 0.3, z0 - ov, x1 + ov, top, zr, x0 - ov, top, zr)
         // 69e: an eave board under the roof's edge and a verge board up the gable, as the village roofs have them
         if (near) {
             quad(far(night(0x2E2218), z0), x0 - ov, hs.wall - 0.5, z0 - ov, x1 + ov, hs.wall - 0.5, z0 - ov, x1 + ov, hs.wall - 0.3, z0 - ov, x0 - ov, hs.wall - 0.3, z0 - ov)
+            // ink: the eave board, its lower edge in the shadow of the eave heavy
+            inkSeg(0.024, x0 - ov, hs.wall - 0.5, z0 - ov, x1 + ov, hs.wall - 0.5, z0 - ov); inkSeg(0.01, x0 - ov, hs.wall - 0.3, z0 - ov, x1 + ov, hs.wall - 0.3, z0 - ov)
             val vx = if (hs.x > 0) x0 - ov else x1 + ov
             line(far(night(0x2E2218), z0), maxOf(2.0, f * 0.2 / z0), sx(vx, z0 - ov), sy(hs.wall - 0.4, z0 - ov), sx(vx, zr), sy(top, zr))
+            // ink: the verge board's outer edge
+            val vo = if (hs.x > 0) -0.1 else 0.1
+            inkSeg(0.02, vx + vo, hs.wall - 0.4, z0 - ov, vx + vo, top, zr)
         }
         // the ridge catches the moon
         line(far(roofLit, z0), maxOf(1.0, f * 0.12 / zr), sx(x0 - ov, zr), sy(top, zr), sx(x1 + ov, zr), sy(top, zr))
@@ -828,6 +875,7 @@ internal open class BridgePainter(val detail: Boolean = true) {
         if (!temple) {
             val chx = x0 + hs.w * 0.72
             quad(far(stone, z0), chx, top - 1.2, zr + 0.5, chx + 0.7, top - 1.2, zr + 0.5, chx + 0.7, top + 0.8, zr + 0.5, chx, top + 0.8, zr + 0.5)
+            inkQuad(0.02, chx, top - 1.2, zr + 0.5, chx + 0.7, top - 1.2, zr + 0.5, chx + 0.7, top + 0.8, zr + 0.5, chx, top + 0.8, zr + 0.5) // ink: the chimney
         }
         // windows and the door where the map has them; some windows lit
         val (wins0, door) = houseWin[hs] ?: (emptyList<Double>() to null)
@@ -846,14 +894,19 @@ internal open class BridgePainter(val detail: Boolean = true) {
                 // open shutters of boards to either side, a deep frame and a sill below
                 for (sh in listOf(wx - 0.6 to wx - 0.1, wx1 + 0.1 to wx1 + 0.6)) {
                     quad(far(night(0x4A3828), z0), sh.first, wy0, z0, sh.second, wy0, z0, sh.second, wy1, z0, sh.first, wy1, z0)
+                    inkQuad(0.01, sh.first, wy0, z0, sh.second, wy0, z0, sh.second, wy1, z0, sh.first, wy1, z0) // ink: the shutter
                     for (q in 1..2) { val bx = sh.first + (sh.second - sh.first) * q / 3
                         line(far(Color(0x120C08), z0), 1.2, sx(bx, z0), sy(wy0, z0), sx(bx, z0), sy(wy1, z0)) }
                     line(far(Color(0x1A1A1C), z0), 2.0, sx(sh.first, z0), sy(wy0 + 0.25, z0), sx(sh.second, z0), sy(wy0 + 0.25, z0))
                     line(far(Color(0x1A1A1C), z0), 2.0, sx(sh.first, z0), sy(wy1 - 0.25, z0), sx(sh.second, z0), sy(wy1 - 0.25, z0))
                 }
                 quad(far(timber, z0), wx - 0.12, wy0 - 0.1, z0, wx1 + 0.12, wy0 - 0.1, z0, wx1 + 0.12, wy1 + 0.12, z0, wx - 0.12, wy1 + 0.12, z0)
+                inkQuad(0.014, wx - 0.12, wy0 - 0.1, z0, wx1 + 0.12, wy0 - 0.1, z0, wx1 + 0.12, wy1 + 0.12, z0, wx - 0.12, wy1 + 0.12, z0) // ink: the frame
                 quad(far(night(0x5A4430, 1.2), z0), wx - 0.22, wy0 - 0.2, z0, wx1 + 0.22, wy0 - 0.2, z0, wx1 + 0.22, wy0 - 0.08, z0, wx - 0.22, wy0 - 0.08, z0)
-            }
+                // ink: the sill, its underside in shadow
+                inkQuad(0.008, wx - 0.22, wy0 - 0.2, z0, wx1 + 0.22, wy0 - 0.2, z0, wx1 + 0.22, wy0 - 0.08, z0, wx - 0.22, wy0 - 0.08, z0)
+                inkSeg(0.02, wx - 0.22, wy0 - 0.2, z0, wx1 + 0.22, wy0 - 0.2, z0)
+            } else inkQuad(0.012, wx, wy0, z0, wx1, wy0, z0, wx1, wy1, z0, wx, wy1, z0) // ink: the opening, before its light
             quad(if (lit) warm else far(Color(0x0C0E16), z0), wx, wy0, z0, wx1, wy0, z0, wx1, wy1, z0, wx, wy1, z0)
             if (near && lit) {
                 // the flame inside: brighter low in the middle, the small panes of the lead between
@@ -872,7 +925,9 @@ internal open class BridgePainter(val detail: Boolean = true) {
             val dw = if (temple) 1.0 else 0.55; val dh = if (temple) 3.2 else 2.1
             if (near) {
                 quad(far(timber, z0), door - dw - 0.14, 0.0, z0, door + dw + 0.14, 0.0, z0, door + dw + 0.14, dh + 0.2, z0, door - dw - 0.14, dh + 0.2, z0)
+                inkQuad(0.014, door - dw - 0.14, 0.0, z0, door + dw + 0.14, 0.0, z0, door + dw + 0.14, dh + 0.2, z0, door - dw - 0.14, dh + 0.2, z0) // ink: the frame
                 quad(far(night(0x5A4430), z0), door - dw, 0.12, z0, door + dw, 0.12, z0, door + dw, dh, z0, door - dw, dh, z0)
+                inkQuad(0.01, door - dw, 0.12, z0, door + dw, 0.12, z0, door + dw, dh, z0, door - dw, dh, z0) // ink: the door leaf
                 var bx = door - dw + 0.22
                 while (bx < door + dw - 0.05) { line(far(Color(0x140E0A), z0), 1.3, sx(bx, z0), sy(0.12, z0), sx(bx, z0), sy(dh, z0)); bx += 0.22 + 0.04 * rnd((bx * 10).toInt(), 61) }
                 for (hy in listOf(0.55, 1.65)) line(far(Color(0x18181A), z0), maxOf(2.0, f * 0.07 / z0), sx(door - dw, z0), sy(hy, z0), sx(door + dw * 0.35, z0), sy(hy, z0))
@@ -880,8 +935,11 @@ internal open class BridgePainter(val detail: Boolean = true) {
                 // light through the gap under the door, and a worn step stone before it
                 line(alpha(warm, 0.7), 1.5, sx(door - dw + 0.05, z0), sy(0.14, z0), sx(door + dw - 0.05, z0), sy(0.14, z0))
                 quad(far(night(0x7A766A, 1.1), z0), door - dw - 0.3, 0.0, z0 - 0.35, door + dw + 0.3, 0.0, z0 - 0.35, door + dw + 0.3, 0.12, z0, door - dw - 0.3, 0.12, z0)
-            } else
-            quad(far(Color(if (temple) 0x0A0A10 else 0x241A16), z0), door - dw, 0.0, z0, door + dw, 0.0, z0, door + dw, dh, z0, door - dw, dh, z0)
+                inkQuad(0.01, door - dw - 0.3, 0.0, z0 - 0.35, door + dw + 0.3, 0.0, z0 - 0.35, door + dw + 0.3, 0.12, z0, door - dw - 0.3, 0.12, z0) // ink: the step stone
+            } else {
+                quad(far(Color(if (temple) 0x0A0A10 else 0x241A16), z0), door - dw, 0.0, z0, door + dw, 0.0, z0, door + dw, dh, z0, door - dw, dh, z0)
+                inkQuad(0.012, door - dw, 0.0, z0, door + dw, 0.0, z0, door + dw, dh, z0, door - dw, dh, z0) // ink: the doorway
+            }
             if (temple) for (tx in listOf(door - dw - 0.7, door + dw + 0.7)) {
                 glow(sx(tx, z0), sy(2.6, z0), f * 2.4 / z0, warmDeep, 0.4)
                 glow(sx(tx, z0), sy(2.6, z0), f * 0.6 / z0, warm, 0.9)
@@ -943,6 +1001,7 @@ internal open class BridgePainter(val detail: Boolean = true) {
         }
         // the edge beam (we see its face on both sides), then the deck
         quad(Color(0x1E1816), -hw, y - 0.18, z0, hw, y - 0.18, z0, hw, y, z0, -hw, y, z0)
+        inkQuad(0.022, -hw, y - 0.18, z0, hw, y - 0.18, z0, hw, y, z0, -hw, y, z0) // ink: the edge beam (the deck covers its top)
         quad(plank, -hw, y, z0, hw, y, z0, hw, y, z1, -hw, y, z1)
         // the moon from the left lights the deck faintly, more on the left
         g.paint = GradientPaint(sx(-hw, ZN).toFloat(), 0f, alpha(plankLit, 0.75), sx(hw, ZN).toFloat(), 0f, alpha(plankLit, 0.1))
@@ -973,6 +1032,15 @@ internal open class BridgePainter(val detail: Boolean = true) {
         // the side beams along the deck
         line(Color(0x18120F), maxOf(2.0, f * 0.12 / z0), sx(-hw, z0), sy(y, z0), sx(-hw, z1), sy(y, z1))
         line(Color(0x18120F), maxOf(2.0, f * 0.12 / z0), sx(hw, z0), sy(y, z0), sx(hw, z1), sy(y, z1))
+        // ink: the outer edge of each side beam against the water (the beams keep one width on screen, so does the line);
+        // the deck's far edge is the last plank joint already
+        for (xs in listOf(-hw, hw)) {
+            val ax = sx(xs, z0); val ay = sy(y, z0); val bx = sx(xs, z1); val by = sy(y, z1)
+            val len = Math.hypot(bx - ax, by - ay); var nx = -(by - ay) / len; var ny = (bx - ax) / len
+            if (nx * xs < 0) { nx = -nx; ny = -ny }
+            val o = maxOf(2.0, f * 0.12 / z0) / 2
+            inkStroke(ax + nx * o, ay + ny * o, bx + nx * o, by + ny * o, inkPx(0.022, z0))
+        }
         bridgeLantern(hw, y, z0, z1)
     }
 
@@ -995,6 +1063,8 @@ internal open class BridgePainter(val detail: Boolean = true) {
         line(Color(0x1A1210), tw, x, base, x, base - h * 0.9)
         line(alpha(Color(0x5A4A40), 0.6), maxOf(1.0, tw * 0.3), x - tw * 0.3, base, x - tw * 0.3, base - h * 0.75)
         val tiers = 9; val step = h * 0.92 / tiers
+        // ink: only the coarse outline of the whole fir (all tiers and the trunk as one), drawn once the fir stands
+        val sil = if (tusche) java.awt.geom.Area(java.awt.geom.Rectangle2D.Double(x - tw / 2, base - h * 0.9, tw, h * 0.9)) else null
         for (k in 0 until tiers) {
             val t0 = k / tiers.toDouble()
             val yb = base - h * 0.05 - step * k; val yt = yb - step * 1.4
@@ -1014,6 +1084,7 @@ internal open class BridgePainter(val detail: Boolean = true) {
                 path.lineTo(x + half * u * (0.97 + 0.06 * rnd(k * 31 + j, 932)), yy)
             }
             path.closePath()
+            sil?.add(java.awt.geom.Area(path))
             // the moon side lit, the far side dark
             g.paint = java.awt.LinearGradientPaint(Point2D.Double(x - half, 0.0), Point2D.Double(x + half + 0.01, 0.0), floatArrayOf(0f, 0.4f, 1f),
                 arrayOf(lit, mid, dark))
@@ -1034,6 +1105,7 @@ internal open class BridgePainter(val detail: Boolean = true) {
             // the moon catches the upper left rim of every tier
             line(alpha(lit, 0.7), maxOf(1.0, w * 0.01), x - half * 0.92, yb - sag * 0.15, x - half * 0.15, yt + step * 0.3)
         }
+        if (sil != null) inkShape(sil, inkPx(0.022, z))
     }
 
     /**
@@ -1072,6 +1144,8 @@ internal open class BridgePainter(val detail: Boolean = true) {
                 // the two near posts stand on the bank, down to the ground, where the railings begin
                 val foot = if (k == 0) 0.0 else y
                 quad(c, x - pw, foot, z, x + pw, foot, z, x + pw, y + ph, z, x - pw, y + ph, z)
+                // ink: the post, a fine pen for its thin body (the moon and the lantern's warmth are laid on after)
+                inkQuad(0.007, x - pw, foot, z, x + pw, foot, z, x + pw, y + ph, z, x - pw, y + ph, z)
                 // the moon on the left face, the lantern on the near posts
                 line(alpha(woodLit, 0.6), maxOf(1.0, f * 0.012 / z), sx(x - pw, z), sy(y, z), sx(x - pw, z), sy(y + ph, z))
                 val warmth = exp(-sqrt((x - lx) * (x - lx) + (z - lz) * (z - lz)) / 2.0)
@@ -1081,6 +1155,9 @@ internal open class BridgePainter(val detail: Boolean = true) {
             for (rh in listOf(1.0, 0.5)) {
                 val za = z0 + 0.1; val zb = z1 - 0.1
                 line(Color(0x1E1712), maxOf(1.5, f * 0.06 / za), sx(x, za), sy(y + rh, za), sx(x, zb), sy(y + rh, zb))
+                // ink: the rail's lower edge, in its own shadow (one width on screen, as the rail)
+                val ro = maxOf(1.5, f * 0.06 / za) / 2
+                inkStroke(sx(x, za), sy(y + rh, za) + ro, sx(x, zb), sy(y + rh, zb) + ro, inkPx(0.004, za))
                 // the top rail catches light: moon on the left rail, lantern warm near the right
                 if (rh == 1.0) {
                     val lc = if (side < 0) alpha(woodLit, 0.55) else alpha(warm, 0.5)
@@ -1092,6 +1169,9 @@ internal open class BridgePainter(val detail: Boolean = true) {
         // the lantern on the tall near post: iron cap, glass with the flame, a ring
         val s = f * 0.16 / lz
         poly(Color(0x14110E), lpx - s * 0.7, lpy - s * 1.0, lpx + s * 0.7, lpy - s * 1.0, lpx + s * 0.35, lpy - s * 1.45, lpx - s * 0.35, lpy - s * 1.45)
+        // ink: the iron cap of the housing, before its light (the glass and the flame are the light and get none)
+        inkShape(Path2D.Double().apply { moveTo(lpx - s * 0.7, lpy - s * 1.0); lineTo(lpx + s * 0.7, lpy - s * 1.0); lineTo(lpx + s * 0.35, lpy - s * 1.45); lineTo(lpx - s * 0.35, lpy - s * 1.45); closePath() },
+            inkPx(0.008, lz))
         glow(lpx, lpy - s * 0.3, f * 4.0 / lz, warmDeep, 0.32)
         glow(lpx, lpy - s * 0.3, f * 1.0 / lz, warm, 0.7)
         g.color = Color(0xFFD890); g.fill(java.awt.geom.Rectangle2D.Double(lpx - s * 0.5, lpy - s * 1.0, s * 1.0, s * 1.2))
@@ -1179,7 +1259,7 @@ internal open class BridgePainter(val detail: Boolean = true) {
             val bx = sx(x, z); val by = sy(0.0, z)
             // a shadow pool under it
             g.color = alpha(Color(0x05080A), 0.5); g.fill(Ellipse2D.Double(bx - f * 2.2 / z, by - f * 0.5 / z, f * 4.4 / z, f * 1.0 / z))
-            firShape(bx, by, f * h / z, f * h * 0.42 / z, fir, firLit, if (detail) 0.75 else 0.55)
+            firShape(bx, by, f * h / z, f * h * 0.42 / z, fir, firLit, if (detail) 0.75 else 0.55, inkPx(0.022, z))
             if (detail) for (i in 0 until 40) {
                 // needle tufts along the tiers
                 val t = rnd(i + (x * 7).toInt(), 101); val yy = by - f * h / z * (0.15 + 0.8 * t)
@@ -1196,9 +1276,12 @@ internal open class BridgePainter(val detail: Boolean = true) {
         val bx0 = x - 0.55; val bx1 = x + 0.55; val by0 = 1.0; val by1 = 1.7
         // the post, from the ground up into the board
         quad(night(dTimber, 1.1), x - 0.07, 0.0, z, x + 0.07, 0.0, z, x + 0.07, by1 - 0.05, z, x - 0.07, by1 - 0.05, z)
+        inkQuad(0.008, x - 0.07, 0.0, z, x + 0.07, 0.0, z, x + 0.07, by1 - 0.05, z, x - 0.07, by1 - 0.05, z) // ink: the post (the board covers its top)
         line(alpha(night(dPlank, 1.8), 0.7), maxOf(1.0, f * 0.02 / z), sx(x - 0.07, z), sy(0.0, z), sx(x - 0.07, z), sy(by0, z))
         // the board: three planks, the moon on its upper and left edges
         quad(night(dPlank), bx0, by0, z, bx1, by0, z, bx1, by1, z, bx0, by1, z)
+        // ink: the board, its lower edge in shadow heavy (the moon on its upper and left edges is laid on after)
+        inkQuad(0.014, bx0, by0, z, bx1, by0, z, bx1, by1, z, bx0, by1, z); inkSeg(0.022, bx0, by0, z, bx1, by0, z)
         if (detail) for (k in 1..2) { val y = by0 + (by1 - by0) * k / 3
             line(night(0x1E140C), maxOf(1.0, f * 0.015 / z), sx(bx0, z), sy(y, z), sx(bx1, z), sy(y, z)) }
         line(alpha(night(dPlank, 1.9), 0.8), maxOf(1.0, f * 0.025 / z), sx(bx0, z), sy(by1, z), sx(bx1, z), sy(by1, z))
