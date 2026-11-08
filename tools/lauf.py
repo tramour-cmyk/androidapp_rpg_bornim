@@ -88,14 +88,21 @@ def berlin(d):
     return d.strftime("%d.%m., %H:%M")
 
 def startmarken():
-    """Rolle → letzter Startzeitpunkt aus „Startsperre HH:MM Start <Name>“ im Protokoll (Datum: heute, sonst gestern)."""
+    """Rolle → letzter Startzeitpunkt aus „Startsperre HH:MM Start <Name>“ im Protokoll. Datum aus dem Zeilenkopf
+    „- HH:MM TT.MM.:“ (631: ohne Datum galt eine Marke vom Vortag als heutige); fehlt er: heute, sonst gestern."""
     aus = {}
     for l in lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md")).splitlines():
         m = re.search(r"Startsperre (\d\d):(\d\d) Start ((?:Ford 2|\w+)(?:, (?:Ford 2|\w+))*)", l)
         if not m: continue
         d = JETZT.replace(hour=int(m.group(1)), minute=int(m.group(2)), second=0, microsecond=0)
-        if d > JETZT: d -= datetime.timedelta(days=1)
-        for name in m.group(3).split(", "): aus[name] = d  # 433: „Start Tom, Spike“ sperrt beide, nicht nur den ersten
+        k = re.match(r"- \d\d:\d\d (\d\d)\.(\d\d)\.:", l)
+        if k:
+            try: d = d.replace(day=int(k.group(1)), month=int(k.group(2)))
+            except ValueError: continue
+            if d > JETZT + datetime.timedelta(days=1): d = d.replace(year=d.year - 1)
+        elif d > JETZT: d -= datetime.timedelta(days=1)
+        for name in m.group(3).split(", "):  # 433: „Start Tom, Spike“ sperrt beide, nicht nur den ersten
+            if name not in aus or d > aus[name]: aus[name] = d
     return aus
 
 def chefdateien_je_rolle():
