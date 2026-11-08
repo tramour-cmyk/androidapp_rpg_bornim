@@ -34,7 +34,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 1, startbar 0
+**Homer** – offen 6, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -43,6 +43,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
+| 652 | M | Englisch-Regeln 1–7 aus LISTE-ENGLISCH-338-1B nach STORY-REGELN.md, dann Datei nach docs/a | startbar |
 
 **Tom** – offen 100, Muss 80, startbar 10
 
@@ -218,7 +219,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 649.4 | M | Zwei bis drei Handlungen je gewöhnlicher Monsterart vorschlagen und in 444 messen, nur wo | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test |
 | Pflege | K | von Werkzeug (340.3, 08.11.): 15330 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 22, Muss 18, startbar 5
+**Perikles** – offen 22, Muss 18, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -242,7 +243,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 647 | M | Abgleich alt schon vor dem Bauen: Fundstelle alter Code lesen und nennen, nicht erst vor d | startbar |
 | 648 | M? | Glossar und Abkürzungsverzeichnis LISTE-GLOSSAR.md: Wort, Bedeutung, Zusammenhang, Fundste | startbar |
 | 651 | M | Kostenauswertung: Bereiche als feste Liste, fehlende Kosten (533 von 980 Zeilen) über Comm | startbar |
-| 650.1 | M | Liste für docs/alt/ nach zwei Gegenprüfungen (aus 650) | startbar |
+| 650.1 | M | Liste für docs/alt/ nach zwei Gegenprüfungen (aus 650) | Termin 09.11. |
 | Pflege | K | von Werkzeug (340.3, 08.11.): 17768 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Diogenes** – offen 11, Muss 9, startbar 1
