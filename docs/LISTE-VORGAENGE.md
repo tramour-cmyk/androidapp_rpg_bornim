@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 635 | Lyra fehlt als Figur im Tempel und in der Höhle: Kennung lyra_temple/lyra_cave, gebaut wird nur „lyra“ (Abgleich 620.2a) | Tom | M | startbar | – | – | – | E Welt | – |
+| 635 | Lyra fehlt als Figur im Tempel und in der Höhle: Kennung lyra_temple/lyra_cave, gebaut wird nur „lyra“ (Abgleich 620.2a) | Tom | M | gebaut, Geprüft an: 8a2f85b98 (lyra_635 lokal), fährt im nächsten Build | – | claude/tom-635-lyra | – | E Welt | – |
 | 625 | Sammelbuild 269: alle fertigen Zweige beider Teams (35 warten), Prüfliste als Weg durchs Spiel (Chef 07.11., 20:5x) · „jetzt“ 07.11., 20:54 | Tom | M | zu testen | – | claude/build-269 | 269 | E Entwicklung | 28,43 $ |
 | 620.2a | Abgleich alt nach `LISTE-ABGLEICH-ALT.md`: Dorf, Innenräume, Leute, Wald (aus 620.2) | Tom | M | erledigt | – | – | – | B Abläufe | – |
 | 605 | Ausrüstung: leeres Kopffeld, Auswahl zeigt falsch „Obergrenze“, kein Zurück (Chef 06.11., 21:22, t268) | Tom | M | gebaut, Geprüft an: a2add0154, 216dd5d09 (doppeltipp_605 lokal) | – | claude/tom-605-doppeltipp | 269 | E Entwicklung | – |
@@ -107,7 +107,7 @@
 | 431d | Rückfrage: Völker Lauf 3 am Tor angehalten (B1 Elf, C3, G3, A1/A3 Grak, A2), neue Läufe frei, Weg A2? | Tom | M | ruht, ohne Vorratszeile, Liste „Chef“ (275.2) | – | – | – | E Figuren | – |
 | 431e | Rückfrage: Gesicht des Helden im Dorflicht fast weiß, Hauteichung nach Messung? | Tom | M | ruht, ohne Vorratszeile, Liste „Chef“ (275.2) | – | – | – | E Figuren | – |
 | 629.1 | Klopfen: Sprechernamen hinter Türen bauen ([629.sprecher], von Homer) | Tom | M | gebaut, Geprüft an: 7a4e580db (klopfen_629 lokal) | – | claude/tom-629-sprecher | – | S Story | – |
-| 632 | Truhe der Höhle (cave_3, 4/14) gibt „@class_weapon“ statt der Waffe der Klasse wie alt (Story.classWeapon, Game.kt 1108); von Jerry, Abgleich 620.2b | Tom | M | startbar | – | – | – | E Welt | – |
+| 632 | Truhe der Höhle (cave_3, 4/14) gibt „@class_weapon“ statt der Waffe der Klasse wie alt (Story.classWeapon, Game.kt 1108); von Jerry, Abgleich 620.2b | Tom | M | gebaut, Geprüft an: ca508b846 (truhe_632 lokal), fährt mit der Höhle (492) | – | claude/tom-632-truhe | – | E Welt | – |
 | Pflege | von Werkzeug (340.3, 08.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Tom | K | startbar | – | – | – | B Abläufe | – |
 | 636 | Schlagbaum wie alt: Balken schwingt am Drehpfosten, Türgeräusch beim Öffnen (G:1162; Abgleich 620.2a) | Tom | M | startbar | – | – | – | E Welt | – |
 | 637 | Anschlagbrett wie alt: frischer blasser Zettel bei ungelesenem Auftrag, Auftrag „Zurücklegen“ (J:123, G:1141; Abgleich 620.2a) | Tom | M | startbar | – | – | – | E Welt | – |
