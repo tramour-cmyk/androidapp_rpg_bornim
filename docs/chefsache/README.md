@@ -223,7 +223,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 317.1 | M | startbar.py, lauf.py: Obergrenze 6 je Build streichen (Chef 07.11., 20:5x) | wartet auf Diogenes |
-| 620.1 | M | Wiederholte Funde des Chefs vor Neuem; wenige Muss je Team zugleich (aus 620) | wartet auf Diogenes |
+| 620.1 | M | Wiederholte Funde des Chefs vor Neuem; wenige Muss je Team zugleich (aus 620) | wartet auf Test/Build (gebaut) |
 | 511 | M | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele | wartet auf Diogenes |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf Diogenes |
 | 464 | M | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählu | wartet auf Test/Build (gebaut) |
@@ -245,12 +245,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 650.1 | M | Liste für docs/alt/ nach zwei Gegenprüfungen (aus 650) | startbar |
 | Pflege | K | von Werkzeug (340.3, 08.11.): 17768 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Diogenes** – offen 11, Muss 9, startbar 1
+**Diogenes** – offen 10, Muss 8, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 317.1 | M | startbar.py, lauf.py: Obergrenze 6 je Build streichen (Chef 07.11., 20:5x) (für Perikles) | wartet auf Test t269 (Chef) |
-| 620.1 | M | Wiederholte Funde des Chefs vor Neuem; wenige Muss je Team zugleich (aus 620) (für Perikle | startbar |
 | 511 | M | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele | wartet auf D75 (Dauer) |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
 | 275 | M | Zentrale Vorgangsliste als einzige Quelle (Chef 21.10.; Stufe 1 jetzt, 27.10.) (für Perikl | Termin 09.11. |
