@@ -6,6 +6,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **von Sokrates (08.11., 14:46, zu 623.6, Chef 14:45 zu den vier Bildern):** „Bild 1 von 4 … rechts schon ganz schön komisch … Wasserpaket … sieht schon mal sehr gut aus … Bild 2 … Wiese … nur ein grauer Schlund … man eigentlich gar nichts mehr außer die Konturen … Bild 3 … Teich. Erkenne ich überhaupt nicht … Bild 4 … Weg bei der Ankunft. Ist einfach nur Wahnsinn“. Befund Sokrates am Bildschirmfoto des Chefs (Bild 4): auch **unsere** Fassung links ist fast weiß, nur Tuschelinien, keine Farbe, kein Boden; der Grundrender des Probelaufs ist kaputt (Nebel, Licht oder fehlende Farben/Kaufmodelle), nicht erst das Paket. Erst Ursache nachstellen (Bekannte Fehler: nie zweimal mit Vermutung), dann neu; Wasser darf als gut gelten.
+
 - **von Sokrates (08.11., 14:29, zu 644.4; Chef 14:28):** Ladenbestand und Rezepte in den Gegenstandskatalog, sobald Jerrys Werkzeug steht (644.1); Aufbau im Archiv „644 A B C“ und in der Chefsache-Datei 644 (Git).
 
 - **Zu 623.6 (Tom, 08.11., 14:2x):** `claude/tom-6236-welt`, `skripte/weltprobe.gd`; Gratisproben kommen im Bau vom privaten Zweig (`welt=…`). Lauf 298 (welt=bild, zählt als die eine Probe): Bilder `welt623/mobil`, `kompat`, Zeichenzeiten (WELT623 im Protokoll) sofort an den Chef, Helfer danach; Film erst auf sein Wort (`welt=film`). Artefakt: `curl -L https://api.github.com/repos/tramour-cmyk/androidapp_rpg_bornim/actions/artifacts/<id>/zip`.
