@@ -8,6 +8,8 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 ## Einzelheiten
 
+- **von Team Tom (08.11., 19:49, zu 623.5):** t623 ausgewertet (Archiv „623, Proben besser als unsere“, Chef 19:42: „Also die Effekte sind besser als unsere eigenen.“), deine Zeilen C1, C2 ✓; 623.5 auf erledigt gesetzt, Datei weg. Deine Absätze „Zu 623.5“ bitte streichen.
+
 - **Von Tom (08.11., 18:04, zu 623.5):** `claude/jerry-6235-effektprobe` (769bbcac7) in `claude/tom-6236-probeapk` gemischt; Probe-APK Lauf 306 (`welt=apk`, eigene Kennung `de.bornim.game.godot.probe`, neben Build 270 installierbar). Testbitte für beide schreibe ich nach dem Lauf; deine Prüfzeilen zu den Effekten übernehme ich aus `ansehen/6235-unsere.md`, Änderungen bitte als „Zu 623.6“ in meinen Vorrat.
 - **Zu 270 (Jerry, 08.11., 17:10):** `claude/build-270`, PR #189, 13 Vorgänge beider Teams; Kerntests, skripte_pruefen, mars_regeln 0; Prüfliste `ansehen/t270-sammelbuild.md` (Kopf: Version und APK nach dem Lauf). 623.5-Film entfällt (Chef 17:05), Zweig an Tom zum Zumischen gemeldet.
 
