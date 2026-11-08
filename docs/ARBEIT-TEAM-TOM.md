@@ -6,6 +6,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **Zu 664 (Chef 08.11., 15:28, an Sokrates, Build 269):** „das Haus vom Kael ist immer noch so ein halbes Haus, das ich schon mehrfach angemerkt habe, das gleiche mit der Kräuterhexe. Im tiefen Flüsterwald.“ Frühere Meldungen stehen in keiner Zeile (gesucht 15:29). Erst nachstellen, warum das Haus halb ist (Netz, Ausschnitt, Sichtschnitt?), dann beheben, Bild beider Häuser rundum.
+
 - **Zu 663 (Chef 08.11., 15:24, an Sokrates, t269.3):** „Ernsthaft, wir nehmen die alte Steuerung raus, es gibt kein Steuerkreuz mehr. Das verschwindet einfach komplett ganz. Es gibt nur die Touch … Wir sind jetzt hier dreidimensional und nicht mehr flach und nicht nur Süd-Ost-West, sondern diagonal … Ausbauen. Alte Steuerung mit Steuerkreuz und Funktionstasten entfernen und dann können wir uns die Rückfrage auch [sparen]“. Damit entfällt t269.3 (Tipp bei klassischer Steuerung); Einstellung, Rückfrage zur Wahl der Steuerung und Tipps dazu raus.
 
 - **Zu 499, von Chef (08.11., 15:23, Build 269, Erschaffung):** „Das Drehmodell ist wieder irgendwie völlig irre noch, aber wahrscheinlich ist halt das von der letzten Meldung noch nicht eingeflossen. Also Schild steht ab und das Modell ist halbtransparent.“ Schild: Stand 499 (14:19) ist nicht in 269, kommt mit dem nächsten Build. **Halbtransparent** ist neu gemeldet: nachstellen, ob es mit 499 weg ist; sonst eigener Vorgang.
@@ -28,7 +30,6 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 - **Zu 623.6 (Tom, 08.11., 14:2x):** `claude/tom-6236-welt`, `skripte/weltprobe.gd`; Gratisproben kommen im Bau vom privaten Zweig (`welt=…`). Lauf 298 (welt=bild, zählt als die eine Probe): Bilder `welt623/mobil`, `kompat`, Zeichenzeiten (WELT623 im Protokoll) sofort an den Chef, Helfer danach; Film erst auf sein Wort (`welt=film`). Artefakt: `curl -L https://api.github.com/repos/tramour-cmyk/androidapp_rpg_bornim/actions/artifacts/<id>/zip`.
 - **Zu 499 (Tom, 08.11., 14:2x):** `claude/tom-499-drehteller`, Höhe 1be5a03bf; Gehfilm im Dorf mit Spielkamera (`spiel.gd gehen_499`, 99d9c3cc2). Lauf 299 (drehteller=ja, film=nein): `drehteller/499_gehen_*.png` als Probebild an den Chef (`probelauf.py --probebild 499 … spiel.gd`), Film erst nach „499 Probebild passt“. Offen: Spitze des Drachenschilds 8 cm vom Rücken.
-- **von Sokrates (08.11., 14:20, zu 499, Chef 14:19):** „Vorgang 499. Jetzt passt es. Das sieht doch schon vernünftiger aus als vorher.“ (zum jüngsten Bild/Film) → Stand so in den nächsten Build.
 
 
 - **Zu 650.1, von Perikles (08.11., 13:5x):** `LISTE-GRUNDSTAND-461.md` liegt jetzt in `docs/alt/` (Inhalt in `DESIGN-STIL.md`, `-KAMPF`, `-ABNAHME`); beim nächsten Code-Commit die zwei Kommentare umschreiben: `godot/tests/film_dorf_461.gd:3` und `.github/workflows/godot.yml:501` auf `DESIGN-STIL.md`.

@@ -70,3 +70,4 @@ Chef 08.11., 15:23 (an Sokrates), laufend:
 - 269.3 ✗ klassische Steuerung ganz raus, nur Touch (Vorgang 663)
 - 269.4 ✓
 - 269.5 ✓
+- 269.8 ✓
