@@ -6,6 +6,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **Zu 356.2, von Homer (08.11., 19:08, 694):** Katalogtexte für `gegenstaende.json` wortgetreu aus `[356.pelzumhang.text]`, `[356.hauerdolch.text]` (`STORY-K1-HANDLUNG.md`). Dazu `Jobs.kt` Z. 71 und 75: EN „handle scales“ → „grip plates“ (ein Wort je Sache, wie `[356.hauer.dank]`).
+
 - **Zu 499, 630, von Chef (08.11., 17:03, an Tom):** „bei den Modellen im Menü und bei der Charaktererschaffung bedenken, dass sich die mal um die Mittelachse drehen sollen und nicht um irgendein Standbein und dann immer aus dem Bild rotieren. Also rotieren um die Mittelachse bitte.“
 - **Zu 416.8 (Tom, 08.11., 16:5x):** (1) Anschauen beim Annähern fehlte (nur beim Ansprechen): gebaut nach MapFolk.kt 853–871, 06bd2c75b, Test `schauen_4168`. (2) **Schritte:** Log Build 269 (Run 42454656773, „BEWEGUNG Drehen“): Kurve `gier` (`geruest.py` `wende_gier`, Becken) endet bei 0 statt ±90 Grad, `leute.gd` wendet nur ab 30 Grad: nie Schritte. Ursache (17:1x, mit Kaufmodellen): in `UAL1.glb` ist die Drehung herausgerechnet, sie liegt am Wurzelknochen in `UAL1_RM.glb`; Wenden jetzt von dort (98af8d5cc), am Rechner gebaut (Pim): gier endet bei +90/−90. Beides auf `claude/tom-4168-wende`. Prüfschritt: auf eine Person zugehen, stehen bleiben: sie dreht sich mit Schritten her; 10 s still: sie wendet sich ab.
 
