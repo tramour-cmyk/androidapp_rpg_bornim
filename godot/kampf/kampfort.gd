@@ -186,6 +186,7 @@ func _ready() -> void:
 	shown = _state_now()
 	for fig in figures.values():
 		fig.snap_to(_spot_pos(fig.fighter, shown.places[fig.fighter.id]))
+	_umriss_messen.call_deferred()
 	get_viewport().size_changed.connect(_fit_camera)
 	_fit_camera()
 	ui.refresh()
@@ -771,9 +772,28 @@ func _ausweichen(f, ab: Vector2) -> Vector2:
 	return ab
 
 
+## 587: nach den ersten Bildern die Umrisse der Gegner messen (dann stimmen sie, wie groesse_587 und wolf_mess_438 sie lesen) und
+## wer hinten steht und noch daheim ist, an die Stelle setzen, die den vorderen ausweicht
+const UMRISS_NACH := 10
+func _umriss_messen() -> void:
+	for i in UMRISS_NACH:
+		await get_tree().process_frame
+		if not is_inside_tree():
+			return
+	for fig in figures.values():
+		if fig.fighter.side == "FOES" and fig.visible:
+			fig.footprint()
+	for fig in figures.values():
+		var f = fig.fighter
+		if f.side == "FOES" and shown.places.has(f.id) and shown.places[f.id].x == Mars.BACK and fig.position.distance_to(fig.home) < 0.01:
+			fig.snap_to(_spot_pos(f, shown.places[f.id]))
+
+
 ## 587: Umriss einer Figur am Boden als Kasten im Raum um ihren Ursprung (x, z; figur.gd footprint, wie groesse_587), leer ohne Figur
 func _umriss(f) -> Rect2:
-	if f == null or not figures.has(f.id) or not figures[f.id].is_inside_tree():
+	# Lauf 284 (Kaufwölfe 15,6 m „ineinander“): früh gefragt, vor dem ersten Bild, merkt sich die Figur einen falschen Umriss;
+	# darum nur, wenn er schon da ist (_umriss_messen)
+	if f == null or not figures.has(f.id) or not figures[f.id].is_inside_tree() or not figures[f.id]._foot_ok:
 		return Rect2()
 	var fig = figures[f.id]
 	var bb: AABB = Transform3D(fig.global_transform.basis, Vector3.ZERO) * fig.footprint()
