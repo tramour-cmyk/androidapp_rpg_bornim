@@ -92,7 +92,11 @@ func klasse(k: String, bild: bool, aus: String) -> void:
 			if not (t is Tragen): continue
 			var tr := t as Tragen
 			if tr.waffe == null: continue
-			var d := tr.waffe.global_position.distance_to(tr.faust_welt)
+			# Lauf 290: Stab 16 cm „neben der Faust“ war der Abstand zum Ursprung des Stabs; der Schaft laeuft durch die Faust, der Ursprung
+			# liegt 0,18 m (mal Massstab) darunter (tragen.gd stellen). Gemessen wird darum der Abstand der Faust zur Achse der Waffe
+			var ax := tr.schaft_welt.normalized()
+			var rel := tr.faust_welt - tr.waffe.global_position
+			var d := (rel - ax * rel.dot(ax)).length() if tr.art == "stab" else rel.length()
 			var ws := tr.waffe.global_basis.get_scale().y
 			print("  in der Hand (%s, %s): %s, %.3f m von der Faust, Größe %.3f gegen Figur %.3f" % [tr.seite, tr.gang if tr.gang != "" else tr.art, tr.waffe.name, d, ws, ms])
 			pruefe(d <= FAUST_M, "%s: Waffe %.0f cm neben der Faust" % [k, d * 100])
