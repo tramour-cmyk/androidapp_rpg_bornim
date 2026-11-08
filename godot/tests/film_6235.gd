@@ -59,6 +59,12 @@ func _run() -> void:
 		await process_frame
 	if not Signatur.wache(s.kf, self, "Film 623.5"):
 		return
+	# Einlauf des Rudels und Aufstellung (gut 20 s) bleiben schwarz; BEGINN sagt dem Bau, ab wann der Film geschnitten wird
+	t = 0.0
+	while not s.bereit and t < 40.0:
+		await process_frame
+		t += 1.0 / 30.0
+	print("BEGINN %.2f" % maxf(0.0, Engine.get_frames_drawn() / 30.0 - 0.3))
 	await _blende(0.0)
 	t = 0.0
 	var vorher := ""

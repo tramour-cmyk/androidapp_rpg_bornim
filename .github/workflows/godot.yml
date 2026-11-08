@@ -616,8 +616,10 @@ jobs:
           sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
           timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
             --write-movie $RUNNER_TEMP/effekte6235.avi --fixed-fps 30 -s res://tests/film_6235.gd > $B/effekte6235.log 2>&1 || true
-          grep -E "SCRIPT ERROR|SHADER ERROR|^Film|^Signatur|FEHLER" $B/effekte6235.log | head -40 || true
-          ffmpeg -loglevel error -y -i $RUNNER_TEMP/effekte6235.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/6235-effekte.mp4 || true
+          grep -E "SCRIPT ERROR|SHADER ERROR|^Film|^Signatur|^BEGINN|FEHLER" $B/effekte6235.log | head -40 || true
+          # das schwarze Warten auf die Aufstellung abschneiden (BEGINN im Protokoll, Sekunden ab dem ersten Bild)
+          S=$(grep -oE "^BEGINN [0-9.]+" $B/effekte6235.log | cut -d" " -f2); S=${S:-0}
+          ffmpeg -loglevel error -y -ss "$S" -i $RUNNER_TEMP/effekte6235.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/6235-effekte.mp4 || true
           ls -l $B
       # 494 (Wochenziel 03.11. Reihe 3): je Gegner ein kurzer Film (tests/film_gegner_494.gd), nur von Hand mit gegner=<FOES,…>
       # 494 Probebild (511): je Gegner zwei Bilder aus demselben Skript und derselben Szene wie der Film (nah, Spielkamera mit

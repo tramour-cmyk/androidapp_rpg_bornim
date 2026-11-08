@@ -46,6 +46,7 @@ const SCHRITTE := [
 
 var film := false
 var fertig := false     # alle Effekte einmal durch
+var bereit := false     # Einlauf und Aufstellung vorbei, der erste Effekt kommt (Film: Blende auf)
 var probe
 var kf
 var held     # Kämpfer mit Schwert und Schild (Kaufheld)
@@ -98,6 +99,8 @@ func _lauf() -> void:
 		return
 	await _bis_still()
 	await _kampf_ruht()
+	bereit = true
+	await _warte(0.5)     # Film: Blende auf, bevor der erste Effekt beginnt
 	while true:
 		for s in SCHRITTE:
 			if not ResourceLoader.exists(String(s[3])):
@@ -183,6 +186,10 @@ func _ausholen(ziel) -> Vector3:
 	magier.strike(ziel, {"spell": "MAGIC_MISSILE", "roll": null})
 	await get_tree().create_timer(0.45).timeout
 	var p = magier.cast_point()
+	if OS.get_environment("MESS") != "":
+		print("MESS Stabspitze %s: %s über dem Boden %.2f m, %.2f m vor dem Magier, Ziel %.2f m entfernt" % [jetzt, p,
+			(p.y - magier.global_position.y) if p is Vector3 else -1.0, ((p - magier.global_position) * Vector3(1, 0, 1)).length() if p is Vector3 else -1.0,
+			magier.global_position.distance_to(ziel.global_position)])
 	return p if p is Vector3 else magier.global_position + Vector3(0, 1.4, 0)
 
 
@@ -199,6 +206,8 @@ func _setze(pfad: String, pos: Vector3, weg_von = null, eigen := {}) -> Node:
 		fx.set("free_when_finished", true)
 	kf.add_child(fx)
 	(fx as Node3D).global_position = pos
+	if OS.get_environment("MESS") != "":
+		print("MESS Effekt %s: %s, Höhe %.2f m" % [pfad.get_file(), pos, pos.y - kf.global_position.y])
 	if weg_von is Vector3:
 		var vom: Vector3 = (weg_von as Vector3) - pos
 		vom.y = 0.0
@@ -244,6 +253,8 @@ func _spur(preset: String) -> Node:
 	var b2 := bb.get_center() + achse * 0.5
 	var tip := a if a.length() > b2.length() else b2     # die Spitze liegt weiter vom Griff (Ursprung der Waffe)
 	var fuss := tip.lerp(a if tip == b2 else b2, 0.75)
+	if OS.get_environment("MESS") != "":
+		print("MESS Spur %s: Fuß %s, Spitze %s, Klinge %.2f m (Waffe skaliert %s)" % [preset, fuss, tip, fuss.distance_to(tip) * (w as Node3D).global_transform.basis.get_scale().x, (w as Node3D).global_transform.basis.get_scale()])
 	var t: Node3D = sk.new()
 	t.set("style", st)
 	t.set("mode", 1)     # Trail3D.Mode.BLADE
