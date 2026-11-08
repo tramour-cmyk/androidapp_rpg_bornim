@@ -4,11 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [644](entscheiden/644-gegenstandskatalog.md) | **Muss** | E Kampf | 08.11., 12:55 | Gegenstandskatalog: alle Gegenstände und Rezepte an einer Stelle | Sokrates |
+Nichts offen.
 
 ## Zu billigen
 
@@ -51,7 +47,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 | 652 | M | Englisch-Regeln 1–7 aus LISTE-ENGLISCH-338-1B nach STORY-REGELN.md, dann Datei nach docs/a | startbar |
 
-**Tom** – offen 99, Muss 80, startbar 8
+**Tom** – offen 100, Muss 81, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -154,8 +150,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 639 | M | Leute tragen ihre Dinge wie alt: Jorins Speer, Aldrics Stab quer auf der Schulter (Garrick | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
 | 640 | M | Innenräume und Häuser, Varianten wie alt: Werkzeugregal, Wandbehänge und Stock bei Aldric, | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
 | 649.3 | M | Figurenkatalog: Bewohner, Händler, Lehrmeister, Söldner füllen (Tagesablauf, Laden, Stimme | wartet auf 649.2 (startbar) |
+| 644.4 | M | Gegenstandskatalog: Ladenbestand und Rezepte aus texte.json und Kotlin in den Katalog umst | wartet auf 644.1 (startbar) |
 
-**Jerry** – offen 64, Muss 55, startbar 4
+**Jerry** – offen 66, Muss 57, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -223,6 +220,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 649.2 | M | Figurenkatalog Schritt 2: Werkzeug figuren.py und tools/figuren/figuren.json (Art und Auft | wartet auf 649.1 (startbar) |
 | 649.4 | M | Zwei bis drei Handlungen je gewöhnlicher Monsterart vorschlagen und in 444 messen, nur wo | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test |
 | Pflege | K | von Werkzeug (340.3, 08.11.): 15697 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 644.1 | M | Gegenstandskatalog: Werkzeug mit Spalten, Teil Rezepte und Prüfungen (644 A), zusammen mit | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test |
+| 644.2 | M | Gegenstandskatalog: Zahlen nach 469 in 444 (Tempo, Parieren, Durchschlag, Güte, Stufe), C1 | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test |
 
 **Perikles** – offen 21, Muss 18, startbar 0
 
@@ -269,7 +268,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | Woche | K | Wochenzählung der Kennzahlen | Termin 09.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
 
-**Sokrates** – offen 41, Muss 31, startbar 21
+**Sokrates** – offen 42, Muss 32, startbar 22
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -307,13 +306,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 284 | M | Bis zum Durchspielen (26) am Kampf nur Fehlerbehebung, kein Feinschliff (Vorschlag Sokrate | ruht |
 | 340 | M | Rollenspiegel: zehn Fragen Ist-Soll an alle Rollen, Antwort am Sitzungsende mit Beleg (Che | ruht |
 | 344 | M | Fackel: brennt überall außer in hellen Grundrissen; Kampf mit der Fackel nach SRD (Chef 23 | ruht |
-| 644 | M | Alle Gegenstände an einer Stelle: Katalog 458 mit BRS-Werten, Voraussetzungen, Seltenheit, | Chef (Datei in der Chefsache) |
+| 644 | M | Alle Gegenstände an einer Stelle: Katalog 458 mit BRS-Werten, Voraussetzungen, Seltenheit, | wartet auf 644.1 (startbar) |
 | 649 | M | Figurenkatalog: alle Figuren an einer Stelle (Monster, Bewohner, Gefährten), Bestiarium ge | wartet auf 649.3 (startbar) |
 | 650 | M | docs aufräumen: 88 Dateien, Erledigtes nach docs/alt/, Zusammenlegen, Inhaltsverzeichnis n | startbar |
+| Pflege | K | von Werkzeug (340.3, 08.11.): 15471 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 644.3 | M | Seltenheit als Achse ins Regelwerk, Abschnitt Ausrüstung (644 B) | startbar |
 | 569 | M | Baumkronen ohne erkennbare Tuschelinie, „ein einziger Brei“ (Chef 04.11., 19:44, Bild 558 | startbar |
 | 507 | M | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager (Orte O10; aus 492) (für Jerry) | startbar |
 | 383 | M | Wartewächter und Haken 63 verschärfen (Chef 27.10., 17:53 ja); Sitzungsgröße messen (Sokra | startbar |
-| Pflege | K | von Werkzeug (340.3, 08.11.): 15471 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
