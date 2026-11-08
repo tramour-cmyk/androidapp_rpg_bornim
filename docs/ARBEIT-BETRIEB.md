@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (08.11., 09:05, Ford `session_01Hmoj76HFnAA46mUTzwaQoK`, Selbstneustart):** Getan: Sperren vom Chef aufgehoben, 275.2 umgeschaltet, Nachtplan Tom/Jerry durch, Morgenmeldung 08.11. gesendet, Kosten gebucht. Laufend: Tom `session_01Hmoj79X6oAEPabaMyCRc4B` (Build 269, Testbitte gegen 08:35), Jerry `session_01Hmoj76PuNTd7NgcaM1MYtR`. Tagesbericht 08.11. ab 9:30 aus `lauf.py`. Archiviersatz gilt nur je Sitzung. Nachfolger: Ford – Betriebsleiter.
+**Übergabe (08.11., 16:32, Ford `session_01Hmoj78NKRazEf1Gp5XtnWY`, Selbstneustart):** Getan: Archiviersatz des Chefs 10:58 (gilt für diese Sitzung, neuer Ford holt ihn neu), alle fertigen Sitzungen archiviert und Kosten gebucht, Build 269 freigegeben (Chef 16:22), Tagesbericht 08.11. durch. Laufend: Tom `session_01Hmoj75Q3nHVqJ8NUPfqQYx` (605, wiederholt), Jerry `session_01Hmoj78vecVQJuktwpC1va7` (623.5 Film, dann 680, 682, 679), Sokrates `session_01Hmoj788ZCSrdh53V6fSssd` (654 Systemrunde 09.11.). Spike und Tuffy bewusst nicht gestartet (Guthaben-Tempo, Bild 08:44); Spike 613 wartet auf Freigabe 613.1. Offen: Abgleich-Warnung 416.4 (Tom, „gebaut“ ohne Build). Nachfolger: Ford – Betriebsleiter.
 
 **Nächste freie Vorgangsnummer: 684** (zuletzt 683 Tom 08.11. 16:23:14 d854) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -52,6 +52,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
 - 10:05 08.11.: Gestartet Perikles (338.1), Diogenes (Woche), Tom (499, 09:23). Nicht gestartet: Jerry 562 (alter Jerry `77Qb` lief noch, Neustart-Meldung fehlt), Spike 531 (Tom hat 531), Tuffy 560 (Guthaben-Tempo). Archivieren abgelehnt (Auto-Modus-Prüfer, ohne Satz des Chefs): Tom `79X6` 10,76 $, Jerry `76Pu`, Sokrates `76sa`, Diogenes `79SG`, Perikles `78bd`, Ford alt `76HF` 10,17 $; Kosten ungebucht bis dahin.
+- 16:32 08.11.: Selbstneustart Ford (Kontext 400 Tsd.); neuer Ford legt Uhr an, löscht `trig_018KFM8p48SdbzgBWQ3TzWRR`, archiviert diese Sitzung nach Satz des Chefs.
 - 09:07 08.11.: Selbstneustart (Tiefe 2), neue Uhr, alte gelöscht. Gestartet: Diogenes, Perikles (Tagesbericht 08.11.), Sokrates (Stellungnahme 4061, 6201). Spike (499) und Tuffy (562) nicht gestartet, Grund: Woche über tragbarem Tempo (Bild Chef 08:44, ≈ 0,8 statt 0,58 %/h); Startmarke steht, an Perikles melden. Wächter 499, 630 an Tom und Chef. Abgleich-Warnung 416.4 (Tom): „gebaut“ ohne Build, Zweig auf main.
 - 13:07 06.11.: Tom `FrCC` (603) fertig: Build 268 zum Test (PR #186, ansehen/t268), archiviert, 21,72 $ auf 603. Keine Sitzung läuft; Tom und Jerry ohne Muss als Code, Rest ruht bis Sa 20:00. Heute gesamt Entwicklung 77,97 $.
 - 09:23 06.11.: Tom `8kKy` fertig (591, 592, 582, 583, 557; Sparauftrag leer, Rest braucht Bild/Film), archiviert, 18,41 $ auf 591, 592, 582, 583, 557. Jerry `LgDT` fertig (548, 545, 562, 544, 547, 561, 536, 533, 532), archiviere nach Ruhe. Offen beim Chef: 602.
