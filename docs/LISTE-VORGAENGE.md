@@ -109,7 +109,7 @@
 | 629.1 | Klopfen: Sprechernamen hinter Türen bauen ([629.sprecher], von Homer) | Tom | M | gebaut, Geprüft an: 7a4e580db (klopfen_629 lokal) | – | claude/tom-629-sprecher | – | S Story | – |
 | 632 | Truhe der Höhle (cave_3, 4/14) gibt „@class_weapon“ statt der Waffe der Klasse wie alt (Story.classWeapon, Game.kt 1108); von Jerry, Abgleich 620.2b | Tom | M | gebaut, Geprüft an: ca508b846 (truhe_632 lokal), fährt mit der Höhle (492) | – | claude/tom-632-truhe | – | E Welt | – |
 | Pflege | von Werkzeug (340.3, 08.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Tom | K | startbar | – | – | – | B Abläufe | – |
-| 636 | Schlagbaum wie alt: Balken schwingt am Drehpfosten, Türgeräusch beim Öffnen (G:1162; Abgleich 620.2a) | Tom | M | startbar | – | – | – | E Welt | – |
+| 636 | Schlagbaum öffnet ohne Türgeräusch (alt G:1162 Sound.DOOR; Abgleich 620.2a) | Tom | M | gebaut, Geprüft an: 783eadf4b (schlagbaum_636 lokal), fährt im nächsten Build | – | claude/tom-636-schlagbaum | – | E Welt | – |
 | 637 | Anschlagbrett wie alt: frischer blasser Zettel bei ungelesenem Auftrag, Auftrag „Zurücklegen“ (J:123, G:1141; Abgleich 620.2a) | Tom | M | startbar | – | – | – | E Welt | – |
 | 638 | Kleinleben wie alt: Dorfhund, Katze in der Schenke, sichtbare Vögel, fallende Blätter im Wald, Hühner ziehen sich in der Dämmerung zurück (Abgleich 620.2a) | Tom | M? | startbar | – | – | – | E Welt | – |
 | 639 | Leute tragen ihre Dinge wie alt: Jorins Speer, Aldrics Stab quer auf der Schulter (Garricks Langbogen: 531; Abgleich 620.2a) | Tom | M? | startbar | – | – | – | E Welt | – |
