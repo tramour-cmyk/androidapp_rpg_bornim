@@ -10,6 +10,8 @@ var nacht := 0.0
 var ziel := 0.0
 var herd := true                       # 399.5 Grundriss mit Kamin (alt hasHearth)
 var hoehle := false                    # 492 Hoehle: wie innen, aber fern der Quellen fast schwarz (alt MapLight ambient CAVE)
+var hoehle_umgebung := HOEHLE_UMGEBUNG   # 492 Pruefer 08.11., 19:29 (Waende hell lila ohne Quelle): fuer die Bildreihe B umstellbar
+var hoehle_farbe := Color(0.55, 0.55, 0.8)
 var innen := false                     # 399.1 Grundriss: Licht aus Kamin, Kerzen, Fenstern; die Sonne nur als schwacher Rest von oben
 
 # 348.6 Runde 11 (Chef 25.10., 12:12: Sonnenstand und Schatten falsch, neu kurz nach rechts statt alt lang nach links unten):
@@ -158,8 +160,8 @@ func stelle(k: float) -> void:
 		if hoehle:
 			# 492 alt MapLight.ambient CAVE (0,05; 0,05; 0,075): „away from visible sources nearly black, only outlines“ (13e.6), Tag und
 			# Nacht gleich; MapGrade CAVE: kalt, etwas gruen (D0ECDC, Anteil 0,5, Rand 0,26)
-			env.ambient_light_color = Color(0.55, 0.55, 0.8)
-			env.ambient_light_energy = HOEHLE_UMGEBUNG
+			env.ambient_light_color = hoehle_farbe
+			env.ambient_light_energy = hoehle_umgebung
 			# Abgleich 492 (Lauf 1 gemessen: ein Drittel des Bildes genau 15/16/15, alt 0; Kontrast 0,87 hob Schwarz auf 16,6 und
 			# druckte das Licht): Schwarz bleibt schwarz wie alt (alt p50 3–5, neu 16); dafuer heller wie alt (alt p90 30–43, neu
 			# ohne Hebung 13–15): Helligkeit ×HOEHLE_HELL nach dem Tonemapping

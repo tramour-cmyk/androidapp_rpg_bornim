@@ -13,7 +13,7 @@
 # alt; Farben aus MapCave.kt (rock 5E564C, rockDark 3E3832, cap 2E8C88, crystal 6A5296, bone A89A7C, plank 5E4C3A, iron 4A4440).
 # Ausgabe <OUT>/cave.glb (Meter, Kachel 1,16 m), cave-info.json wie raum.py (innen, lichter, waende).
 # Aufruf: OUT=<ordner mit tex/> KARTE=cave KARTEN=<karten.json> python -I hoehle.py   (vorher tex.py mit demselben OUT)
-import bpy, math, os, json
+import bpy, bmesh, math, os, json
 from mathutils import Vector, Matrix
 
 OUT = os.environ.get('OUT', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'out'))
@@ -731,6 +731,7 @@ def material(name):
         nt.links.new(tn.outputs['Color'], bsdf.inputs['Base Color'])
     return m
 DREIECKE = 0
+KANTE_WEICH = float(os.environ.get('KANTE_WEICH', '50'))   # 492: Fels weich schattiert bis zu diesem Knick (Grad)
 def build(P, name):
     global DREIECKE
     o_ = P.O if P.O is not None else Vector((0, 0, 0))
@@ -743,6 +744,16 @@ def build(P, name):
         for j, li in enumerate(poly.loop_indices):
             c = P.C[me.loops[li].vertex_index]
             ca.data[li].color = (c[0], c[1], c[2], 1.0); uv.data[li].uv = P.UV[k][j]
+    if name.startswith('Wand_'):
+        # 492 (Pruefer 08.11., 19:29: Wandstuecke „grob gerastert“ in Halle, bei Krogg, Westfluegel): jedes Viereck hatte eigene Ecken, also
+        # flach schattiert; gemessen Knick zwischen Nachbarn im Mittel 14 Grad, 35 % ueber 15 Grad: unter der Fackel ein Schachbrett.
+        # Alt (MapCaveIso.kt relief) malte das Relief weich; jetzt Ecken verschmolzen und weich schattiert, nur Kanten ueber
+        # KANTE_WEICH Grad (Fels zum Deckel) bleiben hart. Farbe und UV haengen an den Schleifen und bleiben.
+        bm = bmesh.new(); bm.from_mesh(me)
+        bmesh.ops.remove_doubles(bm, verts=bm.verts, dist=1e-4)
+        bm.to_mesh(me); bm.free()
+        for p_ in me.polygons: p_.use_smooth = True
+        me.set_sharp_from_angle(angle=math.radians(KANTE_WEICH))
     o = bpy.data.objects.new(name, me); bpy.context.scene.collection.objects.link(o)
     o.location = o_ * 0.01
     DREIECKE += sum(len(p.vertices) - 2 for p in me.polygons)
