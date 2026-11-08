@@ -34,6 +34,7 @@ Inhaltsverzeichnis (122). Wer eine wesentliche Datei umbenennt oder anlegt, änd
 - [Figuren](LISTE-FIGUREN.md): festes Aussehen wiederkehrender Leute und Monster
 - [Gegenstände](LISTE-GEGENSTAENDE.md): alles, was es gibt, nach Art und Bezugsweg; erzeugt aus `tools/gegenstaende/gegenstaende.json` mit `tools/gegenstaende.py` (458)
 - [Bestiarium](LISTE-BESTIARIUM.md): Monsterarten mit Angriffen, Beute, Werten für das BRS (427)
+- [Figurenkatalog, Bauplan](LISTE-FIGURENKATALOG-649.md): Aufbau und Gegenprüfung des Katalogs aller Figuren (649), bis zum Bau
 - [Simulation 2.0](LISTE-SIMULATION-444.md): Rechensimulation Herkunft × Art × Stufe, Fortschritt bis Stufe 6, Befund (444)
 - [Grafikweg](LISTE-GRAFIKWEG.md): Engine, Grafikkerne, Blender-Modelle, Baukästen (348)
 - [Bestand](LISTE-BESTAND.md): Inventur aller gekauften und geladenen Bewegungen, Figuren, Tiere, Dinge, Bauteile; vor jedem Eigenbau lesen (377)
