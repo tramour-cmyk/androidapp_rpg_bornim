@@ -33,7 +33,12 @@ qa.animation_data_create()
 dg = bpy.context.evaluated_depsgraph_get()
 
 def lage(act, f):
+    # Blender 5: eine fremde Bewegung wirkt erst mit ihrem Platz (slot); ohne ihn blieb die Figur stehen, alle Zeilen 0 (Tom 19:08)
     qa.animation_data.action = act
+    if act is None:
+        for pb in qa.pose.bones: pb.matrix_basis.identity()   # Ruhe = Ruhelage der Kauffigur (T-Pose)
+    elif getattr(act, 'slots', None) and qa.animation_data.action_slot is None:
+        qa.animation_data.action_slot = act.slots[0]
     bpy.context.scene.frame_set(f); dg.update()
     me = kleid.evaluated_get(dg).to_mesh()
     V = np.array([tuple(kleid.matrix_world @ me.vertices[i].co) for i in UM])
@@ -56,6 +61,7 @@ for bn in BEW:
         n10 = int((d[unter] > 0.10).sum())
         if best is None or n10 > best[1]: best = (f, n10, int((d[unter] > 0.05).sum()), float(d[unter].max()), d)
     f, n10, n5, mx, d = best
+    lage(a, f); hd = (qa.matrix_world @ qa.pose.bones['hand_r'].head).z   # Probe, dass die Bewegung wirkt: Hand rechts hoch
     w = unter & (d > 0.10)
     print('UMHANG ARM %s Bild %d: unter der Achsel %d Ecken > 5 cm, %d > 10 cm, hoechstens %.0f cm%s' % (
-        bn, f, n5, n10, mx * 100, (', bis %.2f m unter der Schulter, Armgewicht dort im Mittel %.2f' % (sh - P0[w, 2].min(), armw[w].mean())) if w.any() else ''))
+        bn, f, n5, n10, mx * 100, (' (Hand rechts %.2f m)' % hd) + (', bis %.2f m unter der Schulter, Armgewicht dort im Mittel %.2f' % (sh - P0[w, 2].min(), armw[w].mean())) if w.any() else ''))
