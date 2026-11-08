@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [703](entscheiden/703-ausweichen-bleibt.md) | **Muss** | E Kampf | 08.11., 21:33 | Ausweichen: bleibt der Gegner, wo er hingesprungen ist? | Sokrates |
 | [636](entscheiden/636-schlagbaum.md) | **Muss** | E Welt | 08.11., 20:41 | Kam bei Jorin der Satz „Jorin löst das Seil, und der Schlagbaum schwingt knarrend nach oben“? | Tom |
 | [657](entscheiden/657-drei-stichpunkte.md) | **Muss** | B Abläufe | 08.11., 15:15 | Regeln radikal kürzen: eine Seite für alle (Empfehlung: :) | Sokrates |
 
@@ -163,7 +164,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 700 | M? | Erschaffung, Platzwahl „Alle Spielstand-Plätze sind belegt“: Rahmen um jeden Platz gegen 5 | Chef (Datei in der Chefsache) |
 | 701 | M | Gegenstandsfenster: Hinweis Obergrenze nur einmal statt je Grundwert (Chef t270.5, 08.11., | Sperre 620.1 B: 11 ungetestete Muss, erst gemeinsamer Build und Test |
 
-**Jerry** – offen 69, Muss 60, startbar 1
+**Jerry** – offen 70, Muss 61, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -236,6 +237,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 681 | M | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
 | Pflege | K | von Werkzeug (340.3, 08.11.): 15397 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 702 | M | Wölfe: Anspringen nimmt dem Helden jeden Zug, Rudel hält ihn dauerhaft fest (Chef t270, 08 | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
+| 703 | M | Ausweichen: Gegner bleibt am Ausweichplatz statt zurückzutappeln (Chef t270.12, 08.11., 21 | Chef (Datei in der Chefsache) |
 
 **Perikles** – offen 23, Muss 19, startbar 0
 
