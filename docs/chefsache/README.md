@@ -52,7 +52,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 
-**Tom** – offen 98, Muss 74, startbar 5
+**Tom** – offen 100, Muss 74, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -154,6 +154,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 689 | K | Dorf, Urteil Chef 25.10., 12:11 (aus 348.6, offen geblieben): Büsche über Dachfirsten, Lat | ruht |
 | 697 | M | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test |
 | 698 | K | Grafikstufen im Systemmenü mit Effekten (Niedrig/Mittel/Hoch, Automatisch per Leistungstes | startbar |
+| 699 | M? | Laden: Rückfrage „Alle gewöhnlichen verkaufen“ sagt „1 GEGENSTÄNDE:“ statt Einzahl (Tom, g | startbar |
+| 700 | M? | Erschaffung, Platzwahl „Alle Spielstand-Plätze sind belegt“: Rahmen um jeden Platz gegen 5 | startbar |
 
 **Jerry** – offen 67, Muss 59, startbar 0
 
