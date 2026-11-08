@@ -2183,7 +2183,9 @@ func hoehle_bilder() -> void:
 	if nebel: nebel.vergiss()
 	for o in orte:
 		var ziel: Vector2i = o[1]
-		for t in karte.weg(held.kachel, ziel):
+		# Lauf 308: der Weg in die Halle trat auf Graks Kachel (y 4), sein Gespräch und der Kampf liefen in die Fassung B; in die
+		# Halle darum ohne Weg
+		for t in ([] if o[0] == "halle" else karte.weg(held.kachel, ziel)):
 			var d: Vector2i = t - held.kachel
 			held.setze(t, "UP" if d.y < 0 else ("DOWN" if d.y > 0 else ("LEFT" if d.x < 0 else ("RIGHT" if d.x > 0 else String(o[2])))))
 			kamera.springe()
