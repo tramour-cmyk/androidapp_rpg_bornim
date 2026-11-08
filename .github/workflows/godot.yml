@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       kampf:
-        description: "Kampfort-Filme: ja (453 r3, 453.1 Vergleich), 461 (Grundstand-Film Kampfort), 4531 (Heldenatem Feld 2 gegen neu), 2963 (Siegerposen) oder 656 (Umhang vorher/nachher, mit film=nein)"
+        description: "Kampfort-Filme: ja (453 r3, 453.1 Vergleich), 461 (Grundstand-Film Kampfort), 4531 (Heldenatem Feld 2 gegen neu), 2963 (Siegerposen) oder 656 (Umhang: Film; mit film=nein Bilder vorher/nachher)"
         default: ""
       dorf:
         description: "Dorf-Film Grundstand (461.1): ja"
@@ -616,8 +616,8 @@ jobs:
       # 656 (Sokrates 19:50: Bild vorher/nachher gleiche Pose, beschriftet): Siegerposen von vorn und schräg von hinten (150°) am
       # Kämpfer, erst neu (Umhang am Schlüsselbein), dann mit dem Kämpfer von vorher (UMHANG_ARM=1); je Pose und Ansicht ein Blatt
       # links vorher, rechts nachher (umhang656/vergleich-<Ansicht>-<n>.png); nur von Hand mit kampf=656 und film=nein
-      - name: Umhang 656 vorher/nachher (nur von Hand mit kampf=656)
-        if: ${{ !cancelled() && github.event.inputs.kampf == '656' }}
+      - name: Umhang 656 vorher/nachher (nur von Hand mit kampf=656 und film=nein)
+        if: ${{ !cancelled() && github.event.inputs.kampf == '656' && github.event.inputs.film == 'nein' }}
         continue-on-error: true
         run: |
           B=$GITHUB_WORKSPACE/bilder/umhang656; mkdir -p $B
@@ -644,6 +644,31 @@ jobs:
             n=${v#$B/vorher-}; [ -f $B/nachher-$n ] || continue
             ffmpeg -loglevel error -y -i $v -i $B/nachher-$n -filter_complex hstack=inputs=2 $B/vergleich-$n || true
           done
+          ls -l $B
+      # 656 (Chef 08.11., 21:50, Archiv „656, gleich Film“: „in einer Kampfpose oder in einer 3D-Rotation, wo man sieht, wie sich derjenige
+      # dreht“): film_umhang_656.gd am Kämpfer neu (656-umhang.mp4, an den Chef); für den eigenen Abgleich derselbe Film mit dem Kämpfer
+      # von vorher (UMHANG_ARM=1) und beide nebeneinander (656-vorher-neu.mp4); nur von Hand mit kampf=656 ohne film=nein
+      - name: Umhang 656 Film (nur von Hand mit kampf=656)
+        if: ${{ !cancelled() && github.event.inputs.kampf == '656' && github.event.inputs.film != 'nein' }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/umhang656; mkdir -p $B
+          cd godot
+          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
+          film() { n=$1; shift
+            env "$@" timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+              --write-movie $RUNNER_TEMP/$n.avi --fixed-fps 30 -s res://tests/film_umhang_656.gd > $B/$n.log 2>&1 || true
+            grep -E "SCRIPT ERROR|^Film|^Stück|^Signatur|FEHLER" $B/$n.log | head -20 || true
+            ffmpeg -loglevel error -y -i $RUNNER_TEMP/$n.avi -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast $B/$n.mp4 || true; }
+          film 656-umhang FILM_TEXT=neu
+          if ls $RUNNER_TEMP/klassen_alt/held_*.glb > /dev/null 2>&1; then
+            mkdir -p $RUNNER_TEMP/neu656 && cp daten/held_*.bin $RUNNER_TEMP/neu656/
+            for f in $RUNNER_TEMP/klassen_alt/held_*.glb; do cp $f daten/$(basename $f .glb).bin; done
+            film 656-vorher FILM_TEXT=vorher
+            cp $RUNNER_TEMP/neu656/held_*.bin daten/
+            ffmpeg -loglevel error -y -i $B/656-vorher.mp4 -i $B/656-umhang.mp4 -filter_complex hstack=inputs=2 \
+              -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/656-vorher-neu.mp4 || true
+          fi
           ls -l $B
       - name: Kampfort-Filme Grundstand (453 r3, 453.1; nur von Hand mit kampf=ja)
         if: ${{ !cancelled() && github.event.inputs.kampf != '' && github.event.inputs.kampf != '2963' && github.event.inputs.kampf != '656' && github.event.inputs.film != 'nein' }}
