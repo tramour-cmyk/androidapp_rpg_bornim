@@ -63,7 +63,7 @@
 | 302.2 | Tusche auf der Gebietskarte (Chef 22.10., 23:50); zurückgestellt (Chef 23.10., 10:45) | Tom | K | ruht | – | claude/tom-3022-tuschebild | – | G Stil | – |
 | 302.1 | Tuschelinie für Menschengestalten (Chef 22.10., 20:25, über Sokrates); jetzt nicht (Chef 23:37); M seit 338 (b), Charaktererstellung | Tom | M | ruht | – | claude/tom-3021-tusche | – | G Stil | – |
 | 292.4 | Hauptmenü B am Feuer: Feuerlicht, Animation, Klang (aus 292.3 zurückgestellt, Chef 22.10., 15:10) | Tom | K | ruht | – | claude/tom-2923-titelmodus | – | G Stil | – |
-| 356.2 | Sammelaufträge: Felle 3, Pelzumhang, Hauerdolch (356 b, Chef 24.10., 21:33) | Tom | K | startbar | – | – | – | G Balance | – |
+| 356.2 | Sammelaufträge: Felle 3, Pelzumhang, Hauerdolch (356 b, Chef 24.10., 21:33) | Tom | K | gebaut, fährt im nächsten Build. Geprüft an: a483cdeea (brett_test, katalog_test lokal) | – | claude/tom-3562-auftraege | – | G Balance | – |
 | 30 | Abstürze beim Testen | Tom | K | ruht | – | – | – | Q QS | – |
 | 145 | Karten je Kapitel zum Drucken | Tom | K | ruht | – | claude/tom-145-kartenmappe | – | E Welt | 6,22 $ |
 | 417.1 | Restmängel Tragart nach „417 passt“ (Schildabstand, Rumpfdrehen, Fußrutschen, Kornfeld, Stabgang) | Tom | K | ruht | – | claude/tom-417-tragart | – | E Figuren | – |
@@ -182,6 +182,7 @@
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 72 | Profil und Marktvergleich | Homer | K | ruht | – | – | – | E Kampf | 0,72; +0,61 $ |
 | 348.12g | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | Homer | M | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | – | – | – | G Story | 4,29 $ |
+| 694 | Von Tom (356.2): Katalogtext je ein Satz für Thessas Pelzumhang (cloak_thessa) und Borins Hauerdolch (dagger_borin) | Homer | K | startbar | – | – | – | G Story | – |
 | 658 | Telegram-Reaktionen auslesen: 👍 auf eine Meldung = gebilligt/passt, ✅ = erledigt, Eintrag mit Zeit ins Archiv (Chef 08.11., 15:00; Probe 15:02 geht) | Perikles | M | erledigt | – | – | – | B Werkzeuge | – |
 | 317.1 | `startbar.py`, `lauf.py`: Obergrenze 6 je Build streichen (Chef 07.11., 20:5x) | Perikles | M | gebaut, Geprüft an: 12837c9c3 | – | – | – | B Werkzeuge | – |
 | 620.1 | Wiederholte Funde des Chefs vor Neuem; wenige Muss je Team zugleich (aus 620) | Perikles | M | gebaut, Geprüft an: 5b65bf6bb (startbar --stand 11:05: Tom 33, Jerry 12 gesperrt) | – | – | – | B Abläufe | 4,11 $ |
