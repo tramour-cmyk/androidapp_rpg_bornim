@@ -44,7 +44,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 
-**Tom** – offen 110, Muss 91, startbar 8
+**Tom** – offen 111, Muss 91, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -158,6 +158,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 665 | M | Nacht im Dorf: um 2:30 kaum dunkel; in allen Häusern Licht, keiner schläft: tiefe Nacht du | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
 | 668 | M | Testmenü an Schirme ohne Kasten angleichen: Zurück, Trennlinien, Aufbau wie 549a/618 (Chef | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
 | 673 | M | Emulator: Kamera drehen und zoomen mit Maus und Tasten (rechte Maustaste ziehen, Mausrad), | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
+| 677 | M? | Leuchtfunke wirkt nicht: Benutzen aus der Tasche tut nichts, nur „Der Funke verglimmt“ (Ch | startbar |
 
 **Jerry** – offen 66, Muss 58, startbar 3
 
