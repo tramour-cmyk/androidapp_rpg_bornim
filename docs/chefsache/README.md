@@ -157,7 +157,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 638 | M? | Kleinleben wie alt: Dorfhund, Katze in der Schenke, sichtbare Vögel, fallende Blätter im W | startbar |
 | 639 | M? | Leute tragen ihre Dinge wie alt: Jorins Speer, Aldrics Stab quer auf der Schulter (Garrick | startbar |
 | 640 | M? | Innenräume und Häuser, Varianten wie alt: Werkzeugregal, Wandbehänge und Stock bei Aldric, | startbar |
-| Pflege | K | von Werkzeug (340.3, 08.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
+| Pflege | K | von Werkzeug (340.3, 08.11.): 15205 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 59, Muss 48, startbar 27
 
