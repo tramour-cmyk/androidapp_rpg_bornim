@@ -1,5 +1,7 @@
 # 656 · Umhang des Kämpfers im Kampf und gedreht · Tom · 08.11., 23:48
 
+[Bild von 08.11., 23:48](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/08-2348-656-Tom.jpg) (eingetragen von meldung.sh, Tom)
+
 [Film von 08.11., 23:48](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261108-234835-656/2026-11/08-2348-656-Tom.mp4) (eingetragen von meldung.sh, Tom)
 
 Film auf Telegram (08.11., 23:48). Standbild aus dem Film, Schwertarm oben: links vorher, rechts neu.
