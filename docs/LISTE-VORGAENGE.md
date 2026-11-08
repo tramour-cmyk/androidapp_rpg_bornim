@@ -46,7 +46,7 @@
 | 470.1 | Erschaffung: Held auf Antippen bildschirmgroß (Idee Chef 02.11., 18:37) | Tom | K | ruht | – | – | – | E Oberfläche | – |
 | 471 | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | Tom | M | startbar, gelöst 08.11.: 478 | – | – | – | E Kampf | – |
 | 474 | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, Meldung Tuffy): nächster Build einmal deinstallieren; dauerhaft ohne Cache | Tom | M | ruht | – | – | – | E Technik | 8,66 $ |
-| 475 | Leute des Dorfs (Rowena, Borin …) auf Kaufkörper ihres Volks mit Gesicht, statt der alten Figuren (Chef 02.11., 10:52, Build 146: „Kommt da noch was?“) · „jetzt“ 04.11., 00:53 | Tom | M | startbar | – | – | – | E Figuren | 64,38 $ |
+| 475 | Leute des Dorfs (Rowena, Borin …) auf Kaufkörper ihres Volks mit Gesicht, statt der alten Figuren (Chef 02.11., 10:52, Build 146: „Kommt da noch was?“) · „jetzt“ 04.11., 00:53 | Tom | M | startbar | Sokrates | – | – | E Figuren | 64,38 $ |
 | 476 | Symbole der Gegenstände aus den 3D-Modellen statt Pixelbild (Chef 02.11., 14:43) | Tom | K | wartet | 458.3 | – | – | E Oberfläche | – |
 | 477 | Godot-APKs laufen nicht im MuMu Player am Rechner (Chef 02.11., 14:59) | Tom | K | wartet, ein Lauf Emulator (tom-477-emulator.yml) | Sokrates | claude/tom-477-mumu | – | E Technik | – |
 | 461.1 | Grundstand zusammenführen: ein Zweig für Tom und Jerry, jede Probe baut darauf (01.11.) | Tom | M | ruht | – | claude/grundstand-461 | – | E Technik | 30,19 $ |
