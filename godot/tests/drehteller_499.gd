@@ -53,19 +53,7 @@ func _lauf() -> void:
 	Sprache.lade()
 	var aus := OS.get_environment("OBERFLAECHE_AUS")
 	var bild := DisplayServer.get_name() != "headless" and aus != ""
-	# 499 Lauf 290: Schild unten 28-30 cm vom Ruecken. Zweiter Durchgang: Kandidat Lage nach der Haltung „Stehen“ (HeldFigur.schild_haltung),
-	# nur Kaempfer und Kleriker, Fehler getrennt gezaehlt („KANDIDAT“), ohne Bild
-	for durchgang in ["", "Stehen"]:
-		HeldFigur.schild_haltung = durchgang
-		var vorher := fehler
-		for k in KLASSEN:
-			if durchgang != "" and not SCHILD[k]: continue
-			if durchgang != "": print("[Haltung %s]" % durchgang)
-			await klasse(k, bild and durchgang == "", aus)
-		if durchgang != "":
-			print("KANDIDAT Haltung %s: %d Fehler" % [durchgang, fehler - vorher])
-			fehler = vorher
-	HeldFigur.schild_haltung = ""
+	for k in KLASSEN: await klasse(k, bild, aus)
 	print("DREHTELLER499 %d Fehler" % fehler)
 	quit(1 if fehler else 0)
 

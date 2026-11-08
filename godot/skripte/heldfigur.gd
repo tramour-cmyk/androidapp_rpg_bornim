@@ -435,15 +435,7 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 	var bi := sk.find_bone("spine_03")
 	if bi < 0: return
 	var brust := im_raum(m, sk) * sk.get_bone_global_rest(bi)
-	# 499 Messung (Lauf 290: Schild unten 28-30 cm vom Ruecken, oben 4 cm): mit [schild_haltung] Ruecken und Brust aus der Haltung statt
-	# der Ruhelage; die Anhaenge sitzen dann in dieser Haltung genau, wo sie hier berechnet werden
-	var pts := PackedVector3Array()
-	if schild_haltung != "" and halte(m, sk, schild_haltung):
-		brust = im_raum(m, sk) * sk.get_bone_global_pose(bi)
-		pts = haut_punkte(m, sk, true)
-		sk.reset_bone_poses()
-	else:
-		pts = haut_punkte(m, sk, false)
+	var pts := haut_punkte(m, sk, false)
 	var schild := _modell(aus.get("OFF_HAND"))
 	var waffe := _modell(aus.get("MAIN_HAND"))
 	# Ruhelage: die Figur blickt nach +Z, ihre linke Seite ist +X. Schild auf dem Ruecken (Vorderseite nach hinten), geneigt wie der
@@ -464,7 +456,12 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 		# Oberarm tiefer hinein als beim alten Schild (gemessen tests/schild_406.gd)
 		var weg := rand_hinten(schild)
 		t.origin += t.basis.z * weg
-		_haenge(m, sk, bi, brust, schild, t, "RueckenSchild")
+		# 499 (Chef 07.11.: „Schild unten zu weit weg“; Lauf 291): in „Stehen“ kippt spine_03 21,8 Grad vor, Becken und spine_01 7-8 Grad
+		# zurueck; am Brustwirbel schwang die Unterkante 28-30 cm vom Ruecken (oben 4 cm). Der Schild haengt darum am mittleren Wirbel
+		# (spine_02, 2 Grad), der zwischen Ober- und Unterkante liegt; die Lage bleibt wie in der Ruhe berechnet
+		var mi := sk.find_bone("spine_02")
+		if mi < 0: mi = bi
+		_haenge(m, sk, mi, im_raum(m, sk) * sk.get_bone_global_rest(mi), schild, t, "RueckenSchild")
 		aussen = minf(aussen, (oben.z + unten.z) * 0.5) - 0.10 - weg   # Schild mit Buckel (376.1 Lauf 2: bei 7 cm durchdrang der Buckel das Schwert)
 	# 417 Runde 6: Godot benennt den zweiten gleichnamigen Knoten „@Getragen@…“ bzw. „@Tragen@…“; „Getragen*“ fand ihn nicht, beim
 	# Wechsel der Ausruestung blieb der Schild der Paketbewegung in der Hand (Messung: zweiter Tragen-Knoten nie gefunden)
@@ -526,20 +523,6 @@ static func ruecken_aus(pts: PackedVector3Array, y0: float, y1: float) -> Array:
 		if absf(p.y - (y0 + 0.1)) < 0.04: unten = minf(unten, p.z)
 	if ganz > 8.0: ganz = -0.15
 	return [oben if oben < 8.0 else ganz, unten if unten < 8.0 else ganz, ganz]
-
-# 499 Messung: Haltung [name] (Zeit 0) aus dem AnimationPlayer der Figur auf das Skelett, ohne Baum (Spuren „Pfad:Knochen“)
-static var schild_haltung := ""
-static func halte(m: Node3D, sk: Skeleton3D, name: String) -> bool:
-	var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
-	if ap == null or not ap.has_animation(name): return false
-	var an := ap.get_animation(name)
-	for t in an.get_track_count():
-		var b := sk.find_bone(String(an.track_get_path(t)).get_slice(":", 1))
-		if b < 0: continue
-		match an.track_get_type(t):
-			Animation.TYPE_ROTATION_3D: sk.set_bone_pose_rotation(b, an.rotation_track_interpolate(t, 0.0))
-			Animation.TYPE_POSITION_3D: sk.set_bone_pose_position(b, an.position_track_interpolate(t, 0.0))
-	return true
 
 # Ecken aller Netze mit Haut im Raum der Wurzel m (ohne deren eigene Lage): Ruhelage, oder mit [haltung] nach der Lage der Knochen
 # (wie die Haut sie zeichnet); [nur]: ein Netz. Mit Haltung nur die Mitte (Ruhe |x| < 0,2), sonst dauert es zu lange
