@@ -172,7 +172,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 680 | M | Absturz: Kampf im Wald nach Met (betrunken), Spiel wird langsam und stürzt ab (Chef 08.11. | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test |
+| 680 | M | Absturz: Testmenü Sprung Wald → Dorf, in der Schenke schon hakelig, nach Met immer zäher, | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test |
 | 679 | M | Kampf: im ersten Testkampf (Kleriker gegen Wölfe) fehlten Befehle und Knöpfe (Gewinnen, Ve | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test |
 | 623.5 | M | Probe Kampf mit den Gratisproben (Combat Mega, Projectiles, Trails, Pack 3, Character Shad | startbar |
 | 565 | M | MARS: unten im Gruppenkasten sieht man nicht, welcher Held am Zug ist (Chef 04.11., 17:10, | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test |
