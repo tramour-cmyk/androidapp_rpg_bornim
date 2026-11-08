@@ -12,7 +12,7 @@
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
 | 670 | Build 269: Menü des Helden (Held, Tasche, Ausrüstung, Karte, Chronik, System) noch im alten Design statt 557/549a; Zweig tom-557-einschalten war im Build? (Chef 08.11., 15:32) | Tom | M | startbar | – | – | – | E Oberfläche | – |
-| 664 | Halbes Haus: Haus des alten Kael und Hütte der Kräuterhexe im tiefen Flüsterwald nur halb da (Chef 08.11., 15:28, mehrfach gemeldet, nie eingetragen) · wiederholt | Tom | M | in Arbeit, Bild beim Chef (ansehen/664-haeuser.md) | Chef | claude/tom-664-haeuser | – | E Welt | 8,06 $ |
+| 664 | Halbes Haus: Haus des alten Kael und Hütte der Kräuterhexe im tiefen Flüsterwald nur halb da (Chef 08.11., 15:28, mehrfach gemeldet, nie eingetragen) · wiederholt | Tom | M | startbar, Bild passt (Chef 👍 16:42) | – | claude/tom-664-haeuser | – | E Welt | 8,06 $ |
 | 613 | Zwischensequenzen neu wie alt: leichte Bewegungen, Signatur, Tusche (mit 302.3), an Spike (Chef 07.11., t268.31; 08.11., 15:08, 15:19) · „jetzt“ 08.11., 15:19 | Tom | M | startbar, Lauf frei 16:28 | – | – | – | E Oberfläche | 16,54 $ |
 | 656 | Umhang Kämpfer mit Beulen, große Beule unter dem Schwertarm: woher, weg (Chef 08.11., 14:52, schon zu 623.5 gefragt, Antwort verloren; 16:44 wieder auf den Siegerposen 296.3) · wiederholt | Tom | M | startbar | 416.8 | – | – | E Figuren | – |
 | 623.6 | Probe Welt mit den Gratisproben (Gras und Wind, Wasser, Wetter, Oberflächen) gegen unsere Fassung, Dorfbach und Flüsterwald, FPS, ein Film; vor dem Kauf (Chef 07.11., 623 B1, D) · „jetzt“ 08.11., 13:48 | Tom | M | startbar, Film (Chef 16:56) | – | – | – | E Welt | 12,54 $ |
@@ -183,7 +183,7 @@
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 72 | Profil und Marktvergleich | Homer | K | ruht | – | – | – | E Kampf | 0,72; +0,61 $ |
 | 348.12g | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | Homer | M | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | – | – | – | G Story | 4,29 $ |
-| 658 | Telegram-Reaktionen auslesen: 👍 auf eine Meldung = gebilligt/passt, ✅ = erledigt, Eintrag mit Zeit ins Archiv (Chef 08.11., 15:00; Probe 15:02 geht) | Perikles | M | gebaut, Geprüft an: 34791b05c (Abruf 15:26, Kennung 2972 in meldungen.tsv) | – | – | – | B Werkzeuge | – |
+| 658 | Telegram-Reaktionen auslesen: 👍 auf eine Meldung = gebilligt/passt, ✅ = erledigt, Eintrag mit Zeit ins Archiv (Chef 08.11., 15:00; Probe 15:02 geht) | Perikles | M | startbar, Fehler: 👍 auf 2980 (664) „ohne Zuordnung“, keiner trug ein | – | – | – | B Werkzeuge | – |
 | 317.1 | `startbar.py`, `lauf.py`: Obergrenze 6 je Build streichen (Chef 07.11., 20:5x) | Perikles | M | gebaut, Geprüft an: 12837c9c3 | – | – | – | B Werkzeuge | – |
 | 620.1 | Wiederholte Funde des Chefs vor Neuem; wenige Muss je Team zugleich (aus 620) | Perikles | M | gebaut, Geprüft an: 5b65bf6bb (startbar --stand 11:05: Tom 33, Jerry 12 gesperrt) | – | – | – | B Abläufe | 4,11 $ |
 | 511 | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele sinnlose und kaputte Filme gemacht?“) · „jetzt“ 03.11., 13:50 | Perikles | M | gebaut, Geprüft an: d6d9eca8c | Diogenes, D75 | – | – | B Werkzeuge | 19,83 $ |
