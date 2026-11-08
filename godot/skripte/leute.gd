@@ -453,17 +453,28 @@ func _process(dt: float) -> void:
 		anim.speed_scale = 1.0
 
 func stehen(dt: float) -> void:
+	var s := schaut_her(dt)   # zaehlt den Stillstand des Helden auch waehrend des Gespraechs und danach
 	if zugewandt_bis > 0:
 		if still: zugewandt_bis = Time.get_ticks_msec() + int(ZUGEWANDT * 1000)   # waehrend des Gespraechs zaehlt die Zeit nicht
 		if Time.get_ticks_msec() < zugewandt_bis and held:
 			blick = atan2(held.global_position.x - global_position.x, held.global_position.z - global_position.z)
 		else:
 			zugewandt_bis = 0
+			schaut = false
 			blick = blick_vorher
 			ruhe_bis = -1.0   # die Ruhebewegung beginnt neu
-	drehe_stehend(dt, DREH_ZU if zugewandt_bis > 0 else DREH_STEH)
+	else:
+		if s:
+			if not schaut: blick_vorher = blick
+			schaut = true
+			blick = atan2(held.global_position.x - global_position.x, held.global_position.z - global_position.z)
+		elif schaut:
+			schaut = false
+			blick = blick_vorher
+			ruhe_bis = -1.0
+	drehe_stehend(dt, DREH_ZU if zugewandt_bis > 0 or schaut else DREH_STEH)
 	if still or not da: return
-	if zugewandt_bis > 0: return
+	if zugewandt_bis > 0 or schaut: return
 	if Time.get_ticks_msec() < ruft_bis: return   # 399.1 (306): wer ruft, haelt still, bis das zweite Zeichen vorbei ist
 	warte -= dt
 	if warte > 0: return
@@ -675,9 +686,30 @@ static func kurve(k: PackedFloat32Array, t: float) -> float:
 	var i := int(f)
 	return lerpf(k[i], k[i + 1], f - i)
 
+# 416.8 (Chef 08.11., 15:43, t269.11: „beim Annähern richtet sich keiner zum Helden aus“; DESIGN-STIL „Lebendige Welt“: bis 3 Felder
+# anschauen, nach etwa 10 s Stillstand das Interesse verlieren, 5la.3). Wie alt (MapFolk.kt 853–871 WATCH_TILES, BORED_MS, watches,
+# Stillness): steht der Held hoechstens 3 Kacheln je Richtung entfernt und steht er noch keine 10 s auf derselben Kachel, wendet sich
+# die Person ihm zu (mit Schritten wie beim Ansprechen, drehe_stehend) und haelt in ihrem Tun inne; danach blickt sie wie vorher und
+# macht weiter. Tiere nicht (alt nur die Leute). Besser als alt: die Zeit laeuft mit dem Spiel (dt), steht still, solange es ruht
+const SCHAUT_KACHELN := 3
+const LANGWEILIG := 10.0               # s
+var schaut := false
+var held_still := 0.0                  # s, die der Held schon auf held_still_kachel steht
+var held_still_kachel := Vector2i(-99, -99)
+
+func schaut_her(dt: float) -> bool:
+	if held == null or daten.has("tier") or drinnen or not visible or not da: return false
+	var h := held_kachel()
+	if h != held_still_kachel:
+		held_still_kachel = h
+		held_still = 0.0
+	else: held_still += dt
+	var d := h - kachel
+	return d != Vector2i.ZERO and absi(d.x) <= SCHAUT_KACHELN and absi(d.y) <= SCHAUT_KACHELN and held_still < LANGWEILIG
+
 # 416.8: dem Helden zuwenden (spiel.gd sprich)
 func wende_zu() -> void:
-	if zugewandt_bis == 0: blick_vorher = blick
+	if zugewandt_bis == 0 and not schaut: blick_vorher = blick
 	zugewandt_bis = Time.get_ticks_msec() + int(ZUGEWANDT * 1000)
 
 # dreht a hoechstens um schritt auf b zu (feste Rate statt lerp: grosse Wenden dauern laenger, kleine bleiben weich)
