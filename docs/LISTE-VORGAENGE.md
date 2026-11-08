@@ -237,7 +237,7 @@
 | 72c | Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunden); Wortlaut Vorgangsarchiv 72c | Sokrates | K | nach Meilenstein | – | – | – | E Kampf | – |
 | 167.6 | Morgenbericht mit Kennzahlen und Kostenbilanz (Chef 18.10.) | Sokrates | M | startbar | – | – | – | B Steuerung | 2,29 $ |
 | 142.3 | Tester öffentlich suchen (Chef 27.10., 19:32) | Sokrates | M | ruht | – | – | – | M Veröffentlichung | – |
-| 142.4 | Rückfrage: D-U-N-S jetzt, Organisationskonto statt Pflichttest (Chef 07.11.) | Sokrates | M | Chef | Chef | – | – | M Veröffentlichung | – |
+| 142.4 | Rückfrage: D-U-N-S jetzt, Organisationskonto statt Pflichttest (Chef 07.11.) | Sokrates | M | wartet, D-U-N-S beantragt über Apple (Chef 08.11., 14:33), Bearbeitung bis etwa 30 Tage; Chef sagt „D-U-N-S da“ | 08.12. | – | – | M Veröffentlichung | – |
 | 142 | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | Sokrates | M | startbar | – | – | – | M Veröffentlichung | 19,96 $ |
 | 45 | Geschäftsmodell und Umsetzung (Play Store) | Sokrates | M | startbar | – | – | – | M Veröffentlichung | 4,68 $ |
 | 109 | Repo öffentlich | Sokrates | M | startbar | – | – | – | M Veröffentlichung | – |
