@@ -144,7 +144,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 677 | M? | Leuchtfunke wirkt nicht: Benutzen aus der Tasche tut nichts, nur „Der Funke verglimmt“ (Ch | wartet auf Test/Build (gebaut) |
 | 678 | M | Testmenü: Heldenstufe +1 geht über die Kapitelgrenze (Stufe 9 in Kapitel 1), Grenze auch b | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test |
 | 683 | M | Oberfläche noch mit SRD-Wörtern: Gegenstandsfenster und Vergleich zeigen Zauberpunkte, Att | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test |
-| Pflege | K | von Werkzeug (340.3, 08.11.): 18745 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 08.11.): 18106 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 69, Muss 60, startbar 3
 
