@@ -50,7 +50,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 
-**Tom** – offen 98, Muss 73, startbar 8
+**Tom** – offen 98, Muss 73, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -92,7 +92,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 474 | M | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, M | ruht |
 | 475 | M | Leute des Dorfs (Rowena, Borin …) auf Kaufkörper ihres Volks mit Gesicht, statt der alten | startbar |
 | 476 | K | Symbole der Gegenstände aus den 3D-Modellen statt Pixelbild (Chef 02.11., 14:43) | wartet auf 458.3 (ruht) |
-| 477 | K | Godot-APKs laufen nicht im MuMu Player am Rechner (Chef 02.11., 14:59) | startbar |
+| 477 | K | Godot-APKs laufen nicht im MuMu Player am Rechner (Chef 02.11., 14:59) | wartet auf Sokrates |
 | 461.1 | M | Grundstand zusammenführen: ein Zweig für Tom und Jerry, jede Probe baut darauf (01.11.) | ruht |
 | 458.3 | M | Gegenstandskatalog: Netze, Modelle, Läden (Chef 01.11., 458) | ruht |
 | 423.1 | K | Spielerhandbuch BRS als Seite im Spiel, Platzhalter aus der Datendatei (Archiv 423) | ruht |
@@ -196,7 +196,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 628 | M | Lohn: EP und Gold steigen nicht mit der Monsterstufe über der Gebietsstufe (over fehlt, al | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test |
 | 289 | K | MARS: Wechsel „halber Zug“ missverständlich; Bewegung und Aktion im Kästchen zeigen? (Chef | ruht |
 | 296.2 | M | MARS spielnötig: Beute/Erfahrung, Fliehen, Eröffnung, Zustände, eigene Ausrüstung, Schalte | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test |
-| 296.3 | K | MARS-Schmuck: Todesschrei, Flucht/Zerfall, Zustände gezeichnet, Siegerpose (Chef 23.10., 1 | wartet auf 656 (wartet) |
+| 296.3 | K | MARS-Schmuck: Todesschrei, Flucht/Zerfall, Zustände gezeichnet, Siegerpose (Chef 23.10., 1 | wartet auf 656 (in Arbeit) |
 | 344.2 | K | Kampf mit der Fackel: Feuerschaden, Verscheuchen, beide Systeme (Chef 23.10., 18:27) | ruht |
 | 168.1 | K | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | wartet auf 38 (startbar) |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Standbild 2, Bau) | ruht |
@@ -268,7 +268,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
 | 644.5 | M | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noc | wartet auf 644.1 (startbar) |
 
-**Sokrates** – offen 49, Muss 32, startbar 29, PAUSE bis 09.11., 09:00
+**Sokrates** – offen 50, Muss 32, startbar 30, PAUSE bis 09.11., 09:00
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -321,6 +321,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 674 | K | Systemlösung? Kamera: 5 frühere Vorgänge (590, 615, 460, 211.14, 399.4), neu 673; einmal g | startbar |
 | 676 | K | Systemlösung? Schild: 14 frühere Vorgänge (662, 58, 406a, 417, 645 …), neu 675; einmal gru | startbar |
 | 690 | K | Systemlösung? Schatten: 10 frühere Vorgänge (208, 242.2, 566, 399.5, 558 …), neu 689; einm | startbar |
+| 477 | K | Godot-APKs laufen nicht im MuMu Player am Rechner (Chef 02.11., 14:59) (für Tom) | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
