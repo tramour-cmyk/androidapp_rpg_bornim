@@ -51,13 +51,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 | 652 | M | Englisch-Regeln 1–7 aus LISTE-ENGLISCH-338-1B nach STORY-REGELN.md, dann Datei nach docs/a | startbar |
 
-**Tom** – offen 100, Muss 80, startbar 10
+**Tom** – offen 100, Muss 80, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 623.6 | M | Probe Welt mit den Gratisproben (Gras und Wind, Wasser, Wetter, Oberflächen) gegen unsere | startbar |
 | 625 | M | Sammelbuild 269: alle fertigen Zweige beider Teams (35 warten), Prüfliste als Weg durchs S | wartet auf Test (Build 269) |
-| 499 | M | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 | startbar |
+| 499 | M | Erschaffung: Held im Drehteller mit schwebendem Schild und Schwert statt Tragart nach 417 | wartet auf Test/Build (gebaut) |
 | 635 | M | Lyra fehlt als Figur im Tempel und in der Höhle: Kennung lyra_temple/lyra_cave, gebaut wir | wartet auf Test/Build (gebaut) |
 | 605 | M | Ausrüstung: leeres Kopffeld, Auswahl zeigt falsch „Obergrenze“, kein Zurück (Chef 06.11., | wartet auf Test (Build 269) |
 | 581 | M | Ausrüstung: Seite breiter als der Schirm, Reiter springen (Abgleich 512b) | wartet auf Test (Build 269) |
@@ -91,9 +91,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 513 | M | Ein Figurenstand für alle Zweige; Schild, Robe Magier, Umhang jetzt (Chef 03.11., 15:56, „ | ruht |
 | 470 | M | Bau BRS 1.1 Erschaffung (Wochenziel 02.11., Stufe 1) | ruht |
 | 604 | K | Schenke Erdgeschoss: Bett raus, mehr Tische und Bänke; Schlafen oben nur im Text (Chef 06. | startbar |
-| 570 | M | Theke: Wahl „Fleisch verkaufen · 12 Gold“ liest sich wie ein Preis (Prüfer 557 Runde 4) | Sperre 620.1 B: 33 ungetestete Muss, erst gemeinsamer Build und Test |
+| 570 | M | Theke: Wahl „Fleisch verkaufen · 12 Gold“ liest sich wie ein Preis (Prüfer 557 Runde 4) | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
 | 470.1 | K | Erschaffung: Held auf Antippen bildschirmgroß (Idee Chef 02.11., 18:37) | ruht |
-| 471 | M | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | Sperre 620.1 B: 33 ungetestete Muss, erst gemeinsamer Build und Test |
+| 471 | M | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
 | 474 | M | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, M | ruht |
 | 475 | M | Leute des Dorfs (Rowena, Borin …) auf Kaufkörper ihres Volks mit Gesicht, statt der alten | startbar |
 | 476 | K | Symbole der Gegenstände aus den 3D-Modellen statt Pixelbild (Chef 02.11., 14:43) | wartet auf 458.3 (ruht) |
@@ -117,8 +117,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 417.1 | K | Restmängel Tragart nach „417 passt“ (Schildabstand, Rumpfdrehen, Fußrutschen, Kornfeld, St | ruht |
 | 558.1 | K | Prüferrest Robe Probe 5 nachhalten, nicht bauen; Chef sieht es nach dem Durchspielen an (C | ruht |
 | 447.4.1 | M | Bau Lehrmeister, Meisterschaften, Ruf Kapitel 1 (447.4) | wartet auf 508 (startbar) |
-| 589 | M | Dorf: Marktplatz wirkt geklont (gleiche Stände, gleiche Säcke), Durchgang links am Stand h | Sperre 620.1 B: 33 ungetestete Muss, erst gemeinsamer Build und Test |
-| 590 | M | Innenräume: Türseite bei gedrehter Kamera dunkel und tot, mehr Licht (Kerzen) und Einricht | Sperre 620.1 B: 33 ungetestete Muss, erst gemeinsamer Build und Test |
+| 589 | M | Dorf: Marktplatz wirkt geklont (gleiche Stände, gleiche Säcke), Durchgang links am Stand h | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
+| 590 | M | Innenräume: Türseite bei gedrehter Kamera dunkel und tot, mehr Licht (Kerzen) und Einricht | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
 | 591 | M | Dorftiere (Hühner, Kaninchen) fliehen vor dem Helden wie alt, mit Alarmklang (Chef 05.11., | wartet auf Test (Build 269) |
 | 606 | M | Schenke: Met kostet laut Liste 2 Gold, abgezogen werden 4 (Chef 07.11., t268) | wartet auf Test (Build 269) |
 | 609 | M | Dorf: Baum hinter der Schenke sperrt den Weg zum Schlagbaum; alle Häuser auf der Waldseite | wartet auf Test (Build 269) |
@@ -131,12 +131,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 611 | M | Klopfen an Türen: deutlicher, mit Name des Hauses oder Sprechers; Zeichen an Pfeiler oder | wartet auf Test (Build 269) |
 | 630 | M | Restliche Schirme im Stil „ohne Kasten“ (549a): Laden-Fenster und Rückfragen, Menü, Brett, | startbar |
 | 618 | M | Knöpfe einheitlich: „Zurück“, „Abbrechen“, „Schließen“ nach einer Regel auf allen Schirmen | wartet auf Test (Build 269) |
-| 612 | M | Dorf Süd: Heuhaufen geklont und wie aufgespießt, Wackelgras im Weizenfeld, Gemüsebeet mit | Sperre 620.1 B: 33 ungetestete Muss, erst gemeinsamer Build und Test |
-| 613 | M | Intro und Outro wie alt: Tempelgänger, kleine Bewegungen (Chef 07.11., t268.31) | Sperre 620.1 B: 33 ungetestete Muss, erst gemeinsamer Build und Test |
-| 614 | M | Leute lebendig wie alt: Jorin mit Speer, Jorin öffnet den Schlagbaum sichtbar; Abgleich de | Sperre 620.1 B: 33 ungetestete Muss, erst gemeinsamer Build und Test |
+| 612 | M | Dorf Süd: Heuhaufen geklont und wie aufgespießt, Wackelgras im Weizenfeld, Gemüsebeet mit | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
+| 613 | M | Intro und Outro wie alt: Tempelgänger, kleine Bewegungen (Chef 07.11., t268.31) | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
+| 614 | M | Leute lebendig wie alt: Jorin mit Speer, Jorin öffnet den Schlagbaum sichtbar; Abgleich de | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
 | 623.7 | M | „Mit Dank an“ (623.4) in „Über das Spiel“ (497) einbauen, de/en (Chef 07.11., 623 F) | wartet auf Test (Build 269) |
 | 624 | M | Testanzeigen größer: FPS und Standort über der Welt, Messwerte im Reiter „Test“ (Speicher | wartet auf Test (Build 269) |
-| 622 | M | Godot-Build als AAB für Play: dieselbe App de.bornim.game, mit dem Upload-Schlüssel des al | Sperre 620.1 B: 33 ungetestete Muss, erst gemeinsamer Build und Test |
+| 622 | M | Godot-Build als AAB für Play: dieselbe App de.bornim.game, mit dem Upload-Schlüssel des al | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
 | 41.2 | K | Ansel fährt nach N3 auch nachts (Prüfpunkt 6.4) | wartet auf 41 (ruht) |
 | 586 | K | Schirme 557 einheitlich: Zeichen neben der Überschrift bei Rast, Größe der Überschriften ( | wartet auf 630 (startbar) |
 | 134 | K | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | aufgeteilt |
@@ -149,10 +149,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 629.1 | M | Klopfen: Sprechernamen hinter Türen bauen ([629.sprecher], von Homer) | wartet auf Test (Build 269) |
 | 632 | M | Truhe der Höhle (cave_3, 4/14) gibt „@class_weapon“ statt der Waffe der Klasse wie alt (St | wartet auf Test/Build (gebaut) |
 | 636 | M | Schlagbaum öffnet ohne Türgeräusch (alt G:1162 Sound.DOOR; Abgleich 620.2a) | wartet auf Test/Build (gebaut) |
-| 637 | M | Anschlagbrett: frischer blasser Zettel, solange ein ungelesener Auftrag hängt (A/MapTownIs | Sperre 620.1 B: 33 ungetestete Muss, erst gemeinsamer Build und Test |
-| 638 | M | Kleinleben wie alt: Dorfhund, Katze in der Schenke, sichtbare Vögel, fallende Blätter im W | Sperre 620.1 B: 33 ungetestete Muss, erst gemeinsamer Build und Test |
-| 639 | M | Leute tragen ihre Dinge wie alt: Jorins Speer, Aldrics Stab quer auf der Schulter (Garrick | Sperre 620.1 B: 33 ungetestete Muss, erst gemeinsamer Build und Test |
-| 640 | M | Innenräume und Häuser, Varianten wie alt: Werkzeugregal, Wandbehänge und Stock bei Aldric, | Sperre 620.1 B: 33 ungetestete Muss, erst gemeinsamer Build und Test |
+| 637 | M | Anschlagbrett: frischer blasser Zettel, solange ein ungelesener Auftrag hängt (A/MapTownIs | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
+| 638 | M | Kleinleben wie alt: Dorfhund, Katze in der Schenke, sichtbare Vögel, fallende Blätter im W | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
+| 639 | M | Leute tragen ihre Dinge wie alt: Jorins Speer, Aldrics Stab quer auf der Schulter (Garrick | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
+| 640 | M | Innenräume und Häuser, Varianten wie alt: Werkzeugregal, Wandbehänge und Stock bei Aldric, | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test |
 | 649.3 | M | Figurenkatalog: Bewohner, Händler, Lehrmeister, Söldner füllen (Tagesablauf, Laden, Stimme | wartet auf 649.2 (startbar) |
 | Pflege | K | von Werkzeug (340.3, 08.11.): 16061 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
