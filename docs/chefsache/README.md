@@ -222,7 +222,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 642 | M | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test |
 | 643 | M | Langbogen mit Köcher als Waffenmodell (daten/waffen/longbow.bin, Griff = Ursprung, Schaft | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test |
 
-**Perikles** – offen 19, Muss 16, startbar 3
+**Perikles** – offen 20, Muss 16, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -245,6 +245,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 08.11.; „star
 | 646 | M | Zeigen statt messen: Messläufe zählen als Probe, nach einer Probe immer Bild an den Chef ( | startbar |
 | 647 | M | Abgleich alt schon vor dem Bauen: Fundstelle alter Code lesen und nennen, nicht erst vor d | startbar |
 | Pflege | K | von Werkzeug (340.3, 08.11.): 15841 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 648 | M? | Glossar und Abkürzungsverzeichnis LISTE-GLOSSAR.md: Wort, Bedeutung, Zusammenhang, Fundste | startbar |
 
 **Diogenes** – offen 11, Muss 9, startbar 1
 
