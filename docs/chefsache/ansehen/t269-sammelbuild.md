@@ -91,3 +91,5 @@ Chef 08.11., 15:23 (an Sokrates), laufend:
 - 269.25 ✗ „Betrunken“ steht am Helden; im Kampf danach wird das Spiel langsam und stürzt ab (→ 680); Trinken ohne Klang (→ 681) (Chef 16:16)
 - 269.27 ✓ alle Gruppen haben Modelle, kein „Noch ohne Modell“ (Chef 16:19)
 - 269.28 ✓ Wurfzeilen kommen („51 gegen 43 %“, „99 gegen 47 % daneben“, „97 gegen 72 % daneben“); dazu: Kleriker geht zum Angriff weiter im Schneckentempo (562, nicht im Build), Ratte läuft hoppelig (Chef 16:21)
+
+Freigabe Chef 08.11., 16:22: „somit bin ich mit dem Test durch … soweit getestet und freigegeben mit den Einschränkungen, die ich heute berichtet habe“; 269.22 (Nachricht brach ab) und 269.24 ohne Rückmeldung.
