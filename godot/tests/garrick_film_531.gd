@@ -40,6 +40,8 @@ func _lauf() -> void:
 	for i in 5: await process_frame
 	spiel.ui.mess.visible = false
 	spiel.ui.oben.visible = false
+	# Pruefer Probebild Lauf 288 (08.11., 10:10): Textfenster und Knopf lagen ueber der Szene; die ganze Bedienung aus (Film und Probebild)
+	spiel.ui.visible = false
 	for l in spiel.leute.get_children():
 		if l is Leute and String(l.daten.get("id", "")) == "garrick": g = l
 	if g == null or spiel.herde == null:
@@ -59,6 +61,8 @@ func _lauf() -> void:
 	titel.add_theme_font_size_override("font_size", 22)
 	titel.add_theme_color_override("font_color", Color(0.93, 0.8, 0.45))
 	cl.add_child(titel)
+	# Pruefer Lauf 288: Skripttext im Probebild; das Probebild zeigt nur die Szene (511: kein Menue, kein Text)
+	cl.visible = probebild == ""
 	spiel.kamera.ziel = g
 	spiel.kamera.nah_fern()
 	spiel.kamera.springe()
@@ -122,15 +126,28 @@ func jagd(h: Herde) -> void:
 	jaeger.ruhig_bis = 0
 	jaeger.position = spiel.karte.kachel_pos(t)
 	h.frieden_bis = 0
+	# Pruefer Probebild Lauf 288 (kein Wolf im Bild; nachgestellt garrick_531.gd: das Tier gibt 4,8-7 m vor Garrick auf, die nahe Kamera
+	# zeigt 3,4 m): in der Jagd die Spielkamera auf Normal, Mitte zwischen Garrick und Tier; danach wieder nah auf Garrick
+	var mitte := Node3D.new()
+	g.get_parent().add_child(mitte)
+	mitte.global_position = (g.global_position + jaeger.global_position) * 0.5
+	if spiel.kamera.nah: spiel.kamera.nah_fern()
+	spiel.kamera.ziel = mitte
 	var sah := false
 	for i in 9 * 30:
 		await process_frame
+		mitte.global_position = (g.global_position + jaeger.global_position) * 0.5
 		spiel.ui.textfeld.visible = false
 		if g.abwehr and g.abwehr.laeuft(): sah = true
-		if probebild != "" and sah and g.abwehr.t >= 1.3:
+		# Pruefer Lauf 288: kein Wolf im Bild; erst aufnehmen, wenn das Tier ganz im Bild der Spielkamera steht
+		var im_bild: bool = spiel.kamera.is_position_in_frustum(jaeger.global_position) and spiel.kamera.is_position_in_frustum(jaeger.global_position + Vector3.UP * 0.6)
+		if probebild != "" and sah and g.abwehr.t >= 1.3 and im_bild:
 			await RenderingServer.frame_post_draw
 			root.get_viewport().get_texture().get_image().save_png(probebild)
 			print("GARRICKFILM Probebild ", probebild)
 			quit(); return
 		if sah and not g.abwehr.laeuft(): break
+	spiel.kamera.ziel = g
+	if not spiel.kamera.nah: spiel.kamera.nah_fern()
+	mitte.queue_free()
 	print("GARRICKFILM Abwehr %s" % ("gesehen" if sah else "FEHLT"))

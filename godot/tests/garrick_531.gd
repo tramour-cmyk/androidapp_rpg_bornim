@@ -58,9 +58,22 @@ func _lauf() -> void:
 	var blick_fehler := 9.0
 	var seiten := [0.0, 0.0]
 	var fackel_sah := false
+	# Pruefer Probebild Lauf 288 (08.11., 10:10: kein Wolf im Bild): Spielkamera wie garrick_film_531.gd jagd() (Normal, Mitte zwischen
+	# Garrick und Tier; nah auf Garrick zeigte das Tier nie, 0 von 406 Bildern); gezaehlt die Bilder der Abwehr ab 1,3 s (Fackel oben),
+	# in denen das Tier ganz im Bild steht, im Hochformat des Films (540 x 1170)
+	root.size = Vector2i(540, 1170)
+	var mitte := Node3D.new()
+	garrick.get_parent().add_child(mitte)
+	mitte.global_position = (garrick.global_position + jaeger.global_position) * 0.5
+	if spiel.kamera.nah: spiel.kamera.nah_fern()
+	spiel.kamera.ziel = mitte
+	spiel.kamera.springe()
+	var tier_im_bild := 0
+	var oben_bilder := 0
 	var ab := Time.get_ticks_msec()
 	while Time.get_ticks_msec() - ab < 6000:
 		await process_frame
+		mitte.global_position = (garrick.global_position + jaeger.global_position) * 0.5
 		if garrick.abwehr and garrick.abwehr.laeuft() and sk:
 			var a := garrick.abwehr
 			var s_ := sk.global_transform * sk.get_bone_global_pose(sk.find_bone("upperarm_r")).origin
@@ -79,6 +92,10 @@ func _lauf() -> void:
 				var quer := a.schwung()
 				seiten[0] = minf(seiten[0], quer); seiten[1] = maxf(seiten[1], quer)
 			if a.fackel and a.fackel.visible: fackel_sah = true
+			if a.t >= 1.3:
+				oben_bilder += 1
+				var kam: Camera3D = spiel.kamera
+				if kam.is_position_in_frustum(jaeger.global_position) and kam.is_position_in_frustum(jaeger.global_position + Vector3.UP * 0.6): tier_im_bild += 1
 	pruefe(angriffe.is_empty(), "am Feuer kein Kampf (%s)" % [angriffe])
 	pruefe(not jaeger.jagt, "der Jaeger gibt auf")
 	pruefe(not meldungen.is_empty(), "Meldung am Schutzort: %s" % [meldungen])
@@ -89,5 +106,6 @@ func _lauf() -> void:
 	pruefe(vor > 0.2, "Fackel vor ihm, zum Tier hin (%.2f m)" % vor)
 	pruefe(blick_fehler < 0.35, "Garrick schaut zum Tier (Abweichung %.0f Grad)" % rad_to_deg(blick_fehler))
 	pruefe(seiten[0] < -0.8 and seiten[1] > 0.8, "schwenkt links und rechts (%.2f, %.2f)" % seiten)
+	pruefe(tier_im_bild > 0, "Tier im Bild der Spielkamera, Fackel oben (%d von %d Bildern)" % [tier_im_bild, oben_bilder])
 	pruefe(garrick.abwehr == null or (not garrick.abwehr.laeuft() and not garrick.abwehr.fackel.visible), "danach Fackel wieder weg")
 	_ende()
