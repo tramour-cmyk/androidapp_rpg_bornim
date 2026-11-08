@@ -3015,4 +3015,6 @@ func head() -> Vector3:
 		h = float(mass.koerper_hoch_m) + 0.25
 	if gob_h > 0.0:     # Goblin Runde 2 (Prüfer Runde 1: Ansage fern der Goblins): Scheitel aus goblin.py, gebückt etwas tiefer
 		h = gob_h * 0.85
+		if Mars.koerper_of(fighter.monster) == SKELETT:     # 506 (Helfer 08.11., 12:55: Lebensbalken auf den Köpfen): das Skelett steht
+			h = gob_h + 0.15     # aufrecht, Scheitel 1,72–1,79 m mit Helm (kaufskelett.py groesse_cm); 0,85 davon lag 26 cm unter dem Scheitel
 	return position + Vector3(0, h * (_scale() if fighter.monster != null else 1.0), 0)
