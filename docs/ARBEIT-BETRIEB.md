@@ -123,3 +123,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:04 08.11.: Marke Archiv session_01Hmoj79LTLq6X4wWCjBhHCT (lauf.py)
 - 19:04 08.11.: Startsperre 19:04 Start Homer, Perikles (lauf.py)
 - 19:04 08.11.: Marke Archiv session_01Hmoj788ZCSrdh53V6fSssd (lauf.py)
+- 20:03 08.11.: Startsperre 20:03 Start Perikles (lauf.py)
+- 20:03 08.11.: Marke Mehrfach Tom (lauf.py)
+- 20:03 08.11.: Marke Archiv session_01Hmoj76Nrs8edTB77nYsrYW (lauf.py)
