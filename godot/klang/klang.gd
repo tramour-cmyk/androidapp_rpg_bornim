@@ -378,6 +378,16 @@ func kampf(e: Dictionary, mars, treffer_ms := -1) -> void:
 			"DUCKED": _bald(0, func(): effekt("arrow"))               # Rückläufer t58: der Pfeil zischt vorbei
 		return
 	var krit: bool = e.roll != null and e.roll[4] and ((e.roll[0] == "ATTACK" and e.roll[1] == 20) or (e.roll[0] == "BRS" and e.roll.size() > 7 and e.roll[7]))     # 478: auch nach dem BRS
+	# 296.3 (Chef 08.11., 21:28, t270.11: „Feuerpfeil auf den Jungwolf. 0 Lebenspunkte, fällt tot um. Und dann irgendwann kommt ein
+	# Geheul … definitiv so 3 Sekunden zu spät“): wer durch einen Zauber oder einen Zustand fällt, schrie erst mit der Meldung
+	# „bricht zusammen“ (FOE_FALLS), und die spielt der Kampfort erst nach Sturz und Liegen; jetzt schreit er, wenn es ihn trifft
+	# (Zauber: bei der Ankunft, treffer_ms), einmal
+	var stirbt_jetzt: bool = e.damage > 0 and tg != null and tg.monster != null and not tg.fled and int(e.hp.get(tg.id, 1)) <= 0 \
+			and not _tod_gerufen.has(tg.id) and (by == null or by.side != tg.side)
+	var schlag: bool = e.spell == null and by != null and e.roll != null and e.roll[0] in ["ATTACK", "BRS"]     # der Hieb schreit unten
+	if stirbt_jetzt and not schlag:
+		_tod_gerufen[tg.id] = true
+		_bald(maxi(0, treffer_ms) + CRY_MS - LANDS_MS, func(): stimme(art_von(tg.monster), "tod", _elite(tg)))
 	if e.spell != null:
 		if String(e.spell) in ["HEAL", "BLESS"] or (by != null and tg != null and by.side != tg.side):
 			_bald(0, func(): effekt(_fx_klang(String(e.spell), krit)))
