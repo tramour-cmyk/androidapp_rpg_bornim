@@ -194,6 +194,7 @@
 | 348.12g | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | Homer | M | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | – | – | – | G Story | 4,29 $ |
 | 652 | Englisch-Regeln 1–7 aus LISTE-ENGLISCH-338-1B nach STORY-REGELN.md, dann Datei nach docs/alt (aus 650.1, Chef 08.11., 13:36) | Homer | M | erledigt | – | – | – | G Story | – |
 | 659 | DESIGN-STIL.md: Abschnitt „Muster“ mit Bild je abgenommenem Muster (Fenster ohne Kasten 549a, Zwischensequenz 613, Zeichen 326, Hauptmenü 292); „Zwischensequenzen ohne Animation“ nachziehen (Chef 08.11., 15:08) | Homer | M | erledigt | – | – | – | G Stil | – |
+| 675 | Gelöschte Chef-Funde zurückholen: Tom 3600d77ce (08.11., 621.2) strich 220 Zeilen Zu/Alt ohne offene Listenzeile, darunter 491 (halbe Häuser, Schild); jeden Fund ohne Zeile wieder anlegen (Sokrates 08.11., 15:35) | Perikles | M | startbar | – | – | – | B Abläufe | – |
 | 655.1 | Regel 300 streichen: Ersteller sieht Bild oder Film selbst an, dann sofort an den Chef; Helfer danach entfällt (CLAUDE.md Melden, ROLLE-ENTWICKLUNG.md; 655 ja) | Perikles | M | erledigt | – | – | – | B Abläufe | – |
 | 658 | Telegram-Reaktionen auslesen: 👍 auf eine Meldung = gebilligt/passt, ✅ = erledigt, Eintrag mit Zeit ins Archiv (Chef 08.11., 15:00; Probe 15:02 geht) | Perikles | M | gebaut, Geprüft an: 34791b05c (Abruf 15:26, Kennung 2972 in meldungen.tsv) | – | – | – | B Werkzeuge | – |
 | 317.1 | `startbar.py`, `lauf.py`: Obergrenze 6 je Build streichen (Chef 07.11., 20:5x) | Perikles | M | gebaut, Geprüft an: 12837c9c3 | Diogenes, t269 | – | – | B Werkzeuge | – |
@@ -274,6 +275,7 @@
 | 671 | Systemlösung? Menü: 10 frühere Vorgänge (345, 426, 425, 549a.1, 399.3.1 …), neu 670; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Oberfläche | – |
 | 672 | Systemlösung? Karte: 20 frühere Vorgänge (322, 500, 553, 529, 86 …), neu 670; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Oberfläche | – |
 | 674 | Systemlösung? Kamera: 5 frühere Vorgänge (590, 615, 460, 211.14, 399.4), neu 673; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Technik | – |
+| 676 | Systemlösung? Schild: 14 frühere Vorgänge (662, 58, 406a, 417, 645 …), neu 675; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | B Abläufe | – |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +842,76 $ |
 | Pflege | von Werkzeug (340.3, 08.11.): startbar.py: Tom: Muss 613 Zwischensequenzen neu wie alt: leichte Bewegungen, Signatur, Tusche (m / Kür 477 Godot-APKs laufen nicht im MuMu Player am Rechner (Chef 02.11., 14:59)  UNLESBAR (Liste): … | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
