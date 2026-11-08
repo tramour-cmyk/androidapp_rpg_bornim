@@ -48,3 +48,8 @@ Bekannt: das Aussehen des Gegenstandsfensters (Zeilen „wirkt nicht (Obergrenze
 | 270.13 | Jerry | 587 | Spinne, Keiler, Ratten, Krogg, Grimmzahn | alle 1,3-fach groß wie die Wölfe, Krogg und Grak 1,5-fach; keiner steckt im anderen | kleiner als die Wölfe; ineinander |
 
 Bekannt: kurze Schildschritte beim Angriff, der Held trippelt (562); Wege eckig statt im Bogen (682, nicht drin).
+
+## Ergebnis
+
+- 270.1 ✓ (Chef 20:20)
+- 270.2 ✓ (Chef 20:20)
