@@ -71,7 +71,7 @@ func _ready() -> void:
 	nk.visible = false
 	notiz.set_meta("kasten", nk)
 	spalte.add_child(nk)
-	spalte.add_child(Erschaffung.knopf(Sprache.u("close"), func(): zu.emit()))
+	spalte.add_child(Erschaffung.knopf(Sprache.u("back"), func(): zu.emit()))   # 618 „Zurück für alles“
 	baue()
 
 func sage(t: String) -> void:
@@ -506,9 +506,9 @@ func _ready_b() -> void:
 	spalte.add_child(nk)
 	spalte.add_child(Spielstaende.linie())
 	if Spielstaende.vorlage2:   # 557 Runde 4 (Chef 17:40: „Bei 9 steht Schließen, steht aber mittig“): „‹ SCHLIESSEN“ links, gleich gross
-		spalte.add_child(Spielstaende.knopfzeile(Spielstaende.knopf("neben", Sprache.u("close"), func(): zu.emit(), true), null))
+		spalte.add_child(Spielstaende.knopfzeile(Spielstaende.knopf("neben", Sprache.u("back"), func(): zu.emit(), true), null))
 	else:
-		var sch := Spielstaende.nebenwahl("", "‹  " + Sprache.u("close"), func(): zu.emit())
+		var sch := Spielstaende.nebenwahl("", "‹  " + Sprache.u("back"), func(): zu.emit())   # 618
 		sch.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		spalte.add_child(sch)
 	if Spielstaende.vorlage2: Spielstaende.folge_inhalt(spalte, rolle, inhalt)   # 557 Vorlage 2: Schliessen folgt der Liste (Chef 14:21, Bild 7)

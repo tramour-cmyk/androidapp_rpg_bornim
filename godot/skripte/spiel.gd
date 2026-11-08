@@ -96,6 +96,7 @@ func _ready() -> void:
 	haeuser_blatt()
 	dorftiere_blatt()
 	tusche_nacht()
+	wende_film()
 	rast_probe()
 	raeume_bilder()
 	wald_bilder()
@@ -103,6 +104,7 @@ func _ready() -> void:
 	gluehen_bilder()
 	hoehle_bilder()
 	nebel_bilder()
+	robe_bilder()
 	if FigurenProbe.an(): add_child(FigurenProbe.new(self))   # 376.1 Probeblatt Quaternius-Figuren (figurenprobe.gd)
 
 # 399: Spielbeginn aus dem Hauptmenue: geladen an den gespeicherten Ort, sonst ein neues Spiel mit frischem Zustand (Test 139: das neue
@@ -411,8 +413,12 @@ func _aktion() -> void:
 	if bool(a["verschlossen"]):
 		var nachts := licht.ist_nacht()   # 539 Game.isNight
 		if a.has("klopfen"):
+			# 611 (Chef 07.11., 268.8: „Klopfen sollte deutlicher sein“): man hoert es klopfen wie alt (Game.kt 1024: Sound.KNOCK, 215.1,
+			# drei Aufnahmen knock_1–3); in Godot fehlte der Klang ganz
+			klang("effekt", ["knock"])
 			var anders := Geschichte.klopfen(karte.id, z, zustand)   # 540: nach Kapitel 1 sagt 12/5 etwas anderes
-			ui.sage([{"text": Sprache.t(anders)}] if not anders.is_empty() else zeilen(variiere(a["klopfen"]["nacht" if nachts else "tag"])))   # 504.1 Varianten
+			var gesagt: Array = [{"text": anders}] if not anders.is_empty() else variiere(a["klopfen"]["nacht" if nachts else "tag"])   # 504.1 Varianten
+			ui.sage(zeilen(Geschichte.klopf_sprecher(karte.id, z, gesagt)))   # 629.1 mit dem Namen der Stimme
 			zustand.setze("heard_%d_%d" % [z.x, z.y])   # 399.1 Karte: wer hier wohnt (MapPeople.heard)
 		return
 	if a.has("braucht") and not karte.flaggen.has(a["braucht"]):
@@ -603,6 +609,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	if probe.is_empty(): lage["betrunken"] = zustand.betrunken()   # 532 Metrausch wie alt (Battle.drunk): betrunken aus der Schenke in den Kampf
 	if probe.is_empty(): lage["rauch"] = zustand.anzahl(Geschichte.SMOKE_BUNDLE)   # 494 (Jerry, D4.1): Morwens Rauchbündel gegen Krogg
 	var ort := "hoehle" if String(karte.daten.get("art", "")) == "CAVE" else "wald"   # 492: Kampforte der Hoehle (507, Jerry)
+	if probe.is_empty(): lage["brs"] = zustand.brs   # 478 (Jerry): der Held nach BRS, wenn der Kampf nach BRS rechnet (brs_kampf.gd)
 	# 493 (Jerry): Kampfort im Wald nach dem, was um den Helden steht (wie alt BattleScene.spotFor); im Testmodus wählbar
 	if ort == "wald": lage["platz"] = Testmodus.kampfort if Testmodus.ist_an() and Testmodus.kampfort != "" else load("res://kampf/kampfort.gd").platz_fuer(karte, held.kachel)
 	var gestartet: bool = aufruf.starte(gegner, hw, soeldner, ort, tageszeit(), zustand.anzahl("potion") if probe.is_empty() else 2, -1, -1, -1, beute, lage)
@@ -1923,6 +1930,67 @@ func dorftiere_blatt() -> void:
 		await knips(dir + "/wiese_nacht.png")
 	get_tree().quit()
 
+# 416.8 (Chef 03.11., 07:44: „… auf der Stelle drehen, wie als ob sie auf Eis wären … Wie eine Schachfigur“): --wendefilm (mit
+# --write-movie) zeigt eine Person in Hosen (Bram, sonst Pim), vom Helden abgewandt; der Held spricht sie an (ohne Text, nur
+# wende_zu): sie wendet sich mit Schritten um (180 Grad), der Held geht eine Kachel zur Seite, ihr Blick folgt; danach wendet sie
+# sich wieder ab. --wendebild=<png> ist das Probebild (511) aus derselben Szene, mitten in der ersten Wende
+func wende_film() -> void:
+	var film := false
+	var bild := ""
+	for a in OS.get_cmdline_user_args():
+		if a == "--wendefilm": film = true
+		if a.begins_with("--wendebild="): bild = a.substr(12)
+	if not film and bild == "": return
+	ui.mess.visible = false
+	ui.oben.visible = false
+	ui.leiste.visible = false
+	betrete("village", Vector2i(11, 7), "DOWN")
+	await get_tree().create_timer(0.5).timeout
+	var wer: Leute = null
+	for id in ["bram", "pim"]:
+		for l in leute_liste():
+			if wer == null and String(l.daten.get("id", "")) == id: wer = l
+	if wer == null:
+		print("WENDE keine Person"); get_tree().quit(); return
+	wer.warte = 999.0
+	wer.ziel = Vector2i(-1, -1)
+	wer.weg.clear()
+	wer.position = karte.kachel_pos(wer.kachel)
+	var stand := Vector2i(-1, -1)
+	var seite := Vector2i.ZERO
+	for d in [Vector2i(0, 1), Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, -1)]:
+		var q := Vector2i(d.y, d.x)
+		for sq in [q, -q]:
+			if stand.x < 0 and karte.begehbar(wer.kachel + d) and karte.begehbar(wer.kachel + d + sq): stand = wer.kachel + d; seite = sq
+	if stand.x < 0:
+		print("WENDE kein Platz neben ", wer.daten["id"]); get_tree().quit(); return
+	var weg_vom := atan2(float(wer.kachel.x - stand.x), float(wer.kachel.y - stand.y))
+	wer.blick = weg_vom
+	wer.rotation.y = weg_vom
+	held.setze(stand, "UP")
+	held.rotation.y = atan2(wer.position.x - held.position.x, wer.position.z - held.position.z)
+	kamera.zoom = Kamera.NAH
+	kamera.nah = true
+	kamera.springe()
+	print("WENDE %s auf %s, Held %s, Seite %s, Wenden %s" % [wer.daten["id"], wer.kachel, stand, seite, wer.wende_kurve.keys()])
+	await get_tree().create_timer(1.5).timeout
+	wer.wende_zu()
+	if bild != "":
+		await get_tree().create_timer(0.55).timeout
+		print("WENDE Bild bei %s, %.0f Grad gedreht" % [wer.wende, rad_to_deg(absf(angle_difference(wer.rotation.y, weg_vom)))])
+		await knips(bild)
+		get_tree().quit()
+		return
+	await get_tree().create_timer(2.5).timeout
+	held.geh_zu(karte.kachel_pos(stand + seite))
+	await get_tree().create_timer(2.5).timeout
+	held.rotation.y = atan2(wer.position.x - held.position.x, wer.position.z - held.position.z)
+	await get_tree().create_timer(1.0).timeout
+	wer.zugewandt_bis = Time.get_ticks_msec() + 100   # Gespraech vorbei (sonst nach ZUGEWANDT s): wieder wie vorher
+	await get_tree().create_timer(3.5).timeout
+	print("WENDE Ende, %.0f Grad vom Anfang" % rad_to_deg(absf(angle_difference(wer.rotation.y, weg_vom))))
+	get_tree().quit()
+
 # 348.13b (Chef 28.10., 08:09: Tusche nach Fackel, Feuer, Fenster; Dorf zuerst, Kosten messen): --tuschenacht=<ordner> legt nachts
 # an Laterne, Gasthausfenster und auf freier Wiese (nur die Fackel) je ein Bild mit und ohne Lichter in der Tusche ab, im selben
 # Augenblick (Welt angehalten), und misst die Zeit der Grafik je Bild (Mittel ueber 90 Bilder, an und aus abwechselnd)
@@ -2356,6 +2424,40 @@ func nebel_schild(e: CanvasLayer, text: String, p: Vector2, groesse: int) -> voi
 		punkt.position = p - Vector2(5, 5)
 		e.add_child(punkt)
 		l.position.y -= l.size.y * 0.8
+
+# 558 Robe am Rechner (Chef 04.11., 11:31, Bild Build 257 im Tiefen Fluesterwald): --robe558=<ordner> knipst den Magier wie im Spiel,
+# zur Kamera gewandt: Tiefer Fluesterwald am Weg Tag und Nacht (wie das Bild des Chefs), Dorfplatz Tag, Nahstufe; der Ablauf
+# tom-probe-558.yml ruft es einmal mit der Robe von jetzt und einmal mit der neuen (held3.py STOFF) und setzt beide nebeneinander
+func robe_bilder() -> void:
+	var dir := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--robe558="): dir = a.substr(10)
+	if dir == "": return
+	DirAccess.make_dir_recursive_absolute(dir)
+	ui.mess.visible = false
+	ui.oben.visible = false
+	ui.leiste.visible = false
+	werte = Heldwerte.erschaffe(zustand.name, "HUMAN", "WIZARD")
+	var orte := [["wald_tag", "deep_forest", Vector2i(21, 14), 10 * 60, false], ["wald_nacht", "deep_forest", Vector2i(21, 14), 22 * 60 + 25, true],
+		["dorf_tag", "village", Vector2i(6, 8), 11 * 60, false], ["dorf_nah", "village", Vector2i(6, 8), 11 * 60, false]]
+	var nacht := false
+	for o in orte:
+		zustand.minuten = int(o[3])
+		if karte == null or karte.id != String(o[1]): betrete(String(o[1]), o[2], "DOWN")
+		if herde: herde.aus = true   # Bilder ohne Angriff
+		if bool(o[4]) != nacht:
+			licht.umschalten(); nacht = bool(o[4])
+		held.neu_figur(HeldFigur.wahl(werte, zustand))
+		held.setze(o[2], "DOWN")
+		if String(o[0]) == "dorf_nah": kamera.nah_fern()
+		kamera.springe()
+		var zu: Vector3 = kamera.global_basis.z   # zur Kamera gewandt (wie --bilder nah)
+		held.rotation.y = atan2(zu.x, zu.z)
+		await get_tree().create_timer(2.5).timeout
+		ui.textfeld.visible = false
+		await knips("%s/%s.png" % [dir, o[0]])
+	print("ROBE558 fertig")
+	get_tree().quit()
 
 # 399.5 Grundrisse am Rechner: --raeume=<ordner> knipst je Grundriss aus der Grundansicht wie die alten Vergleichsbilder (Held wie
 # HELDORT inn:4:6, sonst 4:4, Blick nach oben) Tag und Nacht, dazu um 180 Grad gedreht (die Waende vor dem Raum werden zur Bruestung)

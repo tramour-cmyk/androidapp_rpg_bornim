@@ -333,7 +333,9 @@ func nacht(k: float) -> void:
 		if m.transparency == BaseMaterial3D.TRANSPARENCY_DISABLED: m.albedo_color = Color(hell, hell, hell * lerpf(1.0, 1.4, k))
 		else: m.albedo_color = Color(1, 1, 1, lerpf(0.035, 0.01, k)); strahl_basis = m.albedo_color.a   # 492: Hoehle jetzt ×2,1 heller (licht.gd)
 	for f in feuer: f["basis"] = 0.5 + 1.6 * k   # 490: Garricks Feuer, nachts die einzige warme Insel (LISTE-UMZUG-348 Stimmung)
-	for m in glas: m.set_shader_parameter("glow", 0.5 * k)
+	for m in glas:
+		m.set_shader_parameter("glow", 0.5 * k)
+		glanz_kette(m)
 	if wasser: wasser.set_shader_parameter("night", k)
 	if boden: boden.set_shader_parameter("night", k)
 	if halme: halme.set_shader_parameter("night", k)
@@ -461,12 +463,22 @@ func blende_gruppen(dt: float) -> void:
 						kette(m, durch_shaders(0, "cull_disabled"))
 						e["kette"] = m.next_pass
 					else: m.next_pass = e["kette"]
+					glanz_kette(m)
 				elif a >= 1.0: m.next_pass = null
 			var x := m
 			while x:
 				x.set_shader_parameter("weg", 1.0 if a < 1.0 else 0.0)
 				x.set_shader_parameter("durch_a", a)
 				x = x.next_pass as ShaderMaterial
+
+# 608 (Chef 07.11., t268: „Pims Hütte am Tag, wenn sie transparent wird, … dann geht das Licht im Haus an“): die Durchgaenge der
+# Durchsicht (kette) nahmen den Glanz der Fenster von dem Augenblick, als das Haus zum ersten Mal durchsichtig wurde; war das nachts,
+# leuchteten sie am Tag weiter. Jetzt bekommt die Kette den Glanz des deckenden Durchgangs, beim Einhaengen und bei jedem Tageswechsel
+static func glanz_kette(m: ShaderMaterial) -> void:
+	var x := m.next_pass as ShaderMaterial
+	while x:
+		x.set_shader_parameter("glow", m.get_shader_parameter("glow"))
+		x = x.next_pass as ShaderMaterial
 
 # Blender (x, y Norden, z oben) -> Godot (x, y oben, z Sueden)
 static func gpos(p: Array) -> Vector3:

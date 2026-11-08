@@ -34,6 +34,11 @@ func _lauf() -> void:
 	pruefe(t.contains("Alegreya") and t.contains("Fondamento"), "Schrift nennt nicht Alegreya und Fondamento")
 	pruefe(t.contains("Godot Engine") and t.contains("MIT"), "Zeile Godot Engine (MIT) fehlt")
 	pruefe(not t.contains("Permission is hereby granted"), "Lizenztext schon offen, soll erst nach Tippen")
+	# 623.7: „Mit Dank an“ mit allen sieben Zeilen, Haendlernamen wie auf RenderHub
+	pruefe(t.contains("MIT DANK AN") and t.contains("Diese Chronik entstand nicht allein."), "„Mit Dank an“ fehlt")
+	for w in ["Effekte: REEBOO Labs", "Game-Ready Studios", "Wernerkurt", "Klang: AlanCat", "OpenGameArt", "Musik: beardalaxy", "Schriften: Juan Pablo del Peral", "Engine: Godot Engine – Juan Linietsky"]:
+		pruefe(t.contains(w), "Dank: „%s“ fehlt" % w)
+	pruefe(t.find("MIT DANK AN") > t.find("Godot Engine – MIT"), "Dank steht unter den Lizenzen")
 	var knopf: Button = null
 	for b in hm.find_children("*", "Button", true, false):
 		if String(b.text).begins_with("LIZENZEN"): knopf = b

@@ -2,24 +2,28 @@
 
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
-**Übergabe (07.11., 22:0x, `session_01Hmoj76saGTQ5LicSQ4JBof`):** t266, t268 auf main; 589–627 angelegt; 592, 478 jetzt, 499 jetzt, 621 A B D, 623 A–F, 626, 142.4, 275.2 entschieden; Inventur 07.11. (281 → 225 offen); Stopp für die neue Vorgangsliste (275.2, Perikles Hoch, Diogenes Quertest, Chef 22:0x „so machen“). Kosten auf: 494, 587, 512, 592, 603, 620, 621, 623, 626, 275.2, 478, 142. Nachfolger: Sokrates – nach dem Umschalten 275.2: Auswertung 347 mit Diogenes, 508.
+Pause bis 09.11., 09:00 (Systemrunde braucht die Wochenkosten 651).
+
+**Übergabe (08.11., 16:3x, `session_01Hmoj788ZCSrdh53V6fSssd`):** Läufe frei 613, 569, 507 (Archiv); 613.1 erledigt; 620 Titel ohne „wiederholt“ (D84.1); Lagebild t269 auf Telegram und an Perikles. Kosten auf: 613.1, 620. Nachfolger: Sokrates – 654: Systemrunde (09.11.)
+
+- **Zu 654, Stoff für die Systemrunde 09.11.:** (a) Wiederholungswächter legt bei Allerweltswörtern („Licht“, „Karte“, „Kasten“) Vorgänge an (666, 667, 669, 671, 672, 674, 676): Stichwortliste schärfen (Perikles 654.1). (b) Lagebild t269, drei Arten mit je einer einmaligen Lösung prüfen: Bewegung der Figuren für alle (416.8 Tom, 406.2, 562, 682 Jerry: ein Bewegungsbaustein für beide Teams, Chefsache); Menü des Helden einmal ganz alt gegen neu (605, 670, 683); Klangliste alt gegen neu (591, 517, 681). Dazu Kosten 651 der Woche.
 
 ## Zeilen
 
 - **von Perikles (02.11., 19:5x, zu 480.1):** Läufe gibst du frei mit einem Archiveintrag, dessen Kopf „<Nr>, Läufe frei“ heißt (z. B. „- **453b, Läufe frei** (02.11., 19:50, Sokrates nach 480.1): …“); `probelauf.py` zählt ihn dann wie ein Urteil des Chefs, ab seiner Zeit zwei neue Läufe. Dazu 480: „Blatt“ steht noch in `ROLLE-BERATUNG.md` (Zeilen 72, 74); bitte nachziehen.
 - **von Perikles (02.11., 20:0x, Weitergabe von Homer, 01.11., 21:0x, zu 447.4, Regelwerk):** zwei Regelfragen aus den Lehrmeister-Texten, das Regelwerk deckt sie nicht: (1) kommt das erste Rezept einer Meisterschaft mit dem Ja zur Einladung (Projektplan 3.2 „je ein Rezept“, Abschnitt 10)? (2) fallen beim Pfadwechsel eines Anwärters in Kapitel 1 die Kernfertigkeiten auch um einen Rang (Abschnitt 5)? Antwort ändert je eine Zeile „Offen“ in `STORY-LEHRMEISTER-K1.md`.
-- **Zu 468 (Chef 02.11., 21:30, Bild „Nutzung“ ohne Worte: Woche 49 %, Zurücksetzung Sa 19:59, App: „Limit Mittwochnacht aufgebraucht“):** 07:33 36 % → 21:30 49 % = etwa 22 %/Tag; Rest 51 % für 4,9 Tage = 10 %/Tag. Vorschlag `entscheiden/468a-verbrauch-halbieren.md`.
 - **Zu 348.12c:** Chef 15:40: „lade gerade hoch … Gebe Bescheid … dann erfassen und Inventur machen und alle müssen wissen, was wir zur Verfügung haben, bevor wieder sinnlos Animationen gemacht werden oder Modelle entwickelt werden“. Downloads: Raw nötig, Unity Reserve, UE4 nicht (15:27).
 - **Zu 481 (Chef 02.11., 18:55):** „Kräutersammler. Oder grundsätzlich das Brauen von Tränken … Berserker-Modus geben. Durch Tränke … spezielle Tränke, die nur er verwenden kann. Andere werden sie giftig … zwei Runden unverwundbar … kann sich ja da auch spezialisieren … selbst vielleicht irgendwas herstellen und so kriegt er halt von Morwen oder Tränke, die ein anderer nicht bekäme“. Mein Vorschlag (Chat 18:58): Kampftränke mit Preis (Berserkertrank, Steinhaut, Alchemistenfeuer; je ein Zug), Wirkung nach Rang in Kräuterkunde statt Sperre, Starttränke und Morwen gegen Sammelzwang; Ziel gegen Bosse etwa wie die mittlere Herkunft. Offen: Wachsoldat 100 %, Klosterschüler lange Kämpfe, Bewährungsprobe (Chefsache 427 in Git); abstimmen mit 470.
 - **von Team Jerry (02.11., 19:5x, zu 481):** 481.1 gerechnet, `LISTE-SIMULATION-444.md` Abschnitt 6 (Befund dort): 2 Heiltränke heben am meisten (ab 50 % je Boss 2–5 → 6–7 Herkünfte); Kampftränke ohne Kräuterkunde kosten nur Züge; Kräutersammler 8–27 % mit Satz, weil seine Kräuterkunde in der Simulation bei 10 bleibt (Sammeln nicht gerechnet); mit Kräuterkunde 24 und 6 Feuer (230 Gold) 49–64 %, mit Rauch 81 %. Annahmen (Wirkung 0,5 + 0,05 × Kräuterkunde, Preise, Satz) in `werte.json` „kampftraenke“ auf `claude/jerry-481-1-traenke`; ändern und neu rechnen auf Zuruf.
 - **von Team Jerry (02.11., 20:0x, zu 467):** Ausdauer rechnet in Godot noch nach SRD; laut Zeile sollte die Formel (Zähigkeit, Wille, Stufe) mit 427 zum Chef, 427 ist ohne sie entschieden (Archiv 18:54). Ich warte auf die Formel.
 - **Zu 142, Stand:** AAB 142.1 im internen Test (Chef 25.10., 12:38 erledigt); Konto geprüft, App angelegt 25.10. (Zu 142, Konto); Entwickler-E-Mail info@bornwire.de bestätigt (25.10., 12:51); Datenschutz-URL für den Store `https://bornwire.de/datenschutz.html` (252 online 25.10., 13:12; Godot-Fassung mit INTERNET-Recht: Datenschutz vorher anpassen).
-- **Zu 142, Konto und 142.3 C (Organisationskonto, D-U-N-S):** Einzelheiten in Git vor 03.11., 08:52.
 - **Zu 142:** vor Marktstart Klangmarken DPMA/EUIPO suchen (292.1).
 - **Zu 461b:** 16 Funde (02.11., 19:1x) in Git vor 03.11., 08:50; verteilt Perikles; meine Punkte in 461b.4.
 - **Zu 142** (17.–20.10. in Git): Fahrplan im vertraulichen [Dokument](https://claude.ai/artifact/D2DeY5N8yUcFjzRyW9RXWM); offen: Anschrift vor dem Zahlungsprofil
 
 ## Einzelheiten
+
+- **Zu 620, D84.1 von Diogenes (08.11., 11:0x):** Titel von 620 endet seit dem Umschalten 275.2 (`753ce23f6`) auf „· wiederholt“ (aus deinem alten Stand übernommen), Stand „Dauer“ wurde „startbar“; 620.1 A stellt 620 dadurch bei dir vor alles Muss, obwohl es kein wiederholter Fund des Chefs ist. Ebenso offen aus deinem alten Stand: die sechs wiederholten Funde aus t268 mit „wiederholt“ im Titel nachziehen (bisher keine Zeile).
 
 - **Zu 461b.4:** Köpfe von `DESIGN-SPIELSYSTEM-2-0.md` (Zeile 3, Nr. 24), `LISTE-BESTIARIUM.md` (Zeile 3), `DESIGN-KAMPF.md` (Zeile 3) gegen Entscheidung 84; Säureschnecke mit Jerry (461b.1); Anhänge „→ ersetzt durch …“ im Archiv, wo dein Helfer den Ersatz fand: 376.1 (11:19), 72o, 72o.1, 348.12 (26.10.), 348.9 (13:26), 72.8, 414, F3/F4 Datum (Zu 461b; 415c, 480, 362, 418 hat Perikles gesetzt).
 - **Zu 512 (t266):** 266.7, 266.8 im Build unmöglich (539, 492 fehlten); Testbitte vorher nachgehen (Zu t266, Jerry).

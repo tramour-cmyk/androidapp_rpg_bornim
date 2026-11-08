@@ -279,6 +279,29 @@ static func schlagbaum(s: Zustand) -> Dictionary: return BARRIER_QUEST if s.has(
 
 # 540 (Story.village lockedDoor, 73b): was hinter einer Tuer gesagt wird, wenn es vom Stand der Geschichte abhaengt; {} = wie in
 # karten.json (Stand zu Beginn). Bisher nur 12/5 nach Kapitel 1
+# 629.1 (Homer 07.11., [629.sprecher] in STORY-K1-WELT.md; Chef 611: „Beim Klopfen an Türen steht nicht da, wessen Haus es ist oder
+# wer spricht“): gesprochene Klopfzeilen haben den Namen der Stimme wie jede Dorfzeile, ohne Anfuehrungszeichen; Erzaehltes (Tag bei
+# Gwenna und Dorran) bleibt ohne Namen
+const KLOPF_STIMME := {
+	Vector2i(12, 5): {"de": "Bäcker Edrik", "en": "Edrik the Baker"},
+	Vector2i(23, 5): {"de": "Der alte Kael", "en": "Old Kael"},
+	Vector2i(5, 14): {"de": "Gwenna", "en": "Gwenna"},
+	Vector2i(30, 13): {"de": "Schmied Dorran", "en": "Dorran the Smith"},
+	Vector2i(13, 22): {"de": "Pims Mutter", "en": "Pim's Mother"},
+}
+static func klopf_sprecher(karte_id: String, t: Vector2i, liste: Array) -> Array:
+	var wer = KLOPF_STIMME.get(t) if karte_id == "village" else null
+	var r: Array = []
+	for z in liste:
+		var e: Dictionary = z.duplicate(true)
+		var tx = e.get("text")
+		if wer != null and tx is Dictionary and String(tx.get("de", "")).begins_with("„"):
+			var d := String(tx.get("de", "")); var en := String(tx.get("en", ""))
+			e["text"] = {"de": d.trim_prefix("„").trim_suffix("“"), "en": en.trim_prefix("“").trim_suffix("”")}
+			e["wer"] = wer
+		r.append(e)
+	return r
+
 static func klopfen(karte_id: String, t: Vector2i, s: Zustand) -> Dictionary:
 	if karte_id == "village" and t == Vector2i(12, 5) and s.has(CHAPTER1_DONE):
 		return {"de": "„Du hast die Goblins vertrieben? … Morgen vielleicht. Heute nicht.“", "en": "“You drove off the goblins? … Tomorrow, maybe. Not today.”"}

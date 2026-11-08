@@ -592,10 +592,25 @@ static func tippbar(inhalt: Control, was: Callable) -> PanelContainer:
 	p.mouse_filter = Control.MOUSE_FILTER_STOP
 	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	p.add_child(inhalt)
+	var ab := [Vector2.INF]
 	p.gui_input.connect(func(e: InputEvent):
-		if not (e is InputEventMouseButton and e.button_index == MOUSE_BUTTON_LEFT) and not e is InputEventScreenTouch: return
-		if e.pressed: p.add_theme_stylebox_override("panel", gedrueckt)
+		if not tipp(e): return
+		if e.pressed:
+			p.add_theme_stylebox_override("panel", gedrueckt)
+			ab[0] = e.global_position
 		else:
 			p.add_theme_stylebox_override("panel", leer)
-			if Rect2(Vector2.ZERO, p.size).has_point(e.position): was.call())
+			var gewischt: bool = ab[0] == Vector2.INF or (e.global_position as Vector2).distance_to(ab[0]) > WISCH * DP
+			ab[0] = Vector2.INF
+			if not gewischt and Rect2(Vector2.ZERO, p.size).has_point(e.position): was.call())
 	return p
+
+# 605 (Chef 07.11., 268.11: „muss 2x ‚Anlegen‘ gedrückt werden, ebenso 2x bei ‚Wegwerfen‘ und ‚Zurück‘“): auf dem Geraet kommt jede
+# Beruehrung zweimal, als InputEventScreenTouch und als nachgebildete Maus (emulate_mouse_from_touch), am Rechner umgekehrt
+# (emulate_touch_from_mouse); wer auf beide hoert, loest jeden Tipp zweimal aus (zwei Fenster uebereinander, Anlegen doppelt). Nur die
+# linke Maustaste zaehlt (doppeltipp_605)
+static func tipp(e: InputEvent) -> bool: return e is InputEventMouseButton and (e as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT
+
+# 617 (Chef 07.11., 268.1: „scrollen löst Laden leicht aus“): wer den Finger weiter als 12 dp schiebt, rollt und waehlt nichts (wie
+# Zeichenknopf 571, Compose ueber der Beruehrschwelle)
+const WISCH := 12.0

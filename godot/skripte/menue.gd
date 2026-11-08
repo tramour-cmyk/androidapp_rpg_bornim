@@ -90,7 +90,8 @@ func _ready() -> void:
 	inhalt.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	inhalt.add_theme_constant_override("separation", 0)
 	rolle.add_child(inhalt)
-	spalte.add_child(Erschaffung.knopf(Sprache.u("close"), func(): zu.emit()))
+	# 618 (Chef 07.11., 22:21: „Zurück für alles“): was ins Spiel zurueckfuehrt, heisst „Zurück“ wie die Zurueck-Taste von Android
+	spalte.add_child(Erschaffung.knopf(Sprache.u("back"), func(): zu.emit()))
 	baue()
 
 var _gebaut := ""   # der Reiter, den baue() zuletzt zeigte
@@ -320,7 +321,7 @@ func frage_verteilen() -> void:
 	v.add_child(Erschaffung.txt("Das kann nicht rückgängig gemacht werden." if de else "This can't be undone.", 14, Stil.DIM))
 	var r := HBoxContainer.new()
 	r.add_theme_constant_override("separation", int(8 * DP))
-	r.add_child(Erschaffung.knopf("Nein" if de else "No", func(): schleier.queue_free()))
+	r.add_child(Erschaffung.knopf(abbrechen(), func(): schleier.queue_free()))   # 618: „Abbrechen“ verwirft, statt „Nein“
 	r.add_child(Erschaffung.knopf("Ja, verteilen" if de else "Yes, spend", func():
 		for a in geplant:
 			for i in int(geplant[a]): hw.steigern(a)   # Hero.applyPoints
@@ -402,7 +403,8 @@ func ausruestungszeile(g: Dictionary) -> HBoxContainer:
 	n.max_lines_visible = 2
 	s.add_child(n)
 	var ok := hw.kann_tragen(g)
-	var unten := Beute.listen_zeile(g)
+	# 521/523 (Chef 04.11., 12:01: Robe des Ankers zeigte nur „Oberkörper“): ohne Kennwert die zwei ersten Boni wie im Wechselschirm (557)
+	var unten := Menue.listen_zeile_b(g)
 	if unten == "": unten = Testmodus.gross_anfang(Sprache.t(Heldwerte.lade()["seltenheiten"][String(g["rarity"])].get("name", g["rarity"])))   # Ring, Amulett ohne Kennwert: alt leer
 	if zweihaendig(g) and not unten.containsn("zweih") and not Beute.name(g).containsn("zweih"): unten += " · " + ("zweihändig" if de else "two-handed")
 	if not ok: unten += " · " + ("nicht tragbar" if de else "can't wear")
@@ -413,8 +415,9 @@ func ausruestungszeile(g: Dictionary) -> HBoxContainer:
 		var x = hw.ding(pl)
 		if x != null and int(x["uid"]) == int(g["uid"]): angelegt = true
 	var u = Vergleich.von(hw, g).urteil() if ok and not angelegt else null
-	if u == 1 or u == -1:
-		var pf := Erschaffung.txt("▲" if u == 1 else "▼", 18, BESSER if u == 1 else AKZENT)
+	# 521/523 (Chef 04.11., 12:01: „das in der Mitte … wird gar nicht bewertet“): gemischt mit ◆ in Gold wie der Wechselschirm (557)
+	if u != null:
+		var pf := Erschaffung.txt({1: "▲", -1: "▼", 0: "◆"}[int(u)], 18, {1: BESSER, -1: AKZENT, 0: Stil.BRIGHT}[int(u)])
 		pf.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		r.add_child(pf)
 	r.set_meta("tragbar", ok)
@@ -485,7 +488,7 @@ func dialog(titel: String, farbe: Color, zeilen: Array, knoepfe: Array) -> Contr
 		for k in ks:
 			r.add_child(mach.call(k, b_breite))
 		v.add_child(r)
-	var ab := knoepfe.size() > 1 and String(knoepfe[-1][0]) in [abbrechen(), Sprache.u("close")]
+	var ab := knoepfe.size() > 1 and String(knoepfe[-1][0]) in [abbrechen(), Sprache.u("close"), Sprache.u("back")]
 	if ab:
 		if knoepfe.size() > 2:
 			reihe.call(knoepfe.slice(1, knoepfe.size() - 1))
@@ -591,6 +594,17 @@ static func benutze(z: Zustand, hw: Heldwerte, id: String, wuerfel_: Callable) -
 	var geheilt: String = sag.call("healed", [hw.name, hw.tp - vor])
 	return (sag.call("cured", [hw.name]) + " " + geheilt) if heilt else geheilt
 
+# 523 (Abgleich 512, Game.kt useItemOutside): wie alt ein Klang, wenn etwas wirklich benutzt wurde: Essen „heal“, Traenke und Funke
+# „potion“; nichts, wenn der Held schon voll ist oder der Funke schon brennt
+func benutze_mit_klang(id: String, art: String) -> void:
+	var vor := z.anzahl(id)
+	meldung(Menue.benutze(z, hw, id, wuerfel))
+	var k := get_node_or_null("/root/Klang")
+	if k and z.anzahl(id) < vor: k.effekt("heal" if art == "FOOD" else "potion")
+	letzter_klang = ("heal" if art == "FOOD" else "potion") if z.anzahl(id) < vor else ""
+
+var letzter_klang := ""   # 523: fuer den Test ohne Klangknoten
+
 func frage_ding(id: String) -> void:
 	var dd := Laden.ding(id)
 	var art := String(dd.get("art", ""))
@@ -607,7 +621,7 @@ func frage_ding(id: String) -> void:
 	var farbe := Color(SELTEN.get(String(dd.get("seltenheit", "COMMON")), "e6ddcb"))
 	if trinkbar:
 		var wort := ("Essen" if de else "Eat") if art == "FOOD" else Sprache.u("use")
-		dialog(Laden.name(id), farbe, zeilen, [[wort, func(): meldung(Menue.benutze(z, hw, id, wuerfel)); baue()], [abbrechen(), func(): pass]])
+		dialog(Laden.name(id), farbe, zeilen, [[wort, func(): benutze_mit_klang(id, art); baue()], [abbrechen(), func(): pass]])
 	else:
 		dialog(Laden.name(id), farbe, zeilen, [["OK", func(): pass]])
 
@@ -852,7 +866,7 @@ func waehle(platz: String) -> void:
 			dialog(Beute.name(g), farbe_von(g), stueck_zeilen(g), [[Sprache.u("equip"), func(): meldung(lege_an(g, platz == "OFF_HAND" and String(Beute.grundform(String(g["base"]))["slot"]) != "OFF_HAND")); baue(), hw.kann_tragen(g)],
 				[Sprache.u("back"), func(): waehle(platz)]]))
 		zeilen.append(p)
-	schleier["k"] = dialog(platzname(platz), Stil.GOLD, zeilen, [[Sprache.u("close"), func(): pass]])
+	schleier["k"] = dialog(platzname(platz), Stil.GOLD, zeilen, [[Sprache.u("back"), func(): pass]])   # 618
 
 # 557 Entwurf B: ganzer Schirm schwarz, Titel ohne Rahmen mit Zierlinie, oben was angelegt ist (nur Auskunft, ohne „›“), darunter je
 # Stueck eine Zeile zwischen feinen Goldlinien, ueber die ganze Breite antippbar (mindestens 56 dp, dunkel beim Antippen): links das
@@ -1345,7 +1359,7 @@ func tippe_fach(platz: String) -> void:
 	if g == null: waehle(platz); return
 	var k: Array = [[Sprache.u("unequip"), func(): lege_ab(platz); baue()]]
 	if not passend(platz).is_empty(): k.append(["Wechseln" if de else "Swap", func(): waehle(platz)])
-	k.append([Sprache.u("close"), func(): pass])
+	k.append([abbrechen(), func(): pass])   # 618: angelegtes Stueck „Abbrechen“ statt „Schließen“
 	dialog(Beute.name(g), farbe_von(g), stueck_zeilen(g), k)
 
 # ---------------------------------------------------------------- System (SystemSigns)
@@ -1505,8 +1519,7 @@ func erklaere_zeichen(name_: String, satz: String) -> void:
 	innen.add_theme_stylebox_override("panel", si)
 	innen.mouse_filter = Control.MOUSE_FILTER_STOP
 	innen.gui_input.connect(func(e: InputEvent):
-		if (e is InputEventMouseButton and e.button_index == MOUSE_BUTTON_LEFT and not e.pressed) or (e is InputEventScreenTouch and not e.pressed):
-			schliesse_erklaerung())
+		if Spielstaende.tipp(e) and not e.pressed: schliesse_erklaerung())   # 605: nur die Maus, sonst zweimal
 	aussen.add_child(innen)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(4 * DP))
@@ -1549,7 +1562,7 @@ func geraet_box() -> void:
 		b.size_flags_stretch_ratio = 0.5
 		reihe_.add_child(b)
 	inhalt.add_child(reihe_)
-	if geraet_auf: zeile(geraeteangaben(), 11, Stil.TEXT)
+	if geraet_auf: zeile(geraeteangaben(), 14, Stil.TEXT)   # 624: lesbar (vorher 11 sp)
 
 var geraet_auf := false
 

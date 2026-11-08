@@ -48,3 +48,7 @@ Händler: [reeboolabs.itch.io](https://reeboolabs.itch.io/). Alle Pakete: Godot 
 **Summe aller elf:** 117,90 $. **Nicht in der Liste, aber zu wissen:** Status Effects VFX (6,99, 23 Zustände; schon in 415d.1), [AoE Telegraphs](https://reeboolabs.itch.io/) (9 Formen, Ansage von Flächenangriffen im Ring), Loot & Pickup VFX (Beute). Klangpakete des Händlers prüfen wir nicht: Klang kommt aus echten Aufnahmen (`DESIGN-LEITBILD.md` 6).
 
 **Allen gemeinsam (F1, F2):** Android ungetestet, Godot 4.5 und neuer ungetestet (wir haben 4.7.2; die Proben liefen); Dateien nie in dieses öffentliche Repo, der Bau holt sie aus dem privaten.
+
+## Werkzeuge: Blender und Godot (aus `alt/LISTE-GRAFIKWEG.md`, 650.1)
+
+Beide kostenlos, auch für den Verkauf; was wir mit Blender bauen, gehört uns (die Lizenz von Blender gilt nicht für unsere Modelle). Godot: MIT-Lizenz (Version 4.7.2, geprüft 24.10.).

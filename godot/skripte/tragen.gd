@@ -335,6 +335,11 @@ func _arm(sk: Skeleton3D, iu: int, il: int, ih: int, P: Vector3, d: Vector3, vc:
 # (zwischen Knoecheln und Mittelgliedern, quer zum Schaft), Skelettraum
 const FINGER := ["index", "middle", "ring", "pinky"]
 const FAUST_BEUGE := 120.0   # Grad ueber drei Glieder (200: Mittelglieder 1,4 cm vor den Knoecheln, zu eng fuer den Schaft)
+# 610 (Chef 07.11., t268: „Finger am Stab zucken ohne Unterlass“): die Richtung der Beugung wurde in jedem Bild neu geprobt; liegen
+# beide Proben fast gleich weit vom Schaft, sprang sie von Bild zu Bild hin und her. Einmal je Finger gewaehlt, gilt sie, solange die
+# Waffe in dieser Hand bleibt (Wechsel der Ausruestung baut einen neuen Knoten); wahl_wechsel zaehlt fuer den Test
+var beuge_wahl := {}
+var wahl_wechsel := 0
 func _faust_zu(sk: Skeleton3D, ih: int, d: Vector3) -> Vector3:
 	var hg := sk.get_bone_global_pose(ih)
 	var k := hg * griff   # zwischen den Knoecheln
@@ -363,6 +368,14 @@ func _faust_zu(sk: Skeleton3D, ih: int, d: Vector3) -> Vector3:
 			var r := q - k
 			return (r - d * r.dot(d)).length()
 		var vz := 1.0 if ab.call(plus) < ab.call(minus) else -1.0
+		# 610: beide Proben lagen fast gleich weit vom Schaft (gemessen finger_610: die Wahl wechselte im Stehen 120-mal in 150 Bildern,
+		# die Spitzen sprangen 11 cm). Richtig ist die Beugung zur Handflaeche, auf der Seite des Daumens (gemessen: +3,2 cm zur
+		# Handflaeche, die andere -2,9 cm, also nach hinten)
+		var flaeche := _handflaeche(sk, ih, kette[0])
+		if flaeche != Vector3.ZERO: vz = 1.0 if (plus - minus).dot(flaeche) > 0.0 else -1.0
+		if beuge_wahl.has(f) and beuge_wahl[f] != vz: wahl_wechsel += 1
+		vz = beuge_wahl.get(f, vz)
+		beuge_wahl[f] = vz
 		for i in kette: _beuge(sk, i, d, vz * FAUST_BEUGE / kette.size())
 		if kette.size() >= 2:
 			summe += sk.get_bone_global_pose(kette[1]).origin
@@ -372,6 +385,16 @@ func _faust_zu(sk: Skeleton3D, ih: int, d: Vector3) -> Vector3:
 	faust_weite = (q - d * q.dot(d)).length()
 	var m := (k + summe / n) * 0.5
 	return k + (m - k) - d * (m - k).dot(d)   # nur quer zum Schaft verschoben, laengs bleibt der Griff
+
+# 610: Richtung zur Handflaeche (Skelettraum): vom Handknochen zum Daumenansatz, quer zum Finger; ZERO ohne Daumen
+func _handflaeche(sk: Skeleton3D, ih: int, finger: int) -> Vector3:
+	var di := sk.find_bone("thumb_01_" + seite)
+	if di < 0: return Vector3.ZERO
+	var h := sk.get_bone_global_pose(ih).origin
+	var lang := (sk.get_bone_global_pose(finger).origin - h).normalized()
+	var q := sk.get_bone_global_pose(di).origin - h
+	q -= lang * q.dot(lang)
+	return q.normalized() if q.length() > 0.001 else Vector3.ZERO
 
 # Knochen i um die Achse a (Skelettraum) um w Grad drehen, Kinder folgen
 static func _beuge(sk: Skeleton3D, i: int, a: Vector3, w: float) -> void:
