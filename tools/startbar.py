@@ -163,7 +163,10 @@ WOCHENTERMINE = [  # (Wochentag 0 = Mo, ab Stunde, Besitzer, Name, Bereich)
     (0, 8, "Perikles", "Wochenziel", "B Steuerung"),
     (0, 8, "Diogenes", "Wochenzählung (Kennzahlen, Wochentermine gelaufen, Teilhaken 720)", "Q QM"),
     (0, 8, "Perikles", "Haken-Frage Abnahmeliste als ansehen/-Datei (720)", "Q QS"),
-    (4, 8, "Perikles", "Rollenspiegel (rollenspiegel.sh, alle Rollen)", "B Abläufe"),
+] + [  # 759 (Chef 09.11., 14:36): je Rolle eine Zeile, sonst holt nur Perikles nach
+    (4, 8, r, "Rollenspiegel %s (rollenspiegel.sh %s)" % (r, r), "B Abläufe")
+    for r in ("Sokrates", "Perikles", "Homer", "Ford", "Diogenes", "Tom", "Jerry")
+] + [
     (6, 9, "Homer", "Ideenspeicher", "B Abläufe"),
 ]
 
