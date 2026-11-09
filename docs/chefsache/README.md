@@ -8,8 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [702](entscheiden/702-anspringen.md) | **Muss** | E Kampf | 08.11., 21:52 | Anspringen nimmt dem Helden heute rund 70 % seiner Züge. Welche Regel soll gelten (Empfehlung C)? | Tuffy (Team Jerry) |
-| [636](entscheiden/636-schlagbaum.md) | **Muss** | E Welt | 08.11., 20:41 | Kam bei Jorin der Satz „Jorin löst das Seil, und der Schlagbaum schwingt knarrend nach oben“? | Tom |
 | [657](entscheiden/657-drei-stichpunkte.md) | **Muss** | B Abläufe | 08.11., 15:15 | Regeln radikal kürzen: eine Seite für alle (Empfehlung: :) | Sokrates |
 
 ## Zu billigen
@@ -130,7 +128,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 431d | M | Rückfrage: Völker Lauf 3 am Tor angehalten (B1 Elf, C3, G3, A1/A3 Grak, A2), neue Läufe fr | ruht |
 | 431e | M | Rückfrage: Gesicht des Helden im Dorflicht fast weiß, Hauteichung nach Messung? | ruht |
 | 632 | M | Truhe der Höhle (cave_3, 4/14) gibt „@class_weapon“ statt der Waffe der Klasse wie alt (St | wartet auf Test/Build (gebaut) |
-| 636 | M | Schlagbaum öffnet ohne Türgeräusch (alt G:1162 Sound.DOOR; Abgleich 620.2a) | Chef (Datei in der Chefsache) |
+| 636 | M | Schlagbaum öffnet ohne Türgeräusch (alt G:1162 Sound.DOOR; Abgleich 620.2a) | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
 | 637 | M | Anschlagbrett: frischer blasser Zettel, solange ein ungelesener Auftrag hängt (A/MapTownIs | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
 | 638 | M | Kleinleben wie alt: Dorfhund, Katze in der Schenke, sichtbare Vögel, fallende Blätter im W | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
 | 639 | M | Leute tragen ihre Dinge wie alt: Jorins Speer, Aldrics Stab quer auf der Schulter (Garrick | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
@@ -156,12 +154,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 701 | M | Gegenstandsfenster: Hinweis Obergrenze nur einmal statt je Grundwert (Chef t270.5, 08.11., | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
 | 613.2 | M | Zwischensequenzen: Bewegung sichtbar wie alt (Kerzenflackern, atmendes Licht, Staub im Str | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
 
-**Jerry** – offen 73, Muss 66, startbar 1
+**Jerry** – offen 73, Muss 66, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 682 | M | Kampf flüssiger: Held geht zügig zum Angriff, Gegner laufen in weichen Bögen statt eckig g | wartet auf 708 (Chef) |
-| 702 | M | Wölfe: Anspringen nimmt dem Helden jeden Zug, Rudel hält ihn dauerhaft fest (Chef t270, 08 | Chef (Datei in der Chefsache) |
+| 702 | M | Wölfe: Anspringen nimmt dem Helden jeden Zug, Rudel hält ihn dauerhaft fest (Chef t270, 08 | startbar |
 | 703 | M | Ausweichen: Gegner bleibt am Ausweichplatz statt zurückzutappeln, 703 A (Chef t270.12, 08. | wartet auf Test (Build 271) |
 | 708 | M | Zugriff auf bornim-kaufmodelle in Jerry-Sitzungen: add_repo vom Automodus abgelehnt (Jerry | Chef (Datei in der Chefsache) |
 | 562 | M | MARS: Helden laufen zum Angriff viel zu langsam, zurück gleiten sie flott (Chef 04.11., 17 | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test |
