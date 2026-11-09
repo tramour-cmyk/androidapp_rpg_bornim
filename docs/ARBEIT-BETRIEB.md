@@ -152,3 +152,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:24 09.11.: Startsperre 18:24 Start Ford (selbst)
 - 18:39 09.11.: Startsperre 18:39 Start Tom (Ford, vor dem Start; Neustart e8c83f2c4)
 - 18:48 09.11.: Startsperre 18:48 Start Jerry (Ford, vor dem Start; Neustart 7fe055e3b)
+- 19:04 09.11.: Startsperre 19:04 Start Perikles, Tuffy (lauf.py)
+- 19:04 09.11.: Marke Stellungnahme Sokrates 09.11. (lauf.py)
+- 19:04 09.11.: Marke Wächter 682 08.11. 21:36 (lauf.py)
+- 19:04 09.11.: Marke Archiv session_01Hmoj775ZqfUHKm8MuXT9PR (lauf.py)
+- 19:04 09.11.: Marke Archiv session_01Hmoj76czgWbXfFzmZBBKgM (lauf.py)
