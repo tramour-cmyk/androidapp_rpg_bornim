@@ -67,11 +67,11 @@ HOCH = "env_017fgL1YDcVTYTkJsU3APEfR"  # „WireStorm Hoch“
 UMGEBUNG = {}  # alle MITTEL (Chef 09.11., 07:23: „Der Aufwand ist auf Mittel“); Probe 365 endete 31.10.; HOCH nur auf Wort des Chefs
 REPO = "https://github.com/tramour-cmyk/androidapp_rpg_bornim"  # ohne source_url startet die Sitzung ohne Repo (18.10., Jerry 39; 187)
 REVISION = "main"  # 382: ohne source_revision lasen neue Sitzungen einen alten Stand (26.10., ohne add_repo-Erlaubnis; Tom 376.1a)
-MODELL = {"Tom": "opus", "Homer": "opus", "Sokrates": "opus", "Jerry": "opus", "Perikles": "sonnet", "Diogenes": "opus"}  # 270: Diogenes dauerhaft groß; Perikles nur als Probe (PROBEN)
+MODELL = {"Tom": "opus", "Homer": "opus", "Sokrates": "opus", "Jerry": "opus", "Perikles": "opus", "Diogenes": "opus"}  # 270: alle außer Ford groß (Chef 09.11., 13:01: „bis auf Ford grundsätzlich alle … auf Opus“)
 # 718 A (Chef 09.11., 11:25): jede Probe = Abweichung vom alten Wert mit Enddatum; ab BIS gilt der alte Wert in der Tafel oben, lauf.py meldet
 # einmal am Tag „Probe <Nr> abgelaufen, auswerten“ (WARNUNG-LAUT, Marke „Probe-abgelaufen <Nr>“); verlängern nur auf Wort des Chefs (BIS ändern, Wortlaut dazu)
 PROBEN = [  # (Nr, Tafel, Schlüssel, Probewert, BIS „TT.MM.JJJJ“: ab diesem Tag alter Wert)
-    ("270", "MODELL", "Perikles", "opus", "07.11.2026"),  # 270 (Chef 26.10., 11:15): Perikles groß bis 06.11., dann Neuvorlage mit 341
+    # Probe 270 (Perikles groß bis 06.11.) beendet: dauerhaft, Chef 09.11., 13:01
 ]
 def _bis(t):
     d, m, j = (t.strip(".").split(".") + [str(JETZT.year)])[:3]
