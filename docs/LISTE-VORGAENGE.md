@@ -222,7 +222,7 @@
 | 791 | D111 von Diogenes (783, 745 A2 Schritt 3): Überholtes und Doppeltes im Regelwerk umschreiben, Liste Prüfbericht Lauf 111 (Widersprüche W1–W8 erst nach Chefsache 783) | Perikles | M | erledigt, greift Lauf 119 | – | – | – | B Abläufe | – |
 | 793 | D116.1 von Diogenes (788): Stichwort „Halt“ trifft jeden Wortanfang, „Haltung des Helden“ legt eine Zeile Systemlösung an (Probe in Kopie); Wortende prüfen oder „Halt“ streichen | Perikles | K | erledigt, greift Lauf 118 | – | – | – | B Werkzeuge | – |
 | 797 | Von Tom (506): Auto-Modus lehnt add_repo trotz 708 ab, Chef musste 20:15 erneut erlauben; Erlaubnisregel mcp__claude-code-remote__add_repo in .claude/settings.json (Chef: „alle Repos benutzen“) | Perikles | M | startbar | – | – | – | B Abläufe | – |
-| 799 | Übersicht meldet Vorlagen in entscheiden/ und billigen/ ohne Aufbau 364 (Zeile 1 keine Frage, fehlende Teile Frage bis Antwort) unter „Lücken“ (Chef 09.11., 20:35, über Sokrates) | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
+| 799 | Vorlagen nach 364: Muster MUSTER.md und Haken, der entscheiden/ und billigen/ ohne die acht Teile ablehnt; Übersicht meldet Altbestand (Chef 09.11., 20:35 und 20:46, über Sokrates) | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
