@@ -38,7 +38,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 1, startbar 0
+**Homer** – offen 6, Muss 1, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -47,8 +47,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
+| 736 | M? | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-STIL.md 188–189 (618), 197 (586), 1 | startbar |
 
-**Tom** – offen 98, Muss 74, startbar 1
+**Tom** – offen 99, Muss 74, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -150,8 +151,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 701 | M | Gegenstandsfenster: Hinweis Obergrenze nur einmal statt je Grundwert (Chef t270.5, 08.11., | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
 | 613.2 | M | Zwischensequenzen: Bewegung sichtbar wie alt (Kerzenflackern, atmendes Licht, Staub im Str | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
 | 713 | K | Von Homer (586.1): Erklärfenster beim Gedrückthalten (menue.gd:1561) noch mit Goldrand und | startbar |
+| 737 | M? | D92.2 Vorlagen 02.–08.11. ohne Zeile „Bestand geprüft“ (434): 417, 431, 463, 475, 492, 499 | startbar |
 
-**Jerry** – offen 74, Muss 67, startbar 2
+**Jerry** – offen 75, Muss 67, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -229,8 +231,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 681 | M | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
 | 717.1 | M | Kampf: Zurechtrücken der Gegner läuft gleichzeitig mit dem Zug des Helden statt davor (Ide | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
 | Pflege | K | von Werkzeug (340.3, 09.11.): 17109 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 738 | M? | D92.3 Vorlagen 02.–08.11. ohne Zeile „Bestand geprüft“ (434): 406, 406.2, 416.6, 453a, 509 | startbar |
 
-**Perikles** – offen 23, Muss 18, startbar 0
+**Perikles** – offen 35, Muss 18, startbar 12
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -257,6 +260,18 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 696 | K | meldung.sh: mehrere Bilder in derselben Minute überschreiben sich im Zweig bilder (Pfad TT | wartet auf Test/Build (gebaut) |
 | 721 | K | rollenspiegel.sh: Antwort am Montag landet unter der kommenden Woche, Ausfall des Freitags | wartet auf Test/Build (gebaut) |
 | 724 | M | Werkzeugvorgänge nach „greift“ von Diogenes erledigt statt „wartet auf Test“ (Rollenspiege | Chef (Datei in der Chefsache) |
+| 725 | M? | D72 probelauf.py: arbeitskopie/push_lauf lösen cd $VAR und cd "$HOME/…" nicht auf, figur_s | startbar |
+| 726 | M? | D73 probelauf.py gleich_film (578) prüft nur den Archivkopf, nicht das Ergebnis „→ ja (Nut | startbar |
+| 727 | M? | D62.2 lauf.py: Uhrzeit im Nachfolger („ab 16.11., 8 Uhr“) wird am Tag selbst nicht gelesen | startbar |
+| 728 | M? | D78.1 Testbitte: Zeile „Verglichen“ deckte bei t268 nur die Menüs, nicht Dorf, Kampf, Kapi | startbar |
+| 729 | M? | D85.1 startbar.py 620.1 B gibt auch „Rückläufer aus einem Build“ frei, Chef nannte nur wie | startbar |
+| 730 | M? | D86.1 probelauf.py: Ausnahme Sammelbuild gilt für jeden Ablauf auf claude/build-<n> (godot | startbar |
+| 731 | M? | D87.1 Prüfung „Alt:“ (647) greift nicht bei Push über den GitHub-Server (push_files, creat | startbar |
+| 732 | M? | D89.1 glossar.py: Begriff mit Bindestrich vorn geht als Schalter an git grep; -e davor (vo | startbar |
+| 733 | M? | D91.1 „mit 3–6 Vorgängen (317, Ziel 4)“ in zug-index.py Zeile 89 und chefsache/README.md a | startbar |
+| 734 | M? | D92.1 Warnung „LISTE-VORGAENGE.md von Hand geändert“ wird nirgends festgehalten, Woche War | startbar |
+| 735 | M? | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-ABNAHME.md 11 und Kopf DESIGN-KAMPF | startbar |
+| 742 | M? | D78.1 Testbitte t268: Zeile „Verglichen“ deckte nur die Schirme vom 05.11., nicht Dorf, Ka | startbar |
 
 **Diogenes** – offen 8, Muss 6, startbar 1
 
@@ -271,7 +286,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 511 | M | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele | wartet auf D75 (Dauer) |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
 
-**Sokrates** – offen 60, Muss 37, startbar 36, PAUSE bis 09.11., 09:00
+**Sokrates** – offen 62, Muss 37, startbar 38, PAUSE bis 09.11., 09:00
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -330,11 +345,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 707 | K | Systemlösung? Zwischensequenz: 4 frühere Vorgänge (613, 70, 314, 659), neu 613.2; einmal g | startbar |
 | 710 | K | Systemlösung? Waffe: 12 frühere Vorgänge (348.12h, 534a, 427, 417, 410 …), neu 709; einmal | startbar |
 | 711 | K | Systemlösung? Schrift: 8 frühere Vorgänge (292.3, 312, 498, 497, 544 …), neu 586.1; einmal | startbar |
-| 584 | K | Kein halbfetter Schnitt: Köpfe und Titel in Erschaffung, Held, Chronik, Karte, System, Bre | startbar |
-| 477 | K | Godot-APKs laufen nicht im MuMu Player am Rechner (Chef 02.11., 14:59) (für Tom) | startbar |
 | 718 | M | Probe mit Enddatum: Rückbau gleich ins Werkzeug (365 lief nach 31.10. weiter) | Chef (Datei in der Chefsache) |
 | 719 | M | Wochentermine selbsttätig als Muss in die Vorgangsliste (Ideenspeicher, Rollenspiegel fiel | Chef (Datei in der Chefsache) |
 | 720 | M | Abnahmeliste: Teilhaken mitzählen, wöchentliche Haken-Frage für Gebautes (0 von 41) | Chef (Datei in der Chefsache) |
+| 739 | M? | D84.1 die sechs wiederholten Funde aus t268 mit „wiederholt“ im Titel nachziehen (620.1 A; | startbar |
+| 740 | K | D63.7 Vorlage entscheiden/3761-kettenhemd-heldin.md (01.11., 20:55) ohne Zeile „Bestand ge | startbar |
+| 584 | K | Kein halbfetter Schnitt: Köpfe und Titel in Erschaffung, Held, Chronik, Karte, System, Bre | startbar |
+| 477 | K | Godot-APKs laufen nicht im MuMu Player am Rechner (Chef 02.11., 14:59) (für Tom) | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
