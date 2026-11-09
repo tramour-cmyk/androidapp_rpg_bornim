@@ -203,7 +203,7 @@
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 772 | D89.2 von Diogenes (über Perikles): Glossar ohne „Vorgang beim Chef“ (480); „steht in“ zeigt meist auf CLAUDE.md | Homer | K | startbar | – | – | – | B Abläufe | – |
 | 807 | Tätigkeiten ohne Kampf für Fertigkeiten in Kapitel 1 vorschlagen (Schleichen, Spähen, Schlösser, Fallen, Tiere beruhigen, Überreden, Einschüchtern, Jagd, Angeln …), von Spike zu 471 | Homer | M? | startbar | – | – | – | G Stil | – |
-| 796 | Schritt 3 zu 745: Regeln nach 783 angleichen (W1–W8, Archiv 09.11., 20:00–20:16), Werkzeuge probelauf.py, lauf.py --morgen (von Sokrates) | Perikles | M | gebaut, Geprüft an: 5e1541e63 | Diogenes | – | – | B Abläufe | 4,38 $ |
+| 796 | Schritt 3 zu 745: Regeln nach 783 angleichen (W1–W8, Archiv 09.11., 20:00–20:16), Werkzeuge probelauf.py, lauf.py --morgen (von Sokrates) | Perikles | M | gebaut, Geprüft an: 5e1541e63 | 808, 809 | – | – | B Abläufe | 4,38 $ |
 | 511 | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele sinnlose und kaputte Filme gemacht?“) · „jetzt“ 03.11., 13:50 | Perikles | M | erledigt, ersetzt durch 783 W1 (796) | – | – | – | B Werkzeuge | 19,83 $ |
 | 483 | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Marke (Chef 02.11., 19:08) | Perikles | M | gebaut, Geprüft an: 62e922b30 | Diogenes, D75 | – | – | B Werkzeuge | – |
 | 464 | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählung im Tagesbericht (Chef 01.11., 20:4x) | Perikles | M | gebaut, Geprüft an: fcf9ab215 | 16.11. | – | – | B Abläufe | – |
@@ -226,6 +226,8 @@
 | 797 | Von Tom (506): Auto-Modus lehnt add_repo trotz 708 ab, Chef musste 20:15 erneut erlauben; Erlaubnisregel mcp__claude-code-remote__add_repo in .claude/settings.json (Chef: „alle Repos benutzen“) | Perikles | M | startbar | Chef | – | – | B Abläufe | – |
 | 799 | Vorlagen nach 364: Muster MUSTER.md und Haken, der entscheiden/ und billigen/ ohne die acht Teile ablehnt; Übersicht meldet Altbestand (Chef 09.11., 20:35 und 20:46, über Sokrates) | Perikles | M | erledigt, greift Lauf 121 | – | – | – | B Werkzeuge | – |
 | 800 | docs aufräumen nach 650.2: A nach alt/ (je Datei „vorher“), B kapitel2/, C1 BRS umbenennen mit Werkzeugen, E2 Inhaltsverzeichnis „Für den Chef“ mit Prüfwerkzeug (Chef 09.11., 20:52, über Sokrates) | Perikles | M | startbar | – | – | – | B Abläufe | – |
+| 808 | D122.1 von Diogenes (796, 783 W5): CLAUDE.md Zusammenarbeit 3 hängt „außer Vorentscheid Sokrates“ an „Code auf main“; ROLLE-BERATUNG 52 lässt Code auf main beim Chef, W5 meint Abläufe, Balance, Spielgefühl | Perikles | M | startbar | – | – | – | B Abläufe | – |
+| 809 | D122.2 von Diogenes (796, 783 W3): LISTE-GLOSSAR Zeile Übernahme „wenn es nichts Startbares hat“, nach W3 „kein startbares Muss, vor eigener Kür“ | Perikles | M | startbar | – | – | – | B Abläufe | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
