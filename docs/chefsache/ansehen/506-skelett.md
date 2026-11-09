@@ -1,5 +1,7 @@
 # 506 · Skelette im Kampf (gekauftes Modell) · Tom · 09.11., 21:56
 
+[Bild von 09.11., 21:56](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/09-2156-506-Tom.png) (eingetragen von meldung.sh, Tom)
+
 ![Links ein Skelett von nah, rechts der Kampf im Wald](../bilder/506-skelett.webp)
 
 Die Skelette bauen auf dem gekauften Skelettritter auf. Es gibt drei Ausstattungen: Kurzschwert mit Helm, Kurzschwert mit Schild, Speer mit Helm. Links steht ein Skelett von nah, rechts kämpfen Kämpfer und Kleriker gegen drei Skelette im Wald.
