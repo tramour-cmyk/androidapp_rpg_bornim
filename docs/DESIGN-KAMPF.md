@@ -30,6 +30,7 @@ Was der Chef zu Waffe, Schild und Kampf im Bild entschieden hat, steht nur hier 
 | F5 | Ausweichen mit Ortswechsel: rasch zur Seite oder zurück, nur auf einen Angriff hin; danach bleibt er dort stehen und rückt erst mit dem eigenen Zug zurecht | 348.12f (27.10.), 348.12 (01.11., 22:45), 703 A (08.11., 21:36) | ja |
 | F6 | Zauber: der Kegel kommt nicht aus dem Körper des Helden (Seitenschritt; ebenso Schüsse aus der zweiten Reihe); Arkanpfeil (früher „Magisches Geschoss“, BRS 12) ohne Schritt, durch den Helden abgenommen | 348.7b (27.10., 19:49; 28.10., 10:43, 15:28) | ja |
 | F7 | Ein Gegner zeigt dem Helden nie den Rücken, außer auf der Flucht: nach dem Angriff ein bis zwei Schritte rückwärts absetzen und dort stehen; zurück in die Reihe nur mit eigenem Zug, Gesicht zum Helden; keine Schienenbahnen, kein langes Rückwärtsgehen | 717 C (09.11., 08:58) | ja |
+| F8 | Zurechtrücken der Gegner läuft im Zug des Helden: seine Knöpfe kommen sofort, beim Losgehen wartet er nur auf sein eigenes Ziel; das Zurechtrücken dauert nie länger als das Wählen | 717.1 A (09.11., 09:03) | ja |
 
 ## Kurzfassung
 
