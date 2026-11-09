@@ -109,6 +109,7 @@
 | 701 | Gegenstandsfenster: Hinweis Obergrenze nur einmal statt je Grundwert (Chef t270.5, 08.11., 20:37: „wirkt überbordend“) | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 613.2 | Zwischensequenzen: Bewegung sichtbar wie alt (Kerzenflackern, atmendes Licht, Staub im Strahl) und Fackelzug fehlt (Chef 08.11., 21:58 zu 613: „gesehen habe ich nichts“) | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 713 | Von Homer (586.1): Erklärfenster beim Gedrückthalten (menue.gd:1561) noch mit Goldrand und 14-sp-Kopf, gegen 549a (ohne Kasten) und 586a (Titel 22 sp) | Tom | K | startbar | – | – | – | E Oberfläche | – |
+| 737 | D92.2 Vorlagen 02.–08.11. ohne Zeile „Bestand geprüft“ (434): 417, 431, 463, 475, 492, 499, 514, 656, 664, 623.6; Spike 501, 506, 613; künftig in der Datei in ansehen/ (von Diogenes, Lauf 92) | Tom | M? | startbar | – | – | – | B Abläufe | – |
 | 717 | Kampf: Gegner zeigt dem Helden nie den Rücken, außer auf der Flucht; nach dem Angriff rückwärts zurück oder stehen bleiben, keine Kurve heim (Chef 09.11., 08:51; ändert 682) · „jetzt“ 09.11., 08:51 | Jerry | M | in Arbeit, 717 C und 717.1 A, Zwischenstand e85bf8e03 | – | claude/jerry-717-rueckwaerts | – | E Kampf | – |
 | 708 | Zugriff auf bornim-kaufmodelle in Jerry-Sitzungen: add_repo vom Automodus abgelehnt (Jerry 08.11., 21:50; neue Sitzung 22:37 wieder), hält das Nachstellen von 682, 562, 593, 662, 536, 560 an (wie 660 bei Tom) · wiederholt | Jerry | M | erledigt | – | – | – | E Technik | – |
 | 682 | Kampf flüssiger: Held geht zügig zum Angriff, Gegner laufen in weichen Bögen statt eckig gerade-diagonal, weniger Warten auf Hin- und Zurücklaufen bei Fehlschlägen; grundsätzlich für alle Gegner (Chef 08.11., 16:22, t269; „Schienenbahnen“ t270) · „jetzt“ 08.11., 21:36 | Jerry | M | in Arbeit, nach 717 C umbauen | 717 | claude/jerry-682-boegen | – | E Kampf | 26,69 $ |
@@ -184,6 +185,7 @@
 | 681 | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | Jerry | M | startbar | – | – | – | E Klang | – |
 | 717.1 | Kampf: Zurechtrücken der Gegner läuft gleichzeitig mit dem Zug des Helden statt davor (Idee Chef 09.11., 08:58, zu 717) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | Pflege | von Werkzeug (340.3, 09.11.): 17109 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
+| 738 | D92.3 Vorlagen 02.–08.11. ohne Zeile „Bestand geprüft“ (434): 406, 406.2, 416.6, 453a, 509; künftig in der Datei in ansehen/ (von Diogenes, Lauf 92) | Jerry | M? | startbar | – | – | – | B Abläufe | – |
 | 716 | Ideenspeicher 08.11. nachholen (Diogenes D92, drei Sonntage ausgefallen) · „jetzt“ 09.11., 08:49 | Homer | M | erledigt | – | – | – | B Abläufe | 3,05 $ |
 | 432 | Eigenes Volk aus Bornim (etwa mit dem Grauen Propheten, „Tag der Asche“) prüfen, mit der Geschichte ab Kapitel 2 (Chef 31.10., 22:0x) | Homer | K | ruht | – | – | – | G Story | 0,79 $ |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
@@ -192,6 +194,7 @@
 | 348.12g | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | Homer | M | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | – | – | – | G Story | 4,29 $ |
 | 586.1 | Von Team Tom: DESIGN-STIL Tabelle „Schrift“ nachtragen: Fenstertitel 22 statt 15 sp (586 passt, Chef 08.11., 21:55) | Homer | K | erledigt | – | – | – | E Oberfläche | – |
 | 712 | Von Team Tom (702 C): Kampftexte ohne Zugverlust: [702.auf] Aufstehen (Zwischenfassung und nach dem Sturz) und Tipp [210T.pounce] | Homer | M | erledigt | – | – | – | E Kampf | 2,67 $ |
+| 736 | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-STIL.md 188–189 (618), 197 (586), 159 (565), 131 (417a), 165 (630); SPIELSYSTEM-2-0-ENTWURF 310 (427.1); SPIELSYSTEM-2-0 75, 88 (466) (von Diogenes, Lauf 92) | Homer | M? | startbar | – | – | – | G Stil | – |
 | 715 | Rollenspiegel 06.11. nachholen (Diogenes D92) · „jetzt“ 09.11., 08:49 | Perikles | M | erledigt | – | – | – | B Abläufe | – |
 | 317.1 | `startbar.py`, `lauf.py`: Obergrenze 6 je Build streichen (Chef 07.11., 20:5x) | Perikles | M | gebaut, Geprüft an: 12837c9c3 | – | – | – | B Werkzeuge | – |
 | 620.1 | Wiederholte Funde des Chefs vor Neuem; wenige Muss je Team zugleich (aus 620) | Perikles | M | gebaut, Geprüft an: 5b65bf6bb (startbar --stand 11:05: Tom 33, Jerry 12 gesperrt) | – | – | – | B Abläufe | 4,11 $ |
@@ -218,6 +221,18 @@
 | 696 | meldung.sh: mehrere Bilder in derselben Minute überschreiben sich im Zweig bilder (Pfad TT-HHMM-Nr-Name ohne Zähler; 613 am 08.11. 19:10/19:11: zehn gesendet, zwei abgelegt), Links in ansehen/ zeigen nur das letzte (von Spike) | Perikles | K | gebaut, Geprüft an: d5e584b7a (Probe Wegwerf-Repo) | – | – | – | B Werkzeuge | 1,41 $ |
 | 721 | rollenspiegel.sh: Antwort am Montag landet unter der kommenden Woche, Ausfall des Freitags bleibt unsichtbar (aus 715) | Perikles | K | gebaut, Geprüft an: 40265bd2d (Probe mit gestellter Uhr) | – | – | – | B Werkzeuge | – |
 | 724 | Werkzeugvorgänge nach „greift“ von Diogenes erledigt statt „wartet auf Test“ (Rollenspiegel Perikles 715, Chef 09:49) | Perikles | M | startbar | Chef | – | – | B Abläufe | – |
+| 725 | D72 probelauf.py: arbeitskopie/push_lauf lösen cd $VAR und cd "$HOME/…" nicht auf, figur_sperre (513.1) lässt dann durch; Ziel mit expandvars auflösen oder anhalten (von Diogenes, Lauf 70) | Perikles | M? | startbar | – | – | – | B Werkzeuge | – |
+| 726 | D73 probelauf.py gleich_film (578) prüft nur den Archivkopf, nicht das Ergebnis „→ ja (Nutzer)“ (von Diogenes, Lauf 71) | Perikles | M? | startbar | – | – | – | B Werkzeuge | – |
+| 727 | D62.2 lauf.py: Uhrzeit im Nachfolger („ab 16.11., 8 Uhr“) wird am Tag selbst nicht gelesen, titel_datum kennt nur „um/ab H:MM“; Start dann vor der Uhrzeit (von Diogenes, Lauf 60) | Perikles | M? | startbar | – | – | – | B Werkzeuge | – |
+| 728 | D78.1 Testbitte: Zeile „Verglichen“ deckte bei t268 nur die Menüs, nicht Dorf, Kampf, Kapitelende; Wächter 512.1 prüft den Umfang nicht (von Diogenes, Lauf 76) | Perikles | M? | startbar | – | – | – | B Werkzeuge | – |
+| 729 | D85.1 startbar.py 620.1 B gibt auch „Rückläufer aus einem Build“ frei, Chef nannte nur wiederholt, „jetzt“, Übernahmen (10:55); streichen oder bestätigen lassen (von Diogenes, Lauf 85) | Perikles | M? | startbar | – | – | – | B Werkzeuge | – |
+| 730 | D86.1 probelauf.py: Ausnahme Sammelbuild gilt für jeden Ablauf auf claude/build-<n> (godot.yml mit kampf=ja lief ungezählt); auf android.yml beschränken (von Diogenes, Lauf 86) | Perikles | M? | startbar | – | – | – | B Werkzeuge | – |
+| 731 | D87.1 Prüfung „Alt:“ (647) greift nicht bei Push über den GitHub-Server (push_files, create_or_update_file); dort auf message anwenden (von Diogenes, Lauf 87) | Perikles | M? | startbar | – | – | – | B Werkzeuge | – |
+| 732 | D89.1 glossar.py: Begriff mit Bindestrich vorn geht als Schalter an git grep; -e davor (von Diogenes, Lauf 89) | Perikles | M? | startbar | – | – | – | B Werkzeuge | – |
+| 733 | D91.1 „mit 3–6 Vorgängen (317, Ziel 4)“ in zug-index.py Zeile 89 und chefsache/README.md auf „mindestens 4, ohne Obergrenze“ (von Diogenes, Lauf 91) | Perikles | M? | startbar | – | – | – | B Werkzeuge | – |
+| 734 | D92.1 Warnung „LISTE-VORGAENGE.md von Hand geändert“ wird nirgends festgehalten, Woche Warnungen (275 Stufe 2) nicht zählbar; je Warnung eine Zeile in eine Datei auf main (von Diogenes, Lauf 92) | Perikles | M? | startbar | – | – | – | B Werkzeuge | – |
+| 735 | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-ABNAHME.md 11 und Kopf DESIGN-KAMPF.md 7 (646 ersetzt 621.1; 655 strich 300 und Helfer nach dem Versand) (von Diogenes, Lauf 92) | Perikles | M? | startbar | – | – | – | B Abläufe | – |
+| 742 | D78.1 Testbitte t268: Zeile „Verglichen“ deckte nur die Schirme vom 05.11., nicht Dorf, Kampf, Kapitelende; Wächter 512.1 prüft den Umfang nicht (von Diogenes, Lauf 76) | Perikles | M? | startbar | – | – | – | B Werkzeuge | – |
 | 340.2 | Rollenspiegel C: `tools/rollenspiegel.sh`, eigene Antwort ohne fremde | Diogenes | M | erledigt | – | – | – | B Abläufe | 13,83 $ |
 | 485 | Diogenes bessert sich aus dem Rollenspiegel 02.11.: Wochentermine zählen, Vergleichsblätter selbst holen, Meldungen ohne Abkürzungen (Chef 02.11., 19:37 „1, 2, 3 ja“) · „jetzt“ 02.11., 19:37 | Diogenes | M | erledigt | – | – | – | Q QS | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
@@ -284,8 +299,11 @@
 | 719 | Wochentermine selbsttätig als Muss in die Vorgangsliste (Ideenspeicher, Rollenspiegel fielen aus) | Sokrates | M | startbar | Chef | – | – | B Abläufe | – |
 | 720 | Abnahmeliste: Teilhaken mitzählen, wöchentliche Haken-Frage für Gebautes (0 von 41) | Sokrates | M | startbar | Chef | – | – | Q QM | – |
 | 722 | Befunde von Diogenes als Vorgang mit Rückmeldung statt Textzeile im Vorrat (Chef 09:07, 33 von 44 ohne Eintrag) | Sokrates | M | erledigt | – | – | – | Q QM | – |
+| 739 | D84.1 die sechs wiederholten Funde aus t268 mit „wiederholt“ im Titel nachziehen (620.1 A; bisher keine Zeile) (von Diogenes, Lauf 84) | Sokrates | M? | startbar | – | – | – | B Abläufe | – |
+| 740 | D63.7 Vorlage entscheiden/3761-kettenhemd-heldin.md (01.11., 20:55) ohne Zeile „Bestand geprüft“ (434); nicht nachtragbar, schließen mit erledigt oder verworfen (von Diogenes, Lauf 61) | Sokrates | K | startbar | – | – | – | B Abläufe | – |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +857,14 $ |
 | Pflege | von Werkzeug (340.3, 09.11.): 25432 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | M? | startbar | – | – | – | B Steuerung | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |

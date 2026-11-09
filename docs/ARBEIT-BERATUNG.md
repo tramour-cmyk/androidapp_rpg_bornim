@@ -23,7 +23,6 @@ Pause bis 09.11., 09:00 (Systemrunde braucht die Wochenkosten 651).
 
 ## Einzelheiten
 
-- **Zu 620, D84.1 von Diogenes (08.11., 11:0x):** Titel erledigt; offen: die sechs wiederholten Funde aus t268 mit „wiederholt“ im Titel nachziehen.
 
 - **Zu 461b.4:** Köpfe von `DESIGN-SPIELSYSTEM-2-0.md` (Zeile 3, Nr. 24), `LISTE-BESTIARIUM.md` (Zeile 3), `DESIGN-KAMPF.md` (Zeile 3) gegen Entscheidung 84; Säureschnecke mit Jerry (461b.1); Anhänge „→ ersetzt durch …“ im Archiv, wo dein Helfer den Ersatz fand: 376.1 (11:19), 72o, 72o.1, 348.12 (26.10.), 348.9 (13:26), 72.8, 414, F3/F4 Datum (Zu 461b; 415c, 480, 362, 418 hat Perikles gesetzt).
 - **Zu 512 (Chef 23:26–23:28):** „Den angewiesenen Vergleich mit der alten Fassung hat ja eh keiner gemacht …“, „Sonst wäre es ja vorher aufgefallen, dass es nicht passt …“. Ursachen: Regel nur für berührte Schirme, nie berührte (Ausrüstung) vergleicht keiner; Abgleich 248 nur Bilder, Laden berührt und Rückfrage trotzdem übersehen. Schritt 1 Regel: Fenster und jede Bedienung mit, Zeile „verglichen“ in der Prüfliste. Schritt 2: einmal alle Menüschirme alt gegen neu, Funde als Vorgänge an Team Tom.

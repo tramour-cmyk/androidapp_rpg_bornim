@@ -8,7 +8,6 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 ## Zeilen
 
-- **Zu 461b, D92.4 von Diogenes (09.11., 08:1x):** Überholtes ohne „→ ersetzt durch“: `DESIGN-STIL.md` 188–189 (618), 197 (586), 159 (565), 131 (417a), 165 (630); `DESIGN-SPIELSYSTEM-2-0-ENTWURF.md` 310 (427.1); `DESIGN-SPIELSYSTEM-2-0.md` 75, 88 (466). Einzelheiten Prüfbericht Lauf 92.
 - **Zu 458.4 (erledigt 01.11.):** abgenommene Texte wortgetreu (`[D4.1.rauch.tasche]`, `[356.schluessel]`, übrige Handlungsgegenstände aus `Items.kt`); keine Zahlen und keine Wirkung, die das BRS nicht festlegt; Ladenware ohne Abnutzungsspuren (neu = makellos). Offen für später: (1) `[D4.1.rauch.tasche]` sagt „werfen“, im Spiel fliegt das Bündel von selbst, sobald Krogg auftaucht (`klassisch.gd`, D4.1); (2) SRD-Namen „Handschuhe der Ogerkraft“, „Umhang des Schutzes“, englisch „Potion of Healing“ usw. vor Stufe 6 ersetzen.
 - **Zu 432, von Sokrates (Chef 01.11., 09:41: „432 wie Sokrates“, Archiv):** Weg A entschieden; Datei gelöscht. Für dich: Weg in den Storyplan, dazu intern die Antwort, warum der Kult die Aschgeborenen sucht (Bedingung vor dem Bau); Modell Mensch mit Strähne und Iris-Ring (an Tom erst nach dem Meilenstein).
 - **Von Perikles (378, 27.10., 15:0x):** 302 „wartet auf Tom (302.1)“: 302.1 ruht unter der überholten Bedingung „bis Urteil 348“; Tom setzt eine neue (Hinweis in seinem Vorrat).
