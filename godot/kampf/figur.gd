@@ -1372,15 +1372,6 @@ func _walk_home(skip = null) -> float:
 		# beide 0,2 m ineinander): führt jeder Weg durch einen anderen, der gerade selbst läuft, wartet er kurz und plant neu
 		if fighter.monster != null and _warte_n < WARTE_MAX:
 			var g := _seg_gap(position, home, skip) if via == position else minf(_seg_gap(position, via, skip), _seg_gap(via, home, skip))
-			# 717 C (wolf_mess_438: Wolf 3 lief an seinen neuen Platz durch Wolf 1, der nach dem Biss abgesetzt dort stand): steht ein
-			# abgesetzter Gegner im Weg, rückt er jetzt in seine Reihe (im Zug der Gegner, F8), dieser wartet kurz
-			if g < 0.0 and _bleib_717():
-				for o in kampfort.figures.values():
-					if o != self and o != skip and o.visible and not o.down and o.fighter.monster != null and not o.unterwegs() \
-							and Vector2(o.home.x - o.position.x, o.home.z - o.position.z).length() > 0.12 \
-							and o.strecke_luft(position, via if via != position else home) < own_r():
-						o.platz_neu = true
-						o.zurueck_in_reihe()
 			# 717 C (wolf_mess_438, Kleriker 41,7 s: beim Platztausch gingen beide zugleich los, das Gesicht zum Helden, und kreuzten sich
 			# 15 cm tief): wer mit mir tauscht und schon geht, geht zuerst
 			var tauscht: bool = _bleib_717() and kampfort.figures.values().any(func(o): return o != self and o.visible and not o.down and o.unterwegs() \
@@ -1417,7 +1408,18 @@ func _walk_home(skip = null) -> float:
 		# oder rückwärts je nach Lage des Platzes; ist auch das nicht frei, bleibt er stehen, wo er ist
 		if fighter.monster != null and not flieht and weg.has("Gehen"):
 			var rl7 := _rueck_luft(position, via, home, skip)
-			if rl7 < minf(WEG_LUFT, _rumpf_luft(position, rotation.y, skip) - 0.01):
+			# (wolf_mess_438, Kleriker 42,2 s: stand er am Start schon knapp an der Bahn eines Beißenden, erlaubte „nicht enger als am
+			# Start“ 12 cm Wolf in Wolf): nie tiefer als 2 cm; ist es enger und läuft ein anderer, erst warten
+			var grenze7 := minf(WEG_LUFT, maxf(_rumpf_luft(position, rotation.y, skip) - 0.01, -0.02))
+			if rl7 < grenze7 and _warte_n < WARTE_MAX and kampfort.figures.values().any(func(o): return o != self and o.visible and not o.down and o.unterwegs()):
+				_warte_n += 1
+				tween.kill()
+				tween = create_tween()
+				tween.tween_callback(_idle_wenn_frei)
+				tween.tween_interval(WARTE_S)
+				tween.tween_callback(func(): _walk_home(skip))
+				return WARTE_S
+			if rl7 < grenze7:
 				var rv7 := _rueck_umweg(position, home, skip)
 				if rv7 == position:
 					tween.kill()
@@ -1910,7 +1912,7 @@ func _heim_mit_gesicht(via: Vector3, skip = null) -> float:
 	var v_rueck := _mps("Gehen") * RUECK_717
 	# (wolf_mess_438: das Eindrehen im Gehen schwenkte den Rumpf 8 cm in den Nachbarn): nur so weit eindrehen, wie der Rumpf auf dem
 	# ganzen Weg frei bleibt, sonst weniger, zuletzt gar nicht (daheim dreht _turn_home den Rest, wo es frei ist)
-	var g0 := minf(_rumpf_luft(position, r0, skip), PLATZ_LUFT) - WEG_LUFT
+	var g0 := maxf(minf(_rumpf_luft(position, r0, skip), PLATZ_LUFT) - WEG_LUFT, -0.02)
 	var dw := 0.0
 	for k in [1.0, 0.75, 0.5, 0.25, 0.0]:
 		var frei := true
@@ -2179,7 +2181,7 @@ func _bite(other, leap: bool, weiter := 0.0) -> int:
 	if bleib717:
 		# (wolf_mess_438, Kleriker 41 s: Wolf 3 rückte quer hinter dem beißenden Wolf 1 vorbei, der dann dorthin absetzte): die anderen
 		# kennen den Platz, an dem er abgesetzt stehen wird
-		bahn = [start, ende]
+		bahn = bahn.slice(0, bahn.size() - 1) + [ende] if not bahn.is_empty() else [start, ende]     # statt heim: der Platz des Absetzens
 		tween.tween_callback(func(): gang = ""; bahn = []; _turn_home())
 		busy_ms = int((t_run + bl + t_back + 0.3) * 1000.0)
 		anlauf_ms = int(t_run * 1000.0)
@@ -2260,7 +2262,7 @@ func _rueck_luft(von: Vector3, via: Vector3, nach: Vector3, skip = null) -> floa
 		if o == self or o == skip or not o.visible or o.down:
 			continue
 		var bei: Array = [Vector3.INF]
-		if o.unterwegs() and Vector2(o.home.x - von.x, o.home.z - von.z).length() > 1.0:
+		if o.unterwegs() and (Vector2(o.home.x - von.x, o.home.z - von.z).length() > 1.0 or o.gang != "heim"):     # 717 C wie _seg_gap
 			bei.append_array(o.bahn_punkte())
 		for p in orte:
 			for q in raster:
@@ -2656,6 +2658,12 @@ func _held_schlag(other, weiter := 0.0) -> int:
 			hn = hiebe[randi() % hiebe.size()]
 			auf = float(kampf_info.get("kontakt", {}).get(hn, HELD_AUFSCHLAG))
 	var bl: float = anim.get_animation(hn).length if anim.has_animation(hn) else BLOW_MS / 1000.0
+	# 682 (schild_406: aus dem Gehen mitten im Schritt in den Hieb schob die Überblendung den Schild 7 cm ins Bein): am Ziel erst kurz
+	# in die Kampfhaltung, dann der Hieb
+	if t_run > 0.0 and anim.has_animation("Angriff_Gehen") and anim.has_animation("SS_IdleCombat"):
+		tween.tween_callback(func(): _play("SS_IdleCombat", 0.1))
+		tween.tween_interval(0.12)
+		t_run += 0.12
 	tween.tween_callback(func(): gang = "hieb"; _face(to - start); _play(hn, 0.08))
 	tween.tween_interval(bl)
 	var heim := start.distance_to(home)
