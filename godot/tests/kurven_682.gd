@@ -11,6 +11,8 @@ var vor := {}       # id -> [Ort, Gier, Richtung oder null]
 var dreh := {}      # id -> Bilder auf der Stelle drehend
 var knick := {}     # id -> Knicke
 var lauf := {}      # id -> Bilder in Bewegung
+var epi := {}       # id -> laufende Drehung am Ort [Bild, Bilder, Grad, Art, Abstand zum Platz]
+var dreh_art := {}  # Teil des Schlags/Bewegung -> Bilder auf der Stelle gedreht (wo die Drehung herkommt)
 
 
 func _initialize() -> void:
@@ -25,14 +27,15 @@ func _lauf() -> void:
 		quit(0)
 		return
 	for k in (OS.get_environment("KLASSEN").split(",") if OS.get_environment("KLASSEN") != "" else PackedStringArray(["FIGHTER", "CLERIC"])):
-		seed(7)
+		var saat := int(OS.get_environment("SEED")) if OS.get_environment("SEED") != "" else 7
+		seed(saat)
 		var p = Probe.new()
 		p.hero_cls = k
 		p.merc_cls = "FIGHTER" if k != "FIGHTER" else "CLERIC"
 		p.foe = OS.get_environment("GEGNER") if OS.get_environment("GEGNER") != "" else "WOLVES"
 		root.add_child(p)
 		await process_frame
-		p._start(7)
+		p._start(saat)
 		for i in 4:
 			await process_frame
 		var kf = p.fight
@@ -67,7 +70,11 @@ func _lauf() -> void:
 			sk += knick.get(id, 0)
 			sl += lauf[id]
 		print("KURVEN682 %s %s: %d Bilder in Bewegung, auf der Stelle gedreht %d (%.1f s), Knicke %d" % [k, "alt" if OS.get_environment("GLATT682") == "0" else "neu", sl, sd, sd / 30.0, sk])
-		dreh.clear(); knick.clear(); lauf.clear()
+		var arten := dreh_art.keys()
+		arten.sort_custom(func(a, b): return dreh_art[a] > dreh_art[b])
+		for a in arten:
+			print("    gedreht bei %s: %d Bilder" % [a, dreh_art[a]])
+		dreh.clear(); knick.clear(); lauf.clear(); dreh_art.clear()
 		p.queue_free()
 		for i in 5:
 			await process_frame
@@ -90,8 +97,20 @@ func _bild(kf) -> void:
 				lauf[id] = int(lauf.get(id, 0)) + 1
 				if vor[id][2] != null and rad_to_deg(absf(r.angle_to(vor[id][2]))) > 20.0:
 					knick[id] = int(knick.get(id, 0)) + 1
+					if OS.get_environment("EPISODEN") != "":
+						print("    KNICK %s Bild %d: %.0f°, %s/%s, %.2f m vom Platz" % [id, Engine.get_process_frames(), rad_to_deg(absf(r.angle_to(vor[id][2]))), f.gang, f.anim.current_animation if f.anim else "?", f.position.distance_to(f.home)])
 			elif dg > 2.0:
 				dreh[id] = int(dreh.get(id, 0)) + 1
+				var art := "%s/%s" % [f.gang if f.gang != "" else "-", f.anim.current_animation if f.anim else "?"]
+				dreh_art[art] = int(dreh_art.get(art, 0)) + 1
+				if not epi.has(id):
+					epi[id] = [Engine.get_process_frames(), 0, 0.0, art, f.position.distance_to(f.home)]
+				epi[id][1] += 1
+				epi[id][2] += dg
+			elif epi.has(id):
+				if OS.get_environment("EPISODEN") != "":
+					print("    DREH %s ab Bild %d: %d Bilder, %.0f°, %s, %.2f m vom Platz" % [id, epi[id][0], epi[id][1], epi[id][2], epi[id][3], epi[id][4]])
+				epi.erase(id)
 			vor[id] = [p, g, r]
 		else:
 			vor[id] = [p, g, null]

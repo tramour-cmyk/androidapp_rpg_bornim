@@ -1367,11 +1367,25 @@ func _walk_home(skip = null) -> float:
 			# 438: rückwärts heim, das Gesicht zum Gegner; statt Kehrtwende, Lauf und zweiter Kehrtwende
 			gang = "heim"
 			tween.tween_callback(func(): anim.play("Gehen", 0.15, -float(tempo.get("Gehen", 1.0))))
-			var tr := _lauf(tween, position, via if via != position else home, "Gehen", RUECK_TEMPO)
+			# 682 (kurven_682: das Umdrehen daheim zum Gegner, „heim/Stehen“, war mehr als die Hälfte allen Drehens am Ort, wie ein
+			# Zinnsoldat): im Zurückgehen schon auf die Blickrichtung daheim eindrehen, daheim bleibt kein Rest
+			var r0 := rotation.y
+			var dw := wrapf(_blick_daheim() - r0, -PI, PI) if _glatt_an_682() else 0.0
+			var t1 := _lauf(tween, position, via if via != position else home, "Gehen", RUECK_TEMPO)
+			var t2 := 0.0
 			if via != position:
-				tr += _lauf(tween, via, home, "Gehen", RUECK_TEMPO)
+				var vs := Vector2(via.x - position.x, via.z - position.z).length()
+				var hs := Vector2(home.x - via.x, home.z - via.z).length()
+				var anteil := vs / maxf(vs + hs, 0.01)
+				if dw != 0.0:
+					tween.parallel().tween_property(self, "rotation:y", r0 + dw * anteil, t1)
+				t2 = _lauf(tween, via, home, "Gehen", RUECK_TEMPO)
+				if dw != 0.0:
+					tween.parallel().tween_property(self, "rotation:y", r0 + dw, t2)
+			elif dw != 0.0:
+				tween.parallel().tween_property(self, "rotation:y", r0 + dw, t1)
 			tween.tween_callback(_turn_home)
-			return tr
+			return t1 + t2
 		var nm := _gangart(way)
 		var first := via - position if via != position else d
 		# 438 (wolf_mess_438, Kleriker 20 s: Wolf 3 drehte vor dem Umweg 128° auf der Stelle und schwenkte das Heck 0,18 m in
@@ -1407,13 +1421,48 @@ func _walk_home(skip = null) -> float:
 					tween.tween_callback(_turn_home)
 					return tr2
 		# 682: eine weiche Kurve heim statt Drehen am Ort, Gerade, Drehen am Umweg, Gerade (wenn sie frei bleibt)
-		if _glatt_an_682() and fighter.monster != null and not lang:
-			var kurve := _glatt(position, rotation.y, ([via] if via != position else []) + [home], skip)
+		if _glatt_an_682() and fighter.monster != null:     # auch statt der langen Drehung (lang: über 180° am Ort)
+			# 682 (kurven_682: 5 von 9 s Drehen am Ort waren das Umdrehen daheim zum Gegner, „heim/Stehen“): die Kurve läuft zuletzt
+			# schon in Blickrichtung auf den Platz zu (ein Punkt LENK_VOR davor), dann bleibt daheim nur ein Rest für den Hals
+			# (kurven_682: der Bogen hinter dem Platz streifte oft den Nachbarn, dann erst kürzer anlaufen, zuletzt ohne)
+			var ziele: Array = [via] if via != position else []
+			var blick := _blick_daheim()
+			var kurve: Array = []
+			for k in LENK_ANKUNFT:
+				var z2 := ziele.duplicate()
+				if k > 0.0 and way > LENK_VOR * _scale() * (k + 0.5):
+					z2.append(home - Vector3(sin(blick), 0.0, cos(blick)) * LENK_VOR * _scale() * k)
+				elif k > 0.0:
+					continue
+				kurve = _glatt(position, rotation.y, z2 + [home], skip)
+				if not kurve.is_empty():
+					break
 			if not kurve.is_empty():
 				gang = "heim"
 				var tk := _glatt_an(tween, kurve, nm, AUSWEICH_BOGEN if nm == "Rennen" else BOGEN_TEMPO)
 				tween.tween_callback(_turn_home)
 				return tk
+			# 682 (kurven_682: nach dem Biss drehte der Wolf 280–400° am Ort, weil die kurze Drehung den Gebissenen streifte und die
+			# Kurve aus dem Gedränge nicht frei war): erst einen Schritt rückwärts vom Gebissenen weg, dann die Kurve heim
+			# (Ratten: gerade zurück stand ein anderer, darum auch schräg zurück, wo mehr Luft ist)
+			if (lang or absf(wrapf(atan2(first.x, first.z) - rotation.y, -PI, PI)) > deg_to_rad(80.0)) and not _abgesetzt and weg.has("Gehen"):
+				var fz2 := Vector3(basis.z.x, 0.0, basis.z.z).normalized()
+				var zur2 := position
+				var luft2 := minf(_rumpf_luft(position, rotation.y, skip), PLATZ_LUFT)
+				for w2 in [0.0, 35.0, -35.0]:
+					var z3 := position - fz2.rotated(Vector3.UP, deg_to_rad(w2)) * ABSETZEN * _scale()
+					var l3 := _rumpf_luft(z3, rotation.y, skip)
+					if l3 >= luft2 and _im_bild(z3, fz2):
+						zur2 = z3
+						luft2 = l3
+				if zur2 != position:
+					_abgesetzt = true
+					gang = "heim"
+					bahn = [zur2, home]
+					tween.tween_callback(func(): anim.play("Gehen", 0.1, -float(tempo.get("Gehen", 1.0))))
+					var ta2 := _lauf(tween, position, zur2, "Gehen", RUECK_TEMPO)
+					tween.tween_callback(func(): _walk_home(skip))
+					return ta2
 		var tt := _turn(tween, atan2(first.x, first.z), false, lang)
 		tween.tween_callback(func(): _play(nm, 0.15))
 		var tg := 0.0
@@ -1620,7 +1669,9 @@ func _glatt_an_682() -> bool:
 	return GLATT_682 and not has_meta("glatt_aus")     # kurven_682 GLATT682=0: der alte Weg zum Vergleich
 const LENK_VOR := 0.6        # m × Größe: so weit voraus liegt der Punkt, auf den es lenkt
 const LENK_R := 0.45         # m × Größe: kleinster Wenderadius im Gehen
-const LENK_BOGEN := 0.35     # ab diesem Anteil der größten Krümmung gilt der Schritt als Bogen (langsamer)
+const LENK_ANKUNFT := [1.5, 1.0, 0.6, 0.0]    # × LENK_VOR: so weit vor dem Platz (in Blickrichtung zurück) läuft die Kurve heim schon gerade, der Reihe nach
+const LENK_ENG := 1.6       # × größte Krümmung: so eng darf es nah am Ziel werden
+const LENK_BOGEN := 0.35    # ab diesem Anteil der größten Krümmung gilt der Schritt als Bogen (langsamer)
 func _glatt(von: Vector3, yaw0: float, ziele: Array, skip = null) -> Array:
 	var sc := _scale()
 	var ds := PFAD_SCHRITT
@@ -1655,7 +1706,8 @@ func _glatt(von: Vector3, yaw0: float, ziele: Array, skip = null) -> Array:
 		var fehl := wrapf(atan2(zu.y, zu.x) - th, -PI, PI)
 		# Verfolgung: Krümmung 2 sin(Fehler) / Abstand; nah am Ende darf es enger werden, sonst kreiste es um das Ziel
 		var k := 2.0 * sin(fehl) / maxf(zu.length(), ds)
-		var grenze := maxf(kmax, 2.0 / maxf(rest, ds) if seg == poly.size() - 1 else kmax)
+		# (kurven_682, Kleriker: zuletzt 25° je Bild, ein Kreiseln auf den Platz): enger höchstens LENK_ENG-fach
+		var grenze := minf(maxf(kmax, 2.0 / maxf(rest, ds) if seg == poly.size() - 1 else kmax), kmax * LENK_ENG)
 		k = clampf(k, -grenze, grenze)
 		th += k * ds
 		p += Vector2(cos(th), sin(th)) * ds
@@ -1663,7 +1715,7 @@ func _glatt(von: Vector3, yaw0: float, ziele: Array, skip = null) -> Array:
 		var pos := Vector3(p.x, von.y, p.y)
 		var yaw := PI / 2.0 - th
 		pts.append([pos, s, yaw, "B" if absf(k) > LENK_BOGEN * kmax else "G"])
-		if g0 < INF and pts.size() % 3 == 0 and _rumpf_luft(pos, yaw, skip) < g0:
+		if g0 < INF and _rumpf_luft(pos, yaw, skip) < g0:     # (wolf_mess_438: jeder dritte Punkt liess 6 cm Wolf in Wolf durch)
 			if OS.get_environment("SCHAU_MESS") != "":
 				print("682 Kurve %s verworfen bei %s (Luft %.2f < %.2f)" % [fighter.id, pos, _rumpf_luft(pos, yaw, skip), g0])
 			return []
@@ -1729,6 +1781,25 @@ var _warte_n := 0           # 438: so oft schon auf einen Laufenden gewartet (je
 const WARTE_MAX := 8
 const WARTE_S := 0.25
 var _abgesetzt := false     # 438: auf diesem Heimweg schon einmal rückwärts abgesetzt, um frei zu drehen
+
+
+## 682: die Drehung, die _turn_home daheim wählen würde (Blick zum Gegner, so weit der Rumpf frei bleibt), schon unterwegs gerechnet
+func _blick_daheim() -> float:
+	var p0 := position
+	var r := rotation.y
+	position = home
+	_face()
+	var goal := rotation.y
+	rotation.y = r
+	if fighter.monster != null and _foot_ok and kampfort:
+		var dw := wrapf(goal - r, -PI, PI)
+		var g0 := minf(_rumpf_luft(position, r), PLATZ_LUFT)
+		var k := 1.0
+		while k > 0.0 and _dreh_luft_bogen(r, dw * k) < g0:
+			k -= 0.125
+		goal = r + dw * maxf(k, 0.0)
+	position = p0
+	return goal
 
 
 func _turn_home() -> float:
