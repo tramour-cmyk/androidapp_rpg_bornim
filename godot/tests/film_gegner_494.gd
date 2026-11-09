@@ -113,6 +113,14 @@ func _gegner(g: String) -> void:
 		# und Länge des Tiers statt fest 1,2 m
 		var rand: float = 1.2 * maxf(1.0, nah._scale()) + 0.5 * float(nah.mass.get("laenge_m", 0.0)) * nah._scale()
 		_auf(cam, kf, [nah], von, hfov, rand)
+	# 506 (Helfer 08.11., 12:55, G1: im Nahbild ein zweites Skelett angeschnitten): im Nahbild nur der eine Gegner, die übrigen
+	# Figuren erst zum Kampf wieder sichtbar
+	var verborgen := []
+	for id in kf.figures:
+		var f = kf.figures[id]
+		if f != nah and f.visible:
+			f.visible = false
+			verborgen.append(f)
 	cam.make_current()
 	await process_frame
 	if not mess and not Signatur.wache(kf, self, "Film 494 " + g):
@@ -131,9 +139,11 @@ func _gegner(g: String) -> void:
 		if kf.ui != null:
 			kf.ui.visible = true
 	await create_timer(4.0 if bilder == "" else 0.5).timeout
+	for f in verborgen:
+		f.visible = true
 	# Teil 2: Kampf auf Autopilot, Echtzeit
-	if lz:
-		lz.text = "Kampf gegen Kämpfer und Kleriker · Autopilot, Echtzeit"
+	if lz:     # 506 (Helfer: Zeile verkehrt herum): die Helden kämpfen gegen den Gegner, nicht umgekehrt
+		lz.text = "Kämpfer und Kleriker gegen %s · Autopilot, Echtzeit" % String(Probe.FOES[g])
 	kf.mars.find("merc").auto = true
 	kf.mars.set_autopilot(true)
 	if not kf.busy:
