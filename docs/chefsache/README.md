@@ -236,7 +236,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 760 | M | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht | Chef (Datei in der Chefsache) |
 | Pflege | K | von Werkzeug (340.3, 09.11.): 17805 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 27, Muss 13, startbar 2
+**Perikles** – offen 26, Muss 12, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -260,7 +260,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 734 | K | D92.1 Warnung „LISTE-VORGAENGE.md von Hand geändert“ wird nirgends festgehalten, Woche War | ruht |
 | 735 | K | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-ABNAHME.md 11 und Kopf DESIGN-KAMPF | ruht |
 | 742 | K | D78.1 Testbitte t268: Zeile „Verglichen“ deckte nur die Schirme vom 05.11., nicht Dorf, Ka | ruht |
-| 720 | M | Abnahmeliste: Teilhaken mitzählen, wöchentliche Haken-Frage für Gebautes (0 von 41) | startbar |
 | 657 | M | Regeln radikal kürzen: eine Seite für alle mit Stil, Team, Ablauf (Chef 08.11., 14:58, 15: | wartet auf Test t275 (Chef) |
 | 748 | M | D95.1 von Diogenes: 464 greift nicht, Push-Haken prüft nur Parsefehler, rote Läufe 08.11. | wartet auf Diogenes (greift?) |
 | 749 | M | D95.2 von Diogenes: 464 Zählung fehlt, tagesbericht.py liest keine roten Läufe, keine Zeil | wartet auf Diogenes (greift?) |
