@@ -16,6 +16,7 @@ Schreiben (Chef 27.10., 15:20: nur über dieses Werkzeug; danach committen und p
   vorgang.py klasse NR M|K             M?-Entscheid (190.8)
   vorgang.py rang NR oben|unten|vor NR2|nach NR2   Vorrang unter den Zeilen desselben Besitzers
   vorgang.py fertig NR                 Stand „erledigt“ (ins Archiv schiebt lauf.py --aufraeumen); nennt Absätze „Zu NR“
+  vorgang.py greift NR LAUF            Diogenes nach „greift“ im Bereich B: „erledigt, greift Lauf N“ (724 A, 755)
   vorgang.py build N --mit NR,NR …     Testbuild N trägt diese Vorgänge: Build N, Stand „zu testen“
   vorgang.py build N [--datei PFAD] [--probe]   Automatik B nach dem Test des Chefs: liest die Prüfliste ansehen/tN-….md (auch gelöscht,
                                        aus Git) mit Abschnitt „## Ergebnis“ („- N.k ✓“, „- N.k ✗ <Fund>“, „- Rest ✓“) oder Spalte „Chef“;
@@ -132,6 +133,16 @@ def fertig(nr, rolle=None):
     print("vorgang.py: %s erledigt (%s)%s%s" % (nr, d["besitzer"], ("; darauf warten: " + ", ".join("%s (%s)" % (x["nr"], x["besitzer"]) for x in wer)) if wer else "",
                                             ("; Absätze noch da: " + " | ".join(zu)) if zu else ""))
 
+def greift(nr, lauf, rolle=None):
+    """755 (D101.1, 724 A): Diogenes schließt einen Vorgang im Bereich B mit seinem „greift“ selbst ab, im Commit des Laufs;
+    greift er nicht, bleibt die Zeile und die Lücke wird ein eigener Vorgang, auf den sie wartet (`warte NR NEU`)."""
+    d = finden(nr, rolle)
+    if not d.get("bereich", "").startswith("B "):
+        print("vorgang.py: %s ist nicht im Bereich B; „greift“ gilt nur für Werkzeug und Abläufe (724 A)" % nr); sys.exit(1)
+    fertig(nr, rolle)
+    d = finden(nr, rolle)
+    ersetzen(d, dict(d, stand="erledigt, greift Lauf %s" % re.sub(r"^\s*Lauf\s*", "", lauf).strip()))
+
 def gruppe(L, besitzer):
     """Zeilenindizes der Zeilen eines Besitzers und Einfügestelle für einen neuen Besitzer (Reihenfolge wie die Liste)."""
     zs = startbar.vorgangsliste("\n".join(L))
@@ -190,10 +201,16 @@ def neu(titel, bereich, kl, besitzer, nr=None, oben=False):
 # 654 (Chef 08.11., 14:42): Wiederholungswächter. Teilt ein neuer Vorgang ein Stichwort mit zwei oder mehr früheren
 # (offen oder im Archiv), legt das Werkzeug eine Zeile „Systemlösung?“ für Sokrates an (Systemrunde montags), je Stichwort eine offene.
 SYSTEM = "Systemlösung?"
-STICHWORTE = ["Schild", "Waffe", "Schwert", "Bogen", "Axt", "Klinge", "Griff", "Halt", "Pfote", "Haar", "Kapuze", "Umhang",
+STICHWORTE = ["Schild", "Waffe", "Bogen", "Axt", "Klinge", "Griff", "Halt", "Pfote", "Haar", "Kapuze", "Umhang",
               "Rüstung", "Fackel", "Schrift", "Kasten", "Fenster", "Knopf", "Menü", "Kamera", "Licht", "Schatten", "Nebel",
               "Wetter", "Wasser", "Teich", "Tür", "Treppe", "Ebene", "Karte", "Kollision", "Drehung", "Parade", "Klang", "Musik",
-              "Speichern", "Zwischensequenz", "Probebild", "Film"]
+              "Speichern", "Probebild", "Film"]
+# 788 (654 A, Chef 09.11., 17:46): Allerweltswörter legen keine Zeile an. Schwert und Zwischensequenz sind gestrichen
+# (763, 707: keine Systemfrage); Wörter mit schon entschiedenem Querschnitt verweisen nur auf ihn (Systemrunde 09.11.).
+QUERSCHNITT = {"Menü": "785", "Knopf": "785", "Fenster": "785", "Kasten": "785", "Schrift": "785",
+               "Klang": "786", "Musik": "786",
+               "Licht": "620.4", "Schatten": "620.4", "Fackel": "620.4", "Kamera": "620.4", "Karte": "620.4",
+               "Schild": "644", "Waffe": "644", "Film": "511", "Probebild": "511"}
 
 def waechter(nr, titel, bereich):
     def hat(t, w): return re.search(r"(?<![\w])" + w, t, re.I) is not None  # Wortanfang, auch Zusammensetzungen (Schildhöhe)
@@ -206,6 +223,8 @@ def waechter(nr, titel, bereich):
         if not hat(titel, w): continue
         frueher = [n for n, t in titel_alle if hat(t, w)]
         if len(frueher) < 2: continue
+        if w in QUERSCHNITT:
+            print("vorgang.py: Stichwort „%s“ schon in %d Vorgängen; gehört zum Querschnitt %s (654 A), keine neue Zeile" % (w, len(frueher), QUERSCHNITT[w])); continue
         if re.search(re.escape(SYSTEM) + " " + w + r"\b", offen):
             print("vorgang.py: Stichwort „%s“ schon in %d Vorgängen, Zeile „%s %s“ für Sokrates offen (654)" % (w, len(frueher), SYSTEM, w)); continue
         zeige = ", ".join(frueher[-5:]) + (" …" if len(frueher) > 5 else "")
@@ -247,11 +266,13 @@ def ergebnisse(n, text):
         if "Nr." not in kopf: continue
         i_nr = kopf.index("Nr."); i_chef = kopf.index("Chef") if "Chef" in kopf else None
         for _, t in zs:
-            if not re.fullmatch(r"%s\.\d+[a-z]?" % n, t[0]): continue
+            m0 = re.match(r"(%s\.\d+[a-z]?)(?![0-9a-z.])\s*(.*)" % n, t[0])  # 775: auch „269.1 ✓“, „269.3 ✗ → 663“ (t269)
+            if not m0: continue
             erg = fund = None
+            if m0.group(2)[:1] in ("✓", "✗"): erg, fund = m0.group(2)[0], m0.group(2)[1:].strip(" →") or None
             if i_chef is not None and i_chef < len(t) and t[i_chef].strip():
                 c = t[i_chef].strip(); erg = "✓" if c.startswith("✓") else "✗" if c.startswith("✗") else None; fund = c[1:].strip()
-            punkte[t[0]] = [nummern(t[i_nr]) if i_nr < len(t) else [], erg, fund]
+            punkte[m0.group(1)] = [nummern(t[i_nr]) if i_nr < len(t) else [], erg, fund]
     rest = None
     teil = re.split(r"(?m)^## Ergebnis[^\n]*\n", text)
     if len(teil) > 1:
@@ -405,6 +426,7 @@ def haupt(a):
     if b == "setze" and len(a) >= 3: return setzen(a[1], a[2:], rolle)
     if b == "klasse" and len(a) == 3: return klasse(a[1], a[2], rolle)
     if b == "fertig" and len(a) == 2: return fertig(a[1], rolle)
+    if b == "greift" and len(a) == 3: return greift(a[1], a[2], rolle)
     if b == "rang" and len(a) in (3, 4): return rang(a[1], a[2], a[3] if len(a) == 4 else None, rolle)
     if b == "neu" and len(a) >= 5:
         nr = a[a.index("--nr") + 1] if "--nr" in a else None
@@ -415,7 +437,7 @@ def haupt(a):
         if "--mit" in a:
             return build_mit(n, [x for x in re.split(r"[,\s]+", " ".join(a[a.index("--mit") + 1:])) if x])
         return build_abschluss(n, a[a.index("--datei") + 1] if "--datei" in a else None, "--probe" in a)
-    if b in ("stand", "warte", "setze", "klasse", "fertig", "rang", "neu", "build"): print(__doc__); sys.exit(2)
+    if b in ("stand", "warte", "setze", "klasse", "fertig", "greift", "rang", "neu", "build"): print(__doc__); sys.exit(2)
     for nr in a:
         print("== %s" % nr)
         print("\n".join(treffer(nr)) or "nichts gefunden")

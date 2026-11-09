@@ -378,6 +378,16 @@ func kampf(e: Dictionary, mars, treffer_ms := -1) -> void:
 			"DUCKED": _bald(0, func(): effekt("arrow"))               # Rückläufer t58: der Pfeil zischt vorbei
 		return
 	var krit: bool = e.roll != null and e.roll[4] and ((e.roll[0] == "ATTACK" and e.roll[1] == 20) or (e.roll[0] == "BRS" and e.roll.size() > 7 and e.roll[7]))     # 478: auch nach dem BRS
+	# 296.3 (Chef 08.11., 21:28, t270.11: „Feuerpfeil auf den Jungwolf. 0 Lebenspunkte, fällt tot um. Und dann irgendwann kommt ein
+	# Geheul … definitiv so 3 Sekunden zu spät“): wer durch einen Zauber oder einen Zustand fällt, schrie erst mit der Meldung
+	# „bricht zusammen“ (FOE_FALLS), und die spielt der Kampfort erst nach Sturz und Liegen; jetzt schreit er, wenn es ihn trifft
+	# (Zauber: bei der Ankunft, treffer_ms), einmal
+	var stirbt_jetzt: bool = e.damage > 0 and tg != null and tg.monster != null and not tg.fled and int(e.hp.get(tg.id, 1)) <= 0 \
+			and not _tod_gerufen.has(tg.id) and (by == null or by.side != tg.side)
+	var schlag: bool = e.spell == null and by != null and e.roll != null and e.roll[0] in ["ATTACK", "BRS"]     # der Hieb schreit unten
+	if stirbt_jetzt and not schlag:
+		_tod_gerufen[tg.id] = true
+		_bald(maxi(0, treffer_ms) + CRY_MS - LANDS_MS, func(): stimme(art_von(tg.monster), "tod", _elite(tg)))
 	if e.spell != null:
 		if String(e.spell) in ["HEAL", "BLESS"] or (by != null and tg != null and by.side != tg.side):
 			_bald(0, func(): effekt(_fx_klang(String(e.spell), krit)))
@@ -750,11 +760,16 @@ const TIER_WEIT := 6.0                   # HenSound.FAR (Kacheln)
 const TIER_NAH := 1.5                    # HenSound.NEAR
 ## je Tier und Anlass: [Klang, Pegel ganz nah]; „fressen“ mit dem Abstand der Wiederholung (ms), „ruf“ mit der Pause (ms)
 const TIERLAUT := {
+	# 591 (Chef 08.11., 15:41, t269.10: „Huhn gackert kaum, Flattern kaum hörbar … tschack, tschack, tschack … weg“; „Kaninchen nicht
+	# hörbar“): beim Losrennen gackert das Huhn laut und schlaegt dreimal mit den Fluegeln, das zweite Gackern spaeter; das Kaninchen
+	# huscht in vier schnellen Schritten durchs Gras. Die Pegel des alten Spiels (HenSound ALARM_MAX 0,45, FLAP_MAX 0,3) gingen im Godot-
+	# Dorf unter Musik und Umgebung unter. „held“: [Klang, Pegel ganz nah, Tempo, nach s]
 	"huhn": {"fressen": ["hen_scratch", 0.12, 700.0, 1600.0], "anfang": ["hen_cluck", 0.3], "ruf": ["hen_cluck", 0.25, 15000.0, 35000.0],
-		"held": [["hen_alarm", 0.45], ["hen_flap", 0.3]]},
+		"held": [["hen_alarm", 0.85], ["hen_flap", 0.75, 1.0, 0.05], ["hen_flap", 0.7, 1.08, 0.3], ["hen_flap", 0.6, 0.95, 0.55], ["hen_alarm", 0.6, 1.05, 0.9]]},
 	"ziege": {"fressen": ["goat_graze", 0.25, 2500.0, 4500.0], "ruf": ["goat_bleat", 0.4, 20000.0, 45000.0], "held": [["goat_bleat", 0.5]]},
-	# 591: das fliehende Kaninchen huscht hoerbar durchs Gras (Schritt im Gras, hoch und leise); Klopfen bleibt raus
-	"kaninchen": {"fressen": ["rabbit_munch", 0.2, 2500.0, 4000.0], "held": [["step_grass", 0.22, 1.7], ["step_grass", 0.16, 1.9]]},
+	# 591: das fliehende Kaninchen huscht hoerbar durchs Gras (Schritt im Gras, hoch); Klopfen bleibt raus
+	"kaninchen": {"fressen": ["rabbit_munch", 0.2, 2500.0, 4000.0],
+		"held": [["step_grass", 0.7, 1.7], ["step_grass", 0.65, 1.9, 0.12], ["step_grass", 0.6, 1.8, 0.24], ["step_grass", 0.5, 2.0, 0.36]]},
 }
 var _tiere := {}                         # Tier (Knoten) -> {pause, nah, fressen_ms, ruf_ms}
 var _tiere_suche := 0.0
@@ -789,7 +804,9 @@ func _tierlaute(dt_ms: float) -> void:
 		var nah: bool = n.nah_am_held(n.kachel) or n.get("flucht") == true   # 603: Probetier ohne flucht (null)
 		if nah and not st.nah:
 			for l in art.held:
-				effekt(l[0], tier_pegel(d, l[1]), float(l[2]) if l.size() > 2 else 1.0)
+				var nach: float = float(l[3]) if l.size() > 3 else 0.0
+				if nach > 0.0: get_tree().create_timer(nach).timeout.connect(effekt.bind(l[0], tier_pegel(d, l[1]), float(l[2])))
+				else: effekt(l[0], tier_pegel(d, l[1]), float(l[2]) if l.size() > 2 else 1.0)
 		st.nah = nah
 		var pause := String(n.pause)
 		if pause != st.pause:

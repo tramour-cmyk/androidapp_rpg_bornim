@@ -485,6 +485,70 @@ def parse_pruefen(befehl, cwd):
     return None
 
 
+ROT_ZEILE = re.compile(r"^Rot:\s*\S", re.M)
+GITHUB_LAEUFE = "https://api.github.com/repos/tramour-cmyk/androidapp_rpg_bornim/actions/runs"
+
+
+def letzter_lauf(zweig):
+    """748: jüngster abgeschlossener CI-Lauf auf zweig (öffentliches Repo, ohne Anmeldung), sonst None."""
+    import urllib.parse
+    import urllib.request
+    url = GITHUB_LAEUFE + "?" + urllib.parse.urlencode({"branch": zweig, "status": "completed", "per_page": 1})
+    with urllib.request.urlopen(urllib.request.Request(url, headers={"Accept": "application/vnd.github+json"}), timeout=6) as r:
+        laeufe = json.load(r).get("workflow_runs") or []
+    return laeufe[0] if laeufe else None
+
+
+def rot_vorher(befehl, cwd, lauf_holen=letzter_lauf):
+    """748 (D95.1, zu 464): rote Läufe am 08.11. kamen aus Tests, nicht aus Parsefehlern, und kehrten wieder (Atem 453.1
+    dreimal auf drei Zweigen, AUFTRAEGE zweimal, 6236 dreimal in 13 Minuten). Die Tests lokal vor jedem Push laufen zu
+    lassen geht nicht (Schritt „Skripte pruefen“ 9 min nach 30 min Modellbau, Kaufmodelle nur in CI; Hakengrenze 90 s).
+    Darum: ist der letzte abgeschlossene Lauf auf dem Zweig rot, hält ein Push mit CI-Pfaden an, bis einer der neuen
+    Commits die Zeile „Rot: <was scheiterte> – <Ursache, nachgestellt>“ trägt. Grund zum Anhalten oder None."""
+    m = PUSH.search(befehl)
+    if not m:
+        return None
+    vorn = befehl[:m.start()]
+    cds = CD.findall(vorn)
+    wo = m.group(1) or (os.path.join(cwd, os.path.expanduser(cds[-1].strip("\"'"))) if cds else cwd)
+    ziel = CI_ZWEIG.search(m.group(2))
+    if not ziel and len([a for a in m.group(2).split() if not a.startswith("-")]) >= 2:
+        return None  # ausdrücklich ein anderer Zweig (git push origin main)
+    zweig = ziel.group(0).split(":")[-1] if ziel else git("rev-parse", "--abbrev-ref", "HEAD", cwd=wo).stdout.strip()
+    if not CI_ZWEIG.fullmatch(zweig):
+        return None
+    neu_f = COMMIT_F.search(vorn)
+    neu = neu_f or COMMIT.search(vorn)
+    nachricht = neu_f.group(2) if neu_f else (neu.group(1) if neu else "")
+    oben = git("rev-parse", "--verify", "-q", f"origin/{zweig}", cwd=wo).stdout.strip() or \
+        git("merge-base", "origin/main", "HEAD", cwd=wo).stdout.strip()
+    if not oben:
+        return None
+    pfade = git("diff", "--name-only", f"{oben}..HEAD", cwd=wo).stdout.split()
+    if neu:
+        pfade += git("diff", "--name-only", "HEAD", cwd=wo).stdout.split()
+        pfade += git("ls-files", "--others", "--exclude-standard", cwd=wo).stdout.split()
+    alle = nachricht + "\n" + git("log", "--format=%B", f"{oben}..HEAD", cwd=wo).stdout
+    if "[skip ci]" in alle or "[ci skip]" in alle or not any(p.startswith(CI_PFADE) for p in pfade):
+        return None
+    try:
+        lauf = lauf_holen(zweig)
+    except Exception:  # Netz weg: nicht anhalten, sonst steht jeder Push
+        return None
+    if not lauf or lauf.get("conclusion") != "failure":
+        return None
+    sha = lauf.get("head_sha") or ""
+    if sha and git("cat-file", "-e", sha + "^{commit}", cwd=wo).returncode == 0:
+        alle += git("log", "--format=%B", f"{sha}..HEAD", cwd=wo).stdout
+    if ROT_ZEILE.search(alle):
+        return None
+    return (f"748: Push angehalten, der letzte Lauf auf {zweig} ist rot ({lauf.get('html_url', '')}, Stand {sha[:9]}). "
+            "Erst das Protokoll lesen (GitHub-Werkzeug get_job_logs mit run_id und failed_only), die Ursache nachstellen "
+            "(Bekannte Fehler: nie zweimal mit Vermutung bauen), dann in einem der neuen Commits die Zeile "
+            "„Rot: <welcher Test, welche Zeile> – <Ursache, wie nachgestellt>“, dann pushen. Scheitert ein Test, der nicht "
+            "dir gehört: Vorgang an den Besitzer (vorgang.py neu) und die Zeile „Rot: <Test> – fremd, Vorgang <Nr>“.")
+
+
 TEAMZWEIG = re.compile(r"claude/(?:tom|jerry|spike|tuffy)-[\w./-]+")
 ALT_ZEILE = re.compile(r"^Alt:\s*\S", re.M)
 
@@ -814,6 +878,12 @@ def main():
         anhalten(grund)
     try:
         grund = parse_pruefen(roh, cwd)  # 464: vor dem Zählen, ein angehaltener Push ist kein Lauf
+    except (OSError, subprocess.SubprocessError, ValueError):
+        grund = None
+    if grund:
+        anhalten(grund)
+    try:
+        grund = rot_vorher(roh, cwd)  # 748: nach rotem Lauf erst Ursache, dann Push
     except (OSError, subprocess.SubprocessError, ValueError):
         grund = None
     if grund:

@@ -1086,7 +1086,7 @@ func _play_say(e: Dictionary) -> void:
 		_zeigen(e)
 	# 399.3: Klang der Meldung wie MarsSound.kt, der Treffer, wenn er im Bild landet (nur mit dem Autoload Klang der Spielfassung)
 	var klang = get_node_or_null("/root/Klang")
-	if klang != null:
+	if klang != null and not e.get("klang_vorweg", false):     # 296.3: schon mit der Zeile vorweg gespielt
 		klang.kampf(e, mars, lands if lunge_ms > 0 or fx != null else -1)
 	for id in e.hp:
 		if not figures.has(id):
@@ -1186,6 +1186,12 @@ func _todesmeldung_vorweg(e: Dictionary) -> void:
 		if b.has("say") and b.say.get("cue") == "FOE_FALLS" and e.hp.get(b.say.get("target"), 1) <= 0 and not b.say.get("vorweg", false):
 			b.say["vorweg"] = true
 			ui.log_line(b.say.text)
+			# 296.3 (Chef 08.11., 21:28, t270.11: Geheul „3 Sekunden zu spät“): Klang der Zeile (Sturz, Todesschrei) mit ihr, nicht
+			# erst, wenn die Meldung nach dem Liegen dran ist
+			var klang = get_node_or_null("/root/Klang")
+			if klang != null:
+				b.say["klang_vorweg"] = true
+				klang.kampf(b.say, mars)
 	beats_lock.unlock()
 
 

@@ -50,7 +50,8 @@ func _lauf() -> void:
 	pruefe(grimm != null and not grimm.visible and not spiel.leute_liste().has(grimm), "besiegt: Grimmzahn fort")
 	# Huette, Schild, Truhen
 	pruefe(bool(spiel.karte.ausgang(Vector2i(23, 28)).get("verschlossen", false)) and not spiel.karte.begehbar(Vector2i(23, 28)), "Morwens Huette: Tuer (23, 28) verschlossen")
-	pruefe(spiel.gebiet.find_child("Gruppe_haus_23_27", true, false) != null, "Morwens Huette steht (Gruppe_haus_23_27)")
+	pruefe(spiel.gebiet.find_child("Gruppe_haus_22_26", true, false) != null, "Morwens Huette steht (Gruppe_haus_22_26, 664: drei mal drei)")
+	for k in [Vector2i(22, 28), Vector2i(24, 28), Vector2i(22, 26)]: pruefe(not spiel.karte.begehbar(k), "664: Huette drei mal drei, %s nicht begehbar" % k)
 	pruefe(spiel.zeichen_lesbar(Vector2i(3, 19)), "Schild am Weg (3, 19)")
 	var kisten := 0
 	for t in [Vector2i(37, 7), Vector2i(9, 32), Vector2i(39, 31), Vector2i(27, 4)]:
