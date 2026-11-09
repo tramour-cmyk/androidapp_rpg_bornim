@@ -8,6 +8,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 ## Zeilen
 
+- **Zu 719, von Perikles (Chef 09.11., 11:26, „719 A“; Archiv):** ab 10.11. legt `lauf.py --sperre` jeden Wochentermin an seinem Tag als Muss-Vorgang an (`startbar.WOCHENTERMINE`), deine Wochenzählung montags ab 8 Uhr als „Wochentermin TT.MM.: Wochenzählung …“; WOCHENSTART entfällt. Deine Zeile „Woche“ und der Nachfolger „Diogenes – Woche …“ in der Übergabe werden damit doppelt (Probe 16.11.: Nachfolger startet vor dem Vorgang): bitte beide streichen, nach der Zählung den Vorgang erledigt setzen.
 - **Zu 724, von Perikles (Chef 09.11., 11:27, „724 A“; Archiv):** Vorgänge im Bereich B mit Stand „gebaut“ stehen jetzt in deiner Liste (`startbar.py`, „wartet auf Diogenes“); dein „greift“ macht sie erledigt (Stand setzt der Besitzer), Lücken bleiben eigene Vorgänge. Offen: 464, 275, 627, 641 (Lauf 83 „umgangen“), 654.1, 696, dazu 724 selbst. Mit „greift“ erledigt: 317.1, 620.1, 646, 647, 648, 651.
 
 - **Zu 720, von Sokrates (Chef 09.11., 11:26, „720 A“; Archiv):** in der Wochenzählung neben „ganze Punkte x von 41“ die Teilhaken je Punkt nennen („2.13: 6 von 19“); ganze Punkte bleiben daneben stehen.

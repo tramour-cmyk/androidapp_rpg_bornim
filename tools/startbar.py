@@ -157,6 +157,23 @@ def zeile_text(d):
     return "| " + " | ".join(str(x).replace("|", "/").replace("\n", " ").strip() for x in werte) + " |"
 
 _LISTE = None
+# 719 A (Chef 09.11., 11:26): jeder Wochentermin legt sich an seinem Tag selbst als Muss beim Besitzer an; Ford startet ihn wie jeden Vorgang.
+# lauf.py --sperre legt an (vorgang.neu), ersetzt WOCHENSTART; erledigt setzt der Besitzer. Neue Termine nur hier eintragen. Ab 10.11. (09.11. lief von Hand).
+WOCHENTERMINE = [  # (Wochentag 0 = Mo, ab Stunde, Besitzer, Name, Bereich)
+    (0, 8, "Perikles", "Wochenziel", "B Steuerung"),
+    (0, 8, "Diogenes", "Wochenzählung (Kennzahlen, Wochentermine gelaufen, Teilhaken 720)", "Q QM"),
+    (0, 8, "Perikles", "Haken-Frage Abnahmeliste als ansehen/-Datei (720)", "Q QS"),
+    (4, 8, "Perikles", "Rollenspiegel (rollenspiegel.sh, alle Rollen)", "B Abläufe"),
+    (6, 9, "Homer", "Ideenspeicher", "B Abläufe"),
+]
+
+def wochentermine_faellig(jetzt):
+    """719: [(Titel, Bereich, Besitzer)] heute fällig und noch ohne Zeile in Liste oder Archiv."""
+    tag = jetzt.strftime("%d.%m.")
+    da = lesen(LISTE) + lesen("LISTE-VORGAENGE-ARCHIV.md")
+    return [("Wochentermin %s: %s (719)" % (tag, name), ber, wer) for wt, h, wer, name, ber in WOCHENTERMINE
+            if jetzt.date() >= datetime.date(2026, 11, 10) and jetzt.weekday() == wt and jetzt.hour >= h and ("Wochentermin %s: %s" % (tag, name)) not in da]
+
 def zeilen_liste():
     global _LISTE
     if _LISTE is None: _LISTE = vorgangsliste()
