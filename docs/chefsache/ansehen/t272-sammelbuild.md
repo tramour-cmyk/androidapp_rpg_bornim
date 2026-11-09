@@ -9,7 +9,7 @@ Verglichen: Platzwahl (700, vom Chef 08.11., 21:50 abgenommen) und Gegenstandsfe
 
 | # | Team | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|---|
-| 272.1 | Tom | 700 | „Neues Spiel“, wenn alle Spielstand-Plätze belegt sind | jeder Platz eine Zeile über die ganze Breite mit „›“, ohne Rahmen; beim Drücken dunkel, gewählt erst beim Loslassen | Rahmen um jeden Platz |
+| 272.1 | Tom | 700 | Testschalter „Erschaffung BRS“ aus; „Neues Spiel“, wenn alle Spielstand-Plätze belegt sind | jeder Platz eine Zeile über die ganze Breite mit „›“, ohne Rahmen; beim Drücken dunkel, gewählt erst beim Loslassen | Rahmen um jeden Platz |
 | 272.2 | Tom | 656 | Kämpfer mit Umhang wählen, im Drehteller einmal ganz drehen; später im Kampf von hinten ansehen | Umhang hängt glatt von den Schultern, keine Beule unter dem Schwertarm, auch gedreht und im Kampf | Beule unter dem Arm, „Känguru“ |
 
 ## B · Dorf und Tasche
@@ -17,7 +17,7 @@ Verglichen: Platzwahl (700, vom Chef 08.11., 21:50 abgenommen) und Gegenstandsfe
 | # | Team | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|---|
 | 272.3 | Tom | 701 | in der Tasche ein Stück antippen, dessen Bonus über der Obergrenze liegt (wie dein Foto t270.5) | der Hinweis „wirkt nicht (Obergrenze)“ steht einmal an der Bonuszeile; die Tabelle zeigt nur Werte, die sich ändern | Hinweis unter jedem der sechs Attribute |
-| 272.4 | Tom | 701 | dasselbe im Laden beim Händler ansehen | einmal die Sammelzeile „Alle Attribute: Bonus wirkt nicht …“ | Hinweis je Wert oder gar keiner |
+| 272.4 | Tom | 701 | dasselbe im Laden beim Händler ansehen | einmal die Sammelzeile „Alle Attribute: Bonus wirkt nicht, Obergrenze für dieses Kapitel erreicht“ | Hinweis je Wert oder gar keiner |
 
 ## C · Tiefer Flüsterwald
 
@@ -29,8 +29,10 @@ Verglichen: Platzwahl (700, vom Chef 08.11., 21:50 abgenommen) und Gegenstandsfe
 
 | # | Team | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|---|
-| 272.6 | Jerry | 717 | Wölfe, mehrere Runden; nach jedem Angriff eines Gegners hinsehen | er setzt ein bis zwei Schritte rückwärts ab oder bleibt stehen, Gesicht zum Helden; zurück in die Reihe nur mit eigenem Zug; Rücken nur auf der Flucht | dreht dem Helden den Rücken zu, läuft eine Kurve heim |
+| 272.6 | Jerry | 717 | „Kampf beschwören“ → „Wolfsrudel“, mehrere Runden; nach jedem Angriff eines Gegners hinsehen | er setzt ein bis zwei Schritte rückwärts ab oder bleibt stehen, Gesicht zum Helden; zurück in die Reihe erst, wenn ein Gegner wieder angreift, nie mitten in deinem Zug; Rücken nur auf der Flucht | dreht dem Helden den Rücken zu, läuft eine Kurve heim |
 | 272.7 | Jerry | 682 | dieselben Kämpfe, auf die Wege achten | Gegner laufen in weichen Bögen; der Held geht zügig zum Angriff; kein Warten auf Hin- und Herlaufen nach Fehlschlägen | eckige Bahnen wie auf Schienen; langes Gleiten |
 | 272.8 | Jerry | 717.1 | sobald du am Zug bist, sofort einen Knopf wählen | Knöpfe kommen sofort; Gegner dürfen ihr Zurechtrücken während deines Zugs beenden; du wartest nur auf dein eigenes Ziel | erst warten, bis alle Gegner fertig gerückt sind |
-| 272.9 | Jerry | 778 | Kleriker gegen Wölfe | kein Wolf steht im anderen; kein Wolf gleitet über den Boden | Wölfe ineinander oder rutschend |
-| 272.10 | Jerry | 702 | Wölfe, bis einer den Helden anspringt; dann deinen Zug ansehen | der Held steht auf und greift im selben Zug an (nur Ausweichen geht dann nicht); der Sprung macht Schaden; nie „Zug verloren“ | Held verliert den Zug, Rudel hält ihn fest |
+| 272.9 | Jerry | 778 | „MARS-Probekampf“, Gegner „Wolfsrudel“, „Starten als:“ Kleriker | kein Wolf steht im anderen; kein Wolf gleitet über den Boden | Wölfe ineinander oder rutschend |
+| 272.10 | Jerry | 702 | „Wolfsrudel“, bis einer den Helden anspringt; dann deinen Zug ansehen | der Held steht auf und greift im selben Zug an (nur „Wechsel“ ist dann matt); der Sprung macht Schaden; nie „Zug verloren“ | Held verliert den Zug, Rudel hält ihn fest |
+
+Bekannt: die Platzwahl der BRS-Erschaffung (Testschalter an) hat noch Rahmen; nur die alte Erschaffung ist umgestellt. Aus 751 (Knopfleiste „…“) fährt ein Teil mit (Wartezeit je Biss nach der wirklichen Dauer), 751 selbst ist bei Jerry noch offen.
