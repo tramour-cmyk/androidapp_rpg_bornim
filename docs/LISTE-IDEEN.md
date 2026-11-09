@@ -26,6 +26,8 @@ Zuletzt verworfen (Chef 09.11., 11:21, 743 „alle verwerfen“): Spiel-Engine G
 
 ## E Entwicklung
 
+- **Eigener Name für Fertigkeit 100 ohne Boni** (Chef 09.11., 20:43, an Sokrates, zu 762: „was hältst du denn für die Idee, Großmeister? Okay, 75 bis 99. Und wenn einer wirklich die 100 schafft, also 100 netto und nicht 100 durch irgendwelche Gegenstände … oder Ausrüstung … 100 ist halt so ein richtiger Meilenstein. Dass der einen eigenen Namen verdient.“): BRS heute Großmeister 75–100, „bei 100 ist die Fertigkeit fertig“; 100 erst in Kapitel 6–7 erreichbar (BRS Kapiteltabelle). Sokrates: dafür, aber als Auszeichnung neben dem Rang, nicht als fünfter Rang (Prüfungen und Kapitelgrenzen rechnen mit vier Rängen); Name von Homer (Vorschläge etwa „Vollendet“, „Legende“), Großmeister dann 75–99. Gegen: kein Spieler sieht es vor Kapitel 6. Regel ändert der Chef im BRS, Wortlaut Homer. → Urteil Homer.
+
 ### Welt
 
 - **Begehbare Häuser über mehrere Ebenen, mit Kampf** (Chef 27.10., 12:00, an Sokrates: „dann könnten wir sozusagen auch mit unserem Held ein Abenteuer machen, in einem größeren Haus. Über Etagen. Kämpfen sozusagen.“). Befund Sokrates (376): Kapitel 1 hat keine Ebenen (`LISTE-UMZUG-348.md`); braucht Treppen im Wegenetz, Verdecken der oberen Ebene, MARS auf Ebenen, Story (Homer). Bausatz Medieval Village liefert Treppen und Böden. Nach dem Meilenstein. → **später:** Pro: ein Haus über Ebenen ist ein eigener kleiner Dungeon mitten in der Welt; Contra: Ebenen berühren Wegenetz, Kamera und MARS zugleich. Erst Kapitel 2, zusammen mit 48 (Dungeons), dort ein Ort mit Geschichte (Kulthaus des Grauen Propheten).
