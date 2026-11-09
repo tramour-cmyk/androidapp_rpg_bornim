@@ -139,3 +139,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:09 09.11.: Startsperre 12:09 Start Perikles (von Hand, nachgetragen 13:28)
 - 13:06 09.11.: Startsperre 13:06 Start Diogenes (von Hand, nachgetragen 13:28)
 - 14:07 09.11.: Startsperre 14:07 Start Perikles (Ford, vor dem Start)
+- 14:25 09.11.: Startsperre 14:25 Start Sokrates (Ford, vor dem Start; Neustart 24717bbce)
