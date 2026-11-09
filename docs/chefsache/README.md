@@ -34,7 +34,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 9, Muss 3, startbar 3
+**Homer** – offen 8, Muss 2, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -45,7 +45,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 | 736 | K | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-STIL.md 188–189 (618), 197 (586), 1 | startbar |
 | 746 | K | Von Perikles (743, Chef 09.11., 11:21 „alle verwerfen“): 15 Ideen aus „Verwerfen?“ in LIST | startbar |
-| 761 | M | Glossar MARS: Herkunft nachtragen (Chef 17.10., 22:50: Kriegsgott „stimmt“, Abkürzung „net | startbar |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
 **Tom** – offen 108, Muss 84, startbar 2
