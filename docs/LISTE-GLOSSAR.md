@@ -79,7 +79,7 @@ Namen im Spiel (Völker, Zauber, Monster, Regelwerte) stehen nicht hier, sondern
 | **Kampfort** | wo gekämpft wird | MARS | Bühne | `CLAUDE.md` |
 | **Gefährte**, **Söldner** | Menschen an der Seite des Helden; andere, die mitgehen: **Begleiter** | – | – | `CLAUDE.md` |
 | **Hauptmenü** | erster Schirm mit Auswahl | – | Titelbild | `CLAUDE.md` (292) |
-| **BRS** | Bornimer Rollenspielsystem, unsere Regeln | – → Glossar des Spielsystems | – | `DESIGN-SPIELSYSTEM-2-0-ENTWURF.md` |
+| **BRS** | Bornimer Rollenspielsystem, unsere Regeln | – → Glossar des Spielsystems | – | `DESIGN-BRS.md` |
 
 ## Abkürzungen
 

@@ -4,7 +4,7 @@ Plot, Figuren und Grobzusammenfassungen je Kapitel; die freigegebenen Spieltexte
 
 ## So liest du den Plan
 
-- **Teile:** [Kapitel 1](STORY-PLAN-K1.md) (Ist-Stand aus dem Spiel, Dialoge wortgetreu, Stand `main` 12.10.), [Kapitel 2](STORY-PLAN-K2.md) (Entwurf, mit Karte), [Texte Kapitel 2](STORY-K2-ENTWURF.md) (Entwurf).
+- **Teile:** [Kapitel 1](STORY-PLAN-K1.md) (Ist-Stand aus dem Spiel, Dialoge wortgetreu, Stand `main` 12.10.), [Kapitel 2](kapitel2/STORY-PLAN-K2.md) (Entwurf, mit Karte), [Texte Kapitel 2](kapitel2/STORY-K2-ENTWURF.md) (Entwurf).
 - **Je Kapitel:** Grobzusammenfassung, dann Hauptquests in Spielreihenfolge, dann Nebenquests vom Anschlagbrett.
 - **Je Quest:** Auslöser, Ablauf, Belohnung, Dialoge. Sprecher fett, Erzähltext kursiv. `{name}` ist der Name des Helden.
 - **Anmerkungen des Beraters** stehen gesammelt am Ende des Kapitels, nicht im Text.

@@ -1,6 +1,6 @@
 # Meisterschaften und Ruf, Kapitel 1 (Entwurf)
 
-Entwurf Homer, 01.11.; Vorgang 447.4, Abnahmeliste 3.2 (Meisterschaften; Ablauf wie bei den Pfaden, „Für Tom“ in `STORY-LEHRMEISTER-K1.md`) und 3.3 (Ruf bei den Leuten im Dorf; Preis bei Borin und Händler, eine Auskunft mehr). Quellen: Nachschlagewerk `DESIGN-SPIELSYSTEM-2-0-ENTWURF.md` Abschnitte 6, 9, 11; Storyplan `STORY-PLAN-K1.md` „Nebenquests vom Anschlagbrett“; Kampfaufstellung `godot/kampf/aufruf.gd`. Lehrmeister in `STORY-LEHRMEISTER-K1.md`. Fremd geprüft 01.11.
+Entwurf Homer, 01.11.; Vorgang 447.4, Abnahmeliste 3.2 (Meisterschaften; Ablauf wie bei den Pfaden, „Für Tom“ in `STORY-LEHRMEISTER-K1.md`) und 3.3 (Ruf bei den Leuten im Dorf; Preis bei Borin und Händler, eine Auskunft mehr). Quellen: Nachschlagewerk `DESIGN-BRS.md` Abschnitte 6, 9, 11; Storyplan `STORY-PLAN-K1.md` „Nebenquests vom Anschlagbrett“; Kampfaufstellung `godot/kampf/aufruf.gd`. Lehrmeister in `STORY-LEHRMEISTER-K1.md`. Fremd geprüft 01.11.
 
 ## Meisterschaften (3.2)
 

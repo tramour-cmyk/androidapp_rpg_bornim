@@ -1,6 +1,6 @@
 # Storyplan Kapitel 2 – Das Graumoor (Entwurf)
 
-Überblick und Lesart: [`STORY-PLAN.md`](STORY-PLAN.md); Texte: [`STORY-K2-ENTWURF.md`](STORY-K2-ENTWURF.md). Aus dem Docs-Dokument umgezogen 19.10. (99g.1).
+Überblick und Lesart: [`STORY-PLAN.md`](../STORY-PLAN.md); Texte: [`STORY-K2-ENTWURF.md`](STORY-K2-ENTWURF.md). Aus dem Docs-Dokument umgezogen 19.10. (99g.1).
 
 Entschieden (13.10.): Mischung, also ein Kult mit weitergegebenem Titel, Ziel ist das Siegel von vor hundert Jahren; am Ende von Kapitel 2 erfährt der Held nur vom Kult. Hier sammeln wir, was Kapitel 1 schon versprochen hat und was die Notizen vorgeben, dann entwickeln wir den Plot im Gespräch.
 

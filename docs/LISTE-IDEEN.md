@@ -126,7 +126,7 @@ Zuletzt verworfen (Chef 09.11., 11:21, 743 „alle verwerfen“): Spiel-Engine G
 
 ### Balance und Attribute
 
-- **48–50 Dungeons, Lehrer, weitere Klassen** (aus dem Vorrat Sokrates, 27.10.): zufallsgenerierte Dungeons und Questhöhlen (48a–48f ja, Archiv bis `f3ec7200`); Lehrer für Waffen-, Rüstungs-, Rettungswurf-Übung und Talente; weitere Klassen, ggf. zum Kauf (`DESIGN-HELDENBAU.md`). → **später:** nach dem Meilenstein Kapitel 1.
+- **48–50 Dungeons, Lehrer, weitere Klassen** (aus dem Vorrat Sokrates, 27.10.): zufallsgenerierte Dungeons und Questhöhlen (48a–48f ja, Archiv bis `f3ec7200`); Lehrer für Waffen-, Rüstungs-, Rettungswurf-Übung und Talente; weitere Klassen, ggf. zum Kauf (`alt/DESIGN-HELDENBAU.md`). → **später:** nach dem Meilenstein Kapitel 1.
 
 - **Charisma, Gesprächsoptionen:** „Überreden“ oder „Einschüchtern“ bei Wachen, Händlern, Bösewichten, wenn es zur Geschichte passt. → **später:** Vorschlag mit 133 (Vorrat Homer), gebaut in Kapitel 2.
 - **Charisma, Auftreten auf der Karte:** Wanderer und schwächere Monster weichen einem einschüchternden Helden aus. → **später:** nach dem Meilenstein; verschiebt sonst die Messung 38.

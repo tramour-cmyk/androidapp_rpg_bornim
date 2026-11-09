@@ -8,7 +8,7 @@ Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 4
 
 ## Abnahmeliste Kapitel 1 (418, abgenommen vom Chef 01.11., 09:43; in Stufen seit 447, 01.11.; 418 Umfang A gilt nicht mehr)
 
-**Wie du die Verweise findest** (484): „E 7“ = Entscheidung 7 in der Liste [Entscheidungen zum Spielsystem](DESIGN-SPIELSYSTEM-2-0.md); „NW 5“ = Abschnitt 5 im [Regelwerk des Bornimer Rollenspielsystems](DESIGN-SPIELSYSTEM-2-0-ENTWURF.md) (Datei heißt noch „Entwurf“, gilt aber; E 84); eine Zahl ohne Buchstaben ist ein Vorgang. Gilt nur, was entschieden ist; neue Entscheidungen gehen hier ein. Alle Zahlen sind Startwerte; abhakbar mit Zahlen erst nach der Rechensimulation (444). Termine gibt es keine; Wochenziele nennen Reihenfolge und Schätzung, keine Tage je Punkt. Alte Kurzzeichen (T1 … S1, bis 01.11.): Git, Stand vor „Perikles: 447.1“.
+**Wie du die Verweise findest** (484): „E 7“ = Entscheidung 7 in der Liste [Entscheidungen zum Spielsystem](DESIGN-SPIELSYSTEM-2-0.md); „NW 5“ = Abschnitt 5 im [Regelwerk des Bornimer Rollenspielsystems](DESIGN-BRS.md) (E 84); eine Zahl ohne Buchstaben ist ein Vorgang. Gilt nur, was entschieden ist; neue Entscheidungen gehen hier ein. Alle Zahlen sind Startwerte; abhakbar mit Zahlen erst nach der Rechensimulation (444). Termine gibt es keine; Wochenziele nennen Reihenfolge und Schätzung, keine Tage je Punkt. Alte Kurzzeichen (T1 … S1, bis 01.11.): Git, Stand vor „Perikles: 447.1“.
 
 **Stufe 1 · Kern spielbar** (Prüfung: Rechensimulation 444 abgenommen; der Chef spielt Dorf und Wald an)
 - [x] **1.1** G · Ohne Klassen (E 1): Erschaffung mit sechs Grundwerten ab 1, 21 Punkte, jeder Wert 3 bis 8 (E 77); fünf Völker mit Bonus, Malus und Merkmal, Volk hebt bis 9, nie unter 3 (E 70, 72, 78); Herkunft freiwillig oder Wanderer, Startfertigkeiten bei 10 (E 68, 69; NW 2). Ins Spiel erst mit 2.3; bis dahin im Testmenü zu sehen (470a: „C“, aber der Rechenkern des Kampfs ist mit 3–4 Sitzungen über 2 geschätzt, darum gilt B). · Stand: abgenommen (720, Chef 09.11., 14:49)
@@ -137,7 +137,7 @@ Quelle: der alte Kotlin-Code (`core`, `app`), abgeglichen mit `LISTE-UMZUG-348.m
 
 | Reihenfolge | Vorgang | Wer | fertig, wenn |
 |---|---|---|---|
-| 1 | Build 271 testen ([t271](chefsache/ansehen/t271-sammelbuild.md)), danach `vorgang.py build 271` | du; Tom trägt ein | löst die Sperre 620.1 B (Tom 10, Jerry 7 ungetestete Muss); 656 Umhang und 703 Ausweichen fahren darin |
+| 1 | Build 271 testen (t271, Prüfliste in Git; bestanden 09.11., 14:09), danach `vorgang.py build 271` | du; Tom trägt ein | löst die Sperre 620.1 B (Tom 10, Jerry 7 ungetestete Muss); 656 Umhang und 703 Ausweichen fahren darin |
 | 2 | Bewegung im Kampf: 717, 717.1 (deine „jetzt“ 09.11.), 682 Bögen statt Schienen, 709 Angriffe treffen sichtbar, 562 Angriffsgang, 662 Parade, 593 und 406.2 Ausweichen und Schild, 438 und 642 Wölfe | Jerry | dein Probekampf: flüssig, Treffer am Körper |
 | 3 | Werte und Anzeigen im Kampf: 704, 705 (messen und vorlegen, keine Werte selbst), 702 (Texte 712), 679 Knöpfe fehlen, 595, 616, 532, 536, 296.2, 211.14 | Jerry | wie in der Zeile |
 | 4 | Held: 610 Finger am Stab, 522 Schild fehlt im Spiel, 697 halbtransparent in der Erschaffung, 653 Halt der Waffen | Tom | Held im Kampf und im Dorf ohne diese Fehler |

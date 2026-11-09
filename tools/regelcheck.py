@@ -192,7 +192,7 @@ for p in quellen:
 # 4b. Lizenzhinweis SRD (446; Chef 01.11., 09:41, 413a): alte Namen aus Nachschlagewerk Abschnitt 12 („Alt“) im Godot-Spiel (ohne tests/).
 # Solange einer steht: Meldezeile (kein Fund); fehlt dann der Hinweis „SRD 5.1 · CC BY 4.0“ im Hauptmenü oder README: Fund (Lizenz).
 # Allgemeine Wörter (Schild, Vorteil, Nachteil) sieht die Suche nicht; Monsterwerte und Zaubertexte auch nicht: die prüft ein Mensch vor dem Wegfall.
-nw = os.path.join(DOCS, "DESIGN-SPIELSYSTEM-2-0-ENTWURF.md")
+nw = os.path.join(DOCS, "DESIGN-BRS.md")
 abschnitt = lesen(nw).split("\n## 12. ")[1].split("\n## ")[0] if "\n## 12. " in lesen(nw) else ""
 srd = []
 for z in abschnitt.splitlines():
@@ -203,7 +203,7 @@ for z in abschnitt.splitlines():
         if n and n not in ("Schild", "Vorteil", "Nachteil"): srd.append(n)
 srd_info = None
 if not srd:
-    fund.append("DESIGN-SPIELSYSTEM-2-0-ENTWURF.md: Abschnitt „12. Namen“ ohne Tabelle Alt/Neu, Wächter Lizenzhinweis blind (446)")
+    fund.append("DESIGN-BRS.md: Abschnitt „12. Namen“ ohne Tabelle Alt/Neu, Wächter Lizenzhinweis blind (446)")
 else:
     muster = re.compile(r"(?<!\w)(%s)(?!\w)" % "|".join(map(re.escape, srd)))
     treffer = {}

@@ -1,6 +1,6 @@
 # Chroniken von Bornim
 
-Android-Rollenspiel (Godot; alte Fassung Kotlin), Regeln nach unserem eigenen Bornimer Rollenspielsystem, kurz BRS (451; `DESIGN-SPIELSYSTEM-2-0-ENTWURF.md`); der Hinweis „SRD 5.1 · CC BY 4.0“ bleibt, bis alles SRD-Abgeleitete ersetzt ist. Module: `core` (Regeln, Kampf, Karten, Zeichnung), `app` (Oberfläche), `tools/preview` (Vorschau/Test am Rechner). Notizen unter `docs/` (Inhalt: `docs/README.md`). Vorsilben: ROLLE (wer ich bin), ARBEIT (Vorrat), DESIGN (wie das Spiel sein soll), STORY (Spieltexte), LISTE (Nachschlagen, Handwerk). Firmenhandbuch `docs/FIRMA.md` nur bei Anlass.
+Android-Rollenspiel (Godot; alte Fassung Kotlin), Regeln nach unserem eigenen Bornimer Rollenspielsystem, kurz BRS (451; `DESIGN-BRS.md`); der Hinweis „SRD 5.1 · CC BY 4.0“ bleibt, bis alles SRD-Abgeleitete ersetzt ist. Module: `core` (Regeln, Kampf, Karten, Zeichnung), `app` (Oberfläche), `tools/preview` (Vorschau/Test am Rechner). Notizen unter `docs/` (Inhalt: `docs/README.md`). Vorsilben: ROLLE (wer ich bin), ARBEIT (Vorrat), DESIGN (wie das Spiel sein soll), STORY (Spieltexte), LISTE (Nachschlagen, Handwerk). Firmenhandbuch `docs/FIRMA.md` nur bei Anlass.
 
 ## Wer wir sind
 
