@@ -159,7 +159,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 757 | M | Schenke: neuer Tisch 7/2 (aus 604) wirkt als 1:1-Kopie des Tischs vor der Theke, gleiche S | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
 | 758 | M | Borin sitzt an seinem Tisch wie alt (MapFolk.sits, Sitzposen, Krug statt Hammer); in Godot | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
 
-**Jerry** – offen 71, Muss 63, startbar 2
+**Jerry** – offen 72, Muss 64, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -234,6 +234,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 747 | K | Von Perikles (743, Chef 09.11., 11:21 „alle verwerfen“): Vorgang 24 schließen (Animationen | startbar |
 | 751 | M | Kampf: Knopfleiste des Helden manchmal leer („…“), keine Menüfunktion, auch ohne „ganzer B | Chef (Datei in der Chefsache) |
 | Pflege | K | von Werkzeug (340.3, 09.11.): 17805 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 760 | M | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test |
 
 **Perikles** – offen 27, Muss 13, startbar 1
 
