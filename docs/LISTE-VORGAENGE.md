@@ -204,7 +204,7 @@
 | 620.1 | Wiederholte Funde des Chefs vor Neuem; wenige Muss je Team zugleich (aus 620) | Perikles | M | erledigt | – | – | – | B Abläufe | 4,11 $ |
 | 511 | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele sinnlose und kaputte Filme gemacht?“) · „jetzt“ 03.11., 13:50 | Perikles | M | gebaut, Geprüft an: d6d9eca8c | Diogenes, D75 | – | – | B Werkzeuge | 19,83 $ |
 | 483 | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Marke (Chef 02.11., 19:08) | Perikles | M | gebaut, Geprüft an: 62e922b30 | Diogenes, D75 | – | – | B Werkzeuge | – |
-| 464 | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählung im Tagesbericht (Chef 01.11., 20:4x) | Perikles | M | gebaut, Geprüft an: fcf9ab215 | – | – | – | B Abläufe | – |
+| 464 | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählung im Tagesbericht (Chef 01.11., 20:4x) | Perikles | M | gebaut, Geprüft an: fcf9ab215 | 748, 749 | – | – | B Abläufe | – |
 | 398 | Gegenprobe: Grundsätze aus DESIGN-Dateien, die im Umzug nach Godot fehlen (Chef 28.10., 11:22) | Perikles | M | erledigt | – | – | – | E Technik | 12,07 $ |
 | 383 | Wartewächter und Haken 63 verschärfen (Chef 27.10., 17:53 ja); Sitzungsgröße messen (Sokrates) | Perikles | M | gebaut, Geprüft an: 4e1f16df6 | Sokrates | – | – | B Werkzeuge | 99,45 $ |
 | 275 | Zentrale Vorgangsliste als einzige Quelle (Chef 21.10.; Stufe 1 jetzt, 27.10.) | Perikles | M | gebaut, Geprüft an: e23a4ccb2 | – | – | – | B Werkzeuge | 31,69 $ |
