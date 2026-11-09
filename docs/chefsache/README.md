@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [717](entscheiden/717-ruecken.md) | **Muss** | E Kampf | 09.11., 08:55 | Gegner nach dem Angriff: rückwärts, stehen bleiben oder kurz absetzen | Sokrates |
 | [718](entscheiden/718-probe-rueckbau.md) | **Muss** | B Abläufe | 09.11., 08:53 | Probe mit Enddatum: Rückbau gleich ins Werkzeug | Sokrates |
 | [719](entscheiden/719-wochentermine.md) | **Muss** | B Abläufe | 09.11., 08:53 | Wochentermine selbsttätig in die Vorgangsliste | Sokrates |
 | [720](entscheiden/720-abnahme-zaehlen.md) | **Muss** | Q QM | 09.11., 08:53 | Abnahmeliste: Teilhaken mitzählen, Haken-Frage für Gebautes | Sokrates |
@@ -152,11 +153,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 613.2 | M | Zwischensequenzen: Bewegung sichtbar wie alt (Kerzenflackern, atmendes Licht, Staub im Str | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
 | 713 | K | Von Homer (586.1): Erklärfenster beim Gedrückthalten (menue.gd:1561) noch mit Goldrand und | startbar |
 
-**Jerry** – offen 73, Muss 66, startbar 2
+**Jerry** – offen 73, Muss 66, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 717 | M | Kampf: Gegner zeigt dem Helden nie den Rücken, außer auf der Flucht; nach dem Angriff rück | startbar |
+| 717 | M | Kampf: Gegner zeigt dem Helden nie den Rücken, außer auf der Flucht; nach dem Angriff rück | Chef (Datei in der Chefsache) |
 | 682 | M | Kampf flüssiger: Held geht zügig zum Angriff, Gegner laufen in weichen Bögen statt eckig g | wartet auf Test/Build (gebaut) |
 | 702 | M | Wölfe: Anspringen nimmt dem Helden jeden Zug, Rudel hält ihn dauerhaft fest (Chef t270, 08 | wartet auf Test/Build (gebaut) |
 | 703 | M | Ausweichen: Gegner bleibt am Ausweichplatz statt zurückzutappeln, 703 A (Chef t270.12, 08. | wartet auf Test (Build 271) |
