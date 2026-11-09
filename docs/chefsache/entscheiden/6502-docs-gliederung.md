@@ -1,5 +1,5 @@
 # 650.2 · Notizen: was weg kann, was doppelt ist, welche Gliederung
-Sokrates · 09.11., 19:58 · B Abläufe · aus 650 (Schritt 2 und 3)
+Sokrates · 09.11., 20:04 (Vorlage 19:58, C6 berichtigt) · B Abläufe · aus 650 (Schritt 2 und 3)
 Kurz: 11 Dateien nach alt/ oder kapitel2/, 6 Themen zusammenlegen, Gliederung flach lassen, Inhaltsverzeichnis neu
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/tree/b0cb30363/docs (84 Dateien; je Datei Größe, Anlage, letzte Änderung, Verweise aus Notizen und Werkzeugen, Kopfzeilen gelesen)
@@ -31,7 +31,7 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/tree/b0cb3036
 3. **Alt gegen neu:** `LISTE-UMZUG-348` (54 KB) und `LISTE-ABGLEICH-ALT` (35 KB) prüfen beide die alte Fassung gegen Godot. Abgleich wird die eine Liste je Ort und Figur; vom Umzug bleiben die Grundsätze (Modellregel, Messlatte), Rest nach `alt/`. Gegenprüfung vorher, weil beide Prüfer in 650.1 „Umzug bleibt“ sagten.
 4. **Story-Überblick (Homer):** `STORY-PLAN`, `STORY-ROTER-FADEN`, `STORY-PLAN-K1` (Ist-Stand Kotlin, 12.10.), `STORY-K1-HANDLUNG`, `STORY-CHRONIK-TEXTE-K1`: fünf Dateien für eine Geschichte. Ziel zwei: Überblick aller Kapitel, Handlung Kapitel 1. Texte wortgetreu, nur umziehen.
 5. **Spielerhandbuch (Homer):** Teile 1–3 zu einer Datei; dabei gegen das BRS halten (seit 03.11. nicht nachgezogen, BRS zweimal geändert).
-6. **Spieltexte Kampf (Homer, Jerry):** `STORY-SPIEL` hat 73 KB bei eigener Grenze 15 KB, großteils Kotlin-MARS-Texte vom 19./20.10. Trennen: was Godot nutzt, bleibt; Rest nach `alt/`. `STORY-MENUE` ebenso.
+6. **Spieltexte Kampf (Homer), berichtigt 20:04 nach Rückfrage des Chefs:** `STORY-SPIEL` bleibt ganz; Godot nutzt die Texte (Stichprobe im Code: „entgeht dem Zauber“, „ist gesegnet“, „Zweiter Atem“). Die Grenze „15 KB“ im Kopf ist eine eigene Lesegrenze vom 18.10., keine Technik; sie fällt. Veraltet sind nur SRD-Namen in den Texten (Zweiter Atem, Kleriker, Schurke, Rettungswurf), die das BRS ersetzt (Abschnitt „Ablösung vom SRD“), und Verweise auf Kotlin-Dateien (`Skirmish.kt`). Homer gleicht die Namen ab, Texte bleiben sonst wortgetreu.
 
 Nicht hier, weil 745 sie schon führt: Doppelungen der Regeln (`LISTE-BAUEN-TESTEN` und `LISTE-CHECK-BUILD-TEST`, `ROLLE-PRUEFUNG` und `LISTE-PRUEFUNG`).
 
