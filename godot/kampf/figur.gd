@@ -1283,11 +1283,16 @@ func glide_to(p: Vector3, eigener_zug := false) -> void:
 		return
 	home = p
 	# 717.1 A (F8): ein Gegner rückt erst in seinem eigenen Zug an den neuen Platz (zurueck_in_reihe), nicht mitten im Zug eines anderen
-	if _bleib_717() and not eigener_zug:
+	if _bleib_717() and (not eigener_zug or _platz_besetzt()):
 		platz_neu = true
 		return
 	_dreh_ab()
 	if tween and tween.is_running():
+		# 717 C (wolf_mess_438: Wolf 1 rückte zu seinem alten Platz, im selben Augenblick tauschte Wolf 3 mit ihm, er kam vorn an, sein
+		# neuer Platz war hinten): wer gerade in die Reihe rückt, geht gleich zum neuen Platz
+		if _bleib_717() and gang == "heim" and weg.has("Gehen") and not down:
+			tween.kill()
+			_walk_home()
 		return     # a lunge brings it back to its new home
 	if weg.has("Gehen") and not down:
 		_walk_home()
@@ -1376,7 +1381,15 @@ func _walk_home(skip = null) -> float:
 							and o.strecke_luft(position, via if via != position else home) < own_r():
 						o.platz_neu = true
 						o.zurueck_in_reihe()
-			if g < 0.0 and kampfort.figures.values().any(func(o): return o != self and o.visible and not o.down and o.unterwegs()):
+			# 717 C (wolf_mess_438, Kleriker 41,7 s: beim Platztausch gingen beide zugleich los, das Gesicht zum Helden, und kreuzten sich
+			# 15 cm tief): wer mit mir tauscht und schon geht, geht zuerst
+			var tauscht: bool = _bleib_717() and kampfort.figures.values().any(func(o): return o != self and o.visible and not o.down and o.unterwegs() \
+					and o.gang == "heim" and Vector2(o.home.x - position.x, o.home.z - position.z).length() < 0.6)
+			# (wolf_mess_438, Kleriker 42,2 s: Wolf 3 ging 21 cm an der Bahn des beißenden Wolfs 1 vorbei, der dann genau dorthin absetzte):
+			# solange einer beißt und seine Bahn nah ist, wartet er
+			var beisst_nah: bool = _bleib_717() and g < 0.3 and kampfort.figures.values().any(func(o): return o != self and o.visible and not o.down \
+					and o.unterwegs() and o.gang in ["anlauf", "hieb", "hin"])
+			if (g < 0.0 or tauscht or beisst_nah) and kampfort.figures.values().any(func(o): return o != self and o.visible and not o.down and o.unterwegs()):
 				_warte_n += 1
 				_dreh_ab()
 				tween = create_tween()
@@ -1854,6 +1867,16 @@ func _bleib_717() -> bool:
 	return fighter.monster != null and not flieht
 
 
+## 717 C (wolf_mess_438: beim Platztausch kam der neue Platz des einen einen Zug früher als der des anderen, beide standen auf
+## demselben): solange ein anderer Gegner denselben Platz hat, rückt keiner dorthin; im nächsten Zug der Gegner tauschen beide
+func _platz_besetzt() -> bool:
+	for o in kampfort.figures.values():
+		if o != self and o.fighter.side == fighter.side and not o.down and o.dead_at < 0 and o.visible \
+				and Vector2(o.home.x - home.x, o.home.z - home.z).length() < 0.05:
+			return true
+	return false
+
+
 ## 717 C: steht der Held an [p] frei von allen außer sich und [ziel]?
 func _stand_frei(p: Vector3, ziel) -> bool:
 	for o in kampfort.figures.values():
@@ -1866,7 +1889,7 @@ func _stand_frei(p: Vector3, ziel) -> bool:
 ## bleibt er abgesetzt stehen und greift von dort wieder an (kein langes Rückwärtsgehen, Chef 08:58)
 var platz_neu := false     # 717.1 A: glide_to hat einen neuen Platz vorgemerkt, der Gegner rückt in seinem Zug dorthin
 func zurueck_in_reihe() -> void:
-	if not _bleib_717() or down or not platz_neu or (tween and tween.is_running()):
+	if not _bleib_717() or down or not platz_neu or (tween and tween.is_running()) or _platz_besetzt():
 		return
 	platz_neu = false
 	if Vector2(home.x - position.x, home.z - position.z).length() > 0.12:
@@ -2154,7 +2177,10 @@ func _bite(other, leap: bool, weiter := 0.0) -> int:
 	# 717 C (Chef 09.11., 08:58; F7): nach dem Biss ein bis zwei Schritte rückwärts absetzen und dort stehen; zurück in die Reihe erst mit
 	# dem eigenen Zug (kampfort.gd _play_say, _zurueck_in_reihe)
 	if bleib717:
-		tween.tween_callback(func(): gang = ""; _turn_home())
+		# (wolf_mess_438, Kleriker 41 s: Wolf 3 rückte quer hinter dem beißenden Wolf 1 vorbei, der dann dorthin absetzte): die anderen
+		# kennen den Platz, an dem er abgesetzt stehen wird
+		bahn = [start, ende]
+		tween.tween_callback(func(): gang = ""; bahn = []; _turn_home())
 		busy_ms = int((t_run + bl + t_back + 0.3) * 1000.0)
 		anlauf_ms = int(t_run * 1000.0)
 		return int((t_run + bite[nm][1]) * 1000.0 / 0.42)
@@ -3015,7 +3041,8 @@ func _seg_gap(a: Vector3, b: Vector3, skip = null, rumpf := true) -> float:
 			continue
 		var orte: Array = [Vector3.INF]
 		# wer mit mir den Platz tauscht (sein Ziel ist mein Start), zählt nur, wo er steht: seine Bahn führt durch meinen Platz
-		if o.unterwegs() and Vector2(o.home.x - a.x, o.home.z - a.z).length() > 1.0:
+		# 717 C: ein beißender Tauschpartner (Biss, dann abgesetzt) zählt mit seiner Bahn, er kommt nicht hierher (wolf_mess_438)
+		if o.unterwegs() and (Vector2(o.home.x - a.x, o.home.z - a.z).length() > 1.0 or o.gang != "heim"):
 			orte.append_array(o.bahn_punkte())
 		for at in orte:
 			g = minf(g, o.strecke_luft(a, b, at) - r)
