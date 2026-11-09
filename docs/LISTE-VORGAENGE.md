@@ -114,7 +114,7 @@
 | Pflege | von Werkzeug (340.3, 09.11.): 16691 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
 | 709 | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angreifer prüfen (Chef 08.11., 21:36, über Sokrates) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 562 | MARS: Helden laufen zum Angriff viel zu langsam, zurück gleiten sie flott (Chef 04.11., 17:02, t257 C) | Jerry | M | gebaut, Geprüft an: 61a8ccb0b (Stand wie Lauf 272) | – | claude/tuffy-562-angriffsschritt | – | E Kampf | 17,49 $ |
-| 662 | Kampf (vorher 653): Parade des Helden mit Schild dreht über _face_sanft ohne Pfotenhalt, Skriptfehler „halt“ Nil, gang bleibt „dreh“ (Jerry 08.11., effekt_mess_6235) | Jerry | M | gebaut, Geprüft an: c313712f1 (parade_seite_662) | – | claude/jerry-662-paradeseite | – | E Kampf | 0,98 $ |
+| 662 | Kampf (vorher 653): Parade des Helden mit Schild dreht über _face_sanft ohne Pfotenhalt, Skriptfehler „halt“ Nil, gang bleibt „dreh“ (Jerry 08.11., effekt_mess_6235) | Jerry | M | gebaut, Geprüft an: c313712f1 (parade_seite_662, film_406 MESS mit Kaufmodellen) | – | claude/jerry-662-paradeseite | – | E Kampf | 0,98 $ |
 | 593 | MARS: Ausweichen auch rückwärts als Abwechslung zu links und rechts (Chef 05.11., 19:2x) | Jerry | M | startbar, Fund t270.12 | – | claude/jerry-593-ausweichen | – | E Kampf | – |
 | 406.2 | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) | Jerry | M | startbar, Fund t269.21 | – | – | – | E Kampf | 41,37 $ |
 | 438 | Wölfe im Kampf wirken gleitend: Angriff, Tempo, Vorbeigehen (Film 403, Chef 31.10., 23:31) | Jerry | M | startbar, Fund t269.21 | – | claude/jerry-438-wolf-kampf | – | E Kampf | 124,52 $ |
@@ -180,7 +180,7 @@
 | 770 | Wochentermin 13.11.: Rollenspiegel Jerry (rollenspiegel.sh Jerry) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Jerry | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 784 | Kampf-Sollbild „Wolfsrudel, eine Runde“: wer geht wohin, Höchstdauer je Handlung, Ausweichen bleibt; selbst am Handybild nachspielen, dann Maß für jeden Kampffund (654 A, Chef 09.11., 17:46) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 786 | Klangliste alt gegen neu: je Anlass alt, neu, fehlt (654 A, als Drittes) | Jerry | M | startbar | 784 | – | – | E Klang | – |
-| 801 | Freigabe add_repo für bornim-kaufmodelle in den Sitzungseinstellungen (Zugriffsprüfung lehnte 376.1 ab; Jerry 09.11., 662) | Jerry | M | startbar | Chef | – | – | E Kampf | – |
+| 801 | Freigabe add_repo für bornim-kaufmodelle in den Sitzungseinstellungen (Zugriffsprüfung lehnte 376.1 ab; Jerry 09.11., 662) | Jerry | M | erledigt | – | – | – | E Kampf | – |
 | 802 | Rest 211.14 (Kür, Tuffy): Held und Söldner gehen beim Wechsel statt 0,4 s zu gleiten (figur.gd glide_to ohne Wurzelweg) | Jerry | K | startbar | – | – | – | E Kampf | – |
 | 803 | Rest 211.14 (Kür, Tuffy): Gegner durch Antippen der Figur als Ziel wählen | Jerry | K | startbar | – | – | – | E Kampf | – |
 | 805 | Kampforte neu gestalten mit den Paketen: Gras und Blumen R9, Boden, Licht, Staub, damit es besser ausschaut; Bilder/s nicht unter heute (Chef 09.11., 21:12, über Sokrates) · „jetzt“ 09.11., 21:12 | Jerry | M | startbar | – | – | – | E Kampf | – |
