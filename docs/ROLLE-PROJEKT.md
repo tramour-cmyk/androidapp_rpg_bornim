@@ -91,6 +91,8 @@ Montags meldest du die Zahlen von Diogenes unverändert mit Link: „Zielvereinb
 
 ## Lehren
 
+- Ein „greift“ von Diogenes im Bereich B schließt den Vorgang (724 A); was danach noch zu zählen ist, wird ein eigener Vorgang bei ihm, nicht ein „wartet auf“ an meiner Zeile (09.11., 657: ich setzte „wartet auf t275“, obwohl er „erledigt setzen“ schrieb; Chef 15:28 „ihr arbeitet leicht aneinander vorbei“).
+
 - Regel im Wortlaut des Chefs wörtlich bauen; ein Zweifel wird eine Rückfrage in der Chefsache, keine selbstgebaute Ausnahme (21.10., 261.5: „dann halt weg damit“ mit einer Stunde Wartezeit aus 238 gebaut; Chef 18:47 „trag die Lehre bei Perikles ein“).
 - Regeln ins Werkzeug, nicht ins Gedächtnis (15.10., 81r).
 - Ein Vorrat wird nur so gekürzt, dass jeder offene Fund eine Zeile behält; ein Absatz zu einer erledigten Zeile kann Zurückgestelltes tragen (08.11., 675: vier Chef-Funde aus 416.2, 491, 348.6 ohne Zeile).
