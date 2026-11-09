@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [780](entscheiden/780-unity-ki-klausel.md) | **Muss** | M Veröffentlichung | 09.11., 17:38 | Unity-Lizenz verbietet KI als Verarbeiter: Zustimmung der Händler einholen? | Sokrates |
 | [760](entscheiden/760-anspringen.md) | **Muss** | E Kampf | 09.11., 14:39 | Wolf soll beim Anspringen wirklich springen | Jerry |
 | [751](entscheiden/751-knopfleiste.md) | **Muss** | E Oberfläche | 09.11., 14:37 | Knopfleiste im Zug der Gegner | Jerry |
 | [756](entscheiden/756-merkmale-anzeigen.md) | **Muss** | E Oberfläche | 09.11., 14:28 | Merkmale der Ausrüstung anzeigen: Vorlage jetzt oder nach 644 und 3.5? | Sokrates |
@@ -47,7 +48,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 | 772 | K | D89.2 von Diogenes (über Perikles): Glossar ohne „Vorgang beim Chef“ (480); „steht in“ zei | startbar |
 
-**Tom** – offen 99, Muss 80, startbar 14
+**Tom** – offen 100, Muss 81, startbar 15
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -150,6 +151,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 762 | M | Heldenreiter zeigt die BRS-Fertigkeiten mit Wert, Rang und Fortschritt, damit man sieht, w | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 656 (schwert) |
 | 764 | M | Heldenreiter zeigt aktive Zustände (betrunken usw.) mit Erklärung; Tippen auf die Leiste ö | startbar |
 | 769 | M | Wochentermin 13.11.: Rollenspiegel Tom (rollenspiegel.sh Tom) (719); deckt 02.–13.11., Woc | Termin 13.11. 08:00 |
+| 781 | M | „Über das Spiel“ nennt den MIT-Teil der REEBOO-Pakete (David Hoskins, Hashfunktionen in Gr | startbar |
 
 **Jerry** – offen 72, Muss 66, startbar 8
 
@@ -268,10 +270,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 768 | M | Wochentermin 13.11.: Rollenspiegel Diogenes (rollenspiegel.sh Diogenes) (719); deckt 02.–1 | Termin 13.11. 08:00 |
 | 771 | M | Probe 657 auswerten: Erstfunde des Chefs t272–t275 gegen 11, 11, 9, 7 (von Perikles, Werkz | wartet auf Test t275 (Chef) |
 
-**Sokrates** – offen 58, Muss 34, startbar 33
+**Sokrates** – offen 59, Muss 35, startbar 33
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 780 | M | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für uns | Chef (Datei in der Chefsache) |
 | 623.1 | M | Prüfschema auf bisher geprüfte Quellen anwenden (Chef 07.11., aus 623) | startbar |
 | 620 | M | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build | startbar |
 | 341.1 | M | Zielvereinbarung für alle Rollen: je Rolle höchstens drei Ziele, Z3 und Z4 für alle, eins | startbar |
