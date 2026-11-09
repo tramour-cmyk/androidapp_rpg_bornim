@@ -4,7 +4,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `d61bb45ee` (09.11., 19:08)
 
-**Übergabe (09.11., 18:12):** 788 gebaut (`vorgang.py` Wächter: Schwert, Zwischensequenz gestrichen, Querschnittwörter verweisen auf 785, 786, 620.4, 644, 511), an Diogenes. Nachfolger: keiner (auf Abruf, nichts startbar)
+**Übergabe (09.11., 19:08):** 792 gebaut (`startbar.py` Sperre 779: Allerweltswörter jede, einmal, design, hinweis; Wortteil wie schwert/schwertarm zählt nicht, nur Beugung; Ort wie Schenke bleibt Überschneidung nach 779; 29 → 23 Sperren), an Diogenes. Querschnittwörter aus 788 bewusst nicht übernommen (Menü 764/670 ist echte Überschneidung). Nachfolger: keiner (auf Abruf)
 
 ## Einzelheiten
 
