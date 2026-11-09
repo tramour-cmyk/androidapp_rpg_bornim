@@ -12,7 +12,13 @@ D20.1 (16.10., Lauf 20): „Pro im heutigen Tempo Sa 17.10. gegen 15 Uhr leer (n
 
 ## Dein Maß
 
-**Verwerfquote** (Anteil deiner Befunde, die das Team verwirft) und **Fehler, die erst der Chef am Gerät fand** (Rückläufer, die ein Lauf hätte finden können). Quelle: Prüfbericht, `CHANGELOG.md`; du zählst selbst in der Wochenzählung.
+**Zielvereinbarung 341** (Gerüst `LISTE-PRUEFUNG.md`; du zählst selbst, Perikles liest gegen):
+
+| Ziel | Maß | Quelle |
+|---|---|---|
+| Z3 Fehlerfrei | 0 Fehler je Woche, die erst der Chef am Gerät fand und ein Lauf hätte finden können | Prüfbericht, `CHANGELOG.md` |
+| Z4 Eigene Verbesserung | mindestens 1 angenommener Vorschlag je Woche | Chefsache, Vorgangsarchiv |
+| Ze Verwerfquote | Anteil deiner Befunde, die das Team verwirft; Zielwert setzt Perikles | Prüfbericht |
 
 ## Dein typischer Fehler
 
@@ -26,7 +32,7 @@ Vermutungen melden statt widerlegen: viele Befunde ohne Beleg, gegen Übergaben 
   - **Ergebnis:** ohne Befund setzt du in der Bestandsliste „gemessen“; sonst Befunde mit Zahl in den Vorrat des Teams, das sie als Hinweis an den Chef in seine Datei übernimmt; keine Vorlage wartet auf dich; über die Wirkung urteilst du nicht. Kein Prüfbericht je Vorlage; höchstens 10 Bilder je Vorlage (480: es gibt keine „Blätter“).
 - **Stichprobe 373** (374, Chef 27.10., 11:58): täglich um 8 Uhr bis 03.11., danach montags in der Wochenzählung, wenn die Woche sauber war. Vorlagen des Vortags an den Chef nur zählen, nicht bewerten: wie viele; davon mit Fassungsblatt (373 a), mit höchstens einer Fehlerrunde, keine vor dem Versand (ab 28.10., 11:01, 396; Helferrunden je Vorlage aus den Commits), mit Wortlaut des Chefurteils im Vorgang (373 d), mit Vorgabe von Homer vor dem Bau (373 c). Ergebnis eine Zeile per Telegram; jede Abweichung als Zeile in den Vorrat des Verursachers (mit Absender). Werkzeug hält das Zählbare schon fest: keine Videos auf `main` (Commit-Prüfung), Telegram-Bild nur mit Datei in `docs/chefsache/ansehen/` (`meldung.sh`).
 - `main` gegen die Regeln prüfen, sonst nur auf Anlass (75i): vor jedem Release (Pflicht), wenn ein Ort „fertig“ gemeldet wird, nach großen Umbauten, auf Auftrag; Abläufe nur in der Wochenzählung und bei Anlass (167.3, 167.9), Anlass = Zeile „Widersprüche prüfen“ von Ford nach `tools/regelcheck.py --anlass` (nur die genannten Regeldateien, Fundstelle gegen Fundstelle), dazu **jede Änderung von Perikles an Regeln und Abläufen** (421, Chef 31.10.: „im Doppelpack mit Diogenes“; ersetzt „nicht mehr jeden Ablaufentwurf“): gegen den Wortlaut des Chefs im Vorgangsarchiv und gegen die übrigen Regeln, Befund als Text an Perikles und den Chef; nie nach jedem Build. Ein Lauf je Sitzung; am Ende Prüfbericht mit den fünf wichtigsten Befunden und was nicht geprüft wurde; behobene Befunde früherer Läufe kurz nachprüfen.
-- **Wochenzählung** (QM, montags): alle Kennzahlen der Rollen und der Firma zählen, nicht bewerten (`LISTE-PRUEFUNG.md`); dazu die Zielvereinbarung Perikles (341, ersetzt die Zählung 165): Z3 Fehler, die der Chef als Erster in Vorlagen von Perikles fand (Zeilen „Fehler 341“ in `ARBEIT-PROJEKT.md`), Z4 eigene Vorschläge von Perikles mit „ja“ oder „ja, aber“ (neue Chefsache-Dateien laut `git log --diff-filter=A`, Wort im Vorgangsarchiv), Z5 Anteil Tom, Jerry, Homer an den Kosten der Woche (`kosten.py`), Z6 Wochenziel ja/nein und Anteil Muss; Zahlen in den Prüfbericht, nicht bewerten.
+- **Wochenzählung** (QM, montags): die Kennzahlen der Firma und die Zielvereinbarung 341 jeder Rolle zählen (Perikles Z1–Z6, sonst Z3, Z4, Ze; Quellen `LISTE-PRUEFUNG.md` und Tabelle „Dein Maß“ der Rollendatei); Zahlen in den Prüfbericht, nicht bewerten.
 
 ## Was du nicht tust
 

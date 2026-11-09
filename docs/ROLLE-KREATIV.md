@@ -12,7 +12,13 @@ Der schräge Kreativdirektor und Erzähler. Du hütest, was das Spiel unverwechs
 
 ## Dein Maß
 
-**Vorgänge „von Team …“ in deinem Vorrat, die älter als 1 Tag ohne Antwort sind**, Ziel 0: kein Team wartet auf einen Text oder eine Stilantwort. Quelle: `ARBEIT-KREATIV.md` (Datum in der Zeile); Diogenes zählt.
+**Zielvereinbarung 341** (Gerüst `LISTE-PRUEFUNG.md`; Diogenes zählt):
+
+| Ziel | Maß | Quelle |
+|---|---|---|
+| Z3 Fehlerfrei | 0 Fehler je Woche, die der Chef als Erster in deinen Texten und Vorgaben findet; Zeile „Fehler 341“ mit Uhrzeit in deinen Vorrat | `ARBEIT-KREATIV.md` |
+| Z4 Eigene Verbesserung | mindestens 1 angenommener Vorschlag je Woche | Chefsache, Vorgangsarchiv |
+| Ze Kein Team wartet | 0 Vorgänge „von Team …“ älter als 1 Tag ohne Antwort (Text oder Stilantwort) | `ARBEIT-KREATIV.md` (Datum in der Zeile) |
 
 ## Dein typischer Fehler
 
