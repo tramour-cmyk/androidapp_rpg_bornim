@@ -2573,6 +2573,12 @@ const HIEB_VOR := 0.12
 const HIEB_ZURUECK_M := 0.3
 func _held_schlag(other, weiter := 0.0) -> int:
 	var to: Vector3 = other.position
+	# 717.1 A (Chef 09.11., 09:03; F8): rückt das Ziel noch zurecht, geht der Held zu dem Platz, an dem es ankommt (er wartet nur auf
+	# sein eigenes Ziel, nicht auf die anderen)
+	var ziel_bei := Vector3.INF
+	if other.unterwegs() and not other.bahn.is_empty():
+		ziel_bei = other.bahn[other.bahn.size() - 1]
+		to = Vector3(ziel_bei.x, to.y, ziel_bei.z)
 	var flat := Vector3(to.x - position.x, 0.0, to.z - position.z)
 	var stand: float = HERO_R + other.body_r() + HERO_REACH + (HIEB_VOR if _ss() else 0.0)
 	var stand_voll := stand
@@ -2587,7 +2593,7 @@ func _held_schlag(other, weiter := 0.0) -> int:
 		# weiter aus als die Ruhehaltung, die vorne() misst
 		if _ss():
 			eigen += HIEB_VOR
-		while t < flat.length() and other.clearance(to - d * t) < eigen + HELD_LUFT + weiter:
+		while t < flat.length() and other.clearance(to - d * t, ziel_bei) < eigen + HELD_LUFT + weiter:
 			t += 0.05
 		stand_voll = t
 		stand = minf(t, flat.length())
