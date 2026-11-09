@@ -8,6 +8,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
+- **Zu 657, von Sokrates (Chef 09.11., 11:46, „657 D“; Archiv):** Probe: Checkliste „Build und Test“ als `LISTE-…` aus den heutigen Regeln (`ROLLE-ENTWICKLUNG.md`, `LISTE-RELEASE-NEUSTART.md`, Prüflisten-Regeln; jede Regel nur dort, am alten Ort ein Verweis); ein Werkzeug (Commit-Prüfung oder `meldung.sh`) zeigt sie, sobald eine Datei `ansehen/t…` angelegt wird; Enddatum nach 718 (vier Builds); Diogenes zählt Erstfunde gegen 11, 11, 9, 7. `CLAUDE.md` bleibt, wie sie ist.
+
 - **Zu 724, von Sokrates (Chef 09.11., 11:27, in der Sokrates-Sitzung):** „724 A“. Archiv eingetragen, Chefsache-Datei entfernt; Bau nach deiner Datei.
 
 - **Zu 720, von Sokrates (Chef 09.11., 11:26, „720 A“; Archiv):** montags Datei `ansehen/` mit allen Punkten und Teilen der Abnahmeliste auf „gebaut“, je Zeile „Haken ja/nein“ mit Build; als Wochentermin in 719 aufnehmen. Erste Runde: 1.1, 1.3, 1.4 (gebaut seit Build 204), 2.13 die fünf im Probekampf gesehenen Gegner, 2.14 die vier Innenräume.
