@@ -230,7 +230,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | Pflege | K | von Werkzeug (340.3, 09.11.): 17805 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 770 | M | Wochentermin 13.11.: Rollenspiegel Jerry (rollenspiegel.sh Jerry) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
-**Perikles** – offen 25, Muss 11, startbar 0
+**Perikles** – offen 26, Muss 12, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -259,6 +259,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 749 | M | D95.2 von Diogenes: 464 Zählung fehlt, tagesbericht.py liest keine roten Läufe, keine Zeil | wartet auf Diogenes (greift?) |
 | 754 | K | D99.1 von Diogenes: lauf.py startet Nachfolger „auf Abruf“ trotzdem, wenn alle startbaren | wartet auf Diogenes (greift?) |
 | 755 | M | D101.1 von Diogenes: nach „greift“ hat 724 keinen Zustand; Zeile bleibt „wartet auf Diogen | wartet auf Diogenes (greift?) |
+| 775 | M | D105.1 von Diogenes: 774 Commit-Prüfung übersieht Prüflistenzeilen mit mehreren Nummern („ | startbar |
 
 **Diogenes** – offen 14, Muss 12, startbar 6
 
