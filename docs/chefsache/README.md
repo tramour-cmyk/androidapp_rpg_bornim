@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [750](entscheiden/750-ford-ohne-lauf.md) | **Muss** | B Werkzeuge | 09.11., 13:30 | Sokrates | Ford startet ohne `lauf.py`: Sperre per Haken |
 | [745](entscheiden/745-regelwerk-konsolidieren.md) | **Muss** | B Abläufe | 09.11., 12:01 | Regelwerk konsolidieren, parallel zur Probe 657 D | Sokrates |
 
 ## Zu billigen
@@ -296,7 +297,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
 | 644.5 | M | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noc | wartet auf 644.1 (ruht) |
 
-**Sokrates** – offen 59, Muss 34, startbar 38
+**Sokrates** – offen 60, Muss 35, startbar 38
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -359,6 +360,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 584 | K | Kein halbfetter Schnitt: Köpfe und Titel in Erschaffung, Held, Chronik, Karte, System, Bre | startbar |
 | 477 | K | Godot-APKs laufen nicht im MuMu Player am Rechner (Chef 02.11., 14:59) (für Tom) | startbar |
 | 745 | M | Regelwerk konsolidieren: Widersprüche listen (Diogenes), Chef entscheidet, jede Regel an e | Chef (Datei in der Chefsache) |
+| 750 | M | Ford startet ohne lauf.py (seit Selbstneustart 01:05 startbar.py plus create_session von H | Chef (Datei in der Chefsache) |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
