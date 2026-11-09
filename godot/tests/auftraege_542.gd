@@ -72,6 +72,11 @@ func _lauf() -> void:
 			if vor.x < 0 and k.zeichen(Vector2i(x, y)) == "I" and k.begehbar(Vector2i(x, y + 1)): vor = Vector2i(x, y + 1)
 	pruefe("Stein mit freiem Feld davor", vor.x >= 0, true)
 	if vor.x >= 0:
+		# Lauf 310: ein Wolf der Herde stand zufällig neben dem Stein, der Knopf hieß „FIGHT“; die Herde hier räumen
+		if spiel.herde != null:
+			spiel.herde.aus = true
+			for s in spiel.herde.liste: s.queue_free()
+			spiel.herde.liste.clear()
 		spiel.held.setze(vor, "UP")
 		spiel.held.rotation.y = PI
 		pruefe("Knopf am Stein", spiel.angebot(vor)[0], "LOOK")
