@@ -8,8 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [758](entscheiden/758-sitzen.md) | **Muss** | E Welt | 09.11., 20:26 | neues Merkmal „sitzt“ für jede Person, Borin als Erster; Krug auf den Tisch | Tom |
-| [650.2](entscheiden/6502-docs-gliederung.md) | **Muss** | B Abläufe | 09.11., 20:24 | 14 Dateien nach alt/ oder kapitel2/, 6 Themen zusammenlegen, Gliederung flach lassen, Inhaltsverzeichnis neu | Sokrates |
+| [650.2](entscheiden/6502-docs-gliederung.md) | **Muss** | B Abläufe | 09.11., 20:38 | 14 Dateien nach alt/ oder kapitel2/, 6 Themen zusammenlegen, Gliederung flach lassen, Inhaltsverzeichnis neu | Sokrates |
 
 ## Zu billigen
 
@@ -17,7 +16,7 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [341.1](billigen/3411-ziele-alle-rollen.md) | **Muss** | B Abläufe | 09.11., 18:22 | Ziele für alle Rollen; Teams messen sich an einem Haken der Abnahmeliste je Woche | Sokrates |
+| [341.1](billigen/3411-ziele-alle-rollen.md) | **Muss** | B Abläufe | 09.11., 20:38 | Ziele für alle Rollen; Teams messen sich an einem Haken der Abnahmeliste je Woche | Sokrates |
 
 ## Anzusehen
 
@@ -160,7 +159,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 713 | K | Von Homer (586.1): Erklärfenster beim Gedrückthalten (menue.gd:1561) noch mit Goldrand und | ruht |
 | 753 | M | Blende nach der Rast: „8 Stunden vergehen“ klein und futzelig, nicht im neuen Design (Chef | wartet auf Test/Build (gebaut) |
 | 757 | M | Schenke: neuer Tisch 7/2 (aus 604) wirkt als 1:1-Kopie des Tischs vor der Theke, gleiche S | Sperre 620.1 B: 16 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 543 (schenke) |
-| 758 | M | Borin sitzt an seinem Tisch wie alt (MapFolk.sits, Sitzposen, Krug statt Hammer); in Godot | Chef (Datei in der Chefsache) |
+| 758 | M | Borin soll in der Schenke am Tisch sitzen wie in der alten Fassung, nicht seitlich daneben | Sperre 620.1 B: 16 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 670 (alten) |
 | 762 | M | Heldenreiter zeigt die BRS-Fertigkeiten mit Wert, Rang und Fortschritt, damit man sieht, w | Chef (Datei in der Chefsache) |
 | 764 | M | Heldenreiter zeigt aktive Zustände (betrunken usw.) mit Erklärung; Tippen auf die Leiste ö | Sperre 620.1 B: 16 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 670 (menu) |
 | 769 | M | Wochentermin 13.11.: Rollenspiegel Tom (rollenspiegel.sh Tom) (719); deckt 02.–13.11., Woc | Termin 13.11. 08:00 |
@@ -249,7 +248,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 786 | M | Klangliste alt gegen neu: je Anlass alt, neu, fehlt (654 A, als Drittes) | wartet auf 784 (startbar) |
 | Pflege | K | von Werkzeug (340.3, 09.11.): 17083 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 22, Muss 8, startbar 3
+**Perikles** – offen 23, Muss 9, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -274,6 +273,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 735 | K | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-ABNAHME.md 11 und Kopf DESIGN-KAMPF | ruht |
 | 742 | K | D78.1 Testbitte t268: Zeile „Verglichen“ deckte nur die Schirme vom 05.11., nicht Dorf, Ka | ruht |
 | 797 | M | Von Tom (506): Auto-Modus lehnt add_repo trotz 708 ab, Chef musste 20:15 erneut erlauben; | startbar |
+| 799 | M | Übersicht meldet Vorlagen in entscheiden/ und billigen/ ohne Aufbau 364 (Zeile 1 keine Fra | startbar |
 | 739 | K | D84.1 die sechs wiederholten Funde aus t268 mit „wiederholt“ im Titel nachziehen (620.1 A; | startbar |
 
 **Diogenes** – offen 9, Muss 8, startbar 0
