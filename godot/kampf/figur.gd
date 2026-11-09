@@ -3170,6 +3170,11 @@ func dodge(after_ms: int, nm := "") -> void:
 	# Kaufwolf (Chef 27.10., 21:51, Archiv: „Ausweichen-Bewegung war am Platz und ohne Ortswechsel … grundsätzlich wie bei der
 	# Ratte“; der Kauf hat keine Ausweichbewegung): ein Satz im Lauf zur freieren Seite (Ausweichen) oder schräg zurück (Ausweichen
 	# zurück), Pfad wie der Heimweg (Dubins, Radius halb), dann heim
+	# 717 (Chef 09.11., 08:51: „ansonsten weicht es zurück und das macht es rückwärts … rückwärts springen, ist mir völlig wurscht“;
+	# F7): der Satz im Lauf zur Seite drehte dem Helden den Rücken zu (kurven_682: 0,2–0,9 s je Kampf). Ohne eigene Ausweichbewegung
+	# weicht er jetzt rasch rückwärts aus, gerade oder schräg zurück, wo Platz ist; der Satz im Lauf nur noch, wenn hinten keiner frei ist
+	if weg.has("Rennen") and weg.has("Gehen") and not down and not lunging() and not flieht and _ausweichen_rueckwaerts():
+		return
 	if weg.has("Rennen") and not down and not lunging():
 		if nm == "":
 			nm = "Ausweichen zurück" if randf() < 0.5 else "Ausweichen"
@@ -3294,6 +3299,39 @@ func _absetzen_rasch() -> bool:
 	_lauf(tween, position, zurueck, rn, k)
 	tween.tween_callback(_nach_ausweichen)
 	return true
+
+
+## 717: rasch rückwärts ausweichen (AUSWEICH_RUECK_M), das Gesicht zum Helden, gerade, schräg oder seitlich zurück, je nachdem wo der
+## Rumpf frei bleibt und die Figur im Bild; danach bleibt er dort (703 A, _nach_ausweichen); false, wenn nirgends Platz ist
+const AUSWEICH_RUECK_M := 1.0      # Modellmeter (× Größe): so weit zurück wie der alte Satz zur Seite in der Breite
+const AUSWEICH_SATZ_TEMPO := 2.4   # × Gehen rückwärts: Schrittfolge im Satz
+const AUSWEICH_SATZ_MPS := 3.4     # m/s im Mittel, über SATZ_MPS 3,0 (546: „Schlaftabletten“)
+func _ausweichen_rueckwaerts() -> bool:
+	var g0 := minf(_rumpf_luft(position, rotation.y), PLATZ_LUFT)
+	var fz := Vector3(basis.z.x, 0.0, basis.z.z).normalized()
+	var blick := Vector3(sin(rotation.y), 0.0, cos(rotation.y))
+	var weit := AUSWEICH_RUECK_M * _scale()
+	var seiten: Array = [0.0, 35.0, -35.0, 60.0, -60.0] if (ausweich_nr + hash(String(fighter.id))) % 2 == 0 else [0.0, -35.0, 35.0, -60.0, 60.0]
+	for w in seiten:
+		var ziel := position - fz.rotated(Vector3.UP, deg_to_rad(w)) * weit
+		var frei := true
+		for i in range(1, 6):
+			var p := position.lerp(ziel, i / 5.0)
+			if _rumpf_luft(p, rotation.y) < g0 or not _im_bild(p, blick):
+				frei = false
+				break
+		if not frei:
+			continue
+		bahn = [ziel]
+		tween = create_tween()
+		tween.tween_callback(func(): anim.play("Gehen", 0.08, -float(tempo.get("Gehen", 1.0)) * AUSWEICH_SATZ_TEMPO))
+		# ein Satz: rasch los, sanft auslaufen (_lauf fuhr gleichmäßig an und brauchte 0,73 s für 1,3 m)
+		tween.tween_property(self, "position", ziel, weit / AUSWEICH_SATZ_MPS).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+		tween.tween_callback(_nach_ausweichen)
+		if OS.get_environment("SCHAU_MESS") != "":
+			print("Ausweichen %s rückwärts %.0f°, %.2f m" % [fighter.id, w, weit])
+		return true
+	return false
 
 
 ## Satz beim Ausweichen ohne Wurzelweg der Quelle (Modellmeter, Grad): zur Seite (seitlich, zurück), schräg zurück (seitlich, zurück),
