@@ -363,14 +363,65 @@ func fertigkeiten_reiter() -> void:
 		var rest := alle.filter(func(n): return not f.has(n) and not nein.has(n))
 		if hat.is_empty() and rest.is_empty(): continue
 		if not erst:   # 549a: Zwischenueberschriften durch eine schlichte Linie getrennt
-			luecke(6); inhalt.add_child(Spielstaende.linie()); luecke(6)
+			luecke(2); inhalt.add_child(Spielstaende.linie()); luecke(2)
 		erst = false
-		zeile(ErschaffungBrs.tx(ErschaffungBrs.GRUPPE.get(gr, {"de": gr, "en": gr})).to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))   # MenuHead
-		luecke(4)
+		var offen := gruppe_offen(gr, not hat.is_empty())
+		inhalt.add_child(gruppen_kopf(gr, hat.size(), hat.size() + rest.size(), offen))
+		if not offen: continue
+		luecke(2)
 		for n in _nach_wert(hat): fertigkeit_zeile(String(n), int(hat[n]))
 		if not rest.is_empty():
 			var m := zeile(", ".join(rest.map(func(n): return ErschaffungBrs.fert_name(String(n)))), 14, Stil.DIM)
 			m.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		luecke(6)
+
+## 762 (Chef 21:25 Idee, 21:33 „Ja.“, Votum Sokrates): Gruppen ein- und aufklappbar; ohne Umklappen offen, wer schon etwas kann,
+## zu, wer nichts kann; was der Spieler umklappt, bleibt gemerkt (Bedienung, ueber Neustarts)
+static func gruppe_offen(gr: String, vorgabe: bool) -> bool:
+	Bedienung.lade()
+	return bool(Bedienung.fert_gruppen.get(gr, vorgabe))
+
+func klappe_gruppe(gr: String, offen: bool) -> void:
+	Bedienung.fert_gruppen[gr] = not offen
+	Bedienung.speichere()
+	baue()
+
+## Kopf einer Gruppe als ganze Zeile zum Antippen (48 dp): Name in Goldversalien, rechts „geuebt/alle“ matt und der Winkel wie bei
+## den Lizenzen (585): zu nach rechts, offen nach unten
+func gruppen_kopf(gr: String, geuebt: int, alle: int, offen: bool) -> Control:
+	var h := HBoxContainer.new()
+	h.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	h.custom_minimum_size.y = 48 * DP
+	h.add_theme_constant_override("separation", int(10 * DP))
+	var l := Erschaffung.txt(ErschaffungBrs.tx(ErschaffungBrs.GRUPPE.get(gr, {"de": gr, "en": gr})).to_upper(), 14, Stil.GOLD)
+	l.add_theme_font_override("font", Stil.variante(3.0))   # MenuHead
+	l.autowrap_mode = TextServer.AUTOWRAP_OFF
+	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	l.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	h.add_child(l)
+	var a := Erschaffung.txt("%d/%d" % [geuebt, alle], 14, Stil.GOLD if geuebt > 0 else Stil.DIM)
+	a.autowrap_mode = TextServer.AUTOWRAP_OFF
+	a.size_flags_horizontal = Control.SIZE_SHRINK_END
+	a.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	a.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	h.add_child(a)
+	# der Winkel in einer Huelle ohne Container: HBoxContainer setzt die Drehung seiner Kinder beim Anordnen auf 0 zurueck
+	var pf := Spielstaende.pfeil(Stil.GOLD, false)
+	pf.name = "Winkel"
+	var hl := Control.new()
+	hl.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	hl.custom_minimum_size = Vector2(16 * DP, 16 * DP)
+	hl.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	pf.size = pf.custom_minimum_size
+	pf.pivot_offset = pf.size / 2
+	pf.position = (hl.custom_minimum_size - pf.size) / 2
+	pf.rotation = PI / 2 if offen else 0.0
+	hl.add_child(pf)
+	h.add_child(hl)
+	var k := Spielstaende.tippbar(h, func(): klappe_gruppe(gr, offen))
+	k.name = "Gruppe_" + gr
+	return k
 
 # ConfirmDialog „Punkte verteilen?“: je Attribut alt → neu, „Das kann nicht rückgängig gemacht werden.“
 # Perks.describe (Ausfuhr held.json „erklaerung“): Wert und Modifikator, die Zeile der Klasse, dann was der Modifikator bringt

@@ -1,6 +1,6 @@
 extends SceneTree
 # 762 Probe mit Bild am Rechner (nicht im Bau): Heldenreiter eines Wachsoldaten nach BRS, oben und beim Abschnitt Fertigkeiten,
-# dann der Reiter „Fertigkeiten“ oben und unten.
+# dann der Reiter „Fertigkeiten“ oben und unten, Gruppen wie ohne Umklappen (Chef 21:33), zuletzt mit aufgeklapptem „Schatten“.
 # Vorher ohne Bild: tests/fertigkeiten_762.gd. Bildlauf nur mit PROBE=762.
 # Aufruf: im Ordner godot: PROBE=762 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --path . --resolution 1080x2340 -s res://tests/fertigkeiten_762_bild.gd -- --ordner=<dir>
 
@@ -22,6 +22,9 @@ func _lauf() -> void:
 	root.size = Vector2i(1080, 2340)
 	Sprache.lade()
 	if Sprache.aktiv() != "de": Sprache.wechsle()
+	Bedienung.lade()
+	var gemerkt: Dictionary = Bedienung.fert_gruppen.duplicate()
+	Bedienung.fert_gruppen = {}
 	var z := Zustand.new()
 	z.name = "Thora"
 	var hw := Heldwerte.erschaffe("Thora", "HUMAN", "FIGHTER", {}, z.neue_uid)
@@ -38,4 +41,10 @@ func _lauf() -> void:
 	await knips("762_reiter_oben")
 	m.rolle.scroll_vertical = 100000
 	await knips("762_reiter_unten")
+	m.klappe_gruppe("Schatten", false)
+	for i in 3: await process_frame   # baue() setzt die alte Stelle erst nach einem Bild
+	m.rolle.scroll_vertical = 0
+	await knips("762_reiter_schatten_offen")
+	Bedienung.fert_gruppen = gemerkt
+	Bedienung.speichere()
 	quit(0)
