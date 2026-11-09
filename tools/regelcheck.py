@@ -175,7 +175,8 @@ for p in quellen:
     if p.endswith("ARBEIT-ARCHIV.md") or not os.path.exists(p): continue
     for m in re.finditer(r"`((?:docs/|tools/)?[A-Za-z0-9_./-]+\.(?:md|py|sh|yml))`", lesen(p)):
         v = m.group(1)
-        if v in bekannt or v.lstrip("./") in bekannt or "<" in v or v.startswith("docs/chefsache/") and v.endswith("/"): continue
+        # 813 (D123.1): Pfad relativ zu docs/ oder docs/chefsache/ (kapitel2/…, chefsache/README.md, tun/…) gilt auch
+        if v in bekannt or v.lstrip("./") in bekannt or "docs/" + v.lstrip("./") in bekannt or "docs/chefsache/" + v.lstrip("./") in bekannt or "<" in v or v.startswith("docs/chefsache/") and v.endswith("/"): continue
         if re.search(r"\b(t\d+|[0-9a-f]{7,})\b", v): continue
         tot.setdefault(os.path.basename(p), set()).add(v)
 for d, vs in tot.items(): fund.append("%s: Verweis auf fehlende Datei: %s" % (d, ", ".join(sorted(vs)[:6])))
