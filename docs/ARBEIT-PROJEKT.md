@@ -2,9 +2,9 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `7d17745ea` (09.11., 18:07)
+**Gelesen bis:** `90959d954` (09.11., 18:11)
 
-**Übergabe (09.11., 18:08):** 775, 776, 777, 779 gebaut (Prüflisten, Ford-Regel rote Läufe, spike/tuffy, Sperre nur bei Überschneidung; `ALLGEMEIN` in `startbar.py` nachschärfen bei Fehlsperren); 750 A gebaut (`tools/startsperre-haken.py`, PreToolUse vor `create_session`, Ford benachrichtigt: pullen); 383 A gebaut (Neustart-Haken ab 200 Tsd. Länge, WEITER unter 200 Tsd.); alle an Diogenes. Neustart nach 383 A (Sitzung über 200 Tsd.). Nachfolger: Perikles – 788: Allerweltswörter im Wiederholungswächter
+**Übergabe (09.11., 18:12):** 788 gebaut (`vorgang.py` Wächter: Schwert, Zwischensequenz gestrichen, Querschnittwörter verweisen auf 785, 786, 620.4, 644, 511), an Diogenes. Nachfolger: keiner (auf Abruf, nichts startbar)
 
 ## Einzelheiten
 
