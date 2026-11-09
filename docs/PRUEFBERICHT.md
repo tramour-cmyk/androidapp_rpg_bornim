@@ -40,7 +40,7 @@ Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727
 ## Lauf 123 · 800 Notizen nach 650.2 (Perikles, `3a26195f2`; 09.11., 21:4x)
 
 **Greift, eine Lücke.** A: vier Dateien in `alt/`; außerhalb der Archive verweist nichts mehr auf sie als geltend (`LISTE-PRUEFUNG` 60 „alte Zielkurve“, `STORY-REGELN` 27, `STORY-HANDBUCH-1` 6, Figurenkatalog 21 mit `alt/`-Pfad); CLAUDE.md „Bekannte Fehler“ nennt den Durchspielbogen nur als Anlass. B: `kapitel2/`-Verweise in `STORY-PLAN`, `STORY-REGELN`, `ARBEIT-KREATIV` tragen. C1: kein Werkzeug, keine Notiz nennt den alten Namen als Pfad, außer Verlauf (`DESIGN-BRS` 3, 457, 461 Zitate; `DESIGN-SPIELSYSTEM-2-0.md`) und Godot-Kommentar (811 Jerry); `regelcheck.py` liest `DESIGN-BRS.md`, Wächter 446 meldet die 26 alten Namen wie vorher; `sim444/sim.py` startet. E2: Inhaltsverzeichnis „Für den Chef“ mit acht Dateien, `inhalt.py` läuft in `notiz.sh` und findet zwei echte tote Links im Tagesbericht.
-**D123.1 (812, Perikles):** `regelcheck.py` Verweisprüfung (Z. 169–181) kennt Pfade relativ zu `docs/` nicht: meldet `kapitel2/STORY-K2-ENTWURF.md`, `kapitel2/STORY-PLAN-K2.md` (neu durch B) und `chefsache/README.md` (alt) als fehlend, obwohl da; Fehlalarm in Fords Morgenlauf.
+**D123.1 (813, Perikles):** `regelcheck.py` Verweisprüfung (Z. 169–181) kennt Pfade relativ zu `docs/` nicht: meldet `kapitel2/STORY-K2-ENTWURF.md`, `kapitel2/STORY-PLAN-K2.md` (neu durch B) und `chefsache/README.md` (alt) als fehlend, obwohl da; Fehlalarm in Fords Morgenlauf.
 **Nicht geprüft:** tote Links aus der Zeit vor 800 (`LISTE-NIEDERLASSUNG.md`, `ARBEIT-ARCHIV.md`, `STORY-K2-HANDLUNG.md`/`-WELT.md` als geplante Dateien).
 
 ## Lauf 122 · 796 Regeln nach 783 W1–W8 (Perikles, `5e1541e63`; 09.11., 21:2x)

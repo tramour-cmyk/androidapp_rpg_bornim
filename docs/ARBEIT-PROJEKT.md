@@ -2,13 +2,13 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `34fc9042c` (09.11., 21:06)
+**Gelesen bis:** `fd9ca5142` (09.11., 21:47)
 
-**Übergabe (09.11., 21:06):** 796 gebaut (`5e1541e63`: W1–W8 in den Regeldateien; `probelauf.py` ohne Filmsperre, `startbar.py` Übernahme nur Muss, `lauf.py --morgen` entfällt, `tagesbericht.py` bittet um das Bild der Nutzung), an Diogenes; 511 erledigt (ersetzt durch W1). Nachfolger: Perikles – 797: Erlaubnisregel add_repo (09.11., 21:06)
+**Übergabe (09.11., 21:47):** 797 erledigt (Satz unter `autoMode.environment`, Chef 21:38). 799 gebaut (`55d798cc8`: `MUSTER.md`, `vorlage_pruefen.py` im Bash-Haken `probelauf.py`, Lücken in der Übersicht), 800 gebaut (`3a26195f2`: 650.2 A, B, C1, E2 mit `tools/inhalt.py`; `DESIGN-SPIELSYSTEM-2-0.md` bleibt, an Sokrates), beide an Diogenes; 808, 809 erledigt; Projektplan 1.2 und `abgleich.py` (783 W5) nach Sokrates berichtigt; 739 ruht; neu 811 (Jerry), 812. Nachfolger: Perikles – 812: Neustart wartet während Prüfliste (09.11.)
 
 ## Einzelheiten
 
-- **Zu 383, von Sokrates (Chef 09.11., 21:23):** „mitten im Testen mir eine neue Sitzung aufmachen, macht halt auch keinen Sinn. Deswegen haben wir das hier fertig gemacht.“ Neustart-Haken (zweite Erinnerung) kam während der Chef t272 Punkt für Punkt meldete; Ford startete den Nachfolger, der Chef testete in der alten Sitzung zu Ende. Bitte: Haken und `lauf.py` warten mit dem Neustart, solange eine Prüfliste `ansehen/t…` in dieser Sitzung beantwortet wird.
+- **Zu 812 (früher „Zu 383“), von Sokrates (Chef 09.11., 21:23):** „mitten im Testen mir eine neue Sitzung aufmachen, macht halt auch keinen Sinn. Deswegen haben wir das hier fertig gemacht.“ Neustart-Haken (zweite Erinnerung) kam während der Chef t272 Punkt für Punkt meldete; Ford startete den Nachfolger, der Chef testete in der alten Sitzung zu Ende. Bitte: Haken und `lauf.py` warten mit dem Neustart, solange eine Prüfliste `ansehen/t…` in dieser Sitzung beantwortet wird.
 
 - **Zu 800, von Sokrates (Chef 09.11., 20:52: „650.2 wie Vorschlag“):** Inhalt in Git `git show d13efd14a~1:docs/chefsache/entscheiden/6502-docs-gliederung.md`. Deins: A (sofort 5 Dateien; Figurenkatalog, Simulation, Bestiarium erst nach 649 und 481; Balance: Grundsatz vorher im Leitbild prüfen), B, C1 (`DESIGN-SPIELSYSTEM-2-0-ENTWURF` → `DESIGN-BRS.md`, alle 17 Stellen samt `regelcheck.py`, `tools/sim444/` im selben Commit, danach Werkzeuge laufen lassen; Kommentar in `godot/regeln/brs_kampf.gd` als Vorgang an Jerry), E2 (`docs/README.md` oben „Für den Chef“ etwa 8 Dateien je ein Satz; Werkzeug meldet Dateien ohne Zeile und tote Links; Kapitel-2-Dateien und `STORY-LEHRMEISTER-K1`, `STORY-RUF-K1`, `STORY-MENUE` ins Verzeichnis). C2 und C3 macht Sokrates (650.2), C4–C6 stehen in `LISTE-IDEEN.md` für Homer.
 
