@@ -201,10 +201,16 @@ def neu(titel, bereich, kl, besitzer, nr=None, oben=False):
 # 654 (Chef 08.11., 14:42): Wiederholungswächter. Teilt ein neuer Vorgang ein Stichwort mit zwei oder mehr früheren
 # (offen oder im Archiv), legt das Werkzeug eine Zeile „Systemlösung?“ für Sokrates an (Systemrunde montags), je Stichwort eine offene.
 SYSTEM = "Systemlösung?"
-STICHWORTE = ["Schild", "Waffe", "Schwert", "Bogen", "Axt", "Klinge", "Griff", "Halt", "Pfote", "Haar", "Kapuze", "Umhang",
+STICHWORTE = ["Schild", "Waffe", "Bogen", "Axt", "Klinge", "Griff", "Halt", "Pfote", "Haar", "Kapuze", "Umhang",
               "Rüstung", "Fackel", "Schrift", "Kasten", "Fenster", "Knopf", "Menü", "Kamera", "Licht", "Schatten", "Nebel",
               "Wetter", "Wasser", "Teich", "Tür", "Treppe", "Ebene", "Karte", "Kollision", "Drehung", "Parade", "Klang", "Musik",
-              "Speichern", "Zwischensequenz", "Probebild", "Film"]
+              "Speichern", "Probebild", "Film"]
+# 788 (654 A, Chef 09.11., 17:46): Allerweltswörter legen keine Zeile an. Schwert und Zwischensequenz sind gestrichen
+# (763, 707: keine Systemfrage); Wörter mit schon entschiedenem Querschnitt verweisen nur auf ihn (Systemrunde 09.11.).
+QUERSCHNITT = {"Menü": "785", "Knopf": "785", "Fenster": "785", "Kasten": "785", "Schrift": "785",
+               "Klang": "786", "Musik": "786",
+               "Licht": "620.4", "Schatten": "620.4", "Fackel": "620.4", "Kamera": "620.4", "Karte": "620.4",
+               "Schild": "644", "Waffe": "644", "Film": "511", "Probebild": "511"}
 
 def waechter(nr, titel, bereich):
     def hat(t, w): return re.search(r"(?<![\w])" + w, t, re.I) is not None  # Wortanfang, auch Zusammensetzungen (Schildhöhe)
@@ -217,6 +223,8 @@ def waechter(nr, titel, bereich):
         if not hat(titel, w): continue
         frueher = [n for n, t in titel_alle if hat(t, w)]
         if len(frueher) < 2: continue
+        if w in QUERSCHNITT:
+            print("vorgang.py: Stichwort „%s“ schon in %d Vorgängen; gehört zum Querschnitt %s (654 A), keine neue Zeile" % (w, len(frueher), QUERSCHNITT[w])); continue
         if re.search(re.escape(SYSTEM) + " " + w + r"\b", offen):
             print("vorgang.py: Stichwort „%s“ schon in %d Vorgängen, Zeile „%s %s“ für Sokrates offen (654)" % (w, len(frueher), SYSTEM, w)); continue
         zeige = ", ".join(frueher[-5:]) + (" …" if len(frueher) > 5 else "")
