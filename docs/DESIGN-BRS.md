@@ -81,7 +81,7 @@ Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit und 
 | Wildnis (1) | Tiere beruhigen | feindliche Tiere vor dem Kampf beruhigen |
 | Gesellschaft (3) | Überreden (mit Täuschen), Einschüchtern, Handeln | Gespräche, Läden |
 | Sammeln (4) | Kräuterkunde, Bergbau, Angeln, Jagd (Zerlegen, Fährten) | ernten, angeln, erlegte Tiere zerlegen |
-| Meisterschaften (6) | Schmieden (Metall, Reparieren, Dietriche), Lederarbeit (Gerben, Schneidern, Reparieren), Alchemie (mit Giften), Kochen, Runenkunde (Verzaubern), Heilkunde | herstellen, verbinden |
+| Handwerk (6; 810) | Schmieden (Metall, Reparieren, Dietriche), Lederarbeit (Gerben, Schneidern, Reparieren), Alchemie (mit Giften), Kochen, Runenkunde (Verzaubern), Heilkunde | herstellen, verbinden |
 
 ### Wie Fertigkeiten wachsen
 
@@ -194,7 +194,7 @@ Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, abe
 | Runenmeister | Runenkunde | Bergbau | Verzauberungen, Runen auf Ausrüstung |
 | Feldkoch | Kochen | Angeln oder Jagd | Mahlzeiten mit kleinem Bonus |
 
-**Heilkunde** steht in der Gruppe Meisterschaften (Entscheidung 59: Verbände, Wunden versorgen), ist aber keine eigene Meisterschaft; über Meister hinaus steigt sie nur im Pfad Heiler.
+**Heilkunde** steht in der Gruppe Handwerk (Entscheidung 59: Verbände, Wunden versorgen), ist aber keine eigene Meisterschaft; über Meister hinaus steigt sie nur im Pfad Heiler.
 
 ## 7. Kampf
 

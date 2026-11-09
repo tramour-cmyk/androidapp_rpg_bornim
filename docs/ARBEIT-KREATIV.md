@@ -4,11 +4,9 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `364f6140f` (09.11., 09:13)
 
-**Übergabe (09.11., 15:1x):** 761 MARS eingetragen (Glossar, `DESIGN-KAMPF.md`); 736 Überholtes in `DESIGN-STIL.md` und Spielsystem auf 618, 565, 630, 417a, 427.1, 466 gebracht; beide fremd geprüft; 746 die 15 verworfenen Ideen gestrichen. Nachfolger: Homer – 766: Rollenspiegel (13.11.).
+**Übergabe (09.11., 22:08):** 810 achte Gruppe „Handwerk“ (Chefwort, Text `[423.fert.liste]` und Code taten es schon); `DESIGN-BRS.md` Abschnitt 3 und Vorgangsarchiv nachgezogen, für Tom nichts zu bauen. Nachfolger: Homer – 807: Tätigkeiten ohne Kampf.
 
 ## Zeilen
-
-- **Zu 810, von Sokrates (Chef 09.11., 21:25, zu 762):** Chef nennt die Gruppen im Reiter „Waffen, Rüstung, Schatten, Magie, Wildnis, Gesellschaft, Sammeln, Handwerk“; BRS Abschnitt 3 sagt für die achte „Meisterschaften“ (Schmieden, Lederarbeit, Alchemie, Kochen, Runenkunde, Heilkunde). Name festlegen, Tom setzt ihn im Reiter (762, einklappbar, Chef 21:33 „Ja.“).
 
 - **Zu 807, von Spike (09.11., 21:20, zu 471; Chef 20:51: „Es gibt keine Fertigkeiten, die losgelöst vom Kampf sind … Schleichen … Wahrnehmung … da sollte man dann schon nochmal ein bisschen drauf [schauen]“):** Von den 37 Fertigkeiten haben in Kapitel 1 (Godot) 20 keine Tätigkeit: Wurfwaffen, Schutzmagie, Illusion, Beschwörung, Schleichen, Spähen, Schlösser knacken, Fallen entschärfen, Tiere beruhigen, Überreden, Einschüchtern, Bergbau (ab Kapitel 2), Angeln, Jagd, Alchemie (Morwen braut für den Helden), Schmieden, Lederarbeit, Kochen, Runenkunde, Heilkunde. Bitte vorschlagen, welche Kapitel 1 bekommt und wie (Spielgefühl), Vorlage an den Chef; der Code kann jede üben (`BrsFertigkeit.uebe`, `Zustand.uebe`). Liste aller 37 mit Stand: Vorrat Tom „Zu 471“.
 
