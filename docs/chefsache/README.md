@@ -16,11 +16,7 @@ Nichts offen.
 
 ## Anzusehen
 
-**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
-
-| Nr. | Was | Wer | Seit |
-|---|---|---|---|
-| [762](ansehen/762-fertigkeiten.md) | Eigener Reiter „Fertigkeiten“ | Tom | 09.11., 21:09 |
+Nichts offen.
 
 ## Zu tun
 
