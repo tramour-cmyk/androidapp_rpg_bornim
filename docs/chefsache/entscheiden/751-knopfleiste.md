@@ -16,3 +16,5 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/31bbe3
 - **C:** Die Runde der Gegner kürzer machen: Ansage und das Bild dazu in einer Zeile statt in zweien (Text von Homer), etwa 3 Sekunden weniger je Wolf. Geht mit A oder B zusammen. Gegenargument: Weniger Zeit, die Ansage zu lesen und darauf zu reagieren.
 
 Bild: keins. Die Leiste mit „…“ siehst du in deinem Bild von 14:00 unter Alriks Leiste.
+
+**Stellungnahme Sokrates (09.11., 17:35): A mit der Namenszeile aus B; C nein.** Die alte Fassung zeigte im Zug der Gegner ebenfalls nur „…“ (`SkirmishScreen.kt:1423`); das Verschwinden ist also alt, störend wurde es erst durch die langen Gegnerrunden (2½ Minuten, behoben mit 702 C). Gegen das Gegenargument zu A (matter Knopf wirkt kaputt): über den matten Knöpfen eine Zeile „Wolf 2 ist dran“, dann ist klar, warum sie ruhen. C lehne ich ab: die Ansage ist der Kern von „Absicht“ in MARS (761), sie zu kürzen nimmt dem Spieler genau die Zeit zum Lesen. Sind 20 Sekunden je Runde zu lang, lieber Tippen auf das Bild, um die laufende Ansage weiterzuschalten.
