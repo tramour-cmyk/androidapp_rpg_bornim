@@ -475,8 +475,40 @@ func _kaufheld() -> Node3D:
 		if lib.has_animation(e[1]):
 			lib.remove_animation(e[1])
 		lib.add_animation(e[1], an)
+	_angriff_gang(lib)
 	kauf = true
 	return m
+
+
+## 682 (Chef 08.11., 16:22 „wenn der Held jetzt mal flotter hinginge“, 20:50 „als ob ich in die Hose gemacht hätte“: der geduckte
+## Kampfgang SS_WalkForward, doppelt schnell gespielt): „Angriff_Gehen“ = Beine und Rumpf aus dem Gehen mit Schild wie auf der Karte
+## (417 Runde 5, 2,13 m/s), Arme fest in der Kampfhaltung SS_IdleCombat (Schild oben); das Gehen allein schwingt den Schild 8 cm in
+## den Körper (schild_406)
+const ARM_KNOCHEN := ["clavicle", "upperarm", "lowerarm", "hand", "thumb", "index", "middle", "ring", "pinky"]
+func _angriff_gang(lib: AnimationLibrary) -> void:
+	if not (lib.has_animation("Gehen_schild") and lib.has_animation("SS_IdleCombat")):
+		return
+	var an := lib.get_animation("Gehen_schild").duplicate(true) as Animation
+	var idle := lib.get_animation("SS_IdleCombat")
+	var arm := {}
+	for i in idle.get_track_count():
+		var bn := String(idle.track_get_path(i)).get_slice(":", 1)
+		if idle.track_get_type(i) == Animation.TYPE_ROTATION_3D and ARM_KNOCHEN.any(func(w): return bn.begins_with(w)):
+			arm[bn] = idle.rotation_track_interpolate(i, 0.0)
+	for i in range(an.get_track_count() - 1, -1, -1):
+		var bn := String(an.track_get_path(i)).get_slice(":", 1)
+		if an.track_get_type(i) == Animation.TYPE_ROTATION_3D and arm.has(bn):
+			while an.track_get_key_count(i) > 0:
+				an.track_remove_key(i, 0)
+			an.rotation_track_insert_key(i, 0.0, arm[bn])
+			arm.erase(bn)
+	var pfad := String(an.track_get_path(0)).get_slice(":", 0) if an.get_track_count() > 0 else ""
+	for bn in arm:
+		var i := an.add_track(Animation.TYPE_ROTATION_3D)
+		an.track_set_path(i, NodePath("%s:%s" % [pfad, bn]))
+		an.rotation_track_insert_key(i, 0.0, arm[bn])
+	an.loop_mode = Animation.LOOP_LINEAR
+	lib.add_animation("Angriff_Gehen", an)
 
 
 func _load_model() -> Node3D:
@@ -2394,7 +2426,12 @@ func _held_schlag(other, weiter := 0.0) -> int:
 		# sondern gehen … ein bisschen schneller gehen“): mit Schild geht der Held zum Angriff, Bewegung und Weg um ANGRIFF_GANG schneller
 		# (beide gleich, sonst rutschen die Füße)
 		var gf := 1.0
-		if _ss() and anim.has_animation("SS_WalkForward"):
+		# 682 (Chef 08.11., 16:22: „wenn der Held jetzt mal flotter hinginge“; t270, 20:50: „Ich gehe wieder auf die Wölfe zu, als
+		# ob ich in die Hose gemacht hätte“): der geduckte Kampfgang aus Sword & Shield, doppelt so schnell gespielt, trippelte mit
+		# 1,4 m/s. Jetzt aufrecht im Schritt wie auf der Karte, den Schild oben (_angriff_gang, 2,13 m/s)
+		if _ss() and anim.has_animation("Angriff_Gehen") and _glatt_an_682():
+			gn = "Angriff_Gehen"
+		elif _ss() and anim.has_animation("SS_WalkForward"):
 			gn = "SS_WalkForward"
 			gf = ANGRIFF_GANG
 		var von := position
