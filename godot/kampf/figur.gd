@@ -1890,12 +1890,13 @@ func _stand_frei(p: Vector3, ziel) -> bool:
 ## 717 C, 717.1 A: mit dem eigenen Zug an den neuen Platz (das Gesicht zum Helden), wenn die Reihe umgestellt wurde; nach dem Angriff
 ## bleibt er abgesetzt stehen und greift von dort wieder an (kein langes Rückwärtsgehen, Chef 08:58)
 var platz_neu := false     # 717.1 A: glide_to hat einen neuen Platz vorgemerkt, der Gegner rückt in seinem Zug dorthin
-func zurueck_in_reihe() -> void:
+func zurueck_in_reihe() -> float:     # 778: gibt die Dauer zurück (0: geht nicht)
 	if not _bleib_717() or down or not platz_neu or (tween and tween.is_running()) or _platz_besetzt():
-		return
+		return 0.0
 	platz_neu = false
 	if Vector2(home.x - position.x, home.z - position.z).length() > 0.12:
-		_walk_home()
+		return _walk_home()
+	return 0.0
 
 
 ## 717: heim über [via] (oder gerade), das Gesicht zum Gegner: im ersten Abschnitt dreht er im Gehen ein (_blick_daheim); je
@@ -2002,16 +2003,35 @@ func _turn_home() -> float:
 ## Danach springt es zurück (Ausweichen zurück) und geht heim. Gibt wie strike() die Zeit bis zum Biss / 0,42 zurück (ms).
 const ABWEHR_VOR := 0.1
 func _bite(other, leap: bool, weiter := 0.0) -> int:
-	var bleib717 := _bleib_717()
 	# 717 C, 717.1 A (wolf_mess_438: um den Helden war kein Bissplatz frei, Wolf 1 stand dort abgesetzt, Wolf 3 biss durch ihn): wer
-	# abgesetzt beim Ziel steht, rückt jetzt in seine Reihe (Zurechtrücken im Zug der Gegner, F8), das Gesicht zum Helden
-	if bleib717:
+	# abgesetzt steht, rückt jetzt in seine Reihe (Zurechtrücken im Zug der Gegner, F8), das Gesicht zum Helden
+	# 778 (Build 272, wolf_mess_438 Kleriker Bild 2829, nachgestellt am Rechner): Wolf 2 stand abgesetzt 4,9 m vom Ziel, ausserhalb der
+	# alten Grenze 4,5 m, und sperrte mit Wolf 3 jeden Weg des hinteren Wolfs 1 zum Söldner; Wolf 1 lief den besten (0,14 m tief) und
+	# ging 0,29 m durch Wolf 2. Jetzt rücken alle Abgesetzten; der Angreifer wartet, bis sie daheim sind, und plant seinen Weg so, als
+	# stünden sie schon dort (stand Wolf 2 daheim, war der Weg 0,12 m frei)
+	var rueckt: Array = []     # [Figur, Ort, Bahn] der Abgesetzten, die jetzt in ihre Reihe gehen
+	var t_warte := 0.0
+	if _bleib_717():
 		for o in kampfort.figures.values():
 			if o != self and o.visible and not o.down and o.fighter.monster != null and not o.unterwegs() \
-					and Vector2(o.home.x - o.position.x, o.home.z - o.position.z).length() > 0.12 \
-					and Vector2(o.position.x - other.position.x, o.position.z - other.position.z).length() < 4.5:
+					and Vector2(o.home.x - o.position.x, o.home.z - o.position.z).length() > 0.12:
 				o.platz_neu = true
-				o.zurueck_in_reihe()
+				var t: float = o.zurueck_in_reihe()
+				if o.unterwegs() and o.gang == "heim":     # geht wirklich (wer wartet, zählt, wo er steht)
+					rueckt.append([o, o.position, o.bahn])
+					t_warte = maxf(t_warte, t)
+	for r in rueckt:
+		r[0].position = r[0].home
+		r[0].bahn = []
+	var ms := _bite_plan(other, leap, weiter, t_warte)
+	for r in rueckt:
+		r[0].position = r[1]
+		r[0].bahn = r[2]
+	return ms
+
+
+func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
+	var bleib717 := _bleib_717()
 	var flat := Vector3(other.position.x - position.x, 0.0, other.position.z - position.z)
 	if flat.length() < 0.01:
 		flat = basis.z
@@ -2084,6 +2104,8 @@ func _bite(other, leap: bool, weiter := 0.0) -> int:
 	if tween and tween.is_running():
 		tween.kill()
 	tween = create_tween()
+	if t_warte > 0.0:     # 778: erst wenn die Abgesetzten in ihrer Reihe stehen
+		tween.tween_interval(t_warte)
 	var t_run := 0.0
 	anlauf_ms = 0
 	gang = "anlauf"
@@ -2135,6 +2157,7 @@ func _bite(other, leap: bool, weiter := 0.0) -> int:
 				t_run += _lauf(tween, position, start, gn)
 	else:
 		t_run = _turn(tween, schnauze, true)
+	t_run += t_warte
 	var bl: float = anim.get_animation(nm).length if anim and anim.has_animation(nm) else 0.8
 	var b := Basis(Vector3.UP, atan2(dir.x, dir.z))
 	tween.tween_callback(func(): _play(nm, 0.08))
@@ -3465,7 +3488,9 @@ func _ausweichen_rueckwaerts() -> bool:
 			continue
 		bahn = [ziel]
 		tween = create_tween()
-		tween.tween_callback(func(): anim.play("Gehen", 0.08, -float(tempo.get("Gehen", 1.0)) * AUSWEICH_SATZ_TEMPO))
+		# 778 (wolf_mess_438 Build 272: „Gehen zu schnell“ 0,73 m, je im ersten Bild des Satzes, Tempo 1,0, Rumpf 0,18 m): der Satz
+		# beginnt mit seinem grössten Tempo (Sinus, auslaufend), _schritt_sync holt das erst ein Bild später ein; gleich im Höchsttempo los
+		tween.tween_callback(func(): anim.play("Gehen", 0.08, -float(tempo.get("Gehen", 1.0)) * AUSWEICH_SATZ_TEMPO); anim.speed_scale = 1.6)
 		# ein Satz: rasch los, sanft auslaufen (_lauf fuhr gleichmäßig an und brauchte 0,73 s für 1,3 m)
 		tween.tween_property(self, "position", ziel, weit / AUSWEICH_SATZ_MPS).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 		tween.tween_callback(_nach_ausweichen)
