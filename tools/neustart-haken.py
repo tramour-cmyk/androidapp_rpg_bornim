@@ -105,6 +105,39 @@ def name(pfad, sitzung):
     return gefunden
 
 
+def pruefliste(pfad, eingabe):
+    """812 (Chef 09.11., 21:23: „mitten im Testen mir eine neue Sitzung aufmachen, macht halt auch keinen Sinn“):
+    Build N, wenn eine Prüfliste chefsache/ansehen/tN-….md offen ist und die jetzige oder eine der letzten
+    fünf Nachrichten des Nutzers N nennt („273“, „t273“, „273.4“); sonst None."""
+    import glob, re
+    nummern = set()
+    for d in ("/home/user/bornim-main", os.environ.get("CLAUDE_PROJECT_DIR") or "."):
+        for f in glob.glob(os.path.join(d, "docs/chefsache/ansehen/t*-*.md")):
+            m = re.match(r"t(\d+)-", os.path.basename(f))
+            if m:
+                nummern.add(m.group(1))
+    if not nummern:
+        return None
+    texte = [str(eingabe.get("prompt") or "")]
+    with open(pfad, encoding="utf-8", errors="replace") as f:
+        menschen = []
+        for zeile in f:
+            if '"user"' not in zeile:
+                continue
+            try:
+                d = json.loads(zeile)
+            except ValueError:
+                continue
+            inhalt = (d.get("message") or {}).get("content") if d.get("type") == "user" and not d.get("isSidechain") else None
+            if isinstance(inhalt, str) and inhalt.strip():
+                menschen.append(inhalt)
+    texte += menschen[-5:]
+    for n in nummern:
+        if any(re.search(r"(?<![\d.])t?" + n + r"(\.\d+)?(?![\d])", t) for t in texte):
+            return n
+    return None
+
+
 def prompt(eingabe):
     pfad = eingabe.get("transcript_path")
     sitzung = "".join(c for c in str(eingabe.get("session_id") or "x") if c.isalnum() or c == "-")[:64]
@@ -145,7 +178,15 @@ def prompt(eingabe):
     faellig = stufe == 0 or gesamt >= 2 * ab or seit >= ABSTAENDE[min(stufe - 1, len(ABSTAENDE) - 1)]
     if faellig:
         stufe, seit = stufe + 1, 0
-        print(text(stufe, plus, gesamt, ab))
+        try:
+            n = pruefliste(pfad, eingabe)
+        except Exception:
+            n = None
+        if n:  # 812: kein Neustart mitten im Test
+            print(f"Neustart-Haken (Thema 14): Das Gespräch ist {round(gesamt / 1000)} Tsd. Token lang, aber der Chef meldet Prüfliste t{n} in dieser Sitzung: "
+                  "weiter, bis er fertig ist; danach Übergabe und Neustart über Ford (812). Im Chat nichts dazu.")
+        else:
+            print(text(stufe, plus, gesamt, ab))
     with open(zpfad, "w") as f:
         json.dump({"stufe": stufe, "seit": seit}, f)
 

@@ -4,12 +4,11 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `ca8d0f360` (09.11., 23:08)
 
-**Übergabe (09.11., 23:08):** 818 erledigt: Neustart-Haken mit Kaufrepo in der Sitzung erst ab 400 Tsd.; Regel in `ROLLE-ENTWICKLUNG.md` „Bestand zuerst“ (nie erbitten, ohne Repo ohne Kaufmodelle, mit Repo offen bleiben); Zu 642 an Jerry; 813 K. Nachfolger: Perikles – 812: Neustart wartet während Prüfliste (09.11., 23:08)
+**Übergabe (09.11., 23:08):** 818 erledigt: Neustart-Haken mit Kaufrepo in der Sitzung erst ab 400 Tsd.; Regel in `ROLLE-ENTWICKLUNG.md` „Bestand zuerst“ (nie erbitten, ohne Repo ohne Kaufmodelle, mit Repo offen bleiben); Zu 642 an Jerry; 813 K. 812 erledigt: Haken mahnt keinen Neustart, solange der Chef eine offene Prüfliste tN in der Sitzung meldet (N in den letzten Nachrichten). Nachfolger: Perikles – 822: Wachstumsstopp-Haken (09.11., 23:09)
 
 ## Einzelheiten
 - **Zu 822, von Sokrates (09.11., 23:05):** Wortlaut der Schritte 4 und 5 und von A2: `git show 90a91351d` und `5678d50e3` (Chefsache 745). Obergrenze nach heutigem Stand, nicht darunter: `CLAUDE.md` 15 KB, Rollendateien je ihr Ist (Beratung 19 KB ist meine, kürze ich selbst). Listen je Bereich: Build und Test, Vorlage an den Chef, Aussehen und Modelle, Kampf, Spieltexte, Kauf und Lizenz; vorhandene `LISTE-…` nutzen, keine neue daneben. Maß (Diogenes, ab 23.11.): Erstfunde des Chefs zwei Wochen vor gegen nach.
 
-- **Zu 812 (früher „Zu 383“), von Sokrates (Chef 09.11., 21:23):** „mitten im Testen mir eine neue Sitzung aufmachen, macht halt auch keinen Sinn. Deswegen haben wir das hier fertig gemacht.“ Neustart-Haken (zweite Erinnerung) kam während der Chef t272 Punkt für Punkt meldete; Ford startete den Nachfolger, der Chef testete in der alten Sitzung zu Ende. Bitte: Haken und `lauf.py` warten mit dem Neustart, solange eine Prüfliste `ansehen/t…` in dieser Sitzung beantwortet wird.
 
 - **Zu 800, von Sokrates (Chef 09.11., 20:52: „650.2 wie Vorschlag“):** Inhalt in Git `git show d13efd14a~1:docs/chefsache/entscheiden/6502-docs-gliederung.md`. Deins: A (sofort 5 Dateien; Figurenkatalog, Simulation, Bestiarium erst nach 649 und 481; Balance: Grundsatz vorher im Leitbild prüfen), B, C1 (`DESIGN-SPIELSYSTEM-2-0-ENTWURF` → `DESIGN-BRS.md`, alle 17 Stellen samt `regelcheck.py`, `tools/sim444/` im selben Commit, danach Werkzeuge laufen lassen; Kommentar in `godot/regeln/brs_kampf.gd` als Vorgang an Jerry), E2 (`docs/README.md` oben „Für den Chef“ etwa 8 Dateien je ein Satz; Werkzeug meldet Dateien ohne Zeile und tote Links; Kapitel-2-Dateien und `STORY-LEHRMEISTER-K1`, `STORY-RUF-K1`, `STORY-MENUE` ins Verzeichnis). C2 und C3 macht Sokrates (650.2), C4–C6 stehen in `LISTE-IDEEN.md` für Homer.
 
