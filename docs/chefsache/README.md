@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [756](entscheiden/756-merkmale-anzeigen.md) | **Muss** | E Oberfläche | 09.11., 14:28 | Merkmale der Ausrüstung anzeigen: Vorlage jetzt oder nach 644 und 3.5? | Sokrates |
 | [750](entscheiden/750-ford-ohne-lauf.md) | **Muss** | B Werkzeuge | 09.11., 13:30 | Sokrates | Ford startet ohne `lauf.py`: Sperre per Haken |
 | [745](entscheiden/745-regelwerk-konsolidieren.md) | **Muss** | B Abläufe | 09.11., 12:01 | Regelwerk konsolidieren, parallel zur Probe 657 D | Sokrates |
 
@@ -278,7 +279,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
 | 644.5 | M | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noc | wartet auf 644.1 (ruht) |
 
-**Sokrates** – offen 62, Muss 36, startbar 40
+**Sokrates** – offen 62, Muss 36, startbar 39
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -321,6 +322,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 650 | M | docs aufräumen: 88 Dateien, Erledigtes nach docs/alt/, Zusammenlegen, Inhaltsverzeichnis n | startbar |
 | 654 | M | Mitdenken vor dem Bauen: Systemfrage je Fund („kommt das wieder?“), Wiederholungswächter, | startbar |
 | 655 | M | Bilder: Ersteller sieht sein Bild selbst an, Regel 300 streichen statt neuer Vorprüfung (C | startbar |
+| 506 | M | Untote im Kampf: Skelett, Zombie, Ghul (aus 494, Spike; Wochenziel 03.11., 488) (für Tom) | startbar |
+| 475 | M | Leute des Dorfs (Rowena, Borin …) auf Kaufkörper ihres Volks mit Gesicht, statt der alten | startbar |
+| 383 | M | Wartewächter und Haken 63 verschärfen (Chef 27.10., 17:53 ja); Sitzungsgröße messen (Sokra | startbar |
 | 666 | K | Systemlösung? Fenster: 8 frühere Vorgänge (25, 557a, 526, 399.5, 549a.1 …), neu 665; einma | startbar |
 | 667 | K | Systemlösung? Licht: 12 frühere Vorgänge (84.5, 221, 539, 348.13a, 399.5 …), neu 665; einm | startbar |
 | 669 | K | Systemlösung? Kasten: 7 frühere Vorgänge (551, 659, 153, 549a, 557 …), neu 668; einmal gru | startbar |
@@ -338,12 +342,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 745 | M | Regelwerk konsolidieren: Widersprüche listen (Diogenes), Chef entscheidet, jede Regel an e | Chef (Datei in der Chefsache) |
 | 750 | M | Ford startet ohne lauf.py (seit Selbstneustart 01:05 startbar.py plus create_session von H | Chef (Datei in der Chefsache) |
 | 752 | K | Systemlösung? Knopf: 15 frühere Vorgänge (503a, 503, 548, 599, 600 …), neu 751; einmal gru | startbar |
-| 756 | M | Gegenstände: wie Seltenheit, Abnutzung und übrige Merkmale bei anlegbarer Ausrüstung angez | startbar |
-| 506 | M | Untote im Kampf: Skelett, Zombie, Ghul (aus 494, Spike; Wochenziel 03.11., 488) (für Tom) | startbar |
-| 475 | M | Leute des Dorfs (Rowena, Borin …) auf Kaufkörper ihres Volks mit Gesicht, statt der alten | startbar |
-| 383 | M | Wartewächter und Haken 63 verschärfen (Chef 27.10., 17:53 ja); Sitzungsgröße messen (Sokra | startbar |
 | 584 | K | Kein halbfetter Schnitt: Köpfe und Titel in Erschaffung, Held, Chronik, Karte, System, Bre | startbar |
 | 477 | K | Godot-APKs laufen nicht im MuMu Player am Rechner (Chef 02.11., 14:59) (für Tom) | startbar |
+| 756 | M | Gegenstände: wie Seltenheit, Abnutzung und übrige Merkmale bei anlegbarer Ausrüstung angez | Chef (Datei in der Chefsache) |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
