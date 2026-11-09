@@ -1,5 +1,6 @@
 # 296.3 (Todesschrei; alt BattleScreen.kt ENEMY_FAINT: „its death cry once, if no blow struck it down“): ein Gegner, den ein
-# Zauber oder ein Zustand tötet, schreit mit seinem Sturz (FOE_FALLS); wen ein Hieb tötet, der schreit mit dem Hieb und beim Sturz
+# Zauber oder ein Zustand tötet, schreit, wenn es ihn trifft (t270.11, Chef 08.11., 21:28: mit FOE_FALLS kam das Geheul 3 s zu
+# spät), nicht noch einmal beim Sturz (FOE_FALLS); fällt er ohne eigene Meldung, mit dem Sturz; wen ein Hieb tötet, der schreit mit dem Hieb und beim Sturz
 # nicht noch einmal; wer flieht, schreit nicht; ein neuer Kampf fängt von vorn an. Prüfung ohne Grafik und ohne Ton.
 # Aufruf: im Ordner godot mit -s res://tests/todesschrei_2963.gd (Exit 0 = richtig)
 extends SceneTree
@@ -58,11 +59,22 @@ func _lauf() -> void:
 	root.add_child(k)
 	await process_frame
 	var m := _kampf()
-	# Zauber tötet w1: kein Ruf mit dem Zauber, der Todesschrei mit dem Sturz, einmal
-	k.kampf(_meldung("held", "w1", 6, {"w1": 0}, "FIRE"), m)
+	# Zauber tötet w1: der Todesschrei bei der Ankunft (treffer_ms 300), vor der Meldung „bricht zusammen“, einmal
+	k.kampf(_meldung("held", "w1", 6, {"w1": 0}, "FIRE"), m, 300)
+	await create_timer(0.2).timeout
+	_soll(k.rufe.is_empty(), "Zaubertod: vor der Ankunft still (%s)" % [k.rufe])
+	await create_timer(0.3).timeout
+	_soll(k.rufe == ["wolf:tod"], "Zaubertod: Todesschrei bei der Ankunft (%s)" % [k.rufe])
 	k.kampf(_meldung(null, "w1", 0, {"w1": 0}, null, "FOE_FALLS"), m)
 	k.kampf(_meldung(null, "w1", 0, {"w1": 0}, null, "FOE_FALLS"), m)
-	_soll(k.rufe == ["wolf:tod"], "Zaubertod: ein Todesschrei mit dem Sturz (%s)" % [k.rufe])
+	_soll(k.rufe == ["wolf:tod"], "Zaubertod: beim Sturz kein zweiter (%s)" % [k.rufe])
+	# Zustand (Blutung, ohne Würfel) tötet w3: Schrei sofort
+	k.rufe.clear()
+	m.f["w3"] = F.new("w3", "FOES", "wolf")
+	k.kampf(_meldung(null, "w3", 3, {"w3": 0}), m)
+	await create_timer(0.2).timeout
+	k.kampf(_meldung(null, "w3", 0, {"w3": 0}, null, "FOE_FALLS"), m)
+	_soll(k.rufe == ["wolf:tod"], "Zustandstod: ein Schrei mit dem Schaden (%s)" % [k.rufe])
 	# Hieb tötet w2: Schrei mit dem Hieb, beim Sturz keiner mehr
 	k.rufe.clear()
 	k.kampf(_meldung("held", "w2", 7, {"w2": 0}, null, null, ["ATTACK", 15, 0, 0, false]), m)

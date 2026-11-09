@@ -45,7 +45,9 @@ func _ready() -> void:
 	add_child(bg)
 	var rand := MarginContainer.new()
 	rand.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	for s in ["left", "right", "top", "bottom"]: rand.add_theme_constant_override("margin_" + s, int(12 * DP))
+	# 630 (549a „Schirm“): Seitenrand 24 dp, keine Kaesten; Abschnitte durch schlichte Linien getrennt
+	for s in ["left", "right"]: rand.add_theme_constant_override("margin_" + s, int(24 * DP))
+	for s in ["top", "bottom"]: rand.add_theme_constant_override("margin_" + s, int(12 * DP))
 	add_child(rand)
 	var spalte := VBoxContainer.new()
 	spalte.add_theme_constant_override("separation", int(10 * DP))
@@ -54,7 +56,7 @@ func _ready() -> void:
 	var oben := HBoxContainer.new()
 	oben.add_theme_constant_override("separation", int(12 * DP))
 	oben.alignment = BoxContainer.ALIGNMENT_BEGIN
-	spalte.add_child(kasten(oben))
+	spalte.add_child(oben)
 	oben.add_child(vorschau())
 	kopf = VBoxContainer.new()
 	kopf.add_theme_constant_override("separation", 0)
@@ -66,21 +68,19 @@ func _ready() -> void:
 	rolle.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	rolle.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER   # wie alt ohne Balken (Helfer: grauer Balken klebte am Goldrand)
 	rolle.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	spalte.add_child(Spielstaende.zier())   # 549a: genau eine Zierlinie unter dem Kopf (Held und was er ist)
 	spalte.add_child(rolle)
 	inhalt = VBoxContainer.new()
 	inhalt.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	inhalt.add_theme_constant_override("separation", int(10 * DP))
 	rolle.add_child(inhalt)
-	# unten fest: Zurueck (1) und Abenteuer beginnen (2)
-	var unten := HBoxContainer.new()
-	unten.add_theme_constant_override("separation", int(10 * DP))
+	# unten fest (549a Knoepfe): „‹ ZURÜCK“ links, „ABENTEUER BEGINNEN ›“ rechts als Hauptwahl, je die halbe Breite, Linie darueber
+	spalte.add_child(Spielstaende.linie())
+	var unten := Spielstaende.knopfzeile(Spielstaende.knopf("neben", Sprache.u("back"), func(): zurueck.emit(), true),
+		Spielstaende.knopf("haupt", Sprache.u("start"), func(): beginne()))
+	unten.name = "Unten"
+	Menue.passe_knopfzeile(unten, get_viewport_rect().size.x - 48 * DP)   # 630: Hauptwahl in einer Zeile, nie mitten im Wort
 	spalte.add_child(unten)
-	var z := knopf(Sprache.u("back"), func(): zurueck.emit())
-	z.size_flags_stretch_ratio = 1.0
-	unten.add_child(z)
-	var los := knopf(Sprache.u("start"), beginne)
-	los.size_flags_stretch_ratio = 2.0
-	unten.add_child(los)
 	baue()
 
 # ---------------------------------------------------------------- Aufbau
@@ -107,7 +107,8 @@ func baue() -> void:
 		if vd["bonus"].has(a): bon.append("%s %s" % [kurz(a), vorzeichen(int(vd["bonus"][a]))])
 	vk.add_child(txt("  ".join(PackedStringArray(bon)), 15))
 	vk.add_child(txt(Sprache.t(vd["merkmal"]), 15, Stil.GOLD))
-	inhalt.add_child(kasten(vk))
+	inhalt.add_child(vk)
+	inhalt.add_child(Spielstaende.linie())
 	if HeldFigur.da(klasse, String(aussehen.get("geschlecht", "m"))): aussehen_wahl()
 	inhalt.add_child(kopfzeile(Sprache.u("chooseClass")))
 	inhalt.add_child(wahl(KLASSEN, klasse, func(k): return Sprache.t(d["klassen"][k]["name"]), klasse_waehlen))
@@ -126,8 +127,9 @@ func baue() -> void:
 		var fd: Dictionary = d["faehigkeiten"][f]
 		if String(fd["klasse"]) != klasse or int(fd["stufe"]) != 1 or bool(fd.get("mars", false)): continue
 		kk.add_child(txt("• " + Sprache.t(fd["name"]), 15))
-		kk.add_child(txt(Sprache.t(fd["text"]), 14, Stil.DIM))
-	inhalt.add_child(kasten(kk))
+		kk.add_child(txt(Sprache.t(fd["text"]), 14, Spielstaende.ANGABE))   # 549a: DIM heisst gesperrt
+	inhalt.add_child(kk)
+	inhalt.add_child(Spielstaende.linie())
 	punktekauf()
 	zeige_held()
 	var ms := (Time.get_ticks_usec() - t0) / 1000.0
@@ -147,29 +149,37 @@ func beginne(p: int = 0) -> void:
 
 # SlotChooser: alle Plaetze belegt; der gewaehlte Spielstand geht verloren
 func platzwahl() -> void:
+	# 630 (549a Rueckfrage): schwarz, oben der Titel mit Zierlinie, der Satz, die Spielstaende als Zeilen zum Antippen, Linie,
+	# „‹ ABBRECHEN“ links; Tippen daneben und Android-Zurück schliessen (526), ein Tippen ins Fenster nicht
 	var de := Sprache.aktiv() == "de"
-	var schleier := Rueckfrage.schleier(self)   # 526: Tippen daneben und Android-Zurück schliessen; ein Tippen in den Kasten nicht mehr
-	var rand := MarginContainer.new()
-	rand.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	for s in ["left", "right", "top", "bottom"]: rand.add_theme_constant_override("margin_" + s, int(16 * DP))
-	rand.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	schleier.add_child(rand)
+	var schleier := Rueckfrage.schleier(self)
+	schleier.color = Color.BLACK
+	var mitte := Spielstaende.oben()
+	schleier.add_child(mitte)
 	var v := VBoxContainer.new()
-	v.add_theme_constant_override("separation", int(8 * DP))
-	var k := Rueckfrage.halte(kasten(v))
-	k.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	rand.add_child(k)
-	v.add_child(txt("Alle Spielstand-Plätze sind belegt" if de else "All save slots are taken", 19))
-	v.add_child(txt("Welchen Helden soll der neue ersetzen? Der gewählte Spielstand geht dabei verloren." if de
-		else "Which hero should the new one replace? That saved game will be lost.", 14, Stil.WARN))
+	v.name = "Fenster"
+	v.add_theme_constant_override("separation", int(10 * DP))
+	v.custom_minimum_size.x = get_viewport_rect().size.x - 48 * DP
+	mitte.add_child(Rueckfrage.halte(v))
+	var t := Stil.zeile(("Alle Spielstand-Plätze sind belegt" if de else "All save slots are taken").to_upper(), Stil.TITEL_SP, Stil.GOLD, 3.0)   # 586a
+	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	t.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	v.add_child(t)
+	v.add_child(Spielstaende.zier())
+	var satz := txt("Welchen Helden soll der neue ersetzen? Der gewählte Spielstand geht dabei verloren." if de
+		else "Which hero should the new one replace? That saved game will be lost.", 15, Stil.WARN)
+	satz.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	v.add_child(satz)
 	for d in Spielstand.liste():
 		if d.is_empty(): continue
 		var n := int(d["platz"])
 		var karte := Spielstaende.karte(d)   # antippen waehlt
 		karte.mouse_filter = Control.MOUSE_FILTER_STOP
 		karte.gui_input.connect(func(e): if e is InputEventMouseButton and e.pressed: schleier.queue_free(); beginne(n))
+		v.add_child(Spielstaende.linie())
 		v.add_child(karte)
-	v.add_child(knopf("Abbrechen" if de else "Cancel", func(): schleier.queue_free()))
+	v.add_child(Spielstaende.linie())
+	v.add_child(Spielstaende.knopfzeile(Spielstaende.knopf("neben", "Abbrechen" if de else "Cancel", func(): schleier.queue_free(), true), null))
 
 func held() -> Heldwerte:
 	return Heldwerte.erschaffe(name_ if name_.strip_edges() != "" else "?", volk, klasse, gekauft)
@@ -214,17 +224,45 @@ func namensfeld() -> Control:
 	e.text_submitted.connect(func(_t): e.release_focus())
 	return e
 
-# Choices: je Zeile drei Knoepfe gleicher Breite, der gewaehlte hervorgehoben
+# Choices: je Zeile drei Felder gleicher Breite; 630 (549a „gewählter Wert“): ohne Rahmen, der gewaehlte in BRIGHT auf RAISED,
+# die anderen in Gold; jedes Feld 48 dp hoch, Antippen dunkel (Spielstaende.tippbar)
 func wahl(was: Array, gewaehlt: String, wort: Callable, nimm: Callable) -> Control:
 	var g := GridContainer.new()
 	g.columns = 3
 	g.add_theme_constant_override("h_separation", int(6 * DP))
 	g.add_theme_constant_override("v_separation", int(6 * DP))
 	for w in was:
-		var b := knopf(String(wort.call(w)), func(): nimm.call(w), w == gewaehlt)
-		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		g.add_child(b)
+		g.add_child(wahlfeld(String(wort.call(w)), w == gewaehlt, func(): nimm.call(w)))
 	return g
+
+static func wahlfeld(t: String, an: bool, tat: Callable) -> Control:
+	var l := Stil.zeile(t.to_upper().replace("ß", "SS"), 14, Stil.BRIGHT if an else Stil.GOLD, 1.2)
+	l.name = "Text"
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	l.custom_minimum_size.y = 48 * DP
+	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var p := Spielstaende.tippbar(l, tat)
+	if an:
+		var sb := Stil.kasten(Stil.RAISED, Color(0, 0, 0, 0), 0.0)
+		p.add_theme_stylebox_override("panel", sb)
+		p.gui_input.connect(func(_e): p.add_theme_stylebox_override("panel", sb), CONNECT_DEFERRED)   # bleibt erhaben nach dem Tippen
+	p.set_meta("gewaehlt", an)
+	return p
+
+# − und + ohne Rahmen (549a, wie der Mengenkasten): 48 dp Tippflaeche, aus gedaempft lesbar
+static func zahl_knopf(t: String, tat: Callable, an: bool) -> Control:
+	var l := Stil.zeile(t, 24, Stil.BRIGHT if an else Stil.DIM)
+	l.name = "Text"
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	l.custom_minimum_size = Vector2(48, 48) * DP
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var p := Spielstaende.tippbar(l, tat if an else func(): pass)
+	p.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	p.set_meta("an", an)
+	return p
 
 # PointBuy: Kopf mit Vorschlag, darunter Punkte uebrig, Hinweis, je Attribut Wert mit Bonus, Modifikator, − und +
 func punktekauf() -> void:
@@ -238,17 +276,15 @@ func punktekauf() -> void:
 	k.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	k.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	kopfz.add_child(k)
-	var vor := knopf("Vorschlag" if de else "Suggest", func(): gekauft = Heldwerte.vorschlag(klasse); baue())
-	vor.custom_minimum_size = Vector2(0, 36 * DP)
+	var vor := Spielstaende.knopf("neben", "Vorschlag" if de else "Suggest", func(): gekauft = Heldwerte.vorschlag(klasse); baue())
 	vor.size_flags_horizontal = Control.SIZE_SHRINK_END
-	vor.clip_text = false
 	kopfz.add_child(vor)
 	inhalt.add_child(kopfz)
 	var p := VBoxContainer.new()
 	p.add_theme_constant_override("separation", int(4 * DP))
-	p.add_child(txt(("Punkte übrig: " if de else "Points left: ") + "%d / %d" % [uebrig, alle], 15, Stil.WARN if uebrig > 0 else Stil.TEXT))
+	p.add_child(txt(("Punkte übrig: " if de else "Points left: ") + "%d / %d" % [uebrig, alle], 15, Stil.BRIGHT if uebrig > 0 else Stil.TEXT))
 	p.add_child(txt("Werte 8–15 vor Volksbonus. Höhere Werte kosten mehr (14: 7 Punkte, 15: 9 Punkte)." if de
-		else "Scores 8–15 before racial bonus. Higher scores cost more (14: 7 points, 15: 9 points).", 12, Stil.DIM))
+		else "Scores 8–15 before racial bonus. Higher scores cost more (14: 7 points, 15: 9 points).", 13.5, Spielstaende.ANGABE))
 	var d := Heldwerte.lade()
 	var lo := int(Heldwerte.regel("punktkauf_min"))
 	var hi := int(Heldwerte.regel("punktkauf_max"))
@@ -263,24 +299,25 @@ func punktekauf() -> void:
 		n.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		n.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		r.add_child(n)
-		for z in [[str(v + bon), 16, Stil.TEXT, 30], ["+%d" % bon if bon > 0 else "", 12, Stil.GOLD, 30], ["(%s)" % vorzeichen(Heldwerte.mod_von(v + bon)), 13, Stil.DIM, 40]]:
+		n.resized.connect(func():   # 630: der Name ganz, notfalls kleiner bis 13 sp (549a), statt mit „…“ gekuerzt
+			if is_equal_approx(float(n.get_meta("breite", -1.0)), n.size.x): return   # nur bei neuer Breite (die Schrift aendert die Hoehe)
+			n.set_meta("breite", n.size.x)
+			for sp_ in [14.0, 13.5, 13.0]:
+				var gg := int(round(sp_ * 0.95 * Stil.SP))
+				n.add_theme_font_size_override("font_size", gg)
+				if n.get_theme_font("font").get_string_size(n.text, HORIZONTAL_ALIGNMENT_LEFT, -1, gg).x <= n.size.x: break)   # 630: bei jeder Groesse, nicht nur der ersten (0 px)
+		for z in [[str(v + bon), 16, Stil.TEXT, 26], ["+%d" % bon if bon > 0 else "", 13, Stil.GOLD, 26], ["(%s)" % vorzeichen(Heldwerte.mod_von(v + bon)), 13.5, Spielstaende.ANGABE, 34]]:
 			var l := txt(z[0], z[1], z[2])
 			l.autowrap_mode = TextServer.AUTOWRAP_OFF
 			l.custom_minimum_size.x = z[3] * DP
+			l.size_flags_horizontal = Control.SIZE_FILL   # 630 (Bild 2): feste Spalten; den Rest bekommt der Name („Geschickli…“, weil txt dehnt)
 			l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER   # Helfer: „Charisma10“ klebte am Namen
 			l.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 			r.add_child(l)
-		var weg := knopf("−", func(): gekauft[a] = v - 1; baue())
-		weg.custom_minimum_size = Vector2(44, 36) * DP
-		weg.disabled = v <= lo
-		r.add_child(weg)
-		r.add_child(luecke(0, 6))
-		var dazu := knopf("+", func(): gekauft[a] = v + 1; baue())
-		dazu.custom_minimum_size = Vector2(44, 36) * DP
-		dazu.disabled = not (v < hi and Heldwerte.punktkosten(v + 1) - Heldwerte.punktkosten(v) <= uebrig)
-		r.add_child(dazu)
+		r.add_child(zahl_knopf("−", func(): gekauft[a] = v - 1; baue(), v > lo))
+		r.add_child(zahl_knopf("+", func(): gekauft[a] = v + 1; baue(), v < hi and Heldwerte.punktkosten(v + 1) - Heldwerte.punktkosten(v) <= uebrig))
 		p.add_child(r)
-	inhalt.add_child(kasten(p))
+	inhalt.add_child(p)
 
 # HeroTurntable (drehteller.gd); 376.1 mit Klasse, Aussehen und Grundausruestung
 func vorschau() -> Control:

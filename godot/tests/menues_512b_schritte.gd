@@ -42,8 +42,24 @@ func oben(n: Node) -> Node:
 func druecke(n: Node, t: String) -> bool:
 	var k := knoepfe(oben(n), t)
 	if k.is_empty():
-		push_error("512b: Knopf „%s“ fehlt" % t)
-		return false
+		# 584: seit 630 (549a) sind Knoepfe und Wahlfelder tippbare Zeilen (Spielstaende.knopf, Erschaffung.wahlfeld) statt Button:
+		# die letzte sichtbare Aufschrift, die (ohne ‹ › ×, gross, ß wie SS) mit t beginnt, antippen wie tippe_text
+		var u := t.to_upper().replace("ß", "SS")
+		var ziel: Control = null
+		for l in oben(n).find_children("*", "Label", true, false):
+			var x := (l as Label).text.to_upper().replace("ß", "SS").replace("‹", "").replace("›", "").replace("×", "").strip_edges()
+			if (l as Label).is_visible_in_tree() and x.begins_with(u): ziel = l
+		var c: Control = ziel
+		while c and c.get_signal_connection_list("gui_input").is_empty(): c = c.get_parent() as Control
+		if c == null:
+			push_error("512b: Knopf „%s“ fehlt" % t)
+			return false
+		for p in [true, false]:
+			var e := InputEventMouseButton.new()
+			e.button_index = MOUSE_BUTTON_LEFT; e.pressed = p; e.position = Vector2(10, 10)
+			c.gui_input.emit(e)
+		await frames(3)
+		return true
 	(k[-1] as Button).pressed.emit()
 	await frames(3)
 	return true
@@ -72,8 +88,19 @@ func tippe_text(n: Node, t: String, art := "<") -> bool:
 	return true
 
 func schliesse_fenster(n: Node) -> void:
+	var weg := false
 	for c in n.find_children("*", "ColorRect", true, false):
-		if absf((c as ColorRect).color.a - 0.82) < 0.01: c.queue_free()
+		if absf((c as ColorRect).color.a - 0.82) < 0.01: c.queue_free(); weg = true
+	# 584: die Fenster und Schirme nach 549a sind ganz deckend (kein Schleier 0,82); sie schliesst ihr „Zurück“ (Zurueck.melde),
+	# nicht aber das Menue selbst (sonst blieb ab 41 das Fenster „Amulett“ in jedem weiteren Bild stehen)
+	if not weg:
+		var oben: Node = null
+		for k in n.get_tree().get_nodes_in_group(Zurueck.GRUPPE):
+			if k.is_queued_for_deletion() or not k.is_inside_tree(): continue
+			if k is CanvasItem and not (k as CanvasItem).is_visible_in_tree(): continue
+			if oben == null or oben.is_ancestor_of(k) or Zurueck._spaeter(k, oben): oben = k
+		if oben != null and oben != n and not oben.is_ancestor_of(n) and n.is_ancestor_of(oben):
+			(oben.get_meta("zurueck") as Callable).call()
 	await frames(2)
 
 func rolle_von(n: Node) -> ScrollContainer:
@@ -545,7 +572,7 @@ func brett() -> void:
 	buehne.add_child(b)
 	await frames(4)
 	await host.knips("71_brett")
-	await druecke(b, "Annehmen")
+	await tippe_text(b, "ANNEHMEN", "=")   # 630: Knopf ohne Kasten
 	await frames(2)
 	await host.knips("72_brett_angenommen")
 	await leeren()

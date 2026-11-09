@@ -2223,6 +2223,54 @@
    "grundform": "cloak"
   },
   {
+   "id": "cloak_thessa",
+   "name": {
+    "de": "Thessas Pelzumhang",
+    "en": "Thessa's Fur Cloak"
+   },
+   "art": "einzelstueck",
+   "platz": "umhang",
+   "stufe": 1,
+   "preis": 0,
+   "netz": "Umhang (Wachsoldat)",
+   "material": "Fell",
+   "zeichen": "Farbe",
+   "modell": "unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1)",
+   "bezug": [
+    {
+     "weg": "handlung",
+     "wo": "Thessa, Auftrag Felle für den Winter (356.2)"
+    }
+   ],
+   "zustand": true,
+   "text": null,
+   "grundform": "cloak"
+  },
+  {
+   "id": "dagger_borin",
+   "name": {
+    "de": "Borins Hauerdolch",
+    "en": "Borin's Tusk Dagger"
+   },
+   "art": "einzelstueck",
+   "platz": "haupthand",
+   "stufe": 1,
+   "preis": 0,
+   "netz": "waffen.py dagger",
+   "material": null,
+   "zeichen": null,
+   "modell": "unser Netz (waffen.py, Jerry)",
+   "bezug": [
+    {
+     "weg": "handlung",
+     "wo": "Borin, Auftrag Hauer für den Schmied (356.2)"
+    }
+   ],
+   "zustand": true,
+   "text": null,
+   "grundform": "dagger"
+  },
+  {
    "id": "potion",
    "name": {
     "de": "Heiltrank",
