@@ -1,25 +1,19 @@
-# 623 · Effektpakete kaufen · Sokrates · 08.11., 19:4x
+# 623 · Effektpakete: Rest nach dem Kauf · Sokrates · 09.11., 07:15
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/main/docs/LISTE-QUELLEN.md (REEBOO-Tabelle, Lizenzen 07.11. geprüft)
 
-**Tun:** die geprobten Pakete bei [reeboolabs.itch.io](https://reeboolabs.itch.io/) kaufen (du hast sie 19:42 besser als unsere genannt), Rohdateien ins private Zweit-Repo.
+**Gekauft 09.11.** (privates Repo, Release `stufe1`, Lizenzen dort in `LIZENZ.md`): R1 Combat VFX Mega, R2 Stylized Projectiles, Status Effects VFX, R8 Weather FX, R9 Grass & Wind, R10 Water Shader Kit, R11 Surface Shaders; zusammen 76,93 $ (Listenpreise).
+
+**Steht noch, darüber reden wir nochmal (Chef 09.11., 07:12):**
 
 | Paket | Preis $ | geprobt in |
 |---|---|---|
-| R1 Combat VFX Mega Pack | 19,99 | 623.5 |
-| R2 Stylized Projectiles | 7,99 | 623.5 |
 | R3 Weapon & Motion Trails | 6,99 | 623.5 |
 | R4 Stylized VFX Pack 3 | 6,99 | 623.5 |
 | R5 Character Shaders | 6,99 | 623.5 |
-| Status Effects VFX | 6,99 | 623.5 |
-| R8 Weather FX 2D+3D | 6,99 | 623.6 |
-| R9 Grass & Wind Kit | 6,99 | 623.6 |
-| R10 Water Shader Kit | 7,99 | 623.6 |
-| R11 Stylized Surface Shaders | 19,99 | 623.6 |
-| **Summe** | **97,90** | |
+| R6 Beams & Lasers (nicht geprobt, nur Probe 415) | 6,99 | – |
+| R7 Stylized VFX Pack 2 (nicht geprobt) | 20,00 | – |
 
-Nicht geprobt, darum nicht dabei: R6 Beams & Lasers (6,99; nur in Probe 415 gesehen), R7 Stylized VFX Pack 2 (20,00).
-
-**Stellungnahme Sokrates:** Gegen den Kauf: im Flüsterwald 25 Bilder/s und 2 GB Grafikspeicher auf deinem Gerät, schwächere Handys ungemessen; Blitz und Donner liefen nicht. Für den Kauf: alle besser als unsere, Lizenz geprüft, zusammen unter 100 $, einmalig. Empfehlung: kaufen; Bildrate je Ort danach mit einer festgelegten Untergrenze messen.
+**Rangfolge Sokrates (09.11., 07:1x, auf Frage 07:16):** 1. R3 Trails (Kampf lesbar: Klingenspur, Luftzug beim Ausweichen, Pfeilspur; geprobt) · 2. R7 Pack 2 (lebendige Welt: Staub im Licht, Fackel, Kaminrauch, Fußstaub, Funken an der Parade, Heilung; trifft 613.2; nicht geprobt) · 3. R4 Pack 3 (düster: Blut-Treffer, Blutsaugen des Egels, Todesstoß der Untoten, Geisterlichter, Höhlenkristalle; geprobt) · 4. R5 Character Shaders (nur als Zusatz über unserer Signatur: Trefferblitz, Auflösen, Gefrieren) · 5. R6 Beams (überschneidet R1). Gegenargument: Effekte heilen keine Roboterbewegung, und jeder Einbau kostet Sitzungen in einer Sparwoche. Empfehlung: R3 jetzt, R7 und R4 mit ihrem Einbau, R5 und R6 vorerst nicht.
 
 Antwort: …
