@@ -285,7 +285,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
 | 644.5 | M | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noc | wartet auf 644.1 (startbar) |
 
-**Sokrates** – offen 62, Muss 37, startbar 38, PAUSE bis 09.11., 09:00
+**Sokrates** – offen 62, Muss 37, startbar 38
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
