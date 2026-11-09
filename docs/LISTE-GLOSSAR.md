@@ -41,9 +41,9 @@ Namen im Spiel (Völker, Zauber, Monster, Regelwerte) stehen nicht hier, sondern
 
 | Begriff | Bedeutung | gehört zu → darunter | nicht | steht in |
 |---|---|---|---|---|
-| **Build** | APK zum Testen auf dem Handy des Chefs, mit Nummer | – → Sammelbuild, Prüfliste | – | `LISTE-BAUEN-TESTEN.md` |
-| **Sammelbuild** | gemeinsamer Build beider Teams auf `claude/build-<n>` | Build | – | `LISTE-BAUEN-TESTEN.md` |
-| **Prüfliste** | Weg durchs Spiel, den der Chef im Test abgeht; Ergebnis als `tN` im Archiv | Build → Testpunkt (tN.k) | – | `LISTE-BAUEN-TESTEN.md` |
+| **Build** | APK zum Testen auf dem Handy des Chefs, mit Nummer | – → Sammelbuild, Prüfliste | – | `LISTE-CHECK-BUILD-TEST.md` |
+| **Sammelbuild** | gemeinsamer Build beider Teams auf `claude/build-<n>` | Build | – | `LISTE-CHECK-BUILD-TEST.md` |
+| **Prüfliste** | Weg durchs Spiel, den der Chef im Test abgeht; Ergebnis als `tN` im Archiv | Build → Testpunkt (tN.k) | – | `LISTE-CHECK-BUILD-TEST.md` |
 | **Rückläufer** | Punkt, der im Test des Chefs durchfiel und zurück ans Team geht | Prüfliste | – | `LISTE-BAUEN-TESTEN.md` |
 | **Probe** | ein Lauf, der etwas Sichtbares erzeugt; je Aussehen-Thema eine, danach an den Chef | – → Probelauf, Probebild | Messlauf als Ausrede | `ROLLE-ENTWICKLUNG.md` (621 A, 646) |
 | **Probelauf** | Bildlauf am Rechner (`PROBE=<Nr>`), Push, der einen Ablauf auslöst, oder Start von Hand; zählt `probelauf.py` | Probe | – | `tools/probelauf.py` |

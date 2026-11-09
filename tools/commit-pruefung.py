@@ -144,6 +144,17 @@ def effekt_ohne_liste(dat):
                 raus.append("%s: neuer Teilchenknoten ohne Zeile in LISTE-EFFEKTE.md; %s" % (p, tipp))
     return raus
 
+CHECK_BIS = 275  # 657 D: vier Builds (272–275), danach alter Zustand ohne Liste und Hinweis „abgelaufen“; verlängern nur auf Wort des Chefs
+
+def checkliste():
+    """Die nummerierten Punkte aus docs/LISTE-CHECK-BUILD-TEST.md, ganz, ohne Fettdruck."""
+    aus = []
+    for z in git("show", ":docs/LISTE-CHECK-BUILD-TEST.md").splitlines():
+        if z.startswith("## "): aus.append(z[3:])
+        m = re.match(r"(\d+)\. (.*)", z)
+        if m: aus.append("  %s. %s" % (m.group(1), re.sub(r"\*\*", "", m.group(2))))
+    return "\n".join(aus)
+
 def main():
     ge = git("diff", "--cached", "--name-status", "--no-renames").splitlines()
     dat = [(l.split("\t")[0], l.split("\t")[1]) for l in ge if "\t" in l]
@@ -218,12 +229,19 @@ def main():
         if s in ("A", "M") and re.match(r"docs/chefsache/(entscheiden|ansehen|billigen)/(?!t\d+-)[^/]+\.md$", p) \
                 and not GEPRUEFT.search(git("show", ":" + p)):
             stop.append("%s: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort" % p)
+    for s, p in dat:  # 657 D (Chef 09.11., 11:46): neue Prüfliste zeigt die Checkliste Build und Test; Probe bis Build CHECK_BIS (718)
+        m = re.match(r"docs/chefsache/ansehen/t(\d+)-[^/]+\.md$", p) if s == "A" else None
+        if not m: continue
+        if int(m.group(1)) > CHECK_BIS:
+            warn.append("Probe 657 abgelaufen (Build %s nach %d), auswerten: Diogenes zählt Erstfunde, Perikles legt dem Chef vor (718)" % (m.group(1), CHECK_BIS))
+        else:
+            print("Checkliste Build und Test (657 D), vor der Testbitte jeden Punkt abhaken:\n" + checkliste(), file=sys.stderr)
     for s, p in dat:  # 512.1 (Chef 03.11., 23:28, „Kümmer du dich um 512.“): neue Prüfliste nennt, was alt gegen neu verglichen ist
         if not (s == "A" and re.match(r"docs/chefsache/ansehen/t\d+-[^/]+\.md$", p)):
             continue
         vgl = re.search(r"(?m)^\**Verglichen\b(.*)$", git("show", ":" + p))  # D78.2: ganze Zeile, Uhrzeit-Doppelpunkt schneidet nicht mehr
         if not vgl:
-            warn.append("%s: Zeile „Verglichen (alt gegen neu): <Schirme, Fenster, Bedienungen>“ fehlt (512, LISTE-BAUEN-TESTEN)" % p)
+            warn.append("%s: Zeile „Verglichen (alt gegen neu): <Schirme, Fenster, Bedienungen>“ fehlt (512, LISTE-CHECK-BUILD-TEST.md Punkt 8)" % p)
             continue
         zeile = vgl.group(1)  # 512b (Chef 04.11., 19:21): Nachweis mit Helfer und Bild/Film, keine Dateinamen
         if not re.search(r"Helfer", zeile) or re.search(r"\b(?:ohne|kein\w*)\s+(?:\w+\s+)?(?:Bild|Film)", zeile, re.I) \
