@@ -278,6 +278,7 @@ func held() -> void:
 		luecke(6)
 		inhalt.add_child(r)
 	luecke(10)
+	fertigkeiten_brs()
 	zeile(Sprache.u("skills").to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))   # MenuHead
 	zeile(Sprache.t(d["voelker"][hw.volk]["merkmal"]), 14, Stil.GOLD)
 	for f in d["faehigkeiten"]:
@@ -287,6 +288,50 @@ func held() -> void:
 		var tag := ("  (%s)" % Sprache.u("fromLevel", [int(fd["stufe"])])) if not hat else (("  (%s)" % Sprache.u("passive")) if String(fd.get("kosten", "")) == "PASSIVE" else "")
 		zeile(Sprache.t(fd["name"]) + tag, 15, Stil.TEXT if hat else Stil.DIM)
 		zeile(Sprache.t(fd["text"]), 13, Stil.DIM)
+
+# 762 (Chef 09.11., 14:49): die Fertigkeiten des Helden nach BRS mit Wert, Rang und dem Weg bis zum Ende des Rangs; Raenge und
+# Grenzen aus dem Handbuch [423.rang] (Anfaenger bis 24, Geselle bis 49, Meister bis 74, Grossmeister bis 100). Alte Spielstaende
+# ohne BRS-Held zeigen den Abschnitt nicht. Fortschritt durch Tun (471) kommt dazu, sobald es gebaut ist.
+const RAENGE := [[24, "Anfänger", "Novice"], [49, "Geselle", "Journeyman"], [74, "Meister", "Master"], [100, "Großmeister", "Grandmaster"]]
+
+static func rang_von(wert: int) -> Array:
+	for r in RAENGE:
+		if wert <= int(r[0]): return r
+	return RAENGE[RAENGE.size() - 1]
+
+func fertigkeiten_brs() -> void:
+	var f: Dictionary = (z.brs.get("fertigkeiten", {}) as Dictionary) if z != null else {}
+	if f.is_empty(): return
+	var de := Sprache.aktiv() == "de"
+	zeile("FERTIGKEITEN" if de else "SKILLS", 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))   # MenuHead
+	var namen := f.keys()
+	namen.sort_custom(func(a, b): return int(f[a]) > int(f[b]) or (int(f[a]) == int(f[b]) and String(a) < String(b)))
+	for n in namen:
+		var w := int(f[n])
+		var r := rang_von(w)
+		var unten := 0
+		var i := RAENGE.find(r)
+		if i > 0: unten = int(RAENGE[i - 1][0])
+		var z1 := HBoxContainer.new()
+		z1.add_theme_constant_override("separation", int(8 * DP))
+		var l := Erschaffung.txt(ErschaffungBrs.fert_name(String(n)), 15)
+		l.autowrap_mode = TextServer.AUTOWRAP_OFF
+		l.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+		l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		z1.add_child(l)
+		var rw := Erschaffung.txt("%s  %d" % [String(r[1] if de else r[2]), w], 15, Stil.GOLD)
+		rw.autowrap_mode = TextServer.AUTOWRAP_OFF
+		rw.size_flags_horizontal = Control.SIZE_FILL
+		z1.add_child(rw)
+		inhalt.add_child(z1)
+		var b := Leiste.Balken.new()
+		b.custom_minimum_size = Vector2(0, 6 * DP)
+		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		b.anteil = float(w - unten) / maxf(1.0, float(int(r[0]) - unten))
+		b.farbe = Leiste.GOLD_HELL
+		inhalt.add_child(b)
+		luecke(4)
+	luecke(10)
 
 # ConfirmDialog „Punkte verteilen?“: je Attribut alt → neu, „Das kann nicht rückgängig gemacht werden.“
 # Perks.describe (Ausfuhr held.json „erklaerung“): Wert und Modifikator, die Zeile der Klasse, dann was der Modifikator bringt
