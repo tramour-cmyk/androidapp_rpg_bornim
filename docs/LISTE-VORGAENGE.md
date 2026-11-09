@@ -119,6 +119,7 @@
 | 762 | Heldenreiter zeigt die BRS-Fertigkeiten mit Wert, Rang und Fortschritt, damit man sieht, was Schwert, Abwehr usw. üben (heute nur Klassenfähigkeiten alter Art) (Chef 09.11., 14:49, aus 720) | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 764 | Heldenreiter zeigt aktive Zustände (betrunken usw.) mit Erklärung; Tippen auf die Leiste öffnet nur das Menü, eine Erklärung gibt es nirgends (Chef 09.11., 14:49) | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 769 | Wochentermin 13.11.: Rollenspiegel Tom (rollenspiegel.sh Tom) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Tom | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
+| 781 | „Über das Spiel“ nennt den MIT-Teil der REEBOO-Pakete (David Hoskins, Hashfunktionen in Grass, Water, Surface) wie Godot (497); MIT verlangt den Hinweis (aus 623.1, Sokrates) | Tom | M | startbar | – | – | – | E Technik | – |
 | 778 | Von Tom (773): Build 272 rot an wolf_mess_438 (Kleriker gegen Wölfe: Wolf in Wolf 68 Bilder, Grenze 30; Gleiten zweimal über 0,5 m), mit 717/682 und 702 C zusammen; „jetzt“ 09.11., 17:25 | Jerry | M | in Arbeit | – | – | – | E Kampf | – |
 | 717 | Kampf: Gegner zeigt dem Helden nie den Rücken, außer auf der Flucht; nach dem Angriff rückwärts zurück oder stehen bleiben, keine Kurve heim (Chef 09.11., 08:51; ändert 682) · „jetzt“ 09.11., 08:51 | Jerry | M | gebaut, Geprüft an: 573e83ab4 | – | claude/jerry-717-rueckwaerts | – | E Kampf | – |
 | 717.1 | Kampf: Zurechtrücken der Gegner läuft gleichzeitig mit dem Zug des Helden statt davor (Idee Chef 09.11., 08:58, zu 717) | Jerry | M | gebaut, Geprüft an: 573e83ab4 | – | claude/jerry-717-rueckwaerts | – | E Kampf | – |
@@ -276,7 +277,8 @@
 | 723 | Offene Befunde D61–D92 als Vorgänge beim Besitzer nachtragen (ohne Spur: D63.7, D76.1, D76.2, D90.1, D90.2), Prüfbericht ausmisten (722 A) | Diogenes | M | erledigt | – | – | – | Q QM | 4,54 $ |
 | 768 | Wochentermin 13.11.: Rollenspiegel Diogenes (rollenspiegel.sh Diogenes) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Diogenes | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 771 | Probe 657 auswerten: Erstfunde des Chefs t272–t275 gegen 11, 11, 9, 7 (von Perikles, Werkzeug 657 greift laut Lauf 104) | Diogenes | M | startbar | t275 | – | – | Q QM | – |
-| 623.1 | Prüfschema auf bisher geprüfte Quellen anwenden (Chef 07.11., aus 623) | Sokrates | M | startbar | – | – | – | B Abläufe | – |
+| 780 | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für unsere gekauften Protofactor-Animsets und Janpec, die KI-Sitzungen mit Skripten bearbeiten? (aus 623.1) | Sokrates | M | startbar | Chef 780 | – | – | M Veröffentlichung | – |
+| 623.1 | Prüfschema auf bisher geprüfte Quellen anwenden (Chef 07.11., aus 623) | Sokrates | M | startbar, Liste steht; Links, Preise, Daten nachtragen | – | – | – | B Abläufe | – |
 | 620 | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build (Chef 07.11.) | Sokrates | M | startbar | – | – | – | B Abläufe | 6,49 $ |
 | 341.1 | Zielvereinbarung für alle Rollen: je Rolle höchstens drei Ziele, Z3 und Z4 für alle, eins eigen (aus 341) | Sokrates | M | startbar, prüfen (alte Leiche: in LISTE-VORGAENGE.md „erledigt“, Zeile noch im Vorrat) | – | – | – | B Abläufe | – |
 | 623 | Effektpakete REEBOO Labs: Kauf, Ressourcenseite `LISTE-QUELLEN.md`, Zuordnung `LISTE-EFFEKTE.md`, Dank im Spiel (Chef 07.11.) | Sokrates | M | wartet, 7 Pakete gekauft 09.11., Rest beim Chef | Chef | – | – | E Kampf | 6,49 $ |
