@@ -107,7 +107,7 @@
 | 753 | Blende nach der Rast: „8 Stunden vergehen“ klein und futzelig, nicht im neuen Design (Chef 09.11., 14:09, Fund t271.7) | Tom | M | gebaut, Bild beim Chef; Geprüft an: f785da832 | – | claude/spike-753-rastblende | – | E Oberfläche | 2,66 $ |
 | 757 | Schenke: neuer Tisch 7/2 (aus 604) wirkt als 1:1-Kopie des Tischs vor der Theke, gleiche Sachen darauf; eigener Tisch mit anderem Gedeck (Chef 09.11., 14:29) | Tom | M | startbar | – | – | – | E Welt | – |
 | 758 | Borin soll in der Schenke am Tisch sitzen wie in der alten Fassung, nicht seitlich daneben stehen (Chef 09.11., 14:29) | Tom | M | startbar, 758 A (Chef 20:45) | – | – | – | E Welt | – |
-| 762 | Heldenreiter zeigt die BRS-Fertigkeiten mit Wert, Rang und Fortschritt, damit man sieht, was Schwert, Abwehr usw. üben (heute nur Klassenfähigkeiten alter Art) (Chef 09.11., 14:49, aus 720) | Tom | M | startbar, eigener Reiter (Chef 20:59), neues Bild | – | claude/tom-762-fertigkeiten | – | E Oberfläche | – |
+| 762 | Heldenreiter zeigt die BRS-Fertigkeiten mit Wert, Rang und Fortschritt, damit man sieht, was Schwert, Abwehr usw. üben (heute nur Klassenfähigkeiten alter Art) (Chef 09.11., 14:49, aus 720) | Tom | M | gebaut, Bild beim Chef, Geprüft an: 90ac07e9f | – | claude/tom-762-fertigkeiten | – | E Oberfläche | – |
 | 764 | Heldenreiter zeigt aktive Zustände (betrunken usw.) mit Erklärung; Tippen auf die Leiste öffnet nur das Menü, eine Erklärung gibt es nirgends (Chef 09.11., 14:49) | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 769 | Wochentermin 13.11.: Rollenspiegel Tom (rollenspiegel.sh Tom) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Tom | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 781 | „Über das Spiel“ nennt den MIT-Teil der REEBOO-Pakete (David Hoskins, Hashfunktionen in Grass, Water, Surface) wie Godot (497); MIT verlangt den Hinweis (aus 623.1, Sokrates) | Tom | M | startbar, Kaufrepo da | – | – | – | E Technik | – |
@@ -135,7 +135,7 @@
 | 532 | Kampf: Held geht ohne Zauberpunkte, Verbrauchtes, Zustände, Metrausch und ohne die ganze Tasche (nur einfacher Heiltrank) in den Kampf, danach wird nur TP zurückgeschrieben; Zauber kosten nichts (Abgleich 512, Sokrates… | Jerry | M | gebaut, ganze Tasche; Geprüft an: 20b6c8435 (tasche_532) | – | claude/tuffy-532-tasche | – | E Kampf | 7,82 $ |
 | 536 | Kampf: Erklärungen bei langem Drücken (MarsTips), Grund bei gesperrtem Zauber, „Kein Ziel in Sicht“, Knopf „Schnell“, Stufe und EP im Gruppenkasten, Seltenheitsfarbe der Beute (Abgleich 512, Sokrates 03.11., 23:4x) | Jerry | M | startbar, Fund t270.10 | – | claude/jerry-536-namen | – | E Kampf | 37,47 $ |
 | 296.2 | MARS spielnötig: Beute/Erfahrung, Fliehen, Eröffnung, Zustände, eigene Ausrüstung, Schalter (Chef 23.10., 18:25) | Jerry | M | startbar | – | claude/build-89 | – | E Kampf | 14,29 $ |
-| 211.14 | Rest 211.13: Leistung A56, Puppen-Gegner im Kamerawinkel, Winkel je Platz, Wechsel als Gang | Jerry | M | in Arbeit, bei Tuffy | – | – | – | E Kampf | – |
+| 211.14 | Rest 211.13: Leistung im Kampf am A56 messen (Puppe und Winkel je Platz durch 3D erledigt) | Jerry | M | gebaut, Geprüft an: d63ae4bb0 (kampf_leistung_21114 0 Fehler) | – | claude/jerry-211-14-leistung | – | E Kampf | – |
 | 551 | MARS: Rahmen des unteren Kastens links und rechts unterbrochen (Chef 04.11., 00:21) | Jerry | M | ruht | – | – | – | E Kampf | – |
 | 547 | MARS: Text sagt „geht in die Knie“, Sturz ist aus (438a eingefroren): Text und Bild in Einklang bringen (Chef 04.11., 00:01) | Jerry | M | zu testen, ohne Rückmeldung t269 | – | claude/jerry-547-sturztexte | – | E Kampf | 5,43 $ |
 | 534 | Kampf: Zauber und Fähigkeiten fehlen in „Können“ (Magierrüstung, Untote vertreiben, Spirituelle Waffe, Geisterwächter) oder wirken nicht (Unglaubliches Ausweichen, Unerbittlichkeit, Lebensraub, Schadensminderung der Aus… | Jerry | M | ruht, 424: altes SRD-System | – | claude/jerry-534-faehigkeiten | – | E Kampf | 2,32 $ |
@@ -190,6 +190,8 @@
 | 786 | Klangliste alt gegen neu: je Anlass alt, neu, fehlt (654 A, als Drittes) | Jerry | M | startbar | 784 | – | – | E Klang | – |
 | Pflege | von Werkzeug (340.3, 09.11.): 15915 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 801 | Freigabe add_repo für bornim-kaufmodelle in den Sitzungseinstellungen (Zugriffsprüfung lehnte 376.1 ab; Jerry 09.11., 662) | Jerry | M | startbar | Chef | – | – | E Kampf | – |
+| 802 | Rest 211.14 (Kür, Tuffy): Held und Söldner gehen beim Wechsel statt 0,4 s zu gleiten (figur.gd glide_to ohne Wurzelweg) | Jerry | K | startbar | – | – | – | E Kampf | – |
+| 803 | Rest 211.14 (Kür, Tuffy): Gegner durch Antippen der Figur als Ziel wählen | Jerry | K | startbar | – | – | – | E Kampf | – |
 | 432 | Eigenes Volk aus Bornim (etwa mit dem Grauen Propheten, „Tag der Asche“) prüfen, mit der Geschichte ab Kapitel 2 (Chef 31.10., 22:0x) | Homer | K | ruht | – | – | – | G Story | 0,79 $ |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
