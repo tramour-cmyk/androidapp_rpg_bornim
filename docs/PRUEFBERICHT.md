@@ -37,7 +37,68 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Geschlossen laut Nachprüfung oder Spur: D61.2, D62.1, D63.1–D63.6, D64.1, D65.1, D67.1, D68.1, D68.2, D69.1, D70.1, D71.1, D71.2, D74, D76.1, D76.2, D77.1, D77.2, D78.2, D79, D80.1–D80.7, D81.1, D81.2 (mit 275.2), D82, D83, D84, D84.2, D85, D86.2 (Hinweis an mich), D88.1 (685), D89, D90.1–D90.3 (686), D93.
 
-## Lauf 111 · 783 Rohfunde (in Arbeit; 09.11., 18:0x; drei Helfer, nur Bauen/Testen stichprobenweise bestätigt)
+## Lauf 120 · 650.2 Vorlage Notizen gliedern (Chef 09.11., 20:18; `071d56421`; 09.11., 20:2x)
+
+**Hält:** 84 Dateien (81 .md, 1 .tsv, 2 .svg); A: Sammlung 2.0 „nichts freigegeben“, Heldenbau „überholt“, Balance „Stufe 20 Obergrenze“ gegen BRS „keine feste Höchststufe“ (Z. 110), Anleitung baut auf Kotlin, Figurenkatalog 649 „bis zum Bau“; C2 CC0 in Quellen beschlossen (6501); C6 Kampftexte stehen in `godot/regeln/mars_texte.gd`; Archivgrößen stimmen; Rechnung 84 → 66 geht auf. Votum Variante 2 trägt auch ohne den Fund unten: allein `LISTE-VORGAENGE` steht in 19 Werkzeugdateien.
+
+**D120.1 (798, Sokrates), vor der Antwort berichtigen:**
+1. Hauptargument gegen Variante 1 „allein die Vorräte haben 11–33 Verweise je Datei“ nicht nachvollziehbar: die Vorräte nennen zusammen je Datei 0–4 Mal (`LISTE-VORGAENGE` 4, `LISTE-CHECK-BUILD-TEST` 0); je Vorrat 8–16 Dateiverweise. Die Pfade hängen an Werkzeugen, nicht an Vorräten.
+2. „Acht Dateien ohne Inhaltsverzeichnis“, genannt und tatsächlich neun. „Schritt 1: 9 Dateien in `docs/alt/`“: es liegen 11 dort.
+3. `STORY-MENUE` (Kotlin, `MenuScreen.kt`) fehlt im Inhaltsverzeichnis und kommt in A–D nicht vor. `LISTE-BESTIARIUM` „geht in 649 auf“ (D), fehlt aber in A, und `tools/sim444/sim.py` liest es noch.
+4. C1 BRS umbenennen: „16 Verweise (CLAUDE.md, Werkzeuge)“; es sind 17 Dateien außerhalb der Archive, darunter `tools/regelcheck.py` (liest den Pfad, Prüfung bricht sonst) und Code in `godot/regeln/brs_kampf.gd` (Kommentar; Godot gehört den Teams, nicht Perikles).
+5. B nennt `STORY-K2-LANDKARTE` „mit SVG“, die zweite Datei `STORY-K2-KARTE.svg` fehlt.
+6. Auswertung „C4–C6 kein Vorgang vor Kapitel 1“ gegen Folgerung „Homer bekommt C4–C6 als Kür“.
+
+## Lauf 119 · 791 Überholtes und Doppeltes (Bereich B; `d12fb0f02`, `08a3ac60a`, `567b51c88`; 09.11., 20:1x)
+
+- **Greift bis auf B16:** Stichproben am Wortlaut: B1 (Sperre mit 779), B2/O4 (Ford 2 nur noch als „entfällt“), B3, B10 (Build-Auslöser nur in CHECK 3), B13, P1–P4 (722 A, 719 A, 720 A in `LISTE-PRUEFUNG.md`), P11, P12 („Blatt“ nur noch im Zitat eines Fehlers), O1 (400 Tsd. weg), O2, O3 (nur noch „zu gleichen Teilen“, Schätzen bei fehlender Zahl), O8, O10 (Rollenspiegel Fr), O14 (341 fest seit 07.11.), O17. B16 hing an 783; seit 20:12 entschieden (W1), Angleichen in 796 (Perikles), daher 791 greift (20:2x); bewusst offen laut Zeile: P10, P14–P16, O13. Am Rande: Überschrift `ROLLE-PROJEKT.md`:90 „Ford-2-Lauf“ steht noch, mit Zusatz „entfällt“.
+
+## Lauf 118 · 793 „Halt“ mit Wortende (Bereich B; `1346b89c2`; 09.11., 20:0x)
+
+- **Greift:** Wächterregel in Kopie: „Haltung (des Helden)“, „Haltungen“, „haltbar“, „Haltestelle“ lösen nicht aus; „Halterung“, „Halt für Waffen“, „Haltepunkt“, „Halten der Waffe“ lösen aus. Damit Lücke von 788 (Lauf 116) zu, 788 greift.
+
+## Lauf 117 · 792 Sperre ohne Allerweltswörter (Bereich B; `0c911a979`; 09.11., 20:0x)
+
+- **Greift:** 762 und 753 frei; 784 nicht mehr über „jeden“, gesperrt jetzt über „Wolfsrudel“ gegen 679 (derselbe Kampf, Sache im Titel); 680 und 757 bleiben über den Ort „Schenke“ gegen 543 (so gewollt, Commit). Unter 26 Sperren (Tom 11, Jerry 15) keine mehr über ein Wort wie „jeden“ oder „design“. Grenzfälle ohne Befund: 764 über „Menü“ gegen 670, 536 über „Knopf“ gegen 679, 581, 521, 756 über „Ausrüstung“ gegen 522; Menü und Knopf sind Querschnitt 785 (788), Überschneidung im Code möglich.
+
+## Lauf 116 · 788 Wiederholungswächter ohne Allerweltswörter (Bereich B; `994cc1f5f`; 09.11., 18:2x)
+
+- **Greift mit Lücke:** in Kopie „Menü“ verweist auf 785, „Schwert“ still. **D116.1 (793, Perikles, Kür):** „Halt“ trifft jeden Wortanfang („Haltung des Helden“ → Zeile Systemlösung); belegt am echten Anlegen von 793, das selbst 794 auslöste (794 als Fehlalarm erledigt).
+
+## Lauf 115 · 750 A Haken vor create_session (Bereich B; `cbb745d9d`; 09.11., 18:2x)
+
+- **Greift:** Homer ohne Sperre → Exit 2 mit Hinweis, Ford und Sokrates mit Sperre der letzten 10 Minuten frei; seit 18:06 steht vor jedem Start im Protokoll eine Sperrzeile (18:09, 18:11, 18:17, 18:23, 18:24). Am Rande: Sokrates zweimal gestartet (18:17, 18:23), das hält der Haken nicht ab (Archivregel, Ford).
+
+## Lauf 114 · 779 Sperre nur bei Überschneidung (Bereich B; `622fc78c1`; 09.11., 18:2x)
+
+- **Greift mit Lücke:** Tom 9 startbar (vorher 0), Jerry 8 (vorher 2). **D114.1 (792, Perikles):** 5 von 27 Sperren ohne gleiches Thema, über Allerweltswörter: 762 Heldenreiter über „schwert“ (aus „Schwertarm“ in 656), 753 Blende „design“, 784 „jeden“, 680 Absturz und 757 Tisch über „schenke“ gegen 543 Startwerte. Liste der Allerweltswörter aus 788 könnte mitgelten.
+
+## Lauf 113 · 790 Kosten vorher (Woche 02.11. bis 09.11., 18:00; 09.11., 18:2x)
+
+222 abgeschlossene Sitzungen, 212 mit Kosten (10 ohne Feld `usage`), zusammen 3.083 $; Stichprobe zwei Sitzungen gegen `get_session` gleich. „je Aufruf“ geschätzt: Lesen aus dem Zwischenspeicher geteilt durch mittlere Länge ((Länge + 60 Tsd.) / 2). „Neuanlegen“: Anteil der Kosten für neu angelegten Zwischenspeicher (5 $ je Mio.; Preise an einer Sitzung nachgerechnet: 0,25 $ Lesen, 5 $ Anlegen, 15 $ Ausgabe je Mio.).
+
+| Rolle | Sitzungen | Kosten $ | Median je Sitzung $ | je Aufruf $ | Median Länge Tsd. | größte Tsd. | $ je 1000 Ausgabe | Neuanlegen % |
+|---|---|---|---|---|---|---|---|---|
+| Tom | 72 | 1296 | 18,00 | 0,076 | 425 | 617 | 0,142 | 16 |
+| Jerry | 48 | 822 | 16,18 | 0,077 | 413 | 717 | 0,146 | 15 |
+| Sokrates | 21 | 470 | 20,95 | 0,084 | 407 | 743 | 0,164 | 20 |
+| Perikles | 25 | 214 | 5,67 | 0,067 | 232 | 582 | 0,128 | 17 |
+| Ford | 11 | 122 | 9,57 | 0,051 | 406 | 571 | 0,195 | 43 |
+| Diogenes | 21 | 106 | 3,50 | 0,061 | 184 | 433 | 0,117 | 25 |
+| Homer | 13 | 53 | 3,05 | 0,064 | 158 | 333 | 0,100 | 29 |
+| alle | 212 | 3083 | 13,41 | 0,074 | 391 | 743 | 0,144 | 18 |
+
+Nachher: Woche ab 09.11., 18:07 (`6a5ef0c1b`), Zählung 16.11. nach derselben Rechnung; Vergleichsmaß „$ je 1000 Ausgabe-Token“ (Kosten je Arbeit), daneben je Aufruf und Länge.
+
+## Lauf 112 · 383 A Neustart ab 200 Tsd. (Bereich B; `6a5ef0c1b`; 09.11., 18:1x)
+
+- **Greift:** Haken mit Probegespräch 199 Tsd. still, 210 Tsd. Erinnerung (Gesprächslänge, nicht Zuwachs); `lauf.py` WEITER nur unter 200 Tsd. und 60 Minuten Ruhe. Wirkung auf die Kosten misst 790 (Woche ab 09.11., 18:07 gegen die Woche davor).
+
+## Lauf 111 · 783 Widersprüche und Doppelungen (09.11., 18:1x; drei Helfer, jede Stelle am Wortlaut nachgelesen)
+
+**Ergebnis:** acht offene Widersprüche als Chefsache `entscheiden/783-widersprueche.md` (W1 = B5–B7, W2 = B9, W3 = B14, W4 = B12, W5 = P5–P6, W6 = P7, W7 = O5, W8 = O9). Alles Übrige an Perikles als 791 (745 A2 Schritt 3): B1–B4, B8, B10, B11, B13, B16; P1–P4, P8–P21 (P14 klein); O1 (ohne README), O2, O3 (Werkzeuge buchen verschieden, kein Chefentscheid), O4, O7, O8, O10–O15, O17, O18. **Verworfen nach Nachlesen:** O6 (Ford-Wache stimmt überein), O16 („sofort“ betrifft `send_message`), B15 (Release-Rückfrage verlangt die Datei), O1-Teil README:11 (383 nicht mehr offen). **Nicht geprüft:** `DESIGN-`, `STORY-`, übrige `LISTE-`.
+
+Rohfunde:
 
 Bauen/Testen (CLAUDE.md, ROLLE-ENTWICKLUNG, LISTE-BAUEN-TESTEN, LISTE-CHECK-BUILD-TEST, LISTE-RELEASE-NEUSTART):
 - B1 überholt: BAUEN-TESTEN:30 Sperre 620.1 B ohne 779. B2 überholt: RELEASE-NEUSTART:22 „Ford 2“ (650.1 „kein Ford 2 mehr“). B3 überholt: ENTWICKLUNG:41 „Bildserie … gern als Film“ gegen :43, CLAUDE.md:69 „Bewegung nur als Film“ (646). B4 überholt: CHECK:17, ENTWICKLUNG:25 Abgleich je Build (621 D: je Ort und Figur; Nachweis 512b fehlt).
@@ -53,8 +114,6 @@ Betrieb/Projekt (ROLLE-BETRIEB, -PROJEKT, LISTE-BETRIEB, -WOCHENPLAN, -KOSTEN, c
 - Überholt: O1 BETRIEB:51 WEITER bis 400 Tsd. (383 A, 18:05: 200 Tsd.); README:11 führt 383 noch offen. O2 PROJEKT:50 rote Läufe „Protokoll“ (776). O4 Ford 2: BETRIEB:15, :23, LISTE-BETRIEB:18, :20, :26, :36, PROJEKT:90 (650.1). O10 WOCHENPLAN:23–24 ohne 719 (Rollenspiegel Fr fehlt). O11 PROJEKT:4 Sitzungsname „338.1: Wochenziel“ (719). O12 WOCHENPLAN:11 Tagesbericht „Probe“ (448). O14 offen: PROJEKT:15 Zielvereinbarung 341, Probe bis 06.11. abgelaufen, keine Auswertung.
 - Widerspruch: O3 offen: Kosten mehrerer Vorgänge „zu gleichen Teilen“ (LISTE-BETRIEB:26, LISTE-KOSTEN:103) gegen „ganze Summe auf den Hauptvorgang“ (BETRIEB:50); fehlende Zahl „fehlt“ gegen schätzen (Chef 03.11.). O5 offen: Morgenmeldung-Inhalt LISTE-BETRIEB:42, :32 gegen WOCHENPLAN:9 „eine Zeile“ (247, 448). O6 offen: Ford-Wache an Tom/Perikles (CLAUDE.md:91, WOCHENPLAN:10) gegen 166.2/81r. O7: BETRIEB:23 „Sokrates nie aus dem Vorrat“ gegen 194.2 (lauf.py startet ihn). O8 offen: LISTE-BETRIEB:39 Eingang „wartet auf Chef“ ohne Datei gegen CLAUDE.md:66, README:334. O9 offen: wer Chefsache löscht (CLAUDE.md:89 „jeder nur seine“ gegen README:333 „auch die eines anderen“). O13: PROJEKT:19 Tagesbericht „über Sonntag 50 h“ gegen täglich (448). O15 offen: „Anteil Spiel“ nach Rolle (PROJEKT:43) gegen nach Bereich E+G (LISTE-KOSTEN:36). O16: LISTE-BETRIEB:26 „sofort archivieren“ gegen BETRIEB:50 „idle und 60 s“.
 - Doppelung: O17 Startregel dreifach (BETRIEB:23, :54, LISTE-BETRIEB:21) trotz „eine Startregel“ (167.8). O18 Ford-Mechanik zweifach (create_session-Felder, archiviert sich nie selbst, Routinen, ÜBERTRAGE/WEITER, Tagesbericht fehlt 10 Uhr, Abos 10.11.). Am Rande: LISTE-BETRIEB:38 Stand „im Vorrat und PROJEKTPLAN“ gegen CLAUDE.md (Vorgangsliste).
-
-Nächster Schritt: je Fund Zeile prüfen (Betrieb/Projekt und Beratung/Prüfung noch ungeprüft), dann Chefsache `entscheiden/783-…` nur mit den offenen (Chef entscheidet), Überholtes und Doppeltes als Liste an Perikles (Schritt 3).
 
 ## Lauf 110 · Nachprüfung 775, 776, 777 (Bereich B; `fa6d61d82`, `3ad18ce80`; 09.11., 17:1x)
 

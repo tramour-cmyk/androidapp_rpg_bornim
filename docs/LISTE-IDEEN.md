@@ -26,6 +26,8 @@ Zuletzt verworfen (Chef 09.11., 11:21, 743 „alle verwerfen“): Spiel-Engine G
 
 ## E Entwicklung
 
+- **Eigener Name für Fertigkeit 100 ohne Boni** (Chef 09.11., 20:43, an Sokrates, zu 762: „was hältst du denn für die Idee, Großmeister? Okay, 75 bis 99. Und wenn einer wirklich die 100 schafft, also 100 netto und nicht 100 durch irgendwelche Gegenstände … oder Ausrüstung … 100 ist halt so ein richtiger Meilenstein. Dass der einen eigenen Namen verdient.“): BRS heute Großmeister 75–100, „bei 100 ist die Fertigkeit fertig“; 100 erst in Kapitel 6–7 erreichbar (BRS Kapiteltabelle). Sokrates: dafür, aber als Auszeichnung neben dem Rang, nicht als fünfter Rang (Prüfungen und Kapitelgrenzen rechnen mit vier Rängen); Name von Homer (Vorschläge etwa „Vollendet“, „Legende“), Großmeister dann 75–99. Gegen: kein Spieler sieht es vor Kapitel 6. Regel ändert der Chef im BRS, Wortlaut Homer. → Urteil Homer.
+
 ### Welt
 
 - **Begehbare Häuser über mehrere Ebenen, mit Kampf** (Chef 27.10., 12:00, an Sokrates: „dann könnten wir sozusagen auch mit unserem Held ein Abenteuer machen, in einem größeren Haus. Über Etagen. Kämpfen sozusagen.“). Befund Sokrates (376): Kapitel 1 hat keine Ebenen (`LISTE-UMZUG-348.md`); braucht Treppen im Wegenetz, Verdecken der oberen Ebene, MARS auf Ebenen, Story (Homer). Bausatz Medieval Village liefert Treppen und Böden. Nach dem Meilenstein. → **später:** Pro: ein Haus über Ebenen ist ein eigener kleiner Dungeon mitten in der Welt; Contra: Ebenen berühren Wegenetz, Kamera und MARS zugleich. Erst Kapitel 2, zusammen mit 48 (Dungeons), dort ein Ort mit Geschichte (Kulthaus des Grauen Propheten).
@@ -48,6 +50,8 @@ Zuletzt verworfen (Chef 09.11., 11:21, 743 „alle verwerfen“): Spiel-Engine G
 - **84.4 Lauschen beim Stehen** (Chef 14.10., 18:0x/18:1x „sehr gut“; aus Vorrat Homer, 84): Welle am Helden zur Geräuschquelle, Stärke = Deutlichkeit, Wort nur bei deutlichem Hören; Stufen Stehen > Schleichen > Gehen > Rennen. → **später:** nach dem Meilenstein; Bau Jerry (mit 86, „Rennen laut“ gebaut).
 
 - **Tempelszene mehr wie das Intro** (Sokrates 19.10., 21:01, mit 68.1 vom Chef zurückgestellt): Stein kühler, Kerzen und Strahl wärmer (warm gegen kalt wie im Intro); Bild 4 mit Aldric und Lyra als Umriss vor dem Strahl statt dunkler Gemeinde. → **später:** nach dem Meilenstein; ändert alle fünf Bilder.
+
+- **Trank oder Zauber, der aufdeckt** (Chef an Sokrates 09.11., 18:16: „so einen speziellen Trank, der sozusagen alle Sachen auf einer Karte aufdeckt oder im Umkreis von, keine Ahnung, 20 Feldern oder so, dass man auch kurz die Mobs sieht oder wo eine Tool steckt oder dergleichen mehr. So eine Art Trank oder Zauber … Finde ich eine coole Sache.“): Nebel weg, Gegner und Verstecktes kurz sichtbar. Berührt Nebel rundum (461, 505), Spähen (Entscheidung 83), Kräutersammler-Tränke (481). → Urteil Homer offen.
 
 ### Figuren
 
@@ -135,6 +139,8 @@ Zuletzt verworfen (Chef 09.11., 11:21, 743 „alle verwerfen“): Spiel-Engine G
 - **Neue Bosse:** Banditenhauptmann, Ogerhäuptling, Gelatinewürfel; mehrphasig, rufen Verstärkung. → **später:** Kapitel 2.
 
 ## B Betrieb
+
+- **650.2 C4–C6, Story-Dateien zusammenlegen (Homer; Chef 09.11., 20:52 „650.2 wie Vorschlag“):** C4 `STORY-PLAN`, `-ROTER-FADEN`, `-PLAN-K1`, `-K1-HANDLUNG`, `-CHRONIK-TEXTE-K1` zu zwei (Überblick aller Kapitel, Handlung K1), Texte wortgetreu; C5 Spielerhandbuch Teile 1–3 zu einer Datei, gegen das BRS halten; C6 `STORY-SPIEL` bleibt ganz, Grenze „15 KB“ im Kopf fällt, SRD-Namen abgleichen; `STORY-MENUE` Kopf auf Godot. Kein Vorgang vor Kapitel 1; nebenbei, wenn Homer ohnehin an den Texten ist.
 
 ### Werkzeuge
 
