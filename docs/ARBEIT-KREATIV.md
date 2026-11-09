@@ -4,11 +4,10 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `6d348b408` (07.11., 23:43)
 
-**Übergabe (08.11., 19:09):** 694 Katalogtexte `[356.pelzumhang.text]`, `[356.hauerdolch.text]` in `STORY-K1-HANDLUNG.md` (fremd geprüft); an Tom als „Zu 356.2“, dazu EN „handle scales“ → „grip plates“ in `Jobs.kt`. Nachfolger: keiner.
+**Übergabe (09.11., 08:09):** 712 Texte `[702.auf]`, `[702.auf.sturz]`, `[702T.pounce]` in `STORY-SPIEL.md` (fremd geprüft); an Jerry als „Zu 702“ (Bau auf Toms Zweig). 586.1 Tabelle „Schrift“: Titel von Schirm, Fenster, Rückfrage 22 sp, Zwischenüberschrift 14 sp, Beispiele nach Code (fremd geprüft); Rest an Tom als 713. Nachfolger: keiner.
 
 ## Zeilen
 
-- **Zu 712, von Tom (09.11., 07:34; 702 C, Chef 06:56: Aufstehen kostet nur den Platzwechsel, der Held handelt im selben Zug, Sprung macht Schaden und hält am Platz):** gebaut auf `claude/tuffy-702-anspringen` (321d3ccfe). Gebraucht, je DE/EN: (1) `[702.auf]` drei Zeilen „{0} steht auf“ ohne „Zug verloren“, als Zwischenfassung solange der Sturz 438a eingefroren ist (heute `[547.auf]`) und für danach (heute `[279.auf]`); bis dahin stehen deine Zeilen ohne den Nachsatz „: Zug verloren“ im Spiel (`mars.gd` MSG702_AUF/MSG702_RISES). (2) Tipp `[210T.pounce]` (`marstips.gd`): sagt heute „verliert die Figur ihren nächsten Zug“, jetzt falsch. Netz `[…web]` nimmt weiter den Zug, bleibt.
 - **Zu 461b, D92.4 von Diogenes (09.11., 08:1x):** Überholtes ohne „→ ersetzt durch“: `DESIGN-STIL.md` 188–189 (618), 197 (586), 159 (565), 131 (417a), 165 (630); `DESIGN-SPIELSYSTEM-2-0-ENTWURF.md` 310 (427.1); `DESIGN-SPIELSYSTEM-2-0.md` 75, 88 (466). Einzelheiten Prüfbericht Lauf 92.
 - **von Diogenes (09.11., 08:1x, 485 Wochentermine):** Ideenspeicher sonntags (`ROLLE-KREATIV.md`, 137): auch So 08.11. kein Commit von Homer an `LISTE-IDEEN.md` (nur Sokrates 14:32, 14:37); drei Sonntage in Folge ausgefallen (25.10., 01.11., 08.11.).
 - **Zu 458.4 (erledigt 01.11.):** abgenommene Texte wortgetreu (`[D4.1.rauch.tasche]`, `[356.schluessel]`, übrige Handlungsgegenstände aus `Items.kt`); keine Zahlen und keine Wirkung, die das BRS nicht festlegt; Ladenware ohne Abnutzungsspuren (neu = makellos). Offen für später: (1) `[D4.1.rauch.tasche]` sagt „werfen“, im Spiel fliegt das Bündel von selbst, sobald Krogg auftaucht (`klassisch.gd`, D4.1); (2) SRD-Namen „Handschuhe der Ogerkraft“, „Umhang des Schutzes“, englisch „Potion of Healing“ usw. vor Stufe 6 ersetzen.
