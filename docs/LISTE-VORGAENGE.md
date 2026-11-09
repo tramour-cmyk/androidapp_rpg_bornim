@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 773 | Sammelbuild 272: alle fertigen Zweige beider Teams (Tom 5, Jerry 6: u. a. 656, 717, 717.1, 682, 702), Prüfliste ansehen/t272, build 272 --mit für alle (von Perikles, 15:31: sonst wartet jeder auf den anderen) | Tom | M | startbar | – | – | – | E Technik | – |
+| 773 | Sammelbuild 272: alle fertigen Zweige beider Teams (Tom 5, Jerry 6: u. a. 656, 717, 717.1, 682, 702), Prüfliste ansehen/t272, build 272 --mit für alle (von Perikles, 15:31: sonst wartet jeder auf den anderen) | Tom | M | in Arbeit, PR #191 baut, Prüfliste fertig zum Lauf | – | – | – | E Technik | – |
 | 610 | Held im Dorf: Finger am Stab zucken ohne Unterlass (Schild auf dem Rücken) (Chef 07.11., t268) | Tom | M | startbar, Fund t269.12 | – | claude/tom-610-finger | – | E Figuren | – |
 | 522 | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Chef 03.11., 23:33) | Tom | M | startbar, Fund t269.12 | – | claude/tom-522-waffen | – | E Oberfläche | – |
 | 697 | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | Tom | M | startbar | – | – | – | E Figuren | – |
