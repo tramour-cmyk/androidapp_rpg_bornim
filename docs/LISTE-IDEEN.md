@@ -138,6 +138,8 @@ Zuletzt verworfen (Chef 09.11., 11:21, 743 „alle verwerfen“): Spiel-Engine G
 
 ## B Betrieb
 
+- **650.2 C4–C6, Story-Dateien zusammenlegen (Homer; Chef 09.11., 20:52 „650.2 wie Vorschlag“):** C4 `STORY-PLAN`, `-ROTER-FADEN`, `-PLAN-K1`, `-K1-HANDLUNG`, `-CHRONIK-TEXTE-K1` zu zwei (Überblick aller Kapitel, Handlung K1), Texte wortgetreu; C5 Spielerhandbuch Teile 1–3 zu einer Datei, gegen das BRS halten; C6 `STORY-SPIEL` bleibt ganz, Grenze „15 KB“ im Kopf fällt, SRD-Namen abgleichen; `STORY-MENUE` Kopf auf Godot. Kein Vorgang vor Kapitel 1; nebenbei, wenn Homer ohnehin an den Texten ist.
+
 ### Werkzeuge
 
 - **Testbitte nur mit Abkürzung** (Sokrates 25.10., 07:4x; Anlass t89.4: Lyra beim Chef längst befreit, „Bosse zurücksetzen“ setzt `LYRA_RESCUED` nicht zurück, Chef hätte neu durchspielen müssen): verlangt ein Punkt einen Spielstand, den der Chef wahrscheinlich nicht mehr hat, liefert das Team den Weg dorthin im Testreiter mit, sonst nicht in die Testbitte. Gilt auch für Godot. → **reif** (Perikles): eine Zeile in `ROLLE-ENTWICKLUNG.md`, ersetzt nach Regelbilanz eine alte; kostet nichts und spart dem Chef ganze Durchläufe.
