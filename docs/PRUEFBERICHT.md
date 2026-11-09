@@ -37,6 +37,10 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Geschlossen laut Nachprüfung oder Spur: D61.2, D62.1, D63.1–D63.6, D64.1, D65.1, D67.1, D68.1, D68.2, D69.1, D70.1, D71.1, D71.2, D74, D76.1, D76.2, D77.1, D77.2, D78.2, D79, D80.1–D80.7, D81.1, D81.2 (mit 275.2), D82, D83, D84, D84.2, D85, D86.2 (Hinweis an mich), D88.1 (685), D89, D90.1–D90.3 (686), D93.
 
+## Lauf 97 · 696 Bilder derselben Minute (Bereich B; `d5e584b7a`; 09.11., 14:1x)
+
+- **Greift.** 656 (08.11., 20:57) und 492 (21:16): je zwei Dateien mit `-2`, Inhalt verschieden, je zwei eigene Links in `ansehen/`.
+
 ## Lauf 96 · 275 Vorgangsliste (Bereich B, 724; `e23a4ccb2`; 09.11., 14:1x)
 
 - **Greift.** 507 Commits an der Liste nachgespielt: 4 neue Zeilen ohne Zähler (632–634, 641), alle vor 08.11., 09:18; Form, Prüfung und Nummern sauber. Lücke bleibt 734 (Warnungen nicht festgehalten).
