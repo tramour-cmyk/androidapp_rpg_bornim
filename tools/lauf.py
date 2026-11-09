@@ -67,7 +67,19 @@ HOCH = "env_017fgL1YDcVTYTkJsU3APEfR"  # „WireStorm Hoch“
 UMGEBUNG = {}  # alle MITTEL (Chef 09.11., 07:23: „Der Aufwand ist auf Mittel“); Probe 365 endete 31.10.; HOCH nur auf Wort des Chefs
 REPO = "https://github.com/tramour-cmyk/androidapp_rpg_bornim"  # ohne source_url startet die Sitzung ohne Repo (18.10., Jerry 39; 187)
 REVISION = "main"  # 382: ohne source_revision lasen neue Sitzungen einen alten Stand (26.10., ohne add_repo-Erlaubnis; Tom 376.1a)
-MODELL = {"Tom": "opus", "Homer": "opus", "Sokrates": "opus", "Jerry": "opus", "Perikles": "opus", "Diogenes": "opus"}  # 270: Regelwächter groß, Probe bis 26.10.
+MODELL = {"Tom": "opus", "Homer": "opus", "Sokrates": "opus", "Jerry": "opus", "Perikles": "sonnet", "Diogenes": "opus"}  # 270: Diogenes dauerhaft groß; Perikles nur als Probe (PROBEN)
+# 718 A (Chef 09.11., 11:25): jede Probe = Abweichung vom alten Wert mit Enddatum; ab BIS gilt der alte Wert in der Tafel oben, lauf.py meldet
+# einmal am Tag „Probe <Nr> abgelaufen, auswerten“ (WARNUNG-LAUT, Marke „Probe-abgelaufen <Nr>“); verlängern nur auf Wort des Chefs (BIS ändern, Wortlaut dazu)
+PROBEN = [  # (Nr, Tafel, Schlüssel, Probewert, BIS „TT.MM.JJJJ“: ab diesem Tag alter Wert)
+    ("270", "MODELL", "Perikles", "opus", "07.11.2026"),  # 270 (Chef 26.10., 11:15): Perikles groß bis 06.11., dann Neuvorlage mit 341
+]
+def _bis(t):
+    d, m, j = (t.strip(".").split(".") + [str(JETZT.year)])[:3]
+    return datetime.date(int(j), int(m), int(d))
+ABGELAUFEN = []
+for _nr, _tafel, _k, _wert, _b in PROBEN:
+    if JETZT.date() < _bis(_b): globals()[_tafel][_k] = _wert
+    else: ABGELAUFEN.append((_nr, _tafel, _k, _b))
 VORRAT = {"Homer": "ARBEIT-KREATIV.md", "Tom": "ARBEIT-TEAM-TOM.md", "Jerry": "ARBEIT-TEAM-JERRY.md",
           "Perikles": "ARBEIT-PROJEKT.md", "Diogenes": "ARBEIT-PRUEFUNG.md", "Sokrates": "ARBEIT-BERATUNG.md",
           "Spike": "ARBEIT-TEAM-TOM.md", "Tuffy": "ARBEIT-TEAM-JERRY.md"}  # 394: eigene Rolle (belegt Tom nicht), Vorrat des Teams
@@ -387,6 +399,10 @@ def main():
             try: aus.append(JETZT.replace(month=int(m.group(4)), day=int(m.group(3)), hour=int(m.group(1)), minute=int(m.group(2)), second=0, microsecond=0))
             except ValueError: pass
         return aus
+    for nr, tafel, k, b in ABGELAUFEN:  # 718 A: einmal am Tag, bis die Zeile aus PROBEN gestrichen oder BIS auf Wort des Chefs verlängert ist
+        if not [d for d in marke_zeit("Probe-abgelaufen " + nr) if d.date() == JETZT.date()]:
+            ausgabe.append("WARNUNG-LAUT Probe %s abgelaufen, auswerten: %s %s seit %s wieder %s (verlängern nur auf Wort des Chefs, 718)" % (nr, tafel, k, b, globals()[tafel].get(k)))
+            neue_marken.append("Probe-abgelaufen " + nr)
     for r, ss in sorted(je_rolle.items()):
         if r in NIE_ARCHIV: continue
         if r == "Sonstige":  # (1) ohne Rolle im Titel lässt Ford die Sitzung stehen und meldet es einmal
