@@ -246,7 +246,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 786 | M | Klangliste alt gegen neu: je Anlass alt, neu, fehlt (654 A, als Drittes) | wartet auf 784 (startbar) |
 | Pflege | K | von Werkzeug (340.3, 09.11.): 17083 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 22, Muss 8, startbar 0
+**Perikles** – offen 20, Muss 7, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -269,19 +269,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 734 | K | D92.1 Warnung „LISTE-VORGAENGE.md von Hand geändert“ wird nirgends festgehalten, Woche War | ruht |
 | 735 | K | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-ABNAHME.md 11 und Kopf DESIGN-KAMPF | ruht |
 | 742 | K | D78.1 Testbitte t268: Zeile „Verglichen“ deckte nur die Schirme vom 05.11., nicht Dorf, Ka | ruht |
-| 788 | M | Wiederholungswächter: Allerweltswörter (Schwert, Licht, Karte, Kasten, Menü …) ausschließe | wartet auf Diogenes (greift?) |
 | 791 | M | D111 von Diogenes (783, 745 A2 Schritt 3): Überholtes und Doppeltes im Regelwerk umschreib | wartet auf Diogenes (greift?) |
-| 793 | K | D116.1 von Diogenes (788): Stichwort „Halt“ trifft jeden Wortanfang, „Haltung des Helden“ | wartet auf Diogenes (greift?) |
 
-**Diogenes** – offen 13, Muss 11, startbar 3
+**Diogenes** – offen 11, Muss 10, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 511 | M | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele | wartet auf D75 (Dauer) |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
-| 788 | M | Wiederholungswächter: Allerweltswörter (Schwert, Licht, Karte, Kasten, Menü …) ausschließe | startbar |
 | 791 | M | D111 von Diogenes (783, 745 A2 Schritt 3): Überholtes und Doppeltes im Regelwerk umschreib | startbar |
-| 793 | K | D116.1 von Diogenes (788): Stichwort „Halt“ trifft jeden Wortanfang, „Haltung des Helden“ | startbar |
 | 461b | M | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Termin 16.11. |
 | 348.9 | M | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | ruht |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
