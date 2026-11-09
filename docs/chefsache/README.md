@@ -39,11 +39,10 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 6, Muss 2, startbar 1
+**Homer** – offen 5, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 716 | M | Ideenspeicher 08.11. nachholen (Diogenes D92, drei Sonntage ausgefallen) · „jetzt“ 09.11., | startbar |
 | 432 | K | Eigenes Volk aus Bornim (etwa mit dem Grauen Propheten, „Tag der Asche“) prüfen, mit der G | ruht |
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
