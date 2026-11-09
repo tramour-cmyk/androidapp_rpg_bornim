@@ -53,7 +53,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 | 772 | K | D89.2 von Diogenes (über Perikles): Glossar ohne „Vorgang beim Chef“ (480); „steht in“ zei | startbar |
 
-**Tom** – offen 104, Muss 84, startbar 2
+**Tom** – offen 105, Muss 85, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -161,8 +161,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 785 | M | Oberfläche einmal ganz gegen alt: jeder Schirm und jede Bedienung als eine Liste, jeder Un | wartet auf 784 (startbar) |
 | 795 | M | BRS-Erschaffung, Platzwahl „Alle Spielstand-Plätze sind belegt“: noch Rahmen und Auslösen | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 773 (alle) |
 | Pflege | K | von Werkzeug (340.3, 09.11.): 16164 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 804 | M | Dorf: Gras und Blumen aus dem Kit R9 (Gräser, Blumen, Wind, weicht dem Helden aus) statt h | startbar |
 
-**Jerry** – offen 77, Muss 69, startbar 3
+**Jerry** – offen 79, Muss 71, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -243,8 +244,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 801 | M | Freigabe add_repo für bornim-kaufmodelle in den Sitzungseinstellungen (Zugriffsprüfung leh | Chef (Datei in der Chefsache) |
 | 802 | K | Rest 211.14 (Kür, Tuffy): Held und Söldner gehen beim Wechsel statt 0,4 s zu gleiten (figu | startbar |
 | 803 | K | Rest 211.14 (Kür, Tuffy): Gegner durch Antippen der Figur als Ziel wählen | startbar |
+| 805 | M | Kampforte neu gestalten mit den Paketen: Gras und Blumen R9, Boden, Licht, Staub, damit es | startbar |
+| 806 | M | Kampforte mit den Effektpaketen schöner: Gras und Blumen aus R9, Boden, Staub; Bilder/s ni | startbar |
 
-**Perikles** – offen 24, Muss 9, startbar 4
+**Perikles** – offen 24, Muss 9, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -268,17 +271,18 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 735 | K | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-ABNAHME.md 11 und Kopf DESIGN-KAMPF | ruht |
 | 742 | K | D78.1 Testbitte t268: Zeile „Verglichen“ deckte nur die Schirme vom 05.11., nicht Dorf, Ka | ruht |
 | 797 | M | Von Tom (506): Auto-Modus lehnt add_repo trotz 708 ab, Chef musste 20:15 erneut erlauben; | Chef (Datei in der Chefsache) |
-| 799 | M | Vorlagen nach 364: Muster MUSTER.md und Haken, der entscheiden/ und billigen/ ohne die ach | startbar |
+| 799 | M | Vorlagen nach 364: Muster MUSTER.md und Haken, der entscheiden/ und billigen/ ohne die ach | wartet auf Diogenes |
 | 800 | M | docs aufräumen nach 650.2: A nach alt/ (je Datei „vorher“), B kapitel2/, C1 BRS umbenennen | startbar |
 | 739 | K | D84.1 die sechs wiederholten Funde aus t268 mit „wiederholt“ im Titel nachziehen (620.1 A; | startbar |
 | Pflege | K | von Werkzeug (340.3, 09.11.): 16764 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Diogenes** – offen 9, Muss 8, startbar 1
+**Diogenes** – offen 10, Muss 9, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 796 | M | Schritt 3 zu 745: Regeln nach 783 angleichen (W1–W8, Archiv 09.11., 20:00–20:16), Werkzeug | startbar |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
+| 799 | M | Vorlagen nach 364: Muster MUSTER.md und Haken, der entscheiden/ und billigen/ ohne die ach | startbar |
 | 461b | M | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Termin 16.11. |
 | 348.9 | M | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | ruht |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
