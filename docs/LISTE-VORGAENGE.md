@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 773 | Sammelbuild 272: alle fertigen Zweige beider Teams (Tom 5, Jerry 6: u. a. 656, 717, 717.1, 682, 702), Prüfliste ansehen/t272, build 272 --mit für alle (von Perikles, 15:31: sonst wartet jeder auf den anderen) | Tom | M | wartet, Lauf rot an wolf_mess_438 | 778 | – | – | E Technik | 11,84 $ |
+| 773 | Sammelbuild 272: alle fertigen Zweige beider Teams (Tom 5, Jerry 6: u. a. 656, 717, 717.1, 682, 702), Prüfliste ansehen/t272, build 272 --mit für alle (von Perikles, 15:31: sonst wartet jeder auf den anderen) | Tom | M | startbar | – | – | – | E Technik | 11,84 $ |
 | 610 | Held im Dorf: Finger am Stab zucken ohne Unterlass (Schild auf dem Rücken) (Chef 07.11., t268) | Tom | M | zu testen, t269.12 traf den Magierstab (ohne Modell), Nachtest 272 mit Kampfstab | t272 | claude/tom-610-finger | 272 | E Figuren | 19,22 $ |
 | 522 | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Chef 03.11., 23:33) | Tom | M | zu testen, Nachtest 272: Dolch, Krummsäbel, Handbeil, Kurzbogen; 14 Waffen ohne Modell (458.3) | t272 | claude/tom-522-waffen | 272 | E Oberfläche | – |
 | 697 | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | Tom | M | in Arbeit, erster Messlauf ohne Wert (nicht importiert) | 782 | claude/tom-697-drehteller | – | E Figuren | – |
@@ -123,7 +123,7 @@
 | 756 | Gegenstände: wie Seltenheit, Abnutzung und übrige Merkmale bei anlegbarer Ausrüstung angezeigt werden (Chef 09.11., 14:23) | Tom | M | startbar, 756 A: Probebild Merkmale (Chef 17:46) | – | – | – | E Oberfläche | 20,48 $ |
 | 785 | Oberfläche einmal ganz gegen alt: jeder Schirm und jede Bedienung als eine Liste, jeder Unterschied ein Vorgang; 666, 669, 671, 711, 752 gehen darin auf (654 A, nach dem Kampf-Sollbild) | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | Pflege | von Werkzeug (340.3, 09.11.): 15003 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
-| 778 | Von Tom (773): Build 272 rot an wolf_mess_438 (Kleriker gegen Wölfe: Wolf in Wolf 68 Bilder, Grenze 30; Gleiten zweimal über 0,5 m), mit 717/682 und 702 C zusammen; „jetzt“ 09.11., 17:25 | Jerry | M | in Arbeit | – | – | – | E Kampf | – |
+| 778 | Von Tom (773): Build 272 rot an wolf_mess_438 (Kleriker gegen Wölfe: Wolf in Wolf 68 Bilder, Grenze 30; Gleiten zweimal über 0,5 m), mit 717/682 und 702 C zusammen; „jetzt“ 09.11., 17:25 | Jerry | M | gebaut, Geprüft an: 346a48f2f | – | claude/jerry-717-rueckwaerts | – | E Kampf | – |
 | 717 | Kampf: Gegner zeigt dem Helden nie den Rücken, außer auf der Flucht; nach dem Angriff rückwärts zurück oder stehen bleiben, keine Kurve heim (Chef 09.11., 08:51; ändert 682) · „jetzt“ 09.11., 08:51 | Jerry | M | gebaut, Geprüft an: 573e83ab4 | – | claude/jerry-717-rueckwaerts | – | E Kampf | – |
 | 717.1 | Kampf: Zurechtrücken der Gegner läuft gleichzeitig mit dem Zug des Helden statt davor (Idee Chef 09.11., 08:58, zu 717) | Jerry | M | gebaut, Geprüft an: 573e83ab4 | – | claude/jerry-717-rueckwaerts | – | E Kampf | – |
 | 682 | Kampf flüssiger: Held geht zügig zum Angriff, Gegner laufen in weichen Bögen statt eckig gerade-diagonal, weniger Warten auf Hin- und Zurücklaufen bei Fehlschlägen; grundsätzlich für alle Gegner (Chef 08.11., 16:22, t269; „Schienenbahnen“ t270) · „jetzt“ 08.11., 21:36 | Jerry | M | gebaut, im Zweig von 717. Geprüft an: 573e83ab4 | – | claude/jerry-717-rueckwaerts | – | E Kampf | 79,30 $ |
@@ -218,7 +218,8 @@
 | 761 | Glossar MARS: Herkunft nachtragen (Chef 17.10., 22:50: Kriegsgott „stimmt“, Abkürzung „nett bis auf Mut“; dein Ersatz „Moment“ unbeantwortet) (Sokrates nach Chef 09.11., 14:46) | Homer | M | erledigt | – | – | – | G Stil | 3,52 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 772 | D89.2 von Diogenes (über Perikles): Glossar ohne „Vorgang beim Chef“ (480); „steht in“ zeigt meist auf CLAUDE.md | Homer | K | startbar | – | – | – | B Abläufe | – |
-| 779 | Sperre 620.1 B nur bei Überschneidung mit Ungetestetem, sonst weiterarbeiten (Chef 09.11., 17:30) | Perikles | M | gebaut, Geprüft an: 622fc78c1 (Tom 11, Jerry 8 startbar) | Diogenes | – | – | B Abläufe | – |
+| 792 | D114.1 von Diogenes (779): Sperre sperrt über Allerweltswörter ohne gleiches Thema: 762 über „schwert“ (aus „Schwertarm“ in 656), 753 „design“, 784 „jeden“, 680 und 757 „schenke“ gegen 543 (Startwerte); 5 von 27 Sperren | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
+| 779 | Sperre 620.1 B nur bei Überschneidung mit Ungetestetem, sonst weiterarbeiten (Chef 09.11., 17:30) | Perikles | M | gebaut, Geprüft an: 622fc78c1 (Tom 11, Jerry 8 startbar) | 792 | – | – | B Abläufe | – |
 | 774 | Gemeinsamen Build nie verwaist: startbar.py legt bei ≥4 wartenden Punkten selbst die Zeile „Sammelbuild <n>“ beim Team mit den meisten an; build <n> --mit muss alle Nummern der Prüfliste tragen (t271: 8 Tom-Zeilen ohne Build, nach dem Test nicht gebucht, Sperre 620.1 B hielt Tom; Chef 15:29) | Perikles | M | erledigt, greift Lauf 110 | – | – | – | B Abläufe | – |
 | 715 | Rollenspiegel 06.11. nachholen (Diogenes D92) · „jetzt“ 09.11., 08:49 | Perikles | M | erledigt | – | – | – | B Abläufe | 5,67 $ |
 | 317.1 | `startbar.py`, `lauf.py`: Obergrenze 6 je Build streichen (Chef 07.11., 20:5x) | Perikles | M | erledigt | – | – | – | B Werkzeuge | – |
@@ -227,7 +228,7 @@
 | 483 | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Marke (Chef 02.11., 19:08) | Perikles | M | gebaut, Geprüft an: 62e922b30 | Diogenes, D75 | – | – | B Werkzeuge | – |
 | 464 | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählung im Tagesbericht (Chef 01.11., 20:4x) | Perikles | M | gebaut, Geprüft an: fcf9ab215 | 16.11. | – | – | B Abläufe | – |
 | 398 | Gegenprobe: Grundsätze aus DESIGN-Dateien, die im Umzug nach Godot fehlen (Chef 28.10., 11:22) | Perikles | M | erledigt | – | – | – | E Technik | 12,07 $ |
-| 383 | Wartewächter und Haken 63 verschärfen (Chef 27.10., 17:53 ja); Sitzungsgröße messen (Sokrates) | Perikles | M | gebaut, Geprüft an: 6a5ef0c1b (Probe: diese Sitzung über 200 Tsd. → Erinnerung) | Diogenes | – | – | B Werkzeuge | 99,45 $ |
+| 383 | Wartewächter und Haken 63 verschärfen (Chef 27.10., 17:53 ja); Sitzungsgröße messen (Sokrates) | Perikles | M | erledigt, greift Lauf 112 | – | – | – | B Werkzeuge | 99,45 $ |
 | 275 | Zentrale Vorgangsliste als einzige Quelle (Chef 21.10.; Stufe 1 jetzt, 27.10.) | Perikles | M | erledigt, greift Lauf 96 | – | – | – | B Werkzeuge | 31,69 $ |
 | 347.2 | Umsetzung Plan 347 nach Gegenprüfung (Chef 24.10., 16:30) | Perikles | M | wartet | 347 | – | – | B Abläufe | – |
 | 276 | Fords Anleitung auf eine Seite (Empfehlung Sokrates zu 274) | Perikles | K | ruht | – | – | – | B Abläufe | – |
@@ -271,10 +272,12 @@
 | 775 | D105.1 von Diogenes: 774 Commit-Prüfung übersieht Prüflistenzeilen mit mehreren Nummern („540, 583“) und mit Haken in der ersten Spalte („269.1 ✓“); in t269 26 von 28 Zeilen | Perikles | M | erledigt, greift Lauf 110 | – | – | – | B Abläufe | 4,97 $ |
 | 776 | D108.1 von Diogenes: 749 hebt „von Ford (464)“ je rotem Lauf auf (Commit 8a4abf110), ROLLE-BETRIEB.md Zeile 29 verlangt sie weiter samt Tageszahl im Protokoll (461b: neu ersetzt alt im selben Commit) | Perikles | M | erledigt, greift Lauf 110 | – | – | – | B Abläufe | – |
 | 777 | D108.2 von Diogenes: tagesbericht.py rote_laeufe zählt Zweige spike-/tuffy- als „Sonst“ statt Tom/Jerry (ROLLE-BETRIEB 464: spike → Tom, tuffy → Jerry); 7 Tage: 3 so | Perikles | K | erledigt, greift Lauf 110 | – | – | – | B Abläufe | – |
-| 750 | Ford startet ohne lauf.py (seit Selbstneustart 01:05 startbar.py plus create_session von Hand): Sperre per Haken vor create_session (Chef 13:28) | Perikles | M | gebaut, Geprüft an: cbb745d9d (Perikles, Tom, Homer ohne Sperre → angehalten; fremder Titel frei) | Diogenes | – | – | B Werkzeuge | – |
-| 788 | Wiederholungswächter: Allerweltswörter (Schwert, Licht, Karte, Kasten, Menü …) ausschließen (654 A, Chef 09.11., 17:46) | Perikles | M | gebaut, Geprüft an: 994cc1f5f (Probe: Menü→785, Schild→644, Schwert still, Umhang neue Zeile) | – | – | – | B Werkzeuge | – |
+| 750 | Ford startet ohne lauf.py (seit Selbstneustart 01:05 startbar.py plus create_session von Hand): Sperre per Haken vor create_session (Chef 13:28) | Perikles | M | erledigt, greift Lauf 115 | – | – | – | B Werkzeuge | – |
+| 788 | Wiederholungswächter: Allerweltswörter (Schwert, Licht, Karte, Kasten, Menü …) ausschließen (654 A, Chef 09.11., 17:46) | Perikles | M | gebaut, Geprüft an: 994cc1f5f (Probe: Menü→785, Schild→644, Schwert still, Umhang neue Zeile) | 793 | – | – | B Werkzeuge | – |
 | 789 | Freigaben, die eine Sitzung beim Chef braucht (Repo-Zugang, Berechtigung), landen sofort als tun/-Datei und Meldung --laut; heute zweimal nur in der Sitzung (Jerry 16:38, Tom 17:34) (Sokrates, Chef 09.11., 17:51) | Perikles | M | erledigt, ohne Grund angelegt: Jerry hatte eine tun/-Datei, Toms Statuszeile war veraltet (Chef 17:56) | – | – | – | B Abläufe | – |
 | 791 | D111 von Diogenes (783, 745 A2 Schritt 3): Überholtes und Doppeltes im Regelwerk umschreiben, Liste Prüfbericht Lauf 111 (Widersprüche W1–W8 erst nach Chefsache 783) | Perikles | M | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 09.11.): CLAUDE.md: 15042 Bytes (Grenze 15000), kürzen | Perikles | K | startbar | – | – | – | B Abläufe | – |
+| 793 | D116.1 von Diogenes (788): Stichwort „Halt“ trifft jeden Wortanfang, „Haltung des Helden“ legt eine Zeile Systemlösung an (Probe in Kopie); Wortende prüfen oder „Halt“ streichen | Perikles | K | startbar | – | – | – | B Werkzeuge | – |
 | 340.2 | Rollenspiegel C: `tools/rollenspiegel.sh`, eigene Antwort ohne fremde | Diogenes | M | erledigt | – | – | – | B Abläufe | 13,83 $ |
 | 485 | Diogenes bessert sich aus dem Rollenspiegel 02.11.: Wochentermine zählen, Vergleichsblätter selbst holen, Meldungen ohne Abkürzungen (Chef 02.11., 19:37 „1, 2, 3 ja“) · „jetzt“ 02.11., 19:37 | Diogenes | M | erledigt | – | – | – | Q QS | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
@@ -286,11 +289,11 @@
 | 768 | Wochentermin 13.11.: Rollenspiegel Diogenes (rollenspiegel.sh Diogenes) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Diogenes | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 771 | Probe 657 auswerten: Erstfunde des Chefs t272–t275 gegen 11, 11, 9, 7 (von Perikles, Werkzeug 657 greift laut Lauf 104) | Diogenes | M | startbar | t275 | – | – | Q QM | – |
 | 783 | 745.1 Widersprüche und Doppelungen in CLAUDE.md, Rollendateien, Listen gegen das Archiv listen (je Fund Stellen, Wortlaut, Entscheidung; 745 A2, Chef 09.11., 17:46) | Diogenes | M | wartet, entscheiden/783-widersprueche.md | Chef | – | – | Q QM | 26,08 $ |
-| 790 | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab 200 Tsd., Chef 09.11., 18:05) | Diogenes | M | startbar | – | – | – | Q QM | – |
+| 790 | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab 200 Tsd., Chef 09.11., 18:05) | Diogenes | M | startbar | 16.11. 18:07 | – | – | Q QM | – |
 | 780 | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für unsere gekauften Protofactor-Animsets und Janpec, die KI-Sitzungen mit Skripten bearbeiten? (aus 623.1) | Sokrates | M | wartet, Brief beim Chef | Chef 780 | – | – | M Veröffentlichung | – |
-| 623.1 | Prüfschema auf bisher geprüfte Quellen anwenden (Chef 07.11., aus 623) | Sokrates | M | erledigt | – | – | – | B Abläufe | – |
+| 623.1 | Prüfschema auf bisher geprüfte Quellen anwenden (Chef 07.11., aus 623) | Sokrates | M | erledigt | – | – | – | B Abläufe | 4,28 $ |
 | 620 | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build (Chef 07.11.) | Sokrates | M | startbar | – | – | – | B Abläufe | 6,49 $ |
-| 341.1 | Zielvereinbarung für alle Rollen: je Rolle höchstens drei Ziele, Z3 und Z4 für alle, eins eigen (aus 341) | Sokrates | M | startbar, prüfen (alte Leiche: in LISTE-VORGAENGE.md „erledigt“, Zeile noch im Vorrat) | – | – | – | B Abläufe | – |
+| 341.1 | Zielvereinbarung für alle Rollen: je Rolle höchstens drei Ziele, Z3 und Z4 für alle, eins eigen (aus 341) | Sokrates | M | erledigt | – | – | – | B Abläufe | 1,97 $ |
 | 623 | Effektpakete REEBOO Labs: Kauf, Ressourcenseite `LISTE-QUELLEN.md`, Zuordnung `LISTE-EFFEKTE.md`, Dank im Spiel (Chef 07.11.) | Sokrates | M | wartet, 7 Pakete gekauft 09.11., Rest beim Chef | Chef | – | – | E Kampf | 6,49 $ |
 | 508 | Lehrmeister in Kapitel 1 erreichbar (Geselle), Magie-Pflicht Paladin/Kriegsmagier, Wachsoldat zu Wächter (aus 447.4) | Sokrates | M | startbar | – | – | – | G Stil | – |
 | 461b.4 | Widersprüche aus Liste 461b: Köpfe Regelwerk, Bestiarium, DESIGN-KAMPF gegen Entscheidung 84 | Sokrates | M | startbar | – | – | – | G Stil | 33,44 $ |
@@ -350,10 +353,11 @@
 | 765 | Wochentermin 13.11.: Rollenspiegel Sokrates (rollenspiegel.sh Sokrates) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Sokrates | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 782 | Von Tom (697): ein Lauf am Rechner frei? Der erste (17:38) brach vor dem Zeichnen ab (Projekt nicht importiert, kein Messwert); gleicher Messlauf, nur Alphazahlen, kein Bild an den Chef nötig | Sokrates | M | startbar | – | – | – | B Abläufe | – |
 | 787 | Systemlösung? Klang: 13 frühere Vorgänge (399.3, 575, 620.2b, 399.3.1, 523 …), neu 786; einmal grundsätzlich lösen? (654) | Sokrates | K | erledigt, geht in 786 auf (654 A) | – | – | – | E Klang | – |
-| Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +857,14 $ |
+| 794 | Systemlösung? Halt: 12 frühere Vorgänge (310, 321.1, 316, 430, 488 …), neu 793; einmal grundsätzlich lösen? (654) | Sokrates | K | erledigt, Fehlalarm: angelegt durch den Befund 793 selbst (Wort „Halt“) | – | – | – | B Werkzeuge | – |
+| Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +866,88 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 767 | Wochentermin 13.11.: Rollenspiegel Ford (rollenspiegel.sh Ford) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Ford | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 09.11.): 27318 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 09.11.): 27942 Bytes (Grenze 15000), Erledigtes streichen; Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |

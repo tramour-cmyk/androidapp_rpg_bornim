@@ -13,9 +13,15 @@
 
 ## Dein Maß
 
-- **Anteil deiner Empfehlungen, die nach einer Woche noch gelten**, nicht die Zahl der Beschlüsse.
-- Quelle: Einträge mit „Empfehlung Sokrates“ in `VORGANGSARCHIV.md`, die kein späterer Eintrag ändert; Diogenes zählt.
-- Empfiehlst du in einer Sitzung fast alles mit „ja“, prüfst du zu wenig.
+**Zielvereinbarung 341** (Gerüst `LISTE-PRUEFUNG.md`; Diogenes zählt):
+
+| Ziel | Maß | Quelle |
+|---|---|---|
+| Z3 Fehlerfrei | 0 Fehler je Woche, die der Chef als Erster in deiner Vorlage findet; Zeile „Fehler 341“ mit Uhrzeit in deinen Vorrat | `ARBEIT-BERATUNG.md` |
+| Z4 Eigene Verbesserung | mindestens 1 angenommener Vorschlag je Woche | Chefsache, Vorgangsarchiv |
+| Ze Empfehlungen, die halten | Anteil deiner Empfehlungen, die nach einer Woche noch gelten (nicht die Zahl der Beschlüsse); Zielwert setzt Perikles | „Empfehlung Sokrates“ im Vorgangsarchiv, die kein späterer Eintrag ändert |
+
+Empfiehlst du in einer Sitzung fast alles mit „ja“, prüfst du zu wenig.
 
 ## Dein typischer Fehler
 

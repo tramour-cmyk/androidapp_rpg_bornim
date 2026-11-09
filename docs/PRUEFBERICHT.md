@@ -37,6 +37,39 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Geschlossen laut Nachprüfung oder Spur: D61.2, D62.1, D63.1–D63.6, D64.1, D65.1, D67.1, D68.1, D68.2, D69.1, D70.1, D71.1, D71.2, D74, D76.1, D76.2, D77.1, D77.2, D78.2, D79, D80.1–D80.7, D81.1, D81.2 (mit 275.2), D82, D83, D84, D84.2, D85, D86.2 (Hinweis an mich), D88.1 (685), D89, D90.1–D90.3 (686), D93.
 
+## Lauf 116 · 788 Wiederholungswächter ohne Allerweltswörter (Bereich B; `994cc1f5f`; 09.11., 18:2x)
+
+- **Greift mit Lücke:** in Kopie „Menü“ verweist auf 785, „Schwert“ still. **D116.1 (793, Perikles, Kür):** „Halt“ trifft jeden Wortanfang („Haltung des Helden“ → Zeile Systemlösung); belegt am echten Anlegen von 793, das selbst 794 auslöste (794 als Fehlalarm erledigt).
+
+## Lauf 115 · 750 A Haken vor create_session (Bereich B; `cbb745d9d`; 09.11., 18:2x)
+
+- **Greift:** Homer ohne Sperre → Exit 2 mit Hinweis, Ford und Sokrates mit Sperre der letzten 10 Minuten frei; seit 18:06 steht vor jedem Start im Protokoll eine Sperrzeile (18:09, 18:11, 18:17, 18:23, 18:24). Am Rande: Sokrates zweimal gestartet (18:17, 18:23), das hält der Haken nicht ab (Archivregel, Ford).
+
+## Lauf 114 · 779 Sperre nur bei Überschneidung (Bereich B; `622fc78c1`; 09.11., 18:2x)
+
+- **Greift mit Lücke:** Tom 9 startbar (vorher 0), Jerry 8 (vorher 2). **D114.1 (792, Perikles):** 5 von 27 Sperren ohne gleiches Thema, über Allerweltswörter: 762 Heldenreiter über „schwert“ (aus „Schwertarm“ in 656), 753 Blende „design“, 784 „jeden“, 680 Absturz und 757 Tisch über „schenke“ gegen 543 Startwerte. Liste der Allerweltswörter aus 788 könnte mitgelten.
+
+## Lauf 113 · 790 Kosten vorher (Woche 02.11. bis 09.11., 18:00; 09.11., 18:2x)
+
+222 abgeschlossene Sitzungen, 212 mit Kosten (10 ohne Feld `usage`), zusammen 3.083 $; Stichprobe zwei Sitzungen gegen `get_session` gleich. „je Aufruf“ geschätzt: Lesen aus dem Zwischenspeicher geteilt durch mittlere Länge ((Länge + 60 Tsd.) / 2). „Neuanlegen“: Anteil der Kosten für neu angelegten Zwischenspeicher (5 $ je Mio.; Preise an einer Sitzung nachgerechnet: 0,25 $ Lesen, 5 $ Anlegen, 15 $ Ausgabe je Mio.).
+
+| Rolle | Sitzungen | Kosten $ | Median je Sitzung $ | je Aufruf $ | Median Länge Tsd. | größte Tsd. | $ je 1000 Ausgabe | Neuanlegen % |
+|---|---|---|---|---|---|---|---|---|
+| Tom | 72 | 1296 | 18,00 | 0,076 | 425 | 617 | 0,142 | 16 |
+| Jerry | 48 | 822 | 16,18 | 0,077 | 413 | 717 | 0,146 | 15 |
+| Sokrates | 21 | 470 | 20,95 | 0,084 | 407 | 743 | 0,164 | 20 |
+| Perikles | 25 | 214 | 5,67 | 0,067 | 232 | 582 | 0,128 | 17 |
+| Ford | 11 | 122 | 9,57 | 0,051 | 406 | 571 | 0,195 | 43 |
+| Diogenes | 21 | 106 | 3,50 | 0,061 | 184 | 433 | 0,117 | 25 |
+| Homer | 13 | 53 | 3,05 | 0,064 | 158 | 333 | 0,100 | 29 |
+| alle | 212 | 3083 | 13,41 | 0,074 | 391 | 743 | 0,144 | 18 |
+
+Nachher: Woche ab 09.11., 18:07 (`6a5ef0c1b`), Zählung 16.11. nach derselben Rechnung; Vergleichsmaß „$ je 1000 Ausgabe-Token“ (Kosten je Arbeit), daneben je Aufruf und Länge.
+
+## Lauf 112 · 383 A Neustart ab 200 Tsd. (Bereich B; `6a5ef0c1b`; 09.11., 18:1x)
+
+- **Greift:** Haken mit Probegespräch 199 Tsd. still, 210 Tsd. Erinnerung (Gesprächslänge, nicht Zuwachs); `lauf.py` WEITER nur unter 200 Tsd. und 60 Minuten Ruhe. Wirkung auf die Kosten misst 790 (Woche ab 09.11., 18:07 gegen die Woche davor).
+
 ## Lauf 111 · 783 Widersprüche und Doppelungen (09.11., 18:1x; drei Helfer, jede Stelle am Wortlaut nachgelesen)
 
 **Ergebnis:** acht offene Widersprüche als Chefsache `entscheiden/783-widersprueche.md` (W1 = B5–B7, W2 = B9, W3 = B14, W4 = B12, W5 = P5–P6, W6 = P7, W7 = O5, W8 = O9). Alles Übrige an Perikles als 791 (745 A2 Schritt 3): B1–B4, B8, B10, B11, B13, B16; P1–P4, P8–P21 (P14 klein); O1 (ohne README), O2, O3 (Werkzeuge buchen verschieden, kein Chefentscheid), O4, O7, O8, O10–O15, O17, O18. **Verworfen nach Nachlesen:** O6 (Ford-Wache stimmt überein), O16 („sofort“ betrifft `send_message`), B15 (Release-Rückfrage verlangt die Datei), O1-Teil README:11 (383 nicht mehr offen). **Nicht geprüft:** `DESIGN-`, `STORY-`, übrige `LISTE-`.
