@@ -131,7 +131,26 @@ Quelle: der alte Kotlin-Code (`core`, `app`), abgeglichen mit `LISTE-UMZUG-348.m
 
 „da“ heißt nur: im Code gefunden, nicht von dir abgenommen. Geprüft nur Kopf und einzelne Stellen der Godot-Dateien; ob jedes Merkmal dem alten Stand voll entspricht, sagt erst dein Häkchen.
 
-## Wochenziel 03.–08.11.: Kapitel 1 durchspielbar (Perikles, gesetzt 03.11., 07:1x nach 488; ersetzt das vom 02.11.)
+## Wochenziel 09.–15.11.: Der Kampf funktioniert (Perikles, gesetzt 09.11., 10:1x; ersetzt das vom 03.11.)
+
+**Du kämpfst im nächsten gemeinsamen Build gegen Wölfe, Ratten und Grimmzahn und sagst „Kampf passt“: der Held sieht ordentlich aus, der Umhang sitzt, jeder Angriff trifft den Gegner sichtbar, die Gegner laufen frei statt auf Schienen und zeigen dir nicht den Rücken, der Kampf ist flott.** Grundlage: „Kampf zuerst, nichts Neues“ (Chef 08.11., 21:36, Archiv). Muss sind nur die Zeilen unten, deine „jetzt“ und Abstürze. Was ohne Kampfbezug neu gebaut würde, ruht mit dem Stand „ruht, Kampf zuerst (338.1)“ (54 Zeilen: Tom 23, Jerry 19, Perikles 12); gestrichen wird nichts. Kür baut diese Woche keiner. Termine gibt es keine, die Reihenfolge gilt; Schätzungen bringen Tom und Jerry mit der ersten Sitzung nach deinem Test von Build 271.
+
+| Reihenfolge | Vorgang | Wer | fertig, wenn |
+|---|---|---|---|
+| 1 | Build 271 testen ([t271](chefsache/ansehen/t271-sammelbuild.md)), danach `vorgang.py build 271` | du; Tom trägt ein | löst die Sperre 620.1 B (Tom 10, Jerry 7 ungetestete Muss); 656 Umhang und 703 Ausweichen fahren darin |
+| 2 | Bewegung im Kampf: 717, 717.1 (deine „jetzt“ 09.11.), 682 Bögen statt Schienen, 709 Angriffe treffen sichtbar, 562 Angriffsgang, 662 Parade, 593 und 406.2 Ausweichen und Schild, 438 und 642 Wölfe | Jerry | dein Probekampf: flüssig, Treffer am Körper |
+| 3 | Werte und Anzeigen im Kampf: 704, 705 (messen und vorlegen, keine Werte selbst), 702 (Texte 712), 679 Knöpfe fehlen, 595, 616, 532, 536, 296.2, 211.14 | Jerry | wie in der Zeile |
+| 4 | Held: 610 Finger am Stab, 522 Schild fehlt im Spiel, 697 halbtransparent in der Erschaffung, 653 Halt der Waffen | Tom | Held im Kampf und im Dorf ohne diese Fehler |
+| 5 | von Jerry an Tom (Lehre Fehler 341): 560 Monster drehen sich mit Schritten (Technik aus 416.8), 680 Absturz nach Met | Tom | Grimmzahn dreht wie die Wölfe; Absturz nachgestellt und behoben |
+| 6 | zu Ende bringen, was fast steht: 506 Untote im Kampf, 492 Höhle nur noch Lager (dein „492b“ 21:46) | Tom | im nächsten Build, keine neuen Läufe darüber hinaus |
+| 7 | deine übrigen Funde aus t269 und t270: 670, 581, 583, 521, 540, 617, 701, 636, 683, 700 | Tom | wie in der Zeile |
+| 8 | gemeinsamer Build, sobald 2 und 4 stehen | Jerry stellt zusammen | Prüfliste als Kampfweg; jede Zeile ohne Vorwissen prüfbar, Größen nur mit Vergleichsbild (zu 695) |
+
+**Danach** (nach deinem „Kampf passt“): Durchspielen (492, 496, 505, 507, 506), dann die Referenzszene (620.4 A). **Stärkstes Gegenargument:** das Durchspielen, Ziel der Vorwoche, rückt eine weitere Woche nach hinten; Höhle, Nebel und Kampforte der Höhle ruhen. **Entkräftet:** du hast den Kampf vor alles gestellt; der größte Teil von Kapitel 1 ist Kampf; ein Durchspiel mit diesem Kampf brächte dieselben Funde wieder (Wiederholquote 6 in t268 und t269, Sokrates).
+
+**Mit diesem Wochenziel entschieden (Perikles):** M? der Prüferbefunde 725–742 → K, meine ruhen; 515 Truhen und 568 Ernten → M (Abnahme 2.8, 3.4), ruhen bis „Kampf passt“; Reifes aus `LISTE-IDEEN.md` holt diese Woche keiner (nichts Neues); „Verwerfen?“ als eine Chefsache (743).
+
+## Wochenziel 03.–08.11.: Kapitel 1 durchspielbar (Perikles, gesetzt 03.11., 07:1x nach 488; ersetzt durch das Wochenziel 09.–15.11. oben; nicht erreicht, 496 nicht gebaut)
 
 **Du spielst Kapitel 1 einmal von Anfang bis Ende am Handy: vom Dorf durch den Flüsterwald und den Tiefen Flüsterwald bis in die Blutzahnhöhle und zurück zu Aldric.** Grundlage 488 (Chef 03.11., 06:44, „488 ja“): Feinarbeit am Aussehen ist eingefroren; Vorrang hat, was zum Durchspielen fehlt. Die Geschichte von Kapitel 1 (alle Gespräche und Quests bis „chapter1_done“) ist in Godot schon gebaut (390, `geschichte.gd`), ebenso Kämpfe gegen Wölfe, Grimmzahn, Grak und Goblins im Kampfort zum Ausprobieren (`kampf/probe.gd`); Ratten, Fledermäuse und Spinne stehen dort nur als Wolfsfigur. Es fehlen die Orte außerhalb des Dorfs und ein Teil der Gegner. Muss sind die Zeilen unten und was du ausdrücklich „jetzt“ sagst; alles andere ist Kür oder wartet „nach dem Durchspielen“ (Liste unten). Bis Sa 07.11., 20:00 arbeiten nur Tom, Jerry und Spike (468a).
 
