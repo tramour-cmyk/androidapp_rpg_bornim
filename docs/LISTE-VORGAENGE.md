@@ -116,6 +116,8 @@
 | Pflege | von Werkzeug (340.3, 09.11.): 17838 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
 | 757 | Schenke: neuer Tisch 7/2 (aus 604) wirkt als 1:1-Kopie des Tischs vor der Theke, gleiche Sachen darauf; eigener Tisch mit anderem Gedeck (Chef 09.11., 14:29) | Tom | M | startbar | – | – | – | E Welt | – |
 | 758 | Borin sitzt an seinem Tisch wie alt (MapFolk.sits, Sitzposen, Krug statt Hammer); in Godot steht er seitlich am Tisch 6-7/4, Sitzen gibt es nur in der Figurenprobe (Chef 09.11., 14:29) | Tom | M | startbar | – | – | – | E Welt | – |
+| 762 | Heldenreiter zeigt die BRS-Fertigkeiten mit Wert, Rang und Fortschritt, damit man sieht, was Schwert, Abwehr usw. üben (heute nur Klassenfähigkeiten alter Art) (Chef 09.11., 14:49, aus 720) | Tom | M | startbar | – | – | – | E Oberfläche | – |
+| 764 | Heldenreiter zeigt aktive Zustände (betrunken usw.) mit Erklärung; Tippen auf die Leiste öffnet nur das Menü, eine Erklärung gibt es nirgends (Chef 09.11., 14:49) | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 717 | Kampf: Gegner zeigt dem Helden nie den Rücken, außer auf der Flucht; nach dem Angriff rückwärts zurück oder stehen bleiben, keine Kurve heim (Chef 09.11., 08:51; ändert 682) · „jetzt“ 09.11., 08:51 | Jerry | M | gebaut, Geprüft an: 573e83ab4 | – | claude/jerry-717-rueckwaerts | – | E Kampf | – |
 | 717.1 | Kampf: Zurechtrücken der Gegner läuft gleichzeitig mit dem Zug des Helden statt davor (Idee Chef 09.11., 08:58, zu 717) | Jerry | M | gebaut, Geprüft an: 573e83ab4 | – | claude/jerry-717-rueckwaerts | – | E Kampf | – |
 | 682 | Kampf flüssiger: Held geht zügig zum Angriff, Gegner laufen in weichen Bögen statt eckig gerade-diagonal, weniger Warten auf Hin- und Zurücklaufen bei Fehlschlägen; grundsätzlich für alle Gegner (Chef 08.11., 16:22, t269; „Schienenbahnen“ t270) · „jetzt“ 08.11., 21:36 | Jerry | M | gebaut, im Zweig von 717. Geprüft an: 573e83ab4 | – | claude/jerry-717-rueckwaerts | – | E Kampf | 26,69 $ |
@@ -246,7 +248,7 @@
 | 743 | Verwerfen? aus LISTE-IDEEN.md (Homer 09.11.): 15 Ideen erledigt, überholt, doppelt oder ohne Grund | Perikles | M | erledigt | – | – | – | B Abläufe | – |
 | 718 | Probe mit Enddatum: Rückbau gleich ins Werkzeug (365 lief nach 31.10. weiter) | Perikles | M | erledigt, greift Lauf 102 | – | – | – | B Werkzeuge | – |
 | 719 | Wochentermine selbsttätig als Muss in die Vorgangsliste (Ideenspeicher, Rollenspiegel fielen aus) | Perikles | M | erledigt, greift Lauf 103 | – | – | – | B Werkzeuge | – |
-| 720 | Abnahmeliste: Teilhaken mitzählen, wöchentliche Haken-Frage für Gebautes (0 von 41) | Perikles | M | wartet, erste Runde ansehen/720-haken.md | Chef 720 | – | – | Q QM | – |
+| 720 | Abnahmeliste: Teilhaken mitzählen, wöchentliche Haken-Frage für Gebautes (0 von 41) | Perikles | M | startbar, Haken 1.1 1.4 2.13 2.14 setzen (Chef 14:49) | – | – | – | Q QM | – |
 | 657 | Regeln radikal kürzen: eine Seite für alle mit Stil, Team, Ablauf (Chef 08.11., 14:58, 15:05) | Perikles | M | gebaut, Geprüft an: 35e71a7c4 (Probe t272 Liste, t276 abgelaufen) | t275 | – | – | B Abläufe | – |
 | 748 | D95.1 von Diogenes: 464 greift nicht, Push-Haken prüft nur Parsefehler, rote Läufe 08.11. kamen aus Tests (12× Skripte pruefen, 2× REEBOO), Teil „Tests lokal grün“ fehlt | Perikles | M | gebaut, Geprüft an: e74948f61 (Probe Wegwerf-Repo) | – | – | – | B Abläufe | – |
 | 749 | D95.2 von Diogenes: 464 Zählung fehlt, tagesbericht.py liest keine roten Läufe, keine Zeile „von Ford (464)“ in Teamvorräten seit 02.11. (Zeile „Rot TT.MM.“ bei Ford: 741) | Perikles | M | gebaut, Geprüft an: 8a4abf110 (Probe 45 von 186) | – | – | – | B Abläufe | – |
@@ -321,6 +323,7 @@
 | 750 | Ford startet ohne lauf.py (seit Selbstneustart 01:05 startbar.py plus create_session von Hand): Sperre per Haken vor create_session (Chef 13:28) | Sokrates | M | startbar | Chef | – | – | B Werkzeuge | – |
 | 752 | Systemlösung? Knopf: 15 frühere Vorgänge (503a, 503, 548, 599, 600 …), neu 751; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Oberfläche | – |
 | 756 | Gegenstände: wie Seltenheit, Abnutzung und übrige Merkmale bei anlegbarer Ausrüstung angezeigt werden (Chef 09.11., 14:23) | Sokrates | M | startbar | Chef 756 | – | – | E Oberfläche | – |
+| 763 | Systemlösung? Schwert: 2 frühere Vorgänge (656, 499), neu 762; einmal grundsätzlich lösen? (654) | Sokrates | K | erledigt, keine Systemfrage: „Schwert“ Allerweltswort (654 a) | – | – | – | E Oberfläche | – |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +857,14 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | Pflege | von Werkzeug (340.3, 09.11.): 26444 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
