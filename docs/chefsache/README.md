@@ -13,11 +13,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 ## Zu billigen
 
-Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers.
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [341.1](billigen/3411-ziele-alle-rollen.md) | **Muss** | B Abläufe | 09.11., 20:41 | Woran sich jede Rolle ab dieser Woche messen lässt; neu für die Teams: ein Punkt der Abnahmeliste je Woche | Sokrates |
+Nichts offen.
 
 ## Anzusehen
 
