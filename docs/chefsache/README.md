@@ -13,6 +13,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | [756](entscheiden/756-merkmale-anzeigen.md) | **Muss** | E Oberfläche | 09.11., 14:28 | Merkmale der Ausrüstung anzeigen: Vorlage jetzt oder nach 644 und 3.5? | Sokrates |
 | [750](entscheiden/750-ford-ohne-lauf.md) | **Muss** | B Werkzeuge | 09.11., 13:30 | Sokrates | Ford startet ohne `lauf.py`: Sperre per Haken |
 | [745](entscheiden/745-regelwerk-konsolidieren.md) | **Muss** | B Abläufe | 09.11., 12:01 | Regelwerk konsolidieren, parallel zur Probe 657 D | Sokrates |
+| [654](entscheiden/654-systemrunde.md) | **Muss** | B Abläufe | 09.11., 17:36 | Systemrunde 09.11.: drei Querschnitte statt Einzelfunde · Sokrates · 09.11., 17:4x | Sokrates |
 
 ## Zu billigen
 
@@ -235,7 +236,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 511 | M | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele | wartet auf Diogenes |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf Diogenes |
 | 464 | M | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählu | Termin 16.11. |
-| 383 | M | Wartewächter und Haken 63 verschärfen (Chef 27.10., 17:53 ja); Sitzungsgröße messen (Sokra | wartet auf 654 (wartet) |
+| 383 | M | Wartewächter und Haken 63 verschärfen (Chef 27.10., 17:53 ja); Sitzungsgröße messen (Sokra | wartet auf 654 (startbar) |
 | 347.2 | M | Umsetzung Plan 347 nach Gegenprüfung (Chef 24.10., 16:30) | wartet auf 347 (startbar) |
 | 276 | K | Fords Anleitung auf eine Seite (Empfehlung Sokrates zu 274) | ruht |
 | 341 | M | Zielvereinbarung Perikles bis zum Marktstart: sechs messbare Ziele, geprüft von Werkzeug u | Termin 16.11. |
@@ -267,7 +268,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 768 | M | Wochentermin 13.11.: Rollenspiegel Diogenes (rollenspiegel.sh Diogenes) (719); deckt 02.–1 | Termin 13.11. 08:00 |
 | 771 | M | Probe 657 auswerten: Erstfunde des Chefs t272–t275 gegen 11, 11, 9, 7 (von Perikles, Werkz | wartet auf Test t275 (Chef) |
 
-**Sokrates** – offen 58, Muss 34, startbar 34
+**Sokrates** – offen 58, Muss 34, startbar 33
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -308,7 +309,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 644 | M | Alle Gegenstände an einer Stelle: Katalog 458 mit BRS-Werten, Voraussetzungen, Seltenheit, | wartet auf 644.1 (ruht) |
 | 649 | M | Figurenkatalog: alle Figuren an einer Stelle (Monster, Bewohner, Gefährten), Bestiarium ge | wartet auf 649.3 (ruht) |
 | 650 | M | docs aufräumen: 88 Dateien, Erledigtes nach docs/alt/, Zusammenlegen, Inhaltsverzeichnis n | startbar |
-| 654 | M | Mitdenken vor dem Bauen: Systemfrage je Fund („kommt das wieder?“), Wiederholungswächter, | startbar |
+| 654 | M | Mitdenken vor dem Bauen: Systemfrage je Fund („kommt das wieder?“), Wiederholungswächter, | Chef (Datei in der Chefsache) |
 | 655 | M | Bilder: Ersteller sieht sein Bild selbst an, Regel 300 streichen statt neuer Vorprüfung (C | startbar |
 | 666 | K | Systemlösung? Fenster: 8 frühere Vorgänge (25, 557a, 526, 399.5, 549a.1 …), neu 665; einma | startbar |
 | 667 | K | Systemlösung? Licht: 12 frühere Vorgänge (84.5, 221, 539, 348.13a, 399.5 …), neu 665; einm | startbar |
