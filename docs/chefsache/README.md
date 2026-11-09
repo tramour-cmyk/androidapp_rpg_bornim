@@ -16,6 +16,12 @@ Nichts offen.
 
 ## Anzusehen
 
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [720](ansehen/720-haken.md) | Haken-Frage Abnahmeliste, erste Runde | Perikles | 09.11., 12:17 |
+
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
 | Folge | Version | Build | Was | Wer | Seit |
@@ -232,7 +238,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | Pflege | K | von Werkzeug (340.3, 09.11.): 15644 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 747 | K | Von Perikles (743, Chef 09.11., 11:21 „alle verwerfen“): Vorgang 24 schließen (Animationen | startbar |
 
-**Perikles** – offen 33, Muss 17, startbar 3
+**Perikles** – offen 33, Muss 17, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -266,7 +272,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 742 | K | D78.1 Testbitte t268: Zeile „Verglichen“ deckte nur die Schirme vom 05.11., nicht Dorf, Ka | ruht |
 | 718 | M | Probe mit Enddatum: Rückbau gleich ins Werkzeug (365 lief nach 31.10. weiter) | wartet auf Diogenes (greift?) |
 | 719 | M | Wochentermine selbsttätig als Muss in die Vorgangsliste (Ideenspeicher, Rollenspiegel fiel | wartet auf Diogenes (greift?) |
-| 720 | M | Abnahmeliste: Teilhaken mitzählen, wöchentliche Haken-Frage für Gebautes (0 von 41) | startbar |
+| 720 | M | Abnahmeliste: Teilhaken mitzählen, wöchentliche Haken-Frage für Gebautes (0 von 41) | Chef (Datei in der Chefsache) |
 | 657 | M | Regeln radikal kürzen: eine Seite für alle mit Stil, Team, Ablauf (Chef 08.11., 14:58, 15: | startbar |
 | Pflege | K | von Werkzeug (340.3, 09.11.): 16276 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
@@ -359,6 +365,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
 Format (Muster: „So geht's“ unten): t271-sammelbuild.md: Zeile 2 ist keine Bereichszeile
+
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/720-haken.md
 
 ## So geht's
 
