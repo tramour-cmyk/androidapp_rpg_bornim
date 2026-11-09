@@ -9,6 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [623.8](entscheiden/6238-lebendige-welt.md) | **Muss** | G Stil | 09.11., 21:10 | drei Szenen nacheinander (Dorf am Abend, Wolfskampf, Wald), je eine Testbitte, Bilder/s nie schlechter als heute | Sokrates |
+| [807](entscheiden/807-taetigkeiten-k1.md) | M? | G Stil | 09.11., 22:10 | 13 der 20 sind schon in deiner Abnahmeliste verplant, 4 gehören in den Kampf; offen sind nur Überreden, Einschüchtern und Heilkunde. | Homer |
 
 ## Zu billigen
 
