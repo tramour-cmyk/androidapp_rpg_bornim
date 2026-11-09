@@ -222,7 +222,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 644.1 | M | Gegenstandskatalog: Werkzeug mit Spalten, Teil Rezepte und Prüfungen (644 A), zusammen mit | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test |
 | 644.2 | M | Gegenstandskatalog: Zahlen nach 469 in 444 (Tempo, Parieren, Durchschlag, Güte, Stufe), C1 | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test |
 | 681 | M | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test |
-| Pflege | K | von Werkzeug (340.3, 09.11.): 15191 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 09.11.): 15720 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 23, Muss 19, startbar 3
 
