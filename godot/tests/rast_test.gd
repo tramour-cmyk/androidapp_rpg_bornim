@@ -55,6 +55,7 @@ func _init() -> void:
 	pruefe("Zimmer Gold", s.gold, 2)
 	pruefe("Zimmer Klang", r["klang"], ["muenzen", "heilen"])
 	pruefe("Zimmer Platz", [r["ort"], s.wiederkehr], [Rast.START, Rast.START])
+	pruefe("Zimmer Zeilen", r["zeilen"], ["Du steigst die Treppe hinauf und schläfst acht Stunden. TP, ZP und Ausdauer sind voll."])   # 604 [604.zimmerfertig]
 	s.gold = 5
 	r = Rast.rasten(s, h2, "lang", "zimmer", {"karte": "inn", "x": 9, "y": 2, "blick": "LEFT"})
 	pruefe("Zimmer schon heute", r, {"nein": "Heute hast du schon lange gerastet."})

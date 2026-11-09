@@ -45,6 +45,8 @@ Händler: [reeboolabs.itch.io](https://reeboolabs.itch.io/). Alle Pakete: Godot 
 | R10 | [Water Shader Kit](https://reeboolabs.itch.io/godot-water-kit) (35) | 7,99 | ~ Spiegelung und Lichtbrechung am Handy fraglich | ✓ | mittel | unser Fluss (`wasser.gdshader`, wie alt, dunkel) bleibt; neu nur, was fehlt | **Teich der Höhle (507)**, Teiche mit Regenringen, Wasserfall, später Sumpf und Lava | Wasser lebt | gut | **ja; Chef 07.11.: Fluss „ernsthaft etwas besser“, darf unseren ersetzen (Probe am Dorfbach)** |
 | R11 | [Stylized Surface Shaders](https://reeboolabs.itch.io/godot-surface-shaders) (30) | 19,99 | ? Compatibility nicht getestet; Gratisprobe mit 4 Shadern | ✓ (MIT-Teil genannt) | mittel | Boden bleibt eigen (Signatur) | Glühende Runen (Steinkreis, Tempel), Moos, Schlamm, Pfützen, Säureschleim der Schnecke, Fels der Höhle, Fahne im Wind | Orte bekommen Stoff | mittel | **erst Gratisprobe** |
 
+**Gekauft 09.11. (Chef, 623):** R1, R2, R8, R9, R10, R11 und Status Effects VFX (76,93 $; Dateien und Lizenzen in `LISTE-BESTAND.md` „Effekte“). **Offen, Gespräch folgt:** R3, R4, R5, R6, R7 (`tun/623-kauf.md`).
+
 **Summe aller elf:** 117,90 $. **Nicht in der Liste, aber zu wissen:** Status Effects VFX (6,99, 23 Zustände; schon in 415d.1), [AoE Telegraphs](https://reeboolabs.itch.io/) (9 Formen, Ansage von Flächenangriffen im Ring), Loot & Pickup VFX (Beute). Klangpakete des Händlers prüfen wir nicht: Klang kommt aus echten Aufnahmen (`DESIGN-LEITBILD.md` 6).
 
 **Allen gemeinsam (F1, F2):** Android ungetestet, Godot 4.5 und neuer ungetestet (wir haben 4.7.2; die Proben liefen); Dateien nie in dieses öffentliche Repo, der Bau holt sie aus dem privaten.
