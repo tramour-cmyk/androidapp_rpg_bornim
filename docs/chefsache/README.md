@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [471](entscheiden/471-spike.md) | **Muss** | E Kampf | 09.11., 20:49 | Spike holt 471 vom Nebenzweig, schreibt Übung am Kampfende gut, zeigt es in 762 | Sokrates |
 | [650.2](entscheiden/6502-docs-gliederung.md) | **Muss** | B Abläufe | 09.11., 20:38 | 14 Dateien nach alt/ oder kapitel2/, 6 Themen zusammenlegen, Gliederung flach lassen, Inhaltsverzeichnis neu | Sokrates |
 
 ## Zu billigen
@@ -94,7 +95,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 470 | M | Bau BRS 1.1 Erschaffung (Wochenziel 02.11., Stufe 1) | ruht |
 | 570 | M | Theke: Wahl „Fleisch verkaufen · 12 Gold“ liest sich wie ein Preis (Prüfer 557 Runde 4) | ruht |
 | 470.1 | K | Erschaffung: Held auf Antippen bildschirmgroß (Idee Chef 02.11., 18:37) | ruht |
-| 471 | M | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | ruht |
+| 471 | M | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | Chef (Datei in der Chefsache) |
 | 474 | M | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, M | ruht |
 | 475 | M | Leute des Dorfs (Rowena, Borin …) auf Kaufkörper ihres Volks mit Gesicht, statt der alten | wartet auf Sokrates |
 | 476 | K | Symbole der Gegenstände aus den 3D-Modellen statt Pixelbild (Chef 02.11., 14:43) | wartet auf 458.3 (ruht) |
