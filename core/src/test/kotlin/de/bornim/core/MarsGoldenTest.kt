@@ -76,9 +76,17 @@ class MarsGoldenTest {
         // 296.2: the statuses of the old fight: what its blow wounds with, its special, its poison, what it cannot suffer
         "type" to m.damageType.name, "special" to m.special.name, "poison" to dice(m.poison),
         "immune" to Status.entries.filter { Status.immune(m, it) }.map { it.name },
+        "undead" to m.undead,     // 532: Weihwasser schadet nur Untoten (Battle.blockedItem)
         // 296.2: what a won fight brings (Battle.finishWin): experience, gold, the items it may leave
         "xp" to m.xp, "gold" to dice(m.gold), "loot" to m.loot.filter { Items.exists(it.item) }.map { mapOf("item" to it.item, "chance" to it.chance) },
     )
+
+    private fun battleItem(it: ItemDef): Map<String, Any> = buildMap {
+        put("id", it.id); put("de", it.name.de); put("en", it.name.en); put("kind", it.kind.name)
+        it.heal?.let { d -> put("heal", dice(d)) }
+        it.damage?.let { d -> put("damage", dice(d)); put("type", it.damageType.name) }
+        if (it.cures) put("cures", true)
+    }
 
     private fun spot(s: Spot) = "${s.row.name[0]}${s.slot}"
 
@@ -203,8 +211,10 @@ class MarsGoldenTest {
         val left = kinds.flatMap { k -> k.loot.map { it.item } }.distinct().filter { Items.exists(it) && it != potion.id }.map { Items[it] }
         val tables = mapOf(
             "monsters" to kinds.map { monster(it) },
-            "items" to listOf(mapOf("id" to potion.id, "de" to potion.name.de, "en" to potion.name.en, "heal" to dice(potion.heal!!))) +
-                left.map { mapOf("id" to it.id, "de" to it.name.de, "en" to it.name.en) },
+            // 532 (Durchspielregel 488, „532a jetzt“): die ganze Tasche wie im alten Kampf (Battle.useItem): Tränke heilen, der
+            // Kräutertrank heilt Zustände, Wurfgeschosse treffen immer; Ausdauertrank und Leuchtfunke nicht im Kampf (TONIC)
+            "items" to Items.all.filter { it.kind == ItemKind.POTION || it.kind == ItemKind.BOMB }.map { battleItem(it) } +
+                left.filter { it.kind != ItemKind.POTION && it.kind != ItemKind.BOMB }.map { mapOf("id" to it.id, "de" to it.name.de, "en" to it.name.en) },
             // 296.2: a pack's share of the leader's experience per companion; the levels by experience and the cap of chapter 1
             "packs" to kinds.mapNotNull { k -> Packs[k.id]?.let { k.id to mapOf("mate" to it.mate, "xpShare" to it.xpShare) } }.toMap(),
             "xpForLevel" to Rules.xpForLevel.toList(), "levelCap" to Story.CHAPTER1_LEVEL_CAP,

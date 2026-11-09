@@ -10,6 +10,7 @@ const Mars = preload("res://regeln/mars.gd")
 const Wuerfel = preload("res://regeln/wuerfel.gd")
 const Kampfort = preload("res://kampf/kampfort.gd")
 const Figur = preload("res://kampf/figur.gd")
+const Talente = preload("res://regeln/talente.gd")
 
 signal ende(ergebnis: String, tp: Dictionary, lohn: Dictionary)
 
@@ -186,6 +187,7 @@ static func blatt(h, zweite = null) -> Dictionary:
 		"hits": {"POISON": h.bonus("POISON_HIT"), "BLEED": h.bonus("BLEED_HIT"), "STUN": h.bonus("STUN_HIT")},
 		# 534 (alt Hero.lifeSteal, damageReduction, Perks.cowChance): Lebensraub, Schadensminderung, Charisma für mars.gd
 		"lifesteal": mini(h.bonus("LIFESTEAL"), 30), "reduction": h.bonus("RESIST"), "cha": h.mod("CHA"),
+		"throw": Talente.throw_bonus(h),     # 532 (alt Perks.throwBonus): Wurfgeschosse treffen härter mit Stärke
 		"brs_ruestung": _brs_ruestung(h)}     # 478: Rüstung nach dem BRS (brs_kampf.gd), aus dem Gewicht der Brustrüstung
 
 
@@ -208,7 +210,8 @@ static func _waffe(h, w, nebenhand := false) -> Dictionary:
 ## false: kein Kampf (Held ohne LP); ende kommt dann gleich mit „NONE“
 ## [lage]: wie der Held aus der Welt kommt, {"atemlos": bool, "satt": bool, "eroeffnung": "NORMAL" | "AMBUSHED" | "HERO_FIRST",
 ## "blende": die schwarze Blende vor dem Kampf, 402; "rauch": Morwens Rauchbündel im Gepäck, gegen Krogg, 494; übrig danach
-## kampf.mars.smoke} (399.2)
+## kampf.mars.smoke; "tasche": {Ding: Anzahl}, was der Held im Kampf trinken oder werfen kann, statt [traenke], 532; übrig danach
+## kampf.mars.potions} (399.2)
 func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := "tag", traenke := 2, held_tp := -1, soeldner_tp := -1, seed := -1, beute := Callable(), lage := {}) -> bool:
 	tabellen = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
 	var dice = Wuerfel.new(null if seed < 0 else seed + 1)
@@ -243,7 +246,14 @@ func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := 
 	kampf.platz = String(lage.get("platz", "lichtung"))     # 493: Kampfort im Wald nach der Kachel (Kampfort.platz_fuer)
 	# Erfahrung für den Lohn: der Held bringt seine mit, ein Blatt steht am Anfang seiner Stufe (wie die Probe, 296.2)
 	var xp: int = int(tabellen.xpForLevel[int(held.level)]) if held is Dictionary else int(held.ep)
-	if not kampf.setup(party, foes, tabellen, {"potion": traenke}, _fertig, seed, {"xp": xp, "beute": beute, "atemlos": bool(lage.get("atemlos", false)), "satt": bool(lage.get("satt", false)), "eroeffnung": String(lage.get("eroeffnung", "NORMAL")), "blende": bool(lage.get("blende", false)), "rauch": int(lage.get("rauch", 0))}):
+	# 532 (Durchspielregel 488): die ganze Tasche (lage „tasche“: was im Kampf geht, nach Anzahl), sonst nur Heiltränke
+	var tasche: Dictionary = {"potion": traenke}
+	if lage.has("tasche"):
+		tasche = {}
+		for id in lage.tasche:
+			if int(lage.tasche[id]) > 0 and tabellen.items.any(func(it): return String(it.id) == String(id) and it.has("kind")):
+				tasche[String(id)] = int(lage.tasche[id])
+	if not kampf.setup(party, foes, tabellen, tasche, _fertig, seed, {"xp": xp, "beute": beute, "atemlos": bool(lage.get("atemlos", false)), "satt": bool(lage.get("satt", false)), "eroeffnung": String(lage.get("eroeffnung", "NORMAL")), "blende": bool(lage.get("blende", false)), "rauch": int(lage.get("rauch", 0))}):
 		kampf.free()
 		kampf = null
 		_fertig.call_deferred("NONE")

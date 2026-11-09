@@ -693,7 +693,7 @@ func _build_orders() -> void:
 					else:
 						_set_pick("target"), false, false, Tips.ATTACK),
 				_button(t("Können", "Skills"), not m.moves(f).is_empty(), func(): _set_pick("skills"), false, false, Tips.SKILLS),
-				_button(t("Tasche", "Bag"), not m.drinkable().is_empty(), func(): _set_pick("bag"), false, false, Tips.BAG),
+				_button(t("Tasche", "Bag"), not m.bag().is_empty(), func(): _set_pick("bag"), false, false, Tips.BAG),
 				_button(t("Wechsel", "Switch"), m.can_swap(f) or m.can_draw(f), func(): _set_pick("place"), false, false, Tips.PLACE),
 			]
 			var low := [_button(t("Abwehr", "Defend"), true, func(): k.order(["wait"]), false, true, Tips.DEFEND)]
@@ -791,10 +791,12 @@ func _build_orders() -> void:
 			_choices(items)
 		"bag":
 			var items := []
-			for id in m.drinkable():
+			# 532 (Durchspielregel 488): die ganze Tasche wie im alten Kampf, Tränke trinken, Wurfgeschosse werfen
+			for id in m.bag():
 				var it: Dictionary = m.items[id]
 				var item: String = id
-				items.append(_button("%s ×%d" % [[it.de, it.en][lang], int(m.potions[id])], true, func(): _set_pick("drink_at", item)))
+				var wurf := String(it.get("kind", "")) == "BOMB"
+				items.append(_button("%s ×%d" % [[it.de, it.en][lang], int(m.potions[id])], true, func(): _set_pick("throw_at" if wurf else "drink_at", item)))
 			items.append(back)
 			_choices(items)
 		"drink_at":
@@ -803,7 +805,16 @@ func _build_orders() -> void:
 				if tg.side == f.side and tg.standing():
 					var id: String = tg.id
 					var item: String = pick_arg
-					items.append(_button("%s  %d/%d" % [tg.name(lang), tg.hp, tg.max_hp], true, func(): k.order(["drink", item, id])))
+					# 532: wem der Trank nichts bringt (volle TP, beim Kräutertrank auch keine Zustände), der ist nicht wählbar
+					items.append(_button("%s  %d/%d" % [tg.name(lang), tg.hp, tg.max_hp], m.drink_helps(item, tg), func(): k.order(["drink", item, id])))
+			items.append(back)
+			_choices(items)
+		"throw_at":
+			var items := []
+			for tg in m.throw_targets(pick_arg):
+				var id: String = tg.id
+				var item: String = pick_arg
+				items.append(_button(_target_label(tg), true, func(): k.order(["throw", item, id])))
 			items.append(back)
 			_choices(items)
 

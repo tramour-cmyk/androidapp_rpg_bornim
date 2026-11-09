@@ -316,6 +316,7 @@ var smoke_spent := false
 const KROGG := "bugbear"
 const THROWS := ["{0} wirft {1}!", "{0} throws {1}!"]     # Battle.kt Msg.throws
 const SMOKE_BUNDLE := ["Rauchbündel", "Smoke Bundle"]     # Items.kt smoke_bundle
+const MSG532_CURED := ["{0} ist von allen Leiden befreit!", "{0} is cured of all ailments!"]     # Battle.kt Msg.cured
 var aim_spot := {}
 var retargeted := {}
 var chosen := false
@@ -648,8 +649,30 @@ func guardable(f: Fighter) -> Array:
 	return out
 
 
+## Was sich trinken lässt (Tränke, Kräutertrank); 532: Wurfgeschosse wirft man (throwable).
 func drinkable() -> Array:
-	return potions.keys().filter(func(k): return potions[k] > 0)
+	return potions.keys().filter(func(k): return potions[k] > 0 and String(items.get(k, {}).get("kind", "POTION")) == "POTION")
+
+
+## 532 (alt Battle.useItem BOMB, Durchspielregel 488): Alchemistenfeuer und Weihwasser, die sich jetzt auf jemanden werfen lassen.
+func throwable() -> Array:
+	return potions.keys().filter(func(k): return potions[k] > 0 and String(items.get(k, {}).get("kind", "")) == "BOMB" \
+			and not throw_targets(k).is_empty())
+
+
+## 532: Tasche im Kampf, alles, was sich gerade benutzen lässt.
+func bag() -> Array:
+	return drinkable() + throwable()
+
+
+## 532: wen ein Wurf trifft: jeder stehende Gegner; Weihwasser nur Untote (alt Battle.blockedItem, NOT_UNDEAD).
+func throw_targets(item: String) -> Array:
+	return all.filter(func(x): return x.side == "FOES" and x.standing() and (item != "holy_water" or bool(x.monster.get("undead", false))))
+
+
+## 532: ob [item] [t] etwas bringt (alt ALREADY_FULL): TP fehlen, oder der Kräutertrank hat Zustände zu heilen (betrunken bleibt).
+func drink_helps(item: String, t: Fighter) -> bool:
+	return t.hp < t.max_hp or (bool(items.get(item, {}).get("cures", false)) and t.status.keys().any(func(k): return k != "DRUNK"))
 
 
 # 72.13: heal a friend below half, else a cantrip, else the weapon.
@@ -743,7 +766,7 @@ func _take_log() -> Array:
 
 
 ## Plays the party figure's [o] (["attack", id], ["swap", Vector2i, draw], ["draw"], ["wait"], ["guard"],
-## ["use", skill, target or null], ["drink", item, target]), then on until a party figure must choose again.
+## ["use", skill, target or null], ["drink", item, target], ["throw", item, foe]), then on until a party figure must choose again.
 ## [react] func(Fighter, intent) -> reaction gives the ring for a party figure hit by an intent.
 func act(o: Array, react: Callable = Callable()) -> Array:
 	assert(outcome == "ONGOING")
@@ -965,6 +988,8 @@ func _perform(f: Fighter, o: Array) -> void:
 			_use_skill(f, o[1], t)
 		"drink":
 			_drink(f, o[1], by_id(o[2]))
+		"throw":
+			_throw(f, o[1], by_id(o[2]))
 		"flee":
 			_flee(f)
 
@@ -1147,13 +1172,37 @@ func _drink(f: Fighter, item: String, t: Fighter) -> void:
 	assert(potions.get(item, 0) > 0 and t.standing() and t.side == f.side)
 	potions[item] -= 1
 	var def: Dictionary = items[item]
-	var n := maxi(0, mini(t.max_hp - t.hp, _srd(t, dice.roll_expr(def.heal))))     # 478
+	# 532 (alt Battle.useItem: curable vor dem Heilen): der Kräutertrank nimmt alle Zustände, nur der Rausch bleibt bis zur Rast
+	var heilt: bool = bool(def.get("cures", false)) and t.status.keys().any(func(k): return k != "DRUNK")
+	if heilt:
+		var rausch: bool = t.status.has("DRUNK")
+		t.status.clear()
+		if rausch:
+			t.status["DRUNK"] = LASTING
+	var n := maxi(0, mini(t.max_hp - t.hp, _srd(t, dice.roll_expr(def.heal)))) if def.has("heal") else 0     # 478
 	t.hp += n
 	var nm: String = [def.de, def.en][lang]
 	if f == t:
 		_say(fmt(X.MSG72_DRINKS, lang, [f.name(lang), nm, n]), f.id, t.id, 0, null, false, false, "DRINK")
 	else:
 		_say(fmt(X.MSG72_GIVES, lang, [f.name(lang), t.name(lang), nm, n]), f.id, t.id, 0, null, false, false, "DRINK")
+	if heilt:
+		_say(fmt(MSG532_CURED, lang, [t.name(lang)]), f.id, t.id, 0, null, false, false, "STATUS")
+
+
+## 532 (alt Battle.useItem BOMB): ein Wurfgeschoss trifft immer: Würfel des Dings + Wurfbonus (Perks.throwBonus, Stärke);
+## Alchemistenfeuer setzt in Brand (2 Züge). Fliegt sichtbar wie ein Feuerpfeil bzw. Heilige Flamme.
+func _throw(f: Fighter, item: String, t: Fighter) -> void:
+	assert(potions.get(item, 0) > 0 and t in throw_targets(item))
+	potions[item] -= 1
+	var def: Dictionary = items[item]
+	_say(fmt(THROWS, lang, [f.name(lang), [def.de, def.en][lang]]), f.id, t.id, 0, null, false, false, "THROW")
+	var n := maxi(1, _srd(t, dice.roll_expr(def.damage) + int(f.hero.get("throw", 0) if f.hero != null else 0)))     # 478
+	casting = "SACRED_FLAME" if item == "holy_water" else "FIRE_BOLT"
+	_hurt(t, n, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), n]))
+	casting = null
+	if item == "alchemist_fire":
+		_inflict(t, "BURN", 2)
 
 
 ## The Attack action: one blow, a second with Extra Attack (Battle.attackAction, 89.2 c). Returns whom to strike next.
