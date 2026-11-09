@@ -431,6 +431,7 @@ static func lizenz_texte(box: VBoxContainer, de: bool) -> void:
 			for cr in teil["copyright"]: zeilen.append("© " + String(cr))
 			zeilen.append("License: " + String(teil["license"]))
 		klein.call("\n".join(zeilen))
+	# 804 (Grass & Wind Kit, Hoskins MIT): der Hinweis steht einmal fuer alle REEBOO-Pakete unten (781)
 	kopf.call("Lizenztexte" if de else "License texts")
 	var li := Engine.get_license_info()
 	for k in li:
