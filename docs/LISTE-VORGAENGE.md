@@ -230,6 +230,7 @@
 | 800 | docs aufräumen nach 650.2: A nach alt/ (je Datei „vorher“), B kapitel2/, C1 BRS umbenennen mit Werkzeugen, E2 Inhaltsverzeichnis „Für den Chef“ mit Prüfwerkzeug (Chef 09.11., 20:52, über Sokrates) | Perikles | M | gebaut, Geprüft an: 3a26195f2 | Diogenes | – | – | B Abläufe | – |
 | 808 | D122.1 von Diogenes (796, 783 W5): CLAUDE.md Zusammenarbeit 3 hängt „außer Vorentscheid Sokrates“ an „Code auf main“; ROLLE-BERATUNG 52 lässt Code auf main beim Chef, W5 meint Abläufe, Balance, Spielgefühl | Perikles | M | erledigt | – | – | – | B Abläufe | – |
 | 809 | D122.2 von Diogenes (796, 783 W3): LISTE-GLOSSAR Zeile Übernahme „wenn es nichts Startbares hat“, nach W3 „kein startbares Muss, vor eigener Kür“ | Perikles | M | erledigt | – | – | – | B Abläufe | – |
+| 812 | Von Sokrates (Chef 09.11., 21:23): Neustart-Haken und lauf.py warten mit dem Neustart, solange der Chef in der Sitzung eine Prüfliste ansehen/t… beantwortet | Perikles | M | startbar | – | – | – | B Abläufe | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
@@ -276,7 +277,7 @@
 | 650 | docs aufräumen: 88 Dateien, Erledigtes nach docs/alt/, Zusammenlegen, Inhaltsverzeichnis neu (Chef 08.11., 13:24) | Sokrates | M | startbar, ja mit Gegenprüfung (Chef 13:27) | – | – | – | B Abläufe | – |
 | 654 | Mitdenken vor dem Bauen: Systemfrage je Fund („kommt das wieder?“), Wiederholungswächter, wöchentliche Runde über die teuersten Vorgänge (Chef 08.11., 14:39) | Sokrates | M | startbar, 654 A (Chef 17:46): Querschnitte angelegt | – | – | – | B Abläufe | 48,77 $ |
 | 655 | Bilder: Ersteller sieht sein Bild selbst an, Regel 300 streichen statt neuer Vorprüfung (Chef 08.11., 14:51: „warum entsteht überhaupt das Falsche?“) | Sokrates | M | startbar, gelöst 08.11.: 655.1 | – | – | – | B Abläufe | 7,02 $ |
-| 739 | D84.1 die sechs wiederholten Funde aus t268 mit „wiederholt“ im Titel nachziehen (620.1 A; bisher keine Zeile) (von Diogenes, Lauf 84) | Sokrates | K | startbar | Perikles | – | – | B Abläufe | – |
+| 739 | D84.1 die sechs wiederholten Funde aus t268 mit „wiederholt“ im Titel nachziehen (620.1 A; bisher keine Zeile) (von Diogenes, Lauf 84) | Sokrates | K | ruht, Kampffolge 08.11. geht vor (Wochenziel 16.11.) | – | – | – | B Abläufe | – |
 | 740 | D63.7 Vorlage entscheiden/3761-kettenhemd-heldin.md (01.11., 20:55) ohne Zeile „Bestand geprüft“ (434); nicht nachtragbar, schließen mit erledigt oder verworfen (von Diogenes, Lauf 61) | Sokrates | K | startbar | – | – | – | B Abläufe | – |
 | 745 | Regelwerk konsolidieren: Widersprüche listen (Diogenes), Chef entscheidet, jede Regel an einem Ort, Wachstumsstopp per Haken; parallel zur Probe 657 D (Chef 09.11., 12:00) | Sokrates | M | startbar, 745 A2 (Chef 17:46): Schritt 1 Diogenes | 796 | – | – | B Abläufe | – |
 | 765 | Wochentermin 13.11.: Rollenspiegel Sokrates (rollenspiegel.sh Sokrates) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Sokrates | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
