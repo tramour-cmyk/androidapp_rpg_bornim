@@ -186,6 +186,7 @@
 | 681 | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | Jerry | M | ruht, Kampf zuerst (338.1) | – | – | – | E Klang | – |
 | 738 | D92.3 Vorlagen 02.–08.11. ohne Zeile „Bestand geprüft“ (434): 406, 406.2, 416.6, 453a, 509; künftig in der Datei in ansehen/ (von Diogenes, Lauf 92) | Jerry | K | erledigt, bestätigt (Zeile fehlt in allen fünf ansehen-Dateien); künftig dort | – | – | – | B Abläufe | – |
 | Pflege | von Werkzeug (340.3, 09.11.): 17030 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
+| 744 | Karte: Streuner und Leute bewegen sich natürlich, verweilen mit Ruhebewegung statt Roboter-Takt (Chef 09.11., 11:18); ein Bewegungsbaustein für beide Teams? | Jerry | M | startbar | 717, 717.1 | – | – | E Figuren | – |
 | 716 | Ideenspeicher 08.11. nachholen (Diogenes D92, drei Sonntage ausgefallen) · „jetzt“ 09.11., 08:49 | Homer | M | erledigt | – | – | – | B Abläufe | 3,05 $ |
 | 432 | Eigenes Volk aus Bornim (etwa mit dem Grauen Propheten, „Tag der Asche“) prüfen, mit der Geschichte ab Kapitel 2 (Chef 31.10., 22:0x) | Homer | K | ruht | – | – | – | G Story | 0,79 $ |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
@@ -303,7 +304,6 @@
 | 722 | Befunde von Diogenes als Vorgang mit Rückmeldung statt Textzeile im Vorrat (Chef 09:07, 33 von 44 ohne Eintrag) | Sokrates | M | erledigt | – | – | – | Q QM | – |
 | 739 | D84.1 die sechs wiederholten Funde aus t268 mit „wiederholt“ im Titel nachziehen (620.1 A; bisher keine Zeile) (von Diogenes, Lauf 84) | Sokrates | K | startbar | – | – | – | B Abläufe | – |
 | 740 | D63.7 Vorlage entscheiden/3761-kettenhemd-heldin.md (01.11., 20:55) ohne Zeile „Bestand geprüft“ (434); nicht nachtragbar, schließen mit erledigt oder verworfen (von Diogenes, Lauf 61) | Sokrates | K | startbar | – | – | – | B Abläufe | – |
-| 744 | Karte: Streuner und Leute bewegen sich natürlich, verweilen mit Ruhebewegung statt Roboter-Takt (Chef 09.11., 11:18); ein Bewegungsbaustein für beide Teams? | Sokrates | M | startbar | Chef | – | – | E Figuren | – |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +857,14 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | Pflege | von Werkzeug (340.3, 09.11.): 24889 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |

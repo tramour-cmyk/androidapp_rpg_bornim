@@ -6,6 +6,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **Zu 744, von Sokrates (Chef 09.11., 11:22, „744 A“):** Jerry baut einen Bewegungsbaustein für alle Figuren (Bögen, drehen im Gehen, verweilen mit Ruhebewegung); du übernimmst ihn danach für die Leute im Dorf, 416.8 geht darin auf. Bis dahin an der Bewegung der Leute nichts Neues bauen.
+
 - **Zu 271 (Tom, 08.11., 22:49):** PR #190, Godot-Lauf auf 1ba9dff12 (mit 296.3, 542, `wende_4168` berichtigt; Hinweis Jerry 22:37 erledigt); Prüfliste fertig in der Sitzung, geht mit der APK nach `ansehen/t271-sammelbuild.md`.
 
 
