@@ -33,14 +33,13 @@ const MSG547_STOSS := [["{0} springt {1} an. {1} wird zurückgestoßen.", "{0} l
 	["{0} prallt gegen {1}. {1} kommt aus dem Gleichgewicht.", "{0} slams into {1}. {1} is knocked off balance."],
 	["{0} wirft sich auf {1}. {1} hält dem Gewicht kaum stand.", "{0} throws itself at {1}. {1} barely withstands the weight."]]
 var sturz_zwischentext := true
-## 702 C: Aufstehen ohne Zugverlust. Bis Homer [702.auf] liefert (Vorgang an Homer), Homers Zeilen [547.auf] und [279.auf]
-## ohne „: Zug verloren“; kein neues Wort.
+## 702 C: Aufstehen ohne Zugverlust, Homers Zeilen [702.auf] und [702.auf.sturz] (STORY-SPIEL.md, 712)
 const MSG702_AUF := [["{0} fängt sich wieder.", "{0} recovers."],
 	["{0} atmet durch und steht wieder fest.", "{0} draws a breath and stands firm again."],
-	["{0} schüttelt den Stoß ab.", "{0} shakes off the impact."]]
+	["{0} schüttelt den Stoß ab, ohne einen Schritt zu weichen.", "{0} shakes off the impact without giving ground."]]
 const MSG702_RISES := [["{0} stützt sich ab und kommt wieder hoch.", "{0} pushes up and gets back to their feet."],
-	["{0} atmet durch und steht wieder auf.", "{0} draws a breath and stands again."],
-	["{0} rappelt sich auf.", "{0} scrambles up."]]
+	["{0} atmet durch und steht wieder auf.", "{0} draws a breath and gets up again."],
+	["{0} rappelt sich auf, an Ort und Stelle.", "{0} scrambles up where they fell."]]
 
 const FRONT := 0
 const BACK := 1
