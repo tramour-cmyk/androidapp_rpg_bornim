@@ -224,7 +224,7 @@ func held() -> void:
 	var verplant := 0
 	for a in geplant: verplant += int(geplant[a])
 	if hw.offen > 0: zeile(Sprache.u("points", [hw.offen - verplant]), 15, Stil.WARN)
-	zeile("Tippe auf ein Attribut, um zu sehen, was es bringt." if de else "Tap an ability to see what it does.", 12, Stil.DIM)
+	zeile("Tippe auf einen Grundwert, um zu sehen, was er bringt." if de else "Tap an attribute to see what it does.", 12, Stil.DIM)
 	var blau := false
 	for a in Heldwerte.ATTRIBUTE:
 		var plus := int(geplant.get(a, 0))
@@ -268,8 +268,8 @@ func held() -> void:
 	if blau:
 		zeile("Blau: Bonus durch Ausrüstung (im Wert enthalten)" if de else "Blue: bonus from gear (included in the score)", 12, BLAU)
 		var k := hw.kapitel
-		zeile(("In Kapitel %d gibt Ausrüstung insgesamt höchstens +%d je Attribut, auf Angriff, Zauberangriff und RK sowie +%d Schaden. * = Deine Ausrüstung könnte mehr." if de
-			else "In chapter %d, all gear together adds at most +%d to each ability, attack, spell attack and AC, and +%d damage. * = your gear could give more.") % [k, k, k + 1], 12, Stil.DIM)
+		zeile(("In Kapitel %d gibt Ausrüstung insgesamt höchstens +%d je Grundwert, auf Angriff, Zauberangriff und Schutzwert sowie +%d Schaden. * = Deine Ausrüstung könnte mehr." if de
+			else "In chapter %d, all gear together adds at most +%d to each attribute, attack, spell attack and protection, and +%d damage. * = your gear could give more.") % [k, k, k + 1], 12, Stil.DIM)
 	if verplant > 0:
 		var r := HBoxContainer.new()
 		r.add_theme_constant_override("separation", int(8 * DP))
@@ -734,9 +734,9 @@ static func stueck_zeilen_von(hw: Heldwerte, g: Dictionary) -> Array:
 		if bool(b.get("fern", false)): zuege.append("Fernkampf" if de else "Ranged")
 		if not zuege.is_empty(): z_.append(Erschaffung.txt(" · ".join(PackedStringArray(zuege)), 13, Stil.DIM))
 	if String(b["slot"]) == "CHEST" and int(b.get("ruestung", 0)) > 0:
-		var ges: String = {"LIGHT": " + GES" if de else " + DEX", "MEDIUM": " + GES (max 2)" if de else " + DEX (max 2)"}.get(gewicht, "")
-		z_.append(fett.call(Erschaffung.txt("%s %d%s" % [Sprache.u("ac"), int(b["ruestung"]) + plus, ges], 16)))
-	if String(b["art"]) == "SHIELD": z_.append(fett.call(Erschaffung.txt("%s +%d" % [Sprache.u("ac"), int(b["ruestung"]) + plus], 16)))
+		var ges: String = {"LIGHT": " + " + Heldwerte.kurzwort("DEX"), "MEDIUM": " + %s (max 2)" % Heldwerte.kurzwort("DEX")}.get(gewicht, "")
+		z_.append(fett.call(Erschaffung.txt("%s %d%s" % [("Schutzwert" if de else "Protection"), int(b["ruestung"]) + plus, ges], 16)))
+	if String(b["art"]) == "SHIELD": z_.append(fett.call(Erschaffung.txt("%s +%d" % [("Schutzwert" if de else "Protection"), int(b["ruestung"]) + plus], 16)))
 	if int(b.get("fokus", 0)) > 0: z_.append(fett.call(Erschaffung.txt(("Zauberkraft +%d" if de else "Spell power +%d") % int(b["fokus"]), 16)))
 	# Eigenschaften (Affix.line), blau wie alt
 	for r in g["rolls"]:
@@ -749,7 +749,7 @@ static func stueck_zeilen_von(hw: Heldwerte, g: Dictionary) -> Array:
 	if not hw.kann_tragen(g):
 		z_.append(Erschaffung.txt("Deine Klasse kann das nicht tragen." if de else "Your class can't wear this.", 15, Stil.WARN))
 	elif waffe and not hw.geuebt(g):
-		z_.append(Erschaffung.txt("Ungeübt: kein Übungsbonus auf Angriffe." if de else "Not proficient: no proficiency bonus to attacks.", 15, Stil.WARN))
+		z_.append(Erschaffung.txt("Ungeübt: kein Fertigkeitsbonus auf Angriffe." if de else "Untrained: no skill bonus to attacks.", 15, Stil.WARN))
 	if int(b.get("fokus", 0)) > 0 and not bool(hw.klassendaten()["zauberer"]):
 		z_.append(Erschaffung.txt("Zauberkraft nützt nur Zauberwirkern." if de else "Spell power only helps spellcasters.", 13, Stil.DIM))
 	# Vergleich: alles, was sich aendert, Getragenes neben dem Neuen, Gewinn gruen, Verlust rot, Hinweise darunter
@@ -996,7 +996,7 @@ static func listen_zeile_b(g: Dictionary) -> String:
 		var a := String(r[0]); var w := int(r[1])
 		var ad: Dictionary = d["affixdaten"].get(a, {})
 		if d["attribute"].has(a): teile.append("+%d %s" % [w, Sprache.t(d["attribute"][a]["kurz"])])
-		elif a == "AC": teile.append(("+%d RK" if de else "+%d AC") % w)
+		elif a == "AC": teile.append(("+%d Schutzwert" if de else "+%d Protection") % w)
 		elif a == "ALL_STATS": teile.append(("+%d alle" if de else "+%d all") % w)
 		elif a == "CRIT": teile.append(("Krit. ab %d" if de else "Crit %d+") % (20 - w))
 		elif not ad.is_empty(): teile.append("+%d%s %s" % [w, "%" if bool(ad["prozent"]) else "", Sprache.t(ad["name"])])
@@ -1253,12 +1253,12 @@ static func stueck_zeilen_b(hw: Heldwerte, g: Dictionary) -> Array:
 		z_.append(fett.call(satz.call("%s: %s %s" % [Sprache.u("damage"), Beute.wuerfel_text(b["schaden"], plus, de), art_s], 16, Stil.TEXT)))
 		if viel != null: z_.append(satz.call(("Mit beiden Händen (andere Hand leer): " if de else "In both hands (other hand empty): ") + Beute.wuerfel_text(viel, plus, de), 14, Stil.DIM))
 		if plus > 0: z_.append(fett.call(satz.call("%s +%d" % [Sprache.u("attack"), plus], 15, Stil.TEXT)))
-		if bool(b.get("finesse", false)): z_.append(satz.call("Finesse: trifft mit GES oder STÄ, was höher ist" if de else "Finesse: hits with DEX or STR, whichever is higher", 13, Stil.DIM))
-		if bool(b.get("fern", false)): z_.append(satz.call("Fernkampf: trifft mit GES" if de else "Ranged: hits with DEX", 13, Stil.DIM))
+		if bool(b.get("finesse", false)): z_.append(satz.call(("Finesse: trifft mit %s oder %s, was höher ist" if de else "Finesse: hits with %s or %s, whichever is higher") % [Heldwerte.kurzwort("DEX"), Heldwerte.kurzwort("STR")], 13, Stil.DIM))
+		if bool(b.get("fern", false)): z_.append(satz.call(("Fernkampf: trifft mit %s" if de else "Ranged: hits with %s") % Heldwerte.kurzwort("DEX"), 13, Stil.DIM))
 	if String(b["slot"]) == "CHEST" and int(b.get("ruestung", 0)) > 0:
-		var ges: String = {"LIGHT": " + GES" if de else " + DEX", "MEDIUM": " + GES (max 2)" if de else " + DEX (max 2)"}.get(gewicht, "")
-		z_.append(fett.call(satz.call("%s %d%s" % [Sprache.u("ac"), int(b["ruestung"]) + plus, ges], 16, Stil.TEXT)))
-	if String(b["art"]) == "SHIELD": z_.append(fett.call(satz.call("%s +%d" % [Sprache.u("ac"), int(b["ruestung"]) + plus], 16, Stil.TEXT)))
+		var ges: String = {"LIGHT": " + " + Heldwerte.kurzwort("DEX"), "MEDIUM": " + %s (max 2)" % Heldwerte.kurzwort("DEX")}.get(gewicht, "")
+		z_.append(fett.call(satz.call("%s %d%s" % [("Schutzwert" if de else "Protection"), int(b["ruestung"]) + plus, ges], 16, Stil.TEXT)))
+	if String(b["art"]) == "SHIELD": z_.append(fett.call(satz.call("%s +%d" % [("Schutzwert" if de else "Protection"), int(b["ruestung"]) + plus], 16, Stil.TEXT)))
 	if int(b.get("fokus", 0)) > 0: z_.append(fett.call(satz.call(("Zauberkraft +%d" if de else "Spell power +%d") % int(b["fokus"]), 16, Stil.TEXT)))
 	# Boni: wirksam in Gold; was die Obergrenze ganz oder zum Teil schluckt, matt mit dem, was wirkt
 	if not g.get("rolls", []).is_empty():
@@ -1281,7 +1281,7 @@ static func stueck_zeilen_b(hw: Heldwerte, g: Dictionary) -> Array:
 	if not hw.kann_tragen(g):
 		z_.append(satz.call(("Als %s kannst du das nicht tragen." if de else "As a %s you cannot wear this.") % Sprache.t(hw.klassendaten()["name"]), 15, Spielstaende.mangel()))
 	elif waffe and not hw.geuebt(g):
-		z_.append(satz.call("Ungeübt: kein Übungsbonus auf Angriffe." if de else "Not proficient: no proficiency bonus to attacks.", 15, Spielstaende.mangel()))
+		z_.append(satz.call("Ungeübt: kein Fertigkeitsbonus auf Angriffe." if de else "Untrained: no skill bonus to attacks.", 15, Spielstaende.mangel()))
 	if int(b.get("fokus", 0)) > 0 and not bool(hw.klassendaten()["zauberer"]):
 		z_.append(satz.call("Zauberkraft nützt nur Zauberwirkern." if de else "Spell power only helps spellcasters.", 13, Stil.DIM))
 	# Helfer 14:18: die Sammelzeile „Attribute: … Bonus wirkt nicht“ der Tabelle widersprach den Bonuszeilen („wirkt +1“: was das Stueck
@@ -1316,7 +1316,7 @@ func ausruestung() -> void:
 	inhalt.add_child(puppe)
 	luecke(10)
 	zeile(("Kampfwerte" if de else "Combat stats").to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))
-	wert_zeile("Rüstungsklasse" if de else "Armor Class", str(hw.rk()))
+	wert_zeile("Schutzwert" if de else "Protection", str(hw.rk()))
 	wert_zeile(Sprache.u("attack"), Erschaffung.vorzeichen(hw.angriff()))
 	wert_zeile(Sprache.u("damage"), Beute.wuerfel_text(hw.schaden(), 0, de))
 	var n = hw.nebenwaffe()

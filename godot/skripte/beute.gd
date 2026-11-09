@@ -327,8 +327,8 @@ static func kennwert(g: Dictionary, sprache: String = "") -> String:
 		var t := wuerfel_text(b["schaden"], plus, de)
 		if b["vielseitig"] != null: t += "/" + wuerfel_text(b["vielseitig"], plus, de)
 		return t + " " + String(d_()["schadensarten"][String(b["schadensart"])][sprache])
-	if String(b["slot"]) == "CHEST" and int(b["ruestung"]) > 0: return ("RK " if de else "AC ") + str(int(b["ruestung"]) + plus)
-	if String(b["art"]) == "SHIELD": return ("RK +" if de else "AC +") + str(int(b["ruestung"]) + plus)
+	if String(b["slot"]) == "CHEST" and int(b["ruestung"]) > 0: return ("Schutzwert " if de else "Protection ") + str(int(b["ruestung"]) + plus)
+	if String(b["art"]) == "SHIELD": return ("Schutzwert +" if de else "Protection +") + str(int(b["ruestung"]) + plus)
 	if int(b["fokus"]) > 0: return ("Zauberkraft +" if de else "Spell power +") + str(int(b["fokus"]))
 	return ""
 

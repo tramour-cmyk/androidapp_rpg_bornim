@@ -39,7 +39,7 @@ func _lauf() -> void:
 	t = texte(Menue.stueck_zeilen_von(kaempfer, panzer))
 	print("Kettenpanzer: ", t)
 	pruefe(t.contains("Oberkörper · Stufe 3 · schwer") or t.contains("· Stufe 3 · schwer"), "Kettenpanzer ohne Gewicht")
-	pruefe(t.contains("RK 16"), "Kettenpanzer ohne RK")
+	pruefe(t.contains("Schutzwert 16"), "Kettenpanzer ohne Schutzwert")   # 683: Wörter nach BRS
 	var kugel := stueck(z, "orb", "COMMON")
 	t = texte(Menue.stueck_zeilen_von(kaempfer, kugel))
 	print("Zauberkugel (Kämpfer): ", t)
@@ -49,7 +49,7 @@ func _lauf() -> void:
 	t = texte(Menue.stueck_zeilen_von(magier, bogen))
 	print("Langbogen (Magier): ", t)
 	pruefe(t.contains("Fernkampf"), "Langbogen ohne „Fernkampf“")
-	pruefe(t.contains("Deine Klasse kann das nicht tragen.") or t.contains("Ungeübt: kein Übungsbonus auf Angriffe."), "Magier mit Langbogen ohne Warnung")
+	pruefe(t.contains("Deine Klasse kann das nicht tragen.") or t.contains("Ungeübt: kein Fertigkeitsbonus auf Angriffe."), "Magier mit Langbogen ohne Warnung")
 	var fackel := Beute.fackel(z.neue_uid.call())
 	t = texte(Menue.stueck_zeilen_von(kaempfer, fackel))
 	pruefe(t.contains("Pech und Werg auf einem Stock."), "Fackel ohne Erklärung")
