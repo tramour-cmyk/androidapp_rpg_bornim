@@ -48,7 +48,7 @@
 | 470 | Bau BRS 1.1 Erschaffung (Wochenziel 02.11., Stufe 1) | Tom | M | ruht | – | claude/spike-470-erschaffung | – | E Kampf | 43,23 $ |
 | 570 | Theke: Wahl „Fleisch verkaufen · 12 Gold“ liest sich wie ein Preis (Prüfer 557 Runde 4) | Tom | M | ruht, Kampf zuerst (338.1) | – | – | – | E Oberfläche | – |
 | 470.1 | Erschaffung: Held auf Antippen bildschirmgroß (Idee Chef 02.11., 18:37) | Tom | K | ruht | – | – | – | E Oberfläche | – |
-| 471 | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | Tom | M | ruht, Kampf zuerst (338.1) | – | – | – | E Kampf | – |
+| 471 | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | Tom | M | Chef, Vorlage Spike | Chef 471 | – | – | E Kampf | – |
 | 474 | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, Meldung Tuffy): nächster Build einmal deinstallieren; dauerhaft ohne Cache | Tom | M | ruht | – | – | – | E Technik | 8,66 $ |
 | 475 | Leute des Dorfs (Rowena, Borin …) auf Kaufkörper ihres Volks mit Gesicht, statt der alten Figuren (Chef 02.11., 10:52, Build 146: „Kommt da noch was?“) · „jetzt“ 04.11., 00:53 | Tom | M | startbar | Sokrates | – | – | E Figuren | 64,38 $ |
 | 476 | Symbole der Gegenstände aus den 3D-Modellen statt Pixelbild (Chef 02.11., 14:43) | Tom | K | wartet | 458.3 | – | – | E Oberfläche | – |
