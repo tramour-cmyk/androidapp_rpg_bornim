@@ -192,6 +192,7 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	kamera.ziel = held
 	gebiet.held = held
 	gebiet.kamera = kamera
+	gebiet.gras_neu()   # 804: der Held schiebt das Gras des Kits beiseite
 	if gebiet.gluehwuermchen:
 		gebiet.gluehwuermchen.zustand = zustand   # 514: nur in manchen Naechten
 		var nb = get("nebel")   # 505 (eigener Zweig): ausser Sicht vergehen sie mit dem Nebel
@@ -1050,13 +1051,14 @@ func oeffne_menue(reiter := "") -> void:
 	m.test.connect(func(was: String, mit: Array):   # 399.1 Reiter „Test“: erst das Menue zu, dann in der Welt
 		# 555 (Chef 11:52: „Wenn ich auf Kartenzoom klicke, dann bin ich sofort aus dem Testmenü draußen“): Schalter bleiben wie alt im
 		# Menue, die Wirkung steht als kurze Meldung; nur Orts-, Kampf- und Schirmwechsel schliessen
-		if was in ["zoom", "nacht", "tiere"]:
+		if was in ["zoom", "nacht", "tiere", "gras"]:
 			test_tat(was, [])
 			var de := Sprache.aktiv() == "de"
 			match was:
 				"zoom": m.meldung(String(mit[0]) if mit.size() > 0 else ("Kartenzoom gestellt" if de else "Map zoom set"))
 				"nacht": m.meldung(("Nacht, 23:00 Uhr" if de else "Night, 11 pm") if licht.ziel > 0.5 else ("Tag, 12:00 Uhr" if de else "Day, noon"))
 				"tiere": m.meldung("Tiere umgeschaltet" if de else "Animals toggled")
+				"gras": m.meldung(("Gras: Grass & Wind" if de else "Grass: Grass & Wind") if GrasBausatz.an else ("Gras: unser altes" if de else "Grass: our old one"))
 			return
 		m.zu.emit()
 		test_tat(was, mit))
@@ -1082,6 +1084,9 @@ func oeffne_menue(reiter := "") -> void:
 func test_tat(was: String, mit: Array) -> void:
 	match was:
 		"nacht", "tiere": _knopf(was)   # 500: aus dem Testmenue statt der Probeknoepfe
+		"gras":   # 804: Gras des Kits gegen unser altes, zum Vergleich und fuer die Bilder/s vorher und nachher
+			GrasBausatz.an = not GrasBausatz.an
+			if gebiet: gebiet.gras_neu()
 		"teleport":
 			await abblenden(1.0)
 			var von := karte.id
