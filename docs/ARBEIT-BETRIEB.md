@@ -177,3 +177,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:04 09.11.: Startsperre 22:04 Start Homer, Spike, Tuffy (lauf.py)
 - 22:04 09.11.: Marke Archiv session_01Hmoj75joAsGNERE3d6sT3X (lauf.py)
 - 22:04 09.11.: Marke Archiv session_01Hmoj75qz119EcWWbsbwBMA (lauf.py)
+- 22:25 09.11.: Startsperre 22:25 Start Jerry (Ford, vor dem Start; Neustart 908dde268)
