@@ -372,6 +372,8 @@ jobs:
           # 406a G1 (Jerry): Kampfkamera des Schlussfilms ohne Bild, angeschnittene Figuren je Kampf; meldet nur
           MESS=1 TEIL=kampf timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/film_406.gd 2>&1 | grep -E "^Film 406|AUSSERHALB|SCRIPT ERROR" || true
           set -o pipefail; timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/wolf_mess_438.gd 2>&1 | grep -E "^(— |  |Befunde|Wolf 438|Kampf |438 DIAG)|SCRIPT ERROR"   # 438, 439, 440 (Jerry): Wölfe ohne Gleiten, Reihenfolge, Tod
+          # 642 (Jerry): Wolf in Wolf beim Anlauf neben einem ruhenden Wolf trat bei Seed 1 und 3 auf (Seed 7 oben hielt); meldet, hält noch nicht an
+          for s in 1 3; do echo "642 SEED=$s"; SEED=$s timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/wolf_mess_438.gd 2>&1 | grep -E "^(— 438 (Durch|Wolf in)|  .*→|    Befund: Wolf|Befunde|Kampf |438 DIAG)|SCRIPT ERROR" || true; done
           # 593 (Jerry): Ausweichen auch rückwärts (Ratten, Spinne, Grak, Wölfe); meldet, hält noch nicht an
           timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/ausweichen_593.gd 2>&1 | grep -E "^(ok|FEHLER|  |AUSWEICHEN593)|SCRIPT ERROR" || true
           # 546, 703 A (Jerry): Wölfe weichen rasch aus und bleiben danach stehen; meldet, hält noch nicht an
