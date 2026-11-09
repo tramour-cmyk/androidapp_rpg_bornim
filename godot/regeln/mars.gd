@@ -21,7 +21,8 @@ const MSG399_FED := ["{0} ist gut gestärkt: +1 auf Angriffe und Schaden.", "{0}
 const MSG399_GROWLS := [["{0} knurrt, wagt aber keinen Biss.", "{0} snarls but dares no bite."],
 	["{0} duckt sich und fletscht die Zähne, kommt aber nicht heran.", "{0} crouches and bares its teeth, but does not come in."],
 	["{0} knurrt und hält Abstand.", "{0} growls and keeps its distance."]]
-var TX: Dictionary = load("res://regeln/mars_texte.gd").get_script_constant_map().merged({"MSG399_GROWLS": MSG399_GROWLS, "MSG547_AUF": MSG547_AUF, "MSG547_STOSS": MSG547_STOSS})
+var TX: Dictionary = load("res://regeln/mars_texte.gd").get_script_constant_map().merged({"MSG399_GROWLS": MSG399_GROWLS, "MSG547_AUF": MSG547_AUF, "MSG547_STOSS": MSG547_STOSS,
+	"MSG702_AUF": MSG702_AUF, "MSG702_RISES": MSG702_RISES})
 ## 547 (Chef 04.11., 00:01; 05.11., 19:2x: „Held geht zu Boden (Text) -> keine entsprechende Animation“): solange der Sturz 438a
 ## eingefroren ist und das Bild nur zusammenzuckt, Homers Zwischenfassungen [547.auf] und [547.wolf.sprung.stoss] (STORY-SPIEL.md)
 ## statt „steht wieder auf“ und „geht zu Boden“; danach sturz_zwischentext = false (die alten Zeilen, wie mars_golden)
@@ -32,6 +33,13 @@ const MSG547_STOSS := [["{0} springt {1} an. {1} wird zurückgestoßen.", "{0} l
 	["{0} prallt gegen {1}. {1} kommt aus dem Gleichgewicht.", "{0} slams into {1}. {1} is knocked off balance."],
 	["{0} wirft sich auf {1}. {1} hält dem Gewicht kaum stand.", "{0} throws itself at {1}. {1} barely withstands the weight."]]
 var sturz_zwischentext := true
+## 702 C: Aufstehen ohne Zugverlust, Homers Zeilen [702.auf] und [702.auf.sturz] (STORY-SPIEL.md, 712)
+const MSG702_AUF := [["{0} fängt sich wieder.", "{0} recovers."],
+	["{0} atmet durch und steht wieder fest.", "{0} draws a breath and stands firm again."],
+	["{0} schüttelt den Stoß ab, ohne einen Schritt zu weichen.", "{0} shakes off the impact without giving ground."]]
+const MSG702_RISES := [["{0} stützt sich ab und kommt wieder hoch.", "{0} pushes up and gets back to their feet."],
+	["{0} atmet durch und steht wieder auf.", "{0} draws a breath and gets up again."],
+	["{0} rappelt sich auf, an Ort und Stelle.", "{0} scrambles up where they fell."]]
 
 const FRONT := 0
 const BACK := 1
@@ -389,6 +397,12 @@ static func ist_krit(roll) -> bool:
 		return roll.size() > 7 and bool(roll[7])
 	return roll[0] == "ATTACK" and int(roll[1]) == 20
 
+
+## 702 C (Chef 09.11., 06:56, Archiv „702 C, Anspringen: aufstehen und handeln“; Messung tests/anspringen_702.gd): wer
+## angesprungen am Boden liegt, steht in seinem Zug auf und handelt gleich; das Aufstehen kostet nur den Platzwechsel (kein
+## Ausweichen, kein Waffenwechsel in diesem Zug), der Sprung macht weiter Schaden und hält ihn am Platz. "" wie Skirmish.kt
+## (Aufstehen kostet den ganzen Zug), nur für mars_golden und die Messung.
+var anspringen := "handeln"
 
 ## 478: der Kampf rechnet nach dem BRS (Modell D, brs_kampf.gd); Leben der Gruppe im selben Anteil wie vorher, Gegner nach dem Bestiarium
 var brs := false
@@ -877,6 +891,11 @@ func _skip_to_choice(react: Callable) -> void:
 				_next_turn()
 		elif f.held:
 			f.held = false
+			if f.prone and anspringen == "handeln":
+				_say(fmt(pick("MSG702_AUF" if sturz_zwischentext else "MSG702_RISES"), lang, [f.name(lang)]), f.id, null, 0, null, false, false, "RISES")
+				f.prone = false
+				f.moved = true
+				continue
 			_say(fmt(pick(("MSG547_AUF" if sturz_zwischentext else "MSG279_RISES") if f.prone else "MSG130_LOSES"), lang, [f.name(lang)]), f.id, null, 0, null, false, false, "RISES" if f.prone else "")
 			f.prone = false
 			_next_turn()

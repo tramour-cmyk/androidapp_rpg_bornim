@@ -25,6 +25,9 @@ const CHAPTER2_STARTED := "chapter2_started"
 const CHAPTER1_LEVEL_CAP := 6
 const SMOKE_BUNDLE := "smoke_bundle"
 const CLASS_WEAPON := "@class_weapon"
+## 632 Story.classWeapon: die Truhe cave_3 gibt jedem Helden eine Waffe seiner Klasse (Einzelstück)
+static func klassen_waffe(klasse: String) -> String:
+	return {"FIGHTER": "longsword_oakford", "WIZARD": "staff_of_embers", "ROGUE": "rapier_whisper", "CLERIC": "mace_of_dawn"}.get(klasse, "longsword_oakford")
 
 const rowena := {"de": "Rowena", "en": "Rowena"}
 const borin := {"de": "Borin", "en": "Borin"}
