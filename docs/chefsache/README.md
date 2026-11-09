@@ -52,7 +52,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 | 772 | K | D89.2 von Diogenes (über Perikles): Glossar ohne „Vorgang beim Chef“ (480); „steht in“ zei | startbar |
 
-**Tom** – offen 103, Muss 83, startbar 5
+**Tom** – offen 102, Muss 83, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -158,7 +158,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 781 | M | „Über das Spiel“ nennt den MIT-Teil der REEBOO-Pakete (David Hoskins, Hashfunktionen in Gr | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 701 (hinweis) |
 | 756 | M | Gegenstände: wie Seltenheit, Abnutzung und übrige Merkmale bei anlegbarer Ausrüstung angez | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 522 (ausrustung) |
 | 785 | M | Oberfläche einmal ganz gegen alt: jeder Schirm und jede Bedienung als eine Liste, jeder Un | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 701 (einmal) |
-| Pflege | K | von Werkzeug (340.3, 09.11.): 15003 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 74, Muss 68, startbar 7
 
@@ -237,7 +236,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 770 | M | Wochentermin 13.11.: Rollenspiegel Jerry (rollenspiegel.sh Jerry) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 | 784 | M | Kampf-Sollbild „Wolfsrudel, eine Runde“: wer geht wohin, Höchstdauer je Handlung, Ausweich | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 702 (jeden) |
 | 786 | M | Klangliste alt gegen neu: je Anlass alt, neu, fehlt (654 A, als Drittes) | wartet auf 784 (startbar) |
-| Pflege | K | von Werkzeug (340.3, 09.11.): 19033 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 09.11.): 17717 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 25, Muss 10, startbar 4
 
@@ -266,8 +265,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 742 | K | D78.1 Testbitte t268: Zeile „Verglichen“ deckte nur die Schirme vom 05.11., nicht Dorf, Ka | ruht |
 | 788 | M | Wiederholungswächter: Allerweltswörter (Schwert, Licht, Karte, Kasten, Menü …) ausschließe | wartet auf 793 (startbar) |
 | 791 | M | D111 von Diogenes (783, 745 A2 Schritt 3): Überholtes und Doppeltes im Regelwerk umschreib | startbar |
-| Pflege | K | von Werkzeug (340.3, 09.11.): CLAUDE.md: 15042 Bytes (Grenze 15000), kürzen | startbar |
 | 793 | K | D116.1 von Diogenes (788): Stichwort „Halt“ trifft jeden Wortanfang, „Haltung des Helden“ | startbar |
+| Pflege | K | von Werkzeug (340.3, 09.11.): CLAUDE.md: 15042 Bytes (Grenze 15000), kürzen | startbar |
 
 **Diogenes** – offen 10, Muss 9, startbar 0
 
