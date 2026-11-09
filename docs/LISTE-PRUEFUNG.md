@@ -11,12 +11,17 @@ Montags ab 8 Uhr startet Ford Diogenes mit „Wochenzählung“ (Zeile in `ARBEI
 | **Kosten der Woche** je Hauptthema (E, G, Q, B, M); Anteil Muss | Spalten „Bereich“, „Klasse“, „Kosten“ in `LISTE-VORGAENGE.md` (Differenz zur Vorwoche); **Anteil Spiel** (Tom, Jerry, Homer durch alle) aus `cost_usd` mit `tools/kosten.py`, Definition in `ROLLE-PROJEKT.md` (167.4) |
 | **Guthaben:** Verbrauch je Account gegen die Woche | Zeilen „Guthaben:“ in `ARBEIT-BETRIEB.md` |
 | **Fortschritt Meilenstein:** Wochenziel erreicht, Pflichtpunkte Kapitel 1 offen | `PROJEKTPLAN.md` |
-| **Testrunden des Chefs** und Rückläufer darunter (Entwickler) | `CHANGELOG.md` „(Rückläufer: n)“, gelöschte Dateien in `docs/chefsache/ansehen/` (`git log`) |
+| **Testrunden des Chefs** | gelöschte Dateien in `docs/chefsache/ansehen/` (`git log`) |
 | **Ersparte Fragen** durch Vorentscheid (unter 5 je Woche fällt der Vorentscheid weg, 98.2) | Einträge „Vorentscheid“ in `VORGANGSARCHIV.md` |
-| **Stillstand** in Stunden je Ursache (Ford) | Zeilen „Stillstand“ im Protokoll von `ARBEIT-BETRIEB.md` |
-| **Zeilen „von Team …“ an Homer älter als 1 Tag** | `ARBEIT-KREATIV.md` |
-| **Empfehlungen von Sokrates**, die nach einer Woche noch gelten | `VORGANGSARCHIV.md` |
-| **Verwerfquote** und Fehler, die erst der Chef am Gerät fand (Diogenes selbst) | Prüfbericht, Rückläufer |
+| **Zielvereinbarung 341 je Rolle:** „x von n erfüllt“, je Ziel die Zahl | unten |
+
+### Zielvereinbarung 341 (alle Rollen; Chef 23.10., 09:53, Probe Perikles bestanden 07.11.; ersetzt „je Rolle eine Kennzahl“)
+
+Je Rolle höchstens drei Ziele: **Z3** und **Z4** für alle, **Ze** eigen (Tabelle unter „Dein Maß“ der Rollendatei); Perikles behält Z1–Z6 der Probe. Gezählt ab der Woche 09.–15.11.; Zielwerte, wo keiner steht, setzt Perikles (D19.4).
+- **Z3 Fehlerfrei:** 0 Fehler je Woche, die der Chef als Erster in der Arbeit der Rolle findet. Was der Chef „Fehler“ nennt, trägt die Rolle sofort mit Uhrzeit als Zeile „Fehler 341“ in ihren Vorrat; die Teams zählen stattdessen Rückläufer (`CHANGELOG.md`), Diogenes Fehler, die ein Lauf hätte finden können. Fehlt eine Zeile, die du im Chat oder Telegram findest, zählst du sie mit (Haltung 7).
+- **Z4 Eigene Verbesserung:** mindestens 1 eigener Vorschlag je Woche mit Wirkung, Kosten, Gegenargument, vom Chef mit „ja“ oder „ja, aber“ angenommen (neue Chefsache-Datei laut `git log --diff-filter=A`, Wort im Vorgangsarchiv; gebilligter Vorentscheid zählt).
+- **Folge:** zwei Wochen hintereinander dasselbe Ziel verfehlt → Sokrates legt dem Chef eine Vorlage vor (Rolle, Modell oder Ziel ändern); für Sokrates selbst Perikles.
+- Diogenes zählt, Perikles meldet montags mit dem Wochenziel eine Zeile je Rolle, unverändert mit Link.
 
 
 ## Wie du prüfst
