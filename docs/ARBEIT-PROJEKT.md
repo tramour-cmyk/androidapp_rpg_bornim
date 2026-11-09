@@ -2,7 +2,7 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `b7d4b0e2d` (09.11., 21:47)
+**Gelesen bis:** `fd9ca5142` (09.11., 21:47)
 
 **Übergabe (09.11., 21:47):** 797 erledigt (Satz unter `autoMode.environment`, Chef 21:38). 799 gebaut (`55d798cc8`: `MUSTER.md`, `vorlage_pruefen.py` im Bash-Haken `probelauf.py`, Lücken in der Übersicht), 800 gebaut (`3a26195f2`: 650.2 A, B, C1, E2 mit `tools/inhalt.py`; `DESIGN-SPIELSYSTEM-2-0.md` bleibt, an Sokrates), beide an Diogenes; 808, 809 erledigt; Projektplan 1.2 und `abgleich.py` (783 W5) nach Sokrates berichtigt; 739 ruht; neu 811 (Jerry), 812. Nachfolger: Perikles – 812: Neustart wartet während Prüfliste (09.11.)
 
