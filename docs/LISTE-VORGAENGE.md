@@ -315,7 +315,7 @@
 | 745 | Regelwerk konsolidieren: Widersprüche listen (Diogenes), Chef entscheidet, jede Regel an einem Ort, Wachstumsstopp per Haken; parallel zur Probe 657 D (Chef 09.11., 12:00) | Sokrates | M | startbar | Chef | – | – | B Abläufe | – |
 | 750 | Ford startet ohne lauf.py (seit Selbstneustart 01:05 startbar.py plus create_session von Hand): Sperre per Haken vor create_session (Chef 13:28) | Sokrates | M | startbar | Chef | – | – | B Werkzeuge | – |
 | 752 | Systemlösung? Knopf: 15 frühere Vorgänge (503a, 503, 548, 599, 600 …), neu 751; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Oberfläche | – |
-| 756 | Gegenstände: wie Seltenheit, Abnutzung und übrige Merkmale bei anlegbarer Ausrüstung angezeigt werden (Chef 09.11., 14:23) | Sokrates | M | startbar | – | – | – | E Oberfläche | – |
+| 756 | Gegenstände: wie Seltenheit, Abnutzung und übrige Merkmale bei anlegbarer Ausrüstung angezeigt werden (Chef 09.11., 14:23) | Sokrates | M | startbar | Chef 756 | – | – | E Oberfläche | – |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +857,14 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | Pflege | von Werkzeug (340.3, 09.11.): 26444 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
