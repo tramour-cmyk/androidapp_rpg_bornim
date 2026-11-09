@@ -1371,21 +1371,33 @@ func _rast_wahl(id: String) -> void:
 		"kurz", "lang":
 			await raste(id)
 
+## 753: Name der Rast ueber dem Satz der Blende, aus dem Text der Wahl („Lange Rast · 8 Stunden“, „Zimmer · 5 Gold“)
+static func rast_name(art: String, ort: String) -> String:
+	var schluessel := "short" if art == "kurz" else ("long" if ort == "feuer" or ort == "" else "roomBuy")
+	return Sprache.r(schluessel).split(" · ")[0]
+
 # die Welt wird schwarz, die Zeit vergeht (Satz in Gold), dann die Welt zur neuen Stunde mit dem Satz der Rast
 func raste(art: String) -> void:
 	var ort := rast_ort
 	rast_feld_zu()
 	ui.schliesse_wahl()
 	await abblenden(1.0)
-	var satz := Label.new()
-	satz.text = Sprache.r("hourGone" if art == "kurz" else "hoursGone")
-	satz.add_theme_font_size_override("font_size", 40)
-	satz.add_theme_color_override("font_color", Steuerung.GOLD)
-	satz.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	satz.grow_horizontal = Control.GROW_DIRECTION_BOTH; satz.grow_vertical = Control.GROW_DIRECTION_BOTH
-	blende.add_child(satz)
-	await get_tree().create_timer(1.3).timeout
-	satz.queue_free()
+	# 753 (Chef 09.11., 14:09: „klein und futzelig … nicht wie unser neues Design“): wie die Ortsblende (556) die Rast klein und
+	# gesperrt, Goldstrich, der Satz in Alegreya; die Worte kommen, stehen, gehen wie alt (RestScreen.kt: 500, 1300, 400 ms)
+	var mitte := CenterContainer.new()
+	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	mitte.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var worte := Ortsblende.worte_spalte(rast_name(art, ort), Sprache.r("hourGone" if art == "kurz" else "hoursGone"))
+	worte.custom_minimum_size.x = get_viewport().get_visible_rect().size.x - 2 * 36 * AktionsKnopf.DP
+	worte.modulate.a = 0.0
+	mitte.add_child(worte)
+	blende.add_child(mitte)
+	var tw := create_tween()
+	tw.tween_property(worte, "modulate:a", 1.0, 0.5)
+	tw.tween_interval(1.3)
+	tw.tween_property(worte, "modulate:a", 0.0, 0.4)
+	await tw.finished
+	mitte.queue_free()
 	var r := Rast.rasten(zustand, held_werte(), art, ort, platz())
 	if r.has("nein"):
 		rast_notiz = String(r["nein"])

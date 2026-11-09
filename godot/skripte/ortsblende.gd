@@ -89,15 +89,19 @@ func _init(art_: String, name_: String, satz) -> void:
 	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mitte.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(mitte)
+	worte = Ortsblende.worte_spalte(name_, Sprache.t(satz) if satz != null else "")
+	mitte.add_child(worte)
+	_stelle()
+
+## Name klein und gesperrt in gedaempftem Gold, darunter Goldstrich und Satz (VeilInk); auch die Blende der Rast (753)
+static func worte_spalte(name_: String, satz: String) -> VBoxContainer:
 	var v := VBoxContainer.new()
 	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	v.add_theme_constant_override("separation", 0)
-	mitte.add_child(v)
-	worte = v
 	var n := Stil.zeile(name_.to_upper(), 13, NAME, 4.0)
 	n.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	v.add_child(n)
-	if satz != null:
+	if satz != "":
 		v.add_child(Erschaffung.luecke(14))
 		var r := ColorRect.new()
 		r.color = LINIE
@@ -106,12 +110,12 @@ func _init(art_: String, name_: String, satz) -> void:
 		r.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		v.add_child(r)
 		v.add_child(Erschaffung.luecke(18))
-		var l := Stil.zeile(Sprache.t(satz), 19, TEXT, 0.6)
+		var l := Stil.zeile(satz, 19, TEXT, 0.6)
 		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		l.add_theme_constant_override("line_spacing", int((28 - 19 * 1.2) * Stil.SP))
 		v.add_child(l)
-	_stelle()
+	return v
 
 func _ready() -> void:
 	worte.custom_minimum_size.x = get_viewport_rect().size.x - 2 * 36 * DP
