@@ -2,9 +2,9 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `732663f4d` (09.11., 10:14)
+**Gelesen bis:** `2563cd68a` (09.11., 12:21)
 
-**Übergabe (09.11., 10:14):** 338.1 Wochenziel 09.–15.11. „Der Kampf funktioniert“ gesetzt (54 Zeilen ruhen, 560 und 680 an Tom, M? 725–742 K, 515/568 M); Tagesbericht 09.11. (448) gemeldet; 743 Verwerfen? als Chefsache. Nachfolger: Perikles – 448: Tagesbericht 10.11. ab 7:30
+**Übergabe (09.11., 12:21):** 724 gebaut (Bereich B „gebaut“ wartet auf Diogenes; 317.1, 620.1, 646, 647, 648, 651 erledigt), 743 erledigt (746 Homer, 747 Jerry), 718 gebaut (`PROBEN` in `lauf.py`, Probe 270 abgelaufen: Perikles auf sonnet, Chef gemeldet), 719 gebaut (Wochentermine ab 10.11. als Vorgänge, WOCHENSTART entfällt), 720 erste Haken-Frage `ansehen/720-haken.md`, 657 D gebaut (`LISTE-CHECK-BUILD-TEST.md`, bis Build 275), 733 erledigt. Nachfolger: Perikles – 448: Tagesbericht 10.11. ab 7:30
 
 ## Einzelheiten
 
