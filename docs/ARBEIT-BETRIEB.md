@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (09.11., 18:23, Ford `session_01Hmoj76jJSNHHX8bmPvFvzZ`, Selbstneustart):** Getan: Sperren per Hand ins Protokoll (Zeile „Startsperre HH:MM Start <Name>“, pushen, dann `create_session`; seit 750 hält ein Haken jeden Start ohne diese Zeile an, auch Ford selbst: vorher „(selbst)“-Zeile). Neustarts laufen so: `git branch -r --contains <Commit>`, „Nachfolger:“ in der Übergabe prüfen, Sperrzeile, `create_session` (Tom, Jerry: Umgebung Hoch `env_017fgL1YDcVTYTkJsU3APEfR`; alle anderen Mittel `env_01F9WxikYD4TTdhscxvPi93p`), alte Sitzung erst bei idle und >60 s archivieren, Kosten mit `lauf.py --kosten <Vorgang> <USD> <Kennung>` (je Sitzung nur einmal buchbar). Bestehende ruhige Sitzungen mit `send_message` weiterschicken (261.6), wenn <400k Token. Laufend: Jerry 778 (`session_01Hmoj775ZqfUHKm8MuXT9PR`), Tom 506, Diogenes 783, Perikles 788, Sokrates 620 (neue Sitzungen). Alte Sokrates-Sitzungen (623.1, 341.1) archiviert, Kosten gebucht (18:24). Woche `allowed_warning`: nur Muss; Tempoziel Sokrates (Eingang). Nachfolger: Ford – Betriebsleiter.
+**Übergabe (09.11., 22:32, Ford `session_01Hmoj7684czZostW4Q5YTcw`, Selbstneustart):** Getan: Wechsel Tom 762, Jerry 562, Sokrates 620, Perikles 797, Diogenes 799 ausgeführt, alte Sitzungen archiviert und gebucht. Pacing (Chef 09.11., 07:15): `lauf.py --nur-muss`; Spike/Tuffy nur für Kampf-Muss oder Kleines, Oberfläche (Spike 683) ausgenommen. Laufend: Tom 762, Jerry 562, Homer 810, Spike 781, Tuffy 562 (wartet auf Messung, Jerry stimmt ab), Sokrates 620, Perikles 797, Diogenes 799. Offen: Tuffy 562 und Spike 781 archivieren, wenn idle. Sokrates-Sitzungen wachen auf Nachrichten des Chefs wieder auf: vor dem Archivieren `get_session` prüfen. Nachfolger: Ford – Betriebsleiter.
 
 **Nächste freie Vorgangsnummer: 819** (zuletzt 818 Perikles 09.11. 22:29 Sokrates, Doppel 817 aufgelöst) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -179,3 +179,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:04 09.11.: Marke Archiv session_01Hmoj75qz119EcWWbsbwBMA (lauf.py)
 - 22:25 09.11.: Startsperre 22:25 Start Jerry (Ford, vor dem Start; Neustart 908dde268)
 - 22:30 09.11.: Startsperre 22:30 Start Sokrates (Ford, vor dem Start; Neustart fc91cfe12)
+- 22:32 09.11.: Startsperre 22:32 Start Ford (selbst)
