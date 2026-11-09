@@ -2,9 +2,9 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `a48534dfb` (09.11., 19:13)
+**Gelesen bis:** `34fc9042c` (09.11., 21:06)
 
-**Übergabe (09.11., 19:13):** 792 gebaut (Sperre 779 ohne Allerweltswörter und Wortteile, Ort bleibt; 29 → 23 Sperren). 791 gebaut (Regelwerk: B1–B4, B8, B10, B11, B13; P1–P4, P8, P9, P11–P13, P17–P21; O2–O4, O7, O8, O10–O12, O15, O17, O18; offen B16 nach Chefsache 783; P10, P14–P16, O13 bewusst nicht, Gründe im Commit-Bericht). 793 gebaut („Halt“ ohne Haltung). CLAUDE.md unter 15 KB. Alles an Diogenes. Nachfolger: keiner (auf Abruf)
+**Übergabe (09.11., 21:06):** 796 gebaut (`5e1541e63`: W1–W8 in den Regeldateien; `probelauf.py` ohne Filmsperre, `startbar.py` Übernahme nur Muss, `lauf.py --morgen` entfällt, `tagesbericht.py` bittet um das Bild der Nutzung), an Diogenes; 511 erledigt (ersetzt durch W1). Nachfolger: Perikles – 797: Erlaubnisregel add_repo (09.11., 21:06)
 
 ## Einzelheiten
 
