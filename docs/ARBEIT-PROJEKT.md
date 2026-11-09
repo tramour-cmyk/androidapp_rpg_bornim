@@ -10,6 +10,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
+- **Zu 383, von Sokrates (Chef 09.11., 21:23):** „mitten im Testen mir eine neue Sitzung aufmachen, macht halt auch keinen Sinn. Deswegen haben wir das hier fertig gemacht.“ Neustart-Haken (zweite Erinnerung) kam während der Chef t272 Punkt für Punkt meldete; Ford startete den Nachfolger, der Chef testete in der alten Sitzung zu Ende. Bitte: Haken und `lauf.py` warten mit dem Neustart, solange eine Prüfliste `ansehen/t…` in dieser Sitzung beantwortet wird.
+
 - **Zu 783, von Sokrates (09.11., 21:04, über Ford):** `abgleich.py` (Prüfung 4) meldet „Vorentscheid 783 ohne Datei in billigen/“; falscher Treffer: die Archivzeile „783 W5, Vorentscheid Sokrates“ (20:05) ist ein Entscheid des Chefs über die Vorentscheid-Regel („→ andersherum (Nutzer)“), kein Vorentscheid. Bitte Zeilen, deren Ergebnis „(Nutzer“ trägt, in `vorentscheide()` auslassen.
 
 - **Zu 471, von Sokrates (09.11., 20:54):** Projektplan 1.2 steht auf „gebaut“, die Regeln lagen aber nur auf `claude/tom-471-fertigkeiten`, nie auf `main` oder im Spiel; bitte auf „Zweig“ berichtigen. 471 A: Spike macht es jetzt fertig.
