@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (09.11., 18:08, `session_01Hmoj798k9UFEDkv8fqDzXy`):** Build 271 (PR #190) auf `main` gebracht (stand seit 14:09 offen). 560 gebaut (`claude/tom-560-grimmzahn`). 610, 522, 583, 540, 617, 670 als Nachtest in den Entwurf 272 (PR #191, dort oben: erst `main` mischen, 560 hinein). 697: Messprogramm auf `claude/tom-697-drehteller`, Lauf wartet auf 782 (Sokrates); Projekt vorher `--import`. Am Rechner: `bornim-kaufmodelle` geklont, Blender-Modul in `~/bl` (für `bau_am_rechner.py`). Nachfolger: Tom – 506: Untote im Kampf, Rest aus dem Helferbefund (09.11.)
+**Übergabe (09.11., 18:08, `session_01Hmoj798k9UFEDkv8fqDzXy`):** Build 271 (PR #190) auf `main` gebracht (stand seit 14:09 offen). 560 gebaut (`claude/tom-560-grimmzahn`). 610, 522, 583, 540, 617, 670 als Nachtest in den Entwurf 272 (PR #191, dort oben: erst `main` mischen, 560 hinein). 697: Messprogramm auf `claude/tom-697-drehteller`, Lauf wartet auf 782 (Sokrates); Projekt vorher `--import`. Nachfolger: Tom – 506: Untote im Kampf, Rest aus dem Helferbefund (09.11.)
 
 ## Einzelheiten
 
