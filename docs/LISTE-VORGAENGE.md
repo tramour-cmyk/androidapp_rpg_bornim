@@ -208,7 +208,7 @@
 | 712 | Von Team Tom (702 C): Kampftexte ohne Zugverlust: [702.auf] Aufstehen (Zwischenfassung und nach dem Sturz) und Tipp [210T.pounce] | Homer | M | erledigt | – | – | – | E Kampf | 2,67 $ |
 | 736 | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-STIL.md 188–189 (618), 197 (586), 159 (565), 131 (417a), 165 (630); SPIELSYSTEM-2-0-ENTWURF 310 (427.1); SPIELSYSTEM-2-0 75, 88 (466) (von Diogenes, Lauf 92) | Homer | K | startbar | – | – | – | G Stil | – |
 | 746 | Von Perikles (743, Chef 09.11., 11:21 „alle verwerfen“): 15 Ideen aus „Verwerfen?“ in LISTE-IDEEN.md streichen, unter „Zuletzt verworfen“ eintragen | Homer | K | startbar | – | – | – | B Abläufe | – |
-| 761 | Glossar MARS: Herkunft nachtragen (Chef 17.10., 22:50: Kriegsgott „stimmt“, Abkürzung „nett bis auf Mut“; dein Ersatz „Moment“ unbeantwortet) (Sokrates nach Chef 09.11., 14:46) | Homer | M | startbar, Fassung 1 eintragen (Chef 15:01) | – | – | – | G Stil | – |
+| 761 | Glossar MARS: Herkunft nachtragen (Chef 17.10., 22:50: Kriegsgott „stimmt“, Abkürzung „nett bis auf Mut“; dein Ersatz „Moment“ unbeantwortet) (Sokrates nach Chef 09.11., 14:46) | Homer | M | erledigt | – | – | – | G Stil | – |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 715 | Rollenspiegel 06.11. nachholen (Diogenes D92) · „jetzt“ 09.11., 08:49 | Perikles | M | erledigt | – | – | – | B Abläufe | 5,67 $ |
 | 317.1 | `startbar.py`, `lauf.py`: Obergrenze 6 je Build streichen (Chef 07.11., 20:5x) | Perikles | M | erledigt | – | – | – | B Werkzeuge | – |

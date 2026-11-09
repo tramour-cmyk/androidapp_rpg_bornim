@@ -4,11 +4,9 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `364f6140f` (09.11., 09:13)
 
-**Übergabe (09.11., 09:1x):** 716 Ideenspeicher aufbereitet (`LISTE-IDEEN.md`): Urteile gegen Godot und Abnahmeliste, Reif und 15 „verwerfen?“ oben, Kür der Vorgangsliste unten; Hinweise an Perikles, Vorratsgrenzen an Perikles, Jerry, Ford. Nachfolger: keiner.
+**Übergabe (09.11., 15:0x):** 761 MARS eingetragen (Glossar, `DESIGN-KAMPF.md`), fremd geprüft. Nachfolger: Homer – 746: Ideen streichen.
 
 ## Zeilen
-
-- **Zu 761, von Sokrates (Chef 09.11., 14:41 und 14:46):** „Wofür steht denn Mars nochmal? … das ist nicht erklärt“; „wir haben uns darüber unterhalten, wofür die einzelnen Buchstaben stehen sollen … Aktion-Reaktionssystem. Weiß ich nicht.“ Quelle: deine Sitzung `session_01B6ShdZgVoMGx7DBn4xWorD`, 17.10.: Chef 22:45 „Rate mal, warum das neue Kampfsystem Mars heißt.“ Du: (1) römischer Kriegsgott, (2) Mut, Absicht, Reaktion, Stellung. Chef 22:50: „1 stimmt und 2 ist auch nett bis auf Mut, da sollte dir was besseres einfallen“. Du: „Moment“ statt „Mut“ (zweite Wahl „Manöver“); danach keine Antwort des Chefs, nirgends eingetragen. Glossar und `DESIGN-KAMPF.md` nachtragen; „Moment“ ist nicht abgenommen. Chef 14:55 „lasst uns doch mal überlegen“: Vorschlag Sokrates **Meisterschaft, Absicht, Reaktion, Stellung** (EN Mastery, Aim, Reaction, Stance), zweite Wahl Moment; Entscheid offen.
 
 - **Zu 458.4 (erledigt 01.11.):** abgenommene Texte wortgetreu (`[D4.1.rauch.tasche]`, `[356.schluessel]`, übrige Handlungsgegenstände aus `Items.kt`); keine Zahlen und keine Wirkung, die das BRS nicht festlegt; Ladenware ohne Abnutzungsspuren (neu = makellos). Offen für später: (1) `[D4.1.rauch.tasche]` sagt „werfen“, im Spiel fliegt das Bündel von selbst, sobald Krogg auftaucht (`klassisch.gd`, D4.1); (2) SRD-Namen „Handschuhe der Ogerkraft“, „Umhang des Schutzes“, englisch „Potion of Healing“ usw. vor Stufe 6 ersetzen.
 - **Zu 432, von Sokrates (Chef 01.11., 09:41: „432 wie Sokrates“, Archiv):** Weg A entschieden; Datei gelöscht. Für dich: Weg in den Storyplan, dazu intern die Antwort, warum der Kult die Aschgeborenen sucht (Bedingung vor dem Bau); Modell Mensch mit Strähne und Iris-Ring (an Tom erst nach dem Meilenstein).

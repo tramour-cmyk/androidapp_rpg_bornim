@@ -75,7 +75,7 @@ Namen im Spiel (Völker, Zauber, Monster, Regelwerte) stehen nicht hier, sondern
 | **Gebietskarte** | Karte unter freiem Himmel (Dorf, Wald) | Landkarte → Grundriss | – | `CLAUDE.md` |
 | **Grundriss** | Karte hinter einem Eingang (Haus, Höhle) | Gebietskarte → Ebene | – | `CLAUDE.md` |
 | **Ebene** | übereinanderliegende Teile eines Grundrisses | Grundriss | Stockwerk; nie für Kartenstufen | `CLAUDE.md` |
-| **MARS** | unser Kampfsystem | – → Kampfort | – | `LISTE-MARS.md` |
+| **MARS** | unser Kampfsystem; nach dem römischen Kriegsgott, zugleich **M**eisterschaft, **A**bsicht, **R**eaktion, **S**tellung (EN Mastery, Aim, Reaction, Stance) | – → Kampfort | – | `LISTE-MARS.md`, Vorgangsarchiv 761 |
 | **Kampfort** | wo gekämpft wird | MARS | Bühne | `CLAUDE.md` |
 | **Gefährte**, **Söldner** | Menschen an der Seite des Helden; andere, die mitgehen: **Begleiter** | – | – | `CLAUDE.md` |
 | **Hauptmenü** | erster Schirm mit Auswahl | – | Titelbild | `CLAUDE.md` (292) |
@@ -92,7 +92,7 @@ Namen im Spiel (Völker, Zauber, Monster, Regelwerte) stehen nicht hier, sondern
 | D<n> | Befund von Diogenes (D85.1 = Lauf 85, Befund 1) | `PRUEFBERICHT.md` |
 | E, G, Q, B, M | Hauptthemen Entwicklung, Gestaltung, Qualität, Betrieb, Markt | `tools/bereiche.py` |
 | M, K, M? | Muss, Kür, offen (Perikles entscheidet) | `CLAUDE.md` |
-| MARS | unser Kampfsystem | `LISTE-MARS.md` |
+| MARS | unser Kampfsystem; nach dem römischen Kriegsgott, zugleich Meisterschaft, Absicht, Reaktion, Stellung | `LISTE-MARS.md`, Vorgangsarchiv 761 |
 | QS, QM | Qualitätssicherung (Builds, Prüflisten), Qualitätsmessung (Prüfläufe, Kennzahlen) | `FIRMA.md` |
 | SRD | System Reference Document 5.1 (CC BY 4.0), wird ersetzt | `CLAUDE.md` |
 | tN, tN.k | Test des Chefs an Build N, Punkt k | `LISTE-BAUEN-TESTEN.md` |

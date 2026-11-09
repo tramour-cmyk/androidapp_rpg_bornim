@@ -2,6 +2,8 @@
 
 Stand 14.10.2026. Original seit 16.10. hier (99g); vorher Docs-Dokument „Bornim – Kampfsystem neu denken“ auf Max. Was entschieden ist, steht im Vorgangsarchiv (`VORGANGSARCHIV.md`, 72.x); was zu Waffe, Schild und Kampf im Bild gilt, steht im nächsten Abschnitt.
 
+**Name MARS** (761, Chef 09.11., 15:01): nach dem römischen Kriegsgott (bewusst gewählt, 17.10.), zugleich Abkürzung **M**eisterschaft, **A**bsicht, **R**eaktion, **S**tellung; englisch Mastery, Aim, Reaction, Stance.
+
 ## Waffe, Schild und Kampf im Bild: was gilt (461)
 
 Was der Chef zu Waffe, Schild und Kampf im Bild entschieden hat, steht nur hier (461d, 01.11., 22:5x; vorher `LISTE-GRUNDSTAND-461.md`); Figuren und Bewegung (A–D) in `DESIGN-STIL.md`, Film und Vorlage (G) und wie geprüft wird in `DESIGN-ABNAHME.md` „Vor jeder Vorlage“. Spalte „Prüfer“: ja = Chefwort und prüfbar, ein Verstoß hält den Lauf an (461a, 511, 621.1; `DESIGN-ABNAHME.md`); „Maß“ = Zahl von uns, nur Richtwert. Neue Entscheidung: die Zeile hier im selben Commit ändern, am alten Archiveintrag „→ ersetzt durch …“ (461b).
