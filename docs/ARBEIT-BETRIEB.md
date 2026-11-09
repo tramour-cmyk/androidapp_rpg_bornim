@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (09.11., 22:32, Ford `session_01Hmoj7684czZostW4Q5YTcw`, Selbstneustart):** Getan: Wechsel Tom 762, Jerry 562, Sokrates 620, Perikles 797, Diogenes 799 ausgeführt, alte Sitzungen archiviert und gebucht. Pacing (Chef 09.11., 07:15): `lauf.py --nur-muss`; Spike/Tuffy nur für Kampf-Muss oder Kleines, Oberfläche (Spike 683) ausgenommen. Laufend: Tom 762, Jerry 562, Homer 810, Spike 781, Tuffy 562 (wartet auf Messung, Jerry stimmt ab), Sokrates 620, Perikles 797, Diogenes 799. Offen: Tuffy 562 und Spike 781 archivieren, wenn idle. Sokrates-Sitzungen wachen auf Nachrichten des Chefs wieder auf: vor dem Archivieren `get_session` prüfen. Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 820** (zuletzt 819 Tom 09.11. 22:30:49 d55b) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 821** (zuletzt 820 Ford 09.11. 22:35:14 d08c) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford“ (Tiefe 5, Selbstneustart 09.11., 18:23) `session_01Hmoj7684czZostW4Q5YTcw`; Stundenuhr „Ford-Lauf“ `trig_01MaXLabJDKDaccyJpLKUZmn` (:03); der Nachfolger legt seine Uhr an, löscht diese und archiviert diese Sitzung (idle, >60 s, Kosten per `get_session` lesen und buchen). Vorheriger Ford (01:05) archiviert 09.11., 18:24, 9,74 $ gebucht. Tiefe 5: Selbstneustart nur noch bis Tiefe 8 (Grenze `lineage.limit`; 110).
+- **Ford lebt in einer Sitzung** „Ford“ (Tiefe 6, Selbstneustart 09.11., 22:32) `session_01Hmoj76SozRN2uPdhbiLM21`; Stundenuhr „Ford-Lauf“ `trig_01GYGgeWDZYLALz26V8YCqY5` (:03); der Nachfolger legt seine Uhr an, löscht diese und archiviert diese Sitzung (idle, >60 s, Kosten per `get_session` lesen und buchen). Vorheriger Ford `session_01Hmoj7684czZostW4Q5YTcw` (Uhr gelöscht 22:33, 8,18 $): Archivieren vom Auto-Modus-Prüfer abgelehnt, steht aus, Kosten noch nicht gebucht. Tiefe 6: Selbstneustart nur noch bis Tiefe 8 (Grenze `lineage.limit`; 110).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 
 ## Eingang

@@ -2,11 +2,12 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `fd9ca5142` (09.11., 21:47)
+**Gelesen bis:** `60277dcf3` (09.11., 22:33)
 
-**Übergabe (09.11., 21:47):** 797 erledigt (Satz unter `autoMode.environment`, Chef 21:38). 799 gebaut (`55d798cc8`: `MUSTER.md`, `vorlage_pruefen.py` im Bash-Haken `probelauf.py`, Lücken in der Übersicht), 800 gebaut (`3a26195f2`: 650.2 A, B, C1, E2 mit `tools/inhalt.py`; `DESIGN-SPIELSYSTEM-2-0.md` bleibt, an Sokrates), beide an Diogenes; 808, 809 erledigt; Projektplan 1.2 und `abgleich.py` (783 W5) nach Sokrates berichtigt; 739 ruht; neu 811 (Jerry), 812. Nachfolger: Perikles – 812: Neustart wartet während Prüfliste (09.11.)
+**Übergabe (09.11., 22:35, Neustart nach 288 Tsd. Token):** 797 erledigt (Satz unter `autoMode.environment`, Chef 21:38). 799 gebaut (`55d798cc8`), 800 gebaut (`3a26195f2`; `DESIGN-SPIELSYSTEM-2-0.md` bleibt, an Sokrates), beide an Diogenes; 808, 809 erledigt; Projektplan 1.2 und `abgleich.py` (783 W5) berichtigt; 739 ruht; neu 811 (Jerry), 812; Zu 391 an Sokrates (Probe 22:19 lief vor Satz 797). Chef bat 22:33 „Check deinen Vorrat“: beantwortet. Nachfolger: Perikles – 818: Sitzungen mit Kaufrepo offen lassen (09.11., 22:35)
 
 ## Einzelheiten
+- **Zu 818, Probe (Perikles, 09.11., 22:34):** zuerst klären, ob der `autoMode`-Satz (797, `45b00a15c`) wirkt: in einer Sitzung, die nach 21:38 gestartet ist und `main` ab `45b00a15c` in der Arbeitskopie hat (`grep tramour-cmyk .claude/settings.json`), `add_repo tramour-cmyk/bornim-kaufmodelle` versuchen (376.1 erlaubt es); Ergebnis an Sokrates (391). Wirkt er, entfällt 818 weitgehend.
 - **Zu 818, von Sokrates (Chef 09.11., 22:27, zu 391):** „wenn die anderen wieder rumwinseln, dass die Repo nicht funktionieren, ja, kann ich ihnen auch nicht helfen, dann müssen sie was ohne Repo machen. Oder ihr lasst halt jetzt die Sitzungen dann doch länger offen, wenn die Gefahr besteht, dass es wieder ein Repo-Problem gibt.“ Hintergrund: Auto-Modus lehnt `add_repo` trotz Regel ab (22:19 nachgestellt), jede neue Sitzung fragt den Chef neu. Vorschlag: Sitzung mit eingebundenem Kaufrepo bekommt bei Neustart `WEITER` statt `START` (lauf.py), oder nimmt den nächsten Vorgang mit Kaufmodellen selbst; ohne Repo nur Vorgänge ohne Kaufmodelle, kein Ruf an den Chef. Bis 391 (Repo in der Umgebung) wirkt.
 
 - **Zu 812 (früher „Zu 383“), von Sokrates (Chef 09.11., 21:23):** „mitten im Testen mir eine neue Sitzung aufmachen, macht halt auch keinen Sinn. Deswegen haben wir das hier fertig gemacht.“ Neustart-Haken (zweite Erinnerung) kam während der Chef t272 Punkt für Punkt meldete; Ford startete den Nachfolger, der Chef testete in der alten Sitzung zu Ende. Bitte: Haken und `lauf.py` warten mit dem Neustart, solange eine Prüfliste `ansehen/t…` in dieser Sitzung beantwortet wird.
