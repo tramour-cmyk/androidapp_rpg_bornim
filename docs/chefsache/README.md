@@ -4,11 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [821](entscheiden/821-browser-sitzungen.md) | **Muss** | B Abläufe | 09.11., 22:45 | Browser-Sitzungen haben beide Repos, laufen aber auf dem kleinen Modell; Tom und Jerry sind doppelt besetzt | Sokrates |
+Nichts offen.
 
 ## Zu billigen
 
@@ -276,11 +272,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 771 | M | Probe 657 auswerten: Erstfunde des Chefs t272–t275 gegen 11, 11, 9, 7 (von Perikles, Werkz | wartet auf Test t275 (Chef) |
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 
-**Sokrates** – offen 45, Muss 34, startbar 23
+**Sokrates** – offen 44, Muss 33, startbar 23
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 821 | M | Browser-Sitzungen mit beiden Repos: Modell laut Startzuordnung für Tom und Jerry, doppelte | Chef (Datei in der Chefsache) |
 | 650.2 | M | docs Schritt 2 und 3: Abgelöstes nach alt/, Doppeltes zusammen, Gliederung (aus 650, Chef | startbar |
 | 780 | M | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für uns | Termin 23.11. |
 | 620 | M | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build | startbar |
