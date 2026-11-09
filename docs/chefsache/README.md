@@ -48,7 +48,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 736 | K | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-STIL.md 188–189 (618), 197 (586), 1 | startbar |
 | 746 | K | Von Perikles (743, Chef 09.11., 11:21 „alle verwerfen“): 15 Ideen aus „Verwerfen?“ in LIST | startbar |
 
-**Tom** – offen 103, Muss 79, startbar 2
+**Tom** – offen 105, Muss 81, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -155,6 +155,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 737 | K | D92.2 Vorlagen 02.–08.11. ohne Zeile „Bestand geprüft“ (434): 417, 431, 463, 475, 492, 499 | startbar |
 | 753 | M | Blende nach der Rast: „8 Stunden vergehen“ klein und futzelig, nicht im neuen Design (Chef | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
 | Pflege | K | von Werkzeug (340.3, 09.11.): 17838 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 757 | M | Schenke: neuer Tisch 7/2 (aus 604) wirkt als 1:1-Kopie des Tischs vor der Theke, gleiche S | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
+| 758 | M | Borin sitzt an seinem Tisch wie alt (MapFolk.sits, Sitzposen, Krug statt Hammer); in Godot | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
 
 **Jerry** – offen 71, Muss 63, startbar 3
 
