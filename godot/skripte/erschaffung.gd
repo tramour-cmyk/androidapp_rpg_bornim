@@ -173,9 +173,15 @@ func platzwahl() -> void:
 	for d in Spielstand.liste():
 		if d.is_empty(): continue
 		var n := int(d["platz"])
-		var karte := Spielstaende.karte(d)   # antippen waehlt
-		karte.mouse_filter = Control.MOUSE_FILTER_STOP
-		karte.gui_input.connect(func(e): if e is InputEventMouseButton and e.pressed: schleier.queue_free(); beginne(n))
+		# 700 (549a): ohne Rahmen; die ganze Zeile ist antippbar (dunkel beim Druck, ausgeloest beim Loslassen) mit „›“ rechts
+		var zeile_ := HBoxContainer.new()
+		zeile_.add_theme_constant_override("separation", int(8 * DP))
+		zeile_.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		zeile_.custom_minimum_size.y = 48 * DP
+		zeile_.add_child(Spielstaende.karte(d, false))
+		zeile_.add_child(Spielstaende.pfeil(Stil.GOLD, false))
+		var karte := Spielstaende.tippbar(zeile_, func(): schleier.queue_free(); beginne(n))
+		karte.name = "Platz%d" % n
 		v.add_child(Spielstaende.linie())
 		v.add_child(karte)
 	v.add_child(Spielstaende.linie())
