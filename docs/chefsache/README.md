@@ -232,7 +232,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | Pflege | K | von Werkzeug (340.3, 09.11.): 15644 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 747 | K | Von Perikles (743, Chef 09.11., 11:21 „alle verwerfen“): Vorgang 24 schließen (Animationen | startbar |
 
-**Perikles** – offen 33, Muss 17, startbar 4
+**Perikles** – offen 33, Muss 17, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -265,12 +265,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 735 | K | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-ABNAHME.md 11 und Kopf DESIGN-KAMPF | ruht |
 | 742 | K | D78.1 Testbitte t268: Zeile „Verglichen“ deckte nur die Schirme vom 05.11., nicht Dorf, Ka | ruht |
 | 718 | M | Probe mit Enddatum: Rückbau gleich ins Werkzeug (365 lief nach 31.10. weiter) | wartet auf Diogenes (greift?) |
-| 719 | M | Wochentermine selbsttätig als Muss in die Vorgangsliste (Ideenspeicher, Rollenspiegel fiel | startbar |
+| 719 | M | Wochentermine selbsttätig als Muss in die Vorgangsliste (Ideenspeicher, Rollenspiegel fiel | wartet auf Diogenes (greift?) |
 | 720 | M | Abnahmeliste: Teilhaken mitzählen, wöchentliche Haken-Frage für Gebautes (0 von 41) | startbar |
 | 657 | M | Regeln radikal kürzen: eine Seite für alle mit Stil, Team, Ablauf (Chef 08.11., 14:58, 15: | startbar |
 | Pflege | K | von Werkzeug (340.3, 09.11.): 16276 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Diogenes** – offen 15, Muss 12, startbar 8
+**Diogenes** – offen 16, Muss 13, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -283,6 +283,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 654.1 | M | Systemfrage vor jedem Bau in ROLLE-ENTWICKLUNG.md und Prüfliste, Wiederholungswächter in v | startbar |
 | 724 | M | Werkzeugvorgänge nach „greift“ von Diogenes erledigt statt „wartet auf Test“ (Rollenspiege | startbar |
 | 718 | M | Probe mit Enddatum: Rückbau gleich ins Werkzeug (365 lief nach 31.10. weiter) (für Perikle | startbar |
+| 719 | M | Wochentermine selbsttätig als Muss in die Vorgangsliste (Ideenspeicher, Rollenspiegel fiel | startbar |
 | 696 | K | meldung.sh: mehrere Bilder in derselben Minute überschreiben sich im Zweig bilder (Pfad TT | startbar |
 | 461b | M | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Termin 16.11. |
 | 348.9 | M | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | ruht |
