@@ -906,3 +906,6 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 796 | Schritt 3 zu 745: Regeln nach 783 angleichen (W1–W8, Archiv 09.11., 20:00–20:16), Werkzeuge probelauf.py, lauf.py --morgen (von Sokrates) | B Abläufe | M | 4,38 $ | Perikles | erledigt, greift Lauf 124 |
 | 821 | Browser-Sitzungen mit beiden Repos: Modell laut Startzuordnung für Tom und Jerry, doppelte Sitzungen archivieren (Chef 09.11., 22:44) | B Abläufe | M | 2,02 $ | Sokrates | erledigt |
 | 820 | Archivieren erlauben: archive_session vom Auto-Modus-Wächter abgelehnt, blockiert Ford-Neustart, Neustarts Tom und Perikles (Ford 09.11., 22:36) | B Werkzeuge | M | – | Ford | erledigt |
+| 812 | Von Sokrates (Chef 09.11., 21:23): Neustart-Haken und lauf.py warten mit dem Neustart, solange der Chef in der Sitzung eine Prüfliste ansehen/t… beantwortet | B Abläufe | M | – | Perikles | erledigt |
+| 813 | D123.1 von Diogenes (800): regelcheck.py Verweisprüfung (Z. 169–181) kennt Pfade relativ zu docs/ nicht, meldet kapitel2/STORY-K2-ENTWURF.md, kapitel2/STORY-PLAN-K2.md (ARBEIT-KREATIV) und chefsache/README.md als fehlend, obwohl da | B Werkzeuge | K | – | Perikles | erledigt |
+| 818 | Sitzungen mit eingebundenem Kaufrepo länger offen lassen statt neu starten; ohne Repo nur Arbeit ohne Kaufmodelle (Chef 09.11., 22:27, zu 391) | B Abläufe | M | – | Perikles | erledigt |
