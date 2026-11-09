@@ -492,7 +492,9 @@ def main():
             ausgabe.append("NICHTS %s: Nachfolger „%s“ erst %s; Zeilenregel gilt bis dahin" % (r, offen_nf, titel_datum(offen_nf)))
             offen_nf = None
         # 641 (Diogenes 08.11., 09:07): „auf Abruf“ oder „nur auf Zuruf“ startet nur, wenn die Rolle Startbares hat
-        if offen_nf and re.search(r"auf (Abruf|Zuruf)", offen_nf) and not (muss or (kuer and r in MIT_KUER and not nur_muss)):
+        # 754 (D99.1): mit --ohne ausgeschlossene Zeilen zählen dabei nicht als startbar
+        frei_m = [x for x in muss if x[0] not in ausschluss]; frei_k = [x for x in kuer if x[0] not in ausschluss]
+        if offen_nf and re.search(r"auf (Abruf|Zuruf)", offen_nf) and not (frei_m or (frei_k and r in MIT_KUER and not nur_muss)):
             ausgabe.append("NICHTS %s: Nachfolger „%s“ auf Abruf, nichts startbar" % (r, offen_nf))
             continue
         # 276 (Fall 251): nennt der Nachfolger eine Zeile des eigenen Vorrats, die nicht startbar ist, gilt die Zeilenregel; beim zweiten Lauf laut
