@@ -151,7 +151,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 816 | M | Effekte Szene 1 Dorf am Abend nach LISTE-EFFEKTE (Reihenfolge 623.8): gedämpft, Bilder/s n | wartet auf 698 (startbar) |
 | 814 | M | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staub im Licht, Fußstaub, Fahne, Wind, | startbar |
 | 815 | M | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staubflocken innen, Fußstaub, Fahne, W | startbar |
-| Pflege | K | von Werkzeug (340.3, 09.11.): 15341 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 09.11.): 15147 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 74, Muss 65, startbar 11
 
