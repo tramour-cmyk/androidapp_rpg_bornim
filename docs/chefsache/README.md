@@ -232,7 +232,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 717.1 | M | Kampf: Zurechtrücken der Gegner läuft gleichzeitig mit dem Zug des Helden statt davor (Ide | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
 | Pflege | K | von Werkzeug (340.3, 09.11.): 17109 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 23, Muss 17, startbar 2
+**Perikles** – offen 23, Muss 17, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -258,14 +258,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 654.1 | M | Systemfrage vor jedem Bau in ROLLE-ENTWICKLUNG.md und Prüfliste, Wiederholungswächter in v | wartet auf Test/Build (gebaut) |
 | 696 | K | meldung.sh: mehrere Bilder in derselben Minute überschreiben sich im Zweig bilder (Pfad TT | wartet auf Test/Build (gebaut) |
 | Pflege | K | von Werkzeug (340.3, 09.11.): 15406 Bytes (Grenze 15000), Erledigtes streichen | startbar |
-| 721 | K | rollenspiegel.sh: Antwort am Montag landet unter der kommenden Woche, Ausfall des Freitags | startbar |
+| 721 | K | rollenspiegel.sh: Antwort am Montag landet unter der kommenden Woche, Ausfall des Freitags | wartet auf Diogenes |
 
-**Diogenes** – offen 7, Muss 5, startbar 0
+**Diogenes** – offen 8, Muss 5, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 511 | M | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele | wartet auf D75 (Dauer) |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
+| 721 | K | rollenspiegel.sh: Antwort am Montag landet unter der kommenden Woche, Ausfall des Freitags | startbar |
 | 461b | M | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Termin 16.11. |
 | 348.9 | M | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | ruht |
 | Woche | K | Wochenzählung der Kennzahlen | Termin 16.11. |
