@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [724](entscheiden/724-werkzeug-erledigt.md) | **Muss** | B Abläufe | 09.11., 09:50 | Werkzeugvorgänge nach „greift“ erledigt statt „wartet auf Test“ | Perikles |
-| [720](entscheiden/720-abnahme-zaehlen.md) | **Muss** | Q QM | 09.11., 08:53 | Abnahmeliste: Teilhaken mitzählen, Haken-Frage für Gebautes | Sokrates |
 | [657](entscheiden/657-drei-stichpunkte.md) | **Muss** | B Abläufe | 08.11., 15:15 | Regeln radikal kürzen: eine Seite für alle (Empfehlung: :) | Sokrates |
 
 ## Zu billigen
@@ -231,7 +230,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | Pflege | K | von Werkzeug (340.3, 09.11.): 17030 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 744 | M | Karte: Streuner und Leute bewegen sich natürlich, verweilen mit Ruhebewegung statt Roboter | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
 
-**Perikles** – offen 38, Muss 21, startbar 4
+**Perikles** – offen 39, Muss 22, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -273,6 +272,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 743 | M | Verwerfen? aus LISTE-IDEEN.md (Homer 09.11.): 15 Ideen erledigt, überholt, doppelt oder oh | startbar |
 | 718 | M | Probe mit Enddatum: Rückbau gleich ins Werkzeug (365 lief nach 31.10. weiter) | startbar |
 | 719 | M | Wochentermine selbsttätig als Muss in die Vorgangsliste (Ideenspeicher, Rollenspiegel fiel | startbar |
+| 720 | M | Abnahmeliste: Teilhaken mitzählen, wöchentliche Haken-Frage für Gebautes (0 von 41) | startbar |
 
 **Diogenes** – offen 7, Muss 5, startbar 0
 
@@ -286,7 +286,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
 | 644.5 | M | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noc | wartet auf 644.1 (ruht) |
 
-**Sokrates** – offen 60, Muss 35, startbar 38
+**Sokrates** – offen 59, Muss 34, startbar 38
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -345,7 +345,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 707 | K | Systemlösung? Zwischensequenz: 4 frühere Vorgänge (613, 70, 314, 659), neu 613.2; einmal g | startbar |
 | 710 | K | Systemlösung? Waffe: 12 frühere Vorgänge (348.12h, 534a, 427, 417, 410 …), neu 709; einmal | startbar |
 | 711 | K | Systemlösung? Schrift: 8 frühere Vorgänge (292.3, 312, 498, 497, 544 …), neu 586.1; einmal | startbar |
-| 720 | M | Abnahmeliste: Teilhaken mitzählen, wöchentliche Haken-Frage für Gebautes (0 von 41) | Chef (Datei in der Chefsache) |
 | 739 | K | D84.1 die sechs wiederholten Funde aus t268 mit „wiederholt“ im Titel nachziehen (620.1 A; | startbar |
 | 740 | K | D63.7 Vorlage entscheiden/3761-kettenhemd-heldin.md (01.11., 20:55) ohne Zeile „Bestand ge | startbar |
 | 584 | K | Kein halbfetter Schnitt: Köpfe und Titel in Erschaffung, Held, Chronik, Karte, System, Bre | startbar |
