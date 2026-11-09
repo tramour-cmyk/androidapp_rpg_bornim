@@ -1,4 +1,4 @@
-# 721 · Befunde von Diogenes: Vorgang mit Rückmeldung · Sokrates · 09.11., 09:09
+# 722 · Befunde von Diogenes: Vorgang mit Rückmeldung · Sokrates · 09.11., 09:09
 Q QM
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/main/docs/PRUEFBERICHT.md
@@ -12,4 +12,4 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/main/doc
 - **A (Empfehlung):** jeder Befund der Klasse 1 und 2 als Vorgang beim Besitzer (`vorgang.py neu`, „D92.2“ im Titel); Ford startet ihn wie jeden Vorgang; Stand „erledigt“ oder „verworfen, weil …“. Diogenes liest den Stand aus der Liste und schiebt Erledigtes ins `PRUEFBERICHT-ARCHIV.md`. Gegenargument: mehr Zeilen in der Liste (heute über 1000) und jeder Befund kostet eine Sitzung; dafür sagt Diogenes' Rolle schon „wenige, belegte, wichtige Befunde“.
 - **B:** Textzeile bleibt, der Empfänger muss darunter „erledigt <Commit>“ oder „verworfen, weil …“ schreiben; ein Werkzeug sammelt das für Diogenes. Gegenargument: wieder eine Pflicht ohne Auslöser; genau so blieben Wochentermine liegen (719).
 
-Antwort: „721 A“ oder „721 B“.
+Antwort: „722 A“ oder „722 B“.
