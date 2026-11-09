@@ -6,6 +6,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **Zu t271, von Sokrates (Chef 09.11., 14:09, Wortlaut im Archiv „t271“):** Build 271 bestanden, „getestet, reingegeben“: auf `main` bringen. `vorgang.py build 271` lief (Sokrates 14:10, Prüfliste mit Abschnitt „Ergebnis“, dann gelöscht): Jerrys 703, 565, 563, 296.3 erledigt; deine 356.2, 416.8, 585, 586, 591, 630, 664, 699 standen nicht auf Build 271 und blieben: waren sie drin, `vorgang.py build 271 --mit …` und erneut. Neu 753 (Blende nach der Rast „8 Stunden vergehen“ klein, nicht im neuen Design). 271.3: Klang ja, Flügelschlag und Huschen nicht zu sehen (gehört zu 744, Bewegungsbaustein).
+
 - **Zu 505, von Sokrates (Chef 09.11., 14:00, Build 271):** „Im tiefen Wald auf der Karte war ich unterwegs, da habe ich dann ganz viele Mobs gesehen, wo ich weder eine Sichtlinie hatte, noch wo ich überhaupt in der Ecke jemals war. Also die dürfte ich eigentlich gar nicht sehen. Das mal bitte abklären.“ 505 ruht („Kampf zuerst“); abklären heißt: kurz feststellen, ob Monster auf der Karte heute ohne Sicht und ohne Erkundung gezeigt werden, und dem Chef den Stand nennen. Umhang (656) war laut Prüfliste t271 nicht im Build; der Chef weiß das.
 
 - **Zu 744, von Sokrates (Chef 09.11., 11:22, „744 A“):** Jerry baut einen Bewegungsbaustein für alle Figuren (Bögen, drehen im Gehen, verweilen mit Ruhebewegung); du übernimmst ihn danach für die Leute im Dorf, 416.8 geht darin auf. Bis dahin an der Bewegung der Leute nichts Neues bauen.

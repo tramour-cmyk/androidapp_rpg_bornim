@@ -112,7 +112,8 @@
 | 613.2 | Zwischensequenzen: Bewegung sichtbar wie alt (Kerzenflackern, atmendes Licht, Staub im Strahl) und Fackelzug fehlt (Chef 08.11., 21:58 zu 613: „gesehen habe ich nichts“) | Tom | M | ruht, Kampf zuerst (338.1) | – | – | – | E Oberfläche | – |
 | 713 | Von Homer (586.1): Erklärfenster beim Gedrückthalten (menue.gd:1561) noch mit Goldrand und 14-sp-Kopf, gegen 549a (ohne Kasten) und 586a (Titel 22 sp) | Tom | K | ruht, Kampf zuerst (338.1) | – | – | – | E Oberfläche | – |
 | 737 | D92.2 Vorlagen 02.–08.11. ohne Zeile „Bestand geprüft“ (434): 417, 431, 463, 475, 492, 499, 514, 656, 664, 623.6; Spike 501, 506, 613; künftig in der Datei in ansehen/ (von Diogenes, Lauf 92) | Tom | K | startbar | – | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 09.11.): 16650 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 09.11.): 17213 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
+| 753 | Blende nach der Rast: „8 Stunden vergehen“ klein und futzelig, nicht im neuen Design (Chef 09.11., 14:09, Fund t271.7) | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 717 | Kampf: Gegner zeigt dem Helden nie den Rücken, außer auf der Flucht; nach dem Angriff rückwärts zurück oder stehen bleiben, keine Kurve heim (Chef 09.11., 08:51; ändert 682) · „jetzt“ 09.11., 08:51 | Jerry | M | gebaut, Geprüft an: 573e83ab4 | – | claude/jerry-717-rueckwaerts | – | E Kampf | – |
 | 717.1 | Kampf: Zurechtrücken der Gegner läuft gleichzeitig mit dem Zug des Helden statt davor (Idee Chef 09.11., 08:58, zu 717) | Jerry | M | gebaut, Geprüft an: 573e83ab4 | – | claude/jerry-717-rueckwaerts | – | E Kampf | – |
 | 682 | Kampf flüssiger: Held geht zügig zum Angriff, Gegner laufen in weichen Bögen statt eckig gerade-diagonal, weniger Warten auf Hin- und Zurücklaufen bei Fehlschlägen; grundsätzlich für alle Gegner (Chef 08.11., 16:22, t269; „Schienenbahnen“ t270) · „jetzt“ 08.11., 21:36 | Jerry | M | gebaut, im Zweig von 717. Geprüft an: 573e83ab4 | – | claude/jerry-717-rueckwaerts | – | E Kampf | 26,69 $ |
@@ -134,9 +135,9 @@
 | 296.2 | MARS spielnötig: Beute/Erfahrung, Fliehen, Eröffnung, Zustände, eigene Ausrüstung, Schalter (Chef 23.10., 18:25) | Jerry | M | startbar | – | claude/build-89 | – | E Kampf | 14,29 $ |
 | 211.14 | Rest 211.13: Leistung A56, Puppen-Gegner im Kamerawinkel, Winkel je Platz, Wechsel als Gang | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 708 | Zugriff auf bornim-kaufmodelle in Jerry-Sitzungen: add_repo vom Automodus abgelehnt (Jerry 08.11., 21:50; neue Sitzung 22:37 wieder), hält das Nachstellen von 682, 562, 593, 662, 536, 560 an (wie 660 bei Tom) · wiederholt | Jerry | M | erledigt | – | – | – | E Technik | – |
-| 703 | Ausweichen: Gegner bleibt am Ausweichplatz statt zurückzutappeln, 703 A (Chef t270.12, 08.11., 21:33; ändert DESIGN-KAMPF F5) · „jetzt“ 08.11., 21:36 | Jerry | M | zu testen | – | claude/jerry-703-ausweichen | 271 | E Kampf | – |
-| 565 | MARS: unten im Gruppenkasten sieht man nicht, welcher Held am Zug ist (Chef 04.11., 17:10, t257 C) | Jerry | M | zu testen | – | claude/jerry-565-a | 271 | E Kampf | 13,51 $ |
-| 563 | MARS: Zustandsschilder über Gegnern („Blut 3“) überlagern Ansage und Leisten, wirken grob (Chef 04.11., 17:02, t257 C) | Jerry | M | zu testen | – | claude/jerry-563-a | 271 | E Kampf | 13,48 $ |
+| 703 | Ausweichen: Gegner bleibt am Ausweichplatz statt zurückzutappeln, 703 A (Chef t270.12, 08.11., 21:33; ändert DESIGN-KAMPF F5) · „jetzt“ 08.11., 21:36 | Jerry | M | erledigt, t271 bestanden | – | claude/jerry-703-ausweichen | 271 | E Kampf | – |
+| 565 | MARS: unten im Gruppenkasten sieht man nicht, welcher Held am Zug ist (Chef 04.11., 17:10, t257 C) | Jerry | M | erledigt, t271 bestanden | – | claude/jerry-565-a | 271 | E Kampf | 13,51 $ |
+| 563 | MARS: Zustandsschilder über Gegnern („Blut 3“) überlagern Ansage und Leisten, wirken grob (Chef 04.11., 17:02, t257 C) | Jerry | M | erledigt, t271 bestanden | – | claude/jerry-563-a | 271 | E Kampf | 13,48 $ |
 | 551 | MARS: Rahmen des unteren Kastens links und rechts unterbrochen (Chef 04.11., 00:21) | Jerry | M | ruht | – | – | – | E Kampf | – |
 | 547 | MARS: Text sagt „geht in die Knie“, Sturz ist aus (438a eingefroren): Text und Bild in Einklang bringen (Chef 04.11., 00:01) | Jerry | M | zu testen, ohne Rückmeldung t269 | – | claude/jerry-547-sturztexte | – | E Kampf | 5,43 $ |
 | 534 | Kampf: Zauber und Fähigkeiten fehlen in „Können“ (Magierrüstung, Untote vertreiben, Spirituelle Waffe, Geisterwächter) oder wirken nicht (Unglaubliches Ausweichen, Unerbittlichkeit, Lebensraub, Schadensminderung der Aus… | Jerry | M | ruht, 424: altes SRD-System | – | claude/jerry-534-faehigkeiten | – | E Kampf | 2,32 $ |
@@ -161,7 +162,7 @@
 | 257 | Build 46: Meldung „App reagiert nicht“, warten oder schließen, läuft dann weiter (Chef 20.10.) | Jerry | M | ruht | – | – | – | E Technik | – |
 | 628 | Lohn: EP und Gold steigen nicht mit der Monsterstufe über der Gebietsstufe (over fehlt, alt Battle.finishWin) | Jerry | M | ruht, Kampf zuerst (338.1) | – | – | – | E Kampf | – |
 | 289 | MARS: Wechsel „halber Zug“ missverständlich; Bewegung und Aktion im Kästchen zeigen? (Chef 21.10., 20:11) | Jerry | K | ruht | – | – | – | E Kampf | – |
-| 296.3 | MARS-Schmuck: Todesschrei, Flucht/Zerfall, Zustände gezeichnet, Siegerpose (Chef 23.10., 18:25) | Jerry | M | zu testen | 656 | claude/jerry-2963-jaulen | 271 | E Kampf | – |
+| 296.3 | MARS-Schmuck: Todesschrei, Flucht/Zerfall, Zustände gezeichnet, Siegerpose (Chef 23.10., 18:25) | Jerry | M | erledigt, t271 bestanden | – | claude/jerry-2963-jaulen | 271 | E Kampf | – |
 | 344.2 | Kampf mit der Fackel: Feuerschaden, Verscheuchen, beide Systeme (Chef 23.10., 18:27) | Jerry | K | ruht | – | claude/jerry-344-2-fackel | – | E Kampf | – |
 | 168.1 | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | Jerry | K | wartet | 38 | – | – | G Story | – |
 | 72u.1 | Umsetzung 72u: Kampfort aus der Karte (Standbild 2, Bau) | Jerry | K | ruht | – | claude/jerry-72u-standbild-2 | – | E Kampf | 2,38 $ |
@@ -188,8 +189,8 @@
 | 738 | D92.3 Vorlagen 02.–08.11. ohne Zeile „Bestand geprüft“ (434): 406, 406.2, 416.6, 453a, 509; künftig in der Datei in ansehen/ (von Diogenes, Lauf 92) | Jerry | K | erledigt, bestätigt (Zeile fehlt in allen fünf ansehen-Dateien); künftig dort | – | – | – | B Abläufe | – |
 | 744 | Karte: Streuner und Leute bewegen sich natürlich, verweilen mit Ruhebewegung statt Roboter-Takt (Chef 09.11., 11:18); ein Bewegungsbaustein für beide Teams? | Jerry | M | startbar | 717, 717.1 | – | – | E Figuren | – |
 | 747 | Von Perikles (743, Chef 09.11., 11:21 „alle verwerfen“): Vorgang 24 schließen (Animationen nach Start, überholt durch Godot) | Jerry | K | startbar | – | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 09.11.): 15644 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 751 | Kampf: Knopfleiste des Helden manchmal leer („…“), keine Menüfunktion, auch ohne „ganzer Bericht“ (Chef 09.11., 14:00, Fund t271, Bild Wolfsrudel) | Jerry | M | in Arbeit, Jerry | – | – | – | E Oberfläche | – |
+| Pflege | von Werkzeug (340.3, 09.11.): 16997 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 716 | Ideenspeicher 08.11. nachholen (Diogenes D92, drei Sonntage ausgefallen) · „jetzt“ 09.11., 08:49 | Homer | M | erledigt | – | – | – | B Abläufe | 3,05 $ |
 | 432 | Eigenes Volk aus Bornim (etwa mit dem Grauen Propheten, „Tag der Asche“) prüfen, mit der Geschichte ab Kapitel 2 (Chef 31.10., 22:0x) | Homer | K | ruht | – | – | – | G Story | 0,79 $ |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
@@ -314,7 +315,7 @@
 | 752 | Systemlösung? Knopf: 15 frühere Vorgänge (503a, 503, 548, 599, 600 …), neu 751; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Oberfläche | – |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +857,14 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
-| Pflege | von Werkzeug (340.3, 09.11.): 24886 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 09.11.): 26140 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
