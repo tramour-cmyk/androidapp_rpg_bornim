@@ -231,13 +231,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 751 | M | Kampf: Knopfleiste des Helden manchmal leer („…“), keine Menüfunktion, auch ohne „ganzer B | startbar |
 | Pflege | K | von Werkzeug (340.3, 09.11.): 16997 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 34, Muss 19, startbar 3
+**Perikles** – offen 34, Muss 19, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 511 | M | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele | wartet auf Diogenes |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf Diogenes |
-| 464 | M | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählu | wartet auf 749 (startbar) |
+| 464 | M | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählu | wartet auf Diogenes (greift?) |
 | 383 | M | Wartewächter und Haken 63 verschärfen (Chef 27.10., 17:53 ja); Sitzungsgröße messen (Sokra | wartet auf Sokrates |
 | 275 | M | Zentrale Vorgangsliste als einzige Quelle (Chef 21.10.; Stufe 1 jetzt, 27.10.) | wartet auf Diogenes (greift?) |
 | 347.2 | M | Umsetzung Plan 347 nach Gegenprüfung (Chef 24.10., 16:30) | wartet auf 347 (startbar) |
@@ -266,16 +266,17 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 720 | M | Abnahmeliste: Teilhaken mitzählen, wöchentliche Haken-Frage für Gebautes (0 von 41) | Chef (Datei in der Chefsache) |
 | 657 | M | Regeln radikal kürzen: eine Seite für alle mit Stil, Team, Ablauf (Chef 08.11., 14:58, 15: | wartet auf Diogenes (greift?) |
 | 748 | M | D95.1 von Diogenes: 464 greift nicht, Push-Haken prüft nur Parsefehler, rote Läufe 08.11. | wartet auf Diogenes (greift?) |
-| 749 | M | D95.2 von Diogenes: 464 Zählung fehlt, tagesbericht.py liest keine roten Läufe, keine Zeil | startbar |
+| 749 | M | D95.2 von Diogenes: 464 Zählung fehlt, tagesbericht.py liest keine roten Läufe, keine Zeil | wartet auf Diogenes (greift?) |
 | 754 | K | D99.1 von Diogenes: lauf.py startet Nachfolger „auf Abruf“ trotzdem, wenn alle startbaren | startbar |
 | 755 | M | D101.1 von Diogenes: nach „greift“ hat 724 keinen Zustand; Zeile bleibt „wartet auf Diogen | startbar |
 
-**Diogenes** – offen 17, Muss 14, startbar 10
+**Diogenes** – offen 19, Muss 16, startbar 12
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 511 | M | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele | wartet auf D75 (Dauer) |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
+| 464 | M | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählu | startbar |
 | 275 | M | Zentrale Vorgangsliste als einzige Quelle (Chef 21.10.; Stufe 1 jetzt, 27.10.) (für Perikl | startbar |
 | 627 | M | probelauf.py: Push mit git commit -F - im selben Befehl als Probelauf gezählt (562, ohne L | startbar |
 | 641 | M | lauf.py startet Nachfolger „auf Abruf“, obwohl nichts startbar ist (Diogenes 08.11., 09:07 | startbar |
@@ -285,6 +286,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 719 | M | Wochentermine selbsttätig als Muss in die Vorgangsliste (Ideenspeicher, Rollenspiegel fiel | startbar |
 | 657 | M | Regeln radikal kürzen: eine Seite für alle mit Stil, Team, Ablauf (Chef 08.11., 14:58, 15: | startbar |
 | 748 | M | D95.1 von Diogenes: 464 greift nicht, Push-Haken prüft nur Parsefehler, rote Läufe 08.11. | startbar |
+| 749 | M | D95.2 von Diogenes: 464 Zählung fehlt, tagesbericht.py liest keine roten Läufe, keine Zeil | startbar |
 | 696 | K | meldung.sh: mehrere Bilder in derselben Minute überschreiben sich im Zweig bilder (Pfad TT | startbar |
 | 461b | M | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Termin 16.11. |
 | 348.9 | M | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | ruht |
