@@ -241,9 +241,9 @@
 | 742 | D78.1 Testbitte t268: Zeile „Verglichen“ deckte nur die Schirme vom 05.11., nicht Dorf, Kampf, Kapitelende; Wächter 512.1 prüft den Umfang nicht (von Diogenes, Lauf 76) | Perikles | K | ruht, Kampf zuerst (338.1) | – | – | – | B Werkzeuge | – |
 | 743 | Verwerfen? aus LISTE-IDEEN.md (Homer 09.11.): 15 Ideen erledigt, überholt, doppelt oder ohne Grund | Perikles | M | erledigt | – | – | – | B Abläufe | – |
 | 718 | Probe mit Enddatum: Rückbau gleich ins Werkzeug (365 lief nach 31.10. weiter) | Perikles | M | erledigt, greift Lauf 102 | – | – | – | B Werkzeuge | – |
-| 719 | Wochentermine selbsttätig als Muss in die Vorgangsliste (Ideenspeicher, Rollenspiegel fielen aus) | Perikles | M | gebaut, Geprüft an: 7adf1cd1e (Probe Kopie 16.11.: 3 angelegt, zweiter Lauf 0) | – | – | – | B Werkzeuge | – |
+| 719 | Wochentermine selbsttätig als Muss in die Vorgangsliste (Ideenspeicher, Rollenspiegel fielen aus) | Perikles | M | erledigt, greift Lauf 103 | – | – | – | B Werkzeuge | – |
 | 720 | Abnahmeliste: Teilhaken mitzählen, wöchentliche Haken-Frage für Gebautes (0 von 41) | Perikles | M | wartet, erste Runde ansehen/720-haken.md | Chef 720 | – | – | Q QM | – |
-| 657 | Regeln radikal kürzen: eine Seite für alle mit Stil, Team, Ablauf (Chef 08.11., 14:58, 15:05) | Perikles | M | gebaut, Geprüft an: 35e71a7c4 (Probe t272 Liste, t276 abgelaufen) | – | – | – | B Abläufe | – |
+| 657 | Regeln radikal kürzen: eine Seite für alle mit Stil, Team, Ablauf (Chef 08.11., 14:58, 15:05) | Perikles | M | gebaut, Geprüft an: 35e71a7c4 (Probe t272 Liste, t276 abgelaufen) | t275 | – | – | B Abläufe | – |
 | 748 | D95.1 von Diogenes: 464 greift nicht, Push-Haken prüft nur Parsefehler, rote Läufe 08.11. kamen aus Tests (12× Skripte pruefen, 2× REEBOO), Teil „Tests lokal grün“ fehlt | Perikles | M | gebaut, Geprüft an: e74948f61 (Probe Wegwerf-Repo) | – | – | – | B Abläufe | – |
 | 749 | D95.2 von Diogenes: 464 Zählung fehlt, tagesbericht.py liest keine roten Läufe, keine Zeile „von Ford (464)“ in Teamvorräten seit 02.11. (Zeile „Rot TT.MM.“ bei Ford: 741) | Perikles | M | gebaut, Geprüft an: 8a4abf110 (Probe 45 von 186) | – | – | – | B Abläufe | – |
 | 754 | D99.1 von Diogenes: lauf.py startet Nachfolger „auf Abruf“ trotzdem, wenn alle startbaren Zeilen der Rolle mit --ohne ausgeschlossen sind (641) | Perikles | K | startbar | – | – | – | B Abläufe | – |
