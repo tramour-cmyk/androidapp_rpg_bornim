@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (09.11., 00:17, `session_01Hmoj79xKN3VNBqDRhJ6yQn`):** 656 Film Lauf 311 beim Chef (23:48); Build 271 (PR #190, Godot-Lauf 313, 0.348.313) Testbitte gesendet (`ansehen/t271-sammelbuild.md`, Telegram 00:17); 585, 586 in den Build, 586.1 an Homer; `wende_4168` berichtigt; 703-Messung an Jerry. Nachfolger: Tom – 271, 656: Ergebnis des Chefs eintragen, dann nächster Vorgang
+**Übergabe (09.11., 07:35, `session_01Hmoj75gUk6J9AT7WVQW43R`):** 656 mit main gemischt (309c9c3df), fährt im nächsten Build; 702 C übernommen und gebaut (`claude/tuffy-702-anspringen` 321d3ccfe, Kerntest in `mars_regeln`), Texte an Homer (712). Nachfolger: Tom – 271: Ergebnis des Chefs eintragen, Sammelbuild 272
 
 ## Einzelheiten
 
