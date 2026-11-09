@@ -1,6 +1,6 @@
 # 650.2 · Notizen: was weg kann, was doppelt ist, welche Gliederung
 Sokrates · 09.11., 20:24 (Vorlage 19:58, C6 berichtigt 20:04, Funde Diogenes Lauf 120 berichtigt 20:24) · B Abläufe · aus 650 (Schritt 2 und 3)
-Kurz: 12 Dateien nach alt/ oder kapitel2/, 6 Themen zusammenlegen, Gliederung flach lassen, Inhaltsverzeichnis neu
+Kurz: 14 Dateien nach alt/ oder kapitel2/, 6 Themen zusammenlegen, Gliederung flach lassen, Inhaltsverzeichnis neu
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/tree/b0cb30363/docs (84 Dateien; je Datei Größe, Anlage, letzte Änderung, Verweise aus Notizen und Werkzeugen, Kopfzeilen gelesen)
 
@@ -46,7 +46,7 @@ Nicht hier, weil 745 sie schon führt: Doppelungen der Regeln (`LISTE-BAUEN-TEST
 - **Variante 1, Ordner nach Leser:** `spiel/` (DESIGN, STORY, Spiel-Listen), `firma/` (ROLLE, ARBEIT, Handwerk), `archiv/`, `alt/`, `kapitel2/`. Auf GitHub sähest du fünf Ordner statt 84 Dateien.
 - **Variante 2, flach lassen (Vorsilben wie heute):** dazu `kapitel2/` und `alt/` (B, A). Das Inhaltsverzeichnis `docs/README.md` bekommt oben „Für den Chef“ mit etwa 8 Dateien und je Datei einen Satz „wofür, wer liest wann“. Ein Werkzeug meldet jede Datei ohne Zeile und jeden toten Link (650 Schritt 3).
 
-**Votum Sokrates: A, B, C und E Variante 2.** Ergebnis: im Hauptordner etwa 65 statt 84 Dateien.
+**Votum Sokrates: A, B, C und E Variante 2.** Ergebnis: im Hauptordner etwa 63 statt 84 Dateien (A 8, B 6 mit beiden SVG, C 7 weniger).
 
 ## Auswertung
 
