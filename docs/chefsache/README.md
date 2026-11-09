@@ -51,7 +51,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 656 | M | Umhang Kämpfer mit Beulen, große Beule unter dem Schwertarm: woher, weg (Chef 08.11., 14:5 | wartet auf Test/Build (gebaut) |
-| 773 | M | Sammelbuild 272: alle fertigen Zweige beider Teams (Tom 5, Jerry 6: u. a. 656, 717, 717.1, | wartet auf 778 (startbar) |
+| 773 | M | Sammelbuild 272: alle fertigen Zweige beider Teams (Tom 5, Jerry 6: u. a. 656, 717, 717.1, | wartet auf 778 (in Arbeit) |
 | 610 | M | Held im Dorf: Finger am Stab zucken ohne Unterlass (Schild auf dem Rücken) (Chef 07.11., t | startbar |
 | 522 | M | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Ch | startbar |
 | 697 | M | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | startbar |
@@ -152,11 +152,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 769 | M | Wochentermin 13.11.: Rollenspiegel Tom (rollenspiegel.sh Tom) (719); deckt 02.–13.11., Woc | Termin 13.11. 08:00 |
 | Pflege | K | von Werkzeug (340.3, 09.11.): 19627 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 74, Muss 66, startbar 2
+**Jerry** – offen 74, Muss 66, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 778 | M | Von Tom (773): Build 272 rot an wolf_mess_438 (Kleriker gegen Wölfe: Wolf in Wolf 68 Bilde | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test |
+| 778 | M | Von Tom (773): Build 272 rot an wolf_mess_438 (Kleriker gegen Wölfe: Wolf in Wolf 68 Bilde | startbar |
 | 717 | M | Kampf: Gegner zeigt dem Helden nie den Rücken, außer auf der Flucht; nach dem Angriff rück | wartet auf Test/Build (gebaut) |
 | 717.1 | M | Kampf: Zurechtrücken der Gegner läuft gleichzeitig mit dem Zug des Helden statt davor (Ide | wartet auf Test/Build (gebaut) |
 | 682 | M | Kampf flüssiger: Held geht zügig zum Angriff, Gegner laufen in weichen Bögen statt eckig g | wartet auf Test/Build (gebaut) |
