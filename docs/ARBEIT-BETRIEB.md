@@ -144,3 +144,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 15:06 09.11.: Startsperre 15:06 Start Homer (Ford, vor dem Start)
 - 16:32 09.11.: Startsperre 16:32 Start Tom, Jerry (Ford, vor dem Start; Neustart Tom 861cf1d67; Jerry 778, alte Sitzung 717k Tokens)
 - 17:05 09.11.: Startsperre 17:05 Start Perikles (Ford, vor dem Start)
+- 18:07 09.11.: Startsperre 18:07 Start Sokrates (Ford, vor dem Start; Neustart 6a64a4709)
