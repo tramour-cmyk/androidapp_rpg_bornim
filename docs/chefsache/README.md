@@ -236,7 +236,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | Pflege | K | von Werkzeug (340.3, 09.11.): 17805 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 770 | M | Wochentermin 13.11.: Rollenspiegel Jerry (rollenspiegel.sh Jerry) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
-**Perikles** – offen 25, Muss 11, startbar 0
+**Perikles** – offen 24, Muss 10, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -260,13 +260,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 734 | K | D92.1 Warnung „LISTE-VORGAENGE.md von Hand geändert“ wird nirgends festgehalten, Woche War | ruht |
 | 735 | K | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-ABNAHME.md 11 und Kopf DESIGN-KAMPF | ruht |
 | 742 | K | D78.1 Testbitte t268: Zeile „Verglichen“ deckte nur die Schirme vom 05.11., nicht Dorf, Ka | ruht |
-| 657 | M | Regeln radikal kürzen: eine Seite für alle mit Stil, Team, Ablauf (Chef 08.11., 14:58, 15: | wartet auf Test t275 (Chef) |
 | 748 | M | D95.1 von Diogenes: 464 greift nicht, Push-Haken prüft nur Parsefehler, rote Läufe 08.11. | wartet auf Diogenes (greift?) |
 | 749 | M | D95.2 von Diogenes: 464 Zählung fehlt, tagesbericht.py liest keine roten Läufe, keine Zeil | wartet auf Diogenes (greift?) |
 | 754 | K | D99.1 von Diogenes: lauf.py startet Nachfolger „auf Abruf“ trotzdem, wenn alle startbaren | wartet auf Diogenes (greift?) |
 | 755 | M | D101.1 von Diogenes: nach „greift“ hat 724 keinen Zustand; Zeile bleibt „wartet auf Diogen | wartet auf Diogenes (greift?) |
 
-**Diogenes** – offen 12, Muss 10, startbar 5
+**Diogenes** – offen 13, Muss 11, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -282,6 +281,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
 | 644.5 | M | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noc | wartet auf 644.1 (ruht) |
 | 768 | M | Wochentermin 13.11.: Rollenspiegel Diogenes (rollenspiegel.sh Diogenes) (719); deckt 02.–1 | Termin 13.11. 08:00 |
+| 771 | M | Probe 657 auswerten: Erstfunde des Chefs t272–t275 gegen 11, 11, 9, 7 (von Perikles, Werkz | wartet auf Test t275 (Chef) |
 
 **Sokrates** – offen 63, Muss 37, startbar 39
 
