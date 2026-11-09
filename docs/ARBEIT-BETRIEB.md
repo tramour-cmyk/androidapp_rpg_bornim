@@ -181,3 +181,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:30 09.11.: Startsperre 22:30 Start Sokrates (Ford, vor dem Start; Neustart fc91cfe12)
 - 22:32 09.11.: Startsperre 22:32 Start Ford (selbst)
 - 22:36 09.11.: Startsperre 22:36 Start Jerry (Jerry selbst, Chef 22:35: neue Sitzung in WireStorm Mittel, beide Repos prüfen)
+- 22:42 09.11.: Startsperre 22:42 Start Tom, Sokrates (alter Ford, weil der neue Ford archive_session nicht darf, 820; Neustart Tom 86e6bccae, Sokrates f83325547)
