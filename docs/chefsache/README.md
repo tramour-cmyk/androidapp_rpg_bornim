@@ -231,7 +231,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 751 | M | Kampf: Knopfleiste des Helden manchmal leer („…“), keine Menüfunktion, auch ohne „ganzer B | startbar |
 | Pflege | K | von Werkzeug (340.3, 09.11.): 16997 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 26, Muss 12, startbar 1
+**Perikles** – offen 26, Muss 12, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -259,10 +259,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 657 | M | Regeln radikal kürzen: eine Seite für alle mit Stil, Team, Ablauf (Chef 08.11., 14:58, 15: | wartet auf Test t275 (Chef) |
 | 748 | M | D95.1 von Diogenes: 464 greift nicht, Push-Haken prüft nur Parsefehler, rote Läufe 08.11. | wartet auf Diogenes (greift?) |
 | 749 | M | D95.2 von Diogenes: 464 Zählung fehlt, tagesbericht.py liest keine roten Läufe, keine Zeil | wartet auf Diogenes (greift?) |
-| 754 | K | D99.1 von Diogenes: lauf.py startet Nachfolger „auf Abruf“ trotzdem, wenn alle startbaren | startbar |
+| 754 | K | D99.1 von Diogenes: lauf.py startet Nachfolger „auf Abruf“ trotzdem, wenn alle startbaren | wartet auf Diogenes (greift?) |
 | 755 | M | D101.1 von Diogenes: nach „greift“ hat 724 keinen Zustand; Zeile bleibt „wartet auf Diogen | wartet auf Diogenes (greift?) |
 
-**Diogenes** – offen 10, Muss 9, startbar 4
+**Diogenes** – offen 11, Muss 9, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -272,6 +272,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 748 | M | D95.1 von Diogenes: 464 greift nicht, Push-Haken prüft nur Parsefehler, rote Läufe 08.11. | startbar |
 | 749 | M | D95.2 von Diogenes: 464 Zählung fehlt, tagesbericht.py liest keine roten Läufe, keine Zeil | startbar |
 | 755 | M | D101.1 von Diogenes: nach „greift“ hat 724 keinen Zustand; Zeile bleibt „wartet auf Diogen | startbar |
+| 754 | K | D99.1 von Diogenes: lauf.py startet Nachfolger „auf Abruf“ trotzdem, wenn alle startbaren | startbar |
 | 461b | M | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Termin 16.11. |
 | 348.9 | M | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | ruht |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
