@@ -5,17 +5,17 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 ## Zehn Zeilen
 
 <!-- zahlen -->
-**Stand 09.11., 10:12** (Werkzeug `tools/tagesbericht.py`)
+**Stand 09.11., 10:14** (Werkzeug `tools/tagesbericht.py`)
 
 | # | Kennzahl | heute | Bemerkung |
 |---|---|---|---|
 | 1 | Stufe | **Stufe 1 Kern spielbar**: 0 von 4 abgenommen, 4 gebaut, 0 in Arbeit | 41 Punkte in 6 Stufen: 0 abgenommen, 4 gebaut, 6 in Arbeit, 31 offen |
-| 2 | Seit gestern | abgenommen **0**, gebaut **0**, von dir zurück **0** | Vorgänge erledigt 24 h / 7 Tage: 64 / 268, davon Spiel (Entwicklung, Gestaltung, Texte, Design) 40 / 184; neu 120 / 377 |
+| 2 | Seit gestern | abgenommen **0**, gebaut **0**, von dir zurück **0** | Vorgänge erledigt 24 h / 7 Tage: 64 / 268, davon Spiel (Entwicklung, Gestaltung, Texte, Design) 40 / 184; neu 122 / 378 |
 | 3 | Rest geschätzt | Wochenziel 09.–15.11. „Der Kampf funktioniert“: Jerry hat 20 Kampfzeilen (717 in Arbeit), Tom 4 zum Helden, 2 übernommene, dazu 506 und das Lager der Höhle (492). (ganz unter „Eingaben“) | Sitzungen bis zur nächsten Stufe, Tom und Jerry, montags neu |
-| 4 | Wartet auf dich | **5 entscheiden**, **1 Build**, **1 tun** | ältestes: 623 seit 07.11., 20:13; [Chefsache](chefsache/README.md) |
+| 4 | Wartet auf dich | **6 entscheiden**, **1 Build**, **1 tun** | ältestes: 623 seit 07.11., 20:13; [Chefsache](chefsache/README.md) |
 | 5 | Builds | Änderungen warten auf deinen Test: **20** (Tom 13, Jerry 7) | bei dir zum Testen: Build 271; ein Build nimmt alle fertigen Zweige (317) |
 | 6 | Fehler | **15** offen, davon 5 älter als drei Tage | offene Vorgänge des Spiels mit Fehler oder Befund im Titel, dazu jeder mit Build-Nummer (D55.3) |
-| 7 | Geld | Woche **10 %** (dein Bild 08.11., 08:44); gestern 691 $ Rechenwert, Spiel 74 % | Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal) |
+| 7 | Geld | Woche **10 %** (dein Bild 08.11., 08:44); gestern 729 $ Rechenwert, Spiel 75 % | Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal) |
 | 8 | Von dir zuerst gefunden | seit dem letzten Bericht (08.11., 09:18) aus Build 269 und 270 unter anderem 670, 679, 680 (Absturz), 681, 682, 683, 701, 702, 703, dazu heute 717 (08:51); die Woche 02.–08.11. zählt Diogenes im Prüfbericht | Woche, zählt Diogenes montags |
 | 9 | Größtes Risiko | Guthaben; seit 08.11., 20:42 steht die Woche auf Warnung (`allowed_warning`), Kür startet nicht mehr; dein letztes Bild (08.11., 08:44) sagte „Donnerstagnacht aufgebraucht“. Darum ruhen 54 Zeilen ohne Kampfbezug. Ein neues Bild der Nutzung zeigt, ob das reicht |  |
 | 10 | Ausführlich | [Abnahmeliste und Stand](PROJEKTPLAN.md) |  |
@@ -55,7 +55,7 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 ## Wo du Prioritäten setzen kannst (09.11., 10:1x)
 
 1. **Build 271 testen** ([t271](chefsache/ansehen/t271-sammelbuild.md)): ein Weg durch Hauptmenü, Dorf, Laden, Tiefen Wald und Probekämpfe; darin 656 Umhang und 703 Ausweichen; erst dein Test löst die Sperre 620.1 B, vorher baut Tom nichts.
-2. **623 A kaufen** ([623](chefsache/tun/623-kauf.md)): Effekte im Kampf (Treffer, Blut, Zauber) warten auf die Pakete; passt zu „Kampf zuerst“.
+2. **Bildschirmfoto der Nutzung schicken:** die Woche steht seit 08.11., 20:42 auf Warnung; ob das Ruhen von 54 Zeilen reicht, zeigt erst die neue Zahl (dein letztes Bild 08.11., 08:44).
 3. **743 entscheiden** ([743](chefsache/entscheiden/743-verwerfen-ideen.md)): 15 Ideen verwerfen, kostet dich eine Minute und hält den Ideenspeicher klein; drängt nicht.
 
 *Stärkstes Gegenargument zu 1:* Build 271 enthält viele Kleinigkeiten ohne Kampf (Menüs, Brett, Laden), deine Zeit ginge lieber in den Kampf. *Wie es zu entkräften ist:* ohne den Test bleibt Tom gesperrt, und die Kampfzeilen 656 und 703 liegen nur in diesem Build.

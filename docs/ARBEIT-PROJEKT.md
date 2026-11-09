@@ -2,9 +2,9 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `b6ee848b8` (09.11., 09:14)
+**Gelesen bis:** `732663f4d` (09.11., 10:14)
 
-**Übergabe (09.11., 09:14):** 715 nachgeholt (von Hand); 398 abgeschlossen (Zeilen über 4.4, Termine entfallen mit 447); 650.1 abgeschlossen; 341 gemeldet (3 von 6), wartet auf 16.11.; 721 gebaut, Prüfzeile an Diogenes. Rollenspiegel-Schritte: 1 und 2 entscheide ich selbst (keine neue Werkzeugregel ohne Fund des Chefs, D-Befunde gebündelt; Wochenziel nur Kampf mit Teilhaken), 3 als Chefsache 724. Nachfolger: Perikles – 338.1: Wochenziel 09.11. ab 10:00
+**Übergabe (09.11., 10:14):** 338.1 Wochenziel 09.–15.11. „Der Kampf funktioniert“ gesetzt (54 Zeilen ruhen, 560 und 680 an Tom, M? 725–742 K, 515/568 M); Tagesbericht 09.11. (448) gemeldet; 743 Verwerfen? als Chefsache. Nachfolger: Perikles – 448: Tagesbericht 10.11. ab 7:30
 
 ## Einzelheiten
 
