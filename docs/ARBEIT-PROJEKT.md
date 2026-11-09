@@ -4,7 +4,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `2563cd68a` (09.11., 12:21)
 
-**Übergabe (09.11., 12:21):** 724 gebaut (Bereich B „gebaut“ wartet auf Diogenes; 317.1, 620.1, 646, 647, 648, 651 erledigt), 743 erledigt (746 Homer, 747 Jerry), 718 gebaut (`PROBEN` in `lauf.py`, Probe 270 abgelaufen: Perikles auf sonnet, Chef gemeldet), 719 gebaut (Wochentermine ab 10.11. als Vorgänge, WOCHENSTART entfällt), 720 erste Haken-Frage `ansehen/720-haken.md`, 657 D gebaut (`LISTE-CHECK-BUILD-TEST.md`, bis Build 275), 733 erledigt. Nachfolger: Perikles – 448: Tagesbericht 10.11. ab 7:30
+**Übergabe (09.11., 12:21):** 724 gebaut (Bereich B „gebaut“ wartet auf Diogenes; 317.1, 620.1, 646, 647, 648, 651 erledigt), 743 erledigt (746 Homer, 747 Jerry), 718 gebaut (`PROBEN` in `lauf.py`, Probe 270 abgelaufen: Perikles aufs kleine Modell, Chef gemeldet), 719 gebaut (Wochentermine ab 10.11. als Vorgänge, WOCHENSTART entfällt), 720 erste Haken-Frage `ansehen/720-haken.md`, 657 D gebaut (`LISTE-CHECK-BUILD-TEST.md`, bis Build 275), 733 erledigt. Nachfolger: Perikles – 448: Tagesbericht 10.11. ab 7:30
 
 ## Einzelheiten
 
