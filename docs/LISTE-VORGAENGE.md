@@ -196,7 +196,7 @@
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 772 | D89.2 von Diogenes (über Perikles): Glossar ohne „Vorgang beim Chef“ (480); „steht in“ zeigt meist auf CLAUDE.md | Homer | K | startbar | – | – | – | B Abläufe | – |
 | 792 | D114.1 von Diogenes (779): Sperre sperrt über Allerweltswörter ohne gleiches Thema: 762 über „schwert“ (aus „Schwertarm“ in 656), 753 „design“, 784 „jeden“, 680 und 757 „schenke“ gegen 543 (Startwerte); 5 von 27 Sperren | Perikles | M | erledigt, greift Lauf 117 | – | – | – | B Werkzeuge | 5,17 $ |
-| 779 | Sperre 620.1 B nur bei Überschneidung mit Ungetestetem, sonst weiterarbeiten (Chef 09.11., 17:30) | Perikles | M | gebaut, Geprüft an: 622fc78c1 (Tom 11, Jerry 8 startbar) | 792 | – | – | B Abläufe | – |
+| 779 | Sperre 620.1 B nur bei Überschneidung mit Ungetestetem, sonst weiterarbeiten (Chef 09.11., 17:30) | Perikles | M | erledigt, greift Lauf 117 | – | – | – | B Abläufe | – |
 | 511 | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele sinnlose und kaputte Filme gemacht?“) · „jetzt“ 03.11., 13:50 | Perikles | M | gebaut, Geprüft an: d6d9eca8c | Diogenes, D75 | – | – | B Werkzeuge | 19,83 $ |
 | 483 | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Marke (Chef 02.11., 19:08) | Perikles | M | gebaut, Geprüft an: 62e922b30 | Diogenes, D75 | – | – | B Werkzeuge | – |
 | 464 | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählung im Tagesbericht (Chef 01.11., 20:4x) | Perikles | M | gebaut, Geprüft an: fcf9ab215 | 16.11. | – | – | B Abläufe | – |
