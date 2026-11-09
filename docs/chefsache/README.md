@@ -149,8 +149,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 758 | M | Borin sitzt an seinem Tisch wie alt (MapFolk.sits, Sitzposen, Krug statt Hammer); in Godot | startbar |
 | 762 | M | Heldenreiter zeigt die BRS-Fertigkeiten mit Wert, Rang und Fortschritt, damit man sieht, w | startbar |
 | 764 | M | Heldenreiter zeigt aktive Zustände (betrunken usw.) mit Erklärung; Tippen auf die Leiste ö | startbar |
-| Pflege | K | von Werkzeug (340.3, 09.11.): 20105 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 769 | M | Wochentermin 13.11.: Rollenspiegel Tom (rollenspiegel.sh Tom) (719); deckt 02.–13.11., Woc | Termin 13.11. 08:00 |
+| Pflege | K | von Werkzeug (340.3, 09.11.): 19627 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 74, Muss 66, startbar 2
 
@@ -228,10 +228,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 747 | K | Von Perikles (743, Chef 09.11., 11:21 „alle verwerfen“): Vorgang 24 schließen (Animationen | startbar |
 | 751 | M | Kampf: Knopfleiste des Helden manchmal leer („…“), keine Menüfunktion, auch ohne „ganzer B | Chef (Datei in der Chefsache) |
 | 760 | M | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht | Chef (Datei in der Chefsache) |
-| Pflege | K | von Werkzeug (340.3, 09.11.): 17805 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 770 | M | Wochentermin 13.11.: Rollenspiegel Jerry (rollenspiegel.sh Jerry) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
+| Pflege | K | von Werkzeug (340.3, 09.11.): 19249 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 25, Muss 11, startbar 3
+**Perikles** – offen 26, Muss 11, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -260,6 +260,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 775 | M | D105.1 von Diogenes: 774 Commit-Prüfung übersieht Prüflistenzeilen mit mehreren Nummern („ | startbar |
 | 776 | M | D108.1 von Diogenes: 749 hebt „von Ford (464)“ je rotem Lauf auf (Commit 8a4abf110), ROLLE | startbar |
 | 777 | K | D108.2 von Diogenes: tagesbericht.py rote_laeufe zählt Zweige spike-/tuffy- als „Sonst“ st | startbar |
+| Pflege | K | von Werkzeug (340.3, 09.11.): 15276 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
 
 **Diogenes** – offen 8, Muss 7, startbar 0
 
