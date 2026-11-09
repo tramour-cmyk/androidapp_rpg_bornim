@@ -188,6 +188,7 @@
 | 806 | Kampforte mit den Effektpaketen schöner: Gras und Blumen aus R9, Boden, Staub; Bilder/s nicht unter heute (Chef 09.11., 21:12, über Sokrates) · „jetzt“ 09.11., 21:12 | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 811 | Von Perikles (800, 650.2 C1): Kommentar in godot/regeln/brs_kampf.gd Zeile 3 nennt DESIGN-SPIELSYSTEM-2-0-ENTWURF.md, Datei heißt seit 09.11. DESIGN-BRS.md; beim nächsten Commit dort mitziehen | Jerry | K | startbar | – | – | – | E Kampf | – |
 | Pflege | von Werkzeug (340.3, 09.11.): 16019 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
+| 823 | Von Perikles (822, 745 A2): Abschnitt „## Checkliste“ in LISTE-MARS.md, je Regel zum Kampf eine Zeile oder Verweis (Balance nur Chef, 444 vor Zahlen, Messung vor Bau …); der Haken zeigt ihn beim ersten Commit unter godot/kampf/ und godot/regeln/ | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 432 | Eigenes Volk aus Bornim (etwa mit dem Grauen Propheten, „Tag der Asche“) prüfen, mit der Geschichte ab Kapitel 2 (Chef 31.10., 22:0x) | Homer | K | ruht | – | – | – | G Story | 0,79 $ |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
