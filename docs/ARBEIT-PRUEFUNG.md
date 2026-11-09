@@ -4,7 +4,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D123 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (09.11., 21:2x):** Lauf 121 (799 greift), Lauf 122 (796: W5 → 808, W3 → 809, beide Perikles; 796 wartet darauf). Nichts startbar; auf Abruf (808, 809 nachprüfen, wenn gebaut; (768 am 13.11., 790 und 461b am 16.11., 771 nach Test t275, 783 nach Antwort des Chefs).
+**Übergabe (09.11., 21:2x):** Lauf 121 (799 greift), Lauf 122 (796: W5 → 808, W3 → 809, beide Perikles; 796 wartet darauf). Nichts startbar; auf Abruf (808, 809 nachprüfen, wenn gebaut; 768 am 13.11., 790 und 461b am 16.11., 771 nach Test t275).
 
 - **Zu 790:** Vorher-Werte Lauf 113 im Prüfbericht. Am 16.11. ab 18:07: `list_sessions` (mine, alle Seiten) und je abgeschlossene Sitzung mit created_at ab 09.11., 17:07Z `get_session` → `external_metadata.usage` (cost_usd, cache_read_tokens, cache_write_tokens, output_tokens) und `context_usage.used_tokens`; Helfer schreibt TSV, dann je Rolle wie Lauf 113 rechnen (je Aufruf = Kosten / (cache_read / ((Länge + 60 Tsd.) / 2))); Ergebnis an Perikles und den Chef, nicht bewerten.
 - **Zu 783:** nach der Antwort des Chefs Datei löschen, Wortlaut ins Archiv; dann Schritt 3 (Perikles, 791) prüfen: jede Entscheidung behält einen Ort.
