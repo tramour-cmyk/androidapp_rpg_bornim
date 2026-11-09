@@ -115,7 +115,7 @@
 | 785 | Oberfläche einmal ganz gegen alt: jeder Schirm und jede Bedienung als eine Liste, jeder Unterschied ein Vorgang; 666, 669, 671, 711, 752 gehen darin auf (654 A, nach dem Kampf-Sollbild) | Tom | M | wartet, nach Kampf-Sollbild (654 A) | 784 | – | – | E Oberfläche | – |
 | 795 | BRS-Erschaffung, Platzwahl „Alle Spielstand-Plätze sind belegt“: noch Rahmen und Auslösen beim Drücken wie vor 700 (erschaffung_brs.gd 228–234; Helfer t272, 09.11.) | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 804 | Dorf: Gras und Blumen aus dem Kit R9 (Gräser, Blumen, Wind, weicht dem Helden aus) statt halm.gdshader, Bilder/s nicht unter heute (Chef 09.11., 21:12, über Sokrates) · „jetzt“ 09.11., 21:12 | Tom | M | startbar | – | – | – | E Welt | – |
-| Pflege | von Werkzeug (340.3, 09.11.): 17329 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 09.11.): 16207 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
 | 778 | Von Tom (773): Build 272 rot an wolf_mess_438 (Kleriker gegen Wölfe: Wolf in Wolf 68 Bilder, Grenze 30; Gleiten zweimal über 0,5 m), mit 717/682 und 702 C zusammen; „jetzt“ 09.11., 17:25 | Jerry | M | erledigt, t272 bestanden | – | claude/jerry-717-rueckwaerts | 272 | E Kampf | 11,23 $ |
 | 717 | Kampf: Gegner zeigt dem Helden nie den Rücken, außer auf der Flucht; nach dem Angriff rückwärts zurück oder stehen bleiben, keine Kurve heim (Chef 09.11., 08:51; ändert 682) · „jetzt“ 09.11., 08:51 | Jerry | M | erledigt, t272 bestanden | – | claude/jerry-717-rueckwaerts | 272 | E Kampf | – |
 | 717.1 | Kampf: Zurechtrücken der Gegner läuft gleichzeitig mit dem Zug des Helden statt davor (Idee Chef 09.11., 08:58, zu 717) | Jerry | M | erledigt, t272 bestanden | – | claude/jerry-717-rueckwaerts | 272 | E Kampf | – |
@@ -194,8 +194,8 @@
 | 803 | Rest 211.14 (Kür, Tuffy): Gegner durch Antippen der Figur als Ziel wählen | Jerry | K | startbar | – | – | – | E Kampf | – |
 | 805 | Kampforte neu gestalten mit den Paketen: Gras und Blumen R9, Boden, Licht, Staub, damit es besser ausschaut; Bilder/s nicht unter heute (Chef 09.11., 21:12, über Sokrates) · „jetzt“ 09.11., 21:12 | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 806 | Kampforte mit den Effektpaketen schöner: Gras und Blumen aus R9, Boden, Staub; Bilder/s nicht unter heute (Chef 09.11., 21:12, über Sokrates) · „jetzt“ 09.11., 21:12 | Jerry | M | startbar | – | – | – | E Kampf | – |
-| Pflege | von Werkzeug (340.3, 09.11.): 15636 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 811 | Von Perikles (800, 650.2 C1): Kommentar in godot/regeln/brs_kampf.gd Zeile 3 nennt DESIGN-SPIELSYSTEM-2-0-ENTWURF.md, Datei heißt seit 09.11. DESIGN-BRS.md; beim nächsten Commit dort mitziehen | Jerry | K | startbar | – | – | – | E Kampf | – |
+| Pflege | von Werkzeug (340.3, 09.11.): 16651 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 432 | Eigenes Volk aus Bornim (etwa mit dem Grauen Propheten, „Tag der Asche“) prüfen, mit der Geschichte ab Kapitel 2 (Chef 31.10., 22:0x) | Homer | K | ruht | – | – | – | G Story | 0,79 $ |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
@@ -284,10 +284,11 @@
 | 765 | Wochentermin 13.11.: Rollenspiegel Sokrates (rollenspiegel.sh Sokrates) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Sokrates | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 782 | Von Tom (697): ein Lauf am Rechner frei? Der erste (17:38) brach vor dem Zeichnen ab (Projekt nicht importiert, kein Messwert); gleicher Messlauf, nur Alphazahlen, kein Bild an den Chef nötig | Sokrates | M | startbar | – | – | – | B Abläufe | – |
 | 623.8 | Effektpakete für eine lebendige Welt: Reihenfolge Dorf, Wolfskampf, Wald; Bilder/s-Grenze, Farben gedämpft (Chef 09.11., 21:07) | Sokrates | M | Chef, Vorlage | Chef 6238 | – | – | G Stil | 0,39 $ |
+| Pflege | von Werkzeug (340.3, 09.11.): 15788 Bytes (Grenze 15000), Erledigtes streichen; Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Sokrates | K | startbar | – | – | – | B Abläufe | – |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +866,88 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 767 | Wochentermin 13.11.: Rollenspiegel Ford (rollenspiegel.sh Ford) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Ford | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 09.11.): 29652 Bytes (Grenze 15000), Erledigtes streichen; Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 09.11.): 29761 Bytes (Grenze 15000), Erledigtes streichen; Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
