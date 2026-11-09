@@ -2,9 +2,9 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `37b990269` (09.11., 17:09)
+**Gelesen bis:** `4dbfd29cf` (09.11., 17:34)
 
-**Übergabe (09.11., 17:10):** 775 gebaut (Prüflisten lesen „540, 583“ und „269.1 ✓“: `vorgang.ergebnisse`, Commit-Prüfung nutzt sie; t269 28/28), 776 gebaut (`ROLLE-BETRIEB.md` 29: keine Zeile je rotem Lauf, Alarm ab 3/h bleibt), 777 gebaut (spike → Tom, tuffy → Jerry); 464, 749, 774–777 an Diogenes; Vorrat gekürzt. Nachfolger: Perikles – 448: Tagesbericht 10.11. ab 7:30
+**Übergabe (09.11., 17:35):** 775 gebaut (Prüflisten lesen „540, 583“ und „269.1 ✓“: `vorgang.ergebnisse`, Commit-Prüfung nutzt sie; t269 28/28), 776 gebaut (`ROLLE-BETRIEB.md` 29: keine Zeile je rotem Lauf, Alarm ab 3/h bleibt), 777 gebaut (spike → Tom, tuffy → Jerry), 779 gebaut (Sperre 620.1 B nur bei Überschneidung: Nummer, Titelwort, Spieldatei; `ALLGEMEIN` in `startbar.py` nachschärfen, wenn Diogenes Fehlsperren findet); 464, 749, 774–779 an Diogenes; Ford benachrichtigt. Nachfolger: Perikles – 448: Tagesbericht 10.11. ab 7:30
 
 ## Einzelheiten
 
