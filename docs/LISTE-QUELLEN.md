@@ -72,7 +72,7 @@ Eine Zeile je Quelle, die wir nutzen oder gekauft haben; was wir davon haben, st
 | RenderHub: Animated3D Leopard Hybrid A2 | https://www.renderhub.com/animated3d/leopard-hybrid-a2 | RenderHub Extended Use, Volltext ungeprüft | frei, 28.10., 16:38 | Idee ab Kapitel 2 | **offen** |
 | rubberduck: Vampire Bat (OpenGameArt) | https://opengameart.org/content/vampire-bat-animated | CC0 | frei | Riesenfledermaus | ja |
 | Omie's Assets, Anker's Assets, Avramania (frei), PolyMech (itch) | https://omies-assets.itch.io/3d-medieval-weapon-pack, https://ankersassets.itch.io/low-poly-medieval-weapons, https://avramania.itch.io/weapons-shields, https://polymech.itch.io/medieval-pack-low-poly-shields | CC0 | Omie 1,99 $, übrige frei; 29.10. | Waffen, Schilde | ja |
-| REEBOO Labs | oben | eigene, ohne Nennungspflicht | 76,93 $, 09.11. | Effekte | ja; MIT-Teil unten 2 |
+| REEBOO Labs | oben | eigene, ohne Nennungspflicht | 76,93 $, 09.11.; R3, R4, R7 33,98 $, 09.11., 21:05 | Effekte | ja; MIT-Teil unten 2 |
 | Klang: Kenney, OpenGameArt- und Freesound-Urheber, BigSoundBank, VSCO 2 CE | `tools/klang/QUELLEN.md` | CC0 | frei | Klänge, Musik | ja |
 | Schriften: EB Garamond, Alegreya, Cinzel, IM Fell, Fondamento | `tools/schrift/QUELLEN.md` | OFL 1.1 | frei | Schrift | ja |
 | Blender, Godot, fontTools | https://www.blender.org, https://godotengine.org, https://github.com/fonttools/fonttools | Blender GPL (gilt nicht für unsere Modelle), Godot MIT, fontTools MIT | frei | Werkzeuge | ja (Godot im Spiel genannt, 497) |
