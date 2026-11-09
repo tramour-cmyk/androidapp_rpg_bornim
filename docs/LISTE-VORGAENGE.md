@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 471 | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | Tom | M | gebaut, fährt im nächsten Build mit 762, Geprüft an: 8ee85b6e6 (kampfuebung_471, brs_471, fertigkeiten_762 grün) | – | claude/spike-471-fertigkeiten | – | E Kampf | 0,39 $ |
+| 471 | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | Tom | M | gebaut, fährt im nächsten Build mit 762, Geprüft an: 8ee85b6e6 (kampfuebung_471, brs_471, fertigkeiten_762 grün) | – | claude/spike-471-fertigkeiten | – | E Kampf | 7,86 $ |
 | 773 | Sammelbuild 272: alle fertigen Zweige beider Teams (Tom 5, Jerry 6: u. a. 656, 717, 717.1, 682, 702), Prüfliste ansehen/t272, build 272 --mit für alle (von Perikles, 15:31: sonst wartet jeder auf den anderen) | Tom | M | gebaut, Prüfliste beim Chef. Geprüft an: Lauf 42669446341 | – | – | – | E Technik | 11,84 $ |
 | 610 | Held im Dorf: Finger am Stab zucken ohne Unterlass (Schild auf dem Rücken) (Chef 07.11., t268) | Tom | M | zu testen, ohne Rückmeldung t272 | – | claude/tom-610-finger | – | E Figuren | 19,22 $ |
 | 522 | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Chef 03.11., 23:33) | Tom | M | zu testen, ohne Rückmeldung t272 | – | claude/tom-522-waffen | – | E Oberfläche | – |
@@ -127,7 +127,7 @@
 | 532 | Kampf: Held geht ohne Zauberpunkte, Verbrauchtes, Zustände, Metrausch und ohne die ganze Tasche (nur einfacher Heiltrank) in den Kampf, danach wird nur TP zurückgeschrieben; Zauber kosten nichts (Abgleich 512, Sokrates… | Jerry | M | gebaut, ganze Tasche; Geprüft an: 20b6c8435 (tasche_532) | – | claude/tuffy-532-tasche | – | E Kampf | 7,82 $ |
 | 536 | Kampf: Erklärungen bei langem Drücken (MarsTips), Grund bei gesperrtem Zauber, „Kein Ziel in Sicht“, Knopf „Schnell“, Stufe und EP im Gruppenkasten, Seltenheitsfarbe der Beute (Abgleich 512, Sokrates 03.11., 23:4x) | Jerry | M | startbar, Fund t270.10 | – | claude/jerry-536-namen | – | E Kampf | 37,47 $ |
 | 296.2 | MARS spielnötig: Beute/Erfahrung, Fliehen, Eröffnung, Zustände, eigene Ausrüstung, Schalter (Chef 23.10., 18:25) | Jerry | M | startbar | – | claude/build-89 | – | E Kampf | 14,29 $ |
-| 211.14 | Rest 211.13: Leistung im Kampf am A56 messen (Puppe und Winkel je Platz durch 3D erledigt) | Jerry | M | gebaut, Geprüft an: d63ae4bb0 (kampf_leistung_21114 0 Fehler) | – | claude/jerry-211-14-leistung | – | E Kampf | – |
+| 211.14 | Rest 211.13: Leistung im Kampf am A56 messen (Puppe und Winkel je Platz durch 3D erledigt) | Jerry | M | gebaut, Geprüft an: d63ae4bb0 (kampf_leistung_21114 0 Fehler) | – | claude/jerry-211-14-leistung | – | E Kampf | 5,75 $ |
 | 551 | MARS: Rahmen des unteren Kastens links und rechts unterbrochen (Chef 04.11., 00:21) | Jerry | M | ruht | – | – | – | E Kampf | – |
 | 547 | MARS: Text sagt „geht in die Knie“, Sturz ist aus (438a eingefroren): Text und Bild in Einklang bringen (Chef 04.11., 00:01) | Jerry | M | zu testen, ohne Rückmeldung t269 | – | claude/jerry-547-sturztexte | – | E Kampf | 5,43 $ |
 | 534 | Kampf: Zauber und Fähigkeiten fehlen in „Können“ (Magierrüstung, Untote vertreiben, Spirituelle Waffe, Geisterwächter) oder wirken nicht (Unglaubliches Ausweichen, Unerbittlichkeit, Lebensraub, Schadensminderung der Aus… | Jerry | M | ruht, 424: altes SRD-System | – | claude/jerry-534-faehigkeiten | – | E Kampf | 2,32 $ |
