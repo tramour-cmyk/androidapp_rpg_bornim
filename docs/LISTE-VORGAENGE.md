@@ -119,7 +119,7 @@
 | 762 | Heldenreiter zeigt die BRS-Fertigkeiten mit Wert, Rang und Fortschritt, damit man sieht, was Schwert, Abwehr usw. üben (heute nur Klassenfähigkeiten alter Art) (Chef 09.11., 14:49, aus 720) | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 764 | Heldenreiter zeigt aktive Zustände (betrunken usw.) mit Erklärung; Tippen auf die Leiste öffnet nur das Menü, eine Erklärung gibt es nirgends (Chef 09.11., 14:49) | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 769 | Wochentermin 13.11.: Rollenspiegel Tom (rollenspiegel.sh Tom) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Tom | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 09.11.): 19627 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 09.11.): 19627 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | erledigt, 14796 Bytes | – | – | – | B Abläufe | – |
 | 778 | Von Tom (773): Build 272 rot an wolf_mess_438 (Kleriker gegen Wölfe: Wolf in Wolf 68 Bilder, Grenze 30; Gleiten zweimal über 0,5 m), mit 717/682 und 702 C zusammen | Jerry | M | in Arbeit | Chef 778 | – | – | E Kampf | – |
 | 717 | Kampf: Gegner zeigt dem Helden nie den Rücken, außer auf der Flucht; nach dem Angriff rückwärts zurück oder stehen bleiben, keine Kurve heim (Chef 09.11., 08:51; ändert 682) · „jetzt“ 09.11., 08:51 | Jerry | M | gebaut, Geprüft an: 573e83ab4 | – | claude/jerry-717-rueckwaerts | – | E Kampf | – |
 | 717.1 | Kampf: Zurechtrücken der Gegner läuft gleichzeitig mit dem Zug des Helden statt davor (Idee Chef 09.11., 08:58, zu 717) | Jerry | M | gebaut, Geprüft an: 573e83ab4 | – | claude/jerry-717-rueckwaerts | – | E Kampf | – |
