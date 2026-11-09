@@ -88,7 +88,9 @@ TIERE = {
                         'ocker': ('SK_MobileLeech_04.FBX', 'T_MobileLeech_04_Skin2_a')},
              'namen': {'Stehen': 'Idle_01', 'Umsehen': 'Idle_02', 'Drohen': 'Idle_03', 'Gehen': 'Move', 'Biss': 'AttackEat_01',
                        'Treffer': 'Gethit', 'Tod': 'Death'},
-             'kopf': 'Bone006', 'laenge': 1.0, 'weg_tempo': 0.4, 'rennen_aus_gehen': 1.6,
+             # 595 (Chef 05.11., 19:2x, Build 266: „Riesenegel schneller in den Angriff und beim Ausweichen“): Kriechen 0,4 → 0,6 m/s,
+             # die Bewegung im selben Maß schneller (1,5-fach, wie der Rattenkauf mit tempo_ziel); Rennen 1,6 × 1,5 = 2,4-fach, 0,96 m/s
+             'kopf': 'Bone006', 'laenge': 1.0, 'weg_tempo': 0.4, 'tempo_ziel': {'Gehen': 0.6}, 'rennen_aus_gehen': 1.6,
              # Liste 4: nur dunkle Häute, braun, grau, ocker; nie türkis, nie glühend rot
              'felle': {'braun': (0x4A3424, 0x1E140E, 0x6A5038), 'grau': (0x4E4C48, 0x201E1C, 0x6E6A64), 'ocker': (0x6E5026, 0x2A1C0E, 0x8C6C3A)}},
     # 494 (Kauf 348.12c; LISTE-FIGUREN „Säureschnecke“, ersetzt die Ockergallerte): Protofactor Giant Slug, Netz nur in AllAnimations,
