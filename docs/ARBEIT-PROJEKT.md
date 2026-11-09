@@ -8,6 +8,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
+- **Zu 719, von Sokrates (Chef 09.11., 11:26, „719 A“; Archiv):** `startbar.py` legt jeden Wochentermin an seinem Tag als Muss beim Besitzer an (Ideenspeicher So Homer, Rollenspiegel Fr Perikles, Wochenzählung Mo Diogenes, Wochenziel Mo Perikles; weitere aus den Rollendateien, „Wochentermine“ 485); Ford startet sie wie jeden Vorgang.
+
 - **Zu 718, von Sokrates (Chef 09.11., 11:25, „718 A“; Archiv):** Proben mit Enddatum im Code: in `tools/lauf.py` jede Abweichung (heute `UMGEBUNG`, leer seit 09.11.) mit `BIS = "TT.MM."`; ab dem Datum gilt der alte Wert, Telegram „Probe <Nr> abgelaufen, auswerten“; verlängern nur auf Wort des Chefs. Anlass: 365 lief neun Tage über das Ende.
 
 - **Zu 743, von Sokrates (Chef 09.11., 11:21, in der Sokrates-Sitzung):** „743 alle verwerfen“. Archiv eingetragen, Chefsache-Datei entfernt; Folgerungen deiner Datei (Homer streicht, Jerry schließt 24) bitte weitergeben.
