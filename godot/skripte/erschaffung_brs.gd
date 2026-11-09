@@ -210,29 +210,43 @@ func beginne(p: int = 0) -> void:
 
 # SlotChooser: alle Plaetze belegt; der gewaehlte Spielstand geht verloren
 func platzwahl() -> void:
+	# 795 (wie 700 in erschaffung.gd; 630, 549a Rueckfrage): schwarz, oben der Titel mit Zierlinie, der Satz, die Spielstaende als Zeilen zum Antippen, Linie,
+	# „‹ ABBRECHEN“ links; Tippen daneben und Android-Zurück schliessen (526), ein Tippen ins Fenster nicht
 	var de := Sprache.aktiv() == "de"
-	var schleier := Rueckfrage.schleier(self)   # 526: Tippen daneben und Android-Zurück schliessen; ein Tippen in den Kasten nicht mehr
-	var rand := MarginContainer.new()
-	rand.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	for s in ["left", "right", "top", "bottom"]: rand.add_theme_constant_override("margin_" + s, int(16 * DP))
-	rand.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	schleier.add_child(rand)
+	var schleier := Rueckfrage.schleier(self)
+	schleier.color = Color.BLACK
+	var mitte := Spielstaende.oben()
+	schleier.add_child(mitte)
 	var v := VBoxContainer.new()
-	v.add_theme_constant_override("separation", int(8 * DP))
-	var k := Rueckfrage.halte(kasten(v))
-	k.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	rand.add_child(k)
-	v.add_child(txt("Alle Spielstand-Plätze sind belegt" if de else "All save slots are taken", 19))
-	v.add_child(txt("Welchen Helden soll der neue ersetzen? Der gewählte Spielstand geht dabei verloren." if de
-		else "Which hero should the new one replace? That saved game will be lost.", 14, Stil.WARN))
+	v.name = "Fenster"
+	v.add_theme_constant_override("separation", int(10 * DP))
+	v.custom_minimum_size.x = get_viewport_rect().size.x - 48 * DP
+	mitte.add_child(Rueckfrage.halte(v))
+	var t := Stil.zeile(("Alle Spielstand-Plätze sind belegt" if de else "All save slots are taken").to_upper(), Stil.TITEL_SP, Stil.GOLD, 3.0)   # 586a
+	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	t.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	v.add_child(t)
+	v.add_child(Spielstaende.zier())
+	var satz := txt("Welchen Helden soll der neue ersetzen? Der gewählte Spielstand geht dabei verloren." if de
+		else "Which hero should the new one replace? That saved game will be lost.", 15, Stil.WARN)
+	satz.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	v.add_child(satz)
 	for d in Spielstand.liste():
 		if d.is_empty(): continue
 		var n := int(d["platz"])
-		var karte := Spielstaende.karte(d)   # antippen waehlt
-		karte.mouse_filter = Control.MOUSE_FILTER_STOP
-		karte.gui_input.connect(func(e): if e is InputEventMouseButton and e.pressed: schleier.queue_free(); beginne(n))
+		# 700 (549a): ohne Rahmen; die ganze Zeile ist antippbar (dunkel beim Druck, ausgeloest beim Loslassen) mit „›“ rechts
+		var zeile_ := HBoxContainer.new()
+		zeile_.add_theme_constant_override("separation", int(8 * DP))
+		zeile_.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		zeile_.custom_minimum_size.y = 48 * DP
+		zeile_.add_child(Spielstaende.karte(d, false))
+		zeile_.add_child(Spielstaende.pfeil(Stil.GOLD, false))
+		var karte := Spielstaende.tippbar(zeile_, func(): schleier.queue_free(); beginne(n))
+		karte.name = "Platz%d" % n
+		v.add_child(Spielstaende.linie())
 		v.add_child(karte)
-	v.add_child(knopf("Abbrechen" if de else "Cancel", func(): schleier.queue_free()))
+	v.add_child(Spielstaende.linie())
+	v.add_child(Spielstaende.knopfzeile(Spielstaende.knopf("neben", "Abbrechen" if de else "Cancel", func(): schleier.queue_free(), true), null))
 
 # alter Held fuer Drehteller und Grundausruestung (Bruecke bis 2.3)
 func held() -> Heldwerte:
