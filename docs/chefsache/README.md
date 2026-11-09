@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [722](entscheiden/722-befunde-diogenes.md) | **Muss** | Q QM | 09.11., 09:09 | Befunde von Diogenes: Vorgang mit Rückmeldung | Sokrates |
 | [718](entscheiden/718-probe-rueckbau.md) | **Muss** | B Abläufe | 09.11., 08:53 | Probe mit Enddatum: Rückbau gleich ins Werkzeug | Sokrates |
 | [719](entscheiden/719-wochentermine.md) | **Muss** | B Abläufe | 09.11., 08:53 | Wochentermine selbsttätig in die Vorgangsliste | Sokrates |
 | [720](entscheiden/720-abnahme-zaehlen.md) | **Muss** | Q QM | 09.11., 08:53 | Abnahmeliste: Teilhaken mitzählen, Haken-Frage für Gebautes | Sokrates |
@@ -273,7 +274,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
 | 644.5 | M | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noc | wartet auf 644.1 (startbar) |
 
-**Sokrates** – offen 61, Muss 38, startbar 36, PAUSE bis 09.11., 09:00
+**Sokrates** – offen 62, Muss 39, startbar 36, PAUSE bis 09.11., 09:00
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -338,6 +339,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 718 | M | Probe mit Enddatum: Rückbau gleich ins Werkzeug (365 lief nach 31.10. weiter) | Chef (Datei in der Chefsache) |
 | 719 | M | Wochentermine selbsttätig als Muss in die Vorgangsliste (Ideenspeicher, Rollenspiegel fiel | Chef (Datei in der Chefsache) |
 | 720 | M | Abnahmeliste: Teilhaken mitzählen, wöchentliche Haken-Frage für Gebautes (0 von 41) | Chef (Datei in der Chefsache) |
+| 722 | M | Befunde von Diogenes als Vorgang mit Rückmeldung statt Textzeile im Vorrat (Chef 09:07, 33 | Chef (Datei in der Chefsache) |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
