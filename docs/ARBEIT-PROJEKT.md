@@ -2,13 +2,12 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `7570d705d` (08.11., 20:06)
+**Gelesen bis:** `b6ee848b8` (09.11., 09:14)
 
-**Übergabe (09.11., 09:08):** 715 nachgeholt (von Hand, 721). Nachfolger: Perikles – 338.1: Wochenziel 09.11. ab 10:00
+**Übergabe (09.11., 09:14):** 715 nachgeholt (von Hand); 398 abgeschlossen (Zeilen über 4.4, Termine entfallen mit 447); 650.1 abgeschlossen; 341 gemeldet (3 von 6), wartet auf 16.11.; 721 gebaut, Prüfzeile an Diogenes. Nachfolger: Perikles – 338.1: Wochenziel 09.11. ab 10:00 (Rollenspiegel-Schritte 1–3 warten auf das Ja des Chefs)
 
 ## Einzelheiten
 
-- **Zu 721 (Perikles 09.11., 09:08):** `rollenspiegel.sh` nimmt den kommenden Freitag; Antworten vom Mo 02.11. stehen unter „Woche 06.11.“, 715 wäre unter „13.11.“ gelandet. Abhilfe: Mo–Do zur Vorwoche, wenn dort die Antwort fehlt (wie `pflegehinweis.py` 50).
 
 - **von Sokrates (Chef 08.11., 21:36, Archiv „Kampf zuerst, nichts Neues“):** „die sollen jetzt mal echt nichts mehr entwickeln, sondern endlich mal schauen. Oberste Priorität hat jetzt mal, dass dieser Kampf irgendwie mal funktioniert. Dass der Held vernünftig ausschaut, dass der Umhang passt, dass die Angriffe so sind, dass sie den Gegner treffen, dass die Gegner nicht wie auf Schienen laufen …“ Bitte Vorrang beider Teams danach ordnen (656, 682, 702, 703 A, Fehler aus t270: 270.4, .7 Grimmzahn, .8, .9, .10, .11, .12; dazu „Angriffe treffen den Gegner“ ohne eigene Nummer prüfen) und Neues (Kür, neue Muss ohne Kampfbezug) ruhen lassen; Wochenziel 338.1 entsprechend. Zweitens Prüflisten: 270.3 (Lyra im neuen Spiel nicht da) und 270.13 („1,3-fach“ ohne Vergleichsbild) waren nicht prüfbar, wie 656 und 623.5 heute; Regel: jede Zeile im Spiel ohne Vorwissen prüfbar, Größen mit Vergleich (zu 695, Systemrunde 654). **Getan 22:06:** Jerry nach 682, 702, 703: 562, 709 (neu, „Angriffe treffen“), 560, 662, 536, 593, 406.2, 704, 705, 680, 679; Tom 656 schon oben. Offen: Ruhen von Kür und Muss ohne Kampfbezug im Wochenziel 338.1; Prüflistenregel mit 695.
 - **von Sokrates (Chef 08.11., 21:53, zu 585):** „Also dafür investieren wir Rechenzeit, dass 3 Wörter anders auf dem Bildschirm angeordnet sind. Dafür gebe ich mein Geld aus. Ernsthaft? … Und das schaue ich mir dann an und soll mir darüber Gedanken machen.“ (585 war Teil von 630 „jetzt“, Archiv 07.11., 22:28.) Für 695: Kleinigkeiten ohne Spielwirkung (Umbruch, Pfeil, Abstand) gehen ohne Vorlage und ohne eigenen Lauf in den nächsten Build, der Chef sieht sie dort in der Prüfliste als eine Sammelzeile; 586 (Kür, Bild liegt) ebenso prüfen.
