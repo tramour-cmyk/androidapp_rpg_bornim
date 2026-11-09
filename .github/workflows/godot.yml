@@ -425,6 +425,8 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/doppeltipp_605.gd 2>&1 | grep -E "^FALSCH|DOPPELTIPP605|SCRIPT ERROR"   # 605, 617 ein Tipp loest einmal aus, ein Wisch nie
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/blende_619.gd 2>&1 | grep -E "^FALSCH|BLENDE619|SCRIPT ERROR"   # 619 der Tipp auf den Aktionsknopf beendet die Blende nicht
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/obergrenze_605.gd 2>&1 | grep -E "^FALSCH|OBERGRENZE605|SCRIPT ERROR"   # 605 Obergrenze auf leerem Feld
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/obergrenze_701.gd 2>&1 | grep -E "^FALSCH|OBERGRENZE701|SCRIPT ERROR"   # 701 Obergrenze einmal, nicht je Attribut (Tom)
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/ring_vergleich_557.gd 2>&1 | grep -E "^FALSCH|RINGVERGLEICH557|SCRIPT ERROR"   # 557, 701 jede Aenderung eines Attributs sichtbar
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/finger_610.gd 2>&1 | grep -E "^FALSCH|FINGER610|SCRIPT ERROR"   # 610 Finger am Stab zucken nicht (Tom)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/fenster_519.gd 2>&1 | tee fenster519.log | grep -E "FEHLER|FENSTER519|SCRIPT ERROR"; grep -q "^FENSTER519 0 Fehler" fenster519.log   # 519 Gegenstandsfenster passt auf den Schirm
           timeout 120 ~/godot/godot --headless --path . -s res://tests/funke_677.gd 2>&1 | tee funke677.log | grep -E "FEHLER|FUNKE677|SCRIPT ERROR"; grep -q "^FUNKE677 0 Fehler" funke677.log   # 677 Leuchtfunke über dem Kopf (Chef 08.11., 15:54)

@@ -37,10 +37,16 @@ func _lauf() -> void:
 	print("nachher ", nach, " ALL roh ", k.roh_bonus("ALL_STATS"))
 	var worte := v.zeilen.map(func(r): return String(r["wort"]))
 	var d := Heldwerte.lade()
+	# 701 (Chef 08.11., 20:37: wiederholter Hinweis auf die Obergrenze „wirkt überbordend“): ein Mehr, das die Obergrenze schluckt, steht
+	# in der Sammelzeile (im Fenster B nur an der Bonuszeile, „doppelt“); jede andere Aenderung hat ihre Zeile
+	var sammel: String = " ".join(PackedStringArray(v.zeilen.filter(func(r): return bool(r.get("doppelt", false)) and String(r["wort"]) in ["Attribute", "Abilities"]).map(func(r): return String(r["notiz"]))))
 	for a in nach:
 		if nach[a][0] != vor[a][0] or nach[a][1] != vor[a][1] or k.roh_bonus("ALL_STATS") != hw.roh_bonus("ALL_STATS"):
-			_pruef("%s %d -> %d (Bonus roh %d -> %d) hat eine Zeile" % [a, vor[a][0], nach[a][0], vor[a][1], nach[a][1]], Sprache.t(d["attribute"][a]["name"]) in worte)
-	_pruef("keine Sammelzeile Attribute mehr", not ("Abilities" in worte or "Attribute" in worte))
+			var nm := Sprache.t(d["attribute"][a]["name"])
+			var mehr_gedeckelt: bool = nach[a][0] == vor[a][0] and nach[a][1] + k.roh_bonus("ALL_STATS") > vor[a][1] + hw.roh_bonus("ALL_STATS")
+			_pruef("%s %d -> %d (Bonus roh %d -> %d) hat %s" % [a, vor[a][0], nach[a][0], vor[a][1], nach[a][1], "die Sammelzeile" if mehr_gedeckelt else "eine Zeile"],
+				(sammel.contains(nm) or sammel.begins_with("Alle")) if mehr_gedeckelt else nm in worte)
+	_pruef("Sammelzeile Attribute nur für den Deckel (doppelt)", v.zeilen.all(func(r): return not String(r["wort"]) in ["Attribute", "Abilities"] or bool(r.get("doppelt", false))))
 	var panzer := Beute.erzeuge_mit_uid(KotlinZufall.new(5), z.neue_uid, 9, "DIVINE", "FIGHTER")
 	print("PANZER ", panzer)
 	print("RK vorher ", hw.rk())

@@ -38,10 +38,13 @@ static func von(hw: Heldwerte, g: Dictionary, nebenhand := false) -> Vergleich:
 	# GearCompare.capped: ein Bonus steigt roh, wirkt aber nicht mehr
 	var gedeckelt := func(afs: Array) -> bool: return afs.any(func(af): return b["roh"][af] > a["roh"][af] and b["wirkt"][af] == a["wirkt"][af])
 	var deckel := "Bonus wirkt nicht: Obergrenze für dieses Kapitel erreicht" if de else "Bonus has no effect: this chapter's limit is reached"
+	# 701 (Chef 08.11., 20:37: „die wiederholte Anzeige des Caps macht keinen Sinn und wirkt überbordend“): eine Zeile, die nur da ist,
+	# weil die Obergrenze einen Bonus schluckt, traegt „doppelt“: im Fenster B sagt das schon die Bonuszeile („wirkt nicht (Obergrenze)“)
 	var zahl := func(wort: String, x: int, y: int, mit_vz := false, notiz := "") -> void:
 		if x == y and notiz == "": return
 		var r := {"wort": wort, "vorher": vz.call(x) if mit_vz else str(x), "nachher": vz.call(y) if mit_vz else str(y), "besser": 0 if x == y else (1 if y > x else -1)}
 		if notiz != "": r["notiz"] = notiz
+		if x == y and notiz == deckel: r["doppelt"] = true
 		v.zeilen.append(r)
 	var falls := func(gleich: bool, afs: Array) -> String: return deckel if gleich and gedeckelt.call(afs) else ""
 	zahl.call("Rüstungsklasse" if de else "Armor Class", a["rk"], b["rk"], false, falls.call(a["rk"] == b["rk"], ["AC"]))
@@ -54,7 +57,7 @@ static func von(hw: Heldwerte, g: Dictionary, nebenhand := false) -> Vergleich:
 		v.zeilen.append({"wort": Sprache.u("damage"), "vorher": Beute.wuerfel_text(a["schaden"], 0, de), "nachher": Beute.wuerfel_text(b["schaden"], 0, de),
 			"besser": 0 if x == y else (1 if y > x else -1), "notiz": ("im Schnitt %s statt %s" if de else "on average %s instead of %s") % [eins.call(y), eins.call(x)]})
 	elif gedeckelt.call(["DAMAGE", "FIRE", "RADIANT"]):
-		v.zeilen.append({"wort": Sprache.u("damage"), "vorher": Beute.wuerfel_text(a["schaden"], 0, de), "nachher": Beute.wuerfel_text(b["schaden"], 0, de), "besser": 0, "notiz": deckel})
+		v.zeilen.append({"wort": Sprache.u("damage"), "vorher": Beute.wuerfel_text(a["schaden"], 0, de), "nachher": Beute.wuerfel_text(b["schaden"], 0, de), "besser": 0, "notiz": deckel, "doppelt": true})
 	zahl.call("Trefferpunkte" if de else "Hit points", a["tp"], b["tp"], false, falls.call(a["tp"] == b["tp"], ["HP"]))
 	if bool(hw.klassendaten()["zauberer"]):
 		zahl.call("Zauberangriff" if de else "Spell attack", a["zauber"], b["zauber"], true, falls.call(a["zauber"] == b["zauber"], ["SPELL"]))
@@ -63,14 +66,21 @@ static func von(hw: Heldwerte, g: Dictionary, nebenhand := false) -> Vergleich:
 	# Attribute: was aus den Werten wird. 557 (Chef 04.11., 19:54; Pruefer 19:47: Ring „+1 alle, +2 GES“ gegen angelegt „+2 GES, +2 STAE“,
 	# im Vergleich fehlten Geschicklichkeit und Staerke): jedes Attribut, dessen Bonus sich aendert, hat seine eigene Zeile, auch wenn die
 	# Obergrenze des Kapitels den Wert haelt (vorher eine Sammelzeile „Attribute“ nur fuer gestiegene); darunter warum er gleich bleibt
-	var gleich_mehr := "mehr Bonus, wirkt nicht: Obergrenze für dieses Kapitel erreicht" if de else "more bonus, no effect: this chapter's limit is reached"
 	var gleich_weniger := "weniger Bonus, Wert bleibt: Obergrenze für dieses Kapitel" if de else "less bonus, same value: this chapter's limit"
+	# 701 (Chef 08.11., 20:37, Amulett „+1 alle Attribute“: unter jedem der sechs Werte „mehr Bonus, wirkt nicht“): ein Mehr, das die
+	# Obergrenze schluckt, steht wie alt (GearCompare.kt „one line for them all“) in einer Sammelzeile „Attribute“ mit den Namen; im
+	# Fenster B faellt sie weg („doppelt“), dort sagt es die Bonuszeile. Ein Weniger, bei dem der Wert bleibt, behaelt seine Zeile (557)
+	var mehr: Array = []
 	for at in a["werte"]:
 		var r0: int = a["roh"][at] + a["roh"]["ALL_STATS"]
 		var r1: int = b["roh"][at] + b["roh"]["ALL_STATS"]
-		var notiz := ""
-		if a["werte"][at] == b["werte"][at] and r1 != r0: notiz = gleich_mehr if r1 > r0 else gleich_weniger
-		zahl.call(Sprache.t(d["attribute"][at]["name"]), a["werte"][at], b["werte"][at], false, notiz)
+		var name := Sprache.t(d["attribute"][at]["name"])
+		if a["werte"][at] == b["werte"][at] and r1 > r0: mehr.append(name)
+		else: zahl.call(name, a["werte"][at], b["werte"][at], false, gleich_weniger if a["werte"][at] == b["werte"][at] and r1 < r0 else "")
+	if not mehr.is_empty():
+		var namen := ("Alle Attribute" if de else "All abilities") if mehr.size() == a["werte"].size() else ", ".join(PackedStringArray(mehr))
+		v.zeilen.append({"wort": "Attribute" if de else "Abilities", "vorher": "", "nachher": "", "besser": 0, "doppelt": true,
+			"notiz": namen + (": Bonus wirkt nicht, Obergrenze für dieses Kapitel erreicht" if de else ": no effect, this chapter's limit is reached")})
 	for af in EIGENE:
 		var x: int = a["eig"][af]; var y: int = b["eig"][af]
 		var geschluckt: bool = b["roh"][af] > a["roh"][af] and x == y
@@ -81,6 +91,7 @@ static func von(hw: Heldwerte, g: Dictionary, nebenhand := false) -> Vergleich:
 			return ("%d %%" % n) if bool(d["affixdaten"][af]["prozent"]) else "+%d" % n
 		var r := {"wort": Sprache.t(d["affixdaten"][af]["name"]), "vorher": f.call(x), "nachher": f.call(y), "besser": 0 if x == y else (1 if y > x else -1)}
 		if geschluckt: r["notiz"] = deckel
+		if geschluckt and x == y: r["doppelt"] = true
 		v.zeilen.append(r)
 	return v
 
