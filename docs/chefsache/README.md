@@ -58,7 +58,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 | 772 | K | D89.2 von Diogenes (über Perikles): Glossar ohne „Vorgang beim Chef“ (480); „steht in“ zei | startbar |
 
-**Tom** – offen 103, Muss 84, startbar 3
+**Tom** – offen 103, Muss 84, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -101,7 +101,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 470.1 | K | Erschaffung: Held auf Antippen bildschirmgroß (Idee Chef 02.11., 18:37) | ruht |
 | 471 | M | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | ruht |
 | 474 | M | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, M | ruht |
-| 475 | M | Leute des Dorfs (Rowena, Borin …) auf Kaufkörper ihres Volks mit Gesicht, statt der alten | startbar |
+| 475 | M | Leute des Dorfs (Rowena, Borin …) auf Kaufkörper ihres Volks mit Gesicht, statt der alten | wartet auf Sokrates |
 | 476 | K | Symbole der Gegenstände aus den 3D-Modellen statt Pixelbild (Chef 02.11., 14:43) | wartet auf 458.3 (ruht) |
 | 477 | K | Godot-APKs laufen nicht im MuMu Player am Rechner (Chef 02.11., 14:59) | ruht |
 | 461.1 | M | Grundstand zusammenführen: ein Zweig für Tom und Jerry, jede Probe baut darauf (01.11.) | ruht |
@@ -290,7 +290,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 783 | M | 745.1 Widersprüche und Doppelungen in CLAUDE.md, Rollendateien, Listen gegen das Archiv li | Chef (Datei in der Chefsache) |
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 
-**Sokrates** – offen 43, Muss 32, startbar 21
+**Sokrates** – offen 44, Muss 33, startbar 22
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -337,6 +337,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 745 | M | Regelwerk konsolidieren: Widersprüche listen (Diogenes), Chef entscheidet, jede Regel an e | startbar |
 | 765 | M | Wochentermin 13.11.: Rollenspiegel Sokrates (rollenspiegel.sh Sokrates) (719); deckt 02.–1 | Termin 13.11. 08:00 |
 | 782 | M | Von Tom (697): ein Lauf am Rechner frei? Der erste (17:38) brach vor dem Zeichnen ab (Proj | startbar |
+| 475 | M | Leute des Dorfs (Rowena, Borin …) auf Kaufkörper ihres Volks mit Gesicht, statt der alten | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
