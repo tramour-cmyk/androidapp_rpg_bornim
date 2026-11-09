@@ -11,6 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
+| 819 | Sammelbuild 273: alle fertigen Zweige beider Teams (Tom u. a. 762+471, 683, 506, 584; Jerry u. a. 532), Prüfliste ansehen/t273, build 273 --mit (Sperre 620.1 B: Tom 17, Jerry 8 ungetestet) | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 471 | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | Tom | M | gebaut, fährt im nächsten Build mit 762, Geprüft an: 8ee85b6e6 (kampfuebung_471, brs_471, fertigkeiten_762 grün) | – | claude/spike-471-fertigkeiten | – | E Kampf | 7,86 $ |
 | 773 | Sammelbuild 272: alle fertigen Zweige beider Teams (Tom 5, Jerry 6: u. a. 656, 717, 717.1, 682, 702), Prüfliste ansehen/t272, build 272 --mit für alle (von Perikles, 15:31: sonst wartet jeder auf den anderen) | Tom | M | erledigt | – | – | – | E Technik | 11,84 $ |
 | 610 | Held im Dorf: Finger am Stab zucken ohne Unterlass (Schild auf dem Rücken) (Chef 07.11., t268) | Tom | M | zu testen, ohne Rückmeldung t272 | – | claude/tom-610-finger | – | E Figuren | 19,22 $ |
