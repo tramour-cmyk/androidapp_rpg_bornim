@@ -174,3 +174,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:14 09.11.: Startsperre 21:14 Start Sokrates (Ford, vor dem Start; Neustart 205802d60)
 - 21:17 09.11.: Startsperre 21:17 Start Diogenes (Ford, vor dem Start; Auftrag Diogenes 799, 55d798cc8)
 - 21:59 09.11.: Startsperre 21:59 Start Tom (Ford, vor dem Start; Neustart b53b04aae)
+- 22:04 09.11.: Startsperre 22:04 Start Homer, Spike, Tuffy (lauf.py)
+- 22:04 09.11.: Marke Archiv session_01Hmoj75joAsGNERE3d6sT3X (lauf.py)
+- 22:04 09.11.: Marke Archiv session_01Hmoj75qz119EcWWbsbwBMA (lauf.py)
