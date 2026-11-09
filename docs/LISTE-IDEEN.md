@@ -49,6 +49,8 @@ Zuletzt verworfen (Chef 09.11., 11:21, 743 „alle verwerfen“): Spiel-Engine G
 
 - **Tempelszene mehr wie das Intro** (Sokrates 19.10., 21:01, mit 68.1 vom Chef zurückgestellt): Stein kühler, Kerzen und Strahl wärmer (warm gegen kalt wie im Intro); Bild 4 mit Aldric und Lyra als Umriss vor dem Strahl statt dunkler Gemeinde. → **später:** nach dem Meilenstein; ändert alle fünf Bilder.
 
+- **Trank oder Zauber, der aufdeckt** (Chef an Sokrates 09.11., 18:16: „so einen speziellen Trank, der sozusagen alle Sachen auf einer Karte aufdeckt oder im Umkreis von, keine Ahnung, 20 Feldern oder so, dass man auch kurz die Mobs sieht oder wo eine Tool steckt oder dergleichen mehr. So eine Art Trank oder Zauber … Finde ich eine coole Sache.“): Nebel weg, Gegner und Verstecktes kurz sichtbar. Berührt Nebel rundum (461, 505), Spähen (Entscheidung 83), Kräutersammler-Tränke (481). → Urteil Homer offen.
+
 ### Figuren
 
 - **Katze im Gasthaus** (Chef 28.10., 16:24, aus 395a): wie im alten Spiel (`MapCat.kt`: schläft am Herd, setzt sich auf, streckt sich); Farbe egal; Quaternius hat keine; die Siamkatze von MadeCG (RenderHub) gefällt dem Chef „eh nicht so gut“. Erst nach Leuten, Dorf und Klang. Vorschlag Chef 16:31: [Kurilian Bobtail](https://www.renderhub.com/nyilonelycompany/kurilian-bobtail-cat), 18 $ statt 30 $ (Aktion bis etwa 31.10.), Extended Use, 23 Bewegungen (Namen nicht auf der Seite), 23.234 Dreiecke (Regel: höchstens 6000, also stark ausdünnen), 4K-Texturen. → **reif, zu W21** (Katze fehlt im Kleinleben): Aktion abgelaufen; Modell wählt und kauft der Chef, dann Tom.
