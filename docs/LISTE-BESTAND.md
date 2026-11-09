@@ -1,6 +1,6 @@
 # Bestand (Inventur)
 
-Vorgang 377.1, Stand 27.10., 14:36. Hier steht nur, was wir **besitzen**: gekauft oder heruntergeladen und abgelegt (privates Repo, Zweig) oder laut Prüfung heruntergeladen. Suchergebnisse und Kaufkandidaten stehen in `LISTE-CC0-MODELLE.md`, nicht hier.
+Vorgang 377.1, Stand 27.10., 14:36. Hier steht nur, was wir **besitzen**: gekauft oder heruntergeladen und abgelegt (privates Repo, Zweig) oder laut Prüfung heruntergeladen. Suchergebnisse und Kaufkandidaten stehen in `LISTE-QUELLEN.md`, nicht hier.
 
 - **Vor jedem Eigenbau hier nachsehen** (Regel „Bestand zuerst“, `ROLLE-ENTWICKLUNG.md`, 377).
 - Wer hochlädt oder herunterlädt, trägt im selben Schritt hier ein (Teil, Datei, Ort, Lizenz, Format).
@@ -175,7 +175,7 @@ Fehlt im Paket: Hund, Katze, Pferd, Schaf, Vögel außer Huhn und Gans.
 | Gefäße | Clay_Pot_1–6, Large_Jug_Copper/Gold/Silver |
 | Sonst | Meat_Hanging_Frame_1/2, Log_Pile_1/2, Straw_Bails (9) |
 
-**Waffen und Schilde (348.12h, hochgeladen 29.10., 11:0x; Inventur Sokrates 11:09)**, alle privat in `bornim-kaufmodelle` (Version stufe1); Lizenzen auf den Seiten `LISTE-CC0-MODELLE.md` „Ausrüstung genau“:
+**Waffen und Schilde (348.12h, hochgeladen 29.10., 11:0x; Inventur Sokrates 11:09)**, alle privat in `bornim-kaufmodelle` (Version stufe1); Lizenzen auf den Seiten `LISTE-QUELLEN.md` „Ausrüstung genau“:
 
 | Paket | Datei | Lizenz | Modelle | Dreiecke | Texturen | Godot |
 |---|---|---|---|---|---|---|
@@ -236,6 +236,6 @@ Dungeon: kein fremder Bausatz im Bestand.
 
 | Teil | Befund |
 |---|---|
-| Kenney Survival Kit | Dreiecke laut `LISTE-CC0-MODELLE.md` „aus den OBJ gezählt“; nirgends abgelegt |
+| Kenney Survival Kit | Dreiecke laut `LISTE-QUELLEN.md` „aus den OBJ gezählt“; nirgends abgelegt |
 | RenderHub „Asset Pack Vol 10 – Modular Dungeon Interior“ (JuanChee, 7 $) | Chef „checken“, Votum offen; nicht im privaten Repo, Kauf nicht belegt |
 | Universal Animation Library 2 | CC0 laut Seite, nicht geladen |
