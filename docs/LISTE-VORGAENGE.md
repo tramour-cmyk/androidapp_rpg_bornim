@@ -25,7 +25,7 @@
 | 583 | Textkasten: ▼ liegt im Text, erzählter Text ohne i-Punkte und nicht schräg (Abgleich 512b) | Tom | M | zu testen, seit 06.11. auf main; t269.3 fiel nur am Tipp (663), ▼ und Schrift ungeprüft; Nachtest 272.16 | t272 | claude/tom-583-textkasten | 272 | E Oberfläche | 5,99 $ |
 | 521 | Build 249, Ausrüstung: Wechselschirm eines Platzes wie alt (Bild, Art und Wert, ▲/▼, „nicht tragbar“ matt) (Chef 03.11., 23:23, Bild) | Tom | M | startbar, Fund t269.16 | – | claude/tom-521-tasche | – | E Oberfläche | – |
 | 540 | Texte hängen am Spielbeginn: Südrand (immer Text vor dem Auftrag, „Kapitel 2 folgt“ fehlt, nichts gemerkt), Schlagbaum nach dem Auftrag, Klopfen an 12/5 nach Kapitel 1, Tipp beim Erwachen auch bei klassischer Steuerung… | Tom | M | zu testen, Südrand Nachtest 272.17 | t272 | claude/spike-540-starttexte | 272 | E Oberfläche | – |
-| 617 | Hauptmenü „Laden“: Wischen löst Laden aus; laden nur mit dem Knopf rechts (Chef 07.11., t268.1) | Tom | M | startbar, Fund t269.16 | – | claude/tom-605-doppeltipp | – | E Oberfläche | – |
+| 617 | Hauptmenü „Laden“: Wischen löst Laden aus; laden nur mit dem Knopf rechts (Chef 07.11., t268.1) | Tom | M | zu testen, seit 269 auf main (a2add0154), t269.16 prüfte 605; Nachtest 272.18 | t272 | claude/tom-605-doppeltipp | 272 | E Oberfläche | – |
 | 701 | Gegenstandsfenster: Hinweis Obergrenze nur einmal statt je Grundwert (Chef t270.5, 08.11., 20:37: „wirkt überbordend“) | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 636 | Schlagbaum öffnet ohne Türgeräusch (alt G:1162 Sound.DOOR; Abgleich 620.2a) | Tom | M | startbar, A (Chef 09.11., 06:55): Geräusch fehlt trotz Satz | – | claude/tom-636-schlagbaum | – | E Welt | – |
 | 683 | Oberfläche noch mit SRD-Wörtern: Gegenstandsfenster und Vergleich zeigen Zauberpunkte, Attribute, Stärke, Konstitution, Weisheit, Charisma statt BRS (Mana, Kraft, Zähigkeit …; Regelwerk Abschnitt 12) (Sokrates nach Bild des Chefs 08.11., 15:57) | Tom | M | startbar | – | – | – | E Oberfläche | – |
@@ -226,7 +226,7 @@
 | 483 | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Marke (Chef 02.11., 19:08) | Perikles | M | gebaut, Geprüft an: 62e922b30 | Diogenes, D75 | – | – | B Werkzeuge | – |
 | 464 | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählung im Tagesbericht (Chef 01.11., 20:4x) | Perikles | M | gebaut, Geprüft an: fcf9ab215 | 16.11. | – | – | B Abläufe | – |
 | 398 | Gegenprobe: Grundsätze aus DESIGN-Dateien, die im Umzug nach Godot fehlen (Chef 28.10., 11:22) | Perikles | M | erledigt | – | – | – | E Technik | 12,07 $ |
-| 383 | Wartewächter und Haken 63 verschärfen (Chef 27.10., 17:53 ja); Sitzungsgröße messen (Sokrates) | Perikles | M | startbar, Messung vorgelegt | Chef 383 | – | – | B Werkzeuge | 99,45 $ |
+| 383 | Wartewächter und Haken 63 verschärfen (Chef 27.10., 17:53 ja); Sitzungsgröße messen (Sokrates) | Perikles | M | startbar, 383 A (Chef 18:05): Neustart ab 200 Tsd., nach Pause über 1 h Nachfolger | – | – | – | B Werkzeuge | 99,45 $ |
 | 275 | Zentrale Vorgangsliste als einzige Quelle (Chef 21.10.; Stufe 1 jetzt, 27.10.) | Perikles | M | erledigt, greift Lauf 96 | – | – | – | B Werkzeuge | 31,69 $ |
 | 347.2 | Umsetzung Plan 347 nach Gegenprüfung (Chef 24.10., 16:30) | Perikles | M | wartet | 347 | – | – | B Abläufe | – |
 | 276 | Fords Anleitung auf eine Seite (Empfehlung Sokrates zu 274) | Perikles | K | ruht | – | – | – | B Abläufe | – |
@@ -284,7 +284,8 @@
 | 723 | Offene Befunde D61–D92 als Vorgänge beim Besitzer nachtragen (ohne Spur: D63.7, D76.1, D76.2, D90.1, D90.2), Prüfbericht ausmisten (722 A) | Diogenes | M | erledigt | – | – | – | Q QM | 4,54 $ |
 | 768 | Wochentermin 13.11.: Rollenspiegel Diogenes (rollenspiegel.sh Diogenes) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Diogenes | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 771 | Probe 657 auswerten: Erstfunde des Chefs t272–t275 gegen 11, 11, 9, 7 (von Perikles, Werkzeug 657 greift laut Lauf 104) | Diogenes | M | startbar | t275 | – | – | Q QM | – |
-| 783 | 745.1 Widersprüche und Doppelungen in CLAUDE.md, Rollendateien, Listen gegen das Archiv listen (je Fund Stellen, Wortlaut, Entscheidung; 745 A2, Chef 09.11., 17:46) | Diogenes | M | startbar | – | – | – | Q QM | – |
+| 783 | 745.1 Widersprüche und Doppelungen in CLAUDE.md, Rollendateien, Listen gegen das Archiv listen (je Fund Stellen, Wortlaut, Entscheidung; 745 A2, Chef 09.11., 17:46) | Diogenes | M | in Arbeit, drei Helfer lesen | – | – | – | Q QM | – |
+| 790 | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab 200 Tsd., Chef 09.11., 18:05) | Diogenes | M | startbar | – | – | – | Q QM | – |
 | 780 | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für unsere gekauften Protofactor-Animsets und Janpec, die KI-Sitzungen mit Skripten bearbeiten? (aus 623.1) | Sokrates | M | wartet, Brief beim Chef | Chef 780 | – | – | M Veröffentlichung | – |
 | 623.1 | Prüfschema auf bisher geprüfte Quellen anwenden (Chef 07.11., aus 623) | Sokrates | M | startbar, Liste steht; Links, Preise, Daten nachtragen | – | – | – | B Abläufe | – |
 | 620 | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build (Chef 07.11.) | Sokrates | M | startbar | – | – | – | B Abläufe | 6,49 $ |

@@ -289,7 +289,7 @@ func alle_gewoehnlichen(gew: Array) -> void:
 	var summe := 0
 	for g in gew: summe += Laden.verkaufspreis_von(hw, g)
 	dialog("Alle gewöhnlichen verkaufen?" if de else "Sell all common items?", Stil.GOLD,
-		[Stil.zeile((("%d Gegenstände:" if de else "%d items:") % gew.size()).to_upper(), 14, Stil.GOLD, 3.0), Erschaffung.txt(", ".join(PackedStringArray(gew.map(func(g): return Beute.name(g)))), 14, Stil.DIM),
+		[Stil.zeile(Laden.anzahl_gegenstaende(gew.size(), de).to_upper(), 14, Stil.GOLD, 3.0), Erschaffung.txt(", ".join(PackedStringArray(gew.map(func(g): return Beute.name(g)))), 14, Stil.DIM),
 		Erschaffung.txt("%s: %d → %d" % [Sprache.u("gold"), z.gold, z.gold + summe], 15, Stil.DIM)],   # 525 (Helfer): Gold vorher → nachher
 		[[("Verkaufen · " if de else "Sell · ") + preis_text(summe), tu], [abbrechen(), func(): pass]])
 
@@ -344,6 +344,9 @@ func braukasten(r: Dictionary, n_: int, alle := false) -> void:
 	var aus := String(r["ergebnis"])
 	var oft := Laden.wie_oft(z, r)
 	var n := clampi(n_, 1, maxi(1, oft))
+	if Spielstaende.vorlage2:   # 630: ohne Kasten wie im Brauen-Schirm (557, braukasten_c)
+		braukasten_c(r, n, alle)
+		return
 	var halter := {}   # der Kasten entsteht erst unten (wie menge)
 	var bild := Menue.bild_feld("ding-" + aus, 48)
 	bild.name = "DingBild"
@@ -378,6 +381,9 @@ func menge(id: String, kauf: bool, n_: int, alle := false) -> void:
 	var most := Laden.kann_kaufen(z, hw, id) if kauf else z.anzahl(id)
 	var n := clampi(n_, 1, maxi(1, most))
 	var preis := stueck_ * n
+	if Spielstaende.vorlage2:   # 630 (549a Mengenkasten, abgenommen 557 Bild 4): ohne Kasten wie braukasten_c
+		menge_c(id, kauf, n, most, alle)
+		return
 	# 416.9 (Chef 31.10., 22:20): das Bild des Dings im Kasten wie alt (DialogSpec supply, 48 dp), wie beim Stueck ueber den Zeilen
 	var bild := Menue.bild_feld("ding-" + id, 48)
 	bild.name = "DingBild"
@@ -410,6 +416,76 @@ func menge(id: String, kauf: bool, n_: int, alle := false) -> void:
 	halter["kasten"] = dialog(Laden.name(id), farbe_ding(id), zl, [
 		["%s%s · %s" % [Sprache.u("buy") if kauf else Sprache.u("sell"), " ×%d" % n if n > 1 else "", preis_text(preis)], tu, most >= 1],
 		[abbrechen(), func(): pass]])
+
+# 630 (549a „Ausnahme Mengenkasten“, 557 Bild 4; supplyDialog alt): Kopf mit Bild und Name, Zierlinie, Seltenheit, Kurzangabe und Text;
+# die Menge gross in der Mitte „−  3  +“, darunter ×1 · ×5 (beim Verkauf · ALLE) als Woerter, die gewaehlte hell mit Goldstrich;
+# Besitz und Gold vorher → nachher als kleine Angaben; unten „‹ ABBRECHEN“ links, „KAUFEN ×3 · 36 GOLD ›“ rechts
+func menge_c(id: String, kauf: bool, n: int, most: int, alle := false) -> void:
+	var de := de_()
+	var preis := (Laden.kaufpreis(hw, id) if kauf else Laden.verkaufspreis(hw, id)) * n
+	var schleier := Rueckfrage.schleier(self)
+	schleier.color = Color.BLACK
+	var mitte := Spielstaende.oben()
+	schleier.add_child(mitte)
+	var v := VBoxContainer.new()
+	v.name = "Fenster"
+	v.add_theme_constant_override("separation", int(10 * DP))
+	v.custom_minimum_size.x = get_viewport_rect().size.x - 48 * DP
+	mitte.add_child(Rueckfrage.halte(v))
+	var kopf_ := HBoxContainer.new()
+	kopf_.add_theme_constant_override("separation", int(12 * DP))
+	var bild := Menue.bild_feld("ding-" + id, 48)
+	bild.name = "DingBild"
+	kopf_.add_child(bild)
+	var nm := Stil.zeile(Laden.name(id), 16, farbe_ding(id))
+	nm.name = "Titel"
+	nm.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	nm.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	nm.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	kopf_.add_child(nm)
+	v.add_child(kopf_)
+	v.add_child(Spielstaende.zier())
+	for c in LadenSchirm.details(id): v.add_child(c)
+	if most < 1:
+		v.add_child(Erschaffung.txt(Sprache.u("notEnoughGold") if kauf else Sprache.u("nothing"), 15, Spielstaende.mangel()))
+	else:
+		var neu_ := func(nn: int, ist_alle: bool): schleier.queue_free(); menge(id, kauf, nn, ist_alle)
+		var mr := HBoxContainer.new()
+		mr.alignment = BoxContainer.ALIGNMENT_CENTER
+		mr.add_theme_constant_override("separation", int(10 * DP))
+		mr.add_child(_zahl_knopf("−", func(): neu_.call(n - 1, false), n > 1))
+		var zahl := Stil.zeile(str(n), 34, Stil.BRIGHT)
+		zahl.name = "Menge"
+		zahl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		zahl.custom_minimum_size.x = 64 * DP
+		zahl.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		mr.add_child(zahl)
+		mr.add_child(_zahl_knopf("+", func(): neu_.call(n + 1, false), n < most))
+		v.add_child(mr)
+		var wahl := [["×1", 1, not alle and n == 1, true, false], ["×5", 5, not alle and n == 5, most >= 5, false]]
+		if not kauf: wahl.append([Sprache.t(Laden.ALLE), most, alle, true, true])   # 525: „Alle“ bleibt markiert, auch bei 1 oder 5
+		var wr := HBoxContainer.new()
+		wr.add_theme_constant_override("separation", 0)
+		for k in wahl:
+			var nn: int = k[1]
+			var ia: bool = k[4]
+			wr.add_child(_seite_b(String(k[0]), bool(k[2]), (func(): neu_.call(nn, ia)) if bool(k[3]) else func(): pass, bool(k[3])))
+		v.add_child(wr)
+		v.add_child(Erschaffung.txt(Sprache.t(Laden.BESITZ) + "%d → %d" % [z.anzahl(id), z.anzahl(id) + (n if kauf else -n)], 14, Spielstaende.ANGABE))
+		v.add_child(Erschaffung.txt("%d %s → %d %s" % [z.gold, Sprache.u("gold"), z.gold - preis if kauf else z.gold + preis, Sprache.u("gold")], 14, Spielstaende.ANGABE))
+	v.add_child(Spielstaende.linie())
+	var tu := func():
+		if alle and not kauf and n >= 2 and Bedienung.rueckfragen:   # 59e: alles von einem Ding verkaufen fragt noch einmal
+			dialog("Alle verkaufen?" if de else "Sell all?", farbe_ding(id), [Menue.bild_feld("ding-" + id, 48), Erschaffung.txt("%s ×%d" % [Laden.name(id), n], 16)],
+				[["%s ×%d · %s" % [Sprache.u("sell"), n, preis_text(preis)], func(): sage(laden.verkaufe(z, hw, id, n)); baue()], [abbrechen(), func(): pass]])
+			return
+		sage(laden.kaufe(z, hw, id, n) if kauf else laden.verkaufe(z, hw, id, n))
+		baue()
+	var wort := "%s%s · %s" % [Sprache.u("buy") if kauf else Sprache.u("sell"), " ×%d" % n if n > 1 else "", preis_text(preis)]
+	var fuss := Spielstaende.fuss(func(): schleier.queue_free(), "", wort, Stil.BRIGHT, func(): schleier.queue_free(); tu.call(), most >= 1)
+	for p in fuss.find_children("Text", "Label", true, false):
+		Menue.passe_knopf(p.get_parent().get_parent() as Control, (v.custom_minimum_size.x - 8 * DP) / 2.0)
+	v.add_child(fuss)
 
 # gearDialog: Name, Werte, Gold vorher → nachher, „Kaufen · Preis“ (ohne Gold matt) oder „Verkaufen · Preis“; Seltenes fragt noch einmal
 func stueck(g: Dictionary, kauf: bool) -> void:
@@ -533,6 +609,7 @@ func _seite_b(t: String, an: bool, tat: Callable, waehlbar := true) -> Control:
 	v.add_child(strich)
 	var p := Spielstaende.tippbar(v, tat)
 	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	p.set_meta("gewaehlt", an); p.set_meta("an", waehlbar)   # 630: fuer Tests
 	return p
 
 func brauen_b() -> void:
@@ -731,4 +808,5 @@ func _zahl_knopf(t: String, tat: Callable, an: bool) -> Control:
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var p := Spielstaende.tippbar(l, tat if an else func(): pass)
 	p.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	p.set_meta("an", an)   # 630: fuer Tests
 	return p

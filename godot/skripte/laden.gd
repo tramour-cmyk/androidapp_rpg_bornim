@@ -23,6 +23,10 @@ const MENGE := {"de": "Menge", "en": "Quantity"}
 const BESITZ := {"de": "Im Besitz: ", "en": "Owned: "}
 const ALLE := {"de": "Alle", "en": "All"}
 const GEWOEHNLICHE_WEG := {"de": "%d gewöhnliche Gegenstände verkauft.", "en": "Sold %d common items."}
+# 699: „1 Gegenstand:“ statt „1 Gegenstände:“ (Rueckfrage „Alle gewöhnlichen verkaufen?“; alt ShopScreen.kt 273 ohne Einzahl)
+static func anzahl_gegenstaende(n: int, de: bool) -> String:
+	if de: return "%d Gegenstand:" % n if n == 1 else "%d Gegenstände:" % n
+	return "%d item:" % n if n == 1 else "%d items:" % n
 # 525 (Sokrates 04.11.): Einzahl „1 gewöhnlicher Gegenstand verkauft“
 const GEWOEHNLICHER_WEG := {"de": "1 gewöhnlicher Gegenstand verkauft.", "en": "Sold 1 common item."}
 # 525 Brauen: was fehlt, wie oft es reicht

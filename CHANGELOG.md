@@ -4,6 +4,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **Build 271 auf main** (PR #190, Chef 09.11., 14:09 „getestet, reingegeben mit den Anmerkungen“, Archiv „t271“; zusammengeführt erst 18:05 von Tom, der PR stand seit der Freigabe offen): Tom 664, 585, 416.8, 356.2, 591, 630, 586, 699; Jerry 703, 565, 563, 296.3. Anmerkungen als 753 (Blende nach der Rast) und zu 744 (Flügelschlag, Huschen). (Rückläufer: 3, 416.8, 591, 296.3)
 - **696 Bilder in derselben Minute** (Perikles, Werkzeug): `meldung.sh` hängt im Zweig `bilder` an einen schon belegten Pfad einen Zähler (`…-2.png`, `-3` …), statt ihn zu überschreiben; jeder Link in `ansehen/` zeigt sein eigenes Bild (Probe im Wegwerf-Repo: drei Bilder in einer Minute, drei Dateien).
 - **658 Telegram-Reaktionen** (Perikles): `reaktionen.py` liest Zweige über eigene Referenzen statt `FETCH_HEAD` (ein gleichzeitiger fetch ließ 👍 16:42 auf 2980 ohne Zuordnung), ordnet beim Zeigen neu zu und zeigt 👍/✅ als „Telegram, offen“ beim Absender ohne Zeitgrenze, bis ein Archiveintrag „Nachricht <Kennung>“ nennt.
 

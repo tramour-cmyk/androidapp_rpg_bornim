@@ -29,7 +29,8 @@ func zaehle(n: Node, marke: String) -> int:
 func offener_kasten(l: Node) -> Node:
 	var k: Node = null
 	for c in l.get_children():
-		if c is ColorRect and (c as ColorRect).color.a > 0.5 and (c as ColorRect).color.a < 1.0: k = c
+		# 630 (549a): das Fenster ohne Kasten ist ganz deckend schwarz mit der Spalte „Fenster“
+		if c is ColorRect and (c as ColorRect).color.a > 0.5 and ((c as ColorRect).color.a < 1.0 or c.find_child("Fenster", true, false)): k = c
 	return k
 
 func _lauf() -> void:

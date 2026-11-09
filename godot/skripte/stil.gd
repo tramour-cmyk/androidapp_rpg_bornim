@@ -13,6 +13,8 @@ const RIM := Color("b59a6aaa")      # Veil.rim
 const LINE := Color("9a8155")       # Veil.line
 const RAISED := Color("17140f")     # Veil.raised
 const WARN := Color("d9785a")       # Veil.warn (399.1 Erschaffung: Punkte uebrig)
+# 586a (Chef 05.11., 09:39: „586a 7-12“): die Titel der Fenster und Rueckfragen so gross wie die Titel der Schirme (22 sp, 549a)
+const TITEL_SP := 22.0
 # 498 (Chef 03.11., 07:13: „scheint im Godot-Spiel die Schrift kleiner zu sein … Auch wenn der Text der gleiche ist“): gemessen
 # (tests/masse_498.gd) sind Groesse und Zeile bei 411 dp und Schriftgroesse 1,0 gleich wie alt (16 sp: 42 px, alt 41,5 px); die alte
 # Fassung rechnete sp aber nach der Schriftgroesse des Handys (Einstellungen, Anzeige; Compose sp = dp x fontScale), Godot fest.
