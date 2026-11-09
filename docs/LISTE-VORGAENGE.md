@@ -192,7 +192,7 @@
 | 348.12g | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | Homer | M | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | – | – | – | G Story | 4,29 $ |
 | 586.1 | Von Team Tom: DESIGN-STIL Tabelle „Schrift“ nachtragen: Fenstertitel 22 statt 15 sp (586 passt, Chef 08.11., 21:55) | Homer | K | erledigt | – | – | – | E Oberfläche | – |
 | 712 | Von Team Tom (702 C): Kampftexte ohne Zugverlust: [702.auf] Aufstehen (Zwischenfassung und nach dem Sturz) und Tipp [210T.pounce] | Homer | M | erledigt | – | – | – | E Kampf | 2,67 $ |
-| 715 | Rollenspiegel 06.11. nachholen (Diogenes D92) · „jetzt“ 09.11., 08:49 | Perikles | M | startbar | – | – | – | B Abläufe | – |
+| 715 | Rollenspiegel 06.11. nachholen (Diogenes D92) · „jetzt“ 09.11., 08:49 | Perikles | M | erledigt | – | – | – | B Abläufe | – |
 | 317.1 | `startbar.py`, `lauf.py`: Obergrenze 6 je Build streichen (Chef 07.11., 20:5x) | Perikles | M | gebaut, Geprüft an: 12837c9c3 | – | – | – | B Werkzeuge | – |
 | 620.1 | Wiederholte Funde des Chefs vor Neuem; wenige Muss je Team zugleich (aus 620) | Perikles | M | gebaut, Geprüft an: 5b65bf6bb (startbar --stand 11:05: Tom 33, Jerry 12 gesperrt) | – | – | – | B Abläufe | 4,11 $ |
 | 511 | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele sinnlose und kaputte Filme gemacht?“) · „jetzt“ 03.11., 13:50 | Perikles | M | gebaut, Geprüft an: d6d9eca8c | Diogenes, D75 | – | – | B Werkzeuge | 19,83 $ |
@@ -217,6 +217,7 @@
 | 654.1 | Systemfrage vor jedem Bau in ROLLE-ENTWICKLUNG.md und Prüfliste, Wiederholungswächter in vorgang.py neu (Stichwort in zwei früheren → Zeile „Systemlösung?“ für Sokrates); Regelbilanz (654, Chef 14:42) | Perikles | M | gebaut, Geprüft an: 36cff7b9d (Probe in Kopie: Schild → Systemlösung?, zweite blockiert) | – | – | – | B Abläufe | – |
 | 696 | meldung.sh: mehrere Bilder in derselben Minute überschreiben sich im Zweig bilder (Pfad TT-HHMM-Nr-Name ohne Zähler; 613 am 08.11. 19:10/19:11: zehn gesendet, zwei abgelegt), Links in ansehen/ zeigen nur das letzte (von Spike) | Perikles | K | gebaut, Geprüft an: d5e584b7a (Probe Wegwerf-Repo) | – | – | – | B Werkzeuge | 1,41 $ |
 | Pflege | von Werkzeug (340.3, 09.11.): 15406 Bytes (Grenze 15000), Erledigtes streichen | Perikles | K | startbar | – | – | – | B Abläufe | – |
+| 721 | rollenspiegel.sh: Antwort am Montag landet unter der kommenden Woche, Ausfall des Freitags bleibt unsichtbar (aus 715) | Perikles | K | startbar | – | – | – | B Werkzeuge | – |
 | 340.2 | Rollenspiegel C: `tools/rollenspiegel.sh`, eigene Antwort ohne fremde | Diogenes | M | erledigt | – | – | – | B Abläufe | 13,83 $ |
 | 485 | Diogenes bessert sich aus dem Rollenspiegel 02.11.: Wochentermine zählen, Vergleichsblätter selbst holen, Meldungen ohne Abkürzungen (Chef 02.11., 19:37 „1, 2, 3 ja“) · „jetzt“ 02.11., 19:37 | Diogenes | M | erledigt | – | – | – | Q QS | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
