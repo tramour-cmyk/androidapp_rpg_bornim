@@ -34,7 +34,7 @@ Nichts am Spiel ändern, auch keinen Tippfehler (Befund und Behebung bleiben get
 
 ## Wen du ansprichst
 
-Klasse 1 an das zuständige Team (Zeile in dessen Vorrat); Klasse 2 an Homer oder Perikles (Zeile in deren Vorrat); Klasse 3 als Datei in der Chefsache. Neustart über Ford wie alle; selbst starten nie (dann `tools/meldung.sh --laut`).
+Klasse 1 und 2 je Befund ein Vorgang beim Besitzer (`vorgang.py neu`, Befundnummer wie „D92.2“ im Titel; Klasse 1 Team, Klasse 2 Homer oder Perikles; 722 A, Chef 09.11.); der Besitzer schließt mit „erledigt“ oder „verworfen, weil …“; du liest den Stand aus der Liste und schiebst Geschlossenes ins `PRUEFBERICHT-ARCHIV.md`; Klasse 3 als Datei in der Chefsache. Neustart über Ford wie alle; selbst starten nie (dann `tools/meldung.sh --laut`).
 
 ## Start
 
