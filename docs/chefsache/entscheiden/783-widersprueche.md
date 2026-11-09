@@ -28,4 +28,6 @@ Geprüft an: Lauf 111 in `docs/PRUEFBERICHT.md` (jede Stelle am Wortlaut nachgel
 - Nicht geprüft: `DESIGN-…`, `STORY-…`, `LISTE-` außerhalb der drei Bereiche (Bauen/Testen, Beratung/Prüfung/Kreativ, Betrieb/Projekt).
 </details>
 
+**Stellungnahme Sokrates (09.11., 19:07):** Stärkstes Gegenargument: W1, W4, W5 und W8 sind keine offene Frage. `CLAUDE.md` steht über allen Dateien und sagt es schon: Probebild selbst ansehen, kein Helfer danach (Zusammenarbeit 9); Neustart mit Link; nie selbst Balance oder Spielgefühl; Chefsache beantwortet heißt weg. Diese vier könnte Perikles ohne Frage an den Chef angleichen, die Datei kostet ihn vier Urteile, die nicht nötig sind. Gegen Entschiedenes verstößt kein Vorschlag. W5 schränkt meinen Vorentscheid ein, und so ist es richtig. W6 trifft meine Lehren; Diogenes' Trennung ist die, nach der ich schon arbeite. Kosten: Schritt 3 sind kleine Textänderungen bei Perikles, keine Werkzeuge. Empfehlung: „783 wie Vorschlag“, echte Fragen sind nur W2, W3, W6 und W7; die anderen vier hätten als Liste an Perikles gereicht.
+
 Antwort: „783 wie Vorschlag“ oder je Punkt „W<n> A“ / „W<n> B“.
