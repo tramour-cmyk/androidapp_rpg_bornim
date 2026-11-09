@@ -539,6 +539,7 @@ const WALD := ["forest", "deep_forest"]
 const AufrufS = preload("res://kampf/aufruf.gd")
 var kampf: Node
 var leiste_uhr := 0.0
+var kampf_mess: Label   # 211.14: Bildrate im Kampf (Testmodus „Bildrate“ oder --messen); eigene Ebene, die Steuerung ist dann verborgen
 
 # 399.3 (Jerry): Musik und Klang ueber den Autoload Klang; ueber den Knoten statt den Namen, denn mit -s (skripte_pruefen,
 # Lauf 135) gibt es den Autoload noch nicht und spiel.gd liesse sich nicht laden
@@ -619,9 +620,11 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 		while aufruf.kampf != null and not aufruf.kampf.is_inside_tree() and erg["ende"] == "": await get_tree().process_frame
 		kampf = aufruf.kampf
 		Messung.kampf_ms = Time.get_ticks_msec() - k0
+		Messung.kampf_beginn("%s, %s" % [gegner, String(lage["platz"])])   # 211.14: Leistung je Kampf am Gerät
 		if kampf and kampf.cam: kampf.cam.make_current()
 	while erg["ende"] == "": await get_tree().process_frame
 	kampf = null
+	if kampf_mess: kampf_mess.get_parent().visible = false
 	for k in umgebung.size(): umgebung[k].environment = env_alt[k]
 	kamera.make_current()
 	visible = true; ui.visible = true
@@ -1473,7 +1476,10 @@ func sichtbar_neu() -> void:
 # ---------------------------------------------------------------- Lauf
 func _process(dt: float) -> void:
 	if held == null: return
-	Messung.bild(dt, "%s %d/%d" % [karte.id, held.kachel.x, held.kachel.y])   # 399.1 Gerät: Messwerte wie alt
+	Messung.bild(dt, ("Kampf " + Messung.kampf_wo) if kampf != null else "%s %d/%d" % [karte.id, held.kachel.x, held.kachel.y])   # 399.1 Gerät: Messwerte wie alt
+	if kampf != null:
+		Messung.kampf_bild(dt)
+		_kampf_messe()
 	held.laeuft = Ausdauer.schritt(zustand, held_werte(), dt * 1000.0, held.geht(), laufen_will)   # 399.1 Stamina.step
 	held.atemlos_neu(zustand.atemlos and kampf == null)   # 592: leer kurz stehen, Haende auf den Knien
 	if held.funke_an != zustand.funke: held.funke_neu(zustand.funke)   # 677: getrunken, geloescht, nach der Rast verglommen
@@ -1516,6 +1522,30 @@ func _process(dt: float) -> void:
 	if zeiten.size() > 240: zeiten.pop_front()
 	if Testmodus.standort: ui.standort = "%s %d/%d" % [karte.id, held.kachel.x, held.kachel.y]
 	ui.messe(zeiten)
+
+# 211.14 (Rest 211.13, Sokrates 20.10.: „Leistung am A56 messen“): im Kampf ist die Steuerung mit ihrer Bildrate verborgen; dieselbe
+# Anzeige auf eigener Ebene unter dem Rand (Rand.EBENE - 1), links in der Mitte über dem Kampfort, wo weder Zugleiste noch Knöpfe sind
+func _kampf_messe() -> void:
+	var an := "--messen" in OS.get_cmdline_user_args() or Testmodus.bildrate
+	if kampf_mess == null:
+		if not an: return
+		var e := CanvasLayer.new()
+		e.layer = Rand.EBENE - 1
+		e.name = "KampfMessung"
+		add_child(e)
+		kampf_mess = Label.new()
+		kampf_mess.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var vs := get_viewport().get_visible_rect().size
+		kampf_mess.position = Vector2(24, vs.y * 0.30)
+		kampf_mess.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART   # wie die Steuerung (624): bricht innerhalb des Schirms um
+		kampf_mess.custom_minimum_size.x = vs.x - 48
+		kampf_mess.add_theme_font_size_override("font_size", int(round(14 * Stil.SP)))
+		kampf_mess.add_theme_color_override("font_color", Color(0.86, 0.68, 0.32))   # wie Steuerung.GOLD
+		kampf_mess.add_theme_color_override("font_outline_color", Color.BLACK)
+		kampf_mess.add_theme_constant_override("outline_size", 8)
+		e.add_child(kampf_mess)
+	kampf_mess.get_parent().visible = an
+	if an and Engine.get_process_frames() % 15 == 0: kampf_mess.text = Messung.kampf_zeile()
 
 # ---------------------------------------------------------------- Standbilder am Rechner (Vergleich alt/neu)
 func bilder() -> void:
