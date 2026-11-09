@@ -8,6 +8,8 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 ## Zeilen
 
+- **Zu 810, von Sokrates (Chef 09.11., 21:25, zu 762):** Chef nennt die Gruppen im Reiter „Waffen, Rüstung, Schatten, Magie, Wildnis, Gesellschaft, Sammeln, Handwerk“; BRS Abschnitt 3 sagt für die achte „Meisterschaften“ (Schmieden, Lederarbeit, Alchemie, Kochen, Runenkunde, Heilkunde). Name festlegen, Tom setzt ihn im Reiter (762, einklappbar, Chef 21:33 „Ja.“).
+
 - **Zu 807, von Spike (09.11., 21:20, zu 471; Chef 20:51: „Es gibt keine Fertigkeiten, die losgelöst vom Kampf sind … Schleichen … Wahrnehmung … da sollte man dann schon nochmal ein bisschen drauf [schauen]“):** Von den 37 Fertigkeiten haben in Kapitel 1 (Godot) 20 keine Tätigkeit: Wurfwaffen, Schutzmagie, Illusion, Beschwörung, Schleichen, Spähen, Schlösser knacken, Fallen entschärfen, Tiere beruhigen, Überreden, Einschüchtern, Bergbau (ab Kapitel 2), Angeln, Jagd, Alchemie (Morwen braut für den Helden), Schmieden, Lederarbeit, Kochen, Runenkunde, Heilkunde. Bitte vorschlagen, welche Kapitel 1 bekommt und wie (Spielgefühl), Vorlage an den Chef; der Code kann jede üben (`BrsFertigkeit.uebe`, `Zustand.uebe`). Liste aller 37 mit Stand: Vorrat Tom „Zu 471“.
 
 - **Zu 458.4 (erledigt 01.11.):** abgenommene Texte wortgetreu (`[D4.1.rauch.tasche]`, `[356.schluessel]`, übrige Handlungsgegenstände aus `Items.kt`); keine Zahlen und keine Wirkung, die das BRS nicht festlegt; Ladenware ohne Abnutzungsspuren (neu = makellos). Offen für später: (1) `[D4.1.rauch.tasche]` sagt „werfen“, im Spiel fliegt das Bündel von selbst, sobald Krogg auftaucht (`klassisch.gd`, D4.1); (2) SRD-Namen „Handschuhe der Ogerkraft“, „Umhang des Schutzes“, englisch „Potion of Healing“ usw. vor Stufe 6 ersetzen.
