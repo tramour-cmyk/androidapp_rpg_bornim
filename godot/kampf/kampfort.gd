@@ -1163,7 +1163,11 @@ func _play_say(e: Dictionary) -> void:
 	if tot_ms > 0:
 		await get_tree().create_timer(maxi(SAY_MS, maxi(lunge_ms, busy_ms) - tot_ms) / 1000.0).timeout
 		return
-	await get_tree().create_timer(maxi(NACHTRAG_MS if _nur_nachtrag(e) else SAY_MS, maxi(lunge_ms, busy_ms)) / 1000.0).timeout
+	# 751 (Chef 09.11., 14:00: „manchmal verschwindet das einfach alles“; haenger_751: je Biss 8 s „…“): lunge_ms ist die Zeit bis zum
+	# Treffer geteilt durch 0,42 und wuchs mit dem Anlauf weit über die Bewegung hinaus; ein Gegner meldet seine wirkliche Dauer
+	# (busy_ms, ohne das Zurechtrücken, das in den Zug des Helden auslaufen darf, F8)
+	var dauer := busy_ms if busy_ms > 0 and by != null and by.side == "FOES" else maxi(lunge_ms, busy_ms)
+	await get_tree().create_timer(maxi(NACHTRAG_MS if _nur_nachtrag(e) else SAY_MS, dauer) / 1000.0).timeout
 
 
 ## Zeile, Bedienfeld und Würfel einer Meldung (438: beim Aufschlag, sonst sofort); vorweg Gezeigtes nicht noch einmal
