@@ -4,7 +4,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `364f6140f` (09.11., 09:13)
 
-**Übergabe (09.11., 22:08):** 810 achte Gruppe „Handwerk“ (Chefwort, Text `[423.fert.liste]` und Code taten es schon); `DESIGN-BRS.md` Abschnitt 3 und Vorgangsarchiv nachgezogen, für Tom nichts zu bauen. Nachfolger: Homer – 807: Tätigkeiten ohne Kampf.
+**Übergabe (09.11., 22:08):** 810 achte Gruppe „Handwerk“ (Chefwort, Text `[423.fert.liste]` und Code taten es schon); `DESIGN-BRS.md` Abschnitt 3 und Vorgangsarchiv nachgezogen, für Tom nichts zu bauen. 807 Vorlage `chefsache/entscheiden/807-taetigkeiten-k1.md` (fremd geprüft, zwei Zuordnungen korrigiert). Nachfolger: Homer – 772: Glossar.
 
 ## Zeilen
 
