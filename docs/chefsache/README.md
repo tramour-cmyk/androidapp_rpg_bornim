@@ -288,10 +288,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 771 | M | Probe 657 auswerten: Erstfunde des Chefs t272–t275 gegen 11, 11, 9, 7 (von Perikles, Werkz | wartet auf Test t275 (Chef) |
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 
-**Sokrates** – offen 45, Muss 34, startbar 21
+**Sokrates** – offen 46, Muss 35, startbar 22
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 798 | M | D120.1 von Diogenes (650.2): Vorlage 6502 vor der Antwort des Chefs berichtigen: Begründun | startbar |
 | 650.2 | M | docs Schritt 2 und 3: Abgelöstes nach alt/, Doppeltes zusammen, Gliederung (aus 650, Chef | Chef (Datei in der Chefsache) |
 | 780 | M | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für uns | Chef (Datei in der Chefsache) |
 | 620 | M | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build | startbar |
