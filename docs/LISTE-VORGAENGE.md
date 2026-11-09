@@ -243,7 +243,7 @@
 | 719 | Wochentermine selbsttätig als Muss in die Vorgangsliste (Ideenspeicher, Rollenspiegel fielen aus) | Perikles | M | gebaut, Geprüft an: 7adf1cd1e (Probe Kopie 16.11.: 3 angelegt, zweiter Lauf 0) | – | – | – | B Werkzeuge | – |
 | 720 | Abnahmeliste: Teilhaken mitzählen, wöchentliche Haken-Frage für Gebautes (0 von 41) | Perikles | M | wartet, erste Runde ansehen/720-haken.md | Chef 720 | – | – | Q QM | – |
 | 657 | Regeln radikal kürzen: eine Seite für alle mit Stil, Team, Ablauf (Chef 08.11., 14:58, 15:05) | Perikles | M | gebaut, Geprüft an: 35e71a7c4 (Probe t272 Liste, t276 abgelaufen) | – | – | – | B Abläufe | – |
-| 748 | D95.1 von Diogenes: 464 greift nicht, Push-Haken prüft nur Parsefehler, rote Läufe 08.11. kamen aus Tests (12× Skripte pruefen, 2× REEBOO), Teil „Tests lokal grün“ fehlt | Perikles | M | startbar | – | – | – | B Abläufe | – |
+| 748 | D95.1 von Diogenes: 464 greift nicht, Push-Haken prüft nur Parsefehler, rote Läufe 08.11. kamen aus Tests (12× Skripte pruefen, 2× REEBOO), Teil „Tests lokal grün“ fehlt | Perikles | M | gebaut, Geprüft an: e74948f61 (Probe Wegwerf-Repo) | – | – | – | B Abläufe | – |
 | 749 | D95.2 von Diogenes: 464 Zählung fehlt, tagesbericht.py liest keine roten Läufe, keine Zeile „von Ford (464)“ in Teamvorräten seit 02.11. (Zeile „Rot TT.MM.“ bei Ford: 741) | Perikles | M | startbar | – | – | – | B Abläufe | – |
 | 340.2 | Rollenspiegel C: `tools/rollenspiegel.sh`, eigene Antwort ohne fremde | Diogenes | M | erledigt | – | – | – | B Abläufe | 13,83 $ |
 | 485 | Diogenes bessert sich aus dem Rollenspiegel 02.11.: Wochentermine zählen, Vergleichsblätter selbst holen, Meldungen ohne Abkürzungen (Chef 02.11., 19:37 „1, 2, 3 ja“) · „jetzt“ 02.11., 19:37 | Diogenes | M | erledigt | – | – | – | Q QS | – |
