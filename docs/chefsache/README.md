@@ -159,7 +159,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 814 | M | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staub im Licht, Fußstaub, Fahne, Wind, | Sperre 620.1 B: 18 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 804 (bilder) |
 | 815 | M | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staubflocken innen, Fußstaub, Fahne, W | Sperre 620.1 B: 18 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 804 (bilder) |
 
-**Jerry** – offen 74, Muss 63, startbar 11
+**Jerry** – offen 73, Muss 63, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -235,7 +235,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 806 | M | Kampforte mit den Effektpaketen schöner: Gras und Blumen aus R9, Boden, Staub; Bilder/s ni | startbar |
 | 811 | K | Von Perikles (800, 650.2 C1): Kommentar in godot/regeln/brs_kampf.gd Zeile 3 nennt DESIGN- | startbar |
 | 823 | K | Von Perikles (822, 745 A2): Abschnitt „## Checkliste“ in LISTE-MARS.md, je Regel zum Kampf | startbar |
-| Pflege | K | von Werkzeug (340.3, 10.11.): 15503 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 824 | M? | Kampf: Schurke ohne Schild geht beim Angriff kurz 3,4–3,8 m/s in „Gehen“ (Bewegung höchste | startbar |
 
 **Perikles** – offen 20, Muss 6, startbar 1
