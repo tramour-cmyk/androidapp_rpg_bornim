@@ -47,7 +47,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 | 772 | K | D89.2 von Diogenes (über Perikles): Glossar ohne „Vorgang beim Chef“ (480); „steht in“ zei | startbar |
 
-**Tom** – offen 100, Muss 80, startbar 1
+**Tom** – offen 99, Muss 80, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -150,7 +150,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 762 | M | Heldenreiter zeigt die BRS-Fertigkeiten mit Wert, Rang und Fortschritt, damit man sieht, w | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
 | 764 | M | Heldenreiter zeigt aktive Zustände (betrunken usw.) mit Erklärung; Tippen auf die Leiste ö | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
 | 769 | M | Wochentermin 13.11.: Rollenspiegel Tom (rollenspiegel.sh Tom) (719); deckt 02.–13.11., Woc | Termin 13.11. 08:00 |
-| Pflege | K | von Werkzeug (340.3, 09.11.): 19627 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 72, Muss 66, startbar 1
 
