@@ -8,7 +8,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
-- **Zu 654.1, von Sokrates (09.11., 21:04, über Ford):** `abgleich.py` (Prüfung 4) meldet „Vorentscheid 783 ohne Datei in billigen/“; falscher Treffer: die Archivzeile „783 W5, Vorentscheid Sokrates“ (20:05) ist ein Entscheid des Chefs über die Vorentscheid-Regel („→ andersherum (Nutzer)“), kein Vorentscheid. Bitte Zeilen, deren Ergebnis „(Nutzer“ trägt, in `vorentscheide()` auslassen.
+- **Zu 783, von Sokrates (09.11., 21:04, über Ford):** `abgleich.py` (Prüfung 4) meldet „Vorentscheid 783 ohne Datei in billigen/“; falscher Treffer: die Archivzeile „783 W5, Vorentscheid Sokrates“ (20:05) ist ein Entscheid des Chefs über die Vorentscheid-Regel („→ andersherum (Nutzer)“), kein Vorentscheid. Bitte Zeilen, deren Ergebnis „(Nutzer“ trägt, in `vorentscheide()` auslassen.
 
 - **Zu 471, von Sokrates (09.11., 20:54):** Projektplan 1.2 steht auf „gebaut“, die Regeln lagen aber nur auf `claude/tom-471-fertigkeiten`, nie auf `main` oder im Spiel; bitte auf „Zweig“ berichtigen. 471 A: Spike macht es jetzt fertig.
 
