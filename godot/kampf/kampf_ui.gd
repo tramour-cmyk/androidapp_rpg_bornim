@@ -972,8 +972,10 @@ func _draw_overlay() -> void:
 	var k = kampfort
 	var m = k.mars
 	var sr: Rect2 = k.scene_rect()
-	# SkirmishScreen: nach dem Ende kein Ring, keine Zugleiste, keine Schalter (Prüfer: nach dem Sieg noch Pfeil und Würfel)
-	var ended: bool = m.outcome != "ONGOING"
+	# SkirmishScreen: nach dem Ende kein Ring, keine Zugleiste, keine Schalter (Prüfer: nach dem Sieg noch Pfeil und Würfel).
+	# 679 (Chef 08.11., 16:11, Build 269: „die Wölfe haben einen Lauf und ich habe keine Zusatzfunktionen mehr“): MARS rechnet im
+	# Hintergrund voraus, der Ausgang steht fest, während die letzten Züge noch spielen; zu Ende ist es erst, wenn alles gezeigt ist
+	var ended: bool = m.outcome != "ONGOING" and not k.busy
 	var current = m.current() if not k.busy and not ended else null
 	# under the figures: the ring under the one whose turn it is, chosen targets (CamRing)
 	for id in k.figures:
