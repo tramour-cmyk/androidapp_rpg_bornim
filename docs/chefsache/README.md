@@ -27,6 +27,7 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 |---|---|---|---|
 | [701](ansehen/701-obergrenze.md) | Gegenstandsfenster: Hinweis auf die Obergrenze einmal | Tom | 09.11., 18:35 |
 | [753](ansehen/753-rastblende.md) | Blende nach der Rast im neuen Design | Spike | 09.11., 20:13 |
+| [584](ansehen/584-halbfett.md) | Halbfetter Schnitt wie alt (Erschaffung, Held, Chronik, Karte, System) | Tom | 09.11., 20:36 |
 | [762](ansehen/762-fertigkeiten.md) | Heldenreiter zeigt deine Fertigkeiten mit Rang und Wert | Tom | 09.11., 20:31 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
