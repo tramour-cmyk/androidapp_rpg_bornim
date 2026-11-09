@@ -24,7 +24,8 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [623](tun/623-kauf.md) | **Muss** | E Kampf | 07.11., 20:13 | Effektpakete: Rest nach dem Kauf | Sokrates |
+| [801](tun/801-kaufmodelle-zugriff.md) | **Muss** | E Kampf | 09.11., 21:08 | add_repo für bornim-kaufmodelle freigeben? | Jerry |
+| [623](tun/623-kauf.md) | **Muss** | E Kampf | 09.11., 21:06 | Effektpakete R3, R4, R7 ins private Repo hochladen? | Sokrates |
 
 ## Offen je Rolle
 
@@ -149,9 +150,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 756 | M | Gegenstände: wie Seltenheit, Abnutzung und übrige Merkmale bei anlegbarer Ausrüstung angez | Sperre 620.1 B: 16 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 522 (ausrustung) |
 | 785 | M | Oberfläche einmal ganz gegen alt: jeder Schirm und jede Bedienung als eine Liste, jeder Un | wartet auf 784 (startbar) |
 | 795 | M | BRS-Erschaffung, Platzwahl „Alle Spielstand-Plätze sind belegt“: noch Rahmen und Auslösen | Sperre 620.1 B: 16 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 773 (alle) |
-| Pflege | K | von Werkzeug (340.3, 09.11.): 15945 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 09.11.): 16164 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 74, Muss 68, startbar 2
+**Jerry** – offen 75, Muss 69, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -159,22 +160,22 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 717 | M | Kampf: Gegner zeigt dem Helden nie den Rücken, außer auf der Flucht; nach dem Angriff rück | wartet auf Test (Build 272) |
 | 717.1 | M | Kampf: Zurechtrücken der Gegner läuft gleichzeitig mit dem Zug des Helden statt davor (Ide | wartet auf Test (Build 272) |
 | 682 | M | Kampf flüssiger: Held geht zügig zum Angriff, Gegner laufen in weichen Bögen statt eckig g | wartet auf Test (Build 272) |
-| 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 717 (angriffe) |
-| 562 | M | MARS: Helden laufen zum Angriff viel zu langsam, zurück gleiten sie flott (Chef 04.11., 17 | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 717 (angriff) |
-| 662 | M | Kampf (vorher 653): Parade des Helden mit Schild dreht über _face_sanft ohne Pfotenhalt, S | startbar |
-| 593 | M | MARS: Ausweichen auch rückwärts als Abwechslung zu links und rechts (Chef 05.11., 19:2x) | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 717 (ruckwarts) |
-| 406.2 | M | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 717 (angriff) |
-| 438 | M | Wölfe im Kampf wirken gleitend: Angriff, Tempo, Vorbeigehen (Film 403, Chef 31.10., 23:31) | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 778 (wolfe) |
-| 642 | M | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 778 (wolf) |
+| 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 717 (angriffe) |
+| 562 | M | MARS: Helden laufen zum Angriff viel zu langsam, zurück gleiten sie flott (Chef 04.11., 17 | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 717 (angriff) |
+| 662 | M | Kampf (vorher 653): Parade des Helden mit Schild dreht über _face_sanft ohne Pfotenhalt, S | wartet auf Test/Build (gebaut) |
+| 593 | M | MARS: Ausweichen auch rückwärts als Abwechslung zu links und rechts (Chef 05.11., 19:2x) | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 717 (ruckwarts) |
+| 406.2 | M | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 717 (angriff) |
+| 438 | M | Wölfe im Kampf wirken gleitend: Angriff, Tempo, Vorbeigehen (Film 403, Chef 31.10., 23:31) | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 778 (wolfe) |
+| 642 | M | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 778 (wolf) |
 | 679 | M | Kampf: im ersten Testkampf (Kleriker gegen Wölfe) fehlten Befehle und Knöpfe (Gewinnen, Ve | wartet auf Test/Build (gebaut) |
-| 704 | M | Wolf allein ist harmlos, wenn der Held jedem angekündigten Sprung ausweicht: 300 von 300 S | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 778 (wolf) |
-| 705 | M | Zauberlehrling Stufe 1 gewinnt gegen Wolf und Rudel selten (BRS 2–30 %, Messung anspringen | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 778 (wolf) |
+| 704 | M | Wolf allein ist harmlos, wenn der Held jedem angekündigten Sprung ausweicht: 300 von 300 S | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 778 (wolf) |
+| 705 | M | Zauberlehrling Stufe 1 gewinnt gegen Wolf und Rudel selten (BRS 2–30 %, Messung anspringen | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 778 (wolf) |
 | 702 | M | Wölfe: Anspringen nimmt dem Helden jeden Zug, Rudel hält ihn dauerhaft fest (Chef t270, 08 | wartet auf Test (Build 272) |
-| 595 | M | Kampfbewegungen der Kaufgegner: Spinne mehr Angriffe, Egel und Schnecke schneller, Treffhö | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 717 (angriffe) |
-| 616 | M | Kampf: Gegner weichen nach dem Angriff rückwärts zurück statt vorwärts zu laufen (Chef 07. | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 717 (angriff) |
+| 595 | M | Kampfbewegungen der Kaufgegner: Spinne mehr Angriffe, Egel und Schnecke schneller, Treffhö | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 717 (angriffe) |
+| 616 | M | Kampf: Gegner weichen nach dem Angriff rückwärts zurück statt vorwärts zu laufen (Chef 07. | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 717 (angriff) |
 | 532 | M | Kampf: Held geht ohne Zauberpunkte, Verbrauchtes, Zustände, Metrausch und ohne die ganze T | wartet auf Test/Build (gebaut) |
-| 536 | M | Kampf: Erklärungen bei langem Drücken (MarsTips), Grund bei gesperrtem Zauber, „Kein Ziel | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 679 (knopf) |
-| 296.2 | M | MARS spielnötig: Beute/Erfahrung, Fliehen, Eröffnung, Zustände, eigene Ausrüstung, Schalte | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 532 (zustande) |
+| 536 | M | Kampf: Erklärungen bei langem Drücken (MarsTips), Grund bei gesperrtem Zauber, „Kein Ziel | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 679 (knopf) |
+| 296.2 | M | MARS spielnötig: Beute/Erfahrung, Fliehen, Eröffnung, Zustände, eigene Ausrüstung, Schalte | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 532 (zustande) |
 | 211.14 | M | Rest 211.13: Leistung A56, Puppen-Gegner im Kamerawinkel, Winkel je Platz, Wechsel als Gan | in Arbeit bei Tuffy |
 | 551 | M | MARS: Rahmen des unteren Kastens links und rechts unterbrochen (Chef 04.11., 00:21) | ruht |
 | 547 | M | MARS: Text sagt „geht in die Knie“, Sturz ist aus (438a eingefroren): Text und Bild in Ein | wartet auf Test (Build) |
@@ -222,20 +223,20 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 644.1 | M | Gegenstandskatalog: Werkzeug mit Spalten, Teil Rezepte und Prüfungen (644 A), zusammen mit | ruht |
 | 644.2 | M | Gegenstandskatalog: Zahlen nach 469 in 444 (Tempo, Parieren, Durchschlag, Güte, Stufe), C1 | ruht |
 | 681 | M | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | ruht |
-| 744 | M | Karte: Streuner und Leute bewegen sich natürlich, verweilen mit Ruhebewegung statt Roboter | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 717 |
-| 751 | M | Kampf: Knopfleiste des Helden manchmal leer („…“), keine Menüfunktion, auch ohne „ganzer B | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 778 (figur.gd) |
-| 760 | M | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 778 (wolf) |
+| 744 | M | Karte: Streuner und Leute bewegen sich natürlich, verweilen mit Ruhebewegung statt Roboter | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 717 |
+| 751 | M | Kampf: Knopfleiste des Helden manchmal leer („…“), keine Menüfunktion, auch ohne „ganzer B | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 778 (figur.gd) |
+| 760 | M | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 778 (wolf) |
 | 770 | M | Wochentermin 13.11.: Rollenspiegel Jerry (rollenspiegel.sh Jerry) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
-| 784 | M | Kampf-Sollbild „Wolfsrudel, eine Runde“: wer geht wohin, Höchstdauer je Handlung, Ausweich | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 679 (wolfsrudel) |
+| 784 | M | Kampf-Sollbild „Wolfsrudel, eine Runde“: wer geht wohin, Höchstdauer je Handlung, Ausweich | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 679 (wolfsrudel) |
 | 786 | M | Klangliste alt gegen neu: je Anlass alt, neu, fehlt (654 A, als Drittes) | wartet auf 784 (startbar) |
-| Pflege | K | von Werkzeug (340.3, 09.11.): 17083 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 09.11.): 15915 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 801 | M | Freigabe add_repo für bornim-kaufmodelle in den Sitzungseinstellungen (Zugriffsprüfung leh | Chef (Datei in der Chefsache) |
 
-**Perikles** – offen 25, Muss 10, startbar 6
+**Perikles** – offen 24, Muss 9, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 796 | M | Schritt 3 zu 745: Regeln nach 783 angleichen (W1–W8, Archiv 09.11., 20:00–20:16), Werkzeug | startbar |
-| 511 | M | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele | wartet auf Diogenes |
+| 796 | M | Schritt 3 zu 745: Regeln nach 783 angleichen (W1–W8, Archiv 09.11., 20:00–20:16), Werkzeug | wartet auf Diogenes |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf Diogenes |
 | 464 | M | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählu | Termin 16.11. |
 | 347.2 | M | Umsetzung Plan 347 nach Gegenprüfung (Chef 24.10., 16:30) | wartet auf 347 (startbar) |
@@ -258,13 +259,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 799 | M | Vorlagen nach 364: Muster MUSTER.md und Haken, der entscheiden/ und billigen/ ohne die ach | startbar |
 | 800 | M | docs aufräumen nach 650.2: A nach alt/ (je Datei „vorher“), B kapitel2/, C1 BRS umbenennen | startbar |
 | 739 | K | D84.1 die sechs wiederholten Funde aus t268 mit „wiederholt“ im Titel nachziehen (620.1 A; | startbar |
-| Pflege | K | von Werkzeug (340.3, 09.11.): 16466 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 09.11.): 16764 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Diogenes** – offen 9, Muss 8, startbar 0
+**Diogenes** – offen 9, Muss 8, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 511 | M | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele | wartet auf D75 (Dauer) |
+| 796 | M | Schritt 3 zu 745: Regeln nach 783 angleichen (W1–W8, Archiv 09.11., 20:00–20:16), Werkzeug | startbar |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
 | 461b | M | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Termin 16.11. |
 | 348.9 | M | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | ruht |
@@ -274,7 +275,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 771 | M | Probe 657 auswerten: Erstfunde des Chefs t272–t275 gegen 11, 11, 9, 7 (von Perikles, Werkz | wartet auf Test t275 (Chef) |
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 
-**Sokrates** – offen 45, Muss 34, startbar 21
+**Sokrates** – offen 45, Muss 34, startbar 22
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -319,7 +320,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 655 | M | Bilder: Ersteller sieht sein Bild selbst an, Regel 300 streichen statt neuer Vorprüfung (C | startbar |
 | 739 | K | D84.1 die sechs wiederholten Funde aus t268 mit „wiederholt“ im Titel nachziehen (620.1 A; | wartet auf Perikles |
 | 740 | K | D63.7 Vorlage entscheiden/3761-kettenhemd-heldin.md (01.11., 20:55) ohne Zeile „Bestand ge | startbar |
-| 745 | M | Regelwerk konsolidieren: Widersprüche listen (Diogenes), Chef entscheidet, jede Regel an e | wartet auf 796 (startbar) |
+| 745 | M | Regelwerk konsolidieren: Widersprüche listen (Diogenes), Chef entscheidet, jede Regel an e | startbar |
 | 765 | M | Wochentermin 13.11.: Rollenspiegel Sokrates (rollenspiegel.sh Sokrates) (719); deckt 02.–1 | Termin 13.11. 08:00 |
 | 782 | M | Von Tom (697): ein Lauf am Rechner frei? Der erste (17:38) brach vor dem Zeichnen ab (Proj | startbar |
 | 475 | M | Leute des Dorfs (Rowena, Borin …) auf Kaufkörper ihres Volks mit Gesicht, statt der alten | startbar |
@@ -338,6 +339,6 @@ Format (Muster: „So geht's“ unten): t272-sammelbuild.md: Zeile 2 ist keine B
 - Zu billigen (Vorentscheid, 194.1): `billigen/<nr>-<stichwort>.md`, Aufbau wie bei „entscheiden“, Votum = Entschieden, plus: Umgesetzt (Commit), Rückbau, Kosten; in der Auswertung bei Balance und Spielgefühl die verworfene Möglichkeit. Hält keine Arbeit an; Antwort „gebilligt“ oder „zurück“, Sokrates löscht die Datei und setzt „gebilligt TT.MM.“ oder „zurück TT.MM.“ in die Archivzeile.
 - Bilder in `bilder/`: JPG oder WebP, höchstens 800 px breit und 60 KB, höchstens 3 je Punkt. Größere Bilder und Hörproben nur über Telegram (`meldung.sh --datei`), in der Datei vermerkt: „Großbild: Telegram TT.MM. HH:MM“. Ablage im Zweig `bilder` als `bilder:<pfad>` (z. B. `[Film](bilder:pruefung/x.mp4)`); die Übersicht macht daraus Links, Filme spielen im Browser (381.1).
 - **Überarbeiten** (275, Chef 27.10., 15:23: „sonst schaue ich es mir am Schluss zweimal an“): wer eine Vorlage überarbeitet, löscht die Datei sofort und legt sie neu an, wenn die neue Fassung fertig ist; nie „folgt“, „kommt nach“ in einer Vorlage (die Übersicht meldet es unter „Lücken“).
-- **Beantwortet oder zurück beim Team** (383.3, Chef 27.10., 19:55: „Sachen, die nicht mehr zur Vorlage sind, dann weg … Das ist kein Arbeiten so.“): wer eine Antwort des Chefs zu einer Vorlage einträgt (Vorgangsarchiv oder Vorrat), löscht die Datei im selben Commit, auch die eines anderen; bleibt ein Teil offen, legt der Besitzer sie neu an, sobald sie vorlegbar ist. Gilt die Antwort einer anderen Frage derselben Nummer, setzt er die Zeit in Zeile 1 oder 2 neu. Die Commit-Prüfung hält einen Archiveintrag an, dessen Vorlage stehen bleibt; Übersehenes meldet die Übersicht unter „Lücken“.
+- **Beantwortet oder zurück beim Team** (383.3, Chef 27.10., 19:55: „Sachen, die nicht mehr zur Vorlage sind, dann weg … Das ist kein Arbeiten so.“): wer eine Antwort des Chefs zu einer Vorlage einträgt (Vorgangsarchiv oder Vorrat), löscht die Datei im selben Commit, auch die eines anderen, und trägt jeden Auftrag, der aus der Antwort folgt, im selben Commit dem Betroffenen ein (783 W8, Chef 09.11., 20:07: „das darf nicht untergehen“); anlegen darf jeder nur seine, Sokrates auch für andere; bleibt ein Teil offen, legt der Besitzer sie neu an, sobald sie vorlegbar ist. Gilt die Antwort einer anderen Frage derselben Nummer, setzt er die Zeit in Zeile 1 oder 2 neu. Die Commit-Prüfung hält einen Archiveintrag an, dessen Vorlage stehen bleibt; Übersehenes meldet die Übersicht unter „Lücken“.
 - Zu tun (275): `tun/<nr>-<stichwort>.md`, Zeile 1 `# <Nr.> · <was der Chef tun soll>`, Zeile 2 `<Absender> · <TT.MM.>, <HH:MM> · <Bereich>`, dann der Satz zum Kopieren als Codeblock oder der Weg in Schritten; erledigt heißt Datei löschen (wer sie angelegt hat). Ein „wartet auf Chef“ ohne Datei hier meldet `startbar.py` als Leiche.
 - Telegram-Sprungmarke `[72s.1](cs:72s1)` führt auf die Datei (`tools/meldung.sh`).

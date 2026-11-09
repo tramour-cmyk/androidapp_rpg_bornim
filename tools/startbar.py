@@ -581,10 +581,11 @@ UEBERNAHME = {"Tom": "Jerry", "Jerry": "Tom"}
 GERAET = re.compile(r"Test|Gerät|Build|APK", re.I)
 
 def uebernahme(rolle, info):
-    """118/202: hat das Team nichts Startbares, die oberste freie Zeile des anderen Teams (ohne Gerätetest bevorzugt)."""
+    """118/202, 783 W3 (Chef 09.11., 20:13): hat das Team kein startbares Muss, das oberste freie Muss des anderen Teams
+    (ohne Gerätetest bevorzugt), vor der eigenen Kür."""
     a = UEBERNAHME[rolle]
     if a not in info or rolle not in info or info[rolle][2]: return None
-    frei = [z for z in info[a][0] if "fuer" not in z[3]]
+    frei = [z for z in info[a][0] if "fuer" not in z[3] and z[1] == "M"]
     if not frei: return None
     ohne = [z for z in frei if not GERAET.search(z[2])]
     z = (ohne or frei)[0]
@@ -650,7 +651,7 @@ def main():
         if rolle in UEBERNAHME:
             # wie bisher alle eigenen Zeilen, die auf einen Test warten, auch die schon einem Build zugeordneten (D80.6)
             gebaut = sum(1 for z in zs if "fuer" not in z[3] and (z[4] or "").startswith("wartet auf Test"))
-            info[rolle] = ([z for z in zs if not z[4]], gebaut, erstes["M"] or erstes["K"] or erstes["N"])
+            info[rolle] = ([z for z in zs if not z[4]], gebaut, erstes["M"])  # 783 W3: nur eigenes Muss hält die Übernahme
         def kurz(e):
             if not e: return "–"
             return "%s %s%s" % (e[0], re.sub(r"\*\*|`", "", e[2])[:70], (" ↑ Muss: %s wartet" % ", ".join(fremd_wartend()[e[0]])) if e[0] in fremd_wartend() else "")

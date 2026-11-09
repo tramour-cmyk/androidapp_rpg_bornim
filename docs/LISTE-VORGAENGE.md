@@ -107,21 +107,21 @@
 | 753 | Blende nach der Rast: „8 Stunden vergehen“ klein und futzelig, nicht im neuen Design (Chef 09.11., 14:09, Fund t271.7) | Tom | M | gebaut, Bild beim Chef; Geprüft an: f785da832 | – | claude/spike-753-rastblende | – | E Oberfläche | 2,66 $ |
 | 757 | Schenke: neuer Tisch 7/2 (aus 604) wirkt als 1:1-Kopie des Tischs vor der Theke, gleiche Sachen darauf; eigener Tisch mit anderem Gedeck (Chef 09.11., 14:29) | Tom | M | startbar | – | – | – | E Welt | – |
 | 758 | Borin soll in der Schenke am Tisch sitzen wie in der alten Fassung, nicht seitlich daneben stehen (Chef 09.11., 14:29) | Tom | M | startbar, 758 A (Chef 20:45) | – | – | – | E Welt | – |
-| 762 | Heldenreiter zeigt die BRS-Fertigkeiten mit Wert, Rang und Fortschritt, damit man sieht, was Schwert, Abwehr usw. üben (heute nur Klassenfähigkeiten alter Art) (Chef 09.11., 14:49, aus 720) | Tom | M | startbar, eigener Reiter (Chef 20:59), neues Bild | – | – | – | E Oberfläche | – |
+| 762 | Heldenreiter zeigt die BRS-Fertigkeiten mit Wert, Rang und Fortschritt, damit man sieht, was Schwert, Abwehr usw. üben (heute nur Klassenfähigkeiten alter Art) (Chef 09.11., 14:49, aus 720) | Tom | M | startbar, eigener Reiter (Chef 20:59), neues Bild | – | claude/tom-762-fertigkeiten | – | E Oberfläche | – |
 | 764 | Heldenreiter zeigt aktive Zustände (betrunken usw.) mit Erklärung; Tippen auf die Leiste öffnet nur das Menü, eine Erklärung gibt es nirgends (Chef 09.11., 14:49) | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 769 | Wochentermin 13.11.: Rollenspiegel Tom (rollenspiegel.sh Tom) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Tom | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 781 | „Über das Spiel“ nennt den MIT-Teil der REEBOO-Pakete (David Hoskins, Hashfunktionen in Grass, Water, Surface) wie Godot (497); MIT verlangt den Hinweis (aus 623.1, Sokrates) | Tom | M | startbar, Kaufrepo da | – | – | – | E Technik | – |
 | 756 | Gegenstände: wie Seltenheit, Abnutzung und übrige Merkmale bei anlegbarer Ausrüstung angezeigt werden (Chef 09.11., 14:23) | Tom | M | startbar, 756 A: Probebild Merkmale (Chef 17:46) | – | – | – | E Oberfläche | 20,48 $ |
 | 785 | Oberfläche einmal ganz gegen alt: jeder Schirm und jede Bedienung als eine Liste, jeder Unterschied ein Vorgang; 666, 669, 671, 711, 752 gehen darin auf (654 A, nach dem Kampf-Sollbild) | Tom | M | wartet, nach Kampf-Sollbild (654 A) | 784 | – | – | E Oberfläche | – |
 | 795 | BRS-Erschaffung, Platzwahl „Alle Spielstand-Plätze sind belegt“: noch Rahmen und Auslösen beim Drücken wie vor 700 (erschaffung_brs.gd 228–234; Helfer t272, 09.11.) | Tom | M | startbar | – | – | – | E Oberfläche | – |
-| Pflege | von Werkzeug (340.3, 09.11.): 15945 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 09.11.): 16164 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
 | 778 | Von Tom (773): Build 272 rot an wolf_mess_438 (Kleriker gegen Wölfe: Wolf in Wolf 68 Bilder, Grenze 30; Gleiten zweimal über 0,5 m), mit 717/682 und 702 C zusammen; „jetzt“ 09.11., 17:25 | Jerry | M | zu testen | – | claude/jerry-717-rueckwaerts | 272 | E Kampf | 11,23 $ |
 | 717 | Kampf: Gegner zeigt dem Helden nie den Rücken, außer auf der Flucht; nach dem Angriff rückwärts zurück oder stehen bleiben, keine Kurve heim (Chef 09.11., 08:51; ändert 682) · „jetzt“ 09.11., 08:51 | Jerry | M | zu testen | – | claude/jerry-717-rueckwaerts | 272 | E Kampf | – |
 | 717.1 | Kampf: Zurechtrücken der Gegner läuft gleichzeitig mit dem Zug des Helden statt davor (Idee Chef 09.11., 08:58, zu 717) | Jerry | M | zu testen | – | claude/jerry-717-rueckwaerts | 272 | E Kampf | – |
 | 682 | Kampf flüssiger: Held geht zügig zum Angriff, Gegner laufen in weichen Bögen statt eckig gerade-diagonal, weniger Warten auf Hin- und Zurücklaufen bei Fehlschlägen; grundsätzlich für alle Gegner (Chef 08.11., 16:22, t269; „Schienenbahnen“ t270) · „jetzt“ 08.11., 21:36 | Jerry | M | zu testen | – | claude/jerry-717-rueckwaerts | 272 | E Kampf | 79,30 $ |
 | 709 | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angreifer prüfen (Chef 08.11., 21:36, über Sokrates) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 562 | MARS: Helden laufen zum Angriff viel zu langsam, zurück gleiten sie flott (Chef 04.11., 17:02, t257 C) | Jerry | M | startbar, Fund t270.8 | – | claude/jerry-562-angriffsschritt | – | E Kampf | 17,49 $ |
-| 662 | Kampf (vorher 653): Parade des Helden mit Schild dreht über _face_sanft ohne Pfotenhalt, Skriptfehler „halt“ Nil, gang bleibt „dreh“ (Jerry 08.11., effekt_mess_6235) | Jerry | M | startbar, Fund t270.9 | – | claude/jerry-653-parade | – | E Kampf | 0,98 $ |
+| 662 | Kampf (vorher 653): Parade des Helden mit Schild dreht über _face_sanft ohne Pfotenhalt, Skriptfehler „halt“ Nil, gang bleibt „dreh“ (Jerry 08.11., effekt_mess_6235) | Jerry | M | gebaut, Geprüft an: c313712f1 (parade_seite_662) | – | claude/jerry-662-paradeseite | – | E Kampf | 0,98 $ |
 | 593 | MARS: Ausweichen auch rückwärts als Abwechslung zu links und rechts (Chef 05.11., 19:2x) | Jerry | M | startbar, Fund t270.12 | – | claude/jerry-593-ausweichen | – | E Kampf | – |
 | 406.2 | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) | Jerry | M | startbar, Fund t269.21 | – | – | – | E Kampf | 41,37 $ |
 | 438 | Wölfe im Kampf wirken gleitend: Angriff, Tempo, Vorbeigehen (Film 403, Chef 31.10., 23:31) | Jerry | M | startbar, Fund t269.21 | – | claude/jerry-438-wolf-kampf | – | E Kampf | 124,52 $ |
@@ -188,7 +188,8 @@
 | 770 | Wochentermin 13.11.: Rollenspiegel Jerry (rollenspiegel.sh Jerry) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Jerry | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 784 | Kampf-Sollbild „Wolfsrudel, eine Runde“: wer geht wohin, Höchstdauer je Handlung, Ausweichen bleibt; selbst am Handybild nachspielen, dann Maß für jeden Kampffund (654 A, Chef 09.11., 17:46) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 786 | Klangliste alt gegen neu: je Anlass alt, neu, fehlt (654 A, als Drittes) | Jerry | M | startbar | 784 | – | – | E Klang | – |
-| Pflege | von Werkzeug (340.3, 09.11.): 17083 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 09.11.): 15915 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
+| 801 | Freigabe add_repo für bornim-kaufmodelle in den Sitzungseinstellungen (Zugriffsprüfung lehnte 376.1 ab; Jerry 09.11., 662) | Jerry | M | startbar | Chef | – | – | E Kampf | – |
 | 432 | Eigenes Volk aus Bornim (etwa mit dem Grauen Propheten, „Tag der Asche“) prüfen, mit der Geschichte ab Kapitel 2 (Chef 31.10., 22:0x) | Homer | K | ruht | – | – | – | G Story | 0,79 $ |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
@@ -196,8 +197,8 @@
 | 348.12g | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | Homer | M | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | – | – | – | G Story | 4,29 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 772 | D89.2 von Diogenes (über Perikles): Glossar ohne „Vorgang beim Chef“ (480); „steht in“ zeigt meist auf CLAUDE.md | Homer | K | startbar | – | – | – | B Abläufe | – |
-| 796 | Schritt 3 zu 745: Regeln nach 783 angleichen (W1–W8, Archiv 09.11., 20:00–20:16), Werkzeuge probelauf.py, lauf.py --morgen (von Sokrates) | Perikles | M | startbar | – | – | – | B Abläufe | – |
-| 511 | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele sinnlose und kaputte Filme gemacht?“) · „jetzt“ 03.11., 13:50 | Perikles | M | gebaut, Geprüft an: d6d9eca8c | Diogenes, D75 | – | – | B Werkzeuge | 19,83 $ |
+| 796 | Schritt 3 zu 745: Regeln nach 783 angleichen (W1–W8, Archiv 09.11., 20:00–20:16), Werkzeuge probelauf.py, lauf.py --morgen (von Sokrates) | Perikles | M | gebaut, Geprüft an: 5e1541e63 | Diogenes | – | – | B Abläufe | 4,38 $ |
+| 511 | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele sinnlose und kaputte Filme gemacht?“) · „jetzt“ 03.11., 13:50 | Perikles | M | erledigt, ersetzt durch 783 W1 (796) | – | – | – | B Werkzeuge | 19,83 $ |
 | 483 | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Marke (Chef 02.11., 19:08) | Perikles | M | gebaut, Geprüft an: 62e922b30 | Diogenes, D75 | – | – | B Werkzeuge | – |
 | 464 | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählung im Tagesbericht (Chef 01.11., 20:4x) | Perikles | M | gebaut, Geprüft an: fcf9ab215 | 16.11. | – | – | B Abläufe | – |
 | 347.2 | Umsetzung Plan 347 nach Gegenprüfung (Chef 24.10., 16:30) | Perikles | M | wartet | 347 | – | – | B Abläufe | – |
@@ -219,7 +220,7 @@
 | 797 | Von Tom (506): Auto-Modus lehnt add_repo trotz 708 ab, Chef musste 20:15 erneut erlauben; Erlaubnisregel mcp__claude-code-remote__add_repo in .claude/settings.json (Chef: „alle Repos benutzen“) | Perikles | M | startbar | – | – | – | B Abläufe | – |
 | 799 | Vorlagen nach 364: Muster MUSTER.md und Haken, der entscheiden/ und billigen/ ohne die acht Teile ablehnt; Übersicht meldet Altbestand (Chef 09.11., 20:35 und 20:46, über Sokrates) | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
 | 800 | docs aufräumen nach 650.2: A nach alt/ (je Datei „vorher“), B kapitel2/, C1 BRS umbenennen mit Werkzeugen, E2 Inhaltsverzeichnis „Für den Chef“ mit Prüfwerkzeug (Chef 09.11., 20:52, über Sokrates) | Perikles | M | startbar | – | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 09.11.): 16466 Bytes (Grenze 15000), Erledigtes streichen | Perikles | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 09.11.): 16764 Bytes (Grenze 15000), Erledigtes streichen | Perikles | K | startbar | – | – | – | B Abläufe | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
@@ -229,8 +230,8 @@
 | 790 | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab 200 Tsd., Chef 09.11., 18:05) | Diogenes | M | startbar | 16.11. 18:07 | – | – | Q QM | – |
 | 650.2 | docs Schritt 2 und 3: Abgelöstes nach alt/, Doppeltes zusammen, Gliederung (aus 650, Chef 09.11., 19:5x) | Sokrates | M | startbar, C2 und C3 bei Sokrates; A, B, C1, E2 als 800 | – | – | – | B Abläufe | – |
 | 780 | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für unsere gekauften Protofactor-Animsets und Janpec, die KI-Sitzungen mit Skripten bearbeiten? (aus 623.1) | Sokrates | M | wartet, Antwort der Händler, Mails gesendet 09.11., 20:33 | 23.11. | – | – | M Veröffentlichung | – |
-| 620 | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build (Chef 07.11.) | Sokrates | M | startbar | – | – | – | B Abläufe | 18,10 $ |
-| 623 | Effektpakete REEBOO Labs: Kauf, Ressourcenseite `LISTE-QUELLEN.md`, Zuordnung `LISTE-EFFEKTE.md`, Dank im Spiel (Chef 07.11.) | Sokrates | M | wartet, 7 Pakete gekauft 09.11., Rest beim Chef | Chef | – | – | E Kampf | 6,49 $ |
+| 620 | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build (Chef 07.11.) | Sokrates | M | startbar | – | – | – | B Abläufe | 19,58 $ |
+| 623 | Effektpakete REEBOO Labs: Kauf, Ressourcenseite `LISTE-QUELLEN.md`, Zuordnung `LISTE-EFFEKTE.md`, Dank im Spiel (Chef 07.11.) | Sokrates | M | wartet, 10 Pakete gekauft, R3 R4 R7 werden hochgeladen | Chef 623 | – | – | E Kampf | 6,49 $ |
 | 508 | Lehrmeister in Kapitel 1 erreichbar (Geselle), Magie-Pflicht Paladin/Kriegsmagier, Wachsoldat zu Wächter (aus 447.4) | Sokrates | M | startbar | – | – | – | G Stil | – |
 | 461b.4 | Widersprüche aus Liste 461b: Köpfe Regelwerk, Bestiarium, DESIGN-KAMPF gegen Entscheidung 84 | Sokrates | M | startbar | – | – | – | G Stil | 33,44 $ |
 | 481 | Herkünfte ausgleichen: Kräutersammler mit Kampftränken, Wachsoldat, Klosterschüler, Bewährungsprobe (Chef 02.11., 18:54, aus 427) | Sokrates | M | startbar | – | – | – | E Kampf | – |
@@ -274,7 +275,7 @@
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +866,88 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 767 | Wochentermin 13.11.: Rollenspiegel Ford (rollenspiegel.sh Ford) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Ford | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 09.11.): 29369 Bytes (Grenze 15000), Erledigtes streichen; Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 09.11.): 29460 Bytes (Grenze 15000), Erledigtes streichen; Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |

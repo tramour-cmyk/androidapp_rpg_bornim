@@ -47,7 +47,7 @@ Namen im Spiel (Völker, Zauber, Monster, Regelwerte) stehen nicht hier, sondern
 | **Rückläufer** | Punkt, der im Test des Chefs durchfiel und zurück ans Team geht | Prüfliste | – | `LISTE-BAUEN-TESTEN.md` |
 | **Probe** | ein Lauf, der etwas Sichtbares erzeugt; je Aussehen-Thema eine, danach an den Chef | – → Probelauf, Probebild | Messlauf als Ausrede | `ROLLE-ENTWICKLUNG.md` (621 A, 646) |
 | **Probelauf** | Bildlauf am Rechner (`PROBE=<Nr>`), Push, der einen Ablauf auslöst, oder Start von Hand; zählt `probelauf.py` | Probe | – | `tools/probelauf.py` |
-| **Probebild** | Einzelbild vor einem Film, vom Chef freizugeben („Probebild passt“) | Probe | – | `tools/probelauf.py` (511) |
+| **Probebild** | Einzelbild am Rechner vor einem Film, sieht nur der Ersteller selbst an (kein Lauf, keine Freigabe) | Probe | – | `LISTE-BAUEN-TESTEN.md` Prüftreppe 4 (783 W1) |
 | **Abgleich** | alte Fassung gegen neue: am Anfang „Alt zuerst“ (Zeile „Alt:“), am Ende vor der Testbitte | – | – | `ROLLE-ENTWICKLUNG.md`, `LISTE-UMZUG-348.md` |
 | **alte Fassung** | Kotlin-Spiel in `app/` und `core/`; Untergrenze, nicht Vorlage | – | – | `CLAUDE.md` |
 | **Spielfassung** | die Godot-Fassung unter `godot/` | – | – | `LISTE-UMZUG-348.md` |
