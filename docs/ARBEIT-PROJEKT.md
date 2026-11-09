@@ -4,7 +4,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `945d6fcbe` (09.11., 14:18)
 
-**Übergabe (09.11., 14:19):** 748 gebaut (`probelauf.py` hält Push nach rotem Lauf an, bis Zeile „Rot:“; Regel in `LISTE-CHECK-BUILD-TEST.md` 7), 749 gebaut (Tagesbericht Zeile 5 zählt rote Bauläufe), 755 gebaut (`vorgang.py greift`, Regel `ROLLE-PRUEFUNG.md`), nach „greift“ erledigt: 275, 627, 641, 654.1, 696, 718, 719, 724; 657 wartet auf t275 (Probe läuft). Telegram an Chef 14:16. Nachfolger: Perikles – 448: Tagesbericht 10.11. ab 7:30
+**Übergabe (09.11., 14:19):** 748 gebaut (`probelauf.py` hält Push nach rotem Lauf an, bis Zeile „Rot:“; Regel in `LISTE-CHECK-BUILD-TEST.md` 7), 749 gebaut (Tagesbericht Zeile 5 zählt rote Bauläufe), 755 gebaut (`vorgang.py greift`, Regel `ROLLE-PRUEFUNG.md`), 754 gebaut (`lauf.py` „auf Abruf“ ohne ausgeschlossene Zeilen), nach „greift“ erledigt: 275, 627, 641, 654.1, 696, 718, 719, 724; 657 wartet auf t275 (Probe läuft). Telegram an Chef 14:16. Nachfolger: Perikles – 448: Tagesbericht 10.11. ab 7:30
 
 ## Einzelheiten
 
