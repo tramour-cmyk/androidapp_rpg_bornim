@@ -20,17 +20,11 @@ Am 17.10. geholt (137): 138, 139, 140, 141, 133, 142.
 
 ## Verwerfen? (für die Chefrunde)
 
-Je Punkt der Grund am Eintrag (Homer 09.11.):
-- **erledigt:** Spiel-Engine Godot (348); Monster-Stufe im Test-Reiter (Heldenstufe 3–11 im Testreiter, `testmodus.gd`).
-- **überholt durch Godot** (Kotlin-Zeichnung): Rennbilder früher zeichnen; Gezeichnete Bilder auf dem Gerät speichern; Flüssigere Grafik mit mehr Zwischenbildern; 326 Rest (Kotlin-Oberfläche); Vorgang 24 (Jerry, Animationen nach Start).
-- **doppelt mit der Abnahmeliste oder einem Vorgang:** Grafik-Einstellungen (Vorgang 698); Herstellen und Reparieren (3.4, 3.5); Handwerk, Felle verarbeiten (3.2 Lederarbeit); 84.3 Schleichen (2.8); Stärke, rohe Gewalt (515, 2.8); Klassensets (in Ausrüstungssets aufgegangen).
-- **Grund entfallen:** Erschöpft stehen bleiben (Keuchen da, W14; ein Halt nähme die Steuerung); Kennzahl des Chefs (Haltung 7 „Gemeinsames Maß“ zählt, was der Chef als Erster findet).
+Keine offen.
 
-Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, Echte Gruppenkämpfe, Gefährte Lyra oder Garrick, Kampfkulisse der Höhle (mit 79), Film-Uhr; Text in Git.
+Zuletzt verworfen (Chef 09.11., 11:21, 743 „alle verwerfen“): Spiel-Engine Godot, Monster-Stufe im Test-Reiter (erledigt); Rennbilder früher zeichnen, Gezeichnete Bilder auf dem Gerät speichern, Flüssigere Grafik mit mehr Zwischenbildern, 326 Rest, Vorgang 24 Animationen nach Start (überholt durch Godot); Grafik-Einstellungen (698), Herstellen und Reparieren (3.4, 3.5), Handwerk Felle verarbeiten (3.2), 84.3 Schleichen (2.8), Stärke rohe Gewalt (515), Klassensets (Ausrüstungssets) (doppelt); Erschöpft stehen bleiben, Kennzahl des Chefs (Grund entfallen); Text in Git. Vorher (Chef 17.10., 137a): Aktive Abwehr per Tippen, Echte Gruppenkämpfe, Gefährte Lyra oder Garrick, Kampfkulisse der Höhle (mit 79), Film-Uhr.
 
 ## E Entwicklung
-
-- **Spiel-Engine Godot statt Compose-Zeichnung** (Chef 24.10., 16:43, an Sokrates: eine KI empfahl „Claude Code und Godot“ für ansprechende Grafik; Frage, was wir nutzen). Befund: keine Engine; Kotlin mit Jetpack Compose, Welt im Code gezeichnet (eine PNG, etwa 86.000 Zeilen). *Pro:* Kachelkarten, Animation, Partikel, Licht fertig; Bilder statt Code; iOS/PC leichter. *Contra:* schön machen die Bilder, nicht die Engine (eigene oder offene Lizenz, niemand dafür); Neubau von Oberfläche, Karten, Speicherständen; Godot-Editor ist Mausarbeit, schlecht für KI; eigener Look ginge verloren. → jetzt Vorgang 348 (Chefsache, Messung vor Entscheid). → **verwerfen?** erledigt: Godot entschieden, Kapitel 1 wird dort gebaut.
 
 ### Welt
 
@@ -51,17 +45,14 @@ Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, Echte Gruppenk�
 - **86.5 Pferd** (Chef 14.10., 21:2x, zu 86.3 Ausdauer): Reittier für lange Wege draußen. → **später:** zusammen mit der Schnellreise prüfen, beide lösen dasselbe.
 - **Licht als Mechanik** (Idee 4, 10.10.): Fackel brennt ab; im Dunkeln sieht man Lauerer später, Untote sind stärker. → **später:** Teil von 84 (Fackel 84.1 im Vorrat Homer); erst wenn 84.1 gebaut ist.
 - **84.2 Schnellwechsel** zweier Handbelegungen (Chef 14.10.; aus Vorrat Homer, 84). → **später:** braucht 84.1 (Fackel in der Nebenhand), vorher gibt es nichts zu wechseln.
-- **84.3 Schleichen** (Chef 14.10.; aus Vorrat Homer, 84). → **später:** hängt am Kampfteil 72b; Lauschen und „Rennen laut“ sind schon gebaut (86). 131: eigene Taste, wenn gebaut. → **verwerfen?** doppelt: Abnahmeliste 2.8 (Schleichen mit Schleichtaste, Muss).
 - **84.4 Lauschen beim Stehen** (Chef 14.10., 18:0x/18:1x „sehr gut“; aus Vorrat Homer, 84): Welle am Helden zur Geräuschquelle, Stärke = Deutlichkeit, Wort nur bei deutlichem Hören; Stufen Stehen > Schleichen > Gehen > Rennen. → **später:** nach dem Meilenstein; Bau Jerry (mit 86, „Rennen laut“ gebaut).
 
 - **Tempelszene mehr wie das Intro** (Sokrates 19.10., 21:01, mit 68.1 vom Chef zurückgestellt): Stein kühler, Kerzen und Strahl wärmer (warm gegen kalt wie im Intro); Bild 4 mit Aldric und Lyra als Umriss vor dem Strahl statt dunkler Gemeinde. → **später:** nach dem Meilenstein; ändert alle fünf Bilder.
 
 ### Figuren
 
-- **Erschöpft kurz stehen bleiben** (Chef 28.10., 21:3x, Test 139.8: „ob wenn die Ausdauer komplett weg ist, ob man eine Sekunde einfach stehen bleibt“): im alten Spiel nicht (`Stamina.kt`: geht weiter). Sokrates: eher nein, ein erzwungener Halt nimmt die Steuerung (stärkstes Gegenargument: ohne Halt spürt man die Erschöpfung kaum); stattdessen Keuchen (`Panting.kt`, Umzug 399.3) und, wenn er ohnehin steht, UAL `Idle_Tired`. Chef entscheidet. → **verwerfen?** Keuchen ist da (W14); ein Halt nähme die Steuerung, die Erschöpfung hört man.
 - **Katze im Gasthaus** (Chef 28.10., 16:24, aus 395a): wie im alten Spiel (`MapCat.kt`: schläft am Herd, setzt sich auf, streckt sich); Farbe egal; Quaternius hat keine; die Siamkatze von MadeCG (RenderHub) gefällt dem Chef „eh nicht so gut“. Erst nach Leuten, Dorf und Klang. Vorschlag Chef 16:31: [Kurilian Bobtail](https://www.renderhub.com/nyilonelycompany/kurilian-bobtail-cat), 18 $ statt 30 $ (Aktion bis etwa 31.10.), Extended Use, 23 Bewegungen (Namen nicht auf der Seite), 23.234 Dreiecke (Regel: höchstens 6000, also stark ausdünnen), 4K-Texturen. → **reif, zu W21** (Katze fehlt im Kleinleben): Aktion abgelaufen; Modell wählt und kauft der Chef, dann Tom.
 
-- **Rennbilder des Helden früher zeichnen** (Tom 23.10., aus 332): beim ersten Start nach dem Einspielen zeichnet der Held alle Bilder neu (A56: 23,9 s), Rennen zeigt bis dahin das Gehen; Rennbilder der Blickrichtung vor die übrigen Gehbilder ziehen. → **verwerfen?** überholt: Godot spielt Bewegungen der Modelle, es wird nichts vorgezeichnet.
 - **Feinschliff aller Figuren und Animationen** (Chef 23.10., 12:54: „genereller Merker für Figuren- und Animationsfeintuning (alle Monster!!! Und Helden)“): Griff, Haltung und Ablauf bei allen Monstern und Helden prüfen und glätten, möglichst zusammen mit der Tusche für Figuren (302.1). Erster Fall: Grak, schwerer Hieb (320, Bilder in Git vor 12:54): im Ausholen Arme vor dem Gesicht, Hände nicht wie beim Holzspalten, Stiel in der Szene zu flach, Doppelblatt im Seitenblick, Schurz kantig, kein Schatten beim Vorspringen. Bau Jerry (Monster) und Tom (Helden). → **später:** Projektplan, Gegner: „Feinarbeit danach“, also nach 2.13 (alle Gegner im Spiel); dann zusammen mit 52.
 
 - **Charaktererstellung mit Gesicht** (Chef 27.10., 12:06, an Sokrates: „so sieht sein Gesicht aus, so färbe ich die Haare, so mache ich den Bart. Ein bisschen dicker, ein bisschen dünner. Das wäre optimal.“): Gesicht, Haarfarbe, Bart, Statur wählbar. Grundlage entscheidet Chefsache 376 (Quaternius-Grundfiguren). → **später:** nach dem Meilenstein.
@@ -71,11 +62,8 @@ Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, Echte Gruppenk�
 - **Handlaterne für Jorin** (66a, 13.10.): Laterne in der freien Hand bei Nacht, neue Haltungen für Gehen, Wache, Abstellen. → **später:** neue Haltungen nach dem Meilenstein; Leerlauf (55) und Licht im Dorf (66) sind erledigt.
 - **114.1 Aufstehsequenz** (Chef 16.10., 12:2x: „Idee: Aufstehsequenz aus Bett?“): Held liegt und steht auf. → **später:** Tom empfiehlt „noch nicht“ (neue Bilder liegend und aufstehend in allen Richtungen); 114 selbst bleibt im Vorrat Homer (Entwurf PR #83).
 - **Mehr Abwechslung beim Helden** (Rest aus 08.10.): Ausweichen ist nur ein Hüpfer (zwei Seiten), der Speer hat zwei Stöße, Zauber eine Bewegung je Fokus. → **später:** mit 52.
-- **Flüssigere Grafik mit mehr Zwischenbildern** (Wunsch 10.10., 11:00; teils erledigt: Sprungtest 12/12a, Gehen in 8 Bildern): Haltungen wechseln 11- bis 13-mal pro Sekunde und bremsen an jeder Zwischenhaltung. Mehr Bilder, längeres Vorabzeichnen. → **später:** erst wenn dem Chef etwas unrund vorkommt (19e im Vorrat Jerry, Meilenstein). → **verwerfen?** überholt: Godot blendet die Bewegungen der Modelle stufenlos.
 
 ### Kampf
-
-- **Monster-Stufe im Test-Reiter einstellen** (Chef 20.10., abends, an Sokrates, Sprachmodus, Wortlaut: „im Testreiter die Möglichkeit, den Monster-Level einzustellen“): Testwerkzeug, keine Spielregel. *Pro:* prüft die Staffel aus 259 und die Balance (38) ohne Grinden; billig, wenn der Test-Reiter schon Gegner wählt. *Contra:* Kür neben 179; Monster haben Herausforderungsgrad, keine Stufe; einstellen hieße Werte hochrechnen, die es so nicht gibt. *Sokrates:* stattdessen die **Stufe des Helden** im Test-Reiter einstellbar machen (gleicher Zweck, nutzt vorhandene Stufentabellen); mit 259 bauen. → **verwerfen?** erledigt wie Sokrates' Fassung: der Testreiter wählt die Heldenstufe 3–11 für den Probekampf (`testmodus.gd`, STUFEN_PROBE).
 
 - **Zugleiste aus MARS auch im klassischen Kampf** (Chef 20.10., 07:20, Wortlaut: „Allgemein: Zugleiste aus Mars auch im alten Kampf?“): Sokrates nachgesehen (`Battle.kt`): klassisch einmal Initiative zu Beginn, dann streng Held, Gegner, Held, Gegner; Rudel und Begleiter handeln im Zug des Anführers. Pro: gleiches Bild in beiden Systemen (212), Hinterhalt und „Gegner schneller“ sichtbar. Contra: die Leiste zeigt nur den ständigen Wechsel, also nichts Neues, und kostet Platz auf dem kleinen Schirm; Arbeit an einem Bildschirm, den MARS ablösen könnte. Empfehlung Sokrates: noch nicht; erst wenn der klassische Kampf mehrere Helden oder wechselnde Reihenfolge bekommt. → **noch nicht** (Chef 07:22: „Ok, noch nicht“).
 - **Tipp beim eigenen Angriff** (Sokrates 19.10., Chef „Rest wie vorgeschlagen“, Vorgangsarchiv 219): im richtigen Moment tippen, härter treffen, wie Paper Mario; teuer, jede Angriffsbewegung braucht festen Takt. Gehört zu 72.10a.13. → **später:** nach dem Meilenstein mit 212.
@@ -100,15 +88,11 @@ Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, Echte Gruppenk�
 
 ### Oberfläche
 
-- **Grafik-Einstellungen im Systemmenü für schwache Handys** (Chef 28.10., 08:31: „die Option geben im Systemmenü gewisse Sachen abzuschalten … Schatten … Auflösung … welche Optionen hätten wir … mit der neuen Engine … flüssiger … auch wenn es ein älteres Handy ist?“). Vorschlag Sokrates: drei Stufen Niedrig/Mittel/Hoch und „Automatisch“ (misst die ersten Sekunden), Einzelschalter nur für Bildrate und Schatten. Hebel in Godot, nach Wirkung: Auflösung der 3D-Szene (50–100 %); Bildrate 30/60 statt 90; Schatten aus/einfach/voll; Tusche einfach (nur Umriss) statt nach Licht und Fackeln (348.13b); Zahl der Punktlichter; Dichte von Gras und Büschen; Sichtweite und Detailstufen; Rauch, Funken, Wasser; Atmen und Gehen ferner Leute seltener rechnen. Tusche nie ganz aus (eigener Look). Anlass: Testgerät A22 ruckelt (`LISTE-TESTGERAETE.md`, 388). → **verwerfen?** doppelt: jetzt Vorgang 698 (Tom).
-
 - **Spielstand in der Cloud über Google Play** (Chef 23.10., 18:32: „dass jemand … sich mit Google anmeldet … und seinen Spielstand in der Cloud speichert … ein guter Service“). Befund Sokrates: Android sichert die App-Daten schon heute von selbst in Google Drive (`allowBackup="true"`, ohne eigene Regeln); bei Neuinstallation oder neuem Handy kommen sie zurück. Echtes Mitnehmen über mehrere Geräte bräuchte die Play-Spieldienste (Anmeldung, gespeicherte Spiele), mit Entwicklerkonto (341.1b). Vorschlag: vor dem Marktstart nur prüfen, ob die Sicherung den Spielstand wirklich erfasst; Play-Spieldienste nach dem Marktstart. → **später:** Befund galt der Kotlin-Fassung, für den Godot-Export neu prüfen; Prüfung zu Stufe 5 (marktreif), Play-Dienste Stufe 6.
 
-- **Gezeichnete Bilder auf dem Gerät speichern** (24.4, 11.10.): Figuren-, Boden- und Kampfbilder nach dem ersten Zeichnen ablegen, damit der nächste Start ohne Wartezeit geht. → **verwerfen?** überholt: Godot zeichnet keine Bilder vor.
 - **59.6 Händler: Filter** „nur tragbare“, Sortierung nach Platz (Chef 12.10., 22:49). → **später:** wenn es mehr Ware gibt (Kapitel 2).
 - **59.7 Händler mit Gesicht:** Name, Bild, Begrüßungssatz statt „Laden“; Texte Chef und Homer (41) (Chef 12.10., 22:49). → **später:** nach dem Meilenstein; neue Bilder je Händler.
 - **292.3 Hauptmenü B: Helden am Feuer** (Chef 22.10., 15:10 zurückgestellt; 15:12: „die Entwürfe 1 bis 5 halten wir irgendwo nach, damit wir vielleicht da wieder ansetzen können“). Ansetzen hier: Entwurf B Fassung 1 im Sammelbild `4349ad22`, Fassungen 2–4 `612727d5`, `69f865f0`, `5516e9fa` (`docs/chefsache/bilder/2923-hauptmenue*.webp`); Kopfprobe Zweig `entwurf-2923-kopfprobe`; Entwurf 5 `9630f7a7` (`2923-entwurf5*.webp`), Titelmodus Zweig `claude/tom-2923-titelmodus`; Befund zu 5 und drei Punkte (Feuerlicht, Blick und Gruppe, Tuschelinie) im Commit „292.3 Entwurf 6“ (`ARBEIT-BERATUNG.md`). → **später:** nach dem Meilenstein.
-- **326 Rest (Kür aus Homers Urteil 23.10., 10:18; 326 auf `main` mit Build 83):** Rollhinweis unten im Systemreiter und wo Inhalt angeschnitten ist; „?“ bei Rückfragen dünn; Zeichen „Lesen“ als Aushang (Tafel, zwei Zettel, Nagelpunkte, Dach steiler); Speichern-Zeichen wirkt wie Buch; „−5/−1“ mit echtem Minus im Testreiter. → **verwerfen?** überholt: galt der Kotlin-Oberfläche; die Godot-Menüs folgen 549a/557 und haben eigene Vorgänge (670, 671).
 
 ## G Gestaltung
 
@@ -129,7 +113,6 @@ Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, Echte Gruppenk�
   - **Bedienung:** eigener Reiter im Laden („Schmieden“), Material-Anzeige wie bei den Rezepten.
   - **Kapitel 2:** Runen, Sockel, seltene Erze, Belohnung für eine größere Aufgabe.
   - → **später:** der Meilenstein nennt den Schmied ausdrücklich als „Neues danach“; 72e entschieden (19.10.): Umschmieden gestrichen, der Rest bleibt.
-- **Handwerk:** Felle und Hauer verarbeiten, z. B. Lederrüstung verbessern (heute nur zum Verkaufen). → **später:** mit dem Schmied, sonst zwei Wege für dasselbe. → **verwerfen?** doppelt: Abnahmeliste 3.2 (Lederarbeit bei Garrick, ein Rezept) und 3.4 (Jagd mit Zerlegen).
 - **70 Bildsprache der Zwischensequenzen, Rest** (Chef 14.10., 08:00; aus Vorrat Homer): 70.1–70.6 entschieden (`DESIGN-STIL.md`). Chef 22.10., 14:08 an Sokrates (Wortlaut): „In Bezug auf Intro und Outro Kapitel 1, da kann man ja dann auch im Zweifelsfall die Tuschelinien nochmal nachziehen. Oder auch da ein kleines Vergleichsbild mal bauen. Weil dann hätten wir ja wirklich einen einheitlichen Stil und ja, ich bin menschlich und mache Fehler und ändere mal meine Meinung“ (vgl. 69e: Tusche C entfallen); Vergleichsbild Sokrates 22.10. → **später:** mit dem nächsten Kapitel.
 - **Mond nach Himmelsrichtung** (Chef 15.10., 13:5x, zu 70.6, „vorerst nicht“): in Bornim (52° N) steht der Mond nie im Norden; Blick nach Norden zeigt nur sein Licht, Ost bis West darf er ins Bild. → **später:** mit 70 Rest.
 - **Eigenes Haus** (Chef 14.10.): irgendwo ein Haus kaufen, Ausrüstung lagern, Begleiter zurücklassen und einen anderen mitnehmen (Hund daheim, Katze oder Rabe dabei). → **später:** braucht mehr als einen Begleiter (72.15).
@@ -139,11 +122,9 @@ Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, Echte Gruppenk�
 
 - **48–50 Dungeons, Lehrer, weitere Klassen** (aus dem Vorrat Sokrates, 27.10.): zufallsgenerierte Dungeons und Questhöhlen (48a–48f ja, Archiv bis `f3ec7200`); Lehrer für Waffen-, Rüstungs-, Rettungswurf-Übung und Talente; weitere Klassen, ggf. zum Kauf (`DESIGN-HELDENBAU.md`). → **später:** nach dem Meilenstein Kapitel 1.
 
-- **Stärke, rohe Gewalt:** Truhen oder Gitter ab einem Mindestwert aufbrechen statt nur mit Schlüssel. → **später:** neuer Karteninhalt, Kapitel 2. → **verwerfen?** doppelt: Truhen mit Aufbrechen nach BRS sind Vorgang 515 (zu 2.8).
 - **Charisma, Gesprächsoptionen:** „Überreden“ oder „Einschüchtern“ bei Wachen, Händlern, Bösewichten, wenn es zur Geschichte passt. → **später:** Vorschlag mit 133 (Vorrat Homer), gebaut in Kapitel 2.
 - **Charisma, Auftreten auf der Karte:** Wanderer und schwächere Monster weichen einem einschüchternden Helden aus. → **später:** nach dem Meilenstein; verschiebt sonst die Messung 38.
 - **Weisheit, Lauerer erkennen:** Spinne, Fledermaus werden früher sichtbar. → **später:** mit 84 (Lauschen, Licht), sonst zwei Regeln für dasselbe.
-- **Klassensets** (Chef 19.10., 10:30: „Klassensets mit Boni je nach Anzahl der getragenen zusammengehörigen Teile.“): Pro Sammelziel über Kapitel, Klassenbild (passt zu 49/50); Contra klassischer Farm-Antrieb (Leitbild, 45), Bindung an ein Set nimmt Wahl. Fassung Sokrates: Teile nur an festen Orten oder Aufträgen (etwa eins je Kapitel), nie in Zufallsbeute oder Laden; Bonus eher eine neue Kampfoption als Zahlen. → **verwerfen?** doppelt: in „Ausrüstungssets“ (08.11.) aufgegangen, dort Homers Urteil.
 
 ### Kapitel 2: Region und Gegner
 
@@ -162,7 +143,6 @@ Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, Echte Gruppenk�
 - **Bilder der Chefsache selbsttätig nach Telegram (277)** (Chef 21.10., 08:35: „die Idee grundsätzlich mal nicht ganz verwerfen, sondern noch vorhalten“): `zug-index.yml` schickt jedes neue Bild in `chefsache/bilder/` beim Push mit Sprungmarke nach Telegram; braucht `TELEGRAM_BOT_TOKEN` als GitHub-Secret (legt nur der Chef an); dann entfällt die Regel für die Sitzungen. Contra: Umbau am Ablauf, doppelte Bilder in der Übergangszeit. Vorerst nur die Regel in `ROLLE-KREATIV.md` (Vorgangsarchiv 277). → **später:** braucht das Secret vom Chef; der Chef hält sie vor, kein Bau ohne sein Wort.
 - **Dokumente BornWire TCS nachziehen (102)** (aus Perikles' Vorrat 18.10., Kür ohne Termin): Firmenhandbuch und Begleittexte auf den Stand nach dem Umbau 17.10. bringen. → **später:** Betrieb vor Spiel wäre gegen die Direktive; nach Stufe 4.
 - **`DESIGN-BLENDE.md` kürzen (111)** (aus Perikles' Vorrat 18.10., erst nach 24.6): Entschiedenes ins Vorgangsarchiv, Rest auf das Nötige. → **später:** wie 102.
-- **Kennzahl des Chefs** (Chef 19.10., 10:42: „Wie werde ich eigentlich gemessen oder bilanziert?“): heute keine eigene; Vorschlag Sokrates: **Wartezeit auf den Chef** (Stunden von Datei in `entscheiden/`/`billigen/` bis Löschen, aus Git, ohne Zählkosten) neben „ersparte Fragen“ (FIRMA.md). Contra: „Mehr Kennzahlen nicht“ (106.1), Chef ist kein Mitarbeiter. → **verwerfen?** Grund entfallen: Haltung 7 („Gemeinsames Maß“, Diogenes zählt montags) misst die Firma am Chef.
 - **389 genauer zählen** (Tom 28.10., 00:1x; an Perikles, Vorrat über 15 KB): `probelauf.py` hält auch `sed -n … tools/pruef348/kampf_modelle.sh` an (Pfad irgendwo im Befehl) und zählt `kampf_modelle.sh` (nur Modelle, kein Bild). Vorschlag: nur mit `bash`, `sh` oder `./` davor zählen, `kampf_modelle.sh` ausnehmen. → **reif** (Perikles), halb erledigt: `probelauf.py` zählt nur noch mit Aufrufer davor; `kampf_modelle.sh` ist nicht ausgenommen (nur `rechner.sh`, Zeile 75).
 
 
@@ -173,7 +153,6 @@ Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, Echte Gruppenk�
 - **Weg zum Markt** (besprochen 10.10.): vertraulich, im Artefakt [Geschäftsmodell](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj) (246.2).
 - **Anmeldung mit Google Play** (Play Games Services): Anmeldung mit dem Google-Konto, Spielstände in der Cloud je Platz, Erfolge („Grak besiegt“, „Erste schimmernde Beute“), auf Wunsch Bestenlisten; im Code Bibliothek, Anmeldung beim Start, Cloud-Abgleich. → **später:** erst wenn das Spiel öffentlich erscheint.
 - **Rechtliches:** vor öffentlicher Veröffentlichung oder kommerzieller Nutzung kurze Prüfung durch einen Anwalt für Marken- und Urheberrecht. → **später:** vor Schritt 3, nicht für den geschlossenen Test.
-- **Herstellen und Reparieren** (Chef 31.10., 20:2x, aus 414): Tränke und Gegenstände selbst herstellen und reparieren, an geeigneten Orten oder mit Stufe und „Rezepten“; nie Pflicht, kann Gold sparen (Leitbild: Grinden darf man, muss man nie). Prüfen steht an, bauen nicht. Fremdkit „Inventory and Crafting Kit“ hat keine Reparatur und keine Haltbarkeit, Touch ungeprüft (414). → **verwerfen?** doppelt: Abnahmeliste 3.4 (Herstellen und Sammeln) und 3.5 (Abnutzung und Reparatur), Muss.
 
 ## Kür in der Vorgangsliste (Urteil Homer 09.11.)
 
@@ -183,4 +162,3 @@ Ruhende Kür ohne Zweig (`LISTE-VORGAENGE.md`); die Zeilen bleiben beim Besitzer
 - **470.1 Held auf Antippen bildschirmgroß** (Tom): **später:** nach der Referenzszene (Erschaffung muss erst ganz fertig sein).
 - **423.1 Spielerhandbuch im Spiel** (Tom): **später:** erst wenn die BRS-Texte für Kapitel 1 fest sind (Stufe 3).
 - **289 MARS „halber Zug“** (Jerry): **später:** mit 296 (Checkliste MARS), dort alle Anzeigen zusammen.
-- **24 Animationen fehlen nach Start** (Jerry): **verwerfen?** überholt durch Godot (kein Vorzeichnen).

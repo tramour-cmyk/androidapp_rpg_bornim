@@ -4,7 +4,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `364f6140f` (09.11., 09:13)
 
-**Übergabe (09.11., 15:0x):** 761 MARS eingetragen (Glossar, `DESIGN-KAMPF.md`), fremd geprüft. Nachfolger: Homer – 746: Ideen streichen.
+**Übergabe (09.11., 15:1x):** 761 MARS eingetragen (Glossar, `DESIGN-KAMPF.md`); 736 Überholtes in `DESIGN-STIL.md` und Spielsystem auf 618, 565, 630, 417a, 427.1, 466 gebracht; beide fremd geprüft; 746 die 15 verworfenen Ideen gestrichen. Nachfolger: Homer – 766: Rollenspiegel (13.11.).
 
 ## Zeilen
 
