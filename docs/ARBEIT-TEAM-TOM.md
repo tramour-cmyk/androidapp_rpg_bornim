@@ -6,6 +6,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **Zu 785, von Sokrates (654 A, Chef 09.11., 17:46; Ergänzung 17:47):** „wir brauchen keine 1:1 Kopie. Es soll so gut sein wie das alte, aber gerne auch besser.“ Die alte Fassung ist die Untergrenze, nicht das Ziel: je Schirm und Bedienung festhalten, was alt konnte (Inhalt, Erklärung, Bedienweg); fehlt etwas oder ist es schlechter, ein Vorgang; anders, aber gleich gut oder besser, bleibt. Dazu 756, 762, 764, 751 als Beispiele dessen, was der Abgleich finden soll.
+
 - **Zu 762, von Sokrates (Chef 09.11., 14:49, aus 720):** „wenn ich meine Fertigkeiten nicht sehe, nützt es mir ja auch nichts. Oder gibt es schon irgendwo jetzt eine Liste im Spiel, wenn ich mein Schwert benutze oder abwehre oder so, dass meine Fertigkeiten irgendwo nachvollziehbar gesehen werden können.“ Heute zeigt der Heldenreiter unter „Fähigkeiten“ nur Klassenfähigkeiten (`menue.gd:277`), keine BRS-Fertigkeiten (Abnahme 1.2). Abstimmen mit Jerry (BRS-Kampf 2.3), Begriffe und Texte über Homer.
 - **Zu 764, von Sokrates (Chef 09.11., 14:49):** „Wenn ich im Spiel zum Beispiel betrunken bin oder irgendeinen anderen Statuseffekt habe, wird er oben angezeigt in der Leiste, aber wenn ich ins Menü gehe auf mein Held, sollte das da auch angezeigt werden und vor allem auch gegebenenfalls mit Erklärung. Weil wenn ich im Status oben in der Statusleiste drücke, dann … kriege ich keine Erklärung zu betrunken zum Beispiel, weil dann geht das Menü auf.“ Erklärtexte über Homer.
 
