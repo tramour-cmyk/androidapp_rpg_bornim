@@ -3163,8 +3163,9 @@ func dodge(after_ms: int, nm := "") -> void:
 		var b := basis
 		var bl: float = anim.get_animation(nm).length
 		tween = create_tween()
+		bahn = [_weg_at(o, b, nm, bl)]     # 703 A: Ziel des Satzes ist der neue Stand, nicht der Platz
 		tween.tween_method(func(x: float): position = _weg_at(o, b, nm, x), 0.0, bl, bl)
-		tween.tween_callback(_walk_home)
+		tween.tween_callback(_nach_ausweichen)
 		return
 	# Kaufwolf (Chef 27.10., 21:51, Archiv: „Ausweichen-Bewegung war am Platz und ohne Ortswechsel … grundsätzlich wie bei der
 	# Ratte“; der Kauf hat keine Ausweichbewegung): ein Satz im Lauf zur freieren Seite (Ausweichen) oder schräg zurück (Ausweichen
@@ -3214,23 +3215,38 @@ func dodge(after_ms: int, nm := "") -> void:
 			if _rumpf_luft(zurueck, rotation.y) >= g0:
 				if OS.get_environment("SCHAU_MESS") != "":
 					print("Ausweichen %s rückwärts (kein Satz frei, bester %.2f)" % [fighter.id, luft])
-				bahn = [zurueck, home]
+				bahn = [zurueck]
 				tween = create_tween()
 				tween.tween_callback(func(): anim.play("Gehen", 0.1, -float(tempo.get("Gehen", 1.0))))
 				_lauf(tween, position, zurueck, "Gehen", RUECK_TEMPO)
-				tween.tween_callback(_walk_home)
+				tween.tween_callback(_nach_ausweichen)
 				return
 			if luft < 400.0:     # 438: ein freier Satz aus dem Bild bleibt, wenn rückwärts kein Platz ist
 				best = []
 		if not best.is_empty():
 			if OS.get_environment("SCHAU_MESS") != "":
 				print("Ausweichen %s %s Länge %.2f m, Wert %.2f, Grenze %.2f, Start %s" % [fighter.id, nm, best[best.size() - 1][1], luft, g0, position])
-			bahn = [best[best.size() - 1][0], home]
+			bahn = [best[best.size() - 1][0]]
 			_pfad_fahren(best, false, AUSWEICH_BOGEN)     # 438: im Lauf drehte er 28° je Bild; 546: im Schritt zu träge
-			tween.tween_callback(_walk_home)
+			tween.tween_callback(_nach_ausweichen)
 			return
 	_play("Ausweichen", 0.05)
 	get_tree().create_timer(0.45).timeout.connect(_idle_wenn_frei)
+
+
+## 703 A (Chef 08.11., 21:36: „wenn sie ausgewichen sind, einfach stehen bleiben … Braucht man doch gar nicht.“; ändert F5):
+## nach dem Ausweichen bleibt die Figur, wo sie hinsprang, und dreht sich nur wieder zum Gegner; zurück auf den Platz kommt sie mit
+## ihrem eigenen Zug (der Heimweg nach Angriff, Biss oder Platzwechsel). Nur wer zu weit vom Platz abkäme (mehrmals hintereinander
+## ausgewichen) oder aus dem Bild, geht gleich heim, sonst liefe er Satz um Satz davon.
+const AUSWEICH_BLEIB_MAX := 2.5     # m (Modellmeter × Skala) vom Platz
+func _nach_ausweichen() -> void:
+	var d := Vector2(home.x - position.x, home.z - position.z).length()
+	if d > AUSWEICH_BLEIB_MAX * _scale() or not _im_bild(position, Vector3(sin(rotation.y), 0.0, cos(rotation.y))):
+		_walk_home()
+		return
+	if OS.get_environment("SCHAU_MESS") != "":
+		print("Ausweichen %s bleibt %.2f m vom Platz" % [fighter.id, d])
+	_turn_home()
 
 
 ## 348.12 (Chef 15:23: „Animation … beim Ausweichen“): Grak setzt zur Seite (Seitenlauf der UAL Pro, 1,7 m); zu der, deren Weg von den
@@ -3272,11 +3288,11 @@ func _absetzen_rasch() -> bool:
 	if _rumpf_luft(zurueck, rotation.y) < g0 or not _im_bild(zurueck, Vector3(sin(rotation.y), 0.0, cos(rotation.y))):
 		return false
 	var k := 1.0 if rn == "Zurück" else AUSWEICH_RUECK_TEMPO
-	bahn = [zurueck, home]
+	bahn = [zurueck]
 	tween = create_tween()
 	tween.tween_callback(func(): gang = "zurück"; anim.play(rn, 0.1, k if rn == "Zurück" else -float(tempo.get("Gehen", 1.0)) * k))
 	_lauf(tween, position, zurueck, rn, k)
-	tween.tween_callback(_walk_home)
+	tween.tween_callback(_nach_ausweichen)
 	return true
 
 
