@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (09.11., 01:05, Ford `session_01Hmoj78bPzZELavxMGXUqB2`, Selbstneustart):** Getan: Archivieren gilt (Chef 18:06 „Archivier alles ordentlich“), alle fertigen Sitzungen archiviert und gebucht. Kurzzeilen-Status „running“ = „working“ (kosten.py fest, 693.1). Woche seven_day `allowed_warning` (20:42): `lauf.py --nur-muss`. Laufend: Jerry 682/Sammelbuild 271, Tom 656, Sokrates (Stellungnahme). `startbar.py` liest bei „ab TT.MM.“ nur das Datum: Diogenes „Woche“ erst 8 Uhr, Perikles 398/338.1 erst 10 Uhr, Sokrates Stellungnahme erst 8 Uhr, bis dahin Starts mit `--ohne NR:Grund` auslassen; nachts (22–7) nichts Neues. Nachfolger: Ford – Betriebsleiter.
+**Übergabe (09.11., 18:23, Ford `session_01Hmoj76jJSNHHX8bmPvFvzZ`, Selbstneustart):** Getan: Sperren per Hand ins Protokoll (Zeile „Startsperre HH:MM Start <Name>“, pushen, dann `create_session`; seit 750 hält ein Haken jeden Start ohne diese Zeile an, auch Ford selbst: vorher „(selbst)“-Zeile). Neustarts laufen so: `git branch -r --contains <Commit>`, „Nachfolger:“ in der Übergabe prüfen, Sperrzeile, `create_session` (Tom, Jerry: Umgebung Hoch `env_017fgL1YDcVTYTkJsU3APEfR`; alle anderen Mittel `env_01F9WxikYD4TTdhscxvPi93p`), alte Sitzung erst bei idle und >60 s archivieren, Kosten mit `lauf.py --kosten <Vorgang> <USD> <Kennung>` (je Sitzung nur einmal buchbar). Bestehende ruhige Sitzungen mit `send_message` weiterschicken (261.6), wenn <400k Token. Laufend: Jerry 778 (`session_01Hmoj775ZqfUHKm8MuXT9PR`), Tom 506, Diogenes 783, Perikles 788, Sokrates 620 (neue Sitzungen). Offen: alte Sokrates-Sitzung `session_01Hmoj76Dx6UqLDh6vnta1sR` und `session_01Hmoj77B1Fonk5sGrS7yd12` archivieren, wenn idle (Kosten buchen: 623.1 bzw. 341.1). Woche `allowed_warning`: nur Muss; Tempoziel Sokrates (Eingang). Nachfolger: Ford – Betriebsleiter.
 
 **Nächste freie Vorgangsnummer: 792** (zuletzt 791 Perikles 09.11. 18:14:37 7fa4) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -148,3 +148,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:09 09.11.: Startsperre 18:09 Start Perikles (Ford, vor dem Start; Neustart 7dc5a0b28)
 - 18:11 09.11.: Startsperre 18:11 Start Tom, Diogenes (Ford, vor dem Start; Neustart 9deabe876, d97fee819)
 - 18:17 09.11.: Startsperre 18:17 Start Sokrates (Ford, vor dem Start; Neustart e86da5d96)
+- 18:23 09.11.: Startsperre 18:23 Start Sokrates (Ford, vor dem Start; Neustart f029ff304)
+- 18:24 09.11.: Startsperre 18:24 Start Ford (selbst)
