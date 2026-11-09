@@ -4,6 +4,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **800 Notizen aufgeräumt** (Perikles; Chef 09.11., 20:52 „650.2 wie Vorschlag“): Balance-Zielkurve, Heldenbau, Kotlin-Anleitung, Durchspielbogen nach `docs/alt/`; Kapitel 2 nach `docs/kapitel2/`; Regelwerk heißt `docs/DESIGN-BRS.md`; Inhaltsverzeichnis mit Abschnitt „Für den Chef“, `tools/inhalt.py` meldet Dateien ohne Zeile und tote Links.
 - **799 Vorlagen nach Muster** (Perikles, Werkzeug; Chef 09.11., 20:46): `docs/chefsache/MUSTER.md` zum Kopieren, 758 als Beispiel; `probelauf.py` hält Commit oder Push einer unvollständigen Vorlage in `entscheiden/` oder `billigen/` an und nennt die fehlenden Teile (`tools/vorlage_pruefen.py`); die Übersicht meldet Altbestand unter „Lücken“.
 - **788 Wiederholungswächter ohne Allerweltswörter** (Perikles, Werkzeug; 654 A): `vorgang.py neu` legt für Schwert und Zwischensequenz keine Zeile „Systemlösung?“ mehr an; Wörter mit entschiedenem Querschnitt (Oberfläche 785, Klang 786, Licht/Kamera/Karte 620.4, Schild/Waffe 644, Film/Probebild 511) verweisen nur darauf.
 - **Build 271 auf main** (PR #190, Chef 09.11., 14:09 „getestet, reingegeben mit den Anmerkungen“, Archiv „t271“; zusammengeführt erst 18:05 von Tom, der PR stand seit der Freigabe offen): Tom 664, 585, 416.8, 356.2, 591, 630, 586, 699; Jerry 703, 565, 563, 296.3. Anmerkungen als 753 (Blende nach der Rast) und zu 744 (Flügelschlag, Huschen). (Rückläufer: 3, 416.8, 591, 296.3)
