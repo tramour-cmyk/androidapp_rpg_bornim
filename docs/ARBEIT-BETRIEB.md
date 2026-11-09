@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (08.11., 16:34, Ford `session_01Hmoj78bPzZELavxMGXUqB2`, Selbstneustart):** Getan: Uhr getauscht, Startmeldung mit Archiviersatz. Laufend: Tom (605), Jerry (623.5 Film, 680, 682, 679), Sokrates (654, 09.11.); Spike, Tuffy bewusst nicht (Guthaben-Tempo); Spike 613 wartet auf 613.1. Offen: Abgleich-Warnung 416.4 (Tom). Nachfolger: Ford – Betriebsleiter.
+**Übergabe (09.11., 01:05, Ford `session_01Hmoj78bPzZELavxMGXUqB2`, Selbstneustart):** Getan: Archivieren gilt (Chef 18:06 „Archivier alles ordentlich“), alle fertigen Sitzungen archiviert und gebucht. Kurzzeilen-Status „running“ = „working“ (kosten.py fest, 693.1). Woche seven_day `allowed_warning` (20:42): `lauf.py --nur-muss`. Laufend: Jerry 682/Sammelbuild 271, Tom 656, Sokrates (Stellungnahme). `startbar.py` liest bei „ab TT.MM.“ nur das Datum: Diogenes „Woche“ erst 8 Uhr, Perikles 398/338.1 erst 10 Uhr, Sokrates Stellungnahme erst 8 Uhr, bis dahin Starts mit `--ohne NR:Grund` auslassen; nachts (22–7) nichts Neues. Nachfolger: Ford – Betriebsleiter.
 
 **Nächste freie Vorgangsnummer: 712** (zuletzt 711 Sokrates 08.11. 22:17:42 a40c) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford“ (Tiefe 3, Selbstneustart 08.11., 16:32) `session_01Hmoj78bPzZELavxMGXUqB2`; Stundenuhr „Ford-Lauf“ `trig_0192Ku4UCzma7ogL6TyUCvhd` (:03); der Nachfolger legt seine Uhr an, löscht diese und archiviert diese Sitzung (idle, >60 s, Kosten buchen). Alter Ford `session_01Hmoj78NKRazEf1Gp5XtnWY` (6,73 $, Uhr gelöscht) wartet auf den Archiviersatz des Chefs (Meldung 16:34); `session_01Hmoj76HFnAA46mUTzwaQoK` ist schon archiviert. Vorheriger Ford archiviert 07.11., 14:04, 28,50 $ auf Betrieb.
+- **Ford lebt in einer Sitzung** „Ford“ (Tiefe 3, Selbstneustart 08.11., 16:32) `session_01Hmoj78bPzZELavxMGXUqB2`; Stundenuhr „Ford-Lauf“ `trig_0192Ku4UCzma7ogL6TyUCvhd` (:03); der Nachfolger legt seine Uhr an, löscht diese und archiviert diese Sitzung (idle, >60 s, Kosten buchen: bisher 0 $ gebucht, Kosten per `get_session` lesen). Vorheriger Ford archiviert 08.11., 18:06, 6,92 $ auf Betrieb.
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 
 ## Eingang
