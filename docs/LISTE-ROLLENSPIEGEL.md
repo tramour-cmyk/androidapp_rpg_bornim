@@ -20,9 +20,9 @@ Ist-Soll-Abgleich jeder Rolle (340, Chef 23.10., 09:46). **Wann:** freitags am E
 
 | Nr. | Rolle | Änderung | erwartet | Prüfdatum | gewirkt |
 |---|---|---|---|---|---|
-| 340.3 | alle | A: Hinweise von `notiz.sh` schreibt das Werkzeug täglich in den Vorrat des Besitzers | Hinweise 8 → höchstens 2 | Mo 09.11. | |
-| 340.4 | alle | B: Pflichtzeile „Geprüft an: <Link>“ in Chefsache und bei „gebaut“ | höchstens 2 Runden je Aussehensfrage bis „passt“ | Mo 09.11. | |
-| 340.5 | alle | C: „Uhr: HH:MM“ nach jedem Arbeitsschritt | 0 falsche Zeitstempel in der Woche | Mo 09.11. | |
+| 340.3 | alle | A: Hinweise von `notiz.sh` schreibt das Werkzeug täglich in den Vorrat des Besitzers | Hinweise 8 → höchstens 2 | Mo 09.11. | nein: 4 (Diogenes 09.11., Prüfbericht Lauf 92) |
+| 340.4 | alle | B: Pflichtzeile „Geprüft an: <Link>“ in Chefsache und bei „gebaut“ | höchstens 2 Runden je Aussehensfrage bis „passt“ | Mo 09.11. | fehlt (Runden nicht gezählt); Zeile da in 76 von 80 Vorlagen |
+| 340.5 | alle | C: „Uhr: HH:MM“ nach jedem Arbeitsschritt | 0 falsche Zeitstempel in der Woche | Mo 09.11. | nein: 8 von 201 daneben (`LISTE-REGELTREUE.md`) |
 
 ## Woche 23.10. (erster Durchgang)
 

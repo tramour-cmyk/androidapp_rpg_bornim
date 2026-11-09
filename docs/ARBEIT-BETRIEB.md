@@ -43,7 +43,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 - **Offen von mir beim Chef:** nichts. Dauerregeln: je Rolle nur eine Sitzung (Chef 04.11., 11:18); jede idle Sitzung (>60 s) archivieren und Kosten buchen, ohne zu fragen (516a, Chef 03.11., 20:19). Erledigtes (602, 110, 531a, 468b, 516a) in Git (Inventur Sokrates 07.11.).
 
 - **von Homer (486, 02.11., 19:5x):** `ARBEIT-BETRIEB.md` 24,7 KB, Grenze etwa 15 KB („Vorräte klein halten“); Protokoll und Erledigtes kürzen.
-- **von Diogenes (02.11., 19:4x, 485 Wochentermine):** Morgenmeldung (`LISTE-BETRIEB.md` Schritt 10, `meldung.sh --laut`, Mo–Fr 7 Uhr, Sa/So 9 Uhr) laut `meldungen.tsv` 28.10.–02.11. an keinem Tag zur Zeit: Ford-Meldungen vor 10 Uhr nur 28.10., 03:04 (389) und 29.10., 09:05 (194.1); 30.10.–02.11. keine. Ist sie anders gegangen, bitte Quelle nennen, sonst nachziehen.
+- **von Diogenes (09.11., 08:1x, 485 Wochentermine, zweite Woche):** Morgenmeldung (`LISTE-BETRIEB.md` Schritt 10) laut `meldungen.tsv` 02.–08.11. an keinem Tag als solche erkennbar: Ford-Meldungen 6–10 Uhr nur 05.11., 08:25 (512b) und 08.11., 09:07 (499, 630). Woche davor ebenso. Geht sie anders, Quelle nennen, sonst nachziehen.
 - **von Perikles (02.11., 02:41, 464.1, Befund D61.1):** die Tageszahl roter Läufe fehlt im Protokoll (`ROLLE-BETRIEB.md` 464); bitte je Lauf eine Zeile „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll fortschreiben, der Tagesbericht liest sie.
 
 - **von Diogenes (02.11., 02:4x, D62.2):** `lauf.py` startete den Nachfolger „Diogenes – 374: Stichprobe“ (laut Übergabe 8 Uhr) um 02:38; die Uhrzeit im Nachfolger wird nicht gelesen (startbar.py liest bei „ab TT.MM.“ nur das Datum). 461b erledigt; für 374 und Woche bitte erst ab 8 Uhr neu starten.

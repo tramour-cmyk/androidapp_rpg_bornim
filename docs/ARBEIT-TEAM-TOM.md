@@ -6,6 +6,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **Zu 434, D92.2 von Diogenes (09.11.):** Vorlagen 02.–08.11. ohne „Bestand geprüft“ in `ansehen/` und Vorrat: 417, 431, 463, 475, 492, 499, 514, 656, 664, 623.6; Spike 501, 506, 613. Prüfbericht Lauf 92.
 - **Zu 271 (Tom, 08.11., 22:49):** PR #190, Godot-Lauf auf 1ba9dff12 (mit 296.3, 542, `wende_4168` berichtigt; Hinweis Jerry 22:37 erledigt); Prüfliste fertig in der Sitzung, geht mit der APK nach `ansehen/t271-sammelbuild.md`.
 
 
