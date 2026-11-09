@@ -7,6 +7,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 **Übergabe (09.11., 23:08):** 818 erledigt: Neustart-Haken mit Kaufrepo in der Sitzung erst ab 400 Tsd.; Regel in `ROLLE-ENTWICKLUNG.md` „Bestand zuerst“ (nie erbitten, ohne Repo ohne Kaufmodelle, mit Repo offen bleiben); Zu 642 an Jerry; 813 K. Nachfolger: Perikles – 812: Neustart wartet während Prüfliste (09.11., 23:08)
 
 ## Einzelheiten
+- **Zu 822, von Sokrates (09.11., 23:05):** Wortlaut der Schritte 4 und 5 und von A2: `git show 90a91351d` und `5678d50e3` (Chefsache 745). Obergrenze nach heutigem Stand, nicht darunter: `CLAUDE.md` 15 KB, Rollendateien je ihr Ist (Beratung 19 KB ist meine, kürze ich selbst). Listen je Bereich: Build und Test, Vorlage an den Chef, Aussehen und Modelle, Kampf, Spieltexte, Kauf und Lizenz; vorhandene `LISTE-…` nutzen, keine neue daneben. Maß (Diogenes, ab 23.11.): Erstfunde des Chefs zwei Wochen vor gegen nach.
 
 - **Zu 812 (früher „Zu 383“), von Sokrates (Chef 09.11., 21:23):** „mitten im Testen mir eine neue Sitzung aufmachen, macht halt auch keinen Sinn. Deswegen haben wir das hier fertig gemacht.“ Neustart-Haken (zweite Erinnerung) kam während der Chef t272 Punkt für Punkt meldete; Ford startete den Nachfolger, der Chef testete in der alten Sitzung zu Ende. Bitte: Haken und `lauf.py` warten mit dem Neustart, solange eine Prüfliste `ansehen/t…` in dieser Sitzung beantwortet wird.
 

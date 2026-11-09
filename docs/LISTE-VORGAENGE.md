@@ -105,16 +105,15 @@
 | 762 | Heldenreiter zeigt die BRS-Fertigkeiten mit Wert, Rang und Fortschritt, damit man sieht, was Schwert, Abwehr usw. üben (heute nur Klassenfähigkeiten alter Art) (Chef 09.11., 14:49, aus 720) | Tom | M | zu testen | – | claude/tom-762-fertigkeiten | 273 | E Oberfläche | 7,51 $ |
 | 764 | Heldenreiter zeigt aktive Zustände (betrunken usw.) mit Erklärung; Tippen auf die Leiste öffnet nur das Menü, eine Erklärung gibt es nirgends (Chef 09.11., 14:49) | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 769 | Wochentermin 13.11.: Rollenspiegel Tom (rollenspiegel.sh Tom) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Tom | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
-| 781 | „Über das Spiel“ nennt den MIT-Teil der REEBOO-Pakete (David Hoskins, Hashfunktionen in Grass, Water, Surface) wie Godot (497); MIT verlangt den Hinweis (aus 623.1, Sokrates) | Tom | M | zu testen | – | claude/spike-781-mit-hinweis | 273 | E Technik | – |
+| 781 | „Über das Spiel“ nennt den MIT-Teil der REEBOO-Pakete (David Hoskins, Hashfunktionen in Grass, Water, Surface) wie Godot (497); MIT verlangt den Hinweis (aus 623.1, Sokrates) | Tom | M | zu testen | – | claude/spike-781-mit-hinweis | 273 | E Technik | 2,61 $ |
 | 756 | Gegenstände: wie Seltenheit, Abnutzung und übrige Merkmale bei anlegbarer Ausrüstung angezeigt werden (Chef 09.11., 14:23) | Tom | M | startbar, 756 A: Probebild Merkmale (Chef 17:46) | – | – | – | E Oberfläche | 20,48 $ |
 | 785 | Oberfläche einmal ganz gegen alt: jeder Schirm und jede Bedienung als eine Liste, jeder Unterschied ein Vorgang; 666, 669, 671, 711, 752 gehen darin auf (654 A, nach dem Kampf-Sollbild) | Tom | M | wartet, nach Kampf-Sollbild (654 A) | 784 | – | – | E Oberfläche | – |
 | 795 | BRS-Erschaffung, Platzwahl „Alle Spielstand-Plätze sind belegt“: noch Rahmen und Auslösen beim Drücken wie vor 700 (erschaffung_brs.gd 228–234; Helfer t272, 09.11.) | Tom | M | startbar | – | – | – | E Oberfläche | – |
-| 804 | Dorf: Gras und Blumen aus dem Kit R9 (Gräser, Blumen, Wind, weicht dem Helden aus) statt halm.gdshader, Bilder/s nicht unter heute (Chef 09.11., 21:12, über Sokrates) · „jetzt“ 09.11., 21:12 | Tom | M | startbar | – | – | – | E Welt | – |
+| 804 | Dorf: Gras und Blumen aus dem Kit R9 (Gräser, Blumen, Wind, weicht dem Helden aus) statt halm.gdshader, Bilder/s nicht unter heute (Chef 09.11., 21:12, über Sokrates) · „jetzt“ 09.11., 21:12 | Tom | M | in Arbeit, bei Spike | – | – | – | E Welt | – |
 | 698 | Grafikstufen im Systemmenü mit Effekten (Niedrig/Mittel/Hoch, Automatisch per Leistungstest; LISTE-IDEEN „Grafik-Einstellungen“, Chef 28.10., 08:31; 08.11., 19:46, zu 623) | Tom | M | startbar | 623 | – | – | E Technik | – |
 | 816 | Effekte Szene 1 Dorf am Abend nach LISTE-EFFEKTE (Reihenfolge 623.8): gedämpft, Bilder/s nie schlechter als heute, an 698 (623.8 A, Chef 09.11., 22:23) | Tom | M | startbar | 698 | – | – | E Welt | – |
 | 814 | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staub im Licht, Fußstaub, Fahne, Wind, Gras weicht aus, Federn; gedämpft, Bilder/s nie unter heute, an 698 (623.8 A, Chef 09.11., 22:23) | Tom | M | startbar | – | – | – | E Welt | – |
 | 815 | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staubflocken innen, Fußstaub, Fahne, Wind, Gras weicht aus, Federn; gedämpft, Bilder/s nie schlechter, an 698 (623.8 A, Chef 09.11., 22:23) | Tom | M | startbar | – | – | – | E Welt | – |
-| Pflege | von Werkzeug (340.3, 09.11.): 15147 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
 | 709 | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angreifer prüfen (Chef 08.11., 21:36, über Sokrates) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 562 | MARS: Helden laufen zum Angriff viel zu langsam, zurück gleiten sie flott (Chef 04.11., 17:02, t257 C) | Jerry | M | zu testen | – | claude/tuffy-562-angriffsschritt | 273 | E Kampf | 21,40 $ |
 | 662 | Kampf (vorher 653): Parade des Helden mit Schild dreht über _face_sanft ohne Pfotenhalt, Skriptfehler „halt“ Nil, gang bleibt „dreh“ (Jerry 08.11., effekt_mess_6235) | Jerry | M | zu testen | – | claude/jerry-662-paradeseite | 273 | E Kampf | 7,31 $ |
@@ -188,7 +187,7 @@
 | 805 | Kampforte neu gestalten mit den Paketen: Gras und Blumen R9, Boden, Licht, Staub, damit es besser ausschaut; Bilder/s nicht unter heute (Chef 09.11., 21:12, über Sokrates) · „jetzt“ 09.11., 21:12 | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 806 | Kampforte mit den Effektpaketen schöner: Gras und Blumen aus R9, Boden, Staub; Bilder/s nicht unter heute (Chef 09.11., 21:12, über Sokrates) · „jetzt“ 09.11., 21:12 | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 811 | Von Perikles (800, 650.2 C1): Kommentar in godot/regeln/brs_kampf.gd Zeile 3 nennt DESIGN-SPIELSYSTEM-2-0-ENTWURF.md, Datei heißt seit 09.11. DESIGN-BRS.md; beim nächsten Commit dort mitziehen | Jerry | K | startbar | – | – | – | E Kampf | – |
-| Pflege | von Werkzeug (340.3, 09.11.): 15780 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 09.11.): 16019 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 432 | Eigenes Volk aus Bornim (etwa mit dem Grauen Propheten, „Tag der Asche“) prüfen, mit der Geschichte ab Kapitel 2 (Chef 31.10., 22:0x) | Homer | K | ruht | – | – | – | G Story | 0,79 $ |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
@@ -219,6 +218,8 @@
 | 812 | Von Sokrates (Chef 09.11., 21:23): Neustart-Haken und lauf.py warten mit dem Neustart, solange der Chef in der Sitzung eine Prüfliste ansehen/t… beantwortet | Perikles | M | startbar | – | – | – | B Abläufe | – |
 | 813 | D123.1 von Diogenes (800): regelcheck.py Verweisprüfung (Z. 169–181) kennt Pfade relativ zu docs/ nicht, meldet kapitel2/STORY-K2-ENTWURF.md, kapitel2/STORY-PLAN-K2.md (ARBEIT-KREATIV) und chefsache/README.md als fehlend, obwohl da | Perikles | K | startbar | – | – | – | B Werkzeuge | – |
 | 818 | Sitzungen mit eingebundenem Kaufrepo länger offen lassen statt neu starten; ohne Repo nur Arbeit ohne Kaufmodelle (Chef 09.11., 22:27, zu 391) | Perikles | M | erledigt | – | – | – | B Abläufe | – |
+| 822 | Schritt 4 und 5 zu 745 (von Sokrates): Wachstumsstopp-Haken mit fester Obergrenze für CLAUDE.md und jede Rollendatei (hinzufügen nur mit Streichen im selben Commit), reine Form-Haken entfernen (Diogenes 657 Punkt 4); dazu A2: Liste je Bereich mit Auslöser an Handlungen | Perikles | M | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 09.11.): 15381 Bytes (Grenze 15000), Erledigtes streichen | Perikles | K | startbar | – | – | – | B Abläufe | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
@@ -267,13 +268,14 @@
 | 655 | Bilder: Ersteller sieht sein Bild selbst an, Regel 300 streichen statt neuer Vorprüfung (Chef 08.11., 14:51: „warum entsteht überhaupt das Falsche?“) | Sokrates | M | startbar, gelöst 08.11.: 655.1 | – | – | – | B Abläufe | 7,02 $ |
 | 739 | D84.1 die sechs wiederholten Funde aus t268 mit „wiederholt“ im Titel nachziehen (620.1 A; bisher keine Zeile) (von Diogenes, Lauf 84) | Sokrates | K | ruht, Kampffolge 08.11. geht vor (Wochenziel 16.11.) | – | – | – | B Abläufe | – |
 | 740 | D63.7 Vorlage entscheiden/3761-kettenhemd-heldin.md (01.11., 20:55) ohne Zeile „Bestand geprüft“ (434); nicht nachtragbar, schließen mit erledigt oder verworfen (von Diogenes, Lauf 61) | Sokrates | K | startbar | – | – | – | B Abläufe | – |
-| 745 | Regelwerk konsolidieren: Widersprüche listen (Diogenes), Chef entscheidet, jede Regel an einem Ort, Wachstumsstopp per Haken; parallel zur Probe 657 D (Chef 09.11., 12:00) | Sokrates | M | startbar, 745 A2 (Chef 17:46): Schritt 1 Diogenes | – | – | – | B Abläufe | – |
+| 745 | Regelwerk konsolidieren: Widersprüche listen (Diogenes), Chef entscheidet, jede Regel an einem Ort, Wachstumsstopp per Haken; parallel zur Probe 657 D (Chef 09.11., 12:00) | Sokrates | M | wartet, Schritte 1–3 erledigt (783, 796); 4, 5, A2 bei Perikles 822 | 822 | – | – | B Abläufe | – |
 | 765 | Wochentermin 13.11.: Rollenspiegel Sokrates (rollenspiegel.sh Sokrates) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Sokrates | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 782 | Von Tom (697): ein Lauf am Rechner frei? Der erste (17:38) brach vor dem Zeichnen ab (Projekt nicht importiert, kein Messwert); gleicher Messlauf, nur Alphazahlen, kein Bild an den Chef nötig | Sokrates | M | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 09.11.): 15230 Bytes (Grenze 15000), Erledigtes streichen | Sokrates | K | startbar | – | – | – | B Abläufe | – |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +879,20 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 767 | Wochentermin 13.11.: Rollenspiegel Ford (rollenspiegel.sh Ford) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Ford | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 09.11.): 30529 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 09.11.): 30656 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
