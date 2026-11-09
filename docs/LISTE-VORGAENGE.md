@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 471 | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | Tom | M | gebaut, fährt im nächsten Build mit 762, Geprüft an: 8ee85b6e6 (kampfuebung_471, brs_471, fertigkeiten_762 grün) | – | claude/spike-471-fertigkeiten | – | E Kampf | – |
+| 471 | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | Tom | M | gebaut, fährt im nächsten Build mit 762, Geprüft an: 8ee85b6e6 (kampfuebung_471, brs_471, fertigkeiten_762 grün) | – | claude/spike-471-fertigkeiten | – | E Kampf | 0,39 $ |
 | 773 | Sammelbuild 272: alle fertigen Zweige beider Teams (Tom 5, Jerry 6: u. a. 656, 717, 717.1, 682, 702), Prüfliste ansehen/t272, build 272 --mit für alle (von Perikles, 15:31: sonst wartet jeder auf den anderen) | Tom | M | gebaut, Prüfliste beim Chef. Geprüft an: Lauf 42669446341 | – | – | – | E Technik | 11,84 $ |
 | 610 | Held im Dorf: Finger am Stab zucken ohne Unterlass (Schild auf dem Rücken) (Chef 07.11., t268) | Tom | M | zu testen, ohne Rückmeldung t272 | t272 | claude/tom-610-finger | – | E Figuren | 19,22 $ |
 | 522 | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Chef 03.11., 23:33) | Tom | M | zu testen, ohne Rückmeldung t272 | t272 | claude/tom-522-waffen | – | E Oberfläche | – |
@@ -106,7 +106,7 @@
 | 713 | Von Homer (586.1): Erklärfenster beim Gedrückthalten (menue.gd:1561) noch mit Goldrand und 14-sp-Kopf, gegen 549a (ohne Kasten) und 586a (Titel 22 sp) | Tom | K | ruht, Kampf zuerst (338.1) | – | – | – | E Oberfläche | – |
 | 753 | Blende nach der Rast: „8 Stunden vergehen“ klein und futzelig, nicht im neuen Design (Chef 09.11., 14:09, Fund t271.7) | Tom | M | gebaut, Bild beim Chef; Geprüft an: f785da832 | – | claude/spike-753-rastblende | – | E Oberfläche | 2,66 $ |
 | 757 | Schenke: neuer Tisch 7/2 (aus 604) wirkt als 1:1-Kopie des Tischs vor der Theke, gleiche Sachen darauf; eigener Tisch mit anderem Gedeck (Chef 09.11., 14:29) | Tom | M | startbar | – | – | – | E Welt | – |
-| 758 | Borin soll in der Schenke am Tisch sitzen wie in der alten Fassung, nicht seitlich daneben stehen (Chef 09.11., 14:29) | Tom | M | startbar, 758 A (Chef 20:45) | – | – | – | E Welt | – |
+| 758 | Borin soll in der Schenke am Tisch sitzen wie in der alten Fassung, nicht seitlich daneben stehen (Chef 09.11., 14:29) | Tom | M | startbar, 758 A (Chef 20:45) | – | – | – | E Welt | 0,39 $ |
 | 762 | Heldenreiter zeigt die BRS-Fertigkeiten mit Wert, Rang und Fortschritt, damit man sieht, was Schwert, Abwehr usw. üben (heute nur Klassenfähigkeiten alter Art) (Chef 09.11., 14:49, aus 720) | Tom | M | gebaut, Bild abgenommen 21:24, Geprüft an: 90ac07e9f | – | claude/tom-762-fertigkeiten | – | E Oberfläche | – |
 | 764 | Heldenreiter zeigt aktive Zustände (betrunken usw.) mit Erklärung; Tippen auf die Leiste öffnet nur das Menü, eine Erklärung gibt es nirgends (Chef 09.11., 14:49) | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 769 | Wochentermin 13.11.: Rollenspiegel Tom (rollenspiegel.sh Tom) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Tom | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
@@ -224,7 +224,7 @@
 | 735 | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-ABNAHME.md 11 und Kopf DESIGN-KAMPF.md 7 (646 ersetzt 621.1; 655 strich 300 und Helfer nach dem Versand) (von Diogenes, Lauf 92) | Perikles | K | ruht, Kampf zuerst (338.1) | – | – | – | B Abläufe | – |
 | 742 | D78.1 Testbitte t268: Zeile „Verglichen“ deckte nur die Schirme vom 05.11., nicht Dorf, Kampf, Kapitelende; Wächter 512.1 prüft den Umfang nicht (von Diogenes, Lauf 76) | Perikles | K | ruht, Kampf zuerst (338.1) | – | – | – | B Werkzeuge | – |
 | 797 | Von Tom (506): Auto-Modus lehnt add_repo trotz 708 ab, Chef musste 20:15 erneut erlauben; Erlaubnisregel mcp__claude-code-remote__add_repo in .claude/settings.json (Chef: „alle Repos benutzen“) | Perikles | M | startbar | Chef | – | – | B Abläufe | – |
-| 799 | Vorlagen nach 364: Muster MUSTER.md und Haken, der entscheiden/ und billigen/ ohne die acht Teile ablehnt; Übersicht meldet Altbestand (Chef 09.11., 20:35 und 20:46, über Sokrates) | Perikles | M | erledigt, greift Lauf 121 | – | – | – | B Werkzeuge | – |
+| 799 | Vorlagen nach 364: Muster MUSTER.md und Haken, der entscheiden/ und billigen/ ohne die acht Teile ablehnt; Übersicht meldet Altbestand (Chef 09.11., 20:35 und 20:46, über Sokrates) | Perikles | M | erledigt, greift Lauf 121 | – | – | – | B Werkzeuge | 0,39 $ |
 | 800 | docs aufräumen nach 650.2: A nach alt/ (je Datei „vorher“), B kapitel2/, C1 BRS umbenennen mit Werkzeugen, E2 Inhaltsverzeichnis „Für den Chef“ mit Prüfwerkzeug (Chef 09.11., 20:52, über Sokrates) | Perikles | M | startbar | – | – | – | B Abläufe | – |
 | 808 | D122.1 von Diogenes (796, 783 W5): CLAUDE.md Zusammenarbeit 3 hängt „außer Vorentscheid Sokrates“ an „Code auf main“; ROLLE-BERATUNG 52 lässt Code auf main beim Chef, W5 meint Abläufe, Balance, Spielgefühl | Perikles | M | startbar | – | – | – | B Abläufe | – |
 | 809 | D122.2 von Diogenes (796, 783 W3): LISTE-GLOSSAR Zeile Übernahme „wenn es nichts Startbares hat“, nach W3 „kein startbares Muss, vor eigener Kür“ | Perikles | M | startbar | – | – | – | B Abläufe | – |
@@ -235,10 +235,10 @@
 | 768 | Wochentermin 13.11.: Rollenspiegel Diogenes (rollenspiegel.sh Diogenes) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Diogenes | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 771 | Probe 657 auswerten: Erstfunde des Chefs t272–t275 gegen 11, 11, 9, 7 (von Perikles, Werkzeug 657 greift laut Lauf 104) | Diogenes | M | startbar | t275 | – | – | Q QM | – |
 | 790 | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab 200 Tsd., Chef 09.11., 18:05) | Diogenes | M | startbar | 16.11. 18:07 | – | – | Q QM | – |
-| 650.2 | docs Schritt 2 und 3: Abgelöstes nach alt/, Doppeltes zusammen, Gliederung (aus 650, Chef 09.11., 19:5x) | Sokrates | M | startbar, C2 und C3 bei Sokrates; A, B, C1, E2 als 800 | – | – | – | B Abläufe | – |
+| 650.2 | docs Schritt 2 und 3: Abgelöstes nach alt/, Doppeltes zusammen, Gliederung (aus 650, Chef 09.11., 19:5x) | Sokrates | M | startbar, C2 und C3 bei Sokrates; A, B, C1, E2 als 800 | – | – | – | B Abläufe | 0,39 $ |
 | 780 | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für unsere gekauften Protofactor-Animsets und Janpec, die KI-Sitzungen mit Skripten bearbeiten? (aus 623.1) | Sokrates | M | wartet, Antwort der Händler, Mails gesendet 09.11., 20:33 | 23.11. | – | – | M Veröffentlichung | – |
-| 620 | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build (Chef 07.11.) | Sokrates | M | startbar | – | – | – | B Abläufe | 26,90 $ |
-| 623 | Effektpakete REEBOO Labs: Kauf, Ressourcenseite `LISTE-QUELLEN.md`, Zuordnung `LISTE-EFFEKTE.md`, Dank im Spiel (Chef 07.11.) | Sokrates | M | startbar, 10 Pakete gekauft und erfasst, R5 R6 zurückgestellt | – | – | – | E Kampf | 6,49 $ |
+| 620 | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build (Chef 07.11.) | Sokrates | M | startbar | – | – | – | B Abläufe | 27,29 $ |
+| 623 | Effektpakete REEBOO Labs: Kauf, Ressourcenseite `LISTE-QUELLEN.md`, Zuordnung `LISTE-EFFEKTE.md`, Dank im Spiel (Chef 07.11.) | Sokrates | M | startbar, 10 Pakete gekauft und erfasst, R5 R6 zurückgestellt | – | – | – | E Kampf | 6,88 $ |
 | 508 | Lehrmeister in Kapitel 1 erreichbar (Geselle), Magie-Pflicht Paladin/Kriegsmagier, Wachsoldat zu Wächter (aus 447.4) | Sokrates | M | startbar | – | – | – | G Stil | – |
 | 461b.4 | Widersprüche aus Liste 461b: Köpfe Regelwerk, Bestiarium, DESIGN-KAMPF gegen Entscheidung 84 | Sokrates | M | startbar | – | – | – | G Stil | 33,44 $ |
 | 481 | Herkünfte ausgleichen: Kräutersammler mit Kampftränken, Wachsoldat, Klosterschüler, Bewährungsprobe (Chef 02.11., 18:54, aus 427) | Sokrates | M | startbar | – | – | – | E Kampf | – |
@@ -279,7 +279,7 @@
 | 745 | Regelwerk konsolidieren: Widersprüche listen (Diogenes), Chef entscheidet, jede Regel an einem Ort, Wachstumsstopp per Haken; parallel zur Probe 657 D (Chef 09.11., 12:00) | Sokrates | M | startbar, 745 A2 (Chef 17:46): Schritt 1 Diogenes | 796 | – | – | B Abläufe | – |
 | 765 | Wochentermin 13.11.: Rollenspiegel Sokrates (rollenspiegel.sh Sokrates) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Sokrates | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 782 | Von Tom (697): ein Lauf am Rechner frei? Der erste (17:38) brach vor dem Zeichnen ab (Projekt nicht importiert, kein Messwert); gleicher Messlauf, nur Alphazahlen, kein Bild an den Chef nötig | Sokrates | M | startbar | – | – | – | B Abläufe | – |
-| 623.8 | Effektpakete für eine lebendige Welt: Reihenfolge Dorf, Wolfskampf, Wald; Bilder/s-Grenze, Farben gedämpft (Chef 09.11., 21:07) | Sokrates | M | Chef, Vorlage | Chef 6238 | – | – | G Stil | – |
+| 623.8 | Effektpakete für eine lebendige Welt: Reihenfolge Dorf, Wolfskampf, Wald; Bilder/s-Grenze, Farben gedämpft (Chef 09.11., 21:07) | Sokrates | M | Chef, Vorlage | Chef 6238 | – | – | G Stil | 0,39 $ |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +866,88 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 767 | Wochentermin 13.11.: Rollenspiegel Ford (rollenspiegel.sh Ford) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Ford | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
