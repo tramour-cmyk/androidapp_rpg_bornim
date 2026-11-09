@@ -2,7 +2,7 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `90959d954` (09.11., 18:11)
+**Gelesen bis:** `d61bb45ee` (09.11., 19:08)
 
 **Übergabe (09.11., 18:12):** 788 gebaut (`vorgang.py` Wächter: Schwert, Zwischensequenz gestrichen, Querschnittwörter verweisen auf 785, 786, 620.4, 644, 511), an Diogenes. Nachfolger: keiner (auf Abruf, nichts startbar)
 
