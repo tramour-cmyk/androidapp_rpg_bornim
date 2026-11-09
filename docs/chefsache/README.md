@@ -152,8 +152,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 613.2 | M | Zwischensequenzen: Bewegung sichtbar wie alt (Kerzenflackern, atmendes Licht, Staub im Str | ruht |
 | 713 | K | Von Homer (586.1): Erklärfenster beim Gedrückthalten (menue.gd:1561) noch mit Goldrand und | ruht |
 | 737 | K | D92.2 Vorlagen 02.–08.11. ohne Zeile „Bestand geprüft“ (434): 417, 431, 463, 475, 492, 499 | startbar |
-| Pflege | K | von Werkzeug (340.3, 09.11.): 17213 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 753 | M | Blende nach der Rast: „8 Stunden vergehen“ klein und futzelig, nicht im neuen Design (Chef | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
+| Pflege | K | von Werkzeug (340.3, 09.11.): 17838 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 71, Muss 63, startbar 3
 
@@ -229,7 +229,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 744 | M | Karte: Streuner und Leute bewegen sich natürlich, verweilen mit Ruhebewegung statt Roboter | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test |
 | 747 | K | Von Perikles (743, Chef 09.11., 11:21 „alle verwerfen“): Vorgang 24 schließen (Animationen | startbar |
 | 751 | M | Kampf: Knopfleiste des Helden manchmal leer („…“), keine Menüfunktion, auch ohne „ganzer B | startbar |
-| Pflege | K | von Werkzeug (340.3, 09.11.): 16997 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 09.11.): 17805 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 26, Muss 12, startbar 0
 
