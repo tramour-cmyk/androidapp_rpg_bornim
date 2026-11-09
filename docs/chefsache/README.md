@@ -16,7 +16,11 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [506](ansehen/506-skelett.md) | Skelette im Kampf (gekauftes Modell) | Tom | 09.11., 21:56 |
 
 ## Zu tun
 
