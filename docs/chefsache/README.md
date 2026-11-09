@@ -157,7 +157,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 815 | M | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staubflocken innen, Fußstaub, Fahne, W | startbar |
 | Pflege | K | von Werkzeug (340.3, 09.11.): 15147 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 74, Muss 65, startbar 10
+**Jerry** – offen 74, Muss 65, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -169,7 +169,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 438 | M | Wölfe im Kampf wirken gleitend: Angriff, Tempo, Vorbeigehen (Film 403, Chef 31.10., 23:31) | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 562 (angriff) |
 | 642 | M | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 | in Arbeit bei Tuffy |
 | 679 | M | Kampf: im ersten Testkampf (Kleriker gegen Wölfe) fehlten Befehle und Knöpfe (Gewinnen, Ve | wartet auf Test/Build (gebaut) |
-| 704 | M | Wolf allein ist harmlos, wenn der Held jedem angekündigten Sprung ausweicht: 300 von 300 S | startbar |
+| 704 | M | Wolf allein ist harmlos, wenn der Held jedem angekündigten Sprung ausweicht: 300 von 300 S | in Arbeit bei Tuffy |
 | 705 | M | Zauberlehrling Stufe 1 gewinnt gegen Wolf und Rudel selten (BRS 2–30 %, Messung anspringen | startbar |
 | 595 | M | Kampfbewegungen der Kaufgegner: Spinne mehr Angriffe, Egel und Schnecke schneller, Treffhö | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 562 (angriffe) |
 | 616 | M | Kampf: Gegner weichen nach dem Angriff rückwärts zurück statt vorwärts zu laufen (Chef 07. | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 562 (angriff) |
@@ -276,7 +276,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 771 | M | Probe 657 auswerten: Erstfunde des Chefs t272–t275 gegen 11, 11, 9, 7 (von Perikles, Werkz | wartet auf Test t275 (Chef) |
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 
-**Sokrates** – offen 45, Muss 34, startbar 22
+**Sokrates** – offen 45, Muss 34, startbar 23
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -288,7 +288,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 508 | M | Lehrmeister in Kapitel 1 erreichbar (Geselle), Magie-Pflicht Paladin/Kriegsmagier, Wachsol | startbar |
 | 461b.4 | M | Widersprüche aus Liste 461b: Köpfe Regelwerk, Bestiarium, DESIGN-KAMPF gegen Entscheidung | startbar |
 | 481 | M | Herkünfte ausgleichen: Kräutersammler mit Kampftränken, Wachsoldat, Klosterschüler, Bewähr | startbar |
-| 391 | M | Zweit-Repo dauerhaft in den Sitzungen, ohne Ablehnung (Chef 28.10., 09:21) | ruht |
+| 391 | M | Zweit-Repo dauerhaft in den Sitzungen, ohne Ablehnung (Chef 28.10., 09:21) | startbar |
 | 383.2 | M | Kosten: dieselbe Aufgabe frisch gegen groß messen (Chef 27.10., 19:24) | ruht |
 | 374 | M | Wer prüft regelmäßig, dass alle 373 einhalten? (Chef 27.10., 11:54) | startbar |
 | 348 | M | Fertige Spiel-Engine statt Selbstbau: Umzug nach Godot (Chef 24.10., 16:43) · „jetzt“ 24.1 | ruht |
