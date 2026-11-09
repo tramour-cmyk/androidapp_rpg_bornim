@@ -119,7 +119,7 @@
 | 662 | Kampf (vorher 653): Parade des Helden mit Schild dreht über _face_sanft ohne Pfotenhalt, Skriptfehler „halt“ Nil, gang bleibt „dreh“ (Jerry 08.11., effekt_mess_6235) | Jerry | M | zu testen | – | claude/jerry-662-paradeseite | 273 | E Kampf | 7,31 $ |
 | 593 | MARS: Ausweichen auch rückwärts als Abwechslung zu links und rechts (Chef 05.11., 19:2x) | Jerry | M | zu testen, seit 270 auf main | – | claude/jerry-593-ausweichen | – | E Kampf | – |
 | 406.2 | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) | Jerry | M | startbar, Fund t269.21 | – | – | – | E Kampf | 41,37 $ |
-| 438 | Wölfe im Kampf wirken gleitend: Angriff, Tempo, Vorbeigehen (Film 403, Chef 31.10., 23:31) | Jerry | M | startbar, Fund t269.21 | – | claude/jerry-438-wolf-kampf | – | E Kampf | 124,52 $ |
+| 438 | Wölfe im Kampf wirken gleitend: Angriff, Tempo, Vorbeigehen (Film 403, Chef 31.10., 23:31) | Jerry | M | erledigt | – | claude/jerry-438-wolf-kampf | – | E Kampf | 124,52 $ |
 | 642 | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 Seeds 1, 3 am Rechner; im Bau misst nur Seed 7), auch mit altem Heldentempo; von Jerry zu 438 | Jerry | M | ruht, wartet auf Kaufrepo (391), Ursache vermutet | – | claude/jerry-348-642-wolf-abstand | – | E Kampf | – |
 | 679 | Kampf: im ersten Testkampf (Kleriker gegen Wölfe) fehlten Befehle und Knöpfe (Gewinnen, Verlieren, Raster, Würfelergebnisse), „null Einfluss“; im zweiten Kampf gegen das Wolfsrudel waren sie da: Ursache nachstellen (Chef 08.11., 16:06, 16:07, Build 269) | Jerry | M | zu testen | – | claude/tuffy-679-knoepfe | 273 | E Kampf | 4,08 $ |
 | 704 | Wolf allein ist harmlos, wenn der Held jedem angekündigten Sprung ausweicht: 300 von 300 Siegen, er kann nur springen (Befund Tuffy zu 702, 08.11.) | Jerry | M | startbar | Chef | – | – | E Kampf | 0,26 $ |
@@ -187,8 +187,8 @@
 | 805 | Kampforte neu gestalten mit den Paketen: Gras und Blumen R9, Boden, Licht, Staub, damit es besser ausschaut; Bilder/s nicht unter heute (Chef 09.11., 21:12, über Sokrates) · „jetzt“ 09.11., 21:12 | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 806 | Kampforte mit den Effektpaketen schöner: Gras und Blumen aus R9, Boden, Staub; Bilder/s nicht unter heute (Chef 09.11., 21:12, über Sokrates) · „jetzt“ 09.11., 21:12 | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 811 | Von Perikles (800, 650.2 C1): Kommentar in godot/regeln/brs_kampf.gd Zeile 3 nennt DESIGN-SPIELSYSTEM-2-0-ENTWURF.md, Datei heißt seit 09.11. DESIGN-BRS.md; beim nächsten Commit dort mitziehen | Jerry | K | startbar | – | – | – | E Kampf | – |
-| Pflege | von Werkzeug (340.3, 09.11.): 16019 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 823 | Von Perikles (822, 745 A2): Abschnitt „## Checkliste“ in LISTE-MARS.md, je Regel zum Kampf eine Zeile oder Verweis (Balance nur Chef, 444 vor Zahlen, Messung vor Bau …); der Haken zeigt ihn beim ersten Commit unter godot/kampf/ und godot/regeln/ | Jerry | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 10.11.): 15691 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 432 | Eigenes Volk aus Bornim (etwa mit dem Grauen Propheten, „Tag der Asche“) prüfen, mit der Geschichte ab Kapitel 2 (Chef 31.10., 22:0x) | Homer | K | ruht | – | – | – | G Story | 0,79 $ |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
@@ -215,9 +215,9 @@
 | 734 | D92.1 Warnung „LISTE-VORGAENGE.md von Hand geändert“ wird nirgends festgehalten, Woche Warnungen (275 Stufe 2) nicht zählbar; je Warnung eine Zeile in eine Datei auf main (von Diogenes, Lauf 92) | Perikles | K | ruht, Kampf zuerst (338.1) | – | – | – | B Werkzeuge | – |
 | 735 | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-ABNAHME.md 11 und Kopf DESIGN-KAMPF.md 7 (646 ersetzt 621.1; 655 strich 300 und Helfer nach dem Versand) (von Diogenes, Lauf 92) | Perikles | K | ruht, Kampf zuerst (338.1) | – | – | – | B Abläufe | – |
 | 742 | D78.1 Testbitte t268: Zeile „Verglichen“ deckte nur die Schirme vom 05.11., nicht Dorf, Kampf, Kapitelende; Wächter 512.1 prüft den Umfang nicht (von Diogenes, Lauf 76) | Perikles | K | ruht, Kampf zuerst (338.1) | – | – | – | B Werkzeuge | – |
-| 800 | docs aufräumen nach 650.2: A nach alt/ (je Datei „vorher“), B kapitel2/, C1 BRS umbenennen mit Werkzeugen, E2 Inhaltsverzeichnis „Für den Chef“ mit Prüfwerkzeug (Chef 09.11., 20:52, über Sokrates) | Perikles | M | gebaut, Geprüft an: 3a26195f2 | – | – | – | B Abläufe | – |
+| 800 | docs aufräumen nach 650.2: A nach alt/ (je Datei „vorher“), B kapitel2/, C1 BRS umbenennen mit Werkzeugen, E2 Inhaltsverzeichnis „Für den Chef“ mit Prüfwerkzeug (Chef 09.11., 20:52, über Sokrates) | Perikles | M | erledigt, greift Lauf 125 | – | – | – | B Abläufe | – |
 | 822 | Schritt 4 und 5 zu 745 (von Sokrates): Wachstumsstopp-Haken mit fester Obergrenze für CLAUDE.md und jede Rollendatei (hinzufügen nur mit Streichen im selben Commit), reine Form-Haken entfernen (Diogenes 657 Punkt 4); dazu A2: Liste je Bereich mit Auslöser an Handlungen | Perikles | M | gebaut, Geprüft an: 5ff77fc59 | Chef | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 09.11.): 15381 Bytes (Grenze 15000), Erledigtes streichen | Perikles | K | erledigt | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 10.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Perikles | K | startbar | – | – | – | B Abläufe | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
@@ -269,11 +269,11 @@
 | 745 | Regelwerk konsolidieren: Widersprüche listen (Diogenes), Chef entscheidet, jede Regel an einem Ort, Wachstumsstopp per Haken; parallel zur Probe 657 D (Chef 09.11., 12:00) | Sokrates | M | wartet, Schritte 1–3 erledigt (783, 796); 4, 5, A2 bei Perikles 822 | 822 | – | – | B Abläufe | – |
 | 765 | Wochentermin 13.11.: Rollenspiegel Sokrates (rollenspiegel.sh Sokrates) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Sokrates | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 782 | Von Tom (697): ein Lauf am Rechner frei? Der erste (17:38) brach vor dem Zeichnen ab (Projekt nicht importiert, kein Messwert); gleicher Messlauf, nur Alphazahlen, kein Bild an den Chef nötig | Sokrates | M | startbar | – | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 09.11.): 15230 Bytes (Grenze 15000), Erledigtes streichen | Sokrates | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 10.11.): 15230 Bytes (Grenze 15000), Erledigtes streichen | Sokrates | K | startbar | – | – | – | B Abläufe | – |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +879,20 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 767 | Wochentermin 13.11.: Rollenspiegel Ford (rollenspiegel.sh Ford) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Ford | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 09.11.): 30656 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 10.11.): 27530 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
