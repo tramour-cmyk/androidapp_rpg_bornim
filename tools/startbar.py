@@ -177,6 +177,23 @@ def wochentermine_faellig(jetzt):
     return [("Wochentermin %s: %s (719)" % (tag, name), ber, wer) for wt, h, wer, name, ber in WOCHENTERMINE
             if jetzt.date() >= datetime.date(2026, 11, 10) and jetzt.weekday() == wt and jetzt.hour >= h and ("Wochentermin %s: %s" % (tag, name)) not in da]
 
+def sammelbuild_faellig():
+    """774 (Chef 09.11., 15:29: „wenn jeder auf den anderen wartet …“): warten mindestens 4 fertige Punkte von Tom und Jerry
+    ohne Build und hat keiner eine offene Zeile „Sammelbuild“, legt lauf.py --sperre sie beim Team mit den meisten an
+    (Gleichstand: Tom). (Titel, Bereich, Besitzer) oder None."""
+    zs = zeilen_liste()
+    offen = lambda d: d["wort"] not in (None, "erledigt", "verworfen", "aufgeteilt")
+    if any(offen(d) and d["titel"].startswith("Sammelbuild") for d in zs):
+        return None
+    fertig = [d for d in zs if d["besitzer"] in ("Tom", "Jerry") and d["wort"] in ("gebaut", "zu testen")
+              and d.get("build") in ("", "–", "-", None) and not d.get("bereich", "").startswith("B ")]
+    if len(fertig) < 4:
+        return None
+    n = {r: [d["nr"] for d in fertig if d["besitzer"] == r] for r in ("Tom", "Jerry")}
+    wer = "Jerry" if len(n["Jerry"]) > len(n["Tom"]) else "Tom"
+    return ("Sammelbuild: alle fertigen Zweige beider Teams (Tom %s; Jerry %s), Prüfliste ansehen/t<n>, build <n> --mit für jede Nummer (774)"
+            % (", ".join(n["Tom"]) or "–", ", ".join(n["Jerry"]) or "–"), "E Technik", wer)
+
 def zeilen_liste():
     global _LISTE
     if _LISTE is None: _LISTE = vorgangsliste()
@@ -498,6 +515,7 @@ def neu_gesperrt(z):
     """620.1 B: True für nicht angefangene Arbeit (auch „wartet“ mit erfülltem Feld), weder wiederholt noch „jetzt“ noch Rückläufer."""
     d = z[3]
     if d["wort"] == "in Arbeit": return False
+    if d["titel"].startswith("Sammelbuild"): return False  # 774: die Sperre wartet auf diesen Build, darf ihn nicht selbst sperren
     if WIEDERHOLT.search(z[2]) or jetzt_zeile(d): return False
     return d.get("build") in ("", "–", "-", None)
 

@@ -354,6 +354,17 @@ def main():
             ausgabe.append("NICHTS %s: Wochentermin %s angelegt, „%s“ (719; Notizen pushen)" % (wer, nr, t))
         except SystemExit as e:
             ausgabe.append("WARNUNG Wochentermin „%s“ nicht angelegt: %s (719, Perikles)" % (t, e))
+    sb = startbar.sammelbuild_faellig()  # 774: gemeinsamer Build nie verwaist
+    if sb and not sperre:
+        ausgabe.append("NICHTS %s: Sammelbuild fällig, der Lauf mit --sperre legt ihn an (774)" % sb[2])
+    elif sb:
+        try:
+            import vorgang, io, contextlib
+            with contextlib.redirect_stdout(io.StringIO()): nr = vorgang.neu(sb[0], sb[1], "M", sb[2], None, True)
+            ausgabe.append("NICHTS %s: Sammelbuild %s angelegt (774; Notizen pushen)" % (sb[2], nr))
+            startbar.neu_laden()
+        except SystemExit as e:
+            ausgabe.append("WARNUNG Sammelbuild nicht angelegt: %s (774, Perikles)" % e)
     st = stand(); chefd = chefdateien_je_rolle(); marken = startmarken()
     je_rolle = {}
     for s in leb:
