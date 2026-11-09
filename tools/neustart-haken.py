@@ -20,6 +20,9 @@ import sys
 KERN_ALLE = 10
 AB = int(os.environ.get("BORNIM_NEUSTART_AB", "200000"))
 OFFEN_MAX = int(os.environ.get("BORNIM_OFFEN_MAX", "15000"))
+# 818 (Chef 09.11., 22:27: „Oder ihr lasst halt jetzt die Sitzungen dann doch länger offen, wenn die Gefahr besteht, dass es wieder ein Repo-Problem gibt“):
+# liegt das Kaufrepo in der Sitzung, gilt die doppelte Schwelle (400 Tsd., wie vor 383 A) und die Sitzung nimmt den nächsten eigenen Vorgang selbst.
+KAUF = "/home/user/bornim-kaufmodelle"
 # Abstände in Nachrichten zwischen zwei Erinnerungen: erst 6, dann 4, 3, 2, danach bei jeder Nachricht.
 ABSTAENDE = [6, 4, 3, 2, 1]
 
@@ -55,9 +58,9 @@ def zuwachs(werte):
     return werte[-1] - basis, werte[-1]
 
 
-def text(stufe, plus, gesamt):
+def text(stufe, plus, gesamt, ab=AB):
     k = lambda n: f"{round(n / 1000)} Tsd."
-    kopf = f"Neustart-Haken (Thema 14): Das Gespräch ist {k(gesamt)} Token lang (Schwelle {k(AB)}, 383 A; seit dem Start +{k(plus)}); Erinnerung Nr. {stufe}."
+    kopf = f"Neustart-Haken (Thema 14): Das Gespräch ist {k(gesamt)} Token lang (Schwelle {k(ab)}, 383 A{', Kaufrepo eingebunden 818' if ab != AB else ''}; seit dem Start +{k(plus)}); Erinnerung Nr. {stufe}."
     # 81r: der Anlass entscheidet, nicht ein Ja des Nutzers; kein Vorschlag im Chat (D8.2: der löste den Chefsache-Haken aus)
     if stufe == 1:
         rest = "An der nächsten Bruchstelle (Thema fertig, Build ausgeliefert): zuerst `python3 tools/regelcheck.py --kurz` und die Funde im eigenen Vorrat beheben, dann Übergabe mit „Nachfolger: <Titel>“ pushen, send_message an Ford „Neustart <Name>, <Commit>“ (81r, LISTE-RELEASE-NEUSTART.md „Neustart“). Im Chat nichts dazu."
@@ -132,16 +135,17 @@ def prompt(eingabe):
             z = json.load(f)
     except (OSError, ValueError):
         z = {}
-    if gesamt < AB:  # 383 A: Gesprächslänge, nicht Zuwachs
+    ab = 2 * AB if os.path.isdir(os.path.join(KAUF, ".git")) else AB  # 818
+    if gesamt < ab:  # 383 A: Gesprächslänge, nicht Zuwachs
         if z:
             os.remove(zpfad)  # unter der Schwelle (z. B. nach dem Verdichten): von vorn
         return
     stufe = int(z.get("stufe", 0))
     seit = int(z.get("seit", 0)) + 1
-    faellig = stufe == 0 or gesamt >= 2 * AB or seit >= ABSTAENDE[min(stufe - 1, len(ABSTAENDE) - 1)]
+    faellig = stufe == 0 or gesamt >= 2 * ab or seit >= ABSTAENDE[min(stufe - 1, len(ABSTAENDE) - 1)]
     if faellig:
         stufe, seit = stufe + 1, 0
-        print(text(stufe, plus, gesamt))
+        print(text(stufe, plus, gesamt, ab))
     with open(zpfad, "w") as f:
         json.dump({"stufe": stufe, "seit": seit}, f)
 
