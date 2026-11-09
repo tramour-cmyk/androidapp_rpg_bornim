@@ -221,9 +221,15 @@ void fragment() {
 		pm.size = Vector2(es[0], es[1]) * _scale(); vor = es[2]
 	elif (wolf or eigene_haut(fighter)) and mass.has("laenge_m"):     # 494: auch die gekaufte Spinne (vorher 0,95 rund unter 1,69 m Beinen); 387 Runde 2 (Prüfer: Schatten in Wolfsgröße, bei Huhn und Kaninchen doppelt so breit): nach dem Kauftier
 		pm.size = Vector2(mass.get("breite_m", 0.4) * 1.3, mass.laenge_m * 0.9) * _scale(); vor = 0.0
+	# 506 (Helfer 08.11., 12:55, A4 „Schatten als Scheibe“): unter dem Skelett deckt kein Fleisch den runden Schatten, zwischen den
+	# dünnen Knochen lag eine dunkle Scheibe; schmaler und heller, so breit wie das Becken (Kauf 0,52 m breit mit Armen)
+	var dunkel := 0.78
+	if fighter != null and fighter.monster != null and Mars.koerper_of(fighter.monster) == SKELETT:
+		pm.size = Vector2(0.6, 0.6); dunkel = 0.5
 	mi.mesh = pm
 	var m := ShaderMaterial.new()
 	m.shader = shadow_shader
+	m.set_shader_parameter("dichte", dunkel)
 	mi.material_override = m
 	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	mi.position = Vector3(0, 0.02, vor * _scale() if wolf else 0.0)     # Rumpfmitte des Wolfs liegt 0,15 m vor dem Ursprung

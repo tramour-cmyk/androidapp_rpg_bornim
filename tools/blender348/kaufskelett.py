@@ -18,7 +18,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 T0 = time.time()
 import bpy
 import numpy as np
-from mathutils import Vector, Matrix
+from mathutils import Vector, Matrix, Quaternion
 from kaufratte import lin, srgb, tris, aktion_von, weg as entferne, slot, welt_netz, importiere
 
 KAUF = os.environ.get('KAUF', '')
@@ -30,6 +30,10 @@ TEX = 1024
 FPS = 30
 SPEER_M = float(os.environ.get('SPEER_M', '1.75'))      # Speer etwa so lang wie der Träger
 SPEER_GRIFF = 0.42                                       # Faust bei 42 % der Länge von hinten
+# Helfer 08.11., 12:55 (Liste 4 „Kits kaum unterscheidbar“): Speer 1–2 px dünn ohne sichtbare Spitze, Schild schmal hochkant. Der
+# Speer wird quer zur Achse dicker (Schaft und Spitze), der Schild größer um seine Mitte
+SPEER_DICKE = float(os.environ.get('SPEER_DICKE', '1.8'))
+SCHILD_GROESSE = float(os.environ.get('SCHILD_GROESSE', '1.3'))
 RNG = np.random.default_rng(506)
 K = 'SkeletonKnight_ '
 HAND_R, HAND_L, KOPF, HALS = K + 'R Hand', K + 'L Hand', K + 'Head', K + 'Neck1'
@@ -191,7 +195,8 @@ def speer(rig, schwert):
     s = SPEER_M / lang
     z0 = P[:, 2].min() + lang * SPEER_GRIFF
     R = Vector((0, 0, 1)).rotation_difference(Vector(ax.tolist())).to_matrix().to_4x4()
-    sp.matrix_world = Matrix.Translation(Vector(griff.tolist())) @ R @ Matrix.Scale(s, 4) @ Matrix.Translation((0, 0, -z0))
+    quer = Matrix.Diagonal((SPEER_DICKE, SPEER_DICKE, 1.0, 1.0))
+    sp.matrix_world = Matrix.Translation(Vector(griff.tolist())) @ R @ Matrix.Scale(s, 4) @ quer @ Matrix.Translation((0, 0, -z0))
     bpy.context.view_layer.update()
     bpy.ops.object.select_all(action='DESELECT')
     sp.select_set(True); bpy.context.view_layer.objects.active = sp
@@ -208,7 +213,11 @@ def speer(rig, schwert):
     sp.data.materials.append(m)
     sp.name = 'SPEER'
     an_knochen(sp, rig, HAND_R)
-    print('SPEER %.2f m, Faust %.2f m von hinten, Achse %s' % (SPEER_M, SPEER_M * SPEER_GRIFF, np.round(ax, 2)))
+    Q = np.array([(sp.matrix_world @ v.co)[:] for v in sp.data.vertices])
+    t = (Q - griff) @ ax
+    r = np.linalg.norm((Q - griff) - np.outer(t, ax), axis=1)
+    print('SPEER %.2f m, Faust %.2f m von hinten, Achse %s, Schaft %.3f m dick, Spitze %.3f m breit (quer x%.1f)' % (SPEER_M,
+          SPEER_M * SPEER_GRIFF, np.round(ax, 2), 2 * float(np.median(r)), 2 * float(r.max()), SPEER_DICKE))
     return sp
 
 
@@ -278,6 +287,39 @@ def augen(rig, koerper):
     return obs
 
 
+# Helfer 08.11., 12:55 (Liste 3): rechter Schädel ohne dunkle Höhlen; die Bemalung nimmt nur die Helligkeit des Kaufbilds, dort sind
+# die Höhlen kaum dunkler als der Knochen. Darum im Bild jede Fläche des Schädels, deren Mitte näher als HOEHLE_R an einem
+# Glutpunkt liegt, fast schwarz (zum Rand weich), auf beiden Seiten gleich
+HOEHLE_R = 0.024
+HOEHLE = 0x0C0A08
+
+
+def hoehlen_dunkel(koerper, glut, png):
+    from PIL import Image, ImageDraw, ImageFilter
+    mitten = [o.matrix_world.translation.copy() for o in glut]
+    uv = koerper.data.uv_layers.active.data
+    im = Image.open(png).convert('RGB')
+    maske = Image.new('L', im.size, 0)
+    zg = ImageDraw.Draw(maske)
+    n = 0
+    for p in koerper.data.polygons:
+        c = koerper.matrix_world @ p.center
+        d = min((c - m).length for m in mitten)
+        if d > HOEHLE_R:
+            continue
+        w = int(255 * min(1.0, 1.25 - d / HOEHLE_R))
+        pts = [(uv[li].uv[0] * im.size[0], (1 - uv[li].uv[1]) * im.size[1]) for li in p.loop_indices]
+        zg.polygon(pts, fill=max(w, 0))
+        n += 1
+    maske = maske.filter(ImageFilter.GaussianBlur(2))
+    dunkel = Image.new('RGB', im.size, tuple(int(x * 255) for x in srgb(np.array(lin(HOEHLE)))))
+    Image.composite(dunkel, im, maske).save(png)
+    for img in bpy.data.images:
+        if img.filepath and os.path.abspath(bpy.path.abspath(img.filepath)) == os.path.abspath(png):
+            img.reload()
+    print('HOEHLEN %d Flächen dunkel (Radius %.3f m)' % (n, HOEHLE_R))
+
+
 def waffe_heben(o, rig, a, scn):
     """E3 (nichts durch etwas): im Tod fällt die Waffe mit der Faust und stach in den Boden (Speer 20 cm, Lauf 2). Je Bild um die
     Faust so wenig wie möglich aufrichten, bis keine Ecke unter dem Boden liegt; als eigene Spur „Tod“ des Teils."""
@@ -328,6 +370,59 @@ def waffe_heben(o, rig, a, scn):
         st.action_slot = slot(act)
     print('TOD %s um die Faust aufgerichtet, höchstens %d Grad, tiefster Punkt %.3f m' % (o.name, gedreht, rest))
     return round(rest, 3)
+
+
+# Helfer 08.11., 12:55: alle hielten die Waffe im Stehen waagerecht auf Hüfthöhe zur Seite (gemessen 64–79 Grad von senkrecht,
+# Kauf Idle1Handed). Ziel je Waffe (Richtung Faust -> Spitze, Blender: −X die rechte Seite der Figur, −Y vorn): Schwert gesenkt
+# schräg vor das Bein, Speer aufrecht neben dem Körper, Spitze oben (1,75 m, sonst stäche er in den Boden). Ein fester Ausgleich im
+# Raum der Faust, gemessen im ersten Bild, auf jedes Bild der Bewegung: das Atmen und Wiegen des Kaufs bleibt.
+ZIEL_RICHTUNG = {'SM_Sword': (-0.30, -0.42, -0.86), 'SPEER': (-0.10, -0.12, 0.99)}
+WAFFE_GESENKT = ('Stehen', 'Gehen')
+
+
+def kurven(a):
+    if hasattr(a, 'fcurves'):
+        return list(a.fcurves)
+    return [fc for l in a.layers for st in l.strips for cb in st.channelbags for fc in cb.fcurves]
+
+
+def waffe_senken(rig, waffe, akt):
+    ziel = Vector(ZIEL_RICHTUNG.get(waffe.name, ZIEL_RICHTUNG['SM_Sword'])).normalized()
+    pb = rig.pose.bones[HAND_R]
+    pfad = 'pose.bones["%s"].rotation_quaternion' % HAND_R
+    for nm in WAFFE_GESENKT:
+        a = akt.get(nm)
+        if a is None:
+            continue
+        rig.animation_data.action = a
+        if slot(a) is not None:
+            rig.animation_data.action_slot = slot(a)
+        f0 = int(a.frame_range[0])
+        bpy.context.scene.frame_set(f0); bpy.context.view_layer.update()
+        h = rig.matrix_world @ pb.head
+        V = [waffe.matrix_world @ v.co for v in waffe.data.vertices]
+        v = (max(V, key=lambda p: (p - h).length) - h).normalized()
+        D = v.rotation_difference(ziel).to_matrix()
+        Rw = (rig.matrix_world @ pb.matrix).to_3x3().normalized()
+        L = (Rw.inverted() @ D @ Rw).to_quaternion()
+        fc = sorted([c for c in kurven(a) if c.data_path == pfad], key=lambda c: c.array_index)
+        if len(fc) != 4:
+            print('SENKEN %s: Faust ohne Drehspur' % nm); continue
+        for i in range(len(fc[0].keyframe_points)):
+            q = Quaternion([c.keyframe_points[i].co[1] for c in fc]) @ L
+            for c, wq in zip(fc, q):
+                c.keyframe_points[i].co[1] = wq
+                c.keyframe_points[i].handle_left[1] = wq; c.keyframe_points[i].handle_right[1] = wq
+        for c in fc:
+            c.update()
+        winkel = []
+        for f in range(f0, int(a.frame_range[1]) + 1, 5):
+            bpy.context.scene.frame_set(f); bpy.context.view_layer.update()
+            h = rig.matrix_world @ pb.head
+            V = [waffe.matrix_world @ v.co for v in waffe.data.vertices]
+            w = (max(V, key=lambda p: (p - h).length) - h).normalized()
+            winkel.append(round(math.degrees(w.angle(ziel))))
+        print('SENKEN %s %s: Abweichung vom Ziel je 5 Bilder %s Grad' % (waffe.name, nm, winkel))
 
 
 def aktionen(d, rig):
@@ -397,6 +492,12 @@ def baue(kit_name):
             continue
         if n in WEG_KAUF or (n not in kit['teile'] and not (n == 'SM_Sword' and 'SPEER' in kit['teile'])):
             entferne([o]); netze.pop(n)
+    if 'SM_Shield' in netze and abs(SCHILD_GROESSE - 1.0) > 1e-3:
+        sh = netze['SM_Shield']
+        c = sum((sh.matrix_world @ v.co for v in sh.data.vertices), Vector()) / len(sh.data.vertices)
+        sh.matrix_world = Matrix.Translation(c) @ Matrix.Scale(SCHILD_GROESSE, 4) @ Matrix.Translation(-c) @ sh.matrix_world
+        bpy.context.view_layer.update()
+        print('SCHILD x%.2f um die Mitte' % SCHILD_GROESSE)
     if 'SPEER' in kit['teile']:
         sp = speer(rig, netze['SM_Sword'])
         if sp is not None:
@@ -410,7 +511,8 @@ def baue(kit_name):
         bpy.ops.object.modifier_apply(modifier=mod.name)
     print('DREIECKE Körper %d -> %d' % (vorher, tris([koerper])))
     # Bemalung
-    material(koerper, speichere(knochen_bild(tex_dir, kit['knochen']), 'knochen-' + kit_name), 'Knochen')
+    knochen_png = speichere(knochen_bild(tex_dir, kit['knochen']), 'knochen-' + kit_name)
+    material(koerper, knochen_png, 'Knochen')
     for n, bildname, holz in (('SM_Helmet', 'T_Helmet_Albedo.jpg', False), ('SM_Sword', 'T_1HandedSword_Albedo.jpg', False),
                               ('SM_Shield', 'T_Shield_Albedo.jpg', True)):
         if n in netze:
@@ -419,12 +521,16 @@ def baue(kit_name):
     statur(rig, koerper, dicke)
     INFO['statur'] = kit['statur']
     glut = augen(rig, koerper)
+    hoehlen_dunkel(koerper, glut, knochen_png)
     netze.update({o.name: o for o in glut})
     # Bewegungen
     rig.animation_data_create()
     akt = aktionen(d, rig)
     if 'Stehen' not in akt or 'Gehen' not in akt or 'Hieb' not in akt:
         sys.exit('Stehen, Gehen oder Hieb fehlt im Kauf')
+    waffe = netze.get('SPEER') or netze.get('SM_Sword')
+    if waffe is not None:
+        waffe_senken(rig, waffe, akt)
     rig.animation_data.action = akt['Stehen']
     if slot(akt['Stehen']) is not None:
         rig.animation_data.action_slot = slot(akt['Stehen'])
