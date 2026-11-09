@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [779](entscheiden/779-sperre-thema.md) | **Muss** | B Abläufe | 09.11., 17:28 | Sperre 620.1 B nur innerhalb eines Themas? | Diogenes |
 | [760](entscheiden/760-anspringen.md) | **Muss** | E Kampf | 09.11., 14:39 | Wolf soll beim Anspringen wirklich springen | Jerry |
 | [751](entscheiden/751-knopfleiste.md) | **Muss** | E Oberfläche | 09.11., 14:37 | Knopfleiste im Zug der Gegner | Jerry |
 | [756](entscheiden/756-merkmale-anzeigen.md) | **Muss** | E Oberfläche | 09.11., 14:28 | Merkmale der Ausrüstung anzeigen: Vorlage jetzt oder nach 644 und 3.5? | Sokrates |
@@ -227,11 +228,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 770 | M | Wochentermin 13.11.: Rollenspiegel Jerry (rollenspiegel.sh Jerry) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 | Pflege | K | von Werkzeug (340.3, 09.11.): 18143 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 21, Muss 8, startbar 1
+**Perikles** – offen 21, Muss 8, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 779 | M | Sperre 620.1 B nur innerhalb eines Themas: Arbeit ohne Überschneidung mit dem, was beim Ch | startbar |
+| 779 | M | Sperre 620.1 B nur innerhalb eines Themas: Arbeit ohne Überschneidung mit dem, was beim Ch | Chef (Datei in der Chefsache) |
 | 511 | M | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele | wartet auf Diogenes |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf Diogenes |
 | 464 | M | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählu | Termin 16.11. |
