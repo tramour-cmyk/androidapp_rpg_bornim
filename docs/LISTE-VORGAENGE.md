@@ -197,8 +197,8 @@
 | 712 | Von Team Tom (702 C): Kampftexte ohne Zugverlust: [702.auf] Aufstehen (Zwischenfassung und nach dem Sturz) und Tipp [210T.pounce] | Homer | M | erledigt | – | – | – | E Kampf | 2,67 $ |
 | 736 | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-STIL.md 188–189 (618), 197 (586), 159 (565), 131 (417a), 165 (630); SPIELSYSTEM-2-0-ENTWURF 310 (427.1); SPIELSYSTEM-2-0 75, 88 (466) (von Diogenes, Lauf 92) | Homer | K | startbar | – | – | – | G Stil | – |
 | 715 | Rollenspiegel 06.11. nachholen (Diogenes D92) · „jetzt“ 09.11., 08:49 | Perikles | M | erledigt | – | – | – | B Abläufe | 5,67 $ |
-| 317.1 | `startbar.py`, `lauf.py`: Obergrenze 6 je Build streichen (Chef 07.11., 20:5x) | Perikles | M | gebaut, Geprüft an: 12837c9c3 | – | – | – | B Werkzeuge | – |
-| 620.1 | Wiederholte Funde des Chefs vor Neuem; wenige Muss je Team zugleich (aus 620) | Perikles | M | gebaut, Geprüft an: 5b65bf6bb (startbar --stand 11:05: Tom 33, Jerry 12 gesperrt) | – | – | – | B Abläufe | 4,11 $ |
+| 317.1 | `startbar.py`, `lauf.py`: Obergrenze 6 je Build streichen (Chef 07.11., 20:5x) | Perikles | M | erledigt | – | – | – | B Werkzeuge | – |
+| 620.1 | Wiederholte Funde des Chefs vor Neuem; wenige Muss je Team zugleich (aus 620) | Perikles | M | erledigt | – | – | – | B Abläufe | 4,11 $ |
 | 511 | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele sinnlose und kaputte Filme gemacht?“) · „jetzt“ 03.11., 13:50 | Perikles | M | gebaut, Geprüft an: d6d9eca8c | Diogenes, D75 | – | – | B Werkzeuge | 19,83 $ |
 | 483 | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Marke (Chef 02.11., 19:08) | Perikles | M | gebaut, Geprüft an: 62e922b30 | Diogenes, D75 | – | – | B Werkzeuge | – |
 | 464 | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählung im Tagesbericht (Chef 01.11., 20:4x) | Perikles | M | gebaut, Geprüft an: fcf9ab215 | – | – | – | B Abläufe | – |
@@ -213,10 +213,10 @@
 | 627 | probelauf.py: Push mit `git commit -F -` im selben Befehl als Probelauf gezählt (562, ohne Lauf) | Perikles | M | gebaut, Geprüft an: 4bcd30e87 | – | – | – | B Werkzeuge | – |
 | 99 | Zwei Niederlassungen | Perikles | K | ruht | – | – | – | B Steuerung | 7,25 $ |
 | 641 | lauf.py startet Nachfolger „auf Abruf“, obwohl nichts startbar ist (Diogenes 08.11., 09:07, Leerstart) | Perikles | M | gebaut, Geprüft an: af1a4da5a (Probe: Übergabe „Diogenes – Prüfer (auf Abruf)“, alt START, neu NICHTS) | – | – | – | B Werkzeuge | – |
-| 646 | Zeigen statt messen: Messläufe zählen als Probe, nach einer Probe immer Bild an den Chef (Chef 08.11., 12:28) | Perikles | M | gebaut, Geprüft an: 18b80b3b4 | – | – | – | B Abläufe | 13,26 $ |
-| 647 | Abgleich alt schon vor dem Bauen: Fundstelle alter Code lesen und nennen, nicht erst vor der Testbitte (Chef 08.11., 12:44; aus 512, 499) | Perikles | M | gebaut, Geprüft an: d1c316652 | – | – | – | B Abläufe | – |
-| 648 | Glossar und Abkürzungsverzeichnis LISTE-GLOSSAR.md: Wort, Bedeutung, Zusammenhang, Fundstellen per Werkzeug, Link zur Festlegung (Chef 08.11., 13:01) | Perikles | K | gebaut, Geprüft an: 42e11acf4 | – | – | – | B Abläufe | – |
-| 651 | Kostenauswertung: Bereiche als feste Liste, fehlende Kosten (533 von 980 Zeilen) über Commits je Sitzung schätzen, Auswertung je Bereich, Tag, Woche (Chef 08.11., 13:29) | Perikles | M | gebaut, Geprüft an: 50bf4011a | – | – | – | B Steuerung | 3,00 $ |
+| 646 | Zeigen statt messen: Messläufe zählen als Probe, nach einer Probe immer Bild an den Chef (Chef 08.11., 12:28) | Perikles | M | erledigt | – | – | – | B Abläufe | 13,26 $ |
+| 647 | Abgleich alt schon vor dem Bauen: Fundstelle alter Code lesen und nennen, nicht erst vor der Testbitte (Chef 08.11., 12:44; aus 512, 499) | Perikles | M | erledigt | – | – | – | B Abläufe | – |
+| 648 | Glossar und Abkürzungsverzeichnis LISTE-GLOSSAR.md: Wort, Bedeutung, Zusammenhang, Fundstellen per Werkzeug, Link zur Festlegung (Chef 08.11., 13:01) | Perikles | K | erledigt | – | – | – | B Abläufe | – |
+| 651 | Kostenauswertung: Bereiche als feste Liste, fehlende Kosten (533 von 980 Zeilen) über Commits je Sitzung schätzen, Auswertung je Bereich, Tag, Woche (Chef 08.11., 13:29) | Perikles | M | erledigt | – | – | – | B Steuerung | 3,00 $ |
 | 650.1 | Liste für docs/alt/ nach zwei Gegenprüfungen (aus 650) | Perikles | M | erledigt | – | – | – | B Abläufe | 3,00 $ |
 | 654.1 | Systemfrage vor jedem Bau in ROLLE-ENTWICKLUNG.md und Prüfliste, Wiederholungswächter in vorgang.py neu (Stichwort in zwei früheren → Zeile „Systemlösung?“ für Sokrates); Regelbilanz (654, Chef 14:42) | Perikles | M | gebaut, Geprüft an: 36cff7b9d (Probe in Kopie: Schild → Systemlösung?, zweite blockiert) | – | – | – | B Abläufe | – |
 | 696 | meldung.sh: mehrere Bilder in derselben Minute überschreiben sich im Zweig bilder (Pfad TT-HHMM-Nr-Name ohne Zähler; 613 am 08.11. 19:10/19:11: zehn gesendet, zwei abgelegt), Links in ansehen/ zeigen nur das letzte (von Spike) | Perikles | K | gebaut, Geprüft an: d5e584b7a (Probe Wegwerf-Repo) | – | – | – | B Werkzeuge | 1,41 $ |

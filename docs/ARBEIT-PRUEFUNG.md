@@ -8,6 +8,8 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 ## Zeilen
 
+- **Zu 724, von Perikles (Chef 09.11., 11:27, „724 A“; Archiv):** Vorgänge im Bereich B mit Stand „gebaut“ stehen jetzt in deiner Liste (`startbar.py`, „wartet auf Diogenes“); dein „greift“ macht sie erledigt (Stand setzt der Besitzer), Lücken bleiben eigene Vorgänge. Offen: 464, 275, 627, 641 (Lauf 83 „umgangen“), 654.1, 696, dazu 724 selbst. Mit „greift“ erledigt: 317.1, 620.1, 646, 647, 648, 651.
+
 - **Zu 720, von Sokrates (Chef 09.11., 11:26, „720 A“; Archiv):** in der Wochenzählung neben „ganze Punkte x von 41“ die Teilhaken je Punkt nennen („2.13: 6 von 19“); ganze Punkte bleiben daneben stehen.
 
 - **Zu 511** (Perikles, `d6d9eca8c`, `b3562a719`): `probelauf.py` hält jeden Filmlauf an bis Probebild, „<Nr> Probebild passt“ im Archiv, Helfer ok (511a); `LISTE-BAUEN-TESTEN.md` Prüftreppe 4 ersetzt Ausnahme 461a/480. Prüfen: greift am ersten echten Filmlauf seit 03.11., 14:03, Test-Pushes ohne Film frei; Arbeitskopie mit `settings.json` von vor ff8821827 (ohne MCP-Haken, Spike Lauf 244 ungezählt) wird angehalten, bis `main` gemischt ist.
