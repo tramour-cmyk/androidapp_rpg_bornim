@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 773 | Sammelbuild 272: alle fertigen Zweige beider Teams (Tom 5, Jerry 6: u. a. 656, 717, 717.1, 682, 702), Prüfliste ansehen/t272, build 272 --mit für alle (von Perikles, 15:31: sonst wartet jeder auf den anderen) | Tom | M | wartet, Lauf rot an wolf_mess_438 | 778, Chef 773 | – | – | E Technik | 11,84 $ |
+| 773 | Sammelbuild 272: alle fertigen Zweige beider Teams (Tom 5, Jerry 6: u. a. 656, 717, 717.1, 682, 702), Prüfliste ansehen/t272, build 272 --mit für alle (von Perikles, 15:31: sonst wartet jeder auf den anderen) | Tom | M | wartet, Lauf rot an wolf_mess_438 | 778 | – | – | E Technik | 11,84 $ |
 | 610 | Held im Dorf: Finger am Stab zucken ohne Unterlass (Schild auf dem Rücken) (Chef 07.11., t268) | Tom | M | zu testen, t269.12 traf den Magierstab (ohne Modell), Nachtest 272 mit Kampfstab | t272 | claude/tom-610-finger | 272 | E Figuren | – |
 | 522 | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Chef 03.11., 23:33) | Tom | M | zu testen, Nachtest 272: Dolch, Krummsäbel, Handbeil, Kurzbogen; 14 Waffen ohne Modell (458.3) | t272 | claude/tom-522-waffen | 272 | E Oberfläche | – |
 | 697 | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | Tom | M | in Arbeit, erster Messlauf ohne Wert (nicht importiert) | 782 | – | – | E Figuren | – |
