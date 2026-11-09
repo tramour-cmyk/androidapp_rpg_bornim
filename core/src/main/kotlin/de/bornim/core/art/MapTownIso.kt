@@ -1398,9 +1398,9 @@ object MapTownIso {
         val door = letters.indexOf('D')
         val seed = hash(f.x, f.y, 5) % 997
         // D3.13a: the cot's door is in its front (south), towards Morwen's fire; the map's door tile is a wall with a
-        // locked warp, so the door is where the warp is
+        // locked warp, so the door is where the warp is; 664: a window in its east side too (Chef 03.11.: „überhaupt keine Fenster“)
         val hutDoor = if (style.feature == HouseFeature.HUT) map.warps.firstOrNull { it.y == f.y && it.x in f.x until f.x + f.n }?.let { it.x - f.x } else null
-        return if (style.feature == HouseFeature.HUT) letters.mapIndexed { i, c -> if (i == hutDoor) 'D' else c }.joinToString("") to "##" else roomOf(map, f)?.let { windowsFromRoom(it, f.n, f.d, door) }
+        return if (style.feature == HouseFeature.HUT) letters.mapIndexed { i, c -> if (i == hutDoor) 'D' else c }.joinToString("") to "#W" else roomOf(map, f)?.let { windowsFromRoom(it, f.n, f.d, door) }
             ?: (letters to (if (f.d >= 3) "#W#" else if (seed % 2 == 0) "W#" else "#W"))
     }
 
