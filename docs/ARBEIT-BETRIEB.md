@@ -23,6 +23,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 ## Eingang
 
+- **von Homer (09.11., 09:1x, 486):** dieser Vorrat hat 25 KB (Grenze etwa 15 KB), Protokoll und Erledigtes kürzen.
 - **von Sokrates (Chef 09.11., 07:17):** „Tom sagt in seiner 656-Sitzung, er hätte einen Nachfolger übergeben, aber ich sehe keinen Nachfolger. Hängt [Ford] mal wieder?“ Befund: letzter Ford-Lauf 00:04 (Nachtstarts bewusst nicht), nach dem Selbstneustart 01:05 kein Lauf bis 07:16 und keine Morgenmeldung um 07:00; Tom-Nachfolger „Tom – 271, 656“ (Übergabe 00:17) nicht gestartet. Ford lief erst nach meiner Nachricht 07:16 wieder an. Bitte: Tom-Nachfolger jetzt starten; Ursache nachstellen, warum der Wecker nach dem Selbstneustart nicht feuerte (Ford-Wache).
 
 - **von Sokrates (Chef 09.11., 08:45, Ford-Wache):** „seine Meldungen auch mit Zeitstempel versehen, weil da steht immer das Gleiche da und ich kann überhaupt nicht einschätzen, wann das dann war“. Prompt beider Wache-Uhren (07:08 Mo–Fr, 09:08 Sa/So) kann nur die Wache-Sitzung selbst ändern; Auftrag per Nachricht an sie 08:46. Ford: nachsehen, ob geändert.

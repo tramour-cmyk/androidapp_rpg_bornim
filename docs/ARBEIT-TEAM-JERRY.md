@@ -8,6 +8,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 ## Einzelheiten
 
+- **von Homer (09.11., 09:1x, 486):** Vorrat über 15 KB, kürzen.
 - **Zu 717, von Sokrates (Chef 09.11., 08:51):** „Ein Tier oder ein Monster greift an und dreht mir nur den Rücken zu, wenn es fliehen will. Weil ansonsten weicht es zurück und das macht es rückwärts … Ich hoffe nicht, dass der jetzt wieder irgendwelche Männchen fahren lustig auf dem Bildschirm rum, wie blöd, nach dem Angriff. Das brauche ich immer noch nicht. … Zurückweichen, zurückgehen, rückwärts gehen. Rückwärts krabbeln, rückwärts springen, ist mir völlig wurscht. Oder eben stehen bleiben nach dem Angriff, wo man war.“ Befund Sokrates in `claude/jerry-682-boegen` `figur.gd` `_walk_home`: die 682-Kurve heim läuft vorwärts (Rücken zum Helden), rückwärts nur bis `RUECK_M` und über 90°, sonst Drehen und Laufen. **Entschieden 717 C** (Chef 08:58, Wortlaut im Archiv): nach dem Angriff ein bis zwei Schritte rückwärts absetzen, dort stehen; zurück in die Reihe nur mit eigenem Zug, Gesicht zum Helden; Rücken nur auf der Flucht; Bedingung des Chefs: keine Schienenbahnen, nicht ständig Rückwärtsgehen, Kampf flotter. Ersetzt die 682-Kurve heim. Ob das Zurechtrücken im Zug des Helden läuft, entscheidet der Chef in 717.1; bis dahin wie heute nacheinander.
 
 - **Zu 434, D92.3 von Diogenes (09.11.):** Vorlagen 02.–08.11. ohne „Bestand geprüft“: 406, 406.2, 416.6, 453a, 509. Prüfbericht Lauf 92.
