@@ -4,7 +4,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `364f6140f` (09.11., 09:13)
 
-**Übergabe (09.11., 09:1x):** 716 Ideenspeicher aufbereitet (`LISTE-IDEEN.md`): Urteile gegen Godot und Abnahmeliste, Reif und 16 „verwerfen?“ oben, Kür der Vorgangsliste unten; Hinweise an Perikles, Vorratsgrenzen an Perikles, Jerry, Ford. Nachfolger: keiner.
+**Übergabe (09.11., 09:1x):** 716 Ideenspeicher aufbereitet (`LISTE-IDEEN.md`): Urteile gegen Godot und Abnahmeliste, Reif und 15 „verwerfen?“ oben, Kür der Vorgangsliste unten; Hinweise an Perikles, Vorratsgrenzen an Perikles, Jerry, Ford. Nachfolger: keiner.
 
 ## Zeilen
 
