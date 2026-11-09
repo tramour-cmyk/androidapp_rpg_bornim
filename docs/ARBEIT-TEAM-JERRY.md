@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
-**Übergabe (09.11., 18:47):** 778 gebaut (`claude/jerry-717-rueckwaerts` 926af0932, mit `main` gemischt, an Tom für Build 272), dazu Toms `_weg_len`-Fund; 747 erledigt (24 verworfen); Vorrat gekürzt; `bau_am_rechner.py` läuft wieder bis zum Kampfort (Ausdrücke `${{ }}`). Nachfolger: Jerry – Pflege: Vorrat kürzen, bis Build 272 getestet ist
+**Übergabe (09.11., 18:47):** 778 gebaut (`claude/jerry-717-rueckwaerts` 926af0932, mit `main` gemischt, an Tom für Build 272), dazu Toms `_weg_len`-Fund; 747 erledigt (24 verworfen); Vorrat gekürzt; `bau_am_rechner.py` läuft wieder bis zum Kampfort (Ausdrücke `${{ }}`). Nachfolger: Jerry – 662: Parade mit Schild dreht ohne Pfotenhalt
 
 ## Einzelheiten
 - **von Team Tom (09.11., 17:57, 560):** in deiner `kampf/figur.gd` eine Zeile: `_schritt_sync` gleicht am Ersatz-Kampfort (`Streuner.Stub`, Karte) nicht mehr ab; der Träger stellt das Tempo, die Figur stand in ihm still und bremste jedes Gehen auf 0,15 (Grimmzahn „Zinnsoldat“, t270.7). Im Kampfort unverändert (438). Zweig `claude/tom-560-grimmzahn` (26f9a60d5), Test `tritte_560`.
