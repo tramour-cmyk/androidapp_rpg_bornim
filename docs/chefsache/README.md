@@ -16,12 +16,6 @@ Nichts offen.
 
 ## Anzusehen
 
-**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
-
-| Nr. | Was | Wer | Seit |
-|---|---|---|---|
-| [656](ansehen/656-umhang.md) | Umhang des Kämpfers im Kampf und gedreht | Tom | 08.11., 23:48 |
-
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
 | Folge | Version | Build | Was | Wer | Seit |
@@ -52,11 +46,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 | 586.1 | K | Von Team Tom: DESIGN-STIL Tabelle „Schrift“ nachtragen: Fenstertitel 22 statt 15 sp (586 p | startbar |
 
-**Tom** – offen 97, Muss 74, startbar 0
+**Tom** – offen 97, Muss 74, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 656 | M | Umhang Kämpfer mit Beulen, große Beule unter dem Schwertarm: woher, weg (Chef 08.11., 14:5 | Chef (Datei in der Chefsache) |
+| 656 | M | Umhang Kämpfer mit Beulen, große Beule unter dem Schwertarm: woher, weg (Chef 08.11., 14:5 | startbar |
 | 664 | M | Halbes Haus: Haus des alten Kael und Hütte der Kräuterhexe im tiefen Flüsterwald nur halb | wartet auf Test/Build (gebaut) |
 | 416.8 | M | NPC dreht sich zum Helden mit kleinen Schritten, nicht auf der Stelle (Chef 31.10., 20:5x; | wartet auf Test/Build (gebaut) |
 | 670 | M | Build 269: Menü des Helden (Held, Tasche, Ausrüstung, Karte, Chronik, System) noch im alte | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test |
@@ -203,7 +197,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 628 | M | Lohn: EP und Gold steigen nicht mit der Monsterstufe über der Gebietsstufe (over fehlt, al | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test |
 | 289 | K | MARS: Wechsel „halber Zug“ missverständlich; Bewegung und Aktion im Kästchen zeigen? (Chef | ruht |
 | 296.2 | M | MARS spielnötig: Beute/Erfahrung, Fliehen, Eröffnung, Zustände, eigene Ausrüstung, Schalte | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test |
-| 296.3 | M | MARS-Schmuck: Todesschrei, Flucht/Zerfall, Zustände gezeichnet, Siegerpose (Chef 23.10., 1 | wartet auf 656 (Chef) |
+| 296.3 | M | MARS-Schmuck: Todesschrei, Flucht/Zerfall, Zustände gezeichnet, Siegerpose (Chef 23.10., 1 | wartet auf 656 (startbar) |
 | 344.2 | K | Kampf mit der Fackel: Feuerschaden, Verscheuchen, beide Systeme (Chef 23.10., 18:27) | ruht |
 | 168.1 | K | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | wartet auf 38 (startbar) |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Standbild 2, Bau) | ruht |
