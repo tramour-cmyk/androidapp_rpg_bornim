@@ -37,6 +37,12 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Geschlossen laut Nachprüfung oder Spur: D61.2, D62.1, D63.1–D63.6, D64.1, D65.1, D67.1, D68.1, D68.2, D69.1, D70.1, D71.1, D71.2, D74, D76.1, D76.2, D77.1, D77.2, D78.2, D79, D80.1–D80.7, D81.1, D81.2 (mit 275.2), D82, D83, D84, D84.2, D85, D86.2 (Hinweis an mich), D88.1 (685), D89, D90.1–D90.3 (686), D93.
 
+## Lauf 121 · 799 Vorlagen nach 364 (Perikles, `55d798cc8`; 09.11., 21:1x)
+
+**Greift.** Nachgestellt in einer Kopie von `main`: unvollständige Datei in `entscheiden/` hält `git commit`, `cd … && git push`, `git -C … commit` an (Exit 2, Meldung nennt die fehlenden Teile); auf einem Teamzweig frei; 758 (`65f56ef8a`) gilt als vollständig, ebenso der Altbestand 6238; `create_or_update_file` mit Muster ohne Nummer nach `billigen/` angehalten (fehlt Zeile 1, Umgesetzt, Rückbau, Kosten); ohne „Gegenargument“ gemeldet. Übersicht (`zug-index.py`) meldet die Datei unter „Lücken“. `MUSTER.md` deckt sich mit README 364 (dazu „Geprüft an“ nach 340.4, Kurz-Zeile).
+**Hinweis, ohne Vorgang:** `push_files`/`create_or_update_file` halten auch auf Teamzweigen an, Bash nur auf `main`; folgenlos, weil Notizen nur auf `main` liegen. Von sieben gelöschten `billigen/`-Dateien aus Git hätten sechs nicht bestanden: der Haken trifft eine Gewohnheit, keinen Einzelfall.
+**Nicht geprüft:** echter Lauf in einer anderen Sitzung.
+
 ## Lauf 120 · 650.2 Vorlage Notizen gliedern (Chef 09.11., 20:18; `071d56421`; 09.11., 20:2x)
 
 **Hält:** 84 Dateien (81 .md, 1 .tsv, 2 .svg); A: Sammlung 2.0 „nichts freigegeben“, Heldenbau „überholt“, Balance „Stufe 20 Obergrenze“ gegen BRS „keine feste Höchststufe“ (Z. 110), Anleitung baut auf Kotlin, Figurenkatalog 649 „bis zum Bau“; C2 CC0 in Quellen beschlossen (6501); C6 Kampftexte stehen in `godot/regeln/mars_texte.gd`; Archivgrößen stimmen; Rechnung 84 → 66 geht auf. Votum Variante 2 trägt auch ohne den Fund unten: allein `LISTE-VORGAENGE` steht in 19 Werkzeugdateien.
