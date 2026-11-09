@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [744](entscheiden/744-bewegung-karte.md) | **Muss** | E Figuren | 09.11., 11:20 | Karte: Streuner und Leute bewegen sich natürlich | Sokrates |
 | [724](entscheiden/724-werkzeug-erledigt.md) | **Muss** | B Abläufe | 09.11., 09:50 | Werkzeugvorgänge nach „greift“ erledigt statt „wartet auf Test“ | Perikles |
 | [718](entscheiden/718-probe-rueckbau.md) | **Muss** | B Abläufe | 09.11., 08:53 | Probe mit Enddatum: Rückbau gleich ins Werkzeug | Sokrates |
 | [719](entscheiden/719-wochentermine.md) | **Muss** | B Abläufe | 09.11., 08:53 | Wochentermine selbsttätig in die Vorgangsliste | Sokrates |
@@ -156,7 +155,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 713 | K | Von Homer (586.1): Erklärfenster beim Gedrückthalten (menue.gd:1561) noch mit Goldrand und | ruht |
 | 737 | K | D92.2 Vorlagen 02.–08.11. ohne Zeile „Bestand geprüft“ (434): 417, 431, 463, 475, 492, 499 | startbar |
 
-**Jerry** – offen 72, Muss 65, startbar 1
+**Jerry** – offen 73, Muss 66, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -232,6 +231,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 644.2 | M | Gegenstandskatalog: Zahlen nach 469 in 444 (Tempo, Parieren, Durchschlag, Güte, Stufe), C1 | ruht |
 | 681 | M | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | ruht |
 | Pflege | K | von Werkzeug (340.3, 09.11.): 17030 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 744 | M | Karte: Streuner und Leute bewegen sich natürlich, verweilen mit Ruhebewegung statt Roboter | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
 
 **Perikles** – offen 36, Muss 19, startbar 2
 
@@ -286,7 +286,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
 | 644.5 | M | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noc | wartet auf 644.1 (ruht) |
 
-**Sokrates** – offen 63, Muss 38, startbar 38
+**Sokrates** – offen 62, Muss 37, startbar 38
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -352,7 +352,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 740 | K | D63.7 Vorlage entscheiden/3761-kettenhemd-heldin.md (01.11., 20:55) ohne Zeile „Bestand ge | startbar |
 | 584 | K | Kein halbfetter Schnitt: Köpfe und Titel in Erschaffung, Held, Chronik, Karte, System, Bre | startbar |
 | 477 | K | Godot-APKs laufen nicht im MuMu Player am Rechner (Chef 02.11., 14:59) (für Tom) | startbar |
-| 744 | M | Karte: Streuner und Leute bewegen sich natürlich, verweilen mit Ruhebewegung statt Roboter | Chef (Datei in der Chefsache) |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
