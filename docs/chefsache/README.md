@@ -9,6 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [760](entscheiden/760-anspringen.md) | **Muss** | E Kampf | 09.11., 14:39 | Wolf soll beim Anspringen wirklich springen | Jerry |
+| [761](entscheiden/761-mars-akronym.md) | **Muss** | G Stil | 09.11., 14:56 | MARS: wofür die Buchstaben stehen | Sokrates |
 | [751](entscheiden/751-knopfleiste.md) | **Muss** | E Oberfläche | 09.11., 14:37 | Knopfleiste im Zug der Gegner | Jerry |
 | [756](entscheiden/756-merkmale-anzeigen.md) | **Muss** | E Oberfläche | 09.11., 14:28 | Merkmale der Ausrüstung anzeigen: Vorlage jetzt oder nach 644 und 3.5? | Sokrates |
 | [750](entscheiden/750-ford-ohne-lauf.md) | **Muss** | B Werkzeuge | 09.11., 13:30 | Sokrates | Ford startet ohne `lauf.py`: Sperre per Haken |
@@ -34,7 +35,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 8, Muss 2, startbar 3
+**Homer** – offen 8, Muss 2, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -45,7 +46,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 | 736 | K | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-STIL.md 188–189 (618), 197 (586), 1 | startbar |
 | 746 | K | Von Perikles (743, Chef 09.11., 11:21 „alle verwerfen“): 15 Ideen aus „Verwerfen?“ in LIST | startbar |
-| 761 | M | Glossar MARS: Herkunft nachtragen (Chef 17.10., 22:50: Kriegsgott „stimmt“, Abkürzung „net | startbar |
+| 761 | M | Glossar MARS: Herkunft nachtragen (Chef 17.10., 22:50: Kriegsgott „stimmt“, Abkürzung „net | Chef (Datei in der Chefsache) |
 
 **Tom** – offen 107, Muss 83, startbar 2
 
