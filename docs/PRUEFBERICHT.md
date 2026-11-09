@@ -37,6 +37,10 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Geschlossen laut Nachprüfung oder Spur: D61.2, D62.1, D63.1–D63.6, D64.1, D65.1, D67.1, D68.1, D68.2, D69.1, D70.1, D71.1, D71.2, D74, D76.1, D76.2, D77.1, D77.2, D78.2, D79, D80.1–D80.7, D81.1, D81.2 (mit 275.2), D82, D83, D84, D84.2, D85, D86.2 (Hinweis an mich), D88.1 (685), D89, D90.1–D90.3 (686), D93.
 
+## Lauf 119 · 791 Überholtes und Doppeltes (Bereich B; `d12fb0f02`, `08a3ac60a`, `567b51c88`; 09.11., 20:1x)
+
+- **Greift bis auf B16:** Stichproben am Wortlaut: B1 (Sperre mit 779), B2/O4 (Ford 2 nur noch als „entfällt“), B3, B10 (Build-Auslöser nur in CHECK 3), B13, P1–P4 (722 A, 719 A, 720 A in `LISTE-PRUEFUNG.md`), P11, P12 („Blatt“ nur noch im Zitat eines Fehlers), O1 (400 Tsd. weg), O2, O3 (nur noch „zu gleichen Teilen“, Schätzen bei fehlender Zahl), O8, O10 (Rollenspiegel Fr), O14 (341 fest seit 07.11.), O17. B16 wartet auf 783 (791 dorthin gestellt); bewusst offen laut Zeile, P10, P14–P16, O13; W1–W8 in der Chefsache 783. Am Rande: Überschrift `ROLLE-PROJEKT.md`:90 „Ford-2-Lauf“ steht noch, mit Zusatz „entfällt“.
+
 ## Lauf 118 · 793 „Halt“ mit Wortende (Bereich B; `1346b89c2`; 09.11., 20:0x)
 
 - **Greift:** Wächterregel in Kopie: „Haltung (des Helden)“, „Haltungen“, „haltbar“, „Haltestelle“ lösen nicht aus; „Halterung“, „Halt für Waffen“, „Haltepunkt“, „Halten der Waffe“ lösen aus. Damit Lücke von 788 (Lauf 116) zu, 788 greift.
