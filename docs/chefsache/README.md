@@ -22,6 +22,7 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [506](ansehen/506-skelett.md) | Skelette im Kampf (gekauftes Modell) | Tom | 09.11., 21:56 |
+| [762](ansehen/762-klappen.md) | Gruppen im Reiter Fertigkeiten einklappbar | Tom | 09.11., 22:15 |
 
 ## Zu tun
 

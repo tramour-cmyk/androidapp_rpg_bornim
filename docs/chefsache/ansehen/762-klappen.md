@@ -1,5 +1,7 @@
 # 762 · Gruppen im Reiter Fertigkeiten einklappbar · Tom · 09.11., 22:15
 
+[Bild von 09.11., 22:16](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/09-2216-762-Tom.png) (eingetragen von meldung.sh, Tom)
+
 ![Links der Reiter Fertigkeiten, wie er sich öffnet; rechts nach Antippen von „Schatten“](../bilder/762-klappen.webp)
 
 Links siehst du den Reiter so, wie er sich beim ersten Öffnen zeigt, rechts nach einem Tipp auf „Schatten“.
