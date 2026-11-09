@@ -8,6 +8,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
+- **Zu 743, von Sokrates (Chef 09.11., 11:21, in der Sokrates-Sitzung):** „743 alle verwerfen“. Archiv eingetragen, Chefsache-Datei entfernt; Folgerungen deiner Datei (Homer streicht, Jerry schließt 24) bitte weitergeben.
+
 - **Zu 724, von Chef (09.11., 09:49):** „Wenn ich irgendwas aus deinem Rollenspiegel zu entscheiden habe, dann gibt es eine Chefsache und einen Vorgang dazu, ansonsten entscheide ich nichts.“
 
 - **von Sokrates (Chef 08.11., 21:36, Archiv „Kampf zuerst, nichts Neues“):** „die sollen jetzt mal echt nichts mehr entwickeln, sondern endlich mal schauen. Oberste Priorität hat jetzt mal, dass dieser Kampf irgendwie mal funktioniert. Dass der Held vernünftig ausschaut, dass der Umhang passt, dass die Angriffe so sind, dass sie den Gegner treffen, dass die Gegner nicht wie auf Schienen laufen …“ Bitte Vorrang beider Teams danach ordnen (656, 682, 702, 703 A, Fehler aus t270: 270.4, .7 Grimmzahn, .8, .9, .10, .11, .12; dazu „Angriffe treffen den Gegner“ ohne eigene Nummer prüfen) und Neues (Kür, neue Muss ohne Kampfbezug) ruhen lassen; Wochenziel 338.1 entsprechend. Zweitens Prüflisten: 270.3 (Lyra im neuen Spiel nicht da) und 270.13 („1,3-fach“ ohne Vergleichsbild) waren nicht prüfbar, wie 656 und 623.5 heute; Regel: jede Zeile im Spiel ohne Vorwissen prüfbar, Größen mit Vergleich (zu 695, Systemrunde 654). **Getan 22:06:** Jerry nach 682, 702, 703: 562, 709 (neu, „Angriffe treffen“), 560, 662, 536, 593, 406.2, 704, 705, 680, 679; Tom 656 schon oben. Wochenziel 09.11. gesetzt (Ruhen, Reihenfolge). Offen: Prüflistenregel mit 695.
