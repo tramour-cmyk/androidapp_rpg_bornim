@@ -34,7 +34,7 @@ Namen im Spiel (Völker, Zauber, Monster, Regelwerte) stehen nicht hier, sondern
 | **Vorentscheid** | Entscheidung von Perikles, Homer oder Sokrates in ihrem Rahmen, Chef billigt nachträglich | Chefsache (billigen) | – | `docs/chefsache/README.md` |
 | **Vorgangsarchiv** | was entschieden ist, kurz mit Wortlaut des Chefs | – | – | `VORGANGSARCHIV.md` |
 | **Wochenziel** | Ziel der Woche mit Meilenstein, oben im Projektplan | Projektplan | – | `PROJEKTPLAN.md` |
-| **Übernahme** | ein Team nimmt eine Zeile des anderen, wenn es nichts Startbares hat | Vorgang | – | `ROLLE-ENTWICKLUNG.md` |
+| **Übernahme** | ein Team nimmt ein Muss des anderen, wenn es kein startbares Muss hat, vor eigener Kür (783 W3) | Vorgang | – | `ROLLE-ENTWICKLUNG.md` |
 | **Idee** | Einfall, auch des Chefs; heißt prüfen, nicht bauen | – | Auftrag | `LISTE-IDEEN.md` |
 
 ## 3 Bauen, Prüfen, Testen
