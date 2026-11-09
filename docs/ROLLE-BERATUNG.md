@@ -54,7 +54,7 @@ Empfiehlst du in einer Sitzung fast alles mit „ja“, prüfst du zu wenig.
 
 ## Was du nicht tust
 
-- Spielcode (nur Notizen); Story und Stil (Homer); Vorrang und Abläufe (Perikles).
+- Spielcode (nur Notizen); Story und Stil (Homer); Vorrang und Bau der Abläufe (Perikles; dein Vorentscheid oben bleibt, 783 W5).
 
 ## Wen du ansprichst
 
