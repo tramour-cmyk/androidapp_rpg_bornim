@@ -2,9 +2,9 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `4dbfd29cf` (09.11., 17:34)
+**Gelesen bis:** `7d17745ea` (09.11., 18:07)
 
-**Übergabe (09.11., 17:35):** 775 gebaut (Prüflisten lesen „540, 583“ und „269.1 ✓“: `vorgang.ergebnisse`, Commit-Prüfung nutzt sie; t269 28/28), 776 gebaut (`ROLLE-BETRIEB.md` 29: keine Zeile je rotem Lauf, Alarm ab 3/h bleibt), 777 gebaut (spike → Tom, tuffy → Jerry), 779 gebaut (Sperre 620.1 B nur bei Überschneidung: Nummer, Titelwort, Spieldatei; `ALLGEMEIN` in `startbar.py` nachschärfen, wenn Diogenes Fehlsperren findet); 464, 749, 774–779 an Diogenes; Ford benachrichtigt. Nachfolger: Perikles – 448: Tagesbericht 10.11. ab 7:30
+**Übergabe (09.11., 18:08):** 775, 776, 777, 779 gebaut (Prüflisten, Ford-Regel rote Läufe, spike/tuffy, Sperre nur bei Überschneidung; `ALLGEMEIN` in `startbar.py` nachschärfen bei Fehlsperren); 750 A gebaut (`tools/startsperre-haken.py`, PreToolUse vor `create_session`, Ford benachrichtigt: pullen); 383 A gebaut (Neustart-Haken ab 200 Tsd. Länge, WEITER unter 200 Tsd.); alle an Diogenes. Neustart nach 383 A (Sitzung über 200 Tsd.). Nachfolger: Perikles – 788: Allerweltswörter im Wiederholungswächter
 
 ## Einzelheiten
 
