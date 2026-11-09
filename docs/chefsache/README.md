@@ -8,6 +8,9 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [718](entscheiden/718-probe-rueckbau.md) | **Muss** | B Abläufe | 09.11., 08:53 | Probe mit Enddatum: Rückbau gleich ins Werkzeug | Sokrates |
+| [719](entscheiden/719-wochentermine.md) | **Muss** | B Abläufe | 09.11., 08:53 | Wochentermine selbsttätig in die Vorgangsliste | Sokrates |
+| [720](entscheiden/720-abnahme-zaehlen.md) | **Muss** | Q QM | 09.11., 08:53 | Abnahmeliste: Teilhaken mitzählen, Haken-Frage für Gebautes | Sokrates |
 | [657](entscheiden/657-drei-stichpunkte.md) | **Muss** | B Abläufe | 08.11., 15:15 | Regeln radikal kürzen: eine Seite für alle (Empfehlung: :) | Sokrates |
 
 ## Zu billigen
@@ -268,7 +271,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
 | 644.5 | M | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noc | wartet auf 644.1 (startbar) |
 
-**Sokrates** – offen 58, Muss 35, startbar 36, PAUSE bis 09.11., 09:00
+**Sokrates** – offen 61, Muss 38, startbar 36, PAUSE bis 09.11., 09:00
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -330,6 +333,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 584 | K | Kein halbfetter Schnitt: Köpfe und Titel in Erschaffung, Held, Chronik, Karte, System, Bre | startbar |
 | 477 | K | Godot-APKs laufen nicht im MuMu Player am Rechner (Chef 02.11., 14:59) (für Tom) | startbar |
 | 714 | M | Ford-Wache: Zeitstempel in die Wecker (Chef 08:45) | Chef (Datei in der Chefsache) |
+| 718 | M | Probe mit Enddatum: Rückbau gleich ins Werkzeug (365 lief nach 31.10. weiter) | Chef (Datei in der Chefsache) |
+| 719 | M | Wochentermine selbsttätig als Muss in die Vorgangsliste (Ideenspeicher, Rollenspiegel fiel | Chef (Datei in der Chefsache) |
+| 720 | M | Abnahmeliste: Teilhaken mitzählen, wöchentliche Haken-Frage für Gebautes (0 von 41) | Chef (Datei in der Chefsache) |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
