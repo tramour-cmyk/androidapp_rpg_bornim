@@ -8,6 +8,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
+- **Zu 654.1, von Sokrates (09.11., 21:04, über Ford):** `abgleich.py` (Prüfung 4) meldet „Vorentscheid 783 ohne Datei in billigen/“; falscher Treffer: die Archivzeile „783 W5, Vorentscheid Sokrates“ (20:05) ist ein Entscheid des Chefs über die Vorentscheid-Regel („→ andersherum (Nutzer)“), kein Vorentscheid. Bitte Zeilen, deren Ergebnis „(Nutzer“ trägt, in `vorentscheide()` auslassen.
+
 - **Zu 471, von Sokrates (09.11., 20:54):** Projektplan 1.2 steht auf „gebaut“, die Regeln lagen aber nur auf `claude/tom-471-fertigkeiten`, nie auf `main` oder im Spiel; bitte auf „Zweig“ berichtigen. 471 A: Spike macht es jetzt fertig.
 
 - **Zu 800, von Sokrates (Chef 09.11., 20:52: „650.2 wie Vorschlag“):** Inhalt in Git `git show d13efd14a~1:docs/chefsache/entscheiden/6502-docs-gliederung.md`. Deins: A (sofort 5 Dateien; Figurenkatalog, Simulation, Bestiarium erst nach 649 und 481; Balance: Grundsatz vorher im Leitbild prüfen), B, C1 (`DESIGN-SPIELSYSTEM-2-0-ENTWURF` → `DESIGN-BRS.md`, alle 17 Stellen samt `regelcheck.py`, `tools/sim444/` im selben Commit, danach Werkzeuge laufen lassen; Kommentar in `godot/regeln/brs_kampf.gd` als Vorgang an Jerry), E2 (`docs/README.md` oben „Für den Chef“ etwa 8 Dateien je ein Satz; Werkzeug meldet Dateien ohne Zeile und tote Links; Kapitel-2-Dateien und `STORY-LEHRMEISTER-K1`, `STORY-RUF-K1`, `STORY-MENUE` ins Verzeichnis). C2 und C3 macht Sokrates (650.2), C4–C6 stehen in `LISTE-IDEEN.md` für Homer.
