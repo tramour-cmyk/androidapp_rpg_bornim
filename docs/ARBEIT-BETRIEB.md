@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford“ (Tiefe 5, Selbstneustart 09.11., 18:23) `session_01Hmoj7684czZostW4Q5YTcw`; Stundenuhr „Ford-Lauf“ `trig_01MaXLabJDKDaccyJpLKUZmn` (:03); der Nachfolger legt seine Uhr an, löscht diese und archiviert diese Sitzung (idle, >60 s, Kosten per `get_session` lesen und buchen). Vorheriger Ford (01:05) archiviert 09.11., 18:24, 9,74 $ gebucht. Tiefe 5: Selbstneustart nur noch bis Tiefe 8 (Grenze `lineage.limit`; 110).
+- **Ford lebt in einer Sitzung** „Ford“ (Tiefe 6, Selbstneustart 09.11., 22:32) `session_01Hmoj76SozRN2uPdhbiLM21`; Stundenuhr „Ford-Lauf“ `trig_01GYGgeWDZYLALz26V8YCqY5` (:03); der Nachfolger legt seine Uhr an, löscht diese und archiviert diese Sitzung (idle, >60 s, Kosten per `get_session` lesen und buchen). Vorheriger Ford `session_01Hmoj7684czZostW4Q5YTcw` (Uhr gelöscht 22:33, 8,18 $): Archivieren vom Auto-Modus-Prüfer abgelehnt, steht aus, Kosten noch nicht gebucht. Tiefe 6: Selbstneustart nur noch bis Tiefe 8 (Grenze `lineage.limit`; 110).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 
 ## Eingang
