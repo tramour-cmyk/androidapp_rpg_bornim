@@ -23,6 +23,8 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/20505f
 - **B:** 471 ruht weiter bis nach dem Kampf; 762 zeigt bis dahin feste Werte.
 - **Stärkstes Gegenargument gegen A:** „Kampf zuerst“ und eine zusätzliche Sitzung kosten Geld; Eingriff in Jerrys Kampfcode während t272. **Weg:** Spike hängt nur am Kampfende an und fasst den Rundenablauf nicht an; Feinheiten im Kampf (Übung je Schlag sichtbar) übernimmt Jerry nach t272.
 
+**Nachtrag 20:52 (Chef 20:51: „Es gibt keine Fertigkeiten, die losgelöst vom Kampf sind … Schleichen … Wahrnehmung“):** Das BRS (abgenommen 01.11., Abschnitt 3 in `DESIGN-SPIELSYSTEM-2-0-ENTWURF.md`) hat 37 Fertigkeiten, 17 davon ohne Kampf: Schatten (Schleichen, Spähen, Schlösser knacken, Fallen entschärfen), Wildnis, Gesellschaft (Überreden, Einschüchtern, Handeln), Sammeln, Meisterschaften. Der Code von 471 kann jede Fertigkeit üben (`uebe`), angeschlossen wäre in A aber nur der Kampf; nach der Prüfregel gibt es eine Fertigkeit erst, wenn das Spiel eine Tätigkeit dafür hat. Darum gehört zu A: (5) Spike listet je Fertigkeit, ob Godot in Kapitel 1 schon eine Tätigkeit hat (etwa Laden → Handeln, Truhe → Schlösser), schließt die vorhandenen gleich mit an; fehlende Tätigkeiten (Schleichen, Spähen) kommen als eigene Vorlage über Homer, weil sie Spielgefühl sind.
+
 **Folgerungen:** Bei A setzt Sokrates 471 auf „startbar, in Arbeit bei Spike“, Ford startet Spike; Perikles zieht Planpunkt 1.2 auf „Zweig“ nach. Bei B bleibt alles, 1.2 im Plan wird trotzdem berichtigt.
 
 Antwort: …
