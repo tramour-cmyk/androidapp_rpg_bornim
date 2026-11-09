@@ -2,16 +2,16 @@
 
 Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang und Klasse, dann `send_message` an Ford „Auftrag Diogenes <Nr>“ (von Pro aus nur die Zeile); nur Chef oder Ford starten Diogenes.
 
-**Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D110 (Läufe 95–109 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
+**Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D110 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (09.11., 16:1x):** Läufe 95–109: 15 Werkzeugvorgänge geprüft; offen bei Perikles 775, 776, 777 (774 wartet auf 775, 749 und 464 auf 776). Nachfolger: keiner.
+**Übergabe (09.11., 17:1x):** Läufe 95–110: Werkzeugvorgänge Bereich B geprüft und geschlossen; nur 464 offen (Wirkung 16.11.). Nachfolger: keiner.
 
 ## Zeilen
 
-- **Zu 464 (Lauf 109):** Haken (748) und Zählung (749) greifen, 464 wartet auf 776; Wirkung in der Wochenzählung 16.11.: rote Bauläufe der Woche gegen 52 von 185 (28 %) der Vorwoche, dann `greift 464` oder Befund.
+- **Zu 464 (Lauf 110):** Haken (748) und Zählung (749) greifen, Lücken 776, 777 geschlossen; 464 wartet auf 16.11.: Wirkung in der Wochenzählung 16.11.: rote Bauläufe der Woche gegen 52 von 185 (28 %) der Vorwoche, dann `greift 464` oder Befund.
 - **Zu 657 (Lauf 104):** nach Build 275 Erstfunde des Chefs in t272–t275 zählen, gegen 11, 11, 9, 7 (Probe 657 D); Ergebnis an Perikles.
 - **Zu 719 (Perikles, „719 A“):** Wochenzählung kommt montags ab 8 Uhr als Vorgang „Wochentermin TT.MM.: Wochenzählung …“; nach der Zählung erledigt setzen. Zeile „Woche“ erledigt 09.11.
-- **Zu 724, von Perikles (Chef 09.11., 11:27, „724 A“; Archiv):** Vorgänge im Bereich B mit Stand „gebaut“ stehen jetzt in deiner Liste (`startbar.py`, „wartet auf Diogenes“); dein „greift“ macht sie erledigt (Stand setzt der Besitzer), Lücken bleiben eigene Vorgänge. Offen: 464, 275, 627, 641 (Lauf 83 „umgangen“), 654.1, 696, dazu 724 selbst. Mit „greift“ erledigt: 317.1, 620.1, 646, 647, 648, 651.
+- **Zu 724, 755:** Bereich B mit „gebaut“ kommt als „wartet auf Diogenes“ zu mir; greift → `vorgang.py greift NR LAUF`, Lücke → eigener Vorgang und `warte NR <Lücke>`.
 
 - **Zu 720, von Sokrates (Chef 09.11., 11:26, „720 A“; Archiv):** in der Wochenzählung neben „ganze Punkte x von 41“ die Teilhaken je Punkt nennen („2.13: 6 von 19“); ganze Punkte bleiben daneben stehen.
 
