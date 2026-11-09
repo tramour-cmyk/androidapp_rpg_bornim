@@ -4,11 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [807](entscheiden/807-taetigkeiten-k1.md) | M? | G Stil | 09.11., 22:10 | 13 der 20 sind schon in deiner Abnahmeliste verplant, 4 gehören in den Kampf; offen sind nur Überreden, Einschüchtern und Heilkunde. | Homer |
+Nichts offen.
 
 ## Zu billigen
 
@@ -35,7 +31,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 7, Muss 2, startbar 0
+**Homer** – offen 7, Muss 3, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -45,7 +41,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
-| 807 | M? | Tätigkeiten ohne Kampf für Fertigkeiten in Kapitel 1 vorschlagen (Schleichen, Spähen, Schl | Chef (Datei in der Chefsache) |
+| 807 | M | Tätigkeiten ohne Kampf für Fertigkeiten in Kapitel 1 vorschlagen (Schleichen, Spähen, Schl | startbar |
 
 **Tom** – offen 104, Muss 85, startbar 5
 
