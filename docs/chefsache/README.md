@@ -228,10 +228,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 644.1 | M | Gegenstandskatalog: Werkzeug mit Spalten, Teil Rezepte und Prüfungen (644 A), zusammen mit | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
 | 644.2 | M | Gegenstandskatalog: Zahlen nach 469 in 444 (Tempo, Parieren, Durchschlag, Güte, Stufe), C1 | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
 | 681 | M | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
-| Pflege | K | von Werkzeug (340.3, 09.11.): 15479 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 717.1 | M | Kampf: Zurechtrücken der Gegner läuft gleichzeitig mit dem Zug des Helden statt davor (Ide | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test |
+| Pflege | K | von Werkzeug (340.3, 09.11.): 17109 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 24, Muss 20, startbar 4
+**Perikles** – offen 25, Muss 20, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -259,6 +259,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 650.1 | M | Liste für docs/alt/ nach zwei Gegenprüfungen (aus 650) | startbar |
 | 654.1 | M | Systemfrage vor jedem Bau in ROLLE-ENTWICKLUNG.md und Prüfliste, Wiederholungswächter in v | wartet auf Test/Build (gebaut) |
 | 696 | K | meldung.sh: mehrere Bilder in derselben Minute überschreiben sich im Zweig bilder (Pfad TT | wartet auf Test/Build (gebaut) |
+| Pflege | K | von Werkzeug (340.3, 09.11.): 15406 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Diogenes** – offen 7, Muss 5, startbar 0
 
