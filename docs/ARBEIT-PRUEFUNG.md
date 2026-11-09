@@ -6,7 +6,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Übergabe (09.11., 18:1x):** 783 Lauf 111 fertig: acht Widersprüche als Chefsache `entscheiden/783-widersprueche.md`, Überholtes und Doppeltes an Perikles als 791. Nachfolger: „Diogenes – 790: Kosten je Aufruf messen“.
 
-- **Zu 790:** Vorher-Werte Lauf 113 im Prüfbericht. Am 16.11. ab 18:07: `list_sessions` (mine, alle Seiten) und je abgeschlossene Sitzung mit created_at ab 09.11., 17:07Z `get_session` → `external_metadata.usage` (cost_usd, cache_read_tokens, cache_write_tokens, output_tokens) und `context_usage.used_tokens`; Helfer (sonnet) schreibt TSV, dann je Rolle wie Lauf 113 rechnen (je Aufruf = Kosten / (cache_read / ((Länge + 60 Tsd.) / 2))); Ergebnis an Perikles und den Chef, nicht bewerten.
+- **Zu 790:** Vorher-Werte Lauf 113 im Prüfbericht. Am 16.11. ab 18:07: `list_sessions` (mine, alle Seiten) und je abgeschlossene Sitzung mit created_at ab 09.11., 17:07Z `get_session` → `external_metadata.usage` (cost_usd, cache_read_tokens, cache_write_tokens, output_tokens) und `context_usage.used_tokens`; Helfer schreibt TSV, dann je Rolle wie Lauf 113 rechnen (je Aufruf = Kosten / (cache_read / ((Länge + 60 Tsd.) / 2))); Ergebnis an Perikles und den Chef, nicht bewerten.
 - **Zu 783:** nach der Antwort des Chefs Datei löschen, Wortlaut ins Archiv; dann Schritt 3 (Perikles, 791) prüfen: jede Entscheidung behält einen Ort.
 
 ## Zeilen
