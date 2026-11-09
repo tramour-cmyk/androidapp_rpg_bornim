@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (09.11., 01:05, Ford `session_01Hmoj78bPzZELavxMGXUqB2`, Selbstneustart):** Getan: Archivieren gilt (Chef 18:06 „Archivier alles ordentlich“), alle fertigen Sitzungen archiviert und gebucht. Kurzzeilen-Status „running“ = „working“ (kosten.py fest, 693.1). Woche seven_day `allowed_warning` (20:42): `lauf.py --nur-muss`. Laufend: Jerry 682/Sammelbuild 271, Tom 656, Sokrates (Stellungnahme). `startbar.py` liest bei „ab TT.MM.“ nur das Datum: Diogenes „Woche“ erst 8 Uhr, Perikles 398/338.1 erst 10 Uhr, Sokrates Stellungnahme erst 8 Uhr, bis dahin Starts mit `--ohne NR:Grund` auslassen; nachts (22–7) nichts Neues. Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 754** (zuletzt 753 Tom 09.11. 14:09:24 09b9) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 756** (zuletzt 755 Perikles 09.11. 14:14:40 82a4) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
