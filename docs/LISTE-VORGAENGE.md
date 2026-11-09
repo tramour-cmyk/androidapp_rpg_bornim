@@ -281,6 +281,7 @@
 | 718 | Probe mit Enddatum: Rückbau gleich ins Werkzeug (365 lief nach 31.10. weiter) | Sokrates | M | startbar | Chef | – | – | B Abläufe | – |
 | 719 | Wochentermine selbsttätig als Muss in die Vorgangsliste (Ideenspeicher, Rollenspiegel fielen aus) | Sokrates | M | startbar | Chef | – | – | B Abläufe | – |
 | 720 | Abnahmeliste: Teilhaken mitzählen, wöchentliche Haken-Frage für Gebautes (0 von 41) | Sokrates | M | startbar | Chef | – | – | Q QM | – |
+| 721 | Befunde von Diogenes als Vorgang mit Rückmeldung statt Textzeile im Vorrat (Chef 09:07, 33 von 44 ohne Eintrag) | Sokrates | M | startbar | Chef | – | – | Q QM | – |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +857,14 $ |
 | Pflege | von Werkzeug (340.3, 09.11.): 25397 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
