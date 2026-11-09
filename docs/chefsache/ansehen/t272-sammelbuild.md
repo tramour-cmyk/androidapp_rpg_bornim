@@ -1,5 +1,5 @@
 # Tom und Jerry · Build 272 · 0.1.1071 · Godot · Erschaffung, Tasche, Wald, Kampf · [PR #191](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/191)
-Ganzes Spiel · Tom (700, 656, 701, 560), Jerry (682, 717, 717.1, 778, 702) · 09.11., 18:50 · APK nach dem Lauf
+Ganzes Spiel · Tom (700, 656, 701, 560), Jerry (682, 717, 717.1, 778, 702) · 09.11., 18:50 · [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/42669446341/artifacts/13701543948) · Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/42669446341
 
 Ein Weg: Erschaffung (A), Dorf und Tasche (B), Tiefer Flüsterwald (C), Probekämpfe im Reiter „Test“ (D); über Build 271 installieren. Was nicht passt, reicht als Nummer (z. B. 272.4) mit einem Wort.
 
