@@ -1,5 +1,5 @@
-# 506 · Kaufmodelle in Toms Sitzung freigeben · Tom · 09.11., 20:23
-E Kampf
+# 506 · Kaufmodelle in Toms Sitzung freigeben
+Tom · 09.11., 20:23 · E Kampf
 
 Geprüft an: Sitzung „Tom – 506: Untote im Kampf mit den Kaufmodellen (09.11., 20:21)“, Ablehnung um 20:21
 
