@@ -278,7 +278,7 @@
 | 710 | Systemlösung? Waffe: 12 frühere Vorgänge (348.12h, 534a, 427, 417, 410 …), neu 709; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Kampf | – |
 | 711 | Systemlösung? Schrift: 8 frühere Vorgänge (292.3, 312, 498, 497, 544 …), neu 586.1; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Oberfläche | – |
 | 365.1 | Laufende Teamsitzungen in Hoch: sofort neu starten? | Sokrates | M | erledigt | – | – | – | B Abläufe | – |
-| 714 | Ford-Wache: Zeitstempel in die Wecker (Chef 08:45) | Sokrates | M | startbar | Chef | – | – | B Abläufe | – |
+| 714 | Ford-Wache: Zeitstempel in die Wecker (Chef 08:45) | Sokrates | M | erledigt | – | – | – | B Abläufe | – |
 | 718 | Probe mit Enddatum: Rückbau gleich ins Werkzeug (365 lief nach 31.10. weiter) | Sokrates | M | startbar | Chef | – | – | B Abläufe | – |
 | 719 | Wochentermine selbsttätig als Muss in die Vorgangsliste (Ideenspeicher, Rollenspiegel fielen aus) | Sokrates | M | startbar | Chef | – | – | B Abläufe | – |
 | 720 | Abnahmeliste: Teilhaken mitzählen, wöchentliche Haken-Frage für Gebautes (0 von 41) | Sokrates | M | startbar | Chef | – | – | Q QM | – |
