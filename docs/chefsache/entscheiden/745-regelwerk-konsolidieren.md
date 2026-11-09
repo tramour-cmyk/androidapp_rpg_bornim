@@ -19,4 +19,12 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/main/CLA
 - **B:** erst nur Schritt 1 (Liste der Widersprüche), dann neu entscheiden. Gegenargument: langsamer, aber billiger, falls die Liste kurz ist.
 - **C:** noch nicht, erst die Probe 657 D abwarten.
 
-Antwort: „745 A“, „745 B“ oder „745 C“.
+## Stellungnahme Sokrates (09.11., 12:0x, Chef 12:05: „ob das was bringt, dafür brauchen wir eigentlich keinen Probelauf … Das Entscheidende ist ja … dass er aufgerufen wird. Und dafür können wir doch einen Haken machen … Design-Klimbim und Entwurfsklimbim und Kampfklimbim“)
+- **Recht hast du:** dass eine Liste hilft, die im richtigen Moment vor einem liegt, zeigt der heutige Tag schon (fünfmal hielt die Commit-Prüfung an, fünfmal wurde es richtig). Vier Builds Warten, bevor es weitere Listen gibt, lohnt sich nicht.
+- **Zwei Einschränkungen:** (1) mein eigenes Urteil „das hilft mir“ ist kein Beleg; heute brach ich Regeln, die ich kannte. Was wirklich wirkt, ist eine *Sperre*, nicht ein angezeigter Text. Darum: was sich prüfen lässt, wird eine Prüfung im Haken, die anhält (wie heute „Geprüft an“ fehlt); nur der Rest wird als Liste gezeigt. (2) Auslöser nur an Handlungen, nie an Wörtern: ein Commit unter `godot/kampf/` zeigt die Kampfliste, eine neue Datei in `ansehen/` die Vorlagenliste, ein Commit an Modellen oder `DESIGN-…` die Aussehensliste. Haken, die Wörter im Text suchen, schlagen falsch an (Chefsache-Haken heute viermal, Wiederholungswächter bei „Karte“).
+- **Stärkstes Gegenargument:** sechs Listen-Haken mehr heißen mehr Ausgabe bei jedem Commit, also wieder Rauschen. Gegenmittel: jede Liste nur einmal je Sitzung und Bereich, danach still.
+- **Folgerung:** Die Listen sind das natürliche Ergebnis von Schritt 3 (Handwerk einer Aufgabe wandert in eine Liste). 657 D läuft als erste Liste weiter, die übrigen kommen mit der Konsolidierung, jede mit Auslöser an einer Handlung.
+
+- **A2 (Empfehlung neu):** wie A, dazu: Schritt 3 legt je Bereich eine Liste an (Build und Test, Vorlage an den Chef, Aussehen und Modelle, Kampf, Spieltexte, Kauf und Lizenz); Schritt 4 baut die Auslöser an Handlungen (Pfade, Befehle), einmal je Sitzung und Bereich; was prüfbar ist, wird Sperre statt Text. 657 D bleibt die erste Liste, ohne auf vier Builds zu warten.
+
+Antwort: „745 A2“, „745 A“, „745 B“ oder „745 C“.
