@@ -25,6 +25,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [820](tun/820-archivieren-erlauben.md) | **Muss** | B Werkzeuge | 09.11., 22:36 | `archive_session` ist vom Auto-Modus-Wächter abgelehnt („Interfere With Workloads“); ohne Archivieren geht kein Neustart. | Ford |
 | [391](tun/391-repo-in-umgebung.md) | **Muss** | B Werkzeuge | 09.11., 22:20 | bornim-kaufmodelle unter „Repositories“ der Umgebung WireStorm Mittel eintragen, einmal mit einem Start prüfen | Sokrates |
 
 ## Offen je Rolle
