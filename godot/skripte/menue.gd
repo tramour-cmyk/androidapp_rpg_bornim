@@ -1285,8 +1285,9 @@ static func stueck_zeilen_b(hw: Heldwerte, g: Dictionary) -> Array:
 	if int(b.get("fokus", 0)) > 0 and not bool(hw.klassendaten()["zauberer"]):
 		z_.append(satz.call("Zauberkraft nützt nur Zauberwirkern." if de else "Spell power only helps spellcasters.", 13, Stil.DIM))
 	# Helfer 14:18: die Sammelzeile „Attribute: … Bonus wirkt nicht“ der Tabelle widersprach den Bonuszeilen („wirkt +1“: was das Stueck
-	# selbst bringt; die Sammelzeile: gegen das, was es ersetzt). Jede Bonuszeile sagt schon, was die Obergrenze schluckt: hier ohne sie
-	var tz: Array = v.zeilen.filter(func(x): return not (String(x["vorher"]) == "" and String(x["nachher"]) == "")) if v else []
+	# selbst bringt; die Sammelzeile: gegen das, was es ersetzt). Jede Bonuszeile sagt schon, was die Obergrenze schluckt: hier ohne sie.
+	# 701 (Chef 08.11., 20:37 „wirkt überbordend“): ohne jede Zeile, die nur den Deckel wiederholt („doppelt“, Vergleich.von)
+	var tz: Array = v.zeilen.filter(func(x): return not bool(x.get("doppelt", false))) if v else []
 	if not tz.is_empty():
 		z_.append(Spielstaende.linie())
 		z_.append(vergleich_tabelle(tz, de))
