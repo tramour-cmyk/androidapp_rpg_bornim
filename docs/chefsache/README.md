@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [783](entscheiden/783-widersprueche.md) | **Muss** | B Abläufe | 09.11., 20:08 | acht Widersprüche zwischen zwei Regeln, je einer gilt | Diogenes |
+| [783](entscheiden/783-widersprueche.md) | **Muss** | B Abläufe | 09.11., 20:11 | acht Widersprüche zwischen zwei Regeln, je einer gilt | Diogenes |
 | [650.2](entscheiden/6502-docs-gliederung.md) | **Muss** | B Abläufe | 09.11., 20:04 | 11 Dateien nach alt/ oder kapitel2/, 6 Themen zusammenlegen, Gliederung flach lassen, Inhaltsverzeichnis neu | Sokrates |
 
 ## Zu billigen
