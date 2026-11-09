@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (09.11., 18:37, `session_01Hmoj781M7fwdimGPDWCPZ5`):** 701 gebaut (`claude/tom-701-obergrenze`, b2bbb1024), Vorschau `ansehen/701-obergrenze.md`. 506: Filmskript behoben (d4af36027); Rest braucht die Kaufmodelle am Rechner, `add_repo` vom Auto-Modus abgelehnt, Chef gefragt (`tun/506-kaufmodelle.md`). Nachfolger: Tom – 683: SRD-Wörter im Gegenstandsfenster (09.11.)
+**Übergabe (09.11., 20:18, `session_01Hmoj76JbszLggdekdZWpim`):** 773: Build 272 (Godot 0.348.315, Lauf 42669446341) mit main, 717-rückwärts neu, 560, 632, 701, 700 beim Chef (`ansehen/t272-sammelbuild.md`, Helfer geprüft); 632 ohne Prüfzeile (fährt mit 492). 506: Chef erlaubt alle Repos (Archiv 20:15), `add_repo` bornim-kaufmodelle gelang erst danach. 475: `main` in `claude/tom-475-leute` gemischt (447eafd6a), Lauf wartet auf „475, Läufe frei“ von Sokrates (Haken zählte den Push). Neu 795 (BRS-Platzwahl), 797 (Perikles, Erlaubnisregel). Nachfolger: Tom – 506: Untote im Kampf mit den Kaufmodellen (09.11.)
 
 ## Einzelheiten
 
