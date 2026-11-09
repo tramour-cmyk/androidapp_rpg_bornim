@@ -136,7 +136,8 @@ def rote_laeufe():
     for name, ls in (("24h", [l for l in laeufe if l.get("created_at", "") >= grenze]), ("7d", laeufe)):
         gezaehlt = [l for l in ls if l.get("conclusion") in ("success", "failure")]
         rot = [l for l in gezaehlt if l["conclusion"] == "failure"]
-        team = collections.Counter(next((t for t in ("tom", "jerry", "build") if (l.get("head_branch") or "").startswith("claude/" + t)), "sonst") for l in rot)
+        team = collections.Counter(next((t for v, t in (("tom", "tom"), ("spike", "tom"), ("jerry", "jerry"), ("tuffy", "jerry"), ("build", "build"))
+                                         if (l.get("head_branch") or "").startswith("claude/" + v)), "sonst") for l in rot)  # 777: spike → Tom, tuffy → Jerry
         erg[name] = (len(rot), len(gezaehlt), team)
     return erg
 

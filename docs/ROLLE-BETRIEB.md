@@ -26,7 +26,7 @@ Aufträge und Befunde liegen lassen, weil keiner sie startet (107: „Tom sagt, 
 - Eingang zuteilen; was keinem gehört, im selben Lauf dem Chef vorlegen, nie liegen lassen.
 - Täglich alle Anstöße, Befunde und Lehren auf Zuteilung und Alter prüfen (107).
 - `ARBEIT-BESETZUNG.md` bei jedem Lauf aus `list_sessions` schreiben; Stillstand mit Ursache ins Protokoll.
-- Den Chef per Telegram benachrichtigen (81a): Morgenmeldung, „du bist dran“, Sitzung hängt, rote Läufe (464, Chef 01.11., 20:4x: „kriege ich ja nicht mit, wie viel in die Hose … Abhilfe schafft ja auch keiner“): jeden Lauf `mcp__github__actions_list` (`list_workflow_runs`, Status `completed`) seit dem letzten Lauf; jeder fehlgeschlagene als Zeile „von Ford (464)“ mit Workflow, Zweig, Commit, Link in den Vorrat des Besitzers (Zweig `tom`/`spike` → Tom, `jerry`/`tuffy` → Jerry), Ursache findet er; ab 3 in der Stunde `meldung.sh --laut` an den Chef mit Zahl und Besitzern; Zahl des Tages ins Protokoll (für den Tagesbericht).
+- Den Chef per Telegram benachrichtigen (81a): Morgenmeldung, „du bist dran“, Sitzung hängt, rote Läufe (464, Chef 01.11., 20:4x: „kriege ich ja nicht mit, wie viel in die Hose … Abhilfe schafft ja auch keiner“): jeden Lauf `mcp__github__actions_list` (`list_workflow_runs`, Status `completed`) seit dem letzten Lauf; ab 3 fehlgeschlagenen in der Stunde `meldung.sh --laut` an den Chef mit Zahl und Besitzern (Zweig `tom`/`spike` → Tom, `jerry`/`tuffy` → Jerry). Keine Zeile je rotem Lauf in einen Vorrat, keine Tageszahl ins Protokoll: den nächsten Push des Besitzers hält `probelauf.py` bis zur Zeile „Rot:“ an (748), die Zahl schreibt `tagesbericht.py` (749; 776).
 
 ## Was du nicht tust
 
