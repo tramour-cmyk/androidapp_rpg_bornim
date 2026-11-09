@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [744](entscheiden/744-bewegung-karte.md) | **Muss** | E Figuren | 09.11., 11:20 | Karte: Streuner und Leute bewegen sich natürlich | Sokrates |
-| [743](entscheiden/743-verwerfen-ideen.md) | **Muss** | B Abläufe | 09.11., 10:10 | 15 Ideen verwerfen (erledigt, überholt, doppelt, Grund entfallen)? | Perikles |
 | [724](entscheiden/724-werkzeug-erledigt.md) | **Muss** | B Abläufe | 09.11., 09:50 | Werkzeugvorgänge nach „greift“ erledigt statt „wartet auf Test“ | Perikles |
 | [718](entscheiden/718-probe-rueckbau.md) | **Muss** | B Abläufe | 09.11., 08:53 | Probe mit Enddatum: Rückbau gleich ins Werkzeug | Sokrates |
 | [719](entscheiden/719-wochentermine.md) | **Muss** | B Abläufe | 09.11., 08:53 | Wochentermine selbsttätig in die Vorgangsliste | Sokrates |
@@ -234,7 +233,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 681 | M | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | ruht |
 | Pflege | K | von Werkzeug (340.3, 09.11.): 17030 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 36, Muss 19, startbar 1
+**Perikles** – offen 36, Muss 19, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -273,7 +272,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 735 | K | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-ABNAHME.md 11 und Kopf DESIGN-KAMPF | ruht |
 | 742 | K | D78.1 Testbitte t268: Zeile „Verglichen“ deckte nur die Schirme vom 05.11., nicht Dorf, Ka | ruht |
 | Pflege | K | von Werkzeug (340.3, 09.11.): 15341 Bytes (Grenze 15000), Erledigtes streichen | startbar |
-| 743 | M | Verwerfen? aus LISTE-IDEEN.md (Homer 09.11.): 15 Ideen erledigt, überholt, doppelt oder oh | Chef (Datei in der Chefsache) |
+| 743 | M | Verwerfen? aus LISTE-IDEEN.md (Homer 09.11.): 15 Ideen erledigt, überholt, doppelt oder oh | startbar |
 
 **Diogenes** – offen 7, Muss 5, startbar 0
 
