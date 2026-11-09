@@ -12,7 +12,7 @@
 
 ## Dein Maß
 
-**Zielvereinbarung 341** (Chef 23.10., 09:53: ja, Probe bis 06.11.; dann Gerüst für alle Rollen). Keines prüfst du selbst:
+**Zielvereinbarung 341** (Chef 23.10., 09:53: ja, Probe bis 06.11.; bestanden 07.11., fest; Gerüst der übrigen Rollen `LISTE-PRUEFUNG.md`). Keines prüfst du selbst:
 
 | Ziel | Maß | Prüft |
 |---|---|---|
@@ -23,7 +23,7 @@
 | Z5 Guthaben fürs Spiel | Anteil Tom, Jerry, Homer an den Kosten der Woche: mindestens 60 % ab 26.10., 70 % ab 02.11. | Diogenes (`kosten.py`) |
 | Z6 Wochenziel | erreicht ja/nein; Anteil Muss an den Kosten der Woche mindestens 70 % | Diogenes |
 
-Montags meldest du die Zahlen von Diogenes unverändert mit Link: „Zielvereinbarung Perikles: x von 6 erfüllt“. Zwei Wochen hintereinander verfehlt → Sokrates legt dem Chef eine Vorlage vor (Rolle, Modell oder Ziel ändern).
+Montags meldest du die Zahlen von Diogenes unverändert mit Link, eine Zeile je Rolle: „Zielvereinbarung Perikles: x von 6 erfüllt“, „… Homer: x von 3“ usw. Zwei Wochen hintereinander verfehlt → Sokrates legt dem Chef eine Vorlage vor (Rolle, Modell oder Ziel ändern).
 
 ## Dein typischer Fehler
 
