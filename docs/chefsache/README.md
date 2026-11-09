@@ -156,7 +156,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 756 | M | Gegenstände: wie Seltenheit, Abnutzung und übrige Merkmale bei anlegbarer Ausrüstung angez | Sperre 620.1 B: 16 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 522 (ausrustung) |
 | 785 | M | Oberfläche einmal ganz gegen alt: jeder Schirm und jede Bedienung als eine Liste, jeder Un | wartet auf 784 (startbar) |
 | 795 | M | BRS-Erschaffung, Platzwahl „Alle Spielstand-Plätze sind belegt“: noch Rahmen und Auslösen | Sperre 620.1 B: 16 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 773 (alle) |
-| Pflege | K | von Werkzeug (340.3, 09.11.): 15156 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 09.11.): 16050 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 74, Muss 68, startbar 3
 
@@ -237,7 +237,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 786 | M | Klangliste alt gegen neu: je Anlass alt, neu, fehlt (654 A, als Drittes) | wartet auf 784 (startbar) |
 | Pflege | K | von Werkzeug (340.3, 09.11.): 17083 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 24, Muss 10, startbar 5
+**Perikles** – offen 25, Muss 10, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -265,6 +265,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 799 | M | Vorlagen nach 364: Muster MUSTER.md und Haken, der entscheiden/ und billigen/ ohne die ach | startbar |
 | 800 | M | docs aufräumen nach 650.2: A nach alt/ (je Datei „vorher“), B kapitel2/, C1 BRS umbenennen | startbar |
 | 739 | K | D84.1 die sechs wiederholten Funde aus t268 mit „wiederholt“ im Titel nachziehen (620.1 A; | startbar |
+| Pflege | K | von Werkzeug (340.3, 09.11.): 16466 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Diogenes** – offen 9, Muss 8, startbar 0
 
