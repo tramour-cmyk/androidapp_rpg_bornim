@@ -307,7 +307,7 @@ Folklore-Wesen (Goblin, Kobold, Skelett, Zombie, Ghul) und Tiere behalten ihre N
 
 ## 13. Offen
 
-- Monsterwerte Kapitel 1 sind entschieden (427, Chef 02.11.: `LISTE-BESTIARIUM.md` „Werte 2.0“); offen nur Krogg und Grimmzahn (427.1, nachmessen mit Überfall, Rudel, Umreißen) und die Herkünfte (481).
+- Monsterwerte Kapitel 1 sind entschieden (427, Chef 02.11.: `LISTE-BESTIARIUM.md` „Werte 2.0“); Krogg und Grimmzahn nachgemessen, Werte wie im Bestiarium gelten endgültig (427.1, Chef 02.11., 20:22; ersetzt „offen nur Krogg und Grimmzahn, nachmessen mit Überfall, Rudel, Umreißen“), mit zwei Bedingungen: Hinweis auf Morwens Rauch spätestens nach der ersten Niederlage gegen Krogg, Krogg erst abnehmen, wenn der Rauch im Spiel zu bekommen ist; offen nur die Herkünfte (481).
 - Profil (Entwurf C) ist entschieden (Entscheidung 76); offen bleibt nur die Reihenfolge der Bausteine über Taten und Chronik hinaus.
 - Umfang der Prüfungsquests beim Lehrmeister.
 - Wie die Grundwerte durch Fertigkeiten wachsen; Haupt- und Nebenwert für Spähen, Tiere beruhigen, Lederarbeit.
