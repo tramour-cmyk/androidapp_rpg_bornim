@@ -29,6 +29,7 @@ Was der Chef zu Waffe, Schild und Kampf im Bild entschieden hat, steht nur hier 
 | F4 | Tod sichtbar als Zusammenbruch, für alle (Helden, Gegner, Tiere): zusammenbrechen, kurz liegen, dann ausblenden, nicht zu schnell weg | 440 (31.10.), 348.12 (28.10.), 461c (01.11., 22:35) | ja |
 | F5 | Ausweichen mit Ortswechsel: rasch zur Seite oder zurück, nur auf einen Angriff hin; danach bleibt er dort stehen und rückt erst mit dem eigenen Zug zurecht | 348.12f (27.10.), 348.12 (01.11., 22:45), 703 A (08.11., 21:36) | ja |
 | F6 | Zauber: der Kegel kommt nicht aus dem Körper des Helden (Seitenschritt; ebenso Schüsse aus der zweiten Reihe); Arkanpfeil (früher „Magisches Geschoss“, BRS 12) ohne Schritt, durch den Helden abgenommen | 348.7b (27.10., 19:49; 28.10., 10:43, 15:28) | ja |
+| F7 | Ein Gegner zeigt dem Helden nie den Rücken, außer auf der Flucht: nach dem Angriff rückwärts zurück (gehen, krabbeln, springen) oder stehen bleiben, wo er war | 717 (09.11., 08:51) | ja |
 
 ## Kurzfassung
 
