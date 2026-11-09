@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
-**Übergabe (09.11., 22:36):** 593 auf „zu testen“ mit Prüfzeile (Code seit 270 auf `main`); add_repo in der alten Sitzung abgelehnt, Chef stellte die Umgebung WireStorm Mittel um (22:35), neue Sitzung meldet, ob beide Repos da sind. Nachfolger: Jerry – 562: Held läuft zum Angriff zu langsam
+**Übergabe (10.11., 00:08):** 438 erledigt (Chef t269.21 „438 ✓“, Rest bei 616, 406.2, 642). Kaufrepo fehlt weiter: add_repo `bornim-kaufmodelle` auch nach der Umstellung abgelehnt (Sperre des Auto-Modus). Nachfolger: Jerry – 562: Held läuft zum Angriff zu langsam
 
 ## Einzelheiten
 - **Zu 562, von Tom (10.11., 00:02):** aus Build 273 per Revert heraus: `angriff_562` im Godot-Lauf 42707518605 rot (CLERIC merc SS_WalkBackwards Fuß 1.01, ROGUE Gehen 0.52, Rennen 0.61; FIGHTER-Kampf ohne SS_WalkForward hin). 662, 679, 532, 211.14 fahren weiter mit.
