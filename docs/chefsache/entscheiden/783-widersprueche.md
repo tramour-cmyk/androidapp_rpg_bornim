@@ -1,8 +1,10 @@
 # 783 · Acht Widersprüche im Regelwerk: welche Seite gilt?
-Diogenes · 09.11., 18:15 · B Abläufe · 745 A2 Schritt 2
+Diogenes · 09.11., 20:01 (Vorlage 18:15, W6 entschieden) · B Abläufe · 745 A2 Schritt 2
 Kurz: acht Widersprüche zwischen zwei Regeln, je einer gilt
 
 Geprüft an: Lauf 111 in `docs/PRUEFBERICHT.md` (jede Stelle am Wortlaut nachgelesen, Stand `main` 09.11., 18:13)
+
+**Entschieden:** W6 wie Vorschlag (Chef 20:00, Archiv). W5 andersherum, Rückfrage Sokrates 19:59 offen (`ARBEIT-BERATUNG.md` „Zu 783 W5“).
 
 **Frage:** Welche Seite gilt jeweils? Die andere streicht Perikles in Schritt 3.
 
