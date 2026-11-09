@@ -34,7 +34,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 6, Muss 1, startbar 1
+**Homer** – offen 7, Muss 1, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -44,6 +44,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 | 736 | K | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-STIL.md 188–189 (618), 197 (586), 1 | startbar |
+| 746 | K | Von Perikles (743, Chef 09.11., 11:21 „alle verwerfen“): 15 Ideen aus „Verwerfen?“ in LIST | startbar |
 
 **Tom** – offen 102, Muss 78, startbar 2
 
@@ -152,7 +153,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 737 | K | D92.2 Vorlagen 02.–08.11. ohne Zeile „Bestand geprüft“ (434): 417, 431, 463, 475, 492, 499 | startbar |
 | Pflege | K | von Werkzeug (340.3, 09.11.): 16650 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 73, Muss 66, startbar 1
+**Jerry** – offen 74, Muss 66, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -229,8 +230,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 681 | M | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | ruht |
 | 744 | M | Karte: Streuner und Leute bewegen sich natürlich, verweilen mit Ruhebewegung statt Roboter | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
 | Pflege | K | von Werkzeug (340.3, 09.11.): 15644 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 747 | K | Von Perikles (743, Chef 09.11., 11:21 „alle verwerfen“): Vorgang 24 schließen (Animationen | startbar |
 
-**Perikles** – offen 34, Muss 18, startbar 6
+**Perikles** – offen 33, Muss 17, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -262,7 +264,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 734 | K | D92.1 Warnung „LISTE-VORGAENGE.md von Hand geändert“ wird nirgends festgehalten, Woche War | ruht |
 | 735 | K | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-ABNAHME.md 11 und Kopf DESIGN-KAMPF | ruht |
 | 742 | K | D78.1 Testbitte t268: Zeile „Verglichen“ deckte nur die Schirme vom 05.11., nicht Dorf, Ka | ruht |
-| 743 | M | Verwerfen? aus LISTE-IDEEN.md (Homer 09.11.): 15 Ideen erledigt, überholt, doppelt oder oh | startbar |
 | 718 | M | Probe mit Enddatum: Rückbau gleich ins Werkzeug (365 lief nach 31.10. weiter) | startbar |
 | 719 | M | Wochentermine selbsttätig als Muss in die Vorgangsliste (Ideenspeicher, Rollenspiegel fiel | startbar |
 | 720 | M | Abnahmeliste: Teilhaken mitzählen, wöchentliche Haken-Frage für Gebautes (0 von 41) | startbar |
