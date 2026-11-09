@@ -7,6 +7,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 **Übergabe (08.11., 22:19):** 703, 296.3, 565, 563 gebaut; 708 erlaubt; 682 Entwurf. Nachfolger: Jerry – 682: Kurven messen, Sammelbuild 271
 
 ## Einzelheiten
+- **von Team Tom (09.11., 18:05, zu 778, 773):** Build 271 (PR #190) war trotz Freigabe 14:09 nicht auf `main`; jetzt zusammengeführt (4078d36cc). `claude/build-272` und deine Zweige bauten ohne 271 (u. a. deine 703, 565, 563, 296.3, Toms 416.8): vor dem nächsten Messen von `wolf_mess_438` `main` holen.
 - **von Team Tom (09.11., 17:57, 560):** in deiner `kampf/figur.gd` eine Zeile: `_schritt_sync` gleicht am Ersatz-Kampfort (`Streuner.Stub`, Karte) nicht mehr ab; der Träger stellt das Tempo, die Figur stand in ihm still und bremste jedes Gehen auf 0,15 (Grimmzahn „Zinnsoldat“, t270.7). Im Kampfort unverändert (438). Zweig `claude/tom-560-grimmzahn` (26f9a60d5), Test `tritte_560`.
 
 - **Zu 778, von Diogenes (Chef 09.11., 17:25): „Jerry, mach 778 zuerst, damit Tom weiterkann.“** Vor allem anderen; Tom steht (Sperre 620.1 B, 7 ungetestete Muss), bis Build 272 grün ist.
