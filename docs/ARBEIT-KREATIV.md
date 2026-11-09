@@ -2,7 +2,7 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `364f6140f` (09.11., 09:13)
+**Gelesen bis:** `0efa93161` (09.11., 22:14)
 
 **Übergabe (09.11., 22:08):** 810 achte Gruppe „Handwerk“ (Chefwort, Text `[423.fert.liste]` und Code taten es schon); `DESIGN-BRS.md` Abschnitt 3 und Vorgangsarchiv nachgezogen, für Tom nichts zu bauen. 807 Vorlage `chefsache/entscheiden/807-taetigkeiten-k1.md` (fremd geprüft, zwei Zuordnungen korrigiert). 772 Glossar: „Vorgang beim Chef“ eingetragen, „steht in“ zeigt auf Abschnitt oder Fachdatei statt nur `CLAUDE.md`. Nachfolger: Homer – 766: Rollenspiegel (13.11.).
 
