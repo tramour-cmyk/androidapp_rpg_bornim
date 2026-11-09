@@ -31,7 +31,6 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [391](tun/391-repo-in-umgebung.md) | **Muss** | B Werkzeuge | 09.11., 22:20 | bornim-kaufmodelle unter „Repositories“ der Umgebung WireStorm Mittel eintragen, einmal mit einem Start prüfen | Sokrates |
-| [801](tun/801-kaufmodelle-zugriff.md) | **Muss** | E Kampf | 09.11., 21:08 | add_repo für bornim-kaufmodelle freigeben? | Jerry |
 
 ## Offen je Rolle
 
@@ -155,7 +154,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 804 | M | Dorf: Gras und Blumen aus dem Kit R9 (Gräser, Blumen, Wind, weicht dem Helden aus) statt h | startbar |
 | Pflege | K | von Werkzeug (340.3, 09.11.): 16691 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 75, Muss 66, startbar 12
+**Jerry** – offen 74, Muss 65, startbar 12
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -227,7 +226,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 770 | M | Wochentermin 13.11.: Rollenspiegel Jerry (rollenspiegel.sh Jerry) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 | 784 | M | Kampf-Sollbild „Wolfsrudel, eine Runde“: wer geht wohin, Höchstdauer je Handlung, Ausweich | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 679 (wolfsrudel) |
 | 786 | M | Klangliste alt gegen neu: je Anlass alt, neu, fehlt (654 A, als Drittes) | wartet auf 784 (startbar) |
-| 801 | M | Freigabe add_repo für bornim-kaufmodelle in den Sitzungseinstellungen (Zugriffsprüfung leh | Chef (Datei in der Chefsache) |
 | 802 | K | Rest 211.14 (Kür, Tuffy): Held und Söldner gehen beim Wechsel statt 0,4 s zu gleiten (figu | startbar |
 | 803 | K | Rest 211.14 (Kür, Tuffy): Gegner durch Antippen der Figur als Ziel wählen | startbar |
 | 805 | M | Kampforte neu gestalten mit den Paketen: Gras und Blumen R9, Boden, Licht, Staub, damit es | startbar |
