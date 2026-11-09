@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [650.2](entscheiden/6502-docs-gliederung.md) | **Muss** | B Abläufe | 09.11., 20:04 | 11 Dateien nach alt/ oder kapitel2/, 6 Themen zusammenlegen, Gliederung flach lassen, Inhaltsverzeichnis neu | Sokrates |
+| [650.2](entscheiden/6502-docs-gliederung.md) | **Muss** | B Abläufe | 09.11., 20:24 | 14 Dateien nach alt/ oder kapitel2/, 6 Themen zusammenlegen, Gliederung flach lassen, Inhaltsverzeichnis neu | Sokrates |
 
 ## Zu billigen
 
@@ -39,7 +39,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [506](tun/506-add-repo.md) | **Muss** | E Kampf | 09.11., 20:23 | Kaufmodelle in Toms Sitzung freigeben (add_repo) | Tom |
+| [506](tun/506-add-repo.md) | **Muss** | E Kampf | 09.11., 20:23 | Kaufmodelle in Toms Sitzung freigeben | Tom |
 | [780](tun/780-zustimmung-haendler.md) | **Muss** | M Veröffentlichung | 09.11., 17:47 | Zustimmung von Protofactor und Janpec einholen | Sokrates |
 | [623](tun/623-kauf.md) | **Muss** | E Kampf | 07.11., 20:13 | Effektpakete: Rest nach dem Kauf | Sokrates |
 
@@ -59,7 +59,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 | 772 | K | D89.2 von Diogenes (über Perikles): Glossar ohne „Vorgang beim Chef“ (480); „steht in“ zei | startbar |
 
-**Tom** – offen 104, Muss 84, startbar 7
+**Tom** – offen 104, Muss 84, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -71,7 +71,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 653 | M | Halt für Waffen und Schilde einmal je Modell festlegen statt je Figur nachmessen: Griffpun | Sperre 620.1 B: 16 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 773 (aller) |
 | 560 | M | Monster auf der Karte drehen sich zum Helden, wenn sie ihn wahrnehmen, mit Schritten statt | wartet auf Test (Build 272) |
 | 680 | M | Absturz: Testmenü Sprung Wald → Dorf, in der Schenke schon hakelig, nach Met immer zäher, | Sperre 620.1 B: 16 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 543 (schenke) |
-| 506 | M | Untote im Kampf: Skelett, Zombie, Ghul (aus 494, Spike; Wochenziel 03.11., 488) | startbar |
+| 506 | M | Untote im Kampf: Skelett, Zombie, Ghul (aus 494, Spike; Wochenziel 03.11., 488) | Chef (Datei in der Chefsache) |
 | 492 | M | Blutzahnhöhle begehbar mit Krogg, Grak, Lyra (Orte O8; Wochenziel 03.11., 488; von Jerry a | Sperre 620.1 B: 16 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 635 (lyra) |
 | 670 | M | Build 269: Menü des Helden (Held, Tasche, Ausrüstung, Karte, Chronik, System) noch im alte | wartet auf Test t272 (Chef) |
 | 581 | M | Ausrüstung: Seite breiter als der Schirm, Reiter springen (Abgleich 512b) | Sperre 620.1 B: 16 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 522 (ausrustung) |
@@ -288,11 +288,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 771 | M | Probe 657 auswerten: Erstfunde des Chefs t272–t275 gegen 11, 11, 9, 7 (von Perikles, Werkz | wartet auf Test t275 (Chef) |
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 
-**Sokrates** – offen 46, Muss 35, startbar 21
+**Sokrates** – offen 45, Muss 34, startbar 20
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 798 | M | D120.1 von Diogenes (650.2): Vorlage 6502 vor der Antwort des Chefs berichtigen: Begründun | startbar |
 | 650.2 | M | docs Schritt 2 und 3: Abgelöstes nach alt/, Doppeltes zusammen, Gliederung (aus 650, Chef | Chef (Datei in der Chefsache) |
 | 780 | M | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für uns | Chef (Datei in der Chefsache) |
 | 620 | M | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build | startbar |
