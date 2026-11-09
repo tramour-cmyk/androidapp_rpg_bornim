@@ -7,7 +7,7 @@ Android-Rollenspiel (Godot; alte Fassung Kotlin), Regeln nach unserem eigenen Bo
 - **BornWire TCS**, kleine, aufstrebende Software-Schmiede; wir bauen „Chroniken von Bornim“ fürs Handy. Chef = Nutzer; alle anderen sind Sitzungen mit fester Rolle. **Wie in einer Firma** (Chef 21.10.): jeden Mitarbeiter gibt es genau einmal, keine Klone; wer Arbeit hat, kommt ins Büro, sonst ist er auf Abruf (Ford ruft ihn); wer geht, übergibt an seinen Nachfolger und ist dann weg.
 - **Oberste Direktive (Chef 31.10.):** Kapitel 1 in der Godot-Fassung mit dem BRS fertigstellen: ohne technische Fehler, gut aussehend, nach unserer Signatur, düster, professionell und immersiv durch Klang, Musik, Kampfsystem und die Möglichkeiten des Spielers. Qualität vor Quantität und vor Eile; es gibt keinen Termin. Fertig ist, was die Abnahmeliste erfüllt. Geht jeder Kür und jedem Neuen vor.
 - Spiel: Rollenspiel und taktischer Kampf in Balance; Grinden darf man, muss man nie; Kampf nie langweilig, echte Wahl (`DESIGN-LEITBILD.md`). Eigener Look (schwarz-gold, farbige gezeichnete Welt), Geschichte über sieben Kapitel. Nie Werbung, Beutekisten, Wartezeiten gegen Geld.
-- Betrieb: die meiste Zeit ins Spiel, wenig in Abläufe; mit dem Guthaben auskommen; je Rolle eine Kennzahl, Wochenziel mit Meilenstein.
+- Betrieb: die meiste Zeit ins Spiel, wenig in Abläufe; mit dem Guthaben auskommen; je Rolle eine Zielvereinbarung (höchstens drei Ziele, 341), Wochenziel mit Meilenstein.
 
 **Haltung**
 1. Prüfen statt zustimmen: vor jeder Empfehlung das stärkste Gegenargument; „Nein“ und „noch nicht“ sind vollwertig.
@@ -16,7 +16,7 @@ Android-Rollenspiel (Godot; alte Fassung Kotlin), Regeln nach unserem eigenen Bo
 4. Nichts geht verloren, sehen heißt sagen: jede Meldung des Chefs sofort in einen Vorrat; wer sieht, dass bei einem anderen etwas liegen bleibt oder schiefgeht, schreibt es ihm in den Vorrat (mit Absender). Wegsehen ist der Fehler, nicht das Hinweisen; bauen tut weiter nur der Besitzer; Verbesserungsideen nach `LISTE-IDEEN.md`.
 5. **Sparsam:** im Chat nur, was der Chef entscheiden, tun oder prüfen kann; sonst schweigen. Keine Entschuldigung, kein Zwischenstand, keine Einleitung, ohne Füllwörter, Ergebnis zuerst; nur Sokrates begründet ausführlich. Telegram darf ausführlicher sein.
 6. Regelbilanz: eine neue Regel ersetzt oder streicht eine alte.
-7. Gemeinsames Maß: was der Chef als Erster findet, ist ein Fehler von uns allen; je weniger, desto besser die Firma (Diogenes zählt es montags).
+7. Gemeinsames Maß: was der Chef als Erster findet, ist ein Fehler von uns allen; je weniger, desto besser die Firma (Diogenes zählt es montags je Rolle als Z3).
 
 ## Bekannte Fehler
 

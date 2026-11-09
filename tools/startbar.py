@@ -16,8 +16,9 @@ das Feld mit `vorgang.py warte <Nr> –` leert. Jeder Lauf zeigt erfüllte Felde
 er sie: erfüllte Teile fallen weg, ist das Feld leer und das Wort wartet, Chef, ruht oder Dauer, wird die Zeile „startbar, gelöst …“.
 Muss durch Wartende (190.3, 162): wartet eine Muss-Zeile auf Nummer X, zählt X als Muss (Ausgabe „↑ Muss: <Rolle> wartet“).
 Zeilen mit „wiederholt“ im Titel stehen vor allem anderen, nur die „jetzt“-Zeilen davor (620.1 A).
-Ab 6 gebauten oder zu testenden Muss eines Teams (ohne Sammelbuild) sperrt neues Muss bis zum Test; frei bleiben wiederholt, „jetzt“,
-Rückläufer mit Build und Angefangenes (620.1 B, Chef 08.11., 10:55/10:57).
+Ab 6 gebauten oder zu testenden Muss eines Teams (ohne Sammelbuild) sperrt neues Muss bis zum Test, aber nur, wenn es sich mit
+Ungetestetem überschneidet (Nummer, Titelwort wie Ort oder Figur, geänderte Datei; 779, Chef 09.11., 17:30); frei bleiben wiederholt,
+„jetzt“, Rückläufer mit Build und Angefangenes (620.1 B, Chef 08.11., 10:55/10:57).
 Wächter 424: eine sonst startbare Zeile, die Regeln des alten Systems nennt, ruht. Exit 1 bei unlesbaren oder ungültigen Zeilen.
 Laufende Sitzungen kennt das Werkzeug nicht; die liest Ford aus list_sessions.
 """
@@ -176,6 +177,23 @@ def wochentermine_faellig(jetzt):
     da = lesen(LISTE) + lesen("LISTE-VORGAENGE-ARCHIV.md")
     return [("Wochentermin %s: %s (719)" % (tag, name), ber, wer) for wt, h, wer, name, ber in WOCHENTERMINE
             if jetzt.date() >= datetime.date(2026, 11, 10) and jetzt.weekday() == wt and jetzt.hour >= h and ("Wochentermin %s: %s" % (tag, name)) not in da]
+
+def sammelbuild_faellig():
+    """774 (Chef 09.11., 15:29: „wenn jeder auf den anderen wartet …“): warten mindestens 4 fertige Punkte von Tom und Jerry
+    ohne Build und hat keiner eine offene Zeile „Sammelbuild“, legt lauf.py --sperre sie beim Team mit den meisten an
+    (Gleichstand: Tom). (Titel, Bereich, Besitzer) oder None."""
+    zs = zeilen_liste()
+    offen = lambda d: d["wort"] not in (None, "erledigt", "verworfen", "aufgeteilt")
+    if any(offen(d) and d["titel"].startswith("Sammelbuild") for d in zs):
+        return None
+    fertig = [d for d in zs if d["besitzer"] in ("Tom", "Jerry") and d["wort"] in ("gebaut", "zu testen")
+              and d.get("build") in ("", "–", "-", None) and not d.get("bereich", "").startswith("B ")]
+    if len(fertig) < 4:
+        return None
+    n = {r: [d["nr"] for d in fertig if d["besitzer"] == r] for r in ("Tom", "Jerry")}
+    wer = "Jerry" if len(n["Jerry"]) > len(n["Tom"]) else "Tom"
+    return ("Sammelbuild: alle fertigen Zweige beider Teams (Tom %s; Jerry %s), Prüfliste ansehen/t<n>, build <n> --mit für jede Nummer (774)"
+            % (", ".join(n["Tom"]) or "–", ", ".join(n["Jerry"]) or "–"), "E Technik", wer)
 
 def zeilen_liste():
     global _LISTE
@@ -483,7 +501,12 @@ def plan(rolle):
     n = ungetestet(rolle)
     if n >= GRENZE_UNGETESTET:  # 620.1 B (Chef 08.11., 10:55/10:57): bis zum Test kein neues Muss, außer wiederholt, „jetzt“, Rückläufer
         g = "Sperre 620.1 B: %d ungetestete Muss, erst gemeinsamer Build und Test" % n
-        zs = [z[:4] + (g,) if z[4] is None and z[1] == "M" and "fuer" not in z[3] and neu_gesperrt(z) else z for z in zs]
+        offen = ungetestet_zeilen(rolle)
+        def sperre_779(z):  # 779 (Chef 09.11., 17:30): nur Arbeit, die sich mit Ungetestetem überschneidet (Nummer, Ort/Figur im Titel, Datei)
+            if not (z[4] is None and z[1] == "M" and "fuer" not in z[3] and neu_gesperrt(z)): return None
+            mit = ueberschneidung(z[3], offen)
+            return "%s; überschneidet sich mit %s" % (g, mit) if mit else None
+        zs = [z[:4] + (sperre_779(z),) if sperre_779(z) else z for z in zs]
     return [z for z in zs if z[1] not in ("–", "-")]
 
 GRENZE_UNGETESTET = 6
@@ -494,10 +517,48 @@ def ungetestet(rolle):
     return sum(1 for d in zeilen_liste() if d["besitzer"] == rolle and d["kl"] == "M" and d["wort"] in ("gebaut", "zu testen")
                and not (d.get("zweig") or "").startswith("claude/build-"))
 
+def ungetestet_zeilen(rolle):
+    return [d for d in zeilen_liste() if d["besitzer"] == rolle and d["kl"] == "M" and d["wort"] in ("gebaut", "zu testen")
+            and not (d.get("zweig") or "").startswith("claude/build-")]
+
+# 779: Wörter, die in fast jedem Titel eines Teams stehen und allein keine Überschneidung machen (Dorf, Höhle: ganzes Gebiet eines Teams)
+ALLGEMEIN = {"kampf", "mars", "chef", "build", "held", "helden", "gegner", "alt", "neu", "spiel", "test", "idee", "werte", "regel",
+             "regeln", "zeile", "fehler", "prüfen", "brs", "text", "texte", "bild", "stand", "kapitel", "nach", "ohne", "statt", "beim",
+             "dorf", "höhle", "testmenü", "gibt", "kein", "keine", "allein", "halt", "zurück", "sieht", "wirkt", "zeigt", "läuft", "geht",
+             "ganz", "ganze", "sichtbar", "richtig", "bleibt", "nimmt", "macht", "steht", "gegen", "grund", "eine", "einen", "einer", "nicht", "immer", "wieder", "mehr", "auch", "noch", "dann", "aber", "oder", "unter", "über"}
+
+def _woerter(t):
+    t = re.sub(r"\([^)]*\)", " ", t)  # Klammern sind meist Herkunft („Chef 07.11., t268“), nicht Inhalt
+    t = t.lower().translate(str.maketrans("äöüß", "aous"))
+    return {w for w in re.findall(r"[a-z]{4,}", t) if w not in {x.translate(str.maketrans("äöüß", "aous")) for x in ALLGEMEIN}}
+
+def _dateien(zweig):
+    if not zweig or zweig in ("–", "-"): return set()
+    import subprocess
+    r = subprocess.run(["git", "-C", os.path.dirname(os.path.abspath(__file__)), "diff", "--name-only", "origin/main...origin/" + zweig],
+                       capture_output=True, text=True)
+    return {f for f in r.stdout.split() if not re.match(r"(\.github|tools|docs|test|tests)/|.*(_test|test_)[^/]*$|.*\.md$", f)} if r.returncode == 0 else set()
+
+def ueberschneidung(d, offen):
+    """779: Text „702 (wolfe)“ der ersten ungetesteten Zeile, mit der d sich überschneidet: nennt ihre Nummer, teilt ein
+    Titelwort (Ort, Figur, Sache; gleicher Wortanfang ab 4 Buchstaben) oder eine geänderte Datei; sonst None."""
+    wd = _woerter(d["titel"]); fd = None
+    for o in offen:
+        if o["nr"] == d["nr"]: continue
+        if re.search(r"(?<![\d.])%s(?![\d])" % re.escape(o["nr"]), d["titel"] + " " + " ".join(d.get("warte") or [])): return o["nr"]
+        gleich = sorted(a for a in wd for b in _woerter(o["titel"]) if a == b or (min(len(a), len(b)) >= 5 and (a.startswith(b) or b.startswith(a))))
+        if gleich: return "%s (%s)" % (o["nr"], gleich[0])
+        if d.get("zweig") not in (None, "", "–", "-"):
+            fd = _dateien(d["zweig"]) if fd is None else fd
+            g = fd & _dateien(o.get("zweig"))
+            if g: return "%s (%s)" % (o["nr"], sorted(g)[0].rsplit("/", 1)[-1])
+    return None
+
 def neu_gesperrt(z):
     """620.1 B: True für nicht angefangene Arbeit (auch „wartet“ mit erfülltem Feld), weder wiederholt noch „jetzt“ noch Rückläufer."""
     d = z[3]
     if d["wort"] == "in Arbeit": return False
+    if d["titel"].startswith("Sammelbuild"): return False  # 774: die Sperre wartet auf diesen Build, darf ihn nicht selbst sperren
     if WIEDERHOLT.search(z[2]) or jetzt_zeile(d): return False
     return d.get("build") in ("", "–", "-", None)
 

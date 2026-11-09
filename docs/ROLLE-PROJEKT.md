@@ -12,7 +12,7 @@
 
 ## Dein Maß
 
-**Zielvereinbarung 341** (Chef 23.10., 09:53: ja, Probe bis 06.11.; dann Gerüst für alle Rollen). Keines prüfst du selbst:
+**Zielvereinbarung 341** (Chef 23.10., 09:53: ja, Probe bis 06.11.; bestanden 07.11., fest; Gerüst der übrigen Rollen `LISTE-PRUEFUNG.md`). Keines prüfst du selbst:
 
 | Ziel | Maß | Prüft |
 |---|---|---|
@@ -23,7 +23,7 @@
 | Z5 Guthaben fürs Spiel | Anteil Tom, Jerry, Homer an den Kosten der Woche: mindestens 60 % ab 26.10., 70 % ab 02.11. | Diogenes (`kosten.py`) |
 | Z6 Wochenziel | erreicht ja/nein; Anteil Muss an den Kosten der Woche mindestens 70 % | Diogenes |
 
-Montags meldest du die Zahlen von Diogenes unverändert mit Link: „Zielvereinbarung Perikles: x von 6 erfüllt“. Zwei Wochen hintereinander verfehlt → Sokrates legt dem Chef eine Vorlage vor (Rolle, Modell oder Ziel ändern).
+Montags meldest du die Zahlen von Diogenes unverändert mit Link, eine Zeile je Rolle: „Zielvereinbarung Perikles: x von 6 erfüllt“, „… Homer: x von 3“ usw. Zwei Wochen hintereinander verfehlt → Sokrates legt dem Chef eine Vorlage vor (Rolle, Modell oder Ziel ändern).
 
 ## Dein typischer Fehler
 
@@ -90,6 +90,8 @@ Montags meldest du die Zahlen von Diogenes unverändert mit Link: „Zielvereinb
 - **Ford-2-Lauf wie Fords Lauf** (ruht mit der Niederlassung): eine Regel mit Kriterium. Eine offene Frage des Chefs darf beim Archivieren nicht verloren gehen; seit 261.5 überträgt Ford sie vorher an die neuere Sitzung (ÜBERTRAGE), statt die alte offen zu lassen.
 
 ## Lehren
+
+- Probe nie in einer `cp -r`-Kopie von `bornim-main`: das ist ein Worktree, die Kopie teilt Index und Zweig, ein Commit dort landet auf `main` (09.11., 774: Prüfliste t271 und Archivzeile „Probe 774“ kurz auf `main`, zurückgenommen); Kopie mit `git clone`.
 
 - Ein „greift“ von Diogenes im Bereich B schließt den Vorgang (724 A); was danach noch zu zählen ist, wird ein eigener Vorgang bei ihm, nicht ein „wartet auf“ an meiner Zeile (09.11., 657: ich setzte „wartet auf t275“, obwohl er „erledigt setzen“ schrieb; Chef 15:28 „ihr arbeitet leicht aneinander vorbei“).
 

@@ -51,6 +51,38 @@ Händler: [reeboolabs.itch.io](https://reeboolabs.itch.io/). Alle Pakete: Godot 
 
 **Allen gemeinsam (F1, F2):** Android ungetestet, Godot 4.5 und neuer ungetestet (wir haben 4.7.2; die Proben liefen); Dateien nie in dieses öffentliche Repo, der Bau holt sie aus dem privaten.
 
+## Alle Quellen im Bestand (623.1, Sokrates 09.11.)
+
+Eine Zeile je Quelle, die wir nutzen oder gekauft haben; was wir davon haben, steht in `LISTE-BESTAND.md`, der Nachweis je Datei für Klang in `tools/klang/QUELLEN.md`, für Schriften in `tools/schrift/QUELLEN.md`. Gesucht und verworfen: `LISTE-CC0-MODELLE.md`. F2 = Lizenz nach der Lizenzregel oben; „fehlt“ = steht in keiner Datei.
+
+| Quelle | Link | Lizenz | bezahlt | wofür | F2 |
+|---|---|---|---|---|---|
+| Quaternius: Universal Animation Library 1 (Pro, Standard, Source) | https://quaternius.itch.io/universal-animation-library | CC0 | Pro 9,99 $ (Chefsache 348.12b), 26.10., 13:36 (Stufe 1); Source liegt mit im Bestand, Preis fehlt | Bewegungen, Gerüst 65 Knochen | ja |
+| Quaternius: Universal Base Characters (Source) | https://quaternius.itch.io/universal-base-characters | CC0 | etwa 20 $, 27.10. | Körper, Köpfe | ja |
+| Quaternius: Modular Character Outfits – Fantasy (Source) | https://quaternius.itch.io/modular-character-outfits-fantasy | CC0 | 20 $ (Source laut Seite), 27.10. | Trachten (Krogg, Grak) | ja |
+| Quaternius: Medieval Village MegaKit, Stylized Nature MegaKit, Fantasy Props MegaKit (Standard) | https://quaternius.com/packs/medievalvillagemegakit.html, https://quaternius.com/packs/stylizednaturemegakit.html, https://quaternius.com/packs/fantasypropsmegakit.html | CC0 (Seiten geprüft 09.11.) | frei | Raumteile, Einrichtung, Steine | ja |
+| Protofactor: Animset Wizard | https://assetstore.unity.com/packages/3d/animations/animset-wizard-208236 | Unity Asset Store EULA | 19,98 $, 27.10., 21:10 | Zauber | **offen** (unten 1, 780) |
+| Protofactor: Animsets Sword & Shield, 1 Handed, 2 Handed, Bow & Arrow, Injured | https://assetstore.unity.com/packages/3d/animations/animset-sword-shield-207043, https://assetstore.unity.com/packages/3d/animations/animset-1-handed-melee-weapon-195757, https://assetstore.unity.com/packages/3d/animations/animset-2-handed-melee-weapon-197400; Bow & Arrow und Injured: Store-Nummer fehlt, Herstellerseite https://protofactor.biz/product-category/3d-game-models/animations/ | Unity Asset Store EULA | zusammen etwa 110 $ (24,99 + 19,98 + 19,98 + 24,99 + 19,98 laut Chefsache 348.12c), 01.11., 12:03 | Schwert, Schild, Bogen, Verletzt | **offen** (unten 1, 780) |
+| Protofactor: Riesenratte | https://protofactor.biz/product/giant-rat/ | Protofactor EULA | 14,99 $, 26.10., 13:36 (Stufe 1; Warenkorb gab 10 % Nachlass) | Riesenratte | ja |
+| Protofactor: Darkness Spider, Skeleton Knight, Barghest, Giant Slug | https://protofactor.biz/product/darkness-spider/, https://protofactor.biz/product/skeleton-knight/, https://protofactor.biz/product/barghest/, https://protofactor.biz/product/monster-giant-slug/ | Protofactor EULA | 19,99 + 24,99 + 19,99 + 24,99 = 89,96 $ (Stand 03.11., 08:54), 03.11., 15:40 | Riesenspinne, Skelett, Grabhund, Säureschnecke | ja |
+| Janpec: Animal Pack Deluxe (erste Fassung, nicht v2) | https://assetstore.unity.com/packages/3d/characters/animals/animal-pack-deluxe-99702 | Unity Asset Store EULA | 5 $, 26.10., 13:36 (Stufe 1) | 25 Tiere, Wolf, Wildschwein, Bärenkopf (Krogg) | **offen** (unten 1, 780) |
+| RenderHub: MadeCG Low Poly Animated Centipede | https://www.renderhub.com/madecg/low-poly-animated-centipede | RenderHub Extended Use | 14 $ (Rabatt), 26.10., 13:41 | Hundertfüßer | ja |
+| RenderHub: wernerkurt Evil Undead, Game Ready Studios Mobile Leeches Collection | https://www.renderhub.com/wernerkurt/evil-undead, https://www.renderhub.com/game-ready-studios/mobile-leeches-collection | RenderHub Extended Use | 21 $ (statt 35) und 17,99 $ laut Chefsache 03.11., 08:54; bezahlter Betrag fehlt; 03.11., 15:40 | Wiedergänger, Riesenegel | ja |
+| RenderHub: MagicCGI Medieval Market Asset Pack | https://www.renderhub.com/magiccgistudios/medieval-market-asset-pack | RenderHub, Lizenz auf der Seite ungeprüft | frei | Brunnen | **offen** |
+| RenderHub: Animated3D Leopard Hybrid A2 | https://www.renderhub.com/animated3d/leopard-hybrid-a2 | RenderHub Extended Use, Volltext ungeprüft | frei, 28.10., 16:38 | Idee ab Kapitel 2 | **offen** |
+| rubberduck: Vampire Bat (OpenGameArt) | https://opengameart.org/content/vampire-bat-animated | CC0 | frei | Riesenfledermaus | ja |
+| Omie's Assets, Anker's Assets, Avramania (frei), PolyMech (itch) | https://omies-assets.itch.io/3d-medieval-weapon-pack, https://ankersassets.itch.io/low-poly-medieval-weapons, https://avramania.itch.io/weapons-shields, https://polymech.itch.io/medieval-pack-low-poly-shields | CC0 | Omie 1,99 $, übrige frei; 29.10. | Waffen, Schilde | ja |
+| REEBOO Labs | oben | eigene, ohne Nennungspflicht | 76,93 $, 09.11. | Effekte | ja; MIT-Teil unten 2 |
+| Klang: Kenney, OpenGameArt- und Freesound-Urheber, BigSoundBank, VSCO 2 CE | `tools/klang/QUELLEN.md` | CC0 | frei | Klänge, Musik | ja |
+| Schriften: EB Garamond, Alegreya, Cinzel, IM Fell, Fondamento | `tools/schrift/QUELLEN.md` | OFL 1.1 | frei | Schrift | ja |
+| Blender, Godot, fontTools | https://www.blender.org, https://godotengine.org, https://github.com/fonttools/fonttools | Blender GPL (gilt nicht für unsere Modelle), Godot MIT, fontTools MIT | frei | Werkzeuge | ja (Godot im Spiel genannt, 497) |
+
+**Lücken und Widersprüche (zur Klärung):**
+1. **Unity Asset Store:** `LISTE-CC0-MODELLE.md` „Lizenzrahmen“ sagt „Unity Asset Store nein“ (2.2.1 verbietet Assets als Eingabe für KI-Programme), dieselbe Datei weiter oben nennt ihn zulässig; gekauft wurden danach Protofactor-Animsets und Janpec unter dieser EULA. Ob unsere Arbeitsweise (KI-Sitzungen bearbeiten die Dateien mit Skripten) darunter fällt, ist eine Rechtsfrage für den Chef; Weg: Zustimmung der Händler einholen (780 A, Brief `tun/780`).
+2. **MIT-Teil in REEBOO** (David Hoskins, Hashfunktionen in Grass, Water, Surface): MIT verlangt den Lizenzhinweis; die Lizenzregel sagt „ohne Pflicht zur Nennung“. Lösung: Hinweis in „Über das Spiel“ wie bei Godot (497).
+3. Links, Preise, Daten nachgetragen 09.11. aus Chefsache-Dateien in Git und den Seiten. Noch offen: Store-Nummer Bow & Arrow und Injured; bezahlter Betrag bei Nachlässen (Ratte, Protofactor 03.11., RenderHub 03.11.) steht nur in den Belegen des Chefs; Preis UAL Source; Lizenz Medieval Market auf der Seite. `reebo0.itch.io` in `LISTE-BESTAND.md` ist der alte Name des Händlers und leitet auf `reeboolabs.itch.io` um (geprüft 09.11.); `LISTE-EFFEKTE.md` steht noch auf „Vorschlag“ und nennt nicht gekaufte R3–R7.
+4. Schriften: Kopf von `tools/schrift/QUELLEN.md` sagt „kein Reserved Font Name“, die Zeile Fondamento nennt einen (OFL erlaubt Nutzung, verbietet nur geänderte Fassungen unter dem Namen).
+
 ## Werkzeuge: Blender und Godot (aus `alt/LISTE-GRAFIKWEG.md`, 650.1)
 
 Beide kostenlos, auch für den Verkauf; was wir mit Blender bauen, gehört uns (die Lizenz von Blender gilt nicht für unsere Modelle). Godot: MIT-Lizenz (Version 4.7.2, geprüft 24.10.).

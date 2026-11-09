@@ -223,6 +223,14 @@ def main():
             if not m: continue
             offen = [d["nr"] for d in startbar.vorgangsliste(git("show", ":docs/LISTE-VORGAENGE.md")) if d.get("build") == m.group(1) and d["wort"] in ("zu testen", "gebaut")]
             if offen: stop.append("VORGANGSARCHIV.md: Test t%s eingetragen, aber %s noch „zu testen“ mit Build %s; erst `python3 tools/vorgang.py build %s` (Automatik B, 275.2), dann im selben Commit" % (m.group(1), ", ".join(offen[:8]), m.group(1), m.group(1)))
+            # 774 (t271: acht Tom-Zeilen in der Prüfliste ohne Build 271, nach dem Test nicht gebucht, Sperre 620.1 B hielt Tom)
+            n = m.group(1)
+            wege = {x for x in git("ls-tree", "-r", "--name-only", "HEAD", "docs/chefsache/ansehen/").split()} | {p for s, p in dat}
+            pl = "".join(git("show", "HEAD:" + x) + git("show", ":" + x) for x in wege if re.match(r"docs/chefsache/ansehen/t%s-[^/]+\.md$" % n, x))
+            import vorgang  # 775: dieselbe Lesart wie vorgang.py build (mehrere Nummern, Haken in Spalte 1)
+            genannt = {x for nrs, _, _ in vorgang.ergebnisse(n, pl).values() for x in nrs}
+            lose = [d["nr"] for d in startbar.vorgangsliste(git("show", ":docs/LISTE-VORGAENGE.md")) if d["nr"] in genannt and d.get("build") != n and d["wort"] in ("zu testen", "gebaut")]
+            if lose: stop.append("VORGANGSARCHIV.md: Test t%s eingetragen, aber %s aus der Prüfliste ohne Build %s; erst `vorgang.py build %s --mit %s`, dann `vorgang.py build %s` (774)" % (n, ", ".join(lose[:8]), n, n, ",".join(lose), n))
     try: gueltig_pruefen(dat, stop, warn)
     except Exception as e: warn.append("461b-Prüfung übersprungen: %s" % e)
     for s, p in dat:  # 340.4 (Chef 02.11., 19:44, „340.2 ja“, B): jede Vorlage nennt „Geprüft an: <Link>“, ein Link, kein Wort

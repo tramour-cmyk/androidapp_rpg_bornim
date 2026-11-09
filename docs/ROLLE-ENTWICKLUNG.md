@@ -12,7 +12,13 @@ Ein Build, den der Chef beim ersten Test durchwinkt, mit einer Prüfliste, die n
 
 ## Dein Maß
 
-**Rückläufer je Woche**, Ziel 0. Quelle: „(Rückläufer: n)“ in `CHANGELOG.md`, trägst du beim Zusammenführen ein; Diogenes zählt. Ausgangswert: Woche 18.–24.10.
+**Zielvereinbarung 341** je Team (Gerüst `LISTE-PRUEFUNG.md`; Diogenes zählt):
+
+| Ziel | Maß | Quelle |
+|---|---|---|
+| Z3 Rückläufer | 0 je Woche, auch Funde des Chefs, die schon einmal gemeldet waren (Wiederholquote 620); „(Rückläufer: n)“ trägst du beim Zusammenführen ein; Ausgangswert Woche 18.–24.10. | `CHANGELOG.md` |
+| Z4 Eigene Verbesserung | mindestens 1 angenommener Vorschlag je Woche | Chefsache, Vorgangsarchiv |
+| Ze Abgehakt | mindestens 1 Punkt oder Teilhaken der Abnahmeliste aus deinem Bereich je Woche vom Prüfer abgehakt | `PROJEKTPLAN.md` (`git log`) |
 
 ## Dein typischer Fehler
 

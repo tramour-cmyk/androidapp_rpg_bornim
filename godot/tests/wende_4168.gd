@@ -42,7 +42,8 @@ func _lauf() -> void:
 	spiel.betrete("village", Vector2i(11, 7), "DOWN")
 	for i in 5: await process_frame
 	var k: Karte = spiel.karte
-	var p := Leute.new(k, {"id": "probe_4168", "x": 11, "y": 9, "streifen": 0}, spiel.held)
+	# 4 Kacheln vom Helden (11, 7): weiter als 3, sonst schaut sie von selbst her (schauen_4168), hier nur das Wenden
+	var p := Leute.new(k, {"id": "probe_4168", "x": 11, "y": 11, "streifen": 0}, spiel.held)
 	spiel.add_child(p)
 	await process_frame
 	p.warte = 999.0
@@ -87,14 +88,23 @@ func _lauf() -> void:
 	p.blick = p.rotation.y + deg_to_rad(15.0)
 	await process_frame
 	pruefe(p.wende == "", "15 Grad ohne Schritte")
-	# 4) zugewandt: Tempo DREH_ZU
-	p.blick = p.rotation.y + deg_to_rad(120.0)
+	# 4) zugewandt: Tempo DREH_ZU. Der Held steht 4 Kacheln entfernt 120 Grad zur Seite (ein Platzhalter: ohne gebaute Karten fehlt
+	# spiel.held, dann setzte stehen() das Zuwenden sofort zurück und wendete mit DREH_STEH, Befund Jerry 08.11., 22:37)
+	var hin := Node3D.new()
+	spiel.add_child(hin)
+	var a := p.rotation.y + deg_to_rad(120.0)
+	hin.global_position = p.global_position + Vector3(sin(a), 0.0, cos(a)) * 4.0 * Karte.TS
+	var held_vorher := p.held
+	p.held = hin
 	p.zugewandt_bis = 0
 	p.wende_zu()
-	p.blick = p.rotation.y + deg_to_rad(120.0)
 	await process_frame
 	if p.wende != "":
 		pruefe(absf(p.anim.speed_scale - clampf(Leute.DREH_ZU / deg_to_rad(90.0), 0.7, 2.0)) < 0.01, "zugewandt: Tempo wie DREH_ZU (%.2f)" % p.anim.speed_scale)
+	else:
+		pruefe(false, "zugewandt: keine Wende zum Helden (%.1f Grad daneben)" % grad(angle_difference(p.rotation.y, p.blick)))
+	p.held = held_vorher
+	hin.queue_free()
 	p.queue_free()
 	# 5) echte Figur (nur mit gebauten Leuten): Standfuss in der Welt waehrend einer Wende
 	var echt: Leute = null

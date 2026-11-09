@@ -37,6 +37,85 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Geschlossen laut Nachprüfung oder Spur: D61.2, D62.1, D63.1–D63.6, D64.1, D65.1, D67.1, D68.1, D68.2, D69.1, D70.1, D71.1, D71.2, D74, D76.1, D76.2, D77.1, D77.2, D78.2, D79, D80.1–D80.7, D81.1, D81.2 (mit 275.2), D82, D83, D84, D84.2, D85, D86.2 (Hinweis an mich), D88.1 (685), D89, D90.1–D90.3 (686), D93.
 
+## Lauf 116 · 788 Wiederholungswächter ohne Allerweltswörter (Bereich B; `994cc1f5f`; 09.11., 18:2x)
+
+- **Greift mit Lücke:** in Kopie „Menü“ verweist auf 785, „Schwert“ still. **D116.1 (793, Perikles, Kür):** „Halt“ trifft jeden Wortanfang („Haltung des Helden“ → Zeile Systemlösung); belegt am echten Anlegen von 793, das selbst 794 auslöste (794 als Fehlalarm erledigt).
+
+## Lauf 115 · 750 A Haken vor create_session (Bereich B; `cbb745d9d`; 09.11., 18:2x)
+
+- **Greift:** Homer ohne Sperre → Exit 2 mit Hinweis, Ford und Sokrates mit Sperre der letzten 10 Minuten frei; seit 18:06 steht vor jedem Start im Protokoll eine Sperrzeile (18:09, 18:11, 18:17, 18:23, 18:24). Am Rande: Sokrates zweimal gestartet (18:17, 18:23), das hält der Haken nicht ab (Archivregel, Ford).
+
+## Lauf 114 · 779 Sperre nur bei Überschneidung (Bereich B; `622fc78c1`; 09.11., 18:2x)
+
+- **Greift mit Lücke:** Tom 9 startbar (vorher 0), Jerry 8 (vorher 2). **D114.1 (792, Perikles):** 5 von 27 Sperren ohne gleiches Thema, über Allerweltswörter: 762 Heldenreiter über „schwert“ (aus „Schwertarm“ in 656), 753 Blende „design“, 784 „jeden“, 680 Absturz und 757 Tisch über „schenke“ gegen 543 Startwerte. Liste der Allerweltswörter aus 788 könnte mitgelten.
+
+## Lauf 113 · 790 Kosten vorher (Woche 02.11. bis 09.11., 18:00; 09.11., 18:2x)
+
+222 abgeschlossene Sitzungen, 212 mit Kosten (10 ohne Feld `usage`), zusammen 3.083 $; Stichprobe zwei Sitzungen gegen `get_session` gleich. „je Aufruf“ geschätzt: Lesen aus dem Zwischenspeicher geteilt durch mittlere Länge ((Länge + 60 Tsd.) / 2). „Neuanlegen“: Anteil der Kosten für neu angelegten Zwischenspeicher (5 $ je Mio.; Preise an einer Sitzung nachgerechnet: 0,25 $ Lesen, 5 $ Anlegen, 15 $ Ausgabe je Mio.).
+
+| Rolle | Sitzungen | Kosten $ | Median je Sitzung $ | je Aufruf $ | Median Länge Tsd. | größte Tsd. | $ je 1000 Ausgabe | Neuanlegen % |
+|---|---|---|---|---|---|---|---|---|
+| Tom | 72 | 1296 | 18,00 | 0,076 | 425 | 617 | 0,142 | 16 |
+| Jerry | 48 | 822 | 16,18 | 0,077 | 413 | 717 | 0,146 | 15 |
+| Sokrates | 21 | 470 | 20,95 | 0,084 | 407 | 743 | 0,164 | 20 |
+| Perikles | 25 | 214 | 5,67 | 0,067 | 232 | 582 | 0,128 | 17 |
+| Ford | 11 | 122 | 9,57 | 0,051 | 406 | 571 | 0,195 | 43 |
+| Diogenes | 21 | 106 | 3,50 | 0,061 | 184 | 433 | 0,117 | 25 |
+| Homer | 13 | 53 | 3,05 | 0,064 | 158 | 333 | 0,100 | 29 |
+| alle | 212 | 3083 | 13,41 | 0,074 | 391 | 743 | 0,144 | 18 |
+
+Nachher: Woche ab 09.11., 18:07 (`6a5ef0c1b`), Zählung 16.11. nach derselben Rechnung; Vergleichsmaß „$ je 1000 Ausgabe-Token“ (Kosten je Arbeit), daneben je Aufruf und Länge.
+
+## Lauf 112 · 383 A Neustart ab 200 Tsd. (Bereich B; `6a5ef0c1b`; 09.11., 18:1x)
+
+- **Greift:** Haken mit Probegespräch 199 Tsd. still, 210 Tsd. Erinnerung (Gesprächslänge, nicht Zuwachs); `lauf.py` WEITER nur unter 200 Tsd. und 60 Minuten Ruhe. Wirkung auf die Kosten misst 790 (Woche ab 09.11., 18:07 gegen die Woche davor).
+
+## Lauf 111 · 783 Widersprüche und Doppelungen (09.11., 18:1x; drei Helfer, jede Stelle am Wortlaut nachgelesen)
+
+**Ergebnis:** acht offene Widersprüche als Chefsache `entscheiden/783-widersprueche.md` (W1 = B5–B7, W2 = B9, W3 = B14, W4 = B12, W5 = P5–P6, W6 = P7, W7 = O5, W8 = O9). Alles Übrige an Perikles als 791 (745 A2 Schritt 3): B1–B4, B8, B10, B11, B13, B16; P1–P4, P8–P21 (P14 klein); O1 (ohne README), O2, O3 (Werkzeuge buchen verschieden, kein Chefentscheid), O4, O7, O8, O10–O15, O17, O18. **Verworfen nach Nachlesen:** O6 (Ford-Wache stimmt überein), O16 („sofort“ betrifft `send_message`), B15 (Release-Rückfrage verlangt die Datei), O1-Teil README:11 (383 nicht mehr offen). **Nicht geprüft:** `DESIGN-`, `STORY-`, übrige `LISTE-`.
+
+Rohfunde:
+
+Bauen/Testen (CLAUDE.md, ROLLE-ENTWICKLUNG, LISTE-BAUEN-TESTEN, LISTE-CHECK-BUILD-TEST, LISTE-RELEASE-NEUSTART):
+- B1 überholt: BAUEN-TESTEN:30 Sperre 620.1 B ohne 779. B2 überholt: RELEASE-NEUSTART:22 „Ford 2“ (650.1 „kein Ford 2 mehr“). B3 überholt: ENTWICKLUNG:41 „Bildserie … gern als Film“ gegen :43, CLAUDE.md:69 „Bewegung nur als Film“ (646). B4 überholt: CHECK:17, ENTWICKLUNG:25 Abgleich je Build (621 D: je Ort und Figur; Nachweis 512b fehlt).
+- B5 Widerspruch: BAUEN-TESTEN:15 „ersetzt die Ausnahme 461a, 480“ gegen ENTWICKLUNG:19, :43 (461a gilt, 621.1). B6 offen: BAUEN-TESTEN:15 Helfer prüft Probebild (511a) gegen 655 „Helfer danach entfällt“. B7 offen: BAUEN-TESTEN:15 „kaputter Film nur auf sein Wort“ gegen ENTWICKLUNG:43/621.1 „immer an den Chef“. B8: BAUEN-TESTEN:13–14 Prüftreppe Standbild/Film gegen 646 „Nachstellen nur zur Ursache“. B9 offen: CHECK:9 „unter 4, wenn ältester 2 Tage wartet (dann 3)“ gegen CHECK:19 „weniger nur auf jetzt“. B10: Build-Auslöser 6 (BAUEN-TESTEN:30) gegen 4 (CHECK:9), und 657 D „nur hier“. B11: ENTWICKLUNG:29, :39 Build-Regeln doppelt zu CHECK (657 D). B12 offen: CLAUDE.md:70 „Weiter in <Titel>: <Link>“ gegen RELEASE-NEUSTART:22, :24 „nur Name“. B13 überholt: RELEASE-NEUSTART:23 Sitzungsname ohne Doppelpunkt (436). B14 offen: ENTWICKLUNG:23 Übernahme vor Kür gegen :29 Übernahme erst ohne Startbares. B15: RELEASE-NEUSTART:7 Release-Rückfrage ohne Datei gegen CLAUDE.md 8. B16 Doppelung: „selbst ansehen, kein Helfer danach“ vierfach (CLAUDE.md:69, ENTWICKLUNG:19, :43, BAUEN-TESTEN:15). Klein doppelt: Weckruf, „gebaut nur bei PR“, kein Code auf main, 60 KB, `vorgang.py build` (Zeitpunkt weicht ab), Muss vor Kür.
+
+Beratung/Prüfung/Kreativ (ROLLE-BERATUNG, -KREATIV, -PRUEFUNG, LISTE-PRUEFUNG, -REGELTREUE, -GLOSSAR):
+- P1 überholt: LISTE-PRUEFUNG:37, :38, :44–45 Befunde als Vorratszeile, Vermerk im Prüfbericht (722 A). P2 überholt/offen: ROLLE-PRUEFUNG:26, :27, :33 Befund- und Abweichungszeilen in fremden Vorräten. P3 überholt: LISTE-PRUEFUNG:7 Wochenzählung als Vorratszeile (719 A). P4 überholt: LISTE-PRUEFUNG:13 ohne Teilhaken (720 A).
+- P5 offen: BERATUNG:45 „Abläufe jeder Größe“ selbst entscheiden gegen :51 „Abläufe nicht (Perikles)“. P6 offen: BERATUNG:45 Vorentscheid Balance/Spielgefühl gegen CLAUDE.md:61, KREATIV:35 „nie selbst“. P7 offen: CLAUDE.md:16, :63 Chefwort sofort als Auftrag gegen BERATUNG:79, :82, :106, :113 erst Votum/Antwort, dann eintragen. P8: BERATUNG:8 und Rollentabelle „nur auf Zuruf“ gegen Systemrunde montags (654), nicht in 719. P9: BERATUNG:56, :103, PRUEFUNG:23 „Zeile in den Vorrat“ gegen CLAUDE.md 5 (Vorgang). P10 offen: KREATIV:15, LISTE-PRUEFUNG:17 Kennzahl aus Vorratszeilen statt Vorgangsliste. P11: BERATUNG:100 Uhrzeit mit `date` gegen CLAUDE.md:24 Zeile „Uhr:“.
+- Begriffe: P12 „Blatt“ in PRUEFUNG:23, :27, :33, BERATUNG:41 (CLAUDE.md:90 verbietet; Ersatzwort fehlt). P13 offen: GLOSSAR:24 „Vorgang: ein Thema …, nicht: Thema“ gegen „<Vorgang>: <Thema>“ im Sitzungsnamen (113, 436). P14 offen: GLOSSAR:5 „Homer legt Begriffe fest“ gegen KREATIV:31.
+- Doppelungen: P15 Telegram-Bildpflicht dreifach (277). P16 „fremd prüfen“ in drei Umfängen (CLAUDE.md:69, KREATIV:50, BERATUNG:92). P17 „kein Urteil über Aussehen“ vierfach, BERATUNG:41 ohne Ausnahme 373a. P18 „Notizen nur mit Edit“ in BERATUNG:105 ohne Ausnahmen. P19 Sitzungsname vierfach, PRUEFUNG:3 anderer Platzhalter. P20 Kennzahlen Perikles Z3–Z6 in PRUEFUNG:29 und LISTE-PRUEFUNG:11–19 ungleich. P21 D21.1 dreifach.
+
+Betrieb/Projekt (ROLLE-BETRIEB, -PROJEKT, LISTE-BETRIEB, -WOCHENPLAN, -KOSTEN, chefsache/README):
+- Überholt: O1 BETRIEB:51 WEITER bis 400 Tsd. (383 A, 18:05: 200 Tsd.); README:11 führt 383 noch offen. O2 PROJEKT:50 rote Läufe „Protokoll“ (776). O4 Ford 2: BETRIEB:15, :23, LISTE-BETRIEB:18, :20, :26, :36, PROJEKT:90 (650.1). O10 WOCHENPLAN:23–24 ohne 719 (Rollenspiegel Fr fehlt). O11 PROJEKT:4 Sitzungsname „338.1: Wochenziel“ (719). O12 WOCHENPLAN:11 Tagesbericht „Probe“ (448). O14 offen: PROJEKT:15 Zielvereinbarung 341, Probe bis 06.11. abgelaufen, keine Auswertung.
+- Widerspruch: O3 offen: Kosten mehrerer Vorgänge „zu gleichen Teilen“ (LISTE-BETRIEB:26, LISTE-KOSTEN:103) gegen „ganze Summe auf den Hauptvorgang“ (BETRIEB:50); fehlende Zahl „fehlt“ gegen schätzen (Chef 03.11.). O5 offen: Morgenmeldung-Inhalt LISTE-BETRIEB:42, :32 gegen WOCHENPLAN:9 „eine Zeile“ (247, 448). O6 offen: Ford-Wache an Tom/Perikles (CLAUDE.md:91, WOCHENPLAN:10) gegen 166.2/81r. O7: BETRIEB:23 „Sokrates nie aus dem Vorrat“ gegen 194.2 (lauf.py startet ihn). O8 offen: LISTE-BETRIEB:39 Eingang „wartet auf Chef“ ohne Datei gegen CLAUDE.md:66, README:334. O9 offen: wer Chefsache löscht (CLAUDE.md:89 „jeder nur seine“ gegen README:333 „auch die eines anderen“). O13: PROJEKT:19 Tagesbericht „über Sonntag 50 h“ gegen täglich (448). O15 offen: „Anteil Spiel“ nach Rolle (PROJEKT:43) gegen nach Bereich E+G (LISTE-KOSTEN:36). O16: LISTE-BETRIEB:26 „sofort archivieren“ gegen BETRIEB:50 „idle und 60 s“.
+- Doppelung: O17 Startregel dreifach (BETRIEB:23, :54, LISTE-BETRIEB:21) trotz „eine Startregel“ (167.8). O18 Ford-Mechanik zweifach (create_session-Felder, archiviert sich nie selbst, Routinen, ÜBERTRAGE/WEITER, Tagesbericht fehlt 10 Uhr, Abos 10.11.). Am Rande: LISTE-BETRIEB:38 Stand „im Vorrat und PROJEKTPLAN“ gegen CLAUDE.md (Vorgangsliste).
+
+## Lauf 110 · Nachprüfung 775, 776, 777 (Bereich B; `fa6d61d82`, `3ad18ce80`; 09.11., 17:1x)
+
+- **Greifen:** Prüflisten t269 28/28 Zeilen (37 Nummern), t270 13/13, t271 12/12; Ford-Regel 464 ohne Zeile je Lauf; Spike/Tuffy zählen bei Tom/Jerry (Sonst 0). 774, 749 damit geschlossen; 464 wartet auf die Wochenzählung 16.11.
+
+## Lauf 109 · 755 Zustand nach „greift“ (Bereich B; `85e739f62`; 09.11., 16:1x)
+
+- **Greift:** `vorgang.py greift` schloss 755, 748, 754 („erledigt, greift Lauf N“), lehnt 736 (Bereich E) ab; 774 wartet auf 775, 749 auf 776.
+
+## Lauf 108 · 749 Tagesbericht rote Läufe (Bereich B; `8a4abf110`; 09.11., 16:0x)
+
+- **Greift** (45 von 183 in 7 Tagen). **D108.1 (776):** Ford-Regel 464 nicht nachgezogen. **D108.2 (777, Kür):** Spike-Zweige als „Sonst“.
+
+## Lauf 107 · 748 Push nach rotem Lauf (Bereich B; `e74948f61`; 09.11., 16:0x)
+
+- **Greift** in der Kopie (sechs Fälle); fängt nur Wiederholungen; Wirkung noch nicht messbar.
+
+## Lauf 106 · 754 auf Abruf mit `--ohne` (Bereich B; `dd3baf1ba`; 09.11., 16:0x)
+
+- **Greift** (Kopie: mit `--ohne` kein Start, ohne Start).
+
+## Lauf 105 · 774 Sammelbuild nie verwaist (Bereich B; `ecebfb0c0`, `f9abe7cab`; 09.11., 16:0x)
+
+- **Sammelbuild greift** (Kopie: einmal angelegt, trotz Sperre gestartet).
+- **D105.1 (775, Perikles):** Prüflisten-Haken übersieht Zeilen mit mehreren Nummern oder Haken in der ersten Spalte (t269: 2 von 28 erkannt).
+
 ## Lauf 104 · 657 Checkliste Build und Test (Bereich B; `35e71a7c4`; 09.11., 14:1x)
 
 - **Werkzeug greift** (t273 zeigt die Liste, t276 meldet Ablauf; Regeln nur an einem Ort). Auswertung der Probe (Erstfunde t272–t275) folgt nach Build 275.
