@@ -903,7 +903,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 772 | D89.2 von Diogenes (über Perikles): Glossar ohne „Vorgang beim Chef“ (480); „steht in“ zeigt meist auf CLAUDE.md | B Abläufe | K | – | Homer | erledigt |
 | 810 | Name der achten Fertigkeitsgruppe im Reiter: Chef sagt „Handwerk“, BRS „Meisterschaften“ (aus 762, Sokrates, Chef 09.11., 21:25) | G Stil | M | – | Homer | erledigt |
 | 623.8 | Effektpakete für eine lebendige Welt: Reihenfolge Dorf, Wolfskampf, Wald; Bilder/s-Grenze, Farben gedämpft (Chef 09.11., 21:07) | G Stil | M | 0,39 $ | Sokrates | erledigt |
-| 796 | Schritt 3 zu 745: Regeln nach 783 angleichen (W1–W8, Archiv 09.11., 20:00–20:16), Werkzeuge probelauf.py, lauf.py --morgen (von Sokrates) | B Abläufe | M | 4,38 $ | Perikles | erledigt, greift Lauf 124 |
+| 796 | Schritt 3 zu 745: Regeln nach 783 angleichen (W1–W8, Archiv 09.11., 20:00–20:16), Werkzeuge probelauf.py, lauf.py --morgen (von Sokrates) | B Abläufe | M | 5,10 $ | Perikles | erledigt, greift Lauf 124 |
 | 821 | Browser-Sitzungen mit beiden Repos: Modell laut Startzuordnung für Tom und Jerry, doppelte Sitzungen archivieren (Chef 09.11., 22:44) | B Abläufe | M | 2,02 $ | Sokrates | erledigt |
 | 820 | Archivieren erlauben: archive_session vom Auto-Modus-Wächter abgelehnt, blockiert Ford-Neustart, Neustarts Tom und Perikles (Ford 09.11., 22:36) | B Werkzeuge | M | – | Ford | erledigt |
 | 812 | Von Sokrates (Chef 09.11., 21:23): Neustart-Haken und lauf.py warten mit dem Neustart, solange der Chef in der Sitzung eine Prüfliste ansehen/t… beantwortet | B Abläufe | M | – | Perikles | erledigt |
