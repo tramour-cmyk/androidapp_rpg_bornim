@@ -34,8 +34,16 @@ def eigene(block):
     m = re.search(r"(?ms)^### " + re.escape(rolle) + r"\b.*?(?=^### |\Z)", block)
     return m.group(0).rstrip() if m else None
 jetzt = datetime.datetime.now(zoneinfo.ZoneInfo("Europe/Berlin"))
-freitag = (jetzt + datetime.timedelta(days=4 - jetzt.weekday())).strftime("%d.%m.")
+freitag_d = (jetzt + datetime.timedelta(days=4 - jetzt.weekday())).date()
+freitag = freitag_d.strftime("%d.%m.")
 kopfzeile = "## Woche " + freitag
+# 721: Mo–Do zählt die Antwort zur Vorwoche, wenn dort die eigene fehlt (wie pflegehinweis.py spiegel_faellig, ab 06.11.);
+# sonst landete ein Nachholen unter der kommenden Woche und verdeckte deren Freitag.
+vorige_d = freitag_d - datetime.timedelta(days=7)
+if jetzt.weekday() < 4 and vorige_d >= datetime.date(2026, 11, 6):
+    vk = "## Woche " + vorige_d.strftime("%d.%m.")
+    if not any(w.startswith(vk) and eigene(w) for w in wochen):
+        kopfzeile = vk
 
 if antwort is None:
     fragen = re.search(r"(?ms)^## Fragen\n.*?(?=^## )", kopf)
