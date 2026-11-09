@@ -28,6 +28,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [778](tun/778-kaufmodelle-zugang.md) | **Muss** | E Kampf | 09.11., 16:38 | Zugang zu bornim-kaufmodelle für Jerry freigeben | Jerry |
 | [623](tun/623-kauf.md) | **Muss** | E Kampf | 07.11., 20:13 | Effektpakete: Rest nach dem Kauf | Sokrates |
 
 ## Offen je Rolle
@@ -152,11 +153,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 769 | M | Wochentermin 13.11.: Rollenspiegel Tom (rollenspiegel.sh Tom) (719); deckt 02.–13.11., Woc | Termin 13.11. 08:00 |
 | Pflege | K | von Werkzeug (340.3, 09.11.): 19627 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 72, Muss 66, startbar 2
+**Jerry** – offen 72, Muss 66, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 778 | M | Von Tom (773): Build 272 rot an wolf_mess_438 (Kleriker gegen Wölfe: Wolf in Wolf 68 Bilde | startbar |
+| 778 | M | Von Tom (773): Build 272 rot an wolf_mess_438 (Kleriker gegen Wölfe: Wolf in Wolf 68 Bilde | Chef (Datei in der Chefsache) |
 | 717 | M | Kampf: Gegner zeigt dem Helden nie den Rücken, außer auf der Flucht; nach dem Angriff rück | wartet auf Test/Build (gebaut) |
 | 717.1 | M | Kampf: Zurechtrücken der Gegner läuft gleichzeitig mit dem Zug des Helden statt davor (Ide | wartet auf Test/Build (gebaut) |
 | 682 | M | Kampf flüssiger: Held geht zügig zum Angriff, Gegner laufen in weichen Bögen statt eckig g | wartet auf Test/Build (gebaut) |
