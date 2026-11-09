@@ -109,6 +109,7 @@ func _replay(c: Dictionary, tables: Dictionary) -> Dictionary:
 	var mars = Mars.new(party, foes, tables, dice, words, 0, false)
 	mars.srd_attacks = false
 	mars.sturz_zwischentext = false     # 547: die alten Zeilen wie Skirmish.kt
+	mars.anspringen = ""     # 702 C: Aufstehen kostet den Zug wie Skirmish.kt
 	mars.statuses = false
 	for k in c.potions:
 		mars.potions[k] = int(c.potions[k])
