@@ -35,10 +35,11 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 1, startbar 0
+**Homer** – offen 6, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 716 | M | Ideenspeicher 08.11. nachholen (Diogenes D92, drei Sonntage ausgefallen) · „jetzt“ 09.11., | startbar |
 | 432 | K | Eigenes Volk aus Bornim (etwa mit dem Grauen Propheten, „Tag der Asche“) prüfen, mit der G | ruht |
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
@@ -225,10 +226,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 681 | M | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test |
 | Pflege | K | von Werkzeug (340.3, 09.11.): 15479 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 23, Muss 19, startbar 3
+**Perikles** – offen 24, Muss 20, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 715 | M | Rollenspiegel 06.11. nachholen (Diogenes D92) · „jetzt“ 09.11., 08:49 | startbar |
 | 317.1 | M | startbar.py, lauf.py: Obergrenze 6 je Build streichen (Chef 07.11., 20:5x) | wartet auf Test/Build (gebaut) |
 | 620.1 | M | Wiederholte Funde des Chefs vor Neuem; wenige Muss je Team zugleich (aus 620) | wartet auf Test/Build (gebaut) |
 | 511 | M | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele | wartet auf Diogenes |
