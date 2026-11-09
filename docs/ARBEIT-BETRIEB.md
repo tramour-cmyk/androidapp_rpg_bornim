@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (09.11., 22:32, Ford `session_01Hmoj7684czZostW4Q5YTcw`, Selbstneustart):** Getan: Wechsel Tom 762, Jerry 562, Sokrates 620, Perikles 797, Diogenes 799 ausgeführt, alte Sitzungen archiviert und gebucht. Pacing (Chef 09.11., 07:15): `lauf.py --nur-muss`; Spike/Tuffy nur für Kampf-Muss oder Kleines, Oberfläche (Spike 683) ausgenommen. Laufend: Tom 762, Jerry 562, Homer 810, Spike 781, Tuffy 562 (wartet auf Messung, Jerry stimmt ab), Sokrates 620, Perikles 797, Diogenes 799. Offen: Tuffy 562 und Spike 781 archivieren, wenn idle. Sokrates-Sitzungen wachen auf Nachrichten des Chefs wieder auf: vor dem Archivieren `get_session` prüfen. Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 821** (zuletzt 820 Ford 09.11. 22:35:14 d08c) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 822** (zuletzt 821 Sokrates 09.11. 22:45:32 d0a2) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -191,3 +191,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:44 09.11.: Marke Archiv session_01Hmoj76ZS7WMbjDEvKqYS1U (lauf.py)
 - 22:44 09.11.: Marke Archiv session_01Hmoj7A4xTrueWWUD7rvuhj (lauf.py)
 - 22:44 09.11.: Marke Archiv session_01Hmoj75Ve8ZmwJDULqhLZy1 (lauf.py)
+- 22:55 09.11.: Archiv-Satz des Chefs (22:50) erhalten, 820 erledigt; alte Fords, Jerry 2x, Diogenes 799, Tuffy 562 archiviert und gebucht; Start Diogenes 796 und Tuffy 642; ausgeschlossen: Homer 807 (wartet auf Chef A/B), Spike 475/795 (Pacing, Oberfläche); Sokrates zweimal (7A3w 22:30 und 78zp 22:42) im Blick
