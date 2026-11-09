@@ -240,7 +240,7 @@
 | 743 | Verwerfen? aus LISTE-IDEEN.md (Homer 09.11.): 15 Ideen erledigt, überholt, doppelt oder ohne Grund | Perikles | M | erledigt | – | – | – | B Abläufe | – |
 | 718 | Probe mit Enddatum: Rückbau gleich ins Werkzeug (365 lief nach 31.10. weiter) | Perikles | M | gebaut, Geprüft an: 798e70750 (Trockenlauf: Warnung Probe 270) | – | – | – | B Werkzeuge | – |
 | 719 | Wochentermine selbsttätig als Muss in die Vorgangsliste (Ideenspeicher, Rollenspiegel fielen aus) | Perikles | M | gebaut, Geprüft an: 7adf1cd1e (Probe Kopie 16.11.: 3 angelegt, zweiter Lauf 0) | – | – | – | B Werkzeuge | – |
-| 720 | Abnahmeliste: Teilhaken mitzählen, wöchentliche Haken-Frage für Gebautes (0 von 41) | Perikles | M | startbar | – | – | – | Q QM | – |
+| 720 | Abnahmeliste: Teilhaken mitzählen, wöchentliche Haken-Frage für Gebautes (0 von 41) | Perikles | M | wartet, erste Runde ansehen/720-haken.md | Chef 720 | – | – | Q QM | – |
 | 657 | Regeln radikal kürzen: eine Seite für alle mit Stil, Team, Ablauf (Chef 08.11., 14:58, 15:05) | Perikles | M | startbar, 657 D Probe | – | – | – | B Abläufe | – |
 | Pflege | von Werkzeug (340.3, 09.11.): 16276 Bytes (Grenze 15000), Erledigtes streichen | Perikles | K | startbar | – | – | – | B Abläufe | – |
 | 340.2 | Rollenspiegel C: `tools/rollenspiegel.sh`, eigene Antwort ohne fremde | Diogenes | M | erledigt | – | – | – | B Abläufe | 13,83 $ |
