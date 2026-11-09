@@ -6,8 +6,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Übergabe (09.11., 21:06):** 796 gebaut (`5e1541e63`: W1–W8 in den Regeldateien; `probelauf.py` ohne Filmsperre, `startbar.py` Übernahme nur Muss, `lauf.py --morgen` entfällt, `tagesbericht.py` bittet um das Bild der Nutzung), an Diogenes; 511 erledigt (ersetzt durch W1). Nachfolger: Perikles – 797: Erlaubnisregel add_repo (09.11., 21:06)
 
-- **Zu 797 (09.11., 21:10):** allow-Regel steht seit 27.10. (377.2); die Ablehnung setzt der Auto-Modus, der nur `autoMode.environment` liest. Mein Eintrag dort wurde als „Selbständerung“ abgelehnt → `tun/797-add-repo.md`. Nach „797: settings.json ändern erlaubt“: Satz aus der tun-Datei eintragen (Repos von tramour-cmyk per add_repo, 376.1, 708, 506), Datei löschen.
-
 ## Einzelheiten
 
 - **Zu 383, von Sokrates (Chef 09.11., 21:23):** „mitten im Testen mir eine neue Sitzung aufmachen, macht halt auch keinen Sinn. Deswegen haben wir das hier fertig gemacht.“ Neustart-Haken (zweite Erinnerung) kam während der Chef t272 Punkt für Punkt meldete; Ford startete den Nachfolger, der Chef testete in der alten Sitzung zu Ende. Bitte: Haken und `lauf.py` warten mit dem Neustart, solange eine Prüfliste `ansehen/t…` in dieser Sitzung beantwortet wird.
