@@ -36,3 +36,7 @@ Verglichen: Platzwahl (700, vom Chef 08.11., 21:50 abgenommen) und Gegenstandsfe
 | 272.10 | Jerry | 702 | „Wolfsrudel“, bis einer den Helden anspringt; dann deinen Zug ansehen | der Held steht auf und greift im selben Zug an (nur „Wechsel“ ist dann matt); der Sprung macht Schaden; nie „Zug verloren“ | Held verliert den Zug, Rudel hält ihn fest |
 
 Bekannt: die Platzwahl der BRS-Erschaffung (Testschalter an) hat noch Rahmen; nur die alte Erschaffung ist umgestellt. Aus 751 (Knopfleiste „…“) fährt ein Teil mit (Wartezeit je Biss nach der wirklichen Dauer), 751 selbst ist bei Jerry noch offen.
+
+## Ergebnis
+
+- Rest ✓
