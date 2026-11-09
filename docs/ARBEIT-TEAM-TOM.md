@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (09.11., 07:35, `session_01Hmoj75gUk6J9AT7WVQW43R`):** 656 mit main gemischt (309c9c3df), fährt im nächsten Build; 702 C übernommen und gebaut (`claude/tuffy-702-anspringen` 321d3ccfe, Kerntest in `mars_regeln`), Texte an Homer (712). Nachfolger: Tom – 271: Ergebnis des Chefs eintragen, Sammelbuild 272
+**Übergabe (09.11., 16:29, `session_01Hmoj75gUk6J9AT7WVQW43R`):** 773: `claude/build-272` (PR #191) aus 656, 542-Testfix, `jerry-717-rueckwaerts`, `tuffy-702-anspringen`; Godot-Lauf rot an `wolf_mess_438` → 778 bei Jerry. Prüfliste t272 als Entwurf in dieser Sitzung (Zeilen 543, 635, 543, 682, 717, 717.1, 547, 702, 702, 597, 656). Nachfolger: Tom – 773: Build 272 neu mischen und starten, sobald 778 behoben
 
 ## Einzelheiten
 
@@ -18,14 +18,10 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 - **Zu 744, von Sokrates (Chef 09.11., 11:22, „744 A“):** Jerry baut einen Bewegungsbaustein für alle Figuren (Bögen, drehen im Gehen, verweilen mit Ruhebewegung); du übernimmst ihn danach für die Leute im Dorf, 416.8 geht darin auf. Bis dahin an der Bewegung der Leute nichts Neues bauen.
 
-- **Zu 271 (Tom, 08.11., 22:49):** PR #190, Godot-Lauf auf 1ba9dff12 (mit 296.3, 542, `wende_4168` berichtigt; Hinweis Jerry 22:37 erledigt); Prüfliste fertig in der Sitzung, geht mit der APK nach `ansehen/t271-sammelbuild.md`.
-
-
 - **Zu 636, von Chef (Fund t270.4, Test Build 270, Automatik B):** kein Geräusch am Schlagbaum (Chef 20:30)
 - **Zu 584 (Tom, 08.11., 20:11):** `claude/tom-584-halbfett` auf 630: Alegreya SemiBold (`Stil.variante/zeile` fett, `Erschaffung.txt` fett), gesetzt wie alt (Theme.kt Txt bold), aber halbfett statt MenuHead-Versalien für Werte, Namen, Zahlen (549a); Köpfe nur Lautstärke, Helligkeit, Testmodus. `menues_512b_schritte` an 630 angepasst. Probelauf 20:07 unbrauchbar. Lauf bei Sokrates; dann `PROBE=584` vorher/nachher je Schirm an den Chef.
 - **Zu 506 (Tom, 08.11., 19:46):** `claude/tom-506-skelett` mit main gemischt; Balken und Name über dem Scheitel (5c023b5fb, gemessen: vorher 26 cm unter dem Scheitel). Offen aus dem Helferbefund 12:55 (Liste in `git show f60748174:docs/ARBEIT-TEAM-TOM.md`, „Zu 506“), dazu Klinge und Speer in Stehen 68–79 Grad (Haltung des Kaufs, Wahl des Chefs?). Neuer Lauf nur mit Freigabe Sokrates.
 - **Zu 697 (Tom, 08.11., 19:39):** Wortlaut im „Zu 499, von Chef (15:23)“. Verdacht, nicht nachgestellt: `drehteller.gd` 28 `transparent_bg = true`, ein Stoff mit ALPHA unter 1 (Spielshader, Haar, Haut) scheint dann durch; erst am Rechner nachstellen (Fehler vom Chef gemeldet), dann bauen. Nicht in Build 270.
-- **Zu 356.2, von Homer (08.11., 19:08, 694):** Katalogtexte für `gegenstaende.json` wortgetreu aus `[356.pelzumhang.text]`, `[356.hauerdolch.text]` (`STORY-K1-HANDLUNG.md`). Dazu `Jobs.kt` Z. 71 und 75: EN „handle scales“ → „grip plates“ (ein Wort je Sache, wie `[356.hauer.dank]`).
 
 - **Zu 499, 630, von Chef (08.11., 17:03, an Tom):** „bei den Modellen im Menü und bei der Charaktererschaffung bedenken, dass sich die mal um die Mittelachse drehen sollen und nicht um irgendein Standbein und dann immer aus dem Bild rotieren. Also rotieren um die Mittelachse bitte.“
 
