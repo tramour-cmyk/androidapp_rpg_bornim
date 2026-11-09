@@ -2,7 +2,7 @@
 
 Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang und Klasse, dann `send_message` an Ford „Auftrag Diogenes <Nr>“ (von Pro aus nur die Zeile); nur Chef oder Ford starten Diogenes.
 
-**Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D110 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
+**Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D117 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
 **Übergabe (09.11., 18:1x):** 783 Lauf 111 fertig: acht Widersprüche als Chefsache `entscheiden/783-widersprueche.md`, Überholtes und Doppeltes an Perikles als 791. Nachfolger: „Diogenes – 790: Kosten je Aufruf messen“.
 
