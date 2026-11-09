@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (09.11., 18:08, `session_01Hmoj798k9UFEDkv8fqDzXy`):** Build 271 (PR #190) auf `main` gebracht (stand seit 14:09 offen). 560 gebaut (`claude/tom-560-grimmzahn`). 610, 522, 583, 540, 617, 670 als Nachtest in den Entwurf 272 (PR #191, dort oben: erst `main` mischen, 560 hinein). 697: Messprogramm auf `claude/tom-697-drehteller`, Lauf wartet auf 782 (Sokrates); Projekt vorher `--import`. Nachfolger: Tom – 506: Untote im Kampf, Rest aus dem Helferbefund (09.11.)
+**Übergabe (09.11., 18:37, `session_01Hmoj781M7fwdimGPDWCPZ5`):** 701 gebaut (`claude/tom-701-obergrenze`, b2bbb1024), Vorschau `ansehen/701-obergrenze.md`. 506: Filmskript behoben (d4af36027); Rest braucht die Kaufmodelle am Rechner, `add_repo` vom Auto-Modus abgelehnt, Chef gefragt (`tun/506-kaufmodelle.md`). Nachfolger: Tom – 683: SRD-Wörter im Gegenstandsfenster (09.11.)
 
 ## Einzelheiten
 
@@ -19,30 +19,16 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 - **Zu 744, von Sokrates (Chef 09.11., 11:22, „744 A“):** Jerry baut einen Bewegungsbaustein für alle Figuren (Bögen, drehen im Gehen, verweilen mit Ruhebewegung); du übernimmst ihn danach für die Leute im Dorf, 416.8 geht darin auf. Bis dahin an der Bewegung der Leute nichts Neues bauen.
 
-- **Zu 636, von Chef (Fund t270.4, Test Build 270, Automatik B):** kein Geräusch am Schlagbaum (Chef 20:30)
 - **Zu 584 (Tom, 08.11., 20:11):** `claude/tom-584-halbfett` auf 630: Alegreya SemiBold (`Stil.variante/zeile` fett, `Erschaffung.txt` fett), gesetzt wie alt (Theme.kt Txt bold), aber halbfett statt MenuHead-Versalien für Werte, Namen, Zahlen (549a); Köpfe nur Lautstärke, Helligkeit, Testmodus. `menues_512b_schritte` an 630 angepasst. Probelauf 20:07 unbrauchbar. Lauf bei Sokrates; dann `PROBE=584` vorher/nachher je Schirm an den Chef.
-- **Zu 506 (Tom, 08.11., 19:46):** `claude/tom-506-skelett` mit main gemischt; Balken und Name über dem Scheitel (5c023b5fb, gemessen: vorher 26 cm unter dem Scheitel). Offen aus dem Helferbefund 12:55 (Liste in `git show f60748174:docs/ARBEIT-TEAM-TOM.md`, „Zu 506“), dazu Klinge und Speer in Stehen 68–79 Grad (Haltung des Kaufs, Wahl des Chefs?). Neuer Lauf nur mit Freigabe Sokrates.
+- **Zu 506 (Tom, 09.11., 18:37):** Zweig `claude/tom-506-skelett` (mit main). Erledigt: Balken über dem Scheitel, Nahbild nur ein Gegner (G1), Zeile im Film, Zugleiste wie alt (verworfen). Offen aus dem Helfer 12:55 (`git show 075883c59`): A4 Schatten als Scheibe (`figur.gd` `_ground_shadow` 0,95 rund, Dichte 0,78), Zahnreihen, Helm über den Augen, Höhlen nicht dunkel, Kits kaum unterscheidbar (Speer dünn ohne Spitze, Schild schmal), Nahbild gebeugt, Waffe waagerecht (68–79 Grad), Kurzschwert vorn rund; alles am Modell, nur mit Kaufmodellen am Rechner. Ein Bauserverlauf frei (Sokrates 17:33).
 - **Zu 697 (Tom, 08.11., 19:39):** Wortlaut im „Zu 499, von Chef (15:23)“. Verdacht, nicht nachgestellt: `drehteller.gd` 28 `transparent_bg = true`, ein Stoff mit ALPHA unter 1 (Spielshader, Haar, Haut) scheint dann durch; erst am Rechner nachstellen (Fehler vom Chef gemeldet), dann bauen. Nicht in Build 270.
 
 - **Zu 492 (Tom, 08.11., 22:26):** `claude/tom-492-durchspiel`, Fassung B (Umgebung 0,12, Farbe kalt; Chef 21:46 „492b“); offen G1 Lager (Ausschnitt) und Prüferbefunde 505 (04.11., 19:07). Verlauf (Läufe 305, 308, Helfer 19:29) in `git show 32b74e537:docs/ARBEIT-TEAM-TOM.md`.
 - **Zu 542 (Tom, 08.11., 21:09):** Lauf 310 „Skripte pruefen“ rot an `auftraege_542` („Knopf am Stein: FIGHT statt LOOK“): Wolf der Herde zufällig neben dem Stein, also zufällig rot in jedem Build. Nachgestellt (Wolf von Hand), Test räumt jetzt die Herde: `claude/tom-542-testwolf` (0670cb295), fährt im nächsten Build mit.
 
-
-
-
-
-
-
-
-
-
-
-
 - **Zu 610, 522, von Chef (Fund t269.12, Test Build 269, Automatik B):** Kämpfer im Testmenü auf Langstab umgestellt: Schwert und Schild weg, aber kein Stab in der Hand; Hand nicht prüfbar (Chef 15:46)
 - **Zu 610, 522 (Tom, 09.11., 16:38):** t269.12 traf den Magierstab (zweihändig, ohne Modell am Helden, `heldfigur.gd` `_modell`); 14 von 21 Waffen ohne Modell → 458.3; Chef per Telegram 16:41.
 - **Zu 560, 680, von Perikles (09.11., Wochenziel 338.1):** von Jerry an dich, Jerry trägt den Kampf allein (Lehre Fehler 341); Absätze aus Jerrys Vorrat:
-- **Zu 560, von Chef (Fund t270.7, Test Build 270, Automatik B):** Wölfe gut, Grimmzahn dreht auf der Stelle wie ein Zinnsoldat (Chef 20:47)
-- **Zu 560, von Sokrates (Chef 04.11., 16:22):** „Wenn man sich nähert, macht das schon Sinn, wenn sich die Monster und Mobs … alles zum Held drehen. Also wenn sie einen wahrgenommen haben … Und jetzt nicht wieder so auf der Scheibe drehen, sondern gerne mit Bewegung drehen.“ Alle Monster und Tiere auf der Karte, Grimmzahn zuerst; Technik bei Tom (416.8).
 - **von Sokrates (08.11., 16:17, zu 680, Chef):** „jetzt kämpfe ich noch. Betrunken, habe ich draufstehen. Oh, ich glaube, das Spiel hängt sich gerade auf … ganz langsam … ist abgestürzt.“ Protokoll aus dem Testmenü (`godot2026-11-08T16.16.23.log`, „Voriger Lauf“): **keine Fehlerzeile**; Ende nach dem Start: Godot 4.7.2, Compatibility (OpenGL ES 3.2 über ANGLE auf Vulkan, Samsung Xclipse 540), 4× „RGBAFloat not supported, converting to RGBAHalf“, „SCHRIFT498 dichte 2.8125“, „551: Bildschirmecke unten 118 px“. Also Absturz ohne GDScript-Fehler (Speicher oder Treiber?), Langsamwerden davor: nachstellen mit Met → betrunken → Kampf im Wald, Speicher und Bildrate mitschreiben. Geräteangaben nach Neustart (Chef 16:17, in der Schenke): 0.348.283, SM-A566B, gl_compatibility, Speicher 122 MB, Grafikspeicher 357 MB, 966 Zeichenaufrufe, 354k Dreiecke, 36 Bilder/s (langsamstes 1 %: 52 ms), Ladezeit Schenke 1818 ms, keine Fehlermeldungen.
 - **Zu 617, 521, 581, 605, von Chef (Fund t269.16, Test Build 269, Automatik B):** Abbrechen geht; aus leerem Kopffeld ein Stück gewählt (göttliche Kapuze der Stirnjägerin): nur „Wegwerfen“, kein „Anlegen“, „genau der alte Fehler“, wiederholt; Bildschirmfoto des Chefs 15:57; „Ansicht ist sowieso scheiße“, Zurück fehlt; dagegen Wechseln → Zurück und Wechseln → Anlegen gehen mit einem Druck (Chef 15:58)
 - **von Sokrates (08.11., 15:57, zu 605 (erledigt), für 701, 683, Chef, t269.16, Bildschirmfoto Handy):** „Da kann ich wieder bloß wegwerfen. Oh, das ist ja genau der alte Fehler.“ Chef 15:58/15:59: „die Ansicht ist sowieso scheiße … Die Frage ist, warum das so ausschaut, wie es ausschaut.“ Gemeint: Fenster des Stücks mit „wirkt nicht (Obergrenze)“ je Wert, Vergleich sechsmal „mehr Bonus, wirkt nicht“, SRD-Wörter (Zauberpunkte, Attribute, Stärke …; 478 bei Jerry). Vorschlag zum Bild (Muster 549a, BRS-Wörter, Obergrenze einmal). Bild im Verlauf (`git show 4c24c2ed2:docs/ARBEIT-TEAM-TOM.md`).
@@ -57,7 +43,6 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 - **Zu 697 (aus 499, erledigt), von Chef (08.11., 15:23, Build 269, Erschaffung):** „Das Drehmodell ist wieder irgendwie völlig irre noch, aber wahrscheinlich ist halt das von der letzten Meldung noch nicht eingeflossen. Also Schild steht ab und das Modell ist halbtransparent.“ Schild: Stand 499 (14:19) ist nicht in 269, kommt mit dem nächsten Build. **Halbtransparent** ist neu gemeldet: nachstellen, ob es mit 499 weg ist; sonst eigener Vorgang.
 
-
 - **Zu 661 (Chef 08.11., 15:11, an Sokrates; zuerst irrtümlich 660):** „Unsere Blenden zwischen einzelnen Orten … schauen ja jetzt auch noch einen Ticken anders aus … Schriftgröße … ein bisschen kleiner, dann die Zierleiste ist da gar nicht drauf. Kann man das auch ein bisschen vereinheitlichen, dass das dazu passt? Zu dem anderen Stil.“ Muster: Schirme ohne Kasten (549a, `DESIGN-STIL.md`).
 
 - **Zu 656 (Chef 08.11., 14:52, an Sokrates):** „Warum eigentlich der Kämpfer mit dem Mantel so ausschaut, als ob er irgendwie schwanger wäre wie ein Känguru … wo die ganzen Beulen herkommen in dem Mantel. Vor allem unter dem Schlagarm. In der linken hält er ein Schild, rechts hat er das Schwert, da ist eine riesen Beule darunter. Was soll das sein? Hatte ich schon mal gestellt … Antwort dann wieder untergegangen … Ist das der Glöckner von Notre Dame?“ Erst Ursache nachstellen (Umhang über Schild, Schwert oder Arm?), Antwort an den Chef, dann beheben.
@@ -65,9 +50,6 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 613.2, von Sokrates (Chef 08.11., 21:58, Archiv „613 passt, Bewegung nicht zu sehen“):** „Ich habe mir den Film jetzt, glaube ich, dreimal auf dem Handy angeguckt. Ich sehe da kein Lichtflackern, geschweige denn irgendwelche atmenden Lichter oder Partikel im Sonnenstrahl. … In der alten Fassung habe ich es gesehen. … dieser Fackelzug, der ist ja witzigerweise eh nicht drin. … unsere Signatur ist das Entscheidende mit“. Kerzen und Staub laufen laut Spike, sind am Handy aber nicht sichtbar: Stärke gegen die alte Fassung messen (alt gegen neu, gleiches Bild), Fackelzug-Ursache nachstellen (Zu 613, Spike 21:11). Vorrang nach dem Kampf (Archiv „Kampf zuerst“).
 - **Zu 698, von Sokrates (Chef 08.11., 19:46):** „Wenn wir die Möglichkeit bieten, Effekte abzuschalten im Menü, das hatten wir doch auch irgendwo vorgesehen. Das war sagen, ja, einen Leistungstest sozusagen laufen lassen und dann die Effekte anpassen.“ Grundlage `LISTE-IDEEN.md` „Grafik-Einstellungen“ (Hebel dort), A22 in `LISTE-TESTGERAETE.md`; neu: Effekte aus 623 je Stufe; Bildrate t623 Dorf 33, Wald 25 auf dem Gerät des Chefs (Galaxy A56, obere Mittelklasse). Klasse entscheidet Perikles (M?); vor dem Bau Vorschlag Stufen und Untergrenze Bildrate an den Chef.
 - **Zu 636, von Sokrates (Chef 08.11., 20:30, t270.4 ✗):** „270.4 ich hab nichts gehört am Schlagbaum“. Türgeräusch beim Öffnen fehlt; ob der Balken aufsprang, sagte er nicht. Erst Ursache am Rechner nachstellen (334), dann beheben.
-- **Zu 701, von Sokrates (Chef 08.11., 20:37, t270.5 ✓):** „Zu 270.5 passt soweit, scrollen möglich, aber die wiederholte Anzeige des Caps macht keinen Sinn und wirkt überbordend.“ Foto: Amulett, unter jedem der sechs Grundwerte „mehr Bonus, wirkt nicht: Obergrenze für dieses Kapitel erreicht“, oben schon „+1 alle Attribute – wirkt nicht (Obergrenze)“. Vorschlag: Hinweis einmal (oben am Bonus), in der Vergleichstabelle keine Zeile je Wert; Vorschau an den Chef vor dem Build.
 - **Zu 492, von Sokrates (Chef 08.11., 21:46, Archiv):** „492b.“ Fassung B für die ganze Höhle; Fels passt. Offen aus deinem Prüferbefund: Gestalt im Lager am Bildrand. Danach 492 in den nächsten Build.
 
-
-
-**Ältere Einzelheiten** (621.2; `grep "Zu [^*]*<Nr>"` in): `git show 4c24c2ed2:docs/ARBEIT-TEAM-TOM.md` (bis 09.11., 16:30; 656, t271, 416.8, 605, 630, 664, 613), `461185464`, `14ec32902` (613, 635), `f60748174` (531, 506, 499, 623.6, 644.4, 649.3, 650.1, 687–691, t268), `519d2420d` (bis 08.11., 00:35).
+**Ältere Einzelheiten** (621.2; `grep "Zu [^*]*<Nr>"` in): `git show 35fdfd9d3:docs/ARBEIT-TEAM-TOM.md` (701, 636 t270.4, 560); `git show 4c24c2ed2:docs/ARBEIT-TEAM-TOM.md` (bis 09.11., 16:30; 656, t271, 416.8, 605, 630, 664, 613), `461185464`, `14ec32902` (613, 635), `f60748174` (531, 506, 499, 623.6, 644.4, 649.3, 650.1, 687–691, t268), `519d2420d` (bis 08.11., 00:35).
