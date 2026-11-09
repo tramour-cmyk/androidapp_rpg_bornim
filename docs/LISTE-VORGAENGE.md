@@ -40,7 +40,7 @@
 | 542 | Aufträge: Jorins „Feuer am Steinkreis“ nicht abschließbar (Fetzen fehlt), Gwennas Ring am Brett ohne Höhle nicht findbar, Aldrics Ring als Ding statt Einzelstück (Abgleich 512, Sokrates 03.11., 23:4x) | Tom | M | gebaut, Geprüft an: f9111b5c2 (auf main; Jorin erst nach Krogg wie alt) | – | claude/tom-542-testwolf | – | E Oberfläche | – |
 | 543 | Startwerte gegen alt und BRS prüfen: Startgold 15–25 und Start-Heiltränke fehlen, Wiederkehrort Schenke statt Tempel, Beute im Tiefen Wald Stufe 1 statt 2 (Abgleich 512, Sokrates 03.11., 23:4x) | Tom | M | zu testen, ohne Rückmeldung t269 | – | claude/spike-543-startwerte | – | E Oberfläche | – |
 | 495 | Zufallsspieler spielt Kapitel 1 in Godot durch (Abnahme 2.2; Wochenziel 03.11., 488) | Tom | M | wartet | 492 | – | – | E Technik | 27,75 $ |
-| 505 | Bau Nebel des Krieges und Sichtfeld des Helden (Archiv 502; Welt W24, W25) | Tom | M | ruht, Kampf zuerst (338.1) | 492 | – | – | E Technik | 69,46 $ |
+| 505 | Bau Nebel des Krieges und Sichtfeld des Helden (Archiv 502; Welt W24, W25) | Tom | M | startbar, Fund t271: abklären (Chef 14:00) | 492 | – | – | E Technik | 69,46 $ |
 | 515 | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 03.11., 16:07) | Tom | M | ruht | – | – | – | E Welt | – |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x) | Tom | M | ruht | – | claude/tom-431-voelker | – | E Figuren | 50,10 $ |
 | 416.8 | NPC dreht sich zum Helden mit kleinen Schritten, nicht auf der Stelle (Chef 31.10., 20:5x; t269.11 15:44 wieder Plastikfigur) · wiederholt | Tom | M | gebaut, fährt im nächsten Build. Geprüft an: 98af8d5cc (gier ±90 am Rechner, schauen_4168) | – | claude/tom-4168-wende | – | E Technik | 19,24 $ |
@@ -189,6 +189,7 @@
 | 744 | Karte: Streuner und Leute bewegen sich natürlich, verweilen mit Ruhebewegung statt Roboter-Takt (Chef 09.11., 11:18); ein Bewegungsbaustein für beide Teams? | Jerry | M | startbar | 717, 717.1 | – | – | E Figuren | – |
 | 747 | Von Perikles (743, Chef 09.11., 11:21 „alle verwerfen“): Vorgang 24 schließen (Animationen nach Start, überholt durch Godot) | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | Pflege | von Werkzeug (340.3, 09.11.): 15644 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
+| 751 | Kampf: Knopfleiste des Helden manchmal leer („…“), keine Menüfunktion, auch ohne „ganzer Bericht“ (Chef 09.11., 14:00, Fund t271, Bild Wolfsrudel) | Jerry | M | startbar | – | – | – | E Oberfläche | – |
 | 716 | Ideenspeicher 08.11. nachholen (Diogenes D92, drei Sonntage ausgefallen) · „jetzt“ 09.11., 08:49 | Homer | M | erledigt | – | – | – | B Abläufe | 3,05 $ |
 | 432 | Eigenes Volk aus Bornim (etwa mit dem Grauen Propheten, „Tag der Asche“) prüfen, mit der Geschichte ab Kapitel 2 (Chef 31.10., 22:0x) | Homer | K | ruht | – | – | – | G Story | 0,79 $ |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
@@ -310,6 +311,7 @@
 | 740 | D63.7 Vorlage entscheiden/3761-kettenhemd-heldin.md (01.11., 20:55) ohne Zeile „Bestand geprüft“ (434); nicht nachtragbar, schließen mit erledigt oder verworfen (von Diogenes, Lauf 61) | Sokrates | K | startbar | – | – | – | B Abläufe | – |
 | 745 | Regelwerk konsolidieren: Widersprüche listen (Diogenes), Chef entscheidet, jede Regel an einem Ort, Wachstumsstopp per Haken; parallel zur Probe 657 D (Chef 09.11., 12:00) | Sokrates | M | startbar | Chef | – | – | B Abläufe | – |
 | 750 | Ford startet ohne lauf.py (seit Selbstneustart 01:05 startbar.py plus create_session von Hand): Sperre per Haken vor create_session (Chef 13:28) | Sokrates | M | startbar | Chef | – | – | B Werkzeuge | – |
+| 752 | Systemlösung? Knopf: 15 frühere Vorgänge (503a, 503, 548, 599, 600 …), neu 751; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Oberfläche | – |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +857,14 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | Pflege | von Werkzeug (340.3, 09.11.): 24886 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |

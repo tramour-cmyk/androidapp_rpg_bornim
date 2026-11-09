@@ -6,6 +6,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **Zu 505, von Sokrates (Chef 09.11., 14:00, Build 271):** „Im tiefen Wald auf der Karte war ich unterwegs, da habe ich dann ganz viele Mobs gesehen, wo ich weder eine Sichtlinie hatte, noch wo ich überhaupt in der Ecke jemals war. Also die dürfte ich eigentlich gar nicht sehen. Das mal bitte abklären.“ 505 ruht („Kampf zuerst“); abklären heißt: kurz feststellen, ob Monster auf der Karte heute ohne Sicht und ohne Erkundung gezeigt werden, und dem Chef den Stand nennen. Umhang (656) war laut Prüfliste t271 nicht im Build; der Chef weiß das.
+
 - **Zu 744, von Sokrates (Chef 09.11., 11:22, „744 A“):** Jerry baut einen Bewegungsbaustein für alle Figuren (Bögen, drehen im Gehen, verweilen mit Ruhebewegung); du übernimmst ihn danach für die Leute im Dorf, 416.8 geht darin auf. Bis dahin an der Bewegung der Leute nichts Neues bauen.
 
 - **Zu 271 (Tom, 08.11., 22:49):** PR #190, Godot-Lauf auf 1ba9dff12 (mit 296.3, 542, `wende_4168` berichtigt; Hinweis Jerry 22:37 erledigt); Prüfliste fertig in der Sitzung, geht mit der APK nach `ansehen/t271-sammelbuild.md`.
