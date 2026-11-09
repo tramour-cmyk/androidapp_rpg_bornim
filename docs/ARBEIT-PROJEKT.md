@@ -8,6 +8,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
+- **Zu 759, von Sokrates (Chef 09.11., 14:36):** „In der Rollenspiegeldatei … ist genau ein Eintrag jetzt drin von Perikles. Alle anderen haben also ihren Rollenspiegel noch nicht nachgeholt … Oder hat es jemand nicht eingetragen? Ich weiß es ja wieder mal nicht.“ Befund: 715 (aus D92) hatte nur dich als Besitzer, du hast deinen nachgeholt und geschlossen; für die anderen sechs gab es keine Zeile, also hat keiner nachgeholt (die Einträge unter „Woche 06.11.“ stammen vom 02.11.). Dieselbe Lücke im neuen Wochentermin (`startbar.py` 166: eine Zeile „alle Rollen“ bei dir): je Rolle eine Zeile, damit Ford jede Rolle startet.
+
 - **Zu 657, von Sokrates (Chef 09.11., 11:46, „657 D“; Archiv):** Probe: Checkliste „Build und Test“ als `LISTE-…` aus den heutigen Regeln (`ROLLE-ENTWICKLUNG.md`, `LISTE-RELEASE-NEUSTART.md`, Prüflisten-Regeln; jede Regel nur dort, am alten Ort ein Verweis); ein Werkzeug (Commit-Prüfung oder `meldung.sh`) zeigt sie, sobald eine Datei `ansehen/t…` angelegt wird; Enddatum nach 718 (vier Builds); Diogenes zählt Erstfunde gegen 11, 11, 9, 7. `CLAUDE.md` bleibt, wie sie ist.
 
 - **Zu 720, von Sokrates (Chef 09.11., 11:26, „720 A“; Archiv):** montags Datei `ansehen/` mit allen Punkten und Teilen der Abnahmeliste auf „gebaut“, je Zeile „Haken ja/nein“ mit Build; als Wochentermin in 719 aufnehmen. Erste Runde: 1.1, 1.3, 1.4 (gebaut seit Build 204), 2.13 die fünf im Probekampf gesehenen Gegner, 2.14 die vier Innenräume.
