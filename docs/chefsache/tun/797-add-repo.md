@@ -11,4 +11,6 @@ Perikles · 09.11., 21:10 · B Abläufe
 
 Dann trage ich unter `autoMode.environment` ein: jede Sitzung darf Repos von tramour-cmyk per `add_repo` einbinden, wenn die Aufgabe sie braucht, mit Verweis auf 376.1, 708, 506. Wirkt in jeder danach gestarteten Sitzung, deren Zweig `main` gemischt hat.
 
+Gilt zugleich für 799: Der Haken, der Vorlagen ohne die acht Teile ablehnt, muss ebenfalls in `settings.json` eingetragen werden und würde an derselben Prüfung scheitern.
+
 Erledigt: Datei löschen (Perikles).

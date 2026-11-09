@@ -669,6 +669,46 @@ def figur_sperre(wo, rev):
             "`git fetch --unshallow`, sonst sieht der Haken die Vorfahren nicht." if flach else ""))
 
 
+GIT_SCHREIBT = re.compile(r"\bgit\s+(?:-C\s+(\S+)\s+)?(?:commit|push)\b")
+
+
+def vorlage_unvollstaendig(befehl, cwd, d=None):
+    """799 (Chef 09.11., 20:46): eine Vorlage in docs/chefsache/entscheiden/ oder billigen/ ohne die Teile nach 364 kommt
+    nicht nach main. Bash: vor `git commit`/`git push` in einer Arbeitskopie auf main jede solche Datei, die von origin/main
+    abweicht (Arbeitsstand);
+    GitHub-Server: Inhalt aus push_files/create_or_update_file. Grund zum Anhalten oder None."""
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import vorlage_pruefen as vp
+    befunde = []
+    if d is not None:
+        e = d.get("tool_input") or {}
+        dateien = [f for f in (e.get("files") or []) if isinstance(f, dict)] + ([e] if e.get("path") else [])
+        for f in dateien:
+            o = vp.ordner_von(str(f.get("path", "")))
+            if o and (fehlt := vp.luecken(str(f.get("content") or ""), o)):
+                befunde.append((f["path"], fehlt))
+        return vp.meldung(befunde) if befunde else None
+    m = GIT_SCHREIBT.search(befehl)
+    if not m:
+        return None
+    cds = CD.findall(befehl[:m.start()])
+    wo = m.group(1) or (os.path.join(cwd, os.path.expanduser(cds[-1].strip("\"'"))) if cds else cwd)
+    wurzel = git("rev-parse", "--show-toplevel", cwd=wo).stdout.strip()
+    if not wurzel or not os.path.isdir(os.path.join(wurzel, "docs", "chefsache")):
+        return None
+    if git("rev-parse", "--abbrev-ref", "HEAD", cwd=wurzel).stdout.strip() != "main":  # Notizen nur auf main
+        return None
+    sp = ["--", "docs/chefsache/entscheiden", "docs/chefsache/billigen"]
+    pfade = git("diff", "--name-only", "origin/main", *sp, cwd=wurzel).stdout.split() + \
+        git("ls-files", "--others", "--exclude-standard", *sp, cwd=wurzel).stdout.split()
+    for p in sorted(set(pfade)):
+        datei = os.path.join(wurzel, p)
+        o = vp.ordner_von(p)
+        if o and os.path.isfile(datei) and (fehlt := vp.luecken(open(datei, encoding="utf-8").read(), o)):
+            befunde.append((p, fehlt))
+    return vp.meldung(befunde) if befunde else None
+
+
 def anhalten(text):
     print(text, file=sys.stderr)
     sys.exit(2)
@@ -703,6 +743,12 @@ def main():
         return
     if re.search(r"(push_files|create_or_update_file)$", d.get("tool_name") or ""):  # D75.1: Push über den GitHub-Server zählt wie git push
         try:
+            grund = vorlage_unvollstaendig("", cwd, d)  # 799
+        except (OSError, subprocess.SubprocessError, ValueError, ImportError):
+            grund = None
+        if grund:
+            anhalten(grund)
+        try:
             e = d.get("tool_input") or {}
             zweig, nachricht = str(e.get("branch") or ""), str(e.get("message") or "")
             pfade = [f.get("path", "") for f in (e.get("files") or []) if isinstance(f, dict)] + ([e["path"]] if e.get("path") else [])
@@ -719,6 +765,12 @@ def main():
         alt = None
     if alt:
         anhalten(alt)
+    try:
+        grund = vorlage_unvollstaendig(befehl, cwd)  # 799: Vorlage nach 364
+    except (OSError, subprocess.SubprocessError, ValueError, ImportError):
+        grund = None
+    if grund:
+        anhalten(grund)
     try:
         grund = alt_fehlt(roh, cwd)  # 647: Fundstelle der alten Fassung vor dem Push
     except (OSError, subprocess.SubprocessError, ValueError):
