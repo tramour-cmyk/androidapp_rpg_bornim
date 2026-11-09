@@ -12,6 +12,8 @@ var dreh := {}      # id -> Bilder auf der Stelle drehend
 var knick := {}     # id -> Knicke
 var lauf := {}      # id -> Bilder in Bewegung
 var epi := {}       # id -> laufende Drehung am Ort [Bild, Bilder, Grad, Art, Abstand zum Platz]
+var ruecken := {}   # 717: id -> Bilder in Bewegung mit dem Rücken zum Helden
+var ruecken_art := {}
 var dreh_art := {}  # Teil des Schlags/Bewegung -> Bilder auf der Stelle gedreht (wo die Drehung herkommt)
 
 
@@ -64,17 +66,20 @@ func _lauf() -> void:
 		var sd := 0
 		var sk := 0
 		var sl := 0
+		var sr := 0
+		for id in ruecken:
+			sr += ruecken[id]
 		for id in lauf:
 			print("  %s %s: %d Bilder in Bewegung, %d Bilder auf der Stelle gedreht, %d Knicke" % [k, id, lauf[id], dreh.get(id, 0), knick.get(id, 0)])
 			sd += dreh.get(id, 0)
 			sk += knick.get(id, 0)
 			sl += lauf[id]
-		print("KURVEN682 %s %s: %d Bilder in Bewegung, auf der Stelle gedreht %d (%.1f s), Knicke %d" % [k, "alt" if OS.get_environment("GLATT682") == "0" else "neu", sl, sd, sd / 30.0, sk])
+		print("KURVEN682 %s %s: %d Bilder in Bewegung, auf der Stelle gedreht %d (%.1f s), Knicke %d, Rücken zum Helden %d Bilder (%.1f s) %s" % [k, "alt" if OS.get_environment("GLATT682") == "0" else "neu", sl, sd, sd / 30.0, sk, sr, sr / 30.0, ruecken_art])
 		var arten := dreh_art.keys()
 		arten.sort_custom(func(a, b): return dreh_art[a] > dreh_art[b])
 		for a in arten:
 			print("    gedreht bei %s: %d Bilder" % [a, dreh_art[a]])
-		dreh.clear(); knick.clear(); lauf.clear(); dreh_art.clear()
+		dreh.clear(); knick.clear(); lauf.clear(); dreh_art.clear(); ruecken.clear(); ruecken_art.clear()
 		p.queue_free()
 		for i in 5:
 			await process_frame
@@ -95,6 +100,17 @@ func _bild(kf) -> void:
 			if d.length() > 0.005:
 				r = d.normalized()
 				lauf[id] = int(lauf.get(id, 0)) + 1
+				# 717 (F7): Rücken zum Helden in Bewegung (Blick über 100° vom Helden weg), außer auf der Flucht
+				var h = kf.figures.get("hero")
+				if h != null and not f.flieht:
+					var zu_h := Vector2(h.position.x - p.x, h.position.z - p.z).normalized()
+					var blick := Vector2(sin(g), cos(g))
+					if blick.dot(zu_h) < cos(deg_to_rad(100.0)):
+						ruecken[id] = int(ruecken.get(id, 0)) + 1
+						var art2 := "%s/%s" % [f.gang if f.gang != "" else "-", f.anim.current_animation if f.anim else "?"]
+						ruecken_art[art2] = int(ruecken_art.get(art2, 0)) + 1
+						if OS.get_environment("EPISODEN") != "":
+							print("    RUECKEN %s Bild %d %s %.2f m vom Platz" % [id, Engine.get_process_frames(), art2, f.position.distance_to(f.home)])
 				if vor[id][2] != null and rad_to_deg(absf(r.angle_to(vor[id][2]))) > 20.0:
 					knick[id] = int(knick.get(id, 0)) + 1
 					if OS.get_environment("EPISODEN") != "":
