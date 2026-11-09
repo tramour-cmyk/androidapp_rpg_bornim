@@ -150,3 +150,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:17 09.11.: Startsperre 18:17 Start Sokrates (Ford, vor dem Start; Neustart e86da5d96)
 - 18:23 09.11.: Startsperre 18:23 Start Sokrates (Ford, vor dem Start; Neustart f029ff304)
 - 18:24 09.11.: Startsperre 18:24 Start Ford (selbst)
+- 18:39 09.11.: Startsperre 18:39 Start Tom (Ford, vor dem Start; Neustart e8c83f2c4)
