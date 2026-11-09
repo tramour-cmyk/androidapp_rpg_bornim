@@ -1,10 +1,10 @@
 # 783 · Acht Widersprüche im Regelwerk: welche Seite gilt?
-Diogenes · 09.11., 20:14 (Vorlage 18:15, W1, W2, W5, W6, W8 entschieden) · B Abläufe · 745 A2 Schritt 2
+Diogenes · 09.11., 20:15 (Vorlage 18:15, W1–W3, W5, W6, W8 entschieden) · B Abläufe · 745 A2 Schritt 2
 Kurz: acht Widersprüche zwischen zwei Regeln, je einer gilt
 
 Geprüft an: Lauf 111 in `docs/PRUEFBERICHT.md` (jede Stelle am Wortlaut nachgelesen, Stand `main` 09.11., 18:13)
 
-**Entschieden:** W6 wie Vorschlag (Chef 20:00, Archiv). W5 andersherum: Regel A gilt (Chef 20:05, Archiv); CLAUDE.md Zusammenarbeit 3 „Nie selbst“ nimmt in Schritt 3 den Vorentscheid Sokrates aus. W8 wie Vorschlag mit Zusatz (Chef 20:07, Archiv): Sokrates legt auch für andere an; wer nach einer Antwort löscht, trägt jeden daraus folgenden Auftrag dem Betroffenen ein. Offen: W3, W4, W7.
+**Entschieden:** W6 wie Vorschlag (Chef 20:00, Archiv). W5 andersherum: Regel A gilt (Chef 20:05, Archiv); CLAUDE.md Zusammenarbeit 3 „Nie selbst“ nimmt in Schritt 3 den Vorentscheid Sokrates aus. W8 wie Vorschlag mit Zusatz (Chef 20:07, Archiv): Sokrates legt auch für andere an; wer nach einer Antwort löscht, trägt jeden daraus folgenden Auftrag dem Betroffenen ein. W3 wie Vorschlag (Chef 20:13, Archiv). Offen: W4, W7.
 
 **W1 neuer Vorschlag, entschieden (Chef 20:12 „wie eins neu“, Archiv; Sokrates 20:11, nach Chef 20:10: „über eine Animation kann nur ein Film entscheiden, da brauche ich vorher kein Probebild … im Zweifelsfall auch mich fragen“):** (1) Bewegung (Animation, Ablauf, Kampf): gleich Film, kein Probebild an den Chef. Vorher macht der Ersteller für sich ein Einzelbild am Rechner (`PROBEBILD=`, kostet keinen Lauf) und sieht selbst nach, ob Inhalt da ist (kein Weißbild, richtiger Ort); kein Helfer. (2) Aussehen eines Standes (Farbe, Form, Licht): Standbild als Vorlage, kein Film. (3) Unklar: eine Zeile „Probebild oder gleich Film?“ in der Vorlage an den Chef. Werkzeug: `probelauf.py` kehrt 511/578 um (Film frei ohne Freigabe des Probebilds; Laufgrenze 389 bleibt). Gegenargument: Anlass 511 waren kaputte Filme; das eigene Einzelbild fängt leere Bilder, nicht falsche Bewegung. Die fängt aber auch ein Probebild nicht.
 
