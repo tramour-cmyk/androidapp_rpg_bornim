@@ -374,6 +374,48 @@ static func oben() -> MarginContainer:
 			(k as Control).size_flags_horizontal = Control.SIZE_SHRINK_CENTER)
 	return m
 
+# 630 (549a „Schirm“): ganzer Bildschirm rein schwarz, Seitenrand 24 dp, oben der Titel (22 sp Versalien gesperrt, Gold, mittig) in
+# derselben Hoehe wie jeder Schirm (OBEN_DP), genau eine Zierlinie, dann der Inhalt (rollt, wenn er nicht passt), eine schlichte Linie
+# und unten links „‹ ZURÜCK“. Gibt {seite, spalte, inhalt, rolle} zurueck; „‹ ZURÜCK“ und Android-Zurück schliessen ihn, dann [zurueck]
+static func schirm(eltern: Node, titel: String, zurueck: Callable, abstand_dp := 10.0) -> Dictionary:
+	var seite := Control.new()
+	seite.name = "Schirm"
+	seite.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	eltern.add_child(seite)
+	var zu := func(): seite.queue_free(); zurueck.call()
+	Zurueck.melde(seite, zu)   # 526
+	var bg := ColorRect.new()
+	bg.color = Color.BLACK
+	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	seite.add_child(bg)
+	var rand := MarginContainer.new()
+	rand.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	for s in ["left", "right"]: rand.add_theme_constant_override("margin_" + s, int(24 * DP))
+	rand.add_theme_constant_override("margin_top", int(OBEN_DP * DP)); rand.add_theme_constant_override("margin_bottom", int(12 * DP))
+	seite.add_child(rand)
+	var spalte := VBoxContainer.new()
+	spalte.name = "Spalte"
+	spalte.add_theme_constant_override("separation", int(10 * DP))
+	rand.add_child(spalte)
+	var t := Stil.zeile(titel.to_upper().replace("ß", "SS"), 22, Stil.GOLD, 3.0)
+	t.name = "Titel"
+	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	t.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	spalte.add_child(t)
+	spalte.add_child(zier())
+	var rolle := ScrollContainer.new()
+	rolle.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	rolle.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
+	spalte.add_child(rolle)
+	var inhalt := VBoxContainer.new()
+	inhalt.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	inhalt.add_theme_constant_override("separation", int(abstand_dp * DP))
+	rolle.add_child(inhalt)
+	spalte.add_child(linie())
+	spalte.add_child(knopfzeile(knopf("neben", Sprache.u("back"), zu, true), null))
+	folge_inhalt(spalte, rolle, inhalt)
+	return {"seite": seite, "spalte": spalte, "inhalt": inhalt, "rolle": rolle}
+
 static func frage(eltern: Control, titel: String, zeilen: Array, zeichen: String, wahl: String, farbe: Color, tat: Callable, an := true) -> ColorRect:
 	var de := Sprache.aktiv() == "de"
 	var schleier := Rueckfrage.schleier(eltern)
@@ -386,7 +428,7 @@ static func frage(eltern: Control, titel: String, zeilen: Array, zeichen: String
 	mitte.add_child(Rueckfrage.halte(v))
 	# Chef 16:51 (549a (8): „für jedes Fenster gleich“): oben der Titel, darunter genau eine Zierlinie mit Raute, keine Linie darueber
 	# und keine zweite schlichte darunter; dann Inhalt, schlichte Linie, Knoepfe
-	var t := Stil.zeile(titel.to_upper().replace("ß", "SS"), 15, Stil.GOLD, 3.0)
+	var t := Stil.zeile(titel.to_upper().replace("ß", "SS"), Stil.TITEL_SP, Stil.GOLD, 3.0)   # 586a: so gross wie die Titel der Schirme
 	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	t.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	v.add_child(t)
@@ -448,6 +490,7 @@ static func knopf(art: String, text: String, tat: Callable, links := false, an :
 	var p := tippbar(h, tat if an else func(): pass)
 	p.set_meta("knopf", art)
 	p.set_meta("links", links)
+	p.set_meta("an", an)   # 630: Tests erkennen gesperrte Knoepfe
 	return p
 
 # eine Reihe Knoepfe: [links] links, [rechts] rechts (null: frei), jeder die halbe Breite, damit alle Knoepfe eines Fensters gleich

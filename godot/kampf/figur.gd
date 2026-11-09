@@ -1231,9 +1231,12 @@ func _face_sanft() -> void:
 		gang = "dreh"
 		dreh_ziel = r0 + dw
 		tween = create_tween()
-		tween.tween_callback(func(): halt.an())
+		# 623.5 (effekt_mess_6235: „Nonexistent function 'an' in base 'Nil'“): auch der Held ohne Pfotenhalt kommt hierher (abwehr)
+		tween.tween_callback(func(): if halt: halt.an())
 		tween.tween_property(self, "rotation:y", r0 + dw, absf(rad_to_deg(dw)) / TURN_DPS_TRITT)
-		tween.tween_callback(func(): halt.los(true); gang = "")
+		tween.tween_callback(func():
+			if halt: halt.los(true)
+			gang = "")
 	else:
 		rotation.y = r0 + clampf(dw, -deg_to_rad(40.0) * get_process_delta_time(), deg_to_rad(40.0) * get_process_delta_time())
 
@@ -1355,6 +1358,21 @@ func _walk_home(skip = null) -> float:
 			# … es sei denn, das Umdrehen am Ort führte den Rumpf durch einen anderen (dann doch rückwärts)
 			var first0 := via - position
 			rueck = _dreh_luft(rotation.y, atan2(first0.x, first0.z)) < PLATZ_LUFT
+		# 562 (wolf_mess_438 Kleriker, Bild 2851, nachgestellt am Rechner: Wolf 3 ging rückwärts heim, 40° schräg zur eigenen Achse,
+		# und schob das Heck 0,13 m in Wolf 1; _seg_gap rechnet den Rumpf längs des Wegs): rückwärts behält er seine Drehung, darum
+		# den Umriss in dieser Drehung über den Weg schieben; ginge er dabei durch einen anderen, rückwärts um ihn herum, sonst drehen,
+		# wenn das nicht enger wird
+		if rueck and fighter.monster != null:
+			var rl := _rueck_luft(position, via, home, skip)
+			if rl < minf(WEG_LUFT, _rumpf_luft(position, rotation.y, skip) - 0.01):
+				var rv := _rueck_umweg(position, home, skip)
+				if rv != position:
+					via = rv
+					bahn = [via, home]
+				else:
+					var f1 := (via if via != position else home) - position
+					if _dreh_luft(rotation.y, atan2(f1.x, f1.z)) >= rl:
+						rueck = false
 		if rueck:
 			# 438: rückwärts heim, das Gesicht zum Gegner; statt Kehrtwende, Lauf und zweiter Kehrtwende
 			gang = "heim"
@@ -1849,6 +1867,57 @@ func _rumpf_luft(p: Vector3, yaw: float, skip = null) -> float:
 			for q in pts:
 				g = minf(g, o.clearance(q, Vector3.INF, o.dreh_ziel))
 	return g
+
+
+## 562: Luft des Rumpfs, geht das Tier in seiner jetzigen Drehung (rückwärts) von [von] über [via] (== von: gerade) nach [nach];
+## Raster wie _rumpf_luft alle 0,25 m; wer mit ihm den Platz tauscht (sein Ziel ist mein Start), zählt wie in _seg_gap nur, wo er steht
+func _rueck_luft(von: Vector3, via: Vector3, nach: Vector3, skip = null) -> float:
+	var box := footprint()
+	var b := Basis(Vector3.UP, rotation.y) * Basis.from_scale(scale)     # wie wolf_mess_438: global_transform mit Maßstab
+	var raster: Array = []
+	for i in 7:
+		for j in 3:
+			raster.append(b * Vector3(lerpf(box.position.x, box.end.x, j / 2.0), 0.0, lerpf(box.position.z, box.end.z, i / 6.0)))
+	var orte: Array = []
+	var stuecke: Array = [[von, nach]] if via == von else [[von, via], [via, nach]]
+	for s in stuecke:
+		var n := maxi(1, int(ceilf(Vector2(s[1].x - s[0].x, s[1].z - s[0].z).length() / 0.25)))
+		for i in range(1, n + 1):
+			orte.append((s[0] as Vector3).lerp(s[1], float(i) / n))
+	var g := INF
+	for o in kampfort.figures.values():
+		if o == self or o == skip or not o.visible or o.down:
+			continue
+		var bei: Array = [Vector3.INF]
+		if o.unterwegs() and Vector2(o.home.x - von.x, o.home.z - von.z).length() > 1.0:
+			bei.append_array(o.bahn_punkte())
+		for p in orte:
+			for q in raster:
+				for at in bei:
+					g = minf(g, o.clearance(p + q, at))
+	return g
+
+
+## 562: ein Umweg [via] für den Weg rückwärts von [von] nach [nach] (beide Abschnitte hinter ihm, im Bild, der Rumpf in seiner
+## Drehung mit WEG_LUFT frei; Versatz wie _detour); keiner frei: [von]
+func _rueck_umweg(von: Vector3, nach: Vector3, skip = null) -> Vector3:
+	var ab := Vector3(nach.x - von.x, 0.0, nach.z - von.z)
+	var n := ab.length()
+	if n < 0.05:
+		return von
+	var d := ab / n
+	var side := Vector3(-d.z, 0.0, d.x)
+	var blick := Vector3(basis.z.x, 0.0, basis.z.z)
+	for k in range(1, 13):
+		for at in [0.5, 0.35, 0.65]:
+			for sg in [1.0, -1.0]:
+				var via: Vector3 = von + d * (n * at) + side * (0.2 * k * sg)
+				var w := von.distance_to(via) + via.distance_to(nach)
+				if w > RUECK_M or not (_rueckwaerts(von, via, w) and _rueckwaerts(via, nach, w)) or not _im_bild(via, blick):
+					continue
+				if _rueck_luft(von, via, nach, skip) >= WEG_LUFT:
+					return via
+	return von
 
 
 ## 438: kleinste Luft des Rumpfs, dreht sich das Tier am Ort von [von] nach [nach] (in 15°-Schritten)
@@ -2797,6 +2866,15 @@ func dodge(after_ms: int, nm := "") -> void:
 	_schnaufen(0.8)
 	# 348.12f: mit Wurzelweg zur Seite oder zurück, wie die Quelle (Ausweichen links nicht: Kopf unter den Vorderbeinen, Prüfer r7),
 	# dann heim; [nm] wählt (Probe SCHAU=ort), sonst der Zufall
+	# 593 (Chef 05.11., 19:2x, Build 266: „Ausweichbewegungen müssen nicht links – rechts sein, sondern können auch rückwärts gehen
+	# (so als Alternative)“): jedes dritte Ausweichen rückwärts, reihum statt Zufall (wie die Abwehr), nur wenn dort Platz ist; mit
+	# eigener Bewegung der Quelle (Ratte: dodgeBackwards), sonst rasch rückwärts im Gang (Spinne; Grak mit Jog_Bwd „Zurück“)
+	ausweich_nr += 1
+	if nm == "" and not down and not lunging() and (ausweich_nr + hash(String(fighter.id))) % 3 == 0:
+		if weg.has("Ausweichen zurück") and weg.has("Ausweichen links") and anim.has_animation("Ausweichen zurück") and _weg_frei("Ausweichen zurück"):
+			nm = "Ausweichen zurück"
+		elif not weg.has("Ausweichen zurück") and weg.has("Ausweichen") and _absetzen_rasch():
+			return
 	if nm == "" and weg.has("Ausweichen links"):
 		nm = _ausweich_seite()
 	if nm == "":
@@ -2808,8 +2886,9 @@ func dodge(after_ms: int, nm := "") -> void:
 		var b := basis
 		var bl: float = anim.get_animation(nm).length
 		tween = create_tween()
+		bahn = [_weg_at(o, b, nm, bl)]     # 703 A: Ziel des Satzes ist der neue Stand, nicht der Platz
 		tween.tween_method(func(x: float): position = _weg_at(o, b, nm, x), 0.0, bl, bl)
-		tween.tween_callback(_walk_home)
+		tween.tween_callback(_nach_ausweichen)
 		return
 	# Kaufwolf (Chef 27.10., 21:51, Archiv: „Ausweichen-Bewegung war am Platz und ohne Ortswechsel … grundsätzlich wie bei der
 	# Ratte“; der Kauf hat keine Ausweichbewegung): ein Satz im Lauf zur freieren Seite (Ausweichen) oder schräg zurück (Ausweichen
@@ -2859,23 +2938,38 @@ func dodge(after_ms: int, nm := "") -> void:
 			if _rumpf_luft(zurueck, rotation.y) >= g0:
 				if OS.get_environment("SCHAU_MESS") != "":
 					print("Ausweichen %s rückwärts (kein Satz frei, bester %.2f)" % [fighter.id, luft])
-				bahn = [zurueck, home]
+				bahn = [zurueck]
 				tween = create_tween()
 				tween.tween_callback(func(): anim.play("Gehen", 0.1, -float(tempo.get("Gehen", 1.0))))
 				_lauf(tween, position, zurueck, "Gehen", RUECK_TEMPO)
-				tween.tween_callback(_walk_home)
+				tween.tween_callback(_nach_ausweichen)
 				return
 			if luft < 400.0:     # 438: ein freier Satz aus dem Bild bleibt, wenn rückwärts kein Platz ist
 				best = []
 		if not best.is_empty():
 			if OS.get_environment("SCHAU_MESS") != "":
 				print("Ausweichen %s %s Länge %.2f m, Wert %.2f, Grenze %.2f, Start %s" % [fighter.id, nm, best[best.size() - 1][1], luft, g0, position])
-			bahn = [best[best.size() - 1][0], home]
+			bahn = [best[best.size() - 1][0]]
 			_pfad_fahren(best, false, AUSWEICH_BOGEN)     # 438: im Lauf drehte er 28° je Bild; 546: im Schritt zu träge
-			tween.tween_callback(_walk_home)
+			tween.tween_callback(_nach_ausweichen)
 			return
 	_play("Ausweichen", 0.05)
 	get_tree().create_timer(0.45).timeout.connect(_idle_wenn_frei)
+
+
+## 703 A (Chef 08.11., 21:36: „wenn sie ausgewichen sind, einfach stehen bleiben … Braucht man doch gar nicht.“; ändert F5):
+## nach dem Ausweichen bleibt die Figur, wo sie hinsprang, und dreht sich nur wieder zum Gegner; zurück auf den Platz kommt sie mit
+## ihrem eigenen Zug (der Heimweg nach Angriff, Biss oder Platzwechsel). Nur wer zu weit vom Platz abkäme (mehrmals hintereinander
+## ausgewichen) oder aus dem Bild, geht gleich heim, sonst liefe er Satz um Satz davon.
+const AUSWEICH_BLEIB_MAX := 2.5     # m (Modellmeter × Skala) vom Platz
+func _nach_ausweichen() -> void:
+	var d := Vector2(home.x - position.x, home.z - position.z).length()
+	if d > AUSWEICH_BLEIB_MAX * _scale() or not _im_bild(position, Vector3(sin(rotation.y), 0.0, cos(rotation.y))):
+		_walk_home()
+		return
+	if OS.get_environment("SCHAU_MESS") != "":
+		print("Ausweichen %s bleibt %.2f m vom Platz" % [fighter.id, d])
+	_turn_home()
 
 
 ## 348.12 (Chef 15:23: „Animation … beim Ausweichen“): Grak setzt zur Seite (Seitenlauf der UAL Pro, 1,7 m); zu der, deren Weg von den
@@ -2896,6 +2990,33 @@ func _ausweich_seite() -> String:
 
 ## nach dem Biss ohne „Ausweichen zurück“ der Quelle so weit (Modellmeter) rückwärts, bevor es sich umdreht (Kopf bleibt vor der Heldin)
 const ABSETZEN := 0.6
+
+var ausweich_nr := 0     # 593: zählt das Ausweichen, jedes dritte rückwärts
+const AUSWEICH_RUECK_TEMPO := 1.8     # 593: rückwärts im Gang so rasch wie der Satz (546: Gehen × 1,8), nie als Schlaftablette
+
+
+## 593: geht der Wurzelweg der Bewegung [nm] frei (Abstand zu den anderen wie _ausweich_seite) und bleibt im Bild?
+func _weg_frei(nm: String) -> bool:
+	var ende := _weg_at(position, basis, nm, (weg[nm].size() - 1) / weg_fps)
+	return _seg_gap(position, ende, null) >= 0.25 and _im_bild(ende, Vector3(sin(rotation.y), 0.0, cos(rotation.y)))
+
+
+## 593: rasch rückwärts absetzen (ABSETZEN), Gesicht zum Gegner, dann heim; false, wenn hinten kein Platz ist oder es aus dem Bild ginge
+func _absetzen_rasch() -> bool:
+	var rn := "Zurück" if weg.has("Zurück") and anim.has_animation("Zurück") else "Gehen"
+	if not weg.has(rn) or not anim.has_animation(rn):
+		return false
+	var g0 := minf(_rumpf_luft(position, rotation.y), PLATZ_LUFT)
+	var zurueck := position - Vector3(basis.z.x, 0.0, basis.z.z).normalized() * ABSETZEN * _scale()
+	if _rumpf_luft(zurueck, rotation.y) < g0 or not _im_bild(zurueck, Vector3(sin(rotation.y), 0.0, cos(rotation.y))):
+		return false
+	var k := 1.0 if rn == "Zurück" else AUSWEICH_RUECK_TEMPO
+	bahn = [zurueck]
+	tween = create_tween()
+	tween.tween_callback(func(): gang = "zurück"; anim.play(rn, 0.1, k if rn == "Zurück" else -float(tempo.get("Gehen", 1.0)) * k))
+	_lauf(tween, position, zurueck, rn, k)
+	tween.tween_callback(_nach_ausweichen)
+	return true
 
 
 ## Satz beim Ausweichen ohne Wurzelweg der Quelle (Modellmeter, Grad): zur Seite (seitlich, zurück), schräg zurück (seitlich, zurück),

@@ -2,6 +2,8 @@
 
 Stand 14.10.2026. Original seit 16.10. hier (99g); vorher Docs-Dokument „Bornim – Kampfsystem neu denken“ auf Max. Was entschieden ist, steht im Vorgangsarchiv (`VORGANGSARCHIV.md`, 72.x); was zu Waffe, Schild und Kampf im Bild gilt, steht im nächsten Abschnitt.
 
+**Name MARS** (761, Chef 09.11., 15:01): nach dem römischen Kriegsgott (bewusst gewählt, 17.10.), zugleich Abkürzung **M**eisterschaft, **A**bsicht, **R**eaktion, **S**tellung; englisch Mastery, Aim, Reaction, Stance.
+
 ## Waffe, Schild und Kampf im Bild: was gilt (461)
 
 Was der Chef zu Waffe, Schild und Kampf im Bild entschieden hat, steht nur hier (461d, 01.11., 22:5x; vorher `LISTE-GRUNDSTAND-461.md`); Figuren und Bewegung (A–D) in `DESIGN-STIL.md`, Film und Vorlage (G) und wie geprüft wird in `DESIGN-ABNAHME.md` „Vor jeder Vorlage“. Spalte „Prüfer“: ja = Chefwort und prüfbar, ein Verstoß hält den Lauf an (461a, 511, 621.1; `DESIGN-ABNAHME.md`); „Maß“ = Zahl von uns, nur Richtwert. Neue Entscheidung: die Zeile hier im selben Commit ändern, am alten Archiveintrag „→ ersetzt durch …“ (461b).
@@ -27,8 +29,10 @@ Was der Chef zu Waffe, Schild und Kampf im Bild entschieden hat, steht nur hier 
 | F2 | Biss und Hieb treffen das Ziel | 454, 348.12 (28.10.) | ja |
 | F3 | Reihenfolge Angriff, Treffer, Tod, Neuformation | 439 (31.10.) | ja |
 | F4 | Tod sichtbar als Zusammenbruch, für alle (Helden, Gegner, Tiere): zusammenbrechen, kurz liegen, dann ausblenden, nicht zu schnell weg | 440 (31.10.), 348.12 (28.10.), 461c (01.11., 22:35) | ja |
-| F5 | Ausweichen mit Ortswechsel: rasch zur Seite oder zurück, nur auf einen Angriff hin, dann zurück auf den Platz | 348.12f (27.10.), 348.12 (01.11., 22:45) | ja |
+| F5 | Ausweichen mit Ortswechsel: rasch zur Seite oder zurück, nur auf einen Angriff hin; danach bleibt er dort stehen und rückt erst mit dem eigenen Zug zurecht | 348.12f (27.10.), 348.12 (01.11., 22:45), 703 A (08.11., 21:36) | ja |
 | F6 | Zauber: der Kegel kommt nicht aus dem Körper des Helden (Seitenschritt; ebenso Schüsse aus der zweiten Reihe); Arkanpfeil (früher „Magisches Geschoss“, BRS 12) ohne Schritt, durch den Helden abgenommen | 348.7b (27.10., 19:49; 28.10., 10:43, 15:28) | ja |
+| F7 | Ein Gegner zeigt dem Helden nie den Rücken, außer auf der Flucht: nach dem Angriff ein bis zwei Schritte rückwärts absetzen und dort stehen; zurück in die Reihe nur mit eigenem Zug, Gesicht zum Helden; keine Schienenbahnen, kein langes Rückwärtsgehen | 717 C (09.11., 08:58) | ja |
+| F8 | Zurechtrücken der Gegner beginnt in ihrem eigenen Zug und darf in den Zug des Helden hinein auslaufen (nie erst dort anfangen): seine Knöpfe kommen sofort, beim Losgehen wartet er nur auf sein eigenes Ziel; das Zurechtrücken dauert nie länger als das Wählen | 717.1 A (09.11., 09:03) | ja |
 
 ## Kurzfassung
 

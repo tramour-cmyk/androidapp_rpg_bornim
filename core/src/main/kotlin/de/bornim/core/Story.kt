@@ -302,9 +302,10 @@ object Story {
         name = T("Zum Schlafenden Greif", "The Sleeping Griffin"),
         kind = MapKind.INTERIOR,
         rows = listOf(
+            // 604 (Chef 06.11., 09:38): kein Bett in der Gaststube, geschlafen wird oben (nur im Text); dafuer ein Tisch mit Bank (5/2 und 6/2 bleiben frei: Platz und Weg der Katze, MapCat)
             "###ZZ#W###",
-            "#QQkkJbBu#",
-            "#kkkkkkBk#",
+            "#QQkkJbnu#",
+            "#kkkkkkYk#",
             "#KKKkkkkJW",
             "#kkYJkYYk#",
             "#bkRRRnnJ#",
@@ -651,9 +652,9 @@ object Story {
             "TTTTTTT...TTTT=TT.....,,,,,,,,=TTTTTTTTTTTTT",
             "TTTTTTTTTTTTTT=TTTT....,,,,,TT====TTTTTTTTTT",
             "TTTTTTTTTTT,T==TTTT.T=.TTTTTTT...=....T.TTTT",
-            "TTTTTTTTT,,,==,,TTTTT=TTTTTTT....=......TTTT",
-            "TTTTTTTT,,,,=,,,,TTTT..^^.TTT..===......TTTT",
-            "TTTTTTT,,,,,=,,,,TT....##.TTT..=....~....TTT",
+            "TTTTTTTTT,,,==,,TTTTT=^^^TTTT....=......TTTT",
+            "TTTTTTTT,,,,=,,,,TTTT.^^^.TTT..===......TTTT",
+            "TTTTTTT,,,,,=,,,,TT...W#W.TTT..=....~....TTT",
             "TTTTT,T,,,OO=,,,,TT.......TTT..=..~~~~~...TT",
             "TTTTTT,,,,r,=,,,,TTT...F..TTT..=.~~~~~~...TT",
             "TTTTT,,,,,,,,,,,,TTT.....TTTT.ff..~~~~~C..TT",
@@ -670,7 +671,8 @@ object Story {
             // she is out there, the door stays shut
             Warp(23, 28, Place("deep_forest", 23, 29, Facing.DOWN), LOCKED),
         ),
-        houseStyles = mapOf((23 to 27) to HouseStyle(RoofKind.STRAW, WallKind.PLANKS, feature = HouseFeature.HUT)),
+        // 664 (Chef 04.11., 20:11: „die Hütte unserer Kräuterhexe viel zu klein“; 03.11.: „überhaupt keine Fenster“): drei mal drei, Tür mittig, Fenster links und rechts
+        houseStyles = mapOf((22 to 26) to HouseStyle(RoofKind.STRAW, WallKind.PLANKS, feature = HouseFeature.HUT)),
         signs = mapOf(
             // 27.6b (draft): south of the way, in the light and before the trees (north of it the sign stood in deep shade)
             (3 to 19) to T("Tiefer Flüsterwald\nHier endet der Weg der Jäger.\nNur für erfahrene Abenteurer!", "Deep Whisperwood\nThe hunters' trail ends here.\nFor seasoned adventurers only!"),

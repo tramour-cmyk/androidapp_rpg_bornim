@@ -6,6 +6,7 @@ extends SceneTree
 
 var fehler := 0
 
+const KH := preload("res://tests/knopf_hilfe.gd")
 func pruefe(ok: bool, was: String) -> void:
 	if not ok:
 		fehler += 1
@@ -39,12 +40,10 @@ func _lauf() -> void:
 	for w in ["Effekte: REEBOO Labs", "Game-Ready Studios", "Wernerkurt", "Klang: AlanCat", "OpenGameArt", "Musik: beardalaxy", "Schriften: Juan Pablo del Peral", "Engine: Godot Engine – Juan Linietsky"]:
 		pruefe(t.contains(w), "Dank: „%s“ fehlt" % w)
 	pruefe(t.find("MIT DANK AN") > t.find("Godot Engine – MIT"), "Dank steht unter den Lizenzen")
-	var knopf: Button = null
-	for b in hm.find_children("*", "Button", true, false):
-		if String(b.text).begins_with("LIZENZEN"): knopf = b
+	var knopf := KH.finde(hm, "LIZENZEN", true)   # 630: antippbare Zeile ohne Kasten (549a)
 	pruefe(knopf != null, "Knopf „Lizenzen“ fehlt")
 	if knopf:
-		knopf.pressed.emit()
+		KH.tippe(knopf)
 		await process_frame
 		t = texte(hm)
 		pruefe(t.contains(Engine.get_license_text().strip_edges().split("\n")[0]), "Lizenztext der Engine fehlt")
@@ -66,7 +65,7 @@ func _lauf() -> void:
 		pruefe(mitten.is_empty(), "%d Texte mit festem Umbruch mitten im Satz, z. B. %s" % [mitten.size(), mitten.slice(0, 3)])
 		pruefe(not t.contains("Â©") and not t.contains("  "), "Kodierfehler „Â©“ oder doppelte Leerzeichen")
 		pruefe(t.contains("Permission is hereby granted, free of charge, to any person obtaining a copy of this software"), "MIT-Absatz nicht zusammengezogen")
-		knopf.pressed.emit()
+		KH.tippe(knopf)
 		await process_frame
 		pruefe(not texte(hm).contains("Permission is hereby granted"), "zweites Tippen schliesst nicht")
 	print("LIZENZ497 %d Fehler" % fehler)

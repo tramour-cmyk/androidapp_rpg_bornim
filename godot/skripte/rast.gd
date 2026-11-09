@@ -10,7 +10,7 @@ const LANG_MIN := 8 * 60
 const BETRUNKEN := 5
 const MET_PREIS := 2
 const ZIMMER_PREIS := 5
-const START := {"karte": "inn", "x": 8, "y": 2, "blick": "DOWN"}   # Story.START: neben dem Bett der Schenke
+const START := {"karte": "inn", "x": 8, "y": 2, "blick": "DOWN"}   # Story.START: in der Schenke rechts oben (604: kein Bett mehr unten)
 
 # Game.interact, Texte dort ohne eigenen Namen (Game.kt Tile.CAMPFIRE, Tile.BED)
 const FEUER_HOEHLE := {"de": "Das Feuer der Goblins. Es ist viel zu gefährlich, hier in der Höhle zu rasten.", "en": "The goblins' fire. It is far too dangerous to rest here in the cave."}
@@ -62,13 +62,13 @@ static func rasten(z: Zustand, hw: Heldwerte, art: String, ort: String, ort_jetz
 		hw.voll()
 		z.leiden.clear()
 		z.lange_rast_tag = z.tag
-		zeilen.append(Sprache.r("longRested"))
+		zeilen.append(Sprache.r("longRested" if ort == "feuer" else "roomRested"))   # 604: das Zimmer liegt oben
 	else:
 		var vorher := hw.tp
 		hw.tp = mini(hw.max_tp(), hw.tp + kurz_heilung(hw))
 		zeilen.append(Sprache.r("shortRested", [hw.tp - vorher]))
 	if funkte: zeilen.append(Sprache.r("sparkFaded"))
-	# 114: ein Zimmer an Rowenas Theke gebucht: der Held wacht neben dem Bett auf, nicht an der Theke
+	# 114: ein Zimmer an Rowenas Theke gebucht: der Held wacht am Startplatz auf, nicht an der Theke (604: unten kein Bett)
 	var neu := ort_jetzt.duplicate()
 	if ort == "schenke" and String(ort_jetzt.get("karte", "")) == String(START["karte"]): neu = START.duplicate()
 	z.wiederkehr = neu.duplicate()

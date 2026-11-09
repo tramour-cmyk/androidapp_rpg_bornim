@@ -84,6 +84,16 @@
     ],
     "PreToolUse": [
       {
+        "matcher": "mcp__claude-code-remote__create_session",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "f=/home/user/bornim-main/tools/startsperre-haken.py; [ -f \"$f\" ] || f=\"$CLAUDE_PROJECT_DIR\"/tools/startsperre-haken.py; command -v python3 >/dev/null && python3 \"$f\"; r=$?; [ $r = 2 ] && exit 2; true",
+            "timeout": 20
+          }
+        ]
+      },
+      {
         "matcher": "Bash",
         "hooks": [
           {

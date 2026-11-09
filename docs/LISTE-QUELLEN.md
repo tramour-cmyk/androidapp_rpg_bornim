@@ -45,9 +45,38 @@ Händler: [reeboolabs.itch.io](https://reeboolabs.itch.io/). Alle Pakete: Godot 
 | R10 | [Water Shader Kit](https://reeboolabs.itch.io/godot-water-kit) (35) | 7,99 | ~ Spiegelung und Lichtbrechung am Handy fraglich | ✓ | mittel | unser Fluss (`wasser.gdshader`, wie alt, dunkel) bleibt; neu nur, was fehlt | **Teich der Höhle (507)**, Teiche mit Regenringen, Wasserfall, später Sumpf und Lava | Wasser lebt | gut | **ja; Chef 07.11.: Fluss „ernsthaft etwas besser“, darf unseren ersetzen (Probe am Dorfbach)** |
 | R11 | [Stylized Surface Shaders](https://reeboolabs.itch.io/godot-surface-shaders) (30) | 19,99 | ? Compatibility nicht getestet; Gratisprobe mit 4 Shadern | ✓ (MIT-Teil genannt) | mittel | Boden bleibt eigen (Signatur) | Glühende Runen (Steinkreis, Tempel), Moos, Schlamm, Pfützen, Säureschleim der Schnecke, Fels der Höhle, Fahne im Wind | Orte bekommen Stoff | mittel | **erst Gratisprobe** |
 
+**Gekauft 09.11. (Chef, 623):** R1, R2, R8, R9, R10, R11 und Status Effects VFX (76,93 $; Dateien und Lizenzen in `LISTE-BESTAND.md` „Effekte“). **Offen, Gespräch folgt:** R3, R4, R5, R6, R7 (`tun/623-kauf.md`).
+
 **Summe aller elf:** 117,90 $. **Nicht in der Liste, aber zu wissen:** Status Effects VFX (6,99, 23 Zustände; schon in 415d.1), [AoE Telegraphs](https://reeboolabs.itch.io/) (9 Formen, Ansage von Flächenangriffen im Ring), Loot & Pickup VFX (Beute). Klangpakete des Händlers prüfen wir nicht: Klang kommt aus echten Aufnahmen (`DESIGN-LEITBILD.md` 6).
 
 **Allen gemeinsam (F1, F2):** Android ungetestet, Godot 4.5 und neuer ungetestet (wir haben 4.7.2; die Proben liefen); Dateien nie in dieses öffentliche Repo, der Bau holt sie aus dem privaten.
+
+## Alle Quellen im Bestand (623.1, Sokrates 09.11.)
+
+Eine Zeile je Quelle, die wir nutzen oder gekauft haben; was wir davon haben, steht in `LISTE-BESTAND.md`, der Nachweis je Datei für Klang in `tools/klang/QUELLEN.md`, für Schriften in `tools/schrift/QUELLEN.md`. Gesucht und verworfen: `LISTE-CC0-MODELLE.md`. F2 = Lizenz nach der Lizenzregel oben; „fehlt“ = steht in keiner Datei.
+
+| Quelle | Link | Lizenz | bezahlt | wofür | F2 |
+|---|---|---|---|---|---|
+| Quaternius: Universal Animation Library 1 | https://quaternius.itch.io/universal-animation-library | CC0 | Pro, Preis und Datum fehlen | Bewegungen, Gerüst 65 Knochen | ja |
+| Quaternius: Universal Base Characters, Modular Outfits Fantasy | fehlt | CC0 | je etwa 20 $, 27.10. | Körper, Haare, Trachten (Krogg, Grak) | ja |
+| Quaternius: Medieval Village, Stylized Nature, Fantasy Props MegaKit | quaternius.com/packs/fantasypropsmegakit.html (übrige fehlen) | CC0 | frei | Raumteile, Einrichtung, Steine | ja |
+| Protofactor: Animset Wizard und fünf Animsets | fehlt | Unity Asset Store EULA | 27.10., 01.11. | Zauber, Schwert, Schild, Bogen, Verletzt | **offen** (unten 1) |
+| Protofactor: Riesenratte, Darkness Spider, Skeleton Knight, Barghest, Giant Slug | fehlt | Protofactor EULA | 03.11. (Ratte: Datum fehlt) | Gegner | ja |
+| Janpec: Animal Pack Deluxe | fehlt | Unity Asset Store EULA | 5 $, Datum fehlt | 25 Tiere, Wolf | **offen** (unten 1) |
+| RenderHub: MadeCG Centipede, wernerkurt Evil Undead, Game Ready Leeches, MagicCGI Medieval Market | fehlt | RenderHub Extended Use | 14, 35, 17,99 $, Markt frei | Hundertfüßer, Wiedergänger, Egel, Brunnen | ja |
+| RenderHub: Animated3D Leopard Hybrid A2 | fehlt | RenderHub Extended Use, Volltext ungeprüft | Preis fehlt | Idee ab Kapitel 2 | **offen** |
+| rubberduck: Vampire Bat (OpenGameArt) | https://opengameart.org/content/vampire-bat-animated | CC0 | frei | Riesenfledermaus | ja |
+| Omie's Assets, Anker's Assets, Avramania (frei), PolyMech (itch) | omies-assets.itch.io/3d-medieval-weapon-pack, ankersassets.itch.io/low-poly-medieval-weapons (übrige fehlen) | CC0 | 1,99 $ / frei | Waffen, Schilde | ja |
+| REEBOO Labs | oben | eigene, ohne Nennungspflicht | 76,93 $, 09.11. | Effekte | ja; MIT-Teil unten 2 |
+| Klang: Kenney, OpenGameArt- und Freesound-Urheber, BigSoundBank, VSCO 2 CE | `tools/klang/QUELLEN.md` | CC0 | frei | Klänge, Musik | ja |
+| Schriften: EB Garamond, Alegreya, Cinzel, IM Fell, Fondamento | `tools/schrift/QUELLEN.md` | OFL 1.1 | frei | Schrift | ja |
+| Blender, Godot, fontTools | fehlt | Blender frei, Godot MIT, fontTools fehlt | frei | Werkzeuge | ja (Godot im Spiel genannt, 497) |
+
+**Lücken und Widersprüche (zur Klärung):**
+1. **Unity Asset Store:** `LISTE-CC0-MODELLE.md` „Lizenzrahmen“ sagt „Unity Asset Store nein“ (2.2.1 verbietet Assets als Eingabe für KI-Programme), dieselbe Datei weiter oben nennt ihn zulässig; gekauft wurden danach Protofactor-Animsets und Janpec unter dieser EULA. Ob unsere Arbeitsweise (KI-Sitzungen bearbeiten die Dateien mit Skripten) darunter fällt, ist eine Rechtsfrage für den Chef.
+2. **MIT-Teil in REEBOO** (David Hoskins, Hashfunktionen in Grass, Water, Surface): MIT verlangt den Lizenzhinweis; die Lizenzregel sagt „ohne Pflicht zur Nennung“. Lösung: Hinweis in „Über das Spiel“ wie bei Godot (497).
+3. Links fehlen bei allen Protofactor-, Janpec-, RenderHub-Käufen und einigen freien Paketen; Preis oder Kaufdatum fehlen bei UAL Pro, Ratte, Janpec, Leopard. `LISTE-BESTAND.md` schreibt `reebo0.itch.io`, hier `reeboolabs.itch.io`; `LISTE-EFFEKTE.md` steht noch auf „Vorschlag“ und nennt nicht gekaufte R3–R7.
+4. Schriften: Kopf von `tools/schrift/QUELLEN.md` sagt „kein Reserved Font Name“, die Zeile Fondamento nennt einen (OFL erlaubt Nutzung, verbietet nur geänderte Fassungen unter dem Namen).
 
 ## Werkzeuge: Blender und Godot (aus `alt/LISTE-GRAFIKWEG.md`, 650.1)
 

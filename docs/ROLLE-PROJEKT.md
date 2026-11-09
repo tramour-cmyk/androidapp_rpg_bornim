@@ -78,6 +78,10 @@ Montags meldest du die Zahlen von Diogenes unverändert mit Link: „Zielvereinb
 
 - **M?-Entscheid 08.11., 11:01 (190.8):** M für 614, 638, 639, 640, 633, 634 (Abgleich alt, Abnahme 2.11 „mindestens so“), 642 (Kollision, 2.1), 508 (Lehrmeister erreichbar, 2.6), 570 (Ladentext missverständlich, Prüferfund); K für 477 (MuMu nur Rechner, nicht Abnahme; Chef 03.11. „Genug Zeit verschwendet“); 474 M (Update ohne Deinstallieren, technischer Fehler); 476, 568, 593 K (Aussehen eingefroren bis zum Durchspielen, 488). Gegenargument „zu viele Muss“: Vorrang regelt die Folge, Fehler aus Chef-Tests bleiben oben (620.1).
 - **M?-Entscheid 08.11., 14:0x (190.8):** 651 M (Chef wollte die Auswertung heute, Lauf 13:52); 648 K (Glossar: nicht im Wochenziel, kein „jetzt“; Gegenargument „auch ihr verwechselt die Begriffe“ zählt, aber Kapitel 1 geht vor, oberste Direktive; die Begriffe stehen bis dahin in `CLAUDE.md`).
+- **M?-Entscheid 08.11., 20:06 (190.8):** 677 M (Fund des Chefs t269.15, Gegenstand wirkt nicht: technischer Fehler, 620.1). 698 K bis zum Wochenziel 09.11. (Chef fragte nach Vorgesehenem, Idee heißt prüfen; nicht im Wochenziel, kein „jetzt“; Tom gesperrt nach 620.1 B; Durchspielregel 488). Gegenargument: Abnahme 4.1 „kein Ruckeln“, Wald 25 Bilder auf dem A56; zählt, gehört aber zu Stufe 4 und beginnt mit Messen und Vorschlag an den Chef, nicht mit Bau; im Wochenziel neu wägen.
+- **M?-Entscheid 08.11., 22:05 (190.8):** 704, 705 M (Kampf, Chef 21:36 „Oberste Priorität … dass dieser Kampf irgendwie mal funktioniert“; Abnahme 2.4 „nie langweilig, echte Wahl“). Gegenargument: Balance entscheidet der Chef, Zahlen erst nach Rechensimulation (444); zählt für das Wie: Jerry misst und legt vor, baut keine Werte selbst, nach 702 (gleiche Messung). 699 M (sichtbarer Textfehler, wie 570), 700 M (Chef 21:50 „passt … in den nächsten Build“); beide Kleinigkeiten ohne Spielwirkung, fahren nach Chef 21:53 ohne eigenen Lauf als Sammelzeile im nächsten Build mit, nicht vor den Kampfzeilen.
+- **Wochenziel 09.11., 10:1x (338.1, 190.8):** Kampf zuerst (Chef 08.11., 21:36): 54 Zeilen ohne Kampfbezug „ruht, Kampf zuerst (338.1)“; Funde aus Chef-Tests bleiben Muss hinter dem Kampf (Fehler, nicht Neues); 492 nur bis zum Lager, weil der Chef nach 21:36 noch „492b“ gab; 560 und 680 an Tom (Lehre Fehler 341); 725–742 K (keine Werkzeugregel ohne Fund des Chefs), meine ruhen; 515, 568 M (Abnahme 2.8, 3.4), ruhen. Gegenargument: Durchspielen rückt eine Woche nach hinten; entkräftet im Wochenziel.
+- **759, 09.11., 15:08:** Rollenspiegel 06.11. für die sechs anderen Rollen nicht nachgeholt, der Termin Fr 13.11. deckt 02.–13.11. (765–770). Gegenargument: eine Woche ohne Spiegel; zählt, aber sechs Sitzungen bei Woche auf `allowed_warning` für Antworten, die vier Tage später ohnehin kommen, und `rollenspiegel.sh` bricht ab, weil unter „Woche 06.11.“ schon die Antworten vom 02.11. stehen. Ab 13.11. je Rolle eine Zeile (`startbar.py` WOCHENTERMINE).
 
 - **Ein Text an einem Ort:** Doppelungen kosten Token und laufen auseinander; nichts Aufgabenrelevantes verlieren.
 - **Rückfragen als Holschuld:** wiederholte Fragen verdeckten das Neue; die Chefsache ist der eine Ort.
@@ -87,6 +91,10 @@ Montags meldest du die Zahlen von Diogenes unverändert mit Link: „Zielvereinb
 
 ## Lehren
 
+- Probe nie in einer `cp -r`-Kopie von `bornim-main`: das ist ein Worktree, die Kopie teilt Index und Zweig, ein Commit dort landet auf `main` (09.11., 774: Prüfliste t271 und Archivzeile „Probe 774“ kurz auf `main`, zurückgenommen); Kopie mit `git clone`.
+
+- Ein „greift“ von Diogenes im Bereich B schließt den Vorgang (724 A); was danach noch zu zählen ist, wird ein eigener Vorgang bei ihm, nicht ein „wartet auf“ an meiner Zeile (09.11., 657: ich setzte „wartet auf t275“, obwohl er „erledigt setzen“ schrieb; Chef 15:28 „ihr arbeitet leicht aneinander vorbei“).
+
 - Regel im Wortlaut des Chefs wörtlich bauen; ein Zweifel wird eine Rückfrage in der Chefsache, keine selbstgebaute Ausnahme (21.10., 261.5: „dann halt weg damit“ mit einer Stunde Wartezeit aus 238 gebaut; Chef 18:47 „trag die Lehre bei Perikles ein“).
 - Regeln ins Werkzeug, nicht ins Gedächtnis (15.10., 81r).
 - Ein Vorrat wird nur so gekürzt, dass jeder offene Fund eine Zeile behält; ein Absatz zu einer erledigten Zeile kann Zurückgestelltes tragen (08.11., 675: vier Chef-Funde aus 416.2, 491, 348.6 ohne Zeile).
@@ -94,3 +102,5 @@ Montags meldest du die Zahlen von Diogenes unverändert mit Link: „Zielvereinb
 - Beim Umbau von der alten Datei ausgehen, jede Übernahme dreifach prüfen: schon da? präziser? gebraucht? (15.10., 98; 21.10., D41.1: beim Kürzen gingen drei Regeln verloren).
 - „Je Schritt Prüfung“ heißt: den nächsten Schritt erst nach dem Befund bauen; eine Erlaubnis des Chefs hebt die Reihenfolge nicht auf (21.10., 274).
 - Stand einer Freigabe nur eintragen, wenn geprüft (16.10., 99g).
+- Eine Schieflage, die ich selbst ändern kann, wird verteilt, nicht als Risiko gemeldet (03.11., Fehler 341: Jerry 38 von 45 Sitzungen; Chef: „Dafür habe ich einen Betriebsleiter und einen Berater und einen Revisor.“).
+- Was ich selbst entscheiden kann, entscheide ich; was beim Chef liegt, geht nur als Chefsache mit Vorgang, nie als „wartet auf dein Ja“ in Chat oder Telegram (09.11., 715: Rollenspiegel-Schritte; Chef 09:49/09:52: „ansonsten würdet ihr alle davon ausgehen, dass ich nichts anderes tue, als eure Sitzungen durchzulesen“).
