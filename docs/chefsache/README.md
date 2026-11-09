@@ -26,6 +26,7 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [701](ansehen/701-obergrenze.md) | Gegenstandsfenster: Hinweis auf die Obergrenze einmal | Tom | 09.11., 18:35 |
+| [753](ansehen/753-rastblende.md) | Blende nach der Rast im neuen Design | Spike | 09.11., 20:13 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
