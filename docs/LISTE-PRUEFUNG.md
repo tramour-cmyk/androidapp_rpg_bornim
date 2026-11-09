@@ -4,20 +4,20 @@ Mechanik zu `ROLLE-PRUEFUNG.md`: wie geprüft wird, Klassen, Prüfbericht, Prüf
 
 ## Wochenzählung (QM, 106.1)
 
-Montags ab 8 Uhr startet Ford Diogenes mit „Wochenzählung“ (Zeile in `ARBEIT-PRUEFUNG.md`); danach setzt Perikles das Wochenziel und bewertet die Zahlen. Diogenes zählt nur, er bewertet nicht. Fehlt eine Zahl, steht „fehlt“ (D18.5). Ergebnis als Tabelle oben im Prüfbericht, eine Spalte je Woche; Ausgangswert ist die Woche 18.–24.10. (Zielwerte setzt Perikles danach, D19.4).
+Montags ab 8 Uhr legt `startbar.py` den Vorgang „Wochentermin TT.MM.: Wochenzählung“ bei Diogenes an, Ford startet ihn (719 A); danach setzt Perikles das Wochenziel und bewertet die Zahlen. Diogenes zählt nur, er bewertet nicht. Fehlt eine Zahl, steht „fehlt“ (D18.5). Ergebnis als Tabelle oben im Prüfbericht, eine Spalte je Woche; Ausgangswert ist die Woche 18.–24.10. (Zielwerte setzt Perikles danach, D19.4).
 
 | Kennzahl | Quelle |
 |---|---|
 | **Kosten der Woche** je Hauptthema (E, G, Q, B, M); Anteil Muss | Spalten „Bereich“, „Klasse“, „Kosten“ in `LISTE-VORGAENGE.md` (Differenz zur Vorwoche); **Anteil Spiel** (Tom, Jerry, Homer durch alle) aus `cost_usd` mit `tools/kosten.py`, Definition in `ROLLE-PROJEKT.md` (167.4) |
 | **Guthaben:** Verbrauch je Account gegen die Woche | Zeilen „Guthaben:“ in `ARBEIT-BETRIEB.md` |
-| **Fortschritt Meilenstein:** Wochenziel erreicht, Pflichtpunkte Kapitel 1 offen | `PROJEKTPLAN.md` |
+| **Fortschritt Meilenstein:** Wochenziel erreicht; Abnahmeliste „ganze Punkte x von 41“ und daneben die Teilhaken je Punkt („2.13: 6 von 19“, 720 A) | `PROJEKTPLAN.md`, `DESIGN-ABNAHME.md` |
 | **Testrunden des Chefs** | gelöschte Dateien in `docs/chefsache/ansehen/` (`git log`) |
 | **Ersparte Fragen** durch Vorentscheid (unter 5 je Woche fällt der Vorentscheid weg, 98.2) | Einträge „Vorentscheid“ in `VORGANGSARCHIV.md` |
 | **Zielvereinbarung 341 je Rolle:** „x von n erfüllt“, je Ziel die Zahl | unten |
 
 ### Zielvereinbarung 341 (alle Rollen; Chef 23.10., 09:53, Probe Perikles bestanden 07.11.; ersetzt „je Rolle eine Kennzahl“)
 
-Je Rolle höchstens drei Ziele: **Z3** und **Z4** für alle, **Ze** eigen (Tabelle unter „Dein Maß“ der Rollendatei); Perikles behält Z1–Z6 der Probe. Gezählt ab der Woche 09.–15.11.; Zielwerte, wo keiner steht, setzt Perikles (D19.4).
+Je Rolle höchstens drei Ziele: **Z3** und **Z4** für alle, **Ze** eigen (Tabelle unter „Dein Maß“ der Rollendatei); Perikles behält Z1–Z6 der Probe (Maß und Quelle nur in `ROLLE-PROJEKT.md` „Dein Maß“). Gezählt ab der Woche 09.–15.11.; Zielwerte, wo keiner steht, setzt Perikles (D19.4).
 - **Z3 Fehlerfrei:** 0 Fehler je Woche, die der Chef als Erster in der Arbeit der Rolle findet. Was der Chef „Fehler“ nennt, trägt die Rolle sofort mit Uhrzeit als Zeile „Fehler 341“ in ihren Vorrat; die Teams zählen stattdessen Rückläufer (`CHANGELOG.md`), Diogenes Fehler, die ein Lauf hätte finden können. Fehlt eine Zeile, die du im Chat oder Telegram findest, zählst du sie mit (Haltung 7).
 - **Z4 Eigene Verbesserung:** mindestens 1 eigener Vorschlag je Woche mit Wirkung, Kosten, Gegenargument, vom Chef mit „ja“ oder „ja, aber“ angenommen (neue Chefsache-Datei laut `git log --diff-filter=A`, Wort im Vorgangsarchiv; gebilligter Vorentscheid zählt).
 - **Folge:** zwei Wochen hintereinander dasselbe Ziel verfehlt → Sokrates legt dem Chef eine Vorlage vor (Rolle, Modell oder Ziel ändern); für Sokrates selbst Perikles.
@@ -39,14 +39,15 @@ So viel prüfen wie nötig, so wenig wie möglich. Prüftiefe nach Risiko (Wahrs
 
 ## Klassen: wer liest, wer handelt (75g)
 
-- **Klasse 1, Regelverstoß in einem Bereich:** du nennst das zuständige Team nach den Grenzen in `CLAUDE.md` und trägst eine Zeile mit den Befundnummern in dessen Vorrat. Das Team prüft und vermerkt im Prüfbericht „bestätigt“ oder „verworfen“ mit Grund; reiht sich hinter die Reihenfolge des Vorrats, nur Wirkung „hoch“ geht vor.
-- **Klasse 2, grundsätzlich oder Ermessen** (Gestaltung, Spielgefühl, beide Teams, fragwürdige Regel): nur Vorschlag, eine Zeile mit Befundnummern im Vorrat von Homer (Spiel) oder Perikles (Abläufe); der Chef entscheidet, Homer oder Perikles nehmen auf seinen Zuruf Stellung (D21.1).
+Klasse 1 und 2: je Befund ein Vorgang beim Besitzer (`ROLLE-PRUEFUNG.md` „Wen du ansprichst“, 722 A).
+- **Klasse 1, Regelverstoß in einem Bereich:** Besitzer ist das zuständige Team nach den Grenzen in `CLAUDE.md`; nur Wirkung „hoch“ geht im Vorrang vor.
+- **Klasse 2, grundsätzlich oder Ermessen** (Gestaltung, Spielgefühl, beide Teams, fragwürdige Regel): nur Vorschlag, Besitzer Homer (Spiel) oder Perikles (Abläufe); der Chef entscheidet.
 - **Klasse 3, am Gerät ansehen:** Datei in der Chefsache (`docs/chefsache/ansehen/`).
 
 ## Prüfbericht (`docs/PRUEFBERICHT.md`)
 
 Eine Datei auf `main` (99g, seit 16.10.; Lauf 1–21 im abgelösten Artefakt), bearbeiten und pushen wie jede Notiz. Befunde stehen nur hier; im Chat nur Nummern.
-- **Oben: nur Offenes**, je Lauf: (a) Geprüft: Bereich, Liste, Stand, Uhrzeit, **nicht Geprüftes mit Grund**; (b) Befunde `D<Lauf>.<n>` mit Vorgang, Wirkung, Sicherheit, Klasse, Beleg, Regel; Platz für den Vermerk des Teams; (c) **Offen für den Chef** (Klasse 3) ganz oben in der Datei, nummeriert.
+- **Oben: nur Offenes**, je Lauf: (a) Geprüft: Bereich, Liste, Stand, Uhrzeit, **nicht Geprüftes mit Grund**; (b) Befunde `D<Lauf>.<n>` mit Vorgang, Wirkung, Sicherheit, Klasse, Beleg, Regel; den Stand trägt der Befundvorgang (722 A); (c) **Offen für den Chef** (Klasse 3) ganz oben in der Datei, nummeriert.
 - **Ausmisten:** ein Lauf, dessen Befunde alle einen Vermerk haben und nichts Offenes mehr tragen, wandert beim nächsten Lauf oben ins `PRUEFBERICHT-ARCHIV.md` (samt Kostenzeile; beim Start nicht lesen); unten „Kosten“ je Lauf. Datei höchstens etwa 30 KB.
 
 ## Prüflisten je Bereich

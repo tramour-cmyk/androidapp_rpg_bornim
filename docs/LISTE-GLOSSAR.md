@@ -21,7 +21,7 @@ Namen im Spiel (Völker, Zauber, Monster, Regelwerte) stehen nicht hier, sondern
 
 | Begriff | Bedeutung | gehört zu → darunter | nicht | steht in |
 |---|---|---|---|---|
-| **Vorgang** | ein Thema mit fester Nummer („Vorgang 72s.1“, in Meldungen „72s.1:“) | Vorgangsliste → Unternummer (7.1), Rückfrage (7a) | Thema, Nummer, Blatt | `CLAUDE.md` „Nummern“ |
+| **Vorgang** | eine Sache mit fester Nummer („Vorgang 72s.1“, in Meldungen „72s.1:“); sein Inhalt heißt Thema (Sitzungsname „<Vorgang>: <Thema>“, 436) | Vorgangsliste → Unternummer (7.1), Rückfrage (7a) | „Thema“ oder „Nummer“ für den Vorgang selbst, Blatt | `CLAUDE.md` „Nummern“ |
 | **Vorgangsliste** | `LISTE-VORGAENGE.md`, je Vorgang eine Zeile mit Feldern; schreiben nur mit `vorgang.py` | – → Vorgang | – | `LISTE-VORGAENGE.md` |
 | **Klasse** | **M** Muss, **K** Kür, **M?** (Perikles entscheidet) | Vorgang | Priorität | `CLAUDE.md` |
 | **Stand** | ein Wort aus der festen Liste (startbar, in Arbeit, gebaut, zu testen, wartet, ruht, erledigt …) | Vorgang | – | `tools/startbar.py` |
