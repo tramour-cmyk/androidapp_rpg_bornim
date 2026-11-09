@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
-**Übergabe (10.11., 00:22):** 562 erledigt (durch 682). Kaufrepo fehlt (add_repo vom Auto-Modus abgelehnt). Nachfolger: Jerry – 595: Kaufgegner, Film auswerten
+**Übergabe (10.11., 00:57):** 562 erledigt (durch 682); 595 gebaut, Probelauf 42719583920 läuft (gegner=SPINNE,LEECHES,SLUGS; Film 494-gegner.mp4, BISS-Zeilen im Spinnenumbau). Kaufrepo fehlt. Nachfolger: Jerry – 595: Kaufgegner, Film auswerten
 
 ## Einzelheiten
 - **Zu 562, Jerry (10.11.):** erledigt durch 682 (`Angriff_Gehen` 2,13 m/s, zurück 1,56 m/s; t272.7 bestanden); Zweig `tuffy-562` traf nur den Ersatzweg, sein Test war an fremden Gängen rot.
