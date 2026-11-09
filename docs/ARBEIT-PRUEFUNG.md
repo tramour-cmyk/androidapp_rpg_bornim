@@ -4,7 +4,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D94 (Lauf 94: Nachprüfung D93 an `40265bd2d` bestanden; Lauf 93: 721 beide Prüfpunkte bestanden, Titel nicht erfüllt, D93 an Perikles; Lauf 92: Wochenzählung 02.–08.11., D92.1 an Perikles, D92.2 Tom, D92.3 Jerry; Lauf 91: 317.1 greift am Sammelbuild 269, D91 an Perikles; Lauf 90: 684 Bereiche im Archiv, 62 von 183 falsch eingeordnet, D90 an Perikles als 686; Lauf 89: 648 greift, D89; Lauf 88: 651 Summen stimmen, D88; Lauf 87: 647 greift, Lücke `push_files`, D87; Lauf 86: 646 greift, Sammelbuild-Ausnahme zu breit, D86 an Perikles; Lauf 85: 620.1 B greift, D85 an Perikles; Lauf 84: 620.1 A greift, D84 an Perikles, D84.1 an Sokrates; Lauf 83: 631 bestanden, 641 umgangen durch Datum hinter dem Titel, D83 an Perikles; Lauf 82: Nachprüfung D80, D81.1 bestanden, umschalten mit D82 an Perikles; Lauf 81: Nachprüfung D74–D79, D81 an Perikles; ältere Läufe im Prüfbericht und in Git).
 
-**Übergabe (09.11., 09:5x):** Lauf 93 und 94 zu 721 (Kopie mit gestellter Uhr), bestanden. Offen für später: Prüfbericht ausmisten (110 KB). Nachfolger: „Diogenes – Woche: Wochenzählung (ab 16.11., 8 Uhr)“.
+**Übergabe (09.11., 09:5x):** Lauf 93 und 94 zu 721 bestanden; 723: offene Befunde D61–D92 als Vorgänge 725–742, Prüfbericht auf 13 KB (Lauf 40–91 in Git). Nachfolger: „Diogenes – Woche: Wochenzählung (ab 16.11., 8 Uhr)“.
 
 ## Zeilen
 
