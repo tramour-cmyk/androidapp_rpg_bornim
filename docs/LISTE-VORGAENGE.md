@@ -107,7 +107,7 @@
 | 753 | Blende nach der Rast: „8 Stunden vergehen“ klein und futzelig, nicht im neuen Design (Chef 09.11., 14:09, Fund t271.7) | Tom | M | gebaut, Bild beim Chef; Geprüft an: f785da832 | – | claude/spike-753-rastblende | – | E Oberfläche | 2,66 $ |
 | 757 | Schenke: neuer Tisch 7/2 (aus 604) wirkt als 1:1-Kopie des Tischs vor der Theke, gleiche Sachen darauf; eigener Tisch mit anderem Gedeck (Chef 09.11., 14:29) | Tom | M | startbar | – | – | – | E Welt | – |
 | 758 | Borin soll in der Schenke am Tisch sitzen wie in der alten Fassung, nicht seitlich daneben stehen (Chef 09.11., 14:29) | Tom | M | startbar, 758 A (Chef 20:45) | – | – | – | E Welt | – |
-| 762 | Heldenreiter zeigt die BRS-Fertigkeiten mit Wert, Rang und Fortschritt, damit man sieht, was Schwert, Abwehr usw. üben (heute nur Klassenfähigkeiten alter Art) (Chef 09.11., 14:49, aus 720) | Tom | M | startbar, eigener Reiter (Chef 20:59), neues Bild | – | – | – | E Oberfläche | – |
+| 762 | Heldenreiter zeigt die BRS-Fertigkeiten mit Wert, Rang und Fortschritt, damit man sieht, was Schwert, Abwehr usw. üben (heute nur Klassenfähigkeiten alter Art) (Chef 09.11., 14:49, aus 720) | Tom | M | in Arbeit, übernommen von Tom (Jerry), Zweig claude/jerry-762-fertigkeiten | – | claude/jerry-762-fertigkeiten | – | E Oberfläche | – |
 | 764 | Heldenreiter zeigt aktive Zustände (betrunken usw.) mit Erklärung; Tippen auf die Leiste öffnet nur das Menü, eine Erklärung gibt es nirgends (Chef 09.11., 14:49) | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 769 | Wochentermin 13.11.: Rollenspiegel Tom (rollenspiegel.sh Tom) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Tom | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 781 | „Über das Spiel“ nennt den MIT-Teil der REEBOO-Pakete (David Hoskins, Hashfunktionen in Grass, Water, Surface) wie Godot (497); MIT verlangt den Hinweis (aus 623.1, Sokrates) | Tom | M | startbar, Kaufrepo da | – | – | – | E Technik | – |
@@ -189,7 +189,7 @@
 | 784 | Kampf-Sollbild „Wolfsrudel, eine Runde“: wer geht wohin, Höchstdauer je Handlung, Ausweichen bleibt; selbst am Handybild nachspielen, dann Maß für jeden Kampffund (654 A, Chef 09.11., 17:46) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 786 | Klangliste alt gegen neu: je Anlass alt, neu, fehlt (654 A, als Drittes) | Jerry | M | startbar | 784 | – | – | E Klang | – |
 | Pflege | von Werkzeug (340.3, 09.11.): 15915 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
-| 801 | Freigabe add_repo für bornim-kaufmodelle in den Sitzungseinstellungen (Zugriffsprüfung lehnte 376.1 ab; Jerry 09.11., 662) | Jerry | M | startbar | – | – | – | E Kampf | – |
+| 801 | Freigabe add_repo für bornim-kaufmodelle in den Sitzungseinstellungen (Zugriffsprüfung lehnte 376.1 ab; Jerry 09.11., 662) | Jerry | M | startbar | Chef | – | – | E Kampf | – |
 | 802 | Rest 211.14 (Kür, Tuffy): Held und Söldner gehen beim Wechsel statt 0,4 s zu gleiten (figur.gd glide_to ohne Wurzelweg) | Jerry | K | startbar | – | – | – | E Kampf | – |
 | 803 | Rest 211.14 (Kür, Tuffy): Gegner durch Antippen der Figur als Ziel wählen | Jerry | K | startbar | – | – | – | E Kampf | – |
 | 432 | Eigenes Volk aus Bornim (etwa mit dem Grauen Propheten, „Tag der Asche“) prüfen, mit der Geschichte ab Kapitel 2 (Chef 31.10., 22:0x) | Homer | K | ruht | – | – | – | G Story | 0,79 $ |
