@@ -1278,10 +1278,14 @@ func _dreh_ab() -> void:
 		gang = ""
 
 
-func glide_to(p: Vector3) -> void:
+func glide_to(p: Vector3, eigener_zug := false) -> void:
 	if p.is_equal_approx(home):
 		return
 	home = p
+	# 717.1 A (F8): ein Gegner rückt erst in seinem eigenen Zug an den neuen Platz (zurueck_in_reihe), nicht mitten im Zug eines anderen
+	if _bleib_717() and not eigener_zug:
+		platz_neu = true
+		return
 	_dreh_ab()
 	if tween and tween.is_running():
 		return     # a lunge brings it back to its new home
@@ -1363,6 +1367,15 @@ func _walk_home(skip = null) -> float:
 		# beide 0,2 m ineinander): führt jeder Weg durch einen anderen, der gerade selbst läuft, wartet er kurz und plant neu
 		if fighter.monster != null and _warte_n < WARTE_MAX:
 			var g := _seg_gap(position, home, skip) if via == position else minf(_seg_gap(position, via, skip), _seg_gap(via, home, skip))
+			# 717 C (wolf_mess_438: Wolf 3 lief an seinen neuen Platz durch Wolf 1, der nach dem Biss abgesetzt dort stand): steht ein
+			# abgesetzter Gegner im Weg, rückt er jetzt in seine Reihe (im Zug der Gegner, F8), dieser wartet kurz
+			if g < 0.0 and _bleib_717():
+				for o in kampfort.figures.values():
+					if o != self and o != skip and o.visible and not o.down and o.fighter.monster != null and not o.unterwegs() \
+							and Vector2(o.home.x - o.position.x, o.home.z - o.position.z).length() > 0.12 \
+							and o.strecke_luft(position, via if via != position else home) < own_r():
+						o.platz_neu = true
+						o.zurueck_in_reihe()
 			if g < 0.0 and kampfort.figures.values().any(func(o): return o != self and o.visible and not o.down and o.unterwegs()):
 				_warte_n += 1
 				_dreh_ab()
@@ -1740,7 +1753,9 @@ func _glatt(von: Vector3, yaw0: float, ziele: Array, skip = null) -> Array:
 	var pts: Array = [[von, 0.0, yaw0, "B"]]
 	var g0 := INF
 	if fighter.monster != null and _foot_ok:
-		g0 = minf(_rumpf_luft(von, yaw0, skip), _rumpf_luft(Vector3(ende.x, von.y, ende.y), yaw0, skip))
+		# 717 C (wolf_mess_438: die Luft am Ziel, mit der Drehung des Starts gemessen, war negativ, die Kurve lief durch den abgesetzten
+		# Wolf neben dem Helden): nur die Luft am Start zählt, das Ziel prüft die Wahl des Bissplatzes
+		g0 = _rumpf_luft(von, yaw0, skip)
 		g0 = minf(g0, PLATZ_LUFT) - WEG_LUFT
 	var n_max := int(gerade * 3.0 / ds) + 200
 	for n in n_max:
@@ -1830,6 +1845,32 @@ var _warte_n := 0           # 438: so oft schon auf einen Laufenden gewartet (je
 const WARTE_MAX := 8
 const WARTE_S := 0.25
 var _abgesetzt := false     # 438: auf diesem Heimweg schon einmal rückwärts abgesetzt, um frei zu drehen
+
+
+## 717 C (Chef 09.11., 08:58; F7): Gegner (außer auf der Flucht) bleiben nach dem Angriff abgesetzt stehen und rücken erst mit dem eigenen
+## Zug in die Reihe; 717.1 A (F8): auch das Zurechtrücken beginnt in ihrem Zug (glide_to merkt den neuen Platz nur vor)
+const ABSETZ_TEMPO_717 := 1.3      # × Gehen rückwärts: ein bis zwei rasche Schritte, nicht im Schneckentempo
+func _bleib_717() -> bool:
+	return fighter.monster != null and not flieht
+
+
+## 717 C: steht der Held an [p] frei von allen außer sich und [ziel]?
+func _stand_frei(p: Vector3, ziel) -> bool:
+	for o in kampfort.figures.values():
+		if o != self and o != ziel and o.visible and not o.down and o.dead_at < 0 and o.clearance(p) < HERO_R + HELD_LUFT:
+			return false
+	return true
+
+
+## 717 C, 717.1 A: mit dem eigenen Zug an den neuen Platz (das Gesicht zum Helden), wenn die Reihe umgestellt wurde; nach dem Angriff
+## bleibt er abgesetzt stehen und greift von dort wieder an (kein langes Rückwärtsgehen, Chef 08:58)
+var platz_neu := false     # 717.1 A: glide_to hat einen neuen Platz vorgemerkt, der Gegner rückt in seinem Zug dorthin
+func zurueck_in_reihe() -> void:
+	if not _bleib_717() or down or not platz_neu or (tween and tween.is_running()):
+		return
+	platz_neu = false
+	if Vector2(home.x - position.x, home.z - position.z).length() > 0.12:
+		_walk_home()
 
 
 ## 717: heim über [via] (oder gerade), das Gesicht zum Gegner: im ersten Abschnitt dreht er im Gehen ein (_blick_daheim); je
@@ -1936,6 +1977,16 @@ func _turn_home() -> float:
 ## Danach springt es zurück (Ausweichen zurück) und geht heim. Gibt wie strike() die Zeit bis zum Biss / 0,42 zurück (ms).
 const ABWEHR_VOR := 0.1
 func _bite(other, leap: bool, weiter := 0.0) -> int:
+	var bleib717 := _bleib_717()
+	# 717 C, 717.1 A (wolf_mess_438: um den Helden war kein Bissplatz frei, Wolf 1 stand dort abgesetzt, Wolf 3 biss durch ihn): wer
+	# abgesetzt beim Ziel steht, rückt jetzt in seine Reihe (Zurechtrücken im Zug der Gegner, F8), das Gesicht zum Helden
+	if bleib717:
+		for o in kampfort.figures.values():
+			if o != self and o.visible and not o.down and o.fighter.monster != null and not o.unterwegs() \
+					and Vector2(o.home.x - o.position.x, o.home.z - o.position.z).length() > 0.12 \
+					and Vector2(o.position.x - other.position.x, o.position.z - other.position.z).length() < 4.5:
+				o.platz_neu = true
+				o.zurueck_in_reihe()
 	var flat := Vector3(other.position.x - position.x, 0.0, other.position.z - position.z)
 	if flat.length() < 0.01:
 		flat = basis.z
@@ -2074,12 +2125,39 @@ func _bite(other, leap: bool, weiter := 0.0) -> int:
 		tween.tween_method(func(x: float): position = _weg_at(ende, b, "Ausweichen zurück", x), 0.0, hb, hb)
 		t_back = hb
 		ende = _weg_at(ende, b, "Ausweichen zurück", hb)
-	elif weg.has("Gehen") and not _rueckwaerts_von(ende, dir, other):     # r5 (Prüfer r4: der Kaufwolf drehte am Ort des Bisses, der Kopf schwang durch die Heldin): erst rückwärts absetzen
+	elif weg.has("Gehen") and (bleib717 or not _rueckwaerts_von(ende, dir, other)):     # r5 (Prüfer r4: der Kaufwolf drehte am Ort des Bisses, der Kopf schwang durch die Heldin): erst rückwärts absetzen
 		var zurueck := ABSETZEN * _scale()
+		var rueck_dir := dir
+		# 717 C (wolf_mess_438: abgesetzt stand Wolf 3 bis 59 px aus dem Bild, Wolf 1 20 cm in Wolf 3): gerade oder schräg zurück, so weit,
+		# wie er im Bild und frei von den anderen bleibt (gemessen, als stünde er schon dort), sonst stehen bleiben, wo er biss
+		if bleib717:
+			var yaw_b := atan2(dir.x, dir.z)
+			var g0b := minf(_rumpf_luft(ende, yaw_b, other), PLATZ_LUFT)
+			var gefunden := false
+			for kz in [1.0, 0.5]:
+				for w in [0.0, 35.0, -35.0]:
+					var rd := dir.rotated(Vector3.UP, deg_to_rad(w))
+					var p2: Vector3 = ende - rd * ABSETZEN * _scale() * kz
+					if _im_bild(p2, dir) and _rumpf_luft(p2, yaw_b, other) >= g0b and _seg_gap(ende, p2, other) >= 0.0:
+						zurueck = ABSETZEN * _scale() * kz
+						rueck_dir = rd
+						gefunden = true
+						break
+				if gefunden:
+					break
+			if not gefunden:
+				zurueck = 0.0
 		var ab0 := ende
-		ende = ende - dir * zurueck
-		tween.tween_callback(func(): anim.play("Gehen", 0.1, -float(tempo.get("Gehen", 1.0))))
-		t_back = _lauf(tween, ab0, ende, "Gehen", RUECK_TEMPO)
+		ende = ende - rueck_dir * zurueck
+		tween.tween_callback(func(): anim.play("Gehen", 0.1, -float(tempo.get("Gehen", 1.0)) * (ABSETZ_TEMPO_717 if bleib717 else 1.0)))
+		t_back = _lauf(tween, ab0, ende, "Gehen", ABSETZ_TEMPO_717 if bleib717 else RUECK_TEMPO)
+	# 717 C (Chef 09.11., 08:58; F7): nach dem Biss ein bis zwei Schritte rückwärts absetzen und dort stehen; zurück in die Reihe erst mit
+	# dem eigenen Zug (kampfort.gd _play_say, _zurueck_in_reihe)
+	if bleib717:
+		tween.tween_callback(func(): gang = ""; _turn_home())
+		busy_ms = int((t_run + bl + t_back + 0.3) * 1000.0)
+		anlauf_ms = int(t_run * 1000.0)
+		return int((t_run + bite[nm][1]) * 1000.0 / 0.42)
 	tween.tween_callback(func(): gang = "heim"; _walk_home(other))
 	# bis daheim, damit keiner zu einem Ort schlägt, an dem es nicht mehr steht (399.2: mit Umweg)
 	var vh := _detour(ende, home, other)
@@ -2269,6 +2347,11 @@ func _hieb(other) -> int:
 	var vh := _detour(start, home, other)
 	var back := [home] if vh == start else [vh, home]
 	var weit := start.distance_to(home) if vh == start else start.distance_to(vh) + vh.distance_to(home)
+	# 717 C (F7): nur ein bis zwei Schritte zurück, dort stehen; in die Reihe mit dem eigenen Zug
+	if _bleib_717():
+		var ab: Vector3 = start + (back[0] - start).limit_length(ABSETZEN * _scale())
+		back = [ab]
+		weit = start.distance_to(ab)
 	var t_back := 0.0
 	if weit > 0.12:
 		var rn := "Zurück" if weg.has("Zurück") and anim.has_animation("Zurück") and weit > 0.3 and not _zweibeiner() else "Gehen"     # 348.12: Grak schreitet rückwärts
@@ -2481,6 +2564,15 @@ func _held_schlag(other, weiter := 0.0) -> int:
 		stand_voll = t
 		stand = minf(t, flat.length())
 	var start := position + flat.normalized() * maxf(0.0, flat.length() - stand) if flat.length() > 0.01 else position
+	# 717 C (wolf_mess_438: der abgesetzte Wolf stand dort, wo der Held zum Hieb auf einen anderen hintrat, 22 cm ineinander): steht am
+	# Platz des Hiebs ein anderer, tritt der Held seitlich versetzt an das Ziel heran
+	if flat.length() > 0.01 and not _stand_frei(start, other):
+		var off := start - to
+		for w in [25.0, -25.0, 50.0, -50.0, 75.0, -75.0]:
+			var p2 := to + off.rotated(Vector3.UP, deg_to_rad(w))
+			if _stand_frei(p2, other):
+				start = p2
+				break
 	if tween and tween.is_running():
 		tween.kill()
 	tween = create_tween()
@@ -2582,6 +2674,14 @@ func _back_home(back: float, skip) -> void:
 func _tier_heim(back: float, skip) -> void:
 	gang = "zurück"
 	var from := position
+	# 717 C: ein Stück zurück (ABSETZEN), dann stehen; in die Reihe mit dem eigenen Zug
+	if _bleib_717():
+		var weg_heim := Vector3(home.x - from.x, 0.0, home.z - from.z)
+		var ziel := from + weg_heim.limit_length(ABSETZEN * _scale())
+		tween = create_tween()
+		tween.tween_property(self, "position", ziel, minf(back, 0.4)).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+		tween.tween_callback(func(): _face(); _idle())
+		return
 	var via := _detour(from, home, skip)
 	tween = create_tween()
 	# 717 (F7): auch ein Tier ohne Wurzelweg geht heim mit dem Gesicht zum Gegner, außer auf der Flucht
