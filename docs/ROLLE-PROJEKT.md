@@ -96,3 +96,4 @@ Montags meldest du die Zahlen von Diogenes unverändert mit Link: „Zielvereinb
 - Beim Umbau von der alten Datei ausgehen, jede Übernahme dreifach prüfen: schon da? präziser? gebraucht? (15.10., 98; 21.10., D41.1: beim Kürzen gingen drei Regeln verloren).
 - „Je Schritt Prüfung“ heißt: den nächsten Schritt erst nach dem Befund bauen; eine Erlaubnis des Chefs hebt die Reihenfolge nicht auf (21.10., 274).
 - Stand einer Freigabe nur eintragen, wenn geprüft (16.10., 99g).
+- Eine Schieflage, die ich selbst ändern kann, wird verteilt, nicht als Risiko gemeldet (03.11., Fehler 341: Jerry 38 von 45 Sitzungen; Chef: „Dafür habe ich einen Betriebsleiter und einen Berater und einen Revisor.“).
