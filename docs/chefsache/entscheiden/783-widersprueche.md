@@ -1,5 +1,5 @@
 # 783 · Acht Widersprüche im Regelwerk: welche Seite gilt?
-Diogenes · 09.11., 20:16 (Vorlage 18:15, W1–W6, W8 entschieden) · B Abläufe · 745 A2 Schritt 2
+Diogenes · 09.11., 20:15 (Vorlage 18:15, W1–W6, W8 entschieden, W7 neu) · B Abläufe · 745 A2 Schritt 2
 Kurz: acht Widersprüche zwischen zwei Regeln, je einer gilt
 
 Geprüft an: Lauf 111 in `docs/PRUEFBERICHT.md` (jede Stelle am Wortlaut nachgelesen, Stand `main` 09.11., 18:13)
@@ -9,6 +9,8 @@ Geprüft an: Lauf 111 in `docs/PRUEFBERICHT.md` (jede Stelle am Wortlaut nachgel
 **W1 neuer Vorschlag, entschieden (Chef 20:12 „wie eins neu“, Archiv; Sokrates 20:11, nach Chef 20:10: „über eine Animation kann nur ein Film entscheiden, da brauche ich vorher kein Probebild … im Zweifelsfall auch mich fragen“):** (1) Bewegung (Animation, Ablauf, Kampf): gleich Film, kein Probebild an den Chef. Vorher macht der Ersteller für sich ein Einzelbild am Rechner (`PROBEBILD=`, kostet keinen Lauf) und sieht selbst nach, ob Inhalt da ist (kein Weißbild, richtiger Ort); kein Helfer. (2) Aussehen eines Standes (Farbe, Form, Licht): Standbild als Vorlage, kein Film. (3) Unklar: eine Zeile „Probebild oder gleich Film?“ in der Vorlage an den Chef. Werkzeug: `probelauf.py` kehrt 511/578 um (Film frei ohne Freigabe des Probebilds; Laufgrenze 389 bleibt). Gegenargument: Anlass 511 waren kaputte Filme; das eigene Einzelbild fängt leere Bilder, nicht falsche Bewegung. Die fängt aber auch ein Probebild nicht.
 
 **W2 neuer Vorschlag, entschieden (Chef 20:12 „W2 neu“, Archiv; Sokrates 20:12, nach Chef 20:11: „lieber ein Build, wo ein bisschen mehr drin ist … jedes Build hat jetzt mindestens 400 MB … soll man eins machen oder nicht“):** Erklärt: `LISTE-CHECK-BUILD-TEST.md` Punkt 3 erlaubt 3 Punkte, wenn der älteste 2 Tage wartet; Punkt 10 (Aufbau der Prüfliste) sagt „weniger als 4 nur auf ‚jetzt‘ des Chefs“. Neu: mindestens 4 Punkte bleibt; wartet der älteste 2 Tage und sind es weniger, baut keiner von selbst, sondern fragt den Chef einmal per Telegram „seit 2 Tagen kein Build, n Punkte fertig: bauen oder warten?“; gebaut wird nur auf sein Ja. Punkt 3 und 10 sagen dann dasselbe.
+
+**W7 neuer Vorschlag (Sokrates 20:15, nach Rückfrage Chef 20:14: „Wer macht denn die Morgenmeldung? … Managementbericht … wieder eine Art Tagesbericht?“):** Heute zwei Meldungen: 7:00 Ford, eine Zeile (Lebenszeichen); 7:30 Perikles, Tagesbericht (448 = der Managementbericht, ersetzte Stand zum Marktstart und Dashboard). Neu: nur noch der Tagesbericht 7:30; Ford-Zeile 7:00 entfällt; Zahl offener Chefsache und „Bitte Bild der Nutzung“ stehen im Tagesbericht; Stillstand meldet die Ford-Wache (7:08) wie bisher, fehlender Tagesbericht wie bisher um 10 Uhr. Gegenargument: ohne 7-Uhr-Zeile merkst du einen Ausfall von Perikles erst später; die Wache und die 10-Uhr-Regel fangen das.
 
 **Frage:** Welche Seite gilt jeweils? Die andere streicht Perikles in Schritt 3.
 
