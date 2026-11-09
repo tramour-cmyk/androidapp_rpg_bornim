@@ -221,6 +221,7 @@
 | 800 | docs aufräumen nach 650.2: A nach alt/ (je Datei „vorher“), B kapitel2/, C1 BRS umbenennen mit Werkzeugen, E2 Inhaltsverzeichnis „Für den Chef“ mit Prüfwerkzeug (Chef 09.11., 20:52, über Sokrates) | Perikles | M | gebaut, Geprüft an: 3a26195f2 | 813 | – | – | B Abläufe | – |
 | 812 | Von Sokrates (Chef 09.11., 21:23): Neustart-Haken und lauf.py warten mit dem Neustart, solange der Chef in der Sitzung eine Prüfliste ansehen/t… beantwortet | Perikles | M | startbar | – | – | – | B Abläufe | – |
 | 813 | D123.1 von Diogenes (800): regelcheck.py Verweisprüfung (Z. 169–181) kennt Pfade relativ zu docs/ nicht, meldet kapitel2/STORY-K2-ENTWURF.md, kapitel2/STORY-PLAN-K2.md (ARBEIT-KREATIV) und chefsache/README.md als fehlend, obwohl da | Perikles | M? | startbar | – | – | – | B Werkzeuge | – |
+| 817 | Sitzungen mit eingebundenem Kaufrepo länger offen lassen statt neu starten; ohne Repo nur Arbeit ohne Kaufmodelle (Chef 09.11., 22:27, zu 391) | Perikles | M | startbar | – | – | – | B Abläufe | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
