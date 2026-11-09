@@ -37,6 +37,18 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Geschlossen laut Nachprüfung oder Spur: D61.2, D62.1, D63.1–D63.6, D64.1, D65.1, D67.1, D68.1, D68.2, D69.1, D70.1, D71.1, D71.2, D74, D76.1, D76.2, D77.1, D77.2, D78.2, D79, D80.1–D80.7, D81.1, D81.2 (mit 275.2), D82, D83, D84, D84.2, D85, D86.2 (Hinweis an mich), D88.1 (685), D89, D90.1–D90.3 (686), D93.
 
+## Lauf 120 · 650.2 Vorlage Notizen gliedern (Chef 09.11., 20:18; `071d56421`; 09.11., 20:2x)
+
+**Hält:** 84 Dateien (81 .md, 1 .tsv, 2 .svg); A: Sammlung 2.0 „nichts freigegeben“, Heldenbau „überholt“, Balance „Stufe 20 Obergrenze“ gegen BRS „keine feste Höchststufe“ (Z. 110), Anleitung baut auf Kotlin, Figurenkatalog 649 „bis zum Bau“; C2 CC0 in Quellen beschlossen (6501); C6 Kampftexte stehen in `godot/regeln/mars_texte.gd`; Archivgrößen stimmen; Rechnung 84 → 66 geht auf. Votum Variante 2 trägt auch ohne den Fund unten: allein `LISTE-VORGAENGE` steht in 19 Werkzeugdateien.
+
+**D120.1 (798, Sokrates), vor der Antwort berichtigen:**
+1. Hauptargument gegen Variante 1 „allein die Vorräte haben 11–33 Verweise je Datei“ nicht nachvollziehbar: die Vorräte nennen zusammen je Datei 0–4 Mal (`LISTE-VORGAENGE` 4, `LISTE-CHECK-BUILD-TEST` 0); je Vorrat 8–16 Dateiverweise. Die Pfade hängen an Werkzeugen, nicht an Vorräten.
+2. „Acht Dateien ohne Inhaltsverzeichnis“, genannt und tatsächlich neun. „Schritt 1: 9 Dateien in `docs/alt/`“: es liegen 11 dort.
+3. `STORY-MENUE` (Kotlin, `MenuScreen.kt`) fehlt im Inhaltsverzeichnis und kommt in A–D nicht vor. `LISTE-BESTIARIUM` „geht in 649 auf“ (D), fehlt aber in A, und `tools/sim444/sim.py` liest es noch.
+4. C1 BRS umbenennen: „16 Verweise (CLAUDE.md, Werkzeuge)“; es sind 17 Dateien außerhalb der Archive, darunter `tools/regelcheck.py` (liest den Pfad, Prüfung bricht sonst) und Code in `godot/regeln/brs_kampf.gd` (Kommentar; Godot gehört den Teams, nicht Perikles).
+5. B nennt `STORY-K2-LANDKARTE` „mit SVG“, die zweite Datei `STORY-K2-KARTE.svg` fehlt.
+6. Auswertung „C4–C6 kein Vorgang vor Kapitel 1“ gegen Folgerung „Homer bekommt C4–C6 als Kür“.
+
 ## Lauf 119 · 791 Überholtes und Doppeltes (Bereich B; `d12fb0f02`, `08a3ac60a`, `567b51c88`; 09.11., 20:1x)
 
 - **Greift bis auf B16:** Stichproben am Wortlaut: B1 (Sperre mit 779), B2/O4 (Ford 2 nur noch als „entfällt“), B3, B10 (Build-Auslöser nur in CHECK 3), B13, P1–P4 (722 A, 719 A, 720 A in `LISTE-PRUEFUNG.md`), P11, P12 („Blatt“ nur noch im Zitat eines Fehlers), O1 (400 Tsd. weg), O2, O3 (nur noch „zu gleichen Teilen“, Schätzen bei fehlender Zahl), O8, O10 (Rollenspiegel Fr), O14 (341 fest seit 07.11.), O17. B16 wartet auf 783 (791 dorthin gestellt); bewusst offen laut Zeile, P10, P14–P16, O13; W1–W8 in der Chefsache 783. Am Rande: Überschrift `ROLLE-PROJEKT.md`:90 „Ford-2-Lauf“ steht noch, mit Zusatz „entfällt“.
