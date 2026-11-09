@@ -184,7 +184,7 @@
 | 644.1 | Gegenstandskatalog: Werkzeug mit Spalten, Teil Rezepte und Prüfungen (644 A), zusammen mit 649.2; Ablösung held.json, tabellen.json items, beute.gd | Jerry | M | ruht, Kampf zuerst (338.1) | – | – | – | E Kampf | – |
 | 644.2 | Gegenstandskatalog: Zahlen nach 469 in 444 (Tempo, Parieren, Durchschlag, Güte, Stufe), C1 Fertigkeit +1/+2 ab episch ohne Pflicht-Nachteil (Chef 14:32), C2 Seltenheitsdecke je Kapitel in die Regelwerte (644 C) | Jerry | M | ruht, Kampf zuerst (338.1) | – | – | – | E Kampf | – |
 | 681 | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | Jerry | M | ruht, Kampf zuerst (338.1) | – | – | – | E Klang | – |
-| 738 | D92.3 Vorlagen 02.–08.11. ohne Zeile „Bestand geprüft“ (434): 406, 406.2, 416.6, 453a, 509; künftig in der Datei in ansehen/ (von Diogenes, Lauf 92) | Jerry | K | startbar | – | – | – | B Abläufe | – |
+| 738 | D92.3 Vorlagen 02.–08.11. ohne Zeile „Bestand geprüft“ (434): 406, 406.2, 416.6, 453a, 509; künftig in der Datei in ansehen/ (von Diogenes, Lauf 92) | Jerry | K | erledigt, bestätigt (Zeile fehlt in allen fünf ansehen-Dateien); künftig dort | – | – | – | B Abläufe | – |
 | Pflege | von Werkzeug (340.3, 09.11.): 17030 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 716 | Ideenspeicher 08.11. nachholen (Diogenes D92, drei Sonntage ausgefallen) · „jetzt“ 09.11., 08:49 | Homer | M | erledigt | – | – | – | B Abläufe | 3,05 $ |
 | 432 | Eigenes Volk aus Bornim (etwa mit dem Grauen Propheten, „Tag der Asche“) prüfen, mit der Geschichte ab Kapitel 2 (Chef 31.10., 22:0x) | Homer | K | ruht | – | – | – | G Story | 0,79 $ |
