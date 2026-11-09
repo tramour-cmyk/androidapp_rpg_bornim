@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [724](entscheiden/724-werkzeug-erledigt.md) | **Muss** | B Abläufe | 09.11., 09:50 | Werkzeugvorgänge nach „greift“ erledigt statt „wartet auf Test“ | Perikles |
 | [657](entscheiden/657-drei-stichpunkte.md) | **Muss** | B Abläufe | 08.11., 15:15 | Regeln radikal kürzen: eine Seite für alle (Empfehlung: :) | Sokrates |
 
 ## Zu billigen
@@ -230,7 +229,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | Pflege | K | von Werkzeug (340.3, 09.11.): 17030 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 744 | M | Karte: Streuner und Leute bewegen sich natürlich, verweilen mit Ruhebewegung statt Roboter | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
 
-**Perikles** – offen 39, Muss 22, startbar 5
+**Perikles** – offen 39, Muss 22, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -255,7 +254,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 651 | M | Kostenauswertung: Bereiche als feste Liste, fehlende Kosten (533 von 980 Zeilen) über Comm | wartet auf Test/Build (gebaut) |
 | 654.1 | M | Systemfrage vor jedem Bau in ROLLE-ENTWICKLUNG.md und Prüfliste, Wiederholungswächter in v | wartet auf Test/Build (gebaut) |
 | 696 | K | meldung.sh: mehrere Bilder in derselben Minute überschreiben sich im Zweig bilder (Pfad TT | wartet auf Test/Build (gebaut) |
-| 724 | M | Werkzeugvorgänge nach „greift“ von Diogenes erledigt statt „wartet auf Test“ (Rollenspiege | Chef (Datei in der Chefsache) |
+| 724 | M | Werkzeugvorgänge nach „greift“ von Diogenes erledigt statt „wartet auf Test“ (Rollenspiege | startbar |
 | 725 | K | D72 probelauf.py: arbeitskopie/push_lauf lösen cd $VAR und cd "$HOME/…" nicht auf, figur_s | ruht |
 | 726 | K | D73 probelauf.py gleich_film (578) prüft nur den Archivkopf, nicht das Ergebnis „→ ja (Nut | ruht |
 | 727 | K | D62.2 lauf.py: Uhrzeit im Nachfolger („ab 16.11., 8 Uhr“) wird am Tag selbst nicht gelesen | ruht |
