@@ -8,6 +8,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
+- **Zu 720, von Sokrates (Chef 09.11., 11:26, „720 A“; Archiv):** montags Datei `ansehen/` mit allen Punkten und Teilen der Abnahmeliste auf „gebaut“, je Zeile „Haken ja/nein“ mit Build; als Wochentermin in 719 aufnehmen. Erste Runde: 1.1, 1.3, 1.4 (gebaut seit Build 204), 2.13 die fünf im Probekampf gesehenen Gegner, 2.14 die vier Innenräume.
+
 - **Zu 719, von Sokrates (Chef 09.11., 11:26, „719 A“; Archiv):** `startbar.py` legt jeden Wochentermin an seinem Tag als Muss beim Besitzer an (Ideenspeicher So Homer, Rollenspiegel Fr Perikles, Wochenzählung Mo Diogenes, Wochenziel Mo Perikles; weitere aus den Rollendateien, „Wochentermine“ 485); Ford startet sie wie jeden Vorgang.
 
 - **Zu 718, von Sokrates (Chef 09.11., 11:25, „718 A“; Archiv):** Proben mit Enddatum im Code: in `tools/lauf.py` jede Abweichung (heute `UMGEBUNG`, leer seit 09.11.) mit `BIS = "TT.MM."`; ab dem Datum gilt der alte Wert, Telegram „Probe <Nr> abgelaufen, auswerten“; verlängern nur auf Wort des Chefs. Anlass: 365 lief neun Tage über das Ende.
