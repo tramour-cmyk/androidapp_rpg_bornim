@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford“ (Tiefe 6, Selbstneustart 09.11., 22:32) `session_01Hmoj76SozRN2uPdhbiLM21`; Stundenuhr „Ford-Lauf“ `trig_01GYGgeWDZYLALz26V8YCqY5` (:03); der Nachfolger legt seine Uhr an, löscht diese und archiviert diese Sitzung (idle, >60 s, Kosten per `get_session` lesen und buchen). Vorheriger Ford `session_01Hmoj7684czZostW4Q5YTcw` (Uhr gelöscht 22:33, 8,18 $): Archivieren vom Auto-Modus-Prüfer abgelehnt, steht aus, Kosten noch nicht gebucht. Tiefe 6: Selbstneustart nur noch bis Tiefe 8 (Grenze `lineage.limit`; 110).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (09.11., 22:46)“ `session_01Hmoj78xzFvBQ6it6HDfWph` (Tiefe 0, vom Chef von Hand gestartet 22:40); Stundenuhr „Ford-Lauf“ `trig_01J1xccV843eQd4EDvMZG3zJ` (:03). Alte Fords `session_01Hmoj7684czZostW4Q5YTcw` (läuft noch, 8,18 $) und `session_01Hmoj76SozRN2uPdhbiLM21` (0,52 $, wartet auf Erlaubnis): zu archivieren, sobald der Chef den Archiv-Satz sagt (820), Kosten dann buchen; deren Uhr gelöscht.
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 
 ## Eingang
@@ -182,3 +182,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:32 09.11.: Startsperre 22:32 Start Ford (selbst)
 - 22:36 09.11.: Startsperre 22:36 Start Jerry (Jerry selbst, Chef 22:35: neue Sitzung in WireStorm Mittel, beide Repos prüfen)
 - 22:42 09.11.: Startsperre 22:42 Start Tom, Sokrates (alter Ford, weil der neue Ford archive_session nicht darf, 820; Neustart Tom 86e6bccae, Sokrates f83325547)
+
+- 22:47 09.11.: Ford neu (Chef von Hand, Tiefe 0), Uhr erneuert; wartet auf Archiv-Satz des Chefs (820)
