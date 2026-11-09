@@ -181,7 +181,7 @@
 | 601 | Goblin-Späher: Schuss ohne Bewegung, falscher Pfeil, kein Pfeil beim Fehlschuss; Treffer trotz Schatten (Chef 05.11., 19:2x, t266.5) | Jerry | M | wartet, Pfeil R3 Arrow Streak (LISTE-EFFEKTE), Schussbewegung mit Film | 623 | claude/jerry-601-spaeher | – | E Kampf | 2,88 $ |
 | 623.2 | Effekte aus 623 A einbauen mit 478, in `LISTE-BESTAND.md` und `LISTE-EFFEKTE.md` mit Datenfeld `fx` (Chef 07.11., 623) | Jerry | M | wartet | 623 | – | – | E Kampf | – |
 | 598 | Umweltklang je Ort, Tageszeit, Wind und Wetter, lebendige Welt (Chef 05.11., 19:2x; Abnahme 6) | Jerry | M | ruht, Kampf zuerst (338.1) | – | – | – | E Klang | – |
-| 24 | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | Jerry | K | ruht | – | – | – | E Oberfläche | – |
+| 24 | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | Jerry | K | erledigt, verworfen 743 | – | – | – | E Oberfläche | – |
 | 348.7a | Rückfrage: Geschosse flach oder in 3D | Jerry | M | ruht, ohne Vorratszeile, Liste „in Arbeit“ (275.2) | – | – | – | E Technik | 58,17 $ |
 | 399.2d | Godot am Rechner freigeben (Auto-Modus lehnte Download ab), Tests ohne CI-Lauf (aus 399.2) | Jerry | M | ruht, ohne Vorratszeile, Liste „wartet“ (275.2) | – | – | – | E Kampf | – |
 | 633 | Boss-Beute wie alt: Ogerhandschuhe (Krogg), Graks Streitaxt, Grimmzahn-Amulett fehlen im Loot; Beute.beute im Kampf mit boss=false (spiel.gd 573); von Jerry, Abgleich 620.2b | Jerry | M | ruht, Kampf zuerst (338.1) | – | – | – | E Kampf | – |
@@ -195,7 +195,7 @@
 | 681 | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | Jerry | M | ruht, Kampf zuerst (338.1) | – | – | – | E Klang | – |
 | 738 | D92.3 Vorlagen 02.–08.11. ohne Zeile „Bestand geprüft“ (434): 406, 406.2, 416.6, 453a, 509; künftig in der Datei in ansehen/ (von Diogenes, Lauf 92) | Jerry | K | erledigt, bestätigt (Zeile fehlt in allen fünf ansehen-Dateien); künftig dort | – | – | – | B Abläufe | – |
 | 744 | Karte: Streuner und Leute bewegen sich natürlich, verweilen mit Ruhebewegung statt Roboter-Takt (Chef 09.11., 11:18); ein Bewegungsbaustein für beide Teams? | Jerry | M | startbar | 717, 717.1 | – | – | E Figuren | – |
-| 747 | Von Perikles (743, Chef 09.11., 11:21 „alle verwerfen“): Vorgang 24 schließen (Animationen nach Start, überholt durch Godot) | Jerry | K | startbar | – | – | – | B Abläufe | – |
+| 747 | Von Perikles (743, Chef 09.11., 11:21 „alle verwerfen“): Vorgang 24 schließen (Animationen nach Start, überholt durch Godot) | Jerry | K | erledigt | – | – | – | B Abläufe | – |
 | 751 | Kampf: Knopfleiste des Helden manchmal leer („…“), keine Menüfunktion, auch ohne „ganzer Bericht“ (Chef 09.11., 14:00, Fund t271, Bild Wolfsrudel) | Jerry | M | Chef, Ursache nachgestellt (31bbe358d) | Chef 751 | claude/jerry-717-rueckwaerts | – | E Oberfläche | – |
 | 760 | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht (Chef 09.11., 14:00, Fund t271) | Jerry | M | Chef, Ursache: Kaufwolf ohne Sprung | Chef 760 | – | – | E Kampf | – |
 | 770 | Wochentermin 13.11.: Rollenspiegel Jerry (rollenspiegel.sh Jerry) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Jerry | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
