@@ -2599,15 +2599,8 @@ func _held_mps(nm: String) -> float:
 ## 406.2: Gehen zum Angriff so viel schneller als das Gehen des Satzes (Bewegung und Weg). 562 (Chef 04.11., 17:02: „völlig im
 ## Schlaf-Tabletten-Modus … gleiten sie nach dem Angriff doch relativ flott zurück“; Lauf 266 SS TEMPO: vor 0,67, rückwärts 0,75 m/s):
 ## mit 1,3 ging er 0,87 m/s hin, zurück im Mittel 1,75 m/s mit Sinuskurve (Spitze 2,7 m/s bei gleichem Schritttempo: Gleiten).
-## Jetzt hin 1,34 und zurück 1,5 m/s, je Schritte im Tempo des Wegs (Füße stehen), zurück ohne Kurve.
-## 562 r2 (Chef 07.11., t268.19: „Held geht nicht sonderlich zügig zum Angriff“): hin im Tempo des Gehens auf der Karte
-## (HeldFigur.TAKT_GEHEN, 2,13 m/s; ohne Schild geht der Held schon so zum Angriff), Schritte im selben Maß schneller (Füße stehen);
-## zurück wie bisher (ZURUECK_GANG). Messung ohne Bild: tests/angriff_562.gd; ANGRIFF_MPS=<m/s> nur zum Vergleich
-const ANGRIFF_MPS := HeldFigur.TAKT_GEHEN
-const ZURUECK_GANG := 2.0
-static func angriff_mps() -> float:
-	var e := OS.get_environment("ANGRIFF_MPS")
-	return float(e) if e != "" else ANGRIFF_MPS
+## Jetzt hin 1,34 und zurück 1,5 m/s, je Schritte im Tempo des Wegs (Füße stehen), zurück ohne Kurve
+const ANGRIFF_GANG := 2.0
 const VERFEHLT_M := 0.3
 const HIEB_VOR := 0.12
 const HIEB_ZURUECK_M := 0.3
@@ -2661,7 +2654,7 @@ func _held_schlag(other, weiter := 0.0) -> int:
 		# mit Stab geht der Held zum Ziel, auch weiter als RUN_FROM (das Rennen mit Schild aus Sword & Shield ist für die Klinge gemacht)
 		var gn := _gang_ss("Rennen" if way > RUN_FROM and anim.has_animation("Rennen") and not _stab() else "Gehen")
 		# 406.2 (Chef 03.11., 06:59, Schildfilm: „das Rennen … ist ein Gehopse nach vorne. Also bitte dann beim Angriff nicht rennen,
-		# sondern gehen … ein bisschen schneller gehen“): mit Schild geht der Held zum Angriff, Bewegung und Weg im Tempo ANGRIFF_MPS
+		# sondern gehen … ein bisschen schneller gehen“): mit Schild geht der Held zum Angriff, Bewegung und Weg um ANGRIFF_GANG schneller
 		# (beide gleich, sonst rutschen die Füße)
 		var gf := 1.0
 		# 682 (Chef 08.11., 16:22: „wenn der Held jetzt mal flotter hinginge“; t270, 20:50: „Ich gehe wieder auf die Wölfe zu, als
@@ -2671,7 +2664,7 @@ func _held_schlag(other, weiter := 0.0) -> int:
 			gn = "Angriff_Gehen"
 		elif _ss() and anim.has_animation("SS_WalkForward"):
 			gn = "SS_WalkForward"
-			gf = maxf(1.0, angriff_mps() / _held_mps(gn))
+			gf = ANGRIFF_GANG
 		var von := position
 		for q in pts:
 			var a: Vector3 = q - von
@@ -2715,7 +2708,7 @@ func _held_schlag(other, weiter := 0.0) -> int:
 	var heim := start.distance_to(home)
 	var back_mps := _held_mps("Gehen") * HELD_ZURUECK
 	if _gang_ss("Zurück") == "SS_WalkBackwards":
-		back_mps = _held_mps("SS_WalkBackwards") * ZURUECK_GANG     # 562: zurück im Schritt, gleichmäßig
+		back_mps = _held_mps("SS_WalkBackwards") * ANGRIFF_GANG     # 562: zurück im Schritt wie hin
 	var back := maxf(HERO_BACK_S, heim / back_mps)
 	tween.tween_callback(func(): _back_home(back, other))
 	busy_ms = int((t_run + bl + back) * 1000.0)
