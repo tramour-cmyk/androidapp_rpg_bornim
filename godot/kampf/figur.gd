@@ -1498,7 +1498,8 @@ func _walk_home(skip = null) -> float:
 					tween.tween_callback(_turn_home)
 					return tr2
 		# 682: eine weiche Kurve heim statt Drehen am Ort, Gerade, Drehen am Umweg, Gerade (wenn sie frei bleibt)
-		if _glatt_an_682() and fighter.monster != null:     # auch statt der langen Drehung (lang: über 180° am Ort)
+		# 778 (Tom 09.11., 15:46, haenger_751 ohne Kaufmodelle: tausendfach „Invalid access … 'Gehen'“ in _weg_len): nur mit Wurzelweg
+		if _glatt_an_682() and fighter.monster != null and weg.has(nm):     # auch statt der langen Drehung (lang: über 180° am Ort)
 			# 682 (kurven_682: 5 von 9 s Drehen am Ort waren das Umdrehen daheim zum Gegner, „heim/Stehen“): die Kurve läuft zuletzt
 			# schon in Blickrichtung auf den Platz zu (ein Punkt LENK_VOR davor), dann bleibt daheim nur ein Rest für den Hals
 			# (kurven_682: der Bogen hinter dem Platz streifte oft den Nachbarn, dann erst kürzer anlaufen, zuletzt ohne)
@@ -2127,7 +2128,7 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 		var erst := atan2(auf.x, auf.z) if via != position else schnauze
 		# 682: eine weiche Kurve zum Bissplatz, die zuletzt auf das Ziel zuläuft (Punkt LENK_VOR vor dem Platz in Bissrichtung)
 		var kurve: Array = []
-		if _glatt_an_682():
+		if _glatt_an_682() and weg.has(gn):
 			var ziele: Array = [via] if via != position else []
 			var vorher := start - dir * LENK_VOR * _scale()
 			if run > LENK_VOR * _scale() * 1.5:
