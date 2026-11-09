@@ -21,7 +21,7 @@ Am 17.10. geholt (137): 138, 139, 140, 141, 133, 142.
 ## Verwerfen? (für die Chefrunde)
 
 Je Punkt der Grund am Eintrag (Homer 09.11.):
-- **erledigt:** Spiel-Engine Godot (348); Zentrale Vorgangsliste (275.2); Monster-Stufe im Test-Reiter (Heldenstufe 3–11 im Testreiter, `testmodus.gd`).
+- **erledigt:** Spiel-Engine Godot (348); Monster-Stufe im Test-Reiter (Heldenstufe 3–11 im Testreiter, `testmodus.gd`).
 - **überholt durch Godot** (Kotlin-Zeichnung): Rennbilder früher zeichnen; Gezeichnete Bilder auf dem Gerät speichern; Flüssigere Grafik mit mehr Zwischenbildern; 326 Rest (Kotlin-Oberfläche); Vorgang 24 (Jerry, Animationen nach Start).
 - **doppelt mit der Abnahmeliste oder einem Vorgang:** Grafik-Einstellungen (Vorgang 698); Herstellen und Reparieren (3.4, 3.5); Handwerk, Felle verarbeiten (3.2 Lederarbeit); 84.3 Schleichen (2.8); Stärke, rohe Gewalt (515, 2.8); Klassensets (in Ausrüstungssets aufgegangen).
 - **Grund entfallen:** Erschöpft stehen bleiben (Keuchen da, W14; ein Halt nähme die Steuerung); Kennzahl des Chefs (Haltung 7 „Gemeinsames Maß“ zählt, was der Chef als Erster findet).
@@ -158,8 +158,6 @@ Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, Echte Gruppenk�
 ### Werkzeuge
 
 - **Testbitte nur mit Abkürzung** (Sokrates 25.10., 07:4x; Anlass t89.4: Lyra beim Chef längst befreit, „Bosse zurücksetzen“ setzt `LYRA_RESCUED` nicht zurück, Chef hätte neu durchspielen müssen): verlangt ein Punkt einen Spielstand, den der Chef wahrscheinlich nicht mehr hat, liefert das Team den Weg dorthin im Testreiter mit, sonst nicht in die Testbitte. Gilt auch für Godot. → **reif** (Perikles): eine Zeile in `ROLLE-ENTWICKLUNG.md`, ersetzt nach Regelbilanz eine alte; kostet nichts und spart dem Chef ganze Durchläufe.
-
-- **Zentrale Vorgangsliste (275)** (Chef 21.10., 07:30/07:39; nach dem Meilenstein, Vorgangsarchiv 274): eine Liste als einzige Quelle, je Vorgang eine Datei, Schreiben nur über `tools/vorgang.py`; Pro und Contra in [Zentrale Vorgangsliste](LISTE-ZENTRALE-VORGAENGE-275.md). → **verwerfen?** erledigt: 275.2 (Chef 07.11.), `LISTE-VORGAENGE.md` mit `vorgang.py`.
 
 - **Bilder der Chefsache selbsttätig nach Telegram (277)** (Chef 21.10., 08:35: „die Idee grundsätzlich mal nicht ganz verwerfen, sondern noch vorhalten“): `zug-index.yml` schickt jedes neue Bild in `chefsache/bilder/` beim Push mit Sprungmarke nach Telegram; braucht `TELEGRAM_BOT_TOKEN` als GitHub-Secret (legt nur der Chef an); dann entfällt die Regel für die Sitzungen. Contra: Umbau am Ablauf, doppelte Bilder in der Übergangszeit. Vorerst nur die Regel in `ROLLE-KREATIV.md` (Vorgangsarchiv 277). → **später:** braucht das Secret vom Chef; der Chef hält sie vor, kein Bau ohne sein Wort.
 - **Dokumente BornWire TCS nachziehen (102)** (aus Perikles' Vorrat 18.10., Kür ohne Termin): Firmenhandbuch und Begleittexte auf den Stand nach dem Umbau 17.10. bringen. → **später:** Betrieb vor Spiel wäre gegen die Direktive; nach Stufe 4.
