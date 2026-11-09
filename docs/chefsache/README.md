@@ -160,7 +160,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 737 | K | D92.2 Vorlagen 02.–08.11. ohne Zeile „Bestand geprüft“ (434): 417, 431, 463, 475, 492, 499 | startbar |
 | Pflege | K | von Werkzeug (340.3, 09.11.): 16650 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 74, Muss 66, startbar 2
+**Jerry** – offen 75, Muss 67, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -238,6 +238,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 744 | M | Karte: Streuner und Leute bewegen sich natürlich, verweilen mit Ruhebewegung statt Roboter | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
 | 747 | K | Von Perikles (743, Chef 09.11., 11:21 „alle verwerfen“): Vorgang 24 schließen (Animationen | startbar |
 | Pflege | K | von Werkzeug (340.3, 09.11.): 15644 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 751 | M | Kampf: Knopfleiste des Helden manchmal leer („…“), keine Menüfunktion, auch ohne „ganzer B | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test |
 
 **Perikles** – offen 32, Muss 18, startbar 2
 
@@ -297,7 +298,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
 | 644.5 | M | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noc | wartet auf 644.1 (ruht) |
 
-**Sokrates** – offen 60, Muss 35, startbar 38
+**Sokrates** – offen 61, Muss 35, startbar 39
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -357,10 +358,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 711 | K | Systemlösung? Schrift: 8 frühere Vorgänge (292.3, 312, 498, 497, 544 …), neu 586.1; einmal | startbar |
 | 739 | K | D84.1 die sechs wiederholten Funde aus t268 mit „wiederholt“ im Titel nachziehen (620.1 A; | startbar |
 | 740 | K | D63.7 Vorlage entscheiden/3761-kettenhemd-heldin.md (01.11., 20:55) ohne Zeile „Bestand ge | startbar |
-| 584 | K | Kein halbfetter Schnitt: Köpfe und Titel in Erschaffung, Held, Chronik, Karte, System, Bre | startbar |
-| 477 | K | Godot-APKs laufen nicht im MuMu Player am Rechner (Chef 02.11., 14:59) (für Tom) | startbar |
 | 745 | M | Regelwerk konsolidieren: Widersprüche listen (Diogenes), Chef entscheidet, jede Regel an e | Chef (Datei in der Chefsache) |
 | 750 | M | Ford startet ohne lauf.py (seit Selbstneustart 01:05 startbar.py plus create_session von H | Chef (Datei in der Chefsache) |
+| 752 | K | Systemlösung? Knopf: 15 frühere Vorgänge (503a, 503, 548, 599, 600 …), neu 751; einmal gru | startbar |
+| 584 | K | Kein halbfetter Schnitt: Köpfe und Titel in Erschaffung, Held, Chronik, Karte, System, Bre | startbar |
+| 477 | K | Godot-APKs laufen nicht im MuMu Player am Rechner (Chef 02.11., 14:59) (für Tom) | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
