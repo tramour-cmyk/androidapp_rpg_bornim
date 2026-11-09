@@ -412,6 +412,7 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/lizenz_497.gd 2>&1 | grep -E "FEHLER|LIZENZ497|ENGINE|SCRIPT ERROR"   # 497 Lizenzen der Engine
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/lyra_635.gd 2>&1 | grep -E "^FALSCH|LYRA635|SCRIPT ERROR"   # 635 Lyra als Figur nach Aussehen (Tom)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/schlagbaum_636.gd 2>&1 | grep -E "^FALSCH|SCHLAGBAUM636|SCRIPT ERROR"   # 636 Schlagbaum auf mit Türgeräusch (Tom)
+          set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/truhe_632.gd 2>&1 | grep -E "^FALSCH|TRUHE632|SCRIPT ERROR"   # 632 Truhe cave_3 gibt die Waffe der Klasse (Tom)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/tresen_4167.gd 2>&1 | grep -E "FEHLER|TRESEN|SCRIPT ERROR"   # 416.7
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/wende_4168.gd 2>&1 | grep -E "FEHLER|WENDE|RUTSCHEN|ohne gebaute|SCRIPT ERROR"   # 416.8 Wenden mit Schritten
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/ausruestung_522.gd 2>&1 | grep -E "^(gut|FEHLER|AUSRUESTUNG522|ohne)|SCRIPT ERROR"   # 522 Figur nach Ausruestungswechsel
