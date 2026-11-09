@@ -24,7 +24,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [623](tun/623-kauf.md) | **Muss** | E Kampf | 07.11., 20:13 | Effektpakete: Rest nach dem Kauf | Sokrates |
+| [623](tun/623-kauf.md) | **Muss** | E Kampf | 09.11., 21:06 | Effektpakete R3, R4, R7 ins private Repo hochladen? | Sokrates |
 
 ## Offen je Rolle
 
