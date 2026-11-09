@@ -7,10 +7,9 @@
   neustart-haken.py start    beim Sitzungsstart (SessionStart): warnt, wenn ein Vorrat docs/ARBEIT-*.md zu groß ist.
 
 Die Größe kommt aus dem Gesprächsprotokoll (transcript_path): Token der letzten Antwort (Eingabe, auch
-zwischengespeichert). Gemessen wird der Zuwachs gegenüber der ersten Antwort, weil schon der Start je nach
-Umgebung viel Platz braucht. Nach einem Verdichten (Kontext schrumpft deutlich) zählt der neue Stand als Start.
+zwischengespeichert). Seit 383 A zählt die ganze Gesprächslänge (jeder Aufruf liest sie ganz), nicht mehr der Zuwachs.
 
-Schwellen über Umgebungsvariablen änderbar: BORNIM_NEUSTART_AB (Zuwachs in Token, Vorgabe 300000; 383.1, vorher 100000),
+Schwellen über Umgebungsvariablen änderbar: BORNIM_NEUSTART_AB (Gesprächslänge in Token, Vorgabe 200000; 383 A, Chef 09.11.; vorher 300000 Zuwachs nach 383.1),
 BORNIM_OFFEN_MAX (Bytes, Vorgabe 15000). Zustand je Sitzung in /tmp/bornim-neustart-<Sitzung>.json.
 Bei der 1., 11., 21. … Nachricht zusätzlich die Kernregel-Zeile aus tools/kernregeln.txt (347, ein Wortlaut, auch notiz.sh).
 """
@@ -19,7 +18,7 @@ import os
 import sys
 
 KERN_ALLE = 10
-AB = int(os.environ.get("BORNIM_NEUSTART_AB", "300000"))
+AB = int(os.environ.get("BORNIM_NEUSTART_AB", "200000"))
 OFFEN_MAX = int(os.environ.get("BORNIM_OFFEN_MAX", "15000"))
 # Abstände in Nachrichten zwischen zwei Erinnerungen: erst 6, dann 4, 3, 2, danach bei jeder Nachricht.
 ABSTAENDE = [6, 4, 3, 2, 1]
@@ -58,7 +57,7 @@ def zuwachs(werte):
 
 def text(stufe, plus, gesamt):
     k = lambda n: f"{round(n / 1000)} Tsd."
-    kopf = f"Neustart-Haken (Thema 14): Das Gespräch ist seit dem Start um etwa {k(plus)} Token gewachsen (jetzt {k(gesamt)}, Schwelle {k(AB)}); Erinnerung Nr. {stufe}."
+    kopf = f"Neustart-Haken (Thema 14): Das Gespräch ist {k(gesamt)} Token lang (Schwelle {k(AB)}, 383 A; seit dem Start +{k(plus)}); Erinnerung Nr. {stufe}."
     # 81r: der Anlass entscheidet, nicht ein Ja des Nutzers; kein Vorschlag im Chat (D8.2: der löste den Chefsache-Haken aus)
     if stufe == 1:
         rest = "An der nächsten Bruchstelle (Thema fertig, Build ausgeliefert): zuerst `python3 tools/regelcheck.py --kurz` und die Funde im eigenen Vorrat beheben, dann Übergabe mit „Nachfolger: <Titel>“ pushen, send_message an Ford „Neustart <Name>, <Commit>“ (81r, LISTE-RELEASE-NEUSTART.md „Neustart“). Im Chat nichts dazu."
@@ -133,13 +132,13 @@ def prompt(eingabe):
             z = json.load(f)
     except (OSError, ValueError):
         z = {}
-    if plus < AB:
+    if gesamt < AB:  # 383 A: Gesprächslänge, nicht Zuwachs
         if z:
             os.remove(zpfad)  # unter der Schwelle (z. B. nach dem Verdichten): von vorn
         return
     stufe = int(z.get("stufe", 0))
     seit = int(z.get("seit", 0)) + 1
-    faellig = stufe == 0 or plus >= 2 * AB or seit >= ABSTAENDE[min(stufe - 1, len(ABSTAENDE) - 1)]
+    faellig = stufe == 0 or gesamt >= 2 * AB or seit >= ABSTAENDE[min(stufe - 1, len(ABSTAENDE) - 1)]
     if faellig:
         stufe, seit = stufe + 1, 0
         print(text(stufe, plus, gesamt))

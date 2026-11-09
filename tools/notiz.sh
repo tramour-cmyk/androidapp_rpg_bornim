@@ -52,7 +52,7 @@ alt=$(cat "$mark" 2>/dev/null)
 altnamen='BERATER|DIOGENES|LEITBILD|STIL|ENTWICKLUNG|HELDENBAU|BALANCE|ZWISCHENBILD|STORY1|STORY|THEMEN|MERKLISTE|KAPITEL1|OFFEN|SELBST|ABLAEUFE|UMGEBUNG|ARCHIV'
 alt_dateien=$(git ls-tree --name-only origin/main docs/ 2>/dev/null | grep -E "^docs/($altnamen)\.md$")
 [ -n "$alt_dateien" ] && echo "FEHLER (77): alte Notizdatei wieder da: $(echo $alt_dateien). Inhalt in die neue Datei übernehmen, alte löschen, Nutzer melden."
-alt_verweise=$(git grep -l -P "(?<![\w-])($altnamen)\.md" origin/main -- CLAUDE.md docs tools ':!docs/PRUEFBERICHT-ARCHIV.md' ':!docs/VORGANGSARCHIV.md' ':!tools/notiz.sh' 2>/dev/null | sed 's/^origin\/main://')
+alt_verweise=$(git grep -l -P "(?<![\w-])($altnamen)\.md" origin/main -- CLAUDE.md docs tools ':!docs/PRUEFBERICHT-ARCHIV.md' ':!docs/VORGANGSARCHIV.md' ':!docs/alt' ':!tools/notiz.sh' 2>/dev/null | sed 's/^origin\/main://')
 [ -n "$alt_verweise" ] && echo "Warnung (77): alte Dateinamen erwähnt in: $(echo $alt_verweise). Neue Namen: Vorsilben ROLLE-/DESIGN-/STORY-/LISTE-/ARBEIT- (CLAUDE.md, erster Absatz)."
 # Wächter Bilder Chefsache (108, D15.4): höchstens 60 KB je Datei, höchstens 3 Bilder je Punkt; Größeres über Telegram.
 gross=$(git ls-tree -r -l origin/main docs/chefsache/ 2>/dev/null | awk '$4>61440 && $5 !~ /\.md$/ {print $5}')
@@ -61,7 +61,7 @@ gross=$(git ls-tree -r -l origin/main docs/chefsache/ 2>/dev/null | awk '$4>6144
 altvoll='ARBEIT-OFFEN|ARBEIT-SELBST|ARBEIT-FORD|ROLLE-BERATER|ROLLE-FORD|ROLLE-ENTWICKLER|ROLLE-TESTER|ROLLE-TEAM|ARBEIT-ABLAEUFE|ARBEIT-UMGEBUNG|STORY-K1-W|STORY-K1|LISTE-THEMEN|DESIGN-ZWISCHENBILD|LISTE-KAPITEL1'
 alt98=$(git ls-tree --name-only origin/main docs/ 2>/dev/null | grep -E "^docs/($altvoll)\.md$")
 [ -n "$alt98" ] && echo "FEHLER (98): alte Datei wieder da: $(echo $alt98). Inhalt in den passenden Vorrat oder die neue Rollendatei (docs/FIRMA.md), alte löschen."
-alt98v=$(git grep -l -E "($altvoll)\.md" origin/main -- CLAUDE.md docs tools .claude ':!docs/PRUEFBERICHT-ARCHIV.md' ':!docs/VORGANGSARCHIV.md' ':!tools/notiz.sh' 2>/dev/null | sed 's/^origin\/main://')
+alt98v=$(git grep -l -E "($altvoll)\.md" origin/main -- CLAUDE.md docs tools .claude ':!docs/PRUEFBERICHT-ARCHIV.md' ':!docs/VORGANGSARCHIV.md' ':!docs/alt' ':!tools/notiz.sh' 2>/dev/null | sed 's/^origin\/main://')
 [ -n "$alt98v" ] && echo "Warnung (98): alte Dateinamen erwähnt in: $(echo $alt98v). Neue Namen in CLAUDE.md „Wo was steht“."
 if [ "$1" = "--kurz" ]; then
     if [ -z "$alt" ]; then was="erster Aufruf, tools/notiz.sh zeigt die letzten Änderungen"
@@ -99,5 +99,7 @@ if [ ! -f "$hk" ] || ! grep -q "commit-pruefung (D55.4)" "$hk" 2>/dev/null; then
     printf '#!/bin/sh\n# commit-pruefung (D55.4)\nf=/home/user/bornim-main/tools/commit-pruefung.py; [ -f "$f" ] || f=tools/commit-pruefung.py\nif [ -f "$f" ]; then python3 "$f" || exit 1; fi\nexit 0\n' > "$hk" && chmod +x "$hk"
 fi
 echo "$neu" > "$mark"
+# 658: Reaktionen und Nachrichten des Chefs auf Telegram (👍 gebilligt, ✅ erledigt), letzte 120 Minuten; nur Text, still ohne Schlüssel
+[ -f "$wt/tools/reaktionen.py" ] && timeout 40 python3 "$wt/tools/reaktionen.py" 2>/dev/null
 echo "Arbeitskopie für Notizen: $wt"
 schluss

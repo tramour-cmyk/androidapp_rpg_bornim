@@ -58,7 +58,8 @@ func _lauf() -> void:
 		await process_frame
 		var t := PackedStringArray(labels(l, []).map(func(x): return (x as Label).text))
 		pruefe("ALLE GEWÖHNLICHEN VERKAUFEN?" in t, "Titel der Rueckfrage fehlt: %s" % [t])
-		pruefe(("%d GEGENSTÄNDE:" % gew) in t, "Zeile „%d Gegenstände:“ als MenuHead fehlt" % gew)
+		pruefe(Laden.anzahl_gegenstaende(gew, true).to_upper() in t, "Zeile „%d Gegenstände:“ als MenuHead fehlt" % gew)
+		pruefe(Laden.anzahl_gegenstaende(1, true) == "1 Gegenstand:" and Laden.anzahl_gegenstaende(2, true) == "2 Gegenstände:", "699: Einzahl bei einem Stück")
 		# Dialogs.kt 99–104: eine Reihe, „Abbrechen“ links, „Verkaufen · Preis“ rechts, gleich breit, Text ganz im Knopf und im Bild
 		# 630 (549a): ohne Kasten, „‹ ABBRECHEN“ links, „VERKAUFEN · PREIS ›“ rechts in einer Reihe (knopfzeile), je die halbe Breite
 		var reihe: HBoxContainer = null

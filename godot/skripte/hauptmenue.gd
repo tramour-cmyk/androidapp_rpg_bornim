@@ -176,6 +176,22 @@ func zeile(t: String, groesse_sp: float, farbe: Color, sperrung_sp := 0.0) -> La
 	box.add_child(l)
 	return l
 
+# 585 (Abgleich 512b): passt der Text nicht in eine Zeile, bricht er an dem Wortzwischenraum um, der beide Zeilen am gleichsten lang macht
+# (wie die alte Fassung: Compose brach den Titel „CHRONIKEN / VON BORNIM“), statt so spaet wie moeglich („CHRONIKEN VON / BORNIM“)
+static func ausgewogen(l: Label, breite: float) -> void:
+	var f := l.get_theme_font("font")
+	var g := l.get_theme_font_size("font_size")
+	var w := l.text.split(" ", false)
+	if f == null or w.size() < 2 or f.get_string_size(l.text, HORIZONTAL_ALIGNMENT_LEFT, -1, g).x <= breite: return
+	var best := ""
+	var best_w := INF
+	for i in range(1, w.size()):
+		var a := " ".join(w.slice(0, i))
+		var b := " ".join(w.slice(i))
+		var m := maxf(f.get_string_size(a, HORIZONTAL_ALIGNMENT_LEFT, -1, g).x, f.get_string_size(b, HORIZONTAL_ALIGNMENT_LEFT, -1, g).x)
+		if m <= breite and m < best_w: best_w = m; best = a + "\n" + b
+	if best != "": l.text = best
+
 # PixelButton im schwarzen Look: 48 dp hoch, schwarz, Rand 1 dp Veil.line, Versalien in gebrochenem Weiss, 13 sp, gesperrt 1,2 sp
 func knopf(t: String, was: Callable, breite_dp := 280.0) -> Button:
 	var b := Button.new()
@@ -253,7 +269,9 @@ func bild(pfad: String, breite_dp: float) -> TextureRect:
 
 func titel() -> void:
 	leer()
-	zeile(Sprache.u("title").to_upper(), 33, Stil.BRIGHT, 6.0).add_theme_constant_override("line_spacing", int(4 * Stil.SP))
+	var tl := zeile(Sprache.u("title").to_upper(), 33, Stil.BRIGHT, 6.0)
+	tl.add_theme_constant_override("line_spacing", int(4 * Stil.SP))
+	ausgewogen(tl, box.custom_minimum_size.x)   # 585: „CHRONIKEN / VON BORNIM“ wie alt statt „CHRONIKEN VON / BORNIM“
 	abstand(12)
 	mittig(Zier.new())
 	abstand(12)
@@ -447,10 +465,32 @@ func ueber() -> void:
 	lt.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	lt.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	zl.add_child(lt)
-	zl.add_child(Spielstaende.pfeil(Stil.GOLD, false))
-	var auf := Spielstaende.tippbar(zl, func():
-		if lizenzen.get_child_count() == 0: lizenz_texte(lizenzen, de)
-		lizenzen.visible = not lizenzen.visible)
+	var pf := Spielstaende.pfeil(Stil.GOLD, false)
+	pf.resized.connect(func(): pf.pivot_offset = pf.size / 2)
+	zl.add_child(pf)
+	# 585 (Abgleich 512b: „aufgeklappt ohne Hinweis zum Zuklappen“): offen zeigt der Winkel nach unten, am Ende der Texte steht dieselbe
+	# Zeile mit dem Winkel nach oben und klappt wieder zu (sonst muss man durch alle Lizenzen zurueckrollen)
+	var umschalten := func():
+		if lizenzen.get_child_count() == 0:
+			lizenz_texte(lizenzen, de)
+			var zz := HBoxContainer.new()
+			zz.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			zz.custom_minimum_size.y = 48 * DP
+			var zt := Stil.zeile("Lizenzen der Engine" if de else "Engine licences", 15, Stil.TEXT)
+			zt.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			zt.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+			zz.add_child(zt)
+			var zp := Spielstaende.pfeil(Stil.GOLD, false)
+			zp.resized.connect(func(): zp.pivot_offset = zp.size / 2)
+			zp.rotation = -PI / 2
+			zz.add_child(zp)
+			lizenzen.add_child(Erschaffung.luecke(8))
+			var zu := Spielstaende.tippbar(zz, func(): lizenzen.visible = false; pf.rotation = 0.0)
+			zu.name = "LizenzenZu"
+			lizenzen.add_child(zu)
+		lizenzen.visible = not lizenzen.visible
+		pf.rotation = PI / 2 if lizenzen.visible else 0.0
+	var auf := Spielstaende.tippbar(zl, umschalten)
 	auf.name = "Lizenzen"
 	v.add_child(auf)
 	v.add_child(lizenzen)

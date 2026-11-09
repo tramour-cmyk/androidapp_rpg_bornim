@@ -2,13 +2,12 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `6d348b408` (07.11., 23:43)
+**Gelesen bis:** `364f6140f` (09.11., 09:13)
 
-**Übergabe (07.11., 23:43):** 629 Sprechernamen beim Klopfen `[629.sprecher]` in `STORY-K1-WELT.md` (fremd geprüft, Befund Anführungszeichen eingearbeitet); Bau 629.1 bei Tom. Nachfolger: keiner (468a).
+**Übergabe (09.11., 15:1x):** 761 MARS eingetragen (Glossar, `DESIGN-KAMPF.md`); 736 Überholtes in `DESIGN-STIL.md` und Spielsystem auf 618, 565, 630, 417a, 427.1, 466 gebracht; beide fremd geprüft; 746 die 15 verworfenen Ideen gestrichen. Nachfolger: Homer – 766: Rollenspiegel (13.11.).
 
 ## Zeilen
 
-- **von Diogenes (02.11., 19:4x, 485 Wochentermine):** Ideenspeicher sonntags (`ROLLE-KREATIV.md`, 137): am So 25.10. und So 01.11. kein Commit von Homer an `LISTE-IDEEN.md` (nur neue Einträge von Sokrates); beide Sonntage ausgefallen.
 - **Zu 458.4 (erledigt 01.11.):** abgenommene Texte wortgetreu (`[D4.1.rauch.tasche]`, `[356.schluessel]`, übrige Handlungsgegenstände aus `Items.kt`); keine Zahlen und keine Wirkung, die das BRS nicht festlegt; Ladenware ohne Abnutzungsspuren (neu = makellos). Offen für später: (1) `[D4.1.rauch.tasche]` sagt „werfen“, im Spiel fliegt das Bündel von selbst, sobald Krogg auftaucht (`klassisch.gd`, D4.1); (2) SRD-Namen „Handschuhe der Ogerkraft“, „Umhang des Schutzes“, englisch „Potion of Healing“ usw. vor Stufe 6 ersetzen.
 - **Zu 432, von Sokrates (Chef 01.11., 09:41: „432 wie Sokrates“, Archiv):** Weg A entschieden; Datei gelöscht. Für dich: Weg in den Storyplan, dazu intern die Antwort, warum der Kult die Aschgeborenen sucht (Bedingung vor dem Bau); Modell Mensch mit Strähne und Iris-Ring (an Tom erst nach dem Meilenstein).
 - **Von Perikles (378, 27.10., 15:0x):** 302 „wartet auf Tom (302.1)“: 302.1 ruht unter der überholten Bedingung „bis Urteil 348“; Tom setzt eine neue (Hinweis in seinem Vorrat).

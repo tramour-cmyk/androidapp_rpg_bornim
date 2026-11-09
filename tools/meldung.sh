@@ -82,11 +82,15 @@ if [ -n "$art" ]; then
     echo "meldung: Film über 20 MB, nicht im Zweig bilder abgelegt (Repo klein halten; 381), nur Telegram" >&2
   elif [ $probe = 0 ]; then
     repo="$(dirname "$(realpath "$0")")/.."
-    pfad="$(TZ=Europe/Berlin date +%Y-%m)/$(TZ=Europe/Berlin date +%d-%H%M)-$nr-$(printf '%s' "$name" | tr -c 'A-Za-z0-9' '_' | sed 's/_*$//').${bild##*.}"
+    basis="$(TZ=Europe/Berlin date +%Y-%m)/$(TZ=Europe/Berlin date +%d-%H%M)-$nr-$(printf '%s' "$name" | tr -c 'A-Za-z0-9' '_' | sed 's/_*$//')"
+    endung="${bild##*.}"; pfad="$basis.$endung"
     blob=$(git -C "$repo" hash-object -w "$bild")
     abgelegt=""
     for versuch in 1 2 3; do
       eltern=""; git -C "$repo" fetch -q origin bilder 2>/dev/null && eltern=$(git -C "$repo" rev-parse FETCH_HEAD)
+      # 696: mehrere Bilder in derselben Minute überschrieben sich; belegter Pfad bekommt einen Zähler (-2, -3 …)
+      pfad="$basis.$endung"; z=1
+      while [ -n "$eltern" ] && git -C "$repo" cat-file -e "$eltern:$pfad" 2>/dev/null; do z=$((z + 1)); pfad="$basis-$z.$endung"; done
       idx=$(mktemp); rm -f "$idx"
       [ -n "$eltern" ] && GIT_INDEX_FILE=$idx git -C "$repo" read-tree "$eltern"
       GIT_INDEX_FILE=$idx git -C "$repo" update-index --add --cacheinfo "100644,$blob,$pfad"
@@ -219,13 +223,17 @@ else
     --data-urlencode "link_preview_options={\"is_disabled\":true}" 2>&1)  # keine Vorschaukarten (Nutzer 15.10.)
 fi
 case "$antwort" in *'"ok":true'*) echo "meldung: gesendet" ;; *) echo "meldung: Fehler: ${antwort:0:200}" >&2; exit 1 ;; esac
+# 658: Telegram-Kennung der Nachricht als fünfte Spalte, damit tools/reaktionen.py eine Reaktion des Chefs dem Vorgang zuordnet
+mid=$(printf '%s' "$antwort" | python3 -c 'import json,sys
+try: print(json.load(sys.stdin)["result"]["message_id"])
+except Exception: pass' 2>/dev/null)
 # 383 (Chef 27.10., 17:53): je Meldung eine Protokollzeile im Zweig „meldungen“ (Zeit, Vorgänge am Zeilenanfang, Name, Art),
 # damit der Wartewächter in lauf.py sieht, ob zu einem „jetzt“ des Chefs etwas vorgelegt wurde. Fehler hier ändern nichts am Senden.
 nrn=$(printf '%b' "${text#⚠ }" | sed -nE 's/^[[:space:]]*(⚠[[:space:]]*)?\[?([A-Za-z]?[0-9]+[a-z]?(\.[0-9]+[a-z]?)*)[]:( ].*/\2/p' | sort -u | paste -sd, -)
 if [ -n "$nrn" ]; then
   wie=text; [ $laut = 1 ] && wie=laut; [ -n "$art" ] && wie=$art
   repo="$(dirname "$(realpath "$0")")/.."
-  zeile_p="$(TZ=Europe/Berlin date "+%Y-%m-%d %H:%M")\t$nrn\t$name\t$wie"
+  zeile_p="$(TZ=Europe/Berlin date "+%Y-%m-%d %H:%M")\t$nrn\t$name\t$wie\t$mid"
   for versuch in 1 2 3; do
     eltern=""; git -C "$repo" fetch -q origin meldungen 2>/dev/null && eltern=$(git -C "$repo" rev-parse FETCH_HEAD)
     alt=""; [ -n "$eltern" ] && alt=$(git -C "$repo" show "$eltern:meldungen.tsv" 2>/dev/null)

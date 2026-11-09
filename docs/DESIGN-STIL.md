@@ -14,9 +14,10 @@ Diese Datei ist das Stilhandbuch: jede gültige Design-Regel steht hier oder hat
 | Richtung | erwachsene, etwas düstere Fantasy; lebendige Diagonalwelt | – | „Richtung“ |
 | Schrift | eine Schrift (Alegreya) überall, Pixelschrift und Cinzel nicht mehr | 292.3 | „Oberfläche“ |
 | Kästen, Farben | Menüs und Fenster ohne Kasten (549a, Aufbau „Fenster und Schirme“); Goldrand nur im Kampf und an Behältern; Text gebrochenes Weiß; Held golden, Gegner rot | 60, 292.3, 549a | „Oberfläche“ |
-| Hauptmenü | schwarz, warmer Lichtkegel von oben, vier Helden zur Mitte gedreht (Entwurf A); Feuer (B) zurückgestellt | 292, 292.2, 292.3 | [Blende](DESIGN-BLENDE.md) „Vorspann und Hauptmenü“ |
+| Hauptmenü | **B am Feuer** nach Entwurf 4 (Chef 22.10., 12:08: „Wir bleiben auf jeden Fall bei B. Also A und C sind raus.“); Gesichter erkennbar | 292, 292.2, 292.3 | [Blende](DESIGN-BLENDE.md) „Vorspann und Hauptmenü“ |
 | Logo | Leiterbahn mit Lötaugen auf Schwarz | 251 | [Blende](DESIGN-BLENDE.md) Punkt 7 |
-| Zwischensequenzen | fünf Standbilder, Überblendung, Maß ist das Intro | 70, 112 | „Zwischensequenzen“ |
+| Zwischensequenzen | fünf Bilder mit leichten Bewegungen wie in der alten Fassung, Signatur, Überblendung, Maß ist das Intro | 70, 112, 613 | „Zwischensequenzen“ |
+| Muster | Abgenommenes nachbauen statt neu erfinden, mit Bild | 659 | „Muster“ |
 | Figuren, Bewegung | Prüfpunkte A–D (Bild, Gestalt, Leben, Bewegung); jede Vorlage wird dagegen geprüft | 461, 461d | „Figuren und Bewegung: was gilt“; E, F (Waffe, Schild, Kampf) [Kampf](DESIGN-KAMPF.md), G (Film) [Abnahme](DESIGN-ABNAHME.md) |
 | Gegner, Figuren | drei Varianten, düster, nie niedlich, keine Figur starr | – | „Abwechslung“, „Lebendige Welt“ |
 | Karte, Räume | Sichtbarkeit, Maßstab, Karte und Kampfort gehören zusammen | 43, 77e.3 | „Karte und Räume“ |
@@ -25,6 +26,18 @@ Diese Datei ist das Stilhandbuch: jede gültige Design-Regel steht hier oder hat
 | Klang | echte Aufnahmen, drei Varianten, Systemklänge einmal | 18 | „Klang“ |
 | Musik | orchestral, keine E-Gitarre, kein Rock; Dorf mittelalterlich | 28, 281 | „Klang“ |
 | Klanglogo | Probe 5: Harfe da-da … daa, Glocke; orchestral, höchstens 1,5 s, auf Bild 1 des Vorspanns mit dem Logo; Probe 15 bleibt Variante für später | 292.1 | Vorgangsarchiv 292.1 (Chef 22.10., 17:07: „5 ist unser Erkennungston“) |
+
+## Muster (659)
+
+Wer etwas baut, das es schon gibt, schaut zuerst das abgenommene Muster an und baut danach; Abweichung nur mit neuer Abnahme des Chefs. Neue Muster trägt Homer nach der Abnahme ein (Bild nach `docs/bilder/muster/`, höchstens 60 KB).
+
+| Muster | Bild | abgenommen | Regeln |
+|---|---|---|---|
+| Rückfragen ohne Kasten (549a) | ![Löschen, Wegwerfen](bilder/muster/549a-rueckfragen.webp) | 557 Runde 5, Chef 04.11., 19:54 | „Fenster und Schirme ohne Kasten“ |
+| Gegenstand im Fenster ohne Kasten (549a) | ![Ring, Kettenpanzer](bilder/muster/549a-gegenstand.webp) | ebenda | ebenda; Schirme ohne Lichthof und Dunkelverlauf (Bilder 7, 8 der Runde nicht) |
+| Zeichen statt Text (326) | ![Menü System, Erklärung beim Gedrückthalten, Testmenü](bilder/muster/326-zeichen-system.webp) | 425, Chef 31.10., 22:5x: „425 passt“ | „Zeichen“ |
+| Hauptmenü B am Feuer (292.3) | ![Hauptmenü Entwurf 4](bilder/muster/292-hauptmenue.webp) | Entwurf 4, Chef 22.10., 12:08 | [Blende](DESIGN-BLENDE.md) „Vorspann und Hauptmenü“ |
+| Zwischensequenz (Intro, 112; Tusche 302.3) | ![Intro Bild 4, Rowena in der Tür, mit Tusche](bilder/muster/613-intro4.jpg) | 112 (17.10.), 302.3 (23.10., 10:45) | „Zwischensequenzen“; das Bild aus 613 ersetzt dieses nach der Abnahme |
 
 ## Signatur (302)
 
@@ -118,7 +131,7 @@ Chef 01.11., 20:3x: „auf ein Niveau kriegen, dass wir von da aus alle weiteren
 ## Karte und Räume (diagonale Sicht)
 
 Aus den Rückmeldungen des Nutzers bis 11.10. (Verlauf im Archiv, in Git bis `f3ec7200`: `docs/ARBEIT-ARCHIV.md`):
-- **Ausrüstung unterwegs:** nach E1 und E8 in `DESIGN-KAMPF.md` (Waffe in der Hand, Schild an der Seite hängend; ersetzt „geschultert, Schild auf dem Rücken, Zweitwaffe in der Scheide“ vom 11.10., 461d); nie am Boden schleifend.
+- **Ausrüstung unterwegs:** nach E1 und E8 in `DESIGN-KAMPF.md`: je Figur, was gut funktioniert und gut aussieht (in der Hand, am Arm oder auf dem Rücken), nichts schwebt, nichts schaut durch (417a, Chef 02.11., 21:24; ersetzt „jede Waffe in der Hand, kein Rücken“ aus 417 vom 01.11. und „geschultert, Schild auf dem Rücken, Zweitwaffe in der Scheide“ vom 11.10., 461d); nie am Boden schleifend.
 - **Sichtbarkeit (Thema 43, Nutzer 12.10.):** Was in der alten Ansicht rechts gut zu sehen war, steht diagonal vorn unten zwischen Kamera und Geschehen.
   - **Wichtiges steht frei:** Leute, Questziele, Eingänge, Schilder, Feuerstellen haben freien Blick; zur Kamera hin (Süden, Osten) nichts Hohes davor. Sonst umstellen (das Ding oder die Bäume davor); die Karte muss nur diagonal stimmen.
   - **Durchsicht nur um den Helden:** Kronen, Felsen, Büsche und hohe Möbel in einem kleinen Umkreis um den Helden fast ganz durchsichtig, nicht gestapelt, damit er nie verschwindet.
@@ -143,13 +156,13 @@ Im Vorschlag an den Nutzer stehen die vier Antworten kurz neben dem Abgleich mit
 
 - Alle Oberflächen sehen aus wie Blende und Textkasten (42b, **teils ersetzt** durch 549a, 04.11.: Menüs, Fenster und Schirme ohne Goldrand nach „Fenster und Schirme“ unten; der Goldrand bleibt nur im Kampf und an Behältern): schwarz, Text in gebrochenem Weiß, Farben und Gewichte nach „Fenster und Schirme“ (Überschriften gedämpftes Gold, Hervorhebungen hell golden), Serife (mitgeliefert, OFL); keine hellen Tafeln mehr (Nutzer 12.10., 23:20).
 - **Eine Schrift überall** (292.3, Chef 22.10., 16:43: „292.3 ja“): Alegreya (mitgeliefert, OFL) für alles; Versalien und Sperrung nach „Fenster und Schirme“ (nur Titel, Zwischenüberschriften, Knöpfe). Cinzel nicht mehr (löst 60f ab). Keine Pixelschrift, auch nicht im Kampf (löst 60i ab): Lebens- und Zauberpunkte, Würfelzeile und Zahlen in MARS und im klassischen Kampf in Alegreya mit gleich breiten Ziffern, mindestens 13 sp. Ausnahmen: Ortsnamen auf den Karten bleiben in Handschrift (62g, Chef 14:02); der Schriftzug im Firmenzeichen ist Teil des Logos.
-- **Kästen im Kampf** (292.3): deckend schwarz mit dünnem Rand wie der Textkasten; wer am Zug ist, golden umrandet, wenn Held, rot, wenn Gegner.
+- **Kästen im Kampf** (292.3): deckend schwarz mit dünnem Rand wie der Textkasten; der Kasten dessen, der am Zug ist, wie sein Feld in der Zugleiste („▶“, Name in Gold, hellerer Goldrahmen), Gegner am Zug ohne Hervorhebung (565 A, Chef 08.11., 13:11; ersetzt „golden umrandet, wenn Held, rot, wenn Gegner“).
 - Farben, die auf Schwarz stehen (Seltenheit, Warnfarbe), hell genug zum Lesen; Warnfarbe nur für Zerstörendes („Fenster und Schirme“).
 - **Zeichen statt Textwände** (426, Chef 31.10., 21:30 zu Build 143: alte Menüs mit Icons „super klasse“, neue „viel zu viel Text“): Menüs, auch Menü „System“ und Testmenü, zeigen jeden Eintrag als Zeichen mit kurzer Beschriftung (ein bis zwei Wörter), nie als Satz oder Absatz; Erklärung nur, wenn der Spieler sie aufruft. Maß sind die Menüs der alten Fassung: was dort mit Zeichen ging, übernimmt die neue möglichst eins zu eins (425, Tom). Neue Zeichen nach „Zeichen“ unten.
 
 ### Fenster und Schirme ohne Kasten (549a, Chef 04.11., 19:28: „549a ja … damit wir nicht jedes Mal wieder neu anfangen“)
 
-Gilt für jeden neuen oder umgebauten Menüschirm und jedes Fenster außerhalb des Kampfs. Gebaut wird Schirm für Schirm, wenn er ohnehin angefasst wird; kein Umbau aller Schirme vor dem Durchspielen. Bausteine in Godot: `godot/skripte/spielstaende.gd` (`frage`, `fuss`, `knopf`, `knopfzeile`, `folge_inhalt`, `zier`, `linie`, `tippbar`, `pfeil`), Farben `godot/skripte/stil.gd` (bis 557 auf `main` ist, liegen die Bausteine auf Zweig `claude/tom-557-spielstaende`; `ANGABE` steht dort in `spielstaende.gd` und zieht mit dem Einbau nach `stil.gd`). Wer baut, nimmt diese Bausteine und keine eigenen; weicht ein Wert hier vom Code ab, gilt dieser Abschnitt, der Code wird nachgezogen.
+Gilt für jeden neuen oder umgebauten Menüschirm und jedes Fenster außerhalb des Kampfs. Alle Schirme werden einheitlich umgebaut, jetzt und nicht erst nach dem Durchspielen (630, Chef 07.11., 22:28; ersetzt „Schirm für Schirm, wenn er ohnehin angefasst wird; kein Umbau aller Schirme vor dem Durchspielen“). Bausteine in Godot: `godot/skripte/spielstaende.gd` (`frage`, `fuss`, `knopf`, `knopfzeile`, `folge_inhalt`, `zier`, `linie`, `tippbar`, `pfeil`), Farben `godot/skripte/stil.gd` (bis 557 auf `main` ist, liegen die Bausteine auf Zweig `claude/tom-557-spielstaende`; `ANGABE` steht dort in `spielstaende.gd` und zieht mit dem Einbau nach `stil.gd`). Wer baut, nimmt diese Bausteine und keine eigenen; weicht ein Wert hier vom Code ab, gilt dieser Abschnitt, der Code wird nachgezogen.
 
 **Geltung.** Gilt für Menüs, Schirme und Fenster. Nicht dafür gilt, mit eigenen Regeln: Kampf (MARS, 292.3), Blende, Vorspann, Zwischenbildschirm und Hauptmenü (`DESIGN-BLENDE.md`), Dialog-Textkasten der Gespräche (42b, unverändert), runde Knöpfe auf der Karte („Zeichen“ unten). Soll eines davon auch ohne Kasten werden, entscheidet der Chef.
 
@@ -164,16 +177,16 @@ Gilt für jeden neuen oder umgebauten Menüschirm und jedes Fenster außerhalb d
 
 **Antippbar erkennt man ohne Kasten so:** jede antippbare Zeile nimmt die ganze Breite ein, ist mindestens 48 dp hoch, hat links ein Zeichen oder Bild und rechts ein goldenes „›“ und wird beim Antippen dunkel (`RAISED`, `tippbar`); Text, der nur informiert, hat weder Zeichen noch „›“. Gewählte Zeile oder gewählter Wert: Schrift `BRIGHT` auf `RAISED`, kein Rahmen. Wahlen in einer Listenzeile (Spielstände „LADEN ›“) stehen rechtsbündig in der Zeile, Schrift wie Knöpfe.
 
-**Grund und Rahmen.** Fenster: schwarz und ganz deckend über den ganzen Bildschirm, nichts scheint durch; Inhalt beginnt oben unter Titel und Zierlinie wie auf jedem Schirm, Titel immer in derselben Höhe (557a B, Chef 04.11., 20:55; ersetzt „senkrecht mittig“), Breite Bildschirm minus 48 dp (24 dp je Seite); Abstand zwischen den Teilen 10 dp. „Neben das Fenster tippen“ heißt: außerhalb dieser Inhaltsspalte. Schirm: Grund rein schwarz, ohne Bild dahinter, ohne Lichthof und ohne Dunkelverlauf (Chef 04.11., 19:38 zur Rast: „diesen Halo … mit dem Dunkelverlauf. Das wollten wir doch rausnehmen“), Seitenrand 24 dp, Inhalt beginnt oben unter Titel und Zierlinie. Zwischenüberschriften (Platz, Rezept, „Angelegt“) werden durch eine schlichte Linie getrennt, nie durch eine zweite Zierlinie. Kein Rahmen um Fenster, Zeilen oder Knöpfe. Rahmen nur im Kampf (Zugleiste, Gruppenkästen, wer am Zug ist; 292.3) und an Behältern (Ausrüstungsplatz, Feld der Tasche), nie an einem Fenster.
+**Grund und Rahmen.** Fenster: schwarz und ganz deckend über den ganzen Bildschirm, nichts scheint durch; Inhalt beginnt oben unter Titel und Zierlinie wie auf jedem Schirm, Titel immer in derselben Höhe (557a B, Chef 04.11., 20:55; ersetzt „senkrecht mittig“), Breite Bildschirm minus 48 dp (24 dp je Seite); Abstand zwischen den Teilen 10 dp. „Neben das Fenster tippen“ heißt: außerhalb dieser Inhaltsspalte. Schirm: Grund rein schwarz, ohne Bild dahinter, ohne Lichthof und ohne Dunkelverlauf (Chef 04.11., 19:38 zur Rast: „diesen Halo … mit dem Dunkelverlauf. Das wollten wir doch rausnehmen“), Seitenrand 24 dp, Inhalt beginnt oben unter Titel und Zierlinie. Zwischenüberschriften (Rezept, Zutaten, Fertigkeiten) werden durch eine schlichte Linie getrennt, nie durch eine zweite Zierlinie. Kein Rahmen um Fenster, Zeilen oder Knöpfe. Rahmen nur im Kampf (Zugleiste, Gruppenkästen, wer am Zug ist; 292.3) und an Behältern (Ausrüstungsplatz, Feld der Tasche), nie an einem Fenster.
 
 **Ausrichtung.** Titel immer zentriert. Rückfragen zentriert (Titel, Text bis drei Zeilen, Name des Dings), ihre Knöpfe aber wie überall links und rechts außen; hat eine Rückfrage mehr als drei Zeilen Text, steht der Text linksbündig. Alles andere linksbündig (Gegenstand, Rast, Brauen, Spielstände, Wechselliste, Kapitelende, Erklärungen), damit Zeilen an derselben Stelle beginnen und Zahlen untereinander stehen. Ausnahme Mengenkasten (abgenommen 16:44, Bild 4): die Menge groß in der Mitte „− 3 +“ mit großen Tippflächen ohne Rahmen, darunter mittig ×1 · ×5 · ALLE als Wörter (je mindestens 48 dp Tippfläche), das gewählte hell mit Goldstrich darunter, nicht wählbare gedämpft lesbar.
 
 **Knöpfe.**
 - Alle Knöpfe gleich groß: je die halbe Breite (`knopfzeile`, 8 dp Abstand), Tippfläche 48 dp hoch, Schrift 15 sp, Versalien, Sperrung 2 sp, ß als SS. Kein Rahmen; beim Antippen wird die Fläche dunkel (`RAISED`), ausgelöst beim Loslassen.
-- **Seite nach Bedeutung, nie mittig, auch ein einzelner Knopf nicht:** was zurückführt oder schließt links mit „‹“ vorn (‹ ZURÜCK, ‹ ABBRECHEN, ‹ SCHLIESSEN); was weiterführt oder ausführt rechts mit „›“ hinten (WEITER ›, LADEN ›, ANLEGEN ›, BRAUEN ×3 ›, NEBENHAND ›). „‹“ und „›“ sind gezeichnete Winkel (`pfeil`), kein Schriftzeichen.
+- **Seite nach Bedeutung, nie mittig, auch ein einzelner Knopf nicht:** was zurückführt oder schließt links mit „‹“ vorn (‹ ZURÜCK, ‹ ABBRECHEN); was weiterführt oder ausführt rechts mit „›“ hinten (WEITER ›, LADEN ›, ANLEGEN ›, BRAUEN ×3 ›, NEBENHAND ›). „‹“ und „›“ sind gezeichnete Winkel (`pfeil`), kein Schriftzeichen.
 - **Farbe statt Größe:** Hauptwahl hell golden (`BRIGHT`), Nebenwahl gedämpftes Gold (`GOLD`), was etwas zerstört (× WEGWERFEN, × LÖSCHEN) überall in Warnfarbe (`WARN`) mit „×“ vorn, im Fenster wie in der Rückfrage; nicht wählbar gedämpft (`DIM` zu 75 %), lesbar.
-- **Begriffe:** *Hauptwahl* = was das Fenster tut (rechts unten, `BRIGHT`); *Nebenwahl* = Zurück, Abbrechen, Schließen (links unten, `GOLD`); *Gefahr* = was zerstört (`WARN` mit „×“). In einer Rückfrage ist die Gefahr die Hauptwahl und steht rechts unten (× LÖSCHEN). In einem Fenster mit eigener Hauptwahl steht sie in der Reihe darüber links (Gegenstand: oben „× WEGWERFEN“ links, „NEBENHAND ›“ rechts; unten „‹ ABBRECHEN“, „ANLEGEN ›“). Ein freier Platz in einer Reihe bleibt leer, die anderen Knöpfe werden nicht breiter.
-- **Abbrechen sichtbar** in jedem Fenster mit einer Wahl; ein Fenster ohne Wahl (Erklärung, ganzer Bericht) hat links unten „‹ SCHLIESSEN“; Android-Zurück und Tippen neben das Fenster schließen zusätzlich, Tippen ins Fenster nicht (526).
+- **Begriffe:** *Hauptwahl* = was das Fenster tut (rechts unten, `BRIGHT`); *Nebenwahl* = Zurück oder Abbrechen (links unten, `GOLD`): „‹ ZURÜCK“ geht eine Ebene zurück, von der obersten Ebene eines Schirms ins Spiel wie die Zurück-Taste von Android; „‹ ABBRECHEN“ verwirft eine angefangene Handlung (Rückfrage, Mengenfenster, Gegenstandsfenster); „Schließen“ entfällt (618, Chef 07.11., 22:21; ersetzt „Zurück, Abbrechen, Schließen“); *Gefahr* = was zerstört (`WARN` mit „×“). In einer Rückfrage ist die Gefahr die Hauptwahl und steht rechts unten (× LÖSCHEN). In einem Fenster mit eigener Hauptwahl steht sie in der Reihe darüber links (Gegenstand: oben „× WEGWERFEN“ links, „NEBENHAND ›“ rechts; unten „‹ ABBRECHEN“, „ANLEGEN ›“). Ein freier Platz in einer Reihe bleibt leer, die anderen Knöpfe werden nicht breiter.
+- **Abbrechen sichtbar** in jedem Fenster mit einer Wahl; ein Fenster ohne Wahl (Erklärung, ganzer Bericht) hat links unten „‹ ZURÜCK“ (618; ersetzt „‹ SCHLIESSEN“); Android-Zurück und Tippen neben das Fenster schließen zusätzlich, Tippen ins Fenster nicht (526).
 - Mehr als zwei Knöpfe: Reihen zu je zwei; die unterste Reihe ist immer „‹ Nebenwahl“ links, „Hauptwahl ›“ rechts.
 - **Lage:** die Knöpfe stehen direkt unter dem Inhalt, solange alles auf einen Schirm passt; nur wenn die Liste rollt, fest unten (`folge_inhalt`).
 
@@ -181,8 +194,8 @@ Gilt für jeden neuen oder umgebauten Menüschirm und jedes Fenster außerhalb d
 
 | Was | Größe | Schnitt | Farbe |
 |---|---|---|---|
-| Titel eines Schirms | 22 sp | Versalien, Sperrung 3 sp | `GOLD` |
-| Titel eines Fensters, Zwischenüberschrift (Platz, Rezept, „Angelegt“-Kopf) | 15 sp (Zwischenüberschrift 14 sp) | Versalien, Sperrung 3 sp | `GOLD` |
+| Titel eines Schirms, eines Fensters oder einer Rückfrage (586a, Chef 05.11., 09:39; `Stil.TITEL_SP`) | 22 sp | Versalien, Sperrung 3 sp | `GOLD` |
+| Zwischenüberschrift (Rezept, Zutaten, Fertigkeiten) | 14 sp | Versalien, Sperrung 3 sp | `GOLD` |
 | Name eines Dings | 16 sp | normal, keine Versalien | Farbe der Seltenheit |
 | Fließtext | 15 sp | normal | `TEXT` |
 | Erzählter Text (Chronik, Kapitelende) | 16 sp | schräg erlaubt | `TEXT` |
@@ -225,7 +238,7 @@ Versalien mit Sperrung nur für Titel, Zwischenüberschriften und Knöpfe; nie f
 ## Zwischensequenzen (Thema 70)
 
 Alle Zwischensequenzen (Intro 69, Tempelszene 68, spätere Wendepunkte) sind gleich gebaut, damit sie als eine Reihe erkennbar sind:
-- etwa **fünf gerenderte Standbilder** ohne Animation, verbunden durch **weiche Überblendungen**; zusammen etwa 30–40 Sekunden
+- etwa **fünf gerenderte Bilder mit leichten Bewegungen** wie in der alten Fassung (`core/.../IntroLife.kt`), mit Signatur (Licht aus Quelle, Tusche im Zeichner, 302.3), verbunden durch **weiche Überblendungen**; zusammen etwa 30–40 Sekunden (Chef 08.11., 15:08: „Zwischensequenzen, wenn die jetzt nochmal neu gemacht, mit leichten Animationen, die wir ja auch hier in der alten Fassung hatten, respektive ja, Signatur, Tusche und so.“; ersetzt „ohne Animation“; Bau 613)
 - je Bild **ein kurzer Text** im Textkasten-Stil; Texte legen Nutzer und Berater fest (`STORY-REGELN.md`)
 - **Klang je Szene**: leise Geräusche (Intro) oder ein eigenes Musikstück (Tempel: „Ancient Legend“), Geräusche bleiben darunter leise
 - Antippen überspringt; danach in der Chronik unter „Bisher geschehen“ wieder ansehbar
@@ -240,7 +253,7 @@ Alle Zwischensequenzen (Intro 69, Tempelszene 68, spätere Wendepunkte) sind gle
   5. **Figuren wenige und glaubhaft:** Umriss mit Kleidung, Werkzeug, Merkmal (Rowena: Schürze, Krug); keine Kegel mit Kugelkopf, keine gleichen Figuren nebeneinander.
   6. **Leben:** was leuchtet oder Luft ist, bewegt sich (70.3), Ton darunter.
 - **Blickwinkel:** Ich-Perspektive des Helden oder ein Bild ohne ihn (Stimmung, anderer Schauplatz); der Held erscheint nie, weil er wählbar ist (Geschlecht, Klasse, Ausrüstung); andere Figuren dürfen ins Bild (wie Lyra in der Tempeltür)
-- **Leises Leben** (Flackern, Lichtfall, Staub) wird nach der Stilwahl in einem Test-Build an einer Szene entschieden (70.3)
+- **Leises Leben** (70.3) ist entschieden: leichte Bewegungen wie oben (613)
 
 ## Klang
 

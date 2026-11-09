@@ -123,7 +123,7 @@ for b, nrs in sorted(ohne_pl.items()):
 heute = subprocess.run(["git", "-C", ROOT, "log", "--since=" + max(time.strftime("%Y-%m-%d 00:00"), "2026-10-22 21:32"), "--diff-filter=A", "--name-only", "--format=", "--", "docs/chefsache/ansehen/"],
                        capture_output=True, text=True, env=dict(os.environ, TZ="Europe/Berlin")).stdout.split()
 tb = sorted({m.group(1) for f in heute for m in [re.search(r"/(t\d+)-", f)] if m})
-if len(tb) > 6: fund.append("Testbuilds heute: %d (%s), höchstens 6 für Tom und Jerry zusammen (317, LISTE-BAUEN-TESTEN.md „Gemeinsamer Build“)" % (len(tb), ", ".join(tb)))
+if len(tb) > 6: fund.append("Testbuilds heute: %d (%s), höchstens 6 für Tom und Jerry zusammen (317, LISTE-CHECK-BUILD-TEST.md Punkt 3)" % (len(tb), ", ".join(tb)))
 # 347 (H): Start der Entwicklung liest Abschnitte über ihre Überschrift; fehlt ein Anker, lädt der Befehl still alles oder nichts
 for datei, anker in (("ARBEIT-TEAM-TOM.md", "## Einzelheiten"), ("ARBEIT-TEAM-JERRY.md", "## Einzelheiten"),
                      ("DESIGN-STIL.md", "## Auf einen Blick"), ("DESIGN-STIL.md", "## Signatur")):

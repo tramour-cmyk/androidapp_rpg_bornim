@@ -1,14 +1,19 @@
-# 623 · Effektpakete kaufen (623 A) · Sokrates · 07.11., 20:1x · C Kampf
+# 623 · Effektpakete: Rest nach dem Kauf · Sokrates · 09.11., 07:15
 
-Entschieden 07.11., 20:1x („623 A B C D E F“, Archiv). Nur du kannst kaufen. Je Paket auf itch.io kaufen, die ZIP-Datei herunterladen und wie bei 572 als Anhang ins private Repo `bornim-kaufmodelle` (Version `stufe1`) hochladen; nie in dieses öffentliche Repo.
+Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/main/docs/LISTE-QUELLEN.md (REEBOO-Tabelle, Lizenzen 07.11. geprüft)
 
-1. [Godot Combat VFX Mega Pack](https://reeboolabs.itch.io/godot-combat-vfx-mega) · 19,99 $
-2. [Stylized Projectiles VFX](https://reeboolabs.itch.io/stylized-projectiles-godot) · 7,99 $
-3. [Weapon & Motion Trails](https://reeboolabs.itch.io/godot-weapon-trails) · 6,99 $
-4. [Stylized VFX Pack 3](https://reeboolabs.itch.io/stylized-vfx-pack-3-godot) · 6,99 $
-5. [Godot 4 Character Shaders](https://reeboolabs.itch.io/godot-character-shaders) · 6,99 $
-6. Status Effects VFX for Godot 4 (auf [reeboolabs.itch.io](https://reeboolabs.itch.io/)) · 6,99 $
+**Gekauft 09.11.** (privates Repo, Release `stufe1`, Lizenzen dort in `LIZENZ.md`): R1 Combat VFX Mega, R2 Stylized Projectiles, Status Effects VFX, R8 Weather FX, R9 Grass & Wind, R10 Water Shader Kit, R11 Surface Shaders; zusammen 76,93 $ (Listenpreise).
 
-Zusammen 55,94 $. Danach „623 gekauft“ sagen; Jerry baut mit 478 ein (623.2) und trägt in `LISTE-BESTAND.md` ein. Nicht kaufen: Stylized VFX Pack 1 (steckt in Pack 2), Beams & Lasers erst nach Nr. 1 (C).
+**Steht noch, darüber reden wir nochmal (Chef 09.11., 07:12):**
 
-Erledigt: „623 gekauft“; dann lösche ich die Datei.
+| Paket | Preis $ | geprobt in |
+|---|---|---|
+| R3 Weapon & Motion Trails | 6,99 | 623.5 |
+| R4 Stylized VFX Pack 3 | 6,99 | 623.5 |
+| R5 Character Shaders | 6,99 | 623.5 |
+| R6 Beams & Lasers (nicht geprobt, nur Probe 415) | 6,99 | – |
+| R7 Stylized VFX Pack 2 (nicht geprobt) | 20,00 | – |
+
+**Rangfolge Sokrates (09.11., 07:1x, auf Frage 07:16):** 1. R3 Trails (Kampf lesbar: Klingenspur, Luftzug beim Ausweichen, Pfeilspur; geprobt) · 2. R7 Pack 2 (lebendige Welt: Staub im Licht, Fackel, Kaminrauch, Fußstaub, Funken an der Parade, Heilung; trifft 613.2; nicht geprobt) · 3. R4 Pack 3 (düster: Blut-Treffer, Blutsaugen des Egels, Todesstoß der Untoten, Geisterlichter, Höhlenkristalle; geprobt) · 4. R5 Character Shaders (nur als Zusatz über unserer Signatur: Trefferblitz, Auflösen, Gefrieren) · 5. R6 Beams (überschneidet R1). Gegenargument: Effekte heilen keine Roboterbewegung, und jeder Einbau kostet Sitzungen in einer Sparwoche. Empfehlung: R3 jetzt, R7 und R4 mit ihrem Einbau, R5 und R6 vorerst nicht.
+
+Antwort: …
