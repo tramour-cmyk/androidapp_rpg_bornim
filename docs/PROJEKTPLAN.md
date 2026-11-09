@@ -11,10 +11,10 @@ Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 4
 **Wie du die Verweise findest** (484): „E 7“ = Entscheidung 7 in der Liste [Entscheidungen zum Spielsystem](DESIGN-SPIELSYSTEM-2-0.md); „NW 5“ = Abschnitt 5 im [Regelwerk des Bornimer Rollenspielsystems](DESIGN-SPIELSYSTEM-2-0-ENTWURF.md) (Datei heißt noch „Entwurf“, gilt aber; E 84); eine Zahl ohne Buchstaben ist ein Vorgang. Gilt nur, was entschieden ist; neue Entscheidungen gehen hier ein. Alle Zahlen sind Startwerte; abhakbar mit Zahlen erst nach der Rechensimulation (444). Termine gibt es keine; Wochenziele nennen Reihenfolge und Schätzung, keine Tage je Punkt. Alte Kurzzeichen (T1 … S1, bis 01.11.): Git, Stand vor „Perikles: 447.1“.
 
 **Stufe 1 · Kern spielbar** (Prüfung: Rechensimulation 444 abgenommen; der Chef spielt Dorf und Wald an)
-- [ ] **1.1** G · Ohne Klassen (E 1): Erschaffung mit sechs Grundwerten ab 1, 21 Punkte, jeder Wert 3 bis 8 (E 77); fünf Völker mit Bonus, Malus und Merkmal, Volk hebt bis 9, nie unter 3 (E 70, 72, 78); Herkunft freiwillig oder Wanderer, Startfertigkeiten bei 10 (E 68, 69; NW 2). Ins Spiel erst mit 2.3; bis dahin im Testmenü zu sehen (470a: „C“, aber der Rechenkern des Kampfs ist mit 3–4 Sitzungen über 2 geschätzt, darum gilt B). · Stand: gebaut
+- [x] **1.1** G · Ohne Klassen (E 1): Erschaffung mit sechs Grundwerten ab 1, 21 Punkte, jeder Wert 3 bis 8 (E 77); fünf Völker mit Bonus, Malus und Merkmal, Volk hebt bis 9, nie unter 3 (E 70, 72, 78); Herkunft freiwillig oder Wanderer, Startfertigkeiten bei 10 (E 68, 69; NW 2). Ins Spiel erst mit 2.3; bis dahin im Testmenü zu sehen (470a: „C“, aber der Rechenkern des Kampfs ist mit 3–4 Sitzungen über 2 geschätzt, darum gilt B). · Stand: abgenommen (720, Chef 09.11., 14:49)
 - [ ] **1.2** G · Fertigkeiten steigen durch Tun, Wert 0–100 in vier Rängen, am Rangende Halt mit kleinem Puffer bis zur Prüfung (E 67, E 44); Kapitel 1 bis Geselle (49) mit Bewährungsproben zum Gesellen (Takt, NW 5); Prüfregel und die 37 (E 59); Hinweis beim Aufstieg, Heldenblatt zeigt nur Getanes (NW 3). · Stand: gebaut
 - [ ] **1.3** G · Heldenstufe aus Erfahrung (E 16), höchstens 40 % aus Fertigkeitsaufstiegen (E 17); Kapitelgrenze weich bis zwei Stufen darüber (E 18, E 35); Erfahrungstopf je Gebiet, Wiederkehrer geben kaum Erfahrung, aber Beute (E 19, E 21). · Stand: gebaut
-- [ ] **1.4** M · Neue Monsterwerte für Kapitel 1 nach dem BRS auf Rechenmodell D (E 73–75, NW 7). · Stand: gebaut
+- [x] **1.4** M · Neue Monsterwerte für Kapitel 1 nach dem BRS auf Rechenmodell D (E 73–75, NW 7). · Stand: abgenommen (720, Chef 09.11., 14:49)
 
 **Stufe 2 · Kapitel 1 durchspielbar** (Prüfung: Zufallsspieler spielt Kapitel 1 durch; Kollision 0; Kapitelsimulation: jede Herkunft schafft die Bosse; der Chef spielt einmal grob durch)
 - [ ] **2.1** T · Kollision und Sprungtest 0 in jedem Ort; kein Schweben nach Start und Kartenwechsel (24); Tippen trifft, was gezeichnet ist.
@@ -32,12 +32,12 @@ Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 4
 - [ ] **2.13** M · **Alle Gegner von Kapitel 1 im Spiel** (Chef 05.11., 08:2x; 579): jeder Gegner der alten Fassung (`Story.kt` Flüsterwald, Tiefer Wald, Blutzahnhöhle, Tag und Nacht) mit Modell auf der Karte und im Kampf, eigener Kennung (577), Klang und Kampfblende. Haken = vom Chef im Build gesehen. Stand 05.11., 08:2x:
   - [x] Wolf (gekauft) · [x] Riesenratte (gekauft) · [x] Goblin · [x] Kobold · [x] Goblin-Schamane · [x] Goblin-Bogenschütze (alle im Build 257)
   - [ ] Riesenfledermaus: nur Kapsel, Modell in 510
-  - [ ] Wildschwein · [ ] Riesenhundertfüßer · [ ] Riesenspinne · [ ] Riesenegel (für Stirge) · [ ] Säureschnecke (für Ockergallerte): im Build 266 (auf `main` 05.11.), vom Chef im Probekampf gesehen (t266.1, Funde 595, 596); auf der Karte nachts und in der Höhle noch nicht prüfbar (539, 492); Stand 07.11.
+  - [x] Wildschwein · [x] Riesenhundertfüßer · [x] Riesenspinne · [x] Riesenegel (für Stirge) · [x] Säureschnecke (für Ockergallerte): Haken 720 (Chef 09.11., 14:49, im Probekampf gesehen); auf der Karte nachts und in der Höhle noch nicht prüfbar (539, 492)
   - [ ] Skelett · [ ] Zombie · [ ] Ghul: fehlen (506)
   - [ ] **Bosse:** [ ] Grimmzahn neu auf dem Kaufwolf (533; heute altes Modell, Kampf und Leibwache gehen) · [ ] Krogg (bugbear) · [ ] Grak (hobgoblin_captain): mit der Blutzahnhöhle (492)
 - [ ] **2.14** W · **Alle Orte von Kapitel 1 begehbar** (Chef 05.11., 08:2x). Haken = im Build begehbar wie alt, vom Chef gesehen; „Ort fertig“ (4.3) kommt danach. Stand 05.11.:
   - [x] Bornim (Dorf) · [x] Flüsterwald · [x] Tiefer Flüsterwald (491, „passt fürs Erste“; Schild am Eingang und Morwens Hütte offen)
-  - [ ] Zum Schlafenden Greif (Schänke) · [ ] Thessas Kramladen · [ ] Haus des Ältesten · [ ] Tempel des Morgenlichts: Grundrisse im Build (399.1), vom Chef noch nicht abgehakt
+  - [x] Zum Schlafenden Greif (Schänke) · [x] Thessas Kramladen · [x] Haus des Ältesten · [x] Tempel des Morgenlichts: Haken 720 (Chef 09.11., 14:49)
   - [ ] **Blutzahnhöhle:** fehlt im Build (492 seit 08.11. wieder in Arbeit; neu nach Signatur)
 - [ ] **2.15** W · **Hauptquest von Kapitel 1 einmal durchgespielt**, Station für Station (Testmenü „Stationen“, 555; Chef 05.11., 08:2x). Haken = der Chef hat die Station im Build gespielt. Stand 05.11.:
   - [x] 1 Garrick (Schlagbaum, t257 251.7) · [x] 2 Morwen (t257 251.2) · [x] 3 Grimmzahn (Kampf, t257 252.7; Blende, Tod offen)
@@ -204,7 +204,7 @@ Eingefroren am 03.11.; gestrichen wird nichts. Nach deinem ersten Durchspiel ord
 
 | Stufe | Stand | was als Nächstes |
 |---|---|---|
-| 1 Kern spielbar | 0 von 4 abgenommen. 1.1 Erschaffung (470, im Testmenü), 1.3 Heldenstufe (472) und 1.4 Monsterwerte (473) liegen dir in Build 204 zum Testen vor; 1.2 Fertigkeiten (471) als Regeln gebaut, kommt mit 2.3 ins Spiel. Simulation 444 gerechnet, nicht von dir abgenommen. | dein Test von Build 204 |
+| 1 Kern spielbar | 2 von 4 abgenommen: 1.1 Erschaffung, 1.4 Monsterwerte (720, 09.11.). 1.3 Heldenstufe (472) noch nicht getestet (Aufstieg mit dem BRS); 1.2 Fertigkeiten (471) als Regeln gebaut, sichtbar erst mit 762. Simulation 444 gerechnet, nicht von dir abgenommen. | dein Test von 1.3; 762 |
 | 2 Kapitel 1 durchspielbar | 0 von 12. Dorf, Räume und Wolfskampf spielbar (Build 146). Geschichte und Gespräche von Kapitel 1 gebaut (390). Flüsterwald, Tiefer Flüsterwald, Blutzahnhöhle und ein Teil der Gegner fehlen in Godot. Kampf rechnet noch nach dem alten System (2.3). | Wochenziel 03.11.: 490–496, dann 478 und 2.3 |
 | 3 Alle Systeme angelegt | 0 von 8. Gegenstandskatalog angelegt (458). | nach Stufe 2 |
 | 4 Kapitel 1 fertig | 0 von 10. Feinarbeit am Aussehen eingefroren (488); 463 Umhang, 417 Tragart, 406 Schild am 03.11. mit „passt“ eingefroren, Mängel auf der Liste „Nach dem Durchspielen“. | nach deinem ersten Durchspiel |
