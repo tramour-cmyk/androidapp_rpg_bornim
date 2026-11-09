@@ -37,6 +37,10 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Geschlossen laut Nachprüfung oder Spur: D61.2, D62.1, D63.1–D63.6, D64.1, D65.1, D67.1, D68.1, D68.2, D69.1, D70.1, D71.1, D71.2, D74, D76.1, D76.2, D77.1, D77.2, D78.2, D79, D80.1–D80.7, D81.1, D81.2 (mit 275.2), D82, D83, D84, D84.2, D85, D86.2 (Hinweis an mich), D88.1 (685), D89, D90.1–D90.3 (686), D93.
 
+## Lauf 124 · 796 Nachprüfung 808, 809 (Perikles, `3ff660d26`; 09.11., 22:4x)
+
+**Greift.** W5: CLAUDE.md Zusammenarbeit 3 hängt die Ausnahme an „Abläufe und Einzelheiten von Balance und Spielgefühl“, „Code auf `main`“ steht danach ohne Ausnahme; deckt sich mit `ROLLE-BERATUNG` 51, 52, 57. W3: `LISTE-GLOSSAR` 38 „wenn es kein startbares Muss hat, vor eigener Kür“; keine weitere Stelle mit „nichts Startbares“ als Übernahmebedingung (`lauf.py` 528 meint Kür-Rollen).
+
 ## Lauf 123 · 800 Notizen nach 650.2 (Perikles, `3a26195f2`; 09.11., 21:4x)
 
 **Greift, eine Lücke.** A: vier Dateien in `alt/`; außerhalb der Archive verweist nichts mehr auf sie als geltend (`LISTE-PRUEFUNG` 60 „alte Zielkurve“, `STORY-REGELN` 27, `STORY-HANDBUCH-1` 6, Figurenkatalog 21 mit `alt/`-Pfad); CLAUDE.md „Bekannte Fehler“ nennt den Durchspielbogen nur als Anlass. B: `kapitel2/`-Verweise in `STORY-PLAN`, `STORY-REGELN`, `ARBEIT-KREATIV` tragen. C1: kein Werkzeug, keine Notiz nennt den alten Namen als Pfad, außer Verlauf (`DESIGN-BRS` 3, 457, 461 Zitate; `DESIGN-SPIELSYSTEM-2-0.md`) und Godot-Kommentar (811 Jerry); `regelcheck.py` liest `DESIGN-BRS.md`, Wächter 446 meldet die 26 alten Namen wie vorher; `sim444/sim.py` startet. E2: Inhaltsverzeichnis „Für den Chef“ mit acht Dateien, `inhalt.py` läuft in `notiz.sh` und findet zwei echte tote Links im Tagesbericht.
