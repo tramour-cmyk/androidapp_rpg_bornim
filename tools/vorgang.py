@@ -16,6 +16,7 @@ Schreiben (Chef 27.10., 15:20: nur über dieses Werkzeug; danach committen und p
   vorgang.py klasse NR M|K             M?-Entscheid (190.8)
   vorgang.py rang NR oben|unten|vor NR2|nach NR2   Vorrang unter den Zeilen desselben Besitzers
   vorgang.py fertig NR                 Stand „erledigt“ (ins Archiv schiebt lauf.py --aufraeumen); nennt Absätze „Zu NR“
+  vorgang.py greift NR LAUF            Diogenes nach „greift“ im Bereich B: „erledigt, greift Lauf N“ (724 A, 755)
   vorgang.py build N --mit NR,NR …     Testbuild N trägt diese Vorgänge: Build N, Stand „zu testen“
   vorgang.py build N [--datei PFAD] [--probe]   Automatik B nach dem Test des Chefs: liest die Prüfliste ansehen/tN-….md (auch gelöscht,
                                        aus Git) mit Abschnitt „## Ergebnis“ („- N.k ✓“, „- N.k ✗ <Fund>“, „- Rest ✓“) oder Spalte „Chef“;
@@ -131,6 +132,16 @@ def fertig(nr, rolle=None):
     zu = [l[:60] for l in startbar.lesen(startbar.VORRAT.get(d["besitzer"], "")).splitlines() if re.match(r"- \*\*Zu " + re.escape(nr) + r"\b", l)]
     print("vorgang.py: %s erledigt (%s)%s%s" % (nr, d["besitzer"], ("; darauf warten: " + ", ".join("%s (%s)" % (x["nr"], x["besitzer"]) for x in wer)) if wer else "",
                                             ("; Absätze noch da: " + " | ".join(zu)) if zu else ""))
+
+def greift(nr, lauf, rolle=None):
+    """755 (D101.1, 724 A): Diogenes schließt einen Vorgang im Bereich B mit seinem „greift“ selbst ab, im Commit des Laufs;
+    greift er nicht, bleibt die Zeile und die Lücke wird ein eigener Vorgang, auf den sie wartet (`warte NR NEU`)."""
+    d = finden(nr, rolle)
+    if not d.get("bereich", "").startswith("B "):
+        print("vorgang.py: %s ist nicht im Bereich B; „greift“ gilt nur für Werkzeug und Abläufe (724 A)" % nr); sys.exit(1)
+    fertig(nr, rolle)
+    d = finden(nr, rolle)
+    ersetzen(d, dict(d, stand="erledigt, greift Lauf %s" % re.sub(r"^\s*Lauf\s*", "", lauf).strip()))
 
 def gruppe(L, besitzer):
     """Zeilenindizes der Zeilen eines Besitzers und Einfügestelle für einen neuen Besitzer (Reihenfolge wie die Liste)."""
@@ -405,6 +416,7 @@ def haupt(a):
     if b == "setze" and len(a) >= 3: return setzen(a[1], a[2:], rolle)
     if b == "klasse" and len(a) == 3: return klasse(a[1], a[2], rolle)
     if b == "fertig" and len(a) == 2: return fertig(a[1], rolle)
+    if b == "greift" and len(a) == 3: return greift(a[1], a[2], rolle)
     if b == "rang" and len(a) in (3, 4): return rang(a[1], a[2], a[3] if len(a) == 4 else None, rolle)
     if b == "neu" and len(a) >= 5:
         nr = a[a.index("--nr") + 1] if "--nr" in a else None
@@ -415,7 +427,7 @@ def haupt(a):
         if "--mit" in a:
             return build_mit(n, [x for x in re.split(r"[,\s]+", " ".join(a[a.index("--mit") + 1:])) if x])
         return build_abschluss(n, a[a.index("--datei") + 1] if "--datei" in a else None, "--probe" in a)
-    if b in ("stand", "warte", "setze", "klasse", "fertig", "rang", "neu", "build"): print(__doc__); sys.exit(2)
+    if b in ("stand", "warte", "setze", "klasse", "fertig", "greift", "rang", "neu", "build"): print(__doc__); sys.exit(2)
     for nr in a:
         print("== %s" % nr)
         print("\n".join(treffer(nr)) or "nichts gefunden")
