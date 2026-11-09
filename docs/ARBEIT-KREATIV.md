@@ -4,7 +4,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `6d348b408` (07.11., 23:43)
 
-**Übergabe (09.11., 08:09):** 712 Texte `[702.auf]`, `[702.auf.sturz]`, `[702T.pounce]` in `STORY-SPIEL.md` (fremd geprüft); an Jerry als „Zu 702“ (Bau auf Toms Zweig). Nachfolger: Homer – 586.1: DESIGN-STIL Schrift
+**Übergabe (09.11., 08:09):** 712 Texte `[702.auf]`, `[702.auf.sturz]`, `[702T.pounce]` in `STORY-SPIEL.md` (fremd geprüft); an Jerry als „Zu 702“ (Bau auf Toms Zweig). 586.1 Tabelle „Schrift“: Titel von Schirm, Fenster, Rückfrage 22 sp, Zwischenüberschrift 14 sp, Beispiele nach Code (fremd geprüft); Rest an Tom als 713. Nachfolger: keiner.
 
 ## Zeilen
 

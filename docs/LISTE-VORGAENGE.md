@@ -108,6 +108,7 @@
 | 700 | Erschaffung, Platzwahl „Alle Spielstand-Plätze sind belegt“: Rahmen um jeden Platz gegen 549a (Tom, gesehen bei 586, 20:22) | Tom | M | startbar, passt (Chef 21:50), in den nächsten Build | – | claude/tom-700-platzwahl | – | E Oberfläche | 0,26 $ |
 | 701 | Gegenstandsfenster: Hinweis Obergrenze nur einmal statt je Grundwert (Chef t270.5, 08.11., 20:37: „wirkt überbordend“) | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 613.2 | Zwischensequenzen: Bewegung sichtbar wie alt (Kerzenflackern, atmendes Licht, Staub im Strahl) und Fackelzug fehlt (Chef 08.11., 21:58 zu 613: „gesehen habe ich nichts“) | Tom | M | startbar | – | – | – | E Oberfläche | – |
+| 713 | Von Homer (586.1): Erklärfenster beim Gedrückthalten (menue.gd:1561) noch mit Goldrand und 14-sp-Kopf, gegen 549a (ohne Kasten) und 586a (Titel 22 sp) | Tom | K | startbar | – | – | – | E Oberfläche | – |
 | 708 | Zugriff auf bornim-kaufmodelle in Jerry-Sitzungen: add_repo vom Automodus abgelehnt (Jerry 08.11., 21:50; neue Sitzung 22:37 wieder), hält das Nachstellen von 682, 562, 593, 662, 536, 560 an (wie 660 bei Tom) · wiederholt | Jerry | M | erledigt | – | – | – | E Technik | – |
 | 682 | Kampf flüssiger: Held geht zügig zum Angriff, Gegner laufen in weichen Bögen statt eckig gerade-diagonal, weniger Warten auf Hin- und Zurücklaufen bei Fehlschlägen; grundsätzlich für alle Gegner (Chef 08.11., 16:22, t269; „Schienenbahnen“ t270) · „jetzt“ 08.11., 21:36 | Jerry | M | in Arbeit, Messung am Rechner | – | – | – | E Kampf | 26,69 $ |
 | 702 | Wölfe: Anspringen nimmt dem Helden jeden Zug, Rudel hält ihn dauerhaft fest (Chef t270, 08.11., 21:27: „1 Minute lang zugeguckt … sinnlos“, Balance) · „jetzt“ 08.11., 21:36 | Jerry | M | gebaut, Texte bei Homer (712). Geprüft an: 321d3ccfe (mars_regeln 0, mars_golden 0, Messung 0 % verlorene Züge) | 712 | claude/tuffy-702-anspringen | – | E Kampf | 6,49 $ |
@@ -186,7 +187,7 @@
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 72 | Profil und Marktvergleich | Homer | K | ruht | – | – | – | E Kampf | 0,72; +0,61 $ |
 | 348.12g | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | Homer | M | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | – | – | – | G Story | 4,29 $ |
-| 586.1 | Von Team Tom: DESIGN-STIL Tabelle „Schrift“ nachtragen: Fenstertitel 22 statt 15 sp (586 passt, Chef 08.11., 21:55) | Homer | K | startbar | – | – | – | E Oberfläche | – |
+| 586.1 | Von Team Tom: DESIGN-STIL Tabelle „Schrift“ nachtragen: Fenstertitel 22 statt 15 sp (586 passt, Chef 08.11., 21:55) | Homer | K | erledigt | – | – | – | E Oberfläche | – |
 | 712 | Von Team Tom (702 C): Kampftexte ohne Zugverlust: [702.auf] Aufstehen (Zwischenfassung und nach dem Sturz) und Tipp [210T.pounce] | Homer | M | erledigt | – | – | – | E Kampf | – |
 | 317.1 | `startbar.py`, `lauf.py`: Obergrenze 6 je Build streichen (Chef 07.11., 20:5x) | Perikles | M | gebaut, Geprüft an: 12837c9c3 | – | – | – | B Werkzeuge | – |
 | 620.1 | Wiederholte Funde des Chefs vor Neuem; wenige Muss je Team zugleich (aus 620) | Perikles | M | gebaut, Geprüft an: 5b65bf6bb (startbar --stand 11:05: Tom 33, Jerry 12 gesperrt) | – | – | – | B Abläufe | 4,11 $ |
