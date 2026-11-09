@@ -212,8 +212,11 @@ QUERSCHNITT = {"Menü": "785", "Knopf": "785", "Fenster": "785", "Kasten": "785"
                "Licht": "620.4", "Schatten": "620.4", "Fackel": "620.4", "Kamera": "620.4", "Karte": "620.4",
                "Schild": "644", "Waffe": "644", "Film": "511", "Probebild": "511"}
 
+# 793 (D116.1): Wortanfänge, die ein anderes Wort sind („Haltung des Helden“ ist kein Halt für Waffen)
+NICHT = {"Halt": r"(?!ung|bar|estelle)"}
+
 def waechter(nr, titel, bereich):
-    def hat(t, w): return re.search(r"(?<![\w])" + w, t, re.I) is not None  # Wortanfang, auch Zusammensetzungen (Schildhöhe)
+    def hat(t, w): return re.search(r"(?<![\w])" + w + NICHT.get(w, ""), t, re.I) is not None  # Wortanfang, auch Zusammensetzungen (Schildhöhe)
     titel_alle = []
     for name in (startbar.LISTE, "LISTE-VORGAENGE-ARCHIV.md"):
         for m in re.finditer(r"(?m)^\| ([^|\s]+) \| ([^|]*) \|", startbar.lesen(name)):
