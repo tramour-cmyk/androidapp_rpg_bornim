@@ -30,6 +30,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [391](tun/391-repo-in-umgebung.md) | **Muss** | B Werkzeuge | 09.11., 22:20 | bornim-kaufmodelle unter „Repositories“ der Umgebung WireStorm Mittel eintragen, einmal mit einem Start prüfen | Sokrates |
 | [801](tun/801-kaufmodelle-zugriff.md) | **Muss** | E Kampf | 09.11., 21:08 | add_repo für bornim-kaufmodelle freigeben? | Jerry |
 
 ## Offen je Rolle
@@ -286,7 +287,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 508 | M | Lehrmeister in Kapitel 1 erreichbar (Geselle), Magie-Pflicht Paladin/Kriegsmagier, Wachsol | startbar |
 | 461b.4 | M | Widersprüche aus Liste 461b: Köpfe Regelwerk, Bestiarium, DESIGN-KAMPF gegen Entscheidung | startbar |
 | 481 | M | Herkünfte ausgleichen: Kräutersammler mit Kampftränken, Wachsoldat, Klosterschüler, Bewähr | startbar |
-| 391 | M | Zweit-Repo dauerhaft in den Sitzungen, ohne Ablehnung (Chef 28.10., 09:21) | ruht |
+| 391 | M | Zweit-Repo dauerhaft in den Sitzungen, ohne Ablehnung (Chef 28.10., 09:21) | Chef (Datei in der Chefsache) |
 | 383.2 | M | Kosten: dieselbe Aufgabe frisch gegen groß messen (Chef 27.10., 19:24) | ruht |
 | 374 | M | Wer prüft regelmäßig, dass alle 373 einhalten? (Chef 27.10., 11:54) | startbar |
 | 348 | M | Fertige Spiel-Engine statt Selbstbau: Umzug nach Godot (Chef 24.10., 16:43) · „jetzt“ 24.1 | ruht |
