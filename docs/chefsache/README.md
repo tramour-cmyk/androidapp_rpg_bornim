@@ -255,10 +255,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 651 | M | Kostenauswertung: Bereiche als feste Liste, fehlende Kosten (533 von 980 Zeilen) über Comm | wartet auf Test/Build (gebaut) |
 | 654.1 | M | Systemfrage vor jedem Bau in ROLLE-ENTWICKLUNG.md und Prüfliste, Wiederholungswächter in v | wartet auf Test/Build (gebaut) |
 | 696 | K | meldung.sh: mehrere Bilder in derselben Minute überschreiben sich im Zweig bilder (Pfad TT | wartet auf Test/Build (gebaut) |
-| 721 | K | rollenspiegel.sh: Antwort am Montag landet unter der kommenden Woche, Ausfall des Freitags | wartet auf Diogenes |
+| 721 | K | rollenspiegel.sh: Antwort am Montag landet unter der kommenden Woche, Ausfall des Freitags | wartet auf Test/Build (gebaut) |
 | 724 | M | Werkzeugvorgänge nach „greift“ von Diogenes erledigt statt „wartet auf Test“ (Rollenspiege | Chef (Datei in der Chefsache) |
 
-**Diogenes** – offen 9, Muss 6, startbar 2
+**Diogenes** – offen 8, Muss 6, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -270,7 +270,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 723 | M | Offene Befunde D61–D92 als Vorgänge beim Besitzer nachtragen (ohne Spur: D63.7, D76.1, D76 | startbar |
 | 511 | M | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele | wartet auf D75 (Dauer) |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
-| 721 | K | rollenspiegel.sh: Antwort am Montag landet unter der kommenden Woche, Ausfall des Freitags | startbar |
 
 **Sokrates** – offen 60, Muss 37, startbar 36, PAUSE bis 09.11., 09:00
 
