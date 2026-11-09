@@ -675,7 +675,9 @@ func fertigkeiten_nach_kampf(u: Kampfuebung, ende: String) -> String:
 	var s := zustand.fertigkeiten_stand()
 	if s.is_empty(): return ""
 	zustand.stufe_held = held_werte().stufe
-	return Kampfuebung.notiz(u.gutschreiben(ende, s, zustand.stufe_brs()))
+	var ev := u.gutschreiben(ende, s, zustand.stufe_brs())
+	zustand.spiegle()
+	return Kampfuebung.notiz(ev)
 
 # ---------------------------------------------------------------- 490 Kampf mit einem Monster der Karte (Game.engage, startBattle, endBattle)
 # Die Welt ruht im Kampf; danach steht der Held, wo er stand, mit seinem Blick; das Monster ist nach dem Sieg fort (herde.gd)

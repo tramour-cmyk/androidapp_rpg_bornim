@@ -54,12 +54,14 @@ func _lauf() -> void:
 	st["werte"]["Einhänder"] = 17
 	var z2 := Zustand.aus_daten(JSON.parse_string(JSON.stringify(z.als_daten())))
 	pruefe("Spielstand behaelt den Wert", BrsFertigkeit.wert(z2.fertigkeiten_stand(), "Einhänder"), 17)
+	pruefe("Spielstand spiegelt in brs", int(z2.brs["fertigkeiten"]["Einhänder"]), 17)
 
 	# ausserhalb des Kampfs: Handeln im Laden (Kauf und Verkauf je einmal Uebung, Ziel der eigenen Stufe), Notiz danach leer
 	z2.gold = 500
 	var la := Laden.new(["potion"], false)
 	for i in 5: la.kaufe(z2, Heldwerte.erschaffe("Alrik", "HUMAN", "FIGHTER"), "potion")
 	pruefe("Handeln bekannt und gestiegen", BrsFertigkeit.wert(z2.fert, "Handeln"), 2)
+	pruefe("Heldenreiter liest Handeln", int(z2.brs["fertigkeiten"].get("Handeln", -1)), 2)
 	pruefe("Notiz Handeln", z2.fert_notiz(), ErschaffungBrs.fert_name("Handeln") + " ↑ 2")
 	pruefe("Notiz danach leer", z2.fert_notiz(), "")
 	var ohne := Zustand.new()
