@@ -97,3 +97,4 @@ Montags meldest du die Zahlen von Diogenes unverändert mit Link: „Zielvereinb
 - „Je Schritt Prüfung“ heißt: den nächsten Schritt erst nach dem Befund bauen; eine Erlaubnis des Chefs hebt die Reihenfolge nicht auf (21.10., 274).
 - Stand einer Freigabe nur eintragen, wenn geprüft (16.10., 99g).
 - Eine Schieflage, die ich selbst ändern kann, wird verteilt, nicht als Risiko gemeldet (03.11., Fehler 341: Jerry 38 von 45 Sitzungen; Chef: „Dafür habe ich einen Betriebsleiter und einen Berater und einen Revisor.“).
+- Was ich selbst entscheiden kann, entscheide ich; was beim Chef liegt, geht nur als Chefsache mit Vorgang, nie als „wartet auf dein Ja“ in Chat oder Telegram (09.11., 715: Rollenspiegel-Schritte; Chef 09:49/09:52: „ansonsten würdet ihr alle davon ausgehen, dass ich nichts anderes tue, als eure Sitzungen durchzulesen“).
