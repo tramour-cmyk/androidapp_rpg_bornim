@@ -12,7 +12,7 @@
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
 | 773 | Sammelbuild 272: alle fertigen Zweige beider Teams (Tom 5, Jerry 6: u. a. 656, 717, 717.1, 682, 702), Prüfliste ansehen/t272, build 272 --mit für alle (von Perikles, 15:31: sonst wartet jeder auf den anderen) | Tom | M | wartet, Lauf rot an wolf_mess_438 | 778 | – | – | E Technik | 11,84 $ |
-| 610 | Held im Dorf: Finger am Stab zucken ohne Unterlass (Schild auf dem Rücken) (Chef 07.11., t268) | Tom | M | zu testen, t269.12 traf den Magierstab (ohne Modell), Nachtest 272 mit Kampfstab | t272 | claude/tom-610-finger | 272 | E Figuren | – |
+| 610 | Held im Dorf: Finger am Stab zucken ohne Unterlass (Schild auf dem Rücken) (Chef 07.11., t268) | Tom | M | zu testen, t269.12 traf den Magierstab (ohne Modell), Nachtest 272 mit Kampfstab | t272 | claude/tom-610-finger | 272 | E Figuren | 19,22 $ |
 | 522 | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Chef 03.11., 23:33) | Tom | M | zu testen, Nachtest 272: Dolch, Krummsäbel, Handbeil, Kurzbogen; 14 Waffen ohne Modell (458.3) | t272 | claude/tom-522-waffen | 272 | E Oberfläche | – |
 | 697 | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | Tom | M | in Arbeit, erster Messlauf ohne Wert (nicht importiert) | 782 | claude/tom-697-drehteller | – | E Figuren | – |
 | 653 | Halt für Waffen und Schilde einmal je Modell festlegen statt je Figur nachmessen: Griffpunkt je Gegenstand, Halterung je Körper, eine Anlegefunktion, Prüfbild aller Kombinationen (Chef 08.11., 14:35) | Tom | M | startbar, ja (Chef 14:40), Jerry stellt den Kampf um | – | – | – | E Figuren | – |
@@ -272,7 +272,7 @@
 | 776 | D108.1 von Diogenes: 749 hebt „von Ford (464)“ je rotem Lauf auf (Commit 8a4abf110), ROLLE-BETRIEB.md Zeile 29 verlangt sie weiter samt Tageszahl im Protokoll (461b: neu ersetzt alt im selben Commit) | Perikles | M | erledigt, greift Lauf 110 | – | – | – | B Abläufe | – |
 | 777 | D108.2 von Diogenes: tagesbericht.py rote_laeufe zählt Zweige spike-/tuffy- als „Sonst“ statt Tom/Jerry (ROLLE-BETRIEB 464: spike → Tom, tuffy → Jerry); 7 Tage: 3 so | Perikles | K | erledigt, greift Lauf 110 | – | – | – | B Abläufe | – |
 | 750 | Ford startet ohne lauf.py (seit Selbstneustart 01:05 startbar.py plus create_session von Hand): Sperre per Haken vor create_session (Chef 13:28) | Perikles | M | gebaut, Geprüft an: cbb745d9d (Perikles, Tom, Homer ohne Sperre → angehalten; fremder Titel frei) | Diogenes | – | – | B Werkzeuge | – |
-| 788 | Wiederholungswächter: Allerweltswörter (Schwert, Licht, Karte, Kasten, Menü …) ausschließen (654 A, Chef 09.11., 17:46) | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
+| 788 | Wiederholungswächter: Allerweltswörter (Schwert, Licht, Karte, Kasten, Menü …) ausschließen (654 A, Chef 09.11., 17:46) | Perikles | M | gebaut, Geprüft an: 994cc1f5f (Probe: Menü→785, Schild→644, Schwert still, Umhang neue Zeile) | – | – | – | B Werkzeuge | – |
 | 789 | Freigaben, die eine Sitzung beim Chef braucht (Repo-Zugang, Berechtigung), landen sofort als tun/-Datei und Meldung --laut; heute zweimal nur in der Sitzung (Jerry 16:38, Tom 17:34) (Sokrates, Chef 09.11., 17:51) | Perikles | M | erledigt, ohne Grund angelegt: Jerry hatte eine tun/-Datei, Toms Statuszeile war veraltet (Chef 17:56) | – | – | – | B Abläufe | – |
 | 340.2 | Rollenspiegel C: `tools/rollenspiegel.sh`, eigene Antwort ohne fremde | Diogenes | M | erledigt | – | – | – | B Abläufe | 13,83 $ |
 | 485 | Diogenes bessert sich aus dem Rollenspiegel 02.11.: Wochentermine zählen, Vergleichsblätter selbst holen, Meldungen ohne Abkürzungen (Chef 02.11., 19:37 „1, 2, 3 ja“) · „jetzt“ 02.11., 19:37 | Diogenes | M | erledigt | – | – | – | Q QS | – |
@@ -284,7 +284,7 @@
 | 723 | Offene Befunde D61–D92 als Vorgänge beim Besitzer nachtragen (ohne Spur: D63.7, D76.1, D76.2, D90.1, D90.2), Prüfbericht ausmisten (722 A) | Diogenes | M | erledigt | – | – | – | Q QM | 4,54 $ |
 | 768 | Wochentermin 13.11.: Rollenspiegel Diogenes (rollenspiegel.sh Diogenes) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Diogenes | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 771 | Probe 657 auswerten: Erstfunde des Chefs t272–t275 gegen 11, 11, 9, 7 (von Perikles, Werkzeug 657 greift laut Lauf 104) | Diogenes | M | startbar | t275 | – | – | Q QM | – |
-| 783 | 745.1 Widersprüche und Doppelungen in CLAUDE.md, Rollendateien, Listen gegen das Archiv listen (je Fund Stellen, Wortlaut, Entscheidung; 745 A2, Chef 09.11., 17:46) | Diogenes | M | in Arbeit, Rohfunde Lauf 111 im Prüfbericht | – | – | – | Q QM | – |
+| 783 | 745.1 Widersprüche und Doppelungen in CLAUDE.md, Rollendateien, Listen gegen das Archiv listen (je Fund Stellen, Wortlaut, Entscheidung; 745 A2, Chef 09.11., 17:46) | Diogenes | M | in Arbeit, Rohfunde Lauf 111 im Prüfbericht | – | – | – | Q QM | 26,08 $ |
 | 790 | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab 200 Tsd., Chef 09.11., 18:05) | Diogenes | M | startbar | – | – | – | Q QM | – |
 | 780 | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für unsere gekauften Protofactor-Animsets und Janpec, die KI-Sitzungen mit Skripten bearbeiten? (aus 623.1) | Sokrates | M | wartet, Brief beim Chef | Chef 780 | – | – | M Veröffentlichung | – |
 | 623.1 | Prüfschema auf bisher geprüfte Quellen anwenden (Chef 07.11., aus 623) | Sokrates | M | erledigt | – | – | – | B Abläufe | – |
@@ -352,7 +352,7 @@
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +857,14 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 767 | Wochentermin 13.11.: Rollenspiegel Ford (rollenspiegel.sh Ford) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Ford | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 09.11.): 27120 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 09.11.): 27227 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
