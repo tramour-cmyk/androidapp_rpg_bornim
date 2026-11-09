@@ -90,6 +90,23 @@ func _lauf() -> void:
 			var tipp := InputEventMouseButton.new(); tipp.pressed = gedrueckt; tipp.button_index = MOUSE_BUTTON_LEFT; tipp.position = Vector2(10, 10)
 			karten[1].gui_input.emit(tipp)
 		if int(w2.get("platz", 0)) != 2: fehler += 1; print("FEHLER Platzwahl: %s" % w2)
+	# 795: dieselbe Platzwahl in der Erschaffung nach BRS (ohne Rahmen wie 700): Fenster, vier tippbare Zeilen, Loslassen schliesst
+	var e3 := ErschaffungBrs.new()
+	root.add_child(e3)
+	await process_frame
+	var n3 := e3.get_child_count()
+	e3.platzwahl()
+	await process_frame
+	var schl3 := e3.get_child(e3.get_child_count() - 1)
+	var karten3: Array = schl3.find_children("Platz*", "", true, false)
+	if schl3.find_child("Fenster", true, false) == null or karten3.size() != 4: fehler += 1; print("FEHLER Platzwahl BRS: %d Zeilen" % karten3.size())
+	else:
+		for gedrueckt in [true, false]:
+			var tipp := InputEventMouseButton.new(); tipp.pressed = gedrueckt; tipp.button_index = MOUSE_BUTTON_LEFT; tipp.position = Vector2(10, 10)
+			karten3[1].gui_input.emit(tipp)
+		await process_frame
+		if e3.get_child_count() != n3: fehler += 1; print("FEHLER Platzwahl BRS: Fenster bleibt nach dem Tippen")
+	e3.queue_free()
 	# Spielstaende: vier Karten, Loeschen fragt nach und loescht Platz 4
 	Spielstaende.entwurf = ""   # 557: Karten im alten Aussehen; B prüft spielstaende_529
 	var sp := Spielstaende.new()
