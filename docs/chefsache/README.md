@@ -246,12 +246,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 786 | M | Klangliste alt gegen neu: je Anlass alt, neu, fehlt (654 A, als Drittes) | wartet auf 784 (startbar) |
 | Pflege | K | von Werkzeug (340.3, 09.11.): 17083 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 24, Muss 10, startbar 0
+**Perikles** – offen 22, Muss 8, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 792 | M | D114.1 von Diogenes (779): Sperre sperrt über Allerweltswörter ohne gleiches Thema: 762 üb | wartet auf Diogenes (greift?) |
-| 779 | M | Sperre 620.1 B nur bei Überschneidung mit Ungetestetem, sonst weiterarbeiten (Chef 09.11., | wartet auf Diogenes (greift?) |
 | 511 | M | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele | wartet auf Diogenes |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf Diogenes |
 | 464 | M | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählu | Termin 16.11. |
@@ -275,12 +273,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 09.11.; „star
 | 791 | M | D111 von Diogenes (783, 745 A2 Schritt 3): Überholtes und Doppeltes im Regelwerk umschreib | wartet auf Diogenes (greift?) |
 | 793 | K | D116.1 von Diogenes (788): Stichwort „Halt“ trifft jeden Wortanfang, „Haltung des Helden“ | wartet auf Diogenes (greift?) |
 
-**Diogenes** – offen 15, Muss 13, startbar 5
+**Diogenes** – offen 13, Muss 11, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 792 | M | D114.1 von Diogenes (779): Sperre sperrt über Allerweltswörter ohne gleiches Thema: 762 üb | startbar |
-| 779 | M | Sperre 620.1 B nur bei Überschneidung mit Ungetestetem, sonst weiterarbeiten (Chef 09.11., | startbar |
 | 511 | M | Kein Filmlauf ohne geprüftes Probebild vorher (Chef 03.11., 13:47: „Warum werden so viele | wartet auf D75 (Dauer) |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
 | 788 | M | Wiederholungswächter: Allerweltswörter (Schwert, Licht, Karte, Kasten, Menü …) ausschließe | startbar |
