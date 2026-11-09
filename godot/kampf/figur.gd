@@ -1738,6 +1738,7 @@ func _bite(other, leap: bool, weiter := 0.0) -> int:
 			start = tg - dir * (rb - jump + kurz)
 			jump = kurz
 		flat = dir * flat.length()
+	angriff_von = start
 	var r_alt := rotation.y
 	_face(flat)
 	rotation.y += deg_to_rad(bite[nm][2])     # die Schnauze, nicht die Körperachse zum Ziel
@@ -1951,7 +1952,8 @@ func _hieb(other) -> int:
 	var dir := flat.normalized()
 	var stand: float = other.body_r() - AXT_IM_RAND + float(hieb[0]) * model.scale.x     # Ursprung bis Mitte des Ziels beim Aufschlag
 	var start := position + dir * (flat.length() - stand)
-	var schlag := atan2(dir.x, dir.z) + deg_to_rad(float(hieb[2]))     # die Schneide, nicht die Körperachse zum Ziel
+	var schlag := atan2(dir.x, dir.z) + deg_to_rad(float(hieb[2]))
+	angriff_von = start     # die Schneide, nicht die Körperachse zum Ziel
 	if tween and tween.is_running():
 		tween.kill()
 	tween = create_tween()
@@ -2066,8 +2068,13 @@ var netz_los_ms := -1
 const NETZ_LOS := 0.45      # Anteil des Netzwurfs, bei dem das Netz den Hinterleib verlässt (Stichprobe im Kauf, ungeprüft: 511)
 
 ## A blow, bite, shot or spell at [other]; returns how long it takes (ms).
+## 662 (Chef t270.9: „keine Seite erkennbar“): wo der Angriff ankommt (Platz vor dem Biss oder Hieb, im Raum des Kampforts);
+## danach richtet der Angegriffene die Parade aus. INF: gerade aus dem Stand (dann zählt, wo der Angreifer steht)
+var angriff_von := Vector3.INF
+
 func strike(other, e: Dictionary) -> int:
 	_dreh_ab()
+	angriff_von = Vector3.INF
 	var spell: bool = e.spell != null
 	var ranged: bool = fighter.ranged()
 	netz_los_ms = -1
@@ -2763,10 +2770,19 @@ var _abwehr_letzt := ""
 ## ausweichen … beim Wolf wäre das so eine Abwehr tief … oder Abwehr Mitte oder mal links, rechts … variieren … wenn der Wolf von links
 ## angreift“): die gelungene Abwehr nach der Seite, von der der Angriff kommt (im Blick des Helden; Modell: links = +X), gegen tiefe
 ## Gegner (Wolf, Ratte) tief oder Mitte; je Seite zwei von drei zur Seite, eine zur Mitte, damit es wechselt
-const PARADE_SEITE := 30.0     # Grad aus der Blickrichtung, ab denen die Parade zur Seite geht
+const PARADE_SEITE := 7.5      # Grad aus der Blickrichtung, ab denen die Parade zur Seite geht
+## 662 (Chef t270.9, 08.11., 20:50: „Ich erkenne keinen Unterschied, von welcher Seite der Angriff kommt“): mit 30° ging jede Parade
+## zur Mitte; die Wölfe des Rudels kommen aus der Aufstellung (kampfort._stand) nur 10–29° von der Seite, der einzelne 5°
+## (parade_seite_662). Gemessen wird gegen die Blickrichtung, in die _face_sanft den Helden vor der Parade dreht (zum Gegnerfeld),
+## nicht gegen die gerade eingenommene: links = +X des Modells
+static func parade_winkel(blick: Vector3, von: Vector3) -> float:
+	return rad_to_deg(Vector2(blick.x, blick.z).angle_to(Vector2(von.x, von.z))) * -1.0
+
 func _parade_liste(von: Vector3, art: String, tief: bool) -> Array:
-	var l := global_transform.basis.inverse() * (von - global_position)
-	var ang := rad_to_deg(atan2(l.x, l.z))
+	var blick := global_transform.basis.z
+	if kampfort != null and is_instance_valid(kampfort) and not vier(fighter):
+		blick = kampfort.global_transform.basis * kampfort.facing(fighter.side == "FOES")
+	var ang := parade_winkel(blick, von - global_position)
 	var mitte := "SS_ParryLow" if tief else "SS_BlockMedium1"
 	if ang > PARADE_SEITE:
 		return ["SS_ParryLeft", mitte, "SS_ParryLeft"]
