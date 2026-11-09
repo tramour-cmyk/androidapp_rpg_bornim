@@ -2,9 +2,9 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `d61bb45ee` (09.11., 19:08)
+**Gelesen bis:** `a48534dfb` (09.11., 19:13)
 
-**Übergabe (09.11., 19:08):** 792 gebaut (`startbar.py` Sperre 779: Allerweltswörter jede, einmal, design, hinweis; Wortteil wie schwert/schwertarm zählt nicht, nur Beugung; Ort wie Schenke bleibt Überschneidung nach 779; 29 → 23 Sperren), an Diogenes. Querschnittwörter aus 788 bewusst nicht übernommen (Menü 764/670 ist echte Überschneidung). Nachfolger: keiner (auf Abruf)
+**Übergabe (09.11., 19:13):** 792 gebaut (Sperre 779 ohne Allerweltswörter und Wortteile, Ort bleibt; 29 → 23 Sperren). 791 gebaut (Regelwerk: B1–B4, B8, B10, B11, B13; P1–P4, P8, P9, P11–P13, P17–P21; O2–O4, O7, O8, O10–O12, O15, O17, O18; offen B16 nach Chefsache 783; P10, P14–P16, O13 bewusst nicht, Gründe im Commit-Bericht). 793 gebaut („Halt“ ohne Haltung). CLAUDE.md unter 15 KB. Alles an Diogenes. Nachfolger: keiner (auf Abruf)
 
 ## Einzelheiten
 
