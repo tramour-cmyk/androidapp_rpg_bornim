@@ -1,5 +1,6 @@
 extends SceneTree
-# 762 Probe mit Bild am Rechner (nicht im Bau): Heldenreiter eines Wachsoldaten nach BRS, oben und beim Abschnitt Fertigkeiten.
+# 762 Probe mit Bild am Rechner (nicht im Bau): Heldenreiter eines Wachsoldaten nach BRS, oben und beim Abschnitt Fertigkeiten,
+# dann der Reiter „Fertigkeiten“ oben und unten.
 # Vorher ohne Bild: tests/fertigkeiten_762.gd. Bildlauf nur mit PROBE=762.
 # Aufruf: im Ordner godot: PROBE=762 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --path . --resolution 1080x2340 -s res://tests/fertigkeiten_762_bild.gd -- --ordner=<dir>
 
@@ -32,5 +33,9 @@ func _lauf() -> void:
 	for l in m.inhalt.find_children("*", "Label", true, false):
 		if (l as Label).text == "FERTIGKEITEN":
 			m.rolle.scroll_vertical = int((l as Label).position.y - 40 * Menue.DP)
-	await knips("762_fertigkeiten")
+	await knips("762_held_fertigkeiten")
+	m.tippe_reiter("fertigkeiten")
+	await knips("762_reiter_oben")
+	m.rolle.scroll_vertical = 100000
+	await knips("762_reiter_unten")
 	quit(0)

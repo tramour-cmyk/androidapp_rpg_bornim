@@ -110,7 +110,7 @@ func baue() -> void:
 		leiste.remove_child(c)
 		c.queue_free()
 	# 399.1: Reiter als Zeichen wie alt (TabSign, 60j); Woerter passten zu viert nicht in die Breite
-	for r in ["held", "tasche", "ausruestung", "karte", "chronik", "system"] + (["test"] if Testmodus.ist_an() else []):   # 399.1 wie alt Tab.TEST
+	for r in ["held"] + (["fertigkeiten"] if not brs_fertigkeiten().is_empty() else []) + ["tasche", "ausruestung", "karte", "chronik", "system"] + (["test"] if Testmodus.ist_an() else []):   # 399.1 wie alt Tab.TEST
 		var stern: bool = (r == "held" and hw.offen > 0) or (r == "chronik" and reiter != "chronik" and Chronik.frisch(z))
 		leiste.add_child(Reiterzeichen.knopf(r, wort(r), func(): tippe_reiter(r), r == reiter, stern))
 	for c in inhalt.get_children():
@@ -118,6 +118,7 @@ func baue() -> void:
 		c.queue_free()
 	match reiter:
 		"held": held()
+		"fertigkeiten": fertigkeiten_reiter()
 		"tasche": tasche()
 		"ausruestung": ausruestung()
 		"chronik": chronik()
@@ -145,6 +146,7 @@ func wort(r: String) -> String:
 	if r == "chronik": return Sprache.t(CHRONIK)
 	if r == "karte": return Sprache.t(KARTE)
 	if r == "test": return "Test"
+	if r == "fertigkeiten": return "Fertigkeiten" if Sprache.aktiv() == "de" else "Skills"
 	return Sprache.u(WORT[r])
 
 func meldung(t: String) -> void:
@@ -278,7 +280,7 @@ func held() -> void:
 		luecke(6)
 		inhalt.add_child(r)
 	luecke(10)
-	fertigkeiten_brs()
+	fertigkeiten_kurz()
 	zeile(Sprache.u("skills").to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))   # MenuHead
 	zeile(Sprache.t(d["voelker"][hw.volk]["merkmal"]), 14, Stil.GOLD)
 	for f in d["faehigkeiten"]:
@@ -290,8 +292,10 @@ func held() -> void:
 		zeile(Sprache.t(fd["text"]), 13, Stil.DIM)
 
 # 762 (Chef 09.11., 14:49): die Fertigkeiten des Helden nach BRS mit Wert, Rang und dem Weg bis zum Ende des Rangs; Raenge und
-# Grenzen aus dem Handbuch [423.rang] (Anfaenger bis 24, Geselle bis 49, Meister bis 74, Grossmeister bis 100). Alte Spielstaende
-# ohne BRS-Held zeigen den Abschnitt nicht. Fortschritt durch Tun (471) kommt dazu, sobald es gebaut ist.
+# Grenzen aus dem Handbuch [423.rang] (Anfaenger bis 24, Geselle bis 49, Meister bis 74, Grossmeister bis 100). Chef 20:59 (Rat
+# Sokrates): eigener Reiter „Fertigkeiten“ neben Held, weil es 37 werden (BRS Abschnitt 3); dort nach den acht Gruppen, die
+# geuebten mit Rang, Wert und Balken, die noch ungeuebten matt als Namen. Im Heldenreiter nur die drei hoechsten mit Sprung zum
+# Reiter. Alte Spielstaende ohne BRS-Held zeigen weder Reiter noch Abschnitt. Steigen durch Tun (471) liest dieselbe Quelle.
 const RAENGE := [[24, "Anfänger", "Novice"], [49, "Geselle", "Journeyman"], [74, "Meister", "Master"], [100, "Großmeister", "Grandmaster"]]
 
 static func rang_von(wert: int) -> Array:
@@ -299,39 +303,74 @@ static func rang_von(wert: int) -> Array:
 		if wert <= int(r[0]): return r
 	return RAENGE[RAENGE.size() - 1]
 
-func fertigkeiten_brs() -> void:
-	var f: Dictionary = (z.brs.get("fertigkeiten", {}) as Dictionary) if z != null else {}
-	if f.is_empty(): return
-	var de := Sprache.aktiv() == "de"
-	zeile("FERTIGKEITEN" if de else "SKILLS", 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))   # MenuHead
+## Name -> Wert der Fertigkeiten, die der Held hat (einzige Stelle, die den Spielstand liest)
+func brs_fertigkeiten() -> Dictionary:
+	return (z.brs.get("fertigkeiten", {}) as Dictionary) if z != null and z.brs is Dictionary else {}
+
+func _nach_wert(f: Dictionary) -> Array:
 	var namen := f.keys()
 	namen.sort_custom(func(a, b): return int(f[a]) > int(f[b]) or (int(f[a]) == int(f[b]) and String(a) < String(b)))
-	for n in namen:
-		var w := int(f[n])
-		var r := rang_von(w)
-		var unten := 0
-		var i := RAENGE.find(r)
-		if i > 0: unten = int(RAENGE[i - 1][0])
-		var z1 := HBoxContainer.new()
-		z1.add_theme_constant_override("separation", int(8 * DP))
-		var l := Erschaffung.txt(ErschaffungBrs.fert_name(String(n)), 15)
-		l.autowrap_mode = TextServer.AUTOWRAP_OFF
-		l.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-		l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		z1.add_child(l)
-		var rw := Erschaffung.txt("%s  %d" % [String(r[1] if de else r[2]), w], 15, Stil.GOLD)
-		rw.autowrap_mode = TextServer.AUTOWRAP_OFF
-		rw.size_flags_horizontal = Control.SIZE_FILL
-		z1.add_child(rw)
-		inhalt.add_child(z1)
-		var b := Leiste.Balken.new()
-		b.custom_minimum_size = Vector2(0, 6 * DP)
-		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		b.anteil = float(w - unten) / maxf(1.0, float(int(r[0]) - unten))
-		b.farbe = Leiste.GOLD_HELL
-		inhalt.add_child(b)
-		luecke(4)
+	return namen
+
+## eine Fertigkeit: Name links, Rang und Wert rechts in Gold, darunter der Weg bis zum Ende des Rangs
+func fertigkeit_zeile(n: String, w: int) -> void:
+	var de := Sprache.aktiv() == "de"
+	var r := rang_von(w)
+	var unten := 0
+	var i := RAENGE.find(r)
+	if i > 0: unten = int(RAENGE[i - 1][0])
+	var z1 := HBoxContainer.new()
+	z1.add_theme_constant_override("separation", int(8 * DP))
+	var l := Erschaffung.txt(ErschaffungBrs.fert_name(n), 15)
+	l.autowrap_mode = TextServer.AUTOWRAP_OFF
+	l.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	z1.add_child(l)
+	var rw := Erschaffung.txt("%s  %d" % [String(r[1] if de else r[2]), w], 15, Stil.GOLD)
+	rw.autowrap_mode = TextServer.AUTOWRAP_OFF
+	rw.size_flags_horizontal = Control.SIZE_FILL
+	z1.add_child(rw)
+	inhalt.add_child(z1)
+	var b := Leiste.Balken.new()
+	b.custom_minimum_size = Vector2(0, 6 * DP)
+	b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	b.anteil = float(w - unten) / maxf(1.0, float(int(r[0]) - unten))
+	b.farbe = Leiste.GOLD_HELL
+	inhalt.add_child(b)
+	luecke(4)
+
+## Heldenreiter: die drei hoechsten, darunter der Sprung zum Reiter „Fertigkeiten“
+func fertigkeiten_kurz() -> void:
+	var f := brs_fertigkeiten()
+	if f.is_empty(): return
+	zeile(wort("fertigkeiten").to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))   # MenuHead
+	var namen := _nach_wert(f)
+	for n in namen.slice(0, 3): fertigkeit_zeile(String(n), int(f[n]))
+	inhalt.add_child(Spielstaende.knopf("neben", wort("fertigkeiten").to_upper() + " ›", func(): tippe_reiter("fertigkeiten")))   # 549a: Wort statt Kasten
 	luecke(10)
+
+## Reiter „Fertigkeiten“: je Gruppe (Reihenfolge der Datei) erst die geuebten nach Wert, dann die uebrigen matt
+func fertigkeiten_reiter() -> void:
+	var f := brs_fertigkeiten()
+	var gruppen: Dictionary = BrsHeld.e().get("fertigkeiten", {})
+	var nein: Array = BrsHeld.e().get("nicht_waehlbar", [])
+	var erst := true
+	for gr in BrsHeld.ohne_info(gruppen):
+		var alle: Array = gruppen[gr]
+		var hat := {}
+		for n in alle:
+			if f.has(n): hat[n] = f[n]
+		var rest := alle.filter(func(n): return not f.has(n) and not nein.has(n))
+		if hat.is_empty() and rest.is_empty(): continue
+		if not erst:   # 549a: Zwischenueberschriften durch eine schlichte Linie getrennt
+			luecke(6); inhalt.add_child(Spielstaende.linie()); luecke(6)
+		erst = false
+		zeile(ErschaffungBrs.tx(ErschaffungBrs.GRUPPE.get(gr, {"de": gr, "en": gr})).to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))   # MenuHead
+		luecke(4)
+		for n in _nach_wert(hat): fertigkeit_zeile(String(n), int(hat[n]))
+		if not rest.is_empty():
+			var m := zeile(", ".join(rest.map(func(n): return ErschaffungBrs.fert_name(String(n)))), 14, Stil.DIM)
+			m.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 
 # ConfirmDialog „Punkte verteilen?“: je Attribut alt → neu, „Das kann nicht rückgängig gemacht werden.“
 # Perks.describe (Ausfuhr held.json „erklaerung“): Wert und Modifikator, die Zeile der Klasse, dann was der Modifikator bringt
