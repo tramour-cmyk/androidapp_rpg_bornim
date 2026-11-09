@@ -9,7 +9,7 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/main/god
 
 **Vorschlag:**
 1. **Bild** (Tasche, Ausrüstungsplatz), feste Stellen: Rahmenfarbe = Seltenheit; oben rechts „2H“; oben links Güte (nichts, ein oder zwei Goldpunkte); unten Zustandsbalken nur bei Abnutzung (gelb beschädigt, rot defekt, Bild entsättigt); nicht Tragbares abgedunkelt.
-2. **Kasten** in fester Folge: Name in Seltenheitsfarbe; Seltenheit · Güte · Art; Platz · Stufe (ab Heldenstufe n) · Rüstungsart · Werkstoff; Zustand als Wort mit Folge; Grundwerte; Zusatzeigenschaften; Sperren rot; Gewicht, Wert.
+2. **Kasten** in fester Folge: Name in Seltenheitsfarbe; Seltenheit · Güte · Art; Platz · Stufe (ab Heldenstufe n) · Rüstungsart · Werkstoff; Zustand als Wort mit Folge und „muss repariert werden“, ohne Ort oder Person (Chef 14:34: „wo was repariert wird, schreiben wir nicht hin, sondern halt nur, dass es repariert gehört“; selbst, Reparaturset oder Handwerker); Grundwerte; Zusatzeigenschaften; Sperren rot; Gewicht, Wert.
 3. **Langdruck** auf ein Merkmal: ein Satz Erklärung (Homer, `LISTE-GLOSSAR.md`).
 
 **Stärkstes Gegenargument:** vier Zeichen auf 48 dp werden Brei. **Antwort:** höchstens drei zugleich, Balken erst bei Abnutzung; Probe als Standbild in Endform vor dem Bau.
