@@ -258,11 +258,13 @@ def ergebnisse(n, text):
         if "Nr." not in kopf: continue
         i_nr = kopf.index("Nr."); i_chef = kopf.index("Chef") if "Chef" in kopf else None
         for _, t in zs:
-            if not re.fullmatch(r"%s\.\d+[a-z]?" % n, t[0]): continue
+            m0 = re.match(r"(%s\.\d+[a-z]?)(?![0-9a-z.])\s*(.*)" % n, t[0])  # 775: auch „269.1 ✓“, „269.3 ✗ → 663“ (t269)
+            if not m0: continue
             erg = fund = None
+            if m0.group(2)[:1] in ("✓", "✗"): erg, fund = m0.group(2)[0], m0.group(2)[1:].strip(" →") or None
             if i_chef is not None and i_chef < len(t) and t[i_chef].strip():
                 c = t[i_chef].strip(); erg = "✓" if c.startswith("✓") else "✗" if c.startswith("✗") else None; fund = c[1:].strip()
-            punkte[t[0]] = [nummern(t[i_nr]) if i_nr < len(t) else [], erg, fund]
+            punkte[m0.group(1)] = [nummern(t[i_nr]) if i_nr < len(t) else [], erg, fund]
     rest = None
     teil = re.split(r"(?m)^## Ergebnis[^\n]*\n", text)
     if len(teil) > 1:
