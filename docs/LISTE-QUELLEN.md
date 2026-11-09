@@ -45,7 +45,7 @@ Händler: [reeboolabs.itch.io](https://reeboolabs.itch.io/). Alle Pakete: Godot 
 | R10 | [Water Shader Kit](https://reeboolabs.itch.io/godot-water-kit) (35) | 7,99 | ~ Spiegelung und Lichtbrechung am Handy fraglich | ✓ | mittel | unser Fluss (`wasser.gdshader`, wie alt, dunkel) bleibt; neu nur, was fehlt | **Teich der Höhle (507)**, Teiche mit Regenringen, Wasserfall, später Sumpf und Lava | Wasser lebt | gut | **ja; Chef 07.11.: Fluss „ernsthaft etwas besser“, darf unseren ersetzen (Probe am Dorfbach)** |
 | R11 | [Stylized Surface Shaders](https://reeboolabs.itch.io/godot-surface-shaders) (30) | 19,99 | ? Compatibility nicht getestet; Gratisprobe mit 4 Shadern | ✓ (MIT-Teil genannt) | mittel | Boden bleibt eigen (Signatur) | Glühende Runen (Steinkreis, Tempel), Moos, Schlamm, Pfützen, Säureschleim der Schnecke, Fels der Höhle, Fahne im Wind | Orte bekommen Stoff | mittel | **erst Gratisprobe** |
 
-**Gekauft 09.11. (Chef, 623):** R1, R2, R8, R9, R10, R11 und Status Effects VFX (76,93 $; Dateien und Lizenzen in `LISTE-BESTAND.md` „Effekte“). **Offen, Gespräch folgt:** R3, R4, R5, R6, R7 (`tun/623-kauf.md`).
+**Gekauft 09.11. (Chef, 623):** R1, R2, R8, R9, R10, R11 und Status Effects VFX (76,93 $; Dateien und Lizenzen in `LISTE-BESTAND.md` „Effekte“). **Gekauft 09.11., 21:05:** R3, R4, R7 (33,98 $; hochgeladen 21:07, `LISTE-BESTAND.md` „Effekte“). Zusammen 10 Pakete, 110,91 $. **Zurückgestellt (Chef 21:08):** R5, R6 (`LISTE-IDEEN.md` „Welt“).
 
 **Summe aller elf:** 117,90 $. **Nicht in der Liste, aber zu wissen:** Status Effects VFX (6,99, 23 Zustände; schon in 415d.1), [AoE Telegraphs](https://reeboolabs.itch.io/) (9 Formen, Ansage von Flächenangriffen im Ring), Loot & Pickup VFX (Beute). Klangpakete des Händlers prüfen wir nicht: Klang kommt aus echten Aufnahmen (`DESIGN-LEITBILD.md` 6).
 
@@ -72,7 +72,7 @@ Eine Zeile je Quelle, die wir nutzen oder gekauft haben; was wir davon haben, st
 | RenderHub: Animated3D Leopard Hybrid A2 | https://www.renderhub.com/animated3d/leopard-hybrid-a2 | RenderHub Extended Use, Volltext ungeprüft | frei, 28.10., 16:38 | Idee ab Kapitel 2 | **offen** |
 | rubberduck: Vampire Bat (OpenGameArt) | https://opengameart.org/content/vampire-bat-animated | CC0 | frei | Riesenfledermaus | ja |
 | Omie's Assets, Anker's Assets, Avramania (frei), PolyMech (itch) | https://omies-assets.itch.io/3d-medieval-weapon-pack, https://ankersassets.itch.io/low-poly-medieval-weapons, https://avramania.itch.io/weapons-shields, https://polymech.itch.io/medieval-pack-low-poly-shields | CC0 | Omie 1,99 $, übrige frei; 29.10. | Waffen, Schilde | ja |
-| REEBOO Labs | oben | eigene, ohne Nennungspflicht | 76,93 $, 09.11. | Effekte | ja; MIT-Teil unten 2 |
+| REEBOO Labs | oben | eigene, ohne Nennungspflicht | 76,93 $, 09.11.; R3, R4, R7 33,98 $, 09.11., 21:05 | Effekte | ja; MIT-Teil unten 2 |
 | Klang: Kenney, OpenGameArt- und Freesound-Urheber, BigSoundBank, VSCO 2 CE | `tools/klang/QUELLEN.md` | CC0 | frei | Klänge, Musik | ja |
 | Schriften: EB Garamond, Alegreya, Cinzel, IM Fell, Fondamento | `tools/schrift/QUELLEN.md` | OFL 1.1 | frei | Schrift | ja |
 | Blender, Godot, fontTools | https://www.blender.org, https://godotengine.org, https://github.com/fonttools/fonttools | Blender GPL (gilt nicht für unsere Modelle), Godot MIT, fontTools MIT | frei | Werkzeuge | ja (Godot im Spiel genannt, 497) |
