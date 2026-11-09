@@ -78,8 +78,12 @@ func _lauf() -> void:
 		vor = w
 	pruefe("nie zweimal", doppelt, false)
 	var ob := Ortsblende.new("FULL", "Bornim", tag[0])
-	pruefe("FULL", [0, 200, 1900, 2400, 2800].map(func(t): return ob.bei(t).map(func(x): return snappedf(x, 0.01) if x is float else x)),
+	# 556 (Chef 04.11., 07:52 „zu kurz zum Lesen“): die Worte stehen mindestens 1,9 s und so lange, wie sie zu lesen sind (1 s + 40 ms je Zeichen)
+	var L := maxf(1900.0, 1000.0 + 40.0 * ("Bornim".length() + Sprache.t(tag[0]).length()))
+	pruefe("Lesezeit", [ob.lesen > 1900.0, snappedf(maxf(1900.0, ob.lesen), 1.0)], [true, snappedf(L, 1.0)])
+	pruefe("FULL", [0, 200, L, L + 500, L + 900].map(func(t): return ob.bei(t).map(func(x): return snappedf(x, 0.01) if x is float else x)),
 		[[1.0, 0.0, false], [1.0, 0.5, false], [1.0, 1.0, false], [0.5, 0.0, false], [0.0, 0.0, true]])
+	pruefe("Schwarz", ob.get_child(0) is ColorRect and (ob.get_child(0) as ColorRect).color == Color.BLACK, true)
 	ob.free()
 	ob = Ortsblende.new("BLINK", "Bornim", null)
 	pruefe("BLINK", [0, 250, 500].map(func(t): return ob.bei(t).map(func(x): return snappedf(x, 0.01) if x is float else x)),

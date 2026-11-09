@@ -202,6 +202,13 @@ Pim ist nicht da. Wenn du ihn am Schlagbaum siehst, schick ihn heim.
 `[73b.pim.nacht]` (Pims Mutter, nachts)
 Pim schläft. Und du solltest um diese Zeit auch nicht draußen sein.
 
+`[629.sprecher]` (Homer 07.11., Vorgang 629, Chef 611: „Beim Klopfen an Türen steht nicht da, wessen Haus es ist oder wer spricht“): Jede gesprochene Zeile hinter einer Tür (im Code `voice(…)` in `Story.lockedDoor`, mit allen Wortlauten 2 und 3 in `[504.tuer.…]`) bekommt den Namen der Stimme wie jede andere gesprochene Zeile im Dorf, darum ohne Anführungszeichen. Der Name sagt zugleich, wessen Haus es ist; ein Zusatz „hinter der Tür“ entfällt, das Klopfen sagt es schon. Erzählte Zeilen (`T(…)`: Tag bei Gwenna und Dorran) bleiben ohne Namen, sie nennen das Haus selbst.
+- 12/5 Bäcker Edrik — Edrik the Baker
+- 23/5 Der alte Kael — Old Kael
+- 5/14 Gwenna — Gwenna (nur nachts; tagsüber Erzähler)
+- 30/13 Schmied Dorran — Dorran the Smith (nur nachts; tagsüber Erzähler)
+- 13/22 Pims Mutter — Pim's Mother (Tag und Nacht)
+
 ## Südrand des Dorfes (67)
 
 Bornim hat zwei Straßen. Die Südstraße über die Brücke ist der Versorgungsweg, über sie kam der Held; nur die Waldstraße nach Norden ist gesperrt. Hinter der Brücke führt ein Feldweg zum Kartenrand, mit Wegweiser (Text `[67.schild]`). Am Rand bleibt der Held stehen, die Zeile kommt, er tritt einen Schritt zurück. Ab dem zweiten Versuch nur die kurze Einblendung ohne Wegklicken.

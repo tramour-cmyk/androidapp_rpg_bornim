@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Pflegehinweise als Vorratszeile (340.3, Chef 02.11., 19:44, „340.2 ja“, Variante A).
+"""Pflegehinweise als Zeile der Vorgangsliste (340.3, Chef 02.11., 19:44, „340.2 ja“, Variante A; seit 275.2 in LISTE-VORGAENGE.md).
 
 Was `notiz.sh` beim Start meldet (Größe, lange Zeilen, Übergabe zu lang; `regelcheck.py --kurz`), steht täglich als eine Zeile
-„Pflege“ „von Werkzeug“ im Vorrat des Besitzers und ersetzt die vom Vortag; ohne Befund fällt die Zeile weg.
-Dazu der Rollenspiegel als fester Freitagstermin: ab Freitag steht in jedem Vorrat ohne Antwort der Woche die Zeile „Spiegel“,
+„Pflege“ „von Werkzeug“ mit dem Besitzer in der Liste und ersetzt die vom Vortag; ohne Befund fällt die Zeile weg.
+Dazu der Rollenspiegel als fester Freitagstermin: ab Freitag steht für jede Rolle ohne Antwort der Woche die Zeile „Spiegel“,
 bis `tools/rollenspiegel.sh <Rolle> --antwort …` angehängt hat (auch wenn am Freitag keine Sitzung der Rolle lief).
 
 Schreibt nicht in die Arbeitskopie: liest `origin/main`, baut den Commit mit eigenem Index und pusht (wie `meldung.sh`),
@@ -74,43 +74,45 @@ def spiegel_faellig(text_spiegel):
     return faellig
 
 
-def neu_setzen(text, nr, zeile, unten=False):
-    """Ersetzt die Tabellenzeile `| nr |`: oben in die erste Tabelle, mit unten=True ans Ende der ersten Tabelle; zeile None: entfernen."""
-    zeilen = text.split("\n")
-    zeilen = [z for z in zeilen if not z.startswith(f"| {nr} |")]
+def setzen_liste(text, rolle, nr, zeile, unten=False):
+    """275.2: Werkzeugzeile `nr` (Pflege, Spiegel) des Besitzers in der Vorgangsliste ersetzen: Pflege ans Ende seiner Zeilen, Spiegel an
+    den Anfang; zeile None: entfernen."""
+    sys.path.insert(0, os.path.join(ROOT, "tools")); import startbar
+    L = text.split("\n")
+    L = [z for z in L if not (z.startswith(f"| {nr} |") and len(z.split("|")) > 3 and z.split("|")[3].strip() == rolle)]
     if zeile:
-        for i, z in enumerate(zeilen):
-            if z.startswith("| Nr.") and i + 1 < len(zeilen) and zeilen[i + 1].startswith("|---"):
-                j = i + 2
-                if unten:
-                    while j < len(zeilen) and zeilen[j].startswith("|"):
-                        j += 1
-                zeilen.insert(j, zeile)
-                break
-    return "\n".join(zeilen)
+        zs = [d for d in startbar.vorgangsliste("\n".join(L)) if d["besitzer"] == rolle]
+        if zs: pos = zs[-1]["i"] + 1 if unten else zs[0]["i"]
+        else:
+            alle = startbar.vorgangsliste("\n".join(L))
+            pos = (alle[-1]["i"] + 1) if alle else len(L)
+        L.insert(pos, zeile)
+    return "\n".join(L)
 
 
 def berechnen(basis, je, tag):
+    sys.path.insert(0, os.path.join(ROOT, "tools")); import startbar
     spiegel = spiegel_faellig(git("show", f"{basis}:docs/LISTE-ROLLENSPIEGEL.md").stdout)
-    aenderung = {}
+    pfad = "docs/LISTE-VORGAENGE.md"
+    alt = git("show", f"{basis}:{pfad}").stdout
+    if not alt:
+        return {}
+    neu = alt
     for rolle, datei in VORRAT.items():
-        pfad = "docs/" + datei
-        alt = git("show", f"{basis}:{pfad}").stdout
-        if not alt:
-            continue
+        besitzer = rolle.split()[-1]  # „Team Tom“ → Tom
         b = je.get(datei, [])
         pflege = None
         if b:
             text = "; ".join(b)
-            text = text if len(text) <= 300 else text[:297] + " …"
-            pflege = f"| Pflege | K | **von Werkzeug (340.3, {tag}):** {text.replace('|', '/')} | startbar |"
+            text = text if len(text) <= 200 else text[:197] + " …"
+            pflege = startbar.zeile_text(dict(nr="Pflege", titel="von Werkzeug (340.3, %s): %s" % (tag, text.replace("|", "/")), besitzer=besitzer, kl="K",
+                                              stand="startbar", warte=[], bereich="B Abläufe"))
         s = spiegel.get(rolle)
-        sp = (f"| Spiegel | M | **von Werkzeug (340.3, Rollenspiegel Woche {s}):** `tools/rollenspiegel.sh {rolle.split()[-1]}` "
-              f"zeigt die Fragen; Antwort mit `--antwort` anhängen, committen, pushen | startbar |") if s else None
-        neu = neu_setzen(neu_setzen(alt, "Pflege", pflege, unten=True), "Spiegel", sp)  # Pflege als Kür unten, kein Start dafür
-        if neu != alt:
-            aenderung[pfad] = neu
-    return aenderung
+        sp = startbar.zeile_text(dict(nr="Spiegel", titel="von Werkzeug (340.3, Rollenspiegel Woche %s): `tools/rollenspiegel.sh %s` zeigt die Fragen; "
+                                      "Antwort mit `--antwort` anhängen, committen, pushen" % (s, besitzer), besitzer=besitzer, kl="M", stand="startbar",
+                                      warte=[], bereich="B Abläufe")) if s else None
+        neu = setzen_liste(setzen_liste(neu, besitzer, "Pflege", pflege, unten=True), besitzer, "Spiegel", sp)  # Pflege als Kür unten
+    return {pfad: neu} if neu != alt else {}
 
 
 def main():
@@ -137,7 +139,7 @@ def main():
             os.remove(idx)
         c = git("commit-tree", baum, "-p", basis, "-m", f"Werkzeug: Pflegehinweise {tag} (340.3)").stdout.strip()
         if c and git("push", "-q", "origin", f"{c}:refs/heads/main").returncode == 0:
-            print("pflegehinweis: %d Vorräte neu" % len(aenderung))
+            print("pflegehinweis: Vorgangsliste neu (Pflege, Spiegel)")
             return
 
 if __name__ == "__main__":

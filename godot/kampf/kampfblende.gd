@@ -24,6 +24,7 @@ var art_name := ""
 var hinterhalt := false
 var ms := 0.0
 var verlassen := -1.0
+var lesen := 0.0                          # t63.1, 556: Lesezeit aller Worte (InterludeClock.readMs), Tippen beendet frueher
 var tippt := false
 var gegangen := false
 var worte: Control
@@ -53,15 +54,20 @@ static func worte_fuer(eroeffnung: String, rudel: bool, gegner_id: String, boss:
 		eigen = Ortsblende.waehle(daten().get("gegner", {}).get(gegner_id, []), letzter_gegner, zufall)
 	return [start, eigen]
 
-## Wer vorn steht (der Boss, sonst der erste Gegner), ob ein Rudel, wie er heißt (ohne Nummer)
+## Wer vorn steht, ob ein Rudel, wie er heißt (ohne Nummer). 594 (Chef 05.11., Build 266: im Probekampf „Spinne“ Wolfstext in der
+## Blende): wie alt SkirmishScreen der Boss, sonst der mit den meisten EP (bei Gleichstand der erste); Rudel nur, wenn mehr als einer
+## dieser Art kämpft (Riesenspinne mit Wolf: Spinnensatz, einzeln)
 static func lage(mars) -> Dictionary:
 	var feinde: Array = mars.fighters().filter(func(f): return f.side == "FOES")
 	if feinde.is_empty(): return {}
 	var vorn = feinde[0]
+	var wert := -1
 	for f in feinde:
-		if bool(f.monster.get("boss", false)): vorn = f
+		var w := (1000000 if bool(f.monster.get("boss", false)) else 0) + int(f.monster.get("xp", 0))
+		if w > wert: vorn = f; wert = w
+	var gleich := feinde.filter(func(f): return String(f.monster.id) == String(vorn.monster.id)).size()
 	return {"id": String(vorn.monster.id), "name": String([vorn.monster.de, vorn.monster.en][mars.lang]), "boss": bool(vorn.monster.get("boss", false)),
-		"rudel": feinde.size() > 1}
+		"rudel": gleich > 1}
 
 func _init(eroeffnung: String, l: Dictionary, zufall: RandomNumberGenerator) -> void:
 	hinterhalt = eroeffnung == "AMBUSHED"
@@ -72,25 +78,13 @@ func _init(eroeffnung: String, l: Dictionary, zufall: RandomNumberGenerator) -> 
 	var w := worte_fuer(eroeffnung, bool(l.get("rudel", false)), String(l.get("id", "")), boss, art_name != "FIGHT_SHORT", zufall)
 	letzter = w[0]
 	if w[1] != null: letzter_gegner = w[1]
+	# FightVeil: Zeichen des ersten Satzes, des Namens und des Satzes des Gegners (InterludeUi.kt 394)
+	lesen = Ortsblende.lese_ms((Sprache.t(w[0]).length() if w[0] != null else 0) + String(l.get("name", "")).length() \
+		+ (Sprache.t(w[1]).length() if w[1] != null else 0), daten())
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_STOP
-	# derselbe Grund wie zwischen den Orten: Schwarz mit einem Hauch Vignette (FightVeilBox)
-	var grund := TextureRect.new()
-	grund.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	grund.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	grund.stretch_mode = TextureRect.STRETCH_SCALE
-	grund.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var g := Gradient.new()
-	g.offsets = PackedFloat32Array([0.0, 0.55, 1.0])
-	g.colors = PackedColorArray([Ortsblende.KERN, Color("0a0807"), Color.BLACK])
-	var t := GradientTexture2D.new()
-	t.gradient = g
-	t.fill = GradientTexture2D.FILL_RADIAL
-	t.fill_from = Vector2(0.5, 0.46)
-	t.fill_to = Vector2(0.5, 0.46 + 0.62)
-	t.width = 64; t.height = 128
-	grund.texture = t
-	add_child(grund)
+	# derselbe Grund wie zwischen den Orten: reines Schwarz (556, Chef 04.11., 07:52 „Bitte klassische schwarz“)
+	add_child(Ortsblende.schwarz())
 	var mitte := CenterContainer.new()
 	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mitte.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -140,15 +134,20 @@ func _ready() -> void:
 				herz.play()
 	_stelle()
 
+# 619 (Chef 07.11., 268.18: „Aktionsknopf drückt die Blende gleich mit weg“): wie alt (InterludeUi detectTapGestures) zaehlt nur ein
+# ganzer Tipp auf der Blende, Druck und Loslassen; ein Finger, der schon unten war, als sie kam, beendet sie nicht
+var unten := false
+
 func _gui_input(e: InputEvent) -> void:
-	if (e is InputEventMouseButton and e.pressed) or (e is InputEventScreenTouch and e.pressed):
-		tippt = true
-		accept_event()
+	if not (e is InputEventMouseButton and e.button_index == MOUSE_BUTTON_LEFT) and not e is InputEventScreenTouch: return
+	if e.pressed: unten = true
+	elif unten: tippt = true
+	accept_event()
 
 ## InterludeClock.at, alles gezeichnet: [Schleier, Worte, vorbei]; der Hinterhalt hat die Worte sofort (ein_ms 0)
 func bei(t: float) -> Array:
 	var ein := float(art["ein_ms"]); var aus := float(art["aus_ms"]); var weg := float(art["schleier_aus_ms"])
-	if verlassen < 0.0 and (t >= float(art["mind_ms"]) or tippt): verlassen = t
+	if verlassen < 0.0 and (t >= maxf(float(art["mind_ms"]), lesen) or tippt): verlassen = t
 	var geht := 1.0 - clampf((t - verlassen) / maxf(1.0, aus), 0.0, 1.0) if verlassen >= 0.0 else 1.0
 	var w := Ortsblende.glatt(minf(1.0 if ein == 0.0 else clampf(t / ein, 0.0, 1.0), geht))
 	var s := 1.0 - Ortsblende.glatt(clampf((t - verlassen - aus * 2.0 / 3.0) / weg, 0.0, 1.0)) if verlassen >= 0.0 else 1.0

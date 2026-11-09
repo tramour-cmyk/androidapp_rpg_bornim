@@ -23,6 +23,18 @@ const MENGE := {"de": "Menge", "en": "Quantity"}
 const BESITZ := {"de": "Im Besitz: ", "en": "Owned: "}
 const ALLE := {"de": "Alle", "en": "All"}
 const GEWOEHNLICHE_WEG := {"de": "%d gewöhnliche Gegenstände verkauft.", "en": "Sold %d common items."}
+# 699: „1 Gegenstand:“ statt „1 Gegenstände:“ (Rueckfrage „Alle gewöhnlichen verkaufen?“; alt ShopScreen.kt 273 ohne Einzahl)
+static func anzahl_gegenstaende(n: int, de: bool) -> String:
+	if de: return "%d Gegenstand:" % n if n == 1 else "%d Gegenstände:" % n
+	return "%d item:" % n if n == 1 else "%d items:" % n
+# 525 (Sokrates 04.11.): Einzahl „1 gewöhnlicher Gegenstand verkauft“
+const GEWOEHNLICHER_WEG := {"de": "1 gewöhnlicher Gegenstand verkauft.", "en": "Sold 1 common item."}
+# 525 Brauen: was fehlt, wie oft es reicht
+const FEHLT := {"de": "Fehlt: ", "en": "Missing: "}
+const REICHT := {"de": "Reicht für %d×", "en": "Enough for %d×"}
+
+static func gewoehnliche_text(n: int) -> String:
+	return Sprache.t(GEWOEHNLICHER_WEG) if n == 1 else Sprache.t(GEWOEHNLICHE_WEG) % n
 
 var waren: Array = []                  # Kennungen der Dinge im Angebot (Story.shopStock, HERBALIST_STOCK)
 var brauen := false                    # Morwen braut (Mode.Shop.brewing)
@@ -134,6 +146,23 @@ static func bezahlbar(z: Zustand, r: Dictionary) -> bool:
 		if z.anzahl(String(id)) < int(r["zutaten"][id]): return false
 	return true
 
+# 525: wie oft das Rezept mit dem, was der Held hat, reicht
+static func wie_oft(z: Zustand, r: Dictionary) -> int:
+	var n := 1 << 30
+	if int(r["gold"]) > 0: n = z.gold / int(r["gold"])
+	for id in r["zutaten"]: n = mini(n, z.anzahl(String(id)) / maxi(1, int(r["zutaten"][id])))
+	return n
+
+# 525: was fuer einmal Brauen fehlt, „1× Heilkräuter, 3 Gold“; leer, wenn nichts fehlt
+static func fehlt(z: Zustand, r: Dictionary) -> String:
+	var teile: Array = []
+	for id in r["zutaten"]:
+		var d := int(r["zutaten"][id]) - z.anzahl(String(id))
+		if d > 0: teile.append("%d× %s" % [d, name(String(id))])
+	var g := int(r["gold"]) - z.gold
+	if g > 0: teile.append(("%d Gold" if Sprache.aktiv() == "de" else "%d gold") % g)
+	return ", ".join(teile)
+
 # Recipe.cost: „2× Heilkräuter, 5 Gold“
 static func kosten(r: Dictionary) -> String:
 	var teile: Array = []
@@ -153,3 +182,13 @@ func braue(z: Zustand, hw: Heldwerte, r: Dictionary, wurf: float = randf()) -> S
 		z.dazu(aus)
 		return Sprache.l("brewedTwo", [name(aus)])
 	return Sprache.l("brewed", [name(aus)])
+
+# 525 (Sokrates 04.11.: „×1, ×5, so viele wie möglich“): n-mal brauen; die Meldung nennt, was herauskam („Morwen braut dir: Heiltrank ×3.“)
+func braue_mehr(z: Zustand, hw: Heldwerte, r: Dictionary, n: int, wurf: Callable = func(): return randf()) -> String:
+	n = mini(n, wie_oft(z, r))
+	if n < 1: return Sprache.l("missing")
+	if n == 1: return braue(z, hw, r, float(wurf.call()))
+	var aus := String(r["ergebnis"])
+	var vorher := z.anzahl(aus)
+	for i in n: braue(z, hw, r, float(wurf.call()))
+	return Sprache.l("brewed", [mit_anzahl(aus, z.anzahl(aus) - vorher)])

@@ -17,6 +17,10 @@ var kampf: Node
 var tabellen: Dictionary
 
 
+## 494 (Kauf 348.12c, LISTE-FIGUREN): der Riesenegel ersetzt die Stirge, die Säureschnecke die Ockergallerte
+const NAMEN_494 := {"LEECHES": ["Riesenegel", "Giant Leech"], "SLUGS": ["Säureschnecke", "Acid Slug"]}
+
+
 ## Die Gegner einer Gruppe (Aufstellung, Namen und Aussehen wie im Probekampf; probe.gd ruft das auch)
 static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 	var foes := []
@@ -25,9 +29,9 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 		"GRAK": [["grak", Mars.GRAK, Vector2i(0, 0)]],
 		"SPIDER": [["wolf1", Mars.WOLF, Vector2i(0, 0)], ["spider", Mars.SPIDER, Vector2i(1, 0)]],
 		"SCOUT": [["gob1", Mars.CALLED, Vector2i(0, 0)], ["scout", Mars.SCOUT, Vector2i(1, 0)]],
-		# 348.9: drei Riesenratten im Aussehen, Regeln noch die des Wolfs (Ratte in MARS fehlt noch)
+		# 348.9: drei Riesenratten im Körper des Wolfs; 535: mit eigenen Regeln (ART)
 		"RATS": [["wolf1", Mars.WOLF, Vector2i(0, 0)], ["wolf2", Mars.WOLF, Vector2i(0, 1)], ["wolf3", Mars.WOLF, Vector2i(1, 0)]],
-		# 348.7: drei Riesenfledermäuse im Aussehen (fledermaus.py), Regeln noch die des Wolfs (Fledermaus in MARS fehlt noch)
+		# 348.7: drei Riesenfledermäuse (fledermaus.py) im Körper des Wolfs; 535: mit eigenen Regeln (ART)
 		"BATS": [["wolf1", Mars.WOLF, Vector2i(0, 0)], ["wolf2", Mars.WOLF, Vector2i(0, 1)], ["wolf3", Mars.WOLF, Vector2i(1, 0)]],
 		# 348.7: Grimmzahn allein vorn, zwei Wölfe seiner Leibwache (Packs.kt guard) hinten an den Seiten; im Aussehen, Regeln
 		# noch die des Wolfs (vorn rechts stand ihm der hintere Wolf auf dem Rücken, hinten verschwand er hinter der Wache: Prüfer Runden 2, 3)
@@ -36,12 +40,30 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 		"GOBLINS": [["gob1", Mars.CALLED, Vector2i(0, 0)], ["gob2", Mars.CALLED, Vector2i(0, 1)], ["gob3", Mars.CALLED, Vector2i(1, 0)]],
 		# 348.7: drei Goblin-Späher, je eines der Kits (goblin.py ART=goblin_archer), mit den Regeln des Spähers
 		"SCOUTS": [["gob1", Mars.SCOUT, Vector2i(0, 0)], ["gob2", Mars.SCOUT, Vector2i(0, 1)], ["gob3", Mars.SCOUT, Vector2i(1, 0)]],
-		# 348.7: drei Goblin-Schamanen im Aussehen (goblin.py ART=goblin_shaman), Regeln noch die des Goblins (Schamane in MARS fehlt)
+		# 348.7: drei Goblin-Schamanen (goblin.py ART=goblin_shaman) im Körper des Goblins; 535: eigene Werte, Ansagen noch die des Goblins
 		"SHAMANS": [["gob1", Mars.CALLED, Vector2i(0, 0)], ["gob2", Mars.CALLED, Vector2i(0, 1)], ["gob3", Mars.CALLED, Vector2i(1, 0)]],
-		# 348.7: drei Kobolde im Aussehen (goblin.py ART=kobold), Regeln noch die des Goblins (Kobold in MARS fehlt)
+		# 348.7: drei Kobolde (goblin.py ART=kobold) im Körper des Goblins; 535: mit eigenen Regeln (ART)
 		"KOBOLDS": [["gob1", Mars.CALLED, Vector2i(0, 0)], ["gob2", Mars.CALLED, Vector2i(0, 1)], ["gob3", Mars.CALLED, Vector2i(1, 0)]],
+		# 494 (Wochenziel 03.11. Reihe 3): das Wildschwein allein wie im alten Spiel (Roamers.kt, kein Rudel), mit seinen eigenen Regeln
+		# (Monsters.kt boar in tabellen.json, MARS allgemein), im Bild der gekaufte Keiler (kauftier.py TIER=keiler)
+		"BOARS": [["boar", "boar", Vector2i(0, 0)]],
+		# 494: der Riesen-Hundertfüßer allein (Monsters.kt giant_centipede), im Bild der gekaufte (kauftier.py TIER=hundertfuesser)
+		"CENTIPEDES": [["centipede", "giant_centipede", Vector2i(0, 0)]],
+		# 494 (von Tom, 492: Krogg bewacht in der Höhle den rostigen Schlüssel): Krogg allein wie im alten Spiel (Packs.kt ohne Rudel für
+		# bugbear), seine Regeln aus Monsters.kt (tabellen.json, Überraschungsschlag), Morwens Rauch in MARS (lage „rauch“)
+		"KROGG": [["krogg", "bugbear", Vector2i(0, 0)]],
+		# 494 (Kauf 348.12c): Riesenegel statt der Stirge, Säureschnecke statt der Ockergallerte, je allein wie im alten Spiel (kein Rudel),
+		# Regeln aus Monsters.kt (stirge, ochre_jelly), Namen nach LISTE-FIGUREN; im Bild die gekauften (kauftier.py TIER=egel, schnecke)
+		"LEECHES": [["leech", "stirge", Vector2i(0, 0)]],
+		"SLUGS": [["slug", "ochre_jelly", Vector2i(0, 0)]],
+		# 494 (Jerry 03.11., 18:4x): Riesenratte, Riesenfledermaus, Riesenspinne je allein mit ihren eigenen Regeln wie im alten Spiel
+		# (Roamers.kt: ein Monster, Packs.kt ohne Rudel für sie; Monsters.kt giant_rat, giant_bat, giant_spider). RATS, BATS, SPIDER
+		# bleiben die Probekämpfe von 348.7/348.9 (drei Felle mit Regeln des Wolfs, Spinne neben einem Wolf)
+		"RATTE": [["rat", Mars.WOLF, Vector2i(0, 0)]],     # 577: Körper des Wolfs, Kennung und Regeln der eigenen Art (ART)
+		"FLEDERMAUS": [["bat", Mars.WOLF, Vector2i(0, 0)]],
+		"SPINNE": [["spider", Mars.SPIDER, Vector2i(0, 0)]],
 	}.get(foe, [])
-	Figur.ersatz_art = {"RATS": "giant_rat", "BATS": "giant_bat", "SHAMANS": Figur.SHAMAN, "KOBOLDS": Figur.KOBOLD}.get(foe, "")
+	Figur.ersatz_art = {"RATS": "giant_rat", "BATS": "giant_bat", "SHAMANS": Figur.SHAMAN, "KOBOLDS": Figur.KOBOLD, "BOARS": "kauf_keiler", "CENTIPEDES": "kauf_hundertfuesser", "LEECHES": "kauf_egel", "SLUGS": "kauf_schnecke", "RATTE": "giant_rat", "FLEDERMAUS": "giant_bat"}.get(foe, "")
 	# 348.12f eingebaut (Chef 28.10., 11:50: Kaufwolf abgenommen, Archiv 27.10., 21:51: „eigener entfällt“): Wölfe sind der gekaufte
 	# Wolf, sobald er gebaut beiliegt (godot-kampf.yml „Modelle bauen“); ERSATZ geht weiter vor
 	if foe in ["WOLVES", "GRIMM", "SPIDER", "RUDEL"] and FileAccess.file_exists("res://kampf/daten/kaufwolf-info.json"):
@@ -55,7 +77,10 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 			# Reißzähne +4, 2W6+1, Boss: keine Flucht, kein Autopilot; 450 EP, 4W10 Gold, großer Heiltrank zu 50 %); Bewegung,
 			# Texte und Modell bleiben die des Wolfs (id „wolf“), der Lohn zählt die Leibwache wie alt (pack „dire_wolf“, je 0,25)
 			m = (monsters.get("dire_wolf", m) as Dictionary).duplicate(true)
-			m.id = Mars.WOLF
+			# 533 (Chef 04.11., 20:30: in der Blende „gelbe Augen“, ein Satz des Wolfs; Sokrates 20:58 „einmal umdrehen“ wie 577):
+			# die id bleibt dire_wolf (Blende, Texte, Klang, Lohn), der Körper ist der des Wolfs (Modell, Bewegung), die Regeln des
+			# Rudels wie beim Wolf (Mars.wolfig)
+			m.koerper = Mars.WOLF
 			m.pack = "dire_wolf"
 			m.de = "Grimmzahn, der Leitwolf"
 			m.en = "Grimfang the Alpha"
@@ -67,26 +92,26 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 			m.chance = LEIBWACHE.chance
 			m.xp = 0     # lohn.gd zählt sie als Leibwache des Leitwolfs (xpShare), nicht einzeln
 			m.flee = LEIBWACHE.flee
-		elif foe == "KOBOLDS":     # Name aus den Regeln (Monsters.kt kobold)
+		elif ART.has(foe) and monsters.has(ART[foe]):
+			# 535 (Abgleich 512, Sokrates: „Ratten und Fledermäuse als Wölfe, Schamane ohne Heilen“): Werte, Name, Lohn und Regeln
+			# der eigenen Art (Monsters.kt giant_rat, giant_bat, kobold, goblin_shaman); Bewegung und Modell bleiben die des Körpers
+			# („koerper“, Mars.koerper_of); 577: die id bleibt die eigene Art (Regeln, Texte, Klang, Lohn); das Rudel zählt nach der Art
+			# (Kobolde wie alt Packs.kt kobolds, je 0,4)
+			m = (monsters[ART[foe]] as Dictionary).duplicate(true)
+			m.koerper = e[1]
+			m.pack = ART[foe]
+		elif foe in NAMEN_494:     # 494: Name nach LISTE-FIGUREN (Regeln noch unter dem alten Namen)
 			m = m.duplicate()
-			m.de = "Kobold"
-			m.en = "Kobold"
-		elif foe == "RATS":     # Name aus den Regeln (Monsters.kt giant_rat; Helfer Lauf 126: Ratten hießen „Wolf“)
-			m = m.duplicate()
-			m.de = "Riesenratte"
-			m.en = "Giant Rat"
-		elif foe == "BATS":     # Name aus den Regeln (Monsters.kt giant_bat)
-			m = m.duplicate()
-			m.de = "Riesenfledermaus"
-			m.en = "Giant Bat"
-		elif foe == "SHAMANS":     # Name aus den Regeln (Monsters.kt goblin_shaman)
-			m = m.duplicate()
-			m.de = "Goblin-Schamane"
-			m.en = "Goblin Shaman"
+			m.de = NAMEN_494[foe][0]
+			m.en = NAMEN_494[foe][1]
 		foes.append(Mars.monster_fighter(e[0], e[2], m, dice.roll_expr(m.hp)))
 		if foe == "GRIMM" and e[0] != Figur.GRIMM:
 			foes[foes.size() - 1].follows = Figur.GRIMM     # 533: fällt Grimmzahn, flieht die Leibwache (mars.gd _pack_flees)
 	return foes
+
+
+## 535: Gruppen, deren Tiere eigene Regeln haben, aber den Körper einer anderen Art tragen (gegner)
+const ART := {"RATS": Mars.RAT, "BATS": Mars.BAT, "KOBOLDS": Mars.KOBOLD, "SHAMANS": Mars.SHAMAN, "RATTE": Mars.RAT, "FLEDERMAUS": Mars.BAT}     # 494: je allein wie alt
 
 
 ## 399.2a (Chef 28.10., 14:19, Archiv: „Wolf mit 1 bis 2 Jungwölfen“, der Held allein): der Waldkampf wie im alten Spiel
@@ -158,7 +183,17 @@ static func blatt(h, zweite = null) -> Dictionary:
 		"off": _waffe(h, h.nebenwaffe(), true) if h.nebenwaffe() != null else null,
 		"con": h.mod("CON"), "prof": h.uebung(), "saves": RETTUNG.get(h.klasse, []),
 		"tenacity": h.standhaft(), "schild": String(schild["base"]) if schild != null else "",   # 406: Modell in der Hand (figur.gd)
-		"hits": {"POISON": h.bonus("POISON_HIT"), "BLEED": h.bonus("BLEED_HIT"), "STUN": h.bonus("STUN_HIT")}}
+		"hits": {"POISON": h.bonus("POISON_HIT"), "BLEED": h.bonus("BLEED_HIT"), "STUN": h.bonus("STUN_HIT")},
+		# 534 (alt Hero.lifeSteal, damageReduction, Perks.cowChance): Lebensraub, Schadensminderung, Charisma für mars.gd
+		"lifesteal": mini(h.bonus("LIFESTEAL"), 30), "reduction": h.bonus("RESIST"), "cha": h.mod("CHA"),
+		"brs_ruestung": _brs_ruestung(h)}     # 478: Rüstung nach dem BRS (brs_kampf.gd), aus dem Gewicht der Brustrüstung
+
+
+## 478: die Rüstung des BRS aus dem Gewicht der Brustrüstung (Heldwerte „gewicht“: LIGHT, MEDIUM, HEAVY), sonst keine
+static func _brs_ruestung(h) -> String:
+	var r = h.ding("CHEST")
+	var gew: String = String(h.grundform(r["base"]).get("gewicht", "")) if r != null else ""
+	return {"LIGHT": "Leichte Rüstung", "MEDIUM": "Mittlere Rüstung", "HEAVY": "Schwere Rüstung"}.get(gew, "keine")
 
 
 static func _waffe(h, w, nebenhand := false) -> Dictionary:
@@ -172,7 +207,8 @@ static func _waffe(h, w, nebenhand := false) -> Dictionary:
 ## ebenso oder null, [ort] Kampfort (heute nur „wald“), [tageszeit] „tag“, „abend“ oder „nacht“, [traenke] Heiltränke im Gepäck.
 ## false: kein Kampf (Held ohne LP); ende kommt dann gleich mit „NONE“
 ## [lage]: wie der Held aus der Welt kommt, {"atemlos": bool, "satt": bool, "eroeffnung": "NORMAL" | "AMBUSHED" | "HERO_FIRST",
-## "blende": die schwarze Blende vor dem Kampf, 402} (399.2)
+## "blende": die schwarze Blende vor dem Kampf, 402; "rauch": Morwens Rauchbündel im Gepäck, gegen Krogg, 494; übrig danach
+## kampf.mars.smoke} (399.2)
 func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := "tag", traenke := 2, held_tp := -1, soeldner_tp := -1, seed := -1, beute := Callable(), lage := {}) -> bool:
 	tabellen = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
 	var dice = Wuerfel.new(null if seed < 0 else seed + 1)
@@ -184,20 +220,28 @@ func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := 
 		monsters[m.id] = m
 	var party := [_kaempfer("hero", held, held_tp, Vector2i(Mars.FRONT, 0), skills)]
 	party[0].hero["look"] = lage.get("aussehen", {})     # 403: Kopf, Haar, Haut wie im Dorf (Zustand.aussehen, HeldFigur)
+	if not (lage.get("brs", {}) as Dictionary).is_empty():
+		party[0].hero["brs_daten"] = lage.brs     # 478: der Held nach BRS aus dem Spielstand (zustand.brs, BrsHeld.als_daten)
 	leiden_auf(party[0], lage.get("leiden", {}))     # 532
+	if bool(lage.get("betrunken", false)):     # 532 Metrausch wie alt (Battle.drunk): bis zur Rast, im Kampf ohne Ende
+		party[0].status["DRUNK"] = Mars.LASTING
 	if soeldner != null:
 		var sb := _als_blatt(soeldner)
 		var hinten: bool = sb.main.ranged or sb.cls == "WIZARD" or sb.cls == "CLERIC"
 		party.append(_kaempfer("merc", soeldner, soeldner_tp, Vector2i(Mars.BACK, 0) if hinten else Vector2i(Mars.FRONT, 1), skills))
 	var foes := gegner(gegner_, monsters, dice)
+	if int(lage.get("nr", 0)) > 0 and not foes.is_empty():
+		foes[0].monster = (foes[0].monster as Dictionary).duplicate()     # nicht die Tabelle selbst ändern
+		foes[0].monster["fell"] = int(lage.nr)     # 494: Fell des Monsters der Karte (spiel.gd kampf_im_wald nr), Name ohne Nummer
 	kampf = Kampfort.new()
 	kampf.tempo = Bedienung.tempo_faktor()     # 527: Tempo aus dem Menue System
+	kampf.tempo_knopf = true     # 600: Knopf im Kampfort schaltet es weiter
 	kampf.tageszeit = tageszeit
 	kampf.ort = ort
 	kampf.platz = String(lage.get("platz", "lichtung"))     # 493: Kampfort im Wald nach der Kachel (Kampfort.platz_fuer)
 	# Erfahrung für den Lohn: der Held bringt seine mit, ein Blatt steht am Anfang seiner Stufe (wie die Probe, 296.2)
 	var xp: int = int(tabellen.xpForLevel[int(held.level)]) if held is Dictionary else int(held.ep)
-	if not kampf.setup(party, foes, tabellen, {"potion": traenke}, _fertig, seed, {"xp": xp, "beute": beute, "atemlos": bool(lage.get("atemlos", false)), "satt": bool(lage.get("satt", false)), "eroeffnung": String(lage.get("eroeffnung", "NORMAL")), "blende": bool(lage.get("blende", false))}):
+	if not kampf.setup(party, foes, tabellen, {"potion": traenke}, _fertig, seed, {"xp": xp, "beute": beute, "atemlos": bool(lage.get("atemlos", false)), "satt": bool(lage.get("satt", false)), "eroeffnung": String(lage.get("eroeffnung", "NORMAL")), "blende": bool(lage.get("blende", false)), "rauch": int(lage.get("rauch", 0))}):
 		kampf.free()
 		kampf = null
 		_fertig.call_deferred("NONE")
@@ -256,6 +300,8 @@ func _fertig(ergebnis: String) -> void:
 		for f in kampf.mars.fighters():
 			if f.side == "PARTY":
 				tp[f.id] = f.hp
+				if kampf.mars.brs and f.srd_hp > 0:     # 478: zurück in die Leben der Welt (SRD), im selben Anteil
+					tp[f.id] = clampi(roundi(float(f.hp) * f.srd_hp / maxf(1.0, f.max_hp)), 1 if f.hp > 0 else 0, f.srd_hp)
 		lohn = kampf.reward
 	ende.emit(ergebnis, tp, lohn)
 	queue_free()

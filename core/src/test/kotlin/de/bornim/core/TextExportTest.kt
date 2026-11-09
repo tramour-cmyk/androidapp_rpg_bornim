@@ -42,6 +42,9 @@ class TextExportTest {
         val dinge = j["dinge"]!!.jsonObject
         assertEquals(listOf("2", "4", "2"), dinge["potion"]!!.jsonObject["heilt"]!!.jsonArray.map { it.jsonPrimitive.content })
         assertEquals("true", dinge["remedy"]!!.jsonObject["heilt_leiden"]!!.jsonPrimitive.content)
+        // 582: Seltenheit und Kurzangabe wie im alten Laden
+        assertEquals("UNCOMMON", dinge["greater_potion"]!!.jsonObject["seltenheit"]!!.jsonPrimitive.content)
+        assertEquals("heilt 2W4+2", dinge["potion"]!!.jsonObject["kurz"]!!.jsonObject["de"]!!.jsonPrimitive.content)
     }
 
     @Test
@@ -69,6 +72,11 @@ class TextExportTest {
         val einzel = j["einzelstuecke"]!!.jsonObject
         assertEquals("Heiltrank", dinge["potion"]!!.jsonObject["name"]!!.jsonObject["de"]!!.jsonPrimitive.content)
         assertEquals("Elder's Ring", einzel["ring_protection"]!!.jsonObject["name"]!!.jsonObject["en"]!!.jsonPrimitive.content)
+        // 542: das Einzelstueck mit allem, was Uniques.make braucht
+        val ring = einzel["ring_protection"]!!.jsonObject
+        assertEquals("ring", ring["grundform"]!!.jsonPrimitive.content)
+        assertEquals("RARE", ring["rarity"]!!.jsonPrimitive.content)
+        assertEquals("AC", ring["rolls"]!!.jsonArray[0].jsonArray[0].jsonPrimitive.content)
         // was Story.kt gibt oder nimmt, steht in dinge oder einzelstuecke
         val story = java.io.File("src/main/kotlin/de/bornim/core/Story.kt").readText()
         for (m in Regex("""(?:give|take)\("(\w+)"""").findAll(story)) assertTrue(m.groupValues[1] in dinge || m.groupValues[1] in einzel, m.groupValues[1])

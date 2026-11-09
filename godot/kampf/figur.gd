@@ -35,12 +35,17 @@ const ERSATZ_FELLE := {"boar": ["dunkel", "grau", "rost"], "giant_rat": ["braun"
 ## Bewegungen eines Vierbeiners, die beim Wolf anders heißen (wildschwein.py: Hauerstoß statt Biss, Rammen statt Sprung)
 ## Kopfhöhe (Ohrspitzen) und Bodenschatten (Breite, Länge, Mitte vor dem Ursprung) des Ersatzes in Modellmetern (Ratte Runde 2:
 ## Balken 200 px über der Ratte, Schatten größer als das Tier)
-const ERSATZ_KOPF := {"giant_rat": 0.4, "giant_bat": 0.98, "kaufwolf": 1.06}     # Kaufwolf: Ohren 1,175 m (unser Wolf 1,24 m bei 1,12)
+const ERSATZ_KOPF := {"giant_rat": 0.4, "giant_bat": 0.98, "kaufwolf": 1.06, "kauf_egel": 0.45, "kauf_schnecke": 0.85}     # Kaufwolf: Ohren 1,175 m (unser Wolf 1,24 m bei 1,12)
 const ERSATZ_SCHATTEN := {"giant_rat": [0.3, 0.85, -0.08], "giant_bat": [0.9, 0.5, -0.04]}
 ## Ersatz ohne Umgebungsvariable (Prüf-APK: Probekampf „Ratten“ setzt giant_rat); ERSATZ geht vor
 static var ersatz_art := ""
 static func ersatz() -> String:
 	return OS.get_environment("ERSATZ") if OS.has_environment("ERSATZ") else ersatz_art
+## 494 (Wochenziel 03.11. Reihe 3): Vierbeiner mit eigenen Regeln (tabellen.json, MARS allgemein), im Bild wie der Wolf: Körper,
+## Schatten, Kopfhöhe, Größe aus dem Kaufmodell (ersatz_art „kauf_<tier>“, aufruf.gd)
+const VIERBEINER := ["wolf", "boar", "giant_centipede", "stirge", "ochre_jelly", "giant_rat", "giant_bat"]     # Hundertfüßer, Riesenegel, Säureschnecke (494): langer Körper am Boden wie ein Vierbeiner; Ratte, Fledermaus mit eigenen Regeln wie bisher als Ersatz des Wolfs
+static func vier(fi) -> bool:
+	return fi != null and fi.monster != null and Mars.koerper_of(fi.monster) in VIERBEINER     # 577: nach dem Körper
 ## 553 (Chef 04.11., 00:26, Build 249: „Was ist das für ein graues Tier??????“ im Flüsterwald): ersatz_art ist eine für alle
 ## Figuren; jeder Streuner der Karte und jeder Kampfbeginn setzt sie neu (aufruf.gd gegner). Die Figur las sie laufend, also nahm
 ## eine Kartenratte nach dem nächsten Wolf dessen Maße (Wenden, Absetzen, Kopf) und ein Wolf nach der nächsten Ratte deren
@@ -71,6 +76,8 @@ const KOBOLD_KITS := ["kappe", "schild", "fell"]
 ## 348.12 Grak (goblin.py ART=hobgoblin_captain, CC0-Gerüst): ein Kit, Großaxt in beiden Händen (waffen.py greataxe-grak, für
 ## ihn gebaut, Größe 1); in Stehen der Stiel steil vor dem Körper, der Kopf der Axt über der rechten Schulter (ual_lauer.py GRAK_HALT)
 const GRAK_KITS := ["hauptmann"]
+## 494 Krogg (krogg_gestalt.py, Superheld mit gekauftem Bärenkopf): ein Kit, Morgenstern in der rechten Faust im Modell (Knochen „waffe“)
+const KROGG_KITS := ["krogg"]
 ## Kurzbogen wie Dress.bow: 0,58 der Größe des Schützen (waffen.py baut ihn 101 cm, für den Menschen)
 ## Späher Runde 2 (Prüfer 1: „von der Schulter bis auf Fußhöhe, für einen Kurzbogen groß“): 0,48
 const GOB_BOGEN := 0.48 / 1.01
@@ -153,7 +160,7 @@ func setup(f, k) -> void:
 		_arm_kauf()
 	elif fighter.monster == null:
 		_arm()
-	elif fighter.monster.id in [Mars.CALLED, Mars.SCOUT, Mars.GRAK]:
+	elif Mars.koerper_of(fighter.monster) in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG]:
 		_arm_goblin()
 	if fighter.monster != null:
 		var sk: Skeleton3D = _find(model, "Skeleton3D")
@@ -199,7 +206,7 @@ void fragment() {
 }"""
 	var mi := MeshInstance3D.new()
 	var pm := PlaneMesh.new()
-	var wolf: bool = fighter.monster != null and fighter.monster.id == Mars.WOLF
+	var wolf: bool = vier(fighter)
 	# Wolf: Rumpf 1,1 m lang, 0,4 m breit (mal Größe); Mensch: 0,7 m rund
 	# Runde 15 (Prüfer Runde 14: Pfotenschatten „unsichtbar im Rumpfschatten“): schmaler (0,7 statt 1,0), die Pfoten stehen am weichen Rand
 	pm.size = Vector2(0.7, 1.5) * _scale() if wolf else Vector2(0.95, 0.95)
@@ -207,7 +214,7 @@ void fragment() {
 	if wolf and ERSATZ_SCHATTEN.has(_mein_ersatz()):
 		var es: Array = ERSATZ_SCHATTEN[_mein_ersatz()]
 		pm.size = Vector2(es[0], es[1]) * _scale(); vor = es[2]
-	elif wolf and mass.has("laenge_m"):     # 387 Runde 2 (Prüfer: Schatten in Wolfsgröße, bei Huhn und Kaninchen doppelt so breit): nach dem Kauftier
+	elif (wolf or eigene_haut(fighter)) and mass.has("laenge_m"):     # 494: auch die gekaufte Spinne (vorher 0,95 rund unter 1,69 m Beinen); 387 Runde 2 (Prüfer: Schatten in Wolfsgröße, bei Huhn und Kaninchen doppelt so breit): nach dem Kauftier
 		pm.size = Vector2(mass.get("breite_m", 0.4) * 1.3, mass.laenge_m * 0.9) * _scale(); vor = 0.0
 	mi.mesh = pm
 	var m := ShaderMaterial.new()
@@ -333,16 +340,20 @@ func art() -> String:
 		return ""
 	if fighter.monster != null and fighter.id == GRIMM:
 		return "dire_wolf"
+	# 494 (Verdacht Jerry 17:4x, nachgestellt 18:2x): wer eigene gekaufte Häute hat und kein Vierbeiner ist (Riesenspinne), ist kein
+	# Ersatz; im Probekampf „Spinne“ setzt aufruf.gd für den Wolf daneben „kaufwolf“, die Spinne las dann kaufwolf-info.json: ohne Weg
+	if eigene_haut(fighter):
+		return ""
 	return _mein_ersatz()
 
 
 func _model_path() -> String:
 	if fighter.monster == null:
 		return "res://kampf/daten/held.bin"
-	if fighter.monster.id == Mars.WOLF:
+	if vier(fighter):
 		if art() == "dire_wolf":     # GRIMMFELL=schimmer: die seltene Schimmervariante
 			return "res://kampf/daten/dire_wolf-%s.bin" % (OS.get_environment("GRIMMFELL") if OS.has_environment("GRIMMFELL") else "schwarz")
-		var n: int = maxi(fighter.nr, 1) - 1
+		var n: int = _fell_nr() - 1
 		var art := _mein_ersatz()
 		if art.begins_with("kauf_"):     # 387: gekaufte Tiere (kauftier.py), Felle aus <art>-info.json
 			var fl := _kauf_felle(art)
@@ -351,9 +362,19 @@ func _model_path() -> String:
 		if ERSATZ_FELLE.has(art):
 			return "res://kampf/daten/%s-%s.bin" % [art, ERSATZ_FELLE[art][n % ERSATZ_FELLE[art].size()]]
 		return "res://kampf/daten/wolf-%s.bin" % WOLF_COATS[n % WOLF_COATS.size()]
-	if fighter.monster.id in [Mars.CALLED, Mars.SCOUT, Mars.GRAK]:     # 348.7: Goblin, Späher je Nummer eines der drei Kits (goblin.py, MonsterKits)
+	if Mars.koerper_of(fighter.monster) in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG]:     # 348.7: Goblin, Späher je Nummer eines der drei Kits (goblin.py, MonsterKits)
 		return "res://kampf/daten/%s-%s.bin" % [_gob_art(), _gob_kit()]
-	return "res://kampf/daten/%s.bin" % fighter.monster.id
+	# 494 Riesenspinne (kaufspinne.py): gekaufte Gegner, die keine Vierbeiner sind, haben wie die Kauftiere drei Häute in
+	# <id>-info.json; je Nummer eine (drei Varianten, DESIGN-STIL „Abwechslung“)
+	var felle := _kauf_felle(Mars.koerper_of(fighter.monster))
+	if not felle.is_empty():
+		return "res://kampf/daten/%s-%s.bin" % [Mars.koerper_of(fighter.monster), felle[(_fell_nr() - 1) % felle.size()]]
+	return "res://kampf/daten/%s.bin" % Mars.koerper_of(fighter.monster)
+
+
+## 494 (Prüfer 512b): welches Fell; ein Monster der Karte bringt seins mit („fell“, aufruf.gd lage „nr“), sonst nach der Nummer
+func _fell_nr() -> int:
+	return maxi(int(fighter.monster.get("fell", fighter.nr)) if fighter.monster != null else fighter.nr, 1)
 
 
 ## 348.12f eingebaut (Chef 28.10., 11:50, Archiv: Kaufwolf und Ratte abgenommen): gekaufte Modelle liegen im APK nur verschlüsselt
@@ -376,13 +397,25 @@ static func lade_bin(p: String) -> PackedByteArray:
 	return d.slice(0, d.size() - pad)
 
 
-## 387: Felle eines gekauften Tiers (Schlüssel in <art>-info.json, wie kauftier.py sie baut)
+## 387: Felle eines gekauften Tiers (Schlüssel in <art>-info.json, wie kauftier.py sie baut); einmal gelesen je Art
+static var _felle_von := {}
 static func _kauf_felle(a: String) -> Array:
+	if _felle_von.has(a):
+		return _felle_von[a]
 	var ip := "res://kampf/daten/%s-info.json" % a
-	if not FileAccess.file_exists(ip):
-		return []
-	var j = JSON.parse_string(FileAccess.get_file_as_string(ip))
-	return j.keys() if j is Dictionary else []
+	var fl := []
+	if FileAccess.file_exists(ip):
+		var j = JSON.parse_string(FileAccess.get_file_as_string(ip))
+		fl = j.keys() if j is Dictionary else []
+	_felle_von[a] = fl
+	return fl
+
+
+## 494: gekaufter Gegner mit eigenen Häuten in <id>-info.json (kaufspinne.py), weder Vierbeiner noch Zweibeiner (die haben dort
+## Felle oder Kits), in echter Größe wie die Kauftiere
+static func eigene_haut(fi) -> bool:
+	return fi != null and fi.monster != null and not vier(fi) and not Mars.koerper_of(fi.monster) in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG] \
+			and not _kauf_felle(Mars.koerper_of(fi.monster)).is_empty()
 
 
 ## 403 (von Team Tom zu 376.1; Chef 31.10.: nur Modell und Bewegungen): der Held je Klasse auf dem Kaufkörper wie im Dorf
@@ -511,7 +544,7 @@ func _arm() -> void:
 
 ## Goblin, Späher, Grak: Zweibeiner auf dem Gerüst aus goblin.py oder grak_gestalt.py
 func _zweibeiner() -> bool:
-	return fighter.monster != null and fighter.monster.id in [Mars.CALLED, Mars.SCOUT, Mars.GRAK]
+	return fighter.monster != null and Mars.koerper_of(fighter.monster) in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG]
 
 
 ## 403: Waffe und Schild am Kaufkörper. Der Kaufkörper ruht in der T-Pose, darum wie beim Goblin nach der Haltung in Stehen
@@ -561,15 +594,17 @@ func _schild() -> String:
 
 ## Goblin, Späher oder (Probe „Schamanen“) Schamane: Kennung der Modelle und der info.json
 func _gob_art() -> String:
-	if fighter.monster.id == Mars.CALLED and _mein_ersatz() in [SHAMAN, KOBOLD]:
+	if Mars.koerper_of(fighter.monster) == Mars.CALLED and _mein_ersatz() in [SHAMAN, KOBOLD]:
 		return _mein_ersatz()
-	return fighter.monster.id
+	return Mars.koerper_of(fighter.monster)
 
 
 func _gob_kit() -> String:
-	if fighter.monster.id == Mars.GRAK:
+	if Mars.koerper_of(fighter.monster) == Mars.GRAK:
 		return GRAK_KITS[0]
-	var kits: Array = SCOUT_KITS if fighter.monster.id == Mars.SCOUT else (SHAMAN_KITS if _gob_art() == SHAMAN else (KOBOLD_KITS if _gob_art() == KOBOLD else GOBLIN_KITS))
+	if Mars.koerper_of(fighter.monster) == Mars.KROGG:
+		return KROGG_KITS[0]
+	var kits: Array = SCOUT_KITS if Mars.koerper_of(fighter.monster) == Mars.SCOUT else (SHAMAN_KITS if _gob_art() == SHAMAN else (KOBOLD_KITS if _gob_art() == KOBOLD else GOBLIN_KITS))
 	return kits[(maxi(fighter.nr, 1) - 1) % kits.size()]
 
 
@@ -810,7 +845,7 @@ func _toon(c: Color) -> ShaderMaterial:
 	elif load("res://kampf/kampfort.gd").tusche() == "licht":     # 348.13a: Vorgabe Tusche nach Licht
 		m.shader = toon_gegner()
 		# 348.13a (Prüfer r9: der hintere Goblin hebt sich vom Weg kaum ab; Tom: Goblins aufhellen): Mindesthelligkeit im Schatten
-		if GOB_FILL > 0.0 and fighter != null and fighter.monster != null and String(fighter.monster.id).begins_with("goblin"):
+		if GOB_FILL > 0.0 and fighter != null and fighter.monster != null and String(Mars.koerper_of(fighter.monster)).begins_with("goblin"):
 			m.set_shader_parameter("fill", GOB_FILL)
 	else:
 		m.shader = load("res://kampf/toon.gdshader")
@@ -852,7 +887,7 @@ func _face(dir := Vector3.ZERO) -> void:
 	var d: Vector3 = dir if dir != Vector3.ZERO else kampfort.facing(fighter.side == "FOES")
 	# Wölfe in Ruhe halb seitlich wie im alten Bild: von vorn verkürzt las sich der Rumpf als Buckel ohne Hals (Prüfer Runde 10)
 	var look := 0.0
-	if dir == Vector3.ZERO and fighter.monster != null and fighter.monster.id == Mars.WOLF:
+	if dir == Vector3.ZERO and vier(fighter):
 		var turn: float = float(OS.get_environment("WOLFDREH")) if OS.has_environment("WOLFDREH") else WOLF_TURN
 		if aim != null and is_instance_valid(aim) and not aim.down and aim.dead_at < 0:
 			# Mit Ziel: Rumpf zum Ziel, aber nur im Bereich, in dem die Kamera ihn halb seitlich sieht (zur Kamera hin gedreht
@@ -1186,9 +1221,12 @@ func _face_sanft() -> void:
 		gang = "dreh"
 		dreh_ziel = r0 + dw
 		tween = create_tween()
-		tween.tween_callback(func(): halt.an())
+		# 623.5 (effekt_mess_6235: „Nonexistent function 'an' in base 'Nil'“): auch der Held ohne Pfotenhalt kommt hierher (abwehr)
+		tween.tween_callback(func(): if halt: halt.an())
 		tween.tween_property(self, "rotation:y", r0 + dw, absf(rad_to_deg(dw)) / TURN_DPS_TRITT)
-		tween.tween_callback(func(): halt.los(true); gang = "")
+		tween.tween_callback(func():
+			if halt: halt.los(true)
+			gang = "")
 	else:
 		rotation.y = r0 + clampf(dw, -deg_to_rad(40.0) * get_process_delta_time(), deg_to_rad(40.0) * get_process_delta_time())
 
@@ -1225,6 +1263,8 @@ func _weg() -> Dictionary:
 	if fighter.monster == null:
 		return {}
 	var ia := _gob_art() if _zweibeiner() else art()     # 348.12: Grak (grak_gestalt.py) hat seinen Weg in hobgoblin_captain-info.json
+	if ia == "" and not _kauf_felle(Mars.koerper_of(fighter.monster)).is_empty():     # 494 Riesenspinne (kaufspinne.py): Weg in <id>-info.json
+		ia = Mars.koerper_of(fighter.monster)
 	var ip := "res://kampf/daten/%s-info.json" % ia
 	if ia == "" or not FileAccess.file_exists(ip):
 		return {}
@@ -1238,8 +1278,8 @@ func _weg() -> Dictionary:
 			hieb = j[fell].hieb
 		if j[fell].get("tempo") is Dictionary:
 			tempo = j[fell].tempo
-		for k in ["breite_m", "laenge_m"]:
-			if art().begins_with("kauf_") and j[fell].get(k) != null:
+		for k in ["breite_m", "laenge_m", "koerper_hoch_m", "hoehe_m"]:
+			if (art().begins_with("kauf_") or art() == "") and j[fell].get(k) != null:     # 494: auch die gekaufte Spinne
 				mass[k] = float(j[fell][k])
 		return j[fell].weg
 	return {}
@@ -1308,6 +1348,21 @@ func _walk_home(skip = null) -> float:
 			# … es sei denn, das Umdrehen am Ort führte den Rumpf durch einen anderen (dann doch rückwärts)
 			var first0 := via - position
 			rueck = _dreh_luft(rotation.y, atan2(first0.x, first0.z)) < PLATZ_LUFT
+		# 562 (wolf_mess_438 Kleriker, Bild 2851, nachgestellt am Rechner: Wolf 3 ging rückwärts heim, 40° schräg zur eigenen Achse,
+		# und schob das Heck 0,13 m in Wolf 1; _seg_gap rechnet den Rumpf längs des Wegs): rückwärts behält er seine Drehung, darum
+		# den Umriss in dieser Drehung über den Weg schieben; ginge er dabei durch einen anderen, rückwärts um ihn herum, sonst drehen,
+		# wenn das nicht enger wird
+		if rueck and fighter.monster != null:
+			var rl := _rueck_luft(position, via, home, skip)
+			if rl < minf(WEG_LUFT, _rumpf_luft(position, rotation.y, skip) - 0.01):
+				var rv := _rueck_umweg(position, home, skip)
+				if rv != position:
+					via = rv
+					bahn = [via, home]
+				else:
+					var f1 := (via if via != position else home) - position
+					if _dreh_luft(rotation.y, atan2(f1.x, f1.z)) >= rl:
+						rueck = false
 		if rueck:
 			# 438: rückwärts heim, das Gesicht zum Gegner; statt Kehrtwende, Lauf und zweiter Kehrtwende
 			gang = "heim"
@@ -1804,6 +1859,57 @@ func _rumpf_luft(p: Vector3, yaw: float, skip = null) -> float:
 	return g
 
 
+## 562: Luft des Rumpfs, geht das Tier in seiner jetzigen Drehung (rückwärts) von [von] über [via] (== von: gerade) nach [nach];
+## Raster wie _rumpf_luft alle 0,25 m; wer mit ihm den Platz tauscht (sein Ziel ist mein Start), zählt wie in _seg_gap nur, wo er steht
+func _rueck_luft(von: Vector3, via: Vector3, nach: Vector3, skip = null) -> float:
+	var box := footprint()
+	var b := Basis(Vector3.UP, rotation.y) * Basis.from_scale(scale)     # wie wolf_mess_438: global_transform mit Maßstab
+	var raster: Array = []
+	for i in 7:
+		for j in 3:
+			raster.append(b * Vector3(lerpf(box.position.x, box.end.x, j / 2.0), 0.0, lerpf(box.position.z, box.end.z, i / 6.0)))
+	var orte: Array = []
+	var stuecke: Array = [[von, nach]] if via == von else [[von, via], [via, nach]]
+	for s in stuecke:
+		var n := maxi(1, int(ceilf(Vector2(s[1].x - s[0].x, s[1].z - s[0].z).length() / 0.25)))
+		for i in range(1, n + 1):
+			orte.append((s[0] as Vector3).lerp(s[1], float(i) / n))
+	var g := INF
+	for o in kampfort.figures.values():
+		if o == self or o == skip or not o.visible or o.down:
+			continue
+		var bei: Array = [Vector3.INF]
+		if o.unterwegs() and Vector2(o.home.x - von.x, o.home.z - von.z).length() > 1.0:
+			bei.append_array(o.bahn_punkte())
+		for p in orte:
+			for q in raster:
+				for at in bei:
+					g = minf(g, o.clearance(p + q, at))
+	return g
+
+
+## 562: ein Umweg [via] für den Weg rückwärts von [von] nach [nach] (beide Abschnitte hinter ihm, im Bild, der Rumpf in seiner
+## Drehung mit WEG_LUFT frei; Versatz wie _detour); keiner frei: [von]
+func _rueck_umweg(von: Vector3, nach: Vector3, skip = null) -> Vector3:
+	var ab := Vector3(nach.x - von.x, 0.0, nach.z - von.z)
+	var n := ab.length()
+	if n < 0.05:
+		return von
+	var d := ab / n
+	var side := Vector3(-d.z, 0.0, d.x)
+	var blick := Vector3(basis.z.x, 0.0, basis.z.z)
+	for k in range(1, 13):
+		for at in [0.5, 0.35, 0.65]:
+			for sg in [1.0, -1.0]:
+				var via: Vector3 = von + d * (n * at) + side * (0.2 * k * sg)
+				var w := von.distance_to(via) + via.distance_to(nach)
+				if w > RUECK_M or not (_rueckwaerts(von, via, w) and _rueckwaerts(via, nach, w)) or not _im_bild(via, blick):
+					continue
+				if _rueck_luft(von, via, nach, skip) >= WEG_LUFT:
+					return via
+	return von
+
+
 ## 438: kleinste Luft des Rumpfs, dreht sich das Tier am Ort von [von] nach [nach] (in 15°-Schritten)
 func _dreh_luft(von: float, nach: float) -> float:
 	return _dreh_luft_bogen(von, wrapf(nach - von, -PI, PI))
@@ -1909,7 +2015,7 @@ func _hieb(other) -> int:
 
 ## Ground under the figure where no grass grows (halm.gdshader spots): x, z, radius.
 func grass_spot() -> Vector3:
-	var wolf: bool = fighter.monster != null and fighter.monster.id == Mars.WOLF
+	var wolf: bool = vier(fighter)
 	var c := to_global(Vector3(0, 0, 0.15 * _scale() if wolf else 0.0))
 	return Vector3(c.x, c.z, 0.5 * _scale() if wolf else 0.3)
 
@@ -1930,13 +2036,15 @@ func falling() -> bool:
 ## „Tod“), liegt LIEGT_MS und vergeht erst dann; so lange warten auch die anderen mit dem Aufrücken (kampfort.gd, 439).
 const LIEGT_MS := 1200
 func sterbe_ms() -> int:
-	if anim and anim.has_animation("Tod"):
-		return maxi(FALL_MS, int(anim.get_animation("Tod").length * 1000.0))     # die() spielt sie mit Tempo 1
+	if anim and anim.has_animation(tod_name):
+		return maxi(FALL_MS, int(anim.get_animation(tod_name).length * 1000.0))     # die() spielt sie mit Tempo 1
 	return FALL_MS
 
 
 ## The announced intent (or none): a wolf about to pounce crouches.
 func announce(intent, at = null) -> void:
+	if intent != null:     # 494: bleibt bis zum Zug (davor nimmt eine Meldung ohne Ansage sie weg, wie „Anspringen!“ beim Wolf)
+		angesagt = intent
 	var p: bool = intent != null and intent.effect == "POUNCE"
 	var turned: bool = at != aim
 	aim = at
@@ -1952,11 +2060,33 @@ func announce(intent, at = null) -> void:
 		_idle_wenn_frei()     # 438 (wolf_mess_438: kauerte unterwegs heim und glitt 4,8 m in Hocke): unterwegs erst daheim
 
 
+## 494 Riesenspinne: zuletzt angesagte Absicht (announce); „Netz werfen“ spielt den Netzwurf, wann das Netz losfliegt (ms)
+var angesagt = null
+var netz_los_ms := -1
+const NETZ_LOS := 0.45      # Anteil des Netzwurfs, bei dem das Netz den Hinterleib verlässt (Stichprobe im Kauf, ungeprüft: 511)
+
 ## A blow, bite, shot or spell at [other]; returns how long it takes (ms).
 func strike(other, e: Dictionary) -> int:
 	_dreh_ab()
 	var spell: bool = e.spell != null
 	var ranged: bool = fighter.ranged()
+	netz_los_ms = -1
+	# 494 (Zu 494, kein Chefentscheid): die Spinne zählt in MARS als Fernkämpfer (Netz aus der hinteren Reihe), sie beißt aber wie im
+	# alten Spiel (SkirmishScreen: Pfeil nur bei attackFx ARROW, die Spinne hat BITE); nur „Netz werfen“ wirft, mit Netz statt Pfeil.
+	# Vorher spielte sie bei jedem Angriff „Ausholen“ (hat sie nicht: stand still) und ein Pfeil flog
+	if fighter.monster != null and fighter.monster.id == Mars.SPIDER and not spell:
+		ranged = false
+		var netz: bool = angesagt != null and angesagt.get("effect", "") == "WEB"
+		angesagt = null
+		if netz and anim and anim.has_animation("Netzwurf"):
+			_schnaufen(0.6)
+			_face(other.position - position)
+			_play("Netzwurf", 0.1)
+			var l: float = anim.get_animation("Netzwurf").length / float(tempo.get("Netzwurf", 1.0))
+			netz_los_ms = int(l * NETZ_LOS * 1000.0)
+			get_tree().create_timer(l).timeout.connect(_idle_wenn_frei)
+			busy_ms = int(l * 1000.0)
+			return netz_los_ms
 	if spell or ranged:
 		_schnaufen(0.6)
 		_face(other.position - position)
@@ -1964,13 +2094,13 @@ func strike(other, e: Dictionary) -> int:
 		get_tree().create_timer(0.6).timeout.connect(func(): _face(); _idle())
 		busy_ms = 700
 		return 700
-	var leap: bool = fighter.monster != null and pouncing and fighter.monster.id == Mars.WOLF
+	var leap: bool = fighter.monster != null and pouncing and Mars.koerper_of(fighter.monster) == Mars.WOLF
 	letzter_sprung = leap or (sprung_bereit and fighter.monster != null)
 	sprung_bereit = false
 	if kauf:
 		_schnaufen(1.0)
 		# 438 (Prüfer Film r2: Klinge 31,2 s durch Wolf 2 ohne Treffer): daneben bleibt der Held VERFEHLT_M weiter weg
-		return _held_schlag(other, VERFEHLT_M if e.get("roll") != null and e.roll[0] == "ATTACK" and not e.roll[4] else 0.0)
+		return _held_schlag(other, VERFEHLT_M if e.get("roll") != null and Mars.ist_angriff(e.roll) and not e.roll[4] else 0.0)
 	if _zweibeiner() and weg.has("Gehen") and hieb.size() >= 3:
 		return _hieb(other)
 	if fighter.monster != null and weg.has("Gehen"):
@@ -1979,7 +2109,7 @@ func strike(other, e: Dictionary) -> int:
 		if leap:
 			pouncing = false
 		# 438 (wolf_mess_438: beim Verfehlen wich der Held aus, sein Schild fuhr bis 6 cm um die Schnauze): daneben bleibt der Wolf weiter weg
-		return _bite(other, leap, VERFEHLT_M if e.get("roll") != null and e.roll[0] == "ATTACK" and not e.roll[4] else 0.0)
+		return _bite(other, leap, VERFEHLT_M if e.get("roll") != null and Mars.ist_angriff(e.roll) and not e.roll[4] else 0.0)
 	var ms := BEAST_LUNGE_MS if fighter.monster != null else BLOW_MS
 	var to: Vector3 = other.position
 	var reach := (to - position) * (0.8 if leap else 0.6)
@@ -2045,7 +2175,11 @@ func _held_mps(nm: String) -> float:
 	return v if v > 0.1 else (WALK_MPS * 2.0 if nm == "Rennen" else WALK_MPS)
 
 
-const ANGRIFF_GANG := 1.3     # 406.2: Gehen zum Angriff so viel schneller als das Gehen des Satzes (Bewegung und Weg)
+## 406.2: Gehen zum Angriff so viel schneller als das Gehen des Satzes (Bewegung und Weg). 562 (Chef 04.11., 17:02: „völlig im
+## Schlaf-Tabletten-Modus … gleiten sie nach dem Angriff doch relativ flott zurück“; Lauf 266 SS TEMPO: vor 0,67, rückwärts 0,75 m/s):
+## mit 1,3 ging er 0,87 m/s hin, zurück im Mittel 1,75 m/s mit Sinuskurve (Spitze 2,7 m/s bei gleichem Schritttempo: Gleiten).
+## Jetzt hin 1,34 und zurück 1,5 m/s, je Schritte im Tempo des Wegs (Füße stehen), zurück ohne Kurve
+const ANGRIFF_GANG := 2.0
 const VERFEHLT_M := 0.3
 const HIEB_VOR := 0.12
 const HIEB_ZURUECK_M := 0.3
@@ -2125,7 +2259,10 @@ func _held_schlag(other, weiter := 0.0) -> int:
 	tween.tween_callback(func(): gang = "hieb"; _face(to - start); _play(hn, 0.08))
 	tween.tween_interval(bl)
 	var heim := start.distance_to(home)
-	var back := maxf(HERO_BACK_S, heim / (_held_mps("Gehen") * HELD_ZURUECK))
+	var back_mps := _held_mps("Gehen") * HELD_ZURUECK
+	if _gang_ss("Zurück") == "SS_WalkBackwards":
+		back_mps = _held_mps("SS_WalkBackwards") * ANGRIFF_GANG     # 562: zurück im Schritt wie hin
+	var back := maxf(HERO_BACK_S, heim / back_mps)
 	tween.tween_callback(func(): _back_home(back, other))
 	busy_ms = int((t_run + bl + back) * 1000.0)
 	anlauf_ms = 0
@@ -2138,19 +2275,23 @@ func _back_home(back: float, skip) -> void:
 	var from := position
 	var via := _detour(from, home, skip)
 	var way := from.distance_to(via) + via.distance_to(home) if via != from else from.distance_to(home)
+	# 562: mit Schild gleichmäßig (die Schritte laufen in einem Tempo; eine Kurve im Weg ließ die Füße in der Mitte gleiten)
+	var gleich := false
 	if anim and _gang_ss("Zurück") == "SS_WalkBackwards" and way > 0.2:
 		# 406: mit Schild rückwärts wie der Satz (Schild bleibt oben), im Tempo seiner Schritte
 		anim.play("SS_WalkBackwards", 0.12, clampf(way / back / _held_mps("SS_WalkBackwards"), 1.0, WALK_MAX))
+		gleich = true
 	elif anim and anim.has_animation("Gehen") and way > 0.2:
 		_guard(true)
 		anim.play("Gehen", 0.12, -clampf(way / back / (_held_mps("Gehen") if kauf else WALK_MPS), 1.0, WALK_MAX))
 	tween = create_tween()
+	var kurve := Tween.TRANS_LINEAR if gleich else Tween.TRANS_SINE
 	if via != from:
 		var b1 := from.distance_to(via) / way * back
-		tween.tween_property(self, "position", via, b1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
-		tween.tween_property(self, "position", home, back - b1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+		tween.tween_property(self, "position", via, b1).set_trans(kurve).set_ease(Tween.EASE_IN)
+		tween.tween_property(self, "position", home, back - b1).set_trans(kurve).set_ease(Tween.EASE_OUT)
 	else:
-		tween.tween_property(self, "position", home, back).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		tween.tween_property(self, "position", home, back).set_trans(kurve).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_callback(func(): _guard(false); _face(); _idle())
 
 
@@ -2318,7 +2459,7 @@ func _guard(on: bool) -> void:
 
 ## Halbe Breite am Boden, wie der Bodenschatten (Wolf 1,1 m lang, halb seitlich gesehen; Mensch 0,3 m)
 func body_r() -> float:
-	if fighter.monster != null and fighter.monster.id == Mars.WOLF:
+	if vier(fighter):
 		if mass.has("laenge_m"):     # 387: Kauftier, wie der Wolf (1,1 m lang, 0,45 m) nach seiner Länge
 			return 0.45 / 1.1 * mass.laenge_m * _scale()
 		return 0.45 * _scale()
@@ -2715,6 +2856,15 @@ func dodge(after_ms: int, nm := "") -> void:
 	_schnaufen(0.8)
 	# 348.12f: mit Wurzelweg zur Seite oder zurück, wie die Quelle (Ausweichen links nicht: Kopf unter den Vorderbeinen, Prüfer r7),
 	# dann heim; [nm] wählt (Probe SCHAU=ort), sonst der Zufall
+	# 593 (Chef 05.11., 19:2x, Build 266: „Ausweichbewegungen müssen nicht links – rechts sein, sondern können auch rückwärts gehen
+	# (so als Alternative)“): jedes dritte Ausweichen rückwärts, reihum statt Zufall (wie die Abwehr), nur wenn dort Platz ist; mit
+	# eigener Bewegung der Quelle (Ratte: dodgeBackwards), sonst rasch rückwärts im Gang (Spinne; Grak mit Jog_Bwd „Zurück“)
+	ausweich_nr += 1
+	if nm == "" and not down and not lunging() and (ausweich_nr + hash(String(fighter.id))) % 3 == 0:
+		if weg.has("Ausweichen zurück") and weg.has("Ausweichen links") and anim.has_animation("Ausweichen zurück") and _weg_frei("Ausweichen zurück"):
+			nm = "Ausweichen zurück"
+		elif not weg.has("Ausweichen zurück") and weg.has("Ausweichen") and _absetzen_rasch():
+			return
 	if nm == "" and weg.has("Ausweichen links"):
 		nm = _ausweich_seite()
 	if nm == "":
@@ -2726,8 +2876,9 @@ func dodge(after_ms: int, nm := "") -> void:
 		var b := basis
 		var bl: float = anim.get_animation(nm).length
 		tween = create_tween()
+		bahn = [_weg_at(o, b, nm, bl)]     # 703 A: Ziel des Satzes ist der neue Stand, nicht der Platz
 		tween.tween_method(func(x: float): position = _weg_at(o, b, nm, x), 0.0, bl, bl)
-		tween.tween_callback(_walk_home)
+		tween.tween_callback(_nach_ausweichen)
 		return
 	# Kaufwolf (Chef 27.10., 21:51, Archiv: „Ausweichen-Bewegung war am Platz und ohne Ortswechsel … grundsätzlich wie bei der
 	# Ratte“; der Kauf hat keine Ausweichbewegung): ein Satz im Lauf zur freieren Seite (Ausweichen) oder schräg zurück (Ausweichen
@@ -2777,23 +2928,38 @@ func dodge(after_ms: int, nm := "") -> void:
 			if _rumpf_luft(zurueck, rotation.y) >= g0:
 				if OS.get_environment("SCHAU_MESS") != "":
 					print("Ausweichen %s rückwärts (kein Satz frei, bester %.2f)" % [fighter.id, luft])
-				bahn = [zurueck, home]
+				bahn = [zurueck]
 				tween = create_tween()
 				tween.tween_callback(func(): anim.play("Gehen", 0.1, -float(tempo.get("Gehen", 1.0))))
 				_lauf(tween, position, zurueck, "Gehen", RUECK_TEMPO)
-				tween.tween_callback(_walk_home)
+				tween.tween_callback(_nach_ausweichen)
 				return
 			if luft < 400.0:     # 438: ein freier Satz aus dem Bild bleibt, wenn rückwärts kein Platz ist
 				best = []
 		if not best.is_empty():
 			if OS.get_environment("SCHAU_MESS") != "":
 				print("Ausweichen %s %s Länge %.2f m, Wert %.2f, Grenze %.2f, Start %s" % [fighter.id, nm, best[best.size() - 1][1], luft, g0, position])
-			bahn = [best[best.size() - 1][0], home]
+			bahn = [best[best.size() - 1][0]]
 			_pfad_fahren(best, false, AUSWEICH_BOGEN)     # 438: im Lauf drehte er 28° je Bild; 546: im Schritt zu träge
-			tween.tween_callback(_walk_home)
+			tween.tween_callback(_nach_ausweichen)
 			return
 	_play("Ausweichen", 0.05)
 	get_tree().create_timer(0.45).timeout.connect(_idle_wenn_frei)
+
+
+## 703 A (Chef 08.11., 21:36: „wenn sie ausgewichen sind, einfach stehen bleiben … Braucht man doch gar nicht.“; ändert F5):
+## nach dem Ausweichen bleibt die Figur, wo sie hinsprang, und dreht sich nur wieder zum Gegner; zurück auf den Platz kommt sie mit
+## ihrem eigenen Zug (der Heimweg nach Angriff, Biss oder Platzwechsel). Nur wer zu weit vom Platz abkäme (mehrmals hintereinander
+## ausgewichen) oder aus dem Bild, geht gleich heim, sonst liefe er Satz um Satz davon.
+const AUSWEICH_BLEIB_MAX := 2.5     # m (Modellmeter × Skala) vom Platz
+func _nach_ausweichen() -> void:
+	var d := Vector2(home.x - position.x, home.z - position.z).length()
+	if d > AUSWEICH_BLEIB_MAX * _scale() or not _im_bild(position, Vector3(sin(rotation.y), 0.0, cos(rotation.y))):
+		_walk_home()
+		return
+	if OS.get_environment("SCHAU_MESS") != "":
+		print("Ausweichen %s bleibt %.2f m vom Platz" % [fighter.id, d])
+	_turn_home()
 
 
 ## 348.12 (Chef 15:23: „Animation … beim Ausweichen“): Grak setzt zur Seite (Seitenlauf der UAL Pro, 1,7 m); zu der, deren Weg von den
@@ -2815,6 +2981,33 @@ func _ausweich_seite() -> String:
 ## nach dem Biss ohne „Ausweichen zurück“ der Quelle so weit (Modellmeter) rückwärts, bevor es sich umdreht (Kopf bleibt vor der Heldin)
 const ABSETZEN := 0.6
 
+var ausweich_nr := 0     # 593: zählt das Ausweichen, jedes dritte rückwärts
+const AUSWEICH_RUECK_TEMPO := 1.8     # 593: rückwärts im Gang so rasch wie der Satz (546: Gehen × 1,8), nie als Schlaftablette
+
+
+## 593: geht der Wurzelweg der Bewegung [nm] frei (Abstand zu den anderen wie _ausweich_seite) und bleibt im Bild?
+func _weg_frei(nm: String) -> bool:
+	var ende := _weg_at(position, basis, nm, (weg[nm].size() - 1) / weg_fps)
+	return _seg_gap(position, ende, null) >= 0.25 and _im_bild(ende, Vector3(sin(rotation.y), 0.0, cos(rotation.y)))
+
+
+## 593: rasch rückwärts absetzen (ABSETZEN), Gesicht zum Gegner, dann heim; false, wenn hinten kein Platz ist oder es aus dem Bild ginge
+func _absetzen_rasch() -> bool:
+	var rn := "Zurück" if weg.has("Zurück") and anim.has_animation("Zurück") else "Gehen"
+	if not weg.has(rn) or not anim.has_animation(rn):
+		return false
+	var g0 := minf(_rumpf_luft(position, rotation.y), PLATZ_LUFT)
+	var zurueck := position - Vector3(basis.z.x, 0.0, basis.z.z).normalized() * ABSETZEN * _scale()
+	if _rumpf_luft(zurueck, rotation.y) < g0 or not _im_bild(zurueck, Vector3(sin(rotation.y), 0.0, cos(rotation.y))):
+		return false
+	var k := 1.0 if rn == "Zurück" else AUSWEICH_RUECK_TEMPO
+	bahn = [zurueck]
+	tween = create_tween()
+	tween.tween_callback(func(): gang = "zurück"; anim.play(rn, 0.1, k if rn == "Zurück" else -float(tempo.get("Gehen", 1.0)) * k))
+	_lauf(tween, position, zurueck, rn, k)
+	tween.tween_callback(_nach_ausweichen)
+	return true
+
 
 ## Satz beim Ausweichen ohne Wurzelweg der Quelle (Modellmeter, Grad): zur Seite (seitlich, zurück), schräg zurück (seitlich, zurück),
 ## Drehung am Ende zur Seite bzw. schräg zurück
@@ -2829,21 +3022,69 @@ func die() -> void:
 	if not weg.is_empty() and tween and tween.is_running():
 		tween.kill()     # 348.12f: im Lauf getroffen, liegt es, wo es fällt
 	dead_at = int(kampfort.clock_ms)
+	if _schatten_tw:
+		_schatten_tw.kill()
 	if anim and anim.has_animation("Tod"):
-		anim.play("Tod", 0.05)
+		# 596 (Chef 05.11., t266: „Sterbeanimation … von Wolf immer gleich und auf die gleiche Seite. Kann man es zumindest an der Achse
+		# spiegeln“; Keiler „tot sehr schnell und wenig smooth“): jeder Gegner fällt zufällig zur einen oder anderen Seite (Spiegelung
+		# quer zur Blickrichtung), aus der Bewegung weich in den Sturz statt in 0,05 s; hat er mehrere Sterbebewegungen (Tod, Tod2 …),
+		# eine davon. Gilt für jedes Modell mit „Tod“ (Bibliothek: sterbe_spiegeln)
+		var nm := "Tod"
+		if fighter.side == "FOES":
+			var alle := ["Tod"]
+			for i in range(2, 5):
+				if anim.has_animation("Tod%d" % i): alle.append("Tod%d" % i)
+			nm = alle[randi() % alle.size()]
+			tod_name = nm
+			if randf() < 0.5: sterbe_spiegeln()
+		anim.play(nm, TOD_BLEND)
 	else:
 		var t := create_tween()
 		t.tween_property(model, "rotation:z", deg_to_rad(80), FALL_MS / 1000.0)
 	# 348.12 (Chef 28.10., 15:23: „Krag ist ein Hauptheld, der muss fulminant sterben am Schluss. Nicht einfach ausgeblendet werden,
 	# wir brauchen einen Zusammenbruch“): Grak bricht zusammen (Tod aus Death02: in die Knie, dann vornüber) und bleibt liegen
-	if fighter.side == "FOES" and fighter.monster.id != Mars.GRAK:
+	if fighter.side == "FOES" and Mars.koerper_of(fighter.monster) not in [Mars.GRAK, Mars.KROGG]:     # 494: Krogg bricht zusammen wie Grak
 		# MARS: eigene Sterbebilder, dann ausgeblendet (LISTE-MARS.md); Körper und Bodenschatten zusammen (Helfer Lauf 126: der
 		# Schatten lag noch allein auf dem Weg)
 		await get_tree().create_timer((sterbe_ms() + LIEGT_MS) / 1000.0).timeout
 		var t := create_tween()
-		t.tween_method(_fade_out, 0.0, 1.0, FADE_MS / 1000.0)
+		t.tween_method(_fade_out, IM_SCHATTEN if schatten_an else 0.0, 1.0, FADE_MS / 1000.0)     # 566: blass im Schatten bleibt blass
 		await t.finished
 		visible = false
+
+
+## 596: aus der Bewegung in den Sturz (vorher 0,05 s: der Keiler kippte hart)
+const TOD_BLEND := 0.25
+var gespiegelt := false
+var tod_name := "Tod"     # 596: die gewählte Sterbebewegung (sterbe_ms)
+
+## 596: spiegelt die Figur quer zur Blickrichtung (Modell um 180° gedreht und längs gespiegelt, so bleibt scale.x die Größe, die
+## figur.gd an mehreren Stellen liest); Godot kehrt die Flächen gespiegelter Netze selbst um
+func sterbe_spiegeln() -> void:
+	if model == null or gespiegelt:
+		return
+	gespiegelt = true
+	model.rotation.y += PI
+	model.scale.z = -model.scale.z
+
+
+## 566 (Chef 04.11., 17:15, Build 257: „steht in den Schatten, aber er schaut nicht aus, als würde er im Schatten stehen“): wer „In den
+## Schatten“ gegangen ist (Mars hidden, bis zu seinem nächsten Zug Nachteil auf Angriffe gegen ihn), ist nur schwach zu sehen, wie alt
+## (SkirmishScreen.kt 1086: Figur und Bodenschatten Alpha 0,4): Raster des Ausblendens zu IM_SCHATTEN, Bodenschatten ebenso blass
+const IM_SCHATTEN := 0.6
+var schatten_an := false
+var _schatten_tw: Tween
+
+
+func im_schatten(an: bool) -> void:
+	if an == schatten_an or dead_at >= 0:
+		return
+	schatten_an = an
+	if _schatten_tw:
+		_schatten_tw.kill()
+	var von := 0.0 if an else IM_SCHATTEN
+	_schatten_tw = create_tween()
+	_schatten_tw.tween_method(func(x: float): _fade_out(x), von, IM_SCHATTEN - von, 0.45)
 
 
 func _fade_out(x: float) -> void:
@@ -2876,9 +3117,13 @@ func howl() -> void:
 
 ## Where to put the name and bar above the figure (world).
 func head() -> Vector3:
-	var h := 1.12 if fighter.monster != null and fighter.monster.id == Mars.WOLF else 1.9     # Ohrspitzen des Wolfs (0,9 lag seit den größeren Ohren, Runde 1 nach Chef, unter dem Balken; davor 60 px darüber)
-	if fighter.monster != null and fighter.monster.id == Mars.WOLF:
+	var h := 1.12 if vier(fighter) else 1.9     # Ohrspitzen des Wolfs (0,9 lag seit den größeren Ohren, Runde 1 nach Chef, unter dem Balken; davor 60 px darüber)
+	if vier(fighter) and not ERSATZ_KOPF.has(_mein_ersatz()) and _mein_ersatz().begins_with("kauf_") and mass.has("hoehe_m"):
+		h = float(mass.hoehe_m) + 0.15     # 494: Keiler (0,97 m), Hundertfüßer (0,26 m: der Balken stand 0,9 m über ihm) nach dem Kauf
+	elif vier(fighter):
 		h = ERSATZ_KOPF.get(_mein_ersatz(), h)
+	elif mass.has("koerper_hoch_m"):     # 494 Riesenspinne: Name und Balken über dem Körper (0,40 m), nicht in Menschenhöhe 1,9 m
+		h = float(mass.koerper_hoch_m) + 0.25
 	if gob_h > 0.0:     # Goblin Runde 2 (Prüfer Runde 1: Ansage fern der Goblins): Scheitel aus goblin.py, gebückt etwas tiefer
 		h = gob_h * 0.85
 	return position + Vector3(0, h * (_scale() if fighter.monster != null else 1.0), 0)

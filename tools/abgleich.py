@@ -2,10 +2,9 @@
 """Abgleich der Notizen (191): gibt WARNUNG-Zeilen aus, nichts sonst; lauf.py ruft es in jedem Lauf, Ford trägt jede WARNUNG ein.
 Nur das Neue (D31.4); Vorhandenes rechnen startbar.py, lauf.py, regelcheck.py, vorgangskosten.py.
 Prüfungen:
-  1. Vorratszeile ohne Eintrag in LISTE-VORGAENGE.md (Nummer unbekannt, auch keine Oberzeile)
-  2. Vorratszeile „gebaut“ / „wartet auf Test“ mit Zweig `claude/…`, der schon auf origin/main zusammengeführt ist
-  3. Vorgangsarchiv: entschiedener Vorgang mit „Umsetzung“, aber ohne Zeile in einem Vorrat und nicht „erledigt“ in der Liste
-  3b. Termin im Stand (ab, bis, Entscheid, Messung TT.MM.) liegt über 2 Tage zurück, Stand unverändert
+  2. Listenzeile „gebaut“ / „zu testen“ ohne Build, deren Zweig `claude/…` schon auf origin/main zusammengeführt ist (275.2)
+  3. Vorgangsarchiv: entschiedener Vorgang mit „Umsetzung“, aber ohne Zeile in der Liste und nicht „erledigt“
+  (1. und 3b. entfallen mit 275.2: Nummern und Termine sind Felder, startbar.py prüft und löst sie)
   4. Vorentscheid (194.1): Archivzeile ab 19.10. mit „Vorentscheid“ braucht Datei in chefsache/billigen/ oder den Vermerk „gebilligt TT.MM.“ / „zurück TT.MM.“;
      Bremse: mehr als fünf Dateien in billigen/ oder eine älter als 7 Tage, mehr als zwei „zurück“ in 7 Tagen (Meldung „Vorentscheid-Bremse“)
 Aufruf: python3 tools/abgleich.py  (Exit 0 immer; Ausgabe leer = alles stimmig)
@@ -23,25 +22,12 @@ def zusammengefuehrt():
 
 def pruefen():
     w = []
-    besitz = {}
     merged = zusammengefuehrt()
-    for datei, rolle in startbar.ROLLEN:
-        for nr, kl, thema, rest in startbar.zeilen(startbar.lesen(datei)):
-            besitz[nr] = rolle
-            if re.match(r"D\d+(\.\d+)?$", nr): continue  # Prüfbefunde haben keine Listenzeile
-            if startbar.stand_von(nr)[0] is None:
-                w.append("WARNUNG Abgleich: %s (%s) steht im Vorrat, aber nicht in LISTE-VORGAENGE.md" % (nr, rolle))
-            b = startbar.blank(rest)
-            # 191: genannter Termin (ab/bis/Entscheid/Messung TT.MM.) liegt über 2 Tage zurück und der Stand ist unverändert
-            for tg, mo in re.findall(r"(?:ab|bis|Entscheid|Messung|nach dem)\s+(\d\d?)\.(\d\d)\.", rest):
-                try: tag = startbar.jahr_von(int(tg), int(mo))
-                except ValueError: continue
-                if (datetime.date.today() - tag).days > 2 and not startbar.FERTIG.search(b):
-                    w.append("WARNUNG Abgleich: %s (%s) nennt den Termin %s.%s., er ist vorbei und der Stand hat sich nicht geändert" % (nr, rolle, tg, mo)); break
-            if merged is not None and re.match(r"(gebaut|wartet auf (den )?Test)", b, re.I):
-                for z in re.findall(r"claude/[\w./-]+", rest):
-                    if z in merged:
-                        w.append("WARNUNG Abgleich: %s (%s) wartet auf Test, Zweig %s ist schon auf main" % (nr, rolle, z)); break
+    besitz = {d["nr"]: d["besitzer"] for d in startbar.zeilen_liste()}  # 275.2: eine Liste; Form, Nummern und Termine prüft startbar.py
+    for d in startbar.zeilen_liste():
+        if merged is not None and d["wort"] in ("gebaut", "zu testen") and d.get("zweig", "–").startswith("claude/") and d["zweig"] in merged \
+                and d.get("build") in ("", "–", None):
+            w.append("WARNUNG Abgleich: %s (%s) „%s“ ohne Build, Zweig %s ist schon auf main (Build eintragen: vorgang.py build <n> --mit %s)" % (d["nr"], d["besitzer"], d["wort"], d["zweig"], d["nr"]))
     for z in startbar.lesen("VORGANGSARCHIV.md").splitlines()[:60]:
         m = re.match(r"- \*\*(\d+[a-z]*(?:\.\d+[a-z]*)*)\*\*", z)
         if not m or "Umsetzung" not in z: continue
@@ -49,7 +35,7 @@ def pruefen():
         if nr in besitz: continue
         n, st = startbar.stand_von(nr)
         if st is not None and startbar.FERTIG.search(st): continue
-        w.append("WARNUNG Abgleich: %s ist entschieden (Umsetzung genannt), aber ohne Zeile in einem Vorrat und nicht erledigt (%s)" % (nr, st or "ohne Listenzeile"))
+        w.append("WARNUNG Abgleich: %s ist entschieden (Umsetzung genannt), aber ohne Zeile in der Liste und nicht erledigt (%s)" % (nr, st or "ohne Listenzeile"))
     w += vorentscheide()
     return w
 

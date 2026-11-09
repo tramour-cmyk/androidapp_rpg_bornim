@@ -6,7 +6,9 @@ extends Node
 # Kampfklang nach MarsSound.kt; was das alte Spiel synthetisiert, rendert KlangExport.kt im Bau als .wav (nicht neu gebaut).
 # Ortsklang wie PlaceSound.kt, Ambience.kt, RiverSound.kt (WorldScreen.kt: Wind, Halle, Feuer, Fluss, Tropfen, Knarren, Husten);
 # Raumklang wie Room.kt: die Fassungen aus app/src/main/assets/raum (Vorschau RAUMKLANG=spiel), die synthetischen aus KlangExport.kt.
-# Noch nicht hier (Folgeschritte 399.3): Leute (Tassen, Stühle, D1.10), Teich, Hühner, Vögel, Regen (gibt es in Godot noch nicht),
+# Kleines Leben und ferne Laute wie WildSound.kt (517): Vögel am Tag, Grillen und Eule nachts, im Tiefen Wald fernes Wolfsheulen,
+# in der Höhle Grollen im Berg.
+# Noch nicht hier (Folgeschritte 399.3): Leute (Tassen, Stühle, D1.10), Teich, Hühner, pickende Vögel, Regen (gibt es in Godot noch nicht),
 # Bemerkgrenze (Threat).
 # Schwarzblende wie Hush.kt und VeilGate (Music.kt): solange sie steht, schweigen die Effekte (außer Klick und Tür), danach
 # kommen sie in 400 ms wieder; neue Musik und der Höhlenteppich erst nach der Blende und 500 ms Ruhe.
@@ -77,6 +79,9 @@ var _feuer_weit = null
 var _fluss_bei := Vector2i(-99999, -99999)
 var _fluss_weit = null
 var _fluss := {}                                 # Karte -> fließendes Wasser (RiverSound.running)
+var _leben_ms := 0.0                             # 517: nächstes kleines Leben (WildSound.life)
+var _fern_ms := 0.0                              # 517: nächster ferner Laut (WildSound.far)
+var _fern: AudioStreamPlayer                     # 517: von einer Seite, über den Bus „Fern“ mit Panner
 
 
 func _ready() -> void:
@@ -106,6 +111,15 @@ func _ready() -> void:
 		p.bus = "Effekte"
 		add_child(p)
 		_effekte.append(p)
+	# 517: ferne Laute von einer Seite (WildSound.side, speakers): eigener Bus unter den Effekten mit Panner
+	if AudioServer.get_bus_index("Fern") < 0:
+		AudioServer.add_bus()
+		AudioServer.set_bus_name(AudioServer.bus_count - 1, "Fern")
+		AudioServer.set_bus_send(AudioServer.bus_count - 1, "Effekte")
+		AudioServer.add_bus_effect(AudioServer.bus_count - 1, AudioEffectPanner.new())
+	_fern = AudioStreamPlayer.new()
+	_fern.bus = "Fern"
+	add_child(_fern)
 	_lade_einstellungen()
 	get_tree().node_added.connect(_neuer_knoten)
 
@@ -329,6 +343,8 @@ func stimme(id: String, ruf: String, elite := false, pegel := 0.8) -> void:
 const LANDS_MS := 170                    # der Hieb landet nach dem halben Ausfall (SWING_IN_MS)
 const CRY_MS := LANDS_MS + 90            # der Schrei gleich nach dem Klang des Treffers, nie darüber
 const SCHWER := ["mace", "maul", "morningstar", "warhammer"]     # Icon.HAMMER, Icon.MACE
+var _tod_kampf = null                    # 296.3: der Kampf (MARS), für den _tod_gerufen gilt
+var _tod_gerufen := {}                   # 296.3: Gegner (id), deren Todesschrei schon kam
 
 ## Die Klänge einer MARS-Meldung [e] (kampfort.gd _play_say) nach MarsSound.of: Hiebe nach Waffe oder Angriff des Gegners,
 ## kritisch, Zauber nach Art, Heilung, Gift, Fallen; der Schwung der Gruppe vor dem Treffer, die Stimme des Gegners.
@@ -337,27 +353,46 @@ const SCHWER := ["mace", "maul", "morningstar", "warhammer"]     # Icon.HAMMER, 
 func kampf(e: Dictionary, mars, treffer_ms := -1) -> void:
 	var by = mars.find(e.actor) if e.actor != null else null
 	var tg = mars.find(e.target) if e.target != null else null
+	if _tod_kampf != mars:
+		_tod_kampf = mars
+		_tod_gerufen.clear()
 	if e.cue != null:
 		match String(e.cue):
 			"FOE_STRIKES":
 				if by != null and by.monster != null:
-					_bald(0, func(): stimme(String(by.monster.id), "angriff", _elite(by)))
+					_bald(0, func(): stimme(art_von(by.monster), "angriff", _elite(by)))
 			"CIRCLE": _bald(0, func(): effekt("howl"))
 			"HEAL", "DRINK": _bald(0, func(): effekt("heal"))
 			"GATHER": _bald(0, func(): effekt(_fx_klang("ENEMY_HEAL")))
 			"VENOM": _bald(0, func(): effekt("poison"))
 			"WEB": _bald(0, func(): effekt("throw"))
-			"FOE_FALLS": _bald(0, func(): effekt("enemy_down"))
+			"FOE_FALLS":
+				_bald(0, func(): effekt("enemy_down"))
+				# 296.3 (Todesschrei; alt BattleScreen ENEMY_FAINT „its death cry once, if no blow struck it down“): fiel er durch
+				# einen Zauber oder einen Zustand, schreit er mit dem Sturz, einmal; wer flieht, schreit nicht
+				if tg != null and tg.monster != null and not tg.fled and not _tod_gerufen.has(tg.id):
+					_tod_gerufen[tg.id] = true
+					_bald(0, func(): stimme(art_von(tg.monster), "tod", _elite(tg)))
 			"HERO_FALLS", "KNOCKED_OUT": _bald(0, func(): effekt("hero_down"))
 			"POUNCED": _bald(0, func(): effekt("hit_smash", 0.6))     # Rückläufer t53: zu Boden geworfen
 			"DUCKED": _bald(0, func(): effekt("arrow"))               # Rückläufer t58: der Pfeil zischt vorbei
 		return
-	var krit: bool = e.roll != null and e.roll[0] == "ATTACK" and e.roll[4] and e.roll[1] == 20
+	var krit: bool = e.roll != null and e.roll[4] and ((e.roll[0] == "ATTACK" and e.roll[1] == 20) or (e.roll[0] == "BRS" and e.roll.size() > 7 and e.roll[7]))     # 478: auch nach dem BRS
+	# 296.3 (Chef 08.11., 21:28, t270.11: „Feuerpfeil auf den Jungwolf. 0 Lebenspunkte, fällt tot um. Und dann irgendwann kommt ein
+	# Geheul … definitiv so 3 Sekunden zu spät“): wer durch einen Zauber oder einen Zustand fällt, schrie erst mit der Meldung
+	# „bricht zusammen“ (FOE_FALLS), und die spielt der Kampfort erst nach Sturz und Liegen; jetzt schreit er, wenn es ihn trifft
+	# (Zauber: bei der Ankunft, treffer_ms), einmal
+	var stirbt_jetzt: bool = e.damage > 0 and tg != null and tg.monster != null and not tg.fled and int(e.hp.get(tg.id, 1)) <= 0 \
+			and not _tod_gerufen.has(tg.id) and (by == null or by.side != tg.side)
+	var schlag: bool = e.spell == null and by != null and e.roll != null and e.roll[0] in ["ATTACK", "BRS"]     # der Hieb schreit unten
+	if stirbt_jetzt and not schlag:
+		_tod_gerufen[tg.id] = true
+		_bald(maxi(0, treffer_ms) + CRY_MS - LANDS_MS, func(): stimme(art_von(tg.monster), "tod", _elite(tg)))
 	if e.spell != null:
 		if String(e.spell) in ["HEAL", "BLESS"] or (by != null and tg != null and by.side != tg.side):
 			_bald(0, func(): effekt(_fx_klang(String(e.spell), krit)))
 		return
-	if by == null or tg == null or by.side == tg.side or e.roll == null or e.roll[0] != "ATTACK":
+	if by == null or tg == null or by.side == tg.side or e.roll == null or not (e.roll[0] in ["ATTACK", "BRS"]):     # 478: auch nach dem BRS
 		return
 	var art := _angriff(by)
 	var ausfall := art != "ARROW"
@@ -370,11 +405,19 @@ func kampf(e: Dictionary, mars, treffer_ms := -1) -> void:
 		_bald(landet, func(): effekt(_fx_klang(art, krit)))
 		if tg.monster != null:
 			var stirbt: bool = int(e.hp.get(tg.id, 1)) <= 0
-			_bald(landet + CRY_MS - LANDS_MS, func(): stimme(String(tg.monster.id), "tod" if stirbt else "schmerz", _elite(tg)))
+			if stirbt:
+				_tod_gerufen[tg.id] = true     # 296.3: der Todesschrei kam mit dem Hieb, nicht noch einmal beim Sturz
+			_bald(landet + CRY_MS - LANDS_MS, func(): stimme(art_von(tg.monster), "tod" if stirbt else "schmerz", _elite(tg)))
 	elif art == "ARROW":
 		_bald(0, func(): effekt("arrow"))
 	else:
 		_bald(landet, func(): effekt("miss"))
+
+
+## 575 (Chef 04.11., 20:42: Riesenratten knurrten wie Wölfe): Stimme und Angriffsklang nach der Art, nie nach dem Körper; Ratten,
+## Fledermäuse, Kobolde, Schamanen tragen den Körper einer anderen Art (577: id die eigene Art, „koerper“ nur für Modell und Bewegung)
+static func art_von(m) -> String:
+	return "" if m == null else String(m.id)
 
 
 ## MarsSound.music: das Bossstück nur gegen einen Boss
@@ -385,7 +428,7 @@ func kampfmusik(mars) -> void:
 ## Monster.attackFx, sonst Battle.weaponFx
 func _angriff(f) -> String:
 	if f.monster != null:
-		return String(kampftabelle.get("monster_fx", {}).get(String(f.monster.id), "SLASH"))
+		return String(kampftabelle.get("monster_fx", {}).get(art_von(f.monster), "SLASH"))
 	var w = f.weapon()
 	if w == null:
 		return "SMASH"
@@ -555,6 +598,9 @@ func _ort_betreten() -> void:
 	_letztes = ""
 	_feuer_bei = Vector2i(-99999, -99999)
 	_fluss_bei = Vector2i(-99999, -99999)
+	wild = wild_art(String(_karte.daten.get("art", "")), String(_karte.id))
+	_leben_ms = LEBEN_MS[0] + _zufall.randf_range(0.0, LEBEN_MS[1])
+	_fern_ms = FERN_ERST_MS[0] + _zufall.randf_range(0.0, FERN_ERST_MS[1])
 
 
 ## Ruhig: auf der Karte, nicht im Kampf, kein Menü (WorldScreen.kt calm: Mode.Explore und kein Menü)
@@ -591,6 +637,7 @@ func _ortsklang(dt_ms: float) -> void:
 		_tropfen_ms = _ort_ms + TROPFEN_MS[0] + _zufall.randf_range(0.0, TROPFEN_MS[1])
 	if ortsart == "OUTSIDE" and ruhig:
 		_tierlaute(dt_ms)
+	_wildlaute(ruhig)
 	# Einzelklänge: Knarren im Holz der Häuser, ein Gast hustet (PlaceSound.events, gapMs 12–30 s)
 	if _ort_ms >= _ereignis_ms:
 		if ruhig:
@@ -599,6 +646,107 @@ func _ortsklang(dt_ms: float) -> void:
 				effekt(e, EREIGNIS)
 				_letztes = e
 		_ereignis_ms = _ort_ms + 12000.0 + _zufall.randf_range(0.0, 18000.0)
+
+
+# ---------------------------------------------------------------- Kleines Leben, ferne Laute (WildSound.kt; 84, D3.15; 517)
+
+# 517 (von Team Tom, Abgleich 512): was an einem Ort lebt, aber nicht zu sehen ist: ab und zu leise Vögel am Tag, nachts Grillen und
+# im Wald die Eule; im Tiefen Wald keine Vögel (D3.2), nachts Grillen, und selten, fern von einer Seite, ein Wolf (sie heulen nach
+# Grimmzahns Tod weiter, auf der Suche nach einem neuen Leitwolf); in der Höhle grollt der Berg. Zahlen aus WildSound.kt.
+const LEBEN_MS := [5000.0, 8000.0]       # LIFE_MIN_MS, LIFE_SPAN_MS
+const LEBEN := 0.3                       # LIFE_VOLUME
+const FERN_ERST_MS := [20000.0, 40000.0] # firstFarMs: nie das Erste, was man hört
+const NACHT_AB := 0.65                   # Game.isNight: daylight < 0,35 (licht.gd nacht 0..1)
+var wild := "NONE"                       # WildSound.Kind des Orts
+
+
+## WildSound.kindOf
+static func wild_art(art: String, karte_id: String) -> String:
+	if karte_id == "deep_forest":
+		return "DEEP_WOOD"
+	return {"FOREST": "WOOD", "TOWN": "VILLAGE", "CAVE": "CAVE"}.get(art, "NONE")
+
+
+## WildSound.life: das kleine Leben, das jetzt zu hören ist, oder keins
+static func leben(art: String, nachts: bool, regen: bool, z: RandomNumberGenerator) -> String:
+	if regen:
+		return ""
+	if art in ["VILLAGE", "WOOD"]:
+		if nachts:
+			return "owl" if art == "WOOD" and z.randi_range(0, 2) == 0 else "cricket"
+		return "bird"
+	if art == "DEEP_WOOD" and nachts:     # unter den alten Eichen keine Vögel, keine Eule; nachts Grillen
+		return "cricket"
+	return ""
+
+
+## WildSound.far
+static func fern(art: String) -> String:
+	return {"DEEP_WOOD": "wolf_far", "CAVE": "rumble"}.get(art, "")
+
+
+## WildSound.farGapMs: selten, der Wolf nachts alle 1–2½ Minuten, am Tag halb so oft; der Berg alle 1–3 Minuten
+static func fern_pause_ms(art: String, nachts: bool, z: RandomNumberGenerator) -> float:
+	if art == "DEEP_WOOD":
+		return 60000.0 + z.randf_range(0.0, 90000.0) if nachts else 120000.0 + z.randf_range(0.0, 180000.0)
+	return 60000.0 + z.randf_range(0.0, 120000.0)
+
+
+## WildSound.farVolume: leise, jedes Mal ein wenig anders
+static func fern_pegel(id: String, z: RandomNumberGenerator) -> float:
+	return (0.22 if id == "wolf_far" else 0.3) + z.randf() * 0.1
+
+
+## WildSound.side: woher, −1 links bis 1 rechts, nie geradeaus
+static func seite(z: RandomNumberGenerator) -> float:
+	return (0.35 + z.randf() * 0.5) * (1.0 if z.randf() < 0.5 else -1.0)
+
+
+## WildSound.speakers: die abgewandte Seite leiser (1 − 0,8·Seite), nie stumm; der Panner in Godot nimmt links 1 − pan: pan = 0,8·Seite
+static func panner(s: float) -> float:
+	return 0.8 * clampf(s, -1.0, 1.0)
+
+
+func _nachts() -> bool:
+	var l = _held.get_parent().get("licht") if _held != null and is_instance_valid(_held) and _held.get_parent() != null else null
+	return l != null and float(l.get("nacht")) > NACHT_AB
+
+
+func _wildlaute(ruhig: bool) -> void:
+	if wild == "NONE":
+		return
+	var nachts := _nachts() if ruhig else false
+	if _ort_ms >= _leben_ms:
+		if ruhig:
+			var id := leben(wild, nachts, false, _zufall)     # Regen gibt es in Godot noch nicht
+			if id != "":
+				effekt(id, LEBEN)
+		_leben_ms = _ort_ms + LEBEN_MS[0] + _zufall.randf_range(0.0, LEBEN_MS[1])
+	if _ort_ms >= _fern_ms:
+		var id := fern(wild)
+		if ruhig and id != "":
+			fern_effekt(id, fern_pegel(id, _zufall), seite(_zufall))
+		_fern_ms = _ort_ms + fern_pause_ms(wild, nachts, _zufall)
+
+
+## GameViewModel.playFrom: ein Laut von einer Seite
+func fern_effekt(id: String, pegel: float, s: float) -> void:
+	if not effekte_an or _fern == null:
+		return
+	pegel *= schleier_pegel()
+	var takes: Array = liste.get("sfx", []).filter(func(n): return String(n).begins_with(id + "_") and String(n).substr(id.length() + 1).is_valid_int())
+	if pegel <= 0.0 or takes.is_empty():
+		return
+	var st: AudioStream = _strom("sfx/" + String(takes[_zufall.randi_range(0, takes.size() - 1)]))
+	if st == null:
+		return
+	var b := AudioServer.get_bus_index("Fern")
+	if b >= 0 and AudioServer.get_bus_effect_count(b) > 0:
+		(AudioServer.get_bus_effect(b, 0) as AudioEffectPanner).pan = panner(s)
+	_fern.stop()
+	_fern.stream = st
+	_fern.volume_db = linear_to_db(maxf(pegel, 0.0001))
+	_fern.play()
 
 
 # ---------------------------------------------------------------- Dorftiere (HenSound.kt, 83c; 401)
@@ -612,10 +760,16 @@ const TIER_WEIT := 6.0                   # HenSound.FAR (Kacheln)
 const TIER_NAH := 1.5                    # HenSound.NEAR
 ## je Tier und Anlass: [Klang, Pegel ganz nah]; „fressen“ mit dem Abstand der Wiederholung (ms), „ruf“ mit der Pause (ms)
 const TIERLAUT := {
+	# 591 (Chef 08.11., 15:41, t269.10: „Huhn gackert kaum, Flattern kaum hörbar … tschack, tschack, tschack … weg“; „Kaninchen nicht
+	# hörbar“): beim Losrennen gackert das Huhn laut und schlaegt dreimal mit den Fluegeln, das zweite Gackern spaeter; das Kaninchen
+	# huscht in vier schnellen Schritten durchs Gras. Die Pegel des alten Spiels (HenSound ALARM_MAX 0,45, FLAP_MAX 0,3) gingen im Godot-
+	# Dorf unter Musik und Umgebung unter. „held“: [Klang, Pegel ganz nah, Tempo, nach s]
 	"huhn": {"fressen": ["hen_scratch", 0.12, 700.0, 1600.0], "anfang": ["hen_cluck", 0.3], "ruf": ["hen_cluck", 0.25, 15000.0, 35000.0],
-		"held": [["hen_alarm", 0.45], ["hen_flap", 0.3]]},
+		"held": [["hen_alarm", 0.85], ["hen_flap", 0.75, 1.0, 0.05], ["hen_flap", 0.7, 1.08, 0.3], ["hen_flap", 0.6, 0.95, 0.55], ["hen_alarm", 0.6, 1.05, 0.9]]},
 	"ziege": {"fressen": ["goat_graze", 0.25, 2500.0, 4500.0], "ruf": ["goat_bleat", 0.4, 20000.0, 45000.0], "held": [["goat_bleat", 0.5]]},
-	"kaninchen": {"fressen": ["rabbit_munch", 0.2, 2500.0, 4000.0], "held": []},
+	# 591: das fliehende Kaninchen huscht hoerbar durchs Gras (Schritt im Gras, hoch); Klopfen bleibt raus
+	"kaninchen": {"fressen": ["rabbit_munch", 0.2, 2500.0, 4000.0],
+		"held": [["step_grass", 0.7, 1.7], ["step_grass", 0.65, 1.9, 0.12], ["step_grass", 0.6, 1.8, 0.24], ["step_grass", 0.5, 2.0, 0.36]]},
 }
 var _tiere := {}                         # Tier (Knoten) -> {pause, nah, fressen_ms, ruf_ms}
 var _tiere_suche := 0.0
@@ -646,10 +800,13 @@ func _tierlaute(dt_ms: float) -> void:
 		var st: Dictionary = _tiere[n]
 		var art: Dictionary = TIERLAUT[String(n.daten["tier"])]
 		var d: float = Vector2(n.position.x - _held.position.x, n.position.z - _held.position.z).length() / 1.16     # Karte.TS
-		var nah: bool = n.nah_am_held(n.kachel)
+		# 591: Huhn und Kaninchen fliehen schon vor der Nachbarkachel; der Laut kommt mit dem Losrennen (MapHen fled, HenSound)
+		var nah: bool = n.nah_am_held(n.kachel) or n.get("flucht") == true   # 603: Probetier ohne flucht (null)
 		if nah and not st.nah:
 			for l in art.held:
-				effekt(l[0], tier_pegel(d, l[1]))
+				var nach: float = float(l[3]) if l.size() > 3 else 0.0
+				if nach > 0.0: get_tree().create_timer(nach).timeout.connect(effekt.bind(l[0], tier_pegel(d, l[1]), float(l[2])))
+				else: effekt(l[0], tier_pegel(d, l[1]), float(l[2]) if l.size() > 2 else 1.0)
 		st.nah = nah
 		var pause := String(n.pause)
 		if pause != st.pause:

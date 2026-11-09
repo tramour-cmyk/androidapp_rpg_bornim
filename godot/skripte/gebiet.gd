@@ -2,7 +2,7 @@ class_name Gebiet
 extends Node3D
 # 348.6: eine Gebietskarte aus Blender (daten/<karte>.bin = glTF in Metern, tools/blender348/v3/dorf.py) mit dem Look
 # der Probe Build 11: toon.gdshader auf allem, Boden mit Maske (boden.gdshader), Wasser, Glas leuchtet nachts;
-# Halme, Korn, Schmetterlinge, Rauch, Gluehwuermchen aus <karte>-info.json („lichter“).
+# Halme, Korn, Schmetterlinge, Rauch aus <karte>-info.json („lichter“); Gluehwuermchen aus der Karte wie alt (514, gluehwuermchen.gd).
 
 static var texcache := {}
 static var toon: Shader
@@ -20,7 +20,7 @@ var lampen: Array[OmniLight3D] = []
 var raumlicht: Raumlicht   # 399.5 Grundriss
 var falter: Array = []
 var rauch: Array[CPUParticles3D] = []
-var gluehen: Array[CPUParticles3D] = []
+var gluehwuermchen: Gluehwuermchen   # 514 wie alt (Fireflies) auf Wiesen, am Wasser, am Waldrand, ueber Feldern
 var zeit := 0.0
 var gruppen := {}                     # Durchsicht als Ganzes: Name -> {mats, a, ziel} (dorf.py „Gruppe_…“)
 var held: Node3D                      # spiel.gd: wessen Oberkoerper frei bleibt, und von wo man blickt
@@ -105,6 +105,13 @@ static func datei(id: String) -> String:
 static func maske(id: String) -> String:
 	return "boden-maske" if id == "village" else id + "-boden-maske"
 
+# 574 (Laufprotokoll Build 257: „Condition "buffer_size == 0" is true“ = ein Bild aus leeren Bytes): nur laden, was es gibt
+static func maske_bild(id: String) -> Image:
+	var p := "res://daten/%s.bild" % maske(id)
+	if not FileAccess.file_exists(p): return null
+	var img := Image.new()
+	return img if img.load_png_from_buffer(FileAccess.get_file_as_bytes(p)) == OK else null
+
 static func lade_glb(p: String) -> Node3D:
 	var doc := GLTFDocument.new()
 	var state := GLTFState.new()
@@ -131,7 +138,9 @@ static func entschluessele(b: PackedByteArray, p: String) -> PackedByteArray:
 # 397 (Chef 28.10., 11:15: Ruhebewegungen wie im alten Spiel, mindestens drei): wer steht, spielt Stehen zwei- bis viermal, dann
 # eine der anderen Ruhebewegungen (geruest.py RUHE, aus der UAL Pro) einmal, dann wieder Stehen; ohne die Kaufbewegungen nur Stehen.
 # Gibt [Name, Dauer in s] der naechsten zurueck
-const RUHE := ["Stehen", "Stehen_2", "Stehen_3"]
+# 592 (Chef 05.11., 22:0x: „592 so“): Stehen_3 (Idle_Tired, vornueber gebeugt) ist keine Ruhebewegung mehr, nur noch atemlos
+# (held.gd ATEM_HALT); es bleiben Stehen und Umsehen
+const RUHE := ["Stehen", "Stehen_2"]
 static func ruhe_naechste(anim: AnimationPlayer, jetzt: String, z: RandomNumberGenerator) -> Array:
 	var da := RUHE.filter(func(n): return anim.has_animation(n))
 	if jetzt != "Stehen" or da.size() < 2: return ["Stehen", anim.get_animation("Stehen").length * z.randi_range(2, 4)]
@@ -198,7 +207,10 @@ static func finde(n: Node, cls: String) -> Node:
 static func bild(name: String) -> ImageTexture:
 	if texcache.has(name): return texcache[name]
 	var img := Image.new()
-	img.load_png_from_buffer(FileAccess.get_file_as_bytes("res://daten/%s.bild" % name))
+	var p := "res://daten/%s.bild" % name
+	if not FileAccess.file_exists(p) or img.load_png_from_buffer(FileAccess.get_file_as_bytes(p)) != OK:   # 574: fehlt es, weiss statt Fehler
+		push_warning("Gebiet.bild: %s fehlt" % p)
+		img = Image.create(4, 4, false, Image.FORMAT_RGBA8); img.fill(Color.WHITE)
 	if not img.has_mipmaps(): img.generate_mipmaps()
 	var t := ImageTexture.create_from_image(img)
 	texcache[name] = t
@@ -283,13 +295,15 @@ func nacht(k: float) -> void:
 	for o in lampen: o.light_energy = 1.4 * k   # 348.6: alt nur ein kleiner Hof um die Laterne (Helfer: neu 4-mal zu hell, zu weit)
 	for m in glut: m.set_shader_parameter("glow", 0.35 + 0.65 * k)
 	for f in feuer: f["basis"] = 0.5 + 1.6 * k   # 490: Garricks Feuer, nachts die einzige warme Insel (LISTE-UMZUG-348 Stimmung)
-	for m in glas: m.set_shader_parameter("glow", 0.5 * k)
+	for m in glas:
+		m.set_shader_parameter("glow", 0.5 * k)
+		glanz_kette(m)
 	if wasser: wasser.set_shader_parameter("night", k)
 	if boden: boden.set_shader_parameter("night", k)
 	if halme: halme.set_shader_parameter("night", k)
 	if korn_mat: korn_mat.set_shader_parameter("night", k)
 	for f in falter: (f["n"] as Node3D).visible = k < 0.5
-	for g in gluehen: g.emitting = k > 0.6
+	if gluehwuermchen: gluehwuermchen.nacht = k
 	for r in rauch: r.color = Color(0.70, 0.68, 0.65, 0.55).lerp(Color(0.31, 0.29, 0.28, 0.5), k)
 
 # Laub vor dem Helden, nach der Tusche (Prioritaet 1, 2 wie Rauch), sonst Tuschering an der Lochkante: erst nur Tiefe (vorderste
@@ -411,12 +425,22 @@ func blende_gruppen(dt: float) -> void:
 						kette(m, durch_shaders(0, "cull_disabled"))
 						e["kette"] = m.next_pass
 					else: m.next_pass = e["kette"]
+					glanz_kette(m)
 				elif a >= 1.0: m.next_pass = null
 			var x := m
 			while x:
 				x.set_shader_parameter("weg", 1.0 if a < 1.0 else 0.0)
 				x.set_shader_parameter("durch_a", a)
 				x = x.next_pass as ShaderMaterial
+
+# 608 (Chef 07.11., t268: „Pims Hütte am Tag, wenn sie transparent wird, … dann geht das Licht im Haus an“): die Durchgaenge der
+# Durchsicht (kette) nahmen den Glanz der Fenster von dem Augenblick, als das Haus zum ersten Mal durchsichtig wurde; war das nachts,
+# leuchteten sie am Tag weiter. Jetzt bekommt die Kette den Glanz des deckenden Durchgangs, beim Einhaengen und bei jedem Tageswechsel
+static func glanz_kette(m: ShaderMaterial) -> void:
+	var x := m.next_pass as ShaderMaterial
+	while x:
+		x.set_shader_parameter("glow", m.get_shader_parameter("glow"))
+		x = x.next_pass as ShaderMaterial
 
 # Blender (x, y Norden, z oben) -> Godot (x, y oben, z Sueden)
 static func gpos(p: Array) -> Vector3:
@@ -482,8 +506,8 @@ static func kreuz() -> ArrayMesh:
 
 func baue_leben() -> void:
 	var ts := Karte.TS
-	var mimg := Image.new()
-	mimg.load_png_from_buffer(FileAccess.get_file_as_bytes("res://daten/%s.bild" % maske(karte.id)))
+	var mimg := Gebiet.maske_bild(karte.id)
+	if mimg == null: return   # 574: Grundrisse (Schenke, Laden, Aeltester, Tempel) haben keine Bodenmaske und kein Gras
 	var rng := RandomNumberGenerator.new(); rng.seed = 348
 	var xf: Array[Transform3D] = []; var cu: Array[Color] = []
 	var kxf: Array[Transform3D] = []; var kcu: Array[Color] = []
@@ -548,7 +572,8 @@ func baue_leben() -> void:
 	for l in info["lichter"]:
 		var at := gpos(l["pos"])
 		if l["art"] == "rauch": rauch.append(baue_rauch(at))
-		elif l["art"] == "blumen": gluehen.append(baue_gluehen(at))
+	gluehwuermchen = Gluehwuermchen.new(karte)   # 514: statt Teilchen nur an den Blumenbeeten („blumen“)
+	add_child(gluehwuermchen)
 
 func baue_rauch(at: Vector3) -> CPUParticles3D:
 	var pr := CPUParticles3D.new()
@@ -566,21 +591,6 @@ func baue_rauch(at: Vector3) -> CPUParticles3D:
 	pr.position = at + Vector3(0, 0.15, 0)
 	add_child(pr)
 	return pr
-
-func baue_gluehen(at: Vector3) -> CPUParticles3D:
-	var ff := CPUParticles3D.new()
-	ff.amount = 7; ff.lifetime = 2.2; ff.emitting = false
-	ff.emission_shape = CPUParticles3D.EMISSION_SHAPE_BOX; ff.emission_box_extents = Vector3(2.2, 0.4, 2.2)
-	ff.gravity = Vector3.ZERO; ff.direction = Vector3(1, 0.3, 0); ff.spread = 180.0
-	ff.initial_velocity_min = 0.03; ff.initial_velocity_max = 0.12
-	var gr := Gradient.new(); gr.set_color(0, Color(0.97, 1, 0.78, 0)); gr.add_point(0.3, Color(0.97, 1, 0.78, 1)); gr.add_point(0.6, Color(0.88, 0.97, 0.47, 0.9)); gr.set_color(gr.get_point_count() - 1, Color(0.88, 0.97, 0.47, 0))
-	ff.color_ramp = gr
-	var qm := QuadMesh.new(); qm.size = Vector2(0.07, 0.07)
-	qm.material = punkt_mat(true)
-	ff.mesh = qm
-	ff.position = at + Vector3(0, 0.7, 0)
-	add_child(ff)
-	return ff
 
 func halm_netz(xf: Array[Transform3D], cu: Array[Color], tex: String, korn: float) -> ShaderMaterial:
 	var mm := MultiMesh.new()

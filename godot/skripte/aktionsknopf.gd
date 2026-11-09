@@ -97,6 +97,26 @@ func _draw() -> void:
 			kern.append_array(qb.call(Vector2(12, 14), Vector2(9.5, 12), Vector2(12, 8.5)))
 			zug.call(kern, false, duenn)
 			l.call(5, 20.5, 19, 16.5); l.call(5, 16.5, 19, 20.5)
+		"UNLOCK":
+			# 541 (ActionSigns.UNLOCK): ein Schluessel: Ring, Schaft, zwei Barte
+			draw_arc(P.call(7, 12), 3.5 * u, 0, TAU, 32, c, dick, true)
+			l.call(10.5, 12, 21, 12); l.call(17, 12, 17, 15.5); l.call(20, 12, 20, 15)
+		"FIGHT":
+			# 541 (ActionSigns.FIGHT): zwei gekreuzte Schwerter, je Klinge ein schmaler Umriss mit Spitze, Parierstange, Griff, Knauf
+			for side in [1.0, -1.0]:
+				var x := func(v: float) -> float: return v if side > 0 else 24.0 - v
+				var px: float = x.call(3.5); var py := 21.0; var tx: float = x.call(17.5); var ty := 2.5
+				var lang := Vector2(tx - px, ty - py).length()
+				var dx := (tx - px) / lang; var dy := (ty - py) / lang
+				var nx := -dy; var ny := dx
+				var gx := px + dx * 4.5; var gy := py + dy * 4.5
+				var sx := tx - dx * 2.8; var sy := ty - dy * 2.8
+				var half := 1.25
+				zug.call([Vector2(gx + nx * half, gy + ny * half), Vector2(sx + nx * half, sy + ny * half), Vector2(tx, ty),
+					Vector2(sx - nx * half, sy - ny * half), Vector2(gx - nx * half, gy - ny * half)], false, 0.95 * u)
+				l.call(gx + nx * 2.5, gy + ny * 2.5, gx - nx * 2.5, gy - ny * 2.5)
+				l.call(px + dx * 1.4, py + dy * 1.4, gx, gy)
+				punkt.call(px, py, 1.3)
 		"OPEN":
 			# eine Truhe: Kasten, gewoelbter Deckel, Baender, Schloss
 			zug.call([Vector2(3, 11.5), Vector2(21, 11.5), Vector2(21, 20.5), Vector2(3, 20.5)], true)

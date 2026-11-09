@@ -206,20 +206,13 @@ func _stelle(flaeche: TextureRect, l: Control, i: int, a: float) -> void:
 	l.set_meta("bild", i)
 	for c in l.get_children(): c.queue_redraw()
 
-# das schwarze Bild: eine weiche dunkle Vignette, damit es nicht wie ein leerer Schirm aussieht
+# das schwarze Bild: reines Schwarz (556, Chef 04.11., 07:52 „Bitte klassische schwarz. Das andere wirft Ringe.“; vorher Vignette)
 static var _vignette: Texture2D
 static func _dunkel() -> Texture2D:
 	if _vignette == null:
-		var g := Gradient.new()
-		g.offsets = PackedFloat32Array([0.0, 0.6, 1.0])
-		g.colors = PackedColorArray([Color("0c0a09"), Color("050404"), Color.BLACK])
-		var t := GradientTexture2D.new()
-		t.gradient = g
-		t.fill = GradientTexture2D.FILL_RADIAL
-		t.fill_from = Vector2(0.5, 0.5)
-		t.fill_to = Vector2(0.5, 1.1)   # Radius 0,6 der Hoehe (die groessere Seite)
-		t.width = 108; t.height = 120
-		_vignette = t
+		var b := Image.create(4, 4, false, Image.FORMAT_RGB8)
+		b.fill(Color.BLACK)
+		_vignette = ImageTexture.create_from_image(b)
 	return _vignette
 
 # ---------------------------------------------------------------- Fackelzug ueber Bild 3 (IntroScreen.kt squareLife)
@@ -451,7 +444,7 @@ func frage() -> void:
 	v.add_child(Stil.zeile(("Überspringen?" if de else "Skip?").to_upper(), 14, Stil.TEXT, 3.0))
 	v.add_child(Erschaffung.txt("Die Zwischensequenz endet, du kannst sie in der Chronik wieder ansehen." if de else "This ends the cutscene; you can watch it again in the Chronicle.", 16))
 	v.add_child(Erschaffung.knopf("Überspringen" if de else "Skip", func(): beende()))
-	v.add_child(Erschaffung.knopf("Weiter ansehen" if de else "Keep watching", func(): fragt.queue_free(); fragt = null))
+	v.add_child(Erschaffung.knopf(Sprache.t(Menue.ABBRECHEN), func(): fragt.queue_free(); fragt = null))   # 618: „Abbrechen“ statt „Weiter ansehen“
 
 func beende() -> void:
 	if vorbei: return

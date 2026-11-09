@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Regelabgleich (167.9): was ein Skript zählen oder vergleichen kann, damit keine Sitzung es tun muss.
 
-Aufruf: python3 tools/regelcheck.py [--kurz] [--anlass SHA]   (--kurz: nur Pflegefehler der Vorräte, Teil 1 und 2; ruft notiz.sh beim Start)    (Ford ruft es im Morgenlauf, Ausgabe in die Morgenmeldung)
-Prüft: startbar.py (erledigte, nicht gestrichene, unlesbare Zeilen), Größen (Vorräte 15 KB, CLAUDE.md, LISTE-VORGAENGE.md),
+Aufruf: python3 tools/regelcheck.py [--kurz] [--anlass SHA] | --rueckmeldung [--um "TT.MM. HH:MM"]   (--rueckmeldung: nur Prüfung 559, ruft lauf.py stündlich; --um: Stand aus Git zu dieser Zeit; --kurz: nur Pflegefehler der Vorräte, Teil 1 und 2; ruft notiz.sh beim Start)    (Ford ruft es im Morgenlauf, Ausgabe in die Morgenmeldung)
+Prüft: startbar.py (unlesbare oder ungültige Zeilen der Vorgangsliste, 275.2), Größen (Vorräte 15 KB, CLAUDE.md),
 Zeilen über 1 500 Zeichen in Vorräten, Testbuilds am Tag (höchstens 6, 317), tote Verweise auf `Datei.md` / `tools/x` / `docs/…`, alte Dateinamen (notiz.sh), Lizenzhinweis SRD (446: Meldezeile, solange alte Namen im Spiel; Fund, wenn der Hinweis dann fehlt).
 --anlass SHA: nennt die Regeldateien (CLAUDE.md, ROLLE-*, LISTE-BETRIEB.md, VORGANGSARCHIV.md), die seit SHA geändert wurden;
 nur dann gehört die Zeile „Widersprüche prüfen“ in ARBEIT-PRUEFUNG.md (Anlass-Lauf Diogenes, einmal im Monat voller Lauf).
@@ -21,10 +21,75 @@ def gross(pfad, grenze, was):
     n = os.path.getsize(pfad)
     if n > grenze: fund.append("%s: %d Bytes (Grenze %d), %s" % (os.path.relpath(pfad, ROOT), n, grenze, was))
 
+# 559 (Chef 04.11., 16:18; Anlass 557 zwei Stunden „wartet auf Chef“ nach seiner Rückmeldung): wartet eine Zeile auf den Chef
+# (Stand „wartet auf Chef…“ im Vorrat oder „Chef“ in LISTE-VORGAENGE.md) und gibt es eine neuere Rückmeldung (Zeile „Zu <Nr>“ mit
+# „Chef TT.MM., HH:MM“, oder Archiveintrag „- **<Nr>…** (TT.MM., HH:MM“) als den letzten Commit der Chefsache-Datei zur Nummer, dann melden.
+# Ohne Datei in der Geschichte kein Bezugspunkt, keine Meldung. --rueckmeldung [--um "TT.MM. HH:MM"]: nur diese Prüfung, Zeilen für lauf.py.
+def rueckmeldung(um=None):
+    import datetime, zoneinfo
+    sys.path.insert(0, os.path.join(ROOT, "tools")); import startbar
+    tz = zoneinfo.ZoneInfo("Europe/Berlin")
+    rev = None
+    if um:
+        rev = subprocess.run(["git", "-C", ROOT, "rev-list", "-1", "--before=" + um, "HEAD"], capture_output=True, text=True,
+                             env=dict(os.environ, TZ="Europe/Berlin")).stdout.strip() or None
+    jetzt = datetime.datetime.strptime(um, "%Y-%m-%d %H:%M").replace(tzinfo=tz) if um else datetime.datetime.now(tz)
+    def inhalt(name):
+        if rev: return subprocess.run(["git", "-C", ROOT, "show", "%s:docs/%s" % (rev, name)], capture_output=True, text=True).stdout
+        p = os.path.join(DOCS, name); return lesen(p) if os.path.exists(p) else ""
+    def zt(tt, mm, hh, mi):
+        try: return datetime.datetime(jetzt.year, int(mm), int(tt), int(hh), int(mi), tzinfo=tz)
+        except ValueError: return None
+    def k(nr): return re.sub(r"[*.\s]", "", nr).lower()
+    wartend = {}  # Schlüssel → (Nr, Rollen, Dateikürzel)
+    for d in startbar.vorgangsliste(inhalt("LISTE-VORGAENGE.md")):  # 275.2: „wartet auf Chef[ <Datei>]“ oder Stand „Chef“
+        chef = [t for t in d["warte"] if startbar.art(t) == "chef"]
+        if not chef and d["wort"] != "Chef": continue
+        e = wartend.setdefault(k(d["nr"]), (d["nr"], set(), {k(d["nr"])}))
+        e[1].add(d["besitzer"])  # Datei, auf die das Feld zeigt („Chef 503a“), zählt mit (503 wartete auf 503a)
+        e[2].update(k(t.split(" ", 1)[1]) for t in chef if " " in t)
+    if not wartend: return []
+    rueck = {}  # Schlüssel → (jüngste Zeit, Herkunft)
+    def neu(key, d, her):
+        if d and d <= jetzt and (key not in rueck or d > rueck[key][0]): rueck[key] = (d, her)
+    CHEF = re.compile(r"Chef (\d\d)\.(\d\d)\.,? (\d\d):(\d\d)(?:\s*[–-]\s*(\d\d):(\d\d))?")
+    for datei, rolle in startbar.ROLLEN + [("ARBEIT-BETRIEB.md", "Ford")]:
+        for z in inhalt(datei).splitlines():
+            m = re.match(r"^- \*\*Zu ([^:(]*?)(?:, von [^:(]*)?(?: \(|:)", z)
+            if not m: continue
+            nrn = [k(n) for n in re.findall(r"\d+[a-z]?(?:\.\d+[a-z]?)?", m.group(1))]
+            for c in CHEF.finditer(z):
+                d = zt(c.group(1), c.group(2), c.group(5) or c.group(3), c.group(6) or c.group(4))
+                for n in nrn: neu(n, d, "Zu %s in %s" % (n, datei))
+    for z in inhalt("VORGANGSARCHIV.md").splitlines():
+        m = re.match(r"^- \*\*([^*]+)\*\* \((\d\d)\.(\d\d)\.,? (\d\d):(\d\d)", z)
+        if not m: continue
+        for n in re.findall(r"(?<![\w.])\d+[a-z]?(?:\.\d+[a-z]?)?(?![\w.])", m.group(1).split(",")[0]):
+            neu(k(n), zt(*m.groups()[1:]), "Vorgangsarchiv")
+    aus = []
+    for key, (nr, rollen, dateien) in sorted(wartend.items()):
+        treffer = [rueck[x] for x in dateien if x in rueck]
+        if not treffer: continue
+        r = subprocess.run(["git", "-C", ROOT, "log", "-1", "--format=%ct"] + ([rev] if rev else []) + ["--"] + [":(glob)docs/chefsache/*/%s-*.md" % x for x in sorted(dateien)],
+                           capture_output=True, text=True).stdout.strip()
+        if not r: continue
+        datei_zeit = datetime.datetime.fromtimestamp(int(r), tz)
+        d, her = max(treffer)
+        if d > datei_zeit:
+            aus.append((nr, sorted(rollen), d, "%s: Rückmeldung des Chefs da (%s, %s; Chefsache zuletzt %s), Stand nachziehen (559)" % (
+                nr, d.strftime("%d.%m., %H:%M"), her, datei_zeit.strftime("%d.%m., %H:%M"))))
+    return aus
+
+if "--rueckmeldung" in sys.argv:
+    um = sys.argv[sys.argv.index("--um") + 1] if "--um" in sys.argv else None
+    if um and re.match(r"^\d\d\.\d\d\. \d\d:\d\d$", um): um = "2026-%s-%s %s" % (um[3:5], um[0:2], um[-5:])
+    for nr, rollen, d, text in rueckmeldung(um): print("RÜCKMELDUNG %s | %s | %s | %s" % (nr, ", ".join(rollen), d.strftime("%d.%m. %H:%M"), text))
+    sys.exit(0)
+
 # 1. startbar.py
 r = subprocess.run([sys.executable, os.path.join(ROOT, "tools", "startbar.py")], capture_output=True, text=True)
 for z in r.stdout.splitlines():
-    if "ERLEDIGT, NICHT GESTRICHEN" in z or "UNLESBAR" in z or "PAUSE" in z and "nicht lesbar" in z:
+    if "UNLESBAR" in z or "PAUSE" in z and "nicht lesbar" in z:
         fund.append("startbar.py: " + z.strip()[:200])
 
 # 2. Größen und lange Zeilen
@@ -42,21 +107,23 @@ for p in sorted(glob.glob(os.path.join(DOCS, "ARBEIT-*.md"))):
     for m in re.finditer(r"wartet auf (?:die )?Rückfrage (\d+[a-z]?\d*[a-z]?)", lesen(p)):
         if not any(f.startswith(m.group(1) + "-") for f in cs):
             fund.append("%s: wartet auf Rückfrage %s ohne Datei in docs/chefsache/entscheiden/ (gilt als nicht gestellt, 184)" % (os.path.basename(p), m.group(1)))
-# Test ohne Datei (Sokrates 22.10.): Tabellenzeile mit „wartet“ und tNN nur, wenn docs/chefsache/ansehen/tNN-*.md liegt
+# Test ohne Datei (Sokrates 22.10.; 275.2 Automatik B): Zeile „zu testen“ mit Build n nur, solange docs/chefsache/ansehen/tn-*.md liegt;
+# ist die Prüfliste weg (getestet), fehlt `vorgang.py build n`
 an = os.listdir(os.path.join(DOCS, "chefsache", "ansehen")) if os.path.isdir(os.path.join(DOCS, "chefsache", "ansehen")) else []
-for p in sorted(glob.glob(os.path.join(DOCS, "ARBEIT-*.md"))):
-    if p.endswith("ARBEIT-ARCHIV.md"): continue
-    for z in lesen(p).splitlines():
-        if not z.startswith("| "): continue
-        if "wartet" not in z: continue
-        for m in re.finditer(r"(?<![\w/.-])(t\d+)\b", z):
-            if not any(f.startswith(m.group(1) + "-") for f in an):
-                fund.append("%s: Zeile %s wartet auf %s, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen)" % (os.path.basename(p), z.split("|")[1].strip(), m.group(1)))
+sys.path.insert(0, os.path.join(ROOT, "tools")); import startbar
+ohne_pl = {}
+for d in startbar.zeilen_liste():
+    b = d.get("build", "–")
+    if d["wort"] in ("zu testen", "gebaut") and re.fullmatch(r"\d+", b or "") and not any(f.startswith("t%s-" % b) for f in an) and \
+            re.search(r"(?m)^- \*\*t%s\b" % b, lesen(os.path.join(DOCS, "VORGANGSARCHIV.md"))):
+        ohne_pl.setdefault(b, []).append(d["nr"])
+for b, nrs in sorted(ohne_pl.items()):
+    fund.append("LISTE-VORGAENGE.md: Build %s getestet (Archiv t%s), aber %s noch „zu testen“: `vorgang.py build %s` (Automatik B, 275.2)" % (b, b, ", ".join(nrs[:8]), b))
 # Gemeinsamer Build (317): höchstens 6 Testbuilds am Tag für Tom und Jerry zusammen; gezählt: neue Prüflisten tNN in docs/chefsache/ansehen/ heute
 heute = subprocess.run(["git", "-C", ROOT, "log", "--since=" + max(time.strftime("%Y-%m-%d 00:00"), "2026-10-22 21:32"), "--diff-filter=A", "--name-only", "--format=", "--", "docs/chefsache/ansehen/"],
                        capture_output=True, text=True, env=dict(os.environ, TZ="Europe/Berlin")).stdout.split()
 tb = sorted({m.group(1) for f in heute for m in [re.search(r"/(t\d+)-", f)] if m})
-if len(tb) > 6: fund.append("Testbuilds heute: %d (%s), höchstens 6 für Tom und Jerry zusammen (317, LISTE-BAUEN-TESTEN.md „Gemeinsamer Build“)" % (len(tb), ", ".join(tb)))
+if len(tb) > 6: fund.append("Testbuilds heute: %d (%s), höchstens 6 für Tom und Jerry zusammen (317, LISTE-CHECK-BUILD-TEST.md Punkt 3)" % (len(tb), ", ".join(tb)))
 # 347 (H): Start der Entwicklung liest Abschnitte über ihre Überschrift; fehlt ein Anker, lädt der Befehl still alles oder nichts
 for datei, anker in (("ARBEIT-TEAM-TOM.md", "## Einzelheiten"), ("ARBEIT-TEAM-JERRY.md", "## Einzelheiten"),
                      ("DESIGN-STIL.md", "## Auf einen Blick"), ("DESIGN-STIL.md", "## Signatur")):
@@ -90,7 +157,7 @@ else:
         if not da and jetzt - t1 > 24 * 3600:
             fund.append("Block (%s) rot seit über 24 Stunden ohne Chefsache von Perikles mit „Block (%s)“ (341 Z2)" % (b.group(1), b.group(1)))
 gross(os.path.join(ROOT, "CLAUDE.md"), 15000, "kürzen")
-gross(os.path.join(DOCS, "LISTE-VORGAENGE.md"), 15000, "Erledigtes ins Archiv")
+# 275.2: LISTE-VORGAENGE.md hat keine Größengrenze mehr (keiner liest sie ganz, vorgang.py --rolle); Form prüft startbar.py (UNLESBAR)
 
 if "--kurz" in sys.argv:
     print("Pflegefehler in den Vorräten (regelcheck --kurz): %s" % ("%d" % len(fund) if fund else "keine"))
@@ -120,15 +187,7 @@ for p in quellen:
     m = re.search(alt, lesen(p))
     if m: fund.append("%s: alter Dateiname %s" % (os.path.basename(p), m.group(0)))
 
-# 4a. Statusfeld (275 Stufe 1, Chef 15:09: festes Wort wie „begonnen, wartet, erledigt, Rücksprache“): letzte Spalte von LISTE-VORGAENGE.md nur aus der Wortliste
-WORTE = r"(offen|startbar|in Arbeit|wartet|Chef|ruht|gebaut|zu testen|Dauer|nach Meilenstein|aufgeteilt|Idee|erledigt)\b"
-falsch = {}
-for z in lesen(os.path.join(DOCS, "LISTE-VORGAENGE.md")).splitlines():
-    t = [x.strip() for x in z.split("|")]
-    if not z.startswith("| ") or len(t) < 8 or not re.match(r"^D?\d", t[1]) or re.match(WORTE, t[-2]): continue
-    falsch.setdefault(t[-3] or "?", []).append("%s „%s“" % (t[1], t[-2]))
-if falsch: fund.append("LISTE-VORGAENGE.md: Stand außerhalb der Wortliste (%s; 275), je Besitzer:" % WORTE[1:-3].replace("|", ", "))
-for wer, v in sorted(falsch.items()): fund.append("  %s: %s" % (wer, ", ".join(v)))
+# 4a. Statusfeld (275): Wortliste, Felder und „wartet auf“ prüft startbar.py (Teil 1, „UNLESBAR“); vorgang.py schreibt nur Gültiges
 
 # 4b. Lizenzhinweis SRD (446; Chef 01.11., 09:41, 413a): alte Namen aus Nachschlagewerk Abschnitt 12 („Alt“) im Godot-Spiel (ohne tests/).
 # Solange einer steht: Meldezeile (kein Fund); fehlt dann der Hinweis „SRD 5.1 · CC BY 4.0“ im Hauptmenü oder README: Fund (Lizenz).

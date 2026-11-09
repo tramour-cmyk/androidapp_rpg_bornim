@@ -17,7 +17,7 @@ func ding(z: Zustand, base: String, rar := "COMMON") -> Dictionary:
 	return z.ausruestung_dazu({"uid": 0, "base": base, "rarity": rar, "ilvl": 1, "plus": 0, "rolls": [], "unique": null, "name_seed": 0})
 
 func texte(n: Node) -> Array:
-	return n.find_children("*", "Label", true, false).filter(func(l): return not l.is_queued_for_deletion()).map(func(l): return String(l.text))
+	return n.find_children("*", "Label", true, false).filter(func(l): return not l.is_queued_for_deletion()).map(func(l): return String(l.text).replace("\u00a0", " "))   # 557: fest verbundene Wörter
 
 func zeilen(m: Node) -> Array:
 	return m.find_children("*", "HBoxContainer", true, false).filter(func(h): return h.has_meta("tragbar") and not h.is_queued_for_deletion())

@@ -11,7 +11,7 @@ const Aufruf = preload("res://kampf/aufruf.gd")
 const Signatur = preload("res://kampf/signatur.gd")
 const CLASSES := ["FIGHTER", "WIZARD", "ROGUE", "CLERIC"]
 const NAMES := {"FIGHTER": "Kämpfer", "WIZARD": "Magier", "ROGUE": "Schurke", "CLERIC": "Kleriker"}
-const FOES := {"WOLVES": "Wolfsrudel", "RUDEL": "Wolf mit Jungwölfen", "GRAK": "Grak", "SPIDER": "Spinne", "SCOUT": "Späher", "RATS": "Ratten", "BATS": "Fledermäuse", "GRIMM": "Grimmzahn", "GOBLINS": "Goblins", "SCOUTS": "Goblin-Späher", "SHAMANS": "Goblin-Schamanen", "KOBOLDS": "Kobolde"}
+const FOES := {"WOLVES": "Wolfsrudel", "RUDEL": "Wolf mit Jungwölfen", "GRAK": "Grak", "SPIDER": "Riesenspinne und Wolf", "SCOUT": "Goblin-Späher und Goblin", "RATS": "Ratten", "BATS": "Fledermäuse", "GRIMM": "Grimmzahn", "GOBLINS": "Goblins", "SCOUTS": "Goblin-Späher", "SHAMANS": "Goblin-Schamanen", "KOBOLDS": "Kobolde", "BOARS": "Wildschwein", "CENTIPEDES": "Hundertfüßer", "KROGG": "Krogg", "LEECHES": "Riesenegel", "SLUGS": "Säureschnecke", "RATTE": "Ratte", "FLEDERMAUS": "Fledermaus", "SPINNE": "Spinne allein"}
 
 var tables: Dictionary
 var hero_cls := "FIGHTER"
@@ -295,7 +295,7 @@ func _still(path: String) -> void:
 		Engine.time_scale = 0.0
 		for v in OS.get_environment("FILL_REIHE").split(","):
 			for f in fight.figures.values():
-				if f.fighter.monster != null and String(f.fighter.monster.id).begins_with("goblin"):
+				if f.fighter.monster != null and String(Mars.koerper_of(f.fighter.monster)).begins_with("goblin"):
 					for m in f.mats:
 						if m is ShaderMaterial:
 							(m as ShaderMaterial).set_shader_parameter("fill", float(v))
@@ -1012,14 +1012,14 @@ func _report_facing() -> void:
 		for w in fig.find_children("Waffe", "", true, false) + fig.find_children("Schild", "", true, false):
 			var gb: Basis = (w as Node3D).global_basis.orthonormalized()
 			print("%s %s: Achse (Klinge) %s, Fläche %s, Ort %s" % [w.name, id, gb.y.snapped(Vector3.ONE * 0.01), gb.z.snapped(Vector3.ONE * 0.01), (w as Node3D).global_position.snapped(Vector3.ONE * 0.01)])
-			if w.name == "Waffe" and sk and sk.find_bone("hand_l") >= 0 and fig.fighter.monster != null and fig.fighter.monster.id == Mars.GRAK:
+			if w.name == "Waffe" and sk and sk.find_bone("hand_l") >= 0 and fig.fighter.monster != null and Mars.koerper_of(fig.fighter.monster) == Mars.GRAK:
 				# 348.12 Grak: die linke Faust am Stiel (Großaxt, 38 cm hinter der rechten Faust); Handknochen plus Griff wie _hold
 				var hl := sk.global_transform * sk.get_bone_global_pose(sk.find_bone("hand_l"))
 				var gl: Vector3 = hl * (w.get_meta("links") if w.has_meta("links") else Vector3(0, 0.085, 0))     # Runde 2: Griff aus figur.gd
 				var d: Vector3 = gl - (w as Node3D).global_position
 				var entlang: float = d.dot(gb.y)
 				print("Zweihand %s: linke Faust %.1f cm vom Stiel, %.1f cm hinter der rechten (soll 38)" % [id, (d - gb.y * entlang).length() * 100.0, -entlang * 100.0])
-		if sk and fig.fighter.monster != null and fig.fighter.monster.id == Mars.SCOUT:
+		if sk and fig.fighter.monster != null and Mars.koerper_of(fig.fighter.monster) == Mars.SCOUT:
 			_bogen_schnitt(id, fig, sk)
 		if sk and sk.find_bone("handL") >= 0 and sk.find_bone("handR") >= 0:     # Fledermaus Runde 4: Flügel am Schirm schräg?
 			var hl: Vector2 = fight.screen_of(sk.global_transform * sk.get_bone_global_pose(sk.find_bone("handL")).origin)

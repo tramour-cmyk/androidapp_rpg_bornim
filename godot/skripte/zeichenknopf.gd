@@ -76,8 +76,9 @@ func _ready() -> void:
 
 # verschoben zum Rollen (ueber 12 dp) tut nichts, wie Compose ueber der Beruehrschwelle
 func _eingabe(e: InputEvent) -> void:
-	if (e is InputEventScreenTouch or e is InputEventMouseButton) and e.pressed: _ab = e.position; _gehalten = false
-	elif (e is InputEventScreenDrag or e is InputEventMouseMotion) and _ab != Vector2.INF and e.position.distance_to(_ab) > 12 * DP:
+	var wo: Vector2 = get_global_transform_with_canvas() * e.position if "position" in e else Vector2.ZERO   # 571: auf dem Schirm, die Liste rollt mit
+	if (e is InputEventScreenTouch or e is InputEventMouseButton) and e.pressed: _ab = wo; _gehalten = false
+	elif (e is InputEventScreenDrag or e is InputEventMouseMotion) and _ab != Vector2.INF and wo.distance_to(_ab) > 12 * DP:
 		_uhr = 0.0; _gehalten = true   # gerollt: weder Erklaerung noch Tippen
 
 func _process(d: float) -> void:

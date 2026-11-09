@@ -2,6 +2,7 @@ extends SceneTree
 # 399 ohne Bild: Erschaffung (Heldwerte.erschaffe) und Spielstand hin und zurueck (Zustand, Heldwerte, Ort); Hauptmenue Schritt fuer
 # Schritt bis „Abenteuer beginnen“. Aufruf: im Ordner godot mit -s res://tests/spielstand_test.gd
 
+const KH := preload("res://tests/knopf_hilfe.gd")
 func _initialize() -> void: _lauf.call_deferred()
 
 func _leer() -> void:
@@ -52,18 +53,17 @@ func _lauf() -> void:
 	await druecke.call(0)   # Neues Spiel (ohne Spielstand der erste Knopf): 399.1 Erschaffung auf einer Seite (erschaffung.gd)
 	await process_frame
 	var e: Erschaffung = m.get_node("Erschaffung")
-	var knoepfe := func() -> Array:
+	# 630: Wahlfelder, − und + und die Knoepfe unten ohne Rahmen, nach Aufschrift (KH)
+	var d_ := Heldwerte.lade()
+	var tippe := func(t: String, anfang := false) -> void:
 		await process_frame
-		return e.find_children("*", "Button", true, false).filter(func(c): return not c.is_queued_for_deletion())
-	var bs: Array = await knoepfe.call()
-	bs[2].pressed.emit()    # Volk: Zwerg (Reihe Mensch, Elf, Zwerg, Halbling, Halbork)
-	bs = await knoepfe.call()
-	bs[5 + 3].pressed.emit()   # Klasse: Kleriker (Kaempfer, Magier, Schurke, Kleriker)
-	bs = await knoepfe.call()
-	var minus: Button = bs[5 + 4 + 1]   # nach Vorschlag: − und + je Attribut, STR zuerst
-	minus.pressed.emit()    # STR einen weniger, ein Punkt frei
-	bs = await knoepfe.call()
-	bs[bs.size() - 1].pressed.emit()   # Abenteuer beginnen (unten rechts)
+		var k := KH.finde(e, t, anfang)
+		if k == null: fehler += 1; print("FEHLER Erschaffung ohne „%s“: %s" % [t, KH.texte(e)])
+		else: KH.tippe(k)
+	await tippe.call(Sprache.t(d_["voelker"]["DWARF"]["name"]))
+	await tippe.call(Sprache.t(d_["klassen"]["CLERIC"]["name"]))
+	await tippe.call("−")   # STR einen weniger (erstes −), ein Punkt frei
+	await tippe.call(Sprache.u("start"))   # Abenteuer beginnen (unten rechts)
 	await process_frame
 	print("Hauptmenue: %s" % ergebnis)
 	if ergebnis.get("volk") != "DWARF" or ergebnis.get("klasse") != "CLERIC" or String(ergebnis.get("name", "")) == "" or int(ergebnis.get("platz", 0)) != 1: fehler += 1; print("FEHLER Hauptmenue")
@@ -82,13 +82,15 @@ func _lauf() -> void:
 	e2.fertig.connect(func(w): w2.merge(w))
 	e2.beginne()
 	await process_frame
-	var karten: Array = e2.find_children("*", "PanelContainer", true, false).filter(func(c): return c.gui_input.get_connections().size() > 0)
-	if karten.size() != 4: fehler += 1; print("FEHLER Platzwahl: %d Karten" % karten.size())
+	# 630: nur im Fenster, ohne den Knopf Abbrechen
+	var karten: Array = e2.get_child(e2.get_child_count() - 1).find_children("*", "PanelContainer", true, false).filter(func(c): return c.gui_input.get_connections().size() > 0 and not c.has_meta("knopf") and c.find_child("Fenster", true, false) == null)
+	if karten.size() != 4: fehler += 1; print("FEHLER Platzwahl: %d Karten %s" % [karten.size(), karten.map(func(c): return KH.text(c))])
 	else:
 		var tipp := InputEventMouseButton.new(); tipp.pressed = true; tipp.button_index = MOUSE_BUTTON_LEFT
 		karten[1].gui_input.emit(tipp)
 		if int(w2.get("platz", 0)) != 2: fehler += 1; print("FEHLER Platzwahl: %s" % w2)
 	# Spielstaende: vier Karten, Loeschen fragt nach und loescht Platz 4
+	Spielstaende.entwurf = ""   # 557: Karten im alten Aussehen; B prüft spielstaende_529
 	var sp := Spielstaende.new()
 	root.add_child(sp)
 	await process_frame

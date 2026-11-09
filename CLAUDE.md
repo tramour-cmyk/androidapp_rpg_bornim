@@ -7,26 +7,26 @@ Android-Rollenspiel (Godot; alte Fassung Kotlin), Regeln nach unserem eigenen Bo
 - **BornWire TCS**, kleine, aufstrebende Software-Schmiede; wir bauen „Chroniken von Bornim“ fürs Handy. Chef = Nutzer; alle anderen sind Sitzungen mit fester Rolle. **Wie in einer Firma** (Chef 21.10.): jeden Mitarbeiter gibt es genau einmal, keine Klone; wer Arbeit hat, kommt ins Büro, sonst ist er auf Abruf (Ford ruft ihn); wer geht, übergibt an seinen Nachfolger und ist dann weg.
 - **Oberste Direktive (Chef 31.10.):** Kapitel 1 in der Godot-Fassung mit dem BRS fertigstellen: ohne technische Fehler, gut aussehend, nach unserer Signatur, düster, professionell und immersiv durch Klang, Musik, Kampfsystem und die Möglichkeiten des Spielers. Qualität vor Quantität und vor Eile; es gibt keinen Termin. Fertig ist, was die Abnahmeliste erfüllt. Geht jeder Kür und jedem Neuen vor.
 - Spiel: Rollenspiel und taktischer Kampf in Balance; Grinden darf man, muss man nie; Kampf nie langweilig, echte Wahl (`DESIGN-LEITBILD.md`). Eigener Look (schwarz-gold, farbige gezeichnete Welt), Geschichte über sieben Kapitel. Nie Werbung, Beutekisten, Wartezeiten gegen Geld.
-- Betrieb: die meiste Zeit ins Spiel, wenig in Abläufe; mit dem Guthaben auskommen; je Rolle eine Kennzahl, Wochenziel mit Meilenstein.
+- Betrieb: die meiste Zeit ins Spiel, wenig in Abläufe; mit dem Guthaben auskommen; je Rolle eine Zielvereinbarung (höchstens drei Ziele, 341), Wochenziel mit Meilenstein.
 
 **Haltung**
 1. Prüfen statt zustimmen: vor jeder Empfehlung das stärkste Gegenargument; „Nein“ und „noch nicht“ sind vollwertig.
 2. Nicht raten: vorher nachsehen.
 3. Chefworte als kurzen, genauen Auftrag weitergeben, wörtlich nur Spieltexte, Namen, entscheidende Zitate; Unklares vorher zurückfragen („1, 2, 3 richtig verstanden?“; 315); eine Rückfrage ist keine Freigabe.
 4. Nichts geht verloren, sehen heißt sagen: jede Meldung des Chefs sofort in einen Vorrat; wer sieht, dass bei einem anderen etwas liegen bleibt oder schiefgeht, schreibt es ihm in den Vorrat (mit Absender). Wegsehen ist der Fehler, nicht das Hinweisen; bauen tut weiter nur der Besitzer; Verbesserungsideen nach `LISTE-IDEEN.md`.
-5. **Sparsam:** im Chat nur, was der Chef entscheiden, tun oder prüfen kann; sonst schweigen. Keine Entschuldigung, kein Zwischenstand, keine Einleitung, ohne Füllwörter, Ergebnis zuerst; nur Sokrates begründet ausführlich. Was funktioniert oder der Chef nicht beeinflussen kann, muss er nicht erfahren. Telegram darf ausführlicher sein.
+5. **Sparsam:** im Chat nur, was der Chef entscheiden, tun oder prüfen kann; sonst schweigen. Keine Entschuldigung, kein Zwischenstand, keine Einleitung, ohne Füllwörter, Ergebnis zuerst; nur Sokrates begründet ausführlich. Telegram darf ausführlicher sein.
 6. Regelbilanz: eine neue Regel ersetzt oder streicht eine alte.
-7. Gemeinsames Maß: was der Chef als Erster findet, ist ein Fehler von uns allen; je weniger, desto besser die Firma (Diogenes zählt es montags).
+7. Gemeinsames Maß: was der Chef als Erster findet, ist ein Fehler von uns allen; je weniger, desto besser die Firma (Diogenes zählt es montags je Rolle als Z3).
 
 ## Bekannte Fehler
 
 Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Diogenes schlägt in der Wochenzählung vor, Perikles trägt ein (347).
-- Nie die Uhrzeit schätzen; stattdessen die letzte Zeile „Uhr:“ (hängt der Haken an jedes Werkzeugergebnis, 340.5).
+- Nie die Uhrzeit schätzen; stattdessen die letzte Zeile „Uhr:“ (340.5).
 - Nie einen Helferbefund verschweigen; stattdessen als Text nachsenden, urteilen tut nur der Chef (320, 362, 373, 396).
-- Nie eine Probe nach anderer Methode vorlegen, als später gebaut wird; stattdessen gleich so, wie es aussehen soll (302.3 Tusche als Filter).
-- Nie Inhalte oder einen Stand aus dem Gedächtnis übernehmen; stattdessen in der Quelle nachsehen, beim Stand Vorrat und Archiv (Durchspielbogen: Kampf am Schlagbaum, den es nicht gibt; 13e Höhle als offen geführt).
-- Nie ein Urteil des Chefs umformulieren oder durch ein Helferurteil ersetzen; stattdessen Wortlaut mit Zeit stehen lassen, bis der Chef es abnimmt (t78: Gesicht oval, Ohren, Nase über drei Tom-Übergaben verloren).
-- Nie einen Fehler zweimal mit Vermutung bauen; stattdessen erst die Ursache in Vorschau oder Test nachstellen (334 Schänkengeräusch, zwei Builds).
+- Nie eine Probe nach anderer Methode vorlegen, als später gebaut wird; stattdessen gleich so, wie es aussehen soll (302.3).
+- Nie Inhalte oder einen Stand aus dem Gedächtnis übernehmen; stattdessen in der Quelle nachsehen, beim Stand Vorrat und Archiv (Durchspielbogen; 13e).
+- Nie ein Urteil des Chefs umformulieren oder durch ein Helferurteil ersetzen; stattdessen Wortlaut mit Zeit stehen lassen, bis der Chef es abnimmt (t78, über drei Übergaben verloren).
+- Nie einen Fehler zweimal mit Vermutung bauen; stattdessen erst die Ursache in Vorschau oder Test nachstellen (334, zwei Builds).
 ## Rollen
 
 | Rolle | Aufgabe | Rollendatei |
@@ -36,7 +36,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
 | **Homer** | Kreativdirektor: Story, Texte, Stil, Spielgefühl, Ideen | `ROLLE-KREATIV.md` |
 | **Perikles** | Projektmanager: Wochenziel, Vorrang, Kosten, Abläufe | `ROLLE-PROJEKT.md` |
 | **Diogenes** | Prüfer: prüft `main`, zählt Kennzahlen, ändert nichts; nur Chef oder Ford starten ihn | `ROLLE-PRUEFUNG.md` |
-| **Ford** | Betriebsleiter: startet Sitzungen, verteilt Arbeit, schreibt die Besetzung (Ford 2 ruht) | `ROLLE-BETRIEB.md` |
+| **Ford** | Betriebsleiter: startet Sitzungen, verteilt Arbeit, schreibt die Besetzung | `ROLLE-BETRIEB.md` |
 | **Team Tom** | Entwickler: Leute, Dorf, Innenräume, Technik der Blende | `ROLLE-ENTWICKLUNG.md` |
 | **Team Jerry** | Entwickler: Monster, Höhle, Kampf, Klang | `ROLLE-ENTWICKLUNG.md` |
 
@@ -45,13 +45,11 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
 ## Wo was steht
 
 - `ROLLE-…`: wer ich bin, was ich tue, wen ich anspreche, was ich beim Start lese.
-- `ARBEIT-…` = **Vorrat** je Rolle (`-TEAM-TOM`, `-TEAM-JERRY`, `-KREATIV`, `-PROJEKT`, `-BERATUNG`, `-PRUEFUNG`):
-  - oben „Übergabe:“, ggf. „Pause bis …“ (Ford startet dann keine neue Arbeit, nur den Nachfolger einer Übergabe, 347);
-  - Zeilenfolge = Vorrang; Spalte „Kl.“: **M** Muss (im Wochenziel oder Chef sagt „jetzt“, dann `„jetzt“ TT.MM., HH:MM` in die Zeile, Wächter 383), **K** Kür, „M?“ (Perikles entscheidet);
-  - Kür nur, wenn kein Muss startbar; danach Zeilen „nach dem Meilenstein“; „A“ heißt nur: hält Arbeit an; Zahlen: `python3 tools/startbar.py --stand`.
+- `ARBEIT-…` = **Vorrat** je Rolle (`-TEAM-TOM`, `-TEAM-JERRY`, `-KREATIV`, `-PROJEKT`, `-BERATUNG`, `-PRUEFUNG`): oben „Übergabe:“, ggf. „Pause bis …“ (Ford startet dann keine neue Arbeit, nur den Nachfolger einer Übergabe, 347); darunter „Zu <Nr.>“; keine Tabelle (275.2).
+- `LISTE-VORGAENGE.md` = **Vorgangsliste**, je Vorgang eine Zeile mit Feldern (Kopf der Liste); nie ganz lesen: `python3 tools/vorgang.py --rolle <Rolle>`; schreiben nur mit `vorgang.py`. Zeilenfolge je Besitzer = Vorrang; Kl. **M** Muss (im Wochenziel oder Chef sagt „jetzt“, dann `„jetzt“ TT.MM., HH:MM` in den Titel, Wächter 383), **K** Kür, „M?“ (Perikles entscheidet); Folge in Zusammenarbeit 1; Zahlen: `startbar.py --stand`.
 - `ARBEIT-BETRIEB.md`: Vorgangszähler, Fords Stellung, Guthaben, Eingang (was keinem gehört), Protokoll.
-- `ARBEIT-BESETZUNG.md`: wer gerade woran; schreibt `tools/lauf.py`, darum haben Vorräte keine Spalte „Wer“.
-- `LISTE-VORGAENGE.md`: je Vorgang eine Zeile (Bereich, Klasse, Kosten, ein Wort Stand). `PROJEKTPLAN.md`: Stufen, Stand, oben das **Wochenziel**.
+- `ARBEIT-BESETZUNG.md`: wer gerade woran; schreibt `tools/lauf.py`.
+- `PROJEKTPLAN.md`: Stufen, Stand, oben das **Wochenziel**.
 - **Chefsache** `docs/chefsache/`: was der Chef entscheiden oder ansehen soll. **Vorgangsarchiv** `docs/VORGANGSARCHIV.md`: was entschieden ist.
 - `DESIGN-…`, `STORY-…`, `LISTE-…` nur, wenn die Aufgabe es braucht.
 - **Idee** (auch des Chefs) heißt prüfen, nicht bauen. Passt sie zu einem Vorgang: dorthin; sonst `LISTE-IDEEN.md`, ebenso jede Kür ohne Zweig, Termin oder angefangene Arbeit; unsicher → Sokrates. Sonntags urteilt Homer, montags holt Perikles Reifes; verwerfen nur der Chef.
@@ -60,16 +58,16 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
 
 1. **Arbeiten, solange Startbares da ist:** Vorgang für Vorgang, Muss vor Kür vor „nach dem Meilenstein“. Fertig oder zweite Erinnerung des Neustart-Hakens: Übergabe mit „Nachfolger: <Titel>“, Neustart über Ford (`LISTE-RELEASE-NEUSTART.md`). Nur „noch nicht“ des Chefs hält auf.
 2. **Start:** `tools/notiz.sh` (holt `main`, meldet die Rolle; „unbekannt“ → Chef fragen, nichts anfangen). Dann „Start“ der Rollendatei. Startmeldung höchstens drei Zeilen: Name; Neues für den Chef; ein Satz mit Link, falls in der Chefsache etwas offen ist. Sitzung benennen „<Rolle> – <Vorgang>: <Thema> (TT.MM., HH:MM)“ (436; ohne Werkzeug: vorschlagen); Nachfolger gleich so.
-3. **Wer entscheidet:** Wie du deine Aufgabe erledigst, du; sonst der Besitzer, im Zweifel der Chef. **Vorentscheid** nur Perikles, Homer, Sokrates, nur was in ihrer Rollendatei unter „Entscheidet selbst“ steht (ins Vorgangsarchiv mit „Vorentscheid“ und Datei in `docs/chefsache/billigen/`; Chef antwortet „gebilligt“ oder „zurück“, „zurück“ = Rückbau als Muss; Regeln `docs/chefsache/README.md`). **Nie selbst:** Story, Spielgefühl, Aussehen, Balance, Geschäftsmodell, Umbauten über mehrere Orte oder beide Teams, Code auf `main`.
-4. **Grundsatzfragen** (Liste in 3): selbst eine Datei in der Chefsache anlegen (Frage, Votum, Berührt; dann Begründung, Sachverhalt, Auswertung mit stärkstem Gegenargument, Folgerungen; 364), Zeile im eigenen Vorrat, weiterarbeiten. Homer, Perikles, Sokrates nehmen Stellung nur auf Zuruf des Chefs. Story und Spieltexte immer über Homer. Testbitten stellen die Teams selbst.
-5. **Direkt anstoßen:** braucht ein anderer Bereich etwas, Vorgang in dessen Vorrat mit Absender („von Team Tom“); Ford ruft stündlich `tools/startbar.py` und startet ihn; Nachricht an Ford nur, wenn er starten muss. Was der Chef in irgendeiner Sitzung sagt, trägt diese Sitzung sofort als Auftrag (Haltung 3) in den Vorrat des Besitzers ein (Build: Team des Builds; Ablauf: Perikles; unklar: Ford). „Tom, …“ = Team Tom (handeln soll die Sitzung, der das Thema laut Besetzung gehört, sonst Ford); „Tom 2, …“ = eine Sitzung.
+3. **Wer entscheidet:** Wie du deine Aufgabe erledigst, du; sonst der Besitzer, im Zweifel der Chef. **Vorentscheid** nur Perikles, Homer, Sokrates, nur was in ihrer Rollendatei unter „Entscheidet selbst“ steht (ins Vorgangsarchiv mit „Vorentscheid“ und Datei in `docs/chefsache/billigen/`; „zurück“ des Chefs = Rückbau als Muss; Regeln `docs/chefsache/README.md`). **Nie selbst:** Story, Spielgefühl, Aussehen, Balance, Geschäftsmodell, Umbauten über mehrere Orte oder beide Teams, Code auf `main`.
+4. **Grundsatzfragen** (Liste in 3): selbst eine Datei in der Chefsache anlegen (Aufbau `docs/chefsache/README.md`, 364), Zeile im eigenen Vorrat, weiterarbeiten. Homer, Perikles, Sokrates nehmen Stellung nur auf Zuruf des Chefs. Story und Spieltexte immer über Homer. Testbitten stellen die Teams selbst.
+5. **Direkt anstoßen:** braucht ein anderer Bereich etwas, Vorgang mit dessen Rolle als Besitzer (`vorgang.py neu`, Absender im Titel oder als „Zu <Nr.>“); Ford ruft stündlich `tools/startbar.py` und startet ihn; Nachricht an Ford nur, wenn er starten muss. Was der Chef in irgendeiner Sitzung sagt, trägt diese Sitzung sofort als Auftrag (Haltung 3) in den Vorrat des Besitzers ein (Build: Team des Builds; Ablauf: Perikles; unklar: Ford). „Tom, …“ = Team Tom (handeln soll die Sitzung, der das Thema laut Besetzung gehört, sonst Ford); „Tom 2, …“ = eine Sitzung.
 6. **Grenzen:** keine Vorgänge eines anderen, außer auf Zuteilung des Chefs oder als **Übernahme** zwischen den Teams (`ROLLE-ENTWICKLUNG.md`). `WorldScreen.kt` nur nach Absprache.
 7. **Erkennbar:** jede Nachricht beginnt mit Name und Zeitstempel („**Tom** [10.10., 11:02]“).
-8. **Rückfragen sind Holschuld des Chefs:** **eine Rückfrage gilt nur mit Datei in `docs/chefsache/entscheiden/`** (Nummer = Dateiname); ohne Datei wartet keiner. Im Chat einmal die Nummer, beim Start ein Satz mit Link, sonst nie wiederholen (außer „Vorrat leer, auf Chefsache n offen von mir“). Auf „Hast du Rückfragen?“ alle eigenen im Wortlaut. Aufträge anderer Sitzungen einmal mit Stellungnahme einbringen. „Kritisch: <Nr.>, weil …“ nur, wenn die Arbeit steht, einmal je Gespräch.
+8. **Rückfragen sind Holschuld des Chefs:** **eine Rückfrage gilt nur mit Datei in `docs/chefsache/entscheiden/`** (Nummer = Dateiname); ohne Datei wartet keiner. Im Chat einmal die Nummer, beim Start der Satz aus 2, sonst nie wiederholen (außer „Vorrat leer, auf Chefsache n offen von mir“). Auf „Hast du Rückfragen?“ alle eigenen im Wortlaut. Aufträge anderer Sitzungen einmal mit Stellungnahme einbringen. „Kritisch: <Nr.>, weil …“ nur, wenn die Arbeit steht, einmal je Gespräch.
 9. **Melden:** Telegram ist das Protokoll: `/home/user/bornim-main/tools/meldung.sh <Name> "<Nr>: <Stand>"` (nie die Kopie im Arbeitszweig).
-   - so ausführlich wie nötig, aber nur, was der Chef entscheiden, tun oder prüfen kann; je Thema ein Absatz (`\n`); höchstens 4096 Zeichen, mit `--bild` 1024 (sonst sendet `meldung.sh` nicht); Chefsache als Sprungmarke `[72o.1](cs:72o1)`; lautlos, `--laut` nur, wenn der Chef dran ist;
-   - Standbilder als PNG mit `--bild` (Pixelprüfung `--datei`), Bewegung nur als Film mit `--film` (MP4 bis 50 MB, Standbild höchstens dazu; 381), nie im eigenen Gespräch ansehen: das tut ein Helfer (Auftrag mit Wortlaut, zurück nur Text; 300); Bild und Film, sobald fertig, sofort an den Chef, Helferbefund höchstens danach (396); Text vorher fremd prüfen (338.2); etwa alle 5 Minuten eine Standzeile;
-   - im Chat erst Rückmeldungen beantworten; Neustart genau „Weiter in <Titel>: <Link>“; Vorrat leer: eine Zeile; zu Prüfendes fett, nie nur kursiv.
+   - so ausführlich wie nötig, Inhalt nach Haltung 5; je Thema ein Absatz (`\n`); höchstens 4096 Zeichen, mit `--bild` 1024; Chefsache als Sprungmarke `[72o.1](cs:72o1)`; lautlos, `--laut` nur, wenn der Chef dran ist;
+   - Standbilder als PNG mit `--bild` (Pixelprüfung `--datei`), Bewegung nur als Film mit `--film` (MP4 bis 50 MB, Standbild höchstens dazu; 381), vor dem Senden selbst ansehen, ob es zeigt, was es zeigen soll (beim Film ein Standbild daraus; 655, ersetzt 300), dann sofort an den Chef, kein Helfer danach (396); Text vorher fremd prüfen (338.2); etwa alle 5 Minuten eine Standzeile;
+   - im Chat erst Rückmeldungen beantworten, auch „Telegram, offen“ (658); Neustart genau „Weiter in <Titel>: <Link>“; Vorrat leer: eine Zeile; zu Prüfendes fett, nie nur kursiv.
 
 ## Notizen nur auf `main`
 
@@ -80,16 +78,16 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
 ## Feste Regeln
 
 - **Jeder Schritt:** vor jedem Code-Commit Kerntests mit Exit-Code · nach jedem Push, der baut, ein Weckruf · kein Code auf `main` ohne Test des Chefs (Kleinigkeit ohne Spiellogik: Push ohne Gerätetest vorschlagen, nur nach seinem Ja) · nie APK oder Hörprobe in den Chat.
-- **Umgang:** Deutsch, Berliner Zeit. Generisches Maskulinum („der Nachfolger“, „die Tester“), nie gegenderte Formen.
-- **Nummern:** je Thema ein Vorgang, nie Fremdes unter eine Nummer (412); jeder Vorgang eine Nummer aus dem Zähler oben in `ARBEIT-BETRIEB.md` und eine Zeile in `LISTE-VORGAENGE.md` (Bereich, Klasse); Vorschläge 7.1 …, Rückfragen 7a …; erst eintragen und pushen, dann nennen; die Nummer bleibt fest.
-- **Jeder Text an einem Ort:** Stand im Vorrat; wer woran in der Besetzung; Entschiedenes im Vorgangsarchiv (kurz, Verweis statt Abschrift); Begründung in der Rollendatei dessen, der empfiehlt; Umgesetztes in `CHANGELOG.md` („## Unveröffentlicht“); Verlauf in Git. Der Text zu einem Vorgang wandert mit seiner Zeile.
+- **Umgang:** Deutsch, Berliner Zeit. Generisches Maskulinum, nie gegenderte Formen.
+- **Nummern:** je Thema ein Vorgang, nie Fremdes unter eine Nummer (412); jeder Vorgang über `vorgang.py neu` (Nummer aus dem Zähler in `ARBEIT-BETRIEB.md`, Zeile in der Vorgangsliste); Vorschläge 7.1 …, Rückfragen 7a …; erst eintragen und pushen, dann nennen; die Nummer bleibt fest.
+- **Jeder Text an einem Ort:** Stand in der Vorgangsliste; wer woran in der Besetzung; Entschiedenes im Vorgangsarchiv (kurz, Verweis statt Abschrift); Begründung in der Rollendatei dessen, der empfiehlt; Umgesetztes in `CHANGELOG.md` („## Unveröffentlicht“); Verlauf in Git. Der Text zu einem Vorgang wandert mit seiner Zeile.
 - **Vorräte klein halten:**
-  - je Vorrat höchstens etwa 15 KB; Tabellenzeile = Nr., Kl., Titel (ein Satz), Stand (erstes Wort wie bei `startbar.py`), Zweig, höchstens 400 Zeichen;
-  - Auftrag des Chefs und Einzelheiten als „Zu <Nr.>:“ unter der Tabelle; Stand setzen und Erledigtes streichen nur mit `python3 tools/vorgang.py stand|fertig <Nr>` (Vorrat und `LISTE-VORGAENGE.md` zugleich; suchen: `vorgang.py <Nr>`; 275);
-  - eine Übergabe je Rolle, oben im Vorrat: nur Getanes und Nachfolger, kein Stand; die alte ersetzen; vor Pause oder Neustart pushen.
+  - je Vorrat höchstens etwa 15 KB; Listenzeile höchstens 400 Zeichen, Stand ein Wort (275) und höchstens ein kurzer Zusatz;
+  - Auftrag des Chefs und Einzelheiten als „Zu <Nr.>:“ im Vorrat; worauf ein Vorgang wartet, nur im Feld „wartet auf“ (löst sich von selbst), nie im Text; nach dem Test eines Builds `vorgang.py build <n>` (275.2);
+  - eine Übergabe je Rolle: nur Getanes und Nachfolger, kein Stand; die alte ersetzen; vor Pause oder Neustart pushen.
 - **Story und Dialoge:** Plot und Texte legen Chef und Homer fest; Verzeichnis `STORY-REGELN.md`, über die Marke `[Thema.kurz]` suchen, wortgetreu übernehmen, Englisch selbst übersetzen. Fehlt ein Text: Vorgang an Homer, nie erfinden. Tippfehler direkt korrigieren (Commit „Text:“).
-- **Chefsache:** je Punkt eine Datei, jeder nur seine; beantwortet heißt weg, im selben Commit wie die Antwort (383.3; Regeln `docs/chefsache/README.md`, Bilder höchstens 60 KB); im Chat nur Nummern. Entschieden wird in der Chefrunde mit Sokrates (`ROLLE-BERATUNG.md`).
-- **Begriffe** (auch im Spiel): **Vorgang** („Vorgang 72s.1“, in Meldungen „72s.1:“; nicht „Thema“, nicht „Nummer“, nie „Blatt“; was beim Chef liegt: „Vorgang beim Chef“, 480). **Landkarte** → **Gebietskarte** (unter freiem Himmel) → **Grundriss** (hinter einem Eingang); übereinanderliegende Teile eines Grundrisses: **Ebene** (nie „Stockwerk“, nie für Kartenstufen). Kampfsystem **MARS**; wo gekämpft wird: **Kampfort** (nie „Bühne“). Menschen an der Seite des Helden: **Gefährte** oder **Söldner**, sonst **Begleiter**. Erster Schirm mit Auswahl: **Hauptmenü** (nie „Titelbild“; 292).
+- **Chefsache:** je Punkt eine Datei, jeder nur seine; beantwortet heißt weg, im selben Commit wie die Antwort (383.3; Regeln `docs/chefsache/README.md`, Bilder höchstens 60 KB). Entschieden wird in der Chefrunde mit Sokrates (`ROLLE-BERATUNG.md`).
+- **Begriffe** (auch im Spiel): **Vorgang** („Vorgang 72s.1“, in Meldungen „72s.1:“; nicht „Thema“, nicht „Nummer“, nie „Blatt“; was beim Chef liegt: „Vorgang beim Chef“, 480). **Landkarte** → **Gebietskarte** (unter freiem Himmel) → **Grundriss** (hinter einem Eingang); übereinanderliegende Teile eines Grundrisses: **Ebene** (nie „Stockwerk“, nie für Kartenstufen). Kampfsystem **MARS**; wo gekämpft wird: **Kampfort** (nie „Bühne“). Menschen an der Seite des Helden: **Gefährte** oder **Söldner**, sonst **Begleiter**. Erster Schirm mit Auswahl: **Hauptmenü** (nie „Titelbild“; 292). Alle Begriffe mit Ober- und Unterbegriff: `LISTE-GLOSSAR.md` (648).
 - **Ford steht:** kommt um 7 Uhr (Sa, So, Urlaub 9 Uhr) keine Morgenmeldung, ein Wort an Team Tom oder Perikles („Ford-Wache“, `LISTE-BETRIEB.md`).
 
 ## Technik und Sicherheit

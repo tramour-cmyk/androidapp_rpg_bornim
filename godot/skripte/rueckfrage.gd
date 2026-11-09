@@ -31,4 +31,5 @@ static func schleier(eltern: Node, zu := Callable()) -> ColorRect:
 # der Kasten nimmt jedes Tippen selbst, damit es nicht zum Schleier durchgeht und das Fenster schliesst
 static func halte(k: Control) -> Control:
 	k.mouse_filter = Control.MOUSE_FILTER_STOP
+	k.set_meta("haelt", true)   # 571: wischen.gd laesst den Kasten auch in einer Liste so
 	return k

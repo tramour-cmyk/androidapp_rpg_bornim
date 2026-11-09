@@ -5,7 +5,9 @@ extends SceneTree
 func _initialize() -> void: _lauf.call_deferred()
 
 func texte(n: Node) -> String:
-	return " | ".join(PackedStringArray(n.find_children("*", "Label", true, false).map(func(l): return l.text)))
+	return " | ".join(PackedStringArray(n.find_children("*", "Label", true, false).map(func(l): return l.text.replace("\u00a0", " "))))
+
+const KH := preload("res://tests/knopf_hilfe.gd")
 
 func _lauf() -> void:
 	var fehler := 0
@@ -43,8 +45,9 @@ func _lauf() -> void:
 	else:
 		ueb[0].pressed.emit()
 		await process_frame
-		var ja: Array = m.find_children("*", "Button", true, false).filter(func(b): return b.text in ["JA, VERTEILEN", "YES, SPEND"])
-		ja[0].pressed.emit()
+		var ja := KH.finde(m, "JA, VERTEILEN") if KH.finde(m, "JA, VERTEILEN") else KH.finde(m, "YES, SPEND")   # 630: Rückfrage ohne Kasten
+		if ja == null: fehler += 1; print("FEHLER kein Ja, verteilen: ", KH.texte(m))
+		else: KH.tippe(ja)
 		await process_frame; await process_frame
 		if hw.wert("INT") != int_vor + 1: fehler += 1; print("FEHLER INT %d -> %d" % [int_vor, hw.wert("INT")])
 	# Tasche
@@ -79,9 +82,9 @@ func _lauf() -> void:
 		var hoch := InputEventMouseButton.new(); hoch.button_index = MOUSE_BUTTON_LEFT; hoch.pressed = false
 		zeilen_[0].gui_input.emit(hoch)
 		await process_frame
-		var knoepfe: Array = m.find_children("*", "Button", true, false).map(func(b): return b.text)
+		var knoepfe: Array = Array(KH.texte(m))   # 630: Knoepfe ohne Kasten (549a)
 		if Sprache.u("use").to_upper() not in knoepfe: fehler += 1; print("FEHLER kein Benutzen-Knopf: ", knoepfe)
-		for c in m.get_children(): if c is ColorRect and c.color.a < 0.9: c.queue_free()
+		for c in m.get_children(): if c is ColorRect and (c.color.a < 0.9 or c.find_child("Fenster", true, false)): c.queue_free()
 		await process_frame
 	# Ausruestung: anlegen aus der Tasche, Platz zeigt es, ablegen bringt es zurueck
 	var g: Dictionary = z.beutel[0]

@@ -44,7 +44,7 @@ func _lauf() -> void:
 	for i in 4: await process_frame
 	# was alt da war und die Hilfen zum Durchspielen
 	var w := woerter(m)
-	for x in ["Unsterblich", "Schnell", "Kartenzoom", "Monster", "Bosse", "Truhen", "Merker", "Kritisch", "Rettung", "Kapitelende", "Dorf", "Uhrzeit", "Tag / Nacht"]:
+	for x in ["Unsterblich", "Schnell", "Kartenzoom", "Monster", "Bosse", "Truhen", "Geschichte", "Kritisch", "Rettung", "Kapitelende", "Dorf", "Uhrzeit", "Tag / Nacht"]:
 		pruefe("Zeichen fehlt", w.has(x), x)
 	var zeilen: Array = m.inhalt.find_children("*", "Label", true, false).map(func(l): return String(l.text))
 	pruefe("Letzter Lauf", zeilen.any(func(t): return t.begins_with("Letzter Lauf: ")), "")
@@ -70,7 +70,7 @@ func _lauf() -> void:
 		pruefe("Kartenzoom an die Welt", not gesendet.is_empty() and gesendet[0][0] == "zoom", str(gesendet))
 	pruefe("Kartenzoom Stufen", stufen == [5.6, 6.75, 8.4, 10.5, 0.0], str(stufen))
 	# Merker: aufklappen, einen setzen, wieder loeschen; „Ort neu“ geht an die Welt
-	knopf(m, "Merker").tat.call()
+	knopf(m, "Geschichte").tat.call()
 	for i in 2: await process_frame
 	pruefe("Merker offen", texte(m).any(func(t): return t.to_upper().begins_with("GARRICK GETROFFEN: ")), str(texte(m).slice(0, 4)))
 	druecke(m, "Garrick getroffen: ")
@@ -166,3 +166,8 @@ func _mars() -> void:
 		mars._hurt(hero, 99999, "w1", "x")
 		pruefe("Held unsterblich", hero.hp == 1, str(hero.hp))
 	pruefe("Held immer kritisch", wuerfe > 0 and fehl == 0, "%d von %d Wuerfen verfehlt" % [fehl, wuerfe])
+	# 555 (Chef 11:52, „Spinne kommt nicht“): Kampf beschwoeren nur mit Gruppen, deren Monster ein Modell haben; die anderen als Zeile
+	var fs := Testmodus.feinde()
+	var spinne := Streuner.da("giant_spider")
+	pruefe("Spinne nur mit Modell", fs.has("SPIDER") == spinne and (spinne or Testmodus.ohne_modell().any(func(n): return String(n).contains("Spinne"))), "Modell %s, Liste %s, ohne %s" % [spinne, fs.keys(), Testmodus.ohne_modell()])
+	pruefe("Wolfsrudel bleibt (mit Wolfsmodell)", fs.has("WOLVES") == Streuner.da("wolf"), str(fs.keys()))

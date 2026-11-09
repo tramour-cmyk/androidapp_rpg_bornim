@@ -9,12 +9,16 @@ const HELD := "res://daten/held.bin"
 var teller: Node3D
 var sonne: DirectionalLight3D
 var wahl := {}
+var dreht := true             # 529: false = Standbild (Karte des Spielstands, alt HeroStill): steht, nach einigen Bildern kein Zeichnen mehr
+var _bilder := 0
+var _v: SubViewport
 const HOEHE := 1.8            # Meter: jede Figur so hoch im Teller
 const RAND := 1.14            # Bildhoehe zu Figurhoehe (oben und unten 7 %)
 
 # gross: Kastengroesse (Menue 0,62 wie alt); Erschaffung groesser (Pruefer 376.1 Lauf 2: Held zu klein fuer Gesicht und Bart)
-func _init(w: Dictionary = {}, gross := 0.62) -> void:
+func _init(w: Dictionary = {}, gross := 0.62, dreht_ := true) -> void:
 	wahl = w
+	dreht = dreht_
 	stretch = true
 	custom_minimum_size = Vector2(150, 230) * gross * DP
 	size_flags_vertical = Control.SIZE_SHRINK_CENTER
@@ -24,6 +28,7 @@ func _init(w: Dictionary = {}, gross := 0.62) -> void:
 	v.transparent_bg = true
 	v.msaa_3d = Viewport.MSAA_4X
 	add_child(v)
+	_v = v
 	var welt := WorldEnvironment.new()
 	welt.environment = Environment.new()
 	welt.environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
@@ -67,10 +72,12 @@ func zeige(w: Dictionary) -> void:
 		Gebiet.bewegungen(anim, ["Stehen"])
 		if anim.has_animation("Stehen"): anim.play("Stehen")
 
-# Umriss aller Netze im Raum von n (Ruhehaltung)
+# Umriss aller Netze im Raum von n (Ruhehaltung). 499: ohne Waffe und Schild (getragen: top_level, steht erst nach dem ersten Bild an
+# der Faust; Ruecken*: BoneAttachment ohne Knochenlage) - mit ihnen war der Held 2,0-2,7 m „hoch“ und im Teller zu klein (Massstab 0,68)
 func huelle(n: Node, t: Transform3D) -> AABB:
 	var box := AABB()
 	var leer := true
+	if (n is Node3D and (n as Node3D).top_level) or String(n.name).begins_with("Ruecken"): return box
 	var tt := t * (n as Node3D).transform if n is Node3D else t
 	if n is MeshInstance3D and (n as MeshInstance3D).mesh:
 		box = tt * (n as MeshInstance3D).get_aabb(); leer = false
@@ -81,7 +88,10 @@ func huelle(n: Node, t: Transform3D) -> AABB:
 	return box
 
 func _process(dt: float) -> void:
-	if teller: teller.rotation.y += dt * TAU / 6.0
+	if teller and dreht: teller.rotation.y += dt * TAU / 6.0
+	elif _v and _bilder < 6:   # Standbild: erst zeichnen, wenn Groesse und Figur stehen, dann aus
+		_bilder += 1
+		if _bilder == 6: _v.render_target_update_mode = SubViewport.UPDATE_DISABLED
 
 func _gui_input(e: InputEvent) -> void:
-	if teller and e is InputEventMouseButton and e.pressed: teller.rotation.y += TAU / 4.0
+	if teller and dreht and e is InputEventMouseButton and e.pressed: teller.rotation.y += TAU / 4.0

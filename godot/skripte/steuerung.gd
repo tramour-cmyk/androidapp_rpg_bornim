@@ -68,7 +68,11 @@ func _ready() -> void:
 	chip.content_margin_left = 6 * AktionsKnopf.DP; chip.content_margin_right = 6 * AktionsKnopf.DP
 	chip.content_margin_top = 3 * AktionsKnopf.DP; chip.content_margin_bottom = 3 * AktionsKnopf.DP
 	ort.add_theme_stylebox_override("normal", chip)
-	mess = schild(Vector2(24, oy + 60), 22)
+	# 624 (Chef 07.11., 17:5x: „ein bisschen größer … sehr kleine Mikroschrift … FPS … Speicherverbrauch“): 14 sp mit der Schriftgroesse
+	# des Handys (Stil.SP) statt fest 22 px, bricht innerhalb des Schirms um
+	mess = schild(Vector2(24, oy + 60), int(round(14 * Stil.SP)))
+	mess.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	mess.custom_minimum_size.x = 1080 - 48
 	mess.visible = "--messen" in OS.get_cmdline_user_args()   # 399.1: im Spiel nur mit dem Testmodus (Bildrate, Standort), wie alt FrameMeter
 	windrose = Windrose.new()                # 348.6 Runde 11 (Chefrunde 25.10., 11:48): rechts oben, Probeknoepfe darunter
 	windrose.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
@@ -177,11 +181,21 @@ func _ready() -> void:
 	text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	text.add_theme_constant_override("line_spacing", int(4 * Stil.SP))   # Zeilenhoehe 24 sp bei 17 sp
 	spalte.add_child(text)
+	# 583 (Abgleich 512b, „Sammel▼“): das ▼ lag unten rechts im Textbereich und damit auf der letzten Zeile; jetzt steht es unter
+	# dem Text im unteren Rand des Kastens (16 dp), rechts in den Seitenrand geschoben, und deckt nie ein Wort
+	var ecke := Control.new()
+	ecke.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	textfeld.add_child(ecke)
 	weiter_zeichen = Stil.zeile("▼", 12, Stil.GOLD)
 	weiter_zeichen.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	weiter_zeichen.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
+	weiter_zeichen.vertical_alignment = VERTICAL_ALIGNMENT_TOP
 	weiter_zeichen.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	textfeld.add_child(weiter_zeichen)
+	weiter_zeichen.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
+	weiter_zeichen.offset_left = -10 * AktionsKnopf.DP; weiter_zeichen.offset_right = 10 * AktionsKnopf.DP
+	weiter_zeichen.offset_top = 0; weiter_zeichen.offset_bottom = 0
+	weiter_zeichen.grow_horizontal = Control.GROW_DIRECTION_BEGIN
+	weiter_zeichen.grow_vertical = Control.GROW_DIRECTION_END
+	ecke.add_child(weiter_zeichen)
 	var blinken := Timer.new()
 	blinken.wait_time = 0.4
 	blinken.autostart = true

@@ -10,12 +10,12 @@ import os, re, sys
 from collections import defaultdict
 DOCS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "docs")
 je_bereich = defaultdict(float); je_klasse = defaultdict(float); ohne = 0; zeilen = 0
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import startbar  # 275.2: Spalten über den Kopf
 for dat in ("LISTE-VORGAENGE.md", "LISTE-VORGAENGE-ARCHIV.md"):
-    for l in open(os.path.join(DOCS, dat), encoding="utf-8"):
-        t = [x.strip() for x in l.split("|")]
-        if not (l.startswith("| ") and len(t) > 7 and t[1] not in ("Nr.", "---")): continue
+    for t in startbar.tafel_zeilen(open(os.path.join(DOCS, dat), encoding="utf-8").read()):
+        if t.get("nr") in startbar.SONDER: continue
         zeilen += 1
-        bereich, kl, kost = t[-6][:1] or "?", t[-5] or "?", t[-4]
+        bereich, kl, kost = t.get("bereich", "")[:1] or "?", t.get("kl") or "?", t.get("kosten", "")
         zahlen = [float(z.replace(",", ".")) for z in re.findall(r"(\d+(?:,\d+)?)\s*\$?", kost)]
         if not zahlen: ohne += 1; continue
         s = sum(zahlen); je_bereich[bereich] += s; je_klasse[kl] += s

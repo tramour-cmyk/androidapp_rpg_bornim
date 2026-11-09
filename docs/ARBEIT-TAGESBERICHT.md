@@ -5,56 +5,60 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 ## Zehn Zeilen
 
 <!-- zahlen -->
-**Stand 03.11., 07:56** (Werkzeug `tools/tagesbericht.py`)
+**Stand 09.11., 10:14** (Werkzeug `tools/tagesbericht.py`)
 
 | # | Kennzahl | heute | Bemerkung |
 |---|---|---|---|
-| 1 | Stufe | **Stufe 1 Kern spielbar**: 0 von 4 abgenommen, 4 gebaut, 0 in Arbeit | 36 Punkte in 6 Stufen: 0 abgenommen, 4 gebaut, 0 in Arbeit, 32 offen |
-| 2 | Seit gestern | abgenommen **0**, gebaut **4**, von dir zurück **0** | Vorgänge erledigt 24 h / 7 Tage: 36 / 129, davon Spiel (Entwicklung, Gestaltung, Texte, Design) 18 / 50; neu 66 / 241 |
-| 3 | Rest geschätzt | Stufe 1 gebaut, liegt dir in Build 204 vor (471 kommt mit 2.3). Bis zum Durchspiel-Build (Wochenziel 03.11.): neu aufgeteilt (Chef 07:54): Spike Wald, Tiefer Wald, Kampforte Wald, Untote etwa 18 Sitzungen; Jerry übrige Gegner und Kampforte Höhle etwa 18,5; Tom Blutzahnhöhle etwa 8 und Zufallsspieler (348.14 vom 26.10., dort mit Bilderrunden; ohne Feinarbeit weniger) | Sitzungen bis zur nächsten Stufe, Tom und Jerry, montags neu |
-| 4 | Wartet auf dich | **1 entscheiden**, **1 ansehen**, **2 tun** | ältestes: 142 seit 27.10., 20:07; [Chefsache](chefsache/README.md) |
-| 5 | Builds | Änderungen warten auf deinen Test: **30** (Tom 13, Jerry 17) | bei dir zum Testen: kein Build; höchstens 6 je Build (317) |
-| 6 | Fehler | **10** offen, davon 2 älter als drei Tage | offene Vorgänge des Spiels mit Fehler oder Befund im Titel, dazu jeder mit Build-Nummer (D55.3) |
-| 7 | Geld | Woche **53 %** (dein Bild 03.11., 07:16); gestern 644 $ Rechenwert, Spiel 67 % | Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal) |
-| 8 | Von dir zuerst gefunden | heute 2, beide beim Test von Build 204: Schalter für Musik und Effekte im Hauptmenü fehlen gegenüber der alten Fassung (07:07, 489, Jerry); Lizenzhinweis der Godot Engine fehlt unter „Über das Spiel“ (07:09, 497, Tom); Woche zählt Diogenes | Woche, zählt Diogenes montags |
-| 9 | Größtes Risiko | Tom hat neben der Höhle die Befunde aus Build 204 (497, 500, 501, 503); hinkt er, übernimmt Spike nach dem Wald einen Teil der Höhle; Perikles prüft die Verteilung täglich im Tagesbericht |  |
+| 1 | Stufe | **Stufe 1 Kern spielbar**: 0 von 4 abgenommen, 4 gebaut, 0 in Arbeit | 41 Punkte in 6 Stufen: 0 abgenommen, 4 gebaut, 6 in Arbeit, 31 offen |
+| 2 | Seit gestern | abgenommen **0**, gebaut **0**, von dir zurück **0** | Vorgänge erledigt 24 h / 7 Tage: 64 / 268, davon Spiel (Entwicklung, Gestaltung, Texte, Design) 40 / 184; neu 122 / 378 |
+| 3 | Rest geschätzt | Wochenziel 09.–15.11. „Der Kampf funktioniert“: Jerry hat 20 Kampfzeilen (717 in Arbeit), Tom 4 zum Helden, 2 übernommene, dazu 506 und das Lager der Höhle (492). (ganz unter „Eingaben“) | Sitzungen bis zur nächsten Stufe, Tom und Jerry, montags neu |
+| 4 | Wartet auf dich | **6 entscheiden**, **1 Build**, **1 tun** | ältestes: 623 seit 07.11., 20:13; [Chefsache](chefsache/README.md) |
+| 5 | Builds | Änderungen warten auf deinen Test: **20** (Tom 13, Jerry 7) | bei dir zum Testen: Build 271; ein Build nimmt alle fertigen Zweige (317) |
+| 6 | Fehler | **15** offen, davon 5 älter als drei Tage | offene Vorgänge des Spiels mit Fehler oder Befund im Titel, dazu jeder mit Build-Nummer (D55.3) |
+| 7 | Geld | Woche **10 %** (dein Bild 08.11., 08:44); gestern 729 $ Rechenwert, Spiel 75 % | Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal) |
+| 8 | Von dir zuerst gefunden | seit dem letzten Bericht (08.11., 09:18) aus Build 269 und 270 unter anderem 670, 679, 680 (Absturz), 681, 682, 683, 701, 702, 703, dazu heute 717 (08:51); die Woche 02.–08.11. zählt Diogenes im Prüfbericht | Woche, zählt Diogenes montags |
+| 9 | Größtes Risiko | Guthaben; seit 08.11., 20:42 steht die Woche auf Warnung (`allowed_warning`), Kür startet nicht mehr; dein letztes Bild (08.11., 08:44) sagte „Donnerstagnacht aufgebraucht“. Darum ruhen 54 Zeilen ohne Kampfbezug. Ein neues Bild der Nutzung zeigt, ob das reicht |  |
 | 10 | Ausführlich | [Abnahmeliste und Stand](PROJEKTPLAN.md) |  |
 
 | Rolle | offen | davon Muss | startbar | erledigt 24 h | erledigt 7 Tage |
 |---|---|---|---|---|---|
-| Tom | 65 | 47 | 16 | 5 | 15 |
-| Jerry | 61 | 49 | 8 | 15 | 21 |
-| Homer | 10 | 4 | 5 | 1 | 10 |
-| Sokrates | 36 | 26 | 16 | 3 | 24 |
-| Perikles | 32 | 29 | 2 | 12 | 48 |
-| Diogenes | 10 | 8 | 3 | 0 | 11 |
+| Tom | 101 | 78 | 1 | 28 | 89 |
+| Jerry | 73 | 65 | 3 | 6 | 76 |
+| Homer | 6 | 1 | 1 | 6 | 18 |
+| Sokrates | 62 | 37 | 38 | 6 | 29 |
+| Perikles | 37 | 19 | 1 | 11 | 53 |
+| Diogenes | 7 | 5 | 0 | 5 | 7 |
 <!-- /zahlen -->
 
-## Roadmap (447, von dir gebilligt 01.11. mit Stufe „Alle Systeme angelegt“; ohne Datum; jede Stufe ein Build, den du spielst; Stand 03.11., 07:1x)
+## Roadmap (447, von dir gebilligt 01.11. mit Stufe „Alle Systeme angelegt“; ohne Datum; jede Stufe ein Build, den du spielst; Stand 09.11., 10:1x)
 
 | Stufe | Was du spielen kannst | Punkte | Stand |
 |---|---|---|---|
-| **1 Kern spielbar** | Erschaffung nach dem BRS, Dorf und Wald, Kampf nach neuem Rechenmodell, Fertigkeiten durch Tun, Heldenstufe | 4 | gebaut; Erschaffung, Heldenstufe, Monsterwerte in Build 204 bei dir, Fertigkeiten kommen mit 2.3 |
-| **2 Kapitel 1 durchspielbar** | alle Orte bis Blutzahnhöhle, alle Quests, Bosse, Schleichen, Spähen, Rasten, je Herkunft eine Handlung | 12 | Dorf, Läden, Wolfskampf spielbar, Geschichte gebaut (390); Wald, Tiefer Wald, Höhle starten ab heute (Wochenziel 03.11., 490–496) |
+| **1 Kern spielbar** | Erschaffung nach dem BRS, Dorf und Wald, Kampf nach neuem Rechenmodell, Fertigkeiten durch Tun, Heldenstufe | 4 | gebaut (Einzelheiten unten) |
+| **2 Kapitel 1 durchspielbar** | alle Orte bis Blutzahnhöhle, alle Quests, Bosse, Schleichen, Spähen, Rasten, je Herkunft eine Handlung | 12 | in Arbeit; diese Woche nur der Kampf (Wochenziel 09.11.), Build 271 bei dir, Höhle fehlt (unten) |
 | **3 Alle Systeme angelegt** | Lehrmeister, Meisterschaften, Ruf, Herstellen und Sammeln, Abnutzung, Tiere beruhigen, Chronik, Gegenstandskatalog | 8 | Gegenstandskatalog angelegt (458: 88 Gegenstände, Texte von Homer); Rest offen |
-| **4 Kapitel 1 fertig** | Aussehen, Musik und Klang je Ort, Englisch, keine SRD-Namen, keine offenen Fehler | 10 | Figuren und Bewegungen in Arbeit, Klang: erst Tierlaute und Herzschlag gebaut |
-| **5 marktreif** | Kapitel 1 im Play Store | 1 | wartet auf Gewerbeschein (du, 142) |
+| **4 Kapitel 1 fertig** | Aussehen, Musik und Klang je Ort, Englisch, keine SRD-Namen, keine offenen Fehler | 10 | in Arbeit (unten) |
+| **5 marktreif** | Kapitel 1 im Play Store | 1 | in Arbeit: Gewerbeschein da (bescheinigt 05.11.); 142.4 von dir entschieden (07.11., 21:3x), D-U-N-S beantragen und Konto umstellen liegt bei dir (tun); AAB des Godot-Builds für Play bei Tom (622, startbar) |
 | **6 SRD im Code abgelöst** | nach dem Marktstart, für dich unsichtbar | 1 | – |
 
-## Wer hinkt (03.11., 07:1x)
+- **Stufe 1:** Build 204 von dir freigegeben (03.11., 07:45, 487); Fertigkeiten kommen mit 2.3; abhaken erst nach deiner Abnahme der Simulation 444 (Prüfung der Stufe), dazu liegt dir noch keine Vorlage vor; der Rechenkern nach dem BRS (478) ist in Build 269 bei dir zum Test.
+- **Stufe 2:** Builds 269 und 270 hast du am 08.11. getestet (Funde t269, t270, darunter 680 Absturz und die Kampffunde 682, 702, 703); Build 271 (09.11., 00:14) liegt bei dir, darin 656 Umhang (von dir „passt“, 06:57) und 703 Ausweichen. Seit deinem „Kampf zuerst“ (08.11., 21:36) ordnet das Wochenziel 09.11. beide Teams auf den Kampf; Höhle (492) nur noch bis zum Lager, Kampforte Höhle (507), Durchspiel-Build (496) und Nebel (505) ruhen bis zu deinem „Kampf passt“.
+- **Stufe 4:** Leute des Dorfs mit Gesicht (475, Läufe 1 und 2 von dir abgelehnt, 04.11.; seitdem nicht weiter, startbar); Robe im Build 269 (558, Zeile 269.13); Klang: Tierlaute, Herzschlag, Waldklang, Rattenstimme gebaut (575), Dorftiere hörbar in 269 (591); Effekte: Kauf der Pakete 623 A bei dir (tun); restliche Schirme ohne Kasten (630) startbar.
 
-- **Feinarbeit statt Spiel, nachts noch einmal:** Jerry ließ zu 438a (Hinfallen und Aufstehen) und 406 (Schild) von 23:13 bis 05:1x elf Läufe laufen (200–211 ohne 204, den Build; laut Jerrys Commits), dann griff 488. Seit 06:44 ist Feinarbeit am Aussehen eingefroren; 463 und 417 hast du heute früh mit „passt“ abgeschlossen, 406 mit „passt“ zusammen mit dem letzten Lauf 406.2.
-- **Rote Läufe** (464): seit 02.11., 22:2x 9 von 100 Läufen rot, alle auf Jerrys Zweig zu 438a (eingefroren). Ford schreibt die Tageszahl noch nicht ins Protokoll (D61.1).
-- **Guthaben:** dein Bild 03.11., 07:16: 53 % der Woche, das Konto sagt „am Donnerstagmorgen aufgebraucht“. Gestern 17 % statt 10 %, also heute eine Sitzung weniger (468a): Tom macht nur 417, 463 und 497 fertig, der Zufallsspieler (495) wartet; Spike und Jerry arbeiten weiter. Bis Sa 20:00 bleiben etwa 10 % je Tag.
-- **Flüsterwald hatte keinen Besitzer:** deine Antwort 479 A (Spike ab 03.11.) stand seit 20:14 ohne Zeile in einem Vorrat; seit 07:1x Vorgang 490 bei Team Tom (Spike), Ford hat den Start.
+## Wer hinkt (09.11., 10:1x)
 
-## Wo du Prioritäten setzen kannst (03.11., 07:1x)
+- **Wochenziel 03.–08.11. (Kapitel 1 durchspielbar) nicht erreicht** (Diogenes, Wochenzählung 09.11.): der Durchspiel-Build (496) wurde nicht gebaut, die Höhle (492) ist nicht fertig, Untote (506) sind in Arbeit. Das neue Wochenziel stellt den Kampf vor alles (dein Wort 08.11., 21:36).
+- **Tom sitzt fest:** 10 ungetestete Muss sperren ihn (620.1 B), seine Sitzung wartet seit 07:35 auf deinen Test von Build 271; Jerry darf nur seine „jetzt“ (717) bauen.
+- **Jerry trug den Kampf allein:** von den Kampfzeilen des Wochenziels lagen fast alle bei ihm; 560 (Monster drehen sich) und 680 (Absturz) gehen an Tom.
+- **Rote Läufe** (464): die Tageszahl fehlt weiter im Protokoll (D61.1, jetzt Vorgang 741 bei Ford, Kür).
 
-1. **Build 204 fertig testen** (t204): Stufe 1 (Erschaffung, Heldenstufe, Monsterwerte) wird erst mit deinem Test abnehmbar.
-2. **Wochenziel 03.11. „Kapitel 1 durchspielbar“** ([Projektplan](PROJEKTPLAN.md)): erst Flüsterwald, Tiefer Flüsterwald, Kampforte, Gegner, Blutzahnhöhle, dann der Durchspiel-Build; der Kampf darin rechnet noch alt, das BRS (2.3) folgt gleich danach. Sagst du „2.3 vorher“, kommen etwa 3–4 Sitzungen vor dein erstes Durchspielen.
-3. **Guthaben (dein Bild 07:16, 53 %):** kein Termin, das Guthaben setzt nur das Tempo: höchstens etwa 10 % je Tag, damit es bis Sa 20:00 ohne Stillstand reicht. Der Durchspiel-Build (etwa 45 Sitzungen) kommt, wenn er fertig ist; Flüsterwald und Waldgegner zuerst.
+## Wo du Prioritäten setzen kannst (09.11., 10:1x)
 
-*Stärkstes Gegenargument:* Befunde zum Kampf aus dem ersten Durchspielen gelten nur bedingt, weil 2.3 die Zahlen ändert. *Wie es zu entkräften ist:* Orte, Wege, Geschichte und Gegner hängen nicht an den Regeln, und Stufe 4 verlangt ohnehin ein zweites Durchspielen.
+1. **Build 271 testen** ([t271](chefsache/ansehen/t271-sammelbuild.md)): ein Weg durch Hauptmenü, Dorf, Laden, Tiefen Wald und Probekämpfe; darin 656 Umhang und 703 Ausweichen; erst dein Test löst die Sperre 620.1 B, vorher baut Tom nichts.
+2. **Bildschirmfoto der Nutzung schicken:** die Woche steht seit 08.11., 20:42 auf Warnung; ob das Ruhen von 54 Zeilen reicht, zeigt erst die neue Zahl (dein letztes Bild 08.11., 08:44).
+3. **743 entscheiden** ([743](chefsache/entscheiden/743-verwerfen-ideen.md)): 15 Ideen verwerfen, kostet dich eine Minute und hält den Ideenspeicher klein; drängt nicht.
+
+*Stärkstes Gegenargument zu 1:* Build 271 enthält viele Kleinigkeiten ohne Kampf (Menüs, Brett, Laden), deine Zeit ginge lieber in den Kampf. *Wie es zu entkräften ist:* ohne den Test bleibt Tom gesperrt, und die Kampfzeilen 656 und 703 liegen nur in diesem Build.
 
 ## Wie das Projekt aufgebaut ist
 
@@ -66,6 +70,6 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 
 Von Hand (Perikles), das Werkzeug übernimmt sie in die Zeilen 3, 8, 9.
 
-- Rest geschätzt: Stufe 1 gebaut, liegt dir in Build 204 vor (471 kommt mit 2.3). Bis zum Durchspiel-Build (Wochenziel 03.11.): neu aufgeteilt (Chef 07:54): Spike Wald, Tiefer Wald, Kampforte Wald, Untote etwa 18 Sitzungen; Jerry übrige Gegner und Kampforte Höhle etwa 18,5; Tom Blutzahnhöhle etwa 8 und Zufallsspieler (348.14 vom 26.10., dort mit Bilderrunden; ohne Feinarbeit weniger)
-- Von dir zuerst gefunden: heute 2, beide beim Test von Build 204: Schalter für Musik und Effekte im Hauptmenü fehlen gegenüber der alten Fassung (07:07, 489, Jerry); Lizenzhinweis der Godot Engine fehlt unter „Über das Spiel“ (07:09, 497, Tom); Woche zählt Diogenes
-- Größtes Risiko: Tom hat neben der Höhle die Befunde aus Build 204 (497, 500, 501, 503); hinkt er, übernimmt Spike nach dem Wald einen Teil der Höhle; Perikles prüft die Verteilung täglich im Tagesbericht
+- Rest geschätzt: Wochenziel 09.–15.11. „Der Kampf funktioniert“: Jerry hat 20 Kampfzeilen (717 in Arbeit), Tom 4 zum Helden, 2 übernommene, dazu 506 und das Lager der Höhle (492). Schätzungen in Sitzungen bringen Tom und Jerry mit der ersten Sitzung nach deinem Test von Build 271; die Schätzungen vom 03.11. (Höhle etwa 8, Untote etwa 8 Sitzungen) sind überholt.
+- Von dir zuerst gefunden: seit dem letzten Bericht (08.11., 09:18) aus Build 269 und 270 unter anderem 670, 679, 680 (Absturz), 681, 682, 683, 701, 702, 703, dazu heute 717 (08:51); die Woche 02.–08.11. zählt Diogenes im Prüfbericht
+- Größtes Risiko: Guthaben; seit 08.11., 20:42 steht die Woche auf Warnung (`allowed_warning`), Kür startet nicht mehr; dein letztes Bild (08.11., 08:44) sagte „Donnerstagnacht aufgebraucht“. Darum ruhen 54 Zeilen ohne Kampfbezug. Ein neues Bild der Nutzung zeigt, ob das reicht

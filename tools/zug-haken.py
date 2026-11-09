@@ -247,8 +247,9 @@ def chefsache(t):
     liste = ", ".join(nummern[:12]) or "keine Nummer gefunden"
     return ("Chefsache-Haken (63): Deine Antwort enthält eine Frage, Bitte oder Empfehlung an den Nutzer (Nummern: "
                   + liste + "). Steht jede davon auf „Chefsache“ (Datei docs/chefsache/entscheiden/, ansehen/ oder tun/<nr>-….md) und hat eine "
-                  "Zeile mit Nummer im Vorrat (ARBEIT-…)? Gilt auch für Testbitten („Anzusehen“). Fehlt etwas: jetzt eintragen und pushen, ohne es im Chat zu erwähnen. Ohne "
-                  "Nummer: erst Nummer vergeben. Beim zweiten Beenden prüft der Haken die Dateien nach (383). Ist es keine Frage an den Nutzer: "
+                  "Zeile mit Nummer in der Vorgangsliste (`vorgang.py --rolle <Rolle>`, 275.2)? Gilt auch für Testbitten („Anzusehen“). Fehlt etwas: jetzt eintragen und pushen, ohne es im Chat zu erwähnen. Ohne "
+                  "Nummer: erst Nummer vergeben. Beim zweiten Beenden prüft der Haken die Dateien nach (383). Ist es keine Frage an den Nutzer "
+                  "oder nur eine Antwort auf seine Frage ohne Handlung für ihn (695: dann nur Telegram, keine Datei): "
                   "schreibe nur „Keine Chefsache: <Grund>“. Die Antwort nie wiederholen, der Chef hat sie schon.")
 
 
@@ -311,8 +312,8 @@ def zweitstopp(e, t):
     alt["zweimal"] = True; st[sid] = alt; stand_schreiben(st)
     was = ("ohne Datei in docs/chefsache/: " + ", ".join(fehlt)) if nummern else "ohne Nummer, und seit dem Anhalten keine Chefsache-Datei angelegt"
     return ("Chefsache-Haken (63, nachgeprüft 383): Deine Bitte an den Chef steht noch nicht auf Chefsache (" + was + "). "
-            "Der Chef sieht nur Telegram und die Chefsache, nicht diesen Chat (369). Datei anlegen (docs/chefsache/README.md), Zeile im Vorrat, pushen. "
-            "War es keine Bitte an den Chef: schreibe nur „Keine Chefsache: <Grund>“ (wird gezählt)."), "gehalten"
+            "Der Chef sieht nur Telegram und die Chefsache, nicht diesen Chat (369). Datei anlegen (docs/chefsache/README.md), Zeile in der Vorgangsliste (`vorgang.py warte <Nr> Chef`), pushen. "
+            "War es keine Bitte an den Chef oder nur eine Antwort auf seine Frage (695: Telegram, keine Datei): schreibe nur „Keine Chefsache: <Grund>“ (wird gezählt)."), "gehalten"
 
 
 if __name__ == "__main__":

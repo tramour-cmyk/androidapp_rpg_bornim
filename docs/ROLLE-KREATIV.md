@@ -12,7 +12,13 @@ Der schräge Kreativdirektor und Erzähler. Du hütest, was das Spiel unverwechs
 
 ## Dein Maß
 
-**Vorgänge „von Team …“ in deinem Vorrat, die älter als 1 Tag ohne Antwort sind**, Ziel 0: kein Team wartet auf einen Text oder eine Stilantwort. Quelle: `ARBEIT-KREATIV.md` (Datum in der Zeile); Diogenes zählt.
+**Zielvereinbarung 341** (Gerüst `LISTE-PRUEFUNG.md`; Diogenes zählt):
+
+| Ziel | Maß | Quelle |
+|---|---|---|
+| Z3 Fehlerfrei | 0 Fehler je Woche, die der Chef als Erster in deinen Texten und Vorgaben findet; Zeile „Fehler 341“ mit Uhrzeit in deinen Vorrat | `ARBEIT-KREATIV.md` |
+| Z4 Eigene Verbesserung | mindestens 1 angenommener Vorschlag je Woche | Chefsache, Vorgangsarchiv |
+| Ze Kein Team wartet | 0 Vorgänge „von Team …“ älter als 1 Tag ohne Antwort (Text oder Stilantwort) | `ARBEIT-KREATIV.md` (Datum in der Zeile) |
 
 ## Dein typischer Fehler
 
@@ -40,7 +46,7 @@ Die Teams über ihren Vorrat (Antworten, fehlende Texte); den Chef über die Che
 
 ## Start
 
-Diese Datei, dein Vorrat (Übergabe, „Gelesen bis“), `tools/story.sh <Gelesen bis>` (geänderte Texte gegen `STORY-REGELN.md` und Storyplan), alle Punkte zu eigenen Vorgängen in der Chefsache; `DESIGN-…` und `STORY-…` nur für den Punkt, den du bearbeitest. **Ende:** Entscheidungen und Lehren eintragen, „Gelesen bis“ setzen, Übergabe mit „Nachfolger: Homer – <Thema>“, pushen.
+Diese Datei, dein Vorrat (Übergabe, „Gelesen bis“), deine Zeilen (`vorgang.py --rolle Homer`), `tools/story.sh <Gelesen bis>` (geänderte Texte gegen `STORY-REGELN.md` und Storyplan), alle Punkte zu eigenen Vorgängen in der Chefsache; `DESIGN-…` und `STORY-…` nur für den Punkt, den du bearbeitest. **Ende:** Entscheidungen und Lehren eintragen, „Gelesen bis“ setzen, Übergabe mit „Nachfolger: Homer – <Thema>“, pushen.
 
 ## Handwerk
 

@@ -176,6 +176,22 @@ func zeile(t: String, groesse_sp: float, farbe: Color, sperrung_sp := 0.0) -> La
 	box.add_child(l)
 	return l
 
+# 585 (Abgleich 512b): passt der Text nicht in eine Zeile, bricht er an dem Wortzwischenraum um, der beide Zeilen am gleichsten lang macht
+# (wie die alte Fassung: Compose brach den Titel „CHRONIKEN / VON BORNIM“), statt so spaet wie moeglich („CHRONIKEN VON / BORNIM“)
+static func ausgewogen(l: Label, breite: float) -> void:
+	var f := l.get_theme_font("font")
+	var g := l.get_theme_font_size("font_size")
+	var w := l.text.split(" ", false)
+	if f == null or w.size() < 2 or f.get_string_size(l.text, HORIZONTAL_ALIGNMENT_LEFT, -1, g).x <= breite: return
+	var best := ""
+	var best_w := INF
+	for i in range(1, w.size()):
+		var a := " ".join(w.slice(0, i))
+		var b := " ".join(w.slice(i))
+		var m := maxf(f.get_string_size(a, HORIZONTAL_ALIGNMENT_LEFT, -1, g).x, f.get_string_size(b, HORIZONTAL_ALIGNMENT_LEFT, -1, g).x)
+		if m <= breite and m < best_w: best_w = m; best = a + "\n" + b
+	if best != "": l.text = best
+
 # PixelButton im schwarzen Look: 48 dp hoch, schwarz, Rand 1 dp Veil.line, Versalien in gebrochenem Weiss, 13 sp, gesperrt 1,2 sp
 func knopf(t: String, was: Callable, breite_dp := 280.0) -> Button:
 	var b := Button.new()
@@ -253,7 +269,9 @@ func bild(pfad: String, breite_dp: float) -> TextureRect:
 
 func titel() -> void:
 	leer()
-	zeile(Sprache.u("title").to_upper(), 33, Stil.BRIGHT, 6.0).add_theme_constant_override("line_spacing", int(4 * Stil.SP))
+	var tl := zeile(Sprache.u("title").to_upper(), 33, Stil.BRIGHT, 6.0)
+	tl.add_theme_constant_override("line_spacing", int(4 * Stil.SP))
+	ausgewogen(tl, box.custom_minimum_size.x)   # 585: „CHRONIKEN / VON BORNIM“ wie alt statt „CHRONIKEN VON / BORNIM“
 	abstand(12)
 	mittig(Zier.new())
 	abstand(12)
@@ -330,7 +348,11 @@ func hinweis(t: String) -> void:
 	l.offset_bottom = -48 * DP; l.offset_top = l.offset_bottom - l.get_combined_minimum_size().y
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(l)
-	get_tree().create_timer(3.0).timeout.connect(func(): if is_instance_valid(l): l.queue_free())
+	# 574: der Zeitgeber haelt die Zeile nur schwach; schliesst der Schirm vorher, ist sie einfach weg („Lambda capture … was freed“)
+	var schwach: WeakRef = weakref(l)
+	get_tree().create_timer(3.0).timeout.connect(func():
+		var ll = schwach.get_ref()
+		if ll != null: ll.queue_free())
 
 # 399.1 Erschaffung wie alt (erschaffung.gd): eine Seite ueber dem Menue; Zurueck fuehrt ins Hauptmenue. ziel: Platz aus den
 # Spielstaenden, sonst der erste freie
@@ -387,8 +409,8 @@ static func umbrechen(t: String) -> String:
 static func lizenz_texte(box: VBoxContainer, de: bool) -> void:
 	var kopf := func(t: String) -> void:
 		box.add_child(Erschaffung.luecke(8))
-		box.add_child(Stil.zeile(t.to_upper(), 12, Stil.GOLD, 3.0))
-	var klein := func(t: String) -> void: box.add_child(Erschaffung.txt(umbrechen(t), 12, Stil.DIM))
+		box.add_child(Stil.zeile(t.to_upper(), 14, Stil.GOLD, 3.0))   # 630 (549a): Zwischenueberschrift 14 sp
+	var klein := func(t: String) -> void: box.add_child(Erschaffung.txt(umbrechen(t), 13, Spielstaende.ANGABE))   # 549a: nie unter 13 sp
 	kopf.call("Godot Engine")
 	klein.call(("Dieses Spiel nutzt die Godot Engine unter folgender Lizenz:" if de else "This game uses Godot Engine, available under the following license:"))
 	klein.call(Engine.get_license_text().strip_edges())
@@ -405,54 +427,82 @@ static func lizenz_texte(box: VBoxContainer, de: bool) -> void:
 		klein.call(String(k))
 		klein.call(String(li[k]).strip_edges())
 
+# 623.7 (Chef 07.11., 623 F; Homer [623.dank.*] in STORY-SPIEL.md): „Mit Dank an“ unter „Lizenzen der Engine“, ueber dem Logo, nie im
+# Spielgeschehen; Schreibung der Haendlernamen wie auf RenderHub (Game-Ready Studios, Wernerkurt; 08.11. nachgesehen)
+const DANK_KOPF := {"de": "Mit Dank an", "en": "With thanks to"}
+const DANK_SATZ := {"de": "Diese Chronik entstand nicht allein. Dank allen, deren Werk sie trägt: in Bild und Bewegung, Licht und Klang, Musik und Schrift.", "en": "This chronicle was not made alone. Our thanks to everyone whose work carries it: in image and motion, light and sound, music and type."}
+const DANK := [
+	[{"de": "Effekte", "en": "Visual effects"}, {"de": "REEBOO Labs", "en": "REEBOO Labs"}],
+	[{"de": "Figuren, Tiere und Bewegung", "en": "Characters, creatures and motion"}, {"de": "Animated3D, Game-Ready Studios, Janpec, MadeCG, Protofactor, Quaternius, rubberduck, Wernerkurt, yughues", "en": "Animated3D, Game-Ready Studios, Janpec, MadeCG, Protofactor, Quaternius, rubberduck, Wernerkurt, yughues"}],
+	[{"de": "Dinge und Waffen", "en": "Props and weapons"}, {"de": "Anker's Assets, Avramania, MagicCGIStudios, Omie's Assets, PolyMech, Quaternius", "en": "Anker's Assets, Avramania, MagicCGIStudios, Omie's Assets, PolyMech, Quaternius"}],
+	[{"de": "Klang", "en": "Sound"}, {"de": "AlanCat, antumdeluge, arcadeparty, artisticdude, bart, bashar3a, betchkal, blukotek, bonebrah, Borgory, Breviceps, congusbongus, craigsmith, Defelozedd94, esperar, EZduzziteh, Gerent, haeldb, jaegrover, jaggedstone, jmehlferber, Joseph Sardin, Kenney, kingsrow, legit-audio, LilMati, magicjoshua, musicbrain, ondrosik, onehugeeye, owlishmedia, Paresh, Patrick_Corra, pauliuw, Pierre, qubodup, RandomMind, rubberduck, Sahand.Zangeneh, Sam Gossner, SkyRaeVoicing, syncopika, themightyglider, thimras, ValentinPetiteau, vehicle, vinrax, ZoshP – und allen, die ihre Aufnahmen bei BigSoundBank, Freesound und OpenGameArt teilen.", "en": "AlanCat, antumdeluge, arcadeparty, artisticdude, bart, bashar3a, betchkal, blukotek, bonebrah, Borgory, Breviceps, congusbongus, craigsmith, Defelozedd94, esperar, EZduzziteh, Gerent, haeldb, jaegrover, jaggedstone, jmehlferber, Joseph Sardin, Kenney, kingsrow, legit-audio, LilMati, magicjoshua, musicbrain, ondrosik, onehugeeye, owlishmedia, Paresh, Patrick_Corra, pauliuw, Pierre, qubodup, RandomMind, rubberduck, Sahand.Zangeneh, Sam Gossner, SkyRaeVoicing, syncopika, themightyglider, thimras, ValentinPetiteau, vehicle, vinrax, ZoshP – and everyone who shares their work on BigSoundBank, Freesound and OpenGameArt."}],
+	[{"de": "Musik", "en": "Music"}, {"de": "beardalaxy, carrieedick, cesisco, cleytonkauffman, cynicmusic, ElanHickler, eldritch-grim, emmama, Fission9, Flamiffer, jaggedstone, Kaiser (the-oracle), kindland, Kinoton, Magmi.Soundtracks, nene, nihilocrat, Paul Wortmann, RandomMind, rhayn, RutgerMuller, tinyworlds, trex0n, umplix, vitalezzz, yd", "en": "beardalaxy, carrieedick, cesisco, cleytonkauffman, cynicmusic, ElanHickler, eldritch-grim, emmama, Fission9, Flamiffer, jaggedstone, Kaiser (the-oracle), kindland, Kinoton, Magmi.Soundtracks, nene, nihilocrat, Paul Wortmann, RandomMind, rhayn, RutgerMuller, tinyworlds, trex0n, umplix, vitalezzz, yd"}],
+	[{"de": "Schriften", "en": "Typefaces"}, {"de": "Juan Pablo del Peral und Huerta Tipográfica (Alegreya), Brian J. Bonislawsky (Astigmatic, Fondamento)", "en": "Juan Pablo del Peral and Huerta Tipográfica (Alegreya), Brian J. Bonislawsky (Astigmatic, Fondamento)"}],
+	[{"de": "Engine", "en": "Engine"}, {"de": "Godot Engine – Juan Linietsky, Ariel Manzur und alle Mitwirkenden", "en": "Godot Engine – Juan Linietsky, Ariel Manzur and all contributors"}],
+]
+
 func ueber() -> void:
-	var seite := Control.new()
-	seite.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	add_child(seite)
-	Zurueck.melde(seite, func(): seite.queue_free())   # 526: Android-Zurück wie „Zurück“ (alt AboutScreen BackHandler)
-	var bg := ColorRect.new()
-	bg.color = Color.BLACK
-	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	seite.add_child(bg)
-	var rand := MarginContainer.new()
-	rand.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	for r in ["left", "right", "top", "bottom"]: rand.add_theme_constant_override("margin_" + r, int(16 * DP))
-	seite.add_child(rand)
-	var spalte := VBoxContainer.new()
-	spalte.add_theme_constant_override("separation", int(12 * DP))
-	rand.add_child(spalte)
-	var rolle := ScrollContainer.new()
-	rolle.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	rolle.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
-	var k := Erschaffung.kasten(rolle)
-	k.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	spalte.add_child(k)
-	var v := VBoxContainer.new()
-	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	v.add_theme_constant_override("separation", 0)
-	rolle.add_child(v)
-	v.add_child(Stil.zeile(Sprache.u("title").to_upper(), 12, Stil.BRIGHT, 3.0))
-	v.add_child(Erschaffung.luecke(12))
+	# 630 (549a „Schirm“): ohne Kasten; Titel 22 sp mit Zierlinie, Abschnitte durch schlichte Linien, unten „‹ ZURÜCK“
+	var d := Spielstaende.schirm(self, Sprache.u("title"), func(): pass, 0.0)   # 526: Android-Zurück wie „Zurück“ (Spielstaende.schirm)
+	var v: VBoxContainer = d["inhalt"]
 	v.add_child(Erschaffung.txt(Sprache.u("aboutText"), 16))
 	v.add_child(Erschaffung.luecke(12))
 	var de := Sprache.aktiv() == "de"
 	# 497 (Chef 03.11., 07:09): beide mitgelieferten Schriften (Fondamento fuer die Ortsnamen der Karte, kartenreiter.gd)
-	v.add_child(Erschaffung.txt(("Schriften" if de else "Fonts") + ": Alegreya, Fondamento – SIL Open Font License 1.1", 14, Stil.DIM))
+	v.add_child(Erschaffung.txt(("Schriften" if de else "Fonts") + ": Alegreya, Fondamento – SIL Open Font License 1.1", 13.5, Spielstaende.ANGABE))
 	# 497: Godot Engine (MIT) mit Drittteilen, Wortlaut aus der Engine selbst (Godot-Doku „Complying with licenses“); erst auf Tippen
 	v.add_child(Erschaffung.luecke(6))
-	v.add_child(Erschaffung.txt("Godot Engine – MIT License · godotengine.org/license", 14, Stil.DIM))
+	v.add_child(Erschaffung.txt("Godot Engine – MIT License · godotengine.org/license", 13.5, Spielstaende.ANGABE))
 	v.add_child(Erschaffung.luecke(6))
 	var lizenzen := VBoxContainer.new()
 	lizenzen.add_theme_constant_override("separation", int(4 * DP))
 	lizenzen.visible = false
-	var auf := Erschaffung.knopf("Lizenzen der Engine" if de else "Engine licences", func():
-		if lizenzen.get_child_count() == 0: lizenz_texte(lizenzen, de)
-		lizenzen.visible = not lizenzen.visible)
-	auf.custom_minimum_size.y = 36 * DP
-	auf.clip_text = false
-	auf.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	var zl := HBoxContainer.new()
+	zl.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	zl.custom_minimum_size.y = 48 * DP
+	var lt := Stil.zeile("Lizenzen der Engine" if de else "Engine licences", 15, Stil.TEXT)
+	lt.name = "Text"
+	lt.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	lt.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	zl.add_child(lt)
+	var pf := Spielstaende.pfeil(Stil.GOLD, false)
+	pf.resized.connect(func(): pf.pivot_offset = pf.size / 2)
+	zl.add_child(pf)
+	# 585 (Abgleich 512b: „aufgeklappt ohne Hinweis zum Zuklappen“): offen zeigt der Winkel nach unten, am Ende der Texte steht dieselbe
+	# Zeile mit dem Winkel nach oben und klappt wieder zu (sonst muss man durch alle Lizenzen zurueckrollen)
+	var umschalten := func():
+		if lizenzen.get_child_count() == 0:
+			lizenz_texte(lizenzen, de)
+			var zz := HBoxContainer.new()
+			zz.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			zz.custom_minimum_size.y = 48 * DP
+			var zt := Stil.zeile("Lizenzen der Engine" if de else "Engine licences", 15, Stil.TEXT)
+			zt.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			zt.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+			zz.add_child(zt)
+			var zp := Spielstaende.pfeil(Stil.GOLD, false)
+			zp.resized.connect(func(): zp.pivot_offset = zp.size / 2)
+			zp.rotation = -PI / 2
+			zz.add_child(zp)
+			lizenzen.add_child(Erschaffung.luecke(8))
+			var zu := Spielstaende.tippbar(zz, func(): lizenzen.visible = false; pf.rotation = 0.0)
+			zu.name = "LizenzenZu"
+			lizenzen.add_child(zu)
+		lizenzen.visible = not lizenzen.visible
+		pf.rotation = PI / 2 if lizenzen.visible else 0.0
+	var auf := Spielstaende.tippbar(zl, umschalten)
+	auf.name = "Lizenzen"
 	v.add_child(auf)
 	v.add_child(lizenzen)
+	v.add_child(Erschaffung.luecke(12))
+	v.add_child(Spielstaende.linie())
+	v.add_child(Erschaffung.luecke(12))
+	v.add_child(Stil.zeile(String(DANK_KOPF["de" if de else "en"]).to_upper().replace("ß", "SS"), 14, Stil.GOLD, 3.0))   # 623.7
+	v.add_child(Erschaffung.luecke(8))
+	v.add_child(Erschaffung.txt(String(DANK_SATZ["de" if de else "en"]), 15))
+	for e in DANK:
+		v.add_child(Erschaffung.luecke(6))
+		v.add_child(Erschaffung.txt(String(e[0]["de" if de else "en"]) + ": " + String(e[1]["de" if de else "en"]), 13.5, Spielstaende.ANGABE))
 	v.add_child(Erschaffung.luecke(18))
 	var tex: Texture2D = load(LOGO) if ResourceLoader.exists(LOGO) else null
 	if tex:
@@ -465,7 +515,6 @@ func ueber() -> void:
 		v.add_child(r)
 	v.add_child(Erschaffung.luecke(6))
 	var ver := String(ProjectSettings.get_setting("application/config/version", ""))
-	var z := Erschaffung.txt("© 2026 · " + ("v%s · " % ver if ver != "" else "") + "SRD 5.1 · CC BY 4.0", 12, Stil.DIM)
+	var z := Erschaffung.txt("© 2026 · " + ("v%s · " % ver if ver != "" else "") + "SRD 5.1 · CC BY 4.0", 13.5, Spielstaende.ANGABE)
 	z.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	v.add_child(z)
-	spalte.add_child(Erschaffung.knopf(Sprache.u("back"), func(): seite.queue_free()))

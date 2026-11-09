@@ -10,7 +10,7 @@ const LANG_MIN := 8 * 60
 const BETRUNKEN := 5
 const MET_PREIS := 2
 const ZIMMER_PREIS := 5
-const START := {"karte": "inn", "x": 8, "y": 2, "blick": "DOWN"}   # Story.START: neben dem Bett der Schenke
+const START := {"karte": "inn", "x": 8, "y": 2, "blick": "DOWN"}   # Story.START: in der Schenke rechts oben (604: kein Bett mehr unten)
 
 # Game.interact, Texte dort ohne eigenen Namen (Game.kt Tile.CAMPFIRE, Tile.BED)
 const FEUER_HOEHLE := {"de": "Das Feuer der Goblins. Es ist viel zu gefährlich, hier in der Höhle zu rasten.", "en": "The goblins' fire. It is far too dangerous to rest here in the cave."}
@@ -62,13 +62,13 @@ static func rasten(z: Zustand, hw: Heldwerte, art: String, ort: String, ort_jetz
 		hw.voll()
 		z.leiden.clear()
 		z.lange_rast_tag = z.tag
-		zeilen.append(Sprache.r("longRested"))
+		zeilen.append(Sprache.r("longRested" if ort == "feuer" else "roomRested"))   # 604: das Zimmer liegt oben
 	else:
 		var vorher := hw.tp
 		hw.tp = mini(hw.max_tp(), hw.tp + kurz_heilung(hw))
 		zeilen.append(Sprache.r("shortRested", [hw.tp - vorher]))
 	if funkte: zeilen.append(Sprache.r("sparkFaded"))
-	# 114: ein Zimmer an Rowenas Theke gebucht: der Held wacht neben dem Bett auf, nicht an der Theke
+	# 114: ein Zimmer an Rowenas Theke gebucht: der Held wacht am Startplatz auf, nicht an der Theke (604: unten kein Bett)
 	var neu := ort_jetzt.duplicate()
 	if ort == "schenke" and String(ort_jetzt.get("karte", "")) == String(START["karte"]): neu = START.duplicate()
 	z.wiederkehr = neu.duplicate()
@@ -89,6 +89,15 @@ static func met_trinken(z: Zustand, name: String) -> String:
 	ausdauer_voll(z)
 	z.met += 1
 	return Sprache.r("drunkNow") if z.betrunken() else Sprache.r("meadDrunk")
+
+# 525 (Game.sellMeat, 139): Rowena kauft an der Theke alles rohe Fleisch zum Preis von Thessa und Morwen; null, wenn keins da
+static func fleisch_preis(z: Zustand, hw: Heldwerte) -> int: return z.anzahl("raw_meat") * Laden.verkaufspreis(hw, "raw_meat")
+
+static func fleisch_verkaufen(z: Zustand, hw: Heldwerte) -> String:
+	var n := z.anzahl("raw_meat")
+	if n < 1: return ""
+	Laden.new().verkaufe(z, hw, "raw_meat", n)
+	return Sprache.r("meatThanks")
 
 # Resting.rowenaSays: was Rowena sagt, wenn die Theke aufgeht; zweites = Zimmer statt Met
 static func rowena_sagt(z: Zustand, name: String, zweites: bool) -> String:

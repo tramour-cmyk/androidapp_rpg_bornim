@@ -248,7 +248,38 @@ Ernten ist eine kurze Tätigkeit ohne Minispiel. Fundorte wachsen nach einer Zei
 
 **Tragkraft:** Kraft bestimmt, wie viel der Held trägt. Früh im Spiel gibt es den **Nimmersatt-Beutel**, der die Tragkraft stark erhöht. Wer mehr trägt, wird langsamer; aufnehmen kann er trotzdem.
 
-## 11. Abnutzung und Reparatur
+## 11. Ausrüstung: Seltenheit, Abnutzung und Reparatur
+
+**Vier Achsen je Stück** (644 B, Chef 08.11.): Der Gegenstandskatalog beschreibt die Grundform („Langschwert“); was beim Fund gewürfelt oder beim Herstellen bestimmt wird, entsteht nach den Regelwerten (`tools/sim444/werte.json`; heute noch in `beute.gd`, Ablösung 644). Einzelstücke haben feste Werte.
+
+| Achse | Was sie bestimmt | Stufen |
+| --- | --- | --- |
+| Gegenstandsstufe | Stärke und Mindeststufe zum Tragen | wie die Heldenstufe |
+| Güte | wie gut es gemacht ist: hebt die Werte der Grundform (Schaden, Schutzwert) | Normal, Gut, Meisterhaft |
+| **Seltenheit** | wie viel Besonderes darin steckt: Zahl der Zusatzeigenschaften, Preis, Zeichen | sechs, unten |
+| Zustand | wie gut es noch wirkt | Makellos, Benutzt, Beschädigt, Defekt (unten) |
+
+Seltenheit und Güte sind getrennt: ein gewöhnliches Schwert kann meisterhaft geschmiedet sein, ein sehr seltenes nur normal. Die „Verbesserung +1“ der alten Fassung entfällt; sie geht in Güte und Runenkunde auf.
+
+**Seltenheit:**
+
+| Seltenheit | Zusatzeigenschaften | woran man sie erkennt | in Kapitel 1 |
+| --- | --- | --- | --- |
+| gewöhnlich | 0 | schlicht | ja |
+| ungewöhnlich | 1 | Material und Zeichen (455, 458.3) | als Beute ab Heldenstufe 2 |
+| selten | 2 | Material und Zeichen (Wicklung, Messing, blaue Steine) | nur Bosse und besondere Funde |
+| sehr selten | 3 | Material und Zeichen | nein |
+| episch | 4 | sichtbarer Effekt statt Färbung (458.3, 415) | nur als Einzelstück mit Geschichte |
+| göttlich | 5 | sichtbarer Effekt | nein |
+
+- **Zusatzeigenschaften** werden je Platz aus einer erlaubten Liste gewürfelt und sind gedeckelt (Regelwerte); bei Einzelstücken stehen sie fest im Katalog. Sie nennen nur BRS-Werte (Grundwerte, Schutzwert, Mana, Fertigkeiten …), keine Altwerte.
+- **„Fertigkeit +1“ oder „+2“** (eine Fertigkeit, solange das Stück getragen wird) gibt es nur ab episch. Der Preis ist die Seltenheit; ein Nachteil am selben Stück darf sein, muss nicht (644 C1, Chef 08.11., 14:32). Flüche nur bei Einzelstücken mit Geschichte (Homer).
+- **Mindeststufe je Seltenheit:** episch erst ab einer Gegenstandsstufe, göttlich ab einer höheren (Regelwerte).
+- **Seltenheitsdecke je Kapitel** (644 C2): in Kapitel 1 als Beute höchstens ungewöhnlich, Bosse und besondere Funde höchstens selten; spätere Kapitel heben die Decke Schritt für Schritt (heutiger Code, Startwert; Regelwerte).
+- **Preis** wächst mit der Seltenheit (Preisformel in den Regelwerten).
+- Alle Zahlen dazu (Gewichte, Decken, Mindeststufen, Preisfaktoren) sind Startwerte der alten Fassung und werden in der Simulation 444 gemessen, dann zum Chef; sie stehen nur in den Regelwerten.
+
+**Abnutzung und Reparatur:**
 
 - Ausrüstung hat einen **Zustand**: Makellos (neu gekauft, frisch hergestellt oder voll repariert), Benutzt, Beschädigt, Defekt (Vorschlag Chef 31.10., 21:5x). Mit sinkendem Zustand sinkt die Leistung. Das Spiel warnt rechtzeitig.
 - **Defekt statt zerstört:** Ein defekter Gegenstand wirkt nicht mehr, verschwindet aber nicht.
@@ -276,13 +307,14 @@ Folklore-Wesen (Goblin, Kobold, Skelett, Zombie, Ghul) und Tiere behalten ihre N
 
 ## 13. Offen
 
-- Monsterwerte Kapitel 1 sind entschieden (427, Chef 02.11.: `LISTE-BESTIARIUM.md` „Werte 2.0“); offen nur Krogg und Grimmzahn (427.1, nachmessen mit Überfall, Rudel, Umreißen) und die Herkünfte (481).
+- Monsterwerte Kapitel 1 sind entschieden (427, Chef 02.11.: `LISTE-BESTIARIUM.md` „Werte 2.0“); Krogg und Grimmzahn nachgemessen, Werte wie im Bestiarium gelten endgültig (427.1, Chef 02.11., 20:22; ersetzt „offen nur Krogg und Grimmzahn, nachmessen mit Überfall, Rudel, Umreißen“), mit zwei Bedingungen: Hinweis auf Morwens Rauch spätestens nach der ersten Niederlage gegen Krogg, Krogg erst abnehmen, wenn der Rauch im Spiel zu bekommen ist; offen nur die Herkünfte (481).
 - Profil (Entwurf C) ist entschieden (Entscheidung 76); offen bleibt nur die Reihenfolge der Bausteine über Taten und Chronik hinaus.
 - Umfang der Prüfungsquests beim Lehrmeister.
 - Wie die Grundwerte durch Fertigkeiten wachsen; Haupt- und Nebenwert für Spähen, Tiere beruhigen, Lederarbeit.
 - Rufstufen, Gefährten ohne Klassen, Niederlage, Übernahme alter Spielstände, Reparaturverlust, Abnutzungsrate.
 - Ruf und Lehrmeister (Abschnitt 9, D54.5).
 - Übrige Zahlen (Abschnitt 4: Helden, Übung, Erfahrung): gemessen mit Simulation 444, dann zum Chef.
+- Seltenheit (Abschnitt 11): beim Herstellen und beim Händler, ob und wie Rang und Material sie bestimmen; ob die Zusatzeigenschaft Magiefund (höhere Seltenheit beim Fund) bleibt; Liste der Zusatzeigenschaften in BRS-Werten (heute noch AC, SP, WIS, CHA …); bleibt die Namensfarbe je Seltenheit; göttlich heute mit fester Eigenschaft „alle Werte“; Ersatz für das „+1“ der Einzelstücke aus Kapitel 1 (Graks Kriegsaxt, Klinge von Bornim), wenn die Verbesserung entfällt.
 
 ---
 
@@ -384,6 +416,7 @@ Wie das zusammenhängt: Kräuterkunde ist eine **Fertigkeit** (Sammeln). Sie geh
 | Was | Wofür | Stufen | Wie man aufsteigt |
 | --- | --- | --- | --- |
 | Gegenstandsstufe und Güte | Stärke und Mindeststufe zum Tragen; Güte Normal, Gut, Meisterhaft | Stufe wie die Heldenstufe | Fund, Händler, Herstellen (Material und Rang der Handwerksfertigkeit) |
+| Seltenheit | Zusatzeigenschaften, Preis, Zeichen (seit 644 B; gilt: Abschnitt 11) | gewöhnlich bis göttlich | Fund, Beute, Einzelstück |
 | Zustand (Abnutzung) | wie gut ein Gegenstand noch wirkt | Makellos, Benutzt, Beschädigt, Defekt (wirkt nicht mehr, geht aber nicht verloren) | sinkt beim Gebrauch; Reparatur beim NPC oder selbst |
 
 Abnutzung und Reparatur: Reparieren ist keine eigene Fertigkeit mehr; Metall repariert die Fertigkeit **Schmieden**, Leder und Stoff die **Lederarbeit**. Ihr Rang bestimmt, was man reparieren kann (Anfänger: Werkzeug und Einfaches; Geselle: Metallwaffen, mittlere Rüstung, Schilde, Bögen; Meister: schwere Rüstung, Meisterstücke; Großmeister: magische Stücke mit Runenkunde). Für alle gibt es „Alles reparieren“ beim Handwerker.

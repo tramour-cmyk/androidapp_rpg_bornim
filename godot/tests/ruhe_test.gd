@@ -1,6 +1,6 @@
 extends SceneTree
 # 397: Gebiet.ruhe_naechste ohne Bild: nach Stehen kommt eine andere Ruhebewegung einmal, danach wieder Stehen (zwei- bis viermal);
-# ohne Stehen_2/Stehen_3 (ohne Kauf) bleibt es Stehen. Aufruf: im Ordner godot mit -s res://tests/ruhe_test.gd
+# ohne Stehen_2 (ohne Kauf) bleibt es Stehen; Stehen_3 (Muede) nie (592). Aufruf: im Ordner godot mit -s res://tests/ruhe_test.gd
 
 func spieler(namen: Array) -> AnimationPlayer:
 	var ap := AnimationPlayer.new()
@@ -28,7 +28,8 @@ func _init() -> void:
 		if n == "Stehen" and (float(r[1]) < 5.0 or float(r[1]) > 10.0): fehler += 1; print("FEHLER Dauer Stehen %s" % r[1])
 		if n != "Stehen" and absf(float(r[1]) - 2.5) > 0.001: fehler += 1; print("FEHLER Dauer %s %s" % [n, r[1]])
 		jetzt = n
-	if gesehen.size() != 3: fehler += 1; print("FEHLER nicht alle drei: %s" % gesehen.keys())
+	# 592 („592 so“): Stehen_3 (Muede, vornueber gebeugt) nur noch atemlos (held.gd), nie als Ruhe
+	if gesehen.size() != 2 or gesehen.has("Stehen_3"): fehler += 1; print("FEHLER Ruhe: %s" % gesehen.keys())
 	var nur := spieler(["Stehen"])
 	if Gebiet.ruhe_naechste(nur, "Stehen", z)[0] != "Stehen": fehler += 1; print("FEHLER ohne Kauf")
 	ap.free(); nur.free()

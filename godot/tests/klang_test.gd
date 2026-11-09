@@ -92,10 +92,32 @@ func _alles() -> void:
 	_pruef("Synthese lädt", k._strom("sfx/hit_slash_1") is AudioStream and k._strom("sfx/swing_heavy_3") is AudioStream)
 	_pruef("Klang je Effekt", k._fx_klang("BITE") == "bite" and k._fx_klang("SLASH", true) == "crit" and k._fx_klang("FIRE_BOLT") == "fire" and k._fx_klang("ARROW", true) == "arrow")
 	_pruef("Wolfsstimme", k.liste.get("sfx", []).has("wolf_angriff_1") and k.liste.get("sfx", []).has("wolf_tod_3"))
+	# 575: Ratte im Wolfskörper (aufruf.gd ART) spricht und beißt als Ratte
+	_pruef("Art statt Körper", KlangS.art_von({"id": "giant_rat", "koerper": "wolf"}) == "giant_rat" and KlangS.art_von({"id": "wolf"}) == "wolf")
+	_pruef("Rattenstimme da", String(k.kampftabelle.get("stimme", {}).get("giant_rat", {}).get("stimme", "")) == "giant_rat" and k.liste.get("sfx", []).has("giant_rat_angriff_1"))
 	_pruef("Mischung", is_equal_approx(KlangS.gain(100, 50), 0.25) and is_equal_approx(KlangS.gain(50, 50), 0.0625))
 	# Ortsklang (PlaceSound.kt, Ambience.kt, RiverSound.kt) und Raumklang (Room.kt)
 	_pruef("Ortsart", KlangS.ortsart_von("TOWN", "village") == "OUTSIDE" and KlangS.ortsart_von("INTERIOR", "inn") == "TAVERN"
 		and KlangS.ortsart_von("INTERIOR", "temple") == "HALL" and KlangS.ortsart_von("INTERIOR", "smithy") == "ROOM" and KlangS.ortsart_von("CAVE", "cave") == "CAVE")
+	# 517 Kleines Leben, ferne Laute (WildSound.kt)
+	_pruef("Wildart", KlangS.wild_art("FOREST", "deep_forest") == "DEEP_WOOD" and KlangS.wild_art("FOREST", "forest") == "WOOD"
+		and KlangS.wild_art("TOWN", "village") == "VILLAGE" and KlangS.wild_art("CAVE", "cave") == "CAVE" and KlangS.wild_art("INTERIOR", "inn") == "NONE")
+	var z := RandomNumberGenerator.new()
+	z.seed = 517
+	var wald_nacht := {}
+	for i in 300:
+		wald_nacht[KlangS.leben("WOOD", true, false, z)] = true
+	_pruef("Wald nachts Eule und Grillen", wald_nacht.has("owl") and wald_nacht.has("cricket") and wald_nacht.size() == 2, str(wald_nacht.keys()))
+	_pruef("am Tag Vögel, im Tiefen Wald keine", KlangS.leben("WOOD", false, false, z) == "bird" and KlangS.leben("VILLAGE", false, false, z) == "bird"
+		and KlangS.leben("DEEP_WOOD", false, false, z) == "" and KlangS.leben("DEEP_WOOD", true, false, z) == "cricket"
+		and KlangS.leben("VILLAGE", true, false, z) == "cricket" and KlangS.leben("WOOD", false, true, z) == "" and KlangS.leben("CAVE", false, false, z) == "")
+	_pruef("fern: Wolf im Tiefen Wald, Berg in der Höhle", KlangS.fern("DEEP_WOOD") == "wolf_far" and KlangS.fern("CAVE") == "rumble"
+		and KlangS.fern("WOOD") == "" and KlangS.fern("VILLAGE") == "")
+	var p_n := KlangS.fern_pause_ms("DEEP_WOOD", true, z)
+	var p_t := KlangS.fern_pause_ms("DEEP_WOOD", false, z)
+	_pruef("Wolf selten, am Tag seltener", p_n >= 60000.0 and p_n <= 150000.0 and p_t >= 120000.0 and p_t <= 300000.0, "%.0f %.0f" % [p_n, p_t])
+	var sei := KlangS.seite(z)
+	_pruef("von der Seite, nie geradeaus", absf(sei) >= 0.35 and absf(sei) <= 0.85 and is_equal_approx(KlangS.panner(0.5), 0.4))
 	_pruef("Knistern", KlangS.ziel(null, 6.0, 1.0, 0.5) == 0.0 and is_equal_approx(KlangS.ziel(1.0, 6.0, 1.0, 0.5), 0.5) and is_equal_approx(KlangS.ziel(3.5, 6.0, 1.0, 0.5), 0.25))
 	_pruef("nie ein Sprung", is_equal_approx(KlangS.naeher(0.0, 0.5, 0.5, 100.0, 1000.0), 0.05))
 	_pruef("Husten nur mit Gast", KlangS.ereignisse("TAVERN", ["innkeeper"]) == [["creak", 2]] and KlangS.ereignisse("TAVERN", ["innkeeper", "farmer"]).size() == 2
@@ -138,8 +160,62 @@ func _alles() -> void:
 	var kampf = k._spieler.filter(func(p): return p.playing)
 	var schleife: bool = kampf.size() == 1 and kampf[0].stream is AudioStreamOggVorbis and kampf[0].stream.loop
 	_pruef("Kampfmusik nach 0,8 s in Schleife", schleife and String(kampf[0].stream.resource_path).get_file().begins_with("kampf_"))
+	await _wald_517(k)
 	print("KLANG %d Fehler" % fehler)
 	quit(1 if fehler else 0)
+
+
+## 517: im Tiefen Wald nachts Grillen und von einer Seite ein ferner Wolf, am Tag dort nichts als Wind; im Wald nachts auch die Eule,
+## am Tag Vögel (WildSound.kt); die Uhr des Orts läuft hier ohne Warten (_ortsklang je 100 ms wie WorldScreen.kt)
+func _wald_517(k) -> void:
+	var sp := Node3D.new()
+	var skript := GDScript.new()
+	skript.source_code = "extends Node3D\nvar licht\n"
+	skript.reload()
+	sp.set_script(skript)
+	var lk := Node.new()
+	var lskript := GDScript.new()
+	lskript.source_code = "extends Node\nvar nacht := 1.0\n"
+	lskript.reload()
+	lk.set_script(lskript)
+	sp.set("licht", lk)
+	var held := Node3D.new()
+	sp.add_child(held)
+	root.add_child(sp)
+	k.spiele_szene("FOREST")
+	for fall in [["deep_forest", 1.0], ["deep_forest", 0.0], ["forest", 1.0], ["forest", 0.0]]:
+		var karte := _Probekarte.new({"kacheln": {".": {"name": "GRASS"}}, "daten": {"art": "FOREST"}, "breite": 3, "hoehe": 3, "zeilen": ["...", "...", "..."]})
+		karte.id = fall[0]
+		lk.set("nacht", fall[1])
+		k._karte = null
+		k.ort(karte, held)
+		var gehoert := {}
+		var fern := 0
+		var fern_seite := 0.0
+		for i in 1800:     # 3 Minuten
+			k._ortsklang(100.0)
+			for pl in k._effekte:
+				if pl.playing and pl.stream != null:
+					gehoert[String(pl.stream.resource_path).get_file().get_slice("_", 0)] = true
+			if k._fern.playing and k._fern.stream != null and k._fern.get_playback_position() < 0.15:
+				fern += 1
+				fern_seite = (AudioServer.get_bus_effect(AudioServer.get_bus_index("Fern"), 0) as AudioEffectPanner).pan
+			for pl in k._effekte + [k._fern]:
+				pl.stop()
+		var g := gehoert.keys()
+		g.sort()
+		var soll: bool
+		match fall:
+			["deep_forest", 1.0]:
+				soll = g == ["cricket"] and fern >= 1 and absf(fern_seite) >= 0.28
+			["deep_forest", 0.0]:
+				soll = g.is_empty() and fern >= 1     # am Tag halb so oft, in 3 Minuten mindestens einmal (2–5 Minuten Pause, das erste nach 20–60 s)
+			["forest", 1.0]:
+				soll = g == ["cricket", "owl"] and fern == 0
+			_:
+				soll = g == ["bird"] and fern == 0
+		_pruef("517 %s %s" % [fall[0], "nachts" if fall[1] > 0.5 else "am Tag"], soll, "%s, fern %d (Seite %.2f)" % [g, fern, fern_seite])
+	sp.queue_free()
 
 
 ## Eine kleine Karte wie skripte/karte.gd (zeichen, kacheln, daten, breite, hoehe) für feuer_weit
@@ -160,6 +236,9 @@ class _Probekarte:
 
 	func zeichen(t: Vector2i) -> String:
 		return String(zeilen[t.y][t.x])
+
+	func pos_kachel(p: Vector3) -> Vector2i:
+		return Vector2i(clampi(floori(p.x / 1.16), 0, breite - 1), clampi(floori(p.z / 1.16), 0, hoehe - 1))
 
 
 

@@ -37,7 +37,7 @@ def seit_text(m, pfad):
         if t == tag:
             return f"{tag}, {uhr}"
     return m.group(0)
-BEREICH = re.compile(r"^[EGQBM] [A-ZÄÖÜ]\w+$")
+BEREICH = re.compile(r"^[A-Z] [A-ZÄÖÜ]\w+$")  # D77: alle Bereichsbuchstaben der Vorgangsliste (C Kampf, F Firma …)
 WER = re.compile(r"^(?:Team )?(?:Tom|Jerry|Spike|Tuffy|Homer|Sokrates|Perikles|Diogenes|Ford)(?:\b.*)?$")
 
 
@@ -53,12 +53,16 @@ def anlage_zeit(pfad):
         return ""
 
 def vorgaenge():
-    """Bereich und Klasse je Nummer aus LISTE-VORGAENGE.md (124, 126, 136)."""
+    """Bereich und Klasse je Nummer aus LISTE-VORGAENGE.md (124, 126, 136); Spalten über den Kopf (275.2: Liste mit Feldern)."""
     pfad = os.path.join(ZUG, "..", "LISTE-VORGAENGE.md")
-    tafel = {}
+    tafel = {}; kopf = None
     for z in (open(pfad, encoding="utf-8").read().splitlines() if os.path.exists(pfad) else []):
-        t = [x.strip() for x in z.split("|")]
-        if len(t) > 4 and z.startswith("| "): tafel[t[1]] = (t[3], t[4])
+        if not z.startswith("|"): kopf = None; continue
+        t = [x.strip() for x in z.split("|")][1:-1]
+        if kopf is None:
+            kopf = t if "Nr." in t and "Bereich" in t and "Kl." in t else []; continue
+        if not kopf or set("".join(t)) <= set("-: ") or len(t) < len(kopf): continue
+        tafel[t[kopf.index("Nr.")]] = (t[kopf.index("Bereich")], t[kopf.index("Kl.")])
     return tafel
 
 VORGAENGE = vorgaenge()
@@ -82,7 +86,7 @@ REGELN = """## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
 - Anzusehen als Bildvorschau (228, kein Build): `ansehen/<nr>-<stichwort>.md`, Zeile 1 `# <Nr.> · <Thema> · <Team> · <TT.MM.>, <HH:MM>`, dann Bild aus `bilder/` und der Satz, was der Chef sagen soll.
-- Anzusehen (nur mit Build, Datei `ansehen/t<build>-<stichwort>.md`): Zeile 1 `# <Team oder „Tom und Jerry“> · Build <n> · <Version> · <Thema> · <PR>` (fehlt die Version, trägt die Action sie aus dem Lauf zum PR nach, 298), Zeile 2 `<Bereich, z. B. E Kampf> · <Team> · <TT.MM.>, <HH:MM> · <APK-Link>`, dann Tabelle `| # | Team | Nr. | Wo und wie | Richtig | Falsch |` (Spalte Team bei gemeinsamem Build) mit 3–6 Vorgängen (317, Ziel 4; weniger nur auf „jetzt“ des Chefs, Wort in der Datei) und konkreten Schritten („Tippe …, erwarte …“); davor ein Satz „Ein Weg: …; über Build <n−1> installieren“, Zeilen in der Reihenfolge dieses Wegs (`LISTE-BAUEN-TESTEN.md` „Gemeinsamer Build“). Sammelseite je Build: `## Build <n> · <Version> · <Thema> · <PR>`. Die Übersicht zeigt jeden Build als Zeile, nach Version sortiert (127); Abweichungen stehen unter „Lücken“.
+- Anzusehen (nur mit Build, Datei `ansehen/t<build>-<stichwort>.md`): Aufbau und Regeln nur in `LISTE-CHECK-BUILD-TEST.md` (657 D).
 - Zeile 1 `# <Nr.> · <Frage>`, Zeile 2 `<Absender> · <TT.MM.>, <HH:MM> · <Bereich> · …` (Bereich wie „B Abläufe“, 136); Vorrang = Klasse der Nummer in `LISTE-VORGAENGE.md`; eine Zeile `Kurz: …` ersetzt in der Übersicht die Frage. Dann in dieser Folge (364): **Frage**, **Votum** (was der Chef tun oder sagen soll), **Berührt** (Vorgänge); darunter kurz **Begründung**, **Sachverhalt** (belegt, mit Quelle), **Auswertung** (mit dem stärksten Gegenargument), **Folgerungen** (was danach geschieht, wer); zuletzt `Antwort: …`. Lange Teile in `<details>`.
 - Zu billigen (Vorentscheid, 194.1): `billigen/<nr>-<stichwort>.md`, Aufbau wie bei „entscheiden“, Votum = Entschieden, plus: Umgesetzt (Commit), Rückbau, Kosten; in der Auswertung bei Balance und Spielgefühl die verworfene Möglichkeit. Hält keine Arbeit an; Antwort „gebilligt“ oder „zurück“, Sokrates löscht die Datei und setzt „gebilligt TT.MM.“ oder „zurück TT.MM.“ in die Archivzeile.
 - Bilder in `bilder/`: JPG oder WebP, höchstens 800 px breit und 60 KB, höchstens 3 je Punkt. Größere Bilder und Hörproben nur über Telegram (`meldung.sh --datei`), in der Datei vermerkt: „Großbild: Telegram TT.MM. HH:MM“. Ablage im Zweig `bilder` als `bilder:<pfad>` (z. B. `[Film](bilder:pruefung/x.mp4)`); die Übersicht macht daraus Links, Filme spielen im Browser (381.1).
@@ -119,6 +123,9 @@ def eintrag(ordner, name):
     sort = (m.group(2) + m.group(1) + (m.group(3) or "")) if m else "0000"
     bereich, klasse = nachschlagen(nr)
     bereich = next((t.strip() for t in meta.split(" · ")[1:] if BEREICH.match(t.strip())), bereich)
+    tb = [x.strip() for x in was.split(" · ")]  # D77.1: Bereich in der Titelzeile („623 · … · C Kampf“) zählt als Bereich, nicht als „Was“
+    if len(tb) > 1 and any(BEREICH.match(x) for x in tb[1:]):
+        bereich = next(x for x in tb[1:] if BEREICH.match(x)); was = " · ".join(x for x in tb if not BEREICH.match(x))
     vorrang = KLASSE.get(klasse, klasse if klasse not in ("", "–") else "–")
     return (vorrang == "Muss", sort), f"| [{nr}]({ordner}/{name}) | {'**Muss**' if vorrang == 'Muss' else vorrang} | {bereich or '–'} | {seit} | {was.replace('|', '/')} | {wer} |"
 
@@ -186,6 +193,13 @@ def formfehler():
     """Testdateien in ansehen/ mit t<Build>-Namen: Team in Zeile 1, Bereichszeile („E Kampf · Team · TT.MM.“) als Zeile 2, Tabelle mit Spalten # | Nr. | Wo und wie | Richtig | Falsch."""
     pfad = os.path.join(ZUG, "ansehen")
     fehler = []
+    for o in ("entscheiden", "ansehen", "billigen", "tun"):  # D77.2: ohne Absender bleibt „Wer“ leer, jetzt gemeldet
+        d = os.path.join(ZUG, o)
+        for n in sorted(os.listdir(d)) if os.path.isdir(d) else []:
+            if not n.endswith(".md") or re.match(r"t\d+-", n): continue
+            try:
+                if eintrag(o, n)[1].split("|")[-2].strip() == "": fehler.append(f"{o}/{n}: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)")
+            except Exception: pass
     for n in sorted(os.listdir(pfad)) if os.path.isdir(pfad) else []:
         if not re.match(r"t\d+-.*\.md$", n): continue
         text = open(os.path.join(pfad, n), encoding="utf-8").read()
@@ -194,12 +208,11 @@ def formfehler():
         if any(re.sub(r" \d+$", "", t.strip()) not in TEAMS for t in re.split(r" und | \+ |/|, ", kopf.lstrip("# ").split(" · ")[0])): fehler.append(f"{n}: Zeile 1 beginnt nicht mit dem Team")
         if not re.match(r"[A-Z] \w+ · ", meta): fehler.append(f"{n}: Zeile 2 ist keine Bereichszeile")
         if not re.search(r"^\|\s*#\s*\|(\s*Team\s*\|)?\s*Nr\.\s*\|\s*Wo und wie\s*\|\s*Richtig\s*\|\s*Falsch\s*\|", text, re.M): fehler.append(f"{n}: Tabelle `# | Nr. | Wo und wie | Richtig | Falsch` fehlt")
-        else:  # 317: gemeinsamer Build bündelt 3–6 Vorgänge (Ziel 4), weniger nur auf „jetzt“ des Chefs
+        else:  # 317: gemeinsamer Build bündelt mindestens 3 Vorgänge, keine Obergrenze (Chef 07.11., 20:5x), weniger nur auf „jetzt“ des Chefs
             zeilen = [[c.strip() for c in x.strip("|").split("|")] for x in z if x.startswith("|") and not re.match(r"\|[\s|:-]*$", x)]
             sp = zeilen[0].index("Nr.") if zeilen and "Nr." in zeilen[0] else 1
             nrn = {r[sp] for r in zeilen[1:] if len(r) > sp and r[sp]}
-            if len(nrn) > 6: fehler.append(f"{n}: {len(nrn)} Vorgänge, höchstens 6 je Build (317)")
-            elif len(nrn) < 3 and "jetzt" not in text: fehler.append(f"{n}: nur {len(nrn)} Vorgänge; ein Build bündelt 3–6, weniger nur auf „jetzt“ des Chefs (317)")
+            if len(nrn) < 3 and "jetzt" not in text: fehler.append(f"{n}: nur {len(nrn)} Vorgänge; ein Build bündelt mindestens 3, weniger nur auf „jetzt“ des Chefs (317)")
         kopfzeilen = [kopf] + [x for x in z if re.match(r"## Build \d+ · ", x)]
         if not any(VERSION.search(x) for x in kopfzeilen): fehler.append(f"{n}: Version 0.1.<Laufnummer> (Godot 0.348.<Laufnummer>) fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)")
     return fehler
@@ -215,7 +228,7 @@ def ohne_link():
     return raus
 
 def luecken():
-    """D21.3: Vorratszeilen, die auf den Chef warten oder „Chefsache <Nr>“ nennen, ohne Datei hier (ARCHIV eingefroren, nicht gelesen)."""
+    """D21.3: Zeilen der Vorgangsliste, die auf den Chef warten oder „Chefsache <Nr>“ nennen, ohne Datei hier (275.2)."""
     texte = []
     for ordner in ("entscheiden", "ansehen", "billigen", "tun"):
         pfad = os.path.join(ZUG, ordner)
@@ -225,16 +238,17 @@ def luecken():
     def gestellt(nr):
         return re.search(r"(?<![\w.])" + re.escape(nr) + r"(?![\w])", alles) or re.search(r"(?<![\w])" + re.escape(nr.replace(".", "")) + r"-", alles)
     nicht, ohne = [], []
-    for n in sorted(os.listdir(DOCS)):
-        if not (n.startswith("ARBEIT-") and n.endswith(".md")) or n == "ARBEIT-ARCHIV.md": continue
-        wer = n[7:-3].replace("-", " ").title()
-        for z in open(os.path.join(DOCS, n), encoding="utf-8").read().splitlines():
-            if not z.startswith("| "): continue
-            nr = z.split("|")[1].strip()
-            if not re.fullmatch(NR, nr): continue
-            if "wartet auf Chef" in z and not gestellt(nr) and (nr, wer) not in nicht: nicht.append((nr, wer))
-            for c in re.findall(r"Chefsache (" + NR + r")\b", z):
-                if not gestellt(c) and (c, wer) not in ohne: ohne.append((c, wer))
+    try:  # 275.2: Zeilen der einen Liste mit Stand „Chef“ oder „wartet auf Chef[ <Datei>]“
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import startbar as _sb
+        _sb.DOCS = DOCS; _sb.neu_laden()
+        for d in _sb.zeilen_liste():
+            if d["wort"] == "erledigt" or not re.fullmatch(NR, d["nr"]): continue
+            chef = [t for t in d["warte"] if _sb.art(t) == "chef"]  # „Chef“ mit Datei, die weg ist, löst Automatik A (kein Lückenfall)
+            if d["wort"] == "Chef" and not chef and not gestellt(d["nr"]) and (d["nr"], d["besitzer"]) not in nicht: nicht.append((d["nr"], d["besitzer"]))
+            for c in re.findall(r"Chefsache (" + NR + r")\b", d["titel"] + " " + d["stand"]):
+                if not gestellt(c) and (c, d["besitzer"]) not in ohne: ohne.append((c, d["besitzer"]))
+    except Exception:
+        pass
     alt = []  # 275 (Chef 15:23): Vorlage in Überarbeitung bleibt nicht stehen
     for ordner in ("entscheiden", "ansehen", "billigen", "tun"):
         pfad = os.path.join(ZUG, ordner)
@@ -249,7 +263,7 @@ def luecken():
     form = formfehler()
     ohne_bild = ohne_link()
     if not nicht and not ohne and not form and not alt and not beantw and not ohne_bild: return ""
-    teile = ["## Lücken\n\nVom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.\n"]
+    teile = ["## Lücken\n\nVom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.\n"]
     if form: teile.append("Format (Muster: „So geht's“ unten): " + "; ".join(form) + "\n")
     if nicht: teile.append("Nicht gestellt: " + ", ".join(f"{nr} ({wer})" for nr, wer in nicht) + "\n")
     if beantw: teile.append("Beantwortet, Datei noch da (383.3: der Absender löscht sofort): " + ", ".join(beantw) + "\n")
