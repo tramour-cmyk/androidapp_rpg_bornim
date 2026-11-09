@@ -2,9 +2,9 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (08.11., 16:34, Ford `session_01Hmoj78bPzZELavxMGXUqB2`, Selbstneustart):** Getan: Uhr getauscht, Startmeldung mit Archiviersatz. Laufend: Tom (605), Jerry (623.5 Film, 680, 682, 679), Sokrates (654, 09.11.); Spike, Tuffy bewusst nicht (Guthaben-Tempo); Spike 613 wartet auf 613.1. Offen: Abgleich-Warnung 416.4 (Tom). Nachfolger: Ford – Betriebsleiter.
+**Übergabe (09.11., 01:05, Ford `session_01Hmoj78bPzZELavxMGXUqB2`, Selbstneustart):** Getan: Archivieren gilt (Chef 18:06 „Archivier alles ordentlich“), alle fertigen Sitzungen archiviert und gebucht. Kurzzeilen-Status „running“ = „working“ (kosten.py fest, 693.1). Woche seven_day `allowed_warning` (20:42): `lauf.py --nur-muss`. Laufend: Jerry 682/Sammelbuild 271, Tom 656, Sokrates (Stellungnahme). `startbar.py` liest bei „ab TT.MM.“ nur das Datum: Diogenes „Woche“ erst 8 Uhr, Perikles 398/338.1 erst 10 Uhr, Sokrates Stellungnahme erst 8 Uhr, bis dahin Starts mit `--ohne NR:Grund` auslassen; nachts (22–7) nichts Neues. Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 711** (zuletzt 710 Sokrates 08.11. 22:06:39 6920) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 712** (zuletzt 711 Sokrates 08.11. 22:17:42 a40c) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford“ (Tiefe 3, Selbstneustart 08.11., 16:32) `session_01Hmoj78bPzZELavxMGXUqB2`; Stundenuhr „Ford-Lauf“ `trig_0192Ku4UCzma7ogL6TyUCvhd` (:03); der Nachfolger legt seine Uhr an, löscht diese und archiviert diese Sitzung (idle, >60 s, Kosten buchen). Alter Ford `session_01Hmoj78NKRazEf1Gp5XtnWY` (6,73 $, Uhr gelöscht) wartet auf den Archiviersatz des Chefs (Meldung 16:34); `session_01Hmoj76HFnAA46mUTzwaQoK` ist schon archiviert. Vorheriger Ford archiviert 07.11., 14:04, 28,50 $ auf Betrieb.
+- **Ford lebt in einer Sitzung** „Ford“ (Tiefe 4, Selbstneustart 09.11., 01:05) `session_01Hmoj76jJSNHHX8bmPvFvzZ`; Stundenuhr „Ford-Lauf“ `trig_019Z6S8zr9Ac7NCtVTwXv9Nu` (:03); der Nachfolger legt seine Uhr an, löscht diese und archiviert diese Sitzung (idle, >60 s, Kosten per `get_session` lesen und buchen). Vorheriger Ford (08.11., 16:32) archiviert 09.11., 01:06, 7,46 $ auf Betrieb gebucht. Tiefe 4: Selbstneustart nur noch bis Tiefe 5 (110).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 
 ## Eingang
@@ -77,16 +77,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:26 05.11.: Neustart Tom 10e563a7b/e5425749c → `3f5FQ` „492: Blutzahnhöhle“ (zuerst fälschlich „580–583“ gestartet, nach Berichtigung von Tom umbenannt und umgestellt); alter Tom `7cE3` archiviert, **72,19 $ auf 512b in 80 Minuten** (sonst etwa 15–25 $, 5,85 Mio Cache-Schreibtoken): Tagesbericht prüft.
 - 08:06 05.11.: Diogenes `eHWFv` (578/512b, 1,08 $) und Perikles `RRw` (Tagesbericht, 5,86 $) fertig, archiviert, gebucht; kein Nachfolger (468a). Tom 512b läuft. Morgenmeldung 07:05 gesendet; Bild der Nutzung steht aus.
 - 07:05 05.11.: Lauf `--nur-muss`: gestartet Tom 512b, Perikles Tagesbericht 05.11. Abweichung vom Plan (468a, 468c): Jerry 512b (gleiche Zeile wie Tom), Spike 569, Tuffy 565 (ruht) nicht gestartet, Sokrates-Stellungnahme nicht (Sokrates läuft, idle). Startmarken stehen trotzdem.
-- 20:06 07.11.: Startsperre 20:06 Start Diogenes, Homer, Perikles (lauf.py; Tom nicht gestartet: Pause Prüfliste, Sokrates-Stellungnahme an Chef-Sokrates statt Neustart)
-- 20:06 07.11.: Marke Tagesbericht 07.11. (lauf.py)
-- 20:06 07.11.: Marke Tagesbericht fehlt 07.11. (lauf.py)
-- 20:06 07.11.: Marke Stellungnahme Sokrates 07.11. (lauf.py)
-- 20:06 07.11.: Marke Wächter 591 06.11. 08:07 (lauf.py)
-- 20:06 07.11.: Marke Wächter 478 07.11. 16:37 (lauf.py)
-- 20:06 07.11.: Nachfolger-Warnung Diogenes (Übergabe 05.11., 07:19) (lauf.py)
-- 21:04 07.11.: Startsperre 21:04 Start Tom, Jerry, Diogenes, Homer, Tuffy (lauf.py)
-- 23:39 07.11.: Startsperre 23:39 Start Homer (lauf.py; Tom, Jerry, Diogenes nicht gestartet: nachts, Nachfolger „ab 7 Uhr“ bzw. „nur auf Zuruf“; Sokrates-Stellungnahme an Chef-Sokrates)
-- 23:39 07.11.: Marke Stellungnahme Sokrates 07.11. (lauf.py)
 - 09:06 08.11.: Startsperre 09:06 Start Diogenes, Perikles, Spike, Tuffy (lauf.py)
 - 09:06 08.11.: Marke Stellungnahme Sokrates 08.11. (lauf.py)
 - 09:06 08.11.: Marke Wächter 499 07.11. 21:31 (lauf.py)
@@ -132,3 +122,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:40 08.11.: Startsperre 21:40 Start Jerry, Tuffy (lauf.py)
 - 21:40 08.11.: Marke Archiv session_01Hmoj77CKdvoeF2B2rfiyzX (lauf.py)
 - 22:03 08.11.: Startsperre 22:03 Start Tom, Perikles (lauf.py)
+- 23:03 08.11.: Marke Archiv session_01Hmoj78gU5W9vAuVxjTNHQ7 (lauf.py)
+- 00:03 09.11.: Startsperre 00:03 Start Diogenes, Perikles (lauf.py)
+- 00:03 09.11.: Marke Stellungnahme Sokrates 09.11. (lauf.py)
