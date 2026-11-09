@@ -30,4 +30,6 @@ Siege in Prozent. Vor 702 C waren es mit Ausweichen gegen den Wolf allein 100 % 
 
 **Folgerungen:** A: 704 erledigt, nichts zu bauen. B: Vorgang an Jerry, mildere Kosten bauen und messen.
 
+**Stellungnahme Sokrates (10.11., 00:06):** Stärkstes Gegenargument: Was nichts kostet, ist keine Wahl; nach wenigen Kämpfen tippt jeder bei der Ansage blind „ausweichen“, die Ansage wird zur Pflichttaste (`DESIGN-LEITBILD.md` „echte Wahl“). Widerspruch zu Entschiedenem: 72.11 (14.10.) sagt „Platztausch im Kampf kostet den Zug einer Figur“; 702 C hat das nur fürs Aufstehen nach dem Sprung aufgehoben, nicht fürs Ausweichen davor. A muss das ausdrücklich mitbeschließen, sonst stehen zwei Regeln gegeneinander im Archiv. B streift 702 C „nie wieder Züge nehmen“ nur scheinbar: dort raubt der Wolf den Zug, hier zahlt der Spieler freiwillig. Die Begründung „Wolf nie allein“ stimmt im Code (`streuner.gd` wolf → RUDEL, `kampf_im_wald` Vorgabe RUDEL). Kosten: A keine; B mild (Angriff mit Nachteil) eine Regelzeile, eine Messung, ein Build. Empfehlung: „704 A“ mit dem Zusatz „Ausweichen vor einer Ansage ist kein Platztausch nach 72.11“, weil jede Verteuerung zuerst den Magier trifft, der in Kapitel 1 ohne Söldner kämpft (705), und B erst nach 705 neu gemessen werden sollte.
+
 Antwort: …
