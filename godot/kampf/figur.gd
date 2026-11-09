@@ -1213,8 +1213,11 @@ static func _rampe(x: float, t: float, r: float) -> float:
 
 ## 438: Gehen und Rennen im Tempo des Rumpfs (Tempo der Bewegung = Weg je Sekunde / Weg der Schleife), sonst Tempo 1
 var _sync_v := 0.0     # 438: Tempo des Rumpfs im letzten Bild (m/s)
+## 560 (Chef 08.11., 20:47, t270.7: Grimmzahn „dreht auf der Stelle wie ein Zinnsoldat“): auf der Karte (Ersatz-Kampfort Streuner.Stub)
+## traegt ein anderer Knoten die Figur (streuner.gd, leute.gd Grimmzahn) und stellt das Tempo selbst (Tritte beim Wenden, Schrittzeit);
+## die Figur steht in ihm still, hier gemessen 0 m/s, und bremste jedes Gehen auf 0,15 (tests/tritte_560.gd)
 func _schritt_sync(dt: float) -> void:
-	if anim == null or weg.is_empty() or down or dt <= 0.0:
+	if anim == null or weg.is_empty() or down or dt <= 0.0 or kampfort is Streuner.Stub:
 		return
 	var cur := String(anim.current_animation)
 	if cur in ["Gehen", "Rennen"] and weg.has(cur) and _sync_vor != Vector3.INF:
