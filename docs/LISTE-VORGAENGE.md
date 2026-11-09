@@ -268,7 +268,7 @@
 | 754 | D99.1 von Diogenes: lauf.py startet Nachfolger „auf Abruf“ trotzdem, wenn alle startbaren Zeilen der Rolle mit --ohne ausgeschlossen sind (641) | Perikles | K | erledigt, greift Lauf 106 | – | – | – | B Abläufe | – |
 | 755 | D101.1 von Diogenes: nach „greift“ hat 724 keinen Zustand; Zeile bleibt „wartet auf Diogenes“, Perikles sieht nichts, Weiter-Haken schickt Diogenes zweimal zurück (464, 275), „wartet auf Perikles“ lehnt vorgang.py ab (auf sich selbst) | Perikles | M | erledigt, greift Lauf 109 | – | – | – | B Abläufe | – |
 | 759 | Rollenspiegel 06.11. für Sokrates, Homer, Ford, Diogenes, Tom, Jerry nachholen (715 holte nur Perikles nach) und Wochentermin Fr je Rolle eine Zeile statt einer für alle bei Perikles (Sokrates nach Chef 09.11., 14:36) | Perikles | M | erledigt | – | – | – | B Abläufe | – |
-| 775 | D105.1 von Diogenes: 774 Commit-Prüfung übersieht Prüflistenzeilen mit mehreren Nummern („540, 583“) und mit Haken in der ersten Spalte („269.1 ✓“); in t269 26 von 28 Zeilen | Perikles | M | erledigt, greift Lauf 110 | – | – | – | B Abläufe | – |
+| 775 | D105.1 von Diogenes: 774 Commit-Prüfung übersieht Prüflistenzeilen mit mehreren Nummern („540, 583“) und mit Haken in der ersten Spalte („269.1 ✓“); in t269 26 von 28 Zeilen | Perikles | M | erledigt, greift Lauf 110 | – | – | – | B Abläufe | 4,97 $ |
 | 776 | D108.1 von Diogenes: 749 hebt „von Ford (464)“ je rotem Lauf auf (Commit 8a4abf110), ROLLE-BETRIEB.md Zeile 29 verlangt sie weiter samt Tageszahl im Protokoll (461b: neu ersetzt alt im selben Commit) | Perikles | M | erledigt, greift Lauf 110 | – | – | – | B Abläufe | – |
 | 777 | D108.2 von Diogenes: tagesbericht.py rote_laeufe zählt Zweige spike-/tuffy- als „Sonst“ statt Tom/Jerry (ROLLE-BETRIEB 464: spike → Tom, tuffy → Jerry); 7 Tage: 3 so | Perikles | K | erledigt, greift Lauf 110 | – | – | – | B Abläufe | – |
 | 750 | Ford startet ohne lauf.py (seit Selbstneustart 01:05 startbar.py plus create_session von Hand): Sperre per Haken vor create_session (Chef 13:28) | Perikles | M | gebaut, Geprüft an: cbb745d9d (Perikles, Tom, Homer ohne Sperre → angehalten; fremder Titel frei) | Diogenes | – | – | B Werkzeuge | – |
@@ -352,7 +352,7 @@
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +857,14 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 767 | Wochentermin 13.11.: Rollenspiegel Ford (rollenspiegel.sh Ford) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Ford | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 09.11.): 27120 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 09.11.): 27227 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |

@@ -21,8 +21,6 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 ## Einzelheiten
 
-- **Zu 782, von Team Tom (09.11., 17:38):** 697 (Held im Drehteller halbtransparent) ursächlich nachstellen: `PROBE=697 xvfb-run godot --rendering-method gl_compatibility -s res://tests/_alpha_697.gd` misst Alpha eines deckenden Netzes (Standard, toon, toon mit Schablone 2, wie der Held) im durchsichtigen SubViewport wie `drehteller.gd`, dazu zusammengesetzt vor weißem und schwarzem Grund; nur Zahlen. Der Lauf 17:38 brach beim Laden ab (Klassen nicht importiert), zählte aber. Bitte Archiveintrag „697, Läufe frei“ (ein Lauf).
-
 - **Zu 461b.4:** Köpfe von `DESIGN-SPIELSYSTEM-2-0.md` (Zeile 3, Nr. 24), `LISTE-BESTIARIUM.md` (Zeile 3), `DESIGN-KAMPF.md` (Zeile 3) gegen Entscheidung 84; Säureschnecke mit Jerry (461b.1); Anhänge „→ ersetzt durch …“ im Archiv, wo dein Helfer den Ersatz fand: 376.1 (11:19), 72o, 72o.1, 348.12 (26.10.), 348.9 (13:26), 72.8, 414, F3/F4 Datum (Zu 461b; 415c, 480, 362, 418 hat Perikles gesetzt).
 - **Zu 512 (Chef 23:26–23:28):** „Den angewiesenen Vergleich mit der alten Fassung hat ja eh keiner gemacht …“, „Sonst wäre es ja vorher aufgefallen, dass es nicht passt …“. Ursachen: Regel nur für berührte Schirme, nie berührte (Ausrüstung) vergleicht keiner; Abgleich 248 nur Bilder, Laden berührt und Rückfrage trotzdem übersehen. Schritt 1 Regel: Fenster und jede Bedienung mit, Zeile „verglichen“ in der Prüfliste. Schritt 2: einmal alle Menüschirme alt gegen neu, Funde als Vorgänge an Team Tom.
 

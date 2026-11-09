@@ -4,7 +4,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D110 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (09.11., 18:1x):** Läufe 95–110: Werkzeugvorgänge Bereich B geprüft und geschlossen (464 bis 16.11.); 783 begonnen: Rohfunde von zwei Clustern als Lauf 111 im Prüfbericht. Nachfolger: „Diogenes – 783: Widersprüche listen, Fortsetzung“ (Cluster Betrieb/Projekt nachholen, Funde prüfen, Chefsache und Liste an Perikles).
+**Übergabe (09.11., 18:1x):** Läufe 95–110: Werkzeugvorgänge Bereich B geprüft und geschlossen (464 bis 16.11.); 783 begonnen: Rohfunde von zwei Clustern als Lauf 111 im Prüfbericht. Nachfolger: „Diogenes – 783: Widersprüche listen, Fortsetzung“ (alle drei Cluster als Rohfunde da; Funde prüfen, Chefsache mit den offenen, Liste an Perikles).
 
 ## Zeilen
 
