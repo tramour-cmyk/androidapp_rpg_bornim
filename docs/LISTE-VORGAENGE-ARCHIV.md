@@ -898,3 +898,8 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 799 | Vorlagen nach 364: Muster MUSTER.md und Haken, der entscheiden/ und billigen/ ohne die acht Teile ablehnt; Übersicht meldet Altbestand (Chef 09.11., 20:35 und 20:46, über Sokrates) | B Werkzeuge | M | 4,39 $ | Perikles | erledigt, greift Lauf 121 |
 | 808 | D122.1 von Diogenes (796, 783 W5): CLAUDE.md Zusammenarbeit 3 hängt „außer Vorentscheid Sokrates“ an „Code auf main“; ROLLE-BERATUNG 52 lässt Code auf main beim Chef, W5 meint Abläufe, Balance, Spielgefühl | B Abläufe | M | – | Perikles | erledigt |
 | 809 | D122.2 von Diogenes (796, 783 W3): LISTE-GLOSSAR Zeile Übernahme „wenn es nichts Startbares hat“, nach W3 „kein startbares Muss, vor eigener Kür“ | B Abläufe | M | – | Perikles | erledigt |
+| 773 | Sammelbuild 272: alle fertigen Zweige beider Teams (Tom 5, Jerry 6: u. a. 656, 717, 717.1, 682, 702), Prüfliste ansehen/t272, build 272 --mit für alle (von Perikles, 15:31: sonst wartet jeder auf den anderen) | E Technik | M | 11,84 $ | Tom | erledigt |
+| 801 | Freigabe add_repo für bornim-kaufmodelle in den Sitzungseinstellungen (Zugriffsprüfung lehnte 376.1 ab; Jerry 09.11., 662) | E Kampf | M | – | Jerry | erledigt |
+| 772 | D89.2 von Diogenes (über Perikles): Glossar ohne „Vorgang beim Chef“ (480); „steht in“ zeigt meist auf CLAUDE.md | B Abläufe | K | – | Homer | erledigt |
+| 810 | Name der achten Fertigkeitsgruppe im Reiter: Chef sagt „Handwerk“, BRS „Meisterschaften“ (aus 762, Sokrates, Chef 09.11., 21:25) | G Stil | M | – | Homer | erledigt |
+| 623.8 | Effektpakete für eine lebendige Welt: Reihenfolge Dorf, Wolfskampf, Wald; Bilder/s-Grenze, Farben gedämpft (Chef 09.11., 21:07) | G Stil | M | 0,39 $ | Sokrates | erledigt |
