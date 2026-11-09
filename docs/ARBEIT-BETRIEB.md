@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (09.11., 22:32, Ford `session_01Hmoj7684czZostW4Q5YTcw`, Selbstneustart):** Getan: Wechsel Tom 762, Jerry 562, Sokrates 620, Perikles 797, Diogenes 799 ausgeführt, alte Sitzungen archiviert und gebucht. Pacing (Chef 09.11., 07:15): `lauf.py --nur-muss`; Spike/Tuffy nur für Kampf-Muss oder Kleines, Oberfläche (Spike 683) ausgenommen. Laufend: Tom 762, Jerry 562, Homer 810, Spike 781, Tuffy 562 (wartet auf Messung, Jerry stimmt ab), Sokrates 620, Perikles 797, Diogenes 799. Offen: Tuffy 562 und Spike 781 archivieren, wenn idle. Sokrates-Sitzungen wachen auf Nachrichten des Chefs wieder auf: vor dem Archivieren `get_session` prüfen. Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 822** (zuletzt 821 Sokrates 09.11. 22:45:32 d0a2) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 824** (zuletzt 823 Jerry 09.11. 23:15:20 ddd1) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -64,6 +64,8 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 22:58 09.11.: Tom-Browser 79Sz und Sokrates 7A3w archiviert und gebucht (Sokrates-Auftrag, Chef 22:48)
+- 22:55 09.11.: Archiv-Satz des Chefs (22:50) erhalten, 820 erledigt; alte Fords, Jerry 2x, Diogenes 799, Tuffy 562 archiviert und gebucht; Start Diogenes 796 und Tuffy 642; ausgeschlossen: Homer 807 (wartet auf Chef A/B), Spike 475/795 (Pacing, Oberfläche); Sokrates zweimal (7A3w 22:30 und 78zp 22:42) im Blick
 - 22:47 09.11.: Ford neu (Chef von Hand, Tiefe 0), Uhr erneuert; wartet auf Archiv-Satz des Chefs (820)
 - 16:32 08.11.: Selbstneustart Ford (Kontext 400 Tsd.); neuer Ford legt Uhr an, löscht `trig_018KFM8p48SdbzgBWQ3TzWRR`, archiviert diese Sitzung nach Satz des Chefs.
 - 10:05 08.11.: Gestartet Perikles (338.1), Diogenes (Woche), Tom (499, 09:23). Nicht gestartet: Jerry 562 (alter Jerry `77Qb` lief noch, Neustart-Meldung fehlt), Spike 531 (Tom hat 531), Tuffy 560 (Guthaben-Tempo). Archivieren abgelehnt (Auto-Modus-Prüfer, ohne Satz des Chefs): Tom `79X6` 10,76 $, Jerry `76Pu`, Sokrates `76sa`, Diogenes `79SG`, Perikles `78bd`, Ford alt `76HF` 10,17 $; Kosten ungebucht bis dahin.
@@ -82,8 +84,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:20 05.11.: Chef schickt die bescheinigte Gewerbeanmeldung (GewA 1, Potsdam 04.11.2026) zu 142; in Sokrates’ Vorrat (Zeile 142) eingetragen; PDF nicht in Git (persönliche Daten), liegt beim Chef.
 - 08:46 05.11.: Tom `78sJ` (492/581/583, hatte 468e erst nach Unterbrechung beachtet) übergeben (bb83ff50e, Nachfolger „Tom – 492: Blutzahnhöhle (nach 494, 506)“), archiviert, 4,63 $ auf 581 und 583. Jerry `HyeB` „494: Gegner von Kapitel 1 im Kampf“ gestartet, einzige Entwicklersitzung heute (468e), Übergabe nach etwa 3 Stunden (bis rund 11:45); danach kein Start außer auf Zuruf.
 - 08:31 05.11.: 468e B (Chef 08:28): eine Entwicklersitzung am Tag, höchstens etwa 3 Stunden, Folge 494 (Jerry), 506, 492 (Tom); sonst nichts außer auf Zuruf. Sokrates `fDQK` (Übergabe 05737d87e) archiviert, 35,29 $ auf 557, 558, 475, 572, 468, 579; Nachfolger nicht gestartet. Tom `78sJ` (492, seit 08:23) gebeten aufzuhören; danach Jerry 494.
-- 08:26 05.11.: Neustart Tom 10e563a7b/e5425749c → `3f5FQ` „492: Blutzahnhöhle“ (zuerst fälschlich „580–583“ gestartet, nach Berichtigung von Tom umbenannt und umgestellt); alter Tom `7cE3` archiviert, **72,19 $ auf 512b in 80 Minuten** (sonst etwa 15–25 $, 5,85 Mio Cache-Schreibtoken): Tagesbericht prüft.
-- 08:06 05.11.: Diogenes `eHWFv` (578/512b, 1,08 $) und Perikles `RRw` (Tagesbericht, 5,86 $) fertig, archiviert, gebucht; kein Nachfolger (468a). Tom 512b läuft. Morgenmeldung 07:05 gesendet; Bild der Nutzung steht aus.
 - 09:06 08.11.: Startsperre 09:06 Start Diogenes, Perikles, Spike, Tuffy (lauf.py)
 - 09:06 08.11.: Marke Stellungnahme Sokrates 08.11. (lauf.py)
 - 09:06 08.11.: Marke Wächter 499 07.11. 21:31 (lauf.py)
@@ -191,5 +191,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:44 09.11.: Marke Archiv session_01Hmoj76ZS7WMbjDEvKqYS1U (lauf.py)
 - 22:44 09.11.: Marke Archiv session_01Hmoj7A4xTrueWWUD7rvuhj (lauf.py)
 - 22:44 09.11.: Marke Archiv session_01Hmoj75Ve8ZmwJDULqhLZy1 (lauf.py)
-- 22:55 09.11.: Archiv-Satz des Chefs (22:50) erhalten, 820 erledigt; alte Fords, Jerry 2x, Diogenes 799, Tuffy 562 archiviert und gebucht; Start Diogenes 796 und Tuffy 642; ausgeschlossen: Homer 807 (wartet auf Chef A/B), Spike 475/795 (Pacing, Oberfläche); Sokrates zweimal (7A3w 22:30 und 78zp 22:42) im Blick
-- 22:58 09.11.: Tom-Browser 79Sz und Sokrates 7A3w archiviert und gebucht (Sokrates-Auftrag, Chef 22:48)
+- 23:04 09.11.: Startsperre 23:04 Start Perikles, Spike (lauf.py)
+- 23:04 09.11.: Marke Archiv session_01Hmoj78bjpypqj7DqHUXe7D (lauf.py)
+- 23:08 09.11.: Start Perikles 818, Spike 804 (Chef jetzt 21:12); Perikles 797 und Spike 781 archiviert, gebucht

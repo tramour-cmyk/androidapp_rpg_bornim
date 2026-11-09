@@ -730,6 +730,9 @@ def main():
     befehl = ohne_heredoc(roh)
     cwd = d.get("cwd") or os.getcwd()
     wer = (d.get("session_id") or "?")[:20]
+    e822 = d.get("tool_input") or {}
+    bereich_merken([f.get("path", "") for f in (e822.get("files") or []) if isinstance(f, dict)] + ([e822["path"]] if e822.get("path") else []),
+                   befehl, d.get("session_id") or "x", cwd)  # 822
     if "actions_run_trigger" in (d.get("tool_name") or ""):  # 407: Start von Hand über den GitHub-Server
         try:
             hand = handlauf_mcp(d)
@@ -842,9 +845,26 @@ def pruefen_und_zaehlen(nr, art, wer, film=False, befehl=""):
         if n + 1 == GRENZE else "."))
 
 
+BEREICH = {"text": ""}  # 822: Liste je Bereich, einmal je Sitzung (tools/bereichslisten.py)
+
+
+def bereich_merken(pfade, befehl, sitzung, cwd="."):
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import bereichslisten as bl
+        if not pfade and re.search(r"\bgit\b.*\b(commit|push)\b", befehl):
+            m = GIT_SCHREIBT.search(befehl)
+            cds = CD.findall(befehl[:m.start()]) if m else []
+            wo = (m.group(1) if m else None) or os.path.join(cwd, os.path.expanduser(cds[-1].strip("\"'")) if cds else cwd)
+            pfade = bl.pfade_git(befehl, wo)
+        BEREICH["text"] = bl.zusatz(pfade, befehl, sitzung)
+    except Exception:
+        BEREICH["text"] = ""
+
+
 def hinweis_geben(text=""):
-    """Zusatztext an die Sitzung (PreToolUse additionalContext): Zählstand 389 und, falls nötig, Ungeprüftes 464.1."""
-    text = " ".join(t for t in (text, ungeprueft_hinweis()) if t)
+    """Zusatztext an die Sitzung (PreToolUse additionalContext): Zählstand 389, falls nötig Ungeprüftes 464.1, Liste je Bereich 822."""
+    text = " ".join(t for t in (text, ungeprueft_hinweis(), BEREICH["text"]) if t)
     if text:
         print(json.dumps({"hookSpecificOutput": {"hookEventName": "PreToolUse", "additionalContext": text}}, ensure_ascii=False))
 
