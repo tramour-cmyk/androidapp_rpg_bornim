@@ -11,6 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
+| 773 | Sammelbuild 272: alle fertigen Zweige beider Teams (Tom 5, Jerry 6: u. a. 656, 717, 717.1, 682, 702), Prüfliste ansehen/t272, build 272 --mit für alle (von Perikles, 15:31: sonst wartet jeder auf den anderen) | Tom | M | startbar | – | – | – | E Technik | – |
 | 610 | Held im Dorf: Finger am Stab zucken ohne Unterlass (Schild auf dem Rücken) (Chef 07.11., t268) | Tom | M | startbar, Fund t269.12 | – | claude/tom-610-finger | – | E Figuren | – |
 | 522 | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Chef 03.11., 23:33) | Tom | M | startbar, Fund t269.12 | – | claude/tom-522-waffen | – | E Oberfläche | – |
 | 697 | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | Tom | M | startbar | – | – | – | E Figuren | – |
@@ -30,10 +31,10 @@
 | 683 | Oberfläche noch mit SRD-Wörtern: Gegenstandsfenster und Vergleich zeigen Zauberpunkte, Attribute, Stärke, Konstitution, Weisheit, Charisma statt BRS (Mana, Kraft, Zähigkeit …; Regelwerk Abschnitt 12) (Sokrates nach Bild des Chefs 08.11., 15:57) | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 700 | Erschaffung, Platzwahl „Alle Spielstand-Plätze sind belegt“: Rahmen um jeden Platz gegen 549a (Tom, gesehen bei 586, 20:22) | Tom | M | startbar, passt (Chef 21:50), in den nächsten Build | – | claude/tom-700-platzwahl | – | E Oberfläche | 0,26 $ |
 | 656 | Umhang Kämpfer mit Beulen, große Beule unter dem Schwertarm: woher, weg (Chef 08.11., 14:52, schon zu 623.5 gefragt, Antwort verloren; 16:44 wieder auf den Siegerposen 296.3) · wiederholt | Tom | M | gebaut, passt (Chef 09.11., 06:57), fährt im nächsten Build. Geprüft an: 309c9c3df (Film Lauf 311) | – | claude/tom-656-umhang | – | E Figuren | 29,56 $ |
-| 664 | Halbes Haus: Haus des alten Kael und Hütte der Kräuterhexe im tiefen Flüsterwald nur halb da (Chef 08.11., 15:28, mehrfach gemeldet, nie eingetragen) · wiederholt | Tom | M | gebaut, fährt im nächsten Build. Geprüft an: 3bc19a09f (Bild passt, Chef 👍 16:42) | – | claude/tom-664-haeuser | – | E Welt | 8,06 $ |
+| 664 | Halbes Haus: Haus des alten Kael und Hütte der Kräuterhexe im tiefen Flüsterwald nur halb da (Chef 08.11., 15:28, mehrfach gemeldet, nie eingetragen) · wiederholt | Tom | M | erledigt, t271 bestanden (Archiv 09.11., 14:09; nachgebucht von Perikles) | – | claude/tom-664-haeuser | 271 | E Welt | 8,06 $ |
 | 635 | Lyra fehlt als Figur im Tempel und in der Höhle: Kennung lyra_temple/lyra_cave, gebaut wird nur „lyra“ (Abgleich 620.2a) | Tom | M | zu testen, ohne Rückmeldung t270 | – | claude/tom-635-lyra | – | E Welt | – |
 | 584 | Kein halbfetter Schnitt: Köpfe und Titel in Erschaffung, Held, Chronik, Karte, System, Brett, Test nicht hervorgehoben wie alt (Abgleich 512b) | Tom | K | in Arbeit, gebaut 0fcdd69d5, Bild nach Lauf | Sokrates | claude/tom-584-halbfett | – | E Oberfläche | 23,80 $ |
-| 585 | Menüs Kleinigkeiten: Titelumbruch Hauptmenü, Knopf Lizenzen, Bild in Rückfrage Wegwerfen, Test „Variante“ (Abgleich 512b) | Tom | K | gebaut, fährt im nächsten Build. Geprüft an: c304c5842 (Bild ansehen/585, Chef 21:55) | – | claude/tom-585-kleinigkeiten | – | E Oberfläche | – |
+| 585 | Menüs Kleinigkeiten: Titelumbruch Hauptmenü, Knopf Lizenzen, Bild in Rückfrage Wegwerfen, Test „Variante“ (Abgleich 512b) | Tom | K | erledigt, t271 bestanden (Archiv 09.11., 14:09; nachgebucht von Perikles) | – | claude/tom-585-kleinigkeiten | 271 | E Oberfläche | – |
 | 569 | Baumkronen ohne erkennbare Tuschelinie, „ein einziger Brei“ (Chef 04.11., 19:44, Bild 558 Probe 4) | Tom | M | ruht, Kampf zuerst (338.1) | – | – | – | E Oberfläche | – |
 | 568 | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | Tom | M | ruht | – | – | – | E Oberfläche | – |
 | 531 | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere sichtbar mit der Fackel, Ruhebewegungen (Chef 03.11., 23:42) | Tom | M | in Arbeit, Ursachen nachgestellt (Zu 531) | 643 | claude/tom-531-film | – | E Oberfläche | 12,96 $ |
@@ -43,7 +44,7 @@
 | 505 | Bau Nebel des Krieges und Sichtfeld des Helden (Archiv 502; Welt W24, W25) | Tom | M | startbar, Fund t271: abklären (Chef 14:00) | 492 | – | – | E Technik | 69,46 $ |
 | 515 | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 03.11., 16:07) | Tom | M | ruht | – | – | – | E Welt | – |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x) | Tom | M | ruht | – | claude/tom-431-voelker | – | E Figuren | 50,10 $ |
-| 416.8 | NPC dreht sich zum Helden mit kleinen Schritten, nicht auf der Stelle (Chef 31.10., 20:5x; t269.11 15:44 wieder Plastikfigur) · wiederholt | Tom | M | gebaut, fährt im nächsten Build. Geprüft an: 98af8d5cc (gier ±90 am Rechner, schauen_4168) | – | claude/tom-4168-wende | – | E Technik | 19,24 $ |
+| 416.8 | NPC dreht sich zum Helden mit kleinen Schritten, nicht auf der Stelle (Chef 31.10., 20:5x; t269.11 15:44 wieder Plastikfigur) · wiederholt | Tom | M | erledigt, t271 bestanden (Archiv 09.11., 14:09; nachgebucht von Perikles) | – | claude/tom-4168-wende | 271 | E Technik | 19,24 $ |
 | 376.1 | Probeblatt Quaternius-Figuren mit Bewegungsraster als Film (Chef kaufte 27.10., 12:20) | Tom | M | ruht | – | claude/spike-376-1-tracht | – | E Figuren | 221,15 $ |
 | 455.1 | Probeblatt Baukasten: Roben, Umhänge, Stiefel je Netz × Material × Zeichen (Chef 01.11., 11:24) | Tom | M | ruht | – | claude/spike-455-1-baukasten | – | E Figuren | 30,05 $ |
 | 513 | Ein Figurenstand für alle Zweige; Schild, Robe Magier, Umhang jetzt (Chef 03.11., 15:56, „513 B“) · „jetzt“ 03.11., 15:56 | Tom | M | ruht | – | claude/figurenstand-513 | – | E Figuren | 14,01 $ |
@@ -68,7 +69,7 @@
 | 302.2 | Tusche auf der Gebietskarte (Chef 22.10., 23:50); zurückgestellt (Chef 23.10., 10:45) | Tom | K | ruht | – | claude/tom-3022-tuschebild | – | G Stil | – |
 | 302.1 | Tuschelinie für Menschengestalten (Chef 22.10., 20:25, über Sokrates); jetzt nicht (Chef 23:37); M seit 338 (b), Charaktererstellung | Tom | M | ruht | – | claude/tom-3021-tusche | – | G Stil | – |
 | 292.4 | Hauptmenü B am Feuer: Feuerlicht, Animation, Klang (aus 292.3 zurückgestellt, Chef 22.10., 15:10) | Tom | K | ruht | – | claude/tom-2923-titelmodus | – | G Stil | – |
-| 356.2 | Sammelaufträge: Felle 3, Pelzumhang, Hauerdolch (356 b, Chef 24.10., 21:33) | Tom | K | gebaut, fährt im nächsten Build. Geprüft an: a483cdeea (brett_test, katalog_test lokal) | – | claude/tom-3562-auftraege | – | G Balance | – |
+| 356.2 | Sammelaufträge: Felle 3, Pelzumhang, Hauerdolch (356 b, Chef 24.10., 21:33) | Tom | K | erledigt, t271 bestanden (Archiv 09.11., 14:09; nachgebucht von Perikles) | – | claude/tom-3562-auftraege | 271 | G Balance | – |
 | 30 | Abstürze beim Testen | Tom | K | ruht | – | – | – | Q QS | – |
 | 145 | Karten je Kapitel zum Drucken | Tom | K | ruht | – | claude/tom-145-kartenmappe | – | E Welt | 6,22 $ |
 | 417.1 | Restmängel Tragart nach „417 passt“ (Schildabstand, Rumpfdrehen, Fußrutschen, Kornfeld, Stabgang) | Tom | K | ruht | – | claude/tom-417-tragart | – | E Figuren | – |
@@ -76,13 +77,13 @@
 | 447.4.1 | Bau Lehrmeister, Meisterschaften, Ruf Kapitel 1 (447.4) | Tom | M | wartet | 508 | – | – | G Story | – |
 | 589 | Dorf: Marktplatz wirkt geklont (gleiche Stände, gleiche Säcke), Durchgang links am Stand hakelig (Chef 05.11., 19:2x, t266) | Tom | M | ruht, Kampf zuerst (338.1) | – | – | – | E Welt | – |
 | 590 | Innenräume: Türseite bei gedrehter Kamera dunkel und tot, mehr Licht (Kerzen) und Einrichtung (Chef 05.11., 19:2x) | Tom | M | ruht, Kampf zuerst (338.1) | – | – | – | E Welt | – |
-| 591 | Dorftiere (Hühner, Kaninchen) fliehen vor dem Helden wie alt, mit Alarmklang (Chef 05.11., 19:2x) · „jetzt“ 06.11., 08:07 | Tom | M | gebaut, C nur Klang (Chef 18:27). Geprüft an: f22334feb | – | claude/tom-591-laut2 | – | E Welt | 29,38 $ |
-| 630 | Restliche Schirme im Stil „ohne Kasten“ (549a): Laden-Fenster und Rückfragen, Menü, Brett, Anleitung, Über das Spiel, Erschaffung (Liste aus 618, Sokrates 07.11.) · „jetzt“ 07.11., 22:28 | Tom | M | gebaut, passt (Telegram 18:14), fährt im nächsten Build. Geprüft an: Lauf 302 | – | claude/tom-630-schirme | – | E Oberfläche | 8,06 $ |
+| 591 | Dorftiere (Hühner, Kaninchen) fliehen vor dem Helden wie alt, mit Alarmklang (Chef 05.11., 19:2x) · „jetzt“ 06.11., 08:07 | Tom | M | erledigt, t271 bestanden (Archiv 09.11., 14:09; nachgebucht von Perikles) | – | claude/tom-591-laut2 | 271 | E Welt | 29,38 $ |
+| 630 | Restliche Schirme im Stil „ohne Kasten“ (549a): Laden-Fenster und Rückfragen, Menü, Brett, Anleitung, Über das Spiel, Erschaffung (Liste aus 618, Sokrates 07.11.) · „jetzt“ 07.11., 22:28 | Tom | M | erledigt, t271 bestanden (Archiv 09.11., 14:09; nachgebucht von Perikles) | – | claude/tom-630-schirme | 271 | E Oberfläche | 8,06 $ |
 | 612 | Dorf Süd: Heuhaufen geklont und wie aufgespießt, Wackelgras im Weizenfeld, Gemüsebeet mit Leerstreifen; drei Varianten je Ding (Chef 07.11., t268) | Tom | M | ruht, Kampf zuerst (338.1) | – | – | – | E Welt | – |
 | 614 | Leute lebendig wie alt: Jorin mit Speer, Jorin öffnet den Schlagbaum sichtbar; Abgleich der Requisiten und Gesten (Chef 07.11., t268) | Tom | M | ruht, Kampf zuerst (338.1) | – | – | – | E Figuren | – |
 | 622 | Godot-Build als AAB für Play: dieselbe App `de.bornim.game`, mit dem Upload-Schlüssel des alten AAB, höhere Versionsnummer (Sokrates 07.11., aus 142.4) | Tom | M | ruht, Kampf zuerst (338.1) | – | – | – | M Veröffentlichung | – |
 | 41.2 | Ansel fährt nach N3 auch nachts (Prüfpunkt 6.4) | Tom | K | wartet | 41 | – | – | G Story | – |
-| 586 | Schirme 557 einheitlich: Zeichen neben der Überschrift bei Rast, Größe der Überschriften (Chef 05.11., 09:35, Kür) | Tom | K | gebaut, fährt im nächsten Build. Geprüft an: 3d56c4077 (Bild ansehen/586, passt 21:55) | – | claude/tom-586-rast | – | E Oberfläche | – |
+| 586 | Schirme 557 einheitlich: Zeichen neben der Überschrift bei Rast, Größe der Überschriften (Chef 05.11., 09:35, Kür) | Tom | K | erledigt, t271 bestanden (Archiv 09.11., 14:09; nachgebucht von Perikles) | – | claude/tom-586-rast | 271 | E Oberfläche | – |
 | 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | Tom | K | aufgeteilt | – | – | – | E Figuren | 1,06 $ |
 | 348.1 | Vergleichsbild Gebietskarte alt/neu, 64 (heute) und 128 je Kachel (Chef 24.10., 16:51, „jetzt“ 16:54) | Tom | M | ruht, ohne Vorratszeile, Liste „raus“ (275.2) | – | – | – | E Technik | – |
 | 348.2 | Tusche nach Licht auch am Helden, Innenlinien an Bäumen: zweites Vergleichsbild jetzt (Chef 24.10., 17:30, 17:36) | Tom | M | ruht | – | – | – | E Technik | – |
@@ -108,7 +109,7 @@
 | 688 | Frage des Chefs je Karte: wie viel Sammelbares offen und versteckt liegt (alt gegen neu: Truhen, Kräuter, Verstecktes) und ob die Signatur A1–A3 da ist, „für unsere Karten ganz entscheidend“ (Chef 03.11., 16:04, aus 491 (6); unbeantwortet; zurückgeholt 675) | Tom | K | ruht, nach dem Durchspielen (688 A, Chef 18:30) | – | – | – | E Welt | – |
 | 689 | Dorf, Urteil Chef 25.10., 12:11 (aus 348.6, offen geblieben): Büsche über Dachfirsten, Laternenpfahl am Steg, Lichtstreifen nachts, Korn wie Gestrüppwiese, Schatten ohne Werfer, Flimmern, Südrand ohne Abschluss; erst prüfen, was in Godot heute noch gilt (zurückgeholt 675) | Tom | K | ruht, nach dem Durchspielen (488) | – | – | – | E Welt | – |
 | 698 | Grafikstufen im Systemmenü mit Effekten (Niedrig/Mittel/Hoch, Automatisch per Leistungstest; LISTE-IDEEN „Grafik-Einstellungen“, Chef 28.10., 08:31; 08.11., 19:46, zu 623) | Tom | K | startbar | 623 | – | – | E Technik | – |
-| 699 | Laden: Rückfrage „Alle gewöhnlichen verkaufen“ sagt „1 GEGENSTÄNDE:“ statt Einzahl (Tom, gesehen bei 586, 20:22) | Tom | M | gebaut, fährt im nächsten Build. Geprüft an: 373073b70 (LADEN503) | – | claude/tom-699-einzahl | – | E Oberfläche | 0,26 $ |
+| 699 | Laden: Rückfrage „Alle gewöhnlichen verkaufen“ sagt „1 GEGENSTÄNDE:“ statt Einzahl (Tom, gesehen bei 586, 20:22) | Tom | M | erledigt, t271 bestanden (Archiv 09.11., 14:09; nachgebucht von Perikles) | – | claude/tom-699-einzahl | 271 | E Oberfläche | 0,26 $ |
 | 613.2 | Zwischensequenzen: Bewegung sichtbar wie alt (Kerzenflackern, atmendes Licht, Staub im Strahl) und Fackelzug fehlt (Chef 08.11., 21:58 zu 613: „gesehen habe ich nichts“) | Tom | M | ruht, Kampf zuerst (338.1) | – | – | – | E Oberfläche | – |
 | 713 | Von Homer (586.1): Erklärfenster beim Gedrückthalten (menue.gd:1561) noch mit Goldrand und 14-sp-Kopf, gegen 549a (ohne Kasten) und 586a (Titel 22 sp) | Tom | K | ruht, Kampf zuerst (338.1) | – | – | – | E Oberfläche | – |
 | 737 | D92.2 Vorlagen 02.–08.11. ohne Zeile „Bestand geprüft“ (434): 417, 431, 463, 475, 492, 499, 514, 656, 664, 623.6; Spike 501, 506, 613; künftig in der Datei in ansehen/ (von Diogenes, Lauf 92) | Tom | K | startbar | – | – | – | B Abläufe | – |
@@ -211,6 +212,7 @@
 | 761 | Glossar MARS: Herkunft nachtragen (Chef 17.10., 22:50: Kriegsgott „stimmt“, Abkürzung „nett bis auf Mut“; dein Ersatz „Moment“ unbeantwortet) (Sokrates nach Chef 09.11., 14:46) | Homer | M | erledigt | – | – | – | G Stil | – |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 772 | D89.2 von Diogenes (über Perikles): Glossar ohne „Vorgang beim Chef“ (480); „steht in“ zeigt meist auf CLAUDE.md | Homer | K | startbar | – | – | – | B Abläufe | – |
+| 774 | Gemeinsamen Build nie verwaist: startbar.py legt bei ≥4 wartenden Punkten selbst die Zeile „Sammelbuild <n>“ beim Team mit den meisten an; build <n> --mit muss alle Nummern der Prüfliste tragen (t271: 8 Tom-Zeilen ohne Build, nach dem Test nicht gebucht, Sperre 620.1 B hielt Tom; Chef 15:29) | Perikles | M | startbar | – | – | – | B Abläufe | – |
 | 715 | Rollenspiegel 06.11. nachholen (Diogenes D92) · „jetzt“ 09.11., 08:49 | Perikles | M | erledigt | – | – | – | B Abläufe | 5,67 $ |
 | 317.1 | `startbar.py`, `lauf.py`: Obergrenze 6 je Build streichen (Chef 07.11., 20:5x) | Perikles | M | erledigt | – | – | – | B Werkzeuge | – |
 | 620.1 | Wiederholte Funde des Chefs vor Neuem; wenige Muss je Team zugleich (aus 620) | Perikles | M | erledigt | – | – | – | B Abläufe | 4,11 $ |
