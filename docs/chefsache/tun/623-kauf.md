@@ -8,11 +8,11 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/main/doc
 
 | Paket | Preis $ | geprobt in |
 |---|---|---|
-| R3 Weapon & Motion Trails | 6,99 | 623.5 |
-| R4 Stylized VFX Pack 3 | 6,99 | 623.5 |
-| R5 Character Shaders | 6,99 | 623.5 |
-| R6 Beams & Lasers (nicht geprobt, nur Probe 415) | 6,99 | – |
-| R7 Stylized VFX Pack 2 (nicht geprobt) | 20,00 | – |
+| R3 [Weapon & Motion Trails](https://reeboolabs.itch.io/godot-weapon-trails) | 6,99 | 623.5 |
+| R4 [Stylized VFX Pack 3](https://reeboolabs.itch.io/stylized-vfx-pack-3-godot) | 6,99 | 623.5 |
+| R5 [Character Shaders](https://reeboolabs.itch.io/godot-character-shaders) | 6,99 | 623.5 |
+| R6 [Beams & Lasers](https://reeboolabs.itch.io/godot-beams-lasers) (nicht geprobt, nur Probe 415) | 6,99 | – |
+| R7 [Stylized VFX Pack 2](https://reeboolabs.itch.io/stylized-vfx-pack-2-godot) (nicht geprobt) | 20,00 | – |
 
 **Rangfolge Sokrates (09.11., 07:1x, auf Frage 07:16):** 1. R3 Trails (Kampf lesbar: Klingenspur, Luftzug beim Ausweichen, Pfeilspur; geprobt) · 2. R7 Pack 2 (lebendige Welt: Staub im Licht, Fackel, Kaminrauch, Fußstaub, Funken an der Parade, Heilung; trifft 613.2; nicht geprobt) · 3. R4 Pack 3 (düster: Blut-Treffer, Blutsaugen des Egels, Todesstoß der Untoten, Geisterlichter, Höhlenkristalle; geprobt) · 4. R5 Character Shaders (nur als Zusatz über unserer Signatur: Trefferblitz, Auflösen, Gefrieren) · 5. R6 Beams (überschneidet R1). Gegenargument: Effekte heilen keine Roboterbewegung, und jeder Einbau kostet Sitzungen in einer Sparwoche. Empfehlung: R3 jetzt, R7 und R4 mit ihrem Einbau, R5 und R6 vorerst nicht.
 
