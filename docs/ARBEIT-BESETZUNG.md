@@ -2,10 +2,11 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 09.11., 19:04 (lauf.py)
+**Stand:** 09.11., 19:05 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
+| Perikles | [Perikles – 788: Allerweltswörter im Wiederholungswächter (09.11., 18:09)](https://claude.ai/code/session_01Hmoj76czgWbXfFzmZBBKgM) | 788 | – | 09.11., 18:08 |
 | Diogenes | [Diogenes – 783: Widersprüche listen, Fortsetzung (09.11., 18:11)](https://claude.ai/code/session_01Hmoj761HLSADjwkXakYkXB) | 783 | – | 09.11., 18:10 |
 | Sokrates | [Sokrates – 620: Stärken und Schwächen nachhalten (09.11., 18:23)](https://claude.ai/code/session_01Hmoj79vuXkci4y6e9GKuAn) | 620 | – | 09.11., 18:22 |
 | Ford | [Ford – Betriebsleiter (09.11., 18:24)](https://claude.ai/code/session_01Hmoj7684czZostW4Q5YTcw) | Betrieb | – | 09.11., 18:22 |
