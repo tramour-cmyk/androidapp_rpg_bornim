@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (09.11., 16:29, `session_01Hmoj75gUk6J9AT7WVQW43R`):** 773: `claude/build-272` (PR #191) aus 656, 542-Testfix, `jerry-717-rueckwaerts`, `tuffy-702-anspringen`; Godot-Lauf rot an `wolf_mess_438` → 778 bei Jerry. Prüfliste t272 als Entwurf in dieser Sitzung (Zeilen 543, 635, 543, 682, 717, 717.1, 547, 702, 702, 597, 656). Nachfolger: Tom – 773: Build 272 neu mischen und starten, sobald 778 behoben
+**Übergabe (09.11., 16:29, `session_01Hmoj75gUk6J9AT7WVQW43R`):** 773: `claude/build-272` (PR #191) aus 656, 542-Testfix, `jerry-717-rueckwaerts`, `tuffy-702-anspringen`; Godot-Lauf rot an `wolf_mess_438` → 778 bei Jerry. Prüfliste t272 als Entwurf in der Beschreibung von PR #191 (ausklappen). Nachfolger: Tom – 610: Finger am Stab (773 neu, sobald 778 behoben)
 
 ## Einzelheiten
 
