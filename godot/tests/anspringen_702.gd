@@ -3,7 +3,7 @@
 # 2 Heiltränke, ohne Söldner). Der Spieler greift jeden Zug den ersten erreichbaren Gegner an (kein Autopilot), wahlweise
 # weicht er einem angekündigten Sprung aus (Platz wechseln, dann angreifen). Gezählt: Züge des Helden, davon verloren
 # (Aufstehen), längste Folge verlorener Züge, Kämpfe mit 3 und mehr verlorenen Zügen am Stück, Siege. Je Regel (mars.gd
-# anspringen): „heute“, „fest“, „handeln“, „chance“; nach SRD und nach BRS.
+# anspringen): „heute“ (wie Skirmish.kt) und „handeln“ (702 C, Chef 09.11., 06:56); nach SRD und nach BRS.
 # Run: godot --headless --path godot -s res://tests/anspringen_702.gd   (Tabelle, Exit 0; braucht daten/held.json)
 extends SceneTree
 
@@ -31,7 +31,7 @@ func _initialize() -> void:
 	print("Rechnung Regel   Spieler  Klasse   Gegner  Siege  Züge  verloren  längste  ≥3 am Stück")
 	for rechnung in ["SRD", "BRS"]:
 		Mars.BrsKampf.schalter = rechnung == "BRS"
-		for regel in ["", "fest", "handeln", "chance"]:
+		for regel in ["", "handeln"]:
 			for ausweichen in [false, true]:
 				for k in ["FIGHTER", "WIZARD", "ROGUE", "CLERIC"]:
 					for gegner in ["RUDEL", "WOLF"]:
