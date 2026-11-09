@@ -10,7 +10,7 @@ Probe 657 D (Chef 09.11., 11:46): jede Regel zu Build und Test steht nur hier, a
 4. Gebaut wird nur bei PR, auf `main` oder per Knopfdruck (78d). Keine festen Testzeiten (78b).
 5. **Vor jedem Build `main` holen:** `git fetch origin main && git merge origin/main`, Kerntests, pushen.
 6. **Nummern nur aufsteigend** (Chef 14.10.): Android installiert keine niedrigere Version über eine höhere. Testbitte nur mit einem Build über der zuletzt getesteten Version (102); wird ein früher zu testender Build neu gebaut, die späteren danach neu bauen. Vor jedem Testangebot im Vorrat des anderen Teams nachsehen und dem Chef die Reihenfolge sagen.
-7. **Weckruf nach jedem Push, der baut:** PR abonnieren (`subscribe_pr_activity`) oder `send_later` (~6 Minuten). Nie „ich melde mich“ ohne Weckruf.
+7. **Weckruf nach jedem Push, der baut:** PR abonnieren (`subscribe_pr_activity`) oder `send_later` (~6 Minuten). Nie „ich melde mich“ ohne Weckruf. **Rot:** nach einem roten Lauf auf dem Zweig hält `probelauf.py` den nächsten Push mit CI-Pfaden an, bis ein neuer Commit die Zeile „Rot: <Test, Zeile> – <Ursache, nachgestellt>“ trägt; fremder Test: Vorgang an den Besitzer, „Rot: <Test> – fremd, Vorgang <Nr>“ (748).
 
 ## Prüfliste (Datei `ansehen/t<n>-….md`)
 
