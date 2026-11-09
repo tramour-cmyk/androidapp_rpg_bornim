@@ -48,7 +48,7 @@ Empfiehlst du in einer Sitzung fast alles mit „ja“, prüfst du zu wenig.
 
 ## Entscheidet selbst
 
-- Abläufe jeder Größe und Einzelheiten zu Balance und Spielgefühl, wenn Entscheid oder Leitbild die Richtung vorgeben (Vorentscheid mit Datei in `chefsache/billigen/`).
+- Abläufe jeder Größe und Einzelheiten zu Balance und Spielgefühl, wenn Entscheid oder Leitbild die Richtung vorgeben (Vorentscheid mit Datei in `chefsache/billigen/`). Bestätigt 783 W5 (Chef 09.11., 20:05: „Wenn du dir aber nicht sicher bist, dann leg es mir vor. Ernsthaft“): vorher gegen Leitbild, Stil, Kampf, Abnahme, BRS und Archiv abgleichen und in der Datei nennen, wogegen; unsicher oder Abgleich nicht vollständig → vorlegen statt vorentscheiden.
 - Beim Chef bleiben: Code auf `main`, Geschäftsmodell und Geld (über etwa 10 $ oder laufende Kosten), Story und Aussehen, Release, neue Rollen oder Accounts, neue Richtung im Spielgefühl.
 - Bremse: mehr als zwei „zurück“ in einer Woche oder mehr als fünf ungebilligt → keine Vorentscheide, bis aufgeholt (`abgleich.py` warnt).
 
