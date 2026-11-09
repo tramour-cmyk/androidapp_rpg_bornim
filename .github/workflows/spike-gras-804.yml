@@ -1,0 +1,31 @@
+name: Spike Gras-Kit Liste (804)
+
+# 804 (Chef 09.11., 21:12): Grass & Wind Kit v1.0.1 (REEBOO, gekauft, privat stufe1) ins Dorf. Vor dem Einbau nur die Bauteile ansehen:
+# Dateinamen, Klassen, Exporte, Shader-Parameter; die Lizenz verbietet die Weitergabe der Dateien, darum nie Inhalte ins Protokoll
+# (das Protokoll ist oeffentlich), nie als Artefakt. Nur bei Commits, die mit „804 Liste“ beginnen.
+on:
+  push:
+    branches: ["claude/spike-804-**"]
+
+jobs:
+  liste:
+    if: startsWith(github.event.head_commit.message, '804 Liste')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - name: Grass & Wind Kit (privat)
+        env:
+          GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
+        run: |
+          MUSTER="Godot_Grass_Wind_Kit*" bash tools/blender348/kauf_laden.sh $RUNNER_TEMP/kauf > /dev/null
+          cd $RUNNER_TEMP/kauf/anhang/stufe1 2>/dev/null || { echo "GRAS: stufe1 fehlt"; exit 0; }
+          d=$(ls -d Godot_Grass_Wind_Kit*/ | head -1); cd "$d" || { echo "GRAS: Kit fehlt"; exit 0; }
+          find . -type f ! -name '*.import' ! -name '*.uid' | sort | sed 's/^/GRAS-DATEI /'
+          for f in $(find . -name '*.gd'); do grep -hoE '^(class_name [A-Za-z0-9_]+|extends [A-Za-z0-9_."/:]+|@export[a-z_]*(\([^)]*\))? var [a-z_0-9]+(: *[A-Za-z0-9_\[\]]+)?|signal [a-z_]+|func [a-z_0-9]+\([^)]*\)|const [A-Z_0-9]+)' "$f" | sed "s#^#GRAS-API $f: #"; done
+          for f in $(find . -name '*.gdshader' -o -name '*.gdshaderinc'); do grep -hoE '^(shader_type [a-z_]+|render_mode [a-z_, ]+|(global |instance )?uniform [a-z0-9_]+ [a-z_0-9]+|#include "[^"]+")' "$f" | sed "s#^#GRAS-SHADER $f: #"; done
+          for f in $(find . -name '*.tres'); do echo "GRAS-RES $f $(head -1 $f | grep -oE 'type="[A-Za-z0-9]+"|script_class="[A-Za-z0-9]+"' | tr '\n' ' ') $(grep -oE '^shader_parameter/[a-z_0-9]+' $f | sed 's#shader_parameter/##' | tr '\n' ' ')"; done
+          for f in $(find . -name '*.tscn'); do grep -hoE '^\[node name="[^"]+" type="[A-Za-z0-9]+"( parent="[^"]*")?|^\[node name="[^"]+" parent="[^"]*" instance=' $f | sed "s#^#GRAS-SZENE $f: #"; done
+          grep -hoE '^\[autoload\]|^[A-Za-z]+="\*res://[^"]+"|^shader_globals/[a-z_0-9]+|^[a-z_]+/[a-z_/0-9]+=' $(find . -name project.godot) | sort | uniq -c | sed 's/^/GRAS-PROJEKT /'
+          for f in $(find . -iname 'readme*' -o -iname '*.md' -o -iname 'license*'); do echo "GRAS-DOKU $f $(wc -l < $f) Zeilen; Ueberschriften:"; grep -E '^#+ ' "$f" | sed 's/^/GRAS-DOKU-KOPF /'; done
+          echo "GRAS: Liste fertig"
