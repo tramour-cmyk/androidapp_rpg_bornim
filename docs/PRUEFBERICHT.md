@@ -37,7 +37,11 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Geschlossen laut Nachprüfung oder Spur: D61.2, D62.1, D63.1–D63.6, D64.1, D65.1, D67.1, D68.1, D68.2, D69.1, D70.1, D71.1, D71.2, D74, D76.1, D76.2, D77.1, D77.2, D78.2, D79, D80.1–D80.7, D81.1, D81.2 (mit 275.2), D82, D83, D84, D84.2, D85, D86.2 (Hinweis an mich), D88.1 (685), D89, D90.1–D90.3 (686), D93.
 
-## Lauf 111 · 783 Rohfunde (in Arbeit; 09.11., 18:0x; drei Helfer, nur Bauen/Testen stichprobenweise bestätigt)
+## Lauf 111 · 783 Widersprüche und Doppelungen (09.11., 18:1x; drei Helfer, jede Stelle am Wortlaut nachgelesen)
+
+**Ergebnis:** acht offene Widersprüche als Chefsache `entscheiden/783-widersprueche.md` (W1 = B5–B7, W2 = B9, W3 = B14, W4 = B12, W5 = P5–P6, W6 = P7, W7 = O5, W8 = O9). Alles Übrige an Perikles als 791 (745 A2 Schritt 3): B1–B4, B8, B10, B11, B13, B16; P1–P4, P8–P21 (P14 klein); O1 (ohne README), O2, O3 (Werkzeuge buchen verschieden, kein Chefentscheid), O4, O7, O8, O10–O15, O17, O18. **Verworfen nach Nachlesen:** O6 (Ford-Wache stimmt überein), O16 („sofort“ betrifft `send_message`), B15 (Release-Rückfrage verlangt die Datei), O1-Teil README:11 (383 nicht mehr offen). **Nicht geprüft:** `DESIGN-`, `STORY-`, übrige `LISTE-`.
+
+Rohfunde:
 
 Bauen/Testen (CLAUDE.md, ROLLE-ENTWICKLUNG, LISTE-BAUEN-TESTEN, LISTE-CHECK-BUILD-TEST, LISTE-RELEASE-NEUSTART):
 - B1 überholt: BAUEN-TESTEN:30 Sperre 620.1 B ohne 779. B2 überholt: RELEASE-NEUSTART:22 „Ford 2“ (650.1 „kein Ford 2 mehr“). B3 überholt: ENTWICKLUNG:41 „Bildserie … gern als Film“ gegen :43, CLAUDE.md:69 „Bewegung nur als Film“ (646). B4 überholt: CHECK:17, ENTWICKLUNG:25 Abgleich je Build (621 D: je Ort und Figur; Nachweis 512b fehlt).
@@ -53,8 +57,6 @@ Betrieb/Projekt (ROLLE-BETRIEB, -PROJEKT, LISTE-BETRIEB, -WOCHENPLAN, -KOSTEN, c
 - Überholt: O1 BETRIEB:51 WEITER bis 400 Tsd. (383 A, 18:05: 200 Tsd.); README:11 führt 383 noch offen. O2 PROJEKT:50 rote Läufe „Protokoll“ (776). O4 Ford 2: BETRIEB:15, :23, LISTE-BETRIEB:18, :20, :26, :36, PROJEKT:90 (650.1). O10 WOCHENPLAN:23–24 ohne 719 (Rollenspiegel Fr fehlt). O11 PROJEKT:4 Sitzungsname „338.1: Wochenziel“ (719). O12 WOCHENPLAN:11 Tagesbericht „Probe“ (448). O14 offen: PROJEKT:15 Zielvereinbarung 341, Probe bis 06.11. abgelaufen, keine Auswertung.
 - Widerspruch: O3 offen: Kosten mehrerer Vorgänge „zu gleichen Teilen“ (LISTE-BETRIEB:26, LISTE-KOSTEN:103) gegen „ganze Summe auf den Hauptvorgang“ (BETRIEB:50); fehlende Zahl „fehlt“ gegen schätzen (Chef 03.11.). O5 offen: Morgenmeldung-Inhalt LISTE-BETRIEB:42, :32 gegen WOCHENPLAN:9 „eine Zeile“ (247, 448). O6 offen: Ford-Wache an Tom/Perikles (CLAUDE.md:91, WOCHENPLAN:10) gegen 166.2/81r. O7: BETRIEB:23 „Sokrates nie aus dem Vorrat“ gegen 194.2 (lauf.py startet ihn). O8 offen: LISTE-BETRIEB:39 Eingang „wartet auf Chef“ ohne Datei gegen CLAUDE.md:66, README:334. O9 offen: wer Chefsache löscht (CLAUDE.md:89 „jeder nur seine“ gegen README:333 „auch die eines anderen“). O13: PROJEKT:19 Tagesbericht „über Sonntag 50 h“ gegen täglich (448). O15 offen: „Anteil Spiel“ nach Rolle (PROJEKT:43) gegen nach Bereich E+G (LISTE-KOSTEN:36). O16: LISTE-BETRIEB:26 „sofort archivieren“ gegen BETRIEB:50 „idle und 60 s“.
 - Doppelung: O17 Startregel dreifach (BETRIEB:23, :54, LISTE-BETRIEB:21) trotz „eine Startregel“ (167.8). O18 Ford-Mechanik zweifach (create_session-Felder, archiviert sich nie selbst, Routinen, ÜBERTRAGE/WEITER, Tagesbericht fehlt 10 Uhr, Abos 10.11.). Am Rande: LISTE-BETRIEB:38 Stand „im Vorrat und PROJEKTPLAN“ gegen CLAUDE.md (Vorgangsliste).
-
-Nächster Schritt: je Fund Zeile prüfen (Betrieb/Projekt und Beratung/Prüfung noch ungeprüft), dann Chefsache `entscheiden/783-…` nur mit den offenen (Chef entscheidet), Überholtes und Doppeltes als Liste an Perikles (Schritt 3).
 
 ## Lauf 110 · Nachprüfung 775, 776, 777 (Bereich B; `fa6d61d82`, `3ad18ce80`; 09.11., 17:1x)
 
