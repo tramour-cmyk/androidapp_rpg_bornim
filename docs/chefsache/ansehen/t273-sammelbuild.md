@@ -3,7 +3,7 @@ Ganzes Spiel · Tom (781, 584, 795, 762, 683, 471, 804, 753), Jerry (662, 532, 6
 
 Ein Weg: Hauptmenü und Erschaffung (A), Dorf: Menü des Helden, Tasche, Wiese, Rast (B), Probekämpfe im Reiter „Test“ (C), Wald: Kraut und echter Kampf (D); über Build 272 installieren. Was nicht passt, reicht als Nummer (z. B. 273.4) mit einem Wort.
 
-Verglichen: halbfette Köpfe (584) mit der alten Fassung (Theme.kt, CreateScreen, MenuScreen, Chronik, System; dein Bild 20:41 „passt“), Rastblende (753) mit der alten RestScreen und der abgenommenen Ortsblende (dein Bild 20:21 „passt“), Platzwahl der BRS-Erschaffung (795) mit der in Build 272 abgenommenen alten (700). Im Bau geprüft: `brs_471`, `kampfuebung_471`, `fertigkeiten_762`, `menue_breite_581`, `gegenstand_524`, `ring_vergleich_557`, `spielstand_test`, `lizenz_497`, `parade_seite_662`, `knoepfe_679`, `tasche_532`, `kampf_leistung_21114`.
+Verglichen: halbfette Köpfe (584) mit der alten Fassung (Erschaffung, Menü des Helden, Chronik, System; dein Bild 20:41 „passt“), Rastblende (753) mit der alten Rastblende und der abgenommenen Ortsblende (dein Bild 20:21 „passt“), Platzwahl der BRS-Erschaffung (795) mit der in Build 272 abgenommenen alten (700). Im Bau geprüft: `brs_471`, `kampfuebung_471`, `fertigkeiten_762`, `menue_breite_581`, `gegenstand_524`, `ring_vergleich_557`, `spielstand_test`, `lizenz_497`, `parade_seite_662`, `knoepfe_679`, `tasche_532`, `kampf_leistung_21114`.
 
 ## A · Hauptmenü und Erschaffung
 
