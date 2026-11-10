@@ -927,3 +927,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 704 | Wolf allein ist harmlos, wenn der Held jedem angekündigten Sprung ausweicht: 300 von 300 Siegen, er kann nur springen (Befund Tuffy zu 702, 08.11.) | E Kampf | M | 0,26 $ | Jerry | erledigt |
 | 211.14 | Rest 211.13: Leistung im Kampf am A56 messen (Puppe und Winkel je Platz durch 3D erledigt) | E Kampf | M | 5,75 $ | Jerry | erledigt, t273 bestanden |
 | 826 | Guthaben Woche bis 14.11.: eine Entwicklersitzung zugleich, Kür ruht, Zurücksetzen als Reserve (Bild Chef 10.11., 06:59) | B Steuerung | M | 4,65 $ | Sokrates | erledigt |
+| 817 | Erklärtexte der sechs Grundwerte im Heldenreiter nach BRS statt SRD (held.json „erklaerung“: GES, Rüstungsklasse, Finesse …; von Tom, aus 683) | E Oberfläche | M? | 3,85 $ | Homer | erledigt |

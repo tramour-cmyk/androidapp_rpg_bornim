@@ -67,6 +67,14 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry (07:04 Jerry 806, 08:05 Jerry 806, 10:26 Jerry 595) aus eigener Beurteilung aus (Kaufrepo, Pacing, Sitzungsgrenze), ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch: 59 Muss). Lücke im Werkzeug: Startsperre wird geschrieben, auch wenn nie gestartet wird; kein WARNUNG-LAUT wie bei ARCHIVIERE. Vorschlag an den Chef gestellt
+
+- 11:06 10.11.: Tom 661 archiviert, gebucht; Tom 506, Jerry 709, Spike 825, Sokrates t273 laufen; Vorrat Tom 475 wartet auf Kaufrepo (Tom 661 meldete)
+- 10:58 10.11.: Homer 830 archiviert, gebucht (830,817,807); Fragen 830, 807a als Chefsache-Dateien
+- 10:54 10.11.: Tom 834 alt archiviert, gebucht; Nachfolger Tom 661 läuft
+- 10:52 10.11.: zweiter Fehler Ford (Homer meldet): 807 war „807 A“ (Chef 09.11., 22:26), Ford schloss 807 per --ohne wegen veralteter Sitzungsnotiz „wartet auf A oder B“ aus, statt den Stand in der Vorgangsliste zu lesen; Folge: Homer ruhte 12 Stunden. Regel für Ford: --ohne nur nach Lesen von vorgang.py <Nr>
+- 10:38 10.11.: Sokrates Chefrunde archiviert, gebucht (273,831,661,649); Nachfolger Sokrates t273 läuft
+- 10:28 10.11.: Sokrates t273 (PR 192), Tom 834, Spike 825, Homer 830 gestartet (Chefrunde: zwei Entwicklersitzungen laut Übergabe Sokrates 10:24); Homer 810 archiviert, gebucht; Sokrates Chefrunde läuft noch, Archiv 10:32
 - 09:07 10.11.: Perikles 828 archiviert (Vorrat leer, Tagesbericht gesendet), gebucht 828,827. Sokrates Chefrunde wartet auf Chef: "Probe ja" oder bleibt bei "Bäume nein". Keine Entwicklersitzung (826 A)
 - 08:51 10.11.: Sokrates (Entscheidungsliste) archiviert, gebucht; Nachfolger Sokrates Chefrunde läuft
 - 08:07 10.11.: nicht gestartet trotz lauf.py: Jerry 806 und Tuffy 744 (806 wartet auf Chef, Kaufrepo je neue Sitzung; Chef 07:2x will keine Neustarts mit Repo-Freigabe, 826 A offen). Weiter-Nachricht an Perikles 828: Tagesbericht 10.11.
@@ -81,12 +89,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:08 10.11.: Start Jerry 438, Diogenes 800, Sokrates Stellungnahme; Jerry 562 und Diogenes 796 archiviert, gebucht. Perikles 818 wartet auf Chef: "822 Haken abschalten" (docs/chefsache/tun/822-formhaken.md)
 - 23:08 09.11.: Start Perikles 818, Spike 804 (Chef jetzt 21:12); Perikles 797 und Spike 781 archiviert, gebucht
 - 22:58 09.11.: Tom-Browser 79Sz und Sokrates 7A3w archiviert und gebucht (Sokrates-Auftrag, Chef 22:48)
-- 22:55 09.11.: Archiv-Satz des Chefs (22:50) erhalten, 820 erledigt; alte Fords, Jerry 2x, Diogenes 799, Tuffy 562 archiviert und gebucht; Start Diogenes 796 und Tuffy 642; ausgeschlossen: Homer 807 (wartet auf Chef A/B), Spike 475/795 (Pacing, Oberfläche); Sokrates zweimal (7A3w 22:30 und 78zp 22:42) im Blick
-- 22:47 09.11.: Ford neu (Chef von Hand, Tiefe 0), Uhr erneuert; wartet auf Archiv-Satz des Chefs (820)
-- 16:32 08.11.: Selbstneustart Ford (Kontext 400 Tsd.); neuer Ford legt Uhr an, löscht `trig_018KFM8p48SdbzgBWQ3TzWRR`, archiviert diese Sitzung nach Satz des Chefs.
-- 10:05 08.11.: Gestartet Perikles (338.1), Diogenes (Woche), Tom (499, 09:23). Nicht gestartet: Jerry 562 (alter Jerry `77Qb` lief noch, Neustart-Meldung fehlt), Spike 531 (Tom hat 531), Tuffy 560 (Guthaben-Tempo). Archivieren abgelehnt (Auto-Modus-Prüfer, ohne Satz des Chefs): Tom `79X6` 10,76 $, Jerry `76Pu`, Sokrates `76sa`, Diogenes `79SG`, Perikles `78bd`, Ford alt `76HF` 10,17 $; Kosten ungebucht bis dahin.
-- 09:07 08.11.: Selbstneustart (Tiefe 2), neue Uhr, alte gelöscht. Gestartet: Diogenes, Perikles (Tagesbericht 08.11.), Sokrates (Stellungnahme 4061, 6201). Spike (499) und Tuffy (562) nicht gestartet, Grund: Woche über tragbarem Tempo (Bild Chef 08:44, ≈ 0,8 statt 0,58 %/h); Startmarke steht, an Perikles melden. Wächter 499, 630 an Tom und Chef. Abgleich-Warnung 416.4 (Tom): „gebaut“ ohne Build, Zweig auf main.
-- 13:07 06.11.: Tom `FrCC` (603) fertig: Build 268 zum Test (PR #186, ansehen/t268), archiviert, 21,72 $ auf 603. Keine Sitzung läuft; Tom und Jerry ohne Muss als Code, Rest ruht bis Sa 20:00. Heute gesamt Entwicklung 77,97 $.
 - 00:03 09.11.: Startsperre 00:03 Start Diogenes, Perikles (lauf.py)
 - 00:03 09.11.: Marke Stellungnahme Sokrates 09.11. (lauf.py)
 - 07:18 09.11.: Startsperre 07:18 Start Sokrates, Tom (von Hand, nachgetragen 13:28; Sokrates-Befund 13:28)
@@ -179,13 +181,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:25 10.11.: Startsperre 10:25 Start Tom, Jerry, Homer, Perikles, Spike (lauf.py)
 - 10:25 10.11.: Marke Archiv session_01Hmoj76F9mPA4AtPHrxbtgb (lauf.py)
 - 10:25 10.11.: Marke Archiv session_01Hmoj79QEoSd5GHdCRwZxGK (lauf.py)
-- 10:28 10.11.: Sokrates t273 (PR 192), Tom 834, Spike 825, Homer 830 gestartet (Chefrunde: zwei Entwicklersitzungen laut Übergabe Sokrates 10:24); Homer 810 archiviert, gebucht; Sokrates Chefrunde läuft noch, Archiv 10:32
 - 10:32 10.11.: Startsperre 10:32 Start Jerry (Ford, vor dem Start; Chef 10:3x: Tom und Jerry gleichzeitig, Spike für 825 zusätzlich; mein Irrtum: „keine Arbeit“, Jerry hat 59 Muss, oberste startbare 709)
-- Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry (07:04 Jerry 806, 08:05 Jerry 806, 10:26 Jerry 595) aus eigener Beurteilung aus (Kaufrepo, Pacing, Sitzungsgrenze), ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch: 59 Muss). Lücke im Werkzeug: Startsperre wird geschrieben, auch wenn nie gestartet wird; kein WARNUNG-LAUT wie bei ARCHIVIERE. Vorschlag an den Chef gestellt
-- 10:38 10.11.: Sokrates Chefrunde archiviert, gebucht (273,831,661,649); Nachfolger Sokrates t273 läuft
 - 10:50 10.11.: Startsperre 10:50 Start Tom (Ford, vor dem Start; Neustart c397521bc)
-- 10:52 10.11.: zweiter Fehler Ford (Homer meldet): 807 war „807 A“ (Chef 09.11., 22:26), Ford schloss 807 per --ohne wegen veralteter Sitzungsnotiz „wartet auf A oder B“ aus, statt den Stand in der Vorgangsliste zu lesen; Folge: Homer ruhte 12 Stunden. Regel für Ford: --ohne nur nach Lesen von vorgang.py <Nr>
-- 10:54 10.11.: Tom 834 alt archiviert, gebucht; Nachfolger Tom 661 läuft
-- 10:58 10.11.: Homer 830 archiviert, gebucht (830,817,807); Fragen 830, 807a als Chefsache-Dateien
 - 11:00 10.11.: Startsperre 11:00 Start Tom (Ford, vor dem Start; Neustart d8e7ada18)
-- 11:06 10.11.: Tom 661 archiviert, gebucht; Tom 506, Jerry 709, Spike 825, Sokrates t273 laufen; Vorrat Tom 475 wartet auf Kaufrepo (Tom 661 meldete)
+- 11:08 10.11.: Startsperre 11:08 Start Diogenes, Homer, Perikles, Tuffy (lauf.py)
