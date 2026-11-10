@@ -4,7 +4,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `0efa93161` (09.11., 22:14)
 
-**Übergabe (10.11., 11:10):** 807 erledigt: `STORY-K1-FERTIGKEITEN.md` festgesetzt (807a A), Bau 841 Jerry, 842 Tom. Nachfolger: Homer – 830: Wolfssprung festsetzen.
+**Übergabe (10.11., 11:11):** 807 erledigt: `STORY-K1-FERTIGKEITEN.md` festgesetzt (807a A), Bau 841 Jerry, 842 Tom. 830 erledigt: `[830.sprung]` Wortlaut A fest in `STORY-SPIEL.md`, Bau 840 Jerry. Nachfolger: Homer – 766: Rollenspiegel (13.11.).
 
 ## Zeilen
 
