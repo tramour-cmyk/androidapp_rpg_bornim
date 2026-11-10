@@ -47,7 +47,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 | 857 | M | Von Sokrates (Chef 10.11., 13:01, t274.6): Fertigkeit „Kräuterkunde“ (Gruppe Sammeln) umbe | Chef (Datei in der Chefsache) |
 
-**Tom** – offen 105, Muss 86, startbar 9
+**Tom** – offen 106, Muss 87, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -156,6 +156,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 852 | K | Von Homer (432a A, Chef 10.11., 12:05): Aschgeborene bauen: Modell Mensch mit aschgrauer S | ruht |
 | 856 | M | Von Sokrates (Chef 10.11., 12:51, Fund t274, Bild): Zwischensequenz: Rückfrage „Überspring | wartet auf 785 (wartet) |
 | 860 | M | Von Sokrates (Chef 10.11., 13:07, t274.10 „Ja“): Chronik (Hauptauftrag, Aufträge, Bisher g | Sperre 620.1 B: 15 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 661 (kasten) |
+| 861 | M | Von Sokrates (Chef 10.11., 13:12, Bild t274.14): Umhang des Kämpfers im Kampf rechts am Rü | Sperre 620.1 B: 15 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 617 (rechts) |
 
 **Jerry** – offen 76, Muss 62, startbar 24
 
@@ -279,7 +280,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 771 | M | Probe 657 auswerten: Erstfunde des Chefs t272–t275 gegen 11, 11, 9, 7 (von Perikles, Werkz | wartet auf Test t275 (Chef) |
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 
-**Sokrates** – offen 45, Muss 33, startbar 24
+**Sokrates** – offen 46, Muss 33, startbar 25
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -328,6 +329,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 782 | M | Von Tom (697): ein Lauf am Rechner frei? Der erste (17:38) brach vor dem Zeichnen ab (Proj | startbar |
 | 827 | M | Stärkstes Modell nur für festgefahrene Vorgänge (zwei Rückläufer oder über 30 $), ab 14.11 | startbar |
 | 850 | K | Systemlösung? Halt: 7 frühere Vorgänge (244, 321.1, 488, 793, 662 …), neu 849; einmal grun | startbar |
+| 862 | K | Systemlösung? Umhang: 6 frühere Vorgänge (58, 488, 463, 463.1, 656 …), neu 861; einmal gru | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
