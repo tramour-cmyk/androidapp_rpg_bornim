@@ -217,9 +217,9 @@
 | 847 | D128.1 (Diogenes, 846): Lizenz-Stopp hält noch an, wenn Richtig/Falsch den Menüeintrag „Lizenzen der Engine“ als Bedienelement nennt (271.1, 269.1, 255.1 hielten an); Namen des Eintrags ausnehmen | Perikles | K | erledigt, greift Lauf 132 | – | – | – | B Werkzeuge | 2,02 $ |
 | 848 | Probelauf-Zähler zählt Push, der nur vorschau.yml (Kotlin, ohne Bild) auslöst, als Probe (von Tom, 506a) | Perikles | M | gebaut, Geprüft an: f5adfa33f | 858 | – | – | E Technik | – |
 | 849 | Neustart: letzte Antwort an den Chef wörtlich in die Übergabe, Nachfolger nennt sie in der Startmeldung; Tokens gering halten (Chef 10.11., 11:59, über Sokrates) | Perikles | M | gebaut, Geprüft an: c02c25d52 | 859 | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 10.11.): 15844 Bytes (Grenze 15000), Erledigtes streichen | Perikles | K | startbar | – | – | – | B Abläufe | – |
 | 858 | D129.1 (Diogenes, 848): Ausnahme vorschau.yml sucht vorschau.env im Ordner des Aufrufs, nicht in der Wurzel, und bei push_files nicht im Paket; Push aus Unterordner oder über den GitHub-Server mit vorschau.env zählt nicht | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
 | 859 | D130.1 (Diogenes, 849): Nachfolger nennt die letzte Antwort nicht; Regel steht nur beim Vorgänger (LISTE-RELEASE-NEUSTART 1), nicht in der Startmeldung (CLAUDE.md Zusammenarbeit 2) oder den Rollendateien | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
+| Pflege | von Werkzeug (340.3, 10.11.): 16248 Bytes (Grenze 15000), Erledigtes streichen | Perikles | K | startbar | – | – | – | B Abläufe | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
@@ -276,7 +276,7 @@
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +879,20 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 767 | Wochentermin 13.11.: Rollenspiegel Ford (rollenspiegel.sh Ford) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Ford | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 10.11.): 30973 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 10.11.): 31482 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
