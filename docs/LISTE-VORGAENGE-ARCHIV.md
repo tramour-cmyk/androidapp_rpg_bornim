@@ -987,3 +987,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 894 | Godot-Build startet von selbst bei claude/build-** (PR und Push); Kotlin-Lauf am PR nicht mehr als Build (von Sokrates; Chef 10.11., 19:31: Build 275 eine Stunde verloren) | B Werkzeuge | M | 1,69 $ | Perikles | erledigt |
 | 895 | android.yml (altes Kotlin-Spiel) nur noch von Hand, vor 870.10 (Chef 10.11., 19:36) | B Werkzeuge | M | – | Perikles | erledigt |
 | 870.16 | Von Sokrates (870, Umzug BRS Schritt 0): ruhende Zweige jerry-494-gegner, jerry-403-held-kampfort, jerry-6235-effektprobe, tom-6236-probeapk mit dem Besitzer klären: aufgeben oder vor dem Umzug zusammenführen | B Abläufe | M | – | Ford | erledigt |
+| 898 | D150.1 (Diogenes, 896): LISTE-UMZUG-BRS.md Schritt 8 (Zeile 144) zählt TP weiter zu den SRD-Texten; Wächter (de7ccc403), DESIGN-BRS 12 und STORY-REGELN 3 lassen es stehen; Plan angleichen | B Werkzeuge | M | – | Perikles | erledigt, greift Lauf 150 |
