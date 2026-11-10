@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [506a](entscheiden/506a-probelauf.md) | **Muss** | E Kampf | 10.11., 11:57 | Beide Gegner sind fertig gebaut und getestet, aber die eine Probe für 506 hat ein Ablauf ohne Bild verbraucht. Darf ein Film zu dir? | Tom |
 | [649a](entscheiden/649a-konsolidierung.md) | **Muss** | E Technik | 10.11., 11:04 | Helfer prüfte den Plan 649 gegen den Code: tragfähig mit Änderungen; fünf Schritte, Netze zum Gegenstandskatalog, ab sofort keine neuen Werte im Code | Sokrates |
 
 ## Zu billigen
@@ -227,7 +228,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 844 | M? | Kampf: Goblins und Kobolde haben keine Angriffsbewegung (nur Gehen, Stehen), gleiten im St | startbar |
 | 845 | M? | Kampf: Krogg steht 0,65 m hinter seinem Platz, beim Planen des Helden liest seine Lage den | startbar |
 
-**Perikles** – offen 19, Muss 5, startbar 1
+**Perikles** – offen 20, Muss 5, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -250,6 +251,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 735 | K | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-ABNAHME.md 11 und Kopf DESIGN-KAMPF | ruht |
 | 742 | K | D78.1 Testbitte t268: Zeile „Verglichen“ deckte nur die Schirme vom 05.11., nicht Dorf, Ka | ruht |
 | 847 | K | D128.1 (Diogenes, 846): Lizenz-Stopp hält noch an, wenn Richtig/Falsch den Menüeintrag „Li | startbar |
+| 848 | M? | Probelauf-Zähler zählt Push, der nur vorschau.yml (Kotlin, ohne Bild) auslöst, als Probe ( | startbar |
 
 **Diogenes** – offen 8, Muss 7, startbar 0
 
