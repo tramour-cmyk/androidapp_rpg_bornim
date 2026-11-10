@@ -176,3 +176,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:07 10.11.: nicht gestartet trotz lauf.py: Jerry 806 und Tuffy 744 (806 wartet auf Chef, Kaufrepo je neue Sitzung; Chef 07:2x will keine Neustarts mit Repo-Freigabe, 826 A offen). Weiter-Nachricht an Perikles 828: Tagesbericht 10.11.
 - 08:46 10.11.: Startsperre 08:46 Start Sokrates (Ford, vor dem Start; Neustart 962643a37, Chefrunde)
 - 08:51 10.11.: Sokrates (Entscheidungsliste) archiviert, gebucht; Nachfolger Sokrates Chefrunde läuft
+- 09:07 10.11.: Perikles 828 archiviert (Vorrat leer, Tagesbericht gesendet), gebucht 828,827. Sokrates Chefrunde wartet auf Chef: "Probe ja" oder bleibt bei "Bäume nein". Keine Entwicklersitzung (826 A)
