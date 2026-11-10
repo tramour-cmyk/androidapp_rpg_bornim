@@ -39,6 +39,8 @@ func _init() -> void:
 	_cub_chance()
 	# 399.2 (Tom 17:15): satt in den Kampf: +1 auf Angriff und Schaden des Helden (Battle.fedBonus), mit Zeile zu Beginn
 	_fed()
+	# 870.5: Grimmzahns Leibwache nicht angreifbar (werte.json „rudel“, 444), Krogg überfällt zuerst (werte.json „ueberfall“)
+	_leibwache_ueberfall()
 	print("MARS Regeln: %d abweichend" % failed)
 	quit(1 if failed > 0 else 0)
 
@@ -473,5 +475,29 @@ func _fed() -> void:
 		bonus.append(int(att[-1].roll[3]) if not att.is_empty() else -99)     # Trefferchance in Prozent
 	var ok: bool = loss[1] > loss[0] and bonus[1] > bonus[0] and said == [false, true]     # 870.5: im Maß des BRS
 	print(("gleich" if ok else "FEHLER") + " satt: Schaden %s, Angriff %s, Zeile %s" % [loss, bonus, said])
+	if not ok:
+		failed += 1
+
+
+func _leibwache_ueberfall() -> void:
+	var monsters := {}
+	for m in tables.monsters:
+		monsters[m.id] = m
+	var Aufruf = load("res://kampf/aufruf.gd")
+	var skills := {}
+	for s in tables.skills:
+		skills[s.id] = s
+	var sheet: Dictionary = tables.probe.FIGHTER.hero.hero.duplicate(true)
+	var hero := Mars.hero_fighter("hero", "PARTY", Vector2i(Mars.FRONT, 0), sheet, 999, sheet.second, skills)
+	var mars = Mars.new([hero], Aufruf.gegner("GRIMM", monsters, Wuerfel.new(3)), tables, Wuerfel.new(7), Wuerfel.new(7))
+	var ziele: Array = mars.feinde(hero).map(func(f): return f.id)
+	var ok: bool = ziele.size() == 1 and mars.find(ziele[0]).boss()
+	print(("gleich" if ok else "FEHLER") + " Leibwache nicht angreifbar: Ziele %s" % [ziele])
+	if not ok:
+		failed += 1
+	var held2 := Mars.hero_fighter("hero", "PARTY", Vector2i(Mars.FRONT, 0), sheet, 999, sheet.second, skills)
+	var m2 = Mars.new([held2], Aufruf.gegner("KROGG", monsters, Wuerfel.new(3)), tables, Wuerfel.new(7), Wuerfel.new(7))
+	ok = m2.order[0].side == "FOES"
+	print(("gleich" if ok else "FEHLER") + " Krogg überfällt zuerst: %s" % [m2.order.map(func(f): return f.id)])
 	if not ok:
 		failed += 1

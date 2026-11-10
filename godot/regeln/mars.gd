@@ -317,6 +317,10 @@ class Fighter:
 	func boss() -> bool:
 		return monster != null and monster.boss
 
+	## 870.5: Grimmzahns Leibwache steht hinter ihm und ist nicht angreifbar (werte.json „rudel“ „angreifbar“, wie alt Packs.kt guard)
+	func angreifbar() -> bool:
+		return bool(b.get("angreifbar", true))
+
 	func has(skill: String) -> bool:
 		return hero != null and (skill in hero.skills or skill in handlungen)
 
@@ -439,6 +443,8 @@ func _init(party: Array, foes: Array, tables: Dictionary, p_dice, p_words, p_lan
 		order = order.filter(func(x): return x.side == "PARTY") + order.filter(func(x): return x.side != "PARTY")
 		for f in foes:
 			surprised[f.id] = true
+	elif bool(_ueberfall().get("gegner_zuerst", false)):     # 870.5: Überfall (Krogg) schlägt vor dem Helden (werte.json „merkmale“ „ueberfall“, 444)
+		order = order.filter(func(x): return x.side == "FOES" and bool(x.b.get("ueberfall", false))) + order.filter(func(x): return not (x.side == "FOES" and bool(x.b.get("ueberfall", false))))
 	for f in foes:
 		announce(f)
 
@@ -823,9 +829,9 @@ func aim_at(f: Fighter, s: String) -> Array:
 		"FOE":
 			if (s == "FEINT" or s == "ACTION_SURGE") and not _feints_past(f, s):
 				return targets(f)
-			return all.filter(func(x): return x.side != f.side and x.standing())
+			return feinde(f)
 		"ROW":
-			return all.filter(func(x): return x.side != f.side and x.standing())
+			return feinde(f)
 		"SELF":
 			return [f]
 		"ALLY":
@@ -874,7 +880,7 @@ func _auto_order(f: Fighter) -> Array:
 		if c in can and blocked(f, c) == null:
 			cantrip = c
 			break
-	var foes := all.filter(func(x): return x.side != f.side and x.standing())
+	var foes := feinde(f)
 	if cantrip != null and not foes.is_empty():
 		return ["use", cantrip, _min_hp(foes).id]
 	if can_draw(f) and f.place.x == FRONT and f.weapon() != null and f.weapon().ranged and f.spare() != null and not f.spare().ranged:
@@ -891,9 +897,14 @@ func _min_hp(list: Array):
 	return best
 
 
+## 870.5: wen [f] überhaupt treffen kann: die stehenden Gegner ohne Grimmzahns Leibwache (Fighter.angreifbar)
+func feinde(f: Fighter) -> Array:
+	return all.filter(func(x): return x.side != f.side and x.standing() and x.angreifbar())
+
+
 ## Whom [f] can strike: melee reaches the front row while anyone stands there, ranged reaches all (72.11).
 func targets(f: Fighter) -> Array:
-	var other := all.filter(func(x): return x.side != f.side and x.standing())
+	var other := feinde(f)
 	if f.ranged():
 		return other
 	var front := other.filter(func(x): return x.place.x == FRONT)
@@ -1186,7 +1197,7 @@ func _perform(f: Fighter, o: Array) -> void:
 func _again(f: Fighter, t: Fighter, weapon: bool):
 	if t.standing():
 		return t
-	var l := targets(f) if weapon else all.filter(func(x): return x.side != f.side and x.standing())
+	var l := targets(f) if weapon else feinde(f)
 	return l[0] if not l.is_empty() else null
 
 
@@ -1230,7 +1241,7 @@ func _brs_wirke(f: Fighter, s: String, t) -> void:
 					_brs_zauber(f, tt, z)
 		"Z_FAECHER", "Z_GLUT":
 			var row: int = FRONT if s == "Z_FAECHER" and all.any(func(x): return x.side == t.side and x.standing() and x.place.x == FRONT) else t.place.x
-			for g in all.filter(func(x): return x.side == t.side and x.standing() and x.place.x == row):
+			for g in all.filter(func(x): return x.side == t.side and x.standing() and x.angreifbar() and x.place.x == row):
 				if outcome == "ONGOING":
 					_brs_zauber(f, g, z)
 		"Z_WUND":
@@ -2172,6 +2183,12 @@ func _beistand(f: Fighter) -> float:
 ## Ein Gegner schlägt den Helden oder Söldner (sim.py auf_held): Angriff gegen die beste Abwehr (Ausweichen, Schild, Parieren), Schaden
 ## Grundschaden × (1 + Angriff/100) × Stufenfaktor, minus Rüstung und Schild; die Stärke der Ansage (Schwerer Hieb …) im Verhältnis
 ## ihres Würfels zum Biss der Art
+## 870.5: Merkmal Überfall nach dem BRS (werte.json „merkmale“ „ueberfall“: Gegner zuerst, erster Treffer stärker; betäubt wie bisher
+## über die Abwehrprobe in _foe_wounds)
+func _ueberfall() -> Dictionary:
+	return BrsKampf.w().get("merkmale", {}).get("ueberfall", {})
+
+
 func _brs_auf_held(foe: Fighter, t: Fighter, intent: Dictionary, mode: int) -> Dictionary:
 	var m: Dictionary = foe.monster
 	var wt = t.weapon()
@@ -2181,5 +2198,7 @@ func _brs_auf_held(foe: Fighter, t: Fighter, intent: Dictionary, mode: int) -> D
 	var faktor := 1.0
 	if intent.extra != null and BrsKampf.mittel(m.dmg) > 0.0:
 		faktor += BrsKampf.mittel(intent.extra) / BrsKampf.mittel(m.dmg)
+	if bool(foe.b.get("ueberfall", false)) and not foe.has_hit:     # 870.5: der erste Treffer des Überfalls mit Wucht (444 „erster_treffer_faktor“)
+		faktor *= float(_ueberfall().get("erster_treffer_faktor", 1.0))
 	return BrsKampf.schlag(dice.rng, float(foe.b.angriff), float(abw[1]), float(foe.b.schaden) * faktor,
 			float(int(foe.b.stufe) - int(t.b.stufe)), BrsKampf.held_abzug(t.b, in_hand) + t.schutz, _brs_bonus(mode, -_penalty(foe)))     # 870.5: Bannschild, Arkanhaut
