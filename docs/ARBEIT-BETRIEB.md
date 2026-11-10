@@ -73,6 +73,12 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry (07:04 Jerry 806, 08:05 Jerry 806, 10:26 Jerry 595) aus eigener Beurteilung aus (Kaufrepo, Pacing, Sitzungsgrenze), ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch: 59 Muss). Lücke im Werkzeug: Startsperre wird geschrieben, auch wenn nie gestartet wird; kein WARNUNG-LAUT wie bei ARCHIVIERE. Vorschlag an den Chef gestellt
 
+- 23:04 10.11.: Jerry …794Tg archiviert, gebucht (6,04 $, 870.5); Tom-Nachfolger …75w84 (23:03), Vorgänger …9Deoz wartet auf Ruhe
+- 22:52 10.11.: Sokrates …76uBk archiviert, gebucht (6,15 $ zu gleichen Teilen auf 888, 709c, 870); Jerry-Nachfolger …76RTd (22:51), Vorgänger …794Tg wartet auf Ruhe
+- 22:28 10.11.: Sokrates-Nachfolger …75g2D gestartet; alter Sokrates …76uBk (5,98 $, Kosten auf 888, 709c, 870) wartet auf Ruhe, archiviert der nächste Lauf
+- 22:27 10.11.: Jerry …76riB archiviert, gebucht (6,18 $, 870.5). Sokrates 22:27 (Chef 22:24, Umzug über Nacht): Läufe laufen die Nacht durch, jede startbare 870.x und Nachfolger Tom/Jerry ohne Rückfrage, Spike/Tuffy aus; entspricht der Startregel
+- 22:08 10.11.: Chef-Satz 22:07 erhalten; archiviert und gebucht: Jerry …78Q1 (21,19 $, 870.5), …7991 (17,15 $, 870.2), …78Uv4 (5,02 $, 870.5), Perikles …79eG (6,59 $, 264.1), Ford …794Mi6M (6,99 $, Betrieb)
+- 22:05 10.11.: Lauf 22:04: nicht ausgeführt (Grund): START Tom 888 (Sitzung „Testbitte 888“ wartet auf Test des Chefs), START Perikles „M?“ (Planfehler 893) und 264.1 (Sitzung 21:07 hält es), START Tuffy 506.2 (nur auf Chef-Wort); ARCHIVIERE ×6 wartet auf Archiv-Satz. Stillstand Tom/Perikles seit 22:04: Ursache eingeteilt (Test Chef bzw. Lauf 7), kein Fehler
 - 21:42 10.11.: 870.16 erledigt: tom-6236-probeapk, jerry-494-gegner, jerry-403-held-kampfort, jerry-6235-effektprobe von den Besitzern aufgegeben (Zweige bleiben im Git)
 - 21:06 10.11.: Lauf 21:05: Tom 888 statt START als WEITER an die Sitzung „Tom – Testbitte 888“ (192 Tsd. Token, 30 Min. ruhig); Tuffy 506.2 und Diogenes 893 nicht gestartet (Tuffy nur auf Chef-Wort, 506.2 hat Jerry nicht; 893 Kür bei --nur-muss); ARCHIVIERE Jerry …7991 und Tom …9Deoz entfallen/wartet auf Archiv-Satz; Abgleich-Warnungen 542, 632 an Tom
 - 20:09 10.11.: Lauf 20:07: START Tom 888, Diogenes 893 (Kür), Perikles „M?“, Tuffy 870.3 nicht ausgeführt (Tom-888-Sitzung läuft/wartet, Kür, Planfehler, Tuffy nur auf Chef-Wort); Wächter 888 und 264 ausgeführt
@@ -87,12 +93,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:38 10.11.: Sokrates Chefrunde archiviert, gebucht (273,831,661,649); Nachfolger Sokrates t273 läuft
 - 10:28 10.11.: Sokrates t273 (PR 192), Tom 834, Spike 825, Homer 830 gestartet (Chefrunde: zwei Entwicklersitzungen laut Übergabe Sokrates 10:24); Homer 810 archiviert, gebucht; Sokrates Chefrunde läuft noch, Archiv 10:32
 - 09:07 10.11.: Perikles 828 archiviert (Vorrat leer, Tagesbericht gesendet), gebucht 828,827. Sokrates Chefrunde wartet auf Chef: "Probe ja" oder bleibt bei "Bäume nein". Keine Entwicklersitzung (826 A)
-- 08:51 10.11.: Sokrates (Entscheidungsliste) archiviert, gebucht; Nachfolger Sokrates Chefrunde läuft
-- 08:07 10.11.: nicht gestartet trotz lauf.py: Jerry 806 und Tuffy 744 (806 wartet auf Chef, Kaufrepo je neue Sitzung; Chef 07:2x will keine Neustarts mit Repo-Freigabe, 826 A offen). Weiter-Nachricht an Perikles 828: Tagesbericht 10.11.
-- 07:27 10.11.: Sokrates 650.2 (alt) archiviert, gebucht; Nachfolger Sokrates Entscheidungsliste 2.0 läuft
-- 07:25 10.11.: Chef 07:2x „archivier ordentlich, erfasse Kosten, prüfe Neustarts“: archiviert und gebucht Sokrates-Stellungnahme (826,827), Perikles 818, Diogenes 800, Tuffy 642 (blieb blockiert), Jerry 595 (20,34 $), Tom 475 (10,16 $; Chefsache 475 liegt vor); Chefsache 820 gelöscht (erledigt). Bleiben: Sokrates 650.2, Perikles 828, Homer 810 (Frage 807 A/B ohne Chefsache-Datei)
-- 07:06 10.11.: Weiter-Nachricht an Jerry 595 (Probelauf seit Stunden durch, Sitzung ruhte seit 02:48) statt Start Jerry 806; nicht gestartet: Perikles auf Abruf (818 wartet auf Chef 822), Tuffy 744 (Figuren, Pacing). Wartet auf Chef: Tom 475 (Urteil Gesichter Lauf 2, Test Build 273), 822, 807 A/B, Tuffy 642 Kaufrepo
-- 02:08 10.11.: Spike 804 archiviert, gebucht. Nicht gestartet trotz lauf.py: Perikles auf Abruf (818 wartet auf Chef 822), Spike 825 (Sammelbuild wartet auf Tom 475 und Tests), Tuffy 806 (Jerry 595 hat 806 als Nächstes, braucht Kaufrepo)
 - 13:30 10.11.: Startsperre 13:30 Start Ford (selbst)
 - 13:30 10.11.: Startsperre 13:30 Start Sokrates (Neustart auf Meldung 9fc0c053b, Nachfolger 620 Test t274 ab 274); Startsperre 13:30 Start Ford (selbst).
 - 12:47 10.11.: Startsperre 12:47 Start Sokrates (Neustart auf Meldung 5f05423f9, Nachfolger 620 Lagebild nach Test t274).
@@ -300,13 +300,9 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:04 10.11.: Marke Mehrfach Jerry (lauf.py)
 - 22:04 10.11.: Marke Archiv session_01Hmoj75P7xwKnkPuLhgyB1T (lauf.py)
 - 22:04 10.11.: Marke Start-fehlt Tuffy 10.11.-21:05 (lauf.py)
-- 22:05 10.11.: Lauf 22:04: nicht ausgeführt (Grund): START Tom 888 (Sitzung „Testbitte 888“ wartet auf Test des Chefs), START Perikles „M?“ (Planfehler 893) und 264.1 (Sitzung 21:07 hält es), START Tuffy 506.2 (nur auf Chef-Wort); ARCHIVIERE ×6 wartet auf Archiv-Satz. Stillstand Tom/Perikles seit 22:04: Ursache eingeteilt (Test Chef bzw. Lauf 7), kein Fehler
-- 22:08 10.11.: Chef-Satz 22:07 erhalten; archiviert und gebucht: Jerry …78Q1 (21,19 $, 870.5), …7991 (17,15 $, 870.2), …78Uv4 (5,02 $, 870.5), Perikles …79eG (6,59 $, 264.1), Ford …794Mi6M (6,99 $, Betrieb)
 - 22:14 10.11.: Startsperre 22:14 Start Jerry (Neustart-Meldung 22:13, e2ec90052)
-- 22:27 10.11.: Jerry …76riB archiviert, gebucht (6,18 $, 870.5). Sokrates 22:27 (Chef 22:24, Umzug über Nacht): Läufe laufen die Nacht durch, jede startbare 870.x und Nachfolger Tom/Jerry ohne Rückfrage, Spike/Tuffy aus; entspricht der Startregel
 - 22:28 10.11.: Startsperre 22:28 Start Sokrates (Neustart-Meldung 22:27, 5b1b3cd97)
-- 22:28 10.11.: Sokrates-Nachfolger …75g2D gestartet; alter Sokrates …76uBk (5,98 $, Kosten auf 888, 709c, 870) wartet auf Ruhe, archiviert der nächste Lauf
 - 22:51 10.11.: Startsperre 22:51 Start Jerry (Neustart-Meldung 22:50, eae97c381)
-- 22:52 10.11.: Sokrates …76uBk archiviert, gebucht (6,15 $ zu gleichen Teilen auf 888, 709c, 870); Jerry-Nachfolger …76RTd (22:51), Vorgänger …794Tg wartet auf Ruhe
 - 23:03 10.11.: Startsperre 23:03 Start Tom (Neustart-Meldung 23:02, 9c1d9df57)
-- 23:04 10.11.: Jerry …794Tg archiviert, gebucht (6,04 $, 870.5); Tom-Nachfolger …75w84 (23:03), Vorgänger …9Deoz wartet auf Ruhe
+- 23:06 10.11.: Marke Archiv-Warnung session_01Hmoj79Deoz5Cxe7k7jeLem (lauf.py)
+- 23:07 10.11.: Startsperre 23:07 Start Diogenes (lauf.py)
