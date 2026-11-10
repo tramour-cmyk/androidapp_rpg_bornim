@@ -1329,6 +1329,8 @@ func _weg() -> Dictionary:
 		weg_fps = float(j[fell].get("fps", 30.0))
 		if j[fell].get("biss") is Array:
 			bite = {"Biss": j[fell].biss}
+			if j[fell].get("tiefbiss") is Array:     # 709a A: tiefer Biss unter dem Schild (kaufwolf.py)
+				bite["Tiefbiss"] = j[fell].tiefbiss
 		if j[fell].get("hieb") is Array:
 			hieb = j[fell].hieb
 		if j[fell].get("tempo") is Dictionary:
@@ -2042,6 +2044,81 @@ func _bite(other, leap: bool, weiter := 0.0) -> int:
 	return ms
 
 
+## 709: Bissplatz um das Ziel (Mensch) für die Bewegung [nm] (Biss, Tiefbiss): [Platz, Richtung, Stand, Zeit des Bisses, voll]; voll =
+## die Schnauze erreicht den Körper, sonst der nächste freie Platz davor; [] ohne freien Platz. [stand] ist der bisherige Abstand
+func _biss_platz(other, nm: String, dir: Vector3, stand: float) -> Array:
+	var bb: Array = _hieb_bahn(nm, deg_to_rad(bite[nm][2]))
+	if not bb.is_empty():
+		var ziel: Array = other.koerper()
+		var hind: Array = other.schild_kapseln()
+		other.footprint()     # misst schild_unten (ohne Schild INF)
+		var unter_schild: bool = other.schild_unten < INF and hoehe_oben() < other.schild_unten
+		var teil := []     # bester freier Platz, an dem die Schnauze nicht ganz hinreicht: [Lücke, Platz, Richtung, Stand, t]
+		for w in [0.0, 20.0, -20.0, 40.0, -40.0, 60.0, -60.0]:
+			var d2 := dir.rotated(Vector3.UP, deg_to_rad(w))
+			var pl: Array = hieb_plan(bb, ziel, other.position, d2, -BISS_TIEF, BISS_LUFT, hind)
+			if OS.get_environment("SCHAU_709") != "":
+				print("709 Biss %s an %s, %.0f°: Stand %.2f (Schnauze %.2f, Körper %.2f), vorher %.2f" % [fighter.id, other.fighter.id, w, pl[0], pl[2], pl[3], stand])
+			if pl[2] <= 0.0:
+				continue
+			var voll: bool = pl[2] >= pl[3] - 0.02
+			# 709 (wolf_mess_438 rot mit 9b5472b15: der versetzte Platz umging die Platzprüfung, Wolf in Wolf, Kopf im Helden):
+			# nur ein Platz, der frei ist, frei erreichbar und im Bild; sonst der Biss wie bisher (438 sucht dann den Platz)
+			# wer mit dem Schild abwehrt (406), stößt ihn vor (438: ABWEHR_VOR); der Weg misst die Ruhehaltung
+			# reicht die Schnauze nicht ganz hin, steht der Schild davor; er fährt bei der Abwehr (Ring) vor, also gleich ABWEHR_VOR
+			# Abstand (wolf_mess_438 Kleriker 71,9 s: Schild 9 cm im Wolf)
+			# 709 (treffen_709 Ratten: 8 cm vor dem Helden): wer unter dem Schild bleibt, dem stößt er nicht entgegen
+			var st2: float = float(pl[0]) + (ABWEHR_VOR if not unter_schild and (not voll or other.has_method("blockt") and other.blockt()) else 0.0)
+			var s2 := Vector3(other.position.x, position.y, other.position.z) - d2 * st2
+			var l2 := _platz_luft(s2, d2, other)
+			var w2 := _weg_luft(position, s2, other) if s2.distance_to(position) > 0.15 else INF
+			# 709 (wolf_mess_438 Kämpfer: um 40° versetzt lag der Umriss des Wolfs bis 0,24 m im Helden, während die Schnauze
+			# traf): auch der eigene Umriss in Bisshaltung (Schnauze zum Ziel gedreht) bleibt vor dem Ziel, wie der Test misst
+			# und beim Drehen zum Heimweg (wolf_mess_438: der lange Rumpf schwenkte 0,17 m durch den Helden): Bisshaltung, halb und
+			# ganz zum Heim gedreht; die Haltung im Biss reicht weiter als der Umriss in Ruhe (BISS_UMRISS als Luft)
+			var y0 := atan2(d2.x, d2.z) + deg_to_rad(bite[nm][2])
+			var hv := home - s2
+			var y1 := y0 + wrapf(atan2(hv.x, hv.z) + PI - y0, -PI, PI) if _bleib_717() or weg.has("Zurück") else atan2(hv.x, hv.z)
+			# 709 (treffen_709 Ratten: an jedem Bissplatz lag der Umriss 0,16–0,34 m im Helden, die Schnauze blieb 0,6–0,8 m vor ihm):
+			# Kopf und Kiefer gehören beim Biss ans Ziel, hieb_plan prüft sie räumlich gegen Körper und Schild; gegen das Ziel zählt in
+			# Bisshaltung nur der Rumpf hinter dem Kopf (bei der Ratte liegt der Kopf am Boden im Umriss, beim Wolf darüber)
+			# (nur wer unter dem Schild bleibt: Ratte, Spinne, Schnecke; Wolf und Grimmzahn reichen höher, ihr Kopf zählt mit, 709a)
+			var rumpf := _rumpf_ohne_kopf() if unter_schild else footprint()
+			# auch beim Drehen zum Heimweg: der Kopf löst sich dabei vom Ziel
+			var r2 := INF
+			for yw in [y0, lerp_angle(y0, y1, 0.5), y1]:
+				r2 = minf(r2, minf(_rumpf_luft(s2, yw, other), _rumpf_luft(s2, yw, null, other, rumpf)))
+			# der Heimweg geht am Ziel vorbei (_walk_home lässt das Ziel aus): auch er bleibt vor dessen Umriss
+			var h2 := INF
+			var fb := footprint()
+			for i in range(1, 9):
+				h2 = minf(h2, other.clearance(s2.lerp(home, i / 8.0)) - (fb.end.x - fb.position.x) * 0.5)
+			if OS.get_environment("SCHAU_709") != "":
+				print("709 Bissplatz %s, %.0f°: Luft %.2f Weg %.2f Umriss %.2f Heim %.2f im Bild %s" % [fighter.id, w, l2, w2, r2, h2, _im_bild(s2, d2)])
+			# wer mit Schild kämpft, hält ihn bei der Abwehr vor sich (footprint), um ABWEHR_VOR weiter (wolf_mess_438 Kämpfer: 0,11 m)
+			var r_soll: float = BISS_UMRISS + (ABWEHR_VOR if other.kauf and other._ss() and not unter_schild else 0.0)
+			# und der Held dreht sich getroffen oder abwehrend zum Wolf (_face_sanft), den Schild mit (footprint): sein Umriss auch so
+			if other.kauf and other._ss():
+				var fb2 := rumpf
+				var tr2 := Transform3D(Basis(Vector3.UP, y0), s2)
+				var zum: Vector3 = s2 - other.position
+				for i in 7:
+					for j in 3:
+						var q := tr2 * Vector3(lerpf(fb2.position.x, fb2.end.x, j / 2.0), 0.0, lerpf(fb2.position.z, fb2.end.z, i / 6.0))
+						r2 = minf(r2, other.clearance(q, Vector3.INF, atan2(zum.x, zum.z), hoehe_oben()))
+			if l2 < PLATZ_LUFT or w2 < WEG_LUFT or r2 < r_soll or h2 < -BISS_UMRISS or not _im_bild(s2, d2):
+				continue
+			var bt := float(pl[1]) / maxf(float(tempo.get(nm, 1.0)), 0.1) + HIEB_VERZUG
+			if not voll:     # die Schnauze bliebe pl[0] − pl[2] davor (Schild oder eigener Körper im Weg); näher als bisher
+				if st2 - float(pl[2]) < (teil[0] if not teil.is_empty() else stand - float(pl[2])):
+					teil = [st2 - float(pl[2]), s2, d2, st2, bt]
+				continue
+			return [s2, d2, st2, bt, true]
+		if not teil.is_empty():
+			return [teil[1], teil[2], teil[3], teil[4], false]
+	return []
+
+
 func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 	var bleib717 := _bleib_717()
 	var flat := Vector3(other.position.x - position.x, 0.0, other.position.z - position.z)
@@ -2066,82 +2143,21 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 	var biss_t: float = bite[nm][1]
 	var biss_von := Vector3.INF
 	if nm == "Biss" and weiter <= 0.0 and other.fighter.monster == null:
-		var bb: Array = _hieb_bahn(nm, deg_to_rad(bite[nm][2]))
-		if not bb.is_empty():
-			var ziel: Array = other.koerper()
-			var hind: Array = other.schild_kapseln()
-			other.footprint()     # misst schild_unten (ohne Schild INF)
-			var unter_schild: bool = other.schild_unten < INF and hoehe_oben() < other.schild_unten
-			var teil := []     # bester freier Platz, an dem die Schnauze nicht ganz hinreicht: [Lücke, Platz, Richtung, Stand, t]
-			for w in [0.0, 20.0, -20.0, 40.0, -40.0, 60.0, -60.0]:
-				var d2 := dir.rotated(Vector3.UP, deg_to_rad(w))
-				var pl: Array = hieb_plan(bb, ziel, other.position, d2, -BISS_TIEF, BISS_LUFT, hind)
-				if OS.get_environment("SCHAU_709") != "":
-					print("709 Biss %s an %s, %.0f°: Stand %.2f (Schnauze %.2f, Körper %.2f), vorher %.2f" % [fighter.id, other.fighter.id, w, pl[0], pl[2], pl[3], stand])
-				if pl[2] <= 0.0:
-					continue
-				var voll: bool = pl[2] >= pl[3] - 0.02
-				# 709 (wolf_mess_438 rot mit 9b5472b15: der versetzte Platz umging die Platzprüfung, Wolf in Wolf, Kopf im Helden):
-				# nur ein Platz, der frei ist, frei erreichbar und im Bild; sonst der Biss wie bisher (438 sucht dann den Platz)
-				# wer mit dem Schild abwehrt (406), stößt ihn vor (438: ABWEHR_VOR); der Weg misst die Ruhehaltung
-				# reicht die Schnauze nicht ganz hin, steht der Schild davor; er fährt bei der Abwehr (Ring) vor, also gleich ABWEHR_VOR
-				# Abstand (wolf_mess_438 Kleriker 71,9 s: Schild 9 cm im Wolf)
-				# 709 (treffen_709 Ratten: 8 cm vor dem Helden): wer unter dem Schild bleibt, dem stößt er nicht entgegen
-				var st2: float = float(pl[0]) + (ABWEHR_VOR if not unter_schild and (not voll or other.has_method("blockt") and other.blockt()) else 0.0)
-				var s2 := Vector3(other.position.x, position.y, other.position.z) - d2 * st2
-				var l2 := _platz_luft(s2, d2, other)
-				var w2 := _weg_luft(position, s2, other) if s2.distance_to(position) > 0.15 else INF
-				# 709 (wolf_mess_438 Kämpfer: um 40° versetzt lag der Umriss des Wolfs bis 0,24 m im Helden, während die Schnauze
-				# traf): auch der eigene Umriss in Bisshaltung (Schnauze zum Ziel gedreht) bleibt vor dem Ziel, wie der Test misst
-				# und beim Drehen zum Heimweg (wolf_mess_438: der lange Rumpf schwenkte 0,17 m durch den Helden): Bisshaltung, halb und
-				# ganz zum Heim gedreht; die Haltung im Biss reicht weiter als der Umriss in Ruhe (BISS_UMRISS als Luft)
-				var y0 := atan2(d2.x, d2.z) + deg_to_rad(bite[nm][2])
-				var hv := home - s2
-				var y1 := y0 + wrapf(atan2(hv.x, hv.z) + PI - y0, -PI, PI) if _bleib_717() or weg.has("Zurück") else atan2(hv.x, hv.z)
-				# 709 (treffen_709 Ratten: an jedem Bissplatz lag der Umriss 0,16–0,34 m im Helden, die Schnauze blieb 0,6–0,8 m vor ihm):
-				# Kopf und Kiefer gehören beim Biss ans Ziel, hieb_plan prüft sie räumlich gegen Körper und Schild; gegen das Ziel zählt in
-				# Bisshaltung nur der Rumpf hinter dem Kopf (bei der Ratte liegt der Kopf am Boden im Umriss, beim Wolf darüber)
-				# (nur wer unter dem Schild bleibt: Ratte, Spinne, Schnecke; Wolf und Grimmzahn reichen höher, ihr Kopf zählt mit, 709a)
-				var rumpf := _rumpf_ohne_kopf() if unter_schild else footprint()
-				# auch beim Drehen zum Heimweg: der Kopf löst sich dabei vom Ziel
-				var r2 := INF
-				for yw in [y0, lerp_angle(y0, y1, 0.5), y1]:
-					r2 = minf(r2, minf(_rumpf_luft(s2, yw, other), _rumpf_luft(s2, yw, null, other, rumpf)))
-				# der Heimweg geht am Ziel vorbei (_walk_home lässt das Ziel aus): auch er bleibt vor dessen Umriss
-				var h2 := INF
-				var fb := footprint()
-				for i in range(1, 9):
-					h2 = minf(h2, other.clearance(s2.lerp(home, i / 8.0)) - (fb.end.x - fb.position.x) * 0.5)
-				if OS.get_environment("SCHAU_709") != "":
-					print("709 Bissplatz %s, %.0f°: Luft %.2f Weg %.2f Umriss %.2f Heim %.2f im Bild %s" % [fighter.id, w, l2, w2, r2, h2, _im_bild(s2, d2)])
-				# wer mit Schild kämpft, hält ihn bei der Abwehr vor sich (footprint), um ABWEHR_VOR weiter (wolf_mess_438 Kämpfer: 0,11 m)
-				var r_soll: float = BISS_UMRISS + (ABWEHR_VOR if other.kauf and other._ss() and not unter_schild else 0.0)
-				# und der Held dreht sich getroffen oder abwehrend zum Wolf (_face_sanft), den Schild mit (footprint): sein Umriss auch so
-				if other.kauf and other._ss():
-					var fb2 := rumpf
-					var tr2 := Transform3D(Basis(Vector3.UP, y0), s2)
-					var zum: Vector3 = s2 - other.position
-					for i in 7:
-						for j in 3:
-							var q := tr2 * Vector3(lerpf(fb2.position.x, fb2.end.x, j / 2.0), 0.0, lerpf(fb2.position.z, fb2.end.z, i / 6.0))
-							r2 = minf(r2, other.clearance(q, Vector3.INF, atan2(zum.x, zum.z), hoehe_oben()))
-				if l2 < PLATZ_LUFT or w2 < WEG_LUFT or r2 < r_soll or h2 < -BISS_UMRISS or not _im_bild(s2, d2):
-					continue
-				var bt := float(pl[1]) / maxf(float(tempo.get(nm, 1.0)), 0.1) + HIEB_VERZUG
-				if not voll:     # die Schnauze bliebe pl[0] − pl[2] davor (Schild oder eigener Körper im Weg); näher als bisher
-					if st2 - float(pl[2]) < (teil[0] if not teil.is_empty() else stand - float(pl[2])):
-						teil = [st2 - float(pl[2]), s2, d2, st2, bt]
-					continue
-				biss_von = s2
-				dir = d2
-				stand = st2
-				biss_t = bt
-				break
-			if biss_von == Vector3.INF and not teil.is_empty():
-				biss_von = teil[1]
-				dir = teil[2]
-				stand = teil[3]
-				biss_t = teil[4]
+		var r: Array = _biss_platz(other, nm, dir, stand)
+		# 709a A (Chef 10.11., 14:22): reicht der gerade Biss nicht an den Körper (Schild davor), der tiefe Biss unter dem Schild durch
+		if (r.is_empty() or not r[4]) and bite.has("Tiefbiss") and anim and anim.has_animation("Tiefbiss"):
+			var st_t: float = stand - bite[nm][0] * model.scale.x + float(bite["Tiefbiss"][0]) * model.scale.x
+			var rt: Array = _biss_platz(other, "Tiefbiss", dir, st_t)
+			if OS.get_environment("SCHAU_709") != "":
+				print("709 Tiefbiss %s an %s: gerade %s, tief %s" % [fighter.id, other.fighter.id, r, rt])
+			if not rt.is_empty() and (rt[4] or r.is_empty()):
+				r = rt
+				nm = "Tiefbiss"
+		if not r.is_empty():
+			biss_von = r[0]
+			dir = r[1]
+			stand = r[2]
+			biss_t = r[3]
 	var jump := _weg_len(nm) if nm == "Sprungbiss" else 0.0
 	var k := 1.0
 	var gap := flat.length() - stand

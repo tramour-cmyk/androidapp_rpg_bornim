@@ -61,7 +61,12 @@ TMAX = float(os.environ.get('TMAX', '0.5'))
 HELL = {'grau': 0.9, 'dunkel': 1.0, 'rost': 0.75, 'asche': 0.9, 'schwarz': 1.0, 'schimmer': 0.9}     # Grimmzahn: schwarz wie dunkel
 # Biss nachgemessen (probe.gd SCHAU=ort SCHAU_MESS=1, lokal 27.10.): mit Schnauze am weitesten vorn minus 0,07 m blieb die Nase
 # 0,04–0,08 m vor dem Rand der Heldin, zugebissen 0,77–1,03 s, Winkel +2 bis +5°: Abstand −0,06 m (Modell), Zeit, Winkel −4°
-BISS_KORR = (-0.03, 0.8, 0.0)     # Prüfer r1: Kopf verschwindet am Rumpf der Heldin; Nase dort 0,01–0,05 m im Rand: 3 cm zurück
+BISS_KORR = (-0.03, 0.8, 0.0)
+# 709a A (Chef 10.11., 14:22 an Sokrates „709a A“): tiefer Biss in Wade oder Oberschenkel, unter dem Schild des Helden durch (Unterkante
+# 0,6–0,77 m, treffen_709): Vorstoß aus Attack, Kopf gesenkt wie in Eat, Rumpf tiefer; Kieferspitze im Augenblick des Bisses so hoch
+TIEF_Z = float(os.environ.get('TIEF_Z', '0.42'))     # m über dem Boden (nach dem Maßstab), Knie bis Wade
+TIEF_DZ = float(os.environ.get('TIEF_DZ', '0.10'))     # so tief (Quelle, m) sinkt der Rumpf im tiefen Biss
+TIEF_VOR = float(os.environ.get('TIEF_VOR', '0.3'))     # so weit (Quelle, m) stößt der Rumpf vor: der Kopf kommt erst tief am Schild an     # Prüfer r1: Kopf verschwindet am Rumpf der Heldin; Nase dort 0,01–0,05 m im Rand: 3 cm zurück
 KOPF_KNOCHEN = ('neck_top', 'head', 'jaw', 'tongue', 'ear')
 # Augen nach Lage im Netz (Ruhe, Quelle): erster Lauf färbte nach Farbe 4,9 % der Textur als Auge (das Fell der Quelle ist braun
 # gesättigt); gemessen: Iris um (±0,047, −0,832, 0,890) m, Radius 0,010; darum ein weißer Ring (Lid, bis 0,019), wird dunkel
@@ -468,6 +473,27 @@ def baue(fell):
     haltung(rig, akt['Treffer'], lambda t: ((0, 0.07 * stoss(t), -0.04 * stoss(t)), 18.0 * stoss(t), -12.0 * stoss(t), 6.0 * stoss(t)))
     akt['Ausweichen'] = gehalten(idle, 'Ausweichen', 13)     # 0,4 s wie wolf.py: Rumpf zur Seite und tief, Kopf weg
     haltung(rig, akt['Ausweichen'], lambda t: ((0.15 * stoss(t, 0.35), 0.03 * stoss(t, 0.35), -0.07 * stoss(t, 0.35)), 6.0 * stoss(t, 0.35), 18.0 * stoss(t, 0.35), -10.0 * stoss(t, 0.35)))
+    # 709a A: tiefer Biss; Nicken so, dass die Kieferspitze im Augenblick des Bisses auf TIEF_Z steht (Hals dreht um seinen Ansatz)
+    tb = None
+    if 'Attack' in akt:
+        setze(rig, akt['Attack']); scn.frame_set(a0 + fb); bpy.context.view_layer.update()
+        h = Wr @ pb[HALS].head; pj = Wr @ pb[J('Head_JawEnd')].head
+        vy, vz = pj.y - h.y, pj.z - h.z; L = math.hypot(vy, vz)
+        z_ziel = lo[2] + TIEF_Z / s + TIEF_DZ     # der Rumpf sinkt im Biss (tief() unten), der Hals mit
+        nick = math.degrees(math.asin(max(-1.0, min(1.0, (z_ziel - h.z) / L))) - math.atan2(vz, -vy))
+        tp = fb / max(1, a1 - a0)     # Anteil bis zum Biss
+        akt['Tiefbiss'] = akt['Attack'].copy(); akt['Tiefbiss'].name = 'Tiefbiss'; akt['Tiefbiss'].use_fake_user = True
+        def tief(t, nick=nick, tp=tp):
+            e = huelle(t, max(0.05, tp * float(os.environ.get('TIEF_AN', '0.4'))), min(0.95, tp + (1 - tp) * 0.45))     # Kopf schon tief, bevor er am Schild ist
+            v = huelle(t, max(0.05, tp), min(0.95, tp + (1 - tp) * float(os.environ.get('TIEF_AB', '0.6'))))     # Vorstoß bis zum Biss, dann zurück
+            return ((0, -TIEF_VOR * v, -TIEF_DZ * e), nick * e, 0.0, 0.0, {'kiefer': 18.0 * e})
+        haltung(rig, akt['Tiefbiss'], tief)
+        setze(rig, akt['Tiefbiss'])
+        tb = []
+        for f in range(a0, a1 + 1):
+            scn.frame_set(f); tb.append((Wr @ pb[J('Head_JawEnd')].head)[:])
+        tb = np.array(tb)
+        print('TIEFBISS Nicken %.1f Grad, Kieferspitze beim Biss %.2f m über dem Boden (Ziel %.2f)' % (nick, (tb[fb, 2] - lo[2]) * s, TIEF_Z))
     rig.animation_data.action = None
     # ------------------------------------------------ Bemalung: unsere Textur statt der gekauften
     ob = meshes[0]
@@ -492,7 +518,7 @@ def baue(fell):
             st.action_frame_start, st.action_frame_end = start, ende
         INFO[nm] = round((st.action_frame_end - st.action_frame_start) / FPS, 3)
     RUHE = ['Knurren', 'UmsehenL', 'UmsehenR', 'Hecheln', 'HockeKnurren', 'HockeUmsehenL', 'HockeUmsehenR', 'HockeHecheln', 'Scharren', 'ScharrenR']
-    for nm, q in [('Stehen', 'Stehen'), ('Gehen', 'Walk'), ('Rennen', 'Run'), ('Biss', 'Attack'), ('Sprung', 'Attack'),
+    for nm, q in [('Stehen', 'Stehen'), ('Gehen', 'Walk'), ('Rennen', 'Run'), ('Biss', 'Attack'), ('Sprung', 'Attack'), ('Tiefbiss', 'Tiefbiss'),
                   ('Heulen', 'Howl'), ('Lefzen', 'IdleC'), ('Hocke', 'Hocke'), ('Treffer', 'Treffer'), ('Ausweichen', 'Ausweichen')] + [(r, r) for r in RUHE]:
         if q in akt: spur(nm, akt[q], *((akt[q].frame_start, akt[q].frame_end) if akt[q].use_frame_range else ()))
     if 'Die' in akt: spur('Tod', akt['Die'], TOD_AB, TOD_BIS)
@@ -514,6 +540,9 @@ def baue(fell):
     jx, jy = zb[fb, 0] * s + aussen.location[0], zb[fb, 1] * s + aussen.location[1]
     INFO['biss'] = [round(float(-jy - 0.07 + BISS_KORR[0]), 3), BISS_KORR[1], round(-math.degrees(math.atan2(jx, -jy)) + BISS_KORR[2], 1)]
     print('BISS Quelle: Schnauze vorn bei %.2f s' % (fb / FPS))
+    if tb is not None:     # 709a A: wie biss, Kieferspitze des tiefen Bisses im selben Augenblick
+        tx, ty = tb[fb, 0] * s + aussen.location[0], tb[fb, 1] * s + aussen.location[1]
+        INFO['tiefbiss'] = [round(float(-ty - 0.07 + BISS_KORR[0]), 3), BISS_KORR[1], round(-math.degrees(math.atan2(tx, -ty)) + BISS_KORR[2], 1)]
     # Wurzelweg je Bild [x, z] (Modellmeter, +Z vorn): gerade, im Tempo der Pfoten
     INFO['weg'] = {nm: [[0.0, round(v * s * i / FPS, 4)] for i in range(int(round(INFO[nm] * FPS)) + 1)] for nm, v in (('Gehen', v_geh), ('Rennen', v_renn))}
     print('MASS neu: breit %.3f lang %.3f hoch %.3f, Boden %.3f, Rumpf vor %.3f m; Gehen %.2f m/s, Rennen %.2f m/s; Biss %s' % (
