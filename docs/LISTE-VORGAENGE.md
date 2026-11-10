@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 825 | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635, 542, 543, 632; Jerry 593, 547, 597), Prüfliste ansehen/t<n>, build <n> --mit für jede Nummer (774) | Tom | M | startbar | – | – | – | E Technik | – |
+| 825 | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635, 542, 543, 632; Jerry 593, 547, 597), Prüfliste ansehen/t<n>, build <n> --mit für jede Nummer (774) | Tom | M | startbar | t273 | – | – | E Technik | – |
 | 471 | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | Tom | M | zu testen | – | claude/spike-471-fertigkeiten | 273 | E Kampf | 7,86 $ |
 | 610 | Held im Dorf: Finger am Stab zucken ohne Unterlass (Schild auf dem Rücken) (Chef 07.11., t268) | Tom | M | zu testen, ohne Rückmeldung t272 | – | claude/tom-610-finger | – | E Figuren | 19,22 $ |
 | 522 | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Chef 03.11., 23:33) | Tom | M | zu testen, ohne Rückmeldung t272 | – | claude/tom-522-waffen | – | E Oberfläche | – |
