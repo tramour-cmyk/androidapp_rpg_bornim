@@ -2,9 +2,9 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `ca8d0f360` (09.11., 23:08)
+**Gelesen bis:** `16d33ef5f` (10.11., 07:17)
 
-**Übergabe (10.11., 07:12, Neustart nach 231 Tsd. Token):** 818, 812, 813 erledigt. 822 erledigt: Obergrenze je Regeldatei (`commit-pruefung.py`), Listen je Bereich (`tools/bereichslisten.py` über `probelauf.py`; Kampf fehlt, 823 Jerry), Chefsache-Haken abgeschaltet (Chef 10.11., 07:10). Nachfolger: Perikles – 828: stärkstes Modell gezielt (10.11., 07:12)
+**Übergabe (10.11., 07:18):** 828 erledigt: Marke „zurück t<n>“ (`vorgang.py build`), „Festgefahren“ in `startbar.py --stand`, Modellwahl in `lauf.py` ab 14.11., 20:00 (`modell()`); Modellname „fable“ ungeprüft an `create_session`, Rückfall in `LISTE-BETRIEB.md`. Nachfolger: Perikles – auf Abruf (10.11., 07:18)
 
 ## Einzelheiten
 
