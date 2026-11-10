@@ -192,10 +192,10 @@
 | 432 | Eigenes Volk aus Bornim (etwa mit dem Grauen Propheten, „Tag der Asche“) prüfen, mit der Geschichte ab Kapitel 2 (Chef 31.10., 22:0x) | Homer | K | ruht | – | – | – | G Story | 0,79 $ |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
-| 72 | Profil und Marktvergleich | Homer | K | ruht | – | – | – | E Kampf | 0,72; +0,61 $ |
+| 72 | Profil und Marktvergleich | Homer | K | erledigt | – | – | – | E Kampf | 0,72; +0,61 $ |
 | 348.12g | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | Homer | M | erledigt | – | – | – | G Story | 4,29 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
-| 837 | lauf.py: Start nicht angekommen melden (Chef 10.11., 10:4x; Fehler 341 von Ford) · „jetzt“ 10.11., 11:09 | Perikles | M | gebaut, Geprüft an: ad5264185 | Diogenes | – | – | B Werkzeuge | – |
+| 837 | lauf.py: Start nicht angekommen melden (Chef 10.11., 10:4x; Fehler 341 von Ford) · „jetzt“ 10.11., 11:09 | Perikles | M | erledigt, greift Lauf 127 | – | – | – | B Werkzeuge | – |
 | 483 | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Marke (Chef 02.11., 19:08) | Perikles | M | gebaut, Geprüft an: 62e922b30 | Diogenes, D75 | – | – | B Werkzeuge | – |
 | 464 | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählung im Tagesbericht (Chef 01.11., 20:4x) | Perikles | M | gebaut, Geprüft an: fcf9ab215 | 16.11. | – | – | B Abläufe | – |
 | 347.2 | Umsetzung Plan 347 nach Gegenprüfung (Chef 24.10., 16:30) | Perikles | M | wartet | 347 | – | – | B Abläufe | – |
@@ -222,7 +222,7 @@
 | 768 | Wochentermin 13.11.: Rollenspiegel Diogenes (rollenspiegel.sh Diogenes) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Diogenes | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 771 | Probe 657 auswerten: Erstfunde des Chefs t272–t275 gegen 11, 11, 9, 7 (von Perikles, Werkzeug 657 greift laut Lauf 104) | Diogenes | M | startbar | t275 | – | – | Q QM | – |
 | 790 | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab 200 Tsd., Chef 09.11., 18:05) | Diogenes | M | startbar | 16.11. 18:07 | – | – | Q QM | – |
-| 838 | Prüfung Ford: folgte jeder START-Zeile von lauf.py eine Sitzung? Stichprobe im Wochenlauf (Chef 10.11., 10:4x; Fehler 341 von Ford) | Diogenes | M | startbar | 837 | – | – | B Werkzeuge | 1,62 $ |
+| 838 | Prüfung Ford: folgte jeder START-Zeile von lauf.py eine Sitzung? Stichprobe im Wochenlauf (Chef 10.11., 10:4x; Fehler 341 von Ford) | Diogenes | M | erledigt | – | – | – | B Werkzeuge | 1,62 $ |
 | 780 | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für unsere gekauften Protofactor-Animsets und Janpec, die KI-Sitzungen mit Skripten bearbeiten? (aus 623.1) | Sokrates | M | wartet, Protofactor ja 10.11., 04:48; offen Janpec | 23.11. | – | – | M Veröffentlichung | – |
 | 620 | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build (Chef 07.11.) | Sokrates | M | startbar | – | – | – | B Abläufe | 34,99 $ |
 | 623 | Effektpakete REEBOO Labs: Kauf, Ressourcenseite `LISTE-QUELLEN.md`, Zuordnung `LISTE-EFFEKTE.md`, Dank im Spiel (Chef 07.11.) | Sokrates | M | startbar, 10 Pakete gekauft und erfasst, R5 R6 zurückgestellt | – | – | – | E Kampf | 6,88 $ |

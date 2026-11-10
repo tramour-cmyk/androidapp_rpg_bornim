@@ -3,7 +3,7 @@ Ganzes Spiel · Tom (617, 540, 583, 543, 834, 795, 762, 471, 610, 522, 670, 635,
 
 Ein Weg: Hauptmenü und neues Spiel (A), BRS-Held und Fertigkeiten (B), Dorf: Held, Menü, Südrand, Tempel (C), Probekämpfe im Reiter „Test“ (D), Wald (E); über Build 273 installieren. Was nicht passt, reicht als Nummer (z. B. 274.4) mit einem Wort.
 
-Neu sind 834 (BRS-Held übernehmen, damit 762, 471, 795 aus t273 jetzt prüfbar sind) und 506 (Skelette, dein Bild „passt“ 10.11., 09:00); alles andere liegt seit Build 268 bis 272 auf `main` und hatte noch keine Prüfzeile. Kein Schirm neu, darum kein neuer Abgleich (670 mit 630 abgenommen 08.11., 18:14). Im Bau und am Rechner mit den Kaufmodellen geprüft: `brs_held_834`, `testmenue_470`, `fertigkeiten_762`, `brs_471`, `kampfuebung_471`, `skelett_506`, `starttexte_540`, `startwerte_543`; im Bau `auftraege_542`, `truhe_632`, `ansage_597`.
+Neu sind 834 (BRS-Held übernehmen, damit 762, 471, 795 aus t273 jetzt prüfbar sind) und 506 (Skelette, dein Bild „passt“ 10.11., 09:00); alles andere liegt seit Build 268 bis 272 auf `main` und hatte noch keine Prüfzeile. Verglichen (alt gegen neu): kein Schirm neu (670 mit 630 abgenommen 08.11., 18:14; Platzwahl 795 gegen die abgenommene alte 700). Erreichbar: Weg zum BRS-Helden im Reiter „Test“ (834, `brs_held_834` am Rechner mit allen vier Plätzen belegt); „Skelette“ steht unter „Kampf beschwören“, weil das Modell im Bau liegt. Im Bau und am Rechner mit den Kaufmodellen geprüft: `brs_held_834`, `testmenue_470`, `fertigkeiten_762`, `brs_471`, `kampfuebung_471`, `skelett_506`, `starttexte_540`, `startwerte_543`; im Bau `auftraege_542`, `truhe_632`, `ansage_597`.
 
 ## A · Hauptmenü und neues Spiel
 
