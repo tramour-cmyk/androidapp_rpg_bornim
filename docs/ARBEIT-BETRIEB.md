@@ -185,3 +185,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:50 10.11.: Startsperre 10:50 Start Tom (Ford, vor dem Start; Neustart c397521bc)
 - 11:00 10.11.: Startsperre 11:00 Start Tom (Ford, vor dem Start; Neustart d8e7ada18)
 - 11:08 10.11.: Startsperre 11:08 Start Diogenes, Homer, Perikles, Tuffy (lauf.py)
+- 11:10 10.11.: alle START-Zeilen ausgeführt (Sokrates-Befund 11:08): Homer 807, Perikles (837, 832), Diogenes 838, Tuffy 406.2. Perikles-START von 10:25 war nicht ausgeführt worden. Ab jetzt: jede START-Zeile ausführen oder --ohne mit Grund nach vorgang.py <Nr>
