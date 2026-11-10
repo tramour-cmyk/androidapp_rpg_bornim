@@ -226,10 +226,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 845 | M? | Kampf: Krogg steht 0,65 m hinter seinem Platz, beim Planen des Helden liest seine Lage den | startbar |
 | Pflege | K | von Werkzeug (340.3, 10.11.): 18513 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 21, Muss 7, startbar 0
+**Perikles** – offen 22, Muss 8, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 853 | M | Start: Ford-Startnachricht kommt als Systemmeldung, Sitzungen verweigern die Rolle (Tom 12 | startbar |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf Diogenes |
 | 464 | M | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählu | Termin 16.11. |
 | 347.2 | M | Umsetzung Plan 347 nach Gegenprüfung (Chef 24.10., 16:30) | wartet auf 347 (startbar) |
