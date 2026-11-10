@@ -19,7 +19,7 @@ Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 4
 **Stufe 2 · Kapitel 1 durchspielbar** (Prüfung: Zufallsspieler spielt Kapitel 1 durch; Kollision 0; Kapitelsimulation: jede Herkunft schafft die Bosse; der Chef spielt einmal grob durch)
 - [ ] **2.1** T · Kollision und Sprungtest 0 in jedem Ort; kein Schweben nach Start und Kartenwechsel (24); Tippen trifft, was gezeichnet ist.
 - [ ] **2.2** T · Kerntests der Regeln des BRS als GDScript-Tests grün; Zufallsspieler spielt Kapitel 1 im neuen Spiel durch (26). · Stand: in Arbeit
-- [ ] **2.3** M · MARS und klassischer Kampf (212 A, 249) rund auf den Regeln des BRS: Kampf ohne W20 nach Stufen (E 7), jeder Angriff sichtbar, Ansage harter Schläge, Pechsträhne. · Stand: in Arbeit
+- [ ] **2.3** M · MARS rund auf den Regeln des BRS (`DESIGN-BRS.md` 7, Rechenmodell D; nur MARS, `klassisch.gd` entfällt, 870a 2 ersetzt 212 A): kein W20, Trefferchance und Proben als Prozent (870a 5), jeder Angriff sichtbar (249), Ansage harter Schläge, Pechsträhne als Prozent; Zahlen 444. · Stand: im Umzug BRS (870)
 - [ ] **2.4** M · Kampf nie langweilig, echte Wahl (`DESIGN-LEITBILD.md`); Schwierigkeitsgrade (39).
 - [ ] **2.5** M · Ausgleich gemessen, nicht geschätzt: Simulation „Zeit bis Stufe“ und Kapitelsimulation auf den Regeln des BRS (444); jede Herkunft und der Wanderer schaffen die Bosse in vergleichbarem Maß; Zielwert mit dem Chef festlegen (38).
 - [ ] **2.6** G · Lehrmeister spricht an, sobald zwei Kernfertigkeiten eines Pfads Geselle sind; Anwärter möglich (E 63, E 79; Takt NW 5); Bewährungsprobe zum Gesellen siehe 3.1.
@@ -45,11 +45,10 @@ Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 4
   - [ ] 8 Kapitelende (Aldric, Amulett, Brief)
 - [ ] **2.16** A · **Alle Leute von Kapitel 1 mit eigenem Gesicht** (475; Chef 05.11., 08:2x). Haken = Gesicht vom Chef abgenommen, keine zwei gleich, Gesicht frei. Stand 05.11.: keiner abgenommen (Lauf 1 nein, 04.11., 20:47)
   - [ ] Aldric · [ ] Borin · [ ] Bram · [ ] Garrick · [ ] Gwenna · [ ] Jorin · [ ] Liska · [ ] Morwen · [ ] Osric · [ ] Pim · [ ] Rowena · [ ] Thessa · [ ] Lyra (mit 492)
-- [ ] **2.17** M · **Alle Zauber und Fähigkeiten bis Stufe 6 im Kampf zu sehen** (Chef 05.11., 08:2x). Haken = im Kampf gewirkt und vom Chef gesehen. Liste heute nach den alten Klassen (`regeln/tabellen.json`); mit dem BRS-Rechenkern (478) wird sie auf Fertigkeiten umgestellt. Laut t257 ruhen vier Zauber und Unglaubliches Ausweichen bis 478, Untote vertreiben kommt mit 506.
-  - Kämpfer: [ ] Kampfstil · [ ] Zweiter Atem · [ ] Tatendrang · [ ] Verbesserter kritischer Treffer · [ ] Zusätzlicher Angriff
-  - Magier: [ ] Feuerpfeil · [ ] Magisches Geschoss · [ ] Brennende Hände · [ ] Magierrüstung · [ ] Sengender Strahl · [ ] Feuerball
-  - Schurke: [ ] Hinterhältiger Angriff · [ ] Finte · [ ] Raffinierte Aktion · [ ] Unglaubliches Ausweichen
-  - Kleriker: [ ] Heilige Flamme · [ ] Wunden heilen · [ ] Segnen · [ ] Untote vertreiben · [ ] Spirituelle Waffe · [ ] Geisterwächter
+- [ ] **2.17** M · **Alle Zauber und Fähigkeiten bis Stufe 6 im Kampf zu sehen** (Chef 05.11., 08:2x). Haken = im Kampf gewirkt und vom Chef gesehen. Seit dem Umzug BRS (870a 3 A, Chef 10.11., 15:08) hängen Kampfhandlungen an Fertigkeiten statt an Klassen; Extra-Angriff, Doppelzug, Zweiwaffenkampf entfallen. Vollständige Liste und Zahlen: Jerry mit 444 (870.5), Namen Homer (870.14); bis dahin:
+  - Für alle: [ ] Kraft schöpfen (einmal je Kampf)
+  - Ab Geselle je Fertigkeit: [ ] Einhänder: Finte · [ ] Dolche: Stich aus dem Hinterhalt · [ ] Zweihänder: Wuchtschlag · [ ] Schild: Vorform von Decken · [ ] Bogen: Vorform von Zielschuss
+  - Zauber nach Schule (`DESIGN-BRS.md` 12): [ ] Kleinzauber · [ ] Funkenpfeil · [ ] Arkanpfeil · [ ] Flammenfächer · [ ] Arkanhaut · [ ] Glutkugel · [ ] Gleißstrahl · [ ] Wundsegen · [ ] Beistand · [ ] Bannschild
   - Effekte dazu nach dem Kauf (415d.1, Film 572)
 
 **Stufe 3 · Alle Systeme angelegt** (447 „mit K2b“, Chef 01.11.: „alle Elemente grundsätzlich drin … die Anlagen sollen schon erkennbar sein“; je System ein kleiner, ganzer Kreislauf mit spürbarer Wirkung, kein leerer Knopf. Prüfung: je Punkt ein Spieltest „merkt man, was das kann?“; 444 rechnet Gold, Reparatur und Tränke mit)

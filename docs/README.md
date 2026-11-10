@@ -22,6 +22,7 @@ Inhaltsverzeichnis: jede Zeile sagt in einem Satz, was in der Datei steht und wo
 - [Storyplan](STORY-PLAN.md): Handlung und Figuren je Kapitel; [Kapitel 1](STORY-PLAN-K1.md) zeigt den Stand der alten Handy-Fassung.
 - [Story-Verzeichnis](STORY-REGELN.md): wo jeder Spieltext steht und wie wir ihn schreiben; Kapitel 1 [Handlung](STORY-K1-HANDLUNG.md) und [Welt](STORY-K1-WELT.md), [Texte der Blenden](STORY-BLENDE.md), Gespräche im [Dorf](STORY-VARIANTEN-K1.md) und in [Wald, Höhle, an Türen und bei der Rast](STORY-VARIANTEN-K1-WALD.md).
 - Weitere Spieltexte: [Kampf, Rast, Zustände](STORY-SPIEL.md), [Menü des Helden](STORY-MENUE.md), [Lehrmeister und Pfade](STORY-LEHRMEISTER-K1.md), [Meisterschaften und Ruf](STORY-RUF-K1.md), [Fertigkeiten ohne Kampf](STORY-K1-FERTIGKEITEN.md).
+- Spieltexte für den Umzug auf das BRS (870): [Kampf](STORY-BRS-KAMPF.md), [Kampfhandlungen und Zauber](STORY-BRS-KOENNEN.md), [Held, Truhe, Schwächen](STORY-BRS-HELD.md), [Handbuch im Spiel](STORY-BRS-ANLEITUNG.md), [Oberfläche und Namen](STORY-BRS-OBERFLAECHE.md).
 - [Roter Faden](STORY-ROTER-FADEN.md) und [Chronik-Texte Kapitel 1](STORY-CHRONIK-TEXTE-K1.md): die Geschichte über alle Kapitel in Kürze und die Texte der Chronik im Spiel.
 - [Figuren](LISTE-FIGUREN.md): nur das Aussehen wiederkehrender Leute und Monster, damit man sie überall wiedererkennt.
 - [Gegenstände](LISTE-GEGENSTAENDE.md): alles, was man finden, kaufen oder tragen kann, nach Art und woher man es bekommt (rechnet ein Werkzeug aus).
@@ -46,6 +47,7 @@ Arbeitslisten; du musst sie nicht lesen.
 - [Bestand](LISTE-BESTAND.md): alle gekauften und freien Bewegungen, Figuren, Tiere, Dinge und Bauteile; vor jedem Eigenbau lesen.
 - [Quellen](LISTE-QUELLEN.md): jede geprüfte fremde Bezugsquelle mit Link und Lizenzprüfung.
 - [Effekte](LISTE-EFFEKTE.md): welcher Lichteffekt zu welchem Helden, Monster und Ort gehört.
+- [Umzug auf das BRS](LISTE-UMZUG-BRS.md): Master-Plan, wie das Spiel ganz auf das eigene Regelwerk umgestellt wird (870), bis zur Abnahme.
 - [Figurenkatalog, Bauplan](LISTE-FIGURENKATALOG-649.md): Plan für einen Katalog aller Figuren, bis er gebaut ist.
 - [Simulation](LISTE-SIMULATION-444.md): Rechenprobe, wie stark Helden je Herkunft und Stufe werden.
 - [Testgeräte](LISTE-TESTGERAETE.md): welche Handys getestet werden und wie schnell das Spiel darauf läuft.

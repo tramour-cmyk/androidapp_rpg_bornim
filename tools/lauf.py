@@ -171,7 +171,10 @@ def stand():
         kuer = [x[:4] for x in zs if x[1] != "M" and not x[4]]
         kuer += [(x[0], "N", x[2], x[3]) for x in zs if x[4] == "nach dem Meilenstein"]  # 190.10: letzte Stufe vor Leerlauf
         wartet = [x[0] for x in zs if (x[4] or "").startswith("Chef")]
-        aus[rolle] = (muss, kuer, startbar.pause(inhalt), wartet)
+        p = startbar.pause(inhalt); frei = startbar.pause_frei(inhalt) if p else []
+        if frei:  # 870.17: Pause mit „frei für: …“ sperrt alles außer diesen Nummern
+            muss = [x for x in muss if startbar.ist_frei(x[0], frei)]; kuer = [x for x in kuer if startbar.ist_frei(x[0], frei)]; p = None
+        aus[rolle] = (muss, kuer, p, wartet)
         GESPERRT[rolle] = {x[0]: x[4] for x in zs if x[4]}
         offen_m = [x[0] for x in zs if x[1] == "M?" and not x[4]]
         if offen_m: m_fragen.extend("%s (%s)" % (n, rolle) for n in offen_m)
@@ -218,7 +221,8 @@ def nachfolger(rolle):
             roh = q.group(1) + (" (%s)" % rest.strip(" ()*") if re.search(r"(?<!\d)\d\d?\.\d\d\.", rest) else "")
         roh = re.split(satzende, roh, maxsplit=1)[0].strip(" *„“\"")
         if re.search(r"startet\s+`?lauf\.py`?", roh): return None, zeit, "bedingt: " + roh[:60]  # 375: Termin, den lauf.py selbst startet
-        if re.match(r"keine[rn]?\b", roh, re.I): return None, zeit, "keiner"
+        roh = re.sub(r"^[-–—]+[\s,;:]*", "", roh).strip()  # 879 (D135.1): „– Auf Abruf (…)“, „–, auf Abruf“ ohne führenden Strich
+        if re.match(r"keine[rn]?\b", roh, re.I) or not roh: return None, zeit, "keiner"  # 871: „Nachfolger: –“ startete „<Rolle> – –“
         if re.search(r"\b(nur wenn|falls|sobald|bis )", roh, re.I): return None, zeit, "bedingt: " + roh[:60]
         if not re.match(r"(%s)\b" % "|".join(MODELL), roh): roh = "%s – %s" % (rolle, roh)
         return roh, zeit, roh
@@ -546,7 +550,7 @@ def main():
         # 641 (Diogenes 08.11., 09:07): „auf Abruf“ oder „nur auf Zuruf“ startet nur, wenn die Rolle Startbares hat
         # 754 (D99.1): mit --ohne ausgeschlossene Zeilen zählen dabei nicht als startbar
         frei_m = [x for x in muss if x[0] not in ausschluss]; frei_k = [x for x in kuer if x[0] not in ausschluss]
-        if offen_nf and re.search(r"auf (Abruf|Zuruf)", offen_nf) and not (frei_m or (frei_k and r in MIT_KUER and not nur_muss)):
+        if offen_nf and re.search(r"auf (Abruf|Zuruf)", offen_nf, re.I) and not (frei_m or (frei_k and r in MIT_KUER and not nur_muss)):
             ausgabe.append("NICHTS %s: Nachfolger „%s“ auf Abruf, nichts startbar" % (r, offen_nf))
             continue
         # 276 (Fall 251): nennt der Nachfolger eine Zeile des eigenen Vorrats, die nicht startbar ist, gilt die Zeilenregel; beim zweiten Lauf laut
@@ -561,7 +565,7 @@ def main():
             thema = re.sub(r"\s*\([^)]*\)\s*$", "", offen_nf)
             titel = "%s (%s)" % (thema, berlin(JETZT))
             mo, satz = modell(r, nf_nr.group(1) if nf_nr else None)
-            msg = "%s\n\nNachfolger laut Übergabe in %s: %s. Zuerst Start nach deiner Rollendatei, dann die Übergabe lesen und dort weiterarbeiten.%s" % (r, VORRAT[r], offen_nf, satz)
+            msg = "%s\n\nNachfolger laut Übergabe in %s: %s. Zuerst Start nach deiner Rollendatei, dann die Übergabe lesen und dort weiterarbeiten; steht dort „Letzte Antwort:“, nennt die Startmeldung sie (859).%s" % (r, VORRAT[r], offen_nf, satz)
             ausgabe.append("START %s | %s | %s | %s | %s | %s | %s" % (r, mo, UMGEBUNG.get(r, MITTEL), REPO, REVISION, titel, msg.replace("\n", "\\n")))
             vorgaenger(r); sperren.append(r); continue
         if pause:
