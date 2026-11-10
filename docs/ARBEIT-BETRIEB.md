@@ -64,6 +64,9 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 07:27 10.11.: Sokrates 650.2 (alt) archiviert, gebucht; Nachfolger Sokrates Entscheidungsliste 2.0 läuft
+- 07:25 10.11.: Chef 07:2x „archivier ordentlich, erfasse Kosten, prüfe Neustarts“: archiviert und gebucht Sokrates-Stellungnahme (826,827), Perikles 818, Diogenes 800, Tuffy 642 (blieb blockiert), Jerry 595 (20,34 $), Tom 475 (10,16 $; Chefsache 475 liegt vor); Chefsache 820 gelöscht (erledigt). Bleiben: Sokrates 650.2, Perikles 828, Homer 810 (Frage 807 A/B ohne Chefsache-Datei)
+- 07:06 10.11.: Weiter-Nachricht an Jerry 595 (Probelauf seit Stunden durch, Sitzung ruhte seit 02:48) statt Start Jerry 806; nicht gestartet: Perikles auf Abruf (818 wartet auf Chef 822), Tuffy 744 (Figuren, Pacing). Wartet auf Chef: Tom 475 (Urteil Gesichter Lauf 2, Test Build 273), 822, 807 A/B, Tuffy 642 Kaufrepo
 - 02:08 10.11.: Spike 804 archiviert, gebucht. Nicht gestartet trotz lauf.py: Perikles auf Abruf (818 wartet auf Chef 822), Spike 825 (Sammelbuild wartet auf Tom 475 und Tests), Tuffy 806 (Jerry 595 hat 806 als Nächstes, braucht Kaufrepo)
 - 01:14 10.11.: Tom 819 archiviert, gebucht; Nachfolger Tom 475 läuft; Build 273 zum Test beim Chef
 - 01:08 10.11.: Sokrates 650.2 archiviert, gebucht. Nicht ausgeführt trotz lauf.py (Grund): START Tom 819 (alte Sitzung wartet auf laufenden Godot-Lauf), START Perikles "auf Abruf" (818 wartet auf Chef 822), START Tuffy 744 (Figuren, Pacing nur Kampf). Wächter 805/806 an Jerry 595 gesendet; 804 ist zu testen
@@ -81,9 +84,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:23 06.11.: Tom `8kKy` fertig (591, 592, 582, 583, 557; Sparauftrag leer, Rest braucht Bild/Film), archiviert, 18,41 $ auf 591, 592, 582, 583, 557. Jerry `LgDT` fertig (548, 545, 562, 544, 547, 561, 536, 533, 532), archiviere nach Ruhe. Offen beim Chef: 602.
 - 08:28 06.11.: Chef 08:27 „Allein sinnlose Sitzungsstarts kosten ja auch wieder Guthaben.“ Lehre Ford: Start im Sparbetrieb immer mit Zeitrahmen und „danach weiter mit startbarem Muss“, nie nur zwei Zeilen.
 - 08:26 06.11.: Chef 08:26 „lass ihn doch noch sparsame Sachen erledigen, die er erledigen kann. Auch Jerry.“: Tom (591, 592 fertig) und Jerry per Nachricht weiter mit startbarem Muss, nur Code, bis etwa 10:30.
-- 08:05 06.11.: Neustart Jerry 38d0a7018 (Rückläufer t266 durch, 07:19–07:46; Nachfolger „Jerry – 565: Wer am Zug ist“ nur auf Zuruf, 468e), archiviert, 17,29 $ auf 588, 594, 596, 597, 600, 601. Offen beim Chef: entscheiden/595, 598, 601; Frage, ob Tom 589–592 heute.
-- 07:01 06.11.: Bild Chef 06:59: Woche 95 % (287: nur Rückläufer des Chefs). Kein Start: weder Entwicklersitzung (468e, nur auf Zuruf) noch Tagesbericht Perikles. Morgenmeldung gesendet.
-- 21:15 05.11.: Ford neu auf Tiefe 0 (Chef von Hand; alter Ford 570 Tsd. Token), Uhr `trig_01XdFp…` angelegt, alte gelöscht, alter Ford `c3tx` archiviert, 22,39 $ auf Betrieb. Kein Start (468e: Entwicklersitzung des Tages gelaufen; 468d ab 22:30).
 - 00:03 09.11.: Startsperre 00:03 Start Diogenes, Perikles (lauf.py)
 - 00:03 09.11.: Marke Stellungnahme Sokrates 09.11. (lauf.py)
 - 07:18 09.11.: Startsperre 07:18 Start Sokrates, Tom (von Hand, nachgetragen 13:28; Sokrates-Befund 13:28)
@@ -166,9 +166,9 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 02:06 10.11.: Marke Archiv session_01Hmoj79sZcLLEV9Yf2PEgpx (lauf.py)
 - 07:04 10.11.: Startsperre 07:04 Start Jerry, Perikles, Tuffy (lauf.py)
 - 07:04 10.11.: Marke Archiv session_01Hmoj772uLqt2oEVFUypFRz (lauf.py)
-- 07:06 10.11.: Weiter-Nachricht an Jerry 595 (Probelauf seit Stunden durch, Sitzung ruhte seit 02:48) statt Start Jerry 806; nicht gestartet: Perikles auf Abruf (818 wartet auf Chef 822), Tuffy 744 (Figuren, Pacing). Wartet auf Chef: Tom 475 (Urteil Gesichter Lauf 2, Test Build 273), 822, 807 A/B, Tuffy 642 Kaufrepo
 - 07:12 10.11.: Startsperre 07:12 Start Sokrates (Ford, vor dem Start; Neustart aa9eb69a6)
 - 07:13 10.11.: Startsperre 07:13 Start Perikles (Ford, vor dem Start; Neustart d6114d691)
-- 07:25 10.11.: Chef 07:2x „archivier ordentlich, erfasse Kosten, prüfe Neustarts“: archiviert und gebucht Sokrates-Stellungnahme (826,827), Perikles 818, Diogenes 800, Tuffy 642 (blieb blockiert), Jerry 595 (20,34 $), Tom 475 (10,16 $; Chefsache 475 liegt vor); Chefsache 820 gelöscht (erledigt). Bleiben: Sokrates 650.2, Perikles 828, Homer 810 (Frage 807 A/B ohne Chefsache-Datei)
 - 07:22 10.11.: Startsperre 07:22 Start Sokrates (Ford, vor dem Start; Neustart a9a3d3722, 650.2 C3 fertig)
-- 07:27 10.11.: Sokrates 650.2 (alt) archiviert, gebucht; Nachfolger Sokrates Entscheidungsliste 2.0 läuft
+- 08:05 10.11.: Startsperre 08:05 Start Jerry, Tuffy (lauf.py)
+- 08:05 10.11.: Nachfolger-Warnung Jerry (Übergabe 10.11., 00:57) (lauf.py)
+- 08:07 10.11.: nicht gestartet trotz lauf.py: Jerry 806 und Tuffy 744 (806 wartet auf Chef, Kaufrepo je neue Sitzung; Chef 07:2x will keine Neustarts mit Repo-Freigabe, 826 A offen). Weiter-Nachricht an Perikles 828: Tagesbericht 10.11.
