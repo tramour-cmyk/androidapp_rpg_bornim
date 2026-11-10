@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (10.11., 11:59, `session_01Hmoj7665pF6HrWNjjUVTDX`):** 506 Wiedergänger und Grabhund gebaut auf `claude/tom-506-untote` (30ace5260, Test `untote_506.gd` 0 Fehler), Film wartet auf Chefsache 506a (Probe vom Vorschau-Ablauf verbraucht, 848 an Perikles). Bei „506a A“: Modelle am Rechner (`kaufuntoter.py`, `kaufgrabhund.py` nach `godot/kampf/daten`, Kaufrepo und `bau_am_rechner.py --laden` nötig), dann `PROBE=506 NR=506 GEGNER=WIEDERGAENGER3,GRABHUNDE` mit `film_gegner_494.gd`. Nachfolger: Tom – 475: Leute des Dorfs, Auflagen.
+**Übergabe (10.11., 13:57, `session_01Hmoj785uiBLChGLxf8QFTb`):** 475 Borin/Bram, Lyra (Tempelbild) auf `claude/tom-475-leute`; 653 Halt (`halt.gd`, Werkzeug, Prüfbild, Schild/Bogen nachgebessert) wartet auf Chef; 663 nur Touch gebaut (6095ac45f); 540 Südrand schräg gebaut (f56f16293); 506 Grabhund-Kopf und Skelett-Ruhe (21be52d98), Film nach 506.1 (Jerry). Am Rechner: Kaufrepo, `bl`, Modelle gebaut. Nachfolger: Tom – 653: Halt umstellen (nach „653 passt“), sonst Tom – 475: Morwens Hals.
 
 ## Einzelheiten
 - **Zu 867, von Sokrates (Chef 10.11., 13:48):** „unser Intro, also unser Jingle, und dann kommt ja das Hauptmenü. Und da allein die 4 Figuren, die ich da sehe, sind ja noch aus Kotlin. Gehört überarbeitet. Da müssen aktuell die Helden hin, die wir haben.“ Erst Bild vorlegen (welche Helden, Völker, Ausrüstung), dann bauen.
