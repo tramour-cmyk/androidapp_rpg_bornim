@@ -12,7 +12,11 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [709.1](ansehen/7091-wolfsbiss-film.md) | Wolfsbiss am Schild vorbei, Film | – | 10.11., 18:19 |
 
 ## Zu tun
 
@@ -140,13 +144,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 875 | M | Von Homer (857a A, Chef 10.11., 13:35): Fertigkeit Kräuterkunde heißt im Spiel Kräutersamm | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 470 (erschaffung) |
 | Pflege | K | von Werkzeug (340.3, 10.11.): 17428 Bytes (Grenze 15000), Erledigtes streichen | Pause, nicht frei |
 
-**Jerry** – offen 84, Muss 70, startbar 2, PAUSE bis 13.11., 20:00 Uhr, frei für 870.x, 709, 709.1, 854, 506.1
+**Jerry** – offen 84, Muss 70, startbar 1, PAUSE bis 13.11., 20:00 Uhr, frei für 870.x, 709, 709.1, 854, 506.1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 854 | M | Gebaute Kaufmodelle im Kaufrepo ablegen, nur bei Änderung neu bauen statt je Sitzung über | startbar |
 | 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | wartet auf Test/Build (gebaut) |
-| 709.1 | M | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar (aus 709 abgetrennt, Chef 10.11., | startbar |
+| 709.1 | M | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar (aus 709 abgetrennt, Chef 10.11., | Chef (Datei in der Chefsache) |
 | 870.2 | M | Von Sokrates (870, Umzug BRS Schritt 2): Schnittstelle Held ↔ Kampf: BrsHeld.kampfblatt() | wartet auf 888 (wartet) |
 | 870.3 | M | Von Sokrates (870, Umzug BRS Schritt 3): Daten: werte.json einzige Quelle (Jungwolf, Leibw | wartet auf 888 (wartet) |
 | 870.5 | M | Von Sokrates (870, Umzug BRS Schritt 5): Kampf nur BRS: Schalter, SRD-Zweige, W20 weg; Pro | wartet auf 870.2 (wartet) |
@@ -331,6 +335,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
+
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/7091-wolfsbiss-film.md
 
 Ohne Datei: 870a (Sokrates)
 
