@@ -1477,15 +1477,13 @@ func system() -> void:
 			Bedienung.rueckfragen, "", "?")])
 	luecke(4)
 	gruppe(t.call("Bedienung", "Input"))   # Homer [326.abschnitt.bedienung]: so steht „Steuerung“ nicht zweimal
-	var r1 := [z_.call(t.call("Steuerung", "Controls"), t.call("Klassisch", "Classic") if Bedienung.klassisch else t.call("Wischen", "Swipe"),
-		t.call("Wischen: Finger ziehen zum Laufen, weit ziehen zum Rennen, tippen zum Hinlaufen. Klassisch: Steuerkreuz und ein großer Knopf zum Handeln.",
-			"Swipe: drag to walk, drag far to run, tap to walk there. Classic: a D-pad and a big button to act."), spar.call(func(): Bedienung.klassisch = not Bedienung.klassisch), true, "CONTROLS")]
-	if not Bedienung.klassisch:   # 86.4, 131: Joystick und Renntaste nur beim Wischen
-		var gefuehl := ["Fein", "Normal", "Ruhig"] if de else ["Fine", "Normal", "Calm"]
-		r1.append(z_.call("Joystick", gefuehl[Bedienung.ring], t.call("Im Kreis geht man, über den Ring hinaus rennt man. Fein: kleiner Ring. Ruhig: großer Ring.",
-			"Inside the ring you walk; beyond it you run. Fine: small ring. Calm: large ring."), spar.call(func(): Bedienung.ring = (Bedienung.ring + 1) % 3), true, "STICK"))
-		r1.append(z_.call(t.call("Rennen", "Run"), t.call("Taste", "Button") if Bedienung.lauf_taste else "Ring", t.call("Wie du rennst. Ring: über den Ring des Joysticks hinausziehen. Taste: dazu ein eigener Knopf zum Rennen.",
-			"How you run. Ring: push past the joystick's ring. Button: adds a separate run button."), spar.call(func(): Bedienung.lauf_taste = not Bedienung.lauf_taste), true, "RUN"))
+	# 663 (Chef 08.11., 15:24): nur Touch, die Wahl „Steuerung“ (Wischen/Klassisch) ist weg; 86.4, 131: Joystick und Renntaste
+	var r1 := []
+	var gefuehl := ["Fein", "Normal", "Ruhig"] if de else ["Fine", "Normal", "Calm"]
+	r1.append(z_.call("Joystick", gefuehl[Bedienung.ring], t.call("Im Kreis geht man, über den Ring hinaus rennt man. Fein: kleiner Ring. Ruhig: großer Ring.",
+		"Inside the ring you walk; beyond it you run. Fine: small ring. Calm: large ring."), spar.call(func(): Bedienung.ring = (Bedienung.ring + 1) % 3), true, "STICK"))
+	r1.append(z_.call(t.call("Rennen", "Run"), t.call("Taste", "Button") if Bedienung.lauf_taste else "Ring", t.call("Wie du rennst. Ring: über den Ring des Joysticks hinausziehen. Taste: dazu ein eigener Knopf zum Rennen.",
+		"How you run. Ring: push past the joystick's ring. Button: adds a separate run button."), spar.call(func(): Bedienung.lauf_taste = not Bedienung.lauf_taste), true, "RUN"))
 	r1.append(z_.call(t.call("Aktion", "Action"), t.call("Links", "Left") if Bedienung.links else t.call("Rechts", "Right"), t.call("Auf welcher Seite der Aktionsknopf steht: rechts, oder links für Linkshänder.",
 		"Which side the action button sits on: right, or left for left-handed players."), spar.call(func(): Bedienung.links = not Bedienung.links), true, "HAND"))
 	zeichenreihe(r1)
