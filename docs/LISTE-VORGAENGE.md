@@ -11,6 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
+| 653 | Halt für Waffen und Schilde einmal je Modell festlegen statt je Figur nachmessen: Griffpunkt je Gegenstand, Halterung je Körper, eine Anlegefunktion, Prüfbild aller Kombinationen (Chef 08.11., 14:35) · „jetzt“ 10.11., 12:33 | Tom | M | startbar, ja (Chef 14:40), Jerry stellt den Kampf um | – | – | – | E Figuren | – |
 | 834 | Weg für einen BRS-Held ins Spiel (Testmenü oder Übernahme der BRS-Erschaffung), damit 762, 471, 795 am Gerät prüfbar werden; Spike, genehmigt (Chef 10.11., 10:21, über Sokrates) | Tom | M | zu testen | – | claude/tom-brs-held | 274 | E Technik | 6,00 $ |
 | 825 | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635, 542, 543, 632; Jerry 593, 547, 597), Prüfliste ansehen/t<n>, build <n> --mit für jede Nummer (774) | Tom | M | gebaut, Geprüft an: Lauf 42793721837, t274 beim Chef | – | – | – | E Technik | – |
 | 661 | Alle Blenden ein Aufbau (Ort, Rast, Kampf normal/Hinterhalt/Boss): Name gesperrt, Zierleiste, Satz, Schrift größer wie Schirme ohne Kasten; Kampf anders nur durch Tempo, Klang, Hinterhalt gebrochene Zierleiste; erst Bild nebeneinander (Chef 08.11., 15:11; 10.11., 10:17) · „jetzt“ 10.11., 09:34 | Tom | M | gebaut, Geprüft an: 95140f155, Bild passt | – | – | – | E Oberfläche | 7,70 $ |
@@ -18,7 +19,6 @@
 | 610 | Held im Dorf: Finger am Stab zucken ohne Unterlass (Schild auf dem Rücken) (Chef 07.11., t268) · zurück t269 | Tom | M | zu testen | – | claude/tom-610-finger | 274 | E Figuren | 19,22 $ |
 | 522 | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Chef 03.11., 23:33) · zurück t269 | Tom | M | zu testen | – | claude/tom-522-waffen | 274 | E Oberfläche | – |
 | 697 | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | Tom | M | in Arbeit, erster Messlauf ohne Wert (nicht importiert) | 782 | claude/tom-697-drehteller | – | E Figuren | – |
-| 653 | Halt für Waffen und Schilde einmal je Modell festlegen statt je Figur nachmessen: Griffpunkt je Gegenstand, Halterung je Körper, eine Anlegefunktion, Prüfbild aller Kombinationen (Chef 08.11., 14:35) | Tom | M | startbar, ja (Chef 14:40), Jerry stellt den Kampf um | – | – | – | E Figuren | – |
 | 680 | Absturz: Testmenü Sprung Wald → Dorf, in der Schenke schon hakelig, nach Met immer zäher, beim Öffnen des Testmenüs (Sprung in den Wald) Absturz, ohne Fehlerzeile (Chef 08.11., 16:16, 16:18, Build 269, Handy) | Tom | M | startbar | – | – | – | E Kampf | – |
 | 506 | Untote im Kampf: Skelett, Zombie, Ghul (aus 494, Spike; Wochenziel 03.11., 488) | Tom | M | startbar, Film Untote nachbessern (Chef 12:25); Skelett in t274 | – | claude/tom-506-skelett, claude/tom-506-untote | 274 | E Kampf | 85,42 $ |
 | 492 | Blutzahnhöhle begehbar mit Krogg, Grak, Lyra (Orte O8; Wochenziel 03.11., 488; von Jerry an Tom, Chef 07:54) | Tom | M | startbar, B (Chef 21:46), Lager offen | – | claude/tom-492-durchspiel | – | E Technik | 81,67 $ |
