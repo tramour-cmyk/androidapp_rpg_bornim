@@ -4,7 +4,11 @@ Gegengelesen: Sokrates 10.11., 20:34 (Wege gegen `testmodus.gd`, `probe.gd`, `sp
 
 Ein Weg: Hauptmenü und neues Spiel (A), Schenke und Dorf (B), Probekämpfe im Reiter „Test“ (C); über Build 274 installieren. Den Reiter „Test“ gibt es nur im Testmodus: im Hauptmenü siebenmal aufs Firmenzeichen tippen. Was nicht passt, reicht als Nummer (z. B. 275.4) mit einem Wort.
 
-Letzter Build vor dem Umzug auf das BRS (870); danach geht er auf `main`. Abgleich alt gegen neu: Seite „Neues Spiel“ mit der alten Erschaffung (470, abgenommen 10.11., 13:37), Blenden mit der alten Fassung (661, Bild passt); sonst kein Schirm neu. Im Bau und am Rechner geprüft: `brs_470`, `brs_held_834`, `testmenue_470`, `knopf_630`, `tasten_4161`, `spielstand_test`, `starttexte_540`, `suedrand_540`; im Bau `treffen_709`, `skelett_506`, `untote_506`, `anmarsch_506_1`, `brs_blatt_870` (870.2 Kampfwerte des Helden aus dem BRS), Gegnerwerte und Fähigkeiten nur aus `werte.json` (870.3), gebaute Kaufmodelle aus dem Ablage-Zweig (854).
+Letzter Build vor dem Umzug auf das BRS (870); danach geht er auf `main`.
+
+Verglichen (alt gegen neu): Seite „Neues Spiel“ mit der alten Erschaffung (470, abgenommen 10.11., 13:37), Blenden mit der alten Fassung (661, Bild passt); sonst kein Schirm neu.
+
+Im Bau und am Rechner geprüft: `brs_470`, `brs_held_834`, `testmenue_470`, `knopf_630`, `tasten_4161`, `spielstand_test`, `starttexte_540`, `suedrand_540`; im Bau `treffen_709`, `skelett_506`, `untote_506`, `anmarsch_506_1`, `brs_blatt_870` (870.2 Kampfwerte des Helden aus dem BRS), Gegnerwerte und Fähigkeiten nur aus `werte.json` (870.3), gebaute Kaufmodelle aus dem Ablage-Zweig (854).
 
 ## A · Hauptmenü und neues Spiel
 
