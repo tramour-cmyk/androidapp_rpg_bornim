@@ -144,8 +144,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 815 | M | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staubflocken innen, Fußstaub, Fahne, W | startbar |
 | 831 | M | Bildtafel Bäume: vier Arten aus Stylized Nature MegaKit frei (gewöhnlich, abgestorben, Kie | startbar |
 | 839 | M? | Von Homer (817): Erklärtexte der Grundwerte im Reiter Held nach BRS einbauen, Texte STORY- | startbar |
-| Pflege | K | von Werkzeug (340.3, 10.11.): 19474 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 842 | M | Von Sokrates (807a A, Chef 10.11., 11:01): Pim überreden und Verband nach STORY-K1-FERTIGK | Sperre 620.1 B: 15 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 471 |
+| Pflege | K | von Werkzeug (340.3, 10.11.): 19474 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 73, Muss 61, startbar 22
 
@@ -221,14 +221,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 824 | M? | Kampf: Schurke ohne Schild geht beim Angriff kurz 3,4–3,8 m/s in „Gehen“ (Bewegung höchste | startbar |
 | 833 | M | Unterer Kampfschirm nach Signatur: kein Kasten im Kasten (Bericht, Leiste, Befehle), Knöpf | startbar |
 | 836 | M? | Von Homer (830): Hinweis „Nahkampf erreicht nur die vordere Reihe.“ steht in jedem Kampf, | startbar |
-| Pflege | K | von Werkzeug (340.3, 10.11.): 17729 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 840 | M | Von Sokrates (830 A, Chef 10.11., 11:00): Eingebung beim ersten Auftreten nach 210 B in Go | startbar |
 | 841 | M | Von Sokrates (807a A, Chef 10.11., 11:01): Goblin-Späher einschüchtern nach STORY-K1-FERTI | startbar |
+| Pflege | K | von Werkzeug (340.3, 10.11.): 17729 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 22, Muss 8, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 837 | M | lauf.py: Start nicht angekommen melden (Chef 10.11., 10:4x; Fehler 341 von Ford) · „jetzt“ | startbar |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf Diogenes |
 | 464 | M | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählu | Termin 16.11. |
 | 347.2 | M | Umsetzung Plan 347 nach Gegenprüfung (Chef 24.10., 16:30) | wartet auf 347 (startbar) |
@@ -249,7 +250,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 742 | K | D78.1 Testbitte t268: Zeile „Verglichen“ deckte nur die Schirme vom 05.11., nicht Dorf, Ka | ruht |
 | 832 | M | Testbitten ohne Prüfpunkte, die ein Test im Bau schon sichert oder Lesen von Lizenztexten | startbar |
 | 835 | M | Inhaltsverzeichnis docs/README.md in Chef-Sprache: jede Zeile ein Satz, was drinsteht und | startbar |
-| 837 | M | lauf.py: Start nicht angekommen melden (Chef 10.11., 10:4x; Fehler 341 von Ford) | startbar |
 | Pflege | K | von Werkzeug (340.3, 10.11.): 15842 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Diogenes** – offen 9, Muss 8, startbar 1
