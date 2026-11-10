@@ -219,19 +219,13 @@ class Fighter:
 	## 399.2a: the leader this one follows (a young wolf its wolf, Packs.kt); it flees when the leader falls
 	var follows := ""
 	var fled := false
-	## 478: was er nach dem BRS ist (brs_kampf.gd held, gegner); leer, solange der Kampf nach dem SRD rechnet
+	## 478: was er nach dem BRS ist (brs_kampf.gd held, gegner)
 	var b := {}
 	## 478: seine Leben nach dem SRD beim Umrechnen (Maßstab für alles, was noch in Würfeln des SRD rechnet)
 	var srd_hp := 0
 
 	func standing() -> bool:
 		return hp > 0 and not fled
-
-	func ac() -> int:
-		var slow := 2 if status.has("SLOW") else 0
-		if hero == null:
-			return int(monster.ac) - slow
-		return (int(hero.acDrawn) if drawn else int(hero.ac)) - slow
 
 	func main_weapon():
 		if hero == null or str(hero.main.id) == "":
@@ -313,8 +307,6 @@ var turn := 0
 var _log: Array = []
 ## Hears every message as it is said: func(event: Dictionary).
 var listener: Callable
-## 89.2 (c): Extra Attack and the other hand as in the SRD; off only to replay the fights of the Kotlin core (MARS golden).
-var srd_attacks := true
 ## 296.2: the statuses of the old fight (off for the replays of the Kotlin MARS on main, which has none).
 var statuses := true
 var potions := {}
@@ -392,20 +384,15 @@ func _init(party: Array, foes: Array, tables: Dictionary, p_dice, p_words, p_lan
 			surprised[f.id] = true
 	for f in foes:
 		announce(f)
-	if BrsKampf.an():
-		brs_einrichten()
+	brs_einrichten()     # 870.5: immer
 
 
-## 478: ein Angriffswurf, nach dem SRD („ATTACK“, W20) oder dem BRS („BRS“: Wurf 1–100, Chance, kritisch an Stelle 7)
+## 478, 870.5: ein Angriffswurf nach dem BRS: ["BRS", Wurf 1–100, 0, Chance, Treffer, Lage, von hinten, kritisch]
 static func ist_angriff(roll) -> bool:
-	return roll != null and (roll[0] == "ATTACK" or roll[0] == "BRS")
+	return roll != null and roll[0] == "BRS"
 
 static func ist_krit(roll) -> bool:
-	if roll == null or not roll[4]:
-		return false
-	if roll[0] == "BRS":
-		return roll.size() > 7 and bool(roll[7])
-	return roll[0] == "ATTACK" and int(roll[1]) == 20
+	return ist_angriff(roll) and roll[4] and roll.size() > 7 and bool(roll[7])
 
 
 ## 702 C (Chef 09.11., 06:56, Archiv „702 C, Anspringen: aufstehen und handeln“; Messung tests/anspringen_702.gd): wer
@@ -414,10 +401,14 @@ static func ist_krit(roll) -> bool:
 ## (Aufstehen kostet den ganzen Zug), nur für mars_golden und die Messung.
 var anspringen := "handeln"
 
-## 478: der Kampf rechnet nach dem BRS (Modell D, brs_kampf.gd); Leben der Gruppe im selben Anteil wie vorher, Gegner nach dem Bestiarium
+## 478, 870.5: der Kampf rechnet nur nach dem BRS (Modell D, brs_kampf.gd); Leben der Gruppe im selben Anteil wie vorher, Gegner nach
+## dem Bestiarium (daten/werte.json); true, sobald der Kampf eingerichtet ist (aufruf.gd liest es)
 var brs := false
 
 func brs_einrichten() -> void:
+	assert(BrsKampf.an(), "870.5: daten/werte.json fehlt (tools/sim444/werte.json)")
+	if brs:     # nur einmal umrechnen (start ruft es, manche Tests vorher)
+		return
 	brs = true
 	for f in all:
 		_brs_kaempfer(f)
@@ -432,6 +423,7 @@ func _brs_kaempfer(f: Fighter) -> void:
 		f.max_hp = mx
 	elif f.monster != null:
 		f.b = BrsKampf.gegner(f.monster, monsters.get(String(f.monster.id), {}))
+		assert(not f.b.is_empty(), "870.5: kein Gegner %s in werte.json" % String(f.monster.id))
 		if f.b.is_empty():
 			return
 		var mx := int(f.b.leben)
@@ -446,10 +438,6 @@ func massstab(t: Fighter) -> float:
 
 func _srd(t: Fighter, n: int) -> int:
 	return roundi(n * massstab(t)) if brs else n
-
-func _brs(f: Fighter, t: Fighter) -> bool:
-	return brs and not f.b.is_empty() and not t.b.is_empty()
-
 
 static func cr_value(cr: String) -> float:
 	var p := cr.split("/")
@@ -1085,23 +1073,9 @@ func _fed(f: Fighter) -> int:
 	return 1 if fed and f == lead() else 0
 
 
+## 870.5: Zauber mit Angriff nur nach dem BRS (Funkenpfeil, _brs_zauber)
 func _spell_attack(f: Fighter, t: Fighter, dmg: Array) -> void:
-	if _brs(f, t):
-		_brs_zauber(f, t, dmg)
-		return
-	var mode := _row_mode(f, t, false)
-	var r: int = dice.d20(mode)
-	var bonus: int = int(f.hero.spellAtk) + _bless(f) + _fed(f)
-	var crit := r == 20
-	var hit := r != 1 and (crit or r + bonus >= t.ac())
-	var info := ["ATTACK", r, bonus, t.ac(), hit, mode, false]
-	if not hit:
-		_say(fmt(wolf(f, "MSG279_WOLFMISSES", "MSG72_MISSES"), lang, [f.name(lang), t.name(lang)]), f.id, t.id, 0, info)
-		return
-	var n := maxi(1, dice.roll_expr([dmg[0] * 2, dmg[1], dmg[2]] if crit else dmg) + _fed(f))
-	krit_jetzt = crit     # 506
-	_hurt(t, n, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), n]), info)
-	krit_jetzt = false
+	_brs_zauber(f, t, dmg)
 
 
 func _save_spell(f: Fighter, t: Fighter, amount: int, half: bool) -> void:
@@ -1172,7 +1146,7 @@ func _drink(f: Fighter, item: String, t: Fighter) -> void:
 func _attack_action(f: Fighter, t: Fighter, advantage := false, cover := true):
 	_weapon_attack(f, t, advantage, cover)
 	var tt = _again(f, t, true)
-	if srd_attacks and f.has("EXTRA_ATTACK") and outcome == "ONGOING" and tt != null:
+	if f.has("EXTRA_ATTACK") and outcome == "ONGOING" and tt != null:
 		_weapon_attack(f, tt)
 		tt = _again(f, tt, true)
 	return tt
@@ -1180,57 +1154,15 @@ func _attack_action(f: Fighter, t: Fighter, advantage := false, cover := true):
 
 ## 89.2 (c): the blow of the other hand after the Attack action, at whom still stands.
 func _off_hand_attack(f: Fighter, t: Fighter) -> void:
-	var w = f.off_hand() if srd_attacks else null
+	var w = f.off_hand()
 	var tt = _again(f, t, true) if w != null and outcome == "ONGOING" else null
 	if tt != null:
 		_weapon_attack(f, tt, false, true, w)
 
 
+## 870.5: ein Schlag mit der Waffe nur nach dem BRS (_brs_waffe)
 func _weapon_attack(f: Fighter, t: Fighter, advantage := false, cover := true, with_weapon = null) -> void:
-	if _brs(f, t):
-		_brs_waffe(f, t, advantage, cover, with_weapon)
-		return
-	var mode := _row_mode(f, t, true, 1 if advantage else 0, cover)
-	var r: int = dice.d20(mode)
-	var crit := r >= int(f.hero.crit) or (held_immer_krit and r != 1 and f == lead())
-	var w = with_weapon if with_weapon != null else f.weapon()
-	var wsheet: Dictionary = w if w != null else f.hero.main
-	var bonus: int = int(wsheet.atk) + _bless(f) - _penalty(f) + _fed(f)
-	var hit := r != 1 and (crit or r + bonus >= t.ac())
-	# 535 (alt Battle.weaponAttack, EVASIVE): einem Nahkampfhieb weicht die Fledermaus zu 20 % aus, ein Schuss trifft sie wie sonst
-	var flattert: bool = hit and t.monster != null and art_of(t.monster) == BAT and not bool(wsheet.get("ranged", false)) and dice.chance(FLUTTER)
-	if flattert:
-		hit = false
-	var info := ["ATTACK", r, bonus, t.ac(), hit, mode, cover and from_back(f)]
-	if flattert:
-		_say(fmt(MSG535_FLUTTERS, lang, [t.name(lang)]), f.id, t.id, 0, info)
-		return
-	if not hit:
-		_say(fmt(wolf(f, "MSG279_WOLFMISSES", "MSG72_MISSES"), lang, [f.name(lang), t.name(lang)]), f.id, t.id, 0, info)
-		return
-	var base: Array = wsheet.dmg
-	var dmg: int = dice.roll_expr([int(base[0]) * 2, base[1], base[2]] if crit else base)
-	if f.has("SNEAK_ATTACK") and (advantage or not f.sneaked):
-		dmg += dice.roll(maxi(1, f.level() / 2), 6)
-	f.sneaked = true
-	dmg = maxi(1, dmg - _weakness(f) + _fed(f))
-	krit_jetzt = crit     # 506
-	_hurt(t, dmg, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), dmg]), info, true)
-	krit_jetzt = false
-	_life_steal(f, dmg)
-	if not statuses or outcome != "ONGOING" or not t.standing():
-		return
-	# 296.2: critical hits wound as in the old fight, blades make bleed, blunt weapons can stun; and the gear's own
-	var type := str(wsheet.get("type", "BLUDGEONING"))
-	if crit and type == "SLASHING":
-		_inflict(t, "BLEED", 3)
-	if crit and type == "BLUDGEONING" and dice.chance(0.5):
-		_inflict(t, "STUN", 1)
-	var hits: Dictionary = f.hero.get("hits", {})
-	for st in ["POISON", "BLEED", "STUN"]:
-		var c := int(hits.get(st, 0))
-		if c > 0 and outcome == "ONGOING" and t.standing() and not t.status.has(st) and dice.chance(c / 100.0):
-			_inflict(t, st, 1 if st == "STUN" else 3)
+	_brs_waffe(f, t, advantage, cover, with_weapon)
 
 
 ## 296.2: slowed or weakened, −2 on the attack each (the old fight).
@@ -1498,20 +1430,9 @@ func _lineup_attack(foe: Fighter, intent: Dictionary, aimed: Array, react: Calla
 func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := true, retarget := false) -> void:
 	var m: Dictionary = foe.monster
 	var mode := _row_mode(foe, t, true, -1 if retarget else 0, cover)
-	var r: int = 0
-	var success := false
-	var info: Array
-	var brs_dmg := -1
-	if _brs(foe, t):
-		var e := _brs_auf_held(foe, t, intent, mode)
-		success = e.treffer
-		brs_dmg = int(e.schaden)
-		info = ["BRS", e.wurf, 0, e.chance, success, mode, cover and from_back(foe), false]
-	else:
-		r = dice.d20(mode)
-		var atk: int = int(m.atk) - _penalty(foe)
-		success = not (r == 1 or (r != 20 and r + atk < t.ac()))
-		info = ["ATTACK", r, atk, t.ac(), success, mode, cover and from_back(foe)]
+	var e := _brs_auf_held(foe, t, intent, mode)     # 870.5: nur nach dem BRS
+	var success: bool = e.treffer
+	var info := ["BRS", e.wurf, 0, e.chance, success, mode, cover and from_back(foe), bool(e.kritisch)]
 	if str(m.id) == KROGG and smoke_thrown and not smoke_spent:
 		# D4.1: der Rauch brennt in den Augen, der erste Schlag geht fehl, mit ihm der Überraschungsschlag (Battle.enemyAttack)
 		smoke_spent = true
@@ -1526,19 +1447,12 @@ func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := 
 	if not success:
 		_say(fmt(wolf(foe, "MSG279_WOLFMISSES", "MSG72_MISSES"), lang, [foe.name(lang), t.name(lang)]), foe.id, t.id, 0, info)
 		return
-	var md: Array = m.dmg
-	var dmg: int = brs_dmg
-	if brs_dmg < 0:
-		dmg = dice.roll_expr([int(md[0]) * 2, md[1], md[2]] if r == 20 else md)
-		if intent.extra != null:
-			dmg += dice.roll_expr(intent.extra)
+	var dmg := int(e.schaden)
 	if re != NONE:
 		_say(fmt(pick("MSG72_EVADES" if re == PERFECT else "MSG72_GOOD"), lang, [t.name(lang)]), t.id)
 	dmg = int(dmg * SHARE[re])
-	if dmg > 0 and brs_dmg >= 0:     # 478: kein Mindestschaden (Modell D: ein Kratzer kann 0 sein)
+	if dmg > 0:     # 478: kein Mindestschaden (Modell D: ein Kratzer kann 0 sein)
 		dmg = maxi(0, dmg - _srd(t, _weakness(foe)) - _srd(t, _reduction(t)))
-	elif dmg > 0:
-		dmg = maxi(1, dmg - _weakness(foe) - _reduction(t))
 	if intent.id == "venom":
 		_say(fmt(pick("MSG130_VENOMHITS"), lang, [foe.name(lang), t.name(lang)]), foe.id, t.id, 0, null, false, false, "VENOM")
 	if dmg > 0:
@@ -1546,7 +1460,7 @@ func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := 
 	if outcome != "ONGOING" or not t.standing():
 		return
 	if statuses:
-		_foe_wounds(foe, t, r == 20)
+		_foe_wounds(foe, t, bool(e.kritisch))
 		if outcome != "ONGOING" or not t.standing():
 			return
 	match intent.effect:
@@ -1732,8 +1646,7 @@ func _summon(by: Fighter) -> void:
 	var m: Dictionary = monsters[SCOUT if scout else CALLED]
 	called += 1
 	var g := monster_fighter("gob%d" % called, spot, m, dice.roll_expr(m.hp))
-	if brs:
-		_brs_kaempfer(g)     # 478
+	_brs_kaempfer(g)     # 478
 	g.initiative = dice.d20() + int(m.dex)
 	g.called_in = true
 	var kin := all.filter(func(x): return x.monster != null and x.monster.id == m.id)

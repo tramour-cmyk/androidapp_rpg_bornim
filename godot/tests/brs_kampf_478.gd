@@ -116,5 +116,11 @@ func _lauf() -> void:
 			var soll: float = SOLL[cls][foe]
 			pruefe("%s Stufe 1 gegen %s: Siegquote MARS %.2f, Simulation %.2f%s" % [cls, foe, q, soll,
 					(", Leben am Ende %.0f %%" % (100.0 * leben / siege)) if siege > 0 else ""], absf(q - soll) <= GRENZE_QUOTE or cls in NUR_MELDEN)
+	# 870.5: ohne SRD-Zweig braucht jeder Gegner der Tabelle seine Werte nach dem BRS
+	var ohne := []
+	for m in tables.monsters:
+		if BrsKampf.gegner(m, m).is_empty():
+			ohne.append(String(m.id))
+	pruefe("jeder Gegner hat Werte nach dem BRS", ohne.is_empty(), ", ".join(ohne))
 	print("BRS478 %s" % ("gut" if fehler == 0 else "%d FALSCH" % fehler))
 	quit(1 if fehler > 0 else 0)

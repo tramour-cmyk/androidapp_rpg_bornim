@@ -4,7 +4,7 @@ extends RefCounted
 # Abschnitt 7 und Entwurf A), mit denselben Formeln und Zahlen wie die Simulation 444 (tools/sim444/sim.py, daten/werte.json über
 # regeln/brs.gd). Hier stehen nur die Brücken: was ein Kämpfer nach dem BRS ist (Grundwerte, Fertigkeiten, Waffe, Rüstung, Schild,
 # Stufe) und ein Schlag mit allen Einzelheiten für Bericht, Bild und Zustände.
-# Schalter: seit 870.5 immer an (nur Vergleichstests schalten ihn ab).
+# Seit 870.5 ohne Schalter: der SRD-Zweig der Angriffe in mars.gd ist weg.
 # Annahmen (A), bis 2.3 und die Pfade sie ersetzen: ohne Spielstand nach BRS (Probekampf, Söldner) gilt die Herkunft der alten Klasse
 # mit ihren Startfertigkeiten; Waffen und Rüstungen der Heldwerte zählen nach ihrer Gruppe; was noch in Würfeln des SRD rechnet
 # (Fähigkeiten der Klassen, Zauber mit Rettungswurf, Heilung, Tränke, Zustände), wird mit dem Verhältnis der Leben nach BRS zu SRD
@@ -13,12 +13,9 @@ extends RefCounted
 const Brs = preload("res://regeln/brs.gd")
 const BrsHeldS = preload("res://regeln/brs_held.gd")
 
-## 870.5 (LISTE-UMZUG-BRS.md Schritt 5): gekämpft wird nach dem BRS; false nur noch in den Vergleichstests mit dem alten Kern
-## (mars_golden, mars_regeln, anspringen_702), bis der SRD-Zweig in mars.gd fällt
-static var schalter := true
-
+## 870.5 (LISTE-UMZUG-BRS.md Schritt 5): gekämpft wird nur nach dem BRS; ohne daten/werte.json kein Kampf
 static func an() -> bool:
-	return schalter and not Brs.lade().is_empty()
+	return not Brs.lade().is_empty()
 
 ## Herkunft für eine alte Klasse (BrsHeld.KLASSE_ALT umgekehrt, je Klasse die erste)
 const KLASSE_HERKUNFT := {"FIGHTER": "Wachsoldat", "CLERIC": "Klosterschüler", "ROGUE": "Jägerkind", "WIZARD": "Zauberlehrling"}
@@ -115,7 +112,7 @@ static func waffe_von(wsheet) -> String:
 ## Werte eines Gegners nach dem Bestiarium „Werte 2.0“ (brs.gd monster), einzige Quelle daten/werte.json (870.3). Begleiter eines
 ## Anführers (Jungwolf, Leibwache; [m] trägt „rudel“ und „anfuehrer“, aufruf.gd) nehmen Stufe, Abwehr und Rüstung ihres Körpers
 ## (werte.json „merkmale“ „rudel“ „koerper“), den Angriff des Anführers plus Verschiebung, seinen Schaden mal Anteil und die Leben
-## ihres Körpers mal Anteil. [art] bleibt für die Aufrufer, bis 870.5 den SRD-Zweig streicht.
+## ihres Körpers mal Anteil. [art] bleibt für die Aufrufer.
 static func gegner(m: Dictionary, art := {}) -> Dictionary:
 	if m.has("rudel"):
 		return Brs.begleiter(String(m.rudel), String(m.get("anfuehrer", "")))

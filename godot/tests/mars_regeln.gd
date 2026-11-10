@@ -13,7 +13,6 @@ var failed := 0
 
 
 func _init() -> void:
-	Mars.BrsKampf.schalter = false     # 870.5: vergleicht den alten Kern (SRD), bis er fällt
 	tables = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
 	# 89.2 (c): fighter level 3 with two weapons: Attack 2 blows, Action Surge 3 (SRD: two actions, one bonus action)
 	_check("ein Schwert, Angriff", _blows(false, [], ["attack"]), 1)
@@ -76,6 +75,9 @@ func _blows(two: bool, extra: Array, order: Array, drawn := false) -> int:
 	var heard := []
 	mars.listener = func(e): heard.append(e)
 	mars.start()
+	for f in foes:     # 870.5: nach dem Umrechnen der Leben (BRS) wieder zu zäh zum Fallen
+		f.max_hp = 999
+		f.hp = 999
 	assert(mars.current() == hero)
 	heard.clear()
 	var o: Array = order.duplicate()
@@ -85,7 +87,7 @@ func _blows(two: bool, extra: Array, order: Array, drawn := false) -> int:
 	mars.act(o)
 	var n := 0
 	for e in heard:
-		if e.actor == "hero" and e.roll != null and e.roll[0] == "ATTACK":
+		if e.actor == "hero" and Mars.ist_angriff(e.roll):
 			n += 1
 		elif e.actor != null and e.actor != "hero" and n > 0:     # 702 C: Zeilen ohne Täter (Blutung) zählen nicht als fremder Zug
 			break
@@ -194,13 +196,26 @@ func _check_s(what: String, got: String, want: String) -> void:
 
 func _statuses() -> void:
 	var sheet: Dictionary = tables.probe.FIGHTER.hero.hero.duplicate(true)
-	# a critical hit with a blade makes bleed 3 turns (2 left after the wolf's own turn) (hero 20, wolf 1; then the blow 20)
-	var c = _fight(sheet, ["wolf"], [20, 1] + _ones())
-	c.start()
-	c.dice.tape = [20] + _ones()
-	c.dice.pos = 0
-	c.act(["attack", "f0"])
-	_check_s("Krit mit Klinge: blutet", str(c.by_id("f0").status), str({"BLEED": 2}))
+	# a critical hit with a blade makes bleed 3 turns (2 left after the wolf's own turn); 870.5: nach dem BRS kritisch über den
+	# Testschalter (held_immer_krit), der erste Treffer zählt, der Wolf hält ihn aus
+	var blutet := "kein Treffer"
+	for seed in 20:
+		var c = _fight(sheet, ["wolf"], [20, 1] + _ones())
+		c.held_immer_krit = true
+		var hits := []
+		c.listener = func(e): if e.actor == "hero" and Mars.ist_krit(e.roll): hits.append(e)
+		c.start()
+		c.dice.rng.seed = seed
+		var wf = c.by_id("f0")
+		wf.max_hp = 999
+		wf.hp = 999
+		c.dice.tape = _ones()
+		c.dice.pos = 0
+		c.act(["attack", "f0"])
+		if not hits.is_empty():
+			blutet = str(wf.status)
+			break
+	_check_s("Krit mit Klinge: blutet", blutet, str({"BLEED": 2}))
 	# bleeding hurts at the start of its turn (1d4 + level / 3), then counts down; the line names it
 	var b = _fight(sheet, ["wolf"], [20, 1] + _ones())
 	var heard := []
@@ -209,14 +224,14 @@ func _statuses() -> void:
 	b.start()
 	b.act(["wait"])
 	var bled: Array = heard.filter(func(e): return "verliert Blut" in e.text)
-	_check_s("Blutung schadet", str(bled.map(func(e): return e.damage)), "[2]")
+	_check_s("Blutung schadet", str(bled.map(func(e): return e.damage)), str([maxi(1, roundi(2 * b.massstab(b.by_id("f0"))))]))     # 870.5: im Maß des BRS
 	_check_s("Blutung zählt herunter", str(b.by_id("f0").status), str({"BLEED": 2}))
 	_check_s("Zeichen im Ereignis", str(bled[0].status.get("f0", {})), str({"BLEED": 2}))
 	# bleeding to death ends the fight
 	var d = _fight(sheet, ["wolf"], [20, 1] + _ones())
-	d.by_id("f0").hp = 2
 	d.by_id("f0").status["BLEED"] = 3
 	d.start()
+	d.by_id("f0").hp = 1     # 870.5: nach dem Umrechnen der Leben (BRS)
 	d.act(["wait"])
 	_check_s("Verblutet: Sieg", d.outcome, "WON")
 	# a stunned hero loses the turn, and is not stunned again for three turns
@@ -230,12 +245,10 @@ func _statuses() -> void:
 	_check_s("Betäubt: Zug verloren", str(lines.filter(func(x): return "kann nicht handeln" in x).size()), "1")
 	_check_s("Betäubt: dann wieder dran", str(s.current() == hero and s.outcome == "ONGOING"), "true")
 	_check_s("Betäubt: Schutz vor neuer Betäubung", str(s._inflict(hero, "STUN", 1)), "false")
-	# slowed: −2 on armor class and attack; weakened: −2 on attack and damage
+	# slowed: −2 on the attack; weakened: −2 on attack and damage (870.5: keine Rüstungsklasse mehr)
 	var w = _fight(sheet, ["wolf"], 1)
 	var foe = w.by_id("f0")
-	var ac: int = foe.ac()
 	foe.status["SLOW"] = 2
-	_check_s("Verlangsamt: RK −2", str(ac - foe.ac()), "2")
 	foe.status["WEAK"] = 2
 	_check_s("Verlangsamt und geschwächt: Angriff −4", str(w._penalty(foe)), "4")
 	# a foe immune to it takes none; a boss shakes off a stun half the time
@@ -490,13 +503,21 @@ func _fed() -> void:
 		m.start()
 		_tape(m, [15, 4, 4, 4, 4])
 		var foe = m.all.filter(func(f): return f.side == "FOES")[0]
+		foe.max_hp = 999
+		foe.hp = 999
 		var hp0: int = foe.hp
-		m._weapon_attack(m.lead(), foe)
-		loss.append(hp0 - foe.hp)
-		var att := heard.filter(func(e): return e.roll != null and e.roll[0] == "ATTACK")
-		bonus.append(int(att[-1].roll[2]) if not att.is_empty() else -99)
 		said.append(heard.any(func(e): return String(e.text).contains("gestärkt") or String(e.text).contains("well fed")))
-	var ok: bool = loss[1] == loss[0] + 1 and bonus[1] == bonus[0] + 1 and said == [false, true]
+		var att := []
+		for seed in 20:     # 870.5: nach dem BRS, derselbe Wurf mit und ohne Sättigung, der erste Treffer zählt
+			m.dice.rng.seed = seed
+			heard.clear()
+			m._weapon_attack(m.lead(), foe)
+			att = heard.filter(func(e): return Mars.ist_angriff(e.roll) and e.roll[4])
+			if not att.is_empty():
+				break
+		loss.append(hp0 - foe.hp)
+		bonus.append(int(att[-1].roll[3]) if not att.is_empty() else -99)     # Trefferchance in Prozent
+	var ok: bool = loss[1] > loss[0] and bonus[1] > bonus[0] and said == [false, true]     # 870.5: im Maß des BRS
 	print(("gleich" if ok else "FEHLER") + " satt: Schaden %s, Angriff %s, Zeile %s" % [loss, bonus, said])
 	if not ok:
 		failed += 1
