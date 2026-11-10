@@ -45,7 +45,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 825 | M | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635 | wartet auf Test t273 (Chef) |
-| 661 | M | Blende zwischen Orten an Schirme ohne Kasten angleichen: Schrift größer, Zierleiste wie do | startbar |
+| 661 | M | Alle Blenden ein Aufbau (Ort, Rast, Kampf normal/Hinterhalt/Boss): Name gesperrt, Zierleis | startbar |
 | 471 | M | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | wartet auf Test (Build 273) |
 | 610 | M | Held im Dorf: Finger am Stab zucken ohne Unterlass (Schild auf dem Rücken) (Chef 07.11., t | wartet auf Test (Build) |
 | 522 | M | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Ch | wartet auf Test (Build) |
@@ -225,7 +225,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 823 | K | Von Perikles (822, 745 A2): Abschnitt „## Checkliste“ in LISTE-MARS.md, je Regel zum Kampf | startbar |
 | 824 | M? | Kampf: Schurke ohne Schild geht beim Angriff kurz 3,4–3,8 m/s in „Gehen“ (Bewegung höchste | startbar |
 | Pflege | K | von Werkzeug (340.3, 10.11.): 15247 Bytes (Grenze 15000), Erledigtes streichen | startbar |
-| 833 | M | Kampf: Befehlsknöpfe bleiben stehen, ausgegraut, solange ein anderer zieht (statt „…“), Ti | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 679 (erst) |
+| 833 | M | Unterer Kampfschirm nach Signatur: kein Kasten im Kasten (Bericht, Leiste, Befehle), Knöpf | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 679 (erst) |
 
 **Perikles** – offen 19, Muss 6, startbar 1
 
