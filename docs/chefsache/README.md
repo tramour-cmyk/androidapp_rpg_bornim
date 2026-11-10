@@ -147,10 +147,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 842 | M | Von Sokrates (807a A, Chef 10.11., 11:01): Pim überreden und Verband nach STORY-K1-FERTIGK | Sperre 620.1 B: 16 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 471 |
 | 852 | K | Von Homer (432a A, Chef 10.11., 12:05): Aschgeborene bauen: Modell Mensch mit aschgrauer S | ruht |
 
-**Jerry** – offen 76, Muss 61, startbar 24
+**Jerry** – offen 76, Muss 62, startbar 24
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 854 | M | Gebaute Kaufmodelle im Kaufrepo ablegen, nur bei Änderung neu bauen statt je Sitzung über | startbar |
 | 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | startbar |
 | 751 | M | Kampf: Knopfleiste des Helden manchmal leer („…“), keine Menüfunktion, auch ohne „ganzer B | startbar |
 | 593 | M | MARS: Ausweichen auch rückwärts als Abwechslung zu links und rechts (Chef 05.11., 19:2x) | wartet auf Test (Build 274) |
@@ -226,7 +227,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 844 | M? | Kampf: Goblins und Kobolde haben keine Angriffsbewegung (nur Gehen, Stehen), gleiten im St | startbar |
 | 845 | M? | Kampf: Krogg steht 0,65 m hinter seinem Platz, beim Planen des Helden liest seine Lage den | startbar |
 | Pflege | K | von Werkzeug (340.3, 10.11.): 18513 Bytes (Grenze 15000), Erledigtes streichen | startbar |
-| 854 | M? | Gebaute Kaufmodelle im Kaufrepo ablegen, nur bei Änderung neu bauen statt je Sitzung über | startbar |
 
 **Perikles** – offen 23, Muss 8, startbar 2
 
