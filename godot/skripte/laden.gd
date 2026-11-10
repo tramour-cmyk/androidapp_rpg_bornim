@@ -68,6 +68,7 @@ func kaufe(z: Zustand, hw: Heldwerte, id: String, n: int = 1) -> String:
 	if z.gold < p: return Sprache.u("notEnoughGold")
 	z.gold -= p
 	z.dazu(id, n)
+	z.uebe("Handeln")   # 471
 	return Sprache.u("bought", [mit_anzahl(id, n)])
 
 # Game.sell: nur Verkaeufliches, nur was er hat
@@ -77,6 +78,7 @@ func verkaufe(z: Zustand, hw: Heldwerte, id: String, n: int = 1) -> String:
 	var p := verkaufspreis(hw, id) * n
 	z.gold += p
 	_verkauft({"ding": id, "anzahl": n, "preis": p})
+	z.uebe("Handeln")   # 471
 	return Sprache.u("sold", [mit_anzahl(id, n)])
 
 # Game.buyBack: zum erzielten Preis
@@ -114,6 +116,7 @@ func kaufe_ausruestung(z: Zustand, hw: Heldwerte, g: Dictionary) -> String:
 	var neu := g.duplicate(true)
 	neu["uid"] = 0
 	z.ausruestung_dazu(neu)
+	z.uebe("Handeln")   # 471
 	return Sprache.u("bought", [Beute.name(g)])
 
 # Game.sellGear: Stueck [i] der Tasche
@@ -125,6 +128,7 @@ func verkaufe_ausruestung(z: Zustand, hw: Heldwerte, i: int) -> String:
 	var p := verkaufspreis_von(hw, g)
 	z.gold += p
 	_verkauft({"ausruestung": g, "anzahl": 1, "preis": p})
+	z.uebe("Handeln")   # 471
 	return Sprache.u("sold", [Beute.name(g)])
 
 # Game.sellAllCommon: alles Gewoehnliche auf einmal; gibt die Zahl
@@ -134,6 +138,7 @@ func verkaufe_gewoehnliches(z: Zustand, hw: Heldwerte) -> int:
 		z.beutel.erase(g)
 		z.gold += verkaufspreis_von(hw, g)
 		_verkauft({"ausruestung": g, "anzahl": 1, "preis": verkaufspreis_von(hw, g)})
+	if not weg_.is_empty(): z.uebe("Handeln")   # 471: ein Handel
 	return weg_.size()
 
 static func rezepte() -> Array:
