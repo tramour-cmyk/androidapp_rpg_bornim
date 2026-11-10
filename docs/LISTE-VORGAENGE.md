@@ -113,7 +113,7 @@
 | 831 | Bildtafel Bäume: vier Arten aus Stylized Nature MegaKit frei (gewöhnlich, abgestorben, Kiefer, verdreht) je drei Varianten mit Signatur, neben unserem Baum, Spielkamera, Kosten je Baum (Chef 10.11., 09:10, über Sokrates) | Tom | M | startbar | – | – | – | E Welt | 3,10 $ |
 | 839 | Von Homer (817): Erklärtexte der Grundwerte im Reiter Held nach BRS einbauen, Texte STORY-MENUE.md [817.…]; sieben Zeilen ohne Wirkung streichen | Tom | K | ruht, bis Test 825 (620, Perikles) | – | – | – | G Story | – |
 | 842 | Von Sokrates (807a A, Chef 10.11., 11:01): Pim überreden und Verband nach STORY-K1-FERTIGKEITEN.md bauen, Knopf nennt die Fertigkeit („Schick Pim heim (Überreden)“), übt die Fertigkeit (471) | Tom | M | startbar | – | – | – | E Welt | – |
-| 709 | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angreifer prüfen (Chef 08.11., 21:36, über Sokrates) | Jerry | M | in Arbeit, Held fertig, Biss offen | – | claude/jerry-709-treffen | – | E Kampf | – |
+| 709 | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angreifer prüfen (Chef 08.11., 21:36, über Sokrates) | Jerry | M | in Arbeit, Held fertig, Biss offen | – | claude/jerry-709-treffen | – | E Kampf | 18,32 $ |
 | 751 | Kampf: Knopfleiste des Helden manchmal leer („…“), keine Menüfunktion, auch ohne „ganzer Bericht“ (Chef 09.11., 14:00, Fund t271, Bild Wolfsrudel) | Jerry | M | startbar, 751 A (Chef 17:46) | – | claude/jerry-717-rueckwaerts | – | E Oberfläche | – |
 | 593 | MARS: Ausweichen auch rückwärts als Abwechslung zu links und rechts (Chef 05.11., 19:2x) | Jerry | M | zu testen | – | claude/jerry-593-ausweichen | 274 | E Kampf | – |
 | 406.2 | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) · zurück t269 | Jerry | M | in Arbeit, bei Tuffy | – | – | – | E Kampf | 41,37 $ |
@@ -193,7 +193,6 @@
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 432a | Aschgeborene: drei offene Storyfragen (Vesks Liste, Kael, Lyra) und Zeitpunkt des Baus, „jetzt“ 10.11., 11:55 | Homer | M | startbar | Chef | – | – | G Story | – |
-| 851 | Neustart: letzte Antwort an den Chef geht vor dem Archivieren per Telegram (von Sokrates, Chef 10.11., 11:57 „auch diesmal“) | Perikles | M | erledigt, doppelt zu 849 | – | – | – | B Werkzeuge | – |
 | 483 | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Marke (Chef 02.11., 19:08) | Perikles | M | gebaut, Geprüft an: 62e922b30 | Diogenes, D75 | – | – | B Werkzeuge | – |
 | 464 | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählung im Tagesbericht (Chef 01.11., 20:4x) | Perikles | M | gebaut, Geprüft an: fcf9ab215 | 16.11. | – | – | B Abläufe | – |
 | 347.2 | Umsetzung Plan 347 nach Gegenprüfung (Chef 24.10., 16:30) | Perikles | M | wartet | 347 | – | – | B Abläufe | – |
