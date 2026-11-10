@@ -1,6 +1,6 @@
-# Fertigkeiten ohne Kampf, Kapitel 1 (Entwurf)
+# Fertigkeiten ohne Kampf, Kapitel 1
 
-Homer, 10.11.; Vorgang 807 A (Chef 09.11., 22:26: Pim überreden, Goblin-Späher einschüchtern, Verband; Texte zuerst dem Chef, Chefsache `entscheiden/807a-texte-fertigkeiten.md`). Bau danach: Tom (Pim, Verband), Jerry (Einschüchtern, wie Tiere beruhigen 3.6, `[423.tiere]`). Zeilen, die man wiederholt hört, in drei Wortlauten nach 504 (`STORY-VARIANTEN-K1.md` „Regeln für den Bau“); einmalige Zeilen und Knöpfe einfach. „ / “ trennt zwei Sprechblasen derselben Figur, „· Erzähler:“ leitet einen erzählten Satz ein (im Bau `narrate`). Keine Zahlen außer dem Platzhalter; ob es gelingt, entscheidet die Probe auf die Fertigkeit (BRS); die Zeilen nennen sie nicht, nur der Knopf.
+**Festgesetzt** (Homer, 10.11.; Chef 10.11., 11:01: „807a A“): Texte wortgetreu bauen; jeder Knopf nennt die Fertigkeit in Klammern. Vorgang 807 A (Chef 09.11., 22:26: Pim überreden, Goblin-Späher einschüchtern, Verband). Bau: 842 Tom (Pim, Verband), 841 Jerry (Einschüchtern, wie Tiere beruhigen 3.6, `[423.tiere]`). Zeilen, die man wiederholt hört, in drei Wortlauten nach 504 (`STORY-VARIANTEN-K1.md` „Regeln für den Bau“); einmalige Zeilen und Knöpfe einfach. „ / “ trennt zwei Sprechblasen derselben Figur, „· Erzähler:“ leitet einen erzählten Satz ein (im Bau `narrate`). Keine Zahlen außer dem Platzhalter; ob es gelingt, entscheidet die Probe auf die Fertigkeit (BRS); die Zeilen nennen sie nicht, nur der Knopf.
 
 ## Überreden: Pim heimschicken
 

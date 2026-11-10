@@ -35,7 +35,7 @@ Inhaltsverzeichnis (122, 650.2). Wer eine Datei unter `docs/` umbenennt oder anl
 - [Spielerhandbuch](STORY-HANDBUCH-1.md) (Entwurf 423, Teile [2](STORY-HANDBUCH-2.md), [3](STORY-HANDBUCH-3.md)): das Spielsystem für den Spieler erklärt
 - [Storyplan](STORY-PLAN.md): Plot und Figuren je Kapitel; [Kapitel 1](STORY-PLAN-K1.md) (Ist-Stand Kotlin, 12.10.)
 - [Story-Verzeichnis](STORY-REGELN.md): alle Spieltexte mit Marken; Kapitel 1 [Handlung](STORY-K1-HANDLUNG.md) und [Welt](STORY-K1-WELT.md), [Blende](STORY-BLENDE.md); Gesprächsvarianten [Dorf](STORY-VARIANTEN-K1.md) und [Wald, Höhle, Türen, Rast](STORY-VARIANTEN-K1-WALD.md)
-- Spieltexte: [Kampf, Rast, Zustände](STORY-SPIEL.md), [Spielermenü](STORY-MENUE.md), [Lehrmeister und Pfade](STORY-LEHRMEISTER-K1.md), [Meisterschaften und Ruf](STORY-RUF-K1.md)
+- Spieltexte: [Kampf, Rast, Zustände](STORY-SPIEL.md), [Spielermenü](STORY-MENUE.md), [Lehrmeister und Pfade](STORY-LEHRMEISTER-K1.md), [Meisterschaften und Ruf](STORY-RUF-K1.md), [Fertigkeiten ohne Kampf](STORY-K1-FERTIGKEITEN.md)
 - Aus Artefakten übernommen (246.1): [Roter Faden](STORY-ROTER-FADEN.md), [Chronik-Texte Kapitel 1](STORY-CHRONIK-TEXTE-K1.md)
 - [Figuren](LISTE-FIGUREN.md): festes Aussehen wiederkehrender Leute und Monster
 - [Gegenstände](LISTE-GEGENSTAENDE.md): alles, was es gibt, nach Art und Bezugsweg; erzeugt aus `tools/gegenstaende/gegenstaende.json` mit `tools/gegenstaende.py` (458)
