@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [827](entscheiden/827-staerkstes-modell-figuren.md) | **Muss** | B Steuerung | 10.11., 07:06 | Stärkstes Modell nur für festgefahrene Vorgänge: ab zwei Rückläufern oder 30 $ Kosten geht die nächste Sitzung darauf; ab Sa 14.11., 20:00, Auswertung nach drei Vorgängen | Sokrates |
 | [826](entscheiden/826-guthaben-woche.md) | **Muss** | B Steuerung | 10.11., 07:01 | Woche 43 %, Tempo 0,71 %/h statt tragbarer 0,52 %/h; so leer am Freitagnachmittag | Sokrates |
 | [595](entscheiden/595-probelauf.md) | **Muss** | E Kampf | 10.11., 02:46 | Der erste Probefilm zu 595 blieb wegen des Programms stehen, das den Kampf für den Film steuert; alles ist behoben, für einen zweiten Film fehlt mir dein Wort | Jerry |
 | [705](entscheiden/705-magier-gegen-wolf.md) | **Muss** | E Kampf | 09.11., 23:00 | Mit 702 C gewinnt der Magier deutlich öfter als im alten Befund (2–30 %); wer ausweicht, gewinnt 41–84 % | Jerry |
@@ -247,7 +246,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 823 | K | Von Perikles (822, 745 A2): Abschnitt „## Checkliste“ in LISTE-MARS.md, je Regel zum Kampf | startbar |
 | 824 | M? | Kampf: Schurke ohne Schild geht beim Angriff kurz 3,4–3,8 m/s in „Gehen“ (Bewegung höchste | startbar |
 
-**Perikles** – offen 20, Muss 6, startbar 1
+**Perikles** – offen 21, Muss 7, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -271,6 +270,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 742 | K | D78.1 Testbitte t268: Zeile „Verglichen“ deckte nur die Schirme vom 05.11., nicht Dorf, Ka | ruht |
 | 822 | M | Schritt 4 und 5 zu 745 (von Sokrates): Wachstumsstopp-Haken mit fester Obergrenze für CLAU | Chef (Datei in der Chefsache) |
 | Pflege | K | von Werkzeug (340.3, 10.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
+| 828 | M | Zu 827 (Sokrates): Schwelle „festgefahren“ (zwei Rückläufer des Chefs oder über 30 $) in s | startbar |
 
 **Diogenes** – offen 8, Muss 7, startbar 0
 
@@ -285,7 +285,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 771 | M | Probe 657 auswerten: Erstfunde des Chefs t272–t275 gegen 11, 11, 9, 7 (von Perikles, Werkz | wartet auf Test t275 (Chef) |
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 
-**Sokrates** – offen 47, Muss 35, startbar 26
+**Sokrates** – offen 47, Muss 35, startbar 25
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -335,7 +335,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 782 | M | Von Tom (697): ein Lauf am Rechner frei? Der erste (17:38) brach vor dem Zeichnen ab (Proj | startbar |
 | Pflege | K | von Werkzeug (340.3, 10.11.): 15230 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 826 | M | Guthaben Woche bis 14.11.: eine Entwicklersitzung zugleich, Kür ruht, Zurücksetzen als Res | startbar |
-| 827 | M | Stärkstes Modell nur für festgefahrene Vorgänge (zwei Rückläufer oder über 30 $), ab 14.11 | startbar |
+| 827 | M | Stärkstes Modell nur für festgefahrene Vorgänge (zwei Rückläufer oder über 30 $), ab 14.11 | wartet auf 828 (startbar) |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
