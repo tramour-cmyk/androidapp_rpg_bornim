@@ -1,7 +1,7 @@
 class_name Hauptmenue
 extends Control
 # 399 (Chef 28.10., 12:34: spielbar zuerst): Hauptmenue (292) und Erschaffung. Fortsetzen, wenn ein Spielstand liegt; Neues Spiel fuehrt
-# in die Erschaffung (erschaffung.gd), „Spielstände“ zu den vier Plaetzen (spielstaende.gd). Ende: Signal fertig({"laden": true,
+# in die Erschaffung (erschaffung_brs.gd, 470), „Spielstände“ zu den vier Plaetzen (spielstaende.gd). Ende: Signal fertig({"laden": true,
 # "platz"}) oder fertig({"name", "volk", "klasse", "werte", "platz"}).
 # 399.1 (Test 130, Chef 14:38: „Einfach mal das alte Spiel nehmen … so soll es im neuen halt auch schon“; 14:39 „an die
 # Designvorgaben halten“): Aussehen wie App.kt MainMenuColumn (292.3, Entwurf A): schwarz, Titel gross in gesperrten Versalien, Zier,
@@ -354,10 +354,10 @@ func hinweis(t: String) -> void:
 		var ll = schwach.get_ref()
 		if ll != null: ll.queue_free())
 
-# 399.1 Erschaffung wie alt (erschaffung.gd): eine Seite ueber dem Menue; Zurueck fuehrt ins Hauptmenue. ziel: Platz aus den
-# Spielstaenden, sonst der erste freie
+# 399.1 Erschaffung: eine Seite ueber dem Menue; Zurueck fuehrt ins Hauptmenue. ziel: Platz aus den Spielstaenden, sonst der erste
+# freie. 470 (Chef 10.11., 12:58): die Erschaffung nach BRS (erschaffung_brs.gd) statt der alten Klassenwahl
 func erschaffung(ziel: int = 0) -> void:
-	var e := Erschaffung.new()
+	var e := ErschaffungBrs.new()
 	e.ziel = ziel
 	add_child(e)
 	e.zurueck.connect(func(): e.queue_free(); titel())

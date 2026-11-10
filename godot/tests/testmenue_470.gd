@@ -28,8 +28,8 @@ func _lauf() -> void:
 		else:
 			e.b.waehle("Handeln")   # Mensch als Wachsoldat: eine Fertigkeit selbst
 			e.baue()
-			if e.los.disabled: print("FEHLER Beginnen gesperrt"); fehler += 1
-			e.los.pressed.emit()
+			if not e.los_an(): print("FEHLER Beginnen gesperrt"); fehler += 1
+			e.beginne()
 		for i in 3: await process_frame
 		if seite(spiel) != null: print("FEHLER %s: Seite bleibt" % wie); fehler += 1
 		if paused: print("FEHLER %s: Spiel steht noch" % wie); fehler += 1

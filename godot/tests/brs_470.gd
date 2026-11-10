@@ -89,9 +89,9 @@ func _lauf() -> void:
 	var es := ErschaffungBrs.new()
 	root.add_child(es)
 	for i in 5: await process_frame
-	var platz := 1080.0 - 2 * (12 + 14) * AktionsKnopf.DP
+	var platz := 1080.0 - 2 * 24 * AktionsKnopf.DP   # 470 (549a): Seitenrand 24 dp, ohne Kasten
 	pruefe("Kopf passt (%d px Platz)" % platz, es.kopf.get_parent().get_combined_minimum_size().x <= platz, true)
-	pruefe("Inhalt passt", es.inhalt.get_combined_minimum_size().x <= 1080.0 - 2 * 12 * AktionsKnopf.DP, true)
+	pruefe("Inhalt passt", es.inhalt.get_combined_minimum_size().x <= platz, true)
 	# Namen der Grundwerte ungekuerzt (Pruefer 14:5x: „Gewandth…“, „Wahrnehmu…“), auch beim Menschen mit dem Knopf „+1“
 	var gefunden := 0
 	for lb in es.inhalt.find_children("*", "Label", true, false):
@@ -101,19 +101,19 @@ func _lauf() -> void:
 			pruefe("%s ganz (%d von %d px)" % [t, lb.size.x, lb.get_minimum_size().x], lb.size.x >= (lb as Label).get_theme_font("font").get_string_size(t, HORIZONTAL_ALIGNMENT_LEFT, -1, (lb as Label).get_theme_font_size("font_size")).x, true)
 	pruefe("Namen gefunden", gefunden, 2)
 	# oben steht, warum „Abenteuer beginnen“ gesperrt ist (Prüfer 02.11., 14:5x), und nichts, wenn es frei ist
-	pruefe("Vorgabe frei, oben nichts", [es.los.disabled, es.kopf.find_child("Fehlt", true, false) == null], [es.b.wahl_anzahl() > 0, es.b.wahl_anzahl() == 0])
+	pruefe("Vorgabe frei, oben nichts", [not es.los_an(), es.kopf.find_child("Fehlt", true, false) == null], [es.b.wahl_anzahl() > 0, es.b.wahl_anzahl() == 0])
 	# Knöpfe der Fertigkeiten gleich breit (Prüfer 02.11., 14:5x: „Tiere beruhigen“ breiter als die anderen), beim Wanderer mit allen Gruppen
 	es.b.waehle_herkunft("Wanderer")
 	es.baue()
 	for i in 5: await process_frame
 	var breiten := {}
 	var namen: Array = ErschaffungBrs.FERT.keys().map(func(f): return ErschaffungBrs.fert_name(String(f)).to_upper().replace("ß", "SS"))
-	for k in es.inhalt.find_children("*", "Button", true, false):
-		if namen.has((k as Button).text): breiten[(k as Button).text] = roundi((k as Button).size.x)
+	for l in es.inhalt.find_children("Text", "Label", true, false):   # 470 (549a): Wahlfelder ohne Rahmen, Breite des antippbaren Felds
+		if namen.has((l as Label).text): breiten[(l as Label).text] = roundi((l.get_parent() as Control).size.x)
 	var ziel: int = breiten.values().min()
 	var fe: Label = es.kopf.find_child("Fehlt", true, false)
-	pruefe("Wanderer gesperrt", es.los.disabled, true)
-	pruefe("oben steht warum", fe.text if fe else "", es.punkte_satz() + " · " + es.wahl_satz())
+	pruefe("Wanderer gesperrt", not es.los_an(), true)
+	pruefe("oben steht warum", fe.text if fe else "", Spielstaende.ohne_waise(es.punkte_satz() + " · " + es.wahl_satz()))   # 557: letzte zwei Woerter verbunden
 	pruefe("Fertigkeiten gefunden", breiten.size() >= 30, true)
 	pruefe("Fertigkeiten gleich breit", breiten.keys().filter(func(t): return absi(int(breiten[t]) - int(ziel)) > 1).map(func(t): return "%s %d" % [t, breiten[t]]), [])
 	es.queue_free()
