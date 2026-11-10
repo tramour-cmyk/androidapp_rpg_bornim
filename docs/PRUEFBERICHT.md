@@ -52,6 +52,19 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 143 · 879 Nachfolger-Strich mit Zusatz (Perikles, `7a1160881`; 10.11., 16:2x)
+
+- `lauf.nachfolger()` an 6 Übergaben: „– Auf Abruf (768 …)“ → „Diogenes – Auf Abruf (…)“, „–, auf Abruf“ → „Diogenes – auf Abruf“, „— (auf Abruf)“ → „Diogenes – (auf Abruf)“, „–“ → keiner; echte Titel unverändert. Kein „– –“ mehr; die 641-Regel (`lauf.py` 553) prüft jetzt ohne Groß-/Kleinschreibung, „Auf Abruf“ startet nur bei Startbarem. **879 greift, damit auch 871** (Lauf 143).
+
+## Lauf 142 · 877 Kerntest-Prüfung bei Code-Commits (Perikles, `4924cb6cd`; 10.11., 16:2x)
+
+- Probe-Commit in einer Kopie von `origin/main` mit Änderung unter `core/src/main/`: ohne Marke Warnung „Code ohne grünen Kerntest …“; Marke jünger als die Änderung: keine Warnung. Die Prüfung erreicht Code-Commits wieder. **877 greift** (Lauf 142). Hinweis: Code unter `godot/` hat keine Kerntest-Prüfung; nach dem Ausstieg aus Kotlin gehört das zu 882.
+
+## Lauf 141 · 870.11 Wächter SRD-Begriffe (Perikles, `4924cb6cd`; 10.11., 16:2x)
+
+- Probe-Commit in einer Kopie von `origin/main`: neue Zeile in `godot/skripte/rast.gd` mit „RK“, „Halbork“, „TP“, „Trefferwürfel“ → Warnung „Halbork, RK (hält an, sobald 870.4 erledigt ist)“, Exit 0; Datei unter `godot/tests/` bleibt außen vor. Wortliste 47 Wörter: Spalte „Alt“ aus `DESIGN-BRS.md` 12 plus `SRD_DAZU` (`commit-pruefung.py` 187), wie im Vorgangstitel verlangt.
+- **D140.5 → 886 (Perikles):** „TP“, „Trefferwürfel“, „Hauptattribut“ (Plan Schritt 8 zählt sie zu den SRD-Texten; 18 Spieltextzeilen in `godot/` mit „TP“) fängt er nicht. Für die Abnahme (870.13 „Wächter über den ganzen Godot-Code ohne Fund“) gibt es keinen Lauf über den Bestand, nur über neue Zeilen. Englische Zeilen ohne deutsches Gegenstück („Armor Class“, „saving throw“) fängt er auch nicht; heute stehen sie in derselben Zeile wie das deutsche Wort (`talente.gd` 121–145). 870.11 wartet auf 886.
+
 ## Lauf 140 · 870.18 zweites Gegenlesen Umzugsplan BRS (Sokrates, `LISTE-UMZUG-BRS.md` `220120cdc`, Vorgänge 870.2–870.17; 10.11., 16:2x)
 
 Antwort auf „niet- und nagelfest?“: der Plan trägt, zwei Lücken halten aber Arbeit an (D140.1, D140.2). Urteilen tut nur der Chef.
