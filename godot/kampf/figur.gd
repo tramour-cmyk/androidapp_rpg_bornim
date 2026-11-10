@@ -1385,6 +1385,14 @@ func _mps(nm: String) -> float:
 	return _weg_len(nm) / maxf((weg[nm].size() - 1) / weg_fps, 0.1) * float(tempo.get(nm, 1.0))
 
 
+## 506.1: Tempo (m/s) auf einem langen Anmarsch (Gehen oder Rennen wie _gangart), 0 ohne Wurzelweg (Figur ohne Kaufmodell)
+func anmarsch_mps() -> float:
+	if fighter == null or fighter.monster == null or weg.is_empty() or model == null:
+		return 0.0
+	var nm := _gangart(RUN_FROM + 1.0)
+	return _mps(nm) if weg.has(nm) and weg[nm].size() > 1 else 0.0
+
+
 ## 348.12 (Chef 29.10., 10:55: Grak „gut, aber Gang schreitend statt kurzer Sprint“): weiter als RUN_FROM rennt ein Tier
 ## (Rennen), ein Zweibeiner mit Wurzelweg (Grak) schreitet immer (Gehen); Ausweichen bleibt ein Satz im Lauf.
 func _gangart(way: float) -> String:
