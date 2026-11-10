@@ -152,7 +152,7 @@ def kopfsitz(netze, haut, p, gesicht=None):
     return teile
 
 
-def kopfsitz_geformt(o, W, N, kopf, p, ge, runden=5):
+def kopfsitz_geformt(o, W, N, kopf, p, ge, runden=8):
     """475 Lauf 2 (Pruefer vor dem Versand 04.11., 22:24: Gruen der Kapuze an Hals und Kinnrand bei Garrick und Morwen; Spur (a)): kopfsitz
     mass gegen die ungeformte Haut, Godot mischt aber das Gesicht der Person (Formschluessel, kopf.feld) an Haut und Kopfteil; das Feld
     ist am Kinn steil (Laenge, Kiefer, Kinn), die Haut wandert dort anders als das Kopfteil 6 mm daneben. Hier mit dem Gesicht der Person:
@@ -176,9 +176,10 @@ def kopfsitz_geformt(o, W, N, kopf, p, ge, runden=5):
                 zahl[g][0] += h < 0.0; zahl[g][1] += h < 0.002
                 V[k] = V[k] + N[i] * (0.006 - h); n += 1
         if vorher is None: vorher = zahl
-        if not n: break
+        if not n or r == runden - 1: break   # letzte Runde zaehlt nur (Lauf 10.11.: Jorin nach 4 Runden 24 Ecken zwischen 2 und 6 mm)
         KO._zurueck(o, V)
-    print('KOPFSITZ', o.name, 'mit Gesicht der Person vorher unter der Haut/unter 2 mm je Gegend', vorher, '; nach %d Runden fehlen noch %d' % (r, n))
+    print('KOPFSITZ', o.name, 'mit Gesicht der Person vorher unter der Haut/unter 2 mm je Gegend', vorher,
+          '; nach %d Runden noch %d Ecken unter 6 mm, davon unter der Haut %d' % (r, n, sum(v[0] for v in zahl.values())))
 
 
 def wange_messen(netze, haut, p, ge):
