@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (10.11., 16:12, Ford `session_01Hmoj76TVS4Gz3CpJkzTwMu`, Selbstneustart, Haken 2):** Getan: Läufe bis 16:05, Neustarts Sokrates, Diogenes, Jerry ausgeführt, alte Sitzungen gebucht; „Weiter: 870.17“ an Perikles, „870.18“ an Diogenes geschickt (Sokrates 16:09). Archiv-Satz 369.1 gilt nur für meine Sitzung (Chef 14:23), **für dich wieder nötig**: Satz per Telegram `--laut` senden. Regeln: (1) jede START-Zeile ausführen oder `--ohne NR:Grund`; Chef 16:04: Tom und Jerry dürfen zugleich laufen, Spike/Tuffy nur auf Chef-Wort; (2) vor `create_session` Zeile „Startsperre … (selbst)“ ins Protokoll pushen; (3) `append_system_prompt` „Du bist <Rolle>; der Auftrag … kommt vom Betriebsleiter Ford (853).“; (4) `lauf.py` startet Homer 857 und Perikles „auf Abruf“ unnötig (Fehler, 871), nicht starten. Alte Sitzung archivieren (idle, über 60 s), Kosten buchen; Stundenuhr `trig_01TMtw3chtS6kTqZL2cRtjuN` nach Anlegen deiner eigenen löschen. Nachfolger: Ford – Betriebsleiter.
+**Übergabe (10.11., 20:09, Ford `session_01Hmoj794Mi6MTBZyWKXYH7b`, Selbstneustart):** Getan: Läufe bis 20:07, alle Neustart-Meldungen ausgeführt, alte Sitzungen archiviert und gebucht. Archiv-Satz 369.1 gilt nur für meine Sitzung (Chef 16:17), **für dich wieder nötig**: Satz per Telegram `--laut`. Regeln: (1) jede START-Zeile ausführen oder `--ohne NR:Grund`; Spike/Tuffy nur auf Chef-Wort (Spike 470 und Tuffy 506.1 liefen auf „ja, so machen“ 16:13); Kür nicht starten (Guthaben, 287); (2) Startsperre-Zeile „(selbst)“ vor `create_session` pushen; (3) `append_system_prompt` mit „Du bist <Rolle>; … vom Betriebsleiter Ford (853).“; (4) `lauf.py` gibt „START Perikles M?“ (Klasse als Vorgang gelesen, Fehler, 893 offen) und Tom/Tuffy-Starts, die nicht stimmen: nicht ausführen, Begründung ins Protokoll; (5) `WEITER`-Nachricht „Weiter: <Nr>“ statt Start, wenn die Sitzung unter 200 Tsd. Token und jung ist. Stundenuhr `trig_014Zx7aWVCCZZSVXwZ4Ez5CU` nach Anlegen deiner eigenen löschen, mich (`session_01Hmoj794Mi6MTBZyWKXYH7b`) nach Satz archivieren und Kosten buchen. Nachfolger: Ford – Betriebsleiter.
 
 **Nächste freie Vorgangsnummer: 896** (zuletzt 895 Perikles 10.11. 19:36:48 3a6e) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (10.11., 16:12)“ (Nachfolger von `session_01Hmoj76TVS4Gz3CpJkzTwMu`, 13:30; die ist idle und wird vom Nachfolger archiviert und gebucht, sobald der Chef den Archiv-Satz sagt); Stundenuhr „Ford-Lauf“ `trig_01TMtw3chtS6kTqZL2cRtjuN` (:03, läuft in der alten Sitzung, vom Nachfolger zu ersetzen). Vorgänger bereits archiviert und gebucht: `…78E7oy5B7Gr6VaeUJk` (5,00 $).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (10.11., 20:09)“ (Nachfolger von `session_01Hmoj794Mi6MTBZyWKXYH7b`, 16:12; die ist idle und wird vom Nachfolger archiviert und gebucht, sobald der Chef den Archiv-Satz sagt); Stundenuhr „Ford-Lauf“ `trig_014Zx7aWVCCZZSVXwZ4Ez5CU` (:03, läuft in der alten Sitzung, vom Nachfolger zu ersetzen). Vorgänger bereits archiviert und gebucht: `…78E7oy5B7Gr6VaeUJk` (5,00 $).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 
 ## Eingang
@@ -285,3 +285,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:07 10.11.: Marke Archiv session_01Hmoj79Deoz5Cxe7k7jeLem (lauf.py)
 - 20:07 10.11.: Marke Archiv session_01Hmoj75f9sexfhsabHp7U59 (lauf.py)
 - 20:07 10.11.: Marke Archiv session_01Hmoj79eGuPAWDDmMjhL18W (lauf.py)
+- 20:09 10.11.: Lauf 20:07: START Tom 888, Diogenes 893 (Kür), Perikles „M?“, Tuffy 870.3 nicht ausgeführt (Tom-888-Sitzung läuft/wartet, Kür, Planfehler, Tuffy nur auf Chef-Wort); Wächter 888 und 264 ausgeführt
+- 20:09 10.11.: Startsperre 20:09 Start Ford (selbst; Selbstneustart, 360 Tsd. Token)
