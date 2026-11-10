@@ -13,6 +13,10 @@ const NEBEL_FARBE := Color(0.52, 0.57, 0.54, 1.0)
 
 static var an := true
 
+## Testmenü (806): ein Paket liegt im Bau, gleich ob der Schalter an ist
+static func da() -> bool:
+	return ResourceLoader.exists(NEBEL) or ResourceLoader.exists(STAUB)
+
 static func da_nebel() -> bool:
 	return an and ResourceLoader.exists(NEBEL)
 
