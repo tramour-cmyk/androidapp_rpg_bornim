@@ -561,7 +561,7 @@ def main():
             thema = re.sub(r"\s*\([^)]*\)\s*$", "", offen_nf)
             titel = "%s (%s)" % (thema, berlin(JETZT))
             mo, satz = modell(r, nf_nr.group(1) if nf_nr else None)
-            msg = "%s\n\nNachfolger laut Übergabe in %s: %s. Zuerst Start nach deiner Rollendatei, dann die Übergabe lesen und dort weiterarbeiten.%s" % (r, VORRAT[r], offen_nf, satz)
+            msg = "%s\n\nNachfolger laut Übergabe in %s: %s. Zuerst Start nach deiner Rollendatei, dann die Übergabe lesen und dort weiterarbeiten; steht dort „Letzte Antwort:“, nennt die Startmeldung sie (859).%s" % (r, VORRAT[r], offen_nf, satz)
             ausgabe.append("START %s | %s | %s | %s | %s | %s | %s" % (r, mo, UMGEBUNG.get(r, MITTEL), REPO, REVISION, titel, msg.replace("\n", "\\n")))
             vorgaenger(r); sperren.append(r); continue
         if pause:
