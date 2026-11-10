@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [807a](entscheiden/807a-texte-fertigkeiten.md) | **Muss** | G Story | 10.11., 10:39 | Zwölf Marken in `STORY-K1-FERTIGKEITEN.md`, wiederholte Zeilen in drei Wortlauten; Knöpfe nennen die Fertigkeit | Homer |
-| [830](entscheiden/830-wolfssprung-lehrsatz.md) | **Muss** | G Story | 10.11., 10:30 | Eingebung zur ersten Ansage „Anspringen“, drei Wortlaute; Godot zeigt heute gar keine Eingebung | Homer |
 
 ## Zu billigen
 
@@ -31,7 +30,7 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 8, Muss 4, startbar 0
+**Homer** – offen 8, Muss 4, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -42,7 +41,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 | 807 | M | Tätigkeiten ohne Kampf für Fertigkeiten in Kapitel 1 vorschlagen (Schleichen, Spähen, Schl | Chef (Datei in der Chefsache) |
-| 830 | M | Von Sokrates (705 B, Chef 10.11., 08:43): Lehrsatz zur Ansage des Wolfssprungs im ersten W | Chef (Datei in der Chefsache) |
+| 830 | M | Von Sokrates (705 B, Chef 10.11., 08:43): Lehrsatz zur Ansage des Wolfssprungs im ersten W | startbar |
 
 **Tom** – offen 102, Muss 83, startbar 6
 
@@ -151,7 +150,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 839 | M? | Von Homer (817): Erklärtexte der Grundwerte im Reiter Held nach BRS einbauen, Texte STORY- | startbar |
 | Pflege | K | von Werkzeug (340.3, 10.11.): 19474 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 71, Muss 59, startbar 20
+**Jerry** – offen 72, Muss 60, startbar 21
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -226,6 +225,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 833 | M | Unterer Kampfschirm nach Signatur: kein Kasten im Kasten (Bericht, Leiste, Befehle), Knöpf | startbar |
 | 836 | M? | Von Homer (830): Hinweis „Nahkampf erreicht nur die vordere Reihe.“ steht in jedem Kampf, | startbar |
 | Pflege | K | von Werkzeug (340.3, 10.11.): 17729 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 840 | M | Von Sokrates (830 A, Chef 10.11., 11:00): Eingebung beim ersten Auftreten nach 210 B in Go | startbar |
 
 **Perikles** – offen 22, Muss 8, startbar 4
 
