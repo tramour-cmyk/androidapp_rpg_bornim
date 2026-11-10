@@ -19,6 +19,7 @@ static var blut := 1                    # bloodLevel: Aus, Dezent, Deutlich (399
 static var tempo := 1                   # battleTempo: Ruhig, Normal, Schnell (alt nur im klassischen Kampf, BattlePace)
 static var kampftext := false           # battleAuto: Zeilen laufen von selbst (alt nur im klassischen Kampf)
 static var zeichen_gesehen := false     # 425 signHintSeen: „Halte ein Zeichen gedrückt …“ einmal beim ersten Menue System
+static var fert_gruppen := {}           # 762 (Chef 21:33): Gruppe -> offen, nur was der Spieler im Reiter Fertigkeiten umgeklappt hat
 
 static func lade() -> void:
 	if geladen: return
@@ -35,10 +36,12 @@ static func lade() -> void:
 	tempo = clampi(int(c.get_value("bedienung", "tempo", 1)), 0, 2)
 	kampftext = bool(c.get_value("bedienung", "kampftext", false))
 	zeichen_gesehen = bool(c.get_value("bedienung", "zeichen_gesehen", false))
+	var fg = c.get_value("bedienung", "fert_gruppen", {})
+	fert_gruppen = fg if fg is Dictionary else {}
 
 static func speichere() -> void:
 	var c := ConfigFile.new()
-	for k in ["ring", "lauf_taste", "links", "karte_nah", "ruetteln", "rueckfragen", "blut", "tempo", "kampftext", "zeichen_gesehen"]:
+	for k in ["ring", "lauf_taste", "links", "karte_nah", "ruetteln", "rueckfragen", "blut", "tempo", "kampftext", "zeichen_gesehen", "fert_gruppen"]:
 		c.set_value("bedienung", k, _wert(k))
 	c.save(DATEI)
 
@@ -53,6 +56,7 @@ static func _wert(k: String) -> Variant:
 		"tempo": return tempo
 		"kampftext": return kampftext
 		"zeichen_gesehen": return zeichen_gesehen
+		"fert_gruppen": return fert_gruppen
 	return rueckfragen
 
 static func blut_stufe() -> int:
