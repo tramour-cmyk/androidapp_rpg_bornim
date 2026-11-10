@@ -35,7 +35,25 @@ on:
         default: ""
 
 jobs:
+  # 264.1: itch.io antwortet dem eigenen Runner mit einer Cloudflare-Abfrage (403, cf-mitigated: challenge; Chef 10.11., 19:21);
+  # die CC0-Pakete laedt darum ein GitHub-Runner in den Zwischenspeicher, der eigene Runner holt sie dort und behaelt sie in ~/cc0
+  cc0:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          sparse-checkout: tools/blender348/v3
+      - uses: actions/cache@v4
+        with:
+          path: ~/cc0
+          key: cc0-quaternius-4
+      - name: CC0-Pakete (Quaternius) fuer den eigenen Runner
+        run: |
+          [ -n "$(find ~/cc0 -name UAL1_Standard.glb 2>/dev/null)" ] || bash tools/blender348/v3/cc0_laden.sh ~/cc0
+          for p in medieval-village-megakit stylized-nature-megakit fantasy-props-megakit; do [ -d ~/cc0/$p ] || PAKETE=$p bash tools/blender348/v3/cc0_laden.sh ~/cc0; done
+          du -sh ~/cc0
   apk:
+    needs: cc0
     runs-on: [self-hosted, bornim]   # 264.1 Probe auf dem eigenen Runner (Proxmox), nur dieser Zweig
     env:
       GODOT: "4.7.2"
