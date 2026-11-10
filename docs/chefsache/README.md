@@ -41,7 +41,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 | 432a | M | Aschgeborene: drei offene Storyfragen (Vesks Liste, Kael, Lyra) und Zeitpunkt des Baus, „j | Chef (Datei in der Chefsache) |
 
-**Tom** – offen 103, Muss 84, startbar 5
+**Tom** – offen 102, Muss 84, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -147,7 +147,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 831 | M | Bildtafel Bäume: vier Arten aus Stylized Nature MegaKit frei (gewöhnlich, abgestorben, Kie | startbar |
 | 839 | K | Von Homer (817): Erklärtexte der Grundwerte im Reiter Held nach BRS einbauen, Texte STORY- | ruht |
 | 842 | M | Von Sokrates (807a A, Chef 10.11., 11:01): Pim überreden und Verband nach STORY-K1-FERTIGK | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 471 |
-| Pflege | K | von Werkzeug (340.3, 10.11.): 18542 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 75, Muss 61, startbar 23
 
