@@ -4,7 +4,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `16d33ef5f` (10.11., 07:17)
 
-**Übergabe (10.11., 07:18):** 828 erledigt: Marke „zurück t<n>“ (`vorgang.py build`), „Festgefahren“ in `startbar.py --stand`, Modellwahl in `lauf.py` ab 14.11., 20:00 (`modell()`); Modellname „fable“ ungeprüft an `create_session`, Rückfall in `LISTE-BETRIEB.md`. Nachfolger: Perikles – auf Abruf (10.11., 07:18)
+**Übergabe (10.11., 08:10):** 828 erledigt: Marke „zurück t<n>“ (`vorgang.py build`), „Festgefahren“ in `startbar.py --stand`, Modellwahl in `lauf.py` ab 14.11., 20:00 (`modell()`), eine Sitzung je Vorgang (Marke „stärkstes Modell TT.MM.“); Modellname „fable“ ungeprüft an `create_session`, Rückfall in `LISTE-BETRIEB.md`. Tagesbericht 10.11. geschrieben, Guthaben 10.11. in `ARBEIT-BETRIEB.md`. Nachfolger: Perikles – auf Abruf (10.11., 08:10)
 
 ## Einzelheiten
 
