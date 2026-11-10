@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [887a](entscheiden/887a-ein-repo-privat.md) | **Muss** | B Werkzeuge | 10.11., 16:44 | Ein privates Repo beseitigt die Repo-Rückfrage ganz; Bauminuten kosten dann heute etwa 210 $ im Monat, nach Aufräumen 50–65 $, mit eigenem Bauserver fast nichts | Sokrates |
 
 ## Zu billigen
 
