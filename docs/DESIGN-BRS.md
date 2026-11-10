@@ -204,6 +204,7 @@ Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, abe
 - **Schleichen und Hinterhalt:** Mit der Schleichtaste nähert sich der Held. Bleibt er unbemerkt (Schleichen gegen die Wachsamkeit des Gegners, ohne Würfel), greift er als Erster an und bekommt den Vorteil des Hinterhalts. Mehr Gegner sind schwerer zu überlisten. **Bosse** sind wachsamer, ihr Hinterhalt-Bonus ist gedeckelt.
 - **Ausschlüsse sind hart.** Metall stört die Aufnahme der Magiepartikel aus der Umgebung (Entscheidung 10, 33). Die Sperre hängt an der Schule, nicht am Pfad (Entscheidung 80): Evokation, Illusion und Beschwörung gehen für jeden nur ohne Metall, also in Stoff oder Leder; Heil- und Schutzmagie auch in Metall. Dazu trägt der Magier ab der Titelprüfung keine Rüstung, der Kriegsmagier nur leichte. In schwerer Rüstung geht Schleichen nicht („Deine Rüstung klirrt“). Zweihänder und Schild schließen sich aus. Jeder Held hat höchstens einen Pfad.
 - **Gegner gehören zu Gebieten**, damit niemand zu früh in zu hohe Stufen läuft. Höhere Gebiete sind betretbar; die Karte zeigt ihr Stufenband.
+- **Regeln aus dem Umzug (870a 1–6 A, Chef 10.11., 15:08; Plan `LISTE-UMZUG-BRS.md`):** (1) Spielstände aus der SRD-Zeit laden nicht mehr („Aus der alten Regelfassung, nicht mehr spielbar“, Löschen). (2) Gekämpft wird nur im MARS (626); `klassisch.gd` entfällt. (3) **Kampfhandlungen hängen an Fertigkeiten:** für alle Kraft schöpfen (einmal je Kampf, Leben zurück); mit Rang Geselle je Fertigkeit eine Handlung (etwa Einhänder Finte, Dolche Stich aus dem Hinterhalt, Zweihänder Wuchtschlag; Schild und Bogen eine schwächere Vorform, denn Decken und Zielschuss bleiben Fähigkeiten von Wächter und Scharfschütze, Abschnitt 5); Zauber nach Schule (Abschnitt 12); Extra-Angriff, Doppelzug, Zweiwaffenkampf entfallen; Liste und Zahlen Jerry mit 444, Namen Homer. (4) In Kapitel 1 wachsen die Grundwerte nicht. (5) **Proben als Prozent** wie die Trefferchance: Initiative und Flucht nach Gewandtheit, Abwehrprobe mit Zähigkeit (Gift, Krankheit), Wille (Furcht, Zauber), Gewandtheit (Flächen); Zahlen 444. (6) Abschnitt 11.
 
 ## 8. Die Welt
 
@@ -259,7 +260,9 @@ Ernten ist eine kurze Tätigkeit ohne Minispiel. Fundorte wachsen nach einer Zei
 | **Seltenheit** | wie viel Besonderes darin steckt: Zahl der Zusatzeigenschaften, Preis, Zeichen | sechs, unten |
 | Zustand | wie gut es noch wirkt | Makellos, Benutzt, Beschädigt, Defekt (unten) |
 
-Seltenheit und Güte sind getrennt: ein gewöhnliches Schwert kann meisterhaft geschmiedet sein, ein sehr seltenes nur normal. Die „Verbesserung +1“ der alten Fassung entfällt; sie geht in Güte und Runenkunde auf.
+Seltenheit und Güte sind getrennt: ein gewöhnliches Schwert kann meisterhaft geschmiedet sein, ein sehr seltenes nur normal. Die „Verbesserung +1“ der alten Fassung entfällt; sie geht in Güte und Runenkunde auf. Das „+1“ der Einzelstücke (Graks Kriegsaxt, Klinge von Bornim) wird Güte Meisterhaft (870a 6 A, Chef 10.11., 15:08).
+
+**Zusatzeigenschaften** (870a 6 A): nur aus dieser Liste: Grundwert +1, Schutzwert +1 oder +2, Leben +5, Mana +5, kritisch +3 %, Zauberschaden +10 %, Abwehrprobe +5 %; Fertigkeit +1/+2 nur ab episch (644 C1). Namensfarbe je Seltenheit bleibt. Zahlen 444; Abnutzung und Zustand kommen nach dem Umzug als eigener Vorgang.
 
 **Seltenheit:**
 
@@ -310,11 +313,11 @@ Folklore-Wesen (Goblin, Kobold, Skelett, Zombie, Ghul) und Tiere behalten ihre N
 - Monsterwerte Kapitel 1 sind entschieden (427, Chef 02.11.: `LISTE-BESTIARIUM.md` „Werte 2.0“); Krogg und Grimmzahn nachgemessen, Werte wie im Bestiarium gelten endgültig (427.1, Chef 02.11., 20:22; ersetzt „offen nur Krogg und Grimmzahn, nachmessen mit Überfall, Rudel, Umreißen“), mit zwei Bedingungen: Hinweis auf Morwens Rauch spätestens nach der ersten Niederlage gegen Krogg, Krogg erst abnehmen, wenn der Rauch im Spiel zu bekommen ist; offen nur die Herkünfte (481).
 - Profil (Entwurf C) ist entschieden (Entscheidung 76); offen bleibt nur die Reihenfolge der Bausteine über Taten und Chronik hinaus.
 - Umfang der Prüfungsquests beim Lehrmeister.
-- Wie die Grundwerte durch Fertigkeiten wachsen; Haupt- und Nebenwert für Spähen, Tiere beruhigen, Lederarbeit.
-- Rufstufen, Gefährten ohne Klassen, Niederlage, Übernahme alter Spielstände, Reparaturverlust, Abnutzungsrate.
+- Wie die Grundwerte ab Kapitel 2 wachsen (in Kapitel 1 nicht, 870a 4 A); Haupt- und Nebenwert für Spähen, Tiere beruhigen, Lederarbeit.
+- Rufstufen, Gefährten ohne Klassen, Niederlage, Reparaturverlust, Abnutzungsrate.
 - Ruf und Lehrmeister (Abschnitt 9, D54.5).
 - Übrige Zahlen (Abschnitt 4: Helden, Übung, Erfahrung): gemessen mit Simulation 444, dann zum Chef.
-- Seltenheit (Abschnitt 11): beim Herstellen und beim Händler, ob und wie Rang und Material sie bestimmen; ob die Zusatzeigenschaft Magiefund (höhere Seltenheit beim Fund) bleibt; Liste der Zusatzeigenschaften in BRS-Werten (heute noch AC, SP, WIS, CHA …); bleibt die Namensfarbe je Seltenheit; göttlich heute mit fester Eigenschaft „alle Werte“; Ersatz für das „+1“ der Einzelstücke aus Kapitel 1 (Graks Kriegsaxt, Klinge von Bornim), wenn die Verbesserung entfällt.
+- Seltenheit (Abschnitt 11): beim Herstellen und beim Händler, ob und wie Rang und Material sie bestimmen; ob die Zusatzeigenschaft Magiefund (höhere Seltenheit beim Fund) bleibt; göttlich heute mit fester Eigenschaft „alle Werte“.
 
 ---
 

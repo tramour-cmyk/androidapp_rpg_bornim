@@ -1,57 +1,68 @@
-# 870a · Wie sollen die sieben offenen Regelfragen des BRS-Umzugs gelten?
-Sokrates · 10.11., 14:45 · E Kampf · aus deinem Wort 14:03, 14:08 (Master-Umzugsplan)
-Kurz: sieben Fragen, je mit Votum; ohne sie bauen Tom und Jerry Schritt 4–7 des Plans auf Vermutung
+# 870a · Was wird aus der Kotlin-Fassung, und wie wirken Schwächen der Monster?
+Sokrates · 10.11., 15:12 (Fassung 14:45, 1–6 entschieden 15:08) · E Kampf · aus deinem Wort 14:03, 14:08, 15:04
+Kurz: zwei Fragen offen; 7 willst du ausführlich besprechen, 8 ist deine Idee von 15:04
 
-Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/tree/dcc60878f (drei Bestandsaufnahmen im Godot-Code, 10.11., 14:33–14:41; Plan `LISTE-UMZUG-BRS.md`)
+Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/tree/dcc60878f (Bestandsaufnahmen 10.11., 14:33–14:41); gegengelesen von Diogenes (870.1, `PRUEFBERICHT.md` Lauf 134), eingearbeitet 15:1x
 
-**Frage:** Der Plan ist fertig ([`LISTE-UMZUG-BRS.md`](../../LISTE-UMZUG-BRS.md)). Sieben Punkte regelt das BRS noch nicht oder du hast sie anders entschieden, als der Umzug es braucht. Wie sollen sie gelten?
+**Frage:** Fragen 1–6 hast du entschieden (Archiv, `DESIGN-BRS.md` 7 und 11). Offen sind 7 (Kotlin-Fassung) und 8 (Schwächen der Monster). Wie sollen sie gelten?
 
-**Votum:** „870a 1A 2A 3A 4A 5A 6A 7A“
+**Votum:** 7 im Gespräch; „870a 8A“
 
-**Berührt:** Tom, Jerry (Bau Schritt 4–8), Homer (Texte zu 3, 6), Perikles (Projektplan 2.3, 2.17), 534, 467, 469, 644, 649, 212, 481, 508
+**Berührt:** Tom (Schritt 8, Export), Jerry (Schritt 5), Homer (Texte zu 8), Perikles (`android.yml`, Release), 427 (Bestiarium), 481
 
-**Begründung:** Dein Wort 14:08: „soll jetzt schon Hand und Fuß haben“. Und eine Berichtigung meiner Vorlage 870 (14:05): Dort stand, Erschaffung und Kampf seien schon BRS. Im Spiel stimmt das nicht. „Neues Spiel“ öffnet die alte Erschaffung mit Klasse und Punktkauf. Der Kampf rechnet nur mit einem versteckten Testschalter nach BRS, und auch dann laufen Initiative, Flucht, Rettungswürfe, die meisten Zauber und alle Klassenfähigkeiten mit W20 weiter. Der Umzug ist darum größer, als ich gesagt habe: etwa 17–24 Entwicklersitzungen, realistisch 120–200 $, zwei Testbuilds für dich (Plan, Abschnitt 3).
+**Begründung:** Diogenes hat meinen Plan gegengelesen. Was davon 7 betrifft, steht unten berichtigt. Seine Kostenschätzung ist besser belegt als meine: Tom und Jerry kosten im Mittel 20–22 $ je Sitzung, darum eher **350–500 $** statt 120–200 $.
 
-**Sachverhalt:** Bestand je Stelle im Plan, Abschnitt 1 und 4; je Frage unten der Kern.
+**Sachverhalt:** wie unten je Frage.
 
 **Auswertung:**
 
-**1. Alte Spielstände.** Heute steht in jedem Spielstand nur der SRD-Held (Klasse, Stärke bis Charisma, Zauberpunkte). Einen BRS-Helden kann man daraus nicht verlässlich zurückrechnen; die Herkunft fehlt ganz.
-- **A (Empfehlung):** Alte Spielstände laden nicht mehr. Die Karte zeigt „Aus der alten Regelfassung, nicht mehr spielbar“ mit Löschen. Das Spiel ist nicht veröffentlicht, betroffen sind nur deine Testspielstände; das Testmenü erzeugt Helden jeder Herkunft auf Stufe 1–6.
-- **B:** Umrechnen: Ort, Quests, Gold, Beutel bleiben, der Held wird neu erschaffen und an der alten Stelle eingesetzt. Etwa eine Sitzung mehr, und jede alte Feldart muss bedacht werden.
-- **Stärkstes Gegenargument gegen A:** Du verlierst deinen Durchspielstand. Antwort: Wer mit dem neuen System durchspielen soll, muss ohnehin neu erschaffen; B ist nachrüstbar, falls du es vermisst.
+**7. Die Kotlin-Fassung** (berichtigt nach Diogenes).
+Was heute stimmt:
+- Jeder Push auf `main` baut die Kotlin-App. In den Play-Kanal kommt sie nur, wenn jemand den Upload von Hand startet (`android.yml` 99). Meine Fassung 14:45 hatte „bei jedem Push hochgeladen“ geschrieben; das war falsch.
+- Der Godot-Bau holt aus Kotlin Karten, Intro, Bilder, Kampfklang (`godot.yml` 358) und Texte. Darunter sind auch der Über-Text und das Handbuch mit dem Satz „Die Regeln folgen … SRD 5.1“, und die zeigt das Godot-Spiel heute an.
+- Das Repo ist öffentlich. Solange `core/` mit SRD-Inhalt darin liegt, verlangt die Lizenz CC BY 4.0 den Hinweis. Der Wächter `regelcheck.py` meldet zu Recht einen Fehler, wenn er fehlt.
+- Rechtlich ist das SRD kein Risiko: CC BY erlaubt die Nutzung, auch kommerziell, nur mit Nennung. Dein Ziel „nichts mehr mit SRD … zu tun“ ist darum eine Frage der eigenen Handschrift und der Ordnung, nicht des Rechts.
 
-**2. Klassischer Kampf (212 A, 19.10.: beide Kampfsysteme bleiben, der Spieler wählt; „der klassische Kampf behält die Regeln aus Kapitel 1“).** In Godot gibt es den klassischen Kampf nicht als Spielmodus; `klassisch.gd` ist nur Rechenkern für einen Test. Er ist SRD durch und durch. Meine Vorlage 870 sagte „klassischer Modus weg“, ohne 212 A zu nennen; das hole ich hiermit nach.
-- **A (Empfehlung):** 212 A ruht als Idee. `klassisch.gd` wird gelöscht. Wenn je ein zweiter Kampfmodus kommt, dann auf BRS-Regeln. Projektplan 2.3 heißt dann nur „MARS auf den Regeln des BRS“.
-- **B:** Klassischen Kampf in Godot neu bauen, auf BRS. Mehrere Sitzungen für etwas, das heute keiner spielt.
-- **Stärkstes Gegenargument gegen A:** Du wolltest zwei Zielgruppen bedienen. Antwort: Das gilt weiter als Idee; erst muss eines rund sein.
+Drei Wege:
+- **A (meine Fassung 14:45):** Im Umzug ersetzt Godot nur Regeltexte und Heldendaten durch eigene (Schritt 8: Handbuch und Über-Text neu, ohne SRD-Satz). Karten, Intro und Bilder kommen weiter aus Kotlin. Der Hinweis bleibt im Repo, im Godot-Spiel fällt er weg. Über die Kotlin-App entscheiden wir nach dem Umzug.
+- **B (ganz raus):** Im Umzug zieht Godot auch Karten, Intro, Bilder und Klang in den eigenen Ordner. Danach wird die Kotlin-App nicht mehr gebaut, `core/` und `app/` gehen ins private Zweit-Repo, der Hinweis fällt überall. Kosten: etwa 2–3 Sitzungen mehr (rund 40–70 $). Die alte Fassung ist dann nur noch Nachschlagequelle im Zweit-Repo; heute lesen wir sie oft für den Abgleich (620.2).
+- **C (Mitte):** wie B, aber die Kotlin-App wird nur nicht mehr gebaut, und `core/` bleibt bis zur Veröffentlichung lesbar im Repo, samt Hinweis. Billig, und die Teams behalten die Quelle für den Abgleich.
 
-**3. Fähigkeiten ohne Klassen in Kapitel 1.** Heute bringen die Klassen Fähigkeiten in den Kampf: Zweiter Atem, Tatendrang, Finte, Hinterhältiger Angriff, Extra-Angriff, Decken, Lebensraub, Untote vertreiben, „perfekte Antwort“ je Klasse, dazu Zauber. Das BRS gibt Fähigkeiten nur über den Pfad, und den gibt es erst ab Kapitel 2 (Weihe). Ohne Regel hätte der Held in Kapitel 1 nur Angriff, Zauber und Tränke.
-- **A (Empfehlung):** Kampfhandlungen hängen an Fertigkeiten, nicht an Klassen. Für alle: **Kraft schöpfen** (einmal je Kampf, Leben zurück). Mit **Rang Geselle** einer Fertigkeit kommt eine Handlung dazu, etwa Einhänder: Finte; Schild: Decken; Dolche: Stich aus dem Hinterhalt; Zweihänder: Wuchtschlag; Bogen: Zielschuss. Zauber nach Schule: Evokation Funkenpfeil (Anfänger), Flammenfächer (Geselle); Schutzmagie Bannschild, Arkanhaut; Heilmagie Wundsegen, Beistand; gegen Untote wirkt Gleißstrahl. Entfallen ganz: Extra-Angriff, Tatendrang/Doppelzug, Zweiwaffenkampf; Riposte bleibt dem Pfad Duellant (E 75). Liste und Zahlen setzt Jerry mit 444 auf, Namen Homer; Projektplan 2.17 zählt danach diese Liste. Das ist genau „du wirst, was du tust“: wer Schild übt, kann decken.
-- **B:** In Kapitel 1 keine Handlungen außer Angriff, Zauber und Tränken; alles kommt erst mit dem Pfad. Einfacher, aber der Kampf wird eintönig, gegen das Leitbild („Kampf nie langweilig, echte Wahl“).
-- **Deine Idee (14:09–14:14, als Idee, nicht dringend):** „ein Kleriker sollte das halt können“; Weihwasser wie im Witcher, drei Schluck, Wirkung nach der Stufe; „allgemein gültig“ auch für Zweihänder, Einhänder. Das passt in A: Weihwasser als Kampftrank (wie Steinhaut, 481), Wirkung nach Heilmagie statt nach Klasse, für jeden kaufbar. **Gegenargument:** Jede Handlung „für alle“ verwässert, was eine Fertigkeit besonders macht; darum in A an den Rang gebunden. Ich lege es als Idee in `LISTE-IDEEN.md`, Homer urteilt sonntags.
-- **Stärkstes Gegenargument gegen A:** Neue Handlungen sind Balance, und Kapitel 1 wurde mit den alten gemessen. Antwort: gemessen wird ohnehin neu (444, Plan Schritt 5), und die Liste ist klein (etwa zehn).
+Damit wir im Gespräch schnell sind: Was liegt dir an 7 am meisten am Herzen?
+- (a) dass im Spiel nichts mehr nach SRD aussieht oder klingt (Wege A, B und C leisten das alle);
+- (b) dass das Repo sauber ist (nur B);
+- (c) dass der Play-Kanal nur noch Godot hat (B, C);
+- (d) etwas anderes?
 
-**4. Wachsen die Grundwerte in Kapitel 1?** Im SRD gab es Attributspunkte bei Stufe 4. Das BRS lässt offen, wie Grundwerte wachsen (`DESIGN-BRS.md` 13).
-- **A (Empfehlung):** In Kapitel 1 wachsen sie nicht; Fertigkeiten und Heldenstufe tragen den Fortschritt. Die Regel dafür kommt vor Kapitel 2.
-- **B:** +1 frei bei Stufe 4, wie bisher. Ein Rest SRD-Denken, und er muss vor Kapitel 2 ohnehin neu geregelt werden.
-- **Stärkstes Gegenargument gegen A:** Der Spieler verliert einen gewohnten Aufstiegsmoment. Antwort: Stufe 4 bringt weiter Leben und Kampfkraft, dazu die Fertigkeitsaufstiege mit Hinweis.
+~~Mein Stand vor dem Gespräch: C.~~ **Neu 15:1x: B.** Den Ausschlag gibt ein Befund, den ich unterschätzt hatte: Kotlin ist heute noch die *Quelle* für Godot-Inhalte. Seit 01.11. gab es 12 Commits in `core/src/main` für Godot-Arbeit (Schenke 604, Häuser 664, Sammelaufträge 356.2 am 08.11.). Jeder Godot-Bau übersetzt Kotlin mit Gradle und exportiert daraus Karten, Texte, Held, Intro, Kartenblätter, Bilder der Dinge und Klang (`godot.yml` 48–65, 358).
+- **Vorteile B:** Eine Sprache und eine Quelle, kein Umweg über Kotlin für Dorf und Quests. Schnellere Godot-Builds ohne Gradle. Keine Golden-Tests gegen Kotlin mehr. Der Hinweis fällt überall. `android.yml` baut nicht mehr bei jedem Push. Der Umzug ist wirklich abgeschlossen.
+- **Gefahren und Gegenmittel:** (1) Karten sind in Kotlin Code mit Tests (`VillageRoundTest` u. a.); in Godot werden sie Daten. Gegenmittel: einmal exportieren, die Dateien in `godot/daten` als neue Quelle einchecken, Kartenregeln als Godot-Tests mitnehmen. Vorher prüfe ich, wie Tom künftig Karten bearbeitet (Werkzeug oder Datei). (2) Abgleich mit alt (620.2) wird mühsamer. Gegenmittel: Zweit-Repo und Git-Verlauf bleiben lesbar. (3) Offene Zweige, die `core/` ändern, müssen vorher fertig sein (Schritt 0). (4) Das Godot-Spiel läuft noch unter der Testkennung `de.bornim.game.godot`. Die Store-Kennung `de.bornim.game` hat heute die Kotlin-App; der Wechsel gehört zur Veröffentlichung und ist deine Sache (nicht Teil des Umzugs).
+- **Kosten:** etwa 2–4 Sitzungen mehr (rund 50–90 $).
 
-**5. Proben ohne W20 (Initiative, Flucht, Abwehr gegen Gift, Furcht, Zauber).** Heute alles W20 mit Rettungswurf und Übungsbonus.
-- **A (Empfehlung):** wie die Trefferchance im BRS eine Prozentzahl: Initiative nach Gewandtheit mit kleiner Streuung; Flucht nach Gewandtheit gegen den schnellsten Gegner; **Abwehrprobe** (Name aus `DESIGN-BRS.md` 12) mit dem passenden Grundwert: Zähigkeit gegen Gift und Krankheit, Wille gegen Furcht und Zauber, Gewandtheit gegen Flächen. Zahlen aus 444.
-- **B:** einen neuen Würfel einführen (etwa 1–100 sichtbar). Widerspricht „Zufall nur als Würze“ nicht, ist aber eine zweite Mechanik neben der Trefferchance.
-- **Stärkstes Gegenargument gegen A:** Prozentproben fühlen sich weniger spannend an als ein Wurf. Antwort: Der Kampf zeigt heute schon „n gegen p %“; dieselbe Sprache überall ist leichter zu lernen.
+**8. Schwächen und Stärken der Monster (dein Wort 15:04).** „Monster X hat eine Schwäche gegen Feuer, aber wird gestärkt, wenn das und das passiert“; mit Alchemie herstellen, „was halt das eine Monster dadurch stärkt vielleicht das nächste Monster … dass halt vorher nicht immer die ultimative Lösung ist, also eine kleine Brandbombe“.
 
-**6. Gegenstände: Zusatzeigenschaften und das alte „+1“.** Heute würfelt die Beute „+1 bis +3“ und Zusatzwerte wie RK, ZP, Weisheit, Charisma; Einzelstücke (Graks Kriegsaxt, Klinge von Bornim) tragen „+1“. Das BRS streicht die Verbesserung und will Zusatzeigenschaften nur in BRS-Werten (`DESIGN-BRS.md` 11, 13).
-- **A (Empfehlung):** Zusatzeigenschaften aus einer kleinen Liste: Grundwert +1, Schutzwert +1 oder +2, Leben +5, Mana +5, kritisch +3 %, Zauberschaden +10 %, Abwehrprobe +5 %; „Fertigkeit +1/+2“ nur ab episch (644 C1). Das „+1“ der Einzelstücke wird **Güte Meisterhaft**. Namensfarbe je Seltenheit bleibt. Abnutzung und Zustand kommen nicht im Umzug, sondern danach als eigener Vorgang (sie waren auch im SRD nicht da). Zahlen aus 444.
-- **B:** Erst nur die alten Zusatzwerte umbenennen (RK→Schutzwert, ZP→Mana, Charisma→Handeln), Rest später. Schneller, aber Weisheit, Charisma, Angriffsbonus haben keinen sauberen Ersatz.
-- **Stärkstes Gegenargument gegen A:** Die Liste ist Balance. Antwort: Sie ist klein, gedeckelt und wird gemessen; ohne Liste schreibt jedes Team eigene Werte.
+Sachverhalt:
+- Schwächen gibt es nur in der alten SRD-Form. Die Schadensarten sind Stich, Hieb, Wucht, Gift und Heilig; „verwundbar“ heißt doppelter Schaden, „resistent“ halber, „immun“ keiner. Beispiele: Das Skelett ist verwundbar gegen Wucht, Untote sind immun gegen Gift. Dazu gibt es ein SRD-Talent „ab INT 12 erkennst du Schwächen“.
+- Das steht in `Monsters.kt` und `klassisch.gd`. **Im MARS-Kampf, den du spielst, wirkt davon nichts.** Das Bestiarium hat keine Spalte dafür.
+- Mein Plan hatte die Schadensarten übersehen; ich habe sie in Schritt 5 nachgetragen.
+- Alchemistenfeuer (von Goblins) und Weihwasser (von Untoten) gibt es schon als Beute.
 
-**7. Die Kotlin-Fassung.** Sie ist SRD durch und durch und wird noch gebaut: jeder Push auf `main` baut die Kotlin-App und lädt sie in den internen Play-Store-Kanal (`android.yml`). Der Godot-Bau holt Karten, Texte und Heldendaten aus ihr.
-- **A (Empfehlung):** Im Umzug löst Godot nur die SRD-Texte und Heldendaten aus Kotlin (Plan Schritt 8); Karten, Intro, Bilder kommen weiter von dort. Der Hinweis „SRD 5.1 · CC BY 4.0“ bleibt nur in der Kotlin-App. Ob die Kotlin-App aus dem Play-Store-Kanal genommen und `core`/`app` ins Archiv gehen, lege ich nach dem Umzug gesondert vor (das ist Store und Release, deine Sache).
-- **B:** Jetzt alles aus Kotlin lösen und die Kotlin-Fassung stilllegen. Gründlich, aber zwei bis drei Sitzungen mehr für Karten und Bilder, die mit dem BRS nichts zu tun haben.
-- **Stärkstes Gegenargument gegen A:** „nichts mehr mit SRD zu tun“ gilt dann fürs Repo noch nicht. Antwort: Fürs Spiel schon; das Repo folgt im eigenen Schritt, den du entscheidest.
+Wege:
+- **A (Empfehlung):** Wenige Schadensarten mit eigenen Namen: Schnitt, Stich, Wucht, Feuer, Gift, Säure, Licht.
+  - Je Monsterart höchstens eine **Schwäche** (+50 % Schaden) und eine **Stärke** (−50 %). Immun nur, wo die Natur es verlangt (Untote gegen Gift).
+  - Dazu dein Kern, die **Gegenwirkung**: Bei zwei bis drei Arten je Kapitel macht das falsche Mittel den Gegner stärker oder kostet etwas.
+  - Vorschläge für Kapitel 1 (Zahlen aus 444, Namen und Texte von Homer): Der Ockerschleim teilt sich bei Wucht und Schnitt einmal in zwei kleine; Feuer trifft voll, hier ist die Brandbombe richtig. Die Riesenspinne fürchtet Feuer, aber Feuer verbrennt ihre Spinnseide (Beute). Das Wolfsrudel flieht vor Feuer: Der Kampf ist schnell vorbei, aber Fell und Erfahrung sind weg. Beim Skelett wirkt Gift nicht, Feuer halb, Wucht stark.
+  - **Wissen statt Raten:** Die Schwäche zeigt sich im Kampf in Text und Bild („Der Schleim teilt sich“) und steht danach im Bestiarium. Mit der Fertigkeit Wissen sieht man sie schon vorher; das ersetzt das SRD-Talent.
+  - Deine Witcher-Idee hängt sich hier an, Weihwasser eingeschlossen: Kampftränke und Wurfmittel haben eine Schadensart. Man kann sie kaufen, erbeuten und später mit Alchemie herstellen.
+- **B:** Nur die alten SRD-Werte umbenennen (doppelt, halb, keiner), ohne Gegenwirkung. Weniger Arbeit, aber dann bleibt es bei der einen richtigen Lösung je Monster, genau das, was du nicht willst.
+- **C:** Im Umzug fallen die Schadensarten weg, Schwächen kommen danach als eigener Vorgang. Sauber getrennt, aber dann wird zweimal an denselben Monstern, Waffen und Tränken gebaut.
 
-**Folgerungen:** Nach deiner Antwort trage ich jeden Punkt in `DESIGN-BRS.md` und das Vorgangsarchiv ein, Diogenes hat den Plan dann gegengelesen (870.1), und ich lege die Vorgänge 870.2 ff. für Schritt 2–9 an; die Pause von Tom und Jerry bleibt bis 13.11., 20:00, danach bis 14.11. eine Entwicklersitzung zugleich (826).
+Gegenargumente gegen A:
+- **Stärkstes Gegenargument:** Eine Gegenwirkung, die man nicht kennen kann, bestraft Unwissen. Das ist Frust, keine Wahl. Antwort: Sie ist beim ersten Mal sichtbar und nie tödlich: ein geteilter Schleim oder eine verlorene Beute, nie ein Sofortsieg des Gegners. Danach steht sie im Bestiarium, und mit Wissen sieht man sie vorher.
+- **Zweites Gegenargument:** Kapitel 1 hat noch kaum Alchemie. Antwort: Die Mittel gibt es in Kapitel 1 als Beute und beim Händler. Das Herstellen kommt mit der Meisterschaft Alchemist dazu, ohne dass sich die Regel ändert.
+
+Aufwand: etwa eine Sitzung mehr in Schritt 5 (Jerry), die Spalte im Bestiarium (ich), Texte von Homer.
+
+**Folgerungen:** Nach 8 trage ich die Regel in `DESIGN-BRS.md` 7 und ins Bestiarium ein; nach dem Gespräch zu 7 berichtige ich Schritt 8 und 9 des Plans. Die Vorgänge 870.2 ff. lege ich für die Schritte 2–6 schon jetzt an, denn die hängen an 7 nicht. Die Pause von Tom und Jerry bleibt bis 13.11., 20:00.
 
 Antwort: …
