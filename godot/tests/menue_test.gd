@@ -112,10 +112,10 @@ func _lauf() -> void:
 	var namen: Array = zk.map(func(b): return b.wort)
 	print("System: ", namen)
 	var de_ := Sprache.aktiv() == "de"
-	var soll_ := (["Speichern", "Sprache", "Hauptmenü", "Anleitung", "Über", "Blut", "Tempo", "Rückfragen", "Steuerung"] if de_ else
-		["Save", "Language", "Main menu", "Guide", "About", "Blood", "Pace", "Confirmations", "Controls"])
+	var soll_ := (["Speichern", "Sprache", "Hauptmenü", "Anleitung", "Über", "Blut", "Tempo", "Rückfragen", "Joystick"] if de_ else
+		["Save", "Language", "Main menu", "Guide", "About", "Blood", "Pace", "Confirmations", "Joystick"])
 	if namen.slice(0, soll_.size()) != soll_: fehler += 1; print("FEHLER System Zeichen ", namen)
-	var bedienung := (2 if Bedienung.klassisch else 4) + 2   # Steuerung, (Joystick, Rennen,) Aktion; Karte, Rütteln
+	var bedienung := 3 + 2   # 663: Joystick, Rennen, Aktion; Karte, Rütteln (die Wahl „Steuerung“ ist weg)
 	if zk.size() != 5 + 3 + bedienung + (1 if root.has_node("Klang") else 0): fehler += 1; print("FEHLER System: %d Zeichen" % zk.size())
 	# keine Saetze mehr im Menue: nur Name und Wert unter den Zeichen (426 „Zeichen statt Textwände“)
 	for b in zk:
