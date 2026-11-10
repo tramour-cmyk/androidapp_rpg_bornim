@@ -23,6 +23,8 @@ const SOLL := {
 }
 ## Klassen ohne festen Vergleich (die Simulation kennt ihre Zauber und Fähigkeiten nicht so wie MARS): nur melden
 const NUR_MELDEN := ["ROGUE", "WIZARD", "CLERIC"]
+## 870.5: Gruppen mit Gegenwirkung, die die Simulation noch nicht kennt (Schleim teilt sich): nur melden
+const GEGEN_MELDEN := ["SLUGS"]
 
 var fehler := 0
 var tables: Dictionary
@@ -115,7 +117,7 @@ func _lauf() -> void:
 			var q := float(siege) / KAEMPFE
 			var soll: float = SOLL[cls][foe]
 			pruefe("%s Stufe 1 gegen %s: Siegquote MARS %.2f, Simulation %.2f%s" % [cls, foe, q, soll,
-					(", Leben am Ende %.0f %%" % (100.0 * leben / siege)) if siege > 0 else ""], absf(q - soll) <= GRENZE_QUOTE or cls in NUR_MELDEN)
+					(", Leben am Ende %.0f %%" % (100.0 * leben / siege)) if siege > 0 else ""], absf(q - soll) <= GRENZE_QUOTE or cls in NUR_MELDEN or foe in GEGEN_MELDEN)
 	# 870.5: ohne SRD-Zweig braucht jeder Gegner der Tabelle seine Werte nach dem BRS
 	var ohne := []
 	for m in tables.monsters:

@@ -348,9 +348,9 @@ func _row_spell(spell: String) -> void:
 	var skills := {}
 	for s in tables.skills:
 		skills[s.id] = s
-	var wolf: Dictionary
+	var wolf: Dictionary     # 870.5: Goblins (Wölfe fliehen vor Feuer, Gegenwirkung)
 	for m in tables.monsters:
-		if m.id == "wolf":
+		if m.id == "goblin":
 			wolf = m
 	var hero := Mars.hero_fighter("hero", "PARTY", Vector2i(Mars.FRONT, 0), sheet, 999, sheet.second, skills)
 	var foes := [Mars.monster_fighter("w1", Vector2i(Mars.FRONT, 0), wolf, 999), Mars.monster_fighter("w2", Vector2i(Mars.FRONT, 1), wolf, 999),

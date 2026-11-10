@@ -39,6 +39,7 @@ func _initialize() -> void:
 	_griff()
 	_zauber()
 	_schwaechen()
+	_gegenwirkungen()
 	print("HANDLUNGEN870 %s" % ("gut" if fehler == 0 else "%d FALSCH" % fehler))
 	quit(1 if fehler > 0 else 0)
 
@@ -341,3 +342,43 @@ func _schwaechen() -> void:
 	var info := []
 	pruefe("Skelett: Stich halb, Wucht anderthalb, Gift nichts", x._schwaeche(x.by_id("hero"), x.by_id("f0"), "stich", info) == 0.5
 			and x._schwaeche(x.by_id("hero"), x.by_id("f0"), "wucht", info) == 1.5 and x._schwaeche(x.by_id("hero"), x.by_id("f0"), "gift", info) == 0.0)
+
+
+## 870.5 (870a 8 A): Gegenwirkungen
+func _gegenwirkungen() -> void:
+	var Z: Dictionary = BrsKampf.w()["zauber"]["Funkenpfeil"]
+	Mars.gegner_ohne_rettung = true
+	# Wolf und Feuer: das Rudel flieht, Kampf gewonnen, kein Lohn
+	var w = _kampf("Einhänder", {"Evokation": 25}, ["wolf", "wolf"])
+	w.start()
+	w._brs_zauber(w.by_id("hero"), w.by_id("f0"), Z)
+	pruefe("Wolf und Feuer: Rudel fort, Kampf vorbei, kein Lohn", w.outcome == "WON" and w.kein_lohn and w.by_id("f1").fled, "%s %s" % [w.outcome, w.kein_lohn])
+	# Wildschwein und Feuer: rasend
+	var b = _kampf("Einhänder", {"Evokation": 25}, ["boar"])
+	b.start()
+	b._brs_zauber(b.by_id("hero"), b.by_id("f0"), Z)
+	pruefe("Wildschwein und Feuer: rasend", b.by_id("f0").rasend)
+	# Zombie und Feuer: kein Zäher Tod
+	var z = _kampf("Einhänder", {"Evokation": 25}, ["zombie"])
+	z.start()
+	z._brs_zauber(z.by_id("hero"), z.by_id("f0"), Z)
+	pruefe("Zombie und Feuer: steht nicht wieder auf", z.by_id("f0").kein_zaeh)
+	Mars.gegner_ohne_rettung = false
+	# Schleim und Schnitt: teilt sich einmal
+	var s = _kampf("Einhänder", {"Einhänder": 25}, ["ochre_jelly"])
+	s.start()
+	var vor: int = s.all.size()
+	for i in 30:
+		if not s.by_id("f0").standing():
+			break
+		s._perform(s.by_id("hero"), ["attack", "f0"])
+		if s.all.size() > vor:
+			break
+	var teile: Array = s.all.filter(func(x): return x.side == "FOES" and x.monster != null and String(x.monster.id) == "ochre_jelly")
+	pruefe("Schleim und Schnitt: teilt sich in zwei", teile.size() == 2, str(teile.size()))
+	for i in 10:
+		var ziele: Array = s.targets(s.by_id("hero"))
+		if ziele.is_empty() or s.outcome != "ONGOING":
+			break
+		s._perform(s.by_id("hero"), ["attack", ziele[0].id])
+	pruefe("Schleim teilt sich nur einmal", s.all.filter(func(x): return x.side == "FOES").size() <= 2)

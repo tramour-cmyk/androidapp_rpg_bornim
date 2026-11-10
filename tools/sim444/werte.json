@@ -66,6 +66,13 @@
     "_flucht": "Gewandtheit des Helden gegen die des schnellsten stehenden Gegners (Stufe dazu); betrunken mit Ungunst (merkmale umreissen)"
   },
 
+  "gegenwirkung": {
+    "_quelle": "870.5 (870a 8 A, LISTE-BESTIARIUM.md): das falsche Mittel staerkt oder kostet, nie toedlich; Zahlen A (Jerry), Werte-Vorlage an den Chef vor B1; Simulation kennt sie noch nicht",
+    "rasend_schaden": 1.5,
+    "blut_schaden": 1.5,
+    "teilen_leben": 0.5
+  },
+
   "erfahrung": {
     "_quelle": "N 4 Tabelle 'Zahlen fuer die Simulation', Modell D; Fertigkeits- und Proben-Erfahrung A",
     "je_gegner_faktor": 10,

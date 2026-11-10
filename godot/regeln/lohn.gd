@@ -46,9 +46,11 @@ static func reward(mars, xp: int, dice, over := 0, cap = null, xp_factor := 1.0,
 	var scale := 1.0 + 0.35 * over + 0.05 * over * over
 	var share: float = float(pack.xpShare) if pack != null else 0.0
 	var worth := int(int(m.xp) * scale * (1.0 + share * mates) * xp_factor)
+	if bool(mars.get("kein_lohn")):     # 870.5 Gegenwirkung Wolf: das Rudel floh vor dem Feuer, kein Fell, keine Erfahrung
+		worth = 0
 	var gold := int(dice.roll_expr(m.gold) * (1.0 + over * 0.3) * gold_factor)
 	var items: Array = []
-	for e in m.get("loot", []):
+	for e in ([] if bool(mars.get("kein_lohn")) else m.get("loot", [])):
 		if dice.chance(float(e.chance)) and mars.items.has(e.item):
 			items.append(e.item)
 	var level: int = hero.level()

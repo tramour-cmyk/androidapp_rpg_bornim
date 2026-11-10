@@ -25,6 +25,13 @@ const SCHADENSART := {"schnitt": ["Schnitt", "slash"], "stich": ["Stich", "pierc
 const MSG870_SCHWACH := ["{0} ist verwundbar gegen {1}!", "{0} is vulnerable to {1}!"]
 const MSG870_STARK := ["{1} richtet bei {0} wenig aus.", "{1} does little against {0}."]
 const MSG870_IMMUN := ["{1} prallt an {0} ab.", "{1} has no effect on {0}."]
+## 870.5 (870a 8 A): Gegenwirkungen beim ersten Mal (Homer STORY-BRS-HELD.md [870.14.gegen.*])
+const MSG870_GEGEN_WOLF := ["Die Wölfe weichen vor dem Feuer zurück, dann sind sie zwischen den Bäumen fort. Kein Fell, keine Erfahrung.",
+	"The wolves shy from the fire, then they are gone among the trees. No pelt, no experience."]
+const MSG870_GEGEN_SCHWEIN := ["Das Feuer macht {0} rasend.", "The fire drives {0} into a frenzy."]
+const MSG870_GEGEN_FLUEGER := ["{0} wittert dein Blut und saugt gieriger.", "{0} smells your blood and feeds more greedily."]
+const MSG870_GEGEN_ZOMBIE := ["{0} zerfällt. Diesmal steht er nicht wieder auf.", "{0} crumbles. This time it does not rise again."]
+const MSG870_GEGEN_SCHLEIM := ["Der Schleim teilt sich.", "The slime splits in two."]
 ## [870.14.kraft.schoepfen]
 const MSG870_KRAFT := ["{0} schöpft Kraft: +{1} TP.", "{0} draws strength: +{1} HP."]
 const MSG399_GROWLS := [["{0} knurrt, wagt aber keinen Biss.", "{0} snarls but dares no bite."],
@@ -256,6 +263,10 @@ class Fighter:
 	var schildwall := false
 	var gegriffen_von := ""
 	var geschlagen := false
+	## 870.5 Gegenwirkungen: rasend (Wildschwein nach Feuer), steht nicht wieder auf (Zombie nach Feuer oder Licht), hat sich geteilt
+	var rasend := false
+	var kein_zaeh := false
+	var geteilt := false
 	var held := false
 	var prone := false
 	var waited := false
@@ -348,6 +359,8 @@ var opening := "NORMAL"
 var relentless_used := {}
 ## 870.5: welche Schwäche oder Stärke (Gegnerart|Schadensart) schon genannt ist
 var schwaeche_gesagt := {}
+## 870.5 Gegenwirkung Wolf: das Rudel floh vor dem Feuer, der Kampf bringt keine Beute und keine Erfahrung (lohn.gd)
+var kein_lohn := false
 ## 506: der laufende Schlag des Helden ist ein Krit (Untotenzähigkeit hält dann nicht); vor _hurt gesetzt, danach zurück
 var krit_jetzt := false
 var surprised := {}
@@ -1660,6 +1673,14 @@ func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := 
 		_say(fmt(wolf(foe, "MSG279_WOLFMISSES", "MSG72_MISSES"), lang, [foe.name(lang), t.name(lang)]), foe.id, t.id, 0, info)
 		return
 	var dmg := int(e.schaden)
+	var G: Dictionary = BrsKampf.w().get("gegenwirkung", {})
+	if foe.rasend:     # 870.5 Gegenwirkung Wildschwein
+		dmg = roundi(dmg * float(G.get("rasend_schaden", 1.5)))
+	if art_of(m) == "stirge" and t.status.has("BLEED"):     # 870.5 Gegenwirkung Blutflügler
+		dmg = roundi(dmg * float(G.get("blut_schaden", 1.5)))
+		if not schwaeche_gesagt.has("gegen|stirge"):
+			schwaeche_gesagt["gegen|stirge"] = true
+			_say(fmt(MSG870_GEGEN_FLUEGER, lang, [foe.name(lang)]), foe.id, t.id)
 	if re != NONE:
 		_say(fmt(pick("MSG72_EVADES" if re == PERFECT else "MSG72_GOOD"), lang, [t.name(lang)]), t.id)
 	dmg = int(dmg * SHARE[re])
@@ -1902,7 +1923,7 @@ func _hurt(t: Fighter, full: int, by: String, text: String, roll = null, wound :
 		relentless_used[t.id] = true
 		floor_hp = 1
 	# 506 (alt Battle.dealDamage): Untotenzähigkeit des Wiedergängers
-	var zaeh: bool = floor_hp == 0 and t.side == "FOES" and t.monster != null and str(t.monster.get("special", "")) == "UNDEAD_FORTITUDE" \
+	var zaeh: bool = floor_hp == 0 and t.side == "FOES" and t.monster != null and str(t.monster.get("special", "")) == "UNDEAD_FORTITUDE" and not t.kein_zaeh \
 			and t.hp > 0 and t.hp <= dmg and by != "" and not krit_jetzt \
 			and _zaeh_haelt(t, dmg)
 	if zaeh:
@@ -1926,6 +1947,8 @@ func _hurt(t: Fighter, full: int, by: String, text: String, roll = null, wound :
 	if t.side == "FOES":
 		intents.erase(t.id)
 		_say(fmt(wolf(t, "MSG279_WOLFFALLS", "MSG72_FALLS"), lang, [t.name(lang)]), null, t.id, 0, null, false, false, "FOE_FALLS")
+		if t.kein_zaeh:     # 870.5 Gegenwirkung Zombie
+			_say(fmt(MSG870_GEGEN_ZOMBIE, lang, [t.name(lang)]), null, t.id)
 		_pack_flees(t)
 	elif t == all[0]:
 		_say(fmt(pick("MSG72_HEROFALLS"), lang, [t.name(lang)]), null, t.id, 0, null, false, false, "HERO_FALLS")
@@ -2031,7 +2054,9 @@ func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapo
 	var schw := _schwaeche(f, t, wd.get("typ"), info)     # 870.5 (870a 8 A)
 	var n := roundi(float(e.schaden) * schw)
 	n = maxi(0, n - _srd(t, _weakness(f)) + (_srd(t, _fed(f)) if schw > 0.0 else 0))
+	_vor_treffer(t, wd.get("typ"))
 	_hurt(t, n, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), n]), info, true)
+	_gegenwirkung(f, t, wd.get("typ"))
 	_life_steal(f, n)
 	if not statuses or outcome != "ONGOING" or not t.standing():
 		return
@@ -2064,7 +2089,9 @@ func _brs_zauber(f: Fighter, t: Fighter, z: Dictionary) -> void:
 		return
 	var schw := _schwaeche(f, t, z.get("typ"), info)     # 870.5 (870a 8 A)
 	var n := maxi(0, roundi(float(e.schaden) * schw) + (_srd(t, _fed(f)) if schw > 0.0 else 0))
+	_vor_treffer(t, z.get("typ"))
 	_hurt(t, n, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), n]), info)
+	_gegenwirkung(f, t, z.get("typ"))
 
 
 ## 870.5 (870a 8 A, LISTE-BESTIARIUM.md): Faktor der Schadensart [typ] gegen [t] (Schwäche 1,5, Stärke 0,5, immun 0, werte.json
@@ -2083,6 +2110,65 @@ func _schwaeche(f: Fighter, t: Fighter, typ, info: Array) -> float:
 		var satz: Array = MSG870_SCHWACH if x > 1.0 else (MSG870_STARK if x > 0.0 else MSG870_IMMUN)
 		_say(fmt(satz, lang, [t.name(lang), name[lang]]), f.id, t.id)
 	return x
+
+
+## 870.5 Gegenwirkung, die vor dem Schaden greift: Zombie nach Feuer oder Licht steht nicht wieder auf
+func _vor_treffer(t: Fighter, typ) -> void:
+	if t.monster != null and art_of(t.monster) == "zombie" and String(typ) in ["feuer", "licht"]:
+		t.kein_zaeh = true
+
+
+## 870.5 (870a 8 A, LISTE-BESTIARIUM.md): das falsche Mittel stärkt den Gegner oder kostet etwas, nie tödlich, beim ersten Mal sichtbar
+## (Zahlen werte.json „gegenwirkung“, A). Die Spinnseide fehlt, solange die Spinne keine Seide als Beute trägt.
+func _gegenwirkung(f: Fighter, t: Fighter, typ) -> void:
+	if t.monster == null or typ == null or outcome != "ONGOING":
+		return
+	var art := art_of(t.monster)
+	var ty := String(typ)
+	if art == WOLF and ty == "feuer":
+		var rudel := all.filter(func(x): return x.side == "FOES" and x.standing() and x.monster != null and art_of(x.monster) == WOLF)
+		var erst := true
+		for x in rudel:     # eine Zeile für alle, jeder läuft (wie _pack_flees)
+			x.fled = true
+			intents.erase(x.id)
+			_say(MSG870_GEGEN_WOLF[lang] if erst else "", null, x.id, 0, null, false, false, "FOE_FLEES")
+			erst = false
+		if not all.any(func(x): return x.side == "FOES" and x.standing()):
+			kein_lohn = true     # nur, wenn das Rudel allein war (Grimmzahn bleibt und zählt)
+			outcome = "WON"
+	elif art == "boar" and ty == "feuer" and t.standing() and not t.rasend:
+		t.rasend = true
+		_say(fmt(MSG870_GEGEN_SCHWEIN, lang, [t.name(lang)]), f.id, t.id)
+	elif art == "ochre_jelly" and ty in ["schnitt", "wucht"] and t.standing() and not t.geteilt and t.hp >= 2:
+		var spot = _free_foe_spot()
+		if spot == null:
+			return
+		t.geteilt = true
+		for gone in all.duplicate():
+			if gone.side == "FOES" and gone.place == spot:
+				if order.find(gone) < turn:
+					turn -= 1
+				all.erase(gone)
+				order.erase(gone)
+		var g := monster_fighter(t.id + "b", spot, t.monster, 1)
+		g.b = t.b
+		g.srd_hp = t.srd_hp
+		g.max_hp = t.max_hp
+		g.hp = int(t.hp * float(BrsKampf.w().get("gegenwirkung", {}).get("teilen_leben", 0.5)))
+		t.hp -= g.hp
+		g.geteilt = true
+		g.initiative = t.initiative
+		var top := 0
+		for x in all:
+			if x.monster != null and art_of(x.monster) == art:
+				top = maxi(top, x.nr)
+		if t.nr == 0:
+			t.nr = 1
+		g.nr = maxi(top, t.nr) + 1
+		all.append(g)
+		order.insert(order.find(t) + 1, g)
+		_say(MSG870_GEGEN_SCHLEIM[lang], t.id, g.id)
+		announce(g)
 
 
 ## 870.5: Beistand: Prozentpunkte auf die eigene Trefferchance, solange er wirkt
