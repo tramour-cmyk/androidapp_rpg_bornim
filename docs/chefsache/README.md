@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [870a](entscheiden/870a-brs-regelfragen.md) | **Muss** | E Kampf | 10.11., 14:45 | sieben Fragen, je mit Votum; ohne sie bauen Tom und Jerry Schritt 4–7 des Plans auf Vermutung | Sokrates |
+| [870a](entscheiden/870a-brs-regelfragen.md) | **Muss** | E Kampf | 10.11., 15:12 | zwei Fragen offen; 7 willst du ausführlich besprechen, 8 ist deine Idee von 15:04 | Sokrates |
 
 ## Zu billigen
 
