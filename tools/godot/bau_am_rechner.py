@@ -3,8 +3,10 @@
 # Messungen wie wolf_mess_438, groesse_587, wenden_560 ohne Bauserverlauf laufen (Prüftreppe 1; kein Probelauf, kein Bild).
 # Vorher einmal: add_repo bornim-kaufmodelle, nach /home/user/bornim-kaufmodelle klonen (die Anhänge holt dieses Skript),
 # Blender als Modul: python3 -m venv ~/bl && ~/bl/bin/pip install bpy==5.2.3 numpy pillow; ln -s ~/bl bl (im Repo, nicht committen).
-# Aufruf im Repo: python3 tools/godot/bau_am_rechner.py [--laden] [Schritt-Anfang …]
+# Aufruf im Repo: python3 tools/godot/bau_am_rechner.py [--laden] [--cache] [Schritt-Anfang …]
 #   ohne Schritte: Karten und Texte, CC0, Modelle, Held je Klasse, Kampfort (am Rechner mit 4 Kernen etwa 35 Minuten)
+#   --cache (854): ohne Schritte erst Karten und Texte, dann die gebauten Modelle aus dem Kaufrepo (kauf_cache.py holen, wenige
+#   Minuten); nur ohne Treffer --laden und Bau, danach ablegen, damit die nächste Sitzung nicht bei Null anfängt
 #   danach: cd godot && ~/godot/godot --headless --import --path . ; dann die Tests wie im Prüfschritt
 # Rohdateien bleiben in /home/user/bornim-kaufmodelle (nie in dieses Repo); godot/daten und godot/kampf/daten sind ignoriert.
 import json, os, re, subprocess, sys, tempfile, urllib.request
@@ -61,8 +63,27 @@ def schritte(namen):
         if r.returncode:
             sys.exit(r.returncode)
 
+def cache(mit_laden):
+    kc = [sys.executable, os.path.join(REPO, 'tools/godot/kauf_cache.py')]
+    env = dict(os.environ, RUNNER_TEMP=RT, KAUF=KAUF)
+    schritte(SCHRITTE[:1])
+    if subprocess.run(kc + ['holen'], cwd=REPO, env=env).returncode == 0:
+        return
+    if mit_laden:
+        laden()
+    subprocess.run(kc + ['vorher'], cwd=REPO, env=env, check=True)
+    schritte(SCHRITTE[1:])
+    subprocess.run(kc + ['ablegen'], cwd=REPO, env=env, check=True)
+
 if __name__ == '__main__':
     args = sys.argv[1:]
-    if '--laden' in args:
-        args.remove('--laden'); laden()
+    mit_laden = '--laden' in args
+    if mit_laden:
+        args.remove('--laden')
+    if '--cache' in args and not [a for a in args if a != '--cache']:
+        cache(mit_laden); sys.exit(0)
+    if '--cache' in args:
+        sys.exit('--cache nur ohne Schritte')
+    if mit_laden:
+        laden()
     schritte(args or SCHRITTE)
