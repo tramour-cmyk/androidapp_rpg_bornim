@@ -71,7 +71,14 @@ func _lauf() -> void:
 
 
 func _blatt(hk: String, s: int, fert: Dictionary, tab: Dictionary) -> Dictionary:
-	var k: Dictionary = BrsHeldS.neu("Mensch", hk).kampfblatt(s, {}, fert)
+	var bh = BrsHeldS.neu("Mensch", hk)
+	if hk == "Wanderer":     # verteilt selbst; gerechnet wie 444 als Kampfbau (werte.json „herkuenfte“ „Wanderer“ plus, plus_variante)
+		var d: Dictionary = Brs.lade().herkuenfte.Wanderer
+		for teil in ["plus", "plus_variante"]:
+			for g in d.get(teil, {}):
+				for i in int(d[teil][g]):
+					bh.hoch(g)
+	var k: Dictionary = bh.kampfblatt(s, {}, fert)
 	var sheet: Dictionary = (tab.probe.FIGHTER.hero.hero as Dictionary).duplicate(true)
 	var gf: String = GRUNDFORM.get(String(k.waffe.gruppe), "longsword")
 	sheet.main = {"id": gf, "de": gf, "en": gf, "atk": 0, "dmg": [1, 4, 0], "ranged": k.waffe.art == "fern", "reach": false, "two": false, "type": "BLUDGEONING"}
