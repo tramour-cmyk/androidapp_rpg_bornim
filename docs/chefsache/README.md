@@ -149,7 +149,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 815 | M | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staubflocken innen, Fußstaub, Fahne, W | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 804 (bilder) |
 | 831 | M | Bildtafel Bäume: vier Arten aus Stylized Nature MegaKit frei (gewöhnlich, abgestorben, Kie | startbar |
 
-**Jerry** – offen 72, Muss 61, startbar 9
+**Jerry** – offen 73, Muss 62, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -225,6 +225,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 823 | K | Von Perikles (822, 745 A2): Abschnitt „## Checkliste“ in LISTE-MARS.md, je Regel zum Kampf | startbar |
 | 824 | M? | Kampf: Schurke ohne Schild geht beim Angriff kurz 3,4–3,8 m/s in „Gehen“ (Bewegung höchste | startbar |
 | Pflege | K | von Werkzeug (340.3, 10.11.): 15247 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 833 | M | Kampf: Befehlsknöpfe bleiben stehen, ausgegraut, solange ein anderer zieht (statt „…“), Ti | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 679 (erst) |
 
 **Perikles** – offen 19, Muss 6, startbar 1
 
