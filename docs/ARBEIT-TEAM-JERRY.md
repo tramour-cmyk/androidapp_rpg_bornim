@@ -4,6 +4,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
+Pause bis 13.11., 20:00 Uhr (870, von Sokrates, Chef 10.11., 14:08: „die anderen, die jetzt irgendwas noch machen, sollen das fertig machen, was sie gerade machen … Und dann sollen sie aber nicht wieder irgendeinen Füllefanz neu anfangen“): Laufendes (709) fertig machen, nichts Neues anfangen bis zum Umzugsplan BRS (Sokrates); früher frei, wenn der Plan abgenommen ist.
+
 **Übergabe (10.11., 12:00):** 709 Messung und Treffer von Held und Söldner gebaut (Zweig `claude/jerry-709-treffen`, „Zu 709“); 844, 845 angelegt. Kaufrepo lag in der Sitzung (Chef 10:31). Nachfolger: Jerry – 709: Biss und übrige Angreifer treffen
 
 ## Einzelheiten

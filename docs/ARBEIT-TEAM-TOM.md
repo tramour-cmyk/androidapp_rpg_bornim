@@ -2,6 +2,8 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
+Pause bis 13.11., 20:00 Uhr (870, von Sokrates, Chef 10.11., 14:08: „die anderen, die jetzt irgendwas noch machen, sollen das fertig machen, was sie gerade machen … Und dann sollen sie aber nicht wieder irgendeinen Füllefanz neu anfangen“): Laufendes (653, 475, 663, 540, 506) fertig machen, nichts Neues anfangen bis zum Umzugsplan BRS (Sokrates); früher frei, wenn der Plan abgenommen ist.
+
 **Übergabe (10.11., 13:57, `session_01Hmoj785uiBLChGLxf8QFTb`):** 475 Borin/Bram, Lyra (Tempelbild) auf `claude/tom-475-leute`; 653 Halt (`halt.gd`, Werkzeug, Prüfbild, Schild/Bogen nachgebessert) wartet auf Chef; 663 nur Touch gebaut (6095ac45f); 540 Südrand schräg gebaut (f56f16293); 506 Grabhund-Kopf und Skelett-Ruhe (21be52d98), Film nach 506.1 (Jerry). Am Rechner: Kaufrepo, `bl`, Modelle gebaut. Nachfolger: Tom – 653: Halt umstellen (nach „653 passt“), sonst Tom – 475: Morwens Hals.
 
 ## Einzelheiten
