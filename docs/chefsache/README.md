@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [857a](entscheiden/857a-kraeuterkunde-name.md) | **Muss** | G Story | 10.11., 13:09 | Kräuterkunde heißt künftig „Kräutersammeln“ (EN „Foraging“); Regel bleibt, nur der Name; Trankwirkung zieht zu Alchemie | Homer |
 | [406.2](entscheiden/4062-schild-ruhe.md) | **Muss** | E Kampf | 10.11., 12:15 | Der gekaufte Satz kennt keine Ruhe mit gesenktem Schild: eigene Haltung mit gesenktem Schild, oder bleibt die Kampfhaltung? | Tuffy |
 | [649a](entscheiden/649a-konsolidierung.md) | **Muss** | E Technik | 10.11., 11:04 | Helfer prüfte den Plan 649 gegen den Code: tragfähig mit Änderungen; fünf Schritte, Netze zum Gegenstandskatalog, ab sofort keine neuen Werte im Code | Sokrates |
 
@@ -37,14 +38,14 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 4, Muss 2, startbar 1
+**Homer** – offen 4, Muss 2, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
-| 857 | M | Von Sokrates (Chef 10.11., 13:01, t274.6): Fertigkeit „Kräuterkunde“ (Gruppe Sammeln) umbe | startbar |
+| 857 | M | Von Sokrates (Chef 10.11., 13:01, t274.6): Fertigkeit „Kräuterkunde“ (Gruppe Sammeln) umbe | Chef (Datei in der Chefsache) |
 
 **Tom** – offen 105, Muss 86, startbar 9
 
