@@ -52,6 +52,24 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 139 · 866 Prüfliste nur gegengelesen (Perikles, `8c9f2dc3f`; 10.11., 15:1x)
+
+- Commit-Prüfung in einer Kopie von `origin/main`, neue `ansehen/t999-probe.md`: ohne Zeile, „Gegengelesen: Sokrates“ ohne Zeit und Zeile mitten im Satz halten an; „Gegengelesen: Sokrates 10.11., 15:09“, „**Gegengelesen:** Perikles …“, „- Gegengelesen von Sokrates (…)“ gehen durch. Umbenennen fällt nicht durch (`--no-renames`).
+- **Lücke D139.1 → 881 (Perikles):** kein Weg, wie der Entwurf vor dem ersten Commit zum Gegenleser kommt (bei t274 erst angelegt, dann nachgelesen); „Gegengelesen: Spike“ in Spikes eigenem Commit geht durch. 866 wartet auf 881.
+
+## Lauf 138 · 849, 859 Letzte Antwort beim Nachfolger (Perikles, `66cb5632f`; 10.11., 15:0x)
+
+- CLAUDE.md Zusammenarbeit 2 nennt „Letzte Antwort“ in der Startmeldung; `lauf.py` Startnachricht ebenso. Echter Fall diese Sitzung: Fords Startnachricht 14:59 war von Hand (Neustart-Meldung) ohne den Satz von 859, die Regel kam trotzdem über CLAUDE.md an. **849 und 859 greifen.** Hinweis an Ford: Startnachricht aus `lauf.py` übernehmen, nicht aus dem Gedächtnis.
+
+## Lauf 137 · 848, 858 Probelauf ohne vorschau.env (Perikles, `f5adfa33f`, `cae2c5659`; 10.11., 15:0x)
+
+- `loest_aus` in einer Kopie von `origin/main`, Kotlin-Push auf Arbeitszweig: Wurzel ohne Datei 0, mit Datei 1; Aufruf aus `core/` mit Datei 1, ohne 0; Paket mit `tools/preview/vorschau.env` bei leerer Platte 1; Pfade unbekannt ohne Datei 0. D129.1 behoben. **848 und 858 greifen.**
+
+## Lauf 136 · 865 kein Neustart mitten im Test (Perikles, `611d9f7c1`; 10.11., 15:0x)
+
+- `neustart-haken.pruefliste()` mit offener Prüfliste `ansehen/t274-…` an 17 Fällen, darunter die fünf echten Sätze des Chefs aus „Sokrates – 620: Lagebild nach Test t274“ (12:21–12:28: „Also Nummer 15.“, „Die Frage Nummer 16 …“, „Ansonsten passt Nummer 16.“, „Nummer 17 passt.“, Fledermäuse ohne Nummer nach „Nummer 16“): alle halten den Neustart an. Ohne Build im Verlauf, ohne Punktnennung oder mit Punkt älter als fünf Nachrichten: Neustart wie bisher. `LISTE-RELEASE-NEUSTART.md` Kopf nennt 812, 865. **865 greift.**
+- Hinweis, kein Befund: „Build im Verlauf“ zählt jede Zeile mit der Zahl (auch „274 $“); dann bleibt der Neustart aus, wie der Chef es will. „16: Tür klemmt“ und „bei 16 klemmt“ erkennt der Haken nicht; beide Formen kamen am 10.11. nicht vor, bei einem Fall Vorgang an Perikles. Während eines Tests gibt es keine Obergrenze der Länge.
+
 ## Lauf 135 · 871 Nachfolger-Strich (Perikles, `902b41dfb`; 10.11., 15:0x)
 
 - 18 Probeübergaben gegen `lauf.nachfolger()` (Stand `origin/main`): bloßer Strich in jeder Form („–“, „—“, „-“, „–.“, „**–**“, „„–““, „–; …“) und leerer Rest ergeben „keiner“; „Perikles auf Abruf“, „auf Abruf“ und echte Titel unverändert. **Lücke D135.1 → 879 (Perikles):** Strich mit Zusatz („– (auf Abruf)“, „–, auf Abruf“) ergibt weiter „Diogenes – – …“. Echter Fall: meine Übergabe 10.11., 13:0x (`caadf9ad6`) „Nachfolger: – Auf Abruf (768 am 13.11., …)“ → Titel „Diogenes – – Auf Abruf (…)“, und die 641-Regel `auf (Abruf|Zuruf)` greift wegen des großen „A“ nicht: gestartet, sobald etwas startbar ist. 871 wartet auf 879.
