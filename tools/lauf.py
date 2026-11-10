@@ -47,6 +47,8 @@ Archivregel (261.5, vier Sätze; nur Ford ausgenommen): (1) je Bereich höchsten
 wenn sie unter 200 Tsd. Token liegt (383 A, Chef 09.11.; vorher 400 Tsd. nach 383.1) und unter 60 Minuten ruht, sonst START; (4) Kostenbuchung bleibt eigene Regel (--kosten, GEBUCHT). Kein Hindernis hält eine Sitzung.
 Prüfung des Ergebnisses: steht dieselbe Sitzung im nächsten Lauf wieder auf ARCHIVIERE, gibt es WARNUNG-LAUT „Ford hat … nicht ausgeführt“ (Marke „Archiv <id>“); mehr als eine Sitzung je Bereich in zwei Läufen hintereinander
 gibt WARNUNG-LAUT (Marke „Mehrfach <Rolle>“). Marken schreibt nur --sperre.
+Startprüfung (837): gibt es 5 Minuten nach der jüngsten Startsperre einer Rolle keine Sitzung dieser Rolle (neu angelegt oder, bei WEITER, danach tätig),
+steht WARNUNG-LAUT „Start <Rolle> nicht angekommen“ (einmal, Marke „Start-fehlt <Rolle> <Zeit>“; START ausgelassen ohne --ohne oder gescheitert), und die Sperre belegt die Rolle nicht mehr.
 Laufend = Status working/blocked und updated_at jünger als 60 Minuten (Start-Sperre und Belegung 20 Minuten). Laufend oder jünger als 20 Minuten: Rolle belegt, kein zweiter Start.
 Nicht Sache des Werkzeugs: „Neustart <Name>, <Commit>“ (Nachricht), Wochenstart, Tagesbericht, Meldungen, Eingang (bleiben bei Ford).
 """
@@ -112,6 +114,13 @@ def startmarken():
     """Rolle → letzter Startzeitpunkt aus „Startsperre HH:MM Start <Name>“ im Protokoll. Datum aus dem Zeilenkopf
     „- HH:MM TT.MM.:“ (631: ohne Datum galt eine Marke vom Vortag als heutige); fehlt er: heute, sonst gestern."""
     aus = {}
+    for name, d in startsperren():
+        if name not in aus or d > aus[name]: aus[name] = d
+    return aus
+
+def startsperren():
+    """Alle (Rolle, Zeitpunkt) aus den Startsperren im Protokoll, auch die von Ford von Hand geschriebenen (837)."""
+    aus = []
     for l in lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md")).splitlines():
         m = re.search(r"Startsperre (\d\d):(\d\d) Start (\w+(?:, \w+)*)", l)
         if not m: continue
@@ -123,8 +132,20 @@ def startmarken():
             if d > JETZT + datetime.timedelta(days=1): d = d.replace(year=d.year - 1)
         elif d > JETZT: d -= datetime.timedelta(days=1)
         for name in m.group(3).split(", "):  # 433: „Start Tom, Spike“ sperrt beide, nicht nur den ersten
-            if name not in aus or d > aus[name]: aus[name] = d
+            aus.append((name, d))
     return aus
+
+START_PRUEF_MIN = 5  # 837: so lange nach der Startsperre muss eine Sitzung der Rolle da sein
+START_PRUEF_STD = 3  # ältere Startsperren prüft lauf.py nicht mehr (Protokoll reicht bis gestern)
+
+def start_angekommen(rolle, d, alle):
+    """837: nach der Startsperre um d gibt es eine Sitzung der Rolle, neu angelegt (START) oder,
+    nicht archiviert, danach tätig (WEITER schreibt dieselbe Sperre)."""
+    for s in alle.values():
+        if kosten.rolle(s.get("title", "")) != rolle: continue
+        if z(s["created_at"]) >= d - datetime.timedelta(minutes=START_PRUEF_MIN): return True  # Ford schrieb die Sperre auch schon nach dem Start (Jerry 10.11., 10:29/10:32)
+        if s.get("session_status") != "SESSION_STATUS_ARCHIVED" and s.get("updated_at") and z(s["updated_at"]) >= d: return True
+    return False
 
 def chefdateien_je_rolle():
     d = os.path.join(DOCS, "chefsache", "entscheiden")
@@ -150,7 +171,10 @@ def stand():
         kuer = [x[:4] for x in zs if x[1] != "M" and not x[4]]
         kuer += [(x[0], "N", x[2], x[3]) for x in zs if x[4] == "nach dem Meilenstein"]  # 190.10: letzte Stufe vor Leerlauf
         wartet = [x[0] for x in zs if (x[4] or "").startswith("Chef")]
-        aus[rolle] = (muss, kuer, startbar.pause(inhalt), wartet)
+        p = startbar.pause(inhalt); frei = startbar.pause_frei(inhalt) if p else []
+        if frei:  # 870.17: Pause mit „frei für: …“ sperrt alles außer diesen Nummern
+            muss = [x for x in muss if startbar.ist_frei(x[0], frei)]; kuer = [x for x in kuer if startbar.ist_frei(x[0], frei)]; p = None
+        aus[rolle] = (muss, kuer, p, wartet)
         GESPERRT[rolle] = {x[0]: x[4] for x in zs if x[4]}
         offen_m = [x[0] for x in zs if x[1] == "M?" and not x[4]]
         if offen_m: m_fragen.extend("%s (%s)" % (n, rolle) for n in offen_m)
@@ -197,7 +221,8 @@ def nachfolger(rolle):
             roh = q.group(1) + (" (%s)" % rest.strip(" ()*") if re.search(r"(?<!\d)\d\d?\.\d\d\.", rest) else "")
         roh = re.split(satzende, roh, maxsplit=1)[0].strip(" *„“\"")
         if re.search(r"startet\s+`?lauf\.py`?", roh): return None, zeit, "bedingt: " + roh[:60]  # 375: Termin, den lauf.py selbst startet
-        if re.match(r"keine[rn]?\b", roh, re.I): return None, zeit, "keiner"
+        roh = re.sub(r"^[-–—]+[\s,;:]*", "", roh).strip()  # 879 (D135.1): „– Auf Abruf (…)“, „–, auf Abruf“ ohne führenden Strich
+        if re.match(r"keine[rn]?\b", roh, re.I) or not roh: return None, zeit, "keiner"  # 871: „Nachfolger: –“ startete „<Rolle> – –“
         if re.search(r"\b(nur wenn|falls|sobald|bis )", roh, re.I): return None, zeit, "bedingt: " + roh[:60]
         if not re.match(r"(%s)\b" % "|".join(MODELL), roh): roh = "%s – %s" % (rolle, roh)
         return roh, zeit, roh
@@ -478,6 +503,17 @@ def main():
             neue_marken.append("Mehrfach-Warnung %s %s" % (r.replace(" ", "-"), aelteste))
             ausgabe.append("WARNUNG-LAUT %d Sitzungen im Bereich %s in zwei Läufen hintereinander (seit %s, 261.5)" % (len(offene), r, vor[0].strftime("%H:%M")))
         if not [d for d in zeiten if (JETZT - d).total_seconds() < 1800]: neue_marken.append("Mehrfach " + r.replace(" ", "-"))
+    # 837 (Chef 10.11., 10:4x): Startsperre ohne Sitzung meldet laut (START ausgelassen oder gescheitert) und belegt die Rolle nicht
+    nicht_da = set()
+    for name, d in sorted(marken.items()):  # nur die jüngste Sperre je Rolle; ein späterer Start ersetzt einen früheren
+        alter = (JETZT - d).total_seconds() / 60
+        if alter < START_PRUEF_MIN or alter > START_PRUEF_STD * 60 or start_angekommen(name, d, alle): continue
+        nicht_da.add(name)
+        schl = "Start-fehlt %s %s" % (name, d.strftime("%d.%m.-%H:%M"))
+        if schl in marke_alt or schl in neue_marken: continue
+        ausgabe.append("WARNUNG-LAUT Start %s nicht angekommen: Startsperre %s, keine Sitzung %s seither; Ford: START ausführen oder mit --ohne NR:Grund ausschließen (837)" % (name, d.strftime("%d.%m., %H:%M"), name))
+        neue_marken.append(schl)
+    for name in nicht_da: marken.pop(name, None)  # (2) zählt nicht als Belegung
     # Starten
     for nr, grund in sorted(ausschluss.items()): ausgabe.append("AUSGESCHLOSSEN %s: %s" % (nr, grund))
     sperren = []; neue_warnungen = []
@@ -514,7 +550,7 @@ def main():
         # 641 (Diogenes 08.11., 09:07): „auf Abruf“ oder „nur auf Zuruf“ startet nur, wenn die Rolle Startbares hat
         # 754 (D99.1): mit --ohne ausgeschlossene Zeilen zählen dabei nicht als startbar
         frei_m = [x for x in muss if x[0] not in ausschluss]; frei_k = [x for x in kuer if x[0] not in ausschluss]
-        if offen_nf and re.search(r"auf (Abruf|Zuruf)", offen_nf) and not (frei_m or (frei_k and r in MIT_KUER and not nur_muss)):
+        if offen_nf and re.search(r"auf (Abruf|Zuruf)", offen_nf, re.I) and not (frei_m or (frei_k and r in MIT_KUER and not nur_muss)):
             ausgabe.append("NICHTS %s: Nachfolger „%s“ auf Abruf, nichts startbar" % (r, offen_nf))
             continue
         # 276 (Fall 251): nennt der Nachfolger eine Zeile des eigenen Vorrats, die nicht startbar ist, gilt die Zeilenregel; beim zweiten Lauf laut
@@ -529,7 +565,7 @@ def main():
             thema = re.sub(r"\s*\([^)]*\)\s*$", "", offen_nf)
             titel = "%s (%s)" % (thema, berlin(JETZT))
             mo, satz = modell(r, nf_nr.group(1) if nf_nr else None)
-            msg = "%s\n\nNachfolger laut Übergabe in %s: %s. Zuerst Start nach deiner Rollendatei, dann die Übergabe lesen und dort weiterarbeiten.%s" % (r, VORRAT[r], offen_nf, satz)
+            msg = "%s\n\nNachfolger laut Übergabe in %s: %s. Zuerst Start nach deiner Rollendatei, dann die Übergabe lesen und dort weiterarbeiten; steht dort „Letzte Antwort:“, nennt die Startmeldung sie (859).%s" % (r, VORRAT[r], offen_nf, satz)
             ausgabe.append("START %s | %s | %s | %s | %s | %s | %s" % (r, mo, UMGEBUNG.get(r, MITTEL), REPO, REVISION, titel, msg.replace("\n", "\\n")))
             vorgaenger(r); sperren.append(r); continue
         if pause:

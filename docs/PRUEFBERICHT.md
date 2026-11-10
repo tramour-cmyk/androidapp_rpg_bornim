@@ -37,6 +37,82 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Geschlossen laut Nachprüfung oder Spur: D61.2, D62.1, D63.1–D63.6, D64.1, D65.1, D67.1, D68.1, D68.2, D69.1, D70.1, D71.1, D71.2, D74, D76.1, D76.2, D77.1, D77.2, D78.2, D79, D80.1–D80.7, D81.1, D81.2 (mit 275.2), D82, D83, D84, D84.2, D85, D86.2 (Hinweis an mich), D88.1 (685), D89, D90.1–D90.3 (686), D93.
 
+## Lauf 126 · 838 Stichprobe START gegen Sitzungen (Chef 10.11., 10:4x; 10.11., 11:1x)
+
+Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zeile als Startsperre „(lauf.py)“ ein); Quelle Protokoll `ARBEIT-BETRIEB.md` in Git gegen `list_sessions` (created_at, Berliner Zeit).
+- **`lauf.py`-Starts:** 13 Läufe, 39 START-Rollen; 25 mit Sitzung binnen 2 Minuten, **14 ohne Sitzung (36 %)**, keiner mit `--ohne NR:Grund`. Mit Grund nur im Protokoll (Ford beurteilt selbst: Pacing, Kaufrepo, „auf Abruf“, alte Sitzung wartet): 01:04 Tom, Perikles, Tuffy · 02:06 Perikles, Spike, Tuffy · 07:04 Jerry (Weiter-Nachricht an alte Sitzung statt START), Perikles, Tuffy · 08:05 Jerry, Tuffy = 11. **Ohne jeden Grund:** 09.11., 22:44 Spike (Commit `6615704a2` nennt nur „Diogenes, Tuffy“) · 10.11., 10:25 Jerry (erst 10:32 auf Zuruf des Chefs), Perikles (erst 11:08) = 3. Fehler 341 nennt davon nur Jerry 07:04, 08:05, 10:26.
+- **Fords eigene Startsperren** (Neustarts, „vor dem Start“): 39, jede mit Sitzung derselben Rolle binnen 2 Minuten; ohne Befund.
+- **„keine Arbeit“:** Protokoll 09:07 „Keine Entwicklersitzung (826 A)“: 826 A (08:25) erlaubt eine Entwicklersitzung, gelaufen ist von 07:25 bis 10:26 keine (Jerry 59 Muss, Tom startbar); Bericht 10:32 „keine Arbeit“ schon in 341. Fords Chatberichte selbst nicht prüfbar (`meldungen.tsv` ohne Text).
+- Befund D126.1 → 843 (Ford). Werkzeugseite liegt in 837 (Perikles); 838 wiederholen, sobald 837 gebaut ist.
+
+## Lauf 127 · 837 Startprüfung `lauf.py` (Perikles, `ad5264185`) und 838 Stichprobe ab Bau (10.11., 11:5x)
+
+- **837 greift.** `start_angekommen` an 7 Fällen: ohne Sitzung nein; neu nach der Sperre ja; neu bis 5 Minuten davor ja; alte Sitzung danach tätig (WEITER) ja; archivierte nein; andere Rolle nein; „Jerry 2“ zählt als Jerry. Ganzer Lauf in einer Kopie (`--ohne-pull`, echte Sitzungen 11:51): ohne Zusatz keine Warnung (kein Fehlalarm); erfundene Sperre 11:40 Perikles, Spike → je einmal WARNUNG-LAUT „Start … nicht angekommen“; Sperre 11:40 Tom ohne Tom-Sitzung → Warnung und START Tom im selben Lauf (Punkt 2: belegt nicht); Sperre 11:50 Tom → „Startmarke jünger als 20 Minuten“ (Prüfung erst ab 5 Minuten). Grenze: greift nur, wenn Ford mit `--sperre` läuft (`LISTE-BETRIEB.md` 4 schreibt es vor).
+- **Stichprobe 11:08 bis 11:51:** `lauf.py`-START 11:08 Diogenes, Homer, Perikles, Tuffy und 11:48 Diogenes: alle mit Sitzung binnen 1 Minute; 11:27 Spike: `--ohne` mit Grund im Protokoll 11:30 (Spike-Sitzung idle, Wecker 11:57). Fords Neustarts 11:25 Sokrates, 11:28 Ford, 11:49 Sokrates: mit Sitzung. 6 von 6 ausgeführt oder begründet (Lauf 126: 25 von 39). Kein neuer Bericht „keine Arbeit“.
+- Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
+- 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
+
+## Lauf 139 · 866 Prüfliste nur gegengelesen (Perikles, `8c9f2dc3f`; 10.11., 15:1x)
+
+- Commit-Prüfung in einer Kopie von `origin/main`, neue `ansehen/t999-probe.md`: ohne Zeile, „Gegengelesen: Sokrates“ ohne Zeit und Zeile mitten im Satz halten an; „Gegengelesen: Sokrates 10.11., 15:09“, „**Gegengelesen:** Perikles …“, „- Gegengelesen von Sokrates (…)“ gehen durch. Umbenennen fällt nicht durch (`--no-renames`).
+- **Lücke D139.1 → 881 (Perikles):** kein Weg, wie der Entwurf vor dem ersten Commit zum Gegenleser kommt (bei t274 erst angelegt, dann nachgelesen); „Gegengelesen: Spike“ in Spikes eigenem Commit geht durch. 866 wartet auf 881.
+
+## Lauf 138 · 849, 859 Letzte Antwort beim Nachfolger (Perikles, `66cb5632f`; 10.11., 15:0x)
+
+- CLAUDE.md Zusammenarbeit 2 nennt „Letzte Antwort“ in der Startmeldung; `lauf.py` Startnachricht ebenso. Echter Fall diese Sitzung: Fords Startnachricht 14:59 war von Hand (Neustart-Meldung) ohne den Satz von 859, die Regel kam trotzdem über CLAUDE.md an. **849 und 859 greifen.** Hinweis an Ford: Startnachricht aus `lauf.py` übernehmen, nicht aus dem Gedächtnis.
+
+## Lauf 137 · 848, 858 Probelauf ohne vorschau.env (Perikles, `f5adfa33f`, `cae2c5659`; 10.11., 15:0x)
+
+- `loest_aus` in einer Kopie von `origin/main`, Kotlin-Push auf Arbeitszweig: Wurzel ohne Datei 0, mit Datei 1; Aufruf aus `core/` mit Datei 1, ohne 0; Paket mit `tools/preview/vorschau.env` bei leerer Platte 1; Pfade unbekannt ohne Datei 0. D129.1 behoben. **848 und 858 greifen.**
+
+## Lauf 136 · 865 kein Neustart mitten im Test (Perikles, `611d9f7c1`; 10.11., 15:0x)
+
+- `neustart-haken.pruefliste()` mit offener Prüfliste `ansehen/t274-…` an 17 Fällen, darunter die fünf echten Sätze des Chefs aus „Sokrates – 620: Lagebild nach Test t274“ (12:21–12:28: „Also Nummer 15.“, „Die Frage Nummer 16 …“, „Ansonsten passt Nummer 16.“, „Nummer 17 passt.“, Fledermäuse ohne Nummer nach „Nummer 16“): alle halten den Neustart an. Ohne Build im Verlauf, ohne Punktnennung oder mit Punkt älter als fünf Nachrichten: Neustart wie bisher. `LISTE-RELEASE-NEUSTART.md` Kopf nennt 812, 865. **865 greift.**
+- Hinweis, kein Befund: „Build im Verlauf“ zählt jede Zeile mit der Zahl (auch „274 $“); dann bleibt der Neustart aus, wie der Chef es will. „16: Tür klemmt“ und „bei 16 klemmt“ erkennt der Haken nicht; beide Formen kamen am 10.11. nicht vor, bei einem Fall Vorgang an Perikles. Während eines Tests gibt es keine Obergrenze der Länge.
+
+## Lauf 135 · 871 Nachfolger-Strich (Perikles, `902b41dfb`; 10.11., 15:0x)
+
+- 18 Probeübergaben gegen `lauf.nachfolger()` (Stand `origin/main`): bloßer Strich in jeder Form („–“, „—“, „-“, „–.“, „**–**“, „„–““, „–; …“) und leerer Rest ergeben „keiner“; „Perikles auf Abruf“, „auf Abruf“ und echte Titel unverändert. **Lücke D135.1 → 879 (Perikles):** Strich mit Zusatz („– (auf Abruf)“, „–, auf Abruf“) ergibt weiter „Diogenes – – …“. Echter Fall: meine Übergabe 10.11., 13:0x (`caadf9ad6`) „Nachfolger: – Auf Abruf (768 am 13.11., …)“ → Titel „Diogenes – – Auf Abruf (…)“, und die 641-Regel `auf (Abruf|Zuruf)` greift wegen des großen „A“ nicht: gestartet, sobald etwas startbar ist. 871 wartet auf 879.
+
+## Lauf 134 · 870.1 Umzugsplan BRS gegenlesen (Sokrates, `LISTE-UMZUG-BRS.md`, 870a; Code `399ce2cb1`, 10.11., 14:5x)
+
+Kurzfassung an den Chef per Telegram 14:5x; hier die Einzelheiten. Drei Helfer haben die Zeilen nachgezählt (Befund und Schritt 4; Schritte 3, 5, 6; Zweige, Wächter, Lizenzhinweis). Urteilen tut nur der Chef.
+- **Widersprüche:** (1) 870a Frage 2: 212 ist schon gestrichen (626 ja, 07.11., 21:10, „gekämpft wird nur noch im MARS“); Projektplan 2.3 nennt noch „212 A“, den klassischen Kampf und die Pechsträhne. (2) `pechstraehne.gd` wird gelöscht, ohne dass der Plan einen Ersatz nennt. (3) 3A gibt Zielschuss und Decken jedem Gesellen; `DESIGN-BRS.md` 5 führt beide als Fähigkeiten von Scharfschütze und Wächter. (4) Lizenzhinweis: Das Repo ist öffentlich, `core/` bleibt nach 7A; Schritt 9 streicht den Hinweis trotzdem aus `README.md` und `CLAUDE.md`. `aboutText` (`I18n.kt` 127–130) und Handbuch (`Guide.kt` 23–24 „Die Regeln folgen … SRD 5.1“, Anzeige `menue.gd` 1463/1639) sind dieselben Texte wie in der Kotlin-App. `regelcheck.py` 217–219 meldet einen Fehler, wenn der Hinweis fehlt, solange alte Namen da sind. (5) 870a Frage 7: Hochgeladen in den Play-Kanal wird nur von Hand (`android.yml` 99), gebaut wird die App bei jedem Push ohne Notizen.
+- **Reihenfolge:** (6) Schritt 4 löscht `Heldwerte`; gelesen wird es auch von `beute.gd` (6), `spielstand.gd` (7), `aufruf.gd` `blatt()` 169–188, 199–203, 262–269 (5) und `spiel.gd` 109–110, 624, 631, 650, 656, 960. Allein auf `main` ist das nicht spielbar (Grundsatz 6). (7) Für den Wanderer (keine Herkunft) gibt es keine Quelle für Startvorrat, Tracht, Kapitelschirm und Probehelden. (8) Dateigrenzen: `regeln/brs_held.gd` und `regeln/talente.gd` gibt der Plan Tom; `skripte/beute.gd`, `spiel.gd` 620–657, `streuner.gd` 80 und `testmodus.gd` 85, 304–307, 409 gibt er Jerry. `kampf/figur.gd` 438–441 ruft `HeldFigur` mit der Klasse auf und muss darum mit Schritt 4 abgestimmt werden. (9) Zweige, Schritt 0: 854 ändert nichts unter `godot/`; `jerry-653-parade` ist schon gemergt; `tom-653-halt` berührt keine Umzugsdatei; `tom-brs-held` steckt ganz in `spike-470-erschaffung`, `tom-506-skelett` ganz in `tom-506-untote`. Nicht genannt, obwohl sie Umzugsdateien berühren: `spike-506-untote`, `build-494` (= `jerry-494-gegner`), `tom-6236-welt`, `build-274`, `tom-475-leute`, `jerry-806-kampfort`, `jerry-595-kaufgegner`, `tuffy-406-2-schild`, `jerry-717-rueckwaerts`, `tom-492-durchspiel`, `tom-531-film`, `jerry-507-hoehle`, `jerry-605-anlegen`, dazu ruhend aus der Zeit vom 01. bis 05.11.: `jerry-572-effekte`, `spike-458-3-staffel`, `spike-425-testmenue`, `tom-505-rand`, `tom-514-bild`, `spike-505-nebel`, `tom-567-abstand`, `jerry-577-kennung`, `tom-495-zufallsspieler`, `tom-531-garrick`, `spike-416-9-laden`, `tom-471-fertigkeiten`, `jerry-493-kampforte-gs`.
+- **Schätzung:** Der Plan rechnet 120 bis 200 $ für 17 bis 24 Sitzungen, das sind 5 bis 12 $ je Sitzung. Tom kostete am 28.10. im Mittel 20,40 $, Jerry 22,43 $ je Sitzung; die Woche 02. bis 08.11. kostete 3016 $ in 207 Sitzungen. Vergleichbare Vorgänge: 470 43 $, 709 38 $, 506 85 $, 492 82 $, 505 69 $, 475 99 $. Daraus ergeben sich etwa 350 bis 500 $. Gebucht vom 07.11., 20:00 bis 10.11., 07:00 sind rund 1150 $ bei 43 % der Woche (der laufende Tag ist zu niedrig gebucht), also rund 13 bis 19 % einer Woche.
+- **Fehlende Stellen:** `mars.gd` 125, 128 (Heilung von Gebet und Sammeln), 393–398 (`ist_krit` W20), 979–984 (`_cantrip_dice`), 1133 (Elf auf Flucht), 1146–1150 (Tränke mit Würfeln), 1160–1175 (Extra-Angriff, Zweiwaffenkampf), 1222–1224 und 1242–1243 (−2), 1287–1315 (Zustandsschaden mit Würfeln, Zwerg halbes Gift), 1713 (Leben gerufener Goblins gewürfelt), 1861 (Hinterhältiger Angriff im BRS-Weg); Grak-Heilung 1385 läuft im BRS 2W10 ohne Umrechnung; im BRS haben Gegner gar keine kritischen Treffer (`brs_kampf.gd` 148), Sonderwirkungen 1339–1350 laufen mit SRD-Rettungswurf. `brs_kampf.gd` 32–37 (Brücken FEUERPFEIL_SRD, PROZENT_JE_W20). `aufruf.gd` 154–165 (`ersatzwaffe` nach Klasse), 76–77. `kampf/probe.gd` 12–18, 53–56, 252–254, 1159, 1173; `strahlprobe.gd` 56–57; `kampf_ui.gd` 703 (Decken nur FIGHTER), 3, 477; `kampfort.gd` 159 (Initiative mit Nachteil), 967, 1236–1248 („SAVE“), 1295. `talente.gd` 32, 49, 61, 73, 87, 120, 125. Anzeigenamen „Stirge“, „Ockergallerte“ in `tabellen.json`. `erschaffung_brs.gd` 76, 84, 91, 166, 191–197, 207–209, 238–240, 389–390, 404–405, 447 (hängt selbst an `alt()` und `Heldwerte`); `heldfigur.gd` 174–176; `menue.gd` 205–216, 226, 251, 281–290; `leiste.gd` 175, 183–188, 209–210; Spieltexte `geschichte.gd` 115, 130, 217, `varianten.gd` 82, 92, 416, 422 (Homer); `testmodus.gd` 214, 305–306; `README.md` 39; Export `godot.yml` 358 (Kampfklang aus `core`).
+- **Kleinere Fehler:** Goldtests 4, nicht 6; `brs.gd` 98–185 rufen zwei Tests auf, nicht einer; Helfer von `erschaffung.gd` stehen in 416–450 und werden von 14 Skripten und 3 Tests gelesen, nicht von etwa 10; `figur.gd` Knickwinkel steht in 2869, nicht in 869; `mars.gd` 326, `zustaende.gd` 19 und `brs_kampf.gd` 102 sind nur Kommentare, sie lesen `tabellen.json` nicht; die Datei schreibt `MarsGoldenTest.kt` 215; weitere Leser `probe.gd` 1173, `lohn.gd` 30, 42, 57, rund 25 Tests. „Alle Zauber außer Funkenpfeil“: auch Sengender Strahl geht über `_brs_zauber`. Wächter: `commit-pruefung.py` 187 stimmt; Nebenbefund: die Kerntest-Prüfung 301–307 erreicht `core` und `app` nie mehr.
+- **Stimmt:** übrige Zeilen aus Befund, Schritten 3 bis 8 und Hinweisstellen; 15 Monster, 21 Fähigkeiten, 71 Tests mit `Heldwerte`; `version` wird nie gelesen.
+
+## Lauf 133 · 853 Rolle aus Systemmeldung (Perikles, `c71abc295`; 10.11., 13:0x)
+
+- CLAUDE.md „Rollen“ (auch als Systemmeldung), `notiz.sh` und `regeltreue/notiz-neu.sh` (Jerry in der Liste, Systemmeldung von Ford gilt), `LISTE-BETRIEB.md` 17 (`append_system_prompt` mit „Du bist <Rolle> …“) stimmen überein; der Starthaken ruft `notiz.sh` aus dem Arbeitsbaum, Sitzungen starten auf `main`, also greift der neue Text. Kein anderer Ort druckt die alte Rollenliste. **853 greift** (Lauf 133). Wirkung erst am ersten Start nach 13:03 (Ford-Lauf 14:03) zu sehen: Wiedervorlage im Vorrat.
+
+## Lauf 132 · 847 Menüeintrag „Lizenzen der Engine“ ausgenommen (Perikles, `00bd81d70`; 10.11., 13:0x)
+
+- Logik der Commit-Prüfung gegen alle Prüflisten t248–t275: 269.1 und 271.1 gehen jetzt durch; 248.4 (Lizenzhinweis da?), 273.1 (Hoskins, MIT) und 255.1 halten weiter an. 255.1 prüft den Umbruch der englischen Lizenztexte selbst, nicht nur den Weg; nach 832 ist das ein Lizenz-Prüfpunkt, Anhalten richtig (meine Angabe in D128.1 war hier zu weit). **847 greift** (Lauf 132).
+
+## Lauf 131 · 849 Letzte Antwort in der Übergabe (Perikles, `c02c25d52`; 10.11., 13:0x)
+
+- Regel in `LISTE-RELEASE-NEUSTART.md` 1 und CLAUDE.md „Vorräte klein halten“ steht. Echter Fall Sokrates 12:46 → Nachfolger 12:50: Übergabe trägt „Letzte Antwort“, Startmeldung nennt sie nicht.
+- **D130.1 → 859 (Perikles, Muss):** Pflicht des Nachfolgers fehlt dort, wo er beim Start liest (CLAUDE.md Zusammenarbeit 2, Rollendateien). Dazu ungenannte Streichung „ohne Werkzeug: vorschlagen“ (436). 849 wartet auf 859.
+
+## Lauf 130 · 848 Probelauf-Zähler ohne vorschau.env (Perikles, `f5adfa33f`; 10.11., 13:0x)
+
+- `vorschau.yml` überspringt ohne `tools/preview/vorschau.env` mit Exit 0; Ausnahme in `loest_aus` passt dazu. Probe Wurzel ohne Datei → 0, mit Datei → 1.
+- **D129.1 → 858 (Perikles, Muss):** Prüfung im Ordner des Aufrufs statt der Wurzel (Aufruf aus `core/` mit Datei → 0) und bei Push über den GitHub-Server gegen die Platte statt das Paket (Datei im Paket → 0). Ein echter Probelauf ginge ungezählt durch. 848 wartet auf 858.
+
+## Lauf 128 · 832 Prüfliste nur Spielbares, Lizenzzeile hält an (Perikles, `f00ceec73`; 10.11., 11:5x)
+
+- Regeltext `LISTE-CHECK-BUILD-TEST.md` 9 trägt den Chefwortlaut 09:29, „Im Bau geprüft“, Lizenzen nie als Prüfpunkt und „jeder Weg erreichbar“ (Helfer geht ihn im Build oder in der Vorschau, sonst Rückläufer); ohne Befund.
+- `commit-pruefung.py` in einer Arbeitskopie mit vorgemerkter Probedatei `t999`: Zeile mit „Urheberzeile“ → HÄLT AN, Exit 1; Zeile ohne Lizenz → nichts. Gegen die alten Prüflisten t248–t273 hielte sie 248.4, 255.1, 269.1, 271.1, 273.1 an.
+- **D127.1 → 846 (Perikles):** auch Zeilen, die das Menü „Lizenzen der Engine“ nur als Weg nennen, halten an (Probe 999.2; Vorbild 271.1: geprüft wurde das Titelbild). Vorschlag: nur Spalten „richtig“/„falsch“ prüfen, nicht den Weg. 832 wartet auf 846.
+
+## Lauf 129 · 846 Lizenz-Stopp nur Richtig/Falsch (Perikles, `bda15e52f`; 10.11., 11:5x)
+
+- Probe `t999` in Arbeitskopie: Urheberzeile in Richtig → HÄLT AN; „MIT-Text fehlt“ in Falsch → HÄLT AN; Weg über „Lizenzen der Engine“ → geht durch; Exit 1. **846 greift, 832 greift** (Lauf 129).
+- Alte Prüflisten: 273.1 hält an (richtig); 271.1, 269.1, 255.1 halten weiter an, weil Richtig/Falsch den Menüeintrag „Lizenzen der Engine“ als Bedienelement nennt (Sichtprüfungen). **D128.1 → 847 (Perikles, Kür):** Namen des Eintrags ausnehmen.
+
 ## Lauf 125 · 800 Nachprüfung 813 (Perikles, `23064823b`; 10.11., 00:0x)
 
 **Greift.** `regelcheck.py` (Z. 177) nimmt Pfade relativ zu `docs/` und `docs/chefsache/`; die drei Fehlalarme aus D123.1 (`kapitel2/STORY-K2-ENTWURF.md`, `kapitel2/STORY-PLAN-K2.md`, `chefsache/README.md`) sind weg. Übrige Meldungen „fehlende Datei“ sind echte tote Verweise aus der Zeit vor 800 (beantwortete Chefsachen, ruhende Vorräte), nicht Teil des Auftrags. 800 erledigt; der Absatz „Zu 800“ in `ARBEIT-PROJEKT.md` steht noch (Perikles räumt).

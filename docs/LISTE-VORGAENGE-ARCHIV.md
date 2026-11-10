@@ -314,7 +314,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 266 | Test-Reiter: Hardware-Angaben zum Kopieren (Chef 20.10., Tablet Build 48) | Q QS | M | – | Tom | erledigt |
 | 261.4 | Ford archiviert nicht: 22 Sitzungen offen statt einer je Bereich (Chef 21.10.) | B Steuerung | M | –; +0,45 $ | Perikles | erledigt |
 | 271 | Nachts keine Bilder: Teams ohne Arbeit, alles wartet auf Test (Chef 21.10.) | B Abläufe | M | 1,51 $ | Perikles | erledigt (272 an Jerry; Rest wartet auf den Chef) |
-| 273 | Ford darf archivieren: Satz für den Berechtigungsprüfer (Probe 261.5) | B Abläufe | M | 9,22 $ | Perikles | erledigt |
+| 273 | Ford darf archivieren: Satz für den Berechtigungsprüfer (Probe 261.5) | B Abläufe | M | 11,47 $ | Perikles | erledigt |
 | 274 | Startlektüre je Rolle kürzen, Rollendateien als Stichpunkte (Chef 21.10.) | B Abläufe | M | –; +14,01 $ | Perikles | erledigt |
 | 251 | Logo der Firma BornWire TCS (vorher WireStormTCS; Chef 20.10.) | M Markt | K | –; +7,33 $ | Homer | erledigt |
 | 256 | MARS-Klang: nur Treffer, Fehlschlag, Hieb, Abwehr; Zauber, Biss, Fallen, Geheul usw. fehlen (Chef 20.10.) | E Klang | K | –; +10,22 $ | Jerry | erledigt |
@@ -927,3 +927,43 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 704 | Wolf allein ist harmlos, wenn der Held jedem angekündigten Sprung ausweicht: 300 von 300 Siegen, er kann nur springen (Befund Tuffy zu 702, 08.11.) | E Kampf | M | 0,26 $ | Jerry | erledigt |
 | 211.14 | Rest 211.13: Leistung im Kampf am A56 messen (Puppe und Winkel je Platz durch 3D erledigt) | E Kampf | M | 5,75 $ | Jerry | erledigt, t273 bestanden |
 | 826 | Guthaben Woche bis 14.11.: eine Entwicklersitzung zugleich, Kür ruht, Zurücksetzen als Reserve (Bild Chef 10.11., 06:59) | B Steuerung | M | 4,65 $ | Sokrates | erledigt |
+| 817 | Erklärtexte der sechs Grundwerte im Heldenreiter nach BRS statt SRD (held.json „erklaerung“: GES, Rüstungsklasse, Finesse …; von Tom, aus 683) | E Oberfläche | M? | 3,85 $ | Homer | erledigt |
+| 807 | Tätigkeiten ohne Kampf für Fertigkeiten in Kapitel 1 vorschlagen (Schleichen, Spähen, Schlösser, Fallen, Tiere beruhigen, Überreden, Einschüchtern, Jagd, Angeln …), von Spike zu 471 | G Stil | M | 15,43 $ | Homer | erledigt |
+| 830 | Von Sokrates (705 B, Chef 10.11., 08:43): Lehrsatz zur Ansage des Wolfssprungs im ersten Wolfskampf (ausweichen), Text für 72.10a | G Story | M | 6,10 $ | Homer | erledigt |
+| 835 | Inhaltsverzeichnis docs/README.md in Chef-Sprache: jede Zeile ein Satz, was drinsteht und wozu, ohne Fachwörter (Netze, MARS-Checkliste, Umzug, Abgleich), Projektplan (Weg) gegen Abnahme (Ziel) klar (Chef 10.11., 10:24, über Sokrates) | B Abläufe | M | 2,55 $ | Perikles | erledigt |
+| 829 | 705 B: Regelvorschlag BRS, Magier Stufe 1 gegen Wolfsrudel ohne Söldner, ohne Ausweichen etwa 40 % (Chef 10.11., 08:43); danach Messung Jerry | E Kampf | M | 4,95 $ | Sokrates | erledigt |
+| 72 | Profil und Marktvergleich | E Kampf | K | 0,72; +0,61 $ | Homer | erledigt |
+| 348.12g | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | G Story | M | 4,29 $ | Homer | erledigt |
+| 837 | lauf.py: Start nicht angekommen melden (Chef 10.11., 10:4x; Fehler 341 von Ford) · „jetzt“ 10.11., 11:09 | B Werkzeuge | M | 2,55 $ | Perikles | erledigt, greift Lauf 127 |
+| 832 | Testbitten ohne Prüfpunkte, die ein Test im Bau schon sichert oder Lesen von Lizenztexten verlangen (Chef 10.11., 09:29 zu 273.1, über Sokrates) | Q QS | M | 2,55 $ | Perikles | erledigt, greift Lauf 129 |
+| 846 | D127.1 (Diogenes, 832): commit-pruefung.py hält Prüfzeilen an, die das Menü „Lizenzen“ nur als Weg nennen (Vorbild 271.1 Titelbild); nur anhalten, wenn „richtig“ Lizenztext verlangt | B Werkzeuge | M | – | Perikles | erledigt, greift Lauf 129 |
+| 838 | Prüfung Ford: folgte jeder START-Zeile von lauf.py eine Sitzung? Stichprobe im Wochenlauf (Chef 10.11., 10:4x; Fehler 341 von Ford) | B Werkzeuge | M | 4,51 $ | Diogenes | erledigt |
+| 851 | Neustart: letzte Antwort an den Chef geht vor dem Archivieren per Telegram (von Sokrates, Chef 10.11., 11:57 „auch diesmal“) | B Werkzeuge | M | – | Perikles | erledigt, doppelt zu 849 |
+| 432 | Eigenes Volk aus Bornim (etwa mit dem Grauen Propheten, „Tag der Asche“) prüfen, mit der Geschichte ab Kapitel 2 (Chef 31.10., 22:0x) | G Story | K | 0,79 $ | Homer | erledigt |
+| 432a | Aschgeborene: drei offene Storyfragen (Vesks Liste, Kael, Lyra) und Zeitpunkt des Baus, „jetzt“ 10.11., 11:55 | G Story | M | – | Homer | erledigt |
+| 855 | Wiederholte Startarbeit je Sitzung über 5 Min. finden und abstellen (Ablage, Setup-Skript), Tom, Jerry, Diogenes (Chef 10.11., 12:36: ja) | E Technik | M? | – | Sokrates | erledigt |
+| 853 | Start: Ford-Startnachricht kommt als Systemmeldung, Sitzungen verweigern die Rolle (Tom 12:01, Jerry 12:03, je 2 Min. bis Fords Nachsenden); Rolle daraus übernehmen, Jerry fehlt in notiz.sh-Liste (Chef 10.11., 12:07, über Sokrates) | B Abläufe | M | 1,46 $ | Perikles | erledigt, greift Lauf 133 |
+| 847 | D128.1 (Diogenes, 846): Lizenz-Stopp hält noch an, wenn Richtig/Falsch den Menüeintrag „Lizenzen der Engine“ als Bedienelement nennt (271.1, 269.1, 255.1 hielten an); Namen des Eintrags ausnehmen | B Werkzeuge | K | 2,02 $ | Perikles | erledigt, greift Lauf 132 |
+| 834 | Weg für einen BRS-Held ins Spiel (Testmenü oder Übernahme der BRS-Erschaffung), damit 762, 471, 795 am Gerät prüfbar werden; Spike, genehmigt (Chef 10.11., 10:21, über Sokrates) | E Technik | M | 6,00 $ | Tom | erledigt, t274 bestanden |
+| 471 | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) · zurück t273 | E Kampf | M | 7,86 $ | Tom | erledigt, t274 bestanden |
+| 610 | Held im Dorf: Finger am Stab zucken ohne Unterlass (Schild auf dem Rücken) (Chef 07.11., t268) · zurück t269 | E Figuren | M | 19,22 $ | Tom | erledigt, t274 bestanden |
+| 522 | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Chef 03.11., 23:33) · zurück t269 | E Oberfläche | M | – | Tom | erledigt, t274 bestanden |
+| 670 | Build 269: Menü des Helden (Held, Tasche, Ausrüstung, Karte, Chronik, System) noch im alten Design statt 557/549a; Zweig tom-557-einschalten war im Build? (Chef 08.11., 15:32) | E Oberfläche | M | – | Tom | erledigt, t274 bestanden |
+| 583 | Textkasten: ▼ liegt im Text, erzählter Text ohne i-Punkte und nicht schräg (Abgleich 512b) · zurück t269 | E Oberfläche | M | 5,99 $ | Tom | erledigt, t274 bestanden |
+| 617 | Hauptmenü „Laden“: Wischen löst Laden aus; laden nur mit dem Knopf rechts (Chef 07.11., t268.1) · zurück t269 | E Oberfläche | M | – | Tom | erledigt, t274 bestanden |
+| 543 | Startwerte gegen alt und BRS prüfen: Startgold 15–25 und Start-Heiltränke fehlen, Wiederkehrort Schenke statt Tempel, Beute im Tiefen Wald Stufe 1 statt 2 (Abgleich 512, Sokrates 03.11., 23:4x) | E Oberfläche | M | – | Tom | erledigt, t274 bestanden |
+| 762 | Heldenreiter zeigt die BRS-Fertigkeiten mit Wert, Rang und Fortschritt, damit man sieht, was Schwert, Abwehr usw. üben (heute nur Klassenfähigkeiten alter Art) (Chef 09.11., 14:49, aus 720) · zurück t273 | E Oberfläche | M | 7,51 $ | Tom | erledigt, t274 bestanden |
+| 795 | BRS-Erschaffung, Platzwahl „Alle Spielstand-Plätze sind belegt“: noch Rahmen und Auslösen beim Drücken wie vor 700 (erschaffung_brs.gd 228–234; Helfer t272, 09.11.) · zurück t273 | E Oberfläche | M | – | Tom | erledigt, t274 bestanden |
+| 593 | MARS: Ausweichen auch rückwärts als Abwechslung zu links und rechts (Chef 05.11., 19:2x) | E Kampf | M | – | Jerry | erledigt, t274 bestanden |
+| 547 | MARS: Text sagt „geht in die Knie“, Sturz ist aus (438a eingefroren): Text und Bild in Einklang bringen (Chef 04.11., 00:01) | E Kampf | M | 5,43 $ | Jerry | erledigt, t274 bestanden |
+| 597 | MARS: Ring ohne Ankündigung (Fledermaus); alle Angreifer prüfen (Chef 05.11., 19:2x) | E Kampf | M | 2,88 $ | Jerry | erledigt, t274 bestanden |
+| 857 | Von Sokrates (Chef 10.11., 13:01, t274.6): Fertigkeit „Kräuterkunde“ (Gruppe Sammeln) umbenennen, Name nach dem Tun wie Bergbau, Angeln, Jagd; Kräuterkunde klingt nach Rezepten und Brauen, das ist Alchemie | G Story | M | 5,83 $ | Homer | erledigt |
+| 663.1 | Text: [280.tipp] ohne die Fassung „Klassische Steuerung“ (von Tom; 663 nur Touch, im Spiel gestrichen) | G Story | K | – | Homer | erledigt |
+| 870.1 | Von Sokrates (870, Chef 14:08 „dein Plan irgendwer gegenlesen“): Master-Umzugsplan BRS LISTE-UMZUG-BRS.md und Chefsache 870a gegen Code und DESIGN-BRS gegenlesen, Befund als Text an den Chef | E Kampf | M | 9,47 $ | Diogenes | erledigt |
+| 878 | Von Jerry zu 854: godot.yml-Entwurf Kaufcache ansehen, ja oder Änderung | B Werkzeuge | M | – | Tom | erledigt |
+| 865 | Von Sokrates (Chef 10.11., 13:34): kein Neustart einer Sitzung mitten im Test des Chefs; Neustart-Haken und Ablauf anpassen | B Abläufe | M | – | Perikles | erledigt, greift Lauf 136 |
+| 848 | Probelauf-Zähler zählt Push, der nur vorschau.yml (Kotlin, ohne Bild) auslöst, als Probe (von Tom, 506a) | E Technik | M | 4,75 $ | Perikles | erledigt, greift Lauf 137 |
+| 849 | Neustart: letzte Antwort an den Chef wörtlich in die Übergabe, Nachfolger nennt sie in der Startmeldung; Tokens gering halten (Chef 10.11., 11:59, über Sokrates) | B Abläufe | M | – | Perikles | erledigt, greift Lauf 138 |
+| 858 | D129.1 (Diogenes, 848): Ausnahme vorschau.yml sucht vorschau.env im Ordner des Aufrufs, nicht in der Wurzel, und bei push_files nicht im Paket; Push aus Unterordner oder über den GitHub-Server mit vorschau.env zählt nicht | B Werkzeuge | M | – | Perikles | erledigt, greift Lauf 137 |
+| 859 | D130.1 (Diogenes, 849): Nachfolger nennt die letzte Antwort nicht; Regel steht nur beim Vorgänger (LISTE-RELEASE-NEUSTART 1), nicht in der Startmeldung (CLAUDE.md Zusammenarbeit 2) oder den Rollendateien | B Werkzeuge | M | – | Perikles | erledigt, greift Lauf 138 |
+| 874 | Von Sokrates (653, Chef 10.11., 12:27): jede Jerry-Sitzung baut die Kaufmodelle neu (bpy, über 20 Min.); gebaute Modelle im Kaufrepo ablegen, bpy per Setup-Skript prüfen | B Steuerung | K | – | Perikles | erledigt, doppelt zu 854 (Jerry) |

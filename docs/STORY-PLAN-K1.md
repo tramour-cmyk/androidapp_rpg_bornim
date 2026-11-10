@@ -39,7 +39,7 @@ Danach beginnt Quest 1: Rowenas „geschlafen wie ein Stein“ nimmt den letzten
 
 **Rowena:** Ältester Aldric sucht verzweifelt nach Hilfe. Sein Haus liegt unten links am Dorfplatz. Geh zu ihm!
 
-*Tipp je nach Steuerung: Wortlaut `[280.tipp]` in `STORY-K1-HANDLUNG.md`.*
+*Tipp zur Fingersteuerung: Wortlaut `[280.tipp]` in `STORY-K1-HANDLUNG.md`.*
 
 ### 2. Der Auftrag des Ältesten
 

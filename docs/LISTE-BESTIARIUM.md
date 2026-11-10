@@ -39,6 +39,26 @@ Stand der Spalten „Angriff“, „Beute“ und „Merkmal“: aus `core/src/ma
 | Ghul | Untote | Klauen | Lähmung | großer Heiltrank, Weihwasser | – | unten | Homer |
 | Ockerschleim (vorher Ockergallerte) | Schleim | Scheinfuß | Säure (greift Ausrüstung an) | großer Heiltrank | Säure als Zutat | unten | Homer |
 
+### Schwäche, Stärke, Gegenwirkung (870a 8 A, Chef 10.11., 15:25; Vorschlag Sokrates)
+
+Schadensarten Schnitt, Stich, Wucht, Feuer, Gift, Säure, Licht (Weihwasser, Gleißstrahl); Alchemistenfeuer ist Feuer. Schwäche +50 %, Stärke −50 %, immun nur wie genannt; Regel `DESIGN-BRS.md` 7. Zahlen Jerry mit 444, Namen und Texte („Der Schleim teilt sich“) Homer; Einzelgegner Jerry mit 444.
+
+| Name | Schwäche | Stärke | Gegenwirkung (falsches Mittel stärkt oder kostet) |
+| --- | --- | --- | --- |
+| Riesenratte | Feuer | – | – |
+| Wolf | Feuer | – | Rudel flieht vor Feuer: Kampf vorbei, Fell und Erfahrung weg |
+| Wildschwein | Stich | Schnitt (Schwarte) | Feuer macht es rasend: mehr Schaden, bis es fällt |
+| Riesen-Hundertfüßer | Wucht (Panzer bricht) | Stich | – |
+| Riesenspinne | Feuer | Gift | Feuer verbrennt die Spinnseide (Beute) |
+| Riesenfledermaus | Stich | – | – |
+| Blutflügler | Feuer | – | blutet der Held, saugt er stärker |
+| Goblin, Goblin-Späher, Kobold | – | – | – |
+| Goblin-Schamane | Stich | Feuer | – |
+| Skelett | Wucht | Stich; immun Gift | – |
+| Zombie | Feuer | immun Gift | mit Feuer oder Licht steht er nicht wieder auf (Zäher Tod) |
+| Ghul | Licht | immun Gift | – |
+| Ockerschleim | Feuer | immun Säure | teilt sich einmal bei Schnitt oder Wucht in zwei kleine |
+
 ## Einzelgegner (einmalig)
 
 | Name | Gruppe | Angriff | Merkmal (Vorschlag) | Beute heute | Werte 2.0 | Aussehen |

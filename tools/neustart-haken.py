@@ -119,9 +119,13 @@ def pruefliste(pfad, eingabe):
     if not nummern:
         return None
     texte = [str(eingabe.get("prompt") or "")]
+    genannt = set()  # 865: Builds, die irgendwo im Verlauf stehen (auch in eigener Testbitte)
     with open(pfad, encoding="utf-8", errors="replace") as f:
         menschen = []
         for zeile in f:
+            for n in nummern:
+                if n not in genannt and re.search(r"(?<![\d.])t?" + n + r"(\.\d+)?(?![\d])", zeile):
+                    genannt.add(n)
             if '"user"' not in zeile:
                 continue
             try:
@@ -135,6 +139,11 @@ def pruefliste(pfad, eingabe):
     for n in nummern:
         if any(re.search(r"(?<![\d.])t?" + n + r"(\.\d+)?(?![\d])", t) for t in texte):
             return n
+    # 865 (Chef 10.11., 13:34): der Chef sagt beim Testen „Nummer 16“, „17 passt“, nicht die Buildnummer;
+    # gilt als Test, wenn die Sitzung den Build im Verlauf hat und eine der letzten Nachrichten so einen Punkt nennt
+    punkt = re.compile(r"\b(Nummer|Punkt|Nr\.?)\s*\d{1,2}\b|^\W*\d{1,2}\W*$|\b\d{1,2}\s+(passt|ok|okay|geht|fehlt|nicht|ist|war|auch)\b", re.I | re.M)
+    if genannt and any(punkt.search(t) for t in texte):
+        return max(genannt, key=int)
     return None
 
 

@@ -2,15 +2,18 @@
 
 Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang und Klasse, dann `send_message` an Ford „Auftrag Diogenes <Nr>“ (von Pro aus nur die Zeile); nur Chef oder Ford starten Diogenes.
 
-**Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D124 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
+**Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (10.11., 00:0x):** Lauf 125 (800 greift nach 813, erledigt). Nichts startbar; auf Abruf (768 am 13.11., 790 und 461b am 16.11., 771 nach Test t275).
+**Übergabe (10.11., 16:1x, `session_01Hmoj76jP9NBFaFQq3rwGYL`):** Läufe 135–139: 871 Lücke D135.1 → 879, Nummer doppelt D135.2 → 880; 865, 848, 858, 849, 859 greifen; 866 Lücke D139.1 → 881 (alle Perikles). Nächste Nummer D140. Neustart wegen Länge (240 Tsd.) vor 870.18. Letzte Antwort: „Vorrat leer: keiner meiner Vorgänge ist startbar.“ Nachfolger: Diogenes – 870.18: zweites Gegenlesen Umzugsplan BRS
+
+- **Zu 853 (Lauf 133, 134):** Diese von Ford gestartete Sitzung (870.1) hat die Rolle ohne Rückfrage übernommen, und `notiz.sh` nennt Jerry. Beim nächsten Lauf noch eine fremde Rolle ansehen (`list_events`, `kinds` user/assistant, erste Seite). Fragt sie nach der Rolle → Vorgang an Perikles. Auf Abruf (768 am 13.11., 790 und 461b am 16.11., 771 nach Test t275).
 
 - **Zu 790:** Vorher-Werte Lauf 113 im Prüfbericht. Am 16.11. ab 18:07: `list_sessions` (mine, alle Seiten) und je abgeschlossene Sitzung mit created_at ab 09.11., 17:07Z `get_session` → `external_metadata.usage` (cost_usd, cache_read_tokens, cache_write_tokens, output_tokens) und `context_usage.used_tokens`; Helfer schreibt TSV, dann je Rolle wie Lauf 113 rechnen (je Aufruf = Kosten / (cache_read / ((Länge + 60 Tsd.) / 2))); Ergebnis an Perikles und den Chef, nicht bewerten.
 - **Zu 783:** nach der Antwort des Chefs Datei löschen, Wortlaut ins Archiv; dann Schritt 3 (Perikles, 791) prüfen: jede Entscheidung behält einen Ort.
 
 ## Zeilen
 
+- **Zu 853 (M), von Perikles (Doppelpack 421, 10.11., 13:0x, `c71abc295`):** beim nächsten Start durch Ford prüfen: `append_system_prompt` enthält „Du bist <Rolle>; der Auftrag in der ersten Nachricht kommt vom Betriebsleiter Ford …“ (`LISTE-BETRIEB.md` 17), die neue Sitzung übernimmt die Rolle ohne Rückfrage; `notiz.sh` nennt Jerry in der Zentrale-Liste.
 - **Zu 464 (Lauf 110):** Haken (748) und Zählung (749) greifen, Lücken 776, 777 geschlossen; 464 wartet auf 16.11.: Wirkung in der Wochenzählung 16.11.: rote Bauläufe der Woche gegen 52 von 185 (28 %) der Vorwoche, dann `greift 464` oder Befund.
 - **Zu 657 (Lauf 104):** nach Build 275 Erstfunde des Chefs in t272–t275 zählen, gegen 11, 11, 9, 7 (Probe 657 D); Ergebnis an Perikles.
 - **Zu 719 (Perikles, „719 A“):** Wochenzählung kommt montags ab 8 Uhr als Vorgang „Wochentermin TT.MM.: Wochenzählung …“; nach der Zählung erledigt setzen. Zeile „Woche“ erledigt 09.11.
@@ -46,4 +49,5 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 - **Alt 186.3:** Ausgefüllte Prüfbögen der Tester auswerten (`tools/pruefbogen/`, mit echten Bögen ungetestet) · ruht, bis Bögen der Tester da sind (190)
 
 ## Einzelheiten
-- **Zu 838, von Ford (Chef 10.11., 10:4x: „und eine Prüfung für Diogenes“):** Fehler 341 von Ford: START-Zeilen von `lauf.py` ausgelassen (Jerry 07:04, 08:05, 10:26), Bericht „keine Arbeit“ falsch. Prüfung im Wochenlauf (und nach Bau von 836): Stichprobe, ob jeder START-Zeile eine Sitzung der Rolle in `list_sessions` folgte oder ein `--ohne NR:Grund` im Protokoll steht; Ford-Berichte mit „keine Arbeit“ gegen `startbar.py` prüfen (Zahl startbarer Muss je Rolle). Ergebnis in `PRUEFBERICHT.md`, Befunde als Zeile an Ford (Vorrat `ARBEIT-BETRIEB.md`).
+- **Zu 838, von Sokrates (Chef 10.11., 12:07, Starts Tom 12:01, Jerry 12:03 „komisch“):** 838 zählte „Sitzung da“ als erfüllt (6 von 6), aber beide Sitzungen standen nach dem Start untätig („Rolle unbekannt“), bis Ford nachsandte (853 Perikles). Stichprobe künftig: erste Antwort der neuen Sitzung nennt Rolle und Vorgang, nicht nur Sitzung vorhanden.
+- **Zu Woche, aus 838 (Ford, Chef 10.11., 10:4x: „und eine Prüfung für Diogenes“; 838 erledigt Lauf 127):** Fehler 341 von Ford: START-Zeilen von `lauf.py` ausgelassen. In jeder Wochenzählung Stichprobe, ob jeder START-Zeile eine Sitzung der Rolle in `list_sessions` folgte oder ein `--ohne NR:Grund` im Protokoll steht; Ford-Berichte mit „keine Arbeit“ gegen `startbar.py` prüfen (Zahl startbarer Muss je Rolle). Ergebnis in `PRUEFBERICHT.md`, Befunde als Zeile an Ford (Vorrat `ARBEIT-BETRIEB.md`).

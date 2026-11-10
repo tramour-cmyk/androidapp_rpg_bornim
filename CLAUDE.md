@@ -40,7 +40,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
 | **Team Tom** | Entwickler: Leute, Dorf, Innenräume, Technik der Blende | `ROLLE-ENTWICKLUNG.md` |
 | **Team Jerry** | Entwickler: Monster, Höhle, Kampf, Klang | `ROLLE-ENTWICKLUNG.md` |
 
-- Wer man ist, sagt die erste Nachricht („Tom“, „Homer“ …). Alle laufen auf Toms Account (Max, „Zentrale“); die Niederlassung (Pro) ruht.
+- Wer man ist, sagt die erste Nachricht („Tom“, „Homer“ …), auch als Systemmeldung (853). Alle laufen auf Toms Account (Max, „Zentrale“); Pro ruht.
 
 ## Wo was steht
 
@@ -57,7 +57,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
 ## Wie wir zusammenarbeiten
 
 1. **Arbeiten, solange Startbares da ist:** Vorgang für Vorgang, Muss vor Kür vor „nach dem Meilenstein“. Fertig oder zweite Erinnerung des Neustart-Hakens: Übergabe mit „Nachfolger: <Titel>“, Neustart über Ford (`LISTE-RELEASE-NEUSTART.md`). Nur „noch nicht“ des Chefs hält auf.
-2. **Start:** `tools/notiz.sh` (holt `main`, meldet die Rolle; „unbekannt“ → Chef fragen, nichts anfangen). Dann „Start“ der Rollendatei. Startmeldung höchstens drei Zeilen: Name; Neues für den Chef; ein Satz mit Link, falls in der Chefsache etwas offen ist. Sitzung benennen „<Rolle> – <Vorgang>: <Thema> (TT.MM., HH:MM)“ (436; ohne Werkzeug: vorschlagen); Nachfolger gleich so.
+2. **Start:** `tools/notiz.sh` (holt `main`, meldet die Rolle; „unbekannt“ → Chef fragen, nichts anfangen). Dann „Start“ der Rollendatei. Startmeldung kurz: Name; ggf. „Letzte Antwort“ der Übergabe (849); Neues für den Chef; ein Satz mit Link zu Offenem in der Chefsache. Sitzung benennen „<Rolle> – <Vorgang>: <Thema> (TT.MM., HH:MM)“ (436); Nachfolger gleich so.
 3. **Wer entscheidet:** Wie du deine Aufgabe erledigst, du; sonst der Besitzer, im Zweifel der Chef. **Vorentscheid** nur Perikles, Homer, Sokrates, nur was in ihrer Rollendatei unter „Entscheidet selbst“ steht (ins Vorgangsarchiv mit „Vorentscheid“ und Datei in `docs/chefsache/billigen/`; „zurück“ des Chefs = Rückbau als Muss; Regeln `docs/chefsache/README.md`). **Nie selbst:** Story, Spielgefühl, Aussehen, Balance, Geschäftsmodell, Umbauten über mehrere Orte oder beide Teams (außer Vorentscheid Sokrates zu Abläufen und Einzelheiten von Balance und Spielgefühl, 783 W5), Code auf `main`.
 4. **Grundsatzfragen** (Liste in 3): selbst eine Datei in der Chefsache anlegen (Aufbau `docs/chefsache/README.md`, 364), Zeile im eigenen Vorrat, weiterarbeiten. Homer, Perikles, Sokrates nehmen Stellung nur auf Zuruf des Chefs. Story und Spieltexte immer über Homer. Testbitten stellen die Teams selbst.
 5. **Direkt anstoßen:** braucht ein anderer Bereich etwas, Vorgang mit dessen Rolle als Besitzer (`vorgang.py neu`, Absender im Titel oder als „Zu <Nr.>“); Ford ruft stündlich `tools/startbar.py` und startet ihn; Nachricht an Ford nur, wenn er starten muss. Auftrag des Chefs: wer ihn hört, trägt ihn sofort (Haltung 3) beim Besitzer ein (Build: Team des Builds; Ablauf: Perikles; unklar: Ford); Frage oder Idee: erst Votum (783 W6). „Tom, …“ = Team Tom (handeln soll die Sitzung, der das Thema laut Besetzung gehört, sonst Ford); „Tom 2, …“ = eine Sitzung.
@@ -84,7 +84,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
 - **Vorräte klein halten:**
   - je Vorrat höchstens etwa 15 KB; Listenzeile höchstens 400 Zeichen, Stand ein Wort (275) und höchstens ein kurzer Zusatz;
   - Auftrag des Chefs und Einzelheiten als „Zu <Nr.>:“ im Vorrat; worauf ein Vorgang wartet, nur im Feld „wartet auf“ (löst sich von selbst), nie im Text; nach dem Test eines Builds `vorgang.py build <n>` (275.2);
-  - eine Übergabe je Rolle: nur Getanes und Nachfolger, kein Stand; die alte ersetzen; vor Pause oder Neustart pushen.
+  - eine Übergabe je Rolle: nur Getanes, Nachfolger, ggf. „Letzte Antwort:“ (849), kein Stand; vor Pause oder Neustart pushen.
 - **Story und Dialoge:** Plot und Texte legen Chef und Homer fest; Verzeichnis `STORY-REGELN.md`, über die Marke `[Thema.kurz]` suchen, wortgetreu übernehmen, Englisch selbst übersetzen. Fehlt ein Text: Vorgang an Homer, nie erfinden. Tippfehler direkt korrigieren (Commit „Text:“).
 - **Chefsache:** je Punkt eine Datei, anlegen nur seine (Sokrates auch fremde); beantwortet heißt weg, samt Folgeauftrag im selben Commit (383.3, 783 W8; Regeln `docs/chefsache/README.md`, Bilder höchstens 60 KB). Entschieden wird in der Chefrunde mit Sokrates (`ROLLE-BERATUNG.md`).
 - **Begriffe** (auch im Spiel): **Vorgang** („Vorgang 72s.1“, in Meldungen „72s.1:“; nicht „Thema“, nicht „Nummer“, nie „Blatt“; was beim Chef liegt: „Vorgang beim Chef“, 480). **Landkarte** → **Gebietskarte** (unter freiem Himmel) → **Grundriss** (hinter einem Eingang); übereinanderliegende Teile eines Grundrisses: **Ebene** (nie „Stockwerk“, nie für Kartenstufen). Kampfsystem **MARS**; wo gekämpft wird: **Kampfort** (nie „Bühne“). Menschen an der Seite des Helden: **Gefährte** oder **Söldner**, sonst **Begleiter**. Erster Schirm mit Auswahl: **Hauptmenü** (nie „Titelbild“; 292). Alle Begriffe mit Ober- und Unterbegriff: `LISTE-GLOSSAR.md` (648).

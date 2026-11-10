@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **Werkzeug `lauf.py`** (837, Chef 10.11.): kommt 5 Minuten nach einer Startsperre keine Sitzung der Rolle, meldet der nächste Lauf laut „Start <Rolle> nicht angekommen“; die Sperre hält die Rolle dann nicht mehr fest.
+
 - **Build 273 auf `main`** (Tom und Jerry; t273 teilweise freigegeben, Chef 10.11., 10:19; PR #192): 683 Oberfläche mit BRS-Wörtern; 584 halbfette Köpfe wie alt; 753 Rastblende im neuen Aufbau; 781 MIT-Hinweis der REEBOO-Pakete; 804 Gras und Blumen aus dem Kit; 662 Parade mit Schild; 679 Kampfknöpfe; 211.14 Leistung. Heraus und als Rückläufer zurück: 532 (durchgefallen), 795, 762, 471 (am Gerät nicht prüfbar).
 
 - **828 Festgefahrene Vorgänge** (Perikles, Werkzeug; 827 A): `vorgang.py build <n>` hängt bei ✗ die Marke „zurück t<n>“ an den Titel (11 Zeilen mit t269 nachgetragen); `startbar.py --stand` zeigt „Festgefahren“ (Tom, Jerry: zwei Rückläufer oder über 30 $; heute 8, alle über die Kosten); `lauf.py` startet ab 14.11., 20:00 die nächste Sitzung zu so einem Vorgang einmal auf dem stärksten Modell (neue Sitzung, kein WEITER) und setzt die Marke „stärkstes Modell TT.MM.“ an den Titel; danach wieder wie alle, Auswertung nach drei (Sokrates).
