@@ -136,10 +136,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 861 | M | Von Sokrates (Chef 10.11., 13:12, Bild t274.14): Umhang des Kämpfers im Kampf rechts am Rü | startbar |
 | 867 | M | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die | startbar |
 | 875 | M | Von Homer (857a A, Chef 10.11., 13:35): Fertigkeit Kräuterkunde heißt im Spiel Kräutersamm | startbar |
-| Pflege | K | von Werkzeug (340.3, 10.11.): 15816 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 878 | M | Von Jerry zu 854: godot.yml-Entwurf Kaufcache ansehen, ja oder Änderung | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 825 (ansehen) |
+| Pflege | K | von Werkzeug (340.3, 10.11.): 16682 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 79, Muss 65, startbar 29, PAUSE bis 13.11., 20:00 Uhr
+**Jerry** – offen 78, Muss 65, startbar 28, PAUSE bis 13.11., 20:00 Uhr
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -221,7 +221,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 868 | M | Von Sokrates (Chef 10.11., 13:48): Kampf zeigt noch Rüstungsklasse und Würfelwerte; nur no | startbar |
 | 872 | M | Kampf auf Halt 653 umstellen: Waffen und Schilde der Gegner und des Helden im Kampfort mit | wartet auf 653 (in Arbeit) |
 | 876 | M | Von Homer (857a A, Chef 10.11., 13:35): Simulation 444 Kräuterkunde → Kräutersammeln, Tran | startbar |
-| Pflege | K | von Werkzeug (340.3, 10.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 
 **Perikles** – offen 25, Muss 11, startbar 5
 
@@ -266,7 +265,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 771 | M | Probe 657 auswerten: Erstfunde des Chefs t272–t275 gegen 11, 11, 9, 7 (von Perikles, Werkz | wartet auf Test t275 (Chef) |
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 
-**Sokrates** – offen 50, Muss 34, startbar 29
+**Sokrates** – offen 49, Muss 34, startbar 28
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -319,7 +318,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 862 | K | Systemlösung? Umhang: 6 frühere Vorgänge (58, 488, 463, 463.1, 656 …), neu 861; einmal gru | startbar |
 | 869 | K | Systemlösung? Rüstung: 2 frühere Vorgänge (49, 817), neu 868; einmal grundsätzlich lösen? | startbar |
 | 873 | K | Systemlösung? Griff: 3 frühere Vorgänge (653, 643, 524), neu 872; einmal grundsätzlich lös | startbar |
-| Pflege | K | von Werkzeug (340.3, 10.11.): 15501 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
