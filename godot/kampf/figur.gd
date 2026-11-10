@@ -695,6 +695,11 @@ func _arm_goblin() -> void:
 	if _gob_art() == SKELETT:     # 506 (LISTE-FIGUREN „Skelett“ 3): in jeder Augenhöhle ein schwacher Glutpunkt (kaufskelett.py augen)
 		for m in mats:
 			m.set_shader_parameter("glut", 1.2)
+	# 506 t274.14 (skelett_506: drei Skelette alle bei derselben Stelle der Ruheschleife): oben stellt Stehen auf 0 zurück, nachdem
+	# setup() die Schleife schon je Figur versetzt hatte; danach wieder versetzt
+	if fighter.monster != null and anim and anim.has_animation("Stehen") and anim.current_animation == "Stehen":
+		_schleifen = 0
+		_idle()
 	if _gob_art() == SHAMAN:     # Augen und der Schädel am Stab glimmen grün (Eckfarbe mit Alpha 0; goblin.py, waffen.py)
 		for m in mats:
 			m.set_shader_parameter("glut", 1.8)     # Runde 1b (Prüfer 1a: nicht zu sehen) 2,5; 1c (Prüfer 1b: gelb statt grün) 1,8
@@ -1081,7 +1086,9 @@ func _idle() -> void:
 	# 453 r3 (Prüfer Film r2: Umblicken und Knurren im selben Bild; gemessen tests/atem_bild_453.gd: alle Wölfe in Hocke bei 1,13 s
 	# ihrer Schleife): die Grundschleife selbst blickt um (Stehen = IdleA) oder wendet den Kopf (Hocke = IdleC); beginnt sie neu, dann
 	# je Wolf an anderer Stelle, sonst wendet das Rudel im Gleichtakt
-	if fighter.monster != null and von != grund and anim and anim.has_animation(grund):     # 348.12 Lauf 172: Figuren ohne Modell (Kampfort ohne Bild) haben kein anim
+	# 506 t274.14 (Chef 10.11., 13:16: Skelette „im Gleichklang“; skelett_506: alle drei bei 0,76 s): lief die Grundschleife schon vor
+	# dem ersten _idle (Aufstellung), sprang sie nie; beim ersten Mal darum immer versetzt
+	if fighter.monster != null and (von != grund or _schleifen == 0) and anim and anim.has_animation(grund):     # 348.12 Lauf 172: Figuren ohne Modell (Kampfort ohne Bild) haben kein anim
 		var lang: float = anim.get_animation(grund).length
 		var z := RandomNumberGenerator.new()
 		z.seed = hash("%s/%s/%d" % [fighter.id, grund, _schleifen])

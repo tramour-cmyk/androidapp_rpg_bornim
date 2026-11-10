@@ -386,6 +386,32 @@ def kurven(a):
     return [fc for l in a.layers for st in l.strips for cb in st.channelbags for fc in cb.fcurves]
 
 
+# 506 t274.14 (Chef 10.11., 13:16: „völlig hyper, die wackeln ständig mit dem Schwert … zappeln auf der Stelle … viel zu viel
+# Bewegung“): Idle1Handed des Kaufs ist eine Schleife von 1,03 s mit kräftigem Wiegen. Jede Spur von „Stehen“ um ihre Mitte auf
+# RUHE_AUSSCHLAG gedämpft, gespielt mit RUHE_TEMPO (skeleton-info.json „tempo“, figur.gd): ruhig atmend statt zappelnd
+RUHE_AUSSCHLAG = 0.35
+RUHE_TEMPO = 0.5
+
+
+def ruhe_daempfen(akt):
+    a = akt.get('Stehen')
+    if a is None:
+        return
+    n = 0
+    for c in kurven(a):
+        k = c.keyframe_points
+        if len(k) < 2:
+            continue
+        mitte = sum(p.co[1] for p in k) / len(k)
+        for p in k:
+            for attr in ('co', 'handle_left', 'handle_right'):
+                v = getattr(p, attr)
+                v[1] = mitte + (v[1] - mitte) * RUHE_AUSSCHLAG
+        c.update()
+        n += 1
+    print('RUHE Stehen: %d Spuren auf %.0f %% gedämpft, Tempo %.2f' % (n, RUHE_AUSSCHLAG * 100, RUHE_TEMPO))
+
+
 def waffe_senken(rig, waffe, akt):
     ziel = Vector(ZIEL_RICHTUNG.get(waffe.name, ZIEL_RICHTUNG['SM_Sword'])).normalized()
     pb = rig.pose.bones[HAND_R]
@@ -531,6 +557,8 @@ def baue(kit_name):
     waffe = netze.get('SPEER') or netze.get('SM_Sword')
     if waffe is not None:
         waffe_senken(rig, waffe, akt)
+    ruhe_daempfen(akt)
+    INFO['tempo'] = {'Stehen': RUHE_TEMPO}
     rig.animation_data.action = akt['Stehen']
     if slot(akt['Stehen']) is not None:
         rig.animation_data.action_slot = slot(akt['Stehen'])

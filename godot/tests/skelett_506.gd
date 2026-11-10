@@ -101,6 +101,61 @@ func _figuren(kf, feinde: Array) -> void:
 		fehler += 1
 		print("FEHLER Kits nicht verschieden: %s" % [pfade])
 	print("Skelett 506 Figuren: %s" % [pfade])
+	_ruhe(kf, feinde)
+
+
+## t274.14 (Chef 10.11., 13:16: „völlig hyper, die wackeln ständig mit dem Schwert … im Gleichklang und zappeln auf der Stelle“):
+## Stelle in der Ruheschleife je Skelett (verschieden?), Ausschlag in „Stehen“ (größter Weg von Hand oder Kopf um seine Mitte, cm) und
+## Dauer der Schleife beim gespielten Tempo
+const RUHE_HAND_CM := 6.0      # Hand (mit Schwert) höchstens so weit
+const RUHE_SCHLEIFE_S := 1.8   # und die Schleife mindestens so lang (Kauf 1,03 s: Zappeln)
+func _ruhe(kf, feinde: Array) -> void:
+	var stellen := []
+	for f in feinde:
+		var fig = kf.figures.get(f.id)
+		if fig == null or fig.anim == null:
+			continue
+		stellen.append([String(fig.anim.current_animation), snappedf(fig.anim.current_animation_position, 0.01), fig._schleifen])
+		var sk = fig._find(fig.model, "Skeleton3D")
+		if not fig.anim.has_animation("Stehen") or sk == null:
+			continue
+		var an: Animation = fig.anim.get_animation("Stehen")
+		var vorher_anim := String(fig.anim.current_animation)
+		var vorher_t: float = fig.anim.current_animation_position
+		fig.anim.play("Stehen")
+		var best := ["", 0.0, 0.0]
+		for b in sk.get_bone_count():
+			var n := String(sk.get_bone_name(b)).to_lower()
+			if not (n.contains("hand") or n.contains("kopf") or n.contains("wrist")):
+				continue
+			var pts := []
+			var mitte := Vector3.ZERO
+			var schritte := 48
+			for i in schritte:
+				fig.anim.seek(an.length * i / schritte, true)
+				sk.force_update_all_bone_transforms()
+				var q: Vector3 = (sk.global_transform * sk.get_bone_global_pose(b)).origin
+				pts.append(q); mitte += q
+			mitte /= schritte
+			var weit := 0.0
+			for q in pts: weit = maxf(weit, (q - mitte).length())
+			if weit > best[1]: best = [n, weit, 0.0]
+		if vorher_anim != "":
+			fig.anim.play(vorher_anim); fig.anim.seek(vorher_t, true)
+		var tp := float(fig.tempo.get("Stehen", 1.0))
+		best[2] = an.length / tp   # gespielt mit dem Tempo aus skeleton-info.json
+		print("RUHE %s: %s %.1f cm, Schleife %.2f s bei Tempo %.2f" % [f.id, best[0], best[1] * 100.0, best[2], tp])
+		if best[1] * 100.0 > RUHE_HAND_CM or best[2] < RUHE_SCHLEIFE_S:
+			fehler += 1
+			print("FEHLER %s: Ruhe zu unruhig (%s %.1f cm, Schleife %.2f s)" % [f.id, best[0], best[1] * 100.0, best[2]])
+	var gleich := 0
+	for i in stellen.size():
+		for j in range(i + 1, stellen.size()):
+			if stellen[i][0] == stellen[j][0] and absf(stellen[i][1] - stellen[j][1]) < 0.05: gleich += 1
+	print("RUHE Stellen %s" % [stellen])
+	if gleich > 0:
+		fehler += 1
+		print("FEHLER Skelette im Gleichklang: %s" % [stellen])
 
 
 ## [bis_ende]: MARS spielt auf Autopilot zu Ende; unter einem Drittel der Lebenspunkte gibt er den Zug an den Spieler zurück
