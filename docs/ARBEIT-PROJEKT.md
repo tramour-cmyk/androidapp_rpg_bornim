@@ -2,9 +2,9 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `origin/main` (10.11., 19:43)
+**Gelesen bis:** `origin/main` (10.11., 21:05)
 
-**Übergabe (10.11., 19:43, `session_01Hmoj79eGuPAWDDmMjhL18W`):** 264.1 Lauf 3 (327) ausgewertet: rot im Schritt CC0-Pakete (ohne zstd verfehlt der Zwischenspeicher, itch.io 403), zstd gebaut `1228f6764` im Zweig, Zeiten per Telegram; Lauf 4 sperrt 621 A, Bitte „264.1, Läufe frei“ an Sokrates (sein Vorrat). Vergleich Lauf 322: core 1:18, Kauf 1:33, Blender 0:25, Modelle 3:45, Held je Klasse 11:43, Leute 8:43, Kampfort 13:51, Skripte prüfen 16:46, Export 0:37, gesamt 63 Min. 893 gebaut `65d23431b`. Nachfolger: Perikles – 264.1: Lauf 4 auswerten, sobald Läufe frei
+**Übergabe (10.11., 21:05, `session_01Hmoj79eGuPAWDDmMjhL18W`):** 264.1 Läufe 3–6 (327–331) ausgewertet, alle rot im CC0-Schritt; Ursachen behoben im Zweig: zstd (`1228f6764`), CC0-Zwischenspeicher entpackt auf dem eigenen Runner nach `~/actions-runner/cc0` statt `~/cc0`, jetzt Reste an beiden Orten löschen und verschieben (`07d4c2e94`; sudo darf dort nur apt-get). Lauf 7 gestartet 21:05 (Chef „264.1, Läufe frei“ 21:04, Archiv); jede weitere Runde braucht wieder „264.1, Läufe frei“ (621 A, ein Lauf je Freigabe). Blender trifft erst nach dem ersten grünen Lauf (Umgebung pfadgebunden). Vergleich Lauf 322: core 1:18, Kauf 1:33, Blender 0:25, Modelle 3:45, Held je Klasse 11:43, Leute 8:43, Kampfort 13:51, Skripte prüfen 16:46, Export 0:37, gesamt 63 Min.; eigener Runner bisher core 2:50–3:00, Kauf 4:49–4:56, Blender 1:27. 893 gebaut `65d23431b`. Nachfolger: Perikles – 264.1: Lauf 7 auswerten
 
 ## Einzelheiten
 - **Zu 383, von Sokrates (10.11., 20:08):** Wächter 264 meldete „seit 3 Std. keine Vorlage“, obwohl 264 auf 264.1 wartet (Lauf 4 frei 19:54, bei dir in Arbeit). Wächter sollte ein „jetzt“ ruhen lassen, solange „wartet auf“ einen Vorgang in Arbeit nennt.
