@@ -24,7 +24,7 @@ Der Kampf bleibt bis BRS 2.3 nach SRD; neu ist nur, dass der BRS-Held ins Spiel 
 | 274.6 | Tom | 762 | Menü → Reiter „Fertigkeiten“ (neben Held) | acht Gruppen, jede mit Kopfzeile und „geübt/alle“; Gruppen mit Geübtem offen, Pfeil nach unten; Tipp auf den Kopf klappt zu, Pfeil nach rechts; geübte Fertigkeiten mit Rang, Wert und Balken | Reiter fehlt, Klappen ohne Wirkung, Pfeil falsch herum |
 | 274.7 | Tom | 762 | eine Gruppe zuklappen, Spiel ganz beenden und neu laden, Reiter wieder öffnen | die Gruppe ist noch zu | alles wieder offen |
 | 274.8 | Tom | 762 | Reiter „Held“ | die drei höchsten Fertigkeiten und ein Sprung zum Reiter „Fertigkeiten“ | nur die alten Klassenfähigkeiten |
-| 274.9 | Tom | 471 | beim Händler etwas kaufen oder verkaufen, dann Reiter „Fertigkeiten“ | Handeln hat etwas dazugewonnen (Balken oder Wert höher) | nichts bewegt sich |
+| 274.9 | Tom | 471 | beim Händler viermal etwas kaufen oder verkaufen (ein Punkt Handeln braucht 2 bis 4 Geschäfte), dann Reiter „Fertigkeiten“ | Handeln steht da und hat dazugewonnen (Wert höher) | nichts bewegt sich |
 
 ## C · Dorf
 
@@ -48,6 +48,6 @@ Der Kampf bleibt bis BRS 2.3 nach SRD; neu ist nur, dass der BRS-Held ins Spiel 
 
 | # | Team | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|---|
-| 274.18 | Tom | 471 | im Wald über ein Heilkraut laufen, dann einen Kampf gewinnen, Blende abwarten, Reiter „Fertigkeiten“ | Notiz „Kräuterkunde ↑ …“; nach der Blende eine Notiz wie „Schwert ↑ 12“; Waffe, Abwehr oder Rüstung und Kräuterkunde haben dazugewonnen | keine Notiz, Werte unverändert |
+| 274.18 | Tom | 471 | im Wald über vier Heilkräuter laufen (ein Punkt Kräuterkunde braucht 2 bis 4 Pflücken; nach dem ersten oft noch keine Notiz), dann einen Kampf gewinnen, Blende abwarten, Reiter „Fertigkeiten“ | spätestens beim vierten Kraut Notiz „Kräuterkunde ↑ …“; nach der Blende eine Notiz wie „Schwert ↑ 12“; Waffe, Abwehr oder Rüstung und Kräuterkunde haben dazugewonnen | keine Notiz, Werte unverändert |
 
 Bekannt: Stab und 13 weitere Waffen haben am Helden noch kein Modell (458.3). Nicht am Gerät prüfbar, nur im Bau: 542 (Jorins Fetzen erst nach Krogg, Gwennas Ring in der Truhe der Höhle) und 632 (Truhe der Höhle), sichtbar erst mit der Höhle (492). 532 fährt nach seinem Fund t273.13 wieder mit.
