@@ -147,13 +147,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 842 | M | Von Sokrates (807a A, Chef 10.11., 11:01): Pim überreden und Verband nach STORY-K1-FERTIGK | Sperre 620.1 B: 15 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 471 |
 | Pflege | K | von Werkzeug (340.3, 10.11.): 19474 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 73, Muss 61, startbar 22
+**Jerry** – offen 73, Muss 61, startbar 21
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | startbar |
 | 593 | M | MARS: Ausweichen auch rückwärts als Abwechslung zu links und rechts (Chef 05.11., 19:2x) | wartet auf Test (Build) |
-| 406.2 | M | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) | startbar |
+| 406.2 | M | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) | in Arbeit bei Tuffy |
 | 642 | M | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 | ruht |
 | 705 | M | Zauberlehrling Stufe 1 gewinnt gegen Wolf und Rudel selten (BRS 2–30 %, Messung anspringen | wartet auf 829 (startbar) |
 | 806 | M | Kampforte mit den Effektpaketen schöner: Gras und Blumen aus R9, Boden, Staub; Bilder/s ni | startbar |
