@@ -52,6 +52,14 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 148 · 890, 891 Commit-Prüfung tun/ und ansehen/, LIEGT; 889, 870.17 (Perikles, `2f825ab1f`, `571549338`; 10.11., 17:4x)
+
+- 890, Probe in einer Kopie von `origin/main`: Löschen von `entscheiden/854a-kaufcache-mischen.md` (Fassung vor `84d3f4897`, „**Was du tust:** (2) …“) ohne `tun/` hält an, mit neuer `tun/854a-token.md` oder `BORNIM_GETAN=1` nicht; „Was du tust: –“ hält nicht. `ansehen/663-touch.md` (Fassung vor `9fbc81d79`) hält an; mit Frage oder `![…](….webp)` nicht; „?“ nur in einem Link zählt nicht als Frage; `t280-…` ausgenommen. **890 greift** (Lauf 148).
+- 891: `startbar.py --liegt` nennt Tom 506, Jerry 709.1, 854 und Diogenes-Zeilen; `vorgang.py warte 870.2 –` und `fertig 506` (dann 888 frei) geben „LIEGT … Start <Rolle> <Nr>“, Lesen und eine Rolle in Pause ohne „frei für“ (697) nicht. `lauf.py --liegt` mit ruhender Tom-Sitzung von vor 5 Minuten: ohne Schalter „belegt“, mit Schalter WEITER (ohne Nachfolger) bzw. START und ARCHIVIERE (mit Nachfolger). Echter Fall: `neu 892` meldete sofort LIEGT. **891 greift** (Lauf 148).
+- 889: Bildschirm zeigt Tom „Muss 506“, Jerry „Muss 854“, Gesperrtes als „Pause, nicht frei“; **870.17 greift** (Lauf 148).
+- **D148.1 → 892 (Perikles):** `startbar.py --md` (Übersicht in `chefsache/README.md`) zeigt bei Pause mit „frei für“ gesperrte Muss als „startbar“ (Tom 680), Kopf ohne „frei für“, „startbar 10“ zählt Gesperrtes mit. 889 wartet auf 892.
+- **Nicht geprüft:** `lauf.py --liegt` gegen echte `list_sessions`; andere Wörter als „Was du tust“ für Schritte des Chefs (in der Chefsache bisher nur 854a); welche Schreibung 506 um 16:43 startbar machte (in Git nicht zu finden).
+
 ## Lauf 147 · 886 Wächter TP, Trefferwürfel, Hauptattribut, Bestandslauf (Perikles, `0d54c685e`; 10.11., 17:0x)
 
 - Probe in einer Kopie von `origin/main`, neue Zeilen in `godot/skripte/rast.gd`: Warnung nennt „Armor Class, Hauptattribut, TP, Trefferwürfel, saving throw“; „HTTP STRAND“ fällt nicht (Wortgrenze). `--srd-bestand` über `godot/` ohne `tests/`: 276 Zeilen, Exit 1 (häufigste: TP 32, DEX 32, Kleriker 28, CON 28, STR 25, d20 23); das ist der Abbaustand für 870.13. **886 greift, damit auch 870.11** (Lauf 147).
