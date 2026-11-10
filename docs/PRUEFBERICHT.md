@@ -52,6 +52,10 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 144 · 880 doppelte Vorgangsnummer (Perikles, `5f3cd4566`; 10.11., 16:2x)
+
+- `vorgang.py neu` holt `origin/main` und zieht nie unter dessen Zähler oder eine dort belegte Nummer; echter Fall heute: fünf Ziehungen 882–886 nach 881, jede einmal, Zähler 887. Rest: ziehen zwei Sitzungen, bevor eine pushte, hilft weiter nur die Marke (653) als Mischkonflikt; darum sofort pushen wie vorgeschrieben. **880 greift** (Lauf 144).
+
 ## Lauf 143 · 879 Nachfolger-Strich mit Zusatz (Perikles, `7a1160881`; 10.11., 16:2x)
 
 - `lauf.nachfolger()` an 6 Übergaben: „– Auf Abruf (768 …)“ → „Diogenes – Auf Abruf (…)“, „–, auf Abruf“ → „Diogenes – auf Abruf“, „— (auf Abruf)“ → „Diogenes – (auf Abruf)“, „–“ → keiner; echte Titel unverändert. Kein „– –“ mehr; die 641-Regel (`lauf.py` 553) prüft jetzt ohne Groß-/Kleinschreibung, „Auf Abruf“ startet nur bei Startbarem. **879 greift, damit auch 871** (Lauf 143).
