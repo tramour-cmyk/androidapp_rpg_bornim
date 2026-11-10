@@ -75,6 +75,30 @@ jobs:
         run: |
           echo "KAUF=$RUNNER_TEMP/kauf" >> $GITHUB_ENV
           bash tools/blender348/kauf_laden.sh $RUNNER_TEMP/kauf
+      # 804 (Chef 09.11., 21:12): Grass & Wind Kit v1.0.1 (REEBOO, gekauft, stufe1) fuers Gras im Dorf und Wald (skripte/grasbausatz.gd);
+      # die Lizenz verbietet die Weitergabe der Dateien: nie ins Repo (godot/.gitignore), nie als Artefakt, nur in den Bau. Nur, was das
+      # Spiel braucht (Netze, Vorlagen, Shader, Wind), ohne Editor-Plugin, Demo und Szenen; dazu das Autoload GrassWind und die globalen
+      # Shaderwerte gw_* wie im project.godot des Kits. Fehlt das Kit, bleibt unser Gras (halm.gdshader).
+      - name: Gras-Kit (804, privat)
+        run: |
+          s=$(find "$KAUF/anhang/stufe1" -maxdepth 4 -type d -path '*Grass_Wind_Kit*/addons/grass_wind_kit' 2>/dev/null | head -1)
+          [ -n "$s" ] || { echo "Gras-Kit: nicht da, unser Gras"; exit 0; }
+          d=godot/addons/grass_wind_kit; mkdir -p $d
+          cp -r "$s/meshes" "$s/presets" "$s/shaders" $d/
+          mkdir -p $d/wind && cp "$s/wind/grass_wind.gd" "$s/wind/wind_pusher_3d.gd" $d/wind/
+          rm -f $d/presets/sway_2d_* $d/shaders/sway_2d.gdshader $d/meshes/terrain_* $d/presets/*alien* $d/presets/bush_* $d/presets/ground_*
+          # MIT-Teil (David Hoskins, Hashfunktionen; LISTE-QUELLEN unten 2): Copyright-Zeile fuer „Lizenzen“ (hauptmenue.gd lizenz_texte)
+          grep -rhoE 'Copyright[^"]*Hoskins[^"]*' "$s/.." "$s" --include='*.gdshader*' --include='*.txt' 2>/dev/null | sed 's/^[ /*#]*//' | sort -u | head -1 > godot/daten/gras_mit.txt || true
+          python3 - << 'PY'
+          p = 'godot/project.godot'
+          s = open(p).read()
+          if 'GrassWind=' not in s:
+              s = s.replace('[autoload]\n', '[autoload]\n\nGrassWind="*res://addons/grass_wind_kit/wind/grass_wind.gd"\n', 1)
+          if '[shader_globals]' not in s:
+              s += '\n[shader_globals]\n\n' + ''.join('%s={\n"type": "vec4",\n"value": Vector4(0, 0, 0, 0)\n}\n' % n for n in ['gw_push_0', 'gw_push_1', 'gw_push_2', 'gw_push_3', 'gw_wind', 'gw_wind_time'])
+          open(p, 'w').write(s)
+          PY
+          echo "Gras-Kit: $(ls $d/meshes | tr '\n' ' ')"; echo "Gras-Kit MIT: $(cat godot/daten/gras_mit.txt)"; grep -c "gw_\|GrassWind" godot/project.godot
       # 415 (Jerry, Chef „415 jetzt“ 02.11., 10:55; „415d muss ins nächste Build“ 22:05): Beams Free Sample (reeboolabs) aus
       # bornim-kaufmodelle anhang/beams; die Lizenz verbietet die Weitergabe der Dateien, darum nie ins Repo (godot/.gitignore), nur in den Bau
       - name: Beams-Probe (415, privat)
@@ -379,6 +403,7 @@ jobs:
           # 415 r3 (Jerry): Strahlenprobe ohne Bild, Stabspitze hinter dem Körper (F6), Strahl durch eine Figur (E3), Richtung (F2); meldet nur
           timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/strahl_mess_415.gd 2>&1 | grep -E "^(Strahl|STRAHL)|SCRIPT ERROR" || true
           timeout 120 ~/godot/godot --headless --path . -s res://tests/klang_test.gd 2>&1 | grep -E "^(gut|FALSCH)|KLANG|SCRIPT ERROR"   # 399.3
+          set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/parade_seite_662.gd 2>&1 | grep -E "PARADE662|FEHLER|SCRIPT ERROR"   # 662 Parade nach der Seite des Angreifers (Jerry)
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/todesschrei_2963.gd 2>&1 | grep -E "^(ok|FEHLER|Todesschrei 296.3)|SCRIPT ERROR"   # 296.3 Todesschrei auch bei Zauber- und Zustandstod (Jerry)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_473.gd 2>&1 | grep -E "FALSCH|BRS473|SCRIPT ERROR"   # 473 Monsterwerte BRS wie sim444
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/brs_kampf_478.gd 2>&1 | grep -E "^(ok|FALSCH)|BRS478|SCRIPT ERROR"   # 478 Kampf nach BRS wie sim444

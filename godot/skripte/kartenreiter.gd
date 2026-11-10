@@ -91,7 +91,8 @@ func baue() -> void:
 	var kopf := HBoxContainer.new()
 	kopf.add_theme_constant_override("separation", int(6 * DP))
 	add_child(kopf)
-	var titel := Stil.zeile(wort("landkarte") if uebersicht else Sprache.t(karte_daten().get("name", gezeigt)), 20, Stil.TEXT)
+	# 584 (Abgleich 512b): Gebietsname halbfett wie alt (MenuScreen.kt 178, Txt fett); keine Versalien fuer Namen (549a)
+	var titel := Stil.zeile(wort("landkarte") if uebersicht else Sprache.t(karte_daten().get("name", gezeigt)), 20, Stil.TEXT, 0.0, false, true)
 	titel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	titel.clip_text = true
 	kopf.add_child(titel)
