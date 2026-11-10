@@ -65,12 +65,13 @@ jobs:
           java-version: 17
       - uses: gradle/actions/setup-gradle@v4
       # 264.1: was das Abbild von GitHub mitbringt, auf dem eigenen Runner nachziehen (einmalig, danach vorhanden)
+      # zstd: ohne zstd packt actions/cache mit gzip, andere Version als der GitHub-Runner, Zwischenspeicher cc0/Blender verfehlt (Lauf 327)
       - name: Runner vorbereiten (264.1)
         run: |
           echo "== $(hostname) $(. /etc/os-release; echo $PRETTY_NAME) $(uname -m), $(nproc) Kerne, $(free -g | awk '/Mem/{print $2}') GB, frei $(df -h $GITHUB_WORKSPACE | awk 'NR==2{print $4}')"
           sudo -n apt-get --version > /dev/null || { echo "264.1: sudo apt-get ohne Passwort fehlt auf dem Runner"; exit 1; }
           sudo apt-get update -qq
-          sudo apt-get install -y -qq unzip zip curl git python3 python3-venv python3-pip xvfb mesa-vulkan-drivers libgl1-mesa-dri ffmpeg fonts-dejavu-core libfontconfig1 > /dev/null
+          sudo apt-get install -y -qq unzip zip curl git python3 python3-venv python3-pip xvfb mesa-vulkan-drivers libgl1-mesa-dri ffmpeg fonts-dejavu-core libfontconfig1 zstd > /dev/null
           S=${ANDROID_SDK_ROOT:-$HOME/android-sdk}
           if [ ! -x "$S/build-tools/35.0.1/apksigner" ]; then
             mkdir -p $S/cmdline-tools && cd $S/cmdline-tools
