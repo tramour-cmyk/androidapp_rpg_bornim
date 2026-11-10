@@ -204,7 +204,6 @@
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
-| 894 | Godot-Build startet von selbst bei claude/build-** (PR und Push); Kotlin-Lauf am PR nicht mehr als Build (von Sokrates; Chef 10.11., 19:31: Build 275 eine Stunde verloren) | Perikles | M | erledigt | – | claude/perikles-894-build-start | – | B Werkzeuge | 1,69 $ |
 | 264.1 | Von Sokrates (264): Probe godot.yml auf eigenem Runner, Bauzeit je Schritt gegen GitHub · „jetzt“ 10.11., 17:20 | Perikles | M | in Arbeit, Lauf 4 | – | claude/perikles-264-runner | – | B Werkzeuge | 9,29 $ |
 | 870.12 | Von Sokrates (870, Umzug BRS): Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 neu fassen; nach Abnahme 868, 534, 467, 469, 644.1, 644.2, 644.4, 649.1, 811, 296, 344 schließen; LISTE-UMZUG-BRS.md 4 Schritt 9 | Perikles | M | wartet, 2.3 und 2.17 neu gefasst, Schließen nach Abnahme | 870.13 | – | – | B Abläufe | – |
 | 870.10 | Von Sokrates (870, Umzug BRS Schritt 8): Kotlin-Bau aus (android.yml), mit 870.9; LISTE-UMZUG-BRS.md 4 | Perikles | M | wartet | 870.9, 882 | – | – | B Werkzeuge | – |
@@ -229,7 +228,6 @@
 | 866 | Von Sokrates (620, Lagebild t274): Prüfliste geht nur gegengelesen raus; Wächter statt Absprache | Perikles | M | gebaut, Geprüft an: 8c9f2dc3f | – | – | – | Q QS | – |
 | 882 | D140.1 (Diogenes, 870.18): Kotlin-Ausstieg ohne Werkzeuge: 870.10 nennt nur android.yml; an core hängen auch Kerntests (tools/t logik), godot-kampf.yml, vorschau.yml, tools/preview, story.sh, probelauf.py, setup-session.sh; Liste Prüfbericht Lauf 140 | Perikles | M | startbar | 870.4 | – | – | B Werkzeuge | – |
 | 893 | Von Ford (Lauf 10.11., 18:04): lauf.py startet einen Nachfolger, dessen Übergabe eine Bedingung nennt („Tom – Sammelbuild 888 (wenn 709 und 506 fertig)“), jede Stunde als START mit WARNUNG-LAUT; Zeile 888 wartet, Tom hätte nur gewartet. Bedingung im Nachfolger-Titel oder wartet-auf der Zeile auswerten | Perikles | K | gebaut, Geprüft an: 65d23431b | Diogenes | – | – | B Werkzeuge | – |
-| 895 | android.yml (altes Kotlin-Spiel) nur noch von Hand, vor 870.10 (Chef 10.11., 19:36) | Perikles | M | erledigt | – | – | – | B Werkzeuge | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
