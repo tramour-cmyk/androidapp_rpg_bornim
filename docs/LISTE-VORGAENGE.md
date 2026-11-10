@@ -12,6 +12,7 @@
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
 | 825 | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635, 542, 543, 632; Jerry 593, 547, 597), Prüfliste ansehen/t<n>, build <n> --mit für jede Nummer (774) | Tom | M | startbar | t273 | – | – | E Technik | – |
+| 661 | Blende zwischen Orten an Schirme ohne Kasten angleichen: Schrift größer, Zierleiste wie dort (Chef 08.11., 15:11; Wiederholfund 10.11., 09:34 Kramladen) · „jetzt“ 10.11., 09:34 | Tom | M | startbar, jetzt nach Sammelbuild 825 | – | – | – | E Oberfläche | – |
 | 471 | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | Tom | M | zu testen | – | claude/spike-471-fertigkeiten | 273 | E Kampf | 7,86 $ |
 | 610 | Held im Dorf: Finger am Stab zucken ohne Unterlass (Schild auf dem Rücken) (Chef 07.11., t268) · zurück t269 | Tom | M | zu testen, ohne Rückmeldung t272 | – | claude/tom-610-finger | – | E Figuren | 19,22 $ |
 | 522 | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Chef 03.11., 23:33) · zurück t269 | Tom | M | zu testen, ohne Rückmeldung t272 | – | claude/tom-522-waffen | – | E Oberfläche | – |
@@ -87,7 +88,6 @@
 | 640 | Innenräume und Häuser, Varianten wie alt: Werkzeugregal, Wandbehänge und Stock bei Aldric, Altartuch, leere Amulett-Halterung; geschlossene Läden, Morwens Rauch grünlich (Abgleich 620.2a) | Tom | M | ruht, Kampf zuerst (338.1) | – | – | – | E Welt | – |
 | 649.3 | Figurenkatalog: Bewohner, Händler, Lehrmeister, Söldner füllen (Tagesablauf, Laden, Stimme, Gang, Klänge, Bewegungen, Text-Marken; aus 649) | Tom | M | ruht, Kampf zuerst (338.1) | 649.2 | – | – | E Figuren | – |
 | 644.4 | Gegenstandskatalog: Ladenbestand und Rezepte aus texte.json und Kotlin in den Katalog umstellen (644 A, Ablösung) | Tom | M | ruht, Kampf zuerst (338.1) | 644.1 | – | – | E Welt | – |
-| 661 | Blende zwischen Orten an Schirme ohne Kasten angleichen: Schrift größer, Zierleiste wie dort (Chef 08.11., 15:11) | Tom | M | ruht, Kampf zuerst (338.1) | – | – | – | E Oberfläche | – |
 | 663 | Klassische Steuerung ausbauen: Steuerkreuz und Funktionstasten ganz raus, nur Touch; Auswahl der Steuerung samt Rückfrage weg (Chef 08.11., 15:24, t269.3) | Tom | M | ruht, Kampf zuerst (338.1) | – | – | – | E Oberfläche | – |
 | 665 | Nacht im Dorf: um 2:30 kaum dunkel; in allen Häusern Licht, keiner schläft: tiefe Nacht dunkel, Fenster nach Schlafenszeit aus (Chef 08.11., 15:31, Build 269 auf MuMu) | Tom | M | ruht, Kampf zuerst (338.1) | – | – | – | E Welt | – |
 | 668 | Testmenü an Schirme ohne Kasten angleichen: Zurück, Trennlinien, Aufbau wie 549a/618 (Chef 08.11., 15:32, Build 269) | Tom | M | ruht, Kampf zuerst (338.1) | – | – | – | E Oberfläche | – |
