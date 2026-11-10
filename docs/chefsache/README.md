@@ -28,7 +28,11 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 
 ## Zu tun
 
-Nichts offen.
+Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Datei löschen.
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [264.1](tun/2641-lauf-8.md) | **Muss** | B Werkzeuge | 10.11., 23:05 | Lauf 8 auf dem eigenen Runner freigeben | Perikles |
 
 ## Offen je Rolle
 
