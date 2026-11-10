@@ -87,7 +87,7 @@ static func aus_blatt(k: Dictionary) -> Dictionary:
 	return {"stufe": int(k.get("stufe", 1)), "werte": (k.get("werte", {}) as Dictionary).duplicate(), "fert": (k.get("fert", {}) as Dictionary).duplicate(),
 		"herkunft": String(k.get("herkunft", "Wanderer")), "ruestung": String(k.get("ruestung", {}).get("art", "keine")),
 		"schild": not (k.get("schild", {}) as Dictionary).is_empty(), "zauber": (k.get("faehigkeiten", []) as Array).filter(func(z): return w()["zauber"].has(z)),
-		"waffe": String(k.get("waffe", {}).get("gruppe", "")), "leben": int(k.get("leben", 0))}
+		"waffe": String(k.get("waffe", {}).get("gruppe", "")), "leben": int(k.get("leben", 0)), "volk": String(k.get("volk", ""))}
 
 
 ## 870.2: Waffengruppe, mit der der Held schlägt: die Hauptwaffe aus dem Blatt, eine gezogene Zweitwaffe ([zweite]) nach ihrer Grundform

@@ -66,7 +66,7 @@ const FLUTTER := 0.2
 ## 534 (Abgleich 512, Sokrates: im alten Weltkampf Battle.kt, in MARS fehlend): Lebensraub und Schadensminderung der
 ## Ausrüstung, Unerbittlichkeit der Orkblütigen, Einschüchtern zu Kampfbeginn (Perks.cowChance); Wortlaut aus Battle.kt Msg
 const MSG534_LIFESTEAL = ["{0} saugt {1} TP ab.", "{0} drains {1} HP."]
-const MSG534_RELENTLESS = ["{0} bleibt mit eisernem Willen stehen!", "{0} stays standing through sheer will!"]
+const MSG534_RELENTLESS = ["Letzter Atemzug: {0} bleibt stehen!", "Last Breath: {0} stays standing!"]     # [870.14.letzter.atemzug]
 const MSG534_COWED = ["{0} zögert, eingeschüchtert von {1}!", "{0} hesitates, cowed by {1}!"]
 ## 506 (alt Battle.kt Msg.fortitude, Msg.elfImmune): Untotenzähigkeit des Wiedergängers (Monsters.kt zombie UNDEAD_FORTITUDE: ein
 ## tödlicher Schlag ohne Krit, kein gleißender Schaden, W20 + Kon-Rettung ≥ 5 + Schaden, dann bleibt er mit 1 TP stehen) und die
@@ -124,7 +124,7 @@ const ST_STUNNED := ["{0} ist betäubt und kann nicht handeln!", "{0} is stunned
 const ST_ENDS := ["{0} ist nicht mehr {1}.", "{0} is no longer {1}."]
 const ST_SHRUGS := ["{0} widersteht der Wirkung!", "{0} resists the effect!"]
 const ST_STEADFAST := ["{0} bleibt standhaft!", "{0} stands firm!"]
-const ST_DWARF := ["Zwergische Zähigkeit: {0} widersteht dem Gift!", "Dwarven resilience: {0} resists the poison!"]
+const ST_DWARF := ["Steinblut: {0} widersteht dem Gift!", "Stoneblood: {0} resists the poison!"]     # [870.14.steinblut]
 const ST_SHAKES := ["{0} schüttelt die Betäubung ab!", "{0} shrugs off the stun!"]
 const MSG296_DAMAGE := ["{0} Schaden.", "{0} damage."]
 ## 296.2: the kinds whose specials MARS plays through their own intents, not the old fight's.
@@ -578,6 +578,20 @@ static func sp_nach(f) -> int:
 	if alt_max <= 0 or f.max_sp <= 0:
 		return f.srd_sp if f.srd_sp >= 0 else f.sp
 	return clampi(roundi(float(alt_max) * f.sp / f.max_sp), 0, alt_max)
+
+
+## 870.5: das Volk nach dem BRS (Kampfblatt „volk“), sonst aus dem alten Blatt; Merkmale Steinblut, Letzter Atemzug (DESIGN-BRS.md 2)
+const VOLK_ALT := {"HUMAN": "Mensch", "ELF": "Elf", "DWARF": "Zwerg", "HALFLING": "Hügelvolk", "HALF_ORC": "Orkblütiger"}
+
+func _volk(f: Fighter) -> String:
+	if f.hero == null:
+		return ""
+	if f.b is Dictionary and String(f.b.get("volk", "")) != "":
+		return String(f.b.volk)
+	var k = f.hero.get("brs")
+	if k is Dictionary and String(k.get("volk", "")) != "":
+		return String(k.volk)
+	return String(VOLK_ALT.get(String(f.hero.get("race", "")), ""))
 
 
 static func ziel_von(s: String) -> String:
@@ -1388,7 +1402,7 @@ func _inflict(t: Fighter, st: String, turns: int, save = null, die = null) -> bo
 		if ten > 0 and dice.chance(ten / 100.0):
 			_say(fmt(ST_STEADFAST, lang, [who]), null, t.id)
 			return false
-		if st == "POISON" and str(h.get("race", "")) == "DWARF" and dice.chance(0.5):
+		if st == "POISON" and _volk(t) == "Zwerg" and dice.chance(0.5):     # Steinblut (Wirkung wie bisher, bis 444)
 			_say(fmt(ST_DWARF, lang, [who]), null, t.id)
 			return false
 	else:
@@ -1433,7 +1447,7 @@ func _tick(f: Fighter) -> bool:
 		if f.monster != null and Zustaende.immune(f.monster, st):
 			continue
 		var dmg: int = dice.roll_expr(f.poison_die if st == "POISON" else ([1, 6, 0] if st == "BURN" else [1, 4, 0])) + scale
-		if st == "POISON" and f.hero != null and str(f.hero.get("race", "")) == "DWARF":
+		if st == "POISON" and _volk(f) == "Zwerg":
 			dmg = (dmg + 1) / 2
 		dmg = maxi(1, _srd(f, dmg))     # 478
 		_hurt(f, dmg, "", fmt(ST_HURTS[st], lang, [who]) + " " + fmt(MSG296_DAMAGE, lang, [dmg]))
@@ -1473,7 +1487,7 @@ func _foe_wounds(foe: Fighter, t: Fighter, crit: bool) -> void:
 			if dice.chance(0.3):
 				_inflict(t, "BLEED", 2)
 		"PARALYZE":     # 506: Grabhund
-			if t.hero != null and String(t.hero.get("race", "")) == "ELF":
+			if _volk(t) == "Elf":
 				_say(fmt(MSG506_ELF, lang, [t.name(lang)]), t.id)
 			else:
 				_inflict(t, "STUN", 1, ["zaehigkeit", 10])
@@ -1873,7 +1887,7 @@ func _hurt(t: Fighter, full: int, by: String, text: String, roll = null, wound :
 	var dmg := int(full * quick_harm()) if quick_run and t.side == "PARTY" else full
 	var floor_hp := 1 if (not chosen and t.side == "PARTY" and t.hp > 0) or (held_unsterblich and t == lead()) else 0
 	# 534 (alt Battle.hitHero, Rasse Orkblütig): einmal je Kampf bleibt er mit 1 TP stehen
-	var unerbittlich := floor_hp == 0 and t.side == "PARTY" and t.hero != null and String(t.hero.get("race", "")) == "HALF_ORC" \
+	var unerbittlich := floor_hp == 0 and t.side == "PARTY" and _volk(t) == "Orkblütiger" \
 			and t.hp > 0 and t.hp <= dmg and not relentless_used.has(t.id)
 	if unerbittlich:
 		relentless_used[t.id] = true
