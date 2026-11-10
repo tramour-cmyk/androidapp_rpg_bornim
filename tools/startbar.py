@@ -394,7 +394,8 @@ def loesbar(d):
 ALTES_SYSTEM = re.compile(r"\bSRD\b|\b[WwDd]20\b|Rettungsw[uü]rf|Trefferw[uü]rfel|Zauberpl[aä]tz|\bCharisma\b|vier Klassen"
                           r"|Rüstungsklasse|Übungsbonus|\bTalente\b"  # nicht „Kleriker“, „Klasse“: sperrte Aussehen (Schild 406)
                           r"|talente\.gd|klassisch\.gd|core/Rules\.kt|Monsters\.kt")  # D50: Wortliste erweitert (Diogenes Lauf 50)
-ALT_FREI = re.compile(r"Spielsystem 2\.0|Bornimer Rollenspielsystem|\bBRS\b|(?<![\d.])2\.0\b|^424\b|Ersatz|Ablösung|ablösen|ohne SRD|Glossar|Lizenz|Chef erlaubt alt")  # D50
+ALT_FREI = re.compile(r"Spielsystem 2\.0|Bornimer Rollenspielsystem|\bBRS\b|(?<![\d.])2\.0\b|^424\b|Ersatz|Ablösung|ablösen|ohne SRD|Glossar|Lizenz|Chef erlaubt alt"
+                      r"|Umzug|Wächter|(?<![\d.])870(\.\d+)?\b")  # D50; 886: Umzug BRS (870) baut das alte System ab, sperrte sonst sich selbst
 
 def altes_system(thema, rest, nr=""):
     t = nr + " " + thema + " " + rest

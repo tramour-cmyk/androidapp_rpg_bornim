@@ -184,7 +184,9 @@ def kerntest_warn(dat):
     return []
 
 
-SRD_DAZU = ["RK", "ZP", "Übungsbonus", "Rettungswurf", "Zauberplatz", "W20", "d20", "STR", "DEX", "CON", "INT", "WIS", "CHA"]
+SRD_DAZU = ["RK", "ZP", "Übungsbonus", "Rettungswurf", "Zauberplatz", "W20", "d20", "STR", "DEX", "CON", "INT", "WIS", "CHA",
+            "TP", "Trefferwürfel", "Hauptattribut",  # 886 (D140.5, Plan Schritt 8)
+            "Armor Class", "Hit Dice", "Hit Die", "saving throw", "Saving Throw", "Proficiency Bonus", "proficiency bonus", "Spell Slot", "spell slot"]
 
 
 def srd_woerter():
@@ -375,7 +377,24 @@ def main():
     for s in stop: print("Commit-Prüfung HÄLT AN: " + s, file=sys.stderr)
     return 1 if stop else 0
 
+def srd_bestand():
+    """886 (D140.5): Lauf über den ganzen Godot-Code (ohne tests/) für die Abnahme 870.13; Exit 1 bei jedem Fund."""
+    wurzel = git("rev-parse", "--show-toplevel").strip()
+    muster = re.compile(r"(?<![\wÄÖÜäöüß])(%s)(?![\wÄÖÜäöüß])" % "|".join(map(re.escape, srd_woerter())))
+    n = 0
+    for p in git("ls-files", "godot").split():
+        if "/tests/" in "/" + p or not p.endswith((".gd", ".tscn", ".tres", ".json", ".csv", ".txt", ".cfg")): continue
+        try: zeilen = open(os.path.join(wurzel, p), encoding="utf-8", errors="replace").read().splitlines()
+        except OSError: continue
+        for i, z in enumerate(zeilen, 1):
+            w = sorted({m.group(1) for m in muster.finditer(z)})
+            if w: n += 1; print("%s:%d: %s" % (p, i, ", ".join(w)))
+    print("SRD-Bestand (886): %d Zeilen mit alten Begriffen" % n, file=sys.stderr)
+    return 1 if n else 0
+
+
 if __name__ == "__main__":
+    if "--srd-bestand" in sys.argv: sys.exit(srd_bestand())
     try: sys.exit(main())
     except Exception as e:
         print("Commit-Prüfung übersprungen: %s" % e, file=sys.stderr); sys.exit(0)
