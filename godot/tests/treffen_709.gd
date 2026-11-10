@@ -10,6 +10,7 @@ extends SceneTree
 
 const Probe = preload("res://kampf/probe.gd")
 const LUFT_M := 0.05
+const TIEF_M := -0.06     # Biss: tiefer als 6 cm im Körper ist durch ihn hindurch (E3; die Klinge im Getroffenen ist der Treffer selbst)
 var FENSTER := int(OS.get_environment("FENSTER")) if OS.get_environment("FENSTER") != "" else 3
 const DAUER_BILDER := 30 * 90
 const KOPF := ["Head", "Jaw", "Tongue", "kopf", "hand", "Hand", "Claw", "claw", "Fang", "fang", "Mouth", "mouth", "Pincer", "Mandible"]
@@ -254,10 +255,13 @@ func _bild(kf, n: int, kampf: String) -> void:
 
 
 func _bilanz() -> void:
-	var je := {}     # Art -> [n, Luftschläge, größte Lücke, Beispiel, nur am Schild]
+	var je := {}     # Art -> [n, Luftschläge, größte Lücke, Beispiel, nur am Schild, zu tief, tiefste]
 	for t in treffer:
-		var e: Array = je.get(t[2], [0, 0, -INF, "", 0])
+		var e: Array = je.get(t[2], [0, 0, -INF, "", 0, 0, INF])
 		e[0] += 1
+		e[6] = minf(e[6], t[5])
+		if t[5] < TIEF_M and not String(t[6]).begins_with("SS_"):
+			e[5] += 1
 		if t[5] > LUFT_M and t[7] <= LUFT_M:
 			e[4] += 1
 		if t[5] > LUFT_M:
@@ -268,6 +272,6 @@ func _bilanz() -> void:
 		je[t[2]] = e
 	for art in je:
 		var e: Array = je[art]
-		print("Angreifer %s: %d Treffer, %d mit Luft über %.0f cm (davon %d am Schild), größte Lücke %.2f m%s" % [art, e[0], e[1], LUFT_M * 100.0, e[4], e[2], ("; " + e[3]) if e[3] != "" else ""])
-		befund += e[1]
+		print("Angreifer %s: %d Treffer, %d mit Luft über %.0f cm (davon %d am Schild), größte Lücke %.2f m, %d zu tief (tiefste %.2f m)%s" % [art, e[0], e[1], LUFT_M * 100.0, e[4], e[2], e[5], e[6], ("; " + e[3]) if e[3] != "" else ""])
+		befund += e[1] + e[5]
 	print("TREFFEN709 %d Treffer, %d Luftschläge" % [treffer.size(), befund])
