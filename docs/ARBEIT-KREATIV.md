@@ -4,7 +4,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `0dc283e9a` (10.11., 14:32)
 
-**Übergabe (10.11., 14:38):** erledigt: 857 (Kräutersammeln/Foraging in `DESIGN-BRS`, `-ENTSCHEIDUNGEN` 29/81, Handbuch 1/2 DE/EN, `STORY-MENUE` 94, `STORY-RUF-K1`, feste Namen in `STORY-REGELN`; fremd geprüft 14:37; Bau 875 Tom, 876 Jerry). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
+**Übergabe (10.11., 14:38):** erledigt: 857 (Kräutersammeln/Foraging in `DESIGN-BRS`, `-ENTSCHEIDUNGEN` 29/81, Handbuch 1/2 DE/EN, `STORY-MENUE` 94, `STORY-RUF-K1`, feste Namen in `STORY-REGELN`; fremd geprüft 14:37; Bau 875 Tom, 876 Jerry); 663.1 (`[280.tipp]` nur Fingersteuerung, Code schon auf `claude/tom-663-touch`). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
 
 ## Zeilen
 
