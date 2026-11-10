@@ -1,5 +1,7 @@
 # 661 · Alle Blenden in einem Aufbau · Tom · 10.11., 10:56
 
+[Bild von 10.11., 10:58](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/10-1058-661-Tom.png) (eingetragen von meldung.sh, Tom)
+
 ![Blenden bisher und neu](../bilder/661-blenden.webp)
 
 Links bisher, rechts neu, untereinander Ort (erster Besuch, nur Name), Rast, Kampf, Hinterhalt, Boss; unten zum Größenvergleich ein Schirm ohne Kasten (Rückfrage „Spielstand löschen?“). Standbild am Rechner, Handybreite 1080 px, Ausschnitt um die Schrift.
