@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (09.11., 22:32, Ford `session_01Hmoj7684czZostW4Q5YTcw`, Selbstneustart):** Getan: Wechsel Tom 762, Jerry 562, Sokrates 620, Perikles 797, Diogenes 799 ausgeführt, alte Sitzungen archiviert und gebucht. Pacing (Chef 09.11., 07:15): `lauf.py --nur-muss`; Spike/Tuffy nur für Kampf-Muss oder Kleines, Oberfläche (Spike 683) ausgenommen. Laufend: Tom 762, Jerry 562, Homer 810, Spike 781, Tuffy 562 (wartet auf Messung, Jerry stimmt ab), Sokrates 620, Perikles 797, Diogenes 799. Offen: Tuffy 562 und Spike 781 archivieren, wenn idle. Sokrates-Sitzungen wachen auf Nachrichten des Chefs wieder auf: vor dem Archivieren `get_session` prüfen. Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 836** (zuletzt 835 Perikles 10.11. 10:24:18 22a5) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 839** (zuletzt 838 Ford 10.11. 10:50) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -179,3 +179,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:25 10.11.: Startsperre 10:25 Start Tom, Jerry, Homer, Perikles, Spike (lauf.py)
 - 10:25 10.11.: Marke Archiv session_01Hmoj76F9mPA4AtPHrxbtgb (lauf.py)
 - 10:25 10.11.: Marke Archiv session_01Hmoj79QEoSd5GHdCRwZxGK (lauf.py)
+- 10:28 10.11.: Sokrates t273 (PR 192), Tom 834, Spike 825, Homer 830 gestartet (Chefrunde: zwei Entwicklersitzungen laut Übergabe Sokrates 10:24); Homer 810 archiviert, gebucht; Sokrates Chefrunde läuft noch, Archiv 10:32
+- 10:32 10.11.: Startsperre 10:32 Start Jerry (Ford, vor dem Start; Chef 10:3x: Tom und Jerry gleichzeitig, Spike für 825 zusätzlich; mein Irrtum: „keine Arbeit“, Jerry hat 59 Muss, oberste startbare 709)
+- Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry (07:04 Jerry 806, 08:05 Jerry 806, 10:26 Jerry 595) aus eigener Beurteilung aus (Kaufrepo, Pacing, Sitzungsgrenze), ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch: 59 Muss). Lücke im Werkzeug: Startsperre wird geschrieben, auch wenn nie gestartet wird; kein WARNUNG-LAUT wie bei ARCHIVIERE. Vorschlag an den Chef gestellt
+- 10:38 10.11.: Sokrates Chefrunde archiviert, gebucht (273,831,661,649); Nachfolger Sokrates t273 läuft

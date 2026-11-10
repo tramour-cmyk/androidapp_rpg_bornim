@@ -200,6 +200,7 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	kamera.ziel = held
 	gebiet.held = held
 	gebiet.kamera = kamera
+	gebiet.gras_neu()   # 804: der Held schiebt das Gras des Kits beiseite
 	if gebiet.gluehwuermchen:
 		gebiet.gluehwuermchen.zustand = zustand   # 514: nur in manchen Naechten
 		var nb = get("nebel")   # 505 (eigener Zweig): ausser Sicht vergehen sie mit dem Nebel
@@ -547,6 +548,7 @@ const WALD := ["forest", "deep_forest"]
 const AufrufS = preload("res://kampf/aufruf.gd")
 var kampf: Node
 var leiste_uhr := 0.0
+var kampf_mess: Label   # 211.14: Bildrate im Kampf (Testmodus „Bildrate“ oder --messen); eigene Ebene, die Steuerung ist dann verborgen
 
 # 399.3 (Jerry): Musik und Klang ueber den Autoload Klang; ueber den Knoten statt den Namen, denn mit -s (skripte_pruefen,
 # Lauf 135) gibt es den Autoload noch nicht und spiel.gd liesse sich nicht laden
@@ -607,9 +609,11 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 		while aufruf.kampf != null and not aufruf.kampf.is_inside_tree() and erg["ende"] == "": await get_tree().process_frame
 		kampf = aufruf.kampf
 		Messung.kampf_ms = Time.get_ticks_msec() - k0
+		Messung.kampf_beginn("%s, %s" % [gegner, String(lage["platz"])])   # 211.14: Leistung je Kampf am Gerät
 		if kampf and kampf.cam: kampf.cam.make_current()
 	while erg["ende"] == "": await get_tree().process_frame
 	kampf = null
+	if kampf_mess: kampf_mess.get_parent().visible = false
 	for k in umgebung.size(): umgebung[k].environment = env_alt[k]
 	kamera.make_current()
 	visible = true; ui.visible = true
@@ -1058,13 +1062,14 @@ func oeffne_menue(reiter := "") -> void:
 	m.test.connect(func(was: String, mit: Array):   # 399.1 Reiter „Test“: erst das Menue zu, dann in der Welt
 		# 555 (Chef 11:52: „Wenn ich auf Kartenzoom klicke, dann bin ich sofort aus dem Testmenü draußen“): Schalter bleiben wie alt im
 		# Menue, die Wirkung steht als kurze Meldung; nur Orts-, Kampf- und Schirmwechsel schliessen
-		if was in ["zoom", "nacht", "tiere"]:
+		if was in ["zoom", "nacht", "tiere", "gras"]:
 			test_tat(was, [])
 			var de := Sprache.aktiv() == "de"
 			match was:
 				"zoom": m.meldung(String(mit[0]) if mit.size() > 0 else ("Kartenzoom gestellt" if de else "Map zoom set"))
 				"nacht": m.meldung(("Nacht, 23:00 Uhr" if de else "Night, 11 pm") if licht.ziel > 0.5 else ("Tag, 12:00 Uhr" if de else "Day, noon"))
 				"tiere": m.meldung("Tiere umgeschaltet" if de else "Animals toggled")
+				"gras": m.meldung(("Gras: Grass & Wind" if de else "Grass: Grass & Wind") if GrasBausatz.an else ("Gras: unser altes" if de else "Grass: our old one"))
 			return
 		m.zu.emit()
 		test_tat(was, mit))
@@ -1090,6 +1095,9 @@ func oeffne_menue(reiter := "") -> void:
 func test_tat(was: String, mit: Array) -> void:
 	match was:
 		"nacht", "tiere": _knopf(was)   # 500: aus dem Testmenue statt der Probeknoepfe
+		"gras":   # 804: Gras des Kits gegen unser altes, zum Vergleich und fuer die Bilder/s vorher und nachher
+			GrasBausatz.an = not GrasBausatz.an
+			if gebiet: gebiet.gras_neu()
 		"teleport":
 			await abblenden(1.0)
 			var von := karte.id
@@ -1359,21 +1367,33 @@ func _rast_wahl(id: String) -> void:
 		"kurz", "lang":
 			await raste(id)
 
+## 753: Name der Rast ueber dem Satz der Blende, aus dem Text der Wahl („Lange Rast · 8 Stunden“, „Zimmer · 5 Gold“)
+static func rast_name(art: String, ort: String) -> String:
+	var schluessel := "short" if art == "kurz" else ("long" if ort == "feuer" or ort == "" else "roomBuy")
+	return Sprache.r(schluessel).split(" · ")[0]
+
 # die Welt wird schwarz, die Zeit vergeht (Satz in Gold), dann die Welt zur neuen Stunde mit dem Satz der Rast
 func raste(art: String) -> void:
 	var ort := rast_ort
 	rast_feld_zu()
 	ui.schliesse_wahl()
 	await abblenden(1.0)
-	var satz := Label.new()
-	satz.text = Sprache.r("hourGone" if art == "kurz" else "hoursGone")
-	satz.add_theme_font_size_override("font_size", 40)
-	satz.add_theme_color_override("font_color", Steuerung.GOLD)
-	satz.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	satz.grow_horizontal = Control.GROW_DIRECTION_BOTH; satz.grow_vertical = Control.GROW_DIRECTION_BOTH
-	blende.add_child(satz)
-	await get_tree().create_timer(1.3).timeout
-	satz.queue_free()
+	# 753 (Chef 09.11., 14:09: „klein und futzelig … nicht wie unser neues Design“): wie die Ortsblende (556) die Rast klein und
+	# gesperrt, Goldstrich, der Satz in Alegreya; die Worte kommen, stehen, gehen wie alt (RestScreen.kt: 500, 1300, 400 ms)
+	var mitte := CenterContainer.new()
+	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	mitte.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var worte := Ortsblende.worte_spalte(rast_name(art, ort), Sprache.r("hourGone" if art == "kurz" else "hoursGone"))
+	worte.custom_minimum_size.x = get_viewport().get_visible_rect().size.x - 2 * 36 * AktionsKnopf.DP
+	worte.modulate.a = 0.0
+	mitte.add_child(worte)
+	blende.add_child(mitte)
+	var tw := create_tween()
+	tw.tween_property(worte, "modulate:a", 1.0, 0.5)
+	tw.tween_interval(1.3)
+	tw.tween_property(worte, "modulate:a", 0.0, 0.4)
+	await tw.finished
+	mitte.queue_free()
 	var r := Rast.rasten(zustand, held_werte(), art, ort, platz())
 	if r.has("nein"):
 		rast_notiz = String(r["nein"])
@@ -1435,7 +1455,10 @@ func sichtbar_neu() -> void:
 # ---------------------------------------------------------------- Lauf
 func _process(dt: float) -> void:
 	if held == null: return
-	Messung.bild(dt, "%s %d/%d" % [karte.id, held.kachel.x, held.kachel.y])   # 399.1 Gerät: Messwerte wie alt
+	Messung.bild(dt, ("Kampf " + Messung.kampf_wo) if kampf != null else "%s %d/%d" % [karte.id, held.kachel.x, held.kachel.y])   # 399.1 Gerät: Messwerte wie alt
+	if kampf != null:
+		Messung.kampf_bild(dt)
+		_kampf_messe()
 	held.laeuft = Ausdauer.schritt(zustand, held_werte(), dt * 1000.0, held.geht(), laufen_will)   # 399.1 Stamina.step
 	held.atemlos_neu(zustand.atemlos and kampf == null)   # 592: leer kurz stehen, Haende auf den Knien
 	if held.funke_an != zustand.funke: held.funke_neu(zustand.funke)   # 677: getrunken, geloescht, nach der Rast verglommen
@@ -1478,6 +1501,30 @@ func _process(dt: float) -> void:
 	if zeiten.size() > 240: zeiten.pop_front()
 	if Testmodus.standort: ui.standort = "%s %d/%d" % [karte.id, held.kachel.x, held.kachel.y]
 	ui.messe(zeiten)
+
+# 211.14 (Rest 211.13, Sokrates 20.10.: „Leistung am A56 messen“): im Kampf ist die Steuerung mit ihrer Bildrate verborgen; dieselbe
+# Anzeige auf eigener Ebene unter dem Rand (Rand.EBENE - 1), links in der Mitte über dem Kampfort, wo weder Zugleiste noch Knöpfe sind
+func _kampf_messe() -> void:
+	var an := "--messen" in OS.get_cmdline_user_args() or Testmodus.bildrate
+	if kampf_mess == null:
+		if not an: return
+		var e := CanvasLayer.new()
+		e.layer = Rand.EBENE - 1
+		e.name = "KampfMessung"
+		add_child(e)
+		kampf_mess = Label.new()
+		kampf_mess.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var vs := get_viewport().get_visible_rect().size
+		kampf_mess.position = Vector2(24, vs.y * 0.30)
+		kampf_mess.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART   # wie die Steuerung (624): bricht innerhalb des Schirms um
+		kampf_mess.custom_minimum_size.x = vs.x - 48
+		kampf_mess.add_theme_font_size_override("font_size", int(round(14 * Stil.SP)))
+		kampf_mess.add_theme_color_override("font_color", Color(0.86, 0.68, 0.32))   # wie Steuerung.GOLD
+		kampf_mess.add_theme_color_override("font_outline_color", Color.BLACK)
+		kampf_mess.add_theme_constant_override("outline_size", 8)
+		e.add_child(kampf_mess)
+	kampf_mess.get_parent().visible = an
+	if an and Engine.get_process_frames() % 15 == 0: kampf_mess.text = Messung.kampf_zeile()
 
 # ---------------------------------------------------------------- Standbilder am Rechner (Vergleich alt/neu)
 func bilder() -> void:

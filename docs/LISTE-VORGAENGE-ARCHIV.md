@@ -314,7 +314,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 266 | Test-Reiter: Hardware-Angaben zum Kopieren (Chef 20.10., Tablet Build 48) | Q QS | M | – | Tom | erledigt |
 | 261.4 | Ford archiviert nicht: 22 Sitzungen offen statt einer je Bereich (Chef 21.10.) | B Steuerung | M | –; +0,45 $ | Perikles | erledigt |
 | 271 | Nachts keine Bilder: Teams ohne Arbeit, alles wartet auf Test (Chef 21.10.) | B Abläufe | M | 1,51 $ | Perikles | erledigt (272 an Jerry; Rest wartet auf den Chef) |
-| 273 | Ford darf archivieren: Satz für den Berechtigungsprüfer (Probe 261.5) | B Abläufe | M | 6,12 $ | Perikles | erledigt |
+| 273 | Ford darf archivieren: Satz für den Berechtigungsprüfer (Probe 261.5) | B Abläufe | M | 9,22 $ | Perikles | erledigt |
 | 274 | Startlektüre je Rolle kürzen, Rollendateien als Stichpunkte (Chef 21.10.) | B Abläufe | M | –; +14,01 $ | Perikles | erledigt |
 | 251 | Logo der Firma BornWire TCS (vorher WireStormTCS; Chef 20.10.) | M Markt | K | –; +7,33 $ | Homer | erledigt |
 | 256 | MARS-Klang: nur Treffer, Fehlschlag, Hieb, Abwehr; Zauber, Biss, Fallen, Geheul usw. fehlen (Chef 20.10.) | E Klang | K | –; +10,22 $ | Jerry | erledigt |
@@ -901,7 +901,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 773 | Sammelbuild 272: alle fertigen Zweige beider Teams (Tom 5, Jerry 6: u. a. 656, 717, 717.1, 682, 702), Prüfliste ansehen/t272, build 272 --mit für alle (von Perikles, 15:31: sonst wartet jeder auf den anderen) | E Technik | M | 11,84 $ | Tom | erledigt |
 | 801 | Freigabe add_repo für bornim-kaufmodelle in den Sitzungseinstellungen (Zugriffsprüfung lehnte 376.1 ab; Jerry 09.11., 662) | E Kampf | M | – | Jerry | erledigt |
 | 772 | D89.2 von Diogenes (über Perikles): Glossar ohne „Vorgang beim Chef“ (480); „steht in“ zeigt meist auf CLAUDE.md | B Abläufe | K | – | Homer | erledigt |
-| 810 | Name der achten Fertigkeitsgruppe im Reiter: Chef sagt „Handwerk“, BRS „Meisterschaften“ (aus 762, Sokrates, Chef 09.11., 21:25) | G Stil | M | – | Homer | erledigt |
+| 810 | Name der achten Fertigkeitsgruppe im Reiter: Chef sagt „Handwerk“, BRS „Meisterschaften“ (aus 762, Sokrates, Chef 09.11., 21:25) | G Stil | M | 3,83 $ | Homer | erledigt |
 | 623.8 | Effektpakete für eine lebendige Welt: Reihenfolge Dorf, Wolfskampf, Wald; Bilder/s-Grenze, Farben gedämpft (Chef 09.11., 21:07) | G Stil | M | 0,39 $ | Sokrates | erledigt |
 | 796 | Schritt 3 zu 745: Regeln nach 783 angleichen (W1–W8, Archiv 09.11., 20:00–20:16), Werkzeuge probelauf.py, lauf.py --morgen (von Sokrates) | B Abläufe | M | 5,10 $ | Perikles | erledigt, greift Lauf 124 |
 | 821 | Browser-Sitzungen mit beiden Repos: Modell laut Startzuordnung für Tom und Jerry, doppelte Sitzungen archivieren (Chef 09.11., 22:44) | B Abläufe | M | 2,75 $ | Sokrates | erledigt |

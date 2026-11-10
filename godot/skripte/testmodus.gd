@@ -175,7 +175,7 @@ static func reiter(m: Menue) -> void:
 			r.add_child(b)
 		m.inhalt.add_child(r)
 		m.luecke(6)
-	m.zeile(t.call("Testmodus", "Test mode"), 18, Stil.BRIGHT)
+	m.zeile(t.call("Testmodus", "Test mode").to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))   # 584: Kopf wie alt (TestTab.kt 50, MenuHead)
 	m.luecke(8)
 	absturz(m, t)
 	m.gruppe(t.call("Anzeigen", "Displays"))
@@ -275,6 +275,9 @@ static func reiter(m: Menue) -> void:
 	if DirAccess.dir_exists_absolute("res://daten/tiere"):
 		welt2.append(zk.call(t.call("Tiere", "Animals"), null, t.call("Stellt alle Tiermodelle zum Anschauen um den Helden; noch einmal: weg.", "Puts every animal model around the hero to look at; again: gone."),
 			func(): m.test.emit("tiere", []), "STEPS"))
+	if GrasBausatz.da():   # 804: Gras des Kits oder unser altes, gleich am Ort; Bilder/s vorher und nachher unter „Messen“
+		welt2.append(zk.call(t.call("Gras", "Grass"), null, t.call("Gras und Blumen aus Grass & Wind oder unser altes Gras, gleich hier am Ort.",
+			"Grass and flowers from Grass & Wind or our old grass, right here."), func(): m.test.emit("gras", []), "", "G"))
 	m.zeichenreihe(welt2)
 	m.gruppe("Teleport")
 	var orte := [[t.call("Dorf", "Village"), "village", 11, 7, "DOWN", "HOME", ""], [t.call("Wald", "Forest"), "forest", 10, 20, "UP", "", "W"],
