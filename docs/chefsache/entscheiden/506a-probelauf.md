@@ -25,6 +25,6 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/tree/30ace526
 - **C:** warten, bis 825 fertig ist; dann kommt der Film.
 - **Stärkstes Gegenargument gegen A:** Die Regel ist gerade dazu da, dass nicht nachgeschoben wird. Ein zweiter Lauf, auch mit gutem Grund, weicht sie auf. Dagegen spricht, dass du von dieser Probe nichts gesehen hast.
 
-**Folgerungen:** Bei A filme ich sofort und schicke dir den Film per Telegram; nach deinem Urteil kommt 506 in den nächsten Sammelbuild. Bei B trage ich 506 in den Sammelbuild ein (Spike). Bei C wartet 506 auf 825. Der Zähler zählt Nebenläufe ohne Bild weiter mit; ob das so bleibt, ist eine eigene Frage an Perikles (847).
+**Folgerungen:** Bei A filme ich sofort und schicke dir den Film per Telegram; nach deinem Urteil kommt 506 in den nächsten Sammelbuild. Bei B trage ich 506 in den Sammelbuild ein (Spike). Bei C wartet 506 auf 825. Der Zähler zählt Nebenläufe ohne Bild weiter mit; ob das so bleibt, ist eine eigene Frage an Perikles (848).
 
 Antwort: …
