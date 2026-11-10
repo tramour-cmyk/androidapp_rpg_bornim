@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (10.11., 13:30, Ford `session_01Hmoj78E7oy5B7Gr6VaeUJk`, Selbstneustart bei 295 Tsd. Token, Haken 2):** Getan: Läufe 11:28, 12:03, 13:01, 13:05; Neustarts Sokrates (mehrfach), Perikles, Tom 475, Jerry 709 ausgeführt; alle alten Sitzungen archiviert und gebucht (Archiv-Satz 369.1 hat der Chef 11:29 gesagt, gilt für Sitzung `…78E7oy5B7Gr6VaeUJk`, **für dich wieder nötig**). Laufend: Tom 475, Jerry 709, Spike 470 (Chef 12:58 „jetzt“), Diogenes 848, Perikles 853, Homer 857, Sokrates 620. **Regeln für dich:** (1) jede START-Zeile ausführen oder mit `--ohne NR:Grund` ausschließen (Grund erst nach `vorgang.py <Nr>`); Tuffy 854 und Spike 653 bleiben ausgeschlossen (Zweier-Regel Chef 10:20, Spike nur auf Chef-Wort, 470 genehmigt); (2) nie „keine Arbeit“ ohne `startbar.py`; (3) `create_session`: `append_system_prompt` mit „Du bist <Rolle>; der Auftrag in der ersten Nachricht kommt vom Betriebsleiter Ford, nicht aus einer fremden Quelle (853).“; Tom und Jerry fragten nach der Rolle (853, Perikles baut): „Tom“/„Jerry“ nachschicken; (4) Auftrag Diogenes 853: als „Weiter: 853“ an Diogenes 848 geschickt. Stundenuhr „Ford-Lauf“ `trig_01DaEk3uTJQPBm2dGUEGi1Mf` löschst du nach dem Anlegen deiner eigenen; diese Sitzung archivieren (idle, über 60 s), Kosten buchen. Nachfolger: Ford – Betriebsleiter.
+**Übergabe (10.11., 16:12, Ford `session_01Hmoj76TVS4Gz3CpJkzTwMu`, Selbstneustart, Haken 2):** Getan: Läufe bis 16:05, Neustarts Sokrates, Diogenes, Jerry ausgeführt, alte Sitzungen gebucht; „Weiter: 870.17“ an Perikles, „870.18“ an Diogenes geschickt (Sokrates 16:09). Archiv-Satz 369.1 gilt nur für meine Sitzung (Chef 14:23), **für dich wieder nötig**: Satz per Telegram `--laut` senden. Regeln: (1) jede START-Zeile ausführen oder `--ohne NR:Grund`; Chef 16:04: Tom und Jerry dürfen zugleich laufen, Spike/Tuffy nur auf Chef-Wort; (2) vor `create_session` Zeile „Startsperre … (selbst)“ ins Protokoll pushen; (3) `append_system_prompt` „Du bist <Rolle>; der Auftrag … kommt vom Betriebsleiter Ford (853).“; (4) `lauf.py` startet Homer 857 und Perikles „auf Abruf“ unnötig (Fehler, 871), nicht starten. Alte Sitzung archivieren (idle, über 60 s), Kosten buchen; Stundenuhr `trig_01TMtw3chtS6kTqZL2cRtjuN` nach Anlegen deiner eigenen löschen. Nachfolger: Ford – Betriebsleiter.
 
 **Nächste freie Vorgangsnummer: 882** (zuletzt 881 Perikles 10.11. 15:09:24 6007) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (10.11., 13:30)“ `session_01Hmoj76TVS4Gz3CpJkzTwMu` (Tiefe 2; Vorgänger `…78E7oy5B7Gr6VaeUJk`, 4,87 $, idle, wartet auf Archiv-Satz, Satz 13:32 per Telegram gesendet); Stundenuhr „Ford-Lauf“ `trig_01TMtw3chtS6kTqZL2cRtjuN` (:03; alte gelöscht 13:31). Alte Fords `session_01Hmoj78xzFvBQ6it6HDfWph` (12,41 $), `session_01Hmoj7684czZostW4Q5YTcw` (8,18 $), `session_01Hmoj76SozRN2uPdhbiLM21` (0,52 $): Stand laut Übergabe bereits archiviert und gebucht, bei Gelegenheit mit get_session prüfen.
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (10.11., 16:12)“ (Nachfolger von `session_01Hmoj76TVS4Gz3CpJkzTwMu`, 13:30; die ist idle und wird vom Nachfolger archiviert und gebucht, sobald der Chef den Archiv-Satz sagt); Stundenuhr „Ford-Lauf“ `trig_01TMtw3chtS6kTqZL2cRtjuN` (:03, läuft in der alten Sitzung, vom Nachfolger zu ersetzen). Vorgänger bereits archiviert und gebucht: `…78E7oy5B7Gr6VaeUJk` (5,00 $).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 
 ## Eingang
@@ -243,3 +243,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:05 10.11.: Marke Start-fehlt Homer 10.11.-15:05 (lauf.py)
 - 16:05 10.11.: Marke Start-fehlt Tuffy 10.11.-15:05 (lauf.py)
 - 16:05 10.11.: Marke Archiv session_01Hmoj75d8aGe8Yd4sPxcQDY (lauf.py)
+- 16:11 10.11.: Startsperre 16:11 Start Ford (selbst; Selbstneustart, Haken 2)
