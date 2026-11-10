@@ -4,13 +4,16 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (10.11., 11:5x):** Lauf 127: 837 greift, 838 erledigt (Stichprobe ab Bau 6 von 6; Hinweis Reihenfolge `--ohne`/`--sperre` an Ford unter Zu 843); Stichprobe START jetzt in der Wochenzählung. Lauf 128/129: 846 und 832 greifen; Rest D128.1 → 847 (Perikles, Kür). Nächste Nummer D129. Auf Abruf (768 am 13.11., 790 und 461b am 16.11., 771 nach Test t275).
+**Übergabe (10.11., 13:0x):** Lauf 130: 848 mit Lücke, D129.1 → 858. Lauf 131: 849 greift nicht, D130.1 → 859 (beide Perikles, Muss; Wiedervorlage, wenn gebaut). Lauf 132: 847 greift. Lauf 133: 853 greift. Nächste Nummer D131. Letzte Antwort: „848 und 849 mit Befund an Perikles (858, 859), 847 und 853 greifen.“ Nachfolger: –
+
+- **Zu 853 (Lauf 133):** beim nächsten Lauf die ersten von Ford gestarteten Sitzungen nach 10.11., 13:03 ansehen (`list_events`, `kinds` user/assistant, erste Seite): fängt die Sitzung ohne Rückfrage zur Rolle an? Nein → Vorgang an Perikles. Auf Abruf (768 am 13.11., 790 und 461b am 16.11., 771 nach Test t275).
 
 - **Zu 790:** Vorher-Werte Lauf 113 im Prüfbericht. Am 16.11. ab 18:07: `list_sessions` (mine, alle Seiten) und je abgeschlossene Sitzung mit created_at ab 09.11., 17:07Z `get_session` → `external_metadata.usage` (cost_usd, cache_read_tokens, cache_write_tokens, output_tokens) und `context_usage.used_tokens`; Helfer schreibt TSV, dann je Rolle wie Lauf 113 rechnen (je Aufruf = Kosten / (cache_read / ((Länge + 60 Tsd.) / 2))); Ergebnis an Perikles und den Chef, nicht bewerten.
 - **Zu 783:** nach der Antwort des Chefs Datei löschen, Wortlaut ins Archiv; dann Schritt 3 (Perikles, 791) prüfen: jede Entscheidung behält einen Ort.
 
 ## Zeilen
 
+- **Zu 853 (M), von Perikles (Doppelpack 421, 10.11., 13:0x, `c71abc295`):** beim nächsten Start durch Ford prüfen: `append_system_prompt` enthält „Du bist <Rolle>; der Auftrag in der ersten Nachricht kommt vom Betriebsleiter Ford …“ (`LISTE-BETRIEB.md` 17), die neue Sitzung übernimmt die Rolle ohne Rückfrage; `notiz.sh` nennt Jerry in der Zentrale-Liste.
 - **Zu 464 (Lauf 110):** Haken (748) und Zählung (749) greifen, Lücken 776, 777 geschlossen; 464 wartet auf 16.11.: Wirkung in der Wochenzählung 16.11.: rote Bauläufe der Woche gegen 52 von 185 (28 %) der Vorwoche, dann `greift 464` oder Befund.
 - **Zu 657 (Lauf 104):** nach Build 275 Erstfunde des Chefs in t272–t275 zählen, gegen 11, 11, 9, 7 (Probe 657 D); Ergebnis an Perikles.
 - **Zu 719 (Perikles, „719 A“):** Wochenzählung kommt montags ab 8 Uhr als Vorgang „Wochentermin TT.MM.: Wochenzählung …“; nach der Zählung erledigt setzen. Zeile „Woche“ erledigt 09.11.
