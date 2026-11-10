@@ -38,12 +38,13 @@ UMBENENNEN = {'neck_01': 'hals', 'head': 'kopf'}     # kopfdreh.gd
 # Liste 4: drei Kits am Umriss verschieden; Hautton je Kit (Liste 4: grabgrau, fahl, erdbraun); Statur je Kit (Liste 1)
 # huelle: (Knochenteile, Anteil längs des Knochens von–bis) je Teil; dicke m nach außen; loecher Anteil Flächen, die fehlen
 KITS = {
-    'lumpen': {'haut': (0x6C685E, 0x262420), 'statur': 'schlank', 'stoff': 0x4A4034, 'dicke': 0.010, 'loecher': 0.33,
-               'huelle': {'pelvis': (0, 1), 'thigh': (0, 0.38), 'spine_01': (0, 0.5)}, 'saum': 0.06},
-    'hemd': {'haut': (0x9C9486, 0x3A342C), 'statur': 'mittel', 'stoff': 0x7E7666, 'dicke': 0.012, 'loecher': 0.08,
-             'huelle': {'pelvis': (0, 1), 'spine': (0, 1), 'clavicle': (0, 1), 'upperarm': (0, 0.6), 'thigh': (0, 0.62)}, 'saum': 0.10},
-    'kette': {'haut': (0x5E4C3A, 0x221A12), 'statur': 'kraeftig', 'stoff': 0x4A4846, 'dicke': 0.016, 'loecher': 0.04,
-              'huelle': {'pelvis': (0, 1), 'spine': (0, 1), 'clavicle': (0, 1), 'upperarm': (0, 0.42), 'thigh': (0, 0.32)}, 'saum': 0.05,
+    # Bild 11:51 (eigene Prüfung): Kits kaum zu unterscheiden; Hüllen dicker, Stoff dunkler gegen die Haut, Lumpen mit Fetzen über Brust
+    'lumpen': {'haut': (0x6C685E, 0x262420), 'statur': 'schlank', 'stoff': 0x2E2820, 'dicke': 0.018, 'loecher': 0.30,
+               'huelle': {'pelvis': (0, 1), 'thigh': (0, 0.45), 'spine_01': (0, 1), 'spine_02': (0, 0.6)}, 'saum': 0.10},
+    'hemd': {'haut': (0x9C9486, 0x3A342C), 'statur': 'mittel', 'stoff': 0x5E564A, 'dicke': 0.024, 'loecher': 0.06,
+             'huelle': {'pelvis': (0, 1), 'spine': (0, 1), 'clavicle': (0, 1), 'upperarm': (0, 0.75), 'thigh': (0, 0.8)}, 'saum': 0.12},
+    'kette': {'haut': (0x5E4C3A, 0x221A12), 'statur': 'kraeftig', 'stoff': 0x3C3A38, 'dicke': 0.03, 'loecher': 0.02,
+              'huelle': {'pelvis': (0, 1), 'spine': (0, 1), 'clavicle': (0, 1), 'upperarm': (0, 0.5), 'thigh': (0, 0.4)}, 'saum': 0.05,
               'rost': True},
 }
 STATUR = {'schlank': (0.88, 1.80), 'mittel': (1.0, 1.75), 'kraeftig': (1.12, 1.71)}     # (Dicke, Scheitel aufrecht m)
@@ -533,7 +534,8 @@ def baue(kit_name):
     bpy.ops.export_scene.gltf(filepath=pfad, export_format='GLB', use_selection=True, export_animations=True, export_skins=True,
                               export_animation_mode='NLA_TRACKS', export_yup=True, export_apply=False,
                               export_image_format='JPEG', export_jpeg_quality=88, export_vertex_color='ACTIVE',
-                              export_all_vertex_colors=False)
+                              export_all_vertex_colors=False,
+                              export_optimize_animation_keep_anim_object=True, export_optimize_animation_keep_anim_armature=True)
     INFO['sekunden_bau'] = round(time.time() - T0, 1)
     print('GLB %s %d Bytes' % (pfad, os.path.getsize(pfad)))
     return INFO

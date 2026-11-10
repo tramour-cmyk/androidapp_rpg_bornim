@@ -117,6 +117,24 @@ def narben_fn(koerper, n):
     return fn, len(seg)
 
 
+def maehne_fn(koerper):
+    """Mähne (Liste 2, 3): über Hals und Schultern oben, dazu ein schmaler Grat den Rücken entlang; Kaufnetz in Ruhelage, Kopf −Y."""
+    Pk = np.array([(koerper.matrix_world @ v.co)[:] for v in koerper.data.vertices])
+    lo, hi = Pk.min(0), Pk.max(0)
+    L, H, W = hi[1] - lo[1], hi[2] - lo[2], hi[0] - lo[0]
+
+    def fn(X, grob=False):
+        u = (X[:, 1] - lo[1]) / L          # 0 Schnauze … 1 Schwanzende
+        h = (X[:, 2] - lo[2]) / H
+        q = np.abs(X[:, 0] - (lo[0] + hi[0]) / 2) / W
+        hals = np.clip((u - 0.10) / 0.05, 0, 1) * np.clip((0.50 - u) / 0.06, 0, 1) * np.clip((h - 0.55) / 0.08, 0, 1)
+        grat = np.clip((u - 0.40) / 0.05, 0, 1) * np.clip((0.78 - u) / 0.06, 0, 1) * np.clip((h - 0.72) / 0.05, 0, 1) \
+            * np.clip((0.12 - q) / 0.04, 0, 1)
+        w = np.maximum(hals, grat)
+        return np.clip(w * (3.0 if grob else 1.0), 0, 1)
+    return fn
+
+
 def bemale(koerper, tex_dir, haut):
     """Kaufbild -> unsere Haut: Helligkeit des Kaufs (Falten, Adern, Fell der Mähne), Farben unsere. Dunkle Stellen (der Kauf malt
     die Mähne auf den Rücken) werden schwarz, rote (Maul, Zahnfleisch) dunkel und gedämpft, gelbe (Zähne) vergilbt, das Auge matt."""
@@ -128,9 +146,12 @@ def bemale(koerper, tex_dir, haut):
     t = np.clip(lum / max(med, 1e-3), 0.0, 1.6)[..., None]
     hautc, tief = np.array(lin(haut['haut'])), np.array(lin(haut['tief']))
     b = tief + (hautc - tief) * np.clip((t - 0.35) / 0.75, 0, 1) ** 1.2
-    # Mähne auf dem Rücken: wo der Kauf dunkel ist, schwarz (weich)
-    m = np.clip((0.22 - lum) / 0.12, 0, 1)[..., None]
-    b = b * (1 - m) + np.array(lin(MAEHNE_SCHWARZ)) * (0.6 + 0.8 * t) * m
+    # Liste 3 „schwarze Mähne über nackter fahler Haut“: der Kauf malt Rücken und Flanken dunkel wie Fell (Bild 11:48: las sich
+    # als brauner Wolf). Dort Haut in mittlerer Helligkeit; schwarz nur die Mähne über Hals und Schultern und ein Grat den Rücken
+    # entlang, im Raum gemalt (MAEHNE_FN)
+    dunkel = np.clip((0.22 - lum) / 0.12, 0, 1)[..., None]
+    b = b * (1 - dunkel) + (tief + (hautc - tief) * 0.55) * (0.85 + 0.3 * rauschen(20, 2)[..., None]) * dunkel
+    m = dunkel * 0.0
     rot = np.clip((a[..., 0] - a[..., 1] * 1.25 - 0.06) * 6, 0, 1) * np.clip((sat - 0.18) * 6, 0, 1)
     gelb = np.clip((np.minimum(a[..., 0], a[..., 1]) - a[..., 2] * 1.6 - 0.05) * 6, 0, 1) * (lum > 0.35)
     b = b * (1 - rot[..., None]) + np.array(lin(MAUL)) * (0.5 + 0.6 * t) * rot[..., None]
@@ -139,6 +160,7 @@ def bemale(koerper, tex_dir, haut):
     il = bild(os.path.join(tex_dir, 'BARGHEST_ILLUM.jpg'), TEX).max(2)
     aug = np.clip((il - 0.15) * 4, 0, 1)[..., None]
     b = b * (1 - aug) + np.array(lin(AUGE)) * aug
+    b = male_lage(b, koerper, maehne_fn(koerper), lin(MAEHNE_SCHWARZ), 0.95, 2.5)
     # Haut fleckig wie Leichenhaut, nicht glatt
     b *= (0.9 + 0.18 * rauschen(48, 1.0)[..., None])
     fn, n = narben_fn(koerper, haut['narben'])
@@ -487,7 +509,8 @@ def baue(haut_name):
     pfad = os.path.join(OUT, '%s-%s.glb' % (ID, haut_name))
     bpy.ops.export_scene.gltf(filepath=pfad, export_format='GLB', use_selection=True, export_animations=True, export_skins=True,
                               export_animation_mode='NLA_TRACKS', export_yup=True, export_apply=False,
-                              export_image_format='AUTO')
+                              export_image_format='AUTO',
+                              export_optimize_animation_keep_anim_object=True, export_optimize_animation_keep_anim_armature=True)
     INFO['sekunden_bau'] = round(time.time() - T0, 1)
     print('GLB %s %d Bytes' % (pfad, os.path.getsize(pfad)))
     return INFO

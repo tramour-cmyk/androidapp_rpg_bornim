@@ -165,6 +165,8 @@ var I_STAB := _intent("stab", "Stich", "Stab", "STRIKE", null, false, false)
 var I_SLASH := _intent("slash", "Hieb", "Slash", "STRIKE", null, false, false)
 ## 535 (alt Monsters.kt giant_rat, giant_bat: Angriff „Biss“): Ratte und Fledermaus beißen nur, ohne Sprung und Einkreisen
 var I_BITE := _intent("bite", "Biss", "Bite", "STRIKE", null, false, false)
+## 506 (STORY-BLENDE.md „Wiedergänger“: Angriff Klauen / Claws; „Grabhund“: Biss / Bite)
+var I_CLAW := _intent("claw", "Klauen", "Claws", "STRIKE", null, false, false)
 var I_POUNCE := _intent("pounce", "Anspringen", "Pounce", "STRIKE", null, false, false, false, "POUNCE")
 ## 399.2b: ein Jungwolf knurrt nur, kein Angriff (Homer [210T.growl])
 var I_GROWL := _intent("growl", "Knurren", "Growl", "WAIT", null, false, false, false, "GROWL")
@@ -1662,8 +1664,10 @@ func _free_foe_spot(back := false):
 
 func _pick_intent(foe: Fighter) -> Dictionary:
 	var id := art_of(foe.monster)
-	if id == RAT or id == BAT:     # 535
+	if id == RAT or id == BAT or id == "ghoul":     # 535; 506 Grabhund
 		return I_BITE
+	if id == "zombie":     # 506 Wiedergänger
+		return I_CLAW
 	if id == SHAMAN:     # 535: Heilen, Fluch, Feuerstoß des Schamanen fehlen noch (Ansagen über Homer); bis dahin kämpft er wie ein Goblin
 		id = CALLED
 	if id == WOLF or id == DIRE_WOLF:

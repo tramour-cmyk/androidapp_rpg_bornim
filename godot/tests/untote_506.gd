@@ -146,7 +146,8 @@ func _figuren(kf, feinde: Array, art: String) -> void:
 				_fehler("%s: Hieb %s" % [f.id, fig.hieb])
 		else:
 			for m in fig.mats:
-				if float(m.get_shader_parameter("schnitt")) > 0.0:
+				var sv = m.get_shader_parameter("schnitt")
+				if sv != null and float(sv) > 0.0:
 					schnitt = true
 	if pfade.size() != feinde.size():
 		_fehler("%s: Kits nicht verschieden: %s" % [art, pfade.keys()])
