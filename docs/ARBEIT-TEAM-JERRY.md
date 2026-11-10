@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
-Pause bis 13.11., 20:00 Uhr (870, von Sokrates, Chef 10.11., 14:08: „die anderen, die jetzt irgendwas noch machen, sollen das fertig machen, was sie gerade machen … Und dann sollen sie aber nicht wieder irgendeinen Füllefanz neu anfangen“): Laufendes (709) fertig machen, nichts Neues anfangen bis zum Umzugsplan BRS (Sokrates); früher frei, wenn der Plan abgenommen ist.
+Pause bis 13.11., 20:00 Uhr (870, von Sokrates, Chef 10.11., 14:08: „die anderen, die jetzt irgendwas noch machen, sollen das fertig machen, was sie gerade machen … Und dann sollen sie aber nicht wieder irgendeinen Füllefanz neu anfangen“): Laufendes (709) fertig machen, dann **854 vor dem Umzug** (Chef 14:17: „das brennt mir wirklich auf den Nägeln … jedes Mal geht es bei Null los“), sonst nichts Neues bis zum Umzugsplan BRS (Sokrates); früher frei, wenn der Plan abgenommen ist.
 
 **Übergabe (10.11., 14:18):** 709 auf `claude/jerry-709-treffen` `86ec1c874` (wolf_mess_438 grün): Held trifft mit der Klinge, Kamera passt nicht mehr mitten im Zug neu (Ursache auch von 845), Biss nur an freiem Platz, Fledermaus stößt bis an den Körper; Vorlage [709a](chefsache/entscheiden/709a-biss-schildtraeger.md) (Biss gegen Schildträger). Ältere Einzelheiten ruhender Vorgänge gekürzt (Wortlaut `git show 4a0cccc9f:docs/ARBEIT-TEAM-JERRY.md`). Letzte Antwort: „Kaufmodelle sind geklont. Der Modellbau am Rechner für die 709-Messung läuft, erstmals etwa 35 Minuten. Ich arbeite weiter, sobald die Messung möglich ist.“ (Chef 12:06: „Klone das Repository tramour-cmyk/bornim-kaufmodelle in diese Sitzung.“) Nachfolger: Jerry – 709: Ratte, Krogg, Grak treffen
 
