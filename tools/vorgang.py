@@ -468,5 +468,23 @@ def haupt(a):
         print("== %s" % nr)
         print("\n".join(treffer(nr)) or "nichts gefunden")
 
+SCHREIBT = ("stand", "warte", "setze", "klasse", "fertig", "rang", "neu", "build")
+
+def liegt_melden(vorher):
+    """891 (654, Chef 10.11., 17:15; 506 lag 16:43–17:00, Ford lief erst 16:59): neu startbares Muss nennen; läuft keine Sitzung
+    der Rolle, meldet der Schreibende es Ford sofort wie einen Nachfolger („Start <Rolle> <Nr>, <Commit>“, LISTE-BETRIEB.md 26)."""
+    try:
+        startbar.neu_laden()
+        neu = sorted(startbar.startbares_muss() - vorher)
+    except Exception: return
+    for r, nr in neu:
+        print("LIEGT %s (%s) ist jetzt startbar (891): nach dem Push `list_sessions`; läuft keine Sitzung %s (working) und ist es nicht deine "
+              "Rolle, `send_message` an Ford „Start %s %s, <Commit>“" % (nr, r, r, r, nr))
+
 if __name__ == "__main__":
-    haupt(sys.argv[1:])
+    a = sys.argv[1:]
+    schreibt = any(x in SCHREIBT for x in a[:1] + a[2:3])  # auch nach --rolle ROLLE vorn
+    try: vorher = startbar.startbares_muss() if schreibt else None
+    except Exception: vorher = None
+    haupt(a)
+    if vorher is not None: liegt_melden(vorher)

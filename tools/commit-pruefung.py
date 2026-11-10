@@ -9,6 +9,7 @@ in entscheiden/, ansehen/ oder billigen/ stehen bleibt (383.3: wer die Antwort e
 Frage trotz Antwort offen, setzt er die Zeit in Zeile 1 oder 2 der Datei neu). Eine beantwortete Vorlage darf ohne Archivänderung weg.
 Neuer Archiveintrag zu einer Nummer aus der Spalte „Woher“ der Kennungen A–G ohne Änderung an DESIGN-STIL/-KAMPF/-ABNAHME (461b; Ausweg
 „461 unverändert“ im Eintrag); warnt bei geänderter alter Archivzeile und bei neuer Vorlage ohne berührte Kennung.
+Gelöschte Vorlage mit „Was du tust: …“ ohne neue Datei in chefsache/tun/ (890; Ausweg BORNIM_GETAN=1); Datei in ansehen/ (außer t<Build>-…) ohne Bild, Film oder Frage (890).
 Vorlage in docs/chefsache/ansehen/ mit „ohne Toon“, „Tusche fehlt“ u. ä. ohne Vergleich „mit Tusche“ (457, D56.1–2; Ausnahme „Chef erlaubt ohne Signatur“). Hält immer an (auch im Code): gekaufte Rohdatei (449: Kaufordner, Endung eines Kaufpakets, Inhalt wie im geklonten Kaufrepo). Hält an: CLAUDE.md oder ROLLE-*.md über der Obergrenze (OBERGRENZE), die der Commit vergrößert (822). Warnt (Exit 0): Modellnamen, Zeilen über 1500 Zeichen. Fasst nur Notizen an; sonst Exit 0. Jeder Fehler im Haken lässt durch."""
 import datetime, os, re, subprocess, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -370,12 +371,41 @@ def main():
             if git("rev-parse", "-q", "--verify", "MERGE_HEAD").strip(): alt = max(alt, git("show", "MERGE_HEAD:" + p), key=lambda x: len(x.encode()))
             if neu_b > 15000 and neu_b > len(alt.encode()) and not fremd_hinweis(p):
                 stop.append("%s hat %d Bytes (über 15000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)" % (p, neu_b))
+    for w in tun_und_inhalt(dat): stop.append(w)  # 890
     if any(p in ("tools/gegenstaende/gegenstaende.json", "docs/LISTE-GEGENSTAENDE.md", "tools/gegenstaende.py") for s, p in dat if s != "D"):
         r = subprocess.run([sys.executable, "tools/gegenstaende.py", "--pruefen"], capture_output=True, text=True)
         if r.returncode: stop.append("Gegenstandskatalog (458, D56.4): " + (r.stdout.strip().replace("\n", "; ") or "Prüfung fehlgeschlagen"))
     for w in warn: print("Commit-Prüfung Warnung: " + w, file=sys.stderr)
     for s in stop: print("Commit-Prüfung HÄLT AN: " + s, file=sys.stderr)
     return 1 if stop else 0
+
+WAS_DU_TUST = re.compile(r"(?m)^\W*Was du tust:?\**\s*(.*)$")
+INHALT_BILD = re.compile(r"!\[|<img|<video|\.(?:png|webp|jpe?g|gif|mp4|webm)\b|bilder/|\bFilm:|\bBild:", re.I)
+
+def frage_in(text):
+    """890: Frage an den Chef: „**Frage**“ oder ein Fragezeichen außerhalb von Links."""
+    ohne = re.sub(r"https?://\S+|\([^)\s]*\?[^)\s]*\)", "", text)
+    return bool(re.search(r"\*\*Frage|\?", ohne))
+
+def tun_und_inhalt(dat):
+    """890 (654, Chef 10.11., 17:15): (1) wird eine Vorlage mit „Was du tust: …“ gelöscht, muss im selben Commit eine Datei in
+    docs/chefsache/tun/ dazukommen (854a: Token-Schritt ging mit der Vorlage verloren); Ausweg BORNIM_GETAN=1, wenn der Chef es schon
+    getan hat. (2) eine Datei in docs/chefsache/ansehen/ (außer Prüflisten t<Build>-…) ohne Bild, Film oder Frage hält an (663 lag als
+    bloßer Stand beim Chef); ein Stand gehört in die Vorgangsliste."""
+    stop = []
+    tun_neu = any(s == "A" and re.match(r"docs/chefsache/tun/[^/]+\.md$", p) for s, p in dat)
+    for s, p in dat:
+        if s == "D" and re.match(r"docs/chefsache/(entscheiden|ansehen|billigen)/[^/]+\.md$", p) and not tun_neu \
+                and os.environ.get("BORNIM_GETAN") != "1":
+            m = WAS_DU_TUST.search(git("show", "HEAD:" + p))
+            if m and m.group(1).strip(" .*") and not re.match(r"(?i)(?:–|-)(?!\w)|(?:nichts|nein|entfällt)\b", m.group(1).strip(" *")):
+                stop.append("%s gelöscht, „Was du tust“ geht verloren (%s); im selben Commit `docs/chefsache/tun/<nr>-<stichwort>.md` anlegen "
+                            "(Aufbau chefsache/README.md „Zu tun“); hat der Chef es schon getan: BORNIM_GETAN=1 (890)" % (p, m.group(1).strip()[:80]))
+        if s in ("A", "M") and re.match(r"docs/chefsache/ansehen/(?!t\d+-)[^/]+\.md$", p):
+            inhalt = git("show", ":" + p)
+            if not INHALT_BILD.search(inhalt) and not frage_in(inhalt):
+                stop.append("%s ohne Bild, Film oder Frage; nur Stand gehört in die Vorgangsliste (`vorgang.py stand`), nicht zum Chef (890, Fall 663)" % p)
+    return stop
 
 def srd_bestand():
     """886 (D140.5): Lauf über den ganzen Godot-Code (ohne tests/) für die Abnahme 870.13; Exit 1 bei jedem Fund."""

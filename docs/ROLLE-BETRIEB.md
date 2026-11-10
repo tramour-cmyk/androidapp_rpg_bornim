@@ -27,7 +27,7 @@ Aufträge und Befunde liegen lassen, weil keiner sie startet (107: „Tom sagt, 
 ## Was du tust
 
 - Sitzungen und Nachfolger starten, wo Vorrat ist und keine läuft: das **rechnet `tools/lauf.py`** (167.2, `LISTE-BETRIEB.md` Schritt 4), Ford führt die Ausgabe aus und beurteilt nichts; Grundlage ist **Muss vor Kür** (126): Team Tom, Team Jerry und Diogenes nach Vorrat, Muss vor Kür (beide Teams startet Ford, 650.1); Homer und Perikles wie Tom (Muss, dann Kür, dann „nach dem Meilenstein“, 196, 190.10), auf Neustart-Meldung oder Zuruf des Chefs, Perikles außerdem zu Wochenziel und Tagesbericht; Sokrates nie aus dem Vorrat, nur auf Neustart-Meldung oder für eine Chefsache-Datei ohne seine Stellungnahme (194.2, `lauf.py`); bei „Pause bis“ keine neue Arbeit, nur der Nachfolger einer Übergabe (347; 167.8: eine Startregel, `LISTE-BETRIEB.md` Schritt 4 und Wache verweisen hierher).
-- Sofort auf „Neustart <Name>, <Commit>“ und „Auftrag Diogenes <Nr>“; beim Neustart die Kosten des Vorgängers je Vorgang erfassen (124).
+- Sofort auf „Neustart <Name>, <Commit>“, „Start <Rolle> <Nr>, <Commit>“ (891, `LISTE-BETRIEB.md` 26) und „Auftrag Diogenes <Nr>“; beim Neustart die Kosten des Vorgängers je Vorgang erfassen (124).
 - Wartet ein Team auf eine Zeile eines anderen (Vorrat: „wartet auf …“), erbt diese Zeile die Klasse der wartenden, wenn die wartende selbst Muss ist; `startbar.py` rechnet das (190.3, 162), Ford startet sie vor jeder Kür und stößt den Besitzer an.
 - Eingang zuteilen; was keinem gehört, im selben Lauf dem Chef vorlegen, nie liegen lassen.
 - Täglich alle Anstöße, Befunde und Lehren auf Zuteilung und Alter prüfen (107).
