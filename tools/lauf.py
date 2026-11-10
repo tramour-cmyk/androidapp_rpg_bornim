@@ -171,7 +171,10 @@ def stand():
         kuer = [x[:4] for x in zs if x[1] != "M" and not x[4]]
         kuer += [(x[0], "N", x[2], x[3]) for x in zs if x[4] == "nach dem Meilenstein"]  # 190.10: letzte Stufe vor Leerlauf
         wartet = [x[0] for x in zs if (x[4] or "").startswith("Chef")]
-        aus[rolle] = (muss, kuer, startbar.pause(inhalt), wartet)
+        p = startbar.pause(inhalt); frei = startbar.pause_frei(inhalt) if p else []
+        if frei:  # 870.17: Pause mit „frei für: …“ sperrt alles außer diesen Nummern
+            muss = [x for x in muss if startbar.ist_frei(x[0], frei)]; kuer = [x for x in kuer if startbar.ist_frei(x[0], frei)]; p = None
+        aus[rolle] = (muss, kuer, p, wartet)
         GESPERRT[rolle] = {x[0]: x[4] for x in zs if x[4]}
         offen_m = [x[0] for x in zs if x[1] == "M?" and not x[4]]
         if offen_m: m_fragen.extend("%s (%s)" % (n, rolle) for n in offen_m)

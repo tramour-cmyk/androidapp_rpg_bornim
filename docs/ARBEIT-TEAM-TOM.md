@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-Pause bis 13.11., 20:00 Uhr (870, von Sokrates, Chef 10.11., 14:08: „die anderen, die jetzt irgendwas noch machen, sollen das fertig machen, was sie gerade machen … Und dann sollen sie aber nicht wieder irgendeinen Füllefanz neu anfangen“): Laufendes (653, 475, 663, 540, 506) fertig machen, nichts Neues anfangen bis zum Umzugsplan BRS (Sokrates); früher frei, wenn der Plan abgenommen ist.
+Pause bis 13.11., 20:00 Uhr, frei für: 870.x, 506.1, 506, 470 (870b A, Chef 10.11., 16:08; 870.17). (870, von Sokrates, Chef 10.11., 14:08: „die anderen, die jetzt irgendwas noch machen, sollen das fertig machen, was sie gerade machen … Und dann sollen sie aber nicht wieder irgendeinen Füllefanz neu anfangen“): Laufendes (653, 475, 663, 540, 506) fertig machen, nichts Neues anfangen bis zum Umzugsplan BRS (Sokrates); früher frei, wenn der Plan abgenommen ist.
 
 **Übergabe (10.11., 14:40, `session_01Hmoj79FzxLQBQGb5LWnYaB`):** 653 Code umgestellt (387010d05), 872 an Jerry; eigener Modellbau abgebrochen (Chef 14:31 über Sokrates). 663, 540 gebaut, warten auf Test. 653-Rest und 475 (Morwens Hals) brauchen Modelle: nach 854 (Jerry). Nachfolger: Tom – 653: halt.json und Prüfbild (nach 854), dann Tom – 475: Morwens Hals.
 

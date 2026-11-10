@@ -577,6 +577,18 @@ def pause(inhalt):
             return z.strip()[:40] + " (Datum nicht lesbar)"
     return None
 
+def pause_frei(inhalt):
+    """870.17 (870b A, Chef 10.11., 16:08): „frei für: 870.x, 709, …“ in der Pause-Zeile; diese Nummern bleiben trotz Pause
+    startbar („870.x“ = alle 870.<k>), sonst nichts. Ohne Angabe []."""
+    for z in inhalt.splitlines()[:14]:
+        if "Pause bis" in z:
+            m = re.search(r"frei für:?\s*([0-9][0-9A-Za-z., ]*)", z)
+            return [x for x in re.split(r"[,\s]+", m.group(1).strip(" .")) if x] if m else []
+    return []
+
+def ist_frei(nr, frei):
+    return any(nr == f or (f.endswith(".x") and nr.startswith(f[:-1])) for f in frei)
+
 UEBERNAHME = {"Tom": "Jerry", "Jerry": "Tom"}
 GERAET = re.compile(r"Test|Gerät|Build|APK", re.I)
 
@@ -674,6 +686,7 @@ def main():
                 print("| %s | %s | %s | %s |" % (nr, kl, re.sub(r"\*\*|`|\|", "", thema)[:90].strip(), grund or "startbar"))
             print()
             continue
+        if p and pause_frei(inhalt): p += ", frei für " + ", ".join(pause_frei(inhalt))  # 870.17
         if p: print("  %s: PAUSE bis %s%s" % (rolle, p, warn))  # Zahlen und Testzählung laufen weiter
         erstes = {"M": None, "K": None, "N": None}
         sperren = []
