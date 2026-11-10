@@ -6,7 +6,7 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/91b44ad1
 
 **Frage:** Der Auftrag 705 B lautete: eine Regel vorschlagen, damit der Magier Stufe 1 ohne Söldner und ohne Ausweichen etwa 40 % gegen das Rudel gewinnt. Nachgemessen: Mit allen Zaubern schafft er das schon heute. Nur der Autopilot und wer nur den Feuerpfeil benutzt, bleibt darunter. Sollen die Werte so bleiben, und soll der Autopilot Brennende Hände benutzen?
 
-**Votum:** „829 B“: keine neue Regel; der Autopilot des Magiers wirkt Brennende Hände, wenn zwei Gegner in einer Reihe stehen; Jerry misst den Magier künftig zaubernd; Homers Lehrsatz zum ersten Wolfskampf (830) nennt auch „Können“.
+**Votum:** „829 A“: keine neue Regel; der Autopilot des Magiers wirkt Brennende Hände, wenn zwei Gegner in einer Reihe stehen; Jerry misst den Magier künftig zaubernd; Homers Lehrsatz zum ersten Wolfskampf (830) nennt auch „Können“.
 
 **Berührt:** 705 B (Archiv 10.11., 08:43), 704 A (Ausweichen kostet nichts), 830 (Lehrsatz Homer), 478 (Zauberschaden nach Maßstab), `DESIGN-LEITBILD.md` „echte Wahl“
 
@@ -25,11 +25,11 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/91b44ad1
 **Einschränkung:** Brennende Hände und Magisches Geschoss rechnen im BRS noch in SRD-Würfeln, hochgerechnet nach dem Verhältnis der Leben (478, Annahme in `brs_kampf.gd`); beim Wolf etwa das 2,8-Fache. Bekommt das BRS eigene Zauberregeln, gilt die Zahl 91 % nicht mehr; dann neu messen. Die SRD-Zeile (76 %) zeigt, dass der Vorsprung nicht nur aus dem Maßstab kommt.
 
 **Auswertung:**
-- **A:** Werte so lassen, 705 schließen; Jerry misst zaubernd, Homer erwähnt im Lehrsatz 830 „Können“. Kosten: eine Teständerung, eine Zeile Text. Der Autopilot bleibt bei 33 %.
-- **B (Empfehlung):** wie A, dazu wirkt der Autopilot des Magiers Brennende Hände auf eine Reihe mit zwei Gegnern, solange Zauberpunkte reichen. Kosten: wenige Zeilen in `mars.gd` (Team Jerry), eine Messung, ein Build.
+- **A (Empfehlung):** Werte so lassen, 705 schließen; Jerry misst zaubernd, Homer erwähnt im Lehrsatz 830 „Können“; der Autopilot des Magiers wirkt Brennende Hände auf eine Reihe mit zwei Gegnern, solange Zauberpunkte reichen. Kosten: wenige Zeilen in `mars.gd` (Team Jerry), eine Teständerung, eine Zeile Text, ein Build.
+- **B:** wie A, aber der Autopilot bleibt beim Feuerpfeil (33 %). Kosten: eine Teständerung, eine Zeile Text.
 - **C:** die Werte stärken (wie 705 B gedacht). Kosten: ein Regelvorschlag, eine Messung, ein Build; der Magier läge mit Zaubern noch über 91 % und gleichauf mit dem Kämpfer.
-- **Stärkstes Gegenargument gegen B:** Der Autopilot spielt dann klüger als ein neuer Spieler, der „Können“ nicht findet und mit dem Stab verliert. Weg: Lehrsatz 830 zeigt auf „Können“; ob der Knopf trotzdem übersehen wird, zeigt erst der Test am Gerät mit einem Magier.
+- **Stärkstes Gegenargument gegen A:** Der Autopilot spielt dann klüger als ein neuer Spieler, der „Können“ nicht findet und mit dem Stab verliert. Weg: Lehrsatz 830 zeigt auf „Können“; ob der Knopf trotzdem übersehen wird, zeigt erst der Test am Gerät mit einem Magier.
 
-**Folgerungen:** A: 705 erledigt, Zusatz an 830 (Homer), Teständerung an Jerry (zu 705). B: zusätzlich Vorgang an Jerry (Autopilot Brennende Hände). C: Regelvorschlag Sokrates, Messung Jerry.
+**Folgerungen:** A: 705 erledigt, Zusatz an 830 (Homer), Teständerung und Autopilot an Jerry (zu 705). B: wie A ohne Autopilot. C: Regelvorschlag Sokrates, Messung Jerry.
 
 Antwort: …
