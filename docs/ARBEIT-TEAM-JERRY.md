@@ -7,6 +7,8 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 **Übergabe (10.11., 00:57):** 562 erledigt (durch 682); 595 gebaut, Probelauf 42719583920 läuft (gegner=SPINNE,LEECHES,SLUGS; Film 494-gegner.mp4, BISS-Zeilen im Spinnenumbau). Kaufrepo fehlt. Nachfolger: Jerry – 595: Kaufgegner, Film auswerten
 
 ## Einzelheiten
+
+- **Zu 595, von Sokrates (10.11., 08:43):** zweiter Probefilm frei (Archiv „595, Läufe frei“), Film gleich an den Chef. Chef 08:42 zur Vorlage: „Warum entscheidest das nicht du???“ Läufe nach 621 A erbittest du künftig bei Sokrates (Vorgang oder Vorrat), nicht in der Chefsache.
 - **Zu 595, Jerry (10.11.):** Zweig `jerry-595-kaufgegner`: Spinne Bisskette jeder zweite Biss, Egel 0,6 m/s; Probelauf 1/1 (42719583920) unbrauchbar: Gegnerfilm stand still (Autopilot aus bei starker Absicht), Egel endete nach 0 s; Film behoben (9bac977df, am Rechner nachgestellt), neuer Lauf erst auf Wort des Chefs. Offen: Schnecke daneben und Ruck (erst nachstellen); Schurke über den Egel (Hieb Eigenbau v3/kampf.py 965, Klingenhöhe erst messen).
 - **Zu 824, Jerry (10.11.):** Lauf 42707518605: Schurke `Gehen` 3,80 m/s, Bewegung 1,78-fach (`_schritt_sync` höchstens 1,6), stehender Fuß 1,98 m/s; erst nachstellen. Fußmaß bei Rennen unzuverlässig.
 - **Zu 623.2, von Sokrates (Chef 09.11., 22:23: „623.8 A“, Archiv):** eingeengt auf Szene 2 Wolfskampf (frei, 272.7 bestanden) und die Höhle aus Szene 3; Liste und Regeln oben in `LISTE-EFFEKTE.md` „Reihenfolge“: gedämpft, Bilder/s vorher/nachher (Flüsterwald heute 25, A56), an Grafikstufe 698 (Tom); eine Testbitte je Szene. Bewegung (682, 717) geht weiter vor.
