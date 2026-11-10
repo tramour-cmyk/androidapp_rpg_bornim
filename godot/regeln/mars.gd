@@ -882,11 +882,38 @@ func _auto_order(f: Fighter) -> Array:
 			break
 	var foes := feinde(f)
 	if cantrip != null and not foes.is_empty():
-		return ["use", cantrip, _min_hp(foes).id]
+		var ziel = _min_hp(foes)
+		# 705 (Sokrates 10.11., 23:16, wie 444 Teil 6): ein Zauber nur, wenn er mehr bringt als die Waffe, und das Mana für die Heilung bleibt
+		var bleibt: int = int(f.sp) - int(skills[cantrip].amount)
+		var heil_vorrat: bool = f.b.is_empty() or not "Z_WUND" in can or bleibt * 2 >= f.max_sp     # die Hälfte bleibt für Wundsegen
+		var w_ziel = _min_hp(targets(f))
+		if f.b.is_empty() or (heil_vorrat and (w_ziel == null or _erwartet_zauber(f, ziel, cantrip) > _erwartet_waffe(f, w_ziel))):
+			return ["use", cantrip, ziel.id]
 	if can_draw(f) and f.place.x == FRONT and f.weapon() != null and f.weapon().ranged and f.spare() != null and not f.spare().ranged:
 		return ["draw"]
 	var t = _min_hp(targets(f))
 	return ["attack", t.id] if t != null else ["wait"]
+
+
+## 705: erwarteter Schaden je Zug nach dem BRS (Trefferchance × Schaden nach Fertigkeit und Schwäche, minus Rüstung), ohne Würfel
+func _erwartet_zauber(f: Fighter, t: Fighter, id: String) -> float:
+	var z: Dictionary = BrsKampf.w()["zauber"][ZAUBER[id]]
+	var fert := float(f.b.fert.get(String(z["schule"]), 0))
+	var grund := (float(z["schaden"]) + float(f.b.werte.get("wille", 0))) * (1.0 + fert / 100.0)
+	var schw := float(t.b.get("schwaeche", {}).get(String(z.get("typ", "")), 1.0))
+	return BrsKampf.Brs.trefferchance(fert, float(t.b.abwehr)) * maxf(0.0, grund * schw - float(t.b.ruestung))
+
+
+func _erwartet_waffe(f: Fighter, t: Fighter) -> float:
+	var W := BrsKampf.w()
+	var w = f.weapon()
+	var gruppe := BrsKampf.waffe_held(f.b, w if w != null else f.hero.main, w != null and w != f.main_weapon())
+	var wd: Dictionary = W["waffen"].get(gruppe, W["waffen"]["Faustkampf"])
+	var gw = wd.get("grundwert")
+	var fert := float(f.b.fert.get(gruppe, 0))
+	var grund := (float(wd["schaden"]) + (float(f.b.werte.get(gw, 0)) if gw != null else 0.0)) * (1.0 + fert / 100.0)
+	var schw := float(t.b.get("schwaeche", {}).get(String(wd.get("typ", "")), 1.0))
+	return BrsKampf.Brs.trefferchance(fert, float(t.b.abwehr)) * maxf(0.0, grund * schw - float(t.b.ruestung))
 
 
 func _min_hp(list: Array):
