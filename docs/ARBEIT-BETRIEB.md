@@ -250,3 +250,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:28 11.11.: Marke Start-fehlt Diogenes 10.11.-23:07 (lauf.py)
 - 00:28 11.11.: Marke Start-fehlt Homer 10.11.-23:13 (lauf.py)
 - 00:29 11.11.: Startsperre 00:29 Start Tom (Neustart-Meldung 00:27, c94a14582)
+- 00:30 11.11.: Tom 870.4 gestartet …785yR (Neustart 00:27); Homer …7A7Yy (1,33 $, 899) und Diogenes …79zSr (1,06 $, 896/898) archiviert, gebucht; Tom …75w84 (4,10 $, 888) archiviert der nächste Lauf
