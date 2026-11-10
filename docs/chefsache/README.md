@@ -236,7 +236,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 845 | M? | Kampf: Krogg steht 0,65 m hinter seinem Platz, beim Planen des Helden liest seine Lage den | startbar |
 | Pflege | K | von Werkzeug (340.3, 10.11.): 20441 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 25, Muss 10, startbar 3
+**Perikles** – offen 24, Muss 10, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -259,20 +259,18 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 734 | K | D92.1 Warnung „LISTE-VORGAENGE.md von Hand geändert“ wird nirgends festgehalten, Woche War | ruht |
 | 735 | K | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-ABNAHME.md 11 und Kopf DESIGN-KAMPF | ruht |
 | 742 | K | D78.1 Testbitte t268: Zeile „Verglichen“ deckte nur die Schirme vom 05.11., nicht Dorf, Ka | ruht |
-| 847 | K | D128.1 (Diogenes, 846): Lizenz-Stopp hält noch an, wenn Richtig/Falsch den Menüeintrag „Li | wartet auf Diogenes |
 | 848 | M | Probelauf-Zähler zählt Push, der nur vorschau.yml (Kotlin, ohne Bild) auslöst, als Probe ( | wartet auf 858 (startbar) |
 | 849 | M | Neustart: letzte Antwort an den Chef wörtlich in die Übergabe, Nachfolger nennt sie in der | wartet auf 859 (startbar) |
-| Pflege | K | von Werkzeug (340.3, 10.11.): 15844 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 858 | M | D129.1 (Diogenes, 848): Ausnahme vorschau.yml sucht vorschau.env im Ordner des Aufrufs, ni | startbar |
 | 859 | M | D130.1 (Diogenes, 849): Nachfolger nennt die letzte Antwort nicht; Regel steht nur beim Vo | startbar |
+| Pflege | K | von Werkzeug (340.3, 10.11.): 16248 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Diogenes** – offen 10, Muss 8, startbar 2
+**Diogenes** – offen 9, Muss 8, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 853 | M | Start: Ford-Startnachricht kommt als Systemmeldung, Sitzungen verweigern die Rolle (Tom 12 | startbar |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
-| 847 | K | D128.1 (Diogenes, 846): Lizenz-Stopp hält noch an, wenn Richtig/Falsch den Menüeintrag „Li | startbar |
 | 461b | M | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Termin 16.11. |
 | 348.9 | M | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | ruht |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
