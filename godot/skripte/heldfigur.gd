@@ -98,6 +98,8 @@ static func herkunft(w: Dictionary) -> String:
 
 # Modell der Wahl: Tracht der Herkunft und Geschlecht, z. B. „WACHE_W“; kapuze: ob die Herkunft die Kapuze traegt
 static func tracht(w: Dictionary) -> Dictionary:
+	if String(w.get("modell", "")) != "":   # 475: eine Person des Dorfs (person)
+		return {"modell": String(w["modell"]), "kapuze": bool(w.get("kapuze", false)), "geschlecht": String(w["modell"]).right(1)}
 	var h: Dictionary = lade_info().get("herkuenfte", {}).get(herkunft(w), {})
 	var g := String((w.get("aussehen", {}) as Dictionary).get("geschlecht", "m")).to_upper()
 	return {"modell": "%s_%s" % [String(h.get("tracht", "WACHE")), g], "kapuze": bool(h.get("kapuze", false)), "geschlecht": g}
@@ -173,7 +175,7 @@ const NACH := 0.0
 static func baue(w: Dictionary, mats: Array) -> Node3D:
 	var k := String(w.get("klasse", "FIGHTER"))
 	var a := aussehen_voll(w.get("aussehen", {}), k)
-	var t := tracht({"klasse": k, "herkunft": w.get("herkunft", ""), "aussehen": a})
+	var t := tracht({"klasse": k, "herkunft": w.get("herkunft", ""), "aussehen": a, "modell": w.get("modell", ""), "kapuze": w.get("kapuze", false)})
 	if not FileAccess.file_exists("res://daten/held_%s.bin" % t["modell"]) or not FileAccess.file_exists("res://daten/bewegungen.bin"): return null
 	var m := Gebiet.lade_glb("res://daten/held_%s.bin" % t["modell"])
 	if m == null: return null
@@ -341,7 +343,8 @@ static func haare(m: Node3D, sk: Skeleton3D, k: String, a: Dictionary, mats: Arr
 	var ich: Array = info.get("trachten", {}).get(k, {}).get("kopf", ref)
 	var vers := Vector3(ich[0] - ref[0], ich[1] - ref[1], ich[2] - ref[2])
 	var ruhe := im_raum(m, sk) * sk.get_bone_global_rest(kb)
-	for n in [String(a.get("frisur", "")), String(a.get("bart", ""))]:
+	# 475 Lauf 2: Bart auch als Liste mit Komma (Schnauzer und Kinnbart), weitere Formen aus held_klassen.py baerte_mehr
+	for n in [String(a.get("frisur", ""))] + Array(String(a.get("bart", "")).split(",", false)):
 		if n == "": continue
 		var q := hs.find_child(n, true, false) as MeshInstance3D
 		if q == null: continue
@@ -362,6 +365,8 @@ static func haare(m: Node3D, sk: Skeleton3D, k: String, a: Dictionary, mats: Arr
 static func toene(m: Node3D, a: Dictionary, volk: String) -> void:
 	var haut := ton(volk, "haut", int(a.get("haut", 0)))
 	var haar := ton(volk, "haar", int(a.get("haarfarbe", 0)))
+	if a.has("haut_rgb"): haut = Color.html(String(a["haut_rgb"]))   # 475: Leute mit eigenem Ton (leute.json haut, haar)
+	if a.has("haar_rgb"): haar = Color.html(String(a["haar_rgb"]))
 	var gi := geschlecht_info(String(a.get("geschlecht", "m")))
 	var hb := _hell(gi.get("haut_bild", [1, 1, 1]))
 	var hh := _hell(gi.get("haar_bild", [1, 1, 1]))
@@ -377,7 +382,10 @@ static func toene(m: Node3D, a: Dictionary, volk: String) -> void:
 			var b := 0.0
 			var ist_haut := rn.contains("Regular") or rn.contains("Superhero")
 			if ist_haut: z = haut; b = hb
-			elif rn.contains("Hair"): z = haar; b = hh
+			elif rn.contains("Hair"):
+				z = haar; b = hh
+				# 475 (Lauf 10.11., 02:06: Brauen bei hellem Haar zu hell, Morwen, Liska, Pim, Lyra): Brauen der Leute dunkler als das Haar
+				if a.has("haar_rgb") and String(mi.name).begins_with("Eyebrows"): z = haar.darkened(0.45)
 			if z.r < 0.0: continue
 			var l := z.srgb_to_linear()
 			var t := Vector3(l.r, l.g, l.b)
@@ -843,3 +851,105 @@ static func _abbild(t: float, zeit: Array, neu: Array) -> float:
 			var a: float = (t - zeit[i]) / maxf(0.000001, zeit[i + 1] - zeit[i])
 			return lerpf(neu[i], neu[i + 1], clampf(a, 0.0, 1.0))
 	return neu[-1]
+
+# ---------------------------------------------------------------- 475 Leute auf dem Kaufkoerper
+# Chef 03.11., 07:45/07:47 („die NPCs alle noch ganz schrecklich … mit individuellem Gesicht und nicht nur das Standard-Volksgesicht“):
+# jede Person des Dorfs als Kaufkoerper in ihrer Kleidung (held_klassen.py LEUTE_KAUF: daten/held_L_<id>_<M|W>.bin, leute-kauf.json)
+# mit eigenem Gesicht aus den Wahlen des Kaufkopfs (leute.json „kauf“: form, frisur, bart, statur; Liste Person -> Wahl im Vorrat,
+# Zu 475), Haut- und Haarton der Person (leute.json haut, haar), Haltung (gebeugt, kopfhaltung), Kind und Zwerg: Groesse und Kopf.
+# Ohne Kaufdateien null: dann bleibt die alte Figur (daten/leute/<id>.bin)
+const LEUTE_KAUF := "res://daten/leute-kauf.json"
+const LEUTE_LISTE := "res://daten/leute/leute.json"
+static var leute_liste := {}
+static var leute_kauf := {}
+
+static func person_daten(id: String) -> Dictionary:
+	if leute_liste.is_empty() and FileAccess.file_exists(LEUTE_LISTE):
+		var j = JSON.parse_string(FileAccess.get_file_as_string(LEUTE_LISTE))
+		if j is Dictionary: leute_liste = j
+	return leute_liste.get(id, {})
+
+# Modellname der Person (L_<id>_<M|W>), leer ohne Kaufdatei
+static func person_modell(id: String) -> String:
+	var p := person_daten(id)
+	if (p.get("kauf", {}) as Dictionary).is_empty(): return ""
+	if leute_kauf.is_empty() and FileAccess.file_exists(LEUTE_KAUF):
+		var j = JSON.parse_string(FileAccess.get_file_as_string(LEUTE_KAUF))
+		if j is Dictionary: leute_kauf = j
+	var mo := "L_%s_%s" % [id, "W" if String(p.get("sex", "m")) == "w" else "M"]
+	if not leute_kauf.get("trachten", {}).has(mo): return ""
+	if not FileAccess.file_exists("res://daten/held_%s.bin" % mo) or not FileAccess.file_exists("res://daten/bewegungen.bin"): return ""
+	return mo
+
+static func person(id: String, mats: Array) -> Node3D:
+	var mo := person_modell(id)
+	if mo == "": return null
+	var p := person_daten(id)
+	var ka: Dictionary = p["kauf"]
+	lade_info()
+	if not info.has("trachten"): info["trachten"] = {}
+	info["trachten"][mo] = leute_kauf["trachten"][mo]   # haare(): Lage des Kopfs dieses Modells
+	var g := mo.right(1).to_lower()
+	var kopf := String(p.get("kopf", "haar"))
+	var a := {"form": String(ka.get("form", "")), "frisur": String(ka.get("frisur", "")), "bart": String(ka.get("bart", "")),
+		"geschlecht": g, "statur": String(ka.get("statur", "normal")), "haut_rgb": String(p.get("haut", "D4A27C")),
+		"haar_rgb": String(p.get("haar", "5E3C26"))}
+	if kopf in ["helm", "tuch", "kapuze"]: a["frisur"] = ""   # unter Helm, Kopftuch, Kapuze kein Haar (wie Archiv 376.1)
+	var w := {"klasse": "", "modell": mo, "kapuze": kopf == "kapuze", "aussehen": a, "volk": "HUMAN",
+		"ausruestung": {"MAIN_HAND": String(p["traegt"])} if String(p.get("traegt", "")) != "" else {}}
+	var m := baue(w, mats)
+	if m == null: return null
+	gesicht(m, ka.get("gesicht", {}))
+	m.name = "Person_" + id
+	m.scale = Vector3.ONE * float(ka.get("groesse", p.get("groesse", 1.0)))
+	var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
+	var kh: Array = p.get("kopfhaltung", [0, 0, 0])
+	var h := Haltung.new()
+	h.name = "Haltung"
+	h.gebeugt = float(p.get("gebeugt", 0.0))
+	h.kopf = Vector3(float(kh[0]), float(kh[1]), float(kh[2]))
+	h.kopf_gross = float(ka.get("kopf", 1.0))
+	sk.add_child(h)
+	return m
+
+# 475 (Chef 04.11., 13:26: „Borik, Bran und Ostik sehen sich aus, als ob sie eineiige Zwillinge wären … ein Gesicht definiert sich über die
+# Form des Gesichts“): Gesicht je Person aus den Reglern des Kopfs (kopf.py REGLER, EINHEIT; held_klassen.py Schluessel „r_<regler>“),
+# an Haut, Augen, Brauen, Haar und Bart gleich; g = {regler: Wert} wie kopf.form_aus
+const EINHEIT := {"breite": 0.1, "kiefer": 0.1, "laenge": 0.1, "kinn": 0.01, "nase": 0.1, "wangen": 0.01, "brauen": 0.01, "ohren": 0.1, "augen": 0.01,
+	"hoecker": 0.01, "nasenbreite": 0.1, "spitze": 0.01, "augen_gross": 0.1, "augen_schmal": 0.1, "augen_tief": 0.01, "bdick": 0.1, "bwinkel": 0.01}   # Lauf 2: Form (kopf.py)
+static func gesicht(m: Node3D, g: Dictionary) -> void:
+	if g.is_empty(): return
+	for mi in m.find_children("*", "MeshInstance3D", true, false):
+		var me := (mi as MeshInstance3D).mesh as ArrayMesh
+		if me == null: continue
+		for i in me.get_blend_shape_count():
+			var bn := String(me.get_blend_shape_name(i))
+			if bn.begins_with("r_") and EINHEIT.has(bn.substr(2)):
+				(mi as MeshInstance3D).set_blend_shape_value(i, float(g.get(bn.substr(2), 0.0)) / float(EINHEIT[bn.substr(2)]))
+
+# 475: Haltung der Person nach der Bewegung: gebeugt (Grad, auf spine_01..03 verteilt, nach vorn), Kopf [nicken, drehen, neigen] (Grad,
+# auf neck_01 und Head), Kopfgroesse (Kind, Zwerg). Figur blickt nach +Z: nach vorn beugen = um +X
+class Haltung extends SkeletonModifier3D:
+	var gebeugt := 0.0
+	var kopf := Vector3.ZERO
+	var kopf_gross := 1.0
+	func _drehe(sk: Skeleton3D, i: int, r: Basis) -> void:
+		var g := sk.get_bone_global_pose(i)
+		var pa := sk.get_bone_parent(i)
+		var pg := sk.get_bone_global_pose(pa) if pa >= 0 else Transform3D.IDENTITY
+		sk.set_bone_pose_rotation(i, (pg.basis.orthonormalized().inverse() * (r * g.basis.orthonormalized())).get_rotation_quaternion())
+	func _process_modification() -> void:
+		var sk := get_skeleton()
+		if sk == null: return
+		if absf(gebeugt) > 0.1:
+			for n in ["spine_01", "spine_02", "spine_03"]:
+				var i := sk.find_bone(n)
+				if i >= 0: _drehe(sk, i, Basis(Vector3.RIGHT, deg_to_rad(gebeugt / 3.0)))
+		if kopf.length() > 0.1:
+			var r := Basis(Vector3.UP, deg_to_rad(kopf.y)) * Basis(Vector3.RIGHT, deg_to_rad(kopf.x)) * Basis(Vector3.BACK, deg_to_rad(kopf.z))
+			var q := r.get_rotation_quaternion()
+			for n in ["neck_01", "Head"]:
+				var i := sk.find_bone(n)
+				if i >= 0: _drehe(sk, i, Basis(Quaternion.IDENTITY.slerp(q, 0.5)))
+		var h := sk.find_bone("Head")
+		if h >= 0 and absf(kopf_gross - 1.0) > 0.001: sk.set_bone_pose_scale(h, Vector3.ONE * kopf_gross)

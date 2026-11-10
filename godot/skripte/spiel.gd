@@ -1669,6 +1669,13 @@ func leute_blatt() -> void:
 		if r == 0 and k == reihe / 2: mitte_n = l
 	held.leute = leute.get_children()
 	print("LEUTE BLATT ", ids)
+	if "--gesichter" in OS.get_cmdline_user_args():   # 475: zuerst alle Gesichter nebeneinander
+		if "--gesichtervergleich" in OS.get_cmdline_user_args():   # Lauf 2: wie Lauf 1 (Nahebene) und doppelt so weit (Zoom), zum Vergleich
+			await gesichter(dir, true, "leute_gesichter_nah.png")
+			await gesichter(dir, false, "leute_gesichter_weit.png", 2.0)
+		if "--gesichterspiel" in OS.get_cmdline_user_args():   # Spur (c): Spielgroesse (Chef 04.11., 20:49), Tusche wie im Spiel
+			await gesichter(dir, false, "leute_gesichter_spiel.png", Kamera.NAH / GESICHT_BREITE, true)
+		await gesichter(dir)
 	kamera.ziel = mitte_n
 	kamera.springe()
 	await get_tree().create_timer(1.5).timeout
@@ -1708,6 +1715,106 @@ func leute_blatt() -> void:
 	await get_tree().create_timer(2.5).timeout
 	await knips(dir + "/leute_nacht.png")
 	get_tree().quit()
+
+# 475 (Chef 03.11., 07:47: „mit individuellem Gesicht … damit die alle wieder gleich ausschauen“): je Person ein Bild des Kopfs mit der
+# Spielkamera (Tusche, Licht wie im Spiel), schmal und flacher wie das Kopfblatt (figurenprobe.gd), die anderen ausgeblendet; zusammen
+# in leute_gesichter.png (4 Spalten, Name darunter). Zeilen GESICHT: Person, Kaufkoerper oder alt
+const GESICHT_BREITE := 0.55          # m Bildbreite der Kamera
+const GESICHT_KACHEL := 420           # Punkte je Bild (Quadrat um den Kopf)
+const GESICHT_NAME := 50              # Punkte fuer den Namen unter dem Quadrat (Lauf 2, Pruefer 22:24: Aldrics Bart lag in der Schrift)
+# 475 Lauf 2 (Pruefer 20:39: „Im ganzen Blatt fehlt die Tuschelinie“): nah = wie Lauf 1 (Nahebene kurz vor die Person); sonst bleibt die
+# Nahebene, und statt dessen sind Dorf und Held ausgeblendet (was vor dem Kopf stand, waren Haeuser); Licht und Kamera wie im Spiel
+# 475 Spur (c) (Tom 04.11., 22:3x): bei 0,55 m Bildbreite traf tusche.gdshader „knick“ (0,06 m Tiefenkruemmung ueber 1–2 Bildpunkte) kaum
+# eine Kante, nur der Umriss blieb; ausschnitt = Spielgroesse: Kamera auf weit × 0,55 m (NAH 3,4 m), aus dem Bild nur die 0,55 m um den Kopf,
+# ohne Glaetten vergroessert (so gross wie am Handy, jeder Bildpunkt sichtbar)
+func gesichter(dir: String, nah := false, datei := "leute_gesichter.png", weit := 1.0, ausschnitt := false) -> void:
+	var alle: Array = leute.get_children().filter(func(x): return x is Leute and not x.is_queued_for_deletion())
+	var mk := Node3D.new()
+	leute.add_child(mk)
+	var neig_vorher: float = kamera.neigung
+	var zoom_vorher: float = kamera.zoom
+	kamera.neigung = -12.0
+	kamera.zoom = GESICHT_BREITE * weit
+	# Lauf 258 (Pruefer 05:16: fuenf von zwoelf Bildern zeigten nur Dachziegel): die Kamera steht 40 m zurueck (kamera.gd folge), Haeuser
+	# davor verdeckten den Kopf; die Nahebene kurz vor die Person, was davor steht, faellt weg
+	var near_vorher: float = kamera.near
+	if nah: kamera.near = 40.0 - 1.5
+	var welt_sichtbar: Array = []
+	if not nah:
+		for n in [gebiet, held]:
+			if n is Node3D: welt_sichtbar.append([n, (n as Node3D).visible]); (n as Node3D).visible = false
+	var name_l := Label.new()
+	name_l.add_theme_font_override("font", Stil.schrift())
+	name_l.add_theme_font_size_override("font_size", 30)
+	name_l.add_theme_color_override("font_color", Color("f0c850"))
+	name_l.add_theme_color_override("font_outline_color", Color("201408"))
+	name_l.add_theme_constant_override("outline_size", 8)
+	name_l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	var grund := StyleBoxFlat.new()   # der Streifen unter dem Quadrat zeigt sonst den Rumpf hinter dem Namen
+	grund.bg_color = Color("0e0b08")
+	name_l.add_theme_stylebox_override("normal", grund)
+	var ebene := CanvasLayer.new()
+	ebene.layer = 50
+	add_child(ebene)
+	ebene.add_child(name_l)
+	var vp := get_viewport().get_visible_rect().size
+	name_l.size = Vector2(GESICHT_KACHEL, 40)
+	name_l.size = Vector2(vp.x, 90)
+	name_l.add_theme_font_size_override("font_size", 64)   # das Quadrat wird von der Bildbreite auf 420 Punkte verkleinert
+	name_l.position = Vector2(0, vp.y * 0.5 + vp.x * 0.5 + 10)   # unter dem Quadrat, nie ueber Bart oder Kinn
+	var kacheln: Array[Image] = []
+	for l in alle:
+		if l == mk: continue
+		for x in alle: x.visible = x == l
+		var kopf: Vector3 = l.global_position + Vector3.UP * (l.kopfhoehe() - 0.13)
+		var sk := Gebiet.finde(l.modell, "Skeleton3D") as Skeleton3D
+		if sk and sk.find_bone("Head") >= 0:
+			kopf = sk.global_transform * sk.get_bone_global_pose(sk.find_bone("Head")).origin + Vector3.UP * 0.09
+		mk.position = leute.to_local(kopf)
+		# zur Kamera gewandt (Lauf 258: Gesichter nicht zu sehen); die Kamera sitzt auf ihrer +Z-Seite, die Person blickt nach +Z (leute.gd)
+		var blick_vorher: float = l.blick
+		l.blick = deg_to_rad(kamera.gieren_ziel); l.rotation.y = l.blick
+		kamera.ziel = mk
+		kamera.springe()
+		name_l.text = String(l.daten["id"]).capitalize()
+		await get_tree().create_timer(0.6).timeout
+		await RenderingServer.frame_post_draw
+		var im := get_viewport().get_texture().get_image()
+		# Lauf 258 (Pruefer 05:16: je Bild nur das Viertel oben links, Rest schwarz): vp ist die Flaeche der Oberflaeche (1080 x 2340,
+		# canvas_items), das Bild hat die Fenstergroesse (--resolution 540x1170); Ausschnitt in Bildpunkten des Bilds
+		# und das Quadrat ueber die ganze Bildbreite (GESICHT_BREITE 0,55 m), 420 von 1080 Punkten waren nur 0,21 m, enger als ein Kopf
+		var kk := im.get_width()
+		if ausschnitt: kk = int(round(im.get_width() / weit))
+		var c := Vector2i(im.get_width() / 2 - kk / 2, im.get_height() / 2 - kk / 2)
+		var stueck := im.get_region(Rect2i(c, Vector2i(kk, kk)))
+		if kk != GESICHT_KACHEL: stueck.resize(GESICHT_KACHEL, GESICHT_KACHEL, Image.INTERPOLATE_NEAREST if ausschnitt else Image.INTERPOLATE_LANCZOS)
+		# der Name steht unter dem Quadrat: als eigener Streifen unter die Kachel
+		var sc := im.get_width() / vp.x
+		var ny := clampi(int(name_l.position.y * sc) + 1, 0, im.get_height() - 1)
+		var streifen := im.get_region(Rect2i(0, ny, im.get_width(), mini(int(88.0 * sc), im.get_height() - ny)))
+		streifen.resize(GESICHT_KACHEL, GESICHT_NAME, Image.INTERPOLATE_LANCZOS)
+		var kachel := Image.create(GESICHT_KACHEL, GESICHT_KACHEL + GESICHT_NAME, false, stueck.get_format())
+		kachel.blit_rect(stueck, Rect2i(Vector2i.ZERO, stueck.get_size()), Vector2i.ZERO)
+		kachel.blit_rect(streifen, Rect2i(Vector2i.ZERO, streifen.get_size()), Vector2i(0, GESICHT_KACHEL))
+		stueck = kachel
+		kacheln.append(stueck)
+		l.blick = blick_vorher; l.rotation.y = blick_vorher
+		print("GESICHT ", l.daten["id"], " ", "Kaufkoerper" if String(l.modell.name).begins_with("Person_") else "alt", " Kopf ", kopf)
+	var sp := 4
+	var zeilen := ceili(kacheln.size() / float(sp))
+	var blatt := Image.create(sp * GESICHT_KACHEL, zeilen * (GESICHT_KACHEL + GESICHT_NAME), false, kacheln[0].get_format() if kacheln.size() > 0 else Image.FORMAT_RGBA8)
+	blatt.fill(Color("0e0b08"))
+	for i in kacheln.size():
+		blatt.blit_rect(kacheln[i], Rect2i(Vector2i.ZERO, kacheln[i].get_size()), Vector2i((i % sp) * GESICHT_KACHEL, (i / sp) * (GESICHT_KACHEL + GESICHT_NAME)))
+	blatt.save_png(dir + "/" + datei)
+	print("GESICHTER ", kacheln.size(), " ", dir + "/" + datei, " nah" if nah else " ohne Dorf")
+	for w in welt_sichtbar: (w[0] as Node3D).visible = w[1]
+	ebene.queue_free()
+	mk.queue_free()
+	kamera.near = near_vorher
+	for x in alle: x.visible = true
+	kamera.neigung = neig_vorher
+	kamera.zoom = zoom_vorher
 
 # 348.6 Held (Chef 18:06/18:20 zur Dorf-APK): --held=<ordner> Brunnen und Marktstand, Gehen in Rennen (Bild je 1/15 s),
 # Rennen seitlich nah, nachts Stehen, Gehen, Rennen mit der Fackel
