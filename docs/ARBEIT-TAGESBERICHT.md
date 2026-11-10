@@ -54,9 +54,9 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 
 ## Wo du Prioritäten setzen kannst (10.11., 08:1x)
 
-1. **826 entscheiden** ([826](chefsache/entscheiden/826-guthaben-woche.md)): eine Entwicklersitzung zugleich bis Sa 19:59, Kür ruht; sonst ist die Woche Freitagnachmittag leer.
-2. **Build 273 testen** ([t273](chefsache/ansehen/t273-sammelbuild.md)): Fertigkeiten, BRS-Wörter, Gras, Rast, Kampf; ein Weg in vier Teilen.
-3. **704 und 705 entscheiden** ([704](chefsache/entscheiden/704-wolf-ausweichen.md), [705](chefsache/entscheiden/705-magier-gegen-wolf.md)): Werte im Kampf, Zeile 3 des Wochenziels wartet darauf.
+1. **826 entscheiden** (entschieden 10.11.): eine Entwicklersitzung zugleich bis Sa 19:59, Kür ruht; sonst ist die Woche Freitagnachmittag leer.
+2. **Build 273 testen** (getestet 10.11.): Fertigkeiten, BRS-Wörter, Gras, Rast, Kampf; ein Weg in vier Teilen.
+3. **704 und 705 entscheiden** (entschieden 10.11.): Werte im Kampf, Zeile 3 des Wochenziels wartet darauf.
 
 *Stärkstes Gegenargument zu 1:* eine Sitzung zugleich bremst den Kampf, das Ziel der Woche. *Wie es zu entkräften ist:* ein leeres Guthaben am Freitag hält alles an, auch den Kampf; das einmalige Zurücksetzen bleibt Reserve.
 
