@@ -12,6 +12,8 @@
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
 | 653 | Halt für Waffen und Schilde einmal je Modell festlegen statt je Figur nachmessen: Griffpunkt je Gegenstand, Halterung je Körper, eine Anlegefunktion, Prüfbild aller Kombinationen (Chef 08.11., 14:35) · „jetzt“ 10.11., 12:33 | Tom | M | startbar, ja (Chef 14:40), Jerry stellt den Kampf um | – | – | – | E Figuren | – |
+| 663 | Klassische Steuerung ausbauen: Steuerkreuz und Funktionstasten ganz raus, nur Touch; Auswahl der Steuerung samt Rückfrage weg (Chef 08.11., 15:24, t269.3) · „jetzt“ 10.11., 12:58 | Tom | M | startbar | – | – | – | E Oberfläche | – |
+| 470 | Bau BRS 1.1 Erschaffung (Wochenziel 02.11., Stufe 1) · Spike; „Neues Spiel“ umschalten erst nach t274.18 · „jetzt“ 10.11., 12:58 | Tom | M | startbar, Spike | – | claude/spike-470-erschaffung | – | E Kampf | 43,23 $ |
 | 834 | Weg für einen BRS-Held ins Spiel (Testmenü oder Übernahme der BRS-Erschaffung), damit 762, 471, 795 am Gerät prüfbar werden; Spike, genehmigt (Chef 10.11., 10:21, über Sokrates) | Tom | M | zu testen | – | claude/tom-brs-held | 274 | E Technik | 6,00 $ |
 | 825 | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635, 542, 543, 632; Jerry 593, 547, 597), Prüfliste ansehen/t<n>, build <n> --mit für jede Nummer (774) | Tom | M | gebaut, Geprüft an: Lauf 42793721837, t274 beim Chef | – | – | – | E Technik | – |
 | 661 | Alle Blenden ein Aufbau (Ort, Rast, Kampf normal/Hinterhalt/Boss): Name gesperrt, Zierleiste, Satz, Schrift größer wie Schirme ohne Kasten; Kampf anders nur durch Tempo, Klang, Hinterhalt gebrochene Zierleiste; erst Bild nebeneinander (Chef 08.11., 15:11; 10.11., 10:17) · „jetzt“ 10.11., 09:34 | Tom | M | gebaut, Geprüft an: 95140f155, Bild passt | – | – | – | E Oberfläche | 7,70 $ |
@@ -42,7 +44,6 @@
 | 376.1 | Probeblatt Quaternius-Figuren mit Bewegungsraster als Film (Chef kaufte 27.10., 12:20) | Tom | M | ruht | – | claude/spike-376-1-tracht | – | E Figuren | 221,15 $ |
 | 455.1 | Probeblatt Baukasten: Roben, Umhänge, Stiefel je Netz × Material × Zeichen (Chef 01.11., 11:24) | Tom | M | ruht | – | claude/spike-455-1-baukasten | – | E Figuren | 30,05 $ |
 | 513 | Ein Figurenstand für alle Zweige; Schild, Robe Magier, Umhang jetzt (Chef 03.11., 15:56, „513 B“) · „jetzt“ 03.11., 15:56 | Tom | M | ruht | – | claude/figurenstand-513 | – | E Figuren | 14,01 $ |
-| 470 | Bau BRS 1.1 Erschaffung (Wochenziel 02.11., Stufe 1) | Tom | M | ruht | – | claude/spike-470-erschaffung | – | E Kampf | 43,23 $ |
 | 570 | Theke: Wahl „Fleisch verkaufen · 12 Gold“ liest sich wie ein Preis (Prüfer 557 Runde 4) | Tom | M | ruht, Kampf zuerst (338.1) | – | – | – | E Oberfläche | – |
 | 470.1 | Erschaffung: Held auf Antippen bildschirmgroß (Idee Chef 02.11., 18:37) | Tom | K | ruht | – | – | – | E Oberfläche | – |
 | 474 | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, Meldung Tuffy): nächster Build einmal deinstallieren; dauerhaft ohne Cache | Tom | M | ruht | – | – | – | E Technik | 8,66 $ |
@@ -87,7 +88,6 @@
 | 640 | Innenräume und Häuser, Varianten wie alt: Werkzeugregal, Wandbehänge und Stock bei Aldric, Altartuch, leere Amulett-Halterung; geschlossene Läden, Morwens Rauch grünlich (Abgleich 620.2a) | Tom | M | ruht, Kampf zuerst (338.1) | – | – | – | E Welt | – |
 | 649.3 | Figurenkatalog: Bewohner, Händler, Lehrmeister, Söldner füllen (Tagesablauf, Laden, Stimme, Gang, Klänge, Bewegungen, Text-Marken; aus 649) | Tom | M | ruht, Kampf zuerst (338.1) | 649.2 | – | – | E Figuren | – |
 | 644.4 | Gegenstandskatalog: Ladenbestand und Rezepte aus texte.json und Kotlin in den Katalog umstellen (644 A, Ablösung) | Tom | M | ruht, Kampf zuerst (338.1) | 644.1 | – | – | E Welt | – |
-| 663 | Klassische Steuerung ausbauen: Steuerkreuz und Funktionstasten ganz raus, nur Touch; Auswahl der Steuerung samt Rückfrage weg (Chef 08.11., 15:24, t269.3) | Tom | M | startbar, Chef 10.11. t274.2: keine klassische Steuerung | – | – | – | E Oberfläche | – |
 | 665 | Nacht im Dorf: um 2:30 kaum dunkel; in allen Häusern Licht, keiner schläft: tiefe Nacht dunkel, Fenster nach Schlafenszeit aus (Chef 08.11., 15:31, Build 269 auf MuMu) | Tom | M | ruht, Kampf zuerst (338.1) | – | – | – | E Welt | – |
 | 668 | Testmenü an Schirme ohne Kasten angleichen: Zurück, Trennlinien, Aufbau wie 549a/618 (Chef 08.11., 15:32, Build 269) | Tom | M | ruht, Kampf zuerst (338.1) | – | – | – | E Oberfläche | – |
 | 673 | Emulator: Kamera drehen und zoomen mit Maus und Tasten (rechte Maustaste ziehen, Mausrad), nur am Rechner, Handy unverändert (Rückfrage Sokrates 08.11., 15:34) | Tom | M | ruht, Kampf zuerst (338.1) | – | – | – | E Technik | – |
