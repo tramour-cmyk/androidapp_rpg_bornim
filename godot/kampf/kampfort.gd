@@ -820,7 +820,46 @@ func _spot_ab(f, spot: Vector2i) -> Vector2:
 			ab.x += PAIR_BACK_A
 			ab.y += PAIR_BACK_B * (-1.0 if spot.y == 0 else 1.0)
 			ab.y += PAIR_BACK_SHIFT
+	if f.side == "FOES":
+		ab = _naeher(f, ab, spot.x == Mars.BACK)
 	return ab
+
+
+## 506.1 (Chef 10.11., 12:25, Film 506: „der dritte Wiedergänger … steht ja so weit hinten … läuft ja allein schon eine halbe
+## Stunde … cool, dass die so langsam gehen. Aber die müssen irgendwie dann näher am Gegner sein“): wer langsam geht (Anmarsch
+## unter LANGSAM_MPS, gemessen am Wurzelweg seines Modells: Wiedergänger 0,82–0,88 m/s, Skelett rund 1,6), steht in der
+## Nahaufstellung: vorn NAH_VORN_M (Tiefe) vor dem Helden, hinten NAH_REIHE_M dahinter; sein Gang bleibt langsam. Die übrigen
+## Gegner (Wölfe, Goblins, Skelette) stehen wie abgenommen. Nur näher, nie weiter weg
+const LANGSAM_MPS := 1.2
+const NAH_VORN_M := 3.0       # vordere Reihe: Mitte zu Mitte in der Tiefe zum Helden (vorher 3,8–4,35 m)
+const NAH_REIHE_M := 1.6       # hintere Reihe so weit hinter der vorderen (anmarsch_506_1: Deckung im Bild 32 %, bei 1,3 m 35 %)
+## 567: allein hinter zweien vorn stand er mit BACK_GAP_B −2,0 bei 3,6 m Tiefe hinter der Mitte der beiden (−0,22) im Bild mittig:
+## je Meter Tiefe 0,49 m nach links
+const NAH_SCHRAEG := -(-0.22 - BACK_GAP_B) / (BACK_M + BACK_GAP_A - (FRONT_M + FOE_LEFT_BACK_M + FRONT_M) / 2.0)
+func _naeher(f, ab: Vector2, hinten: bool) -> Vector2:
+	if not _langsam(f):
+		return ab
+	var held_a := -(FRONT_M + NEAR_M)
+	if not hinten:
+		return Vector2(minf(ab.x, held_a + NAH_VORN_M), ab.y)
+	var a := minf(ab.x, held_a + NAH_VORN_M + NAH_REIHE_M)
+	# allein hinter zweien vorn (BACK_GAP_B: im Bild mittig dahinter): die Tiefe verschiebt im Bild zur Seite (Achse 30°), darum
+	# mit der kürzeren Tiefe weniger weit nach links, so dass er im Bild zwischen den beiden bleibt
+	var vorn := []
+	for o in mars.fighters():
+		if o != f and o.side == "FOES" and shown.places.has(o.id) and shown.places[o.id].x == Mars.FRONT and _present(o):
+			vorn.append(_spot_ab(o, shown.places[o.id]))
+	if vorn.size() == 2 and _alone(f, Mars.BACK):
+		var mitte: Vector2 = (vorn[0] + vorn[1]) / 2.0
+		return Vector2(a, mitte.y + NAH_SCHRAEG * (a - mitte.x))
+	return Vector2(a, ab.y)
+
+
+func _langsam(f) -> bool:
+	if not figures.has(f.id) or f.ranged():
+		return false
+	var v: float = figures[f.id].anmarsch_mps()
+	return v > 0.0 and v < LANGSAM_MPS
 
 
 func _alone(f, row: int, side := "") -> bool:
@@ -863,7 +902,7 @@ func _foe_scale(f) -> float:
 		return FOE_SIZE * WOLF_SIZE * ART_SIZE.get(Figur.ersatz(), 1.0)
 	if Figur.eigene_haut(f):
 		return 1.0     # 494 Riesenspinne (kaufspinne.py, Spannweite 1,69 m wie LISTE-FIGUREN): echte Größe wie die Kauftiere, nicht 1,5-fach
-	if Mars.koerper_of(f.monster) in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG]:     # 348.7: Goblin in echter Größe (goblin.py), im Bild wie FoeArt (PX 0,66 wie BeastArt, Held 0,75); 348.12 Grak ebenso
+	if Mars.koerper_of(f.monster) in Figur.ZWEI:     # 348.7: Goblin in echter Größe (goblin.py), im Bild wie FoeArt (PX 0,66 wie BeastArt, Held 0,75); 348.12 Grak ebenso
 		return FOE_SIZE * WOLF_SIZE
 	return FOE_SIZE
 

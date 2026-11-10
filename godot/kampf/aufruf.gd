@@ -18,7 +18,10 @@ var tabellen: Dictionary
 
 
 ## 494 (Kauf 348.12c, LISTE-FIGUREN): der Riesenegel ersetzt die Stirge, die Säureschnecke die Ockergallerte
-const NAMEN_494 := {"LEECHES": ["Riesenegel", "Giant Leech"], "SLUGS": ["Säureschnecke", "Acid Slug"]}
+const NAMEN_494 := {"LEECHES": ["Riesenegel", "Giant Leech"], "SLUGS": ["Säureschnecke", "Acid Slug"],
+	# 506 (348.12c, LISTE-FIGUREN): der Wiedergänger ersetzt den Zombie, der Grabhund den Ghul (Regeln unter dem alten Namen)
+	"WIEDERGAENGER": ["Wiedergänger", "Revenant"], "WIEDERGAENGER3": ["Wiedergänger", "Revenant"],
+	"GRABHUND": ["Grabhund", "Grave Hound"], "GRABHUNDE": ["Grabhund", "Grave Hound"]}
 
 
 ## Die Gegner einer Gruppe (Aufstellung, Namen und Aussehen wie im Probekampf; probe.gd ruft das auch)
@@ -62,6 +65,17 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 		"RATTE": [["rat", Mars.WOLF, Vector2i(0, 0)]],     # 577: Körper des Wolfs, Kennung und Regeln der eigenen Art (ART)
 		"FLEDERMAUS": [["bat", Mars.WOLF, Vector2i(0, 0)]],
 		"SPINNE": [["spider", Mars.SPIDER, Vector2i(0, 0)]],
+		# 506: drei Skelette wie im alten Spiel (MonsterKit.kt skeleton: Kurzschwert und Helm, Kurzschwert und Schild, Speer und Helm),
+		# Regeln aus Monsters.kt skeleton (tabellen.json), im Bild der gekaufte Skelettritter (kaufskelett.py, je Nummer ein Kit)
+		"SKELETONS": [["skel1", "skeleton", Vector2i(0, 0)], ["skel2", "skeleton", Vector2i(0, 1)], ["skel3", "skeleton", Vector2i(1, 0)]],
+		# 506: auf der Karte je allein wie im alten Spiel (Roamers.kt ein Monster, Packs.kt ohne Rudel für Untote); das Kit bringt das
+		# Monster der Karte mit („fell“), im Probekampf je Nummer. Wiedergänger (Regeln Monsters.kt zombie, kaufuntoter.py) und Grabhund
+		# (Regeln ghoul, kaufgrabhund.py); WIEDERGAENGER3 und GRABHUNDE zeigen alle drei Kits bzw. Häute nebeneinander (Probe, Testmenü)
+		"SKELETT": [["skel1", "skeleton", Vector2i(0, 0)]],
+		"WIEDERGAENGER": [["zombie1", "zombie", Vector2i(0, 0)]],
+		"GRABHUND": [["hound1", "ghoul", Vector2i(0, 0)]],
+		"WIEDERGAENGER3": [["zombie1", "zombie", Vector2i(0, 0)], ["zombie2", "zombie", Vector2i(0, 1)], ["zombie3", "zombie", Vector2i(1, 0)]],
+		"GRABHUNDE": [["hound1", "ghoul", Vector2i(0, 0)], ["hound2", "ghoul", Vector2i(0, 1)], ["hound3", "ghoul", Vector2i(1, 0)]],
 	}.get(foe, [])
 	Figur.ersatz_art = {"RATS": "giant_rat", "BATS": "giant_bat", "SHAMANS": Figur.SHAMAN, "KOBOLDS": Figur.KOBOLD, "BOARS": "kauf_keiler", "CENTIPEDES": "kauf_hundertfuesser", "LEECHES": "kauf_egel", "SLUGS": "kauf_schnecke", "RATTE": "giant_rat", "FLEDERMAUS": "giant_bat"}.get(foe, "")
 	# 348.12f eingebaut (Chef 28.10., 11:50: Kaufwolf abgenommen, Archiv 27.10., 21:51: „eigener entfällt“): Wölfe sind der gekaufte
