@@ -2,7 +2,7 @@
 Sokrates · 10.11., 07:01 · B Steuerung · aus deinem Bild der Nutzung 06:59
 Kurz: Woche 43 %, Tempo 0,71 %/h statt tragbarer 0,52 %/h; so leer am Freitagnachmittag
 
-Geprüft an: bilder:826-nutzung.webp (Bild Chef 10.11., 06:59)
+Geprüft an: [826-nutzung.webp](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/826-nutzung.webp) (Bild Chef 10.11., 06:59)
 
 **Frage:** Beim jetzigen Tempo ist das Wochenlimit am Freitagnachmittag aufgebraucht, etwa 29 Stunden vor der Zurücksetzung. Sollen bis Sa 19:59 nur noch eine Entwicklersitzung (Tom, Jerry, Spike, Tuffy) zugleich laufen und die Kür ruhen?
 
