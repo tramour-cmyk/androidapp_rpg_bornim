@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 819 | Sammelbuild 273: alle fertigen Zweige beider Teams (Tom u. a. 762+471, 683, 506, 584; Jerry u. a. 532), Prüfliste ansehen/t273, build 273 --mit (Sperre 620.1 B: Tom 17, Jerry 8 ungetestet) | Tom | M | in Arbeit, zweiter Godot-Lauf seit 00:02 (ohne 562, mit 795, 804) | – | claude/build-273 | 273 | E Oberfläche | – |
+| 819 | Sammelbuild 273: alle fertigen Zweige beider Teams (Tom u. a. 762+471, 683, 506, 584; Jerry u. a. 532), Prüfliste ansehen/t273, build 273 --mit (Sperre 620.1 B: Tom 17, Jerry 8 ungetestet) | Tom | M | erledigt | – | claude/build-273 | 273 | E Oberfläche | – |
 | 471 | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | Tom | M | zu testen | – | claude/spike-471-fertigkeiten | 273 | E Kampf | 7,86 $ |
 | 610 | Held im Dorf: Finger am Stab zucken ohne Unterlass (Schild auf dem Rücken) (Chef 07.11., t268) | Tom | M | zu testen, ohne Rückmeldung t272 | – | claude/tom-610-finger | – | E Figuren | 19,22 $ |
 | 522 | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Chef 03.11., 23:33) | Tom | M | zu testen, ohne Rückmeldung t272 | – | claude/tom-522-waffen | – | E Oberfläche | – |
