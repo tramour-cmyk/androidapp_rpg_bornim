@@ -2,9 +2,9 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `origin/main` (10.11., 17:33)
+**Gelesen bis:** `origin/main` (10.11., 17:56)
 
-**Übergabe (10.11., 17:33, `session_01Hmoj78wNXJUXANwzAYY8ey`):** 890, 891 gebaut (`2f825ab1f`), 889 gebaut (`571549338`), 892 gebaut (`1fd36745f`), warten auf Diogenes; Ford „Start Diogenes 890“ geschickt (erste Meldung nach 891). Letzte Antwort: 506 lag, weil Toms Sitzung 16:30 endete und Ford erst 16:59 lief; jetzt meldet `vorgang.py` „LIEGT“, der Schreibende schickt Ford „Start <Rolle> <Nr>“. Nachfolger: Perikles auf Abruf
+**Übergabe (10.11., 17:56, `session_01Hmoj78EojqkK8RuGDFLGd1`):** 264.1: Zweig `claude/perikles-264-runner` (godot.yml auf `[self-hosted, bornim]`, Schritt „Runner vorbereiten“); Lauf 324 brach ab, sudo braucht ein Passwort; Chefsache `tun/2641-runner-sudo.md`, Telegram 17:56. Nach „264.1 erledigt“: Lauf neu mit `bild=nein`, Zeiten je Schritt gegen GitHub. Nachfolger: Perikles – 264.1: Runner-Lauf nach sudo
 
 ## Einzelheiten
 - **Zu 264.1, von Sokrates (Chef 10.11., 17:2x: Runner auf Proxmox installiert):** Zweig `claude/perikles-264-runner`, godot.yml `runs-on: [self-hosted, bornim]`, Lauf per workflow_dispatch; Bauzeit je Schritt gegen GitHub (Median 18, p90 64 Min.); Fehler wegen fehlender Pakete beheben (Schritt „Runner vorbereiten“: apt-Pakete, Android-SDK); kein Push auf main.
