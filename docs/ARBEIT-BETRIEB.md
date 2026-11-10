@@ -256,3 +256,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:59 10.11.: Marke Start-fehlt Tuffy 10.11.-16:19 (lauf.py)
 - 16:59 10.11.: Marke Archiv session_01Hmoj79LgjHZ8qYJfsPz1kP (lauf.py)
 - 17:04 10.11.: Startsperre 17:04 Start Jerry (Neustart-Meldung 17:02, ae8567d60)
+- 17:24 10.11.: Startsperre 17:24 Start Perikles (selbst; 890, 891 „jetzt“ Chef 17:15, Auftrag Sokrates 17:16; nicht der Nachfolger „auf Abruf“ aus lauf.py)
