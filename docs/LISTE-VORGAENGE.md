@@ -193,8 +193,6 @@
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
-| 857 | Von Sokrates (Chef 10.11., 13:01, t274.6): Fertigkeit „Kräuterkunde“ (Gruppe Sammeln) umbenennen, Name nach dem Tun wie Bergbau, Angeln, Jagd; Kräuterkunde klingt nach Rezepten und Brauen, das ist Alchemie | Homer | M | erledigt | – | – | – | G Story | 2,05 $ |
-| 663.1 | Text: [280.tipp] ohne die Fassung „Klassische Steuerung“ (von Tom; 663 nur Touch, im Spiel gestrichen) | Homer | K | erledigt | – | – | – | G Story | – |
 | 871 | Von Ford (10.11.): lauf.py liest „Nachfolger: –“ als Titel und startet „<Rolle> – –“; Strich gilt wie „keiner“ | Perikles | M | gebaut, Geprüft an: 902b41dfb | 879 | – | – | B Werkzeuge | – |
 | 865 | Von Sokrates (Chef 10.11., 13:34): kein Neustart einer Sitzung mitten im Test des Chefs; Neustart-Haken und Ablauf anpassen | Perikles | M | gebaut, Geprüft an: 611d9f7c1 | Diogenes | – | – | B Abläufe | – |
 | 483 | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Marke (Chef 02.11., 19:08) | Perikles | M | gebaut, Geprüft an: 62e922b30 | Diogenes, D75 | – | – | B Werkzeuge | – |
@@ -224,7 +222,6 @@
 | 877 | D134.1 (Diogenes, 870.1): commit-pruefung.py endet bei Code-Commits in Zeile 187, die Kerntest-Prüfung 301–307 erreicht core und app nie mehr | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
 | 879 | D135.1 (Diogenes, 871): „Nachfolger: – Auf Abruf (…)“ oder „–, …“ startet weiter „<Rolle> – – …“; „Auf Abruf“ groß greift 641-Regel nicht (Fall Übergabe Diogenes 10.11., 13:0x) | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
 | 880 | D135.2 (Diogenes): vorgang.py neu vergab 878 zweimal (Tom 15:02:21, Diogenes 15:02:36); Zähler ohne sofortigen Push, Zusammenführung von Hand | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
-| 870.1 | Von Sokrates (870, Chef 14:08 „dein Plan irgendwer gegenlesen“): Master-Umzugsplan BRS LISTE-UMZUG-BRS.md und Chefsache 870a gegen Code und DESIGN-BRS gegenlesen, Befund als Text an den Chef | Diogenes | M | erledigt | – | – | – | E Kampf | 9,47 $ |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |

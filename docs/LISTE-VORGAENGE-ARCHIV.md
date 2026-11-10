@@ -957,3 +957,6 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 593 | MARS: Ausweichen auch rückwärts als Abwechslung zu links und rechts (Chef 05.11., 19:2x) | E Kampf | M | – | Jerry | erledigt, t274 bestanden |
 | 547 | MARS: Text sagt „geht in die Knie“, Sturz ist aus (438a eingefroren): Text und Bild in Einklang bringen (Chef 04.11., 00:01) | E Kampf | M | 5,43 $ | Jerry | erledigt, t274 bestanden |
 | 597 | MARS: Ring ohne Ankündigung (Fledermaus); alle Angreifer prüfen (Chef 05.11., 19:2x) | E Kampf | M | 2,88 $ | Jerry | erledigt, t274 bestanden |
+| 857 | Von Sokrates (Chef 10.11., 13:01, t274.6): Fertigkeit „Kräuterkunde“ (Gruppe Sammeln) umbenennen, Name nach dem Tun wie Bergbau, Angeln, Jagd; Kräuterkunde klingt nach Rezepten und Brauen, das ist Alchemie | G Story | M | 2,05 $ | Homer | erledigt |
+| 663.1 | Text: [280.tipp] ohne die Fassung „Klassische Steuerung“ (von Tom; 663 nur Touch, im Spiel gestrichen) | G Story | K | – | Homer | erledigt |
+| 870.1 | Von Sokrates (870, Chef 14:08 „dein Plan irgendwer gegenlesen“): Master-Umzugsplan BRS LISTE-UMZUG-BRS.md und Chefsache 870a gegen Code und DESIGN-BRS gegenlesen, Befund als Text an den Chef | E Kampf | M | 9,47 $ | Diogenes | erledigt |
