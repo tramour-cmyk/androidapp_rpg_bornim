@@ -14,7 +14,7 @@ var failed := 0
 
 func _init() -> void:
 	tables = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
-	# 870.5 (870a 3 A): ein Schlag je Angriff; Extra-Angriff, Tatendrang und Zweiwaffenkampf entfallen (vorher 89.2 c)
+	# 870.5 (870a 3 A): ein Schlag je Angriff; Extra-Angriff, Doppelzug und Zweiwaffenkampf entfallen (vorher 89.2 c)
 	_check("ein Schwert, Angriff", _blows(false, [], ["attack"]), 1)
 	_check("zwei Waffen, Angriff", _blows(true, [], ["attack"]), 1)
 	_check("Stufe 5 mit Extra-Angriff, zwei Waffen", _blows(true, ["EXTRA_ATTACK"], ["attack"]), 1)

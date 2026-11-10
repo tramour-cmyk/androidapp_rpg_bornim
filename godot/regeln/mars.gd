@@ -153,7 +153,7 @@ const FX := {
 ## 870.5 (870a 3 A, DESIGN-BRS.md 7): Kampfhandlungen hängen an Fertigkeiten (werte.json „handlungen“, Zahlen dort, A mit 444 Teil 7);
 ## frei ab dem Rang in „ab“, Kraft schöpfen für alle; Waffenhandlungen nur mit einer Waffe ihrer Gruppe in der Hand, Schildwall nur
 ## mit Schild. Kennung -> Name in werte.json; Namen im Spiel Homer [870.14.hand.*] (STORY-BRS-KOENNEN.md). Wehrhaltung ist nicht
-## frei (444 Teil 7 ohne Wirkung, Chef entscheidet). Extra-Angriff, Tatendrang, Zweiwaffenkampf und die übrigen Klassenfähigkeiten
+## frei (444 Teil 7 ohne Wirkung, Chef entscheidet). Extra-Angriff, Doppelzug (ACTION_SURGE), Zweiwaffenkampf und die übrigen Klassenfähigkeiten
 ## entfallen; Zauber bleiben bis zu ihrem eigenen Teil.
 const HANDLUNG := {
 	"H_KRAFT": "Kraft schöpfen", "H_FINTE": "Finte", "H_HINTERHALT": "Stich aus dem Hinterhalt", "H_WUCHT": "Wuchtschlag",

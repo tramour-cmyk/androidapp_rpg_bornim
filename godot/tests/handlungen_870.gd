@@ -1,5 +1,5 @@
 # 870.5 (870a 3 A, DESIGN-BRS.md 7): Kampfhandlungen an Fertigkeiten statt Klassenfähigkeiten. Prüft Freigabe (Rang „ab“ aus
-# werte.json „handlungen“, Waffe in der Hand), dass Extra-Angriff, Tatendrang, Finte der Klasse und Zweiwaffenkampf fehlen, und je
+# werte.json „handlungen“, Waffe in der Hand), dass Extra-Angriff, Doppelzug, Finte der Klasse und Zweiwaffenkampf fehlen, und je
 # Handlung ihre Wirkung (Zahlen aus werte.json, wie tools/sim444/handlungen.py). Ohne Grafik.
 # Aufruf: im Ordner godot mit -s res://tests/handlungen_870.gd (Exit 0 = richtig); braucht daten/werte.json (tools/sim444).
 extends SceneTree
