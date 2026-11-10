@@ -4,7 +4,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 Pause bis 13.11., 20:00 Uhr, frei für: 870.x, 506, 470, 888 (870b A, Chef 10.11., 16:08; 870.17; 506.1 gehört Jerry, 883; 888 Chef 16:46). (870, von Sokrates, Chef 10.11., 14:08: „die anderen, die jetzt irgendwas noch machen, sollen das fertig machen, was sie gerade machen … Und dann sollen sie aber nicht wieder irgendeinen Füllefanz neu anfangen“): Laufendes (653, 475, 663, 540, 506) fertig machen, nichts Neues anfangen bis zum Umzugsplan BRS (Sokrates); früher frei, wenn der Plan abgenommen ist.
 
-**Übergabe (10.11., 16:30, `session_01Hmoj79FzxLQBQGb5LWnYaB`):** 653 umgestellt, halt.json, Bild passt (Chef 15:53), 872 an Jerry; 878 ja; 475 Morwens Hals behoben (3d0ba8789); 663 Stand in der Chefsache (Wächter). Gebaut und für den Sammelbuild bereit: 653, 663, 540, 475. Am Rechner: Kaufcache geholt, Kaufdateien geladen, CC0, `bl`. Nachfolger: Tom – Sammelbuild 653, 663, 540, 475 (nach Pause/Umzugsplan 870).
+**Übergabe (10.11., 17:07, `session_01Hmoj79pR6yAWH45cR1LjrK`):** 506.1 und main auf `claude/tom-506-untote` gemischt (3f733c0cf), Gegnerfilm-Lauf 17:06 gestartet, 506 dann an Spike (Ford 17:00). 888 probegemischt: Konflikt 470 `bedienung.gd` (ohne „klassisch“, mit „fert_gruppen“), 709 `figur.gd` (beide Blöcke, an Jerry). Nachfolger: Tom – Sammelbuild 888 (wenn 709 und 506 fertig).
 
 ## Einzelheiten
 - **Zu 888, von Sokrates (Chef 10.11., 16:46: „ja, Sammelbuild bei Tom eintragen“):** ein Sammelbuild vor dem Umzug statt zwei: dein geplanter (653, 663, 540, 475) plus 470 (Spike), 506.1 (Tuffy), 709 (Jerry), 506; wartet auf 709 und 506. Prüfliste mit den 663-Punkten. Nach dem Test des Chefs auf `main`; 870.2 und 870.3 warten auf 888.
