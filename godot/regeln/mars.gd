@@ -705,7 +705,7 @@ func autopilot_blocked(hp = null):
 	if all.any(func(x): return x.side == "FOES" and x.boss()):
 		return ["Nicht gegen Bosse.", "Not against bosses."]
 	if h * 3 < l.max_hp:
-		return ["Unter einem Drittel der Lebenspunkte.", "Below a third of life points."]
+		return ["Unter einem Drittel seines Lebens.", "Below a third of its Life."]
 	if not easy() and intents.values().any(func(p): return p[0].strong):
 		return ["Starke Absicht angekündigt.", "Strong intent announced."]
 	return null
