@@ -220,7 +220,8 @@
 | 859 | D130.1 (Diogenes, 849): Nachfolger nennt die letzte Antwort nicht; Regel steht nur beim Vorgänger (LISTE-RELEASE-NEUSTART 1), nicht in der Startmeldung (CLAUDE.md Zusammenarbeit 2) oder den Rollendateien | Perikles | M | gebaut, Geprüft an: 66cb5632f | Diogenes | – | – | B Werkzeuge | – |
 | 866 | Von Sokrates (620, Lagebild t274): Prüfliste geht nur gegengelesen raus; Wächter statt Absprache | Perikles | M | gebaut, Geprüft an: 8c9f2dc3f | Diogenes | – | – | Q QS | – |
 | 874 | Von Sokrates (653, Chef 10.11., 12:27): jede Jerry-Sitzung baut die Kaufmodelle neu (bpy, über 20 Min.); gebaute Modelle im Kaufrepo ablegen, bpy per Setup-Skript prüfen | Perikles | K | startbar | – | – | – | B Steuerung | – |
-| 870.1 | Von Sokrates (870, Chef 14:08 „dein Plan irgendwer gegenlesen“): Master-Umzugsplan BRS LISTE-UMZUG-BRS.md und Chefsache 870a gegen Code und DESIGN-BRS gegenlesen, Befund als Text an den Chef | Diogenes | M | startbar | – | – | – | E Kampf | – |
+| 877 | D134.1 (Diogenes, 870.1): commit-pruefung.py endet bei Code-Commits in Zeile 187, die Kerntest-Prüfung 301–307 erreicht core und app nie mehr | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
+| 870.1 | Von Sokrates (870, Chef 14:08 „dein Plan irgendwer gegenlesen“): Master-Umzugsplan BRS LISTE-UMZUG-BRS.md und Chefsache 870a gegen Code und DESIGN-BRS gegenlesen, Befund als Text an den Chef | Diogenes | M | erledigt | – | – | – | E Kampf | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
