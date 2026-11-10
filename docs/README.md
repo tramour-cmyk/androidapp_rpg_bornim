@@ -23,9 +23,9 @@ Inhaltsverzeichnis: jede Zeile sagt in einem Satz, was in der Datei steht und wo
 - [Story-Verzeichnis](STORY-REGELN.md): wo jeder Spieltext steht und wie wir ihn schreiben; Kapitel 1 [Handlung](STORY-K1-HANDLUNG.md) und [Welt](STORY-K1-WELT.md), [Texte der Blenden](STORY-BLENDE.md), Gespräche im [Dorf](STORY-VARIANTEN-K1.md) und in [Wald, Höhle, an Türen und bei der Rast](STORY-VARIANTEN-K1-WALD.md).
 - Weitere Spieltexte: [Kampf, Rast, Zustände](STORY-SPIEL.md), [Menü des Helden](STORY-MENUE.md), [Lehrmeister und Pfade](STORY-LEHRMEISTER-K1.md), [Meisterschaften und Ruf](STORY-RUF-K1.md), [Fertigkeiten ohne Kampf](STORY-K1-FERTIGKEITEN.md).
 - [Roter Faden](STORY-ROTER-FADEN.md) und [Chronik-Texte Kapitel 1](STORY-CHRONIK-TEXTE-K1.md): die Geschichte über alle Kapitel in Kürze und die Texte der Chronik im Spiel.
-- [Figuren](LISTE-FIGUREN.md): wie wiederkehrende Leute und Monster immer aussehen.
+- [Figuren](LISTE-FIGUREN.md): nur das Aussehen wiederkehrender Leute und Monster, damit man sie überall wiedererkennt.
 - [Gegenstände](LISTE-GEGENSTAENDE.md): alles, was man finden, kaufen oder tragen kann, nach Art und woher man es bekommt (rechnet ein Werkzeug aus).
-- [Bestiarium](LISTE-BESTIARIUM.md): alle Monsterarten mit Angriffen, Beute und Werten.
+- [Bestiarium](LISTE-BESTIARIUM.md): nur die Kampfseite jeder Monsterart (Angriffe, Beute, Werte); ihr Aussehen steht unter Figuren. Beide gehen im Figurenkatalog auf (Vorgang 649, Sokrates).
 - [Ideen](LISTE-IDEEN.md): lose Einfälle, noch nicht geprüft.
 - [Änderungshistorie](../CHANGELOG.md): was schon gebaut ist.
 - **Kapitel 2** in [`kapitel2/`](kapitel2/), gilt erst nach Kapitel 1: [Storyplan](kapitel2/STORY-PLAN-K2.md), [Textentwurf](kapitel2/STORY-K2-ENTWURF.md), [Landkarte](kapitel2/STORY-K2-LANDKARTE.md), [Wahlen des Spielers](kapitel2/STORY-WAHLEN.md).
