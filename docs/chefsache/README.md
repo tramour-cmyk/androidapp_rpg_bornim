@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [870](entscheiden/870-brs-umstellung.md) | **Muss** | E Kampf | 10.11., 14:05 | Umstellung in einem Zug: Liste und Regelfragen (Sokrates), Bau Kampf (Jerry) und Held/Oberfläche (Tom) zugleich, alles andere ruht außer Testfehlern | Sokrates |
 | [649a](entscheiden/649a-konsolidierung.md) | **Muss** | E Technik | 10.11., 11:04 | Helfer prüfte den Plan 649 gegen den Code: tragfähig mit Änderungen; fünf Schritte, Netze zum Gegenstandskatalog, ab sofort keine neuen Werte im Code | Sokrates |
 
 ## Zu billigen
@@ -267,10 +268,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 771 | M | Probe 657 auswerten: Erstfunde des Chefs t272–t275 gegen 11, 11, 9, 7 (von Perikles, Werkz | wartet auf Test t275 (Chef) |
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 
-**Sokrates** – offen 48, Muss 33, startbar 27
+**Sokrates** – offen 49, Muss 34, startbar 27
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 870 | M | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen, Bau Tom u | Chef (Datei in der Chefsache) |
 | 780 | M | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für uns | Termin 23.11. |
 | 620 | M | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build | startbar |
 | 623 | M | Effektpakete REEBOO Labs: Kauf, Ressourcenseite LISTE-QUELLEN.md, Zuordnung LISTE-EFFEKTE. | startbar |
