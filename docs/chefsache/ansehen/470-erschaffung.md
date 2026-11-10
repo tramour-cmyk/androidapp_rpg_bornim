@@ -1,5 +1,7 @@
 # 470 · Seite „Neues Spiel“ nach BRS, ohne Kasten · Spike · 10.11., 13:27
 
+[Bild von 10.11., 13:29](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/10-1328-470-Spike-2.png) (eingetragen von meldung.sh, Spike)
+
 [Bild von 10.11., 13:28](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/10-1328-470-Spike.png) (eingetragen von meldung.sh, Spike)
 
 ![Mensch als Wachsoldat, von oben nach unten gerollt](../bilder/470-erschaffung-mensch.webp)
