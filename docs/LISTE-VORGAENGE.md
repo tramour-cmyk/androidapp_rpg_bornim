@@ -202,6 +202,7 @@
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 870.15 | Von Sokrates (870, Umzug BRS Schritt 8): Texte ohne Kotlin und SRD: Handbuch BRS (423.1), texte.json-Texte (Rast, Klasse, aboutText), Hobgoblin/Grottenschrat → Goblin-Hauptmann/Bärenschrat (geschichte.gd) | Homer | M | startbar | – | – | – | G Story | – |
+| 870.17 | Von Sokrates (870b A, Chef 10.11., 16:08): Pausezeilen Tom und Jerry so ändern, dass 870.x und das Laufende vor dem Umzug (709, 506.1, 506, 470) startbar sind, sonst nichts Neues; startbar.py sperrt bei „Pause bis“ die ganze Rolle · „jetzt“ 10.11., 16:08 | Perikles | M | startbar | – | – | – | B Abläufe | – |
 | 870.11 | Von Sokrates (870, Umzug BRS Schritt 9): Wächter: commit-pruefung.py prüft Code-Commits unter godot/ auf neue SRD-Begriffe (Wortliste regelcheck.py 193–223 plus RK, ZP, W20, Klassen, STR–CHA), aktiv ab 870.4, mit 877; LISTE-UMZUG-BRS.md 4 | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
 | 870.12 | Von Sokrates (870, Umzug BRS): Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 neu fassen; nach Abnahme 868, 534, 467, 469, 644.1, 644.2, 644.4, 649.1, 811, 296, 344 schließen; LISTE-UMZUG-BRS.md 4 Schritt 9 | Perikles | M | startbar | – | – | – | B Abläufe | – |
 | 870.10 | Von Sokrates (870, Umzug BRS Schritt 8): Kotlin-Bau aus (android.yml), mit 870.9; LISTE-UMZUG-BRS.md 4 | Perikles | M | wartet | 870.9 | – | – | B Werkzeuge | – |
@@ -229,6 +230,7 @@
 | 879 | D135.1 (Diogenes, 871): „Nachfolger: – Auf Abruf (…)“ oder „–, …“ startet weiter „<Rolle> – – …“; „Auf Abruf“ groß greift 641-Regel nicht (Fall Übergabe Diogenes 10.11., 13:0x) | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
 | 880 | D135.2 (Diogenes): vorgang.py neu vergab 878 zweimal (Tom 15:02:21, Diogenes 15:02:36); Zähler ohne sofortigen Push, Zusammenführung von Hand | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
 | 881 | D139.1 (Diogenes, 866): Gegenlesen der Prüfliste ohne Weg des Entwurfs zum Gegenleser (Datei darf ohne Zeile nicht auf main); „Gegengelesen: <eigene Rolle>“ geht durch | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
+| 870.18 | Von Sokrates (870, Chef 16:08: „ist das jetzt wirklich gecheckt und niet- und nagelfest?“): zweites Gegenlesen: was nach Lauf 134 dazukam (870a 7 B ganz aus Kotlin, 8 A Schwächen, Abschnitt „Nach dem Gegenlesen“, Vorgänge 870.2–870.16 mit „wartet auf“), Befund als Text an den Chef | Diogenes | M | startbar | – | – | – | Q QS | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
