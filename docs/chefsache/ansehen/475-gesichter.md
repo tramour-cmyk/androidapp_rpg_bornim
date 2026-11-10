@@ -1,5 +1,7 @@
 # 475 · Gesichter der Leute, Lauf 2 · Tom · 10.11., 02:07
 
+[Bild von 10.11., 02:08](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/10-0208-475-Tom-2.png) (eingetragen von meldung.sh, Tom)
+
 [Bild von 10.11., 02:08](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/10-0208-475-Tom.png) (eingetragen von meldung.sh, Tom)
 
 Tom · 10.11., 02:07 · E Figuren
