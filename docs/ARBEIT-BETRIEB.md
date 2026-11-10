@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (10.11., 11:3x, Ford `session_01Hmoj78E7oy5B7Gr6VaeUJk`, Nachfolger der Sitzung `…78xzFvBQ6it6HDfWph`):** Getan: Uhr „Ford-Lauf“ `trig_01DaEk3uTJQPBm2dGUEGi1Mf` (:03) angelegt, alte gelöscht; erster Lauf 11:28 (825 mit `--ohne`, Spike wartet auf Wecker 11:57). Alte Ford-Sitzung `…78xzFvBQ6it6HDfWph` (12,41 $) noch nicht archiviert: Wächter lehnt ab, Archiv-Satz (369.1) des Chefs fehlt. **Regeln für dich:** jede START-Zeile ausführen oder mit `--ohne NR:Grund` ausschließen (Grund erst nach `vorgang.py <Nr>`); nie „keine Arbeit“ ohne `startbar.py`; Tom und Jerry zugleich, Spike nur für 825, Tuffy 406.2; Homer und Perikles ohne Arbeit nicht starten. Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 864** (zuletzt 863 Jerry 10.11. 13:19:40 190f) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 865** (zuletzt 864 Jerry 10.11. 13:27:00 9c19) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
