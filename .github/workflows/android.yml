@@ -1,4 +1,4 @@
-name: Build APK
+name: Kotlin alt (kein Testbuild)
 
 # Builds an APK (artifact "bornim-apk") only for a pull request, a push to main, or by hand (78d): a branch is
 # built once it is ready for a test round (open a PR or run the workflow by hand on the branch), not on every push.
@@ -14,12 +14,7 @@ on:
       - "docs/**"
       - "tools/**"
       - ".claude/**"
-  pull_request:
-    paths-ignore:
-      - "**.md"
-      - "docs/**"
-      - "tools/**"
-      - ".claude/**"
+  # 894 (Chef 10.11., 19:31): am PR nicht mehr, der Testbuild ist Godot (godot.yml); bis 870.10 nur auf main und von Hand
   workflow_dispatch:
     inputs:
       release:

@@ -4,7 +4,8 @@ name: Godot (Umzug 348)
 # Android-Export; APK als Artefakt "bornim-godot-apk". Zum Testen neben dem alten Spiel: Kennung de.bornim.game.godot.
 on:
   push:
-    branches: ["claude/tom-348-**", "claude/jerry-348-**"]   # 461.1: Grundstand nur von Hand (wie godot-kampf.yml)
+    # 894 (Chef 10.11., 19:31: Build 275 eine Stunde verloren): auch jeder Testbuild claude/build-<n> baut von selbst
+    branches: ["claude/tom-348-**", "claude/jerry-348-**", "claude/build-**"]   # 461.1: Grundstand nur von Hand (wie godot-kampf.yml)
     paths: ["godot/**", "tools/blender348/**", "tools/gegenstaende/**", "tools/sim444/**", "core/src/main/**", ".github/workflows/godot.yml"]
   workflow_dispatch:
     inputs:
@@ -33,6 +34,11 @@ on:
       drehteller:
         description: "Drehteller 499 (Spike): ja = Held je Klasse im Drehteller, Messung und Bilder"
         default: ""
+
+# 894: mehrere Pushes auf einen Testbuild hintereinander, es baut nur der neueste (von Hand gestartete Läufe bleiben)
+concurrency:
+  group: godot-${{ github.ref }}-${{ github.event_name }}
+  cancel-in-progress: ${{ github.event_name == 'push' }}
 
 jobs:
   apk:

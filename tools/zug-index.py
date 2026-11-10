@@ -290,7 +290,7 @@ def offen_je_rolle():
         return ""
 
 def lauf_version(pr, _cache={}):
-    """298: Version 0.1.<Laufnummer> des neuesten „Build APK“-Laufs am Zweig des PR (GitHub-API, nur mit GITHUB_TOKEN)."""
+    """298: Version 0.348.<Laufnummer> des neuesten Godot-Laufs am Zweig des PR (GitHub-API, nur mit GITHUB_TOKEN); 894: vorher Kotlin 0.1.<n>."""
     token, repo = os.environ.get("GITHUB_TOKEN"), os.environ.get("GITHUB_REPOSITORY")
     if not (token and repo): return None
     if pr in _cache: return _cache[pr]
@@ -300,8 +300,8 @@ def lauf_version(pr, _cache={}):
         with urllib.request.urlopen(req, timeout=20) as r: return json.load(r)
     try:
         zweig = hole(f"pulls/{pr}")["head"]["ref"]
-        laeufe = hole(f"actions/workflows/android.yml/runs?per_page=1&branch={urllib.parse.quote(zweig)}")["workflow_runs"]
-        _cache[pr] = f"0.1.{laeufe[0]['run_number']}" if laeufe else None
+        laeufe = hole(f"actions/workflows/godot.yml/runs?per_page=1&branch={urllib.parse.quote(zweig)}")["workflow_runs"]
+        _cache[pr] = f"0.348.{laeufe[0]['run_number']}" if laeufe else None   # wie version/name in godot.yml (Android-Export)
     except Exception as e:
         print(f"zug-index: Version zu PR #{pr} nicht geholt ({e})")
         _cache[pr] = None
