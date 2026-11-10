@@ -5,7 +5,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 **Übergabe (10.11., 02:17, `session_01Hmoj77XCCqfKszpVkHrYn4`):** 475 Gesichter Lauf 2 am Rechner (1 von 1, fd6b7421f) beim Chef (`ansehen/475`); danach ohne Bild: Reif Lyra, Brauen (5632b708a). 825 wartet auf t273 (Build 273 offen ohne Test, Checkliste 3). Nachfolger: keiner, nichts startbar.
 
 ## Einzelheiten
-- **Zu 834, von Sokrates (Chef 10.11., 10:21, „Spike genehmigt“):** Sonderaufgabe Spike. Am Gerät hat kein Held BRS-Daten (`zustand.brs` leer: „Neues Spiel“ = erschaffung.gd ohne „brs“, BRS-Erschaffung im Testmodus übernimmt nichts, `spiel.gd` 124, 1141), darum Reiter Fertigkeiten, Übung, Platzwahl in t273 unprüfbar (273.3, .5–.7, .9, .16). Weg schaffen, der nicht den Kampf nach BRS (2.3) vorwegnimmt, z. B. im Testmenü „BRS-Held übernehmen“ (Erschaffung BRS schreibt `brs` in den laufenden Spielstand) oder Startdaten aus Klasse; Testbitte mit dem vollständigen Weg, vorher selbst durchgespielt (832). Dann 762, 471, 795 wieder in einen Build (die vier sind aus Build 273 zurückgenommen).
+- **Zu 834 (Tom 10.11., 10:47):** Weg gebaut auf `claude/tom-brs-held`: Reiter Test „Erschaffung BRS“ → Volk, Herkunft → „Abenteuer beginnen“ speichert das laufende Spiel und beginnt ein neues mit `zustand.brs` im ersten freien Platz, alle belegt → Platzwahl (795); Kampf bis 2.3 weiter SRD. 762, 471, 795 sind auf `main` zurückgenommen (a1d76fcba), darum als Cherry-picks auf demselben Zweig; im Sammelbuild nur diesen Zweig mischen, nicht die alten. Testweg für die Prüfliste: neues Spiel → Rowena weckt → Menü, Reiter „Fertigkeiten“ (762) → Kräuter pflücken → Notiz „Kräuterkunde ↑ …“, im Reiter gestiegen (471); Kampf gewinnen → Waffe/Schild ↑ (471).
 
 
 
