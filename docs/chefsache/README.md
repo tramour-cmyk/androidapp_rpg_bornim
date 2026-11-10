@@ -16,11 +16,7 @@ Nichts offen.
 
 ## Anzusehen
 
-**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
-
-| Nr. | Was | Wer | Seit |
-|---|---|---|---|
-| [661](ansehen/661-blenden.md) | Alle Blenden in einem Aufbau | Tom | 10.11., 10:56 |
+Nichts offen.
 
 ## Zu tun
 
