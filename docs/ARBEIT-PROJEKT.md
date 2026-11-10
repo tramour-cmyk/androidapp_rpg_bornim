@@ -2,9 +2,9 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `origin/main` (10.11., 16:17)
+**Gelesen bis:** `origin/main` (10.11., 17:33)
 
-**Übergabe (10.11., 16:17, `session_01Hmoj79VFg56N2qJZcNjp4u`):** 871, 865, 858, 859, 866, 870.17, 870.11, 877, 879, 880, 881, 883, 886 gebaut (warten auf Diogenes); 882 wartet auf 870.4; 870.12 Projektplan 2.3 und 2.17 neu gefasst, Schließen nach Abnahme; 874 doppelt zu 854; Hinweis an Jerry zu 854 (Kaufcache aktuell halten). Letzte Antwort: 506.1 gehört Team Jerry (Tuffy, fertig 16:30); gewartet hat Toms 506, jetzt startbar; 854a war schon erledigt, beim Chef liegt nur 887a. Nachfolger: Perikles auf Abruf
+**Übergabe (10.11., 17:33, `session_01Hmoj78wNXJUXANwzAYY8ey`):** 890, 891 gebaut (`2f825ab1f`), 889 gebaut (`571549338`), warten auf Diogenes; Ford „Start Diogenes 890“ geschickt (erste Meldung nach 891). Letzte Antwort: 506 lag, weil Toms Sitzung 16:30 endete und Ford erst 16:59 lief; jetzt meldet `vorgang.py` „LIEGT“, der Schreibende schickt Ford „Start <Rolle> <Nr>“. Nachfolger: Perikles auf Abruf
 
 ## Einzelheiten
 - **Zu 865, von Sokrates (Chef 10.11., 13:34):** „entgegen der zuletzt getroffenen Absprachen hast du doch mitten im Test eine neue Sitzung aufgemacht. Weil wir gesagt haben, das machen wir nicht mehr. Haben wir heute festgestellt. Aber super, einfach mal wieder ignoriert …“ Ursache: Haken 812 sah nur die Buildnummer, der Chef sagte „Nummer 16“. Gebaut `611d9f7c1`: Haken erkennt „Nummer <k>“, „<k> passt“, eine nackte Zahl, wenn der Build im Verlauf der Sitzung steht und `ansehen/t<n>` offen ist; 812 im Kopf von „Neustart“ (`LISTE-RELEASE-NEUSTART.md`).
