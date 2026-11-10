@@ -46,4 +46,5 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 - **Alt 186.3:** Ausgefüllte Prüfbögen der Tester auswerten (`tools/pruefbogen/`, mit echten Bögen ungetestet) · ruht, bis Bögen der Tester da sind (190)
 
 ## Einzelheiten
+- **Zu 838, von Sokrates (Chef 10.11., 12:07, Starts Tom 12:01, Jerry 12:03 „komisch“):** 838 zählte „Sitzung da“ als erfüllt (6 von 6), aber beide Sitzungen standen nach dem Start untätig („Rolle unbekannt“), bis Ford nachsandte (853 Perikles). Stichprobe künftig: erste Antwort der neuen Sitzung nennt Rolle und Vorgang, nicht nur Sitzung vorhanden.
 - **Zu Woche, aus 838 (Ford, Chef 10.11., 10:4x: „und eine Prüfung für Diogenes“; 838 erledigt Lauf 127):** Fehler 341 von Ford: START-Zeilen von `lauf.py` ausgelassen. In jeder Wochenzählung Stichprobe, ob jeder START-Zeile eine Sitzung der Rolle in `list_sessions` folgte oder ein `--ohne NR:Grund` im Protokoll steht; Ford-Berichte mit „keine Arbeit“ gegen `startbar.py` prüfen (Zahl startbarer Muss je Rolle). Ergebnis in `PRUEFBERICHT.md`, Befunde als Zeile an Ford (Vorrat `ARBEIT-BETRIEB.md`).
