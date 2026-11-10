@@ -223,6 +223,7 @@
 | 874 | Von Sokrates (653, Chef 10.11., 12:27): jede Jerry-Sitzung baut die Kaufmodelle neu (bpy, über 20 Min.); gebaute Modelle im Kaufrepo ablegen, bpy per Setup-Skript prüfen | Perikles | K | startbar | – | – | – | B Steuerung | – |
 | 877 | D134.1 (Diogenes, 870.1): commit-pruefung.py endet bei Code-Commits in Zeile 187, die Kerntest-Prüfung 301–307 erreicht core und app nie mehr | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
 | 879 | D135.1 (Diogenes, 871): „Nachfolger: – Auf Abruf (…)“ oder „–, …“ startet weiter „<Rolle> – – …“; „Auf Abruf“ groß greift 641-Regel nicht (Fall Übergabe Diogenes 10.11., 13:0x) | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
+| 880 | D135.2 (Diogenes): vorgang.py neu vergab 878 zweimal (Tom 15:02:21, Diogenes 15:02:36); Zähler ohne sofortigen Push, Zusammenführung von Hand | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
 | 870.1 | Von Sokrates (870, Chef 14:08 „dein Plan irgendwer gegenlesen“): Master-Umzugsplan BRS LISTE-UMZUG-BRS.md und Chefsache 870a gegen Code und DESIGN-BRS gegenlesen, Befund als Text an den Chef | Diogenes | M | erledigt | – | – | – | E Kampf | 9,47 $ |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
