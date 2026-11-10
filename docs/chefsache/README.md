@@ -119,7 +119,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 640 | M | Innenräume und Häuser, Varianten wie alt: Werkzeugregal, Wandbehänge und Stock bei Aldric, | ruht |
 | 649.3 | M | Figurenkatalog: Bewohner, Händler, Lehrmeister, Söldner füllen (Tagesablauf, Laden, Stimme | wartet auf 649.2 (ruht) |
 | 644.4 | M | Gegenstandskatalog: Ladenbestand und Rezepte aus texte.json und Kotlin in den Katalog umst | wartet auf 644.1 (ruht) |
-| 663 | M | Klassische Steuerung ausbauen: Steuerkreuz und Funktionstasten ganz raus, nur Touch; Auswa | ruht |
+| 663 | M | Klassische Steuerung ausbauen: Steuerkreuz und Funktionstasten ganz raus, nur Touch; Auswa | Sperre 620.1 B: 16 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 540 (klassische) |
 | 665 | M | Nacht im Dorf: um 2:30 kaum dunkel; in allen Häusern Licht, keiner schläft: tiefe Nacht du | ruht |
 | 668 | M | Testmenü an Schirme ohne Kasten angleichen: Zurück, Trennlinien, Aufbau wie 549a/618 (Chef | ruht |
 | 673 | M | Emulator: Kamera drehen und zoomen mit Maus und Tasten (rechte Maustaste ziehen, Mausrad), | ruht |
