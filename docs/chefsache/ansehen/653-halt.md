@@ -1,5 +1,7 @@
 # 653 · Halt je Modell: Prüfbild aller Kombinationen · Tom · 10.11., 13:05
 
+[Bild von 10.11., 13:05](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/10-1305-653-Tom-2.png) (eingetragen von meldung.sh, Tom)
+
 [Bild von 10.11., 13:05](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/10-1305-653-Tom.png) (eingetragen von meldung.sh, Tom)
 
 ![Kaufkörper Mann mit jedem Gegenstand, je von vorn und von der Seite der Hand](../bilder/653-halt.webp)
