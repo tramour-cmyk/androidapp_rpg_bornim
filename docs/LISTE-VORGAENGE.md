@@ -189,12 +189,13 @@
 | Pflege | von Werkzeug (340.3, 10.11.): 18440 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 844 | Kampf: Goblins und Kobolde haben keine Angriffsbewegung (nur Gehen, Stehen), gleiten im Stehen 60 % des Wegs vor, Treffer ohne Schlag (treffen_709, aus 709) | Jerry | M? | startbar | – | – | – | E Kampf | – |
 | 845 | Kampf: Krogg steht 0,65 m hinter seinem Platz, beim Planen des Helden liest seine Lage den Platz (Held schlägt 0,5 m zu kurz), Sprung 0,5 m im Stehen (treffen_709, aus 709) | Jerry | M? | startbar | – | – | – | E Kampf | – |
-| 432 | Eigenes Volk aus Bornim (etwa mit dem Grauen Propheten, „Tag der Asche“) prüfen, mit der Geschichte ab Kapitel 2 (Chef 31.10., 22:0x) | Homer | K | ruht | – | – | – | G Story | 0,79 $ |
+| 432 | Eigenes Volk aus Bornim (etwa mit dem Grauen Propheten, „Tag der Asche“) prüfen, mit der Geschichte ab Kapitel 2 (Chef 31.10., 22:0x) | Homer | K | startbar, Chef 10.11., 11:55: jetzt bearbeiten (432a) | 432a | – | – | G Story | 0,79 $ |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 72 | Profil und Marktvergleich | Homer | K | erledigt | – | – | – | E Kampf | 0,72; +0,61 $ |
 | 348.12g | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | Homer | M | erledigt | – | – | – | G Story | 4,29 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
+| 432a | Aschgeborene: drei offene Storyfragen (Vesks Liste, Kael, Lyra) und Zeitpunkt des Baus, „jetzt“ 10.11., 11:55 | Homer | M | startbar | Chef | – | – | G Story | – |
 | 837 | lauf.py: Start nicht angekommen melden (Chef 10.11., 10:4x; Fehler 341 von Ford) · „jetzt“ 10.11., 11:09 | Perikles | M | erledigt, greift Lauf 127 | – | – | – | B Werkzeuge | – |
 | 483 | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Marke (Chef 02.11., 19:08) | Perikles | M | gebaut, Geprüft an: 62e922b30 | Diogenes, D75 | – | – | B Werkzeuge | – |
 | 464 | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählung im Tagesbericht (Chef 01.11., 20:4x) | Perikles | M | gebaut, Geprüft an: fcf9ab215 | 16.11. | – | – | B Abläufe | – |
