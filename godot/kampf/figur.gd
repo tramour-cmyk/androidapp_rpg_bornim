@@ -2697,6 +2697,8 @@ const HIEB_KOERPER_LUFT := 0.02   # 709: Körper und Schild bleiben im ganzen Hi
 const BISS_UMRISS := 0.03         # 709: so viel Luft hält der Umriss des Tiers am Bissplatz zu allen (wolf_mess_438: 5 cm tief erlaubt)
 const BISS_LUFT := 0.05           # 709: Körper und Schnauze bleiben so weit vor Körper und Schild des Ziels (wolf_mess_438: 4 cm im Schild)
 const BISS_TIEF := 0.01           # 709: so tief fasst die Schnauze beim Treffer in den Körper (Kapseln; wolf_mess_438 erlaubt 3 cm)
+const NACH_T := 0.2               # 709: so lange nach dem Aufschlag beginnt der „zweite Schwung“ (hieb_plan [4])
+const NACH_LUFT := 0.12           # 709: so weit bleibt die Waffe danach vom Ziel (der Getroffene zuckt bis 0,1 m vor)
 const HIEB_VERZUG := 0.05         # 709: der Hieb beginnt mit Überblendung (0,08 s) ein Bild nach dem Aufruf; so viel später der Aufschlag
 func _held_schlag(other, weiter := 0.0) -> int:
 	var to: Vector3 = other.position
@@ -2749,15 +2751,20 @@ func _held_schlag(other, weiter := 0.0) -> int:
 		# erst der gewürfelte Hieb; erreicht er das Ziel nicht, ohne dass Körper oder Schild hineingehen, ein anderer, sonst der weiteste
 		var plan: Array = _hieb_plan_merk(hn, other, ziel, to, d, soll)
 		var plaene := {hn: plan}
-		if plan[2] < plan[3] - 0.02:
+		# 709 (wolf_mess_438 Kämpfer 84,3 s: SS_SwordAttack2 schwingt zweimal, der getroffene Wolf zuckt in „Treffer“ nach vorn, der
+		# zweite Schwung fuhr 0,12 m in ihn): ein Hieb, dessen zweiter Schwung dem Ziel nach dem Aufschlag noch NACH_LUFT nahe kommt,
+		# nur, wenn keiner der anderen sauber trifft
+		var wert := func(pl: Array) -> float:
+			return minf(pl[2] - pl[3] + 0.02, 0.0) + (0.0 if pl.size() < 5 or pl[4] >= NACH_LUFT else -0.5)
+		if wert.call(plan) < 0.0:
 			var rest: Array = hiebe.filter(func(h): return h != hn)
 			rest.shuffle()
 			var best: String = hn
 			for h in rest:
 				plaene[h] = _hieb_plan_merk(h, other, ziel, to, d, soll)
-				if plaene[h][2] - plaene[h][3] > plaene[best][2] - plaene[best][3]:
+				if wert.call(plaene[h]) > wert.call(plaene[best]):
 					best = h
-				if plaene[h][2] >= plaene[h][3] - 0.02:
+				if wert.call(plaene[h]) >= 0.0:
 					break
 			hn = best
 			plan = plaene[hn]
@@ -3350,7 +3357,9 @@ static func hieb_plan(bahn: Array, ziel: Array, to: Vector3, d: Vector3, soll: f
 	while xb < 4.0 and minf(_koerper_luecke(bahn, zl + hl, xb, 2), _koerper_luecke(bahn, hl, xb, 1, 1)) < luft:
 		xb += 0.05
 	var xs := maxf(xk, xb)
-	return [xs, float(_klinge_luecke(bahn, zl, xs)[1]), xk, xb]
+	var tk := float(_klinge_luecke(bahn, zl, xs)[1])
+	# 709: [4] die kleinste Lücke danach (ab NACH_T nach dem Aufschlag): ein Hieb mit zweitem Schwung fährt dort noch einmal durch
+	return [xs, tk, xk, xb, float(_klinge_luecke(bahn, zl, xs, tk + NACH_T)[0])]
 
 
 static func _im_raum(kaps: Array, inv: Transform3D) -> Array:
@@ -3363,11 +3372,13 @@ static func _im_raum(kaps: Array, inv: Transform3D) -> Array:
 
 
 ## kleinste Lücke der Waffe (Kapseln s[1]) zu [zl] über den ganzen Weg, wenn die Figur [x] zurück steht: [Lücke, t]
-static func _klinge_luecke(bahn: Array, zl: Array, x: float) -> Array:
+static func _klinge_luecke(bahn: Array, zl: Array, x: float, t_ab := -INF) -> Array:
 	var best := INF
 	var bt := 0.0
 	var v := Vector3(0.0, 0.0, x)
 	for s in bahn:
+		if float(s[0]) < t_ab:
+			continue
 		for w in s[1]:
 			var a: Vector3 = w[0]
 			var b: Vector3 = w[1]

@@ -1282,9 +1282,11 @@ func _refused() -> void:
 	queue_free()
 
 
+var zuege := 0     # 709: fertige Züge (kampf_ui.panel_passt)
 func _done() -> void:
 	shown.queue = mars.queue()
 	busy = false
+	zuege += 1
 	if end_asked != null and mars.outcome == "ONGOING":
 		test_end(bool(end_asked))
 		return

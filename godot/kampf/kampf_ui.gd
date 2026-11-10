@@ -1901,7 +1901,7 @@ func panel_passt() -> void:
 	var vs2: Vector2 = get_viewport().get_visible_rect().size
 	backdrop.position = Vector2(0, vs2.y - panel_height())
 	backdrop.size = Vector2(vs2.x, panel_height())
-	if kampfort.busy:
+	if kampfort.busy and kampfort.zuege > 0:     # beim Aufbau (vor dem ersten Zug) gleich, wie bisher
 		return
 	if absf(panel.size.y - fitted_h) > 1.0:
 		fitted_h = panel.size.y
