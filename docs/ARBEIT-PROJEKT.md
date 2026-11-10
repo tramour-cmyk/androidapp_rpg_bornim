@@ -2,9 +2,9 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `origin/main` (10.11., 19:37)
+**Gelesen bis:** `origin/main` (10.11., 19:43)
 
-**Übergabe (10.11., 19:37, `session_01Hmoj78EojqkK8RuGDFLGd1`):** 894 auf main (`88520694a`), 895 erledigt (android.yml nur von Hand), Sokrates benachrichtigt. 264.1: Zweig `claude/perikles-264-runner`, Lauf 327 (Lauf 3, Run 42874637897) läuft seit 19:23; auswerten gegen Lauf 322 (core 1:18, Kauf 1:33, Blender 0:25, Modelle 3:45, Held je Klasse 11:43, Leute 8:43, Kampfort 13:51, Skripte prüfen 16:46, Export 0:37, gesamt 63 Min.), Zeiten per Telegram. Letzte Antwort: Kotlin steckt noch in `core` (Quelle der Godot-Daten, raus mit 870.9) und `android.yml` (altes Spiel, jetzt nur von Hand, weg mit 870.10). Nachfolger: Perikles – 264.1: Runner Lauf 3 auswerten
+**Übergabe (10.11., 19:43, `session_01Hmoj79eGuPAWDDmMjhL18W`):** 264.1 Lauf 3 (327) ausgewertet: rot im Schritt CC0-Pakete (ohne zstd verfehlt der Zwischenspeicher, itch.io 403), zstd gebaut `1228f6764` im Zweig, Zeiten per Telegram; Lauf 4 sperrt 621 A, Bitte „264.1, Läufe frei“ an Sokrates (sein Vorrat). Vergleich Lauf 322: core 1:18, Kauf 1:33, Blender 0:25, Modelle 3:45, Held je Klasse 11:43, Leute 8:43, Kampfort 13:51, Skripte prüfen 16:46, Export 0:37, gesamt 63 Min. 893 gebaut `65d23431b`. Nachfolger: Perikles – 264.1: Lauf 4 auswerten, sobald Läufe frei
 
 ## Einzelheiten
 - **Zu 264.1, von Sokrates (18:53):** `actions/cache` verfehlt auf eigenen Runnern meist ohne `zstd`; vor Lauf 4 `zstd` in „Runner vorbereiten“ aufnehmen (Blender 2:43 statt 0:25 spricht dafür; checkout löscht `bl` im Arbeitsordner).
