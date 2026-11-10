@@ -144,23 +144,20 @@ func _fight(sheet: Dictionary, foe_ids: Array, tape, opening := "NORMAL"):
 func _flight() -> void:
 	var sheet: Dictionary = tables.probe.FIGHTER.hero.hero.duplicate(true)
 	var wolf := _monster("wolf")
-	var dc: int = 10 + int(wolf.dex)
-	# initiative: hero 20, wolf 1; then the flight roll
-	for c in [[dc - int(sheet.dex), "FLED"], [dc - int(sheet.dex) - 1, "ONGOING"]]:
-		var m = _fight(sheet, ["wolf"], [20, 1] + _ones())
+	# 870.5 (870a 5 A): Probe in Prozent, Gewandtheit gegen den schnellsten Gegner; Wurf 0–99 unter der Chance gelingt
+	var probe = _fight(sheet, ["wolf"], [20, 1] + _ones())
+	var c: int = roundi(probe._probe_chance(probe.by_id("hero"), "gewandtheit", probe.by_id("f0"), "gewandtheit"))
+	for k in [[c - 1, "FLED"], [c, "ONGOING"]]:
+		var m = _fight(sheet, ["wolf"], [99, 1] + _ones())
 		m.start()
-		# the flight roll comes first on the tape once the hero chooses
-		m.dice.tape = [c[0]] + _ones()
+		m.dice.tape = [k[0]] + _ones()
 		m.dice.pos = 0
 		m.act(["flee"])
-		var got: String = m.outcome
-		_check_s("Flucht mit %d" % c[0], got, c[1])
-	var rogue: Dictionary = tables.probe.ROGUE.hero.hero.duplicate(true)
-	var r = _fight(rogue, ["wolf"], [20, 1] + _ones())
-	r.start()
-	if r.current().id == "hero":
-		r.act(["flee"])
-	_check_s("Schurke ohne Gerissenheit (870.5)", r.outcome, "ONGOING")
+		_check_s("Flucht mit %d bei %d %%" % [k[0], c], m.outcome, k[1])
+	var d = _fight(sheet, ["wolf"], [99, 1] + _ones())
+	d.start()
+	d.by_id("hero").status["DRUNK"] = 3
+	_check_s("betrunken: Flucht mit Ungunst", str(roundi(d._probe_chance(d.by_id("hero"), "gewandtheit", d.by_id("f0"), "gewandtheit", -absf(Mars.BrsKampf.nachteil())))), str(maxi(5, c - 25)))
 	var b = _fight(sheet, ["hobgoblin_captain"], 1)
 	_check_s("Flucht vor Grak", str(b.can_flee(b.by_id("hero"))), "false")
 
@@ -264,11 +261,11 @@ func _statuses() -> void:
 	_tape(z, [0])
 	_check_s("Zwerg widersteht Gift", str(z._inflict(z.by_id("hero"), "POISON", 3)), "false")
 	var sv = _fight(sheet, ["wolf"], 1)
-	_tape(sv, [20])
-	_check_s("Rettungswurf gelingt", str(sv._inflict(sv.by_id("hero"), "POISON", 3, ["CON", 11])), "false")
+	_tape(sv, [0])     # 870.5: Abwehrprobe in Prozent, kleiner Wurf gelingt
+	_check_s("Abwehrprobe gelingt", str(sv._inflict(sv.by_id("hero"), "POISON", 3, ["CON", 11])), "false")
 	var fl = _fight(sheet, ["wolf"], 1)
-	_tape(fl, [1, 999])
-	_check_s("Rettungswurf misslingt", str(fl._inflict(fl.by_id("hero"), "POISON", 3, ["CON", 11])), "true")
+	_tape(fl, [99, 999])
+	_check_s("Abwehrprobe misslingt", str(fl._inflict(fl.by_id("hero"), "POISON", 3, ["CON", 11])), "true")
 
 
 ## The next numbers of [m]'s dice, from here on.

@@ -386,9 +386,9 @@ func _init(party: Array, foes: Array, tables: Dictionary, p_dice, p_words, p_lan
 		var gap: float = float(lv) - top
 		if gap >= EASY_GAP:
 			easy_gap = gap
+	brs_einrichten()     # 870.5: immer; vor der Initiative, die nach dem BRS rechnet
 	for f in all:
-		var dex: int = int(f.hero.dex) if f.hero != null else int(f.monster.dex)
-		f.initiative = dice.d20(-1 if winded and f == party[0] else 0) + dex
+		f.initiative = _initiative(f, winded and f == party[0])
 	var idx := {}
 	for i in all.size():
 		idx[all[i]] = i
@@ -407,7 +407,6 @@ func _init(party: Array, foes: Array, tables: Dictionary, p_dice, p_words, p_lan
 			surprised[f.id] = true
 	for f in foes:
 		announce(f)
-	brs_einrichten()     # 870.5: immer
 
 
 ## 478, 870.5: ein Angriffswurf nach dem BRS: ["BRS", Wurf 1–100, 0, Chance, Treffer, Lage, von hinten, kritisch]
@@ -479,6 +478,58 @@ func _brs_handlungen(f: Fighter) -> void:
 		if not skills.has(id):
 			var cost := "PER_BATTLE" if id == "H_KRAFT" else "HANDLUNG"
 			skills[id] = {"id": id, "de": HANDLUNG_NAME[id][0], "en": HANDLUNG_NAME[id][1], "cost": cost, "amount": 1, "cls": "", "level": 0}
+
+
+## 870.5 (870a 5 A): Grundwert für Proben; Gegner ohne Grundwerte zählen mit „gegner_grundwert“ (werte.json „proben“)
+const ABWEHR_WERT := {"CON": "zaehigkeit", "STR": "kraft", "DEX": "gewandtheit", "WIS": "wille", "INT": "wille", "CHA": "wille"}
+
+func _proben() -> Dictionary:
+	return BrsKampf.w().get("proben", {})
+
+
+func _grundwert(f: Fighter, name: String) -> float:
+	var P := _proben()
+	var w = f.b.get("werte", {}) if name != "" else {}
+	if w.has(name):
+		return float(w[name])
+	return float(P.get("gegner_grundwert", 5))
+
+
+## Chance in Prozent: [f] mit [wert] gegen [g] mit [gegen] (leer: gegner_grundwert), Stufe dazu
+func _probe_chance(f: Fighter, wert: String, g: Fighter, gegen: String, bonus := 0.0) -> float:
+	var P := _proben()
+	var c := float(P.get("basis", 50)) + float(P.get("je_punkt", 5)) * (_grundwert(f, wert) - _grundwert(g, gegen)) \
+			+ float(P.get("je_stufe", 5)) * float(int(f.b.get("stufe", 1)) - int(g.b.get("stufe", 1))) + bonus
+	return clampf(c, float(P.get("min", 5)), float(P.get("max", 95)))
+
+
+func _probe(f: Fighter, wert: String, g: Fighter, gegen: String, bonus := 0.0) -> bool:
+	return dice.next_int(0, 100) < roundi(_probe_chance(f, wert, g, gegen, bonus))
+
+
+func _staerkster_gegner(t: Fighter):
+	var best = null
+	for x in all:
+		if x.side != t.side and x.standing() and (best == null or int(x.b.get("stufe", 1)) > int(best.b.get("stufe", 1))):
+			best = x
+	return best
+
+
+## Reihenfolge (werte.json „proben“ „_initiative“); Zufall vom Würfel (0 bis Streuung), so spielt ein Band in Tests mit
+func _initiative(f: Fighter, atemlos := false) -> int:
+	var P := _proben()
+	var n := float(P.get("je_punkt", 5)) * _grundwert(f, "gewandtheit") + float(P.get("je_stufe", 5)) * float(int(f.b.get("stufe", 1)))
+	n += float(dice.next_int(0, int(P.get("initiative_streuung", 100))))
+	if atemlos:
+		n -= float(P.get("initiative_atemlos", 25))
+	return roundi(n)
+
+
+## 506 Untotenzähigkeit als Prozent statt W20: dieselbe Chance wie früher (W20 + Zähigkeit ≥ 5 + Schaden), Schaden im alten Maß
+func _zaeh_haelt(t: Fighter, dmg: int) -> bool:
+	var alt := roundi(float(dmg) / maxf(0.01, massstab(t)))
+	var c := 5 * (21 - (ZAEH_DC + alt - int(t.monster.get("con", 0))))
+	return dice.next_int(0, 100) < clampi(c, 0, 100)
 
 
 static func ziel_von(s: String) -> String:
@@ -1193,11 +1244,12 @@ func _spell_attack(f: Fighter, t: Fighter, dmg: Array) -> void:
 
 func _save_spell(f: Fighter, t: Fighter, amount: int, half: bool) -> void:
 	amount = _srd(t, amount)     # 478
-	var dc: int = int(f.hero.spellDc)
-	var mod: int = int(t.hero.dex) if t.hero != null else int(t.monster.dex)
-	var r: int = dice.d20(1 if t.waited else 0)
-	var saved := r + mod >= dc and not (gegner_ohne_rettung and t.side == "FOES")
-	var info := ["SAVE", r, mod, dc, saved, 0, false]
+	# 870.5: Abwehrprobe in Prozent, Gewandtheit des Ziels gegen den Willen des Zaubernden (wer abwartet, mit Gunst)
+	var bonus := absf(BrsKampf.nachteil()) if t.waited else 0.0
+	var c := _probe_chance(t, "gewandtheit", f, "wille", bonus)
+	var r: int = dice.next_int(0, 100) + 1
+	var saved := r <= roundi(c) and not (gegner_ohne_rettung and t.side == "FOES")
+	var info := ["SAVE", r, 0, roundi(c), saved, 0, false]
 	if saved and not half:
 		_say(fmt(X.MSG72_DODGES, lang, [t.name(lang)]), f.id, t.id, 0, info)
 		return
@@ -1225,17 +1277,18 @@ func can_flee(f: Fighter) -> bool:
 	return f.side == "PARTY" and f.hero != null and not all.any(func(x): return x.side == "FOES" and x.standing() and x.boss())
 
 
+## 870.5 (870a 5 A): Flucht als Probe in Prozent, Gewandtheit gegen den schnellsten stehenden Gegner (werte.json „proben“); vorher
 ## 296.2: the roll of the old fight (Battle flee): d20 + Dexterity (+2 for an elf) against 10 + the quickest standing
 ## foe's Dexterity save; cunning action always gets away. On success the fight ends as "FLED".
 func _flee(f: Fighter) -> void:
 	assert(can_flee(f))
-	var elf := 2 if str(f.hero.get("race", "")) == "ELF" else 0
-	var top := -99
+	var schnell = null
 	for x in all:
-		if x.side == "FOES" and x.standing():
-			top = maxi(top, int(x.monster.dex))
-	# 532 (alt Battle.kt 616): betrunken flieht er mit Nachteil
-	if f.has("CUNNING_ACTION") or dice.d20(-1 if f.status.has("DRUNK") else 0) + int(f.hero.dex) + elf >= 10 + top:
+		if x.side == "FOES" and x.standing() and (schnell == null or _grundwert(x, "gewandtheit") > _grundwert(schnell, "gewandtheit")):
+			schnell = x
+	# 532 (alt Battle.kt 616): betrunken flieht er mit Ungunst
+	var bonus := -absf(BrsKampf.nachteil()) if f.status.has("DRUNK") else 0.0
+	if schnell == null or _probe(f, "gewandtheit", schnell, "gewandtheit", bonus):
 		_say(fmt(MSG296_FLED, lang, [f.name(lang)]), f.id)
 		outcome = "FLED"
 	else:
@@ -1302,10 +1355,11 @@ func _inflict(t: Fighter, st: String, turns: int, save = null, die = null) -> bo
 	var who := t.name(lang)
 	var h = t.hero
 	if h != null:
-		if save != null:
-			var ab: String = save[0]
-			var prof: int = int(h.get("prof", 0)) if ab in h.get("saves", []) else 0
-			if dice.d20() + int(h.get(ab.to_lower(), 0)) + prof >= int(save[1]):
+		if save != null:     # 870.5: Abwehrprobe in Prozent gegen den stärksten stehenden Gegner (werte.json „proben“)
+			var P := _proben()
+			var gegen = _staerkster_gegner(t)
+			var schwere := (int(save[1]) - int(P.get("abwehr_mitte", 11))) * float(P.get("je_punkt", 5))
+			if gegen != null and _probe(t, String(ABWEHR_WERT.get(String(save[0]), "zaehigkeit")), gegen, "", -schwere):
 				_say(fmt(ST_SHRUGS, lang, [who]), null, t.id)
 				return false
 		var ten := int(h.get("tenacity", 0))
@@ -1762,7 +1816,7 @@ func _summon(by: Fighter) -> void:
 	called += 1
 	var g := monster_fighter("gob%d" % called, spot, m, dice.roll_expr(m.hp))
 	_brs_kaempfer(g)     # 478
-	g.initiative = dice.d20() + int(m.dex)
+	g.initiative = _initiative(g)
 	g.called_in = true
 	var kin := all.filter(func(x): return x.monster != null and x.monster.id == m.id)
 	if not kin.is_empty():
@@ -1792,7 +1846,7 @@ func _hurt(t: Fighter, full: int, by: String, text: String, roll = null, wound :
 	# 506 (alt Battle.dealDamage): Untotenzähigkeit des Wiedergängers
 	var zaeh: bool = floor_hp == 0 and t.side == "FOES" and t.monster != null and str(t.monster.get("special", "")) == "UNDEAD_FORTITUDE" \
 			and t.hp > 0 and t.hp <= dmg and by != "" and not krit_jetzt \
-			and dice.d20() + int(t.monster.get("con", 0)) >= ZAEH_DC + dmg
+			and _zaeh_haelt(t, dmg)
 	if zaeh:
 		floor_hp = 1
 	t.hp = maxi(t.hp - dmg, floor_hp)
