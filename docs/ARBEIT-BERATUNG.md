@@ -27,6 +27,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Zu 142** (17.–20.10. in Git): Fahrplan im vertraulichen [Dokument](https://claude.ai/artifact/D2DeY5N8yUcFjzRyW9RXWM); offen: Anschrift vor dem Zahlungsprofil
 
 ## Einzelheiten
+- **Zu 873, von Tom (10.11., 14:32):** von `vorgang.py` beim Anlegen von 872 selbst erzeugt; die Systemlösung für den Griff ist 653 (Halt je Modell, abgenommen 14:22), 872 überträgt sie auf den Kampf. Vorschlag: mit Verweis auf 653 erledigen.
 
 
 - **von Perikles (Chef 09.11., 21:38, Bruchstück in Perikles' Sitzung vor „797 …“):** „viel mehr Geld dafür geben wird, und dafür sind die Haushalte einfach zu eng.“ Vermutlich Teil eines Gesprächs mit dir (Markt, Preis); Anfang fehlt, bitte zuordnen.

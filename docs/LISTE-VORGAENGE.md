@@ -186,6 +186,7 @@
 | 506.1 | Kampf: langsame Gegner (Wiedergänger) starten näher am Helden, hintere Reihe ohne langen Anmarsch, Gang bleibt langsam (von Tom, 506; Chef 10.11., 12:25) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 868 | Von Sokrates (Chef 10.11., 13:48): Kampf zeigt noch Rüstungsklasse und Würfelwerte; nur noch BRS-Begriffe und -Werte | Jerry | M | startbar | – | – | – | E Kampf | – |
 | Pflege | von Werkzeug (340.3, 10.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Jerry | K | startbar | – | – | – | B Abläufe | – |
+| 872 | Kampf auf Halt 653 umstellen: Waffen und Schilde der Gegner und des Helden im Kampfort mit Halt.anlegen/Halt.gegenstand (Griff, Spitze, Länge je Modell aus regeln/halt.json) statt je Gegner gemessen; Fertiges bleibt (von Tom, Chef 10.11., 12:33/14:22) | Jerry | M | startbar | 653 | – | – | E Kampf | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
@@ -217,7 +218,7 @@
 | 859 | D130.1 (Diogenes, 849): Nachfolger nennt die letzte Antwort nicht; Regel steht nur beim Vorgänger (LISTE-RELEASE-NEUSTART 1), nicht in der Startmeldung (CLAUDE.md Zusammenarbeit 2) oder den Rollendateien | Perikles | M | gebaut, Geprüft an: 66cb5632f | Diogenes | – | – | B Werkzeuge | – |
 | 866 | Von Sokrates (620, Lagebild t274): Prüfliste geht nur gegengelesen raus; Wächter statt Absprache | Perikles | M | gebaut, Geprüft an: 8c9f2dc3f | Diogenes | – | – | Q QS | – |
 | Pflege | von Werkzeug (340.3, 10.11.): 18151 Bytes (Grenze 15000), Erledigtes streichen | Perikles | K | startbar | – | – | – | B Abläufe | – |
-| 872 | Von Sokrates (653, Chef 10.11., 12:27): jede Jerry-Sitzung baut die Kaufmodelle neu (bpy, über 20 Min.); gebaute Modelle im Kaufrepo ablegen, bpy per Setup-Skript prüfen | Perikles | K | startbar | – | – | – | B Steuerung | – |
+| 874 | Von Sokrates (653, Chef 10.11., 12:27): jede Jerry-Sitzung baut die Kaufmodelle neu (bpy, über 20 Min.); gebaute Modelle im Kaufrepo ablegen, bpy per Setup-Skript prüfen | Perikles | K | startbar | – | – | – | B Steuerung | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
@@ -274,6 +275,7 @@
 | 862 | Systemlösung? Umhang: 6 frühere Vorgänge (58, 488, 463, 463.1, 656 …), neu 861; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Figuren | – |
 | 869 | Systemlösung? Rüstung: 2 frühere Vorgänge (49, 817), neu 868; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Kampf | – |
 | Pflege | von Werkzeug (340.3, 10.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Sokrates | K | startbar | – | – | – | B Abläufe | – |
+| 873 | Systemlösung? Griff: 3 frühere Vorgänge (653, 643, 524), neu 872; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Kampf | – |
 | 843 | D126.1 (Diogenes, 838): START ohne Sitzung 14 von 39 (09.11., 19:04 bis 10.11., 11:08), keiner mit --ohne; 3 ohne Grund (22:44 Spike, 10:25 Jerry, Perikles) | Ford | M | startbar | – | – | – | B Steuerung | 12,41 $ |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +879,20 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
