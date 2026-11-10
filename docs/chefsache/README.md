@@ -34,7 +34,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
-**Tom** – offen 99, Muss 79, startbar 16, PAUSE bis 13.11., 20:00 Uhr
+**Tom** – offen 100, Muss 80, startbar 16, PAUSE bis 13.11., 20:00 Uhr
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -137,6 +137,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 867 | M | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die | startbar |
 | 875 | M | Von Homer (857a A, Chef 10.11., 13:35): Fertigkeit Kräuterkunde heißt im Spiel Kräutersamm | startbar |
 | Pflege | K | von Werkzeug (340.3, 10.11.): 15816 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 878 | M | Von Jerry zu 854: godot.yml-Entwurf Kaufcache ansehen, ja oder Änderung | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 825 (ansehen) |
 
 **Jerry** – offen 79, Muss 65, startbar 30, PAUSE bis 13.11., 20:00 Uhr
 
