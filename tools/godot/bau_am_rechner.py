@@ -68,14 +68,15 @@ def schritte(namen):
 def cache(mit_laden):
     kc = [sys.executable, os.path.join(REPO, 'tools/godot/kauf_cache.py')]
     env = dict(os.environ, RUNNER_TEMP=RT, KAUF=KAUF)
-    # Leute vor dem Holen (wie auf dem Bauserver): ihre Dateien liegen nicht im Cache, holen ersetzt danach die Kaufschilde
-    schritte(['Karten und Texte', 'Leute bauen'])
+    # Leute vor dem Holen (wie auf dem Bauserver): ihre Dateien liegen nicht im Cache, holen ersetzt danach die Kaufschilde;
+    # sie brauchen die CC0-Pakete (rig.py: Bewegungen aus UAL1_Standard.glb)
+    schritte(['Karten und Texte', 'CC0-Pakete', 'Leute bauen'])
     if subprocess.run(kc + ['holen'], cwd=REPO, env=env).returncode == 0:
         return
     if mit_laden:
         laden()
     subprocess.run(kc + ['vorher'], cwd=REPO, env=env, check=True)
-    schritte([n for n in SCHRITTE[1:] if n != 'Leute bauen'])
+    schritte([n for n in SCHRITTE[1:] if n not in ('CC0-Pakete', 'Leute bauen')])
     subprocess.run(kc + ['ablegen'], cwd=REPO, env=env, check=True)
 
 if __name__ == '__main__':
