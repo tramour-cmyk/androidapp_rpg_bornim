@@ -114,7 +114,7 @@
 | 839 | Von Homer (817): Erklärtexte der Grundwerte im Reiter Held nach BRS einbauen, Texte STORY-MENUE.md [817.…]; sieben Zeilen ohne Wirkung streichen | Tom | K | ruht, bis Test 825 (620, Perikles) | – | – | – | G Story | – |
 | 842 | Von Sokrates (807a A, Chef 10.11., 11:01): Pim überreden und Verband nach STORY-K1-FERTIGKEITEN.md bauen, Knopf nennt die Fertigkeit („Schick Pim heim (Überreden)“), übt die Fertigkeit (471) | Tom | M | startbar | – | – | – | E Welt | – |
 | Pflege | von Werkzeug (340.3, 10.11.): 18542 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
-| 709 | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angreifer prüfen (Chef 08.11., 21:36, über Sokrates) | Jerry | M | in Arbeit, Messung treffen_709 am Rechner | – | claude/jerry-709-treffen | – | E Kampf | – |
+| 709 | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angreifer prüfen (Chef 08.11., 21:36, über Sokrates) | Jerry | M | in Arbeit, Held fertig, Biss offen | – | claude/jerry-709-treffen | – | E Kampf | – |
 | 751 | Kampf: Knopfleiste des Helden manchmal leer („…“), keine Menüfunktion, auch ohne „ganzer Bericht“ (Chef 09.11., 14:00, Fund t271, Bild Wolfsrudel) | Jerry | M | startbar, 751 A (Chef 17:46) | – | claude/jerry-717-rueckwaerts | – | E Oberfläche | – |
 | 593 | MARS: Ausweichen auch rückwärts als Abwechslung zu links und rechts (Chef 05.11., 19:2x) | Jerry | M | zu testen | – | claude/jerry-593-ausweichen | 274 | E Kampf | – |
 | 406.2 | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) · zurück t269 | Jerry | M | in Arbeit, bei Tuffy | – | – | – | E Kampf | 41,37 $ |
