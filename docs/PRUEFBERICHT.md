@@ -37,6 +37,14 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Geschlossen laut Nachprüfung oder Spur: D61.2, D62.1, D63.1–D63.6, D64.1, D65.1, D67.1, D68.1, D68.2, D69.1, D70.1, D71.1, D71.2, D74, D76.1, D76.2, D77.1, D77.2, D78.2, D79, D80.1–D80.7, D81.1, D81.2 (mit 275.2), D82, D83, D84, D84.2, D85, D86.2 (Hinweis an mich), D88.1 (685), D89, D90.1–D90.3 (686), D93.
 
+## Lauf 126 · 838 Stichprobe START gegen Sitzungen (Chef 10.11., 10:4x; 10.11., 11:1x)
+
+Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zeile als Startsperre „(lauf.py)“ ein); Quelle Protokoll `ARBEIT-BETRIEB.md` in Git gegen `list_sessions` (created_at, Berliner Zeit).
+- **`lauf.py`-Starts:** 13 Läufe, 39 START-Rollen; 25 mit Sitzung binnen 2 Minuten, **14 ohne Sitzung (36 %)**, keiner mit `--ohne NR:Grund`. Mit Grund nur im Protokoll (Ford beurteilt selbst: Pacing, Kaufrepo, „auf Abruf“, alte Sitzung wartet): 01:04 Tom, Perikles, Tuffy · 02:06 Perikles, Spike, Tuffy · 07:04 Jerry (Weiter-Nachricht an alte Sitzung statt START), Perikles, Tuffy · 08:05 Jerry, Tuffy = 11. **Ohne jeden Grund:** 09.11., 22:44 Spike (Commit `6615704a2` nennt nur „Diogenes, Tuffy“) · 10.11., 10:25 Jerry (erst 10:32 auf Zuruf des Chefs), Perikles (erst 11:08) = 3. Fehler 341 nennt davon nur Jerry 07:04, 08:05, 10:26.
+- **Fords eigene Startsperren** (Neustarts, „vor dem Start“): 39, jede mit Sitzung derselben Rolle binnen 2 Minuten; ohne Befund.
+- **„keine Arbeit“:** Protokoll 09:07 „Keine Entwicklersitzung (826 A)“: 826 A (08:25) erlaubt eine Entwicklersitzung, gelaufen ist von 07:25 bis 10:26 keine (Jerry 59 Muss, Tom startbar); Bericht 10:32 „keine Arbeit“ schon in 341. Fords Chatberichte selbst nicht prüfbar (`meldungen.tsv` ohne Text).
+- Befund D126.1 → 843 (Ford). Werkzeugseite liegt in 837 (Perikles); 838 wiederholen, sobald 837 gebaut ist.
+
 ## Lauf 125 · 800 Nachprüfung 813 (Perikles, `23064823b`; 10.11., 00:0x)
 
 **Greift.** `regelcheck.py` (Z. 177) nimmt Pfade relativ zu `docs/` und `docs/chefsache/`; die drei Fehlalarme aus D123.1 (`kapitel2/STORY-K2-ENTWURF.md`, `kapitel2/STORY-PLAN-K2.md`, `chefsache/README.md`) sind weg. Übrige Meldungen „fehlende Datei“ sind echte tote Verweise aus der Zeit vor 800 (beantwortete Chefsachen, ruhende Vorräte), nicht Teil des Auftrags. 800 erledigt; der Absatz „Zu 800“ in `ARBEIT-PROJEKT.md` steht noch (Perikles räumt).
