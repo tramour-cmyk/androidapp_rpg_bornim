@@ -308,3 +308,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:28 10.11.: Sokrates-Nachfolger …75g2D gestartet; alter Sokrates …76uBk (5,98 $, Kosten auf 888, 709c, 870) wartet auf Ruhe, archiviert der nächste Lauf
 - 22:51 10.11.: Startsperre 22:51 Start Jerry (Neustart-Meldung 22:50, eae97c381)
 - 22:52 10.11.: Sokrates …76uBk archiviert, gebucht (6,15 $ zu gleichen Teilen auf 888, 709c, 870); Jerry-Nachfolger …76RTd (22:51), Vorgänger …794Tg wartet auf Ruhe
+- 23:03 10.11.: Startsperre 23:03 Start Tom (Neustart-Meldung 23:02, 9c1d9df57)
