@@ -202,6 +202,7 @@ func setup(f, k) -> void:
 ## Weicher Bodenschatten unter der Figur wie im alten Kampf (Prüfer Stand 9: Wölfe schweben); der Schlagschatten der hohen
 ## Sonne fällt fast ganz unter den Körper. Ohne Tiefe, darum ohne Tusche; folgt der Figur (Kind), bleibt beim Sprung am Boden.
 static var shadow_shader: Shader
+var _schatten_grund := Vector2.ZERO
 
 func _ground_shadow() -> void:
 	if shadow_shader == null:
@@ -239,6 +240,7 @@ void fragment() {
 	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	mi.position = Vector3(0, 0.02, vor * _scale() if wolf else 0.0)     # Rumpfmitte des Wolfs liegt 0,15 m vor dem Ursprung
 	mi.name = "Bodenschatten"
+	_schatten_grund = pm.size     # 709: Umriss vor der Verbreiterung um die Pfoten (_paws_in_blob)
 	add_child(mi)
 	if wolf and OS.get_environment("PFOTENSCHATTEN") != "0":     # Prüflauf: PFOTENSCHATTEN=0 ohne
 		_paw_shadows()
@@ -270,6 +272,7 @@ func _paw_shadows() -> void:
 		mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		mi.top_level = true
 		mi.name = "Pfotenschatten"
+		mi.set_meta("pfotenschatten", true)     # 709: kein Teil des Umrisses (_footprint)
 		add_child(mi)
 		paws.append([sk, i, PAW_BONES[b], mi])
 
@@ -700,6 +703,12 @@ func _arm_goblin() -> void:
 	if fighter.monster != null and anim and anim.has_animation("Stehen") and anim.current_animation == "Stehen":
 		_schleifen = 0
 		_idle()
+	# 709 (treffen_709 Krogg: Lücke 0,53 m; der Morgenstern hängt im Modell am Knochen „waffe“, krogg_gestalt.py, und galt nicht als
+	# Waffe: _hieb nahm die Weite aus der info, die Messung die Hand): was im Modell an einem Knochen hängt und „Waffe“ heißt, ist sie
+	if w.is_empty():
+		for at in model.find_children("*", "BoneAttachment3D", true, false):
+			if not at.has_meta("was") and at.find_children("Waffe*", "MeshInstance3D", true, false).size() > 0:
+				at.set_meta("was", "waffe-im-modell")
 	if _gob_art() == SHAMAN:     # Augen und der Schädel am Stab glimmen grün (Eckfarbe mit Alpha 0; goblin.py, waffen.py)
 		for m in mats:
 			m.set_shader_parameter("glut", 1.8)     # Runde 1b (Prüfer 1a: nicht zu sehen) 2,5; 1c (Prüfer 1b: gelb statt grün) 1,8
@@ -2091,6 +2100,89 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 	if OS.get_environment("SCHAU_MESS") != "":
 		print("Biss %s an %s: Rand %.2f (Kreis %.2f), Abstand %.2f" % [fighter.id, other.fighter.id, other.vorne(-dir), other.body_r(), stand])
 	stand -= float(SCHNAUZE_NAEHER.get(art(), 0.0))
+	# 709 (Chef 08.11., 21:36: „dass die Angriffe so sind, dass sie den Gegner treffen“; treffen_709: beim Treffer blieb die Schnauze
+	# 0,33–0,45 m vor dem Körper, vor dem Schild 0,1–0,3 m): beim Treffer der Stand nach dem Weg von Kopf und Kiefer durch den Biss
+	# gegen den Körper des Ziels, BISS_TIEF darin; zuerst gerade, sonst seitlich versetzt bis 60°, wo die Schnauze den Körper erreicht,
+	# ohne in den Schild zu fahren, und der eigene Körper frei bleibt. Der Aufschlag ist der Augenblick, in dem sie am nächsten ist
+	var biss_t: float = bite[nm][1]
+	var biss_von := Vector3.INF
+	if nm == "Biss" and weiter <= 0.0 and other.fighter.monster == null:
+		var bb: Array = _hieb_bahn(nm, deg_to_rad(bite[nm][2]))
+		if not bb.is_empty():
+			var ziel: Array = other.koerper()
+			var hind: Array = other.schild_kapseln()
+			other.footprint()     # misst schild_unten (ohne Schild INF)
+			var unter_schild: bool = other.schild_unten < INF and hoehe_oben() < other.schild_unten
+			var teil := []     # bester freier Platz, an dem die Schnauze nicht ganz hinreicht: [Lücke, Platz, Richtung, Stand, t]
+			for w in [0.0, 20.0, -20.0, 40.0, -40.0, 60.0, -60.0]:
+				var d2 := dir.rotated(Vector3.UP, deg_to_rad(w))
+				var pl: Array = hieb_plan(bb, ziel, other.position, d2, -BISS_TIEF, BISS_LUFT, hind)
+				if OS.get_environment("SCHAU_709") != "":
+					print("709 Biss %s an %s, %.0f°: Stand %.2f (Schnauze %.2f, Körper %.2f), vorher %.2f" % [fighter.id, other.fighter.id, w, pl[0], pl[2], pl[3], stand])
+				if pl[2] <= 0.0:
+					continue
+				var voll: bool = pl[2] >= pl[3] - 0.02
+				# 709 (wolf_mess_438 rot mit 9b5472b15: der versetzte Platz umging die Platzprüfung, Wolf in Wolf, Kopf im Helden):
+				# nur ein Platz, der frei ist, frei erreichbar und im Bild; sonst der Biss wie bisher (438 sucht dann den Platz)
+				# wer mit dem Schild abwehrt (406), stößt ihn vor (438: ABWEHR_VOR); der Weg misst die Ruhehaltung
+				# reicht die Schnauze nicht ganz hin, steht der Schild davor; er fährt bei der Abwehr (Ring) vor, also gleich ABWEHR_VOR
+				# Abstand (wolf_mess_438 Kleriker 71,9 s: Schild 9 cm im Wolf)
+				# 709 (treffen_709 Ratten: 8 cm vor dem Helden): wer unter dem Schild bleibt, dem stößt er nicht entgegen
+				var st2: float = float(pl[0]) + (ABWEHR_VOR if not unter_schild and (not voll or other.has_method("blockt") and other.blockt()) else 0.0)
+				var s2 := Vector3(other.position.x, position.y, other.position.z) - d2 * st2
+				var l2 := _platz_luft(s2, d2, other)
+				var w2 := _weg_luft(position, s2, other) if s2.distance_to(position) > 0.15 else INF
+				# 709 (wolf_mess_438 Kämpfer: um 40° versetzt lag der Umriss des Wolfs bis 0,24 m im Helden, während die Schnauze
+				# traf): auch der eigene Umriss in Bisshaltung (Schnauze zum Ziel gedreht) bleibt vor dem Ziel, wie der Test misst
+				# und beim Drehen zum Heimweg (wolf_mess_438: der lange Rumpf schwenkte 0,17 m durch den Helden): Bisshaltung, halb und
+				# ganz zum Heim gedreht; die Haltung im Biss reicht weiter als der Umriss in Ruhe (BISS_UMRISS als Luft)
+				var y0 := atan2(d2.x, d2.z) + deg_to_rad(bite[nm][2])
+				var hv := home - s2
+				var y1 := y0 + wrapf(atan2(hv.x, hv.z) + PI - y0, -PI, PI) if _bleib_717() or weg.has("Zurück") else atan2(hv.x, hv.z)
+				# 709 (treffen_709 Ratten: an jedem Bissplatz lag der Umriss 0,16–0,34 m im Helden, die Schnauze blieb 0,6–0,8 m vor ihm):
+				# Kopf und Kiefer gehören beim Biss ans Ziel, hieb_plan prüft sie räumlich gegen Körper und Schild; gegen das Ziel zählt in
+				# Bisshaltung nur der Rumpf hinter dem Kopf (bei der Ratte liegt der Kopf am Boden im Umriss, beim Wolf darüber)
+				# (nur wer unter dem Schild bleibt: Ratte, Spinne, Schnecke; Wolf und Grimmzahn reichen höher, ihr Kopf zählt mit, 709a)
+				var rumpf := _rumpf_ohne_kopf() if unter_schild else footprint()
+				# auch beim Drehen zum Heimweg: der Kopf löst sich dabei vom Ziel
+				var r2 := INF
+				for yw in [y0, lerp_angle(y0, y1, 0.5), y1]:
+					r2 = minf(r2, minf(_rumpf_luft(s2, yw, other), _rumpf_luft(s2, yw, null, other, rumpf)))
+				# der Heimweg geht am Ziel vorbei (_walk_home lässt das Ziel aus): auch er bleibt vor dessen Umriss
+				var h2 := INF
+				var fb := footprint()
+				for i in range(1, 9):
+					h2 = minf(h2, other.clearance(s2.lerp(home, i / 8.0)) - (fb.end.x - fb.position.x) * 0.5)
+				if OS.get_environment("SCHAU_709") != "":
+					print("709 Bissplatz %s, %.0f°: Luft %.2f Weg %.2f Umriss %.2f Heim %.2f im Bild %s" % [fighter.id, w, l2, w2, r2, h2, _im_bild(s2, d2)])
+				# wer mit Schild kämpft, hält ihn bei der Abwehr vor sich (footprint), um ABWEHR_VOR weiter (wolf_mess_438 Kämpfer: 0,11 m)
+				var r_soll: float = BISS_UMRISS + (ABWEHR_VOR if other.kauf and other._ss() and not unter_schild else 0.0)
+				# und der Held dreht sich getroffen oder abwehrend zum Wolf (_face_sanft), den Schild mit (footprint): sein Umriss auch so
+				if other.kauf and other._ss():
+					var fb2 := rumpf
+					var tr2 := Transform3D(Basis(Vector3.UP, y0), s2)
+					var zum: Vector3 = s2 - other.position
+					for i in 7:
+						for j in 3:
+							var q := tr2 * Vector3(lerpf(fb2.position.x, fb2.end.x, j / 2.0), 0.0, lerpf(fb2.position.z, fb2.end.z, i / 6.0))
+							r2 = minf(r2, other.clearance(q, Vector3.INF, atan2(zum.x, zum.z), hoehe_oben()))
+				if l2 < PLATZ_LUFT or w2 < WEG_LUFT or r2 < r_soll or h2 < -BISS_UMRISS or not _im_bild(s2, d2):
+					continue
+				var bt := float(pl[1]) / maxf(float(tempo.get(nm, 1.0)), 0.1) + HIEB_VERZUG
+				if not voll:     # die Schnauze bliebe pl[0] − pl[2] davor (Schild oder eigener Körper im Weg); näher als bisher
+					if st2 - float(pl[2]) < (teil[0] if not teil.is_empty() else stand - float(pl[2])):
+						teil = [st2 - float(pl[2]), s2, d2, st2, bt]
+					continue
+				biss_von = s2
+				dir = d2
+				stand = st2
+				biss_t = bt
+				break
+			if biss_von == Vector3.INF and not teil.is_empty():
+				biss_von = teil[1]
+				dir = teil[2]
+				stand = teil[3]
+				biss_t = teil[4]
 	var jump := _weg_len(nm) if nm == "Sprungbiss" else 0.0
 	var k := 1.0
 	var gap := flat.length() - stand
@@ -2098,6 +2190,9 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 		k = maxf(gap, 0.2 * jump) / jump
 		jump *= k
 	var start := position + dir * maxf(0.0, gap - jump)
+	if biss_von != Vector3.INF:     # 709: seitlich versetzt um das Ziel herum, nicht vom eigenen Ort aus gedreht
+		start = biss_von
+		flat = Vector3(other.position.x - start.x, 0.0, other.position.z - start.z)
 	# 438 (Prüfer Film 08:18: Wölfe laufen durcheinander; wolf_mess_438: Wolf 3 lief zum Biss an Bertram bis 0,15 m in Wolf 2, der
 	# daneben kauerte): der Platz vor dem Ziel wird nur genommen, wenn dort kein anderer steht oder hinläuft; sonst derselbe Abstand
 	# zum Ziel, um das Ziel herum gedreht (bis 60°), der freieste
@@ -2253,7 +2348,7 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 		tween.tween_callback(func(): gang = ""; bahn = []; _turn_home())
 		busy_ms = int((t_run + bl + t_back + 0.3) * 1000.0)
 		anlauf_ms = int(t_run * 1000.0)
-		return int((t_run + bite[nm][1]) * 1000.0 / 0.42)
+		return int((t_run + biss_t) * 1000.0 / 0.42)
 	tween.tween_callback(func(): gang = "heim"; _walk_home(other))
 	# bis daheim, damit keiner zu einem Ort schlägt, an dem es nicht mehr steht (399.2: mit Umweg)
 	var vh := _detour(ende, home, other)
@@ -2266,7 +2361,7 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 		t_heim += 2.0 * PI * TURN_R * _scale() / (_mps("Gehen") * BOGEN_TEMPO) if HEIMWEG_BOGEN else 2.0 * 180.0 / _turn_dps()
 	busy_ms = int((t_run + bl + t_back + t_heim) * 1000.0)
 	anlauf_ms = int(t_run * 1000.0)
-	return int((t_run + bite[nm][1]) * 1000.0 / 0.42)
+	return int((t_run + biss_t) * 1000.0 / 0.42)
 
 
 ## 438: so viel Luft (m) hätte der Rumpf, stünde das Tier an [p] mit Blick [d], zu allen außer [skip] (auch auf deren Bahn)
@@ -2287,8 +2382,10 @@ func _platz_luft(p: Vector3, d: Vector3, skip) -> float:
 
 ## 438: Luft des Rumpfs an [p] mit Drehung [yaw] zu allen anderen
 ## (Raster über den eigenen Umriss gegen die Umrisse der anderen, wie tests/wolf_mess_438.gd misst)
-func _rumpf_luft(p: Vector3, yaw: float, skip = null) -> float:
-	var box := footprint()
+func _rumpf_luft(p: Vector3, yaw: float, skip = null, nur = null, box := AABB()) -> float:
+	if box.size == Vector3.ZERO:
+		box = footprint()
+	var hoch := hoehe_oben()
 	var tr := Transform3D(Basis(Vector3.UP, yaw), p)
 	var pts: Array = []
 	for i in 7:
@@ -2296,17 +2393,17 @@ func _rumpf_luft(p: Vector3, yaw: float, skip = null) -> float:
 			pts.append(tr * Vector3(lerpf(box.position.x, box.end.x, j / 2.0), 0.0, lerpf(box.position.z, box.end.z, i / 6.0)))
 	var g := INF
 	for o in kampfort.figures.values():
-		if o == self or o == skip or not o.visible or o.down:
+		if o == self or o == skip or not o.visible or o.down or nur != null and o != nur:
 			continue
 		var orte: Array = [Vector3.INF]
 		if o.unterwegs():
 			orte.append_array(o.bahn_punkte())
 		for at in orte:
 			for q in pts:
-				g = minf(g, o.clearance(q, at))
+				g = minf(g, o.clearance(q, at, NAN, hoch))
 		if not is_nan(o.dreh_ziel) and o.tween and o.tween.is_running():
 			for q in pts:
-				g = minf(g, o.clearance(q, Vector3.INF, o.dreh_ziel))
+				g = minf(g, o.clearance(q, Vector3.INF, o.dreh_ziel, hoch))
 	return g
 
 
@@ -2395,12 +2492,25 @@ func _dreh(tw: Tween, von: float, nach: float, nm: String) -> Array:
 ## RUN_FROM: rennt) bis vor das Ziel, so weit und so gedreht, dass die Schneide beim Aufschlag (info „hieb“) AXT_IM_RAND im Rand
 ## des Ziels liegt, und schlägt dort; dann zurück, das Gesicht zum Ziel (Zurück, sonst Gehen rückwärts), daheim zur Blickrichtung.
 ## Gibt wie strike() die Zeit bis zum Aufschlag / 0,42 zurück (ms).
-func _hieb(other) -> int:
+func _hieb(other, weiter := 0.0) -> int:
 	var flat := Vector3(other.position.x - position.x, 0.0, other.position.z - position.z)
 	if flat.length() < 0.01:
 		flat = basis.z
 	var dir := flat.normalized()
 	var stand: float = other.body_r() - AXT_IM_RAND + float(hieb[0]) * model.scale.x     # Ursprung bis Mitte des Ziels beim Aufschlag
+	# 709 (Chef 08.11., 21:36: „dass die Angriffe so sind, dass sie den Gegner treffen“): wie beim Helden der Stand nach dem Weg der
+	# Waffe durch den Hieb gegen den Körper des Ziels (HIEB_TIEF darin, daneben [weiter] davor), Aufschlag im nächsten Punkt; der
+	# eigene Körper bleibt HIEB_KOERPER_LUFT vor Körper und Schild. Ohne gemessenen Weg wie bisher (info „hieb“)
+	var auf: float = float(hieb[1])
+	# nur mit Waffe in der Hand (_hold); Krogg trägt sie im Modell, dann wäre der Kopf die Waffe (_hieb_bahn beim Tier)
+	var bb: Array = _hieb_bahn("Hieb", deg_to_rad(float(hieb[2]))) if traegt().any(func(g): return g[2] != "" and not String(g[2]).to_lower().contains("shield")) else []
+	if not bb.is_empty():
+		var pl: Array = hieb_plan(bb, other.koerper(), other.position, dir, weiter if weiter > 0.0 else -HIEB_TIEF, HIEB_KOERPER_LUFT, other.schild_kapseln())
+		if OS.get_environment("SCHAU_709") != "":
+			print("709 Hieb %s an %s: Stand %.2f (Waffe %.2f, Körper %.2f), vorher %.2f" % [fighter.id, other.fighter.id, pl[0], pl[2], pl[3], stand])
+		if pl[2] > 0.0:
+			stand = pl[0]
+			auf = float(pl[1]) / maxf(float(tempo.get("Hieb", 1.0)), 0.1) + HIEB_VERZUG
 	var start := position + dir * (flat.length() - stand)
 	var schlag := atan2(dir.x, dir.z) + deg_to_rad(float(hieb[2]))
 	angriff_von = start     # die Schneide, nicht die Körperachse zum Ziel
@@ -2467,7 +2577,7 @@ func _hieb(other) -> int:
 	tween.tween_callback(func(): gang = "heim"; _turn_home())
 	busy_ms = int((t_run + bl + t_back + 180.0 / TURN_DPS) * 1000.0)
 	anlauf_ms = int(t_run * 1000.0)
-	return int((t_run + float(hieb[1])) * 1000.0 / 0.42)
+	return int((t_run + auf) * 1000.0 / 0.42)
 
 
 ## Ground under the figure where no grass grows (halm.gdshader spots): x, z, radius.
@@ -2564,7 +2674,7 @@ func strike(other, e: Dictionary) -> int:
 		# 438 (Prüfer Film r2: Klinge 31,2 s durch Wolf 2 ohne Treffer): daneben bleibt der Held VERFEHLT_M weiter weg
 		return _held_schlag(other, VERFEHLT_M if e.get("roll") != null and Mars.ist_angriff(e.roll) and not e.roll[4] else 0.0)
 	if _zweibeiner() and weg.has("Gehen") and hieb.size() >= 3:
-		return _hieb(other)
+		return _hieb(other, VERFEHLT_M if e.get("roll") != null and Mars.ist_angriff(e.roll) and not e.roll[4] else 0.0)
 	if fighter.monster != null and weg.has("Gehen"):
 		nach_biss = true     # 453: daheim zuerst Hecheln
 		_schnaufen(1.0)     # 453 r2: nach dem Biss schneller und tiefer atmen
@@ -2578,6 +2688,19 @@ func strike(other, e: Dictionary) -> int:
 	var hold := ms * 0.16 / 1000.0
 	var back := ms * 0.42 / 1000.0
 	var hero: bool = fighter.monster == null
+	if not hero and not leap:
+		# 709 (treffen_709, Fledermaus ohne Gehen: der Ausfall ging 60 % des Wegs, der Biss blieb 1–2,6 m vor dem Ziel): bis die
+		# Schnauze (Vorderkante des Umrisses) den Rand des Ziels erreicht
+		var fl := Vector3(to.x - position.x, 0.0, to.z - position.z)
+		if fl.length() > 0.01:
+			var dn := fl.normalized()
+			var st: float = other.vorne(-dn) + _schnauze_vorn() - BISS_TIEF
+			reach = dn * maxf(0.0, fl.length() - st)
+			# im Raum: Kopf und Kiefer jetzt, so weit verschoben, bis sie den Körper des Ziels erreichen (die Fledermaus fliegt höher
+			# oder tiefer als der Rand am Boden sagt; treffen_709: so blieb sie 0,3–0,5 m davor)
+			var m := _schnauze_bis(other.koerper(), dn, fl.length())
+			if m >= 0.0:
+				reach = dn * m
 	if hero:
 		# 348.7 (Prüfer 26.10.: die Heldin schlug aus etwa zwei Wolfslängen): nur bis in Waffenreichweite vor den Rand des Ziels
 		var flat := Vector3(to.x - position.x, 0.0, to.z - position.z)
@@ -2645,6 +2768,14 @@ const ANGRIFF_GANG := 2.0
 const VERFEHLT_M := 0.3
 const HIEB_VOR := 0.12
 const HIEB_ZURUECK_M := 0.3
+const HIEB_TIEF := 0.02           # 709: so tief dringt die Klinge beim Treffer in den Körper (Kapseln)
+const HIEB_KOERPER_LUFT := 0.02   # 709: Körper und Schild bleiben im ganzen Hieb so weit vor dem Körper des Ziels (E3)
+const BISS_UMRISS := 0.03         # 709: so viel Luft hält der Umriss des Tiers am Bissplatz zu allen (wolf_mess_438: 5 cm tief erlaubt)
+const BISS_LUFT := 0.05           # 709: Körper und Schnauze bleiben so weit vor Körper und Schild des Ziels (wolf_mess_438: 4 cm im Schild)
+const BISS_TIEF := 0.01           # 709: so tief fasst die Schnauze beim Treffer in den Körper (Kapseln; wolf_mess_438 erlaubt 3 cm)
+const NACH_T := 0.2               # 709: so lange nach dem Aufschlag beginnt der „zweite Schwung“ (hieb_plan [4])
+const NACH_LUFT := 0.12           # 709: so weit bleibt die Waffe danach vom Ziel (der Getroffene zuckt bis 0,1 m vor)
+const HIEB_VERZUG := 0.05         # 709: der Hieb beginnt mit Überblendung (0,08 s) ein Bild nach dem Aufruf; so viel später der Aufschlag
 func _held_schlag(other, weiter := 0.0) -> int:
 	var to: Vector3 = other.position
 	# 717.1 A (Chef 09.11., 09:03; F8): rückt das Ziel noch zurecht, geht der Held zu dem Platz, an dem es ankommt (er wartet nur auf
@@ -2671,6 +2802,54 @@ func _held_schlag(other, weiter := 0.0) -> int:
 			t += 0.05
 		stand_voll = t
 		stand = minf(t, flat.length())
+	# 406: mit Schild einer der drei Schwerthiebe des Satzes, Aufschlag wie gemessen (held_kampf.py „kontakt“)
+	var hn := "Hieb"
+	var auf := HELD_AUFSCHLAG
+	var hiebe: Array = ["Hieb"]
+	if _ss():
+		hiebe = ["SS_SwordAttack1", "SS_SwordAttack2", "SS_SwordAttack3"].filter(func(x): return anim.has_animation(x))
+		if not hiebe.is_empty():
+			hn = hiebe[randi() % hiebe.size()]
+			auf = float(kampf_info.get("kontakt", {}).get(hn, HELD_AUFSCHLAG))
+	# 709 (Chef 08.11., 21:36: „dass die Angriffe so sind, dass sie den Gegner treffen“; treffen_709: die Klinge blieb beim Treffer
+	# 0,1–1 m vor dem Körper, der Aufschlag lag bis 3 Bilder neben ihrem nächsten Punkt): der Stand nach dem Weg der Klinge durch
+	# den Hieb gegen den Körper des Ziels; beim Treffer dringt sie HIEB_TIEF ein, daneben bleibt sie [weiter] davor. Der Aufschlag
+	# ist der Augenblick, in dem sie ihm am nächsten ist. Körper und Schild in Ruhe bleiben HIEB_KOERPER_LUFT vor dem Umriss; ein
+	# Hieb, der das Ziel von dort nicht erreicht (flach über die Schnecke), wird nicht gewählt, solange ein anderer es erreicht
+	if flat.length() > 0.01 and not _hieb_bahn(hn).is_empty():
+		var us := Time.get_ticks_usec()
+		var d := flat.normalized()
+		var ziel: Array = other.koerper()
+		if ziel_bei != Vector3.INF:
+			var v := Vector3(ziel_bei.x - other.position.x, 0.0, ziel_bei.z - other.position.z)
+			ziel = ziel.map(func(c): return [c[0] + v, c[1] + v, c[2]])
+		var soll: float = weiter if weiter > 0.0 else -HIEB_TIEF
+		# erst der gewürfelte Hieb; erreicht er das Ziel nicht, ohne dass Körper oder Schild hineingehen, ein anderer, sonst der weiteste
+		var plan: Array = _hieb_plan_merk(hn, other, ziel, to, d, soll)
+		var plaene := {hn: plan}
+		# 709 (wolf_mess_438 Kämpfer 84,3 s: SS_SwordAttack2 schwingt zweimal, der getroffene Wolf zuckt in „Treffer“ nach vorn, der
+		# zweite Schwung fuhr 0,12 m in ihn): ein Hieb, dessen zweiter Schwung dem Ziel nach dem Aufschlag noch NACH_LUFT nahe kommt,
+		# nur, wenn keiner der anderen sauber trifft
+		var wert := func(pl: Array) -> float:
+			return minf(pl[2] - pl[3] + 0.02, 0.0) + (0.0 if pl.size() < 5 or pl[4] >= NACH_LUFT else -0.5)
+		if wert.call(plan) < 0.0:
+			var rest: Array = hiebe.filter(func(h): return h != hn)
+			rest.shuffle()
+			var best: String = hn
+			for h in rest:
+				plaene[h] = _hieb_plan_merk(h, other, ziel, to, d, soll)
+				if wert.call(plaene[h]) > wert.call(plaene[best]):
+					best = h
+				if wert.call(plaene[h]) >= 0.0:
+					break
+			hn = best
+			plan = plaene[hn]
+		stand_voll = plan[0]
+		stand = minf(stand_voll, flat.length())
+		auf = float(plan[1]) / maxf(float(tempo.get(hn, 1.0)), 0.1) + HIEB_VERZUG
+		if OS.get_environment("SCHAU_709") != "":
+			print("709 Ziel %s: pos %s glob %s heim %s; gang %s, tween %s, bahn %d, heim %.2f m weg" % [other.fighter.id, other.position, other.global_position, other.home, other.gang, other.tween != null and other.tween.is_running(), other.bahn.size(), Vector2(other.home.x - other.position.x, other.home.z - other.position.z).length()])
+			print("709 Hieb %s %s an %s: Stand %.2f (Klinge %.2f, Körper %.2f), Abstand jetzt %.2f, Aufschlag %.2f s, %d µs, Pläne %d" % [fighter.id, hn, other.fighter.id, plan[0], plan[2], plan[3], flat.length(), auf, Time.get_ticks_usec() - us, plaene.size()])
 	var start := position + flat.normalized() * maxf(0.0, flat.length() - stand) if flat.length() > 0.01 else position
 	# 717 C (wolf_mess_438: der abgesetzte Wolf stand dort, wo der Held zum Hieb auf einen anderen hintrat, 22 cm ineinander): steht am
 	# Platz des Hiebs ein anderer, tritt der Held seitlich versetzt an das Ziel heran
@@ -2729,14 +2908,6 @@ func _held_schlag(other, weiter := 0.0) -> int:
 			tween.tween_property(self, "position", zur, tz)
 			t_run += tz
 			start = zur
-	# 406: mit Schild einer der drei Schwerthiebe des Satzes, Aufschlag wie gemessen (held_kampf.py „kontakt“)
-	var hn := "Hieb"
-	var auf := HELD_AUFSCHLAG
-	if _ss():
-		var hiebe := ["SS_SwordAttack1", "SS_SwordAttack2", "SS_SwordAttack3"].filter(func(x): return anim.has_animation(x))
-		if not hiebe.is_empty():
-			hn = hiebe[randi() % hiebe.size()]
-			auf = float(kampf_info.get("kontakt", {}).get(hn, HELD_AUFSCHLAG))
 	var bl: float = anim.get_animation(hn).length if anim.has_animation(hn) else BLOW_MS / 1000.0
 	# 682 (schild_406: aus dem Gehen mitten im Schritt in den Hieb schob die Überblendung den Schild 7 cm ins Bein): am Ziel erst kurz
 	# in die Kampfhaltung, dann der Hieb
@@ -2744,7 +2915,13 @@ func _held_schlag(other, weiter := 0.0) -> int:
 		tween.tween_callback(func(): _play("SS_IdleCombat", 0.1))
 		tween.tween_interval(0.12)
 		t_run += 0.12
-	tween.tween_callback(func(): gang = "hieb"; _face(to - start); _play(hn, 0.08))
+	var ziel_ort: Vector3 = other.position
+	tween.tween_callback(func():
+		gang = "hieb"
+		_face(to - start)
+		_play(hn, 0.08)
+		if OS.get_environment("SCHAU_709") != "":
+			print("709 Hieb los %s: ich %s, Ziel %s (bei Plan %s, start %s), Stand %.2f (geplant %.2f), Ziel ging %.2f m, steht jetzt %s" % [fighter.id, position, other.position, ziel_ort, start, Vector2(position.x - other.position.x, position.z - other.position.z).length(), stand_voll, Vector2(other.position.x - ziel_ort.x, other.position.z - ziel_ort.z).length(), String(other.anim.current_animation) if other.anim else ""]))
 	tween.tween_interval(bl)
 	var heim := start.distance_to(home)
 	var back_mps := _held_mps("Gehen") * HELD_ZURUECK
@@ -2974,8 +3151,12 @@ const KAUF_KNOCHEN := ["pelvis", "spine_01", "spine_02", "spine_03", "neck_01", 
 const KAUF_RAND := 0.15
 var _foot := AABB()
 var _foot_ok := false
-func footprint() -> AABB:
+## 709: Unterkante des Schilds über dem Boden (m, lokal) beim letzten footprint(); wer niedriger ist, läuft unter ihm durch
+var schild_unten := INF
+func footprint(hoehe := INF) -> AABB:
 	var f0 := _footprint()
+	var koerper := f0
+	schild_unten = INF
 	# 406 (wolf_mess_438 mit Sword & Shield: Wolf 9 cm im Schild beim Rückweg): mit dem Satz hält der Held den Schild vor sich, nicht
 	# mehr seitlich am Körper; sein Umriss (jetzige Lage, am Boden) gehört dazu
 	if kauf and _ss() and model:
@@ -2984,9 +3165,15 @@ func footprint() -> AABB:
 			var inv := global_transform.affine_inverse()
 			for m in sch.find_children("*", "MeshInstance3D", true, false):
 				var bb: AABB = (inv * (m as MeshInstance3D).global_transform) * (m as MeshInstance3D).get_aabb()
+				schild_unten = minf(schild_unten, bb.position.y)
 				bb.position.y = 0.0
 				bb.size.y = f0.size.y
 				f0 = f0.merge(bb)
+			# 709 (treffen_709 Ratten: Schild unten 0,73 m, Ratte oben 0,55 m; der Schild vor dem Helden sperrte jeden Bissplatz, die
+			# Schnauze blieb 0,6–0,8 m vor ihm): wer ganz unter dem Schild bleibt, misst gegen den Körper; Schild und Schnauze prüft
+			# hieb_plan räumlich
+			if hoehe < schild_unten:
+				return koerper
 	return f0
 
 
@@ -3013,7 +3200,14 @@ func _footprint() -> AABB:
 				_foot.size.y = 1.8
 				return _foot
 		for m in find_children("*", "MeshInstance3D", true, false):
+			# 709 (treffen_709 Ratten: Umriss 0,9 m breit, an jedem Bissplatz 0,2–0,34 m im Helden, die Schnauze blieb 0,6–0,8 m vor
+			# ihm): die Pfotenflecken liegen frei in der Welt, und der Bodenschatten ist um die Pfoten verbreitert, beides nur fürs Bild;
+			# der Umriss ist der Schatten in seiner Grundgröße
+			if m.has_meta("pfotenschatten"):
+				continue
 			var b: AABB = (inv * m.global_transform) * m.get_aabb()
+			if m.name == "Bodenschatten" and _schatten_grund != Vector2.ZERO:
+				b = AABB(m.position - Vector3(_schatten_grund.x, 0.0, _schatten_grund.y) * 0.5, Vector3(_schatten_grund.x, 0.0, _schatten_grund.y))
 			_foot = b if first else _foot.merge(b)
 			first = false
 		if first:
@@ -3063,6 +3257,321 @@ func kapseln() -> Array:
 	return out
 
 
+## 709 (Chef 08.11., 21:36: „dass die Angriffe so sind, dass sie den Gegner treffen“): der Körper als Ziel eines Hiebs. Wie kapseln(),
+## aber bei Gegnern mit fremdem Gerüst (Goblin, Kobold, Krogg, Grak: kapseln() gibt unbekannten Knochen 5 cm) Rumpf, Hals, Kopf und
+## Oberschenkel dicker nach dem Namen des Knochens; Finger, Zunge, Ohren (unter 3 cm) zählen nicht
+const ZIEL_DICKE := [["spine", 0.15], ["chest", 0.14], ["belly", 0.14], ["waist", 0.13], ["pelvis", 0.15], ["body", 0.15], ["torso", 0.15],
+	["abdomen", 0.15], ["thorax", 0.12], ["neck", 0.08], ["head", 0.1], ["thigh", 0.08], ["upperarm", 0.06], ["upl", 0.05], ["upr", 0.05]]
+func koerper() -> Array:
+	var ks: Array = kapseln()
+	if fighter.monster == null:
+		return ks
+	var s := absf(model.global_transform.basis.get_scale().x) if model else 1.0
+	var out: Array = []
+	for c in ks:
+		var r: float = c[2]
+		if c.size() > 3 and r <= 0.05 * s + 0.001:
+			var nm := String(c[3]).to_lower()
+			for d in ZIEL_DICKE:
+				if nm.contains(String(d[0])):
+					r = float(d[1]) * s
+					break
+		if r >= 0.03 * s:
+			out.append([c[0], c[1], r, c[3]] if c.size() > 3 else [c[0], c[1], r])     # 709: der Name für _hieb_bahn
+	return out
+
+
+## 709: der Weg eines Angriffs [hn] im eigenen Raum (+Z zum Ziel, wie _face; [versatz]: so weit dreht die Figur beim Angriff aus der
+## Richtung zum Ziel, z. B. die Schnauze im Biss), je 1/30 s: [t (s der Bewegung), Waffe, Körper], beide als Kapseln [[a, b, r] …].
+## Waffe: was der Held in der Waffenhand trägt (Strecke längs des Kastens), beim Tier Kopf, Kiefer, Zunge; Körper: beim Held Rumpf,
+## Kopf, Beine und der Schild (Kreuz durch seine Fläche, halbe Dicke), beim Tier die übrigen Knochen ab 4 cm. Einmal je Angriff
+## gemessen (Haltung je Bild gesetzt, danach die laufende Bewegung wieder hergestellt); leer ohne Gerüst oder Waffe
+const BISS_TEILE := ["head", "jaw", "tongue", "kopf", "fang", "mouth", "maul", "schnauze", "beak"]
+var hieb_bahn := {}
+func _hieb_bahn(hn: String, versatz := 0.0) -> Array:
+	if hieb_bahn.has(hn):
+		return hieb_bahn[hn]
+	var out: Array = []
+	hieb_bahn[hn] = out
+	var sk := _find(model, "Skeleton3D") as Skeleton3D if model else null
+	if sk == null or anim == null or not anim.has_animation(hn):
+		return out
+	var klinge: Array = []     # [Knochen, Kasten zum Knochen, AABB]
+	var schild: Array = []
+	for at in find_children("*", "BoneAttachment3D", true, false):
+		var was := String(at.get_meta("was", ""))
+		if was == "":
+			continue
+		for mm in at.find_children("*", "MeshInstance3D", true, false):
+			(schild if was.contains("shield") else klinge).append([at.bone_idx, at.global_transform.affine_inverse() * mm.global_transform, mm.get_aabb()])
+	var tier: bool = fighter.monster != null and klinge.is_empty()
+	if klinge.is_empty() and not tier:
+		return out
+	var vor := String(anim.current_animation)
+	var vor_t: float = anim.current_animation_position if vor != "" else 0.0
+	var vor_v: float = anim.get_playing_speed() if vor != "" else 1.0
+	var inv := Transform3D(Basis(Vector3.UP, rotation.y - versatz), global_position).affine_inverse()
+	var l: float = anim.get_animation(hn).length
+	anim.play(hn, 0.0)
+	var t := 0.0
+	while t <= l + 0.001:
+		anim.seek(t, true)
+		sk.force_update_all_bone_transforms()
+		var kl: Array = []
+		var kp: Array = []
+		var ks: Array = kapseln()
+		if tier:
+			for c in ks:
+				var nm := String(c[3]).to_lower() if c.size() > 3 else ""
+				var waffe := false
+				for w in BISS_TEILE:
+					if nm.contains(w):
+						waffe = true
+						break
+				if waffe:
+					kl.append([inv * (c[0] as Vector3), inv * (c[1] as Vector3), c[2]])
+				elif float(c[2]) >= 0.04 and not (nm.contains("neck") or nm.contains("hals")):     # 709: der Hals folgt dem Kopf
+					kp.append([inv * (c[0] as Vector3), inv * (c[1] as Vector3), c[2]])
+		else:
+			for g in klinge:
+				kl.append(_strecke(sk, g, inv))
+			if fighter.monster == null:
+				for i in [0, 1, 3, 4, 5]:
+					if i < ks.size():
+						kp.append([inv * (ks[i][0] as Vector3), inv * (ks[i][1] as Vector3), ks[i][2]])
+			else:     # 709: Gegner mit Waffe (Grak, Krogg …): fremdes Gerüst, der Körper wie koerper() ohne die Arme
+				for c in koerper():
+					var nm := String(c[3]).to_lower() if c.size() > 3 else ""
+					if not (nm.contains("arm") or nm.contains("hand") or nm.contains("fo") and nm.contains("-wr")):
+						kp.append([inv * (c[0] as Vector3), inv * (c[1] as Vector3), c[2]])
+			for g in schild:
+				kp.append_array(_strecke(sk, g, inv, true))
+		out.append([t, kl, kp])
+		t += 1.0 / 30.0
+	if vor != "":
+		anim.play(vor, 0.0, vor_v)
+		anim.seek(vor_t, true)
+	return out
+
+
+## 709: wie weit Kopf, Kiefer, Zunge (BISS_TEILE) jetzt vor dem Ursprung liegen (m, in Blickrichtung), sonst die Vorderkante des Umrisses
+func _schnauze_vorn() -> float:
+	var vorn := -INF
+	var inv := global_transform.affine_inverse()
+	for c in kapseln():
+		var nm := String(c[3]).to_lower() if c.size() > 3 else ""
+		for w in BISS_TEILE:
+			if nm.contains(w):
+				vorn = maxf(vorn, maxf((inv * (c[0] as Vector3)).z, (inv * (c[1] as Vector3)).z) * absf(scale.z) + float(c[2]))
+				break
+	return vorn if vorn > -INF else footprint().end.z * absf(scale.z)
+
+
+## 709: höchster Punkt der Kapseln über dem eigenen Ursprung (m), einmal gemessen in Ruhe; ohne Kapseln INF (zählt nie als niedrig)
+var _hoehe_oben := NAN
+func hoehe_oben() -> float:
+	if is_nan(_hoehe_oben):
+		var h := -INF
+		for c in kapseln():
+			h = maxf(h, maxf((c[0] as Vector3).y, (c[1] as Vector3).y) + float(c[2]) - global_position.y)
+		_hoehe_oben = h if h > -INF else INF
+	return _hoehe_oben
+
+
+## 709: Umriss (footprint, lokal) vorn bis zum hintersten Punkt von Kopf, Kiefer, Zunge (Kapseln BISS_TEILE); ohne sie der Umriss
+func _rumpf_ohne_kopf() -> AABB:
+	var box := footprint()
+	var hinten := INF
+	var inv := global_transform.affine_inverse()
+	for c in kapseln():
+		var nm := String(c[3]).to_lower() if c.size() > 3 else ""
+		for w in BISS_TEILE:
+			if nm.contains(w):
+				hinten = minf(hinten, minf((inv * (c[0] as Vector3)).z, (inv * (c[1] as Vector3)).z) - float(c[2]) / maxf(absf(scale.z), 0.01))
+				break
+	if hinten < box.end.z and hinten > box.position.z:
+		box.size.z = hinten - box.position.z
+	return box
+
+
+## 709: wie weit (m) die Figur längs [dn] rücken muss, bis Kopf, Kiefer, Zunge in der jetzigen Haltung SCHNAUZE_VOR vor dem Körper
+## [ziel] (Kapseln, Welt) stehen (den Rest holt der Biss selbst; treffen_709: mit −1 cm bis 12 cm darin); -1, wenn nicht bis [bis]
+const SCHNAUZE_VOR := 0.05
+func _schnauze_bis(ziel: Array, dn: Vector3, bis: float) -> float:
+	var kopf: Array = []
+	for c in kapseln():
+		var nm := String(c[3]).to_lower() if c.size() > 3 else ""
+		for w in BISS_TEILE:
+			if nm.contains(w):
+				kopf.append(c)
+				break
+	if kopf.is_empty() or ziel.is_empty():
+		return -1.0
+	var m := 0.0
+	while m <= bis:
+		var v := dn * m
+		for k in kopf:
+			for c in ziel:
+				var pq: PackedVector3Array = Geometry3D.get_closest_points_between_segments(k[0] + v, k[1] + v, c[0], c[1])
+				if pq[0].distance_to(pq[1]) - float(k[2]) - float(c[2]) <= SCHNAUZE_VOR:
+					return m
+		m += 0.02
+	return -1.0
+
+
+## 709: der Schild in der Hand als Kreuz aus zwei Kapseln [[a, b, r] …] (Welt), leer ohne Schild
+func schild_kapseln() -> Array:
+	var sk := _find(model, "Skeleton3D") as Skeleton3D if model else null
+	var out: Array = []
+	if sk == null:
+		return out
+	for at in find_children("*", "BoneAttachment3D", true, false):
+		if not String(at.get_meta("was", "")).contains("shield"):
+			continue
+		for mm in at.find_children("*", "MeshInstance3D", true, false):
+			out.append_array(_strecke(sk, [at.bone_idx, at.global_transform.affine_inverse() * mm.global_transform, mm.get_aabb()], Transform3D.IDENTITY, true))
+	return out
+
+
+## 709: Kasten [g] = [Knochen, Kasten zum Knochen, AABB] als Strecke [a, b, r] längs seiner längsten Achse im Raum [inv]; [flach]:
+## der Schild als Kreuz aus zwei Strecken durch die Mitte seiner Fläche, Radius die halbe Dicke
+static func _strecke(sk: Skeleton3D, g: Array, inv: Transform3D, flach := false) -> Array:
+	var tr: Transform3D = sk.global_transform * sk.get_bone_global_pose(g[0]) * g[1]
+	var box: AABB = g[2]
+	var achsen := [box.get_longest_axis_index()]
+	var r := 0.0
+	if flach:
+		var kurz := box.get_shortest_axis_index()
+		achsen.append(3 - achsen[0] - kurz)
+		r = box.size[kurz] * 0.5 * absf(tr.basis.get_scale()[kurz])
+	var out: Array = []
+	for ax in achsen:
+		var p0: Vector3 = box.get_center()
+		var p1: Vector3 = p0
+		p0[ax] = box.position[ax]
+		p1[ax] = box.end[ax]
+		out.append([inv * (tr * p0), inv * (tr * p1), r])
+	if flach:     # 709 (wolf_mess_438 Kleriker 71,9 s: Schild 9 cm im Wolf, am Rand zwischen den Armen des Kreuzes): dazu die Diagonalen
+		var a0: int = achsen[0]
+		var a1: int = achsen[1]
+		for sg in [1.0, -1.0]:
+			var p0: Vector3 = box.get_center()
+			var p1: Vector3 = p0
+			p0[a0] = box.position[a0]
+			p1[a0] = box.end[a0]
+			p0[a1] = box.get_center()[a1] - sg * box.size[a1] * 0.5
+			p1[a1] = box.get_center()[a1] + sg * box.size[a1] * 0.5
+			out.append([inv * (tr * p0), inv * (tr * p1), r])
+	return out if flach else out[0]
+
+
+## 709: hieb_plan, gemerkt je Hieb, Art des Ziels, Treffer oder daneben und Blickwinkel des Ziels zur Figur (15°-Stufen): das
+## Ziel steht dabei in seiner Ruhe, der Plan gilt wieder (gegen die flache Schnecke kostet er sonst bis 0,1 s)
+static var hieb_plaene := {}
+func _hieb_plan_merk(hn: String, other, ziel: Array, to: Vector3, d: Vector3, soll: float) -> Array:
+	var rel := wrapf(other.rotation.y - atan2(-d.x, -d.z), -PI, PI)
+	var key := "%d|%s|%s|%.2f|%d|%.2f" % [get_instance_id(), hn, other._mein_ersatz() if other.fighter.monster != null else "Held", soll, roundi(rad_to_deg(rel) / 15.0), other.model.global_transform.basis.get_scale().x if other.model else 1.0]
+	if not hieb_plaene.has(key):
+		hieb_plaene[key] = hieb_plan(_hieb_bahn(hn), ziel, to, d, soll, HIEB_KOERPER_LUFT)
+	return hieb_plaene[key]
+
+
+## 709: Plan des Angriffs [bahn] (_hieb_bahn) gegen den Körper [ziel] (Kapseln, Welt) des Ziels bei [to], die Figur blickt nach
+## [d]: [Abstand der Ursprünge, t des nächsten Punkts der Waffe, Abstand für die Waffe, Abstand für den Körper]. Die Waffe kommt dem
+## Körper bis [soll] nahe (< 0: so tief darin), Körper und Schild der Figur bleiben während des ganzen Angriffs [luft] vor Körper
+## und [hindernis] des Ziels (sein Schild), die Waffe ebenso vor [hindernis]. Die Waffe sucht von weit nach nah (aus der Nähe
+## schwingt sie über ein flaches Ziel hinweg); Waffe 0: sie erreicht es von nirgends
+static func hieb_plan(bahn: Array, ziel: Array, to: Vector3, d: Vector3, soll: float, luft: float, hindernis: Array = []) -> Array:
+	if bahn.is_empty() or ziel.is_empty():
+		return [0.0, 0.0, 0.0, 0.0]
+	var inv := Transform3D(Basis(Vector3.UP, atan2(d.x, d.z)), to).affine_inverse()
+	var zl: Array = _im_raum(ziel, inv)     # Ziel im Raum der Figur, als stünde sie in seinem Ursprung; x zurück = Ziel um +x in Z
+	var hl: Array = _im_raum(hindernis, inv)
+	var vorn := INF
+	for c in zl:
+		vorn = minf(vorn, minf(c[0].z, c[1].z) - float(c[2]))
+	var weit := -INF
+	for s in bahn:
+		for w in s[1]:
+			weit = maxf(weit, maxf((w[0] as Vector3).z, (w[1] as Vector3).z) + float(w[2]))
+	var x0: float = weit - vorn + 0.1
+	var xk := 0.0
+	var x := x0
+	var hi := x0
+	while x > maxf(0.15, x0 - 1.6):
+		if float(_klinge_luecke(bahn, zl, x)[0]) < soll:
+			var lo := x
+			for i in 5:
+				var mid := (lo + hi) * 0.5
+				if float(_klinge_luecke(bahn, zl, mid)[0]) < soll:
+					lo = mid
+				else:
+					hi = mid
+			xk = lo
+			break
+		hi = x
+		x -= 0.1
+	var xb := maxf(xk, 0.2)
+	while xb < 4.0 and minf(_koerper_luecke(bahn, zl + hl, xb, 2), _koerper_luecke(bahn, hl, xb, 1, 1)) < luft:
+		xb += 0.05
+	var xs := maxf(xk, xb)
+	var tk := float(_klinge_luecke(bahn, zl, xs)[1])
+	# 709: [4] die kleinste Lücke danach (ab NACH_T nach dem Aufschlag): ein Hieb mit zweitem Schwung fährt dort noch einmal durch
+	return [xs, tk, xk, xb, float(_klinge_luecke(bahn, zl, xs, tk + NACH_T)[0])]
+
+
+static func _im_raum(kaps: Array, inv: Transform3D) -> Array:
+	var out: Array = []
+	for c in kaps:
+		var a: Vector3 = inv * (c[0] as Vector3)
+		var b: Vector3 = inv * (c[1] as Vector3)
+		out.append([a, b, float(c[2]), (a + b) * 0.5, a.distance_to(b) * 0.5 + float(c[2])])
+	return out
+
+
+## kleinste Lücke der Waffe (Kapseln s[1]) zu [zl] über den ganzen Weg, wenn die Figur [x] zurück steht: [Lücke, t]
+static func _klinge_luecke(bahn: Array, zl: Array, x: float, t_ab := -INF) -> Array:
+	var best := INF
+	var bt := 0.0
+	var v := Vector3(0.0, 0.0, x)
+	for s in bahn:
+		if float(s[0]) < t_ab:
+			continue
+		for w in s[1]:
+			var a: Vector3 = w[0]
+			var b: Vector3 = w[1]
+			var m: Vector3 = (a + b) * 0.5
+			var hm: float = a.distance_to(b) * 0.5 + float(w[2])
+			for c in zl:
+				# grob vorweg: Kugel um beide Strecken (Mitte, halbe Länge + Radius)
+				if m.distance_to(c[3] + v) - hm - float(c[4]) >= best:
+					continue
+				var pq: PackedVector3Array = Geometry3D.get_closest_points_between_segments(a, b, c[0] + v, c[1] + v)
+				var g: float = pq[0].distance_to(pq[1]) - float(w[2]) - float(c[2])
+				if g < best:
+					best = g
+					bt = s[0]
+	return [best, bt]
+
+
+## kleinste Lücke der Teile [teil] (2: Körper, 1: Waffe) zu [zl], jedes [schritt]-te Bild, die Figur [x] zurück
+static func _koerper_luecke(bahn: Array, zl: Array, x: float, schritt := 2, teil := 2) -> float:
+	var best := INF
+	if zl.is_empty():
+		return best
+	var v := Vector3(0.0, 0.0, x)
+	for k in range(0, bahn.size(), schritt):
+		for e in bahn[k][teil]:
+			var m: Vector3 = ((e[0] as Vector3) + (e[1] as Vector3)) * 0.5
+			var hm: float = (e[0] as Vector3).distance_to(e[1]) * 0.5 + float(e[2])
+			for c in zl:
+				if m.distance_to(c[3] + v) - hm - float(c[4]) >= best:
+					continue
+				var pq: PackedVector3Array = Geometry3D.get_closest_points_between_segments(e[0], e[1], c[0] + v, c[1] + v)
+				best = minf(best, pq[0].distance_to(pq[1]) - float(e[2]) - float(c[2]))
+	return best
+
+
 ## 438: wie weit die Figur in der jetzigen Haltung von ihrem Ursprung in Richtung [zu] (waagerecht) reicht, mit Schild und Waffe;
 ## nie weniger als body_r(). Der Kasten um Schild und Waffe mit VORNE_LUFT: im Biss schnellt die Schnauze weiter vor als im
 ## Augenblick, für den bite[] gilt, und der Getroffene hebt den Schild (wolf_mess_438: mit den Ecken des Kastens auf 0,71 noch 9 cm darin)
@@ -3094,8 +3603,8 @@ func traegt() -> Array:
 
 
 ## Wie weit p (Welt) am Boden außerhalb des Umrisses liegt (< 0: darin); [bei]: so, als stünde die Figur dort (438)
-func clearance(p: Vector3, bei := Vector3.INF, gier := NAN) -> float:
-	var box := footprint()
+func clearance(p: Vector3, bei := Vector3.INF, gier := NAN, hoehe := INF) -> float:
+	var box := footprint(hoehe)
 	var tr := global_transform
 	if bei != Vector3.INF:
 		tr.origin = Vector3(bei.x, tr.origin.y, bei.z)
@@ -3338,8 +3847,10 @@ func abwehr(lands_ms: int, art: String, von := Vector3.INF, gelungen := false, t
 
 
 func hurt(after_ms: int, dies: bool, schwer := false, art := "") -> void:
-	# 406: mit Schild erst die Abwehr (vor dem Aufschlag), die nicht hält: beim Aufschlag Treffer mit dem Schild oben
-	if art != "" and blockt() and not dies and not sturz_vorweg:
+	# 406: mit Schild erst die Abwehr (vor dem Aufschlag), die nicht hält: beim Aufschlag Treffer mit dem Schild oben. 709 (Chef
+	# 08.11., 21:36: die Angriffe sollen den Gegner treffen; t269.21, Chef 16:06: „Schild immer gehoben“): im Nahkampf nur noch gegen
+	# Geschosse; Biss und Hieb, die treffen, kommen am Schild vorbei an den Körper (Figur._bite_plan, _held_schlag)
+	if art == "fern" and blockt() and not dies and not sturz_vorweg:
 		abwehr(after_ms, art)
 	await get_tree().create_timer(after_ms / 1000.0).timeout
 	if hurt_at < 0.0:

@@ -1321,9 +1321,11 @@ func _refused() -> void:
 	queue_free()
 
 
+var zuege := 0     # 709: fertige Züge (kampf_ui.panel_passt)
 func _done() -> void:
 	shown.queue = mars.queue()
 	busy = false
+	zuege += 1
 	if end_asked != null and mars.outcome == "ONGOING":
 		test_end(bool(end_asked))
 		return
@@ -1336,6 +1338,7 @@ func _done() -> void:
 	if mars.outcome == "ONGOING" and mars.pilot_next():
 		go_on()
 	ui.refresh()
+	ui.panel_passt.call_deferred()     # 709: was während des Zugs an der Höhe des Kastens geschah
 
 
 func again() -> void:
