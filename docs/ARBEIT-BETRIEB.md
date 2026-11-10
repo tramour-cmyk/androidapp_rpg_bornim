@@ -91,6 +91,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:03 10.11.: Jerry 562 archiviert, gebucht (562, 595); Nachfolger Jerry 595 läuft
 - 00:14 10.11.: Jerry 438 archiviert, gebucht; Nachfolger Jerry 562 läuft
 - 00:08 10.11.: Start Jerry 438, Diogenes 800, Sokrates Stellungnahme; Jerry 562 und Diogenes 796 archiviert, gebucht. Perikles 818 wartet auf Chef: "822 Haken abschalten" (docs/chefsache/tun/822-formhaken.md)
+- 12:01 10.11.: Startsperre 12:01 Start Tom (Neustart auf Meldung 20e102e36, Nachfolger 475).
 - 11:59 10.11.: Startsperre 11:59 Start Perikles (Neustart auf Meldung b9a4d019f, Nachfolger 847).
 - 11:49 10.11.: Startsperre 11:49 Start Sokrates (Neustart auf Meldung, Übergabe 11:45); Diogenes 838 gestartet 11:49.
 - 00:03 09.11.: Startsperre 00:03 Start Diogenes, Perikles (lauf.py)
