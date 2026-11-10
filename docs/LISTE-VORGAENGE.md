@@ -114,7 +114,7 @@
 | 861 | Von Sokrates (Chef 10.11., 13:12, Bild t274.14): Umhang des Kämpfers im Kampf rechts am Rücken stark gewölbt (Handaxt und Schild, Rückenansicht); Ursache nachstellen, nicht raten (656 bestanden t272) | Tom | M | startbar | – | – | – | E Figuren | – |
 | 867 | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die aktuellen Helden | Tom | M | startbar | – | – | – | G Stil | – |
 | 875 | Von Homer (857a A, Chef 10.11., 13:35): Fertigkeit Kräuterkunde heißt im Spiel Kräutersammeln, EN Foraging; Erschaffung, Talenttext, Übung beim Pflücken | Tom | M | startbar | – | – | – | E Kampf | – |
-| 878 | Von Jerry zu 854: godot.yml-Entwurf Kaufcache ansehen, ja oder Änderung | Tom | M | startbar | – | – | – | B Werkzeuge | – |
+| 878 | Von Jerry zu 854: godot.yml-Entwurf Kaufcache ansehen, ja oder Änderung | Tom | M | erledigt | – | – | – | B Werkzeuge | – |
 | Pflege | von Werkzeug (340.3, 10.11.): 16682 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
 | 854 | Gebaute Kaufmodelle im Kaufrepo ablegen, nur bei Änderung neu bauen statt je Sitzung über 20 Min. (Chef 10.11., 12:34: ja) · „jetzt“ 10.11., 14:17, vor dem Umzug 870 | Jerry | M | startbar, 854a ja/ja: Werkzeuge auf main, godot.yml nach 878 | – | – | – | E Technik | 5,94 $ |
 | 709 | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angreifer prüfen (Chef 08.11., 21:36, über Sokrates) | Jerry | M | startbar, Kaufrepo da (Chef 15:33) | – | claude/jerry-709-treffen | – | E Kampf | 38,04 $ |
