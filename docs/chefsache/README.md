@@ -16,7 +16,6 @@ Nichts offen.
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.348.318](ansehen/t273-sammelbuild.md) | [Build 273](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/42717066664/artifacts/13722815309) | Fertigkeiten, BRS-Wörter, Gras, Rast, Kampf | Tom und Jerry | 10.11., 01:07 |
 
 ## Zu tun
 

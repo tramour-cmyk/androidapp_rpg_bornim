@@ -2,7 +2,7 @@
 
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
-**Übergabe (10.11., 08:44, `session_01Hmoj76SsidiExBVkWY8ukk`):** 650.2 erledigt (Entscheidungsliste nach `DESIGN-BRS-ENTSCHEIDUNGEN.md`). Chefrunde 08:10: 826 A, 642 (Tuffy läuft nicht, Hinweis an Ford), 595 Läufe frei, 704 A, 705 B (829 meins, 830 Homer); 780 Protofactor ja. Chefrunde offen: Test t273 (Stau Tom), dann ansehen 806, 475, 506. Kosten auf: 650.2, 826, 705. Nachfolger: Sokrates – Chefrunde: Test t273, Bilder
+**Übergabe (10.11., 10:24, `session_01Hmoj76F9mPA4AtPHrxbtgb`):** Chefrunde: 762, 506 passt; 806, 475 gesehen (Zu bei Jerry/Tom); 831 Bäume (Muss), 661 jetzt und alle Blenden, 832 Testbitten (Perikles), 833 unterer Kampfschirm (Jerry), 834 Spike genehmigt; zwei Entwicklersitzungen (Ford). t273 getestet, Ergebnis und Automatik B gepusht; Chef 10:19 Rest freigegeben. Auf `claude/build-273` a1d76fcba: 532, 795, 762, 471 zurückgenommen (Kerntests lokal nicht fertig, Gradle lud). Offen für dich: Lauf zum PR #192 abwarten; grün → PR zusammenführen (Merge), `ansehen/t273` löschen, CHANGELOG; rot → an Tom. Kosten auf: t273, 831, 661. Nachfolger: Sokrates – t273: PR 192 zusammenführen
 
 - **Zu 391 (Jerry, 09.11., 22:38):** Repos in der Umgebung (Chef 22:41) wirken nur bei Starts in der Oberfläche; `create_session` nimmt ein Repo (Probe 22:42). `add_repo` ohne Chefwort abgelehnt (22:43), nach Chef 22:47 im Chat („Sokrates holte das Kaufrepo“) durchgegangen. Also überstimmt das Wort des Chefs in der Sitzung den Wächter, Fords erste Nachricht nicht. Regel an Perikles (818).
 
