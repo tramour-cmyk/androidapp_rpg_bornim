@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 653 | Halt für Waffen und Schilde einmal je Modell festlegen statt je Figur nachmessen: Griffpunkt je Gegenstand, Halterung je Körper, eine Anlegefunktion, Prüfbild aller Kombinationen (Chef 08.11., 14:35) · „jetzt“ 10.11., 12:33 | Tom | M | startbar, passt 14:22: Halt umstellen | – | claude/tom-653-halt | – | E Figuren | – |
+| 653 | Halt für Waffen und Schilde einmal je Modell festlegen statt je Figur nachmessen: Griffpunkt je Gegenstand, Halterung je Körper, eine Anlegefunktion, Prüfbild aller Kombinationen (Chef 08.11., 14:35) · „jetzt“ 10.11., 12:33 | Tom | M | in Arbeit, Code umgestellt (387010d05); Prüfbild und halt.json mit Modellen aus 854 | 854 | claude/tom-653-halt | – | E Figuren | – |
 | 663 | Klassische Steuerung ausbauen: Steuerkreuz und Funktionstasten ganz raus, nur Touch; Auswahl der Steuerung samt Rückfrage weg (Chef 08.11., 15:24, t269.3) · „jetzt“ 10.11., 12:58 | Tom | M | gebaut, Geprüft an: 6095ac45f (Tests grün außer 27 Laden-Fehler wie auf main) | – | claude/tom-663-touch | – | E Oberfläche | – |
 | 470 | Bau BRS 1.1 Erschaffung (Wochenziel 02.11., Stufe 1) · Spike; „Neues Spiel“ umschalten erst nach t274.18 · „jetzt“ 10.11., 12:58 | Tom | M | startbar, Seite passt 13:37; umschalten jetzt frei (t274.18 ✓) | – | claude/spike-470-erschaffung | – | E Kampf | 43,23 $ |
 | 825 | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635, 542, 543, 632; Jerry 593, 547, 597), Prüfliste ansehen/t<n>, build <n> --mit für jede Nummer (774) | Tom | M | gebaut, Geprüft an: Lauf 42793721837, t274 beim Chef | – | – | – | E Technik | 8,33 $ |
