@@ -295,3 +295,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:07 10.11.: Startsperre 21:07 Start Perikles (Neustart-Meldung 21:06, e871f3e46)
 - 21:42 10.11.: 870.16 erledigt: tom-6236-probeapk, jerry-494-gegner, jerry-403-held-kampfort, jerry-6235-effektprobe von den Besitzern aufgegeben (Zweige bleiben im Git)
 - 21:42 10.11.: Startsperre 21:42 Start Jerry (Neustart-Meldung 21:40, 63190e94e)
+- 21:57 10.11.: Startsperre 21:57 Start Jerry (Neustart-Meldung 21:56, a512f65ac)
