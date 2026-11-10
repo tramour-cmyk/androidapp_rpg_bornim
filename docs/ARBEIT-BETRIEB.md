@@ -180,3 +180,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:25 10.11.: Marke Archiv session_01Hmoj76F9mPA4AtPHrxbtgb (lauf.py)
 - 10:25 10.11.: Marke Archiv session_01Hmoj79QEoSd5GHdCRwZxGK (lauf.py)
 - 10:28 10.11.: Sokrates t273 (PR 192), Tom 834, Spike 825, Homer 830 gestartet (Chefrunde: zwei Entwicklersitzungen laut Übergabe Sokrates 10:24); Homer 810 archiviert, gebucht; Sokrates Chefrunde läuft noch, Archiv 10:32
+- 10:32 10.11.: Startsperre 10:32 Start Jerry (Ford, vor dem Start; Chef 10:3x: Tom und Jerry gleichzeitig, Spike für 825 zusätzlich; mein Irrtum: „keine Arbeit“, Jerry hat 59 Muss, oberste startbare 709)
