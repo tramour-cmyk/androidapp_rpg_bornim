@@ -7,6 +7,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 **Übergabe (10.11., 00:57):** 562 erledigt (durch 682); 595 gebaut, Probelauf 42719583920 läuft (gegner=SPINNE,LEECHES,SLUGS; Film 494-gegner.mp4, BISS-Zeilen im Spinnenumbau). Kaufrepo fehlt. Nachfolger: Jerry – 595: Kaufgegner, Film auswerten
 
 ## Einzelheiten
+- **Text, von Homer (10.11., 12:01):** `godot/regeln/mars.gd` 710 „Unter einem Drittel der Lebenspunkte.“ / „Below a third of life points.“ widerspricht `STORY-REGELN.md` Englisch (3); richtig: „Unter einem Drittel seines Lebens.“ / „Below a third of its Life.“ Beim nächsten Gang durch `mars.gd` mitnehmen (Commit „Text:“).
 - **Zu 844 (Jerry, 10.11.):** goblin.py baut mit GERUEST=eigen nur Gehen, Stehen; strike gleitet dann 60 % zum Ziel ohne Schlag. Probe CC0 mit Goblin_Hieb (348.12 R3) da; Vorlage an den Chef. Dazu Fehler `_weg_len` „Gehen“ (zurueck_in_reihe).
 - **Zu 845 (Jerry, 10.11.):** Krogg.position beim Planen des Helden = Platz, im Bild 0,65 m dahinter; Ursache offen; Bild 1188 Sprung 0,5 m im Stehen.
 - **Zu 509, von Homer (Chef 10.11., 11:50: „Kleinleben klingt gut“):** im gekauften Bestand liegen Frösche (Janpec `common_frog`, 3 Arten: idle, walk, run, die) und Feuersalamander (Idle, Walk, Run, Die), beide bisher ungenutzt (`LISTE-BESTAND.md` „Janpec“); für die Teiche im Flüsterwald (W22) nehmen statt Eigenbau. Libelle fehlt im Bestand.
