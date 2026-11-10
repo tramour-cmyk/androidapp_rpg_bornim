@@ -317,7 +317,14 @@ def kopf_frei(netze, haut, p, gesicht, teile):
             & ((V[:, 1] < p['mitte'][1]) | (V[:, 2] > p['kinn_z'] + 0.045))   # Kragen hinter dem Hals bleibt (wie kauf_kleid.py KOPF_FREI)
         tuch = np.isin(nm, TUCHTEILE)
         weg = im_kopf & ~tuch & ~np.isin(nm, KOPF_BLEIBT)
+        reif = np.isin(nm, KOPF_BLEIBT)
+        if reif.any():   # Messung (Lauf 10.11., 02:06: Lyras Reif hing vor dem Mund): Lage vorn und hinten gegen Augen und Scheitel
+            R = V[reif]; vo = R[:, 1] < p['mitte'][1]
+            print('REIF', o.name, 'Ecken', int(reif.sum()), 'vorn z %.3f..%.3f hinten z %.3f..%.3f, Augen %.3f, Scheitel %.3f, Kinn %.3f, Breite x %.3f..%.3f'
+                  % (R[vo, 2].min() if vo.any() else 0, R[vo, 2].max() if vo.any() else 0, R[~vo, 2].min() if (~vo).any() else 0,
+                     R[~vo, 2].max() if (~vo).any() else 0, p['augen_z'], p['oben'], p['kinn_z'], R[:, 0].min(), R[:, 0].max()))
         for t in sorted(set(nm[weg])): print('KOPFFREI', o.name, t, int((weg & (nm == t)).sum()), 'Ecken im Kopf weg')
+        if reif.any(): reif_setzen(o, V, reif, Wg, p, haut)
         if tuch.any():   # Tuch als eigenes Netz (Kopie ohne den Rest)
             t = o.copy(); t.data = o.data.copy(); t.name = 'tuch'
             for c in o.users_collection: c.objects.link(t)
@@ -340,6 +347,47 @@ def kopf_frei(netze, haut, p, gesicht, teile):
             bm = bmesh.new(); bm.from_mesh(o.data); bm.verts.ensure_lookup_table()
             bmesh.ops.delete(bm, geom=[bm.verts[i] for i in np.where(rest)[0]], context='VERTS'); bm.to_mesh(o.data); bm.free(); o.data.update()
     return neu
+
+
+def reif_setzen(o, V, reif, Wg, p, haut):
+    """475 (Lauf 10.11., 02:06: Lyras Stirnreif hing vor dem Mund; gemessen REIF vorn z bis 1,543 bei Kinn 1,538, Breite ±12 cm): der Reif
+    aus held3 ist fuer unseren Kopf gebaut, kauf_kleid zog ihn am Kaufkopf zu einem U bis ans Kinn. Neu gesetzt um die geformte Haut der
+    Person: je Winkel um die Kopfachse die Mitte des Bands auf Stirnhoehe (vorn 4 cm ueber den Augen, hinten 6 cm), 8 mm ueber der Haut;
+    der Querschnitt des Bands (Abweichung von seiner Mitte je Winkel, hoechstens 1 cm hoch, 8 mm tief) bleibt; Gewicht ganz am Kopf."""
+    idx = np.where(reif)[0]; R = V[idx]; cy = p['mitte'][1]
+    th = np.arctan2(R[:, 0], cy - R[:, 1])                 # 0 = vorn (Blick -Y)
+    rad = np.hypot(R[:, 0], R[:, 1] - cy)
+    b = np.round(th / (np.pi / 24)).astype(int)
+    zm = np.zeros(len(idx)); rm = np.zeros(len(idx))
+    for k in set(b): m = b == k; zm[m] = np.median(R[m, 2]); rm[m] = np.median(rad[m])
+    dz = np.clip(R[:, 2] - zm, -0.006, 0.006); dr = np.clip(rad - rm, -0.004, 0.004)
+    zr = p['augen_z'] + 0.04 + 0.02 * (1 - np.cos(th)) / 2
+    # Haut je Winkel per Strahl von aussen zur Kopfachse (die Ecken des Kaufkopfs liegen auf Stirnhoehe zu weit auseinander)
+    from mathutils.bvhtree import BVHTree
+    bvh = BVHTree.FromPolygons([Vector(v) for v in Wg], [tuple(f.vertices) for f in haut.data.polygons])
+    def haut_r(t, z):
+        d = Vector((np.sin(t), -np.cos(t), 0.0)); a = Vector((0.0, cy, z))
+        hit = bvh.ray_cast(a + d * 0.4, -d, 0.4)
+        return (hit[0] - a).length if hit[0] is not None else None
+    neu = np.empty_like(R)
+    for j in range(len(idx)):
+        r0 = haut_r(th[j], zr[j])
+        r = (r0 if r0 is not None else float(rm[j])) + 0.008 + 0.004 + dr[j]
+        neu[j] = [r * np.sin(th[j]), cy - r * np.cos(th[j]), zr[j] + dz[j]]
+    V[idx] = neu
+    print('REIF Haut auf Stirnhoehe r vorn %s, seitlich %s/%s, hinten %s' % tuple(
+        ('%.3f' % x if x is not None else '-') for x in (haut_r(0, p['augen_z'] + 0.04), haut_r(np.pi / 2, p['augen_z'] + 0.05),
+                                                         haut_r(-np.pi / 2, p['augen_z'] + 0.05), haut_r(np.pi, p['augen_z'] + 0.06))))
+    kg = next((vg for vg in o.vertex_groups if vg.name.lower() == 'head'), None)
+    if kg is None: kg = o.vertex_groups.new(name='Head')   # Knochen „Head“ des Kaufgeruests (heldfigur.gd find_bone)
+    if kg:
+        for vg in o.vertex_groups:
+            if vg != kg: vg.remove([int(i) for i in idx])
+        kg.add([int(i) for i in idx], 1.0, 'REPLACE')
+    vo = neu[:, 1] < cy
+    print('REIF gesetzt vorn z %.3f..%.3f, hinten z %.3f..%.3f, Breite x %.3f..%.3f, Kopf am Gewicht: %s'
+          % (neu[vo, 2].min(), neu[vo, 2].max(), neu[~vo, 2].min() if (~vo).any() else 0, neu[~vo, 2].max() if (~vo).any() else 0,
+             neu[:, 0].min(), neu[:, 0].max(), 'ja' if kg else 'nein'))
 
 
 def schluessel(netze, p, augen=None):

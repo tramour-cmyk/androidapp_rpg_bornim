@@ -382,7 +382,10 @@ static func toene(m: Node3D, a: Dictionary, volk: String) -> void:
 			var b := 0.0
 			var ist_haut := rn.contains("Regular") or rn.contains("Superhero")
 			if ist_haut: z = haut; b = hb
-			elif rn.contains("Hair"): z = haar; b = hh
+			elif rn.contains("Hair"):
+				z = haar; b = hh
+				# 475 (Lauf 10.11., 02:06: Brauen bei hellem Haar zu hell, Morwen, Liska, Pim, Lyra): Brauen der Leute dunkler als das Haar
+				if a.has("haar_rgb") and String(mi.name).begins_with("Eyebrows"): z = haar.darkened(0.45)
 			if z.r < 0.0: continue
 			var l := z.srgb_to_linear()
 			var t := Vector3(l.r, l.g, l.b)
