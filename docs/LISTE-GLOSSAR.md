@@ -2,7 +2,7 @@
 
 Vorgang 648 (Chef 08.11., 13:01–13:08: „für Menschen nutzbar. Selbsterklärend“; Kontext entscheidend, „Unterbegriff … zu dem Oberbegriff“). Je Sachgebiet ein Begriffsbaum: **gehört zu** (Oberbegriff) und **darunter** (Unterbegriffe); Spalte **nicht** nennt Wörter, die wir dafür nie benutzen. Am Ende Abkürzungen und ein Verzeichnis A–Z. Wird nicht laufend gepflegt: neue Begriffe trägt ein, wer sie einführt. **Fundstellen** zeigt das Werkzeug: `python3 tools/glossar.py <Begriff>` (Dateien, die ihn nennen); `python3 tools/glossar.py --pruefen` zählt, wo ein Wort aus „nicht“ noch steht.
 
-Namen im Spiel (Völker, Zauber, Monster, Regelwerte) stehen nicht hier, sondern im Glossar des Spielsystems: `DESIGN-SPIELSYSTEM-2-0.md` „Glossar: alte und neue Namen“ (Entscheidung 24). Neue Spielbegriffe legt Homer fest.
+Namen im Spiel (Völker, Zauber, Monster, Regelwerte) stehen nicht hier, sondern in `DESIGN-BRS.md` Abschnitt 12 „Namen“ (Entscheidung 24). Neue Spielbegriffe legt Homer fest.
 
 ## 1 Firma und Rollen
 

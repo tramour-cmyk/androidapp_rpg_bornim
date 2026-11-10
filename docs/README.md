@@ -31,7 +31,7 @@ Inhaltsverzeichnis (122, 650.2). Wer eine Datei unter `docs/` umbenennt oder anl
 ## Spiel
 
 - [Stil](DESIGN-STIL.md): Aussehen, Klang, Spielgefühl
-- [Kampf](DESIGN-KAMPF.md), [Blende](DESIGN-BLENDE.md), [Entscheidungen und Verlauf zum Spielsystem](DESIGN-SPIELSYSTEM-2-0.md) (Liste „E <Nr.>“, Glossar alter und neuer Namen, Ideensammlung; 413)
+- [Kampf](DESIGN-KAMPF.md), [Blende](DESIGN-BLENDE.md), [Entscheidungen zum BRS](DESIGN-BRS-ENTSCHEIDUNGEN.md) (Liste „E <Nr.>“; Verlauf und Ideensammlung in `alt/DESIGN-SPIELSYSTEM-2-0.md`, 413, 650.2)
 - [Spielerhandbuch](STORY-HANDBUCH-1.md) (Entwurf 423, Teile [2](STORY-HANDBUCH-2.md), [3](STORY-HANDBUCH-3.md)): das Spielsystem für den Spieler erklärt
 - [Storyplan](STORY-PLAN.md): Plot und Figuren je Kapitel; [Kapitel 1](STORY-PLAN-K1.md) (Ist-Stand Kotlin, 12.10.)
 - [Story-Verzeichnis](STORY-REGELN.md): alle Spieltexte mit Marken; Kapitel 1 [Handlung](STORY-K1-HANDLUNG.md) und [Welt](STORY-K1-WELT.md), [Blende](STORY-BLENDE.md); Gesprächsvarianten [Dorf](STORY-VARIANTEN-K1.md) und [Wald, Höhle, Türen, Rast](STORY-VARIANTEN-K1-WALD.md)
