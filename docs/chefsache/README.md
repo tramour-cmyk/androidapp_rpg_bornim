@@ -31,21 +31,22 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 3, Muss 1, startbar 0
+**Homer** – offen 4, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
+| 857 | M | Von Sokrates (Chef 10.11., 13:01, t274.6): Fertigkeit „Kräuterkunde“ (Gruppe Sammeln) umbe | startbar |
 
-**Tom** – offen 104, Muss 85, startbar 8
+**Tom** – offen 104, Muss 85, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 653 | M | Halt für Waffen und Schilde einmal je Modell festlegen statt je Figur nachmessen: Griffpun | startbar |
 | 663 | M | Klassische Steuerung ausbauen: Steuerkreuz und Funktionstasten ganz raus, nur Touch; Auswa | startbar |
-| 470 | M | Bau BRS 1.1 Erschaffung (Wochenziel 02.11., Stufe 1) · Spike; „Neues Spiel“ umschalten ers | startbar |
+| 470 | M | Bau BRS 1.1 Erschaffung (Wochenziel 02.11., Stufe 1) · Spike; „Neues Spiel“ umschalten ers | in Arbeit bei Spike |
 | 834 | M | Weg für einen BRS-Held ins Spiel (Testmenü oder Übernahme der BRS-Erschaffung), damit 762, | wartet auf Test (Build 274) |
 | 825 | M | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635 | wartet auf Test/Build (gebaut) |
 | 661 | M | Alle Blenden ein Aufbau (Ort, Rast, Kampf normal/Hinterhalt/Boss): Name gesperrt, Zierleis | wartet auf Test/Build (gebaut) |
@@ -229,7 +230,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 845 | M? | Kampf: Krogg steht 0,65 m hinter seinem Platz, beim Planen des Helden liest seine Lage den | startbar |
 | Pflege | K | von Werkzeug (340.3, 10.11.): 20441 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 23, Muss 8, startbar 2
+**Perikles** – offen 24, Muss 9, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -253,16 +254,16 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 735 | K | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-ABNAHME.md 11 und Kopf DESIGN-KAMPF | ruht |
 | 742 | K | D78.1 Testbitte t268: Zeile „Verglichen“ deckte nur die Schirme vom 05.11., nicht Dorf, Ka | ruht |
 | 847 | K | D128.1 (Diogenes, 846): Lizenz-Stopp hält noch an, wenn Richtig/Falsch den Menüeintrag „Li | wartet auf Diogenes |
-| 848 | M | Probelauf-Zähler zählt Push, der nur vorschau.yml (Kotlin, ohne Bild) auslöst, als Probe ( | wartet auf Diogenes |
+| 848 | M | Probelauf-Zähler zählt Push, der nur vorschau.yml (Kotlin, ohne Bild) auslöst, als Probe ( | wartet auf 858 (startbar) |
 | 849 | M | Neustart: letzte Antwort an den Chef wörtlich in die Übergabe, Nachfolger nennt sie in der | wartet auf Diogenes |
 | Pflege | K | von Werkzeug (340.3, 10.11.): 15844 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 858 | M | D129.1 (Diogenes, 848): Ausnahme vorschau.yml sucht vorschau.env im Ordner des Aufrufs, ni | startbar |
 
-**Diogenes** – offen 11, Muss 9, startbar 3
+**Diogenes** – offen 10, Muss 8, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
-| 848 | M | Probelauf-Zähler zählt Push, der nur vorschau.yml (Kotlin, ohne Bild) auslöst, als Probe ( | startbar |
 | 849 | M | Neustart: letzte Antwort an den Chef wörtlich in die Übergabe, Nachfolger nennt sie in der | startbar |
 | 847 | K | D128.1 (Diogenes, 846): Lizenz-Stopp hält noch an, wenn Richtig/Falsch den Menüeintrag „Li | startbar |
 | 461b | M | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Termin 16.11. |
