@@ -22,7 +22,7 @@
 | 522 | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Chef 03.11., 23:33) · zurück t269 | Tom | M | erledigt, t274 bestanden | – | claude/tom-522-waffen | 274 | E Oberfläche | – |
 | 697 | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | Tom | M | in Arbeit, erster Messlauf ohne Wert (nicht importiert) | 782 | claude/tom-697-drehteller | – | E Figuren | – |
 | 680 | Absturz: Testmenü Sprung Wald → Dorf, in der Schenke schon hakelig, nach Met immer zäher, beim Öffnen des Testmenüs (Sprung in den Wald) Absturz, ohne Fehlerzeile (Chef 08.11., 16:16, 16:18, Build 269, Handy) | Tom | M | startbar | – | – | – | E Kampf | – |
-| 506 | Untote im Kampf: Skelett, Zombie, Ghul (aus 494, Spike; Wochenziel 03.11., 488) · zurück t274 | Tom | M | startbar, Fund t274.14 | – | claude/tom-506-skelett, claude/tom-506-untote | – | E Kampf | 85,42 $ |
+| 506 | Untote im Kampf: Skelett, Zombie, Ghul (aus 494, Spike; Wochenziel 03.11., 488) | Tom | M | in Arbeit, Grabhund-Kopf behoben (6b43235df); Film nach 506.1 und 709 | 506.1 | claude/tom-506-skelett, claude/tom-506-untote | 274 | E Kampf | 85,42 $ |
 | 492 | Blutzahnhöhle begehbar mit Krogg, Grak, Lyra (Orte O8; Wochenziel 03.11., 488; von Jerry an Tom, Chef 07:54) | Tom | M | startbar, B (Chef 21:46), Lager offen | – | claude/tom-492-durchspiel | – | E Technik | 81,67 $ |
 | 670 | Build 269: Menü des Helden (Held, Tasche, Ausrüstung, Karte, Chronik, System) noch im alten Design statt 557/549a; Zweig tom-557-einschalten war im Build? (Chef 08.11., 15:32) | Tom | M | erledigt, t274 bestanden | – | – | 274 | E Oberfläche | – |
 | 581 | Ausrüstung: Seite breiter als der Schirm, Reiter springen (Abgleich 512b) · zurück t269 | Tom | M | startbar, Fund t269.16 | – | claude/tom-581-ausruestung | – | E Oberfläche | 2,31 $ |
@@ -195,6 +195,7 @@
 | 863 | Von Sokrates (Chef 10.11., 13:19, t274.15): Ratte aus der hinteren Reihe tapst zum Angriff nach vorn und lange zurück, statt wie die Wölfe mit einem Vorderen den Platz zu tauschen; gleiche Regel für alle Gegner (auch Wiedergänger 506) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 864 | Von Sokrates (Chef 10.11., 13:26, t274.16): Fledermäuse beamen nach dem Angriff auf die Ausgangsplätze; flott zurückweichen, nicht beamen | Jerry | M | startbar | – | – | – | E Kampf | – |
 | Pflege | von Werkzeug (340.3, 10.11.): 22022 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
+| 506.1 | Kampf: langsame Gegner (Wiedergänger) starten näher am Helden, hintere Reihe ohne langen Anmarsch, Gang bleibt langsam (von Tom, 506; Chef 10.11., 12:25) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
