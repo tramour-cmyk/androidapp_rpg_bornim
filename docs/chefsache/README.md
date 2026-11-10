@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [870b](entscheiden/870b-pause-umzug.md) | **Muss** | E Kampf | 10.11., 16:00 | Ohne Abnahme ruht der Umzug bis 13.11., 20:00, auch wenn das Laufende vorher fertig ist | Sokrates |
 
 ## Zu billigen
 
