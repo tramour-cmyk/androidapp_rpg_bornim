@@ -2,6 +2,8 @@
 
 Was der Chef entschieden hat, neueste oben (99g.1). Je Vorgang: Nummer, Datum, Entscheidung, *Leitlinien*, Antwort des Chefs und wessen Empfehlung („Nutzer“ = Chef). **Neue Einträge ab 21.10. höchstens etwa 250 Zeichen** (274): Wortlaut des Chefs, soweit er die Entscheidung trägt, steht hier; Begründung in der Rollendatei dessen, der empfiehlt (`CLAUDE.md` „Jeder Text an einem Ort“); Anlass und langer Wortlaut nur in der Chefsache-Datei und „Zu ‹Nr›“, nach dem Löschen in Git. Ältere Einträge bleiben. Einträge werden nicht geändert, außer dem Anhang „→ ersetzt durch <Nr., Datum>“ am alten Eintrag, wenn ein neuer ihn ablöst (461b); was gilt, steht in den DESIGN-Dateien je Thema (461d: Punkte mit Kennung in `DESIGN-STIL.md`, `DESIGN-KAMPF.md`, `DESIGN-ABNAHME.md`), das Archiv ist Verlauf; wer einen Punkt aus der Chefsache entscheiden lässt, trägt ihn hier oben ein und löscht im selben Schritt die Datei in `docs/chefsache/`. Nur Text: Bilder und Hörproben der Einträge bis 16.10. stehen in den [alten Beschlüssen](https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM) (abgelöst 16.10.); Dateinamen in älteren Einträgen sind die damaligen.
 
+- **264.1, Läufe frei** (10.11., 19:54, Chef an Perikles: „264.1, Läufe frei“): Lauf 4 auf dem eigenen Runner mit zstd (`1228f6764`) → **ja (Nutzer)**
+
 - **895, Kotlin-Lauf nur von Hand** (10.11., 19:36, Chef an Perikles: „Ja, android.yml jetzt auf nur von Hand stellen“ auf Votum 19:35): `android.yml` ohne Push-Auslöser, vor 870.10 → **ja (Nutzer; Votum Perikles)**
 
 - **894 A, Godot-Build startet bei claude/build-\*\*** (10.11., 19:34, Chef an Perikles: „894 A“; Chefsache `entscheiden/894-build-start.md` in Git): ohne Gerätetest auf main; Kotlin-Lauf nicht mehr am PR → **A (Nutzer; Votum Perikles)**
