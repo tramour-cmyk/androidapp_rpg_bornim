@@ -215,6 +215,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 14:11 10.11.: Marke Archiv session_01Hmoj76np2n26WALbfV1Ttn (lauf.py)
 - 14:11 10.11.: Marke Archiv session_01Hmoj79t6royySMqhFjw65j (lauf.py)
 - 14:25 10.11.: Startsperre 14:25 Start Tom, Diogenes, Perikles, Tuffy (lauf.py)
+- 14:27 10.11.: Startsperre 14:27 Start Jerry (selbst; Nachfolger 854 laut Übergabe, lauf.py meldet Jerry „belegt“ durch die Übergabesitzung)
 - 14:25 10.11.: Marke Start-fehlt Diogenes 10.11.-14:11 (lauf.py)
 - 14:25 10.11.: Marke Start-fehlt Perikles 10.11.-14:11 (lauf.py)
 - 14:25 10.11.: Marke Archiv session_01Hmoj785uiBLChGLxf8QFTb (lauf.py)
