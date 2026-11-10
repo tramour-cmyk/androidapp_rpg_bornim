@@ -98,7 +98,7 @@ def kopfnetze(netze):
 KOPFTEILE = ('hood', 'kapuze', 'gugel', 'helm', 'armet', 'tuch', 'scarf', 'schal', 'circlet', 'reif')
 
 
-def kopfsitz(netze, haut, p):
+def kopfsitz(netze, haut, p, gesicht=None):
     """475 (Prueferbefund 04.11., 06:37; 475a 1, Chef 13:32: „das Gesicht bleibt frei und erkennbar: Visier offen, Tuch auf dem Kopf,
     Kapuze zurueck oder hoeher, nichts scheint durch“): Kopfbedeckungen der Leute auf dem Kaufkopf setzen, mit Zahlen im Protokoll.
     Kopftuch (unser Teil aus held3, fuer unseren Kopf gebaut): so weit hoch, dass es 1,2 cm ueber dem Scheitel liegt (Pruefer: ueber Mund
@@ -148,7 +148,55 @@ def kopfsitz(netze, haut, p):
                 V[k] = V[k] + N[i] * (0.006 - h)
         KO._zurueck(o, V)
         print('KOPFSITZ', o.name, 'unter der Haut vorher %d Ecken (tiefste %.1f mm), alle jetzt 6 mm darueber' % (durch, -tief * 1000))
+        if gesicht: kopfsitz_geformt(o, W, N, kopf, p, gesicht)
     return teile
+
+
+def kopfsitz_geformt(o, W, N, kopf, p, ge, runden=5):
+    """475 Lauf 2 (Pruefer vor dem Versand 04.11., 22:24: Gruen der Kapuze an Hals und Kinnrand bei Garrick und Morwen; Spur (a)): kopfsitz
+    mass gegen die ungeformte Haut, Godot mischt aber das Gesicht der Person (Formschluessel, kopf.feld) an Haut und Kopfteil; das Feld
+    ist am Kinn steil (Laenge, Kiefer, Kinn), die Haut wandert dort anders als das Kopfteil 6 mm daneben. Hier mit dem Gesicht der Person:
+    jede Ecke unter 6 mm ueber der geformten Haut hinaus, bis keine mehr fehlt; Zahlen vorher je Gegend im Protokoll."""
+    from mathutils.kdtree import KDTree
+    Wg = W + KO.feld(W, p, ge)
+    kd = KDTree(len(kopf))
+    for j, i in enumerate(kopf): kd.insert(Vector(Wg[i]), j)
+    kd.balance()
+    vorher = None
+    for r in range(runden):
+        V = KO._welt(o); Vg = V + KO.feld(V, p, ge); n = 0
+        zahl = {'hals': [0, 0], 'kinn': [0, 0], 'wange': [0, 0], 'oben': [0, 0]}
+        for k in range(len(V)):
+            q, j, d = kd.find(Vector(Vg[k]))
+            if q is None or d > 0.05: continue
+            i = kopf[j]; h = float(np.dot(Vg[k] - Wg[i], N[i]))
+            if h < 0.006:
+                z = Vg[k][2]
+                g = 'hals' if z < p['kinn_z'] else 'kinn' if z < p['mund_z'] else 'wange' if z < p['augen_z'] else 'oben'
+                zahl[g][0] += h < 0.0; zahl[g][1] += h < 0.002
+                V[k] = V[k] + N[i] * (0.006 - h); n += 1
+        if vorher is None: vorher = zahl
+        if not n: break
+        KO._zurueck(o, V)
+    print('KOPFSITZ', o.name, 'mit Gesicht der Person vorher unter der Haut/unter 2 mm je Gegend', vorher, '; nach %d Runden fehlen noch %d' % (r, n))
+
+
+def wange_messen(netze, haut, p, ge):
+    # 475 Spur (b) (Pruefer 22:24: Morwen im Halbprofil Wange vom Kapuzenrand verdeckt): Ecken anderer Netze vor dem Ohr zwischen Kinn und
+    # Augen binnen 2 cm ueber der geformten Haut seitlich des Gesichts (|x| ueber 60 % der Augenaussenkante); nur Messung, Protokoll WANGE
+    from mathutils.kdtree import KDTree
+    W = KO._welt(haut); Wg = W + KO.feld(W, p, ge or {})
+    kopf = np.where((Wg[:, 2] > p['kinn_z'] - 0.02) & (np.linalg.norm(Wg - p['mitte'], axis=1) < 0.2))[0]
+    kd = KDTree(len(kopf))
+    for j, i in enumerate(kopf): kd.insert(Vector(Wg[i]), j)
+    kd.balance()
+    for o in netze:
+        if o is haut or o.name.startswith(('Eye', 'Hair')): continue
+        V = KO._welt(o)
+        m = (V[:, 1] < min(p['ohr_r'][1], p['ohr_l'][1]) - 0.005) & (V[:, 2] > p['kinn_z']) & (V[:, 2] < p['augen_z'] + 0.01) \
+            & (np.abs(V[:, 0]) > p['augen_x'])
+        nah = sum(1 for v in V[m] if kd.find(Vector(v))[2] < 0.02)
+        if m.any(): print('WANGE', o.name, int(m.sum()), 'Ecken vor dem Ohr seitlich am Gesicht,', nah, 'davon binnen 2 cm ueber der Haut')
 
 
 TUCHTEILE = ('tuch', 'tuch_knoten', 'tuch_zipfel')
@@ -520,10 +568,12 @@ def kaempfer(k, g, figur='', fuesse='', stiefel_bis=0.0, liste='trachten.json', 
     haut, augen, brauen = kopfnetze(netze)
     beine_weg(haut)
     p = KO.merkpunkte(haut, augen)
+    ge = {}
     if liste != 'trachten.json':   # 475 Lauf 2: Kleid aus dem Kopf, Tuch eigenes Netz, Kragen ueber der Haut (kopf_frei)
         ge = json.load(open(os.path.join(HIER, liste))).get(figur, {}).get('kauf', {}).get('gesicht', {})
         netze += kopf_frei(netze, haut, p, ge, os.path.join(env['OUT'], 'teile.json'))
-    kopfteile = kopfsitz(netze, haut, p) if liste != 'trachten.json' else []
+    kopfteile = kopfsitz(netze, haut, p, ge) if liste != 'trachten.json' else []
+    if liste != 'trachten.json': wange_messen(netze, haut, p, ge)
     schluessel(([haut, augen] if augen else [haut]) + brauen + kopfteile, p, augen)
     statur(arm, netze)
     vorrang_marke(netze, os.path.join(env['OUT'], 'teile.json'))

@@ -1626,6 +1626,8 @@ func leute_blatt() -> void:
 		if "--gesichtervergleich" in OS.get_cmdline_user_args():   # Lauf 2: wie Lauf 1 (Nahebene) und doppelt so weit (Zoom), zum Vergleich
 			await gesichter(dir, true, "leute_gesichter_nah.png")
 			await gesichter(dir, false, "leute_gesichter_weit.png", 2.0)
+		if "--gesichterspiel" in OS.get_cmdline_user_args():   # Spur (c): Spielgroesse (Chef 04.11., 20:49), Tusche wie im Spiel
+			await gesichter(dir, false, "leute_gesichter_spiel.png", Kamera.NAH / GESICHT_BREITE, true)
 		await gesichter(dir)
 	kamera.ziel = mitte_n
 	kamera.springe()
@@ -1674,7 +1676,10 @@ const GESICHT_BREITE := 0.55          # m Bildbreite der Kamera
 const GESICHT_KACHEL := 420           # Punkte je Bild (Quadrat um den Kopf)
 # 475 Lauf 2 (Pruefer 20:39: „Im ganzen Blatt fehlt die Tuschelinie“): nah = wie Lauf 1 (Nahebene kurz vor die Person); sonst bleibt die
 # Nahebene, und statt dessen sind Dorf und Held ausgeblendet (was vor dem Kopf stand, waren Haeuser); Licht und Kamera wie im Spiel
-func gesichter(dir: String, nah := false, datei := "leute_gesichter.png", weit := 1.0) -> void:
+# 475 Spur (c) (Tom 04.11., 22:3x): bei 0,55 m Bildbreite traf tusche.gdshader „knick“ (0,06 m Tiefenkruemmung ueber 1–2 Bildpunkte) kaum
+# eine Kante, nur der Umriss blieb; ausschnitt = Spielgroesse: Kamera auf weit × 0,55 m (NAH 3,4 m), aus dem Bild nur die 0,55 m um den Kopf,
+# ohne Glaetten vergroessert (so gross wie am Handy, jeder Bildpunkt sichtbar)
+func gesichter(dir: String, nah := false, datei := "leute_gesichter.png", weit := 1.0, ausschnitt := false) -> void:
 	var alle: Array = leute.get_children().filter(func(x): return x is Leute and not x.is_queued_for_deletion())
 	var mk := Node3D.new()
 	leute.add_child(mk)
@@ -1728,9 +1733,18 @@ func gesichter(dir: String, nah := false, datei := "leute_gesichter.png", weit :
 		# canvas_items), das Bild hat die Fenstergroesse (--resolution 540x1170); Ausschnitt in Bildpunkten des Bilds
 		# und das Quadrat ueber die ganze Bildbreite (GESICHT_BREITE 0,55 m), 420 von 1080 Punkten waren nur 0,21 m, enger als ein Kopf
 		var kk := im.get_width()
+		if ausschnitt: kk = int(round(im.get_width() / weit))
 		var c := Vector2i(im.get_width() / 2 - kk / 2, im.get_height() / 2 - kk / 2)
 		var stueck := im.get_region(Rect2i(c, Vector2i(kk, kk)))
-		if kk != GESICHT_KACHEL: stueck.resize(GESICHT_KACHEL, GESICHT_KACHEL, Image.INTERPOLATE_LANCZOS)
+		if kk != GESICHT_KACHEL: stueck.resize(GESICHT_KACHEL, GESICHT_KACHEL, Image.INTERPOLATE_NEAREST if ausschnitt else Image.INTERPOLATE_LANCZOS)
+		if ausschnitt:   # der Name steht unter dem vollen Quadrat, ausserhalb des Ausschnitts: als Streifen darunter setzen
+			var sc := im.get_width() / vp.x
+			var ny := int((name_l.position.y - 10.0) * sc)
+			var nh := mini(int(90.0 * sc), im.get_height() - ny)
+			var streifen := im.get_region(Rect2i(0, ny, im.get_width(), nh))
+			var sh := int(nh * float(GESICHT_KACHEL) / im.get_width())
+			streifen.resize(GESICHT_KACHEL, sh, Image.INTERPOLATE_LANCZOS)
+			stueck.blit_rect(streifen, Rect2i(Vector2i.ZERO, streifen.get_size()), Vector2i(0, GESICHT_KACHEL - sh))
 		kacheln.append(stueck)
 		l.blick = blick_vorher; l.rotation.y = blick_vorher
 		print("GESICHT ", l.daten["id"], " ", "Kaufkoerper" if String(l.modell.name).begins_with("Person_") else "alt", " Kopf ", kopf)

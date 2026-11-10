@@ -152,7 +152,7 @@ jobs:
           # 475 (Chef 03.11., 07:45/07:47): die Leute des Dorfs auf dem Kaufkoerper in ihrer Kleidung (held_klassen.py LEUTE_KAUF), Gesicht
           # je Person waehlt Godot (heldfigur.gd person, leute.json kauf); scheitert eine Person, bleibt ihre alte Figur
           LEUTE_KAUF=alle OUT=$RUNNER_TEMP/out ZIEL=$RUNNER_TEMP/leutekauf Q=~/cc0 timeout 2400 bl/bin/python -I tools/blender348/v3/held_klassen.py > leutekauf.log 2>&1 || { echo "LEUTE KAUF abgebrochen"; tail -40 leutekauf.log; }
-          grep -E "^LEUTE|^KOPFTEIL|^KOPFSITZ|^FEHLT|^KAUFKLEID OK|^OHNE" leutekauf.log | cut -c1-240 || true
+          grep -E "^LEUTE|^KOPFTEIL|^KOPFSITZ|^KOPFFREI|^WANGE|^FEHLT|^KAUFKLEID OK|^OHNE" leutekauf.log | cut -c1-300 || true
           if [ -f $RUNNER_TEMP/leutekauf/leute-kauf.json ]; then
             for f in $RUNNER_TEMP/leutekauf/held_L_*.glb; do [ -f "$f" ] || continue; n=$(basename $f .glb); cp $f $D/$n.bin; echo daten/$n.bin >> $D/kauf.txt; done
             cp $RUNNER_TEMP/leutekauf/leute-kauf.json $D/
@@ -513,7 +513,8 @@ jobs:
           VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --bilder=$GITHUB_WORKSPACE/bilder 2>&1 | grep -E "Vulkan|SCRIPT ERROR" || true
           ls -l $GITHUB_WORKSPACE/bilder
-      # 475 (Chef 03.11., 07:47): alle Gesichter der Leute nebeneinander (spiel.gd gesichter), dazu das Leuteblatt (Tag, nah, Gang, Nacht)
+      # 475 (Chef 03.11., 07:47): alle Gesichter der Leute nebeneinander (spiel.gd gesichter), dazu das Leuteblatt (Tag, nah, Gang, Nacht);
+      # Spur (c): in 1080 wie das Handy des Chefs, dazu das Blatt in Spielgroesse (--gesichterspiel)
       - name: Gesichter der Leute 475 (nur von Hand mit leute=ja)
         if: ${{ !cancelled() && github.event.inputs.leute == 'ja' }}
         continue-on-error: true
@@ -522,7 +523,7 @@ jobs:
           mkdir -p $GITHUB_WORKSPACE/bilder
           cd godot
           VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
-            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --leute=$GITHUB_WORKSPACE/bilder/leute475 --gesichter 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^GESICHT|^LEUTE BLATT" | cut -c1-300 || true
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 1080x2340 -- --leute=$GITHUB_WORKSPACE/bilder/leute475 --gesichter --gesichterspiel 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^GESICHT|^LEUTE BLATT" | cut -c1-300 || true
           ls -l $GITHUB_WORKSPACE/bilder/leute475
       # 501 (Chef 03.11., 07:26): Kamine in den Grundrissen, Renderer wie am Handy; KAMIN-Zeilen: Lage der Flamme im Bild (Ausschnitt)
       - name: Kamine 501 (nur von Hand mit kamin=ja)
