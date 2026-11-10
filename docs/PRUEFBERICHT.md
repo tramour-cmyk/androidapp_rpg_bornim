@@ -55,6 +55,7 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 ## Lauf 150 · 896 Wächter und TP (Perikles, `de7ccc403`; 10.11., 23:1x)
 
 - `srd_woerter()` geladen: „TP“ nicht mehr darin, „Trefferwürfel“, „Hauptattribut“ und die Alt-Spalte von `DESIGN-BRS.md` 12 weiter; Abschnitt 12 nennt keine TP als alt („Trefferpunkte … behalten ihre Namen“), `STORY-REGELN.md` 3 („deutsch ‚TP‘“) passt. Kein anderes Werkzeug führt TP als SRD. Lücke D150.1 → 898 (Perikles): `LISTE-UMZUG-BRS.md` Schritt 8 (Zeile 144) zählt TP weiter zu den SRD-Texten. 896 wartet auf 898.
+- 898 (`3930a474b`): Schritt 8 nennt TP nicht mehr unter den SRD-Texten, mit Grund (DESIGN-BRS 12); Zeile 122 beschreibt nur alten Code. **898 greift, damit auch 896** (Lauf 150).
 
 ## Lauf 149 · 892 Übersicht bei Pause (Perikles, `1fd36745f`; 10.11., 17:4x)
 
