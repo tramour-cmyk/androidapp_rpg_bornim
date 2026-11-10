@@ -20,12 +20,7 @@ static func an() -> bool:
 
 ## Herkunft für eine alte Klasse (BrsHeld.KLASSE_ALT umgekehrt, je Klasse die erste)
 const KLASSE_HERKUNFT := {"FIGHTER": "Wachsoldat", "CLERIC": "Klosterschüler", "ROGUE": "Jägerkind", "WIZARD": "Zauberlehrling"}
-## Waffe der Heldwerte (Grundform) -> Waffengruppe des BRS (werte.json „waffen“); unbewaffnet Faustkampf
-const WAFFE := {"": "Faustkampf", "dagger": "Dolche", "shortsword": "Einhänder", "scimitar": "Einhänder", "handaxe": "Einhänder",
-	"longsword": "Einhänder", "battleaxe": "Einhänder", "rapier": "Einhänder", "mace": "Stumpfe Waffen", "quarterstaff": "Stumpfe Waffen",
-	"warhammer": "Stumpfe Waffen", "morningstar": "Stumpfe Waffen", "wand": "Stumpfe Waffen", "staff": "Stumpfe Waffen",
-	"spear": "Stangenwaffen", "halberd": "Stangenwaffen", "greatsword": "Zweihänder", "greataxe": "Zweihänder", "maul": "Zweihänder",
-	"shortbow": "Bogen", "longbow": "Bogen", "light_crossbow": "Armbrust"}
+## Waffe der Heldwerte (Grundform) -> Waffengruppe: BrsHeld.WAFFE_GRUPPE (870.2)
 ## Gewicht der Brustrüstung (Heldwerte „gewicht“) -> Rüstung des BRS
 const RUESTUNG := {"LIGHT": "Leichte Rüstung", "MEDIUM": "Mittlere Rüstung", "HEAVY": "Schwere Rüstung"}
 ## alte Zauber -> Zauber des BRS (werte.json „zauber“), Grundschaden im Verhältnis zum Feuerpfeil (1W10)
@@ -55,6 +50,8 @@ static func mittel(expr) -> float:
 ## aus dem Spielstand (BrsHeld.als_daten, zustand.brs) oder leer.
 static func held(sheet: Dictionary, daten := {}) -> Dictionary:
 	var W := w()
+	if sheet.get("brs") is Dictionary and not (sheet.brs as Dictionary).is_empty():
+		return aus_blatt(sheet.brs)
 	var h: Dictionary = W["held"]
 	var herkunft: String = KLASSE_HERKUNFT.get(String(sheet.get("cls", "")), "Wanderer")
 	var werte := {}
@@ -86,14 +83,31 @@ static func held(sheet: Dictionary, daten := {}) -> Dictionary:
 		"schild": schild, "zauber": zauber}
 
 
+## 870.2: der Kämpfer aus BrsHeld.kampfblatt() (Schritt 2 des Umzugs), ohne Umweg über die Klasse
+static func aus_blatt(k: Dictionary) -> Dictionary:
+	return {"stufe": int(k.get("stufe", 1)), "werte": (k.get("werte", {}) as Dictionary).duplicate(), "fert": (k.get("fert", {}) as Dictionary).duplicate(),
+		"herkunft": String(k.get("herkunft", "Wanderer")), "ruestung": String(k.get("ruestung", {}).get("art", "keine")),
+		"schild": not (k.get("schild", {}) as Dictionary).is_empty(), "zauber": (k.get("faehigkeiten", []) as Array).filter(func(z): return w()["zauber"].has(z)),
+		"waffe": String(k.get("waffe", {}).get("gruppe", "")), "leben": int(k.get("leben", 0))}
+
+
+## 870.2: Waffengruppe, mit der der Held schlägt: die Hauptwaffe aus dem Blatt, eine gezogene Zweitwaffe ([zweite]) nach ihrer Grundform
+static func waffe_held(b: Dictionary, wsheet, zweite := false) -> String:
+	if not zweite and String(b.get("waffe", "")) != "":
+		return String(b.waffe)
+	return waffe_von(wsheet)
+
+
 static func leben_held(b: Dictionary) -> int:
+	if int(b.get("leben", 0)) > 0:     # 870.2: aus dem Kampfblatt
+		return int(b.leben)
 	var h: Dictionary = w()["held"]
 	return int(h["leben_basis"]) + int(h["leben_je_stufe"]) * int(b.stufe) + int(h["leben_je_zaehigkeit"]) * int(b.werte.get("zaehigkeit", 0))
 
 
 static func waffe_von(wsheet) -> String:
 	var id: String = String(wsheet.get("id", "")) if wsheet is Dictionary else ""
-	return WAFFE.get(id, "Einhänder" if not (wsheet is Dictionary and bool(wsheet.get("ranged", false))) else "Bogen")
+	return BrsHeldS.WAFFE_GRUPPE.get(id, "Einhänder" if not (wsheet is Dictionary and bool(wsheet.get("ranged", false))) else "Bogen")
 
 
 ## Werte eines Gegners nach dem Bestiarium „Werte 2.0“ (brs.gd monster). Abgeleitete Tiere ohne eigene Zeile (Jungwolf, Leibwache,

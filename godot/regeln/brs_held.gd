@@ -143,6 +143,44 @@ func leben(stufe := 1) -> int:
 	return int(h()["leben_basis"]) + int(h()["leben_je_stufe"]) * stufe + int(h()["leben_je_zaehigkeit"]) * wert("zaehigkeit")
 func mana() -> int: return int(h()["mana_basis"]) + int(h()["mana_je_wille"]) * wert("wille")
 
+# ---------------------------------------------------------------- Kampfblatt (870.2, LISTE-UMZUG-BRS.md Schritt 2)
+## Grundform der Heldwerte -> Waffengruppe des BRS (werte.json „waffen“); unbewaffnet Faustkampf
+const WAFFE_GRUPPE := {"": "Faustkampf", "dagger": "Dolche", "shortsword": "Einhänder", "scimitar": "Einhänder", "handaxe": "Einhänder",
+	"longsword": "Einhänder", "battleaxe": "Einhänder", "rapier": "Einhänder", "mace": "Stumpfe Waffen", "quarterstaff": "Stumpfe Waffen",
+	"warhammer": "Stumpfe Waffen", "morningstar": "Stumpfe Waffen", "wand": "Stumpfe Waffen", "staff": "Stumpfe Waffen",
+	"spear": "Stangenwaffen", "halberd": "Stangenwaffen", "greatsword": "Zweihänder", "greataxe": "Zweihänder", "maul": "Zweihänder",
+	"shortbow": "Bogen", "longbow": "Bogen", "light_crossbow": "Armbrust"}
+
+## Alles, was der Kampf vom Helden braucht, nach dem BRS (ersetzt aufruf.gd blatt() aus den Heldwerten). [stufe]: Heldenstufe;
+## [aus]: was er trägt, aus dem Spielstand (Tom): {"waffe": Grundform, "" = unbewaffnet; "ruestung": Rüstung des BRS („keine“,
+## „Leichte Rüstung“ …); "schild": Grundform des Schilds, "" = keiner; "guete": Güte der Waffe; "ausdauer": Ausdauer}; fehlt ein
+## Feld, gilt die Ausrüstung der Herkunft (werte.json „herkuenfte“). [geuebt]: Fertigkeiten, wie er sie seither geübt hat (zustand.fert).
+func kampfblatt(stufe := 1, aus := {}, geuebt := {}) -> Dictionary:
+	var W := lade()
+	var hk: Dictionary = W.get("herkuenfte", {}).get(herkunft, {})
+	var fert := fertigkeiten()
+	for f in geuebt:
+		fert[String(f)] = int(geuebt[f])
+	var gruppe: String = WAFFE_GRUPPE.get(String(aus["waffe"]), "Einhänder") if aus.has("waffe") else String(hk.get("waffe", "Faustkampf"))
+	var wd: Dictionary = W.get("waffen", {}).get(gruppe, {})
+	var ru: Dictionary = W.get("ruestungen", {})
+	var r_art := String(aus.get("ruestung", hk.get("ruestung", "keine")))
+	var schild := {}
+	var s_id: String = String(aus["schild"]) if aus.has("schild") else ("shield" if bool(hk.get("schild", false)) else "")
+	if s_id != "":
+		schild = {"id": s_id, "schutzwert": int(ru.get("schild_wert", 0))}
+	var faehig: Array = []
+	if merkmal() != "":
+		faehig.append(merkmal())
+	for z in hk.get("zauber", []):
+		faehig.append(String(z))
+	return {"volk": volk, "herkunft": herkunft, "stufe": stufe, "werte": werte(), "fert": fert, "leben": leben(stufe), "mana": mana(),
+		"ausdauer": aus.get("ausdauer", null),     # 467: Ausdauer nach BRS noch offen, bis dahin liefert sie der Spielstand
+		"waffe": {"id": String(aus.get("waffe", "")), "gruppe": gruppe, "grundschaden": int(wd.get("schaden", 0)),
+			"grundwert": wd.get("grundwert"), "art": String(wd.get("art", "nah")), "guete": int(aus.get("guete", 0))},
+		"ruestung": {"art": r_art, "schutzwert": int(ru.get(r_art, {}).get("wert", 0)), "fertigkeit": ru.get(r_art, {}).get("fertigkeit")},
+		"schild": schild, "faehigkeiten": faehig}
+
 func als_daten() -> Dictionary:
 	return {"volk": volk, "herkunft": herkunft, "verteilt": verteilt.duplicate(), "mensch_frei": frei_ziel(), "wahl": wahl.duplicate(),
 		"grundwerte": werte(), "fertigkeiten": fertigkeiten()}

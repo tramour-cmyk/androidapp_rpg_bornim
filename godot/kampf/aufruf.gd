@@ -235,9 +235,13 @@ func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := 
 	var party := [_kaempfer("hero", held, held_tp, Vector2i(Mars.FRONT, 0), skills)]
 	party[0].hero["look"] = lage.get("aussehen", {})     # 403: Kopf, Haar, Haut wie im Dorf (Zustand.aussehen, HeldFigur)
 	if not (lage.get("brs", {}) as Dictionary).is_empty():
-		party[0].hero["brs_daten"] = lage.brs     # 478: der Held nach BRS aus dem Spielstand (zustand.brs, BrsHeld.als_daten)
-	if not (lage.get("brs_fert", {}) as Dictionary).is_empty():
-		party[0].hero["brs_fert"] = lage.brs_fert     # 471: geuebte Werte (zustand.fert, brs_kampf.gd held „brs_fert“)
+		# 870.2 (LISTE-UMZUG-BRS.md Schritt 2): der Held nach BRS aus dem Spielstand (zustand.brs) als Kampfblatt; was er trägt, bis
+		# 870.4 aus den Heldwerten (Grundform der Waffe, Rüstung nach Gewicht, Schild), Geübtes aus zustand.fert (471)
+		var hb: Dictionary = party[0].hero
+		party[0].hero["brs"] = BrsHeld.aus_daten(lage.brs).kampfblatt(int(hb.level),
+			{"waffe": String(hb.main.id), "ruestung": String(hb.brs_ruestung), "schild": String(hb.schild)}, lage.get("brs_fert", {}))
+	elif not (lage.get("brs_fert", {}) as Dictionary).is_empty():
+		party[0].hero["brs_fert"] = lage.brs_fert     # 471: geuebte Werte ohne Spielstand nach BRS (brs_kampf.gd held „brs_fert“)
 	leiden_auf(party[0], lage.get("leiden", {}))     # 532
 	if bool(lage.get("betrunken", false)):     # 532 Metrausch wie alt (Battle.drunk): bis zur Rast, im Kampf ohne Ende
 		party[0].status["DRUNK"] = Mars.LASTING

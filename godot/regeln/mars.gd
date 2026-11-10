@@ -425,7 +425,7 @@ func brs_einrichten() -> void:
 
 func _brs_kaempfer(f: Fighter) -> void:
 	if f.hero != null:
-		f.b = BrsKampf.held(f.hero, f.hero.get("brs_daten", {}))
+		f.b = BrsKampf.held(f.hero)     # 870.2: mit Kampfblatt „brs“ (aufruf.gd starte)
 		var mx := BrsKampf.leben_held(f.b)
 		f.srd_hp = f.max_hp
 		f.hp = clampi(roundi(float(f.hp) * mx / maxf(1.0, f.max_hp)), 1 if f.hp > 0 else 0, mx)
@@ -1861,7 +1861,7 @@ func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapo
 	var wsheet: Dictionary = w if w != null else f.hero.main
 	var W := BrsKampf.w()
 	var k: Dictionary = W["kampf"]
-	var gruppe := BrsKampf.waffe_von(wsheet)
+	var gruppe := BrsKampf.waffe_held(f.b, wsheet, w != null and w != f.main_weapon())     # 870.2: Haupt- aus dem Kampfblatt
 	var wd: Dictionary = W["waffen"].get(gruppe, W["waffen"]["Faustkampf"])
 	var gw = wd.get("grundwert")
 	var grund := float(wd["schaden"]) + (float(f.b.werte.get(gw, 0)) if gw != null else 0.0)
@@ -1929,7 +1929,7 @@ func _brs_zauber(f: Fighter, t: Fighter, dmg: Array) -> void:
 func _brs_auf_held(foe: Fighter, t: Fighter, intent: Dictionary, mode: int) -> Dictionary:
 	var m: Dictionary = foe.monster
 	var wt = t.weapon()
-	var tw := BrsKampf.waffe_von(wt if wt != null else t.hero.main)
+	var tw := BrsKampf.waffe_held(t.b, wt if wt != null else t.hero.main, wt != null and wt != t.main_weapon())     # 870.2
 	var in_hand := not t.drawn
 	var abw: Array = BrsKampf.held_abwehr(t.b, String(foe.b.get("art", "nah")), tw, in_hand)
 	var faktor := 1.0
