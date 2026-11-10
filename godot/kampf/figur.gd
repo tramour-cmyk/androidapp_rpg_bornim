@@ -2604,6 +2604,9 @@ const ANGRIFF_GANG := 2.0
 const VERFEHLT_M := 0.3
 const HIEB_VOR := 0.12
 const HIEB_ZURUECK_M := 0.3
+const HIEB_TIEF := 0.04           # 709: so tief dringt die Klinge beim Treffer in den Körper (Kapseln)
+const HIEB_KOERPER_LUFT := 0.02   # 709: Körper und Schild bleiben im ganzen Hieb so weit vor dem Körper des Ziels (E3)
+const HIEB_VERZUG := 0.05         # 709: der Hieb beginnt mit Überblendung (0,08 s) ein Bild nach dem Aufruf; so viel später der Aufschlag
 func _held_schlag(other, weiter := 0.0) -> int:
 	var to: Vector3 = other.position
 	# 717.1 A (Chef 09.11., 09:03; F8): rückt das Ziel noch zurecht, geht der Held zu dem Platz, an dem es ankommt (er wartet nur auf
@@ -2630,6 +2633,49 @@ func _held_schlag(other, weiter := 0.0) -> int:
 			t += 0.05
 		stand_voll = t
 		stand = minf(t, flat.length())
+	# 406: mit Schild einer der drei Schwerthiebe des Satzes, Aufschlag wie gemessen (held_kampf.py „kontakt“)
+	var hn := "Hieb"
+	var auf := HELD_AUFSCHLAG
+	var hiebe: Array = ["Hieb"]
+	if _ss():
+		hiebe = ["SS_SwordAttack1", "SS_SwordAttack2", "SS_SwordAttack3"].filter(func(x): return anim.has_animation(x))
+		if not hiebe.is_empty():
+			hn = hiebe[randi() % hiebe.size()]
+			auf = float(kampf_info.get("kontakt", {}).get(hn, HELD_AUFSCHLAG))
+	# 709 (Chef 08.11., 21:36: „dass die Angriffe so sind, dass sie den Gegner treffen“; treffen_709: die Klinge blieb beim Treffer
+	# 0,1–1 m vor dem Körper, der Aufschlag lag bis 3 Bilder neben ihrem nächsten Punkt): der Stand nach dem Weg der Klinge durch
+	# den Hieb gegen den Körper des Ziels; beim Treffer dringt sie HIEB_TIEF ein, daneben bleibt sie [weiter] davor. Der Aufschlag
+	# ist der Augenblick, in dem sie ihm am nächsten ist. Körper und Schild in Ruhe bleiben HIEB_KOERPER_LUFT vor dem Umriss; ein
+	# Hieb, der das Ziel von dort nicht erreicht (flach über die Schnecke), wird nicht gewählt, solange ein anderer es erreicht
+	if flat.length() > 0.01 and not _hieb_bahn(hn).is_empty():
+		var us := Time.get_ticks_usec()
+		var d := flat.normalized()
+		var ziel: Array = other.koerper()
+		if ziel_bei != Vector3.INF:
+			var v := Vector3(ziel_bei.x - other.position.x, 0.0, ziel_bei.z - other.position.z)
+			ziel = ziel.map(func(c): return [c[0] + v, c[1] + v, c[2]])
+		var soll: float = weiter if weiter > 0.0 else -HIEB_TIEF
+		# erst der gewürfelte Hieb; erreicht er das Ziel nicht, ohne dass Körper oder Schild hineingehen, ein anderer, sonst der weiteste
+		var plan: Array = _hieb_plan_merk(hn, other, ziel, to, d, soll)
+		var plaene := {hn: plan}
+		if plan[2] < plan[3] - 0.02:
+			var rest: Array = hiebe.filter(func(h): return h != hn)
+			rest.shuffle()
+			var best: String = hn
+			for h in rest:
+				plaene[h] = _hieb_plan_merk(h, other, ziel, to, d, soll)
+				if plaene[h][2] - plaene[h][3] > plaene[best][2] - plaene[best][3]:
+					best = h
+				if plaene[h][2] >= plaene[h][3] - 0.02:
+					break
+			hn = best
+			plan = plaene[hn]
+		stand_voll = plan[0]
+		stand = minf(stand_voll, flat.length())
+		auf = float(plan[1]) / maxf(float(tempo.get(hn, 1.0)), 0.1) + HIEB_VERZUG
+		if OS.get_environment("SCHAU_709") != "":
+			print("709 Ziel %s: pos %s glob %s heim %s; gang %s, tween %s, bahn %d, heim %.2f m weg" % [other.fighter.id, other.position, other.global_position, other.home, other.gang, other.tween != null and other.tween.is_running(), other.bahn.size(), Vector2(other.home.x - other.position.x, other.home.z - other.position.z).length()])
+			print("709 Hieb %s %s an %s: Stand %.2f (Klinge %.2f, Körper %.2f), Abstand jetzt %.2f, Aufschlag %.2f s, %d µs, Pläne %d" % [fighter.id, hn, other.fighter.id, plan[0], plan[2], plan[3], flat.length(), auf, Time.get_ticks_usec() - us, plaene.size()])
 	var start := position + flat.normalized() * maxf(0.0, flat.length() - stand) if flat.length() > 0.01 else position
 	# 717 C (wolf_mess_438: der abgesetzte Wolf stand dort, wo der Held zum Hieb auf einen anderen hintrat, 22 cm ineinander): steht am
 	# Platz des Hiebs ein anderer, tritt der Held seitlich versetzt an das Ziel heran
@@ -2688,14 +2734,6 @@ func _held_schlag(other, weiter := 0.0) -> int:
 			tween.tween_property(self, "position", zur, tz)
 			t_run += tz
 			start = zur
-	# 406: mit Schild einer der drei Schwerthiebe des Satzes, Aufschlag wie gemessen (held_kampf.py „kontakt“)
-	var hn := "Hieb"
-	var auf := HELD_AUFSCHLAG
-	if _ss():
-		var hiebe := ["SS_SwordAttack1", "SS_SwordAttack2", "SS_SwordAttack3"].filter(func(x): return anim.has_animation(x))
-		if not hiebe.is_empty():
-			hn = hiebe[randi() % hiebe.size()]
-			auf = float(kampf_info.get("kontakt", {}).get(hn, HELD_AUFSCHLAG))
 	var bl: float = anim.get_animation(hn).length if anim.has_animation(hn) else BLOW_MS / 1000.0
 	# 682 (schild_406: aus dem Gehen mitten im Schritt in den Hieb schob die Überblendung den Schild 7 cm ins Bein): am Ziel erst kurz
 	# in die Kampfhaltung, dann der Hieb
@@ -2703,7 +2741,13 @@ func _held_schlag(other, weiter := 0.0) -> int:
 		tween.tween_callback(func(): _play("SS_IdleCombat", 0.1))
 		tween.tween_interval(0.12)
 		t_run += 0.12
-	tween.tween_callback(func(): gang = "hieb"; _face(to - start); _play(hn, 0.08))
+	var ziel_ort: Vector3 = other.position
+	tween.tween_callback(func():
+		gang = "hieb"
+		_face(to - start)
+		_play(hn, 0.08)
+		if OS.get_environment("SCHAU_709") != "":
+			print("709 Hieb los %s: ich %s, Ziel %s (bei Plan %s, start %s), Stand %.2f (geplant %.2f), Ziel ging %.2f m, steht jetzt %s" % [fighter.id, position, other.position, ziel_ort, start, Vector2(position.x - other.position.x, position.z - other.position.z).length(), stand_voll, Vector2(other.position.x - ziel_ort.x, other.position.z - ziel_ort.z).length(), String(other.anim.current_animation) if other.anim else ""]))
 	tween.tween_interval(bl)
 	var heim := start.distance_to(home)
 	var back_mps := _held_mps("Gehen") * HELD_ZURUECK
@@ -3020,6 +3064,192 @@ func kapseln() -> Array:
 				break
 		out.append([g * sk.get_bone_global_pose(p).origin, g * sk.get_bone_global_pose(i).origin, r * s, nm])
 	return out
+
+
+## 709 (Chef 08.11., 21:36: „dass die Angriffe so sind, dass sie den Gegner treffen“): der Körper als Ziel eines Hiebs. Wie kapseln(),
+## aber bei Gegnern mit fremdem Gerüst (Goblin, Kobold, Krogg, Grak: kapseln() gibt unbekannten Knochen 5 cm) Rumpf, Hals, Kopf und
+## Oberschenkel dicker nach dem Namen des Knochens; Finger, Zunge, Ohren (unter 3 cm) zählen nicht
+const ZIEL_DICKE := [["spine", 0.15], ["chest", 0.14], ["belly", 0.14], ["waist", 0.13], ["pelvis", 0.15], ["body", 0.15], ["torso", 0.15],
+	["abdomen", 0.15], ["thorax", 0.12], ["neck", 0.08], ["head", 0.1], ["thigh", 0.08], ["upperarm", 0.06], ["upl", 0.05], ["upr", 0.05]]
+func koerper() -> Array:
+	var ks: Array = kapseln()
+	if fighter.monster == null:
+		return ks
+	var s := absf(model.global_transform.basis.get_scale().x) if model else 1.0
+	var out: Array = []
+	for c in ks:
+		var r: float = c[2]
+		if c.size() > 3 and r <= 0.05 * s + 0.001:
+			var nm := String(c[3]).to_lower()
+			for d in ZIEL_DICKE:
+				if nm.contains(String(d[0])):
+					r = float(d[1]) * s
+					break
+		if r >= 0.03 * s:
+			out.append([c[0], c[1], r])
+	return out
+
+
+## 709: der Weg des Hiebs [hn] im eigenen Raum (+Z vorn, wie _face), je 1/30 s: [t (s der Bewegung), Klinge a, Klinge b, Körper]
+## mit Klinge = Strecke längs des Kastens dessen, was die Figur in der Waffenhand trägt, Körper = [[a, b, r] …] aus Rumpf, Kopf,
+## Beinen und dem Schild (Strecke längs seiner Fläche, halbe Dicke). Einmal je Hieb gemessen (Haltung je Bild gesetzt, danach die
+## laufende Bewegung wieder hergestellt); leer ohne Gerüst oder Waffe
+var hieb_bahn := {}
+func _hieb_bahn(hn: String) -> Array:
+	if hieb_bahn.has(hn):
+		return hieb_bahn[hn]
+	var out: Array = []
+	hieb_bahn[hn] = out
+	var sk := _find(model, "Skeleton3D") as Skeleton3D if model else null
+	if sk == null or anim == null or not anim.has_animation(hn):
+		return out
+	var klinge: Array = []     # [Knochen, Kasten zum Knochen, AABB]
+	var schild: Array = []
+	for at in find_children("*", "BoneAttachment3D", true, false):
+		var was := String(at.get_meta("was", ""))
+		if was == "":
+			continue
+		for mm in at.find_children("*", "MeshInstance3D", true, false):
+			(schild if was.contains("shield") else klinge).append([at.bone_idx, at.global_transform.affine_inverse() * mm.global_transform, mm.get_aabb()])
+	if klinge.is_empty():
+		return out
+	var vor := String(anim.current_animation)
+	var vor_t: float = anim.current_animation_position if vor != "" else 0.0
+	var vor_v: float = anim.get_playing_speed() if vor != "" else 1.0
+	var inv := global_transform.affine_inverse()
+	var l: float = anim.get_animation(hn).length
+	anim.play(hn, 0.0)
+	var t := 0.0
+	while t <= l + 0.001:
+		anim.seek(t, true)
+		sk.force_update_all_bone_transforms()
+		var kl: Array = _strecke(sk, klinge[0], inv)
+		var kp: Array = []
+		var ks: Array = kapseln()
+		for i in [0, 1, 3, 4, 5]:
+			if i < ks.size():
+				kp.append([inv * (ks[i][0] as Vector3), inv * (ks[i][1] as Vector3), ks[i][2]])
+		for g in schild:
+			kp.append_array(_strecke(sk, g, inv, true))
+		out.append([t, kl[0], kl[1], kp])
+		t += 1.0 / 30.0
+	if vor != "":
+		anim.play(vor, 0.0, vor_v)
+		anim.seek(vor_t, true)
+	return out
+
+
+## 709: Kasten [g] = [Knochen, Kasten zum Knochen, AABB] als Strecke [a, b, r] längs seiner längsten Achse im Raum [inv]; [flach]:
+## der Schild als Kreuz aus zwei Strecken durch die Mitte seiner Fläche, Radius die halbe Dicke
+static func _strecke(sk: Skeleton3D, g: Array, inv: Transform3D, flach := false) -> Array:
+	var tr: Transform3D = sk.global_transform * sk.get_bone_global_pose(g[0]) * g[1]
+	var box: AABB = g[2]
+	var achsen := [box.get_longest_axis_index()]
+	var r := 0.0
+	if flach:
+		var kurz := box.get_shortest_axis_index()
+		achsen.append(3 - achsen[0] - kurz)
+		r = box.size[kurz] * 0.5 * absf(tr.basis.get_scale()[kurz])
+	var out: Array = []
+	for ax in achsen:
+		var p0: Vector3 = box.get_center()
+		var p1: Vector3 = p0
+		p0[ax] = box.position[ax]
+		p1[ax] = box.end[ax]
+		out.append([inv * (tr * p0), inv * (tr * p1), r])
+	return out if flach else out[0]
+
+
+## 709: hieb_plan, gemerkt je Hieb, Art des Ziels, Treffer oder daneben und Blickwinkel des Ziels zur Figur (15°-Stufen): das
+## Ziel steht dabei in seiner Ruhe, der Plan gilt wieder (gegen die flache Schnecke kostet er sonst bis 0,1 s)
+static var hieb_plaene := {}
+func _hieb_plan_merk(hn: String, other, ziel: Array, to: Vector3, d: Vector3, soll: float) -> Array:
+	var rel := wrapf(other.rotation.y - atan2(-d.x, -d.z), -PI, PI)
+	var key := "%d|%s|%s|%.2f|%d|%.2f" % [get_instance_id(), hn, other._mein_ersatz() if other.fighter.monster != null else "Held", soll, roundi(rad_to_deg(rel) / 15.0), other.model.global_transform.basis.get_scale().x if other.model else 1.0]
+	if not hieb_plaene.has(key):
+		hieb_plaene[key] = hieb_plan(_hieb_bahn(hn), ziel, to, d, soll, HIEB_KOERPER_LUFT)
+	return hieb_plaene[key]
+
+
+## 709: Plan des Hiebs [bahn] gegen den Körper [ziel] (Kapseln, Welt) des Ziels bei [to], die Figur blickt nach [d]: [Abstand der
+## Ursprünge, t des nächsten Punkts der Klinge, Abstand für die Klinge, Abstand für den Körper]. Die Klinge kommt dem Körper bis
+## [soll] nahe (< 0: so tief darin), Körper und Schild der Figur bleiben während des ganzen Hiebs [luft] davor. Die Klinge sucht von
+## weit nach nah (aus der Nähe schwingt sie über ein flaches Ziel hinweg), Klinge 0: sie erreicht es von nirgends
+static func hieb_plan(bahn: Array, ziel: Array, to: Vector3, d: Vector3, soll: float, luft: float) -> Array:
+	if bahn.is_empty() or ziel.is_empty():
+		return [0.0, 0.0, 0.0, 0.0]
+	var inv := Transform3D(Basis(Vector3.UP, atan2(d.x, d.z)), to).affine_inverse()
+	var zl: Array = []     # Ziel im Raum der Figur, als stünde sie in seinem Ursprung; x zurück = Ziel um +x in Z
+	var vorn := INF
+	for c in ziel:
+		var a: Vector3 = inv * (c[0] as Vector3)
+		var b: Vector3 = inv * (c[1] as Vector3)
+		zl.append([a, b, float(c[2]), (a + b) * 0.5, a.distance_to(b) * 0.5 + float(c[2])])
+		vorn = minf(vorn, minf(a.z, b.z) - float(c[2]))
+	var weit := -INF
+	for s in bahn:
+		weit = maxf(weit, maxf((s[1] as Vector3).z, (s[2] as Vector3).z))
+	var x0: float = weit - vorn + 0.1
+	var xk := 0.0
+	var tk := 0.0
+	var x := x0
+	var hi := x0
+	while x > maxf(0.15, x0 - 1.6):
+		var g: Array = _klinge_luecke(bahn, zl, x)
+		if g[0] < soll:
+			var lo := x
+			for i in 5:
+				var mid := (lo + hi) * 0.5
+				if float(_klinge_luecke(bahn, zl, mid)[0]) < soll:
+					lo = mid
+				else:
+					hi = mid
+			xk = lo
+			break
+		hi = x
+		x -= 0.1
+	var xb := maxf(xk, 0.2)
+	while xb < 4.0 and _koerper_luecke(bahn, zl, xb) < luft:
+		xb += 0.05
+	var xs := maxf(xk, xb)
+	tk = float(_klinge_luecke(bahn, zl, xs)[1])
+	return [xs, tk, xk, xb]
+
+
+static func _klinge_luecke(bahn: Array, zl: Array, x: float) -> Array:
+	var best := INF
+	var bt := 0.0
+	var v := Vector3(0.0, 0.0, x)
+	for s in bahn:
+		var a: Vector3 = s[1]
+		var b: Vector3 = s[2]
+		var m: Vector3 = (a + b) * 0.5
+		var hm: float = a.distance_to(b) * 0.5
+		for c in zl:
+			# grob vorweg: Kugel um beide Strecken (Mitte, halbe Länge + Radius, zl[3], zl[4])
+			if m.distance_to(c[3] + v) - hm - float(c[4]) >= best:
+				continue
+			var pq: PackedVector3Array = Geometry3D.get_closest_points_between_segments(a, b, c[0] + v, c[1] + v)
+			var g: float = pq[0].distance_to(pq[1]) - float(c[2])
+			if g < best:
+				best = g
+				bt = s[0]
+	return [best, bt]
+
+
+static func _koerper_luecke(bahn: Array, zl: Array, x: float) -> float:
+	var best := INF
+	var v := Vector3(0.0, 0.0, x)
+	for k in range(0, bahn.size(), 2):
+		for e in bahn[k][3]:
+			var m: Vector3 = ((e[0] as Vector3) + (e[1] as Vector3)) * 0.5
+			var hm: float = (e[0] as Vector3).distance_to(e[1]) * 0.5 + float(e[2])
+			for c in zl:
+				if m.distance_to(c[3] + v) - hm - float(c[4]) >= best:
+					continue
+				var pq: PackedVector3Array = Geometry3D.get_closest_points_between_segments(e[0], e[1], c[0] + v, c[1] + v)
+				best = minf(best, pq[0].distance_to(pq[1]) - float(e[2]) - float(c[2]))
+	return best
 
 
 ## 438: wie weit die Figur in der jetzigen Haltung von ihrem Ursprung in Richtung [zu] (waagerecht) reicht, mit Schild und Waffe;
