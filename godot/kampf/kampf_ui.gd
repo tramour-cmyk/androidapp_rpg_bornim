@@ -166,13 +166,7 @@ func _ready() -> void:
 	root.add_child(backdrop)
 	root.add_child(panel)
 	# the scene ends above the box: when the box takes its real height, the camera fits again (Lauf 11: Helden verdeckt)
-	panel.resized.connect(func():
-		var vs2: Vector2 = get_viewport().get_visible_rect().size
-		backdrop.position = Vector2(0, vs2.y - panel_height())
-		backdrop.size = Vector2(vs2.x, panel_height())
-		if absf(panel.size.y - fitted_h) > 1.0:
-			fitted_h = panel.size.y
-			kampfort._fit_camera())
+	panel.resized.connect(panel_passt)
 	var col := VBoxContainer.new()
 	col.add_theme_constant_override("separation", int(6 * dp))
 	panel.add_child(col)
@@ -1897,6 +1891,21 @@ func _gleiten(key: String, ziel: Vector2) -> Vector2:
 		p = (g[0] as Vector2) + ((p - g[0]) as Vector2).normalized() * cap
 	glatt[key] = [p, now]
 	return p
+
+
+## Der Hintergrund des Kastens folgt seiner Höhe; ändert sie sich, passt die Kamera neu. 709 (treffen_709, Grimmzahn: stand im Zug
+## eines anderen „…“ statt der Knöpfe, wurde der Kasten niedriger, die Kamera passte neu und alle rückten mit dem Boden 0,65 m,
+## nur der Weg des Helden, der gerade zum Hieb ging, nicht: die Klinge schlug 0,45 m vor dem Wolf in die Luft): während eines
+## Zugs nie, erst wenn er vorbei ist (kampfort._done)
+func panel_passt() -> void:
+	var vs2: Vector2 = get_viewport().get_visible_rect().size
+	backdrop.position = Vector2(0, vs2.y - panel_height())
+	backdrop.size = Vector2(vs2.x, panel_height())
+	if kampfort.busy:
+		return
+	if absf(panel.size.y - fitted_h) > 1.0:
+		fitted_h = panel.size.y
+		kampfort._fit_camera()
 
 
 ## Zugleiste (TurnBar) oben links: „▶ “ vor dem, der dran ist, dann alle in Zugfolge, „|“ und der Erste der nächsten Runde.

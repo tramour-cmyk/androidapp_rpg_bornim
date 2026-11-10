@@ -2064,7 +2064,7 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 			var teil := []     # bester freier Platz, an dem die Schnauze nicht ganz hinreicht: [Lücke, Platz, Richtung, Stand, t]
 			for w in [0.0, 20.0, -20.0, 40.0, -40.0, 60.0, -60.0]:
 				var d2 := dir.rotated(Vector3.UP, deg_to_rad(w))
-				var pl: Array = hieb_plan(bb, ziel, other.position, d2, -BISS_TIEF, HIEB_KOERPER_LUFT, hind)
+				var pl: Array = hieb_plan(bb, ziel, other.position, d2, -BISS_TIEF, BISS_LUFT, hind)
 				if OS.get_environment("SCHAU_709") != "":
 					print("709 Biss %s an %s, %.0f°: Stand %.2f (Schnauze %.2f, Körper %.2f), vorher %.2f" % [fighter.id, other.fighter.id, w, pl[0], pl[2], pl[3], stand])
 				if pl[2] <= 0.0:
@@ -2094,7 +2094,18 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 					h2 = minf(h2, other.clearance(s2.lerp(home, i / 8.0)) - (fb.end.x - fb.position.x) * 0.5)
 				if OS.get_environment("SCHAU_709") != "":
 					print("709 Bissplatz %s, %.0f°: Luft %.2f Weg %.2f Umriss %.2f Heim %.2f im Bild %s" % [fighter.id, w, l2, w2, r2, h2, _im_bild(s2, d2)])
-				if l2 < PLATZ_LUFT or w2 < WEG_LUFT or r2 < BISS_UMRISS or h2 < -BISS_UMRISS or not _im_bild(s2, d2):
+				# wer mit Schild kämpft, hält ihn bei der Abwehr vor sich (footprint), um ABWEHR_VOR weiter (wolf_mess_438 Kämpfer: 0,11 m)
+				var r_soll: float = BISS_UMRISS + (ABWEHR_VOR if other.kauf and other._ss() else 0.0)
+				# und der Held dreht sich getroffen oder abwehrend zum Wolf (_face_sanft), den Schild mit (footprint): sein Umriss auch so
+				if other.kauf and other._ss():
+					var fb2 := footprint()
+					var tr2 := Transform3D(Basis(Vector3.UP, y0), s2)
+					var zum: Vector3 = s2 - other.position
+					for i in 7:
+						for j in 3:
+							var q := tr2 * Vector3(lerpf(fb2.position.x, fb2.end.x, j / 2.0), 0.0, lerpf(fb2.position.z, fb2.end.z, i / 6.0))
+							r2 = minf(r2, other.clearance(q, Vector3.INF, atan2(zum.x, zum.z)))
+				if l2 < PLATZ_LUFT or w2 < WEG_LUFT or r2 < r_soll or h2 < -BISS_UMRISS or not _im_bild(s2, d2):
 					continue
 				var bt := float(pl[1]) / maxf(float(tempo.get(nm, 1.0)), 0.1) + HIEB_VERZUG
 				if not voll:     # die Schnauze bliebe pl[0] − pl[2] davor (Schild oder eigener Körper im Weg); näher als bisher
@@ -2681,9 +2692,10 @@ const ANGRIFF_GANG := 2.0
 const VERFEHLT_M := 0.3
 const HIEB_VOR := 0.12
 const HIEB_ZURUECK_M := 0.3
-const HIEB_TIEF := 0.04           # 709: so tief dringt die Klinge beim Treffer in den Körper (Kapseln)
+const HIEB_TIEF := 0.02           # 709: so tief dringt die Klinge beim Treffer in den Körper (Kapseln)
 const HIEB_KOERPER_LUFT := 0.02   # 709: Körper und Schild bleiben im ganzen Hieb so weit vor dem Körper des Ziels (E3)
 const BISS_UMRISS := 0.03         # 709: so viel Luft hält der Umriss des Tiers am Bissplatz zu allen (wolf_mess_438: 5 cm tief erlaubt)
+const BISS_LUFT := 0.05           # 709: Körper und Schnauze bleiben so weit vor Körper und Schild des Ziels (wolf_mess_438: 4 cm im Schild)
 const BISS_TIEF := 0.01           # 709: so tief fasst die Schnauze beim Treffer in den Körper (Kapseln; wolf_mess_438 erlaubt 3 cm)
 const HIEB_VERZUG := 0.05         # 709: der Hieb beginnt mit Überblendung (0,08 s) ein Bild nach dem Aufruf; so viel später der Aufschlag
 func _held_schlag(other, weiter := 0.0) -> int:

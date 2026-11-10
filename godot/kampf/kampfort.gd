@@ -1297,6 +1297,7 @@ func _done() -> void:
 	if mars.outcome == "ONGOING" and mars.pilot_next():
 		go_on()
 	ui.refresh()
+	ui.panel_passt.call_deferred()     # 709: was während des Zugs an der Höhe des Kastens geschah
 
 
 func again() -> void:
