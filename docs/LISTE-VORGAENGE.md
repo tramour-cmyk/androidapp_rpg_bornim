@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 834 | Weg für einen BRS-Held ins Spiel (Testmenü oder Übernahme der BRS-Erschaffung), damit 762, 471, 795 am Gerät prüfbar werden; Spike, genehmigt (Chef 10.11., 10:21, über Sokrates) | Tom | M | gebaut, Geprüft an: b49e884ec, 676b5fc6f (Tests am Rechner grün) | – | claude/tom-brs-held | – | E Technik | – |
+| 834 | Weg für einen BRS-Held ins Spiel (Testmenü oder Übernahme der BRS-Erschaffung), damit 762, 471, 795 am Gerät prüfbar werden; Spike, genehmigt (Chef 10.11., 10:21, über Sokrates) | Tom | M | gebaut, Geprüft an: b49e884ec, 676b5fc6f (Tests am Rechner grün) | – | claude/tom-brs-held | – | E Technik | 6,00 $ |
 | 825 | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635, 542, 543, 632; Jerry 593, 547, 597), Prüfliste ansehen/t<n>, build <n> --mit für jede Nummer (774) | Tom | M | in Arbeit, bei Spike | – | – | – | E Technik | – |
 | 661 | Alle Blenden ein Aufbau (Ort, Rast, Kampf normal/Hinterhalt/Boss): Name gesperrt, Zierleiste, Satz, Schrift größer wie Schirme ohne Kasten; Kampf anders nur durch Tempo, Klang, Hinterhalt gebrochene Zierleiste; erst Bild nebeneinander (Chef 08.11., 15:11; 10.11., 10:17) · „jetzt“ 10.11., 09:34 | Tom | M | startbar, jetzt nach Sammelbuild 825 | – | – | – | E Oberfläche | 3,10 $ |
 | 471 | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) · zurück t273 | Tom | M | gebaut, Geprüft an: b49e884ec, 676b5fc6f (Tests am Rechner grün) | – | claude/tom-brs-held | – | E Kampf | 7,86 $ |
