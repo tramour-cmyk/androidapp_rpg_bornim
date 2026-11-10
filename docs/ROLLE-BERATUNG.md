@@ -101,7 +101,7 @@ Empfiehlst du in einer Sitzung fast alles mit „ja“, prüfst du zu wenig.
 
 - Auch eigene Vorschläge an den Chef erst durch einen fremden Prüfer (338.2), selbst im Gespräch unter Druck: drei Sperren vorgelegt, Prüfer verwarf zwei (27.10., 383).
 
-- Wortwahl der Vorlage nicht übernehmen, sondern gegen `CLAUDE.md` prüfen: „Heldin“ aus Jerrys Datei weitergegeben, Regel ist generisches Maskulinum („der Held“) (27.10., 3487-treffer).
+- Vor dem Senden jeden Satz an den Chef darauf prüfen, ob er eine Frage ist („Zu entscheiden:“, „Mit ja …“); ist er eine, zuerst die Datei in `entscheiden/`, dann die Nummer im Chat (10.11.: Planabnahme seit 14:08 und Sammelbuild 16:43 ohne Datei; Chef 16:46: „mal wieder ohne Vorgang“). Ersetzt die Lehre „Wortwahl der Vorlage“ (27.10., in Git).
 - Handgriffe an Zugängen erst gegen den Ist-Stand prüfen: „Claude-App für das neue Repo freigeben“ war bei „All repositories“ überflüssig und sperrte alle Sitzungen aus (26.10., 348.12e).
 - Jede neue Prüfstufe vor dem Chef mit Frist und Wächter: wer prüft, dass überhaupt etwas ankommt? (25.10., 348.9: Bilder gingen „erst zu Diogenes“, keiner schickte, Chef sah 85 Minuten nichts.)
 - Erst messen, dann Handgriffe vom Chef verlangen: zwei Probesitzungen hätten vor der Bitte „von Hand umstellen“ gezeigt, dass die Umgebung wirkt (25.10., 365).
