@@ -460,10 +460,37 @@ func _grass() -> void:
 	mmi.material_override = hm
 	forest.add_child(mmi)
 	halm_mat = hm
+	# 806 (Chef 09.11., 21:12: Kampforte mit den Paketen schöner): Gras und Blumen des Kits wie im Dorf (804, GrasBausatz) an den
+	# Stellen unserer Büschel, unser Gras dann aus; fehlt das Kit oder ist der Schalter aus (698), bleibt halm.gdshader
+	if GrasBausatz.aktiv():
+		var stellen: Array[Vector3] = []
+		var art := PackedByteArray()
+		for t in xf:
+			stellen.append(t.origin)
+			art.append(0)
+		kit_gras = GrasBausatz.baue(forest, stellen, art)
+		mmi.visible = kit_gras.is_empty()
+
+
+var kit_gras: Array[MultiMeshInstance3D] = []
+## 806: die Kämpfer schieben das Gras des Kits beiseite (Kit: höchstens vier Schieber), die Gruppe zuerst
+func _kit_schieber() -> void:
+	if kit_gras.is_empty():
+		return
+	var n := 0
+	for side in ["PARTY", "FOES"]:
+		for fig in figures.values():
+			if fig.fighter.side != side or not fig.visible:
+				continue
+			if n >= 4:
+				return
+			GrasBausatz.schieber(fig)
+			n += 1
 
 
 var halm_mat: ShaderMaterial = null
 func _grass_spots() -> void:
+	_kit_schieber()
 	if halm_mat == null:
 		return
 	var sp: Array[Vector3] = []
