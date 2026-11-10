@@ -289,13 +289,12 @@
 | 873 | Systemlösung? Griff: 3 frühere Vorgänge (653, 643, 524), neu 872; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Kampf | – |
 | 884 | D140.3 (Diogenes, 870.18): wartet-auf-Lücken im Umzug: 870.13 ohne 870.15, 870.2 ohne 870.16, 870.16 nur 4 Zweige, Schadensarten 870a 8 ohne Vorgang; Prüfbericht Lauf 140 | Sokrates | M | startbar | – | – | – | B Abläufe | – |
 | 885 | D140.4 (Diogenes, 870.18): LISTE-UMZUG-BRS widersprüchlich: Sitzungen, Schritt 8, Risiken, Chefsache 870a, Kostenzuschreibung, Store-Kennung; Prüfbericht Lauf 140 | Sokrates | M | startbar | – | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 10.11.): 15150 Bytes (Grenze 15000), Erledigtes streichen | Sokrates | K | startbar | – | – | – | B Abläufe | – |
 | 870.16 | Von Sokrates (870, Umzug BRS Schritt 0): ruhende Zweige jerry-494-gegner, jerry-403-held-kampfort, jerry-6235-effektprobe, tom-6236-probeapk mit dem Besitzer klären: aufgeben oder vor dem Umzug zusammenführen | Ford | M | startbar | – | – | – | B Abläufe | – |
 | 843 | D126.1 (Diogenes, 838): START ohne Sitzung 14 von 39 (09.11., 19:04 bis 10.11., 11:08), keiner mit --ohne; 3 ohne Grund (22:44 Spike, 10:25 Jerry, Perikles) | Ford | M | startbar | – | – | – | B Steuerung | 12,41 $ |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +893,81 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 767 | Wochentermin 13.11.: Rollenspiegel Ford (rollenspiegel.sh Ford) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Ford | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 10.11.): 37989 Bytes (Grenze 15000), Erledigtes streichen; Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 10.11.): 38074 Bytes (Grenze 15000), Erledigtes streichen; Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
