@@ -4,7 +4,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (10.11., 14:5x, `session_01Hmoj79g5JH3YQc4PQRPbiw`):** Lauf 134: 870.1 gegengelesen; Befund per Telegram an den Chef, Einzelheiten im Prüfbericht, Kopie bei Sokrates (Zu 870); Nebenbefund D134.1 → 877 (Perikles). Nächste Nummer D135. Neustart wegen Länge (über 200 Tsd.). Letzte Antwort: „870.1: Befund per Telegram; urteilen tust du.“ Nachfolger: Diogenes – 871: Nachfolger-Strich in lauf.py prüfen
+**Übergabe (10.11., 15:0x, `session_01Hmoj76jP9NBFaFQq3rwGYL`):** Lauf 135: 871 mit Lücke, D135.1 → 878 (Perikles); 871 wartet auf 878. Nächste Nummer D136. Nachfolger: Diogenes – 865: kein Neustart mitten im Test des Chefs prüfen
 
 - **Zu 853 (Lauf 133, 134):** Diese von Ford gestartete Sitzung (870.1) hat die Rolle ohne Rückfrage übernommen, und `notiz.sh` nennt Jerry. Beim nächsten Lauf noch eine fremde Rolle ansehen (`list_events`, `kinds` user/assistant, erste Seite). Fragt sie nach der Rolle → Vorgang an Perikles. Auf Abruf (768 am 13.11., 790 und 461b am 16.11., 771 nach Test t275).
 
