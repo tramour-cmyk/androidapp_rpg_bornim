@@ -26,7 +26,11 @@ Zuletzt verworfen (Chef 09.11., 11:21, 743 „alle verwerfen“): Spiel-Engine G
 
 ## E Entwicklung
 
+- **Eigener Name für Fertigkeit 100 ohne Boni** (Chef 09.11., 20:43, an Sokrates, zu 762: „was hältst du denn für die Idee, Großmeister? Okay, 75 bis 99. Und wenn einer wirklich die 100 schafft, also 100 netto und nicht 100 durch irgendwelche Gegenstände … oder Ausrüstung … 100 ist halt so ein richtiger Meilenstein. Dass der einen eigenen Namen verdient.“): BRS heute Großmeister 75–100, „bei 100 ist die Fertigkeit fertig“; 100 erst in Kapitel 6–7 erreichbar (BRS Kapiteltabelle). Sokrates: dafür, aber als Auszeichnung neben dem Rang, nicht als fünfter Rang (Prüfungen und Kapitelgrenzen rechnen mit vier Rängen); Name von Homer (Vorschläge etwa „Vollendet“, „Legende“), Großmeister dann 75–99. Gegen: kein Spieler sieht es vor Kapitel 6. Regel ändert der Chef im BRS, Wortlaut Homer. → Urteil Homer.
+
 ### Welt
+
+- **623 R5 Character Shaders, R6 Beams & Lasers** (Chef 09.11., 21:08: „wenn dir … nicht die wichtigsten Argumente einfallen, dann lassen wir die erstmal zurückgestellt … du legst mir das Ganze wann anders vor“; Links `LISTE-QUELLEN.md`): **später:** erst wenn R1–R4, R7 eingebaut sind und eine Lücke bleibt, die sie schließen (R5: Auflösen beim Sterben, Gefrieren, Schatten des Spähers; R6: heiliger Strahl, Heilband); bis dahin Ersatz laut `LISTE-EFFEKTE.md`. Sokrates legt vor.
 
 - **Begehbare Häuser über mehrere Ebenen, mit Kampf** (Chef 27.10., 12:00, an Sokrates: „dann könnten wir sozusagen auch mit unserem Held ein Abenteuer machen, in einem größeren Haus. Über Etagen. Kämpfen sozusagen.“). Befund Sokrates (376): Kapitel 1 hat keine Ebenen (`LISTE-UMZUG-348.md`); braucht Treppen im Wegenetz, Verdecken der oberen Ebene, MARS auf Ebenen, Story (Homer). Bausatz Medieval Village liefert Treppen und Böden. Nach dem Meilenstein. → **später:** Pro: ein Haus über Ebenen ist ein eigener kleiner Dungeon mitten in der Welt; Contra: Ebenen berühren Wegenetz, Kamera und MARS zugleich. Erst Kapitel 2, zusammen mit 48 (Dungeons), dort ein Ort mit Geschichte (Kulthaus des Grauen Propheten).
 - **Hund und Katze reagieren auf den Helden** (Chef 23.10., 08:06, an Sokrates: „Was ist mit Hund und Katze? Haben die auch irgendwelche Geräusche schon, wenn man aus Versehen drüber läuft … Oder auch grundsätzlich, wenn man schon drüber läuft, dass sie dann weggehen oder sich verscheucht fühlen wie die Hühner?“). Befund: Hund (`MapDog`) und Katze (`MapCat`) gehen einen festen Tagesablauf ohne Klang und ohne Reaktion; die Hühner haben beides (83b, 83c). Vorschlag Sokrates: wie die Hühner, Hund steht auf und trottet weg (kurzes Knurren oder Bellen), Katze faucht und springt weg; Bau Tom, Klang Jerry. → **reif, zu W21/W11** (Abnahmeliste: Kleinleben, Tierlaute fehlen): Pro: das Dorf der Referenzszene lebt erst, wenn Tiere den Helden bemerken; Contra: neue Bewegungen je Tier. Mit „Dorfhund jault“ und „Katze im Gasthaus“ ein Vorgang.
@@ -122,7 +126,7 @@ Zuletzt verworfen (Chef 09.11., 11:21, 743 „alle verwerfen“): Spiel-Engine G
 
 ### Balance und Attribute
 
-- **48–50 Dungeons, Lehrer, weitere Klassen** (aus dem Vorrat Sokrates, 27.10.): zufallsgenerierte Dungeons und Questhöhlen (48a–48f ja, Archiv bis `f3ec7200`); Lehrer für Waffen-, Rüstungs-, Rettungswurf-Übung und Talente; weitere Klassen, ggf. zum Kauf (`DESIGN-HELDENBAU.md`). → **später:** nach dem Meilenstein Kapitel 1.
+- **48–50 Dungeons, Lehrer, weitere Klassen** (aus dem Vorrat Sokrates, 27.10.): zufallsgenerierte Dungeons und Questhöhlen (48a–48f ja, Archiv bis `f3ec7200`); Lehrer für Waffen-, Rüstungs-, Rettungswurf-Übung und Talente; weitere Klassen, ggf. zum Kauf (`alt/DESIGN-HELDENBAU.md`). → **später:** nach dem Meilenstein Kapitel 1.
 
 - **Charisma, Gesprächsoptionen:** „Überreden“ oder „Einschüchtern“ bei Wachen, Händlern, Bösewichten, wenn es zur Geschichte passt. → **später:** Vorschlag mit 133 (Vorrat Homer), gebaut in Kapitel 2.
 - **Charisma, Auftreten auf der Karte:** Wanderer und schwächere Monster weichen einem einschüchternden Helden aus. → **später:** nach dem Meilenstein; verschiebt sonst die Messung 38.
@@ -137,6 +141,8 @@ Zuletzt verworfen (Chef 09.11., 11:21, 743 „alle verwerfen“): Spiel-Engine G
 - **Neue Bosse:** Banditenhauptmann, Ogerhäuptling, Gelatinewürfel; mehrphasig, rufen Verstärkung. → **später:** Kapitel 2.
 
 ## B Betrieb
+
+- **650.2 C4–C6, Story-Dateien zusammenlegen (Homer; Chef 09.11., 20:52 „650.2 wie Vorschlag“):** C4 `STORY-PLAN`, `-ROTER-FADEN`, `-PLAN-K1`, `-K1-HANDLUNG`, `-CHRONIK-TEXTE-K1` zu zwei (Überblick aller Kapitel, Handlung K1), Texte wortgetreu; C5 Spielerhandbuch Teile 1–3 zu einer Datei, gegen das BRS halten; C6 `STORY-SPIEL` bleibt ganz, Grenze „15 KB“ im Kopf fällt, SRD-Namen abgleichen; `STORY-MENUE` Kopf auf Godot. Kein Vorgang vor Kapitel 1; nebenbei, wenn Homer ohnehin an den Texten ist.
 
 ### Werkzeuge
 

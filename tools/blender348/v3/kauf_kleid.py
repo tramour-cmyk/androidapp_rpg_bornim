@@ -481,6 +481,28 @@ if (ARM_LUFT > 0 or ARM_GEW > 0) and 'cloak' in TEILNAMEN and 'sleeves' in TEILN
     tief = float(np.linalg.norm(_dv, axis=1).max()) if len(_cl) else 0.0
     VK2 = VK2 + _dv2; WKq = _W / _W.sum(1, keepdims=True)
     print('UMHANG UEBER AERMEL', n_auf, 'Ecken vor (hoechstens %.1f cm), %d folgen dem Arm (bis %.0f %%)' % (tief * 100, n_gew, ARM_GEW * 100))
+# 656 (Chef 08.11., 14:52: „wo die ganzen Beulen herkommen in dem Mantel. Vor allem unter dem Schlagarm“; nachgesehen an den Siegerposen,
+# Lauf 300 Bild 2 und 3: hebt der Schwertarm, hebt sich der Umhang darunter wie ein Fluegel bis zum Ellbogen): ueber FOLGT nahm der Umhang
+# an Schulter und Seite die Gewichte des Aermels, also von Ober- und Unterarm. Armgewichte am Umhang gehen an das Schluesselbein derselben
+# Seite, nur auf der Schulterhoehe (bis UMHANG_ARM_BIS unter dem Schultergelenk) bleibt ein Rest, der die Schulter mitnimmt; der Aermel
+# liegt im Bild ohnehin hinter dem Umhang (463, toon.gdshader UV2). Vor der Rueckrechnung in die Ruhelage, damit die Form in unserer
+# Haltung bleibt. UMHANG_ARM=1: wie vorher
+if 'cloak' in TID and os.environ.get('UMHANG_ARM', '') != '1':
+    _ic = TID['cloak']; _bis = float(os.environ.get('UMHANG_ARM_BIS', '0.04'))
+    _finger = ('thumb', 'index', 'middle', 'ring', 'pinky')
+    _n_arm = 0
+    for _seite in ('l', 'r'):
+        _arm = [k for k, nm in enumerate(Q_KN) if nm.endswith('_' + _seite) and nm.startswith(('upperarm', 'lowerarm', 'hand') + _finger)]
+        _sch = 'clavicle_' + _seite
+        if _sch not in Q_KN or not _arm or 'upperarm_' + _seite not in QP_MAT: continue
+        _js = Q_KN.index(_sch); _sz = QP_MAT['upperarm_' + _seite].translation.z
+        for i in np.where(LTk == _ic)[0]:
+            w_arm = float(WKq[i, _arm].sum())
+            if w_arm < 1e-4: continue
+            k_ = float(np.clip((_sz - VK2[i, 2]) / max(_bis, 1e-3), 0.0, 1.0))   # 0 auf der Schulter, 1 ab _bis darunter
+            WKq[i, _js] += w_arm * k_; WKq[i, _arm] *= (1.0 - k_); _n_arm += 1
+    WKq = WKq / WKq.sum(1, keepdims=True)
+    print('UMHANG OHNE ARM', _n_arm, 'Ecken (Armgewichte an das Schluesselbein)')
 VK3 = np.empty_like(VK2)
 for i, v in enumerate(VK2):
     A = np.tensordot(WKq[i], SA, axes=1)

@@ -1,9 +1,9 @@
 # Spielerhandbuch Bornimer Rollenspielsystem, Teil 1 (423)
 
-Entwurf Homer, 01.11.; Quelle allein das Nachschlagewerk `DESIGN-SPIELSYSTEM-2-0-ENTWURF.md` (gültig seit 422). Teil 1: Grundidee, Held, Fertigkeiten, Stufe. Teil 2 `STORY-HANDBUCH-2.md`: Pfad, Meisterschaften, Kampf, Welt, Ruf, Herstellen, Abnutzung. Verzeichnis `STORY-REGELN.md`. Prüfpunkte für den Chef in `docs/chefsache/ansehen/423-handbuch.md`.
+Entwurf Homer, 01.11.; Quelle allein das Nachschlagewerk `DESIGN-BRS.md` (gültig seit 422). Teil 1: Grundidee, Held, Fertigkeiten, Stufe. Teil 2 `STORY-HANDBUCH-2.md`: Pfad, Meisterschaften, Kampf, Welt, Ruf, Herstellen, Abnutzung. Verzeichnis `STORY-REGELN.md`. Prüfpunkte für den Chef in `docs/chefsache/ansehen/423-handbuch.md`.
 
 **Für Tom (Bau erst nach Abnahme durch den Chef und nach 444):**
-- Ersetzt die Anleitung 352 (`STORY-ANLEITUNG.md`), sobald das Bornimer Rollenspielsystem (BRS, vormals Spielsystem 2.0; 451) im Spiel ist; Aufbau wie dort: Seite mit Abschnitten, fetter Kopf, Absatz, oben Sprungmarken.
+- Ersetzt die Anleitung 352 (`alt/STORY-ANLEITUNG.md`), sobald das Bornimer Rollenspielsystem (BRS, vormals Spielsystem 2.0; 451) im Spiel ist; Aufbau wie dort: Seite mit Abschnitten, fetter Kopf, Absatz, oben Sprungmarken.
 - **Platzhalter statt Zahlen, die 444 noch festlegt** (Chef 01.11., 12:3x, Archiv 423): `{schlüssel}` füllt das Spiel aus derselben Datendatei, nach der es rechnet; nie eine Zahl in den Text schreiben. `|prozent` heißt: Anteil als ganze Prozentzahl (0,4 → „40 %“, englisch „40%“). Schlüssel wie in `tools/sim444/werte.json`; die mit * gibt es dort noch nicht, Tom legt sie in der Datendatei an (Wert aus dem Nachschlagewerk, Abschnitt 4 und 5):
   - `{erfahrung.fertigkeit_deckel|prozent}` Anteil der Erfahrung je Stufe aus Fertigkeiten (`[423.stufe.deckel]`)
   - `{held.kapitelgrenze}` Stufengrenze des laufenden Kapitels; `{held.grenze_weich_stufen}`* Stufen darüber; `{held.grenze_weich_anteil|prozent}`* Erfahrung darüber (`[423.stufe.grenze]`)

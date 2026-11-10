@@ -730,7 +730,10 @@ func oeffne_kiste(k: Dictionary) -> void:
 	zustand.setze(id)
 	klang("effekt", ["chest"])
 	var bef: Array = []
-	if k.has("ding"): bef.append({"art": "geben", "ding": String(k["ding"]), "anzahl": int(k.get("anzahl", 1))})
+	if k.has("ding"):
+		var ding := String(k["ding"])
+		if ding == Geschichte.CLASS_WEAPON: ding = Geschichte.klassen_waffe(held_werte().klasse)   # 632 Game.openChest wie alt
+		bef.append({"art": "geben", "ding": ding, "anzahl": int(k.get("anzahl", 1))})
 	if int(k.get("gold", 0)) > 0: bef.append({"art": "gold", "anzahl": int(k["gold"])})
 	if bef.is_empty(): ui.sage([{"text": Sprache.u("chestEmpty")}])
 	spiele(bef)

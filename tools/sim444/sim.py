@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Vorgang 444: Rechensimulation Bornimer Rollenspielsystem (BRS) am Rechner (ohne Godot).
 
-Regeln: DESIGN-SPIELSYSTEM-2-0-ENTWURF.md (Modell D, Abschnitt 4), Monster: LISTE-BESTIARIUM.md
+Regeln: DESIGN-BRS.md (Modell D, Abschnitt 4), Monster: LISTE-BESTIARIUM.md
 "Werte 2.0". Jede Zahl steht in werte.json, keine im Code.
 
 Aufruf:

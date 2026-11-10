@@ -525,7 +525,8 @@ def ungetestet_zeilen(rolle):
 ALLGEMEIN = {"kampf", "mars", "chef", "build", "held", "helden", "gegner", "alt", "neu", "spiel", "test", "idee", "werte", "regel",
              "regeln", "zeile", "fehler", "prüfen", "brs", "text", "texte", "bild", "stand", "kapitel", "nach", "ohne", "statt", "beim",
              "dorf", "höhle", "testmenü", "gibt", "kein", "keine", "allein", "halt", "zurück", "sieht", "wirkt", "zeigt", "läuft", "geht",
-             "ganz", "ganze", "sichtbar", "richtig", "bleibt", "nimmt", "macht", "steht", "gegen", "grund", "eine", "einen", "einer", "nicht", "immer", "wieder", "mehr", "auch", "noch", "dann", "aber", "oder", "unter", "über"}
+             "ganz", "ganze", "sichtbar", "richtig", "bleibt", "nimmt", "macht", "steht", "gegen", "grund", "eine", "einen", "einer", "nicht", "immer", "wieder", "mehr", "auch", "noch", "dann", "aber", "oder", "unter", "über",
+             "jede", "jeden", "jeder", "jedes", "einmal", "design", "hinweis"}  # 792: Allerweltswörter ohne Thema (D114.1)
 
 def _woerter(t):
     t = re.sub(r"\([^)]*\)", " ", t)  # Klammern sind meist Herkunft („Chef 07.11., t268“), nicht Inhalt
@@ -541,12 +542,12 @@ def _dateien(zweig):
 
 def ueberschneidung(d, offen):
     """779: Text „702 (wolfe)“ der ersten ungetesteten Zeile, mit der d sich überschneidet: nennt ihre Nummer, teilt ein
-    Titelwort (Ort, Figur, Sache; gleicher Wortanfang ab 4 Buchstaben) oder eine geänderte Datei; sonst None."""
+    Titelwort (Ort, Figur, Sache; Beugung bis 2 Buchstaben wie „wolf/wolfe“, kein Wortteil wie „schwert/schwertarm“, 792) oder eine geänderte Datei; sonst None."""
     wd = _woerter(d["titel"]); fd = None
     for o in offen:
         if o["nr"] == d["nr"]: continue
         if re.search(r"(?<![\d.])%s(?![\d])" % re.escape(o["nr"]), d["titel"] + " " + " ".join(d.get("warte") or [])): return o["nr"]
-        gleich = sorted(a for a in wd for b in _woerter(o["titel"]) if a == b or (min(len(a), len(b)) >= 5 and (a.startswith(b) or b.startswith(a))))
+        gleich = sorted(a for a in wd for b in _woerter(o["titel"]) if a == b or (min(len(a), len(b)) >= 4 and abs(len(a) - len(b)) <= 2 and (a.startswith(b) or b.startswith(a))))
         if gleich: return "%s (%s)" % (o["nr"], gleich[0])
         if d.get("zweig") not in (None, "", "–", "-"):
             fd = _dateien(d["zweig"]) if fd is None else fd
@@ -580,10 +581,11 @@ UEBERNAHME = {"Tom": "Jerry", "Jerry": "Tom"}
 GERAET = re.compile(r"Test|Gerät|Build|APK", re.I)
 
 def uebernahme(rolle, info):
-    """118/202: hat das Team nichts Startbares, die oberste freie Zeile des anderen Teams (ohne Gerätetest bevorzugt)."""
+    """118/202, 783 W3 (Chef 09.11., 20:13): hat das Team kein startbares Muss, das oberste freie Muss des anderen Teams
+    (ohne Gerätetest bevorzugt), vor der eigenen Kür."""
     a = UEBERNAHME[rolle]
     if a not in info or rolle not in info or info[rolle][2]: return None
-    frei = [z for z in info[a][0] if "fuer" not in z[3]]
+    frei = [z for z in info[a][0] if "fuer" not in z[3] and z[1] == "M"]
     if not frei: return None
     ohne = [z for z in frei if not GERAET.search(z[2])]
     z = (ohne or frei)[0]
@@ -649,7 +651,7 @@ def main():
         if rolle in UEBERNAHME:
             # wie bisher alle eigenen Zeilen, die auf einen Test warten, auch die schon einem Build zugeordneten (D80.6)
             gebaut = sum(1 for z in zs if "fuer" not in z[3] and (z[4] or "").startswith("wartet auf Test"))
-            info[rolle] = ([z for z in zs if not z[4]], gebaut, erstes["M"] or erstes["K"] or erstes["N"])
+            info[rolle] = ([z for z in zs if not z[4]], gebaut, erstes["M"])  # 783 W3: nur eigenes Muss hält die Übernahme
         def kurz(e):
             if not e: return "–"
             return "%s %s%s" % (e[0], re.sub(r"\*\*|`", "", e[2])[:70], (" ↑ Muss: %s wartet" % ", ".join(fremd_wartend()[e[0]])) if e[0] in fremd_wartend() else "")

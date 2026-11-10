@@ -1,5 +1,5 @@
 {
-  "_info": "Vorgang 444: alle Zahlen der Rechensimulation Bornimer Rollenspielsystem (BRS). Quelle je Block in '_quelle': N = Nachschlagewerk DESIGN-SPIELSYSTEM-2-0-ENTWURF.md, B = LISTE-BESTIARIUM.md 'Werte 2.0', A = Annahme (im Nachschlagewerk ohne Zahl, hier gesetzt, damit gerechnet werden kann).",
+  "_info": "Vorgang 444: alle Zahlen der Rechensimulation Bornimer Rollenspielsystem (BRS). Quelle je Block in '_quelle': N = Nachschlagewerk DESIGN-BRS.md, B = LISTE-BESTIARIUM.md 'Werte 2.0', A = Annahme (im Nachschlagewerk ohne Zahl, hier gesetzt, damit gerechnet werden kann).",
 
   "lauf": {
     "_quelle": "Auftrag 444: je Fall 1000 Kaempfe; Fortschritt: Laeufe je Herkunft (A)",

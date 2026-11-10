@@ -172,7 +172,8 @@ def zeilen(d):
          "bei dir zum Testen: %s; ein Build nimmt alle fertigen Zweige (317)" % (", ".join(re.findall(r"\[(Build \d+)\]", lesen("chefsache/README.md"))) or "kein Build")),
         ("Fehler", fehler(d["jetzt"]), "offene Vorgänge des Spiels mit Fehler oder Befund im Titel, dazu jeder mit Build-Nummer (D55.3)"),
         ("Geld", ("Woche **%s %%** (dein Bild %s, %s)" % (gut.group(3), gut.group(1), gut.group(2)) if gut else "Woche unbekannt") +
-         "; gestern %d $ Rechenwert, Spiel %d %%" % (ks, 100 * k["Spiel"] / ks if ks else 0), "Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal)"),
+         "; gestern %d $ Rechenwert, Spiel %d %%" % (ks, 100 * k["Spiel"] / ks if ks else 0) +
+         ("" if gut and gut.group(1) == JETZT.strftime("%d.%m.") else "; **Bitte Bild der Nutzung** (Woche %; ruht die Niederlassung: nur Max; 783 W7)"), "Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal)"),
         ("Von dir zuerst gefunden", ein.get("Von dir zuerst gefunden", "–"), "Woche, zählt Diogenes montags"),
         ("Größtes Risiko", ein.get("Größtes Risiko", "–"), ""),
         ("Ausführlich", "[Abnahmeliste und Stand](PROJEKTPLAN.md)", ""),
