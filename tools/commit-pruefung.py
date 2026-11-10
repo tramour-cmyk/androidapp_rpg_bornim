@@ -172,6 +172,60 @@ def wachstum(dat):
             aus.append("%s: %d Bytes, Obergrenze %d, Commit fügt %d hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)" % (p, neu, OBERGRENZE[p], neu - alt))
     return aus
 
+def kerntest_warn(dat):
+    """192.3: Kerntest-Marke aus tools/t logik (voller Lauf, Exit 0) muss neuer sein als der Code."""
+    code = [p for s, p in dat if s != "D" and re.match(r"(core|app|tools/preview)/.*\.(kt|kts)$", p)]
+    if not code: return []
+    marke = os.path.join(git("rev-parse", "--git-common-dir").strip(), "kerntest-ok")
+    try: neuster = max(os.path.getmtime(p) for p in code if os.path.exists(p))
+    except ValueError: neuster = 0
+    if not os.path.exists(marke) or os.path.getmtime(marke) < neuster:
+        return ["Code ohne grünen Kerntest seit der letzten Änderung (tools/t logik, Exit-Code prüfen)"]
+    return []
+
+
+SRD_DAZU = ["RK", "ZP", "Übungsbonus", "Rettungswurf", "Zauberplatz", "W20", "d20", "STR", "DEX", "CON", "INT", "WIS", "CHA",
+            "TP", "Trefferwürfel", "Hauptattribut",  # 886 (D140.5, Plan Schritt 8)
+            "Armor Class", "Hit Dice", "Hit Die", "saving throw", "Saving Throw", "Proficiency Bonus", "proficiency bonus", "Spell Slot", "spell slot"]
+
+
+def srd_woerter():
+    """870.11: alte Namen aus DESIGN-BRS.md 12 (Spalte „Alt“, wie regelcheck.py 4b) plus SRD_DAZU."""
+    p = os.path.join(git("rev-parse", "--show-toplevel").strip(), "docs", "DESIGN-BRS.md")
+    if not os.path.exists(p): p = "/home/user/bornim-main/docs/DESIGN-BRS.md"
+    t = open(p, encoding="utf-8").read()
+    ab = t.split("\n## 12. ")[1].split("\n## ")[0] if "\n## 12. " in t else ""
+    w = []
+    for z in ab.splitlines():
+        s = [x.strip() for x in z.split("|")]
+        if len(s) < 4 or s[1] in ("Alt", "---", ""): continue
+        for n in re.split(r"[,/]", re.sub(r"\s*\(.*?\)", "", s[1])):
+            n = re.sub(r"^Klassen\s+", "", n.strip())
+            if n and n not in ("Schild", "Vorteil", "Nachteil"): w.append(n)
+    return w + SRD_DAZU
+
+
+def srd_neu(dat):
+    """870.11 (870, Umzug BRS Schritt 9): neue Zeilen unter godot/ (ohne tests/) mit SRD-Begriffen. Hält an, sobald 870.4 erledigt
+    (nicht mehr offen in der Liste), vorher Warnung. (stop, warn)"""
+    wege = [p for s, p in dat if s != "D" and p.startswith("godot/") and "/tests/" not in "/" + p
+            and p.endswith((".gd", ".tscn", ".tres", ".json", ".csv", ".txt", ".cfg"))]
+    if not wege: return [], []
+    muster = re.compile(r"(?<![\wÄÖÜäöüß])(%s)(?![\wÄÖÜäöüß])" % "|".join(map(re.escape, srd_woerter())))
+    funde = {}
+    datei = ""
+    for z in git("diff", "--cached", "-U0", "--no-renames", "--", *wege).splitlines():
+        if z.startswith("+++ b/"): datei = z[6:]; continue
+        if not z.startswith("+") or z.startswith("+++"): continue
+        for m in muster.finditer(z[1:]): funde.setdefault(datei, set()).add(m.group(1))
+    if not funde: return [], []
+    text = "neue SRD-Begriffe im Godot-Spiel (870.11, Namen nur nach DESIGN-BRS.md 12): " + "; ".join(
+        "%s: %s" % (d, ", ".join(sorted(w))) for d, w in sorted(funde.items()))
+    import startbar
+    offen = any(d["nr"] == "870.4" and d["stand"].split(",")[0].strip() != "erledigt" for d in startbar.zeilen_liste())
+    return ([], [text + " (hält an, sobald 870.4 erledigt ist)"]) if offen else ([text], [])
+
+
 def main():
     ge = git("diff", "--cached", "--name-status", "--no-renames").splitlines()
     dat = [(l.split("\t")[0], l.split("\t")[1]) for l in ge if "\t" in l]
@@ -184,6 +238,15 @@ def main():
     try:
         for w in effekt_ohne_liste(dat): print("Commit-Prüfung Warnung: " + w, file=sys.stderr)  # 623.3 (623 E): nur Warnung
     except Exception as e: print("Commit-Prüfung: 623.3 übersprungen (%s)" % e, file=sys.stderr)
+    # 877 (D134.1): Code-Prüfungen vor dem Ausstieg für Code-Commits, sonst erreichte sie nie ein Commit unter core/, app/, godot/
+    try:
+        for w in kerntest_warn(dat): print("Commit-Prüfung Warnung: " + w, file=sys.stderr)
+        srd_stop, srd_warn = srd_neu(dat)
+        for w in srd_warn: print("Commit-Prüfung Warnung: " + w, file=sys.stderr)
+        if srd_stop:
+            for s in srd_stop: print("Commit-Prüfung HÄLT AN: " + s, file=sys.stderr)
+            return 1
+    except Exception as e: print("Commit-Prüfung: 870.11/877 übersprungen (%s)" % e, file=sys.stderr)
     if not dat or not all(p.startswith("docs/") or p in ("CLAUDE.md", "CHANGELOG.md") or p.startswith("tools/") for _, p in dat):
         return 0
     stop, warn = [], []
@@ -270,6 +333,19 @@ def main():
                 rf = re.sub(r"(?i)Lizenzen der Engine", "", rf)  # 847 (D128.1): Menüeintrag als Bedienelement ist kein Lizenzlesen
                 if re.search(r"(?i:Lizenz|Urheber)|\bMIT\b|\bCC0\b|\bCC BY\b", rf):  # 846 (D127.1): nur Richtig/Falsch, der Weg darf über „Lizenzen“ führen
                     stop.append("%s: Prüfzeile verlangt Lizenzlesen (%s); gehört als Test unter „Im Bau geprüft“ (832, LISTE-CHECK-BUILD-TEST.md 9)" % (p, zl.split("|")[1].strip()))
+    for s, p in dat:  # 866 (Chef 10.11., 13:34, t274: 7 von 18 Prüfzeilen fehlerhaft): neue Prüfliste nur gegengelesen
+        if not (s == "A" and re.match(r"docs/chefsache/ansehen/t\d+-[^/]+\.md$", p)): continue
+        inhalt = git("show", ":" + p)
+        gl = re.search(r"(?m)^\W*Gegengelesen:?\**\s*(?:von\s+)?(Sokrates|Perikles|Homer|Diogenes|Ford|Tom|Jerry|Spike|Tuffy)\b.*\d\d?:\d\d", inhalt)
+        if not gl:
+            stop.append("%s: Zeile „Gegengelesen: <Rolle> <TT.MM., HH:MM>“ fehlt; Entwurf zuerst nach docs/entwurf/, eine Sitzung außerhalb des Teams prüft je Punkt "
+                        "(aus frischem Spielstand am Gerät erreichbar, Weg genannt, sinnvoll), trägt die Zeile ein und verschiebt (866, 881)" % p)
+            continue
+        # 881 (D139.1): nie das eigene Team; Team aus Zeile 1 („# <Team oder „Tom und Jerry“> · Build …“), Spike zählt zu Tom, Tuffy zu Jerry
+        team = {"Spike": "Tom", "Tuffy": "Jerry"}.get(gl.group(1), gl.group(1))
+        kopf = (inhalt.splitlines() or [""])[0].split("·")[0]
+        if team in ("Tom", "Jerry") and re.search(r"\b(%s|%s)\b" % (team, {"Tom": "Spike", "Jerry": "Tuffy"}[team]), kopf):
+            stop.append("%s: gegengelesen vom eigenen Team (%s, Zeile 1: %s); eine Sitzung außerhalb des Teams liest gegen (881)" % (p, gl.group(1), kopf.strip("# ").strip()))
     for s, p in dat:  # 512.1 (Chef 03.11., 23:28, „Kümmer du dich um 512.“): neue Prüfliste nennt, was alt gegen neu verglichen ist
         if not (s == "A" and re.match(r"docs/chefsache/ansehen/t\d+-[^/]+\.md$", p)):
             continue
@@ -294,13 +370,6 @@ def main():
             if git("rev-parse", "-q", "--verify", "MERGE_HEAD").strip(): alt = max(alt, git("show", "MERGE_HEAD:" + p), key=lambda x: len(x.encode()))
             if neu_b > 15000 and neu_b > len(alt.encode()) and not fremd_hinweis(p):
                 stop.append("%s hat %d Bytes (über 15000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)" % (p, neu_b))
-    code = [p for s, p in dat if s != "D" and re.match(r"(core|app|tools/preview)/.*\.(kt|kts)$", p)]
-    if code:  # 192.3: Kerntest-Marke aus tools/t logik (voller Lauf, Exit 0) muss neuer sein als der Code
-        marke = os.path.join(git("rev-parse", "--git-common-dir").strip(), "kerntest-ok")
-        try: neuster = max(os.path.getmtime(p) for p in code if os.path.exists(p))
-        except ValueError: neuster = 0
-        if not os.path.exists(marke) or os.path.getmtime(marke) < neuster:
-            warn.append("Code ohne grünen Kerntest seit der letzten Änderung (tools/t logik, Exit-Code prüfen)")
     if any(p in ("tools/gegenstaende/gegenstaende.json", "docs/LISTE-GEGENSTAENDE.md", "tools/gegenstaende.py") for s, p in dat if s != "D"):
         r = subprocess.run([sys.executable, "tools/gegenstaende.py", "--pruefen"], capture_output=True, text=True)
         if r.returncode: stop.append("Gegenstandskatalog (458, D56.4): " + (r.stdout.strip().replace("\n", "; ") or "Prüfung fehlgeschlagen"))
@@ -308,7 +377,24 @@ def main():
     for s in stop: print("Commit-Prüfung HÄLT AN: " + s, file=sys.stderr)
     return 1 if stop else 0
 
+def srd_bestand():
+    """886 (D140.5): Lauf über den ganzen Godot-Code (ohne tests/) für die Abnahme 870.13; Exit 1 bei jedem Fund."""
+    wurzel = git("rev-parse", "--show-toplevel").strip()
+    muster = re.compile(r"(?<![\wÄÖÜäöüß])(%s)(?![\wÄÖÜäöüß])" % "|".join(map(re.escape, srd_woerter())))
+    n = 0
+    for p in git("ls-files", "godot").split():
+        if "/tests/" in "/" + p or not p.endswith((".gd", ".tscn", ".tres", ".json", ".csv", ".txt", ".cfg")): continue
+        try: zeilen = open(os.path.join(wurzel, p), encoding="utf-8", errors="replace").read().splitlines()
+        except OSError: continue
+        for i, z in enumerate(zeilen, 1):
+            w = sorted({m.group(1) for m in muster.finditer(z)})
+            if w: n += 1; print("%s:%d: %s" % (p, i, ", ".join(w)))
+    print("SRD-Bestand (886): %d Zeilen mit alten Begriffen" % n, file=sys.stderr)
+    return 1 if n else 0
+
+
 if __name__ == "__main__":
+    if "--srd-bestand" in sys.argv: sys.exit(srd_bestand())
     try: sys.exit(main())
     except Exception as e:
         print("Commit-Prüfung übersprungen: %s" % e, file=sys.stderr); sys.exit(0)

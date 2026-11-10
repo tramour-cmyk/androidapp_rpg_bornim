@@ -4,7 +4,7 @@ Entwurf Homer, 01.11.; Vorgang 447.4, Abnahmeliste 3.2 (Meisterschaften; Ablauf 
 
 ## Meisterschaften (3.2)
 
-### Kräuterfrau Morwen · Alchemist (Alchemie, Kräuterkunde)
+### Kräuterfrau Morwen · Alchemist (Alchemie, Kräutersammeln)
 
 `[447.4.morwen.alchemie.ruf]` Deine Tränke taugen etwas. Und du weißt, welches Kraut man pflückt und welches man stehen lässt. / EN: Your potions are worth something. And you know which herb to pick and which to leave.
 `[447.4.morwen.alchemie.frage]` Willst du Alchemist werden? Dann zeig mir, was du kannst. Ich sag dir, was fehlt. / EN: Do you want to become an Alchemist? Then show me what you can do. I'll tell you what's missing.

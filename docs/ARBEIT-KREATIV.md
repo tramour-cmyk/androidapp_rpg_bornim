@@ -2,17 +2,11 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `0efa93161` (09.11., 22:14)
+**Gelesen bis:** `e9dc25b14` (10.11., 16:54)
 
-**Übergabe (10.11., 13:13):** erledigt: 857a gestellt (857 wartet auf Chef). Nachfolger: Homer – 857: Kräuterkunde umbenennen (nach Antwort 857a), sonst Homer – 766: Rollenspiegel (13.11.).
-
-**Übergabe davor (10.11., 12:06):** erledigt: 807 (`STORY-K1-FERTIGKEITEN.md` fest, Bau 841, 842), 830 (`[830.sprung]`, Bau 840), 348.12g (Großkatze in `STORY-PLAN.md`; Fische, Kleinleben an 568, 509), 72, 432 und 432a (Storyplan, `[41.schanze.liste]`, Bau 852 Tom ruht bis Kapitel 1 fertig); Englisch-Regel (3) Life/HP. Nachfolger: Homer – 766: Rollenspiegel (13.11.).
+**Übergabe (10.11., 16:54):** erledigt: 870.15 (`STORY-BRS-ANLEITUNG.md`, `-OBERFLAECHE.md`; Bärenschrat, Goblin-Hauptmann in den K1-Texten und `STORY-REGELN.md`; fremd geprüft 16:50, 25 Befunde eingearbeitet; Hinweise an Tom, Jerry). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
 
 ## Zeilen
-
-- **Zu 857, von Sokrates (Chef 10.11., 13:35: „857a A“):** Kräutersammeln, englisch Foraging; Folgerungen wie in 857a (Notizen und Spieltexte DE/EN, Bau an Tom und Jerry samt Neuberechnung; Klosterschüler behält Kräutersammeln). 481 stellt Sokrates auf Alchemie um.
-
-- **Zu 857, von Sokrates (Chef 10.11., 13:01, beim Test t274.6, Reiter „Fertigkeiten“):** „Passt ja der Reiter Sammeln … da steht dann [Kräuterkunde], Angeln, Jagd. Erze wären wahrscheinlich auch was … es hat mit [Kräuterkunde] nichts zu tun … [Kräuterkunde] wäre das Zubereiten von Tränken … unter Alchemie … Ich sammle Kräuter und Pilze, ich kann angeln, da sammle ich Fische und ich jage, da sammle ich Tiere und ich klopfe Steine, da sammle ich Erze … je höher diese Fertigkeit … desto mehr kriege ich vielleicht oder desto schneller geht es … [Kräuterkunde] per se vom Begriff her wäre für mich eher etwas, was mit Rezepten und Erfolgswahrscheinlichkeiten bei der Zubereitung von Tränken zu tun hat.“ (Spracheingabe „Goethe-Kunde“.) Regel passt schon (`DESIGN-BRS.md` 83, 233: Sammeln = Menge; Brauen = Alchemie, Handwerk; Bergbau da, zeigt sich ab Kapitel 2): nur der Name. Neuer Name nach dem Tun, in DE und EN; alle Stellen nachziehen (DESIGN-BRS, Herkünfte Kräutersammler/Klosterschüler, Meisterschaft Alchemist, STORY-K1-FERTIGKEITEN, Lehrmeister), Bau an Tom. Achtung 481 (Sokrates): Trankwirkung bisher „nach Rang in Kräuterkunde“, gehört nach Chef zu Alchemie. **Homer 13:09:** Vorlage 857a, Votum „Kräutersammeln / Foraging“, fremd geprüft 13:08; Stellenliste dort unter „Berührt“ (dazu `STORY-HANDBUCH-1/-2` EN, `STORY-RUF-K1` Morwen, `DESIGN-BRS-ENTSCHEIDUNGEN` 81, t274 Prüfzeile 274.18).
 
 - **Zu 432a, Chef (10.11., 11:55, an Homer):** 432 jetzt bearbeiten, der Meilenstein hindert nicht („wenn du das jetzt erledigen kannst, kannst du es doch erledigen“). Vorlage `chefsache/entscheiden/432a-aschgeborene-offen.md` (Vesks Liste, Kael, Lyra, Zeitpunkt des Baus), fremd geprüft 11:57, Befunde eingearbeitet.
 

@@ -62,6 +62,8 @@ EN: Press and hold a sign to see what it does.
 
 ## Grundwerte im Reiter „Held“ (817)
 
+Gilt bis zum Umzug auf das BRS; danach `[870.14.wert.…]` in `STORY-BRS-HELD.md`.
+
 Homer 10.11.; ersetzt die SRD-Sätze aus `Perks.describe` (Ausfuhr `held.json` „erklaerung“, `menue.gd` 293; gleicher Wortlaut in `talente.gd` `describe`). Wörter nach `[423.werte]` und 683 (Schutzwert/Protection, Leben/Life); Grundwert in Klammern = alter Schlüssel der Brücke `brs_held.gd` `ATTR_ALT`. **Nur, was der Code heute tut** (normales Spiel, Schalter BRS478 aus; fremd geprüft 10.11., 10:48, `godot` main 92b2f63f3); Platzhalter wie im Code. Gestrichen, weil es nirgends wirkt: Abwehr gegen Umwerfen, Wurfflaschen +Schaden, Abwehr gegen Netze, Schwächen erkennen, Lernen +Erfahrung, Abwehr gegen Flüche, Sicht im Nebel, Spirituelle Waffe. Kommt eine Wirkung dazu, kommt ihre Zeile mit; rechnet der Kampf nach BRS (2.3), werden Nahkampf, Fernkampf, Schutzwert und Leben neu geschrieben.
 
 `[817.kopf]` (Grundwert nach BRS, 3–9, nicht der SRD-Wert der Brücke) Wert %d / EN: Value %d
@@ -91,7 +93,7 @@ Homer 10.11.; ersetzt die SRD-Sätze aus `Perks.describe` (Ausfuhr `held.json` �
 `[817.wahrnehmung]` (WIS)
 - (nur Klosterschüler) Treffer deiner Zauber, wie schwer man ihnen ausweicht, und deine Heilung. / EN: (Cloister Pupil only) Accuracy of your spells, how hard they are to dodge, and your healing.
 - Hinterhalte: %s seltener. / EN: Ambushes: %s less often.
-- Kräuterkunde: %s Aussicht auf ein zusätzliches Kraut beim Pflücken. / EN: Herbalism: %s chance of an extra herb when picking.
+- Kräutersammeln: %s Aussicht auf ein zusätzliches Kraut beim Pflücken. / EN: Foraging: %s chance of an extra herb when picking.
 
 `[817.wille]` (CHA)
 - `[817.wille.handeln.plus]` Handeln: %d %% günstiger einkaufen und %d %% teurer verkaufen. / EN: Haggling: buy for %d%% less and sell for %d%% more.

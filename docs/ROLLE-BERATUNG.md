@@ -78,6 +78,8 @@ Empfiehlst du in einer Sitzung fast alles mit „ja“, prüfst du zu wenig.
 
 ## Lehren
 
+- Bei „was bleibt von alt“ nicht nur prüfen, ob es noch läuft, sondern ob es noch Quelle für Neues ist (Bauweg in den Workflows, Commits der letzten Woche); und Schadensarten, Schwächen und Ähnliches gegen jede Datei der alten Regeln abzählen, nicht nur gegen die Kampfwege (10.11., 870a: Kotlin als Quelle von Dorf und Quests erst auf Nachfrage des Chefs, Monsterschwächen erst über seine Idee; Chef 15:25: „freut mich, dass ich wieder was gefunden habe“).
+
 - Eine Absprache mit dem Chef zum Ablauf sofort dort eintragen, wo das Werkzeug sie liest (Haken, `LISTE-RELEASE-NEUSTART.md`), sonst gilt sie für den Nachfolger nicht; und solange der Chef testet, keinen Neustart (10.11., 13:27 Neustart bei t274.16; Chef 13:34: „das machen wir nicht mehr … einfach mal wieder ignoriert“; 865).
 
 - Beraten heißt ergänzen, nicht bestätigen: auf jede Idee des Chefs zuerst selbst prüfen, was im Zusammenhang fehlt, was es schon gibt (Datei, Werkzeug, alte Fassung) und was dagegen spricht, und das ungefragt vorlegen; bei Figuren und Abläufen immer zuerst die alte Fassung lesen (08.11., 12:43: Katalog auf alle Gegenstände selbst erweitert, Schildhöhe alt erst auf Zuruf verglichen; Chef: „warum muss ich das jetzt wieder alles entwickeln? … 360 Grad rundum prüfen“, „War schon die Regel“).
