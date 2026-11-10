@@ -4,7 +4,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `0efa93161` (09.11., 22:14)
 
-**Übergabe (10.11., 10:34):** 830 Vorlage `chefsache/entscheiden/830-wolfssprung-lehrsatz.md` (drei Wortlaute `[830.sprung]` in `STORY-SPIEL.md`, fremd geprüft, drei Sprachfehler behoben); Befund: Godot zeigt keine Eingebungen (210 B) und den Reihenhinweis in jedem Kampf → 836 an Jerry. Nach der Antwort: Wortlaut fest eintragen, Bau-Vorgang an Jerry. Nachfolger: Homer – 817: Erklärtexte der Grundwerte.
+**Übergabe (10.11., 10:34):** 830 Vorlage `chefsache/entscheiden/830-wolfssprung-lehrsatz.md` (drei Wortlaute `[830.sprung]` in `STORY-SPIEL.md`, fremd geprüft, drei Sprachfehler behoben); Befund: Godot zeigt keine Eingebungen (210 B) und den Reihenhinweis in jedem Kampf → 836 an Jerry. Nach der Antwort: Wortlaut fest eintragen, Bau-Vorgang an Jerry. 807: Texte Pim, Späher, Verband in `STORY-K1-FERTIGKEITEN.md`, Vorlage `chefsache/entscheiden/807a-texte-fertigkeiten.md` (fremd geprüft, Befunde eingearbeitet). Nachfolger: Homer – 817: Erklärtexte der Grundwerte.
 
 ## Zeilen
 

@@ -189,7 +189,7 @@
 | 72 | Profil und Marktvergleich | Homer | K | ruht | – | – | – | E Kampf | 0,72; +0,61 $ |
 | 348.12g | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | Homer | M | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | – | – | – | G Story | 4,29 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
-| 807 | Tätigkeiten ohne Kampf für Fertigkeiten in Kapitel 1 vorschlagen (Schleichen, Spähen, Schlösser, Fallen, Tiere beruhigen, Überreden, Einschüchtern, Jagd, Angeln …), von Spike zu 471 | Homer | M | startbar, 807 A: Texte Pim, Späher, Verband | – | – | – | G Stil | – |
+| 807 | Tätigkeiten ohne Kampf für Fertigkeiten in Kapitel 1 vorschlagen (Schleichen, Spähen, Schlösser, Fallen, Tiere beruhigen, Überreden, Einschüchtern, Jagd, Angeln …), von Spike zu 471 | Homer | M | startbar, Texte bei Chef 807a | Chef 807a | – | – | G Stil | – |
 | 817 | Erklärtexte der sechs Grundwerte im Heldenreiter nach BRS statt SRD (held.json „erklaerung“: GES, Rüstungsklasse, Finesse …; von Tom, aus 683) | Homer | M? | startbar | – | – | – | E Oberfläche | – |
 | 830 | Von Sokrates (705 B, Chef 10.11., 08:43): Lehrsatz zur Ansage des Wolfssprungs im ersten Wolfskampf (ausweichen), Text für 72.10a | Homer | M | startbar | Chef 830 | – | – | G Story | – |
 | 483 | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Marke (Chef 02.11., 19:08) | Perikles | M | gebaut, Geprüft an: 62e922b30 | Diogenes, D75 | – | – | B Werkzeuge | – |
