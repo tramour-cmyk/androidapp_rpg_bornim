@@ -365,8 +365,10 @@ EN: He means to go round. A scratch stops him, and so does a change of place.
 
 `[702T.pounce]` (ersetzt `[210T.pounce]` nach 702 C, Chef 09.11., 06:56; Code `marstips.gd` „pounce“) Anspringen: trifft er, macht er Schaden und bringt die Figur aus dem Gleichgewicht: in ihrem nächsten Zug handelt sie, kann aber weder die Reihe wechseln noch eine Waffe ziehen. Hilft: die Figur wechselt vorher die Reihe, dann springt er ins Leere; ein Wechsel kostet nur einen halben Zug.
 EN: Pounce: if the wolf hits, it deals damage and knocks the figure off balance: on its next turn the figure acts, but can neither switch rows nor draw a weapon. Counter: the figure switches rows first and the wolf leaps at nothing; a switch costs only half a turn.
-`[210T.pounce.eingebung]` Er duckt sich zum Sprung. Wer nicht mehr dort steht, wird nicht getroffen.
+`[210T.pounce.eingebung]` (ersetzt durch `[830.sprung]`, 830 A) Er duckt sich zum Sprung. Wer nicht mehr dort steht, wird nicht getroffen.
 EN: It crouches to leap. Whoever no longer stands there is not struck.
+`[830.sprung]` (fest, Chef 10.11., 11:00: „830 A“; 705 B; ersetzt `[210T.pounce.eingebung]`: Eingebung im Kampfbericht direkt nach der ersten Ansage „Anspringen“, einmal je Spielstand; nennt den Knopf „Wechsel“, 225; Bau 840) Er will springen. Stehe ich nicht mehr dort, wohin er springt, schnappt er ins Leere. Wechsel, und mir bleibt noch ein halber Zug.
+EN: It means to leap. If I no longer stand where it leaps, it snaps at nothing. Switch, and I still have half a turn.
 
 `[210T.circle]` Einkreisen: alle Wölfe beißen zugleich dieselbe Figur. Hilft: jeder Treffer auf den Wolf, der es ansagt, auch ein leichter, zerstreut das Rudel.
 EN: Circle: every wolf bites the same figure at once. Helps: any hit on the wolf that calls it, however light, scatters the pack.

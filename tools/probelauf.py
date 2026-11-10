@@ -286,6 +286,10 @@ def loest_aus(wo, zweig, pfade, nachricht):
         wege = push.get("paths")
         if wege and pfade is not None and not any(_glob(m, p) for m in wege for p in pfade):
             continue
+        # 858 (D129.1): in der Wurzel suchen, nicht im Ordner des Aufrufs; im Paket (push_files) genügt der Pfad
+        if datei == "vorschau.yml" and not os.path.exists(os.path.join(wurzel, "tools", "preview", "vorschau.env")) \
+                and "tools/preview/vorschau.env" not in (pfade or []):
+            continue  # 848 (Tom 10.11., 506a): Kotlin-Vorschau ohne vorschau.env bricht ohne Bild ab, keine Probe
         bed = re.findall(r"startsWith\(\s*github\.event\.head_commit\.message\s*,\s*'([^']+)'\s*\)", text)
         jobs = d.get("jobs") or {}
         if bed and jobs and all("startsWith(github.event.head_commit.message" in str((j or {}).get("if", "")) for j in jobs.values()) \
