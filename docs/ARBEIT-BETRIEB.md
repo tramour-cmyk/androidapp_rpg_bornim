@@ -64,6 +64,9 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 01:03 10.11.: Jerry 562 archiviert, gebucht (562, 595); Nachfolger Jerry 595 läuft
+- 00:14 10.11.: Jerry 438 archiviert, gebucht; Nachfolger Jerry 562 läuft
+- 00:08 10.11.: Start Jerry 438, Diogenes 800, Sokrates Stellungnahme; Jerry 562 und Diogenes 796 archiviert, gebucht. Perikles 818 wartet auf Chef: "822 Haken abschalten" (docs/chefsache/tun/822-formhaken.md)
 - 23:08 09.11.: Start Perikles 818, Spike 804 (Chef jetzt 21:12); Perikles 797 und Spike 781 archiviert, gebucht
 - 22:58 09.11.: Tom-Browser 79Sz und Sokrates 7A3w archiviert und gebucht (Sokrates-Auftrag, Chef 22:48)
 - 22:55 09.11.: Archiv-Satz des Chefs (22:50) erhalten, 820 erledigt; alte Fords, Jerry 2x, Diogenes 799, Tuffy 562 archiviert und gebucht; Start Diogenes 796 und Tuffy 642; ausgeschlossen: Homer 807 (wartet auf Chef A/B), Spike 475/795 (Pacing, Oberfläche); Sokrates zweimal (7A3w 22:30 und 78zp 22:42) im Blick
@@ -81,9 +84,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:25 05.11.: Chef „Zu t266 6“ (Log-Fehler Kampf im Wald, Build 266) als Vorgang 588 in Jerrys Vorrat (nur auf Zuruf, 468e), Wortlaut gekürzt in „Zu 588“.
 - 17:10 05.11.: Chef: „Homer-Sitzung 296.2 vom 25.10. liegt noch rum“: `list_sessions` bis zur letzten Seite gelesen (has_more falsch, bis 09.10.): offen war nur „Homer – 296.2 (25.10., 00:03)“ (idle seit 27.10.), archiviert, 3,50 $ (gebucht +1,32 $ Differenz, 296.2 jetzt 14,29 $). Sonst nur Ford und Ford-Wache (Wache bleibt, D13.2). Fehler Ford: bei 16:50 nur die ersten 300 Sitzungen gelesen, `has_more` ignoriert.
 - 16:50 05.11.: Chef 16:4x „archivier doch mal vernünftig oder fass die Kosten“: alle Seiten von `list_sessions` durchsucht (300 Sitzungen), offen waren nur Homer 547 (3,15 $) und Spike 537 (24,76 $, idle seit 04.11.): archiviert und gebucht. Jetzt läuft keine Sitzung außer Ford. Von Ford gebucht seit 04.11., 13:56: 485,84 $ (04.11. 296,52 $, 05.11. 189,32 $ mit Spike); darin Tom 512b 72,19 $, Jerry 494 42,36 $.
-- 12:40 05.11.: Jerry `HyeB5` (494, einzige Entwicklersitzung 468e, 08:44–12:36, 3 h 52) übergeben (896a49a8d, Nachfolger „Jerry – 587: Gegnergröße im Kampfort“ nur auf Zuruf), archiviert, 42,36 $ auf 494. Offen beim Chef: t266 (Test Build 266), 587a. Heute kein weiterer Start (468e).
-- 10:20 05.11.: Chef schickt die bescheinigte Gewerbeanmeldung (GewA 1, Potsdam 04.11.2026) zu 142; in Sokrates’ Vorrat (Zeile 142) eingetragen; PDF nicht in Git (persönliche Daten), liegt beim Chef.
-- 08:46 05.11.: Tom `78sJ` (492/581/583, hatte 468e erst nach Unterbrechung beachtet) übergeben (bb83ff50e, Nachfolger „Tom – 492: Blutzahnhöhle (nach 494, 506)“), archiviert, 4,63 $ auf 581 und 583. Jerry `HyeB` „494: Gegner von Kapitel 1 im Kampf“ gestartet, einzige Entwicklersitzung heute (468e), Übergabe nach etwa 3 Stunden (bis rund 11:45); danach kein Start außer auf Zuruf.
 - 00:03 09.11.: Startsperre 00:03 Start Diogenes, Perikles (lauf.py)
 - 00:03 09.11.: Marke Stellungnahme Sokrates 09.11. (lauf.py)
 - 07:18 09.11.: Startsperre 07:18 Start Sokrates, Tom (von Hand, nachgetragen 13:28; Sokrates-Befund 13:28)
@@ -151,8 +151,14 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:04 10.11.: Marke Stellungnahme Sokrates 10.11. (lauf.py)
 - 00:04 10.11.: Marke Archiv session_01Hmoj75yHnYwJMk7y4jRYv2 (lauf.py)
 - 00:04 10.11.: Marke Archiv session_01Hmoj77oFr3q1jeK4KAGnFp (lauf.py)
-- 00:08 10.11.: Start Jerry 438, Diogenes 800, Sokrates Stellungnahme; Jerry 562 und Diogenes 796 archiviert, gebucht. Perikles 818 wartet auf Chef: "822 Haken abschalten" (docs/chefsache/tun/822-formhaken.md)
 - 00:10 10.11.: Startsperre 00:10 Start Jerry (Ford, vor dem Start; Neustart 1c36cc262)
-- 00:14 10.11.: Jerry 438 archiviert, gebucht; Nachfolger Jerry 562 läuft
 - 00:58 10.11.: Startsperre 00:58 Start Jerry (Ford, vor dem Start; Neustart 59912c829)
-- 01:03 10.11.: Jerry 562 archiviert, gebucht (562, 595); Nachfolger Jerry 595 läuft
+- 01:04 10.11.: Startsperre 01:04 Start Tom, Perikles, Tuffy (lauf.py)
+- 01:04 10.11.: Marke Wächter 804 09.11. 21:12 (lauf.py)
+- 01:04 10.11.: Marke Wächter 805 09.11. 21:12 (lauf.py)
+- 01:04 10.11.: Marke Wächter 806 09.11. 21:12 (lauf.py)
+- 01:04 10.11.: Marke Archiv session_01Hmoj78zpeXrnYuxnJi5ZwC (lauf.py)
+- 01:04 10.11.: Marke Archiv session_01Hmoj76LCPCvmQZZNaDhXgm (lauf.py)
+- 01:04 10.11.: Marke Archiv session_01Hmoj79WrufPRqG912wXEGr (lauf.py)
+- 01:04 10.11.: Marke Archiv session_01Hmoj7789cjaqLrc644o819 (lauf.py)
+- 01:08 10.11.: Sokrates 650.2 archiviert, gebucht. Nicht ausgeführt trotz lauf.py (Grund): START Tom 819 (alte Sitzung wartet auf laufenden Godot-Lauf), START Perikles "auf Abruf" (818 wartet auf Chef 822), START Tuffy 744 (Figuren, Pacing nur Kampf). Wächter 805/806 an Jerry 595 gesendet; 804 ist zu testen
