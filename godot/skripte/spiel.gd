@@ -1674,6 +1674,7 @@ func leute_blatt() -> void:
 # in leute_gesichter.png (4 Spalten, Name darunter). Zeilen GESICHT: Person, Kaufkoerper oder alt
 const GESICHT_BREITE := 0.55          # m Bildbreite der Kamera
 const GESICHT_KACHEL := 420           # Punkte je Bild (Quadrat um den Kopf)
+const GESICHT_NAME := 50              # Punkte fuer den Namen unter dem Quadrat (Lauf 2, Pruefer 22:24: Aldrics Bart lag in der Schrift)
 # 475 Lauf 2 (Pruefer 20:39: „Im ganzen Blatt fehlt die Tuschelinie“): nah = wie Lauf 1 (Nahebene kurz vor die Person); sonst bleibt die
 # Nahebene, und statt dessen sind Dorf und Held ausgeblendet (was vor dem Kopf stand, waren Haeuser); Licht und Kamera wie im Spiel
 # 475 Spur (c) (Tom 04.11., 22:3x): bei 0,55 m Bildbreite traf tusche.gdshader „knick“ (0,06 m Tiefenkruemmung ueber 1–2 Bildpunkte) kaum
@@ -1702,15 +1703,18 @@ func gesichter(dir: String, nah := false, datei := "leute_gesichter.png", weit :
 	name_l.add_theme_color_override("font_outline_color", Color("201408"))
 	name_l.add_theme_constant_override("outline_size", 8)
 	name_l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	var grund := StyleBoxFlat.new()   # der Streifen unter dem Quadrat zeigt sonst den Rumpf hinter dem Namen
+	grund.bg_color = Color("0e0b08")
+	name_l.add_theme_stylebox_override("normal", grund)
 	var ebene := CanvasLayer.new()
 	ebene.layer = 50
 	add_child(ebene)
 	ebene.add_child(name_l)
 	var vp := get_viewport().get_visible_rect().size
 	name_l.size = Vector2(GESICHT_KACHEL, 40)
-	name_l.size = Vector2(vp.x, 60)
+	name_l.size = Vector2(vp.x, 90)
 	name_l.add_theme_font_size_override("font_size", 64)   # das Quadrat wird von der Bildbreite auf 420 Punkte verkleinert
-	name_l.position = Vector2(0, vp.y * 0.5 + vp.x * 0.5 - 90)
+	name_l.position = Vector2(0, vp.y * 0.5 + vp.x * 0.5 + 10)   # unter dem Quadrat, nie ueber Bart oder Kinn
 	var kacheln: Array[Image] = []
 	for l in alle:
 		if l == mk: continue
@@ -1737,23 +1741,24 @@ func gesichter(dir: String, nah := false, datei := "leute_gesichter.png", weit :
 		var c := Vector2i(im.get_width() / 2 - kk / 2, im.get_height() / 2 - kk / 2)
 		var stueck := im.get_region(Rect2i(c, Vector2i(kk, kk)))
 		if kk != GESICHT_KACHEL: stueck.resize(GESICHT_KACHEL, GESICHT_KACHEL, Image.INTERPOLATE_NEAREST if ausschnitt else Image.INTERPOLATE_LANCZOS)
-		if ausschnitt:   # der Name steht unter dem vollen Quadrat, ausserhalb des Ausschnitts: als Streifen darunter setzen
-			var sc := im.get_width() / vp.x
-			var ny := int((name_l.position.y - 10.0) * sc)
-			var nh := mini(int(90.0 * sc), im.get_height() - ny)
-			var streifen := im.get_region(Rect2i(0, ny, im.get_width(), nh))
-			var sh := int(nh * float(GESICHT_KACHEL) / im.get_width())
-			streifen.resize(GESICHT_KACHEL, sh, Image.INTERPOLATE_LANCZOS)
-			stueck.blit_rect(streifen, Rect2i(Vector2i.ZERO, streifen.get_size()), Vector2i(0, GESICHT_KACHEL - sh))
+		# der Name steht unter dem Quadrat: als eigener Streifen unter die Kachel
+		var sc := im.get_width() / vp.x
+		var ny := clampi(int(name_l.position.y * sc) + 1, 0, im.get_height() - 1)
+		var streifen := im.get_region(Rect2i(0, ny, im.get_width(), mini(int(88.0 * sc), im.get_height() - ny)))
+		streifen.resize(GESICHT_KACHEL, GESICHT_NAME, Image.INTERPOLATE_LANCZOS)
+		var kachel := Image.create(GESICHT_KACHEL, GESICHT_KACHEL + GESICHT_NAME, false, stueck.get_format())
+		kachel.blit_rect(stueck, Rect2i(Vector2i.ZERO, stueck.get_size()), Vector2i.ZERO)
+		kachel.blit_rect(streifen, Rect2i(Vector2i.ZERO, streifen.get_size()), Vector2i(0, GESICHT_KACHEL))
+		stueck = kachel
 		kacheln.append(stueck)
 		l.blick = blick_vorher; l.rotation.y = blick_vorher
 		print("GESICHT ", l.daten["id"], " ", "Kaufkoerper" if String(l.modell.name).begins_with("Person_") else "alt", " Kopf ", kopf)
 	var sp := 4
 	var zeilen := ceili(kacheln.size() / float(sp))
-	var blatt := Image.create(sp * GESICHT_KACHEL, zeilen * GESICHT_KACHEL, false, kacheln[0].get_format() if kacheln.size() > 0 else Image.FORMAT_RGBA8)
+	var blatt := Image.create(sp * GESICHT_KACHEL, zeilen * (GESICHT_KACHEL + GESICHT_NAME), false, kacheln[0].get_format() if kacheln.size() > 0 else Image.FORMAT_RGBA8)
 	blatt.fill(Color("0e0b08"))
 	for i in kacheln.size():
-		blatt.blit_rect(kacheln[i], Rect2i(Vector2i.ZERO, kacheln[i].get_size()), Vector2i((i % sp) * GESICHT_KACHEL, (i / sp) * GESICHT_KACHEL))
+		blatt.blit_rect(kacheln[i], Rect2i(Vector2i.ZERO, kacheln[i].get_size()), Vector2i((i % sp) * GESICHT_KACHEL, (i / sp) * (GESICHT_KACHEL + GESICHT_NAME)))
 	blatt.save_png(dir + "/" + datei)
 	print("GESICHTER ", kacheln.size(), " ", dir + "/" + datei, " nah" if nah else " ohne Dorf")
 	for w in welt_sichtbar: (w[0] as Node3D).visible = w[1]
