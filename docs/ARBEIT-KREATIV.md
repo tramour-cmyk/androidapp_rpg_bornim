@@ -4,14 +4,11 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `0efa93161` (09.11., 22:14)
 
-**Übergabe (10.11., 10:50):** 830 an den Chef (`[830.sprung]`), 836 an Jerry. 807a an den Chef (`STORY-K1-FERTIGKEITEN.md`). 817 Texte `STORY-MENUE.md` `[817.…]`, Einbau 839 an Tom. Alle fremd geprüft. Nachfolger: Homer – 766: Rollenspiegel (13.11.).
+**Übergabe (10.11., 11:11):** 807 erledigt: `STORY-K1-FERTIGKEITEN.md` festgesetzt (807a A), Bau 841 Jerry, 842 Tom. 830 erledigt: `[830.sprung]` Wortlaut A fest in `STORY-SPIEL.md`, Bau 840 Jerry. Nachfolger: Homer – 766: Rollenspiegel (13.11.).
 
 ## Zeilen
 
 - **Offen aus 817 (Homer 10.11., 10:50, Fremdprüfung):** (1) `[423.werte.ab]` sagt „Eine Gabe, andere zu bezaubern, gibt es nicht“, im Code gibt Wille über die Brücke Ladenpreise und Auftreten (CHA); beim Bau 2.3 klären. (2) `STORY-REGELN.md` Englisch Regel (3) „HP, nie life points“ widerspricht `[423.werte.ab]` „Life“ (Menü nach 683 „Leben/Life“, Kampfmeldungen „TP/HP“); eine Regel festlegen. (3) Englisch für „Abwehrprobe“ fehlt in `[423.namen]` („Defence“ ist schon die Abwehr eines Hiebs; Vorschlag „Resistance roll“); „Protection“ ist auch die Pfadgruppe Schutz.
-
-- **Zu 807, von Sokrates (Chef 09.11., 22:26: „807 A“, Archiv; Datei gelöscht):** Texte Pim überreden, Goblin-Späher einschüchtern, Verband (je drei Wortlaute nach 504) dem Chef vorlegen; danach je ein Vorgang an Tom (Pim, Verband) und Jerry (Einschüchtern). Zuordnung der 13 an Spike ist eingetragen (Vorrat Tom „Zu 471“).
-- **Zu 807, von Spike (09.11., 21:20, zu 471; Chef 20:51: „Es gibt keine Fertigkeiten, die losgelöst vom Kampf sind … Schleichen … Wahrnehmung … da sollte man dann schon nochmal ein bisschen drauf [schauen]“):** Von den 37 Fertigkeiten haben in Kapitel 1 (Godot) 20 keine Tätigkeit: Wurfwaffen, Schutzmagie, Illusion, Beschwörung, Schleichen, Spähen, Schlösser knacken, Fallen entschärfen, Tiere beruhigen, Überreden, Einschüchtern, Bergbau (ab Kapitel 2), Angeln, Jagd, Alchemie (Morwen braut für den Helden), Schmieden, Lederarbeit, Kochen, Runenkunde, Heilkunde. Bitte vorschlagen, welche Kapitel 1 bekommt und wie (Spielgefühl), Vorlage an den Chef; der Code kann jede üben (`BrsFertigkeit.uebe`, `Zustand.uebe`). Liste aller 37 mit Stand: Vorrat Tom „Zu 471“.
 
 - **Zu 458.4 (erledigt 01.11.):** abgenommene Texte wortgetreu (`[D4.1.rauch.tasche]`, `[356.schluessel]`, übrige Handlungsgegenstände aus `Items.kt`); keine Zahlen und keine Wirkung, die das BRS nicht festlegt; Ladenware ohne Abnutzungsspuren (neu = makellos). Offen für später: (1) `[D4.1.rauch.tasche]` sagt „werfen“, im Spiel fliegt das Bündel von selbst, sobald Krogg auftaucht (`klassisch.gd`, D4.1); (2) SRD-Namen „Handschuhe der Ogerkraft“, „Umhang des Schutzes“, englisch „Potion of Healing“ usw. vor Stufe 6 ersetzen.
 - **Zu 432, von Sokrates (Chef 01.11., 09:41: „432 wie Sokrates“, Archiv):** Weg A entschieden; Datei gelöscht. Für dich: Weg in den Storyplan, dazu intern die Antwort, warum der Kult die Aschgeborenen sucht (Bedingung vor dem Bau); Modell Mensch mit Strähne und Iris-Ring (an Tom erst nach dem Meilenstein).
