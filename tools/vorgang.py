@@ -169,6 +169,27 @@ def rang(nr, wie, ziel=None, rolle=None):
     schreiben(startbar.LISTE, "\n".join(L))
     print("vorgang.py: %s (%s) %s%s" % (nr, d["besitzer"], wie, (" " + ziel) if ziel else ""))
 
+_FERN = {}
+
+def _fern(datei):
+    """880 (D135.2): Stand von origin/main frisch geholt (einmal je Aufruf), damit zwei Sitzungen nicht dieselbe Nummer ziehen,
+    wenn eine noch nicht zusammengeführt hat. Ohne Netz: leer."""
+    if "_geholt" not in _FERN:
+        _FERN["_geholt"] = True
+        try: subprocess.run(["git", "-C", DOCS, "fetch", "-q", "origin", "main"], timeout=20, capture_output=True)
+        except Exception: pass
+    if datei not in _FERN:
+        try: _FERN[datei] = subprocess.run(["git", "-C", DOCS, "show", "origin/main:docs/" + datei], capture_output=True, text=True, timeout=10).stdout
+        except Exception: _FERN[datei] = ""
+    return _FERN[datei]
+
+def fern_zaehler():
+    m = re.search(r"\*\*Nächste freie Vorgangsnummer: (\d+)\*\*", _fern("ARBEIT-BETRIEB.md"))
+    return [int(m.group(1))] if m else []
+
+def fern_nummern():
+    return set(re.findall(r"(?m)^\| (\d+) \|", _fern(startbar.LISTE)))
+
 def neu(titel, bereich, kl, besitzer, nr=None, oben=False):
     """275 Stufe 2, 275.2: neue Zeile (Stand startbar, Kosten –); ohne --nr die nächste freie Nummer aus ARBEIT-BETRIEB.md, die hochzählt."""
     if kl not in ("M", "K", "M?"): sys.exit("vorgang.py: Klasse M, K oder M?")
@@ -184,7 +205,9 @@ def neu(titel, bereich, kl, besitzer, nr=None, oben=False):
         b = startbar.lesen("ARBEIT-BETRIEB.md")
         m = re.search(r"\*\*Nächste freie Vorgangsnummer: (\d+)\*\*( \(zuletzt [^)]*\))?", b)
         if not m: sys.exit("vorgang.py: Zähler in ARBEIT-BETRIEB.md nicht gefunden")
-        nr = m.group(1); d["nr"] = nr
+        nr = str(max([int(m.group(1))] + fern_zaehler())); d["nr"] = nr  # 880: nie unter dem Zähler auf origin/main
+        while nr in startbar.VORG or any(d2["nr"] == nr for d2 in startbar.zeilen_liste()) or nr in fern_nummern():
+            nr = str(int(nr) + 1); d["nr"] = nr
         # 653 doppelt: zwei Sitzungen zogen dieselbe Nummer, die gleiche Zählerzeile mischte git still.
         # Die Marke macht jede Ziehung verschieden, gleichzeitiges Ziehen wird ein Mischkonflikt.
         import secrets, time

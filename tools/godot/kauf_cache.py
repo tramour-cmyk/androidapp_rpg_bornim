@@ -12,6 +12,10 @@
 #   kauf_cache.py holen              Treffer: Dateien nach godot/daten, godot/kampf/daten, Ende 0; sonst Ende 1
 #   kauf_cache.py vorher             Stand von godot/daten und godot/kampf/daten merken (vor dem Bau)
 #   kauf_cache.py ablegen            seit „vorher“ neue oder geänderte Dateien als Zweig bau/<Kennung> schieben
+#   kauf_cache.py vergleich          Gegenprobe nach einem vollen Bau ohne Cache: jede Datei des Zweigs Byte für Byte gegen den Bau;
+#                                    Ende 1 bei Abweichung (dann deckt die Kennung eine Eingabe nicht; Perikles 10.11., zu 854)
+# Eingaben außerhalb tools/blender348/ lesen die Schritte heute nur aus karten.json (dorf.py, raum.py) und daten/waffen/ (Kampfort
+# bauen, aus „Leute bauen“, das selbst nur tools/blender348/ und karten.json liest); eine neue solche Eingabe gehört in kennung().
 # Zugang: in der Sitzung über den Proxy; auf dem Bauserver GH_TOKEN mit Schreibrecht (Contents) aufs Kaufrepo.
 import hashlib, json, os, re, shutil, subprocess, sys, tempfile, urllib.request
 import yaml
@@ -137,6 +141,28 @@ def holen():
     return 0
 
 
+def vergleich():
+    k = kennung()
+    if pruefen(k):
+        return 1
+    with tempfile.TemporaryDirectory() as t:
+        git('init', '-q', t)
+        if git('fetch', '-q', '--depth', '1', url(), zweig(k), cwd=t, check=False).returncode:
+            print('KAUF-CACHE Laden misslungen', k, flush=True)
+            return 1
+        namen = [n for n in git('ls-tree', '-r', '--name-only', 'FETCH_HEAD', cwd=t, capture_output=True).stdout.splitlines() if n != ZUSATZ]
+        git('-c', 'core.autocrlf=false', 'checkout', '-q', 'FETCH_HEAD', '--', *namen, cwd=t)
+        anders = []
+        for n in namen:
+            p = os.path.join(REPO, n)
+            if not os.path.exists(p) or open(p, 'rb').read() != open(os.path.join(t, n), 'rb').read():
+                anders.append(n)
+    for n in anders[:20]:
+        print('KAUF-CACHE weicht ab', n, flush=True)
+    print('KAUF-CACHE Gegenprobe', k, len(namen), 'Dateien,', len(anders), 'abweichend', flush=True)
+    return 1 if anders else 0
+
+
 def stand():
     s = {}
     for o in ORDNER:
@@ -210,5 +236,7 @@ if __name__ == '__main__':
         vorher()
     elif befehl == 'ablegen':
         ablegen()
+    elif befehl == 'vergleich':
+        sys.exit(vergleich())
     else:
-        sys.exit('Aufruf: kauf_cache.py kennung|holen|vorher|ablegen')
+        sys.exit('Aufruf: kauf_cache.py kennung|pruefen|holen|vorher|ablegen|vergleich')

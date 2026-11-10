@@ -2,9 +2,9 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `0dc283e9a` (10.11., 14:32)
+**Gelesen bis:** `e9dc25b14` (10.11., 16:54)
 
-**Übergabe (10.11., 14:38):** erledigt: 857 (Kräutersammeln/Foraging in `DESIGN-BRS`, `-ENTSCHEIDUNGEN` 29/81, Handbuch 1/2 DE/EN, `STORY-MENUE` 94, `STORY-RUF-K1`, feste Namen in `STORY-REGELN`; fremd geprüft 14:37; Bau 875 Tom, 876 Jerry); 663.1 (`[280.tipp]` nur Fingersteuerung, Code schon auf `claude/tom-663-touch`). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
+**Übergabe (10.11., 16:54):** erledigt: 870.15 (`STORY-BRS-ANLEITUNG.md`, `-OBERFLAECHE.md`; Bärenschrat, Goblin-Hauptmann in den K1-Texten und `STORY-REGELN.md`; fremd geprüft 16:50, 25 Befunde eingearbeitet; Hinweise an Tom, Jerry). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
 
 ## Zeilen
 

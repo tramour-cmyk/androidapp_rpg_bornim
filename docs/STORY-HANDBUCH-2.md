@@ -38,8 +38,8 @@ EN: **Luck** scatters only a little. A lucky blow against you, one in a hundred,
 `[423.kampf.abwehr]` **Abwehr.** Ob ein Hieb dich trifft, entscheidet die beste deiner Abwehren: Schild, Ausweichen oder, gegen Nahkampf, die eigene Klinge, die halb so viel zählt wie ihre Fertigkeit. Gegen Pfeile und Zauber helfen nur Schild und Ausweichen. Trifft er, nimmt deine Rüstung ihm einen Teil; je besser du Schild und Rüstung führst, desto mehr.
 EN: **Defense.** Whether a blow strikes you is decided by the best of your defenses: shield, dodge or, against melee, your own blade, counting half its skill. Against arrows and spells only shield and dodge help. If it lands, your armor takes part of it; the better you handle shield and armor, the more.
 
-`[423.kampf.schleichen]` **Aus dem Schatten.** Mit der Schleichtaste näherst du dich. Bleibst du unbemerkt, schlägst du zuerst und hast den Vorteil des Hinterhalts. Viele Gegner sind schwerer zu überlisten als einer; Bosse sind wachsam. In schwerer Rüstung schleicht niemand: sie klirrt.
-EN: **From the shadows.** With the sneak button you draw near. Stay unseen and you strike first, with the edge of the ambush. Many foes are harder to fool than one; bosses are watchful. No one sneaks in heavy armor: it clanks.
+`[423.kampf.schleichen]` **Aus dem Schatten.** Mit der Schleichtaste näherst du dich. Bleibst du unbemerkt, schlägst du zuerst, aus dem Hinterhalt. Viele Gegner sind schwerer zu überlisten als einer; Bosse sind wachsam. In schwerer Rüstung schleicht niemand: sie klirrt.
+EN: **From the shadows.** With the sneak button you draw near. Stay unseen and you strike first, from ambush. Many foes are harder to fool than one; bosses are watchful. No one sneaks in heavy armor: it clanks.
 
 `[423.kampf.grenzen]` **Was sich ausschließt,** schließt sich aus: Zweihänder und Schild nie zugleich, Metall und die Magie der Umgebung nie zugleich, nie zwei Pfade.
 EN: **What excludes itself** stays excluded: never two-hander and shield at once, never metal and the magic of the surroundings at once, never two paths.
