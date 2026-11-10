@@ -1,10 +1,10 @@
 extends SceneTree
 # 653 Prüfbild aller Kombinationen: je Körpertyp ein Blatt, darauf jeder Gegenstand des Katalogs mit Modell, angelegt mit der einen
 # Anlegefunktion (Halt.anlegen: Waffe rechte Faust, Schild linker Unterarm), Haltung „Stehen“, von vorn und von der Seite der Hand.
-# Nur mit Fenster: im Ordner godot, xvfb-run, --resolution 360x540, -s res://tests/halt_bild_653.gd -- --aus=<ordner> [--koerper=WACHE_M,…]
+# Nur mit Fenster: im Ordner godot, xvfb-run, --resolution 360x540, -s res://tests/halt_bild_653.gd -- --aus=<ordner> [--koerper=WACHE_M,…] [--nur=shield,…]
 # -> <ordner>/653_<Körper>.png, Zeilen „BILD“
 
-const SPALTEN := 4
+var SPALTEN := 4
 
 func _initialize() -> void:
 	_lauf.call_deferred()
@@ -19,6 +19,8 @@ func _lauf() -> void:
 	var ids: Array = []
 	for id in Katalog.lade():
 		if String(Katalog.eintrag(id).get("art", "")) in ["waffe", "schild"] and Halt.datei(id) != "": ids.append(id)
+	var nur := arg("nur")   # nur diese Gegenstände (Komma), z. B. nach einem Befund des Chefs
+	if nur != "": ids = ids.filter(func(i): return i in nur.split(","))
 	for k in arg("koerper", "WACHE_M,WACHE_W").split(","):
 		await blatt(String(k), ids, aus)
 	quit()
@@ -77,6 +79,7 @@ func blatt(k: String, ids: Array, aus: String) -> void:
 		dt.queue_free()
 		return
 	var cw := zellen[0].get_width(); var ch := zellen[0].get_height()
+	SPALTEN = mini(4, zellen.size())
 	var zeilen := ceili(zellen.size() / float(SPALTEN))
 	var ges := Image.create(cw * SPALTEN, ch * zeilen, false, Image.FORMAT_RGBA8)
 	ges.fill(Color(0.03, 0.025, 0.02))

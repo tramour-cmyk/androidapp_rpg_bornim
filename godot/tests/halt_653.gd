@@ -75,6 +75,7 @@ func _lauf() -> void:
 			continue
 		var ks := HeldFigur.im_raum(m, sk)
 		var rumpf := HeldFigur.haut_punkte(m, sk, true, null, lagen)
+		var ganz := HeldFigur.haut_punkte(m, sk, true, null, lagen, INF)   # mit den Armen (Schild am Unterarm)
 		for id in ids:
 			var schild := String(Katalog.eintrag(id).get("art", "")) == "schild"
 			var platz := "unterarm_l" if schild else "faust_r"
@@ -108,6 +109,19 @@ func _lauf() -> void:
 				for q in rumpf: naechst = minf(naechst, w.distance_to(q))
 			print("PAAR %s %s %s Rumpf %.1f cm" % [t, id, platz, naechst * 100.0])
 			if schild:
+				# Chef 10.11., 13:39 („im Seitprofil der Unterarm durch das Schild“): Ecken des Körpers (mit Arm und Hand) vor der Rückseite
+				# des Bretts und innerhalb seines Umrisses; am Rand (12 % der Breite) liegt die Wölbung, dort nicht
+				var kb: AABB = mass["kasten"]
+				var inv := welt.affine_inverse()
+				var durch := 0
+				var tief := 0.0
+				for q in ganz:
+					var l: Vector3 = inv * q
+					if absf(l.x - kb.get_center().x) > kb.size.x * 0.38 or l.y < kb.position.y + kb.size.y * 0.12 or l.y > kb.end.y - kb.size.y * 0.12: continue
+					if l.z > -0.005 and l.z < kb.end.z:
+						durch += 1; tief = maxf(tief, l.z + 0.005)
+				print("DURCH %s %s %d Ecken, bis %.1f cm" % [t, id, durch, tief * 100.0])
+				pruefe(durch == 0, "%s %s: %d Ecken des Körpers im Schild (bis %.1f cm)" % [t, id, durch, tief * 100.0])
 				var vorn := (welt.basis * (mass["vorn"] as Vector3)).normalized()
 				var seite := (ks.basis * Vector3.RIGHT).normalized()   # Figur blickt nach +Z, ihre Linke ist +X
 				pruefe(vorn.dot(seite) > 0.0, "%s %s: Vorderseite zum Körper (%.2f)" % [t, id, vorn.dot(seite)])

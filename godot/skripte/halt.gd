@@ -10,6 +10,10 @@ extends RefCounted
 # Alt: core/art/Dress.kt held (Griff je Grundform GRIP_BACK, eine Funktion für alle Körper), weaponThroughShield/Body (nichts im Körper).
 
 const WAFFEN := "res://daten/waffen/%s.bin"
+const BOGEN := ["shortbow", "longbow", "light_crossbow"]   # Korrektur je Gegenstand (nie je Paar): Fläche in x statt z
+## Chef 10.11., 13:39 (Prüfbild 653: „im Seitprofil der Unterarm durch das Schild“): die Fessel (Ursprung des Schilds) liegt auf der
+## Rückseite des Bretts; die Faust um sie herum, der Unterarm dahinter. Das Brett steht darum so weit außen vor der Faustmitte
+const SCHILD_AUSSEN := 0.055
 const KAMPF := "res://kampf/daten/%s.bin"
 
 static var _mass := {}            # Kennung -> Maße (Zwischenspeicher)
@@ -36,7 +40,8 @@ static func aus_feld(h: Dictionary) -> Dictionary:
 	var hh: Array = h.get("hoehe", [-0.24, 0.24])
 	return {"griff": _v(h.get("griff", [0, 0, 0])), "achse": _v(h.get("achse", [0, 1, 0])).normalized(),
 		"vorn": _v(h.get("vorn", [0, 0, 1])).normalized(), "spitze": _v(h.get("spitze", [0, 0, 0])), "laenge": float(h.get("laenge", 0.0)),
-		"unten": float(h.get("unten", 0.0)), "hoehe": Vector2(float(hh[0]), float(hh[1])), "rand_hinten": float(h.get("rand_hinten", 0.0))}
+		"unten": float(h.get("unten", 0.0)), "hoehe": Vector2(float(hh[0]), float(hh[1])), "rand_hinten": float(h.get("rand_hinten", 0.0)),
+		"kasten": AABB(_v(h.get("kasten", [0, 0, 0, 0, 0, 0]).slice(0, 3)), _v(h.get("kasten", [0, 0, 0, 0, 0, 0]).slice(3, 6)))}
 
 ## als Feld für den Katalog (Zahlen auf mm gerundet)
 static func als_feld(m: Dictionary) -> Dictionary:
@@ -44,7 +49,7 @@ static func als_feld(m: Dictionary) -> Dictionary:
 	var v := func(p: Vector3) -> Array: return [r.call(p.x), r.call(p.y), r.call(p.z)]
 	return {"griff": v.call(m["griff"]), "achse": v.call(m["achse"]), "vorn": v.call(m["vorn"]), "spitze": v.call(m["spitze"]),
 		"laenge": r.call(m["laenge"]), "unten": r.call(m["unten"]), "hoehe": [r.call(m["hoehe"].x), r.call(m["hoehe"].y)],
-		"rand_hinten": r.call(m["rand_hinten"])}
+		"rand_hinten": r.call(m["rand_hinten"]), "kasten": v.call((m["kasten"] as AABB).position) + v.call((m["kasten"] as AABB).size)}
 
 ## aus dem Modell: Ecken aller Netze im Raum des Modells
 static func messen(id: String) -> Dictionary:
@@ -60,21 +65,29 @@ static func messen(id: String) -> Dictionary:
 		for s in me.get_surface_count():
 			for p in me.surface_get_arrays(s)[Mesh.ARRAY_VERTEX]: pts.append(tr * p)
 	d.free()
-	return mass_aus(pts)
+	var m := mass_aus(pts)
+	if id in BOGEN and not m.is_empty():
+		# Chef 10.11., 13:39 (Prüfbild 653: „in der Seitansicht fehlt die Sehne … sieht aus wie ein Stab“): beim Bogen liegen Wurfarme
+		# und Sehne in x (waffen.py), nicht in z; vorn ist darum die Seite der Sehne, die Fläche des Bogens steht dann senkrecht
+		var sx := signf((m["spitze"] as Vector3).x)
+		m["vorn"] = Vector3(sx if sx != 0.0 else -1.0, 0, 0)
+	return m
 
 ## Maße aus Ecken (Modellregel 4): Griff im Ursprung, Achse +Y, vorn +Z; Spitze = Mitte der Ecken im obersten Zentimeter
 static func mass_aus(pts: PackedVector3Array) -> Dictionary:
 	if pts.is_empty(): return {}
 	var lo := INF; var hi := -INF; var hinten := 0.0
+	var kasten := AABB(pts[0], Vector3.ZERO)
 	for p in pts:
 		lo = minf(lo, p.y); hi = maxf(hi, p.y)
+		kasten = kasten.expand(p)
 		if absf(p.x) > 0.15: hinten = maxf(hinten, -p.z)
 	var sp := Vector3.ZERO; var n := 0
 	for p in pts:
 		if p.y > hi - 0.01: sp += p; n += 1
 	sp /= maxf(1.0, n)
 	return {"griff": Vector3.ZERO, "achse": Vector3.UP, "vorn": Vector3.BACK, "spitze": sp, "laenge": sp.length(), "unten": maxf(0.0, -lo),
-		"hoehe": Vector2(lo, hi), "rand_hinten": hinten}
+		"hoehe": Vector2(lo, hi), "rand_hinten": hinten, "kasten": kasten}
 
 ## Rahmen des Griffs im Raum des Modells: Ursprung am Griff, y = Achse, z = vorn
 static func griff_rahmen(m: Dictionary) -> Transform3D:
@@ -109,6 +122,7 @@ static func halterung(sk: Skeleton3D, platz: String, koerper := "") -> Dictionar
 		# Schild: oben zum Daumen (Achse), Vorderseite vom Handrücken weg (aus dem Handrücken: Knöchel × Achse, je Seite gespiegelt)
 		var aussen := (knoechel.cross(achse) * (-1.0 if s == "l" else 1.0)).normalized()
 		b = Basis(achse.cross(aussen), achse, aussen)
+		griff += aussen * SCHILD_AUSSEN
 	else:
 		return {}
 	var t := Transform3D(b, griff)

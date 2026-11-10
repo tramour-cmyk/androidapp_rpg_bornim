@@ -584,7 +584,7 @@ static func haltung_lagen(m: Node3D, sk: Skeleton3D, name: String) -> Array:
 
 # Ecken aller Netze mit Haut im Raum der Wurzel m (ohne deren eigene Lage): Ruhelage, oder mit [haltung] nach der Lage der Knochen
 # (wie die Haut sie zeichnet); [nur]: ein Netz. Mit Haltung nur die Mitte (Ruhe |x| < 0,2), sonst dauert es zu lange
-static func haut_punkte(m: Node3D, _sk: Skeleton3D, haltung: bool, nur: MeshInstance3D = null, lagen := []) -> PackedVector3Array:
+static func haut_punkte(m: Node3D, _sk: Skeleton3D, haltung: bool, nur: MeshInstance3D = null, lagen := [], breite := 0.2) -> PackedVector3Array:
 	var aus := PackedVector3Array()
 	for mi in ([nur] if nur else m.find_children("*", "MeshInstance3D", true, false)):
 		var x := mi as MeshInstance3D
@@ -603,7 +603,7 @@ static func haut_punkte(m: Node3D, _sk: Skeleton3D, haltung: bool, nur: MeshInst
 			if bo == null or vs.is_empty(): continue
 			var n := int(bo.size() / vs.size())
 			for i in vs.size():
-				if absf((t * vs[i]).x) > 0.2: continue
+				if absf((t * vs[i]).x) > breite: continue   # 653: mit breite = INF auch die Arme (Schild am Unterarm)
 				var w := Vector3.ZERO
 				for j in n:
 					var g: float = we[i * n + j]
