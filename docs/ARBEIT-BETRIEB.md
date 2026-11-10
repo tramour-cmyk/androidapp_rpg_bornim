@@ -171,3 +171,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:13 10.11.: Startsperre 07:13 Start Perikles (Ford, vor dem Start; Neustart d6114d691)
 - 07:25 10.11.: Chef 07:2x „archivier ordentlich, erfasse Kosten, prüfe Neustarts“: archiviert und gebucht Sokrates-Stellungnahme (826,827), Perikles 818, Diogenes 800, Tuffy 642 (blieb blockiert), Jerry 595 (20,34 $), Tom 475 (10,16 $; Chefsache 475 liegt vor); Chefsache 820 gelöscht (erledigt). Bleiben: Sokrates 650.2, Perikles 828, Homer 810 (Frage 807 A/B ohne Chefsache-Datei)
 - 07:22 10.11.: Startsperre 07:22 Start Sokrates (Ford, vor dem Start; Neustart a9a3d3722, 650.2 C3 fertig)
+- 07:27 10.11.: Sokrates 650.2 (alt) archiviert, gebucht; Nachfolger Sokrates Entscheidungsliste 2.0 läuft
