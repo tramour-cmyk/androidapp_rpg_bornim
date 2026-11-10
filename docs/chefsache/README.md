@@ -16,11 +16,7 @@ Nichts offen.
 
 ## Zu tun
 
-Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Datei löschen.
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [854](tun/854-kauf-token.md) | **Muss** | B Werkzeuge | 10.11., 15:52 | Dem Token KAUF_TOKEN Schreibrecht aufs Kaufrepo geben | Sokrates für Jerry |
+Nichts offen.
 
 ## Offen je Rolle
 
