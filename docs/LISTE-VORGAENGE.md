@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 653 | Halt für Waffen und Schilde einmal je Modell festlegen statt je Figur nachmessen: Griffpunkt je Gegenstand, Halterung je Körper, eine Anlegefunktion, Prüfbild aller Kombinationen (Chef 08.11., 14:35) · „jetzt“ 10.11., 12:33 | Tom | M | in Arbeit, Prüfbild beim Chef (cs 653) | Chef | claude/tom-653-halt | – | E Figuren | – |
+| 653 | Halt für Waffen und Schilde einmal je Modell festlegen statt je Figur nachmessen: Griffpunkt je Gegenstand, Halterung je Körper, eine Anlegefunktion, Prüfbild aller Kombinationen (Chef 08.11., 14:35) · „jetzt“ 10.11., 12:33 | Tom | M | startbar, Rest passt; Schild, Rundschild, Kurzbogen nachbessern | – | claude/tom-653-halt | – | E Figuren | – |
 | 663 | Klassische Steuerung ausbauen: Steuerkreuz und Funktionstasten ganz raus, nur Touch; Auswahl der Steuerung samt Rückfrage weg (Chef 08.11., 15:24, t269.3) · „jetzt“ 10.11., 12:58 | Tom | M | gebaut, Geprüft an: 6095ac45f (Tests grün außer 27 Laden-Fehler wie auf main) | – | claude/tom-663-touch | – | E Oberfläche | – |
 | 470 | Bau BRS 1.1 Erschaffung (Wochenziel 02.11., Stufe 1) · Spike; „Neues Spiel“ umschalten erst nach t274.18 · „jetzt“ 10.11., 12:58 | Tom | M | startbar, Seite passt 13:37; umschalten jetzt frei (t274.18 ✓) | – | claude/spike-470-erschaffung | – | E Kampf | 43,23 $ |
 | 834 | Weg für einen BRS-Held ins Spiel (Testmenü oder Übernahme der BRS-Erschaffung), damit 762, 471, 795 am Gerät prüfbar werden; Spike, genehmigt (Chef 10.11., 10:21, über Sokrates) | Tom | M | erledigt, t274 bestanden | – | claude/tom-brs-held | 274 | E Technik | 6,00 $ |
