@@ -349,6 +349,14 @@ func _process(dt: float) -> void:
 					if wer.kachel != gestossen or zeit - stoss_zeit > 2.0:
 						gestossen = wer.kachel; stoss_zeit = zeit
 						stoesst.emit(wer.kachel)
+			# 540 (t274.12, Chef 10.11.: am Südrand kein Text): schräg gegen einen gesperrten Ausgang glitt der Held an ihm entlang und
+			# stieß nie an (suedrand_540: gerade ja, schräg nie; die Spielkamera blickt schräg, der Joystick zeigt selten genau entlang
+			# der Kacheln). Ein gesperrter Ausgang vorn meldet sich darum auch beim Entlanggleiten, alle 2 s höchstens einmal
+			if not vorn_frei and not gegen:
+				var aus := karte.pos_kachel(np + d * RAND)
+				if not karte.sperrt(aus).is_empty() and zeit - stoss_zeit > 2.0:   # je Rand einmal, nicht je Kachel
+					gestossen = aus; stoss_zeit = zeit
+					stoesst.emit(aus)
 			if vorn_frei:
 				position = np
 			elif gegen:
@@ -363,7 +371,8 @@ func _process(dt: float) -> void:
 				var vor := karte.pos_kachel(position + d * (RAND + 0.05))
 				var wer := sperrer(np + d * RAND)   # vor einer breiten Person (Rind) stand der Held noch auf der eigenen Kachel
 				if wer: vor = wer.kachel
-				if vor != gestossen or zeit - stoss_zeit > 2.0:
+				var rand := not karte.sperrt(vor).is_empty()   # 540: an einem gesperrten Ausgang zählt nur die Zeit
+				if (vor != gestossen and not rand) or zeit - stoss_zeit > 2.0:
 					gestossen = vor; stoss_zeit = zeit
 					stoesst.emit(vor)
 				break

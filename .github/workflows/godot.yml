@@ -293,6 +293,7 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_473.gd 2>&1 | grep -E "FALSCH|BRS473|SCRIPT ERROR"   # 473 Monsterwerte BRS wie sim444
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_472.gd 2>&1 | grep -E "FALSCH|BRS472|SCRIPT ERROR"   # 472 Heldenstufe aus Erfahrung
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/starttexte_540.gd 2>&1 | grep -E "FEHLER|STARTTEXTE|SCRIPT ERROR"   # 540 Suedrand, Schlagbaum, 12/5, Tipp
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/suedrand_540.gd 2>&1 | grep -E "FEHLER|SUEDRAND540|SCRIPT ERROR"   # 540 t274.12: auch schräg an den Südrand stoßen
           timeout 120 ~/godot/godot --headless --path . -s res://tests/zwischenbild_test.gd 2>&1 | grep -E "FALSCH|ZWISCHENBILD|SCRIPT ERROR"   # 399.1 Intro
           timeout 120 ~/godot/godot --headless --path . -s res://tests/tasten_4161.gd 2>&1 | grep -E "FEHLER|TASTEN|SCRIPT ERROR"   # 416.1
           timeout 300 ~/godot/godot --headless --path . -s res://tests/kamin_501.gd 2>&1 | grep -E "FEHLER|KAMIN501|Kamin|SCRIPT ERROR"   # 501 Flamme auf den Scheiten
