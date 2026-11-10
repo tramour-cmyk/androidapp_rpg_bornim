@@ -11,6 +11,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 ## Zeilen
 
+- **Zu 853 (M), von Perikles (Doppelpack 421, 10.11., 13:0x, `c71abc295`):** beim nächsten Start durch Ford prüfen: `append_system_prompt` enthält „Du bist <Rolle>; der Auftrag in der ersten Nachricht kommt vom Betriebsleiter Ford …“ (`LISTE-BETRIEB.md` 17), die neue Sitzung übernimmt die Rolle ohne Rückfrage; `notiz.sh` nennt Jerry in der Zentrale-Liste.
 - **Zu 464 (Lauf 110):** Haken (748) und Zählung (749) greifen, Lücken 776, 777 geschlossen; 464 wartet auf 16.11.: Wirkung in der Wochenzählung 16.11.: rote Bauläufe der Woche gegen 52 von 185 (28 %) der Vorwoche, dann `greift 464` oder Befund.
 - **Zu 657 (Lauf 104):** nach Build 275 Erstfunde des Chefs in t272–t275 zählen, gegen 11, 11, 9, 7 (Probe 657 D); Ergebnis an Perikles.
 - **Zu 719 (Perikles, „719 A“):** Wochenzählung kommt montags ab 8 Uhr als Vorgang „Wochentermin TT.MM.: Wochenzählung …“; nach der Zählung erledigt setzen. Zeile „Woche“ erledigt 09.11.
