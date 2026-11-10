@@ -39,16 +39,12 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 - **Zu 536, von Chef (Fund t270.10, Test Build 270, Automatik B):** Ansagen seitlich mit langer Linie, verdecken Namen (Chef 20:54)
 - **Zu t270, von Sokrates (Chef 08.11., 20:20–21:36):** Wortlaut je Zeile `git show df2945462:docs/ARBEIT-TEAM-JERRY.md` („Zu t270“). Für 562, 662, 682 (20:50): „Ich gehe wieder auf die Wölfe zu, als ob ich in die Hose gemacht hätte. Die Schildabwehr ist genauso wie jedes Mal. Ich erkenne keinen Unterschied, von welcher Seite der Angriff kommt. Die Wölfe laufen immer noch in komischen Schienenbahnen.“ Zuerst prüfen, ob 562 und 662 in 0.348.304 überhaupt wirken. 536 (20:54): Ansagen seitlich mit langer Linie, verdecken „Jungw…“; „Alrik“ steht weit vor dem Helden.
 
-- **von Sokrates (08.11., 16:23, zu 682, Chef 16:22, 16:24; Wortlaut `git show b0cb30363:docs/ARBEIT-TEAM-JERRY.md`):** „Das muss flutschiger werden, flüssiger.“ Gegner gehen eckig gerade-diagonal, drehen auf der Stelle; „der Held macht es ja auch nicht besser“. Also: Wege als Kurve, Drehen im Gehen statt auf der Stelle, für Gegner und Held. Mit 562 (Angriffsgang) zusammen denken.
 - **Zu 517, von Chef (Fund t269.26, Test Build 269, Automatik B):** Wald nachts: Eule da; Tiefer Wald nachts: Vogelgezwitscher und Grillen (Vögel nachts falsch), fernes Heulen kommt spät; prüfen, was im Tiefen Wald nachts alles spielt (Chef 16:13)
 - **Zu 406.2, von Chef (Fund t269.21, Test Build 269, Automatik B):** Kleriker gegen Wölfe: Wölfe laufen nicht ineinander (438 ✓), gehen aber nicht rückwärts zurück (562, nicht im Build); Abwehr zur Seite „schwer zu beurteilen“, Eindruck: Schild immer gehoben wie vorher (406.2 offen) (Chef 16:06)
 - **Zu 616, aus 438 (Fund t269.21, Chef 16:06):** Wölfe gehen nach dem Angriff nicht rückwärts zurück; 438 selbst ✓ und erledigt (10.11.).
 - **Zu 532, von Chef (Fund t269.25, Test Build 269, Automatik B):** „Betrunken“ steht am Helden; im Kampf danach wird das Spiel langsam und stürzt ab (→ 680); Trinken ohne Klang (→ 681) (Chef 16:16)
 
-- **von Sokrates (08.11., 16:11, zu 679, Chef 16:06–16:11, Build 269; Wortlaut `git show b0cb30363:docs/ARBEIT-TEAM-JERRY.md`):** Gewinnen, Verlieren, Raster, Würfel fehlten, im Wolfslauf keine Knöpfe. Nachgestellt (Tuffy, 09.11.): MARS rechnet voraus; fällt der Held, steht „verloren“ fest, während Wolfszüge noch spielen, und die Schalter verschwanden zu früh. Behoben, Test `knoepfe_679.gd`, Zweig `claude/tuffy-679-knoepfe`. Befehle fehlen im Wolfslauf, weil der Held Züge verliert (702). Prüfzeile: Held allein abwehren, bis er fällt: Raster, Würfel, Tempo bleiben bis „Der Kampf ist verloren.“
-
 - **von Sokrates (08.11., 14:29, zu 644.1, 644.2; Chef 14:28 „Alles ja wie vorgeschlagen“):** Aufbau in `git show HEAD~1:docs/chefsache/entscheiden/644-gegenstandskatalog.md` (Commit „644 entschieden“), Archiv „644 A B C“; Werkzeug zusammen mit 649.2 (eine Seite, gleiche Prüfweise).
-
 
 - **von Sokrates (08.11., 13:39, zu 649.1, 649.2, 649.4; Chef 13:28, 13:38):** Figurenkatalog nach Muster 644; alles in `LISTE-FIGURENKATALOG-649.md` (Bauplan, Gegenprüfung mit Fundstellen). Chef will je Figur auch Klänge, Bewegungen, Gruppen („der Jungwolf nur in Kombination“), je Anlass drei Varianten (Bauplan Punkt 8, Chef 13:47).
 
@@ -56,14 +52,9 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 - **Zu 643, von Tom (08.11., 10:5x, zu 531):** Chef 03.11., 23:42 (531): Garrick „wie alt und besser … Langbogen auf dem Rücken“; alt (`MapFolk.kt` garrick): „the longbow slung across his back over the quiver, both hands free“. Es gibt in `waffen.py` nur `shortbow`; Kandidat aus dem Kauf: `SM_Bow&ArrowsProp` (ANIMSET.BOW.ARROW) oder `sm_bow` (Medieval Weapon Pack Godot). Gebraucht: `daten/waffen/longbow.bin` (+ Köcher) nach Modellregel 4; die Lage auf dem Rücken baut Tom (`bewaffne`). 531 wartet darauf (zweiter und letzter freier Lauf).
 
-
 - **Zu 642 (Tuffy, 10.11., 00:03, Lauf 317, Kaufwolf):** Seed 7, 1: nichts. Seed 3 Kleriker: 78 Bilder, tiefste 0,08 m; DIAG 843–852: wolf1 Hocke `heim`, wolf3 `anlauf`, **beide dasselbe heim**. Vermutung (Code): `kampfort.gd` 1153–1157 schiebt `glide_to` der anderen um `warte_ms` auf; `figur.gd` 1287 setzt `home` vor dem Aufschub, `_platz_besetzt` (1877) prüft nur `home`. Kaufrepo nie beim Chef erbitten (Perikles 818).
 - **Zu 507, nachgezeichnet (Jerry, 08.11., 12:1x):** Befunde behoben, Einzelheiten und Bestand im Commit `ba0511bb5` (Hauptursache „fast schwarz“: Eckfarbe mal gemaltes Bild, jetzt Tönung, `tests/hoehle_farben_507.gd`).
 - **Zu 507, Messlauf 293 (Jerry, 08.11., 13:3x):** Zahlen im Commit `06adfaf60` (Vorgabe Licht 0,5, Kampflicht Halle/Teich 0,9; vorderer Wolf dort vorher 10–11). Messlauf 2 nach 646 abgebrochen; mit Freigabe Sokrates: Lauf bild=ja, film=nein auf `06adfaf60`, Bilder sofort an den Chef mit Vermerk (Wolf innen Halle/Teich), Helferbefund danach.
-- **Zu 662 (Jerry, 09.11., 22:22; Chef t270.9: „keine Seite erkennbar“):** Seitenparade erst ab 30°, Wölfe kommen nur 5–29°, also immer Mitte. Jetzt Seite vom Bissplatz, Schwelle 7,5° (`c313712f1`, Test `parade_seite_662`); `film_406` MESS mit Kaufmodellen: ParryLeft bei 25° und 38°, ParryRight bei −13°. Prüfzeile: Kämpfer mit Schild gegen Wolfsrudel · richtig: Schild geht zur Seite des angreifenden Wolfs · falsch: immer Abwehr zur Mitte.
-
-
-
 
 - **Zu 595, 598, 601, von Sokrates (Chef 05.11., 19:2x, Test Build 266; Wortlaut ganz in `9a1970f71`):** 595 mehr Angriffe der Spinne, Egel schneller, Schnecke trifft daneben (erst Bewegungen der Kaufpakete auflisten); 598 Naturklang je Ort alt gegen neu, Wetter nur als Vorschlag; 601 Goblin-Späher ohne Schussbewegung, Schatten-Nachteil zeigen (`MarsTips.kt:63`).
 - **Zu 547, von Sokrates (Chef 05.11., 19:2x, Build 266):** „Held geht zu Boden (Text) -> keine entsprechende Animation“. Zweite Meldung; Homers Zwischentexte in den nächsten Build. Den Sturz gibt es erst mit 438a (eingefroren); den zieht nur ein „jetzt“ des Chefs vor.
