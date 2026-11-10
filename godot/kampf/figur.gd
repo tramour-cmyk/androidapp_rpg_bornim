@@ -2625,6 +2625,19 @@ func strike(other, e: Dictionary) -> int:
 	var hold := ms * 0.16 / 1000.0
 	var back := ms * 0.42 / 1000.0
 	var hero: bool = fighter.monster == null
+	if not hero and not leap:
+		# 709 (treffen_709, Fledermaus ohne Gehen: der Ausfall ging 60 % des Wegs, der Biss blieb 1–2,6 m vor dem Ziel): bis die
+		# Schnauze (Vorderkante des Umrisses) den Rand des Ziels erreicht
+		var fl := Vector3(to.x - position.x, 0.0, to.z - position.z)
+		if fl.length() > 0.01:
+			var dn := fl.normalized()
+			var st: float = other.vorne(-dn) + _schnauze_vorn() - BISS_TIEF
+			reach = dn * maxf(0.0, fl.length() - st)
+			# im Raum: Kopf und Kiefer jetzt, so weit verschoben, bis sie den Körper des Ziels erreichen (die Fledermaus fliegt höher
+			# oder tiefer als der Rand am Boden sagt; treffen_709: so blieb sie 0,3–0,5 m davor)
+			var m := _schnauze_bis(other.koerper(), dn, fl.length())
+			if m >= 0.0:
+				reach = dn * m
 	if hero:
 		# 348.7 (Prüfer 26.10.: die Heldin schlug aus etwa zwei Wolfslängen): nur bis in Waffenreichweite vor den Rand des Ziels
 		var flat := Vector3(to.x - position.x, 0.0, to.z - position.z)
@@ -3259,6 +3272,44 @@ func _hieb_bahn(hn: String, versatz := 0.0) -> Array:
 		anim.play(vor, 0.0, vor_v)
 		anim.seek(vor_t, true)
 	return out
+
+
+## 709: wie weit Kopf, Kiefer, Zunge (BISS_TEILE) jetzt vor dem Ursprung liegen (m, in Blickrichtung), sonst die Vorderkante des Umrisses
+func _schnauze_vorn() -> float:
+	var vorn := -INF
+	var inv := global_transform.affine_inverse()
+	for c in kapseln():
+		var nm := String(c[3]).to_lower() if c.size() > 3 else ""
+		for w in BISS_TEILE:
+			if nm.contains(w):
+				vorn = maxf(vorn, maxf((inv * (c[0] as Vector3)).z, (inv * (c[1] as Vector3)).z) * absf(scale.z) + float(c[2]))
+				break
+	return vorn if vorn > -INF else footprint().end.z * absf(scale.z)
+
+
+## 709: wie weit (m) die Figur längs [dn] rücken muss, bis Kopf, Kiefer, Zunge in der jetzigen Haltung SCHNAUZE_VOR vor dem Körper
+## [ziel] (Kapseln, Welt) stehen (den Rest holt der Biss selbst; treffen_709: mit −1 cm bis 12 cm darin); -1, wenn nicht bis [bis]
+const SCHNAUZE_VOR := 0.05
+func _schnauze_bis(ziel: Array, dn: Vector3, bis: float) -> float:
+	var kopf: Array = []
+	for c in kapseln():
+		var nm := String(c[3]).to_lower() if c.size() > 3 else ""
+		for w in BISS_TEILE:
+			if nm.contains(w):
+				kopf.append(c)
+				break
+	if kopf.is_empty() or ziel.is_empty():
+		return -1.0
+	var m := 0.0
+	while m <= bis:
+		var v := dn * m
+		for k in kopf:
+			for c in ziel:
+				var pq: PackedVector3Array = Geometry3D.get_closest_points_between_segments(k[0] + v, k[1] + v, c[0], c[1])
+				if pq[0].distance_to(pq[1]) - float(k[2]) - float(c[2]) <= SCHNAUZE_VOR:
+					return m
+		m += 0.02
+	return -1.0
 
 
 ## 709: der Schild in der Hand als Kreuz aus zwei Kapseln [[a, b, r] …] (Welt), leer ohne Schild
