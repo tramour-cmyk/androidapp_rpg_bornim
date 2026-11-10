@@ -4,7 +4,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` (10.11., 17:56)
 
-**Übergabe (10.11., 17:56, `session_01Hmoj78EojqkK8RuGDFLGd1`):** 264.1: Zweig `claude/perikles-264-runner` (godot.yml auf `[self-hosted, bornim]`, Schritt „Runner vorbereiten“); Lauf 324 brach ab, sudo braucht ein Passwort; Chefsache `tun/2641-runner-sudo.md`, Telegram 17:56. Nach „264.1 erledigt“: Lauf neu mit `bild=nein`, Zeiten je Schritt gegen GitHub. Nachfolger: Perikles – 264.1: Runner-Lauf nach sudo
+**Übergabe (10.11., 18:32, `session_01Hmoj78EojqkK8RuGDFLGd1`):** 264.1: Zweig `claude/perikles-264-runner`; Lauf 324 sudo (Chef behoben 17:59), Lauf 325 brach bei CC0 von itch.io ab (Zeiten in `entscheiden/2641-runner-lauf3.md`), Telegram 18:32. Nach Antwort A: Ursache beheben, Lauf 3 (`bild=nein`), Vergleich mit Lauf 322. Nachfolger: Perikles – 264.1: Runner Lauf 3
 
 ## Einzelheiten
 - **Zu 264.1, von Sokrates (Chef 10.11., 17:2x: Runner auf Proxmox installiert):** Zweig `claude/perikles-264-runner`, godot.yml `runs-on: [self-hosted, bornim]`, Lauf per workflow_dispatch; Bauzeit je Schritt gegen GitHub (Median 18, p90 64 Min.); Fehler wegen fehlender Pakete beheben (Schritt „Runner vorbereiten“: apt-Pakete, Android-SDK); kein Push auf main.
