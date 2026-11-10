@@ -229,7 +229,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 876 | M | Von Homer (857a A, Chef 10.11., 13:35): Simulation 444 Kräuterkunde → Kräutersammeln, Tran | Pause, nicht frei |
 | Pflege | K | von Werkzeug (340.3, 10.11.): 15990 Bytes (Grenze 15000), Erledigtes streichen | Pause, nicht frei |
 
-**Perikles** – offen 24, Muss 11, startbar 0
+**Perikles** – offen 22, Muss 9, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -255,16 +255,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 742 | K | D78.1 Testbitte t268: Zeile „Verglichen“ deckte nur die Schirme vom 05.11., nicht Dorf, Ka | ruht |
 | 866 | M | Von Sokrates (620, Lagebild t274): Prüfliste geht nur gegengelesen raus; Wächter statt Abs | wartet auf Test/Build (gebaut) |
 | 882 | M | D140.1 (Diogenes, 870.18): Kotlin-Ausstieg ohne Werkzeuge: 870.10 nennt nur android.yml; a | wartet auf 870.4 (wartet) |
-| 889 | M | D146.1 (Diogenes, 870.17): startbar.py zeigt bei Pause mit „frei für“ nur die PAUSE-Zeile, | wartet auf Diogenes (greift?) |
-| 892 | M | D148.1 (Diogenes, 889): startbar.py --md (Übersicht in chefsache/README.md) zeigt bei Paus | wartet auf Diogenes (greift?) |
 
-**Diogenes** – offen 10, Muss 9, startbar 2
+**Diogenes** – offen 8, Muss 7, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
-| 889 | M | D146.1 (Diogenes, 870.17): startbar.py zeigt bei Pause mit „frei für“ nur die PAUSE-Zeile, | startbar |
-| 892 | M | D148.1 (Diogenes, 889): startbar.py --md (Übersicht in chefsache/README.md) zeigt bei Paus | startbar |
 | 461b | M | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Termin 16.11. |
 | 348.9 | M | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | ruht |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
