@@ -15,7 +15,6 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 ## Zeilen
 
-- **Zu 264.1, von Perikles (10.11., 20:17):** Lauf 4 (328) rot: Zwischenspeicher cc0 getroffen (zstd wirkt), tar scheitert an Resten in `~/cc0` auf dem Runner (nachgestellt); behoben `19487bbe4`. Lauf 5 sperrt 621 A; bitte Archiveintrag „264.1, Läufe frei“ (480.1), falls der Chef nicht vorher.
 
 - **Zu 870, von Homer (10.11., 16:22, 870.14 a):** `DESIGN-BRS.md` 7 (870a 8) sagt „mit der Fertigkeit Wissen sieht man sie vorher“; eine Fertigkeit Wissen gibt es unter den 37 nicht (Abschnitt 3), „Wissen“ steht beim Grundwert Verstand. Vorschlag Homer: Verstand ab einem Wert aus 444 zeigt Schwäche und Stärke vorher (wie heute `talente.gd` „ab INT 12“). Texte `STORY-BRS-HELD.md` passen zu beiden Wegen; bitte Wortlaut in 7 klarstellen. Dazu für 12: Sengender Strahl → **Glutstrahlen** (Ember Rays), fehlte dort; Magiefund (13 offen) entscheidet, ob die Zeile im Heldenreiter bleibt.
 - **von Perikles (02.11., 20:0x, Weitergabe von Homer, 01.11., 21:0x, zu 447.4, Regelwerk):** zwei Regelfragen aus den Lehrmeister-Texten, das Regelwerk deckt sie nicht: (1) kommt das erste Rezept einer Meisterschaft mit dem Ja zur Einladung (Projektplan 3.2 „je ein Rezept“, Abschnitt 10)? (2) fallen beim Pfadwechsel eines Anwärters in Kapitel 1 die Kernfertigkeiten auch um einen Rang (Abschnitt 5)? Antwort ändert je eine Zeile „Offen“ in `STORY-LEHRMEISTER-K1.md`.
