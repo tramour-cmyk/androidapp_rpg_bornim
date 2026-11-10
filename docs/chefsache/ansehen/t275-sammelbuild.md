@@ -1,5 +1,5 @@
-# Tom und Jerry · Build 275 · 0.348.330 · Version folgt · Sammelbuild vor dem Umzug BRS · [PR #194](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/194)
-Ganzes Spiel · Tom (663, 470, 661, 475, 540, 653, 506), Jerry (709, 506.1, 854, 870.2, 870.3) · 10.11., 20:35 · APK folgt · Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/tree/claude/build-275
+# Tom und Jerry · Build 275 · 0.348.333 · Sammelbuild vor dem Umzug BRS · [PR #194](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/194)
+Ganzes Spiel · Tom (663, 470, 661, 475, 540, 653, 506), Jerry (709, 506.1, 854, 870.2, 870.3) · 11.11., 00:26 · [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/42906784036/artifacts/13812821104) · Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/tree/claude/build-275 (5dcd1a113)
 Gegengelesen: Sokrates 10.11., 20:34 (Wege gegen `testmodus.gd`, `probe.gd`, `spiel.gd`, `kampfblende.gd` auf `6814e4331`)
 
 Ein Weg: Hauptmenü und neues Spiel (A), Schenke und Dorf (B), Probekämpfe im Reiter „Test“ (C); über Build 274 installieren. Den Reiter „Test“ gibt es nur im Testmodus: im Hauptmenü siebenmal aufs Firmenzeichen tippen. Was nicht passt, reicht als Nummer (z. B. 275.4) mit einem Wort.
@@ -39,4 +39,4 @@ Im Bau und am Rechner geprüft: `brs_470`, `brs_held_834`, `testmenue_470`, `kno
 | 275.13 | Jerry, Tom | 506.1, 506 | „Wiedergänger“ | die drei gehen langsam, auch der hintere ist nach wenigen Schritten vorn und schlägt zu; Schläge treffen | der hintere braucht eine halbe Ewigkeit |
 | 275.14 | Tom | 506 | „Grabhunde“, einen von nah ansehen | Mähne nur als Kamm hinter den Ohren, kein rechteckiger Fleck, Augen hell und trüb | Fleck am Hals, keine Augen |
 
-Bekannt, nicht in diesem Build: Treffer von Ratten, Krogg und Grak (709, im Film 709.1 um 19:29 schon beurteilt, Folge bei Jerry); Grabhund-Biss am Ziel und Wolfsbiss (709.1); eigener Klang für Krogg; Lyra im Tempel (635). Kampfwerte von Held und Gegnern kommen schon aus dem BRS (870.2, 870.3); fühlen sich Treffer und Leben anders an, ist das gewollt, die Zahlen legt Jerry vor B1 vor.
+Bekannt, nicht in diesem Build: Treffer von Ratten, Krogg und Grak (709, im Film 709.1 um 19:29 schon beurteilt, Folge bei Jerry); Grabhund-Biss am Ziel und Wolfsbiss (709.1); eigener Klang für Krogg; Lyra im Tempel (635); Messung im Bau: Kämpfer mit Schild beim Schwerthieb im Kampf ein Bild lang bis 7 cm im Schild (Lauf 333, in Lauf 330 nicht), Schild des Klerikers auf dem Rücken unten 8 bis 15 cm abstehend (schon vorher). Kampfwerte von Held und Gegnern kommen schon aus dem BRS (870.2, 870.3); fühlen sich Treffer und Leben anders an, ist das gewollt, die Zahlen legt Jerry vor B1 vor.
