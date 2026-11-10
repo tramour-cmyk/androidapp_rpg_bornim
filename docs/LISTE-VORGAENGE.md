@@ -20,7 +20,7 @@
 | 697 | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | Tom | M | in Arbeit, erster Messlauf ohne Wert (nicht importiert) | 782 | claude/tom-697-drehteller | – | E Figuren | – |
 | 653 | Halt für Waffen und Schilde einmal je Modell festlegen statt je Figur nachmessen: Griffpunkt je Gegenstand, Halterung je Körper, eine Anlegefunktion, Prüfbild aller Kombinationen (Chef 08.11., 14:35) | Tom | M | startbar, ja (Chef 14:40), Jerry stellt den Kampf um | – | – | – | E Figuren | – |
 | 680 | Absturz: Testmenü Sprung Wald → Dorf, in der Schenke schon hakelig, nach Met immer zäher, beim Öffnen des Testmenüs (Sprung in den Wald) Absturz, ohne Fehlerzeile (Chef 08.11., 16:16, 16:18, Build 269, Handy) | Tom | M | startbar | – | – | – | E Kampf | – |
-| 506 | Untote im Kampf: Skelett, Zombie, Ghul (aus 494, Spike; Wochenziel 03.11., 488) | Tom | M | startbar, Bild passt 10.11., 09:00 | – | claude/tom-506-skelett | – | E Kampf | 66,01 $ |
+| 506 | Untote im Kampf: Skelett, Zombie, Ghul (aus 494, Spike; Wochenziel 03.11., 488) | Tom | M | in Arbeit, Wiedergänger und Grabhund gebaut, Bild folgt | – | claude/tom-506-skelett, claude/tom-506-untote | – | E Kampf | 66,01 $ |
 | 492 | Blutzahnhöhle begehbar mit Krogg, Grak, Lyra (Orte O8; Wochenziel 03.11., 488; von Jerry an Tom, Chef 07:54) | Tom | M | startbar, B (Chef 21:46), Lager offen | – | claude/tom-492-durchspiel | – | E Technik | 81,67 $ |
 | 670 | Build 269: Menü des Helden (Held, Tasche, Ausrüstung, Karte, Chronik, System) noch im alten Design statt 557/549a; Zweig tom-557-einschalten war im Build? (Chef 08.11., 15:32) | Tom | M | zu testen, ohne Rückmeldung t272 | – | – | – | E Oberfläche | – |
 | 581 | Ausrüstung: Seite breiter als der Schirm, Reiter springen (Abgleich 512b) · zurück t269 | Tom | M | startbar, Fund t269.16 | – | claude/tom-581-ausruestung | – | E Oberfläche | 2,31 $ |
@@ -193,8 +193,6 @@
 | 72 | Profil und Marktvergleich | Homer | K | ruht | – | – | – | E Kampf | 0,72; +0,61 $ |
 | 348.12g | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | Homer | M | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | – | – | – | G Story | 4,29 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
-| 807 | Tätigkeiten ohne Kampf für Fertigkeiten in Kapitel 1 vorschlagen (Schleichen, Spähen, Schlösser, Fallen, Tiere beruhigen, Überreden, Einschüchtern, Jagd, Angeln …), von Spike zu 471 | Homer | M | erledigt | – | – | – | G Stil | 3,85 $ |
-| 830 | Von Sokrates (705 B, Chef 10.11., 08:43): Lehrsatz zur Ansage des Wolfssprungs im ersten Wolfskampf (ausweichen), Text für 72.10a | Homer | M | erledigt | – | – | – | G Story | 3,85 $ |
 | 837 | lauf.py: Start nicht angekommen melden (Chef 10.11., 10:4x; Fehler 341 von Ford) · „jetzt“ 10.11., 11:09 | Perikles | M | gebaut, Geprüft an: ad5264185 | Diogenes | – | – | B Werkzeuge | – |
 | 483 | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Marke (Chef 02.11., 19:08) | Perikles | M | gebaut, Geprüft an: 62e922b30 | Diogenes, D75 | – | – | B Werkzeuge | – |
 | 464 | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählung im Tagesbericht (Chef 01.11., 20:4x) | Perikles | M | gebaut, Geprüft an: fcf9ab215 | 16.11. | – | – | B Abläufe | – |
@@ -215,8 +213,6 @@
 | 735 | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-ABNAHME.md 11 und Kopf DESIGN-KAMPF.md 7 (646 ersetzt 621.1; 655 strich 300 und Helfer nach dem Versand) (von Diogenes, Lauf 92) | Perikles | K | ruht, Kampf zuerst (338.1) | – | – | – | B Abläufe | – |
 | 742 | D78.1 Testbitte t268: Zeile „Verglichen“ deckte nur die Schirme vom 05.11., nicht Dorf, Kampf, Kapitelende; Wächter 512.1 prüft den Umfang nicht (von Diogenes, Lauf 76) | Perikles | K | ruht, Kampf zuerst (338.1) | – | – | – | B Werkzeuge | – |
 | 832 | Testbitten ohne Prüfpunkte, die ein Test im Bau schon sichert oder Lesen von Lizenztexten verlangen (Chef 10.11., 09:29 zu 273.1, über Sokrates) | Perikles | M | gebaut, Geprüft an: f00ceec73 | Diogenes | – | – | Q QS | – |
-| 835 | Inhaltsverzeichnis docs/README.md in Chef-Sprache: jede Zeile ein Satz, was drinsteht und wozu, ohne Fachwörter (Netze, MARS-Checkliste, Umzug, Abgleich), Projektplan (Weg) gegen Abnahme (Ziel) klar (Chef 10.11., 10:24, über Sokrates) | Perikles | M | erledigt | – | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 10.11.): 15842 Bytes (Grenze 15000), Erledigtes streichen | Perikles | K | erledigt | – | – | – | B Abläufe | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
@@ -270,11 +266,11 @@
 | 765 | Wochentermin 13.11.: Rollenspiegel Sokrates (rollenspiegel.sh Sokrates) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Sokrates | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 782 | Von Tom (697): ein Lauf am Rechner frei? Der erste (17:38) brach vor dem Zeichnen ab (Projekt nicht importiert, kein Messwert); gleicher Messlauf, nur Alphazahlen, kein Bild an den Chef nötig | Sokrates | M | startbar | – | – | – | B Abläufe | – |
 | 827 | Stärkstes Modell nur für festgefahrene Vorgänge (zwei Rückläufer oder über 30 $), ab 14.11., 20:00 (Chef 10.11., 07:05, 07:07) | Sokrates | M | startbar, gelöst 10.11.: 828 | – | – | – | B Steuerung | 4,70 $ |
-| 843 | D126.1 (Diogenes, 838): START ohne Sitzung 14 von 39 (09.11., 19:04 bis 10.11., 11:08), keiner mit --ohne; 3 ohne Grund (22:44 Spike, 10:25 Jerry, Perikles) | Ford | M | startbar | – | – | – | B Steuerung | – |
+| 843 | D126.1 (Diogenes, 838): START ohne Sitzung 14 von 39 (09.11., 19:04 bis 10.11., 11:08), keiner mit --ohne; 3 ohne Grund (22:44 Spike, 10:25 Jerry, Perikles) | Ford | M | startbar | – | – | – | B Steuerung | 12,41 $ |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +879,20 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 767 | Wochentermin 13.11.: Rollenspiegel Ford (rollenspiegel.sh Ford) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Ford | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 10.11.): 28517 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 10.11.): 29625 Bytes (Grenze 15000), Erledigtes streichen; Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
