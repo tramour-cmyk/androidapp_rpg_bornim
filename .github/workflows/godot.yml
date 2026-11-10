@@ -319,6 +319,16 @@ jobs:
             for f in $RUNNER_TEMP/spinne/giant_spider-*.glb; do cp $f $D/$(basename $f .glb).bin; echo kampf/daten/$(basename $f .glb).bin >> $D/kauf.txt; done
             cp $RUNNER_TEMP/spinne/giant_spider-info.json $D/
           fi
+          # 506 Skelett (LISTE-FIGUREN „Skelett“, Kauf 348.12c A): Protofactor „Skeleton Knight“, drei Kits wie MonsterKit.kt (Kurzschwert
+          # und Helm, Kurzschwert und Schild, Speer aus Ankers CC0-Paket und Helm), Knochen vergilbt, Eisen rostig; nur mit Kaufpaketen,
+          # dann verschlüsselt (gekauft); misslingt es, stehen Platzhalter (Lauf 229: ein Fehler kostete den ganzen Bau)
+          if [ -n "$(find ${KAUF:-/kein} -name SK_SkeletonKnight.FBX 2>/dev/null | head -1)" ]; then
+            if KAUF=$KAUF OUT=$RUNNER_TEMP/skelett timeout 1200 bl/bin/python -I tools/blender348/kaufskelett.py > skelett.log 2>&1; then
+              grep -E "^(DREIECKE gesamt|MASS neu|WEG|HIEB|AUGEN|SPEER|FEHLT)" skelett.log | cut -c1-200 || true
+              for f in $RUNNER_TEMP/skelett/skeleton-*.glb; do cp $f $D/$(basename $f .glb).bin; echo kampf/daten/$(basename $f .glb).bin >> $D/kauf.txt; done
+              cp $RUNNER_TEMP/skelett/skeleton-info.json $D/
+            else echo "FEHLER 506: Skelett nicht gebaut"; tail -40 skelett.log; fi
+          fi
           # 494 Krogg-Figur (LISTE-FIGUREN „Krogg“): Superheld (CC0) mit dem Kopf des gekauften Janpec-Bären, Morgenstern aus dem Anker-
           # Paket (CC0, privat); nur mit Kaufpaketen, dann verschlüsselt; ohne bleibt der Platzhalterkörper (figur.gd)
           if [ -n "$PRO" ] && [ -n "$(find ${KAUF:-/kein} -name Bear_Rig.fbx 2>/dev/null | head -1)" ]; then
@@ -484,6 +494,7 @@ jobs:
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/wildschwein_494.gd 2>&1 | grep -E "Wildschwein|WILDSCHWEIN|FEHLER|SCRIPT ERROR"   # 494 Wildschwein
           set -o pipefail; timeout 400 ~/godot/godot --headless --path . -s res://tests/krogg_494.gd 2>&1 | grep -E "Krogg|KROGG|FEHLER|SCRIPT ERROR"   # 494 Krogg, Morwens Rauch
           set -o pipefail; timeout 400 ~/godot/godot --headless --path . -s res://tests/spinne_494.gd 2>&1 | grep -E "Spinne|SPINNE|FEHLER|SCRIPT ERROR"   # 494 Riesenspinne, drei Häute
+          set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/skelett_506.gd 2>&1 | grep -E "Skelett 506|SKELETT506|FEHLER|SCRIPT ERROR"   # 506 Skelette: Regeln, drei Kits
           timeout 120 ~/godot/godot --headless --path . -s res://tests/varianten_504.gd 2>&1 | tee varianten504.log | grep -E "FEHLER|VARIANTEN504|SCRIPT ERROR"; grep -q "^VARIANTEN504 0 Fehler" varianten504.log   # 504.1 Gespraeche in Varianten
           timeout 300 ~/godot/godot --headless --path . -s res://tests/wald_490.gd 2>&1 | tee wald490.log | grep -E "FEHLER|WALD490|SCRIPT ERROR"; grep -q "^WALD490 0 Fehler" wald490.log   # 490
           timeout 120 ~/godot/godot --headless --path . -s res://tests/wenden_560.gd 2>&1 | tee wenden560.log | grep -E "FEHLER|WENDEN560|SCRIPT ERROR"; grep -q "^WENDEN560 0 Fehler" wenden560.log   # 560 Monster wenden mit Tritten

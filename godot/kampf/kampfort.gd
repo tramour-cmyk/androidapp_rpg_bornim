@@ -863,7 +863,7 @@ func _foe_scale(f) -> float:
 		return FOE_SIZE * WOLF_SIZE * ART_SIZE.get(Figur.ersatz(), 1.0)
 	if Figur.eigene_haut(f):
 		return 1.0     # 494 Riesenspinne (kaufspinne.py, Spannweite 1,69 m wie LISTE-FIGUREN): echte Größe wie die Kauftiere, nicht 1,5-fach
-	if Mars.koerper_of(f.monster) in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG]:     # 348.7: Goblin in echter Größe (goblin.py), im Bild wie FoeArt (PX 0,66 wie BeastArt, Held 0,75); 348.12 Grak ebenso
+	if Mars.koerper_of(f.monster) in Figur.ZWEI:     # 348.7: Goblin in echter Größe (goblin.py), im Bild wie FoeArt (PX 0,66 wie BeastArt, Held 0,75); 348.12 Grak ebenso
 		return FOE_SIZE * WOLF_SIZE
 	return FOE_SIZE
 
