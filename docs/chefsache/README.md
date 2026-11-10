@@ -4,12 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [705](entscheiden/705-magier-gegen-wolf.md) | **Muss** | E Kampf | 09.11., 23:00 | Mit 702 C gewinnt der Magier deutlich öfter als im alten Befund (2–30 %); wer ausweicht, gewinnt 41–84 % | Jerry |
-| [704](entscheiden/704-wolf-ausweichen.md) | **Muss** | E Kampf | 09.11., 22:52 | Der alte Befund „Wolf allein harmlos, 300 von 300“ gilt mit 702 C nicht mehr; Ausweichen bleibt aber immer richtig | Tuffy (Team Jerry) |
+Nichts offen.
 
 ## Zu billigen
 
@@ -40,7 +35,7 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 8, Muss 3, startbar 2
+**Homer** – offen 9, Muss 4, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -52,6 +47,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 | 807 | M | Tätigkeiten ohne Kampf für Fertigkeiten in Kapitel 1 vorschlagen (Schleichen, Spähen, Schl | startbar |
 | 817 | M? | Erklärtexte der sechs Grundwerte im Heldenreiter nach BRS statt SRD (held.json „erklaerung | startbar |
+| 830 | M | Von Sokrates (705 B, Chef 10.11., 08:43): Lehrsatz zur Ansage des Wolfssprungs im ersten W | startbar |
 
 **Tom** – offen 103, Muss 85, startbar 0
 
@@ -161,7 +157,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 814 | M | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staub im Licht, Fußstaub, Fahne, Wind, | Sperre 620.1 B: 19 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 804 (bilder) |
 | 815 | M | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staubflocken innen, Fußstaub, Fahne, W | Sperre 620.1 B: 19 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 804 (bilder) |
 
-**Jerry** – offen 72, Muss 62, startbar 8
+**Jerry** – offen 71, Muss 61, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -171,8 +167,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 406.2 | M | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 662 (parade) |
 | 642 | M | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 | ruht |
 | 679 | M | Kampf: im ersten Testkampf (Kleriker gegen Wölfe) fehlten Befehle und Knöpfe (Gewinnen, Ve | wartet auf Test (Build 273) |
-| 704 | M | Wolf allein ist harmlos, wenn der Held jedem angekündigten Sprung ausweicht: 300 von 300 S | Chef (Datei in der Chefsache) |
-| 705 | M | Zauberlehrling Stufe 1 gewinnt gegen Wolf und Rudel selten (BRS 2–30 %, Messung anspringen | Chef (Datei in der Chefsache) |
+| 705 | M | Zauberlehrling Stufe 1 gewinnt gegen Wolf und Rudel selten (BRS 2–30 %, Messung anspringen | wartet auf 829 (startbar) |
 | 806 | M | Kampforte mit den Effektpaketen schöner: Gras und Blumen aus R9, Boden, Staub; Bilder/s ni | startbar |
 | 595 | M | Kampfbewegungen der Kaufgegner: Spinne mehr Angriffe, Egel und Schnecke schneller, Treffhö | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 662 (figur.gd) |
 | 616 | M | Kampf: Gegner weichen nach dem Angriff rückwärts zurück statt vorwärts zu laufen (Chef 07. | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 593 (ruckwarts) |
@@ -274,10 +269,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 771 | M | Probe 657 auswerten: Erstfunde des Chefs t272–t275 gegen 11, 11, 9, 7 (von Perikles, Werkz | wartet auf Test t275 (Chef) |
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 
-**Sokrates** – offen 45, Muss 33, startbar 24
+**Sokrates** – offen 46, Muss 34, startbar 25
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 829 | M | 705 B: Regelvorschlag BRS, Magier Stufe 1 gegen Wolfsrudel ohne Söldner, ohne Ausweichen e | startbar |
 | 780 | M | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für uns | Termin 23.11. |
 | 620 | M | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build | startbar |
 | 623 | M | Effektpakete REEBOO Labs: Kauf, Ressourcenseite LISTE-QUELLEN.md, Zuordnung LISTE-EFFEKTE. | startbar |
