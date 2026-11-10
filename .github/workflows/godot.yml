@@ -540,6 +540,8 @@ jobs:
       - name: Android-Export
         run: |
           K=~/bornim-godot-schluessel/debug.keystore
+          # 264.1 wie cc0: der Cache entpackt ../../../bornim-godot-schluessel, auf dem eigenen Runner ~/actions-runner/… (Lauf 332)
+          Z=$(realpath -m "$GITHUB_WORKSPACE/../../../bornim-godot-schluessel/debug.keystore"); [ -f $K ] || [ ! -f "$Z" ] || { mkdir -p ~/bornim-godot-schluessel; cp "$Z" $K; }
           [ -f $K ] || { echo "Schluessel fehlt: Godot-Schluessel (godot-schluessel.yml) auf main laufen lassen"; exit 1; }
           keytool -list -keystore $K -storepass android | grep -i "SHA-256\|SHA256"
           sed -i "s/^version\/code=.*/version\/code=$GITHUB_RUN_NUMBER/; s/^version\/name=.*/version\/name=\"0.348.$GITHUB_RUN_NUMBER\"/" godot/export_presets.cfg
