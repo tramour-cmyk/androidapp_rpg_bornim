@@ -1,12 +1,20 @@
-# 870c · Welche Regeln sollen im echten Kampf gegen die Bosse gelten, nachdem er stark von der Simulation 444 abweicht?
-Jerry · 10.11., 22:10 · E Kampf · aus 870.5 (Umzug BRS Schritt 5: „Simulation 444 neu je Herkunft, Ergebnis zum Chef vor B1“)
+# 870c · Vorentscheid Regeln im echten Bosskampf (Grak, Fernkampf allein vorn, Jungwölfe und Feuer) billigen?
+Sokrates (Vorentscheid, Vorlage Jerry 22:10) · 10.11., 22:27 · E Kampf · aus 870.5 (Umzug BRS Schritt 5: „Simulation 444 neu je Herkunft, Ergebnis zum Chef vor B1“)
 Kurz: Im echten Kampf ist Grak außer für den Wachsoldaten kaum zu schlagen, Grimmzahn für Jägerkind und Klosterschüler viel schwerer, Krogg für fünf Herkünfte leichter als in 444; Hauptgrund sind drei Regeln des alten Kampfs.
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/730117e73 (`godot/tests/sim444_870.gd`, je Zelle 300 Kämpfe)
 
 **Frage:** Bisher stammten alle BRS-Zahlen aus der Simulation 444, einem vereinfachten Zweikampf. Jetzt habe ich dieselben Helden (Mensch, jede Herkunft, Fertigkeiten wie nach 444 auf dieser Stufe) im echten Kampf des Spiels gegen Rudel, Krogg, Grimmzahn und Grak antreten lassen: der Held spielt wie der Autopilot, ohne Tränke, ohne Söldner. Die Ergebnisse weichen stark ab. Welche Regeln sollen gelten?
 
-**Votum:** „870c 1 A, 2 A, 3 A“.
+**Votum:** Entschieden (Vorentscheid Sokrates, 10.11., 22:25; Chef 22:24: „Du bist Chef. Sorg dafür, dass der Umzug über Nacht über die Bühne geht“): 1 A, 2 A, 3 A. Bitte „gebilligt“ oder „zurück“.
+
+**Abgleich (783 W5):** Leitbild „Kampf nie langweilig, echte Wahl; Grinden darf man, muss man nie“: 1 A lässt die Wahl Goblin oder Grak, 2 A nimmt dem einsamen Schützen eine Strafe ohne Wahl, 3 A macht Feuer zum Mittel statt zum Sofortsieg. 870a 8 A (Gegenwirkung) bleibt, nur der Zeitpunkt des Vertreibens wird an den Leitwolf gebunden. Zielwerte (Wachsoldat ohne Ring etwa 85 % gegen Grak, Wanderer etwa 70 % gegen das Rudel) sind Einzelheiten nach 444. Verworfen: jeweils B (Grak ohne Verstärkung langweiliger; Jägerkind 11 % gegen Grimmzahn; Feuer als Sofortsieg ohne Lohn).
+
+**Umgesetzt:** folgt auf dem Umzugszweig (Jerry, 870.5).
+
+**Rückbau:** „zurück“ = Werte und Regeln je Punkt auf den Stand `730117e73`.
+
+**Kosten:** etwa 2–3 Stunden Jerry.
 
 **Berührt:** 870.5 (Kampf, Jerry), 870.3 (Werte), 709c (Wolfsangriff), Wochenziel B1
 
@@ -48,4 +56,4 @@ Grak kündigt fast jeden Zug einen starken Schlag an; der Spieler kann ihn am Ri
 
 **Folgerungen:** Nach deiner Antwort baue ich die Punkte auf dem Umzugszweig, messe neu und nehme das Ergebnis mit in B1.
 
-Antwort: …
+Antwort: … (gebilligt / zurück)
