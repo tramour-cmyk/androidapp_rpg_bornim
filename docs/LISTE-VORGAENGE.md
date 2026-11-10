@@ -115,7 +115,7 @@
 | 861 | Von Sokrates (Chef 10.11., 13:12, Bild t274.14): Umhang des Kämpfers im Kampf rechts am Rücken stark gewölbt (Handaxt und Schild, Rückenansicht); Ursache nachstellen, nicht raten (656 bestanden t272) | Tom | M | startbar | – | – | – | E Figuren | – |
 | 867 | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die aktuellen Helden | Tom | M | startbar | – | – | – | G Stil | – |
 | 875 | Von Homer (857a A, Chef 10.11., 13:35): Fertigkeit Kräuterkunde heißt im Spiel Kräutersammeln, EN Foraging; Erschaffung, Talenttext, Übung beim Pflücken | Tom | M | startbar | – | – | – | E Kampf | – |
-| Pflege | von Werkzeug (340.3, 10.11.): 17896 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 10.11.): 15924 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
 | 854 | Gebaute Kaufmodelle im Kaufrepo ablegen, nur bei Änderung neu bauen statt je Sitzung über 20 Min. (Chef 10.11., 12:34: ja) · „jetzt“ 10.11., 14:17, vor dem Umzug 870 | Jerry | M | zu testen | 888 | – | 275 | E Technik | 5,94 $ |
 | 709 | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angreifer prüfen (Chef 08.11., 21:36, über Sokrates) | Jerry | M | zu testen | – | claude/jerry-709-treffen | 275 | E Kampf | 53,92 $ |
 | 709.1 | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar (aus 709 abgetrennt, Chef 10.11., 17:07; tiefer Biss Entwurf claude/jerry-709a-tiefbiss 8bbafbcb6) | Jerry | M | gebaut, Geprüft an: 6c8bc3d16 (Film 18:19) | Chef | claude/jerry-709-1-wolfsbiss | – | E Kampf | – |
@@ -226,7 +226,6 @@
 | 866 | Von Sokrates (620, Lagebild t274): Prüfliste geht nur gegengelesen raus; Wächter statt Absprache | Perikles | M | gebaut, Geprüft an: 8c9f2dc3f | – | – | – | Q QS | – |
 | 882 | D140.1 (Diogenes, 870.18): Kotlin-Ausstieg ohne Werkzeuge: 870.10 nennt nur android.yml; an core hängen auch Kerntests (tools/t logik), godot-kampf.yml, vorschau.yml, tools/preview, story.sh, probelauf.py, setup-session.sh; Liste Prüfbericht Lauf 140 | Perikles | M | startbar | 870.4 | – | – | B Werkzeuge | – |
 | 893 | Von Ford (Lauf 10.11., 18:04): lauf.py startet einen Nachfolger, dessen Übergabe eine Bedingung nennt („Tom – Sammelbuild 888 (wenn 709 und 506 fertig)“), jede Stunde als START mit WARNUNG-LAUT; Zeile 888 wartet, Tom hätte nur gewartet. Bedingung im Nachfolger-Titel oder wartet-auf der Zeile auswerten | Perikles | K | startbar | – | – | – | B Werkzeuge | – |
-| Pflege | von Werkzeug (340.3, 10.11.): LISTE-VORGAENGE.md: Build 274 getestet (Archiv t274), aber 506 noch „zu testen“: `vorgang.py build 274` (Automatik B, 275.2) | Perikles | K | startbar | – | – | – | B Abläufe | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
@@ -291,7 +290,7 @@
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +893,81 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 767 | Wochentermin 13.11.: Rollenspiegel Ford (rollenspiegel.sh Ford) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Ford | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 10.11.): 37491 Bytes (Grenze 15000), Erledigtes streichen; Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 10.11.): 37768 Bytes (Grenze 15000), Erledigtes streichen; Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
