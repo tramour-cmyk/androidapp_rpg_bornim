@@ -134,6 +134,7 @@ var bite := BITE
 ## näher (m, Welt) tritt das Tier zum Biss heran. Chef 10:36 „b“: mit +0,10 steckte die Nase 11–13 cm im Rand (Ortmess r8), der Kopf
 ## verschwand hinter dem Helden; jetzt endet sie am Rand (Ortmess „Nase-Rand“ etwa 0)
 static var PFOTEN_MESS := OS.get_environment("PFOTEN_MESS") != ""
+const ZUNGE := ["kauf_schnecke"]     # 595: trifft mit der Zunge über Schild und Klinge hinweg den Leib (vorne ohne Waffen)
 const SCHNAUZE_NAEHER := {"giant_rat": -0.02, "kaufwolf": -0.08}
 ## 348.12f (Chef 10:36: Schatten der Ratte „wie schwarze Scheiben unter den Füßen“, bei den Wölfen passt er): Pfotenfleck im Verhältnis
 ## zum Tier wie beim Wolf. Er wuchs mit _scale(), bei der Ratte (×2,0) 0,52 × 0,64 m je Pfote, beim Wolf (×1,32) 0,34 × 0,42 m; Kopfhöhe
@@ -1071,7 +1072,7 @@ func _process(_dt: float) -> void:
 		_paw_shadow_update()
 	_schritt_sync(_dt)
 	if aim != null and neck and not down and not (tween and tween.is_running()):
-		if halt != null:
+		if halt != null or TURN_DPS_ART.has(art()):     # 595: die Schnecke dreht langsam, nie in einem Bild
 			_face_sanft()
 		else:
 			_face()
@@ -1260,7 +1261,7 @@ func _face_sanft() -> void:
 		tween = create_tween()
 		# 623.5 (effekt_mess_6235: „Nonexistent function 'an' in base 'Nil'“): auch der Held ohne Pfotenhalt kommt hierher (abwehr)
 		tween.tween_callback(func(): if halt: halt.an())
-		tween.tween_property(self, "rotation:y", r0 + dw, absf(rad_to_deg(dw)) / TURN_DPS_TRITT)
+		tween.tween_property(self, "rotation:y", r0 + dw, absf(rad_to_deg(dw)) / float(TURN_DPS_ART.get(art(), TURN_DPS_TRITT)))
 		tween.tween_callback(func():
 			if halt: halt.los(true)
 			gang = "")
@@ -1840,7 +1841,14 @@ const TURN_STILL := 15.0
 const TURN_KLEIN := 3.0
 
 
+## 595 (Chef 05.11., 19:2x: „Säureschnecke … springt schnell/ruckartig auf Platz nach Angriff um (2x ruckartige Drehung)“; nachgestellt
+## 10.11.: 15–17° in einem Bild, 450°/s): wer ohne Beine kriecht, dreht so langsam, wie er kriecht
+const TURN_DPS_ART := {"kauf_schnecke": 60.0}
+
+
 func _turn_dps() -> float:
+	if TURN_DPS_ART.has(art()):
+		return float(TURN_DPS_ART[art()])
 	return TURN_DPS_TRITT if halt else TURN_DPS
 
 
@@ -2059,7 +2067,9 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 			nm = "Bisskette"
 	# 438 (Prüfer Film r2: Schnauze 9,4 s und 20,3 s in Schild und Brust; wolf_mess_438: bis 10 cm in Schild und Klinge): der Rand
 	# des Ziels zum Wolf hin mit dem, was es trägt, nicht nur der Kreis body_r()
-	var stand: float = other.vorne(-dir) + bite[nm][0] * model.scale.x + weiter     # Ursprung bis Mitte des Ziels beim Biss
+	# 595 (Chef 05.11., 19:2x: „Säureschnecke – Angriff geht etwas daneben am Ziel“; nachgestellt 10.11.: Rand des Kämpfers mit Schild
+	# und Klinge 0,90 m, Leib 0,30 m, die Zunge endete vor der Klingenspitze): die Zunge schnellt über Schild und Klinge an den Leib
+	var stand: float = other.vorne(-dir, ZUNGE.has(art())) + bite[nm][0] * model.scale.x + weiter     # Ursprung bis Mitte des Ziels beim Biss
 	# 438 (wolf_mess_438, Kleriker 9,5 s: Schild 7 cm im Kopf des Wolfs): wer mit dem Schild abwehrt (406), stößt ihn beim Biss
 	# vor; vorne() misst die Ruhehaltung, darum bleibt der Wolf um ABWEHR_VOR weiter weg
 	if other.has_method("blockt") and other.blockt():
@@ -2094,7 +2104,7 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 			var d2 := dir.rotated(Vector3.UP, deg_to_rad(w))
 			# 438 (wolf_mess_438, Kleriker 43,8 s: um das Ziel herum gedreht stand der Wolf 0,31 m im Helden und 4 cm im Schild):
 			# der Rand des Ziels gilt in der neuen Richtung (auf der Schildseite weiter vorn), nicht der alte Abstand
-			var st2: float = stand + other.vorne(-d2) - other.vorne(-dir)
+			var st2: float = stand + other.vorne(-d2, ZUNGE.has(art())) - other.vorne(-dir, ZUNGE.has(art()))
 			var s2 := tg - d2 * (st2 + r_satz)
 			var l2 := minf(_platz_luft(s2, d2, other), _seg_gap(s2, s2 + d2 * jump, other) if jump > 0.0 else INF)
 			var w2 := _weg_luft(position, s2, other) if s2.distance_to(position) > 0.15 else INF
@@ -2480,7 +2490,10 @@ func announce(intent, at = null) -> void:
 	var turned: bool = at != aim
 	aim = at
 	if turned and not (tween and tween.is_running()) and halt == null:
-		_face()
+		if TURN_DPS_ART.has(art()):     # 595 (nachgestellt 10.11.: 17° in einem Bild bei neuer Ansage): langsam hindrehen
+			_face_sanft()
+		else:
+			_face()
 	# 439: „Anspringen!“ (FOE_STRIKES) nimmt die Ansage weg, der Biss folgt in der nächsten Meldung; so lange gilt der Sprung
 	if pouncing and not p:
 		sprung_bereit = intent == null
@@ -3036,7 +3049,7 @@ func kapseln() -> Array:
 ## nie weniger als body_r(). Der Kasten um Schild und Waffe mit VORNE_LUFT: im Biss schnellt die Schnauze weiter vor als im
 ## Augenblick, für den bite[] gilt, und der Getroffene hebt den Schild (wolf_mess_438: mit den Ecken des Kastens auf 0,71 noch 9 cm darin)
 const VORNE_LUFT := 0.05
-func vorne(zu: Vector3) -> float:
+func vorne(zu: Vector3, ohne_waffen := false) -> float:
 	var d := Vector3(zu.x, 0.0, zu.z).normalized()
 	var m := body_r()
 	if fighter.monster != null or d == Vector3.ZERO:
@@ -3045,7 +3058,7 @@ func vorne(zu: Vector3) -> float:
 		for q in [c[0], c[1]]:
 			m = maxf(m, d.dot(q - position) + float(c[2]))
 	for g in traegt():
-		if String(g[2]) == "":
+		if String(g[2]) == "" or ohne_waffen:
 			continue
 		var box: AABB = g[1]
 		for i in 8:
