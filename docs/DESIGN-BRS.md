@@ -60,8 +60,8 @@ Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit und 
 | Wachsoldat | Schild, Mittlere Rüstung, Einhänder | Wächter, Paladin |
 | Jägerkind | Bogen, Wurfwaffen, Spähen | Waldläufer, Scharfschütze |
 | Zauberlehrling | Evokation, Schutzmagie | Magier, Kriegsmagier |
-| Klosterschüler | Heilmagie, Heilkunde, Kräuterkunde | Heiler, Paladin |
-| Kräutersammler | Kräuterkunde, Alchemie, Spähen | Meisterschaft Alchemist |
+| Klosterschüler | Heilmagie, Heilkunde, Kräutersammeln | Heiler, Paladin |
+| Kräutersammler | Kräutersammeln, Alchemie, Spähen | Meisterschaft Alchemist |
 | Schmiedelehrling | Schmieden, Bergbau, Stumpfe Waffen (461c; Bergbau zeigt sich ab Kapitel 2) | Meisterschaft Schmied |
 | Herumtreiber | Schleichen, Spähen, Dolche | Assassine, Schatzjäger |
 | Wanderer | selbst gewählt | – |
@@ -80,7 +80,7 @@ Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit und 
 | Magie (5) | Evokation, Schutzmagie, Heilmagie, Illusion, Beschwörung (mit Nekromantie) | zaubern |
 | Wildnis (1) | Tiere beruhigen | feindliche Tiere vor dem Kampf beruhigen |
 | Gesellschaft (3) | Überreden (mit Täuschen), Einschüchtern, Handeln | Gespräche, Läden |
-| Sammeln (4) | Kräuterkunde, Bergbau, Angeln, Jagd (Zerlegen, Fährten) | ernten, angeln, erlegte Tiere zerlegen |
+| Sammeln (4) | Kräutersammeln (857a; bis 10.11. „Kräuterkunde“), Bergbau, Angeln, Jagd (Zerlegen, Fährten) | ernten, angeln, erlegte Tiere zerlegen |
 | Handwerk (6; 810) | Schmieden (Metall, Reparieren, Dietriche), Lederarbeit (Gerben, Schneidern, Reparieren), Alchemie (mit Giften), Kochen, Runenkunde (Verzaubern), Heilkunde | herstellen, verbinden |
 
 ### Wie Fertigkeiten wachsen
@@ -177,7 +177,7 @@ Die sechs Gruppen ordnen die Pfade; sie sind keine eigene Stufe:
 | Magie (Adept) | eine Schule: Evokation, Schutzmagie, Illusion oder Beschwörung | Magier | zwei Schulen | stärkste Zauber, große Manareserve | keine Rüstung |
 | | | Kriegsmagier | Evokation, Einhänder oder Zweihänder, Leichte Rüstung | Waffenzauber | nur leichte Rüstung, Magie gedeckelt |
 | | | Beschwörer | Beschwörung, eine zweite Schule (Entscheidung 82) | Diener beschwören, Untote | keine Rüstung; Ruf sinkt bei Nekromantie; keine Heilmagie |
-| Heilung (Heilkundiger) | Heilmagie, Heilkunde, Kräuterkunde | Heiler | Heilmagie, Schutzmagie, Heilkunde | Wiederbeleben, Seuchen heilen | höchstens leichte Rüstung |
+| Heilung (Heilkundiger) | Heilmagie, Heilkunde, Kräutersammeln | Heiler | Heilmagie, Schutzmagie, Heilkunde | Wiederbeleben, Seuchen heilen | höchstens leichte Rüstung |
 | | | Paladin (siehe Schutz) | | | |
 
 Alle Kernfertigkeiten stammen aus der Liste der 37 (behebt D48.4). Die Einladung kommt, wenn zwei davon Geselle sind; die Prüfungen verlangen alle am jeweiligen Rangende.
@@ -190,7 +190,7 @@ Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, abe
 | --- | --- | --- | --- |
 | Schmied | Schmieden | Bergbau | Waffen, Metallrüstung, Dietriche, Reparatur von Metall |
 | Lederarbeit | Lederarbeit | Jagd | Leder, leichte Rüstung, Taschen, Köcher, Reparatur von Leder und Stoff |
-| Alchemist | Alchemie | Kräuterkunde | Tränke, Gegengifte, Gifte, Elixiere |
+| Alchemist | Alchemie | Kräutersammeln | Tränke, Gegengifte, Gifte, Elixiere |
 | Runenmeister | Runenkunde | Bergbau | Verzauberungen, Runen auf Ausrüstung |
 | Feldkoch | Kochen | Angeln oder Jagd | Mahlzeiten mit kleinem Bonus |
 
@@ -230,7 +230,7 @@ Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, abe
 
 | Rohstoff | Fundort | Fertigkeit |
 | --- | --- | --- |
-| Kräuter, Pilze, Blüten | Wiesen, Wald, Höhlen | Kräuterkunde |
+| Kräuter, Pilze, Blüten | Wiesen, Wald, Höhlen | Kräutersammeln |
 | Erz, Steine | Adern, Felswände | Bergbau |
 | Fische | Teich, Fluss | Angeln (Fang nach Rang, Angel und Gebiet) |
 | Fleisch, Fell, Knochen, Sehnen, Zähne | erlegte Tiere | Jagd (Zerlegen nach dem Sieg; ohne Jagd weniger und schlechtere Teile, nie nichts) |
@@ -399,10 +399,10 @@ Neu gefasst nach Entwurf F (Chef 31.10., 21:4x: „das irgendwie erklärt sich m
 | --- | --- | --- | --- |
 | Heldenstufe | Leben, Größenordnung im Kampf, Zugang zu Gebieten | 1, 2, 3 …; jedes Kapitel setzt eine Grenze (weich, bis zwei darüber) | Erfahrung aus Kampf, Quests, Story und Fertigkeitsaufstiegen |
 | Grundwerte (6) | Begabung: Kraft, Gewandtheit, Zähigkeit, Verstand, Wille, Wahrnehmung | Start 3 bis 8 | wachsen langsam mit den Fertigkeiten |
-| Fertigkeiten (37) | Können im Einzelnen, auch Sammeln wie Kräuterkunde und Handwerk wie Schmieden | Wert 0 bis 100 in vier Rängen: Anfänger, Geselle, Meister, Großmeister; bei 100 fertig | durch Tun bis zur Rangdecke; der nächste Rang braucht eine Prüfung (Entwurf F) |
+| Fertigkeiten (37) | Können im Einzelnen, auch Sammeln wie Kräutersammeln und Handwerk wie Schmieden | Wert 0 bis 100 in vier Rängen: Anfänger, Geselle, Meister, Großmeister; bei 100 fertig | durch Tun bis zur Rangdecke; der nächste Rang braucht eine Prüfung (Entwurf F) |
 | Pfad oder Meisterschaft | Rolle des Helden: ein Pfad (Kampf und Lebensweg, mit Auflagen), dazu beliebig viele Meisterschaften (Handwerk, ohne Auflagen) | Anwärter → Eingeweihter → Titel → hoher Titel | Lehrmeister: Zusage, dann Weihe, Titelprüfung, Hohe Prüfung (Entwurf F, Namen 466) |
 
-Wie das zusammenhängt: Kräuterkunde ist eine **Fertigkeit** (Sammeln). Sie gehört zu den Kernfertigkeiten der **Meisterschaft** Alchemist, so wie Schild zur **Berufung** Paladin gehört. Meisterschaften laufen genauso wie Berufungen (Lehrmeister, Prüfungen), nur ohne Auflagen und ohne Grenze der Anzahl. Ein eigener „Meisterschaftsrang“ entfällt; es ist die Stufe in der Meisterschaft.
+Wie das zusammenhängt: Kräutersammeln ist eine **Fertigkeit** (Sammeln). Sie gehört zu den Kernfertigkeiten der **Meisterschaft** Alchemist, so wie Schild zur **Berufung** Paladin gehört. Meisterschaften laufen genauso wie Berufungen (Lehrmeister, Prüfungen), nur ohne Auflagen und ohne Grenze der Anzahl. Ein eigener „Meisterschaftsrang“ entfällt; es ist die Stufe in der Meisterschaft.
 
 **Die Welt**
 
@@ -442,8 +442,8 @@ Abnutzung und Reparatur: Reparieren ist keine eigene Fertigkeit mehr; Metall rep
 | Schildträger | Wachsoldat | Schild, Mittlere Rüstung, Einhänder | Wächter, Paladin |
 | Schütze | Jägerkind | Bogen, Wurfwaffen, Spähen | Waldläufer, Scharfschütze |
 | Zauberer | Zauberlehrling | Evokation, Schutzmagie | Magier, Kriegsmagier |
-| Heiler | Klosterschüler | Heilmagie, Heilkunde, Kräuterkunde | Heiler, Paladin |
-| Kräuterkundiger | Kräutersammler | Kräuterkunde, Alchemie, Spähen | Meisterschaft Alchemist |
+| Heiler | Klosterschüler | Heilmagie, Heilkunde, Kräutersammeln | Heiler, Paladin |
+| Kräuterkundiger | Kräutersammler | Kräutersammeln, Alchemie, Spähen | Meisterschaft Alchemist |
 | Schmiedegeselle | Schmiedelehrling | Schmieden, Bergbau, Stumpfe Waffen (461c; Bergbau zeigt sich ab Kapitel 2) | Meisterschaft Schmied |
 | Späher (neu) | Herumtreiber | Schleichen, Spähen, Dolche | Assassine, Schatzjäger |
 | Frei | Wanderer (keine Herkunft; du verteilst die 18 Punkte selbst und wählst Startfertigkeiten frei) | selbst gewählt | – |
@@ -474,7 +474,7 @@ Anlass (Chef 31.10., 21:4x): „Anfänger, Geselle, Meister, Großmeister … ab
 2. **Üben füllt nur bis zur Rangdecke.** Durch Tun steigt der Wert bis zum Ende des Rangs (zum Beispiel 49). Weiter geht es erst nach einer **Prüfung**. Was man darüber hinaus übt, wird bis zu einem kleinen Puffer gemerkt (wie schon entschieden: „hart mit Puffer“). So kann keiner „schon Meister sein, ohne was gemacht zu haben“: Ohne Prüfung bleibt jeder am Ende seines Rangs stehen.
 3. **Wo die Prüfung stattfindet:**
    - **Fertigkeiten der eigenen Berufung** prüft der eigene Lehrmeister, gebündelt in drei Prüfungen (unten). Eine Prüfung öffnet den nächsten Rang für alle Kernfertigkeiten der Berufung zugleich.
-   - **Alle anderen Fertigkeiten: Bewährungsprobe statt Lehrstunde** (Chef 21:4x: „Lehrstunde … kann ich mir aufstecken … nicht so, dass man sich das verdient hätte … einfaches Rumlaufen“). An der Rangdecke erscheint im Heldenblatt eine Probe, die man in der Welt mit genau dieser Fertigkeit besteht, ohne irgendwohin zu laufen. Beispiele: Einhänder zum Gesellen: „drei Gegner deiner Stufe nur mit dem Schwert besiegen, ohne Heiltrank“; Schlösser knacken zum Meister: „ein Schloss der Stufe 3 öffnen“; Kräuterkunde: „eine seltene Pflanze finden“; Angeln: „einen Fisch über 3 kg fangen“. Die Proben entstehen aus wenigen Vorlagen je Fertigkeitsgruppe (acht Gruppen, drei Ränge), nicht als hundert einzelne Quests; Texte von Homer, die Chronik vermerkt jede bestandene Probe.
+   - **Alle anderen Fertigkeiten: Bewährungsprobe statt Lehrstunde** (Chef 21:4x: „Lehrstunde … kann ich mir aufstecken … nicht so, dass man sich das verdient hätte … einfaches Rumlaufen“). An der Rangdecke erscheint im Heldenblatt eine Probe, die man in der Welt mit genau dieser Fertigkeit besteht, ohne irgendwohin zu laufen. Beispiele: Einhänder zum Gesellen: „drei Gegner deiner Stufe nur mit dem Schwert besiegen, ohne Heiltrank“; Schlösser knacken zum Meister: „ein Schloss der Stufe 3 öffnen“; Kräutersammeln: „eine seltene Pflanze finden“; Angeln: „einen Fisch über 3 kg fangen“. Die Proben entstehen aus wenigen Vorlagen je Fertigkeitsgruppe (acht Gruppen, drei Ränge), nicht als hundert einzelne Quests; Texte von Homer, die Chronik vermerkt jede bestandene Probe.
    - **Großmeister nur in der eigenen Berufung oder Meisterschaft.** Fertigkeiten außerhalb kommen höchstens bis Meister. Das hält Spezialisten wertvoll und bremst den Alleskönner ohne weitere Regel.
 4. **Die Berufung beginnt beim Lehrmeister.** Statt eines „Wegs“ als eigener Stufe gibt es die **Neigung**: Das Spiel merkt, was du tust (zum Beispiel Schild und Heilmagie auf Geselle). Dann spricht dich ein Lehrmeister an: „Willst du Paladin werden?“ Du sagst ja, nein oder später. Mit Ja bist du **Anwärter**.
 5. **Drei Prüfungen der Berufung**, jede eine Quest beim Lehrmeister, mit einer passenden Tat:

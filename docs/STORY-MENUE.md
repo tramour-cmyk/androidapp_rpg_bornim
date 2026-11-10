@@ -91,7 +91,7 @@ Homer 10.11.; ersetzt die SRD-Sätze aus `Perks.describe` (Ausfuhr `held.json` �
 `[817.wahrnehmung]` (WIS)
 - (nur Klosterschüler) Treffer deiner Zauber, wie schwer man ihnen ausweicht, und deine Heilung. / EN: (Cloister Pupil only) Accuracy of your spells, how hard they are to dodge, and your healing.
 - Hinterhalte: %s seltener. / EN: Ambushes: %s less often.
-- Kräuterkunde: %s Aussicht auf ein zusätzliches Kraut beim Pflücken. / EN: Herbalism: %s chance of an extra herb when picking.
+- Kräutersammeln: %s Aussicht auf ein zusätzliches Kraut beim Pflücken. / EN: Foraging: %s chance of an extra herb when picking.
 
 `[817.wille]` (CHA)
 - `[817.wille.handeln.plus]` Handeln: %d %% günstiger einkaufen und %d %% teurer verkaufen. / EN: Haggling: buy for %d%% less and sell for %d%% more.

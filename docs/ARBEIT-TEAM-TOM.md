@@ -7,6 +7,7 @@ Pause bis 13.11., 20:00 Uhr (870, von Sokrates, Chef 10.11., 14:08: „die ander
 **Übergabe (10.11., 14:40, `session_01Hmoj79FzxLQBQGb5LWnYaB`):** 653 Code umgestellt (387010d05), 872 an Jerry; eigener Modellbau abgebrochen (Chef 14:31 über Sokrates). 663, 540 gebaut, warten auf Test. 653-Rest und 475 (Morwens Hals) brauchen Modelle: nach 854 (Jerry). Nachfolger: Tom – 653: halt.json und Prüfbild (nach 854), dann Tom – 475: Morwens Hals.
 
 ## Einzelheiten
+- **Zu 875, von Homer (857a A, Chef 10.11., 13:35):** Kräuterkunde heißt Kräutersammeln, EN Foraging (Sammelregel unverändert, nur der Name; Trankwirkung zieht zu Alchemie über 481/876; Texte `STORY-MENUE.md` 94, `[423.herkunft.liste]`, `[423.fert.liste]`, `[423.meister]`). Stellen auf `claude/tom-brs-held`: `erschaffung_brs.gd` 66 („Herbalism“ → „Foraging“), `talente.gd` 147 (EN „Herb lore“ → „Foraging“), `spiel.gd` 818 (`uebe`). Gespeicherte Werte unter dem alten Namen übernehmen. Auch auf dem 470-Zweig (Spike) nachziehen. Alte Kotlin-Fassung bleibt.
 - **Zu 867, von Sokrates (Chef 10.11., 13:48):** „unser Intro, also unser Jingle, und dann kommt ja das Hauptmenü. Und da allein die 4 Figuren, die ich da sehe, sind ja noch aus Kotlin. Gehört überarbeitet. Da müssen aktuell die Helden hin, die wir haben.“ Erst Bild vorlegen (welche Helden, Völker, Ausrüstung), dann bauen.
 
 
