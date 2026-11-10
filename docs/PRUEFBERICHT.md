@@ -52,6 +52,10 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 145 · 881 Entwurf der Prüfliste, nie das eigene Team (Perikles, `5bd0f16c8`; 10.11., 16:2x)
+
+- Weg steht in `LISTE-CHECK-BUILD-TEST.md` 8 (Entwurf `docs/entwurf/t<n>-….md`, Sitzung außerhalb des Teams, Zeile, verschieben). Probe in einer Kopie von `origin/main`: „# Tom ·“ mit „Gegengelesen: Spike“ und „# Tom und Jerry ·“ mit „Gegengelesen: Tuffy“ halten an; „# Tom ·“ mit Jerry und „# Jerry ·“ mit Sokrates gehen durch; Entwurf ohne Zeile unter `docs/entwurf/` geht durch. Zeile 1 der Prüflisten t271–t274 hat genau diese Form. **881 greift** (Lauf 145); 866 wartet auf nichts mehr (Bereich Q, schließt Perikles).
+
 ## Lauf 144 · 880 doppelte Vorgangsnummer (Perikles, `5f3cd4566`; 10.11., 16:2x)
 
 - `vorgang.py neu` holt `origin/main` und zieht nie unter dessen Zähler oder eine dort belegte Nummer; echter Fall heute: fünf Ziehungen 882–886 nach 881, jede einmal, Zähler 887. Rest: ziehen zwei Sitzungen, bevor eine pushte, hilft weiter nur die Marke (653) als Mischkonflikt; darum sofort pushen wie vorgeschrieben. **880 greift** (Lauf 144).
