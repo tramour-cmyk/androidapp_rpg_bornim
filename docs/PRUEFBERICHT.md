@@ -52,6 +52,10 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 133 · 853 Rolle aus Systemmeldung (Perikles, `c71abc295`; 10.11., 13:0x)
+
+- CLAUDE.md „Rollen“ (auch als Systemmeldung), `notiz.sh` und `regeltreue/notiz-neu.sh` (Jerry in der Liste, Systemmeldung von Ford gilt), `LISTE-BETRIEB.md` 17 (`append_system_prompt` mit „Du bist <Rolle> …“) stimmen überein; der Starthaken ruft `notiz.sh` aus dem Arbeitsbaum, Sitzungen starten auf `main`, also greift der neue Text. Kein anderer Ort druckt die alte Rollenliste. **853 greift** (Lauf 133). Wirkung erst am ersten Start nach 13:03 (Ford-Lauf 14:03) zu sehen: Wiedervorlage im Vorrat.
+
 ## Lauf 132 · 847 Menüeintrag „Lizenzen der Engine“ ausgenommen (Perikles, `00bd81d70`; 10.11., 13:0x)
 
 - Logik der Commit-Prüfung gegen alle Prüflisten t248–t275: 269.1 und 271.1 gehen jetzt durch; 248.4 (Lizenzhinweis da?), 273.1 (Hoskins, MIT) und 255.1 halten weiter an. 255.1 prüft den Umbruch der englischen Lizenztexte selbst, nicht nur den Weg; nach 832 ist das ein Lizenz-Prüfpunkt, Anhalten richtig (meine Angabe in D128.1 war hier zu weit). **847 greift** (Lauf 132).
