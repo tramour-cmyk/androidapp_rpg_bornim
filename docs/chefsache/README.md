@@ -37,7 +37,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
-**Tom** – offen 103, Muss 84, startbar 6
+**Tom** – offen 103, Muss 84, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -50,7 +50,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 697 | M | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | wartet auf 782 (startbar) |
 | 653 | M | Halt für Waffen und Schilde einmal je Modell festlegen statt je Figur nachmessen: Griffpun | Sperre 620.1 B: 15 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 661 (aller) |
 | 680 | M | Absturz: Testmenü Sprung Wald → Dorf, in der Schenke schon hakelig, nach Met immer zäher, | Sperre 620.1 B: 15 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 543 (schenke) |
-| 506 | M | Untote im Kampf: Skelett, Zombie, Ghul (aus 494, Spike; Wochenziel 03.11., 488) | Sperre 620.1 B: 15 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 834 (aufruf.gd) |
+| 506 | M | Untote im Kampf: Skelett, Zombie, Ghul (aus 494, Spike; Wochenziel 03.11., 488) | startbar |
 | 492 | M | Blutzahnhöhle begehbar mit Krogg, Grak, Lyra (Orte O8; Wochenziel 03.11., 488; von Jerry a | Sperre 620.1 B: 15 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 834 (spiel.gd) |
 | 670 | M | Build 269: Menü des Helden (Held, Tasche, Ausrüstung, Karte, Chronik, System) noch im alte | wartet auf Test (Build) |
 | 581 | M | Ausrüstung: Seite breiter als der Schirm, Reiter springen (Abgleich 512b) · zurück t269 | Sperre 620.1 B: 15 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 661 (schirm) |
