@@ -266,7 +266,8 @@ def main():
     for s, p in dat:  # 832 (Chef 10.11., 09:29): Lizenzen sichert der Test im Bau, nie eine Prüfzeile („Im Bau geprüft“)
         if s == "A" and re.match(r"docs/chefsache/ansehen/t\d+-[^/]+\.md$", p):
             for zl in re.findall(r"(?m)^\|\s*\d+\.\d+[a-z]?\s*\|.*$", git("show", ":" + p)):
-                if re.search(r"Lizenz|Urheber", zl, re.I):
+                rf = " ".join(zl.rstrip().rstrip("|").split("|")[-2:])
+                if re.search(r"(?i:Lizenz|Urheber)|\bMIT\b|\bCC0\b|\bCC BY\b", rf):  # 846 (D127.1): nur Richtig/Falsch, der Weg darf über „Lizenzen“ führen
                     stop.append("%s: Prüfzeile verlangt Lizenzlesen (%s); gehört als Test unter „Im Bau geprüft“ (832, LISTE-CHECK-BUILD-TEST.md 9)" % (p, zl.split("|")[1].strip()))
     for s, p in dat:  # 512.1 (Chef 03.11., 23:28, „Kümmer du dich um 512.“): neue Prüfliste nennt, was alt gegen neu verglichen ist
         if not (s == "A" and re.match(r"docs/chefsache/ansehen/t\d+-[^/]+\.md$", p)):

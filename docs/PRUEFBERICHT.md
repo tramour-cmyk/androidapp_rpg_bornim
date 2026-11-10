@@ -45,6 +45,24 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - **„keine Arbeit“:** Protokoll 09:07 „Keine Entwicklersitzung (826 A)“: 826 A (08:25) erlaubt eine Entwicklersitzung, gelaufen ist von 07:25 bis 10:26 keine (Jerry 59 Muss, Tom startbar); Bericht 10:32 „keine Arbeit“ schon in 341. Fords Chatberichte selbst nicht prüfbar (`meldungen.tsv` ohne Text).
 - Befund D126.1 → 843 (Ford). Werkzeugseite liegt in 837 (Perikles); 838 wiederholen, sobald 837 gebaut ist.
 
+## Lauf 127 · 837 Startprüfung `lauf.py` (Perikles, `ad5264185`) und 838 Stichprobe ab Bau (10.11., 11:5x)
+
+- **837 greift.** `start_angekommen` an 7 Fällen: ohne Sitzung nein; neu nach der Sperre ja; neu bis 5 Minuten davor ja; alte Sitzung danach tätig (WEITER) ja; archivierte nein; andere Rolle nein; „Jerry 2“ zählt als Jerry. Ganzer Lauf in einer Kopie (`--ohne-pull`, echte Sitzungen 11:51): ohne Zusatz keine Warnung (kein Fehlalarm); erfundene Sperre 11:40 Perikles, Spike → je einmal WARNUNG-LAUT „Start … nicht angekommen“; Sperre 11:40 Tom ohne Tom-Sitzung → Warnung und START Tom im selben Lauf (Punkt 2: belegt nicht); Sperre 11:50 Tom → „Startmarke jünger als 20 Minuten“ (Prüfung erst ab 5 Minuten). Grenze: greift nur, wenn Ford mit `--sperre` läuft (`LISTE-BETRIEB.md` 4 schreibt es vor).
+- **Stichprobe 11:08 bis 11:51:** `lauf.py`-START 11:08 Diogenes, Homer, Perikles, Tuffy und 11:48 Diogenes: alle mit Sitzung binnen 1 Minute; 11:27 Spike: `--ohne` mit Grund im Protokoll 11:30 (Spike-Sitzung idle, Wecker 11:57). Fords Neustarts 11:25 Sokrates, 11:28 Ford, 11:49 Sokrates: mit Sitzung. 6 von 6 ausgeführt oder begründet (Lauf 126: 25 von 39). Kein neuer Bericht „keine Arbeit“.
+- Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
+- 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
+
+## Lauf 128 · 832 Prüfliste nur Spielbares, Lizenzzeile hält an (Perikles, `f00ceec73`; 10.11., 11:5x)
+
+- Regeltext `LISTE-CHECK-BUILD-TEST.md` 9 trägt den Chefwortlaut 09:29, „Im Bau geprüft“, Lizenzen nie als Prüfpunkt und „jeder Weg erreichbar“ (Helfer geht ihn im Build oder in der Vorschau, sonst Rückläufer); ohne Befund.
+- `commit-pruefung.py` in einer Arbeitskopie mit vorgemerkter Probedatei `t999`: Zeile mit „Urheberzeile“ → HÄLT AN, Exit 1; Zeile ohne Lizenz → nichts. Gegen die alten Prüflisten t248–t273 hielte sie 248.4, 255.1, 269.1, 271.1, 273.1 an.
+- **D127.1 → 846 (Perikles):** auch Zeilen, die das Menü „Lizenzen der Engine“ nur als Weg nennen, halten an (Probe 999.2; Vorbild 271.1: geprüft wurde das Titelbild). Vorschlag: nur Spalten „richtig“/„falsch“ prüfen, nicht den Weg. 832 wartet auf 846.
+
+## Lauf 129 · 846 Lizenz-Stopp nur Richtig/Falsch (Perikles, `bda15e52f`; 10.11., 11:5x)
+
+- Probe `t999` in Arbeitskopie: Urheberzeile in Richtig → HÄLT AN; „MIT-Text fehlt“ in Falsch → HÄLT AN; Weg über „Lizenzen der Engine“ → geht durch; Exit 1. **846 greift, 832 greift** (Lauf 129).
+- Alte Prüflisten: 273.1 hält an (richtig); 271.1, 269.1, 255.1 halten weiter an, weil Richtig/Falsch den Menüeintrag „Lizenzen der Engine“ als Bedienelement nennt (Sichtprüfungen). **D128.1 → 847 (Perikles, Kür):** Namen des Eintrags ausnehmen.
+
 ## Lauf 125 · 800 Nachprüfung 813 (Perikles, `23064823b`; 10.11., 00:0x)
 
 **Greift.** `regelcheck.py` (Z. 177) nimmt Pfade relativ zu `docs/` und `docs/chefsache/`; die drei Fehlalarme aus D123.1 (`kapitel2/STORY-K2-ENTWURF.md`, `kapitel2/STORY-PLAN-K2.md`, `chefsache/README.md`) sind weg. Übrige Meldungen „fehlende Datei“ sind echte tote Verweise aus der Zeit vor 800 (beantwortete Chefsachen, ruhende Vorräte), nicht Teil des Auftrags. 800 erledigt; der Absatz „Zu 800“ in `ARBEIT-PROJEKT.md` steht noch (Perikles räumt).

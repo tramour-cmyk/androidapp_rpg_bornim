@@ -111,10 +111,11 @@
 | 814 | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staub im Licht, Fußstaub, Fahne, Wind, Gras weicht aus, Federn; gedämpft, Bilder/s nie unter heute, an 698 (623.8 A, Chef 09.11., 22:23) | Tom | M | startbar | – | – | – | E Welt | – |
 | 815 | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staubflocken innen, Fußstaub, Fahne, Wind, Gras weicht aus, Federn; gedämpft, Bilder/s nie schlechter, an 698 (623.8 A, Chef 09.11., 22:23) | Tom | M | startbar | – | – | – | E Welt | – |
 | 831 | Bildtafel Bäume: vier Arten aus Stylized Nature MegaKit frei (gewöhnlich, abgestorben, Kiefer, verdreht) je drei Varianten mit Signatur, neben unserem Baum, Spielkamera, Kosten je Baum (Chef 10.11., 09:10, über Sokrates) | Tom | M | startbar | – | – | – | E Welt | 3,10 $ |
-| 839 | Von Homer (817): Erklärtexte der Grundwerte im Reiter Held nach BRS einbauen, Texte STORY-MENUE.md [817.…]; sieben Zeilen ohne Wirkung streichen | Tom | M? | startbar | – | – | – | G Story | – |
+| 839 | Von Homer (817): Erklärtexte der Grundwerte im Reiter Held nach BRS einbauen, Texte STORY-MENUE.md [817.…]; sieben Zeilen ohne Wirkung streichen | Tom | K | ruht, bis Test 825 (620, Perikles) | – | – | – | G Story | – |
 | 842 | Von Sokrates (807a A, Chef 10.11., 11:01): Pim überreden und Verband nach STORY-K1-FERTIGKEITEN.md bauen, Knopf nennt die Fertigkeit („Schick Pim heim (Überreden)“), übt die Fertigkeit (471) | Tom | M | startbar | – | – | – | E Welt | – |
 | Pflege | von Werkzeug (340.3, 10.11.): 17711 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
 | 709 | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angreifer prüfen (Chef 08.11., 21:36, über Sokrates) | Jerry | M | in Arbeit, Messung treffen_709 am Rechner | – | claude/jerry-709-treffen | – | E Kampf | – |
+| 751 | Kampf: Knopfleiste des Helden manchmal leer („…“), keine Menüfunktion, auch ohne „ganzer Bericht“ (Chef 09.11., 14:00, Fund t271, Bild Wolfsrudel) | Jerry | M | startbar, 751 A (Chef 17:46) | – | claude/jerry-717-rueckwaerts | – | E Oberfläche | – |
 | 593 | MARS: Ausweichen auch rückwärts als Abwechslung zu links und rechts (Chef 05.11., 19:2x) | Jerry | M | zu testen | – | claude/jerry-593-ausweichen | 274 | E Kampf | – |
 | 406.2 | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) · zurück t269 | Jerry | M | in Arbeit, bei Tuffy | – | – | – | E Kampf | 41,37 $ |
 | 642 | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 Seeds 1, 3 am Rechner; im Bau misst nur Seed 7), auch mit altem Heldentempo; von Jerry zu 438 | Jerry | M | ruht, wartet auf Kaufrepo (391), Ursache vermutet | – | claude/jerry-348-642-wolf-abstand | – | E Kampf | 6,63 $ |
@@ -172,12 +173,11 @@
 | 644.2 | Gegenstandskatalog: Zahlen nach 469 in 444 (Tempo, Parieren, Durchschlag, Güte, Stufe), C1 Fertigkeit +1/+2 ab episch ohne Pflicht-Nachteil (Chef 14:32), C2 Seltenheitsdecke je Kapitel in die Regelwerte (644 C) | Jerry | M | ruht, Kampf zuerst (338.1) | – | – | – | E Kampf | – |
 | 681 | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | Jerry | M | ruht, Kampf zuerst (338.1) | – | – | – | E Klang | – |
 | 744 | Karte: Streuner und Leute bewegen sich natürlich, verweilen mit Ruhebewegung statt Roboter-Takt (Chef 09.11., 11:18); ein Bewegungsbaustein für beide Teams? | Jerry | M | startbar | – | – | – | E Figuren | – |
-| 751 | Kampf: Knopfleiste des Helden manchmal leer („…“), keine Menüfunktion, auch ohne „ganzer Bericht“ (Chef 09.11., 14:00, Fund t271, Bild Wolfsrudel) | Jerry | M | startbar, 751 A (Chef 17:46) | – | claude/jerry-717-rueckwaerts | – | E Oberfläche | – |
 | 760 | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht (Chef 09.11., 14:00, Fund t271) | Jerry | M | startbar, 760 A (Chef 17:46) | – | – | – | E Kampf | – |
 | 770 | Wochentermin 13.11.: Rollenspiegel Jerry (rollenspiegel.sh Jerry) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Jerry | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 784 | Kampf-Sollbild „Wolfsrudel, eine Runde“: wer geht wohin, Höchstdauer je Handlung, Ausweichen bleibt; selbst am Handybild nachspielen, dann Maß für jeden Kampffund (654 A, Chef 09.11., 17:46) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 786 | Klangliste alt gegen neu: je Anlass alt, neu, fehlt (654 A, als Drittes) | Jerry | M | startbar | 784 | – | – | E Klang | – |
-| 802 | Rest 211.14 (Kür, Tuffy): Held und Söldner gehen beim Wechsel statt 0,4 s zu gleiten (figur.gd glide_to ohne Wurzelweg) | Jerry | K | startbar | – | – | – | E Kampf | – |
+| 802 | Rest 211.14 (Kür, Tuffy): Held und Söldner gehen beim Wechsel statt 0,4 s zu gleiten (figur.gd glide_to ohne Wurzelweg) | Jerry | K | ruht, bis Test 825 (620, Perikles) | – | – | – | E Kampf | – |
 | 803 | Rest 211.14 (Kür, Tuffy): Gegner durch Antippen der Figur als Ziel wählen | Jerry | K | startbar | – | – | – | E Kampf | – |
 | 811 | Von Perikles (800, 650.2 C1): Kommentar in godot/regeln/brs_kampf.gd Zeile 3 nennt DESIGN-SPIELSYSTEM-2-0-ENTWURF.md, Datei heißt seit 09.11. DESIGN-BRS.md; beim nächsten Commit dort mitziehen | Jerry | K | startbar | – | – | – | E Kampf | – |
 | 823 | Von Perikles (822, 745 A2): Abschnitt „## Checkliste“ in LISTE-MARS.md, je Regel zum Kampf eine Zeile oder Verweis (Balance nur Chef, 444 vor Zahlen, Messung vor Bau …); der Haken zeigt ihn beim ersten Commit unter godot/kampf/ und godot/regeln/ | Jerry | K | startbar | – | – | – | B Abläufe | – |
@@ -195,7 +195,7 @@
 | 72 | Profil und Marktvergleich | Homer | K | erledigt | – | – | – | E Kampf | 0,72; +0,61 $ |
 | 348.12g | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | Homer | M | erledigt | – | – | – | G Story | 4,29 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
-| 837 | lauf.py: Start nicht angekommen melden (Chef 10.11., 10:4x; Fehler 341 von Ford) · „jetzt“ 10.11., 11:09 | Perikles | M | gebaut, Geprüft an: ad5264185 | Diogenes | – | – | B Werkzeuge | – |
+| 837 | lauf.py: Start nicht angekommen melden (Chef 10.11., 10:4x; Fehler 341 von Ford) · „jetzt“ 10.11., 11:09 | Perikles | M | erledigt, greift Lauf 127 | – | – | – | B Werkzeuge | – |
 | 483 | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Marke (Chef 02.11., 19:08) | Perikles | M | gebaut, Geprüft an: 62e922b30 | Diogenes, D75 | – | – | B Werkzeuge | – |
 | 464 | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählung im Tagesbericht (Chef 01.11., 20:4x) | Perikles | M | gebaut, Geprüft an: fcf9ab215 | 16.11. | – | – | B Abläufe | – |
 | 347.2 | Umsetzung Plan 347 nach Gegenprüfung (Chef 24.10., 16:30) | Perikles | M | wartet | 347 | – | – | B Abläufe | – |
@@ -214,7 +214,9 @@
 | 734 | D92.1 Warnung „LISTE-VORGAENGE.md von Hand geändert“ wird nirgends festgehalten, Woche Warnungen (275 Stufe 2) nicht zählbar; je Warnung eine Zeile in eine Datei auf main (von Diogenes, Lauf 92) | Perikles | K | ruht, Kampf zuerst (338.1) | – | – | – | B Werkzeuge | – |
 | 735 | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-ABNAHME.md 11 und Kopf DESIGN-KAMPF.md 7 (646 ersetzt 621.1; 655 strich 300 und Helfer nach dem Versand) (von Diogenes, Lauf 92) | Perikles | K | ruht, Kampf zuerst (338.1) | – | – | – | B Abläufe | – |
 | 742 | D78.1 Testbitte t268: Zeile „Verglichen“ deckte nur die Schirme vom 05.11., nicht Dorf, Kampf, Kapitelende; Wächter 512.1 prüft den Umfang nicht (von Diogenes, Lauf 76) | Perikles | K | ruht, Kampf zuerst (338.1) | – | – | – | B Werkzeuge | – |
-| 832 | Testbitten ohne Prüfpunkte, die ein Test im Bau schon sichert oder Lesen von Lizenztexten verlangen (Chef 10.11., 09:29 zu 273.1, über Sokrates) | Perikles | M | gebaut, Geprüft an: f00ceec73 | Diogenes | – | – | Q QS | – |
+| 832 | Testbitten ohne Prüfpunkte, die ein Test im Bau schon sichert oder Lesen von Lizenztexten verlangen (Chef 10.11., 09:29 zu 273.1, über Sokrates) | Perikles | M | erledigt, greift Lauf 129 | – | – | – | Q QS | – |
+| 846 | D127.1 (Diogenes, 832): commit-pruefung.py hält Prüfzeilen an, die das Menü „Lizenzen“ nur als Weg nennen (Vorbild 271.1 Titelbild); nur anhalten, wenn „richtig“ Lizenztext verlangt | Perikles | M | erledigt, greift Lauf 129 | – | – | – | B Werkzeuge | – |
+| 847 | D128.1 (Diogenes, 846): Lizenz-Stopp hält noch an, wenn Richtig/Falsch den Menüeintrag „Lizenzen der Engine“ als Bedienelement nennt (271.1, 269.1, 255.1 hielten an); Namen des Eintrags ausnehmen | Perikles | K | startbar | – | – | – | B Werkzeuge | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
@@ -222,7 +224,7 @@
 | 768 | Wochentermin 13.11.: Rollenspiegel Diogenes (rollenspiegel.sh Diogenes) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Diogenes | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 771 | Probe 657 auswerten: Erstfunde des Chefs t272–t275 gegen 11, 11, 9, 7 (von Perikles, Werkzeug 657 greift laut Lauf 104) | Diogenes | M | startbar | t275 | – | – | Q QM | – |
 | 790 | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab 200 Tsd., Chef 09.11., 18:05) | Diogenes | M | startbar | 16.11. 18:07 | – | – | Q QM | – |
-| 838 | Prüfung Ford: folgte jeder START-Zeile von lauf.py eine Sitzung? Stichprobe im Wochenlauf (Chef 10.11., 10:4x; Fehler 341 von Ford) | Diogenes | M | startbar | 837 | – | – | B Werkzeuge | 1,62 $ |
+| 838 | Prüfung Ford: folgte jeder START-Zeile von lauf.py eine Sitzung? Stichprobe im Wochenlauf (Chef 10.11., 10:4x; Fehler 341 von Ford) | Diogenes | M | erledigt | – | – | – | B Werkzeuge | 1,62 $ |
 | 780 | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für unsere gekauften Protofactor-Animsets und Janpec, die KI-Sitzungen mit Skripten bearbeiten? (aus 623.1) | Sokrates | M | wartet, Protofactor ja 10.11., 04:48; offen Janpec | 23.11. | – | – | M Veröffentlichung | – |
 | 620 | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build (Chef 07.11.) | Sokrates | M | startbar | – | – | – | B Abläufe | 34,99 $ |
 | 623 | Effektpakete REEBOO Labs: Kauf, Ressourcenseite `LISTE-QUELLEN.md`, Zuordnung `LISTE-EFFEKTE.md`, Dank im Spiel (Chef 07.11.) | Sokrates | M | startbar, 10 Pakete gekauft und erfasst, R5 R6 zurückgestellt | – | – | – | E Kampf | 6,88 $ |
