@@ -32,8 +32,8 @@ func _init() -> void:
 	# 249: the halt as a blow lands (HitWeight.kt)
 	_weights()
 	# 348.7b (Chef 28.10., 10:43: „brennende Hände gehen ja auf eine Reihe … da dürften ja auch theoretisch dann mehr getroffen sein“)
-	_row_spell("BURNING_HANDS")
-	_row_spell("FIREBALL")
+	_row_spell("Z_FAECHER")     # 870.5: Flammenfächer, Glutkugel nach dem BRS
+	_row_spell("Z_GLUT")
 	# 399.2a (Chef 14:19 „Wolf mit 1 bis 2 Jungwölfen“): fällt der Wolf, fliehen die Jungwölfe, der Kampf ist gewonnen
 	_pack_flees()
 	# 399.2b (Chef 15:32 „Jungwölfe beißen wie im alten Spiel nur zu 50 % je Runde“)
@@ -339,11 +339,11 @@ func _weights() -> void:
 	_check_s("Wucht: Ruck hin und zurück", "%.2f %.2f %.2f" % [Wucht.jolt(0.0), Wucht.jolt(0.5), Wucht.jolt(1.0)], "0.00 1.00 0.00")
 
 
-## 348.7b: a row spell rolls a save for every standing foe in the target's row and none in the other row (Skirmish.kt:726).
+## 348.7b: a row spell strikes every standing foe in the target's row and none in the other row (Skirmish.kt:726); 870.5 nach dem
+## BRS: ein Schlag der Schule je Gegner der Reihe (Evokation 40 kennt Flammenfächer und Glutkugel)
 func _row_spell(spell: String) -> void:
 	var sheet: Dictionary = tables.probe.WIZARD.hero.hero.duplicate(true)
-	if not spell in sheet.skills:
-		sheet.skills.append(spell)
+	sheet["brs_fert"] = {"Evokation": 40}
 	sheet.level = maxi(int(sheet.level), 5)
 	var skills := {}
 	for s in tables.skills:
@@ -359,6 +359,9 @@ func _row_spell(spell: String) -> void:
 	var heard := []
 	mars.listener = func(e): heard.append(e)
 	mars.start()
+	for w in foes:     # 870.5: nach dem Umrechnen der Leben (BRS) zu zäh zum Fallen
+		w.max_hp = 9999
+		w.hp = 9999
 	assert(mars.current() == hero)
 	var why = mars.blocked(hero, spell)
 	if why != null:
@@ -383,7 +386,7 @@ func _row_spell(spell: String) -> void:
 	mars.act(["use", spell, t.id])
 	var hit := {}
 	for e in heard:
-		if e.actor == "hero" and e.roll != null and e.roll[0] == "SAVE":
+		if e.actor == "hero" and Mars.ist_angriff(e.roll):
 			hit[e.target] = true
 		elif e.actor != "hero" and not hit.is_empty():
 			break
@@ -393,9 +396,9 @@ func _row_spell(spell: String) -> void:
 	var soll := ",".join(PackedStringArray(want))
 	if got != soll:
 		failed += 1
-		print("FEHLER %s auf %s: Rettungswürfe %s statt %s (ganze Reihe, die andere nicht)" % [spell, t.id, got, soll])
+		print("FEHLER %s auf %s: Schläge %s statt %s (ganze Reihe, die andere nicht)" % [spell, t.id, got, soll])
 	else:
-		print("gleich %s auf %s: Rettungswürfe %s (ganze Reihe, die andere nicht)" % [spell, t.id, got])
+		print("gleich %s auf %s: Schläge %s (ganze Reihe, die andere nicht)" % [spell, t.id, got])
 
 
 ## 399.2a: the wolf with its young (aufruf.gd rudel): they follow it, flee when it falls, the fight is won; the reward counts

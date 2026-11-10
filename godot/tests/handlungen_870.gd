@@ -37,6 +37,7 @@ func _initialize() -> void:
 	_schildwall()
 	_abstand()
 	_griff()
+	_zauber()
 	print("HANDLUNGEN870 %s" % ("gut" if fehler == 0 else "%d FALSCH" % fehler))
 	quit(1 if fehler > 0 else 0)
 
@@ -269,3 +270,48 @@ func _griff() -> void:
 	f.place = platz
 	m._perform(h, ["wait"])
 	pruefe("Griff: frei mit dem eigenen nächsten Zug", f.gegriffen_von == "")
+
+
+## 870.5 Zauber nach dem BRS: bekannt nach Kampfblatt und Schule, Mana, Kosten, Wirkung
+func _zauber() -> void:
+	var Z: Dictionary = BrsKampf.w()["zauber"]
+	var m = _kampf("Einhänder", {"Evokation": 25, "Heilmagie": 25, "Schutzmagie": 10}, ["wolf"])
+	var h = m.by_id("hero")
+	h.b.zauber = ["Funkenpfeil", "Wundsegen", "Bannschild"]
+	m._brs_zauber_kennen(h)
+	var mv: Array = m.moves(h)
+	pruefe("Zauber aus dem Kampfblatt und nach Schule (Evokation 25: Glutstrahlen, Flammenfächer; nicht Glutkugel ab 40)",
+			"Z_FUNKEN" in mv and "Z_WUND" in mv and "Z_BANN" in mv and "Z_STRAHLEN" in mv and "Z_FAECHER" in mv and not ("Z_GLUT" in mv), str(mv))
+	var soll_mana := int(BrsKampf.w()["held"]["mana_basis"]) + int(BrsKampf.w()["held"]["mana_je_wille"]) * 3
+	pruefe("Mana voll ohne Angabe der Welt (10 + 5 × Wille)", h.sp == soll_mana and h.max_sp == soll_mana, "%d/%d statt %d" % [h.sp, h.max_sp, soll_mana])
+	m.start()
+	var vor: int = h.sp
+	m._perform(h, ["use", "Z_FUNKEN", "f0"])
+	pruefe("Funkenpfeil kostet %d Mana" % int(Z["Funkenpfeil"]["kosten"]), h.sp == vor - int(Z["Funkenpfeil"]["kosten"]), "%d -> %d" % [vor, h.sp])
+	h.hp = 5
+	var heil := roundi((float(Z["Wundsegen"]["heilung"]) + 3.0) * 1.25)
+	m._perform(h, ["use", "Z_WUND", "hero"])
+	pruefe("Wundsegen heilt (6 + Wille) × (1 + Heilmagie/100)", h.hp == 5 + heil, "%d statt %d" % [h.hp, 5 + heil])
+	m._perform(h, ["use", "Z_BANN", "hero"])
+	pruefe("Bannschild: Schutz und nur einmal je Kampf", h.schutz > 0.0 and m.blocked(h, "Z_BANN") != null, "%.1f" % h.schutz)
+	h.sp = 0
+	pruefe("ohne Mana gesperrt", m.blocked(h, "Z_FUNKEN") != null)
+	# Beistand: +Treffer für seine Runden
+	var b = _kampf("Einhänder", {"Einhänder": 25, "Heilmagie": 25}, ["wolf"])
+	var bh = b.by_id("hero")
+	b.start()
+	var ohne := _chance(b, ["attack", "f0"])
+	b._perform(bh, ["use", "Z_BEISTAND", "hero"])
+	var mit := _chance(b, ["attack", "f0"])
+	pruefe("Beistand: +%d auf die Trefferchance" % int(Z["Beistand"]["treffer"]), mit == mini(95, ohne + int(Z["Beistand"]["treffer"])), "%d, %d" % [ohne, mit])
+	# Mana der Welt im selben Anteil hinein und zurück
+	var w = _kampf("Einhänder", {"Evokation": 10}, ["wolf"])
+	var wh = w.by_id("hero")
+	wh.hero["sp_max"] = 10
+	wh.sp = 5
+	w._brs_zauber_kennen(wh)
+	pruefe("Mana im Anteil der Zauberpunkte (5 von 10)", wh.sp == roundi(wh.max_sp * 0.5), "%d von %d" % [wh.sp, wh.max_sp])
+	wh.sp = 0
+	pruefe("nach dem Kampf zurück in Zauberpunkte", Mars.sp_nach(wh) == 0)
+	wh.sp = wh.max_sp
+	pruefe("volles Mana = volle Zauberpunkte", Mars.sp_nach(wh) == 10)
