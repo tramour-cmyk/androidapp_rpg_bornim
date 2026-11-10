@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
-Pause bis 13.11., 20:00 Uhr, frei für: 870.x, 709, 854 (870b A, Chef 10.11., 16:08; 870.17). (870, von Sokrates, Chef 10.11., 14:08: „die anderen, die jetzt irgendwas noch machen, sollen das fertig machen, was sie gerade machen … Und dann sollen sie aber nicht wieder irgendeinen Füllefanz neu anfangen“): Laufendes (709) fertig machen, dann **854 vor dem Umzug** (Chef 14:17: „das brennt mir wirklich auf den Nägeln … jedes Mal geht es bei Null los“), sonst nichts Neues bis zum Umzugsplan BRS (Sokrates); früher frei, wenn der Plan abgenommen ist.
+Pause bis 13.11., 20:00 Uhr, frei für: 870.x, 709, 854, 506.1 (870b A, Chef 10.11., 16:08; 870.17, 883). (870, von Sokrates, Chef 10.11., 14:08: „die anderen, die jetzt irgendwas noch machen, sollen das fertig machen, was sie gerade machen … Und dann sollen sie aber nicht wieder irgendeinen Füllefanz neu anfangen“): Laufendes (709) fertig machen, dann **854 vor dem Umzug** (Chef 14:17: „das brennt mir wirklich auf den Nägeln … jedes Mal geht es bei Null los“), sonst nichts Neues bis zum Umzugsplan BRS (Sokrates); früher frei, wenn der Plan abgenommen ist.
 
 **Übergabe (10.11., 15:35):** 854a ja/ja (Chef 15:30): `kauf_cache.py`, `bau_am_rechner.py --cache` auf `main`; `godot.yml` bleibt auf `claude/jerry-854-kaufcache` bis Toms Ja (878). 709 auf `claude/jerry-709-treffen` `86ec1c874`, 709a entschieden (A). Ältere Einzelheiten `git show 4a0cccc9f:docs/ARBEIT-TEAM-JERRY.md`. Letzte Antwort: Kaufrepo geklont (Chef 15:33). Nachfolger: Jerry – 709: Rest Ratte, Krogg, Grak (Modelle mit `bau_am_rechner.py --cache --laden`)
 

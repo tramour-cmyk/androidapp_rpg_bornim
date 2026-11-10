@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-Pause bis 13.11., 20:00 Uhr, frei für: 870.x, 506.1, 506, 470 (870b A, Chef 10.11., 16:08; 870.17). (870, von Sokrates, Chef 10.11., 14:08: „die anderen, die jetzt irgendwas noch machen, sollen das fertig machen, was sie gerade machen … Und dann sollen sie aber nicht wieder irgendeinen Füllefanz neu anfangen“): Laufendes (653, 475, 663, 540, 506) fertig machen, nichts Neues anfangen bis zum Umzugsplan BRS (Sokrates); früher frei, wenn der Plan abgenommen ist.
+Pause bis 13.11., 20:00 Uhr, frei für: 870.x, 506, 470 (870b A, Chef 10.11., 16:08; 870.17; 506.1 gehört Jerry, 883). (870, von Sokrates, Chef 10.11., 14:08: „die anderen, die jetzt irgendwas noch machen, sollen das fertig machen, was sie gerade machen … Und dann sollen sie aber nicht wieder irgendeinen Füllefanz neu anfangen“): Laufendes (653, 475, 663, 540, 506) fertig machen, nichts Neues anfangen bis zum Umzugsplan BRS (Sokrates); früher frei, wenn der Plan abgenommen ist.
 
 **Übergabe (10.11., 16:30, `session_01Hmoj79FzxLQBQGb5LWnYaB`):** 653 umgestellt, halt.json, Bild passt (Chef 15:53), 872 an Jerry; 878 ja; 475 Morwens Hals behoben (3d0ba8789); 663 Stand in der Chefsache (Wächter). Gebaut und für den Sammelbuild bereit: 653, 663, 540, 475. Am Rechner: Kaufcache geholt, Kaufdateien geladen, CC0, `bl`. Nachfolger: Tom – Sammelbuild 653, 663, 540, 475 (nach Pause/Umzugsplan 870).
 
