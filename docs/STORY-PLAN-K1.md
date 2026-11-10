@@ -6,7 +6,7 @@ Ist-Stand aus dem Spiel, Dialoge wortgetreu (Stand `main`, 12.10.). Überblick u
 
 Der Held erwacht im Gasthaus von Bornim. Goblins des Blutzahn-Stamms überfallen seit Wochen die Waldstraße, und letzte Nacht haben sie Schwester Lyra und das Sonnenamulett aus dem Tempel geraubt. Ältester Aldric schickt den Helden los.
 
-Der Weg führt durch den Flüsterwald zur Blutzahnhöhle. Dort trägt der Bugbear Krogg den Schlüssel zur Halle von Hauptmann Grak. Grak fällt, Lyra ist frei, und bei ihm liegt ein Brief mit grauem Siegel: Der Graue Prophet wollte Amulett und Priesterin, denn der Tag der Asche naht.
+Der Weg führt durch den Flüsterwald zur Blutzahnhöhle. Dort trägt der Bärenschrat Krogg den Schlüssel zur Halle von Hauptmann Grak. Grak fällt, Lyra ist frei, und bei ihm liegt ein Brief mit grauem Siegel: Der Graue Prophet wollte Amulett und Priesterin, denn der Tag der Asche naht.
 
 Aldric erkennt, dass Grak nur der Anfang war. Bornim feiert, aber die Frage nach dem Propheten bleibt offen. Freiwillig: Leitwolf Grimmzahn im Tiefen Flüsterwald und die Aufträge vom Anschlagbrett.
 

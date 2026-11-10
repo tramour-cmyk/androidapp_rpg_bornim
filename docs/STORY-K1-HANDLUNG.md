@@ -16,7 +16,8 @@ Na, endlich wach, {name}? Für einen, der nur eine Nacht bleiben wollte, hast du
 Ein graues Auge … wie auf dem Fetzen, den Jorin mir vom Steinkreis brachte. Dann war er schon hier, ganz nah bei Bornim.
 
 `[41.garrick.krogg]` (Garrick über Krogg; bisher „Ich habe Goblins belauscht. Ihr Bugbear Krogg trägt den Schlüssel zu Graks Halle.“)
-Ich habe Goblins belauscht. Ihr Grottenschrat Krogg trägt den Schlüssel zu Graks Halle.
+Ich habe Goblins belauscht. Ihr Bärenschrat Krogg trägt den Schlüssel zu Graks Halle.
+(Bärenschrat statt Grottenschrat seit 870.15, `DESIGN-BRS.md` 12; ebenso unten und in `STORY-K1-WELT.md`, `STORY-CHRONIK-TEXTE-K1.md`; Englisch `[870.15.namen.monster]`.)
 
 ### Weg über Morwen vor der Höhle (D4.1)
 
@@ -29,7 +30,7 @@ Geh nicht mit leeren Händen zu ihm. Morwen, die Kräuterfrau im Tiefen Flüster
 Und ehrlich, {name}: So wie du jetzt aussiehst, legt Krogg dich mit einem Schlag um. Sammel erst ein paar Narben im Tiefen Flüsterwald.
 
 `[D4.1.morwen.krogg]` (Morwen, sobald Garrick getroffen und Krogg nicht besiegt, einmal; gibt 1 Rauchbündel)
-Krogg? Grottenschrate schlagen aus dem Dunkel zu, und der erste Hieb ist der schlimmste. Aber ihre Nasen sind fein.
+Krogg? Bärenschrate schlagen aus dem Dunkel zu, und der erste Hieb ist der schlimmste. Aber ihre Nasen sind fein.
 Wirf ihm das hier vor die Füße, sobald er auftaucht. Der Rauch beißt in den Augen, und sein Hieb geht ins Leere.
 
 `[D4.1.rauch.tasche]` (Beschreibung des Rauchbündels in der Tasche; Nutzer 15.10., 12:2x)
@@ -37,7 +38,7 @@ Ein Bündel beißender Kräuter von Morwen. Krogg vor die Füße werfen: Der Rau
 
 `[D4.1.chronik]` (Chronik, Aufträge, nach Garricks Hinweis; erledigt mit dem Rauchbündel oder Kroggs Fall)
 **Rauch gegen Krogg**
-Garrick riet {name}, vor dem Kampf gegen Krogg die Kräuterfrau Morwen im Tiefen Flüsterwald aufzusuchen. Sie kenne ein Mittel gegen den ersten Hieb eines Grottenschrats.
+Garrick riet {name}, vor dem Kampf gegen Krogg die Kräuterfrau Morwen im Tiefen Flüsterwald aufzusuchen. Sie kenne ein Mittel gegen den ersten Hieb eines Bärenschrats.
 
 `[427.2.rauch]` (Vorschlag Homer 03.11., Vorgang 427.2; Erzähler direkt nach dem Erwachen `[504.erwachen]`, wenn der Kampf gegen Krogg verloren ging; jede Niederlage, drei Wortlaute nach 504, erster beim ersten Mal)
 Erkennbar am Gegner „bugbear“ im Zweig nach der Niederlage (`spiel.gd`), als zweite Zeile nach `[504.erwachen]`.

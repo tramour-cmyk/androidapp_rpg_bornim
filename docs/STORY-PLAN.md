@@ -44,8 +44,8 @@ Der rote Faden heißt bisher: Ein Unbekannter, der **Graue Prophet**, sammelt Se
 | Jäger Garrick | Rastplatz im Wald, verrät Krogg und den Schlüssel | Flüsterwald, Lagerfeuer |  |
 | Kräuterfrau Morwen | braut Tränke, warnt vor Grimmzahn | Tiefer Flüsterwald |  |
 | Pim, Bauer Bram, Liska, Gwenna | Dorfbewohner mit Hinweisen | Dorf |  |
-| Krogg | Bugbear, Schlüsselträger, Vorboss | Höhle, Ostflügel |  |
-| Grak | Hobgoblin-Hauptmann, Anführer des Blutzahn-Stamms | Höhle, Halle im Norden |  |
+| Krogg | Bärenschrat, Schlüsselträger, Vorboss | Höhle, Ostflügel |  |
+| Grak | Goblin-Hauptmann, Anführer des Blutzahn-Stamms | Höhle, Halle im Norden |  |
 | Grimmzahn | Leitwolf, freiwilliger Boss | Tiefer Flüsterwald, Norden |  |
 | Der Graue Prophet | Drahtzieher, Siegel: graues Auge | unbekannt |  |
 | Der alte Kael (Kapitel 2) | Ältester im Dorf; Großvater entkam dem brennenden Aschfurt; nennt den Namen Aschfurt, bevor er auf der Karte steht (2c, 3d) | Bornim, eigenes Haus; vor der Tempelszene Tür und Läden zu | Sehr alt, gebeugt, Stock, Wolldecke um die Schultern. Erbstück des Großvaters sichtbar: angesengte Laterne neben der Tür. Handlung: sitzt nach der Tempelszene auf einer Bank vor dem Haus, dreht die Laterne in den Händen, schaut nach Süden. Klang: Husten, Stock auf Holz. |

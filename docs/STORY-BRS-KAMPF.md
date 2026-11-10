@@ -55,7 +55,7 @@ Namen und Kurzzeichen bleiben. Ohne Zahlen:
 - `[870.14.zustand.langsam]` SLOW: Trifft schlechter und weicht schlechter aus. / EN: Hits less often and dodges less well.
 - `[870.14.zustand.schwach]` WEAK: Trifft schlechter und macht weniger Schaden. / EN: Hits less often and deals less damage.
 - `[870.14.zustand.blind]` BLIND: Angriffe mit Ungunst. / EN: Attacks at disfavor.
-- `[870.14.zustand.betrunken]` DRUNK: Angriffe und Flucht mit Ungunst, bis zur nächsten Erholung. / EN: Attacks and fleeing at disfavor, until your next respite.
+- `[870.14.zustand.betrunken]` DRUNK: Angriffe und Flucht mit Ungunst, bis zur nächsten Rast. / EN: Attacks and fleeing at disfavor, until your next rest.
 
 ## Lohn nach dem Kampf (`lohn.gd`)
 
