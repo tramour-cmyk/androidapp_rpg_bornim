@@ -331,7 +331,7 @@ def build_abschluss(n, datei=None, probe=False):
         elif p and all(x[1] == "✓" for x in p):
             neu_d = dict(d, stand="erledigt, t%s bestanden" % n, warte=[], build=str(n)); was = "erledigt"
         elif durch:
-            neu_d = dict(d, stand="startbar, Fund " + ", ".join("t" + x[0] for x in durch), build="–"); was = "startbar (✗ %s)" % ", ".join(x[0] for x in durch)
+            neu_d = dict(d, stand="startbar, Fund " + ", ".join("t" + x[0] for x in durch), build="–", titel=startbar.rueck_marke(d["titel"], n)); was = "startbar (✗ %s)" % ", ".join(x[0] for x in durch)
         else:
             neu_d = dict(d, stand="zu testen, ohne Rückmeldung t%s" % n, build="–"); was = "zu testen (keine Rückmeldung)"
         aus.append((d, neu_d, durch, was))
