@@ -34,4 +34,11 @@ curl -sS -X POST https://quaternius.itch.io/universal-base-characters/download_u
 
 **Folgerungen:** nach A und deiner Ausgabe: Behebung im Zweig, Lauf 3, Zeiten je Schritt per Telegram (Perikles).
 
+**Stellungnahme Sokrates (10.11., 18:53):**
+- **Stärkstes Gegenargument gegen A:** A kostet deine Zeit für etwas, das der Lauf selbst erfahren kann; bricht ein Lauf ohnehin nach etwa 15 Minuten an dieser Stelle ab, ist B (Antwort von itch im Schritt ausgeben) für dich kostenlos. Antwort: B braucht danach fast sicher einen weiteren Lauf; A sind zwei Zeilen und ersetzen ihn. Die Befehle laufen auch ohne Anmeldung (von hier geprüft 18:53: zweite Zeile liefert die Download-Adresse; die Adresse in der ersten Zeile ist hier nur der Proxy, auf dem Runner zeigt sie die echte).
+- **Ein Punkt der Begründung stimmt nicht ganz:** der Zwischenspeicher (`actions/cache`) gilt auch für eigene Runner; er verfehlt dort meist, weil `zstd` fehlt und dann anders gepackt wird. Perikles sollte das im selben Zug prüfen; ohnehin bleibt `~/cc0` auf dem Runner liegen, nach einem gelungenen Laden fällt der Schritt ganz weg.
+- **Widerspruch zu Entschiedenem:** keiner; passt zu 887a (Chef 16:53: Bauserver auf Proxmox einrichten, prüfen, ob Zeit gespart wird). Gekaufte Modelle dauerhaft auf der Platte des Runners: zulässig, ist deine private Maschine, nicht dieses Repo.
+- **Kosten:** A etwa eine Minute für dich; Lauf 3 etwa eine Stunde Runner, kein Guthaben.
+- **Empfehlung:** A, und Perikles prüft dazu `zstd` am Runner, damit Lauf 3 nicht an einem zweiten Grund scheitert.
+
 Antwort: …

@@ -2,7 +2,7 @@
 
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
-**Übergabe (10.11., 15:33, `session_01Hmoj775SepWvSTAck4WaHH`):** Vorgänge 870.2–870.16 angelegt (Tom, Jerry, Perikles, Homer, Ford), Reihenfolge über „wartet auf“, Zuordnung im Plan Abschnitt 3; 870 wartet auf 870.13. Pause Tom und Jerry bis 13.11., 20:00 bleibt. Kosten auf: 870. Nachfolger: Sokrates – 620: Lagebild nach der nächsten Testrückmeldung
+**Übergabe (10.11., 18:54, `session_01Hmoj76Khd2xEYMbHNyJQor`):** Stellungnahme 264.1 in `entscheiden/2641-runner-lauf3.md` (Empfehlung A, dazu `zstd` am Runner; Hinweis an Perikles im Vorrat). Kosten auf: 264.1. Nachfolger: Sokrates – 620: Lagebild nach der nächsten Testrückmeldung
 
 - **Zu 870 (Chef 10.11., 14:03 und 14:08):** „wer kümmert sich denn um unser BRS, damit das jetzt mal zu 100% umgesetzt ist und damit wir nichts mehr mit SRD und Dungeons and Dragons und Wizard of the Coast zu tun haben? … ich hätte jetzt gerne mal tatsächlich die Systemumstellung“; 14:08: „federführend übernehmen … Master-Umzugsplan … soll jetzt schon Hand und Fuß haben. Und dann muss dein Plan irgendwer gegenlesen.“ Auftrag: (1) Plan, (2) Regelfragen als Chefsache, (3) Gegenlesen Diogenes, Befund als Text an den Chef, (4) nach Abnahme Pause aufheben, Vorgänge anlegen.
 - **Zu 870, nachhalten:** nach B1 Kosten gegen Plan (400–600 $) prüfen. Offen beim Chef: 806 an Tuffy; Regelwerte-Seite an wen; 854 nachhalten (größter Hebel für Bauzeit: Modelle 38 von 63 min).
