@@ -272,3 +272,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:51 10.11.: Nachfolger-Warnung Jerry (Übergabe 10.11., 18:21) (lauf.py)
 - 18:51 10.11.: Nachfolger-Warnung Perikles (Übergabe 10.11., 18:32) (lauf.py)
 - 18:52 10.11.: Startsperre 18:52 Start Sokrates (selbst; Stellungnahme 194.2 zu 2641-runner-lauf3.md aus lauf.py); Perikles „M?“-START nicht ausgeführt (Fehler im Plan, Klasse als Vorgang gelesen), Perikles 264.1 wartet auf Chef
+- 19:04 10.11.: Startsperre 19:04 Start Perikles (lauf.py)
+- 19:04 10.11.: Marke Archiv session_01Hmoj775SepWvSTAck4WaHH (lauf.py)
+- 19:04 10.11.: Marke Start-fehlt Perikles 10.11.-18:51 (lauf.py)
