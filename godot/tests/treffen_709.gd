@@ -115,14 +115,31 @@ func _waffe(f) -> Array:
 	return out if not out.is_empty() else ks
 
 
-func _luecke(a, b) -> float:
+## Abstand Waffe zum Körper; zusätzlich zum Schild des Ziels (Kasten), falls kleiner, als zweite Zahl
+func _luecke(a, b) -> Array:
 	var best := INF
+	var schild := INF
 	var tk: Array = b.kapseln()
-	for w in _waffe(a):
+	var ws: Array = _waffe(a)
+	for w in ws:
 		for c in tk:
 			var pq: PackedVector3Array = Geometry3D.get_closest_points_between_segments(w[0], w[1], c[0], c[1])
 			best = minf(best, pq[0].distance_to(pq[1]) - float(w[2]) - float(c[2]))
-	return best
+	for g in b.traegt():
+		if not String(g[2]).to_lower().contains("shield"):
+			continue
+		var inv: Transform3D = (g[0] as Transform3D).affine_inverse()
+		var box: AABB = g[1]
+		var sc: float = absf((g[0] as Transform3D).basis.get_scale().x)
+		for w in ws:
+			for j in 9:
+				var q: Vector3 = inv * (w[0] as Vector3).lerp(w[1], j / 8.0)
+				var dx := maxf(box.position.x - q.x, q.x - box.end.x)
+				var dy := maxf(box.position.y - q.y, q.y - box.end.y)
+				var dz := maxf(box.position.z - q.z, q.z - box.end.z)
+				var d: float = (maxf(dx, maxf(dy, dz)) if dx <= 0 and dy <= 0 and dz <= 0 else Vector3(maxf(dx, 0), maxf(dy, 0), maxf(dz, 0)).length()) * sc
+				schild = minf(schild, d - float(w[2]))
+	return [best, schild]
 
 
 func _bild(kf, n: int, kampf: String) -> void:
@@ -136,7 +153,8 @@ func _bild(kf, n: int, kampf: String) -> void:
 				continue
 			var key := "%s>%s" % [a.fighter.id, b.fighter.id]
 			var r: Array = verlauf.get(key, [])
-			r.append([n, _luecke(a, b), String(a.anim.current_animation) if a.anim else ""])
+			var l: Array = _luecke(a, b)
+			r.append([n, l[0], String(a.anim.current_animation) if a.anim else "", l[1]])
 			if r.size() > 2 * FENSTER + 2:
 				r.pop_front()
 			verlauf[key] = r
@@ -161,25 +179,29 @@ func _bild(kf, n: int, kampf: String) -> void:
 		var r: Array = verlauf.get("%s>%s" % [o[2], o[3]], [])
 		var beim := INF
 		var klein := INF
+		var klein_s := INF
 		var bew := ""
 		for x in r:
 			if absi(x[0] - o[0]) <= FENSTER:
 				klein = minf(klein, x[1])
+				klein_s = minf(klein_s, x[3])
 			if x[0] == o[0]:
 				beim = x[1]
 				bew = x[2]
 		var art: String = kf.figures[o[2]].fighter.monster.id if kf.figures.has(o[2]) and kf.figures[o[2]].fighter.monster != null else "Held " + kampf.get_slice("/", 1)
-		treffer.append([kampf, o[2], art, o[3], beim, klein, bew])
-		if log_an:
-			print("Treffer Bild %d %s: %s → %s, Lücke beim Aufschlag %.2f m, kleinste ±%d %.2f m, %s (%s)" % [o[0], kampf, o[2], o[3], beim, FENSTER, klein, bew, o[4]])
+		treffer.append([kampf, o[2], art, o[3], beim, klein, bew, klein_s])
+		if log_an or klein > LUFT_M:
+			print("Treffer Bild %d %s: %s → %s, Lücke beim Aufschlag %.2f m, kleinste ±%d %.2f m (Schild %.2f), %s (%s)" % [o[0], kampf, o[2], o[3], beim, FENSTER, klein, klein_s, bew, o[4]])
 	offen = rest
 
 
 func _bilanz() -> void:
-	var je := {}     # Art -> [n, Luftschläge, größte Lücke, Beispiel]
+	var je := {}     # Art -> [n, Luftschläge, größte Lücke, Beispiel, nur am Schild]
 	for t in treffer:
-		var e: Array = je.get(t[2], [0, 0, -INF, ""])
+		var e: Array = je.get(t[2], [0, 0, -INF, "", 0])
 		e[0] += 1
+		if t[5] > LUFT_M and t[7] <= LUFT_M:
+			e[4] += 1
 		if t[5] > LUFT_M:
 			e[1] += 1
 			if t[5] > e[2]:
@@ -188,6 +210,6 @@ func _bilanz() -> void:
 		je[t[2]] = e
 	for art in je:
 		var e: Array = je[art]
-		print("Angreifer %s: %d Treffer, %d mit Luft über %.0f cm, größte Lücke %.2f m%s" % [art, e[0], e[1], LUFT_M * 100.0, e[2], ("; " + e[3]) if e[3] != "" else ""])
+		print("Angreifer %s: %d Treffer, %d mit Luft über %.0f cm (davon %d am Schild), größte Lücke %.2f m%s" % [art, e[0], e[1], LUFT_M * 100.0, e[4], e[2], ("; " + e[3]) if e[3] != "" else ""])
 		befund += e[1]
 	print("TREFFEN709 %d Treffer, %d Luftschläge" % [treffer.size(), befund])
