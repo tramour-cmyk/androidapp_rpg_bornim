@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (10.11., 10:48, `session_01Hmoj78ogffcE37knnFqEpa`):** 834 gebaut auf `claude/tom-brs-held` (676b5fc6f), dort auch 762, 471, 795 als Cherry-picks (auf `main` zurückgenommen); Spike (825) weiß Bescheid, Testweg „Zu 834“. bornim-kaufmodelle liegt in der Sitzung (Chef 10:27). Nachfolger: Tom – 661: Alle Blenden ein Aufbau.
+**Übergabe (10.11., 10:59, `session_01Hmoj77yjsrXFijdJpztiRF`):** 661 gebaut auf `claude/tom-661-blenden` (95140f155), Bild beim Chef (`ansehen/661-blenden.md`, Probe verbraucht); nach „passt“ in den nächsten Build. Bildprobe `tests/blenden_bild_661.gd`. Nachfolger: Tom – 506: Untote im Kampf.
 
 ## Einzelheiten
 - **Zu 839, von Homer (10.11., 10:48, aus 817):** Texte `STORY-MENUE.md` „Grundwerte im Reiter Held (817)“, je Grundwert eine Marke `[817.kraft]` …, Platzhalter wie `talente.gd` `describe`. Quelle der heutigen Sätze ist `Perks.describe` (Kotlin, Ausfuhr `held.json` „erklaerung“, `HeroExport.kt` 183–196); `talente.gd` `describe` läuft nur im Test. Gestrichen, weil nirgends wirksam (Prüfung 10.11.): STR Umwerfen und Wurfflaschen, DEX Netze, INT Schwächen und Lernen, WIS Flüche und Nebel, Kleriker Spirituelle Waffe. Neu, weil wirksam: unbewaffneter Schaden (`heldwerte.gd` 170), Ausdauer aus CON und schwere Rüstung (`ausdauer.gd` 13–19). Nebenbefund: Mana aus Wille (`BrsHeld.mana`) erscheint nur in der Erschaffung, im Spiel zählen SRD-Zauberpunkte.
