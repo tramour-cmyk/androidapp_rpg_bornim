@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [827](entscheiden/827-staerkstes-modell-figuren.md) | **Muss** | B Steuerung | 10.11., 07:06 | Eine Woche Probe ab Sa 14.11., 20:00: Tom auf dem stärksten Modell, erst 653 (Halt für Waffen und Schilde), dann 531 (Garricks Gesicht); gemessen an Kosten und Rückläufern | Sokrates |
 | [826](entscheiden/826-guthaben-woche.md) | **Muss** | B Steuerung | 10.11., 07:01 | Woche 43 %, Tempo 0,71 %/h statt tragbarer 0,52 %/h; so leer am Freitagnachmittag | Sokrates |
 | [595](entscheiden/595-probelauf.md) | **Muss** | E Kampf | 10.11., 02:46 | Der erste Probefilm zu 595 blieb wegen des Programms stehen, das den Kampf für den Film steuert; alles ist behoben, für einen zweiten Film fehlt mir dein Wort | Jerry |
 | [705](entscheiden/705-magier-gegen-wolf.md) | **Muss** | E Kampf | 09.11., 23:00 | Mit 702 C gewinnt der Magier deutlich öfter als im alten Befund (2–30 %); wer ausweicht, gewinnt 41–84 % | Jerry |
@@ -284,7 +285,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 771 | M | Probe 657 auswerten: Erstfunde des Chefs t272–t275 gegen 11, 11, 9, 7 (von Perikles, Werkz | wartet auf Test t275 (Chef) |
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 
-**Sokrates** – offen 46, Muss 34, startbar 25
+**Sokrates** – offen 47, Muss 35, startbar 26
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -334,6 +335,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 782 | M | Von Tom (697): ein Lauf am Rechner frei? Der erste (17:38) brach vor dem Zeichnen ab (Proj | startbar |
 | Pflege | K | von Werkzeug (340.3, 10.11.): 15230 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 826 | M | Guthaben Woche bis 14.11.: eine Entwicklersitzung zugleich, Kür ruht, Zurücksetzen als Res | startbar |
+| 827 | M | Probe stärkstes Modell für Figuren: Tom eine Woche darauf, erst 653, dann 531; Kosten und | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
