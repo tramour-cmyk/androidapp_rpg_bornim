@@ -203,6 +203,7 @@
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
+| 264.1 | Von Sokrates (264, Chef 10.11., 17:2x: Runner auf Proxmox installiert): Probe auf dem eigenen Runner: Zweig mit godot.yml runs-on [self-hosted, bornim], Lauf per workflow_dispatch --ref Zweig, Bauzeit je Schritt gegen GitHub (Median 18, p90 64 Min.), Fehler wegen fehlender Pakete beheben; kein Push auf main · „jetzt“ 10.11., 17:20 | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
 | 870.12 | Von Sokrates (870, Umzug BRS): Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 neu fassen; nach Abnahme 868, 534, 467, 469, 644.1, 644.2, 644.4, 649.1, 811, 296, 344 schließen; LISTE-UMZUG-BRS.md 4 Schritt 9 | Perikles | M | wartet, 2.3 und 2.17 neu gefasst, Schließen nach Abnahme | 870.13 | – | – | B Abläufe | – |
 | 870.10 | Von Sokrates (870, Umzug BRS Schritt 8): Kotlin-Bau aus (android.yml), mit 870.9; LISTE-UMZUG-BRS.md 4 | Perikles | M | wartet | 870.9, 882 | – | – | B Werkzeuge | – |
 | 483 | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Marke (Chef 02.11., 19:08) | Perikles | M | gebaut, Geprüft an: 62e922b30 | Diogenes, D75 | – | – | B Werkzeuge | – |
@@ -252,7 +253,7 @@
 | 318 | Knappheit per Einstellung: Antwortstil „Knapp“ und Startanhang (Chef 22.10., 21:34) | Sokrates | M | startbar | – | – | – | B Abläufe | –; +45,66 $ |
 | 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | Sokrates | K | nach Meilenstein | – | – | – | Q QM | – |
 | 296 | Checkliste je großem System (MARS zuerst): umgesetzt, offen, was zwischen klassisch und MARS fehlt (Chef 22.10., 07:50) | Sokrates | K | ruht | – | – | – | B Abläufe | –; +2,98 $ |
-| 264 | Bauserver auf Proxmox des Chefs (eigener GitHub-Runner): einrichten, Godot-Bau dort messen gegen GitHub, Sicherheit bei öffentlichem Repo (Chef 10.11., 16:53; vorher: Arbeitsorte neben GitHub, Chef 20.10.) · „jetzt“ 10.11., 16:53 | Sokrates | M | startbar | – | – | – | B Abläufe | – |
+| 264 | Bauserver auf Proxmox des Chefs (eigener GitHub-Runner): einrichten, Godot-Bau dort messen gegen GitHub, Sicherheit bei öffentlichem Repo (Chef 10.11., 16:53; vorher: Arbeitsorte neben GitHub, Chef 20.10.) · „jetzt“ 10.11., 16:53 | Sokrates | M | wartet, Runner installiert (Chef 17:2x) | 264.1 | – | – | B Abläufe | – |
 | 263 | Rolle für Finanzen und Geschäftszimmer? (Chef 20.10.) | Sokrates | K | startbar | – | – | – | B Steuerung | – |
 | 366 | bornwire.de: Abschnitt „Stand“ und „Tester gesucht“ (Chef 25.10., 18:39) | Sokrates | M | startbar | – | – | – | M Markt | –; +25,65 $ |
 | 365 | Aufwand „Hoch“ statt „Mittel“ für einzelne Rollen? (Chef 25.10., 12:36) | Sokrates | M | startbar | – | – | – | B Abläufe | –; +4,65 $ |
