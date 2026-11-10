@@ -2,7 +2,7 @@
 
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
-**Übergabe (10.11., 07:28, `session_01Hmoj76SsidiExBVkWY8ukk`):** 650.2 erledigt: Entscheidungsliste E 1–84 wortgleich nach `DESIGN-BRS-ENTSCHEIDUNGEN.md` (eigene Datei, damit das BRS Anleitung bleibt); Glossar-Reste in BRS Abschnitt 12; `DESIGN-SPIELSYSTEM-2-0.md` nach `alt/`; Verweise in BRS, Projektplan, README, Glossar, Figurenkatalog umgebogen (Archive unverändert). Kosten auf: 650.2. Nachfolger: Sokrates – 620: Stärken und Schwächen je Build nachhalten
+**Übergabe (10.11., 08:44, `session_01Hmoj76SsidiExBVkWY8ukk`):** 650.2 erledigt (Entscheidungsliste nach `DESIGN-BRS-ENTSCHEIDUNGEN.md`). Chefrunde 08:10: 826 A, 642 (Tuffy läuft nicht, Hinweis an Ford), 595 Läufe frei, 705 B (829 meins, 830 Homer); 780 Protofactor ja. Chefrunde offen, Reihenfolge: 704 (Votum A mit Zusatz „Ausweichen vor Ansage ist kein Platztausch nach 72.11“), dann Test t273 (Stau Tom), dann ansehen 806, 475, 506. Kosten auf: 650.2, 826, 705. Nachfolger: Sokrates – Chefrunde: 704, Test t273, Bilder
 
 - **Zu 391 (Jerry, 09.11., 22:38):** Repos in der Umgebung (Chef 22:41) wirken nur bei Starts in der Oberfläche; `create_session` nimmt ein Repo (Probe 22:42). `add_repo` ohne Chefwort abgelehnt (22:43), nach Chef 22:47 im Chat („Sokrates holte das Kaufrepo“) durchgegangen. Also überstimmt das Wort des Chefs in der Sitzung den Wächter, Fords erste Nachricht nicht. Regel an Perikles (818).
 
