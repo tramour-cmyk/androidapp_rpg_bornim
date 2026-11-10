@@ -202,7 +202,7 @@
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
-| 264.1 | Von Sokrates (264): Probe godot.yml auf eigenem Runner, Bauzeit je Schritt gegen GitHub · „jetzt“ 10.11., 17:20 | Perikles | M | wartet, Lauf 325: itch.io | Chef | claude/perikles-264-runner | – | B Werkzeuge | – |
+| 264.1 | Von Sokrates (264): Probe godot.yml auf eigenem Runner, Bauzeit je Schritt gegen GitHub · „jetzt“ 10.11., 17:20 | Perikles | M | in Arbeit, Lauf 3 | – | claude/perikles-264-runner | – | B Werkzeuge | – |
 | 870.12 | Von Sokrates (870, Umzug BRS): Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 neu fassen; nach Abnahme 868, 534, 467, 469, 644.1, 644.2, 644.4, 649.1, 811, 296, 344 schließen; LISTE-UMZUG-BRS.md 4 Schritt 9 | Perikles | M | wartet, 2.3 und 2.17 neu gefasst, Schließen nach Abnahme | 870.13 | – | – | B Abläufe | – |
 | 870.10 | Von Sokrates (870, Umzug BRS Schritt 8): Kotlin-Bau aus (android.yml), mit 870.9; LISTE-UMZUG-BRS.md 4 | Perikles | M | wartet | 870.9, 882 | – | – | B Werkzeuge | – |
 | 483 | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Marke (Chef 02.11., 19:08) | Perikles | M | gebaut, Geprüft an: 62e922b30 | Diogenes, D75 | – | – | B Werkzeuge | – |
