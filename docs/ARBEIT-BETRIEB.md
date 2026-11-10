@@ -188,3 +188,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:54 10.11.: Tom 834 alt archiviert, gebucht; Nachfolger Tom 661 läuft
 - 10:58 10.11.: Homer 830 archiviert, gebucht (830,817,807); Fragen 830, 807a als Chefsache-Dateien
 - 11:00 10.11.: Startsperre 11:00 Start Tom (Ford, vor dem Start; Neustart d8e7ada18)
+- 11:06 10.11.: Tom 661 archiviert, gebucht; Tom 506, Jerry 709, Spike 825, Sokrates t273 laufen; Vorrat Tom 475 wartet auf Kaufrepo (Tom 661 meldete)
