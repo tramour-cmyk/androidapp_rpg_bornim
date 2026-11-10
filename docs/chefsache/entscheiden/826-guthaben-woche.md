@@ -20,7 +20,7 @@ Geprüft an: [826-nutzung.webp](https://github.com/tramour-cmyk/androidapp_rpg_b
 **Auswertung:**
 - **A (Empfehlung):** eine Entwicklersitzung zugleich, nur Muss; Kür ruht; Zurücksetzen als Reserve für den Fall, dass es trotzdem nicht reicht. Kosten: weniger Fortschritt diese Woche.
 - **B:** weiterarbeiten wie bisher und am Freitag zurücksetzen. Kosten: das einmalige Zurücksetzen ist verbraucht und fehlt in einer späteren Woche.
-- **Stärkstes Gegenargument gegen A:** Das Zurücksetzen verfällt am 9. März ohnehin, wenn wir es nicht nutzen; dann wäre gedrosselte Arbeit verschenkt. Weg: es bis Ende Februar aufheben und spätestens dann nutzen.
+- **Stärkstes Gegenargument gegen A:** Drosseln kostet sicher Fortschritt in dieser Woche, das Zurücksetzen nur vielleicht. (Das frühere Argument „verfällt am 9. März ohnehin“ trägt nicht: bis dahin sind es rund 17 Wochen, die Reserve wird sehr wahrscheinlich noch gebraucht; Chef 08:16.) Weg: es bis Ende Februar aufheben und spätestens dann nutzen.
 
 **Folgerungen:** A: Sokrates trägt bei Ford ein, Ford startet danach. B: nichts zu tun, Ford weckt den Chef am Freitag für das Zurücksetzen.
 
