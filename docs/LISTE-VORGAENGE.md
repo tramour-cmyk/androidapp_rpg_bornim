@@ -214,9 +214,10 @@
 | 735 | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-ABNAHME.md 11 und Kopf DESIGN-KAMPF.md 7 (646 ersetzt 621.1; 655 strich 300 und Helfer nach dem Versand) (von Diogenes, Lauf 92) | Perikles | K | ruht, Kampf zuerst (338.1) | – | – | – | B Abläufe | – |
 | 742 | D78.1 Testbitte t268: Zeile „Verglichen“ deckte nur die Schirme vom 05.11., nicht Dorf, Kampf, Kapitelende; Wächter 512.1 prüft den Umfang nicht (von Diogenes, Lauf 76) | Perikles | K | ruht, Kampf zuerst (338.1) | – | – | – | B Werkzeuge | – |
 | 847 | D128.1 (Diogenes, 846): Lizenz-Stopp hält noch an, wenn Richtig/Falsch den Menüeintrag „Lizenzen der Engine“ als Bedienelement nennt (271.1, 269.1, 255.1 hielten an); Namen des Eintrags ausnehmen | Perikles | K | gebaut, Geprüft an: 00bd81d70 | Diogenes | – | – | B Werkzeuge | 2,02 $ |
-| 848 | Probelauf-Zähler zählt Push, der nur vorschau.yml (Kotlin, ohne Bild) auslöst, als Probe (von Tom, 506a) | Perikles | M | gebaut, Geprüft an: f5adfa33f | Diogenes | – | – | E Technik | – |
+| 848 | Probelauf-Zähler zählt Push, der nur vorschau.yml (Kotlin, ohne Bild) auslöst, als Probe (von Tom, 506a) | Perikles | M | gebaut, Geprüft an: f5adfa33f | 857 | – | – | E Technik | – |
 | 849 | Neustart: letzte Antwort an den Chef wörtlich in die Übergabe, Nachfolger nennt sie in der Startmeldung; Tokens gering halten (Chef 10.11., 11:59, über Sokrates) | Perikles | M | gebaut, Geprüft an: c02c25d52 | Diogenes | – | – | B Abläufe | – |
 | Pflege | von Werkzeug (340.3, 10.11.): 15844 Bytes (Grenze 15000), Erledigtes streichen | Perikles | K | startbar | – | – | – | B Abläufe | – |
+| 857 | D129.1 (Diogenes, 848): Ausnahme vorschau.yml sucht vorschau.env im Ordner des Aufrufs, nicht in der Wurzel, und bei push_files nicht im Paket; Push aus Unterordner oder über den GitHub-Server mit vorschau.env zählt nicht | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |

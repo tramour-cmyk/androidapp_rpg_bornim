@@ -52,6 +52,11 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 130 · 848 Probelauf-Zähler ohne vorschau.env (Perikles, `f5adfa33f`; 10.11., 13:0x)
+
+- `vorschau.yml` überspringt ohne `tools/preview/vorschau.env` mit Exit 0; Ausnahme in `loest_aus` passt dazu. Probe Wurzel ohne Datei → 0, mit Datei → 1.
+- **D129.1 → 857 (Perikles, Muss):** Prüfung im Ordner des Aufrufs statt der Wurzel (Aufruf aus `core/` mit Datei → 0) und bei Push über den GitHub-Server gegen die Platte statt das Paket (Datei im Paket → 0). Ein echter Probelauf ginge ungezählt durch. 848 wartet auf 857.
+
 ## Lauf 128 · 832 Prüfliste nur Spielbares, Lizenzzeile hält an (Perikles, `f00ceec73`; 10.11., 11:5x)
 
 - Regeltext `LISTE-CHECK-BUILD-TEST.md` 9 trägt den Chefwortlaut 09:29, „Im Bau geprüft“, Lizenzen nie als Prüfpunkt und „jeder Weg erreichbar“ (Helfer geht ihn im Build oder in der Vorschau, sonst Rückläufer); ohne Befund.
