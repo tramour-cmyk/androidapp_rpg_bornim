@@ -2,13 +2,13 @@
 
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
-**Übergabe (10.11., 18:54, `session_01Hmoj76Khd2xEYMbHNyJQor`):** Stellungnahme 264.1 in `entscheiden/2641-runner-lauf3.md` (Empfehlung A, dazu `zstd` am Runner; Hinweis an Perikles im Vorrat). Kosten auf: 264.1. Nachfolger: Sokrates – 620: Lagebild nach der nächsten Testrückmeldung
+**Übergabe (10.11., 19:34, `session_01Hmoj76Khd2xEYMbHNyJQor`):** Stellungnahme 264.1; Gegenlesen t275 (888): nicht freigegeben, Funde in Toms Vorrat, nach Toms Änderung erneut gegenlesen; 506 gesehen → 506.2 (Jerry); 709.1 nicht passt → Jerry; 894 an Perikles (Godot-Build bei build-**); 870.2, 870.3 sofort auf build-275 (Chef 19:33), Ford informiert. Kosten auf: 264.1, 888, 506, 709.1, 894, 870. Nachfolger: Sokrates – 888: Prüfliste t275 erneut gegenlesen
 
 - **Zu 870 (Chef 10.11., 14:03 und 14:08):** „wer kümmert sich denn um unser BRS, damit das jetzt mal zu 100% umgesetzt ist und damit wir nichts mehr mit SRD und Dungeons and Dragons und Wizard of the Coast zu tun haben? … ich hätte jetzt gerne mal tatsächlich die Systemumstellung“; 14:08: „federführend übernehmen … Master-Umzugsplan … soll jetzt schon Hand und Fuß haben. Und dann muss dein Plan irgendwer gegenlesen.“ Auftrag: (1) Plan, (2) Regelfragen als Chefsache, (3) Gegenlesen Diogenes, Befund als Text an den Chef, (4) nach Abnahme Pause aufheben, Vorgänge anlegen.
 - **Zu 870, nachhalten:** nach B1 Kosten gegen Plan (400–600 $) prüfen. Offen beim Chef: 806 an Tuffy; Regelwerte-Seite an wen; 854 nachhalten (größter Hebel für Bauzeit: Modelle 38 von 63 min).
 - **Zu 481 (Chef 13:01; 857a A):** Trankwirkung nach Alchemie; Simulation 444 Abschnitt 6 neu rechnen (Jerry).- **Zu 391:** Chefwort in der Sitzung überstimmt den Wächter bei `add_repo`, Fords erste Nachricht nicht; Regel bei Perikles (818); Einzelheiten in Git (09.11.).
 
-- **Zu 780 (Chef 09.11., 20:33: „780 Mails gesendet“):** an protofactor.inc@gmail.com und janpecnik@hotmail.com (Support contact im Asset Store), Wortlaut `git show 4da526c25:docs/chefsache/tun/780-zustimmung-haendler.md`; Antwort leitet der Chef weiter. Danach `LISTE-QUELLEN.md` Zeilen 64, 65, 68 „offen“ auflösen; ohne Antwort bis 23.11. Nachfrage vorschlagen. **Protofactor geantwortet 10.11., 04:48** (Chef 08:09, Bild): „Looks like the license already covers that usage.“ Zeilen 64, 65 auf ja (Lücke 1 dort). Offen nur Janpec (Zeile 68).
+- **Zu 780 (Chef 09.11., 20:33: „780 Mails gesendet“):** Wortlaut `git show 4da526c25:docs/chefsache/tun/780-zustimmung-haendler.md`. Protofactor ja (10.11., 04:48). Offen nur Janpec (`LISTE-QUELLEN.md` Zeile 68); ohne Antwort bis 23.11. Nachfrage vorschlagen.
 - **Zu 142.4 (Chef 09.11., 20:22, Bild der E-Mail von D&B iResearch an kontakt@bornwire.de, 08:45):** Anfrage eingegangen 09.11., 07:45 UTC, Tracking-ID 11196735, Case 11255677, Art „Add business – Mini Inquiry – Identity Data Only“, D-U-N-S noch leer; Ergebnis kommt je Case in eigener E-Mail. Nichts zu tun, bis sie da ist.
 - **Zu 654:** Rest (d)–(f) für die nächste Systemrunde: `git show 99cca1404:docs/ARBEIT-BERATUNG.md`.
 - **Zu 623 (Chef 10.11., 07:43, im Chat):** Er will das Beste aus den gekauften Paketen holen: was ist alles drin (Beispiel Graspaket mit weiteren Texturen)? Er sieht im Kampfort (806) nur Gras und Lichtschächte und will **die ganze Breite sehen**, um je Stück zu sagen „gut geeignet, verwenden“; nicht viel Geld ausgeben und dann eins nutzen, wenn zehn gute drin sind. Rückfrage an den Chef 07:45 (Schaukasten je Paket, Vorschlag). Chef 07:58: Alternative, er sieht sich die Effekte auf den Herstellerseiten an und entwickelt Ideen, was tauglich ist; braucht dazu die Links (gegeben 07:59); fragt, ob das bei 3D-Modellen wenig Sinn hat. Schaukasten ruht, bis seine Ideen da sind.
@@ -27,6 +27,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Zu 142** (17.–20.10. in Git): Fahrplan im vertraulichen [Dokument](https://claude.ai/artifact/D2DeY5N8yUcFjzRyW9RXWM); offen: Anschrift vor dem Zahlungsprofil
 
 ## Einzelheiten
+- **Zu 894, 895, von Perikles (Chef 10.11., 19:34 „894 A“, 19:36 „Ja, android.yml jetzt auf nur von Hand stellen … teilt es auch Sokrates mit“):** auf main: `godot.yml` baut von selbst bei Push auf `claude/build-**` (neuester bricht älteren ab); Version in Prüflisten 0.348.<n>; `android.yml` („Kotlin alt“) nur noch von Hand (895), ganz weg mit 870.10.
 - **Zu 873, von Tom (10.11., 14:32):** von `vorgang.py` beim Anlegen von 872 selbst erzeugt; die Systemlösung für den Griff ist 653 (Halt je Modell, abgenommen 14:22), 872 überträgt sie auf den Kampf. Vorschlag: mit Verweis auf 653 erledigen.
 
 
