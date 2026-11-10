@@ -17,7 +17,9 @@ static var held_unsterblich := false
 ## The lines by name, for the ones picked in several wordings.
 ## 399.2b (Homer [399.2b.knurrt]): die Zeile im Zug, wenn ein Jungwolf nur knurrt; gibt es im alten MARS nicht, darum nicht in mars_texte.gd
 ## Battle.kt Msg.fed (399.2, satt)
-const MSG399_FED := ["{0} ist gut gestärkt: +1 auf Angriffe und Schaden.", "{0} is well fed: +1 to attacks and damage."]
+const MSG399_FED := ["{0} ist gut gestärkt: trifft leichter und schlägt härter.", "{0} is well fed: lands blows more easily and hits harder."]     # [870.14.satt]
+## [870.14.kraft.schoepfen]
+const MSG870_KRAFT := ["{0} schöpft Kraft: +{1} TP.", "{0} draws strength: +{1} HP."]
 const MSG399_GROWLS := [["{0} knurrt, wagt aber keinen Biss.", "{0} snarls but dares no bite."],
 	["{0} duckt sich und fletscht die Zähne, kommt aber nicht heran.", "{0} crouches and bares its teeth, but does not come in."],
 	["{0} knurrt und hält Abstand.", "{0} growls and keeps its distance."]]
@@ -76,8 +78,8 @@ const COW_PER_CHA := 0.08
 const BREAK_SHARE := 5
 ## 296.2: the lines of the old fight, the same words in MARS (Skirmish.kt Msg296, Zweig claude/build-89).
 const MSG296_STILLSURPRISED = ["{0} ist noch überrascht und kann nicht reagieren!", "{0} is still caught off guard!"]
-const MSG296_FLED = ["{0} ist entkommen!", "{0} got away safely!"]
-const MSG296_CANTFLEE = ["Die Flucht misslingt!", "Couldn't get away!"]
+const MSG296_FLED = ["{0} ist entkommen!", "{0} gets away!"]     # [870.14.flucht]
+const MSG296_CANTFLEE = ["Die Flucht misslingt!", "The escape fails!"]
 ## 296.2: the statuses of the old fight (core Status.kt): name, short sign, colour of the sign.
 const STATUS := {
 	"POISON": [["Vergiftet", "Poisoned"], ["Gift", "Psn"], Color("6FB83A")],
@@ -92,14 +94,14 @@ const STATUS := {
 }
 ## 536: was ein Zustand bewirkt, wortgetreu aus Status.kt desc (der Tipp auf ein Zustandsschild im Kampf)
 const STATUS_DESC := {
-	"POISON": ["Schaden zu Beginn jeder Runde.", "Damage at the start of each round."],
+	"POISON": ["Schaden zu Beginn jeder Runde. Abwehr mit Zähigkeit.", "Damage at the start of each round. Resisted with Toughness."],     # [870.14.zustand.*]
 	"BURN": ["Starker Schaden zu Beginn jeder Runde.", "Heavy damage at the start of each round."],
-	"BLEED": ["Schaden jede Runde, Heilung nur halb so stark.", "Damage each round, healing is halved."],
+	"BLEED": ["Schaden jede Runde, Heilung nur halb so stark.", "Damage each round; healing is halved."],
 	"STUN": ["Setzt die nächste Runde aus.", "Loses the next turn."],
-	"SLOW": ["−2 auf Angriff und Rüstungsklasse.", "−2 to attack and armor class."],
-	"WEAK": ["−2 auf Angriff und Schaden.", "−2 to attack and damage."],
-	"BLIND": ["Angriffe mit Nachteil.", "Attacks with disadvantage."],
-	"DRUNK": ["Angriffe und Flucht mit Nachteil, bis zur nächsten Rast.", "Attacks and fleeing at a disadvantage, until your next rest."],
+	"SLOW": ["Trifft schlechter und weicht schlechter aus.", "Hits less often and dodges less well."],
+	"WEAK": ["Trifft schlechter und macht weniger Schaden.", "Hits less often and deals less damage."],
+	"BLIND": ["Angriffe mit Ungunst.", "Attacks at disfavor."],
+	"DRUNK": ["Angriffe und Flucht mit Ungunst, bis zur nächsten Rast.", "Attacks and fleeing at disfavor, until your next rest."],
 }
 ## A status that does not wear off by itself (Status.LASTING).
 const LASTING := 99
@@ -1167,7 +1169,8 @@ func _use_skill(f: Fighter, s: String, t) -> void:
 		"PER_BATTLE", "PER_REST":
 			f.uses[s] = f.uses[s] - 1
 	var spell: bool = sk.cost == "SPELL_POINTS" or sk.cost == "NONE"     # Kampfhandlungen (870.5): „setzt … ein“ wie Fähigkeiten
-	_say(fmt(X.MSG72_CASTS if spell else X.MSG72_USES, lang, [f.name(lang), [sk.de, sk.en][lang]]), f.id)
+	if s != "H_KRAFT":     # [870.14.kraft.schoepfen]: eine Zeile statt zwei
+		_say(fmt(X.MSG72_CASTS if spell else X.MSG72_USES, lang, [f.name(lang), [sk.de, sk.en][lang]]), f.id)
 	casting = ZAUBER_FX.get(s)
 	_cast(f, s, t)
 	casting = null
@@ -1224,7 +1227,7 @@ func _handlung(f: Fighter, s: String, t) -> void:
 		"H_KRAFT":
 			var n := mini(f.max_hp - f.hp, roundi(f.max_hp * float(h.get("heilung_anteil", 0.25))))
 			f.hp += n
-			_say(fmt(X.MSG72_HEALSSELF, lang, [f.name(lang), n]), f.id, f.id, 0, null, false, false, "HEAL")
+			_say(fmt(MSG870_KRAFT, lang, [f.name(lang), n]), f.id, f.id, 0, null, false, false, "HEAL")
 		"H_FINTE", "H_RUHIG":
 			f.naechster = float(h.get("naechster_treffer", 0))
 		"H_SCHILDWALL":

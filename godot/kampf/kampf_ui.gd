@@ -517,7 +517,7 @@ func _party_box(f) -> Control:
 	low.add_child(bar)
 	var l := Label.new()
 	var spv: int = kampfort.shown.sp.get(f.id, f.sp)
-	l.text = "%d/%d" % [hp, f.max_hp] + ((t("  ZP %d/%d", "  SP %d/%d") % [spv, int(f.hero.sp)]) if f.hero != null and int(f.hero.sp) > 0 else "")
+	l.text = "%d/%d" % [hp, f.max_hp] + ((t("  Mana %d/%d", "  Mana %d/%d") % [spv, f.max_sp]) if f.hero != null and not f.zauber.is_empty() else "")     # [870.14.kopf.mana]
 	l.add_theme_font_size_override("font_size", sp(13))
 	l.add_theme_color_override("font_color", TEXT)
 	low.add_child(l)
@@ -686,7 +686,8 @@ func _build_orders() -> void:
 						k.order(["attack", reach[0].id])
 					else:
 						_set_pick("target"), false, false, Tips.ATTACK),
-				_button(t("Können", "Skills"), not m.moves(f).is_empty(), func(): _set_pick("skills"), false, false, Tips.SKILLS),
+				_button(t("Können", "Abilities"),     # [870.14.knopf.koennen]
+						 not m.moves(f).is_empty(), func(): _set_pick("skills"), false, false, Tips.SKILLS),
 				_button(t("Tasche", "Bag"), not m.drinkable().is_empty(), func(): _set_pick("bag"), false, false, Tips.BAG),
 				_button(t("Wechsel", "Switch"), m.can_swap(f) or m.can_draw(f), func(): _set_pick("place"), false, false, Tips.PLACE),
 			]
@@ -2052,31 +2053,14 @@ func _seg_hits(a: Vector2, b: Vector2, box: Rect2) -> bool:
 ## Würfelkasten (RollTag) über dem Getroffenen: „12 + 5 = 17 gegen RK 16 · Treffer“, Gold, wenn es der Gruppe hilft.
 func _roll_tag(sr: Rect2, fig, r: Array, actor_id, alpha: float) -> void:
 	var fs := sp(13)
-	var total := int(r[1]) + int(r[2])
 	var hit: bool = r[4]
 	var by = kampfort.mars.find(actor_id) if actor_id != null else null
-	# gold, wenn es der Gruppe hilft: ihr Angriff trifft, ihr Ziel scheitert am Rettungswurf; gegen sie umgekehrt
-	var works: bool = hit if r[0] == "ATTACK" or r[0] == "BRS" else not hit
-	var helps: bool = works if by == null or by.side == "PARTY" else not works
-	# Wortlaut wie RollTag (SkirmishScreen.kt): Vorteil/Nachteil, kritisch, daneben; Rettungswurf „RW … gegen SG … · geschafft“
-	var bonus := ("− %d" % -int(r[2])) if int(r[2]) < 0 else ("+ %d" % int(r[2]))
-	var txt: String
-	if r[0] == "BRS":
-		# 478: nach dem BRS ein Wurf von 1 bis 100 gegen die Trefferchance (Wortlaut vorläufig mit den Wörtern des alten Kastens,
-		# die Anzeige kommt mit 2.3)
-		var res2 := t("kritisch", "critical") if (hit and r.size() > 7 and r[7]) else (t("Treffer", "hit") if hit else t("daneben", "miss"))
-		txt = "%d %s %d %% · %s" % [int(r[1]), t("gegen", "vs"), int(r[3]), res2]
-	elif r[0] == "ATTACK":
-		var mode := ""
-		if int(r[5]) > 0:
-			mode = t(" (Vorteil)", " (advantage)")
-		elif int(r[5]) < 0:
-			mode = t(" (Nachteil)", " (disadvantage)")
-		var res := t("kritisch", "critical") if int(r[1]) == 20 else (t("Treffer", "hit") if hit else t("daneben", "miss"))
-		txt = "%d%s %s = %d %s %d · %s" % [int(r[1]), mode, bonus, total, t("gegen RK", "vs AC"), int(r[3]), res]
-	else:
-		txt = "%s %d %s = %d %s %d · %s" % [t("RW", "Save"), int(r[1]), bonus, total, t("gegen SG", "vs DC"), int(r[3]),
-			t("geschafft", "success") if hit else t("misslungen", "failure")]
+	# gold, wenn es der Gruppe hilft: ihr Angriff trifft; gegen sie umgekehrt
+	var helps: bool = hit if by == null or by.side == "PARTY" else not hit
+	# 868 (870.14 Kasten): nur Ergebnis und Trefferchance, kein Wurf; Gunst oder Ungunst dahinter
+	var res := t("kritisch", "Critical") if (hit and r.size() > 7 and r[7]) else (t("Treffer", "Hit") if hit else t("daneben", "Miss"))
+	var gunst := t(" mit Gunst", " with favor") if int(r[5]) > 0 else (t(" mit Ungunst", " at disfavor") if int(r[5]) < 0 else "")
+	var txt: String = res + (" · %d %%" if lang == 0 else " · %d%%") % int(r[3]) + gunst
 	var w := minf(340 * dp, sr.size.x - 8 * dp)
 	var tw := font.get_string_size(txt, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x + 16 * dp
 	w = minf(w, tw)
