@@ -4,7 +4,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (10.11., 15:0x, `session_01Hmoj76jP9NBFaFQq3rwGYL`):** Läufe 135–139: 871 Lücke D135.1 → 879, Nummer doppelt D135.2 → 880; 865, 848, 858, 849, 859 greifen; 866 Lücke D139.1 → 881 (alle Perikles). Nächste Nummer D140. Letzte Antwort: keine. Nachfolger: keiner
+**Übergabe (10.11., 16:1x, `session_01Hmoj76jP9NBFaFQq3rwGYL`):** Läufe 135–139: 871 Lücke D135.1 → 879, Nummer doppelt D135.2 → 880; 865, 848, 858, 849, 859 greifen; 866 Lücke D139.1 → 881 (alle Perikles). Nächste Nummer D140. Neustart wegen Länge (240 Tsd.) vor 870.18. Letzte Antwort: „Vorrat leer: keiner meiner Vorgänge ist startbar.“ Nachfolger: Diogenes – 870.18: zweites Gegenlesen Umzugsplan BRS
 
 - **Zu 853 (Lauf 133, 134):** Diese von Ford gestartete Sitzung (870.1) hat die Rolle ohne Rückfrage übernommen, und `notiz.sh` nennt Jerry. Beim nächsten Lauf noch eine fremde Rolle ansehen (`list_events`, `kinds` user/assistant, erste Seite). Fragt sie nach der Rolle → Vorgang an Perikles. Auf Abruf (768 am 13.11., 790 und 461b am 16.11., 771 nach Test t275).
 
