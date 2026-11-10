@@ -182,6 +182,45 @@ def kopfsitz_geformt(o, W, N, kopf, p, ge, runden=8):
           '; nach %d Runden noch %d Ecken unter 6 mm, davon unter der Haut %d' % (r, n, sum(v[0] for v in zahl.values())))
 
 
+def kragen_unter_kapuze(o, netze, haut, p, ge, luft=0.004):
+    """475 (Chef 10.11., 09:09: Morwens Hals „grün im Schatten“; nachgestellt 10.11. am Rechner: grün-schwarze Flecken unter dem Kinn,
+    ohne Kleid glatt): kopf_frei legt den Kragen des Kleids und kopfsitz die Kapuze je 6 mm ueber die Haut; am Hals durchdringen sich
+    die groben Dreiecke des Kragens und die Kapuze. Erster Versuch (Kapuze 4 mm ueber die Ecken des Kragens schieben) aenderte nichts:
+    die Flaechen schneiden sich zwischen den Ecken. Die Kapuze umhuellt den Hals ohnehin, darum faellt der Kragen darunter weg: jede
+    Flaeche des Kleids am Hals, von der eine Ecke nicht mindestens [luft] ueber der naechsten Ecke der Kapuze liegt (gemessen wie in Godot:
+    Kapuze mit dem Gesicht der Person, Kleid ohne)."""
+    import bmesh
+    from mathutils.kdtree import KDTree
+    kleid = [k for k in netze if k is not haut and k is not o and 'teil' in k.data.attributes]
+    if not kleid: return
+    W = KO._welt(haut); Wg = W + KO.feld(W, p, ge or {})
+    me = haut.data; N = np.empty(len(me.vertices) * 3); me.vertices.foreach_get('normal', N)
+    N = N.reshape(-1, 3) @ np.array(haut.matrix_world.to_3x3().inverted().transposed()).T
+    N /= np.maximum(np.linalg.norm(N, axis=1, keepdims=True), 1e-9)
+    kopf = np.where((Wg[:, 2] > p['kinn_z'] - 0.12) & (np.linalg.norm(Wg - p['mitte'], axis=1) < 0.24))[0]
+    kh = KDTree(len(kopf))
+    for j, i in enumerate(kopf): kh.insert(Vector(Wg[i]), j)
+    kh.balance()
+    V = KO._welt(o); Vg = V + KO.feld(V, p, ge or {})
+    kk = KDTree(len(Vg))
+    for j, v in enumerate(Vg): kk.insert(Vector(v), j)
+    kk.balance()
+    for k in kleid:
+        bm = bmesh.new(); bm.from_mesh(k.data); mw = k.matrix_world; weg = []
+        for f in bm.faces:
+            # Lauf 2 am Rechner (nach der Mitte: noch Flecken links unter dem Kinn): jede Ecke der Flaeche, nicht nur die Mitte
+            for v in f.verts:
+                c = mw @ v.co
+                if not (p['kinn_z'] - 0.14 < c.z < p['kinn_z'] + 0.03): continue
+                q, j, d = kk.find(c)
+                if q is None or d > 0.04: continue
+                qs, js, ds = kh.find(c)
+                if qs is None or ds > 0.06: continue
+                if float(np.dot(np.array(c) - Vg[j], N[kopf[js]])) < luft: weg.append(f); break
+        bmesh.ops.delete(bm, geom=weg, context='FACES'); bm.to_mesh(k.data); bm.free(); k.data.update()
+        print('KRAGEN UNTER KAPUZE', k.name, len(weg), 'Flaechen weg')
+
+
 def wange_messen(netze, haut, p, ge):
     # 475 Spur (b) (Pruefer 22:24: Morwen im Halbprofil Wange vom Kapuzenrand verdeckt): Ecken anderer Netze vor dem Ohr zwischen Kinn und
     # Augen binnen 2 cm ueber der geformten Haut seitlich des Gesichts (|x| ueber 60 % der Augenaussenkante); nur Messung, Protokoll WANGE
@@ -622,6 +661,8 @@ def kaempfer(k, g, figur='', fuesse='', stiefel_bis=0.0, liste='trachten.json', 
         ge = json.load(open(os.path.join(HIER, liste))).get(figur, {}).get('kauf', {}).get('gesicht', {})
         netze += kopf_frei(netze, haut, p, ge, os.path.join(env['OUT'], 'teile.json'))
     kopfteile = kopfsitz(netze, haut, p, ge) if liste != 'trachten.json' else []
+    for o in kopfteile:
+        if 'hood' in o.name.lower(): kragen_unter_kapuze(o, netze, haut, p, ge)
     if liste != 'trachten.json': wange_messen(netze, haut, p, ge)
     schluessel(([haut, augen] if augen else [haut]) + brauen + kopfteile, p, augen)
     statur(arm, netze)
