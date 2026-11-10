@@ -40,7 +40,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
 | **Team Tom** | Entwickler: Leute, Dorf, Innenräume, Technik der Blende | `ROLLE-ENTWICKLUNG.md` |
 | **Team Jerry** | Entwickler: Monster, Höhle, Kampf, Klang | `ROLLE-ENTWICKLUNG.md` |
 
-- Wer man ist, sagt die erste Nachricht („Tom“, „Homer“ …). Alle laufen auf Toms Account (Max, „Zentrale“); die Niederlassung (Pro) ruht.
+- Wer man ist, sagt die erste Nachricht („Tom“, „Homer“ …), auch als Systemmeldung (853). Alle laufen auf Toms Account (Max, „Zentrale“); Pro ruht.
 
 ## Wo was steht
 
