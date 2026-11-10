@@ -152,12 +152,12 @@ jobs:
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq libxi6 libxxf86vm1 libxfixes3 libxrender1 libgl1 libsm6 libxkbcommon0 > /dev/null
           [ -x bl/bin/python ] || { rm -rf bl; python -m venv bl && bl/bin/pip -q install bpy==5.2.3 numpy pillow; }
-      # 264.1: Reste in ~/cc0 aus abgebrochenen Laeufen (Verzeichnis ohne Schreibrecht) lassen tar beim Wiederherstellen scheitern
-      # („Cannot open: File exists“, Lauf 328); der Zwischenspeicher bringt alles neu
+      # 264.1: actions/cache legt ~/cc0 relativ zum Arbeitsordner ab (../../../cc0); auf GitHub ist das ~/cc0, auf dem eigenen Runner
+      # ~/actions-runner/cc0 (Lauf 331: Treffer, aber dort entpackt, ~/cc0 leer, Rueckfall auf itch.io). Vorher alte Reste an beiden Orten
+      # weg (Ordner ohne Schreibrecht aus den Zips: „Cannot open: File exists“; sudo darf nur apt-get), nachher nach ~/cc0 verschieben
       - name: CC0-Reste entfernen (264.1)
         run: |
-          # sudo darf auf dem Runner nur apt-get (Lauf 329); die Reste gehoeren dem Runner, Schreibrecht zurueck, dann loeschen
-          [ ! -e ~/cc0 ] || { chmod -R u+rwX ~/cc0; rm -rf ~/cc0; }
+          for d in "$(realpath -m "$GITHUB_WORKSPACE/../../../cc0")" ~/cc0; do [ ! -e "$d" ] || { chmod -R u+rwX "$d"; rm -rf "$d"; }; done
       # 348.6 Held und Leute auf dem CC0-Geruest (348.12): Knochen und Bewegungen aus Quaternius' Universal Animation Library (CC0 1.0)
       - uses: actions/cache@v4
         with:
@@ -165,6 +165,7 @@ jobs:
           key: cc0-quaternius-4
       - name: CC0-Pakete (Quaternius)
         run: |
+          Z=$(realpath -m "$GITHUB_WORKSPACE/../../../cc0"); [ "$Z" = "$(realpath -m ~/cc0)" ] || [ ! -d "$Z" ] || mv "$Z" ~/cc0   # 264.1
           [ -n "$(find ~/cc0 -name UAL1_Standard.glb 2>/dev/null)" ] || bash tools/blender348/v3/cc0_laden.sh ~/cc0
           # 376 (Chef 22:14, 22:16 „376 A2“): Gwennas Haus aus dem Dorfbausatz (dorf.py PROBEHAUS, Vorgabe 3,12)
           [ -d ~/cc0/medieval-village-megakit ] || PAKETE=medieval-village-megakit bash tools/blender348/v3/cc0_laden.sh ~/cc0
