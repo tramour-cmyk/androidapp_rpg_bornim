@@ -71,6 +71,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry (07:04 Jerry 806, 08:05 Jerry 806, 10:26 Jerry 595) aus eigener Beurteilung aus (Kaufrepo, Pacing, Sitzungsgrenze), ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch: 59 Muss). Lücke im Werkzeug: Startsperre wird geschrieben, auch wenn nie gestartet wird; kein WARNUNG-LAUT wie bei ARCHIVIERE. Vorschlag an den Chef gestellt
 
+- 13:30 10.11.: Startsperre 13:30 Start Ford (selbst)
 - 13:30 10.11.: Startsperre 13:30 Start Sokrates (Neustart auf Meldung 9fc0c053b, Nachfolger 620 Test t274 ab 274); Startsperre 13:30 Start Ford (selbst).
 - 13:01 10.11.: Lauf: gestartet Diogenes 848, Perikles 853 (Rolle-verweigert-Fehler, Tom 12:01 und Jerry 12:03 betroffen), Spike 470 (Chef 12:58 „470 jetzt“, statt START 653). Mit --ohne: Spike 653 (Chef: Spike baut 470), Tuffy 854 (Jerry übernimmt laut Sokrates, keine Chef-Genehmigung für Tuffy). Archiviert und gebucht: Spike 825, Tuffy 406.2, Diogenes 838, Perikles 847.
 - 12:05 10.11.: Lauf: alle Rollen belegt, nichts zu starten; alte Sitzungen Perikles, Tom 506, Jerry 709, Sokrates, Diogenes archiviert und gebucht. Neue Tom und Jerry fragten nach der Rolle, „Tom“/„Jerry“ per Nachricht nachgeschickt.
