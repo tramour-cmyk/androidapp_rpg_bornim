@@ -932,3 +932,9 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 830 | Von Sokrates (705 B, Chef 10.11., 08:43): Lehrsatz zur Ansage des Wolfssprungs im ersten Wolfskampf (ausweichen), Text für 72.10a | G Story | M | 6,10 $ | Homer | erledigt |
 | 835 | Inhaltsverzeichnis docs/README.md in Chef-Sprache: jede Zeile ein Satz, was drinsteht und wozu, ohne Fachwörter (Netze, MARS-Checkliste, Umzug, Abgleich), Projektplan (Weg) gegen Abnahme (Ziel) klar (Chef 10.11., 10:24, über Sokrates) | B Abläufe | M | – | Perikles | erledigt |
 | 829 | 705 B: Regelvorschlag BRS, Magier Stufe 1 gegen Wolfsrudel ohne Söldner, ohne Ausweichen etwa 40 % (Chef 10.11., 08:43); danach Messung Jerry | E Kampf | M | 4,95 $ | Sokrates | erledigt |
+| 72 | Profil und Marktvergleich | E Kampf | K | 0,72; +0,61 $ | Homer | erledigt |
+| 348.12g | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | G Story | M | 4,29 $ | Homer | erledigt |
+| 837 | lauf.py: Start nicht angekommen melden (Chef 10.11., 10:4x; Fehler 341 von Ford) · „jetzt“ 10.11., 11:09 | B Werkzeuge | M | – | Perikles | erledigt, greift Lauf 127 |
+| 832 | Testbitten ohne Prüfpunkte, die ein Test im Bau schon sichert oder Lesen von Lizenztexten verlangen (Chef 10.11., 09:29 zu 273.1, über Sokrates) | Q QS | M | – | Perikles | erledigt, greift Lauf 129 |
+| 846 | D127.1 (Diogenes, 832): commit-pruefung.py hält Prüfzeilen an, die das Menü „Lizenzen“ nur als Weg nennen (Vorbild 271.1 Titelbild); nur anhalten, wenn „richtig“ Lizenztext verlangt | B Werkzeuge | M | – | Perikles | erledigt, greift Lauf 129 |
+| 838 | Prüfung Ford: folgte jeder START-Zeile von lauf.py eine Sitzung? Stichprobe im Wochenlauf (Chef 10.11., 10:4x; Fehler 341 von Ford) | B Werkzeuge | M | 1,62 $ | Diogenes | erledigt |
