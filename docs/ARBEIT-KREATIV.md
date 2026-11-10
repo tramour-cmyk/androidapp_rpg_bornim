@@ -8,6 +8,8 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 ## Zeilen
 
+- **Zu 348.12g, Chef (10.11., 11:41, an Homer):** gekauften Bestand an Tieren, Monstern usw. abgleichen, mit 348.12g verbinden; prüfen, was wir damit machen könnten, vor allem mit der Chimäre (Chef: im Dorf herumlaufen oder als Begleiter).
+
 - **Offen aus 817 (Homer 10.11., 10:50, Fremdprüfung):** (1) `[423.werte.ab]` sagt „Eine Gabe, andere zu bezaubern, gibt es nicht“, im Code gibt Wille über die Brücke Ladenpreise und Auftreten (CHA); beim Bau 2.3 klären. (2) `STORY-REGELN.md` Englisch Regel (3) „HP, nie life points“ widerspricht `[423.werte.ab]` „Life“ (Menü nach 683 „Leben/Life“, Kampfmeldungen „TP/HP“); eine Regel festlegen. (3) Englisch für „Abwehrprobe“ fehlt in `[423.namen]` („Defence“ ist schon die Abwehr eines Hiebs; Vorschlag „Resistance roll“); „Protection“ ist auch die Pfadgruppe Schutz.
 
 - **Zu 458.4 (erledigt 01.11.):** abgenommene Texte wortgetreu (`[D4.1.rauch.tasche]`, `[356.schluessel]`, übrige Handlungsgegenstände aus `Items.kt`); keine Zahlen und keine Wirkung, die das BRS nicht festlegt; Ladenware ohne Abnutzungsspuren (neu = makellos). Offen für später: (1) `[D4.1.rauch.tasche]` sagt „werfen“, im Spiel fliegt das Bündel von selbst, sobald Krogg auftaucht (`klassisch.gd`, D4.1); (2) SRD-Namen „Handschuhe der Ogerkraft“, „Umhang des Schutzes“, englisch „Potion of Healing“ usw. vor Stufe 6 ersetzen.
