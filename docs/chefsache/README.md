@@ -20,6 +20,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [506](ansehen/506-untote.md) | Wiedergänger und Grabhund im Kampf, nachgebessert (Film) | – | 10.11., 18:50 |
 | [709.1](ansehen/7091-wolfsbiss-film.md) | Wolfsbiss am Schild vorbei, Film | – | 10.11., 18:19 |
 
 ## Zu tun
