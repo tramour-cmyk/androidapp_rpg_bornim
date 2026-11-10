@@ -3,8 +3,8 @@ extends RefCounted
 # MARS-Kampf sagt, wörtlich aus dem alten Spiel (MarsTips.kt: Homers Texte 204T, 210T, 223T, 259T); [de, en]. 870.5/868: nach dem
 # BRS neu von Homer ([870.14.tip.*], [870.14.ansage.*], STORY-BRS-KAMPF.md), ohne Würfel und Zahlen.
 
-const ATTACK := ["Ein Schlag oder Schuss mit der Waffe. Nahkampf erreicht nur die vordere Reihe, solange dort jemand steht, und hat von hinten an einem Freund vorbei Ungunst, außer mit Stangenwaffen. Bogen und Armbrust haben Ungunst, wenn du vorn stehst und auf die vordere Reihe schießt.",
-	"One blow or shot with your weapon. Melee reaches only the front row while anyone stands there, and from the back past a friend it is at disfavor, except with polearms. Bows and crossbows are at disfavor when you stand in front and shoot at the front row."]
+const ATTACK := ["Ein Schlag oder Schuss mit der Waffe. Nahkampf erreicht nur die vordere Reihe, solange dort jemand steht, und hat von hinten an einem Freund vorbei Ungunst, außer mit Stangenwaffen. Bogen und Armbrust haben Ungunst auf die vordere Reihe, wenn du vorn stehst und ein Freund neben dir; allein vorn schießt du frei.",
+	"One blow or shot with your weapon. Melee reaches only the front row while anyone stands there, and from the back past a friend it is at disfavor, except with polearms. Bows and crossbows are at disfavor against the front row when you stand in front with a friend beside you; alone in front you shoot freely."]
 const SKILLS := ["Zauber und Kampfhandlungen, die deine Fertigkeiten dir geben. Zauber kosten Mana; manches geht nur einmal je Kampf oder erst nach dem Langen Ausruhen wieder.",
 	"Spells and combat moves your skills give you. Spells cost mana; some work only once per battle or not again until a Long Rest."]
 const BAG := ["Ein Heiltrank aus dem gemeinsamen Vorrat, für dich oder einen Freund. Kostet den Zug.",
@@ -23,8 +23,8 @@ const AUTOPILOT := ["Spielt deinen Helden: Waffe, Kleinzauber, Heilung für eine
 const INTENTS := {
 	"heavy": ["Schwerer Hieb: die Axt mit voller Wucht, weit mehr Schaden, gegen eine Figur. Hilft: vorher ein Fünftel seines Lebens nehmen, dann taumelt er und der Zug ist verloren; sonst Abwehr, Decken oder den Ring treffen.",
 		"Heavy blow: the axe at full force, far more damage, against one figure. Counter: take a fifth of his life first and he staggers, his turn lost; otherwise Defend, Cover or meet the ring."],
-	"call": ["Rudel rufen: ein Goblin kommt, beim zweiten Mal ein Späher, mehr nicht. Hilft: Verhindern lässt es sich nicht; nutze den Zug, um Grak selbst zuzusetzen oder dich aufzustellen.",
-		"Call the pack: a goblin comes, the second time a scout, no more. Counter: it cannot be stopped; use the turn to wear Grak down or to set your line."],
+	"call": ["Hilfe rufen: ein Goblin kommt, höchstens einmal im Kampf. Hilft: Verhindern lässt es sich nicht; nutze den Zug, um Grak selbst zuzusetzen oder dich aufzustellen.",
+		"Call for help: a goblin comes, at most once per battle. Counter: it cannot be stopped; use the turn to wear Grak down or to set your line."],
 	"gather": ["Kraft sammeln: er heilt sich um einen guten Teil seines Lebens. Hilft: vorher ein Fünftel seines Lebens nehmen, dann bleibt die Heilung aus.",
 		"Gather strength: he heals a good part of his life. Counter: take a fifth of his life first and the healing fails."],
 	"breakthrough": ["Durchbrechen: er stößt die Figur vorn nach hinten und schlägt die dahinter, die nun vorn steht, härter als sonst. Hilft: der Bedrohte tritt selbst nach vorn, dann bleibt ein einfacher Schlag; oder vorher ein Fünftel seines Lebens.",

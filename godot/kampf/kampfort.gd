@@ -1046,7 +1046,7 @@ func _play_say(e: Dictionary) -> void:
 	for id in figures:
 		figures[id].im_schatten(im_schatten.has(id))
 	for f in mars.fighters():
-		# called to the fight (Rudel rufen); the rules' thread may already hold one this message does not know yet
+		# called to the fight (Hilfe rufen); the rules' thread may already hold one this message does not know yet
 		if not figures.has(f.id) and e.places.has(f.id):
 			var fig := Figur.new()
 			fig.setup(f, self)

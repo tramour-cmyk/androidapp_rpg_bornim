@@ -205,7 +205,7 @@ static func _intent(id: String, de: String, en: String, kind := "STRIKE", extra 
 
 
 var I_HEAVY := _intent("heavy", "Schwerer Hieb", "Heavy blow", "STRIKE", [2, 6, 0], true, true, true)
-var I_CALL := _intent("call", "Rudel rufen", "Call the pack", "CALL", null, false, false)
+var I_CALL := _intent("call", "Hilfe rufen", "Call for help", "CALL", null, false, false)     # Homer 899 [870.14.ansage.call]
 var I_GATHER := _intent("gather", "Kraft sammeln", "Gather strength", "GATHER", null, false, false, true)
 var I_STAB := _intent("stab", "Stich", "Stab", "STRIKE", null, false, false)
 ## 348.12 (Chef 27.10., 09:49; Homer [210T.hieb]): Goblin mit Krummsäbel oder Beil sagt „Hieb“ an; gewollte Abweichung vom alten MARS
