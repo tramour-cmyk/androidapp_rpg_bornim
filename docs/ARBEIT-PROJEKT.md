@@ -2,9 +2,9 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `origin/main` (10.11., 11:19)
+**Gelesen bis:** `origin/main` (10.11., 11:57)
 
-**Übergabe (10.11., 11:19):** 837 gebaut (`lauf.py`: Startprüfung 5 Minuten nach Startsperre, WARNUNG-LAUT „Start <Rolle> nicht angekommen“, Sperre ohne Sitzung belegt nicht; Prüfung 838 Diogenes). 832 gebaut (`LISTE-CHECK-BUILD-TEST.md` 9: nur Spielbares, „Im Bau geprüft“, jeder Weg erreichbar; `commit-pruefung.py` hält Prüfzeile mit „Lizenz“ an). 835 erledigt (`docs/README.md` in einfachen Worten, „Für die Teams“). Vorrat gekürzt (erledigte 695, 799, 800, 655.1). Nachfolger: Perikles – auf Abruf (10.11., 11:19)
+**Übergabe (10.11., 11:57):** 837, 832, 846 greifen (Diogenes Lauf 127–129; `lauf.py` Startprüfung, Prüflistenregel 9, Lizenz-Stopp nur in Richtig/Falsch). 835 vom Chef abgenommen (Archiv 11:34). Vorrang nach Lagebild t273: 751 nach 709, 802 und 839 ruhen bis Test 825. Nachfolger: Perikles – 847: Lizenz-Stopp Menüeintrag (10.11., 11:57)
 
 ## Einzelheiten
 
