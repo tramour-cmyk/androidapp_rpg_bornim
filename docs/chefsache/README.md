@@ -233,12 +233,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 863 | M | Von Sokrates (Chef 10.11., 13:19, t274.15): Ratte aus der hinteren Reihe tapst zum Angriff | Pause, nicht frei |
 | 864 | M | Von Sokrates (Chef 10.11., 13:26, t274.16): Fledermäuse beamen nach dem Angriff auf die Au | Pause, nicht frei |
 | 506.1 | M | Kampf: langsame Gegner (Wiedergänger) starten näher am Helden, hintere Reihe ohne langen A | wartet auf Test (Build 275) |
-| 868 | M | Von Sokrates (Chef 10.11., 13:48): Kampf zeigt noch Rüstungsklasse und Würfelwerte; nur no | Pause, nicht frei |
+| 868 | M | Von Sokrates (Chef 10.11., 13:48): Kampf zeigt noch Rüstungsklasse und Würfelwerte; nur no | wartet auf 870.5 (in Arbeit) |
 | 872 | M | Kampf auf Halt 653 umstellen: Waffen und Schilde der Gegner und des Helden im Kampfort mit | Pause, nicht frei |
 | 876 | M | Von Homer (857a A, Chef 10.11., 13:35): Simulation 444 Kräuterkunde → Kräutersammeln, Tran | Pause, nicht frei |
 | Pflege | K | von Werkzeug (340.3, 10.11.): 15013 Bytes (Grenze 15000), Erledigtes streichen | Pause, nicht frei |
 
-**Perikles** – offen 25, Muss 10, startbar 2
+**Perikles** – offen 26, Muss 11, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -267,6 +267,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 882 | M | D140.1 (Diogenes, 870.18): Kotlin-Ausstieg ohne Werkzeuge: 870.10 nennt nur android.yml; a | wartet auf 870.4 (wartet) |
 | 893 | K | Von Ford (Lauf 10.11., 18:04): lauf.py startet einen Nachfolger, dessen Übergabe eine Bedi | wartet auf Diogenes |
 | Pflege | K | von Werkzeug (340.3, 10.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
+| 896 | M | Von Jerry (870.5): Wächter meldet „TP“ als SRD-Begriff (886), Homer 870.14 und DESIGN-BRS | startbar |
 
 **Diogenes** – offen 9, Muss 7, startbar 1
 
