@@ -112,7 +112,7 @@
 | 815 | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staubflocken innen, Fußstaub, Fahne, Wind, Gras weicht aus, Federn; gedämpft, Bilder/s nie schlechter, an 698 (623.8 A, Chef 09.11., 22:23) | Tom | M | startbar | – | – | – | E Welt | – |
 | 831 | Bildtafel Bäume: vier Arten aus Stylized Nature MegaKit frei (gewöhnlich, abgestorben, Kiefer, verdreht) je drei Varianten mit Signatur, neben unserem Baum, Spielkamera, Kosten je Baum (Chef 10.11., 09:10, über Sokrates) | Tom | M | startbar | – | – | – | E Welt | 3,10 $ |
 | Pflege | von Werkzeug (340.3, 10.11.): 21707 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
-| 709 | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angreifer prüfen (Chef 08.11., 21:36, über Sokrates) | Jerry | M | startbar | – | – | – | E Kampf | – |
+| 709 | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angreifer prüfen (Chef 08.11., 21:36, über Sokrates) | Jerry | M | in Arbeit, Messung treffen_709 am Rechner | – | claude/jerry-709-treffen | – | E Kampf | – |
 | 593 | MARS: Ausweichen auch rückwärts als Abwechslung zu links und rechts (Chef 05.11., 19:2x) | Jerry | M | zu testen, seit 270 auf main | – | claude/jerry-593-ausweichen | – | E Kampf | – |
 | 406.2 | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) · zurück t269 | Jerry | M | startbar, Fund t269.21 | – | – | – | E Kampf | 41,37 $ |
 | 642 | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 Seeds 1, 3 am Rechner; im Bau misst nur Seed 7), auch mit altem Heldentempo; von Jerry zu 438 | Jerry | M | ruht, wartet auf Kaufrepo (391), Ursache vermutet | – | claude/jerry-348-642-wolf-abstand | – | E Kampf | 6,63 $ |
@@ -212,6 +212,7 @@
 | 742 | D78.1 Testbitte t268: Zeile „Verglichen“ deckte nur die Schirme vom 05.11., nicht Dorf, Kampf, Kapitelende; Wächter 512.1 prüft den Umfang nicht (von Diogenes, Lauf 76) | Perikles | K | ruht, Kampf zuerst (338.1) | – | – | – | B Werkzeuge | – |
 | 832 | Testbitten ohne Prüfpunkte, die ein Test im Bau schon sichert oder Lesen von Lizenztexten verlangen (Chef 10.11., 09:29 zu 273.1, über Sokrates) | Perikles | M | startbar | – | – | – | Q QS | – |
 | 835 | Inhaltsverzeichnis docs/README.md in Chef-Sprache: jede Zeile ein Satz, was drinsteht und wozu, ohne Fachwörter (Netze, MARS-Checkliste, Umzug, Abgleich), Projektplan (Weg) gegen Abnahme (Ziel) klar (Chef 10.11., 10:24, über Sokrates) | Perikles | M | startbar | – | – | – | B Abläufe | – |
+| 837 | lauf.py: Start nicht angekommen melden (Chef 10.11., 10:4x; Fehler 341 von Ford) | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
@@ -219,6 +220,7 @@
 | 768 | Wochentermin 13.11.: Rollenspiegel Diogenes (rollenspiegel.sh Diogenes) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Diogenes | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 771 | Probe 657 auswerten: Erstfunde des Chefs t272–t275 gegen 11, 11, 9, 7 (von Perikles, Werkzeug 657 greift laut Lauf 104) | Diogenes | M | startbar | t275 | – | – | Q QM | – |
 | 790 | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab 200 Tsd., Chef 09.11., 18:05) | Diogenes | M | startbar | 16.11. 18:07 | – | – | Q QM | – |
+| 838 | Prüfung Ford: folgte jeder START-Zeile von lauf.py eine Sitzung? Stichprobe im Wochenlauf (Chef 10.11., 10:4x; Fehler 341 von Ford) | Diogenes | M | startbar | – | – | – | B Werkzeuge | – |
 | 829 | 705 B: Regelvorschlag BRS, Magier Stufe 1 gegen Wolfsrudel ohne Söldner, ohne Ausweichen etwa 40 % (Chef 10.11., 08:43); danach Messung Jerry | Sokrates | M | startbar | – | – | – | E Kampf | – |
 | 780 | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für unsere gekauften Protofactor-Animsets und Janpec, die KI-Sitzungen mit Skripten bearbeiten? (aus 623.1) | Sokrates | M | wartet, Protofactor ja 10.11., 04:48; offen Janpec | 23.11. | – | – | M Veröffentlichung | – |
 | 620 | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build (Chef 07.11.) | Sokrates | M | startbar | – | – | – | B Abläufe | 34,99 $ |
