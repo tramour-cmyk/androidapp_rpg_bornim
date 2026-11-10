@@ -12,7 +12,7 @@
 #   kauf_cache.py vorher             Stand von godot/daten und godot/kampf/daten merken (vor dem Bau)
 #   kauf_cache.py ablegen            seit „vorher“ neue oder geänderte Dateien packen und hochladen (ältere Anhänge: die 8 neuesten bleiben)
 # Zugang: in der Sitzung über den Proxy; auf dem Bauserver GH_TOKEN mit Schreibrecht aufs Kaufrepo.
-import hashlib, json, os, re, subprocess, sys, tarfile, tempfile, urllib.request
+import hashlib, io, json, os, re, subprocess, sys, tarfile, tempfile, urllib.request
 import yaml
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -24,6 +24,12 @@ BEHALTEN = 8
 SCHRITTE = ['CC0-Pakete', 'Modelle bauen', 'Held je Klasse', 'Kampfort bauen']
 ORDNER = ['godot/daten', 'godot/kampf/daten']
 VORHER = os.path.join(RT, 'kauf_cache_vorher.json')
+# Auf dem Bauserver laufen „Leute bauen“ und „Dorftiere bauen“ (Tom) zwischen den Schritten; deren Dateien bleiben draußen, sie bauen
+# bei jedem Lauf selbst. godot/daten/kauf.txt (Liste fürs Verschlüsseln) teilen sich alle: abgelegt werden nur die Zeilen der Schritte
+# oben (Mitglied ZUSATZ), beim Holen angehängt.
+OHNE = ('godot/daten/leute/', 'godot/daten/waffen/', 'godot/daten/tiere/', 'godot/daten/dorftiere/', 'godot/daten/kauf.txt')
+LISTE = 'godot/daten/kauf.txt'
+ZUSATZ = 'KAUF_ZUSATZ'
 
 
 def api(pfad, daten=None, methode=None, host='api.github.com', typ='application/json', laenge=None):
@@ -108,10 +114,12 @@ def holen():
             return 1
         with tarfile.open(p) as tf:
             namen = tf.getnames()
-            if any(n.startswith(('/', '..')) or '/../' in n or not n.startswith(tuple(o + '/' for o in ORDNER)) for n in namen):
+            if any(n != ZUSATZ and (n.startswith(('/', '..')) or '/../' in n or not n.startswith(tuple(o + '/' for o in ORDNER))) for n in namen):
                 sys.exit('KAUF-CACHE fremder Pfad im Paket')
-            tf.extractall(REPO)
-        # kauf.txt (Liste fürs Verschlüsseln) hängen die Schritte an; hier stand vorher die Liste aus „Karten und Texte“ (leer)
+            zusatz = tf.extractfile(ZUSATZ).read().decode() if ZUSATZ in namen else ''
+            tf.extractall(REPO, members=[m for m in tf.getmembers() if m.name != ZUSATZ])
+        with open(os.path.join(REPO, LISTE), 'a') as f:
+            f.write(zusatz)
     print('KAUF-CACHE Treffer', k, len(namen), 'Dateien', a[0]['size'] // 2**20, 'MB', flush=True)
     return 0
 
@@ -127,15 +135,21 @@ def stand():
     return s
 
 
+def liste():
+    p = os.path.join(REPO, LISTE)
+    return open(p).read().splitlines() if os.path.exists(p) else []
+
+
 def vorher():
     os.makedirs(RT, exist_ok=True)
-    json.dump(stand(), open(VORHER, 'w'))
+    json.dump({'stand': stand(), 'liste': liste()}, open(VORHER, 'w'))
 
 
 def ablegen():
     k = kennung()
     alt = json.load(open(VORHER))
-    neu = sorted(p for p, w in stand().items() if alt.get(p) != w)
+    neu = sorted(p for p, w in stand().items() if alt['stand'].get(p) != w and not p.startswith(OHNE))
+    zusatz = [z for z in liste() if z not in alt['liste'] and not z.startswith(('daten/leute/', 'daten/dorftiere/', 'daten/waffen/', 'daten/tiere/'))]
     if not neu:
         sys.exit('KAUF-CACHE nichts gebaut')
     v = bau_version(anlegen=True)
@@ -149,6 +163,9 @@ def ablegen():
         with tarfile.open(p, 'w:gz', compresslevel=3) as tf:
             for f in neu:
                 tf.add(os.path.join(REPO, f), f)
+            b = ''.join(z + '\n' for z in zusatz).encode()
+            ti = tarfile.TarInfo(ZUSATZ); ti.size = len(b)
+            tf.addfile(ti, io.BytesIO(b))
         with open(p, 'rb') as f:
             api('/releases/%d/assets?name=%s' % (v['id'], name), f, 'POST', 'uploads.github.com', 'application/gzip', os.path.getsize(p))
         print('KAUF-CACHE abgelegt', k, len(neu), 'Dateien', os.path.getsize(p) // 2**20, 'MB', flush=True)
