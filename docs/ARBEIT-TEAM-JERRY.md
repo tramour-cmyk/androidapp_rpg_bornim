@@ -8,6 +8,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 ## Einzelheiten
 
+- **Zu 836, von Homer (10.11., 10:33, gefunden bei 830):** `kampf_ui.gd` 222 schreibt „Nahkampf erreicht nur die vordere Reihe.“, solange `hero.seen_rows` fehlt; das Feld setzt niemand (grep über `godot/`), die Zeile steht also in jedem Kampf. Gemeint war wohl einmal je Spielstand. Dazu bald aus 830: Eingebungen beim ersten Auftreten einer Ansage (210 B) fehlen in Godot ganz (alt `SkirmishScreen.kt` 581, `insightsSeen`); dieselbe Liste „schon gesehen“ könnte beides tragen. Vorgang zum Bau kommt nach der Antwort des Chefs auf 830.
 
 - **Zu 532, von Chef (Fund t273.13, Test Build 273, Automatik B):** Kästen der Tasche laufen rechts aus dem Schirm, „Zurück“ abgeschnitten, Weihwasser nicht sichtbar; Chef 10:08 „Früher gab es da so eine Scroll-Liste … haut es ja trotzdem nicht hin“
 - **Zu 833, Erweiterung, von Sokrates (Chef 10.11., 10:10, Bild Sieg gegen Wölfe):** „Auch hier das Design, ist das jetzt mal angedacht, das zu bearbeiten. Hier ist auch Kästchen im Kästchen.“ Chef 10:17: „833 erweitern wie vorgeschlagen“: ganzer unterer Kampfschirm (Bericht, Leiste des Helden, Befehle, Sieg/Niederlage) ohne verschachtelte Kästen, Aufbau wie die Menüs (630), Sieg/Niederlage im Stil der Blenden (661 Tom, abstimmen). Ein Bild für alles. 273.14 ✓.
