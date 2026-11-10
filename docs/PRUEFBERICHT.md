@@ -52,6 +52,10 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 147 · 886 Wächter TP, Trefferwürfel, Hauptattribut, Bestandslauf (Perikles, `0d54c685e`; 10.11., 17:0x)
+
+- Probe in einer Kopie von `origin/main`, neue Zeilen in `godot/skripte/rast.gd`: Warnung nennt „Armor Class, Hauptattribut, TP, Trefferwürfel, saving throw“; „HTTP STRAND“ fällt nicht (Wortgrenze). `--srd-bestand` über `godot/` ohne `tests/`: 276 Zeilen, Exit 1 (häufigste: TP 32, DEX 32, Kleriker 28, CON 28, STR 25, d20 23); das ist der Abbaustand für 870.13. **886 greift, damit auch 870.11** (Lauf 147).
+
 ## Lauf 146 · 883 und 870.17 Pausezeilen „frei für“ (Perikles, `3e2cba877`, `4a98e3327`; 10.11., 17:0x)
 
 - Jerrys Pausezeile nennt 506.1, Toms nicht mehr; `pause_frei()` liest beide richtig (Klammer nach der Liste stört nicht). `lauf.stand()` gibt Tom 506, Jerry 854 und 709 als startbares Muss, sonst nichts; 870.x wartet auf 888 bzw. Vorgänger. **883 greift** (Lauf 146).
