@@ -29,7 +29,7 @@ func _lauf() -> void:
 	var v := Vergleich.von(hw, anker)
 	var worte := v.zeilen.map(func(r): return String(r["wort"]))
 	print("Vergleich: ", v.zeilen)
-	for w in ["Rüstungsklasse", "Geschicklichkeit", "Stärke", "Schadensreduktion", "Standhaftigkeit"]:
+	for w in ["Schutzwert", "Gewandtheit", "Kraft", "Schadensreduktion", "Standhaftigkeit"]:   # 683: Wörter nach BRS
 		pruefe(w in worte, "Vergleich nennt %s (%s)" % [w, worte])
 	pruefe(v.urteil() == 0, "Urteil gemischt (%s): %s" % [v.urteil(), v.satz()])
 	var m := Menue.new(hw, z)

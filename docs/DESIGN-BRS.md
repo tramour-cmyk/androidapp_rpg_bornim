@@ -1,6 +1,6 @@
 # Bornimer Rollenspielsystem (BRS) – Anleitung und Nachschlagewerk
 
-Name seit 01.11.2026 (451; vorher Arbeitstitel „Spielsystem 2.0“; Datei bis 09.11. `DESIGN-SPIELSYSTEM-2-0-ENTWURF.md`, seitdem `DESIGN-BRS.md`, 650.2 C1). „BRS“ als Kürzel im Text und im Spiel, nie als eigener Schriftzug oder Logo. Gültige Fassung (Vorgang 422, abgenommen vom Chef 01.11.2026; Zahlen erst nach der Rechensimulation 444). Hier steht nur, was gilt, und am Ende, was noch offen ist. Verlauf und Begründungen stehen in [`DESIGN-SPIELSYSTEM-2-0.md`](DESIGN-SPIELSYSTEM-2-0.md). Alle Zahlen sind Startwerte; sie werden mit einer Simulation in der Godot-Fassung gemessen und angepasst.
+Name seit 01.11.2026 (451; vorher Arbeitstitel „Spielsystem 2.0“; Datei bis 09.11. `DESIGN-SPIELSYSTEM-2-0-ENTWURF.md`, seitdem `DESIGN-BRS.md`, 650.2 C1). „BRS“ als Kürzel im Text und im Spiel, nie als eigener Schriftzug oder Logo. Gültige Fassung (Vorgang 422, abgenommen vom Chef 01.11.2026; Zahlen erst nach der Rechensimulation 444). Hier steht nur, was gilt, und am Ende, was noch offen ist. Die Entscheidungen des Chefs („E <Nr.>“) stehen in [`DESIGN-BRS-ENTSCHEIDUNGEN.md`](DESIGN-BRS-ENTSCHEIDUNGEN.md), Verlauf und Begründungen in [`alt/DESIGN-SPIELSYSTEM-2-0.md`](alt/DESIGN-SPIELSYSTEM-2-0.md). Alle Zahlen sind Startwerte; sie werden mit einer Simulation in der Godot-Fassung gemessen und angepasst.
 
 ## Auf einen Blick
 
@@ -303,7 +303,7 @@ Seltenheit und Güte sind getrennt: ein gewöhnliches Schwert kann meisterhaft g
 | Kurze Rast, Lange Rast | Kurze Erholung (2 Stunden), Langes Ausruhen (9 Stunden) |
 | Klassen Kämpfer, Schurke, Magier, Kleriker | entfallen; dafür Pfade |
 
-Folklore-Wesen (Goblin, Kobold, Skelett, Zombie, Ghul) und Tiere behalten ihre Namen. Gestrichen sind Barde, Gaukler, Taschendiebstahl, Reiter, Kaufmann und Hauptmann. Der Hinweis „SRD 5.1 · CC BY 4.0“ bleibt stehen, bis alles SRD-Abgeleitete ersetzt ist, auch die Monsterwerte und Zaubertexte.
+Folklore-Wesen (Goblin, Kobold, Skelett, Zombie, Ghul) und Tiere behalten ihre Namen, ebenso Mensch, Elf, Zwerg, Trefferpunkte und kritischer Treffer; der Trefferwürfel entfällt mit dem neuen Kampf. Die Wirkungen der Volksmerkmale und alle Beschreibungstexte werden beim Umbau neu geschrieben (Glossar vom 31.10., E 24, E 27; seit 10.11. nur noch hier, 650.2). Gestrichen sind Barde, Gaukler, Taschendiebstahl, Reiter, Kaufmann und Hauptmann. Der Hinweis „SRD 5.1 · CC BY 4.0“ bleibt stehen, bis alles SRD-Abgeleitete ersetzt ist, auch die Monsterwerte und Zaubertexte.
 
 ## 13. Offen
 

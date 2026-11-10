@@ -2,7 +2,7 @@
 
 Vorgang 648 (Chef 08.11., 13:01–13:08: „für Menschen nutzbar. Selbsterklärend“; Kontext entscheidend, „Unterbegriff … zu dem Oberbegriff“). Je Sachgebiet ein Begriffsbaum: **gehört zu** (Oberbegriff) und **darunter** (Unterbegriffe); Spalte **nicht** nennt Wörter, die wir dafür nie benutzen. Am Ende Abkürzungen und ein Verzeichnis A–Z. Wird nicht laufend gepflegt: neue Begriffe trägt ein, wer sie einführt. **Fundstellen** zeigt das Werkzeug: `python3 tools/glossar.py <Begriff>` (Dateien, die ihn nennen); `python3 tools/glossar.py --pruefen` zählt, wo ein Wort aus „nicht“ noch steht.
 
-Namen im Spiel (Völker, Zauber, Monster, Regelwerte) stehen nicht hier, sondern im Glossar des Spielsystems: `DESIGN-SPIELSYSTEM-2-0.md` „Glossar: alte und neue Namen“ (Entscheidung 24). Neue Spielbegriffe legt Homer fest.
+Namen im Spiel (Völker, Zauber, Monster, Regelwerte) stehen nicht hier, sondern in `DESIGN-BRS.md` Abschnitt 12 „Namen“ (Entscheidung 24). Neue Spielbegriffe legt Homer fest.
 
 ## 1 Firma und Rollen
 
@@ -51,7 +51,7 @@ Namen im Spiel (Völker, Zauber, Monster, Regelwerte) stehen nicht hier, sondern
 | **Probebild** | Einzelbild am Rechner vor einem Film, sieht nur der Ersteller selbst an (kein Lauf, keine Freigabe) | Probe | – | `LISTE-BAUEN-TESTEN.md` Prüftreppe 4 (783 W1) |
 | **Abgleich** | alte Fassung gegen neue: am Anfang „Alt zuerst“ (Zeile „Alt:“), am Ende vor der Testbitte | – | – | `ROLLE-ENTWICKLUNG.md`, `LISTE-UMZUG-348.md` |
 | **alte Fassung** | Kotlin-Spiel in `app/` und `core/`; Untergrenze, nicht Vorlage | – | – | `LISTE-ABGLEICH-ALT.md`, `LISTE-UMZUG-348.md` |
-| **Spielfassung** | die Godot-Fassung unter `godot/` | – | – | `LISTE-UMZUG-348.md` |
+| **Spielfassung** | die Godot-Fassung unter `godot/` | – | – | `godot/LIESMICH.md`, `alt/LISTE-UMZUG-348.md` (399) |
 | **Kerntests** | Regeltests mit Exit-Code vor jedem Code-Commit | – | – | `CLAUDE.md` „Feste Regeln“ |
 | **Weckruf** | Erinnerung an sich selbst nach einem Push, der baut | – | – | `LISTE-CHECK-BUILD-TEST.md`, `CLAUDE.md` „Feste Regeln“ |
 | **Bestand** | alles Gekaufte und Geladene; vor jedem Eigenbau lesen | – | – | `LISTE-BESTAND.md` |

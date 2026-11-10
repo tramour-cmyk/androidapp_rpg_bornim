@@ -47,7 +47,7 @@ static func von(hw: Heldwerte, g: Dictionary, nebenhand := false) -> Vergleich:
 		if x == y and notiz == deckel: r["doppelt"] = true
 		v.zeilen.append(r)
 	var falls := func(gleich: bool, afs: Array) -> String: return deckel if gleich and gedeckelt.call(afs) else ""
-	zahl.call("Rüstungsklasse" if de else "Armor Class", a["rk"], b["rk"], false, falls.call(a["rk"] == b["rk"], ["AC"]))
+	zahl.call("Schutzwert" if de else "Protection", a["rk"], b["rk"], false, falls.call(a["rk"] == b["rk"], ["AC"]))
 	zahl.call(Sprache.u("attack"), a["angriff"], b["angriff"], true, falls.call(a["angriff"] == b["angriff"], ["ATTACK"]))
 	if a["schaden"] != b["schaden"]:
 		var x := schnitt(a["schaden"]); var y := schnitt(b["schaden"])
@@ -58,10 +58,10 @@ static func von(hw: Heldwerte, g: Dictionary, nebenhand := false) -> Vergleich:
 			"besser": 0 if x == y else (1 if y > x else -1), "notiz": ("im Schnitt %s statt %s" if de else "on average %s instead of %s") % [eins.call(y), eins.call(x)]})
 	elif gedeckelt.call(["DAMAGE", "FIRE", "RADIANT"]):
 		v.zeilen.append({"wort": Sprache.u("damage"), "vorher": Beute.wuerfel_text(a["schaden"], 0, de), "nachher": Beute.wuerfel_text(b["schaden"], 0, de), "besser": 0, "notiz": deckel, "doppelt": true})
-	zahl.call("Trefferpunkte" if de else "Hit points", a["tp"], b["tp"], false, falls.call(a["tp"] == b["tp"], ["HP"]))
+	zahl.call("Leben" if de else "Life", a["tp"], b["tp"], false, falls.call(a["tp"] == b["tp"], ["HP"]))
 	if bool(hw.klassendaten()["zauberer"]):
 		zahl.call("Zauberangriff" if de else "Spell attack", a["zauber"], b["zauber"], true, falls.call(a["zauber"] == b["zauber"], ["SPELL"]))
-		zahl.call("Zauberpunkte" if de else "Spell points", a["zp"], b["zp"])
+		zahl.call("Mana" if de else "Mana", a["zp"], b["zp"])
 	var d := Heldwerte.lade()
 	# Attribute: was aus den Werten wird. 557 (Chef 04.11., 19:54; Pruefer 19:47: Ring „+1 alle, +2 GES“ gegen angelegt „+2 GES, +2 STAE“,
 	# im Vergleich fehlten Geschicklichkeit und Staerke): jedes Attribut, dessen Bonus sich aendert, hat seine eigene Zeile, auch wenn die
