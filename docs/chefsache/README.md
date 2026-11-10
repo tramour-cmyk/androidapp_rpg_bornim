@@ -17,8 +17,6 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [475](ansehen/475-gesichter.md) | Gesichter der Leute, Lauf 2 | Tom | 10.11., 02:07 |
-| [506](ansehen/506-skelett.md) | Skelette im Kampf (gekauftes Modell) | Tom | 09.11., 21:56 |
-| [806](ansehen/806-kampfort.md) | Waldkampfort mit den gekauften Effektpaketen | Jerry | 10.11., 02:48 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
