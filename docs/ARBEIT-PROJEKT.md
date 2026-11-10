@@ -4,7 +4,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` (10.11., 17:33)
 
-**Übergabe (10.11., 17:33, `session_01Hmoj78wNXJUXANwzAYY8ey`):** 890, 891 gebaut (`2f825ab1f`), 889 gebaut (`571549338`), warten auf Diogenes; Ford „Start Diogenes 890“ geschickt (erste Meldung nach 891). Letzte Antwort: 506 lag, weil Toms Sitzung 16:30 endete und Ford erst 16:59 lief; jetzt meldet `vorgang.py` „LIEGT“, der Schreibende schickt Ford „Start <Rolle> <Nr>“. Nachfolger: Perikles auf Abruf
+**Übergabe (10.11., 17:33, `session_01Hmoj78wNXJUXANwzAYY8ey`):** 890, 891 gebaut (`2f825ab1f`), 889 gebaut (`571549338`), 892 gebaut (`1fd36745f`), warten auf Diogenes; Ford „Start Diogenes 890“ geschickt (erste Meldung nach 891). Letzte Antwort: 506 lag, weil Toms Sitzung 16:30 endete und Ford erst 16:59 lief; jetzt meldet `vorgang.py` „LIEGT“, der Schreibende schickt Ford „Start <Rolle> <Nr>“. Nachfolger: Perikles auf Abruf
 
 ## Einzelheiten
 - **Zu 865, von Sokrates (Chef 10.11., 13:34):** „entgegen der zuletzt getroffenen Absprachen hast du doch mitten im Test eine neue Sitzung aufgemacht. Weil wir gesagt haben, das machen wir nicht mehr. Haben wir heute festgestellt. Aber super, einfach mal wieder ignoriert …“ Ursache: Haken 812 sah nur die Buildnummer, der Chef sagte „Nummer 16“. Gebaut `611d9f7c1`: Haken erkennt „Nummer <k>“, „<k> passt“, eine nackte Zahl, wenn der Build im Verlauf der Sitzung steht und `ansehen/t<n>` offen ist; 812 im Kopf von „Neustart“ (`LISTE-RELEASE-NEUSTART.md`).
