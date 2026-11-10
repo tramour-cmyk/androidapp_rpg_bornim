@@ -69,6 +69,7 @@ jobs:
       - name: Runner vorbereiten (264.1)
         run: |
           echo "== $(hostname) $(. /etc/os-release; echo $PRETTY_NAME) $(uname -m), $(nproc) Kerne, $(free -g | awk '/Mem/{print $2}') GB, frei $(df -h $GITHUB_WORKSPACE | awk 'NR==2{print $4}')"
+          echo "== CPU: $(grep -m1 'model name' /proc/cpuinfo | cut -d: -f2), avx2: $(grep -qw avx2 /proc/cpuinfo && echo ja || echo nein)"   # 264.1: Lauf 332 Bauschritte etwa doppelt so lang wie GitHub
           sudo -n apt-get --version > /dev/null || { echo "264.1: sudo apt-get ohne Passwort fehlt auf dem Runner"; exit 1; }
           sudo apt-get update -qq
           sudo apt-get install -y -qq unzip zip curl git python3 python3-venv python3-pip xvfb mesa-vulkan-drivers libgl1-mesa-dri ffmpeg fonts-dejavu-core libfontconfig1 zstd > /dev/null
