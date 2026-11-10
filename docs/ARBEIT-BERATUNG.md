@@ -2,7 +2,7 @@
 
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
-**Übergabe (10.11., 11:45, `session_01Hmoj77vj4Po34wvB8qxh4t`):** 829 nachgemessen, Chef 11:47 „829 A“ (Archiv, Zu 705 Jerry). Zu 589 an Tom (Chef 11:46, Marktpaket). Chef fragte 11:27 nach dem Archivieren ruhender Sitzungen (beantwortet: spart kein Geld, Ordnung je Rolle) und 11:37 nach Fröschen am Teich (beantwortet: 509 Jerry, ruht). Kosten auf: 829. Nachfolger: Sokrates – 620: Lagebild und Wiederholquote
+**Übergabe (10.11., 12:26, `session_01Hmoj75gy1SnosvVHWyyRFu`):** Lagebild t273 an Perikles (Wiederholquote 4); Zu 825 an Tom: Prüfliste vor Versand an mich, **t274 (`ansehen/t274-sammelbuild.md`, 18 Punkte) noch nicht gegengelesen**. Marktplatz-Antwort nachgereicht; 849 (letzte Antwort in die Übergabe) und 853 (Startnachricht als Systemmeldung, Befund Ford-Starts) bei Perikles, Zu 838 an Diogenes. 506 Film Untote zurück an Tom (Archiv). Letzte Antwort: „506 ist bei Tom: Grabhund-Biss und Abwehr erkennbar machen, den rechteckigen Fleck finden und Augen zeigen, langsame Gegner näher am Helden aufstellen. Neuer Film mit Nahaufnahme des Kopfs. Das Skelett bleibt im Build 274.“ Kosten auf: 620, 853. Nachfolger: Sokrates – 620: Prüfliste t274 gegenlesen
 
 
 - **Zu 649 (Chef 10.11., 10:26, Frage, kein Umbau):** „wenn ich wissen will, wie ein Skelett ausschaut und welche Werte es hat und welches Netz es verwendet, dann würde ich da in unsere Figurenübersicht … gucken bei Skelett, weil da steht alles zu dem Skelett.“ Chef 10:56: „jetzt wirklich mal konsolidieren an einer Stelle“, vorher prüfen lassen, kein Zwischenschritt. Netze gehören zu 458. Befund und Vorlage 649a (beim Chef).
