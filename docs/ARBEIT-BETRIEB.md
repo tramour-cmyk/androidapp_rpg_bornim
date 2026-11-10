@@ -187,3 +187,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:52 10.11.: zweiter Fehler Ford (Homer meldet): 807 war „807 A“ (Chef 09.11., 22:26), Ford schloss 807 per --ohne wegen veralteter Sitzungsnotiz „wartet auf A oder B“ aus, statt den Stand in der Vorgangsliste zu lesen; Folge: Homer ruhte 12 Stunden. Regel für Ford: --ohne nur nach Lesen von vorgang.py <Nr>
 - 10:54 10.11.: Tom 834 alt archiviert, gebucht; Nachfolger Tom 661 läuft
 - 10:58 10.11.: Homer 830 archiviert, gebucht (830,817,807); Fragen 830, 807a als Chefsache-Dateien
+- 11:00 10.11.: Startsperre 11:00 Start Tom (Ford, vor dem Start; Neustart d8e7ada18)
