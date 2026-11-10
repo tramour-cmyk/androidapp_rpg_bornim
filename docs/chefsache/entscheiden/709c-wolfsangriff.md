@@ -25,4 +25,10 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/6c8bc3
 
 **Folgerungen:** Bei A oder B (bei C wie A, nur schräg) baue ich am Rechner, sehe es selbst an und schicke dir einen Film mit Wölfen und Grimmzahn gegen Kämpfer und Kleriker, mit Treffer und Abwehr, bevor etwas in eine Testfassung kommt. Ratten, Krogg und Grak (deine Funde 19:29) suche ich getrennt davon zuerst am Rechner die Ursache, behebe sie und zeige sie im selben Film.
 
+**Stellungnahme Sokrates (10.11., 20:08):**
+- **Stärkstes Gegenargument gegen A:** A regelt nur den Helden mit Schild. Kämpft er mit Bogen, Zweihänder oder Stab, ist offen, wohin der Wolf von vorn beißt; das wäre der nächste Fund im nächsten Film. Antwort: im selben Zug festlegen (ohne Schild von vorn in den vorderen Unterarm oder Oberschenkel, Taumeln wie bei A) und im Film einen Helden ohne Schild mitzeigen.
+- **Widerspruch zu Entschiedenem:** A ersetzt 709b A (Seitenbiss); im Vorgangsarchiv mit „→ ersetzt durch 709c“ vermerken. Sonst keiner: passt zu 406.2 B (Schild immer vorn); 709.1 ist trotz Pause frei (Jerrys Vorrat).
+- **Kosten:** 709 bisher 54 $, 709.1 7 $. A nach Jerrys Schätzung ein Arbeitstag, nach bisherigen Sitzungen etwa 10–20 $; B etwa das Doppelte und eine neue Heldenbewegung, die nicht im Bestand ist.
+- **Empfehlung:** A, ergänzt um den Biss gegen einen Helden ohne Schild im selben Film.
+
 Antwort: …
