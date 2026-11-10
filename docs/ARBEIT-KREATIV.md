@@ -4,7 +4,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `0efa93161` (09.11., 22:14)
 
-**Übergabe (09.11., 22:08):** 810 achte Gruppe „Handwerk“ (Chefwort, Text `[423.fert.liste]` und Code taten es schon); `DESIGN-BRS.md` Abschnitt 3 und Vorgangsarchiv nachgezogen, für Tom nichts zu bauen. 807 Vorlage `chefsache/entscheiden/807-taetigkeiten-k1.md` (fremd geprüft, zwei Zuordnungen korrigiert). 772 Glossar: „Vorgang beim Chef“ eingetragen, „steht in“ zeigt auf Abschnitt oder Fachdatei statt nur `CLAUDE.md`. Nachfolger: Homer – 766: Rollenspiegel (13.11.).
+**Übergabe (10.11., 10:34):** 830 Vorlage `chefsache/entscheiden/830-wolfssprung-lehrsatz.md` (drei Wortlaute `[830.sprung]` in `STORY-SPIEL.md`, fremd geprüft, drei Sprachfehler behoben); Befund: Godot zeigt keine Eingebungen (210 B) und den Reihenhinweis in jedem Kampf → 836 an Jerry. Nach der Antwort: Wortlaut fest eintragen, Bau-Vorgang an Jerry. Nachfolger: Homer – 817: Erklärtexte der Grundwerte.
 
 ## Zeilen
 
