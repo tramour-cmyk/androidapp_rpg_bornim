@@ -46,7 +46,8 @@ HAEUTE = {
 STATUR = {'schlank': (0.90, 0.91), 'mittel': (1.0, 0.95), 'kraeftig': (1.12, 0.99)}     # (Dicke, Schulter m)
 MAEHNE_SCHWARZ = 0x141210
 NARBE, NARBE_RAND = 0xC2AEA2, 0x3A2A26
-MAUL, ZAHN, AUGE = 0x3E1E1C, 0xA8987A, 0x2E2822     # Zahnfleisch dunkel, Zähne vergilbt, Augen matt
+# 506 (Chef 10.11., 12:25: „eigentlich keine Augen“): Augen matt, aber milchig hell wie tote Augen (vorher 2E2822, fast schwarz)
+MAUL, ZAHN, AUGE = 0x3E1E1C, 0xA8987A, 0xA49C88     # Zahnfleisch dunkel, Zähne vergilbt, Augen matt und trüb
 
 # unser Name <- Kaufdatei (ohne „BARGHEST@“)
 NAMEN = [('Stehen', 'idleAggressive'), ('Lefzen', 'idleBreathe'), ('Umsehen', 'idleLookAround'), ('Gehen', 'walk'),
@@ -127,9 +128,16 @@ def maehne_fn(koerper):
         u = (X[:, 1] - lo[1]) / L          # 0 Schnauze … 1 Schwanzende
         h = (X[:, 2] - lo[2]) / H
         q = np.abs(X[:, 0] - (lo[0] + hi[0]) / 2) / W
-        hals = np.clip((u - 0.10) / 0.05, 0, 1) * np.clip((0.50 - u) / 0.06, 0, 1) * np.clip((h - 0.55) / 0.08, 0, 1)
-        grat = np.clip((u - 0.40) / 0.05, 0, 1) * np.clip((0.78 - u) / 0.06, 0, 1) * np.clip((h - 0.72) / 0.05, 0, 1) \
-            * np.clip((0.12 - q) / 0.04, 0, 1)
+        # 506 (Chef 10.11., 12:25: „oben ist eine dunkle Mähne und dann haben alle drei einen rechteckigen Fleck … eigentlich keine
+        # Augen“): die Mähne begann bei u 0,10 und deckte Scheitel, Stirn und Augen mit geraden Kanten (Kaufbild: schwarzer Block über
+        # dem Kopf). Jetzt erst hinter den Ohren (u 0,17), Kanten weich und unregelmäßig wie Fell
+        zack = 0.025 * np.sin(X[:, 0] * 41.0 + X[:, 2] * 23.0) + 0.018 * np.sin(X[:, 1] * 57.0 + X[:, 0] * 13.0)
+        # Probebild 13:32: der „rechteckige Fleck“ war die bemalte Halsflanke (h ab 0,55 = halbe Flanke, unter den Haarkarten frei
+        # sichtbar); jetzt nur der Kamm unter der Mähne (oben, schmal), die Flanke bleibt Haut
+        hals = np.clip((u - 0.17 + zack) / 0.06, 0, 1) * np.clip((0.50 - u + zack) / 0.08, 0, 1) * np.clip((h - 0.74 + zack) / 0.08, 0, 1) \
+            * np.clip((0.22 - q + zack) / 0.08, 0, 1)
+        grat = np.clip((u - 0.40 + zack) / 0.06, 0, 1) * np.clip((0.78 - u + zack) / 0.08, 0, 1) * np.clip((h - 0.72 + zack) / 0.07, 0, 1) \
+            * np.clip((0.12 - q + zack) / 0.05, 0, 1)
         w = np.maximum(hals, grat)
         return np.clip(w * (3.0 if grob else 1.0), 0, 1)
     return fn
