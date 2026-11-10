@@ -2,12 +2,11 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 10.11., 23:10 (lauf.py)
+**Stand:** 10.11., 23:13 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
 | Spike | [Spike – 470 (10.11., 16:19)](https://claude.ai/code/session_01Hmoj76eB7YXWnfTAdgJ9og) | 470 | – | 10.11., 16:18 |
-| Homer | [Homer – 870.15: Texte ohne Kotlin und SRD (10.11., 16:33)](https://claude.ai/code/session_01Hmoj79xcDbon4u5ej8NVJB) | 870.15 | – | 10.11., 16:32 |
 | Ford | [Ford – Betriebsleiter (10.11., 20:09)](https://claude.ai/code/session_01Hmoj78JXixSQQeQDGy7ZvJ) | Betrieb | – | 10.11., 20:09 |
 | Perikles | [Perikles – 264.1: Lauf 7 auswerten (10.11., 21:07)](https://claude.ai/code/session_01Hmoj75P7xwKnkPuLhgyB1T) | 264.1 | – | 10.11., 21:06 |
 | Sokrates | [Sokrates – 870: Umzug über Nacht führen (10.11., 22:28)](https://claude.ai/code/session_01Hmoj75g2DTpBDYo1K9KLBT) | 870 | – | 10.11., 22:27 |

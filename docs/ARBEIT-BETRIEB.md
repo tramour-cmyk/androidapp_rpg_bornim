@@ -306,3 +306,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:03 10.11.: Startsperre 23:03 Start Tom (Neustart-Meldung 23:02, 9c1d9df57)
 - 23:06 10.11.: Marke Archiv-Warnung session_01Hmoj79Deoz5Cxe7k7jeLem (lauf.py)
 - 23:07 10.11.: Startsperre 23:07 Start Diogenes (lauf.py)
+- 23:13 10.11.: Startsperre 23:13 Start Homer (lauf.py)
+- 23:13 10.11.: Marke Archiv session_01Hmoj79xcDbon4u5ej8NVJB (lauf.py)
+- 23:14 10.11.: Homer 899 gestartet …7A7Yy (Jerry 23:13); Homer …79xc archiviert, gebucht (10,30 $, 870.15)
