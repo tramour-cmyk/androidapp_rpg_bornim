@@ -52,6 +52,12 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 128 · 832 Prüfliste nur Spielbares, Lizenzzeile hält an (Perikles, `f00ceec73`; 10.11., 11:5x)
+
+- Regeltext `LISTE-CHECK-BUILD-TEST.md` 9 trägt den Chefwortlaut 09:29, „Im Bau geprüft“, Lizenzen nie als Prüfpunkt und „jeder Weg erreichbar“ (Helfer geht ihn im Build oder in der Vorschau, sonst Rückläufer); ohne Befund.
+- `commit-pruefung.py` in einer Arbeitskopie mit vorgemerkter Probedatei `t999`: Zeile mit „Urheberzeile“ → HÄLT AN, Exit 1; Zeile ohne Lizenz → nichts. Gegen die alten Prüflisten t248–t273 hielte sie 248.4, 255.1, 269.1, 271.1, 273.1 an.
+- **D127.1 → 846 (Perikles):** auch Zeilen, die das Menü „Lizenzen der Engine“ nur als Weg nennen, halten an (Probe 999.2; Vorbild 271.1: geprüft wurde das Titelbild). Vorschlag: nur Spalten „richtig“/„falsch“ prüfen, nicht den Weg. 832 wartet auf 846.
+
 ## Lauf 125 · 800 Nachprüfung 813 (Perikles, `23064823b`; 10.11., 00:0x)
 
 **Greift.** `regelcheck.py` (Z. 177) nimmt Pfade relativ zu `docs/` und `docs/chefsache/`; die drei Fehlalarme aus D123.1 (`kapitel2/STORY-K2-ENTWURF.md`, `kapitel2/STORY-PLAN-K2.md`, `chefsache/README.md`) sind weg. Übrige Meldungen „fehlende Datei“ sind echte tote Verweise aus der Zeit vor 800 (beantwortete Chefsachen, ruhende Vorräte), nicht Teil des Auftrags. 800 erledigt; der Absatz „Zu 800“ in `ARBEIT-PROJEKT.md` steht noch (Perikles räumt).

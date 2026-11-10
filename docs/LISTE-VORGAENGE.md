@@ -214,7 +214,8 @@
 | 734 | D92.1 Warnung „LISTE-VORGAENGE.md von Hand geändert“ wird nirgends festgehalten, Woche Warnungen (275 Stufe 2) nicht zählbar; je Warnung eine Zeile in eine Datei auf main (von Diogenes, Lauf 92) | Perikles | K | ruht, Kampf zuerst (338.1) | – | – | – | B Werkzeuge | – |
 | 735 | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-ABNAHME.md 11 und Kopf DESIGN-KAMPF.md 7 (646 ersetzt 621.1; 655 strich 300 und Helfer nach dem Versand) (von Diogenes, Lauf 92) | Perikles | K | ruht, Kampf zuerst (338.1) | – | – | – | B Abläufe | – |
 | 742 | D78.1 Testbitte t268: Zeile „Verglichen“ deckte nur die Schirme vom 05.11., nicht Dorf, Kampf, Kapitelende; Wächter 512.1 prüft den Umfang nicht (von Diogenes, Lauf 76) | Perikles | K | ruht, Kampf zuerst (338.1) | – | – | – | B Werkzeuge | – |
-| 832 | Testbitten ohne Prüfpunkte, die ein Test im Bau schon sichert oder Lesen von Lizenztexten verlangen (Chef 10.11., 09:29 zu 273.1, über Sokrates) | Perikles | M | gebaut, Geprüft an: f00ceec73 | Diogenes | – | – | Q QS | – |
+| 832 | Testbitten ohne Prüfpunkte, die ein Test im Bau schon sichert oder Lesen von Lizenztexten verlangen (Chef 10.11., 09:29 zu 273.1, über Sokrates) | Perikles | M | gebaut, Geprüft an: f00ceec73 | 846 | – | – | Q QS | – |
+| 846 | D127.1 (Diogenes, 832): commit-pruefung.py hält Prüfzeilen an, die das Menü „Lizenzen“ nur als Weg nennen (Vorbild 271.1 Titelbild); nur anhalten, wenn „richtig“ Lizenztext verlangt | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
