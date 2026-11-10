@@ -66,6 +66,12 @@ const FLUTTER := 0.2
 const MSG534_LIFESTEAL = ["{0} saugt {1} TP ab.", "{0} drains {1} HP."]
 const MSG534_RELENTLESS = ["{0} bleibt mit eisernem Willen stehen!", "{0} stays standing through sheer will!"]
 const MSG534_COWED = ["{0} zögert, eingeschüchtert von {1}!", "{0} hesitates, cowed by {1}!"]
+## 506 (alt Battle.kt Msg.fortitude, Msg.elfImmune): Untotenzähigkeit des Wiedergängers (Monsters.kt zombie UNDEAD_FORTITUDE: ein
+## tödlicher Schlag ohne Krit, kein gleißender Schaden, W20 + Kon-Rettung ≥ 5 + Schaden, dann bleibt er mit 1 TP stehen) und die
+## Lähmung des Grabhunds (ghoul PARALYZE: jeder Treffer betäubt eine Runde, Kon-Rettung 10; Elfen sind immun)
+const MSG506_FORTITUDE = ["{0} weigert sich zu fallen!", "{0} refuses to fall!"]
+const MSG506_ELF = ["Elfen sind gegen Lähmung immun – {0} bleibt unbeeindruckt.", "Elves are immune to paralysis – {0} is unaffected."]
+const ZAEH_DC := 5
 const COW_PER_CHA := 0.08
 const BREAK_SHARE := 5
 ## 296.2: the lines of the old fight, the same words in MARS (Skirmish.kt Msg296, Zweig claude/build-89).
@@ -295,6 +301,8 @@ var outcome := "ONGOING"
 var opening := "NORMAL"
 ## 534: wer seine Unerbittlichkeit in diesem Kampf schon gebraucht hat (alt Battle.relentlessUsed)
 var relentless_used := {}
+## 506: der laufende Schlag des Helden ist ein Krit (Untotenzähigkeit hält dann nicht); vor _hurt gesetzt, danach zurück
+var krit_jetzt := false
 var surprised := {}
 var intents := {}
 var autopilot := false
@@ -1089,7 +1097,9 @@ func _spell_attack(f: Fighter, t: Fighter, dmg: Array) -> void:
 		_say(fmt(wolf(f, "MSG279_WOLFMISSES", "MSG72_MISSES"), lang, [f.name(lang), t.name(lang)]), f.id, t.id, 0, info)
 		return
 	var n := maxi(1, dice.roll_expr([dmg[0] * 2, dmg[1], dmg[2]] if crit else dmg) + _fed(f))
+	krit_jetzt = crit     # 506
 	_hurt(t, n, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), n]), info)
+	krit_jetzt = false
 
 
 func _save_spell(f: Fighter, t: Fighter, amount: int, half: bool) -> void:
@@ -1202,7 +1212,9 @@ func _weapon_attack(f: Fighter, t: Fighter, advantage := false, cover := true, w
 		dmg += dice.roll(maxi(1, f.level() / 2), 6)
 	f.sneaked = true
 	dmg = maxi(1, dmg - _weakness(f) + _fed(f))
+	krit_jetzt = crit     # 506
 	_hurt(t, dmg, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), dmg]), info, true)
+	krit_jetzt = false
 	_life_steal(f, dmg)
 	if not statuses or outcome != "ONGOING" or not t.standing():
 		return
@@ -1348,6 +1360,11 @@ func _foe_wounds(foe: Fighter, t: Fighter, crit: bool) -> void:
 		"BLOOD_DRAIN":
 			if dice.chance(0.3):
 				_inflict(t, "BLEED", 2)
+		"PARALYZE":     # 506: Grabhund
+			if t.hero != null and String(t.hero.get("race", "")) == "ELF":
+				_say(fmt(MSG506_ELF, lang, [t.name(lang)]), t.id)
+			else:
+				_inflict(t, "STUN", 1, ["CON", 10])
 
 
 func _foe_turn(foe: Fighter, react: Callable) -> void:
@@ -1740,10 +1757,18 @@ func _hurt(t: Fighter, full: int, by: String, text: String, roll = null, wound :
 	if unerbittlich:
 		relentless_used[t.id] = true
 		floor_hp = 1
+	# 506 (alt Battle.dealDamage): Untotenzähigkeit des Wiedergängers
+	var zaeh: bool = floor_hp == 0 and t.side == "FOES" and t.monster != null and str(t.monster.get("special", "")) == "UNDEAD_FORTITUDE" \
+			and t.hp > 0 and t.hp <= dmg and by != "" and not krit_jetzt \
+			and dice.d20() + int(t.monster.get("con", 0)) >= ZAEH_DC + dmg
+	if zaeh:
+		floor_hp = 1
 	t.hp = maxi(t.hp - dmg, floor_hp)
 	_say(text, by if by != "" else null, t.id, dmg, roll, false, wound)
 	if unerbittlich:
 		_say(fmt(MSG534_RELENTLESS, lang, [t.name(lang)]), t.id)
+	if zaeh:
+		_say(fmt(MSG506_FORTITUDE, lang, [t.name(lang)]), t.id)
 	if t.standing():
 		# 296.2: no one's blow (a status hurting at the turn's start) breaks no intent
 		if by == "" or not intents.has(t.id):

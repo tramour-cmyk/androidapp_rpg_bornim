@@ -81,8 +81,13 @@ const KROGG_KITS := ["krogg"]
 ## 506 Skelett (kaufskelett.py, gekaufter Skelettritter): drei Kits wie MonsterKit.kt skeleton, Waffen und Helm im Modell
 const SKELETT := "skeleton"
 const SKELETT_KITS := ["schwert", "schild", "speer"]
-## Zweibeiner (Gerüst mit Waffen und Kits in <art>-info.json): Goblin, Späher, Grak, Krogg, Skelett
-const ZWEI := [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG, SKELETT]
+## 506 Wiedergänger (kaufuntoter.py, gekaufter Evil Undead; ersetzt den Zombie, Regeln des Zombies): drei Kits wie MonsterKit.kt
+## zombie (Lumpen, Leichenhemd, rostiges Kettenhemd), Krallen statt Waffe. Der Grabhund (kaufgrabhund.py, ersetzt den Ghul) hat
+## eigene Häute in ghoul-info.json wie die Riesenspinne (eigene_haut)
+const WIEDERGAENGER := "zombie"
+const WIEDERGAENGER_KITS := ["lumpen", "hemd", "kette"]
+## Zweibeiner (Gerüst mit Waffen und Kits in <art>-info.json): Goblin, Späher, Grak, Krogg, Skelett, Wiedergänger
+const ZWEI := [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG, SKELETT, WIEDERGAENGER]
 ## Kurzbogen wie Dress.bow: 0,58 der Größe des Schützen (waffen.py baut ihn 101 cm, für den Menschen)
 ## Späher Runde 2 (Prüfer 1: „von der Schulter bis auf Fußhöhe, für einen Kurzbogen groß“): 0,48
 const GOB_BOGEN := 0.48 / 1.01
@@ -648,7 +653,9 @@ func _gob_kit() -> String:
 	if Mars.koerper_of(fighter.monster) == Mars.KROGG:
 		return KROGG_KITS[0]
 	if Mars.koerper_of(fighter.monster) == SKELETT:     # 506: je Nummer ein Kit (Kurzschwert und Helm, Kurzschwert und Schild, Speer und Helm)
-		return SKELETT_KITS[(maxi(fighter.nr, 1) - 1) % SKELETT_KITS.size()]
+		return SKELETT_KITS[(_fell_nr() - 1) % SKELETT_KITS.size()]     # das Monster der Karte bringt sein Kit mit
+	if Mars.koerper_of(fighter.monster) == WIEDERGAENGER:     # 506: je Nummer ein Kit (Lumpen, Leichenhemd, Kettenhemd)
+		return WIEDERGAENGER_KITS[(_fell_nr() - 1) % WIEDERGAENGER_KITS.size()]
 	var kits: Array = SCOUT_KITS if Mars.koerper_of(fighter.monster) == Mars.SCOUT else (SHAMAN_KITS if _gob_art() == SHAMAN else (KOBOLD_KITS if _gob_art() == KOBOLD else GOBLIN_KITS))
 	return kits[(maxi(fighter.nr, 1) - 1) % kits.size()]
 
@@ -915,6 +922,9 @@ func _paint(n: Node) -> void:
 			var m := _toon(Color.WHITE)
 			if tex:
 				m.set_shader_parameter("tex", tex)
+			# 506 Grabhund (kaufgrabhund.py): Mähne und Schwanzhaar sind Haarkarten mit Durchsicht (glTF „MASK“); toon.gdshader schneidet aus
+			if src is BaseMaterial3D and (src as BaseMaterial3D).transparency == BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR:
+				m.set_shader_parameter("schnitt", (src as BaseMaterial3D).alpha_scissor_threshold)
 			mi.set_surface_override_material(i, m)
 			mats.append(m)
 	for c in n.get_children():
@@ -3652,6 +3662,6 @@ func head() -> Vector3:
 		h = float(mass.koerper_hoch_m) + 0.25
 	if gob_h > 0.0:     # Goblin Runde 2 (Prüfer Runde 1: Ansage fern der Goblins): Scheitel aus goblin.py, gebückt etwas tiefer
 		h = gob_h * 0.85
-		if Mars.koerper_of(fighter.monster) == SKELETT:     # 506 (Helfer 08.11., 12:55: Lebensbalken auf den Köpfen): das Skelett steht
-			h = gob_h + 0.15     # aufrecht, Scheitel 1,72–1,79 m mit Helm (kaufskelett.py groesse_cm); 0,85 davon lag 26 cm unter dem Scheitel
+		if Mars.koerper_of(fighter.monster) in [SKELETT, WIEDERGAENGER]:     # 506 (Helfer 08.11., 12:55: Lebensbalken auf den Köpfen): das Skelett steht
+			h = gob_h + 0.15     # aufrecht, Scheitel 1,72–1,79 m mit Helm (kaufskelett.py groesse_cm); 0,85 davon lag 26 cm unter dem Scheitel; der Wiedergänger gebückt, groesse_cm im Stehen
 	return position + Vector3(0, h * (_scale() if fighter.monster != null else 1.0), 0)
