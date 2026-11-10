@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [894](entscheiden/894-build-start.md) | **Muss** | B Werkzeuge | 10.11., 19:34 | Testbuilds `claude/build-<n>` bauen künftig von selbst die Godot-APK; der Kotlin-Lauf erscheint am PR nicht mehr. | Perikles |
 
 ## Zu billigen
 
@@ -230,11 +234,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 506.2 | M | Grabhund-Biss reicht sichtbar bis zum Helden, nicht nur knapp an den Schild (von Sokrates, | Pause, nicht frei |
 | Pflege | K | von Werkzeug (340.3, 10.11.): 17270 Bytes (Grenze 15000), Erledigtes streichen | Pause, nicht frei |
 
-**Perikles** – offen 25, Muss 11, startbar 3
+**Perikles** – offen 25, Muss 11, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 894 | M | Godot-Build startet von selbst bei claude/build- (PR und Push); Kotlin-Lauf am PR nicht me | startbar |
+| 894 | M | Godot-Build startet von selbst bei claude/build- (PR und Push); Kotlin-Lauf am PR nicht me | Chef (Datei in der Chefsache) |
 | 264.1 | M | Von Sokrates (264): Probe godot.yml auf eigenem Runner, Bauzeit je Schritt gegen GitHub · | startbar |
 | 870.12 | M | Von Sokrates (870, Umzug BRS): Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 | wartet auf 870.13 (wartet) |
 | 870.10 | M | Von Sokrates (870, Umzug BRS Schritt 8): Kotlin-Bau aus (android.yml), mit 870.9; LISTE-UM | wartet auf 870.9 (wartet) |
