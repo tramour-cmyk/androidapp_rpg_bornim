@@ -229,10 +229,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 876 | M | Von Homer (857a A, Chef 10.11., 13:35): Simulation 444 Kräuterkunde → Kräutersammeln, Tran | startbar |
 | Pflege | K | von Werkzeug (340.3, 10.11.): 15039 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 24, Muss 11, startbar 1
+**Perikles** – offen 26, Muss 13, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 891 | M | Von Sokrates (654, Chef 10.11., 17:15 „ja“): startbar.py meldet startbare Muss ohne laufen | startbar |
+| 890 | M | Von Sokrates (654, Chef 10.11., 17:15 „ja“): Commit-Prüfung: (1) wird eine Vorlage mit „Wa | startbar |
 | 870.17 | M | Von Sokrates (870b A, Chef 10.11., 16:08): Pausezeilen Tom und Jerry so ändern, dass 870.x | wartet auf 889 (startbar) |
 | 870.12 | M | Von Sokrates (870, Umzug BRS): Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 | wartet auf 870.13 (wartet) |
 | 870.10 | M | Von Sokrates (870, Umzug BRS Schritt 8): Kotlin-Bau aus (android.yml), mit 870.9; LISTE-UM | wartet auf 870.9 (wartet) |
