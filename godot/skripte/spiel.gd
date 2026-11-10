@@ -8,6 +8,8 @@ const START := "village"
 const START_KACHEL := Vector2i(19, 13)          # Dorfplatz am Brunnen (Probe Build 11)
 
 var karte: Karte
+# 834 (Spike): Held aus „Erschaffung BRS“ im Testmenue; nach dem Neuladen der Szene beginnt mit ihm ein neues Spiel ohne Hauptmenue
+static var neu_brs := {}
 var gebiet: Gebiet
 var held: Held
 var leute: Node3D                                # 348.6 Leute der Karte (leute.gd)
@@ -66,6 +68,12 @@ func _ready() -> void:
 	Rand.beim_start = Rand.oben(get_viewport())
 	add_child(Rand.band(Rand.beim_start))   # 399.4: schwarz, was die Kamera des Handys verdeckt
 	# 399: Hauptmenue und Erschaffung zuerst, ausser bei Probelaeufen am Rechner (--bilder, --figuren …, Tests ohne Fenster)
+	if not neu_brs.is_empty():   # 834: neues Spiel mit dem Helden aus „Erschaffung BRS“ (Testmenue), wie aus dem Hauptmenue
+		var nw: Dictionary = neu_brs
+		neu_brs = {}
+		add_child(Helligkeit.schicht())
+		starte(nw)
+		return
 	if OS.get_cmdline_user_args().is_empty() and DisplayServer.get_name() != "headless":
 		var ebene := CanvasLayer.new()   # 399.1 (Test 130: Probeknoepfe und Windrose lagen ueber dem Menue): eigene Ebene ueber allem
 		ebene.layer = 50
@@ -1132,20 +1140,25 @@ func test_tat(was: String, mit: Array) -> void:
 			get_tree().root.add_child(s)
 			get_tree().current_scene.queue_free()
 			get_tree().current_scene = s
-		"erschaffung_brs":   # 470a B: Seite nach BRS 1.1 nur ansehen; der Held bleibt, wie er ist
+		"erschaffung_brs":   # 470a B; 834 (Spike, Chef 10.11., 10:21): „Abenteuer beginnen“ speichert das laufende Spiel und beginnt ein neues
+			# mit dem Helden nach BRS (zustand.brs) im freien oder gewaehlten Platz; gekaempft wird bis 2.3 mit der SRD-Bruecke (BrsHeld.alt)
 			var ebene := CanvasLayer.new()
 			ebene.layer = 40
 			ebene.process_mode = Node.PROCESS_MODE_ALWAYS
 			add_child(ebene)
 			var e := ErschaffungBrs.new()
-			e.ziel = maxi(Spielstand.platz, 1)   # nie die Platzwahl: es wird nichts gespeichert
+			e.ziel = 0   # 834: erster freier Platz, sind alle belegt, die Platzwahl (795)
 			ebene.add_child(e)
 			get_tree().paused = true
 			var weg := func():
 				ebene.queue_free()
 				get_tree().paused = false
 			e.zurueck.connect(weg)
-			e.fertig.connect(func(_w): weg.call())
+			e.fertig.connect(func(w):
+				weg.call()
+				speichere()
+				neu_brs = w
+				get_tree().reload_current_scene())
 		"kampf", "probe":
 			if not ResourceLoader.exists("res://kampf/kampfort.gd"): return
 			await abblenden(1.0)
