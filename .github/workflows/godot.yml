@@ -36,7 +36,7 @@ on:
 
 jobs:
   apk:
-    runs-on: ubuntu-24.04
+    runs-on: [self-hosted, bornim]   # 264.1 Probe auf dem eigenen Runner (Proxmox), nur dieser Zweig
     env:
       GODOT: "4.7.2"
     steps:
@@ -46,6 +46,21 @@ jobs:
           distribution: temurin
           java-version: 17
       - uses: gradle/actions/setup-gradle@v4
+      # 264.1: was das Abbild von GitHub mitbringt, auf dem eigenen Runner nachziehen (einmalig, danach vorhanden)
+      - name: Runner vorbereiten (264.1)
+        run: |
+          echo "== $(hostname) $(. /etc/os-release; echo $PRETTY_NAME) $(uname -m), $(nproc) Kerne, $(free -g | awk '/Mem/{print $2}') GB, frei $(df -h $GITHUB_WORKSPACE | awk 'NR==2{print $4}')"
+          sudo -n true || { echo "264.1: sudo ohne Passwort fehlt auf dem Runner"; exit 1; }
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq unzip zip curl git python3 python3-venv python3-pip xvfb mesa-vulkan-drivers libgl1-mesa-dri ffmpeg fonts-dejavu-core libfontconfig1 > /dev/null
+          S=${ANDROID_SDK_ROOT:-$HOME/android-sdk}
+          if [ ! -x "$S/build-tools/35.0.1/apksigner" ]; then
+            mkdir -p $S/cmdline-tools && cd $S/cmdline-tools
+            curl -sSL --retry 5 -o t.zip https://dl.google.com/android/repository/commandlinetools-linux-13114758_latest.zip && unzip -q -o t.zip && rm t.zip && rm -rf latest && mv cmdline-tools latest
+            yes | latest/bin/sdkmanager --sdk_root=$S --licenses > /dev/null || true
+            latest/bin/sdkmanager --sdk_root=$S "platform-tools" "build-tools;35.0.1" "platforms;android-35" > /dev/null
+          fi
+          echo "ANDROID_SDK_ROOT=$S" >> $GITHUB_ENV; echo "ANDROID_HOME=$S" >> $GITHUB_ENV
       - name: Karten und Texte aus core
         run: |
           ./gradlew -p core test --tests '*MapExportTest*' --tests '*TextExportTest*' --tests '*HeroExportTest*' --tests '*MapSheetExportTest*' --tests '*IntroExportTest*' -q
