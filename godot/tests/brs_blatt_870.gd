@@ -62,6 +62,9 @@ func _lauf() -> void:
 	# Zauberlehrling: Zauber der Herkunft als Fähigkeiten
 	var kz: Dictionary = BrsHeldS.neu("Elf", "Zauberlehrling").kampfblatt()
 	pruefe("Zauberlehrling: Funkenpfeil und Bannschild, Merkmal Wachsame Sinne", "Funkenpfeil" in kz.faehigkeiten and "Bannschild" in kz.faehigkeiten and "Wachsame Sinne" in kz.faehigkeiten, str(kz.faehigkeiten))
+	pruefe("Zauberlehrling: Arkanpfeil ab Evokation 10, Glutstrahlen erst ab 25", "Arkanpfeil" in kz.faehigkeiten and not ("Glutstrahlen" in kz.faehigkeiten), str(kz.faehigkeiten))
+	pruefe("Kraft schöpfen für alle, Finte erst als Geselle (Einhänder 25)", "Kraft schöpfen" in k.faehigkeiten and not ("Finte" in k.faehigkeiten) and "Finte" in bh.kampfblatt(1, {}, {"Einhänder": 25}).faehigkeiten, str(k.faehigkeiten))
+	pruefe("Wuchtschlag mit Zweihänder 17 noch nicht", not ("Wuchtschlag" in k3.faehigkeiten))
 	pruefe("Zauberlehrling ohne Rüstung und Schild", kz.ruestung.art == "keine" and (kz.schild as Dictionary).is_empty(), "%s %s" % [kz.ruestung, kz.schild])
 
 	# der Kampf liest das Blatt: brs_kampf.gd held() mit „brs“ im Blatt statt der Klasse
@@ -72,7 +75,7 @@ func _lauf() -> void:
 	pruefe("Kampf: Hauptwaffe aus dem Blatt", BrsKampf.waffe_held(b, {"id": "dagger"}) == "Zweihänder", BrsKampf.waffe_held(b, {"id": "dagger"}))
 	pruefe("Kampf: gezogene Zweitwaffe nach ihrer Grundform", BrsKampf.waffe_held(b, {"id": "dagger"}, true) == "Dolche", BrsKampf.waffe_held(b, {"id": "dagger"}, true))
 	var bz: Dictionary = BrsKampf.held({"cls": "FIGHTER", "level": 1, "brs": kz})
-	pruefe("Kampf: Zauber aus dem Blatt", bz.zauber == ["Bannschild", "Funkenpfeil"] or bz.zauber == ["Funkenpfeil", "Bannschild"], str(bz.zauber))
+	pruefe("Kampf: Zauber aus dem Blatt", "Bannschild" in bz.zauber and "Funkenpfeil" in bz.zauber and "Arkanpfeil" in bz.zauber and not ("Kraft schöpfen" in bz.zauber), str(bz.zauber))
 	# ohne Blatt (Söldner, Probekampf bis 870.4) wie bisher aus der Klasse
 	pruefe("ohne Blatt: Herkunft aus der Klasse", BrsKampf.held({"cls": "CLERIC", "level": 1}).herkunft == "Klosterschüler")
 

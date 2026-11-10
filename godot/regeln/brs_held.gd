@@ -151,6 +151,24 @@ const WAFFE_GRUPPE := {"": "Faustkampf", "dagger": "Dolche", "shortsword": "Einh
 	"spear": "Stangenwaffen", "halberd": "Stangenwaffen", "greatsword": "Zweihänder", "greataxe": "Zweihänder", "maul": "Zweihänder",
 	"shortbow": "Bogen", "longbow": "Bogen", "light_crossbow": "Armbrust"}
 
+## 870.3 (870a 3 A): Kampfhandlungen und Zauber, die [fert] freischaltet (werte.json „handlungen“: Fertigkeit ab „ab“, „alle“
+## für jeden; „zauber“: Schule ab „ab“), ohne die schon in [schon]
+static func freie_faehigkeiten(fert: Dictionary, schon := []) -> Array:
+	var r := []
+	var hd: Dictionary = lade().get("handlungen", {})
+	for n in ohne_info(hd):
+		var d: Dictionary = hd[n]
+		var f = d.get("fertigkeit")
+		if (f == null and bool(d.get("alle", false))) or (f != null and int(fert.get(String(f), -1)) >= int(d.get("ab", 0))):
+			r.append(String(n))
+	var zd: Dictionary = lade().get("zauber", {})
+	for n in ohne_info(zd):
+		var d = zd[n]
+		if d is Dictionary and d.has("ab") and int(fert.get(String(d.get("schule", "")), -1)) >= int(d.ab) and not schon.has(n):
+			r.append(String(n))
+	return r
+
+
 ## Alles, was der Kampf vom Helden braucht, nach dem BRS (ersetzt aufruf.gd blatt() aus den Heldwerten). [stufe]: Heldenstufe;
 ## [aus]: was er trägt, aus dem Spielstand (Tom): {"waffe": Grundform, "" = unbewaffnet; "ruestung": Rüstung des BRS („keine“,
 ## „Leichte Rüstung“ …); "schild": Grundform des Schilds, "" = keiner; "guete": Güte der Waffe; "ausdauer": Ausdauer}; fehlt ein
@@ -174,6 +192,7 @@ func kampfblatt(stufe := 1, aus := {}, geuebt := {}) -> Dictionary:
 		faehig.append(merkmal())
 	for z in hk.get("zauber", []):
 		faehig.append(String(z))
+	faehig.append_array(freie_faehigkeiten(fert, faehig))
 	return {"volk": volk, "herkunft": herkunft, "stufe": stufe, "werte": werte(), "fert": fert, "leben": leben(stufe), "mana": mana(),
 		"ausdauer": aus.get("ausdauer", null),     # 467: Ausdauer nach BRS noch offen, bis dahin liefert sie der Spielstand
 		"waffe": {"id": String(aus.get("waffe", "")), "gruppe": gruppe, "grundschaden": int(wd.get("schaden", 0)),

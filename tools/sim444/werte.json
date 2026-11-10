@@ -105,7 +105,32 @@
     "Wundsegen":   {"schule": "Heilmagie", "heilung": 6, "kosten": 5, "heilen_unter": 0.5,
                     "_heilung": "Heilung = (6 + Wille) x (1 + Heilmagie / 100), wenn Leben unter der Haelfte"},
     "Bannschild":  {"schule": "Schutzmagie", "ruestung": 2, "kosten": 4,
-                    "_bannschild": "A: einmal je Kampf in Runde 1, Ruestung +2, Abzug mit Schutzmagie als Fertigkeit"}
+                    "_bannschild": "A: einmal je Kampf in Runde 1, Ruestung +2, Abzug mit Schutzmagie als Fertigkeit"},
+    "_neu": "870.3 (870a 3 A, Namen STORY-BRS-KOENNEN.md [870.14.zauber.*]): Zahlen A, gemessen mit 444 Teil 7; 'ab' = Fertigkeitswert der Schule; 'ziele': eins, reihe (vordere oder gewaehlte Reihe), drei (drei Strahlen, je ein Ziel)",
+    "Arkanpfeil":  {"schule": "Evokation", "schaden": 5, "kosten": 3, "art": "zauber", "typ": null, "ab": 10, "ziele": "eins",
+                    "_arkan": "ohne Schadensart: keine Schwaeche, keine Staerke"},
+    "Glutstrahlen": {"schule": "Evokation", "schaden": 4, "kosten": 6, "art": "zauber", "typ": "feuer", "ab": 25, "ziele": "drei"},
+    "Flammenfächer": {"schule": "Evokation", "schaden": 5, "kosten": 6, "art": "zauber", "typ": "feuer", "ab": 25, "ziele": "reihe"},
+    "Glutkugel":   {"schule": "Evokation", "schaden": 8, "kosten": 10, "art": "zauber", "typ": "feuer", "ab": 40, "ziele": "reihe"},
+    "Arkanhaut":   {"schule": "Schutzmagie", "ruestung": 2, "kosten": 5, "ab": 25, "_arkanhaut": "A: bis Kampfende Ruestung +2 (mit Schutzmagie wie Bannschild), zusammen mit Bannschild"},
+    "Gleißstrahl": {"schule": "Heilmagie", "schaden": 5, "kosten": 4, "art": "zauber", "typ": "licht", "ab": 10, "ziele": "eins"},
+    "Beistand":    {"schule": "Heilmagie", "treffer": 25, "runden": 4, "kosten": 4, "ab": 25, "_beistand": "A: eigene Trefferchance +25 Prozentpunkte fuer 4 Runden"}
+  },
+
+  "handlungen": {
+    "_quelle": "870.3 (870a 3 A, DESIGN-BRS.md 7): Kampfhandlungen haengen an Fertigkeiten, frei ab Rang Geselle ('ab' 25 = erste Rangdecke + 1, held rangdecken_kapitel); Kraft schoepfen fuer alle; Namen STORY-BRS-KOENNEN.md [870.14.hand.*]; alle Zahlen A, gemessen mit 444 Teil 7, dann Chef",
+    "Kraft schöpfen": {"fertigkeit": null, "alle": true, "ab": 0, "je_kampf": 1, "heilung_anteil": 0.25, "unter": 0.5, "_kraft": "einmal je Kampf, ganzer Zug: Leben + 25 % des Hoechstwerts, wenn unter der Haelfte"},
+    "Finte":          {"fertigkeit": "Einhänder", "ab": 25, "naechster_treffer": 30, "_finte": "ganzer Zug ohne Schaden, der naechste Schlag +30 Prozentpunkte"},
+    "Stich aus dem Hinterhalt": {"fertigkeit": "Dolche", "ab": 25, "schaden_faktor": 1.5, "nur_erster": true, "_hinterhalt": "der erste eigene Schlag im Kampf (oder gegen einen Ueberraschten) x 1,5"},
+    "Wuchtschlag":    {"fertigkeit": "Zweihänder", "ab": 25, "schaden_faktor": 1.5, "treffer": -15},
+    "Auf Abstand":    {"fertigkeit": "Stangenwaffen", "ab": 25, "treffer": -10, "gegenstoss_faktor": 0.5, "_abstand": "Schlag mit -10 Prozentpunkten, dazu Haltung bis zum naechsten Zug: wer den Helden im Nahkampf angreift, laeuft zuerst in die Spitze (Schlag x 0,5)"},
+    "Schädelstoß":    {"fertigkeit": "Stumpfe Waffen", "ab": 25, "treffer": -10, "betaeubt_chance": 0.3, "betaeubt_zuege": 1},
+    "Griff":          {"fertigkeit": "Faustkampf", "ab": 25, "_griff": "Ziel kann bis zum naechsten Zug des Helden nicht den Platz wechseln oder fliehen; Schlag x 0,5"},
+    "Schildwall":     {"fertigkeit": "Schild", "ab": 25, "_schildwall": "Vorform von Decken (Waechter): eine Runde lang faengt der Schild einen Schlag gegen den Gefaehrten daneben ab (Abwehr mit Schild)"},
+    "Ruhige Hand":    {"fertigkeit": "Bogen", "ab": 25, "naechster_treffer": 30, "_ruhig": "Vorform von Zielschuss (Scharfschuetze): ganzer Zug, der naechste Schuss +30 Prozentpunkte"},
+    "Durchschlag":    {"fertigkeit": "Armbrust", "ab": 25, "ruestung_anteil": 0.5},
+    "Zwei auf einmal": {"fertigkeit": "Wurfwaffen", "ab": 25, "wuerfe": 2, "schaden_faktor": 0.6},
+    "Wehrhaltung":    {"fertigkeit": null, "ab": 0, "abwehr": 15, "treffer": -15, "_wehr": "Haltung bis zum naechsten Zug: Abwehr +15, eigener Treffer -15 (alte 'Kampfstil Verteidigung'; Homer: nur wenn behalten); 444 Teil 7: ohne Wirkung, darum nicht frei (kein 'alle'), Chef entscheidet"}
   },
 
   "ruestungen": {
