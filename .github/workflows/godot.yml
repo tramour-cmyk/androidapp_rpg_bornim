@@ -50,9 +50,9 @@ jobs:
       - name: Runner vorbereiten (264.1)
         run: |
           echo "== $(hostname) $(. /etc/os-release; echo $PRETTY_NAME) $(uname -m), $(nproc) Kerne, $(free -g | awk '/Mem/{print $2}') GB, frei $(df -h $GITHUB_WORKSPACE | awk 'NR==2{print $4}')"
-          sudo -n true || { echo "264.1: sudo ohne Passwort fehlt auf dem Runner"; exit 1; }
+          sudo -n apt-get --version > /dev/null || { echo "264.1: sudo apt-get ohne Passwort fehlt auf dem Runner"; exit 1; }
           sudo apt-get update -qq
-          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq unzip zip curl git python3 python3-venv python3-pip xvfb mesa-vulkan-drivers libgl1-mesa-dri ffmpeg fonts-dejavu-core libfontconfig1 > /dev/null
+          sudo apt-get install -y -qq unzip zip curl git python3 python3-venv python3-pip xvfb mesa-vulkan-drivers libgl1-mesa-dri ffmpeg fonts-dejavu-core libfontconfig1 > /dev/null
           S=${ANDROID_SDK_ROOT:-$HOME/android-sdk}
           if [ ! -x "$S/build-tools/35.0.1/apksigner" ]; then
             mkdir -p $S/cmdline-tools && cd $S/cmdline-tools
