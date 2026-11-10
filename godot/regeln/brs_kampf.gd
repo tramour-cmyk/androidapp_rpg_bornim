@@ -4,7 +4,7 @@ extends RefCounted
 # Abschnitt 7 und Entwurf A), mit denselben Formeln und Zahlen wie die Simulation 444 (tools/sim444/sim.py, daten/werte.json über
 # regeln/brs.gd). Hier stehen nur die Brücken: was ein Kämpfer nach dem BRS ist (Grundwerte, Fertigkeiten, Waffe, Rüstung, Schild,
 # Stufe) und ein Schlag mit allen Einzelheiten für Bericht, Bild und Zustände.
-# Schalter (bis der Chef den Kampf nach BRS abgenommen hat): BRS478=1 in der Umgebung oder an() = true (Testmenü, Tests).
+# Schalter: seit 870.5 immer an (nur Vergleichstests schalten ihn ab).
 # Annahmen (A), bis 2.3 und die Pfade sie ersetzen: ohne Spielstand nach BRS (Probekampf, Söldner) gilt die Herkunft der alten Klasse
 # mit ihren Startfertigkeiten; Waffen und Rüstungen der Heldwerte zählen nach ihrer Gruppe; was noch in Würfeln des SRD rechnet
 # (Fähigkeiten der Klassen, Zauber mit Rettungswurf, Heilung, Tränke, Zustände), wird mit dem Verhältnis der Leben nach BRS zu SRD
@@ -13,7 +13,9 @@ extends RefCounted
 const Brs = preload("res://regeln/brs.gd")
 const BrsHeldS = preload("res://regeln/brs_held.gd")
 
-static var schalter := OS.get_environment("BRS478") == "1"
+## 870.5 (LISTE-UMZUG-BRS.md Schritt 5): gekämpft wird nach dem BRS; false nur noch in den Vergleichstests mit dem alten Kern
+## (mars_golden, mars_regeln, anspringen_702), bis der SRD-Zweig in mars.gd fällt
+static var schalter := true
 
 static func an() -> bool:
 	return schalter and not Brs.lade().is_empty()

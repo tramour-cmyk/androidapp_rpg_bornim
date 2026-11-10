@@ -15,7 +15,8 @@ var skills := {}
 
 
 func _initialize() -> void:
-	tab = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	Mars.BrsKampf.schalter = false     # 870.5: Klassenfähigkeiten und Zusatzeigenschaften nach SRD, bis 870.5/870.6 sie nach BRS fassen
+	tab =JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
 	for m in tab.monsters:
 		monsters[m.id] = m
 	for s in tab.skills:

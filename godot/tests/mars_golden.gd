@@ -8,6 +8,7 @@ const Wuerfel = preload("res://regeln/wuerfel.gd")
 
 
 func _init() -> void:
+	Mars.BrsKampf.schalter = false     # 870.5: vergleicht den alten Kern (SRD), bis er fällt
 	var tables: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
 	var cases: Array = JSON.parse_string(FileAccess.get_file_as_string("res://tests/golden/kaempfe.json"))
 	var failed := 0

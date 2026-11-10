@@ -13,6 +13,7 @@ var failed := 0
 
 
 func _init() -> void:
+	Mars.BrsKampf.schalter = false     # 870.5: vergleicht den alten Kern (SRD), bis er fällt
 	tables = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
 	# 89.2 (c): fighter level 3 with two weapons: Attack 2 blows, Action Surge 3 (SRD: two actions, one bonus action)
 	_check("ein Schwert, Angriff", _blows(false, [], ["attack"]), 1)
