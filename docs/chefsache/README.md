@@ -41,7 +41,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 817 | M? | Erklärtexte der sechs Grundwerte im Heldenreiter nach BRS statt SRD (held.json „erklaerung | startbar |
 | 830 | M | Von Sokrates (705 B, Chef 10.11., 08:43): Lehrsatz zur Ansage des Wolfssprungs im ersten W | Chef (Datei in der Chefsache) |
 
-**Tom** – offen 101, Muss 83, startbar 6
+**Tom** – offen 102, Muss 83, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -146,6 +146,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 815 | M | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staubflocken innen, Fußstaub, Fahne, W | startbar |
 | 831 | M | Bildtafel Bäume: vier Arten aus Stylized Nature MegaKit frei (gewöhnlich, abgestorben, Kie | startbar |
 | Pflege | K | von Werkzeug (340.3, 10.11.): 21707 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 839 | M? | Von Homer (817): Erklärtexte der Grundwerte im Reiter Held nach BRS einbauen, Texte STORY- | startbar |
 
 **Jerry** – offen 71, Muss 59, startbar 20
 
