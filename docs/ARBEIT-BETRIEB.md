@@ -73,6 +73,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry (07:04 Jerry 806, 08:05 Jerry 806, 10:26 Jerry 595) aus eigener Beurteilung aus (Kaufrepo, Pacing, Sitzungsgrenze), ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch: 59 Muss). Lücke im Werkzeug: Startsperre wird geschrieben, auch wenn nie gestartet wird; kein WARNUNG-LAUT wie bei ARCHIVIERE. Vorschlag an den Chef gestellt
 
+- 00:05 11.11.: Lauf 00:04: START Perikles „M?“ nicht ausgeführt (Planfehler 893); Perikles …75P7 wartet auf Chef (264.1, Läufe frei)
 - 23:27 10.11.: Neustart Jerry 23:26 (8ebbb5f32): Nachfolger „870.6 wartet auf 870.4“ nicht startbar, kein Start; Jerry …76RTd bleibt stehen (belegt), Muss-Arbeit sonst keine. Start folgt, sobald 870.4 durch (lauf.py)
 - 23:14 10.11.: Homer 899 gestartet …7A7Yy (Jerry 23:13); Homer …79xc archiviert, gebucht (10,30 $, 870.15)
 - 23:09 10.11.: Diogenes …75f9 archiviert, gebucht (2,76 $, 890/891); Diogenes 896 gestartet …79zSr (Perikles 23:06); Tom …9Deoz archiviert, gebucht (7,52 $, 888)
@@ -92,7 +93,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:06 10.11.: Tom 661 archiviert, gebucht; Tom 506, Jerry 709, Spike 825, Sokrates t273 laufen; Vorrat Tom 475 wartet auf Kaufrepo (Tom 661 meldete)
 - 10:58 10.11.: Homer 830 archiviert, gebucht (830,817,807); Fragen 830, 807a als Chefsache-Dateien
 - 10:54 10.11.: Tom 834 alt archiviert, gebucht; Nachfolger Tom 661 läuft
-- 10:52 10.11.: zweiter Fehler Ford (Homer meldet): 807 war „807 A“ (Chef 09.11., 22:26), Ford schloss 807 per --ohne wegen veralteter Sitzungsnotiz „wartet auf A oder B“ aus, statt den Stand in der Vorgangsliste zu lesen; Folge: Homer ruhte 12 Stunden. Regel für Ford: --ohne nur nach Lesen von vorgang.py <Nr>
 - 13:30 10.11.: Startsperre 13:30 Start Ford (selbst)
 - 13:30 10.11.: Startsperre 13:30 Start Sokrates (Neustart auf Meldung 9fc0c053b, Nachfolger 620 Test t274 ab 274); Startsperre 13:30 Start Ford (selbst).
 - 12:47 10.11.: Startsperre 12:47 Start Sokrates (Neustart auf Meldung 5f05423f9, Nachfolger 620 Lagebild nach Test t274).
@@ -247,4 +247,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:13 10.11.: Marke Archiv session_01Hmoj79xcDbon4u5ej8NVJB (lauf.py)
 - 00:04 11.11.: Nachfolger-Warnung Jerry (Übergabe 10.11., 23:26) (lauf.py)
 - 00:04 11.11.: Nachfolger-Warnung Perikles (Übergabe 10.11., 23:07) (lauf.py)
-- 00:05 11.11.: Lauf 00:04: START Perikles „M?“ nicht ausgeführt (Planfehler 893); Perikles …75P7 wartet auf Chef (264.1, Läufe frei)
+- 00:28 11.11.: Marke Start-fehlt Diogenes 10.11.-23:07 (lauf.py)
+- 00:28 11.11.: Marke Start-fehlt Homer 10.11.-23:13 (lauf.py)
+- 00:29 11.11.: Startsperre 00:29 Start Tom (Neustart-Meldung 00:27, c94a14582)
