@@ -4,7 +4,9 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `0efa93161` (09.11., 22:14)
 
-**Übergabe (10.11., 12:06):** erledigt: 807 (`STORY-K1-FERTIGKEITEN.md` fest, Bau 841, 842), 830 (`[830.sprung]`, Bau 840), 348.12g (Großkatze in `STORY-PLAN.md`; Fische, Kleinleben an 568, 509), 72, 432 und 432a (Storyplan, `[41.schanze.liste]`, Bau 852 Tom ruht bis Kapitel 1 fertig); Englisch-Regel (3) Life/HP. Nachfolger: Homer – 766: Rollenspiegel (13.11.).
+**Übergabe (10.11., 13:13):** erledigt: 857a gestellt (857 wartet auf Chef). Nachfolger: Homer – 857: Kräuterkunde umbenennen (nach Antwort 857a), sonst Homer – 766: Rollenspiegel (13.11.).
+
+**Übergabe davor (10.11., 12:06):** erledigt: 807 (`STORY-K1-FERTIGKEITEN.md` fest, Bau 841, 842), 830 (`[830.sprung]`, Bau 840), 348.12g (Großkatze in `STORY-PLAN.md`; Fische, Kleinleben an 568, 509), 72, 432 und 432a (Storyplan, `[41.schanze.liste]`, Bau 852 Tom ruht bis Kapitel 1 fertig); Englisch-Regel (3) Life/HP. Nachfolger: Homer – 766: Rollenspiegel (13.11.).
 
 ## Zeilen
 
