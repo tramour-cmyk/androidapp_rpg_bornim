@@ -418,16 +418,13 @@ static func ton(volk: String, was: String, i: int) -> Color:
 	if l.is_empty(): return Color(-1, 0, 0)
 	return Color.html(String(l[clampi(i, 0, l.size() - 1)]["rgb"]))
 
-# Faust der Kaufhand: Griff zwischen den Knoecheln von Zeige- und Kleinfinger, Achse dazwischen (wie figurenprobe.gd bewaffne)
+# Faust der Kaufhand: Griff zwischen den Knoecheln von Zeige- und Kleinfinger, Achse dazwischen; 653: aus der Halterung je Koerper
+# (Halt.halterung „faust_r“/„faust_l“), eine Quelle fuer Tragen, Prüfbild und Kampf
 static func faust(sk: Skeleton3D, s: String) -> Dictionary:
-	var h := sk.find_bone("hand_" + s)
-	var z := sk.find_bone("index_01_" + s)
-	var p := sk.find_bone("pinky_01_" + s)
-	if h < 0 or z < 0 or p < 0: return {}
-	var hr := sk.get_bone_global_rest(h).affine_inverse()
-	var zf := hr * sk.get_bone_global_rest(z).origin
-	var kf := hr * sk.get_bone_global_rest(p).origin
-	return {"knochen": "hand_" + s, "griff": (zf + kf) * 0.5, "achse": (zf - kf).normalized()}
+	var h := Halt.halterung(sk, "faust_" + s)
+	if h.is_empty(): return {}
+	var l: Transform3D = h["lage"]
+	return {"knochen": h["knochen"], "griff": l.origin, "achse": l.basis.y.normalized()}
 
 # ---------------------------------------------------------------- Ausruestung unterwegs: Schild und Waffe auf dem Ruecken
 static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
@@ -518,6 +515,7 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 			m.add_child(d)
 			Gebiet.male(d, null, 2, [])
 			var t := Tragen.new("", d, m, faust(sk, String(p[2])))
+			t.halt = Halt.gegenstand(String(p[0]))   # 653: Griff und Schneide je Modell
 			t.gang = String(p[1]); t.seite = String(p[2]); t.anim = ap
 			sk.add_child(t)
 		m.set_meta("gang", gang)
@@ -530,6 +528,7 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 		m.add_child(d)
 		Gebiet.male(d, null, 2, [])
 		var t := Tragen.new(art, d, m, faust(sk, String(Tragen.LAGE[art]["seite"])))
+		t.halt = Halt.gegenstand(waffe)   # 653
 		t.anim = Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
 		sk.add_child(t)
 		return

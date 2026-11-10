@@ -1,7 +1,7 @@
 extends SceneTree
 # 653: Werkzeug und Gegenprobe zum Halt je Modell (skripte/halt.gd).
 #  1. misst jeden Gegenstand des Katalogs mit Modell (Waffen, Schilde): Griff, Achse, vorn, Spitze, Länge, Kanten -> Zeilen „HALT“;
-#     mit --aus=<datei> als JSON {id: halt} für tools/gegenstaende.py --halt (Feld „halt“ im Katalog)
+#     mit --aus=<datei> als JSON {id: halt} (regeln/halt.json); ohne --aus: abgelegte Maße gegen das Modell (veraltet = Fehler)
 #  2. legt jeden Gegenstand an jeden Körpertyp (Kaufkörper je Tracht und Geschlecht) an seinen Platz (Waffe rechte Faust, Schild
 #     linker Unterarm), in der Haltung „Stehen“, und prüft nach festen Maßen: Griff in der Faust (Abstand Griff–Halterung 0), Schaft
 #     verlässt die Faust zum Daumen, Schild mit der Vorderseite nach außen, nichts im Rumpf (Abstand zur nächsten Rumpfecke).
@@ -49,6 +49,9 @@ func _lauf() -> void:
 		print("HALT %s %s laenge %.2f unten %.2f hoehe %.2f..%.2f rand_hinten %.3f spitze %s" % [id, Halt.datei(id).get_file(), m["laenge"], m["unten"],
 			m["hoehe"].x, m["hoehe"].y, m["rand_hinten"], m["spitze"]])
 		pruefe(m["laenge"] > 0.05, "%s: Spitze am Griff (Länge %.3f)" % [id, m["laenge"]])
+		var ab = Halt.feld().get(id)
+		if arg("aus") == "":
+			pruefe(ab is Dictionary and JSON.stringify(ab) == JSON.stringify(Halt.als_feld(m)), "%s: regeln/halt.json fehlt oder veraltet (--aus=regeln/halt.json)" % id)
 	var aus := arg("aus")
 	if aus != "":
 		var f := FileAccess.open(aus, FileAccess.WRITE)

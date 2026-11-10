@@ -3,7 +3,8 @@ extends RefCounted
 # 653 (Chef 08.11., 14:35/14:40, „653 ja“; „jetzt“ 10.11., 12:33): Halt für Waffen und Schilde einmal je Modell statt je Figur:
 #  1. Griff je Gegenstand: wo die Hand greift, wohin der Schaft läuft (achse), wohin Schneide oder Vorderseite zeigt (vorn), Spitze,
 #     Ober- und Unterkante; aus dem Modell abgelesen (Modellregel 4 wie waffen.py und kaufschild.py: Ursprung = Griff bzw. Fessel,
-#     Schaft nach +Y, Vorderseite nach +Z) und im Gegenstandskatalog als Feld „halt“ abgelegt (tests/halt_653.gd schreibt es).
+#     Schaft nach +Y, Vorderseite nach +Z) und in regeln/halt.json abgelegt ({Kennung: Maße}; tests/halt_653.gd --aus= schreibt es,
+#     eigene Datei statt Katalogspalte: gemessen, nicht von Hand gepflegt).
 #  2. Halterung je Körper: rechte und linke Faust, Unterarm (Schild), aus dem Skelett des Körpers; Korrektur je Körpertyp, nie je Paar.
 #  3. Eine Anlegefunktion (anlegen): Lage = Halterung des Körpers · Griff des Gegenstands, keine Zahlen je Paar.
 # Jerry (709, 845) liest Spitze und Länge aus gegenstand() statt je Gegner zu messen.
@@ -15,8 +16,19 @@ const BOGEN := ["shortbow", "longbow", "light_crossbow"]   # Korrektur je Gegens
 ## Rückseite des Bretts; die Faust um sie herum, der Unterarm dahinter. Das Brett steht darum so weit außen vor der Faustmitte
 const SCHILD_AUSSEN := 0.055
 const KAMPF := "res://kampf/daten/%s.bin"
+const FELD := "res://regeln/halt.json"
 
 static var _mass := {}            # Kennung -> Maße (Zwischenspeicher)
+static var _feld = null           # Inhalt von FELD
+
+## abgelegte Maße je Kennung (regeln/halt.json); leer, wenn die Datei fehlt
+static func feld() -> Dictionary:
+	if _feld == null:
+		_feld = {}
+		if FileAccess.file_exists(FELD):
+			var j = JSON.parse_string(FileAccess.get_file_as_string(FELD))
+			if j is Dictionary: _feld = j
+	return _feld
 
 ## Datei des Modells: daten/waffen (Karte, Held, Leute), sonst kampf/daten (Kampf); leer, wenn keins da ist
 static func datei(id: String) -> String:
@@ -26,10 +38,10 @@ static func datei(id: String) -> String:
 
 ## Maße des Gegenstands im Raum seines Modells (m): griff, achse, vorn (Vector3), spitze (Vector3, weitestes Ende längs der Achse),
 ## laenge (Griff bis Spitze), unten (Länge unter dem Griff), hoehe (Vector2 unten/oben in y), rand_hinten (Schild: wie weit der Rand
-## außerhalb der Mitte hinter die Fessel reicht). Zuerst der Katalog („halt“), sonst aus dem Modell gemessen; leer ohne Modell
+## außerhalb der Mitte hinter die Fessel reicht). Zuerst abgelegt (regeln/halt.json), sonst aus dem Modell gemessen; leer ohne Modell
 static func gegenstand(id: String) -> Dictionary:
 	if _mass.has(id): return _mass[id]
-	var h = Katalog.eintrag(id).get("halt") if Katalog.hat(id) else null
+	var h = feld().get(id)
 	var m: Dictionary = aus_feld(h) if h is Dictionary else messen(id)
 	if not m.is_empty(): _mass[id] = m
 	return m
@@ -43,7 +55,7 @@ static func aus_feld(h: Dictionary) -> Dictionary:
 		"unten": float(h.get("unten", 0.0)), "hoehe": Vector2(float(hh[0]), float(hh[1])), "rand_hinten": float(h.get("rand_hinten", 0.0)),
 		"kasten": AABB(_v(h.get("kasten", [0, 0, 0, 0, 0, 0]).slice(0, 3)), _v(h.get("kasten", [0, 0, 0, 0, 0, 0]).slice(3, 6)))}
 
-## als Feld für den Katalog (Zahlen auf mm gerundet)
+## als Eintrag für regeln/halt.json (Zahlen auf mm gerundet)
 static func als_feld(m: Dictionary) -> Dictionary:
 	var r := func(x: float) -> float: return snappedf(x, 0.001)
 	var v := func(p: Vector3) -> Array: return [r.call(p.x), r.call(p.y), r.call(p.z)]
@@ -66,6 +78,10 @@ static func messen(id: String) -> Dictionary:
 			for p in me.surface_get_arrays(s)[Mesh.ARRAY_VERTEX]: pts.append(tr * p)
 	d.free()
 	var m := mass_aus(pts)
+	if not m.is_empty() and not id in BOGEN and String(Katalog.eintrag(id).get("art", "")) == "waffe":
+		# waffen.py (Kopf der Datei): „Schneide quer nach ±X, Fläche nach ±Z“; vorn ist die Schneide (Faust: Schneide zu den Knöcheln,
+		# wie tragen.gd die Waffe seit 417 stellt), nicht die Fläche. Nur die Schilde (kaufschild.py) zeigen mit +Z nach vorn
+		m["vorn"] = Vector3.RIGHT
 	if id in BOGEN and not m.is_empty():
 		# Chef 10.11., 13:39 (Prüfbild 653: „in der Seitansicht fehlt die Sehne … sieht aus wie ein Stab“): beim Bogen liegen Wurfarme
 		# und Sehne in x (waffen.py), nicht in z; vorn ist darum die Seite der Sehne, die Fläche des Bogens steht dann senkrecht
