@@ -329,7 +329,7 @@ func _fertig(ergebnis: String) -> void:
 				tp[f.id] = f.hp
 				if kampf.mars.brs and f.srd_hp > 0:     # 478: zurück in die Leben der Welt (SRD), im selben Anteil
 					tp[f.id] = clampi(roundi(float(f.hp) * f.srd_hp / maxf(1.0, f.max_hp)), 1 if f.hp > 0 else 0, f.srd_hp)
-				f.sp = Mars.sp_nach(f)     # 870.5: Mana zurück in die Zauberpunkte der Welt, im selben Anteil (bis 870.4)
+				f.sp = Mars.sp_nach(f)     # 870.5: Mana zurück in Heldwerte zp, im selben Anteil (bis 870.4)
 		lohn = kampf.reward
 	ende.emit(ergebnis, tp, lohn)
 	queue_free()
