@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 888 | Sammelbuild vor dem Umzug 870: 663, 653, 470, 506.1, 709, 506 (und was sonst gebaut ist), Prüfliste ansehen/t<n> mit 663-Punkten, build <n> --mit; nach Test des Chefs auf main, dann startet 870.2 (Chef 10.11., 16:46) · „jetzt“ 10.11., 16:46 | Tom | M | wartet | 506 | – | – | E Technik | – |
+| 888 | Sammelbuild vor dem Umzug 870: 663, 653, 470, 506.1, 709, 506 (und was sonst gebaut ist), Prüfliste ansehen/t<n> mit 663-Punkten, build <n> --mit; nach Test des Chefs auf main, dann startet 870.2 (Chef 10.11., 16:46) · „jetzt“ 10.11., 16:46 | Tom | M | wartet | 506 | – | – | E Technik | 2,22 $ |
 | 653 | Halt für Waffen und Schilde einmal je Modell festlegen statt je Figur nachmessen: Griffpunkt je Gegenstand, Halterung je Körper, eine Anlegefunktion, Prüfbild aller Kombinationen (Chef 08.11., 14:35) · „jetzt“ 10.11., 12:33 | Tom | M | gebaut, Geprüft an: f8773b20c (Bild passt 15:53) | – | claude/tom-653-halt | – | E Figuren | 13,41 $ |
 | 663 | Klassische Steuerung ausbauen: Steuerkreuz und Funktionstasten ganz raus, nur Touch; Auswahl der Steuerung samt Rückfrage weg (Chef 08.11., 15:24, t269.3) · „jetzt“ 10.11., 12:58 | Tom | M | gebaut, Geprüft an: 6095ac45f (Tests grün außer 27 Laden-Fehler wie auf main) | – | claude/tom-663-touch | – | E Oberfläche | – |
 | 470 | Bau BRS 1.1 Erschaffung (Wochenziel 02.11., Stufe 1) · Spike (Chef 16:13), mischen vor 506; „Neues Spiel“ umschalten erst nach t274.18 · „jetzt“ 10.11., 12:58 | Tom | M | gebaut, fährt im nächsten Build; Geprüft an: 5be28efa1 | – | claude/spike-470-erschaffung | – | E Kampf | 48,84 $ |

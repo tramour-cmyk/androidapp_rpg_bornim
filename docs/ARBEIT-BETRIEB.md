@@ -260,3 +260,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 17:32 10.11.: Startsperre 17:32 Start Tom, Diogenes, Tuffy (lauf.py)
 - 17:32 10.11.: Marke Archiv session_01Hmoj79pR6yAWH45cR1LjrK (lauf.py)
 - 17:32 10.11.: Marke Archiv session_01Hmoj787D5rfwbw8Ukn3CAj (lauf.py)
+- 17:34 10.11.: Tom (Nachfolger Sammelbuild 888) und Tuffy 709.1 trotz Startsperre 17:32 nicht gestartet: 888 wartet auf 506 (Spike), 709.1 hat Jerry per Weiter, Tuffy nur auf Chef-Wort
