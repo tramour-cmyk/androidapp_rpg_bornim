@@ -244,3 +244,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:05 10.11.: Marke Start-fehlt Tuffy 10.11.-15:05 (lauf.py)
 - 16:05 10.11.: Marke Archiv session_01Hmoj75d8aGe8Yd4sPxcQDY (lauf.py)
 - 16:11 10.11.: Startsperre 16:11 Start Ford (selbst; Selbstneustart, Haken 2)
+- 16:14 10.11.: Startsperre 16:14 Start Homer (lauf.py)
+- 16:14 10.11.: Marke Start-fehlt Homer 10.11.-16:05 (lauf.py)
+- 16:14 10.11.: Marke Start-fehlt Spike 10.11.-16:05 (lauf.py)
+- 16:14 10.11.: Marke Start-fehlt Tuffy 10.11.-16:05 (lauf.py)
+- 16:15 10.11.: Startsperre 16:15 Start Diogenes (Neustart-Meldung alter Ford, 39c3ba185); Spike 470 und Tuffy 854 mit `--ohne` ausgeschlossen (nur auf Chef-Wort, Chef 16:04)
