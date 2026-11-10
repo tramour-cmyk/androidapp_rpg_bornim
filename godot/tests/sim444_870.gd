@@ -14,7 +14,7 @@ const BrsHeldS = preload("res://regeln/brs_held.gd")
 const Brs = preload("res://regeln/brs.gd")
 
 ## Gruppe im Spiel (aufruf.gd gegner) -> Zeile der Simulation 444
-const GEGNER := {"RUDEL": "Wolf", "KROGG": "Krogg", "GRIMM": "Grimmzahn", "GRAK": "Grak"}
+const GEGNER := {"RUDEL": "Rudel", "KROGG": "Krogg", "GRIMM": "Grimmzahn", "GRAK": "Grak"}
 const HERKUENFTE := ["Wachsoldat", "Jägerkind", "Zauberlehrling", "Klosterschüler", "Kräutersammler", "Schmiedelehrling", "Herumtreiber", "Wanderer"]
 ## Waffengruppe der Herkunft -> Grundform im Blatt (Fernkampf, Modell); Gruppe und Schaden rechnet brs_kampf.gd aus dem Kampfblatt
 const GRUNDFORM := {"Einhänder": "longsword", "Bogen": "shortbow", "Stumpfe Waffen": "mace", "Dolche": "dagger", "Faustkampf": ""}

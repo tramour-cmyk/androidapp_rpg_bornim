@@ -143,7 +143,7 @@ const ST_SHAKES := ["{0} schüttelt die Betäubung ab!", "{0} shrugs off the stu
 const MSG296_DAMAGE := ["{0} Schaden.", "{0} damage."]
 ## 296.2: the kinds whose specials MARS plays through their own intents, not the old fight's.
 const OWN_INTENTS := [GRAK, CALLED, SCOUT, WOLF, DIRE_WOLF, SPIDER]
-const CALL_MAX := 2
+const CALL_MAX := 1     # 870c 1 A: Grak ruft höchstens einen Goblin
 const GATHER_HEAL := [2, 10, 0]
 const PROBE_LEVEL := 3
 const EASY_GAP := 4.0
@@ -1302,7 +1302,9 @@ func _row_mode(f: Fighter, t: Fighter, weapon: bool, extra := 0, cover := true) 
 	var dis := 0
 	if cover and t.place.x == BACK and all.any(func(x): return x.side == t.side and x.standing() and x.place.x == FRONT):
 		dis += 1
-	if weapon and f.ranged() and f.place.x == FRONT and t.place.x == FRONT:
+	# 870c 2 A: der Schütze der Gruppe schießt allein vorn ohne Nachteil; erst mit einem Gefährten neben ihm gilt die Regel
+	if weapon and f.ranged() and f.place.x == FRONT and t.place.x == FRONT \
+			and (f.side != "PARTY" or all.any(func(x): return x != f and x.side == f.side and x.standing() and x.place.x == FRONT)):
 		dis += 1
 	if weapon and cover and from_back(f):
 		dis += 1
@@ -2130,6 +2132,10 @@ func _gegenwirkung(f: Fighter, t: Fighter, typ) -> void:
 	var art := art_of(t.monster)
 	var ty := String(typ)
 	if art == WOLF and ty == "feuer":
+		# 870c 3 A: Feuer vertreibt das Rudel erst, wenn sein Leitwolf (dem t folgt, sonst t selbst) unter halbem Leben ist
+		var leit = by_id(t.follows) if t.follows != "" else t
+		if leit != null and leit.standing() and leit.hp * 2 >= leit.max_hp:
+			return
 		var rudel := all.filter(func(x): return x.side == "FOES" and x.standing() and x.monster != null and art_of(x.monster) == WOLF)
 		var erst := true
 		for x in rudel:     # eine Zeile für alle, jeder läuft (wie _pack_flees)

@@ -40,6 +40,7 @@ func _initialize() -> void:
 	_zauber()
 	_schwaechen()
 	_gegenwirkungen()
+	_regeln_870c()
 	print("HANDLUNGEN870 %s" % ("gut" if fehler == 0 else "%d FALSCH" % fehler))
 	quit(1 if fehler > 0 else 0)
 
@@ -348,11 +349,20 @@ func _schwaechen() -> void:
 func _gegenwirkungen() -> void:
 	var Z: Dictionary = BrsKampf.w()["zauber"]["Funkenpfeil"]
 	Mars.gegner_ohne_rettung = true
-	# Wolf und Feuer: das Rudel flieht, Kampf gewonnen, kein Lohn
+	# Wolf und Feuer (870c 3 A): erst, wenn der Leitwolf unter halbem Leben ist, flieht das Rudel; Kampf gewonnen, kein Lohn
 	var w = _kampf("Einhänder", {"Evokation": 25}, ["wolf", "wolf"])
 	w.start()
 	w._brs_zauber(w.by_id("hero"), w.by_id("f0"), Z)
-	pruefe("Wolf und Feuer: Rudel fort, Kampf vorbei, kein Lohn", w.outcome == "WON" and w.kein_lohn and w.by_id("f1").fled, "%s %s" % [w.outcome, w.kein_lohn])
+	pruefe("Wolf und Feuer, Leitwolf über halbem Leben: Rudel bleibt", w.outcome == "ONGOING" and not w.by_id("f1").fled, w.outcome)
+	w.by_id("f0").hp = 49000
+	w._brs_zauber(w.by_id("hero"), w.by_id("f0"), Z)
+	pruefe("Wolf und Feuer, Leitwolf unter halbem Leben: Rudel fort, Kampf vorbei, kein Lohn", w.outcome == "WON" and w.kein_lohn and w.by_id("f1").fled, "%s %s" % [w.outcome, w.kein_lohn])
+	# Jungwolf folgt dem Leitwolf: Feuer auf ihn zählt das Leben des Leitwolfs
+	var j = _kampf("Einhänder", {"Evokation": 25}, ["wolf", "wolf"])
+	j.by_id("f1").follows = "f0"
+	j.start()
+	j._brs_zauber(j.by_id("hero"), j.by_id("f1"), Z)
+	pruefe("Feuer auf den Jungwolf, Leitwolf heil: Rudel bleibt", j.outcome == "ONGOING" and not j.by_id("f0").fled, j.outcome)
 	# Wildschwein und Feuer: rasend
 	var b = _kampf("Einhänder", {"Evokation": 25}, ["boar"])
 	b.start()
@@ -382,3 +392,19 @@ func _gegenwirkungen() -> void:
 			break
 		s._perform(s.by_id("hero"), ["attack", ziele[0].id])
 	pruefe("Schleim teilt sich nur einmal", s.all.filter(func(x): return x.side == "FOES").size() <= 2)
+
+
+## 870c (Vorentscheid Sokrates 10.11., 1 A, 2 A): Grak ruft höchstens einen Goblin; der Schütze allein vorn ohne Nachteil, mit Gefährten
+## neben ihm mit Nachteil (Feuer und Leitwolf: _gegenwirkungen)
+func _regeln_870c() -> void:
+	pruefe("Grak ruft höchstens einen Goblin", Mars.CALL_MAX == 1, str(Mars.CALL_MAX))
+	var a = _kampf("Bogen", {"Bogen": 25}, ["wolf"])
+	a.start()
+	var h = a.by_id("hero")
+	h.hero.main = {"id": "shortbow", "de": "Kurzbogen", "en": "Shortbow", "atk": 0, "dmg": [1, 6, 0], "ranged": true, "reach": false, "two": true}
+	pruefe("Schütze allein vorn: kein Nachteil", a._row_mode(h, a.by_id("f0"), true) == 0, str(a._row_mode(h, a.by_id("f0"), true)))
+	var b = _kampf("Bogen", {"Bogen": 25}, ["wolf"], 3, false, true)
+	b.start()
+	var hb = b.by_id("hero")
+	hb.hero.main = h.hero.main
+	pruefe("Schütze vorn mit Gefährten daneben: Nachteil", b._row_mode(hb, b.by_id("f0"), true) == -1, str(b._row_mode(hb, b.by_id("f0"), true)))

@@ -261,6 +261,10 @@ def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False, beutel=
     umr = mk["umreissen"] if mon.get("umreissen") else None
     rud = mk["rudel"][mon["rudel"]] if mon.get("rudel") else None
     zust = {"erster": True, "betaeubt": 0, "liegt": False}
+    # 870c 3 A: Jungwoelfe 1-2 je Kampf (werte.json "anzahl" [von, bis]), Leibwache fest
+    rud_n = 0
+    if rud:
+        rud_n = rng.randint(*rud["anzahl"]) if isinstance(rud["anzahl"], list) else rud["anzahl"]
     # 481.1: Kampftraenke (werte.json "kampftraenke"), Wirkung nach Kraeuterkunde
     tb = wirt if wirt is not None else beutel
     kt = W.get("kampftraenke", {})
@@ -308,7 +312,7 @@ def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False, beutel=
             if umr and rng.random() < umr["chance_bei_treffer"]:
                 zust["liegt"] = True
         if rud:
-            for _ in range(rud["anzahl"]):
+            for _ in range(rud_n):
                 if leben > 0 and rng.random() < rud["chance"]:
                     auf_held(mon["angriff"] + rud["angriff_verschiebung"], mon["schaden"] * rud["schaden_anteil"])
 
@@ -440,7 +444,7 @@ def ep_fuer(W, held, mon):
 # ---------------------------------------------------------------- Teil 1: Fortschritt
 
 def fortschritt(W, herkunft, rng, variante=False):
-    monster = {n: m for n, m in ohne_info(W["monster"]).items() if not m.get("boss")}
+    monster = {n: m for n, m in ohne_info(W["monster"]).items() if not m.get("boss") and not m.get("nur_matrix")}
     fs = W["fortschritt"]
     grenze = W["held"]["kapitelgrenze"]
     held = Held(W, herkunft, variante)
@@ -858,7 +862,7 @@ class Wirt:
 def fortschritt_wirtschaft(W, herkunft, rng, beruhigen=False):
     wi = W["wirtschaft"]
     variante = wi["punkte_variante"]
-    monster = {n: m for n, m in ohne_info(W["monster"]).items() if not m.get("boss")}
+    monster = {n: m for n, m in ohne_info(W["monster"]).items() if not m.get("boss") and not m.get("nur_matrix")}
     fs = W["fortschritt"]
     grenze = W["held"]["kapitelgrenze"]
     held = Held(W, herkunft, variante)
@@ -1025,8 +1029,8 @@ def bericht(W, ergebnisse, variante_ergebnisse, args):
     L = []
     hk_namen = list(ohne_info(W["herkuenfte"]))
     mon = ohne_info(W["monster"])
-    arten = [n for n, m in mon.items() if not m.get("boss")]
-    bosse = [n for n, m in mon.items() if m.get("boss")]
+    arten = [n for n, m in mon.items() if not m.get("boss") and not m.get("nur_matrix")]
+    bosse = [n for n, m in mon.items() if m.get("boss") or m.get("nur_matrix")]
     stufen = W["lauf"]["stufen"]
     k = W["lauf"]["kaempfe_je_fall"] if args.kaempfe is None else args.kaempfe
     la = W["lauf"]["fortschritt_laeufe"] if args.laeufe is None else args.laeufe
@@ -1237,6 +1241,9 @@ def main():
     for n, m in list(ohne_info(W["monster"]).items()):
         if m.get("ueberfall"):
             W["monster"][n + " mit Rauch"] = dict(m, rauch=True)
+    # 870c 3 A: das Rudel wie im Spiel (Wolf mit 1-2 Jungwoelfen, werte.json "merkmale" "rudel" "Jungwolf"), nur in Matrix und Bossen
+    if "Wolf" in W["monster"]:
+        W["monster"]["Rudel"] = dict(W["monster"]["Wolf"], rudel="Jungwolf", nur_matrix=True)
     if args.pruefen:
         sys.exit(1 if pruefen(W) else 0)
     kaempfe = args.kaempfe or W["lauf"]["kaempfe_je_fall"]
