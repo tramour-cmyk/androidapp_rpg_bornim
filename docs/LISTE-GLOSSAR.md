@@ -51,7 +51,7 @@ Namen im Spiel (Völker, Zauber, Monster, Regelwerte) stehen nicht hier, sondern
 | **Probebild** | Einzelbild am Rechner vor einem Film, sieht nur der Ersteller selbst an (kein Lauf, keine Freigabe) | Probe | – | `LISTE-BAUEN-TESTEN.md` Prüftreppe 4 (783 W1) |
 | **Abgleich** | alte Fassung gegen neue: am Anfang „Alt zuerst“ (Zeile „Alt:“), am Ende vor der Testbitte | – | – | `ROLLE-ENTWICKLUNG.md`, `LISTE-UMZUG-348.md` |
 | **alte Fassung** | Kotlin-Spiel in `app/` und `core/`; Untergrenze, nicht Vorlage | – | – | `LISTE-ABGLEICH-ALT.md`, `LISTE-UMZUG-348.md` |
-| **Spielfassung** | die Godot-Fassung unter `godot/` | – | – | `LISTE-UMZUG-348.md` |
+| **Spielfassung** | die Godot-Fassung unter `godot/` | – | – | `godot/LIESMICH.md`, `alt/LISTE-UMZUG-348.md` (399) |
 | **Kerntests** | Regeltests mit Exit-Code vor jedem Code-Commit | – | – | `CLAUDE.md` „Feste Regeln“ |
 | **Weckruf** | Erinnerung an sich selbst nach einem Push, der baut | – | – | `LISTE-CHECK-BUILD-TEST.md`, `CLAUDE.md` „Feste Regeln“ |
 | **Bestand** | alles Gekaufte und Geladene; vor jedem Eigenbau lesen | – | – | `LISTE-BESTAND.md` |

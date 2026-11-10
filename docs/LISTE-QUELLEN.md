@@ -312,7 +312,7 @@ Auftrag des Chefs (26.10., 11:59): Pakete auch gegen Geld, wenn der Verkauf des 
 
 #### Dinge und Waffen (348.12h, Helfer 26.10., 16:27)
 
-Liste: `LISTE-UMZUG-348.md` „Dinge im Dorf“, „Möbel der Grundrisse“, „Ausrüstung“ (rund 74 Posten). „[Bild]“ = Vorschau gesehen; Dreiecke bei Quaternius und Kenney aus den OBJ gezählt.
+Liste: `LISTE-ABGLEICH-ALT.md` 6 „Dinge im Dorf“, „Möbel der Grundrisse“, „Ausrüstung“ (rund 74 Posten). „[Bild]“ = Vorschau gesehen; Dreiecke bei Quaternius und Kenney aus den OBJ gezählt.
 
 | Paket | Fundstelle | Lizenz | Preis | Deckt ab | Dreiecke | Stil | Eignung |
 |---|---|---|---|---|---|---|---|
