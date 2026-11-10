@@ -54,7 +54,7 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 
 ## Lauf 135 · 871 Nachfolger-Strich (Perikles, `902b41dfb`; 10.11., 15:0x)
 
-- 18 Probeübergaben gegen `lauf.nachfolger()` (Stand `origin/main`): bloßer Strich in jeder Form („–“, „—“, „-“, „–.“, „**–**“, „„–““, „–; …“) und leerer Rest ergeben „keiner“; „Perikles auf Abruf“, „auf Abruf“ und echte Titel unverändert. **Lücke D135.1 → 878 (Perikles):** Strich mit Zusatz („– (auf Abruf)“, „–, auf Abruf“) ergibt weiter „Diogenes – – …“. Echter Fall: meine Übergabe 10.11., 13:0x (`caadf9ad6`) „Nachfolger: – Auf Abruf (768 am 13.11., …)“ → Titel „Diogenes – – Auf Abruf (…)“, und die 641-Regel `auf (Abruf|Zuruf)` greift wegen des großen „A“ nicht: gestartet, sobald etwas startbar ist. 871 wartet auf 878.
+- 18 Probeübergaben gegen `lauf.nachfolger()` (Stand `origin/main`): bloßer Strich in jeder Form („–“, „—“, „-“, „–.“, „**–**“, „„–““, „–; …“) und leerer Rest ergeben „keiner“; „Perikles auf Abruf“, „auf Abruf“ und echte Titel unverändert. **Lücke D135.1 → 879 (Perikles):** Strich mit Zusatz („– (auf Abruf)“, „–, auf Abruf“) ergibt weiter „Diogenes – – …“. Echter Fall: meine Übergabe 10.11., 13:0x (`caadf9ad6`) „Nachfolger: – Auf Abruf (768 am 13.11., …)“ → Titel „Diogenes – – Auf Abruf (…)“, und die 641-Regel `auf (Abruf|Zuruf)` greift wegen des großen „A“ nicht: gestartet, sobald etwas startbar ist. 871 wartet auf 879.
 
 ## Lauf 134 · 870.1 Umzugsplan BRS gegenlesen (Sokrates, `LISTE-UMZUG-BRS.md`, 870a; Code `399ce2cb1`, 10.11., 14:5x)
 

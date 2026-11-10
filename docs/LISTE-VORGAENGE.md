@@ -110,6 +110,7 @@
 | 867 | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die aktuellen Helden | Tom | M | startbar | – | – | – | G Stil | – |
 | 875 | Von Homer (857a A, Chef 10.11., 13:35): Fertigkeit Kräuterkunde heißt im Spiel Kräutersammeln, EN Foraging; Erschaffung, Talenttext, Übung beim Pflücken | Tom | M | startbar | – | – | – | E Kampf | – |
 | Pflege | von Werkzeug (340.3, 10.11.): 15816 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
+| 878 | Von Jerry zu 854: godot.yml-Entwurf Kaufcache ansehen, ja oder Änderung | Tom | M | startbar | – | – | – | B Werkzeuge | – |
 | 854 | Gebaute Kaufmodelle im Kaufrepo ablegen, nur bei Änderung neu bauen statt je Sitzung über 20 Min. (Chef 10.11., 12:34: ja) · „jetzt“ 10.11., 14:17, vor dem Umzug 870 | Jerry | M | startbar | – | – | – | E Technik | – |
 | 709 | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angreifer prüfen (Chef 08.11., 21:36, über Sokrates) | Jerry | M | startbar, 709a A: tiefer Biss, Film; nach 854 | – | claude/jerry-709-treffen | – | E Kampf | 38,04 $ |
 | 751 | Kampf: Knopfleiste des Helden manchmal leer („…“), keine Menüfunktion, auch ohne „ganzer Bericht“ (Chef 09.11., 14:00, Fund t271, Bild Wolfsrudel) | Jerry | M | startbar, 751 A (Chef 17:46) | – | claude/jerry-717-rueckwaerts | – | E Oberfläche | – |
@@ -194,7 +195,7 @@
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 857 | Von Sokrates (Chef 10.11., 13:01, t274.6): Fertigkeit „Kräuterkunde“ (Gruppe Sammeln) umbenennen, Name nach dem Tun wie Bergbau, Angeln, Jagd; Kräuterkunde klingt nach Rezepten und Brauen, das ist Alchemie | Homer | M | erledigt | – | – | – | G Story | 2,05 $ |
 | 663.1 | Text: [280.tipp] ohne die Fassung „Klassische Steuerung“ (von Tom; 663 nur Touch, im Spiel gestrichen) | Homer | K | erledigt | – | – | – | G Story | – |
-| 871 | Von Ford (10.11.): lauf.py liest „Nachfolger: –“ als Titel und startet „<Rolle> – –“; Strich gilt wie „keiner“ | Perikles | M | gebaut, Geprüft an: 902b41dfb | 878 | – | – | B Werkzeuge | – |
+| 871 | Von Ford (10.11.): lauf.py liest „Nachfolger: –“ als Titel und startet „<Rolle> – –“; Strich gilt wie „keiner“ | Perikles | M | gebaut, Geprüft an: 902b41dfb | 879 | – | – | B Werkzeuge | – |
 | 865 | Von Sokrates (Chef 10.11., 13:34): kein Neustart einer Sitzung mitten im Test des Chefs; Neustart-Haken und Ablauf anpassen | Perikles | M | gebaut, Geprüft an: 611d9f7c1 | Diogenes | – | – | B Abläufe | – |
 | 483 | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Marke (Chef 02.11., 19:08) | Perikles | M | gebaut, Geprüft an: 62e922b30 | Diogenes, D75 | – | – | B Werkzeuge | – |
 | 464 | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählung im Tagesbericht (Chef 01.11., 20:4x) | Perikles | M | gebaut, Geprüft an: fcf9ab215 | 16.11. | – | – | B Abläufe | – |
@@ -221,7 +222,7 @@
 | 866 | Von Sokrates (620, Lagebild t274): Prüfliste geht nur gegengelesen raus; Wächter statt Absprache | Perikles | M | gebaut, Geprüft an: 8c9f2dc3f | Diogenes | – | – | Q QS | – |
 | 874 | Von Sokrates (653, Chef 10.11., 12:27): jede Jerry-Sitzung baut die Kaufmodelle neu (bpy, über 20 Min.); gebaute Modelle im Kaufrepo ablegen, bpy per Setup-Skript prüfen | Perikles | K | startbar | – | – | – | B Steuerung | – |
 | 877 | D134.1 (Diogenes, 870.1): commit-pruefung.py endet bei Code-Commits in Zeile 187, die Kerntest-Prüfung 301–307 erreicht core und app nie mehr | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
-| 878 | D135.1 (Diogenes, 871): „Nachfolger: – Auf Abruf (…)“ oder „–, …“ startet weiter „<Rolle> – – …“; „Auf Abruf“ groß greift 641-Regel nicht (Fall Übergabe Diogenes 10.11., 13:0x) | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
+| 879 | D135.1 (Diogenes, 871): „Nachfolger: – Auf Abruf (…)“ oder „–, …“ startet weiter „<Rolle> – – …“; „Auf Abruf“ groß greift 641-Regel nicht (Fall Übergabe Diogenes 10.11., 13:0x) | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
 | 870.1 | Von Sokrates (870, Chef 14:08 „dein Plan irgendwer gegenlesen“): Master-Umzugsplan BRS LISTE-UMZUG-BRS.md und Chefsache 870a gegen Code und DESIGN-BRS gegenlesen, Befund als Text an den Chef | Diogenes | M | erledigt | – | – | – | E Kampf | 9,47 $ |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
