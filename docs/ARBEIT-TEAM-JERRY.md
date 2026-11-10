@@ -6,12 +6,12 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 Pause bis 13.11., 20:00 Uhr, frei für: 870.x, 709, 709.1, 854, 506.1, 506.2 (506.2 Chef 19:33; 870b A, Chef 10.11., 16:08; 870.17, 883; 709.1 aus 709, Chef 17:07). (870, von Sokrates, Chef 10.11., 14:08: „die anderen, die jetzt irgendwas noch machen, sollen das fertig machen, was sie gerade machen … Und dann sollen sie aber nicht wieder irgendeinen Füllefanz neu anfangen“): Laufendes (709) fertig machen, dann **854 vor dem Umzug** (Chef 14:17: „das brennt mir wirklich auf den Nägeln … jedes Mal geht es bei Null los“), sonst nichts Neues bis zum Umzugsplan BRS (Sokrates); früher frei, wenn der Plan abgenommen ist.
 
-**Übergabe (10.11., 18:21):** 709.1 gebaut auf `claude/jerry-709-1-wolfsbiss` `6c8bc3d16` (seitlicher Tiefbiss, Schildrand mit Zerren), Film an den Chef; Grimmzahn findet seitlich keinen Platz im Bild (Kamera vor dem Zug), im Film benannt. 854: `--cache` mit CC0 und Leuten am Rechner geprüft (`970ab90a6`), mit 709 an Tom für 888 (Tom-Vorrat). Letzte Antwort: Kaufrepo geklont (Chef 17:17). Nachfolger: Jerry – 709.1: nach dem Urteil zum Film
+**Übergabe (10.11., 20:20):** 709.1 Rückfrage [709c](chefsache/entscheiden/709c-wolfsangriff.md), 506.2 wartet mit. 870.2 (`490464059`) und 870.3 (`6814e4331`) gebaut und in `claude/build-275` (Chef 19:33), Hinweis an Tom zu 888. 870.5 Teil 1 auf `claude/jerry-870-5-kampf` `64c6b055b` (Schalter weg, BRS immer). Am Rechner: Godot `~/godot/godot`, `daten/werte.json` aus `tools/sim444`. Letzte Antwort: Kaufrepo in dieser Sitzung geklont (Chef 19:36). Nachfolger: Jerry – 870.5: SRD-Zweige in mars.gd weg
 
 ## Einzelheiten
 - **Zu 870.6, Jerry (10.11., 20:10, aus 870.3):** `tabellen.json` löschen erst hier: MARS liest bis 870.5/870.6 SRD-Felder daraus (hp, ac, atk, dmg, Beute, items, packs, xpForLevel, skills); Sokrates informiert (Sitzung inaktiv, Nachricht 20:05 kam an). Offen für den Chef vor B1: Leibwache jetzt wie 444 (Angriff 12 statt 5), Jungwolf-Werte A, Handlungen/Zauber A (`tools/sim444/handlungen.py`).
 <<<<<<< HEAD
-- **Zu 709.1, Jerry (10.11., 19:36):** Film nicht passt → nach 621 A keine zweite Runde, Rückfrage [709c](chefsache/entscheiden/709c-wolfsangriff.md) (A: gerade von vorn durch die Mitte, Biss in die Schildunterkante, Treffer = Zerren und Taumeln, Abwehr = Schildstoß; B: Schild aufgerissen, Biss in den Arm; C: schräg bis 30°). Ratten, Krogg, Grak: Nachstellen am Rechner (Kaufrepo geklont, Chef 19:36).
+- **Zu 709.1, Jerry (19:36):** Rückfrage 709c; Ratten, Krogg, Grak zuerst am Rechner nachstellen (334).
 =======
 - **Zu 894, von Perikles (Chef 10.11., 19:34 „894 A“):** jeder Push auf `claude/build-**` startet jetzt den Godot-Lauf (der neueste bricht den älteren ab); für den Umzug auf `claude/build-275` gesammelt pushen, nicht je Commit.
 >>>>>>> ecd4b3483c77408b9621b7af67219841cb02c642
