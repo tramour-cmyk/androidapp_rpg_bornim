@@ -251,3 +251,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:15 10.11.: Startsperre 16:15 Start Diogenes (Neustart-Meldung alter Ford, 39c3ba185); Spike 470 und Tuffy 854 mit `--ohne` ausgeschlossen (nur auf Chef-Wort, Chef 16:04)
 - 16:19 10.11.: Startsperre 16:19 Start Spike 470, Tuffy 506.1 (Chef 16:13 „ja, so machen“, Vorgangsarchiv 870; Auftrag über alten Ford von Sokrates; vier Entwickler zugleich erlaubt)
 - 16:19 10.11.: Startsperre 16:19 Start Tuffy (selbst; 506.1, Chef 16:13)
+- 16:33 10.11.: Startsperre 16:33 Start Homer (Neustart-Meldung 16:32, d4366bca5)
