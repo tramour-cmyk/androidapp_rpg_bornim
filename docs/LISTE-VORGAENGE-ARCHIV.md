@@ -938,3 +938,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 832 | Testbitten ohne Prüfpunkte, die ein Test im Bau schon sichert oder Lesen von Lizenztexten verlangen (Chef 10.11., 09:29 zu 273.1, über Sokrates) | Q QS | M | 2,55 $ | Perikles | erledigt, greift Lauf 129 |
 | 846 | D127.1 (Diogenes, 832): commit-pruefung.py hält Prüfzeilen an, die das Menü „Lizenzen“ nur als Weg nennen (Vorbild 271.1 Titelbild); nur anhalten, wenn „richtig“ Lizenztext verlangt | B Werkzeuge | M | – | Perikles | erledigt, greift Lauf 129 |
 | 838 | Prüfung Ford: folgte jeder START-Zeile von lauf.py eine Sitzung? Stichprobe im Wochenlauf (Chef 10.11., 10:4x; Fehler 341 von Ford) | B Werkzeuge | M | 1,62 $ | Diogenes | erledigt |
+| 851 | Neustart: letzte Antwort an den Chef geht vor dem Archivieren per Telegram (von Sokrates, Chef 10.11., 11:57 „auch diesmal“) | B Werkzeuge | M | – | Perikles | erledigt, doppelt zu 849 |

@@ -195,7 +195,7 @@ Alte Münzen, am Rand verrußt. Auf jeder ein Turm über Wellen und die Umschrif
 
 An die Grauen, ins Moor:
 
-Tobin, Fischer, Bornim – Ring fehlt
+Tobin, Fischer, Bornim – Ehering fehlt
 
 Benno, Tuchhändler, Südstraße
 

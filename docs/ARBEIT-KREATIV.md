@@ -4,7 +4,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `0efa93161` (09.11., 22:14)
 
-**Übergabe (10.11., 11:11):** 807 erledigt: `STORY-K1-FERTIGKEITEN.md` festgesetzt (807a A), Bau 841 Jerry, 842 Tom. 830 erledigt: `[830.sprung]` Wortlaut A fest in `STORY-SPIEL.md`, Bau 840 Jerry. 348.12g erledigt (11:51): Großkatze in `STORY-PLAN.md`, Fische und Kleinleben an Tom (568) und Jerry (509). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
+**Übergabe (10.11., 12:06):** erledigt: 807 (`STORY-K1-FERTIGKEITEN.md` fest, Bau 841, 842), 830 (`[830.sprung]`, Bau 840), 348.12g (Großkatze in `STORY-PLAN.md`; Fische, Kleinleben an 568, 509), 72, 432 und 432a (Storyplan, `[41.schanze.liste]`, Bau 852 Tom ruht bis Kapitel 1 fertig); Englisch-Regel (3) Life/HP. Nachfolger: Homer – 766: Rollenspiegel (13.11.).
 
 ## Zeilen
 
