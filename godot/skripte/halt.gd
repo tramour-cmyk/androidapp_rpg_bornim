@@ -7,6 +7,7 @@ extends RefCounted
 #  2. Halterung je Körper: rechte und linke Faust, Unterarm (Schild), aus dem Skelett des Körpers; Korrektur je Körpertyp, nie je Paar.
 #  3. Eine Anlegefunktion (anlegen): Lage = Halterung des Körpers · Griff des Gegenstands, keine Zahlen je Paar.
 # Jerry (709, 845) liest Spitze und Länge aus gegenstand() statt je Gegner zu messen.
+# Alt: core/art/Dress.kt held (Griff je Grundform GRIP_BACK, eine Funktion für alle Körper), weaponThroughShield/Body (nichts im Körper).
 
 const WAFFEN := "res://daten/waffen/%s.bin"
 const KAMPF := "res://kampf/daten/%s.bin"
@@ -106,7 +107,7 @@ static func halterung(sk: Skeleton3D, platz: String, koerper := "") -> Dictionar
 		b = Basis(achse.cross(knoechel), achse, knoechel)     # y = Achse, z = Schneide zu den Knöcheln
 	elif platz.begins_with("unterarm"):
 		# Schild: oben zum Daumen (Achse), Vorderseite vom Handrücken weg (aus dem Handrücken: Knöchel × Achse, je Seite gespiegelt)
-		var aussen := (knoechel.cross(achse) * (1.0 if s == "l" else -1.0)).normalized()
+		var aussen := (knoechel.cross(achse) * (-1.0 if s == "l" else 1.0)).normalized()
 		b = Basis(achse.cross(aussen), achse, aussen)
 	else:
 		return {}
