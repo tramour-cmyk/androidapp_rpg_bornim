@@ -155,7 +155,9 @@ jobs:
       # 264.1: Reste in ~/cc0 aus abgebrochenen Laeufen (Verzeichnis ohne Schreibrecht) lassen tar beim Wiederherstellen scheitern
       # („Cannot open: File exists“, Lauf 328); der Zwischenspeicher bringt alles neu
       - name: CC0-Reste entfernen (264.1)
-        run: sudo rm -rf ~/cc0
+        run: |
+          # sudo darf auf dem Runner nur apt-get (Lauf 329); die Reste gehoeren dem Runner, Schreibrecht zurueck, dann loeschen
+          [ ! -e ~/cc0 ] || { chmod -R u+rwX ~/cc0; rm -rf ~/cc0; }
       # 348.6 Held und Leute auf dem CC0-Geruest (348.12): Knochen und Bewegungen aus Quaternius' Universal Animation Library (CC0 1.0)
       - uses: actions/cache@v4
         with:
