@@ -233,11 +233,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 876 | M | Von Homer (857a A, Chef 10.11., 13:35): Simulation 444 Kräuterkunde → Kräutersammeln, Tran | startbar |
 | Pflege | K | von Werkzeug (340.3, 10.11.): 15258 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 28, Muss 15, startbar 0
+**Perikles** – offen 30, Muss 17, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 870.17 | M | Von Sokrates (870b A, Chef 10.11., 16:08): Pausezeilen Tom und Jerry so ändern, dass 870.x | wartet auf Diogenes |
+| 883 | M | D140.2 (Diogenes, 870.18): Pausezeile Jerry ohne 506.1 (steht bei Tom, gehört Jerry); star | startbar |
+| 870.17 | M | Von Sokrates (870b A, Chef 10.11., 16:08): Pausezeilen Tom und Jerry so ändern, dass 870.x | wartet auf 883 (startbar) |
 | 870.11 | M | Von Sokrates (870, Umzug BRS Schritt 9): Wächter: commit-pruefung.py prüft Code-Commits un | wartet auf Diogenes |
 | 870.12 | M | Von Sokrates (870, Umzug BRS): Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 | wartet auf 870.13 (wartet) |
 | 870.10 | M | Von Sokrates (870, Umzug BRS Schritt 8): Kotlin-Bau aus (android.yml), mit 870.9; LISTE-UM | wartet auf 870.9 (wartet) |
@@ -265,13 +266,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 879 | M | D135.1 (Diogenes, 871): „Nachfolger: – Auf Abruf (…)“ oder „–, …“ startet weiter „<Rolle> | wartet auf Diogenes |
 | 880 | M | D135.2 (Diogenes): vorgang.py neu vergab 878 zweimal (Tom 15:02:21, Diogenes 15:02:36); Zä | wartet auf Diogenes |
 | 881 | M | D139.1 (Diogenes, 866): Gegenlesen der Prüfliste ohne Weg des Entwurfs zum Gegenleser (Dat | wartet auf Diogenes |
+| 882 | M | D140.1 (Diogenes, 870.18): Kotlin-Ausstieg ohne Werkzeuge: 870.10 nennt nur android.yml; a | startbar |
 
-**Diogenes** – offen 16, Muss 15, startbar 8
+**Diogenes** – offen 14, Muss 13, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 870.18 | M | Von Sokrates (870, Chef 16:08: „ist das jetzt wirklich gecheckt und niet- und nagelfest?“) | startbar |
-| 870.17 | M | Von Sokrates (870b A, Chef 10.11., 16:08): Pausezeilen Tom und Jerry so ändern, dass 870.x | startbar |
 | 870.11 | M | Von Sokrates (870, Umzug BRS Schritt 9): Wächter: commit-pruefung.py prüft Code-Commits un | startbar |
 | 871 | M | Von Ford (10.11.): lauf.py liest „Nachfolger: –“ als Titel und startet „<Rolle> – –“; Stri | startbar |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
@@ -287,7 +287,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 771 | M | Probe 657 auswerten: Erstfunde des Chefs t272–t275 gegen 11, 11, 9, 7 (von Perikles, Werkz | wartet auf Test t275 (Chef) |
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 
-**Sokrates** – offen 49, Muss 34, startbar 27
+**Sokrates** – offen 51, Muss 36, startbar 29
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -340,11 +340,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 862 | K | Systemlösung? Umhang: 6 frühere Vorgänge (58, 488, 463, 463.1, 656 …), neu 861; einmal gru | startbar |
 | 869 | K | Systemlösung? Rüstung: 2 frühere Vorgänge (49, 817), neu 868; einmal grundsätzlich lösen? | startbar |
 | 873 | K | Systemlösung? Griff: 3 frühere Vorgänge (653, 643, 524), neu 872; einmal grundsätzlich lös | startbar |
+| 884 | M | D140.3 (Diogenes, 870.18): wartet-auf-Lücken im Umzug: 870.13 ohne 870.15, 870.2 ohne 870. | startbar |
+| 885 | M | D140.4 (Diogenes, 870.18): LISTE-UMZUG-BRS widersprüchlich: Sitzungen, Schritt 8, Risiken, | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
 Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/663-touch.md
+
+Ohne Datei: 870a (Sokrates)
 
 ## So geht's
 
