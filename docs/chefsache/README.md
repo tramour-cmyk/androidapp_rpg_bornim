@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [406.2](entscheiden/4062-schild-ruhe.md) | **Muss** | E Kampf | 10.11., 12:15 | Der gekaufte Satz kennt keine Ruhe mit gesenktem Schild: eigene Haltung mit gesenktem Schild, oder bleibt die Kampfhaltung? | Tuffy |
 | [649a](entscheiden/649a-konsolidierung.md) | **Muss** | E Technik | 10.11., 11:04 | Helfer prüfte den Plan 649 gegen den Code: tragfähig mit Änderungen; fünf Schritte, Netze zum Gegenstandskatalog, ab sofort keine neuen Werte im Code | Sokrates |
 
 ## Zu billigen
@@ -15,6 +16,12 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 Nichts offen.
 
 ## Anzusehen
+
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [506](ansehen/506-untote.md) | Wiedergänger und Grabhund im Kampf (Film) | – | 10.11., 12:15 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
@@ -153,7 +160,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | startbar |
 | 751 | M | Kampf: Knopfleiste des Helden manchmal leer („…“), keine Menüfunktion, auch ohne „ganzer B | startbar |
 | 593 | M | MARS: Ausweichen auch rückwärts als Abwechslung zu links und rechts (Chef 05.11., 19:2x) | wartet auf Test (Build 274) |
-| 406.2 | M | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) | in Arbeit bei Tuffy |
+| 406.2 | M | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) | Chef (Datei in der Chefsache) |
 | 642 | M | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 | ruht |
 | 705 | M | Zauberlehrling Stufe 1 gewinnt gegen Wolf und Rudel selten (BRS 2–30 %, Messung anspringen | startbar |
 | 806 | M | Kampforte mit den Effektpaketen schöner: Gras und Blumen aus R9, Boden, Staub; Bilder/s ni | startbar |
@@ -226,10 +233,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 845 | M? | Kampf: Krogg steht 0,65 m hinter seinem Platz, beim Planen des Helden liest seine Lage den | startbar |
 | Pflege | K | von Werkzeug (340.3, 10.11.): 18513 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 21, Muss 7, startbar 0
+**Perikles** – offen 22, Muss 8, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 853 | M | Start: Ford-Startnachricht kommt als Systemmeldung, Sitzungen verweigern die Rolle (Tom 12 | startbar |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf Diogenes |
 | 464 | M | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählu | Termin 16.11. |
 | 347.2 | M | Umsetzung Plan 347 nach Gegenprüfung (Chef 24.10., 16:30) | wartet auf 347 (startbar) |
