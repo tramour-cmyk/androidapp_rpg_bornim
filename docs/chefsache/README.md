@@ -41,7 +41,6 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [642](tun/642-kaufrepo-tuffy.md) | **Muss** | E Kampf | 09.11., 23:03 | Ohne den gekauften Wolf kann Tuffy die Behebung von 642 nicht am Rechner prüfen | Tuffy (Team Jerry) |
-| [820](tun/820-archivieren-erlauben.md) | – | B Werkzeuge | 09.11., 22:36 | `archive_session` ist vom Auto-Modus-Wächter abgelehnt („Interfere With Workloads“); ohne Archivieren geht kein Neustart. | Ford |
 
 ## Offen je Rolle
 
