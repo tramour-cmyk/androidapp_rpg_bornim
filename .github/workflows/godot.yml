@@ -381,7 +381,6 @@ jobs:
           for f in 1.0 1.3; do SCHRIFT=$f timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/abstand_536.gd 2>&1 | grep -E "ABSTAND536|FEHLER|SCRIPT ERROR" || true; done
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/ring_597.gd 2>&1 | grep -E "RING597|SCRIPT ERROR"   # 597 kein Ring ohne Ansage
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/ansage_597.gd 2>&1 | grep -E "ANSAGE597|FEHLER|SCRIPT ERROR"   # 597 t268.21 Ansage der Wölfe im Bild
-          timeout 120 ~/godot/godot --headless --path . -s res://tests/tasche_532.gd 2>&1 | tee tasche532.log | grep -E "FEHLER|TASCHE532|SCRIPT ERROR"; grep -q "^TASCHE532 ok" tasche532.log   # 532 ganze Tasche im Kampf (488)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/tempo_600.gd 2>&1 | grep -E "TEMPO600|SCRIPT ERROR"   # 600 Tempoknopf im Kampfort
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/titel_585.gd 2>&1 | grep -E "TITEL585|SCRIPT ERROR"   # 585 Titel ausgewogen umgebrochen
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/sterben_596.gd 2>&1 | grep -E "STERBEN596|SCRIPT ERROR"   # 596 Sterben gespiegelt
@@ -411,8 +410,6 @@ jobs:
           timeout 60 ~/godot/godot --headless --path . -s res://tests/masse_498.gd 2>&1 | tee masse498.log | grep -E "FEHLER|MASSE498|SCRIPT ERROR"; grep -q "^MASSE498 0 Fehler" masse498.log   # 498 Schrift wie alt
           timeout 120 ~/godot/godot --headless --path . -s res://tests/gluehwuermchen_514.gd 2>&1 | tee glueh514.log | grep -E "FEHLER|GLUEH514|SCRIPT ERROR"; grep -q "^GLUEH514 0 Fehler" glueh514.log   # 514 Gluehwuermchen wie alt
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_472.gd 2>&1 | grep -E "FALSCH|BRS472|SCRIPT ERROR"   # 472 Heldenstufe aus Erfahrung
-          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_471.gd 2>&1 | grep -E "FALSCH|BRS471|SCRIPT ERROR"   # 471 Fertigkeiten durch Tun (BRS 1.2)
-          set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/kampfuebung_471.gd 2>&1 | grep -E "FALSCH|KAMPFUEBUNG471|SCRIPT ERROR"   # 471 Uebung im Kampf, gutgeschrieben nach dem Sieg
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/textkasten_583.gd 2>&1 | grep -E "FEHLER|TEXTKASTEN583|SCRIPT ERROR"   # 583 ▼ im Rand, Erzähltes schräg (Tom)
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/flucht_591.gd 2>&1 | grep -E "^(ok|FEHLER|Flucht 591)|SCRIPT ERROR"   # 591 Huhn und Kaninchen fliehen (Tom)
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/tierlaut_591.gd 2>&1 | grep -E "^FALSCH|TIERLAUT591|SCRIPT ERROR"   # 591 Huhn und Kaninchen fliehen mit Laut (Tom)
@@ -460,7 +457,6 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/held_karte_528.gd 2>&1 | grep -E "FEHLER|HELDKARTE528|SCRIPT ERROR"   # 528 Hoechststufe, Kartenzeichen, Auf der Karte
           timeout 120 ~/godot/godot --headless --path . -s res://tests/schlagbaum_530.gd 2>&1 | tee schlagbaum530.log | grep -E "FEHLER|SCHLAGBAUM530|SCRIPT ERROR"; grep -q "^SCHLAGBAUM530 0 Fehler" schlagbaum530.log   # 530 Schlagbaum offen sichtbar
           timeout 120 ~/godot/godot --headless --path . -s res://tests/menue_breite_581.gd 2>&1 | tee breite581.log | grep -E "FEHLER|MENUEBREITE581|SCRIPT ERROR"; grep -q "^MENUEBREITE581 0 Fehler" breite581.log   # 581 Ausruestung nicht breiter als der Schirm
-          timeout 120 ~/godot/godot --headless --path . -s res://tests/fertigkeiten_762.gd 2>&1 | tee fert762.log | grep -E "FEHLER|FERTIGKEITEN762|SCRIPT ERROR"; grep -q "^FERTIGKEITEN762 0 Fehler" fert762.log   # 762 Fertigkeiten nach BRS im Heldenreiter
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/doppeltipp_605.gd 2>&1 | grep -E "^FALSCH|DOPPELTIPP605|SCRIPT ERROR"   # 605, 617 ein Tipp loest einmal aus, ein Wisch nie
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/blende_619.gd 2>&1 | grep -E "^FALSCH|BLENDE619|SCRIPT ERROR"   # 619 der Tipp auf den Aktionsknopf beendet die Blende nicht
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/obergrenze_605.gd 2>&1 | grep -E "^FALSCH|OBERGRENZE605|SCRIPT ERROR"   # 605 Obergrenze auf leerem Feld

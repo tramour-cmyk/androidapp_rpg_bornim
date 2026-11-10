@@ -552,26 +552,18 @@ func tageszeit() -> String:   # Kampfort.tageszeit: tag, abend, nacht
 	var m := zustand.minuten
 	return "nacht" if m < 6 * 60 or m >= 21 * 60 else ("abend" if m >= 18 * 60 else "tag")
 
-## 532: was der Held im Kampf benutzen kann (alt ItemKind POTION, BOMB; Battle.useItem), in dieser Folge in der Tasche des Kampforts
-const KAMPF_TASCHE := ["potion", "greater_potion", "superior_potion", "remedy", "alchemist_fire", "holy_water"]
-
 # gegner wie kampf/probe.gd FOES; [probe] (Test „MARS-Probekampf“, Skirmish.probe): Held und Soeldner [klasse, stufe] statt des eigenen
 # Helden, danach bleibt er, wie er war (kein Lohn, keine TP, kein Tod)
 func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroeffnung := "", nr := 0) -> String:
 	var hw := held_werte() if probe.is_empty() else Testmodus.probeheld(String(probe[0]), int(probe[1]))
 	var soeldner = null if probe.is_empty() else Testmodus.probeheld(String(probe[0]), int(probe[1]))
-	var erg := {"ende": "", "tp": {}, "lohn": {}, "rest": {}, "held": null}
-	# 532 (Durchspielregel 488, „532a jetzt“): die ganze Tasche in den Kampf, was sich trinken oder werfen lässt (Kampfort
-	# setup); danach wird nur weggenommen, was verbraucht ist
-	var tasche := {}
-	for id in KAMPF_TASCHE:
-		if zustand.anzahl(id) > 0: tasche[id] = zustand.anzahl(id)
+	var erg := {"ende": "", "tp": {}, "lohn": {}, "rest": zustand.anzahl("potion"), "held": null}
 	var aufruf := AufrufS.new()
 	add_child(aufruf)
 	aufruf.ende.connect(func(o, tp, lohn):
 		erg["tp"] = tp; erg["lohn"] = lohn
 		if aufruf.kampf and aufruf.kampf.mars:
-			erg["rest"] = aufruf.kampf.mars.potions.duplicate()
+			erg["rest"] = int(aufruf.kampf.mars.potions.get("potion", 0))
 			erg["held"] = aufruf.kampf.mars.find("hero")     # 532: ZP, Verbrauchtes, Zustände nach dem Kampf
 			erg["rauch"] = aufruf.kampf.mars.smoke_thrown     # 494: Morwens Rauchbündel geworfen (Battle.smokeBundle nimmt es weg)
 		erg["ende"] = String(o))
@@ -597,24 +589,12 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	if probe.is_empty(): lage["aussehen"] = zustand.aussehen   # 403 (Jerry): der Held im Kampf wie im Dorf (HeldFigur)
 	if probe.is_empty(): lage["leiden"] = zustand.leiden.duplicate()   # 532 (Jerry): Zustände aus dem letzten Kampf (GameState.ailments)
 	if probe.is_empty(): lage["betrunken"] = zustand.betrunken()   # 532 Metrausch wie alt (Battle.drunk): betrunken aus der Schenke in den Kampf
-	if probe.is_empty(): lage["tasche"] = tasche   # 532: die ganze Tasche (aufruf.gd starte)
 	if probe.is_empty(): lage["rauch"] = zustand.anzahl(Geschichte.SMOKE_BUNDLE)   # 494 (Jerry, D4.1): Morwens Rauchbündel gegen Krogg
 	if probe.is_empty(): lage["brs"] = zustand.brs   # 478 (Jerry): der Held nach BRS, wenn der Kampf nach BRS rechnet (brs_kampf.gd)
-	if probe.is_empty() and not zustand.fert.is_empty(): lage["brs_fert"] = zustand.fert["werte"]   # 471: was er seither geuebt hat
 	# 493 (Jerry): Kampfort im Wald nach dem, was um den Helden steht (wie alt BattleScene.spotFor); im Testmodus wählbar
 	lage["platz"] = Testmodus.kampfort if Testmodus.ist_an() and Testmodus.kampfort != "" else load("res://kampf/kampfort.gd").platz_fuer(karte, held.kachel)
 	var gestartet: bool = aufruf.starte(gegner, hw, soeldner, "wald", tageszeit(), zustand.anzahl("potion") if probe.is_empty() else 2, -1, -1, -1, beute, lage)
 	if probe.is_empty(): zustand.satt = false   # 399.1: Battle.wellFed endet mit dem Kampfbeginn (der Kampfort gibt +1, 399.2)
-	# 471: welche Fertigkeiten der Held im Kampf benutzt, hoert Kampfuebung mit (wie der Kampfort); gutgeschrieben am Kampfende
-	var uebung: Kampfuebung = null
-	if gestartet and probe.is_empty() and not zustand.fertigkeiten_stand().is_empty() and aufruf.kampf != null and aufruf.kampf.mars != null:
-		uebung = Kampfuebung.new()
-		var m = aufruf.kampf.mars
-		var vorher: Callable = m.listener
-		var daten := zustand.brs
-		m.listener = func(e):
-			uebung.hoere(e, m, daten)
-			if vorher.is_valid(): vorher.call(e)
 	if gestartet:
 		for we in umgebung: we.environment = null
 		visible = false; ui.visible = false
@@ -629,10 +609,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	for k in umgebung.size(): umgebung[k].environment = env_alt[k]
 	kamera.make_current()
 	visible = true; ui.visible = true
-	if probe.is_empty():
-		for id in tasche:   # 532: getrunken oder geworfen
-			var rest := int((erg["rest"] as Dictionary).get(id, tasche[id]))
-			if rest < int(tasche[id]): zustand.weg(id, int(tasche[id]) - rest)
+	if probe.is_empty() and int(erg["rest"]) < zustand.anzahl("potion"): zustand.weg("potion", zustand.anzahl("potion") - int(erg["rest"]))   # getrunken
 	if probe.is_empty() and bool(erg.get("rauch", false)) and zustand.anzahl(Geschichte.SMOKE_BUNDLE) > 0: zustand.weg(Geschichte.SMOKE_BUNDLE, 1)   # 494: geworfen
 	var lohn: Dictionary = erg["lohn"]
 	var ende := [String(erg["ende"])]
@@ -672,7 +649,6 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 		return ende[0]
 	hw.tp = clampi(tp_nach, 1, hw.max_tp())
 	if ende[0] == "WON": zustand.siege += 1   # 399.1: GameState.battlesWon (System „Siege“, Thessas Ware); zaehlte bisher nie
-	var gestiegen := fertigkeiten_nach_kampf(uebung, ende[0]) if uebung != null else ""   # 471
 	if not lohn.is_empty():
 		zustand.gold += int(lohn.get("gold", 0))
 		for d in lohn.get("items", []): zustand.dazu(String(d))   # Beute (Felle, Zaehne)
@@ -682,18 +658,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	held.setze(zurueck, blick_nach)
 	kamera.springe()
 	await abblenden(0.0)
-	if gestiegen != "": ui.kurz(gestiegen)   # 471: „Bogen ↑ 12“, wenn die Welt wieder zu sehen ist
 	return ende[0]
-
-# 471: Uebung aus dem Kampf gutschreiben (nur nach einem Sieg), Bewaehrungsprobe; die Erfahrung der Fertigkeiten geht in die Heldenstufe
-# nach BRS (zustand.brs_stufe, Stufe wie der Held, bis 472 ihn fuehrt). Gibt die Notiz „Bogen ↑ 12“ zurueck oder leer.
-func fertigkeiten_nach_kampf(u: Kampfuebung, ende: String) -> String:
-	var s := zustand.fertigkeiten_stand()
-	if s.is_empty(): return ""
-	zustand.stufe_held = held_werte().stufe
-	var ev := u.gutschreiben(ende, s, zustand.stufe_brs())
-	zustand.spiegle()
-	return Kampfuebung.notiz(ev)
 
 # ---------------------------------------------------------------- 490 Kampf mit einem Monster der Karte (Game.engage, startBattle, endBattle)
 # Die Welt ruht im Kampf; danach steht der Held, wo er stand, mit seinem Blick; das Monster ist nach dem Sieg fort (herde.gd)
@@ -819,9 +784,7 @@ func pfluecke(t: Vector2i) -> void:
 	var n := 1 + (1 if randf() < 0.3 else 0) + (1 if randf() < weise else 0)
 	zustand.dazu("herbs", n)
 	klang("effekt", ["loot"])
-	zustand.uebe("Kräuterkunde")   # 471: Pfluecken uebt Kraeuterkunde
-	var auf := zustand.fert_notiz()
-	ui.kurz(Sprache.t({"de": "Du pflückst Heilkräuter (+%d)." % n, "en": "You pick healing herbs (+%d)." % n}) + ("\n" + auf if auf != "" else ""))
+	ui.kurz(Sprache.t({"de": "Du pflückst Heilkräuter (+%d)." % n, "en": "You pick healing herbs (+%d)." % n}))
 	kraeuter_neu()
 
 func abblenden(ziel: float) -> void:
@@ -1452,8 +1415,6 @@ func oeffne_laden(waren: Array, brauen: bool) -> void:
 		laden = null
 		laden_schirm = null
 		weiter()
-		var auf := zustand.fert_notiz()   # 471: „Handeln ↑ 3“ nach dem Laden
-		if auf != "": ui.kurz(auf)
 		_steht_auf(held.kachel))
 
 func zeige_zeilen(z: Array) -> void:
