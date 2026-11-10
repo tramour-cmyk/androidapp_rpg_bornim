@@ -52,6 +52,10 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 150 · 896 Wächter und TP (Perikles, `de7ccc403`; 10.11., 23:1x)
+
+- `srd_woerter()` geladen: „TP“ nicht mehr darin, „Trefferwürfel“, „Hauptattribut“ und die Alt-Spalte von `DESIGN-BRS.md` 12 weiter; Abschnitt 12 nennt keine TP als alt („Trefferpunkte … behalten ihre Namen“), `STORY-REGELN.md` 3 („deutsch ‚TP‘“) passt. Kein anderes Werkzeug führt TP als SRD. Lücke D150.1 → 898 (Perikles): `LISTE-UMZUG-BRS.md` Schritt 8 (Zeile 144) zählt TP weiter zu den SRD-Texten. 896 wartet auf 898.
+
 ## Lauf 149 · 892 Übersicht bei Pause (Perikles, `1fd36745f`; 10.11., 17:4x)
 
 - `startbar.py --md`: Kopf Tom „startbar 1 … frei für 870.x, 506, 470, 888“, Jerry „startbar 2 … frei für …“; 680 „Pause, nicht frei“, 506, 854, 709.1 „startbar“, Sperren wie 492 unverändert. `--stand` Tom startbar 1, gesperrt 104; Bildschirm und `--liegt` unverändert richtig. **892 greift, damit auch 889** (Lauf 149).
