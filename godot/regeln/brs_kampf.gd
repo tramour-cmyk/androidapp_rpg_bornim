@@ -110,21 +110,14 @@ static func waffe_von(wsheet) -> String:
 	return BrsHeldS.WAFFE_GRUPPE.get(id, "Einhänder" if not (wsheet is Dictionary and bool(wsheet.get("ranged", false))) else "Bogen")
 
 
-## Werte eines Gegners nach dem Bestiarium „Werte 2.0“ (brs.gd monster). Abgeleitete Tiere ohne eigene Zeile (Jungwolf, Leibwache,
-## Gruppen mit fremdem Körper) nehmen die Zeile ihrer Art und tragen ihre Abweichung vom SRD-Eintrag der Art mit: Angriff je Punkt
-## auf den W20 10 Punkte, Schaden im Verhältnis der Mittel, Leben mit hp_share (Jungwolf 0,5). [m]: der Eintrag des Kämpfers,
-## [art]: der SRD-Eintrag der Art (tabellen.json) oder leer.
-static func gegner(m: Dictionary, art: Dictionary) -> Dictionary:
+## Werte eines Gegners nach dem Bestiarium „Werte 2.0“ (brs.gd monster), einzige Quelle daten/werte.json (870.3). Begleiter eines
+## Anführers (Jungwolf, Leibwache; [m] trägt „rudel“ und „anfuehrer“, aufruf.gd) nehmen Stufe, Abwehr und Rüstung ihres Körpers
+## (werte.json „merkmale“ „rudel“ „koerper“), den Angriff des Anführers plus Verschiebung, seinen Schaden mal Anteil und die Leben
+## ihres Körpers mal Anteil. [art] bleibt für die Aufrufer, bis 870.5 den SRD-Zweig streicht.
+static func gegner(m: Dictionary, art := {}) -> Dictionary:
+	if m.has("rudel"):
+		return Brs.begleiter(String(m.rudel), String(m.get("anfuehrer", "")))
 	var b := Brs.monster(String(m.get("id", ""))).duplicate()
-	if b.is_empty():
-		return {}
-	if not art.is_empty() and art != m:
-		b.angriff = float(b.angriff) + 10.0 * (float(m.get("atk", art.get("atk", 0))) - float(art.get("atk", 0)))
-		var ma := mittel(art.get("dmg"))
-		if ma > 0.0:
-			b.schaden = float(b.schaden) * mittel(m.get("dmg", art.get("dmg"))) / ma
-	if m.has("chance") and m.has("scale"):     # 399.2a Jungwolf (aufruf.gd JUNGWOLF hp_share)
-		b.leben = maxi(1, Brs.runde(float(b.leben) * 0.5))
 	return b
 
 

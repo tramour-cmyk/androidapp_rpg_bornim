@@ -103,7 +103,9 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 			var fuehrer: Dictionary = monsters.get("dire_wolf", m)
 			m.atk = int(fuehrer.atk) + int(LEIBWACHE.atk_shift)
 			m.dmg = LEIBWACHE.dmg
-			m.chance = LEIBWACHE.chance
+			m.chance = float(Brs.begleiter("Leibwache", "dire_wolf").get("chance", LEIBWACHE.chance))     # 870.3: werte.json
+			m.rudel = "Leibwache"     # 870.3: Werte nach BRS aus werte.json „merkmale“ „rudel“ (brs_kampf.gd gegner)
+			m.anfuehrer = "dire_wolf"
 			m.xp = 0     # lohn.gd zählt sie als Leibwache des Leitwolfs (xpShare), nicht einzeln
 			m.flee = LEIBWACHE.flee
 		elif ART.has(foe) and monsters.has(ART[foe]):
@@ -151,7 +153,9 @@ static func rudel(monsters: Dictionary, dice) -> Array:
 	jung.dmg = JUNGWOLF.dmg
 	jung.xp = 0     # lohn.gd zählt sie als Rudel des Wolfs (xpShare), nicht einzeln
 	jung.flee = JUNGWOLF.flee
-	jung.chance = JUNGWOLF.chance     # 399.2b (Chef 28.10., 15:32): beißt wie alt nur zu 50 % je Runde (Packs.kt cubs)
+	jung.chance = float(Brs.begleiter("Jungwolf", "wolf").get("chance", JUNGWOLF.chance))     # 399.2b (Chef 28.10., 15:32): 50 % je Runde (Packs.kt cubs); 870.3: werte.json
+	jung.rudel = "Jungwolf"     # 870.3: Werte nach BRS aus werte.json „merkmale“ „rudel“ (brs_kampf.gd gegner)
+	jung.anfuehrer = "wolf"
 	var n: int = dice.roll_expr([1, 2, 0])
 	for i in n:
 		var f = Mars.monster_fighter("cub%d" % (i + 1), [Vector2i(0, 1), Vector2i(1, 0)][i], jung, maxi(1, int(dice.roll_expr(wolf.hp) * float(JUNGWOLF.hp_share))))
@@ -232,6 +236,9 @@ func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := 
 	var monsters := {}
 	for m in tabellen.monsters:
 		monsters[m.id] = m
+		if Brs.name(String(m.id)) != "":     # 870.3: Anzeigename aus werte.json „kennungen“ ([870.15.namen.monster]), nicht SRD
+			m.de = Brs.name(String(m.id))
+			m.en = Brs.name(String(m.id), 1)
 	var party := [_kaempfer("hero", held, held_tp, Vector2i(Mars.FRONT, 0), skills)]
 	party[0].hero["look"] = lage.get("aussehen", {})     # 403: Kopf, Haar, Haut wie im Dorf (Zustand.aussehen, HeldFigur)
 	if not (lage.get("brs", {}) as Dictionary).is_empty():

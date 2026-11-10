@@ -73,8 +73,10 @@ func _lauf() -> void:
 	jung.dmg = [1, 3, 0]
 	jung.scale = 0.55
 	jung.chance = 0.5
+	jung.rudel = "Jungwolf"     # 870.3: Werte aus werte.json „merkmale“ „rudel“
+	jung.anfuehrer = "wolf"
 	var bj := BrsKampf.gegner(jung, monsters.wolf)
-	pruefe("Jungwolf: Angriff 15 − 10, Schaden 6 × 2/7, halbe Leben", is_equal_approx(float(bj.angriff), 5.0) and is_equal_approx(float(bj.schaden), 6.0 * 2.0 / 7.0) and int(bj.leben) == 12, str(bj))
+	pruefe("Jungwolf: Angriff 15 − 10, Schaden 6 × 0,29, halbe Leben", is_equal_approx(float(bj.angriff), 5.0) and is_equal_approx(float(bj.schaden), 6.0 * 0.29) and int(bj.leben) == 12, str(bj))
 	# Schlag wie Brs.schaden (gleiche Würfel in gleicher Folge)
 	var gleich := true
 	for i in 300:
