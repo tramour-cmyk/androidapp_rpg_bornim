@@ -1,7 +1,7 @@
 extends SceneTree
 # 506.1 (Chef 10.11., 12:25, Film 506: „der dritte Wiedergänger … steht ja so weit hinten … läuft ja allein schon eine halbe
 # Stunde“): am echten Kampfort, ohne Bild, drei Wiedergänger (2 vorn, 1 hinten) und einer vorn, einer hinten. Je Gegner Tempo
-# des Anmarschs, Weg bis zum Schlag und Dauer; Grenzen: langsame Gegner höchstens ANMARSCH_S + LUFT_S, die hintere Reihe bleibt
+# des Anmarschs, Weg bis zum Schlag und Dauer; Grenzen: langsame Gegner höchstens ANMARSCH_S (hinten ANMARSCH_HINTEN_S), die hintere Reihe bleibt
 # hinter der vorderen, kein Paar deckt sich am Schirm mehr als DECKUNG (wie abstand_567), Wölfe und Goblins stehen wie vorher.
 # Ohne Kaufmodelle (am Rechner) bekommen die Wiedergänger ein Probetempo PROBE_MPS, damit die Regel greift; mit Modellen das echte.
 # Aufruf: im Ordner godot mit -s res://tests/anmarsch_506_1.gd   (Exit 0 = alle Grenzen gehalten)
@@ -11,9 +11,11 @@ const Wuerfel = preload("res://regeln/wuerfel.gd")
 const Kampfort = preload("res://kampf/kampfort.gd")
 const Aufruf = preload("res://kampf/aufruf.gd")
 
-const LUFT_S := 0.3
+const ANMARSCH_S := 4.0      # vorn (gemessen mit Kaufmodell: 2,3–2,6 s)
+const ANMARSCH_HINTEN_S := 6.0     # hinten (vorher 8,2 s, Film 506)
+const REICH_M := 1.0         # Ursprung bis Mitte des Ziels beim Schlag (figur.gd _hieb, Krallen 1,3 m vor dem Ursprung, Maß gerundet)
 const DECKUNG := 0.35
-const PROBE_MPS := 0.45
+const PROBE_MPS := 0.85     # wie der gekaufte Wiedergänger im Spiel (0,82–0,88 m/s)
 const AUFSTELLUNGEN := [
 	["2 vorn, 1 hinten", [Vector2i(0, 0), Vector2i(0, 1), Vector2i(1, 0)]],
 	["1 vorn, 1 hinten", [Vector2i(0, 0), Vector2i(1, 0)]],
@@ -42,6 +44,7 @@ func _lauf() -> void:
 		await _aufstellung("WIEDERGAENGER3", a[0], a[1], true)
 		await _aufstellung("GOBLINS", a[0], a[1], false)
 		await _aufstellung("WOLVES", a[0], a[1], false)
+		await _aufstellung("SKELETONS", a[0], a[1], false)
 	print("ANMARSCH506 %d Fehler" % fehler)
 	quit(1 if fehler else 0)
 
@@ -97,7 +100,7 @@ func _aufstellung(art: String, name_: String, plaetze: Array, langsam: bool) -> 
 		fig.snap_to(neu)
 		var v: float = fig.anmarsch_mps()
 		var ab: Vector2 = kf._spot_ab(fig.fighter, plaetze[i])
-		var weg: float = Vector2(neu.x - held.x, neu.z - held.z).length() - kf.NAH_REICH_M
+		var weg: float = Vector2(neu.x - held.x, neu.z - held.z).length() - REICH_M
 		var t: float = weg / v if v > 0.0 else 0.0
 		print("  %s %s %s: Tempo %.2f m/s%s, Tiefe %.2f m, Weg %.2f m, %.1f s" % [art, name_, plaetze[i], v, " (Probe)" if probe else "", ab.x, weg, t])
 		if plaetze[i].x == Mars.FRONT:
@@ -105,11 +108,10 @@ func _aufstellung(art: String, name_: String, plaetze: Array, langsam: bool) -> 
 		else:
 			a_hinten = maxf(a_hinten, ab.x)
 		if v > 0.0 and v < kf.LANGSAM_MPS:
-			# so lang wie ANMARSCH_S, außer er steht schon so nah, wie es geht (NAH_VORN_M; hinten NAH_REIHE_M dahinter)
-			var held_a: float = kf._spot_ab(kf.figures["hero"].fighter, Vector2i(Mars.FRONT, 0)).x
-			var grenze: float = held_a + kf.NAH_VORN_M + (kf.NAH_REIHE_M if plaetze[i].x == Mars.BACK else 0.0)
-			var am_rand: bool = ab.x <= grenze + 0.01 or plaetze[i].x == Mars.BACK and ab.x <= held_a + kf.ANMARSCH_S * v + kf.NAH_REICH_M + kf.NAH_REIHE_M + 0.01
-			_pruef("%s %s %s Anmarsch" % [art, name_, plaetze[i]], t <= kf.ANMARSCH_S + LUFT_S or am_rand, "%.1f s%s" % [t, ", so nah wie es geht" if am_rand else ""])
+			var held_a: float = -(kf.FRONT_M + kf.NEAR_M)
+			var soll: float = held_a + kf.NAH_VORN_M + (kf.NAH_REIHE_M if plaetze[i].x == Mars.BACK else 0.0)
+			_pruef("%s %s %s Nahaufstellung" % [art, name_, plaetze[i]], ab.x <= soll + 0.01, "Tiefe %.2f, soll höchstens %.2f m" % [ab.x, soll])
+			_pruef("%s %s %s Anmarsch" % [art, name_, plaetze[i]], t <= (ANMARSCH_HINTEN_S if plaetze[i].x == Mars.BACK else ANMARSCH_S), "%.1f s" % t)
 		elif not langsam:
 			# Wölfe, Goblins: unverändert wie vor 506.1 (_naeher gibt die Tiefe zurück)
 			_pruef("%s %s %s unverändert" % [art, name_, plaetze[i]], kf._naeher(fig.fighter, ab, plaetze[i].x == Mars.BACK).is_equal_approx(ab))

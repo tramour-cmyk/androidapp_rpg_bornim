@@ -827,38 +827,22 @@ func _spot_ab(f, spot: Vector2i) -> Vector2:
 
 ## 506.1 (Chef 10.11., 12:25, Film 506: „der dritte Wiedergänger … steht ja so weit hinten … läuft ja allein schon eine halbe
 ## Stunde … cool, dass die so langsam gehen. Aber die müssen irgendwie dann näher am Gegner sein“): wer langsam geht (Anmarsch
-## unter LANGSAM_MPS, gemessen am Wurzelweg seines Modells), steht so viel näher am Helden, dass er in höchstens ANMARSCH_S zum
-## Schlag kommt; sein Gang bleibt langsam. Die hintere Reihe bleibt NAH_REIHE_M hinter der nächsten Stelle der vorderen, die
-## übrigen Gegner (Wölfe, Goblins) stehen wie abgenommen. Nur näher, nie weiter weg
-const LANGSAM_MPS := 0.9
-const ANMARSCH_S := 5.0       # wie der Goblin aus der hinteren Reihe (7,8 m mit gut 1,3 m/s)
-const NAH_REICH_M := 1.0      # Ursprung bis Mitte des Ziels beim Schlag (Zweibeiner, figur.gd _hieb)
+## unter LANGSAM_MPS, gemessen am Wurzelweg seines Modells: Wiedergänger 0,82–0,88 m/s, Skelett rund 1,6), steht in der
+## Nahaufstellung: vorn NAH_VORN_M (Tiefe) vor dem Helden, hinten NAH_REIHE_M dahinter; sein Gang bleibt langsam. Die übrigen
+## Gegner (Wölfe, Goblins, Skelette) stehen wie abgenommen. Nur näher, nie weiter weg
+const LANGSAM_MPS := 1.2
+const NAH_VORN_M := 3.0       # vordere Reihe: Mitte zu Mitte in der Tiefe zum Helden (vorher 3,8–4,35 m)
 const NAH_REIHE_M := 1.6       # hintere Reihe so weit hinter der vorderen (anmarsch_506_1: Deckung im Bild 32 %, bei 1,3 m 35 %)
-const NAH_VORN_M := 3.0       # vordere Reihe höchstens so weit heran (Mitte zu Mitte, in der Tiefe): Platz für Anlauf und Ausweichen
 ## 567: allein hinter zweien vorn stand er mit BACK_GAP_B −2,0 bei 3,6 m Tiefe hinter der Mitte der beiden (−0,22) im Bild mittig:
 ## je Meter Tiefe 0,49 m nach links
 const NAH_SCHRAEG := -(-0.22 - BACK_GAP_B) / (BACK_M + BACK_GAP_A - (FRONT_M + FOE_LEFT_BACK_M + FRONT_M) / 2.0)
 func _naeher(f, ab: Vector2, hinten: bool) -> Vector2:
-	if not figures.has(f.id) or f.ranged():
+	if not _langsam(f):
 		return ab
-	var v: float = figures[f.id].anmarsch_mps()
-	if v <= 0.0 or v >= LANGSAM_MPS:
-		return ab
-	var weit := ANMARSCH_S * v + NAH_REICH_M     # Mitte zu Mitte, die der Anmarsch höchstens dauern darf
 	var held_a := -(FRONT_M + NEAR_M)
-	var a := -INF     # so weit darf er stehen: zum nächsten aus der vorderen Reihe des Helden höchstens weit
-	for o in mars.fighters():
-		if o.side == "PARTY" and shown.places.has(o.id) and shown.places[o.id].x == Mars.FRONT and _present(o):
-			var h := _spot_ab(o, shown.places[o.id])
-			held_a = maxf(held_a, h.x)
-			a = maxf(a, h.x + sqrt(maxf(weit * weit - (ab.y - h.y) * (ab.y - h.y), 0.0)))
-	if a == -INF:
-		a = held_a + weit
-	a = maxf(a, held_a + NAH_VORN_M)
 	if not hinten:
-		return Vector2(minf(ab.x, a), ab.y)
-	# hintere Reihe: hinter der vordersten Stelle, die ein langsamer vorn haben kann
-	a = minf(ab.x, maxf(a, maxf(held_a + weit, held_a + NAH_VORN_M) + NAH_REIHE_M))
+		return Vector2(minf(ab.x, held_a + NAH_VORN_M), ab.y)
+	var a := minf(ab.x, held_a + NAH_VORN_M + NAH_REIHE_M)
 	# allein hinter zweien vorn (BACK_GAP_B: im Bild mittig dahinter): die Tiefe verschiebt im Bild zur Seite (Achse 30°), darum
 	# mit der kürzeren Tiefe weniger weit nach links, so dass er im Bild zwischen den beiden bleibt
 	var vorn := []
@@ -869,6 +853,13 @@ func _naeher(f, ab: Vector2, hinten: bool) -> Vector2:
 		var mitte: Vector2 = (vorn[0] + vorn[1]) / 2.0
 		return Vector2(a, mitte.y + NAH_SCHRAEG * (a - mitte.x))
 	return Vector2(a, ab.y)
+
+
+func _langsam(f) -> bool:
+	if not figures.has(f.id) or f.ranged():
+		return false
+	var v: float = figures[f.id].anmarsch_mps()
+	return v > 0.0 and v < LANGSAM_MPS
 
 
 func _alone(f, row: int, side := "") -> bool:
