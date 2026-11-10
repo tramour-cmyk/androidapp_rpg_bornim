@@ -278,3 +278,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:15 10.11.: Startsperre 19:15 Start Tom (Neustart-Meldung 19:14, f30ed3cd8)
 - 19:31 10.11.: Startsperre 19:31 Start Jerry (selbst; 709.1, Sokrates 19:30, Chef 19:29 Film nicht passt; alte Sitzung 271 Tsd. Token)
 - 19:39 10.11.: Startsperre 19:39 Start Perikles (Neustart-Meldung 19:38, c21973906)
+- 20:06 10.11.: Startsperre 20:06 Start Sokrates (Neustart-Meldung 20:05, 0ca67b8c7)
