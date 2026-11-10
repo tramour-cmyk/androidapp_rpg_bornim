@@ -252,3 +252,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:19 10.11.: Startsperre 16:19 Start Spike 470, Tuffy 506.1 (Chef 16:13 „ja, so machen“, Vorgangsarchiv 870; Auftrag über alten Ford von Sokrates; vier Entwickler zugleich erlaubt)
 - 16:19 10.11.: Startsperre 16:19 Start Tuffy (selbst; 506.1, Chef 16:13)
 - 16:33 10.11.: Startsperre 16:33 Start Homer (Neustart-Meldung 16:32, d4366bca5)
+- 16:59 10.11.: Startsperre 16:59 Start Tom, Diogenes (lauf.py)
+- 16:59 10.11.: Marke Start-fehlt Tuffy 10.11.-16:19 (lauf.py)
+- 16:59 10.11.: Marke Archiv session_01Hmoj79LgjHZ8qYJfsPz1kP (lauf.py)
