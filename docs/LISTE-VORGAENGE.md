@@ -114,6 +114,7 @@
 | 839 | Von Homer (817): Erklärtexte der Grundwerte im Reiter Held nach BRS einbauen, Texte STORY-MENUE.md [817.…]; sieben Zeilen ohne Wirkung streichen | Tom | K | ruht, bis Test 825 (620, Perikles) | – | – | – | G Story | – |
 | 842 | Von Sokrates (807a A, Chef 10.11., 11:01): Pim überreden und Verband nach STORY-K1-FERTIGKEITEN.md bauen, Knopf nennt die Fertigkeit („Schick Pim heim (Überreden)“), übt die Fertigkeit (471) | Tom | M | startbar | – | – | – | E Welt | – |
 | 852 | Von Homer (432a A, Chef 10.11., 12:05): Aschgeborene bauen: Modell Mensch mit aschgrauer Strähne und goldenem Iris-Ring (nie leuchtend), sechstes Volk in der Erschaffung (432.2, [423.volk.liste]), Zeichen am Bildrand (432.3), vorher Werte in Simulation 444; erst nach Kapitel 1 | Tom | K | ruht, bis Kapitel 1 fertig (432a A) | – | – | – | E Welt | – |
+| 854 | Gebaute Kaufmodelle im Kaufrepo ablegen, nur bei Änderung neu bauen statt je Sitzung über 20 Min. (Chef 10.11., 12:34: ja) · „jetzt“ 10.11., 12:45 | Jerry | M | startbar | – | – | – | E Technik | – |
 | 709 | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angreifer prüfen (Chef 08.11., 21:36, über Sokrates) | Jerry | M | in Arbeit, Held fertig, Biss offen | – | claude/jerry-709-treffen | – | E Kampf | 18,32 $ |
 | 751 | Kampf: Knopfleiste des Helden manchmal leer („…“), keine Menüfunktion, auch ohne „ganzer Bericht“ (Chef 09.11., 14:00, Fund t271, Bild Wolfsrudel) | Jerry | M | startbar, 751 A (Chef 17:46) | – | claude/jerry-717-rueckwaerts | – | E Oberfläche | – |
 | 593 | MARS: Ausweichen auch rückwärts als Abwechslung zu links und rechts (Chef 05.11., 19:2x) | Jerry | M | zu testen | – | claude/jerry-593-ausweichen | 274 | E Kampf | – |
@@ -189,7 +190,6 @@
 | 844 | Kampf: Goblins und Kobolde haben keine Angriffsbewegung (nur Gehen, Stehen), gleiten im Stehen 60 % des Wegs vor, Treffer ohne Schlag (treffen_709, aus 709) | Jerry | M? | startbar | – | – | – | E Kampf | – |
 | 845 | Kampf: Krogg steht 0,65 m hinter seinem Platz, beim Planen des Helden liest seine Lage den Platz (Held schlägt 0,5 m zu kurz), Sprung 0,5 m im Stehen (treffen_709, aus 709) | Jerry | M? | startbar | – | – | – | E Kampf | – |
 | Pflege | von Werkzeug (340.3, 10.11.): 18513 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
-| 854 | Gebaute Kaufmodelle im Kaufrepo ablegen, nur bei Änderung neu bauen statt je Sitzung über 20 Min. (Chef 10.11., 12:34: ja) | Jerry | M? | startbar | – | – | – | E Technik | – |
 | 432 | Eigenes Volk aus Bornim (etwa mit dem Grauen Propheten, „Tag der Asche“) prüfen, mit der Geschichte ab Kapitel 2 (Chef 31.10., 22:0x) | Homer | K | erledigt | – | – | – | G Story | 0,79 $ |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
