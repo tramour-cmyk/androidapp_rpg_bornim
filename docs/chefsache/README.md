@@ -226,7 +226,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 841 | M | Von Sokrates (807a A, Chef 10.11., 11:01): Goblin-Späher einschüchtern nach STORY-K1-FERTI | startbar |
 | 844 | M? | Kampf: Goblins und Kobolde haben keine Angriffsbewegung (nur Gehen, Stehen), gleiten im St | startbar |
 | 845 | M? | Kampf: Krogg steht 0,65 m hinter seinem Platz, beim Planen des Helden liest seine Lage den | startbar |
-| Pflege | K | von Werkzeug (340.3, 10.11.): 18311 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 10.11.): 18513 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 21, Muss 7, startbar 0
 
