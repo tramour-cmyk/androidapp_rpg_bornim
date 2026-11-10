@@ -52,6 +52,10 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 149 · 892 Übersicht bei Pause (Perikles, `1fd36745f`; 10.11., 17:4x)
+
+- `startbar.py --md`: Kopf Tom „startbar 1 … frei für 870.x, 506, 470, 888“, Jerry „startbar 2 … frei für …“; 680 „Pause, nicht frei“, 506, 854, 709.1 „startbar“, Sperren wie 492 unverändert. `--stand` Tom startbar 1, gesperrt 104; Bildschirm und `--liegt` unverändert richtig. **892 greift, damit auch 889** (Lauf 149).
+
 ## Lauf 148 · 890, 891 Commit-Prüfung tun/ und ansehen/, LIEGT; 889, 870.17 (Perikles, `2f825ab1f`, `571549338`; 10.11., 17:4x)
 
 - 890, Probe in einer Kopie von `origin/main`: Löschen von `entscheiden/854a-kaufcache-mischen.md` (Fassung vor `84d3f4897`, „**Was du tust:** (2) …“) ohne `tun/` hält an, mit neuer `tun/854a-token.md` oder `BORNIM_GETAN=1` nicht; „Was du tust: –“ hält nicht. `ansehen/663-touch.md` (Fassung vor `9fbc81d79`) hält an; mit Frage oder `![…](….webp)` nicht; „?“ nur in einem Link zählt nicht als Frage; `t280-…` ausgenommen. **890 greift** (Lauf 148).
