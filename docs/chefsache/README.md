@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [709b](entscheiden/709b-wolfsbiss-schild.md) | **Muss** | E Kampf | 10.11., 17:00 | Unter dem Schild durch geht nicht, der Schild reicht bis 0,56 m herab; seitlich ins freie Bein, Schild beim Treffer beiseite oder Biss in den Schildrand? | Jerry |
 
 ## Zu billigen
 
@@ -34,7 +38,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 888 | M | Sammelbuild vor dem Umzug 870: 663, 653, 470, 506.1, 709, 506 (und was sonst gebaut ist), | wartet auf 709 (startbar) |
+| 888 | M | Sammelbuild vor dem Umzug 870: 663, 653, 470, 506.1, 709, 506 (und was sonst gebaut ist), | wartet auf 709 (wartet) |
 | 653 | M | Halt für Waffen und Schilde einmal je Modell festlegen statt je Figur nachmessen: Griffpun | wartet auf Test/Build (gebaut) |
 | 663 | M | Klassische Steuerung ausbauen: Steuerkreuz und Funktionstasten ganz raus, nur Touch; Auswa | wartet auf Test/Build (gebaut) |
 | 470 | M | Bau BRS 1.1 Erschaffung (Wochenziel 02.11., Stufe 1) · Spike (Chef 16:13), mischen vor 506 | wartet auf Test/Build (gebaut) |
@@ -140,12 +144,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 875 | M | Von Homer (857a A, Chef 10.11., 13:35): Fertigkeit Kräuterkunde heißt im Spiel Kräutersamm | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 470 (erschaffung) |
 | Pflege | K | von Werkzeug (340.3, 10.11.): 17451 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 83, Muss 69, startbar 30, PAUSE bis 13.11., 20:00 Uhr
+**Jerry** – offen 83, Muss 69, startbar 29, PAUSE bis 13.11., 20:00 Uhr
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 854 | M | Gebaute Kaufmodelle im Kaufrepo ablegen, nur bei Änderung neu bauen statt je Sitzung über | startbar |
-| 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | startbar |
+| 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | Chef (Datei in der Chefsache) |
 | 870.2 | M | Von Sokrates (870, Umzug BRS Schritt 2): Schnittstelle Held ↔ Kampf: BrsHeld.kampfblatt() | wartet auf 888 (wartet) |
 | 870.3 | M | Von Sokrates (870, Umzug BRS Schritt 3): Daten: werte.json einzige Quelle (Jungwolf, Leibw | wartet auf 888 (wartet) |
 | 870.5 | M | Von Sokrates (870, Umzug BRS Schritt 5): Kampf nur BRS: Schalter, SRD-Zweige, W20 weg; Pro | wartet auf 870.2 (wartet) |
