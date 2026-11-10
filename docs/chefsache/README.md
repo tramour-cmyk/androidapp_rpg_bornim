@@ -222,7 +222,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 876 | M | Von Homer (857a A, Chef 10.11., 13:35): Simulation 444 Kräuterkunde → Kräutersammeln, Tran | startbar |
 | Pflege | K | von Werkzeug (340.3, 10.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 
-**Perikles** – offen 26, Muss 12, startbar 1
+**Perikles** – offen 27, Muss 13, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -252,12 +252,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 859 | M | D130.1 (Diogenes, 849): Nachfolger nennt die letzte Antwort nicht; Regel steht nur beim Vo | wartet auf Diogenes |
 | 866 | M | Von Sokrates (620, Lagebild t274): Prüfliste geht nur gegengelesen raus; Wächter statt Abs | wartet auf Diogenes |
 | 874 | K | Von Sokrates (653, Chef 10.11., 12:27): jede Jerry-Sitzung baut die Kaufmodelle neu (bpy, | startbar |
+| 877 | M | D134.1 (Diogenes, 870.1): commit-pruefung.py endet bei Code-Commits in Zeile 187, die Kern | startbar |
 
-**Diogenes** – offen 16, Muss 15, startbar 8
+**Diogenes** – offen 15, Muss 14, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 870.1 | M | Von Sokrates (870, Chef 14:08 „dein Plan irgendwer gegenlesen“): Master-Umzugsplan BRS LIS | startbar |
 | 871 | M | Von Ford (10.11.): lauf.py liest „Nachfolger: –“ als Titel und startet „<Rolle> – –“; Stri | startbar |
 | 865 | M | Von Sokrates (Chef 10.11., 13:34): kein Neustart einer Sitzung mitten im Test des Chefs; N | startbar |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
