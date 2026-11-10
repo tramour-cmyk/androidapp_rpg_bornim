@@ -287,3 +287,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:07 10.11.: Marke Archiv session_01Hmoj79eGuPAWDDmMjhL18W (lauf.py)
 - 20:09 10.11.: Lauf 20:07: START Tom 888, Diogenes 893 (Kür), Perikles „M?“, Tuffy 870.3 nicht ausgeführt (Tom-888-Sitzung läuft/wartet, Kür, Planfehler, Tuffy nur auf Chef-Wort); Wächter 888 und 264 ausgeführt
 - 20:09 10.11.: Startsperre 20:09 Start Ford (selbst; Selbstneustart, 360 Tsd. Token)
+- 20:21 10.11.: Startsperre 20:21 Start Jerry (Neustart-Meldung 20:20, a33607e39)
