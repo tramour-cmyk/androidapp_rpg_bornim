@@ -223,11 +223,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 876 | M | Von Homer (857a A, Chef 10.11., 13:35): Simulation 444 Kräuterkunde → Kräutersammeln, Tran | startbar |
 | Pflege | K | von Werkzeug (340.3, 10.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 
-**Perikles** – offen 27, Muss 13, startbar 2
+**Perikles** – offen 29, Muss 15, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 871 | M | Von Ford (10.11.): lauf.py liest „Nachfolger: –“ als Titel und startet „<Rolle> – –“; Stri | wartet auf Diogenes |
+| 871 | M | Von Ford (10.11.): lauf.py liest „Nachfolger: –“ als Titel und startet „<Rolle> – –“; Stri | wartet auf 879 (startbar) |
 | 865 | M | Von Sokrates (Chef 10.11., 13:34): kein Neustart einer Sitzung mitten im Test des Chefs; N | wartet auf Diogenes |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf Diogenes |
 | 464 | M | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählu | Termin 16.11. |
@@ -254,12 +254,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 866 | M | Von Sokrates (620, Lagebild t274): Prüfliste geht nur gegengelesen raus; Wächter statt Abs | wartet auf Diogenes |
 | 874 | K | Von Sokrates (653, Chef 10.11., 12:27): jede Jerry-Sitzung baut die Kaufmodelle neu (bpy, | startbar |
 | 877 | M | D134.1 (Diogenes, 870.1): commit-pruefung.py endet bei Code-Commits in Zeile 187, die Kern | startbar |
+| 879 | M | D135.1 (Diogenes, 871): „Nachfolger: – Auf Abruf (…)“ oder „–, …“ startet weiter „<Rolle> | startbar |
+| 880 | M | D135.2 (Diogenes): vorgang.py neu vergab 878 zweimal (Tom 15:02:21, Diogenes 15:02:36); Zä | startbar |
 
-**Diogenes** – offen 15, Muss 14, startbar 7
+**Diogenes** – offen 14, Muss 13, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 871 | M | Von Ford (10.11.): lauf.py liest „Nachfolger: –“ als Titel und startet „<Rolle> – –“; Stri | startbar |
 | 865 | M | Von Sokrates (Chef 10.11., 13:34): kein Neustart einer Sitzung mitten im Test des Chefs; N | startbar |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
 | 848 | M | Probelauf-Zähler zählt Push, der nur vorschau.yml (Kotlin, ohne Bild) auslöst, als Probe ( | startbar |
