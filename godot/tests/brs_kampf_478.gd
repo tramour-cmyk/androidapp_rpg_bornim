@@ -16,7 +16,7 @@ const KAEMPFE := 300
 const GRENZE_QUOTE := 0.2
 ## Simulation (sim.py kampf, Held mit 21 Punkten, Stufe 1, Startfertigkeiten), Siegquote je Gruppe des Probekampfs
 const SOLL := {
-	"FIGHTER": {"RATTE": 1.0, "BOARS": 1.0, "CENTIPEDES": 1.0, "FLEDERMAUS": 1.0, "SPINNE": 0.18, "KROGG": 0.01, "GRAK": 0.0, "LEECHES": 1.0, "SLUGS": 0.03},
+	"FIGHTER": {"RATTE": 1.0, "BOARS": 1.0, "CENTIPEDES": 1.0, "FLEDERMAUS": 1.0, "SPINNE": 0.18, "KROGG": 0.01, "GRAK": 0.0, "LEECHES": 1.0, "SLUGS": 0.72},     # 870.5: Schleim widersteht Klingen nicht mehr (Bestiarium 870a 8), sim.py neu 0,72
 	"ROGUE": {"RATTE": 1.0, "BOARS": 1.0, "CENTIPEDES": 1.0, "FLEDERMAUS": 0.41, "SPINNE": 0.02, "KROGG": 0.0, "GRAK": 0.0, "LEECHES": 1.0, "SLUGS": 0.07},
 	"WIZARD": {"RATTE": 1.0, "BOARS": 1.0, "CENTIPEDES": 1.0, "FLEDERMAUS": 0.5, "SPINNE": 0.02, "KROGG": 0.0, "GRAK": 0.0, "LEECHES": 1.0, "SLUGS": 0.08},
 	"CLERIC": {"RATTE": 1.0, "BOARS": 1.0, "CENTIPEDES": 1.0, "FLEDERMAUS": 0.99, "SPINNE": 0.1, "KROGG": 0.01, "GRAK": 0.0, "LEECHES": 1.0, "SLUGS": 0.65},

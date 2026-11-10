@@ -38,6 +38,7 @@ func _initialize() -> void:
 	_abstand()
 	_griff()
 	_zauber()
+	_schwaechen()
 	print("HANDLUNGEN870 %s" % ("gut" if fehler == 0 else "%d FALSCH" % fehler))
 	quit(1 if fehler > 0 else 0)
 
@@ -315,3 +316,28 @@ func _zauber() -> void:
 	pruefe("nach dem Kampf zurück in Zauberpunkte", Mars.sp_nach(wh) == 0)
 	wh.sp = wh.max_sp
 	pruefe("volles Mana = volle Zauberpunkte", Mars.sp_nach(wh) == 10)
+
+
+## 870.5 (870a 8 A): Schwäche, Stärke, immun nach Schadensart, Zeile einmal je Art, Wort im Kasten
+func _schwaechen() -> void:
+	var m = _kampf("Einhänder", {"Evokation": 25}, ["wolf"])
+	m.start()
+	var h = m.by_id("hero")
+	var zeilen := []
+	var kasten := []
+	m.listener = func(e):
+		if String(e.text).contains("verwundbar"):
+			zeilen.append(e.text)
+		if e.roll != null and Mars.ist_angriff(e.roll) and e.roll[4]:
+			kasten.append(e.roll.size() > 8 and float(e.roll[8]) == 1.5)
+	Mars.gegner_ohne_rettung = true
+	for i in 3:
+		m._brs_zauber(h, m.by_id("f0"), BrsKampf.w()["zauber"]["Funkenpfeil"])
+	Mars.gegner_ohne_rettung = false
+	pruefe("Wolf verwundbar gegen Feuer: eine Zeile bei drei Treffern", zeilen.size() == 1, str(zeilen))
+	pruefe("Wolf verwundbar: Faktor 1,5 im Kasten jedes Treffers", kasten.size() == 3 and not kasten.has(false), str(kasten))
+	var x = _kampf("Einhänder", {"Einhänder": 25}, ["skeleton"])
+	x.start()
+	var info := []
+	pruefe("Skelett: Stich halb, Wucht anderthalb, Gift nichts", x._schwaeche(x.by_id("hero"), x.by_id("f0"), "stich", info) == 0.5
+			and x._schwaeche(x.by_id("hero"), x.by_id("f0"), "wucht", info) == 1.5 and x._schwaeche(x.by_id("hero"), x.by_id("f0"), "gift", info) == 0.0)

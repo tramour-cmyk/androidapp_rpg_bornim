@@ -2060,6 +2060,8 @@ func _roll_tag(sr: Rect2, fig, r: Array, actor_id, alpha: float) -> void:
 	# 868 (870.14 Kasten): nur Ergebnis und Trefferchance, kein Wurf; Gunst oder Ungunst dahinter
 	var res := t("kritisch", "Critical") if (hit and r.size() > 7 and r[7]) else (t("Treffer", "Hit") if hit else t("daneben", "Miss"))
 	var gunst := t(" mit Gunst", " with favor") if int(r[5]) > 0 else (t(" mit Ungunst", " at disfavor") if int(r[5]) < 0 else "")
+	if hit and r.size() > 8:     # 870.5: Schwäche oder Stärke ([870.14.kasten.schwach], [870.14.kasten.stark])
+		res += t(" · verwundbar", " · vulnerable") if float(r[8]) > 1.0 else t(" · widersteht", " · resists")
 	var txt: String = res + (" · %d %%" if lang == 0 else " · %d%%") % int(r[3]) + gunst
 	var w := minf(340 * dp, sr.size.x - 8 * dp)
 	var tw := font.get_string_size(txt, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x + 16 * dp

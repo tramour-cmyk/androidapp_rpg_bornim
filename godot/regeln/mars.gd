@@ -18,6 +18,13 @@ static var held_unsterblich := false
 ## 399.2b (Homer [399.2b.knurrt]): die Zeile im Zug, wenn ein Jungwolf nur knurrt; gibt es im alten MARS nicht, darum nicht in mars_texte.gd
 ## Battle.kt Msg.fed (399.2, satt)
 const MSG399_FED := ["{0} ist gut gestärkt: trifft leichter und schlägt härter.", "{0} is well fed: lands blows more easily and hits harder."]     # [870.14.satt]
+## 870.5 (870a 8 A): Schadensarten und die Zeilen beim ersten Treffer (Homer STORY-BRS-HELD.md [870.14.schwach], [870.14.stark],
+## [870.14.immun]; Namen [870.14.namen], englisch im Satz klein)
+const SCHADENSART := {"schnitt": ["Schnitt", "slash"], "stich": ["Stich", "pierce"], "wucht": ["Wucht", "crush"], "feuer": ["Feuer", "fire"],
+	"gift": ["Gift", "poison"], "saeure": ["Säure", "acid"], "licht": ["Licht", "light"]}
+const MSG870_SCHWACH := ["{0} ist verwundbar gegen {1}!", "{0} is vulnerable to {1}!"]
+const MSG870_STARK := ["{1} richtet bei {0} wenig aus.", "{1} does little against {0}."]
+const MSG870_IMMUN := ["{1} prallt an {0} ab.", "{1} has no effect on {0}."]
 ## [870.14.kraft.schoepfen]
 const MSG870_KRAFT := ["{0} schöpft Kraft: +{1} TP.", "{0} draws strength: +{1} HP."]
 const MSG399_GROWLS := [["{0} knurrt, wagt aber keinen Biss.", "{0} snarls but dares no bite."],
@@ -339,6 +346,8 @@ var outcome := "ONGOING"
 var opening := "NORMAL"
 ## 534: wer seine Unerbittlichkeit in diesem Kampf schon gebraucht hat (alt Battle.relentlessUsed)
 var relentless_used := {}
+## 870.5: welche Schwäche oder Stärke (Gegnerart|Schadensart) schon genannt ist
+var schwaeche_gesagt := {}
 ## 506: der laufende Schlag des Helden ist ein Krit (Untotenzähigkeit hält dann nicht); vor _hurt gesetzt, danach zurück
 var krit_jetzt := false
 var surprised := {}
@@ -2019,9 +2028,9 @@ func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapo
 	if not hit:
 		_say(fmt(wolf(f, "MSG279_WOLFMISSES", "MSG72_MISSES"), lang, [f.name(lang), t.name(lang)]), f.id, t.id, 0, info)
 		return
-	var dmg := float(e.schaden) * float(t.b.get("schwaeche", {}).get(String(wd.get("typ", "")), 1.0))
-	var n := roundi(dmg)
-	n = maxi(0, n - _srd(t, _weakness(f)) + _srd(t, _fed(f)))
+	var schw := _schwaeche(f, t, wd.get("typ"), info)     # 870.5 (870a 8 A)
+	var n := roundi(float(e.schaden) * schw)
+	n = maxi(0, n - _srd(t, _weakness(f)) + (_srd(t, _fed(f)) if schw > 0.0 else 0))
 	_hurt(t, n, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), n]), info, true)
 	_life_steal(f, n)
 	if not statuses or outcome != "ONGOING" or not t.standing():
@@ -2053,10 +2062,27 @@ func _brs_zauber(f: Fighter, t: Fighter, z: Dictionary) -> void:
 	if not e.treffer:
 		_say(fmt(wolf(f, "MSG279_WOLFMISSES", "MSG72_MISSES"), lang, [f.name(lang), t.name(lang)]), f.id, t.id, 0, info)
 		return
-	var typ = z.get("typ")
-	var schw := float(t.b.get("schwaeche", {}).get(String(typ), 1.0)) if typ != null else 1.0
-	var n := maxi(0, roundi(float(e.schaden) * schw) + _srd(t, _fed(f)))
+	var schw := _schwaeche(f, t, z.get("typ"), info)     # 870.5 (870a 8 A)
+	var n := maxi(0, roundi(float(e.schaden) * schw) + (_srd(t, _fed(f)) if schw > 0.0 else 0))
 	_hurt(t, n, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), n]), info)
+
+
+## 870.5 (870a 8 A, LISTE-BESTIARIUM.md): Faktor der Schadensart [typ] gegen [t] (Schwäche 1,5, Stärke 0,5, immun 0, werte.json
+## „schwaeche“); beim ersten Treffer dieser Art auf diese Gegnerart eine Zeile (Homer [870.14.schwach] …), im Kasten ein Wort
+func _schwaeche(f: Fighter, t: Fighter, typ, info: Array) -> float:
+	if typ == null or String(typ) == "":
+		return 1.0
+	var x := float(t.b.get("schwaeche", {}).get(String(typ), 1.0))
+	if x == 1.0:
+		return x
+	info.append(x)
+	var k := art_of(t.monster) + "|" + String(typ)
+	if not schwaeche_gesagt.has(k):
+		schwaeche_gesagt[k] = true
+		var name: Array = SCHADENSART.get(String(typ), [String(typ), String(typ)])
+		var satz: Array = MSG870_SCHWACH if x > 1.0 else (MSG870_STARK if x > 0.0 else MSG870_IMMUN)
+		_say(fmt(satz, lang, [t.name(lang), name[lang]]), f.id, t.id)
+	return x
 
 
 ## 870.5: Beistand: Prozentpunkte auf die eigene Trefferchance, solange er wirkt

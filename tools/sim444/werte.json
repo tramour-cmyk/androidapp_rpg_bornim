@@ -105,15 +105,15 @@
 
   "waffen": {
     "_quelle": "N 4: Grundschaden und Grundwert; Klingen fuer Schleim-Widerstand A",
-    "Faustkampf":   {"schaden": 2,  "grundwert": "kraft",       "art": "nah",  "typ": "stumpf"},
-    "Dolche":       {"schaden": 4,  "grundwert": "gewandtheit", "art": "nah",  "typ": "klinge"},
-    "Wurfwaffen":   {"schaden": 4,  "grundwert": "gewandtheit", "art": "fern", "typ": "klinge"},
-    "Einhänder":    {"schaden": 6,  "grundwert": "kraft",       "art": "nah",  "typ": "klinge"},
-    "Stumpfe Waffen": {"schaden": 6, "grundwert": "kraft",      "art": "nah",  "typ": "stumpf"},
+    "Faustkampf":   {"schaden": 2,  "grundwert": "kraft",       "art": "nah",  "typ": "wucht"},
+    "Dolche":       {"schaden": 4,  "grundwert": "gewandtheit", "art": "nah",  "typ": "stich"},
+    "Wurfwaffen":   {"schaden": 4,  "grundwert": "gewandtheit", "art": "fern", "typ": "stich"},
+    "Einhänder":    {"schaden": 6,  "grundwert": "kraft",       "art": "nah",  "typ": "schnitt"},
+    "Stumpfe Waffen": {"schaden": 6, "grundwert": "kraft",      "art": "nah",  "typ": "wucht"},
     "Bogen":        {"schaden": 6,  "grundwert": "gewandtheit", "art": "fern", "typ": "stich"},
-    "Stangenwaffen":{"schaden": 8,  "grundwert": "kraft",       "art": "nah",  "typ": "klinge"},
+    "Stangenwaffen":{"schaden": 8,  "grundwert": "kraft",       "art": "nah",  "typ": "stich"},
     "Armbrust":     {"schaden": 8,  "grundwert": null,          "art": "fern", "typ": "stich"},
-    "Zweihänder":   {"schaden": 10, "grundwert": "kraft",       "art": "nah",  "typ": "klinge"}
+    "Zweihänder":   {"schaden": 10, "grundwert": "kraft",       "art": "nah",  "typ": "schnitt"}
   },
 
   "zauber": {
@@ -206,22 +206,23 @@
   },
 
   "monster": {
+    "_schwaeche": "870.5 (870a 8 A, LISTE-BESTIARIUM.md): Schwaeche x1,5, Staerke x0,5, immun 0 je Schadensart (schnitt, stich, wucht, feuer, gift, saeure, licht); Waffen tragen ihre Art (Dolche, Speere, Boegen stechen, Schwerter schneiden, Stumpfes und Faust wucht), A",
     "_quelle": "B 'Werte 2.0' (427, Chef 02.11., 18:54; Krogg, Grimmzahn vorlaeufig bis 427.1); art nah/fern/zauber und Schwaechen A nach B-Spalte 'Angriff' und Hinweis Schwaechen +-50 %",
-    "Riesenratte":        {"stufe": 1, "leben": 20, "ruestung": 1, "schaden": 3,  "angriff": 10, "abwehr": 5,  "wachsamkeit": 10, "art": "nah", "gebiet": ["Wald", "Höhle"]},
+    "Riesenratte":        {"stufe": 1, "leben": 20, "ruestung": 1, "schaden": 3,  "angriff": 10, "abwehr": 5,  "wachsamkeit": 10, "art": "nah", "gebiet": ["Wald", "Höhle"], "schwaeche": {"feuer": 1.5}},
     "Kobold":             {"stufe": 1, "leben": 24, "ruestung": 1, "schaden": 3,  "angriff": 10, "abwehr": 5,  "wachsamkeit": 0,  "art": "nah", "gebiet": ["Wald", "Tiefer Wald"]},
-    "Blutflügler":        {"stufe": 1, "leben": 18, "ruestung": 2, "schaden": 3,  "angriff": 15, "abwehr": 9,  "wachsamkeit": 0,  "art": "nah", "gebiet": ["Wald", "Tiefer Wald"]},
-    "Wolf":               {"stufe": 2, "leben": 25, "ruestung": 1, "schaden": 6,  "angriff": 15, "abwehr": 12, "wachsamkeit": 30, "art": "nah", "gebiet": ["Wald", "Tiefer Wald"]},
-    "Wildschwein":        {"stufe": 2, "leben": 29, "ruestung": 0, "schaden": 3,  "angriff": 10, "abwehr": 8,  "wachsamkeit": 10, "art": "nah", "gebiet": ["Wald", "Tiefer Wald"]},
-    "Riesen-Hundertfüßer":{"stufe": 2, "leben": 22, "ruestung": 1, "schaden": 3,  "angriff": 15, "abwehr": 12, "wachsamkeit": 0,  "art": "nah", "gebiet": ["Wald", "Tiefer Wald"]},
+    "Blutflügler":        {"stufe": 1, "leben": 18, "ruestung": 2, "schaden": 3,  "angriff": 15, "abwehr": 9,  "wachsamkeit": 0,  "art": "nah", "gebiet": ["Wald", "Tiefer Wald"], "schwaeche": {"feuer": 1.5}},
+    "Wolf":               {"stufe": 2, "leben": 25, "ruestung": 1, "schaden": 6,  "angriff": 15, "abwehr": 12, "wachsamkeit": 30, "art": "nah", "gebiet": ["Wald", "Tiefer Wald"], "schwaeche": {"feuer": 1.5}},
+    "Wildschwein":        {"stufe": 2, "leben": 29, "ruestung": 0, "schaden": 3,  "angriff": 10, "abwehr": 8,  "wachsamkeit": 10, "art": "nah", "gebiet": ["Wald", "Tiefer Wald"], "schwaeche": {"stich": 1.5, "schnitt": 0.5}},
+    "Riesen-Hundertfüßer":{"stufe": 2, "leben": 22, "ruestung": 1, "schaden": 3,  "angriff": 15, "abwehr": 12, "wachsamkeit": 0,  "art": "nah", "gebiet": ["Wald", "Tiefer Wald"], "schwaeche": {"wucht": 1.5, "stich": 0.5}},
     "Goblin":             {"stufe": 2, "leben": 18, "ruestung": 2, "schaden": 5,  "angriff": 15, "abwehr": 16, "wachsamkeit": 10, "art": "nah", "gebiet": ["Wald", "Tiefer Wald", "Höhle"]},
     "Goblin-Späher":      {"stufe": 2, "leben": 22, "ruestung": 1, "schaden": 5,  "angriff": 15, "abwehr": 12, "wachsamkeit": 20, "art": "fern", "gebiet": ["Wald", "Tiefer Wald", "Höhle"]},
-    "Skelett":            {"stufe": 2, "leben": 36, "ruestung": 1, "schaden": 5,  "angriff": 15, "abwehr": 12, "wachsamkeit": 10, "art": "nah", "gebiet": ["Wald", "Tiefer Wald", "Höhle"], "schwaeche": {"stumpf": 1.5}},
-    "Zombie":             {"stufe": 2, "leben": 44, "ruestung": 0, "schaden": 3,  "angriff": 10, "abwehr": 2,  "wachsamkeit": 0,  "art": "nah", "gebiet": ["Wald", "Tiefer Wald", "Höhle"]},
-    "Riesenfledermaus":   {"stufe": 3, "leben": 46, "ruestung": 1, "schaden": 5,  "angriff": 20, "abwehr": 17, "wachsamkeit": 40, "art": "nah", "gebiet": ["Wald", "Tiefer Wald", "Höhle"]},
-    "Goblin-Schamane":    {"stufe": 3, "leben": 29, "ruestung": 1, "schaden": 4,  "angriff": 15, "abwehr": 15, "wachsamkeit": 50, "art": "zauber", "gebiet": ["Tiefer Wald", "Höhle"]},
-    "Riesenspinne":       {"stufe": 4, "leben": 43, "ruestung": 2, "schaden": 7,  "angriff": 25, "abwehr": 24, "wachsamkeit": 40, "art": "nah", "gebiet": ["Tiefer Wald", "Höhle"]},
-    "Ghul":               {"stufe": 4, "leben": 37, "ruestung": 1, "schaden": 6,  "angriff": 25, "abwehr": 20, "wachsamkeit": 40, "art": "nah", "gebiet": ["Tiefer Wald", "Höhle"]},
-    "Ockerschleim":       {"stufe": 5, "leben": 44, "ruestung": 0, "schaden": 5,  "angriff": 30, "abwehr": 17, "wachsamkeit": 10, "art": "nah", "gebiet": ["Höhle"], "schwaeche": {"klinge": 0.5}},
+    "Skelett":            {"stufe": 2, "leben": 36, "ruestung": 1, "schaden": 5,  "angriff": 15, "abwehr": 12, "wachsamkeit": 10, "art": "nah", "gebiet": ["Wald", "Tiefer Wald", "Höhle"], "schwaeche": {"wucht": 1.5, "stich": 0.5, "gift": 0}},
+    "Zombie":             {"stufe": 2, "leben": 44, "ruestung": 0, "schaden": 3,  "angriff": 10, "abwehr": 2,  "wachsamkeit": 0,  "art": "nah", "gebiet": ["Wald", "Tiefer Wald", "Höhle"], "schwaeche": {"feuer": 1.5, "gift": 0}},
+    "Riesenfledermaus":   {"stufe": 3, "leben": 46, "ruestung": 1, "schaden": 5,  "angriff": 20, "abwehr": 17, "wachsamkeit": 40, "art": "nah", "gebiet": ["Wald", "Tiefer Wald", "Höhle"], "schwaeche": {"stich": 1.5}},
+    "Goblin-Schamane":    {"stufe": 3, "leben": 29, "ruestung": 1, "schaden": 4,  "angriff": 15, "abwehr": 15, "wachsamkeit": 50, "art": "zauber", "gebiet": ["Tiefer Wald", "Höhle"], "schwaeche": {"stich": 1.5, "feuer": 0.5}},
+    "Riesenspinne":       {"stufe": 4, "leben": 43, "ruestung": 2, "schaden": 7,  "angriff": 25, "abwehr": 24, "wachsamkeit": 40, "art": "nah", "gebiet": ["Tiefer Wald", "Höhle"], "schwaeche": {"feuer": 1.5, "gift": 0.5}},
+    "Ghul":               {"stufe": 4, "leben": 37, "ruestung": 1, "schaden": 6,  "angriff": 25, "abwehr": 20, "wachsamkeit": 40, "art": "nah", "gebiet": ["Tiefer Wald", "Höhle"], "schwaeche": {"licht": 1.5, "gift": 0}},
+    "Ockerschleim":       {"stufe": 5, "leben": 44, "ruestung": 0, "schaden": 5,  "angriff": 30, "abwehr": 17, "wachsamkeit": 10, "art": "nah", "gebiet": ["Höhle"], "schwaeche": {"feuer": 1.5, "saeure": 0}},
     "Krogg":              {"stufe": 4, "leben": 55, "ruestung": 2, "schaden": 7,  "angriff": 20, "abwehr": 28, "wachsamkeit": 60, "art": "nah", "gebiet": ["Höhle"], "boss": true, "ueberfall": true},
     "Grimmzahn":          {"stufe": 5, "leben": 55, "ruestung": 2, "schaden": 7,  "angriff": 22, "abwehr": 29, "wachsamkeit": 80, "art": "nah", "gebiet": ["Tiefer Wald"], "boss": true, "rudel": "Leibwache", "umreissen": true},
     "Grak":               {"stufe": 6, "leben": 75, "ruestung": 2, "schaden": 7,  "angriff": 25, "abwehr": 38, "wachsamkeit": 90, "art": "nah", "gebiet": ["Höhle"], "boss": true}
