@@ -339,10 +339,6 @@ var fed := false
 var monsters := {}
 var items := {}
 var skills := {}
-## 296.2: what a won fight brings (regeln/lohn.gd): a pack's share per companion by leader, the levels by experience, the cap.
-var packs := {}
-var xp_for_level: Array = []
-var level_cap := 20
 
 var all: Array = []
 var last_wording := {}
@@ -402,9 +398,6 @@ func _init(party: Array, foes: Array, tables: Dictionary, p_dice, p_words, p_lan
 		items[it.id] = it
 	for s in tables.skills:
 		skills[s.id] = s
-	packs = tables.get("packs", {})
-	xp_for_level = tables.get("xpForLevel", [])
-	level_cap = int(tables.get("levelCap", 20))
 	all = party + foes
 	var kinds := {}
 	for f in foes:

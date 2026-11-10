@@ -27,8 +27,7 @@ func _init() -> void:
 	# 296.2: the statuses of the old fight
 	_statuses()
 	# 296.2 (Test 89.2 b): never a fight without life points; what a won fight brings
-	_no_life()
-	_rewards()
+	_no_life()     # der Lohn nach dem BRS: tests/lohn_870.gd (870.5)
 	# 249: the halt as a blow lands (HitWeight.kt)
 	_weights()
 	# 348.7b (Chef 28.10., 10:43: „brennende Hände gehen ja auf eine Reihe … da dürften ja auch theoretisch dann mehr getroffen sein“)
@@ -287,48 +286,6 @@ func _no_life() -> void:
 	_check_s("Held mit LP darf kämpfen", str(Mars.can_fight([_fight(sheet, ["wolf"], 1).all[0]])), "true")
 
 
-## A won fight of the probe's fighter (level 3) against [foe_ids], the hero's experience [xp] before, from [tape].
-func _won(foe_ids: Array, xp: int, tape: Array, level := 3) -> Dictionary:
-	var sheet: Dictionary = tables.probe.FIGHTER.hero.hero.duplicate(true)
-	sheet.level = level
-	var m = _fight(sheet, foe_ids, 1)
-	m.test_end(true)
-	return Lohn.reward(m, xp, Wuerfel.new(tape))
-
-
-func _rewards() -> void:
-	# a leader wolf and two of its pack: 50 × (1 + 0,3 × 2) = 80 EP; gold 1W6 (4); potion no (500), meat yes (100), pelt yes (0)
-	var r := _won(["wolf", "wolf", "wolf"], 450, [4, 500, 100, 0])
-	_check_s("Rudel: EP", str(r.xp), "80")
-	_check_s("Rudel: Gold", str(r.gold), "4")
-	_check_s("Rudel: Beute", str(r.items), "[\"raw_meat\", \"wolf_pelt\"]")
-	_check_s("Rudel: Zeilen", " | ".join(r.lines), "Ansgar erhält 80 EP. | Du erbeutest 4 Gold. | Beute: Rohes Fleisch! | Beute: Wolfsfell!")
-	# over the threshold of level 4 (1350): level up, full again, two ability points
-	var up := _won(["wolf"], 1300, [1, 999, 999, 999])
-	_check_s("Aufstieg: Stufe", str(up.level), "4")
-	_check_s("Aufstieg: Zeilen", " | ".join(up.lines.filter(func(l): return not l.begins_with("Neue"))),
-		"Ansgar erhält 50 EP. | Du erbeutest 1 Gold. | Ansgar erreicht Stufe 4! | TP und ZP von Ansgar sind vollständig aufgefüllt! | +2 Attributspunkt(e) – verteile sie im Menü.")
-	# at the cap of chapter 1 (level 6, 7000 EP) nothing more, and it is said
-	var cap := _won(["wolf"], 7000, [1, 999, 999, 999], 6)
-	_check_s("Höchststufe: EP", str(cap.xp), "0")
-	_check_s("Höchststufe: Zeile", str(cap.lines[0]), Lohn.CAPPED[0])
-	# just below the cap: only what was missing counts
-	var near := _won(["wolf"], 6980, [1, 999, 999, 999], 5)
-	_check_s("Kurz vor Höchststufe: EP", "%d, Stufe %d" % [near.xp, near.level], "20, Stufe 6")
-	# Grak's called goblins are worth nothing: the captain alone, 450 EP
-	var g = _fight(tables.probe.FIGHTER.hero.hero.duplicate(true), ["hobgoblin_captain", "goblin"], 1)
-	g.all[2].called_in = true
-	g.test_end(true)
-	_check_s("Grak mit Gerufenem: EP", str(Lohn.reward(g, 0, Wuerfel.new([1] + _ones())).xp), "450")
-	# 399.2: Ausrüstung, die die Welt gewürfelt hat (Loot.drops), nach den Dingen wie Battle.finishWin
-	var sheet: Dictionary = tables.probe.FIGHTER.hero.hero.duplicate(true)
-	var mg = _fight(sheet, ["wolf"], 1)
-	mg.test_end(true)
-	var ga := Lohn.reward(mg, 450, Wuerfel.new([4, 999, 999, 0]), 0, null, 1.0, 1.0, [{"gear": {"base": "shortsword"}, "name": "Kurzschwert", "rarity": "Ungewöhnlich"}])
-	_check_s("Ausrüstung: Zeilen", " | ".join(ga.lines), "Ansgar erhält 50 EP. | Du erbeutest 4 Gold. | Beute: Wolfsfell! | Beute: Kurzschwert (Ungewöhnlich)!")
-	_check_s("Ausrüstung: Lohn", str(ga.gear), "[{ \"base\": \"shortsword\" }]")
-
-
 func _weights() -> void:
 	_check_s("Wucht: gewöhnlich", Wucht.of(false, 3, 11), "NORMAL")
 	_check_s("Wucht: ein Drittel ist hart", Wucht.of(false, 4, 12), "HARD")
@@ -402,7 +359,7 @@ func _row_spell(spell: String) -> void:
 
 
 ## 399.2a: the wolf with its young (aufruf.gd rudel): they follow it, flee when it falls, the fight is won; the reward counts
-## them as its pack (lohn.gd, xpShare 0,3 each), as in the old fight
+## them as its pack (lohn.gd, werte.json erfahrung_anteil 0,3 each, 870.5)
 func _pack_flees() -> void:
 	var monsters := {}
 	for m in tables.monsters:
@@ -430,8 +387,8 @@ func _pack_flees() -> void:
 	var flohen := heard.filter(func(e): return e.cue == "FOE_FLEES").size()
 	var ok: bool = not wolf.standing() and cubs.all(func(c): return c.fled and c.hp > 0) and flohen == cubs.size() and mars.outcome == "WON"
 	if ok:
-		var r: Dictionary = Lohn.reward(mars, 0, Wuerfel.new(1))
-		var soll := int(int(wolf.monster.xp) * (1.0 + 0.3 * cubs.size()))
+		var r: Dictionary = Lohn.reward(mars, {}, Wuerfel.new(1))     # 870.5: BRS, je Jungwolf 0,3 (werte.json)
+		var soll := roundi(Brs.erfahrung(int(hero.level()), "wolf") * (1.0 + 0.3 * cubs.size()))
 		ok = int(r.xp) == soll
 		ok = ok and names[0] == "Wolf" and (names[1] == "Jungwolf" if cubs.size() == 1 else names[1] == "Jungwolf 1")
 		print(("gleich" if ok else "FEHLER") + " Rudel: Wolf fällt, %d Jungwölfe fliehen, gewonnen, Erfahrung %d (soll %d), Namen %s" % [cubs.size(), int(r.xp), soll, names])

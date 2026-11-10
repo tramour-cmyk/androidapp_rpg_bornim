@@ -116,9 +116,10 @@ func _blenden() -> void:
 
 
 func _lohn() -> void:
-	# der Anführer zählt (Lohn wie alt); Kobolde als Rudel: 25 × (1 + 0,4 × 2) = 45; Ratten und Fledermäuse ohne Rudel
-	for c in [["RATS", 25], ["BATS", 50], ["KOBOLDS", 45], ["SHAMANS", 100]]:
+	# 870.5: nach dem BRS zählt jeder Gegner seiner Art (lohn.gd, Brs.erfahrung für den Probehelden der Stufe 3), drei je Gruppe
+	for c in [["RATS", "giant_rat"], ["BATS", "giant_bat"], ["KOBOLDS", "kobold"], ["SHAMANS", "goblin_shaman"]]:
 		var m = _kampf(c[0], 17)
 		m.test_end(true)
-		var r: Dictionary = Lohn.reward(m, 0, Wuerfel.new(1))
-		_soll(int(r.xp) == c[1], "%s: %s EP (soll %d)" % [c[0], r.xp, c[1]])
+		var r: Dictionary = Lohn.reward(m, {}, Wuerfel.new(1))
+		var soll := roundi(3 * Brs.erfahrung(3, c[1]))
+		_soll(int(r.xp) == soll and soll > 0, "%s: %s EP (soll %d)" % [c[0], r.xp, soll])
