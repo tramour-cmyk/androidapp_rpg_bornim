@@ -163,3 +163,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:04 10.11.: Marke Archiv session_01Hmoj7789cjaqLrc644o819 (lauf.py)
 - 01:08 10.11.: Sokrates 650.2 archiviert, gebucht. Nicht ausgeführt trotz lauf.py (Grund): START Tom 819 (alte Sitzung wartet auf laufenden Godot-Lauf), START Perikles "auf Abruf" (818 wartet auf Chef 822), START Tuffy 744 (Figuren, Pacing nur Kampf). Wächter 805/806 an Jerry 595 gesendet; 804 ist zu testen
 - 01:11 10.11.: Startsperre 01:11 Start Tom (Ford, vor dem Start; Neustart 928160b85)
+- 01:14 10.11.: Tom 819 archiviert, gebucht; Nachfolger Tom 475 läuft; Build 273 zum Test beim Chef

@@ -314,7 +314,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 266 | Test-Reiter: Hardware-Angaben zum Kopieren (Chef 20.10., Tablet Build 48) | Q QS | M | – | Tom | erledigt |
 | 261.4 | Ford archiviert nicht: 22 Sitzungen offen statt einer je Bereich (Chef 21.10.) | B Steuerung | M | –; +0,45 $ | Perikles | erledigt |
 | 271 | Nachts keine Bilder: Teams ohne Arbeit, alles wartet auf Test (Chef 21.10.) | B Abläufe | M | 1,51 $ | Perikles | erledigt (272 an Jerry; Rest wartet auf den Chef) |
-| 273 | Ford darf archivieren: Satz für den Berechtigungsprüfer (Probe 261.5) | B Abläufe | M | – | Perikles | erledigt |
+| 273 | Ford darf archivieren: Satz für den Berechtigungsprüfer (Probe 261.5) | B Abläufe | M | 6,12 $ | Perikles | erledigt |
 | 274 | Startlektüre je Rolle kürzen, Rollendateien als Stichpunkte (Chef 21.10.) | B Abläufe | M | –; +14,01 $ | Perikles | erledigt |
 | 251 | Logo der Firma BornWire TCS (vorher WireStormTCS; Chef 20.10.) | M Markt | K | –; +7,33 $ | Homer | erledigt |
 | 256 | MARS-Klang: nur Treffer, Fehlschlag, Hieb, Abwehr; Zauber, Biss, Fallen, Geheul usw. fehlen (Chef 20.10.) | E Klang | K | –; +10,22 $ | Jerry | erledigt |
