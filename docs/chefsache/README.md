@@ -223,7 +223,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 841 | M | Von Sokrates (807a A, Chef 10.11., 11:01): Goblin-Späher einschüchtern nach STORY-K1-FERTI | startbar |
 | Pflege | K | von Werkzeug (340.3, 10.11.): 17729 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 22, Muss 8, startbar 2
+**Perikles** – offen 21, Muss 7, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -247,7 +247,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 735 | K | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-ABNAHME.md 11 und Kopf DESIGN-KAMPF | ruht |
 | 742 | K | D78.1 Testbitte t268: Zeile „Verglichen“ deckte nur die Schirme vom 05.11., nicht Dorf, Ka | ruht |
 | 832 | M | Testbitten ohne Prüfpunkte, die ein Test im Bau schon sichert oder Lesen von Lizenztexten | wartet auf Diogenes |
-| 835 | M | Inhaltsverzeichnis docs/README.md in Chef-Sprache: jede Zeile ein Satz, was drinsteht und | startbar |
 | Pflege | K | von Werkzeug (340.3, 10.11.): 15842 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Diogenes** – offen 11, Muss 10, startbar 3
