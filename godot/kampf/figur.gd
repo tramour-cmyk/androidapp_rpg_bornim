@@ -2046,17 +2046,36 @@ func _bite(other, leap: bool, weiter := 0.0) -> int:
 
 ## 709: Bissplatz um das Ziel (Mensch) für die Bewegung [nm] (Biss, Tiefbiss): [Platz, Richtung, Stand, Zeit des Bisses, voll]; voll =
 ## die Schnauze erreicht den Körper, sonst der nächste freie Platz davor; [] ohne freien Platz. [stand] ist der bisherige Abstand
-func _biss_platz(other, nm: String, dir: Vector3, stand: float) -> Array:
+## [rand] (709.1, „709b A, sonst C“): Ziel ist der Schildrand statt des Körpers (Biss in den Schild mit Zerren)
+func _biss_platz(other, nm: String, dir: Vector3, stand: float, weit := false, rand := false) -> Array:
 	var bb: Array = _hieb_bahn(nm, deg_to_rad(bite[nm][2]))
 	if not bb.is_empty():
 		var ziel: Array = other.koerper()
 		var hind: Array = other.schild_kapseln()
+		if rand:
+			if hind.is_empty():
+				return []
+			ziel = hind
+			hind = []
 		other.footprint()     # misst schild_unten (ohne Schild INF)
 		var unter_schild: bool = other.schild_unten < INF and hoehe_oben() < other.schild_unten
 		var teil := []     # bester freier Platz, an dem die Schnauze nicht ganz hinreicht: [Lücke, Platz, Richtung, Stand, t]
-		for w in [0.0, 20.0, -20.0, 40.0, -40.0, 60.0, -60.0]:
+		var winkel := [0.0, 20.0, -20.0, 40.0, -40.0, 60.0, -60.0]
+		# 709.1 (Chef 10.11., 17:11, „709b A“): seitlich am Schild vorbei ins freie Bein, die Schwertseite zuerst, auch weiter herum
+		# (bis 90°): die Plätze nach dem Abstand vom Schild, der fernste zuerst
+		if weit and not hind.is_empty():
+			winkel = [0.0, 20.0, -20.0, 40.0, -40.0, 60.0, -60.0, 75.0, -75.0, 90.0, -90.0]
+			var sm := Vector3.ZERO
+			for c in hind:
+				sm += ((c[0] as Vector3) + (c[1] as Vector3)) * 0.5
+			sm /= hind.size()
+			var fern := func(w: float) -> float:
+				var q: Vector3 = other.position - dir.rotated(Vector3.UP, deg_to_rad(w)) * stand
+				return Vector2(q.x - sm.x, q.z - sm.z).length()
+			winkel.sort_custom(func(a: float, b: float) -> bool: return fern.call(a) > fern.call(b))
+		for w in winkel:
 			var d2 := dir.rotated(Vector3.UP, deg_to_rad(w))
-			var pl: Array = hieb_plan(bb, ziel, other.position, d2, -BISS_TIEF, BISS_LUFT, hind)
+			var pl: Array = hieb_plan(bb, ziel, other.position, d2, -BISS_TIEF - (TIEF_NAEHER if nm == "Tiefbiss" else 0.0), BISS_LUFT, hind)
 			if OS.get_environment("SCHAU_709") != "":
 				print("709 Biss %s an %s, %.0f°: Stand %.2f (Schnauze %.2f, Körper %.2f), vorher %.2f" % [fighter.id, other.fighter.id, w, pl[0], pl[2], pl[3], stand])
 			if pl[2] <= 0.0:
@@ -2068,7 +2087,9 @@ func _biss_platz(other, nm: String, dir: Vector3, stand: float) -> Array:
 			# reicht die Schnauze nicht ganz hin, steht der Schild davor; er fährt bei der Abwehr (Ring) vor, also gleich ABWEHR_VOR
 			# Abstand (wolf_mess_438 Kleriker 71,9 s: Schild 9 cm im Wolf)
 			# 709 (treffen_709 Ratten: 8 cm vor dem Helden): wer unter dem Schild bleibt, dem stößt er nicht entgegen
-			var st2: float = float(pl[0]) + (ABWEHR_VOR if not unter_schild and (not voll or other.has_method("blockt") and other.blockt()) else 0.0)
+			# am Schildrand fasst er den Schild selbst, wo der Schild beim Biss steht: um ABWEHR_VOR vorgestoßen (treffen_709 ohne:
+			# Schnauze 6–10 cm im Schild)
+			var st2: float = float(pl[0]) + (ABWEHR_VOR if rand or not unter_schild and (not voll or other.has_method("blockt") and other.blockt()) else 0.0)
 			var s2 := Vector3(other.position.x, position.y, other.position.z) - d2 * st2
 			var l2 := _platz_luft(s2, d2, other)
 			var w2 := _weg_luft(position, s2, other) if s2.distance_to(position) > 0.15 else INF
@@ -2142,17 +2163,27 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 	# ohne in den Schild zu fahren, und der eigene Körper frei bleibt. Der Aufschlag ist der Augenblick, in dem sie am nächsten ist
 	var biss_t: float = bite[nm][1]
 	var biss_von := Vector3.INF
+	var zerren := false
 	if nm == "Biss" and weiter <= 0.0 and other.fighter.monster == null:
 		var r: Array = _biss_platz(other, nm, dir, stand)
 		# 709a A (Chef 10.11., 14:22): reicht der gerade Biss nicht an den Körper (Schild davor), der tiefe Biss unter dem Schild durch
 		if (r.is_empty() or not r[4]) and bite.has("Tiefbiss") and anim and anim.has_animation("Tiefbiss"):
 			var st_t: float = stand - bite[nm][0] * model.scale.x + float(bite["Tiefbiss"][0]) * model.scale.x
-			var rt: Array = _biss_platz(other, "Tiefbiss", dir, st_t)
+			var rt: Array = _biss_platz(other, "Tiefbiss", dir, st_t, true)
 			if OS.get_environment("SCHAU_709") != "":
-				print("709 Tiefbiss %s an %s: gerade %s, tief %s" % [fighter.id, other.fighter.id, r, rt])
+				print("709 Tiefbiss %s an %s: gerade %s, tief %s, Ziel dreht %.1f°" % [fighter.id, other.fighter.id, r, rt, rad_to_deg(other.rotation.y)])
 			if not rt.is_empty() and (rt[4] or r.is_empty()):
 				r = rt
 				nm = "Tiefbiss"
+		# 709.1 C (Chef 17:11, „709b A, sonst C“): ist die Seite besetzt (anderer Wolf, Bildrand), Biss in den Schildrand mit Zerren
+		if (r.is_empty() or not r[4]) and bite.has("Tiefbiss"):
+			var rr: Array = _biss_platz(other, "Biss", dir, stand, true, true)
+			if OS.get_environment("SCHAU_709") != "":
+				print("709 Schildrand %s an %s: %s" % [fighter.id, other.fighter.id, rr])
+			if not rr.is_empty() and rr[4]:
+				r = rr
+				nm = "Biss"
+				zerren = true
 		if not r.is_empty():
 			biss_von = r[0]
 			dir = r[1]
@@ -2278,6 +2309,14 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 	tween.tween_callback(func(): _play(nm, 0.08))
 	if nm == "Sprungbiss":
 		tween.tween_method(func(x: float): position = _weg_at(start, b, nm, x, k), 0.0, bl, bl)
+	elif zerren:
+		# 709.1 C: die Zähne im Schildrand, zweimal ruckartig zurück gezerrt (Rumpf, nicht weiter vor als am Bissplatz)
+		var t0: float = minf(biss_t, bl)
+		tween.tween_interval(t0)
+		for i in 2:
+			tween.tween_property(self, "position", start - dir * ZERR_WEG * _scale(), ZERR_T).set_trans(Tween.TRANS_SINE)
+			tween.tween_property(self, "position", start, ZERR_T * 1.4).set_trans(Tween.TRANS_SINE)
+		tween.tween_interval(maxf(0.0, bl - t0 - ZERR_T * 4.8))
 	else:
 		tween.tween_interval(bl)
 	var t_back := 0.0
@@ -2747,6 +2786,9 @@ const HIEB_TIEF := 0.02           # 709: so tief dringt die Klinge beim Treffer 
 const HIEB_KOERPER_LUFT := 0.02   # 709: Körper und Schild bleiben im ganzen Hieb so weit vor dem Körper des Ziels (E3)
 const BISS_UMRISS := 0.03         # 709: so viel Luft hält der Umriss des Tiers am Bissplatz zu allen (wolf_mess_438: 5 cm tief erlaubt)
 const BISS_LUFT := 0.05           # 709: Körper und Schnauze bleiben so weit vor Körper und Schild des Ziels (wolf_mess_438: 4 cm im Schild)
+const TIEF_NAEHER := 0.06         # 709.1: der Tiefbiss blieb geplant 1 cm im Bein, gemessen 5–9 cm davor (treffen_709 Seeds 3, 7, 11)
+const ZERR_WEG := 0.07           # 709.1 C: so weit zerrt der Wolf am Schildrand zurück (je Ruck)
+const ZERR_T := 0.09             # 709.1 C: Dauer eines Rucks zurück (vor dauert 1,4-mal so lang)
 const BISS_TIEF := 0.01           # 709: so tief fasst die Schnauze beim Treffer in den Körper (Kapseln; wolf_mess_438 erlaubt 3 cm)
 const NACH_T := 0.2               # 709: so lange nach dem Aufschlag beginnt der „zweite Schwung“ (hieb_plan [4])
 const NACH_LUFT := 0.12           # 709: so weit bleibt die Waffe danach vom Ziel (der Getroffene zuckt bis 0,1 m vor)

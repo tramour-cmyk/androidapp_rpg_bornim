@@ -216,6 +216,7 @@ func _bild(kf, n: int, kampf: String) -> void:
 							m = maxf(m, dz.dot((g[0] as Transform3D) * (g[1] as AABB).get_endpoint(i) - b.position))
 						teile += ", %s %.2f" % [g[2], m]
 					print("DIAG709 vorne je Teil (beim Aufschlag): " + teile)
+					print("DIAG709 Ziel dreht %.1f°" % rad_to_deg(b.rotation.y))
 					print("DIAG709 Abstand Ursprung %.2f, body_r Ziel %.2f, Ziel vorne %.2f" % [Vector2(af.position.x - b.position.x, af.position.z - b.position.z).length(), b.body_r(), b.vorne(af.position - b.position)])
 		hurt_vor[id] = b.hurt_at
 	# Fenster voll: auswerten
