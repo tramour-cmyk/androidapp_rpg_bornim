@@ -42,7 +42,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 |---|---|---|---|
 | 653 | M | Halt für Waffen und Schilde einmal je Modell festlegen statt je Figur nachmessen: Griffpun | wartet auf Test/Build (gebaut) |
 | 663 | M | Klassische Steuerung ausbauen: Steuerkreuz und Funktionstasten ganz raus, nur Touch; Auswa | wartet auf Test/Build (gebaut) |
-| 470 | M | Bau BRS 1.1 Erschaffung (Wochenziel 02.11., Stufe 1) · Spike; „Neues Spiel“ umschalten ers | startbar |
+| 470 | M | Bau BRS 1.1 Erschaffung (Wochenziel 02.11., Stufe 1) · Spike (Chef 16:13), mischen vor 506 | startbar |
 | 825 | M | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635 | wartet auf Test/Build (gebaut) |
 | 661 | M | Alle Blenden ein Aufbau (Ort, Rast, Kampf normal/Hinterhalt/Boss): Name gesperrt, Zierleis | wartet auf Test/Build (gebaut) |
 | 697 | M | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | wartet auf 782 (startbar) |
