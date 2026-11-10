@@ -231,7 +231,7 @@
 | 866 | Von Sokrates (620, Lagebild t274): Prüfliste geht nur gegengelesen raus; Wächter statt Absprache | Perikles | M | gebaut, Geprüft an: 8c9f2dc3f | – | – | – | Q QS | – |
 | 882 | D140.1 (Diogenes, 870.18): Kotlin-Ausstieg ohne Werkzeuge: 870.10 nennt nur android.yml; an core hängen auch Kerntests (tools/t logik), godot-kampf.yml, vorschau.yml, tools/preview, story.sh, probelauf.py, setup-session.sh; Liste Prüfbericht Lauf 140 | Perikles | M | startbar | 870.4 | – | – | B Werkzeuge | – |
 | 886 | D140.5 (Diogenes, 870.11): Wächter fängt TP, Trefferwürfel, Hauptattribut nicht (Plan Schritt 8 nennt sie SRD; 18 Spieltextzeilen mit TP) und hat keinen Lauf über den ganzen Godot-Code für die Abnahme 870.13; Prüfbericht Lauf 141 | Perikles | M | erledigt, greift Lauf 147 | – | – | – | B Werkzeuge | – |
-| 889 | D146.1 (Diogenes, 870.17): startbar.py zeigt bei Pause mit „frei für“ nur die PAUSE-Zeile, nie das freie Muss (Tom 506, Jerry 709, 854; Zeile 709 „if not p“); lauf.py rechnet richtig | Perikles | M | startbar | – | – | – | B Abläufe | – |
+| 889 | D146.1 (Diogenes, 870.17): startbar.py zeigt bei Pause mit „frei für“ nur die PAUSE-Zeile, nie das freie Muss (Tom 506, Jerry 709, 854; Zeile 709 „if not p“); lauf.py rechnet richtig | Perikles | M | gebaut, Geprüft an: 571549338 | – | – | – | B Abläufe | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
