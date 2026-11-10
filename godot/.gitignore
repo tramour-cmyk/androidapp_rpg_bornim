@@ -7,3 +7,6 @@ kampf/daten/
 addons/reeboo_beams/
 # 804 (Spike): Grass & Wind Kit (REEBOO, gekauft), Lizenz verbietet Weitergabe; im Bau aus bornim-kaufmodelle stufe1 (godot.yml)
 addons/grass_wind_kit/
+# 806 (Jerry): R7 Stylized VFX v2.0 und R8 Weather FX (REEBOO, gekauft), Lizenz verbietet Weitergabe; im Bau aus stufe1 (godot.yml)
+addons/reeboo_vfx/
+addons/weather_fx/

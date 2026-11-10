@@ -354,6 +354,19 @@ func _build_forest() -> void:
 	ground.position.y = -0.01
 	forest.add_child(ground)
 	_grass()
+	_lichtung_806()
+
+
+## 806: Bodennebel (R8) und zwei Lichtschächte mit Staub (R7) hinter den Kämpfern, von der Kamera aus gesehen (wie _grass: 15 m
+## Abstand, Blick örtlich (0,866, −0,5)); Paket fehlt oder Grafikstufe aus: nichts
+func _lichtung_806() -> void:
+	if OS.get_environment("EFFEKTE_806") == "0":     # Vergleich und Bilder/s vorher
+		return
+	KampfEffekte.nebel(self)
+	var cam_l := Vector2(-0.866 * 15.0, 0.5 * 15.0)
+	for quer: float in [-5.5, 4.5]:
+		var q := cam_l + Vector2(0.866, -0.5) * 22.0 + Vector2(0.5, 0.866) * quer
+		KampfEffekte.staub(forest, Vector3(q.x, 0.0, q.y), 1.6)
 
 
 func _toon_all(n: Node) -> void:
