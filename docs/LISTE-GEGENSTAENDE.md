@@ -97,7 +97,7 @@ Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (
 
 | Kennung | Name | Platz | Stufe | Preis | Modell | Bezug | offen |
 |---|---|---|---|---|---|---|---|
-| `ring_protection` | Ring des Ältesten (ring) | finger | 6 | 0 | keins: nur Bild im Inventar (455) | Fund | – |
+| `ring_protection` | Ring des Ältesten (ring) | finger | 6 | 0 | keins: nur Bild im Inventar (455) | Handlung | – |
 | `gauntlets_ogre` | Handschuhe der Ogerkraft (gloves) | arme | 4 | 0 | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren) | Beute Krogg | – |
 | `greataxe_grak` | Graks Kriegsaxt (greataxe) | beide_haende | 6 | 0 | unser Netz (waffen.py, Jerry) | Beute Grak | – |
 | `longsword_oakford` | Klinge von Bornim (longsword) | haupthand | 4 | 0 | – | Fund | netz, modell |
@@ -194,11 +194,11 @@ Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (
 
 ### Fund
 
-- Ring des Ältesten, Klinge von Bornim, Glutstab, Flüsterklinge, Morgenröte
+- Klinge von Bornim, Glutstab, Flüsterklinge, Morgenröte
 
 ### Handlung
 
-- Gwennas Ring, Grauer Fetzen, Rauchbündel
+- Ring des Ältesten, Gwennas Ring, Grauer Fetzen, Rauchbündel
 
 ## Spalten der Datendatei
 

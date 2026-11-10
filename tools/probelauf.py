@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Probelauf-Haken (389; Chef 27.10., 23:55: „389 ja, höchstens zwei Läufe und die Betonung hierbei liegt auf höchstens.“).
+"""Probelauf-Haken (621 A, Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef; ersetzt die Rundenzahl 389).
 
-PreToolUse-Haken für Bash, alle Rollen. Je Vorlage höchstens zwei Probeläufe, dann vorlegen: beim dritten Lauf für denselben
+PreToolUse-Haken für Bash, alle Rollen. Je Vorlage höchstens ein Probelauf, dann vorlegen: beim zweiten Lauf für denselben
 Vorgang hält der Haken den Befehl an (Exit 2), ohne Ausweg. Seit 407 (Chef 29.10., 10:05: „nach 2 ist maximal Schluss …
-Ich habe noch nichts geguckt und freigegeben. Also, warten, bis ich gucke.“) gibt erst das Urteil des Chefs zwei neue Läufe frei,
+Ich habe noch nichts geguckt und freigegeben. Also, warten, bis ich gucke.“) gibt erst das Urteil des Chefs (nach „nein“: seine Wahl aus der Rückfrage mit Wegen und Kosten, 621 A) einen neuen Lauf frei,
 nicht schon die Vorlage: Urteil = Eintrag im Vorgangsarchiv (`origin/main`), dessen fette Kopfzeile die Nummer nennt, mit Datum
 nach dem letzten gezählten Lauf; gilt für jeden Zweig `claude/tom-…` und `claude/jerry-…`.
 
@@ -13,8 +13,8 @@ Probelauf heißt:
   kein Probelauf: `godot --headless --path <dir> -s res://tests/<datei>.gd` ohne Bildbefehl in der Testdatei (390a);
 - ein Ablauf auf GitHub, von Hand gestartet (407, 02.11.: 20 Filme zu 417 über `tom-probe-417.yml` ungezählt): `actions_run_trigger`
   (run_workflow) oder `gh workflow run`/API `…/dispatches`; Vorgang = erste Nummer der Commit-Nachricht oben auf dem Zweig,
-  sonst Nummer in Klammern im Namen des Ablaufs; mit Eingabe bild=nein oder film=nein kein Probelauf (390a); Neustart eines
-  Laufs (rerun) hält der Haken an;
+  sonst Nummer in Klammern im Namen des Ablaufs; auch ein Messlauf mit bild=nein (646, ersetzt 390a für den Bauserver),
+  nur ein Sammelbuild `claude/build-<n>` für den Gerätetest nicht; Neustart eines Laufs (rerun) hält der Haken an;
 - ein Push auf einen Zweig `claude/…`, der einen Ablauf auslöst (letzter Commit ohne „[skip ci]“, Änderung
   unter godot/, tools/blender348/, core/src/main/ oder am Workflow); der Vorgang ist die erste Nummer der Commit-Nachricht.
 Vorlage heißt: eine Meldung mit Bild, Film oder Datei zu dem Vorgang (Zeile im Zweig „meldungen“, schreibt `meldung.sh`, 383).
@@ -23,22 +23,12 @@ Neustart) und hilfsweise in ~/.bornim-probelaeufe.tsv. Bei eigenem Fehler (kein 
 
 Auch von Hand: `python3 tools/probelauf.py --stand <Nr>` zeigt die Zählung.
 
-511 (Chef 03.11., 13:50: „511 ja“; Anlass 13:47: „Warum werden so viele sinnlose und kaputte Filme gemacht?“): ein Filmlauf
-startet nur mit Verweis auf ein geprüftes Probebild, das nach dem letzten Filmlauf zu diesem Vorgang eingetragen ist.
-Geprüft heißt (Chef 13:58: „Auf mich warten. Die Helfer können gerne sonstwas prüfen, aber ob Inhalt da ist, kann ich als
-Mensch sicher besser sehen.“): der Chef hat es gesehen, Eintrag im Vorgangsarchiv „<Nr> Probebild passt“ nach dem Probebild.
+783 W1 (Chef 09.11., 20:12, ersetzt 511, 511a, 578): Bewegung geht gleich als Film, ohne Probebild und ohne Freigabe.
+Vorher macht der Ersteller für sich ein Einzelbild am Rechner (`PROBEBILD=<Nr> <Befehl ohne Film>`, zählt nicht als Probelauf)
+und sieht selbst nach, ob Inhalt da ist; kein Helfer. Die Zahl der Läufe begrenzt weiter 621 A (früher 389).
 - Filmlauf: Bildlauf am Rechner mit `--write-movie`, `FILM=`/`WALKFILM=`/`IDLEFILM=`/`FOEFILM=`/`FILMBATCH=`, `tools/t film`
   `.mp4`, `ffmpeg` oder einem Laufskript, dessen Name „film“ enthält oder das so filmt; jeder von Hand gestartete Ablauf mit
-  Bild; jeder Push, der einen Ablauf mit `--write-movie` auslöst (unlesbar: zählt als Filmlauf).
-- Probebild: ein Einzelbild aus demselben Filmskript und derselben Szene, am Rechner mit `PROBEBILD=<Nr> <Befehl>` (ohne
-  Film; zählt nicht als Probelauf 389); eintragen mit
-  `python3 tools/probelauf.py --probebild <Nr> <Bild.png|Link> <Filmskript> "<was zu sehen sein muss>"`, dann an den Chef
-  (13:56: „das Probebild kann man mir vorlegen. Mit dem Hinweis, was zu prüfen ist.“): `meldung.sh --bild` mit dieser Liste
-  und Datei `docs/chefsache/ansehen/<Nr>-probebild.md`. Freigabe: Archiveintrag mit „<Nr> Probebild passt“ in der fetten
-  Kopfzeile (deren Zeit) oder im Text mit „(Chef [TT.MM.,] HH:MM“ dahinter. Danach (511a, Chef 13:59: „1“) prüft ein
-  Helfer das Probebild genau: `python3 tools/probelauf.py --helfer <Nr> "ok: <was zu sehen ist>"`; erst dann der Film.
-  Am Rechner muss der Name des Filmskripts im Filmbefehl stehen. Jeder Filmlauf verbraucht das Probebild.
-  Push: filmt, wenn ein Schritt mit `--write-movie` bei dieser Commit-Nachricht läuft (`if: contains(…head_commit.message…)`).
+  Bild; jeder Push, der einen Ablauf mit `--write-movie` auslöst. Gezählt als „-film“ wie jeder Probelauf.
 
 513.1 (Chef 03.11., 15:56: „513 B“; Leitlinie: was der Chef an einer Figur abnimmt, gilt in jedem Zweig, der Figuren zeigt):
 jeder Probelauf und jedes Probebild hält an, wenn der Stand (Rechner: HEAD der Arbeitskopie; Push: HEAD; Start von Hand: der
@@ -56,14 +46,12 @@ import time
 import uuid
 import zoneinfo
 
-GRENZE = 2
+GRENZE = 1  # 621 A (Chef 07.11., 16:4x), vorher 2 (389)
 BERLIN = zoneinfo.ZoneInfo("Europe/Berlin")
 REPO = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 LOKAL = os.environ.get("BORNIM_PROBELAEUFE") or os.path.expanduser("~/.bornim-probelaeufe.tsv")
 ZWEIG = "probelaeufe"  # eigener Zweig: meldung.sh schreibt „meldungen“ mit nur einer Datei
 DATEI = "probelaeufe.tsv"
-BILDER = "probebilder.tsv"  # 511: geprüfte Probebilder, gleicher Zweig
-LOKAL_BILDER = os.environ.get("BORNIM_PROBEBILDER") or os.path.expanduser("~/.bornim-probebilder.tsv")
 
 NR = r"[A-Za-z]?\d+[a-z]?(?:\.\d+[a-z]?)*"
 PROBE = re.compile(r"\bPROBE=(" + NR + r")\b")
@@ -73,6 +61,7 @@ GODOT_LAUF = re.compile(r"xvfb-run[^\n|;&]*godot[^\n|;&]*|\bgodot(?:\.\S+)?\s[^\
 SKRIPT = re.compile(r"tools/pruef348/(?!rechner\.sh)[\w.-]+\.sh|\b\w+_lauf\.sh")
 PUSH = re.compile(r"\bgit\s+(?:-C\s+(\S+)\s+)?push\b([^\n|;&]*)")
 COMMIT = re.compile(r"\bgit\s+(?:-C\s+\S+\s+)?commit\b[^\n]*?\s-[a-zA-Z]*m\s*(.+)", re.S)
+COMMIT_F = re.compile(r"\bgit\s+(?:-C\s+\S+\s+)?commit\b[^\n]*?\s-[a-zA-Z]*F\s*-\s[^\n]*?<<-?\s*['\"]?(\w+)['\"]?[^\n]*\n(.*?)\n\s*\1\b", re.S)  # 627: `commit -F - <<EOF`
 TEST_SKRIPT = re.compile(r"(?:^|\s)-s\s+[\"']?res://tests/([\w./-]+\.gd)\b")
 BILDBEFEHL = re.compile(r"save_png|save_jpg|save_webp|save_exr|get_image\s*\(|get_texture\s*\(|MovieWriter|screenshot", re.I)
 CD = re.compile(r"\bcd\s+([^\s;&|]+)")
@@ -221,13 +210,16 @@ def push_lauf(befehl, cwd):
     wo = m.group(1) or (os.path.join(cwd, os.path.expanduser(cds[-1].strip("\"'"))) if cds else cwd)
     ziel = CI_ZWEIG.search(m.group(2))
     zweig = ziel.group(0).split(":")[-1] if ziel else git("rev-parse", "--abbrev-ref", "HEAD", cwd=wo).stdout.strip()
-    if not CI_ZWEIG.fullmatch(zweig):
+    if not CI_ZWEIG.fullmatch(zweig) or SAMMELBUILD.fullmatch(zweig):  # 646, 627: Sammelbuild für den Gerätetest ist keine Probe
         return None
     oben = git("rev-parse", "--verify", "-q", f"origin/{zweig}", cwd=wo).stdout.strip()
+    if not oben:  # 627 (Jerry 07.11., 21:2x): neuer Zweig, Pfade gegen den Abzweig von origin/main statt „alle Abläufe“
+        oben = git("merge-base", "origin/main", "HEAD", cwd=wo).stdout.strip()
     # Commit im selben Befehl vor dem Push (PreToolUse sieht ihn noch nicht): Nachricht aus -m, Pfade aus dem Arbeitsbaum
-    neu = COMMIT.search(befehl[:m.start()])
-    nachricht = re.sub(r"^\s*[\"']?(?:\$\(cat\s*<<-?\s*['\"]?\w+['\"]?\s*)?", "", neu.group(1)) if neu else \
-        git("log", "-1", "--format=%B", "HEAD", cwd=wo).stdout
+    neu_f = COMMIT_F.search(befehl[:m.start()])  # 627 (Tuffy 07.11., 21:15): Nachricht aus dem Heredoc, nicht die des alten HEAD
+    neu = neu_f or COMMIT.search(befehl[:m.start()])
+    nachricht = neu_f.group(2) if neu_f else (re.sub(r"^\s*[\"']?(?:\$\(cat\s*<<-?\s*['\"]?\w+['\"]?\s*)?", "", neu.group(1)) if neu else
+                                         git("log", "-1", "--format=%B", "HEAD", cwd=wo).stdout)
     if "[skip ci]" in nachricht or "[ci skip]" in nachricht:
         return None
     if oben:
@@ -294,6 +286,8 @@ def loest_aus(wo, zweig, pfade, nachricht):
         wege = push.get("paths")
         if wege and pfade is not None and not any(_glob(m, p) for m in wege for p in pfade):
             continue
+        if datei == "vorschau.yml" and not os.path.exists(os.path.join(wo, "tools", "preview", "vorschau.env")):
+            continue  # 848 (Tom 10.11., 506a): Kotlin-Vorschau ohne vorschau.env bricht ohne Bild ab, keine Probe
         bed = re.findall(r"startsWith\(\s*github\.event\.head_commit\.message\s*,\s*'([^']+)'\s*\)", text)
         jobs = d.get("jobs") or {}
         if bed and jobs and all("startsWith(github.event.head_commit.message" in str((j or {}).get("if", "")) for j in jobs.values()) \
@@ -350,9 +344,14 @@ def vorgang_aus_ref(ref, ablauf):
     return nr.group(1) if nr else (ref or ablauf or "?")
 
 
-def ohne_bild(eingaben):
-    """390a: Ablauf nur mit Messung ohne Bild (Eingabe bild=nein oder film=nein) ist kein Probelauf."""
+def ohne_film(eingaben):
+    """646 (Chef 08.11., 12:34: „646 grundsätzlich ja … Es sollte logisch sein“; ersetzt 390a für den Bauserver): jeder
+    Lauf auf dem Bauserver zählt als die eine Probe, auch ein Messlauf ohne Bild (bild=nein); ohne Film (bild=nein oder
+    film=nein) greift nur die Filmsperre 511 nicht."""
     return any(str(eingaben.get(k, "")).strip().lower() == "nein" for k in ("bild", "film"))
+
+
+SAMMELBUILD = re.compile(r"(?:refs/heads/)?claude/build-\d+")  # 646: Sammelbuild für den Gerätetest des Chefs ist keine Probe
 
 
 def handlauf_mcp(d):
@@ -361,9 +360,9 @@ def handlauf_mcp(d):
     methode = e.get("method", "")
     if methode in ("rerun_workflow_run", "rerun_failed_jobs"):
         return RERUN
-    if methode != "run_workflow" or ohne_bild(e.get("inputs") or {}):
+    if methode != "run_workflow" or SAMMELBUILD.fullmatch(str(e.get("ref") or "")):
         return None
-    return vorgang_aus_ref(e.get("ref"), str(e.get("workflow_id") or "")), "hand"
+    return vorgang_aus_ref(e.get("ref"), str(e.get("workflow_id") or "")), "hand", not ohne_film(e.get("inputs") or {})
 
 
 def handlauf_bash(befehl):
@@ -376,9 +375,10 @@ def handlauf_bash(befehl):
         ablauf = next((t for t in teile if not t.startswith("-")), "")
         ref = re.search(r"(?:--ref|-r)[=\s]+(\S+)", m.group(1))
         eing = dict(re.findall(r"(?:-f|-F|--field|--raw-field)[=\s]+[\"']?(\w+)=([^\s\"']*)", m.group(1)))
-        if ohne_bild(eing):
+        ref = ref.group(1).strip("\"'") if ref else ""
+        if SAMMELBUILD.fullmatch(ref):
             return None
-        return vorgang_aus_ref(ref.group(1).strip("\"'") if ref else "", ablauf), "hand"
+        return vorgang_aus_ref(ref, ablauf), "hand", not ohne_film(eing)
     m = API_LAUF.search(befehl)
     if m:
         # JSON (curl -d '{"ref":…}') oder Felder (gh api -f ref=…, -F, --field, --raw-field; D64.1)
@@ -386,9 +386,10 @@ def handlauf_bash(befehl):
             re.search(r"(?:-f|-F|--field|--raw-field)[=\s]+[\"']?ref=([^\s\"']+)", befehl)
         eing = dict(re.findall(r"\\?[\"'](bild|film)\\?[\"']\s*:\s*\\?[\"'](\w+)", befehl))
         eing.update(re.findall(r"(?:-f|-F|--field|--raw-field)[=\s]+[\"']?inputs\[(bild|film)\]=(\w+)", befehl))
-        if ohne_bild(eing):
+        ref = ref.group(1) if ref else ""
+        if SAMMELBUILD.fullmatch(ref):
             return None
-        return vorgang_aus_ref(ref.group(1) if ref else "", m.group(1)), "hand"
+        return vorgang_aus_ref(ref, m.group(1)), "hand", not ohne_film(eing)
     return None
 
 
@@ -472,6 +473,115 @@ def parse_pruefen(befehl, cwd):
     return None
 
 
+ROT_ZEILE = re.compile(r"^Rot:\s*\S", re.M)
+GITHUB_LAEUFE = "https://api.github.com/repos/tramour-cmyk/androidapp_rpg_bornim/actions/runs"
+
+
+def letzter_lauf(zweig):
+    """748: jüngster abgeschlossener CI-Lauf auf zweig (öffentliches Repo, ohne Anmeldung), sonst None."""
+    import urllib.parse
+    import urllib.request
+    url = GITHUB_LAEUFE + "?" + urllib.parse.urlencode({"branch": zweig, "status": "completed", "per_page": 1})
+    with urllib.request.urlopen(urllib.request.Request(url, headers={"Accept": "application/vnd.github+json"}), timeout=6) as r:
+        laeufe = json.load(r).get("workflow_runs") or []
+    return laeufe[0] if laeufe else None
+
+
+def rot_vorher(befehl, cwd, lauf_holen=letzter_lauf):
+    """748 (D95.1, zu 464): rote Läufe am 08.11. kamen aus Tests, nicht aus Parsefehlern, und kehrten wieder (Atem 453.1
+    dreimal auf drei Zweigen, AUFTRAEGE zweimal, 6236 dreimal in 13 Minuten). Die Tests lokal vor jedem Push laufen zu
+    lassen geht nicht (Schritt „Skripte pruefen“ 9 min nach 30 min Modellbau, Kaufmodelle nur in CI; Hakengrenze 90 s).
+    Darum: ist der letzte abgeschlossene Lauf auf dem Zweig rot, hält ein Push mit CI-Pfaden an, bis einer der neuen
+    Commits die Zeile „Rot: <was scheiterte> – <Ursache, nachgestellt>“ trägt. Grund zum Anhalten oder None."""
+    m = PUSH.search(befehl)
+    if not m:
+        return None
+    vorn = befehl[:m.start()]
+    cds = CD.findall(vorn)
+    wo = m.group(1) or (os.path.join(cwd, os.path.expanduser(cds[-1].strip("\"'"))) if cds else cwd)
+    ziel = CI_ZWEIG.search(m.group(2))
+    if not ziel and len([a for a in m.group(2).split() if not a.startswith("-")]) >= 2:
+        return None  # ausdrücklich ein anderer Zweig (git push origin main)
+    zweig = ziel.group(0).split(":")[-1] if ziel else git("rev-parse", "--abbrev-ref", "HEAD", cwd=wo).stdout.strip()
+    if not CI_ZWEIG.fullmatch(zweig):
+        return None
+    neu_f = COMMIT_F.search(vorn)
+    neu = neu_f or COMMIT.search(vorn)
+    nachricht = neu_f.group(2) if neu_f else (neu.group(1) if neu else "")
+    oben = git("rev-parse", "--verify", "-q", f"origin/{zweig}", cwd=wo).stdout.strip() or \
+        git("merge-base", "origin/main", "HEAD", cwd=wo).stdout.strip()
+    if not oben:
+        return None
+    pfade = git("diff", "--name-only", f"{oben}..HEAD", cwd=wo).stdout.split()
+    if neu:
+        pfade += git("diff", "--name-only", "HEAD", cwd=wo).stdout.split()
+        pfade += git("ls-files", "--others", "--exclude-standard", cwd=wo).stdout.split()
+    alle = nachricht + "\n" + git("log", "--format=%B", f"{oben}..HEAD", cwd=wo).stdout
+    if "[skip ci]" in alle or "[ci skip]" in alle or not any(p.startswith(CI_PFADE) for p in pfade):
+        return None
+    try:
+        lauf = lauf_holen(zweig)
+    except Exception:  # Netz weg: nicht anhalten, sonst steht jeder Push
+        return None
+    if not lauf or lauf.get("conclusion") != "failure":
+        return None
+    sha = lauf.get("head_sha") or ""
+    if sha and git("cat-file", "-e", sha + "^{commit}", cwd=wo).returncode == 0:
+        alle += git("log", "--format=%B", f"{sha}..HEAD", cwd=wo).stdout
+    if ROT_ZEILE.search(alle):
+        return None
+    return (f"748: Push angehalten, der letzte Lauf auf {zweig} ist rot ({lauf.get('html_url', '')}, Stand {sha[:9]}). "
+            "Erst das Protokoll lesen (GitHub-Werkzeug get_job_logs mit run_id und failed_only), die Ursache nachstellen "
+            "(Bekannte Fehler: nie zweimal mit Vermutung bauen), dann in einem der neuen Commits die Zeile "
+            "„Rot: <welcher Test, welche Zeile> – <Ursache, wie nachgestellt>“, dann pushen. Scheitert ein Test, der nicht "
+            "dir gehört: Vorgang an den Besitzer (vorgang.py neu) und die Zeile „Rot: <Test> – fremd, Vorgang <Nr>“.")
+
+
+TEAMZWEIG = re.compile(r"claude/(?:tom|jerry|spike|tuffy)-[\w./-]+")
+ALT_ZEILE = re.compile(r"^Alt:\s*\S", re.M)
+
+
+def alt_fehlt(befehl, cwd):
+    """647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen, die schon da sind,
+    übernehmen und besser machen“): ein Push auf einen Teamzweig mit Spielcode unter godot/ (ohne tests/) braucht in einer
+    seiner Commit-Nachrichten die Zeile „Alt: <Datei:Zeilen der alten Fassung, was übernommen, was besser>“ oder
+    „Alt: keine (<Grund>)“. Grund zum Anhalten oder None."""
+    m = PUSH.search(befehl)
+    if not m:
+        return None
+    cds = CD.findall(befehl[:m.start()])
+    wo = m.group(1) or (os.path.join(cwd, os.path.expanduser(cds[-1].strip("\"'"))) if cds else cwd)
+    ziel = CI_ZWEIG.search(m.group(2))
+    teile = [t for t in m.group(2).split() if not t.startswith("-")]
+    if not ziel and len(teile) >= 2:  # `git push origin main`: ausdrücklich ein anderer Zweig
+        return None
+    zweig = ziel.group(0).split(":")[-1] if ziel else git("rev-parse", "--abbrev-ref", "HEAD", cwd=wo).stdout.strip()
+    if not TEAMZWEIG.fullmatch(zweig):
+        return None
+    oben = git("rev-parse", "--verify", "-q", f"origin/{zweig}", cwd=wo).stdout.strip() or \
+        git("merge-base", "origin/main", "HEAD", cwd=wo).stdout.strip()
+    if not oben:
+        return None
+    # 692: Pfade wie Nachrichten nur aus eigenen Commits; nach `git merge origin/main` lagen sonst Dateien aus main im Diff
+    eigen = [f"{oben}..HEAD"] + (["^origin/main"] if git("rev-parse", "--verify", "-q", "origin/main", cwd=wo).stdout.strip() else [])
+    pfade = git("log", "--no-merges", "--name-only", "--format=", *eigen, cwd=wo).stdout.split()
+    texte = git("log", "--no-merges", "--format=%B%x00", *eigen, cwd=wo).stdout
+    neu_f = COMMIT_F.search(befehl[:m.start()])
+    neu = neu_f or COMMIT.search(befehl[:m.start()])
+    if neu:
+        pfade += git("diff", "--name-only", "HEAD", cwd=wo).stdout.split()
+        texte += "\n" + (neu_f.group(2) if neu_f else neu.group(1))
+    spiel = [p for p in pfade if p.startswith("godot/") and not p.startswith("godot/tests/")
+             and not p.endswith((".uid", ".import"))]
+    if not spiel or ALT_ZEILE.search(texte):
+        return None
+    return ("647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser "
+            f"machen“): Push auf {zweig} ändert Spielcode ({', '.join(spiel[:3])}{' …' if len(spiel) > 3 else ''}), aber keine "
+            "Commit-Nachricht nennt die alte Fassung. Vor dem Bauen die Fundstelle in app/ oder core/ lesen, dann eine Zeile "
+            "„Alt: <Datei:Zeilen>, übernommen: …, besser: …“ in die Nachricht (git commit --amend, solange nicht gepusht), "
+            "oder „Alt: keine (<Grund>)“, wenn es nichts Altes gibt.")
+
+
 def filmlauf_rechner(befehl, cwd):
     """511: filmt dieser Bildlauf am Rechner? Marke im Befehl oder ein Laufskript, das filmt (`--write-movie`, mp4, ffmpeg)."""
     if FILM.search(befehl):
@@ -484,124 +594,6 @@ def filmlauf_rechner(befehl, cwd):
                     return True
                 break
     return False
-
-
-def probebilder(nr):
-    """511: eingetragene Probebilder zu nr, [(Zeit, Bild, Filmskript, Befund)], aus Zweig und lokaler Datei."""
-    _, text = zweig_lesen(BILDER)
-    lokal = open(LOKAL_BILDER, encoding="utf-8").read() if os.path.exists(LOKAL_BILDER) else ""
-    return sorted({(z[0], z[5], z[6], z[7]) for z in zeilen(text) + zeilen(lokal)
-                   if len(z) >= 8 and z[1] == nr and z[3] == "probebild"})
-
-
-def helfer_ok(nr):
-    """511a: Zeit des jüngsten Helferbefunds „ok“ zum Probebild von nr, sonst ""."""
-    _, text = zweig_lesen(BILDER)
-    lokal = open(LOKAL_BILDER, encoding="utf-8").read() if os.path.exists(LOKAL_BILDER) else ""
-    return max((z[0] for z in zeilen(text) + zeilen(lokal) if len(z) >= 8 and z[1] == nr and z[3] == "helfer"), default="")
-
-
-def letzter_film(nr):
-    _, laeufe = zweig_lesen(DATEI)
-    lokal = open(LOKAL, encoding="utf-8").read() if os.path.exists(LOKAL) else ""
-    return max((z[0] for z in zeilen(laeufe) + zeilen(lokal) if z[1] == nr and z[3].endswith("-film")), default="")
-
-
-def probebild_passt(nr):
-    """511 (Chef 13:58): Zeit des jüngsten Archiveintrags „<nr> Probebild passt“, sonst ""; „13:5x“ zählt als 13:59."""
-    _, archiv = zweig_lesen("docs/VORGANGSARCHIV.md", "main")
-    if not archiv:
-        p = os.path.join(REPO, "docs", "VORGANGSARCHIV.md")
-        archiv = open(p, encoding="utf-8").read() if os.path.exists(p) else ""
-    heute = datetime.datetime.now(BERLIN)
-    nrx = r"(?<![\w.])" + re.escape(nr) + r"(?![\w]|\.\d)"
-    beste = ""
-
-    def zeit(tag, monat, std, m1, m2):
-        tag, monat = int(tag), int(monat)
-        jahr = heute.year if (monat, tag) <= (heute.month, heute.day) else heute.year - 1
-        return f"{jahr}-{monat:02d}-{tag:02d} {std}:{m1}{'9' if m2 == 'x' else m2}:59"
-
-    for m in ARCHIV_KOPF.finditer(archiv):
-        ende = archiv.find("\n- **", m.end())
-        eintrag = archiv[m.end():ende if ende >= 0 else len(archiv)]
-        if re.search(nrx + r"[^;:]{0,30}?Probebild passt", m.group(1)):
-            beste = max(beste, zeit(m.group(2), m.group(3), m.group(4), m.group(5), m.group(6)))
-        for g in re.finditer(nrx + r"[^;→]{0,30}?Probebild passt\W{0,4}\(Chef\s+(?:(\d\d)\.(\d\d)\.,?\s*)?(\d\d):(\d)([\dx])",
-                             eintrag):
-            beste = max(beste, zeit(g.group(1) or m.group(2), g.group(2) or m.group(3), g.group(3), g.group(4), g.group(5)))
-    return beste
-
-
-def film_sperre(nr, art, befehl):
-    """511: Grund zum Anhalten oder None. Gilt ein Probebild, das nach dem letzten Filmlauf zu nr eingetragen wurde und das
-    der Chef danach mit „<nr> Probebild passt“ freigegeben hat."""
-    seit = letzter_film(nr)
-    bilder = [b for b in probebilder(nr) if b[0] > seit]
-    if not bilder:
-        return (f"511 (Chef 03.11., 13:50: „511 ja“): Filmlauf für {nr} ohne Probebild"
-                + (f" seit dem letzten Filmlauf {seit}" if seit else "") + ". Erst ein Einzelbild aus demselben Filmskript "
-                f"und derselben Szene (`PROBEBILD={nr} <Befehl ohne Film>`, zählt nicht als Probelauf); fehlt sichtbar etwas: "
-                f"Ursache nachstellen. Dann `python3 tools/probelauf.py --probebild {nr} <Bild.png|Link> <Filmskript> "
-                "\"<was zu sehen sein muss>\"` und dem Chef vorlegen; Filmlauf erst nach seinem „Probebild passt“.")
-    passt = probebild_passt(nr)
-    if not passt or passt[:16] < bilder[-1][0][:16]:
-        return (f"511 (Chef 03.11., 13:58: „Auf mich warten.“): Probebild zu {nr} ({bilder[-1][0]}) ist noch nicht vom Chef "
-                f"freigegeben. Vorlegen: `meldung.sh <Name> --bild <Bild> \"{nr}: Probebild; zu prüfen: {bilder[-1][3]}\"` und "
-                f"Datei docs/chefsache/ansehen/{nr}-probebild.md; Filmlauf erst nach Archiveintrag „{nr} Probebild passt“. "
-                "Bis dahin an einem anderen Vorgang weiter.")
-    if helfer_ok(nr)[:16] < passt[:16]:
-        return (f"511a (Chef 13:59: „1“): Chef hat das Probebild zu {nr} freigegeben ({passt}); jetzt prüft ein Helfer es "
-                "genau gegen die Liste, dann `python3 tools/probelauf.py --helfer " + nr + " \"ok: <was zu sehen ist>\"`. "
-                "Fehlt etwas: Ursache nachstellen, neues Probebild.")
-    skript = os.path.basename(bilder[-1][2].rstrip("/"))
-    if art == "rechner" and skript not in ("", "-") and skript not in befehl:
-        return (f"511: das Probebild zu {nr} ({bilder[-1][1]}) kommt aus „{skript}“, der Filmlauf ruft ein anderes Skript. "
-                "Probebild aus demselben Filmskript eintragen.")
-    return None
-
-
-def helfer_eintragen(args):
-    """511a: `--helfer <Nr> "ok: <was zu sehen ist>"` nach dem „Probebild passt“ des Chefs."""
-    if len(args) != 2:
-        sys.exit("Aufruf: python3 tools/probelauf.py --helfer <Nr> \"ok: <was zu sehen ist>\"")
-    nr, befund = (a.replace("\t", " ").replace("\n", " ").strip() for a in args)
-    seit = letzter_film(nr)
-    bilder = [b for b in probebilder(nr) if b[0] > seit]
-    passt = probebild_passt(nr)
-    if not bilder or not passt or passt[:16] < bilder[-1][0][:16]:
-        sys.exit(f"511a: erst Probebild zu {nr} eintragen und vom Chef „{nr} Probebild passt“ abwarten.")
-    if not re.match(r"ok:\s*\S.{10,}", befund, re.I) or re.search(r"\bfehlt|nicht zu sehen|unsichtbar|\bleer\b", befund, re.I):
-        sys.exit("511a: Befund muss mit „ok:“ beginnen und nennen, was zu sehen ist; fehlt etwas: kein Eintrag, Ursache "
-                 "nachstellen, neues Probebild.")
-    wer = os.environ.get("CLAUDE_SESSION_ID", "hand")[:20]
-    zaehlen(nr, wer, "helfer", BILDER, LOKAL_BILDER, ("-", "-", befund[:300]))
-    print(f"511a: Helferbefund zu {nr} eingetragen; ein Filmlauf zu {nr} darf starten.")
-
-
-def probebild_eintragen(args):
-    """511: `--probebild <Nr> <Bild.png|Link> <Filmskript> "<was zu sehen sein muss>"`; Exit 1 mit Grund bei Fehler."""
-    if len(args) != 4:
-        sys.exit("Aufruf: python3 tools/probelauf.py --probebild <Nr> <Bild.png|Link> <Filmskript> \"<was zu sehen sein muss>\"")
-    nr, bild, skript, befund = (a.replace("\t", " ").replace("\n", " ").strip() for a in args)
-    if not re.fullmatch(NR, nr):
-        sys.exit(f"511: „{nr}“ ist keine Vorgangsnummer.")
-    if not re.match(r"https?://", bild):
-        if not os.path.isfile(bild):
-            sys.exit(f"511: Bild „{bild}“ nicht gefunden.")
-        with open(bild, "rb") as f:
-            kopf = f.read(8)
-        if kopf != b"\x89PNG\r\n\x1a\n" or os.path.getsize(bild) < 1000:
-            sys.exit(f"511: „{bild}“ ist kein PNG oder fast leer (unter 1000 Bytes).")
-        bild = os.path.abspath(bild)
-    if not skript:
-        sys.exit("511: Filmskript fehlt (Datei oder Ablauf, aus dem auch der Film kommt).")
-    if len(befund) < 10:
-        sys.exit("511: Prüfliste fehlt: was muss zu sehen sein (Figur, Waffe, Gegner, kein Menü …)?")
-    wer = os.environ.get("CLAUDE_SESSION_ID", "hand")[:20]
-    zaehlen(nr, wer, "probebild", BILDER, LOKAL_BILDER, (bild, skript, befund[:300]))
-    print(f"511: Probebild für {nr} eingetragen. Jetzt dem Chef vorlegen (`meldung.sh --bild`, „{nr}: Probebild; zu prüfen: "
-          f"{befund}“, Datei docs/chefsache/ansehen/{nr}-probebild.md); Filmlauf erst nach Archiveintrag „{nr} Probebild passt“.")
 
 
 def alte_einstellungen(befehl, cwd):
@@ -679,6 +671,46 @@ def figur_sperre(wo, rev):
             "`git fetch --unshallow`, sonst sieht der Haken die Vorfahren nicht." if flach else ""))
 
 
+GIT_SCHREIBT = re.compile(r"\bgit\s+(?:-C\s+(\S+)\s+)?(?:commit|push)\b")
+
+
+def vorlage_unvollstaendig(befehl, cwd, d=None):
+    """799 (Chef 09.11., 20:46): eine Vorlage in docs/chefsache/entscheiden/ oder billigen/ ohne die Teile nach 364 kommt
+    nicht nach main. Bash: vor `git commit`/`git push` in einer Arbeitskopie auf main jede solche Datei, die von origin/main
+    abweicht (Arbeitsstand);
+    GitHub-Server: Inhalt aus push_files/create_or_update_file. Grund zum Anhalten oder None."""
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import vorlage_pruefen as vp
+    befunde = []
+    if d is not None:
+        e = d.get("tool_input") or {}
+        dateien = [f for f in (e.get("files") or []) if isinstance(f, dict)] + ([e] if e.get("path") else [])
+        for f in dateien:
+            o = vp.ordner_von(str(f.get("path", "")))
+            if o and (fehlt := vp.luecken(str(f.get("content") or ""), o)):
+                befunde.append((f["path"], fehlt))
+        return vp.meldung(befunde) if befunde else None
+    m = GIT_SCHREIBT.search(befehl)
+    if not m:
+        return None
+    cds = CD.findall(befehl[:m.start()])
+    wo = m.group(1) or (os.path.join(cwd, os.path.expanduser(cds[-1].strip("\"'"))) if cds else cwd)
+    wurzel = git("rev-parse", "--show-toplevel", cwd=wo).stdout.strip()
+    if not wurzel or not os.path.isdir(os.path.join(wurzel, "docs", "chefsache")):
+        return None
+    if git("rev-parse", "--abbrev-ref", "HEAD", cwd=wurzel).stdout.strip() != "main":  # Notizen nur auf main
+        return None
+    sp = ["--", "docs/chefsache/entscheiden", "docs/chefsache/billigen"]
+    pfade = git("diff", "--name-only", "origin/main", *sp, cwd=wurzel).stdout.split() + \
+        git("ls-files", "--others", "--exclude-standard", *sp, cwd=wurzel).stdout.split()
+    for p in sorted(set(pfade)):
+        datei = os.path.join(wurzel, p)
+        o = vp.ordner_von(p)
+        if o and os.path.isfile(datei) and (fehlt := vp.luecken(open(datei, encoding="utf-8").read(), o)):
+            befunde.append((p, fehlt))
+    return vp.meldung(befunde) if befunde else None
+
+
 def anhalten(text):
     print(text, file=sys.stderr)
     sys.exit(2)
@@ -689,18 +721,9 @@ def main():
         for nr in sys.argv[2:]:
             n, v = stand(nr)
             print(f"{nr}: {n} von {GRENZE} Probeläufen seit {'Urteil ' + v if v else 'Beginn der Zählung'}")
-            seit = letzter_film(nr)
-            frei = [b for b in probebilder(nr) if b[0] > seit]
-            passt = probebild_passt(nr)
-            print(f"{nr}: Probebild (511) " + ("fehlt, kein Filmlauf" if not frei else
-                  f"{frei[-1][0]} ({frei[-1][2]}), " + ("wartet auf den Chef" if not passt or passt[:16] < frei[-1][0][:16]
-                                                         else "Chef " + passt + (", wartet auf den Helfer (511a)"
-                                                         if helfer_ok(nr)[:16] < passt[:16] else ", Helfer ok, Filmlauf frei"))))
         return
-    if sys.argv[1:2] == ["--helfer"]:
-        return helfer_eintragen(sys.argv[2:])
-    if sys.argv[1:2] == ["--probebild"]:
-        return probebild_eintragen(sys.argv[2:])
+    if sys.argv[1:2] in (["--helfer"], ["--probebild"]):
+        sys.exit("783 W1 (Chef 09.11., 20:12): Probebild und Helfer entfallen; Einzelbild selbst ansehen, dann gleich Film.")
     try:
         d = json.load(sys.stdin)
     except ValueError:
@@ -709,6 +732,9 @@ def main():
     befehl = ohne_heredoc(roh)
     cwd = d.get("cwd") or os.getcwd()
     wer = (d.get("session_id") or "?")[:20]
+    e822 = d.get("tool_input") or {}
+    bereich_merken([f.get("path", "") for f in (e822.get("files") or []) if isinstance(f, dict)] + ([e822["path"]] if e822.get("path") else []),
+                   befehl, d.get("session_id") or "x", cwd)  # 822
     if "actions_run_trigger" in (d.get("tool_name") or ""):  # 407: Start von Hand über den GitHub-Server
         try:
             hand = handlauf_mcp(d)
@@ -717,8 +743,27 @@ def main():
         if hand == RERUN:
             anhalten(RERUN)
         if hand:
-            pruefen_und_zaehlen(*hand, wer, film=True)
+            nr, art, film = hand
+            pruefen_und_zaehlen(nr, art, wer, film=film)
         return
+    if re.search(r"(push_files|create_or_update_file)$", d.get("tool_name") or ""):  # D75.1: Push über den GitHub-Server zählt wie git push
+        try:
+            grund = vorlage_unvollstaendig("", cwd, d)  # 799
+        except (OSError, subprocess.SubprocessError, ValueError, ImportError):
+            grund = None
+        if grund:
+            anhalten(grund)
+        try:
+            e = d.get("tool_input") or {}
+            zweig, nachricht = str(e.get("branch") or ""), str(e.get("message") or "")
+            pfade = [f.get("path", "") for f in (e.get("files") or []) if isinstance(f, dict)] + ([e["path"]] if e.get("path") else [])
+            if CI_ZWEIG.fullmatch(zweig) and not SAMMELBUILD.fullmatch(zweig) and "[skip ci]" not in nachricht and "[ci skip]" not in nachricht \
+                    and any(x.startswith(CI_PFADE) for x in pfade) and (los := loest_aus(cwd, zweig, pfade, nachricht)):
+                m = re.match(r"\s*(?:\w+:\s*)?(" + NR + r")\b", nachricht)
+                return pruefen_und_zaehlen(m.group(1) if m else zweig, "ci", wer, los == FILMT)
+        except (OSError, subprocess.SubprocessError, ValueError):
+            pass
+        return hinweis_geben()
     try:
         alt = alte_einstellungen(befehl, cwd)
     except (OSError, subprocess.SubprocessError, ValueError):
@@ -726,7 +771,25 @@ def main():
     if alt:
         anhalten(alt)
     try:
+        grund = vorlage_unvollstaendig(befehl, cwd)  # 799: Vorlage nach 364
+    except (OSError, subprocess.SubprocessError, ValueError, ImportError):
+        grund = None
+    if grund:
+        anhalten(grund)
+    try:
+        grund = alt_fehlt(roh, cwd)  # 647: Fundstelle der alten Fassung vor dem Push
+    except (OSError, subprocess.SubprocessError, ValueError):
+        grund = None
+    if grund:
+        anhalten(grund)
+    try:
         grund = parse_pruefen(roh, cwd)  # 464: vor dem Zählen, ein angehaltener Push ist kein Lauf
+    except (OSError, subprocess.SubprocessError, ValueError):
+        grund = None
+    if grund:
+        anhalten(grund)
+    try:
+        grund = rot_vorher(roh, cwd)  # 748: nach rotem Lauf erst Ursache, dann Push
     except (OSError, subprocess.SubprocessError, ValueError):
         grund = None
     if grund:
@@ -736,22 +799,22 @@ def main():
         if bildlauf(befehl, cwd) and not PROBE.search(befehl) and (pb := PROBEBILD.search(befehl)):
             if (fs := figur_sperre(arbeitskopie(befehl, cwd), "HEAD")):
                 anhalten(fs)
-            if filmlauf_rechner(befehl, cwd):  # 511: Probebild ist ein Einzelbild, kein Film
-                anhalten(f"511: `PROBEBILD={pb.group(1)}` gilt nur für ein Einzelbild; dieser Befehl filmt. Für den Film "
-                         f"`PROBE={pb.group(1)}` mit eingetragenem Probebild.")
-            return hinweis_geben(f"511: Probebild zu {pb.group(1)}, zählt nicht als Probelauf. Eintragen mit "
-                                 "`python3 tools/probelauf.py --probebild …`, dann dem Chef vorlegen.")
+            if filmlauf_rechner(befehl, cwd):  # 783 W1: Probebild ist ein Einzelbild, kein Film
+                anhalten(f"783 W1: `PROBEBILD={pb.group(1)}` gilt nur für ein Einzelbild; dieser Befehl filmt. Für den Film "
+                         f"`PROBE={pb.group(1)}`.")
+            return hinweis_geben(f"783 W1: Einzelbild zu {pb.group(1)}, zählt nicht als Probelauf. Selbst ansehen, ob Inhalt da "
+                                 "ist (kein Weißbild, richtiger Ort), dann gleich Film; nicht an den Chef, kein Helfer.")
         if bildlauf(befehl, cwd):
             m = PROBE.search(befehl)
             if not m:
-                anhalten("389 (Chef 27.10., 23:55, höchstens zwei Probeläufe je Vorlage): Bildlauf erkannt. "
+                anhalten("621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. "
                          "Vorgang davorsetzen: `PROBE=<Nr> <Befehl>`; der Haken zählt je Vorgang.")
             nr, art, film = m.group(1), "rechner", filmlauf_rechner(befehl, cwd)
             STAND_REF.update(wo=arbeitskopie(befehl, cwd), rev="HEAD")
         elif (hand := handlauf_bash(befehl)):
             if hand == RERUN:
                 anhalten(RERUN)
-            (nr, art), film = hand, True
+            nr, art, film = hand
         else:
             push = push_lauf(roh, cwd)
             if not push:
@@ -765,25 +828,45 @@ def main():
 def pruefen_und_zaehlen(nr, art, wer, film=False, befehl=""):
     try:
         n, vorlage = stand(nr)
-        sperre = figur_sperre(STAND_REF.get("wo"), STAND_REF.get("rev")) or (film_sperre(nr, art, befehl) if film else None)
+        sperre = figur_sperre(STAND_REF.get("wo"), STAND_REF.get("rev"))
     except (OSError, subprocess.SubprocessError, ValueError):
         return hinweis_geben()
     if n >= GRENZE:
-        anhalten(f"389 (Chef 27.10., 23:55: „höchstens zwei Läufe und die Betonung hierbei liegt auf höchstens“): für {nr} "
-                 f"schon {n} Probeläufe seit {'deinem Urteil ' + vorlage if vorlage else 'Beginn der Zählung'}. Kein weiterer Lauf: "
-                 f"jetzt vorlegen, was da ist (Datei in docs/chefsache/ansehen/, `meldung.sh --bild` oder `--film` mit „{nr}:“), "
-                 "Befund der Fehlerprüfung danach als Text (396). Erst das Urteil des Chefs (Eintrag im Vorgangsarchiv) gibt zwei neue "
-                 "Läufe frei (407), oder Sokrates mit einem Archiveintrag „<Nr>, Läufe frei“ (480.1; Bitte an ihn per Vorrat, nie "
+        anhalten(f"621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für {nr} "
+                 f"schon {n} Probelauf seit {'deinem Urteil ' + vorlage if vorlage else 'Beginn der Zählung'}. Kein weiterer Lauf: "
+                 f"jetzt vorlegen, was da ist, auch ein Messlauf (646; Datei in docs/chefsache/ansehen/, Sitz und Aussehen `meldung.sh --bild`, Bewegung `--film`, mit „{nr}:“ und offenen Punkten als Vermerk), "
+                 "Befund der Fehlerprüfung danach als Text (396). Passt die Probe nicht: Rückfrage mit Wegen und Kosten in docs/chefsache/entscheiden/, keine neue Runde (621 A). Erst das Urteil des Chefs (Eintrag im Vorgangsarchiv) gibt einen neuen "
+                 "Lauf frei (407), oder Sokrates mit einem Archiveintrag „<Nr>, Läufe frei“ (480.1; Bitte an ihn per Vorrat, nie "
                  "Chefsache); bis dahin an einem anderen Vorgang weiter.")
     if sperre:
         anhalten(sperre)
     zaehlen(nr, wer, art + ("-film" if film else ""))
-    hinweis_geben(f"389: Probelauf {n + 1} von {GRENZE} für {nr}" + ("; danach vorlegen." if n + 1 == GRENZE else "."))
+    hinweis_geben(f"621 A: Probelauf {n + 1} von {GRENZE} für {nr}" + (
+        "; danach geht das Ergebnis an den Chef, auch mit offenen Punkten (Vermerk: Punkt, warum offen; 646): Sitz und "
+        "Aussehen als Bild, Bewegung als Film. Nachstellen am Rechner nur zur Ursache eines Fehlers, den der Chef gemeldet hat."
+        if n + 1 == GRENZE else "."))
+
+
+BEREICH = {"text": ""}  # 822: Liste je Bereich, einmal je Sitzung (tools/bereichslisten.py)
+
+
+def bereich_merken(pfade, befehl, sitzung, cwd="."):
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import bereichslisten as bl
+        if not pfade and re.search(r"\bgit\b.*\b(commit|push)\b", befehl):
+            m = GIT_SCHREIBT.search(befehl)
+            cds = CD.findall(befehl[:m.start()]) if m else []
+            wo = (m.group(1) if m else None) or os.path.join(cwd, os.path.expanduser(cds[-1].strip("\"'")) if cds else cwd)
+            pfade = bl.pfade_git(befehl, wo)
+        BEREICH["text"] = bl.zusatz(pfade, befehl, sitzung)
+    except Exception:
+        BEREICH["text"] = ""
 
 
 def hinweis_geben(text=""):
-    """Zusatztext an die Sitzung (PreToolUse additionalContext): Zählstand 389 und, falls nötig, Ungeprüftes 464.1."""
-    text = " ".join(t for t in (text, ungeprueft_hinweis()) if t)
+    """Zusatztext an die Sitzung (PreToolUse additionalContext): Zählstand 389, falls nötig Ungeprüftes 464.1, Liste je Bereich 822."""
+    text = " ".join(t for t in (text, ungeprueft_hinweis(), BEREICH["text"]) if t)
     if text:
         print(json.dumps({"hookSpecificOutput": {"hookEventName": "PreToolUse", "additionalContext": text}}, ensure_ascii=False))
 

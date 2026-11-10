@@ -17,7 +17,7 @@ Jedes Kapitel deckt ein Stück auf und lässt eine neue Frage offen. Kapitel 1 u
 | 6 | 14–16 | offen | offen | offen |
 | 7 | 16–20 | offen | offen; Ende des Fadens | – |
 
-Stufen nach `DESIGN-BALANCE.md` (Stufe am Kapitelende).
+Stufen nach `alt/DESIGN-BALANCE.md` (Stufe am Kapitelende; überholt durch das BRS, keine feste Höchststufe, 650.2).
 
 ## Offene Fäden
 

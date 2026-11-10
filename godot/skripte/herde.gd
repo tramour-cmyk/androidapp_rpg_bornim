@@ -20,7 +20,10 @@ var jetzt := 0                    # ms seit dem Betreten (App-Uhr wie Game.now)
 var frieden_bis := 0              # Game.peaceUntil: nach dem Kampf 2,5 s
 var schonzeit := 3                # Game.graceSteps
 var zufall := RandomNumberGenerator.new()
-var aus := false                  # Test: Monster lassen den Helden in Ruhe (monstersIgnoreHero)
+var aus := false                  # Bilder: Monster lassen den Helden in Ruhe, auch Hineinlaufen kaempft nicht
+# 554 (Chef 04.11., 00:27) wie alt Game.monstersIgnoreHero (Testmenue): Monster laufen und stehen wie sonst, jagen und greifen nicht an,
+# auch kein Ueberfall im hohen Gras; wer selbst hineinlaeuft, kaempft
+static var beachten_nicht := false
 
 func _init(k: Karte, s) -> void:
 	karte = k
@@ -50,7 +53,7 @@ func _zeige(d: Dictionary) -> Streuner:
 	return s
 
 # ---------------------------------------------------------------- wie spawnRoamer
-func nacht() -> bool: return spiel.licht.nacht > 0.5
+func nacht() -> bool: return spiel.licht.ist_nacht()   # 539 Game.isNight
 
 ## die Tabelle, aus der jetzt gezogen wird (nachts eigene), nur Monster mit Kampfgruppe und Modell (Streuner.da)
 func tabelle() -> Array:
@@ -126,7 +129,7 @@ func schritt(dt: float) -> void:
 		if jetzt < s.naechst_ms: continue
 		var dist := absi(s.kachel.x - h.x) + absi(s.kachel.y - h.y)
 		var vom_heim := absi(s.kachel.x - s.heim.x) + absi(s.kachel.y - s.heim.y)
-		var ruhig: bool = aus or jetzt < s.ruhig_bis or jetzt < frieden_bis
+		var ruhig: bool = aus or beachten_nicht or jetzt < s.ruhig_bis or jetzt < frieden_bis
 		var angst := stark                                                   # schwache Monster meiden einen viel staerkeren Helden
 		var sieht := am_schutz.is_empty() and dist <= (2 if s.temper() == "LAUERER" else reichweite())
 		if not ruhig and angst and dist <= 4 and am_schutz.is_empty():
@@ -151,6 +154,7 @@ func schritt(dt: float) -> void:
 				_auf(s, h, false, 560 if s.art == "zombie" else 380)
 		elif not ruhig and not angst and s.temper() != "WANDERER" and sieht and not s.heimweg:
 			s.jagt = true
+			s.blick = _richtung(h - s.kachel)     # 560: bemerkt den Helden und wendet sich ihm zu, bevor es losgeht
 			s.alarm_bis = jetzt + 800
 			s.naechst_ms = jetzt + 500
 			spiel.klang("effekt", ["alert", 0.8 * _gehoert(dist)])
@@ -189,7 +193,7 @@ func _streife(s: Streuner) -> void:
 			var n: Vector2i = s.kachel + d
 			if absi(n.x - s.heim.x) + absi(n.y - s.heim.y) > 3: continue
 			if _geh(s, d, 420): break
-	s.naechst_ms = jetzt + 900 + zufall.randi_range(0, 1600)
+	s.naechst_ms = maxi(jetzt + 900 + zufall.randi_range(0, 1600), s.bewegt_ms + s.schritt_ms + 40)     # 560: nach Wende und Schritt
 
 ## ein Schritt zu (oder weg von) ziel entlang der besseren Achse, sonst die andere (stepTowards)
 func _auf(s: Streuner, ziel: Vector2i, weg: bool, ms: int) -> void:
@@ -204,17 +208,27 @@ func _auf(s: Streuner, ziel: Vector2i, weg: bool, ms: int) -> void:
 	var ging := false
 	for d in folge + rest:
 		if _geh(s, d, ms): ging = true; break
-	s.naechst_ms = jetzt + (s.schritt_ms if ging else int(ms * Streuner.PACE)) + 40
+	s.naechst_ms = (s.bewegt_ms + s.schritt_ms if ging else jetzt + int(ms * Streuner.PACE)) + 40     # 560: nach der Wende
 
 func _geh(s: Streuner, d: Vector2i, ms: int) -> bool:
 	var n := s.kachel + d
 	if not frei(n): return false
 	s.von = s.kachel
 	s.kachel = n
+	s.bewegt_ms = jetzt + s.wende_ms(d)     # 560: weite Wende erst auf der Stelle (Roamers.step)
 	s.blick = d
-	s.bewegt_ms = jetzt
 	s.schritt_ms = int(ms * Streuner.PACE * karte.schritt(n))
 	return true
+
+# 541 Game.roamerAt: das Monster auf Kachel t oder null
+func bei(t: Vector2i) -> Streuner:
+	for s in liste:
+		if s.kachel == t: return s
+	return null
+
+# 541 Game.interact -> engage: mit dem Aktionsknopf angreifen; von hinten (gleicher Blick) oder ein Lauerer im Versteck: Held zuerst
+func greife_an(s: Streuner) -> void:
+	_los(s, "HERO_FIRST" if s.blick == _held_blick() or (s.temper() == "LAUERER" and not s.jagt) else "NORMAL")
 
 func _merke(s: Streuner) -> void:
 	var i := liste.find(s)
@@ -244,6 +258,23 @@ func nach_kampf(s: Streuner, ende: String) -> void:
 		s.ruhig_bis = jetzt + Streuner.FLED_CALM_MS
 		_merke(s)
 
+# 555 wie alt Game.cheatBring (Testmenue „neben den Helden holen“): ein Monster der Art auf ein freies Feld neben dem Helden, friedlich
+# fuer ms (Rudel: die Kampfgruppe kommt erst im Kampf dazu, wie auf der Karte); false, wenn kein Feld frei ist
+func hole(art: String, ms := 120000) -> bool:
+	var h: Vector2i = spiel.held.kachel
+	for r in [1, 2, 3]:
+		for dy in range(-r, r + 1):
+			for dx in range(-r, r + 1):
+				if maxi(absi(dx), absi(dy)) != r: continue
+				var p := h + Vector2i(dx, dy)
+				if not frei(p): continue
+				var d := {"art": art, "kachel": p, "heim": p, "blick": h - p if absi(dx) + absi(dy) == 1 else Vector2i(0, 1), "nr": zufall.randi_range(1, 4),
+					"ruhig_bis": jetzt + ms}
+				bestand[karte.id].append(d)
+				_zeige(d)
+				return true
+	return false
+
 # ---------------------------------------------------------------- nach jedem Feld (afterStep): wiederkommen, Ueberfall im hohen Gras
 func betreten(t: Vector2i) -> void:
 	var faellig: Array = wiederkehr.get(karte.id, [])
@@ -257,7 +288,7 @@ func betreten(t: Vector2i) -> void:
 	if schonzeit > 0:
 		schonzeit -= 1
 		return
-	if aus or enc.is_empty() or not karte.zeichen(t) in enc.get("kacheln", []) or not sicher(t).is_empty(): return
+	if aus or beachten_nicht or enc.is_empty() or not karte.zeichen(t) in enc.get("kacheln", []) or not sicher(t).is_empty(): return
 	var weise := maxf(0.4, 1.0 - 0.15 * maxi(0, spiel.held_werte().mod("WIS")))   # Perks.ambushFactor
 	if zufall.randf() < float(enc.get("rate", 0.0)) * weise:
 		var m := ziehe((enc.get("tabelle", []) as Array).filter(func(e): return Streuner.da(String(e[0]))))   # alt: immer die Tagestabelle

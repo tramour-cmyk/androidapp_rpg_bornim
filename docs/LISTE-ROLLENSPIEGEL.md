@@ -20,9 +20,9 @@ Ist-Soll-Abgleich jeder Rolle (340, Chef 23.10., 09:46). **Wann:** freitags am E
 
 | Nr. | Rolle | Änderung | erwartet | Prüfdatum | gewirkt |
 |---|---|---|---|---|---|
-| 340.3 | alle | A: Hinweise von `notiz.sh` schreibt das Werkzeug täglich in den Vorrat des Besitzers | Hinweise 8 → höchstens 2 | Mo 09.11. | |
-| 340.4 | alle | B: Pflichtzeile „Geprüft an: <Link>“ in Chefsache und bei „gebaut“ | höchstens 2 Runden je Aussehensfrage bis „passt“ | Mo 09.11. | |
-| 340.5 | alle | C: „Uhr: HH:MM“ nach jedem Arbeitsschritt | 0 falsche Zeitstempel in der Woche | Mo 09.11. | |
+| 340.3 | alle | A: Hinweise von `notiz.sh` schreibt das Werkzeug täglich in den Vorrat des Besitzers | Hinweise 8 → höchstens 2 | Mo 09.11. | nein: 4 (Diogenes 09.11., Prüfbericht Lauf 92) |
+| 340.4 | alle | B: Pflichtzeile „Geprüft an: <Link>“ in Chefsache und bei „gebaut“ | höchstens 2 Runden je Aussehensfrage bis „passt“ | Mo 09.11. | fehlt (Runden nicht gezählt); Zeile da in 76 von 80 Vorlagen |
+| 340.5 | alle | C: „Uhr: HH:MM“ nach jedem Arbeitsschritt | 0 falsche Zeitstempel in der Woche | Mo 09.11. | nein: 8 von 201 daneben (`LISTE-REGELTREUE.md`) |
 
 ## Woche 23.10. (erster Durchgang)
 
@@ -220,3 +220,17 @@ Hinweis: Die Abschnitte der anderen sah ich beim Öffnen der Datei vor dem Antwo
 8. Am meisten gekostet hat 366 (Tester-Text): sechs Commits in einer Stunde (25.10., 18:41–19:46), weil die Faktenprüfung erst nach dem dritten Entwurf kam.
 9. Unklar ist, wann eine Zeile „nach dem Meilenstein“ startbar ist: Der Weiter-Haken schickte mich zu 432, obwohl dort nur noch die Chefsache fehlt, die laut Vorrat erst nach dem Meilenstein kommt. Fehlen würde ein Stand-Wort „wartet auf Meilenstein“, das `startbar.py` sperrt; dafür könnte das Wort „ruht“ wegfallen.
 10. Ernste Ansage: Texte kommen schnell und kein Team wartet, aber ein Schritt der Vorwoche blieb liegen, und 461d ging ungeprüft raus. Schritte: (a) jede Arbeit an Notizen mit Regelwirkung vor „fertig“ fremd prüfen lassen, nicht nur Chefsachen; (b) Vorratsgrenzen anderer einmal je Woche in deren Vorrat melden; (c) Stiltext auf Godot-Fundstellen umstellen (Muster festschreiben).
+
+### Perikles, nachgeholt für Fr 06.11. (09.11., 09:07, Sitzung „Perikles – 715: Rollenspiegel 06.11. (09.11., 09:06)“; Woche 02.–08.11.)
+
+0. Angekündigt 02.11.: drei Schritte (Werkzeugregel gegen echte Läufe prüfen, Uhrzeit nur aus der Uhr, Notizen nur mit Edit), alle nur nach Ja des Chefs, das nie kam; gelebt habe ich 2 und 3, Schritt 1 nur über Diogenes' Nachprüfungen (D83–D91, 0 verworfen), also 2 von 3.
+1. Halb erfüllt: Tagesbericht 4 von 7 Tagen von mir (03., 04., 05., 08.11.; 06.11. fehlt, 468a), Wochenziel „Kapitel 1 durchspielbar“ ohne Zwischenziel, das den Rückstau vor dem Durchspiel-Build 496 früh gezeigt hätte (Lauf 92: nein).
+2. Etwa 15 % Chef (Wochenziel, 620.1, 621.1, Tagesbericht), 75 % Werkzeuge und Betrieb (275.2, 317.1, 641, 646, 647, 651, 654.1, 685, 686, D80–D91), 10 % Vorrang der Teams; falsch gewichtet: 208 Commits von mir in einer Woche, in der das Spiel 0 von 41 Abnahmepunkten schaffte.
+3. Lauf 92: Z3 1 Fehler (03.11., 07:54, Schieflage Jerry nur gemeldet statt verteilt; Ziel 0), Z4 5 ja und 1 ja, aber (Ziel 1), Z5 74 % (Ziel 70), Z6 nein, Muss 94 %; also Z4, Z5 erfüllt, Z1 knapp verfehlt (06.11.), Z3, Z6 verfehlt.
+4. Vorgelegt 620.1 (Sperre ab 6 ungetesteten Muss; „ja“, Sperre erst nach dem Aufräumen) und 621.1 (Vorentscheid, gebilligt); fehlte bei 620.1 die Zahl, wie lange Funde dadurch länger warten (Gegenargument nur benannt, nicht gerechnet).
+5. Zurückweisen würde der Chef neun meiner Werkzeugvorgänge mit „gebaut, wartet auf Test“ (317.1, 464, 275, 627, 641, 646, 647, 651, 654.1), die er nie testen wird, weil sie kein Spiel sind; „gebaut“ heißt dort nur „von Diogenes geprüft“, die Liste suggeriert Arbeit beim Chef.
+6. Nicht gemeldet: `rollenspiegel.sh` hängt eine Antwort vom Montag unter die kommende Woche (die Antworten vom 02.11. stehen unter „Woche 06.11.“, darum fiel der Ausfall erst Diogenes am 09.11. auf); bemerkt erst heute, diese Antwort darum von Hand hier.
+7. Auf mich gewartet: die Teams auf die Freigabe nach 620.1 (Sperre ab 08.11., 11:05) und der Chef auf 715; ich wartete auf Diogenes bei jedem Doppelpack (421) – ein Lauf für mehrere Bauten statt je Bau hätte das verkürzt.
+8. Am meisten gekostet, am wenigsten gebracht: Werkzeugketten mit Nachprüfung (646, 647: je Bau ein Diogenes-Lauf und eine neue Lücke D86.1, D87.1), während Kampf und Bewegung der Figuren nach t269/t270 offen blieben.
+9. Unklar: ob Wochentermine während 468a ausfallen oder nachgeholt werden (erst heute durch „jetzt“ entschieden); streichen würde ich den Doppelpack je Einzelbau (421) zugunsten einer Prüfzeile je Tag; fehlt: Wochentermine als Zeile in der Vorgangsliste (719 bei Sokrates).
+10. Ernste Ansage: ich habe die Woche fast ganz in Abläufe gesteckt, genau mein typischer Fehler, und das Spiel hat keinen Abnahmepunkt geschafft. Schritte: (1) diese Woche keine neue Werkzeugregel ohne Fund des Chefs dahinter, offene D-Befunde gebündelt in einem Bau; (2) Wochenziel 09.11. nur Kampf (Chef 08.11., 21:36) mit Teilhaken je Tag; (3) gebaute Werkzeugvorgänge aus „wartet auf Test“ in einen eigenen Stand ohne Chef.

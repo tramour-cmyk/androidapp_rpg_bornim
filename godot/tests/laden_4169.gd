@@ -17,7 +17,7 @@ func _initialize() -> void:
 
 func texte(n: Node) -> String:
 	var t := ""
-	if n is Label: t += (n as Label).text + "\n"
+	if n is Label: t += (n as Label).text.replace("\u00a0", " ") + "\n"   # 557 Vorlage 2: letzte zwei Wörter fest verbunden
 	for c in n.get_children(): t += texte(c)
 	return t
 
@@ -29,7 +29,8 @@ func zaehle(n: Node, marke: String) -> int:
 func offener_kasten(l: Node) -> Node:
 	var k: Node = null
 	for c in l.get_children():
-		if c is ColorRect and (c as ColorRect).color.a > 0.5 and (c as ColorRect).color.a < 1.0: k = c
+		# 630 (549a): das Fenster ohne Kasten ist ganz deckend schwarz mit der Spalte „Fenster“
+		if c is ColorRect and (c as ColorRect).color.a > 0.5 and ((c as ColorRect).color.a < 1.0 or c.find_child("Fenster", true, false)): k = c
 	return k
 
 func _lauf() -> void:

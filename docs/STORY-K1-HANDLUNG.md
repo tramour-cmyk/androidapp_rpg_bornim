@@ -45,10 +45,15 @@ Mit Garricks Rat (Garrick getroffen):
 1. Kroggs erster Hieb aus dem Dunkel hat dich gebrochen, bevor der Kampf richtig begann. Garrick hat dich gewarnt: Geh nicht mit leeren Händen zu ihm. Morwen im Tiefen Flüsterwald weiß, wie man so einem den ersten Hieb nimmt. — EN: Krogg's first blow from the dark broke you before the fight had truly begun. Garrick warned you: don't go to him empty-handed. Morwen in the Deep Whisperwood knows how to rob one like him of his first strike.
 2. Kroggs erster Hieb sitzt dir noch in den Knochen. Garrick sprach von Morwen, der Kräuterfrau im Tiefen Flüsterwald. Vielleicht ist es Zeit, auf ihn zu hören. — EN: Krogg's first blow is still in your bones. Garrick spoke of Morwen, the herbalist in the Deep Whisperwood. Perhaps it's time to listen to him.
 3. Gegen Kroggs ersten Hieb hilft kein Mut. Morwen im Tiefen Flüsterwald weiß Rat dagegen, hat Garrick gesagt. — EN: Courage is no help against Krogg's first strike. Morwen in the Deep Whisperwood knows a way around it, Garrick said.
-Mit Rauchbündel verloren (Bündel verbraucht, `klassisch.gd`); ob Morwen ein zweites gibt, fragt `entscheiden/4272a`:
-1. Der Rauch hat ihm den ersten Hieb genommen, aber nicht die übrigen. Krogg ist stärker als du, noch. — EN: The smoke robbed him of his first strike, but not of the others. Krogg is stronger than you. For now.
-2. Morwens Rauch hat gewirkt; du warst es, der nicht gereicht hat. Werde stärker, bevor du wieder in den Ostflügel gehst. — EN: Morwen's smoke worked; you were the one who fell short. Grow stronger before you go back to the east wing.
-3. Ohne den ersten Hieb blieb Krogg noch genug. Ein paar Narben mehr, dann versuchst du es wieder. — EN: Even without his first strike, Krogg had enough left. A few more scars, then you'll try again.
+Mit Rauchbündel verloren (Bündel verbraucht, `klassisch.gd`; Morwen gibt ein neues, `[427.2a.morwen.rauch]`):
+1. Der Rauch hat ihm den ersten Hieb genommen, aber nicht die übrigen. Krogg ist stärker als du, noch. Morwen bindet dir ein neues Bündel. — EN: The smoke robbed him of his first strike, but not of the others. Krogg is stronger than you. For now. Morwen will bind you a new bundle.
+2. Morwens Rauch hat gewirkt; du warst es, der nicht gereicht hat. Hol dir bei ihr ein neues Bündel und werde stärker, bevor du wieder in den Ostflügel gehst. — EN: Morwen's smoke worked; you were the one who fell short. Get a new bundle from her and grow stronger before you go back to the east wing.
+3. Ohne den ersten Hieb blieb Krogg noch genug. Ein paar Narben mehr und ein neues Bündel von Morwen, dann versuchst du es wieder. — EN: Even without his first strike, Krogg had enough left. A few more scars and a new bundle from Morwen, then you'll try again.
+
+`[427.2a.morwen.rauch]` (Morwen, beim nächsten Besuch nach jeder Niederlage gegen Krogg, in der ein Bündel verbraucht wurde, solange Krogg lebt und kein Bündel in der Tasche ist; ohne je ein Bündel gilt `[D4.1.morwen.krogg]`; gibt 1 Rauchbündel; braucht ein eigenes Zeichen „neues Bündel fällig“, denn `SMOKE_GIVEN` verhindert heute jede zweite Gabe; vor ihrem üblichen Gruß; drei Wortlaute nach 504, erster beim ersten Mal; Chef 03.11., 15:44, Archiv 427.2a)
+1. Krogg hat dich erwischt, ich seh's an deinem Gang. Der Rauch hat getan, was er konnte. Hier, ein neues Bündel. Diesmal bring mehr mit als Mut. — EN: Krogg got you, I can tell by the way you walk. The smoke did what it could. Here, a new bundle. This time bring more than courage.
+2. Mein Rauch ist verflogen, und Krogg steht noch? Dann nimm dieses hier. Kräuter wachsen nach; du hoffentlich auch. — EN: My smoke is gone, and Krogg still stands? Then take this one. Herbs grow back; I hope you do too.
+3. Ich hab dir schon eins gebunden. Nimm es, und geh erst wieder in den Ostflügel, wenn du sicher stehst. — EN: I've already bound one for you. Take it, and don't go back to the east wing until you're steady on your feet.
 Ohne Garricks Rat (Garrick nicht getroffen):
 1. Kroggs erster Hieb aus dem Dunkel hat dich gebrochen, bevor der Kampf richtig begann. Wer weiß, wie man so einem den ersten Hieb nimmt? Vielleicht jemand, der den Wald kennt. Am Lagerfeuer im Flüsterwald sitzt ein Jäger. — EN: Krogg's first blow from the dark broke you before the fight had truly begun. Who knows how to rob one like him of his first strike? Perhaps someone who knows the woods. A hunter sits by the campfire in the Whisperwood.
 2. Kroggs erster Hieb sitzt dir noch in den Knochen. Allein und mit leeren Händen kommst du an ihm nicht vorbei. Der Jäger am Lagerfeuer im Flüsterwald weiß vielleicht Rat. — EN: Krogg's first blow is still in your bones. Alone and empty-handed, you won't get past him. The hunter by the campfire in the Whisperwood may have advice.
@@ -191,6 +196,9 @@ EN: Three. Good. They still smell of blood – that washes out. Here, your pay. 
 `[356.pelzumhang]` (Stück, ungewöhnlich, Umhang) Thessas Pelzumhang
 EN: Thessa's Fur Cloak
 
+`[356.pelzumhang.text]` (Katalogtext, 694) Ein dichter Pelzumhang aus Thessas Kramladen, noch aus dem letzten Winter.
+EN: A thick fur cloak from Thessa's general store, left over from last winter.
+
 `[356.hauer.lohn]` 50 Gold, ein Hauerdolch
 EN: 50 gold, a tusk dagger
 
@@ -199,3 +207,6 @@ EN: Hm. Broken clean, not sawn. I can work with these. Take this. And this one �
 
 `[356.hauerdolch]` (Stück, ungewöhnlich, Dolch) Borins Hauerdolch
 EN: Borin's Tusk Dagger
+
+`[356.hauerdolch.text]` (Katalogtext, 694) Ein Dolch aus Borins Schmiede, die Griffschalen aus Keilerhauer, wie er sie jetzt macht.
+EN: A dagger from Borin's smithy, its grip plates of boar tusk, the way he makes them now.

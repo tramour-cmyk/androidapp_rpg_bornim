@@ -1,6 +1,6 @@
 # Bestiarium
 
-Nachschlagen (427, Chef 31.10.2026, 21:3x): je Monsterart, was man für Spiel, Kampf und Texte braucht. **Aussehen** steht nur in [`LISTE-FIGUREN.md`](LISTE-FIGUREN.md) (dort Abnahmelisten und einmalige Monster), hier nur der Verweis. **Werte** folgen dem Rechenmodell von Spielsystem 2.0 (Modell D, Entscheidung 73–75), Startwerte im Abschnitt „Werte 2.0“. **Hintergrund** im Abschnitt unten (Homer, 428). Namen nach dem Glossar in [`DESIGN-SPIELSYSTEM-2-0.md`](DESIGN-SPIELSYSTEM-2-0.md).
+Nachschlagen (427, Chef 31.10.2026, 21:3x): je Monsterart, was man für Spiel, Kampf und Texte braucht. **Aussehen** steht nur in [`LISTE-FIGUREN.md`](LISTE-FIGUREN.md) (dort Abnahmelisten und einmalige Monster), hier nur der Verweis. **Werte** folgen dem Rechenmodell von Spielsystem 2.0 (Modell D, Entscheidung 73–75), Startwerte im Abschnitt „Werte 2.0“. **Hintergrund** im Abschnitt unten (Homer, 428). Namen nach [`DESIGN-BRS.md`](DESIGN-BRS.md) Abschnitt 12.
 
 Stand der Spalten „Angriff“, „Beute“ und „Merkmal“: aus `core/src/main/kotlin/de/bornim/core/Monsters.kt` gelesen am 31.10.2026 (alte Fassung). Merkmalsnamen sind Vorschlag Sokrates, ohne SRD-Begriffe.
 

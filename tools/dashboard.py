@@ -95,9 +95,9 @@ def main(ziel):
     sb = subprocess.run([sys.executable, os.path.join(ROOT, "tools", "startbar.py"), "--stand"],
                         capture_output=True, text=True)
     titel = {}
-    for z in lesen("LISTE-VORGAENGE.md").splitlines():
-        sp = [c.strip() for c in z.split("|")]
-        if len(sp) > 3: titel[sp[1]] = sp[2]
+    sys.path.insert(0, os.path.join(ROOT, "tools")); import startbar  # 275.2: Spalten über den Kopf
+    for t in startbar.tafel_zeilen(lesen("LISTE-VORGAENGE.md")):
+        titel[t.get("nr", "")] = t.get("titel", "")
     muss = []
     for z in sb.stdout.splitlines():
         m = re.match(r"  (\w+): Muss (\S+)", z)

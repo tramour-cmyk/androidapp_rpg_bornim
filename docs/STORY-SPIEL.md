@@ -116,6 +116,21 @@ Zeichen und Kampfzeilen ortsneutral (230): derselbe Gegner kämpft im Wald und i
 `[130.3.spaeher.schatten]` Name: In den Schatten / EN: Into the shadows. Zeichen (geändert 230, ortsneutral): Er huscht zurück ins Dunkel. / EN: He slips back into the dark.
 `[130.3.spaeher.weg]` (nicht angegriffen) Er ist verschwunden. Der nächste Pfeil kommt von irgendwo. / EN: He is gone. The next arrow comes from somewhere.
 
+**Goblin-Schamane** (535, von Team Jerry; ersetzt `Msg.shamanHeals`, `shamanCurse`, `shamanBolt` aus `Battle.kt`; hintere Reihe, Stab mit Schädel links, freie Hand vorgestreckt, Archiv 348.7; je drei Fassungen wie 279, je Marke dieselbe Bewegung)
+
+| Gegner | Absicht | Antwort |
+|---|---|---|
+| Goblin-Schamane (hintere Reihe) | Heilzauber · Fluch (auf {2}) · Feuerstoß (auf {2}) | offen, Regeln mit 478 (BRS); alt: heilt unter halben TP, Fluch mit Rettung (Weisheit), Feuerpfeil als Angriff, setzt manchmal in Brand. Vorschlag Homer, Balance beim Chef: vorher hart zuschlagen · Rettung (BRS-Wert) · ausweichen (Ring) |
+
+`[535.schamane.heil]` Name: Heilzauber / EN: Healing spell. Zeichen: 1 Er presst die Hand auf die Wunde und murmelt, der Schädel am Stab glimmt auf. / EN: He presses a hand to his wound and mutters; the skull on his staff begins to glow. · 2 Die freie Hand auf der Wunde, murmelt er vor sich hin. Der Schädel am Stab glimmt. / EN: Free hand on his wound, he mutters to himself. The skull on his staff glows. · 3 Er drückt die Hand fester auf die Wunde und murmelt schneller. Im Schädel am Stab glimmt ein Licht. / EN: He presses his hand harder to the wound and mutters faster. A light glows in the skull on his staff.
+`[535.schamane.heil.los]` (wirkt) allgemeine Heilzeile `Msg72.healsSelf` („{0} heilt sich: +{1} TP.“; hier {1} = TP), kein eigener Text.
+`[535.schamane.heil.weg]` (nur falls 478 „vorher hart zuschlagen“ übernimmt) 1 Er krümmt sich, das Murmeln bricht ab. / EN: He doubles over; the muttering breaks off. · 2 Der Schlag erstickt ihm die Worte im Mund, der Schädel wird dunkel. / EN: The blow chokes the words in his mouth; the skull goes dark. · 3 Er keucht auf, das Glimmen am Stab erlischt. / EN: He gasps; the glow on his staff dies.
+`[535.schamane.fluch]` Name: Fluch (auf {2}) / EN: Curse (on {2}). Zeichen: 1 Er streckt die freie Hand nach {2} aus und flüstert in einer fremden Zunge. / EN: He reaches his free hand toward {2}, whispering in a strange tongue. · 2 Er hält die freie Hand auf {2} gerichtet, die Finger gekrümmt, und flüstert. / EN: He holds his free hand toward {2}, fingers crooked, whispering. · 3 Seine freie Hand zielt auf {2}, er flüstert Worte, die keiner kennt. / EN: His free hand points at {2}; he whispers words no one knows.
+`[535.schamane.fluch.los]` (wirkt: Schwäche) 1 Eine Kälte kriecht {1} in die Glieder. {1} ist geschwächt. / EN: A chill creeps into {1}'s limbs. {1} is weakened. · 2 Die Arme von {1} werden schwer. {1} ist geschwächt. / EN: {1}'s arms grow heavy. {1} is weakened. · 3 Etwas legt sich wie nasses Tuch auf {1}. {1} ist geschwächt. / EN: Something settles on {1} like wet cloth. {1} is weakened.
+`[535.schamane.fluch.ab]` (Rettung gelingt) 1 {1} schüttelt den Fluch ab. / EN: {1} shakes off the curse. · 2 Der Fluch gleitet an {1} ab. / EN: The curse slides off {1}. · 3 {1} hält dem Flüstern stand. / EN: {1} withstands the whispering.
+`[535.schamane.feuer]` (alt „Feuerpfeil“; neuer Name, weil „Feuerpfeil“ die Antwort des Magiers ist, `[72.10a.9.feuer]`) Name: Feuerstoß (auf {2}) / EN: Fire blast (at {2}). Zeichen: 1 Er reißt den Stab hoch und richtet den Schädel auf {2}, zwischen den Zähnen glüht es auf. / EN: He thrusts his staff up and turns the skull on {2}; something glows between its teeth. · 2 Er hebt den Stab gegen {2}. In den Augenhöhlen des Schädels flackert es. / EN: He raises his staff at {2}. Something flickers in the skull's eye sockets. · 3 Er stößt den Stab in Richtung {2}, im Schädel glimmt Feuer. / EN: He jabs his staff toward {2}; fire glows inside the skull.
+`[535.schamane.feuer.los]` (wirkt oder verfehlt) allgemeine Zeilen `[279.trifft]`, `[279.verfehlt]`, `[279.halb]`, `[279.ganz]`; das Feuer fliegt sichtbar zum Ziel (348.7); Brand (alt bei Treffer manchmal) entscheidet 478, dann Text von Homer.
+
 Platzhalter: {0} Gegner, {1} getroffene Figur, {2} angepeilte Figur.
 
 ## Absichten gegen die Aufstellung (72.10a.8, MARS)
@@ -146,6 +161,9 @@ Also mindestens drei Fassungen je Kampfzeile, Wolf zuerst. Für den Bau: Je Mark
 `[279.reihe]` (`Msg72.swaps`) 1 {0} wechselt die Reihe. / EN: {0} switches rows. · 2 {0} tauscht die Reihe. / EN: {0} trades rows. · 3 {0} geht in die andere Reihe. / EN: {0} moves to the other row.
 `[279.aus]` (Zug verloren, ohne Aufstehen, z. B. Netz; `Msg130.loses`) 1 {0} verliert den Zug. / EN: {0} loses the turn. · 2 {0} muss diesen Zug aussetzen. / EN: {0} must sit this turn out. · 3 Für {0} ist dieser Zug verloren. / EN: This turn is lost for {0}.
 `[279.auf]` (Zug verloren und steht auf, Cue `RISES`; Chef 16:24: aufstützen, durchatmen) 1 {0} stützt sich ab und kommt wieder hoch: Zug verloren. / EN: {0} pushes up and gets back to their feet: turn lost. · 2 {0} atmet durch und steht wieder auf: Zug verloren. / EN: {0} draws a breath and stands again: turn lost. · 3 {0} rappelt sich auf: Zug verloren. / EN: {0} scrambles up: turn lost.
+`[547.auf]` (Zwischenfassung für `[279.auf]`, solange der Sturz 438a eingefroren ist und das Bild nur zusammenzuckt; danach gilt wieder `[279.auf]`; Chef 04.11., 00:01: „Animation niedersinken oder umfallen oder in die Knie gehen kommt trotz Text nicht“) 1 {0} fängt sich wieder: Zug verloren. / EN: {0} recovers: turn lost. · 2 {0} atmet durch und steht wieder fest: Zug verloren. / EN: {0} draws a breath and stands firm again: turn lost. · 3 {0} schüttelt den Stoß ab: Zug verloren. / EN: {0} shakes off the impact: turn lost.
+`[702.auf]` (ersetzt `[547.auf]` nach 702 C, Chef 09.11., 06:56: Aufstehen kostet nur den Wechsel, die Figur handelt im selben Zug; Zwischenfassung, solange der Sturz 438a eingefroren ist; Code `MSG702_AUF`) 1 {0} fängt sich wieder. / EN: {0} recovers. · 2 {0} atmet durch und steht wieder fest. / EN: {0} draws a breath and stands firm again. · 3 {0} schüttelt den Stoß ab, ohne einen Schritt zu weichen. / EN: {0} shakes off the impact without giving ground.
+`[702.auf.sturz]` (ersetzt `[279.auf]` nach 702 C; gilt, sobald der Sturz 438a gebaut ist; Cue `RISES`, Code `MSG702_RISES`) 1 {0} stützt sich ab und kommt wieder hoch. / EN: {0} pushes up and gets back to their feet. · 2 {0} atmet durch und steht wieder auf. / EN: {0} draws a breath and gets up again. · 3 {0} rappelt sich auf, an Ort und Stelle. / EN: {0} scrambles up where they fell.
 `[279.taumelt]` (`Msg72.broken`) 1 {0} taumelt: {1} vereitelt. / EN: {0} staggers: {1} foiled. · 2 {0} gerät ins Wanken: {1} vereitelt. / EN: {0} reels: {1} foiled. · 3 {0} strauchelt: {1} vereitelt. / EN: {0} stumbles: {1} foiled.
 `[279.faellt]` (Gegner besiegt; `Msg72.falls`) 1 {0} fällt. / EN: {0} falls. · 2 {0} bricht zusammen. / EN: {0} collapses. · 3 {0} rührt sich nicht mehr. / EN: {0} lies still.
 `[279.held]` (Held besiegt; `Msg72.heroFalls`) 1 {0} bricht zusammen. / EN: {0} collapses. · 2 {0} sinkt nieder, die Kraft ist fort. / EN: {0} sinks down, strength gone. · 3 {0} geht zu Boden und kommt nicht mehr hoch. / EN: {0} goes down and does not rise.
@@ -157,6 +175,7 @@ Also mindestens drei Fassungen je Kampfzeile, Wolf zuerst. Für den Bau: Je Mark
 `[279.wolf.verfehlt]` 1 {0} schnappt nach {1} und verfehlt. / EN: {0} snaps at {1} and misses. · 2 {0} beißt daneben. / EN: {0} bites at nothing. · 3 Die Zähne von {0} schlagen ins Leere. / EN: {0}'s teeth close on air.
 `[279.wolf.sprung]` (Zeichen, `[130.3.wolf.sprung]`) 1 Er duckt sich flach, die Augen auf {2}. / EN: He crouches low, eyes on {2}. · 2 Er drückt sich an den Boden, die Augen auf {2}. / EN: He presses himself to the ground, eyes on {2}. · 3 Er geht tief, die Hinterläufe gespannt, den Blick auf {2}. / EN: He sinks low, hind legs tensed, gaze on {2}.
 `[279.wolf.sprung.um]` (trifft, Ziel kniet ab; ersetzt `[130.3.wolf.sprung.um]`, Chef 16:21) 1 {0} springt {1} an. {1} geht zu Boden. / EN: {0} leaps at {1}. {1} goes down. · 2 {0} prallt gegen {1}. {1} sinkt nieder. / EN: {0} slams into {1}. {1} sinks down. · 3 {0} wirft sich auf {1}. {1} geht in die Knie. / EN: {0} throws itself at {1}. {1} is driven to the knees.
+`[547.wolf.sprung.stoss]` (Zwischenfassung für `[279.wolf.sprung.um]`, solange der Sturz 438a eingefroren ist; danach gilt wieder `[279.wolf.sprung.um]`; wie `[547.auf]`) 1 {0} springt {1} an. {1} wird zurückgestoßen. / EN: {0} leaps at {1}. {1} is shoved back. · 2 {0} prallt gegen {1}. {1} kommt aus dem Gleichgewicht. / EN: {0} slams into {1}. {1} is knocked off balance. · 3 {0} wirft sich auf {1}. {1} hält dem Gewicht kaum stand. / EN: {0} throws itself at {1}. {1} barely withstands the weight.
 `[279.wolf.sprung.leer]` 1 Der Sprung geht ins Leere. / EN: The pounce lands on nothing. · 2 {0} springt ins Leere. / EN: {0} leaps at empty ground. · 3 {0} landet auf leerem Boden und knurrt. / EN: {0} lands on bare ground, growling.
 `[279.wolf.kreis]` (Zeichen) 1 Die Wölfe ziehen auseinander, einer bleibt zurück und knurrt. / EN: The wolves spread out; one hangs back, growling. · 2 Das Rudel fächert sich auf, einer hält sich hinten und knurrt. / EN: The pack fans out; one keeps back, growling. · 3 Die Wölfe verteilen sich, nur einer bleibt zurück, die Lefzen hochgezogen. / EN: The wolves scatter wide; only one stays back, lips curled.
 `[279.wolf.kreis.zu]` 1 Der Kreis schließt sich. Die Wölfe greifen gemeinsam an. / EN: The circle closes. The wolves strike together. · 2 Der Kreis ist zu. Das Rudel greift an, alle auf einmal. / EN: The circle is shut. The pack attacks, all at once. · 3 Ein Heulen, dann stürzt sich das ganze Rudel zugleich vor. / EN: A howl, and the whole pack surges in at once.
@@ -344,10 +363,12 @@ EN: He means to go round. A scratch stops him, and so does a change of place.
 
 **Wolf**
 
-`[210T.pounce]` Anspringen: trifft er, verliert die Figur ihren nächsten Zug. Hilft: die Figur wechselt die Reihe, dann springt er ins Leere; ein Wechsel kostet nur einen halben Zug.
-EN: Pounce: if it hits, the figure loses its next turn. Helps: that figure changes places and it leaps at nothing; a swap costs only half a turn.
-`[210T.pounce.eingebung]` Er duckt sich zum Sprung. Wer nicht mehr dort steht, wird nicht getroffen.
+`[702T.pounce]` (ersetzt `[210T.pounce]` nach 702 C, Chef 09.11., 06:56; Code `marstips.gd` „pounce“) Anspringen: trifft er, macht er Schaden und bringt die Figur aus dem Gleichgewicht: in ihrem nächsten Zug handelt sie, kann aber weder die Reihe wechseln noch eine Waffe ziehen. Hilft: die Figur wechselt vorher die Reihe, dann springt er ins Leere; ein Wechsel kostet nur einen halben Zug.
+EN: Pounce: if the wolf hits, it deals damage and knocks the figure off balance: on its next turn the figure acts, but can neither switch rows nor draw a weapon. Counter: the figure switches rows first and the wolf leaps at nothing; a switch costs only half a turn.
+`[210T.pounce.eingebung]` (ersetzt durch `[830.sprung]`, 830 A) Er duckt sich zum Sprung. Wer nicht mehr dort steht, wird nicht getroffen.
 EN: It crouches to leap. Whoever no longer stands there is not struck.
+`[830.sprung]` (fest, Chef 10.11., 11:00: „830 A“; 705 B; ersetzt `[210T.pounce.eingebung]`: Eingebung im Kampfbericht direkt nach der ersten Ansage „Anspringen“, einmal je Spielstand; nennt den Knopf „Wechsel“, 225; Bau 840) Er will springen. Stehe ich nicht mehr dort, wohin er springt, schnappt er ins Leere. Wechsel, und mir bleibt noch ein halber Zug.
+EN: It means to leap. If I no longer stand where it leaps, it snaps at nothing. Switch, and I still have half a turn.
 
 `[210T.circle]` Einkreisen: alle Wölfe beißen zugleich dieselbe Figur. Hilft: jeder Treffer auf den Wolf, der es ansagt, auch ein leichter, zerstreut das Rudel.
 EN: Circle: every wolf bites the same figure at once. Helps: any hit on the wolf that calls it, however light, scatters the pack.
@@ -500,6 +521,12 @@ EN: There's a room free upstairs. Fresh sheets, and nobody snores through the wa
 Genug für heute, {name}. Geh schlafen, die Treppe ist links.
 EN: Enough for today, {name}. Go to bed, the stairs are on the left.
 
+`[570.fleisch]` (Wahl an der Theke, ersetzt `meatSell`; „Met · 2 Gold“ ist ein Preis, hier bekommt man Gold, darum das Plus wie bei `[86.kurzfertig]`) Fleisch verkaufen · +{0} Gold / EN: Sell meat · +{0} gold
+
+`[604.zimmerwirkt]` (ersetzt `[86.zimmerwirkt]`; die Gaststube hat kein Bett mehr, geschlafen wird oben, nur im Text) Ein Bett oben unter dem Dach: lange Rast / EN: A bed upstairs under the roof: long rest
+
+`[604.zimmerfertig]` (nach dem Zimmer statt `[86.langfertig]`; Lagerfeuer bleibt bei `[86.langfertig]`) Du steigst die Treppe hinauf und schläfst acht Stunden. TP, ZP und Ausdauer sind voll. / EN: You climb the stairs and sleep for eight hours. HP, SP and stamina are full.
+
 ## Zustände außerhalb des Kampfs (86.9)
 
 Wie die übrigen Zustände in `Status.kt` (Name, Kurzwort, Text), Zeichen in der oberen Leiste und im Kampf. Nicht „Vergiftet“ nennen: „Vergiftet“ heißt im Spiel Schaden jede Runde, das trifft hier nicht zu.
@@ -570,6 +597,37 @@ EN: Rules, classes, races, spells and monsters are simplified and based on the S
 
 `[312.eigen]` Geschichte, Orte und Figuren sind eigene Erfindungen.
 EN: The story, places and characters are original.
+
+### Mit Dank an (623.4, Chef 07.11., 623 F)
+
+Nur auf der Seite „Über das Spiel“, nie im Spielgeschehen (Bau Tom, 623.7). Platz: unter „Lizenzen der Engine“, über dem Logo; Kopf wie die Kopfzeilen der Lizenzen (Gold, Großbuchstaben), Satz in Textgröße, je Gruppe Name der Gruppe gold, Namen gedämpft wie die Schriftenzeile, durch Kommas getrennt. Namen genau so geschrieben wie hier (Schreibung der Urheber, auch klein), in jeder Sprache gleich. Quellen: `LISTE-BESTAND.md`, `tools/klang/QUELLEN.md`, `tools/schrift/QUELLEN.md` (Stand 07.11.; alle fremden Quellen, die wir besitzen, auch noch nicht eingebaute). Kommt eine Quelle hinzu: Name in seine Gruppe (Vorgang an Homer).
+
+`[623.dank.kopf]` Mit Dank an
+EN: With thanks to
+
+`[623.dank.satz]` Diese Chronik entstand nicht allein. Dank allen, deren Werk sie trägt: in Bild und Bewegung, Licht und Klang, Musik und Schrift.
+EN: This chronicle was not made alone. Our thanks to everyone whose work carries it: in image and motion, light and sound, music and type.
+
+`[623.dank.effekte]` Effekte: REEBOO Labs
+EN: Visual effects: REEBOO Labs
+
+`[623.dank.figuren]` Figuren, Tiere und Bewegung: Animated3D, Game-Ready Studios, Janpec, MadeCG, Protofactor, Quaternius, rubberduck, Wernerkurt, yughues
+EN: Characters, creatures and motion: (Namen wie oben)
+
+`[623.dank.dinge]` Dinge und Waffen: Anker's Assets, Avramania, MagicCGIStudios, Omie's Assets, PolyMech, Quaternius
+EN: Props and weapons: (Namen wie oben)
+
+`[623.dank.klang]` Klang: AlanCat, antumdeluge, arcadeparty, artisticdude, bart, bashar3a, betchkal, blukotek, bonebrah, Borgory, Breviceps, congusbongus, craigsmith, Defelozedd94, esperar, EZduzziteh, Gerent, haeldb, jaegrover, jaggedstone, jmehlferber, Joseph Sardin, Kenney, kingsrow, legit-audio, LilMati, magicjoshua, musicbrain, ondrosik, onehugeeye, owlishmedia, Paresh, Patrick_Corra, pauliuw, Pierre, qubodup, RandomMind, rubberduck, Sahand.Zangeneh, Sam Gossner, SkyRaeVoicing, syncopika, themightyglider, thimras, ValentinPetiteau, vehicle, vinrax, ZoshP – und allen, die ihre Aufnahmen bei BigSoundBank, Freesound und OpenGameArt teilen.
+EN: Sound: (Namen wie oben) – and everyone who shares their work on BigSoundBank, Freesound and OpenGameArt.
+
+`[623.dank.musik]` Musik: beardalaxy, carrieedick, cesisco, cleytonkauffman, cynicmusic, ElanHickler, eldritch-grim, emmama, Fission9, Flamiffer, jaggedstone, Kaiser (the-oracle), kindland, Kinoton, Magmi.Soundtracks, nene, nihilocrat, Paul Wortmann, RandomMind, rhayn, RutgerMuller, tinyworlds, trex0n, umplix, vitalezzz, yd
+EN: Music: (Namen wie oben)
+
+`[623.dank.schrift]` Schriften: Juan Pablo del Peral und Huerta Tipográfica (Alegreya), Brian J. Bonislawsky (Astigmatic, Fondamento)
+EN: Typefaces: Juan Pablo del Peral and Huerta Tipográfica (Alegreya), Brian J. Bonislawsky (Astigmatic, Fondamento)
+
+`[623.dank.engine]` Engine: Godot Engine – Juan Linietsky, Ariel Manzur und alle Mitwirkenden
+EN: Engine: Godot Engine – Juan Linietsky, Ariel Manzur and all contributors
 
 ## Ansage vor harten Schlägen (354.1)
 

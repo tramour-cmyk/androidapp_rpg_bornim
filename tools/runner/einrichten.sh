@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Richtet auf einer frischen Ubuntu-Server-24.04-VM den Build-Rechner für Bornim ein (264, LISTE-PROXMOX-RUNNER.md):
+# Richtet auf einer frischen Ubuntu-Server-24.04-VM den Build-Rechner für Bornim ein (264, docs/alt/LISTE-PROXMOX-RUNNER.md):
 # Java 17, Android-SDK, GitHub-Runner als Dienst unter dem Benutzer "runner" (ohne sudo), Firewall ohne Zugriff aufs Heimnetz.
 # Aufruf: sudo bash einrichten.sh   (fragt nach dem Runner-Schlüssel von GitHub)
 set -euo pipefail

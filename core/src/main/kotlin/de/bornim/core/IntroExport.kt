@@ -49,6 +49,8 @@ object IntroExport {
                     put("ein_ms", k.wordsInMs); put("mind_ms", k.leastMs); put("aus_ms", k.wordsOutMs); put("schleier_aus_ms", k.veilOutMs)
                 }
             }
+            // 556 (Chef 04.11., 07:52 „zu kurz zum Lesen“): Lesezeit nach Laenge wie vor dem Kampf (t63.1, InterludeClock.readMs)
+            put("lesen_ms", InterludeClock.READ_BASE_MS); put("lesen_je_zeichen_ms", InterludeClock.READ_PER_CHAR_MS)
             putJsonArray("dorf") { for (m in InterludeClock.VILLAGE) add(m) }
             putJsonObject("orte") {
                 for ((m, lines) in Interlude.places) putJsonArray(m) {
@@ -66,6 +68,7 @@ object IntroExport {
                     put("ein_ms", k.wordsInMs); put("mind_ms", k.leastMs); put("aus_ms", k.wordsOutMs); put("schleier_aus_ms", k.veilOutMs)
                 }
             }
+            put("lesen_ms", InterludeClock.READ_BASE_MS); put("lesen_je_zeichen_ms", InterludeClock.READ_PER_CHAR_MS)   // t63.1, 556
             putJsonObject("eroeffnungen") { for ((st, lines) in Interlude.openings) putJsonArray(st.name) { for (t in lines) add(text(t)) } }
             putJsonObject("gegner") { for ((id, lines) in Interlude.foes) putJsonArray(id) { for (t in lines) add(text(t)) } }
         }

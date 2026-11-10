@@ -22,7 +22,7 @@ var satt := false                     # 399.1: GameState.wellFed, nach dem Essen
 var lange_rast_tag := 0
 var met := 0
 var leiden := {}                       # Zustand -> Runden (GameState.ailments)
-var wiederkehr := {"karte": "inn", "x": 8, "y": 2, "blick": "DOWN"}   # GameState.respawn, anfangs Story.START
+var wiederkehr := {"karte": "temple", "x": 4, "y": 4, "blick": "UP"}   # GameState.respawn, anfangs Story.RESPAWN (543: Tempel wie alt)
 # 390 (Laden): Ausruestung in der Tasche (GameState.bag, Woerterbuecher wie Gear), Siege (battlesWon), schon gekaufte Ware (shopSold)
 var beutel: Array = []
 var siege := 0
@@ -30,6 +30,8 @@ var schritte := 0                 # 399.1 GameState.steps
 var laden_verkauft := {}               # "Satz:uid" -> true
 var gehoert := {}                      # 399.1 Person -> Fingerabdruecke der letzten Gespraeche (GameState.heard, Ruf.gd)
 var uid_zaehler := 0                   # GameState.uidCounter
+var gespielt_ms := 0                   # 529 (GameState.playedMs, PlayClock): gespielte Zeit fuer die Karte des Spielstands
+var varianten := {}                    # 504.1 Marke -> [wie oft gehoert, letzte Wahl] (Skript.variante)
 var gepflueckt := {}                   # 490 „Karte:x:y“ -> Tag, an dem dort Heilkraut gepflueckt wurde (GameState.picked)
 
 func has(f: String) -> bool: return flaggen.has(f)
@@ -78,7 +80,7 @@ func als_daten() -> Dictionary:
 		"ausdauer": ausdauer, "atemlos": atemlos, "ausdauer_trank": ausdauer_trank, "funke": funke, "satt": satt, "lange_rast_tag": lange_rast_tag,
 		"met": met, "leiden": leiden.duplicate(), "wiederkehr": wiederkehr.duplicate(), "beutel": beutel.duplicate(true), "siege": siege, "schritte": schritte,
 		"laden_verkauft": laden_verkauft.keys(), "uid_zaehler": uid_zaehler, "gehoert": gehoert.duplicate(true), "aussehen": aussehen.duplicate(),
-		"gepflueckt": gepflueckt.duplicate(), "brs": brs.duplicate(true)}
+		"gepflueckt": gepflueckt.duplicate(), "brs": brs.duplicate(true), "gespielt_ms": gespielt_ms, "varianten": varianten.duplicate(true)}
 
 static func aus_daten(d: Dictionary) -> Zustand:
 	var z := Zustand.new()
@@ -99,4 +101,6 @@ static func aus_daten(d: Dictionary) -> Zustand:
 	for k in d.get("laden_verkauft", []): z.laden_verkauft[String(k)] = true
 	for k in d.get("gehoert", {}): z.gehoert[String(k)] = (d["gehoert"][k] as Array).map(func(x): return int(x))
 	for k in d.get("gepflueckt", {}): z.gepflueckt[String(k)] = int(d["gepflueckt"][k])
+	z.gespielt_ms = int(d.get("gespielt_ms", 0))
+	for k in d.get("varianten", {}): z.varianten[String(k)] = [int(d["varianten"][k][0]), int(d["varianten"][k][1])]   # 504.1
 	return z

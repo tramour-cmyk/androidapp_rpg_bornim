@@ -29,6 +29,9 @@ var uebersicht := false
 var schalter := {"QUESTS": true, "PEOPLE": true, "SERVICES": true}
 var flaeche: Control
 var tipp_kasten: PanelContainer
+# 528 (ChronicleTab „Auf der Karte“, MapLook.focusWho): wer gezeigt werden soll; die Karte oeffnet auf seinem Zeichen mit dem Namen
+static var fokus_wer := ""
+var fokus := {}
 
 static func blatt() -> Dictionary:
 	if _blatt.is_empty():
@@ -61,6 +64,20 @@ func _init(z_: Zustand, ort_: Dictionary, hoehe: float, chronik: Callable) -> vo
 	var k: Dictionary = blatt().get("karten", {})
 	gezeigt = String(ort.get("karte", "village"))
 	if not k.has(gezeigt): uebersicht = true
+	if fokus_wer != "":
+		for m in alle_zeichen():
+			if m["art"] == "GIVER" and String(m.get("wer", "")) == fokus_wer and k.has(String(m["karte"])):
+				fokus = m
+				gezeigt = String(m["karte"]); uebersicht = false
+				break
+		fokus_wer = ""
+
+# 528: hat die Karte ein Zeichen dieses Auftraggebers (alt MapMarks.of(s).any { it.who == giver })
+static func hat_geber(z_: Zustand, wer: String) -> bool:
+	var r := Kartenreiter.new(z_, {}, 0, Callable())
+	var ja := r.alle_zeichen().any(func(m): return m["art"] == "GIVER" and String(m.get("wer", "")) == wer)
+	r.free()
+	return ja
 
 func _ready() -> void: baue()
 
@@ -74,7 +91,8 @@ func baue() -> void:
 	var kopf := HBoxContainer.new()
 	kopf.add_theme_constant_override("separation", int(6 * DP))
 	add_child(kopf)
-	var titel := Stil.zeile(wort("landkarte") if uebersicht else Sprache.t(karte_daten().get("name", gezeigt)), 20, Stil.TEXT)
+	# 584 (Abgleich 512b): Gebietsname halbfett wie alt (MenuScreen.kt 178, Txt fett); keine Versalien fuer Namen (549a)
+	var titel := Stil.zeile(wort("landkarte") if uebersicht else Sprache.t(karte_daten().get("name", gezeigt)), 20, Stil.TEXT, 0.0, false, true)
 	titel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	titel.clip_text = true
 	kopf.add_child(titel)
@@ -137,8 +155,10 @@ func haeuser() -> Array:
 		if kennt: out.append(h)
 	return out
 
-func zeichen() -> Array:
-	var de := Sprache.aktiv() == "de"
+func zeichen() -> Array: return _gefiltert(alle_zeichen())
+
+# alle Zeichen aller Karten, ungefiltert (MapMarks.of)
+func alle_zeichen() -> Array:
 	var alle := []
 	var leute := {}   # wer -> Zeile „Name – was“ (62f: sie tritt unter den Auftrag dessen, der einen gibt)
 	for f in blatt().get("leute", []):
@@ -176,6 +196,9 @@ func zeichen() -> Array:
 	# Schaenke, Laden, Tempel an ihren Tueren: Raeume gelten als bekannt (MapMarks.visited: INTERIOR immer)
 	for d in blatt().get("dienste", []):
 		alle.append({"karte": d["karte"], "x": d["x"], "y": d["y"], "art": d["art"], "text": d["name"]})
+	return alle
+
+func _gefiltert(alle: Array) -> Array:
 	var gruppe := {"GIVER": "QUESTS", "GOAL": "QUESTS", "BOARD": "SERVICES", "PERSON": "PEOPLE", "INN": "SERVICES", "SHOP": "SERVICES", "TEMPLE": "SERVICES", "FIRE": "SERVICES"}
 	var geber := {}
 	for m in alle: if m["art"] == "GIVER" and schalter["QUESTS"]: geber[m["wer"]] = true
@@ -371,6 +394,15 @@ class Kartenblatt extends Flaeche:
 			anfang = false
 			mass = maxf(passt * 2.5, maxf(size.x / tex.get_width(), size.y / tex.get_height())) if hier and String(k["art"]) != "INTERIOR" else passt
 			versatz = size / 2 - Vector2(cx(int(reiter.ort["x"])), cy(int(reiter.ort["y"]))) * mass if hier else Vector2.ZERO
+			var f: Dictionary = reiter.fokus
+			if not f.is_empty() and String(f["karte"]) == reiter.gezeigt:   # 528: auf dem Auftraggeber, sein Name unten
+				if String(k["art"]) != "INTERIOR": mass = maxf(passt * 2.5, maxf(size.x / tex.get_width(), size.y / tex.get_height()))
+				versatz = size / 2 - Vector2(cx(int(f["x"])), cy(int(f["y"]))) * mass
+				var m = null
+				for mm in marken:
+					if int(mm["x"]) == int(f["x"]) and int(mm["y"]) == int(f["y"]): m = mm
+				reiter.call_deferred("tipp", Sprache.t((m if m else f)["text"]), true)
+				reiter.fokus = {}
 		mass = maxf(mass, passt)
 		klemme(); queue_redraw()
 

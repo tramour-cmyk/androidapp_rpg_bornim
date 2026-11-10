@@ -33,7 +33,35 @@ static func lade() -> Dictionary:
 				if not Katalog.hat(String(id)): push_error("458.2: Grundform %s fehlt im Katalog" % id); continue
 				daten["grundformen"][id]["preis"] = Katalog.preis(String(id))
 				daten["grundformen"][id]["ab_stufe"] = Katalog.stufe(String(id))
+			brs_woerter(daten)
 	return daten
+
+# 683 (Sokrates nach Bild des Chefs 08.11., 15:57; Regelwerk Abschnitt 12, [423.werte]): die Oberflaeche spricht BRS, auch wo darunter
+# noch die Bruecke 470a rechnet. Die sechs Werte heissen wie die Grundwerte, auf die BrsHeld.ATTR_ALT sie abbildet (Staerke -> Kraft,
+# Geschicklichkeit -> Gewandtheit, Konstitution -> Zaehigkeit, Intelligenz -> Verstand, Weisheit -> Wahrnehmung, Charisma -> Wille);
+# Ruestungsklasse heisst Schutzwert, Trefferpunkte Leben, Zauberpunkte Mana. Englisch wie ErschaffungBrs.GRUNDWERT.
+const BRS_WORT := {
+	"STR": {"de": "Kraft", "en": "Strength", "kde": "KRA", "ken": "STR"},
+	"DEX": {"de": "Gewandtheit", "en": "Agility", "kde": "GEW", "ken": "AGI"},
+	"CON": {"de": "Zähigkeit", "en": "Toughness", "kde": "ZÄH", "ken": "TOU"},
+	"INT": {"de": "Verstand", "en": "Wits", "kde": "VER", "ken": "WIT"},
+	"WIS": {"de": "Wahrnehmung", "en": "Perception", "kde": "WAH", "ken": "PER"},
+	"CHA": {"de": "Wille", "en": "Will", "kde": "WIL", "ken": "WIL"}}
+const BRS_AFFIX := {"ALL_STATS": {"de": "alle Grundwerte", "en": "all attributes"}, "AC": {"de": "Schutzwert", "en": "Protection"},
+	"HP": {"de": "Leben", "en": "Life"}, "SP": {"de": "Mana", "en": "Mana"}}
+
+static func brs_woerter(d: Dictionary) -> void:
+	for a in BRS_WORT:
+		var w: Dictionary = BRS_WORT[a]
+		if d.get("attribute", {}).has(a):
+			d["attribute"][a]["name"] = {"de": w["de"], "en": w["en"]}
+			d["attribute"][a]["kurz"] = {"de": w["kde"], "en": w["ken"]}
+		if d.get("affixdaten", {}).has(a): d["affixdaten"][a]["name"] = {"de": w["de"], "en": w["en"]}
+	for a in BRS_AFFIX:
+		if d.get("affixdaten", {}).has(a): d["affixdaten"][a]["name"] = BRS_AFFIX[a]
+
+## Kurzform eines der sechs Werte in der Sprache des Spiels (683: KRA, GEW …)
+static func kurzwort(a: String) -> String: return Sprache.t(lade()["attribute"][a]["kurz"])
 
 static func regel(k: String): return lade()["regeln"][k]
 static func grundform(id: String) -> Dictionary: return lade()["grundformen"][id]
@@ -329,8 +357,10 @@ static func aus_daten(d: Dictionary) -> Heldwerte:
 		h.basis[a] = int(d["basis"][a])
 		if d.has("start"): h.start[a] = int(d["start"][a])
 	for p in d.get("ausruestung", {}): h.ausruestung[String(p)] = d["ausruestung"][p]
+	for f in d.get("verbraucht", {}): h.verbraucht[String(f)] = int(d["verbraucht"][f])   # 532: Hero.spent im Spielstand
 	return h
 
 func als_daten() -> Dictionary:
 	return {"name": name, "volk": volk, "klasse": klasse, "stufe": stufe, "ep": ep, "basis": basis.duplicate(), "start": start.duplicate(),
-		"tp": tp, "zp": zp, "offen": offen, "kapitel": kapitel, "ausruestung": ausruestung.duplicate(true)}
+		"tp": tp, "zp": zp, "offen": offen, "kapitel": kapitel, "ausruestung": ausruestung.duplicate(true),
+		"verbraucht": verbraucht.duplicate()}

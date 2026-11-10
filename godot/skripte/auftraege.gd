@@ -4,10 +4,17 @@ extends RefCounted
 # in der Chronik mit dem Stand, aufgeben legt ihn zurueck ans Brett; abgegeben wird beim Auftraggeber. Alles in Flaggen wie alt:
 # „job_<id>“ angenommen, „job_<id>_done“ erledigt, „job_<id>_seen“ am Brett gelesen. Aushaenge mit „nach“ haengen erst, wenn die
 # Flagge gesetzt ist (Wellen, 29g). Texte wortgleich aus core (TextExport „auftraege“).
-# Noch nicht wie alt: Gwennas Ring in der Truhe der Hoehle (Jobs.ringIn) und der Fetzen am Steinkreis (Jobs.findAt) folgen mit
-# Hoehle und Wald; das goldene Zeichen ueber dem Auftraggeber (Hail) fehlt dem neuen Spiel noch ganz.
+# 542: Gwennas Ring in der Truhe der Hoehle (Jobs.ringIn) und der Fetzen am Steinkreis (Jobs.findAt) wie alt.
 
 const HELD := {"de": "{name}", "en": "{name}"}   # Jobs.HERO
+const RING := "gwenna_ring"                      # Jobs.RING, liegt in der Truhe RING_CHEST
+const RING_CHEST := "cave_3"
+const RAG := "grey_rag"                          # Jobs.RAG, am Steinkreis der Karte RAG_MAP
+const RAG_MAP := "forest"
+const MENHIR := "I"                              # Tile.MENHIR
+const RING_FUND := {"de": "Unter Lumpen und Knochen am Boden der Truhe: ein schmaler Ring aus angelaufenem Silber.", "en": "Under rags and bones at the bottom of the chest: a slim ring of tarnished silver."}
+const RAG_FUND := {"de": "Zwischen den Steinen: kalte Asche, Stiefelspuren, die nach Norden führen. Am Fuß eines Steins hängt ein Fetzen grauen Tuchs, ein offenes Auge ist hineingestickt.",
+	"en": "Between the stones: cold ashes, boot prints leading north. At the foot of a stone hangs a scrap of gray cloth, an open eye stitched into it."}
 
 static func alle() -> Array: return Sprache.texte.get("auftraege", [])
 
@@ -29,6 +36,16 @@ static func stand(z: Zustand, j: Dictionary) -> int: return mini(z.anzahl(String
 
 static func nimm(z: Zustand, j: Dictionary) -> void:
 	if not erledigt(z, j): z.setze("job_" + String(j["id"]))
+
+# Jobs.ringIn: liegt Gwennas Ring in [kiste]? Ihr Auftrag angenommen, der Ring weder in der Tasche noch abgegeben (auch in einer
+# Truhe, die schon leer war)
+static func ring_in(z: Zustand, kiste: String) -> bool:
+	return kiste == RING_CHEST and angenommen(z, von("ring")) and z.anzahl(RING) == 0
+
+# Jobs.findAt: was der Held am Stein [zeichen] auf [karte] findet, solange Jorins Auftrag angenommen ist; [] = nichts
+static func fund_bei(z: Zustand, karte: String, zeichen: String) -> Array:
+	if karte != RAG_MAP or zeichen != MENHIR or not angenommen(z, von("stones")) or z.anzahl(RAG) > 0: return []
+	return [{"art": "sagen", "text": RAG_FUND}, {"art": "geben", "ding": RAG, "anzahl": 1}]
 
 # Jobs.handIn: was der Auftraggeber sagt, wenn der Held bringt, was ein angenommener Aushang will; [] = wie immer reden
 static func abgabe(z: Zustand, wer: String) -> Array:

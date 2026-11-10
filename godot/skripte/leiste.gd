@@ -7,6 +7,7 @@ extends PanelContainer
 # irgendwo auf der Leiste oeffnet es ebenfalls (alt: Row.tap(onMenu)). Schrift Alegreya wie ueberall (292.3).
 
 signal menue
+signal karte                       # 528 (86.2): das Kartenzeichen oeffnet gleich die Karte
 
 const DP := AktionsKnopf.DP
 const HP_GRUEN := Color("48c858")
@@ -20,6 +21,7 @@ var balken := {}                   # "tp", "zp", "ep" -> [Zeile, Balken, Wert]
 var uhr: Label
 var zeichen: Zeichen
 var chips: HBoxContainer
+var kartenfeld: Control            # 528: Kartenzeichen, ein Finger breit, gut weg von der Tasche
 
 class Balken extends Control:
 	var anteil := 1.0
@@ -137,13 +139,26 @@ func _init() -> void:
 	platz.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	platz.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	reihe.add_child(platz)
+	# 528 (WorldScreen.kt HudChip onMap, 86.2): das Zeichen des Reiters Karte in Gold, Feld 44 × 40 dp, 14 dp vor der Tasche
+	kartenfeld = CenterContainer.new()
+	kartenfeld.name = "Kartenzeichen"
+	kartenfeld.custom_minimum_size = Vector2(44, 40) * DP
+	kartenfeld.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	kartenfeld.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var kz := Reiterzeichen.new("karte", Stil.GOLD)
+	kz.custom_minimum_size = Vector2(28, 28) * DP
+	kartenfeld.add_child(kz)
+	reihe.add_child(kartenfeld)
+	var abst2 := Control.new(); abst2.custom_minimum_size.x = 14 * DP; abst2.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	reihe.add_child(abst2)
 	var tasche := Zeichen.new("tasche", 28)
 	tasche.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	reihe.add_child(tasche)
 
 func _gui_input(e: InputEvent) -> void:
 	if e is InputEventMouseButton and e.pressed and e.button_index == MOUSE_BUTTON_LEFT:
-		menue.emit()
+		if kartenfeld.visible and kartenfeld.get_global_rect().has_point(get_global_transform() * e.position): karte.emit()
+		else: menue.emit()
 		accept_event()
 
 # Txt auf Schwarz wie Erschaffung.txt, aber einzeilig

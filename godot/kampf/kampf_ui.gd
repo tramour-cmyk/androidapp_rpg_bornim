@@ -7,8 +7,10 @@
 extends CanvasLayer
 
 const Mars = preload("res://regeln/mars.gd")
+const Figur = preload("res://kampf/figur.gd")     # 494: Figur.vier
 const Zauber = preload("res://kampf/zauber.gd")
 const Tafel = preload("res://kampf/tafel.gd")
+const Tips = preload("res://kampf/marstips.gd")     # 536: Texte für langes Drücken (MarsTips.kt)
 
 # Theme.kt, Veil
 const TEXT := Color("#E6DDCB")
@@ -71,6 +73,7 @@ var spell_seed := 0
 var grid_on := false
 var dice_rect := Rect2()
 var grid_rect := Rect2()
+var tempo_rect := Rect2()      # 600: Tempo (im Spiel), links neben den Würfeln
 var win_rect := Rect2()        # 272 (Testmodus): Haken gewinnt, Kreuz verliert sofort
 var lose_rect := Rect2()
 
@@ -79,9 +82,44 @@ func t(de: String, en: String) -> String:
 	return de if lang == 0 else en
 
 
-## Schriftgröße wie Theme.kt im schwarzen Stil: sp × 0,95 × 1,04, mindestens 13,7 sp.
+## 551: Halbmesser der unteren Bildschirmecken in dp wie alt DeviceInfo.cornerDp() (Display.getRoundedCorner, unten links
+## und rechts, das größere), über das Plugin AndroidRuntime; ohne Gerät, vor Android 12 oder ohne Antwort 13 dp wie bisher.
+static var ecke := -1.0
+static func ecke_dp(_vp: Viewport) -> float:
+	if ecke >= 0.0:
+		return ecke
+	ecke = 13.0
+	if OS.get_name() != "Android" or not Engine.has_singleton("AndroidRuntime"):
+		return ecke
+	var act = Engine.get_singleton("AndroidRuntime").getActivity()
+	var d = act.getDisplay() if act != null else null
+	if d == null:
+		return ecke
+	var px := 0
+	for pos in [3, 2]:     # RoundedCorner.POSITION_BOTTOM_LEFT, POSITION_BOTTOM_RIGHT
+		var rc = d.getRoundedCorner(pos)
+		if rc != null:
+			px = maxi(px, int(rc.getRadius()))
+	var w := DisplayServer.window_get_size()
+	if w.x > 0:
+		ecke = float(px) * 412.0 / float(w.x)     # dp wie dp = Breite / 412 (Gerät ohne runde Ecken: 0 wie alt)
+	print("551: Bildschirmecke unten %d px, %.1f dp" % [px, ecke])
+	return ecke
+
+
+## 552 (Chef 04.11., 00:22, Build 249: „MARS Zugreihenfolge oben fehlt“; oben nur ein schwarzer Streifen): die Welt legt über
+## alles ein schwarzes Band, so hoch wie die Kamera des Handys (Rand, 399.4, Ebene 119 über dem Kampf); der Kampf kannte es nicht
+## und zeichnete die Zugleiste darunter. Dieselbe Höhe wie das Band (beim Start der Welt), sonst die sichere Fläche jetzt.
+var turns_top := 0.0     # Oberkante der Zugleiste (Test zugleiste_552)
+func rand_oben() -> float:
+	return Rand.beim_start if Rand.beim_start >= 0.0 else Rand.oben(get_viewport())
+
+
+## Schriftgröße wie Theme.kt im schwarzen Stil: sp × 0,95 × 1,04, mindestens 13,7 sp. 544 (Chef 04.11., 16:58: „relativ klein,
+## aber die Schriftart müsste passen“): wie alt und wie die übrigen Schirme seit 498 mit der Schriftgröße des Handys (Compose sp =
+## dp × fontScale; Stil.schriftfaktor), der Kampf rechnete fest mit 1
 func sp(v: float) -> int:
-	return int(maxf(v * 0.95 * 1.04, 13.7) * dp)
+	return int(maxf(v * 0.95 * 1.04, 13.7) * dp * Stil.schriftfaktor)
 
 
 static func hp_color(frac: float) -> Color:
@@ -92,11 +130,10 @@ func _ready() -> void:
 	var vs: Vector2 = get_viewport().get_visible_rect().size
 	dp = vs.x / 412.0
 	font_px = sp(15)
-	var ff := FontFile.new()
-	if ff.load_dynamic_font("res://kampf/schrift/alegreya_regular.ttf") == OK:
-		font = ff
-	else:
-		font = ThemeDB.fallback_font
+	# 544 (Chef 03.11., 23:49 „Stimmt die Schrift?“): load_dynamic_font liest die rohe .ttf, die im APK fehlt (dort steht nur die
+	# importierte .fontdata, export_presets include_filter); der Kampf zeigte die Ersatzschrift. Jetzt über den Import wie stil.gd
+	var ff = load("res://kampf/schrift/alegreya_regular.ttf")
+	font = ff if ff is Font else ThemeDB.fallback_font
 	root = Control.new()
 	root.set_anchors_preset(Control.PRESET_FULL_RECT)
 	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -114,9 +151,10 @@ func _ready() -> void:
 	panel = PanelContainer.new()
 	panel.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
 	panel.grow_vertical = Control.GROW_DIRECTION_BEGIN
-	# SkirmishScreen: full width, only clear of the screen's rounded corners (a third of their radius, 335); Godot does
-	# not know the radius, so on the phone the A56's (about 13 dp), at the desk none
-	var m := (13.0 * 0.3 + 2.0) * dp if OS.get_name() == "Android" else 0.0
+	# SkirmishScreen: full width, only clear of the screen's rounded corners (a third of their radius, 335); 551 (Chef 04.11.,
+	# 00:21, Build 249: „MARS Kasten links und rechts unten wird unterbrochen angezeigt“, wie alt 335 am 23.10.): Godot nahm
+	# geschätzte 13 dp, alt fragte DeviceInfo.cornerDp() das Gerät; jetzt ebenso über AndroidRuntime, am Rechner keine Ecke
+	var m := (ecke_dp(get_viewport()) * 0.3 + 2.0) * dp if OS.get_name() == "Android" else 0.0
 	panel.offset_left = m
 	panel.offset_right = -m
 	panel.offset_bottom = -m
@@ -175,6 +213,7 @@ func _ready() -> void:
 	root.add_child(verdict)
 	full_log = PanelContainer.new()
 	full_log.set_anchors_preset(Control.PRESET_FULL_RECT)
+	full_log.offset_top = rand_oben()     # 552: der ganze Bericht beginnt unter dem Band über der Kamera
 	full_log.add_theme_stylebox_override("panel", _box(Color.BLACK, GOLD, 10, 10, 1.0))
 	full_log.visible = false
 	full_log.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -194,6 +233,8 @@ func _pressed(ev) -> bool:
 
 
 func _scene_input(ev) -> void:
+	if (ev is InputEventScreenTouch or ev is InputEventMouseButton) and ev.device != InputEvent.DEVICE_ID_EMULATION and not ev.pressed:
+		druck_t0 = 0     # 536: losgelassen vor der halben Sekunde: kein Hinweis
 	if not _pressed(ev):
 		return
 	var p: Vector2 = ev.position
@@ -201,12 +242,18 @@ func _scene_input(ev) -> void:
 		dice_on = not dice_on
 	elif grid_rect.has_point(p):
 		grid_on = not grid_on
+	elif tempo_rect.has_point(p):
+		kampfort.tempo_wechseln()
 	elif lose_rect.has_point(p):
 		kampfort.test_end(false)
 	elif win_rect.has_point(p):
 		kampfort.test_end(true)
+	elif not kampfort.ring_open and _status_tip(p) != "":
+		show_tip(_status_tip(p))     # 536: ein Tipp auf ein Zustandsschild erklärt es
 	else:
 		kampfort.tap()
+		druck_t0 = Time.get_ticks_msec()     # 536: lange gedrückt auf eine Ansage oder einen Gegner sagt, was er vorhat
+		druck_pos = p
 
 
 ## A black box with a thin rim; padding in dp (across, up and down), rim width in dp.
@@ -230,7 +277,17 @@ func panel_height() -> float:
 	return panel.size.y - panel.offset_bottom if panel and panel.size.y > 0 else get_viewport().get_visible_rect().size.y * 0.33
 
 
+var druck_t0 := 0
+var druck_pos := Vector2.ZERO
+
+
 func _process(_dt: float) -> void:
+	if druck_t0 > 0 and Time.get_ticks_msec() - druck_t0 >= int(LANG_S * 1000.0):
+		druck_t0 = 0
+		var was := scene_tip(druck_pos)
+		if was != "":
+			show_tip(was)
+			names_until = Time.get_ticks_msec() + NAMES_MS     # 536: wie alt (SkirmishScreen namesUntil) zeigen dann alle ihre Namen
 	overlay.queue_redraw()
 
 
@@ -399,11 +456,35 @@ func refresh() -> void:
 		log_area.queue_redraw()
 
 
+## 565 (Chef 04.11., 17:10: „unten sehe ich gar nicht, welcher von den beiden es ist“), nur Vorschlag, aus: "" wie alt (alle Kästen
+## gleich), "A" der Kasten dessen, der am Zug ist, wie sein Feld in der Zugleiste (▶ vor dem Namen, erhaben, Goldrand 1,5 dp, Name
+## hell), "B" dazu die übrigen der Gruppe mit gedämpftem Rand. Am Zug ist, wer in der Zugleiste das ▶ trägt; ist es ein Gegner, bleiben
+## alle Kästen wie alt.
+## 565 A (Chef 08.11., 13:11: „565 A“): A ist die Vorgabe; AMZUG565 (auch leer: wie alt) bleibt für Vergleichsbilder
+var am_zug_565 := OS.get_environment("AMZUG565") if OS.has_environment("AMZUG565") else "A"
+
+func _vorn():
+	for id in kampfort.shown.get("queue", []):
+		var o = kampfort.mars.find(id)
+		if o != null and kampfort.shown.hp.get(id, o.hp) > 0:
+			return o
+	return null
+
+func _am_zug(f) -> bool:
+	return _vorn() == f
+
+
 ## PartyBox: Farbmarke, Name; Balken in Lebensfarbe und „hp/max“, bei Zauberern „ZP sp/max“ (ohne „LP“).
 func _party_box(f) -> Control:
 	var box := PanelContainer.new()
 	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	box.add_theme_stylebox_override("panel", _box(Color.BLACK, RIM, 6, 3, 1.0))
+	var dran: bool = am_zug_565 != "" and kampfort.mars.outcome == "ONGOING" and _am_zug(f)
+	if dran:
+		box.add_theme_stylebox_override("panel", _box(RAISED, GOLD, 6, 3, 1.5))
+	elif am_zug_565 == "B" and kampfort.mars.outcome == "ONGOING" and _vorn() != null and _vorn().side == "PARTY":
+		box.add_theme_stylebox_override("panel", _box(Color.BLACK, Color(RIM, 0.3), 6, 3, 1.0))
+	else:
+		box.add_theme_stylebox_override("panel", _box(Color.BLACK, RIM, 6, 3, 1.0))
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(2 * dp))
 	box.add_child(v)
@@ -416,9 +497,9 @@ func _party_box(f) -> Control:
 	mark.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	top.add_child(mark)
 	var n := Label.new()
-	n.text = f.name(lang)
+	n.text = ("▶ " if dran else "") + f.name(lang)
 	n.add_theme_font_size_override("font_size", sp(13))
-	n.add_theme_color_override("font_color", WARN if hp <= 0 else TEXT)
+	n.add_theme_color_override("font_color", WARN if hp <= 0 else (BRIGHT if dran else TEXT))
 	n.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	n.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	n.clip_text = true
@@ -451,7 +532,11 @@ func _party_box(f) -> Control:
 
 
 ## PixelButton im schwarzen Stil: eckig, Rahmen 1 dp, Großbuchstaben mit Laufweite; an: erhaben mit hellem Rahmen.
-func _button(label: String, enabled := true, go: Callable = Callable(), selected := false, small := false) -> Button:
+## 536 (SkirmishScreen detectTapGestures onLongPress): so lange gedrückt (s, Spielzeit egal), dann sagt der Knopf, was er tut
+const LANG_S := 0.5
+
+
+func _button(label: String, enabled := true, go: Callable = Callable(), selected := false, small := false, tip := []) -> Button:
 	var b := Button.new()
 	b.text = label.to_upper()
 	b.disabled = not enabled
@@ -472,8 +557,24 @@ func _button(label: String, enabled := true, go: Callable = Callable(), selected
 	b.add_theme_color_override("font_hover_color", BRIGHT if selected else TEXT)
 	b.add_theme_color_override("font_pressed_color", BRIGHT)
 	b.add_theme_color_override("font_disabled_color", Color(DIM, 0.6))
+	if not tip.is_empty():     # 536: langes Drücken zeigt, was der Knopf tut; losgelassen danach tut er nichts
+		# 564 (Chef 04.11., 17:06: „Lambda capture at index 0 was freed“): ein kurzer Druck baut die Knöpfe neu, bevor der Zeitgeber
+		# abläuft; der Zeitgeber hält den Knopf darum nur schwach (weakref), ein freigegebener Knopf ist dann einfach null
+		b.button_down.connect(func():
+			var t0 := Time.get_ticks_msec()
+			b.set_meta("unten", t0)
+			var schwach: WeakRef = weakref(b)
+			get_tree().create_timer(LANG_S, true, false, true).timeout.connect(func():
+				var bb = schwach.get_ref()
+				if bb != null and bb.is_pressed() and int(bb.get_meta("unten", -1)) == t0:
+					bb.set_meta("lang", true)
+					show_tip(str(tip[lang]))))
 	if go.is_valid():
-		b.pressed.connect(go)
+		b.pressed.connect(func():
+			if b.get_meta("lang", false):
+				b.set_meta("lang", false)
+				return
+			go.call())
 	return b
 
 
@@ -590,24 +691,24 @@ func _build_orders() -> void:
 					if reach.size() == 1:
 						k.order(["attack", reach[0].id])
 					else:
-						_set_pick("target")),
-				_button(t("Können", "Skills"), not m.moves(f).is_empty(), func(): _set_pick("skills")),
-				_button(t("Tasche", "Bag"), not m.drinkable().is_empty(), func(): _set_pick("bag")),
-				_button(t("Wechsel", "Switch"), m.can_swap(f) or m.can_draw(f), func(): _set_pick("place")),
+						_set_pick("target"), false, false, Tips.ATTACK),
+				_button(t("Können", "Skills"), not m.moves(f).is_empty(), func(): _set_pick("skills"), false, false, Tips.SKILLS),
+				_button(t("Tasche", "Bag"), not m.drinkable().is_empty(), func(): _set_pick("bag"), false, false, Tips.BAG),
+				_button(t("Wechsel", "Switch"), m.can_swap(f) or m.can_draw(f), func(): _set_pick("place"), false, false, Tips.PLACE),
 			]
-			var low := [_button(t("Abwehr", "Defend"), true, func(): k.order(["wait"]), false, true)]
+			var low := [_button(t("Abwehr", "Defend"), true, func(): k.order(["wait"]), false, true, Tips.DEFEND)]
 			# 296.2: fliehen wie im klassischen Kampf, nie vor einem Boss
 			if not m.all.any(func(x): return x.side == "FOES" and x.boss()):
 				low.append(_button(t("Flucht", "Run"), m.can_flee(f), func(): k.order(["flee"]), false, true))
 			if f.hero != null and f.hero.cls == "FIGHTER":
-				low.append(_button(t("Decken", "Cover"), not m.guardable(f).is_empty(), func(): k.order(["guard"]), false, true))
+				low.append(_button(t("Decken", "Cover"), not m.guardable(f).is_empty(), func(): k.order(["guard"]), false, true, Tips.COVER))
 			var merc = m.find("merc")
 			if merc != null:
 				low.append(_button(t("Söldner ", "Mercenary ") + (t("Auto", "auto") if merc.auto else t("selbst", "manual")), true, func():
 					merc.auto = not merc.auto
 					if merc.auto and m.current() == merc:
 						k.go_on()
-					refresh(), merc.auto, true))
+					refresh(), merc.auto, true, Tips.MERC))
 			low.append(_button(t("Held ", "Hero ") + (t("Auto", "auto") if m.autopilot else t("selbst", "manual")), true, func():
 				if m.autopilot:
 					m.set_autopilot(false)
@@ -618,7 +719,7 @@ func _build_orders() -> void:
 						show_tip(why[lang])
 					elif m.set_autopilot(true, k.shown.hp.get(lead.id, lead.hp)) and m.pilot_next():
 						k.go_on()
-				refresh(), m.autopilot, true))
+				refresh(), m.autopilot, true, Tips.AUTOPILOT))
 			# beide Zeilen in einer Schriftgröße
 			var fs := mini(_row_size(top), _row_size(low))
 			orders.add_child(_row(top, fs))
@@ -714,12 +815,18 @@ func _set_pick(p: String, arg = null) -> void:
 
 
 func show_tip(text: String) -> void:
+	# 536 (Chef 04.11., 16:56: „Das erste Fenster … war riesig … Die anderen waren dann okay“; namen_536: erstes 6445 px hoch,
+	# zweites 175 px): der Text kam, solange das Fenster noch 0 breit war, und brach nach jedem Wort um; erst die Breite, dann der Text
+	var vs: Vector2 = get_viewport().get_visible_rect().size
+	tip.size = Vector2(vs.x - 16 * dp, 0)
 	tip.text = text
 	tip.visible = true
-	var vs: Vector2 = get_viewport().get_visible_rect().size
 	tip.position = Vector2(8 * dp, kampfort.scene_rect().size.y - 70 * dp)
 	tip.size = Vector2(vs.x - 16 * dp, 0)
-	get_tree().create_timer(6.0).timeout.connect(func(): tip.visible = false)
+	tip_nr += 1
+	var nr := tip_nr     # die Uhr eines früheren Fensters schließt nicht das neue
+	get_tree().create_timer(6.0).timeout.connect(func(): if nr == tip_nr: tip.visible = false)
+var tip_nr := 0
 
 
 # ---------------------------------------------------------------- ring, rolls, verdict
@@ -750,6 +857,50 @@ func show_roll(e: Dictionary) -> void:
 
 
 # ---------------------------------------------------------------- drawing over the scene
+## 536: was langes Drücken an [p] in der Szene sagt: auf einer Ansage, was sie heißt und was hilft (MarsTips intent, 210T);
+## auf einem Gegner sein Name, seine Absicht und ihr Ziel (SkirmishScreen whoIs); sonst nichts.
+## 536 (Chef 04.11., 17:02: „Auch kein Hilfetext, wenn ich den Status-Text oder Status-Effekt anklicke.“): das Zustandsschild unter
+## [p] erklärt sich mit Namen und Wirkung (Status.kt title und desc, wortgetreu in Mars.STATUS_DESC); sonst „“
+func _status_tip(p: Vector2) -> String:
+	for e in status_rects:
+		if (e[0] as Rect2).grow(4 * dp).has_point(p):
+			var st: String = e[1]
+			return "%s: %s" % [Mars.STATUS[st][0][lang], Mars.STATUS_DESC.get(st, ["", ""])[lang]]
+	return ""
+
+
+func scene_tip(p: Vector2) -> String:
+	var k = kampfort
+	if _status_tip(p) != "":
+		return _status_tip(p)
+	for id in sign_of:
+		if (sign_of[id] as Rect2).grow(6 * dp).has_point(p) and k.shown.intents.has(id):
+			var tx = Tips.INTENTS.get(String(k.shown.intents[id][0].id))
+			if tx != null:
+				return str(tx[lang])
+	for id in k.figures:
+		var fig = k.figures[id]
+		var f = k.mars.find(id)
+		if f == null or f.side != "FOES" or not fig.visible or fig.down:
+			continue
+		var h := _tall(fig)
+		var ft := _foot(fig)
+		if Rect2(ft.x - h * 0.5, ft.y - h * 1.1, h, h * 1.2).has_point(p):
+			var s: String = f.name(lang)
+			if k.shown.intents.has(id):
+				var plan: Array = k.shown.intents[id]
+				s += ": " + str(plan[0].name[lang])
+				if plan.size() > 1 and not (plan[1] as Array).is_empty() and k.mars.find(plan[1][0]) != null:
+					s += " → " + k.mars.find(plan[1][0]).name(lang)
+			return s
+	return ""
+
+
+## 567: die Plätze links und rechts neben dem Kopf (spots 1 und 2 in _draw_intents)
+static func _seitlich(qi: int) -> bool:
+	return qi == 1 or qi == 2
+
+
 ## Foot point and height on the screen of a figure.
 func _foot(fig) -> Vector2:
 	return kampfort.screen_of(fig.position)
@@ -759,14 +910,57 @@ func _tall(fig) -> float:
 	return maxf(20 * dp, _foot(fig).y - kampfort.screen_of(fig.head()).y)
 
 
-## A circle on the ground round [p] (world), as the camera sees it.
+## A circle on the ground round [p] (world), as the camera sees it. 561 (Chef 04.11., 16:56: „der Zuganzeiger, der goldene Kreis,
+## wieder nicht dreidimensional richtig unterbrochen ist durch die Figur, die drin steht. Das war auch alles in der alten Fassung“;
+## 17:00 ebenso die Zielringe): nicht mehr über alles gemalt, sondern als flaches Band am Boden in der Welt (_ringe_bauen), so
+## verdecken Beine und Körper davor den Ring wie in BattleScene (CamRing); Breite [w] in Bildpunkten wie bisher, mit dunklem Rand
+var _ring_liste := []
 func _ground_ring(p: Vector3, r: float, c: Color, w: float) -> void:
-	var pts := PackedVector2Array()
-	for i in 41:
-		var a := TAU * i / 40.0
-		pts.append(kampfort.screen_of(p + Vector3(cos(a) * r, 0.02, sin(a) * r)))
-	overlay.draw_polyline(pts, Color(0, 0, 0, 0.5), w + 2 * dp, true)
-	overlay.draw_polyline(pts, c, w, true)
+	_ring_liste.append([p, r, c, w])
+
+
+var _ringe: MeshInstance3D
+var _ring_mesh: ImmediateMesh
+const RING_HOCH := 0.02
+func _ringe_bauen() -> void:
+	if _ringe == null or not is_instance_valid(_ringe):
+		_ring_mesh = ImmediateMesh.new()
+		_ringe = MeshInstance3D.new()
+		_ringe.name = "Ringe"
+		_ringe.mesh = _ring_mesh
+		_ringe.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		var mat := StandardMaterial3D.new()
+		mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		mat.vertex_color_use_as_albedo = true
+		mat.cull_mode = BaseMaterial3D.CULL_DISABLED
+		_ringe.material_override = mat
+		kampfort.add_child(_ringe)
+	_ring_mesh.clear_surfaces()
+	if _ring_liste.is_empty():
+		return
+	_ring_mesh.surface_begin(Mesh.PRIMITIVE_TRIANGLES)
+	for e in _ring_liste:
+		var mdp: float = kampfort.m_per_dp(e[0])
+		var w: float = float(e[3]) / dp * mdp
+		_band(e[0], float(e[1]), w + 2.0 * mdp, Color(0, 0, 0, 0.5), RING_HOCH)
+		_band(e[0], float(e[1]), w, e[2], RING_HOCH + 0.002)
+	_ring_mesh.surface_end()
+	_ring_liste.clear()
+
+
+func _band(p: Vector3, r: float, w: float, c: Color, hoch: float) -> void:
+	var innen := maxf(r - w * 0.5, 0.0)
+	var aussen := r + w * 0.5
+	for i in 40:
+		var a0 := TAU * i / 40.0
+		var a1 := TAU * (i + 1) / 40.0
+		var d0 := Vector3(cos(a0), 0.0, sin(a0))
+		var d1 := Vector3(cos(a1), 0.0, sin(a1))
+		var y := Vector3(0, hoch, 0)
+		for q in [d0 * innen, d0 * aussen, d1 * aussen, d0 * innen, d1 * aussen, d1 * innen]:
+			_ring_mesh.surface_set_color(c)
+			_ring_mesh.surface_add_vertex(p + y + q)
 
 
 func _chip(rect: Rect2, bg: Color, border: Color, rim_dp: float) -> void:
@@ -778,15 +972,17 @@ func _draw_overlay() -> void:
 	var k = kampfort
 	var m = k.mars
 	var sr: Rect2 = k.scene_rect()
-	# SkirmishScreen: nach dem Ende kein Ring, keine Zugleiste, keine Schalter (Prüfer: nach dem Sieg noch Pfeil und Würfel)
-	var ended: bool = m.outcome != "ONGOING"
+	# SkirmishScreen: nach dem Ende kein Ring, keine Zugleiste, keine Schalter (Prüfer: nach dem Sieg noch Pfeil und Würfel).
+	# 679 (Chef 08.11., 16:11, Build 269: „die Wölfe haben einen Lauf und ich habe keine Zusatzfunktionen mehr“): MARS rechnet im
+	# Hintergrund voraus, der Ausgang steht fest, während die letzten Züge noch spielen; zu Ende ist es erst, wenn alles gezeigt ist
+	var ended: bool = m.outcome != "ONGOING" and not k.busy
 	var current = m.current() if not k.busy and not ended else null
 	# under the figures: the ring under the one whose turn it is, chosen targets (CamRing)
 	for id in k.figures:
 		var fig = k.figures[id]
 		if not fig.visible or k.shown.hp.get(id, fig.fighter.hp) <= 0:
 			continue
-		var beast: bool = fig.fighter.monster != null and fig.fighter.monster.id == Mars.WOLF
+		var beast: bool = Figur.vier(fig.fighter)
 		if fig.fighter == current:
 			_ground_ring(fig.position, 0.75 if beast else 0.55, BRIGHT, 2.5 * dp)
 		elif pick == "target" and current != null and m.targets(current).has(fig.fighter):
@@ -798,6 +994,7 @@ func _draw_overlay() -> void:
 				for slot in [0, 1]:
 					var ab: Vector2 = k._stand(side == "FOES", row == Mars.BACK, slot, false)
 					_ground_ring(k._ground(ab.x, ab.y), 0.45, Color(GOLD, 0.5), 1.5 * dp)
+	_ringe_bauen()     # 561
 	# triangles before the feet of those a foe aims at (CamAim)
 	var aimed_at := {}
 	for id in k.shown.intents:
@@ -821,15 +1018,29 @@ func _draw_overlay() -> void:
 		overlay.draw_colored_polygon(tri, _friend_color(fig.fighter))
 		tri.append(tri[0])
 		overlay.draw_polyline(tri, Color(0, 0, 0, 0.8), maxf(1.0, dp), true)
-	# names only while choosing a target (NameTag)
-	if pick == "target" and current != null:
-		for tg in m.targets(current):
-			if k.figures.has(tg.id):
-				var fig = k.figures[tg.id]
-				_name_tag(_foot(fig), _tall(fig), tg.name(lang), false)
+	# names only while choosing a target (NameTag); 536 (Chef 04.11., 16:56: „In der alten Fassung war es so, dass die Bezeichnungen
+	# der Gegner eingeblendet wurden, auch wenn man länger drückt“; 17:00: „Ein Wolfsname steht da, die anderen stehen nicht da“):
+	# wie alt jeder Wählbare und nach langem Drücken alle drei Sekunden lang (sanft aus, SOFT_MS); die Ansage steigt dann über den
+	# Namen (_draw_intents named), vorher lag sie auf ihm
+	named.clear()
+	var weich := clampf(float(names_until - Time.get_ticks_msec()) / SOFT_MS, 0.0, 1.0)
+	var waehlbar: Array = m.targets(current) if pick == "target" and current != null else []
+	for id in k.figures:
+		var fig = k.figures[id]
+		var f = fig.fighter
+		if not fig.visible or fig.down or k.shown.hp.get(id, f.hp) <= 0:
+			continue
+		var a: float = 1.0 if waehlbar.has(f) else weich
+		if a > 0.0:
+			named[id] = true
+			_name_tag(_foot(fig), _tall(fig), f.name(lang), f == current, a, f.side == "FOES")
 	_draw_spells()
 	# 249: Blut unter den Ansagen (Prüfer 26.10.: Tropfen lagen auf dem Text)
 	_draw_blood()
+	if zustand_563 != "":
+		# 563: nur die Leisten dieses Bilds (Zustände weichen ihnen aus); die des letzten Bilds meiden die Ansagen
+		balken_vor = balken_of.duplicate()
+		balken_of.clear()
 	_draw_intents(sr)
 	# life bars only over foes (MarsLabels.barsOnlyFoes); wer eine Ansage hat, trägt ihn unter ihr (_draw_intents)
 	for id in k.figures:
@@ -851,8 +1062,14 @@ func _draw_overlay() -> void:
 			if oid != id and o.visible and k.shown.hp.get(oid, o.fighter.hp) > 0:
 				var of := _foot(o)
 				var ot := _tall(o)
-				var half: float = ot * (0.8 if o.fighter.monster != null and o.fighter.monster.id == Mars.WOLF else 0.45)
+				var half: float = ot * (0.8 if Figur.vier(o.fighter) else 0.45)
 				if r.grow(3 * dp).intersects(Rect2(of.x - half, of.y - ot, half * 2.0, ot + 6 * dp)):
+					unten = below + r.size.y <= sr.size.y - 4 * dp
+					break
+		# 563 (Chef 04.11., 17:02: die grüne Leiste lief durch die Schrift der Ansage): auch nie auf der Ansage eines anderen
+		if zustand_563 != "" and not unten:
+			for o in sign_rects:
+				if r.grow(2 * dp).intersects(o):
 					unten = below + r.size.y <= sr.size.y - 4 * dp
 					break
 		# 438 (Prüfer Film r2: Leisten springen über und unter, 18,6 s, 33,0 s): der Platz wechselt erst, wenn der andere 0,8 s lang
@@ -872,10 +1089,13 @@ func _draw_overlay() -> void:
 		balken_of[id] = r.position
 		overlay.draw_rect(r.grow(1), Color(0, 0, 0, 0.7))
 		overlay.draw_rect(Rect2(r.position, Vector2(w * clampf(float(hp) / f.max_hp, 0, 1), r.size.y)), hp_color(float(hp) / f.max_hp))
+	if zustand_563 != "":
+		_paint_signs()
 	_draw_statuses(sr)
 	if ended:
 		grid_rect = Rect2()
 		dice_rect = Rect2()
+		tempo_rect = Rect2()
 		win_rect = Rect2()
 		lose_rect = Rect2()
 	else:
@@ -1095,7 +1315,7 @@ func _draw_spells() -> void:
 		var by = k.figures.get(sp.by, on)
 		var to := _foot(on)
 		var tall := _tall(on)
-		var flying: bool = by != on and sp.kind in ["ARROW", "FIRE_BOLT", "MISSILES", "FIREBALL", "RAYS", "BURNING_HANDS"]
+		var flying: bool = by != on and sp.kind in ["ARROW", "FIRE_BOLT", "MISSILES", "FIREBALL", "RAYS", "BURNING_HANDS", "WEB"]
 		var dir: Vector3 = (on.position - by.position) * Vector3(1, 0, 1)
 		dir = dir.normalized() if dir.length() > 0.01 else Vector3.ZERO
 		var h_by: float = by.head().y - by.position.y
@@ -1231,7 +1451,7 @@ func _miss_point(by, on, flying: bool) -> Vector3:
 
 ## Wie weit eine Figur um ihre Mitte reicht (m): Wölfe sind lang und stehen mit der Brust zur Gruppe
 func _girth(fig) -> float:
-	var beast: bool = fig.fighter.monster != null and fig.fighter.monster.id == Mars.WOLF
+	var beast: bool = Figur.vier(fig.fighter)
 	return (0.4 if beast else 0.25) * (kampfort.foe_scale(fig.fighter) if fig.fighter.monster != null else 1.0)
 
 
@@ -1333,6 +1553,13 @@ func _draw_blood() -> void:
 
 
 var placed_status := []
+var placed_status_of := []     # 563: wem die Zeile gehört (Messung tests/zustaende_563.gd)
+var status_rects := []     # 536: [Rect2, Zustand] je gezeichnetes Schild
+## 563 (Chef 04.11., 17:02: „die Statuseffekte sind ja gruselig“); 563 A (Chef 08.11., 13:09: „563 A mit hellerem Rot“) ist die
+## Vorgabe, ZUSTAND563 (auch leer: wie vorher) bleibt für Vergleichsbilder
+var zustand_563 := OS.get_environment("ZUSTAND563") if OS.has_environment("ZUSTAND563") else "A"
+const ROT_HELLER_563 := 0.3     # Blut (C8283A) um so viel heller, auf Schwarz lesbar
+var balken_vor := {}    # 563: Leisten des letzten Bilds
 
 
 ## Whether status signs at [r] would lie on another figure, an intent sign or signs placed before.
@@ -1341,45 +1568,70 @@ func _status_clash(r: Rect2, own: String) -> bool:
 	for o in sign_rects + placed_status:
 		if r.intersects(o.grow(2 * dp)):
 			return true
+	# 563: auch nie auf einer Lebensleiste
+	if zustand_563 != "":
+		for bid in balken_of:
+			if r.intersects(Rect2(balken_of[bid], Vector2(44 * dp, 4 * dp)).grow(2 * dp)):
+				return true
 	for id in k.figures:
 		var o = k.figures[id]
 		if id == own or not o.visible or k.shown.hp.get(id, o.fighter.hp) <= 0:
 			continue
 		var of := _foot(o)
 		var ot := _tall(o)
-		var half: float = ot * (0.8 if o.fighter.monster != null and o.fighter.monster.id == Mars.WOLF else 0.45)
+		var half: float = ot * (0.8 if Figur.vier(o.fighter) else 0.45)
 		if r.intersects(Rect2(of.x - half, of.y - ot - 8 * dp, half * 2.0, ot + 12 * dp)):
 			return true
 	return false
 
 
+## 563: die Schilder der Zustände von [id]: [[Text, Breite, Farbe, Zustand], …], Gesamtbreite, Höhe; leer ohne Zustand
+func _status_chips(id) -> Array:
+	var k = kampfort
+	var st_of: Dictionary = k.shown.get("status", {})
+	if not st_of.has(id) or (st_of[id] as Dictionary).is_empty():
+		return []
+	var fs := sp(11)
+	var gap := 4 * dp
+	var chips := []
+	var width := -gap
+	for st in st_of[id]:
+		var left: int = st_of[id][st]
+		var label: String = Mars.STATUS[st][1][lang] + ("" if left >= Mars.LASTING else " %d" % left)
+		var w := font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x + 10 * dp
+		chips.append([label, w, Mars.STATUS[st][2], st])
+		width += w + gap
+	return [chips, width, fs * 1.3 + 2 * dp]
+
+
 ## 296.2: the statuses with the turns left, as in the old fight (StatusChips), under the feet of each who has any;
 ## lower still where an intent sign lies there.
+## 563 (Vorschlag, aus): "A" im Stil der Ansage (schwarz, Rand und Schrift in der Farbe des Zustands), weicht auch den Lebensleisten
+## aus; die Leisten weichen den Ansagen, die Ansagen den Leisten
 func _draw_statuses(sr: Rect2) -> void:
 	var k = kampfort
 	var fs := sp(11)
 	var gap := 4 * dp
 	placed_status.clear()
+	placed_status_of.clear()
+	status_rects.clear()
 	for id in k.shown.get("status", {}):
 		if not k.figures.has(id):
 			continue
 		var fig = k.figures[id]
 		if not fig.visible or k.shown.hp.get(id, fig.fighter.hp) <= 0:
 			continue
-		var chips := []
-		var width := -gap
-		for st in k.shown.status[id]:
-			var left: int = k.shown.status[id][st]
-			var label: String = Mars.STATUS[st][1][lang] + ("" if left >= Mars.LASTING else " %d" % left)
-			var w := font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x + 10 * dp
-			chips.append([label, w, Mars.STATUS[st][2]])
-			width += w + gap
-		var h := fs * 1.3 + 2 * dp
+		var zs := _status_chips(id)
+		if zs.is_empty():
+			continue
+		var chips: Array = zs[0]
+		var width: float = zs[1]
+		var h: float = zs[2]
 		var foot := _foot(fig)
 		var x := clampf(foot.x - width / 2, 4 * dp, sr.size.x - width - 4 * dp)
 		var y := foot.y + 8 * dp + _tall(fig) * 0.12
 		# Prüfer: unter dem grauen Wolf lagen sie auf dem schwarzen davor; dann seitlich am eigenen Rumpf, sonst über dem Kopf
-		var half: float = _tall(fig) * (0.8 if fig.fighter.monster != null and fig.fighter.monster.id == Mars.WOLF else 0.45)
+		var half: float = _tall(fig) * (0.8 if Figur.vier(fig.fighter) else 0.45)
 		var mid := foot.y - _tall(fig) * 0.5 - h / 2
 		# Prüfer Runde 2: seitlich lag „Betäubt“ noch auf dem eigenen Hinterteil; weiter weg, und nie an den Rand gedrückt
 		var spots := [Vector2(x, y), Vector2(foot.x + half * 1.15 + gap, mid), Vector2(foot.x - half * 1.15 - gap - width, mid),
@@ -1401,23 +1653,53 @@ func _draw_statuses(sr: Rect2) -> void:
 				row = r
 				break
 		placed_status.append(row)
-		for c in chips:
-			var r := Rect2(row.position.x, row.position.y, c[1], h)
+		placed_status_of.append(id)
+		_status_row(row, chips, h, fs, gap)
+
+
+## die Schilder einer Zeile ab [row]; 563 A, B im Stil der Ansage
+func _status_row(row: Rect2, chips: Array, h: float, fs: int, gap: float) -> void:
+	for c in chips:
+		var r := Rect2(row.position.x, row.position.y, c[1], h)
+		status_rects.append([r, c[3]])
+		if zustand_563 != "":
+			# wie die Ansage (_draw_intents): schwarz, Rand in der Farbe, Schrift etwas heller, damit Dunkelrot auf Schwarz lesbar bleibt
+			var c2: Color = c[2]
+			if c[3] == "BLEED":
+				c2 = c2.lightened(ROT_HELLER_563)     # 563 A (Chef 08.11., 13:09: „mit hellerem Rot“)
+			_chip(r, Color(0, 0, 0, 0.85), c2, 1.0)
+			overlay.draw_string(font, Vector2(r.position.x + 5 * dp, r.position.y + h * 0.76), c[0], HORIZONTAL_ALIGNMENT_LEFT, -1, fs, c2.lerp(Color.WHITE, 0.3))
+		else:
 			overlay.draw_rect(r, c[2])
 			overlay.draw_rect(r, Color(0, 0, 0, 0.8), false, maxf(1.0, dp))
 			# Prüfer: Weiß auf Gelb und hellem Grün zu schwach; auf hellen Farben schwarz
 			var ink: Color = Color.BLACK if c[2].get_luminance() > 0.45 else Color.WHITE
 			overlay.draw_string(font, Vector2(r.position.x + 5 * dp, r.position.y + h * 0.76), c[0], HORIZONTAL_ALIGNMENT_LEFT, -1, fs, ink)
-			row.position.x += c[1] + gap
+		row.position.x += c[1] + gap
 
 
-func _name_tag(foot: Vector2, tall: float, nm: String, now: bool) -> void:
+const NAMES_MS := 3000     # SkirmishScreen NAMES_MS
+const SOFT_MS := 400.0     # SkirmishScreen SOFT_MS
+var names_until := 0
+var named := {}     # 536: wer gerade seinen Namen trägt (die Ansage steigt darüber)
+
+func _name_h() -> float:
+	return sp(12) * 1.35 + 2 * dp
+
+## 536 t268.20 (Chef 07.11.: „Aktion der Jungwölfe dann sehr weit von Wolf weg“): Oberkante wie alt (SkirmishScreen NameTag:
+## y - tall - 28 dp mit Leiste, sonst 24 dp); vorher lag hier die Unterkante, Name und Ansage standen 18 dp zu hoch
+func _name_top(foot: Vector2, tall: float, bar: bool) -> float:
+	return foot.y - tall - (28.0 if bar else 24.0) * dp
+
+func _name_tag(foot: Vector2, tall: float, nm: String, now: bool, alpha := 1.0, bar := true) -> void:
 	var fs := sp(12)
 	var w := font.get_string_size(nm, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x + 12 * dp
-	var h := fs * 1.35 + 2 * dp
-	var r := Rect2(foot.x - w / 2, foot.y - tall - 28 * dp - h, w, h)
-	_chip(r, Color.BLACK, GOLD if now else RIM, 1.0)
-	overlay.draw_string(font, Vector2(r.position.x + 6 * dp, r.position.y + h * 0.76), nm, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, BRIGHT if now else TEXT)
+	var h := _name_h()
+	var r := Rect2(foot.x - w / 2, _name_top(foot, tall, bar), w, h)
+	var rim: Color = GOLD if now else RIM
+	_chip(r, Color(0, 0, 0, alpha), Color(rim, rim.a * alpha), 1.0)
+	var tc: Color = BRIGHT if now else TEXT
+	overlay.draw_string(font, Vector2(r.position.x + 6 * dp, r.position.y + h * 0.76), nm, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, Color(tc, tc.a * alpha))
 
 
 ## Ansagen (IntentSign): „! Anspringen“ im Rahmen, Farbe des Angezielten; von unten nach oben ohne Überlappen (layOut).
@@ -1458,9 +1740,11 @@ func _draw_intents(sr: Rect2) -> void:
 		# über dem Kopf des Ansagenden, mittig (Prüfer Stand 7: „! Anspringen“ schwebte links daneben ohne Bezug)
 		var head_y := foot.y - _tall(fig) - 10 * dp
 		var want_y := head_y - 6 * dp - h
+		if named.has(id):     # 536 wie alt (242: „over the name while names show“)
+			want_y = _name_top(foot, _tall(fig), true) - 4 * dp - h
 		var x := clampf(foot.x - w / 2, 4 * dp, sr.size.x - w - 4 * dp)
 		# Prüfer Stand 9: Ansagen der vorderen Wölfe lagen auf dem hinteren; daneben am eigenen Kopf, wenn darüber ein anderer steht
-		var side := _tall(fig) * (0.8 if fig.fighter.monster != null and fig.fighter.monster.id == Mars.WOLF else 0.42) + 4 * dp
+		var side := _tall(fig) * (0.8 if Figur.vier(fig.fighter) else 0.42) + 4 * dp
 		var head_mid := head_y + 10 * dp - h
 		signs.append({"x": x, "y": want_y, "w": w, "h": h, "ch": ch, "mark": mark, "label": label, "border": border, "bw": bw, "tc": tc, "ring": ring,
 			"fx": foot.x, "head": head_y, "top": foot.y - _tall(fig) * (1.0 if _bat(fig) else 0.88), "hx": kampfort.screen_of(fig.head()).x, "id": id, "alts": [
@@ -1479,7 +1763,7 @@ func _draw_intents(sr: Rect2) -> void:
 			var of := _foot(o)
 			var ot := _tall(o)
 			# ein Wolf ist länger als hoch: im Bild etwa 1,6 mal so breit (Prüfer: Ansage lag auf dem Hinterteil des grauen)
-			var half: float = ot * (0.8 if o.fighter.monster != null and o.fighter.monster.id == Mars.WOLF else 0.45)
+			var half: float = ot * (0.8 if Figur.vier(o.fighter) else 0.45)
 			bodies[id] = Rect2(of.x - half, of.y - ot - 12 * dp, half * 2.0, ot + 12 * dp)
 	var placed := []
 	var step := 26 * dp
@@ -1494,6 +1778,10 @@ func _draw_intents(sr: Rect2) -> void:
 			for id in bodies:
 				if id != s.id and (r.intersects(bodies[id]) or (strict and _seg_hits(a, e, bodies[id].grow(-2 * dp)))):
 					return true
+			# 563: nie auf der Lebensleiste eines anderen (die grüne Leiste lief durch die Schrift)
+			for bid in balken_vor:
+				if bid != s.id and r.intersects(Rect2(balken_vor[bid], Vector2(44 * dp, 4 * dp)).grow(2 * dp)):
+					return true
 			return false
 		var spots: Array = [Vector2(s.x, s.y)] + s.alts
 		var y: float = s.y
@@ -1503,7 +1791,8 @@ func _draw_intents(sr: Rect2) -> void:
 		# 438 (Prüfer Film r2: Ansagen springen über und unter, 21,6–25 s): der Platz vom letzten Bild bleibt, solange er frei ist;
 		# erst wenn nicht, wird neu gesucht (sonst wechselte es mit jedem Schritt eines Nachbarn hin und her)
 		var alt = sign_wahl.get(s.id)
-		if alt != null and alt[0] < spots.size():
+		# 567 (Chef 04.11., Build 257: „+ In den Schatten“ hing rechts neben keinem): ohne Strich nie neben dem Kopf
+		if alt != null and alt[0] < spots.size() and not (not alt[1] and _seitlich(alt[0])):
 			var q: Vector2 = spots[alt[0]] if alt[0] >= 0 else Vector2(s.x, s.y + alt[2])
 			if q.y >= 34 * dp and q.y + s.h <= sr.size.y - 4 * dp and not clash.call(Rect2(q.x, q.y, s.w, s.h), alt[1]):
 				x = q.x
@@ -1513,6 +1802,9 @@ func _draw_intents(sr: Rect2) -> void:
 		# erst mit freiem Strich; geht das nirgends, lieber ohne Strich als auf einem anderen (Prüfer Runde 5: Schild auf dem grauen)
 		for strict in ([] if done else [true, false]):
 			for qi in spots.size():
+				# 567: neben dem Kopf nur mit Strich zu ihm; ohne Strich darüber (höher) oder unter den Pfoten, sonst wirkt sie herrenlos
+				if not strict and _seitlich(qi):
+					continue
 				var q: Vector2 = spots[qi]
 				# Runde 16: unter den Pfoten ragte es unten ins Bedienfeld (abgeschnitten); nur ganz in der Szene
 				if q.y >= 34 * dp and q.y + s.h <= sr.size.y - 4 * dp and not clash.call(Rect2(q.x, q.y, s.w, s.h), strict):
@@ -1545,6 +1837,21 @@ func _draw_intents(sr: Rect2) -> void:
 	for s in placed:
 		sign_rects.append(Rect2(s.x, s.y, s.w, s.h))
 		sign_of[s.id] = Rect2(s.x, s.y, s.w, s.h)
+	signs_placed = placed
+	# 563 A: gemalt erst nach den Lebensleisten (_draw_overlay), damit keine fremde Leiste durch die Schrift läuft (Chef 04.11., 17:02,
+	# Bild: die grüne Leiste eines anderen Wolfs über „pringen“ von „! Anspringen“)
+	if zustand_563 == "":
+		_paint_signs()
+
+
+var signs_placed := []     # 563: die Ansagen dieses Bilds, gesetzt, noch nicht gemalt
+
+## die gesetzten Ansagen malen: Strich zum Ansagenden, eigene Leiste, Schild mit Zeichen und Namen
+func _paint_signs() -> void:
+	var k = kampfort
+	var m = k.mars
+	var fs := sp(14)
+	for s in signs_placed:
 		var r := Rect2(s.x, s.y, s.w, s.h)
 		# a thin stroke down to the one who announces it, so a sign pushed up still belongs to someone
 		var a := _stroke_from(r, s.fx, s.head)
@@ -1598,7 +1905,8 @@ func _draw_turns(sr: Rect2) -> void:
 	var m = k.mars
 	var fs := sp(13)
 	var x := 6 * dp
-	var y := 6 * dp
+	var y := 6 * dp + rand_oben()     # 552: unter dem schwarzen Band über der Kamera des Handys (Rand, 399.4)
+	turns_top = y
 	var h := fs * 1.35 + 4 * dp
 	var q: Array = []
 	for id in k.shown.get("queue", []):
@@ -1661,20 +1969,39 @@ func _draw_switches(sr: Rect2) -> void:
 	var o := sq.size.x * 0.27
 	for e in [Vector2.ZERO, Vector2(-o, -o), Vector2(o, -o), Vector2(-o, o), Vector2(o, o)]:
 		overlay.draw_circle(c + e, 1.8 * dp, dc)
+	# 600: Tempo wie Würfel und Raster, ein bis drei Spitzen für Ruhig, Normal, Schnell. t268.22 (Chef 07.11.: „Stufe 1 und 3 heller,
+	# Stufe 2 dunkler?“): kein Schalter mit an und aus, sondern ein Wert; jede Stufe gleich hell, nur die Zahl der Spitzen wechselt
+	tempo_rect = Rect2()
+	var links := sr.size.x - 100 * dp
+	if kampfort.tempo_knopf:
+		tempo_rect = Rect2(links - 48 * dp, y, 48 * dp, 48 * dp)
+		links -= 48 * dp
+		var stufe: int = Bedienung.tempo
+		var tr := Rect2(tempo_rect.position + Vector2(4, 4) * dp, Vector2(s, s))
+		_chip(tr, Color.BLACK, RIM, 1.0)
+		var tcol := Color(GOLD, 0.9)
+		var mitte := tr.get_center()
+		var hoch := tr.size.y * 0.2
+		var breit := tr.size.x * 0.13
+		for i in stufe + 1:
+			var x0 := mitte.x + (i - stufe * 0.5) * breit * 1.1 - breit * 0.5
+			overlay.draw_polyline(PackedVector2Array([Vector2(x0, mitte.y - hoch), Vector2(x0 + breit, mitte.y), Vector2(x0, mitte.y + hoch)]), tcol, 1.8 * dp, true)
 	# 272 (Chef 20.10., nur im Testmodus, TestEndUi.kt): links neben den Würfeln Kreuz (verlieren) und Haken (gewinnen), solange
 	# der Kampf läuft und kein Ring offen ist; das angetippte leuchtet, bis es gilt
 	win_rect = Rect2()
 	lose_rect = Rect2()
 	if not Testmodus.ist_an() or kampfort.mars.outcome != "ONGOING" or kampfort.ring_open:
 		return
-	win_rect = Rect2(sr.size.x - 100 * dp - 48 * dp, y, 48 * dp, 48 * dp)
-	lose_rect = Rect2(sr.size.x - 100 * dp - 96 * dp, y, 48 * dp, 48 * dp)
+	win_rect = Rect2(links - 48 * dp, y, 48 * dp, 48 * dp)
+	lose_rect = Rect2(links - 96 * dp, y, 48 * dp, 48 * dp)
 	for win in [false, true]:
 		var r: Rect2 = win_rect if win else lose_rect
 		var on: bool = kampfort.end_asked != null and bool(kampfort.end_asked) == win
 		var b := Rect2(r.position + Vector2(4, 4) * dp, Vector2(s, s))
-		_chip(b, Color(0, 0, 0, 0.35), Color(GOLD, 0.9 if on else 0.4), 1.0)
-		var col := Color(GOLD if win else WARN, 1.0 if on else 0.7)
+		# 545 (Chef 04.11., 17:15: „die waren halt so ausgegraut“): wie Würfel und Raster, schwarz und deckend mit Rand, Zeichen
+		# kräftig; angetippt goldener Rand
+		_chip(b, Color.BLACK, GOLD if on else RIM, 1.0)
+		var col := Color(GOLD if win else WARN, 1.0 if on else 0.9)
 		var q := b.grow(-10 * dp)
 		if win:
 			overlay.draw_line(q.position + Vector2(0, q.size.y * 0.55), q.position + Vector2(q.size.x * 0.38, q.size.y * 0.9), col, 2 * dp, true)
@@ -1696,7 +2023,7 @@ func _stroke_from(r: Rect2, fx: float, head: float) -> Vector2:
 ## Fledermaus Runde 4c (Prüfer 4b: der Strich endete im Gesicht und deckte Maul und Augen): sie hängt aufrecht, das Gesicht liegt
 ## knapp unter den Ohrspitzen; der Strich endet darum an den Ohrspitzen
 func _bat(fig) -> bool:
-	return fig.fighter.monster != null and fig.fighter.monster.id == Mars.WOLF and fig.ersatz() == "giant_bat"
+	return Figur.vier(fig.fighter) and fig._mein_ersatz() == "giant_bat"     # 494: auch die Fledermaus mit eigenen Regeln (giant_bat)
 
 
 func _stroke_to(r: Rect2, s: Dictionary) -> Vector2:
@@ -1720,12 +2047,17 @@ func _roll_tag(sr: Rect2, fig, r: Array, actor_id, alpha: float) -> void:
 	var hit: bool = r[4]
 	var by = kampfort.mars.find(actor_id) if actor_id != null else null
 	# gold, wenn es der Gruppe hilft: ihr Angriff trifft, ihr Ziel scheitert am Rettungswurf; gegen sie umgekehrt
-	var works: bool = hit if r[0] == "ATTACK" else not hit
+	var works: bool = hit if r[0] == "ATTACK" or r[0] == "BRS" else not hit
 	var helps: bool = works if by == null or by.side == "PARTY" else not works
 	# Wortlaut wie RollTag (SkirmishScreen.kt): Vorteil/Nachteil, kritisch, daneben; Rettungswurf „RW … gegen SG … · geschafft“
 	var bonus := ("− %d" % -int(r[2])) if int(r[2]) < 0 else ("+ %d" % int(r[2]))
 	var txt: String
-	if r[0] == "ATTACK":
+	if r[0] == "BRS":
+		# 478: nach dem BRS ein Wurf von 1 bis 100 gegen die Trefferchance (Wortlaut vorläufig mit den Wörtern des alten Kastens,
+		# die Anzeige kommt mit 2.3)
+		var res2 := t("kritisch", "critical") if (hit and r.size() > 7 and r[7]) else (t("Treffer", "hit") if hit else t("daneben", "miss"))
+		txt = "%d %s %d %% · %s" % [int(r[1]), t("gegen", "vs"), int(r[3]), res2]
+	elif r[0] == "ATTACK":
 		var mode := ""
 		if int(r[5]) > 0:
 			mode = t(" (Vorteil)", " (advantage)")
@@ -1751,7 +2083,7 @@ func _roll_tag(sr: Rect2, fig, r: Array, actor_id, alpha: float) -> void:
 			continue
 		var of := _foot(o)
 		var ot := _tall(o)
-		var half: float = ot * (0.8 if o.fighter.monster != null and o.fighter.monster.id == Mars.WOLF else 0.4)   # Wolf breiter als hoch
+		var half: float = ot * (0.8 if Figur.vier(o.fighter) else 0.4)   # Wolf breiter als hoch
 		block.append(Rect2(of.x - half, of.y - ot, half * 2.0, ot))
 	var top := foot.y - _tall(fig) - 12 * dp - h
 	var bodies := block.slice(sign_rects.size())

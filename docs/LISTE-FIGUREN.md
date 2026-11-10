@@ -94,7 +94,7 @@ Gebilligt (Chef 25.10., 22:00):
 4. **Farbe:** Kleidung je Person in der Farbe wie bisher (z. B. Lyra weiße Robe, Jorin das Blau des Dorfes, Thessa Rost-Ocker); nie heller als bisher.
 5. **Haltung und Gesicht:** jede steht oder sitzt anders (Borin am Tisch); Augen, Brauen, Mund wie bisher.
 
-**Völker** (Homer 01.11., 430; gebilligt Chef 01.11., 09:09; für Tom 431). Gelten für Held, Leute und Söldner eines Volkes, Mensch = Liste „Held“; Namen und Werte nach `DESIGN-SPIELSYSTEM-2-0.md` (24, 72). Maße aus `Doll.kt` :64–92, :515–583, Hauttöne aus `Appearance.kt`; Frauen 7 % kleiner. „Neu“ = bisher nicht so gezeichnet. Für alle: am Schattenriss ohne Ausrüstung erkennbar, welches Volk; Kleidung und Ausrüstung wie beim Menschen.
+**Völker** (Homer 01.11., 430; gebilligt Chef 01.11., 09:09; für Tom 431). Gelten für Held, Leute und Söldner eines Volkes, Mensch = Liste „Held“; Namen und Werte nach `DESIGN-BRS.md` (E 24, E 72). Maße aus `Doll.kt` :64–92, :515–583, Hauttöne aus `Appearance.kt`; Frauen 7 % kleiner. „Neu“ = bisher nicht so gezeichnet. Für alle: am Schattenriss ohne Ausrüstung erkennbar, welches Volk; Kleidung und Ausrüstung wie beim Menschen.
 
 **Elf**
 1. **Größe:** 172 cm, fast so groß wie der Mensch.
@@ -134,7 +134,7 @@ Gebilligt (Chef 25.10., 22:00):
 Aschgeborener: entschieden 432.3 (Chef 02.11., 22:05, Vorgangsarchiv); gebaut wird nach dem Meilenstein.
 
 Gebilligt (Chef 25.10., 23:33, 348.11 b): übrige Monster aus Kapitel 1. Für alle gilt:
-- **Echte Größe:** die Maße gelten auch im Kampfort, ohne die bisherige Vergrößerung (Gegner 1,3-fach, Bosse 1,5-fach). Ausnahme: Wölfe bleiben 1,32 (Chef 01.11., 438c).
+- **Eine Größe je Tier** (587 A, Chef 05.11.; 587a, Chef 06.11.; ersetzt „Echte Größe“ 348.11 b): auf Gebietskarte und im Kampfort dieselbe Größe, Gegner 1,3-fach der Maße hier, wie alt und wie die Wölfe (1,32, 438c), Bosse 1,5-fach; wächst nicht nach Kapitel.
 - **Leuchten** nur, wo eine sichtbare Quelle ist: Schamane (Fluch) und Skelett (Untod), dazu Grimmzahn (Faden der Geschichte); alle anderen Augen matt, grelle Farben gedämpft.
 - **Kits am Umriss verschieden** (Kapuze, Fellkragen, Helm), nicht nur an der Farbe.
 - Jeder Goblin, Kobold, Untote ist zufällig schlank, mittel oder kräftig.

@@ -34,8 +34,11 @@ static func ist_an() -> bool:
 # ---------------------------------------------------------------- Reiter „Test“ (TestTab.kt), soweit die neue Welt es traegt
 # Wie alt in Gruppen: Anzeigen und Messwerte, Held, Welt, Teleport, Kampf beschwoeren, MARS-Probekampf, Beute erzeugen. Was in die Welt
 # greift (Teleport, Kapitelende, Kampf), sagt das Menue der Welt mit Menue.test; der Rest aendert Held und Zustand gleich.
-# Noch nicht wie alt: Wald und Hoehle im Teleport, Regen, Kartenzoom, Monster auf der Karte, Sichtlinie, Bosse (es gibt Wald und Hoehle noch nicht); Varianten
-# (MARS kennt noch keine Elite, 390), Kampfhilfen (wirkten alt nur im klassischen Kampf) und Absturzbericht.
+# 555 (Chef 04.11., 00:30: „Fehlt vielleicht noch mehr im Testmenü??? Wäre zum Testen noch etwas sinnvoll, damit es flott geht???“): was alt
+# da war, wieder (Absturzbericht, Blende „bereit nach“, Teleport Wald und Hoehle, Kartenzoom, Monster beachten mich nicht, Bosse
+# zuruecksetzen, Kampfhilfen, Monster neben den Helden holen), dazu fuers Durchspielen: Stationen von Kapitel 1 mit passendem Stand,
+# Held unsterblich, Gehen dreifach, Truhen und Kraeuter zuruecksetzen, Merker der Geschichte. Noch nicht wie alt: Regen (Godot hat keinen),
+# Sichtlinie (erst mit dem Nebel 505), Varianten Elite und Schimmernd (MARS kennt sie noch nicht, 390), „Letztes Ende der App“ (Android).
 
 const STUFEN_PROBE := [3, 5, 6, 8, 11]          # Skirmish.PROBE_LEVEL und die Stufen aus 259
 const NEBENHAND := ["", "shield", "round_shield", "dagger"]   # cheatOffHand
@@ -46,10 +49,54 @@ static var eroeffnung := "NORMAL"       # 399.2 (Jerry, TestTab.kt opening): wer
 static var kampfort := ""               # 493 (Jerry): Kampfort im Wald für den beschworenen Kampf; leer: nach der Kachel wie im Spiel
 static var probe_gegner := "GRAK"
 static var probe_stufe := 3
+static var merker_auf := false
+static var bericht_auf := false
+static var alles_sichtbar := false      # 555 wie alt Game.seeAll; wirkt mit dem Nebel (505, nebel.gd)
+const ZOOM_KACHELN := [0.0, 5.6, 6.75, 8.4, 10.5]   # 555 wie alt MapZoom.levels (Kacheln quer); 0 = wie unter Bedienung „Karte“
 
-static func feinde() -> Dictionary:
+# 555 Merker der Geschichte in der Folge von Kapitel 1 (Geschichte.gd), mit kurzem Namen zum Ansehen und Setzen
+const MERKER := [["intro_done", "Erwacht", "Woke up"], ["quest_started", "Auftrag Aldrics", "Aldric's task"], ["barrier_open", "Schlagbaum offen", "Barrier open"],
+	["hunter_met", "Garrick getroffen", "Met Garrick"], ["krogg_hint", "Hinweis Krogg", "Krogg hint"], ["hedda_met", "Morwen getroffen", "Met Morwen"],
+	["smoke_given", "Rauchbündel", "Smoke bundle"], ["grimfang_defeated", "Grimmzahn besiegt", "Grimfang beaten"], ["cave_seen", "Höhle betreten", "Cave entered"],
+	["krogg_defeated", "Krogg besiegt", "Krogg beaten"], ["gate_open", "Gitter offen", "Gate open"], ["grak_defeated", "Grak besiegt", "Grak beaten"],
+	["lyra_rescued", "Lyra befreit", "Lyra freed"], ["lyra_gone", "Lyra fort", "Lyra gone"], ["chapter1_done", "Kapitel 1 fertig", "Chapter 1 done"],
+	["temple_seen", "Tempel gesehen", "Temple seen"], ["camp_told", "Lager erzählt", "Camp told"], ["chapter2_started", "Kapitel 2", "Chapter 2"]]
+
+# 555 Stationen von Kapitel 1: Name, Karte, Person (oder Kachel und Blick), Merker bis dahin (Index in MERKER, ausschliesslich)
+const STATIONEN := [["Garrick", "forest", "garrick", 3], ["Morwen", "deep_forest", "morwen", 5], ["Grimmzahn", "deep_forest", "grimfang", 7],
+	["Höhle", "forest", [Vector2i(10, 1), "UP"], 8], ["Krogg", "cave", "krogg", 9], ["Grak", "cave", [Vector2i(10, 7), "UP"], 11],
+	["Lyra", "cave", "lyra_cave", 12]]
+
+## 555 (Chef 04.11., 11:52, t257 251.1: „wenn ich auf eine Spinne klicke, dann kommt die nicht“): die Spinne hat noch kein Modell
+## (Streuner.da), der Kampf zeigte statt ihrer einen zweiten Wolf; ebenso Fledermaeuse. Nur Gruppen, deren Monster ein Modell haben;
+## die anderen nennt ohne_modell() als Zeile
+static func feinde(alle := false) -> Dictionary:
 	var s = load("res://kampf/probe.gd") if ResourceLoader.exists("res://kampf/probe.gd") else null
-	return s.FOES if s else {}
+	if s == null: return {}
+	var r := {}
+	for g in s.FOES:
+		if alle or gruppe_da(String(g)): r[g] = s.FOES[g]
+	return r
+# 555 (Chef 04.11., 11:52: „wenn ich auf eine Spinne klicke, dann kommt die nicht“): jede Figur der Aufstellung braucht ihr Modell. Vorher
+# zaehlten nur Gruppen, die ein Monster der Karte traegt; „Riesenspinne und Wolf“ (SPIDER) traegt keines und galt immer als da
+static var _gruppe_da := {}
+static func gruppe_da(g: String) -> bool:
+	if _gruppe_da.has(g): return _gruppe_da[g]
+	var tab: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	var monsters := {}
+	for m in tab.monsters: monsters[m.id] = m
+	var ja := true
+	for f in Streuner.AufrufS.gegner(g, monsters, Streuner.Wuerfel.new(null)):
+		var fig = Streuner.Figur.new()
+		fig.fighter = f
+		if not FileAccess.file_exists(String(fig._model_path())): ja = false
+		fig.free()
+		if not ja: break
+	_gruppe_da[g] = ja
+	return ja
+static func ohne_modell() -> Array:
+	var alle := feinde(true)
+	return alle.keys().filter(func(g): return not gruppe_da(String(g))).map(func(g): return String(alle[g]))
 
 # Held und Soeldner der MARS-Probe: Mensch der Klasse auf der Stufe, Werte wie vorgeschlagen
 static func probeheld(klasse: String, stufe: int) -> Heldwerte:
@@ -128,12 +175,13 @@ static func reiter(m: Menue) -> void:
 			r.add_child(b)
 		m.inhalt.add_child(r)
 		m.luecke(6)
-	m.zeile(t.call("Testmodus", "Test mode"), 18, Stil.BRIGHT)
+	m.zeile(t.call("Testmodus", "Test mode").to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))   # 584: Kopf wie alt (TestTab.kt 50, MenuHead)
 	m.luecke(8)
+	absturz(m, t)
 	m.gruppe(t.call("Anzeigen", "Displays"))
 	# 425 wie alt (TestTab.kt): nur die Messwerte offen, Geraet, System und Grafik erst hinter „Gerät zeigen …“ (DeviceBox)
 	var ml := Engine.get_main_loop()
-	for r in Messung.zeilen(ml.root if ml is SceneTree else null): m.zeile(String(r), 13, Stil.TEXT)
+	for r in Messung.zeilen(ml.root if ml is SceneTree else null): m.zeile(String(r), 15, Stil.TEXT)   # 624: lesbar (vorher 13 sp)
 	m.luecke(8)
 	m.zeichenreihe([zk.call(t.call("Bildrate", "Frame rate"), an_aus.call(bildrate), t.call("Zeigt über der Welt die Bilder je Sekunde.", "Shows frames per second over the world."),
 			func(): bildrate = not bildrate, "FPS", "", bildrate),
@@ -162,6 +210,11 @@ static func reiter(m: Menue) -> void:
 		zk.call(t.call("Andere Hand", "Other hand"), name_von(nb) if nb != "" else t.call("leer", "empty"),
 			t.call("Wechselt die andere Hand: leer, Schild, Rundschild, Dolch.", "Cycles the other hand: empty, shield, round shield, dagger."),
 			func(): waffe(hw, z, NEBENHAND[(maxi(NEBENHAND.find(nb), 0) + 1) % NEBENHAND.size()] if NEBENHAND.has(nb) else "", true), "SHIELD")])
+	var Mars = load("res://regeln/mars.gd")
+	m.zeichenreihe([zk.call(t.call("Unsterblich", "Immortal"), an_aus.call(Mars.held_unsterblich), t.call("Im Kampf fällt der Held nie unter 1 Trefferpunkt; zum Durchspielen.",
+			"In a fight the hero never drops below 1 hit point; for playing through."), func(): Mars.held_unsterblich = not Mars.held_unsterblich, "", "∞", Mars.held_unsterblich),
+		zk.call(t.call("Schnell", "Fast"), an_aus.call(Held.schnell > 1.0), t.call("Gehen und Laufen dreimal so schnell, damit der Weg durch Kapitel 1 flott geht.",
+			"Walking and running three times as fast, to cross chapter 1 quickly."), func(): Held.schnell = 1.0 if Held.schnell > 1.0 else 3.0, "RUN", "", Held.schnell > 1.0)])
 	# 470a B: die Seite „Neues Spiel“ nach BRS 1.1 bis 2.3 nur hier; „Abenteuer beginnen“ und „Zurück“ fuehren in die Welt zurueck
 	m.zeichenreihe([zk.call(t.call("Erschaffung BRS", "Creation BRS"), null, t.call("Zeigt die neue Seite „Neues Spiel“ nach BRS 1.1. Ins Spiel kommt sie mit dem Kampf nach BRS (2.3); bis dahin ändert sie den Helden nicht.",
 		"Shows the new “New game” page after BRS 1.1. It enters the game with BRS combat (2.3); until then it does not change the hero."), func(): m.test.emit("erschaffung_brs", []), "RULES")])
@@ -180,17 +233,78 @@ static func reiter(m: Menue) -> void:
 			func():
 				var alle_ := z.minuten + 3 * 60   # Game.cheatTime
 				z.tag += alle_ / (24 * 60); z.minuten = alle_ % (24 * 60), "CLOCK"),
-		zk.call(t.call("Dorf", "Village"), null, t.call("Bringt den Helden auf den Dorfplatz.", "Takes the hero to the village square."),
-			func(): m.test.emit("teleport", ["village", 11, 7, "DOWN"]), "HOME"),
-		zk.call(t.call("Kapitelende", "Chapter end"), null, t.call("Kapitel 1 bis kurz vor Ende: Höhle geschafft, Lyra frei, Amulett in der Tasche; sprich mit Aldric.",
-			"Chapter 1 to just before its end: cave done, Lyra free, amulet in the bag; talk to Aldric."), func(): m.test.emit("kapitelende", []), "FLAG")])
+		zk.call(t.call("Kartenzoom", "Map zoom"), zoom_name(t), t.call("Wie viele Kacheln die Karte quer zeigt, in vier Stufen wie alt; „Bedienung“ heißt wie unter System, Bedienung.",
+			"How many tiles the map shows across, in four steps as before; “Controls” means as set under System, Controls."), func():
+				Kamera.test_kacheln = ZOOM_KACHELN[(ZOOM_KACHELN.find(Kamera.test_kacheln) + 1) % ZOOM_KACHELN.size()]
+				m.test.emit("zoom", [t.call("Karte: ", "Map: ") + zoom_name(t)]), "MAP")])
+	var welt3 := [zk.call(t.call("Monster", "Monsters"), t.call("beachten nicht", "ignore") if Herde.beachten_nicht else t.call("wie im Spiel", "as in game"),
+		t.call("Monster beachten mich nicht: sie laufen und stehen wie sonst, jagen und greifen nicht an, auch kein Überfall im hohen Gras. Wer selbst hineinläuft, kämpft.",
+			"Monsters ignore me: they go about as ever but never hunt or attack, no ambush in tall grass either. Walk into one to fight."),
+		func():
+			Herde.beachten_nicht = not Herde.beachten_nicht
+			m.meldung(t.call("Monster laufen und stehen wie sonst, greifen aber nicht an. Wer selbst hineinläuft, kämpft.", "Monsters go about as ever but never attack. Walk into one to fight.")
+				if Herde.beachten_nicht else t.call("Monster jagen dich wieder.", "Monsters hunt you again.")), "HAND", "", Herde.beachten_nicht)]
+	if ResourceLoader.exists("res://skripte/nebel.gd"):
+		welt3.append(zk.call(t.call("Sichtlinie", "Line of sight"), an_aus.call(not alles_sichtbar), t.call("Aus: kein Nebel, keine Sichtlinie, alle Monster der Karte sind zu sehen. Erkundet wird wie sonst.",
+			"Off: no fog, no line of sight, every monster on the map is visible. Exploration works as usual."), func(): alles_sichtbar = not alles_sichtbar, "", "◎", not alles_sichtbar))
+	welt3.append(zk.call(t.call("Bosse", "Bosses"), null, t.call("Bosse zurücksetzen: Grimmzahn, Krogg und Grak sind wieder da, Morwen gibt das Rauchbündel noch einmal.",
+		"Respawn bosses: Grimfang, Krogg and Grak are back, Morwen gives the smoke bundle again."), func():
+			for f in [Geschichte.GRIMFANG_DEFEATED, Geschichte.KROGG_DEFEATED, Geschichte.GRAK_DEFEATED, Geschichte.SMOKE_GIVEN]: z.flaggen.erase(f)
+			m.test.emit("ort_neu", [t.call("Grimmzahn, Krogg und Grak sind zurück.", "Grimfang, Krogg and Grak are back.")]), "SKULL"))
+	m.zeichenreihe(welt3)
+	var welt4 := [zk.call(t.call("Truhen", "Chests"), null, t.call("Alle Truhen wieder voll und alle Heilkräuter wieder da.", "Every chest full again and every healing herb back."), func():
+			for f in z.flaggen.keys():
+				if String(f).begins_with("kiste:"): z.flaggen.erase(f)
+			z.gepflueckt.clear()
+			m.test.emit("ort_neu", [t.call("Truhen und Kräuter zurückgesetzt.", "Chests and herbs reset.")]), "GEM")]
+	# 555 (Chef 04.11., 20:11: „warum heißt das Ding Merker?“; Vorschlag Sokrates): „Geschichte“, Stand der Geschichte von Kapitel 1
+	welt4.append(zk.call(t.call("Geschichte", "Story"), "%d" % MERKER.filter(func(f): return z.has(String(f[0]))).size(),
+		t.call("Stand der Geschichte von Kapitel 1: was schon geschehen ist. Antippen setzt oder löscht einen Schritt, „Ort neu“ zeigt den Ort danach.",
+			"Story so far in chapter 1. A tap sets or clears a step; “Reload place” shows the place afterwards."), func(): merker_auf = not merker_auf, "FLAG", "", merker_auf))
+	m.zeichenreihe(welt4)
+	if merker_auf:
+		for i in range(0, MERKER.size(), 2):
+			reihe.call(MERKER.slice(i, i + 2).map(func(f): return [String(f[1] if de else f[2]) + ": " + an_aus.call(z.has(String(f[0]))), func():
+				if z.has(String(f[0])): z.flaggen.erase(String(f[0]))
+				else: z.setze(String(f[0]))
+				m.baue()]))
+		reihe.call([[t.call("Ort neu", "Reload place"), func(): m.test.emit("ort_neu", [])]])
 	# 500 (Chef 03.11., 07:24): was nur die Probeknoepfe rechts in der Welt schalteten, hier
 	var welt2 := [zk.call(t.call("Tag / Nacht", "Day / night"), null, t.call("Schaltet zwischen Mittag und 23 Uhr; die Leute folgen der Uhr.", "Switches between noon and 11 pm; the people follow the clock."),
 		func(): m.test.emit("nacht", []), "", "☾")]
 	if DirAccess.dir_exists_absolute("res://daten/tiere"):
 		welt2.append(zk.call(t.call("Tiere", "Animals"), null, t.call("Stellt alle Tiermodelle zum Anschauen um den Helden; noch einmal: weg.", "Puts every animal model around the hero to look at; again: gone."),
 			func(): m.test.emit("tiere", []), "STEPS"))
+	if GrasBausatz.da():   # 804: Gras des Kits oder unser altes, gleich am Ort; Bilder/s vorher und nachher unter „Messen“
+		welt2.append(zk.call(t.call("Gras", "Grass"), null, t.call("Gras und Blumen aus Grass & Wind oder unser altes Gras, gleich hier am Ort.",
+			"Grass and flowers from Grass & Wind or our old grass, right here."), func(): m.test.emit("gras", []), "", "G"))
 	m.zeichenreihe(welt2)
+	m.gruppe("Teleport")
+	var orte := [[t.call("Dorf", "Village"), "village", 11, 7, "DOWN", "HOME", ""], [t.call("Wald", "Forest"), "forest", 10, 20, "UP", "", "W"],
+		[t.call("Tiefer Wald", "Deep forest"), "deep_forest", 1, 18, "RIGHT", "", "T"], [t.call("Höhle", "Cave"), "cave", 10, 18, "UP", "", "H"]]
+	m.zeichenreihe(orte.filter(func(o): return da(String(o[1]))).map(func(o): return zk.call(String(o[0]), null,
+		t.call("Bringt den Helden dorthin; der Stand der Geschichte bleibt.", "Takes the hero there; the story stays as it is."),
+		func(): m.test.emit("teleport", [o[1], o[2], o[3], o[4]]), String(o[5]), String(o[6]))))
+	m.zeile(t.call("Stationen von Kapitel 1, mit dem Stand, den ein Spieler dort hat:", "Stations of chapter 1, with the story as a player has it there:"), 13, Stil.DIM)
+	m.luecke(4)
+	var st_: Array = []
+	for i in STATIONEN.size():
+		var s_: Array = STATIONEN[i]
+		if not da(String(s_[1])): continue
+		st_.append(zk.call(String(s_[0]), null, station_satz(i, de), func(): m.test.emit("station", [String(s_[0])]), "", str(i + 1)))
+	st_.append(zk.call(t.call("Kapitelende", "Chapter end"), null, t.call("Kapitel 1 bis kurz vor Ende: Höhle geschafft, Lyra frei, Amulett in der Tasche; sprich mit Aldric.",
+		"Chapter 1 to just before its end: cave done, Lyra free, amulet in the bag; talk to Aldric."), func(): m.test.emit("kapitelende", []), "", str(STATIONEN.size() + 1)))
+	for i in range(0, st_.size(), 4): m.zeichenreihe(st_.slice(i, i + 4))
+	m.gruppe(t.call("Kampfhilfen", "Fight aids"))
+	m.zeichenreihe([zk.call(t.call("Kritisch", "Critical"), an_aus.call(Mars.held_immer_krit), t.call("Held trifft immer kritisch: jeder Waffentreffer des Helden ist kritisch, so lässt sich der Killerschlag testen.",
+			"Hero always crits: every weapon hit of the hero is critical, to test the killing blow."), func(): Mars.held_immer_krit = not Mars.held_immer_krit, "BLOOD", "", Mars.held_immer_krit),
+		zk.call(t.call("Rettung", "Saves"), t.call("nie", "never") if Mars.gegner_ohne_rettung else t.call("wie im Spiel", "as in game"),
+			t.call("Gegner bestehen keine Rettungswürfe: Zauber, denen man ausweichen kann, treffen immer voll.", "Foes fail every save: spells one can dodge always hit in full."),
+			func(): Mars.gegner_ohne_rettung = not Mars.gegner_ohne_rettung, "", "✗", Mars.gegner_ohne_rettung),
+		# 478 (Jerry): der Rechenkern nach dem BRS (regeln/brs_kampf.gd), bis der Chef ihn abnimmt nur hier
+		zk.call(t.call("Rechnung", "Rules"), "BRS" if Mars.BrsKampf.schalter else "SRD", t.call("Kampf nach dem BRS (Modell D, Zahlen wie die Simulation 444) oder nach dem alten SRD; gilt ab dem nächsten Kampf.",
+			"Combat by the BRS (model D, numbers as in simulation 444) or by the old SRD; applies from the next fight."),
+			func(): Mars.BrsKampf.schalter = not Mars.BrsKampf.schalter, "DICE", "", Mars.BrsKampf.schalter)])
 	# 415 (Jerry, Chef „415 jetzt“ 02.11., 10:55): Handyprobe der Beams-Probe im Kampfort (kampf/strahlprobe.gd)
 	m.zeichenreihe([zk.call(t.call("Strahlen", "Beams"), null, t.call("415: drei Strahlen der Beams-Probe im Kampfort, mit Bildern je Sekunde; Renderer umschaltbar.",
 		"415: three beams of the Beams sample in the battle place, with frames per second; renderer switchable."), func(): m.test.emit("strahlen", []), "FPS")])
@@ -210,7 +324,18 @@ static func reiter(m: Menue) -> void:
 		var ids: Array = fs.keys()
 		for i in range(0, ids.size(), 2):
 			reihe.call(ids.slice(i, i + 2).map(func(id): return [String(fs[id]), func(): m.test.emit("kampf", [id])]))
+		var ohne := ohne_modell()
+		if not ohne.is_empty(): m.zeile(t.call("Noch ohne Modell: ", "No model yet: ") + ", ".join(ohne), 13, Stil.DIM)
 		m.luecke(6)
+		# 555 wie alt („Antippen: neben den Helden holen“): ein Monster der Karte neben den Helden, 2 Minuten friedlich, um ihm zuzusehen
+		var holbar := monster_namen()
+		if not holbar.is_empty():
+			m.zeile(t.call("Neben den Helden holen, 2 Minuten friedlich:", "Bring beside the hero, peaceful for 2 minutes:"), 13, Stil.DIM)
+			m.luecke(4)
+			var arten: Array = holbar.keys()
+			for i in range(0, arten.size(), 2):
+				reihe.call(arten.slice(i, i + 2).map(func(a): return [String(holbar[a]), func(): m.test.emit("holen", [a])]))
+			m.luecke(6)
 		m.gruppe(t.call("MARS-Probekampf", "MARS trial fight"))
 		if not fs.has(probe_gegner): probe_gegner = String(ids[0])
 		m.zeichenreihe([zk.call(t.call("Gegner", "Foes"), String(fs[probe_gegner]), t.call("Wechselt die Gegner des Probekampfs.", "Changes the foes of the trial fight."),
@@ -231,16 +356,89 @@ static func reiter(m: Menue) -> void:
 				m.meldung(t.call("Erhalten: ", "Received: ") + Beute.name(g)), "GEM")))
 
 # cheatChapterEnd: ein begehbares Feld neben Aldric im Haus des Aeltesten, mit Blick zu ihm: [Kachel, Blick]; [] ohne Aldric
-static func vor_aldric() -> Array:
+static func vor_aldric() -> Array: return vor_person("elder", "aldric")
+
+# ein begehbares Feld neben der Person, mit Blick zu ihr: [Kachel, Blick]; [] ohne sie
+static func vor_person(karte_id: String, person: String) -> Array:
 	var alle = JSON.parse_string(FileAccess.get_file_as_string("res://daten/karten.json"))
-	if not (alle is Dictionary and alle["karten"].has("elder")): return []
-	var k := Karte.lade("elder")
-	for p in alle["karten"]["elder"].get("leute", []):
-		if String(p.get("id", "")) != "aldric": continue
+	if not (alle is Dictionary and alle["karten"].has(karte_id)): return []
+	var k := Karte.lade(karte_id)
+	for p in alle["karten"][karte_id].get("leute", []):
+		if String(p.get("id", "")) != person: continue
 		var a := Vector2i(int(p["x"]), int(p["y"]))
-		for v in [[a + Vector2i(0, 1), "UP"], [a + Vector2i(-1, 0), "RIGHT"], [a + Vector2i(1, 0), "LEFT"]]:
+		for v in [[a + Vector2i(0, 1), "UP"], [a + Vector2i(-1, 0), "RIGHT"], [a + Vector2i(1, 0), "LEFT"], [a + Vector2i(0, -1), "DOWN"]]:
 			if k.begehbar(v[0]): return v
 	return []
+
+# 555: gibt es die Karte im Spiel (Modell aus dem Bau)?
+static func da(karte_id: String) -> bool:
+	return karte_id == "village" or FileAccess.file_exists("res://daten/%s.bin" % Gebiet.datei(karte_id))
+
+static func zoom_name(t: Callable) -> String:
+	if Kamera.test_kacheln <= 0.0: return t.call("Bedienung", "Controls")
+	return ("%.2f" % Kamera.test_kacheln).trim_suffix("0").trim_suffix("0").trim_suffix(".").replace(".", "," if Sprache.aktiv() == "de" else ".")
+
+static func station_satz(i: int, de: bool) -> String:
+	var s_: Array = STATIONEN[i]
+	var bis: Array = MERKER.slice(0, int(s_[3])).map(func(f): return String(f[1] if de else f[2]))
+	return ("Bringt den Helden zu %s. Merker wie bei einem Spieler, der so weit kam: %s; alle späteren gelöscht." if de
+		else "Takes the hero to %s. Flags as for a player who got that far: %s; all later ones cleared.") % [String(s_[0]), ", ".join(PackedStringArray(bis))]
+
+# 555: setzt den Stand der Station [name] (Merker bis dahin, spaetere geloescht, Schluesseldinge passend) und gibt
+# [Karte, Kachel, Blick, Satz] zurueck; [] ohne die Station oder ihre Karte
+static func station(name_: String, z: Zustand) -> Array:
+	for s_ in STATIONEN:
+		if String(s_[0]) != name_: continue
+		var ziel: Array = s_[2] if s_[2] is Array else vor_person(String(s_[1]), String(s_[2]))
+		if ziel.is_empty(): return []
+		for i in MERKER.size():
+			if i < int(s_[3]): z.setze(String(MERKER[i][0]))
+			else: z.flaggen.erase(String(MERKER[i][0]))
+		var dinge := {Geschichte.SMOKE_BUNDLE: 1 if z.has(Geschichte.SMOKE_GIVEN) and not z.has(Geschichte.KROGG_DEFEATED) else 0,
+			"rusty_key": 0, "grak_key": 1 if z.has(Geschichte.GRAK_DEFEATED) and not z.has(Geschichte.LYRA_RESCUED) else 0,
+			"sun_amulet": 1 if z.has(Geschichte.GRAK_DEFEATED) else 0}
+		for d in dinge:
+			if z.anzahl(d) < int(dinge[d]): z.dazu(d, int(dinge[d]) - z.anzahl(d))
+			elif z.anzahl(d) > int(dinge[d]): z.weg(d, z.anzahl(d) - int(dinge[d]))
+		var de := Sprache.aktiv() == "de"
+		return [String(s_[1]), ziel[0], String(ziel[1]), ("Station %s: Stand wie bei einem Spieler, der so weit kam." if de else "Station %s: the story as for a player who got this far.") % name_]
+	return []
+
+# 555: die Monster der Karte, die es im Spiel gibt (Streuner.da), mit Namen aus den Regeln
+static func monster_namen() -> Dictionary:
+	var tab = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json")) if FileAccess.file_exists("res://regeln/tabellen.json") else null
+	if not tab is Dictionary: return {}
+	var namen := {}
+	for mo in tab["monsters"]: namen[String(mo["id"])] = String(mo["de"] if Sprache.aktiv() == "de" else mo["en"])
+	# 494 (Prüfer 512b): Riesenegel und Säureschnecke heißen nach LISTE-FIGUREN wie im Kampf (aufruf.gd NAMEN_494), nicht Stirge, Ockergallerte
+	var neu: Dictionary = load("res://kampf/aufruf.gd").NAMEN_494
+	for paar in [["stirge", "LEECHES"], ["ochre_jelly", "SLUGS"]]:
+		if namen.has(paar[0]) and neu.has(paar[1]): namen[paar[0]] = String(neu[paar[1]][0 if Sprache.aktiv() == "de" else 1])
+	var r := {}
+	for a in Streuner.GRUPPE:
+		if namen.has(a) and Streuner.da(String(a)): r[a] = namen[a]
+	return r
+
+# 555 wie alt CrashBox: das Protokoll des vorigen Laufs (Messung.voriges_protokoll) mit seinen Fehlern; zeigen, kopieren
+static func absturz(m: Menue, t: Callable) -> void:
+	var b := Messung.bericht(Messung.voriges_protokoll())
+	var jetzt := Messung.fehler(1000)
+	m.zeile(t.call("Letzter Lauf: ", "Last run: ") + (String(b["datei"]).trim_prefix("godot").trim_suffix(".log").replace("T", " ") + t.call(", Fehler: ", ", errors: ") + str(b["fehler"].size()) if not b.is_empty() else "–")
+		+ t.call("  ·  seit Start: ", "  ·  since start: ") + str(jetzt.size()), 13, Stil.TEXT)
+	if b.is_empty() and jetzt.is_empty(): return
+	var text: String = t.call("Voriger Lauf (%s), Fehler:\n", "Previous run (%s), errors:\n") % (b.get("datei", "–")) + "\n".join(PackedStringArray(b.get("fehler", [])))
+	text += t.call("\n\nVoriger Lauf, Ende:\n", "\n\nPrevious run, end:\n") + String(b.get("ende", "–"))
+	text += t.call("\n\nSeit Start, Fehler:\n", "\n\nSince start, errors:\n") + "\n".join(PackedStringArray(jetzt))
+	var r := HBoxContainer.new()
+	r.add_theme_constant_override("separation", int(6 * Menue.DP))
+	r.add_child(Erschaffung.knopf(t.call("Absturzbericht schließen", "Hide crash report") if bericht_auf else t.call("Absturzbericht zeigen …", "Show crash report…"), func(): bericht_auf = not bericht_auf; m.baue()))
+	if bericht_auf:
+		var k := Erschaffung.knopf(t.call("Kopieren", "Copy"), func(): DisplayServer.clipboard_set(text); m.meldung(t.call("Absturzbericht kopiert.", "Crash report copied.")))
+		k.size_flags_stretch_ratio = 0.5
+		r.add_child(k)
+	m.inhalt.add_child(r)
+	m.luecke(6)
+	if bericht_auf: m.zeile(text.left(3000) + ("\n…" if text.length() > 3000 else ""), 10, Stil.TEXT)
 
 
 ## 493: die Kampforte im Wald für den Reiter Test, „“ = nach der Kachel wie im Spiel (kampfort.gd platz_fuer)

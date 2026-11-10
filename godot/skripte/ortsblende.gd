@@ -13,7 +13,6 @@ const DP := AktionsKnopf.DP
 const TEXT := Color("e6ddcb")
 const NAME := Color("b59a6a")
 const LINIE := Color(0xb5 / 255.0, 0x9a / 255.0, 0x6a / 255.0, 0x66 / 255.0)
-const KERN := Color("15110e")
 
 static var letzter := {}                  # VeilMemory.last: der zuletzt gezeigte Satz, nie zweimal hintereinander
 
@@ -21,10 +20,24 @@ var art: Dictionary
 var art_name := ""
 var ms := 0.0
 var verlassen := -1.0                     # leaveMs
+var lesen := 0.0                          # 556: Lesezeit der Worte (readMs)
 var tippt := false
 var worte: Control
 
 static func daten() -> Dictionary: return Zwischenbild.daten().get("blende", {})
+
+## 556: der Grund jeder Blende, reines Schwarz ueber den ganzen Schirm
+static func schwarz() -> ColorRect:
+	var r := ColorRect.new()
+	r.color = Color.BLACK
+	r.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	r.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return r
+
+## t63.1, 556 (Chef 04.11., 07:52 „teilweise zu kurz zum Lesen“): wie lange Worte mit [zeichen] Zeichen stehen (InterludeClock.readMs);
+## alt stand die Blende zwischen Orten, bis die Karte gezeichnet war (Sekunden), in Godot ist alles schon da
+static func lese_ms(zeichen: int, d: Dictionary) -> float:
+	return float(d.get("lesen_ms", 1000)) + float(d.get("lesen_je_zeichen_ms", 40)) * zeichen
 
 # InterludeClock.kindFor: FULL beim Spielbeginn ([von] leer) und beim ersten Besuch, BLINK von Tuer zu Tuer im Dorf, sonst NAME
 static func art_fuer(von: String, nach: String, erster: bool) -> String:
@@ -54,7 +67,7 @@ static func glatt(x: float) -> float: return x * x * (3.0 - 2.0 * x)
 # InterludeClock.at, alles gezeichnet: [Schleier, Worte, vorbei]
 func bei(t: float) -> Array:
 	var ein := float(art["ein_ms"]); var aus := float(art["aus_ms"]); var weg := float(art["schleier_aus_ms"])
-	if verlassen < 0.0 and (t >= float(art["mind_ms"]) or tippt): verlassen = t
+	if verlassen < 0.0 and (t >= maxf(float(art["mind_ms"]), lesen) or tippt): verlassen = t
 	var geht := 1.0 - clampf((t - verlassen) / maxf(1.0, aus), 0.0, 1.0) if verlassen >= 0.0 else 1.0
 	var w := 0.0
 	if art_name != "BLINK":
@@ -65,38 +78,30 @@ func bei(t: float) -> Array:
 func _init(art_: String, name_: String, satz) -> void:
 	art_name = art_
 	art = daten().get("arten", {}).get(art_, {"ein_ms": 0, "mind_ms": 0, "aus_ms": 0, "schleier_aus_ms": 500})
+	if art_ != "BLINK":
+		lesen = lese_ms(name_.length() + (Sprache.t(satz).length() if satz != null else 0), daten())
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_STOP
-	# ein Hauch Vignette, damit das Schwarz nicht wie ein Absturz aussieht
-	var grund := TextureRect.new()
-	grund.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	grund.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	grund.stretch_mode = TextureRect.STRETCH_SCALE
-	grund.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var g := Gradient.new()
-	g.offsets = PackedFloat32Array([0.0, 0.55, 1.0])
-	g.colors = PackedColorArray([KERN, Color("0a0807"), Color.BLACK])
-	var t := GradientTexture2D.new()
-	t.gradient = g
-	t.fill = GradientTexture2D.FILL_RADIAL
-	t.fill_from = Vector2(0.5, 0.46)
-	t.fill_to = Vector2(0.5, 0.46 + 0.62)   # Radius 0,62 der groesseren Seite (hochkant: der Hoehe)
-	t.width = 64; t.height = 128
-	grund.texture = t
-	add_child(grund)
+	# 556 (Chef 04.11., 07:52: „nicht komplett schwarz im Hintergrund, sondern haben ein ‚Leuchten‘ in der Mitte. Bitte klassische
+	# schwarz. Das andere wirft Ringe.“): reines Schwarz statt der Vignette (der Radialverlauf in 8 Bit zeigte Stufen)
+	add_child(Ortsblende.schwarz())
 	var mitte := CenterContainer.new()
 	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mitte.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(mitte)
+	worte = Ortsblende.worte_spalte(name_, Sprache.t(satz) if satz != null else "")
+	mitte.add_child(worte)
+	_stelle()
+
+## Name klein und gesperrt in gedaempftem Gold, darunter Goldstrich und Satz (VeilInk); auch die Blende der Rast (753)
+static func worte_spalte(name_: String, satz: String) -> VBoxContainer:
 	var v := VBoxContainer.new()
 	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	v.add_theme_constant_override("separation", 0)
-	mitte.add_child(v)
-	worte = v
 	var n := Stil.zeile(name_.to_upper(), 13, NAME, 4.0)
 	n.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	v.add_child(n)
-	if satz != null:
+	if satz != "":
 		v.add_child(Erschaffung.luecke(14))
 		var r := ColorRect.new()
 		r.color = LINIE
@@ -105,21 +110,26 @@ func _init(art_: String, name_: String, satz) -> void:
 		r.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		v.add_child(r)
 		v.add_child(Erschaffung.luecke(18))
-		var l := Stil.zeile(Sprache.t(satz), 19, TEXT, 0.6)
+		var l := Stil.zeile(satz, 19, TEXT, 0.6)
 		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		l.add_theme_constant_override("line_spacing", int((28 - 19 * 1.2) * Stil.SP))
 		v.add_child(l)
-	_stelle()
+	return v
 
 func _ready() -> void:
 	worte.custom_minimum_size.x = get_viewport_rect().size.x - 2 * 36 * DP
 	_stelle()
 
+# 619 (Chef 07.11., 268.18: „Aktionsknopf drückt die Blende gleich mit weg“): wie alt (InterludeUi detectTapGestures) zaehlt nur ein
+# ganzer Tipp auf der Blende, Druck und Loslassen; ein Finger, der schon unten war, als sie kam, beendet sie nicht
+var unten := false
+
 func _gui_input(e: InputEvent) -> void:
-	if (e is InputEventMouseButton and e.pressed) or (e is InputEventScreenTouch and e.pressed):
-		tippt = true
-		accept_event()
+	if not (e is InputEventMouseButton and e.button_index == MOUSE_BUTTON_LEFT) and not e is InputEventScreenTouch: return
+	if e.pressed: unten = true
+	elif unten: tippt = true
+	accept_event()
 
 func _process(dt: float) -> void:
 	ms += dt * 1000.0

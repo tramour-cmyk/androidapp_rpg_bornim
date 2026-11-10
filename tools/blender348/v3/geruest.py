@@ -101,6 +101,15 @@ def verstecke_knochen(sk, VERSTECK, namen):
 # 397 (Chef 28.10., 11:15: Ruhebewegungen wie im alten Spiel, mindestens drei): weitere Ruhe aus der gekauften UAL Pro (KAUF, 678371987,
 # Unreal-Godot/UAL1.glb, gleiches Geruest), nur wenn vorhanden; held.bin und daten/leute sind dann Kaufmodelle (kauf.txt, 348.12i)
 RUHE = [('Stehen_2', 'Idle_LookAround_Loop'), ('Stehen_3', 'Idle_Tired_Loop')]
+# 416.8 (Chef 03.11., 07:44: „völlig ohne irgendeine Form der Bewegung … auf der Stelle drehen … wie eine Schachfigur“): Wenden im
+# Stehen mit Schritten aus der Pro (Turn90_L/R), nur Leute. Gebacken ohne die Drehung des Beckens (gerade='wende'), die Drehung je
+# Bild steht in held-info.json (bewegungen.<Name>.gier, Grad gegen den Uhrzeigersinn von oben); leute.gd dreht den Knoten danach,
+# so bleibt der Standfuss stehen. rutschen_cm_s: wie schnell der Standfuss in der Welt dabei wandert (gemessen wie beim Gehen)
+WENDE = [('Drehen_L', 'Turn90_L'), ('Drehen_R', 'Turn90_R')]
+
+
+def wende_quelle(q):
+    return next((n for n in (q, q + '_Loop') if n in bpy.data.actions), None)
 
 
 def ual_pro():
@@ -117,6 +126,9 @@ def mit_ruhe(liste, FIGUR):
         if q not in bpy.data.actions: continue
         extra.append((n, q, st['Stehen']))
         if FIGUR == 'held' and 'Stehen_Fackel' in st: extra.append((n + '_Fackel', q, st['Stehen_Fackel']))
+    if FIGUR != 'held':
+        for n, q in WENDE:
+            if wende_quelle(q): extra.append((n, wende_quelle(q), dict(st['Stehen'], gerade='wende')))
     return liste + extra
 
 
@@ -325,6 +337,20 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
         bpy.ops.import_scene.gltf(filepath=pro)
         for o in [o for o in bpy.data.objects if o not in vor2]: bpy.data.objects.remove(o, do_unlink=True)
         print('RUHE aus', pro, [q for _, q in RUHE if q in bpy.data.actions])
+        # 416.8 (Chef 08.11., 15:44, t269.11: „Drehen weiter auf der Stelle wie eine Plastikfigur“): in UAL1.glb ist die Drehung der
+        # Turn90 herausgerechnet (Wurzel steht, Becken pendelt nur: gier endete bei 0, leute.gd wendete nie mit Schritten); die 90 Grad
+        # liegen am Wurzelknochen in UAL1_RM.glb (gemessen 08.11.: 90,0 Grad um die Hochachse, 61 Bilder). Darum die Wenden von dort
+        rm = os.path.join(os.path.dirname(pro), 'UAL1_RM.glb')
+        if os.path.exists(rm):
+            for _, q in WENDE:
+                a = bpy.data.actions.get(wende_quelle(q) or '')
+                if a: a.name = q + '_ohne_Wurzel'
+            vor3 = set(bpy.data.objects); vor_akt = set(bpy.data.actions)
+            bpy.ops.import_scene.gltf(filepath=rm)
+            for o in [o for o in bpy.data.objects if o not in vor3]: bpy.data.objects.remove(o, do_unlink=True)
+            behalten = {n for _, q in WENDE for n in (q, q + '_Loop')}
+            for a in [a for a in bpy.data.actions if a not in vor_akt and a.name not in behalten]: bpy.data.actions.remove(a)
+        print('WENDE aus', rm if os.path.exists(rm) else pro, [wende_quelle(q) for _, q in WENDE], sorted(a.name for a in bpy.data.actions if 'Turn' in a.name))
     uad = ual.animation_data_create()
     for t in list(uad.nla_tracks): uad.nla_tracks.remove(t)
     UB = ual.data.bones; UP = ual.pose.bones
@@ -402,6 +428,10 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
         v = Gf[b].to_3x3() @ (RU[b].to_3x3().inverted() @ Vector((0, -1, 0)))
         return math.degrees(math.atan2(v.x, -v.y))
 
+    def wende_gier(Gs):   # 416.8: Drehung des Beckens je Bild seit Bild 0 (Grad, gegen den Uhrzeigersinn von oben, ohne Sprung bei 180)
+        g = np.degrees(np.unwrap([math.radians(gier(Gf, 'pelvis')) for Gf in Gs]))
+        return [float(x - g[0]) for x in g]
+
     def posen(Gs, gerade=False, fackel=None, korr=None, boden=0.0, eng_arm=0.0, eng_bein=0.0, gehen=False, vor=1.0, schritt=1.0, schwung=1.0, schulter=None, rueck=None, mitschwung=0.0, hub=1.0):
         """Posen unseres Skeletts je Bild: (Ruhe->Pose je Knochen als Basis, Armatur-Matrizen)"""
         W = Matrix.Identity(4)
@@ -416,14 +446,19 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
                 if (ARMH.get(s_.upper()) or ('',))[0] in ('vorn', 'ruecken'):   # Haende gefaltet: beide wippen gleich im Schritt (gegenlaeufig loesten sie sich)
                     n_ = max(1, len(Gs) - 1)
                     MS[s_] = [Matrix.Rotation(math.radians(MIT_WIPPEN * mitschwung * math.sin(4 * math.pi * f_ / n_)), 3, 'X') for f_ in range(len(Gs))]
-        if gerade:   # in Ruhe eingedreht: Becken und Brust zurueck zum Betrachter (Runde 2: 70 % liessen ihn seitlich eingedreht)
+        WS = None
+        if gerade == 'wende':   # 416.8: je Bild die Drehung des Beckens seit Bild 0 heraus, dazu die Eindrehung des ersten Bilds
+            g0 = gier(Gs[0], 'spine_03')
+            WS = [Matrix.Rotation(math.radians(-(g0 + d)), 4, 'Z') for d in wende_gier(Gs)]
+        elif gerade:   # in Ruhe eingedreht: Becken und Brust zurueck zum Betrachter (Runde 2: 70 % liessen ihn seitlich eingedreht)
             W = Matrix.Rotation(math.radians(-float(np.mean([gier(Gf, 'spine_03') for Gf in (Gs[:1] if gerade == 'anfang' else Gs)]))), 4, 'Z')
         def becken(Go):   # Lage des fremden Beckens gegen seine Ruhe ueber dem Wurzelknochen
             return Go['pelvis'].translation - (Go['root'] @ RU['root'].inverted() @ RU['pelvis']).translation
         zm = float(np.min([becken({b: W @ Gf[b] for b in ('root', 'pelvis')}).z for Gf in Gs])) if hub != 1.0 else 0.0   # ueber dem Tiefstand (Stand)
         res = []
         for f, Gf in enumerate(Gs):
-            Go = {b: W @ Gf[b] for b in REIHE}; Bq = Gf['_basis']
+            Wf = WS[f] if WS else W
+            Go = {b: Wf @ Gf[b] for b in REIHE}; Bq = Gf['_basis']
             if fackel:   # Finger der linken Hand wie in der Fackel-Ruhe (Griff um den Schaft); Arm unten (eigene Haltung)
                 Tf = fackel[f % (len(fackel) - 1)]
                 Bq = {b: (Tf['_basis'][b] if b.endswith('_l') else Bq[b]) for b in REIHE}
@@ -563,6 +598,13 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
         INFO.setdefault('bewegungen', {})[name] = {'quelle': quelle, 'bilder': len(res) - 1, 'kopf_grad': [dn, dd],
                                                    'boden_cm': [round(min(t[1] for t in tief) * 100, 1), round(max(t[1] for t in tief) * 100, 1)]}
         if name in ('Gehen', 'Rennen') and v: INFO[('gehen' if name == 'Gehen' else 'rennen') + '_m_je_s'] = round(float(np.median(v)), 3)
+        if opt.get('gerade') == 'wende':   # 416.8: Kurve fuer leute.gd; Standfuss in der Welt (Knoten nach der Kurve gedreht)
+            gw = wende_gier(Gs); B = INFO['bewegungen'][name]
+            B['gier'] = [round(x, 2) for x in gw]
+            welt = [{s: (b[s][0], Matrix.Rotation(math.radians(g), 3, 'Z') @ b[s][1]) for s in 'lr'} for b, g in zip(bl, gw)]
+            r = [(b[s][1] - a[s][1]).xy.length * FPS * 100 for a, b in zip(welt, welt[1:]) for s in 'lr' if a[s][0] < 0.015 and b[s][0] < 0.015]
+            B['rutschen_cm_s'] = [round(float(np.median(r)), 1), round(float(max(r)), 1)] if r else None
+            B['sekunden'] = round((len(res) - 1) / FPS, 2)
         print('BEWEGUNG', name, INFO['bewegungen'][name], len(v))
     for pb in sk.pose.bones: pb.rotation_quaternion = (1, 0, 0, 0); pb.location = (0, 0, 0)
     def im_knochen(alt_bone, p_cm, neu_bone):

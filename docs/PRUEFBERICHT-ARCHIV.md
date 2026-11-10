@@ -1,6 +1,6 @@
 # Prüfbericht-Archiv
 
-Abgeschlossene Läufe 22–39 aus `PRUEFBERICHT.md`, verschoben 21.10. (274), Lauf 41 am 23.10.; nur gezielt durchsuchen, beim Start nicht lesen. Lauf 1–21 im [Artefakt](https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ). Neuester Lauf oben. Vermerk aus „Offen für den Chef“: Umbau 106.1 (Lauf 22) hat funktioniert, D22.1 behoben.
+Abgeschlossene Läufe 22–39 aus `PRUEFBERICHT.md`, verschoben 21.10. (274), Lauf 41 am 23.10.; nur gezielt durchsuchen, beim Start nicht lesen. Lauf 1–21 im [Artefakt](https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ). Neuester Lauf oben. Vermerk aus „Offen für den Chef“: Umbau 106.1 (Lauf 22) hat funktioniert, D22.1 behoben. **Lauf 40–91** (21.10.–08.11.) stehen in Git: `git show c82e31660:docs/PRUEFBERICHT.md` (ausgemistet 09.11., 723; offene Befunde daraus als Vorgänge 725–742).
 
 ## Lauf 41 · Auftrag 274 (Schritt 1–3: ging eine Regel, ein offener Befund oder ein Verweis verloren?; Stand `51707abf`, Chef 21.10., 07:51)
 

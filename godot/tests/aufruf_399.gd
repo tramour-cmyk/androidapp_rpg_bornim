@@ -6,6 +6,7 @@ extends SceneTree
 
 const Aufruf = preload("res://kampf/aufruf.gd")
 const LIMIT_MS := 60000
+const SOFORT_MS := 2500.0     # 545: so lange (Spielzeit) darf der laufende Schritt noch zu Ende spielen
 
 var _ende := []
 
@@ -149,11 +150,20 @@ func _testende(win: bool, held: Dictionary) -> String:
 		return "Lage nicht angekommen: %s, satt %s" % [k.mars.opening, k.mars.fed]
 	await process_frame
 	var schalter: bool = k.ui.win_rect.has_area() and k.ui.lose_rect.has_area()
+	var im_zug: bool = k.busy
+	var c0: float = k.clock_ms
 	k.test_end(win)
 	var t0 := Time.get_ticks_msec()
-	while Time.get_ticks_msec() - t0 < LIMIT_MS and (k.mars.outcome == "ONGOING" or k.busy or k.playing or not k.beats.is_empty()):
+	while Time.get_ticks_msec() - t0 < LIMIT_MS and k.mars.outcome == "ONGOING":
+		await process_frame
+	# 545 (Chef 05.11.: „muss vorher wirken“): mitten im Zug der Gegner gilt der Knopf gleich, nicht erst nach allen ihren Zügen
+	var spaet: float = k.clock_ms - c0
+	print("  Testende %s: im Zug %s, wirkt nach %.1f s Spielzeit" % ["Haken" if win else "Kreuz", im_zug, spaet / 1000.0])
+	while Time.get_ticks_msec() - t0 < LIMIT_MS and (k.busy or k.playing or not k.beats.is_empty()):
 		await process_frame
 	var o: String = k.mars.outcome
+	if not im_zug or spaet > SOFORT_MS:
+		o += " zu spät (im Zug %s, %.1f s)" % [im_zug, spaet / 1000.0]
 	k.finish()
 	await process_frame
 	Testmodus.an = false

@@ -18,7 +18,11 @@ static var _leute = null
 static func abdruck(befehle: Array) -> int:
 	var t := PackedStringArray()
 	for c in befehle:
-		if String(c.get("art", "")) == "sagen": t.append(String(c["text"].get("de", "")) if c["text"] is Dictionary else String(c["text"]))
+		if String(c.get("art", "")) != "sagen": continue
+		if c.has("marke"):   # 504.1: ein anderer Wortlaut derselben Marke ist nichts Neues
+			if t.is_empty() or t[t.size() - 1] != String(c["marke"]): t.append(String(c["marke"]))
+			continue
+		t.append(String(c["text"].get("de", "")) if c["text"] is Dictionary else String(c["text"]))
 	return "\n".join(t).hash()
 
 static func neu(z: Zustand, id: String) -> bool:

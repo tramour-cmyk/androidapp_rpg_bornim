@@ -1,6 +1,6 @@
 # Bestand (Inventur)
 
-Vorgang 377.1, Stand 27.10., 14:36. Hier steht nur, was wir **besitzen**: gekauft oder heruntergeladen und abgelegt (privates Repo, Zweig) oder laut Prüfung heruntergeladen. Suchergebnisse und Kaufkandidaten stehen in `LISTE-CC0-MODELLE.md`, nicht hier.
+Vorgang 377.1, Stand 27.10., 14:36. Hier steht nur, was wir **besitzen**: gekauft oder heruntergeladen und abgelegt (privates Repo, Zweig) oder laut Prüfung heruntergeladen. Suchergebnisse und Kaufkandidaten stehen in `LISTE-QUELLEN.md`, nicht hier.
 
 - **Vor jedem Eigenbau hier nachsehen** (Regel „Bestand zuerst“, `ROLLE-ENTWICKLUNG.md`, 377).
 - Wer hochlädt oder herunterlädt, trägt im selben Schritt hier ein (Teil, Datei, Ort, Lizenz, Format).
@@ -84,7 +84,7 @@ Release `stufe1` im Kaufrepo: `ANIMSET.SWORD.SHIELD.unitypackage` (698119529), `
 | Protofactor Riesenratte | `GIANT.RAT.RAW.FILES.rar` (678372860), `GiantRat.4.14.rar` (678370352, Unreal), `GIANT_RAT_ASSET.rar` (678371040, enthält `GIANT_RAT_PACKAGE.unitypackage`) | privat | Protofactor EULA | FBX je Bewegung, Unreal, Unity; RAR (Entpacken: `unar`) |
 | Janpec Animal Pack Deluxe | `Animal.pack.deluxe.unitypackage` (678515204, 324 MB) | privat | Unity Asset Store EULA | Unity-Paket (tar.gz, ohne Unity entpackbar, `kauf_laden.sh`); FBX: `Models/<Tier>_Rig.fbx`, je Bewegung `Animations/<Tier>_<Bew>.fbx` |
 | MadeCG Hundertfüßer | `low.poly.animated.centipede.zip` (678369839) | privat | RenderHub Extended Use | innen je Zip: FBX, OBJ, .blend, Maya, 3ds Max, Unreal, Unity; je Bewegung eine Datei (`fbx/walk.FBX` …), Netz `skin` |
-| Animated3D Leopard-Mischwesen (Leopard Hybrid A2, RenderHub) | `leopard.hybrid-a2.zip` (685443057, 768 MB) | privat | RenderHub Extended Use (Volltext prüfen) | innen je Zip: `Blender.zip` (.blend 3.6), `FbxBlender`/`FbxUnity`/`FbxUE5` (ein FBX, alle Bewegungen), `FbxC4D`/`Fbx3DSmax`/`FbxMaya` (je Bewegung eine Datei), `Iclone8_CC4`; `Textures_A2.zip` (PNG 4096: diffuse, normal, height, ao, opacity); Film `Leopard_Hybrid_A12.mp4` |
+| Animated3D Leopard-Mischwesen (Leopard Hybrid A2, RenderHub) | `leopard.hybrid-a2.zip` (685443057, 768 MB) | privat | RenderHub Extended Use (Volltext geprüft 10.11.: kommerziell, Spiele, unbefristet, ohne Nennung, nicht weitergeben) | innen je Zip: `Blender.zip` (.blend 3.6), `FbxBlender`/`FbxUnity`/`FbxUE5` (ein FBX, alle Bewegungen), `FbxC4D`/`Fbx3DSmax`/`FbxMaya` (je Bewegung eine Datei), `Iclone8_CC4`; `Textures_A2.zip` (PNG 4096: diffuse, normal, height, ao, opacity); Film `Leopard_Hybrid_A12.mp4` |
 | Protofactor Darkness Spider (Riesenspinne; 348.12c, Chef 03.11.) | `DARKNESS.SPIDER.RAW.FILES.rar` (705921551), `ARANEAE_TENEBRAE_ASSET.1.rar` (705921043, enthält `DARKNESS_SPIDER_PACKAGE.unitypackage`) | privat | Protofactor EULA | FBX je Bewegung, Texturen jpg (Albedo, AO, Gloss, Illum, Roughness, Spec, Metalness), DAE |
 | Protofactor Skeleton Knight (Skelett) | `SKELETON.KNIGHT.RAW.FILES.rar` (705918842), `SKELETON_KNIGHT_ASSET.1.rar` (705919870, Unity) | privat | Protofactor EULA | FBX je Bewegung, Körper `SK_SkeletonKnight.FBX`, lose Knochen `SM_SkeletonBones.FBX`; Texturen je Teil: Einhandschwert, Zweihandschwert, Brustpanzer, Helm, Schild |
 | Protofactor Barghest (Grabhund) | `BARGHEST.RAW.FILES.1.rar` (705910673), `BARGHEST_ASSET.rar` (705912873, Unity) | privat | Protofactor EULA | FBX je Bewegung; Netze einzeln `BARGHEST_BODY`, `_MANE`, `_TAIL` und `_AllMeshes`; Texturen jpg, Haar tga mit Transparenz |
@@ -105,9 +105,13 @@ Alles Quaternius, CC0 (`License_Source.txt`/`License_Standard.txt` geprüft), Ge
 | Einzelteile je Tracht: Arms, Body, Legs, Feet; Knight: Body_Armor/Cloth, Head_Armet, Head_Horns, Pauldron(s)_Round/Spike, Scarf; Noble: Head_Crown, Gorget, Pauldron(_Lion); Ranger: Head_Hood, Pauldron(s), Feet_Boots | dasselbe Zip → `…/Modular Parts/` | privat | glTF |
 | Standardfassung (nur Peasant, Ranger) | `Modular.Character.Outfits.-.Fantasy.Standard.zip` (681370524) | privat, itch | glTF, FBX |
 
+**In Gebrauch** (494 Krogg, Jerry 03.11., `krogg_gestalt.py`): Superhero_Male_FullBody (Körper, Hände, Gerüst; Kopf weg), Textur T_Superhero_Male_Dark; UAL Standard Idle_Loop „Stehen“, Sword_Idle (Waffenarm), Walk_Loop, Hit_Chest, Sword_Attack; UAL Pro Sword_Attack_Standing „Hieb“, Death02 „Tod“, Jog_Fwd/Bwd/Right/Left_Loop
+
 **In Gebrauch** (348.12 Grak, Jerry 28.10., `grak_gestalt.py`, Abruf `cc0_laden.sh`): Superhero_Male_FullBody (nur Kopf, Hals, Brustansatz), Male_Ranger ohne Kapuze (Pauldron gespiegelt), Texturen T_Superhero_Male_Dark, T_Regular_Male_Dark_BaseColor, T_Ranger_BaseColor, T_Eye_Brown (umgefärbt); UAL Standard Idle_Loop „Stehen“, Walk_Loop „Gehen“, Hit_Chest „Treffer“; UAL Pro Death02 „Tod“, Jog_Fwd_Loop „Rennen“, Jog_Bwd_Loop „Zurück“, Jog_Right/Left_Loop „Ausweichen“ (9 Bilder), Weg am Boden aus `UAL1_RM.glb` (`UAL=`; 29.10.).
 
 ## Tiere und Monster
+
+**Janpec Braunbär** (privat, siehe oben; im Einsatz 494 Krogg, `krogg_gestalt.py`: nur Kopf mit Ohren und Kiefer aus `Models/Bear_Rig.fbx`, Farbbild `Textures/brown_bear_col4_unity.tga`): Idle, Walk, Run, Attack, Eat, Die; Netz 2.361 Ecken, Kopf 1.259.
 
 **Protofactor Riesenratte** (privat, siehe oben; im Einsatz Probe 348.12f, `kaufratte.py`): Idle, Walk, Run, Taunt, DodgeLeft/Right/Backwards, JumpBite, GetHitFront/Left/Right, Death; Walk, Run, Dodge*, JumpBite auch `_RM`; dazu `GIANT_RAT@AllAnimations.FBX`. Texturen Fell (tga, png).
 
@@ -171,7 +175,7 @@ Fehlt im Paket: Hund, Katze, Pferd, Schaf, Vögel außer Huhn und Gans.
 | Gefäße | Clay_Pot_1–6, Large_Jug_Copper/Gold/Silver |
 | Sonst | Meat_Hanging_Frame_1/2, Log_Pile_1/2, Straw_Bails (9) |
 
-**Waffen und Schilde (348.12h, hochgeladen 29.10., 11:0x; Inventur Sokrates 11:09)**, alle privat in `bornim-kaufmodelle` (Version stufe1); Lizenzen auf den Seiten `LISTE-CC0-MODELLE.md` „Ausrüstung genau“:
+**Waffen und Schilde (348.12h, hochgeladen 29.10., 11:0x; Inventur Sokrates 11:09)**, alle privat in `bornim-kaufmodelle` (Version stufe1); Lizenzen auf den Seiten `LISTE-QUELLEN.md` „Ausrüstung genau“:
 
 | Paket | Datei | Lizenz | Modelle | Dreiecke | Texturen | Godot |
 |---|---|---|---|---|---|---|
@@ -183,6 +187,7 @@ Fehlt im Paket: Hund, Katze, Pferd, Schaf, Vögel außer Huhn und Gans.
 
 - **Omie:** Langschwert, Kurzschwert, Krummsäbel, Dolch; Handaxt, Streitaxt, große Axt; Speer, Hellebarde, Dreizack; Streitkolben, Kriegshammer, Kriegspicke, Flegel; Bogen, Armbrust; Zauberstab („Staff Magic“, ein Stück, ohne Kugel); Rund-, Kite-, Faustschild.
 - **Anker:** 8 Schwerter (Claymore, Zweihänder, Falchion, Messer …), Dolch, 4 Äxte (mit Bardiche), 5 Stangenwaffen (Lanze, Wurfspeer …), 7 Schlagwaffen (Morgenstern-Keule, Zweihandhammer …), Lang- und Reiterbogen, Armbrust, Pfeil, Bolzen, Köcher; Zauberbuch offen und zu, Schriftrolle, 6 Tränke; Schilde A–F; Heugabel, Sense, Sichel, Besen, Laute, Krug; 9 Belagerungsgeräte (über 3.000 Dreiecke). Kein Stab.
+- **In Gebrauch:** Anker `Maces/Spiked Mace.fbx` (265 Flächen, zwei Grundfarben) als Kroggs Morgenstern (494, `krogg_gestalt.py`, auf 0,92 m, Eisen mit Blutflecken); Anker `Spears/Spear.fbx` (186 Dreiecke) als Speer des Skeletts, Kit 3 (506, `kaufskelett.py`, auf 1,75 m, Eisen rostig, Schaft altes Holz).
 - **Avramania:** Schwert, Kurzschwert, Holzschwert, Dolch, Messer, Handaxt, Speer, Streitkolben, Kurzbogen, Armbrust, Pfeil, Bolzen, Köcher, Stab; Rund-, Faust-, Übungsschild; Scheide, Waffenständer.
 - **PolyMech:** Kite, vier runde (Holz, Metallrand, offen), Holz mit Metallrahmen, zwei lange (Eisen, Löwenherz), Löwenherz klein.
 - **Überschneidung:** Dolch, Streitkolben, Bogen, Armbrust, Schwert, Handaxt, Speer, Rundschild in drei Paketen. Nur Omie: Dreizack, Kriegspicke, Krummsäbel; nur Anker: Bücher, Tränke, Belagerung, Werkzeug.
@@ -217,6 +222,11 @@ Dungeon: kein fremder Bausatz im Bestand.
 | Paket | Datei | Ort | Lizenz | Inhalt |
 |---|---|---|---|---|
 | Beams & Lasers VFX Free Sample v1.0 (reeboolabs, gratis; 415, geladen 02.11.) | `anhang/beams/Beams_Lasers_VFX_Godot_Free_Sample.zip` | privat | eigene (`LICENSE.txt`): im Spiel kommerziell, Dateien nie weitergeben; Maskottchen „Oho“ nie ins Spiel | Godot-Addon `reeboo_beams` (Knoten ReebooBeam3D/2D, 11 Shader): Blauer Laser, Feuerstrom, Blitzbogen, je 3D und 2D; im Bau nach `godot/addons/` (godot.yml) |
+| REEBOO Stylized VFX Free Sample v1.5 (REEBOO Labs, gratis; 572, hochgeladen Chef 04.11., 20:26) | `REEBOO_Stylized_VFX_Free_Sample_v1.5.zip`, Asset 710646298 (55 KB) | privat (`stufe1`) | eigene (`addons/reeboo_vfx/LICENSE.txt`): unbefristet, kommerziell in eigenen Spielen, ändern erlaubt, im fertigen Spiel immer erlaubt, Nennung nicht Pflicht; Dateien nie weitergeben, auch nicht geändert; passt zu 348.12c | Addon `reeboo_vfx` (Knoten `VFXEffect`, Shader `vfx_slash`, `vfx_add`, `vfx_particle`), 3 Effekte: Hit Spark (Trefferfunken), Slash (Hiebbogen), Pickup Sparkle (Aufheben); Godot 4.4+, Demo auf 4.7; volles Paket 25 Effekte (u. a. Feuerball, Blitzschlag, Heilung, Stufenaufstieg, Schild, Giftwolke, Eisstoß, Lagerfeuer, Brennen, Teleport, Schattenstoß) `reebo0.itch.io/stylized-vfx-godot`, Pack 2 mit 61 Effekten 20 $ |
+| Stylized Status Effects VFX Free Sample v1.0 (REEBOO Labs, gratis; 572, hochgeladen Chef 04.11., 20:26) | `Stylized_Status_Effects_VFX_Free_Sample_v1.0.zip`, Asset 710646328 (67 KB) | privat (`stufe1`) | eigene (`LICENSE.txt`), gleicher Wortlaut wie oben, gilt ausdrücklich auch für das Gratisstück | Addon `reeboo_vfx` (gleicher Kern `vfx_effect.gd`, eigene Shader `vfx_status_*`), 3 Effekte: armor_up (Rüstungsplatten kreisen, dauernd), poisoned (Giftblasen, Gas, Tropfen, dauernd), buff_gain (goldene Pfeile, Lichtsäule, einmalig); GPU-Partikel und Shader, Zeichen ohne Bilder; Forward+, Mobile, Compatibility; Glow empfohlen, nicht nötig; Größe für 1,8 m; volles Paket 23 Effekte 6,99 $ `reebo0.itch.io/status-effects-vfx-godot` |
+| Neun Gratisproben REEBOO Labs (623, geladen Sokrates 07.11., 20:2x): Surface Shaders v1.0.1 (4 Shader), Weather FX v1.0 (6 Presets), Combat VFX Mega v1.0, Stylized Projectiles v1.0 (2 Elemente), Weapon Trails v1.0 (4 Presets), Water Kit (3 Presets), VFX Pack 3 v1.0 (4 Effekte), Character Shaders v1.0, Grass & Wind v1.0.1 | `anhang/reeboo/<seite>-free-sample.zip` (9 Dateien, zusammen 12,3 MB) | privat, Zweig `claude/brave-faraday-9mxupv` (ed7b0b7), `LIZENZ.md` dort | eigene je Paket (`LICENSE.txt` gelesen): weltweit, dauerhaft, kommerziell, ändern erlaubt, Nennung keine Pflicht, nicht weitergeben, Maskottchen nie | Matrix und Links `LISTE-QUELLEN.md` R1–R11; Zuordnung `LISTE-EFFEKTE.md` |
+| **Gekauft 09.11. (623), sieben REEBOO-Pakete:** Combat VFX Mega v1.2.1, Stylized Projectiles v1.0, Status Effects VFX v1.0, Weather FX v1.0, Grass & Wind Kit v1.0.1, Water Shader Kit v1.0.1, Stylized Surface Shaders v1.0.2 | `Godot_Combat_VFX_Mega_Pack_v1.2.1.zip` (726432934), `Stylized_Projectiles_VFX_Godot_v1.0.zip` (726433080), `Stylized_Status_Effects_VFX_v1.0.zip` (726432897), `Godot_Weather_FX_v1.0.zip` (726433012), `Godot_Grass_Wind_Kit_v1.0.1.zip` (726432823), `Godot_Water_Shader_Kit_v1.0.1.zip` (726432657), `Godot_Stylized_Surface_Shaders_v1.0.2.zip` (726433021) | privat (`stufe1`), `LIZENZ.md` dort (960a560) | eigene je Paket (`LICENSE.txt` gelesen 09.11.): dauerhaft, kommerziell, im exportierten Spiel erlaubt, ändern erlaubt, Nennung keine Pflicht, Dateien nie weitergeben; Maskottchen „Oho“ (demo/oho, Combat Mega, Surface) nie ins Spiel; Hashfunktionen von David Hoskins (Grass, Water, Surface) unter MIT: Hinweis bei den Lizenzen im Spiel | Vollfassungen; Einbau 623.2 (Jerry), Zuordnung `LISTE-EFFEKTE.md` |
+| **Gekauft 09.11., 21:05 (623), drei REEBOO-Pakete, hochgeladen Chef 21:07, Inventur Sokrates 21:08:** R3 Weapon & Motion Trails v1.0 (25 Spuren, eigener Knoten `Trail3D`/`Trail2D`, kein Plugin), R4 Stylized VFX Pack 3 v1.0 (24 Effekte, nicht in Pack 1/2), R7 Stylized VFX v2.0 = Pack 2 (61 Effekte, enthält Pack 1) | `Weapon_Motion_Trails_Godot_v1.0.zip` (728804359, 83 KB), `Stylized_VFX_Pack_3_Godot_v1.0.zip` (728804211, 136 KB), `REEBOO_Stylized_VFX_v2.0.zip` (728804275, 251 KB) | privat (`stufe1`) | eigene je Paket (`LICENSE.txt` gelesen 21:08), Wortlaut wie oben: dauerhaft, kommerziell, im exportierten Spiel erlaubt, ändern erlaubt, keine Nennungspflicht, Dateien nie weitergeben; kein „Oho“ in den drei Paketen | Godot 4.4+; R3, R4 alle drei Renderer, **R7 nur Forward+ und Mobile** (wir: Mobile; Ausweichen auf OpenGL bei Geräten ohne Vulkan ungeprüft); Android bei keinem getestet. Unbrauchbar (Science-Fiction, bunt): R3 bullet_tracer, anime_slash, rainbow_ribbon, skid_marks, speed_lines, rocket_smoke; R4 plasma_bolt, plasma_impact, emp_blast, black_hole, firework, confetti_burst; R7 laser_beam, bullet_impact, muzzle_flash, rocket_trail, coin_burst, checkpoint_beacon. Zuordnung `LISTE-EFFEKTE.md` |
 
 ## Eigenbau im Zweig (nicht fremd)
 
@@ -226,6 +236,6 @@ Dungeon: kein fremder Bausatz im Bestand.
 
 | Teil | Befund |
 |---|---|
-| Kenney Survival Kit | Dreiecke laut `LISTE-CC0-MODELLE.md` „aus den OBJ gezählt“; nirgends abgelegt |
+| Kenney Survival Kit | Dreiecke laut `LISTE-QUELLEN.md` „aus den OBJ gezählt“; nirgends abgelegt |
 | RenderHub „Asset Pack Vol 10 – Modular Dungeon Interior“ (JuanChee, 7 $) | Chef „checken“, Votum offen; nicht im privaten Repo, Kauf nicht belegt |
 | Universal Animation Library 2 | CC0 laut Seite, nicht geladen |

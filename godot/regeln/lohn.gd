@@ -39,10 +39,10 @@ static func reward(mars, xp: int, dice, over := 0, cap = null, xp_factor := 1.0,
 			leader = f
 	foes.erase(leader)
 	var m: Dictionary = leader.monster
-	var pack = mars.packs.get(m.id)
+	var pack = mars.packs.get(m.get("pack", m.id))     # 533: Grimmzahn trägt die id des Wolfs, zählt aber seine Leibwache
 	var mates := 0
 	if pack != null:
-		mates = foes.filter(func(f): return f.monster.id == pack.mate).size()
+		mates = foes.filter(func(f): return String(f.monster.id) == pack.mate).size()     # 535: Kobolde nach Art
 	var scale := 1.0 + 0.35 * over + 0.05 * over * over
 	var share: float = float(pack.xpShare) if pack != null else 0.0
 	var worth := int(int(m.xp) * scale * (1.0 + share * mates) * xp_factor)

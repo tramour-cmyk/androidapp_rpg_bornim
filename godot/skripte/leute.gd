@@ -48,7 +48,24 @@ static var still := false              # 390: waehrend eines Gespraechs bleiben 
 const ZUGEWANDT := 10.0
 var zugewandt_bis := 0                  # ms (Time.get_ticks_msec); 0: niemandem zugewandt
 var blick_vorher := 0.0
+# 416.8 (Chef 03.11., 07:44: „völlig ohne irgendeine Form der Bewegung … auf der Stelle drehen … wie eine Schachfigur“): im Stehen
+# wendet die Person mit Schritten (Drehen_L/R aus Turn90 der UAL Pro, geruest.py ohne die Drehung des Beckens gebacken); der Knoten
+# dreht nach der gemessenen Kurve der Bewegung (held-info.json gier), so bleibt der Standfuss stehen; Tempo wie bisher (rate)
+const WENDE_AB := 0.44                  # rad (25 Grad): kleinere Wenden ohne Schritte
+const WENDE_BLEND := 0.2                # s Uebergang aus dem Stehen in die Wende
+var wende_kurve := {}                   # Name -> PackedFloat32Array, Drehung in rad je Bild (30 Bilder/s) seit Beginn
+var wende := ""                         # laufende Wende
+var wende_start := 0.0                  # rotation.y beim Beginn der Wende
+var monster := false                   # 560 (Jerry): ein Monster der Geschichte (Grimmzahn, aussehen „monster:…“)
+const MONSTER_SIEHT := 4               # 560: Kacheln, ab denen es sich dem Helden zuwendet (herde.gd Lauerer 9i.2)
 var da := true                         # 390: nach der Geschichte zu sehen (Story.kt visible: besiegt, befreit)
+
+## 635: Figurdatei einer Person der Karte: nach Kennung, sonst nach Aussehen; "" ohne Modell
+static func datei_von(d: Dictionary) -> String:
+	for n in [String(d.get("id", "")), String(d.get("aussehen", ""))]:
+		if n != "" and not n.begins_with("monster:") and FileAccess.file_exists("res://daten/leute/%s.bin" % n):
+			return "res://daten/leute/%s.bin" % n
+	return ""
 
 static func alle(k: Karte, h: Node3D) -> Array:
 	var r := []
@@ -57,8 +74,15 @@ static func alle(k: Karte, h: Node3D) -> Array:
 		if mo.begins_with("monster:"):   # 491: Grimmzahn (Npc „monster:dire_wolf“) als Modell des Kampforts, wie die Monster der Karte
 			if Streuner.da(mo.trim_prefix("monster:")): r.append(Leute.new(k, d, h))
 			continue
-		if not FileAccess.file_exists("res://daten/leute/%s.bin" % d["id"]): continue
-		var l := Leute.new(k, d, h)
+		# 635 (Abgleich 620.2a): Lyra heisst auf den Karten lyra_temple und lyra_cave, gebaut ist sie als ihr Aussehen „lyra“
+		# (Story.kt Npc(id, x, y, look)); ohne Datei der Kennung gilt die des Aussehens
+		var datei := datei_von(d)
+		if datei == "": continue
+		var dd: Dictionary = d
+		if datei != "res://daten/leute/%s.bin" % d["id"]:
+			dd = d.duplicate()
+			dd["datei"] = datei
+		var l := Leute.new(k, dd, h)
 		r.append(l)
 	return r
 
@@ -96,6 +120,19 @@ const HUHN_PLATZ := [Vector2i(-1, 0), Vector2i(0, -1), Vector2i(-1, -1), Vector2
 const TIERBODEN := ".f,"
 # Pause zwischen zwei Schritten (s) und Anteil Fressen statt Stehen: Huehner picken oft, das Rind grast lange
 const TIERPAUSE := {"huhn": [1.0, 3.5, 0.6], "rind": [5.0, 12.0, 0.7], "ziege": [3.0, 8.0, 0.6], "kaninchen": [2.0, 6.0, 0.5]}
+# 591 (Chef 05.11., Build 266: „Hühner und Kaninchen sollten grundsätzlich weglaufen (wie Hühner in der Kotlin-Fassung)“): MapHen
+# FLEE/WARY: kommt der Held näher als SHY (46 px = 1,44 Kacheln), rennt das Tier geradewegs von ihm weg, seitlich ausweichend, wo der
+# Weg zu ist, bis SAFE (90 px = 2,8 Kacheln); dann steht es 2,5 s wachsam, danach wieder wie sonst und streift heim; höchstens
+# LEASH (120 px = 3,75 Kacheln) von daheim
+const FLIEHEN := ["huhn", "kaninchen"]
+const FLUCHT_NAH := 1.45               # Kacheln (MapHen.SHY)
+const FLUCHT_SICHER := 2.8             # Kacheln (MapHen.SAFE)
+const FLUCHT_LEINE := 4                # Kacheln um heim (MapHen.LEASH)
+const WACHSAM := 2.5                   # s (MapHen: WARY 2500 ms)
+const FLUCHT_TEMPO := 1.3              # Rennen etwas schneller als gebacken
+var flucht := false                    # rennt gerade vor dem Helden weg (klang.gd: Gackern, Flügel)
+var renn := 0.0                        # m/s der Bewegung Rennen bei Tempo 1 (0: keine, dann Gehen doppelt)
+var renn_soll := 0.0                   # m/s, wie kauftier.py es meint (Weg mal Tempo)
 
 static func dorftiere(k: Karte, h: Node3D) -> Array:
 	var r := []
@@ -228,6 +265,7 @@ func _ready() -> void:
 		fig.set_process(true)
 		modell = fig
 		anim = fig.anim
+		monster = true
 		gang = 1.0
 		leib = 0.8
 		position = karte.kachel_pos(kachel)
@@ -244,14 +282,22 @@ func _ready() -> void:
 		var info: Dictionary = alle.get(String(daten["fell"]), {})
 		var w: Array = info.get("weg", {}).get("Gehen", [])
 		if w.size() > 1 and float(info.get("Gehen", 0.0)) > 0.0: gang = float(w[w.size() - 1][1]) / float(info["Gehen"])
+		var wr: Array = info.get("weg", {}).get("Rennen", [])
+		if wr.size() > 1 and float(info.get("Rennen", 0.0)) > 0.0:
+			renn = float(wr[wr.size() - 1][1]) / float(info["Rennen"])
+			renn_soll = renn * float(info.get("tempo", {}).get("Rennen", 1.0))
 		# Pruefung 09:04: Rind (2,5 m) hielt 1 m Abstand, der Kopf reicht 1,25 m vor die Mitte: halbe Laenge plus eine Handbreit
 		leib = clampf(float(info.get("laenge_m", 1.0)) * 0.5 + 0.15, 0.3, 1.5)
 	elif FileAccess.file_exists(p):
 		var info: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(p))
 		gang = float(info.get("gehen_m_je_s", gang))
 		baue_ding(info)
+		for n in ["Drehen_L", "Drehen_R"]:   # 416.8
+			var g: Array = info.get("bewegungen", {}).get(n, {}).get("gier", [])
+			if g.size() > 1 and absf(float(g[g.size() - 1])) > 30.0:
+				wende_kurve[n] = PackedFloat32Array(g.map(func(x): return deg_to_rad(float(x))))
 	anim = Gebiet.finde(modell, "AnimationPlayer") as AnimationPlayer
-	if anim: Gebiet.bewegungen(anim, ["Gehen", "Stehen", "Fressen", "Stehen_2", "Stehen_3"])
+	if anim: Gebiet.bewegungen(anim, ["Gehen", "Rennen", "Stehen", "Fressen", "Stehen_2", "Stehen_3"])   # 591: Rennen der Flucht
 	if anim:
 		anim.play("Stehen")
 		anim.seek(zufall.randf() * 2.0, true)   # nicht alle im selben Atemzug
@@ -407,6 +453,9 @@ func _process(dt: float) -> void:
 	if ziel.x >= 0:
 		laufe(dt)
 		return
+	if fliehe():   # 591: ohne ein Bild Stehen zwischen zwei Kacheln der Flucht
+		laufe(dt)
+		return
 	if anim and pause.begins_with("Stehen"):   # 397
 		if ruhe_bis < 0.0: ruhe_bis = anim.get_animation("Stehen").length * zufall.randi_range(2, 4)
 		ruhe_bis -= dt
@@ -416,22 +465,44 @@ func _process(dt: float) -> void:
 	stehen(dt)
 	if ziel.x >= 0: return
 	tempo_jetzt = 0.0
-	if anim and anim.current_animation != pause:
+	if monster and anim and anim.has_animation("Gehen") and absf(angle_difference(rotation.y, blick)) > Streuner.DREH_TRITT:
+		if anim.current_animation != "Gehen": anim.play("Gehen", 0.2)     # 560: wendet mit Tritten
+		anim.speed_scale = Streuner.TRITT_TEMPO
+		return
+	if anim and anim.current_animation != pause and wende == "":
 		anim.play(pause, Held.ueberblendung(anim.current_animation, false))
 		anim.speed_scale = 1.0
 
 func stehen(dt: float) -> void:
+	var s := schaut_her(dt)   # zaehlt den Stillstand des Helden auch waehrend des Gespraechs und danach
 	if zugewandt_bis > 0:
 		if still: zugewandt_bis = Time.get_ticks_msec() + int(ZUGEWANDT * 1000)   # waehrend des Gespraechs zaehlt die Zeit nicht
 		if Time.get_ticks_msec() < zugewandt_bis and held:
 			blick = atan2(held.global_position.x - global_position.x, held.global_position.z - global_position.z)
 		else:
 			zugewandt_bis = 0
+			schaut = false
 			blick = blick_vorher
 			ruhe_bis = -1.0   # die Ruhebewegung beginnt neu
-	rotation.y = drehe(rotation.y, blick, (DREH_ZU if zugewandt_bis > 0 else DREH_STEH) * dt)
+	else:
+		if s:
+			if not schaut: blick_vorher = blick
+			schaut = true
+			blick = atan2(held.global_position.x - global_position.x, held.global_position.z - global_position.z)
+		elif schaut:
+			schaut = false
+			blick = blick_vorher
+			ruhe_bis = -1.0
+	# 560 (Chef 04.11., 16:22, Grimmzahn: „wenn sich die Monster … alles zum Held drehen … mit Bewegung drehen“): ein Monster der
+	# Geschichte wendet sich dem nahen Helden zu, mit fester Rate und Tritten (_process), wie die Monster der Karte (streuner.gd)
+	if monster and held and zugewandt_bis == 0 and held_abstand() <= MONSTER_SIEHT:
+		blick = atan2(held.global_position.x - global_position.x, held.global_position.z - global_position.z)
+	if monster:
+		rotation.y = drehe(rotation.y, blick, Streuner.DREH * dt)
+	else:
+		drehe_stehend(dt, DREH_ZU if zugewandt_bis > 0 or schaut else DREH_STEH)     # 416.8 (Tom): Wende mit Schritten
 	if still or not da: return
-	if zugewandt_bis > 0: return
+	if zugewandt_bis > 0 or schaut: return
 	if Time.get_ticks_msec() < ruft_bis: return   # 399.1 (306): wer ruft, haelt still, bis das zweite Zeichen vorbei ist
 	warte -= dt
 	if warte > 0: return
@@ -442,6 +513,62 @@ func stehen(dt: float) -> void:
 	if daten.has("runde"): runde()
 	else: streife()
 
+# 591: Abstand zum Helden in Kacheln (MapHen: hypot zum Helden)
+func held_abstand() -> float:
+	if held == null: return 99.0
+	return Vector2(held.position.x - position.x, held.position.z - position.z).length() / Karte.TS
+
+# 591 (MapHen.at FLEE): true, wenn das Tier jetzt eine Kachel weiter vom Helden weg rennt (ziel gesetzt)
+func fliehe() -> bool:
+	if not daten.has("tier") or not String(daten["tier"]) in FLIEHEN or still or not da or drinnen:
+		return false
+	var a := held_abstand()
+	if not flucht and a >= FLUCHT_NAH: return false
+	if flucht and a > FLUCHT_SICHER:
+		# MapHen WARY: steht wachsam, dann wie sonst
+		flucht = false
+		warte = WACHSAM
+		pause = "Stehen"
+		ruhe_bis = -1.0
+		return false
+	var n := flucht_kachel()
+	if n.x < 0:
+		# eingeklemmt (MapHen stuck: „alert“): bleibt stehen, bis der Weg frei ist oder der Held geht
+		if flucht: warte = 0.3
+		return false
+	if not flucht:
+		flucht = true
+		tempo_jetzt = maxf(tempo_jetzt, flucht_tempo() * 0.6)   # aufgeschreckt: gleich mit Schwung
+	ziel = n
+	weg.clear()
+	return true
+
+# geradewegs weg vom Helden, sonst bis 110 Grad zur Seite (MapHen: 0, ±35, ±70, ±110), nicht weiter als die Leine von daheim
+func flucht_kachel() -> Vector2i:
+	var weg_v := Vector2(position.x - held.position.x, position.z - held.position.z)
+	if weg_v.length() < 0.01: weg_v = Vector2(sin(rotation.y), cos(rotation.y))
+	weg_v = weg_v.normalized()
+	var best := Vector2i(-1, -1)
+	var best_w := -2.0
+	for dx in [-1, 0, 1]:
+		for dy in [-1, 0, 1]:
+			var d := Vector2i(dx, dy)
+			if d == Vector2i.ZERO: continue
+			var n := kachel + d
+			if absi(n.x - heim.x) + absi(n.y - heim.y) > FLUCHT_LEINE: continue
+			if not frei_fuer_mich(n): continue
+			if dx != 0 and dy != 0 and not (karte.begehbar(kachel + Vector2i(dx, 0)) and karte.begehbar(kachel + Vector2i(0, dy))): continue
+			var w := Vector2(dx, dy).normalized().dot(weg_v)
+			if w < cos(deg_to_rad(110.0)): continue
+			if w > best_w:
+				best_w = w
+				best = n
+	return best
+
+# m/s im Rennen (Weg mal Tempo aus kauftier.py), ohne Rennen das Gehen doppelt
+func flucht_tempo() -> float:
+	return (renn_soll if renn > 0.0 else gang * 2.0) * FLUCHT_TEMPO
+
 func streife() -> void:
 	warte = zufall.randf_range(1.5, 4.0)
 	if daten.has("tier"):
@@ -449,6 +576,15 @@ func streife() -> void:
 		warte = zufall.randf_range(tp[0], tp[1])
 		pause = "Fressen" if anim and anim.has_animation("Fressen") and zufall.randf() < tp[2] else "Stehen"
 		ruhe_bis = -1.0
+	# 591: nach der Flucht weiter weg als sonst: Schritt fuer Schritt heim (MapHen IDLE: „far from home it goes back first“)
+	if absi(kachel.x - heim.x) + absi(kachel.y - heim.y) > streifen_n:
+		var h := Vector2i(signi(heim.x - kachel.x), signi(heim.y - kachel.y))
+		for d in [h, Vector2i(h.x, 0), Vector2i(0, h.y)]:
+			if d == Vector2i.ZERO or not frei_fuer_mich(kachel + d): continue
+			if d.x != 0 and d.y != 0 and not (karte.begehbar(kachel + Vector2i(d.x, 0)) and karte.begehbar(kachel + Vector2i(0, d.y))): continue
+			ziel = kachel + d
+			return
+		return
 	var d := Vector2i(zufall.randi_range(-1, 1), zufall.randi_range(-1, 1))
 	if d == Vector2i.ZERO: return
 	var n := kachel + d
@@ -465,7 +601,10 @@ func tagesplan() -> bool:
 	var ort := Vector2i(int(st[1]), int(st[2]))
 	heim = ort
 	streifen_n = int(st[3])
-	drinnen = bool(st[4]) and kachel == ort
+	# 607 (Chef 07.11.: Pim „läuft um 0300 Uhr immer noch rum“, nachgestellt in nacht_607): wer klopft, steht auf genau der Kachel, auf
+	# der die Person fuer die Nacht hineingeht; ist sie besetzt, geht sie von der Nachbarkachel aus hinein, statt davor zu warten
+	var vor_tuer := absi(kachel.x - ort.x) + absi(kachel.y - ort.y) == 1 and not frei_fuer_mich(ort)
+	drinnen = bool(st[4]) and (kachel == ort or vor_tuer)
 	visible = da and not drinnen
 	if drinnen:
 		warte = 5.0
@@ -502,17 +641,18 @@ func runde() -> void:
 	gehe_nach(p)
 
 func laufe(dt: float) -> void:
+	wende = ""
 	var zp := karte.kachel_pos(ziel)
 	var to := zp - position
 	to.y = 0
-	var tempo := gang * TEMPO / karte.schritt(ziel)
+	var tempo := (flucht_tempo() if flucht else gang * TEMPO) / karte.schritt(ziel)
 	var soll := atan2(to.x, to.z)
-	rotation.y = drehe(rotation.y, soll, DREH * dt)
+	rotation.y = drehe(rotation.y, soll, DREH * (2.0 if flucht else 1.0) * dt)   # 591: rennend schnell herum (MapHen.TURN_RUN)
 	var ab := absf(angle_difference(rotation.y, soll))
 	tempo *= lerpf(BOGEN_TEMPO, 1.0, (cos(ab) + 1.0) * 0.5)
 	# 416.4: anlaufen und vor dem letzten Schritt langsamer werden wie der Held (Held.tempo_schritt, Held.bremse)
-	if weg.is_empty(): tempo = Held.bremse(tempo, to.length(), gang * TEMPO)   # letzte Kachel des Wegs (Runde, Tagesplan) oder Streifen
-	tempo_jetzt = Held.tempo_schritt(tempo_jetzt, tempo, gang * TEMPO, dt)
+	if weg.is_empty() and not flucht: tempo = Held.bremse(tempo, to.length(), gang * TEMPO)   # letzte Kachel des Wegs (Runde, Tagesplan) oder Streifen
+	tempo_jetzt = Held.tempo_schritt(tempo_jetzt, tempo, flucht_tempo() if flucht else gang * TEMPO, dt)
 	tempo = tempo_jetzt
 	var s := tempo * dt
 	if ab < BOGEN and to.length() <= s:
@@ -528,16 +668,76 @@ func laufe(dt: float) -> void:
 	if karte.begehbar(karte.pos_kachel(neu)): position = neu   # der Bogen fuehrt nie auf eine gesperrte Kachel
 	kachel = karte.pos_kachel(position)
 	if anim:
-		if anim.current_animation != "Gehen":   # CC0-Geruest Runde 2 (Fremdpruefung: Gleichschritt): jede mit eigenem Schritt
+		# 591: auf der Flucht das Rennen (Huhn, Kaninchen aus kauftier.py), sonst Gehen
+		var gangart := "Rennen" if flucht and renn > 0.0 and anim.has_animation("Rennen") else "Gehen"
+		if anim.current_animation != gangart:   # CC0-Geruest Runde 2 (Fremdpruefung: Gleichschritt): jede mit eigenem Schritt
 			# 416.4: aus dem Stand weich (Held.ueberblendung, 0,5 s statt 0,18 s); der Schritt beginnt an zufaelliger Stelle, nur
 			# beim Anlaufen (die Pause steht noch voll im Bild, der Sprung im Gang faellt nicht auf)
-			anim.play("Gehen", Held.ueberblendung(anim.current_animation, true))
+			anim.play(gangart, 0.15 if flucht else Held.ueberblendung(anim.current_animation, true))
 			anim.seek(zufall.randf() * anim.current_animation_length)
-		anim.speed_scale = tempo / gang
+		anim.speed_scale = tempo / (renn if gangart == "Rennen" else gang)
+
+# 416.8: im Stehen zu blick drehen; ab WENDE_AB mit Schritten (Drehen_L/R), der Knoten folgt der Kurve der Bewegung; Ziel erreicht
+# oder Bewegung zu Ende: zurueck ins Stehen, ist noch viel uebrig, gleich die naechste Wende (180 Grad = zwei)
+func drehe_stehend(dt: float, rate: float) -> void:
+	if wende != "":
+		var k: PackedFloat32Array = wende_kurve[wende]
+		var spielt := anim != null and anim.current_animation == wende
+		var t := anim.current_animation_position if spielt else INF
+		var soll := wende_start + kurve(k, t)
+		var vorbei := signf(angle_difference(soll, blick)) != signf(k[k.size() - 1])   # Ziel erreicht oder ueberholt
+		if not vorbei: rotation.y = soll   # ueberholt: stehen lassen, den Rest dreht drehe (der Held kann auch die Seite gewechselt haben)
+		if spielt and not vorbei and t < anim.current_animation_length - 0.02: return
+		wende = ""
+		if absf(angle_difference(rotation.y, blick)) <= WENDE_AB:
+			anim.play(pause, 0.3)
+			anim.speed_scale = 1.0
+			return
+	var rest := angle_difference(rotation.y, blick)
+	if absf(rest) > WENDE_AB and anim and not drinnen and visible:
+		for n in wende_kurve:
+			var k: PackedFloat32Array = wende_kurve[n]
+			if signf(k[k.size() - 1]) != signf(rest) or not anim.has_animation(n): continue
+			var gleich: bool = anim.current_animation == n   # zweite Wende derselben Seite: play liefe nur weiter
+			wende = n
+			wende_start = rotation.y
+			anim.play(n, WENDE_BLEND)
+			if gleich: anim.seek(0.0, true)
+			anim.speed_scale = clampf(rate * anim.get_animation(n).length / absf(k[k.size() - 1]), 0.7, 2.0)
+			return
+	rotation.y = drehe(rotation.y, blick, rate * dt)
+
+# Drehung der Kurve k (je Bild, 30 Bilder/s) nach t Sekunden, zwischen den Bildern linear; nach dem Ende der letzte Wert
+static func kurve(k: PackedFloat32Array, t: float) -> float:
+	var f := t * 30.0
+	if f >= k.size() - 1: return k[k.size() - 1]
+	var i := int(f)
+	return lerpf(k[i], k[i + 1], f - i)
+
+# 416.8 (Chef 08.11., 15:43, t269.11: „beim Annähern richtet sich keiner zum Helden aus“; DESIGN-STIL „Lebendige Welt“: bis 3 Felder
+# anschauen, nach etwa 10 s Stillstand das Interesse verlieren, 5la.3). Wie alt (MapFolk.kt 853–871 WATCH_TILES, BORED_MS, watches,
+# Stillness): steht der Held hoechstens 3 Kacheln je Richtung entfernt und steht er noch keine 10 s auf derselben Kachel, wendet sich
+# die Person ihm zu (mit Schritten wie beim Ansprechen, drehe_stehend) und haelt in ihrem Tun inne; danach blickt sie wie vorher und
+# macht weiter. Tiere nicht (alt nur die Leute). Besser als alt: die Zeit laeuft mit dem Spiel (dt), steht still, solange es ruht
+const SCHAUT_KACHELN := 3
+const LANGWEILIG := 10.0               # s
+var schaut := false
+var held_still := 0.0                  # s, die der Held schon auf held_still_kachel steht
+var held_still_kachel := Vector2i(-99, -99)
+
+func schaut_her(dt: float) -> bool:
+	if held == null or daten.has("tier") or drinnen or not visible or not da: return false
+	var h := held_kachel()
+	if h != held_still_kachel:
+		held_still_kachel = h
+		held_still = 0.0
+	else: held_still += dt
+	var d := h - kachel
+	return d != Vector2i.ZERO and absi(d.x) <= SCHAUT_KACHELN and absi(d.y) <= SCHAUT_KACHELN and held_still < LANGWEILIG
 
 # 416.8: dem Helden zuwenden (spiel.gd sprich)
 func wende_zu() -> void:
-	if zugewandt_bis == 0: blick_vorher = blick
+	if zugewandt_bis == 0 and not schaut: blick_vorher = blick
 	zugewandt_bis = Time.get_ticks_msec() + int(ZUGEWANDT * 1000)
 
 # dreht a hoechstens um schritt auf b zu (feste Rate statt lerp: grosse Wenden dauern laenger, kleine bleiben weich)

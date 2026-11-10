@@ -28,11 +28,15 @@ const FOE_HALF_M := 1.2         # Wölfe sind lang: mit 0,9 klebten sie aneinand
 const NEAR_M := 1.0
 const ALONE_HERO_B := 0.35
 const BACK_GAP_A := 2.4          # 0,8 wie alt; der Wolf hinten stand im Rumpf des vorderen (Prüfer Runde 7); 1,6: Pfoten im Bild auf dem Ohr des rechten vorderen (Prüfer 25.10. Runde 10; Tiefe wirkt im Bild wenig, 2,4 m: 16 px Luft)
-const BACK_GAP_B := -1.0
+const BACK_GAP_B := -2.0         # 567 (Chef 04.11., Build 257): mit −1,0 stand der hintere im Bild genau hinter dem rechten vorderen, jetzt mittig dahinter (tests/abstand_567.gd)
 # einer vorn, zwei hinten (Grimmzahn Runde 7): vorn 0,3 m nach rechts, hinten 1 m zurück, 0,45 m weiter auseinander und 0,85 m
 # nach links (Grimmzahn hinten rechts lief sonst über den Bildrand); gemessen: Deckung der Wache 36 % → 1 %
 const SOLO_BACK_A := 0.6       # 438: einer vorn, einer hinten: hinten 0,6 m weiter zurück und 1,3 m zur Seite
-const SOLO_BACK_B := -1.3
+# 567 (Chef 04.11., 17:00–17:15, Build 257: zwei Goblins, zwei Wölfe „fast übereinander“): −1,3 nach links hob die Schräge der
+# 30°-Linie auf, der hintere stand im Bild 10 dp neben dem vorderen, Füße auf dessen Kopfhöhe (72 % Deckung). Jetzt der vordere
+# 0,7 m nach links, der hintere 0,6 m nach rechts: wieder 1,3 m quer (438, Wölfe nicht ineinander), im Bild 126 dp, 6–9 %
+const SOLO_BACK_B := 0.6
+const SOLO_FRONT_B := -0.7
 const PAIR_FRONT_B := 0.3
 const PAIR_BACK_A := 1.0
 const PAIR_BACK_B := 0.45
@@ -66,6 +70,7 @@ var again_fn: Callable
 var cam: Camera3D
 var ui
 var figures := {}          # id -> Figur
+var fx_zahl := {}          # 494: wie oft je Art ein Effekt flog (Test spinne_494: Netz statt Pfeil)
 var shown := {}            # the last message played: hp, places, intents, queue, sp
 ## 296.2: the hero's experience before the fight, how far above the place he stands, the level cap (null: chapter's)
 var progress := {}
@@ -78,6 +83,14 @@ var tageszeit := "tag"
 ## 493: welcher Kampfort im Wald (kampfort_wald.py SPOT): lichtung, waldrand, teich, baum, felsen, steinkreis; fehlt sein Modell im
 ## Bau, die Lichtung
 var platz := "lichtung"
+## 527: Tempo aus dem Menue System (Bedienung.tempo_faktor; aufruf.gd setzt es, Proben und Tests bleiben bei 1): alle Bewegungen,
+## Wartezeiten und Zeilen des Kampfs laufen über Engine.time_scale so viel mal so lang, die Blende davor und der Reaktionsring nicht
+## (der Ring misst in Echtzeit)
+var tempo := 1.0
+var _tempo_an := false
+## 600 (Chef 05.11., t266: „Beschleunigungsknopf einbauen (analog Würfelergebnis oder Raster)“): im Spiel (aufruf.gd) ein Knopf neben
+## Würfel und Raster, der das Tempo aus dem Menü weiterschaltet; nicht in Proben und Tests (die setzen die Zeit selbst)
+var tempo_knopf := false
 const PLAETZE := ["lichtung", "waldrand", "teich", "baum", "felsen", "steinkreis"]
 
 
@@ -147,6 +160,7 @@ func setup(party: Array, foes: Array, p_tables: Dictionary, potions: Dictionary,
 	# NORMAL, AMBUSHED Gegner zuerst, HERO_FIRST Held zuerst)
 	mars = Mars.new(party, foes, tables, dice, words, lang, bool(p_progress.get("atemlos", false)), String(p_progress.get("eroeffnung", "NORMAL")))
 	mars.fed = bool(p_progress.get("satt", false))
+	mars.smoke = int(p_progress.get("rauch", 0))     # D4.1, 494: Morwens Rauchbündel gegen Krogg (aufruf.gd lage „rauch“)
 	for k in potions:
 		mars.potions[k] = int(potions[k])
 	mars.listener = func(e): _post({"say": e})
@@ -169,6 +183,7 @@ func _ready() -> void:
 	shown = _state_now()
 	for fig in figures.values():
 		fig.snap_to(_spot_pos(fig.fighter, shown.places[fig.fighter.id]))
+	_umriss_messen.call_deferred()
 	get_viewport().size_changed.connect(_fit_camera)
 	_fit_camera()
 	ui.refresh()
@@ -181,12 +196,37 @@ func _ready() -> void:
 		zufall.randomize()
 		var kb := Kampfblende.new(String(progress.get("eroeffnung", "NORMAL")), Kampfblende.lage(mars), zufall)
 		verhuellt = true
-		kb.geht.connect(func(): verhuellt = false)
+		kb.geht.connect(func():
+			verhuellt = false
+			_tempo_setzen())
 		ebene.add_child(kb)
+	else:
+		_tempo_setzen()
 	_run(func(): mars.start(_react))
 
 
+## 600: Ruhig, Normal, Schnell wie im Menü (Bedienung.tempo), gilt sofort, bleibt gespeichert; während der Blende erst, wenn sie geht
+func tempo_wechseln() -> void:
+	Bedienung.tempo = (Bedienung.tempo + 1) % 3
+	Bedienung.speichere()
+	tempo = Bedienung.tempo_faktor()
+	if verhuellt:
+		return
+	Engine.time_scale = 1.0 / tempo
+	_tempo_an = true
+
+
+func _tempo_setzen() -> void:
+	if is_equal_approx(tempo, 1.0) or tempo <= 0.0:
+		return
+	Engine.time_scale = 1.0 / tempo
+	_tempo_an = true
+
+
 func _exit_tree() -> void:
+	if _tempo_an:
+		Engine.time_scale = 1.0
+		_tempo_an = false
 	if worker and worker.is_started():
 		ring_sem.post()
 		worker.wait_to_finish()
@@ -458,6 +498,7 @@ var eye := 6.0
 var horizon_y := 0.0
 
 func _fit_camera() -> void:
+	var g_alt := _ground(0, 0)     # 494 (Prüfer 512b, 573): Tote rücken nur mit dem Boden, nie auf ihren Platz
 	var vs := get_viewport().get_visible_rect().size
 	var sr := scene_rect()
 	var w := sr.size.x
@@ -478,7 +519,10 @@ func _fit_camera() -> void:
 	if forest:
 		forest.position = _ground(0, 0)
 	for fig in figures.values():
-		fig.snap_to(_spot_pos(fig.fighter, shown.places[fig.fighter.id]))
+		if fig.dead_at >= 0:     # 573: wer gefallen ist, bleibt liegen, wo er fiel (Krogg sprang am Ende 1,5 m, Grak 2,9 m)
+			fig.snap_to(fig.position + _ground(0, 0) - g_alt)
+		else:
+			fig.snap_to(_spot_pos(fig.fighter, shown.places[fig.fighter.id]))
 
 
 ## 249: Zoom und Ruck des Schlags in [hit] wie im alten MARS: in 110 ms (tödlich 220) heran, so lange der Halt dauert
@@ -625,7 +669,7 @@ func _pivot_range(p: Vector2, z: float, k: float, lo: Vector2, hi: Vector2, only
 			continue
 		var foot := _near_of(fig.position)
 		var top := _near_of(fig.head())
-		var wolf: bool = fig.fighter.monster != null and fig.fighter.monster.id == Mars.WOLF
+		var wolf: bool = Figur.vier(fig.fighter)
 		var w: float = (top.y - foot.y) * (0.8 if wolf else 0.45)
 		for q in [Vector2(foot.x - w, foot.y), Vector2(foot.x + w, top.y)]:
 			# sichtbar bei Zoom z um c: lo ≤ c + (q - c)·z … umgestellt nach c
@@ -682,6 +726,78 @@ func _stand(foe: bool, back: bool, slot: int, alone: bool) -> Vector2:
 
 
 func _spot_pos(f, spot: Vector2i) -> Vector3:
+	var ab := _spot_ab(f, spot)
+	# 587 (Läufe 275/276, groesse_587: mit 1,3-fach stand die Riesenspinne hinten 0,22 m im Wolf vorn; Grimmzahn 0,84 m im Wolf
+	# hinten): wer hinten steht, weicht den Umrissen der vorderen aus (Wölfe des Rudels reichen schon, bleiben wie 438)
+	if f.side == "FOES" and spot.x == Mars.BACK:
+		ab = _ausweichen(f, ab)
+	return _ground(ab.x, ab.y)
+
+
+const AUSWEICH_LUFT := 0.08     # 587: Meter zwischen den Umrissen
+## 587: rückt ab (a in die Tiefe, b zur Seite) so weit, dass der Umriss von f am Boden (wie groesse_587: Kasten im Raum) keinen
+## vorderen Gegner deckt: zur Seite oder nach hinten, je nachdem, was weniger weit ist
+func _ausweichen(f, ab: Vector2) -> Vector2:
+	var b := _umriss(f)
+	if b.size == Vector2.ZERO:
+		return ab
+	var vorn := []
+	for o in mars.fighters():
+		if o != f and o.side == "FOES" and shown.places.has(o.id) and shown.places[o.id].x == Mars.FRONT and _present(o):
+			var a := _umriss(o)
+			if a.size != Vector2.ZERO:
+				var ao := _spot_ab(o, shown.places[o.id])
+				var g := _ground(ao.x, ao.y)
+				vorn.append(Rect2(a.position + Vector2(g.x, g.z), a.size).grow(AUSWEICH_LUFT / 2.0))
+	if vorn.is_empty():
+		return ab
+	var frei := func(q: Vector2) -> bool:
+		var g := _ground(q.x, q.y)
+		var r := Rect2(b.position + Vector2(g.x, g.z), b.size).grow(AUSWEICH_LUFT / 2.0)
+		for v in vorn:
+			if r.intersects(v):
+				return false
+		return true
+	if frei.call(ab):
+		return ab
+	var w := 0.05
+	while w <= 4.0:
+		for q in [ab + Vector2(0.0, w), ab + Vector2(0.0, -w), ab + Vector2(w, 0.0)]:
+			if frei.call(q):
+				return q
+		w += 0.05
+	return ab
+
+
+## 587: nach den ersten Bildern die Umrisse der Gegner messen (dann stimmen sie, wie groesse_587 und wolf_mess_438 sie lesen) und
+## wer hinten steht und noch daheim ist, an die Stelle setzen, die den vorderen ausweicht
+const UMRISS_NACH := 10
+func _umriss_messen() -> void:
+	for i in UMRISS_NACH:
+		await get_tree().process_frame
+		if not is_inside_tree():
+			return
+	for fig in figures.values():
+		if fig.fighter.side == "FOES" and fig.visible:
+			fig.footprint()
+	for fig in figures.values():
+		var f = fig.fighter
+		if f.side == "FOES" and shown.places.has(f.id) and shown.places[f.id].x == Mars.BACK and fig.position.distance_to(fig.home) < 0.01:
+			fig.snap_to(_spot_pos(f, shown.places[f.id]))
+
+
+## 587: Umriss einer Figur am Boden als Kasten im Raum um ihren Ursprung (x, z; figur.gd footprint, wie groesse_587), leer ohne Figur
+func _umriss(f) -> Rect2:
+	# Lauf 284 (Kaufwölfe 15,6 m „ineinander“): früh gefragt, vor dem ersten Bild, merkt sich die Figur einen falschen Umriss;
+	# darum nur, wenn er schon da ist (_umriss_messen)
+	if f == null or not figures.has(f.id) or not figures[f.id].is_inside_tree() or not figures[f.id]._foot_ok:
+		return Rect2()
+	var fig = figures[f.id]
+	var bb: AABB = Transform3D(fig.global_transform.basis, Vector3.ZERO) * fig.footprint()
+	return Rect2(bb.position.x, bb.position.z, bb.size.x, bb.size.z)
+
+
+func _spot_ab(f, spot: Vector2i) -> Vector2:
 	var alone := _alone(f, spot.x)
 	var ab := _stand(f.side == "FOES", spot.x == Mars.BACK, spot.y, alone)
 	# a foe alone in the back behind two in front stands between and behind them, not hidden behind the right one
@@ -693,6 +809,8 @@ func _spot_pos(f, spot: Vector2i) -> Vector3:
 	# dann schräg versetzt wie das Paar hinten (PAIR_BACK_*), um eine Wolfslänge
 	elif f.side == "FOES" and spot.x == Mars.BACK and alone and _count(Mars.FRONT, "FOES") == 1:
 		ab = Vector2(ab.x + SOLO_BACK_A, SOLO_BACK_B)
+	elif f.side == "FOES" and spot.x == Mars.FRONT and alone and _count(Mars.BACK, "FOES") == 1:
+		ab.y += SOLO_FRONT_B
 	# 348.7 Grimmzahn Runde 7 (Prüfer Runde 6: „Wolf auf Wolf“, „zweiköpfiger Wolf“): einer allein vorn vor zweien hinten stand
 	# im Bild genau vor dem linken hinteren (37 % verdeckt); vorn ein Stück nach rechts, hinten weiter auseinander und zurück
 	if f.side == "FOES" and _alone(null, Mars.FRONT, "FOES") and not _alone(null, Mars.BACK, "FOES") and _count(Mars.FRONT, "FOES") == 1:
@@ -702,7 +820,7 @@ func _spot_pos(f, spot: Vector2i) -> Vector3:
 			ab.x += PAIR_BACK_A
 			ab.y += PAIR_BACK_B * (-1.0 if spot.y == 0 else 1.0)
 			ab.y += PAIR_BACK_SHIFT
-	return _ground(ab.x, ab.y)
+	return ab
 
 
 func _alone(f, row: int, side := "") -> bool:
@@ -739,11 +857,13 @@ func foe_scale(f) -> float:
 
 
 func _foe_scale(f) -> float:
-	if f.monster.id == Mars.WOLF:
+	if Figur.vier(f):
 		if Figur.ersatz().begins_with("kauf_"):     # 387: gekaufte Tiere (kauftier.py) in echter Größe wie im Kauf
 			return 1.0
 		return FOE_SIZE * WOLF_SIZE * ART_SIZE.get(Figur.ersatz(), 1.0)
-	if f.monster.id in [Mars.CALLED, Mars.SCOUT, Mars.GRAK]:     # 348.7: Goblin in echter Größe (goblin.py), im Bild wie FoeArt (PX 0,66 wie BeastArt, Held 0,75); 348.12 Grak ebenso
+	if Figur.eigene_haut(f):
+		return 1.0     # 494 Riesenspinne (kaufspinne.py, Spannweite 1,69 m wie LISTE-FIGUREN): echte Größe wie die Kauftiere, nicht 1,5-fach
+	if Mars.koerper_of(f.monster) in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG]:     # 348.7: Goblin in echter Größe (goblin.py), im Bild wie FoeArt (PX 0,66 wie BeastArt, Held 0,75); 348.12 Grak ebenso
 		return FOE_SIZE * WOLF_SIZE
 	return FOE_SIZE
 
@@ -789,16 +909,36 @@ func go_on() -> void:
 	_run(func(): mars.proceed(_react))
 
 
-## 272 (Testmodus): gewinnen oder verlieren sofort; läuft der Kampf noch, gilt es, sobald er wartet (SkirmishScreen endAsked)
+## 272 (Testmodus): gewinnen oder verlieren sofort; läuft der Kampf noch, gilt es, sobald er wartet (SkirmishScreen endAsked).
+## 545 (Chef 05.11., 19:2x: „der Knopf erst greift, wenn Held am Zug -> muss vorher wirken“): läuft der Kampf, überspringt er den
+## Rest (_skip_beats), statt jeden Zug der Gegner abzuspielen; so gilt der Knopf gleich, auch wenn der Held nicht am Zug ist
 var end_asked = null
 func test_end(win: bool) -> void:
 	if mars.outcome != "ONGOING":
 		return
 	if busy:
 		end_asked = win
+		if ring_open:
+			_answer_ring(Mars.GOOD)
 		return
 	end_asked = null
 	_run(func(): mars.test_end(win))
+
+
+## 545: der Rest des laufenden Zugs ohne Bild: Worte fallen weg, Ringe gelten als gut (der Held fällt dabei nicht unnötig),
+## am Ende („done“) wirkt der Knopf (_done)
+func _skip_beats() -> void:
+	beats_lock.lock()
+	var rest := beats.duplicate()
+	beats.clear()
+	beats_lock.unlock()
+	for x in rest:
+		if x.has("ring"):
+			ring_answer = Mars.GOOD
+			ring_sem.post()
+		elif x.has("done"):
+			_done()
+			return
 
 
 func tap() -> void:
@@ -825,7 +965,7 @@ func _state_now() -> Dictionary:
 		hp[f.id] = f.hp
 		places[f.id] = f.place
 		sp[f.id] = f.sp
-	return {"hp": hp, "places": places, "intents": mars.intents.duplicate(), "queue": mars.queue(), "sp": sp, "status": mars._statuses()}
+	return {"hp": hp, "places": places, "intents": mars.intents.duplicate(), "queue": mars.queue(), "sp": sp, "status": mars._statuses(), "hidden": mars._hidden()}
 
 
 # ---------------------------------------------------------------- playing the beats one after another
@@ -838,6 +978,9 @@ func _process(_dt: float) -> void:
 	if ring_open and Time.get_ticks_msec() > ring_start + RING_MS + GOOD_MS + 60:
 		_answer_ring(Mars.NONE)
 	if playing or verhuellt:     # 402: unter der Blende warten Worte und Züge
+		return
+	if end_asked != null:
+		_skip_beats()
 		return
 	beats_lock.lock()
 	var b = beats.pop_front() if not beats.is_empty() else null
@@ -856,7 +999,13 @@ func _process(_dt: float) -> void:
 
 func _play_say(e: Dictionary) -> void:
 	var before: Dictionary = shown.hp
+	if OS.get_environment("DBGPL") != "" and absf(clock_ms / 1000.0 - float(OS.get_environment("DBGPL"))) < 4.0:
+		print("PL %.1f actor %s cue %s text %s places %s" % [clock_ms / 1000.0, e.actor, e.cue, String(e.text).left(50), e.places])
 	shown = e
+	# 566: wer im Schatten steht, ist nur schwach zu sehen (figur.gd im_schatten)
+	var im_schatten: Dictionary = e.get("hidden", {})
+	for id in figures:
+		figures[id].im_schatten(im_schatten.has(id))
 	for f in mars.fighters():
 		# called to the fight (Rudel rufen); the rules' thread may already hold one this message does not know yet
 		if not figures.has(f.id) and e.places.has(f.id):
@@ -875,6 +1024,12 @@ func _play_say(e: Dictionary) -> void:
 	if across and (e.roll != null or e.spell != null or e.cue == "DUCKED"):
 		lunge_ms = figures[actor].strike(figures[target], e)
 		busy_ms = figures[actor].busy_ms
+	# 717.1 A (Chef 09.11., 09:03/09:06; F8): Zurechtrücken beginnt im Zug der Gegner und darf in den Zug des Helden hinein auslaufen,
+	# nie erst dort anfangen: was im Zug des Helden umgestellt wurde (glide_to merkt es vor), rückt mit dem nächsten Zug der Gegner
+	if by != null and by.side == "FOES":
+		for fid in figures:
+			if fid != actor or lunge_ms == 0:
+				figures[fid].zurueck_in_reihe()
 	for id in e.intents:
 		var aimed: Array = e.intents[id][1]
 		figures[id].announce(e.intents[id][0], figures.get(aimed[0]) if aimed.size() > 0 else null)
@@ -905,8 +1060,10 @@ func _play_say(e: Dictionary) -> void:
 	# 348.7 (Rest aus 249, BattleFxLayer): Zauber und Pfeile fliegen sichtbar, auch daneben; der Treffer fällt, wenn sie ankommen
 	var fx = _fx_of(e, by, tg, across)
 	if fx != null:
-		var step: float = ui.cast(fx, actor, target, _crit(e), _missed(e) or e.cue == "DUCKED")
-		lands = int(step + Zauber.arrives(fx))
+		fx_zahl[fx] = int(fx_zahl.get(fx, 0)) + 1
+		var los: float = maxf(0.0, float(figures[actor].netz_los_ms)) if fx == "WEB" else 0.0     # 494: das Netz fliegt mitten im Netzwurf los
+		var step: float = ui.cast(fx, actor, target, _crit(e), _missed(e) or e.cue == "DUCKED", los)
+		lands = int(step + los + Zauber.arrives(fx))
 		busy_ms = maxi(busy_ms, figures[actor].busy_ms)     # 348.7b: Seitenschritt hin und zurück
 	# 438 (Prüfer Film 08:18: Würfelzeile, Schaden und Leiste 0:07,9, der Wolf trifft den Helden erst 0:09,7): Meldung, Würfel,
 	# Lebensleisten und Bedienfeld erst beim Aufschlag (DESIGN-ABNAHME: „Bewegung zuerst, dann eine einzige Textzeile mit Ausgang
@@ -929,7 +1086,7 @@ func _play_say(e: Dictionary) -> void:
 		_zeigen(e)
 	# 399.3: Klang der Meldung wie MarsSound.kt, der Treffer, wenn er im Bild landet (nur mit dem Autoload Klang der Spielfassung)
 	var klang = get_node_or_null("/root/Klang")
-	if klang != null:
+	if klang != null and not e.get("klang_vorweg", false):     # 296.3: schon mit der Zeile vorweg gespielt
 		klang.kampf(e, mars, lands if lunge_ms > 0 or fx != null else -1)
 	for id in e.hp:
 		if not figures.has(id):
@@ -945,7 +1102,10 @@ func _play_say(e: Dictionary) -> void:
 		elif target == id and _missed(e) and across and figures[id].blockt():
 			# 406.2: gelungene Abwehr nach der Seite des Angreifers, gegen tiefe Gegner tief
 			var af = figures.get(actor)
-			figures[id].abwehr(lands, art, af.global_position if af != null else Vector3.INF, true, af != null and af.niedrig())
+			var von := Vector3.INF     # 662: vom Platz, an dem der Angriff ankommt, nicht von dort, wo er losläuft
+			if af != null:
+				von = to_global(af.angriff_von) if af.angriff_von != Vector3.INF else af.global_position
+			figures[id].abwehr(lands, art, von, true, af != null and af.niedrig())
 		elif target == id and _missed(e) and across:
 			# 438 (Prüfer Film r2: Klinge durch Wolf 2 ohne Treffer): wer ausweicht, ist schon weg, wenn der Hieb ankommt
 			figures[id].dodge(maxi(0, lands - AUSWEICH_VOR_MS) if lunge_ms > 0 and fx == null else lands)
@@ -990,16 +1150,27 @@ func _play_say(e: Dictionary) -> void:
 		await get_tree().create_timer(maxi(0, tot_ms - fall_ms) / 1000.0).timeout
 		warte_ms = 0
 	for f in mars.fighters():
-		if figures.has(f.id) and e.places.has(f.id) and not f.fled:     # 399.2a: wer flieht, kommt nicht an seinen Platz zurück
+		# 573 (Chef 04.11., 20:33: „wenn jemand tot ist, bitte nicht mehr die Position verändern“; der letzte Jungwolf wurde nach dem
+		# Haken „ich gewinne“ tot in die Mitte gezogen, tote_573): wer keine Trefferpunkte mehr hat, bleibt liegen, wo er fiel
+		if figures.has(f.id) and e.places.has(f.id) and not f.fled and f.hp > 0:     # 399.2a: wer flieht, kommt nicht an seinen Platz zurück
 			var ziel := _spot_pos(f, e.places[f.id])
 			if warte_ms > 0 and f.id != actor and not figures[f.id].home.is_equal_approx(ziel):
-				get_tree().create_timer(warte_ms / 1000.0).timeout.connect(figures[f.id].glide_to.bind(ziel))
+				get_tree().create_timer(warte_ms / 1000.0).timeout.connect(figures[f.id].glide_to.bind(ziel, by != null and by.side == "FOES"))
 			else:
-				figures[f.id].glide_to(ziel)
+				figures[f.id].glide_to(ziel, by != null and by.side == "FOES")
+	# 717 C: beim Platztausch kommt der neue Platz des einen vor dem des anderen; erst wenn alle Plätze dieser Meldung stehen, rücken
+	# die Vorgemerkten (im Zug der Gegner)
+	if by != null and by.side == "FOES":
+		for fid in figures:
+			figures[fid].zurueck_in_reihe()
 	if tot_ms > 0:
 		await get_tree().create_timer(maxi(SAY_MS, maxi(lunge_ms, busy_ms) - tot_ms) / 1000.0).timeout
 		return
-	await get_tree().create_timer(maxi(NACHTRAG_MS if _nur_nachtrag(e) else SAY_MS, maxi(lunge_ms, busy_ms)) / 1000.0).timeout
+	# 751 (Chef 09.11., 14:00: „manchmal verschwindet das einfach alles“; haenger_751: je Biss 8 s „…“): lunge_ms ist die Zeit bis zum
+	# Treffer geteilt durch 0,42 und wuchs mit dem Anlauf weit über die Bewegung hinaus; ein Gegner meldet seine wirkliche Dauer
+	# (busy_ms, ohne das Zurechtrücken, das in den Zug des Helden auslaufen darf, F8)
+	var dauer := busy_ms if busy_ms > 0 and by != null and by.side == "FOES" else maxi(lunge_ms, busy_ms)
+	await get_tree().create_timer(maxi(NACHTRAG_MS if _nur_nachtrag(e) else SAY_MS, dauer) / 1000.0).timeout
 
 
 ## Zeile, Bedienfeld und Würfel einer Meldung (438: beim Aufschlag, sonst sofort); vorweg Gezeigtes nicht noch einmal
@@ -1018,6 +1189,12 @@ func _todesmeldung_vorweg(e: Dictionary) -> void:
 		if b.has("say") and b.say.get("cue") == "FOE_FALLS" and e.hp.get(b.say.get("target"), 1) <= 0 and not b.say.get("vorweg", false):
 			b.say["vorweg"] = true
 			ui.log_line(b.say.text)
+			# 296.3 (Chef 08.11., 21:28, t270.11: Geheul „3 Sekunden zu spät“): Klang der Zeile (Sturz, Todesschrei) mit ihr, nicht
+			# erst, wenn die Meldung nach dem Liegen dran ist
+			var klang = get_node_or_null("/root/Klang")
+			if klang != null:
+				b.say["klang_vorweg"] = true
+				klang.kampf(b.say, mars)
 	beats_lock.unlock()
 
 
@@ -1068,7 +1245,7 @@ func _missed(e: Dictionary) -> bool:
 
 ## Kritisch nur bei einem Angriff mit der 20 (eine 20 beim Rettungswurf zählte bisher auch)
 func _crit(e: Dictionary) -> bool:
-	return e.roll != null and e.roll[0] == "ATTACK" and e.roll[4] and e.roll[1] == 20
+	return Mars.ist_krit(e.roll)     # 478: auch nach dem BRS
 
 
 ## Welcher Effekt zu einer Meldung gehört (BattleFx.kt FLYING, Battle.kt weaponFx): der Zauber, der gerade wirkt, auf sein Ziel;
@@ -1078,7 +1255,12 @@ func _fx_of(e: Dictionary, by, tg, across: bool):
 		return null
 	if e.spell != null and (across or e.spell in ["HEAL", "BLESS"]):
 		return e.spell
-	if across and e.roll != null and by.ranged():
+	if across and e.roll != null and by.monster != null and by.monster.id == Mars.SPIDER:
+		var fs = figures.get(String(by.id))     # 494: nur der Netzwurf fliegt (Figur.strike), sonst beißt sie
+		return "WEB" if fs != null and fs.netz_los_ms >= 0 else null
+	# 601 (Chef 05.11., Build 266: „Bei Fehlschuss mit Bogen ist gar kein Pfeil zu sehen“): duckt sich das Ziel (MSG130_DUCKS, ohne
+	# Wurf), schoss der Späher (Figur.strike) ohne Pfeil; jetzt fliegt er daneben wie alt (BattleFx, DUCKED als Fehlschuss)
+	if across and (e.roll != null or e.cue == "DUCKED") and by.ranged():
 		return "ARROW"
 	return null
 
@@ -1106,6 +1288,7 @@ func _done() -> void:
 	if end_asked != null and mars.outcome == "ONGOING":
 		test_end(bool(end_asked))
 		return
+	end_asked = null     # 545: schon vorher entschieden (Held fiel im übersprungenen Rest)
 	if mars.outcome == "WON" and reward.is_empty():
 		# 399.2: Ausrüstung als Beute (Loot.drops) würfelt die Welt, die Held und Tasche kennt (progress „beute“, aufruf.gd)
 		var beute: Callable = progress.get("beute", Callable())

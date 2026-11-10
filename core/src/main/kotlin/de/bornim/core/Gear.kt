@@ -389,11 +389,19 @@ object Uniques {
             listOf(Roll(Affix.DEX, 1), Roll(Affix.BLEED_HIT, 15), Roll(Affix.HP, 6))),
         "cloak_protection" to Unique(T("Umhang des Schutzes", "Cloak of Protection"), "cloak", Rarity.RARE, 0,
             listOf(Roll(Affix.AC, 1), Roll(Affix.RESIST, 1))),
+        // 356.2 (356 b, Chef 24.10., 21:33: „übliche Werte“): Lohn der Aufträge, ungewöhnlich, ein Wert wie ein gezogenes Stück
+        // (Loot.value bei Stufe 1 bis 4); Namen [356.pelzumhang], [356.hauerdolch]
+        "cloak_thessa" to Unique(T("Thessas Pelzumhang", "Thessa's Fur Cloak"), "cloak", Rarity.UNCOMMON, 0,
+            listOf(Roll(Affix.RESIST, 1))),
+        "dagger_borin" to Unique(T("Borins Hauerdolch", "Borin's Tusk Dagger"), "dagger", Rarity.UNCOMMON, 0,
+            listOf(Roll(Affix.BLEED_HIT, 10))),
     )
 
     fun name(id: String): T = all[id]?.name ?: T(id, id)
     /** 390: for the texts of the Godot game (TextExport). */
     fun rarity(id: String): Rarity = all.getValue(id).rarity
+    /** 542: the whole piece for the Godot game (TextExport), so Aldric's ring arrives there as gear, not as a thing. */
+    fun get(id: String): Unique = all.getValue(id)
     val ids: Set<String> get() = all.keys
     fun exists(id: String) = id in all
     fun make(id: String, uid: Long, ilvl: Int): Gear {
