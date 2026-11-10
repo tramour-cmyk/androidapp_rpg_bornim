@@ -139,12 +139,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 878 | M | Von Jerry zu 854: godot.yml-Entwurf Kaufcache ansehen, ja oder Änderung | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 825 (ansehen) |
 | Pflege | K | von Werkzeug (340.3, 10.11.): 16682 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 78, Muss 65, startbar 28, PAUSE bis 13.11., 20:00 Uhr
+**Jerry** – offen 78, Muss 65, startbar 27, PAUSE bis 13.11., 20:00 Uhr
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 854 | M | Gebaute Kaufmodelle im Kaufrepo ablegen, nur bei Änderung neu bauen statt je Sitzung über | Chef (Datei in der Chefsache) |
-| 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | startbar |
+| 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | ruht |
 | 751 | M | Kampf: Knopfleiste des Helden manchmal leer („…“), keine Menüfunktion, auch ohne „ganzer B | startbar |
 | 406.2 | M | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) | startbar |
 | 642 | M | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 | ruht |
