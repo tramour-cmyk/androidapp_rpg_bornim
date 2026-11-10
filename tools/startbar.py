@@ -706,7 +706,8 @@ def main():
                 print("| %s | %s | %s | %s |" % (nr, kl, re.sub(r"\*\*|`|\|", "", thema)[:90].strip(), grund or "startbar"))
             print()
             continue
-        if p and pause_frei(inhalt): p += ", frei für " + ", ".join(pause_frei(inhalt))  # 870.17
+        frei = pause_frei(inhalt) if p else []
+        if frei: p += ", frei für " + ", ".join(frei)  # 870.17
         if p: print("  %s: PAUSE bis %s%s" % (rolle, p, warn))  # Zahlen und Testzählung laufen weiter
         erstes = {"M": None, "K": None, "N": None}
         sperren = []
@@ -716,6 +717,7 @@ def main():
                 if erstes["N"] is None: erstes["N"] = (nr, kl, thema)
                 continue
             if b: sperren.append((nr, b)); continue
+            if frei and not ist_frei(nr, frei): sperren.append((nr, "Pause, nicht frei")); continue  # 889 (D146.1)
             art_ = "M" if kl == "M" else "K"
             if erstes[art_] is None: erstes[art_] = (nr, kl, thema)
         if rolle in UEBERNAHME:
@@ -725,7 +727,7 @@ def main():
         def kurz(e):
             if not e: return "–"
             return "%s %s%s" % (e[0], re.sub(r"\*\*|`", "", e[2])[:70], (" ↑ Muss: %s wartet" % ", ".join(fremd_wartend()[e[0]])) if e[0] in fremd_wartend() else "")
-        if not p: print("  %s: Muss %s | Kür %s%s%s" % (rolle, kurz(erstes["M"]), kurz(erstes["K"]), (" | nach dem Meilenstein " + kurz(erstes["N"])) if erstes["N"] else "", warn))
+        if not p or frei: print("  %s: Muss %s | Kür %s%s%s" % (rolle, kurz(erstes["M"]), kurz(erstes["K"]), (" | nach dem Meilenstein " + kurz(erstes["N"])) if erstes["N"] else "", warn))
         if stand:
             print("      offen %d, Muss %d, startbar %d, gesperrt %d" % (len(zs), sum(1 for z in zs if z[1] == "M"), sum(1 for z in zs if not z[4]), len(sperren)))
         if alle:
