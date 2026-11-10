@@ -58,42 +58,43 @@ EN: Press and hold a sign to see what it does.
 
 ## Reiternamen (326)
 
-Überschrift groß über der Zeichenleiste: die vorhandenen Namen, ausgeschrieben und unverändert: Held, Tasche, Ausrüstung, Chronik, System, Test (EN: Hero, Bag, Equipment, Chronicle, System, Test)
+Überschrift groß über der Zeichenleiste: die vorhandenen Namen, ausgeschrieben und unverändert: Held, Tasche, Ausrüstung, Chronik, System, Test (EN: Hero, Bag, Equipment, Chronicle, System, Test). „Ausrüstung“ passt als Überschrift; gekürzt würde es nur in der alten Textleiste.
 
 ## Grundwerte im Reiter „Held“ (817)
 
-Homer 10.11.; ersetzt die SRD-Sätze aus `Perks.describe` (Ausfuhr `held.json` „erklaerung“, `menue.gd` 293; gleicher Wortlaut in `talente.gd` `describe`). Wörter nach `[423.werte]` und 683 (Schutzwert, Leben); Grundwert in Klammern = alter Schlüssel der Brücke `brs_held.gd` `ATTR_ALT`. **Nur, was der Code heute tut** (geprüft 10.11., 10:44, `godot` main 92b2f63f3); Platzhalter wie im Code. Gestrichen, weil es nirgends wirkt: Abwehr gegen Umwerfen, Wurfflaschen +Schaden, Abwehr gegen Netze, Schwächen erkennen, Lernen +Erfahrung, Abwehr gegen Flüche, Sicht im Nebel, Spirituelle Waffe. Kommt eine Wirkung dazu, kommt ihre Zeile mit.
+Homer 10.11.; ersetzt die SRD-Sätze aus `Perks.describe` (Ausfuhr `held.json` „erklaerung“, `menue.gd` 293; gleicher Wortlaut in `talente.gd` `describe`). Wörter nach `[423.werte]` und 683 (Schutzwert/Protection, Leben/Life); Grundwert in Klammern = alter Schlüssel der Brücke `brs_held.gd` `ATTR_ALT`. **Nur, was der Code heute tut** (normales Spiel, Schalter BRS478 aus; fremd geprüft 10.11., 10:48, `godot` main 92b2f63f3); Platzhalter wie im Code. Gestrichen, weil es nirgends wirkt: Abwehr gegen Umwerfen, Wurfflaschen +Schaden, Abwehr gegen Netze, Schwächen erkennen, Lernen +Erfahrung, Abwehr gegen Flüche, Sicht im Nebel, Spirituelle Waffe. Kommt eine Wirkung dazu, kommt ihre Zeile mit; rechnet der Kampf nach BRS (2.3), werden Nahkampf, Fernkampf, Schutzwert und Leben neu geschrieben.
 
-`[817.kopf]` Wert %d, Bonus %s / EN: Value %d, bonus %s
+`[817.kopf]` (Grundwert nach BRS, 3–9, nicht der SRD-Wert der Brücke) Wert %d / EN: Value %d
 
 `[817.kraft]` (STR)
-- Treffer und Schaden mit Nahkampfwaffen; leichte Klingen wie Dolch und Kurzschwert nehmen die Gewandtheit, wenn sie höher ist. / EN: Hit and damage with melee weapons; light blades such as dagger and shortsword use Agility if it is higher.
-- Schaden mit bloßen Fäusten. / EN: Damage with bare fists.
-- Schwere Rüstung ohne genug Kraft halbiert die Ausdauer. / EN: Heavy armor without enough Strength halves your stamina.
+- Treffer und Schaden mit Nahkampfwaffen; leichte Klingen (Dolch, Kurzschwert, Krummsäbel, Rapier) nehmen die Gewandtheit, wenn sie höher ist. / EN: Accuracy and damage with melee weapons; light blades (dagger, shortsword, scimitar, rapier) use Agility if it is higher.
+- Treffer und Schaden mit bloßen Fäusten. / EN: Accuracy and damage with bare fists.
+- Schwere Rüstung halbiert unter Kraft 7 die Ausdauer. / EN: Below Strength 7, heavy armor halves your stamina.
 
 `[817.gewandtheit]` (DEX)
 - Schutzwert ohne Rüstung, mit leichter und (bis +2) mittlerer Rüstung. / EN: Protection without armor, with light and (up to +2) medium armor.
-- Treffer und Schaden mit Fernwaffen und leichten Klingen. / EN: Hit and damage with ranged weapons and light blades.
+- Treffer und Schaden mit Fernwaffen und leichten Klingen. / EN: Accuracy and damage with ranged weapons and light blades.
 - Wer im Kampf zuerst handelt, und die Aussicht zu fliehen. / EN: Who acts first in combat, and your chance to flee.
-- Schleichen: jagende Monster bemerken dich erst ab %d Feldern (sonst 4). / EN: Sneaking: hunting monsters only notice you within %d tiles (normally 4).
+- Schleichen: jagende Monster bemerken dich erst auf %d Felder (sonst 4). / EN: Stealth: hunting monsters only notice you within %d tiles (normally 4).
 
 `[817.zaehigkeit]` (CON)
-- Leben je Stufe. / EN: Life per level.
-- Abwehrprobe gegen Gift, Betäubung und Blendung. / EN: Defense roll against poison, stunning and blinding.
+- Leben, auf jeder Stufe mehr. / EN: Life, more with every level.
+- Widerstand gegen Gift, Betäubung und Blendung. / EN: Resisting poison, stunning and blinding.
 - Gift und Blutung klingen nach dem Kampf %d Runden schneller ab. / EN: Poison and bleeding wear off %d rounds sooner after combat.
 - Mahlzeiten heilen +%d Leben. / EN: Meals heal +%d life.
-- Länger rennen: je Punkt Bonus zwei Sekunden mehr Ausdauer. / EN: Run longer: two more seconds of stamina per point of bonus.
+- Länger rennen: mehr Ausdauer, je höher der Wert. / EN: Run longer: more stamina the higher the value.
 
 `[817.verstand]` (INT)
-- (nur Zauberlehrling) Treffer und Stärke deiner Zauber; es zählt Verstand oder Wille, was höher ist. / EN: (Apprentice Mage only) Hit and power of your spells; Wits or Will counts, whichever is higher.
+- (nur Zauberlehrling) Treffer deiner Zauber und wie schwer man ihnen ausweicht. / EN: (Apprentice Mage only) Accuracy of your spells and how hard they are to dodge.
 - Alchemie: %s Aussicht auf einen zusätzlichen Trank beim Brauen. / EN: Alchemy: %s chance of an extra potion when brewing.
 
 `[817.wahrnehmung]` (WIS)
-- (nur Klosterschüler) Treffer, Stärke und Heilung deiner Zauber; es zählt Wahrnehmung oder Wille, was höher ist. / EN: (Cloister Pupil only) Hit, power and healing of your spells; Perception or Will counts, whichever is higher.
+- (nur Klosterschüler) Treffer deiner Zauber, wie schwer man ihnen ausweicht, und deine Heilung. / EN: (Cloister Pupil only) Accuracy of your spells, how hard they are to dodge, and your healing.
 - Hinterhalte: %s seltener. / EN: Ambushes: %s less often.
 - Kräuterkunde: %s Aussicht auf ein zusätzliches Kraut beim Pflücken. / EN: Herbalism: %s chance of an extra herb when picking.
 
 `[817.wille]` (CHA)
-- Handeln: %d %% günstiger einkaufen und %d %% teurer verkaufen. (negativ: %d %% teurer einkaufen und %d %% billiger verkaufen.) / EN: Haggling: buy for %d%% less and sell for %d%% more. (negative: buy for %d%% more and sell for %d%% less.)
-- Auftreten: %s Aussicht, dass ein gewöhnlicher Gegner eingeschüchtert zögert und seine erste Runde verliert (nie im Hinterhalt, nie bei einem Boss). / EN: Presence: %s chance that an ordinary foe hesitates, cowed, and loses its first round (never in an ambush, never against a boss).
-- (Zauberlehrling, Klosterschüler) zählt für deine Zauber, wenn er höher ist als Verstand oder Wahrnehmung. / EN: (Apprentice Mage, Cloister Pupil) counts for your spells if it is higher than Wits or Perception.. „Ausrüstung“ passt als Überschrift; gekürzt würde es nur in der alten Textleiste.
+- `[817.wille.handeln.plus]` Handeln: %d %% günstiger einkaufen und %d %% teurer verkaufen. / EN: Haggling: buy for %d%% less and sell for %d%% more.
+- `[817.wille.handeln.minus]` (Bonus negativ) Handeln: %d %% teurer einkaufen und %d %% billiger verkaufen. / EN: Haggling: buy for %d%% more and sell for %d%% less.
+- Auftreten: %s Aussicht, dass ein gewöhnlicher Gegner eingeschüchtert zögert und seine erste Runde verliert (nie im Hinterhalt, nie ein Boss). / EN: Presence: %s chance that an ordinary foe hesitates, cowed, and loses its first round (never in an ambush, never a boss).
+- (Zauberlehrling, Klosterschüler) zählt statt Verstand bzw. Wahrnehmung, wenn er höher ist. / EN: (Apprentice Mage, Cloister Pupil) counts instead of Wits or Perception respectively, if it is higher.
