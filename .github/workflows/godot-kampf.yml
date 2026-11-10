@@ -1,7 +1,7 @@
 name: Godot Kampf (348.7)
 
 # 348.7 (Jerry): Regeln von MARS in GDScript gegen die aufgezeichneten Kämpfe aus dem Kotlin-Kern prüfen
-(godot/tests/mars_regeln.gd; der Vergleich mit Kotlin, mars_golden, fiel mit 870.5). Läuft nur auf Jerrys Umzugszweigen; das Spiel-APK baut Toms Workflow (348.6).
+# (godot/tests/mars_regeln.gd; der Vergleich mit Kotlin, mars_golden, fiel mit 870.5). Läuft nur auf Jerrys Umzugszweigen; das Spiel-APK baut Toms Workflow (348.6).
 on:
   push:
     branches: ["claude/jerry-348-**"]

@@ -14,13 +14,10 @@ var failed := 0
 
 func _init() -> void:
 	tables = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
-	# 89.2 (c): fighter level 3 with two weapons: Attack 2 blows, Action Surge 3 (SRD: two actions, one bonus action)
+	# 870.5 (870a 3 A): ein Schlag je Angriff; Extra-Angriff, Tatendrang und Zweiwaffenkampf entfallen (vorher 89.2 c)
 	_check("ein Schwert, Angriff", _blows(false, [], ["attack"]), 1)
-	_check("zwei Waffen, Angriff", _blows(true, [], ["attack"]), 2)
-	_check("zwei Waffen, Tatendrang", _blows(true, [], ["use", "ACTION_SURGE"]), 3)
-	_check("ein Schwert, Tatendrang", _blows(false, [], ["use", "ACTION_SURGE"]), 2)
-	_check("Stufe 5, zwei Waffen, Angriff", _blows(true, ["EXTRA_ATTACK"], ["attack"]), 3)
-	_check("Stufe 5, zwei Waffen, Tatendrang", _blows(true, ["EXTRA_ATTACK"], ["use", "ACTION_SURGE"]), 5)
+	_check("zwei Waffen, Angriff", _blows(true, [], ["attack"]), 1)
+	_check("Stufe 5 mit Extra-Angriff, zwei Waffen", _blows(true, ["EXTRA_ATTACK"], ["attack"]), 1)
 	_check("zwei Waffen, Armbrust gezogen", _blows(true, [], ["attack"], true), 1)
 	# 702 C (Chef 09.11., 06:56): angesprungen steht der Held in seinem Zug auf und handelt gleich, nur ohne Platzwechsel
 	_anspringen_702()
@@ -163,7 +160,7 @@ func _flight() -> void:
 	r.start()
 	if r.current().id == "hero":
 		r.act(["flee"])
-	_check_s("Schurke (Gerissenheit)", r.outcome, "FLED" if "CUNNING_ACTION" in rogue.skills else "ONGOING")
+	_check_s("Schurke ohne Gerissenheit (870.5)", r.outcome, "ONGOING")
 	var b = _fight(sheet, ["hobgoblin_captain"], 1)
 	_check_s("Flucht vor Grak", str(b.can_flee(b.by_id("hero"))), "false")
 

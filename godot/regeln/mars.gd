@@ -139,7 +139,7 @@ const GOOD := "GOOD"
 const PERFECT := "PERFECT"
 const SHARE := {"NONE": 1.0, "GOOD": 0.5, "PERFECT": 0.0}
 
-## Whom a move is aimed at (72.10a.3).
+## Whom a move is aimed at (72.10a.3); die Kampfhandlungen stehen in HANDLUNG_ZIEL (ziel_von).
 const AIM := {
 	"FIRE_BOLT": "FOE", "MAGIC_MISSILE": "FOE", "SCORCHING_RAY": "FOE", "SACRED_FLAME": "FOE", "FEINT": "FOE", "ACTION_SURGE": "FOE",
 	"FIREBALL": "ROW", "BURNING_HANDS": "ROW", "SECOND_WIND": "SELF", "BLESS": "SELF", "CURE_WOUNDS": "ALLY",
@@ -148,6 +148,27 @@ const AIM := {
 const FX := {
 	"FIRE_BOLT": "FIRE_BOLT", "MAGIC_MISSILE": "MISSILES", "SCORCHING_RAY": "RAYS", "FIREBALL": "FIREBALL", "BURNING_HANDS": "BURNING_HANDS",
 	"SACRED_FLAME": "SACRED_FLAME", "CURE_WOUNDS": "HEAL", "SECOND_WIND": "HEAL", "BLESS": "BLESS",
+}
+
+## 870.5 (870a 3 A, DESIGN-BRS.md 7): Kampfhandlungen hängen an Fertigkeiten (werte.json „handlungen“, Zahlen dort, A mit 444 Teil 7);
+## frei ab dem Rang in „ab“, Kraft schöpfen für alle; Waffenhandlungen nur mit einer Waffe ihrer Gruppe in der Hand, Schildwall nur
+## mit Schild. Kennung -> Name in werte.json; Namen im Spiel Homer [870.14.hand.*] (STORY-BRS-KOENNEN.md). Wehrhaltung ist nicht
+## frei (444 Teil 7 ohne Wirkung, Chef entscheidet). Extra-Angriff, Tatendrang, Zweiwaffenkampf und die übrigen Klassenfähigkeiten
+## entfallen; Zauber bleiben bis zu ihrem eigenen Teil.
+const HANDLUNG := {
+	"H_KRAFT": "Kraft schöpfen", "H_FINTE": "Finte", "H_HINTERHALT": "Stich aus dem Hinterhalt", "H_WUCHT": "Wuchtschlag",
+	"H_ABSTAND": "Auf Abstand", "H_SCHAEDEL": "Schädelstoß", "H_GRIFF": "Griff", "H_SCHILDWALL": "Schildwall",
+	"H_RUHIG": "Ruhige Hand", "H_DURCH": "Durchschlag", "H_ZWEI": "Zwei auf einmal",
+}
+const HANDLUNG_NAME := {
+	"H_KRAFT": ["Kraft schöpfen", "Draw Strength"], "H_FINTE": ["Finte", "Feint"], "H_HINTERHALT": ["Stich aus dem Hinterhalt", "Ambush Stab"],
+	"H_WUCHT": ["Wuchtschlag", "Crushing Swing"], "H_ABSTAND": ["Auf Abstand", "Hold at Bay"], "H_SCHAEDEL": ["Schädelstoß", "Skull Knock"],
+	"H_GRIFF": ["Griff", "Grapple"], "H_SCHILDWALL": ["Schildwall", "Shield Wall"], "H_RUHIG": ["Ruhige Hand", "Steady Hand"],
+	"H_DURCH": ["Durchschlag", "Punch Through"], "H_ZWEI": ["Zwei auf einmal", "Double Throw"],
+}
+const HANDLUNG_ZIEL := {
+	"H_KRAFT": "SELF", "H_FINTE": "SELF", "H_RUHIG": "SELF", "H_SCHILDWALL": "SELF", "H_HINTERHALT": "FOE", "H_WUCHT": "FOE",
+	"H_ABSTAND": "FOE", "H_SCHAEDEL": "FOE", "H_GRIFF": "FOE", "H_DURCH": "FOE", "H_ZWEI": "FOE",
 }
 
 
@@ -201,6 +222,14 @@ class Fighter:
 	var uses := {}
 	var blessed := false
 	var sneaked := false
+	## 870.5: die freien Kampfhandlungen (Kennungen aus HANDLUNG); Bonus des nächsten Schlags (Finte, Ruhige Hand); Haltungen bis zum
+	## eigenen nächsten Zug (Auf Abstand, Schildwall); wer ihn im Griff hält; hat in diesem Kampf schon geschlagen (Hinterhalt)
+	var handlungen: Array = []
+	var naechster := 0.0
+	var abstand := false
+	var schildwall := false
+	var gegriffen_von := ""
+	var geschlagen := false
 	var held := false
 	var prone := false
 	var waited := false
@@ -240,12 +269,6 @@ class Fighter:
 	func spare():
 		return main_weapon() if drawn else second
 
-	## 89.2 (c): the light weapon in the other hand, while the main one is in hand (SRD: two-weapon fighting).
-	func off_hand():
-		if hero == null or drawn or hero.get("off") == null or main_weapon() == null:
-			return null
-		return hero.off
-
 	func ranged() -> bool:
 		var w = weapon()
 		return (w != null and w.ranged) or (monster != null and (monster.id == "goblin_archer" or monster.id == "giant_spider"))
@@ -258,7 +281,7 @@ class Fighter:
 		return monster != null and monster.boss
 
 	func has(skill: String) -> bool:
-		return hero != null and skill in hero.skills
+		return hero != null and (skill in hero.skills or skill in handlungen)
 
 	func level() -> int:
 		return int(hero.level)
@@ -421,6 +444,7 @@ func _brs_kaempfer(f: Fighter) -> void:
 		f.srd_hp = f.max_hp
 		f.hp = clampi(roundi(float(f.hp) * mx / maxf(1.0, f.max_hp)), 1 if f.hp > 0 else 0, mx)
 		f.max_hp = mx
+		_brs_handlungen(f)
 	elif f.monster != null:
 		f.b = BrsKampf.gegner(f.monster, monsters.get(String(f.monster.id), {}))
 		assert(not f.b.is_empty(), "870.5: kein Gegner %s in werte.json" % String(f.monster.id))
@@ -430,6 +454,51 @@ func _brs_kaempfer(f: Fighter) -> void:
 		f.srd_hp = f.max_hp
 		f.hp = clampi(roundi(float(f.hp) * mx / maxf(1.0, f.max_hp)), 1 if f.hp > 0 else 0, mx)
 		f.max_hp = mx
+
+
+## 870.5: von den Klassenfähigkeiten bleiben nur die Zauber (bis zu ihrem Teil); dazu die Kampfhandlungen, die seine Fertigkeiten
+## freigeben (werte.json „handlungen“: „alle“ oder Fertigkeit ab „ab“); Kraft schöpfen „je_kampf“ mal
+func _brs_handlungen(f: Fighter) -> void:
+	f.hero = (f.hero as Dictionary).duplicate()
+	f.hero.skills = (f.hero.get("skills", []) as Array).filter(func(s): return skills.has(s) and String(skills[s].cost) in ["SPELL_POINTS", "NONE"])
+	for s in f.uses.keys():
+		if not (s in f.hero.skills):
+			f.uses.erase(s)
+	var H: Dictionary = BrsKampf.w().get("handlungen", {})
+	f.handlungen = []
+	for id in HANDLUNG:
+		var h = H.get(HANDLUNG[id])
+		if not (h is Dictionary):
+			continue
+		var frei: bool = bool(h.get("alle", false)) or (h.get("fertigkeit") != null and int(f.b.fert.get(String(h.fertigkeit), 0)) >= int(h.get("ab", 0)))
+		if frei:
+			f.handlungen.append(id)
+			if h.has("je_kampf"):
+				f.uses[id] = int(h.je_kampf)
+	for id in HANDLUNG:
+		if not skills.has(id):
+			var cost := "PER_BATTLE" if id == "H_KRAFT" else "HANDLUNG"
+			skills[id] = {"id": id, "de": HANDLUNG_NAME[id][0], "en": HANDLUNG_NAME[id][1], "cost": cost, "amount": 1, "cls": "", "level": 0}
+
+
+static func ziel_von(s: String) -> String:
+	return HANDLUNG_ZIEL.get(s, AIM.get(s, ""))
+
+
+## 870.5: Werte einer Kampfhandlung (werte.json „handlungen“)
+func _hw(id: String) -> Dictionary:
+	return BrsKampf.w().get("handlungen", {}).get(HANDLUNG.get(id, ""), {})
+
+
+## 870.5: die Handlung passt zu dem, was [f] in der Hand hat (Waffengruppe, Schild)
+func _handlung_passt(f: Fighter, id: String) -> bool:
+	var fert = _hw(id).get("fertigkeit")
+	if fert == null:
+		return true
+	if fert == "Schild":
+		return bool(f.b.get("schild", false)) and not f.drawn
+	var w = f.weapon()
+	return BrsKampf.waffe_held(f.b, w if w != null else f.hero.main, w != null and w != f.main_weapon()) == String(fert)
 
 
 ## 478: Schaden und Heilung, die noch in Würfeln des SRD rechnen, im Verhältnis der Leben des Getroffenen (brs_kampf.gd, Annahme)
@@ -595,6 +664,9 @@ func moves(f: Fighter) -> Array:
 	for s in skills.keys():
 		if s in f.hero.skills and AIM.has(s):
 			out.append(s)
+	for s in f.handlungen:     # 870.5
+		if _handlung_passt(f, s):
+			out.append(s)
 	return out
 
 
@@ -613,7 +685,11 @@ func blocked(f: Fighter, s: String):
 
 
 func aim_at(f: Fighter, s: String) -> Array:
-	match AIM.get(s, ""):
+	if s == "H_HINTERHALT":     # 870.5: nur der erste eigene Schlag oder gegen einen Überraschten
+		return targets(f).filter(func(x): return not f.geschlagen or surprised.has(x.id))
+	if HANDLUNG_ZIEL.get(s) == "FOE":
+		return targets(f)
+	match ziel_von(s):
 		"FOE":
 			if (s == "FEINT" or s == "ACTION_SURGE") and not _feints_past(f, s):
 				return targets(f)
@@ -658,6 +734,9 @@ func _auto_order(f: Fighter) -> Array:
 			if friend == null or float(x.hp) / x.max_hp < float(friend.hp) / friend.max_hp:
 				friend = x
 	var can := moves(f)
+	var kraft := _hw("H_KRAFT")
+	if "H_KRAFT" in can and blocked(f, "H_KRAFT") == null and f.hp < f.max_hp * float(kraft.get("unter", 0.5)):     # 870.5
+		return ["use", "H_KRAFT", f.id]
 	if friend != null and "CURE_WOUNDS" in can and blocked(f, "CURE_WOUNDS") == null:
 		return ["use", "CURE_WOUNDS", friend.id]
 	var cantrip = null
@@ -924,6 +1003,12 @@ func _skip_to_choice(react: Callable) -> void:
 func _perform(f: Fighter, o: Array) -> void:
 	f.waited = o[0] == "wait"
 	f.cover_from = []
+	# 870.5: Haltungen und Griff halten bis zum eigenen nächsten Zug
+	f.abstand = false
+	f.schildwall = false
+	for x in all:
+		if x.gegriffen_von == f.id:
+			x.gegriffen_von = ""
 	match o[0]:
 		"wait":
 			_say(fmt(pick("MSG72_WAITS"), lang, [f.name(lang)]), f.id)
@@ -956,7 +1041,6 @@ func _perform(f: Fighter, o: Array) -> void:
 			var t := by_id(o[1])
 			assert(t in targets(f))
 			_attack_action(f, t)
-			_off_hand_attack(f, t)
 		"use":
 			assert(blocked(f, o[1]) == null)
 			var t = by_id(o[2]) if o.size() > 2 and o[2] != null else null
@@ -989,7 +1073,7 @@ func _use_skill(f: Fighter, s: String, t) -> void:
 			f.sp -= int(sk.amount)
 		"PER_BATTLE", "PER_REST":
 			f.uses[s] = f.uses[s] - 1
-	var spell: bool = sk.cost == "SPELL_POINTS" or sk.cost == "NONE"
+	var spell: bool = sk.cost == "SPELL_POINTS" or sk.cost == "NONE"     # Kampfhandlungen (870.5): „setzt … ein“ wie Fähigkeiten
 	_say(fmt(X.MSG72_CASTS if spell else X.MSG72_USES, lang, [f.name(lang), [sk.de, sk.en][lang]]), f.id)
 	casting = FX.get(s)
 	_cast(f, s, t)
@@ -997,18 +1081,10 @@ func _use_skill(f: Fighter, s: String, t) -> void:
 
 
 func _cast(f: Fighter, s: String, t) -> void:
+	if HANDLUNG.has(s):
+		_handlung(f, s, t)
+		return
 	match s:
-		"SECOND_WIND":
-			_heal(f, f, dice.roll(1, 10) + f.level())
-		"ACTION_SURGE":
-			# 89.2 (c): two Attack actions, each with Extra Attack, and the other hand once (bonus action, SRD)
-			var tt = _again(f, t, true)
-			for i in 2:
-				if outcome == "ONGOING" and tt != null:
-					tt = _attack_action(f, tt)
-			_off_hand_attack(f, tt if tt != null else t)
-		"FEINT":
-			_weapon_attack(f, t, true, not _feints_past(f, s))
 		"FIRE_BOLT":
 			_spell_attack(f, t, [_cantrip_dice(f), 10, 0])
 		"MAGIC_MISSILE":
@@ -1036,6 +1112,43 @@ func _cast(f: Fighter, s: String, t) -> void:
 		"BLESS":
 			f.blessed = true
 			_say(fmt(X.MSG72_BLESSED, lang, [f.name(lang)]), f.id, f.id)
+
+
+## 870.5: eine Kampfhandlung (werte.json „handlungen“, wie tools/sim444/handlungen.py duell)
+func _handlung(f: Fighter, s: String, t) -> void:
+	var h := _hw(s)
+	match s:
+		"H_KRAFT":
+			var n := mini(f.max_hp - f.hp, roundi(f.max_hp * float(h.get("heilung_anteil", 0.25))))
+			f.hp += n
+			_say(fmt(X.MSG72_HEALSSELF, lang, [f.name(lang), n]), f.id, f.id, 0, null, false, false, "HEAL")
+		"H_FINTE", "H_RUHIG":
+			f.naechster = float(h.get("naechster_treffer", 0))
+		"H_SCHILDWALL":
+			f.schildwall = true
+		"H_HINTERHALT":
+			_weapon_attack(f, t, false, true, null, {"schaden": float(h.get("schaden_faktor", 1.0))})
+		"H_WUCHT":
+			_weapon_attack(f, t, false, true, null, {"treffer": float(h.get("treffer", 0)), "schaden": float(h.get("schaden_faktor", 1.0))})
+		"H_ABSTAND":
+			f.abstand = true
+			_weapon_attack(f, t, false, true, null, {"treffer": float(h.get("treffer", 0))})
+		"H_SCHAEDEL":
+			var hp0: int = t.hp
+			_weapon_attack(f, t, false, true, null, {"treffer": float(h.get("treffer", 0))})
+			if t.hp < hp0 and outcome == "ONGOING" and t.standing() and dice.chance(float(h.get("betaeubt_chance", 0))):
+				_inflict(t, "STUN", int(h.get("betaeubt_zuege", 1)))
+		"H_GRIFF":
+			t.gegriffen_von = f.id
+			_weapon_attack(f, t, false, true, null, {"schaden": 0.5})
+		"H_DURCH":
+			_weapon_attack(f, t, false, true, null, {"ruestung": float(h.get("ruestung_anteil", 1.0))})
+		"H_ZWEI":
+			var tt = t
+			for i in int(h.get("wuerfe", 2)):
+				if outcome == "ONGOING" and tt != null:
+					_weapon_attack(f, tt, false, true, null, {"schaden": float(h.get("schaden_faktor", 1.0))})
+					tt = _again(f, tt, true)
 
 
 # 72.10a.7, 223, 203, 208: what the rows and stances do to an attack roll.
@@ -1142,27 +1255,16 @@ func _drink(f: Fighter, item: String, t: Fighter) -> void:
 		_say(fmt(X.MSG72_GIVES, lang, [f.name(lang), t.name(lang), nm, n]), f.id, t.id, 0, null, false, false, "DRINK")
 
 
-## The Attack action: one blow, a second with Extra Attack (Battle.attackAction, 89.2 c). Returns whom to strike next.
+## The Attack action: one blow (870.5: Extra-Angriff und Zweiwaffenkampf entfallen, 870a 3 A). Returns whom to strike next.
 func _attack_action(f: Fighter, t: Fighter, advantage := false, cover := true):
 	_weapon_attack(f, t, advantage, cover)
-	var tt = _again(f, t, true)
-	if f.has("EXTRA_ATTACK") and outcome == "ONGOING" and tt != null:
-		_weapon_attack(f, tt)
-		tt = _again(f, tt, true)
-	return tt
+	return _again(f, t, true)
 
 
-## 89.2 (c): the blow of the other hand after the Attack action, at whom still stands.
-func _off_hand_attack(f: Fighter, t: Fighter) -> void:
-	var w = f.off_hand()
-	var tt = _again(f, t, true) if w != null and outcome == "ONGOING" else null
-	if tt != null:
-		_weapon_attack(f, tt, false, true, w)
-
-
-## 870.5: ein Schlag mit der Waffe nur nach dem BRS (_brs_waffe)
-func _weapon_attack(f: Fighter, t: Fighter, advantage := false, cover := true, with_weapon = null) -> void:
-	_brs_waffe(f, t, advantage, cover, with_weapon)
+## 870.5: ein Schlag mit der Waffe nur nach dem BRS (_brs_waffe); [mod] einer Kampfhandlung: treffer (Prozentpunkte), schaden
+## (Faktor), ruestung (Anteil der Rüstung des Ziels)
+func _weapon_attack(f: Fighter, t: Fighter, advantage := false, cover := true, with_weapon = null, mod := {}) -> void:
+	_brs_waffe(f, t, advantage, cover, with_weapon, mod)
 
 
 ## 296.2: slowed or weakened, −2 on the attack each (the old fight).
@@ -1429,6 +1531,17 @@ func _lineup_attack(foe: Fighter, intent: Dictionary, aimed: Array, react: Calla
 
 func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := true, retarget := false) -> void:
 	var m: Dictionary = foe.monster
+	# 870.5 Schildwall: ein Gefährte daneben mit Schildwall fängt den Schlag (einmal, mit seiner Abwehr)
+	for x in all:
+		if x != t and x.side == t.side and x.standing() and x.schildwall and x.place.x == t.place.x and absi(x.place.y - t.place.y) == 1:
+			x.schildwall = false
+			t = x
+			break
+	# 870.5 Auf Abstand: wer ihn im Nahkampf angreift, läuft zuerst in die Spitze
+	if t.abstand and t.standing() and t.hero != null and String(foe.b.get("art", "nah")) == "nah":
+		_weapon_attack(t, foe, false, false, null, {"schaden": float(_hw("H_ABSTAND").get("gegenstoss_faktor", 0.5))})
+		if outcome != "ONGOING" or not foe.standing():
+			return
 	var mode := _row_mode(foe, t, true, -1 if retarget else 0, cover)
 	var e := _brs_auf_held(foe, t, intent, mode)     # 870.5: nur nach dem BRS
 	var success: bool = e.treffer
@@ -1531,6 +1644,8 @@ func _covered() -> Array:
 
 # 285: a pounce from the back row ends in front; the friend leapt over steps back into its place.
 func _leap_forward(foe: Fighter) -> void:
+	if foe.gegriffen_von != "":     # 870.5 Griff: kommt nicht vom Fleck
+		return
 	if foe.place.x != BACK:
 		return
 	var ahead := all.filter(func(x): return x.side == foe.side and x != foe and x.standing() and x.place.x == FRONT)
@@ -1714,7 +1829,7 @@ func _hurt(t: Fighter, full: int, by: String, text: String, roll = null, wound :
 ## 399.2a: when [leader] falls, those who follow it run (Packs.kt flee: one line for all, as in the old fight)
 func _pack_flees(leader: Fighter) -> void:
 	var first := true
-	for f in all.filter(func(x): return x.side == "FOES" and x.standing() and x.follows == leader.id):
+	for f in all.filter(func(x): return x.side == "FOES" and x.standing() and x.follows == leader.id and x.gegriffen_von == ""):     # 870.5 Griff
 		f.fled = true
 		intents.erase(f.id)
 		_say(str(f.monster.flee[lang]) if first and f.monster.has("flee") else "", null, f.id, 0, null, false, false, "FOE_FLEES")
@@ -1768,7 +1883,7 @@ func _brs_bonus(mode: int, w20: int) -> float:
 
 ## Held oder Söldner schlägt mit der Waffe: Fertigkeit der Waffengruppe gegen die Abwehr des Gegners, Schaden (Waffe + Grundwert)
 ## × (1 + Fertigkeit/100) × Stufenfaktor, kritisch nach Gewandtheit, minus Rüstung (sim.py kampf, Held handelt)
-func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapon) -> void:
+func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapon, mod := {}) -> void:
 	var mode := _row_mode(f, t, true, 1 if advantage else 0, cover)
 	var w = with_weapon if with_weapon != null else f.weapon()
 	var wsheet: Dictionary = w if w != null else f.hero.main
@@ -1781,8 +1896,12 @@ func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapo
 	var bonus := _brs_bonus(mode, _bless(f) - _penalty(f) + _fed(f))
 	if String(wd.get("art", "nah")) == "fern":
 		bonus += float(k["fernkampf_treffer_je_wahrnehmung"]) * float(f.b.werte.get("wahrnehmung", 0))
+	bonus += float(mod.get("treffer", 0.0)) + f.naechster     # 870.5: Kampfhandlung, Finte, Ruhige Hand
+	f.naechster = 0.0
+	f.geschlagen = true
+	grund *= float(mod.get("schaden", 1.0))
 	var e := BrsKampf.schlag(dice.rng, float(f.b.fert.get(gruppe, 0)), float(t.b.abwehr), grund, float(int(f.b.stufe) - int(t.b.stufe)),
-			float(t.b.ruestung), bonus, float(k["kritisch_prozent_je_gewandtheit"]) * float(f.b.werte.get("gewandtheit", 0)))
+			float(t.b.ruestung) * float(mod.get("ruestung", 1.0)), bonus, float(k["kritisch_prozent_je_gewandtheit"]) * float(f.b.werte.get("gewandtheit", 0)))
 	if held_immer_krit and f == lead() and e.treffer and not e.kritisch:     # Testmenü „Kritisch“
 		e.kritisch = true
 		e.schaden = float(BrsKampf.Brs.runde(float(e.schaden) * float(k["kritisch_faktor"])))
@@ -1799,9 +1918,6 @@ func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapo
 		return
 	var dmg := float(e.schaden) * float(t.b.get("schwaeche", {}).get(String(wd.get("typ", "")), 1.0))
 	var n := roundi(dmg)
-	if f.has("SNEAK_ATTACK") and (advantage or not f.sneaked):
-		n += _srd(t, dice.roll(maxi(1, f.level() / 2), 6))
-	f.sneaked = true
 	n = maxi(0, n - _srd(t, _weakness(f)) + _srd(t, _fed(f)))
 	_hurt(t, n, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), n]), info, true)
 	_life_steal(f, n)

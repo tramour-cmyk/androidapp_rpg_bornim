@@ -764,7 +764,7 @@ func _build_orders() -> void:
 				var skill: String = s
 				items.append(_button([sk.de, sk.en][lang] + extra, m.blocked(f, s) == null, func():
 					var reach: Array = m.aim_at(f, skill)
-					if Mars.AIM[skill] == "SELF":
+					if Mars.ziel_von(skill) == "SELF":
 						k.order(["use", skill, f.id])
 					elif reach.size() == 1:
 						k.order(["use", skill, reach[0].id])
@@ -776,7 +776,7 @@ func _build_orders() -> void:
 			var items := []
 			for tg in m.aim_at(f, pick_arg):
 				var row := ""
-				if Mars.AIM[pick_arg] == "ROW":
+				if Mars.ziel_von(pick_arg) == "ROW":
 					row = t("Reihe vorn: ", "Front row: ") if tg.place.x == Mars.FRONT else t("Reihe hinten: ", "Back row: ")
 				var id: String = tg.id
 				var skill: String = pick_arg
