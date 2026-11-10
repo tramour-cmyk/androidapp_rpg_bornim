@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [854a](entscheiden/854a-kaufcache-mischen.md) | **Muss** | B Werkzeuge | 10.11., 15:26 | am Rechner läuft es, 26 Sekunden statt 46 Minuten; zwei Freigaben fehlen | Jerry |
 | [870a](entscheiden/870a-brs-regelfragen.md) | **Muss** | E Kampf | 10.11., 15:12 | zwei Fragen offen; 7 willst du ausführlich besprechen, 8 ist deine Idee von 15:04 | Sokrates |
 
 ## Zu billigen
@@ -38,7 +39,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 653 | M | Halt für Waffen und Schilde einmal je Modell festlegen statt je Figur nachmessen: Griffpun | wartet auf 854 (startbar) |
+| 653 | M | Halt für Waffen und Schilde einmal je Modell festlegen statt je Figur nachmessen: Griffpun | wartet auf 854 (wartet) |
 | 663 | M | Klassische Steuerung ausbauen: Steuerkreuz und Funktionstasten ganz raus, nur Touch; Auswa | wartet auf Test/Build (gebaut) |
 | 470 | M | Bau BRS 1.1 Erschaffung (Wochenziel 02.11., Stufe 1) · Spike; „Neues Spiel“ umschalten ers | startbar |
 | 825 | M | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635 | wartet auf Test/Build (gebaut) |
@@ -139,11 +140,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | Pflege | K | von Werkzeug (340.3, 10.11.): 15816 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 878 | M | Von Jerry zu 854: godot.yml-Entwurf Kaufcache ansehen, ja oder Änderung | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 825 (ansehen) |
 
-**Jerry** – offen 79, Muss 65, startbar 30, PAUSE bis 13.11., 20:00 Uhr
+**Jerry** – offen 79, Muss 65, startbar 29, PAUSE bis 13.11., 20:00 Uhr
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 854 | M | Gebaute Kaufmodelle im Kaufrepo ablegen, nur bei Änderung neu bauen statt je Sitzung über | startbar |
+| 854 | M | Gebaute Kaufmodelle im Kaufrepo ablegen, nur bei Änderung neu bauen statt je Sitzung über | Chef (Datei in der Chefsache) |
 | 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | startbar |
 | 751 | M | Kampf: Knopfleiste des Helden manchmal leer („…“), keine Menüfunktion, auch ohne „ganzer B | startbar |
 | 406.2 | M | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) | startbar |
