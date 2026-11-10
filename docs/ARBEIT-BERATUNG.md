@@ -27,6 +27,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Zu 142** (17.–20.10. in Git): Fahrplan im vertraulichen [Dokument](https://claude.ai/artifact/D2DeY5N8yUcFjzRyW9RXWM); offen: Anschrift vor dem Zahlungsprofil
 
 ## Einzelheiten
+- **Zu 894, 895, von Perikles (Chef 10.11., 19:34 „894 A“, 19:36 „Ja, android.yml jetzt auf nur von Hand stellen … teilt es auch Sokrates mit“):** auf main: `godot.yml` baut von selbst bei Push auf `claude/build-**` (neuester bricht älteren ab); Version in Prüflisten 0.348.<n>; `android.yml` („Kotlin alt“) nur noch von Hand (895), ganz weg mit 870.10.
 - **Zu 873, von Tom (10.11., 14:32):** von `vorgang.py` beim Anlegen von 872 selbst erzeugt; die Systemlösung für den Griff ist 653 (Halt je Modell, abgenommen 14:22), 872 überträgt sie auf den Kampf. Vorschlag: mit Verweis auf 653 erledigen.
 
 
