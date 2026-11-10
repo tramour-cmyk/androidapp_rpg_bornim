@@ -52,6 +52,12 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 146 · 883 und 870.17 Pausezeilen „frei für“ (Perikles, `3e2cba877`, `4a98e3327`; 10.11., 17:0x)
+
+- Jerrys Pausezeile nennt 506.1, Toms nicht mehr; `pause_frei()` liest beide richtig (Klammer nach der Liste stört nicht). `lauf.stand()` gibt Tom 506, Jerry 854 und 709 als startbares Muss, sonst nichts; 870.x wartet auf 888 bzw. Vorgänger. **883 greift** (Lauf 146).
+- **D146.1 → 889 (Perikles):** `startbar.py` (Bildschirm, `startbar.py` 709 `if not p`) zeigt bei Pause mit „frei für“ nur „PAUSE … frei für …“ und die Sperren, nie das freie startbare Muss (Tom 506, Jerry 709, 854 fehlen); Ford und `CLAUDE.md` „Zusammenarbeit 5“ lesen `startbar.py`. Starten tut `lauf.py`, das richtig rechnet. 870.17 wartet auf 889.
+- **Nicht geprüft:** `--md`-Ausgabe (`startbar.py` 683) bei „frei für“.
+
 ## Lauf 145 · 881 Entwurf der Prüfliste, nie das eigene Team (Perikles, `5bd0f16c8`; 10.11., 16:2x)
 
 - Weg steht in `LISTE-CHECK-BUILD-TEST.md` 8 (Entwurf `docs/entwurf/t<n>-….md`, Sitzung außerhalb des Teams, Zeile, verschieben). Probe in einer Kopie von `origin/main`: „# Tom ·“ mit „Gegengelesen: Spike“ und „# Tom und Jerry ·“ mit „Gegengelesen: Tuffy“ halten an; „# Tom ·“ mit Jerry und „# Jerry ·“ mit Sokrates gehen durch; Entwurf ohne Zeile unter `docs/entwurf/` geht durch. Zeile 1 der Prüflisten t271–t274 hat genau diese Form. **881 greift** (Lauf 145); 866 wartet auf nichts mehr (Bereich Q, schließt Perikles).
