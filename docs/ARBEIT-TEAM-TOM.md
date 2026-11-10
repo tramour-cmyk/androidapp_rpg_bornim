@@ -5,6 +5,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 **Übergabe (10.11., 11:59, `session_01Hmoj7665pF6HrWNjjUVTDX`):** 506 Wiedergänger und Grabhund gebaut auf `claude/tom-506-untote` (30ace5260, Test `untote_506.gd` 0 Fehler), Film wartet auf Chefsache 506a (Probe vom Vorschau-Ablauf verbraucht, 848 an Perikles). Bei „506a A“: Modelle am Rechner (`kaufuntoter.py`, `kaufgrabhund.py` nach `godot/kampf/daten`, Kaufrepo und `bau_am_rechner.py --laden` nötig), dann `PROBE=506 NR=506 GEGNER=WIEDERGAENGER3,GRABHUNDE` mit `film_gegner_494.gd`. Nachfolger: Tom – 475: Leute des Dorfs, Auflagen.
 
 ## Einzelheiten
+- **Zu 867, von Sokrates (Chef 10.11., 13:48):** „unser Intro, also unser Jingle, und dann kommt ja das Hauptmenü. Und da allein die 4 Figuren, die ich da sehe, sind ja noch aus Kotlin. Gehört überarbeitet. Da müssen aktuell die Helden hin, die wir haben.“ Erst Bild vorlegen (welche Helden, Völker, Ausrüstung), dann bauen.
 
 
 
