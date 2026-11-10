@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 819 | Sammelbuild 273: alle fertigen Zweige beider Teams (Tom u. a. 762+471, 683, 506, 584; Jerry u. a. 532), Prüfliste ansehen/t273, build 273 --mit (Sperre 620.1 B: Tom 17, Jerry 8 ungetestet) | Tom | M | erledigt | – | claude/build-273 | 273 | E Oberfläche | 6,12 $ |
+| 825 | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635, 542, 543, 632; Jerry 593, 547, 597), Prüfliste ansehen/t<n>, build <n> --mit für jede Nummer (774) | Tom | M | startbar | – | – | – | E Technik | – |
 | 471 | Bau BRS 1.2 Fertigkeiten durch Tun (Wochenziel 02.11., Stufe 1) | Tom | M | zu testen | – | claude/spike-471-fertigkeiten | 273 | E Kampf | 7,86 $ |
 | 610 | Held im Dorf: Finger am Stab zucken ohne Unterlass (Schild auf dem Rücken) (Chef 07.11., t268) | Tom | M | zu testen, ohne Rückmeldung t272 | – | claude/tom-610-finger | – | E Figuren | 19,22 $ |
 | 522 | Build 249: Ausrüstung im Testmenü geändert (Schild gegeben), Held im Spiel ohne Schild (Chef 03.11., 23:33) | Tom | M | zu testen, ohne Rückmeldung t272 | – | claude/tom-522-waffen | – | E Oberfläche | – |
@@ -109,7 +109,7 @@
 | 756 | Gegenstände: wie Seltenheit, Abnutzung und übrige Merkmale bei anlegbarer Ausrüstung angezeigt werden (Chef 09.11., 14:23) | Tom | M | startbar, 756 A: Probebild Merkmale (Chef 17:46) | – | – | – | E Oberfläche | 20,48 $ |
 | 785 | Oberfläche einmal ganz gegen alt: jeder Schirm und jede Bedienung als eine Liste, jeder Unterschied ein Vorgang; 666, 669, 671, 711, 752 gehen darin auf (654 A, nach dem Kampf-Sollbild) | Tom | M | wartet, nach Kampf-Sollbild (654 A) | 784 | – | – | E Oberfläche | – |
 | 795 | BRS-Erschaffung, Platzwahl „Alle Spielstand-Plätze sind belegt“: noch Rahmen und Auslösen beim Drücken wie vor 700 (erschaffung_brs.gd 228–234; Helfer t272, 09.11.) | Tom | M | zu testen | – | claude/tom-795-platzwahl | 273 | E Oberfläche | – |
-| 804 | Dorf: Gras und Blumen aus dem Kit R9 (Gräser, Blumen, Wind, weicht dem Helden aus) statt halm.gdshader, Bilder/s nicht unter heute (Chef 09.11., 21:12, über Sokrates) · „jetzt“ 09.11., 21:12 | Tom | M | zu testen | – | claude/spike-804-gras | 273 | E Welt | – |
+| 804 | Dorf: Gras und Blumen aus dem Kit R9 (Gräser, Blumen, Wind, weicht dem Helden aus) statt halm.gdshader, Bilder/s nicht unter heute (Chef 09.11., 21:12, über Sokrates) · „jetzt“ 09.11., 21:12 | Tom | M | zu testen | – | claude/spike-804-gras | 273 | E Welt | 5,28 $ |
 | 698 | Grafikstufen im Systemmenü mit Effekten (Niedrig/Mittel/Hoch, Automatisch per Leistungstest; LISTE-IDEEN „Grafik-Einstellungen“, Chef 28.10., 08:31; 08.11., 19:46, zu 623) | Tom | M | startbar | 623 | – | – | E Technik | – |
 | 816 | Effekte Szene 1 Dorf am Abend nach LISTE-EFFEKTE (Reihenfolge 623.8): gedämpft, Bilder/s nie schlechter als heute, an 698 (623.8 A, Chef 09.11., 22:23) | Tom | M | startbar | 698 | – | – | E Welt | – |
 | 814 | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staub im Licht, Fußstaub, Fahne, Wind, Gras weicht aus, Federn; gedämpft, Bilder/s nie unter heute, an 698 (623.8 A, Chef 09.11., 22:23) | Tom | M | startbar | – | – | – | E Welt | – |
@@ -183,7 +183,6 @@
 | 786 | Klangliste alt gegen neu: je Anlass alt, neu, fehlt (654 A, als Drittes) | Jerry | M | startbar | 784 | – | – | E Klang | – |
 | 802 | Rest 211.14 (Kür, Tuffy): Held und Söldner gehen beim Wechsel statt 0,4 s zu gleiten (figur.gd glide_to ohne Wurzelweg) | Jerry | K | startbar | – | – | – | E Kampf | – |
 | 803 | Rest 211.14 (Kür, Tuffy): Gegner durch Antippen der Figur als Ziel wählen | Jerry | K | startbar | – | – | – | E Kampf | – |
-| 805 | Kampforte neu gestalten mit den Paketen: Gras und Blumen R9, Boden, Licht, Staub, damit es besser ausschaut; Bilder/s nicht unter heute (Chef 09.11., 21:12, über Sokrates) · „jetzt“ 09.11., 21:12 | Jerry | M | erledigt, doppelt: geht in 806 auf | – | – | – | E Kampf | – |
 | 811 | Von Perikles (800, 650.2 C1): Kommentar in godot/regeln/brs_kampf.gd Zeile 3 nennt DESIGN-SPIELSYSTEM-2-0-ENTWURF.md, Datei heißt seit 09.11. DESIGN-BRS.md; beim nächsten Commit dort mitziehen | Jerry | K | startbar | – | – | – | E Kampf | – |
 | 823 | Von Perikles (822, 745 A2): Abschnitt „## Checkliste“ in LISTE-MARS.md, je Regel zum Kampf eine Zeile oder Verweis (Balance nur Chef, 444 vor Zahlen, Messung vor Bau …); der Haken zeigt ihn beim ersten Commit unter godot/kampf/ und godot/regeln/ | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 824 | Kampf: Schurke ohne Schild geht beim Angriff kurz 3,4–3,8 m/s in „Gehen“ (Bewegung höchstens 1,6-fach), Füße rutschen; Messung angriff_562, Lauf 42707518605 (Jerry 10.11.) | Jerry | M? | startbar | – | – | – | E Kampf | – |
