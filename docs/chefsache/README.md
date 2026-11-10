@@ -16,11 +16,7 @@ Nichts offen.
 
 ## Anzusehen
 
-**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
-
-| Nr. | Was | Wer | Seit |
-|---|---|---|---|
-| [663](ansehen/663-touch.md) | Nur Touch: klassische Steuerung ganz raus | Tom | 10.11., 16:13 |
+Nichts offen.
 
 ## Zu tun
 
@@ -344,8 +340,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
-
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/663-touch.md
 
 Ohne Datei: 870a (Sokrates)
 
