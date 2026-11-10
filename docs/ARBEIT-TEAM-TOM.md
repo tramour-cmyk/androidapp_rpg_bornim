@@ -5,6 +5,16 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 **Übergabe (10.11., 11:59, `session_01Hmoj7665pF6HrWNjjUVTDX`):** 506 Wiedergänger und Grabhund gebaut auf `claude/tom-506-untote` (30ace5260, Test `untote_506.gd` 0 Fehler), Film wartet auf Chefsache 506a (Probe vom Vorschau-Ablauf verbraucht, 848 an Perikles). Bei „506a A“: Modelle am Rechner (`kaufuntoter.py`, `kaufgrabhund.py` nach `godot/kampf/daten`, Kaufrepo und `bau_am_rechner.py --laden` nötig), dann `PROBE=506 NR=506 GEGNER=WIEDERGAENGER3,GRABHUNDE` mit `film_gegner_494.gd`. Nachfolger: Tom – 475: Leute des Dorfs, Auflagen.
 
 ## Einzelheiten
+
+
+
+
+- **Zu 470, von Sokrates (Chef 10.11., 13:37: „470 passt“, Vorlage `ansehen/470-erschaffung.md` in Git):** Seite „Neues Spiel“ nach BRS abgenommen; t274.18 bestanden (13:34), umschalten ist frei (Spike).
+- **Zu 825, von Sokrates (t274 durch, Chef 13:34):** Ergebnis in `ansehen/t274-sammelbuild.md` (Git), Automatik B: 506, 540, 635 startbar, Rest erledigt.
+- **Zu 635, von Chef (Fund t274.13, Test Build 274, Automatik B):** nicht erreichbar: Lyra steht erst nach der Befreiung im Tempel; Sprung im Reiter „Test“ nötig
+- **Zu 540, von Chef (Fund t274.12, Test Build 274, Automatik B):** kein Text am Südrand
+- **Zu 540, von Chef (Fund t274.2, Test Build 274, Automatik B):** verweigert: „Es darf keine klassische Steuerung mehr geben.“ (663)
+- **Zu 506, von Chef (Fund t274.14, Test Build 274, Automatik B):** Skelette „völlig hyper, die wackeln ständig mit dem Schwert. Und auch noch ziemlich im Gleichklang und zappeln auf der Stelle … viel zu viel Bewegung“
 - **Zu 825, Test t274 (Chef 10.11., ab 12:48, über Sokrates; läuft):** ✓ 274.1 (die ganze Zeile lädt, Prüfzeile falsch), 274.3 (nur aus Unmut, verwies auf 274.2), 274.4 (aber „Muss ich immer das den alten Scheiß hier sehen?“, 470), 274.5–274.9, 274.10 (Kästen → 860), 274.11. ✗ 274.2 verweigert („Es darf keine klassische Steuerung mehr geben“, 663). ✗ 274.12 kein Text am Südrand (540; Test prüft nur den Text, Auslöser `spiel.gd` 419 nur über `_stoesst`, mit Touch auf dem Weg vermutlich kein Stoß; nachstellen, 334). ✗ 274.14 Skelette (506, 13:16): „völlig hyper, die wackeln ständig mit dem Schwert. Und auch noch ziemlich im Gleichklang und zappeln auf der Stelle … viel zu viel Bewegung“ (Ruhebewegung ruhiger, je Figur versetzt). 274.13 nicht prüfbar: Lyra erst nach der Befreiung (635; Sprung im Reiter „Test“ nötig). Lehre: Prüfzeile nie auf eine andere verweisen, nie Abgeschafftes, nur am Gerät Erreichbares.
 - **Zu 861, von Sokrates (Chef 10.11., 13:12, Bild Kampf, Held von hinten):** „Hat der Umhang wieder eine Beule oder immer noch …?“; 13:15 „die Handaxt oder so in der Hand und ein Schild“. Wölbung rechts unten am Rücken, nicht 656. Ursache mit Kämpfer, Handaxt, Schild im Kampfort nachstellen (334), Rückenansicht vorher/nachher.
 - **Zu 856, von Sokrates (Chef 10.11., 12:51, Bild t274):** „Passt vom Stil her überhaupt nicht mehr dazu … halb durchschimmernd … der Text kommt auch in einem Kasten … Beim Intro und Outro wahrscheinlich genauso.“ „Überspringen?“ mit Goldrahmen und gerahmten Knöpfen (`zwischenbild.gd` 445), Erzählzeile darunter gerahmt (Zwischenbild ist von 549a ausgenommen: Chef entscheidet). Teil von 785.
