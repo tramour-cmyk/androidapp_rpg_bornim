@@ -223,6 +223,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 14:32 10.11.: Startsperre 14:32 Start Sokrates (selbst; Neustart-Meldung 14:31, effort high, Chef 14:08)
 - 14:47 10.11.: Startsperre 14:47 Start Sokrates (selbst; Neustart-Meldung 14:46, effort high)
 - 14:48 10.11.: Startsperre 14:48 Start Diogenes (selbst; Neustart-Meldung 14:46, 614b5d38c)
+- 15:00 10.11.: Startsperre 15:00 Start Diogenes (selbst; Neustart-Meldung 14:59, 9c8b61394)
 - 14:31 10.11.: Marke Start-fehlt Diogenes 10.11.-14:25 (lauf.py)
 - 14:31 10.11.: Marke Start-fehlt Spike 10.11.-12:59 (lauf.py)
 - 14:31 10.11.: Marke Start-fehlt Tuffy 10.11.-14:25 (lauf.py)
