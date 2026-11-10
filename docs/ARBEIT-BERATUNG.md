@@ -2,7 +2,7 @@
 
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
-**Übergabe (10.11., 12:32, `session_01Hmoj79fAUPuc6okF3ES1CF`):** t274 nachgelesen (lag schon beim Chef): 274.9 und 274.18 auf „viermal“ geändert (1 Übung je Benutzung, Punkt braucht 2–4), Befund Zu 825 bei Tom, Telegram an den Chef. Stichprobe gegen `claude/build-274`: 274.4, 274.5, 274.12, 274.14, 274.16, 274.17 stimmig. Kosten auf: 620. Nachfolger: Sokrates – 620: Lagebild nach Test t274
+**Übergabe (10.11., 12:32, `session_01Hmoj79fAUPuc6okF3ES1CF`):** t274 nachgelesen (lag schon beim Chef): 274.9 und 274.18 auf „viermal“ geändert (1 Übung je Benutzung, Punkt braucht 2–4), Befund Zu 825 bei Tom, Telegram an den Chef. Stichprobe gegen `claude/build-274`: 274.4, 274.5, 274.12, 274.14, 274.16, 274.17 stimmig. Letzte Antwort (12:28, Chef 12:33 nachgefragt): 653 vorziehen, Waffenlage einmal je Modell (entschieden 08.11., bei Tom nie angefangen, Jerry baut darauf); gebaute Kaufmodelle im Kaufrepo ablegen statt je Sitzung 20 Min. neu bauen (Zu 653 bei Perikles); 506 an Tom zurück. Kosten auf: 620. Nachfolger: Sokrates – 620: Lagebild nach Test t274
 
 
 - **Zu 649 (Chef 10.11., 10:26, Frage, kein Umbau):** „wenn ich wissen will, wie ein Skelett ausschaut und welche Werte es hat und welches Netz es verwendet, dann würde ich da in unsere Figurenübersicht … gucken bei Skelett, weil da steht alles zu dem Skelett.“ Chef 10:56: „jetzt wirklich mal konsolidieren an einer Stelle“, vorher prüfen lassen, kein Zwischenschritt. Netze gehören zu 458. Befund und Vorlage 649a (beim Chef).
