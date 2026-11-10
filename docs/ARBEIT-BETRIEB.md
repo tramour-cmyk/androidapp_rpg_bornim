@@ -264,3 +264,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 17:41 10.11.: Startsperre 17:41 Start Tom (lauf.py)
 - 17:41 10.11.: Marke Start-fehlt Tom 10.11.-17:32 (lauf.py)
 - 17:41 10.11.: Marke Start-fehlt Tuffy 10.11.-17:32 (lauf.py)
+- 17:51 10.11.: Startsperre 17:51 Start Perikles (selbst; 264.1 „jetzt“ 17:20, Sokrates 17:50; alte Sitzung 235 Tsd. Token)
