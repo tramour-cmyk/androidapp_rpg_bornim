@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [709c](entscheiden/709c-wolfsangriff.md) | **Muss** | E Kampf | 10.11., 19:35 | Statt seitlich herum (bis 90°) gerade von vorn durch die Mitte; offen ist vor allem, was beim Treffer am Schild passiert. | Jerry |
 
 ## Zu billigen
 
@@ -140,13 +144,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 875 | M | Von Homer (857a A, Chef 10.11., 13:35): Fertigkeit Kräuterkunde heißt im Spiel Kräutersamm | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 470 (erschaffung) |
 | Pflege | K | von Werkzeug (340.3, 10.11.): 17385 Bytes (Grenze 15000), Erledigtes streichen | Pause, nicht frei |
 
-**Jerry** – offen 85, Muss 71, startbar 4, PAUSE bis 13.11., 20:00 Uhr, frei für 870.x, 709, 709.1, 854, 506.1, 506.2
+**Jerry** – offen 85, Muss 71, startbar 3, PAUSE bis 13.11., 20:00 Uhr, frei für 870.x, 709, 709.1, 854, 506.1, 506.2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 870.2 | M | Von Sokrates (870, Umzug BRS Schritt 2): Schnittstelle Held ↔ Kampf: BrsHeld.kampfblatt() | startbar |
 | 870.3 | M | Von Sokrates (870, Umzug BRS Schritt 3): Daten: werte.json einzige Quelle (Jungwolf, Leibw | startbar |
-| 709.1 | M | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar (aus 709 abgetrennt, Chef 10.11., | startbar |
+| 709.1 | M | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar (aus 709 abgetrennt, Chef 10.11., | Chef (Datei in der Chefsache) |
 | 506.2 | M | Grabhund-Biss reicht sichtbar bis zum Helden, nicht nur knapp an den Schild (von Sokrates, | startbar |
 | 854 | M | Gebaute Kaufmodelle im Kaufrepo ablegen, nur bei Änderung neu bauen statt je Sitzung über | wartet auf 888 (in Arbeit) |
 | 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | wartet auf Test (Build 275) |
