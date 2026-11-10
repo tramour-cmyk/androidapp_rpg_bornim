@@ -268,7 +268,7 @@ Die Bausteine unten gelten für alle drei Richtungen. Wo sie sich unterscheiden,
 
 **Was dafür warten muss:** Neue Monster für Kapitel 2 kommen erst nach Punkt 3, sonst bauen wir sie zweimal. Ebenso warten die Kampfhintergründe (**79**), weil Reaktion und Kulisse den Aufbau des Kampfbildes mitbestimmen.
 
-**Was sich am Regelwerk ändert:** Das SRD bleibt Gerüst für Werte und Würfel. Absicht, Takt-Reaktion und Wunden sind eigene Regeln, und jede Abweichung wird mit Grund in `DESIGN-BALANCE.md` festgehalten.
+**Was sich am Regelwerk ändert:** Das SRD bleibt Gerüst für Werte und Würfel. Absicht, Takt-Reaktion und Wunden sind eigene Regeln, und jede Abweichung wird mit Grund in `alt/DESIGN-BALANCE.md` festgehalten (seit 650.2 im BRS, `DESIGN-BRS.md`).
 
 ## Rückfragen zur Grundsatzentscheidung
 

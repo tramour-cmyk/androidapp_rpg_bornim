@@ -633,7 +633,7 @@ func _ort() -> void:
 	rat._face(h0 - start)
 	await warte.call(0.4)
 	zeig.call("Anlauf")
-	rat.glide_to(h0)
+	rat.glide_to(h0, true)
 	await warte.call(2.2)
 	# 387 r3 (Prüfer r2: Huhn rutscht beim Fressen über den Boden): Huhn und Kaninchen brauchen für 3 m 3,9–4,8 s, das Fressen begann
 	# nach 2,2 s mitten im Lauf; bis es angekommen ist, höchstens 8 s
@@ -712,7 +712,7 @@ func _ort_rest(rat, held, h0: Vector3, zeig: Callable, warte: Callable) -> void:
 	print("Ort Platzwechsel nach %.2f,%.2f, Luft %.2f m" % [pw.x, pw.z, luft])
 	# 387 Runde 2: bis es angekommen ist (Hundertfüßer 0,35 m/s; vorher fest 2,4 s), höchstens 9 s
 	for ziel in [pw, h0]:
-		rat.glide_to(ziel)
+		rat.glide_to(ziel, true)
 		await warte.call(0.6)
 		var bis: float = fight.clock_ms + 8400.0
 		while rat.tween and rat.tween.is_running() and fight.clock_ms < bis:

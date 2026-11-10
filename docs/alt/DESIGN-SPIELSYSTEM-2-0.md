@@ -391,7 +391,7 @@ Grundlage ist Entscheidung 16: Es gibt Erfahrung und daraus Heldenstufen. Das ve
 ### Erfahrungs-Baseline und Wiederkehr (Vorschlag zur Umsetzung von Entscheidung 19)
 
 **Ausgangslage im Code** (gelesen am 31.10.2026, Quellen im Repo):
-- Besiegte Gegner kehren laut `LISTE-UMZUG-348.md` nach 60 Schritten wieder (`Game.kt`, dort mit dem Vermerk „Grinden möglich“).
+- Besiegte Gegner kehren laut `LISTE-ABGLEICH-ALT.md` 6.3 nach 60 Schritten wieder (`Game.kt`, dort mit dem Vermerk „Grinden möglich“).
 - Es gibt Zufallsbegegnungen mit Begegnungstabellen und einmalige Bosse (zum Beispiel Krogg und Grak).
 - Eine Kapitel-Stufengrenze gibt es schon (`Story.levelCap`). Laut `DESIGN-BALANCE.md` lag die Höchststufe bei 20, mit etwa zwei Stufen je Kapitel in der Mitte. Diese Grenze fällt weg (Entscheidung 22).
 

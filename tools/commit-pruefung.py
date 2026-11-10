@@ -9,7 +9,7 @@ in entscheiden/, ansehen/ oder billigen/ stehen bleibt (383.3: wer die Antwort e
 Frage trotz Antwort offen, setzt er die Zeit in Zeile 1 oder 2 der Datei neu). Eine beantwortete Vorlage darf ohne Archivänderung weg.
 Neuer Archiveintrag zu einer Nummer aus der Spalte „Woher“ der Kennungen A–G ohne Änderung an DESIGN-STIL/-KAMPF/-ABNAHME (461b; Ausweg
 „461 unverändert“ im Eintrag); warnt bei geänderter alter Archivzeile und bei neuer Vorlage ohne berührte Kennung.
-Vorlage in docs/chefsache/ansehen/ mit „ohne Toon“, „Tusche fehlt“ u. ä. ohne Vergleich „mit Tusche“ (457, D56.1–2; Ausnahme „Chef erlaubt ohne Signatur“). Hält immer an (auch im Code): gekaufte Rohdatei (449: Kaufordner, Endung eines Kaufpakets, Inhalt wie im geklonten Kaufrepo). Warnt (Exit 0): Modellnamen, Zeilen über 1500 Zeichen. Fasst nur Notizen an; sonst Exit 0. Jeder Fehler im Haken lässt durch."""
+Vorlage in docs/chefsache/ansehen/ mit „ohne Toon“, „Tusche fehlt“ u. ä. ohne Vergleich „mit Tusche“ (457, D56.1–2; Ausnahme „Chef erlaubt ohne Signatur“). Hält immer an (auch im Code): gekaufte Rohdatei (449: Kaufordner, Endung eines Kaufpakets, Inhalt wie im geklonten Kaufrepo). Hält an: CLAUDE.md oder ROLLE-*.md über der Obergrenze (OBERGRENZE), die der Commit vergrößert (822). Warnt (Exit 0): Modellnamen, Zeilen über 1500 Zeichen. Fasst nur Notizen an; sonst Exit 0. Jeder Fehler im Haken lässt durch."""
 import datetime, os, re, subprocess, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -155,6 +155,23 @@ def checkliste():
         if m: aus.append("  %s. %s" % (m.group(1), re.sub(r"\*\*", "", m.group(2))))
     return "\n".join(aus)
 
+# 822 (745 A2 Schritt 4, Chef 09.11., 17:46): Wachstumsstopp; feste Obergrenze in Bytes je Regeldatei, Stand 09.11.
+# (nicht darunter; ROLLE-BERATUNG kürzt Sokrates selbst). Wer über der Grenze etwas hinzufügt, streicht im selben Commit
+# mindestens ebenso viel (Regelbilanz, Haltung 6). Grenze heben nur mit Vorgang beim Chef.
+OBERGRENZE = {"CLAUDE.md": 15000, "docs/ROLLE-BERATUNG.md": 19300, "docs/ROLLE-BETRIEB.md": 8700, "docs/ROLLE-ENTWICKLUNG.md": 13100,
+              "docs/ROLLE-KREATIV.md": 6000, "docs/ROLLE-PROJEKT.md": 13200, "docs/ROLLE-PRUEFUNG.md": 6800}
+
+def wachstum(dat):
+    """822: Regeldatei über ihrer Obergrenze, die der Commit vergrößert."""
+    if git("rev-parse", "-q", "--verify", "MERGE_HEAD").strip(): return []
+    aus = []
+    for s, p in dat:
+        if s == "D" or p not in OBERGRENZE: continue
+        neu, alt = len(git("show", ":" + p).encode()), len(git("show", "HEAD:" + p).encode())
+        if neu > OBERGRENZE[p] and neu > alt:
+            aus.append("%s: %d Bytes, Obergrenze %d, Commit fügt %d hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)" % (p, neu, OBERGRENZE[p], neu - alt))
+    return aus
+
 def main():
     ge = git("diff", "--cached", "--name-status", "--no-renames").splitlines()
     dat = [(l.split("\t")[0], l.split("\t")[1]) for l in ge if "\t" in l]
@@ -193,6 +210,8 @@ def main():
             stop.append("%s: Vorlage „%s“: jede Probe mit Toon-Licht und Tusche wie im Spiel (457, Chef 01.11., 11:49: „unsere Signatur muss "
                         "sich wiederfinden“); neu zeichnen, Ausnahme nur mit „Chef erlaubt ohne Signatur“ in der Zeile" % (datei, ohne_signatur(t)))
         if len(t) > 1500 and datei.startswith("docs/ARBEIT-"): warn.append("%s: Zeile über 1500 Zeichen" % datei)
+    try: stop += wachstum(dat)
+    except Exception as e: warn.append("Wachstumsstopp übersprungen: %s" % e)
     antwort = startbar.antworten(git("show", ":docs/VORGANGSARCHIV.md")) if arch else startbar.antworten()
     if arch:  # 383.3: neue Antwort im Archiv → Vorlage zur Nummer im selben Commit weg (oder Zeit neu, wenn die Frage offen bleibt)
         neu_k = {m.group(1).replace(".", "").lower() for z in git("diff", "--cached", "-U0", "--", "docs/VORGANGSARCHIV.md").splitlines()

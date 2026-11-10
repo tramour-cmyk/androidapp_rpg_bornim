@@ -22,6 +22,8 @@ func _init() -> void:
 	_check("Stufe 5, zwei Waffen, Angriff", _blows(true, ["EXTRA_ATTACK"], ["attack"]), 3)
 	_check("Stufe 5, zwei Waffen, Tatendrang", _blows(true, ["EXTRA_ATTACK"], ["use", "ACTION_SURGE"]), 5)
 	_check("zwei Waffen, Armbrust gezogen", _blows(true, [], ["attack"], true), 1)
+	# 702 C (Chef 09.11., 06:56): angesprungen steht der Held in seinem Zug auf und handelt gleich, nur ohne Platzwechsel
+	_anspringen_702()
 	# 296.2: getting away as in the old fight, never from a boss; who strikes first
 	_flight()
 	_openings()
@@ -84,9 +86,41 @@ func _blows(two: bool, extra: Array, order: Array, drawn := false) -> int:
 	for e in heard:
 		if e.actor == "hero" and e.roll != null and e.roll[0] == "ATTACK":
 			n += 1
-		elif e.actor != "hero" and n > 0:
+		elif e.actor != null and e.actor != "hero" and n > 0:     # 702 C: Zeilen ohne Täter (Blutung) zählen nicht als fremder Zug
 			break
 	return n
+
+
+## 702 C: Held gegen zwei Wölfe, die nur anspringen; jeder Zug ein Angriff. Gezählt: wie oft er aufsteht, wie oft er danach
+## gleich wählen darf (am Zug, ohne Platzwechsel), Zeilen mit „Zug verloren“.
+func _anspringen_702() -> void:
+	var sheet: Dictionary = tables.probe.FIGHTER.hero.hero.duplicate(true)
+	var skills := {}
+	for s in tables.skills:
+		skills[s.id] = s
+	var wolf := _monster("wolf")
+	var hero := Mars.hero_fighter("hero", "PARTY", Vector2i(Mars.FRONT, 0), sheet, 999, sheet.second, skills)
+	var foes := [Mars.monster_fighter("w1", Vector2i(Mars.FRONT, 0), wolf, 999), Mars.monster_fighter("w2", Vector2i(Mars.FRONT, 1), wolf, 999)]
+	var mars = Mars.new([hero], foes, tables, Wuerfel.new(11), Wuerfel.new(11))
+	var heard := []
+	mars.listener = func(e): heard.append(e)
+	mars.start()
+	var auf := 0
+	var gleich := 0
+	var verloren := 0
+	for i in 30:
+		if mars.outcome != "ONGOING":
+			break
+		for e in heard:
+			if e.actor == "hero" and e.cue == "RISES":
+				auf += 1
+				if mars.current() == hero and not mars.can_swap(hero):
+					gleich += 1
+			if e.has("text") and ("Zug verloren" in str(e.text) or "turn lost" in str(e.text)):
+				verloren += 1
+		heard.clear()
+		mars.act(["attack", mars.targets(hero)[0].id])
+	_check_s("Anspringen 702 C: aufgestanden, gleich am Zug ohne Platzwechsel, Zug verloren", "%s %s %d" % [auf > 0, auf == gleich, verloren], "true true 0")
 
 
 func _monster(id: String) -> Dictionary:

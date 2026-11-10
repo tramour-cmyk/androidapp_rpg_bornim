@@ -37,6 +37,34 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Geschlossen laut Nachprüfung oder Spur: D61.2, D62.1, D63.1–D63.6, D64.1, D65.1, D67.1, D68.1, D68.2, D69.1, D70.1, D71.1, D71.2, D74, D76.1, D76.2, D77.1, D77.2, D78.2, D79, D80.1–D80.7, D81.1, D81.2 (mit 275.2), D82, D83, D84, D84.2, D85, D86.2 (Hinweis an mich), D88.1 (685), D89, D90.1–D90.3 (686), D93.
 
+## Lauf 125 · 800 Nachprüfung 813 (Perikles, `23064823b`; 10.11., 00:0x)
+
+**Greift.** `regelcheck.py` (Z. 177) nimmt Pfade relativ zu `docs/` und `docs/chefsache/`; die drei Fehlalarme aus D123.1 (`kapitel2/STORY-K2-ENTWURF.md`, `kapitel2/STORY-PLAN-K2.md`, `chefsache/README.md`) sind weg. Übrige Meldungen „fehlende Datei“ sind echte tote Verweise aus der Zeit vor 800 (beantwortete Chefsachen, ruhende Vorräte), nicht Teil des Auftrags. 800 erledigt; der Absatz „Zu 800“ in `ARBEIT-PROJEKT.md` steht noch (Perikles räumt).
+
+## Lauf 124 · 796 Nachprüfung 808, 809 (Perikles, `3ff660d26`; 09.11., 22:4x)
+
+**Greift.** W5: CLAUDE.md Zusammenarbeit 3 hängt die Ausnahme an „Abläufe und Einzelheiten von Balance und Spielgefühl“, „Code auf `main`“ steht danach ohne Ausnahme; deckt sich mit `ROLLE-BERATUNG` 51, 52, 57. W3: `LISTE-GLOSSAR` 38 „wenn es kein startbares Muss hat, vor eigener Kür“; keine weitere Stelle mit „nichts Startbares“ als Übernahmebedingung (`lauf.py` 528 meint Kür-Rollen).
+
+## Lauf 123 · 800 Notizen nach 650.2 (Perikles, `3a26195f2`; 09.11., 21:4x)
+
+**Greift, eine Lücke.** A: vier Dateien in `alt/`; außerhalb der Archive verweist nichts mehr auf sie als geltend (`LISTE-PRUEFUNG` 60 „alte Zielkurve“, `STORY-REGELN` 27, `STORY-HANDBUCH-1` 6, Figurenkatalog 21 mit `alt/`-Pfad); CLAUDE.md „Bekannte Fehler“ nennt den Durchspielbogen nur als Anlass. B: `kapitel2/`-Verweise in `STORY-PLAN`, `STORY-REGELN`, `ARBEIT-KREATIV` tragen. C1: kein Werkzeug, keine Notiz nennt den alten Namen als Pfad, außer Verlauf (`DESIGN-BRS` 3, 457, 461 Zitate; `DESIGN-SPIELSYSTEM-2-0.md`) und Godot-Kommentar (811 Jerry); `regelcheck.py` liest `DESIGN-BRS.md`, Wächter 446 meldet die 26 alten Namen wie vorher; `sim444/sim.py` startet. E2: Inhaltsverzeichnis „Für den Chef“ mit acht Dateien, `inhalt.py` läuft in `notiz.sh` und findet zwei echte tote Links im Tagesbericht.
+**D123.1 (813, Perikles):** `regelcheck.py` Verweisprüfung (Z. 169–181) kennt Pfade relativ zu `docs/` nicht: meldet `kapitel2/STORY-K2-ENTWURF.md`, `kapitel2/STORY-PLAN-K2.md` (neu durch B) und `chefsache/README.md` (alt) als fehlend, obwohl da; Fehlalarm in Fords Morgenlauf.
+**Nicht geprüft:** tote Links aus der Zeit vor 800 (`LISTE-NIEDERLASSUNG.md`, `ARBEIT-ARCHIV.md`, `STORY-K2-HANDLUNG.md`/`-WELT.md` als geplante Dateien).
+
+## Lauf 122 · 796 Regeln nach 783 W1–W8 (Perikles, `5e1541e63`; 09.11., 21:2x)
+
+**Hat einen Ort, ohne Gegenstelle:** W1 (`LISTE-BAUEN-TESTEN` 4, `DESIGN-ABNAHME` 11, `ROLLE-ENTWICKLUNG` 49, Glossar, CLAUDE.md 9; `probelauf.py` ohne Filmsperre, `--probebild`/`--helfer` enden mit Hinweis, Laufgrenze 621 A bleibt), W2 (`LISTE-CHECK-BUILD-TEST` 3 und 10), W4 (`LISTE-RELEASE-NEUSTART` 1a, 3; Haken), W6 (CLAUDE.md 5), W7 (Wochenplan, `LISTE-BETRIEB` 10, `ROLLE-BETRIEB`, `lauf.py --morgen`, `tagesbericht.py` mit Bitte um das Bild), W8 (CLAUDE.md, `chefsache/README`).
+**D122.1 (808, Perikles), W5:** CLAUDE.md Zusammenarbeit 3 „Nie selbst: … Spielgefühl, … Balance, …, Code auf `main` (außer Vorentscheid Sokrates, 783 W5)“: die Ausnahme hängt an „Code auf `main`“; `ROLLE-BERATUNG` 52 lässt „Code auf `main`“ beim Chef, W5 (Regel A in 783, Git `e3b05addb^`) meint Abläufe, Balance und Spielgefühl. Gegeneinander stehen damit CLAUDE.md und Rollendatei, und Sokrates' Vorentscheid zu Balance und Spielgefühl bleibt nach CLAUDE.md verboten.
+**D122.2 (809, Perikles), W3:** `LISTE-GLOSSAR` 37 „Übernahme … wenn es nichts Startbares hat“ gegen W3 „kein startbares Muss, vor eigener Kür“ (`ROLLE-ENTWICKLUNG` 35, `startbar.py` 654).
+**Ohne Vorgang:** `DESIGN-KAMPF` 9 „ein Verstoß hält den Lauf an (461a, 511, 621.1)“ ist schon in 735 (D92.4); `tools/regeltreue/stufe2/LISTE-REGELN.md` 57 nennt die Morgenmeldung, ist aber eine eingefrorene Probe (347), keine geltende Regel.
+**Nicht geprüft:** W2-Frage nach 2 Tagen hat kein Werkzeug (Regel: wer es bemerkt); kein echter Morgen ohne Ford-Zeile.
+
+## Lauf 121 · 799 Vorlagen nach 364 (Perikles, `55d798cc8`; 09.11., 21:1x)
+
+**Greift.** Nachgestellt in einer Kopie von `main`: unvollständige Datei in `entscheiden/` hält `git commit`, `cd … && git push`, `git -C … commit` an (Exit 2, Meldung nennt die fehlenden Teile); auf einem Teamzweig frei; 758 (`65f56ef8a`) gilt als vollständig, ebenso der Altbestand 6238; `create_or_update_file` mit Muster ohne Nummer nach `billigen/` angehalten (fehlt Zeile 1, Umgesetzt, Rückbau, Kosten); ohne „Gegenargument“ gemeldet. Übersicht (`zug-index.py`) meldet die Datei unter „Lücken“. `MUSTER.md` deckt sich mit README 364 (dazu „Geprüft an“ nach 340.4, Kurz-Zeile).
+**Hinweis, ohne Vorgang:** `push_files`/`create_or_update_file` halten auch auf Teamzweigen an, Bash nur auf `main`; folgenlos, weil Notizen nur auf `main` liegen. Von sieben gelöschten `billigen/`-Dateien aus Git hätten sechs nicht bestanden: der Haken trifft eine Gewohnheit, keinen Einzelfall.
+**Nicht geprüft:** echter Lauf in einer anderen Sitzung.
+
 ## Lauf 120 · 650.2 Vorlage Notizen gliedern (Chef 09.11., 20:18; `071d56421`; 09.11., 20:2x)
 
 **Hält:** 84 Dateien (81 .md, 1 .tsv, 2 .svg); A: Sammlung 2.0 „nichts freigegeben“, Heldenbau „überholt“, Balance „Stufe 20 Obergrenze“ gegen BRS „keine feste Höchststufe“ (Z. 110), Anleitung baut auf Kotlin, Figurenkatalog 649 „bis zum Bau“; C2 CC0 in Quellen beschlossen (6501); C6 Kampftexte stehen in `godot/regeln/mars_texte.gd`; Archivgrößen stimmen; Rechnung 84 → 66 geht auf. Votum Variante 2 trägt auch ohne den Fund unten: allein `LISTE-VORGAENGE` steht in 19 Werkzeugdateien.

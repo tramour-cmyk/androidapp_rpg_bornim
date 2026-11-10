@@ -107,7 +107,8 @@ func baue() -> void:
 		liste.add_child(k)
 
 # SlotCard: Bild, Platz und Name, Volk · Klasse · Stufe, Ort · Tag · Uhrzeit, gespeichert am, gespielt
-static func karte(d: Dictionary) -> PanelContainer:
+# [rahmen] = false (700, 549a): ohne Kasten, als Inhalt einer antippbaren Zeile (Platzwahl der Erschaffung)
+static func karte(d: Dictionary, rahmen := true) -> PanelContainer:
 	var de := Sprache.aktiv() == "de"
 	var h: Dictionary = d.get("held", {})
 	var z: Dictionary = d.get("zustand", {})
@@ -147,6 +148,13 @@ static func karte(d: Dictionary) -> PanelContainer:
 	v.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	reihe.add_child(v)
 	aussen.add_child(reihe)
+	if not rahmen:
+		var p := PanelContainer.new()
+		p.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
+		p.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		p.add_child(aussen)
+		return p
 	return Erschaffung.kasten(aussen)
 
 # HeldFigur.wahl aus dem gespeicherten Helden; {} wenn der Spielstand nichts hergibt (dann der Grundheld)

@@ -999,6 +999,8 @@ func _process(_dt: float) -> void:
 
 func _play_say(e: Dictionary) -> void:
 	var before: Dictionary = shown.hp
+	if OS.get_environment("DBGPL") != "" and absf(clock_ms / 1000.0 - float(OS.get_environment("DBGPL"))) < 4.0:
+		print("PL %.1f actor %s cue %s text %s places %s" % [clock_ms / 1000.0, e.actor, e.cue, String(e.text).left(50), e.places])
 	shown = e
 	# 566: wer im Schatten steht, ist nur schwach zu sehen (figur.gd im_schatten)
 	var im_schatten: Dictionary = e.get("hidden", {})
@@ -1022,6 +1024,12 @@ func _play_say(e: Dictionary) -> void:
 	if across and (e.roll != null or e.spell != null or e.cue == "DUCKED"):
 		lunge_ms = figures[actor].strike(figures[target], e)
 		busy_ms = figures[actor].busy_ms
+	# 717.1 A (Chef 09.11., 09:03/09:06; F8): Zurechtrücken beginnt im Zug der Gegner und darf in den Zug des Helden hinein auslaufen,
+	# nie erst dort anfangen: was im Zug des Helden umgestellt wurde (glide_to merkt es vor), rückt mit dem nächsten Zug der Gegner
+	if by != null and by.side == "FOES":
+		for fid in figures:
+			if fid != actor or lunge_ms == 0:
+				figures[fid].zurueck_in_reihe()
 	for id in e.intents:
 		var aimed: Array = e.intents[id][1]
 		figures[id].announce(e.intents[id][0], figures.get(aimed[0]) if aimed.size() > 0 else null)
@@ -1094,7 +1102,10 @@ func _play_say(e: Dictionary) -> void:
 		elif target == id and _missed(e) and across and figures[id].blockt():
 			# 406.2: gelungene Abwehr nach der Seite des Angreifers, gegen tiefe Gegner tief
 			var af = figures.get(actor)
-			figures[id].abwehr(lands, art, af.global_position if af != null else Vector3.INF, true, af != null and af.niedrig())
+			var von := Vector3.INF     # 662: vom Platz, an dem der Angriff ankommt, nicht von dort, wo er losläuft
+			if af != null:
+				von = to_global(af.angriff_von) if af.angriff_von != Vector3.INF else af.global_position
+			figures[id].abwehr(lands, art, von, true, af != null and af.niedrig())
 		elif target == id and _missed(e) and across:
 			# 438 (Prüfer Film r2: Klinge durch Wolf 2 ohne Treffer): wer ausweicht, ist schon weg, wenn der Hieb ankommt
 			figures[id].dodge(maxi(0, lands - AUSWEICH_VOR_MS) if lunge_ms > 0 and fx == null else lands)
@@ -1144,13 +1155,22 @@ func _play_say(e: Dictionary) -> void:
 		if figures.has(f.id) and e.places.has(f.id) and not f.fled and f.hp > 0:     # 399.2a: wer flieht, kommt nicht an seinen Platz zurück
 			var ziel := _spot_pos(f, e.places[f.id])
 			if warte_ms > 0 and f.id != actor and not figures[f.id].home.is_equal_approx(ziel):
-				get_tree().create_timer(warte_ms / 1000.0).timeout.connect(figures[f.id].glide_to.bind(ziel))
+				get_tree().create_timer(warte_ms / 1000.0).timeout.connect(figures[f.id].glide_to.bind(ziel, by != null and by.side == "FOES"))
 			else:
-				figures[f.id].glide_to(ziel)
+				figures[f.id].glide_to(ziel, by != null and by.side == "FOES")
+	# 717 C: beim Platztausch kommt der neue Platz des einen vor dem des anderen; erst wenn alle Plätze dieser Meldung stehen, rücken
+	# die Vorgemerkten (im Zug der Gegner)
+	if by != null and by.side == "FOES":
+		for fid in figures:
+			figures[fid].zurueck_in_reihe()
 	if tot_ms > 0:
 		await get_tree().create_timer(maxi(SAY_MS, maxi(lunge_ms, busy_ms) - tot_ms) / 1000.0).timeout
 		return
-	await get_tree().create_timer(maxi(NACHTRAG_MS if _nur_nachtrag(e) else SAY_MS, maxi(lunge_ms, busy_ms)) / 1000.0).timeout
+	# 751 (Chef 09.11., 14:00: „manchmal verschwindet das einfach alles“; haenger_751: je Biss 8 s „…“): lunge_ms ist die Zeit bis zum
+	# Treffer geteilt durch 0,42 und wuchs mit dem Anlauf weit über die Bewegung hinaus; ein Gegner meldet seine wirkliche Dauer
+	# (busy_ms, ohne das Zurechtrücken, das in den Zug des Helden auslaufen darf, F8)
+	var dauer := busy_ms if busy_ms > 0 and by != null and by.side == "FOES" else maxi(lunge_ms, busy_ms)
+	await get_tree().create_timer(maxi(NACHTRAG_MS if _nur_nachtrag(e) else SAY_MS, dauer) / 1000.0).timeout
 
 
 ## Zeile, Bedienfeld und Würfel einer Meldung (438: beim Aufschlag, sonst sofort); vorweg Gezeigtes nicht noch einmal

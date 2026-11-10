@@ -7,7 +7,7 @@
 #   ohne Schritte: Karten und Texte, CC0, Modelle, Held je Klasse, Kampfort (am Rechner mit 4 Kernen etwa 35 Minuten)
 #   danach: cd godot && ~/godot/godot --headless --import --path . ; dann die Tests wie im Prüfschritt
 # Rohdateien bleiben in /home/user/bornim-kaufmodelle (nie in dieses Repo); godot/daten und godot/kampf/daten sind ignoriert.
-import json, os, subprocess, sys, tempfile, urllib.request
+import json, os, re, subprocess, sys, tempfile, urllib.request
 import yaml
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -54,7 +54,9 @@ def schritte(namen):
         if 'verschluessel' in st[0]['name'].lower():
             sys.exit('nicht am Rechner: ' + st[0]['name'] + ' (setzt einen Schlüssel in schluessel.gd und verschlüsselt die Daten)')
         print('== SCHRITT', st[0]['name'], flush=True)
-        r = subprocess.run(['bash', '-e', '-c', st[0]['run']], cwd=REPO, env=env)
+        # 778: Ausdrücke des Bauservers (${{ github.event.inputs.kampf }} …) gibt es am Rechner nicht; leer wie ein Lauf ohne Eingaben
+        run = re.sub(r'\$\{\{[^}]*\}\}', '', st[0]['run'])
+        r = subprocess.run(['bash', '-e', '-c', run], cwd=REPO, env=env)
         print('== ENDE', st[0]['name'], r.returncode, flush=True)
         if r.returncode:
             sys.exit(r.returncode)

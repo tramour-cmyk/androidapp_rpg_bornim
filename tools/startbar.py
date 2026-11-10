@@ -581,10 +581,11 @@ UEBERNAHME = {"Tom": "Jerry", "Jerry": "Tom"}
 GERAET = re.compile(r"Test|Gerät|Build|APK", re.I)
 
 def uebernahme(rolle, info):
-    """118/202: hat das Team nichts Startbares, die oberste freie Zeile des anderen Teams (ohne Gerätetest bevorzugt)."""
+    """118/202, 783 W3 (Chef 09.11., 20:13): hat das Team kein startbares Muss, das oberste freie Muss des anderen Teams
+    (ohne Gerätetest bevorzugt), vor der eigenen Kür."""
     a = UEBERNAHME[rolle]
     if a not in info or rolle not in info or info[rolle][2]: return None
-    frei = [z for z in info[a][0] if "fuer" not in z[3]]
+    frei = [z for z in info[a][0] if "fuer" not in z[3] and z[1] == "M"]
     if not frei: return None
     ohne = [z for z in frei if not GERAET.search(z[2])]
     z = (ohne or frei)[0]
@@ -607,6 +608,43 @@ def loesen(schreiben=False):
     if schreiben and aus:
         open(p, "w", encoding="utf-8").write("\n".join(L)); liste_merken(DOCS); neu_laden()
     return aus
+
+# 827 A, Bau 828 (Chef 10.11., 07:10): „festgefahren“ = zwei Rückläufer des Chefs oder über 30 $ Kosten; jede weitere Sitzung zu so
+# einem Vorgang startet lauf.py ab STARK_AB einmal auf STARK_MODELL (Marke „stärkstes Modell TT.MM.“ am Titel); Auswertung nach drei Vorgängen (Sokrates).
+# Rückläufer = Marke „zurück t<n>[, t<m>…]“ im Titel: setzt vorgang.py build <n> bei ✗; Funde außerhalb einer Prüfliste von Hand (Build des Chefs).
+STARK_AB = datetime.datetime(2026, 11, 14, 20, 0)  # Berliner Zeit
+STARK_MODELL = "fable"
+STARK_KOSTEN = 30.0
+STARK_RUECK = 2
+STARK_ROLLEN = ("Tom", "Jerry")  # Bauarbeit (Spike, Tuffy auf deren Zeilen); Beratung und Abläufe starten nicht über die Zeilenregel
+STARK_MARKE = re.compile(r"stärkstes Modell \d")  # 827 A: eine Sitzung je Vorgang, danach Auswertung
+RUECK = re.compile(r"zurück ((?:t\d+(?:, )?)+)")
+
+def rueck_builds(titel):
+    """Builds aus der Marke „zurück t269, t272“ im Titel, sortiert, ohne Doppelte."""
+    m = RUECK.search(titel or "")
+    return sorted({int(x) for x in re.findall(r"t(\d+)", m.group(1))}) if m else []
+
+def rueck_marke(titel, n):
+    """Titel mit Build n in der Marke „zurück …“ (angehängt oder ergänzt)."""
+    b = rueck_builds(titel)
+    if int(n) in b: return titel
+    neu = "zurück " + ", ".join("t%d" % x for x in sorted(b + [int(n)]))
+    return RUECK.sub(neu, titel, count=1) if b else "%s · %s" % (titel.rstrip(), neu)
+
+def kosten_wert(k):
+    m = re.search(r"\d+(?:,\d+)?", (k or "").replace(".", ""))
+    return float(m.group(0).replace(",", ".")) if m else 0.0
+
+def festgefahren(d):
+    """Grund („2 Rückläufer (t269, t272)“, „41,37 $“) oder None; nur offene Arbeit."""
+    if not d or d.get("besitzer") not in STARK_ROLLEN or d.get("wort") in ("erledigt", "ruht", "Idee", "nach Meilenstein", "Dauer") or d.get("kl") not in ("M", "K", "M?"): return None
+    b = rueck_builds(d.get("titel")); k = kosten_wert(d.get("kosten"))
+    g = (["%d Rückläufer (%s)" % (len(b), ", ".join("t%d" % x for x in b))] if len(b) >= STARK_RUECK else []) + ([d["kosten"]] if k > STARK_KOSTEN else [])
+    return ", ".join(g) or None
+
+def festgefahrene():
+    return [(d, festgefahren(d)) for d in zeilen_liste() if festgefahren(d)]
 
 def main():
     alle = "--alle" in sys.argv
@@ -650,7 +688,7 @@ def main():
         if rolle in UEBERNAHME:
             # wie bisher alle eigenen Zeilen, die auf einen Test warten, auch die schon einem Build zugeordneten (D80.6)
             gebaut = sum(1 for z in zs if "fuer" not in z[3] and (z[4] or "").startswith("wartet auf Test"))
-            info[rolle] = ([z for z in zs if not z[4]], gebaut, erstes["M"] or erstes["K"] or erstes["N"])
+            info[rolle] = ([z for z in zs if not z[4]], gebaut, erstes["M"])  # 783 W3: nur eigenes Muss hält die Übernahme
         def kurz(e):
             if not e: return "–"
             return "%s %s%s" % (e[0], re.sub(r"\*\*|`", "", e[2])[:70], (" ↑ Muss: %s wartet" % ", ".join(fremd_wartend()[e[0]])) if e[0] in fremd_wartend() else "")
@@ -670,6 +708,8 @@ def main():
                   "".join("; Sperre 620.1 B für %s (%d ungetestete Muss)" % (r, ungetestet(r)) for r in UEBERNAHME if ungetestet(r) >= GRENZE_UNGETESTET)))
         if "--loesen" not in sys.argv:
             for nr, wer, weg, st in loesen(False): print("  GELÖST %s (%s): wartet auf %s erfüllt (schreibt lauf.py --sperre)" % (nr, wer, ", ".join(weg)))
+        ff = festgefahrene()
+        if ff: print("  Festgefahren (827 A; ab %s nächste Sitzung auf dem stärksten Modell): %s" % (STARK_AB.strftime("%d.%m., %H:%M"), "; ".join("%s %s: %s%s" % (d["nr"], d["besitzer"], g, " (gehabt)" if STARK_MARKE.search(d["titel"]) else "") for d, g in ff)))
         for nr, f in fehler: print("  UNLESBAR %s: %s" % (nr, f))
     sys.exit(1 if fehler else 0)
 

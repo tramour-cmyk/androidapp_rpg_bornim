@@ -61,8 +61,10 @@ func _lauf() -> void:
 				pruefe(kn != null and vp.encloses(r), "%s %s „%s“ (%d Boni, tragbar %s): Knopf %s im Bild %s" % [klasse, id, Beute.name(g), g["rolls"].size(), hw.kann_tragen(g), art, r])
 			var rolle := fen.find_child("Rolle", true, false) as ScrollContainer
 			pruefe(rolle != null, "%s %s: Inhalt in einer Rolle" % [klasse, id])
-			if rolle and hw.kann_tragen(g):   # mit Vergleich passt es nicht mehr: es rollt, das Ende des Vergleichs ist erreichbar
-				pruefe(rolle.get_v_scroll_bar().max_value > rolle.size.y + 1, "%s %s: der Inhalt rollt (%d von %d px sichtbar)" % [klasse, id, rolle.size.y, rolle.get_v_scroll_bar().max_value])
+			# 701: ohne die sechs Hinweise auf die Obergrenze passt das Fenster meist ganz; sonst rollt es, das Ende ist erreichbar
+			if rolle and hw.kann_tragen(g):
+				pruefe(rolle.get_v_scroll_bar().max_value <= rolle.size.y + 1 or rolle.vertical_scroll_mode != ScrollContainer.SCROLL_MODE_DISABLED,
+					"%s %s: der Inhalt passt oder rollt (%d von %d px sichtbar)" % [klasse, id, rolle.size.y, rolle.get_v_scroll_bar().max_value])
 			if haupt and hw.kann_tragen(g):
 				await tippe(haupt.get_global_rect().get_center())
 				pruefe(hw.ding("HEAD") != null and int(hw.ding("HEAD")["uid"]) == int(g["uid"]), "%s %s: ein Tipp auf Anlegen legt an" % [klasse, id])

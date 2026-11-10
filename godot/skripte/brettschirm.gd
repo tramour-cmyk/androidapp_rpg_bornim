@@ -63,8 +63,8 @@ func _ready() -> void:
 	Spielstaende.folge_inhalt(spalte, rolle, liste)
 	baue()
 
-static func _satz(t: String, sp_: float, farbe: Color) -> Label:
-	var l := Stil.zeile(Spielstaende.ohne_waise(t), sp_, farbe)
+static func _satz(t: String, sp_: float, farbe: Color, fett := false) -> Label:
+	var l := Stil.zeile(Spielstaende.ohne_waise(t), sp_, farbe, 0.0, false, fett)
 	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	l.custom_minimum_size.x = 60 * DP
 	return l
@@ -87,7 +87,7 @@ func baue() -> void:
 		v.name = "Aushang_" + String(j["id"])
 		v.add_theme_constant_override("separation", int(4 * DP))
 		v.add_child(Erschaffung.luecke(6))
-		v.add_child(_satz(Sprache.t(j["titel"]), 16, Stil.BRIGHT))
+		v.add_child(_satz(Sprache.t(j["titel"]), 16, Stil.BRIGHT, true))   # 584: Titel des Aushangs halbfett (alt BoardScreen.kt 67 fett)
 		v.add_child(_satz(Sprache.t(j["aushang"]), 15, Stil.TEXT))
 		v.add_child(_satz(("Lohn: " if de else "Reward: ") + Sprache.t(j["lohn"]), 13.5, Spielstaende.ANGABE))
 		var id := "nimm:" + String(j["id"])
