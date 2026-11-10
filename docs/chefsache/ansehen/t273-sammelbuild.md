@@ -44,3 +44,22 @@ Verglichen: halbfette Köpfe (584) mit der alten Fassung (Erschaffung, Menü des
 Bekannt: die Erklärtexte der Grundwerte (Tippen auf einen Wert) sind noch SRD-Sätze, liegen bei Homer (817); die Leiste zeigt noch „TP“/„ZP“, bis der Kampf nach dem neuen Regelwerk kommt. Der schnellere Gang zum Angriff mit Schild (562) ist nicht dabei: seine Messung im Bau war rot, er geht an Jerry zurück. Die Truhe der Höhle (632) ist im Code, sichtbar erst mit der begehbaren Höhle (492). Die Untoten (506) fahren erst nach „passt“ zum Bild mit.
 
 ## Ergebnis
+
+Chef an Sokrates, 10.11., 09:29–10:18.
+- 273.1 ✓ durch Bautest `lizenz_497`; Chef 09:29: „Ich lese mir doch hier keine 500 Seiten Lizenzen durch … Das ist nicht mein Job.“ (832)
+- 273.2 ✓
+- 273.3 ✗ nicht prüfbar: Testmodus „Erschaffung BRS“ überspringt die Platzwahl (spiel.gd 1141), Schritt „Fertigkeit wählen“ fehlte; Chef 09:47 „ich war dann wieder im Laden“
+- 273.4 ✓
+- 273.5 ✗ nicht prüfbar: Reiter „Fertigkeiten“ nur mit BRS-Held, den gibt es am Gerät nicht; Chef 09:50 „da gibt's kein Fertigkeiten“
+- 273.6 ✗ nicht prüfbar wie 273.5; Chef 09:50 „ich kann auch da nichts zuklappen“
+- 273.7 ✗ nicht prüfbar wie 273.5
+- 273.8 ✓ (Kraft 15 noch SRD-Zahl, Zu 683)
+- 273.9 ✗ nicht prüfbar wie 273.5
+- 273.10 ✓ „ein bisschen dünn“, mehr Blumen (Zu 804)
+- 273.11 ✓ Größe erst mit 661 nebeneinander beurteilbar
+- 273.12 ✓
+- 273.13 ✗ Kästen der Tasche laufen rechts aus dem Schirm, „Zurück“ abgeschnitten, Weihwasser nicht sichtbar; Chef 10:08 „Früher gab es da so eine Scroll-Liste … haut es ja trotzdem nicht hin“
+- 273.14 ✓
+- 273.15 ✓ (Schalter im Kampf gewünscht, Zu 211.14)
+- 273.16 ✗ nicht prüfbar wie 273.5
+- Chef 09:52 zur Testbitte: „drei Viertel des Bilds völlige Grütze … Und so verschwendet ihr mein Geld.“

@@ -8,6 +8,8 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 ## Einzelheiten
 
+
+- **Zu 532, von Chef (Fund t273.13, Test Build 273, Automatik B):** Kästen der Tasche laufen rechts aus dem Schirm, „Zurück“ abgeschnitten, Weihwasser nicht sichtbar; Chef 10:08 „Früher gab es da so eine Scroll-Liste … haut es ja trotzdem nicht hin“
 - **Zu 833, Erweiterung, von Sokrates (Chef 10.11., 10:10, Bild Sieg gegen Wölfe):** „Auch hier das Design, ist das jetzt mal angedacht, das zu bearbeiten. Hier ist auch Kästchen im Kästchen.“ Chef 10:17: „833 erweitern wie vorgeschlagen“: ganzer unterer Kampfschirm (Bericht, Leiste des Helden, Befehle, Sieg/Niederlage) ohne verschachtelte Kästen, Aufbau wie die Menüs (630), Sieg/Niederlage im Stil der Blenden (661 Tom, abstimmen). Ein Bild für alles. 273.14 ✓.
 
 - **Zu 532, von Sokrates (Chef 10.11., 10:08, t273.13 ✗, Bild Tasche im Rudelkampf):** „Früher gab es da so eine Scroll-Liste. Jetzt anscheinend versucht er 1000 lustige Kästchen zu machen. Und das scheint definitiv nicht zu klappen. Also theoretisch kann ich mehr auswählen als früher, aber so wie es da ausschaut, haut es ja trotzdem nicht hin.“ Im Bild: Kästen in Versalien laufen rechts aus dem Schirm (×10 und „Zurück“ abgeschnitten, Kasten mit Bericht und Leiste mit verschoben), Weihwasser nicht zu sehen. Wie alt: rollbare Liste (alte Fassung nachsehen, Abgleich 512), feste Breite; Wirkung von Feuer, Weihwasser, Verbrauch, Mana noch nicht geprüft.
