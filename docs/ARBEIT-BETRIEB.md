@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (10.11., 11:28)“ `session_01Hmoj78E7oy5B7Gr6VaeUJk` (Tiefe 1; Vorgänger `…78xzFvBQ6it6HDfWph`, 12,41 $, idle, wartet auf Archiv-Satz); Stundenuhr „Ford-Lauf“ `trig_01DaEk3uTJQPBm2dGUEGi1Mf` (:03). Alte Fords `session_01Hmoj7684czZostW4Q5YTcw` (läuft noch, 8,18 $) und `session_01Hmoj76SozRN2uPdhbiLM21` (0,52 $, wartet auf Erlaubnis): zu archivieren, sobald der Chef den Archiv-Satz sagt (820), Kosten dann buchen; deren Uhr gelöscht.
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (10.11., 13:30)“ `session_01Hmoj76TVS4Gz3CpJkzTwMu` (Tiefe 2; Vorgänger `…78E7oy5B7Gr6VaeUJk`, 4,87 $, idle, wartet auf Archiv-Satz, Satz 13:32 per Telegram gesendet); Stundenuhr „Ford-Lauf“ `trig_01TMtw3chtS6kTqZL2cRtjuN` (:03; alte gelöscht 13:31). Alte Fords `session_01Hmoj78xzFvBQ6it6HDfWph` (12,41 $), `session_01Hmoj7684czZostW4Q5YTcw` (8,18 $), `session_01Hmoj76SozRN2uPdhbiLM21` (0,52 $): Stand laut Übergabe bereits archiviert und gebucht, bei Gelegenheit mit get_session prüfen.
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 
 ## Eingang
