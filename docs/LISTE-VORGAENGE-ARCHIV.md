@@ -314,7 +314,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 266 | Test-Reiter: Hardware-Angaben zum Kopieren (Chef 20.10., Tablet Build 48) | Q QS | M | – | Tom | erledigt |
 | 261.4 | Ford archiviert nicht: 22 Sitzungen offen statt einer je Bereich (Chef 21.10.) | B Steuerung | M | –; +0,45 $ | Perikles | erledigt |
 | 271 | Nachts keine Bilder: Teams ohne Arbeit, alles wartet auf Test (Chef 21.10.) | B Abläufe | M | 1,51 $ | Perikles | erledigt (272 an Jerry; Rest wartet auf den Chef) |
-| 273 | Ford darf archivieren: Satz für den Berechtigungsprüfer (Probe 261.5) | B Abläufe | M | 9,22 $ | Perikles | erledigt |
+| 273 | Ford darf archivieren: Satz für den Berechtigungsprüfer (Probe 261.5) | B Abläufe | M | 11,47 $ | Perikles | erledigt |
 | 274 | Startlektüre je Rolle kürzen, Rollendateien als Stichpunkte (Chef 21.10.) | B Abläufe | M | –; +14,01 $ | Perikles | erledigt |
 | 251 | Logo der Firma BornWire TCS (vorher WireStormTCS; Chef 20.10.) | M Markt | K | –; +7,33 $ | Homer | erledigt |
 | 256 | MARS-Klang: nur Treffer, Fehlschlag, Hieb, Abwehr; Zauber, Biss, Fallen, Geheul usw. fehlen (Chef 20.10.) | E Klang | K | –; +10,22 $ | Jerry | erledigt |
@@ -927,3 +927,18 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 704 | Wolf allein ist harmlos, wenn der Held jedem angekündigten Sprung ausweicht: 300 von 300 Siegen, er kann nur springen (Befund Tuffy zu 702, 08.11.) | E Kampf | M | 0,26 $ | Jerry | erledigt |
 | 211.14 | Rest 211.13: Leistung im Kampf am A56 messen (Puppe und Winkel je Platz durch 3D erledigt) | E Kampf | M | 5,75 $ | Jerry | erledigt, t273 bestanden |
 | 826 | Guthaben Woche bis 14.11.: eine Entwicklersitzung zugleich, Kür ruht, Zurücksetzen als Reserve (Bild Chef 10.11., 06:59) | B Steuerung | M | 4,65 $ | Sokrates | erledigt |
+| 817 | Erklärtexte der sechs Grundwerte im Heldenreiter nach BRS statt SRD (held.json „erklaerung“: GES, Rüstungsklasse, Finesse …; von Tom, aus 683) | E Oberfläche | M? | 3,85 $ | Homer | erledigt |
+| 807 | Tätigkeiten ohne Kampf für Fertigkeiten in Kapitel 1 vorschlagen (Schleichen, Spähen, Schlösser, Fallen, Tiere beruhigen, Überreden, Einschüchtern, Jagd, Angeln …), von Spike zu 471 | G Stil | M | 6,10 $ | Homer | erledigt |
+| 830 | Von Sokrates (705 B, Chef 10.11., 08:43): Lehrsatz zur Ansage des Wolfssprungs im ersten Wolfskampf (ausweichen), Text für 72.10a | G Story | M | 6,10 $ | Homer | erledigt |
+| 835 | Inhaltsverzeichnis docs/README.md in Chef-Sprache: jede Zeile ein Satz, was drinsteht und wozu, ohne Fachwörter (Netze, MARS-Checkliste, Umzug, Abgleich), Projektplan (Weg) gegen Abnahme (Ziel) klar (Chef 10.11., 10:24, über Sokrates) | B Abläufe | M | 2,55 $ | Perikles | erledigt |
+| 829 | 705 B: Regelvorschlag BRS, Magier Stufe 1 gegen Wolfsrudel ohne Söldner, ohne Ausweichen etwa 40 % (Chef 10.11., 08:43); danach Messung Jerry | E Kampf | M | 4,95 $ | Sokrates | erledigt |
+| 72 | Profil und Marktvergleich | E Kampf | K | 0,72; +0,61 $ | Homer | erledigt |
+| 348.12g | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | G Story | M | 4,29 $ | Homer | erledigt |
+| 837 | lauf.py: Start nicht angekommen melden (Chef 10.11., 10:4x; Fehler 341 von Ford) · „jetzt“ 10.11., 11:09 | B Werkzeuge | M | 2,55 $ | Perikles | erledigt, greift Lauf 127 |
+| 832 | Testbitten ohne Prüfpunkte, die ein Test im Bau schon sichert oder Lesen von Lizenztexten verlangen (Chef 10.11., 09:29 zu 273.1, über Sokrates) | Q QS | M | 2,55 $ | Perikles | erledigt, greift Lauf 129 |
+| 846 | D127.1 (Diogenes, 832): commit-pruefung.py hält Prüfzeilen an, die das Menü „Lizenzen“ nur als Weg nennen (Vorbild 271.1 Titelbild); nur anhalten, wenn „richtig“ Lizenztext verlangt | B Werkzeuge | M | – | Perikles | erledigt, greift Lauf 129 |
+| 838 | Prüfung Ford: folgte jeder START-Zeile von lauf.py eine Sitzung? Stichprobe im Wochenlauf (Chef 10.11., 10:4x; Fehler 341 von Ford) | B Werkzeuge | M | 4,51 $ | Diogenes | erledigt |
+| 851 | Neustart: letzte Antwort an den Chef geht vor dem Archivieren per Telegram (von Sokrates, Chef 10.11., 11:57 „auch diesmal“) | B Werkzeuge | M | – | Perikles | erledigt, doppelt zu 849 |
+| 432 | Eigenes Volk aus Bornim (etwa mit dem Grauen Propheten, „Tag der Asche“) prüfen, mit der Geschichte ab Kapitel 2 (Chef 31.10., 22:0x) | G Story | K | 0,79 $ | Homer | erledigt |
+| 432a | Aschgeborene: drei offene Storyfragen (Vesks Liste, Kael, Lyra) und Zeitpunkt des Baus, „jetzt“ 10.11., 11:55 | G Story | M | – | Homer | erledigt |
+| 855 | Wiederholte Startarbeit je Sitzung über 5 Min. finden und abstellen (Ablage, Setup-Skript), Tom, Jerry, Diogenes (Chef 10.11., 12:36: ja) | E Technik | M? | – | Sokrates | erledigt |
