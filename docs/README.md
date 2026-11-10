@@ -10,7 +10,7 @@ Inhaltsverzeichnis: jede Zeile sagt in einem Satz, was in der Datei steht und wo
 - [Tagesbericht](ARBEIT-TAGESBERICHT.md): jeden Morgen zehn Zeilen, was sich getan hat, wer hinterherhinkt und was als Nächstes kommt.
 - [Vorgangsarchiv](VORGANGSARCHIV.md): alles, was du entschieden hast, neueste oben; zum Nachschlagen, nicht zum Lesen von vorn.
 - [Leitbild](DESIGN-LEITBILD.md): wie das Spiel im Ganzen sein soll; gilt, wenn sich zwei Dateien widersprechen.
-- [Regeln (BRS)](DESIGN-BRS.md): unser eigenes Rollenspielsystem, wie es gilt; das [Spielerhandbuch](STORY-HANDBUCH-1.md) erklärt es für Spieler.
+- [Regeln (BRS)](DESIGN-BRS.md): unser eigenes Rollenspielsystem, wie es gilt (für uns; für Spieler erklärt es das Spielerhandbuch unter „Das Spiel“).
 - [Kosten](LISTE-KOSTEN.md): wofür das Guthaben je Bereich, Tag und Woche ausgegeben wurde (rechnet ein Werkzeug aus).
 
 ## Das Spiel
@@ -18,7 +18,7 @@ Inhaltsverzeichnis: jede Zeile sagt in einem Satz, was in der Datei steht und wo
 - [Stil](DESIGN-STIL.md): wie das Spiel aussieht, klingt und sich anfühlt.
 - [Kampf](DESIGN-KAMPF.md): wie der Kampf ablaufen soll; [Blende](DESIGN-BLENDE.md): die Übergangsbilder zwischen Orten, bei Rast und Tod.
 - [Entscheidungen zum BRS](DESIGN-BRS-ENTSCHEIDUNGEN.md): jede Regelfrage, die du schon entschieden hast, als nummerierte Liste; Verlauf und alte Ideen liegen in `alt/DESIGN-SPIELSYSTEM-2-0.md`.
-- [Spielerhandbuch](STORY-HANDBUCH-1.md) mit Teil [2](STORY-HANDBUCH-2.md) und [3](STORY-HANDBUCH-3.md): die Regeln so erklärt, wie der Spieler sie liest (Entwurf).
+- [Spielerhandbuch](STORY-HANDBUCH-1.md), ein Buch in drei Dateien (Teil [2](STORY-HANDBUCH-2.md), Teil [3](STORY-HANDBUCH-3.md)): die Regeln aus dem BRS so erklärt, wie der Spieler sie liest (Entwurf).
 - [Storyplan](STORY-PLAN.md): Handlung und Figuren je Kapitel; [Kapitel 1](STORY-PLAN-K1.md) zeigt den Stand der alten Handy-Fassung.
 - [Story-Verzeichnis](STORY-REGELN.md): wo jeder Spieltext steht und wie wir ihn schreiben; Kapitel 1 [Handlung](STORY-K1-HANDLUNG.md) und [Welt](STORY-K1-WELT.md), [Texte der Blenden](STORY-BLENDE.md), Gespräche im [Dorf](STORY-VARIANTEN-K1.md) und in [Wald, Höhle, an Türen und bei der Rast](STORY-VARIANTEN-K1-WALD.md).
 - Weitere Spieltexte: [Kampf, Rast, Zustände](STORY-SPIEL.md), [Menü des Helden](STORY-MENUE.md), [Lehrmeister und Pfade](STORY-LEHRMEISTER-K1.md), [Meisterschaften und Ruf](STORY-RUF-K1.md), [Fertigkeiten ohne Kampf](STORY-K1-FERTIGKEITEN.md).
