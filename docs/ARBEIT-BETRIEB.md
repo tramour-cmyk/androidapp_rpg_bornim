@@ -292,3 +292,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:05 10.11.: Marke Start-fehlt Diogenes 10.11.-20:07 (lauf.py)
 - 21:05 10.11.: Marke Start-fehlt Tuffy 10.11.-20:07 (lauf.py)
 - 21:06 10.11.: Lauf 21:05: Tom 888 statt START als WEITER an die Sitzung „Tom – Testbitte 888“ (192 Tsd. Token, 30 Min. ruhig); Tuffy 506.2 und Diogenes 893 nicht gestartet (Tuffy nur auf Chef-Wort, 506.2 hat Jerry nicht; 893 Kür bei --nur-muss); ARCHIVIERE Jerry …7991 und Tom …9Deoz entfallen/wartet auf Archiv-Satz; Abgleich-Warnungen 542, 632 an Tom
+- 21:07 10.11.: Startsperre 21:07 Start Perikles (Neustart-Meldung 21:06, e871f3e46)
