@@ -178,3 +178,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:46 10.11.: Startsperre 08:46 Start Sokrates (Ford, vor dem Start; Neustart 962643a37, Chefrunde)
 - 08:51 10.11.: Sokrates (Entscheidungsliste) archiviert, gebucht; Nachfolger Sokrates Chefrunde läuft
 - 09:07 10.11.: Perikles 828 archiviert (Vorrat leer, Tagesbericht gesendet), gebucht 828,827. Sokrates Chefrunde wartet auf Chef: "Probe ja" oder bleibt bei "Bäume nein". Keine Entwicklersitzung (826 A)
+- 10:26 10.11.: Startsperre 10:26 Start Sokrates (Ford, vor dem Start; Neustart 276620f97, t273 PR 192)
