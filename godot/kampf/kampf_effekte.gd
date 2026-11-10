@@ -73,8 +73,10 @@ static func staub(eltern: Node3D, wo: Vector3, gross := 1.0) -> Node3D:
 		return null
 	var fx := (load(STAUB) as PackedScene).instantiate() as Node3D
 	fx.name = "Lichtschacht"
+	# gleich weg, nicht queue_free: VFXEffect._ready merkt sich seine Lichter und flackerte sonst ein freigegebenes (SCRIPT ERROR)
 	for l in fx.find_children("*", "Light3D", true, false):
-		l.queue_free()
+		l.get_parent().remove_child(l)
+		l.free()
 	var schacht := fx.get_node_or_null("Shaft") as MeshInstance3D
 	if schacht and schacht.material_override is ShaderMaterial:
 		var sm := (schacht.material_override as ShaderMaterial).duplicate() as ShaderMaterial

@@ -482,7 +482,18 @@ func _grass() -> void:
 			stellen.append(t.origin)
 			art.append(0)
 		kit_gras = GrasBausatz.baue(forest, stellen, art)
-		mmi.visible = kit_gras.is_empty()
+		# Standbild 10.11. (Jerry, vor der Vorlage): ohne unser Gras lag zwischen den Büscheln kahler Boden, und die hellen Spitzen der
+		# Büschel standen wie Stroh im Bild: unser Gras bleibt als Grund, die Spitzen dunkler (Lichtung im Wald, nicht Sommerwiese)
+		for k in kit_gras:
+			var m := k.material_override as ShaderMaterial
+			if m == null or k.name.begins_with("Gras_flower"):
+				continue
+			m = m.duplicate() as ShaderMaterial
+			for f in ["tip_color", "dry_tip_color"]:
+				var c = m.get_shader_parameter(f)
+				if c is Color:
+					m.set_shader_parameter(f, (c as Color).darkened(0.35))
+			k.material_override = m
 
 
 var kit_gras: Array[MultiMeshInstance3D] = []
