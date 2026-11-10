@@ -78,6 +78,18 @@ jobs:
         run: |
           echo "KAUF=$RUNNER_TEMP/kauf" >> $GITHUB_ENV
           bash tools/blender348/kauf_laden.sh $RUNNER_TEMP/kauf
+      # 854 (Chef 10.11., 12:34): gebaute Modelle aus dem Kaufrepo (Zweig bau/<Kennung>, Kennung über tools/blender348, Bauschritte,
+      # Kaufdateien, karten.json); Treffer überspringt Modelle, Held je Klasse, Kampfort und holt die Dateien vor „Kampfort bauen“
+      # (die Kaufschilde ersetzen dort Waffen aus „Leute bauen“); ohne Treffer bauen und ablegen. Nicht bei kampf=656 (baut den
+      # Helden vorher dazu). KAUF_TOKEN braucht dafür Schreibrecht (Contents) aufs Kaufrepo.
+      - name: Gebaute Kaufmodelle pruefen (854)
+        if: github.event.inputs.kampf != '656'
+        env:
+          GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
+        run: |
+          python3 -c "import yaml" 2> /dev/null || python3 -m pip install -q pyyaml   # vor setup-python: System-Python
+          if python3 tools/godot/kauf_cache.py pruefen; then echo "KAUF_CACHE=treffer" >> $GITHUB_ENV
+          else python3 tools/godot/kauf_cache.py vorher && echo "KAUF_CACHE=bauen" >> $GITHUB_ENV; fi
       # 804 (Chef 09.11., 21:12): Grass & Wind Kit v1.0.1 (REEBOO, gekauft, stufe1) fuers Gras im Dorf und Wald (skripte/grasbausatz.gd);
       # die Lizenz verbietet die Weitergabe der Dateien: nie ins Repo (godot/.gitignore), nie als Artefakt, nur in den Bau. Nur, was das
       # Spiel braucht (Netze, Vorlagen, Shader, Wind), ohne Editor-Plugin, Demo und Szenen; dazu das Autoload GrassWind und die globalen
@@ -136,6 +148,7 @@ jobs:
           # 399.5 (Chef 28.10., 21:5x): Einrichtung der Grundrisse aus dem freien Moebelbausatz (raum.py)
           [ -d ~/cc0/fantasy-props-megakit ] || PAKETE=fantasy-props-megakit bash tools/blender348/v3/cc0_laden.sh ~/cc0
       - name: Modelle bauen (Held, Dorf)
+        if: env.KAUF_CACHE != 'treffer'
         run: |
           export OUT=$RUNNER_TEMP/out KARTEN=$GITHUB_WORKSPACE/godot/daten/karten.json
           for s in tex held3 rig dorf; do
@@ -159,6 +172,7 @@ jobs:
       # seit 01.11. je Tracht der Herkunft und Geschlecht (held_<TRACHT>_<M|W>), mit Statur;
       # gekauft, also verschluesselt (kauf.txt). Ohne Kaufpakete (KAUF_TOKEN) bleibt der bisherige Held (held.bin)
       - name: Held je Klasse (376.1, gekauft)
+        if: env.KAUF_CACHE != 'treffer'
         run: |
           if [ -z "$(find ${KAUF:-/kein} -name 'Regular_Male_OnlyHead.gltf' 2>/dev/null | head -1)" ]; then echo "ohne Kauf kein Held je Klasse"; exit 0; fi
           # 417a (Pruefer Dorf-Film 23:0x: Schwert blieb auf dem Ruecken, „Waffengang ''“): die Waffenpakete (waffengang.py) fehlten im
@@ -254,7 +268,13 @@ jobs:
           ls -l $D
           # 348.12i: gekauft, also nur verschluesselt ins APK
           (cd godot && ls daten/dorftiere/*.bin 2>/dev/null >> daten/kauf.txt) || true
+      - name: Gebaute Kaufmodelle holen (854)
+        if: env.KAUF_CACHE == 'treffer'
+        env:
+          GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
+        run: python3 tools/godot/kauf_cache.py holen
       - name: Kampfort bauen (Jerry 348.7, 399.1)
+        if: env.KAUF_CACHE != 'treffer'
         run: |
           # 399.1 (Chef 28.10., 12:34): Kampf im selben Spiel wie das Dorf; Modelle wie godot-kampf.yml (Jerry), Held und Gras aus „Modelle bauen“
           export OUT=$RUNNER_TEMP/out
@@ -375,6 +395,11 @@ jobs:
       # 348.12i (Chef 26.10., 19:41, „348.12i B“): gekaufte Modelle nur verschluesselt ins APK, Schluessel je Lauf neu, steht nur im
       # Programm (schluessel.gd), nie im Protokoll. Wer ein Kaufmodell nach godot/daten legt, traegt den Pfad in godot/daten/kauf.txt ein.
       # Erste Kaufmodelle im Spiel: die Dorftiere (Geraetetest, sonst fehlen sie)
+      - name: Gebaute Kaufmodelle ablegen (854)
+        if: env.KAUF_CACHE == 'bauen'
+        env:
+          GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
+        run: python3 tools/godot/kauf_cache.py ablegen || echo "Ablegen misslungen (Schreibrecht KAUF_TOKEN?), Bau geht weiter"
       - name: Kaufmodelle verschluesseln (348.12i)
         run: |
           K=$(openssl rand -hex 32)
