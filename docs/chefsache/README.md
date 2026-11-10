@@ -16,7 +16,11 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
+
+| Folge | Version | Build | Was | Wer | Seit |
+|---|---|---|---|---|---|
+| 1 | [0.348.330](ansehen/t275-sammelbuild.md) | [Build 275](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/194) | Version folgt | Tom und Jerry | 10.11., 20:35 |
 
 ## Zu tun
 
@@ -336,6 +340,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
+
+Format (Muster: „So geht's“ unten): t275-sammelbuild.md: Zeile 2 ist keine Bereichszeile
 
 Ohne Datei: 870a (Sokrates)
 

@@ -1,4 +1,4 @@
-# Tom und Jerry · Build 275 · Version folgt · Sammelbuild vor dem Umzug BRS · [PR #194](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/194)
+# Tom und Jerry · Build 275 · 0.348.330 · Version folgt · Sammelbuild vor dem Umzug BRS · [PR #194](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/194)
 Ganzes Spiel · Tom (663, 470, 661, 475, 540, 653, 506), Jerry (709, 506.1, 854, 870.2, 870.3) · 10.11., 20:35 · APK folgt · Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/tree/claude/build-275
 Gegengelesen: Sokrates 10.11., 20:34 (Wege gegen `testmodus.gd`, `probe.gd`, `spiel.gd`, `kampfblende.gd` auf `6814e4331`)
 
