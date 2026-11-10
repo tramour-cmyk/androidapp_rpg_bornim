@@ -52,6 +52,11 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 131 · 849 Letzte Antwort in der Übergabe (Perikles, `c02c25d52`; 10.11., 13:0x)
+
+- Regel in `LISTE-RELEASE-NEUSTART.md` 1 und CLAUDE.md „Vorräte klein halten“ steht. Echter Fall Sokrates 12:46 → Nachfolger 12:50: Übergabe trägt „Letzte Antwort“, Startmeldung nennt sie nicht.
+- **D130.1 → 859 (Perikles, Muss):** Pflicht des Nachfolgers fehlt dort, wo er beim Start liest (CLAUDE.md Zusammenarbeit 2, Rollendateien). Dazu ungenannte Streichung „ohne Werkzeug: vorschlagen“ (436). 849 wartet auf 859.
+
 ## Lauf 130 · 848 Probelauf-Zähler ohne vorschau.env (Perikles, `f5adfa33f`; 10.11., 13:0x)
 
 - `vorschau.yml` überspringt ohne `tools/preview/vorschau.env` mit Exit 0; Ausnahme in `loest_aus` passt dazu. Probe Wurzel ohne Datei → 0, mit Datei → 1.
