@@ -52,6 +52,10 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 132 · 847 Menüeintrag „Lizenzen der Engine“ ausgenommen (Perikles, `00bd81d70`; 10.11., 13:0x)
+
+- Logik der Commit-Prüfung gegen alle Prüflisten t248–t275: 269.1 und 271.1 gehen jetzt durch; 248.4 (Lizenzhinweis da?), 273.1 (Hoskins, MIT) und 255.1 halten weiter an. 255.1 prüft den Umbruch der englischen Lizenztexte selbst, nicht nur den Weg; nach 832 ist das ein Lizenz-Prüfpunkt, Anhalten richtig (meine Angabe in D128.1 war hier zu weit). **847 greift** (Lauf 132).
+
 ## Lauf 131 · 849 Letzte Antwort in der Übergabe (Perikles, `c02c25d52`; 10.11., 13:0x)
 
 - Regel in `LISTE-RELEASE-NEUSTART.md` 1 und CLAUDE.md „Vorräte klein halten“ steht. Echter Fall Sokrates 12:46 → Nachfolger 12:50: Übergabe trägt „Letzte Antwort“, Startmeldung nennt sie nicht.
