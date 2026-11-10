@@ -699,6 +699,10 @@ def main():
         unles = sorted({nr for nr, _ in fehler if any(d["nr"] == nr and d["besitzer"] == rolle for d in zeilen_liste())})
         if unles: warn += "  UNLESBAR (Liste): " + ", ".join(unles)
         p = pause(inhalt)
+        frei = pause_frei(inhalt) if p else []
+        if p:  # 889, 892 (D148.1): Pause sperrt jede Zeile, die nicht unter „frei für“ steht, in jeder Ausgabe (auch --md, --stand)
+            zs = [z if z[4] or (frei and ist_frei(z[0], frei)) else z[:4] + ("Pause, nicht frei" if frei else "Pause",) for z in zs]
+        if frei: p += ", frei für " + ", ".join(frei)  # 870.17
         if md:
             print("**%s** – offen %d, Muss %d, startbar %d%s\n" % (rolle, len(zs), sum(1 for z in zs if z[1] == "M"), sum(1 for z in zs if not z[4]), (", PAUSE bis " + p) if p else ""))
             print("| Nr. | Kl. | Was | Stand |\n|---|---|---|---|")
@@ -706,8 +710,6 @@ def main():
                 print("| %s | %s | %s | %s |" % (nr, kl, re.sub(r"\*\*|`|\|", "", thema)[:90].strip(), grund or "startbar"))
             print()
             continue
-        frei = pause_frei(inhalt) if p else []
-        if frei: p += ", frei für " + ", ".join(frei)  # 870.17
         if p: print("  %s: PAUSE bis %s%s" % (rolle, p, warn))  # Zahlen und Testzählung laufen weiter
         erstes = {"M": None, "K": None, "N": None}
         sperren = []
@@ -717,7 +719,6 @@ def main():
                 if erstes["N"] is None: erstes["N"] = (nr, kl, thema)
                 continue
             if b: sperren.append((nr, b)); continue
-            if frei and not ist_frei(nr, frei): sperren.append((nr, "Pause, nicht frei")); continue  # 889 (D146.1)
             art_ = "M" if kl == "M" else "K"
             if erstes[art_] is None: erstes[art_] = (nr, kl, thema)
         if rolle in UEBERNAHME:
