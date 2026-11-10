@@ -40,7 +40,6 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [822](tun/822-formhaken.md) | **Muss** | B Abläufe | 09.11., 23:12 | Der Auto-Modus hat das Abschalten des Hakens abgelehnt; ohne dein Wort in meiner Sitzung bleibt Schritt 5 liegen | Perikles |
 | [642](tun/642-kaufrepo-tuffy.md) | **Muss** | E Kampf | 09.11., 23:03 | Ohne den gekauften Wolf kann Tuffy die Behebung von 642 nicht am Rechner prüfen | Tuffy (Team Jerry) |
 | [820](tun/820-archivieren-erlauben.md) | – | B Werkzeuge | 09.11., 22:36 | `archive_session` ist vom Auto-Modus-Wächter abgelehnt („Interfere With Workloads“); ohne Archivieren geht kein Neustart. | Ford |
 
@@ -246,7 +245,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 823 | K | Von Perikles (822, 745 A2): Abschnitt „## Checkliste“ in LISTE-MARS.md, je Regel zum Kampf | startbar |
 | 824 | M? | Kampf: Schurke ohne Schild geht beim Angriff kurz 3,4–3,8 m/s in „Gehen“ (Bewegung höchste | startbar |
 
-**Perikles** – offen 21, Muss 7, startbar 2
+**Perikles** – offen 19, Muss 6, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -268,8 +267,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 734 | K | D92.1 Warnung „LISTE-VORGAENGE.md von Hand geändert“ wird nirgends festgehalten, Woche War | ruht |
 | 735 | K | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-ABNAHME.md 11 und Kopf DESIGN-KAMPF | ruht |
 | 742 | K | D78.1 Testbitte t268: Zeile „Verglichen“ deckte nur die Schirme vom 05.11., nicht Dorf, Ka | ruht |
-| 822 | M | Schritt 4 und 5 zu 745 (von Sokrates): Wachstumsstopp-Haken mit fester Obergrenze für CLAU | Chef (Datei in der Chefsache) |
-| Pflege | K | von Werkzeug (340.3, 10.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 | 828 | M | Zu 827 (Sokrates): Schwelle „festgefahren“ (zwei Rückläufer des Chefs oder über 30 $) in s | startbar |
 
 **Diogenes** – offen 8, Muss 7, startbar 0
@@ -333,9 +330,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 745 | M | Regelwerk konsolidieren: Widersprüche listen (Diogenes), Chef entscheidet, jede Regel an e | startbar |
 | 765 | M | Wochentermin 13.11.: Rollenspiegel Sokrates (rollenspiegel.sh Sokrates) (719); deckt 02.–1 | Termin 13.11. 08:00 |
 | 782 | M | Von Tom (697): ein Lauf am Rechner frei? Der erste (17:38) brach vor dem Zeichnen ab (Proj | startbar |
-| Pflege | K | von Werkzeug (340.3, 10.11.): 15230 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 826 | M | Guthaben Woche bis 14.11.: eine Entwicklersitzung zugleich, Kür ruht, Zurücksetzen als Res | startbar |
 | 827 | M | Stärkstes Modell nur für festgefahrene Vorgänge (zwei Rückläufer oder über 30 $), ab 14.11 | wartet auf 828 (startbar) |
+| Pflege | K | von Werkzeug (340.3, 10.11.): 15047 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
