@@ -5,6 +5,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 **Übergabe (10.11., 02:17, `session_01Hmoj77XCCqfKszpVkHrYn4`):** 475 Gesichter Lauf 2 am Rechner (1 von 1, fd6b7421f) beim Chef (`ansehen/475`); danach ohne Bild: Reif Lyra, Brauen (5632b708a). 825 wartet auf t273 (Build 273 offen ohne Test, Checkliste 3). Nachfolger: keiner, nichts startbar.
 
 ## Einzelheiten
+- **Zu 834, von Sokrates (Chef 10.11., 10:21, „Spike genehmigt“):** Sonderaufgabe Spike. Am Gerät hat kein Held BRS-Daten (`zustand.brs` leer: „Neues Spiel“ = erschaffung.gd ohne „brs“, BRS-Erschaffung im Testmodus übernimmt nichts, `spiel.gd` 124, 1141), darum Reiter Fertigkeiten, Übung, Platzwahl in t273 unprüfbar (273.3, .5–.7, .9, .16). Weg schaffen, der nicht den Kampf nach BRS (2.3) vorwegnimmt, z. B. im Testmenü „BRS-Held übernehmen“ (Erschaffung BRS schreibt `brs` in den laufenden Spielstand) oder Startdaten aus Klasse; Testbitte mit dem vollständigen Weg, vorher selbst durchgespielt (832). Dann 762, 471, 795 wieder in einen Build (die vier sind aus Build 273 zurückgenommen).
 
 
 
