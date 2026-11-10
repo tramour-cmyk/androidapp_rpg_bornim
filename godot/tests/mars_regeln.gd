@@ -262,10 +262,10 @@ func _statuses() -> void:
 	_check_s("Zwerg widersteht Gift", str(z._inflict(z.by_id("hero"), "POISON", 3)), "false")
 	var sv = _fight(sheet, ["wolf"], 1)
 	_tape(sv, [0])     # 870.5: Abwehrprobe in Prozent, kleiner Wurf gelingt
-	_check_s("Abwehrprobe gelingt", str(sv._inflict(sv.by_id("hero"), "POISON", 3, ["CON", 11])), "false")
+	_check_s("Abwehrprobe gelingt", str(sv._inflict(sv.by_id("hero"), "POISON", 3, ["zaehigkeit", 11])), "false")
 	var fl = _fight(sheet, ["wolf"], 1)
 	_tape(fl, [99, 999])
-	_check_s("Abwehrprobe misslingt", str(fl._inflict(fl.by_id("hero"), "POISON", 3, ["CON", 11])), "true")
+	_check_s("Abwehrprobe misslingt", str(fl._inflict(fl.by_id("hero"), "POISON", 3, ["zaehigkeit", 11])), "true")
 
 
 ## The next numbers of [m]'s dice, from here on.

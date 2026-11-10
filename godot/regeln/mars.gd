@@ -481,8 +481,6 @@ func _brs_handlungen(f: Fighter) -> void:
 
 
 ## 870.5 (870a 5 A): Grundwert für Proben; Gegner ohne Grundwerte zählen mit „gegner_grundwert“ (werte.json „proben“)
-const ABWEHR_WERT := {"CON": "zaehigkeit", "STR": "kraft", "DEX": "gewandtheit", "WIS": "wille", "INT": "wille", "CHA": "wille"}
-
 func _proben() -> Dictionary:
 	return BrsKampf.w().get("proben", {})
 
@@ -525,7 +523,7 @@ func _initiative(f: Fighter, atemlos := false) -> int:
 	return roundi(n)
 
 
-## 506 Untotenzähigkeit als Prozent statt W20: dieselbe Chance wie früher (W20 + Zähigkeit ≥ 5 + Schaden), Schaden im alten Maß
+## 506 Untotenzähigkeit als Prozent: dieselbe Chance wie früher (Zähigkeit gegen 5 + Schaden, 5 % je Punkt), Schaden im alten Maß
 func _zaeh_haelt(t: Fighter, dmg: int) -> bool:
 	var alt := roundi(float(dmg) / maxf(0.01, massstab(t)))
 	var c := 5 * (21 - (ZAEH_DC + alt - int(t.monster.get("con", 0))))
@@ -1359,7 +1357,7 @@ func _inflict(t: Fighter, st: String, turns: int, save = null, die = null) -> bo
 			var P := _proben()
 			var gegen = _staerkster_gegner(t)
 			var schwere := (int(save[1]) - int(P.get("abwehr_mitte", 11))) * float(P.get("je_punkt", 5))
-			if gegen != null and _probe(t, String(ABWEHR_WERT.get(String(save[0]), "zaehigkeit")), gegen, "", -schwere):
+			if gegen != null and _probe(t, String(save[0]), gegen, "", -schwere):
 				_say(fmt(ST_SHRUGS, lang, [who]), null, t.id)
 				return false
 		var ten := int(h.get("tenacity", 0))
@@ -1435,18 +1433,18 @@ func _foe_wounds(foe: Fighter, t: Fighter, crit: bool) -> void:
 	if crit and type == "SLASHING":
 		_inflict(t, "BLEED", 2)
 	if crit and type == "BLUDGEONING":
-		_inflict(t, "STUN", 1, ["CON", 12])
+		_inflict(t, "STUN", 1, ["zaehigkeit", 12])
 	if art_of(m) in OWN_INTENTS:
 		return
 	match str(m.get("special", "NONE")):
 		"POISON":
-			_inflict(t, "POISON", 3, ["CON", 11], m.get("poison", [1, 6, 0]))
+			_inflict(t, "POISON", 3, ["zaehigkeit", 11], m.get("poison", [1, 6, 0]))
 		"SURPRISE_ATTACK":
 			if first:
-				_inflict(t, "STUN", 1, ["CON", 12])
+				_inflict(t, "STUN", 1, ["zaehigkeit", 12])
 		"EVASIVE":
 			if dice.chance(0.2):
-				_inflict(t, "BLIND", 2, ["CON", 10])
+				_inflict(t, "BLIND", 2, ["zaehigkeit", 10])
 		"BLOOD_DRAIN":
 			if dice.chance(0.3):
 				_inflict(t, "BLEED", 2)
@@ -1454,7 +1452,7 @@ func _foe_wounds(foe: Fighter, t: Fighter, crit: bool) -> void:
 			if t.hero != null and String(t.hero.get("race", "")) == "ELF":
 				_say(fmt(MSG506_ELF, lang, [t.name(lang)]), t.id)
 			else:
-				_inflict(t, "STUN", 1, ["CON", 10])
+				_inflict(t, "STUN", 1, ["zaehigkeit", 10])
 
 
 func _foe_turn(foe: Fighter, react: Callable) -> void:
