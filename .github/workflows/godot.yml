@@ -75,15 +75,17 @@ jobs:
         run: |
           echo "KAUF=$RUNNER_TEMP/kauf" >> $GITHUB_ENV
           bash tools/blender348/kauf_laden.sh $RUNNER_TEMP/kauf
-      # 854 (Chef 10.11., 12:34): gebaute Modelle aus dem Kaufrepo (Version „bau“, Kennung über tools/blender348, Bauschritte,
-      # Kaufdateien, karten.json); Treffer überspringt Modelle, Held je Klasse, Kampfort; ohne Treffer bauen und ablegen.
-      # Nicht bei kampf=656 (baut den Helden vorher dazu). KAUF_TOKEN braucht dafür Schreibrecht (Contents) aufs Kaufrepo.
-      - name: Gebaute Kaufmodelle holen (854)
+      # 854 (Chef 10.11., 12:34): gebaute Modelle aus dem Kaufrepo (Zweig bau/<Kennung>, Kennung über tools/blender348, Bauschritte,
+      # Kaufdateien, karten.json); Treffer überspringt Modelle, Held je Klasse, Kampfort und holt die Dateien vor „Kampfort bauen“
+      # (die Kaufschilde ersetzen dort Waffen aus „Leute bauen“); ohne Treffer bauen und ablegen. Nicht bei kampf=656 (baut den
+      # Helden vorher dazu). KAUF_TOKEN braucht dafür Schreibrecht (Contents) aufs Kaufrepo.
+      - name: Gebaute Kaufmodelle pruefen (854)
         if: github.event.inputs.kampf != '656'
         env:
           GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
         run: |
-          if python3 tools/godot/kauf_cache.py holen; then echo "KAUF_CACHE=treffer" >> $GITHUB_ENV
+          python3 -c "import yaml" 2> /dev/null || python3 -m pip install -q pyyaml   # vor setup-python: System-Python
+          if python3 tools/godot/kauf_cache.py pruefen; then echo "KAUF_CACHE=treffer" >> $GITHUB_ENV
           else python3 tools/godot/kauf_cache.py vorher && echo "KAUF_CACHE=bauen" >> $GITHUB_ENV; fi
       # 804 (Chef 09.11., 21:12): Grass & Wind Kit v1.0.1 (REEBOO, gekauft, stufe1) fuers Gras im Dorf und Wald (skripte/grasbausatz.gd);
       # die Lizenz verbietet die Weitergabe der Dateien: nie ins Repo (godot/.gitignore), nie als Artefakt, nur in den Bau. Nur, was das
@@ -255,6 +257,11 @@ jobs:
           ls -l $D
           # 348.12i: gekauft, also nur verschluesselt ins APK
           (cd godot && ls daten/dorftiere/*.bin 2>/dev/null >> daten/kauf.txt) || true
+      - name: Gebaute Kaufmodelle holen (854)
+        if: env.KAUF_CACHE == 'treffer'
+        env:
+          GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
+        run: python3 tools/godot/kauf_cache.py holen
       - name: Kampfort bauen (Jerry 348.7, 399.1)
         if: env.KAUF_CACHE != 'treffer'
         run: |
