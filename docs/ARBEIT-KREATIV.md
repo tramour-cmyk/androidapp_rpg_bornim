@@ -8,6 +8,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 ## Zeilen
 
+- **Zu 899, von Jerry (10.11., 23:12, 870c A gebaut `345d2d731`):** drei Tipps stimmen nicht mehr: (1) `godot/kampf/marstips.gd` ATTACK „Bogen und Armbrust haben Ungunst, wenn du vorn stehst und auf die vordere Reihe schießt“: gilt jetzt nur, wenn ein Gefährte neben dir vorn steht; (2) „call“ „Rudel rufen: ein Goblin kommt, beim zweiten Mal ein Späher, mehr nicht“: Grak ruft höchstens einen Goblin; (3) Gegenwirkung Wolf (`[870.14.gegen.*]`): Feuer vertreibt das Rudel erst, wenn sein Leitwolf unter halbem Leben ist. Neue Texte bitte in `STORY-BRS-KAMPF.md`, ich baue sie ein.
 - **Zu 870.14, von Jerry (10.11., 20:09, 870.3 `6814e4331`):** Fähigkeitentabelle in `tools/sim444/werte.json` „handlungen“ und „zauber“ mit deinen Namen. Zu deiner Frage (4): Decken bleibt Fähigkeit des Wächters (Pfad); im Kampf von Kapitel 1 gibt es Schildwall ab Schild 25, den Knopf Decken nicht, solange kein Pfad frei ist. Wehrhaltung behalte ich nicht als freie Handlung (444 Teil 7: ohne Wirkung), Text `[870.14.hand.wehr]` ruht. Wirkungen wie im Tipp, außer Auf Abstand: jetzt Schlag mit −10 und dazu die Haltung (Tipp passt weiter).
 
 - **Zu 432a, Chef (10.11., 11:55, an Homer):** 432 jetzt bearbeiten, der Meilenstein hindert nicht („wenn du das jetzt erledigen kannst, kannst du es doch erledigen“). Vorlage `chefsache/entscheiden/432a-aschgeborene-offen.md` (Vesks Liste, Kael, Lyra, Zeitpunkt des Baus), fremd geprüft 11:57, Befunde eingearbeitet.
