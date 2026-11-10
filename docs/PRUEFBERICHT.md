@@ -52,6 +52,37 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 145 · 881 Entwurf der Prüfliste, nie das eigene Team (Perikles, `5bd0f16c8`; 10.11., 16:2x)
+
+- Weg steht in `LISTE-CHECK-BUILD-TEST.md` 8 (Entwurf `docs/entwurf/t<n>-….md`, Sitzung außerhalb des Teams, Zeile, verschieben). Probe in einer Kopie von `origin/main`: „# Tom ·“ mit „Gegengelesen: Spike“ und „# Tom und Jerry ·“ mit „Gegengelesen: Tuffy“ halten an; „# Tom ·“ mit Jerry und „# Jerry ·“ mit Sokrates gehen durch; Entwurf ohne Zeile unter `docs/entwurf/` geht durch. Zeile 1 der Prüflisten t271–t274 hat genau diese Form. **881 greift** (Lauf 145); 866 wartet auf nichts mehr (Bereich Q, schließt Perikles).
+
+## Lauf 144 · 880 doppelte Vorgangsnummer (Perikles, `5f3cd4566`; 10.11., 16:2x)
+
+- `vorgang.py neu` holt `origin/main` und zieht nie unter dessen Zähler oder eine dort belegte Nummer; echter Fall heute: fünf Ziehungen 882–886 nach 881, jede einmal, Zähler 887. Rest: ziehen zwei Sitzungen, bevor eine pushte, hilft weiter nur die Marke (653) als Mischkonflikt; darum sofort pushen wie vorgeschrieben. **880 greift** (Lauf 144).
+
+## Lauf 143 · 879 Nachfolger-Strich mit Zusatz (Perikles, `7a1160881`; 10.11., 16:2x)
+
+- `lauf.nachfolger()` an 6 Übergaben: „– Auf Abruf (768 …)“ → „Diogenes – Auf Abruf (…)“, „–, auf Abruf“ → „Diogenes – auf Abruf“, „— (auf Abruf)“ → „Diogenes – (auf Abruf)“, „–“ → keiner; echte Titel unverändert. Kein „– –“ mehr; die 641-Regel (`lauf.py` 553) prüft jetzt ohne Groß-/Kleinschreibung, „Auf Abruf“ startet nur bei Startbarem. **879 greift, damit auch 871** (Lauf 143).
+
+## Lauf 142 · 877 Kerntest-Prüfung bei Code-Commits (Perikles, `4924cb6cd`; 10.11., 16:2x)
+
+- Probe-Commit in einer Kopie von `origin/main` mit Änderung unter `core/src/main/`: ohne Marke Warnung „Code ohne grünen Kerntest …“; Marke jünger als die Änderung: keine Warnung. Die Prüfung erreicht Code-Commits wieder. **877 greift** (Lauf 142). Hinweis: Code unter `godot/` hat keine Kerntest-Prüfung; nach dem Ausstieg aus Kotlin gehört das zu 882.
+
+## Lauf 141 · 870.11 Wächter SRD-Begriffe (Perikles, `4924cb6cd`; 10.11., 16:2x)
+
+- Probe-Commit in einer Kopie von `origin/main`: neue Zeile in `godot/skripte/rast.gd` mit „RK“, „Halbork“, „TP“, „Trefferwürfel“ → Warnung „Halbork, RK (hält an, sobald 870.4 erledigt ist)“, Exit 0; Datei unter `godot/tests/` bleibt außen vor. Wortliste 47 Wörter: Spalte „Alt“ aus `DESIGN-BRS.md` 12 plus `SRD_DAZU` (`commit-pruefung.py` 187), wie im Vorgangstitel verlangt.
+- **D140.5 → 886 (Perikles):** „TP“, „Trefferwürfel“, „Hauptattribut“ (Plan Schritt 8 zählt sie zu den SRD-Texten; 18 Spieltextzeilen in `godot/` mit „TP“) fängt er nicht. Für die Abnahme (870.13 „Wächter über den ganzen Godot-Code ohne Fund“) gibt es keinen Lauf über den Bestand, nur über neue Zeilen. Englische Zeilen ohne deutsches Gegenstück („Armor Class“, „saving throw“) fängt er auch nicht; heute stehen sie in derselben Zeile wie das deutsche Wort (`talente.gd` 121–145). 870.11 wartet auf 886.
+
+## Lauf 140 · 870.18 zweites Gegenlesen Umzugsplan BRS (Sokrates, `LISTE-UMZUG-BRS.md` `220120cdc`, Vorgänge 870.2–870.17; 10.11., 16:2x)
+
+Antwort auf „niet- und nagelfest?“: der Plan trägt, zwei Lücken halten aber Arbeit an (D140.1, D140.2). Urteilen tut nur der Chef.
+- **D140.1 → 882 (Perikles):** Ganz aus Kotlin (Schritt 8, 870.9, 870.10) nennt nur `android.yml`. An `core/` hängen außerdem: Kerntests `tools/t logik` = `gradlew -p core test` (Pflicht laut CLAUDE.md „Jeder Schritt“, Marke `commit-pruefung.py` 175–183), `godot-kampf.yml` 41 (`exportIntro`), `vorschau.yml` 15–38 und `tools/preview` (Bilder „alt“ für 348.9, `vgl348.py` 1), `story.sh` 13 (Spieltexte aus `core/src/main/kotlin`), `probelauf.py` 74, 582, `setup-session.sh` 13, `startbar.py` 396, CLAUDE.md erster Absatz (Module). Ohne Ersatz gibt es nach Schritt 8 keinen Kerntest, der Haken warnt bei jedem Code-Commit. 870.10 wartet auf 882.
+- **D140.2 → 883 (Perikles):** Pausezeile Jerry „frei für 870.x, 709, 854“ ohne 506.1; 506.1 gehört Jerry, steht aber in Toms Zeile. `startbar.py` 16:19 zeigt Jerry ohne 506.1; damit sind 506 („wartet auf 506.1“) und 870.3 („wartet auf 506“) bis 13.11., 20:00 gesperrt. 870.17 wartet auf 883.
+- **D140.3 → 884 (Sokrates):** Lücken in „wartet auf“: 870.13 nimmt Lizenzhinweis und `aboutText` heraus, wartet aber nicht auf 870.15 (neuer `aboutText`, Handbuch); 870.2 (Schritt 2, „wartet auf 0“) wartet nicht auf 870.16; 870.16 nennt nur 4 Zweige, der Plan („Zweige für Schritt 0: Liste Lauf 134 (9)“) 27 weitere; 870a 8 (Kampftränke und Wurfmittel mit Schadensart; Spalte Schwäche/Stärke in den Regelwerten) steht in keinem Vorgang außer dem Kampfteil von 870.5 (870.3 Daten, 870.6 Gegenstände ohne).
+- **D140.4 → 885 (Sokrates):** Plantext widerspricht sich: „17–24 Entwicklersitzungen“, Tabelle ergibt 19–29; Schritt 8 im Einzelnen „2 Sitzungen“, Tabelle 4–6; Risiken 5 noch „120–200 $“ und „Schritt 2–3 bis 14.11. allein“ gegen Guthabenzeile (beide zugleich); Kopf „Offene Regelfragen: Chefsache 870a“ und Schritt 1 „sieben Fragen“, 870a ist beantwortet und gelöscht; „mit 7 B eher 400–600 $“ steht unter „Diogenes rechnet“, gerechnet habe ich nur 350–500 $; Store-Kennung „Chefsache“ ohne Datei (gemeint wohl 622, ruht; Godot heute `de.bornim.game.godot`, `export_presets.cfg` 28).
+- **Lauf 134 erledigt:** (1) Projektplan 2.3 ohne 212, Pechsträhne als Prozent; (3) Zielschuss und Decken bleiben Fähigkeiten (`DESIGN-BRS.md` 207); (6) Schritt 4 und 5 nur zusammen als B1 (870.4, 870.5); (7) Wanderer in 870.4, Zeile „Wanderer“ schon in `werte.json` 158; (8) Dateigrenzen im Abschnitt „Nach dem Gegenlesen“; (4) Hinweis erst nach `core/` raus. 870a 7 B und 8 A stehen in Archiv, `DESIGN-BRS.md` 208 und Bestiarium 42–46. Alle 13 genannten Zweige gibt es. 653, 663 warten nur auf den Test des Chefs.
+- **Nicht geprüft:** Zeilennummern im Code seit Lauf 134 (709, 506 ändern dieselben Dateien weiter); 870.11 (Wächter) und 870.17 selbst über D140.2 hinaus.
+
 ## Lauf 139 · 866 Prüfliste nur gegengelesen (Perikles, `8c9f2dc3f`; 10.11., 15:1x)
 
 - Commit-Prüfung in einer Kopie von `origin/main`, neue `ansehen/t999-probe.md`: ohne Zeile, „Gegengelesen: Sokrates“ ohne Zeit und Zeile mitten im Satz halten an; „Gegengelesen: Sokrates 10.11., 15:09“, „**Gegengelesen:** Perikles …“, „- Gegengelesen von Sokrates (…)“ gehen durch. Umbenennen fällt nicht durch (`--no-renames`).
