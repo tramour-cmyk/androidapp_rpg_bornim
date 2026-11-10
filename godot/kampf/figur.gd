@@ -192,6 +192,7 @@ func setup(f, k) -> void:
 ## Weicher Bodenschatten unter der Figur wie im alten Kampf (Prüfer Stand 9: Wölfe schweben); der Schlagschatten der hohen
 ## Sonne fällt fast ganz unter den Körper. Ohne Tiefe, darum ohne Tusche; folgt der Figur (Kind), bleibt beim Sprung am Boden.
 static var shadow_shader: Shader
+var _schatten_grund := Vector2.ZERO
 
 func _ground_shadow() -> void:
 	if shadow_shader == null:
@@ -223,6 +224,7 @@ void fragment() {
 	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	mi.position = Vector3(0, 0.02, vor * _scale() if wolf else 0.0)     # Rumpfmitte des Wolfs liegt 0,15 m vor dem Ursprung
 	mi.name = "Bodenschatten"
+	_schatten_grund = pm.size     # 709: Umriss vor der Verbreiterung um die Pfoten (_paws_in_blob)
 	add_child(mi)
 	if wolf and OS.get_environment("PFOTENSCHATTEN") != "0":     # Prüflauf: PFOTENSCHATTEN=0 ohne
 		_paw_shadows()
@@ -254,6 +256,7 @@ func _paw_shadows() -> void:
 		mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		mi.top_level = true
 		mi.name = "Pfotenschatten"
+		mi.set_meta("pfotenschatten", true)     # 709: kein Teil des Umrisses (_footprint)
 		add_child(mi)
 		paws.append([sk, i, PAW_BONES[b], mi])
 
@@ -672,6 +675,12 @@ func _arm_goblin() -> void:
 		# 348.12 Probe CC0-Gerüst (goblin.py GERUEST=cc0): der Handknochen beginnt am Handgelenk, der Griff liegt näher
 		var grip: float = info.get("griff_hand_m", 0.0) if info.get("geruest", "") == "cc0" else info.get("griff_m", GRIP_CM * CM)
 		_hold(sk, "R" if i == 0 else "L", w[i], grip, info.get("handflaeche_m", PALM_CM * CM), sz, info.get("axt", {}))
+	# 709 (treffen_709 Krogg: Lücke 0,53 m; der Morgenstern hängt im Modell am Knochen „waffe“, krogg_gestalt.py, und galt nicht als
+	# Waffe: _hieb nahm die Weite aus der info, die Messung die Hand): was im Modell an einem Knochen hängt und „Waffe“ heißt, ist sie
+	if w.is_empty():
+		for at in model.find_children("*", "BoneAttachment3D", true, false):
+			if not at.has_meta("was") and at.find_children("Waffe*", "MeshInstance3D", true, false).size() > 0:
+				at.set_meta("was", "waffe-im-modell")
 	if _gob_art() == SHAMAN:     # Augen und der Schädel am Stab glimmen grün (Eckfarbe mit Alpha 0; goblin.py, waffen.py)
 		for m in mats:
 			m.set_shader_parameter("glut", 1.8)     # Runde 1b (Prüfer 1a: nicht zu sehen) 2,5; 1c (Prüfer 1b: gelb statt grün) 1,8
@@ -2061,6 +2070,8 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 		if not bb.is_empty():
 			var ziel: Array = other.koerper()
 			var hind: Array = other.schild_kapseln()
+			other.footprint()     # misst schild_unten (ohne Schild INF)
+			var unter_schild: bool = other.schild_unten < INF and hoehe_oben() < other.schild_unten
 			var teil := []     # bester freier Platz, an dem die Schnauze nicht ganz hinreicht: [Lücke, Platz, Richtung, Stand, t]
 			for w in [0.0, 20.0, -20.0, 40.0, -40.0, 60.0, -60.0]:
 				var d2 := dir.rotated(Vector3.UP, deg_to_rad(w))
@@ -2075,7 +2086,8 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 				# wer mit dem Schild abwehrt (406), stößt ihn vor (438: ABWEHR_VOR); der Weg misst die Ruhehaltung
 				# reicht die Schnauze nicht ganz hin, steht der Schild davor; er fährt bei der Abwehr (Ring) vor, also gleich ABWEHR_VOR
 				# Abstand (wolf_mess_438 Kleriker 71,9 s: Schild 9 cm im Wolf)
-				var st2: float = float(pl[0]) + (ABWEHR_VOR if not voll or other.has_method("blockt") and other.blockt() else 0.0)
+				# 709 (treffen_709 Ratten: 8 cm vor dem Helden): wer unter dem Schild bleibt, dem stößt er nicht entgegen
+				var st2: float = float(pl[0]) + (ABWEHR_VOR if not unter_schild and (not voll or other.has_method("blockt") and other.blockt()) else 0.0)
 				var s2 := Vector3(other.position.x, position.y, other.position.z) - d2 * st2
 				var l2 := _platz_luft(s2, d2, other)
 				var w2 := _weg_luft(position, s2, other) if s2.distance_to(position) > 0.15 else INF
@@ -2086,7 +2098,15 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 				var y0 := atan2(d2.x, d2.z) + deg_to_rad(bite[nm][2])
 				var hv := home - s2
 				var y1 := y0 + wrapf(atan2(hv.x, hv.z) + PI - y0, -PI, PI) if _bleib_717() or weg.has("Zurück") else atan2(hv.x, hv.z)
-				var r2 := minf(_rumpf_luft(s2, y0, null), minf(_rumpf_luft(s2, lerp_angle(y0, y1, 0.5), null), _rumpf_luft(s2, y1, null)))
+				# 709 (treffen_709 Ratten: an jedem Bissplatz lag der Umriss 0,16–0,34 m im Helden, die Schnauze blieb 0,6–0,8 m vor ihm):
+				# Kopf und Kiefer gehören beim Biss ans Ziel, hieb_plan prüft sie räumlich gegen Körper und Schild; gegen das Ziel zählt in
+				# Bisshaltung nur der Rumpf hinter dem Kopf (bei der Ratte liegt der Kopf am Boden im Umriss, beim Wolf darüber)
+				# (nur wer unter dem Schild bleibt: Ratte, Spinne, Schnecke; Wolf und Grimmzahn reichen höher, ihr Kopf zählt mit, 709a)
+				var rumpf := _rumpf_ohne_kopf() if unter_schild else footprint()
+				# auch beim Drehen zum Heimweg: der Kopf löst sich dabei vom Ziel
+				var r2 := INF
+				for yw in [y0, lerp_angle(y0, y1, 0.5), y1]:
+					r2 = minf(r2, minf(_rumpf_luft(s2, yw, other), _rumpf_luft(s2, yw, null, other, rumpf)))
 				# der Heimweg geht am Ziel vorbei (_walk_home lässt das Ziel aus): auch er bleibt vor dessen Umriss
 				var h2 := INF
 				var fb := footprint()
@@ -2095,16 +2115,16 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 				if OS.get_environment("SCHAU_709") != "":
 					print("709 Bissplatz %s, %.0f°: Luft %.2f Weg %.2f Umriss %.2f Heim %.2f im Bild %s" % [fighter.id, w, l2, w2, r2, h2, _im_bild(s2, d2)])
 				# wer mit Schild kämpft, hält ihn bei der Abwehr vor sich (footprint), um ABWEHR_VOR weiter (wolf_mess_438 Kämpfer: 0,11 m)
-				var r_soll: float = BISS_UMRISS + (ABWEHR_VOR if other.kauf and other._ss() else 0.0)
+				var r_soll: float = BISS_UMRISS + (ABWEHR_VOR if other.kauf and other._ss() and not unter_schild else 0.0)
 				# und der Held dreht sich getroffen oder abwehrend zum Wolf (_face_sanft), den Schild mit (footprint): sein Umriss auch so
 				if other.kauf and other._ss():
-					var fb2 := footprint()
+					var fb2 := rumpf
 					var tr2 := Transform3D(Basis(Vector3.UP, y0), s2)
 					var zum: Vector3 = s2 - other.position
 					for i in 7:
 						for j in 3:
 							var q := tr2 * Vector3(lerpf(fb2.position.x, fb2.end.x, j / 2.0), 0.0, lerpf(fb2.position.z, fb2.end.z, i / 6.0))
-							r2 = minf(r2, other.clearance(q, Vector3.INF, atan2(zum.x, zum.z)))
+							r2 = minf(r2, other.clearance(q, Vector3.INF, atan2(zum.x, zum.z), hoehe_oben()))
 				if l2 < PLATZ_LUFT or w2 < WEG_LUFT or r2 < r_soll or h2 < -BISS_UMRISS or not _im_bild(s2, d2):
 					continue
 				var bt := float(pl[1]) / maxf(float(tempo.get(nm, 1.0)), 0.1) + HIEB_VERZUG
@@ -2321,8 +2341,10 @@ func _platz_luft(p: Vector3, d: Vector3, skip) -> float:
 
 ## 438: Luft des Rumpfs an [p] mit Drehung [yaw] zu allen anderen
 ## (Raster über den eigenen Umriss gegen die Umrisse der anderen, wie tests/wolf_mess_438.gd misst)
-func _rumpf_luft(p: Vector3, yaw: float, skip = null) -> float:
-	var box := footprint()
+func _rumpf_luft(p: Vector3, yaw: float, skip = null, nur = null, box := AABB()) -> float:
+	if box.size == Vector3.ZERO:
+		box = footprint()
+	var hoch := hoehe_oben()
 	var tr := Transform3D(Basis(Vector3.UP, yaw), p)
 	var pts: Array = []
 	for i in 7:
@@ -2330,17 +2352,17 @@ func _rumpf_luft(p: Vector3, yaw: float, skip = null) -> float:
 			pts.append(tr * Vector3(lerpf(box.position.x, box.end.x, j / 2.0), 0.0, lerpf(box.position.z, box.end.z, i / 6.0)))
 	var g := INF
 	for o in kampfort.figures.values():
-		if o == self or o == skip or not o.visible or o.down:
+		if o == self or o == skip or not o.visible or o.down or nur != null and o != nur:
 			continue
 		var orte: Array = [Vector3.INF]
 		if o.unterwegs():
 			orte.append_array(o.bahn_punkte())
 		for at in orte:
 			for q in pts:
-				g = minf(g, o.clearance(q, at))
+				g = minf(g, o.clearance(q, at, NAN, hoch))
 		if not is_nan(o.dreh_ziel) and o.tween and o.tween.is_running():
 			for q in pts:
-				g = minf(g, o.clearance(q, Vector3.INF, o.dreh_ziel))
+				g = minf(g, o.clearance(q, Vector3.INF, o.dreh_ziel, hoch))
 	return g
 
 
@@ -3088,8 +3110,12 @@ const KAUF_KNOCHEN := ["pelvis", "spine_01", "spine_02", "spine_03", "neck_01", 
 const KAUF_RAND := 0.15
 var _foot := AABB()
 var _foot_ok := false
-func footprint() -> AABB:
+## 709: Unterkante des Schilds über dem Boden (m, lokal) beim letzten footprint(); wer niedriger ist, läuft unter ihm durch
+var schild_unten := INF
+func footprint(hoehe := INF) -> AABB:
 	var f0 := _footprint()
+	var koerper := f0
+	schild_unten = INF
 	# 406 (wolf_mess_438 mit Sword & Shield: Wolf 9 cm im Schild beim Rückweg): mit dem Satz hält der Held den Schild vor sich, nicht
 	# mehr seitlich am Körper; sein Umriss (jetzige Lage, am Boden) gehört dazu
 	if kauf and _ss() and model:
@@ -3098,9 +3124,15 @@ func footprint() -> AABB:
 			var inv := global_transform.affine_inverse()
 			for m in sch.find_children("*", "MeshInstance3D", true, false):
 				var bb: AABB = (inv * (m as MeshInstance3D).global_transform) * (m as MeshInstance3D).get_aabb()
+				schild_unten = minf(schild_unten, bb.position.y)
 				bb.position.y = 0.0
 				bb.size.y = f0.size.y
 				f0 = f0.merge(bb)
+			# 709 (treffen_709 Ratten: Schild unten 0,73 m, Ratte oben 0,55 m; der Schild vor dem Helden sperrte jeden Bissplatz, die
+			# Schnauze blieb 0,6–0,8 m vor ihm): wer ganz unter dem Schild bleibt, misst gegen den Körper; Schild und Schnauze prüft
+			# hieb_plan räumlich
+			if hoehe < schild_unten:
+				return koerper
 	return f0
 
 
@@ -3127,7 +3159,14 @@ func _footprint() -> AABB:
 				_foot.size.y = 1.8
 				return _foot
 		for m in find_children("*", "MeshInstance3D", true, false):
+			# 709 (treffen_709 Ratten: Umriss 0,9 m breit, an jedem Bissplatz 0,2–0,34 m im Helden, die Schnauze blieb 0,6–0,8 m vor
+			# ihm): die Pfotenflecken liegen frei in der Welt, und der Bodenschatten ist um die Pfoten verbreitert, beides nur fürs Bild;
+			# der Umriss ist der Schatten in seiner Grundgröße
+			if m.has_meta("pfotenschatten"):
+				continue
 			var b: AABB = (inv * m.global_transform) * m.get_aabb()
+			if m.name == "Bodenschatten" and _schatten_grund != Vector2.ZERO:
+				b = AABB(m.position - Vector3(_schatten_grund.x, 0.0, _schatten_grund.y) * 0.5, Vector3(_schatten_grund.x, 0.0, _schatten_grund.y))
 			_foot = b if first else _foot.merge(b)
 			first = false
 		if first:
@@ -3285,6 +3324,33 @@ func _schnauze_vorn() -> float:
 				vorn = maxf(vorn, maxf((inv * (c[0] as Vector3)).z, (inv * (c[1] as Vector3)).z) * absf(scale.z) + float(c[2]))
 				break
 	return vorn if vorn > -INF else footprint().end.z * absf(scale.z)
+
+
+## 709: höchster Punkt der Kapseln über dem eigenen Ursprung (m), einmal gemessen in Ruhe; ohne Kapseln INF (zählt nie als niedrig)
+var _hoehe_oben := NAN
+func hoehe_oben() -> float:
+	if is_nan(_hoehe_oben):
+		var h := -INF
+		for c in kapseln():
+			h = maxf(h, maxf((c[0] as Vector3).y, (c[1] as Vector3).y) + float(c[2]) - global_position.y)
+		_hoehe_oben = h if h > -INF else INF
+	return _hoehe_oben
+
+
+## 709: Umriss (footprint, lokal) vorn bis zum hintersten Punkt von Kopf, Kiefer, Zunge (Kapseln BISS_TEILE); ohne sie der Umriss
+func _rumpf_ohne_kopf() -> AABB:
+	var box := footprint()
+	var hinten := INF
+	var inv := global_transform.affine_inverse()
+	for c in kapseln():
+		var nm := String(c[3]).to_lower() if c.size() > 3 else ""
+		for w in BISS_TEILE:
+			if nm.contains(w):
+				hinten = minf(hinten, minf((inv * (c[0] as Vector3)).z, (inv * (c[1] as Vector3)).z) - float(c[2]) / maxf(absf(scale.z), 0.01))
+				break
+	if hinten < box.end.z and hinten > box.position.z:
+		box.size.z = hinten - box.position.z
+	return box
 
 
 ## 709: wie weit (m) die Figur längs [dn] rücken muss, bis Kopf, Kiefer, Zunge in der jetzigen Haltung SCHNAUZE_VOR vor dem Körper
@@ -3496,8 +3562,8 @@ func traegt() -> Array:
 
 
 ## Wie weit p (Welt) am Boden außerhalb des Umrisses liegt (< 0: darin); [bei]: so, als stünde die Figur dort (438)
-func clearance(p: Vector3, bei := Vector3.INF, gier := NAN) -> float:
-	var box := footprint()
+func clearance(p: Vector3, bei := Vector3.INF, gier := NAN, hoehe := INF) -> float:
+	var box := footprint(hoehe)
 	var tr := global_transform
 	if bei != Vector3.INF:
 		tr.origin = Vector3(bei.x, tr.origin.y, bei.z)
