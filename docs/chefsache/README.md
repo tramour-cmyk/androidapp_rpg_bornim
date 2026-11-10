@@ -8,12 +8,15 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [870c](entscheiden/870c-werte-vorlage.md) | **Muss** | E Kampf | 10.11., 22:10 | Im echten Kampf ist Grak außer für den Wachsoldaten kaum zu schlagen, Grimmzahn für Jägerkind und Klosterschüler viel schwerer, Krogg für fünf Herkünfte leichter als in 444; Hauptgrund sind drei Regeln des alten Kampfs. | Jerry |
 | [709c](entscheiden/709c-wolfsangriff.md) | **Muss** | E Kampf | 10.11., 19:35 | Statt seitlich herum (bis 90°) gerade von vorn durch die Mitte; offen ist vor allem, was beim Treffer am Schild passiert. | Jerry |
 
 ## Zu billigen
 
-Nichts offen.
+Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers.
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [870c](billigen/870c-werte-vorlage.md) | **Muss** | E Kampf | 10.11., 22:27 | Im echten Kampf ist Grak außer für den Wachsoldaten kaum zu schlagen, Grimmzahn für Jägerkind und Klosterschüler viel schwerer, Krogg für fünf Herkünfte leichter als in 444; Hauptgrund sind drei Regeln des alten Kampfs. | Sokrates (Vorentscheid, Vorlage Jerry 22:10) |
 
 ## Anzusehen
 
