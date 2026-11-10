@@ -2,9 +2,9 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `0dc283e9a` (10.11., 14:32)
+**Gelesen bis:** `e9dc25b14` (10.11., 16:54)
 
-**Übergabe (10.11., 16:31):** erledigt: 870.14 (`STORY-BRS-KAMPF.md`, `-KOENNEN.md`, `-HELD.md`, Begriffe EN `[870.14.namen]`; fremd geprüft 16:27, 35 Befunde eingearbeitet; Hinweise an Tom, Jerry, Sokrates mit 870.14 a „Fertigkeit Wissen“). Nachfolger: Homer – 870.15: Texte ohne Kotlin und SRD.
+**Übergabe (10.11., 16:54):** erledigt: 870.15 (`STORY-BRS-ANLEITUNG.md`, `-OBERFLAECHE.md`; Bärenschrat, Goblin-Hauptmann in den K1-Texten und `STORY-REGELN.md`; fremd geprüft 16:50, 25 Befunde eingearbeitet; Hinweise an Tom, Jerry). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
 
 ## Zeilen
 
