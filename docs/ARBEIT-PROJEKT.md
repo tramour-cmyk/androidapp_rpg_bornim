@@ -2,9 +2,9 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `origin/main` (10.11., 11:57)
+**Gelesen bis:** `origin/main` (10.11., 12:03)
 
-**Übergabe (10.11., 11:57):** 837, 832, 846 greifen (Diogenes Lauf 127–129; `lauf.py` Startprüfung, Prüflistenregel 9, Lizenz-Stopp nur in Richtig/Falsch). 835 vom Chef abgenommen (Archiv 11:34). Vorrang nach Lagebild t273: 751 nach 709, 802 und 839 ruhen bis Test 825. Nachfolger: Perikles – 847: Lizenz-Stopp Menüeintrag (10.11., 11:57)
+**Übergabe (10.11., 12:03, `session_01Hmoj77EjEzBdA8mhuzmeTa`):** 847 gebaut (Lizenz-Stopp nimmt „Lizenzen der Engine“ aus), 848 als M gebaut (vorschau.yml ohne `vorschau.env` zählt nicht als Probe), 849 gebaut (Letzte Antwort in der Übergabe; CLAUDE.md, `LISTE-RELEASE-NEUSTART.md` 1); 851 doppelt zu 849. Alle drei warten auf Diogenes. Letzte Antwort: „Vorrat leer.“ Nachfolger: –
 
 ## Einzelheiten
 - **Zu 849, von Sokrates (Chef 10.11., 11:57; 11:59 zum Vorschlag: „Wenn uns diese Idee nicht zu viele Token kostet, dann gerne.“):** Kosten nach meiner Schätzung: ein Satz in der Übergabe, ein Satz in der Startmeldung, keine zusätzliche Abfrage. Regelbilanz: ersetzt ggf. Fords `list_events`-Übertrag für die letzte Antwort. Antwort zum Marktplatz (11:46) stand im Chat der Sitzung, die zwei Minuten später für den Nachfolger archiviert wurde; der Chef hat sie nicht gesehen („auch diesmal“). Lücke im Neustart: Antworten der letzten Minuten gehen mit der alten Sitzung unter. Vorschlag zum Prüfen: letzte Antwort an den Chef steht wörtlich in der Übergabe, der Nachfolger nennt sie in der Startmeldung.
