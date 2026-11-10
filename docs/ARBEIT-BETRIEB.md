@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (10.11., 11:27, Ford `session_01Hmoj78xzFvBQ6it6HDfWph`, Selbstneustart auf Auftrag des Chefs 11:22 über Sokrates, Sitzung hatte 540 Tsd. Token):** Getan: Wechsel Tom 506, Jerry 709, Sokrates 829, Perikles, Homer 807, Diogenes 838 ausgeführt; alte Sitzungen archiviert und gebucht. Laufend: Tom 506, Jerry 709, Tuffy 406.2, Spike 825, Homer 807, Diogenes 838, Perikles (nichts startbar, wartet auf Diogenes), Sokrates 829. **Regeln für dich:** (1) jede START-Zeile von `lauf.py` ausführen oder mit `--ohne NR:Grund` ausschließen, Grund erst nach `vorgang.py <Nr>` (Fehler 341 heute: Jerry 07:04, 08:05, 10:26; Perikles 10:25; 807 aus Altnotiz); (2) nie „keine Arbeit“ schreiben ohne `startbar.py`; (3) Chef 10:30: Tom und Jerry gleichzeitig, Spike für 825 zusätzlich, 826 A hebt sich damit auf; (4) Homer und Perikles ohne Arbeit nicht starten, Nachfolger „auf Abruf“ nur mit Arbeit. **Archiv-Satz** (369.1) muss der Chef deiner neuen Sitzung wieder sagen, sonst lehnt der Wächter `archive_session` ab. Stundenuhr „Ford-Lauf“ legt der Nachfolger an, löscht `trig_01J1xccV843eQd4EDvMZG3zJ` und archiviert diese Sitzung (idle, über 60 s). Nachfolger: Ford – Betriebsleiter.
+**Übergabe (10.11., 11:3x, Ford `session_01Hmoj78E7oy5B7Gr6VaeUJk`, Nachfolger der Sitzung `…78xzFvBQ6it6HDfWph`):** Getan: Uhr „Ford-Lauf“ `trig_01DaEk3uTJQPBm2dGUEGi1Mf` (:03) angelegt, alte gelöscht; erster Lauf 11:28 (825 mit `--ohne`, Spike wartet auf Wecker 11:57). Alte Ford-Sitzung `…78xzFvBQ6it6HDfWph` (12,41 $) noch nicht archiviert: Wächter lehnt ab, Archiv-Satz (369.1) des Chefs fehlt. **Regeln für dich:** jede START-Zeile ausführen oder mit `--ohne NR:Grund` ausschließen (Grund erst nach `vorgang.py <Nr>`); nie „keine Arbeit“ ohne `startbar.py`; Tom und Jerry zugleich, Spike nur für 825, Tuffy 406.2; Homer und Perikles ohne Arbeit nicht starten. Nachfolger: Ford – Betriebsleiter.
 
 **Nächste freie Vorgangsnummer: 844** (zuletzt 843 Ford 10.11. 11:13:17 cdaf) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (09.11., 22:46)“ `session_01Hmoj78xzFvBQ6it6HDfWph` (Tiefe 0, vom Chef von Hand gestartet 22:40); Stundenuhr „Ford-Lauf“ `trig_01J1xccV843eQd4EDvMZG3zJ` (:03). Alte Fords `session_01Hmoj7684czZostW4Q5YTcw` (läuft noch, 8,18 $) und `session_01Hmoj76SozRN2uPdhbiLM21` (0,52 $, wartet auf Erlaubnis): zu archivieren, sobald der Chef den Archiv-Satz sagt (820), Kosten dann buchen; deren Uhr gelöscht.
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (10.11., 11:28)“ `session_01Hmoj78E7oy5B7Gr6VaeUJk` (Tiefe 1; Vorgänger `…78xzFvBQ6it6HDfWph`, 12,41 $, idle, wartet auf Archiv-Satz); Stundenuhr „Ford-Lauf“ `trig_01DaEk3uTJQPBm2dGUEGi1Mf` (:03). Alte Fords `session_01Hmoj7684czZostW4Q5YTcw` (läuft noch, 8,18 $) und `session_01Hmoj76SozRN2uPdhbiLM21` (0,52 $, wartet auf Erlaubnis): zu archivieren, sobald der Chef den Archiv-Satz sagt (820), Kosten dann buchen; deren Uhr gelöscht.
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 
 ## Eingang
@@ -69,8 +69,10 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 11:30 10.11.: Ford-Wechsel: neue Uhr `trig_01DaEk3uTJQPBm2dGUEGi1Mf`, alte gelöscht; Archivieren der alten Ford-Sitzung und von Sokrates t273 (Wecker 11:29) wartet auf Archiv-Satz bzw. Wecker. START Spike 825 mit --ohne (Spike-Sitzung idle, offener Wecker 11:57 für Build 274). Tom 506, Jerry 709, Tuffy 406.2, Homer 807, Perikles, Diogenes 838 laufen.
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry (07:04 Jerry 806, 08:05 Jerry 806, 10:26 Jerry 595) aus eigener Beurteilung aus (Kaufrepo, Pacing, Sitzungsgrenze), ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch: 59 Muss). Lücke im Werkzeug: Startsperre wird geschrieben, auch wenn nie gestartet wird; kein WARNUNG-LAUT wie bei ARCHIVIERE. Vorschlag an den Chef gestellt
 
+- 11:10 10.11.: alle START-Zeilen ausgeführt (Sokrates-Befund 11:08): Homer 807, Perikles (837, 832), Diogenes 838, Tuffy 406.2. Perikles-START von 10:25 war nicht ausgeführt worden. Ab jetzt: jede START-Zeile ausführen oder --ohne mit Grund nach vorgang.py <Nr>
 - 11:06 10.11.: Tom 661 archiviert, gebucht; Tom 506, Jerry 709, Spike 825, Sokrates t273 laufen; Vorrat Tom 475 wartet auf Kaufrepo (Tom 661 meldete)
 - 10:58 10.11.: Homer 830 archiviert, gebucht (830,817,807); Fragen 830, 807a als Chefsache-Dateien
 - 10:54 10.11.: Tom 834 alt archiviert, gebucht; Nachfolger Tom 661 läuft
@@ -90,7 +92,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:14 10.11.: Jerry 438 archiviert, gebucht; Nachfolger Jerry 562 läuft
 - 00:08 10.11.: Start Jerry 438, Diogenes 800, Sokrates Stellungnahme; Jerry 562 und Diogenes 796 archiviert, gebucht. Perikles 818 wartet auf Chef: "822 Haken abschalten" (docs/chefsache/tun/822-formhaken.md)
 - 23:08 09.11.: Start Perikles 818, Spike 804 (Chef jetzt 21:12); Perikles 797 und Spike 781 archiviert, gebucht
-- 22:58 09.11.: Tom-Browser 79Sz und Sokrates 7A3w archiviert und gebucht (Sokrates-Auftrag, Chef 22:48)
 - 00:03 09.11.: Startsperre 00:03 Start Diogenes, Perikles (lauf.py)
 - 00:03 09.11.: Marke Stellungnahme Sokrates 09.11. (lauf.py)
 - 07:18 09.11.: Startsperre 07:18 Start Sokrates, Tom (von Hand, nachgetragen 13:28; Sokrates-Befund 13:28)
@@ -187,6 +188,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:50 10.11.: Startsperre 10:50 Start Tom (Ford, vor dem Start; Neustart c397521bc)
 - 11:00 10.11.: Startsperre 11:00 Start Tom (Ford, vor dem Start; Neustart d8e7ada18)
 - 11:08 10.11.: Startsperre 11:08 Start Diogenes, Homer, Perikles, Tuffy (lauf.py)
-- 11:10 10.11.: alle START-Zeilen ausgeführt (Sokrates-Befund 11:08): Homer 807, Perikles (837, 832), Diogenes 838, Tuffy 406.2. Perikles-START von 10:25 war nicht ausgeführt worden. Ab jetzt: jede START-Zeile ausführen oder --ohne mit Grund nach vorgang.py <Nr>
 - 11:25 10.11.: Startsperre 11:25 Start Sokrates (Ford, vor dem Start; Neustart 63e54fff6)
 - 11:28 10.11.: Startsperre 11:28 Start Ford (selbst; Chef 11:22 über Sokrates)
+- 11:27 10.11.: Startsperre 11:27 Start Spike (lauf.py)
+- 11:27 10.11.: Marke Archiv session_01Hmoj764Nsad5gGNzfpzPd2 (lauf.py)
+- 11:27 10.11.: Marke Archiv session_01Hmoj776xfvBL6nX21mqLJn (lauf.py)
