@@ -73,6 +73,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry (07:04 Jerry 806, 08:05 Jerry 806, 10:26 Jerry 595) aus eigener Beurteilung aus (Kaufrepo, Pacing, Sitzungsgrenze), ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch: 59 Muss). Lücke im Werkzeug: Startsperre wird geschrieben, auch wenn nie gestartet wird; kein WARNUNG-LAUT wie bei ARCHIVIERE. Vorschlag an den Chef gestellt
 
+- 23:09 10.11.: Diogenes …75f9 archiviert, gebucht (2,76 $, 890/891); Diogenes 896 gestartet …79zSr (Perikles 23:06); Tom …9Deoz archiviert, gebucht (7,52 $, 888)
 - 23:04 10.11.: Jerry …794Tg archiviert, gebucht (6,04 $, 870.5); Tom-Nachfolger …75w84 (23:03), Vorgänger …9Deoz wartet auf Ruhe
 - 22:52 10.11.: Sokrates …76uBk archiviert, gebucht (6,15 $ zu gleichen Teilen auf 888, 709c, 870); Jerry-Nachfolger …76RTd (22:51), Vorgänger …794Tg wartet auf Ruhe
 - 22:28 10.11.: Sokrates-Nachfolger …75g2D gestartet; alter Sokrates …76uBk (5,98 $, Kosten auf 888, 709c, 870) wartet auf Ruhe, archiviert der nächste Lauf
@@ -92,7 +93,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:52 10.11.: zweiter Fehler Ford (Homer meldet): 807 war „807 A“ (Chef 09.11., 22:26), Ford schloss 807 per --ohne wegen veralteter Sitzungsnotiz „wartet auf A oder B“ aus, statt den Stand in der Vorgangsliste zu lesen; Folge: Homer ruhte 12 Stunden. Regel für Ford: --ohne nur nach Lesen von vorgang.py <Nr>
 - 10:38 10.11.: Sokrates Chefrunde archiviert, gebucht (273,831,661,649); Nachfolger Sokrates t273 läuft
 - 10:28 10.11.: Sokrates t273 (PR 192), Tom 834, Spike 825, Homer 830 gestartet (Chefrunde: zwei Entwicklersitzungen laut Übergabe Sokrates 10:24); Homer 810 archiviert, gebucht; Sokrates Chefrunde läuft noch, Archiv 10:32
-- 09:07 10.11.: Perikles 828 archiviert (Vorrat leer, Tagesbericht gesendet), gebucht 828,827. Sokrates Chefrunde wartet auf Chef: "Probe ja" oder bleibt bei "Bäume nein". Keine Entwicklersitzung (826 A)
 - 13:30 10.11.: Startsperre 13:30 Start Ford (selbst)
 - 13:30 10.11.: Startsperre 13:30 Start Sokrates (Neustart auf Meldung 9fc0c053b, Nachfolger 620 Test t274 ab 274); Startsperre 13:30 Start Ford (selbst).
 - 12:47 10.11.: Startsperre 12:47 Start Sokrates (Neustart auf Meldung 5f05423f9, Nachfolger 620 Lagebild nach Test t274).
@@ -306,4 +306,3 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:03 10.11.: Startsperre 23:03 Start Tom (Neustart-Meldung 23:02, 9c1d9df57)
 - 23:06 10.11.: Marke Archiv-Warnung session_01Hmoj79Deoz5Cxe7k7jeLem (lauf.py)
 - 23:07 10.11.: Startsperre 23:07 Start Diogenes (lauf.py)
-- 23:09 10.11.: Diogenes …75f9 archiviert, gebucht (2,76 $, 890/891); Diogenes 896 gestartet …79zSr (Perikles 23:06); Tom …9Deoz archiviert, gebucht (7,52 $, 888)
