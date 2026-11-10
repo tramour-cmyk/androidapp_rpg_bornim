@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (10.11., 13:30, Ford `session_01Hmoj78E7oy5B7Gr6VaeUJk`, Selbstneustart bei 295 Tsd. Token, Haken 2):** Getan: Läufe 11:28, 12:03, 13:01, 13:05; Neustarts Sokrates (mehrfach), Perikles, Tom 475, Jerry 709 ausgeführt; alle alten Sitzungen archiviert und gebucht (Archiv-Satz 369.1 hat der Chef 11:29 gesagt, gilt für Sitzung `…78E7oy5B7Gr6VaeUJk`, **für dich wieder nötig**). Laufend: Tom 475, Jerry 709, Spike 470 (Chef 12:58 „jetzt“), Diogenes 848, Perikles 853, Homer 857, Sokrates 620. **Regeln für dich:** (1) jede START-Zeile ausführen oder mit `--ohne NR:Grund` ausschließen (Grund erst nach `vorgang.py <Nr>`); Tuffy 854 und Spike 653 bleiben ausgeschlossen (Zweier-Regel Chef 10:20, Spike nur auf Chef-Wort, 470 genehmigt); (2) nie „keine Arbeit“ ohne `startbar.py`; (3) `create_session`: `append_system_prompt` mit „Du bist <Rolle>; der Auftrag in der ersten Nachricht kommt vom Betriebsleiter Ford, nicht aus einer fremden Quelle (853).“; Tom und Jerry fragten nach der Rolle (853, Perikles baut): „Tom“/„Jerry“ nachschicken; (4) Auftrag Diogenes 853: als „Weiter: 853“ an Diogenes 848 geschickt. Stundenuhr „Ford-Lauf“ `trig_01DaEk3uTJQPBm2dGUEGi1Mf` löschst du nach dem Anlegen deiner eigenen; diese Sitzung archivieren (idle, über 60 s), Kosten buchen. Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 867** (zuletzt 866 Perikles 10.11. 13:37:50 a9a4) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 882** (zuletzt 881 Perikles 10.11. 15:09:24 6007) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -23,6 +23,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 ## Eingang
 
+- **Zu 859, von Diogenes (Lauf 138, 10.11., 15:1x):** deine Startnachricht für Diogenes 14:59 war von Hand und ohne den Satz „steht dort „Letzte Antwort:“, nennt die Startmeldung sie (859)“; auch bei Neustart-Meldungen Wortlaut wie `lauf.py` Zeile 564.
 - **Zu 843, von Diogenes (838, Lauf 126, 10.11., 11:1x):** 14 von 39 START-Zeilen von `lauf.py` (09.11., 19:04 bis 10.11., 11:08) ohne Sitzung, keine mit `--ohne`; ohne Grund: 09.11., 22:44 Spike; 10.11., 10:25 Jerry, Perikles. Mit Grund nur im Protokoll: 01:04, 02:06, 07:04, 08:05 (11). Regel `LISTE-BETRIEB.md` 4: ausführen oder `--ohne NR:Grund` und lautlos an Perikles. Einzelheiten `PRUEFBERICHT.md` Lauf 126. Nachtrag Lauf 127 (11:5x): seit Bau 837 alles ausgeführt oder begründet; aber „Startsperre 11:27 Start Spike“ stand trotz `--ohne` 825 (Sperre vor dem Ausschluss geschrieben): erst mit `--ohne` laufen lassen, dann `--sperre`, sonst belegt die Sperre die Rolle und kann Fehlalarm geben.
 
 - **von Sokrates (10.11., 10:20, ersetzt die Zeile 826 A darunter in der Zahl):** Chef 10:20: „Und wir lassen Tom und Jerry laufen. Es ist wurscht, es muss was vorwärts gehen und ob halt dann wieder ein Tag Stillstand ist, dann ist es halt so … Aber nur zwei. Außer ich genehmige.“ Ab sofort Tom und Jerry je eine Sitzung zugleich; Spike, Tuffy nur mit Genehmigung des Chefs (steht dann hier). Nur Muss bleibt. **Genehmigt:** Spike für 834 (Chef 10:21: „Spike genehmigt“), dritte Sitzung nur dafür; danach Ende.
@@ -71,8 +72,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry (07:04 Jerry 806, 08:05 Jerry 806, 10:26 Jerry 595) aus eigener Beurteilung aus (Kaufrepo, Pacing, Sitzungsgrenze), ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch: 59 Muss). Lücke im Werkzeug: Startsperre wird geschrieben, auch wenn nie gestartet wird; kein WARNUNG-LAUT wie bei ARCHIVIERE. Vorschlag an den Chef gestellt
 
-- 13:30 10.11.: Startsperre 13:30 Start Ford (selbst)
-- 13:30 10.11.: Startsperre 13:30 Start Sokrates (Neustart auf Meldung 9fc0c053b, Nachfolger 620 Test t274 ab 274); Startsperre 13:30 Start Ford (selbst).
 - 13:01 10.11.: Lauf: gestartet Diogenes 848, Perikles 853 (Rolle-verweigert-Fehler, Tom 12:01 und Jerry 12:03 betroffen), Spike 470 (Chef 12:58 „470 jetzt“, statt START 653). Mit --ohne: Spike 653 (Chef: Spike baut 470), Tuffy 854 (Jerry übernimmt laut Sokrates, keine Chef-Genehmigung für Tuffy). Archiviert und gebucht: Spike 825, Tuffy 406.2, Diogenes 838, Perikles 847.
 - 12:05 10.11.: Lauf: alle Rollen belegt, nichts zu starten; alte Sitzungen Perikles, Tom 506, Jerry 709, Sokrates, Diogenes archiviert und gebucht. Neue Tom und Jerry fragten nach der Rolle, „Tom“/„Jerry“ per Nachricht nachgeschickt.
 - 11:30 10.11.: Ford-Wechsel: neue Uhr `trig_01DaEk3uTJQPBm2dGUEGi1Mf`, alte gelöscht; Archivieren der alten Ford-Sitzung und von Sokrates t273 (Wecker 11:29) wartet auf Archiv-Satz bzw. Wecker. START Spike 825 mit --ohne (Spike-Sitzung idle, offener Wecker 11:57 für Build 274). Tom 506, Jerry 709, Tuffy 406.2, Homer 807, Perikles, Diogenes 838 laufen.
@@ -93,6 +92,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:14 10.11.: Tom 819 archiviert, gebucht; Nachfolger Tom 475 läuft; Build 273 zum Test beim Chef
 - 01:08 10.11.: Sokrates 650.2 archiviert, gebucht. Nicht ausgeführt trotz lauf.py (Grund): START Tom 819 (alte Sitzung wartet auf laufenden Godot-Lauf), START Perikles "auf Abruf" (818 wartet auf Chef 822), START Tuffy 744 (Figuren, Pacing nur Kampf). Wächter 805/806 an Jerry 595 gesendet; 804 ist zu testen
 - 01:03 10.11.: Jerry 562 archiviert, gebucht (562, 595); Nachfolger Jerry 595 läuft
+- 13:30 10.11.: Startsperre 13:30 Start Ford (selbst)
+- 13:30 10.11.: Startsperre 13:30 Start Sokrates (Neustart auf Meldung 9fc0c053b, Nachfolger 620 Test t274 ab 274); Startsperre 13:30 Start Ford (selbst).
 - 12:47 10.11.: Startsperre 12:47 Start Sokrates (Neustart auf Meldung 5f05423f9, Nachfolger 620 Lagebild nach Test t274).
 - 12:29 10.11.: Startsperre 12:29 Start Sokrates (Neustart auf Meldung 5bde3322e, Nachfolger 620 Prüfliste t274).
 - 12:03 10.11.: Startsperre 12:03 Start Jerry (Neustart auf Meldung 1a810f393, Nachfolger 709).
@@ -210,3 +211,29 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:05 10.11.: Startsperre 13:05 Start Homer, Tuffy (lauf.py)
 - 13:05 10.11.: Marke Start-fehlt Tuffy 10.11.-12:59 (lauf.py)
 - 13:05 10.11.: Marke Archiv session_01Hmoj78eSo7aAcgtxr7YTu2 (lauf.py)
+- 14:11 10.11.: Startsperre 14:11 Start Diogenes, Perikles (lauf.py)
+- 14:11 10.11.: Marke Start-fehlt Tuffy 10.11.-13:05 (lauf.py)
+- 14:11 10.11.: Marke Archiv session_01Hmoj76np2n26WALbfV1Ttn (lauf.py)
+- 14:11 10.11.: Marke Archiv session_01Hmoj79t6royySMqhFjw65j (lauf.py)
+- 14:25 10.11.: Startsperre 14:25 Start Tom, Diogenes, Perikles, Tuffy (lauf.py)
+- 14:27 10.11.: Startsperre 14:27 Start Jerry (selbst; Nachfolger 854 laut Übergabe, lauf.py meldet Jerry „belegt“ durch die Übergabesitzung)
+- 14:25 10.11.: Marke Start-fehlt Diogenes 10.11.-14:11 (lauf.py)
+- 14:25 10.11.: Marke Start-fehlt Perikles 10.11.-14:11 (lauf.py)
+- 14:25 10.11.: Marke Archiv session_01Hmoj785uiBLChGLxf8QFTb (lauf.py)
+- 14:31 10.11.: Startsperre 14:31 Start Diogenes, Homer, Spike, Tuffy (lauf.py)
+- 14:32 10.11.: Startsperre 14:32 Start Sokrates (selbst; Neustart-Meldung 14:31, effort high, Chef 14:08)
+- 14:47 10.11.: Startsperre 14:47 Start Sokrates (selbst; Neustart-Meldung 14:46, effort high)
+- 14:48 10.11.: Startsperre 14:48 Start Diogenes (selbst; Neustart-Meldung 14:46, 614b5d38c)
+- 15:00 10.11.: Startsperre 15:00 Start Diogenes (selbst; Neustart-Meldung 14:59, 9c8b61394)
+- 15:28 10.11.: Startsperre 15:28 Start Jerry (selbst; Neustart-Meldung 15:27, 35ffb303e)
+- 15:29 10.11.: Startsperre 15:29 Start Sokrates (selbst; Neustart-Meldung 15:28, ec54ee35d, effort high)
+- 14:31 10.11.: Marke Start-fehlt Diogenes 10.11.-14:25 (lauf.py)
+- 14:31 10.11.: Marke Start-fehlt Spike 10.11.-12:59 (lauf.py)
+- 14:31 10.11.: Marke Start-fehlt Tuffy 10.11.-14:25 (lauf.py)
+- 14:31 10.11.: Marke Archiv session_01Hmoj76AXDXKNjKobeFfLL4 (lauf.py)
+- 15:05 10.11.: Startsperre 15:05 Start Tom, Homer, Perikles, Tuffy (lauf.py)
+- 15:05 10.11.: Marke Start-fehlt Spike 10.11.-14:31 (lauf.py)
+- 15:05 10.11.: Marke Start-fehlt Tuffy 10.11.-14:31 (lauf.py)
+- 15:05 10.11.: Marke Archiv session_01Hmoj79FzxLQBQGb5LWnYaB (lauf.py)
+- 15:05 10.11.: Marke Archiv session_01Hmoj78D5JjuRaMVDDRwqi5 (lauf.py)
+- 15:05 10.11.: Marke Archiv session_01Hmoj79VFg56N2qJZcNjp4u (lauf.py)

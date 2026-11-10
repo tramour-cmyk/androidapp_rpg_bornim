@@ -15,7 +15,7 @@ Einmal „Zeit für ein Release?“ fragen (Rückfrage auf „Chefsache“), sob
 
 Zusammengeführte PRs stehen bis dahin unter „## Unveröffentlicht“.
 
-## Neustart (81r: Thema fertig oder zweite Erinnerung des Hakens; kein Ja nötig)
+## Neustart (81r: Thema fertig oder zweite Erinnerung des Hakens; kein Ja nötig; nie, solange der Chef einen Build dieser Sitzung testet, auch nicht auf Haken, 812, 865)
 
 0. Zählung sichern (347): `python3 /home/user/bornim-main/tools/zug-haken.py --summe <Rolle>` und die Zeile unten an die Tabelle in `docs/LISTE-REGELTREUE.md` anhängen (mit dem Push von 1).
 1. Übergabe mit „Nachfolger: <Titel>“ im eigenen Vorrat schreiben und pushen (oben im Vorrat, den der Kopf der Rollendatei nennt; D13.4, D14.1); hat der Chef seit seiner letzten Nachricht eine Antwort bekommen, steht sie als „Letzte Antwort: …“ wörtlich darin, der Nachfolger nennt sie in der Startmeldung (849, Chef 10.11., 11:59).

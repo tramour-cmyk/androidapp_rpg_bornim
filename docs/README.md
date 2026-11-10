@@ -46,6 +46,7 @@ Arbeitslisten; du musst sie nicht lesen.
 - [Bestand](LISTE-BESTAND.md): alle gekauften und freien Bewegungen, Figuren, Tiere, Dinge und Bauteile; vor jedem Eigenbau lesen.
 - [Quellen](LISTE-QUELLEN.md): jede geprüfte fremde Bezugsquelle mit Link und Lizenzprüfung.
 - [Effekte](LISTE-EFFEKTE.md): welcher Lichteffekt zu welchem Helden, Monster und Ort gehört.
+- [Umzug auf das BRS](LISTE-UMZUG-BRS.md): Master-Plan, wie das Spiel ganz auf das eigene Regelwerk umgestellt wird (870), bis zur Abnahme.
 - [Figurenkatalog, Bauplan](LISTE-FIGURENKATALOG-649.md): Plan für einen Katalog aller Figuren, bis er gebaut ist.
 - [Simulation](LISTE-SIMULATION-444.md): Rechenprobe, wie stark Helden je Herkunft und Stufe werden.
 - [Testgeräte](LISTE-TESTGERAETE.md): welche Handys getestet werden und wie schnell das Spiel darauf läuft.

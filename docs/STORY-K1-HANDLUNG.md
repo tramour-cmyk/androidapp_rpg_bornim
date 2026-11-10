@@ -156,11 +156,9 @@ EN: An honest price for honest goods. Come back when you've hunted more.
 
 Homer 21.10.: Texte, die nicht zu dem passen, was man sieht, oder fest Benanntem widersprechen. Bau Tom (280.1).
 
-`[280.tipp]` (Aufwachen im Greif, nach Rowenas letzter Zeile; ersetzt in `Story.kt` „Tipp: Mit dem Steuerkreuz bewegst du dich, mit A sprichst du … START öffnet das Menü.“: es gibt keinen Knopf A und kein START, das Steuerkreuz nur in der klassischen Steuerung)
-Fingersteuerung: Tipp: Zieh den Finger über das Bild, um zu laufen, oder tippe dorthin, wo du hinwillst. Tippe auf Leute und Dinge, um mit ihnen zu sprechen oder sie zu untersuchen. Der Beutel oben öffnet das Menü.
+`[280.tipp]` (Aufwachen im Greif, nach Rowenas letzter Zeile; ersetzt in `Story.kt` „Tipp: Mit dem Steuerkreuz bewegst du dich, mit A sprichst du … START öffnet das Menü.“: es gibt keinen Knopf A und kein START; nur Fingersteuerung, die klassische Steuerung ist gestrichen, 663)
+Tipp: Zieh den Finger über das Bild, um zu laufen, oder tippe dorthin, wo du hinwillst. Tippe auf Leute und Dinge, um mit ihnen zu sprechen oder sie zu untersuchen. Der Beutel oben öffnet das Menü.
 EN: Tip: drag your finger across the screen to walk, or tap where you want to go. Tap people and things to talk to them or examine them. The bag at the top opens the menu.
-Klassische Steuerung: Tipp: Mit dem Steuerkreuz läufst du, der große Knopf spricht mit Leuten und untersucht Dinge. Der Beutel oben öffnet das Menü.
-EN: Tip: the D-pad moves you; the big button talks to people and examines things. The bag at the top opens the menu.
 
 `[280.krogg]` (Chronik, `Chronicle.kt`) „der Bugbear Krogg“ → „der Grottenschrat Krogg“, wie freigegeben in `[64d.krogg]` (feste Namen, `STORY-REGELN.md`).
 
