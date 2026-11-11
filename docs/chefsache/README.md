@@ -4,11 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [930a](entscheiden/930a-kein-nachruecken.md) | **Muss** | E Kampf | 11.11., 14:00 | Heute rücken die übrigen Wölfe nach jedem Tod auf neue Plätze. Vorschlag: Sie bleiben stehen, wo sie sind, und bewegen sich nur noch, wenn ihr eigener Zug einen Grund dafür liefert. | Sokrates |
+Nichts offen.
 
 ## Zu billigen
 
@@ -154,7 +150,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 954a.9 | M | Von Perikles (954a.2, 954a.3 B): Schmiedelehrling flickt selbst an Borins Amboss mit dem R | wartet auf 870 (wartet) |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 15522 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 114, Muss 105, startbar 20
+**Jerry** – offen 115, Muss 106, startbar 20
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -272,6 +268,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 969 | M | Von Sokrates (Chef 11.11., 15:49): Regelwerte zum Nachschlagen, dritte Seite neben 644 und | wartet auf 968 (startbar) |
 | 971 | M | Von Sokrates (966, Chef 11.11., 15:58): werte.json ueben.leicht_min 0,2 → 0,1 (leichte Zie | startbar |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 15771 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 973 | M | Von Sokrates (930a A, Chef 11.11., 16:09): nach einem Tod bleiben die übrigen Gegner stehe | wartet auf 870.4 (in Arbeit) |
 
 **Perikles** – offen 14, Muss 12, startbar 0
 
@@ -307,7 +304,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 51, Muss 38, startbar 28
+**Sokrates** – offen 50, Muss 37, startbar 27
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -361,7 +358,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 862 | K | Systemlösung? Umhang: 6 frühere Vorgänge (58, 488, 463, 463.1, 656 …), neu 861; einmal gru | startbar |
 | 869 | K | Systemlösung? Rüstung: 2 frühere Vorgänge (49, 817), neu 868; einmal grundsätzlich lösen? | startbar |
 | 930 | M | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (wartet) |
-| 930a | M | Rückfrage (Chef 11.11., 13:57, zu 930): F3 ohne Neuformation – nach einem Tod bleiben die | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
