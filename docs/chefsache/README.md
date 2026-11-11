@@ -140,7 +140,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 867 | M | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.4 (sokrates) |
 | 875 | M | Von Homer (857a A, Chef 10.11., 13:35): Fertigkeit Kräuterkunde heißt im Spiel Kräutersamm | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.4 (erschaffung) |
 
-**Jerry** – offen 90, Muss 81, startbar 4
+**Jerry** – offen 91, Muss 82, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -234,6 +234,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 910 | M | Von Jerry (B1, Lauf 338): atem_4531 rot, Held atmet in Ruhe 3,0 cm und 3,3° statt höchsten | Termin 11.11. 11:45 |
 | 918 | M | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): godot.yml lässt alle Tests durchlaufen, sa | ruht |
 | 922 | M | Von Tom (B1, Lauf 346): wildschwein_494 und skelett_506 prüfen noch SRD-Trefferpunkte (2W8 | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.3 (json) |
+| 923 | M | Von Tom/Sokrates (t276 gegengelesen): Heiltrank in tools/sim444/werte.json doppelt, welt.h | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (sokrates) |
 
 **Perikles** – offen 25, Muss 12, startbar 1
 
