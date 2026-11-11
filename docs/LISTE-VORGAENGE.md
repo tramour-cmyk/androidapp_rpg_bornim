@@ -19,7 +19,7 @@
 | 870.8 | Von Sokrates (870, Umzug BRS Schritt 7): Spielstände Version 2 mit BRS-Held; alte laden nicht, Hinweis im Spiel (870a 1); Test mit echtem Stand Version 1; LISTE-UMZUG-BRS.md 4 | Tom | M | gebaut, Geprüft an: 97a32cfe2 (in B1, Sokrates 07:41) | – | claude/tom-870-4-held | – | E Technik | – |
 | 870.9 | Von Sokrates (870, Umzug BRS Schritt 8): Godot ganz aus Kotlin (870a 7 B): zuerst festlegen, wie Karten künftig bearbeitet werden; Karten, Texte, Intro, Kartenblätter, Bilder, Klang als Godot-Quelle, Kartenregeln als Godot-Tests, godot.yml ohne Gradle, core/app/preview ins Zweit-Repo; LISTE-UMZUG-BRS.md 4 | Tom | M | wartet | 870.4 | – | – | E Technik | – |
 | 870.13 | Von Sokrates (870, Umzug BRS Schritt 9): Aufräumen, Hinweis SRD 5.1 · CC BY 4.0 raus (Spiel, README, Testerseite, CLAUDE.md, DESIGN-BRS 12), Wächter über ganzen Godot-Code ohne Fund, B2 an den Chef; LISTE-UMZUG-BRS.md 4 | Tom | M | wartet | 870.5, 870.7, 870.8, 870.9, 870.10 | – | – | E Technik | – |
-| 492 | Blutzahnhöhle begehbar mit Krogg, Grak, Lyra (Orte O8; Wochenziel 03.11., 488; von Jerry an Tom, Chef 07:54) | Tom | M | in Arbeit, bei Spike | – | claude/tom-492-durchspiel | – | E Technik | 81,67 $ |
+| 492 | Blutzahnhöhle begehbar mit Krogg, Grak, Lyra (Orte O8; Wochenziel 03.11., 488; von Jerry an Tom, Chef 07:54) | Tom | M | wartet, Grundsatz 5 (Zweig ändert spiel.gd, geschichte.gd, zustand.gd); nach B1 auf neuen Stand (Sokrates 11.11., 01:57) | 870.4 | claude/tom-492-durchspiel | – | E Technik | 81,67 $ |
 | 581 | Ausrüstung: Seite breiter als der Schirm, Reiter springen (Abgleich 512b) · zurück t269 | Tom | M | startbar, Fund t269.16 | – | claude/tom-581-ausruestung | – | E Oberfläche | 2,31 $ |
 | 521 | Build 249, Ausrüstung: Wechselschirm eines Platzes wie alt (Bild, Art und Wert, ▲/▼, „nicht tragbar“ matt) (Chef 03.11., 23:23, Bild) · zurück t269 | Tom | M | startbar, Fund t269.16 | – | claude/tom-521-tasche | – | E Oberfläche | – |
 | 636 | Schlagbaum öffnet ohne Türgeräusch (alt G:1162 Sound.DOOR; Abgleich 620.2a) | Tom | M | startbar, A (Chef 09.11., 06:55): Geräusch fehlt trotz Satz | – | claude/tom-636-schlagbaum | – | E Welt | – |
@@ -222,7 +222,7 @@
 | 882 | D140.1 (Diogenes, 870.18): Kotlin-Ausstieg ohne Werkzeuge: 870.10 nennt nur android.yml; an core hängen auch Kerntests (tools/t logik), godot-kampf.yml, vorschau.yml, tools/preview, story.sh, probelauf.py, setup-session.sh; Liste Prüfbericht Lauf 140 | Perikles | M | startbar | 870.4 | – | – | B Werkzeuge | – |
 | 896 | Von Jerry (870.5): Wächter meldet „TP“ als SRD-Begriff (886), Homer 870.14 und DESIGN-BRS 12 lassen TP in Meldungen stehen; Widerspruch klären | Perikles | M | gebaut, Geprüft an: de7ccc403 | – | – | – | E Technik | 0,53 $ |
 | 903 | D152.1 von Diogenes (771, 657 D): Probe 657 ausgewertet, Prüfbericht Lauf 152; Grundlage 11, 11, 9, 7 mischt zwei Maße (neue Vorgänge, durchgefallene Zeilen); Entscheidung des Chefs über weitere Listen und die Seite vorlegen | Perikles | M | wartet, (1), (4) gebaut, Geprüft an: fa1eb5a5f; (2) sobald B1 im Test | t276 | – | – | B Abläufe | 2,35 $ |
-| Pflege | von Werkzeug (340.3, 11.11.): 15394 Bytes (Grenze 15000), Erledigtes streichen | Perikles | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 11.11.): 15394 Bytes (Grenze 15000), Erledigtes streichen | Perikles | K | erledigt | – | – | – | B Abläufe | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
@@ -285,6 +285,7 @@
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 767 | Wochentermin 13.11.: Rollenspiegel Ford (rollenspiegel.sh Ford) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Ford | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | Pflege | von Werkzeug (340.3, 11.11.): 41817 Bytes (Grenze 15000), Erledigtes streichen; Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Ford | K | startbar | – | – | – | B Abläufe | – |
+| 906 | lauf.py startet Zusatzentwickler auf Zeilen, deren Zweig Umzugsdateien berührt (492 am 11.11., 08:04: claude/tom-492-durchspiel ändert spiel.gd; Grundsatz 5 LISTE-UMZUG-BRS, Zu 870.4 Sokrates 01:57); Sperre nach geänderten Dateien prüfen (von Spike) | Ford | M? | startbar | – | – | – | B Steuerung | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
