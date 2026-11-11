@@ -229,6 +229,7 @@
 | 912 | D156.1 (911, Diogenes): probelauf.py zählt den nächsten Handlauf auf B1 claude/tom-870-4-held (oben Toms Merge e0c57e573) unter 864 (Jerry; erste Eltern 44dec34a2), nicht unter 870.4, das Sokrates 09:12/09:19 für B1 freigab; nachgestellt vorgang_aus_ref → 864 | Perikles | M | gebaut, Geprüft an: b945f7e2b | 913, 914 | – | – | B Werkzeuge | – |
 | 913 | D157.1 (912, Diogenes): nr_aus_zweigname liest die Liste über zweig_lesen(…, "main") = git fetch origin main und überschreibt FETCH_HEAD; findet der Zweigname keine Nummer, liest nr_aus_verlauf dann main statt des Zweigs → None, Handlauf zählt wieder unter dem Zweignamen (nachgestellt an jerry-709a-tiefbiss: None statt 709a) | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
 | 914 | D157.2 (912, Diogenes): Zweigname vor eigenem Verlauf gibt bei Merge oben die Oberbegriffsnummer: perikles-264-runner → 264 statt 264.1 (Läufe frei für 264.1), jerry-348-642-wolf-abstand → 348 statt 642, jerry-717-rueckwaerts → 717 statt 778 | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
+| Pflege | von Werkzeug (340.3, 11.11.): 15125 Bytes (Grenze 15000), Erledigtes streichen | Perikles | K | startbar | – | – | – | B Abläufe | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
@@ -291,7 +292,7 @@
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 767 | Wochentermin 13.11.: Rollenspiegel Ford (rollenspiegel.sh Ford) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Ford | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 906 | lauf.py startet Zusatzentwickler auf Zeilen, deren Zweig Umzugsdateien berührt (492 am 11.11., 08:04: claude/tom-492-durchspiel ändert spiel.gd; Grundsatz 5 LISTE-UMZUG-BRS, Zu 870.4 Sokrates 01:57); Sperre nach geänderten Dateien prüfen (von Spike) | Ford | M? | startbar | – | – | – | B Steuerung | – |
-| Pflege | von Werkzeug (340.3, 11.11.): 43926 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 11.11.): 44446 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
