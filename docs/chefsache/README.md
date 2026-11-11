@@ -150,9 +150,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 954 | M | Von Sokrates (Chef 11.11., 13:55 „1 ja“): Erschaffung – Gedrückthalten erklärt je Grundwer | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 875 (erschaffung) |
 | 964 | M | Von Tom (Zu 870.4, Homer 14:15): Metall sperrt Evokation, Illusion, Beschwörung im Kampf; | wartet auf Test/Build (gebaut) |
 | 963 | M | Von Tom (Zu 870.4, Fremdprüfung Homer 14:15): Heldenreiter Wortlaut ohne Wirkungsloses: Zä | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 875 (krautersammeln) |
-| Pflege | K | von Werkzeug (340.3, 11.11.): 15093 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 966.2 | M | Von Sokrates (966 Vorentscheid): Alchemie übt bei jedem Sud Morwens (laden.gd braue), Koch | wartet auf 966.1 (startbar) |
 | 967 | M? | Von Tuffy (948): halt_653 am Rechner 8 Fehler, Schild im Körper bei KLOSTER_M (20 Ecken, b | startbar |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 15093 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 106, Muss 98, startbar 0
 
