@@ -189,7 +189,7 @@ Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, abe
 | Meisterschaft | Hauptfertigkeit | Zulieferfertigkeit | Stellt her |
 | --- | --- | --- | --- |
 | Schmied | Schmieden | Bergbau | Waffen, Metallrüstung, Dietriche, Reparatur von Metall |
-| Lederarbeit | Lederarbeit | Jagd | Leder, leichte Rüstung, Taschen, Köcher, Reparatur von Leder und Stoff |
+| Lederarbeit (Name offen, 975) | Lederarbeit | Jagd | Leder, leichte Rüstung, Taschen, Köcher, Roben und Stoffkleidung (Stoff vom Händler; Chef 11.11., 16:31), Reparatur von Leder und Stoff |
 | Alchemist | Alchemie | Kräutersammeln | Tränke, Gegengifte, Gifte, Elixiere |
 | Runenmeister | Runenkunde | Bergbau | Verzauberungen, Runen auf Ausrüstung |
 | Feldkoch | Kochen | Angeln oder Jagd | Mahlzeiten mit kleinem Bonus |
@@ -245,7 +245,7 @@ Ernten ist eine kurze Tätigkeit ohne Minispiel. Fundorte wachsen nach einer Zei
 
 **Herstellen:**
 - **Werkorte gestaffelt:** einfache Rezepte überall (Lagerfeuer), höhere an Schmiede, Werkbank, Alchemietisch, Gerberei.
-- **Feste Rezepte** zuerst; Experimentieren kommt später, nur für Alchemie und Kochen. Rezepte gibt es bei Lehrmeistern und Handwerkern, in Büchern, als Belohnung und beim Händler.
+- **Feste Rezepte** zuerst; Experimentieren kommt später, nur für Alchemie und Kochen. Rezepte gibt es bei Lehrmeistern und Handwerkern, in Büchern, als Belohnung und beim Händler. **Rezeptbuch** (Chef 11.11., 16:31): eins für alle Handwerke, zeigt die Rezeptliste je Handwerk. **Wege:** wer die Fertigkeit hat, bekommt die einfachen Rezepte beim Lehrmeister ohne Quest (Morwen: Heiltrank, Kräutertrank), wer nicht, kauft sie; starke Rezepte (Großer Heiltrank, Alchemistenfeuer) für alle nur über eine Quest (481: Feuer kippt sonst früh die Kämpfe).
 - **Alchemie** wird als erste Rezeptgruppe gebaut, danach Rüstung.
 - **Technik:** Jedes Rezept ist ein Datensatz (Zutaten, Fertigkeit und Rang, Werkort, Ergebnis). Tasche, Truhe, Werkort-Ablage und Händlerware sind dasselbe Bauteil. Die Rezeptliste zeigt drei Zustände: herstellbar, eine Zutat fehlt, gesperrt. Das Inventar ist eine Liste wie im alten Spiel, kein Raster; Herstellen ohne Wartebalken.
 - **NPC-Handwerker** stellen gegen Gebühr her, wenn man die Zutaten bringt.
