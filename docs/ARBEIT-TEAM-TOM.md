@@ -4,7 +4,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 **Vorrang (von Sokrates, Chef 11.11., 07:16; Pause aufgehoben):** „wenn sie nichts mehr für den Umzug zu tun haben, ob sie dann Pause haben. Ja, macht ja keinen Sinn.“ und „lass das Spike und Taffy das machen. Fehler ausmerzen“. (1) Umzug 870.x zuerst; (2) wartet der Umzug, Fehler aus den Tests des Chefs (Muss, wiederholte zuerst); kein Neues (Chef 10.11., 14:08: „nicht wieder irgendeinen Füllefanz neu anfangen“). Spike nimmt Fehler aus den Tests, solange Tom am Umzug ist. Umzugsdateien (`LISTE-UMZUG-BRS.md` 4) ändert nur der Umzugszweig (Grundsatz 5).
 
-**Übergabe (11.11., 13:37, `session_01Hmoj75u8WRRqtww16CqgsH`):** 784 Test nach F9 (`bb5d4e44c`), wartet auf 863; 786 `LISTE-KLANG-ALT-NEU.md`, Lücken 936–939 bei Jerry; 940 an Perikles; 944 auf B1 `9a34fec2a`. Nachfolger: auf Abruf (neue Sitzung).
+**Übergabe (11.11., 13:48, `session_01Hmoj75PbExQjg3R6LQNTdb`):** Pflege (Vorrat 14811 Bytes, Zeile gestrichen); an Ford gemeldet: kein eigenes Muss startbar (620.1 B), Übernahme 948 besser bei Jerry, Ford entscheidet. Nachfolger: auf Abruf (neue Sitzung).
 
 ## Einzelheiten
 - **Zu 944, von Sokrates (Chef 11.11., 13:22, Bild Tasche → Heiltrank, zu t276):** „da steht noch was von W4 … die Beschreibung passt nicht“. Prüfliste 276.5 nannte „Wurf oder Würfelzahl im Text“ als Fehler. Text bleibt laut `STORY-BRS-OBERFLAECHE.md` „Gegenstände“ („Texte ohne Würfel; Wirkung und Zahl in den Regelwerten und in der Meldung“); weg muss jede Zeile über `Beute.wuerfel_text` (auch Waffenschaden); Test `laden_582` prüft heute „heilt 2W4+2“ und ist mit umzustellen. Statt der Zeile: nichts, oder ein Wert nach BRS, wenn Homer einen Wortlaut gibt (nie erfinden).
