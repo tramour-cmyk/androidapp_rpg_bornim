@@ -44,6 +44,7 @@ Arbeitslisten; du musst sie nicht lesen.
 - [Checkliste MARS](LISTE-MARS.md): was im Kampfsystem (MARS) schon geht und was noch fehlt.
 - [Umzug nach Godot](LISTE-UMZUG-348.md): Regeln für den Neubau des Spiels in Godot, dem neuen Spielbaukasten; die Fassung bis 10.11. liegt in [alt/](alt/LISTE-UMZUG-348.md).
 - [Abgleich alt](LISTE-ABGLEICH-ALT.md): was die alte Handy-Fassung je Ort und Figur hatte, damit im Neubau nichts verloren geht.
+- [Abgleich Oberfläche](LISTE-ABGLEICH-OBERFLAECHE.md): jeder Schirm und jede Bedienung alt gegen Godot, je Lücke ein Vorgang 785.n (785).
 - [Klang alt gegen neu](LISTE-KLANG-ALT-NEU.md): jedes Geräusch der alten Fassung je Anlass, ob es in Godot klingt und wer das Fehlende baut.
 - [3D-Modelle je Körperstelle](LISTE-NETZE.md) („Netzliste“; Netz heißt 3D-Modell): welche Kleidung und Rüstung es für Kopf, Körper, Arme, Beine und Umhang schon gibt, was wir anpassen und was noch fehlt.
 - Was zu Figuren und Kampf entschieden ist, steht in der [Abnahme](DESIGN-ABNAHME.md) unter „Vor jeder Vorlage“; jede Vorlage wird dagegen geprüft.
