@@ -643,7 +643,7 @@ jobs:
           ls -l $GITHUB_WORKSPACE/bilder/raeume
       # 493 (Jerry): je Kampfort im Wald ein Standbild wie im Spiel (Probekampf Kleriker und Kämpfer gegen das Wolfsrudel), nur bei „493“
       - name: Kampforte Wald (493)
-        if: contains(github.event.head_commit.message, '493') || (github.event_name == 'workflow_dispatch' && contains(github.ref, '493'))   # von Hand ohne head_commit (Lauf 213: übersprungen)
+        if: ${{ !cancelled() && (contains(github.event.head_commit.message, '493') || (github.event_name == 'workflow_dispatch' && contains(github.ref, '493'))) }}   # von Hand ohne head_commit (Lauf 213: übersprungen); auch nach rotem Prüfschritt (806, Lauf 339: wolf_mess_438 rot, keine Bilder)
         continue-on-error: true
         run: |
           mkdir -p $GITHUB_WORKSPACE/bilder/kampforte
