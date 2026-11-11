@@ -2,14 +2,12 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `origin/main` (11.11., 11:40)
+**Gelesen bis:** `origin/main` (11.11., 12:12)
 
-**Übergabe (11.11., 11:41, `session_01Hmoj773WJz1uF15hi5Tx1R`):** 882 erledigt: Werkzeuge beim Kotlin-Ausstieg in `LISTE-UMZUG-BRS.md` 8 („Werkzeuge (882)“), Folge 870.9 → 882.1 (Tom) → 882.2 (Perikles) → 870.10. Nachfolger: auf Abruf
+**Übergabe (11.11., 12:12, `session_01Hmoj78SXwReesN18pQZT6t`):** Kür-Stau abgearbeitet (Chef 11.11., 11:5x): gebaut 725, 727, 730, 731, 732, 734, 735, 924 (Hinweis Diogenes Lauf 158), 276 (Fords Anleitung: `LISTE-BETRIEB.md` „Jeder Lauf“ 4,5 KB, Rest „Bei Anlass“), alle warten auf Diogenes (greift?); abgeschlossen 726, 728 (entfallen), 729 (bestätigt), 742 (doppelt). 99 ruht (Niederlassung nur als Gedanke, 650.1). Nachfolger: auf Abruf
 
 ## Einzelheiten
 - **Zu 919, von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“; Archiv 918, 919):** Chef 09:47: „da haben wir doch mehr davon, wenn ich was teste und Fehler finde, als wenn ich den ganzen Tag nichts teste, weil ihr mein Geld einfach verprasst für nichts.“ Regeln nachziehen, wo Teams und Werkzeuge sie lesen (Testbitte, `ROLLE-ENTWICKLUNG.md`, `LISTE-RELEASE-NEUSTART.md`, Haken): Testbitte auch bei rotem Lauf, oben die roten Tests mit einem Satz als „bekannt, nicht melden“; keine Testbitte bei rotem Start- oder Absturztest (Jerry kennzeichnet sie, 918); `main` nur grün und vom Chef getestet; vor jedem Lauf ganzer Godot-Testsatz am Rechner, sobald 918 (2) steht. Regelbilanz: was ersetzt die neue Regel?
-- **Zu 916, von Ford (11.11., 09:44):** Zusatzentwickler-Zweig in `lauf.py` (612 ff.): (1) `--ohne NR:Grund` auch dort; (2) eine ruhende Sitzung mit offenem eigenem Weckruf (`send_later`/Trigger auf diese Sitzung) gilt als belegt, auch unter 20 Minuten. Anlass: Tuffy – 784 (254 Tsd. Token, Wecker 10:12) bekäme START und ARCHIVIERE und verlöre den Wecker; Ford ließ Tuffy stehen (Protokoll).
-- **Hinweis von Diogenes (Lauf 158, Klasse 3, ohne Vorgang):** `probelauf.py` Push-Weg nimmt den Zweig für „fremde Rolle“ aus `HEAD`, nicht aus dem Push-Ziel (`git push origin HEAD:claude/…`).
 - **Zu 903, von Sokrates (Chef 11.11., 07:46: „Entscheidung B mit deinen Zusätzen … ob die Checkliste per se nicht aufgrund der Erfahrungen … überarbeitet werden kann … das überlegst du bloß noch, ansonsten gilt meine Entscheidung 903b“):** (1) Enddatum gestrichen, (3) Zählung als 905 bei Diogenes, (4) a–c in `LISTE-CHECK-BUILD-TEST.md` 3, 8, 9 (11.11., 08:0x). Offen (2): zweite Liste „Vorlage an den Chef“ (Bild, Film, Chefsache, Antwort ins Archiv) als Probe, gezeigt beim Anlegen einer Datei in `chefsache/`; bauen, sobald B1 (t276) beim Chef im Test ist.
 - **Zu 866 und 620, Lagebild t274 (von Sokrates, 10.11., 13:38):** Chef 13:34: „100 Feststellungen wie üblich. Teststellungen, die eh nicht zu testen waren.“ 7 von 18 Prüfzeilen fehlerhaft (274.1–.4, .13, .16, .18; Einzelheiten Git). Gebaut `8c9f2dc3f`: Commit-Prüfung hält neue `ansehen/t<n>-….md` ohne „Gegengelesen: <Rolle> <TT.MM., HH:MM>“ an, Regel in `LISTE-CHECK-BUILD-TEST.md` 8. Lücke wie 731: Push über `push_files` läuft an der Commit-Prüfung vorbei. Wiederholfunde t274: 863 (wie 506), 860 (wie 670), Ruhebewegung (506).
 
@@ -25,7 +23,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 - **Zu 464** (Chef 01.11., 20:4x: „irgendwer produziert hier abends brutal viele Fehler. Auf der Repo … schon fast 20 E-Mails gekriegt“; „kriege ich ja nicht mit, wie viel in die Hose … Abhilfe schafft ja auch keiner“). 14 von 168 rot; Einzelheiten Commit `fcf9ab215`, Jerry „Zu 464“. Godot fehlt Jerry: Chefsache tun/464.
 
-- **Erledigt, in Git** (Stand vor „Perikles: 646, 650.1, 651, 647; Vorrat gekürzt“, 08.11., 14:0x): Zu 646, 647, 651, 641, 627 (Sammelbuild zählt seit 646 nicht mehr), 275.2, Alte Zeilen bis 275.2; davor (Stand vor „Perikles: 275.2 Zweig, Vorrat gekürzt“): Zu 579, 513.1, 578, 479, 407, 422, 445; offen daraus: D72 (`cd $VAR` in `probelauf.py`), D73 (`gleich_film` nur mit „→ **ja (Nutzer“).
+- **Erledigt, in Git** (Stand vor „Perikles: 646, 650.1, 651, 647; Vorrat gekürzt“, 08.11., 14:0x): Zu 646, 647, 651, 641, 627 (Sammelbuild zählt seit 646 nicht mehr), 275.2, Alte Zeilen bis 275.2; davor (Stand vor „Perikles: 275.2 Zweig, Vorrat gekürzt“): Zu 579, 513.1, 578, 479, 407, 422, 445 (D72, D73 mit 725, 726 abgeschlossen).
 - **Ältere Einzelheiten** (Zu 433, 424, 407, 412, 408, 418, 421, 436, 384, 383, 275 Stufe 1, 347.2, 378, 338, 381.1, 276, Fehler 341 Woche 19.–25.10., Wortlaute ab 234): Git, Stand vor „Perikles: 461d einsortiert, Vorrat gekürzt“; offen daraus: D51.1, D51.2, D53.1, D53.2, `tools/regeltreue/stufe2/CLAUDE.md` alte Direktive.
 - **Zu 275, offen für Stufe 2** (frühestens 03.11., wenn Diogenes keinen Werkzeugfehler zählt): Commit-Prüfung lehnt Handänderungen an `LISTE-VORGAENGE.md` ab (braucht `vorgang.py neu` und einen Weg für `lauf.py --kosten`).
 

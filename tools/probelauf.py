@@ -293,7 +293,7 @@ def push_lauf(befehl, cwd):
     if not los:  # Tom 02.11., 16:3x: Push ohne Lauf zählte als Probelauf
         return None
     nr = re.match(r"\s*(?:\w+:\s*)?(" + NR + r")\b", nachricht)
-    return (nr.group(1) if nr else (nr_aus_verlauf(wo, "HEAD") or zweig)), los == FILMT  # 911
+    return (nr.group(1) if nr else (nr_aus_verlauf(wo, "HEAD", zweig) or zweig)), los == FILMT  # 911; 924: Rolle aus dem Push-Ziel
 
 
 FILMT = 2
