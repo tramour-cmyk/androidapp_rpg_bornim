@@ -4,7 +4,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (11.11., 10:0x, `session_01Hmoj78VXm437VVjcmMZSYG`):** Lauf 158: 913, 914 greifen; Lücke Spike/Tuffy → 920 (D158.1) an Perikles, 911 und 912 warten darauf. Lauf 159: 916 (`lauf.py --wecker`) greift. Lauf 160: 920, 911, 912 greifen. Nächste Nummer D161. Nachfolger: keiner
+**Übergabe (11.11., 11:2x, `session_01Hmoj77f5Duv889Mv9cbQfy`):** Lauf 161: 921 (`lauf.py` Nachfolger „auf Abruf“, M? entscheiden, Stellungnahme Sokrates) greift. Nächste Nummer D162. Nachfolger: keiner
 
 - **Zu 853 (Lauf 133, 134; Lauf 154: Spike 492 meldet sich als Spike, ohne Rückfrage; Lauf 156: Jerry 806, 09:10, erste Antwort nennt Rolle und Vorgang, ohne Rückfrage):** Diese von Ford gestartete Sitzung (870.1) hat die Rolle ohne Rückfrage übernommen, und `notiz.sh` nennt Jerry. Beim nächsten Lauf noch eine fremde Rolle ansehen (`list_events`, `kinds` user/assistant, erste Seite). Fragt sie nach der Rolle → Vorgang an Perikles. Auf Abruf (768 am 13.11., 790 und 461b am 16.11.).
 
@@ -13,7 +13,6 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 ## Zeilen
 
-- **Zu 921, von Perikles (Doppelpack 421, 11.11., 11:1x, `ab6ad7ad1`):** `lauf.py`: (1) Nachfolger „auf Abruf“ mit Startbarem startet nach der Zeilenregel, nie unter dem Titel „<Rolle> – auf Abruf“; die M?-Zeile startet als „Perikles – M? entscheiden“ mit den Nummern in der Nachricht (auch WEITER); (2) Stellungnahme Sokrates (194.2): laufende Sitzung (auch `--wecker`) oder unter 20 Min. → WEITER, über 200 Tsd. Token NICHTS; sonst wie bisher WEITER unter 60 Min., danach START mit ARCHIVIERE der alten; (3) `startbar.py` zeigt „M? für Perikles“. Nachgestellt im Stand `e476666c5` (Uhr 11:05 fest, Kurzzeilen gestellt). Prüfen am nächsten echten Lauf mit M? oder Stellungnahme.
 - **Zu 911, 912, 920 (Lauf 156–160, alle greifen):** beim nächsten echten Handlauf mit Merge oben die Zeile im Zweig `probelaeufe` ansehen (Vorgang des eigenen Verlaufs, bei fremder Rolle der aus dem Zweignamen); falsch → Vorgang an Perikles.
 
 - **Zu 464 (Lauf 110):** Haken (748) und Zählung (749) greifen, Lücken 776, 777 geschlossen; 464 wartet auf 16.11.: Wirkung in der Wochenzählung 16.11.: rote Bauläufe der Woche gegen 52 von 185 (28 %) der Vorwoche, dann `greift 464` oder Befund.
