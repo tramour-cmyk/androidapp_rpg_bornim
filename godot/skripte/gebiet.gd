@@ -287,6 +287,9 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 				var tex: Texture2D = null
 				if src is BaseMaterial3D: tex = (src as BaseMaterial3D).albedo_texture
 				m.set_shader_parameter("tex", mip(tex) if tex else bild("weiss"))
+				# 831: Blattkarten der Bausatz-Baeume (glTF MASK) wie dort ausgeschnitten, vor der Durchsicht (kette nimmt schnitt mit)
+				if src is BaseMaterial3D and (src as BaseMaterial3D).transparency == BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR:
+					m.set_shader_parameter("schnitt", (src as BaseMaterial3D).alpha_scissor_threshold)
 				if src and String(src.resource_name).begins_with("laub"):
 					m.set_shader_parameter("sway", 1.0)
 					if g and not busch: g.durchsicht(m, 2 if nadel else (1 if krone else 0))   # Busch kniehoch: keine Durchsicht (ersetzte sonst den Shader mit Schablone)
@@ -346,7 +349,7 @@ static func kette(m: ShaderMaterial, sh: Array) -> ShaderMaterial:
 		var d := ShaderMaterial.new()
 		d.shader = sh[i]
 		d.render_priority = i
-		for k in ["tex", "sway", "cut_ab", "kontur", "licht_dir", "glow", "glow_col"]:
+		for k in ["tex", "sway", "cut_ab", "kontur", "licht_dir", "glow", "glow_col", "schnitt"]:
 			if m.get_shader_parameter(k) != null: d.set_shader_parameter(k, m.get_shader_parameter(k))
 		if m.get_shader_parameter("kontur"): Licht.nach_licht.append(d)
 		vor.next_pass = d
