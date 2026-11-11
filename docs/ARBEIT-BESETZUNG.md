@@ -2,7 +2,7 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 11.11., 15:58 (lauf.py)
+**Stand:** 11.11., 16:05 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
@@ -16,3 +16,4 @@
 | Jerry | [Jerry – 930.3: Rechnung und Film Handgemenge (11.11., 15:41)](https://claude.ai/code/session_01Hmoj77tGy4toRwJAVcJ1RX) | 930.3 | – | 11.11., 15:40 |
 | Tom | [Tom – 966.2 (11.11., 15:44)](https://claude.ai/code/session_01Hmoj79axjCrg1xsf1tf33C) | 966.2 | – | 11.11., 15:43 |
 | Diogenes | [Diogenes – 965 (11.11., 15:48)](https://claude.ai/code/session_01Hmoj797wGWFyWKMUR21Whf) | 965 | – | 11.11., 15:47 |
+| Sokrates | [Sokrates – 968: Lauf 350 und Sammelbuild nachhalten (11.11., 16:05)](https://claude.ai/code/session_01Hmoj7A8CRcUG5CS4iR6E7J) | 968 | – | 11.11., 16:04 |
