@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [952](entscheiden/952-kritisch.md) | **Muss** | E Kampf | 11.11., 17:27 | Kritisch hängt heute nur an der Gewandtheit (7 Gewandtheit = 7 %); Vorschlag: Gewandtheit × Waffenfertigkeit / 50, Anfänger fast 0. | Jerry |
+| [952](entscheiden/952-kritisch.md) | **Muss** | E Kampf | 11.11., 17:27 | Kritisch hängt heute nur an der Gewandtheit (7 Gewandtheit = 7 %); Vorschlag: Gewandtheit × Waffenfertigkeit / 50, zu Beginn rund 1 %. | Jerry |
 
 ## Zu billigen
 
