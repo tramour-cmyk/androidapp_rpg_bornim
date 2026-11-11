@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [870.6a](entscheiden/870.6a-zustaende-sammeln.md) | **Muss** | E Kampf | 11.11., 13:41 | Mit einem Wert (Grak heilt beim Sammeln 28 % statt 50 % seines Lebens) liegen die Bosskämpfe wieder wie vor 870.6; Gift, Brand und Blutung am Helden kommen dort nicht vor, Gegner treffen nach dem BRS nie kritisch. | Tuffy |
 
 ## Zu billigen
 
