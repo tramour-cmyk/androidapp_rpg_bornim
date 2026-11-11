@@ -8,16 +8,16 @@ Neue Einzelfunde zum Klang kommen hierher (eine Zeile), nicht als neuer Vorgang;
 
 | Anlass | alt | neu | Vorgang |
 |---|---|---|---|
-| Kaufen, Verkaufen, Zurückkaufen, Ausrüstung kaufen und verkaufen: Münzen | G 1588, 1616, 1655, 1666, 1689 `COINS` | `ladenschirm.gd` still | 934 |
-| Brauen: Trankklang | G 1632, 1636 `POTION` | `ladenschirm.gd` 300 still | 934 |
-| Rast: Zimmerpreis Münzen, dann Heilen | G 207, 208 `COINS`, `HEAL` | `rast.gd` 55–56 gibt `klang` zurück, keiner spielt ihn | 934 |
-| Met an der Theke: Münzen | G 254 `COINS` | still (Trinkgeräusch: 681) | 934 |
-| Szene gibt Gold, Gegenstand, Rast, Heilung | G 1184 `LOOT`, 1191 `COINS`, 1208, 1216 `HEAL` | sp 925–941 still | 934 |
-| Ring öffnet: schwerer Schwung | SK 713 `SWING_HEAVY` 0,6 | `kampfort.gd` still | 935 |
-| Ring gut oder perfekt: Block | SK 726 `BLOCK` (gut 0,5) | `kampfort.gd` 990 still | 935 |
-| Wölfe erscheinen: Geheul, halb so oft | SK 548 `HOWL` | nur beim Umkreisen (kl 364) | 935 |
-| Siegfenster: Beute, epische Beute, Münzen | BS 587 `LOOT`, `LOOT_EPIC`, `COINS` | still | 935 |
-| Stufenaufstieg im Siegfenster | BS 523 `LEVEL_UP` | still | 935 |
+| Kaufen, Verkaufen, Zurückkaufen, Ausrüstung kaufen und verkaufen: Münzen | G 1588, 1616, 1655, 1666, 1689 `COINS` | `ladenschirm.gd` still | 938 |
+| Brauen: Trankklang | G 1632, 1636 `POTION` | `ladenschirm.gd` 300 still | 938 |
+| Rast: Zimmerpreis Münzen, dann Heilen | G 207, 208 `COINS`, `HEAL` | `rast.gd` 55–56 gibt `klang` zurück, keiner spielt ihn | 938 |
+| Met an der Theke: Münzen | G 254 `COINS` | still (Trinkgeräusch: 681) | 938 |
+| Szene gibt Gold, Gegenstand, Rast, Heilung | G 1184 `LOOT`, 1191 `COINS`, 1208, 1216 `HEAL` | sp 925–941 still | 938 |
+| Ring öffnet: schwerer Schwung | SK 713 `SWING_HEAVY` 0,6 | `kampfort.gd` still | 939 |
+| Ring gut oder perfekt: Block | SK 726 `BLOCK` (gut 0,5) | `kampfort.gd` 990 still | 939 |
+| Wölfe erscheinen: Geheul, halb so oft | SK 548 `HOWL` | nur beim Umkreisen (kl 364) | 939 |
+| Siegfenster: Beute, epische Beute, Münzen | BS 587 `LOOT`, `LOOT_EPIC`, `COINS` | still | 939 |
+| Stufenaufstieg im Siegfenster | BS 523 `LEVEL_UP` | still | 939 |
 | Nahe einem Monster: Musik leiser, dunkle Unterlage; bemerkt: still | AU/Music.kt `shade`, G 600 `threat` | fehlt (kl Kopf: „Bemerkgrenze“ offen) | 936 |
 | Monster auf der Karte, solange es nicht jagt: Ruhelaut, nur nah (13 Arten) | G 910–925, AU/MonsterIdle.kt `IDLE_*` | nur Wolf im Kampf (`figur.gd` 1190) | 937 |
 
