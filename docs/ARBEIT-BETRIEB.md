@@ -98,7 +98,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:22 11.11.: **Bis Sa 14.11., 20:00 jedes create_session mit environment_id env_017fgL1YDcVTYTkJsU3APEfR (WireStorm Hoch)** (365a B, Chef 07:18; Sokrates 07:21), bis lauf.py (901) es kann; Gleichzeitig-Doppel Spike/Tuffy/Diogenes/Jerry von 07:18 (Mittel) unterbrochen, archiviert, gebucht (3,0 $ zusammen)
 - 07:10 11.11.: Archiviert und gebucht (Chef 07:09: Ford darf jede ARCHIVIERE-Zeile dauerhaft ausführen, nie auf den Satz warten): Jerry …76RTd, Sokrates …77DnC, …78xr5, Tom …79XWb, …78gmw, …77iXL, Diogenes …76Dx, Perikles …75P7, alter Ford …78JXi
 - 07:05 11.11.: Morgen 11.11.: regelcheck 4 Pflegefehler (ARBEIT-BETRIEB 35 KB, -JERRY 17 KB, -TOM 15 KB, Übergabe über 700 Zeichen); Kosten-Tabelle nicht gelaufen (Seiten zu groß); Archiv-Satz des Chefs fehlt für 7 Sitzungen
-- 04:05 11.11.: Start Diogenes 893 nicht ausgeführt (Diogenes hat 893 03:29 geprüft, Lauf 151, Zeile steht noch offen; --ohne 893:erledigt von Diogenes 03:29)
 - 09:24 11.11.: Startsperre 09:24 Start Diogenes (Ford, vor dem Start; Auftrag Diogenes 911 und 264.1, caf221f84, ee20ff5a8; Umgebung Hoch)
 - 09:23 11.11.: Neustart Tom: Nachfolger …75P7U „Tom – 870.4: Lauf 341 auswerten“ in Hoch gestartet; Tom …78hPe archiviert, 7,75 $ auf 870.4. Startsperre 09:22 Start Tom (Neustart-Meldung 09:21, c2cf0ac30; Umgebung Hoch). Perikles …79rUs: „Weiter: 911“ (Tom 09:19) als Nachricht gesendet
 - 09:14 11.11.: Startsperre 09:14 Start Sokrates (Neustart-Meldung 09:13, ea70e638d; Umgebung Hoch); Jerry …782ws archiviert, 18,89 $ auf 806, 854
@@ -332,3 +331,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:05 11.11.: Marke Start-fehlt Perikles 11.11.-09:47 (lauf.py)
 - 11:05 11.11.: Marke Start-fehlt Spike 11.11.-09:41 (lauf.py)
 - 11:05 11.11.: Marke Start-fehlt Tuffy 11.11.-09:04 (lauf.py)
+- 11:15 11.11.: Startsperre 11:15 Start Diogenes (lauf.py)
