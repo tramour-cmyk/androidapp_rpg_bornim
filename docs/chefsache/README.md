@@ -4,11 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [814](entscheiden/814-film-abend.md) | **Muss** | E Welt | 11.11., 12:56 | Lauf 1 lief am Tag, Fackeln und Fahne nicht im Bild; ein zweiter Lauf am Abend oder gleich in den Build? | Spike (Team Tom) |
+Nichts offen.
 
 ## Zu billigen
 
@@ -20,7 +16,6 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [814](ansehen/814-dorfeffekte-film.md) | Dorfeffekte, Film Lauf 1 | – | 11.11., 12:57 |
 | [831](ansehen/831-baeume.md) | Bäume aus dem Nature MegaKit mit unserer Signatur | Tom | 11.11., 12:49 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
@@ -134,7 +129,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 785 | M | Oberfläche einmal ganz gegen alt: jeder Schirm und jede Bedienung als eine Liste, jeder Un | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.4 (liste) |
 | 698 | M | Grafikstufen im Systemmenü mit Effekten (Niedrig/Mittel/Hoch, Automatisch per Leistungstes | wartet auf 623 (startbar) |
 | 816 | M | Effekte Szene 1 Dorf am Abend nach LISTE-EFFEKTE (Reihenfolge 623.8): gedämpft, Bilder/s n | wartet auf 698 (startbar) |
-| 814 | M | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staub im Licht, Fußstaub, Fahne, Wind, | Chef (Datei in der Chefsache) |
+| 814 | M | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staub im Licht, Fußstaub, Fahne, Wind, | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 680 (gebiet.gd) |
 | 831 | M | Bildtafel Bäume: vier Arten aus Stylized Nature MegaKit frei (gewöhnlich, abgestorben, Kie | Chef (Datei in der Chefsache) |
 | 839 | K | Von Homer (817): Erklärtexte der Grundwerte im Reiter Held nach BRS einbauen, Texte STORY- | ruht |
 | 842 | M | Von Sokrates (807a A, Chef 10.11., 11:01): Pim überreden und Verband nach STORY-K1-FERTIGK | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.4 (sokrates) |
@@ -242,9 +237,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 918 | M | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): godot.yml lässt alle Tests durchlaufen, sa | Sperre 620.1 B: 14 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 854 |
 | 922 | M | Von Tom (B1, Lauf 346): wildschwein_494 und skelett_506 prüfen noch SRD-Trefferpunkte (2W8 | Sperre 620.1 B: 14 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.3 (json) |
 | 923 | M | Von Tom/Sokrates (t276 gegengelesen): Heiltrank in tools/sim444/werte.json doppelt, welt.h | Sperre 620.1 B: 14 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (sokrates) |
-| Pflege | K | von Werkzeug (340.3, 11.11.): 16043 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 931 | M | Von 784 A (Chef 11.11., 12:15): Wolf vorn – „Anspringen!“ steht, während er sich duckt (ke | Sperre 620.1 B: 14 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (biss) |
 | 932 | M | Von 784 A (Chef 11.11., 12:15/12:09): Angriff des Helden höchstens 2,4 s – rennt zum Ziel, | Sperre 620.1 B: 14 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (messen) |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 16289 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 18, Muss 12, startbar 3
 
@@ -341,8 +336,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
 Format (Muster: „So geht's“ unten): t276-b1-umzug-brs.md: Zeile 2 ist keine Bereichszeile; t276-b1-umzug-brs.md: Version 0.1.<Laufnummer> (Godot 0.348.<Laufnummer>) fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
-
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/814-dorfeffekte-film.md
 
 ## So geht's
 
