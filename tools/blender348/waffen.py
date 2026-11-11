@@ -97,7 +97,9 @@ def shield_board(P, outline, thick, face_col, rim=IRON, stripe=None):
     bm.free()
     box(P, (-5 * CM, 0, -1.2 * CM), (5 * CM, 3 * CM, 1.2 * CM), LEATHER)   # die Fessel
 
-def build_dagger(P): sword(P, 4.5, 4.0, 1.25, 1.5, 4.6, 4.2, 0.6, 23.0, 1.6, 1.0, 0.38, 8.0)
+# 948 (Chef 11.11., 13:33, t276.12: Herumtreiber „im Kampf nichts in der Hand zu sehen“): die Klinge aus Dress.kt (1,6 cm breit, 0,38 dick)
+# ist im Kampfbild ein Strich; nach der Regel des Kobold-Dolchs (Runde 3c): an der Wurzel 3 cm, 0,9 dick, Parierstange steht vor
+def build_dagger(P): sword(P, 4.5, 4.0, 1.35, 1.6, 4.8, 5.5, 0.8, 25.0, 3.0, 1.8, 0.9, 8.0)
 # Goblin Runde 6 (Prüfer Runde 5: Dolch mit der Hand ein schwarzer Klumpen): breiter und länger, eine Parierstange, die vorsteht
 def build_dagger_gob(P): sword(P, 4.5, 4.5, 1.4, 1.7, 5.0, 5.5, 0.7, 32.0, 2.4, 1.4, 0.45, 10.0)
 # Kobold Runde 3 (Diogenes r2c (e): Dolch wie eine Gabel; Prüfer: die Umrisslinie läuft an beiden Seiten der dünnen Klinge als
