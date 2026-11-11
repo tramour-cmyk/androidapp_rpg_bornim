@@ -7,26 +7,34 @@ extends RefCounted
 # die angelegte Waffe und der Schild haengen unterwegs auf dem Ruecken (DESIGN-STIL „Ausruestung unterwegs“).
 # Fehlen die Dateien (Bau ohne Kaufmodelle), bleibt der bisherige Held (daten/held.bin).
 # 376.1 Tracht je Herkunft (Chef 01.11., 11:19 „wie Sokrates“, Archiv): Modell je Tracht und Geschlecht (daten/held_<TRACHT>_<M|W>.bin),
-# welche Herkunft welche Tracht traegt, sagt held-klassen.json (herkuenfte); bis die Erschaffung Herkuenfte kennt, gilt die der Klasse
-# (klasse_herkunft). Kapuze nur, wenn die Herkunft sie traegt; unter ihr kein Haar (langes Haar verborgen). Geschlecht und Statur wie
+# welche Herkunft welche Tracht traegt, sagt held-klassen.json (herkuenfte); 870.4: die Wahl traegt die Herkunft nach BRS
+# („Wachsoldat“ oder ihre Kennung „WACHSOLDAT“), keine Klasse mehr. Kapuze nur, wenn die Herkunft sie traegt; unter ihr kein Haar (langes Haar verborgen). Geschlecht und Statur wie
 # alt (CreateScreen.kt, Appearance.kt Sex, Build): aussehen.geschlecht „m“/„w“, aussehen.statur „schlank“/„normal“/„kraeftig“.
 
 const INFO := "res://daten/held-klassen.json"
 # form: Formschluessel (leer: wie gekauft); frisur, bart: Netz in haare.bin (leer: ohne); haut, haarfarbe: Nummer im Volk (held.json
 # voelker.<VOLK>.haut/haar, Appearance.kt wie die alte Erschaffung)
 const VORGABE := {"form": "", "frisur": "Hair_SimpleParted", "bart": "", "haarfarbe": 0, "haut": 0, "geschlecht": "m", "statur": "normal"}
-# Heldin: eigene Frisur je Klasse, ohne Bart (Gesicht, Haut, Haar wie beim Mann der Klasse)
-const FRAU_FRISUR := {"FIGHTER": "Hair_Ponytail_2", "CLERIC": "Hair_Buns", "ROGUE": "Hair_Bob", "WIZARD": "Hair_Long"}
+# Heldin: eigene Frisur je Herkunft, ohne Bart (Gesicht, Haut, Haar wie beim Mann der Herkunft); 870.4: je Herkunft wie bisher
+# die der Klasse, zu der sie gehoerte (Wachsoldat, Schmiedelehrling, Wanderer wie der Kaempfer …)
+const FRAU_FRISUR := {"WACHSOLDAT": "Hair_Ponytail_2", "SCHMIEDELEHRLING": "Hair_Ponytail_2", "WANDERER": "Hair_Ponytail_2",
+	"KLOSTERSCHUELER": "Hair_Buns", "HERUMTREIBER": "Hair_Bob", "JAEGERKIND": "Hair_Bob", "KRAEUTERSAMMLER": "Hair_Bob", "ZAUBERLEHRLING": "Hair_Long"}
 const GESCHLECHTER := ["m", "w"]
 const STATUREN := ["schlank", "normal", "kraeftig"]
 # Chef 28.10., 23:0x („die 6 Beispielköpfe … auf Helden drauf basteln“; Haut „klinisch tot“, „normale Hautfarbe oder eine
-# klassentypische“): je Klasse ein fertiger Beispielkopf als Vorgabe, keiner mit „Hell“; in der Erschaffung frei aenderbar
-const KLASSEN_VORGABE := {
-	"FIGHTER": {"form": "kantig", "frisur": "Hair_Buzzed", "bart": "Hair_Beard", "haarfarbe": 0, "haut": 1},
-	"CLERIC": {"form": "rund", "frisur": "Hair_Balding", "bart": "Hair_Beard", "haarfarbe": 2, "haut": 2},
-	"ROGUE": {"form": "schmal", "frisur": "Hair_Ponytail", "bart": "", "haarfarbe": 3, "haut": 1},
-	"WIZARD": {"form": "hager", "frisur": "Hair_SlickBack", "bart": "Hair_Moustache", "haarfarbe": 1, "haut": 3},
+# klassentypische“): je Klasse ein fertiger Beispielkopf als Vorgabe, keiner mit „Hell“; in der Erschaffung frei aenderbar.
+# 870.4: je Herkunft der Kopf der Klasse, zu der sie bisher gehoerte (dasselbe Bild wie vorher)
+const KAEMPFER_KOPF := {"form": "kantig", "frisur": "Hair_Buzzed", "bart": "Hair_Beard", "haarfarbe": 0, "haut": 1}
+const SCHURKEN_KOPF := {"form": "schmal", "frisur": "Hair_Ponytail", "bart": "", "haarfarbe": 3, "haut": 1}
+const HERKUNFT_VORGABE := {
+	"WACHSOLDAT": KAEMPFER_KOPF, "SCHMIEDELEHRLING": KAEMPFER_KOPF, "WANDERER": KAEMPFER_KOPF,
+	"KLOSTERSCHUELER": {"form": "rund", "frisur": "Hair_Balding", "bart": "Hair_Beard", "haarfarbe": 2, "haut": 2},
+	"HERUMTREIBER": SCHURKEN_KOPF, "JAEGERKIND": SCHURKEN_KOPF, "KRAEUTERSAMMLER": SCHURKEN_KOPF,
+	"ZAUBERLEHRLING": {"form": "hager", "frisur": "Hair_SlickBack", "bart": "Hair_Moustache", "haarfarbe": 1, "haut": 3},
 }
+# 870.4: Volk nach BRS -> Koerper und Farben der Figur (held.json voelker, held_klassen.py; Kennungen der Modelle bleiben)
+const VOLK_MODELL := {"Mensch": "HUMAN", "Elf": "ELF", "Zwerg": "DWARF", "Hügelvolk": "HALFLING", "Orkblütiger": "HALF_ORC"}
+static func volk_modell(v: String) -> String: return String(VOLK_MODELL.get(v, v if v == v.to_upper() and v != "" else "HUMAN"))
 # Haut lebendig (Chef 23:0x „klinisch tot“): Licht, Umgebung und Stimmung (licht.gd) nehmen der Haut Farbe (Lauf 1, haut.txt: Wange
 # „Warm“ 166/137/104 statt Feld 212/162/124, „Hell“ grau 180/165/141); je Kanal geeicht auf die Farbe des Felds bei gleicher
 # Helligkeit (Eichung 1,66/1,39/1,40 durch ihre Helligkeit; nicht heller: Chef „dunkler“), dazu ein Teil der Farbschwankung des Bildes
@@ -90,14 +98,19 @@ static func geschlecht_info(g: String) -> Dictionary:
 	var gs: Dictionary = lade_info().get("geschlechter", {})
 	return gs.get(g.to_upper(), gs.get("M", info))
 
-# Herkunft (Spielsystem 2.0) der Wahl: eigene, sonst die der alten Klasse
+# Herkunft (Spielsystem 2.0, 870.4) der Wahl als Kennung der Trachten (held-klassen.json herkuenfte): „Jägerkind“ -> „JAEGERKIND“;
+# ohne Angabe der Wanderer
 static func herkunft(w: Dictionary) -> String:
 	var h := String(w.get("herkunft", ""))
-	if h != "": return h
-	return String(lade_info().get("klasse_herkunft", {}).get(String(w.get("klasse", "FIGHTER")), "WACHSOLDAT"))
+	return kennung(h if h != "" else "Wanderer")
+
+static func kennung(h: String) -> String:
+	return h.to_upper().replace("Ä", "AE").replace("Ö", "OE").replace("Ü", "UE").replace("ß", "SS")
 
 # Modell der Wahl: Tracht der Herkunft und Geschlecht, z. B. „WACHE_W“; kapuze: ob die Herkunft die Kapuze traegt
 static func tracht(w: Dictionary) -> Dictionary:
+	if String(w.get("modell", "")) != "":   # 475: eine Person des Dorfs (person)
+		return {"modell": String(w["modell"]), "kapuze": bool(w.get("kapuze", false)), "geschlecht": String(w["modell"]).right(1)}
 	var h: Dictionary = lade_info().get("herkuenfte", {}).get(herkunft(w), {})
 	var g := String((w.get("aussehen", {}) as Dictionary).get("geschlecht", "m")).to_upper()
 	return {"modell": "%s_%s" % [String(h.get("tracht", "WACHE")), g], "kapuze": bool(h.get("kapuze", false)), "geschlecht": g}
@@ -108,26 +121,27 @@ static func lade_info() -> Dictionary:
 		if j is Dictionary: info = j
 	return info
 
-static func da(klasse: String, geschlecht := "m") -> bool:
-	var t := tracht({"klasse": klasse, "aussehen": {"geschlecht": geschlecht}})
+static func da(herkunft_: String = "Wachsoldat", geschlecht := "m") -> bool:
+	var t := tracht({"herkunft": herkunft_, "aussehen": {"geschlecht": geschlecht}})
 	return lade_info().get("trachten", {}).has(t["modell"]) and FileAccess.file_exists("res://daten/held_%s.bin" % t["modell"]) \
 		and FileAccess.file_exists("res://daten/bewegungen.bin")
 
-# Auswahl aus dem Spielstand
-static func wahl(w: Heldwerte, z: Zustand) -> Dictionary:
-	return {"klasse": w.klasse if w else "FIGHTER", "volk": w.volk if w else "HUMAN", "aussehen": z.aussehen if z else {},
+# Auswahl aus dem Spielstand (870.4: der Held nach BRS)
+static func wahl(w: BrsHeld, z: Zustand) -> Dictionary:
+	return {"herkunft": w.herkunft if w else "Wanderer", "volk": volk_modell(w.volk) if w else "HUMAN", "aussehen": z.aussehen if z else {},
 		"ausruestung": w.ausruestung if w else {}}
 
-static func vorgabe(klasse: String, geschlecht := "m") -> Dictionary:
+static func vorgabe(herkunft_: String, geschlecht := "m") -> Dictionary:
 	var v := VORGABE.duplicate()
-	v.merge(KLASSEN_VORGABE.get(klasse, {}), true)
+	var k := kennung(herkunft_)
+	v.merge(HERKUNFT_VORGABE.get(k, {}), true)
 	v["geschlecht"] = geschlecht
 	if geschlecht == "w":
-		v["frisur"] = String(FRAU_FRISUR.get(klasse, "Hair_Long")); v["bart"] = ""
+		v["frisur"] = String(FRAU_FRISUR.get(k, "Hair_Long")); v["bart"] = ""
 	return v
 
-static func aussehen_voll(a: Dictionary, klasse := "") -> Dictionary:
-	var v := vorgabe(klasse, String(a.get("geschlecht", "m")))
+static func aussehen_voll(a: Dictionary, herkunft_ := "") -> Dictionary:
+	var v := vorgabe(herkunft_, String(a.get("geschlecht", "m")))
 	for k in a: v[k] = a[k]
 	return v
 
@@ -171,13 +185,13 @@ static func tritte(an: Animation, sk: Skeleton3D, raum: Transform3D) -> Vector2:
 const RUECK := 0.04   # Laeufe 41427986678, 41449210697: mit Unterlagen weg (kauf_kleid UNTER_WEG) Wache Mann 11404 -> 5831, Frau 14284 -> 4788 Flecken
 const NACH := 0.0
 static func baue(w: Dictionary, mats: Array) -> Node3D:
-	var k := String(w.get("klasse", "FIGHTER"))
+	var k := String(w.get("herkunft", ""))   # leer (Leute des Dorfs mit „modell“): ohne Beispielkopf
 	var a := aussehen_voll(w.get("aussehen", {}), k)
-	var t := tracht({"klasse": k, "herkunft": w.get("herkunft", ""), "aussehen": a})
+	var t := tracht({"herkunft": k, "aussehen": a, "modell": w.get("modell", ""), "kapuze": w.get("kapuze", false)})
 	if not FileAccess.file_exists("res://daten/held_%s.bin" % t["modell"]) or not FileAccess.file_exists("res://daten/bewegungen.bin"): return null
 	var m := Gebiet.lade_glb("res://daten/held_%s.bin" % t["modell"])
 	if m == null: return null
-	m.name = "Held_" + k
+	m.name = "Held_" + herkunft(w)
 	m.set_meta("tracht", t["modell"])
 	kapuze(m, t["kapuze"])
 	if t["kapuze"]: a["frisur"] = ""   # langes Haar unter der Kapuze verborgen (Archiv 376.1)
@@ -341,7 +355,8 @@ static func haare(m: Node3D, sk: Skeleton3D, k: String, a: Dictionary, mats: Arr
 	var ich: Array = info.get("trachten", {}).get(k, {}).get("kopf", ref)
 	var vers := Vector3(ich[0] - ref[0], ich[1] - ref[1], ich[2] - ref[2])
 	var ruhe := im_raum(m, sk) * sk.get_bone_global_rest(kb)
-	for n in [String(a.get("frisur", "")), String(a.get("bart", ""))]:
+	# 475 Lauf 2: Bart auch als Liste mit Komma (Schnauzer und Kinnbart), weitere Formen aus held_klassen.py baerte_mehr
+	for n in [String(a.get("frisur", ""))] + Array(String(a.get("bart", "")).split(",", false)):
 		if n == "": continue
 		var q := hs.find_child(n, true, false) as MeshInstance3D
 		if q == null: continue
@@ -362,6 +377,8 @@ static func haare(m: Node3D, sk: Skeleton3D, k: String, a: Dictionary, mats: Arr
 static func toene(m: Node3D, a: Dictionary, volk: String) -> void:
 	var haut := ton(volk, "haut", int(a.get("haut", 0)))
 	var haar := ton(volk, "haar", int(a.get("haarfarbe", 0)))
+	if a.has("haut_rgb"): haut = Color.html(String(a["haut_rgb"]))   # 475: Leute mit eigenem Ton (leute.json haut, haar)
+	if a.has("haar_rgb"): haar = Color.html(String(a["haar_rgb"]))
 	var gi := geschlecht_info(String(a.get("geschlecht", "m")))
 	var hb := _hell(gi.get("haut_bild", [1, 1, 1]))
 	var hh := _hell(gi.get("haar_bild", [1, 1, 1]))
@@ -377,7 +394,10 @@ static func toene(m: Node3D, a: Dictionary, volk: String) -> void:
 			var b := 0.0
 			var ist_haut := rn.contains("Regular") or rn.contains("Superhero")
 			if ist_haut: z = haut; b = hb
-			elif rn.contains("Hair"): z = haar; b = hh
+			elif rn.contains("Hair"):
+				z = haar; b = hh
+				# 475 (Lauf 10.11., 02:06: Brauen bei hellem Haar zu hell, Morwen, Liska, Pim, Lyra): Brauen der Leute dunkler als das Haar
+				if a.has("haar_rgb") and String(mi.name).begins_with("Eyebrows"): z = haar.darkened(0.45)
 			if z.r < 0.0: continue
 			var l := z.srgb_to_linear()
 			var t := Vector3(l.r, l.g, l.b)
@@ -410,7 +430,7 @@ static func _hell(c: Array) -> float:
 	return maxf(0.01, 0.2126 * l.r + 0.7152 * l.g + 0.0722 * l.b)
 
 static func toene_liste(volk: String, was: String) -> Array:
-	var v: Dictionary = Heldwerte.lade().get("voelker", {}).get(volk, {})
+	var v: Dictionary = BrsHeld.daten().get("voelker", {}).get(volk_modell(volk), {})
 	return v.get(was, [])
 
 static func ton(volk: String, was: String, i: int) -> Color:
@@ -418,16 +438,13 @@ static func ton(volk: String, was: String, i: int) -> Color:
 	if l.is_empty(): return Color(-1, 0, 0)
 	return Color.html(String(l[clampi(i, 0, l.size() - 1)]["rgb"]))
 
-# Faust der Kaufhand: Griff zwischen den Knoecheln von Zeige- und Kleinfinger, Achse dazwischen (wie figurenprobe.gd bewaffne)
+# Faust der Kaufhand: Griff zwischen den Knoecheln von Zeige- und Kleinfinger, Achse dazwischen; 653: aus der Halterung je Koerper
+# (Halt.halterung „faust_r“/„faust_l“), eine Quelle fuer Tragen, Prüfbild und Kampf
 static func faust(sk: Skeleton3D, s: String) -> Dictionary:
-	var h := sk.find_bone("hand_" + s)
-	var z := sk.find_bone("index_01_" + s)
-	var p := sk.find_bone("pinky_01_" + s)
-	if h < 0 or z < 0 or p < 0: return {}
-	var hr := sk.get_bone_global_rest(h).affine_inverse()
-	var zf := hr * sk.get_bone_global_rest(z).origin
-	var kf := hr * sk.get_bone_global_rest(p).origin
-	return {"knochen": "hand_" + s, "griff": (zf + kf) * 0.5, "achse": (zf - kf).normalized()}
+	var h := Halt.halterung(sk, "faust_" + s)
+	if h.is_empty(): return {}
+	var l: Transform3D = h["lage"]
+	return {"knochen": h["knochen"], "griff": l.origin, "achse": l.basis.y.normalized()}
 
 # ---------------------------------------------------------------- Ausruestung unterwegs: Schild und Waffe auf dem Ruecken
 static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
@@ -435,6 +452,7 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 	var bi := sk.find_bone("spine_03")
 	if bi < 0: return
 	var brust := im_raum(m, sk) * sk.get_bone_global_rest(bi)
+	var pts := haut_punkte(m, sk, false)
 	# 522 (Chef 04.11., 11:55: Streitkolben und Dolch angelegt, am Helden nichts): ein Dolch in der Nebenhand ist kein Schild; bis er
 	# einen eigenen Platz am Koerper hat, haengt nur ein Schild auf dem Ruecken
 	var neben = aus.get("OFF_HAND")
@@ -444,7 +462,7 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 	# Ruecken zwischen Schulterblatt und Kreuz (Pruefer Lauf 1: unten 5-7 cm Spalt); die Waffe schraeg, Griff ueber der rechten
 	# Schulter, hinter allem, was hinten am weitesten absteht (Lauf 1: Schwert hinter dem Schild verdeckt, Parierstange im Umhang)
 	var y := brust.origin.y
-	var r := ruecken(m, y - 0.63, y + 0.1)   # [z oben, z unten, hinterste z]: Ruecken an Ober- und Unterkante des Schilds
+	var r := ruecken_aus(pts, y - 0.63, y + 0.1)   # [z oben, z unten, hinterste z]: Ruecken an Ober- und Unterkante des Schilds
 	var aussen: float = r[2]
 	if schild != "":
 		# Pruefer Lauf 2 (Kaempfer: Schild ragt von vorn ueber die Schultern; Schild 0,72 m, Oberkante 1,54 m, Schultern 1,46 m):
@@ -458,7 +476,40 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 		# Oberarm tiefer hinein als beim alten Schild (gemessen tests/schild_406.gd)
 		var weg := rand_hinten(schild)
 		t.origin += t.basis.z * weg
-		_haenge(m, sk, bi, brust, schild, t, "RueckenSchild")
+		# 499 (Chef 07.11.: „Schild unten zu weit weg“; Lauf 291): in „Stehen“ kippt spine_03 21,8 Grad vor, Becken und spine_01 7-8 Grad
+		# zurueck; am Brustwirbel schwang die Unterkante 28-30 cm vom Ruecken (oben 4 cm). Der Schild haengt darum am mittleren Wirbel
+		# (spine_02, 2 Grad), der zwischen Ober- und Unterkante liegt, und liegt am Ruecken, wie er in „Stehen“ steht (Drehteller,
+		# Erschaffung, Ruhe im Spiel; am Rechner mit spine_02 aus der Ruhe noch 4 bzw. 8 cm unten)
+		var mi := sk.find_bone("spine_02")
+		if mi < 0: mi = bi
+		var anker := im_raum(m, sk) * sk.get_bone_global_rest(mi)
+		var lagen := haltung_lagen(m, sk, "Stehen")
+		if not lagen.is_empty():
+			# Mitte 29 cm unter spine_03 wie oben; die Neigung nach dem ganzen Schild: die Gerade, die hinter allem zwischen Unter- und
+			# Oberkante liegt und in der Mitte am naechsten am Ruecken ist (am Rechner Kaempfer unten 3,6 cm, oben 1,9 cm; Kleriker oben
+			# 2,6 cm, die Spitze des Drachenschilds 8 cm ueber den Oberschenkeln, das Gesaess steht 5 cm weiter ab)
+			var hh := schild_hoehe(schild)
+			# 499 (Chef 08.11., 12:41: „früher … eher am Nackenabschluss … jetzt … eher über den Arsch“): Oberkante wie alt (Dress.kt
+			# shieldOnBack) 0,045 x Koerperhoehe ueber der Schulterlinie (Schultergelenke 0,022 x Hoehe tiefer), in „Stehen“; vorher Mitte
+			# 29 cm unter spine_03 (Oberkante 1,32 m, etwa Brusthoehe)
+			var yc := y - 0.29
+			var ul := sk.find_bone("upperarm_l"); var ur := sk.find_bone("upperarm_r")
+			if ul >= 0 and ur >= 0:
+				var ks := im_raum(m, sk)
+				var sy := ((ks * (lagen[ul] as Transform3D)).origin.y + (ks * (lagen[ur] as Transform3D)).origin.y) * 0.5
+				var hy := Vector2(INF, -INF)
+				for p in pts: hy = Vector2(minf(hy.x, p.y), maxf(hy.y, p.y))
+				var koerper := hy.y - hy.x if hy.x < hy.y else 1.8
+				yc = sy + 0.023 * koerper - hh.y
+			var li := ruecken_linie(haut_punkte(m, sk, true, null, lagen), yc + hh.x, yc + hh.y)
+			if not li.is_empty():
+				var o2 := Vector3(0, yc + hh.y, float(li[0]) + float(li[1]) * (yc + hh.y) - 0.03)
+				var u2 := Vector3(0, yc + hh.x, float(li[0]) + float(li[1]) * (yc + hh.x) - 0.03)
+				var h2 := (o2 - u2).normalized()
+				t = Transform3D(Basis(Vector3.LEFT, h2, Vector3.LEFT.cross(h2)), Vector3(0, yc, float(li[0]) + float(li[1]) * yc - 0.03))
+				t.origin += t.basis.z * weg
+			anker = im_raum(m, sk) * (lagen[mi] as Transform3D)
+		_haenge(m, sk, mi, anker, schild, t, "RueckenSchild")
 		aussen = minf(aussen, (oben.z + unten.z) * 0.5) - 0.10 - weg   # Schild mit Buckel (376.1 Lauf 2: bei 7 cm durchdrang der Buckel das Schwert)
 	# 417 Runde 6: Godot benennt den zweiten gleichnamigen Knoten „@Getragen@…“ bzw. „@Tragen@…“; „Getragen*“ fand ihn nicht, beim
 	# Wechsel der Ausruestung blieb der Schild der Paketbewegung in der Hand (Messung: zweiter Tragen-Knoten nie gefunden)
@@ -484,6 +535,7 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 			m.add_child(d)
 			Gebiet.male(d, null, 2, [])
 			var t := Tragen.new("", d, m, faust(sk, String(p[2])))
+			t.halt = Halt.gegenstand(String(p[0]))   # 653: Griff und Schneide je Modell
 			t.gang = String(p[1]); t.seite = String(p[2]); t.anim = ap
 			sk.add_child(t)
 		m.set_meta("gang", gang)
@@ -496,6 +548,7 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 		m.add_child(d)
 		Gebiet.male(d, null, 2, [])
 		var t := Tragen.new(art, d, m, faust(sk, String(Tragen.LAGE[art]["seite"])))
+		t.halt = Halt.gegenstand(waffe)   # 653
 		t.anim = Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
 		sk.add_child(t)
 		return
@@ -509,21 +562,78 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 
 # hinterste Stelle des Rumpfs (z, Ruhelage) auf Hoehe des Schulterblatts (y1 - 0,15) und des Kreuzes (y0 + 0,1), dazu die hinterste
 # zwischen y0 und y1; nur die Mitte (|x| < 0,12), alle Netze mit Haut (Koerper, Kleidung, Umhang)
-static func ruecken(m: Node3D, y0: float, y1: float) -> Array:
+static func ruecken(m: Node3D, y0: float, y1: float) -> Array: return ruecken_aus(haut_punkte(m, null, false), y0, y1)
+
+static func ruecken_aus(pts: PackedVector3Array, y0: float, y1: float) -> Array:
 	var oben := 9.0; var unten := 9.0; var ganz := 9.0
-	for mi in m.find_children("*", "MeshInstance3D", true, false):
-		if not (mi as MeshInstance3D).skin: continue
-		var t := im_raum(m, mi)
-		var me := (mi as MeshInstance3D).mesh
-		for s in me.get_surface_count():
-			for v in me.surface_get_arrays(s)[Mesh.ARRAY_VERTEX]:
-				var p: Vector3 = t * v
-				if absf(p.x) > 0.12 or p.y < y0 or p.y > y1: continue
-				ganz = minf(ganz, p.z)
-				if absf(p.y - (y1 - 0.15)) < 0.04: oben = minf(oben, p.z)
-				if absf(p.y - (y0 + 0.1)) < 0.04: unten = minf(unten, p.z)
+	for p in pts:
+		if absf(p.x) > 0.12 or p.y < y0 or p.y > y1: continue
+		ganz = minf(ganz, p.z)
+		if absf(p.y - (y1 - 0.15)) < 0.04: oben = minf(oben, p.z)
+		if absf(p.y - (y0 + 0.1)) < 0.04: unten = minf(unten, p.z)
 	if ganz > 8.0: ganz = -0.15
 	return [oben if oben < 8.0 else ganz, unten if unten < 8.0 else ganz, ganz]
+
+# 499: Lagen aller Knochen (im Raum des Skeletts) in der Haltung [name] zur Zeit 0, aus dem AnimationPlayer der Figur, von Hand
+# vorwaerts gerechnet: ausserhalb des Baums rechnet das Skelett set_bone_pose nicht nach (Lauf 291 und am Rechner: der Versuch mit
+# „Stehen“ aenderte nichts). Leer, wenn die Haltung fehlt
+static func haltung_lagen(m: Node3D, sk: Skeleton3D, name: String) -> Array:
+	var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
+	if ap == null or not ap.has_animation(name): return []
+	var an := ap.get_animation(name)
+	var sp := _spuren(an)
+	var lagen := []
+	lagen.resize(sk.get_bone_count())
+	var fertig := []
+	fertig.resize(sk.get_bone_count())
+	fertig.fill(false)
+	var rechne := func(selbst: Callable, b: int) -> Transform3D:
+		if fertig[b]: return lagen[b]
+		var rest := sk.get_bone_rest(b)
+		var e: Dictionary = sp.get(sk.get_bone_name(b), {})
+		var q: Quaternion = an.rotation_track_interpolate(e["rot"], 0.0) if e.has("rot") else rest.basis.get_rotation_quaternion()
+		var p: Vector3 = an.position_track_interpolate(e["pos"], 0.0) if e.has("pos") else rest.origin
+		var l := Transform3D(Basis(q).scaled(sk.get_bone_pose_scale(b)), p)
+		var v := sk.get_bone_parent(b)
+		if v >= 0: l = selbst.call(selbst, v) * l
+		lagen[b] = l; fertig[b] = true
+		return l
+	for b in sk.get_bone_count(): rechne.call(rechne, b)
+	return lagen
+
+# Ecken aller Netze mit Haut im Raum der Wurzel m (ohne deren eigene Lage): Ruhelage, oder mit [haltung] nach der Lage der Knochen
+# (wie die Haut sie zeichnet); [nur]: ein Netz. Mit Haltung nur die Mitte (Ruhe |x| < 0,2), sonst dauert es zu lange
+static func haut_punkte(m: Node3D, _sk: Skeleton3D, haltung: bool, nur: MeshInstance3D = null, lagen := [], breite := 0.2) -> PackedVector3Array:
+	var aus := PackedVector3Array()
+	for mi in ([nur] if nur else m.find_children("*", "MeshInstance3D", true, false)):
+		var x := mi as MeshInstance3D
+		if not x.skin: continue
+		var t := im_raum(m, x)
+		var sk := x.get_node_or_null(x.skeleton) as Skeleton3D
+		if sk == null: sk = _sk
+		var ks := im_raum(m, sk) if sk else Transform3D.IDENTITY
+		for s in x.mesh.get_surface_count():
+			var arr := x.mesh.surface_get_arrays(s)
+			var vs: PackedVector3Array = arr[Mesh.ARRAY_VERTEX]
+			if not haltung or sk == null:
+				for v in vs: aus.append(t * v)
+				continue
+			var bo = arr[Mesh.ARRAY_BONES]; var we = arr[Mesh.ARRAY_WEIGHTS]
+			if bo == null or vs.is_empty(): continue
+			var n := int(bo.size() / vs.size())
+			for i in vs.size():
+				if absf((t * vs[i]).x) > breite: continue   # 653: mit breite = INF auch die Arme (Schild am Unterarm)
+				var w := Vector3.ZERO
+				for j in n:
+					var g: float = we[i * n + j]
+					if g <= 0.0: continue
+					var bind: int = bo[i * n + j]
+					var bone := x.skin.get_bind_bone(bind)
+					if bone < 0: bone = sk.find_bone(x.skin.get_bind_name(bind))
+					var gl: Transform3D = lagen[bone] if bone < lagen.size() else sk.get_bone_global_pose(bone)
+					w += (ks * gl * x.skin.get_bind_pose(bind) * vs[i]) * g
+				aus.append(w)
+	return aus
 
 ## 406: wie weit der Schild außerhalb der Mitte (mehr als 15 cm seitlich der Fessel) hinter die Fessel reicht (glTF: vorn +z), in m
 static func rand_hinten(was: String) -> float:
@@ -539,6 +649,48 @@ static func rand_hinten(was: String) -> float:
 				if absf(p.x) > 0.15: h = maxf(h, -p.z)
 	d.free()
 	return h
+
+## 499: Unter- und Oberkante des Schilds (y im Raum des Modells, Vector2(unten, oben))
+static func schild_hoehe(was: String) -> Vector2:
+	var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % was)
+	if d == null: return Vector2(-0.24, 0.24)
+	var r := Vector2(INF, -INF)
+	for mi in d.find_children("*", "MeshInstance3D", true, false) + ([d] if d is MeshInstance3D else []):
+		var me := (mi as MeshInstance3D).mesh
+		var tr := im_raum(d, mi)
+		for s in me.get_surface_count():
+			for v in me.surface_get_arrays(s)[Mesh.ARRAY_VERTEX]:
+				var y: float = (tr * v).y
+				r = Vector2(minf(r.x, y), maxf(r.y, y))
+	d.free()
+	return r if r.x < r.y else Vector2(-0.24, 0.24)
+
+## 499: Ruecken als Gerade z = a + b * y zwischen y0 und y1 (Mitte |x| < 0,12, Baender zu 3 cm, je die hinterste Stelle): die Gerade
+## durch zwei Baender, hinter der kein Band liegt und die in der Mitte am wenigsten Abstand hat; [a, b], leer ohne zwei Baender
+static func ruecken_linie(pts: PackedVector3Array, y0: float, y1: float) -> Array:
+	var n := maxi(2, int((y1 - y0) / 0.03))
+	var z := []
+	z.resize(n); z.fill(INF)
+	for p in pts:
+		if absf(p.x) > 0.12 or p.y < y0 or p.y > y1: continue
+		var i := mini(n - 1, int((p.y - y0) / (y1 - y0) * n))
+		z[i] = minf(z[i], p.z)
+	var bd := []
+	for i in n:
+		if z[i] < INF: bd.append(Vector2(y0 + (i + 0.5) * (y1 - y0) / n, z[i]))
+	if bd.size() < 2: return []
+	var ym := (y0 + y1) * 0.5
+	var best := []
+	var bester := -INF
+	for i in bd.size():
+		for j in range(i + 1, bd.size()):
+			var b: float = (bd[j].y - bd[i].y) / (bd[j].x - bd[i].x)
+			var a: float = bd[i].y - b * bd[i].x
+			var ok := true
+			for q in bd:
+				if a + b * q.x > q.y + 0.001: ok = false; break
+			if ok and a + b * ym > bester: bester = a + b * ym; best = [a, b]
+	return best
 
 static func _modell(g) -> String:
 	if not g is Dictionary: return ""
@@ -711,3 +863,105 @@ static func _abbild(t: float, zeit: Array, neu: Array) -> float:
 			var a: float = (t - zeit[i]) / maxf(0.000001, zeit[i + 1] - zeit[i])
 			return lerpf(neu[i], neu[i + 1], clampf(a, 0.0, 1.0))
 	return neu[-1]
+
+# ---------------------------------------------------------------- 475 Leute auf dem Kaufkoerper
+# Chef 03.11., 07:45/07:47 („die NPCs alle noch ganz schrecklich … mit individuellem Gesicht und nicht nur das Standard-Volksgesicht“):
+# jede Person des Dorfs als Kaufkoerper in ihrer Kleidung (held_klassen.py LEUTE_KAUF: daten/held_L_<id>_<M|W>.bin, leute-kauf.json)
+# mit eigenem Gesicht aus den Wahlen des Kaufkopfs (leute.json „kauf“: form, frisur, bart, statur; Liste Person -> Wahl im Vorrat,
+# Zu 475), Haut- und Haarton der Person (leute.json haut, haar), Haltung (gebeugt, kopfhaltung), Kind und Zwerg: Groesse und Kopf.
+# Ohne Kaufdateien null: dann bleibt die alte Figur (daten/leute/<id>.bin)
+const LEUTE_KAUF := "res://daten/leute-kauf.json"
+const LEUTE_LISTE := "res://daten/leute/leute.json"
+static var leute_liste := {}
+static var leute_kauf := {}
+
+static func person_daten(id: String) -> Dictionary:
+	if leute_liste.is_empty() and FileAccess.file_exists(LEUTE_LISTE):
+		var j = JSON.parse_string(FileAccess.get_file_as_string(LEUTE_LISTE))
+		if j is Dictionary: leute_liste = j
+	return leute_liste.get(id, {})
+
+# Modellname der Person (L_<id>_<M|W>), leer ohne Kaufdatei
+static func person_modell(id: String) -> String:
+	var p := person_daten(id)
+	if (p.get("kauf", {}) as Dictionary).is_empty(): return ""
+	if leute_kauf.is_empty() and FileAccess.file_exists(LEUTE_KAUF):
+		var j = JSON.parse_string(FileAccess.get_file_as_string(LEUTE_KAUF))
+		if j is Dictionary: leute_kauf = j
+	var mo := "L_%s_%s" % [id, "W" if String(p.get("sex", "m")) == "w" else "M"]
+	if not leute_kauf.get("trachten", {}).has(mo): return ""
+	if not FileAccess.file_exists("res://daten/held_%s.bin" % mo) or not FileAccess.file_exists("res://daten/bewegungen.bin"): return ""
+	return mo
+
+static func person(id: String, mats: Array) -> Node3D:
+	var mo := person_modell(id)
+	if mo == "": return null
+	var p := person_daten(id)
+	var ka: Dictionary = p["kauf"]
+	lade_info()
+	if not info.has("trachten"): info["trachten"] = {}
+	info["trachten"][mo] = leute_kauf["trachten"][mo]   # haare(): Lage des Kopfs dieses Modells
+	var g := mo.right(1).to_lower()
+	var kopf := String(p.get("kopf", "haar"))
+	var a := {"form": String(ka.get("form", "")), "frisur": String(ka.get("frisur", "")), "bart": String(ka.get("bart", "")),
+		"geschlecht": g, "statur": String(ka.get("statur", "normal")), "haut_rgb": String(p.get("haut", "D4A27C")),
+		"haar_rgb": String(p.get("haar", "5E3C26"))}
+	if kopf in ["helm", "tuch", "kapuze"]: a["frisur"] = ""   # unter Helm, Kopftuch, Kapuze kein Haar (wie Archiv 376.1)
+	var w := {"herkunft": "", "modell": mo, "kapuze": kopf == "kapuze", "aussehen": a, "volk": "HUMAN",
+		"ausruestung": {"MAIN_HAND": String(p["traegt"])} if String(p.get("traegt", "")) != "" else {}}
+	var m := baue(w, mats)
+	if m == null: return null
+	gesicht(m, ka.get("gesicht", {}))
+	m.name = "Person_" + id
+	m.scale = Vector3.ONE * float(ka.get("groesse", p.get("groesse", 1.0)))
+	var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
+	var kh: Array = p.get("kopfhaltung", [0, 0, 0])
+	var h := Haltung.new()
+	h.name = "Haltung"
+	h.gebeugt = float(p.get("gebeugt", 0.0))
+	h.kopf = Vector3(float(kh[0]), float(kh[1]), float(kh[2]))
+	h.kopf_gross = float(ka.get("kopf", 1.0))
+	sk.add_child(h)
+	return m
+
+# 475 (Chef 04.11., 13:26: „Borik, Bran und Ostik sehen sich aus, als ob sie eineiige Zwillinge wären … ein Gesicht definiert sich über die
+# Form des Gesichts“): Gesicht je Person aus den Reglern des Kopfs (kopf.py REGLER, EINHEIT; held_klassen.py Schluessel „r_<regler>“),
+# an Haut, Augen, Brauen, Haar und Bart gleich; g = {regler: Wert} wie kopf.form_aus
+const EINHEIT := {"breite": 0.1, "kiefer": 0.1, "laenge": 0.1, "kinn": 0.01, "nase": 0.1, "wangen": 0.01, "brauen": 0.01, "ohren": 0.1, "augen": 0.01,
+	"hoecker": 0.01, "nasenbreite": 0.1, "spitze": 0.01, "augen_gross": 0.1, "augen_schmal": 0.1, "augen_tief": 0.01, "bdick": 0.1, "bwinkel": 0.01}   # Lauf 2: Form (kopf.py)
+static func gesicht(m: Node3D, g: Dictionary) -> void:
+	if g.is_empty(): return
+	for mi in m.find_children("*", "MeshInstance3D", true, false):
+		var me := (mi as MeshInstance3D).mesh as ArrayMesh
+		if me == null: continue
+		for i in me.get_blend_shape_count():
+			var bn := String(me.get_blend_shape_name(i))
+			if bn.begins_with("r_") and EINHEIT.has(bn.substr(2)):
+				(mi as MeshInstance3D).set_blend_shape_value(i, float(g.get(bn.substr(2), 0.0)) / float(EINHEIT[bn.substr(2)]))
+
+# 475: Haltung der Person nach der Bewegung: gebeugt (Grad, auf spine_01..03 verteilt, nach vorn), Kopf [nicken, drehen, neigen] (Grad,
+# auf neck_01 und Head), Kopfgroesse (Kind, Zwerg). Figur blickt nach +Z: nach vorn beugen = um +X
+class Haltung extends SkeletonModifier3D:
+	var gebeugt := 0.0
+	var kopf := Vector3.ZERO
+	var kopf_gross := 1.0
+	func _drehe(sk: Skeleton3D, i: int, r: Basis) -> void:
+		var g := sk.get_bone_global_pose(i)
+		var pa := sk.get_bone_parent(i)
+		var pg := sk.get_bone_global_pose(pa) if pa >= 0 else Transform3D.IDENTITY
+		sk.set_bone_pose_rotation(i, (pg.basis.orthonormalized().inverse() * (r * g.basis.orthonormalized())).get_rotation_quaternion())
+	func _process_modification() -> void:
+		var sk := get_skeleton()
+		if sk == null: return
+		if absf(gebeugt) > 0.1:
+			for n in ["spine_01", "spine_02", "spine_03"]:
+				var i := sk.find_bone(n)
+				if i >= 0: _drehe(sk, i, Basis(Vector3.RIGHT, deg_to_rad(gebeugt / 3.0)))
+		if kopf.length() > 0.1:
+			var r := Basis(Vector3.UP, deg_to_rad(kopf.y)) * Basis(Vector3.RIGHT, deg_to_rad(kopf.x)) * Basis(Vector3.BACK, deg_to_rad(kopf.z))
+			var q := r.get_rotation_quaternion()
+			for n in ["neck_01", "Head"]:
+				var i := sk.find_bone(n)
+				if i >= 0: _drehe(sk, i, Basis(Quaternion.IDENTITY.slerp(q, 0.5)))
+		var h := sk.find_bone("Head")
+		if h >= 0 and absf(kopf_gross - 1.0) > 0.001: sk.set_bone_pose_scale(h, Vector3.ONE * kopf_gross)

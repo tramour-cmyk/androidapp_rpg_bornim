@@ -1,0 +1,69 @@
+# Handbuch im Spiel nach dem BRS (870.15)
+
+Homer 10.11.; Texte für Schritt 8 des Umzugs (`LISTE-UMZUG-BRS.md`; Vorgänge 870.9 Tom, 870.13). Ersetzt `daten/texte.json` „anleitung“ (heute aus `Guide.kt`, alte Anleitung 352, `alt/STORY-ANLEITUNG.md`). Begriffe nach `[423.namen]` und `[870.14.namen]` (`STORY-BRS-KAMPF.md`). Grundsätze wie dort: keine Würfel, keine Zahlen in Erklärtexten, die 444 noch ändern kann; „TP“ nur an Zahlen (`STORY-REGELN.md` Regel 3); deutsch „Aufträge“, englisch „quests“. Oberfläche „ui“ und „rast“, Über das Spiel, Monster- und Gegenstandsnamen: `STORY-BRS-OBERFLAECHE.md`. Fremd geprüft 16:50, 25 Befunde eingearbeitet.
+
+**Für Tom (870.9):** Die Godot-Quelle der Texte ersetzt den Export; „anleitung“ bekommt die Absätze unten in dieser Folge. Kein Absatz hängt mehr an einer Klasse (Feld `nur` und `anleitung_teile(klasse)` entfallen). Ein Absatz über etwas, das Kapitel 1 nicht hat, fehlt (Liste unter „Absätze in dieser Folge“); Sätze in eckigen Klammern [ … ] erscheinen erst, wenn ihre Wirkung gebaut ist. Fehlt eine Wirkung im Code, entfällt der Satz, und Tom schreibt es in den Vorrat Homer.
+
+## Kopf
+
+- `[870.15.titel]` Titel und Zeichen im Systemmenü: Handbuch / Handbook (= `[423.titel]`; ersetzt „Anleitung“, „Guide“).
+- `[870.15.hinweis]` Wie das Spiel geht: Held, Fertigkeiten, Kampf, Welt. / EN: How the game works: hero, skills, battle, world.
+- Zeichen „MARS“ und sein Hinweis bleiben, solange es den Probekampf gibt.
+
+## Absätze in dieser Folge
+
+1. `[423.vorweg]` (ersetzt `[352.vorweg]` mit SRD-Hinweis)
+2. `[423.idee]`, `[423.idee.frei]`, `[423.idee.zufall]`
+3. `[352.welt]` unverändert
+4. `[870.15.leiste]` (unten)
+5. `[870.15.kampf]`, `[870.15.treffen]` (unten); `[352.zweiwaffen]` entfällt (870a 3)
+6. `[870.15.zustaende]`, `[352.rudel]` unverändert, `[870.15.fallen]`, `[870.15.rast]` (unten)
+7. `[352.dunkel]` unverändert, nur EN „Lightspark“ groß (Regel 6)
+8. `[870.15.held]` (unten), dann `[423.werte]`, `[423.werte.ab]`, `[423.volk]`, `[423.herkunft]`
+9. `[423.fert]`, `[423.fert.liste]`, `[423.fert.neu]`, `[423.fert.wachsen]`, `[423.rang]`, `[423.pruefung]` (Bewährungsproben zum Gesellen gibt es in Kapitel 1, `DESIGN-BRS.md` 5)
+10. `[870.15.koennen]` (ersetzt `[352.faehigkeiten]` und die vier Klassenabsätze)
+11. `[423.stufe]`, `[423.stufe.deckel]`, `[423.stufe.grenze]`, `[423.stufe.topf]`
+12. `[423.kampf]`, `[423.kampf.zufall]`, `[423.kampf.abwehr]`, `[423.kampf.grenzen]`, `[423.metall]`
+13. `[870.15.tasche]`, `[870.15.menue]`, `[870.15.handel]`, `[870.15.speichern]` (unten)
+
+Erst mit dem Bau, nicht in Kapitel 1: `[423.blick]` (nennt Pfad), `[423.schaffen]`, `[423.volk.liste]`, `[423.herkunft.liste]` (stehen schon in der Erschaffung), `[423.pruefung.takt]`, `[423.kampf.schleichen]` (keine Schleichtaste in Godot), `[423.kampf.gebiet]` (Karte zeigt kein Stufenband), Pfad, Meisterschaften, `[423.spaehen]`, `[423.fallen]`, `[423.truhen]`, `[423.tiere]`, `[423.ruf]`, Herstellen, Abnutzung: je erst, wenn das Spiel es hat (Homer prüft dann den Wortlaut). Bewährungsprobe und Lehrmeister in `[423.pruefung]` erscheinen, sobald 447.4.1 sie baut; bis dahin entfällt der Absatz.
+
+## Neue Absätze
+
+`[870.15.leiste]` **Die Leiste oben.** TP zeigen dein Leben: grün, gelb, dann rot. Mana brauchst du für Zauber. EP zeigen deine Erfahrung bis zur nächsten Heldenstufe. Rechts stehen Tag und Uhrzeit. Darunter kleine Zeichen für Zustände wie Gift oder Blut. Der goldene Balken am rechten Rand ist deine Ausdauer beim Rennen; er erscheint nur, wenn sie nicht voll ist. Ein Tipp auf die Leiste öffnet das Menü, das Kartenzeichen die Karte.
+EN: **The bar at the top.** HP show your life: green, yellow, then red. Mana is what your spells cost. XP show your experience toward your next hero level. On the right: day and time. Below, small signs for conditions such as Psn or Bld. The golden bar on the right edge is your stamina for running; it shows only when it is not full. A tap on the bar opens the menu, the map sign the map.
+
+`[870.15.kampf]` **Kampf.** Gekämpft wird in zwei Reihen, vorn und hinten. Wer zuerst handelt, entscheidet die Gewandtheit. Über jedem Gegner steht, was er als Nächstes vorhat; ein langer Druck auf das Zeichen sagt, was dagegen hilft. In deinem Zug wählst du: **Angriff** mit der Waffe. **Können**: Zauber und Kampfhandlungen deiner Fertigkeiten. **Tasche**: Heiltränke. **Wechsel**: Reihe oder Waffe wechseln, ein halber Zug. **Abwehr**: bis zu deinem nächsten Zug haben Angriffe auf dich Ungunst. **Flucht**: gelingt nicht immer und kostet dann den Zug; vor Bossen gibt es keine. Bei vielen Schlägen gegen dich erscheint ein Ring: tippe, wenn der große auf dem kleinen liegt, dann nimmst du halben Schaden oder weichst ganz aus. Jeder Knopf erklärt sich bei langem Druck.
+EN: **Battle.** You fight in two rows, front and back. Agility decides who acts first. Above each foe you see what it means to do next; a long press on the sign tells you what counters it. On your turn you choose: **Attack** with your weapon. **Abilities**: the spells and combat moves your skills give you. **Bag**: healing potions. **Switch**: change row or weapon, half a turn. **Defend**: until your next turn, attacks on you are at disfavor. **Run**: does not always work and then costs the turn; there is no fleeing from bosses. Many blows against you bring a ring: tap when the large one lies on the small one, and you take half the damage or dodge altogether. Every button explains itself on a long press.
+(„Tasche: Heiltränke“ wird „Tränke und Wurfmittel“, sobald der Kampf sie nimmt, 870a 8.)
+
+`[870.15.treffen]` **Treffen.** Es wird nicht gewürfelt. Vor jedem Angriff steht fest, wie gut deine Aussicht ist; der Kasten über dem Getroffenen zeigt sie in Prozent. Sie wächst mit deiner Fertigkeit und sinkt mit der Abwehr des Gegners; **Gunst** hebt sie, **Ungunst** senkt sie. Ein kritischer Treffer richtet mehr Schaden an; wie oft er gelingt, hängt an Gewandtheit und Fertigkeit. Manche Gegner sind verwundbar gegen eine Schadensart wie Feuer oder Wucht, andere widerstehen ihr. Das Zeichen unten rechts schaltet den Kasten ein und aus.
+EN: **Hitting.** No dice decide. Before every attack your chance is set; the box above the one struck shows it as a percentage. It grows with your skill and falls with the foe's defense; **favor** raises it, **disfavor** lowers it. A critical hit deals extra damage; how often it happens depends on Agility and skill. Some foes are vulnerable to a kind of damage such as fire or crush, others resist it. The sign at the bottom right turns the box on and off.
+
+`[870.15.zustaende]` **Zustände.** Gift, Brand und Blutung kosten jede Runde Leben; Blutung halbiert dazu die Heilung. Wer betäubt ist, setzt eine Runde aus. Wer verlangsamt ist, trifft und weicht schlechter aus; wer geschwächt ist, trifft schlechter und macht weniger Schaden. Geblendet und Betrunken geben Ungunst. Gegen Gift hilft eine Abwehrprobe mit Zähigkeit. Gift, Blutung und Schwäche bleiben nach dem Kampf; Gift und Blutung kosten auf dem Weg weiter Leben, töten dich aber nicht. Ein Kräutertrank, das Lange Ausruhen oder Bruder Osric heilen sie. Betrunken vergeht mit jeder Rast.
+EN: **Conditions.** Poison, burning and bleeding cost life every round; bleeding also halves healing. Whoever is stunned loses a turn. Whoever is slowed hits and dodges less well; whoever is weakened hits less often and deals less damage. Blinded and drunk put you at disfavor. A resistance roll with Toughness helps against poison. Poison, bleeding and weakness stay after the battle; poison and bleeding go on costing life along the way, but never kill you. An herbal remedy, a Long Rest or Brother Osric cures them. Drunkenness passes with any rest.
+
+`[870.15.fallen]` **Wenn du fällst.** Sinkt dein Leben auf null, ist es nicht vorbei: du erwachst Stunden später dort, wo du zuletzt gerastet hast oder geheilt wurdest, ganz geheilt, ohne Gold zu verlieren. Nur der Kampf ist verloren, und die Zeit.
+EN: **If you fall.** If your life drops to zero, it is not over: you wake hours later where you last rested or were healed, fully healed, without losing any gold. Only the battle is lost, and the time.
+
+`[870.15.rast]` **Rasten.** Am Lagerfeuer wählst du: **Kurze Erholung** (zwei Stunden): Ausdauer voll und ein Teil deines Lebens zurück. **Langes Ausruhen** (neun Stunden, einmal am Tag): Leben, Mana und Ausdauer voll, Zustände geheilt, alles Können wieder bereit. Ein Zimmer in der Schänke kostet ein wenig Gold und ist ein Langes Ausruhen; Bruder Osric im Tempel heilt umsonst. In der Höhle kannst du nicht rasten.
+EN: **Resting.** At a campfire you choose: **Short Respite** (two hours): stamina full and some of your life back. **Long Rest** (nine hours, once a day): life, mana and stamina full, conditions cured, all abilities ready again. A room at the inn costs a little gold and is a Long Rest; Brother Osric in the temple heals for free. You cannot rest in the cave.
+
+`[870.15.held]` **Dein Held.** Im Reiter Held stehen Grundwerte, Fertigkeiten und Kampfwerte; jeder Grundwert erklärt beim Antippen, was er bringt. In Kapitel 1 bleiben die Grundwerte, wie du sie verteilt hast; stärker wirst du durch deine Fertigkeiten und deine Heldenstufe. Jede Heldenstufe bringt mehr Leben und füllt Leben und Mana auf.
+EN: **Your hero.** The Hero tab shows attributes, skills and combat stats; every attribute explains on a tap what it does. In chapter 1 your attributes stay as you spent them; you grow stronger through your skills and your hero level. Each hero level brings more life and refills life and mana.
+
+`[870.15.koennen]` **Können.** Jeder kann Kraft schöpfen: einmal je Kampf holst du dir Leben zurück. Erreicht eine Waffenfertigkeit den Gesellen, lernst du ihre Kampfhandlung, etwa die Finte mit dem Einhänder oder den Wuchtschlag mit dem Zweihänder. Zauber kommen aus den Magieschulen und kosten Mana. Manches geht nur einmal je Kampf, manches erst nach dem Langen Ausruhen wieder. In der Liste im Kampf steht hinter jedem Eintrag, was er kostet; Gesperrtes ist grau.
+EN: **Abilities.** Anyone can Draw Strength: once per battle you win back some life. When a weapon skill reaches Journeyman, you learn its combat move, such as the Feint with a one-handed blade or the Crushing Swing with a two-hander. Spells come from the schools of magic and cost mana. Some things work only once per battle, some not again until a Long Rest. In the battle list each entry shows its cost; what is locked is gray.
+
+`[870.15.tasche]` **Tränke.** Ein Trank im Kampf kostet den Zug. Heiltränke heilen, die großen mehr; Kräutertränke heilen wenig, nehmen aber Gift und andere Zustände. [Wurfmittel tragen eine Schadensart: Brandflaschen Feuer, Weihwasser Licht; Weihwasser trifft nur Untote, die aber hart. Nimm, was der Gegner fürchtet.]
+EN: **Potions.** A potion in battle costs your turn. Healing potions heal, the greater ones more; herbal remedies heal little but take away poison and other conditions. [Things to throw carry a kind of damage: firebottles fire, holy water light; holy water strikes only the undead, but hard. Use what the foe fears.]
+(Satz in Klammern und Überschrift „Tränke und Wurfmittel“ / “Potions and things to throw” erst mit den Wurfmitteln im Kampf; Namen nach `STORY-BRS-OBERFLAECHE.md`, sobald sie gelten.)
+
+`[870.15.menue]` **Das Menü.** **Held**: Grundwerte, Fertigkeiten, Kampfwerte. **Tasche**: Vorräte benutzen, Ausrüstung anlegen, Dinge wegwerfen. **Ausrüstung**: was du trägst, Platz für Platz, und deine Kampfwerte. **Karte**: Landkarte, Gebietskarte und Grundriss; Aufträge, Leute und Dienste lassen sich einblenden. **Chronik**: deine Aufträge mit Stand und was bisher geschah. **System**: Speichern, Sprache und Einstellungen; ein langer Druck erklärt jedes Zeichen.
+EN: **The menu.** **Hero**: attributes, skills, combat stats. **Bag**: use supplies, put on gear, throw things away. **Equipment**: what you wear, slot by slot, and your combat stats. **Map**: land map, area map and floor plan; quests, people and services can be shown. **Chronicle**: your quests with their progress and what has happened so far. **System**: saving, language and settings; a long press explains each sign.
+
+`[870.15.handel]` **Handel und Aufträge.** Bei Thessa im Laden kaufst und verkaufst du; nach einigen Siegen hat sie neue Ware. Wer gut handelt, kauft billiger und verkauft teurer. Morwen braut dir Tränke gegen Münzen oder zeigt dir, wie du sie selbst braust, und am Lagerfeuer brätst du Fleisch; was du gelernt hast, steht im Rezeptbuch. Kräuter pflückst du, wenn du über Blumenwiesen im Wald läufst. Am Anschlagbrett vor der Schänke hängen Aufträge; nimm an, was dir gefällt, und bring dem Auftraggeber, was er sucht.
+EN: **Trade and quests.** At Thessa's store you buy and sell; after some victories she has new wares. Haggle well and you buy cheaper and sell for more. Morwen brews potions for coin, or shows you how to brew them yourself, and at a campfire you roast meat; what you have learned is in your recipe book. You pick herbs by walking over flower meadows in the woods. The notice board in front of the inn holds quests; take what you like and bring them what they seek.
+
+`[870.15.speichern]` (wie `[352.speichern]`, EN „quest“ statt „job“) **Speichern.** Das Spiel speichert von selbst, wenn du einen Ort betrittst oder verlässt, rastest, fällst, einen Auftrag annimmst oder das Spiel verlässt. Unter System kannst du jederzeit selbst speichern. Im Hauptmenü gibt es vier Plätze für Helden.
+EN: **Saving.** The game saves by itself when you enter or leave a place, rest, fall, take a quest or leave the game. Under System you can save yourself at any time. The main menu has four slots for heroes.

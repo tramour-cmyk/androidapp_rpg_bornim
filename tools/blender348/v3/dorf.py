@@ -542,6 +542,28 @@ def wirtsschild(sx, yf, dz=0.0):
             box(DORF, (xa, yf - 0.40 * TS, 181 + dz), (xb, yf - 0.25 * TS, 205 + dz), lin(0xC8B07A))
             box(DORF, (xa, yf - 0.25 * TS, 186 + dz), (xb, yf - 0.20 * TS, 200 + dz), lin(0xC8B07A))
             box(DORF, (xa, yf - 0.42 * TS, 203 + dz), (xb, yf - 0.23 * TS, 207 + dz), lin(0xE8E0C8))
+def kraeuter(x0, x1, yf, eave, vorn, c0):
+    """664 (Chef 03.11., 16:04 zu Morwens Huette: „keine Erkennbarkeit bezüglich Kräuterbündel“): unter der Traufe eine Stange quer
+    ueber die Front, daran kopfueber gebundene Kraeuterbuendel (Stiele oben, Schnur, Blattbuschel unten, gruen, graugruen,
+    lavendel, gelb); ueber der Tuer frei. Masse in cm"""
+    zs = eave - 22; ys = yf - 22
+    with use('holz'):
+        box(DORF, (x0 + 6, ys - 3, zs - 3), (x1 - 6, ys + 3, zs + 3), lin(0x4A3828))                                    # Stange
+        for xs in (x0 + 10, x1 - 10): box(DORF, (xs - 2, ys - 2, zs), (xs + 2, yf, zs + 4), lin(0x3A2C20))           # Halter
+    FARBE = [(0.42, 0.55, 0.30), (0.52, 0.58, 0.46), (0.50, 0.42, 0.62), (0.70, 0.62, 0.30), (0.36, 0.48, 0.28)]
+    k = 0; x = x0 + 22
+    while x < x1 - 20:
+        c = c0 + int((x - x0) // TS)
+        if 0 <= c - c0 < len(vorn) and vorn[c - c0] == 'D' and abs(x - (tx(c) + TS / 2)) < 50: x += 12; continue
+        l = 26 + 14 * h1(k, c0, 71); top = zs - 3
+        with use('weiss'): box(DORF, (x - 0.8, ys - 0.8, top - 8), (x + 0.8, ys + 0.8, top), lin(0x2A2420))           # Schnur
+        with use('holz'): box(DORF, (x - 2.5, ys - 2.5, top - 18), (x + 2.5, ys + 2.5, top - 8), lin(0x6A5A3A))      # Stiele, gebunden
+        with use('laub'):
+            col = FARBE[k % len(FARBE)]
+            for j in range(3):                                                                                     # Buschel nach unten breiter
+                r_ = 4 + 2.2 * j
+                blob(DORF, Vector((x + 1.5 * (h1(k, j, 72) - 0.5), ys, top - 18 - (j + 0.5) * l / 3)), r_, sc(col, 0.9 + 0.2 * h1(k, j, 73)), sub=1, squash=1.3, seed=k * 3 + j)
+        k += 1; x += 17 + 6 * h1(k, c0, 74)
 def house(cells, style):
     roof, walls, li, feat = style; lk = LOOKS[li]
     temple = feat == 'BELL_TOWER'                               # Kirche (MapTownIso.kt 5g): hoehere Traufe, Glockenturm
@@ -637,8 +659,14 @@ def house(cells, style):
     fa = FASSADEN.get((c0, r1))
     vorn = fa['vorn'] if fa and len(fa['vorn']) == c1 - c0 + 1 else ''.join(ch(c, r1) if ch(c, r1) in 'DW' else '#' for c in range(c0, c1 + 1))
     seite = fa['seite'] if fa else ''
+    # 664 (Chef 03.11., 16:04: bei zwei Kacheln Breite „nicht ein Block Tür, ein Block Holz, sondern die Tür dann mittig rein“;
+    # 08.11., 15:28 „immer noch so ein halbes Haus“): die einzige Tuer eines schmalen Hauses steht in der Mitte der Front
+    mitte = len(vorn) == 2 and sorted(vorn) == ['#', 'D'] and not temple
     for c in range(c0, c1 + 1):
         t = vorn[c - c0]; cx = tx(c) + TS / 2
+        if mitte:
+            if t != 'D': continue
+            cx = (x0 + x1) / 2
         if temple and t in 'DW':
             (arch_door if t == 'D' else arch_window)(cx, yf, c)
         elif t == 'D':
@@ -653,6 +681,7 @@ def house(cells, style):
             LIGHTS.append(dict(art='tuer', pos=[cx, yf - 60, 0]))
         elif t == 'W':
             window(cx, yf, (c * 7 + r1) % 3 == 0, 0)
+    if feat == 'HUT': kraeuter(x0, x1, yf, eave, vorn, c0)
     # 348.6 Runde 6 (Chef 25.10., 09:06: Fenster an der Ostseite fehlen): Ostseite wie MapTownIso (side, von hinten nach vorn)
     for k, t in enumerate(seite):
         if t != 'W': continue
@@ -1148,7 +1177,8 @@ def lamp(c, r, p=None, eiche=False, reich=2.6, kraft=0.95, fuss=None):
 def kael_lantern(c, r):
     """80/80a: Kaels Handlaterne neben seiner Tuer auf kniehohem Feldsteinsockel (Familienzeichen vorn: Raute mit Balken),
     Eisenrahmen, Hornscheiben braun und verrusst, oben ein Ring; nachts nur schwach bernsteinfarben (MapLight CANDLE)"""
-    p = Vector((tx(c) + 6 / 32 * TS, ty(r) - 6 / 32 * TS, 0))
+    # 664: die Tuer steht jetzt mittig (bis 0,38 Kacheln in diese Kachel hinein), die Laterne rechts daneben statt davor
+    p = Vector((tx(c) + 0.72 * TS, ty(r) - 6 / 32 * TS, 0))
     with use('feldstein'): box(DORF, (p.x - 16, p.y - 16, 0), (p.x + 16, p.y + 16, 45), W1)
     with use('weiss'):
         mk = lin(0x2A2622)
@@ -1274,17 +1304,21 @@ def washline(cells):
             x = a.x - 40 + k * (b.x - a.x + 80) / len(cols)
             t = (x - (a.x - 54)) / (b.x - a.x + 108); z = 174 - 18 * math.sin(math.pi * t)
             box(DORF, (x, a.y - 1, z - 50 - 12 * h1(k, 1, 2)), (x + 42, a.y + 1, z), sc(lin(col), 1.25))
+# 664 (Chef 03.11. und 04.11.: Eingangsschild Tiefer Flüsterwald „steht immer noch ~90° falsch“): wohin das Brett schaut, Grad um
+# die Senkrechte ab Sueden (positiv gegen den Uhrzeigersinn von oben); das Schild am Eingang schaut dem Ankommenden (von Westen) entgegen
+SCHILD_DREH = {('deep_forest', 3, 19): -90.0}
 def sign(c, r):
     p = tile_c(c, r)
-    with use('balken'): box(DORF, (p.x - 6, p.y - 6, 0), (p.x + 6, p.y + 6, 170), W1)
-    with use('bretter'): box(DORF, (p.x - 40, p.y - 8, 118), (p.x + 40, p.y - 3, 162), (1.6, 1.5, 1.4))
+    M = Matrix.Translation((p.x, p.y, 0)) @ Matrix.Rotation(math.radians(SCHILD_DREH.get((KARTE, c, r), 0.0)), 4, 'Z')
+    with use('balken'): box(DORF, (-6, -6, 0), (6, 6, 170), W1, M=M)
+    with use('bretter'): box(DORF, (-40, -8, 118), (40, -3, 162), (1.6, 1.5, 1.4), M=M)
     with use('weiss'):                                          # 348.6 (Befund 7): eingebrannte Schrift in zwei Zeilen wie MapTownIso.signpost
         for row, zc in ((0, 148), (1, 132)):
             for k in range(26):
                 u = k / 26
                 if 0.12 <= u <= 0.88 and int(h1(k, row, c * 31 + r) * 4) != 0:
-                    x0 = p.x - 40 + u * 80
-                    box(DORF, (x0, p.y - 9, zc - 3.5), (x0 + 80 / 26 * 0.7, p.y - 7.5, zc + 3.5), lin(0x150E0A))
+                    x0 = -40 + u * 80
+                    box(DORF, (x0, -9, zc - 3.5), (x0 + 80 / 26 * 0.7, -7.5, zc + 3.5), lin(0x150E0A), M=M)
 def notice(c, r):
     p = tile_c(c, r)
     with use('balken'):

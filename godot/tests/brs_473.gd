@@ -19,8 +19,16 @@ func _lauf() -> void:
 	var tab: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
 	for m in tab.monsters:
 		pruefe("Werte für %s" % m.id, Brs.monster(m.id).is_empty(), false)
-	pruefe("18 Arten", Brs.ARTEN.size(), 18)
-	for id in Brs.ARTEN:
+	var ken: Array = (Brs.lade().get("kennungen", {}) as Dictionary).keys().filter(func(k): return not String(k).begins_with("_"))
+	pruefe("18 Kennungen (870.3)", ken.size(), 18)
+	for id in ken:
+		pruefe("Kennung %s mit Name und Gruppe" % id, Brs.name(id) != "" and Brs.name(id, 1) != "" and String(Brs.kennung(id).get("gruppe", "")) != "", true)
+	pruefe("Stirge heißt Riesenegel, Ockergallerte Säureschnecke ([870.15.namen.monster])", [Brs.name("stirge"), Brs.name("ochre_jelly", 1)], ["Riesenegel", "Acid Slug"])
+	var lw := Brs.begleiter("Leibwache", "dire_wolf")
+	pruefe("Leibwache: Wolf, Angriff Grimmzahn − 10, Schaden 7 × 0,31, 55 %", [int(lw.stufe), int(lw.leben), float(lw.angriff), snappedf(float(lw.schaden), 0.01), float(lw.chance)], [2, 25, 12.0, 2.17, 0.55])
+	var jw := Brs.begleiter("Jungwolf", "wolf")
+	pruefe("Jungwolf: Wolf mit halben Leben, Angriff − 10, Schaden 6 × 0,29, 50 %", [int(jw.leben), float(jw.angriff), snappedf(float(jw.schaden), 0.01), float(jw.chance)], [12, 5.0, 1.74, 0.5])
+	for id in ken:
 		var w := Brs.monster(id)
 		pruefe("Art %s im Bestiarium" % id, w.is_empty(), false)
 		if w.is_empty(): continue
@@ -31,9 +39,10 @@ func _lauf() -> void:
 	var wolf := Brs.monster("wolf")
 	pruefe("Wolf", [wolf.stufe, wolf.leben, wolf.ruestung, wolf.schaden, wolf.angriff, wolf.abwehr, wolf.wachsamkeit], [2.0, 25.0, 1.0, 6.0, 15.0, 12.0, 30.0])
 	var grak := Brs.monster("hobgoblin_captain")
-	pruefe("Grak", [grak.stufe, grak.leben, grak.angriff, grak.abwehr, Brs.boss("hobgoblin_captain")], [6.0, 75.0, 25.0, 38.0, true])
-	pruefe("Skelett gegen Stumpfes", Brs.monster("skeleton").get("schwaeche", {}).get("stumpf"), 1.5)
-	pruefe("Ockerschleim gegen Klingen", Brs.monster("ochre_jelly").get("schwaeche", {}).get("klinge"), 0.5)
+	pruefe("Grak", [grak.stufe, grak.leben, grak.angriff, grak.abwehr, Brs.boss("hobgoblin_captain")], [6.0, 60.0, 25.0, 38.0, true])     # 870c 1 A: Leben 75 -> 60
+	pruefe("Skelett gegen Stumpfes", Brs.monster("skeleton").get("schwaeche", {}).get("wucht"), 1.5)
+	pruefe("Skelett gegen Stich", Brs.monster("skeleton").get("schwaeche", {}).get("stich"), 0.5)     # 870.5: Schadensarten (870a 8 A)
+	pruefe("Säureschnecke gegen Feuer", Brs.monster("ochre_jelly").get("schwaeche", {}).get("feuer"), 1.5)
 	pruefe("unbekannt leer", Brs.monster("drache").is_empty(), true)
 	# Rundung wie Python: halbe auf die gerade
 	pruefe("runde", [Brs.runde(4.5), Brs.runde(5.5), Brs.runde(2.4), Brs.runde(2.6), Brs.runde(0.5)], [4, 6, 2, 3, 0])

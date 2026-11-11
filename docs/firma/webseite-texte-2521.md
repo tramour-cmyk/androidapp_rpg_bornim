@@ -52,7 +52,7 @@ Homer, 25.10., 19:00, Entwurf 2 (Fakten nach Sokrates 19:46), Lektorat fremder H
 - Name im Abspann (Sokrates' Vorschlag): nicht im Text, nur wenn der Chef ihn zusagt; dann als dritter Punkt unter „Was du davon hast“: „Wer mittestet, steht auf Wunsch im Abspann.“ / „Testers are named in the credits if they wish.“
 - „wir lesen jede und bauen ein“ ist ein Versprechen; hält nur, wenn jede Mail eine Antwort bekommt (wer, entscheidet Sokrates mit 142).
 - MARS nicht genannt: für Fremde ein unerklärter Name, im Testbuild nicht sicher spielbar (Build 89). Wieder aufnehmen, wenn MARS auf `main` rund ist.
-- Spieldauer Kapitel 1 fehlt (Lektor: ohne sie ist „14 Tage“ schwer einzuschätzen); einzige Messung: Chef 48 Minuten mit Ortskenntnis (`LISTE-DURCHSPIELBOGEN.md`), kein Maß für Neue. Nachtragen nach den ersten Testern.
+- Spieldauer Kapitel 1 fehlt (Lektor: ohne sie ist „14 Tage“ schwer einzuschätzen); einzige Messung: Chef 48 Minuten mit Ortskenntnis (`alt/LISTE-DURCHSPIELBOGEN.md`), kein Maß für Neue. Nachtragen nach den ersten Testern.
 - Licht- und Tuschesatz gilt für den neuen Look (348); geht der Test mit dem alten Spiel los, Satz 2 von Absatz 2 streichen.
 
 ## Abschnitt „Stand“ (366)

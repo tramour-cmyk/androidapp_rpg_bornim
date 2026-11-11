@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Vorgang 444: Rechensimulation Bornimer Rollenspielsystem (BRS) am Rechner (ohne Godot).
 
-Regeln: DESIGN-SPIELSYSTEM-2-0-ENTWURF.md (Modell D, Abschnitt 4), Monster: LISTE-BESTIARIUM.md
+Regeln: DESIGN-BRS.md (Modell D, Abschnitt 4), Monster: LISTE-BESTIARIUM.md
 "Werte 2.0". Jede Zahl steht in werte.json, keine im Code.
 
 Aufruf:
@@ -261,6 +261,10 @@ def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False, beutel=
     umr = mk["umreissen"] if mon.get("umreissen") else None
     rud = mk["rudel"][mon["rudel"]] if mon.get("rudel") else None
     zust = {"erster": True, "betaeubt": 0, "liegt": False}
+    # 870c 3 A: Jungwoelfe 1-2 je Kampf (werte.json "anzahl" [von, bis]), Leibwache fest
+    rud_n = 0
+    if rud:
+        rud_n = rng.randint(*rud["anzahl"]) if isinstance(rud["anzahl"], list) else rud["anzahl"]
     # 481.1: Kampftraenke (werte.json "kampftraenke"), Wirkung nach Kraeuterkunde
     tb = wirt if wirt is not None else beutel
     kt = W.get("kampftraenke", {})
@@ -308,7 +312,7 @@ def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False, beutel=
             if umr and rng.random() < umr["chance_bei_treffer"]:
                 zust["liegt"] = True
         if rud:
-            for _ in range(rud["anzahl"]):
+            for _ in range(rud_n):
                 if leben > 0 and rng.random() < rud["chance"]:
                     auf_held(mon["angriff"] + rud["angriff_verschiebung"], mon["schaden"] * rud["schaden_anteil"])
 
@@ -440,7 +444,7 @@ def ep_fuer(W, held, mon):
 # ---------------------------------------------------------------- Teil 1: Fortschritt
 
 def fortschritt(W, herkunft, rng, variante=False):
-    monster = {n: m for n, m in ohne_info(W["monster"]).items() if not m.get("boss")}
+    monster = {n: m for n, m in ohne_info(W["monster"]).items() if not m.get("boss") and not m.get("nur_matrix")}
     fs = W["fortschritt"]
     grenze = W["held"]["kapitelgrenze"]
     held = Held(W, herkunft, variante)
@@ -858,7 +862,7 @@ class Wirt:
 def fortschritt_wirtschaft(W, herkunft, rng, beruhigen=False):
     wi = W["wirtschaft"]
     variante = wi["punkte_variante"]
-    monster = {n: m for n, m in ohne_info(W["monster"]).items() if not m.get("boss")}
+    monster = {n: m for n, m in ohne_info(W["monster"]).items() if not m.get("boss") and not m.get("nur_matrix")}
     fs = W["fortschritt"]
     grenze = W["held"]["kapitelgrenze"]
     held = Held(W, herkunft, variante)
@@ -1025,8 +1029,8 @@ def bericht(W, ergebnisse, variante_ergebnisse, args):
     L = []
     hk_namen = list(ohne_info(W["herkuenfte"]))
     mon = ohne_info(W["monster"])
-    arten = [n for n, m in mon.items() if not m.get("boss")]
-    bosse = [n for n, m in mon.items() if m.get("boss")]
+    arten = [n for n, m in mon.items() if not m.get("boss") and not m.get("nur_matrix")]
+    bosse = [n for n, m in mon.items() if m.get("boss") or m.get("nur_matrix")]
     stufen = W["lauf"]["stufen"]
     k = W["lauf"]["kaempfe_je_fall"] if args.kaempfe is None else args.kaempfe
     la = W["lauf"]["fortschritt_laeufe"] if args.laeufe is None else args.laeufe
@@ -1046,7 +1050,7 @@ def bericht(W, ergebnisse, variante_ergebnisse, args):
     a("- **Herkunft:** Punkteverteilung, Waffe und Rüstung je Herkunft gesetzt (Tabelle unten). Wanderer als Kampfbau (Schwert, Ausweichen).")
     a("- **Rüstungswerte:** leicht 1, mittel 3, schwer 5, Schild 2; Abzug = Rüstung × (1 + Rüstungsfertigkeit/100) + Schild × (1 + Schild/100).")
     a("- **Zauber:** Funkenpfeil Grundschaden 6, 4 Mana; Wundsegen heilt (6 + Wille) × (1 + Heilmagie/100) unter halbem Leben, 5 Mana; Bannschild Rüstung +2 in Runde 1, 4 Mana. Ohne Mana Stab (Stumpfe Waffe, Fertigkeit 0).")
-    a("- **Kampf:** eins gegen eins, Held schlägt zuerst, Streuung ±20 %, kein Hinterhalt; Merkmale nur Skelett (Stumpfes × 1,5), Ockerschleim (Klingen × 0,5) und seit 427.1 Krogg (Überfall: er schlägt zuerst, erster Treffer × 1,6, zur Hälfte betäubt einen Zug; „mit Rauch“: der erste Hieb geht fehl) und Grimmzahn (Umreißen: bei Treffer zur Hälfte am Boden, nächster Angriff −25 Prozentpunkte; Leibwache: 2 Wölfe, je 55 % je Runde, Angriff −10, Schaden × 0,31, fliehen mit ihm); Zahlen in `werte.json` „merkmale“; Leben und Mana voll vor jedem Kampf; höchstens 60 Runden.")
+    a("- **Kampf:** eins gegen eins, Held schlägt zuerst, Streuung ±20 %, kein Hinterhalt; Schwäche und Stärke je Schadensart (870a 8 A, werte.json „schwaeche“: × 1,5, × 0,5, immun 0; Gegenwirkungen nicht gerechnet) und seit 427.1 Krogg (Überfall: er schlägt zuerst, erster Treffer × 1,6, zur Hälfte betäubt einen Zug; „mit Rauch“: der erste Hieb geht fehl) und Grimmzahn (Umreißen: bei Treffer zur Hälfte am Boden, nächster Angriff −25 Prozentpunkte; Leibwache: 2 Wölfe, je 55 % je Runde, Angriff −10, Schaden × 0,31, fliehen mit ihm); Zahlen in `werte.json` „merkmale“; Leben und Mana voll vor jedem Kampf; höchstens 60 Runden.")
     a("- **Üben:** 1 Übung je Treffer (Waffe, Zauber), je erlittenem Treffer (Rüstung, Schild), je Fehlschlag des Gegners (beste Abwehr); × (1 + (Gegnerstufe − Heldenstufe)/5), 0,2 bis 1,5. Bedarf für +1: (Wert + 10)/5.")
     a("- **Ränge Kapitel 1:** Decke 24, Bewährungsprobe = 3 Siege gegen Gegner mindestens der eigenen Stufe mit dieser Fertigkeit, dann Decke 49; Puffer 15 Übung.")
     a("- **Erfahrung aus Fertigkeiten:** je 5 Punkte 20 × Heldenstufe, Deckel 40 % des Stufenbedarfs; Probe 25 × Heldenstufe.")
@@ -1237,6 +1241,9 @@ def main():
     for n, m in list(ohne_info(W["monster"]).items()):
         if m.get("ueberfall"):
             W["monster"][n + " mit Rauch"] = dict(m, rauch=True)
+    # 870c 3 A: das Rudel wie im Spiel (Wolf mit 1-2 Jungwoelfen, werte.json "merkmale" "rudel" "Jungwolf"), nur in Matrix und Bossen
+    if "Wolf" in W["monster"]:
+        W["monster"]["Rudel"] = dict(W["monster"]["Wolf"], rudel="Jungwolf", nur_matrix=True)
     if args.pruefen:
         sys.exit(1 if pruefen(W) else 0)
     kaempfe = args.kaempfe or W["lauf"]["kaempfe_je_fall"]

@@ -201,12 +201,13 @@ object Interlude {
             T("Es kennt keinen Schmerz und keine Gnade.", "It knows no pain and no mercy."),
             T("Der Tod hat es nicht behalten wollen.", "Death did not care to keep it."),
         ),
+        // 506 (348.12c, STORY-BLENDE.md „Wiedergänger“, Englisch vom Chef mit abgenommen): der Wiedergänger ersetzt den Zombie
         "zombie" to listOf(
-            T("Der Gestank erreicht dich vor ihm.", "The stench reaches you before it does."),
-            T("Fauliges Fleisch, schlurfende Schritte.", "Rotting flesh, shuffling steps."),
-            T("Es stöhnt. Es hungert.", "It moans. It hungers."),
-            T("Was einmal ein Mensch war, kommt auf dich zu.", "What was once a man comes toward you."),
-            T("Langsam und unaufhaltsam greifen seine Hände nach dir.", "Slow and relentless, its hands reach for you."),
+            T("Erde rieselt von ihm. Man hat ihn begraben, und es hat nicht gehalten.", "Earth trickles off him. They buried him, and it did not hold."),
+            T("Lange Finger, schwarze Nägel, ein Grinsen ohne Lippen.", "Long fingers, black nails, a grin without lips."),
+            T("Er kriecht auf dich zu, dann richtet er sich auf.", "He crawls toward you, then rises to his feet."),
+            T("Was einmal ein Mensch war, will zurück zu den Lebenden.", "What was once a man wants to return to the living."),
+            T("Der Gestank erreicht dich vor ihm.", "The stench reaches you before he does."),
         ),
         "boar" to listOf(
             T("Borsten gesträubt, die Hauer gesenkt.", "Bristles raised, tusks lowered."),
@@ -243,13 +244,13 @@ object Interlude {
             T("Flügel so breit wie ein Mann groß, Zähne wie Nadeln.", "Wings as wide as a man is tall, teeth like needles."),
             T("Sie sieht dich nicht. Sie hört dich.", "It does not see you. It hears you."),
         ),
+        // 506 (348.12c, STORY-BLENDE.md „Grabhund“): der Grabhund ersetzt den Ghul
         "ghoul" to listOf(
-            T("Graue Haut, lange Krallen, ein Maul voller Grabmoder.", "Gray skin, long claws, a mouth full of grave rot."),
-            T("Er hockt über etwas, das einmal ein Mensch war. Jetzt sieht er dich.",
-                "He crouches over something that was once a man. Now he sees you."),
-            T("Seine Klauen sind schwarz von Leichengift.", "His claws are black with corpse poison."),
-            T("Er kichert, ein nasses, gieriges Geräusch.", "He giggles, a wet and greedy sound."),
-            T("Der Hunger in seinen Augen ist älter als der Tod.", "The hunger in his eyes is older than death."),
+            T("Ein Hund, groß wie ein Kalb. Kein Laut kommt aus seiner Kehle.", "A hound as big as a calf. No sound leaves its throat."),
+            T("Unter der schwarzen Mähne ist seine Haut fahl wie die eines Toten.", "Beneath the black mane, its skin is pale as a corpse's."),
+            T("Er riecht nach frisch aufgewühlter Grabeserde.", "It smells of freshly turned grave earth."),
+            T("Wer ihn sieht, sagt man, dem ist der Tod schon nah.", "Whoever sees it, they say, is already marked for death."),
+            T("Er senkt den Kopf, die Krallen graben sich in den Boden.", "It lowers its head; its claws dig into the ground."),
         ),
         "ochre_jelly" to listOf(
             T("Der Boden bewegt sich. Es ist kein Boden.", "The floor moves. It is not the floor."),

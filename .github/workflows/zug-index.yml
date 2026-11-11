@@ -11,8 +11,8 @@ on:
       - "tools/zug-index.py"
       - "docs/ARBEIT-*.md"  # D21.3: Lücken (wartet auf Chef ohne Datei)
       - "docs/LISTE-VORGAENGE.md"  # Vorrang und Bereich (124, 126, 136)
-  workflow_run:  # 298: Version 0.1.<Laufnummer> in Prüflisten nachtragen, sobald der APK-Lauf beginnt
-    workflows: ["Build APK"]
+  workflow_run:  # 298: Version 0.348.<Laufnummer> in Prüflisten nachtragen, sobald der Godot-Lauf beginnt (894)
+    workflows: ["Godot (Umzug 348)"]
     types: [requested]
   workflow_dispatch:
 

@@ -16,16 +16,16 @@ func _lauf() -> void:
 	Sprache.lade()
 	if Sprache.aktiv() != "de": Sprache.wechsle()
 	var z := Zustand.new()
-	for held in [["Thora", "DWARF", "FIGHTER"], ["Mira", "ELF", "WIZARD"]]:
-		var hw := Heldwerte.erschaffe(held[0], held[1], held[2], {}, z.neue_uid)
+	for held in [["Thora", "Zwerg", "Wachsoldat"], ["Mira", "Elf", "Zauberlehrling"]]:
+		var hw := BrsHeld.fuer_spiel(held[0], held[1], held[2], z.neue_uid)
 		var m := Menue.new(hw, z)
 		root.add_child(m)
 		var lage := []
 		for r in ["held", "tasche", "ausruestung", "chronik", "system"]:
 			m.reiter = r; m.baue()
 			for i in 6: await process_frame
-			var rand := 10 * Menue.DP
-			var kasten: Rect2 = m.rolle.get_parent().get_global_rect()
+			var rand := 24 * Menue.DP   # 630 (549a „Schirm“): Seitenrand 24 dp, ohne Kasten
+			var kasten: Rect2 = m.rolle.get_global_rect()
 			pruefe("Rand links", absf(kasten.position.x - rand) <= 1.0, "%s %s: %.0f statt %.0f px" % [held[0], r, kasten.position.x, rand])
 			pruefe("Rand rechts", absf(1080.0 - kasten.end.x - rand) <= 1.0, "%s %s: %.0f statt %.0f px" % [held[0], r, 1080.0 - kasten.end.x, rand])
 			var ri: Rect2 = m.inhalt.get_global_rect()

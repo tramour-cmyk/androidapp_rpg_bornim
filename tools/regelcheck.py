@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Regelabgleich (167.9): was ein Skript zählen oder vergleichen kann, damit keine Sitzung es tun muss.
 
-Aufruf: python3 tools/regelcheck.py [--kurz] [--anlass SHA] | --rueckmeldung [--um "TT.MM. HH:MM"]   (--rueckmeldung: nur Prüfung 559, ruft lauf.py stündlich; --um: Stand aus Git zu dieser Zeit; --kurz: nur Pflegefehler der Vorräte, Teil 1 und 2; ruft notiz.sh beim Start)    (Ford ruft es im Morgenlauf, Ausgabe in die Morgenmeldung)
+Aufruf: python3 tools/regelcheck.py [--kurz] [--anlass SHA] | --rueckmeldung [--um "TT.MM. HH:MM"]   (--rueckmeldung: nur Prüfung 559, ruft lauf.py stündlich; --um: Stand aus Git zu dieser Zeit; --kurz: nur Pflegefehler der Vorräte, Teil 1 und 2; ruft notiz.sh beim Start)    (Ford ruft es im Morgenlauf, Ausgabe in die Zeile „Morgen“ im Protokoll, 783 W7)
 Prüft: startbar.py (unlesbare oder ungültige Zeilen der Vorgangsliste, 275.2), Größen (Vorräte 15 KB, CLAUDE.md),
 Zeilen über 1 500 Zeichen in Vorräten, Testbuilds am Tag (höchstens 6, 317), tote Verweise auf `Datei.md` / `tools/x` / `docs/…`, alte Dateinamen (notiz.sh), Lizenzhinweis SRD (446: Meldezeile, solange alte Namen im Spiel; Fund, wenn der Hinweis dann fehlt).
 --anlass SHA: nennt die Regeldateien (CLAUDE.md, ROLLE-*, LISTE-BETRIEB.md, VORGANGSARCHIV.md), die seit SHA geändert wurden;
@@ -123,7 +123,7 @@ for b, nrs in sorted(ohne_pl.items()):
 heute = subprocess.run(["git", "-C", ROOT, "log", "--since=" + max(time.strftime("%Y-%m-%d 00:00"), "2026-10-22 21:32"), "--diff-filter=A", "--name-only", "--format=", "--", "docs/chefsache/ansehen/"],
                        capture_output=True, text=True, env=dict(os.environ, TZ="Europe/Berlin")).stdout.split()
 tb = sorted({m.group(1) for f in heute for m in [re.search(r"/(t\d+)-", f)] if m})
-if len(tb) > 6: fund.append("Testbuilds heute: %d (%s), höchstens 6 für Tom und Jerry zusammen (317, LISTE-BAUEN-TESTEN.md „Gemeinsamer Build“)" % (len(tb), ", ".join(tb)))
+if len(tb) > 6: fund.append("Testbuilds heute: %d (%s), höchstens 6 für Tom und Jerry zusammen (317, LISTE-CHECK-BUILD-TEST.md Punkt 3)" % (len(tb), ", ".join(tb)))
 # 347 (H): Start der Entwicklung liest Abschnitte über ihre Überschrift; fehlt ein Anker, lädt der Befehl still alles oder nichts
 for datei, anker in (("ARBEIT-TEAM-TOM.md", "## Einzelheiten"), ("ARBEIT-TEAM-JERRY.md", "## Einzelheiten"),
                      ("DESIGN-STIL.md", "## Auf einen Blick"), ("DESIGN-STIL.md", "## Signatur")):
@@ -175,7 +175,8 @@ for p in quellen:
     if p.endswith("ARBEIT-ARCHIV.md") or not os.path.exists(p): continue
     for m in re.finditer(r"`((?:docs/|tools/)?[A-Za-z0-9_./-]+\.(?:md|py|sh|yml))`", lesen(p)):
         v = m.group(1)
-        if v in bekannt or v.lstrip("./") in bekannt or "<" in v or v.startswith("docs/chefsache/") and v.endswith("/"): continue
+        # 813 (D123.1): Pfad relativ zu docs/ oder docs/chefsache/ (kapitel2/…, chefsache/README.md, tun/…) gilt auch
+        if v in bekannt or v.lstrip("./") in bekannt or "docs/" + v.lstrip("./") in bekannt or "docs/chefsache/" + v.lstrip("./") in bekannt or "<" in v or v.startswith("docs/chefsache/") and v.endswith("/"): continue
         if re.search(r"\b(t\d+|[0-9a-f]{7,})\b", v): continue
         tot.setdefault(os.path.basename(p), set()).add(v)
 for d, vs in tot.items(): fund.append("%s: Verweis auf fehlende Datei: %s" % (d, ", ".join(sorted(vs)[:6])))
@@ -192,7 +193,7 @@ for p in quellen:
 # 4b. Lizenzhinweis SRD (446; Chef 01.11., 09:41, 413a): alte Namen aus Nachschlagewerk Abschnitt 12 („Alt“) im Godot-Spiel (ohne tests/).
 # Solange einer steht: Meldezeile (kein Fund); fehlt dann der Hinweis „SRD 5.1 · CC BY 4.0“ im Hauptmenü oder README: Fund (Lizenz).
 # Allgemeine Wörter (Schild, Vorteil, Nachteil) sieht die Suche nicht; Monsterwerte und Zaubertexte auch nicht: die prüft ein Mensch vor dem Wegfall.
-nw = os.path.join(DOCS, "DESIGN-SPIELSYSTEM-2-0-ENTWURF.md")
+nw = os.path.join(DOCS, "DESIGN-BRS.md")
 abschnitt = lesen(nw).split("\n## 12. ")[1].split("\n## ")[0] if "\n## 12. " in lesen(nw) else ""
 srd = []
 for z in abschnitt.splitlines():
@@ -203,7 +204,7 @@ for z in abschnitt.splitlines():
         if n and n not in ("Schild", "Vorteil", "Nachteil"): srd.append(n)
 srd_info = None
 if not srd:
-    fund.append("DESIGN-SPIELSYSTEM-2-0-ENTWURF.md: Abschnitt „12. Namen“ ohne Tabelle Alt/Neu, Wächter Lizenzhinweis blind (446)")
+    fund.append("DESIGN-BRS.md: Abschnitt „12. Namen“ ohne Tabelle Alt/Neu, Wächter Lizenzhinweis blind (446)")
 else:
     muster = re.compile(r"(?<!\w)(%s)(?!\w)" % "|".join(map(re.escape, srd)))
     treffer = {}

@@ -71,27 +71,30 @@ func _lauf() -> void:
 	pruefe("Wechsel zum Wanderer", [m.wahl, m.wahl_anzahl(), m.frei()], [["Handeln"], 3, 9])
 	# Leben und Mana (N 2, werte.json held)
 	var hd: Dictionary = W["held"]
-	pruefe("Leben", m.leben(1), int(hd["leben_basis"]) + int(hd["leben_je_stufe"]) + int(hd["leben_je_zaehigkeit"]) * m.wert("zaehigkeit"))
-	pruefe("Mana", m.mana(), int(hd["mana_basis"]) + int(hd["mana_je_wille"]) * m.wert("wille"))
+	pruefe("Leben", m.max_leben(1), int(hd["leben_basis"]) + int(hd["leben_je_stufe"]) + int(hd["leben_je_zaehigkeit"]) * m.wert("zaehigkeit"))
+	pruefe("Mana", m.max_mana(), int(hd["mana_basis"]) + int(hd["mana_je_wille"]) * m.wert("wille"))
 	# Spielstand hin und zurück
 	var r := BrsHeld.aus_daten(JSON.parse_string(JSON.stringify(b.als_daten())))
 	pruefe("Spielstand", r.als_daten(), b.als_daten())
 	var z3 := Zustand.new(); z3.brs = b.als_daten()
 	pruefe("Spielstand im Zustand", Zustand.aus_daten(JSON.parse_string(JSON.stringify(z3.als_daten()))).brs, b.als_daten())
-	# Brücke bis 2.3 (470a): Klasse aus der Herkunft, SRD 8..16
-	pruefe("SRD-Werte", [BrsHeld.srd_wert(3), BrsHeld.srd_wert(5), BrsHeld.srd_wert(8), BrsHeld.srd_wert(9)], [8, 11, 15, 16])
-	var zl := BrsHeld.neu("Hügelvolk", "Zauberlehrling")
-	var a := zl.alt()
-	pruefe("Zauberlehrling alt", [a["volk"], a["klasse"], a["srd"]["INT"]], ["HALFLING", "WIZARD", BrsHeld.srd_wert(zl.wert("wille"))])
-	pruefe("Klosterschüler alt", BrsHeld.neu("Mensch", "Klosterschüler").alt()["klasse"], "CLERIC")
+	# 870.4: der Held im Spiel (Heldenstufe, Leben, Mana, Startausrüstung der Herkunft) und im Spielstand
+	var sp := BrsHeld.fuer_spiel("Ada", "Zwerg", "Wachsoldat")
+	pruefe("Start Wachsoldat", [sp.waffe()["base"], sp.ruestung(), sp.schild() != null], ["longsword", "Mittlere Rüstung", true])
+	pruefe("voll", [sp.leben, sp.mana], [sp.max_leben(), sp.max_mana()])
+	sp.stufe = 3
+	pruefe("Leben Stufe 3", sp.max_leben(), int(hd["leben_basis"]) + 3 * int(hd["leben_je_stufe"]) + int(hd["leben_je_zaehigkeit"]) * sp.wert("zaehigkeit"))
+	sp.leben = 7
+	var sr := BrsHeld.aus_spiel_daten(JSON.parse_string(JSON.stringify(sp.spiel_daten())))
+	pruefe("Spielstand Held", [sr.name, sr.volk, sr.herkunft, sr.stufe, sr.leben, sr.mana, sr.ausruestung.size()], ["Ada", "Zwerg", "Wachsoldat", 3, 7, sp.mana, sp.ausruestung.size()])
 	# Seite „Neues Spiel“ passt in die Breite eines Handys (Pruefer 14:5x: Kopf mit 2 x 120 dp schob alles ueber den rechten Rand)
 	root.size = Vector2i(1080, 2340)
 	var es := ErschaffungBrs.new()
 	root.add_child(es)
 	for i in 5: await process_frame
-	var platz := 1080.0 - 2 * (12 + 14) * AktionsKnopf.DP
+	var platz := 1080.0 - 2 * 24 * AktionsKnopf.DP   # 470 (549a): Seitenrand 24 dp, ohne Kasten
 	pruefe("Kopf passt (%d px Platz)" % platz, es.kopf.get_parent().get_combined_minimum_size().x <= platz, true)
-	pruefe("Inhalt passt", es.inhalt.get_combined_minimum_size().x <= 1080.0 - 2 * 12 * AktionsKnopf.DP, true)
+	pruefe("Inhalt passt", es.inhalt.get_combined_minimum_size().x <= platz, true)
 	# Namen der Grundwerte ungekuerzt (Pruefer 14:5x: „Gewandth…“, „Wahrnehmu…“), auch beim Menschen mit dem Knopf „+1“
 	var gefunden := 0
 	for lb in es.inhalt.find_children("*", "Label", true, false):
@@ -101,19 +104,19 @@ func _lauf() -> void:
 			pruefe("%s ganz (%d von %d px)" % [t, lb.size.x, lb.get_minimum_size().x], lb.size.x >= (lb as Label).get_theme_font("font").get_string_size(t, HORIZONTAL_ALIGNMENT_LEFT, -1, (lb as Label).get_theme_font_size("font_size")).x, true)
 	pruefe("Namen gefunden", gefunden, 2)
 	# oben steht, warum „Abenteuer beginnen“ gesperrt ist (Prüfer 02.11., 14:5x), und nichts, wenn es frei ist
-	pruefe("Vorgabe frei, oben nichts", [es.los.disabled, es.kopf.find_child("Fehlt", true, false) == null], [es.b.wahl_anzahl() > 0, es.b.wahl_anzahl() == 0])
+	pruefe("Vorgabe frei, oben nichts", [not es.los_an(), es.kopf.find_child("Fehlt", true, false) == null], [es.b.wahl_anzahl() > 0, es.b.wahl_anzahl() == 0])
 	# Knöpfe der Fertigkeiten gleich breit (Prüfer 02.11., 14:5x: „Tiere beruhigen“ breiter als die anderen), beim Wanderer mit allen Gruppen
 	es.b.waehle_herkunft("Wanderer")
 	es.baue()
 	for i in 5: await process_frame
 	var breiten := {}
 	var namen: Array = ErschaffungBrs.FERT.keys().map(func(f): return ErschaffungBrs.fert_name(String(f)).to_upper().replace("ß", "SS"))
-	for k in es.inhalt.find_children("*", "Button", true, false):
-		if namen.has((k as Button).text): breiten[(k as Button).text] = roundi((k as Button).size.x)
+	for l in es.inhalt.find_children("Text", "Label", true, false):   # 470 (549a): Wahlfelder ohne Rahmen, Breite des antippbaren Felds
+		if namen.has((l as Label).text): breiten[(l as Label).text] = roundi((l.get_parent() as Control).size.x)
 	var ziel: int = breiten.values().min()
 	var fe: Label = es.kopf.find_child("Fehlt", true, false)
-	pruefe("Wanderer gesperrt", es.los.disabled, true)
-	pruefe("oben steht warum", fe.text if fe else "", es.punkte_satz() + " · " + es.wahl_satz())
+	pruefe("Wanderer gesperrt", not es.los_an(), true)
+	pruefe("oben steht warum", fe.text if fe else "", Spielstaende.ohne_waise(es.punkte_satz() + " · " + es.wahl_satz()))   # 557: letzte zwei Woerter verbunden
 	pruefe("Fertigkeiten gefunden", breiten.size() >= 30, true)
 	pruefe("Fertigkeiten gleich breit", breiten.keys().filter(func(t): return absi(int(breiten[t]) - int(ziel)) > 1).map(func(t): return "%s %d" % [t, breiten[t]]), [])
 	es.queue_free()

@@ -15,6 +15,18 @@ var wasser: ShaderMaterial
 var boden: ShaderMaterial
 var halme: ShaderMaterial
 var korn_mat: ShaderMaterial
+var halm_mmi: MultiMeshInstance3D       # 804: unser Gras, aus, solange das Gras des Kits steht (GrasBausatz)
+var kit_gras: Array[MultiMeshInstance3D] = []
+var kit_stellen: Array[Vector3] = []
+var kit_art := PackedByteArray()
+
+# 804: Gras und Blumen des Kits an den Stellen unseres Grases, unser Gras dann aus; nach GrasBausatz.an (Grafikstufe 698, Testmenue)
+func gras_neu() -> void:
+	if GrasBausatz.aktiv() and kit_gras.is_empty() and not kit_stellen.is_empty():
+		kit_gras = GrasBausatz.baue(self, kit_stellen, kit_art)
+	for m in kit_gras: m.visible = GrasBausatz.an
+	if halm_mmi: halm_mmi.visible = kit_gras.is_empty() or not GrasBausatz.an
+	if held and GrasBausatz.an and not kit_gras.is_empty(): GrasBausatz.schieber(held)
 var insel_liste := PackedVector4Array()
 var lampen: Array[OmniLight3D] = []
 var raumlicht: Raumlicht   # 399.5 Grundriss
@@ -549,6 +561,7 @@ func baue_leben() -> void:
 	var rng := RandomNumberGenerator.new(); rng.seed = 348
 	var xf: Array[Transform3D] = []; var cu: Array[Color] = []
 	var kxf: Array[Transform3D] = []; var kcu: Array[Color] = []
+	var art := PackedByteArray()   # 804: je Halm 0 Wiese, 1 hohes Gras, 2 Blumenwiese (GrasBausatz)
 	var wald := String(karte.daten.get("art", "")) == "FOREST"
 	for r in karte.hoehe:
 		for c in karte.breite:
@@ -578,10 +591,15 @@ func baue_leben() -> void:
 				var s := rng.randf_range(0.16, 0.34) if not hoch else rng.randf_range(0.3, 0.5)
 				var b := Basis(Vector3.UP, rng.randf() * TAU).scaled(Vector3(s, s * (rng.randf_range(0.75, 1.2) if not hoch else rng.randf_range(1.3, 1.8)), s))
 				xf.append(Transform3D(b, Vector3(x, 0.0, z)))
+				art.append(1 if hoch else (2 if t == "f" else 0))
 				var g := rng.randf_range(0.85, 1.2) * (0.8 if hoch else 1.0)
 				cu.append(Color(0.95 * g, 1.0 * g, 0.85 * g, 1))
 	halme = halm_netz(xf, cu, "halme", 0.0)
+	halm_mmi = letztes_netz
 	korn_mat = halm_netz(kxf, kcu, "korn", 1.0)
+	for t in xf: kit_stellen.append(t.origin)
+	kit_art = art
+	gras_neu()
 	# Schmetterlinge an Blumen und Heu (weiss, gelb, orange, blau)
 	var cols := [Color(0.97, 0.96, 0.92), Color(0.97, 0.88, 0.38), Color(0.94, 0.63, 0.25), Color(0.5, 0.72, 0.97)]
 	var k := 0
@@ -649,6 +667,7 @@ func baue_rauch(at: Vector3) -> CPUParticles3D:
 	add_child(pr)
 	return pr
 
+var letztes_netz: MultiMeshInstance3D
 func halm_netz(xf: Array[Transform3D], cu: Array[Color], tex: String, korn: float) -> ShaderMaterial:
 	var mm := MultiMesh.new()
 	mm.transform_format = MultiMesh.TRANSFORM_3D
@@ -668,6 +687,7 @@ func halm_netz(xf: Array[Transform3D], cu: Array[Color], tex: String, korn: floa
 	mmi.material_override = m
 	mmi.layers = BODEN_SCHICHT   # Licht der Laternen wie der Boden aus den Inseln
 	add_child(mmi)
+	letztes_netz = mmi
 	return m
 
 static var _punkt: ImageTexture

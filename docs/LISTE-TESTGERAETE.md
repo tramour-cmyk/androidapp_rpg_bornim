@@ -2,6 +2,30 @@
 
 Geräteangaben, die Tester über „Kopieren“ im Systemmenü schicken (388). Je Meldung Datum, Ort im Spiel und Wortlaut der Angaben. Nutzen: die Godot-Fassung muss auf diesen Geräten flüssig laufen (Alt-Fassung ist zu, Archiv 27.10., 22:17).
 
+## Chef, Samsung Galaxy A56 (SM-A566B, obere Mittelklasse; Probe-App 623, Flüsterwald, 08.11., 19:49)
+
+```
+Version: 0.348.306
+Gerät: SM-A566B
+System: Android 37.A566BXXUEDZJ1
+Grafik: Samsung Xclipse 540 (Unknown), mobile
+Bildschirm: 1080 × 2340, 450 dpi
+Speicher: 171 MB
+Prozessorkerne: 8
+Ort: forest 7/18
+Bilder je Sekunde: 31 im Schnitt der letzten 600, langsamstes 1 %: 43 ms
+Längste Bildpause seit dem Start: 150 ms (forest 5/17)
+Blende: bereit nach –, längste Bildpause –; danach 10 s: längste 32 ms, über 50 ms: 0
+Ladezeit je Ort: forest 2551 ms
+Kampfort bereit nach: –
+Grafikspeicher: 505 MB, Zeichenaufrufe: 347, Dreiecke: 2052k
+Rand oben (Kamera): 92, beim Start 92; sichere Fläche [P: (0, 92), S: (1080, 2248)], Fenster (1080, 2340), Ausschnitt [[P: (506.0, 24.0), S: (68.0, 68.0)]]
+Schrift: Faktor des Handys 1.00, Dichte 2.812, Breite 384 dp
+Letzte Fehlermeldungen: keine
+```
+
+Dazu (Chef, Fotos 19:32, 19:36, mit allen Proben an): Dorfbach 33 Bilder/s, Grafik 1793 MB; Flüsterwald am Teich 25 Bilder/s (95 % unter 41,7 ms), Grafik 2006 MB. Lesart (Sokrates): ohne Fehler, keine Pause über 50 ms in 10 s; welche Proben bei diesen Angaben an waren, ist offen (Grafik 505 MB statt 2 GB).
+
 ## Tester 1, Samsung Galaxy A22 5G (Chef 27.10., 23:25, „Von erwähnten Tester, bei dem es ruckelt“; Ort: Mitte des Marktplatzes)
 
 ```

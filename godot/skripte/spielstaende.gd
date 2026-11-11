@@ -62,7 +62,7 @@ func _ready() -> void:
 	spalte.add_theme_constant_override("separation", int(10 * DP))
 	rand.add_child(spalte)
 	var kopf := Stil.zeile(("Spielstände" if de else "Saved games").to_upper(), 12, Stil.BRIGHT, 3.0)   # VeilHead in Veil.bright
-	spalte.add_child(Erschaffung.kasten(kopf))
+	spalte.add_child(Stil.rahmen(kopf))
 	var rolle := ScrollContainer.new()
 	rolle.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	rolle.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
@@ -72,7 +72,7 @@ func _ready() -> void:
 	liste.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	liste.add_theme_constant_override("separation", int(10 * DP))
 	rolle.add_child(liste)
-	spalte.add_child(Erschaffung.knopf(Sprache.u("back"), func(): zurueck.emit()))   # BackRow
+	spalte.add_child(Stil.knopf(Sprache.u("back"), func(): zurueck.emit()))   # BackRow
 	baue()
 
 func baue() -> void:
@@ -88,50 +88,49 @@ func baue() -> void:
 		if d.is_empty():
 			var v := VBoxContainer.new()
 			v.add_theme_constant_override("separation", 0)
-			v.add_child(Erschaffung.txt(("Platz %d · leer" if de else "Slot %d · empty") % n, 17, Stil.DIM))
-			v.add_child(Erschaffung.luecke(8))
-			v.add_child(Erschaffung.knopf(Sprache.u("newGame"), func(): neu.emit(n)))
-			liste.add_child(Erschaffung.kasten(v))
+			v.add_child(Stil.txt(("Platz %d · leer" if de else "Slot %d · empty") % n, 17, Stil.DIM))
+			v.add_child(Stil.luecke(8))
+			v.add_child(Stil.knopf(Sprache.u("newGame"), func(): neu.emit(n)))
+			liste.add_child(Stil.rahmen(v))
 			continue
 		var k := karte(d)
 		var knoepfe := HBoxContainer.new()
 		knoepfe.add_theme_constant_override("separation", int(8 * DP))
-		var weg := Erschaffung.knopf("Löschen" if de else "Delete", func(): frage_loeschen(d))
-		var los := Erschaffung.knopf("Laden" if de else "Load", func(): laden.emit(n))
-		los.size_flags_stretch_ratio = 2.0
+		var weg := Stil.knopf("Löschen" if de else "Delete", func(): frage_loeschen(d))
 		knoepfe.add_child(weg)
-		knoepfe.add_child(los)
+		if not Spielstand.alt(d):   # 870.8: alte nur loeschen
+			var los := Stil.knopf("Laden" if de else "Load", func(): laden.emit(n))
+			los.size_flags_stretch_ratio = 2.0
+			knoepfe.add_child(los)
 		var innen: VBoxContainer = k.get_child(0)   # 529: aussen (Bild und Zeilen), darunter die Knoepfe
-		innen.add_child(Erschaffung.luecke(8))
+		innen.add_child(Stil.luecke(8))
 		innen.add_child(knoepfe)
 		liste.add_child(k)
 
-# SlotCard: Bild, Platz und Name, Volk · Klasse · Stufe, Ort · Tag · Uhrzeit, gespeichert am, gespielt
-static func karte(d: Dictionary) -> PanelContainer:
+# SlotCard: Bild, Platz und Name, Volk · Herkunft · Heldenstufe (870.4), Ort · Tag · Uhrzeit, gespeichert am, gespielt
+# [rahmen] = false (700, 549a): ohne Kasten, als Inhalt einer antippbaren Zeile (Platzwahl der Erschaffung)
+static func karte(d: Dictionary, rahmen := true) -> PanelContainer:
 	var de := Sprache.aktiv() == "de"
 	var h: Dictionary = d.get("held", {})
 	var z: Dictionary = d.get("zustand", {})
-	var hd := Heldwerte.lade()
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", 0)
 	var n := Stil.zeile((("Platz %d · " if de else "Slot %d · ") % int(d["platz"]) + String(h.get("name", ""))).to_upper(), 14, Stil.GOLD, 3.0)   # MenuHead
 	n.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	v.add_child(n)
-	var volk := String(h.get("volk", "HUMAN"))
-	var klasse := String(h.get("klasse", "FIGHTER"))
-	v.add_child(Erschaffung.txt("%s · %s · %s %d" % [Sprache.t(hd["voelker"][volk]["name"]) if hd["voelker"].has(volk) else volk,
-		Sprache.t(hd["klassen"][klasse]["name"]) if hd["klassen"].has(klasse) else klasse, Sprache.u("level"), int(h.get("stufe", 1))], 14))
+	if Spielstand.alt(d): v.add_child(Stil.txt(alt_satz(de), 14, Stil.WARN))   # 870.8
+	else: v.add_child(Stil.txt(ErschaffungBrs.wer(String(h.get("volk", "Mensch")), String(h.get("herkunft", BrsHeld.WANDERER)), int(h.get("stufe", 1))), 14))   # 870.4
 	var ort := String(d.get("ort", {}).get("karte", ""))
 	var alle = JSON.parse_string(FileAccess.get_file_as_string("res://daten/karten.json")) if FileAccess.file_exists("res://daten/karten.json") else null
 	if alle is Dictionary and alle["karten"].has(ort): ort = Sprache.t(alle["karten"][ort]["name"])
 	var m := int(z.get("minuten", 0))
-	v.add_child(Erschaffung.txt("%s · %s %d · %02d:%02d" % [ort, "Tag" if de else "Day", int(z.get("tag", 1)), m / 60, m % 60], 13, Stil.DIM))
+	v.add_child(Stil.txt("%s · %s %d · %02d:%02d" % [ort, "Tag" if de else "Day", int(z.get("tag", 1)), m / 60, m % 60], 13, Stil.DIM))
 	var t := gespeichert_um(d)
 	if not t.is_empty():
 		var s := ("%02d.%02d.%04d, %02d:%02d" % [t.day, t.month, t.year, t.hour, t.minute]) if de else ("%04d-%02d-%02d, %02d:%02d" % [t.year, t.month, t.day, t.hour, t.minute])
-		v.add_child(Erschaffung.txt(("Gespeichert: " if de else "Saved: ") + s, 12, Stil.DIM))
+		v.add_child(Stil.txt(("Gespeichert: " if de else "Saved: ") + s, 12, Stil.DIM))
 	var g := gespielt(int(z.get("gespielt_ms", 0)), de)
-	var gl := Erschaffung.txt(g, 12, Stil.DIM)
+	var gl := Stil.txt(g, 12, Stil.DIM)
 	gl.name = "Gespielt"
 	v.add_child(gl)
 	# HeroStill links neben den Zeilen (alt 10 dp Abstand); die Knoepfe haengt baue() unter beides
@@ -139,20 +138,32 @@ static func karte(d: Dictionary) -> PanelContainer:
 	aussen.add_theme_constant_override("separation", 0)
 	var reihe := HBoxContainer.new()
 	reihe.add_theme_constant_override("separation", int(10 * DP))
-	var bild := Drehteller.new(heldbild(d), 0.4, false)
-	bild.name = "Heldbild"
-	bild.mouse_filter = Control.MOUSE_FILTER_IGNORE   # Antippen gehoert der Karte (Erschaffung: Platz waehlen)
-	reihe.add_child(bild)
+	if not Spielstand.alt(d):   # 870.8: der alte Held laesst sich nach BRS nicht zeichnen
+		var bild := Drehteller.new(heldbild(d), 0.4, false)
+		bild.name = "Heldbild"
+		bild.mouse_filter = Control.MOUSE_FILTER_IGNORE   # Antippen gehoert der Karte (Erschaffung: Platz waehlen)
+		reihe.add_child(bild)
 	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	v.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	reihe.add_child(v)
 	aussen.add_child(reihe)
-	return Erschaffung.kasten(aussen)
+	if not rahmen:
+		var p := PanelContainer.new()
+		p.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
+		p.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		p.add_child(aussen)
+		return p
+	return Stil.rahmen(aussen)
+
+# 870.8 (870a 1, DESIGN-BRS 11): Hinweis an einem Spielstand der Version 1
+static func alt_satz(de: bool) -> String:
+	return "Aus der alten Regelfassung, nicht mehr spielbar" if de else "From the old rules version, no longer playable"
 
 # HeldFigur.wahl aus dem gespeicherten Helden; {} wenn der Spielstand nichts hergibt (dann der Grundheld)
 static func heldbild(d: Dictionary) -> Dictionary:
 	if not (d.get("held") is Dictionary and d.get("zustand") is Dictionary): return {}
-	return HeldFigur.wahl(Heldwerte.aus_daten(d["held"]), Zustand.aus_daten(d["zustand"]))
+	return HeldFigur.wahl(BrsHeld.aus_spiel_daten(d["held"]), Zustand.aus_daten(d["zustand"]))
 
 # 529: Ortszeit beim Speichern (seit 529 mitgespeichert); aeltere Spielstaende rechnen aus der Unix-Zeit mit dem heutigen Abstand zu UTC
 # (der Fehler, den Sokrates vermutete: nach einer Zeitumstellung eine Stunde daneben)
@@ -177,7 +188,7 @@ func frage_loeschen(d: Dictionary) -> void:
 	var h: Dictionary = d.get("held", {})
 	if entwurf == "B" and vorlage2:   # Chef 14:21: „Warum ist der Löschdialog dann wieder so kastelig?“
 		var f := Spielstaende.frage(self, ("Spielstand löschen?" if de else "Delete saved game?"),
-			[Erschaffung.txt(("%s (Stufe %d) wird endgültig gelöscht." if de else "%s (level %d) will be deleted for good.") % [String(h.get("name", "")), int(h.get("stufe", 1))], 15)],
+			[Stil.txt(("%s (Stufe %d) wird endgültig gelöscht." if de else "%s (level %d) will be deleted for good.") % [String(h.get("name", "")), int(h.get("stufe", 1))], 15)],
 			"KREUZ", "Löschen" if de else "Delete", Stil.WARN, func():
 				Spielstand.loesche(int(d["platz"]))
 				baue())
@@ -192,19 +203,19 @@ func frage_loeschen(d: Dictionary) -> void:
 	v.add_theme_constant_override("separation", int(10 * DP))
 	# 557: schmaler als die Liste (Helfer 11:28; 11:36: so breit wie die Liste, ihr Rand schnitt „Platz 3 · leer“): B deutlich schmaler
 	v.custom_minimum_size.x = get_viewport_rect().size.x - (110 if entwurf == "B" else 48) * DP
-	var k := Rueckfrage.halte(Erschaffung.kasten(v))
+	var k := Rueckfrage.halte(Stil.rahmen(v))
 	mitte.add_child(k)
 	if entwurf == "B":   # Helfer 13:04: „Neues Spiel“ schien am Rand durch; 13:07 bei 93 % noch lesbar: deckend, die Liste wird ausgeblendet
 		schleier.color = Color(0, 0, 0, 0.97)
 		liste.modulate.a = 0.0
 		schleier.tree_exited.connect(func(): if is_instance_valid(liste): liste.modulate.a = 1.0)
 	v.add_child(Stil.zeile(("Spielstand löschen?" if de else "Delete saved game?").to_upper(), 14, Stil.GOLD, 3.0))
-	var t := Erschaffung.txt(("%s (Stufe %d) wird endgültig gelöscht." if de else "%s (level %d) will be deleted for good.") % [String(h.get("name", "")), int(h.get("stufe", 1))], 15)
+	var t := Stil.txt(("%s (Stufe %d) wird endgültig gelöscht." if de else "%s (level %d) will be deleted for good.") % [String(h.get("name", "")), int(h.get("stufe", 1))], 15)
 	v.add_child(t)
 	var knoepfe := HBoxContainer.new()
 	knoepfe.add_theme_constant_override("separation", int(8 * DP))
-	knoepfe.add_child(Erschaffung.knopf("Abbrechen" if de else "Cancel", func(): schleier.queue_free()))
-	var weg := Erschaffung.knopf("Löschen" if de else "Delete", func():
+	knoepfe.add_child(Stil.knopf("Abbrechen" if de else "Cancel", func(): schleier.queue_free()))
+	var weg := Stil.knopf("Löschen" if de else "Delete", func():
 		Spielstand.loesche(int(d["platz"]))
 		schleier.queue_free()
 		baue())
@@ -236,9 +247,9 @@ func _ready_b() -> void:
 	var kopf := Stil.zeile(("Spielstände" if de else "Saved games").to_upper(), 22, Stil.GOLD, 3.0)
 	kopf.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	spalte.add_child(kopf)
-	spalte.add_child(Erschaffung.luecke(6))
+	spalte.add_child(Stil.luecke(6))
 	spalte.add_child(zier())
-	spalte.add_child(Erschaffung.luecke(10))
+	spalte.add_child(Stil.luecke(10))
 	var rolle := ScrollContainer.new()
 	rolle.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	rolle.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
@@ -292,17 +303,18 @@ func _leer_zeile(platz: int, de: bool) -> Control:
 func _voll_zeile(d: Dictionary, de: bool) -> Control:
 	var h: Dictionary = d.get("held", {})
 	var z: Dictionary = d.get("zustand", {})
-	var hd := Heldwerte.lade()
 	var platz := int(d["platz"])
 	var aussen := VBoxContainer.new()
 	aussen.add_theme_constant_override("separation", 0)
 	var r := HBoxContainer.new()
 	r.add_theme_constant_override("separation", int(14 * DP))
 	r.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var bild := Drehteller.new(heldbild(d), 0.4, false)
-	bild.name = "Heldbild"
-	bild.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	r.add_child(bild)
+	var alt := Spielstand.alt(d)   # 870.8: ohne Bild, Ziel und Laden, nur Hinweis und Loeschen
+	if not alt:
+		var bild := Drehteller.new(heldbild(d), 0.4, false)
+		bild.name = "Heldbild"
+		bild.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		r.add_child(bild)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(2 * DP))
 	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -311,17 +323,15 @@ func _voll_zeile(d: Dictionary, de: bool) -> Control:
 	var kopf := Stil.zeile((("Platz %d · " if de else "Slot %d · ") % platz + String(h.get("name", ""))).to_upper(), 14, Stil.GOLD, 2.5)
 	kopf.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	v.add_child(kopf)
-	var volk := String(h.get("volk", "HUMAN"))
-	var klasse := String(h.get("klasse", "FIGHTER"))
-	v.add_child(_satz("%s · %s · %s %d" % [Sprache.t(hd["voelker"][volk]["name"]) if hd["voelker"].has(volk) else volk,
-		Sprache.t(hd["klassen"][klasse]["name"]) if hd["klassen"].has(klasse) else klasse, Sprache.u("level"), int(h.get("stufe", 1))], 16, Stil.TEXT))
-	if mit["ziel"]:   # Vorschlag 2 (Chef 12:38 „mit 2“): wo man steht, damit man nach Tagen weiss, was zu tun ist (Hauptauftrag der Chronik)
+	if alt: v.add_child(_satz(alt_satz(de), 16, Stil.WARN))
+	else: v.add_child(_satz(ErschaffungBrs.wer(String(h.get("volk", "Mensch")), String(h.get("herkunft", BrsHeld.WANDERER)), int(h.get("stufe", 1))), 16, Stil.TEXT))   # 870.4
+	if mit["ziel"] and not alt:   # Vorschlag 2 (Chef 12:38 „mit 2“): wo man steht, damit man nach Tagen weiss, was zu tun ist (Hauptauftrag der Chronik)
 		var zs := Zustand.aus_daten(z)
 		# Helfer 11:28, 11:36: in BRIGHT, dann gedaempftem Weiss noch so hell wie die Wahl und zog den Blick; 13:07 bei 62 % Weiss kaum als
 		# gedaempft zu erkennen: in gedaempftem Gold (eigene Farbe, nicht die der Angaben), schraeg, mit Abstand davor und danach
-		v.add_child(Erschaffung.luecke(3))
+		v.add_child(Stil.luecke(3))
 		v.add_child(_satz(("Kapitel %d · " if de else "Chapter %d · ") % Geschichte.kapitel(zs) + Sprache.t(Geschichte.ziel(zs)), 14, Stil.GOLD, true))
-		v.add_child(Erschaffung.luecke(3))
+		v.add_child(Stil.luecke(3))
 	var ort := String(d.get("ort", {}).get("karte", ""))
 	var karten = JSON.parse_string(FileAccess.get_file_as_string("res://daten/karten.json")) if FileAccess.file_exists("res://daten/karten.json") else null
 	if karten is Dictionary and karten["karten"].has(ort): ort = Sprache.t(karten["karten"][ort]["name"])
@@ -339,12 +349,12 @@ func _voll_zeile(d: Dictionary, de: bool) -> Control:
 	g.name = "Gespielt"
 	v.add_child(g)
 	r.add_child(v)
-	r.add_child(_wahl("Laden" if de else "Load"))
+	if not alt: r.add_child(_wahl("Laden" if de else "Load"))
 	var rand := MarginContainer.new()
 	rand.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	rand.add_theme_constant_override("margin_top", int(12 * DP)); rand.add_theme_constant_override("margin_bottom", int(4 * DP))
 	rand.add_child(r)
-	aussen.add_child(tippbar(rand, func(): laden.emit(platz)))
+	aussen.add_child(rand if alt else tippbar(rand, func(): laden.emit(platz)))
 	# Loeschen leise darunter, rechts unter „Laden“ (Helfer 13:07: stand links unter den Angaben), mit eigener Flaeche von 48 dp und
 	# Abstand nach oben, damit es kein Fehlgriff wird; mit Rueckfrage
 	if vorlage2:   # 557 Runde 4 (Chef 17:43): „× LÖSCHEN“ wie Wegwerfen in Warnfarbe, gleich gross wie jeder Knopf, rechts unter „LADEN ›“
@@ -374,6 +384,48 @@ static func oben() -> MarginContainer:
 			(k as Control).size_flags_horizontal = Control.SIZE_SHRINK_CENTER)
 	return m
 
+# 630 (549a „Schirm“): ganzer Bildschirm rein schwarz, Seitenrand 24 dp, oben der Titel (22 sp Versalien gesperrt, Gold, mittig) in
+# derselben Hoehe wie jeder Schirm (OBEN_DP), genau eine Zierlinie, dann der Inhalt (rollt, wenn er nicht passt), eine schlichte Linie
+# und unten links „‹ ZURÜCK“. Gibt {seite, spalte, inhalt, rolle} zurueck; „‹ ZURÜCK“ und Android-Zurück schliessen ihn, dann [zurueck]
+static func schirm(eltern: Node, titel: String, zurueck: Callable, abstand_dp := 10.0) -> Dictionary:
+	var seite := Control.new()
+	seite.name = "Schirm"
+	seite.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	eltern.add_child(seite)
+	var zu := func(): seite.queue_free(); zurueck.call()
+	Zurueck.melde(seite, zu)   # 526
+	var bg := ColorRect.new()
+	bg.color = Color.BLACK
+	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	seite.add_child(bg)
+	var rand := MarginContainer.new()
+	rand.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	for s in ["left", "right"]: rand.add_theme_constant_override("margin_" + s, int(24 * DP))
+	rand.add_theme_constant_override("margin_top", int(OBEN_DP * DP)); rand.add_theme_constant_override("margin_bottom", int(12 * DP))
+	seite.add_child(rand)
+	var spalte := VBoxContainer.new()
+	spalte.name = "Spalte"
+	spalte.add_theme_constant_override("separation", int(10 * DP))
+	rand.add_child(spalte)
+	var t := Stil.zeile(titel.to_upper().replace("ß", "SS"), 22, Stil.GOLD, 3.0)
+	t.name = "Titel"
+	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	t.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	spalte.add_child(t)
+	spalte.add_child(zier())
+	var rolle := ScrollContainer.new()
+	rolle.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	rolle.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
+	spalte.add_child(rolle)
+	var inhalt := VBoxContainer.new()
+	inhalt.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	inhalt.add_theme_constant_override("separation", int(abstand_dp * DP))
+	rolle.add_child(inhalt)
+	spalte.add_child(linie())
+	spalte.add_child(knopfzeile(knopf("neben", Sprache.u("back"), zu, true), null))
+	folge_inhalt(spalte, rolle, inhalt)
+	return {"seite": seite, "spalte": spalte, "inhalt": inhalt, "rolle": rolle}
+
 static func frage(eltern: Control, titel: String, zeilen: Array, zeichen: String, wahl: String, farbe: Color, tat: Callable, an := true) -> ColorRect:
 	var de := Sprache.aktiv() == "de"
 	var schleier := Rueckfrage.schleier(eltern)
@@ -386,7 +438,7 @@ static func frage(eltern: Control, titel: String, zeilen: Array, zeichen: String
 	mitte.add_child(Rueckfrage.halte(v))
 	# Chef 16:51 (549a (8): „für jedes Fenster gleich“): oben der Titel, darunter genau eine Zierlinie mit Raute, keine Linie darueber
 	# und keine zweite schlichte darunter; dann Inhalt, schlichte Linie, Knoepfe
-	var t := Stil.zeile(titel.to_upper().replace("ß", "SS"), 15, Stil.GOLD, 3.0)
+	var t := Stil.zeile(titel.to_upper().replace("ß", "SS"), Stil.TITEL_SP, Stil.GOLD, 3.0)   # 586a: so gross wie die Titel der Schirme
 	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	t.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	v.add_child(t)
@@ -448,6 +500,7 @@ static func knopf(art: String, text: String, tat: Callable, links := false, an :
 	var p := tippbar(h, tat if an else func(): pass)
 	p.set_meta("knopf", art)
 	p.set_meta("links", links)
+	p.set_meta("an", an)   # 630: Tests erkennen gesperrte Knoepfe
 	return p
 
 # eine Reihe Knoepfe: [links] links, [rechts] rechts (null: frei), jeder die halbe Breite, damit alle Knoepfe eines Fensters gleich
@@ -500,7 +553,7 @@ static func nebenwahl(zeichen: String, text: String, tat: Callable, an := true) 
 	lz.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	lz.custom_minimum_size.y = 48 * DP
 	lz.alignment = BoxContainer.ALIGNMENT_CENTER
-	lz.add_child(Erschaffung.luecke(0, 8))
+	lz.add_child(Stil.luecke(0, 8))
 	var f := Stil.GOLD if an else Color(Stil.DIM, 0.6)
 	if zeichen != "":
 		var kr := Rastzeichen.neu(zeichen, 14, f)
@@ -509,7 +562,7 @@ static func nebenwahl(zeichen: String, text: String, tat: Callable, an := true) 
 	var lt := Stil.zeile(text.to_upper().replace("ß", "SS"), 12.5, f, 2.0)   # Helfer 14:18: „SCHLIEßEN“
 	lt.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	lz.add_child(lt)
-	lz.add_child(Erschaffung.luecke(0, 8))
+	lz.add_child(Stil.luecke(0, 8))
 	var p := tippbar(lz, tat if an else func(): pass)
 	p.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	return p
@@ -521,9 +574,9 @@ static func hauptwahl(text: String, tat: Callable, an := true) -> PanelContainer
 	h.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	h.custom_minimum_size.y = 48 * DP
 	h.alignment = BoxContainer.ALIGNMENT_CENTER
-	h.add_child(Erschaffung.luecke(0, 8))
+	h.add_child(Stil.luecke(0, 8))
 	h.add_child(wahl_b(text, Stil.BRIGHT if an else Color(Stil.DIM, 0.6)))
-	h.add_child(Erschaffung.luecke(0, 8))
+	h.add_child(Stil.luecke(0, 8))
 	var p := tippbar(h, tat if an else func(): pass)
 	p.size_flags_horizontal = Control.SIZE_SHRINK_END
 	return p

@@ -12,7 +12,7 @@ func _initialize() -> void:
 func _lauf() -> void:
 	Sprache.lade()
 	var z := Zustand.new()
-	var hw := Heldwerte.erschaffe("Mira", "HUMAN", "FIGHTER", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Mira", "Mensch", "Wachsoldat", z.neue_uid)
 	# Spielmenue: Meldung, dann gleich schliessen (Menue zu, Probekampf, Ortswechsel)
 	var m := Menue.new(hw, z)
 	root.add_child(m)

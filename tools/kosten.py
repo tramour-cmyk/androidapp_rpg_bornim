@@ -26,6 +26,8 @@ def sitzungen(pfad, offen):
     if c.get("has_more") or obj.get("has_more"): offen.append(pfad)
     return c.get("data", [c] if "id" in c else [])
 
+BEKANNTE_STATUS = {"working", "idle", "blocked", "need_input", "archived"}
+
 def kurzzeilen(t):
     """Kurzform statt Seiten-JSON (Ford kann Ausgaben nicht in Dateien umleiten, 167.2): je Sitzung eine Zeile
     `Kennung | Status | updated_at | Titel | Kosten $ [| created_at [| used_tokens]]`, Status working|idle|blocked|need_input|archived,
@@ -35,6 +37,9 @@ def kurzzeilen(t):
         f = [x.strip() for x in z.split("|")]
         if len(f) < 4 or not f[0].startswith("session_"): continue
         st = f[1].lower()
+        if st == "running": st = "working"  # 693.1: Rohwort der Schnittstelle (SESSION_STATUS_RUNNING) heißt hier working
+        if st not in BEKANNTE_STATUS:  # 693.1: unbekannt = Fehler, nie stillschweigend „ruhend“ (sonst startet lauf.py doppelt)
+            raise ValueError("Kurzzeile %s: unbekannter Status „%s“ (erlaubt: %s)" % (f[0], f[1], ", ".join(sorted(BEKANNTE_STATUS))))
         s = {"id": f[0], "title": f[3], "updated_at": f[2], "created_at": f[5] if len(f) > 5 and f[5] else f[2],
              "session_status": {"working": "SESSION_STATUS_RUNNING", "blocked": "SESSION_STATUS_RUNNING", "archived": "SESSION_STATUS_ARCHIVED"}.get(st, "SESSION_STATUS_IDLE"),
              "status_bucket": {"working": "WORKING", "blocked": "BLOCKED"}.get(st, "")}
@@ -90,5 +95,18 @@ def main():
     if offen: print("ACHTUNG: Seite abgeschnitten (has_more) in %s – Summen unvollständig, weitere Seite mit after_id holen." % ", ".join(offen))
     print("Hinweis: nur gelistete Sitzungen.")
 
+def selbsttest():
+    """693.1: Kerntest der Kurzzeile; Exit-Code 0 = ok."""
+    z = "session_x | %s | 2026-11-08T16:34:21Z | Tom – 492 | - | 2026-11-08T16:02:48Z | -"
+    for roh in ("running", "working"):
+        s = kurzzeilen(z % roh)[0]
+        assert s["session_status"] == "SESSION_STATUS_RUNNING" and s["status_bucket"] == "WORKING", roh
+    assert kurzzeilen(z % "idle")[0]["session_status"] == "SESSION_STATUS_IDLE"
+    try: kurzzeilen(z % "runing")
+    except ValueError: pass
+    else: raise AssertionError("unbekannter Status muss abbrechen")
+    print("kosten.py Selbsttest ok")
+
 if __name__ == "__main__":
-    main()
+    if sys.argv[1:] == ["--selbsttest"]: selbsttest()
+    else: main()

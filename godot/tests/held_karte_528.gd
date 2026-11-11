@@ -30,18 +30,18 @@ func _lauf() -> void:
 	var ebene := CanvasLayer.new()
 	root.add_child(ebene)
 
-	# 1. Hoechststufe am EP-Balken: auf Stufe 6 im Kapitel 1 ja, auf Stufe 2 nein
-	for stufe in [2, Geschichte.CHAPTER1_LEVEL_CAP]:
+	# 1. Hoechststufe am EP-Balken: auf der hoechsten Stufe des Kapitels ja (870.4: Grenze nach BRS mit weicher Grenze), auf Stufe 2 nein
+	for stufe in [2, Brs.hoechste_stufe()]:
 		var z := Zustand.new()
 		z.name = "Thora"
-		var hw := Heldwerte.erschaffe("Thora", "HUMAN", "FIGHTER", {}, z.neue_uid)
-		hw.ep_dazu(int(Heldwerte.regel("ep_fuer_stufe")[stufe]), Geschichte.stufendeckel(z))
+		var hw := BrsHeld.fuer_spiel("Thora", "Mensch", "Wachsoldat", z.neue_uid)
+		Testmodus.stufe_setzen(hw, z, stufe)
 		pruefe(hw.stufe == stufe, "Stufe %d nicht erreicht: %d" % [stufe, hw.stufe])
 		var m := Menue.new(hw, z)
 		ebene.add_child(m)
 		await process_frame
 		var s := finde(m, "Hoechststufe")
-		pruefe((s != null) == (stufe >= Geschichte.CHAPTER1_LEVEL_CAP), "Satz zur Hoechststufe auf Stufe %d: %s" % [stufe, "da" if s else "fehlt"])
+		pruefe((s != null) == (stufe >= Brs.hoechste_stufe()), "Satz zur Hoechststufe auf Stufe %d: %s" % [stufe, "da" if s else "fehlt"])
 		if s: pruefe((s as Label).text.begins_with("Höchststufe für Kapitel 1 erreicht."), "Wortlaut: %s" % (s as Label).text)
 		m.free()
 
@@ -63,7 +63,7 @@ func _lauf() -> void:
 	# 3. Karte vom Kartenzeichen: „Karte“ noch einmal schliesst
 	var z2 := Zustand.new()
 	z2.name = "Thora"
-	var hw2 := Heldwerte.erschaffe("Thora", "HUMAN", "FIGHTER", {}, z2.neue_uid)
+	var hw2 := BrsHeld.fuer_spiel("Thora", "Mensch", "Wachsoldat", z2.neue_uid)
 	var m2 := Menue.new(hw2, z2)
 	m2.reiter = "karte"; m2.karte_direkt = true
 	m2.ort = {"karte": "village", "x": 20, "y": 20, "blick": "DOWN"}

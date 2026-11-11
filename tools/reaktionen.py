@@ -9,7 +9,8 @@
 Zuordnung: meldung.sh schreibt die Telegram-Kennung jeder Meldung als fünfte Spalte in meldungen.tsv (Zweig „meldungen“).
 Eine Reaktion auf eine Meldung mit genau einem Vorgang ist eindeutig; mit mehreren steht „mehrdeutig“ dabei.
 Bedeutung (Chef 15:00): 👍 = gebilligt, passt; ✅ = erledigt. Den Archiveintrag mit Wortlaut „👍 (Telegram, HH:MM)“
-schreibt der Besitzer des Vorgangs; das Werkzeug schreibt nichts nach docs/.
+und „Nachricht <Kennung>“ schreibt der Absender der Meldung; bis dahin zeigt notiz.sh die Reaktion als offen,
+ohne Zeitgrenze (Sokrates 17:03: eine Anzeige allein trug 21 Minuten nichts ein). Das Werkzeug schreibt nichts nach docs/.
 Ohne TELEGRAM_BOT_TOKEN oder ohne Netz: still nichts (notiz.sh ruft es bei jedem Aufruf).
 """
 import datetime, json, os, subprocess, sys, tempfile, time, urllib.parse, urllib.request
@@ -29,10 +30,17 @@ def git(*a, eingabe=None, env=None):
                           env=dict(os.environ, **(env or {})))
 
 
-def zweig_lesen(zweig, datei):
-    if git("fetch", "-q", "origin", zweig).returncode: return None, ""
-    kopf = git("rev-parse", "FETCH_HEAD").stdout.strip()
-    return kopf, git("show", "FETCH_HEAD:" + datei).stdout
+def zweig_lesen(zweig, datei, streng=False):
+    """Eigene Referenz statt FETCH_HEAD: ein gleichzeitiger fetch (zweiter notiz.sh, Haken) überschreibt FETCH_HEAD,
+    dann las meldungen_je_kennung nichts und die Reaktion blieb ohne Zuordnung (658, 👍 16:42 auf 2980)."""
+    ref = "refs/bornim/" + zweig
+    if git("fetch", "-q", "origin", "+refs/heads/%s:%s" % (zweig, ref)).returncode:
+        if streng: raise RuntimeError("Zweig %s nicht geholt" % zweig)
+        return None, ""
+    kopf = git("rev-parse", ref).stdout.strip()
+    r = git("show", "%s:%s" % (ref, datei))
+    if streng and r.returncode: raise RuntimeError("%s fehlt in %s" % (datei, zweig))
+    return kopf, r.stdout
 
 
 def telegram(methode, **p):
@@ -43,8 +51,8 @@ def telegram(methode, **p):
     return d["result"]
 
 
-def meldungen_je_kennung():
-    _, roh = zweig_lesen("meldungen", "meldungen.tsv")
+def meldungen_je_kennung(streng=False):
+    _, roh = zweig_lesen("meldungen", "meldungen.tsv", streng)
     m = {}
     for l in roh.splitlines():
         t = l.split("\t")
@@ -95,18 +103,52 @@ def ablegen(neu):
     return False
 
 
+def archiv_text():
+    try:
+        with open(os.path.join(REPO, "docs", "VORGANGSARCHIV.md"), encoding="utf-8") as f: return f.read()
+    except OSError: return ""
+
+
 def zeigen(minuten):
+    """Zuordnung beim Zeigen aus meldungen.tsv (auch für früher ohne Zuordnung abgelegte Zeilen).
+    Offen bleibt ein 👍/✅ auf eine zugeordnete Meldung, bis ein Archiveintrag „Nachricht <Kennung>“ nennt, ohne Zeitgrenze."""
+    import re
     _, alt = zweig_lesen(ZWEIG, "reaktionen.tsv")
+    kennung = meldungen_je_kennung()
+    archiv = archiv_text()
     grenze = (datetime.datetime.now(BERLIN) - datetime.timedelta(minutes=minuten)).strftime("%Y-%m-%d %H:%M")
     zeilen = [l.split("\t") for l in alt.splitlines() if l]
-    zeilen = [z for z in zeilen if len(z) >= 8 and z[1] >= grenze]
-    if not zeilen: return
-    print("Telegram vom Chef (letzte %d Minuten; 👍 gebilligt, ✅ erledigt; Archiv schreibt der Besitzer, 658):" % minuten)
+    zeilen = [z for z in zeilen if len(z) >= 8]
+    letzte = {}
     for z in zeilen:
-        _, wann, art, inhalt, mid, nrn, name, mwann = z[:8]
-        bezug = ("Meldung %s %s zu %s%s" % (name, mwann[11:], nrn, " (mehrdeutig)" if "," in nrn else "")) if nrn else ("Nachricht %s, ohne Zuordnung" % mid if mid else "")
-        if art == "reaktion": print("  %s %s auf %s" % (wann[11:], inhalt, bezug))
-        else: print("  %s „%s“%s" % (wann[11:], inhalt, (" (Antwort auf " + bezug + ")") if bezug else ""))
+        if z[2] == "reaktion": letzte[z[4]] = z
+    offen = []
+    for mid, z in letzte.items():
+        if mid not in kennung or z[3] == "(zurückgenommen)": continue
+        if re.search(r"(Nachricht|Telegram)\s+%s\b" % re.escape(mid), archiv): continue
+        offen.append(z)
+    neu = [z for z in zeilen if z[1] >= grenze and z not in offen]
+    if not offen and not neu: return
+
+    def bezug(mid):
+        if mid in kennung:
+            mwann, nrn, name = kennung[mid]
+            return "Meldung %s %s zu %s%s" % (name, mwann[11:], nrn, " (mehrdeutig)" if "," in nrn else "")
+        return "Nachricht %s, ohne Zuordnung" % mid if mid else ""
+    if offen:
+        print("Telegram, offen (658; der Absender der Meldung trägt ins Vorgangsarchiv ein, mit „Nachricht <Kennung>“, dann ist es weg):")
+        for z in sorted(offen, key=lambda z: z[1]):
+            mwann, nrn, name = kennung[z[4]]
+            sinn = "erledigt" if "✅" in z[3] else "gebilligt" if "👍" in z[3] else "Reaktion"
+            tag = "%s.%s., %s" % (z[1][8:10], z[1][5:7], z[1][11:])
+            print("  → %s: %s %s %s = %s, Nachricht %s" % (name, tag, z[3], bezug(z[4]), sinn, z[4]))
+    if neu:
+        print("Telegram vom Chef (letzte %d Minuten; 👍 gebilligt, ✅ erledigt):" % minuten)
+        for z in neu:
+            if z[2] == "reaktion": print("  %s %s auf %s" % (z[1][11:], z[3], bezug(z[4])))
+            else:
+                b = bezug(z[4]) if z[4] else ""
+                print("  %s „%s“%s" % (z[1][11:], z[3], (" (Antwort auf " + b + ")") if b else ""))
 
 
 def main(a):
@@ -116,7 +158,7 @@ def main(a):
         try:
             ups = telegram("getUpdates", timeout=0, allowed_updates=json.dumps(["message", "message_reaction"]))
             if ups:
-                if ablegen(zeilen_aus(ups, meldungen_je_kennung())):
+                if ablegen(zeilen_aus(ups, meldungen_je_kennung(streng=True))):
                     telegram("getUpdates", timeout=0, offset=max(u["update_id"] for u in ups) + 1, limit=1)
         except Exception as e:
             if "--still" not in a: print("reaktionen: nicht geholt (%s)" % str(e)[:120], file=sys.stderr)

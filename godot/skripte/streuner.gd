@@ -22,12 +22,22 @@ const LAUERER := ["giant_spider", "giant_bat", "ochre_jelly"]
 ## Geschichte (geschichte.gd fight, spiel.gd „kampf“ fragt GRUPPE)
 static var GRUPPE := {"wolf": "RUDEL", "giant_rat": "RATTE", "goblin": "GOBLINS", "goblin_archer": "SCOUTS", "kobold": "KOBOLDS",
 	"goblin_shaman": "SHAMANS", "giant_bat": "FLEDERMAUS", "giant_spider": "SPINNE", "dire_wolf": "GRIMM",   # 491: Grimmzahn mit Leibwache (Packs.guard)
-	"boar": "BOARS", "giant_centipede": "CENTIPEDES", "stirge": "LEECHES", "ochre_jelly": "SLUGS", "bugbear": "KROGG", "hobgoblin_captain": "GRAK"}
+	"boar": "BOARS", "giant_centipede": "CENTIPEDES", "stirge": "LEECHES", "ochre_jelly": "SLUGS", "bugbear": "KROGG", "hobgoblin_captain": "GRAK",
+	# 506: die Untoten der Nacht und der Höhle (Story.kt night, Höhle), je allein; Wiedergänger statt Zombie, Grabhund statt Ghul
+	"skeleton": "SKELETT", "zombie": "WIEDERGAENGER", "ghoul": "GRABHUND"}
 const PACE := 1.6                 # Terrain.PACE
 const FLED_CALM_MS := 12000       # Game.FLED_CALM_MS
 const WIEDER_SCHRITTE := 60       # endBattle: kommt nach einem guten Weg wieder
 const RUN_NOISE := 2              # Stamina.RUN_NOISE
 const SPARK_NOTICE := 2           # Light.SPARK_NOTICE
+## 560 (Chef 04.11., 16:22: „wenn sich die Monster … alles zum Held drehen … nicht wieder so auf der Scheibe drehen, sondern gerne mit
+## Bewegung drehen“): Wenden mit fester Rate wie die Leute (leute.gd DREH_ZU, 416.8), nicht weich in einem Augenblick; wer im Stehen
+## wendet, tritt dabei (Gehen auf der Stelle, langsamer); eine weite Wende kommt vor dem Schritt (alt Roamers.step TURN_FREE)
+const DREH := 2.5                 # rad/s, 180 Grad in 1,3 s (leute.gd DREH_ZU)
+const DREH_JAGD := 5.0            # rad/s, wer jagt oder flieht, kommt schneller herum (leute.gd: rennend doppelt)
+const DREH_FREI := PI / 4.0       # Roamers.TURN_FREE 45 Grad: so weit wendet es im Gehen, darueber erst auf der Stelle
+const DREH_TRITT := 0.12          # rad: ab dieser Abweichung tritt es beim Wenden
+const TRITT_TEMPO := 0.6          # Gehen beim Wenden auf der Stelle, Anteil des Tempos
 
 # ---------------------------------------------------------------- Daten eines Monsters (bleiben je Karte, solange das Spiel laeuft)
 var art := ""
@@ -129,15 +139,27 @@ class Stub:
 	func facing(_foe: bool) -> Vector3: return Vector3(0, 0, 1)
 	func m_per_dp(_q: Vector3) -> float: return 0.0
 
-## Lage zwischen von und kachel (gleitet in schritt_ms), Blick weich
+## 560: wie lange es vor einem Schritt in Richtung d erst auf der Stelle wendet (ms; Roamers.step: Wende ueber TURN_FREE)
+func wende_ms(d: Vector2i) -> int:
+	var w := absf(angle_difference(gedreht, atan2(float(d.x), float(d.y))))
+	return int((w - DREH_FREI) / (DREH_JAGD if jagt else DREH) * 1000.0) if w > DREH_FREI else 0
+
+## Lage zwischen von und kachel (gleitet in schritt_ms); Blick mit fester Rate, im Stehen mit Tritten (560)
 func zeichne(jetzt: int, dt: float) -> void:
 	var t := clampf(float(jetzt - bewegt_ms) / maxf(1.0, float(schritt_ms)), 0.0, 1.0)
 	position = karte.kachel_pos(von).lerp(karte.kachel_pos(kachel), t)
 	var ziel := atan2(float(blick.x), float(blick.y))
-	gedreht = lerp_angle(gedreht, ziel, minf(1.0, dt * 8.0))
+	var rest := absf(angle_difference(gedreht, ziel))
+	gedreht = Leute.drehe(gedreht, ziel, (DREH_JAGD if jagt else DREH) * dt)
 	rotation.y = gedreht
 	ausruf.visible = jetzt < alarm_bis
 	if figur and figur.anim:
+		# auf der Stelle: steht (t = 1) oder wendet vor dem Schritt (bewegt_ms liegt noch vorn)
+		var tritt := (t >= 1.0 or jetzt < bewegt_ms) and rest > DREH_TRITT
+		if tritt and figur.weg.has("Gehen"):
+			if figur.anim.current_animation != "Gehen": figur._play("Gehen", 0.2)
+			figur.anim.speed_scale = TRITT_TEMPO
+			return
 		var soll := "Gehen" if t < 1.0 else "Stehen"
 		if figur.anim.current_animation != soll and not (soll == "Stehen" and figur.anim.current_animation in ["Lefzen", "Scharren", "ScharrenR"]):
 			figur._play(soll, 0.2)

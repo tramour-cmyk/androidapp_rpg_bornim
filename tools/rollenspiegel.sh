@@ -34,8 +34,14 @@ def eigene(block):
     m = re.search(r"(?ms)^### " + re.escape(rolle) + r"\b.*?(?=^### |\Z)", block)
     return m.group(0).rstrip() if m else None
 jetzt = datetime.datetime.now(zoneinfo.ZoneInfo("Europe/Berlin"))
-freitag = (jetzt + datetime.timedelta(days=4 - jetzt.weekday())).strftime("%d.%m.")
+freitag_d = (jetzt + datetime.timedelta(days=4 - jetzt.weekday())).date()
+freitag = freitag_d.strftime("%d.%m.")
 kopfzeile = "## Woche " + freitag
+# 721, D93.1: eine Antwort Mo–Do ist immer das Nachholen des vergangenen Freitags (Termin ist freitags); steht dort schon eine,
+# ist nichts fällig. Früher landete sie unter dem kommenden Freitag und verdeckte dessen Ausfall.
+naechster = freitag
+if jetzt.weekday() < 4:
+    kopfzeile = "## Woche " + (freitag_d - datetime.timedelta(days=7)).strftime("%d.%m.")
 
 if antwort is None:
     fragen = re.search(r"(?ms)^## Fragen\n.*?(?=^## )", kopf)
@@ -59,7 +65,7 @@ neu = re.sub(r"(?m)^#+ .*\n?", "", neu).strip()
 abschnitt = "### %s (%s%s)\n\n%s\n" % (rolle, jetzt.strftime("%d.%m., %H:%M"), ", Sitzung „%s“" % sitzung if sitzung else "", neu)
 for n, w in enumerate(wochen):
     if w.startswith(kopfzeile):
-        if eigene(w): sys.exit("Für die %s steht schon eine Antwort von %s; nichts geändert." % (kopfzeile[3:], rolle))
+        if eigene(w): sys.exit("Für die %s steht schon eine Antwort von %s; nichts geändert, der nächste Rollenspiegel ist am Fr %s" % (kopfzeile[3:], rolle, naechster))
         wochen[n] = w.rstrip() + "\n\n" + abschnitt + ("\n" if n < len(wochen) - 1 else "")
         break
 else:

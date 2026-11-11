@@ -34,7 +34,7 @@ func _lauf() -> void:
 	Sprache.lade()
 	if Sprache.aktiv() != "de": Sprache.wechsle()
 	var z := Zustand.new()
-	var hw := Heldwerte.erschaffe("Mira", "HUMAN", "FIGHTER", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Mira", "Mensch", "Wachsoldat", z.neue_uid)
 	var m := Menue.new(hw, z)
 	root.add_child(m)
 	Testmodus.an = true; Testmodus.geladen = true
@@ -154,14 +154,16 @@ func _mars() -> void:
 		if mars.current() != hero: continue
 		mars.act(["attack", "w1"])
 		for e in heard:
-			if e.actor == "hero" and e.roll != null and e.roll[0] == "ATTACK":
+			if e.actor == "hero" and Mars.ist_angriff(e.roll) and bool(e.roll[4]):     # 870.5: jeder Treffer kritisch
 				wuerfe += 1
-				if int(e.roll[1]) != 1 and not bool(e.roll[4]): fehl += 1
+				if not Mars.ist_krit(e.roll): fehl += 1
 		# keine Rettung: ein Zauber mit Rettungswurf trifft den Wolf immer voll
 		var t: Mars.Fighter = fe[1]
 		var vor := t.hp
-		for i in 10: mars._save_spell(hero, t, 1, false)
-		pruefe("Gegner ohne Rettung", t.hp == vor - 10, "%d -> %d" % [vor, t.hp])
+		var trifft := [0]
+		mars.listener = func(e): if e.actor == "hero" and Mars.ist_angriff(e.roll) and e.roll[4]: trifft[0] += 1
+		for i in 10: mars._brs_zauber(hero, t, Mars.BrsKampf.w()["zauber"]["Funkenpfeil"])     # 870.5: Zauber trifft immer
+		pruefe("Gegner ohne Rettung", trifft[0] == 10, "%d von 10" % trifft[0])
 		# unsterblich: der Held bleibt auf 1
 		mars._hurt(hero, 99999, "w1", "x")
 		pruefe("Held unsterblich", hero.hp == 1, str(hero.hp))

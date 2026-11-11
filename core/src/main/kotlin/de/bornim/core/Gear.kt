@@ -389,6 +389,12 @@ object Uniques {
             listOf(Roll(Affix.DEX, 1), Roll(Affix.BLEED_HIT, 15), Roll(Affix.HP, 6))),
         "cloak_protection" to Unique(T("Umhang des Schutzes", "Cloak of Protection"), "cloak", Rarity.RARE, 0,
             listOf(Roll(Affix.AC, 1), Roll(Affix.RESIST, 1))),
+        // 356.2 (356 b, Chef 24.10., 21:33: „übliche Werte“): Lohn der Aufträge, ungewöhnlich, ein Wert wie ein gezogenes Stück
+        // (Loot.value bei Stufe 1 bis 4); Namen [356.pelzumhang], [356.hauerdolch]
+        "cloak_thessa" to Unique(T("Thessas Pelzumhang", "Thessa's Fur Cloak"), "cloak", Rarity.UNCOMMON, 0,
+            listOf(Roll(Affix.RESIST, 1))),
+        "dagger_borin" to Unique(T("Borins Hauerdolch", "Borin's Tusk Dagger"), "dagger", Rarity.UNCOMMON, 0,
+            listOf(Roll(Affix.BLEED_HIT, 10))),
     )
 
     fun name(id: String): T = all[id]?.name ?: T(id, id)

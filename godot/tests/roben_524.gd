@@ -21,7 +21,7 @@ func _lauf() -> void:
 	Sprache.lade()
 	Sprache.setze("de")
 	var z := Zustand.new()
-	var hw := Heldwerte.erschaffe("Probe", "HUMAN", "WIZARD", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Probe", "Mensch", "Zauberlehrling", z.neue_uid)
 	var schatten := z.ausruestung_dazu({"uid": 0, "base": "robe", "rarity": "EPIC", "ilvl": 1, "plus": 2, "rolls": [["DEX", 2], ["AC", 2], ["RESIST", 2], ["STR", 2]], "unique": null, "name_seed": 3})
 	hw.anlegen(schatten)
 	z.beutel.erase(schatten)
@@ -29,7 +29,7 @@ func _lauf() -> void:
 	var v := Vergleich.von(hw, anker)
 	var worte := v.zeilen.map(func(r): return String(r["wort"]))
 	print("Vergleich: ", v.zeilen)
-	for w in ["Rüstungsklasse", "Geschicklichkeit", "Stärke", "Schadensreduktion", "Standhaftigkeit"]:
+	for w in ["Gewandtheit", "Kraft", "Schadensreduktion", "Standhaftigkeit"]:   # 683: Wörter nach BRS; 870.4: Schutzwert nach BRS ohne Zusatzeigenschaft (870.6)
 		pruefe(w in worte, "Vergleich nennt %s (%s)" % [w, worte])
 	pruefe(v.urteil() == 0, "Urteil gemischt (%s): %s" % [v.urteil(), v.satz()])
 	var m := Menue.new(hw, z)
@@ -62,10 +62,10 @@ func _lauf() -> void:
 		pruefe(rest.any(func(s): return s.contains("Standhaftigkeit")), "Wechselschirm: Zeile mit Wert (%s)" % [rest])
 	# 523: Klang beim Benutzen wie alt (Trank „potion“, nichts bei vollem Helden)
 	z.dazu("potion", 2)
-	hw.tp = hw.max_tp()
+	hw.leben = hw.max_leben()
 	m.benutze_mit_klang("potion", "POTION")
 	pruefe(m.letzter_klang == "" and z.anzahl("potion") == 2, "voller Held: kein Trank weg, kein Klang")
-	hw.tp = 1
+	hw.leben = 1
 	m.benutze_mit_klang("potion", "POTION")
 	pruefe(m.letzter_klang == "potion" and z.anzahl("potion") == 1, "Trank getrunken mit Klang „potion“ (%s)" % m.letzter_klang)
 	print("ROBEN524 %d Fehler" % fehler)

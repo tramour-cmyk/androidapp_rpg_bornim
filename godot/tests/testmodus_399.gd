@@ -53,7 +53,7 @@ func _lauf() -> void:
 	hm.queue_free()
 	# Menue mit Reiter Test
 	var z := Zustand.new()
-	var hw := Heldwerte.erschaffe("Mira", "HUMAN", "FIGHTER", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Mira", "Mensch", "Wachsoldat", z.neue_uid)
 	var m := Menue.new(hw, z)
 	root.add_child(m)
 	await process_frame
@@ -66,7 +66,7 @@ func _lauf() -> void:
 	await druecke(m, "+5")
 	pruefe("Stufe +5", hw.stufe, 6)
 	await druecke(m, "−1")
-	pruefe("Stufe −1", [hw.stufe, hw.tp == hw.max_tp()], [5, true])
+	pruefe("Stufe −1", [hw.stufe, hw.leben == hw.max_leben()], [5, true])
 	await druecke(m, "Gold")
 	pruefe("Gold", z.gold, 1000)
 	await druecke(m, "Vorräte")
@@ -87,12 +87,12 @@ func _lauf() -> void:
 	await druecke(m, "Kapitelende")
 	await druecke(m, "Tag / Nacht")   # 500: statt des Probeknopfs rechts in der Welt
 	await druecke(m, "Wolfsrudel")
-	await druecke(m, "Kämpfer")
+	await druecke(m, ErschaffungBrs.herkunft_name("Wachsoldat"))   # 870.4: Probehelden nach Herkunft
 	pruefe("an die Welt", taten.map(func(x): return x[0]), ["teleport", "kapitelende", "nacht", "kampf", "probe"])
-	pruefe("Probe", taten[-1][1] if taten.size() == 5 else [], ["GRAK", "FIGHTER", 3])
+	pruefe("Probe", taten[-1][1] if taten.size() == 5 else [], ["GRAK", "Wachsoldat", 3])
 	pruefe("vor Aldric", Testmodus.vor_aldric().size(), 2)
-	var ph := Testmodus.probeheld("WIZARD", 5)
-	pruefe("Probeheld", [ph.stufe, ph.tp == ph.max_tp(), ph.zp == ph.max_zp()], [5, true, true])
+	var ph := Testmodus.probeheld("Zauberlehrling", 5)
+	pruefe("Probeheld", [ph.stufe, ph.leben == ph.max_leben(), ph.mana == ph.max_mana(), ph.herkunft], [5, true, true, "Zauberlehrling"])
 	m.queue_free()
 	# aus: kein Reiter Test
 	Testmodus.umschalten()

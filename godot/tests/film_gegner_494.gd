@@ -16,6 +16,8 @@ const DAUER_MS := 18000
 
 var mess := OS.get_environment("MESS") != ""
 var bilder := OS.get_environment("BILDER")
+## 506 (Tom): derselbe Film für einen anderen Vorgang (NR=506 GEGNER=SKELETONS): Nummer in der Überschrift und im Bildnamen
+var nr := OS.get_environment("NR") if OS.get_environment("NR") != "" else "494"
 var schwarz: ColorRect
 var lb: Label
 var lz: Label
@@ -111,16 +113,24 @@ func _gegner(g: String) -> void:
 		# und Länge des Tiers statt fest 1,2 m
 		var rand: float = 1.2 * maxf(1.0, nah._scale()) + 0.5 * float(nah.mass.get("laenge_m", 0.0)) * nah._scale()
 		_auf(cam, kf, [nah], von, hfov, rand)
+	# 506 (Helfer 08.11., 12:55, G1: im Nahbild ein zweites Skelett angeschnitten): im Nahbild nur der eine Gegner, die übrigen
+	# Figuren erst zum Kampf wieder sichtbar
+	var verborgen := []
+	for id in kf.figures:
+		var f = kf.figures[id]
+		if f != nah and f.visible:
+			f.visible = false
+			verborgen.append(f)
 	cam.make_current()
 	await process_frame
 	if not mess and not Signatur.wache(kf, self, "Film 494 " + g):
 		return
 	if lb:
-		lb.text = "494 · " + String(Probe.FOES[g])
+		lb.text = nr + " · " + String(Probe.FOES[g])
 		lz.text = "Ruhe, von nah"
 	await _blende(0.0)
 	if bilder != "":
-		await _knips(bilder + "/494-%s-nah.png" % g)
+		await _knips(bilder + "/%s-%s-nah.png" % [nr, g])
 		if lb:
 			lb.text = ""
 			lz.text = ""
@@ -129,9 +139,11 @@ func _gegner(g: String) -> void:
 		if kf.ui != null:
 			kf.ui.visible = true
 	await create_timer(4.0 if bilder == "" else 0.5).timeout
+	for f in verborgen:
+		f.visible = true
 	# Teil 2: Kampf auf Autopilot, Echtzeit
-	if lz:
-		lz.text = "Kampf gegen Kämpfer und Kleriker · Autopilot, Echtzeit"
+	if lz:     # 506 (Helfer: Zeile verkehrt herum): die Helden kämpfen gegen den Gegner, nicht umgekehrt
+		lz.text = "Kämpfer und Kleriker gegen %s · Autopilot, Echtzeit" % String(Probe.FOES[g])
 	kf.mars.find("merc").auto = true
 	kf.mars.set_autopilot(true)
 	if not kf.busy:
@@ -150,7 +162,7 @@ func _gegner(g: String) -> void:
 			_auf(cam, kf, stehen, von, hfov, 1.6, 0.05)
 	print("Film 494 %s: Kampf %s nach %.1f s" % [g, kf.mars.outcome, n / 30.0])
 	if bilder != "":
-		await _knips(bilder + "/494-%s-spiel.png" % g)
+		await _knips(bilder + "/%s-%s-spiel.png" % [nr, g])
 	await create_timer(1.5).timeout
 	await _blende(1.0)
 	kf.queue_free()

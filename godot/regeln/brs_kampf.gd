@@ -4,29 +4,23 @@ extends RefCounted
 # Abschnitt 7 und Entwurf A), mit denselben Formeln und Zahlen wie die Simulation 444 (tools/sim444/sim.py, daten/werte.json über
 # regeln/brs.gd). Hier stehen nur die Brücken: was ein Kämpfer nach dem BRS ist (Grundwerte, Fertigkeiten, Waffe, Rüstung, Schild,
 # Stufe) und ein Schlag mit allen Einzelheiten für Bericht, Bild und Zustände.
-# Schalter (bis der Chef den Kampf nach BRS abgenommen hat): BRS478=1 in der Umgebung oder an() = true (Testmenü, Tests).
+# Seit 870.5 ohne Schalter: der SRD-Zweig der Angriffe in mars.gd ist weg.
 # Annahmen (A), bis 2.3 und die Pfade sie ersetzen: ohne Spielstand nach BRS (Probekampf, Söldner) gilt die Herkunft der alten Klasse
-# mit ihren Startfertigkeiten; Waffen und Rüstungen der Heldwerte zählen nach ihrer Gruppe; was noch in Würfeln des SRD rechnet
+# mit ihren Startfertigkeiten; Waffen und Rüstungen des Helden (BrsHeld) zählen nach ihrer Gruppe; was noch in Würfeln des SRD rechnet
 # (Fähigkeiten der Klassen, Zauber mit Rettungswurf, Heilung, Tränke, Zustände), wird mit dem Verhältnis der Leben nach BRS zu SRD
 # des Getroffenen umgerechnet (massstab), so bleibt ihr Gewicht im Kampf, wie es war.
 
 const Brs = preload("res://regeln/brs.gd")
 const BrsHeldS = preload("res://regeln/brs_held.gd")
 
-static var schalter := OS.get_environment("BRS478") == "1"
-
+## 870.5 (LISTE-UMZUG-BRS.md Schritt 5): gekämpft wird nur nach dem BRS; ohne daten/werte.json kein Kampf
 static func an() -> bool:
-	return schalter and not Brs.lade().is_empty()
+	return not Brs.lade().is_empty()
 
 ## Herkunft für eine alte Klasse (BrsHeld.KLASSE_ALT umgekehrt, je Klasse die erste)
 const KLASSE_HERKUNFT := {"FIGHTER": "Wachsoldat", "CLERIC": "Klosterschüler", "ROGUE": "Jägerkind", "WIZARD": "Zauberlehrling"}
-## Waffe der Heldwerte (Grundform) -> Waffengruppe des BRS (werte.json „waffen“); unbewaffnet Faustkampf
-const WAFFE := {"": "Faustkampf", "dagger": "Dolche", "shortsword": "Einhänder", "scimitar": "Einhänder", "handaxe": "Einhänder",
-	"longsword": "Einhänder", "battleaxe": "Einhänder", "rapier": "Einhänder", "mace": "Stumpfe Waffen", "quarterstaff": "Stumpfe Waffen",
-	"warhammer": "Stumpfe Waffen", "morningstar": "Stumpfe Waffen", "wand": "Stumpfe Waffen", "staff": "Stumpfe Waffen",
-	"spear": "Stangenwaffen", "halberd": "Stangenwaffen", "greatsword": "Zweihänder", "greataxe": "Zweihänder", "maul": "Zweihänder",
-	"shortbow": "Bogen", "longbow": "Bogen", "light_crossbow": "Armbrust"}
-## Gewicht der Brustrüstung (Heldwerte „gewicht“) -> Rüstung des BRS
+## Waffe des Helden (Grundform) -> Waffengruppe: BrsHeld.WAFFE_GRUPPE (870.2)
+## Gewicht der Brustrüstung (held.json „gewicht“) -> Rüstung des BRS
 const RUESTUNG := {"LIGHT": "Leichte Rüstung", "MEDIUM": "Mittlere Rüstung", "HEAVY": "Schwere Rüstung"}
 ## alte Zauber -> Zauber des BRS (werte.json „zauber“), Grundschaden im Verhältnis zum Feuerpfeil (1W10)
 const ZAUBER_ANGRIFF := ["FIRE_BOLT", "SCORCHING_RAY"]
@@ -55,6 +49,8 @@ static func mittel(expr) -> float:
 ## aus dem Spielstand (BrsHeld.als_daten, zustand.brs) oder leer.
 static func held(sheet: Dictionary, daten := {}) -> Dictionary:
 	var W := w()
+	if sheet.get("brs") is Dictionary and not (sheet.brs as Dictionary).is_empty():
+		return aus_blatt(sheet.brs)
 	var h: Dictionary = W["held"]
 	var herkunft: String = KLASSE_HERKUNFT.get(String(sheet.get("cls", "")), "Wanderer")
 	var werte := {}
@@ -86,31 +82,41 @@ static func held(sheet: Dictionary, daten := {}) -> Dictionary:
 		"schild": schild, "zauber": zauber}
 
 
+## 870.2: der Kämpfer aus BrsHeld.kampfblatt() (Schritt 2 des Umzugs), ohne Umweg über die Klasse
+static func aus_blatt(k: Dictionary) -> Dictionary:
+	return {"stufe": int(k.get("stufe", 1)), "werte": (k.get("werte", {}) as Dictionary).duplicate(), "fert": (k.get("fert", {}) as Dictionary).duplicate(),
+		"herkunft": String(k.get("herkunft", "Wanderer")), "ruestung": String(k.get("ruestung", {}).get("art", "keine")),
+		"schild": not (k.get("schild", {}) as Dictionary).is_empty(), "zauber": (k.get("faehigkeiten", []) as Array).filter(func(z): return w()["zauber"].has(z)),
+		"waffe": String(k.get("waffe", {}).get("gruppe", "")), "leben": int(k.get("leben", 0)), "volk": String(k.get("volk", ""))}
+
+
+## 870.2: Waffengruppe, mit der der Held schlägt: die Hauptwaffe aus dem Blatt, eine gezogene Zweitwaffe ([zweite]) nach ihrer Grundform
+static func waffe_held(b: Dictionary, wsheet, zweite := false) -> String:
+	if not zweite and String(b.get("waffe", "")) != "":
+		return String(b.waffe)
+	return waffe_von(wsheet)
+
+
 static func leben_held(b: Dictionary) -> int:
+	if int(b.get("leben", 0)) > 0:     # 870.2: aus dem Kampfblatt
+		return int(b.leben)
 	var h: Dictionary = w()["held"]
 	return int(h["leben_basis"]) + int(h["leben_je_stufe"]) * int(b.stufe) + int(h["leben_je_zaehigkeit"]) * int(b.werte.get("zaehigkeit", 0))
 
 
 static func waffe_von(wsheet) -> String:
 	var id: String = String(wsheet.get("id", "")) if wsheet is Dictionary else ""
-	return WAFFE.get(id, "Einhänder" if not (wsheet is Dictionary and bool(wsheet.get("ranged", false))) else "Bogen")
+	return BrsHeldS.WAFFE_GRUPPE.get(id, "Einhänder" if not (wsheet is Dictionary and bool(wsheet.get("ranged", false))) else "Bogen")
 
 
-## Werte eines Gegners nach dem Bestiarium „Werte 2.0“ (brs.gd monster). Abgeleitete Tiere ohne eigene Zeile (Jungwolf, Leibwache,
-## Gruppen mit fremdem Körper) nehmen die Zeile ihrer Art und tragen ihre Abweichung vom SRD-Eintrag der Art mit: Angriff je Punkt
-## auf den W20 10 Punkte, Schaden im Verhältnis der Mittel, Leben mit hp_share (Jungwolf 0,5). [m]: der Eintrag des Kämpfers,
-## [art]: der SRD-Eintrag der Art (tabellen.json) oder leer.
-static func gegner(m: Dictionary, art: Dictionary) -> Dictionary:
+## Werte eines Gegners nach dem Bestiarium „Werte 2.0“ (brs.gd monster), einzige Quelle daten/werte.json (870.3). Begleiter eines
+## Anführers (Jungwolf, Leibwache; [m] trägt „rudel“ und „anfuehrer“, aufruf.gd) nehmen Stufe, Abwehr und Rüstung ihres Körpers
+## (werte.json „merkmale“ „rudel“ „koerper“), den Angriff des Anführers plus Verschiebung, seinen Schaden mal Anteil und die Leben
+## ihres Körpers mal Anteil. [art] bleibt für die Aufrufer.
+static func gegner(m: Dictionary, art := {}) -> Dictionary:
+	if m.has("rudel"):
+		return Brs.begleiter(String(m.rudel), String(m.get("anfuehrer", "")))
 	var b := Brs.monster(String(m.get("id", ""))).duplicate()
-	if b.is_empty():
-		return {}
-	if not art.is_empty() and art != m:
-		b.angriff = float(b.angriff) + 10.0 * (float(m.get("atk", art.get("atk", 0))) - float(art.get("atk", 0)))
-		var ma := mittel(art.get("dmg"))
-		if ma > 0.0:
-			b.schaden = float(b.schaden) * mittel(m.get("dmg", art.get("dmg"))) / ma
-	if m.has("chance") and m.has("scale"):     # 399.2a Jungwolf (aufruf.gd JUNGWOLF hp_share)
-		b.leben = maxi(1, Brs.runde(float(b.leben) * 0.5))
 	return b
 
 

@@ -6,7 +6,7 @@ Aufruf: python3 tools/tagesbericht.py [--probe]   (--probe: nur ausgeben, nichts
 Telegram mit Ton: python3 tools/tagesbericht.py --telegram gibt die Meldung aus.
 Quellen: PROJEKTPLAN.md (Punkte; „· Stand: in Arbeit|gebaut“ am Zeilenende, [x] = abgenommen), LISTE-VORGAENGE.md und -ARCHIV.md
 (Git-Stand vor 24 h und 7 Tagen), startbar.py --stand, chefsache/README.md, Zeile „Guthaben:“ in ARBEIT-BETRIEB.md."""
-import collections, datetime, os, re, subprocess, sys, zoneinfo
+import collections, datetime, json, os, re, subprocess, sys, zoneinfo
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOCS = os.path.join(ROOT, "docs")
@@ -108,7 +108,44 @@ def rechnen():
     rollen, test = stand_rollen()
     erl_rolle = lambda ns, r: sum(1 for n in ns if r in jetzt[n]["vorrat"])
     return dict(jetzt=jetzt, e1=e1, e7=e7, s1=spiel(e1), s7=spiel(e7), neu1=neu1, neu7=neu7, kost=kost, punkte=p_heute, seit=seit,
-                rollen=rollen, test=test, erl_rolle=erl_rolle, chef=chefsache(), ein=eingaben())
+                rollen=rollen, test=test, erl_rolle=erl_rolle, chef=chefsache(), ein=eingaben(), rot=rote_laeufe())
+
+NICHT_BAU = {"zug-index", "release-notes", "webseite", "vorschau"}  # Abläufe ohne Bau (Notizen, Seiten)
+
+def rote_laeufe():
+    """749 (D95.2, zu 464): abgeschlossene CI-Läufe der letzten 24 h und 7 Tage (ohne abgebrochene), rot je Team aus dem
+    Zweignamen; öffentliche API ohne Anmeldung. Netz weg: None."""
+    import urllib.request
+    jetzt = datetime.datetime.now(datetime.timezone.utc)
+    seit = (jetzt - datetime.timedelta(days=7)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    laeufe = []
+    basis = "https://api.github.com/repos/tramour-cmyk/androidapp_rpg_bornim/actions/"
+    holen = lambda u: json.load(urllib.request.urlopen(urllib.request.Request(basis + u, headers={"Accept": "application/vnd.github+json"}), timeout=10))
+    try:
+        ablaeufe = [w["path"].rsplit("/", 1)[-1] for w in holen("workflows?per_page=100").get("workflows", [])]
+        for datei in ablaeufe:
+            if datei.split(".")[0] in NICHT_BAU: continue
+            for seite in range(1, 11):
+                teil = holen("workflows/%s/runs?status=completed&per_page=100&page=%d&created=%%3E%%3D%s" % (datei, seite, seit)).get("workflow_runs") or []
+                laeufe += teil
+                if len(teil) < 100: break
+    except Exception:
+        return None
+    grenze = (jetzt - datetime.timedelta(hours=24)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    erg = {}
+    for name, ls in (("24h", [l for l in laeufe if l.get("created_at", "") >= grenze]), ("7d", laeufe)):
+        gezaehlt = [l for l in ls if l.get("conclusion") in ("success", "failure")]
+        rot = [l for l in gezaehlt if l["conclusion"] == "failure"]
+        team = collections.Counter(next((t for v, t in (("tom", "tom"), ("spike", "tom"), ("jerry", "jerry"), ("tuffy", "jerry"), ("build", "build"))
+                                         if (l.get("head_branch") or "").startswith("claude/" + v)), "sonst") for l in rot)  # 777: spike → Tom, tuffy → Jerry
+        erg[name] = (len(rot), len(gezaehlt), team)
+    return erg
+
+def rot_text(r):
+    if not r: return "rote Läufe unbekannt (Netz)"
+    n, g, t = r["24h"]; n7, g7, _ = r["7d"]
+    teams = ", ".join("%s %d" % (k.capitalize(), t[k]) for k in ("tom", "jerry", "build", "sonst") if t[k])
+    return "rote Läufe 24 h **%d von %d**%s, 7 Tage %d von %d" % (n, g, " (%s)" % teams if teams else "", n7, g7)
 
 def zeilen(d):
     p = d["punkte"]; z = collections.Counter(p.values())
@@ -131,11 +168,12 @@ def zeilen(d):
          "Vorgänge erledigt 24 h / 7 Tage: %d / %d, davon Spiel (Entwicklung, Gestaltung, Texte, Design) %d / %d; neu %d / %d" % (len(d["e1"]), len(d["e7"]), d["s1"], d["s7"], d["neu1"], d["neu7"])),
         ("Rest geschätzt", ein.get("Rest geschätzt", "noch keine Schätzung"), "Sitzungen bis zur nächsten Stufe, Tom und Jerry, montags neu"),
         ("Wartet auf dich", warte or "nichts", "ältestes: %s; [Chefsache](chefsache/README.md)" % aeltest),
-        ("Builds", "Änderungen warten auf deinen Test: **%d** (Tom %d, Jerry %d)" % (t1 + t2, t1, t2),
+        ("Builds", "Änderungen warten auf deinen Test: **%d** (Tom %d, Jerry %d); %s" % (t1 + t2, t1, t2, rot_text(d.get("rot"))),
          "bei dir zum Testen: %s; ein Build nimmt alle fertigen Zweige (317)" % (", ".join(re.findall(r"\[(Build \d+)\]", lesen("chefsache/README.md"))) or "kein Build")),
         ("Fehler", fehler(d["jetzt"]), "offene Vorgänge des Spiels mit Fehler oder Befund im Titel, dazu jeder mit Build-Nummer (D55.3)"),
         ("Geld", ("Woche **%s %%** (dein Bild %s, %s)" % (gut.group(3), gut.group(1), gut.group(2)) if gut else "Woche unbekannt") +
-         "; gestern %d $ Rechenwert, Spiel %d %%" % (ks, 100 * k["Spiel"] / ks if ks else 0), "Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal)"),
+         "; gestern %d $ Rechenwert, Spiel %d %%" % (ks, 100 * k["Spiel"] / ks if ks else 0) +
+         ("" if gut and gut.group(1) == JETZT.strftime("%d.%m.") else "; **Bitte Bild der Nutzung** (Woche %; ruht die Niederlassung: nur Max; 783 W7)"), "Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal)"),
         ("Von dir zuerst gefunden", ein.get("Von dir zuerst gefunden", "–"), "Woche, zählt Diogenes montags"),
         ("Größtes Risiko", ein.get("Größtes Risiko", "–"), ""),
         ("Ausführlich", "[Abnahmeliste und Stand](PROJEKTPLAN.md)", ""),

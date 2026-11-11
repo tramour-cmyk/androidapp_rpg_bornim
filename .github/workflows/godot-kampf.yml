@@ -1,7 +1,7 @@
 name: Godot Kampf (348.7)
 
 # 348.7 (Jerry): Regeln von MARS in GDScript gegen die aufgezeichneten Kämpfe aus dem Kotlin-Kern prüfen
-# (godot/tests/mars_golden.gd). Läuft nur auf Jerrys Umzugszweigen; das Spiel-APK baut Toms Workflow (348.6).
+# (godot/tests/mars_regeln.gd; der Vergleich mit Kotlin, mars_golden, fiel mit 870.5). Läuft nur auf Jerrys Umzugszweigen; das Spiel-APK baut Toms Workflow (348.6).
 on:
   push:
     branches: ["claude/jerry-348-**"]
@@ -38,15 +38,9 @@ jobs:
           distribution: temurin
           java-version: 17
       - name: Sätze der Kampfblende aus core (402)
-        run: ./gradlew -p core exportIntro -Pout=$GITHUB_WORKSPACE/godot/daten/intro.json -q
-      - name: Regeln gegen Kotlin (MARS golden)
         run: |
-          cd godot
-          timeout 90 ~/godot/godot --headless --import --path . > import.log 2>&1 || true
-          tail -20 import.log
-          timeout 300 ~/godot/godot --headless --path . -s res://tests/mars_golden.gd > golden.log 2>&1 || true
-          tail -80 golden.log
-          grep -q " 0 abweichend" golden.log
+          ./gradlew -p core exportIntro -Pout=$GITHUB_WORKSPACE/godot/daten/intro.json -q
+          cp tools/sim444/werte.json godot/daten/     # 870.5: Kampf nur nach dem BRS
       - name: Regeln über Kotlin hinaus (SRD, Test 89.2)
         run: |
           cd godot

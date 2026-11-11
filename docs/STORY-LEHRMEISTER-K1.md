@@ -1,6 +1,6 @@
 # Lehrmeister, Kapitel 1 (Entwurf)
 
-Entwurf Homer, 01.11.; Vorgang 447.4, Besetzung entschieden in 447.4a (Vorgangsarchiv). Abnahmeliste Stufe 3: Pfad und Lehrmeister (3.1), Meisterschaften (3.2) und Ruf (3.3) in `STORY-RUF-K1.md`. Quellen: Nachschlagewerk `DESIGN-SPIELSYSTEM-2-0-ENTWURF.md` Abschnitte 5, 6; Figuren `LISTE-FIGUREN.md`. Englische Begriffe nach `[423.namen]`. Fremd geprüft 01.11.; Befunde Sokrates und Diogenes (02.11.) eingearbeitet 03.11. Entschieden 03.11., 15:50 „447.4 1B 2A“ (Vorgangsarchiv): nach „Noch nicht.“ fragt der Lehrmeister beim nächsten Besuch genau einmal, danach nur auf eigene Wahl; der Anwärter wechselt ohne Verlust. **Varianten (504):** jede Zeile, die man wiederholt hört, hat drei Wortlaute (Abschnitt „Varianten“ unten; 1 = Zeile oben); `…ruf`, `…frage`, `…beide`, `…ja`, `…nachfrage` hört man je Weg nur einmal.
+Entwurf Homer, 01.11.; Vorgang 447.4, Besetzung entschieden in 447.4a (Vorgangsarchiv). Abnahmeliste Stufe 3: Pfad und Lehrmeister (3.1), Meisterschaften (3.2) und Ruf (3.3) in `STORY-RUF-K1.md`. Quellen: Nachschlagewerk `DESIGN-BRS.md` Abschnitte 5, 6; Figuren `LISTE-FIGUREN.md`. Englische Begriffe nach `[423.namen]`. Fremd geprüft 01.11.; Befunde Sokrates und Diogenes (02.11.) eingearbeitet 03.11. Entschieden 03.11., 15:50 „447.4 1B 2A“ (Vorgangsarchiv): nach „Noch nicht.“ fragt der Lehrmeister beim nächsten Besuch genau einmal, danach nur auf eigene Wahl; der Anwärter wechselt ohne Verlust. **Varianten (504):** jede Zeile, die man wiederholt hört, hat drei Wortlaute (Abschnitt „Varianten“ unten; 1 = Zeile oben); `…ruf`, `…frage`, `…beide`, `…ja`, `…nachfrage` hört man je Weg nur einmal.
 
 ## Für Tom
 
@@ -25,7 +25,7 @@ Entwurf Homer, 01.11.; Vorgang 447.4, Besetzung entschieden in 447.4a (Vorgangsa
 `[447.4.wechsel]` Du gehst schon bei einem anderen in die Lehre. Ich nehme dich trotzdem, wenn du willst. / EN: You're already learning under someone else. I'll take you anyway, if you want.
 `[447.4.wechsel.selbst]` Du gehst bei mir schon den anderen Weg. Willst du wechseln? / EN: You're already walking the other path with me. Do you want to switch?
 `[447.4.sys.wechsel]` (Anwärter, 2A; Wortlaut NW 5 „Wechseln“) Du gibst den Pfad {weg} auf. Wirklich wechseln? / EN: You're giving up the {weg} path. Switch?
-`[447.4.karte]` Lehrmeister: {wege} / EN: Mentor: {wege} (`{wege}` alle Wege, zu denen er eingeladen hat, mit Komma; z. B. bei Garrick „Lehrmeister: Waldläufer, Lederarbeit“; eigenes Feld, nicht an „Name – was“ hängen: Auftraggeber-Einträge holen die Leute-Zeile mit `get_slice(" – ", 1)`, sonst stünde sie auch unter dem Auftrag)
+`[447.4.karte]` Lehrmeister: {wege} / EN: Mentor: {wege} (`{wege}` alle Wege, zu denen er eingeladen hat, mit Komma; z. B. bei Garrick „Lehrmeister: Waldläufer, Schneider“; eigenes Feld, nicht an „Name – was“ hängen: Auftraggeber-Einträge holen die Leute-Zeile mit `get_slice(" – ", 1)`, sonst stünde sie auch unter dem Auftrag)
 
 ## Pfade (3.1)
 
@@ -138,7 +138,7 @@ Wahl nach Zufall, nie zweimal hintereinander derselbe Wortlaut (Regeln oben in `
 `[447.4.morwen.nein]` 2. Wie du willst. Der Kessel kocht auch ohne dich. / EN: Your call. The cauldron boils without you too. · 3. Wie du meinst. Ich bin geduldiger als die Kräuter. / EN: As you like. I'm more patient than the herbs.
 `[447.4.morwen.grenze]` 2. Was der Wald dich lehren kann, weißt du. Bring mir etwas von draußen mit; dann prüfe ich dich. / EN: What the forest can teach you, you know. Bring me something from out there; then I'll test you. · 3. Hier kommst du nicht weiter, nicht bei mir. Erst die Welt, dann die Prüfung. / EN: You won't get further here, not with me. First the world, then the trial.
 
-Meisterschaften (Morwen Alchemist, Garrick Lederarbeit, Rowena) und Ruf: Varianten in `STORY-RUF-K1.md`.
+Meisterschaften (Morwen Alchemist, Garrick Schneider, Rowena) und Ruf: Varianten in `STORY-RUF-K1.md`.
 
 ## Offen
 

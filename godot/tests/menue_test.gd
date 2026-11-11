@@ -7,46 +7,37 @@ func _initialize() -> void: _lauf.call_deferred()
 func texte(n: Node) -> String:
 	return " | ".join(PackedStringArray(n.find_children("*", "Label", true, false).map(func(l): return l.text.replace("\u00a0", " "))))
 
+const KH := preload("res://tests/knopf_hilfe.gd")
+
 func _lauf() -> void:
 	var fehler := 0
 	Sprache.lade()
 	var z := Zustand.new()
 	z.gold = 37; z.dazu("potion", 2); z.tag = 3; z.minuten = 21 * 60 + 5
 	z.leiden["POISON"] = 2
-	var hw := Heldwerte.erschaffe("Mira", "ELF", "WIZARD", {}, z.neue_uid)
-	hw.ep_dazu(int(Heldwerte.regel("ep_fuer_stufe")[4]))   # Stufe 4: zwei freie Attributspunkte
-	hw.tp = 5
-	z.beutel.append(Beute.erzeuge_mit_uid(KotlinZufall.new(42), z.neue_uid, 3, "RARE", "WIZARD"))
+	var hw := BrsHeld.fuer_spiel("Mira", "Elf", "Zauberlehrling", z.neue_uid)
+	Testmodus.stufe_setzen(hw, z, 4)   # 870.4: Heldenstufe 4 nach BRS
+	hw.leben = 5
+	z.beutel.append(Beute.erzeuge_mit_uid(KotlinZufall.new(42), z.neue_uid, 3, "RARE", ""))
 	var l := Leiste.new()
 	root.add_child(l)
 	l.zeige(hw, z, true)
 	await process_frame
 	var t := texte(l)
 	print("Leiste: ", t)
-	for soll in ["5/%d" % hw.max_tp(), "Tag 3 · 21:05" if Sprache.aktiv() == "de" else "Day 3 · 21:05", "★ +%d" % hw.offen]:
+	for soll in ["5/%d" % hw.max_leben(), "Tag 3 · 21:05" if Sprache.aktiv() == "de" else "Day 3 · 21:05"]:
 		if not t.contains(soll): fehler += 1; print("FEHLER Leiste ohne ", soll)
 	if l.zeichen.art != "mond": fehler += 1; print("FEHLER Leiste: nachts kein Mond")
-	if hw.offen <= 0: fehler += 1; print("FEHLER keine freien Punkte bei Stufe %d" % hw.stufe)
 	var m := Menue.new(hw, z)
 	root.add_child(m)
 	await process_frame
 	t = texte(m)
-	for soll in ["MIRA", ": 37", "%d / %d" % [5, hw.max_tp()]]:
+	for soll in ["MIRA", ": 37", "%d / %d" % [5, hw.max_leben()]]:
 		if not t.contains(soll): fehler += 1; print("FEHLER Held ohne ", soll)
-	# Punkte verteilen: + bei Intelligenz, Uebernehmen, Ja
-	var int_vor := hw.wert("INT")
-	var plus: Array = m.inhalt.find_children("*", "Button", true, false).filter(func(b): return b.text == "+")
-	plus[3].pressed.emit()   # STR, DEX, CON, INT
-	await process_frame; await process_frame
-	var ueb: Array = m.inhalt.find_children("*", "Button", true, false).filter(func(b): return b.text in ["ÜBERNEHMEN", "APPLY"])
-	if ueb.is_empty(): fehler += 1; print("FEHLER kein Übernehmen")
-	else:
-		ueb[0].pressed.emit()
-		await process_frame
-		var ja: Array = m.find_children("*", "Button", true, false).filter(func(b): return b.text in ["JA, VERTEILEN", "YES, SPEND"])
-		ja[0].pressed.emit()
-		await process_frame; await process_frame
-		if hw.wert("INT") != int_vor + 1: fehler += 1; print("FEHLER INT %d -> %d" % [int_vor, hw.wert("INT")])
+	# 870.4: Heldenstufe und die sechs Grundwerte nach BRS, keine Attributspunkte mehr
+	for soll in [ErschaffungBrs.heldenstufe(4), ErschaffungBrs.tx(ErschaffungBrs.GRUNDWERT["wille"]), ErschaffungBrs.herkunft_name("Zauberlehrling")]:
+		if not t.contains(soll): fehler += 1; print("FEHLER Held ohne ", soll)
+	if not m.inhalt.find_children("*", "Button", true, false).filter(func(b): return b.text == "+").is_empty(): fehler += 1; print("FEHLER Held mit Punkteknopf +")
 	# Tasche
 	var reiter: Array = m.leiste.find_children("*", "Button", true, false)
 	reiter[1].pressed.emit()
@@ -55,15 +46,15 @@ func _lauf() -> void:
 	print("Tasche: ", t.substr(0, 300))
 	for soll in [Laden.name("potion"), "×2", "37", Beute.name(z.beutel[0])]:
 		if not t.contains(soll): fehler += 1; print("FEHLER Tasche ohne ", soll)
-	# 399.1 Benutzen (Game.useItemOutside): Heiltrank mit festen Wuerfeln, Kraeutertrank heilt das Gift, voll heisst voll
+	# 399.1 Benutzen (Game.useItemOutside): Heiltrank fest nach BRS (870.4), Kraeutertrank heilt das Gift, voll heisst voll
 	var vier := func(n: int, w: int) -> int: return n * 3
-	var tp_vor := hw.tp
+	var tp_vor := hw.leben
 	var s1 := Menue.benutze(z, hw, "potion", vier)
-	if hw.tp != mini(hw.max_tp(), tp_vor + 8) or z.anzahl("potion") != 1 or not s1.contains(str(hw.tp - tp_vor)): fehler += 1; print("FEHLER Heiltrank: ", s1, " TP ", hw.tp)
+	if hw.leben != mini(hw.max_leben(), tp_vor + int(BrsHeld.welt()["heilung"]["potion"])) or z.anzahl("potion") != 1 or not s1.contains(str(hw.leben - tp_vor)): fehler += 1; print("FEHLER Heiltrank: ", s1, " TP ", hw.leben)   # 870.4: fest nach „welt“
 	z.dazu("remedy")
 	var s2 := Menue.benutze(z, hw, "remedy", vier)
 	if not z.leiden.is_empty() or z.anzahl("remedy") != 0: fehler += 1; print("FEHLER Kräutertrank: ", s2)
-	hw.tp = hw.max_tp()
+	hw.leben = hw.max_leben()
 	var s3 := Menue.benutze(z, hw, "potion", vier)
 	if z.anzahl("potion") != 1 or s3 != Sprache.u("alreadyFull"): fehler += 1; print("FEHLER voll: ", s3)
 	z.dazu("spark_potion")
@@ -79,9 +70,9 @@ func _lauf() -> void:
 		var hoch := InputEventMouseButton.new(); hoch.button_index = MOUSE_BUTTON_LEFT; hoch.pressed = false
 		zeilen_[0].gui_input.emit(hoch)
 		await process_frame
-		var knoepfe: Array = m.find_children("*", "Button", true, false).map(func(b): return b.text)
+		var knoepfe: Array = Array(KH.texte(m))   # 630: Knoepfe ohne Kasten (549a)
 		if Sprache.u("use").to_upper() not in knoepfe: fehler += 1; print("FEHLER kein Benutzen-Knopf: ", knoepfe)
-		for c in m.get_children(): if c is ColorRect and c.color.a < 0.9: c.queue_free()
+		for c in m.get_children(): if c is ColorRect and (c.color.a < 0.9 or c.find_child("Fenster", true, false)): c.queue_free()
 		await process_frame
 	# Ausruestung: anlegen aus der Tasche, Platz zeigt es, ablegen bringt es zurueck
 	var g: Dictionary = z.beutel[0]
@@ -92,7 +83,7 @@ func _lauf() -> void:
 	await process_frame; await process_frame
 	t = texte(m)
 	print("Ausrüstung: ", t.substr(0, 400))
-	for soll in [Beute.name(g), m.platzname("HEAD"), m.platzname("OFF_HAND"), Sprache.u("attack")]:
+	for soll in [Beute.name(g), m.platzname("HEAD"), m.platzname("OFF_HAND"), Menue.KAMPFWERT["schutz"][0 if Sprache.aktiv() == "de" else 1]]:   # 870.4: Kampfwerte nach BRS
 		if not t.contains(soll): fehler += 1; print("FEHLER Ausrüstung ohne ", soll)
 	m.lege_ab(platz)
 	if hw.ding(platz) != null or m.im_beutel(g) < 0: fehler += 1; print("FEHLER ablegen")
@@ -109,10 +100,10 @@ func _lauf() -> void:
 	var namen: Array = zk.map(func(b): return b.wort)
 	print("System: ", namen)
 	var de_ := Sprache.aktiv() == "de"
-	var soll_ := (["Speichern", "Sprache", "Hauptmenü", "Anleitung", "Über", "Blut", "Tempo", "Rückfragen", "Steuerung"] if de_ else
-		["Save", "Language", "Main menu", "Guide", "About", "Blood", "Pace", "Confirmations", "Controls"])
+	var soll_ := (["Speichern", "Sprache", "Hauptmenü", "Anleitung", "Über", "Blut", "Tempo", "Rückfragen", "Joystick"] if de_ else
+		["Save", "Language", "Main menu", "Guide", "About", "Blood", "Pace", "Confirmations", "Joystick"])
 	if namen.slice(0, soll_.size()) != soll_: fehler += 1; print("FEHLER System Zeichen ", namen)
-	var bedienung := (2 if Bedienung.klassisch else 4) + 2   # Steuerung, (Joystick, Rennen,) Aktion; Karte, Rütteln
+	var bedienung := 3 + 2   # 663: Joystick, Rennen, Aktion; Karte, Rütteln (die Wahl „Steuerung“ ist weg)
 	if zk.size() != 5 + 3 + bedienung + (1 if root.has_node("Klang") else 0): fehler += 1; print("FEHLER System: %d Zeichen" % zk.size())
 	# keine Saetze mehr im Menue: nur Name und Wert unter den Zeichen (426 „Zeichen statt Textwände“)
 	for b in zk:
@@ -126,9 +117,9 @@ func _lauf() -> void:
 	await process_frame
 	if Zeichenknopf.offen != "": fehler += 1; print("FEHLER Erklärung bleibt offen")
 	# 352 Anleitung: Absaetze der eigenen Klasse, fette Eroeffnung als Ueberschrift, keine Sternchen
-	var teile := Menue.anleitung_teile("WIZARD")
+	var teile := Menue.anleitung_teile("")
 	var alle: Array = Sprache.texte["anleitung"]["teile"]
-	if teile.size() != alle.filter(func(p): return not p.has("nur") or p["nur"] == "WIZARD").size() or teile.size() < 10: fehler += 1; print("FEHLER Anleitung %d Absätze" % teile.size())
+	if teile.size() != alle.filter(func(p): return not p.has("nur") or p["nur"] == "").size() or teile.size() < 10: fehler += 1; print("FEHLER Anleitung %d Absätze" % teile.size())
 	var ueber_ := [0]
 	m.ueber.connect(func(): ueber_[0] += 1)
 	for b in zk:
@@ -147,7 +138,7 @@ func _lauf() -> void:
 		zk = m.inhalt.find_children("*", "Zeichenknopf", true, false)
 		zk[0].tat.call(); zk[2].tat.call()
 		if gesendet != ["speichern", "hauptmenue"] or not m.meldung_.visible: fehler += 1; print("FEHLER System sendet ", gesendet)
-	if m.leiste.get_child_count() != 6: fehler += 1; print("FEHLER %d Reiter" % m.leiste.get_child_count())
+	if m.leiste.get_child_count() != 6: fehler += 1; print("FEHLER %d Reiter: %s" % [m.leiste.get_child_count(), m.leiste.get_children().map(func(c): return c.text if c is Button else c.name)])
 	# 399.3.1 Lautstaerke: drei Regler, Antippen in der Mitte stellt Musik auf 50 % (Klang.stelle)
 	var kl: Node = root.get_node_or_null("Klang")   # der Autoload, gibt es ihn mit -s nicht, ein eigener
 	var eigener := kl == null
@@ -235,17 +226,17 @@ func _lauf() -> void:
 		await process_frame; await process_frame
 		if kr.uebersicht or kr.gezeigt != "village": fehler += 1; print("FEHLER Landkarte oeffnet das Dorf nicht")
 	# 399.1 Vergleich (GearCompare): ein besseres Schwert zeigt ▲, der Held bleibt, wie er ist
-	var hw2 := Heldwerte.erschaffe("Vera", "HUMAN", "FIGHTER", {}, z.neue_uid)
-	var rk_vor := hw2.rk()
-	var stueck: Dictionary = Beute.erzeuge_mit_uid(KotlinZufall.new(7), z.neue_uid, 5, "EPIC", "FIGHTER")
+	var hw2 := BrsHeld.fuer_spiel("Vera", "Mensch", "Wachsoldat", z.neue_uid)
+	var rk_vor := hw2.schutzwert()
+	var stueck: Dictionary = Beute.erzeuge_mit_uid(KotlinZufall.new(7), z.neue_uid, 5, "EPIC", "")
 	var vg := Vergleich.von(hw2, stueck)
 	print("Vergleich: ", vg.satz(), " ", vg.zeilen.map(func(r): return "%s %s→%s" % [r["wort"], r["vorher"], r["nachher"]]))
 	if vg.zeilen.is_empty() or vg.urteil() == null: fehler += 1; print("FEHLER Vergleich leer bei ", Beute.name(stueck))
-	if hw2.rk() != rk_vor or hw2.ausruestung.values().has(stueck): fehler += 1; print("FEHLER Vergleich aendert den Helden")
-	# 399.1 Antippen eines Attributs (Perks.describe): bei der Magierin INT mit der Zeile der Klasse
-	var erk := Menue.erklaerung(hw, "INT")
-	print("Erklärung INT: ", erk)
-	if erk.size() < 4 or not (erk[1].contains("Magier") or erk[1].contains("Wizard")): fehler += 1; print("FEHLER Erklärung INT")
+	if hw2.schutzwert() != rk_vor or hw2.ausruestung.values().has(stueck): fehler += 1; print("FEHLER Vergleich aendert den Helden")
+	# 399.1, 870.4 Antippen eines Grundwerts ([870.14.wert.…]): Kopfzeile mit dem Wert, Wille mit dem Mana je Punkt
+	var erk := Menue.erklaerung(hw, "wille")
+	print("Erklärung Wille: ", erk)
+	if erk.size() < 3 or not (erk[0].contains(str(hw.wert("wille")))) or not (erk[1].contains("Mana")): fehler += 1; print("FEHLER Erklärung Wille")
 	# 399.1 (Test 139: Anleitung rollt nicht): in der Anleitung haelt kein Text das Wischen fest, nur Knoepfe nehmen es (wie im System)
 	m.anleitung()
 	await process_frame

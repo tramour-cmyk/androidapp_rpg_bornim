@@ -30,17 +30,17 @@ func _lauf() -> void:
 	pruefe("Chronik neu", Chronik.frisch(z), true)
 	Chronik.gelesen(z)
 	pruefe("Chronik gelesen", Chronik.frisch(z), false)
-	z.dazu("wolf_pelt", 3)
-	pruefe("Stand", Auftraege.stand(z, Auftraege.von("pelts")), 3)
+	z.dazu("wolf_pelt", 2)   # 356.2 (356 b): drei Felle statt fuenf, dazu Thessas Pelzumhang
+	pruefe("Stand", Auftraege.stand(z, Auftraege.von("pelts")), 2)
 	pruefe("noch nicht abzugeben", Auftraege.abgabe(z, "thessa"), [])
 	z.dazu("wolf_pelt", 4)
 	var c := Auftraege.abgabe(z, "thessa")
-	pruefe("Abgabe", c.map(func(x): return x["art"]), ["sagen", "sagen", "nehmen", "flagge", "gold"])
-	pruefe("Abgabe Werte", [c[2]["ding"], c[2]["anzahl"], c[3]["flagge"], c[4]["anzahl"]], ["wolf_pelt", 5, "job_pelts_done", 60])
-	pruefe("Dank wortgleich", Sprache.t(c[1]["text"]), "Fünf. Gut. Die Felle riechen noch nach Blut – das wäscht sich aus. Hier, dein Lohn.")
+	pruefe("Abgabe", c.map(func(x): return x["art"]), ["sagen", "sagen", "nehmen", "flagge", "gold", "geben"])
+	pruefe("Abgabe Werte", [c[2]["ding"], c[2]["anzahl"], c[3]["flagge"], c[4]["anzahl"], c[5]["ding"]], ["wolf_pelt", 3, "job_pelts_done", 60, "cloak_thessa"])
+	pruefe("Dank wortgleich", Sprache.t(c[1]["text"]), "Drei. Gut. Die Felle riechen noch nach Blut – das wäscht sich aus. Hier, dein Lohn. Und den Umhang hab ich aus dem letzten Winter. Der hält warm.")
 	pruefe("andere nicht", Auftraege.abgabe(z, "borin"), [])
 	# Menue Chronik zeigt den Auftrag mit Stand
-	var hw := Heldwerte.erschaffe("Mira", "ELF", "WIZARD", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Mira", "Elf", "Zauberlehrling", z.neue_uid)
 	var m := Menue.new(hw, z)
 	root.add_child(m)
 	await process_frame
@@ -76,8 +76,11 @@ func _lauf() -> void:
 	root.add_child(ebene)
 	await process_frame
 	pruefe("Brett offen", [spiel.brett_offen, spiel.brett_schirm.is_visible_in_tree(), ui.waehlt()], [true, true, false])
-	var knoepfe: Array = spiel.brett_schirm.liste.find_children("*", "Button", true, false).map(func(b): return [b.text, b.disabled])
-	pruefe("Knoepfe", knoepfe.slice(0, 2), [["ANGENOMMEN", true], ["ANNEHMEN", false]])
+	# 630: ohne Kasten (549a): je Aushang „ANNEHMEN ›“ als Hauptwahl oder matt „ANGENOMMEN“, keine Buttons mehr
+	var aus: Array = spiel.brett_schirm.liste.get_children().filter(func(c): return String(c.name).begins_with("Aushang_")).map(func(v):
+		return "ANGENOMMEN" if v.find_child("Angenommen", true, false) else ("ANNEHMEN" if v.find_child("Annehmen", true, false) else "-"))
+	pruefe("Knoepfe", aus.slice(0, 2), ["ANGENOMMEN", "ANNEHMEN"])
+	pruefe("ohne Kasten", spiel.brett_schirm.find_children("*", "Button", true, false).size(), 0)
 	var schirm: BrettSchirm = spiel.brett_schirm
 	spiel._brett_wahl("nimm:stones")
 	pruefe("Jorin angenommen", Auftraege.angenommen(z, Auftraege.von("stones")), true)
@@ -95,7 +98,8 @@ func _lauf() -> void:
 	for i in 12:   # spiel liegt nicht im Baum: „gelesen“ ist nicht verbunden, darum weiter() von Hand
 		if ui.spricht(): ui.naechste()
 		if not ui.spricht(): spiel.weiter()
-	pruefe("nach der Abgabe", [z.anzahl("wolf_pelt"), z.gold - gold, Auftraege.erledigt(z, Auftraege.von("pelts")), ids(Auftraege.am_brett(z)).has("pelts")], [2, 60, true, false])
+	pruefe("nach der Abgabe", [z.anzahl("wolf_pelt"), z.gold - gold, Auftraege.erledigt(z, Auftraege.von("pelts")), ids(Auftraege.am_brett(z)).has("pelts")], [3, 60, true, false])
+	pruefe("Pelzumhang in der Tasche (356.2)", z.beutel.any(func(x): return String(x.get("unique", "")) == "cloak_thessa"), true)
 	h.free(); spiel.free(); ui.free()
 	# 399.1 Ruf (Hail.kt): nur wer bekannt ist und Neues hat; Abgabe bereit zaehlt; gehoert nach dem Gespraech
 	var y := Zustand.new()
@@ -111,7 +115,7 @@ func _lauf() -> void:
 	Ruf.gehoert(y, "thessa", true)
 	Auftraege.nimm(y, Auftraege.von("pelts"))
 	pruefe("Ruf ohne Felle", Ruf.neu(y, "thessa"), false)
-	y.dazu("wolf_pelt", 5)
+	y.dazu("wolf_pelt", 3)
 	pruefe("Ruf Abgabe", Ruf.neu(y, "thessa"), true)
 	pruefe("Ruf Zeiten", [Ruf.zeigt(0), Ruf.zeigt(1500), Ruf.zeigt(3300), Ruf.zeigt(4700)], [true, false, true, false])
 	# 134.3 Ruf ohne Worte (Hail.voice, callVolume); leute.json wie im Bau
@@ -119,11 +123,12 @@ func _lauf() -> void:
 		pruefe("Ruf Stimmen", ["pim", "thessa", "aldric", "borin", "wache"].map(Ruf.stimme), ["hail_child", "hail_woman", "hail_man", "hail_man", ""])
 	else: print("ohne daten/leute/leute.json: Stimmen nicht geprueft")
 	pruefe("Ruf Pegel", [1, 3, 5, 9].map(func(d): return snappedf(Ruf.pegel(d), 0.01)), [0.6, 0.45, 0.3, 0.3])
-	var hr := Heldwerte.erschaffe("A", "HUMAN", "ROGUE")
-	hr.basis["DEX"] = 10
+	var hr := BrsHeld.fuer_spiel("A", "Mensch", "Herumtreiber")
+	hr.volk = ""   # 870.4: Gewandtheit nach BRS (werte.json „welt“ bemerken_…)
+	hr.verteilt["gewandtheit"] = 3
 	var r10 := Ruf.reichweite(hr)
-	hr.basis["DEX"] = 18
-	pruefe("Ruf Reichweite", [r10, Ruf.reichweite(hr)], [4, 2])
+	hr.verteilt["gewandtheit"] = 8
+	pruefe("Ruf Reichweite", [r10, Ruf.reichweite(hr)], [4, 3])
 	var rund := Zustand.aus_daten(JSON.parse_string(JSON.stringify(y.als_daten())))
 	pruefe("Ruf gespeichert", rund.gehoert, y.gehoert)
 	var lp := Leute.new(Karte.lade("village"), {"id": "probe", "x": 20, "y": 13}, null)

@@ -382,6 +382,14 @@ func _process(dt: float) -> void:
 					if wer.kachel != gestossen or zeit - stoss_zeit > 2.0:
 						gestossen = wer.kachel; stoss_zeit = zeit
 						stoesst.emit(wer.kachel)
+			# 540 (t274.12, Chef 10.11.: am Südrand kein Text): schräg gegen einen gesperrten Ausgang glitt der Held an ihm entlang und
+			# stieß nie an (suedrand_540: gerade ja, schräg nie; die Spielkamera blickt schräg, der Joystick zeigt selten genau entlang
+			# der Kacheln). Ein gesperrter Ausgang vorn meldet sich darum auch beim Entlanggleiten, alle 2 s höchstens einmal
+			if not vorn_frei and not gegen:
+				var aus := karte.pos_kachel(np + d * RAND)
+				if not karte.sperrt(aus).is_empty() and zeit - stoss_zeit > 2.0:   # je Rand einmal, nicht je Kachel
+					gestossen = aus; stoss_zeit = zeit
+					stoesst.emit(aus)
 			if vorn_frei:
 				position = np
 			elif gegen:
@@ -396,7 +404,8 @@ func _process(dt: float) -> void:
 				var vor := karte.pos_kachel(position + d * (RAND + 0.05))
 				var wer := sperrer(np + d * RAND)   # vor einer breiten Person (Rind) stand der Held noch auf der eigenen Kachel
 				if wer: vor = wer.kachel
-				if vor != gestossen or zeit - stoss_zeit > 2.0:
+				var rand := not karte.sperrt(vor).is_empty()   # 540: an einem gesperrten Ausgang zählt nur die Zeit
+				if (vor != gestossen and not rand) or zeit - stoss_zeit > 2.0:
 					gestossen = vor; stoss_zeit = zeit
 					stoesst.emit(vor)
 				break
@@ -439,6 +448,87 @@ func _process(dt: float) -> void:
 		var innen := flamme.get_child(1) as Node3D
 		innen.scale = Vector3.ONE * (0.85 + 0.2 * sin(zeit * 17.0 + 1.3))
 	if fackel and traegt_fackel: richte_fackel()   # Runde 5b: erst nach dem Schritt (vorher blieb die Fackel ein Bild zurueck)
+	richte_funke(dt)   # 677
+
+# ---------------------------------------------------------------- Leuchtfunke (84.5)
+# 677 (Chef 08.11., 15:54, t269.15: „Benutzen aus der Tasche tut nichts“): wie alt (WorldScreen.kt 1443–1458, MapLight SPARK): der
+# Funke schwebt ueber dem Kopf, treibt langsam im Kreis und wippt, kuehles Weiss mit Hof; im Raum sinkt er klein und matt auf
+# Schulterhoehe, draussen steigt er wieder (SparkRise); sein Licht kuehl, schwaecher und kuerzer als die Fackel (5,2 statt 6,2 Kacheln,
+# 1,05 statt 1,35), zaehlt nur im Dunkeln. Haengt nicht am Koerper: dreht sich nicht mit dem Helden
+const FUNKE_FARBE := Color(0.863, 0.91, 1.0)    # 0xDCE8FF wie alt
+var funke_an := false
+var funke: Node3D
+var funke_licht: OmniLight3D
+var funke_kern: MeshInstance3D
+var funke_hof: MeshInstance3D
+var funke_hoch := 1.0                             # 0 im Raum (Schulter), 1 draussen (ueber dem Kopf); gleitet
+
+func funke_neu(an: bool) -> void:
+	funke_an = an
+	if an and funke == null: baue_funke()
+	if funke: funke.visible = an
+
+func baue_funke() -> void:
+	funke = Node3D.new()
+	funke.name = "Funke"
+	funke.top_level = true
+	add_child(funke)
+	funke_kern = MeshInstance3D.new()
+	var sm := SphereMesh.new()
+	sm.radius = 0.035; sm.height = 0.07; sm.radial_segments = 12; sm.rings = 6
+	funke_kern.mesh = sm
+	var km := StandardMaterial3D.new()
+	km.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	km.albedo_color = Color(0.957, 0.973, 1.0)   # 0xF4F8FF
+	funke_kern.material_override = km
+	funke_kern.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	funke.add_child(funke_kern)
+	# Hof: weiche Scheibe zur Kamera, innen hell, aussen durchsichtig (wie radialGradient alt)
+	funke_hof = MeshInstance3D.new()
+	var qm := QuadMesh.new()
+	qm.size = Vector2(0.42, 0.42)
+	funke_hof.mesh = qm
+	var hs := Shader.new()
+	hs.code = """shader_type spatial;
+render_mode unshaded, blend_add, depth_draw_never, cull_disabled;
+uniform vec4 farbe : source_color = vec4(0.863, 0.91, 1.0, 1.0);
+uniform float staerke = 0.5;
+void vertex() { MODELVIEW_MATRIX = VIEW_MATRIX * mat4(INV_VIEW_MATRIX[0], INV_VIEW_MATRIX[1], INV_VIEW_MATRIX[2], MODEL_MATRIX[3]); }
+void fragment() {
+	float r = length(UV - vec2(0.5)) * 2.0;
+	float a = clamp(1.0 - r, 0.0, 1.0);
+	ALBEDO = farbe.rgb * a * a * staerke;
+}"""
+	var hm := ShaderMaterial.new()
+	hm.shader = hs
+	funke_hof.material_override = hm
+	funke_hof.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	funke.add_child(funke_hof)
+	funke_licht = OmniLight3D.new()
+	funke_licht.light_color = FUNKE_FARBE
+	funke_licht.omni_range = 8.0 * 5.2 / 6.2
+	funke_licht.omni_attenuation = 2.0
+	funke.add_child(funke_licht)
+	funke_licht.set_meta("reich", 4.0 * 5.2 / 6.2)   # Tusche nach dem Licht wie die Fackel (348.13b)
+	funke_licht.set_meta("kraft", 1.05 / 1.35)
+	funke_licht.add_to_group("tuschelicht")
+
+func richte_funke(dt: float) -> void:
+	if funke == null or not funke.visible: return
+	funke_hoch = move_toward(funke_hoch, 0.0 if im_raum else 1.0, dt / 1.2)
+	var up := funke_hoch
+	var drift := 0.35 + 0.65 * up
+	var t := zeit
+	var seite := (0.10 * sin(t / 0.9) + 0.035 * sin(t / 0.37)) * drift + (1.0 - up) * 0.09
+	var tiefe := 0.10 * cos(t / 0.9) * drift
+	var h := lerpf(1.42, 2.15, up) + 0.04 * drift * sin(t / 0.62)
+	funke.global_position = global_position + Vector3(seite, h, tiefe)
+	var glanz := (0.85 + 0.15 * sin(t / 0.16)) * (0.55 + 0.45 * up)
+	funke_kern.scale = Vector3.ONE * (0.6 + 0.4 * up)
+	(funke_hof.material_override as ShaderMaterial).set_shader_parameter("staerke", glanz * (0.25 + 0.35 * nacht_k) * (0.4 + 0.6 * up) * 2.0)
+	funke_hof.scale = Vector3.ONE * (0.55 + 0.45 * up)
+	funke_licht.light_energy = 2.2 * nacht_k * (1.05 / 1.35) * glanz
+	funke_licht.visible = nacht_k > 0.02
 
 func geht() -> bool:
 	return weg.size() > 0 or richtung.length() > 0.15

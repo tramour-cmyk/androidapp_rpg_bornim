@@ -11,7 +11,7 @@ const Aufruf = preload("res://kampf/aufruf.gd")
 const Signatur = preload("res://kampf/signatur.gd")
 const CLASSES := ["FIGHTER", "WIZARD", "ROGUE", "CLERIC"]
 const NAMES := {"FIGHTER": "Kämpfer", "WIZARD": "Magier", "ROGUE": "Schurke", "CLERIC": "Kleriker"}
-const FOES := {"WOLVES": "Wolfsrudel", "RUDEL": "Wolf mit Jungwölfen", "GRAK": "Grak", "SPIDER": "Riesenspinne und Wolf", "SCOUT": "Goblin-Späher und Goblin", "RATS": "Ratten", "BATS": "Fledermäuse", "GRIMM": "Grimmzahn", "GOBLINS": "Goblins", "SCOUTS": "Goblin-Späher", "SHAMANS": "Goblin-Schamanen", "KOBOLDS": "Kobolde", "BOARS": "Wildschwein", "CENTIPEDES": "Hundertfüßer", "KROGG": "Krogg", "LEECHES": "Riesenegel", "SLUGS": "Säureschnecke", "RATTE": "Ratte", "FLEDERMAUS": "Fledermaus", "SPINNE": "Spinne allein"}
+const FOES := {"WOLVES": "Wolfsrudel", "RUDEL": "Wolf mit Jungwölfen", "GRAK": "Grak", "SPIDER": "Riesenspinne und Wolf", "SCOUT": "Goblin-Späher und Goblin", "RATS": "Ratten", "BATS": "Fledermäuse", "GRIMM": "Grimmzahn", "GOBLINS": "Goblins", "SCOUTS": "Goblin-Späher", "SHAMANS": "Goblin-Schamanen", "KOBOLDS": "Kobolde", "BOARS": "Wildschwein", "CENTIPEDES": "Hundertfüßer", "KROGG": "Krogg", "LEECHES": "Riesenegel", "SLUGS": "Säureschnecke", "RATTE": "Ratte", "FLEDERMAUS": "Fledermaus", "SPINNE": "Spinne allein", "SKELETONS": "Skelette", "WIEDERGAENGER3": "Wiedergänger", "GRABHUNDE": "Grabhunde"}
 
 var tables: Dictionary
 var hero_cls := "FIGHTER"
@@ -633,7 +633,7 @@ func _ort() -> void:
 	rat._face(h0 - start)
 	await warte.call(0.4)
 	zeig.call("Anlauf")
-	rat.glide_to(h0)
+	rat.glide_to(h0, true)
 	await warte.call(2.2)
 	# 387 r3 (Prüfer r2: Huhn rutscht beim Fressen über den Boden): Huhn und Kaninchen brauchen für 3 m 3,9–4,8 s, das Fressen begann
 	# nach 2,2 s mitten im Lauf; bis es angekommen ist, höchstens 8 s
@@ -712,7 +712,7 @@ func _ort_rest(rat, held, h0: Vector3, zeig: Callable, warte: Callable) -> void:
 	print("Ort Platzwechsel nach %.2f,%.2f, Luft %.2f m" % [pw.x, pw.z, luft])
 	# 387 Runde 2: bis es angekommen ist (Hundertfüßer 0,35 m/s; vorher fest 2,4 s), höchstens 9 s
 	for ziel in [pw, h0]:
-		rat.glide_to(ziel)
+		rat.glide_to(ziel, true)
 		await warte.call(0.6)
 		var bis: float = fight.clock_ms + 8400.0
 		while rat.tween and rat.tween.is_running() and fight.clock_ms < bis:
@@ -1169,9 +1169,8 @@ func _start(seed := -1) -> void:
 	fight = Kampfort.new()
 	if OS.get_environment("PLATZ") != "":     # 493: Standbild je Kampfort im Wald (PLATZ=teich …)
 		fight.platz = OS.get_environment("PLATZ")
-	# 296.2: der Held der Probe steht am Anfang seiner Stufe; ohne LP kein Kampf
-	var xp := int(tables.xpForLevel[int(hs.hero.level)])
-	if not fight.setup(party, foes, tables, {"potion": 2}, func(_outcome): visible = true, seed, {"xp": xp}):
+	# 296.2: der Held der Probe steht am Anfang seiner Stufe (870.5: lohn.gd ohne Stand); ohne LP kein Kampf
+	if not fight.setup(party, foes, tables, {"potion": 2}, func(_outcome): visible = true, seed, {}):
 		visible = true
 		fight.free()
 		fight = null

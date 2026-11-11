@@ -58,8 +58,8 @@ object Resting {
     val meadBuy = T("Met · {0} Gold", "Mead · {0} gold")
     val meadDoes = T("Ausdauer voll; zu viel macht betrunken", "Stamina full; too much makes you drunk")
     val roomBuy = T("Zimmer · {0} Gold", "Room · {0} gold")
-    // [86.zimmerwirkt]
-    val roomDoes = T("Ein Bett für die Nacht: lange Rast", "A bed for the night: long rest")
+    // [604.zimmerwirkt] (ersetzt [86.zimmerwirkt])
+    val roomDoes = T("Ein Bett oben unter dem Dach: lange Rast", "A bed upstairs under the roof: long rest")
     val leave = T("Weiter", "Continue")
     val hourGone = T("Eine Stunde vergeht.", "An hour passes.")
     val hoursGone = T("Acht Stunden vergehen.", "Eight hours pass.")
@@ -67,6 +67,8 @@ object Resting {
     val shortRested = T("Eine Stunde Ruhe. Die Ausdauer ist voll, +{0} TP.", "An hour of rest. Your stamina is full, +{0} HP.")
     // [86.langfertig]
     val longRested = T("Acht Stunden Schlaf. TP, ZP und Ausdauer sind voll.", "Eight hours of sleep. HP, SP and stamina are full.")
+    // [604.zimmerfertig]: nach dem Zimmer statt [86.langfertig]; das Lagerfeuer bleibt bei [86.langfertig]
+    val roomRested = T("Du steigst die Treppe hinauf und schläfst acht Stunden. TP, ZP und Ausdauer sind voll.", "You climb the stairs and sleep for eight hours. HP, SP and stamina are full.")
     // [86.met]
     val meadDrunk = T("Der Met wärmt. Die Ausdauer ist voll.", "The mead warms you. Your stamina is full.")
     // [86.metzuviel]

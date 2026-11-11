@@ -15,8 +15,6 @@ signal gewaehlt(id: String)             # 390 (Rast): Knopf im Wahlfeld, "" = We
 
 const GOLD := Color(0.86, 0.68, 0.32)
 var JOY := 94.0 * AktionsKnopf.DP            # 131 (alt StickFeel.runAt): im Ring gehen, darueber hinaus laufen; 399.1 nach Bedienung.ring
-const NACHTLICHT := Color("2c2a48")          # Colors.nightLight: Grund der Leiste „Klassisch“
-const KREUZ := 150.0                         # DPad: 150 dp, Arme 50 dp
 
 var finger := {}
 var kneif_d := 0.0
@@ -29,8 +27,6 @@ var zeichner: Control
 var aktion_knopf: AktionsKnopf
 var ort_schild: Label                  # wohin der Ausgang fuehrt, neben dem Knopf (alt 215, 254: actionPlace)
 var lauf_knopf: AktionsKnopf             # 399.1 wie alt ActionButton(RUN, 58 dp): Stiefel, matt, solange er nicht rennt
-var kreuz_leiste: ColorRect              # 399.1 Klassisch (ClassicControls): Leiste unten, Steuerkreuz und Knoepfe
-var kreuz: Steuerkreuz
 var ausdauer_balken: Ausdauer.Balken      # 399.1 StaminaBar
 var ort: Label
 var mess: Label
@@ -90,7 +86,7 @@ func _ready() -> void:
 	aktion_knopf.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
 	aktion_knopf.position = Vector2(-98, -98) * AktionsKnopf.DP
 	aktion_knopf.visible = false
-	# Klassisch im Gespraech „Weiter“ (pressA: dialog -> advance); kurz ruetteln, wenn vor dir etwas zu tun ist (WorldScreen buzz)
+	# kurz ruetteln, wenn vor dir etwas zu tun ist (WorldScreen buzz)
 	aktion_knopf.pressed.connect(func():
 		if textfeld.visible: naechste(); return
 		if angebot != "": Bedienung.ruettle()
@@ -112,16 +108,15 @@ func _ready() -> void:
 	ort_schild.visible = false
 	add_child(ort_schild)
 	# 348.6 (Befund: verdeckte den Tuerknopf): wie alt (131) ueber dem Aktionsknopf, 58 dp, 31 dp vom Rand, 112 dp von unten; Wischen:
-	# Antippen schaltet um (runLatch), Klassisch: rennen, solange gedrueckt (ClassicControls onRun)
+	# Antippen schaltet um (runLatch)
 	lauf_knopf = AktionsKnopf.new(58)
 	lauf_knopf.setze("RUN")
 	lauf_knopf.matt = true
 	lauf_knopf.button_down.connect(func():
-		lauf_an = not lauf_an if not Bedienung.klassisch else true
+		lauf_an = not lauf_an
 		lauf_knopf.matt = not lauf_an
 		laufen.emit(lauf_an))
 	lauf_knopf.button_up.connect(func():
-		if Bedienung.klassisch: lauf_an = false; lauf_knopf.matt = true; laufen.emit(false)
 		lauf_knopf.queue_redraw())
 	add_child(lauf_knopf)
 	# 399.1 (Chef 14:38 „auch in den Dialogen“): Textkasten wie im alten Spiel (DialogDraft.kt DialogBoxVeil, 42b): ganz schwarz,
@@ -142,17 +137,6 @@ func _ready() -> void:
 	add_child(textfeld)
 	ausdauer_balken = Ausdauer.Balken.new()
 	add_child(ausdauer_balken)
-	# 399.1 Klassisch (ClassicControls): ueber der Welt, unter den Knoepfen und dem Textfeld; das Wahlfeld liegt darueber
-	kreuz_leiste = ColorRect.new()
-	kreuz_leiste.color = NACHTLICHT
-	kreuz_leiste.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
-	kreuz_leiste.offset_top = -(KREUZ + 28) * AktionsKnopf.DP
-	kreuz_leiste.mouse_filter = Control.MOUSE_FILTER_STOP
-	add_child(kreuz_leiste)
-	kreuz = Steuerkreuz.new()
-	kreuz.richtung.connect(func(v: Vector2): joystick.emit(v))
-	kreuz_leiste.add_child(kreuz)
-	move_child(kreuz_leiste, aktion_knopf.get_index())   # unter Aktions- und Renntaste, sonst verdeckt und sperrt sie die Leiste
 	wahl_grund = ColorRect.new()
 	wahl_grund.color = Color(0, 0, 0, 0.6)                      # alt 0x99000000
 	wahl_grund.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -207,48 +191,30 @@ func _ready() -> void:
 	for c in get_children():
 		if c is Control and c != zeichner: Rand.ruecke(c, r)
 
-# 399.1 Bedienung aus dem Menue System (Bedienung.gd): Wischen oder Klassisch, Ring, Renntaste, Seite des Aktionsknopfs.
+# 399.1 Bedienung aus dem Menue System (Bedienung.gd): Ring, Renntaste, Seite des Aktionsknopfs (663: nur Touch, kein Steuerkreuz).
 # Masse wie alt in dp: Wischen Aktionsknopf 76, 22 vom Rand, Renntaste 58, 31 vom Rand, 112 von unten, Schild 106 und 46;
-# Klassisch Leiste 178 hoch (Kreuz 150, Rand 16 und 14), Knoepfe in 140 x 140: Aktion 70 oben aussen, Rennen 58 unten innen
 func richte_ein() -> void:
 	Bedienung.lade()
 	mess.visible = "--messen" in OS.get_cmdline_user_args() or Testmodus.bildrate or Testmodus.standort
 	var dp := AktionsKnopf.DP
-	var k := Bedienung.klassisch
 	var li := Bedienung.links
 	JOY = Bedienung.ring_dp() * dp
-	if k and (unten or zieht):
-		unten = false; zieht = false; joy_v = Vector2.ZERO
-		joystick.emit(joy_v)
-		ring(false)
 	if lauf_an:
 		lauf_an = false; laufen.emit(false)
 	lauf_knopf.matt = true
-	kreuz_leiste.visible = k
-	var a := 70.0 if k else 76.0
+	var a := 76.0
 	aktion_knopf.custom_minimum_size = Vector2(a, a) * dp
 	aktion_knopf.size = aktion_knopf.custom_minimum_size
 	for c in [aktion_knopf, lauf_knopf]:
 		c.set_anchors_preset(Control.PRESET_BOTTOM_LEFT if li else Control.PRESET_BOTTOM_RIGHT)
-	if k:
-		var mitte := -(14 + KREUZ - 5)   # Oberkante der 140er Flaeche
-		an_ecke(aktion_knopf, Vector2(16 if li else -(16 + 70), mitte + 6) * dp)
-		an_ecke(lauf_knopf, Vector2(16 + 140 - 58 if li else -(16 + 140), mitte + 140 - 6 - 58) * dp)
-		kreuz.anchor_left = 1.0 if li else 0.0
-		kreuz.anchor_right = kreuz.anchor_left
-		kreuz.offset_left = -(16 + KREUZ) * dp if li else 16 * dp
-		kreuz.offset_right = kreuz.offset_left + KREUZ * dp
-		kreuz.offset_top = 14 * dp; kreuz.offset_bottom = (14 + KREUZ) * dp
-	else:
-		an_ecke(aktion_knopf, Vector2(22 if li else -98, -98) * dp)
-		an_ecke(lauf_knopf, Vector2(31 if li else -(31 + 58), -(112 + 58)) * dp)
+	an_ecke(aktion_knopf, Vector2(22 if li else -98, -98) * dp)
+	an_ecke(lauf_knopf, Vector2(31 if li else -(31 + 58), -(112 + 58)) * dp)
 	ort_schild.set_anchors_preset(Control.PRESET_BOTTOM_LEFT if li else Control.PRESET_BOTTOM_RIGHT)
 	ort_schild.grow_horizontal = Control.GROW_DIRECTION_END if li else Control.GROW_DIRECTION_BEGIN
 	ort_schild.offset_left = 106 * dp if li else -106 * dp
 	ort_schild.offset_right = ort_schild.offset_left
 	ort_schild.offset_bottom = -46 * dp; ort_schild.offset_top = ort_schild.offset_bottom
-	# Textfeld ueber der Leiste (alt: das Kartenfeld endet ueber ClassicControls)
-	textfeld.offset_bottom = -((KREUZ + 28) * dp + 8 * dp) if k else -60.0
+	textfeld.offset_bottom = -60.0
 	textfeld.offset_top = textfeld.offset_bottom - 132 * dp
 	zeige_knoepfe()
 
@@ -258,20 +224,14 @@ func an_ecke(c: Control, p: Vector2) -> void:
 	c.offset_left = p.x; c.offset_top = p.y
 	c.offset_right = p.x + c.custom_minimum_size.x; c.offset_bottom = p.y + c.custom_minimum_size.y
 
-# was gerade zu sehen ist: Wischen den Aktionsknopf nur mit Angebot, Klassisch immer (matt ohne Angebot, im Gespraech „Weiter“)
+# was gerade zu sehen ist: den Aktionsknopf nur mit Angebot
 func zeige_knoepfe() -> void:
-	var k := Bedienung.klassisch
 	var frei := not textfeld.visible and not wahl_grund.visible
-	if k:
-		aktion_knopf.visible = not wahl_grund.visible
-		aktion_knopf.matt = frei and angebot == ""
-		aktion_knopf.setze("NEXT" if textfeld.visible else (angebot if angebot != "" else "ACT"))
-	else:
-		aktion_knopf.matt = false
-		aktion_knopf.setze(angebot)
-		aktion_knopf.visible = angebot != "" and frei
-	lauf_knopf.visible = frei and (k or Bedienung.lauf_taste)
-	ort_schild.visible = ort_schild.text != "" and aktion_knopf.visible and not k and frei
+	aktion_knopf.matt = false
+	aktion_knopf.setze(angebot)
+	aktion_knopf.visible = angebot != "" and frei
+	lauf_knopf.visible = frei and Bedienung.lauf_taste
+	ort_schild.visible = ort_schild.text != "" and aktion_knopf.visible and frei
 
 var angebot := ""
 
@@ -466,7 +426,7 @@ func naechste() -> void:
 	text.text = String(z["text"])
 	text.add_theme_font_override("font", Stil.variante(0.3, not z.has("wer")))   # Erzaehltes schraeg wie alt
 	textfeld.visible = true
-	zeige_knoepfe()   # Renntaste schien durch das Textfeld (Helferbefund 348.6); Klassisch zeigt „Weiter“
+	zeige_knoepfe()   # Renntaste schien durch das Textfeld (Helferbefund 348.6)
 
 # 390 (Pruefer): ein Tippen kommt als Beruehrung und als nachgebildete Maus; nur Beruehrungen zaehlen, je Bild hoechstens eine,
 # und nur ein Druck, der bei offenem Textfeld begann
@@ -511,8 +471,6 @@ func _unhandled_input(e: InputEvent) -> void:
 			kneif_d = a.distance_to(b); kneif_w = (b - a).angle()
 			unten = false; zieht = false; joy_v = Vector2.ZERO
 			joystick.emit(joy_v)
-		elif t.index == 0 and Bedienung.klassisch:
-			unten = false
 		elif t.index == 0:
 			if t.pressed:
 				unten = true; zieht = false; joy_von = t.position; joy_v = Vector2.ZERO
@@ -567,65 +525,3 @@ func messe(times: Array) -> void:
 		Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME),
 		int(Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME) / 1000.0)]
 	if Testmodus.standort: mess.text += "\n" + standort
-
-# 399.1 DPad (WorldScreen.kt) wie alt: Kreuz 150 dp, Arme 50 dp, Mitte frei (10 %); vier Richtungen auf dem Bildschirm, gedrueckt
-# heller; die Welt geht in Bildschirmrichtung wie beim Joystick (spiel.gd kamera.richtung)
-class Steuerkreuz extends Control:
-	signal richtung(v: Vector2)
-	const DUNKEL := Color("2a2a3a")
-	const HELL := Color("4a4a66")
-	const PFEIL := Color("9090b0")
-	var jetzt := Vector2.ZERO
-	var finger := -1
-
-	func _init() -> void:
-		custom_minimum_size = Vector2.ONE * Steuerung.KREUZ * AktionsKnopf.DP
-		size = custom_minimum_size
-		mouse_filter = Control.MOUSE_FILTER_STOP
-
-	func dir_bei(p: Vector2) -> Vector2:
-		var d := p - size / 2
-		if absf(d.x) < size.x * 0.1 and absf(d.y) < size.y * 0.1: return Vector2.ZERO
-		if absf(d.x) > absf(d.y): return Vector2(signf(d.x), 0)
-		return Vector2(0, signf(d.y))
-
-	func setze(v: Vector2) -> void:
-		if v == jetzt: return
-		jetzt = v
-		richtung.emit(v)
-		queue_redraw()
-
-	func _gui_input(e: InputEvent) -> void:
-		if e is InputEventScreenTouch:
-			if e.pressed and finger < 0: finger = e.index; setze(dir_bei(e.position))
-			elif not e.pressed and e.index == finger: finger = -1; setze(Vector2.ZERO)
-			accept_event()
-		elif e is InputEventScreenDrag:
-			if e.index == finger: setze(dir_bei(e.position))
-			accept_event()
-		elif e is InputEventMouseButton and e.button_index == MOUSE_BUTTON_LEFT and e.device != InputEvent.DEVICE_ID_EMULATION:
-			setze(dir_bei(e.position) if e.pressed else Vector2.ZERO)
-			accept_event()
-		elif e is InputEventMouseMotion and e.device != InputEvent.DEVICE_ID_EMULATION and (e.button_mask & MOUSE_BUTTON_MASK_LEFT):
-			setze(dir_bei(e.position))
-
-	func _draw() -> void:
-		var dp := AktionsKnopf.DP
-		var arm := 50.0 * dp
-		var g := size.x
-		var sb := StyleBoxFlat.new()
-		sb.bg_color = DUNKEL
-		sb.set_corner_radius_all(int(8 * dp))
-		draw_style_box(sb, Rect2((g - arm) / 2, 0, arm, g))
-		draw_style_box(sb, Rect2(0, (g - arm) / 2, g, arm))
-		# ▲ ▼ ◀ ▶ in 18 sp als Dreiecke (Alegreya hat die Zeichen nicht)
-		var h := 18.0 * Stil.SP * 0.36
-		for p in [[Vector2(0, -1), Vector2((g - arm) / 2, 0)], [Vector2(0, 1), Vector2((g - arm) / 2, g - arm)],
-				[Vector2(-1, 0), Vector2(0, (g - arm) / 2)], [Vector2(1, 0), Vector2(g - arm, (g - arm) / 2)]]:
-			var b := sb.duplicate() as StyleBoxFlat
-			b.bg_color = HELL if jetzt == p[0] else DUNKEL
-			draw_style_box(b, Rect2(p[1], Vector2(arm, arm)))
-			var v: Vector2 = p[0]
-			var m: Vector2 = p[1] + Vector2(arm, arm) / 2
-			var q := Vector2(-v.y, v.x)
-			draw_colored_polygon(PackedVector2Array([m + v * h, m - v * h * 0.7 + q * h, m - v * h * 0.7 - q * h]), PFEIL)

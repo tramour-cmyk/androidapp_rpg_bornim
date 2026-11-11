@@ -5,6 +5,7 @@ extends SceneTree
 # Zurueckkaufen in der Farbe der Seltenheit; „Alle“ im Mengenkasten markiert; Rowena kauft rohes Fleisch an der Theke.
 # Aufruf: im Ordner godot mit -s res://tests/laden_525.gd -> „LADEN525 n Fehler“
 
+const KH := preload("res://tests/knopf_hilfe.gd")
 var fehler := 0
 
 func pruefe(ok: bool, was: String) -> void:
@@ -23,7 +24,7 @@ func alle(n: Node, art, aus: Array) -> Array:
 func texte(n: Node) -> PackedStringArray:
 	return PackedStringArray(alle(n, Label, []).map(func(x): return (x as Label).text.replace("\u00a0", " ")))
 
-# Erschaffung.knopf(…, gewaehlt): Schrift Veil.bright
+# Stil.knopf(…, gewaehlt): Schrift Veil.bright
 func gewaehlt(b: Button) -> bool: return b.get_theme_color("font_color") == Stil.BRIGHT
 
 func farbe(l: Label) -> Color: return l.get_theme_color("font_color")
@@ -39,7 +40,7 @@ func _lauf() -> void:
 	if Sprache.aktiv() != "de": Sprache.wechsle()
 	var z := Zustand.new()
 	z.name = "Thora"; z.gold = 12
-	var hw := Heldwerte.erschaffe("Thora", "HUMAN", "FIGHTER", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Thora", "Mensch", "Wachsoldat", z.neue_uid)
 	z.dazu("herbs", 5)
 	z.dazu("potion", 2)
 	var heil := rezept("potion")
@@ -88,23 +89,18 @@ func _lauf() -> void:
 	await process_frame
 	var kasten: Control = l.get_child(l.get_child_count() - 1)
 	pruefe(kasten.find_child("DingBild", true, false) != null, "Braukasten ohne Bild")
-	var kn := alle(kasten, Button, [])
-	var alle_b: Button = null
-	for b in kn:
-		if (b as Button).text == "ALLE": alle_b = b
+	var alle_b := KH.finde(kasten, "ALLE")   # 630: Woerter und Knoepfe ohne Kasten (549a)
 	pruefe(alle_b != null, "Braukasten ohne „Alle“")
 	if alle_b:
-		alle_b.pressed.emit()
+		KH.tippe(alle_b)
 		await process_frame
 		kasten = l.get_child(l.get_child_count() - 1)
-		var brau: Button = null
-		for b in alle(kasten, Button, []):
-			if (b as Button).text.begins_with("BRAUEN"): brau = b
-			if (b as Button).text == "ALLE": pruefe(gewaehlt(b), "„Alle“ nicht markiert")
-			if (b as Button).text == "×1": pruefe(not gewaehlt(b), "„×1“ markiert neben „Alle“")
-		pruefe(brau != null and brau.text == "BRAUEN ×2", "Knopf nach „Alle“: %s" % (brau.text if brau else "fehlt"))
+		var brau := KH.finde(kasten, "BRAUEN", true)
+		pruefe(KH.gewaehlt(KH.finde(kasten, "ALLE")), "„Alle“ nicht markiert")
+		pruefe(not KH.gewaehlt(KH.finde(kasten, "×1")), "„×1“ markiert neben „Alle“")
+		pruefe(brau != null and KH.text(brau) == "BRAUEN ×2", "Knopf nach „Alle“: %s" % (KH.text(brau) if brau else "fehlt"))
 		pruefe("Im Besitz: 2 → 4" in texte(kasten), "Bestand vorher → nachher fehlt")
-		pruefe("Gold: 12 → 2" in texte(kasten), "Gold vorher → nachher fehlt: %s" % [texte(kasten)])
+		pruefe("12 Gold → 2 Gold" in texte(kasten), "Gold vorher → nachher fehlt: %s" % [texte(kasten)])
 	var vorher := z.anzahl("potion")
 	var satz := laden.braue_mehr(z, hw, heil, 2, func(): return 1.0)
 	pruefe(z.anzahl("potion") == vorher + 2 and z.anzahl("herbs") == 1 and z.gold == 2, "zweimal brauen: Trank %d, Kraeuter %d, Gold %d" % [z.anzahl("potion"), z.anzahl("herbs"), z.gold])
@@ -122,9 +118,9 @@ func _lauf() -> void:
 	l.menge("potion", false, 3, true)
 	await process_frame
 	kasten = l.get_child(l.get_child_count() - 1)
-	for b in alle(kasten, Button, []):
-		if (b as Button).text in ["ALLE", "×1"]:
-			pruefe(gewaehlt(b) == ((b as Button).text == "ALLE"), "Markierung im Mengenkasten: %s" % b.text)
+	for w in ["ALLE", "×1"]:
+		var b := KH.finde(kasten, w)
+		pruefe(b != null and KH.gewaehlt(b) == (w == "ALLE"), "Markierung im Mengenkasten: %s" % w)
 
 	# Rast an der Theke: Rowena kauft rohes Fleisch
 	z.dazu("raw_meat", 3)

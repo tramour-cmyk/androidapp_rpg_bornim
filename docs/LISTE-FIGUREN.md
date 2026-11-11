@@ -94,7 +94,7 @@ Gebilligt (Chef 25.10., 22:00):
 4. **Farbe:** Kleidung je Person in der Farbe wie bisher (z. B. Lyra weiße Robe, Jorin das Blau des Dorfes, Thessa Rost-Ocker); nie heller als bisher.
 5. **Haltung und Gesicht:** jede steht oder sitzt anders (Borin am Tisch); Augen, Brauen, Mund wie bisher.
 
-**Völker** (Homer 01.11., 430; gebilligt Chef 01.11., 09:09; für Tom 431). Gelten für Held, Leute und Söldner eines Volkes, Mensch = Liste „Held“; Namen und Werte nach `DESIGN-SPIELSYSTEM-2-0.md` (24, 72). Maße aus `Doll.kt` :64–92, :515–583, Hauttöne aus `Appearance.kt`; Frauen 7 % kleiner. „Neu“ = bisher nicht so gezeichnet. Für alle: am Schattenriss ohne Ausrüstung erkennbar, welches Volk; Kleidung und Ausrüstung wie beim Menschen.
+**Völker** (Homer 01.11., 430; gebilligt Chef 01.11., 09:09; für Tom 431). Gelten für Held, Leute und Söldner eines Volkes, Mensch = Liste „Held“; Namen und Werte nach `DESIGN-BRS.md` (E 24, E 72). Maße aus `Doll.kt` :64–92, :515–583, Hauttöne aus `Appearance.kt`; Frauen 7 % kleiner. „Neu“ = bisher nicht so gezeichnet. Für alle: am Schattenriss ohne Ausrüstung erkennbar, welches Volk; Kleidung und Ausrüstung wie beim Menschen.
 
 **Elf**
 1. **Größe:** 172 cm, fast so groß wie der Mensch.

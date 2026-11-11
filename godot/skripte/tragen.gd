@@ -35,6 +35,7 @@ var waffe: Node3D             # top_level, wird je Bild gestellt
 var modell: Node3D            # Wurzel der Figur (+Z vorn, +X links, wie heldfigur.gd)
 var anim: AnimationPlayer
 var griff := Vector3.ZERO     # Faust im Raum des Handknochens (heldfigur.gd faust)
+var halt := {}                # 653: Maße des Gegenstands (Halt.gegenstand): Griff, Schaft, Schneide aus dem Modell statt Modellregel 4
 var achse := Vector3.UP       # Kleinfinger- zu Zeigefingerknoechel im Raum des Handknochens
 var unten := 0.0              # Stab: Laenge unter dem Ursprung
 var mittel := 0.0             # gleitendes Mittel des Armschwungs (vorn-hinten), m
@@ -66,6 +67,12 @@ static func gang_von(base: String, schild: bool) -> String:
 	if base in GANG_BOGEN: return "bogen"
 	if base in GANG_ZWEI or (base == "spear" and not schild): return "axt"
 	return "schild" if schild else "einhand"
+
+# 499 (Chef 03.11., 07:14, Drehteller: „da schwebt das Schild … und über dem Schild schwebt dann das Schwert“): die Waffe ist top_level
+# und erbte den Massstab der Figur nicht; der Drehteller verkleinert sie (0,68: Stab 1,48-fach, 22 cm neben der Faust). Waffe und alle
+# Abstaende in der Welt gehen mit dem Massstab der Figur (im Spiel 1)
+func mass() -> float:
+	return modell.global_basis.get_scale().y if modell and modell.is_inside_tree() else 1.0
 
 func _init(a := "", w: Node3D = null, m: Node3D = null, f := {}) -> void:
 	art = a; waffe = w; modell = m
@@ -157,13 +164,29 @@ func _process_modification() -> void:
 		                                          # nach aussen sah man von der Seite nur die Kante, „wie ein Speer“); Runde 3 haengt es nach unten
 		_: x = G.basis * ac                      # Schneide, Blatt nach aussen
 	x = (x - dw * x.dot(dw)).normalized()
-	waffe.global_basis = Basis(x, dw, x.cross(dw))
+	var ms := mass()
 	var o := G * mitte   # Mitte der geschlossenen Faust (Pruefer 417: an den Knoecheln lag die Hand nur auf)
 	if art == "stab":
-		if stab_fuss != Vector3.INF: o = stab_fuss + dw * unten   # der Schaft laeuft durch die Faust, der Fuss steht
-		else: o = G * mitte + dw * 0.18                           # im Rennen unter der Mitte gefasst
-	elif art == "schulter": o = G * mitte + dw * axt_griff
-	waffe.global_position = o
+		if stab_fuss != Vector3.INF: o = stab_fuss + dw * unten * ms   # der Schaft laeuft durch die Faust, der Fuss steht
+		else: o = G * mitte + dw * 0.18 * ms                           # im Rennen unter der Mitte gefasst
+	elif art == "schulter": o = G * mitte + dw * axt_griff * ms
+	_stelle(x, dw, o)
+
+# 653 (Chef 10.11., 14:22 „653 passt“): die Waffe an ihren Platz, Lage = Ziel · Griffrahmen⁻¹ (Halt.lage): Ziel y = Schaft [dw],
+# z = wohin Modell +X zeigt (Schneide, beim Bogen der Ruecken) [z], Ursprung am Griff [o] (Welt). Ohne Maße wie Modellregel 4
+# (Griff = Ursprung, Schaft +Y)
+func _stelle(z: Vector3, dw: Vector3, o: Vector3) -> void:
+	var ms := mass()
+	if halt.is_empty():
+		waffe.global_basis = Basis(z, dw, z.cross(dw)).scaled(Vector3.ONE * ms)
+		waffe.global_position = o
+		return
+	# z ist hier die Richtung von Modell +X (Schneide, beim Bogen der Ruecken, waffen.py); Halt nennt beim Bogen die Seite der Sehne
+	# „vorn“: Griff und Schaft aus Halt, die Drehung um den Schaft wie Modellregel 4
+	var m := halt.duplicate()
+	m["vorn"] = Vector3.RIGHT
+	var ziel := Transform3D(Basis(dw.cross(z), dw, z).scaled(Vector3.ONE * ms), o)
+	waffe.global_transform = ziel * Halt.griff_rahmen(m).affine_inverse()
 
 # 417 Runde 5 (Pruefer 13:3x: Schwert durch Schild, Schild vor Brust und Gesicht, Bogen im Becken): die Waffe so in der Hand, wie die
 # Hersteller der Pakete sie in ihren Unity-Prefabs an die Hand haengen (Messung 3f, griff417b.py, Lauf 41310719427), umgerechnet in den
@@ -246,8 +269,7 @@ func _paket(sk: Skeleton3D, ih: int) -> void:
 	if waffe == null: return
 	var x := (G.basis * R.basis.x).normalized()
 	x = (x - dw * x.dot(dw)).normalized()
-	waffe.global_basis = Basis(x, dw, x.cross(dw))
-	waffe.global_position = G * p + (dw * zwei_schieben if gang == "axt" else Vector3.ZERO)
+	_stelle(x, dw, G * p + (dw * zwei_schieben * mass() if gang == "axt" else Vector3.ZERO))
 
 # Oberarm um die Vorwaertsachse der Figur nach aussen, die Faust weg vom Bein (rechts schwert_abspreiz, links schild_abspreiz)
 func _abspreizen(sk: Skeleton3D, ih: int, grad: float) -> void:
@@ -276,8 +298,12 @@ func _schildarm(sk: Skeleton3D) -> void:
 	var z := (G.basis * (R.basis * SCHILD_NORMALE)).normalized()
 	var y := (G.basis * R.basis.y).normalized()
 	y = (y - z * y.dot(z)).normalized()
-	waffe.global_basis = Basis(y.cross(z), y, z)
-	waffe.global_position = G * (R * SCHILD_PUNKT)
+	if halt.is_empty():
+		waffe.global_basis = Basis(y.cross(z), y, z).scaled(Vector3.ONE * mass())
+		waffe.global_position = G * (R * SCHILD_PUNKT)
+	else:   # 653: Schild mit Oberkante [y] und Vorderseite [z] aus Halt (Fessel, oben, vorn je Modell)
+		var ziel := Transform3D(Basis(y.cross(z), y, z).scaled(Vector3.ONE * mass()), G * (R * SCHILD_PUNKT))
+		waffe.global_transform = ziel * Halt.griff_rahmen(halt).affine_inverse()
 	faust_welt = G * R.origin; schaft_welt = y
 
 # Wanderstab: Fuss am Boden (Welt), im Gehen umgesetzt, wenn die Faust STAB_VOR darueber hinaus ist; Ergebnis Richtung im Skelettraum
@@ -286,23 +312,24 @@ func _stab(G: Transform3D, P: Vector3, vorn: Vector3, ac: Vector3, geht: bool, d
 	var vw := (G.basis * vorn).normalized(); vw.y = 0; vw = vw.normalized()
 	var aw := (G.basis * ac); aw.y = 0; aw = aw.normalized()
 	var boden := modell.global_position.y
-	var ruhe := Vector3(pw.x, boden, pw.z) + aw * STAB_AUSSEN + vw * 0.03
+	var ms := mass()   # 499: Masse in Metern der Figur (Drehteller verkleinert sie)
+	var ruhe := Vector3(pw.x, boden, pw.z) + (aw * STAB_AUSSEN + vw * 0.03) * ms
 	# Pruefer 417 Runde 2 (im Film fehlte der Stab im Gehen): nach einem Sprung der Figur (Ortswechsel, Probe) stand der Fuss am alten
 	# Ort, die Faust kam nie mehr ueber ihn hinaus; weiter als einen Meter weg setzt er neu an
-	if stab_fuss == Vector3.INF or Vector2(stab_fuss.x - ruhe.x, stab_fuss.z - ruhe.z).length() > 1.0:
+	if stab_fuss == Vector3.INF or Vector2(stab_fuss.x - ruhe.x, stab_fuss.z - ruhe.z).length() > 1.0 * ms:
 		stab_fuss = ruhe; stab_nach = ruhe; stab_t = 1.0
 	if stab_t >= 1.0:
 		var neu := Vector3.INF
-		if geht and (pw - stab_fuss).dot(vw) > STAB_VOR: neu = ruhe + vw * STAB_SETZ_VOR
-		elif not geht and stab_fuss.distance_to(ruhe) > 0.05: neu = ruhe
+		if geht and (pw - stab_fuss).dot(vw) > STAB_VOR * ms: neu = ruhe + vw * STAB_SETZ_VOR * ms
+		elif not geht and stab_fuss.distance_to(ruhe) > 0.05 * ms: neu = ruhe
 		if neu != Vector3.INF:
 			stab_von = stab_fuss; stab_nach = neu; stab_t = 0.0
 	if stab_t < 1.0:
-		if geht: stab_nach = ruhe + vw * STAB_SETZ_VOR
+		if geht: stab_nach = ruhe + vw * STAB_SETZ_VOR * ms
 		stab_t = minf(1.0, stab_t + dt / STAB_SETZ)
-		stab_fuss = stab_von.lerp(stab_nach, smoothstep(0.0, 1.0, stab_t)) + Vector3.UP * 0.07 * sin(PI * stab_t)
+		stab_fuss = stab_von.lerp(stab_nach, smoothstep(0.0, 1.0, stab_t)) + Vector3.UP * 0.07 * ms * sin(PI * stab_t)
 	var y := pw - stab_fuss
-	y.y = maxf(y.y, 0.5)
+	y.y = maxf(y.y, 0.5 * ms)
 	return (G.basis.inverse() * y.normalized()).normalized()
 
 # Zwei Knochen: Oberarm und Unterarm so, dass die Faust (griff) auf P liegt und Kleinfinger-Zeigefinger laengs d; Ellbogen nach

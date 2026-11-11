@@ -43,7 +43,7 @@ func _init() -> void:
 		print("BEUTE fehlt: ", PROBEN, " (mit laden, beute, zufall)")
 		quit(1)
 		return
-	Heldwerte.daten = d
+	BrsHeld.D = d   # 870.4: Grundformen der Proben; die Ware nach Klasse weicht ab, seit der Held keine hat (870.6)
 	Sprache.lade()
 	pruefe("Hash", [KotlinZufall.hash_code("Alrik"), KotlinZufall.hash_code("Jörg Ölschläger"), KotlinZufall.hash_code("")],
 		[int(d["zufall"][-1]["seed"]), KotlinZufall.hash_code("Jörg Ölschläger"), 0])
@@ -63,12 +63,12 @@ func _init() -> void:
 	var n := 0
 	for p in d["laden"]:
 		n += 1
-		var h := Heldwerte.aus_daten(p["held"])
-		pruefe("Laden %s %s Stufe %d, %d Siege" % [h.name, h.klasse, h.stufe, int(p["siege"])], liste(Beute.ladenware(h, int(p["siege"]))),
+		var h := BrsHeld.aus_spiel_daten(p["held"])
+		pruefe("Laden %s %s Stufe %d, %d Siege" % [h.name, h.herkunft, h.stufe, int(p["siege"])], liste(Beute.ladenware(h, int(p["siege"]))),
 			soll_liste(p["soll"]))
 	for p in d["beute"]:
 		n += 1
-		var h := Heldwerte.aus_daten(p["held"])
+		var h := BrsHeld.aus_spiel_daten(p["held"])
 		var w := KotlinZufall.new(int(p["seed"]))
 		var uid := [0]
 		var neu := func() -> int:

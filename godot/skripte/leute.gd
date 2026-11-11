@@ -23,6 +23,11 @@ var held: Node3D
 var modell: Node3D
 var anim: AnimationPlayer
 var gang := 1.08                       # m/s ohne Gleiten (held-info.json der Figur)
+# 475 Kaufkoerper: die Bewegung laeuft ohne Gleiten mit gang (umgetaktet, heldfigur.gd TAKT_GEHEN); gehen ist das Tempo der Person
+# (wie die alte Figur, etwas flotter), geh_anim „Gehen“ oder mit getragenem Ding „Gehen_<gang>“ (417, heldfigur.gd bewaffne)
+var gehen := -1.0
+var geh_anim := "Gehen"
+const KAUF_GEHEN := 0.62               # Anteil von TAKT_GEHEN: die Leute gehen gemaechlicher als der Held
 var mats: Array = []
 var heim := Vector2i.ZERO
 var kachel := Vector2i.ZERO
@@ -56,6 +61,8 @@ const WENDE_BLEND := 0.2                # s Uebergang aus dem Stehen in die Wend
 var wende_kurve := {}                   # Name -> PackedFloat32Array, Drehung in rad je Bild (30 Bilder/s) seit Beginn
 var wende := ""                         # laufende Wende
 var wende_start := 0.0                  # rotation.y beim Beginn der Wende
+var monster := false                   # 560 (Jerry): ein Monster der Geschichte (Grimmzahn, aussehen „monster:…“)
+const MONSTER_SIEHT := 4               # 560: Kacheln, ab denen es sich dem Helden zuwendet (herde.gd Lauerer 9i.2)
 var da := true                         # 390: nach der Geschichte zu sehen (Story.kt visible: besiegt, befreit)
 
 ## 635: Figurdatei einer Person der Karte: nach Kennung, sonst nach Aussehen; "" ohne Modell
@@ -273,6 +280,7 @@ func _ready() -> void:
 		fig.set_process(true)
 		modell = fig
 		anim = fig.anim
+		monster = true
 		gang = 1.0
 		leib = 0.8
 		position = karte.kachel_pos(kachel)
@@ -280,6 +288,7 @@ func _ready() -> void:
 		rotation.y = blick
 		if anim and anim.has_animation("Stehen"): anim.play("Stehen")
 		return
+	if not daten.has("datei") and baue_kauf(p): return
 	modell = Gebiet.lade_glb(datei)
 	add_child(modell)
 	Gebiet.male(modell, null, 2, mats)
@@ -312,6 +321,34 @@ func _ready() -> void:
 	position = karte.kachel_pos(kachel)
 	blick = {"UP": PI, "DOWN": 0.0, "LEFT": -PI / 2, "RIGHT": PI / 2}.get(String(daten.get("blick", "DOWN")), 0.0)
 	rotation.y = blick
+
+# 475: die Person auf dem Kaufkoerper mit eigenem Gesicht (heldfigur.gd person); false ohne Kaufdateien
+func baue_kauf(info_datei: String) -> bool:
+	var m := HeldFigur.person(String(daten["id"]), mats)
+	if m == null: return false
+	modell = m
+	add_child(modell)
+	anim = modell.get_node_or_null("AnimationPlayer") as AnimationPlayer
+	gang = float(modell.get_meta("gehen_m_je_s", HeldFigur.TAKT_GEHEN))
+	var alt := 1.08
+	if FileAccess.file_exists(info_datei):
+		var info: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(info_datei))
+		alt = float(info.get("gehen_m_je_s", alt))
+	gehen = HeldFigur.TAKT_GEHEN * KAUF_GEHEN * clampf(alt / 1.08, 0.8, 1.2)
+	var wg := String(modell.get_meta("gang", ""))
+	if wg != "" and anim and anim.has_animation("Gehen_" + wg) and float(modell.get_meta("gang_gehen_m_je_s", 0.0)) > 0.01:
+		geh_anim = "Gehen_" + wg
+		gang = float(modell.get_meta("gang_gehen_m_je_s"))
+	if anim:
+		anim.play("Stehen")
+		anim.seek(zufall.randf() * 2.0, true)
+	Gebiet.atem_an(modell, anim, hash(String(daten.get("id", ""))) ^ 4532)
+	position = karte.kachel_pos(kachel)
+	blick = {"UP": PI, "DOWN": 0.0, "LEFT": -PI / 2, "RIGHT": PI / 2}.get(String(daten.get("blick", "DOWN")), 0.0)
+	rotation.y = blick
+	return true
+
+func tempo_soll() -> float: return gehen if gehen > 0.0 else gang
 
 # 348.6 Leute Runde 4b (Chef 25.10., 21:33: „Wieso tragen die … NPC nicht Objekte“): Stab, Speer, Hammer als eigene .glb aus
 # Jerrys waffen.py (Modellregel 4, daten/waffen/<kennung>.bin, Griff = Ursprung, Schaft nach +Y) in der rechten Faust; die Haltung
@@ -472,23 +509,45 @@ func _process(dt: float) -> void:
 	stehen(dt)
 	if ziel.x >= 0: return
 	tempo_jetzt = 0.0
+	if monster and anim and anim.has_animation("Gehen") and absf(angle_difference(rotation.y, blick)) > Streuner.DREH_TRITT:
+		if anim.current_animation != "Gehen": anim.play("Gehen", 0.2)     # 560: wendet mit Tritten
+		anim.speed_scale = Streuner.TRITT_TEMPO
+		return
 	if anim and anim.current_animation != pause and wende == "":
 		anim.play(pause, Held.ueberblendung(anim.current_animation, false))
 		anim.speed_scale = 1.0
 
 func stehen(dt: float) -> void:
 	if fort_nach.x >= 0 and not still: zugewandt_bis = 0   # 492: wer fortgeht, geht gleich nach dem Gespraech (Game.leave)
+	var s := schaut_her(dt) and fort_nach.x < 0   # zaehlt den Stillstand des Helden auch waehrend des Gespraechs und danach; wer fortgeht (492), schaut nicht her
 	if zugewandt_bis > 0:
 		if still: zugewandt_bis = Time.get_ticks_msec() + int(ZUGEWANDT * 1000)   # waehrend des Gespraechs zaehlt die Zeit nicht
 		if Time.get_ticks_msec() < zugewandt_bis and held:
 			blick = atan2(held.global_position.x - global_position.x, held.global_position.z - global_position.z)
 		else:
 			zugewandt_bis = 0
+			schaut = false
 			blick = blick_vorher
 			ruhe_bis = -1.0   # die Ruhebewegung beginnt neu
-	drehe_stehend(dt, DREH_ZU if zugewandt_bis > 0 else DREH_STEH)
+	else:
+		if s:
+			if not schaut: blick_vorher = blick
+			schaut = true
+			blick = atan2(held.global_position.x - global_position.x, held.global_position.z - global_position.z)
+		elif schaut:
+			schaut = false
+			blick = blick_vorher
+			ruhe_bis = -1.0
+	# 560 (Chef 04.11., 16:22, Grimmzahn: „wenn sich die Monster … alles zum Held drehen … mit Bewegung drehen“): ein Monster der
+	# Geschichte wendet sich dem nahen Helden zu, mit fester Rate und Tritten (_process), wie die Monster der Karte (streuner.gd)
+	if monster and held and zugewandt_bis == 0 and held_abstand() <= MONSTER_SIEHT:
+		blick = atan2(held.global_position.x - global_position.x, held.global_position.z - global_position.z)
+	if monster:
+		rotation.y = drehe(rotation.y, blick, Streuner.DREH * dt)
+	else:
+		drehe_stehend(dt, DREH_ZU if zugewandt_bis > 0 or schaut else DREH_STEH)     # 416.8 (Tom): Wende mit Schritten
 	if still or not da: return
-	if zugewandt_bis > 0: return
+	if zugewandt_bis > 0 or schaut: return
 	if Time.get_ticks_msec() < ruft_bis: return   # 399.1 (306): wer ruft, haelt still, bis das zweite Zeichen vorbei ist
 	warte -= dt
 	if warte > 0: return
@@ -638,14 +697,14 @@ func laufe(dt: float) -> void:
 	var zp := karte.kachel_pos(ziel)
 	var to := zp - position
 	to.y = 0
-	var tempo := (flucht_tempo() if flucht else gang * TEMPO) / karte.schritt(ziel)
+	var tempo := (flucht_tempo() if flucht else tempo_soll() * TEMPO) / karte.schritt(ziel)
 	var soll := atan2(to.x, to.z)
 	rotation.y = drehe(rotation.y, soll, DREH * (2.0 if flucht else 1.0) * dt)   # 591: rennend schnell herum (MapHen.TURN_RUN)
 	var ab := absf(angle_difference(rotation.y, soll))
 	tempo *= lerpf(BOGEN_TEMPO, 1.0, (cos(ab) + 1.0) * 0.5)
 	# 416.4: anlaufen und vor dem letzten Schritt langsamer werden wie der Held (Held.tempo_schritt, Held.bremse)
-	if weg.is_empty() and not flucht: tempo = Held.bremse(tempo, to.length(), gang * TEMPO)   # letzte Kachel des Wegs (Runde, Tagesplan) oder Streifen
-	tempo_jetzt = Held.tempo_schritt(tempo_jetzt, tempo, flucht_tempo() if flucht else gang * TEMPO, dt)
+	if weg.is_empty() and not flucht: tempo = Held.bremse(tempo, to.length(), tempo_soll() * TEMPO)   # letzte Kachel des Wegs (Runde, Tagesplan) oder Streifen
+	tempo_jetzt = Held.tempo_schritt(tempo_jetzt, tempo, flucht_tempo() if flucht else tempo_soll() * TEMPO, dt)
 	tempo = tempo_jetzt
 	var s := tempo * dt
 	if ab < BOGEN and to.length() <= s:
@@ -661,8 +720,8 @@ func laufe(dt: float) -> void:
 	if karte.begehbar(karte.pos_kachel(neu)): position = neu   # der Bogen fuehrt nie auf eine gesperrte Kachel
 	kachel = karte.pos_kachel(position)
 	if anim:
-		# 591: auf der Flucht das Rennen (Huhn, Kaninchen aus kauftier.py), sonst Gehen
-		var gangart := "Rennen" if flucht and renn > 0.0 and anim.has_animation("Rennen") else "Gehen"
+		# 591: auf der Flucht das Rennen (Huhn, Kaninchen aus kauftier.py), sonst Gehen (mit getragenem Ding geh_anim, 417)
+		var gangart := "Rennen" if flucht and renn > 0.0 and anim.has_animation("Rennen") else geh_anim
 		if anim.current_animation != gangart:   # CC0-Geruest Runde 2 (Fremdpruefung: Gleichschritt): jede mit eigenem Schritt
 			# 416.4: aus dem Stand weich (Held.ueberblendung, 0,5 s statt 0,18 s); der Schritt beginnt an zufaelliger Stelle, nur
 			# beim Anlaufen (die Pause steht noch voll im Bild, der Sprung im Gang faellt nicht auf)
@@ -707,9 +766,30 @@ static func kurve(k: PackedFloat32Array, t: float) -> float:
 	var i := int(f)
 	return lerpf(k[i], k[i + 1], f - i)
 
+# 416.8 (Chef 08.11., 15:43, t269.11: „beim Annähern richtet sich keiner zum Helden aus“; DESIGN-STIL „Lebendige Welt“: bis 3 Felder
+# anschauen, nach etwa 10 s Stillstand das Interesse verlieren, 5la.3). Wie alt (MapFolk.kt 853–871 WATCH_TILES, BORED_MS, watches,
+# Stillness): steht der Held hoechstens 3 Kacheln je Richtung entfernt und steht er noch keine 10 s auf derselben Kachel, wendet sich
+# die Person ihm zu (mit Schritten wie beim Ansprechen, drehe_stehend) und haelt in ihrem Tun inne; danach blickt sie wie vorher und
+# macht weiter. Tiere nicht (alt nur die Leute). Besser als alt: die Zeit laeuft mit dem Spiel (dt), steht still, solange es ruht
+const SCHAUT_KACHELN := 3
+const LANGWEILIG := 10.0               # s
+var schaut := false
+var held_still := 0.0                  # s, die der Held schon auf held_still_kachel steht
+var held_still_kachel := Vector2i(-99, -99)
+
+func schaut_her(dt: float) -> bool:
+	if held == null or daten.has("tier") or drinnen or not visible or not da: return false
+	var h := held_kachel()
+	if h != held_still_kachel:
+		held_still_kachel = h
+		held_still = 0.0
+	else: held_still += dt
+	var d := h - kachel
+	return d != Vector2i.ZERO and absi(d.x) <= SCHAUT_KACHELN and absi(d.y) <= SCHAUT_KACHELN and held_still < LANGWEILIG
+
 # 416.8: dem Helden zuwenden (spiel.gd sprich)
 func wende_zu() -> void:
-	if zugewandt_bis == 0: blick_vorher = blick
+	if zugewandt_bis == 0 and not schaut: blick_vorher = blick
 	zugewandt_bis = Time.get_ticks_msec() + int(ZUGEWANDT * 1000)
 
 # dreht a hoechstens um schritt auf b zu (feste Rate statt lerp: grosse Wenden dauern laenger, kleine bleiben weich)

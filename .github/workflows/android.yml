@@ -1,25 +1,8 @@
-name: Build APK
+name: Kotlin alt (kein Testbuild)
 
-# Builds an APK (artifact "bornim-apk") only for a pull request, a push to main, or by hand (78d): a branch is
-# built once it is ready for a test round (open a PR or run the workflow by hand on the branch), not on every push.
-# A release is published only on request (21.1): run this workflow by hand on main with "release" ticked, e.g.
-#   gh workflow run android.yml --ref main -f release=true
-# The AAB goes to the Play Console's internal test only by hand (142.1): run on main with "play" ticked.
+# Altes Kotlin-Spiel: nur noch von Hand (894, Chef 10.11., 19:36: „android.yml jetzt auf nur von Hand stellen“); der Testbuild
+# ist Godot (godot.yml); ganz weg mit 870.10. Release nur auf Zuruf (21.1): von Hand auf main mit „release“, AAB mit „play“ (142.1).
 on:
-  push:
-    branches: [main]
-    # Pure documentation and tooling changes need no new APK.
-    paths-ignore:
-      - "**.md"
-      - "docs/**"
-      - "tools/**"
-      - ".claude/**"
-  pull_request:
-    paths-ignore:
-      - "**.md"
-      - "docs/**"
-      - "tools/**"
-      - ".claude/**"
   workflow_dispatch:
     inputs:
       release:

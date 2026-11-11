@@ -4,7 +4,7 @@ Plot, Figuren und Grobzusammenfassungen je Kapitel; die freigegebenen Spieltexte
 
 ## So liest du den Plan
 
-- **Teile:** [Kapitel 1](STORY-PLAN-K1.md) (Ist-Stand aus dem Spiel, Dialoge wortgetreu, Stand `main` 12.10.), [Kapitel 2](STORY-PLAN-K2.md) (Entwurf, mit Karte), [Texte Kapitel 2](STORY-K2-ENTWURF.md) (Entwurf).
+- **Teile:** [Kapitel 1](STORY-PLAN-K1.md) (Ist-Stand aus dem Spiel, Dialoge wortgetreu, Stand `main` 12.10.), [Kapitel 2](kapitel2/STORY-PLAN-K2.md) (Entwurf, mit Karte), [Texte Kapitel 2](kapitel2/STORY-K2-ENTWURF.md) (Entwurf).
 - **Je Kapitel:** Grobzusammenfassung, dann Hauptquests in Spielreihenfolge, dann Nebenquests vom Anschlagbrett.
 - **Je Quest:** Auslöser, Ablauf, Belohnung, Dialoge. Sprecher fett, Erzähltext kursiv. `{name}` ist der Name des Helden.
 - **Anmerkungen des Beraters** stehen gesammelt am Ende des Kapitels, nicht im Text.
@@ -23,8 +23,12 @@ Der rote Faden heißt bisher: Ein Unbekannter, der **Graue Prophet**, sammelt Se
 - *Bezug zum Titel:* Das offene graue Auge des Kults ist das Gegenbild zum Ring. „Ein Auge schließt sich, ein anderes öffnet sich“ meint auch, dass ein Siegel im Auge eines Aschgeborenen erlischt, wenn er dem Kult dient; ob der Prophet selbst einer ist, bleibt offen (Kapitel 3 oder 4).
 - *Für jeden Helden:* Der Faden trägt ohne das Volk: der Kult jagt Aschgeborene in Bornim (Kael ist Enkel eines Überlebenden). Wer das Volk wählt, ist selbst gesucht und weiß davon nicht mehr als andere; in Kapitel 1 und 2 erklärt niemand das Mal, die Leute bemerken es nur (Entscheidung 71).
 - *Wo das Zeichen erscheint* (432.3, entschieden Chef 02.11., 22:05; Wirkung 432.2: Zeichen am Bildrand, ohne Probe; das graue Wachssiegel des Propheten zählt nicht): nur beim Helden dieses Volkes, solange er im selben Grundriss ist wie eine Siegelhälfte; nicht, solange er sie selbst bei sich hat, und nicht in Zwischensequenzen. Aussehen: der goldene Ring aus der Iris; wie lange und wie stark es steht, schlägt Tom beim Bau vor. **Kapitel 1:** Graks Halle, solange Grak lebt (er trägt das Amulett, STORY-PLAN-K1 122); Tempel des Morgenlichts, sobald das Amulett auf dem Altar liegt. **Kapitel 2:** Tempel des Morgenlichts in Bornim (Amulett auf dem Altar, auch am Kapitelende `[41.ende.1]`) und die Gruft unter der Kapelle von Aschfurt mit dem Siegelstein (6a, 6e); der Siegelabdruck beim Aschenpriester zählt nicht (ein Abdruck, kein Siegel). Hinweis für Tom: In Godot ist das Amulett heute kein Gegenstand in der Tasche (`geschichte.gd`), Aldric legt es „morgen bei Sonnenaufgang“ zurück; die Regel hängt am Ort, nicht an der Tasche.
-- *Offen, nicht gebaut:* ob Lyra eine ist (der Kult wollte in Kapitel 1 sie und das Amulett); das berührte ihr Modell in Kapitel 1, darum erst nach dem Meilenstein und nur auf Wort des Chefs.
-- *Abgeglichen mit Kapitel 2 (01.11., 10:5x), stimmig:* Siegel aus zwei Hälften (Amulett, Siegelstein; `[41.ende.3]`), Riss statt Bruch (6e), Kael als Enkel (3d). Offen für die Abstimmung mit dem Chef: (1) Vesks Liste „Tobin … – Ring fehlt“ (`[41.schanze.liste]`, gemeint Gwennas Ring) liest sich mit dem Iris-Ring doppelt; Vorschlag Homer: lassen, als Fährte, die erst in Kapitel 3 umkippt; Gegenargument: in Kapitel 2 weiß der Kult es noch nicht, wer genau liest, sieht einen Widerspruch. (2) Trägt Kael den Ring sichtbar? Vorschlag: nein, das Mal verblasst mit jeder Geburt, und nur wer es trägt, taugt dem Kult; dann ist der Held mit Volk der seltene Fall. Gegenargument: ein Mal, das verblasst, schwächt „in Bornim gejagt“.
+- *Blut und Mal* (432a A, Chef 10.11., 12:05): Das Blut aus Aschfurt tragen viele Nachfahren, das Mal (Strähne und Ring) zeigt sich nur bei manchen; „Aschgeborene“ heißen nur die mit dem Mal, und als Volk wählt der Spieler so einen. Kael ist Nachfahre ohne Mal. Weil der Kult das Blut nicht von außen erkennt, jagt er ab Kapitel 3 alle Nachfahren.
+- *Lyra* ist keine Aschgeborene (432a A); der Kult wollte sie als Priesterin des Amuletts. Kapitel 1 bleibt unverändert.
+- *Abgeglichen mit Kapitel 2 (01.11., 10:5x), stimmig:* Siegel aus zwei Hälften (Amulett, Siegelstein; `[41.ende.3]`), Riss statt Bruch (6e), Kael als Enkel (3d). Vesks Liste sagt „Ehering fehlt“ statt „Ring fehlt“ (`[41.schanze.liste]`, 432a A), damit sie nicht nach dem Mal klingt.
+- *Bau:* Vorgang 852 (Tom), ruht bis Kapitel 1 fertig (432a A).
+
+**Die graue Großkatze (roter Faden ab Kapitel 2; Richtung Chef 10.11., 11:50 an Homer; Modell Leopard-Hybrid, `LISTE-IDEEN.md`):** kein Begleiter: man kann sie weder zähmen noch auswählen (BRS 58 bleibt), man nimmt sie nur wahr, auf Abstand im Wald oder am Weg. Gescriptet: beim ersten Überfall auf einem Weg in Kapitel 2 springt sie heraus, hilft dem Helden und verschwindet wieder. Sie läuft im Hintergrund mit und spielt in einem späteren Kapitel eine Rolle. *Offen (Homer, vor dem Bau mit dem Chef):* welcher Weg und welcher Überfall in Kapitel 2; wie oft man sie vorher sieht (Vorschlag: zweimal von fern, ohne Text); welche Rolle später (Vorschlag zum Abwägen: Bezug zu Aschfurt oder zum Ring im Auge, Gegenargument: der Faden der Aschgeborenen trägt schon viel). Bau nach dem Meilenstein Kapitel 1.
 
 **Aussehen der Figuren:** maßgebend ist nur `docs/LISTE-FIGUREN.md` im Repo (70.5, Nutzer 14.10.). Die Spalte „Aussehen“ unten ist Entwurfsstand und wird nicht mehr gepflegt.
 
@@ -40,8 +44,8 @@ Der rote Faden heißt bisher: Ein Unbekannter, der **Graue Prophet**, sammelt Se
 | Jäger Garrick | Rastplatz im Wald, verrät Krogg und den Schlüssel | Flüsterwald, Lagerfeuer |  |
 | Kräuterfrau Morwen | braut Tränke, warnt vor Grimmzahn | Tiefer Flüsterwald |  |
 | Pim, Bauer Bram, Liska, Gwenna | Dorfbewohner mit Hinweisen | Dorf |  |
-| Krogg | Bugbear, Schlüsselträger, Vorboss | Höhle, Ostflügel |  |
-| Grak | Hobgoblin-Hauptmann, Anführer des Blutzahn-Stamms | Höhle, Halle im Norden |  |
+| Krogg | Bärenschrat, Schlüsselträger, Vorboss | Höhle, Ostflügel |  |
+| Grak | Goblin-Hauptmann, Anführer des Blutzahn-Stamms | Höhle, Halle im Norden |  |
 | Grimmzahn | Leitwolf, freiwilliger Boss | Tiefer Flüsterwald, Norden |  |
 | Der Graue Prophet | Drahtzieher, Siegel: graues Auge | unbekannt |  |
 | Der alte Kael (Kapitel 2) | Ältester im Dorf; Großvater entkam dem brennenden Aschfurt; nennt den Namen Aschfurt, bevor er auf der Karte steht (2c, 3d) | Bornim, eigenes Haus; vor der Tempelszene Tür und Läden zu | Sehr alt, gebeugt, Stock, Wolldecke um die Schultern. Erbstück des Großvaters sichtbar: angesengte Laterne neben der Tür. Handlung: sitzt nach der Tempelszene auf einer Bank vor dem Haus, dreht die Laterne in den Händen, schaut nach Süden. Klang: Husten, Stock auf Holz. |

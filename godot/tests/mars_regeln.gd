@@ -14,33 +14,33 @@ var failed := 0
 
 func _init() -> void:
 	tables = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
-	# 89.2 (c): fighter level 3 with two weapons: Attack 2 blows, Action Surge 3 (SRD: two actions, one bonus action)
+	# 870.5 (870a 3 A): ein Schlag je Angriff; Extra-Angriff, Doppelzug und Zweiwaffenkampf entfallen (vorher 89.2 c)
 	_check("ein Schwert, Angriff", _blows(false, [], ["attack"]), 1)
-	_check("zwei Waffen, Angriff", _blows(true, [], ["attack"]), 2)
-	_check("zwei Waffen, Tatendrang", _blows(true, [], ["use", "ACTION_SURGE"]), 3)
-	_check("ein Schwert, Tatendrang", _blows(false, [], ["use", "ACTION_SURGE"]), 2)
-	_check("Stufe 5, zwei Waffen, Angriff", _blows(true, ["EXTRA_ATTACK"], ["attack"]), 3)
-	_check("Stufe 5, zwei Waffen, Tatendrang", _blows(true, ["EXTRA_ATTACK"], ["use", "ACTION_SURGE"]), 5)
+	_check("zwei Waffen, Angriff", _blows(true, [], ["attack"]), 1)
+	_check("Stufe 5 mit Extra-Angriff, zwei Waffen", _blows(true, ["EXTRA_ATTACK"], ["attack"]), 1)
 	_check("zwei Waffen, Armbrust gezogen", _blows(true, [], ["attack"], true), 1)
+	# 702 C (Chef 09.11., 06:56): angesprungen steht der Held in seinem Zug auf und handelt gleich, nur ohne Platzwechsel
+	_anspringen_702()
 	# 296.2: getting away as in the old fight, never from a boss; who strikes first
 	_flight()
 	_openings()
 	# 296.2: the statuses of the old fight
 	_statuses()
 	# 296.2 (Test 89.2 b): never a fight without life points; what a won fight brings
-	_no_life()
-	_rewards()
+	_no_life()     # der Lohn nach dem BRS: tests/lohn_870.gd (870.5)
 	# 249: the halt as a blow lands (HitWeight.kt)
 	_weights()
 	# 348.7b (Chef 28.10., 10:43: „brennende Hände gehen ja auf eine Reihe … da dürften ja auch theoretisch dann mehr getroffen sein“)
-	_row_spell("BURNING_HANDS")
-	_row_spell("FIREBALL")
+	_row_spell("Z_FAECHER")     # 870.5: Flammenfächer, Glutkugel nach dem BRS
+	_row_spell("Z_GLUT")
 	# 399.2a (Chef 14:19 „Wolf mit 1 bis 2 Jungwölfen“): fällt der Wolf, fliehen die Jungwölfe, der Kampf ist gewonnen
 	_pack_flees()
 	# 399.2b (Chef 15:32 „Jungwölfe beißen wie im alten Spiel nur zu 50 % je Runde“)
 	_cub_chance()
 	# 399.2 (Tom 17:15): satt in den Kampf: +1 auf Angriff und Schaden des Helden (Battle.fedBonus), mit Zeile zu Beginn
 	_fed()
+	# 870.5: Grimmzahns Leibwache nicht angreifbar (werte.json „rudel“, 444), Krogg überfällt zuerst (werte.json „ueberfall“)
+	_leibwache_ueberfall()
 	print("MARS Regeln: %d abweichend" % failed)
 	quit(1 if failed > 0 else 0)
 
@@ -73,6 +73,9 @@ func _blows(two: bool, extra: Array, order: Array, drawn := false) -> int:
 	var heard := []
 	mars.listener = func(e): heard.append(e)
 	mars.start()
+	for f in foes:     # 870.5: nach dem Umrechnen der Leben (BRS) wieder zu zäh zum Fallen
+		f.max_hp = 999
+		f.hp = 999
 	assert(mars.current() == hero)
 	heard.clear()
 	var o: Array = order.duplicate()
@@ -82,11 +85,43 @@ func _blows(two: bool, extra: Array, order: Array, drawn := false) -> int:
 	mars.act(o)
 	var n := 0
 	for e in heard:
-		if e.actor == "hero" and e.roll != null and e.roll[0] == "ATTACK":
+		if e.actor == "hero" and Mars.ist_angriff(e.roll):
 			n += 1
-		elif e.actor != "hero" and n > 0:
+		elif e.actor != null and e.actor != "hero" and n > 0:     # 702 C: Zeilen ohne Täter (Blutung) zählen nicht als fremder Zug
 			break
 	return n
+
+
+## 702 C: Held gegen zwei Wölfe, die nur anspringen; jeder Zug ein Angriff. Gezählt: wie oft er aufsteht, wie oft er danach
+## gleich wählen darf (am Zug, ohne Platzwechsel), Zeilen mit „Zug verloren“.
+func _anspringen_702() -> void:
+	var sheet: Dictionary = tables.probe.FIGHTER.hero.hero.duplicate(true)
+	var skills := {}
+	for s in tables.skills:
+		skills[s.id] = s
+	var wolf := _monster("wolf")
+	var hero := Mars.hero_fighter("hero", "PARTY", Vector2i(Mars.FRONT, 0), sheet, 999, sheet.second, skills)
+	var foes := [Mars.monster_fighter("w1", Vector2i(Mars.FRONT, 0), wolf, 999), Mars.monster_fighter("w2", Vector2i(Mars.FRONT, 1), wolf, 999)]
+	var mars = Mars.new([hero], foes, tables, Wuerfel.new(11), Wuerfel.new(11))
+	var heard := []
+	mars.listener = func(e): heard.append(e)
+	mars.start()
+	var auf := 0
+	var gleich := 0
+	var verloren := 0
+	for i in 30:
+		if mars.outcome != "ONGOING":
+			break
+		for e in heard:
+			if e.actor == "hero" and e.cue == "RISES":
+				auf += 1
+				if mars.current() == hero and not mars.can_swap(hero):
+					gleich += 1
+			if e.has("text") and ("Zug verloren" in str(e.text) or "turn lost" in str(e.text)):
+				verloren += 1
+		heard.clear()
+		mars.act(["attack", mars.targets(hero)[0].id])
+	_check_s("Anspringen 702 C: aufgestanden, gleich am Zug ohne Platzwechsel, Zug verloren", "%s %s %d" % [auf > 0, auf == gleich, verloren], "true true 0")
 
 
 func _monster(id: String) -> Dictionary:
@@ -110,23 +145,20 @@ func _fight(sheet: Dictionary, foe_ids: Array, tape, opening := "NORMAL"):
 func _flight() -> void:
 	var sheet: Dictionary = tables.probe.FIGHTER.hero.hero.duplicate(true)
 	var wolf := _monster("wolf")
-	var dc: int = 10 + int(wolf.dex)
-	# initiative: hero 20, wolf 1; then the flight roll
-	for c in [[dc - int(sheet.dex), "FLED"], [dc - int(sheet.dex) - 1, "ONGOING"]]:
-		var m = _fight(sheet, ["wolf"], [20, 1] + _ones())
+	# 870.5 (870a 5 A): Probe in Prozent, Gewandtheit gegen den schnellsten Gegner; Wurf 0–99 unter der Chance gelingt
+	var probe = _fight(sheet, ["wolf"], [20, 1] + _ones())
+	var c: int = roundi(probe._probe_chance(probe.by_id("hero"), "gewandtheit", probe.by_id("f0"), "gewandtheit"))
+	for k in [[c - 1, "FLED"], [c, "ONGOING"]]:
+		var m = _fight(sheet, ["wolf"], [99, 1] + _ones())
 		m.start()
-		# the flight roll comes first on the tape once the hero chooses
-		m.dice.tape = [c[0]] + _ones()
+		m.dice.tape = [k[0]] + _ones()
 		m.dice.pos = 0
 		m.act(["flee"])
-		var got: String = m.outcome
-		_check_s("Flucht mit %d" % c[0], got, c[1])
-	var rogue: Dictionary = tables.probe.ROGUE.hero.hero.duplicate(true)
-	var r = _fight(rogue, ["wolf"], [20, 1] + _ones())
-	r.start()
-	if r.current().id == "hero":
-		r.act(["flee"])
-	_check_s("Schurke (Gerissenheit)", r.outcome, "FLED" if "CUNNING_ACTION" in rogue.skills else "ONGOING")
+		_check_s("Flucht mit %d bei %d %%" % [k[0], c], m.outcome, k[1])
+	var d = _fight(sheet, ["wolf"], [99, 1] + _ones())
+	d.start()
+	d.by_id("hero").status["DRUNK"] = 3
+	_check_s("betrunken: Flucht mit Ungunst", str(roundi(d._probe_chance(d.by_id("hero"), "gewandtheit", d.by_id("f0"), "gewandtheit", -absf(Mars.BrsKampf.nachteil())))), str(maxi(5, c - 25)))
 	var b = _fight(sheet, ["hobgoblin_captain"], 1)
 	_check_s("Flucht vor Grak", str(b.can_flee(b.by_id("hero"))), "false")
 
@@ -159,13 +191,26 @@ func _check_s(what: String, got: String, want: String) -> void:
 
 func _statuses() -> void:
 	var sheet: Dictionary = tables.probe.FIGHTER.hero.hero.duplicate(true)
-	# a critical hit with a blade makes bleed 3 turns (2 left after the wolf's own turn) (hero 20, wolf 1; then the blow 20)
-	var c = _fight(sheet, ["wolf"], [20, 1] + _ones())
-	c.start()
-	c.dice.tape = [20] + _ones()
-	c.dice.pos = 0
-	c.act(["attack", "f0"])
-	_check_s("Krit mit Klinge: blutet", str(c.by_id("f0").status), str({"BLEED": 2}))
+	# a critical hit with a blade makes bleed 3 turns (2 left after the wolf's own turn); 870.5: nach dem BRS kritisch über den
+	# Testschalter (held_immer_krit), der erste Treffer zählt, der Wolf hält ihn aus
+	var blutet := "kein Treffer"
+	for seed in 20:
+		var c = _fight(sheet, ["wolf"], [20, 1] + _ones())
+		c.held_immer_krit = true
+		var hits := []
+		c.listener = func(e): if e.actor == "hero" and Mars.ist_krit(e.roll): hits.append(e)
+		c.start()
+		c.dice.rng.seed = seed
+		var wf = c.by_id("f0")
+		wf.max_hp = 999
+		wf.hp = 999
+		c.dice.tape = _ones()
+		c.dice.pos = 0
+		c.act(["attack", "f0"])
+		if not hits.is_empty():
+			blutet = str(wf.status)
+			break
+	_check_s("Krit mit Klinge: blutet", blutet, str({"BLEED": 2}))
 	# bleeding hurts at the start of its turn (1d4 + level / 3), then counts down; the line names it
 	var b = _fight(sheet, ["wolf"], [20, 1] + _ones())
 	var heard := []
@@ -174,14 +219,14 @@ func _statuses() -> void:
 	b.start()
 	b.act(["wait"])
 	var bled: Array = heard.filter(func(e): return "verliert Blut" in e.text)
-	_check_s("Blutung schadet", str(bled.map(func(e): return e.damage)), "[2]")
+	_check_s("Blutung schadet", str(bled.map(func(e): return e.damage)), str([maxi(1, roundi(2 * b.massstab(b.by_id("f0"))))]))     # 870.5: im Maß des BRS
 	_check_s("Blutung zählt herunter", str(b.by_id("f0").status), str({"BLEED": 2}))
 	_check_s("Zeichen im Ereignis", str(bled[0].status.get("f0", {})), str({"BLEED": 2}))
 	# bleeding to death ends the fight
 	var d = _fight(sheet, ["wolf"], [20, 1] + _ones())
-	d.by_id("f0").hp = 2
 	d.by_id("f0").status["BLEED"] = 3
 	d.start()
+	d.by_id("f0").hp = 1     # 870.5: nach dem Umrechnen der Leben (BRS)
 	d.act(["wait"])
 	_check_s("Verblutet: Sieg", d.outcome, "WON")
 	# a stunned hero loses the turn, and is not stunned again for three turns
@@ -195,12 +240,10 @@ func _statuses() -> void:
 	_check_s("Betäubt: Zug verloren", str(lines.filter(func(x): return "kann nicht handeln" in x).size()), "1")
 	_check_s("Betäubt: dann wieder dran", str(s.current() == hero and s.outcome == "ONGOING"), "true")
 	_check_s("Betäubt: Schutz vor neuer Betäubung", str(s._inflict(hero, "STUN", 1)), "false")
-	# slowed: −2 on armor class and attack; weakened: −2 on attack and damage
+	# slowed: −2 on the attack; weakened: −2 on attack and damage (870.5: keine Rüstungsklasse mehr)
 	var w = _fight(sheet, ["wolf"], 1)
 	var foe = w.by_id("f0")
-	var ac: int = foe.ac()
 	foe.status["SLOW"] = 2
-	_check_s("Verlangsamt: RK −2", str(ac - foe.ac()), "2")
 	foe.status["WEAK"] = 2
 	_check_s("Verlangsamt und geschwächt: Angriff −4", str(w._penalty(foe)), "4")
 	# a foe immune to it takes none; a boss shakes off a stun half the time
@@ -219,11 +262,11 @@ func _statuses() -> void:
 	_tape(z, [0])
 	_check_s("Zwerg widersteht Gift", str(z._inflict(z.by_id("hero"), "POISON", 3)), "false")
 	var sv = _fight(sheet, ["wolf"], 1)
-	_tape(sv, [20])
-	_check_s("Rettungswurf gelingt", str(sv._inflict(sv.by_id("hero"), "POISON", 3, ["CON", 11])), "false")
+	_tape(sv, [0])     # 870.5: Abwehrprobe in Prozent, kleiner Wurf gelingt
+	_check_s("Abwehrprobe gelingt", str(sv._inflict(sv.by_id("hero"), "POISON", 3, ["zaehigkeit", 11])), "false")
 	var fl = _fight(sheet, ["wolf"], 1)
-	_tape(fl, [1, 999])
-	_check_s("Rettungswurf misslingt", str(fl._inflict(fl.by_id("hero"), "POISON", 3, ["CON", 11])), "true")
+	_tape(fl, [99, 999])
+	_check_s("Abwehrprobe misslingt", str(fl._inflict(fl.by_id("hero"), "POISON", 3, ["zaehigkeit", 11])), "true")
 
 
 ## The next numbers of [m]'s dice, from here on.
@@ -245,48 +288,6 @@ func _no_life() -> void:
 	_check_s("Held mit LP darf kämpfen", str(Mars.can_fight([_fight(sheet, ["wolf"], 1).all[0]])), "true")
 
 
-## A won fight of the probe's fighter (level 3) against [foe_ids], the hero's experience [xp] before, from [tape].
-func _won(foe_ids: Array, xp: int, tape: Array, level := 3) -> Dictionary:
-	var sheet: Dictionary = tables.probe.FIGHTER.hero.hero.duplicate(true)
-	sheet.level = level
-	var m = _fight(sheet, foe_ids, 1)
-	m.test_end(true)
-	return Lohn.reward(m, xp, Wuerfel.new(tape))
-
-
-func _rewards() -> void:
-	# a leader wolf and two of its pack: 50 × (1 + 0,3 × 2) = 80 EP; gold 1W6 (4); potion no (500), meat yes (100), pelt yes (0)
-	var r := _won(["wolf", "wolf", "wolf"], 450, [4, 500, 100, 0])
-	_check_s("Rudel: EP", str(r.xp), "80")
-	_check_s("Rudel: Gold", str(r.gold), "4")
-	_check_s("Rudel: Beute", str(r.items), "[\"raw_meat\", \"wolf_pelt\"]")
-	_check_s("Rudel: Zeilen", " | ".join(r.lines), "Ansgar erhält 80 EP. | Du erbeutest 4 Gold. | Beute: Rohes Fleisch! | Beute: Wolfsfell!")
-	# over the threshold of level 4 (1350): level up, full again, two ability points
-	var up := _won(["wolf"], 1300, [1, 999, 999, 999])
-	_check_s("Aufstieg: Stufe", str(up.level), "4")
-	_check_s("Aufstieg: Zeilen", " | ".join(up.lines.filter(func(l): return not l.begins_with("Neue"))),
-		"Ansgar erhält 50 EP. | Du erbeutest 1 Gold. | Ansgar erreicht Stufe 4! | TP und ZP von Ansgar sind vollständig aufgefüllt! | +2 Attributspunkt(e) – verteile sie im Menü.")
-	# at the cap of chapter 1 (level 6, 7000 EP) nothing more, and it is said
-	var cap := _won(["wolf"], 7000, [1, 999, 999, 999], 6)
-	_check_s("Höchststufe: EP", str(cap.xp), "0")
-	_check_s("Höchststufe: Zeile", str(cap.lines[0]), Lohn.CAPPED[0])
-	# just below the cap: only what was missing counts
-	var near := _won(["wolf"], 6980, [1, 999, 999, 999], 5)
-	_check_s("Kurz vor Höchststufe: EP", "%d, Stufe %d" % [near.xp, near.level], "20, Stufe 6")
-	# Grak's called goblins are worth nothing: the captain alone, 450 EP
-	var g = _fight(tables.probe.FIGHTER.hero.hero.duplicate(true), ["hobgoblin_captain", "goblin"], 1)
-	g.all[2].called_in = true
-	g.test_end(true)
-	_check_s("Grak mit Gerufenem: EP", str(Lohn.reward(g, 0, Wuerfel.new([1] + _ones())).xp), "450")
-	# 399.2: Ausrüstung, die die Welt gewürfelt hat (Loot.drops), nach den Dingen wie Battle.finishWin
-	var sheet: Dictionary = tables.probe.FIGHTER.hero.hero.duplicate(true)
-	var mg = _fight(sheet, ["wolf"], 1)
-	mg.test_end(true)
-	var ga := Lohn.reward(mg, 450, Wuerfel.new([4, 999, 999, 0]), 0, null, 1.0, 1.0, [{"gear": {"base": "shortsword"}, "name": "Kurzschwert", "rarity": "Ungewöhnlich"}])
-	_check_s("Ausrüstung: Zeilen", " | ".join(ga.lines), "Ansgar erhält 50 EP. | Du erbeutest 4 Gold. | Beute: Wolfsfell! | Beute: Kurzschwert (Ungewöhnlich)!")
-	_check_s("Ausrüstung: Lohn", str(ga.gear), "[{ \"base\": \"shortsword\" }]")
-
-
 func _weights() -> void:
 	_check_s("Wucht: gewöhnlich", Wucht.of(false, 3, 11), "NORMAL")
 	_check_s("Wucht: ein Drittel ist hart", Wucht.of(false, 4, 12), "HARD")
@@ -297,18 +298,18 @@ func _weights() -> void:
 	_check_s("Wucht: Ruck hin und zurück", "%.2f %.2f %.2f" % [Wucht.jolt(0.0), Wucht.jolt(0.5), Wucht.jolt(1.0)], "0.00 1.00 0.00")
 
 
-## 348.7b: a row spell rolls a save for every standing foe in the target's row and none in the other row (Skirmish.kt:726).
+## 348.7b: a row spell strikes every standing foe in the target's row and none in the other row (Skirmish.kt:726); 870.5 nach dem
+## BRS: ein Schlag der Schule je Gegner der Reihe (Evokation 40 kennt Flammenfächer und Glutkugel)
 func _row_spell(spell: String) -> void:
 	var sheet: Dictionary = tables.probe.WIZARD.hero.hero.duplicate(true)
-	if not spell in sheet.skills:
-		sheet.skills.append(spell)
+	sheet["brs_fert"] = {"Evokation": 40}
 	sheet.level = maxi(int(sheet.level), 5)
 	var skills := {}
 	for s in tables.skills:
 		skills[s.id] = s
-	var wolf: Dictionary
+	var wolf: Dictionary     # 870.5: Goblins (Wölfe fliehen vor Feuer, Gegenwirkung)
 	for m in tables.monsters:
-		if m.id == "wolf":
+		if m.id == "goblin":
 			wolf = m
 	var hero := Mars.hero_fighter("hero", "PARTY", Vector2i(Mars.FRONT, 0), sheet, 999, sheet.second, skills)
 	var foes := [Mars.monster_fighter("w1", Vector2i(Mars.FRONT, 0), wolf, 999), Mars.monster_fighter("w2", Vector2i(Mars.FRONT, 1), wolf, 999),
@@ -317,6 +318,9 @@ func _row_spell(spell: String) -> void:
 	var heard := []
 	mars.listener = func(e): heard.append(e)
 	mars.start()
+	for w in foes:     # 870.5: nach dem Umrechnen der Leben (BRS) zu zäh zum Fallen
+		w.max_hp = 9999
+		w.hp = 9999
 	assert(mars.current() == hero)
 	var why = mars.blocked(hero, spell)
 	if why != null:
@@ -341,7 +345,7 @@ func _row_spell(spell: String) -> void:
 	mars.act(["use", spell, t.id])
 	var hit := {}
 	for e in heard:
-		if e.actor == "hero" and e.roll != null and e.roll[0] == "SAVE":
+		if e.actor == "hero" and Mars.ist_angriff(e.roll):
 			hit[e.target] = true
 		elif e.actor != "hero" and not hit.is_empty():
 			break
@@ -351,13 +355,13 @@ func _row_spell(spell: String) -> void:
 	var soll := ",".join(PackedStringArray(want))
 	if got != soll:
 		failed += 1
-		print("FEHLER %s auf %s: Rettungswürfe %s statt %s (ganze Reihe, die andere nicht)" % [spell, t.id, got, soll])
+		print("FEHLER %s auf %s: Schläge %s statt %s (ganze Reihe, die andere nicht)" % [spell, t.id, got, soll])
 	else:
-		print("gleich %s auf %s: Rettungswürfe %s (ganze Reihe, die andere nicht)" % [spell, t.id, got])
+		print("gleich %s auf %s: Schläge %s (ganze Reihe, die andere nicht)" % [spell, t.id, got])
 
 
 ## 399.2a: the wolf with its young (aufruf.gd rudel): they follow it, flee when it falls, the fight is won; the reward counts
-## them as its pack (lohn.gd, xpShare 0,3 each), as in the old fight
+## them as its pack (lohn.gd, werte.json erfahrung_anteil 0,3 each, 870.5)
 func _pack_flees() -> void:
 	var monsters := {}
 	for m in tables.monsters:
@@ -385,8 +389,8 @@ func _pack_flees() -> void:
 	var flohen := heard.filter(func(e): return e.cue == "FOE_FLEES").size()
 	var ok: bool = not wolf.standing() and cubs.all(func(c): return c.fled and c.hp > 0) and flohen == cubs.size() and mars.outcome == "WON"
 	if ok:
-		var r: Dictionary = Lohn.reward(mars, 0, Wuerfel.new(1))
-		var soll := int(int(wolf.monster.xp) * (1.0 + 0.3 * cubs.size()))
+		var r: Dictionary = Lohn.reward(mars, {}, Wuerfel.new(1))     # 870.5: BRS, je Jungwolf 0,3 (werte.json)
+		var soll := roundi(Brs.erfahrung(int(hero.level()), "wolf") * (1.0 + 0.3 * cubs.size()))
 		ok = int(r.xp) == soll
 		ok = ok and names[0] == "Wolf" and (names[1] == "Jungwolf" if cubs.size() == 1 else names[1] == "Jungwolf 1")
 		print(("gleich" if ok else "FEHLER") + " Rudel: Wolf fällt, %d Jungwölfe fliehen, gewonnen, Erfahrung %d (soll %d), Namen %s" % [cubs.size(), int(r.xp), soll, names])
@@ -455,13 +459,45 @@ func _fed() -> void:
 		m.start()
 		_tape(m, [15, 4, 4, 4, 4])
 		var foe = m.all.filter(func(f): return f.side == "FOES")[0]
+		foe.max_hp = 999
+		foe.hp = 999
 		var hp0: int = foe.hp
-		m._weapon_attack(m.lead(), foe)
-		loss.append(hp0 - foe.hp)
-		var att := heard.filter(func(e): return e.roll != null and e.roll[0] == "ATTACK")
-		bonus.append(int(att[-1].roll[2]) if not att.is_empty() else -99)
 		said.append(heard.any(func(e): return String(e.text).contains("gestärkt") or String(e.text).contains("well fed")))
-	var ok: bool = loss[1] == loss[0] + 1 and bonus[1] == bonus[0] + 1 and said == [false, true]
+		var att := []
+		for seed in 20:     # 870.5: nach dem BRS, derselbe Wurf mit und ohne Sättigung, der erste Treffer zählt
+			m.dice.rng.seed = seed
+			heard.clear()
+			m._weapon_attack(m.lead(), foe)
+			att = heard.filter(func(e): return Mars.ist_angriff(e.roll) and e.roll[4])
+			if not att.is_empty():
+				break
+		loss.append(hp0 - foe.hp)
+		bonus.append(int(att[-1].roll[3]) if not att.is_empty() else -99)     # Trefferchance in Prozent
+	var ok: bool = loss[1] > loss[0] and bonus[1] > bonus[0] and said == [false, true]     # 870.5: im Maß des BRS
 	print(("gleich" if ok else "FEHLER") + " satt: Schaden %s, Angriff %s, Zeile %s" % [loss, bonus, said])
+	if not ok:
+		failed += 1
+
+
+func _leibwache_ueberfall() -> void:
+	var monsters := {}
+	for m in tables.monsters:
+		monsters[m.id] = m
+	var Aufruf = load("res://kampf/aufruf.gd")
+	var skills := {}
+	for s in tables.skills:
+		skills[s.id] = s
+	var sheet: Dictionary = tables.probe.FIGHTER.hero.hero.duplicate(true)
+	var hero := Mars.hero_fighter("hero", "PARTY", Vector2i(Mars.FRONT, 0), sheet, 999, sheet.second, skills)
+	var mars = Mars.new([hero], Aufruf.gegner("GRIMM", monsters, Wuerfel.new(3)), tables, Wuerfel.new(7), Wuerfel.new(7))
+	var ziele: Array = mars.feinde(hero).map(func(f): return f.id)
+	var ok: bool = ziele.size() == 1 and mars.find(ziele[0]).boss()
+	print(("gleich" if ok else "FEHLER") + " Leibwache nicht angreifbar: Ziele %s" % [ziele])
+	if not ok:
+		failed += 1
+	var held2 := Mars.hero_fighter("hero", "PARTY", Vector2i(Mars.FRONT, 0), sheet, 999, sheet.second, skills)
+	var m2 = Mars.new([held2], Aufruf.gegner("KROGG", monsters, Wuerfel.new(3)), tables, Wuerfel.new(7), Wuerfel.new(7))
+	ok = m2.order[0].side == "FOES"
+	print(("gleich" if ok else "FEHLER") + " Krogg überfällt zuerst: %s" % [m2.order.map(func(f): return f.id)])
 	if not ok:
 		failed += 1

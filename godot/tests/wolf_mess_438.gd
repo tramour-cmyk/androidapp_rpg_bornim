@@ -56,6 +56,8 @@ var anim_ab := {}      # id -> {Bewegung: [Bilder, an denen sie beginnt]}
 var anim_vor := {}
 var tief_y := {}       # Sterbender -> [[Bild, Höhe des Rumpfs]]
 var still := 0
+var diag_n := 0              # 562: Zeilen „438 DIAG“
+var gleit_n := 0             # 900: Zeilen „438 GLEIT“
 var still_spannen := []    # [ab Bild, Bilder, Zeile]
 var still_ab := -1
 var lage_vor := {}
@@ -135,6 +137,13 @@ func _wolf(f) -> bool:
 
 func _bild(kf, n: int, k: String) -> void:
 	var figs: Array = kf.figures.values()
+	var spur := OS.get_environment("SPUR438")     # 562 am Rechner: SPUR438=<von>-<bis> schreibt je Bild jede Figur
+	if spur != "" and n >= int(spur.get_slice("-", 0)) and n <= int(spur.get_slice("-", 1)):
+		for f in figs:
+			if f.fighter.id.begins_with("wolf"):
+				print("SPUR %d %s rot=%.0f anim=%s gang=%s auf=(%.2f,%.2f) heim=(%.2f,%.2f) tween=%s unterwegs=%s bahn=%s warte=%d" % [n, f.fighter.id, rad_to_deg(f.rotation.y),
+					f.anim.current_animation if f.anim else "", f.gang, f.position.x, f.position.z, f.home.x, f.home.z,
+					f.tween != null and f.tween.is_running(), f.unterwegs(), f.bahn, f._warte_n])
 	if log_an and String(kf.shown.get("text", "")) != _letzt:
 		_letzt = String(kf.shown.get("text", ""))
 		print("Meldung %d %s | cue %s schaden %s sprung %s" % [n, _letzt, kf.shown.get("cue"), kf.shown.get("damage"), str(kf.figures[kf.shown.actor].letzter_sprung) if kf.shown.get("actor") != null and kf.figures.has(kf.shown.actor) else "-"])
@@ -176,6 +185,12 @@ func _bild(kf, n: int, k: String) -> void:
 			if d > GLEIT_M and not (nm in SCHRITTE):
 				var g: Array = gleiten.get(nm, [0, 0.0, 0.0])
 				gleiten[nm] = [g[0] + 1, g[1] + d, maxf(g[2], d)]
+				# 900 (Lauf 335: Biss 7 Bilder 0,56 m, ohne Kaufdaten am Rechner nicht nachstellbar): wer gleitet, wobei, je Bild
+				if nm in ["Biss", "Treffer"] and gleit_n < 30:
+					gleit_n += 1
+					print("438 GLEIT Bild %d %s %s %.2f s: %.3f m, gang=%s tween=%s abgesetzt=%s heim %.2f m, Meldung: %s" % [n, id, nm,
+						f.anim.current_animation_position, d, f.gang, f.tween != null and f.tween.is_running(), f._abgesetzt,
+						Vector2(f.home.x - p.x, f.home.z - p.z).length(), String(kf.shown.get("text", "")).left(60)])
 			elif nm in ["Gehen", "Rennen"] and f.has_method("_mps") and not f.weg.is_empty() and f.weg.has(nm):
 				var soll: float = f._mps(nm) / 30.0 * absf(f.anim.get_playing_speed())
 				if d > soll * 1.35 + 0.005:
@@ -259,6 +274,12 @@ func _bild(kf, n: int, k: String) -> void:
 					tief = minf(tief, b.clearance(q))
 			if tief < -DURCH_M:
 				durch.append([n, "%s/%s" % [k, a.fighter.id], "%s/%s" % [k, b.fighter.id], -tief, a.anim.current_animation if a.anim else ""])
+				# 562 (Läufe 275/276/279: mit dem schnelleren Hinweg der Helden 0,13 m Wolf in Wolf): wer was tut, je Fund höchstens 12 Zeilen
+				if diag_n < 12:
+					diag_n += 1
+					print("438 DIAG Bild %d %s: %s %s gang=%s heim=%s auf %s | %s %s gang=%s heim=%s auf %s | tief %.2f busy=%s" % [n, k,
+						a.fighter.id, a.anim.current_animation if a.anim else "", a.gang, a.home, a.global_position,
+						b.fighter.id, b.anim.current_animation if b.anim else "", b.gang, b.home, b.global_position, -tief, kf.busy])
 
 
 ## 438 Prüfer Film r2: alles, was der Prüfer im Film r2 sah, je Bild gemessen

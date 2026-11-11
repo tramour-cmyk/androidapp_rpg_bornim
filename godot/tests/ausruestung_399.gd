@@ -16,15 +16,18 @@ func tippe(c: Control) -> void:
 	await process_frame
 	await process_frame
 
-func knopf(m: Node, anfang: String) -> Button:
-	for b in m.find_children("*", "Button", true, false):
-		if b.is_visible_in_tree() and not b.is_queued_for_deletion() and String(b.text).begins_with(anfang.to_upper()): return b
+const KH := preload("res://tests/knopf_hilfe.gd")
+
+# 630 (549a): Knoepfe ohne Kasten (Spielstaende.knopf) wie Button
+func knopf(m: Node, anfang: String) -> Control:
+	for b in KH.alle(m):
+		if b.is_visible_in_tree() and not b.is_queued_for_deletion() and KH.text(b).begins_with(anfang.to_upper()): return b
 	fehler += 1; print("FEHLER kein Knopf ", anfang)
 	return null
 
 func druecke(m: Node, anfang: String) -> void:
 	var b := knopf(m, anfang)
-	if b: b.pressed.emit()
+	if b: KH.tippe(b)
 	await process_frame
 	await process_frame
 
@@ -48,7 +51,7 @@ func zeile_mit(m: Node, text: String) -> Control:
 func _lauf() -> void:
 	Sprache.lade()
 	var z := Zustand.new()
-	var hw := Heldwerte.erschaffe("Vera", "HUMAN", "FIGHTER", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Vera", "Mensch", "Wachsoldat", z.neue_uid)
 	var w = hw.waffe()
 	if w == null: print("FEHLER Kaempferin ohne Waffe"); quit(1); return
 	var m := Menue.new(hw, z)

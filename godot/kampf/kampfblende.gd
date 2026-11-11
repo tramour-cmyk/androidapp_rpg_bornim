@@ -4,7 +4,7 @@ extends Control
 # besseres Herzklopfen“): die schwarze Blende vor dem Kampf wie alt (24.6, InterludeUi.kt FightVeil und FightVeilBox,
 # InterludeClock.kt FIGHT, FIGHT_SHORT, AMBUSH, BOSS, Interlude.fightWords; DESIGN-BLENDE.md 5, 7). Oben ein Satz, wie der Kampf
 # beginnt (ohne den Namen des Gegners), darunter der Name groß in mattem Gold (beim Boss größer), beim ersten Kampf gegen diese
-# Art und beim Boss immer ein Satz des Gegners. Hinterhalt: schlagartig, die Worte gleich da, dazu drei schwere Herzschläge;
+# Art und beim Boss immer ein Satz des Gegners; seit 661 im Aufbau der Ortsblende (Name, Zierleiste, Satz, Satz des Gegners). Hinterhalt: schlagartig, die Worte gleich da, dazu drei schwere Herzschläge;
 # Erstschlag leise; Boss steht länger. Solange sie steht, warten Worte und Züge des Kampfs, Musik und Klänge (Hush.fight, 319);
 # geht sie, kommt der Klang des Kampfbeginns (Game.kt: Hinterhalt „ambush“, sonst „encounter“). Zeiten und Sätze aus core:
 # intro.json „kampfblende“ (IntroExport.kt).
@@ -89,34 +89,12 @@ func _init(eroeffnung: String, l: Dictionary, zufall: RandomNumberGenerator) -> 
 	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mitte.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(mitte)
-	var v := VBoxContainer.new()
-	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	v.add_theme_constant_override("separation", 0)
-	mitte.add_child(v)
-	worte = v
-	if w[0] != null:
-		v.add_child(_zeile(Sprache.t(w[0]), 19, Ortsblende.TEXT, 0.6, 28))
-	v.add_child(Erschaffung.luecke(18))
-	var r := ColorRect.new()
-	r.color = Ortsblende.LINIE
-	r.custom_minimum_size = Vector2(44, 1) * DP
-	r.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	r.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	v.add_child(r)
-	v.add_child(Erschaffung.luecke(16))
-	v.add_child(_zeile(String(l.get("name", "")).to_upper(), 30 if boss else 24, Ortsblende.NAME, 5.0, 0))
-	if w[1] != null:
-		v.add_child(Erschaffung.luecke(16))
-		v.add_child(_zeile(Sprache.t(w[1]), 16, Color(Ortsblende.TEXT, 0.8), 0.4, 24))
+	# 661: derselbe Aufbau wie zwischen den Orten (Ortsblende.worte_spalte): Name des Gegners gesperrt, Zierleiste, Satz zur
+	# Eroeffnung, darunter der Satz des Gegners; der Hinterhalt mit gebrochener Zierleiste, der Boss gleich gross (nur laenger)
+	worte = Ortsblende.worte_spalte(String(l.get("name", "")), Sprache.t(w[0]) if w[0] != null else "",
+		Sprache.t(w[1]) if w[1] != null else "", hinterhalt)
+	mitte.add_child(worte)
 	_stelle()
-
-func _zeile(text: String, sp: float, farbe: Color, sperrung: float, zeile_sp: float) -> Label:
-	var l := Stil.zeile(text, sp, farbe, sperrung)
-	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	if zeile_sp > 0.0: l.add_theme_constant_override("line_spacing", int((zeile_sp - sp * 1.2) * Stil.SP))
-	return l
 
 func _ready() -> void:
 	worte.custom_minimum_size.x = get_viewport_rect().size.x - 2 * 36 * DP

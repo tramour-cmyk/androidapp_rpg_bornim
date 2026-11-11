@@ -1,16 +1,16 @@
 class_name Rast
 extends RefCounted
-# 390 (Rast, Resting.kt und Game.rest/drinkMead/Cmd.Rest): eine Rast kostet Zeit. Am Lagerfeuer „Rasten?“: kurz 1 Stunde
-# (Ausdauer voll, ein Viertel der TP zurueck), lang 8 Stunden (TP, ZP, Ausdauer voll, Zustaende geheilt), lang nur einmal je
-# Spieltag. In der Schenke Met (der fuenfte macht betrunken bis zur naechsten Rast) und ein Zimmer fuer Gold (lange Rast).
+# 390 (Rast, Resting.kt und Game.rest/drinkMead/Cmd.Rest): eine Rast kostet Zeit. Am Lagerfeuer „Rasten?“: 870.4 (DESIGN-BRS.md 12)
+# Kurze Erholung 2 Stunden (Ausdauer voll, ein Viertel des Lebens zurueck), Langes Ausruhen 9 Stunden (Leben, Mana, Ausdauer voll,
+# Zustaende geheilt), lang nur einmal je Spieltag. In der Schenke Met (der fuenfte macht betrunken bis zur naechsten Rast) und ein Zimmer fuer Gold (lange Rast).
 # Jede Rast beendet Ausdauertrank, Funken und Met. Texte aus texte.json „rast“ (TextExport.rast), Gegenprobe tests/rast_test.gd.
 
-const KURZ_MIN := 60
-const LANG_MIN := 8 * 60
+const KURZ_MIN := 2 * 60   # 870.4: Kurze Erholung
+const LANG_MIN := 9 * 60   # 870.4: Langes Ausruhen
 const BETRUNKEN := 5
 const MET_PREIS := 2
 const ZIMMER_PREIS := 5
-const START := {"karte": "inn", "x": 8, "y": 2, "blick": "DOWN"}   # Story.START: neben dem Bett der Schenke
+const START := {"karte": "inn", "x": 8, "y": 2, "blick": "DOWN"}   # Story.START: in der Schenke rechts oben (604: kein Bett mehr unten)
 
 # Game.interact, Texte dort ohne eigenen Namen (Game.kt Tile.CAMPFIRE, Tile.BED)
 const FEUER_HOEHLE := {"de": "Das Feuer der Goblins. Es ist viel zu gefährlich, hier in der Höhle zu rasten.", "en": "The goblins' fire. It is far too dangerous to rest here in the cave."}
@@ -21,7 +21,7 @@ static func met_preis(z: Zustand) -> int:
 	return 0 if z.has(Geschichte.CHAPTER1_DONE) and not z.has(Geschichte.CAMP_TOLD) else MET_PREIS
 
 static func lange_erlaubt(z: Zustand) -> bool: return z.lange_rast_tag != z.tag
-static func kurz_heilung(hw: Heldwerte) -> int: return (hw.max_tp() + 3) / 4
+static func kurz_heilung(hw: BrsHeld) -> int: return (hw.max_leben() + 3) / 4
 
 # die Uhr weiter, Tag fuer Tag
 static func vergeht(z: Zustand, minuten: int) -> void:
@@ -45,7 +45,7 @@ static func endet(z: Zustand) -> void:
 # Game.rest: art "kurz"/"lang", ort "feuer"/"schenke"/"zimmer"; ort_jetzt = wo der Held steht ({karte, x, y, blick}).
 # Zurueck {"nein": Text} oder {"zeilen": [Text …], "klang": [..], "ort": neuer Platz oder {}}. Wer aufruft, blendet ab und auf,
 # stellt die Leute und das Licht auf die neue Stunde (Game: sunCut, walkers.clear, mapChanged) und zeigt die Zeilen.
-static func rasten(z: Zustand, hw: Heldwerte, art: String, ort: String, ort_jetzt: Dictionary) -> Dictionary:
+static func rasten(z: Zustand, hw: BrsHeld, art: String, ort: String, ort_jetzt: Dictionary) -> Dictionary:
 	if art == "lang" and not lange_erlaubt(z): return {"nein": Sprache.r("longDone")}
 	if ort != "feuer" and art == "kurz": return {}
 	if ort != "feuer" and z.gold < ZIMMER_PREIS: return {"nein": Sprache.r("noGold")}
@@ -62,13 +62,13 @@ static func rasten(z: Zustand, hw: Heldwerte, art: String, ort: String, ort_jetz
 		hw.voll()
 		z.leiden.clear()
 		z.lange_rast_tag = z.tag
-		zeilen.append(Sprache.r("longRested"))
+		zeilen.append(Sprache.r("longRested" if ort == "feuer" else "roomRested"))   # 604: das Zimmer liegt oben
 	else:
-		var vorher := hw.tp
-		hw.tp = mini(hw.max_tp(), hw.tp + kurz_heilung(hw))
-		zeilen.append(Sprache.r("shortRested", [hw.tp - vorher]))
+		var vorher := hw.leben
+		hw.leben = mini(hw.max_leben(), hw.leben + kurz_heilung(hw))
+		zeilen.append(Sprache.r("shortRested", [hw.leben - vorher]))
 	if funkte: zeilen.append(Sprache.r("sparkFaded"))
-	# 114: ein Zimmer an Rowenas Theke gebucht: der Held wacht neben dem Bett auf, nicht an der Theke
+	# 114: ein Zimmer an Rowenas Theke gebucht: der Held wacht am Startplatz auf, nicht an der Theke (604: unten kein Bett)
 	var neu := ort_jetzt.duplicate()
 	if ort == "schenke" and String(ort_jetzt.get("karte", "")) == String(START["karte"]): neu = START.duplicate()
 	z.wiederkehr = neu.duplicate()
@@ -91,9 +91,9 @@ static func met_trinken(z: Zustand, name: String) -> String:
 	return Sprache.r("drunkNow") if z.betrunken() else Sprache.r("meadDrunk")
 
 # 525 (Game.sellMeat, 139): Rowena kauft an der Theke alles rohe Fleisch zum Preis von Thessa und Morwen; null, wenn keins da
-static func fleisch_preis(z: Zustand, hw: Heldwerte) -> int: return z.anzahl("raw_meat") * Laden.verkaufspreis(hw, "raw_meat")
+static func fleisch_preis(z: Zustand, hw: BrsHeld) -> int: return z.anzahl("raw_meat") * Laden.verkaufspreis(hw, "raw_meat")
 
-static func fleisch_verkaufen(z: Zustand, hw: Heldwerte) -> String:
+static func fleisch_verkaufen(z: Zustand, hw: BrsHeld) -> String:
 	var n := z.anzahl("raw_meat")
 	if n < 1: return ""
 	Laden.new().verkaufe(z, hw, "raw_meat", n)
@@ -105,7 +105,7 @@ static func rowena_sagt(z: Zustand, name: String, zweites: bool) -> String:
 	return Sprache.r(k).replace("{name}", name)
 
 # Cmd.Rest (Tempel, Szene) und Cmd.Heal: ganz geheilt, Zustaende weg, Ausdauer voll; Rest setzt dazu den Wiederkehrort
-static func heilen(z: Zustand, hw: Heldwerte, ort_jetzt: Dictionary = {}) -> void:
+static func heilen(z: Zustand, hw: BrsHeld, ort_jetzt: Dictionary = {}) -> void:
 	hw.voll()
 	z.leiden.clear()
 	ausdauer_voll(z)

@@ -18,7 +18,7 @@ mark="$(git rev-parse --git-common-dir)/notiz-zuletzt"
 name="unbekannt"
 if [ -n "$CLAUDE_CODE_ACCOUNT_UUID" ]; then
     zeile=$(cat "$wt/docs/ROLLE-BETRIEB.md" docs/ROLLE-BETRIEB.md CLAUDE.md 2>/dev/null | grep -oE "(Tom|Jerry)[^,]{0,20}\`$CLAUDE_CODE_ACCOUNT_UUID" | head -1)
-    case "$zeile" in *Tom*) name="Zentrale (Tom, Ford, Perikles, Homer, Sokrates oder Diogenes; Rolle aus der ersten Nachricht)" ;; *Jerry*) name="Jerry" ;; esac
+    case "$zeile" in *Tom*) name="Zentrale (Tom, Jerry, Ford, Perikles, Homer, Sokrates oder Diogenes; Rolle aus der ersten Nachricht, auch wenn sie als Systemmeldung von Ford kommt, 853)" ;; *Jerry*) name="Niederlassung (ruht; Rolle aus der ersten Nachricht, 853)" ;; esac
 fi
 
 git fetch -q origin main 2>/dev/null || echo "Bornim: main ließ sich nicht holen (Netz?)."
@@ -87,6 +87,7 @@ for d in $(git ls-tree --name-only origin/main docs/ 2>/dev/null | grep -E '^doc
 done
 # Pflegefehler der Vorräte (167.9): erledigte Zeilen, Größe, lange Zeilen; nur melden, wenn etwas da ist
 if [ -f "$wt/tools/regelcheck.py" ]; then pf=$(python3 "$wt/tools/regelcheck.py" --kurz 2>/dev/null | grep -v "keine$"); [ -n "$pf" ] && echo "$pf"; fi
+if [ -f "$wt/tools/inhalt.py" ]; then ih=$(python3 "$wt/tools/inhalt.py" --kurz 2>/dev/null); [ -n "$ih" ] && printf "Inhaltsverzeichnis docs/README.md (650.2):\n%s\n" "$ih"; fi
 # 340.3: dieselben Hinweise einmal am Tag als Zeile „Pflege“ des Besitzers in der Vorgangsliste (275.2), Rollenspiegel ab Freitag als Zeile „Spiegel“;
 # im Hintergrund, eigener Commit auf origin/main ohne Arbeitskopie (tools/pflegehinweis.py)
 pm="$HOME/.bornim-pflege-$(TZ=Europe/Berlin date +%Y%m%d)"

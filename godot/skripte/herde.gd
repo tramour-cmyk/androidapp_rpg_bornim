@@ -12,7 +12,7 @@ static var bestand := {}          # Karte -> [Daten je Monster] (Game.herds; neu
 static var wiederkehr := {}       # Karte -> [Schritte, ab denen eines wiederkommt] (Game.respawns)
 
 var karte: Karte
-var spiel                         # spiel.gd: Held, Zustand, Heldwerte, Licht
+var spiel                         # spiel.gd: Held, Zustand, BrsHeld, Licht
 var enc: Dictionary
 var schutz: Array = []
 var liste: Array[Streuner] = []
@@ -105,8 +105,8 @@ func frei(p: Vector2i) -> bool:
 	return true
 
 func reichweite() -> int:
-	var hw: Heldwerte = spiel.held_werte()
-	var r := maxi(2, 4 - maxi(0, hw.mod("DEX")) / 2)                               # Perks.noticeRange
+	var hw: BrsHeld = spiel.held_werte()
+	var r := hw.bemerkt_aus()                                                       # Perks.noticeRange (870.4: Gewandtheit)
 	if spiel.im_dunkeln() and spiel.zustand.funke: r += Streuner.SPARK_NOTICE         # Light.noticeExtra
 	if spiel.held.laeuft and spiel.held.geht(): r += Streuner.RUN_NOISE               # Stamina.RUN_NOISE
 	return r
@@ -115,7 +115,7 @@ func schritt(dt: float) -> void:
 	jetzt += int(dt * 1000.0)
 	if spiel.held == null: return
 	var h: Vector2i = spiel.held.kachel
-	var hw: Heldwerte = spiel.held_werte()
+	var hw: BrsHeld = spiel.held_werte()
 	var stark: bool = hw.stufe >= int(karte.daten.get("stufe", 1)) + 5
 	var am_schutz := sicher(h)
 	var hp: Vector3 = spiel.held.position
@@ -154,6 +154,7 @@ func schritt(dt: float) -> void:
 				_auf(s, h, false, 560 if s.art == "zombie" else 380)
 		elif not ruhig and not angst and s.temper() != "WANDERER" and sieht and not s.heimweg:
 			s.jagt = true
+			s.blick = _richtung(h - s.kachel)     # 560: bemerkt den Helden und wendet sich ihm zu, bevor es losgeht
 			s.alarm_bis = jetzt + 800
 			s.naechst_ms = jetzt + 500
 			spiel.klang("effekt", ["alert", 0.8 * _gehoert(dist)])
@@ -192,7 +193,7 @@ func _streife(s: Streuner) -> void:
 			var n: Vector2i = s.kachel + d
 			if absi(n.x - s.heim.x) + absi(n.y - s.heim.y) > 3: continue
 			if _geh(s, d, 420): break
-	s.naechst_ms = jetzt + 900 + zufall.randi_range(0, 1600)
+	s.naechst_ms = maxi(jetzt + 900 + zufall.randi_range(0, 1600), s.bewegt_ms + s.schritt_ms + 40)     # 560: nach Wende und Schritt
 
 ## ein Schritt zu (oder weg von) ziel entlang der besseren Achse, sonst die andere (stepTowards)
 func _auf(s: Streuner, ziel: Vector2i, weg: bool, ms: int) -> void:
@@ -207,15 +208,15 @@ func _auf(s: Streuner, ziel: Vector2i, weg: bool, ms: int) -> void:
 	var ging := false
 	for d in folge + rest:
 		if _geh(s, d, ms): ging = true; break
-	s.naechst_ms = jetzt + (s.schritt_ms if ging else int(ms * Streuner.PACE)) + 40
+	s.naechst_ms = (s.bewegt_ms + s.schritt_ms if ging else jetzt + int(ms * Streuner.PACE)) + 40     # 560: nach der Wende
 
 func _geh(s: Streuner, d: Vector2i, ms: int) -> bool:
 	var n := s.kachel + d
 	if not frei(n): return false
 	s.von = s.kachel
 	s.kachel = n
+	s.bewegt_ms = jetzt + s.wende_ms(d)     # 560: weite Wende erst auf der Stelle (Roamers.step)
 	s.blick = d
-	s.bewegt_ms = jetzt
 	s.schritt_ms = int(ms * Streuner.PACE * karte.schritt(n))
 	return true
 
@@ -288,7 +289,7 @@ func betreten(t: Vector2i) -> void:
 		schonzeit -= 1
 		return
 	if aus or beachten_nicht or enc.is_empty() or not karte.zeichen(t) in enc.get("kacheln", []) or not sicher(t).is_empty(): return
-	var weise := maxf(0.4, 1.0 - 0.15 * maxi(0, spiel.held_werte().mod("WIS")))   # Perks.ambushFactor
+	var weise: float = spiel.held_werte().hinterhalt_faktor()   # Perks.ambushFactor (870.4: Wahrnehmung)
 	if zufall.randf() < float(enc.get("rate", 0.0)) * weise:
 		var m := ziehe((enc.get("tabelle", []) as Array).filter(func(e): return Streuner.da(String(e[0]))))   # alt: immer die Tagestabelle
 		if m != "": kampf.emit(m, "AMBUSHED", null)

@@ -7,10 +7,9 @@
   neustart-haken.py start    beim Sitzungsstart (SessionStart): warnt, wenn ein Vorrat docs/ARBEIT-*.md zu groß ist.
 
 Die Größe kommt aus dem Gesprächsprotokoll (transcript_path): Token der letzten Antwort (Eingabe, auch
-zwischengespeichert). Gemessen wird der Zuwachs gegenüber der ersten Antwort, weil schon der Start je nach
-Umgebung viel Platz braucht. Nach einem Verdichten (Kontext schrumpft deutlich) zählt der neue Stand als Start.
+zwischengespeichert). Seit 383 A zählt die ganze Gesprächslänge (jeder Aufruf liest sie ganz), nicht mehr der Zuwachs.
 
-Schwellen über Umgebungsvariablen änderbar: BORNIM_NEUSTART_AB (Zuwachs in Token, Vorgabe 300000; 383.1, vorher 100000),
+Schwellen über Umgebungsvariablen änderbar: BORNIM_NEUSTART_AB (Gesprächslänge in Token, Vorgabe 200000; 383 A, Chef 09.11.; vorher 300000 Zuwachs nach 383.1),
 BORNIM_OFFEN_MAX (Bytes, Vorgabe 15000). Zustand je Sitzung in /tmp/bornim-neustart-<Sitzung>.json.
 Bei der 1., 11., 21. … Nachricht zusätzlich die Kernregel-Zeile aus tools/kernregeln.txt (347, ein Wortlaut, auch notiz.sh).
 """
@@ -19,8 +18,11 @@ import os
 import sys
 
 KERN_ALLE = 10
-AB = int(os.environ.get("BORNIM_NEUSTART_AB", "300000"))
+AB = int(os.environ.get("BORNIM_NEUSTART_AB", "200000"))
 OFFEN_MAX = int(os.environ.get("BORNIM_OFFEN_MAX", "15000"))
+# 818 (Chef 09.11., 22:27: „Oder ihr lasst halt jetzt die Sitzungen dann doch länger offen, wenn die Gefahr besteht, dass es wieder ein Repo-Problem gibt“):
+# liegt das Kaufrepo in der Sitzung, gilt die doppelte Schwelle (400 Tsd., wie vor 383 A) und die Sitzung nimmt den nächsten eigenen Vorgang selbst.
+KAUF = "/home/user/bornim-kaufmodelle"
 # Abstände in Nachrichten zwischen zwei Erinnerungen: erst 6, dann 4, 3, 2, danach bei jeder Nachricht.
 ABSTAENDE = [6, 4, 3, 2, 1]
 
@@ -56,9 +58,9 @@ def zuwachs(werte):
     return werte[-1] - basis, werte[-1]
 
 
-def text(stufe, plus, gesamt):
+def text(stufe, plus, gesamt, ab=AB):
     k = lambda n: f"{round(n / 1000)} Tsd."
-    kopf = f"Neustart-Haken (Thema 14): Das Gespräch ist seit dem Start um etwa {k(plus)} Token gewachsen (jetzt {k(gesamt)}, Schwelle {k(AB)}); Erinnerung Nr. {stufe}."
+    kopf = f"Neustart-Haken (Thema 14): Das Gespräch ist {k(gesamt)} Token lang (Schwelle {k(ab)}, 383 A{', Kaufrepo eingebunden 818' if ab != AB else ''}; seit dem Start +{k(plus)}); Erinnerung Nr. {stufe}."
     # 81r: der Anlass entscheidet, nicht ein Ja des Nutzers; kein Vorschlag im Chat (D8.2: der löste den Chefsache-Haken aus)
     if stufe == 1:
         rest = "An der nächsten Bruchstelle (Thema fertig, Build ausgeliefert): zuerst `python3 tools/regelcheck.py --kurz` und die Funde im eigenen Vorrat beheben, dann Übergabe mit „Nachfolger: <Titel>“ pushen, send_message an Ford „Neustart <Name>, <Commit>“ (81r, LISTE-RELEASE-NEUSTART.md „Neustart“). Im Chat nichts dazu."
@@ -103,6 +105,48 @@ def name(pfad, sitzung):
     return gefunden
 
 
+def pruefliste(pfad, eingabe):
+    """812 (Chef 09.11., 21:23: „mitten im Testen mir eine neue Sitzung aufmachen, macht halt auch keinen Sinn“):
+    Build N, wenn eine Prüfliste chefsache/ansehen/tN-….md offen ist und die jetzige oder eine der letzten
+    fünf Nachrichten des Nutzers N nennt („273“, „t273“, „273.4“); sonst None."""
+    import glob, re
+    nummern = set()
+    for d in ("/home/user/bornim-main", os.environ.get("CLAUDE_PROJECT_DIR") or "."):
+        for f in glob.glob(os.path.join(d, "docs/chefsache/ansehen/t*-*.md")):
+            m = re.match(r"t(\d+)-", os.path.basename(f))
+            if m:
+                nummern.add(m.group(1))
+    if not nummern:
+        return None
+    texte = [str(eingabe.get("prompt") or "")]
+    genannt = set()  # 865: Builds, die irgendwo im Verlauf stehen (auch in eigener Testbitte)
+    with open(pfad, encoding="utf-8", errors="replace") as f:
+        menschen = []
+        for zeile in f:
+            for n in nummern:
+                if n not in genannt and re.search(r"(?<![\d.])t?" + n + r"(\.\d+)?(?![\d])", zeile):
+                    genannt.add(n)
+            if '"user"' not in zeile:
+                continue
+            try:
+                d = json.loads(zeile)
+            except ValueError:
+                continue
+            inhalt = (d.get("message") or {}).get("content") if d.get("type") == "user" and not d.get("isSidechain") else None
+            if isinstance(inhalt, str) and inhalt.strip():
+                menschen.append(inhalt)
+    texte += menschen[-5:]
+    for n in nummern:
+        if any(re.search(r"(?<![\d.])t?" + n + r"(\.\d+)?(?![\d])", t) for t in texte):
+            return n
+    # 865 (Chef 10.11., 13:34): der Chef sagt beim Testen „Nummer 16“, „17 passt“, nicht die Buildnummer;
+    # gilt als Test, wenn die Sitzung den Build im Verlauf hat und eine der letzten Nachrichten so einen Punkt nennt
+    punkt = re.compile(r"\b(Nummer|Punkt|Nr\.?)\s*\d{1,2}\b|^\W*\d{1,2}\W*$|\b\d{1,2}\s+(passt|ok|okay|geht|fehlt|nicht|ist|war|auch)\b", re.I | re.M)
+    if genannt and any(punkt.search(t) for t in texte):
+        return max(genannt, key=int)
+    return None
+
+
 def prompt(eingabe):
     pfad = eingabe.get("transcript_path")
     sitzung = "".join(c for c in str(eingabe.get("session_id") or "x") if c.isalnum() or c == "-")[:64]
@@ -133,16 +177,25 @@ def prompt(eingabe):
             z = json.load(f)
     except (OSError, ValueError):
         z = {}
-    if plus < AB:
+    ab = 2 * AB if os.path.isdir(os.path.join(KAUF, ".git")) else AB  # 818
+    if gesamt < ab:  # 383 A: Gesprächslänge, nicht Zuwachs
         if z:
             os.remove(zpfad)  # unter der Schwelle (z. B. nach dem Verdichten): von vorn
         return
     stufe = int(z.get("stufe", 0))
     seit = int(z.get("seit", 0)) + 1
-    faellig = stufe == 0 or plus >= 2 * AB or seit >= ABSTAENDE[min(stufe - 1, len(ABSTAENDE) - 1)]
+    faellig = stufe == 0 or gesamt >= 2 * ab or seit >= ABSTAENDE[min(stufe - 1, len(ABSTAENDE) - 1)]
     if faellig:
         stufe, seit = stufe + 1, 0
-        print(text(stufe, plus, gesamt))
+        try:
+            n = pruefliste(pfad, eingabe)
+        except Exception:
+            n = None
+        if n:  # 812: kein Neustart mitten im Test
+            print(f"Neustart-Haken (Thema 14): Das Gespräch ist {round(gesamt / 1000)} Tsd. Token lang, aber der Chef meldet Prüfliste t{n} in dieser Sitzung: "
+                  "weiter, bis er fertig ist; danach Übergabe und Neustart über Ford (812). Im Chat nichts dazu.")
+        else:
+            print(text(stufe, plus, gesamt, ab))
     with open(zpfad, "w") as f:
         json.dump({"stufe": stufe, "seit": seit}, f)
 

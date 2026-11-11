@@ -16,13 +16,15 @@ const KAEMPFE := 300
 const GRENZE_QUOTE := 0.2
 ## Simulation (sim.py kampf, Held mit 21 Punkten, Stufe 1, Startfertigkeiten), Siegquote je Gruppe des Probekampfs
 const SOLL := {
-	"FIGHTER": {"RATTE": 1.0, "BOARS": 1.0, "CENTIPEDES": 1.0, "FLEDERMAUS": 1.0, "SPINNE": 0.18, "KROGG": 0.01, "GRAK": 0.0, "LEECHES": 1.0, "SLUGS": 0.03},
+	"FIGHTER": {"RATTE": 1.0, "BOARS": 1.0, "CENTIPEDES": 1.0, "FLEDERMAUS": 1.0, "SPINNE": 0.18, "KROGG": 0.01, "GRAK": 0.0, "LEECHES": 1.0, "SLUGS": 0.72},     # 870.5: Schleim widersteht Klingen nicht mehr (Bestiarium 870a 8), sim.py neu 0,72
 	"ROGUE": {"RATTE": 1.0, "BOARS": 1.0, "CENTIPEDES": 1.0, "FLEDERMAUS": 0.41, "SPINNE": 0.02, "KROGG": 0.0, "GRAK": 0.0, "LEECHES": 1.0, "SLUGS": 0.07},
 	"WIZARD": {"RATTE": 1.0, "BOARS": 1.0, "CENTIPEDES": 1.0, "FLEDERMAUS": 0.5, "SPINNE": 0.02, "KROGG": 0.0, "GRAK": 0.0, "LEECHES": 1.0, "SLUGS": 0.08},
 	"CLERIC": {"RATTE": 1.0, "BOARS": 1.0, "CENTIPEDES": 1.0, "FLEDERMAUS": 0.99, "SPINNE": 0.1, "KROGG": 0.01, "GRAK": 0.0, "LEECHES": 1.0, "SLUGS": 0.65},
 }
 ## Klassen ohne festen Vergleich (die Simulation kennt ihre Zauber und Fähigkeiten nicht so wie MARS): nur melden
 const NUR_MELDEN := ["ROGUE", "WIZARD", "CLERIC"]
+## 870.5: Gruppen mit Gegenwirkung, die die Simulation noch nicht kennt (Schleim teilt sich): nur melden
+const GEGEN_MELDEN := ["SLUGS"]
 
 var fehler := 0
 var tables: Dictionary
@@ -73,8 +75,10 @@ func _lauf() -> void:
 	jung.dmg = [1, 3, 0]
 	jung.scale = 0.55
 	jung.chance = 0.5
+	jung.rudel = "Jungwolf"     # 870.3: Werte aus werte.json „merkmale“ „rudel“
+	jung.anfuehrer = "wolf"
 	var bj := BrsKampf.gegner(jung, monsters.wolf)
-	pruefe("Jungwolf: Angriff 15 − 10, Schaden 6 × 2/7, halbe Leben", is_equal_approx(float(bj.angriff), 5.0) and is_equal_approx(float(bj.schaden), 6.0 * 2.0 / 7.0) and int(bj.leben) == 12, str(bj))
+	pruefe("Jungwolf: Angriff 15 − 10, Schaden 6 × 0,29, halbe Leben", is_equal_approx(float(bj.angriff), 5.0) and is_equal_approx(float(bj.schaden), 6.0 * 0.29) and int(bj.leben) == 12, str(bj))
 	# Schlag wie Brs.schaden (gleiche Würfel in gleicher Folge)
 	var gleich := true
 	for i in 300:
@@ -113,6 +117,12 @@ func _lauf() -> void:
 			var q := float(siege) / KAEMPFE
 			var soll: float = SOLL[cls][foe]
 			pruefe("%s Stufe 1 gegen %s: Siegquote MARS %.2f, Simulation %.2f%s" % [cls, foe, q, soll,
-					(", Leben am Ende %.0f %%" % (100.0 * leben / siege)) if siege > 0 else ""], absf(q - soll) <= GRENZE_QUOTE or cls in NUR_MELDEN)
+					(", Leben am Ende %.0f %%" % (100.0 * leben / siege)) if siege > 0 else ""], absf(q - soll) <= GRENZE_QUOTE or cls in NUR_MELDEN or foe in GEGEN_MELDEN)
+	# 870.5: ohne SRD-Zweig braucht jeder Gegner der Tabelle seine Werte nach dem BRS
+	var ohne := []
+	for m in tables.monsters:
+		if BrsKampf.gegner(m, m).is_empty():
+			ohne.append(String(m.id))
+	pruefe("jeder Gegner hat Werte nach dem BRS", ohne.is_empty(), ", ".join(ohne))
 	print("BRS478 %s" % ("gut" if fehler == 0 else "%d FALSCH" % fehler))
 	quit(1 if fehler > 0 else 0)

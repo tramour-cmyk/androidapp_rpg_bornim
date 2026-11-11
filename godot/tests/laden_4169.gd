@@ -29,7 +29,8 @@ func zaehle(n: Node, marke: String) -> int:
 func offener_kasten(l: Node) -> Node:
 	var k: Node = null
 	for c in l.get_children():
-		if c is ColorRect and (c as ColorRect).color.a > 0.5 and (c as ColorRect).color.a < 1.0: k = c
+		# 630 (549a): das Fenster ohne Kasten ist ganz deckend schwarz mit der Spalte „Fenster“
+		if c is ColorRect and (c as ColorRect).color.a > 0.5 and ((c as ColorRect).color.a < 1.0 or c.find_child("Fenster", true, false)): k = c
 	return k
 
 func _lauf() -> void:
@@ -38,8 +39,8 @@ func _lauf() -> void:
 	var z := Zustand.new()
 	z.name = "Thora"; z.gold = 640
 	for id in ["potion", "remedy"]: z.dazu(id, 3)
-	var hw := Heldwerte.erschaffe("Thora", "ELF", "WIZARD", {}, z.neue_uid)
-	hw.ep_dazu(int(Heldwerte.regel("ep_fuer_stufe")[9]))
+	var hw := BrsHeld.fuer_spiel("Thora", "Elf", "Zauberlehrling", z.neue_uid)
+	Testmodus.stufe_setzen(hw, z, 9)
 	for i in 8: z.beutel.append(Beute.erzeuge_mit_uid(KotlinZufall.new(40 + i), z.neue_uid, 9, ["COMMON", "UNCOMMON", "RARE", "VERY_RARE"][i % 4], "WIZARD" if i % 3 else ""))
 	var ebene := CanvasLayer.new()
 	root.add_child(ebene)
@@ -70,10 +71,10 @@ func _lauf() -> void:
 		pruefe(leer > 0, "Probe ohne leeren Platz")
 		print("Plaetze: ", belegt, " belegt, ", leer, " leer")
 
-	# 2. nicht Tragbares: Zeichen auf jedem Bild und vor der Ueberschrift
+	# 2. 870.4: jeder darf alles tragen (DESIGN-BRS.md 7), also nirgends das Zeichen fuer nicht Tragbares
 	var nicht := z.beutel.filter(func(g): return not hw.kann_tragen(g)).size()
-	pruefe(nicht > 0, "Probe ohne nicht Tragbares")
-	pruefe(zaehle(l.inhalt, "kein_zeichen") == nicht + 1, "Zeichen %d, erwartet %d" % [zaehle(l.inhalt, "kein_zeichen"), nicht + 1])
+	pruefe(nicht == 0, "870.4: nichts ist nicht tragbar (%d)" % nicht)
+	pruefe(zaehle(l.inhalt, "kein_zeichen") == 0, "Zeichen %d, erwartet 0" % zaehle(l.inhalt, "kein_zeichen"))
 	pruefe(not texte(l.inhalt).contains("⊘"), "Schriftzeichen ⊘ noch da")
 
 	# 3. Vergleichswerte beim Antippen eines tragbaren Stuecks

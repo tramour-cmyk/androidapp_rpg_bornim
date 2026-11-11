@@ -14,7 +14,7 @@ func _lauf() -> void:
 	Sprache.lade()
 	if Sprache.aktiv() != "de": Sprache.wechsle()
 	var z := Zustand.new()
-	var hw := Heldwerte.erschaffe("Thora", "DWARF", "FIGHTER", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Thora", "Zwerg", "Wachsoldat", z.neue_uid)
 	for platz in ["HEAD", "CLOAK", "ARMS", "LEGS", "RING", "AMULET"]:
 		var id := ""
 		for b in Beute.grundformen():
@@ -34,7 +34,7 @@ func _lauf() -> void:
 		for c in Menue.stueck_zeilen_b(hw, g):
 			for l in ([c] if c is Label else c.find_children("*", "Label", true, false)): texte.append((l as Label).text)
 		var w := texte.filter(func(t): return t.contains("wirkt") or t.contains("Obergrenze"))
-		var alle: int = g["rolls"].filter(func(r): return String(r[0]) in Heldwerte.ATTRIBUTE or String(r[0]) == "ALL_STATS").size()
+		var alle: int = g["rolls"].filter(func(r): return String(r[0]) in BrsHeld.AFFIX.values() or String(r[0]) == "ALL_STATS").size()
 		var nicht := w.filter(func(t): return t.contains("wirkt nicht"))
 		pruefe(alle == 0 or nicht.size() < alle, "goettlich %d: %s; Fenster %s" % [seed, str(g["rolls"]), str(w)])
 	print("OBERGRENZE605 %s" % ("gut" if fehler == 0 else "%d Fehler" % fehler))

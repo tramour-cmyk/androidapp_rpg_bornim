@@ -22,27 +22,26 @@ func _lauf() -> void:
 		if vor.x < 0: print("FEHLER kein Feld vor %s" % t); fehler += 1; continue
 		spiel.held.setze(vor, "DOWN")
 		spiel.held.rotation.y = atan2(float(t.x - vor.x), float(t.y - vor.y))
-		for klassisch in [false, true]:
-			Bedienung.klassisch = klassisch
+		for _w in [0]:
 			spiel.ui.richte_ein()
 			spiel._steht_auf(vor)
 			var an: Array = spiel.angebot(vor)
 			var zu_sehen: bool = spiel.ui.aktion_knopf.visible
 			var zeichen: String = spiel.ui.aktion_knopf.zeichen
 			var gut: bool = zu_sehen and zeichen == "ENTER" if not bool(a.get("verschlossen", false)) or a.has("klopfen") else true
-			print("%s %s -> %s %s, Knopf %s %s %s" % ["Klassisch" if klassisch else "Wischen", t, String(a["ziel"]["karte"]), an, zu_sehen, zeichen, "" if gut else "FEHLER"])
+			print("%s %s -> %s %s, Knopf %s %s %s" % ["Wischen", t, String(a["ziel"]["karte"]), an, zu_sehen, zeichen, "" if gut else "FEHLER"])
 			if not gut: fehler += 1
 	var schirm: Rect2 = root.get_visible_rect()
-	for art in [[false, false], [false, true], [true, false], [true, true]]:
-		Bedienung.klassisch = art[0]; Bedienung.links = art[1]
+	for art in [[false, false], [false, true]]:
+		Bedienung.links = art[1]
 		for i in 2:   # zweimal: der zweite Aufbau ist der nach dem Menue
 			spiel.ui.richte_ein()
 			await process_frame
 		for c in [spiel.ui.aktion_knopf, spiel.ui.lauf_knopf]:
 			var r: Rect2 = c.get_global_rect()
 			var drin := schirm.encloses(r) and r.size.x > 50
-			print("%s %s %s %s" % ["Klassisch" if art[0] else "Wischen", "links" if art[1] else "rechts", r, "" if drin else "FEHLER ausserhalb"])
+			print("%s %s %s %s" % ["Wischen", "links" if art[1] else "rechts", r, "" if drin else "FEHLER ausserhalb"])
 			if not drin: fehler += 1
-	Bedienung.klassisch = false; Bedienung.links = false
+	Bedienung.links = false
 	print("AKTION %d Fehler" % fehler)
 	quit(1 if fehler else 0)

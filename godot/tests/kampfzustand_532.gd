@@ -1,6 +1,6 @@
-# 532 (Abgleich 512, alt Battle.kt init, Game.keepAilments): der Held bringt Verbrauchtes („einmal je Rast“) und Zustände in den
-# Kampf mit; danach bleiben Gift, Blutung, Schwäche (Gift und Blutung um den Konstitutionsbonus kürzer), verloren nichts;
-# Verbrauchtes übersteht Speichern und Laden. Ohne Bild. Aufruf: im Ordner godot mit -s res://tests/kampfzustand_532.gd
+# 532 (Abgleich 512, alt Battle.kt init, Game.keepAilments): der Held bringt Zustände in den Kampf mit; danach bleiben Gift,
+# Blutung, Schwäche (Gift und Blutung um den Bonus kürzer, 870.4: nach Zähigkeit), verloren nichts. 870.4: Verbrauchtes „einmal je
+# Rast“ entfällt mit den Klassenfähigkeiten. Ohne Bild. Aufruf: im Ordner godot mit -s res://tests/kampfzustand_532.gd
 extends SceneTree
 
 const AufrufS = preload("res://kampf/aufruf.gd")
@@ -24,20 +24,15 @@ func _lauf() -> void:
 	var skills := {}
 	for s in tabellen.skills:
 		skills[s.id] = s
-	var h := Heldwerte.erschaffe("Probe", "HUMAN", "FIGHTER")
+	var h := BrsHeld.fuer_spiel("Probe", "Mensch", "Wachsoldat")
 	h.stufe = 5
 	h.voll()
-	var hat_schub: bool = "ACTION_SURGE" in AufrufS.blatt(h).skills
-	pruefe(hat_schub, "Kämpfer Stufe 5 ohne ACTION_SURGE: %s" % [AufrufS.blatt(h).skills])
+	# 870.4: keine Klassenfaehigkeiten „einmal je Rast“ mehr (870a 3); der Held kommt mit seinem Leben nach BRS in den Kampf
 	var a := AufrufS.new()
+	h.leben = 7
 	var f = a._kaempfer("hero", h, -1, Vector2i(Mars.FRONT, 0), skills)
-	pruefe(int(f.uses.get("ACTION_SURGE", -1)) == 1, "ausgeruht: Tatendrang %s statt 1" % f.uses.get("ACTION_SURGE"))
-	h.verbraucht["ACTION_SURGE"] = 1
-	f = a._kaempfer("hero", h, -1, Vector2i(Mars.FRONT, 0), skills)
-	pruefe(int(f.uses.get("ACTION_SURGE", -1)) == 0, "verbraucht: Tatendrang %s statt 0" % f.uses.get("ACTION_SURGE"))
-	# Spielstand
-	var h2 := Heldwerte.aus_daten(JSON.parse_string(JSON.stringify(h.als_daten())))
-	pruefe(int(h2.verbraucht.get("ACTION_SURGE", 0)) == 1, "Verbrauchtes nach Laden: %s" % [h2.verbraucht])
+	pruefe(int(f.hp) == 7 and int(f.max_hp) == h.max_leben(), "Leben im Kampf %d/%d statt 7/%d" % [f.hp, f.max_hp, h.max_leben()])
+	pruefe(AufrufS.blatt(h).skills.is_empty(), "Blatt ohne Klassenfaehigkeiten: %s" % [AufrufS.blatt(h).skills])
 	# Zustände hinein: nur, was MARS kennt
 	AufrufS.leiden_auf(f, {"POISON": 3, "DRUNK": 99, "WEAK": 99})
 	pruefe(f.status.get("POISON", 0) == 3 and f.status.get("WEAK", 0) == 99 and not f.status.has("DRUNK"), "Zustände hinein: %s" % [f.status])

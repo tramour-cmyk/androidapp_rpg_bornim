@@ -1,6 +1,6 @@
 # Bestiarium
 
-Nachschlagen (427, Chef 31.10.2026, 21:3x): je Monsterart, was man für Spiel, Kampf und Texte braucht. **Aussehen** steht nur in [`LISTE-FIGUREN.md`](LISTE-FIGUREN.md) (dort Abnahmelisten und einmalige Monster), hier nur der Verweis. **Werte** folgen dem Rechenmodell von Spielsystem 2.0 (Modell D, Entscheidung 73–75), Startwerte im Abschnitt „Werte 2.0“. **Hintergrund** im Abschnitt unten (Homer, 428). Namen nach dem Glossar in [`DESIGN-SPIELSYSTEM-2-0.md`](DESIGN-SPIELSYSTEM-2-0.md).
+Nachschlagen (427, Chef 31.10.2026, 21:3x): je Monsterart, was man für Spiel, Kampf und Texte braucht. **Aussehen** steht nur in [`LISTE-FIGUREN.md`](LISTE-FIGUREN.md) (dort Abnahmelisten und einmalige Monster), hier nur der Verweis. **Werte** folgen dem Rechenmodell von Spielsystem 2.0 (Modell D, Entscheidung 73–75), Startwerte im Abschnitt „Werte 2.0“. **Hintergrund** im Abschnitt unten (Homer, 428). Namen nach [`DESIGN-BRS.md`](DESIGN-BRS.md) Abschnitt 12.
 
 Stand der Spalten „Angriff“, „Beute“ und „Merkmal“: aus `core/src/main/kotlin/de/bornim/core/Monsters.kt` gelesen am 31.10.2026 (alte Fassung). Merkmalsnamen sind Vorschlag Sokrates, ohne SRD-Begriffe.
 
@@ -38,6 +38,26 @@ Stand der Spalten „Angriff“, „Beute“ und „Merkmal“: aus `core/src/ma
 | Zombie | Untote | Hieb | Zäher Tod (steht einmal wieder auf) | Heiltrank, Weihwasser | – | unten | Homer |
 | Ghul | Untote | Klauen | Lähmung | großer Heiltrank, Weihwasser | – | unten | Homer |
 | Ockerschleim (vorher Ockergallerte) | Schleim | Scheinfuß | Säure (greift Ausrüstung an) | großer Heiltrank | Säure als Zutat | unten | Homer |
+
+### Schwäche, Stärke, Gegenwirkung (870a 8 A, Chef 10.11., 15:25; Vorschlag Sokrates)
+
+Schadensarten Schnitt, Stich, Wucht, Feuer, Gift, Säure, Licht (Weihwasser, Gleißstrahl); Alchemistenfeuer ist Feuer. Schwäche +50 %, Stärke −50 %, immun nur wie genannt; Regel `DESIGN-BRS.md` 7. Zahlen Jerry mit 444, Namen und Texte („Der Schleim teilt sich“) Homer; Einzelgegner Jerry mit 444.
+
+| Name | Schwäche | Stärke | Gegenwirkung (falsches Mittel stärkt oder kostet) |
+| --- | --- | --- | --- |
+| Riesenratte | Feuer | – | – |
+| Wolf | Feuer | – | Rudel flieht vor Feuer, sobald sein Leitwolf halb tot ist: Beute und Erfahrung der Wölfe weg (870c 3 A, 915) |
+| Wildschwein | Stich | Schnitt (Schwarte) | Feuer macht es rasend: mehr Schaden, bis es fällt |
+| Riesen-Hundertfüßer | Wucht (Panzer bricht) | Stich | – |
+| Riesenspinne | Feuer | Gift | Feuer verbrennt die Spinnseide (Beute) |
+| Riesenfledermaus | Stich | – | – |
+| Blutflügler | Feuer | – | blutet der Held, saugt er stärker |
+| Goblin, Goblin-Späher, Kobold | – | – | – |
+| Goblin-Schamane | Stich | Feuer | – |
+| Skelett | Wucht | Stich; immun Gift | – |
+| Zombie | Feuer | immun Gift | mit Feuer oder Licht steht er nicht wieder auf (Zäher Tod) |
+| Ghul | Licht | immun Gift | – |
+| Ockerschleim | Feuer | immun Säure | teilt sich einmal bei Schnitt oder Wucht in zwei kleine |
 
 ## Einzelgegner (einmalig)
 

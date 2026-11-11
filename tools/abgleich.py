@@ -48,6 +48,7 @@ def vorentscheide():
         m = re.match(r"- \*\*(\d+[a-zA-Z]*(?:\.\d+[a-zA-Z]*)*)\b", z)
         dm = re.search(r"\((\d\d)\.(\d\d)\.", z)
         if not m or not dm or "Vorentscheid" not in z: continue
+        if re.search(r"→ \*\*[^*]*\(Nutzer", z): continue  # Entscheid des Chefs über Vorentscheide (783 W5), kein Vorentscheid
         if (int(dm.group(2)), int(dm.group(1))) < (10, 19): continue
         if re.search(r"(gebilligt|zurück) \d\d\.\d\d\.", z): continue
         nr = m.group(1); kurz = nr.replace(".", "").lower()

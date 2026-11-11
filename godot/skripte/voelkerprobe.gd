@@ -369,8 +369,8 @@ func _diagnose(x0: Vector3) -> void:
 				if sm and (rn.contains("Regular") or rn.contains("Superhero")):
 					sm.set_shader_parameter("toen_hell", 0.0)
 					sm.set_shader_parameter("toenung", Vector3.ONE)
-	var hw := Heldwerte.erschaffe("Probe", "HUMAN", "FIGHTER")
-	fp.klasse_figur("diag_held", {"klasse": "FIGHTER", "volk": "HUMAN", "aussehen": HeldFigur.vorgabe("FIGHTER"), "ausruestung": hw.ausruestung})
+	var hw := BrsHeld.fuer_spiel("Probe", "Mensch", "Wachsoldat")
+	fp.klasse_figur("diag_held", {"herkunft": "Wachsoldat", "volk": "HUMAN", "aussehen": HeldFigur.vorgabe("Wachsoldat"), "ausruestung": hw.ausruestung})
 	if fp.figuren.has("diag_held"):
 		var h: Node3D = fp.figuren["diag_held"]
 		h.position = x0 + Vector3(4 * ABSTAND, 0, 0)
@@ -515,8 +515,8 @@ func _eichen(x0: Vector3) -> void:
 	# Lauf 4 (Pruefer: Orkbluetige Frau beige, R-G +29, waehrend der Mann traf): je Volk und Geschlecht eigene Messung, zwei Reihen
 	_reihe("eichung", REIHE.map(func(v): return v + "/mann"), x0)
 	_reihe("eichung_w", REIHE.map(func(v): return v + "/frau"), x0 + Vector3(7.0, 0, 0))
-	var hw := Heldwerte.erschaffe("Probe", "HUMAN", "FIGHTER")
-	fp.klasse_figur("eich_held", {"klasse": "FIGHTER", "volk": "HUMAN", "aussehen": HeldFigur.vorgabe("FIGHTER"), "ausruestung": hw.ausruestung})
+	var hw := BrsHeld.fuer_spiel("Probe", "Mensch", "Wachsoldat")
+	fp.klasse_figur("eich_held", {"herkunft": "Wachsoldat", "volk": "HUMAN", "aussehen": HeldFigur.vorgabe("Wachsoldat"), "ausruestung": hw.ausruestung})
 	var held: Node3D = fp.figuren.get("eich_held")
 	var held_mats := []
 	if held:
@@ -538,7 +538,7 @@ func _eichen(x0: Vector3) -> void:
 	var ziele := fp.spiel.get_children().filter(func(c): return c is MeshInstance3D and c.has_meta("ziel") and c.visible)
 	for z in ziele: (z as Node3D).visible = false   # Lauf 4: Goldstrich der Groesse hinter dem Kopf kleiner Voelker
 	var k_held := Vector3.ONE
-	var held_ziel := HeldFigur.ton("HUMAN", "haut", int(HeldFigur.vorgabe("FIGHTER").get("haut", 0)))
+	var held_ziel := HeldFigur.ton("HUMAN", "haut", int(HeldFigur.vorgabe("Wachsoldat").get("haut", 0)))
 	DirAccess.make_dir_recursive_absolute(fp.aus + "/voelker/eichung")
 	for durchgang in 4:
 		for t in ["eichung", "eichung_w"]:

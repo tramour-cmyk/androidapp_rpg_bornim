@@ -7,6 +7,7 @@ extends SceneTree
 
 var fehler := 0
 
+const KH := preload("res://tests/knopf_hilfe.gd")
 func _initialize() -> void:
 	_lauf.call_deferred()
 
@@ -55,9 +56,9 @@ func schlucker(wurzel: Node, wo: String) -> void:
 			pruefe(false, "%s: %s in %s schluckt das Tippen" % [wo, x.get_class(), c.get_class()])
 	pruefe(true, "%s: %d Tippflaechen geprueft" % [wo, n])
 
-func knopf_mit(c: Node, t: String) -> Button:
-	for b in c.find_children("*", "Button", true, false):
-		if (b as Button).text == t and (b as Button).is_visible_in_tree(): return b
+func knopf_mit(c: Node, t: String) -> Control:   # 630: auch Wahlfelder ohne Rahmen (Erschaffung.wahlfeld)
+	for b in KH.alle(c):
+		if KH.text(b) == t and b.is_visible_in_tree(): return b
 	return null
 
 func _lauf() -> void:
@@ -70,20 +71,19 @@ func _lauf() -> void:
 	await tipp(Vector2(40, 25), Vector2.ZERO)
 	pruefe(gedrueckt[0] == 1, "Probeknopf ausserhalb jeder Rolle %d mal gedrueckt (Pruefstand)" % gedrueckt[0])
 	probe.queue_free()
-	var e := Erschaffung.new()
+	var e := ErschaffungBrs.new()   # 470: die Seite „Neues Spiel“ nach BRS
 	root.add_child(e)
 	for i in 5: await process_frame
-	var d := Heldwerte.lade()
 	var n := 0
 	for z in [Vector2.ZERO, Vector2(3, 2), Vector2(0, 6), Vector2(0, 12), Vector2(8, 20)]:
-		for k in ["CLERIC", "ROGUE", "FIGHTER"]:
-			var t := Sprache.t(d["klassen"][k]["name"]).to_upper().replace("ß", "SS")
+		for k in ["Klosterschüler", "Herumtreiber", "Wachsoldat"]:
+			var t := ErschaffungBrs.tx(ErschaffungBrs.HERKUNFT[k]).to_upper().replace("ß", "SS")
 			var b := knopf_mit(e, t)
-			if b == null: pruefe(false, "Knopf %s fehlt" % t); continue
+			if b == null: pruefe(false, "Feld %s fehlt" % t); continue
 			e.rolle.ensure_control_visible(b)
 			await process_frame
 			await tipp(b.get_global_rect().get_center(), z)
-			pruefe(e.klasse == k, "Klasse %s, Zittern %s px -> %s" % [k, z, e.klasse])
+			pruefe(e.b.herkunft == k, "Herkunft %s, Zittern %s px -> %s" % [k, z, e.b.herkunft])
 			n += 1
 	# Farbfeld: Mitte des Felds
 	var liste := [{"rgb": "#d8b89a", "name": {"de": "Hell", "en": "Light"}}, {"rgb": "#a07050", "name": {"de": "Mittel", "en": "Medium"}}]
@@ -105,7 +105,7 @@ func _lauf() -> void:
 	Sprache.lade()
 	var z := Zustand.new()
 	z.gold = 37; z.dazu("potion", 2)
-	var hw := Heldwerte.erschaffe("Mira", "HUMAN", "FIGHTER", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Mira", "Mensch", "Wachsoldat", z.neue_uid)
 	z.beutel.append(Beute.erzeuge_mit_uid(KotlinZufall.new(42), z.neue_uid, 3, "RARE", "FIGHTER"))
 	var m := Menue.new(hw, z)
 	root.add_child(m)
@@ -116,7 +116,7 @@ func _lauf() -> void:
 	m.ausruestung(); await process_frame
 	schlucker(m, "Menue Ausruestung")
 	m.queue_free()
-	var e2 := Erschaffung.new()
+	var e2 := ErschaffungBrs.new()
 	root.add_child(e2)
 	await process_frame
 	schlucker(e2, "Erschaffung")

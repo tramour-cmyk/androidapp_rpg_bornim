@@ -6,7 +6,8 @@ extends RefCounted
 var name := "Alrik"
 var aussehen := {}                     # 376.1 Kopfform, Haar, Bart, Haar- und Hautfarbe (HeldFigur.VORGABE)
 var brs := {}                          # 470: Held nach BRS (BrsHeld.als_daten: Volk, Herkunft, Grundwerte, Startfertigkeiten)
-var stufe_held := 1
+var fert := {}                         # 471: Fertigkeiten durch Tun (BrsFertigkeit.neuer_stand: Werte, Uebung, Rangdecke, Probe, bekannt)
+var brs_stufe := {}                    # 471, 870.4: Heldenstufe und Erfahrung nach BRS (Brs.neuer_stand), einzige Quelle der Stufe
 var gold := 0
 var taschen := {}                      # Ding -> Anzahl (GameState.inventory)
 var flaggen := {}                      # Flagge -> true (GameState.flags)
@@ -38,7 +39,7 @@ var gepflueckt := {}                   # 490 „Karte:x:y“ -> Tag, an dem dort
 func has(f: String) -> bool: return flaggen.has(f)
 func setze(f: String) -> void: flaggen[f] = true
 func anzahl(ding: String) -> int: return int(taschen.get(ding, 0))
-func stufe() -> int: return stufe_held
+func stufe() -> int: return int(stufe_brs()["stufe"])   # 870.4: Heldenstufe nach BRS
 func betrunken() -> bool: return met >= Rast.BETRUNKEN
 
 func uhr(dt: float) -> void:
@@ -77,18 +78,55 @@ static func stueck(g: Dictionary) -> Dictionary:
 		"plus": int(g.get("plus", 0)), "rolls": rolls, "unique": g.get("unique"), "name_seed": int(g.get("name_seed", 0))}
 
 func als_daten() -> Dictionary:
-	return {"name": name, "stufe": stufe_held, "gold": gold, "taschen": taschen.duplicate(), "flaggen": flaggen.keys(), "minuten": minuten, "tag": tag,
+	return {"name": name, "stufe": stufe(), "gold": gold, "taschen": taschen.duplicate(), "flaggen": flaggen.keys(), "minuten": minuten, "tag": tag,
 		"ausdauer": ausdauer, "atemlos": atemlos, "ausdauer_trank": ausdauer_trank, "funke": funke, "satt": satt, "lange_rast_tag": lange_rast_tag,
 		"met": met, "leiden": leiden.duplicate(), "wiederkehr": wiederkehr.duplicate(), "beutel": beutel.duplicate(true), "siege": siege, "schritte": schritte,
 		"laden_verkauft": laden_verkauft.keys(), "uid_zaehler": uid_zaehler, "gehoert": gehoert.duplicate(true), "aussehen": aussehen.duplicate(),
-		"gepflueckt": gepflueckt.duplicate(), "brs": brs.duplicate(true), "gespielt_ms": gespielt_ms, "varianten": varianten.duplicate(true),
+		"gepflueckt": gepflueckt.duplicate(), "brs": brs.duplicate(true), "fert": fert.duplicate(true), "brs_stufe": brs_stufe.duplicate(true), "gespielt_ms": gespielt_ms, "varianten": varianten.duplicate(true),
 		"erkundet": erkundet.duplicate()}
+
+## 471: Stand der Fertigkeiten nach BRS, beim ersten Mal aus den Startfertigkeiten des Helden (leer ohne BRS-Held)
+func fertigkeiten_stand() -> Dictionary:
+	if fert.is_empty() and not brs.is_empty(): fert = BrsFertigkeit.neuer_stand(brs.get("fertigkeiten", {}))
+	return fert
+
+## 471, 870.4: Stand der Heldenstufe nach BRS (Stufe, Erfahrung, Toepfe); Kampf (lohn.gd) und Uebung schreiben hinein
+func stufe_brs() -> Dictionary:
+	if brs_stufe.is_empty(): brs_stufe = Brs.neuer_stand()
+	return brs_stufe
+
+## 471: eine Taetigkeit ausserhalb des Kampfs (Kraeuter pfluecken, Handeln im Laden) uebt [f] einmal, Ziel der eigenen Stufe; die
+## Ereignisse sammeln sich fuer die naechste Notiz (fert_notiz)
+var fert_ev: Array = []
+func uebe(f: String) -> void:
+	var s := fertigkeiten_stand()
+	if s.is_empty(): return
+	fert_ev.append_array(BrsFertigkeit.uebe(s, stufe_brs(), f, stufe()))
+	spiegle()
+
+## 471: die geuebten Werte auch in brs.fertigkeiten (Heldenreiter 762 liest dort), nur Bekanntes
+func spiegle() -> void:
+	if fert.is_empty() or brs.is_empty(): return
+	var w := {}
+	for n in fert["bekannt"]: w[String(n)] = BrsFertigkeit.wert(fert, String(n))
+	brs["fertigkeiten"] = w
+
+## 471: „Handeln ↑ 3“ fuer alles seit der letzten Notiz, oder leer
+func fert_notiz() -> String:
+	var t := Kampfuebung.notiz(fert_ev)
+	fert_ev.clear()
+	return t
 
 static func aus_daten(d: Dictionary) -> Zustand:
 	var z := Zustand.new()
 	z.aussehen = (d.get("aussehen", {}) as Dictionary).duplicate()
 	if d.get("brs") is Dictionary and not (d["brs"] as Dictionary).is_empty(): z.brs = BrsHeld.aus_daten(d["brs"]).als_daten()   # 470: Zahlen wieder ganz
-	z.name = String(d.get("name", z.name)); z.stufe_held = int(d.get("stufe", 1)); z.gold = int(d.get("gold", 0))
+	if d.get("fert") is Dictionary: z.fert = (d["fert"] as Dictionary).duplicate(true)   # 471
+	if d.get("brs_stufe") is Dictionary:
+		z.brs_stufe = (d["brs_stufe"] as Dictionary).duplicate(true)
+		if z.brs_stufe.has("stufe"): z.brs_stufe["stufe"] = int(z.brs_stufe["stufe"])   # 870.4: JSON liefert 1.0
+	z.spiegle()
+	z.name = String(d.get("name", z.name)); z.gold = int(d.get("gold", 0))
 	for k in d.get("taschen", {}): z.taschen[String(k)] = int(d["taschen"][k])
 	for f in d.get("flaggen", []): z.flaggen[String(f)] = true
 	z.minuten = int(d.get("minuten", z.minuten)); z.tag = int(d.get("tag", 1))
