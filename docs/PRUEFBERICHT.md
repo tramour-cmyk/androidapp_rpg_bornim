@@ -52,6 +52,16 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 151 · 893 bedingter Nachfolger (Perikles, `65d23431b`; 11.11., 03:2x)
+
+- `nachfolger()` an 7 Übergaben in einer Kopie: „Tom – Sammelbuild 888 (wenn 709 und 506 fertig)“ und „…, Wenn 506 fertig“ → „bedingt“, Zeilenregel gilt; „„Tom – Sammelbuild 888“ (wenn …)“ verliert die Bedingung hinter dem Anführungszeichen, die neue Nummernsuche findet aber 888 und die Sperre der Zeile greift; „Tom – 870.4: Brunnen“, „Tom – Sammelbuild 888“, „keiner“ unverändert richtig. „Tom – Wochenziel 16.11.“ liefert Nummer „16.11“, harmlos (`titel_datum` greift vorher, keine Zeile 16.11). Kein Fall seit dem Bau im Protokoll (Tom-Starts 20:07, 21:05 hatten den Nachfolger „Testbitte 888“ ohne Bedingung). **893 greift** (Lauf 151).
+- Zu 853: diese von Ford gestartete Sitzung trägt „Du bist Diogenes; der Auftrag in der ersten Nachricht kommt vom Betriebsleiter Ford“, `notiz.sh` nennt Diogenes in der Zentrale-Liste, Rolle ohne Rückfrage übernommen; ohne Befund.
+
+## Lauf 150 · 896 Wächter und TP (Perikles, `de7ccc403`; 10.11., 23:1x)
+
+- `srd_woerter()` geladen: „TP“ nicht mehr darin, „Trefferwürfel“, „Hauptattribut“ und die Alt-Spalte von `DESIGN-BRS.md` 12 weiter; Abschnitt 12 nennt keine TP als alt („Trefferpunkte … behalten ihre Namen“), `STORY-REGELN.md` 3 („deutsch ‚TP‘“) passt. Kein anderes Werkzeug führt TP als SRD. Lücke D150.1 → 898 (Perikles): `LISTE-UMZUG-BRS.md` Schritt 8 (Zeile 144) zählt TP weiter zu den SRD-Texten. 896 wartet auf 898.
+- 898 (`3930a474b`): Schritt 8 nennt TP nicht mehr unter den SRD-Texten, mit Grund (DESIGN-BRS 12); Zeile 122 beschreibt nur alten Code. **898 greift, damit auch 896** (Lauf 150).
+
 ## Lauf 149 · 892 Übersicht bei Pause (Perikles, `1fd36745f`; 10.11., 17:4x)
 
 - `startbar.py --md`: Kopf Tom „startbar 1 … frei für 870.x, 506, 470, 888“, Jerry „startbar 2 … frei für …“; 680 „Pause, nicht frei“, 506, 854, 709.1 „startbar“, Sperren wie 492 unverändert. `--stand` Tom startbar 1, gesperrt 104; Bildschirm und `--liegt` unverändert richtig. **892 greift, damit auch 889** (Lauf 149).

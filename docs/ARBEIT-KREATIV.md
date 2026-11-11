@@ -4,9 +4,13 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `e9dc25b14` (10.11., 16:54)
 
-**Übergabe (10.11., 16:54):** erledigt: 870.15 (`STORY-BRS-ANLEITUNG.md`, `-OBERFLAECHE.md`; Bärenschrat, Goblin-Hauptmann in den K1-Texten und `STORY-REGELN.md`; fremd geprüft 16:50, 25 Befunde eingearbeitet; Hinweise an Tom, Jerry). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
+**Übergabe (10.11., 23:16):** erledigt: 899 (Tipps Fernkampf und Grak in `STORY-BRS-KAMPF.md`, Kurztext Wolf in `STORY-BRS-HELD.md`; Hinweis an Jerry). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
 
 ## Zeilen
+- **Zu 870.14, von Tom (11.11., 03:32):** `[870.14.osric]` ist im Code (`geschichte.gd`, `varianten.gd`); die Quelle `STORY-VARIANTEN-K1.md` 112–113 trägt noch „TP und ZP …“. `varianten.gd` erzeugt `tools/varianten504.py` aus ihr: beim nächsten Lauf käme der alte Satz zurück. Bitte dort nachziehen.
+- **Zu 870.14, von Tom (11.11., 02:13, Bauregel):** Im Heldenreiter entfallen mangels Wirkung im Code: Kraft „Wie viel du tragen kannst“, „Truhen und Türen aufbrechen“; Verstand ganz (Wissen hängt an 870.14 a, Brauen geht nach der Fertigkeit Alchemie), Verstand zeigt nur „Wert %d“. Wahrnehmung „Spähen …“ steht, wirkt aber nur beim Kräutersammeln. Tracht des Wanderers bis zu deinem Vorschlag die der Herkunftstabelle (Bauer, Archiv 376.1); Bild vor B1 offen.
+
+- **Zu 870.14, von Jerry (10.11., 20:09, 870.3 `6814e4331`):** Fähigkeitentabelle in `tools/sim444/werte.json` „handlungen“ und „zauber“ mit deinen Namen. Zu deiner Frage (4): Decken bleibt Fähigkeit des Wächters (Pfad); im Kampf von Kapitel 1 gibt es Schildwall ab Schild 25, den Knopf Decken nicht, solange kein Pfad frei ist. Wehrhaltung behalte ich nicht als freie Handlung (444 Teil 7: ohne Wirkung), Text `[870.14.hand.wehr]` ruht. Wirkungen wie im Tipp, außer Auf Abstand: jetzt Schlag mit −10 und dazu die Haltung (Tipp passt weiter).
 
 - **Zu 432a, Chef (10.11., 11:55, an Homer):** 432 jetzt bearbeiten, der Meilenstein hindert nicht („wenn du das jetzt erledigen kannst, kannst du es doch erledigen“). Vorlage `chefsache/entscheiden/432a-aschgeborene-offen.md` (Vesks Liste, Kael, Lyra, Zeitpunkt des Baus), fremd geprüft 11:57, Befunde eingearbeitet.
 

@@ -186,7 +186,7 @@ def kerntest_warn(dat):
 
 
 SRD_DAZU = ["RK", "ZP", "Übungsbonus", "Rettungswurf", "Zauberplatz", "W20", "d20", "STR", "DEX", "CON", "INT", "WIS", "CHA",
-            "TP", "Trefferwürfel", "Hauptattribut",  # 886 (D140.5, Plan Schritt 8)
+            "Trefferwürfel", "Hauptattribut",  # 886 (D140.5, Plan Schritt 8); „TP“ nicht: Trefferpunkte bleiben im BRS (DESIGN-BRS 12, STORY-REGELN 3; 896)
             "Armor Class", "Hit Dice", "Hit Die", "saving throw", "Saving Throw", "Proficiency Bonus", "proficiency bonus", "Spell Slot", "spell slot"]
 
 

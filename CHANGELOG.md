@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **Testbuild baut von selbst** (894, Chef 10.11.): jeder Push auf `claude/build-<n>` startet die Godot-APK; der alte Kotlin-Lauf erscheint am PR nicht mehr; die Version in den Prüflisten kommt aus dem Godot-Lauf (0.348.<n>).
+
 - **Werkzeug `lauf.py`** (837, Chef 10.11.): kommt 5 Minuten nach einer Startsperre keine Sitzung der Rolle, meldet der nächste Lauf laut „Start <Rolle> nicht angekommen“; die Sperre hält die Rolle dann nicht mehr fest.
 
 - **Build 273 auf `main`** (Tom und Jerry; t273 teilweise freigegeben, Chef 10.11., 10:19; PR #192): 683 Oberfläche mit BRS-Wörtern; 584 halbfette Köpfe wie alt; 753 Rastblende im neuen Aufbau; 781 MIT-Hinweis der REEBOO-Pakete; 804 Gras und Blumen aus dem Kit; 662 Parade mit Schild; 679 Kampfknöpfe; 211.14 Leistung. Heraus und als Rückläufer zurück: 532 (durchgefallen), 795, 762, 471 (am Gerät nicht prüfbar).

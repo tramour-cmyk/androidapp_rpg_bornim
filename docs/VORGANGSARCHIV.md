@@ -2,6 +2,28 @@
 
 Was der Chef entschieden hat, neueste oben (99g.1). Je Vorgang: Nummer, Datum, Entscheidung, *Leitlinien*, Antwort des Chefs und wessen Empfehlung („Nutzer“ = Chef). **Neue Einträge ab 21.10. höchstens etwa 250 Zeichen** (274): Wortlaut des Chefs, soweit er die Entscheidung trägt, steht hier; Begründung in der Rollendatei dessen, der empfiehlt (`CLAUDE.md` „Jeder Text an einem Ort“); Anlass und langer Wortlaut nur in der Chefsache-Datei und „Zu ‹Nr›“, nach dem Löschen in Git. Ältere Einträge bleiben. Einträge werden nicht geändert, außer dem Anhang „→ ersetzt durch <Nr., Datum>“ am alten Eintrag, wenn ein neuer ihn ablöst (461b); was gilt, steht in den DESIGN-Dateien je Thema (461d: Punkte mit Kennung in `DESIGN-STIL.md`, `DESIGN-KAMPF.md`, `DESIGN-ABNAHME.md`), das Archiv ist Verlauf; wer einen Punkt aus der Chefsache entscheiden lässt, trägt ihn hier oben ein und löscht im selben Schritt die Datei in `docs/chefsache/`. Nur Text: Bilder und Hörproben der Einträge bis 16.10. stehen in den [alten Beschlüssen](https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM) (abgelöst 16.10.); Dateinamen in älteren Einträgen sind die damaligen.
 
+- **870.4, Läufe frei** (11.11., 03:51, Sokrates nach 480.1; Messlauf 334 rot nur an Heldenklassen/Drehteller, Ursache Streitkolben ohne Modell nachgestellt, Kampfstab nach 870e Nachtrag): zwei weitere Läufe auf `claude/tom-870-4-held` (Messlauf mit Bild Heldenreiter, ein Ersatz bei fremdem Abbruch).
+- **870e, Übergangszahlen der Welt** (11.11., 02:26, Vorentscheid Sokrates; Chef 10.11., 22:24: „Du bist Chef“; `chefsache/billigen/870e-uebergangszahlen-welt.md`): Heiltrank fest 14/28/56, Ausdauer, Handeln, Brauen, Sinne, Start je Herkunft, 20 Gold, 2 Heiltränke → **alle A (Vorentscheid Sokrates; Vorlage Tom)**
+- **870d, Schwächen vorher sehen** (11.11., 02:00, Vorentscheid Sokrates; Chef 10.11., 22:24: „Du bist Chef“; `chefsache/billigen/870d-wissen-verstand.md`): ab Verstand 6 statt „Fertigkeit Wissen“ (gibt es nicht) → **A (Vorentscheid Sokrates; Hinweis Homer 870.14 a)**
+- **870c, Regeln im echten Bosskampf** (10.11., 22:25, Vorentscheid Sokrates; Chef 22:24: „Du bist Chef“; `chefsache/billigen/870c-werte-vorlage.md`): Grak höchstens ein Goblin, schwächer; Fernkampf allein vorn ohne Nachteil; Jungwölfe bleiben, Feuer vertreibt erst unter halbem Leben des Leitwolfs → **1 A, 2 A, 3 A (Vorentscheid Sokrates; Votum Jerry)**
+
+- **264.1, Läufe frei** (10.11., 21:04, Chef an Perikles: „264.1, Läufe frei“): Lauf 7, CC0 am richtigen Ort (`07d4c2e94`) → **ja (Nutzer)**
+
+- **264.1, Läufe frei** (10.11., 20:43, Chef an Perikles: „264.1, Läufe frei“): Lauf 6, CC0-Reste ohne sudo (`9255151f6`) → **ja (Nutzer)**
+
+- **264.1, Läufe frei** (10.11., 20:19, Chef an Perikles: „264.1 Läufe frei“): Lauf 5 mit Löschen der CC0-Reste (`19487bbe4`) → **ja (Nutzer)**
+
+- **264.1, Läufe frei** (10.11., 19:54, Chef an Perikles: „264.1, Läufe frei“): Lauf 4 auf dem eigenen Runner mit zstd (`1228f6764`) → **ja (Nutzer)**
+
+- **895, Kotlin-Lauf nur von Hand** (10.11., 19:36, Chef an Perikles: „Ja, android.yml jetzt auf nur von Hand stellen“ auf Votum 19:35): `android.yml` ohne Push-Auslöser, vor 870.10 → **ja (Nutzer; Votum Perikles)**
+
+- **894 A, Godot-Build startet bei claude/build-\*\*** (10.11., 19:34, Chef an Perikles: „894 A“; Chefsache `entscheiden/894-build-start.md` in Git): ohne Gerätetest auf main; Kotlin-Lauf nicht mehr am PR → **A (Nutzer; Votum Perikles)**
+
+- **870.2, 870.3 warten nicht auf 888** (10.11., 19:33, Chef an Sokrates: „Ja, so machen.“ auf Vorschlag 19:33): Jerry beginnt den Umzug sofort auf `claude/build-275` statt `main`; Rücknahmen aus Test 275 werden nachgezogen; Reihenfolge Jerry 870.2, 870.3, dann 709.1, 506.2 → **ja (Nutzer; Vorschlag Sokrates)**; ändert 888 (16:46) „nach Test auf main, dann 870.2“
+- **709.1, Film Wolfsbiss: nicht passt** (10.11., 19:29, Chef an Sokrates: „Das ist jetzt völlig crazy … gut war das jetzt nicht“; Vorschau `ansehen/7091-wolfsbiss-film.md` in Git): Wolf seitwärts und abgewandt, Grimmzahn zu weit weg, hintere Ratte und Grak greifen nicht an, Krogg-Abwehr zu spät (Zu 709.1 Jerry) → **nicht passt (Nutzer)**
+- **506, Film Untote nachgebessert: gesehen** (10.11., 19:26, Chef an Sokrates: „Ja, ist nett. Die Wiedergänger treffen auch. Die Grabhunde … erkenne jetzt nicht, ob das ein Hit sein soll … beißen die fast ein bisschen kurz“; Vorschau `ansehen/506-untote.md` in Git): Grabhund-Biss als 506.2 (Jerry) → **gesehen (Nutzer)**
+- **264.1 A, Ursache am Runner, dritter Lauf** (10.11., 19:22, Chef an Perikles: Befehl ausgeführt, „itch.io blockt die VM … HTTP/2 403 … cf-mitigated: challenge“; Chefsache `entscheiden/2641-runner-lauf3.md` in Git): CC0-Pakete über GitHub-Zwischenspeicher, Lauf 3 frei → **A (Nutzer; Votum Perikles)**
+
 - **264.1, sudo apt-get am Runner, zweiter Lauf** (10.11., 17:59, Chef an Perikles: „264.1 erledigt“; Chefsache `tun/2641-runner-sudo.md` in Git, dort „Danach … starte ich den Lauf neu“): apt-get ohne Passwort auf proxmox-bornim; Messlauf 2 frei → **erledigt (Nutzer)**
 
 - **654, Systemfunde 10.11. sofort statt Montag** (10.11., 17:15, Chef an Sokrates: „ja“ auf Vorschlag 17:14): Commit-Prüfung verlangt `tun/` beim Löschen einer Vorlage mit „Was du tust“ und lehnt `ansehen/` ohne Inhalt ab (890); `startbar.py` meldet liegende Muss, Ford startet sie (891); Rückfragen nur mit Datei (Lehre Sokrates); (d)–(f) bleiben für Montag → **ja (Nutzer; Vorschlag Sokrates)**
