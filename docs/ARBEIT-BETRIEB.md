@@ -295,7 +295,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:30 11.11.: Startsperre 23:30 Start Homer, Spike (lauf.py). Lauf 23:30 (Tom-Meldung 23:29: Homer 954.2): Homer …7882hJCzdqb8SLvPZz „Homer – 954.2“ und Spike …77Z838grLETgmwhtMt „Spike – 963“ in Hoch, effort high bestätigt, gestartet; Homer alt …798PZ (986, 5,20 $) und Spike alt …78Chk52 (814, 9,61 $) archiviert und gebucht; GELÖST 861 an Tom.
 - 23:30 11.11.: Marke Archiv session_01Hmoj798PZHPo2cEXLJVxaZ (lauf.py)
 - 23:30 11.11.: Marke Archiv session_01Hmoj78Chk526NpZcAaA2PN (lauf.py)
-- 00:14 12.11.: Startsperre 00:14 Start Jerry (Neustart-Meldung 00:13, 93609bbd6; Nachfolger „Jerry – 993: Arkanpfeil und Ring hakelig“; Hoch, effort high). Spike …7667YeBDQoVo4PDtp2 auf 635 umgelenkt (976 wartet laut Tom auf 870.13, 966.2).
+- 00:14 12.11.: Startsperre 00:14 Start Jerry (Neustart-Meldung 00:13, 93609bbd6; Nachfolger …75hgRbHuDP5JyfDGz2 „Jerry – 993: Arkanpfeil und Ring hakelig“; Hoch, effort high bestätigt). Jerry alt …7A3Uv1wQxh44QKmFGc lief 00:14 noch: im Lauf 01:03 archivieren und auf 988 buchen. Spike …7667YeBDQoVo4PDtp2 auf 635 umgelenkt (976 wartet laut Tom auf 870.13, 966.2).
 - 00:03 12.11.: Startsperre 00:03 Start Spike (lauf.py). Lauf 00:03: Spike …7667YeBDQoVo4PDtp2 „Spike – 976“ in Hoch, effort high bestätigt, gestartet; Spike alt …77Z838 (963, 2,54 $) und Jerry alt …76NLMvq (833, 15,02 $) archiviert und gebucht. Homer …7882hJ („Homer – 954.2“) ruht ohne offenen Vorgang (766 am 13.11., 08:00).
 - 00:03 12.11.: Marke Mehrfach Jerry (lauf.py)
 - 00:03 12.11.: Marke Archiv session_01Hmoj77Z838grLETgmwhtMt (lauf.py)
