@@ -78,9 +78,6 @@ static func rasten(z: Zustand, hw: BrsHeld, art: String, ort: String, ort_jetzt:
 			z.weg("raw_meat", fleisch)
 			z.dazu("roast_meat", fleisch)
 			zeilen.append(Sprache.r("roasted", [fleisch]))
-			for i in fleisch: z.uebe("Kochen")   # 966 A (Vorentscheid Sokrates 11.11.): jedes Stück am Feuer uebt Kochen
-			var auf := z.fert_notiz()
-			if auf != "": zeilen.append(auf)
 	return {"zeilen": zeilen, "klang": klang, "ort": neu if neu != ort_jetzt else {}}
 
 # Game.drinkMead: Ausdauer voll; der fuenfte macht betrunken; betrunken schenkt Rowena nicht mehr nach
