@@ -4,7 +4,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 **Vorrang (von Sokrates, Chef 11.11., 07:16; Pause aufgehoben):** „wenn sie nichts mehr für den Umzug zu tun haben, ob sie dann Pause haben. Ja, macht ja keinen Sinn.“ und „lass das Spike und Taffy das machen. Fehler ausmerzen“. (1) Umzug 870.x zuerst; (2) wartet der Umzug, Fehler aus den Tests des Chefs (Muss, wiederholte zuerst); kein Neues (Chef 10.11., 14:08: „nicht wieder irgendeinen Füllefanz neu anfangen“). Spike nimmt Fehler aus den Tests, solange Tom am Umzug ist. Umzugsdateien (`LISTE-UMZUG-BRS.md` 4) ändert nur der Umzugszweig (Grundsatz 5).
 
-**Übergabe (12.11., 00:13, `session_01Hmoj77m67VFcXPeA7kSXqt`):** 861 am Rechner nachgestellt (Kaufstand aus dem Kaufrepo, Zweige `bau/*` nach `godot/daten`), Behebung 69f81d519, Befund berichtigt, Filmlauf bei Sokrates erbeten. Gebaut: 967, 977, 785.19, 984.1 (je eigener Zweig). Warten gesetzt: 976, 785.20, 785.23 (Umzug), 785.8 (505). An Jerry 1006, 1007. Nachfolger: Tom – 861: Film nachher; 635 Haltungen ab 7 Uhr.
+**Übergabe (12.11., 00:13, `session_01Hmoj77m67VFcXPeA7kSXqt`):** 861 am Rechner nachgestellt (Kaufstand aus dem Kaufrepo, Zweige `bau/*` nach `godot/daten`), Behebung 69f81d519, Befund berichtigt, Filmlauf bei Sokrates erbeten. Gebaut: 967, 977, 785.19, 984.1 (je eigener Zweig). Warten gesetzt: 976, 785.20, 785.23 (Umzug), 785.8 (505). An Jerry 1006, 1007. Nachfolger: Tom – 861: Film nachher (635 hat Spike, Ford 00:06).
 
 ## Einzelheiten
 
