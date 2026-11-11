@@ -537,6 +537,7 @@ jobs:
           timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/ausweichen_593.gd 2>&1 | grep -E "^(ok|FEHLER|  |AUSWEICHEN593)|SCRIPT ERROR" || true
           # 864 (Jerry): kein Sprung der Gegner auf ihre Plätze, wenn der Held an den Zug kommt; meldet, hält noch nicht an
           GEGNER=BATS,GRABHUNDE,WOLVES,RATS timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/beam_864.gd 2>&1 | grep -E "^(  Sprung|Kampf |BEAM864)|SCRIPT ERROR" || true
+          set -o pipefail; GEGNER=WOLVES,KOBOLDS,RATS,GRABHUNDE timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/kamera_992.gd 2>&1 | grep -E "^(  Sprung|  Boden|KAMERA992)|SCRIPT ERROR"   # 992 kein Sprung der Kamera (wiederholt zu 709)
           # 784 A (Jerry): Kampftakt Wolfsrudel gegen DESIGN-KAMPF F9; meldet, hält erst nach dem ersten grünen Film an den Chef an (dann STRENG=1)
           timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/sollbild_784.gd 2>&1 | grep -E "^(ÜBER|MISST|== |  Zug|  Held wartet|SOLLBILD784)|SCRIPT ERROR" || true
           # 546, 703 A (Jerry): Wölfe weichen rasch aus und bleiben danach stehen; meldet, hält noch nicht an
