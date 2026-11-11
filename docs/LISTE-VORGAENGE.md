@@ -236,7 +236,7 @@
 | 866 | Von Sokrates (620, Lagebild t274): Prüfliste geht nur gegengelesen raus; Wächter statt Absprache | Perikles | M | gebaut, Geprüft an: 8c9f2dc3f | – | – | – | Q QS | – |
 | 896 | Von Jerry (870.5): Wächter meldet „TP“ als SRD-Begriff (886), Homer 870.14 und DESIGN-BRS 12 lassen TP in Meldungen stehen; Widerspruch klären | Perikles | M | gebaut, Geprüft an: de7ccc403 | – | – | – | E Technik | 0,53 $ |
 | 919 | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): Regeln nachziehen: Testbitte auch bei rot mit Liste „bekannt, nicht melden“, keine bei rotem Start- oder Absturztest; main nur grün und vom Chef getestet; vor jedem Lauf ganzer Testsatz am Rechner (sobald Jerrys Vorgang steht) | Perikles | M | wartet, 9, 10, 13 gebaut; Rechner-Testsatz in 5 nach 918 (2) | 918 | – | – | B Abläufe | – |
-| 930.4 | Von Sokrates (930): zweites Gegenlesen der Regelseite Handgemenge (DESIGN-KAMPF.md, Entwurf 930) nach Einarbeitung W2, W4–W6, L1–L5, Fragen 5–9 und Ideen Homer 962 | Perikles | M | startbar | – | – | – | E Kampf | – |
+| 930.4 | Von Sokrates (930): zweites Gegenlesen der Regelseite Handgemenge (DESIGN-KAMPF.md, Entwurf 930) nach Einarbeitung W2, W4–W6, L1–L5, Fragen 5–9 und Ideen Homer 962 | Perikles | M | erledigt | – | – | – | E Kampf | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
