@@ -281,3 +281,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:04 11.11.: Marke Archiv-Warnung session_01Hmoj77DnCMZu9jpdRWbgZT (lauf.py)
 - 07:04 11.11.: Marke Start-fehlt Diogenes 11.11.-06:04 (lauf.py)
 - 07:05 11.11.: Morgen 11.11.: regelcheck 4 Pflegefehler (ARBEIT-BETRIEB 35 KB, -JERRY 17 KB, -TOM 15 KB, Übergabe über 700 Zeichen); Kosten-Tabelle nicht gelaufen (Seiten zu groß); Archiv-Satz des Chefs fehlt für 7 Sitzungen
+- 07:10 11.11.: Archiviert und gebucht (Chef 07:09: Ford darf jede ARCHIVIERE-Zeile dauerhaft ausführen, nie auf den Satz warten): Jerry …76RTd, Sokrates …77DnC, …78xr5, Tom …79XWb, …78gmw, …77iXL, Diogenes …76Dx, Perikles …75P7, alter Ford …78JXi
