@@ -13,7 +13,11 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 ## Zu billigen
 
-Nichts offen.
+Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers.
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [954a.3](billigen/954a3-grundfertigkeiten-abweichungen.md) | **Muss** | G Balance | 11.11., 15:58 | Spähen ohne Stärkezeichen, Fallen an fünf Truhen, Tiere vor dem Kampf, Schmiedelehrling repariert bei Borin wie in der Abnahmeliste, Jagd ohne Herkunft. | Sokrates |
 
 ## Anzusehen
 
@@ -32,14 +36,14 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 4, Muss 2, startbar 0
+**Homer** – offen 4, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
-| 954a.4 | M | Von Perikles (954a.2): Spieltexte 954a.1 nach Vorentscheid 954a.3 wortgetreu festschreiben | wartet auf 954a.3 (startbar) |
+| 954a.4 | M | Von Perikles (954a.2): Spieltexte 954a.1 nach Vorentscheid 954a.3 wortgetreu festschreiben | startbar |
 
 **Tom** – offen 109, Muss 89, startbar 8
 
@@ -273,7 +277,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 954a.13 | M | Von Perikles (954a.2, D): Volksmerkmal Glückskind (Hügelvolk) wirkt nur im alten Kampf kla | wartet auf 870 (wartet) |
 | 969 | M | Von Sokrates (Chef 11.11., 15:49): Regelwerte zum Nachschlagen, dritte Seite neben 644 und | wartet auf 968 (startbar) |
 
-**Perikles** – offen 15, Muss 13, startbar 1
+**Perikles** – offen 15, Muss 13, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -290,7 +294,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 866 | M | Von Sokrates (620, Lagebild t274): Prüfliste geht nur gegengelesen raus; Wächter statt Abs | wartet auf Test/Build (gebaut) |
 | 896 | M | Von Jerry (870.5): Wächter meldet „TP“ als SRD-Begriff (886), Homer 870.14 und DESIGN-BRS | wartet auf Test/Build (gebaut) |
 | 919 | M | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): Regeln nachziehen: Testbitte auch bei rot | wartet auf 918 (startbar) |
-| 954a.2 | M | Von Sokrates (954a D, Chef 11.11., 15:15): Mittelweg Fertigkeiten einplanen: Aufteilung To | wartet auf 954a.3 (startbar) |
+| 954a.2 | M | Von Sokrates (954a D, Chef 11.11., 15:15): Mittelweg Fertigkeiten einplanen: Aufteilung To | startbar |
 | 970 | K | D177.1 startbar.py Sperre 779 (965): eigene Dateien enthalten noch fremde Unterlage (705 a | startbar |
 
 **Diogenes** – offen 8, Muss 7, startbar 0
@@ -306,7 +310,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 52, Muss 39, startbar 29
+**Sokrates** – offen 51, Muss 38, startbar 28
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -361,7 +365,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 869 | K | Systemlösung? Rüstung: 2 frühere Vorgänge (49, 817), neu 868; einmal grundsätzlich lösen? | startbar |
 | 930 | M | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (startbar) |
 | 930a | M | Rückfrage (Chef 11.11., 13:57, zu 930): F3 ohne Neuformation – nach einem Tod bleiben die | startbar |
-| 954a.3 | M | Von Perikles (954a.2): Vorentscheid zu den Abweichungen in 954a.1 von D und Abnahmeliste: | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
