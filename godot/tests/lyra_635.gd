@@ -36,6 +36,14 @@ func _lauf() -> void:
 	pruefe(Leute.datei_von({"id": "lyra_cave", "aussehen": "lyra"}) == LEUTE + "lyra.bin", "lyra_cave nimmt lyra.bin")
 	pruefe(Leute.datei_von({"id": "niemand", "aussehen": "keiner"}) == "", "ohne Modell keine Figur")
 	pruefe(Leute.datei_von({"id": "grimfang", "aussehen": "monster:dire_wolf"}) == "", "Monster nicht als Person")
+	# t274.13: Station „Tempel“ im Reiter „Test“ stellt den Helden neben Lyra, die dort zu sehen ist
+	var z := Zustand.new()
+	var ziel := Testmodus.station("Tempel", z)
+	pruefe(ziel.size() == 4 and ziel[0] == "temple", "Station Tempel fuehrt in den Tempel")
+	pruefe(Geschichte.sichtbar("lyra_temple", z) and z.has(Geschichte.LYRA_GONE) and not z.has(Geschichte.CHAPTER1_DONE), "Station Tempel: Lyra befreit, Kapitel offen")
+	for n in k["temple"].get("leute", []):
+		if String(n["id"]) == "lyra_temple" and ziel.size() == 4:
+			pruefe((ziel[1] - Vector2i(int(n["x"]), int(n["y"]))).length_squared() == 1, "Station Tempel: Held neben Lyra")
 	if probe: DirAccess.remove_absolute(ProjectSettings.globalize_path(LEUTE + "lyra.bin"))
 	print("LYRA635 %d Fehler" % fehler)
 	quit(1 if fehler > 0 else 0)
