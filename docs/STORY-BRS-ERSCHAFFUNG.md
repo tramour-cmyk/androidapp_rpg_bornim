@@ -69,7 +69,7 @@ Mit Wirkung im Umzugszweig: Waffen außer Wurfwaffen, alle Rüstungen, Ausweiche
 - `[954.1.fert.schutz]` Schutzmagie: Schilde und Häute aus Kraft, die Schläge dämpfen. / EN: Shields and skins of force that dull blows.
 - `[954.1.fert.heil]` Heilmagie: Wunden schließen und grelles Licht gegen deine Gegner rufen. / EN: Close wounds and call harsh light down on your foes.
 - `[954.1.fert.illusion]` Illusion: Trugbilder, die Gegner täuschen und verwirren. / EN: Phantoms that deceive and confuse your foes.
-- `[954.1.fert.beschwoerung]` Beschwörung: Wesen rufen, die für dich kämpfen, bis hin zur Macht über die Toten. / EN: Call up beings that fight for you, even command over the dead.
+- `[954.1.fert.beschwoerung]` Beschwörung: Wesen rufen, die für dich kämpfen, bis hin zur Macht über die Toten. / EN: Call up beings to fight for you, and even command the dead.
 
 **Wildnis, Gesellschaft**
 - `[954.1.fert.tiere]` Tiere beruhigen: ein feindliches Tier vor dem Kampf besänftigen, damit es abzieht. / EN: Soothe a hostile beast before battle so it moves off.

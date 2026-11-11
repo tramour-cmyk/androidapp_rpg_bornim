@@ -35,8 +35,8 @@ Entfallen mit `erschaffung.gd`, `heldwerte.gd` und den Klassen (Schritt 4), ohne
 
 Texte ohne Würfel (Wirkung und Zahl stehen in den Regelwerten und in der Meldung):
 
-- `potion` (955, Chef 11.11., 13:55; statt „Ein klassischer roter Heiltrank …“): Rot und bitter wie Eisen; schließt kleine Wunden. Wirkt sofort, auch im Kampf. / EN: Red and bitter as iron; it closes small wounds. Works at once, also in battle.
-- `greater_potion`: „Doppelt so stark wie …“ → Stärker als der einfache Heiltrank. Wirkt sofort, auch im Kampf. / EN: Stronger than the plain healing potion. Works at once, also in battle.
+- `potion` (955, Chef 11.11., 13:55; statt „Ein klassischer roter Heiltrank …“): Rot, mit einem Geschmack nach Eisen; schließt kleine Wunden. Wirkt sofort, auch im Kampf. / EN: Red, with a taste of iron; it closes small wounds. Works at once, even in battle.
+- `greater_potion`: „Doppelt so stark wie …“ → Stärker als der einfache Heiltrank. Wirkt sofort, auch im Kampf. / EN: Stronger than the plain healing potion. Works at once, even in battle. (Homer 11.11., 955: in den Kampf kommt heute nur `potion`, `aufruf.gd` 246; bis Großer und Kostbarer Heiltrank dort trinkbar sind, ohne „, auch im Kampf“ / „, even in battle“)
 - `alchemist_fire`: Wurfmittel. Feuer, setzt den Gegner in Brand. / EN: Thrown. Fire; sets the foe ablaze. („trifft immer“ nur, wenn 870.5 es so baut)
 - `holy_water`: Wurfmittel. Licht; wirkt nur gegen Untote, dort aber hart. / EN: Thrown. Light; harms only the undead, but hard.
 - `roast_meat`: Stärkt für den nächsten Kampf: du triffst leichter und schlägst härter. / EN: Fortifies you for the next battle: you land blows more easily and hit harder. (wie `[870.14.satt]`)
