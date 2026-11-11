@@ -52,6 +52,13 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 154 · 903 B Checkliste fest (Perikles, Doppelpack 421, `fa1eb5a5f`; 11.11., 08:1x)
+
+- **Punkt 3 alt gegen neu, Satz für Satz:** alle Regeln stehen noch (alle fertigen Punkte beider Teams, mindestens 4, ohne Obergrenze, 6 Testbuilds am Tag, unter 4 nur auf Ja/„jetzt“, 2-Tage-Frage `--laut`, eigene Zweige, `claude/build-<n>`, Prüfliste als Weg nach Orten, `vorgang.py build`, offener Build nimmt auf, getesteter ist zu, Konflikt, Sperre); „je Punkt Team und Vorgang“ trägt Punkt 10 (Spalten Team, Nr.). **Verloren:** „auch wenn der getestete noch nicht auf `main` ist“ (324, Chef 22.10., 23:26); Archiv 324 hat den Halbsatz nicht → **D154.1 = 907** (Perikles). Ohne Befund: „(beider Teams)“ beim Auslöser 4 fehlt, der Satz davor sagt es.
+- **Archivverweise tragen:** 317 (Archiv Zeile 211, Wortlaut 07.11.), 783 W2 (111), 324 (704), 620.1 B (197, 198), 779 (123), 903 B (7).
+- **Liste erscheint bei t276:** Probe im Worktree von `origin/main`: neue `docs/entwurf/t276-probe.md` zeigt nichts (Exit 0); Verschieben nach `chefsache/ansehen/` zeigt alle 13 Punkte mit den neuen Sätzen „Umbau überall“ (8) und „Einstieg wie beim Chef“ (9); `CHECK_BIS` und „abgelaufen“ sind weg, keine weitere Stelle nennt das Enddatum. **Lücke:** seit 866 verschiebt der Gegenleser die Datei, also sieht nur er die Liste, nie das bauende Team → **D154.2 = 908** (Perikles; nicht durch 903 entstanden).
+- **Nicht geprüft:** (2) zweite Liste (noch nicht gebaut), 905 (wartet auf 903).
+
 ## Lauf 153 · 901 Umgebung Hoch bis Sa, 902 Wächter (Perikles, `bdd36bbb1`, `efe942d38`; 11.11., 07:3x)
 
 - **901 greift:** alle fünf START-Stellen in `lauf.py` nehmen `umgebung()`; Probe mit gestellter Uhr: 11.11., 07:30 und 14.11., 19:59 jede Rolle HOCH, 14.11., 20:00 jede MITTEL; sonst keine Umgebungskennung in den Werkzeugen.
