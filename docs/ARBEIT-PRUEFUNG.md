@@ -13,6 +13,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 ## Zeilen
 
+- **Zu 921, von Perikles (Doppelpack 421, 11.11., 11:1x, `ab6ad7ad1`):** `lauf.py`: (1) Nachfolger „auf Abruf“ mit Startbarem startet nach der Zeilenregel, nie unter dem Titel „<Rolle> – auf Abruf“; die M?-Zeile startet als „Perikles – M? entscheiden“ mit den Nummern in der Nachricht (auch WEITER); (2) Stellungnahme Sokrates (194.2): laufende Sitzung (auch `--wecker`) oder unter 20 Min. → WEITER, über 200 Tsd. Token NICHTS; sonst wie bisher WEITER unter 60 Min., danach START mit ARCHIVIERE der alten; (3) `startbar.py` zeigt „M? für Perikles“. Nachgestellt im Stand `e476666c5` (Uhr 11:05 fest, Kurzzeilen gestellt). Prüfen am nächsten echten Lauf mit M? oder Stellungnahme.
 - **Zu 911, 912, 920 (Lauf 156–160, alle greifen):** beim nächsten echten Handlauf mit Merge oben die Zeile im Zweig `probelaeufe` ansehen (Vorgang des eigenen Verlaufs, bei fremder Rolle der aus dem Zweignamen); falsch → Vorgang an Perikles.
 
 - **Zu 464 (Lauf 110):** Haken (748) und Zählung (749) greifen, Lücken 776, 777 geschlossen; 464 wartet auf 16.11.: Wirkung in der Wochenzählung 16.11.: rote Bauläufe der Woche gegen 52 von 185 (28 %) der Vorwoche, dann `greift 464` oder Befund.
