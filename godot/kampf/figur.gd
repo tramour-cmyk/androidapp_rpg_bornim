@@ -1992,7 +1992,14 @@ func zurueck_in_reihe() -> float:     # 778: gibt die Dauer zurück (0: geht nic
 	if not _bleib_717() or down or not platz_neu or (tween and tween.is_running()) or _platz_besetzt():
 		return 0.0
 	platz_neu = false
-	if Vector2(home.x - position.x, home.z - position.z).length() > 0.12:
+	var weit := Vector2(home.x - position.x, home.z - position.z).length()
+	# 983 (angriff_824 GEGNER=GOBLINS: „Invalid access to property or key 'Gehen'“ in _weg_len, der Goblin blieb abgesetzt stehen):
+	# ohne Wurzelweg geht ein Gegner in die Reihe wie nach seinem Angriff (_tier_heim), um die anderen herum, das Gesicht zum Helden
+	if weit > 0.12 and not weg.has("Gehen"):
+		var t := maxf(HERO_BACK_S, weit / WALK_MPS)
+		_tier_heim(t, null, false)
+		return t
+	if weit > 0.12:
 		return _walk_home()
 	return 0.0
 
@@ -3009,11 +3016,11 @@ func _back_home(back: float, skip) -> void:
 
 ## 399.2 (umweg_399: ohne Wurzelweg lief das Tier nach dem Biss gerade heim, durch den stehenden Nachbarn, bis −0,92 m): heim um
 ## die anderen herum wie die Heldin, den Umweg erst beim Losgehen gerechnet
-func _tier_heim(back: float, skip) -> void:
+func _tier_heim(back: float, skip, absetzen := true) -> void:
 	gang = "zurück"
 	var from := position
 	# 717 C: ein Stück zurück (ABSETZEN), dann stehen; in die Reihe mit dem eigenen Zug
-	if _bleib_717():
+	if absetzen and _bleib_717():
 		var weg_heim := Vector3(home.x - from.x, 0.0, home.z - from.z)
 		var ziel := from + weg_heim.limit_length(ABSETZEN * _scale())
 		tween = create_tween()
