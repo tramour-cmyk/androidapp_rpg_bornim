@@ -1,5 +1,7 @@
 # 831 · Bäume aus dem Nature MegaKit mit unserer Signatur · Tom · 11.11., 12:49
 
+[Bild von 11.11., 12:52](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/11-1252-831-Tom.jpg) (eingetragen von meldung.sh, Tom)
+
 Die vier Baumarten des freien Bausatzes (Laubbaum, Abgestorben, Kiefer, Verdreht), je drei Varianten, im Flüsterwald im echten Spiel: gleicher Ausschnitt, gleiches Licht und gleiche Zeichnung wie im Spiel, Held daneben. Jedes Feld zeigt links unseren heutigen Wald, rechts den Bausatzbaum; die Nachtfelder stehen ganz rechts (bei „Heute“ daneben). Nur ein Vorschaubild, im Spiel ist nichts eingebaut. Großbild in voller Auflösung: Telegram 11.11.
 
 ![Heute, Laubbaum, Abgestorben](../bilder/831-baeume-1.webp)
