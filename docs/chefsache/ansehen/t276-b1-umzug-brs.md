@@ -49,3 +49,20 @@ Bekannt: Klosterschüler und Schmiedelehrling tragen bis zum Streitkolbenmodell 
 |---|---|---|---|---|---|
 | 276.12 | Jerry | 870.5, 705 | Reiter „Test“ → MARS-Probekampf: „Gegner“ antippen bis „Wolfsrudel“, dann unter „Starten als:“ nacheinander Wachsoldat, Zauberlehrling, Herumtreiber, Klosterschüler; im Kampf „Held selbst“ antippen bis „Held Auto“ | jeder Kampf läuft bis zum Ende; Zauberlehrling: Kopf „Mana a/b“, wirkt Zauber; Wachsoldat mit Schild; Klosterschüler mit Kampfstab | Kampf hängt, Zauberlehrling ohne Mana |
 | 276.13 | Jerry | 870.5 | Reiter „Test“ → MARS-Probekampf: „Gegner“ antippen bis „Grak“, unter „Starten als:“ Wachsoldat | Grak ruft höchstens einen Goblin | Grak ruft Goblin und Späher |
+
+## Ergebnis
+
+Chef 11.11., 13:44 an Sokrates: „getestet und freigegeben“; 276.9 nicht genannt (nachgefragt).
+
+- 276.1 ✓
+- 276.2 ✓ (Frage: Langdruck in der Erschaffung gibt keinen Erklärtext, etwa zu Fertigkeiten)
+- 276.3 ✓
+- 276.4 ✓
+- 276.5 ✗ Heiltrank gab 11 TP zurück statt 14 („passt noch nicht ganz“); Würfeltext 944
+- 276.6 ✓
+- 276.7 ✓
+- 276.8 ✓
+- 276.10 ✓
+- 276.11 ✓
+- 276.12 ✓ (Funde nebenbei: 945 Auto nicht abschaltbar, 946 Ansage unter Zugleiste, 947 Söldner-Klon, 948 Dolch)
+- 276.13 ✓ (Fund nebenbei: Text „greift an, schlägt daneben“ beim perfekten Ring gegen Grak passt nicht zur Bewegung)
