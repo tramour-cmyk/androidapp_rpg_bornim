@@ -44,6 +44,9 @@ def ohne_info(d):
 
 # ---------------------------------------------------------------- Held
 
+VOLK = None     # 933.2: --volk
+
+
 class Held:
     def __init__(self, W, herkunft, variante=False):
         self.W = W
@@ -58,6 +61,11 @@ class Held:
                 self.werte[g] += p
         for g in GRUNDWERTE:
             self.werte[g] = min(self.werte[g], h["grundwert_max"])
+        # 933.2 (Chef 11.11., 13:07 „933 A“): mit --volk das Volk dazu, zwischen volk_min und volk_max (Erschaffung)
+        if VOLK:
+            e = W["erschaffung"]
+            for g, p in e["voelker"][VOLK]["plus"].items():
+                self.werte[g] = max(e["volk_min"], min(e["volk_max"], self.werte[g] + p))
         self.stufe = 1
         self.fert = {}      # Name -> Wert
         self.uebung = {}    # Name -> gesammelte Uebung
@@ -1231,11 +1239,14 @@ def main():
     p.add_argument("--laeufe", type=int)
     p.add_argument("--ohne-variante", action="store_true", help="21-Punkte-Variante nicht rechnen")
     p.add_argument("--pruefen", action="store_true")
+    p.add_argument("--volk", help="933.2: Volk der Helden (Erschaffung voelker), ohne: Grundwerte nur nach der Herkunft")
     p.add_argument("--json", help="Rohdaten zusaetzlich als JSON")
     p.add_argument("--nur-wirtschaft", action="store_true", help="nur Abschnitt 5 (Wirtschaft) rechnen und ausgeben")
     p.add_argument("--ohne-wirtschaft", action="store_true", help="Abschnitt 5 nicht rechnen")
     p.add_argument("--nur-traenke", action="store_true", help="nur Abschnitt 6 (Traenke im Bosskampf, 481.1) ausgeben")
     args = p.parse_args()
+    global VOLK
+    VOLK = args.volk
     W = lade(args.werte)
     # 427.1: Boss mit Ueberfall auch mit Morwens Rauch (D4.1: der erste Hieb geht fehl), nur in Bossen und Matrix
     for n, m in list(ohne_info(W["monster"]).items()):
