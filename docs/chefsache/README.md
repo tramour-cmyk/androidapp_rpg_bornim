@@ -16,6 +16,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [814](ansehen/814-dorfeffekte-abend.md) | Dorfeffekte am Abend, Film Lauf 2 | – | 11.11., 13:16 |
 | [831](ansehen/831-baeume.md) | Bäume aus dem Nature MegaKit mit unserer Signatur | Tom | 11.11., 12:49 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
@@ -32,7 +33,7 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 4, Muss 2, startbar 1
+**Homer** – offen 5, Muss 2, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -40,6 +41,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 | 933.1 | M | Von Sokrates (933, Chef 11.11., 13:07): Erschaffungstext Grundwerte ehrlich: beginnt bei 3 | startbar |
+| 934 | M? | Von Tuffy (870.6): Texte fehlen oder passen nicht: Satz zur Spinnseide (Ding spider_silk, | startbar |
 
 **Tom** – offen 98, Muss 79, startbar 0
 
@@ -130,7 +132,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 785 | M | Oberfläche einmal ganz gegen alt: jeder Schirm und jede Bedienung als eine Liste, jeder Un | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.4 (liste) |
 | 698 | M | Grafikstufen im Systemmenü mit Effekten (Niedrig/Mittel/Hoch, Automatisch per Leistungstes | wartet auf 623 (startbar) |
 | 816 | M | Effekte Szene 1 Dorf am Abend nach LISTE-EFFEKTE (Reihenfolge 623.8): gedämpft, Bilder/s n | wartet auf 698 (startbar) |
-| 814 | M | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staub im Licht, Fußstaub, Fahne, Wind, | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 680 (gebiet.gd) |
+| 814 | M | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staub im Licht, Fußstaub, Fahne, Wind, | Chef (Datei in der Chefsache) |
 | 831 | M | Bildtafel Bäume: vier Arten aus Stylized Nature MegaKit frei (gewöhnlich, abgestorben, Kie | Chef (Datei in der Chefsache) |
 | 839 | K | Von Homer (817): Erklärtexte der Grundwerte im Reiter Held nach BRS einbauen, Texte STORY- | ruht |
 | 842 | M | Von Sokrates (807a A, Chef 10.11., 11:01): Pim überreden und Verband nach STORY-K1-FERTIGK | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.4 (sokrates) |
@@ -144,7 +146,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 926 | M | Von Jerry (870.6): Gegenstandsfenster im Menü ohne Würfel (menue.gd 754, 843–847, 1351 wue | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 632 (jerry) |
 | 933 | M | Grundwerte 933 A umsetzen (Chef 11.11., 13:07): Volk senkt bis 2, hebt bis 9 (volk_min 2, | wartet auf 933.1 (startbar) |
 
-**Jerry** – offen 94, Muss 85, startbar 5
+**Jerry** – offen 99, Muss 84, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -215,7 +217,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 760 | M | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht | Sperre 620.1 B: 14 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
 | 770 | M | Wochentermin 13.11.: Rollenspiegel Jerry (rollenspiegel.sh Jerry) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 | 784 | M | Kampf-Sollbild „Wolfsrudel, eine Runde“: wer geht wohin, Höchstdauer je Handlung, Ausweich | wartet auf Test/Build (gebaut) |
-| 786 | M | Klangliste alt gegen neu: je Anlass alt, neu, fehlt (654 A, als Drittes) | startbar |
 | 802 | K | Rest 211.14 (Kür, Tuffy): Held und Söldner gehen beim Wechsel statt 0,4 s zu gleiten (figu | ruht |
 | 803 | K | Rest 211.14 (Kür, Tuffy): Gegner durch Antippen der Figur als Ziel wählen | startbar |
 | 811 | K | Von Perikles (800, 650.2 C1): Kommentar in godot/regeln/brs_kampf.gd Zeile 3 nennt DESIGN- | startbar |
@@ -242,8 +243,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 931 | M | Von 784 A (Chef 11.11., 12:15): Wolf vorn – „Anspringen!“ steht, während er sich duckt (ke | Sperre 620.1 B: 14 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (biss) |
 | 932 | M | Von 784 A (Chef 11.11., 12:15/12:09): Angriff des Helden höchstens 2,4 s – rennt zum Ziel, | Sperre 620.1 B: 14 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (messen) |
 | 933.2 | M | Von Sokrates (933, Chef 11.11., 13:07): Sim 444 Gegenprobe Grundwerte mit Volk bis 2 (volk | Sperre 620.1 B: 14 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (sokrates) |
+| 935 | M? | Von Tuffy (870.6): Wurfmittel im MARS nicht zu benutzen (Brandflasche, Weihwasser; Thessa | startbar |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 15350 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 938 | M? | Von Tom (786): Klang bei Handel, Rast und Gaben wie alt: Münzen beim Kaufen, Verkaufen, Zu | startbar |
+| 939 | M? | Von Tom (786): Kampfklang wie alt: Ring (schwerer Schwung beim Öffnen, Block bei gut und p | startbar |
+| 936 | M? | Von Tom (786): Musik an der Bemerkgrenze wie alt: nahe einem Monster leiser und dunkler mi | startbar |
+| 937 | M? | Von Tom (786): Ruhelaute der Monster auf der Karte wie alt: schnüffeln, grunzen, klappern, | startbar |
 
-**Perikles** – offen 18, Muss 12, startbar 3
+**Perikles** – offen 19, Muss 12, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -253,24 +260,30 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf Diogenes |
 | 464 | M | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählu | Termin 16.11. |
 | 347.2 | M | Umsetzung Plan 347 nach Gegenprüfung (Chef 24.10., 16:30) | wartet auf 347 (startbar) |
-| 276 | K | Fords Anleitung auf eine Seite (Empfehlung Sokrates zu 274) | wartet auf 927 (startbar) |
+| 276 | K | Fords Anleitung auf eine Seite (Empfehlung Sokrates zu 274) | wartet auf Diogenes (greift?) |
 | 341 | M | Zielvereinbarung Perikles bis zum Marktstart: sechs messbare Ziele, geprüft von Werkzeug u | Termin 16.11. |
 | D75 | M | Filmsperre 511 zählte Film-Pushes 572 nicht (D75.1); meldung.sh --film legte Film 572 nich | Dauerzeile |
 | 99 | K | Zwei Niederlassungen | ruht |
-| 725 | K | D72 probelauf.py: arbeitskopie/push_lauf lösen cd $VAR und cd "$HOME/…" nicht auf, figur_s | wartet auf 929 (startbar) |
+| 725 | K | D72 probelauf.py: arbeitskopie/push_lauf lösen cd $VAR und cd "$HOME/…" nicht auf, figur_s | wartet auf Diogenes (greift?) |
 | 866 | M | Von Sokrates (620, Lagebild t274): Prüfliste geht nur gegengelesen raus; Wächter statt Abs | wartet auf Test/Build (gebaut) |
 | 896 | M | Von Jerry (870.5): Wächter meldet „TP“ als SRD-Begriff (886), Homer 870.14 und DESIGN-BRS | wartet auf Test/Build (gebaut) |
 | 903 | M | D152.1 von Diogenes (771, 657 D): Probe 657 ausgewertet, Prüfbericht Lauf 152; Grundlage 1 | wartet auf Test t276 (Chef) |
 | 919 | M | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): Regeln nachziehen: Testbitte auch bei rot | wartet auf 918 (startbar) |
-| 927 | K | D162.1 276: Pflichten ohne Anlass in „Jeder Lauf“: Nachhalten (8, täglich ab 8 Uhr), Einga | startbar |
-| 928 | K | D162.2 LISTE-RELEASE-NEUSTART.md Neustart 2: „Startzuordnung in LISTE-BETRIEB.md Schritt 4 | startbar |
-| 929 | K | D163.1 probelauf.py (725): ein cd mit Variable, das nur als Text vor git commit oder push | startbar |
+| 927 | K | D162.1 276: Anlässe der Schritte 6–11 fehlen in „Jeder Lauf“ (Nachhalten 8, Eingang 7, Mel | wartet auf Diogenes (greift?) |
+| 928 | K | D162.2 LISTE-RELEASE-NEUSTART.md Neustart 2: „Startzuordnung in LISTE-BETRIEB.md Schritt 4 | wartet auf Diogenes (greift?) |
+| 929 | K | D163.1 probelauf.py (725): ein cd mit Variable, das nur als Text vor git commit oder push | wartet auf Diogenes (greift?) |
+| 940 | M? | Von Tom: vorgang.py neu vergibt Nummern doppelt, wenn zwei Sitzungen zugleich anlegen (11. | startbar |
 
-**Diogenes** – offen 8, Muss 7, startbar 0
+**Diogenes** – offen 13, Muss 7, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
+| 276 | K | Fords Anleitung auf eine Seite (Empfehlung Sokrates zu 274) (für Perikles) | startbar |
+| 725 | K | D72 probelauf.py: arbeitskopie/push_lauf lösen cd $VAR und cd "$HOME/…" nicht auf, figur_s | startbar |
+| 927 | K | D162.1 276: Anlässe der Schritte 6–11 fehlen in „Jeder Lauf“ (Nachhalten 8, Eingang 7, Mel | startbar |
+| 928 | K | D162.2 LISTE-RELEASE-NEUSTART.md Neustart 2: „Startzuordnung in LISTE-BETRIEB.md Schritt 4 | startbar |
+| 929 | K | D163.1 probelauf.py (725): ein cd mit Variable, das nur als Text vor git commit oder push | startbar |
 | 461b | M | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Termin 16.11. |
 | 348.9 | M | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | ruht |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
@@ -338,6 +351,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
 Format (Muster: „So geht's“ unten): t276-b1-umzug-brs.md: Zeile 2 ist keine Bereichszeile; t276-b1-umzug-brs.md: Version 0.1.<Laufnummer> (Godot 0.348.<Laufnummer>) fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
+
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/814-dorfeffekte-abend.md
 
 ## So geht's
 
