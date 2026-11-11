@@ -174,7 +174,7 @@
 | 744 | Karte: Streuner und Leute bewegen sich natürlich, verweilen mit Ruhebewegung statt Roboter-Takt (Chef 09.11., 11:18); ein Bewegungsbaustein für beide Teams? | Jerry | M | startbar | – | – | – | E Figuren | – |
 | 760 | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht (Chef 09.11., 14:00, Fund t271) | Jerry | M | startbar, 760 A (Chef 17:46) | – | – | – | E Kampf | – |
 | 770 | Wochentermin 13.11.: Rollenspiegel Jerry (rollenspiegel.sh Jerry) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Jerry | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
-| 784 | Kampf-Sollbild „Wolfsrudel, eine Runde“: wer geht wohin, Höchstdauer je Handlung, Ausweichen bleibt; selbst am Handybild nachspielen, dann Maß für jeden Kampffund (654 A, Chef 09.11., 17:46) | Jerry | M | in Arbeit, bei Tom (Übernahme) | – | claude/tuffy-784-sollbild | – | E Kampf | 11,32 $ |
+| 784 | Kampf-Sollbild „Wolfsrudel, eine Runde“: wer geht wohin, Höchstdauer je Handlung, Ausweichen bleibt; selbst am Handybild nachspielen, dann Maß für jeden Kampffund (654 A, Chef 09.11., 17:46) | Jerry | M | gebaut, Geprüft an: fe357783d (sollbild_784, F9; misst mit 863 im Build) | 863 | claude/tuffy-784-sollbild | – | E Kampf | 11,32 $ |
 | 786 | Klangliste alt gegen neu: je Anlass alt, neu, fehlt (654 A, als Drittes) | Jerry | M | startbar | – | – | – | E Klang | – |
 | 802 | Rest 211.14 (Kür, Tuffy): Held und Söldner gehen beim Wechsel statt 0,4 s zu gleiten (figur.gd glide_to ohne Wurzelweg) | Jerry | K | ruht, bis Test 825 (620, Perikles) | – | – | – | E Kampf | – |
 | 803 | Rest 211.14 (Kür, Tuffy): Gegner durch Antippen der Figur als Ziel wählen | Jerry | K | startbar | – | – | – | E Kampf | – |
