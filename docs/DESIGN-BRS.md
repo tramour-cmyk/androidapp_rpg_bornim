@@ -47,6 +47,26 @@ Wie das zusammenhängt: Kräutersammeln ist eine **Fertigkeit** (Sammeln). Sie g
 
 Abnutzung und Reparatur: Reparieren ist keine eigene Fertigkeit mehr; Metall repariert die Fertigkeit **Schmieden**, Leder und Stoff das **Schneidern**. Ihr Rang bestimmt, was man reparieren kann (Anfänger: Werkzeug und Einfaches; Geselle: Metallwaffen, mittlere Rüstung, Schilde, Bögen; Meister: schwere Rüstung, Meisterstücke; Großmeister: magische Stücke mit Runenkunde). Für alle gibt es „Alles reparieren“ beim Handwerker.
 
+## Querschnitt: jede Kampfregel je Kampfstil
+
+Jede Regel, die im Kampf wirkt, gegen jeden Kampfstil gehalten (984, Chef 11.11., 18:28, nach 952: „schon wieder was gefunden, was noch keiner bedacht hat“). **Ist-Stand im Code** (`main`, 11.11.: `werte.json`, `brs_kampf.gd`, `mars.gd`), nicht Absicht. Wer eine Kampfregel, eine Waffengruppe oder eine Schule einführt oder ändert, trägt sie hier je Spalte ein; ein leeres Feld ist eine Frage, keine Absicht. Funde und Vorschläge: Chefsache 984.
+
+| Regel | Krieger (Einhänder, Schild; Wachsoldat) | Kämpe (Zweihänder) | Schütze (Bogen; Jägerkind) | Späher (Dolch; Herumtreiber) | Magier (Evokation; Zauberlehrling) | Heiler (Heilmagie; Klosterschüler) |
+| --- | --- | --- | --- | --- | --- | --- |
+| Treffer | Einhänder gegen Abwehr | Zweihänder | Bogen, + 1 je Wahrnehmung | Dolche | Evokation, ohne Grundwert | Heilmagie (Gleißstrahl), ohne Grundwert |
+| Schaden aus | Kraft | Kraft | Gewandtheit | Gewandtheit | Wille | Wille |
+| Kritisch | Gewandtheit | Gewandtheit | Gewandtheit | Gewandtheit | **nie** | **nie** |
+| Abwehr (bester Wert) | Schild-Fertigkeit; Ausweichen (Fertigkeit + 2 × Gewandtheit); Parieren ½ Einhänder nur gegen Nahkampf | Ausweichen; Parieren ½ Zweihänder | nur Ausweichen | Ausweichen; Parieren ½ Dolche | nur Ausweichen (Stab: Parieren ½ Stumpfe Waffen) | wie Magier |
+| Abzug | Rüstung × (1 + Rüstungsfertigkeit/100) + Schild | Rüstung | Rüstung | Rüstung | keine Rüstung; Bannschild, Arkanhaut | Rüstung erlaubt (Heilmagie) |
+| Handlung ab Geselle | Finte; Schildwall | Wuchtschlag | Ruhige Hand | Stich aus dem Hinterhalt | Glutstrahlen, Flammenfächer, Arkanhaut | Beistand |
+| Leben, Mana | Zähigkeit | Zähigkeit | Zähigkeit | Zähigkeit | Zähigkeit; Mana aus Wille | Zähigkeit; Mana aus Wille |
+| Initiative, Flucht | Gewandtheit | Gewandtheit | Gewandtheit | Gewandtheit | Gewandtheit | Gewandtheit |
+| Abwehrproben | Zähigkeit (Gift), Wille (Furcht, Zauber), Gewandtheit (Flächen) | gleich | gleich | gleich | gleich | gleich |
+| Schwäche vorher sehen | Verstand ab 6 | gleich | gleich | gleich | gleich | gleich |
+| **Grundwerte, die im Kampf zählen** | Kraft, Gewandtheit, Zähigkeit | Kraft, Gewandtheit, Zähigkeit | Gewandtheit, Wahrnehmung, Zähigkeit | **Gewandtheit allein** (Schaden, Kritisch, Abwehr), Zähigkeit | **Wille allein** (Schaden, Mana), Gewandtheit nur Abwehr, Zähigkeit | wie Magier |
+
+Nicht in Kapitel 1: Illusion und Beschwörung haben keinen Zauber, sind bei der Erschaffung aber wählbar (Chefsache 984).
+
 ## 1. Die Grundidee
 
 **Du wirst, was du tust.** Es gibt keine Klasse, die man am Anfang wählt. Wer viel mit dem Bogen schießt, wird ein besserer Schütze. Wer zaubert, wird ein besserer Zauberer. Wer schleicht und Dolche führt, bekommt irgendwann Besuch von einem Lehrmeister, der ihm einen Pfad anbietet.
