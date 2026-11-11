@@ -32,4 +32,26 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/28add7
 
 **Folgerungen:** Nach „952 A“ oder „952 B“ baut Jerry die Zahl ein (Kampf, Simulation), Tom die Heldenseite; Testbitte im nächsten gemeinsamen Build.
 
+**Stellungnahme Sokrates (11.11., 18:24, zu deinem Wort 18:21: „Ich glaube, es greift zu kurz, kritischen Schaden nur anhand der Gewandtheit zu berechnen … für Zauberer … hängt es wohl nicht daran, wie selbstsicher er den Zauberstab wedeln kann, sondern vielleicht eher an anderen Grundwerten“):**
+
+- **Befund im Code:** Zauber treffen heute **nie** kritisch (`mars.gd` `_brs_zauber` gibt keinen Wert an `schlag`, Vorgabe 0 %); Bogen, Armbrust und Wurfwaffe hängen an der Gewandtheit wie das Schwert. Das Regelwerk sagt zu Zaubern nichts.
+- **Kommt das wieder?** Ja: bei jeder neuen Waffengruppe und Schule stellt sich die Frage neu. Darum eine Regel statt einer Ausnahme für Zauberer.
+- **Vorschlag C:** Tempo wie A (Grundwert × Fertigkeit / 50), aber der Grundwert hängt an der Angriffsart, und es ist **nie der Grundwert, der schon den Schaden gibt**:
+
+| Angriff | Schaden aus | kritisch aus | Bild |
+|---|---|---|---|
+| Schwert, Axt, Keule, Stangenwaffe, Zweihänder, Faust | Kraft | Gewandtheit | die Lücke in der Deckung treffen |
+| Dolch, Wurfwaffe | Gewandtheit | Wahrnehmung | die Schwachstelle sehen |
+| Bogen, Armbrust | Gewandtheit, keiner | Wahrnehmung | genau zielen |
+| Schadenszauber (Evokation u. a.) | Wille | Verstand | das Gefüge des Zaubers verstehen, die Lücke im Schutz des Gegners finden |
+| Heil- und Schutzmagie | – | kein kritischer Treffer (wie heute) | – |
+
+- **Warum:** Jeder Kampfstil braucht so zwei Grundwerte (Krieger Kraft und Gewandtheit, Schütze Gewandtheit und Wahrnehmung, Magier Wille und Verstand). Die Verteilung der 9 Punkte bei der Erschaffung wird eine echte Wahl (Leitbild), und der Verstand bekommt für Magier einen Platz im Kampf; heute nützt er ihnen dort nichts.
+- **Stärkstes Gegenargument:** Magie schöpft im BRS aus dem Willen (Entscheidung 80); „Zauberer = Wille“ wäre einfacher und passt zur Welt. Antwort: Dann gibt der Wille Mana, Zauberschaden, kritisch, Konzentration und Furchtresistenz; der Magier legt alles auf einen Wert, die Erschaffung verliert die Wahl.
+- **Zweites Gegenargument:** Die Wahrnehmung wird für Schützen stark (Treffer im Fernkampf und kritisch). Antwort: Den Schaden gibt bei ihnen die Gewandtheit; es bleiben zwei Werte wie beim Krieger. Die Zahlen prüft Jerry mit der Simulation 444.
+- **Unsicher:** Magier treffen mit C erstmals kritisch, zu Beginn etwa 0,6 bis 1,6 % (Verstand 3 bis 8, Schule 10). In Kapitel 1 ist das wenig, Rechnung Jerry nach deiner Antwort.
+- **Kosten:** in `werte.json` je Waffengruppe und Schule ein Feld „kritisch aus“ neben „grundwert“, Kampf, Heldenseite (kritisch je Waffe und Zauber), Simulation; unter einer Sitzung Jerry, Heldenseite Tom.
+
+**Empfehlung Sokrates: „952 C“** (A gilt dann für das Tempo mit).
+
 Antwort: …
