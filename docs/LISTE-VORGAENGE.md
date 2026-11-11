@@ -201,6 +201,8 @@
 | 922 | Von Tom (B1, Lauf 346): wildschwein_494 und skelett_506 prüfen noch SRD-Trefferpunkte (2W8+2 → 4–18, 6–20), nach BRS 18–46 und 36; Spannen an werte.json anpassen | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 923 | Von Tom/Sokrates (t276 gegengelesen): Heiltrank in tools/sim444/werte.json doppelt, welt.heilung 14/28 (Spiel) gegen wirtschaft.traenke 12/30 (sim.py 575, Siegquoten 870c); ein Wert, eine Stelle | Jerry | M | startbar | – | – | – | E Kampf | – |
 | Pflege | von Werkzeug (340.3, 11.11.): 16299 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
+| 931 | Von 784 A (Chef 11.11., 12:15): Wolf vorn – „Anspringen!“ steht, während er sich duckt (keine eigene Pause), Sprung bis Biss 0,6 s, Absetzen 0,8 s, Ansage ungekürzt; Wolf höchstens 3,4 s (F9); messen erst mit 863 im Build | Jerry | M | startbar | 863 | – | – | E Kampf | – |
+| 932 | Von 784 A (Chef 11.11., 12:15/12:09): Angriff des Helden höchstens 2,4 s – rennt zum Ziel, schlägt, Zeile beim Aufschlag, geht zügig rückwärts heim (F9); messen erst mit 863 im Build | Jerry | M | startbar | 863 | – | – | E Kampf | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
