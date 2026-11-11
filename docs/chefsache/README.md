@@ -24,8 +24,6 @@ Nichts offen.
 |---|---|---|---|
 | [595](ansehen/595-kaufgegner.md) | Kampfbewegungen der Kaufgegner: Riesenspinne, Riesenegel, Säureschnecke (Vorgang 595) | Jerry | 11.11., 19:56 |
 | [744](ansehen/744-karte-gang.md) | Monster auf der Karte: Bogen statt Roboter-Takt, Verweilen mit Ruhebewegung (Vorgang 744) | – | 11.11., 19:47 |
-| [856](ansehen/856-ueberspringen.md) | Zwischensequenz: „Überspringen?“ und Satz ohne Kasten (Vorgang 856) | Spike | 11.11., 19:03 |
-| [870.7](ansehen/8707-gegenstandsfenster.md) | Gegenstandsfenster mit den Werten unseres Regelwerks (Vorgang 870.7) | Tom | 11.11., 17:16 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
@@ -57,7 +55,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 825 | M | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635 | wartet auf Test/Build (gebaut) |
 | 697 | M | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | wartet auf 782 (startbar) |
 | 680 | M | Absturz: Testmenü Sprung Wald → Dorf, in der Schenke schon hakelig, nach Met immer zäher, | wartet auf Test (Build 277) |
-| 870.7 | M | Von Sokrates (870, Umzug BRS Schritt 6): Laden, Vergleich und Gegenstandsfenster nach BRS- | Chef (Datei in der Chefsache) |
+| 870.7 | M | Von Sokrates (870, Umzug BRS Schritt 6): Laden, Vergleich und Gegenstandsfenster nach BRS- | wartet auf Test/Build (gebaut) |
 | 870.9 | M | Von Sokrates (870, Umzug BRS Schritt 8): Godot ganz aus Kotlin (870a 7 B): zuerst festlege | wartet auf Test/Build (gebaut) |
 | 870.13 | M | Von Sokrates (870, Umzug BRS Schritt 9): Aufräumen, Hinweis SRD 5.1 · CC BY 4.0 raus (Spie | wartet auf 870.10 (wartet) |
 | 492 | M | Blutzahnhöhle begehbar mit Krogg, Grak, Lyra (Orte O8; Wochenziel 03.11., 488; von Jerry a | Sperre 620.1 B: 15 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 635 (lyra) |
