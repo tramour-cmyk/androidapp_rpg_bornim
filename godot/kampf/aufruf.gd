@@ -298,10 +298,10 @@ func _kaempfer(id: String, x, tp: int, platz: Vector2i, skills: Dictionary):
 
 
 ## 532 (alt Battle.kt init, GameState.ailments): die Zustände, die der Held aus dem letzten Kampf mitbringt; nur, was MARS kennt
-## (Metrausch DRUNK fehlt in MARS, Zu 532)
+## (Metrausch DRUNK kommt nur über „betrunken“, bis zur Rast, nicht als Zug-Zähler; 958)
 static func leiden_auf(f, leiden: Dictionary) -> void:
 	for st in leiden:
-		if Mars.STATUS.has(String(st)) and int(leiden[st]) > 0:
+		if String(st) != "DRUNK" and Mars.STATUS.has(String(st)) and int(leiden[st]) > 0:
 			f.status[String(st)] = int(leiden[st])
 
 
