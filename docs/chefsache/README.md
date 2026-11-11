@@ -229,9 +229,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 904 | M | Von Tom (870.4, B1): sim444_870 am Rechner (97a32cfe2): SCRIPT ERROR mars.gd:903 _erwartet | wartet auf Test/Build (gebaut) |
 | 909 | M? | Von Sokrates (Chef 11.11., 08:52, zu 854): Lauf schneller: Schritt „Skripte prüfen“ (24 mi | startbar |
 | 910 | M | Von Jerry (B1, Lauf 338): atem_4531 rot, Held atmet in Ruhe 3,0 cm und 3,3° statt höchsten | Sperre 620.1 B: 11 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (lauf) |
-| Pflege | K | von Werkzeug (340.3, 11.11.): 15034 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 15024 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 30, Muss 16, startbar 1
+**Perikles** – offen 29, Muss 16, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -264,7 +264,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 912 | M | D156.1 (911, Diogenes): probelauf.py zählt den nächsten Handlauf auf B1 claude/tom-870-4-h | wartet auf Diogenes (greift?) |
 | 913 | M | D157.1 (912, Diogenes): nr_aus_zweigname holt main über zweig_lesen und verbiegt FETCH_HEA | wartet auf Diogenes (greift?) |
 | 914 | M | D157.2 (912, Diogenes): Zweigname vor eigenem Verlauf gibt bei Merge oben die Oberbegriffs | wartet auf Diogenes (greift?) |
-| Pflege | K | von Werkzeug (340.3, 11.11.): 15125 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Diogenes** – offen 12, Muss 11, startbar 4
 
