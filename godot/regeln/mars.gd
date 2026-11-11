@@ -574,14 +574,22 @@ func _zaeh_haelt(t: Fighter, dmg: int) -> bool:
 	return dice.next_int(0, 100) < clampi(c, 0, 100)
 
 
+const METALL_RUESTUNG := ["Mittlere Rüstung", "Schwere Rüstung"]     # wie BrsHeld.metall
+const METALL_SPERRT := ["Evokation", "Illusion", "Beschwörung"]
+
 ## 870.5: welche Zauber [f] kennt (Kampfblatt, sonst Herkunft; dazu jeder mit „ab“, den die Fertigkeit der Schule erreicht) und sein
 ## Mana (held mana_basis + mana_je_wille × Wille); das Mana der Welt kommt im selben Anteil herein (sp von sp_max), ohne Angabe voll
 func _brs_zauber_kennen(f: Fighter) -> void:
 	var W := BrsKampf.w()
 	f.zauber = []
+	# 870.4 (DESIGN-BRS.md 7, Entscheidung 80; [870.14.ding.metall], Fremdprüfung Homer 14:15): in mittlerer und schwerer
+	# Rüstung (Metall) gehen Evokation, Illusion und Beschwörung nicht; Heil- und Schutzmagie auch in Metall
+	var metall := String(f.b.get("ruestung", "keine")) in METALL_RUESTUNG
 	for id in ZAUBER:
 		var z: Dictionary = W["zauber"].get(ZAUBER[id], {})
 		if z.is_empty():
+			continue
+		if metall and String(z.get("schule", "")) in METALL_SPERRT:
 			continue
 		var kennt: bool = ZAUBER[id] in f.b.get("zauber", []) or (z.has("ab") and int(f.b.fert.get(String(z.schule), 0)) >= int(z.ab))
 		if kennt:

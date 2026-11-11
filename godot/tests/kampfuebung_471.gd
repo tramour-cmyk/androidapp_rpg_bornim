@@ -69,6 +69,32 @@ func _lauf() -> void:
 	la.kaufe(ohne, BrsHeld.fuer_spiel("Alrik", "Mensch", "Wachsoldat"), "potion")
 	pruefe("ohne BRS-Held kein Stand", ohne.fert.is_empty(), true)
 
+	# 966 A: jeder Sud bei Morwen uebt Alchemie (auch ×n), jedes Stueck am Lagerfeuer Kochen; Satz [966.1.kessel] wechselt
+	var z3 := Zustand.new()
+	z3.brs = BrsHeld.neu("Mensch", "Wachsoldat").als_daten()
+	z3.gold = 500; z3.dazu("herbs", 40)
+	var mo := Laden.new([], true)
+	var heil: Dictionary = Laden.rezepte()[0]
+	var hw3 := BrsHeld.fuer_spiel("Alrik", "Mensch", "Wachsoldat")
+	var saetze := []
+	for i in 3: saetze.append(mo.braue(z3, hw3, heil, 0.99))
+	pruefe("erster Kesselsatz", saetze[0], Sprache.t({"de": Laden.KESSEL[0][0], "en": Laden.KESSEL[0][1]}).replace("{0}", Laden.name("potion")))
+	pruefe("Kesselsatz nie zweimal hintereinander", [saetze[1] != saetze[0], saetze[2] != saetze[1]], [true, true])
+	pruefe("Alchemie geuebt", float(z3.fert["uebung"].get("Alchemie", 0.0)) > 0.0 or BrsFertigkeit.wert(z3.fert, "Alchemie") > 0, true)
+	var nach3 := float(z3.fert["uebung"].get("Alchemie", 0.0)) + 100.0 * BrsFertigkeit.wert(z3.fert, "Alchemie")
+	var satz5 := mo.braue_mehr(z3, hw3, heil, 5, func(): return 0.99)
+	pruefe("×5 nennt die Zahl im Kesselsatz", satz5.contains("×5") and not satz5.contains("{0}"), true)
+	pruefe("×5 uebt Alchemie", float(z3.fert["uebung"].get("Alchemie", 0.0)) + 100.0 * BrsFertigkeit.wert(z3.fert, "Alchemie") > nach3, true)
+	pruefe("brauen uebt nur Alchemie", z3.fert["bekannt"].has("Kochen") or z3.fert["uebung"].has("Kochen"), false)
+	z3.fert_notiz()
+	z3.dazu("raw_meat", 3)
+	var vor_k := float(z3.fert["uebung"].get("Kochen", 0.0))
+	Rast.rasten(z3, hw3, "kurz", "feuer", {"karte": "forest", "x": 10, "y": 12, "blick": "UP"})
+	pruefe("Braten uebt Kochen", z3.fert["bekannt"].has("Kochen") and (float(z3.fert["uebung"].get("Kochen", 0.0)) > vor_k or BrsFertigkeit.wert(z3.fert, "Kochen") > 0), true)
+	var k1 := float(z3.fert["uebung"].get("Kochen", 0.0)) + 100.0 * BrsFertigkeit.wert(z3.fert, "Kochen")
+	Rast.rasten(z3, hw3, "kurz", "feuer", {"karte": "forest", "x": 10, "y": 12, "blick": "UP"})
+	pruefe("ohne Fleisch kein Kochen", float(z3.fert["uebung"].get("Kochen", 0.0)) + 100.0 * BrsFertigkeit.wert(z3.fert, "Kochen"), k1)
+
 	# echter Kampf: Blatt des Probekampfs (Kaempfer) mit dem Helden nach BRS, Autopilot bis zum Ende
 	var tab: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
 	var a = Aufruf.new()

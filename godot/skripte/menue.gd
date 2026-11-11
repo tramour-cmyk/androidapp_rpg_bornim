@@ -378,23 +378,23 @@ func gruppen_kopf(gr: String, geuebt: int, alle: int, offen: bool) -> Control:
 	return k
 
 # 870.4 ([870.14.wert.…], STORY-BRS-HELD.md): was ein Grundwert bringt, mit den Zahlen der Regelwerte. Bauregel: nur Zeilen, deren
-# Wirkung im Code steht (Kraft: Tragen und Aufbrechen fehlen; Verstand: Wissen und Handwerk fehlen; gemeldet an Homer)
+# Wirkung im Code steht (Kraft: Tragen und Aufbrechen fehlen; Verstand: Wissen und Handwerk fehlen; gemeldet an Homer). Fremdprüfung
+# Homer 14:15: Gewandtheit „Flächenwirkungen“ und Wille „Furcht und Zauber“ ohne Wirkung, gestrichen; Zähigkeit „Krankheit“ und
+# Wahrnehmung „Spähen“ warten auf den Wortlaut von Homer
 const WERT_KOPF := ["Wert %d", "Value %d"]
 const WERT_TEXT := {
 	"kraft": [["Schaden mit Nahkampfwaffen und Fäusten, außer Dolchen.", "Damage with melee weapons and fists, except daggers."]],
 	"gewandtheit": [["Schaden mit Dolchen, Bögen und Wurfwaffen.", "Damage with daggers, bows and throwing weapons."],
 		["Wer ausweicht, ist schwerer zu treffen: +%d je Punkt.", "When you dodge, you are harder to hit: +%d per point.", "ausweichen"],
 		["Kritische Treffer: %d %% Aussicht, anderthalbfacher Schaden.", "Critical hits: %d%% chance, half again as much damage.", "krit"],
-		["Wer im Kampf zuerst handelt, und die Aussicht zu fliehen.", "Who acts first in combat, and your chance to flee."],
-		["Abwehr gegen Flächenwirkungen wie Feuer.", "Resisting area effects such as fire."]],
+		["Wer im Kampf zuerst handelt, und die Aussicht zu fliehen.", "Who acts first in combat, and your chance to flee."]],
 	"zaehigkeit": [["Leben: +%d je Punkt.", "Life: +%d per point.", "leben"],
 		["Ausdauer, zusammen mit Wille.", "Stamina, together with Will."],
 		["Abwehr gegen Gift und Krankheit.", "Resisting poison and disease."]],
 	"verstand": [],
 	"wille": [["Mana: +%d je Punkt.", "Mana: +%d per point.", "mana"],
 		["Stärke deiner Zauber.", "The strength of your spells."],
-		["Ausdauer, zusammen mit Zähigkeit.", "Stamina, together with Toughness."],
-		["Abwehr gegen Furcht und Zauber.", "Resisting fear and spells."]],
+		["Ausdauer, zusammen mit Zähigkeit.", "Stamina, together with Toughness."]],
 	"wahrnehmung": [["Treffen im Fernkampf: +%d %% je Punkt.", "Ranged accuracy: +%d%% per point.", "fern"],
 		["Hinterhalte bemerken.", "Noticing ambushes."],
 		["Hilft dem Spähen, Verstecktes und Fallen zu finden, und dem Kräutersammeln.", "Helps Scouting find hidden things and traps, and helps Foraging."]],
