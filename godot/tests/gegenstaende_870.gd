@@ -164,3 +164,5 @@ func _einzelstuecke() -> void:
 	pruefe(Beute.name(Beute.einzel("cloak_protection", 1, 4), "en") == "Bulwark Cloak", "Wehrmantel englisch (870.15)")
 	pruefe(BrsHeld.fertigkeit_von(String(Beute.einzel("rapier_whisper", 1, 4)["base"])) == "Dolche", "Flüsterklinge ist ein Dolch (870.14)")
 	pruefe(int(Beute.einzel("greataxe_grak", 1, 6)["guete"]) == 2, "Graks Kriegsaxt meisterhaft (870a 6)")
+	var anker := {"uid": 1, "base": "cloak", "rarity": "UNCOMMON", "ilvl": 1, "guete": 0, "rolls": [["TENACITY", 5]], "unique": null, "name_seed": 1}
+	pruefe(Beute.name(anker, "de") == "Wehrhafter Umhang" and Beute.name(anker, "en") == "Defiant Cloak", "Abwehrprobe heißt nach Homer 925: %s / %s" % [Beute.name(anker, "de"), Beute.name(anker, "en")])

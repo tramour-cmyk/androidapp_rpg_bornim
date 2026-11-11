@@ -71,6 +71,9 @@ const BRS_KURZ := {"STR": {"de": "KRA", "en": "STR"}, "DEX": {"de": "GEW", "en":
 	"INT": {"de": "VER", "en": "WIT"}, "WIS": {"de": "WAH", "en": "PER"}, "CHA": {"de": "WIL", "en": "WIL"}}
 
 static func brs_woerter(d: Dictionary) -> void:
+	# 870.6, Homer 925 ([925.namen.abwehr]): Namensteile der Abwehrprobe (Kennung TENACITY, alt Standhaftigkeit)
+	if d.get("affixdaten", {}).has("TENACITY"):
+		d["affixdaten"]["TENACITY"].merge({"vor_de": "Wehrhaft", "vor_en": "Defiant", "nach_de": "des Hexenjägers", "nach_en": "of the Witch Hunter"}, true)
 	# 870.6: „Fertigkeit +n“ ab episch (DESIGN-BRS.md 11, 644 C1); Namen der Stuecke ab episch kommen aus den Namenslisten
 	if d.has("affixdaten") and not d["affixdaten"].has("SKILL"):
 		d["affixdaten"]["SKILL"] = {"name": {"de": "Fertigkeit", "en": "Skill"}, "vor_de": "Kundig", "vor_en": "Skilled",
