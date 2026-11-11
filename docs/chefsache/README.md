@@ -4,12 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [984](entscheiden/984-querschnitt-brs.md) | **Muss** | E Kampf | 11.11., 18:39 | Jede Kampfregel gegen jeden Kampfstil gehalten (Tabelle „Querschnitt“ in `DESIGN-BRS.md` oben). Zwei Funde brauchen dich; einer ist mit 952 D schon entschieden (20:03). | Sokrates |
-| [976a](entscheiden/976a-guetestufen-namen.md) | **Muss** | E Welt | 11.11., 18:16 | Vier Gütestufen sind entschieden; offen ist nur der Name: Schlecht, Normal, Gut, Meisterhaft (Empfehlung) oder deine Wörter Schlecht, Normal, Hoch, Meisterlich. | Sokrates |
+Nichts offen.
 
 ## Zu billigen
 
@@ -39,7 +34,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
-**Tom** – offen 124, Muss 104, startbar 11
+**Tom** – offen 125, Muss 105, startbar 13
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -133,7 +128,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 852 | K | Von Homer (432a A, Chef 10.11., 12:05): Aschgeborene bauen: Modell Mensch mit aschgrauer S | ruht |
 | 856 | M | Von Sokrates (Chef 10.11., 12:51, Fund t274, Bild): Zwischensequenz: Rückfrage „Überspring | wartet auf Test/Build (gebaut) |
 | 860 | M | Von Sokrates (Chef 10.11., 13:07, t274.10 „Ja“): Chronik (Hauptauftrag, Aufträge, Bisher g | Sperre 620.1 B: 15 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.7 |
-| 861 | M | Von Sokrates (Chef 10.11., 13:12, Bild t274.14): Umhang des Kämpfers im Kampf rechts am Rü | ruht |
+| 861 | M | Von Sokrates (Chef 10.11., 13:12, Bild t274.14): Umhang des Kämpfers im Kampf rechts am Rü | startbar |
 | 867 | M | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die | Sperre 620.1 B: 15 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.9 |
 | 875 | M | Von Homer (857a A, Chef 10.11., 13:35): Fertigkeit Kräuterkunde heißt im Spiel Kräutersamm | wartet auf Test (Build 277) |
 | 882.1 | M | Von Perikles (882, Umzug BRS Schritt 8): mit 870.9 auch godot-kampf.yml 41 (exportIntro) a | Sperre 620.1 B: 15 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.9 |
@@ -167,6 +162,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 785.24 | M | Von Spike (785): Laden: Vorräte mit Wirkungszeile in der Liste wie alt (ShopScreen.kt 226– | wartet auf 870.13 (wartet) |
 | 989 | M | Von Sokrates (952 D, Chef 11.11., 20:03): Heldenseite zeigt kritisch je Waffe und Zauber n | wartet auf 952 (startbar) |
 | Pflege | K | von Werkzeug (340.3, 11.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
+| 984.1 | M | Von Sokrates (984 A, Chef 11.11., 20:12): Illusion und Beschwörung in Kapitel 1 bei der Er | startbar |
 
 **Jerry** – offen 126, Muss 116, startbar 5
 
@@ -329,12 +325,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 53, Muss 39, startbar 28
+**Sokrates** – offen 51, Muss 37, startbar 28
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 984 | M | Querschnitt BRS: jede Kampfregel gegen jeden Kampfstil (Krieger, Schütze, Späher, Magier, | Chef (Datei in der Chefsache) |
-| 976a | M | Rückfrage zu 976: Namen der vier Gütestufen (Schlecht, Normal, Gut, Meisterhaft oder Chefw | Chef (Datei in der Chefsache) |
 | 887 | M | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus (dontAsk von | ruht |
 | 870 | M | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen, Bau Tom u | wartet auf 870.13 (wartet) |
 | 780 | M | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für uns | Termin 23.11. |
