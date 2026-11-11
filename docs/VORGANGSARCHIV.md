@@ -2,6 +2,12 @@
 
 Was der Chef entschieden hat, neueste oben (99g.1). Je Vorgang: Nummer, Datum, Entscheidung, *Leitlinien*, Antwort des Chefs und wessen Empfehlung („Nutzer“ = Chef). **Neue Einträge ab 21.10. höchstens etwa 250 Zeichen** (274): Wortlaut des Chefs, soweit er die Entscheidung trägt, steht hier; Begründung in der Rollendatei dessen, der empfiehlt (`CLAUDE.md` „Jeder Text an einem Ort“); Anlass und langer Wortlaut nur in der Chefsache-Datei und „Zu ‹Nr›“, nach dem Löschen in Git. Ältere Einträge bleiben. Einträge werden nicht geändert, außer dem Anhang „→ ersetzt durch <Nr., Datum>“ am alten Eintrag, wenn ein neuer ihn ablöst (461b); was gilt, steht in den DESIGN-Dateien je Thema (461d: Punkte mit Kennung in `DESIGN-STIL.md`, `DESIGN-KAMPF.md`, `DESIGN-ABNAHME.md`), das Archiv ist Verlauf; wer einen Punkt aus der Chefsache entscheiden lässt, trägt ihn hier oben ein und löscht im selben Schritt die Datei in `docs/chefsache/`. Nur Text: Bilder und Hörproben der Einträge bis 16.10. stehen in den [alten Beschlüssen](https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM) (abgelöst 16.10.); Dateinamen in älteren Einträgen sind die damaligen.
 
+- **861, Läufe frei** (11.11., 22:18, Sokrates nach 480.1, Leitlinie 595; Lauf 358 „startup_failure“ ohne Job, GitHub-Störung 21:22–22:01): ein Lauf auf `claude/tom-861-umhang` (Messung und Film), ein Ersatz bei fremdem Abbruch; Film sofort an den Chef.
+
+- **814, Läufe frei** (11.11., 22:18, Sokrates nach 480.1, Leitlinie 595; Lauf 359 „startup_failure“ ohne Job, GitHub-Störung): ein Messlauf auf `claude/tom-814-fussstaub`, ein Ersatz bei fremdem Abbruch.
+
+- **595, Läufe frei** (11.11., 22:18, Sokrates nach 480.1, 996; Probe am Rechner verlor die Umgebungswerte, falsche Tiere gefilmt; Abhilfe Skript mit festen Werten): ein Filmlauf Treffhöhe (`43c9be439`, je Tier vorher/nachher nacheinander, halb links), ein Ersatz bei fremdem Abbruch; Film sofort an den Chef.
+
 - **t277, Build 277 freigegeben** (11.11., 20:54, Chef an Sokrates: „Getestet und freigegeben mit den Ergänzungen“; Ergebnis in `ansehen/t277-sammelbuild.md`): ✗ 277.5, .7, .10, .12, .14, .16, Rest ✓; Funde 990–994; PR #196 auf `main` erst, wenn 988 behoben und der Lauf grün ist (919) → **freigegeben (Nutzer)**
 
 - **744, Kampfort Ruhebewegungen** (11.11., 20:58, Chef an Sokrates: „passt dann erstmal so“; „schlau gewesen, wenn die Bewegungen gleich nacheinander gekommen wären“; `ansehen/744-kampf-ruhe.md` in Git): abgenommen, nächster Build; Filme vorher/nachher je Tier direkt nacheinander; Grabhund-Augen 995.
