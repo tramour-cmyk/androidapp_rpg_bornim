@@ -27,7 +27,6 @@
 #                                    Bau; Ende 1 bei Abweichung (dann deckt die Kennung eine Eingabe nicht; Perikles 10.11., zu 854)
 # Zugang: in der Sitzung über den Proxy; auf dem Bauserver GH_TOKEN mit Schreibrecht (Contents) aufs Kaufrepo.
 import hashlib, json, os, re, shutil, subprocess, sys, tempfile, urllib.request
-import yaml
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 KAUF = os.environ.get('KAUF', '/home/user/bornim-kaufmodelle')
@@ -82,6 +81,7 @@ def versionen():
 
 
 def _schritte():
+    import yaml   # erst hier: merke läuft nach setup-python ohne PyYAML (Lauf 343)
     return yaml.safe_load(open(os.path.join(REPO, '.github/workflows/godot.yml')))['jobs']['apk']['steps']
 
 
