@@ -2,11 +2,16 @@
 # nach vorne gerichteter Schubser“): am echten Kampfort wirft der Held Alchemistenfeuer auf einen Wolf. Geprüft: die Regeln melden
 # den Wurf als Flasche (BOMB_FIRE, nicht FIRE_BOLT), der Held holt mit dem Hieb aus und lässt erst danach los, die Flasche fliegt im
 # Bogen (Scheitel deutlich über der Geraden von der Hand zum Ziel, mitten im Flug am höchsten) und kommt am Ziel an.
+# Regeln: Weihwasser findet Skelette als Ziel (untot nach „kennungen“ „gruppe“), die Wirkung wächst mit der Alchemie des Werfers
+# (werte.json „kampftraenke“ wirkung_je_alchemie, wie sim.py).
 # Run: godot --headless --path godot --fixed-fps 30 -s res://tests/wurf_935.gd   (Exit 0 = gut)
 extends SceneTree
 
 const Probe = preload("res://kampf/probe.gd")
 const Zauber = preload("res://kampf/zauber.gd")
+const Mars = preload("res://regeln/mars.gd")
+const AufrufS = preload("res://kampf/aufruf.gd")
+const Wuerfel = preload("res://regeln/wuerfel.gd")
 
 var fehler := 0
 
@@ -21,7 +26,41 @@ func _initialize() -> void:
 	_run.call_deferred()
 
 
+func _regeln() -> void:
+	var tab = Tabellen.lade()
+	var skills := {}
+	var monsters := {}
+	for m in tab.monsters: monsters[m.id] = m
+	var a = AufrufS.new()
+	a.tabellen = tab
+	var schaden := func(foe: String, ding: String, alchemie: int) -> int:
+		var held = a._kaempfer("hero", tab.probe.FIGHTER.hero.hero, int(tab.probe.FIGHTER.hero.hp), Vector2i(Mars.FRONT, 0), skills)
+		var foes = AufrufS.gegner(foe, monsters, Wuerfel.new(11))
+		var m = Mars.new([held], foes, tab, Wuerfel.new(10), Wuerfel.new(289), 0, false, "HERO_FIRST")
+		var fert: Dictionary = held.b.get("fert", {})     # Kampfblatt nach BRS, das Mars beim Einrichten setzt
+		fert["Alchemie"] = alchemie
+		held.b["fert"] = fert
+		m.potions[ding] = 1
+		m.start(func(_t, _x): return "NONE")
+		if m.outcome != "ONGOING" or m.current() != held or m.throw_targets(ding).is_empty():
+			return -1
+		var t = m.throw_targets(ding)[0]
+		t.max_hp = 500
+		t.hp = 500
+		var log: Array = m.act(["throw", ding, t.id], func(_t, _x): return "NONE")
+		print("  %s %s Alchemie %d: %s" % [foe, ding, alchemie, " | ".join(PackedStringArray(log.map(func(e): return String(e.text)).slice(0, 3)))])
+		return 500 - t.hp
+	pruefe(monsters.has("skeleton") and bool(monsters["skeleton"].get("undead", false)), "Skelett ist untot")
+	pruefe(monsters.has("wolf") and not bool(monsters["wolf"].get("undead", true)), "Wolf ist nicht untot")
+	var weih: int = schaden.call("SKELETONS", "holy_water", 10)
+	pruefe(weih > 0, "Weihwasser trifft ein Skelett (%d Schaden)" % weih)
+	var f0: int = schaden.call("RATTE", "alchemist_fire", 0)
+	var f20: int = schaden.call("RATTE", "alchemist_fire", 20)
+	pruefe(f0 >= 0 and f20 > f0, "Alchemistenfeuer nach Alchemie: 0 → %d, 20 → %d Schaden" % [f0, f20])
+
+
 func _run() -> void:
+	_regeln()
 	root.size = Vector2i(1080, 2340)
 	await process_frame
 	seed(3)

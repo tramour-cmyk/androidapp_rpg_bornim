@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
     inputs:
       kampf:
-        description: "Kampfort-Filme: ja (453 r3, 453.1 Vergleich), 461 (Grundstand-Film Kampfort), 4531 (Heldenatem Feld 2 gegen neu), 2963 (Siegerposen), 784 (Sollbild Wolfsrudel, eine Runde) oder 656 (Umhang: Film; mit film=nein Bilder vorher/nachher)"
+        description: "Kampfort-Filme: ja (453 r3, 453.1 Vergleich), 461 (Grundstand-Film Kampfort), 4531 (Heldenatem Feld 2 gegen neu), 2963 (Siegerposen), 784 (Sollbild Wolfsrudel, eine Runde) oder 656 (Umhang: Film; mit film=nein Bilder vorher/nachher), 935 (Wurf Brandflasche und Weihwasser)"
         default: ""
       dorf:
         description: "Dorf-Film Grundstand (461.1): ja"
@@ -1048,6 +1048,19 @@ jobs:
             --write-movie $RUNNER_TEMP/gegner494.avi --fixed-fps 30 -s res://tests/film_gegner_494.gd > $B/gegner494.log 2>&1 || true
           grep -E "SCRIPT ERROR|^Film|^Signatur|FEHLER" $B/gegner494.log | head -16 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/gegner494.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/494-gegner.mp4 || true
+          ls -l $B
+      - name: Wurffilm 935 (nur von Hand mit kampf=935)
+        if: ${{ !cancelled() && github.event.inputs.kampf == '935' && github.event.inputs.film != 'nein' }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/wurf935; mkdir -p $B
+          cd godot
+          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
+          MESS=1 timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/film_wurf_935.gd 2>&1 | grep -E "^Film|FEHLER|SCRIPT ERROR" | tee $B/messung.log || true
+          timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+            --write-movie $RUNNER_TEMP/wurf935.avi --fixed-fps 30 -s res://tests/film_wurf_935.gd > $B/wurf935.log 2>&1 || true
+          grep -E "SCRIPT ERROR|^Film|^Signatur|FEHLER" $B/wurf935.log | head -16 || true
+          ffmpeg -loglevel error -y -i $RUNNER_TEMP/wurf935.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/935-wurf.mp4 || true
           ls -l $B
       # 510 (Chef 03.11., 10:28–10:57, aus 494): freie Fledermaus (OGA „Vampire Bat (Animated)“, rubberduck, CC0) mit unseren Fellen neben
       # der eigenen (fledermaus.py), je vorhandene Bewegung, beide drehen sich; nur von Hand mit gegner=FLEDERMAUS. Quelle und Lizenz:
