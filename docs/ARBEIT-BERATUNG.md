@@ -3,8 +3,8 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 **Übergabe (11.11., 15:37, `session_01Hmoj77JB7rpQcjV2HnyAzg`):** 930: Befund Perikles 930.4 eingearbeitet (Blöcke I–IV, Punkte Regel, Tempo Rückfall; Fassung davor Git `04ecc9223`), 930.3 Jerry frei, Ford Bescheid. 966: Vorentscheid A (`billigen/966-…`), 966.1 Homer, 966.2 Tom; Ford Start Homer gebeten. Bei dir: 930 wartet auf 930.3, dann `entscheiden/`; 930a beim Chef. Kosten auf: 930, 966. Nachfolger: Sokrates – 620: Lagebild und Wiederholquote nachhalten
-- **Zu 966 (Chef 11.11., 15:44, Wortlaut in `entscheiden/966-…`):** Üben nur mit Leistung, unter dem Rang nichts; als „zurück“ verstanden, Rückfrage 15:45 (Ring wie Knacken); 966.2 ruht.
-- **Zu 965, Tom und Jerry ohne Arbeit (Chef 11.11., 15:44: „scheinen ja nichts mehr zu tun zu haben. Das ist jetzt eher ungünstig.“):** Sperre 620.1 B (Tom 10, Jerry 17 ungetestete Muss); Votum 15:45: Sperre lassen, gemeinsamer Build gleich nach B1 mit allen fertigen Zweigen (mit 945); Frage an den Chef, ob an Perikles (965) und Spike.
+- **Zu 966 (Chef 15:58, Archiv):** nachhalten: 966.2 Tom nach 870, 971 Jerry (`leicht_min` 0,1), 972 Homer.
+- **Zu 968 (Chef 15:49 „jetzt“):** Sammelbuild nach dem Umzugspaket auf main; Spike führt zusammen, Ford startet Tom; Lauf freigeben (480.1). Dem Chef nur Build-Nummern nennen, nie „B1“ (Chef 15:51, an Perikles).
 - **Zu 930 (Chef 11.11., 12:28, Prüfauftrag „auch von den Ideen her, wie wir das Ganze pimpen können“):** Wortlaute 12:17–12:56 in `LISTE-IDEEN.md` („Handgemenge“) und in der Regelseite; Reihenfolge: Regelseite → Gegenlesen → Rechnung und Film Jerry (930.3) → `entscheiden/`.
 - **Zu 930a (Chef 13:57, Wortlaut in `entscheiden/930a-kein-nachruecken.md`):** Votum F3 „… Tod; die Übrigen bleiben stehen“; Jerry, nach B1.
 - **Zu 933 (Chef 11.11., 13:07 „A“, Archiv):** nachhalten: 933.1 Homer, 933.2 Jerry, dann 933 Tom nach B1.
