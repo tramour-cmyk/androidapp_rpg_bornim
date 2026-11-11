@@ -33,19 +33,19 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 4, Muss 1, startbar 1
+**Homer** – offen 3, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
-| 934 | M? | Von Tuffy (870.6): Texte fehlen oder passen nicht: Satz zur Spinnseide (Ding spider_silk, | startbar |
 
-**Tom** – offen 99, Muss 79, startbar 1
+**Tom** – offen 100, Muss 80, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 944 | M | Fund t276.5 (Chef 11.11., 13:22, Bild): Würfeltexte weg, wo Beute.wuerfel_text steht: Heil | startbar |
 | 825 | M | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635 | wartet auf Test/Build (gebaut) |
 | 697 | M | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | wartet auf 782 (startbar) |
 | 680 | M | Absturz: Testmenü Sprung Wald → Dorf, in der Schenke schon hakelig, nach Met immer zäher, | wartet auf Test/Build (gebaut) |
