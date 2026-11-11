@@ -385,6 +385,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:04 11.11.: Startsperre 16:04 Start Sokrates (Ford, vor dem Start; Neustart-Meldung 16:04, 992cc7d82)
 - 15:47 11.11.: Marke Archiv session_01Hmoj76Noedhu3n5aWVALaq (lauf.py)
 - 15:58 11.11.: Marke Abgleich Vorentscheid 966 ohne Datei in chefsache/billigen/ und ohne  (lauf.py)
+- 16:09 11.11.: Perikles (954a.2, 965, 970) archiviert, 7,75 $ gebucht; Perikles auf Abruf.
 - 16:05 11.11.: Startsperre 16:05 Start Tuffy (lauf.py; nicht ausgeführt: 506.2 ist Dauerausschluss „Tuffy nur auf Chef-Wort“, danach `--ohne 506.2` gelaufen; Tuffy …8RcNj (948, 5,42 $) archiviert und gebucht)
 - 16:05 11.11.: Marke Mehrfach-Warnung Sokrates session_01Hmoj7A8CRcUG5CS4iR6E7J (lauf.py)
 - 16:05 11.11.: Marke Mehrfach Sokrates (lauf.py)
