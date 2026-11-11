@@ -376,3 +376,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 15:33 11.11.: Startsperre 15:33 Start Perikles (lauf.py)
 - 15:33 11.11.: Marke Archiv session_01Hmoj7A8R4y7izSakSh7RmB (lauf.py)
 - 15:37 11.11.: Startsperre 15:37 Start Homer (lauf.py)
+- 15:39 11.11.: Startsperre 15:39 Start Sokrates (Ford, vor dem Start; Neustart-Meldung 15:38, 84f6552c0)
