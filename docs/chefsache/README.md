@@ -21,6 +21,7 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [784](ansehen/784-runde-film.md) | Film: eine Runde gegen das Wolfsrudel heute | Tuffy | 11.11., 10:40 |
+| [806](ansehen/806-kampfort.md) | Bild: Lichtung mit und ohne Nebel | Jerry | 11.11., 11:34 |
 
 ## Zu tun
 
