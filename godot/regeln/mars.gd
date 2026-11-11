@@ -1689,7 +1689,10 @@ func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := 
 		foe.has_hit = true
 		success = false
 		info[4] = false
-	if intent.effect == "POUNCE":
+	# 863 (Chef 10.11., 13:19, t274.15: „bei den Wölfen … tauscht er mit einem den Platz, der in der vorderen Reihe steht … Machen die
+	# Ratten jetzt aber anscheinend nicht“; platztausch_863): jeder Nahkämpfer, der aus der hinteren Reihe angreift, tauscht wie das
+	# Anspringen (285) mit dem vorderen, statt nach vorn und wieder ganz zurück zu laufen; Fernkampf und Zauber bleiben hinten
+	if intent.effect == "POUNCE" or (foe.side == "FOES" and String(foe.b.get("art", "nah")) == "nah"):
 		_leap_forward(foe)
 	if re == PERFECT:
 		_perfect_answer(t, foe, info)
