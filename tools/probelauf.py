@@ -12,7 +12,7 @@ Probelauf heißt:
   `tools/pruef348/` (alle außer `rechner.sh`) oder `*_lauf.sh`; der Vorgang steht davor: `PROBE=<Nr> bash …`;
   kein Probelauf: `godot --headless --path <dir> -s res://tests/<datei>.gd` ohne Bildbefehl in der Testdatei (390a);
 - ein Ablauf auf GitHub, von Hand gestartet (407, 02.11.: 20 Filme zu 417 über `tom-probe-417.yml` ungezählt): `actions_run_trigger`
-  (run_workflow) oder `gh workflow run`/API `…/dispatches`; Vorgang = erste Nummer der Commit-Nachricht oben auf dem Zweig,
+  (run_workflow) oder `gh workflow run`/API `…/dispatches`; Vorgang = erste Nummer der Commit-Nachricht oben auf dem Zweig (ohne Nummer, etwa ein Merge: jüngster eigener Commit mit Nummer, 911),
   sonst Nummer in Klammern im Namen des Ablaufs; auch ein Messlauf mit bild=nein (646, ersetzt 390a für den Bauserver),
   nur ein Sammelbuild `claude/build-<n>` für den Gerätetest nicht; Neustart eines Laufs (rerun) hält der Haken an;
 - ein Push auf einen Zweig `claude/…`, der einen Ablauf auslöst (letzter Commit ohne „[skip ci]“, Änderung
@@ -236,7 +236,7 @@ def push_lauf(befehl, cwd):
     if not los:  # Tom 02.11., 16:3x: Push ohne Lauf zählte als Probelauf
         return None
     nr = re.match(r"\s*(?:\w+:\s*)?(" + NR + r")\b", nachricht)
-    return (nr.group(1) if nr else zweig), los == FILMT
+    return (nr.group(1) if nr else (nr_aus_verlauf(wo, "HEAD") or zweig)), los == FILMT  # 911
 
 
 FILMT = 2
@@ -343,7 +343,21 @@ def vorgang_aus_ref(ref, ablauf):
             datei = ablauf if "/" in ablauf else ".github/workflows/" + ablauf
             name = (re.search(r"^name:\s*(.+)$", git("show", f"FETCH_HEAD:{datei}").stdout, re.M) or [None, ""])[1]
     nr = re.match(r"\s*(?:\w+:\s*)?(" + NR + r")\b", nachricht) or re.search(r"\((" + NR + r")\)", name)
-    return nr.group(1) if nr else (ref or ablauf or "?")
+    if nr:
+        return nr.group(1)
+    return (nr_aus_verlauf(REPO, "FETCH_HEAD") if ref else None) or ref or ablauf or "?"
+
+
+def nr_aus_verlauf(wo, rev):
+    """911 (Tom 11.11., 09:19): oben ein Merge („Merge remote-tracking branch …“) oder Commit ohne Nummer; dann die erste
+    Nummer des jüngsten eigenen Commits (erste Eltern, eingemischte Zweige zählen nicht) mit Nummer, nicht auf origin/main, damit „<Nr>, Läufe frei“ greift und der Lauf
+    nicht unter dem Zweignamen zählt."""
+    log = git("log", "--first-parent", "--no-merges", "-n", "30", "--format=%B%x00", rev, "^origin/main", cwd=wo).stdout
+    for nachricht in log.split("\0"):
+        nr = re.match(r"\s*(?:\w+:\s*)?(" + NR + r")\b", nachricht)
+        if nr:
+            return nr.group(1)
+    return None
 
 
 def ohne_film(eingaben):
