@@ -4220,6 +4220,7 @@ func _fade_out(x: float) -> void:
 
 
 func knocked_down() -> void:
+	_schnaufen(1.0)     # 910: angesprungen und gestürzt strengt an wie ein Treffer (sonst zählten die Bilder danach als Ruhe)
 	if _ss() and not anim.has_animation("Sturz"):     # 406: mit Schild der schwere Treffer des Satzes, Schild oben
 		_play("SS_GetHitHeavyFront", 0.1)
 		get_tree().create_timer(anim.get_animation("SS_GetHitHeavyFront").length - 0.1).timeout.connect(_idle_wenn_frei)
