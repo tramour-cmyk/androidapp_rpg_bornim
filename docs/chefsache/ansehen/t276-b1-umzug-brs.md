@@ -1,9 +1,11 @@
 # Tom und Jerry · Build 276 · B1 · Umzug BRS: Held und Kampf · PR folgt
 Ganzes Spiel · Tom (870.4, 870.8), Jerry (870.5, 705) · Entwurf 11.11., 03:33, ergänzt 11:33 · [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/42992315811/artifacts/13846274684) · Geprüft an: `claude/tom-870-4-held` `ed7795954` (Lauf 346)
+Rot, bekannt, nicht melden: `wildschwein_494`, `skelett_506` – erwarten noch die Lebenspunkte der alten Regelfassung (922, Jerry); Start- und Absturztests grün.
+Gegengelesen: Sokrates 11.11., 11:37
 
 Ein Weg: Hauptmenü mit deinem Spielstand aus Build 275, dann neues Spiel mit Wanderer (A), Schenke und Dorf mit Heldenreiter und Rast (B), Wald mit Wolfskampf (C), Probekämpfe der anderen Herkünfte im Reiter „Test“ (D); über Build 275 installieren. Den Reiter „Test“ gibt es nur im Testmodus: im Hauptmenü siebenmal aufs Firmenzeichen tippen. Was nicht passt, reicht als Nummer (z. B. 276.5) mit einem Wort.
 
-**Bekannt, nicht melden:** Zwei Prüfungen im Bau sind rot, weil sie bei Wildschwein, Riesen-Hundertfüßer, Riesenegel, Riesenratte, Riesenfledermaus (alle in `wildschwein_494`) und Skeletten (`skelett_506`) noch die Lebenspunkte der alten Regelfassung erwarten; die Kämpfe selbst laufen und gewinnt der Held (922, Jerry).
+Zu den roten Prüfungen: Zwei Prüfungen im Bau sind rot, weil sie bei Wildschwein, Riesen-Hundertfüßer, Riesenegel, Riesenratte, Riesenfledermaus (alle in `wildschwein_494`) und Skeletten (`skelett_506`) noch die Lebenspunkte der alten Regelfassung erwarten; die Kämpfe selbst laufen und gewinnt der Held (922, Jerry).
 
 Erster Build ganz nach dem BRS: Held und Kampf rechnen nur noch nach unserem System, ohne SRD-Werte. Spielstände aus Build 275 und früher laden nicht mehr (Entscheid 870a 1); sie stehen mit Hinweis in der Liste und lassen sich löschen.
 
