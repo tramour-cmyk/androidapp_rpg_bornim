@@ -201,7 +201,7 @@
 | 872 | Kampf auf Halt 653 umstellen: Waffen und Schilde der Gegner und des Helden im Kampfort mit Halt.anlegen/Halt.gegenstand (Griff, Spitze, Länge je Modell aus regeln/halt.json) statt je Gegner gemessen; Fertiges bleibt (von Tom, Chef 10.11., 12:33/14:22) | Jerry | M | startbar | 653 | – | – | E Kampf | – |
 | 876 | Von Homer (857a A, Chef 10.11., 13:35): Simulation 444 Kräuterkunde → Kräutersammeln, Trankwirkung nach Alchemie statt Kräuterkunde, Abschnitt 6 neu rechnen | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 854.1 | Von Tom (888, Lauf 42906784036): kauf_cache.py ablegen bricht ab, Zeile 21 ModuleNotFoundError yaml; Cache wird nicht gefüllt, Bau ging weiter (Held je Klasse 36 Min.) | Jerry | M | startbar | – | – | – | B Werkzeuge | – |
-| Pflege | von Werkzeug (340.3, 11.11.): 16952 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 11.11.): 17944 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
@@ -286,11 +286,12 @@
 | 862 | Systemlösung? Umhang: 6 frühere Vorgänge (58, 488, 463, 463.1, 656 …), neu 861; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Figuren | – |
 | 869 | Systemlösung? Rüstung: 2 frühere Vorgänge (49, 817), neu 868; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Kampf | – |
 | 873 | Systemlösung? Griff: 3 frühere Vorgänge (653, 643, 524), neu 872; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Kampf | – |
+| Pflege | von Werkzeug (340.3, 11.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Sokrates | K | startbar | – | – | – | B Abläufe | – |
 | 843 | D126.1 (Diogenes, 838): START ohne Sitzung 14 von 39 (09.11., 19:04 bis 10.11., 11:08), keiner mit --ohne; 3 ohne Grund (22:44 Spike, 10:25 Jerry, Perikles) | Ford | M | startbar | – | – | – | B Steuerung | 12,41 $ |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +900,80 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 767 | Wochentermin 13.11.: Rollenspiegel Ford (rollenspiegel.sh Ford) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Ford | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 11.11.): 35766 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 11.11.): 36551 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
