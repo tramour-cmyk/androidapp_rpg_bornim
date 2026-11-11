@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [930a](entscheiden/930a-kein-nachruecken.md) | **Muss** | E Kampf | 11.11., 14:00 | Heute rücken die übrigen Wölfe nach jedem Tod auf neue Plätze. Vorschlag: Sie bleiben stehen, wo sie sind, und bewegen sich nur noch, wenn ihr eigener Zug einen Grund dafür liefert. | Sokrates |
-| [966](entscheiden/966-alchemie-kochen-ueben.md) | – | E Welt | 11.11., 15:46 | Üben nur mit eigener Leistung des Helden; Vorschlag Ring wie beim Schlösserknacken, unter dem Rang ohne Ring und ohne Übung. | Sokrates |
 
 ## Zu billigen
 
@@ -36,7 +35,7 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 4, Muss 2, startbar 1
+**Homer** – offen 5, Muss 3, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -44,6 +43,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 | 954a.4 | M | Von Perikles (954a.2): Spieltexte 954a.1 nach Vorentscheid 954a.3 wortgetreu festschreiben | startbar |
+| 972 | M | Von Sokrates (966 A neu, Chef 11.11., 15:58): Texte Kochen und Alchemie mit Ring: Rezeptna | startbar |
 
 **Tom** – offen 109, Muss 89, startbar 8
 
@@ -152,14 +152,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 954 | M | Von Sokrates (Chef 11.11., 13:55 „1 ja“): Erschaffung – Gedrückthalten erklärt je Grundwer | startbar |
 | 964 | M | Von Tom (Zu 870.4, Homer 14:15): Metall sperrt Evokation, Illusion, Beschwörung im Kampf; | wartet auf Test/Build (gebaut) |
 | 963 | M | Von Tom (Zu 870.4, Fremdprüfung Homer 14:15): Heldenreiter Wortlaut ohne Wirkungsloses: Zä | startbar |
-| 966.2 | M | Von Sokrates (966 Vorentscheid): Alchemie übt bei jedem Sud Morwens (laden.gd braue), Koch | ruht |
+| 966.2 | M | Von Sokrates (966 A neu, Chef 11.11., 15:58): Kochen und Alchemie mit Ring wie Knacken (DE | wartet auf 870 (wartet) |
 | 967 | M | Von Tuffy (948): halt_653 am Rechner 8 Fehler, Schild im Körper bei KLOSTER_M (20 Ecken, b | startbar |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 15710 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 954a.5 | M | Von Perikles (954a.2): Schleichen auf der Gebietskarte: Schleichtaste, geduckt und langsam | wartet auf 870 (wartet) |
 | 954a.7 | M | Von Perikles (954a.2): Spähen durch Verweilen: Ring zeigt Heilkräuter abseits der Wiesen, | wartet auf 870 (wartet) |
 | 954a.12 | M | Von Perikles (954a.2): Erschaffung: nicht wählbare Fertigkeiten (Bergbau, Angeln, Schmiede | wartet auf 870 (wartet) |
 
-**Jerry** – offen 113, Muss 105, startbar 20
+**Jerry** – offen 114, Muss 106, startbar 21
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -276,6 +276,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 954a.11 | M | Von Perikles (954a.2): Jagd: Tiere geben öfter Fell, Fleisch, Hauer (tabellen.json), Auftr | wartet auf 870 (wartet) |
 | 954a.13 | M | Von Perikles (954a.2, D): Volksmerkmal Glückskind (Hügelvolk) wirkt nur im alten Kampf kla | wartet auf 870 (wartet) |
 | 969 | M | Von Sokrates (Chef 11.11., 15:49): Regelwerte zum Nachschlagen, dritte Seite neben 644 und | wartet auf 968 (startbar) |
+| 971 | M | Von Sokrates (966, Chef 11.11., 15:58): werte.json ueben.leicht_min 0,2 → 0,1 (leichte Zie | startbar |
 
 **Perikles** – offen 15, Muss 13, startbar 2
 
