@@ -355,7 +355,9 @@ func tritt(held: Node3D) -> void:
 	var p := h.global_position + rechts * 0.1 * tritt_seite
 	if not erde(p): return
 	var fx := setze("effects/footstep_dust.tscn", Vector3(p.x, 0.02, p.z), STAUB_K * (1.3 if cur.begins_with("Rennen") else 1.0))
-	if fx: daempfe(fx, 0.7, 0.8 - 0.4 * nacht_k)
+	if fx:
+		daempfe(fx, 0.7, 0.8 - 0.4 * nacht_k)
+		einmal(fx)
 
 func erde(p: Vector3) -> bool:
 	var img := Gebiet.maske_bild(gebiet.karte.id)
@@ -367,7 +369,26 @@ func erde(p: Vector3) -> bool:
 ## R4 feather_burst klein, wenn ein Huhn auffliegt (leute.gd fliehe, 591)
 func federn(at: Vector3) -> void:
 	var fx := setze("pack3_effects/feather_burst.tscn", at + Vector3(0, 0.25, 0), FEDER_K)
-	if fx: daempfe(fx, 0.6, 0.85 - 0.45 * nacht_k)
+	if fx:
+		daempfe(fx, 0.6, 0.85 - 0.45 * nacht_k)
+		einmal(fx)
+
+# ---------------------------------------------------------------- einmalige Effekte
+## 814 (Fund t277.5, t277.12: Fussstaub nie zu sehen; Chef 16:14: keine Federn): Fussstaub und Federn sind die einzigen einmaligen
+## Effekte und die einzigen unsichtbaren; die schleifenden (Rauch, Fackel, Fahne) laufen. Einmalige Teilchen (one_shot) stossen nur
+## aus, wenn sie gestartet werden; die Vorlage startet sie mit play() (wie die Fackel in nacht()), sonst jede Teilchenquelle selbst.
+## Danach weg, sobald die letzte Flocke vergangen ist (sonst bleibt je Schritt ein Knoten im Ort, Bilder/s sinken)
+func einmal(fx: Node3D) -> void:
+	var lang := 0.0
+	for p in fx.find_children("*", "GPUParticles3D", true, false):
+		var gp := p as GPUParticles3D
+		lang = maxf(lang, gp.lifetime * (1.0 + gp.randomness) + gp.preprocess)
+	if fx.has_method("play"): fx.call("play")
+	else:
+		for p in fx.find_children("*", "GPUParticles3D", true, false):
+			(p as GPUParticles3D).emitting = true
+			(p as GPUParticles3D).restart()
+	get_tree().create_timer(lang + 0.5).timeout.connect(func(): if is_instance_valid(fx): fx.queue_free())
 
 # ---------------------------------------------------------------- Wind und Tag
 ## ein Wind fuer alles (GrassWind aus 804): Baeume und Buesche wiegen staerker in der Boe, Rauch treibt mit dem Wind, die Fahne weht mit

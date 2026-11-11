@@ -63,6 +63,13 @@ func _lauf() -> void:
 			print("FUSS814 %s: %d Fussstaub in 2,5 s" % ["Rennen" if rennen else "Gehen", neu.size()])
 			if not neu.is_empty():
 				_teilchen("Fussstaub (danach)", neu[0])
+		# Spike 22:16: die Vorlage roh, ohne DorfEffekte.einmal (Start und Aufräumen), zum Vergleich: stösst sie von selbst aus?
+		var roh := fx.setze("effects/footstep_dust.tscn", g.karte.kachel_pos(Vector2i(17, 6)), DorfEffekte.STAUB_K)
+		if roh:
+			_teilchen("Fussstaub roh (gleich)", roh)
+			await warte(3)
+			_teilchen("Fussstaub roh (3 Bilder)", roh)
+			roh.queue_free()
 		# Federn wie beim Huhn
 		var vorf := fx.get_child_count()
 		fx.federn(g.karte.kachel_pos(Vector2i(10, 28)))
