@@ -4,7 +4,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (11.11., 17:2x, `session_01Hmoj78DTd1QhsoRZF3fNbr`):** Lauf 179: 978 und 979 greifen (Prüfbericht). Nächste Nummer D180. Nachfolger: keiner
+**Übergabe (11.11., 18:1x, `session_01Hmoj79gy8P4Xmvf1C2kLEA`):** Lauf 180: 981 greift in `lauf.py`, Lücke D180.1 als 982 an Perikles, 981 wartet auf 982 (Prüfbericht). Nächste Nummer D181. Nachfolger: keiner
 - **Zu 940:** bei der ersten echten Doppelziehung zweier Sitzungen auf GitHub: zwei Nummern, kein Konflikt im Zähler.
 - **Zu 927:** beim nächsten echten Lauf mit „Sitzung hängt“ oder „Jetzt installieren“ die Zeile ansehen.
 
@@ -15,7 +15,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 ## Zeilen
 
-- **Zu 981, von Perikles (Doppelpack 421, 11.11., 18:08, `aff3a9af1`):** `lauf.py` gibt bis HOCH_BIS (14.11., 20:00) in START und TAGESBERICHT hinter dem Modell das Feld `effort high` aus, danach nicht mehr; Ford gibt es als `effort: "high"` an `create_session` (`LISTE-BETRIEB.md` 13, 45). Prüfen: nächste von Ford gestartete Sitzung, `get_session` zeigt `effort_level` „high“; START-Zeile ohne Feld nach 14.11., 20:00.
+- **Zu 981, von Perikles (Doppelpack 421, 11.11., 18:08, `aff3a9af1`):** `lauf.py` gibt bis HOCH_BIS (14.11., 20:00) in START und TAGESBERICHT hinter dem Modell das Feld `effort high` aus, danach nicht mehr; Ford gibt es als `effort: "high"` an `create_session` (`LISTE-BETRIEB.md` 13, 45). Prüfen: nächste von Ford gestartete Sitzung, `get_session` zeigt `effort_level` „high“; START-Zeile ohne Feld nach 14.11., 20:00. Lauf 180: greift in `lauf.py`; wartet auf 982 (Starts ohne START-Zeile), dann nachprüfen; nach 14.11., 20:00 eine echte START-Zeile ansehen.
 
 - **Zu 911, 912, 920 (Lauf 156–160, alle greifen):** beim nächsten echten Handlauf mit Merge oben die Zeile im Zweig `probelaeufe` ansehen (Vorgang des eigenen Verlaufs, bei fremder Rolle der aus dem Zweignamen); falsch → Vorgang an Perikles.
 

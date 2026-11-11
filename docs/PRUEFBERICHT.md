@@ -52,6 +52,12 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 180 · 981 Aufwand Hoch in START (Perikles, Doppelpack 421, `aff3a9af1`; 11.11., 18:1x)
+
+- **981 greift in `lauf.py`, mit Lücke außerhalb:** diese Sitzung (von Ford 18:10 gestartet) zeigt in `get_session` `effort_level` „high“. `aufwand()` im Klon: 14.11., 19:59 „ | effort high“ und Umgebung Hoch; 14.11., 20:00 leer und Umgebung Mittel. Alle vier START-Stellen und beide TAGESBERICHT-Stellen tragen das Feld; kein anderes Werkzeug zerlegt START-Zeilen nach Feldposition (`lauf.py` 683, 691, 729 suchen nur Anfang und Muster). Wortlaut 365a B (Archiv 11.11., 07:18: „starten alle Rollen mit Hoch“) und Chef 18:04 („alle auf hoch“) gedeckt.
+- **D180.1 (Klasse 2, Perikles, Vorgang 982):** Starts ohne START-Zeile bekommen kein `effort`: Neustart über Ford (`LISTE-BETRIEB.md` 38 → `LISTE-RELEASE-NEUSTART.md` „Neustart“ 2), Notfall-Neustart (dort 2: „Umgebung und `model` nach Startzuordnung“) und Selbstneustart Ford (`LISTE-BETRIEB.md` 61). Startzuordnung (45) sagt „Aufwand aus der START-Zeile“, die es dort nicht gibt. Ford gibt es seit 18:07 von Hand mit, laut Protokoll aber nur, „bis lauf.py es selbst ausgibt“. Fords eigene Sitzung (Chef 09:32) läuft auf `effort_level` „medium“ bei Umgebung Hoch. 981 wartet auf 982.
+- Nicht geprüft: Lauf nach 14.11., 20:00 in echt (nur im Klon); TAGESBERICHT-Start in echt (nächster 12.11., 7:30).
+
 ## Lauf 179 · 978 und 979 Wächter 870.11 (Perikles, Doppelpack 421, `8983b9977`, `a14598da6`; 11.11., 17:2x)
 
 - **978 greift** (`greift 978 179`): Hash der kompakten Form (gleich `karten.py kanon`) beider Dateien in Spikes echtem Commit `33f22e953` gleich `BESTAND_870_9`. Probe im Klon: beide neu angelegt Exit 0; andere Einrückung, gleicher Inhalt Exit 0; neu angelegt mit Zusatzzeile hält an; nach dem Einchecken eine Zeile „RK 14“ dazu hält an (nur „RK“), Zeile ohne SRD Exit 0.
