@@ -13,6 +13,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 ## Zeilen
 
+- **Zu 913, 914, von Perikles (Doppelpack 421, 11.11., 09:38, `da0a446d3`):** `vorgang_aus_ref` hält den Stand als Commit fest, bevor die Liste gelesen wird (913); `nr_aus_verlauf`: eigener Verlauf zuerst, Zweigname nur, wenn der Vorgang des Verlaufs laut Liste oder Archiv einer anderen Rolle gehört als das Wort vorn im Zweig (914). Nachgestellt: tom-870-4-held 870.4, perikles-264-runner 264.1, jerry-709a-tiefbiss 709a, jerry-348-642-wolf-abstand 642, jerry-717-rueckwaerts 778.
 - **Zu 911, 912 (Lauf 156, 157):** 912 greift für B1; 911 und 912 warten auf 913 (D157.1 FETCH_HEAD), 914 (D157.2 Zweigname vor Verlauf). Danach nachstellen: B1 → 870.4, `perikles-264-runner` mit Merge oben → 264.1, Zweig ohne Nummer im Namen → eigener Verlauf; dann am nächsten echten Merge-Lauf Zeile im Zweig `probelaeufe`; dann `greift 911`, `greift 912`.
 
 - **Zu 464 (Lauf 110):** Haken (748) und Zählung (749) greifen, Lücken 776, 777 geschlossen; 464 wartet auf 16.11.: Wirkung in der Wochenzählung 16.11.: rote Bauläufe der Woche gegen 52 von 185 (28 %) der Vorwoche, dann `greift 464` oder Befund.
