@@ -38,7 +38,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
-**Tom** – offen 109, Muss 90, startbar 8
+**Tom** – offen 110, Muss 90, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -151,6 +151,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 954a.9 | M | Von Perikles (954a.2, 954a.3 B): Schmiedelehrling flickt selbst an Borins Amboss mit dem R | wartet auf 870 (wartet) |
 | 976 | M | Von Sokrates (Chef 11.11., 16:31): Rezeptbuch für alle Handwerke (Rezeptliste DESIGN-BRS H | startbar |
 | 977 | M | Von Tuffy (744): Grimmzahn im Dorf ohne Ruhebewegung, leute.gd 266 nutzt Streuner.Stub, de | startbar |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 15239 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 111, Muss 103, startbar 11
 
@@ -168,7 +169,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 642 | M | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 | ruht |
 | 705 | M | Zauberlehrling Stufe 1 gewinnt gegen Wolf und Rudel selten (BRS 2–30 %, Messung anspringen | Sperre 620.1 B: 24 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
 | 806 | M | Kampforte mit den Effektpaketen schöner: Gras und Blumen aus R9, Boden, Staub; Bilder/s ni | wartet auf Test (Build 277) |
-| 595 | M | Kampfbewegungen der Kaufgegner: Spinne mehr Angriffe, Egel und Schnecke schneller, Treffhö | Termin 11.11. 18:01 |
+| 595 | M | Kampfbewegungen der Kaufgegner: Spinne mehr Angriffe, Egel und Schnecke schneller, Treffhö | wartet auf 595.1 (startbar) |
 | 616 | M | Kampf: Gegner weichen nach dem Angriff rückwärts zurück statt vorwärts zu laufen (Chef 07. | wartet auf Test/Build (gebaut) |
 | 532 | M | Kampf: Held geht ohne Zauberpunkte, Verbrauchtes, Zustände, Metrausch und ohne die ganze T | wartet auf Test (Build 277) |
 | 536 | M | Kampf: Erklärungen bei langem Drücken (MarsTips), Grund bei gesperrtem Zauber, „Kein Ziel | wartet auf Test (Build 277) |
@@ -268,10 +269,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 973 | M | Von Sokrates (930a A, Chef 11.11., 16:09): nach einem Tod bleiben die übrigen Gegner stehe | Sperre 620.1 B: 24 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
 | 980 | M | Von Tom (968, Lauf 43051633587): Kaufskripte unter tools/blender348 nehmen glob()[0]; lieg | startbar |
 
-**Perikles** – offen 12, Muss 11, startbar 0
+**Perikles** – offen 14, Muss 12, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 981 | M | Von Sokrates (Chef 11.11., 18:04, zu 901): Aufwand Hoch sicher setzen: lauf.py gibt create | wartet auf Diogenes |
 | 870.12 | M | Von Sokrates (870, Umzug BRS): Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 | wartet auf 870.13 (wartet) |
 | 882.2 | M | 882 Werkzeuge ohne Kotlin: tools/t logik auf Godot-Logiksatz samt Kerntest-Marke, check-en | wartet auf 882.1 (startbar) |
 | 870.10 | M | Von Sokrates (870, Umzug BRS Schritt 8): Kotlin-Bau aus (android.yml), mit 870.9; LISTE-UM | wartet auf 870.9 (in Arbeit) |
@@ -284,11 +286,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 866 | M | Von Sokrates (620, Lagebild t274): Prüfliste geht nur gegengelesen raus; Wächter statt Abs | wartet auf Test/Build (gebaut) |
 | 896 | M | Von Jerry (870.5): Wächter meldet „TP“ als SRD-Begriff (886), Homer 870.14 und DESIGN-BRS | wartet auf Test/Build (gebaut) |
 | 919 | M | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): Regeln nachziehen: Testbitte auch bei rot | wartet auf 918 (startbar) |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 15308 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Diogenes** – offen 8, Muss 7, startbar 0
+**Diogenes** – offen 9, Muss 8, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 981 | M | Von Sokrates (Chef 11.11., 18:04, zu 901): Aufwand Hoch sicher setzen: lauf.py gibt create | startbar |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
 | 461b | M | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Termin 16.11. |
 | 348.9 | M | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | ruht |
@@ -298,7 +302,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 52, Muss 38, startbar 29
+**Sokrates** – offen 52, Muss 39, startbar 29
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -353,7 +357,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 862 | K | Systemlösung? Umhang: 6 frühere Vorgänge (58, 488, 463, 463.1, 656 …), neu 861; einmal gru | startbar |
 | 869 | K | Systemlösung? Rüstung: 2 frühere Vorgänge (49, 817), neu 868; einmal grundsätzlich lösen? | startbar |
 | 930 | M | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (wartet) |
-| Pflege | K | von Werkzeug (340.3, 11.11.): 15239 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 595.1 | M | Von Jerry (595): Lauf 352 rot vor dem Film (Bauwerkzeug: halb ausgepacktes Rar, behoben 15 | startbar |
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
