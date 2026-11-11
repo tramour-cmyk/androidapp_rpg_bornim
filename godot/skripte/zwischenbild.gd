@@ -1,7 +1,7 @@
 class_name Zwischenbild
 extends Control
 # 399.1 Intro wie alt (69, IntroScreen.kt ReelScreen, Intro.kt Reel, DESIGN-STIL.md „Zwischensequenzen“): Standbilder mit weichen
-# Ueberblendungen, je ein Satz im Kasten darunter, das letzte Bild schwarz; ein Tippen fragt nur, ob uebersprungen wird (104),
+# Ueberblendungen, je ein Satz darunter (856: ohne Kasten), das letzte Bild schwarz; ein Tippen fragt nur, ob uebersprungen wird (104),
 # die Szene laeuft derweil weiter. Ueber Bild 3 der Fackelzug (IntroLife.kt, IntroScreen.kt squareLife), darunter Wind, Fluss,
 # Grillen, unter dem schwarzen Bild Glocke und Rufe (IntroSoundUi.kt, IntroSound.kt); die Titelmusik leise, mit dem schwarzen
 # Bild voll (Music.kt INTRO_LEVEL). Zeiten, Saetze und der Zug aus core: daten/intro.json (IntroExport.kt), die Bilder aus
@@ -90,14 +90,17 @@ func _ready() -> void:
 	ober_bild = _bildflaeche(rahmen)
 	ober_leben = _lebensflaeche(rahmen)
 	inhalt.add_child(Stil.luecke(14))
-	# der Satz im Kasten: schwarz, duenner Goldrand, die Serife der schwarzen Schirme (19 sp, Zeile 27 sp, Sperrung 0,4 sp)
+	# der Satz unter dem Bild: die Serife der schwarzen Schirme (19 sp, Zeile 27 sp, Sperrung 0,4 sp); 856 (Chef 10.11., 12:51, t274: „der
+	# Text kommt auch in einem Kasten … passt vom Stil her überhaupt nicht mehr“): frei auf Schwarz ohne Goldrand wie die Schirme nach
+	# 549a; Raender und Hoehe bleiben, damit die Zeilen dort stehen wie vorher und nichts springt
 	var rand := MarginContainer.new()
 	rand.add_theme_constant_override("margin_left", int(16 * DP))
 	rand.add_theme_constant_override("margin_right", int(16 * DP))
 	rand.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	inhalt.add_child(rand)
 	satz_kasten = PanelContainer.new()
-	var s := Stil.kasten(Color.BLACK, Stil.RIM, 1.0)
+	var s := StyleBoxFlat.new()
+	s.bg_color = Color.BLACK
 	s.content_margin_left = 18 * DP; s.content_margin_right = 18 * DP
 	s.content_margin_top = 14 * DP; s.content_margin_bottom = 14 * DP
 	satz_kasten.add_theme_stylebox_override("panel", s)
@@ -432,19 +435,15 @@ func _gui_input(e: InputEvent) -> void:
 
 func frage() -> void:
 	var de := Sprache.aktiv() == "de"
-	# 526: Tippen daneben und Android-Zurück wie „Weiter ansehen“ (alt ConfirmDialog onDismiss)
-	fragt = Rueckfrage.schleier(self, func(): if fragt != null: fragt.queue_free(); fragt = null)
-	var mitte := CenterContainer.new()
-	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	fragt.add_child(mitte)
-	var v := VBoxContainer.new()
-	v.add_theme_constant_override("separation", int(8 * DP))
-	v.custom_minimum_size.x = get_viewport_rect().size.x - 48 * DP
-	mitte.add_child(Rueckfrage.halte(Stil.rahmen(v)))
-	v.add_child(Stil.zeile(("Überspringen?" if de else "Skip?").to_upper(), 14, Stil.TEXT, 3.0))
-	v.add_child(Stil.txt("Die Zwischensequenz endet, du kannst sie in der Chronik wieder ansehen." if de else "This ends the cutscene; you can watch it again in the Chronicle.", 16))
-	v.add_child(Stil.knopf("Überspringen" if de else "Skip", func(): beende()))
-	v.add_child(Stil.knopf(Sprache.t(Menue.ABBRECHEN), func(): fragt.queue_free(); fragt = null))   # 618: „Abbrechen“ statt „Weiter ansehen“
+	# 856 (Chef 10.11., 12:51, t274: „halb durchschimmernd … Passt vom Stil her überhaupt nicht mehr dazu“): die Rückfrage wie jede nach
+	# 549a (Spielstaende.frage): schwarz und ganz deckend, oben Titel und Zierlinie, der Satz mittig, schlichte Linie, unten „‹ ABBRECHEN“
+	# links und „ÜBERSPRINGEN ›“ rechts, ohne Rahmen; die Szene laeuft derweil weiter (104). 526: Tippen daneben und Android-Zurück wie
+	# „Abbrechen“ (alt ConfirmDialog onDismiss); wie das Fenster auch geht, danach fragt ein Tippen wieder
+	var satz_ := Stil.txt("Die Zwischensequenz endet, du kannst sie in der Chronik wieder ansehen." if de else "This ends the cutscene; you can watch it again in the Chronicle.", 15)
+	satz_.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	fragt = Spielstaende.frage(self, "Überspringen?" if de else "Skip?", [satz_], "", "Überspringen" if de else "Skip", Stil.GOLD, func(): beende())
+	var f := fragt
+	f.tree_exiting.connect(func(): if fragt == f: fragt = null)
 
 func beende() -> void:
 	if vorbei: return
