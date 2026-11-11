@@ -510,10 +510,18 @@ func stueck(g: Dictionary, kauf: bool) -> void:
 			[["%s · %s" % [Sprache.u("sell"), preis_text(p)], tu], [abbrechen(), func(): pass]])
 	dialog(Beute.name(g), farbe_von(g), zl, [["%s · %s" % [Sprache.u("buy") if kauf else Sprache.u("sell"), preis_text(p)], frage, ok], [abbrechen(), func(): pass]])
 
-# 582: Kurzangabe als Unterzeile. 944 (Chef 11.11., 13:22, t276.5): „kurz“ kommt aus ItemDef.stats (core) und ist immer ein
-# Würfeltext („heilt 2W4+2“); Texte ohne Würfel, die Wirkung steht in der Meldung (STORY-BRS-OBERFLAECHE „Gegenstände“)
-static func kurz(_id: String) -> Array:
-	return []
+# 582: Kurzangabe als Unterzeile. 944 (Chef 11.11., 13:22, t276.5): nie ein Würfeltext; seit 870.6 nennt sie die Zahl aus den
+# Regelwerten („heilt 14“, Sprache.dinge_brs), ein Rest mit Würfel aus core bleibt weg
+const WUERFEL := "\\d+[Wd]\\d+"
+static func kurz_text(id: String) -> String:
+	var k = Laden.ding(id).get("kurz")
+	if not (k is Dictionary): return ""
+	var t := Sprache.t(k)
+	return "" if RegEx.create_from_string(WUERFEL).search(t) != null else t
+
+static func kurz(id: String) -> Array:
+	var t := kurz_text(id)
+	return [t] if t != "" else []
 
 # 582: Dialogs.ItemDetails: Seltenheit in ihrer Farbe, die Wirkung hell, dann der Langtext
 static func details(id: String) -> Array:
@@ -521,7 +529,7 @@ static func details(id: String) -> Array:
 	var s := String(d.get("seltenheit", "COMMON"))
 	var sel: Dictionary = BrsHeld.daten()["seltenheiten"].get(s, {})
 	var r: Array = [Stil.txt(Sprache.t(sel.get("name", s)), 14, Color(Menue.SELTEN.get(s, "e6ddcb")))]
-	# 944: ohne die Kurzangabe aus core (Würfeltext)
+	if kurz_text(id) != "": r.append(Stil.txt(kurz_text(id), 16, Stil.BRIGHT))   # 944, 870.6: ohne Würfel; alt fett (584)
 	r.append(Stil.txt(Sprache.t(d.get("info", "")), 14, Stil.DIM))
 	return r
 
