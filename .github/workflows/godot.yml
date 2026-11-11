@@ -703,6 +703,13 @@ jobs:
           BILD833_AUS=$GITHUB_WORKSPACE/bilder/schirm833 VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 1080x2340 -s res://tests/schirm_833_bild.gd 2>&1 | grep -E "^(FEHLER|SCHIRM833|Gegnerzug|BILD)|SCRIPT ERROR" | cut -c1-300 || true
           ls -l $GITHUB_WORKSPACE/bilder/schirm833
+      # 833: eigenes Artefakt, auch mit bild=nein (Lauf 363: Bilder gemacht, das Sammelartefakt fiel mit bild=nein weg)
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() && (contains(github.event.head_commit.message, '833') || (github.event_name == 'workflow_dispatch' && contains(github.ref, '833'))) }}
+        with:
+          name: schirm833
+          path: bilder/schirm833/
+          if-no-files-found: ignore
       # 499 (Chef 03.11., 07:14): Held im Drehteller mit Grundausruestung je Klasse, Abstand Waffe-Faust und Schild-Ruecken, Bilder
       # 499 Probebild (511; Chef 08.11., 12:41 „Und wie bewegen die sich dann mit beim Gehen?“): mit film=nein Drehteller je Klasse
       # (Stehen) und je Held ein Streifen aus dem Gehfilm (tests/drehteller_film_499.gd, dieselbe Szene); ohne film=nein der Gehfilm
