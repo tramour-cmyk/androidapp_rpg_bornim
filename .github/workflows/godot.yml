@@ -493,6 +493,8 @@ jobs:
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/zustaende_563.gd 2>&1 | grep -E "^(ZUSTAND563|Zustand|Leiste)|SCRIPT ERROR"   # 563 A Zustände ohne Überlappen
           timeout 300 ~/godot/godot --headless --path . -s res://tests/held_klassen_376.gd 2>&1 | grep -E "HELDKLASSEN|FALSCH|SCRIPT ERROR"   # 376.1
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . -s res://tests/held_kampf_403.gd 2>&1 | grep -E "^(ok|FEHLER|Held 403)|SCRIPT ERROR"   # 403 (Jerry)
+          # 824: Held ohne Schild geht nach dem Hieb rückwärts im Schritttempo heim (nicht 3,8 m/s mit 1,6-facher Bewegung)
+          set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/angriff_824.gd 2>&1 | grep -E "^(ANGRIFF824|FEHLER|MASS)|SCRIPT ERROR"   # 824 (Jerry)
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4531.gd 2>&1 | grep -E "^(ok|FEHLER|Held|Söldner|nach|in den|im Kampf|Atem 453)|SCRIPT ERROR"   # 453.1 (Tuffy)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/atem_rechnung_4531.gd 2>&1 | grep -E "^(ok|FEHLER|Anstrengung|Atemrechnung)|SCRIPT ERROR"   # 453.1 Feld 2 (Tuffy)
           # 406 b (Jerry): Schild im Kampf, auch linke Schulter und Oberarm gegen den Schild; misst und meldet, haelt noch nicht an
