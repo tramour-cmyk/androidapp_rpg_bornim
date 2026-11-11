@@ -1455,7 +1455,7 @@ func _drink(f: Fighter, item: String, t: Fighter) -> void:
 ## 935 (alt Battle.useItem BOMB; gegenstaende.json: „ein Wurfgeschoss, das immer trifft“): der Wurf trifft immer; Schaden nach dem
 ## BRS aus werte.json „kampftraenke“ (Grundschaden × Wirkung nach Kräuterkunde des Werfers, Schwäche nach der Schadensart, Rüstung
 ## ab), Gegenwirkung wie bei Zaubern (Wölfe fliehen vor Feuer, 915); Alchemistenfeuer setzt zwei Züge in Brand. Fliegt sichtbar wie
-## Funkenpfeil bzw. Gleißstrahl (vorhandene Effekte, LISTE-EFFEKTE.md)
+## Funkenpfeil bzw. Gleißstrahl (vorhandene Effekte, LISTE-EFFEKTE.md); 935 (Chef 11.11., 20:34): seitdem als Flasche im Bogen
 func _throw(f: Fighter, item: String, t: Fighter) -> void:
 	assert(potions.get(item, 0) > 0 and t in throw_targets(item))
 	potions[item] -= 1
@@ -1469,7 +1469,7 @@ func _throw(f: Fighter, item: String, t: Fighter) -> void:
 	var typ = d.get("typ")
 	var schw := _schwaeche(f, t, typ, info)
 	var n := maxi(0, roundi(float(d.get("schaden", 0)) * wirkung * schw) - int(roundf(float(t.b.get("ruestung", 0)))))
-	casting = "SACRED_FLAME" if String(typ) == "licht" else "FIRE_BOLT"
+	casting = "BOMB_HOLY" if String(typ) == "licht" else "BOMB_FIRE"     # 935: fliegt als Flasche im Bogen (zauber.gd _flask), wie alt
 	_vor_treffer(t, typ)
 	_hurt(t, n, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), n]), info)
 	casting = null
