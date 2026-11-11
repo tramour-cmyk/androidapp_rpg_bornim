@@ -1053,6 +1053,7 @@ func _draw_overlay() -> void:
 	# wie alt jeder Wählbare und nach langem Drücken alle drei Sekunden lang (sanft aus, SOFT_MS); die Ansage steigt dann über den
 	# Namen (_draw_intents named), vorher lag sie auf ihm
 	named.clear()
+	name_rects.clear()
 	var weich := clampf(float(names_until - Time.get_ticks_msec()) / SOFT_MS, 0.0, 1.0)
 	var waehlbar: Array = m.targets(current) if pick == "target" and current != null else []
 	for id in k.figures:
@@ -1063,7 +1064,7 @@ func _draw_overlay() -> void:
 		var a: float = 1.0 if waehlbar.has(f) else weich
 		if a > 0.0:
 			named[id] = true
-			_name_tag(_foot(fig), _tall(fig), f.name(lang), f == current, a, f.side == "FOES")
+			name_rects[id] = _name_tag(_foot(fig), _tall(fig), f.name(lang), f == current, a, f.side == "FOES")
 	_draw_spells()
 	# 249: Blut unter den Ansagen (Prüfer 26.10.: Tropfen lagen auf dem Text)
 	_draw_blood()
@@ -1712,6 +1713,7 @@ const NAMES_MS := 3000     # SkirmishScreen NAMES_MS
 const SOFT_MS := 400.0     # SkirmishScreen SOFT_MS
 var names_until := 0
 var named := {}     # 536: wer gerade seinen Namen trägt (die Ansage steigt darüber)
+var name_rects := {}     # 536 t270.10: wo die Namen dieses Bilds stehen; keine Ansage legt sich darauf
 
 func _name_h() -> float:
 	return sp(12) * 1.35 + 2 * dp
@@ -1721,7 +1723,7 @@ func _name_h() -> float:
 func _name_top(foot: Vector2, tall: float, bar: bool) -> float:
 	return foot.y - tall - (28.0 if bar else 24.0) * dp
 
-func _name_tag(foot: Vector2, tall: float, nm: String, now: bool, alpha := 1.0, bar := true) -> void:
+func _name_tag(foot: Vector2, tall: float, nm: String, now: bool, alpha := 1.0, bar := true) -> Rect2:
 	var fs := sp(12)
 	var w := font.get_string_size(nm, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x + 12 * dp
 	var h := _name_h()
@@ -1730,6 +1732,7 @@ func _name_tag(foot: Vector2, tall: float, nm: String, now: bool, alpha := 1.0, 
 	_chip(r, Color(0, 0, 0, alpha), Color(rim, rim.a * alpha), 1.0)
 	var tc: Color = BRIGHT if now else TEXT
 	overlay.draw_string(font, Vector2(r.position.x + 6 * dp, r.position.y + h * 0.76), nm, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, Color(tc, tc.a * alpha))
+	return r
 
 
 ## Ansagen (IntentSign): „! Anspringen“ im Rahmen, Farbe des Angezielten; von unten nach oben ohne Überlappen (layOut).
@@ -1798,64 +1801,81 @@ func _draw_intents(sr: Rect2) -> void:
 	var placed := []
 	var step := 26 * dp
 	for s in signs:
-		var clash := func(r: Rect2, strict: bool) -> bool:
+		# Prüfstufe: 2 frei von fremden Körpern samt Strich, 1 nur der Schild frei von Körpern, 0 wie alt (SkirmishScreen layOut):
+		# nur nie auf einer anderen Ansage, einem Namen oder einer Leiste
+		var clash := func(r: Rect2, mode: int) -> bool:
 			for o in placed:
 				if r.intersects(Rect2(o.x, o.y, o.w, o.h).grow(2 * dp)):
 					return true
-			# auch der Strich zum eigenen Kopf darf durch keinen anderen laufen (Prüfer Runde 4: durch das Hinterteil des grauen)
-			var a := _stroke_from(r, s.fx, s.head)
-			var e := _stroke_to(r, s)
-			for id in bodies:
-				if id != s.id and (r.intersects(bodies[id]) or (strict and _seg_hits(a, e, bodies[id].grow(-2 * dp)))):
+			# 536 t270.10 (Chef 08.11., 20:54: beim rechten Jungwolf verdeckte die Ansage den Namen): nie auf einem Namen, auch dem eigenen
+			for nid in name_rects:
+				if r.intersects((name_rects[nid] as Rect2).grow(1 * dp)):
 					return true
 			# 563: nie auf der Lebensleiste eines anderen (die grüne Leiste lief durch die Schrift)
 			for bid in balken_vor:
 				if bid != s.id and r.intersects(Rect2(balken_vor[bid], Vector2(44 * dp, 4 * dp)).grow(2 * dp)):
 					return true
+			if mode == 0:
+				return false
+			# auch der Strich zum eigenen Kopf darf durch keinen anderen laufen (Prüfer Runde 4: durch das Hinterteil des grauen)
+			var a := _stroke_from(r, s.fx, s.head)
+			var e := _stroke_to(r, s)
+			for id in bodies:
+				if id != s.id and (r.intersects(bodies[id]) or (mode == 2 and _seg_hits(a, e, bodies[id].grow(-2 * dp)))):
+					return true
 			return false
 		var spots: Array = [Vector2(s.x, s.y)] + s.alts
+		var frei := func(q: Vector2, mode: int) -> bool:
+			return q.y >= 34 * dp and q.y + s.h <= sr.size.y - 4 * dp and not clash.call(Rect2(q.x, q.y, s.w, s.h), mode)
+		# 536 t270.10 (Chef 08.11., 20:54, Foto Wolfsrudel: „Klappt wohl nicht so, oder????“, wiederholt nach t268.20): die Ansagen
+		# hingen seitlich mit langer Linie statt dicht über dem Kopf (Messung ansage_536: mit Namen jede zweite). Wie alt zuerst über
+		# dem eigenen Kopf (über dem Namen), auch wenn dahinter ein anderer steht; deckt sie eine andere Ansage, einen Namen oder eine
+		# Leiste, eine Zeile höher (höchstens drei); erst danach die Plätze neben dem Kopf und unter den Pfoten
+		var wege: Array = [[0, 2, 0.0], [0, 0, 0.0]]
+		for i in range(1, 4):
+			wege.append([-1, 0, -step * i])
+		wege += [[1, 2, 0.0], [2, 2, 0.0], [3, 2, 0.0], [3, 1, 0.0]]
 		var y: float = s.y
 		var x: float = s.x
 		var done := false
 		s.stroke = true
-		# 438 (Prüfer Film r2: Ansagen springen über und unter, 21,6–25 s): der Platz vom letzten Bild bleibt, solange er frei ist;
-		# erst wenn nicht, wird neu gesucht (sonst wechselte es mit jedem Schritt eines Nachbarn hin und her)
+		# 438 (Prüfer Film r2: Ansagen springen über und unter, 21,6–25 s): der Platz vom letzten Bild bleibt, solange er frei ist und
+		# kein besserer frei wird (536: vorher blieb eine Ansage seitlich, auch wenn über dem Kopf längst Platz war)
 		var alt = sign_wahl.get(s.id)
-		# 567 (Chef 04.11., Build 257: „+ In den Schatten“ hing rechts neben keinem): ohne Strich nie neben dem Kopf
-		if alt != null and alt[0] < spots.size() and not (not alt[1] and _seitlich(alt[0])):
+		var bester := -1
+		for wi in wege.size():
+			var w0: Array = wege[wi]
+			var q: Vector2 = spots[w0[0]] if w0[0] >= 0 else Vector2(s.x, s.y + w0[2])
+			if frei.call(q, w0[1]):
+				bester = wi
+				break
+		if alt != null and alt.size() == 3 and alt[0] < spots.size():
 			var q: Vector2 = spots[alt[0]] if alt[0] >= 0 else Vector2(s.x, s.y + alt[2])
-			if q.y >= 34 * dp and q.y + s.h <= sr.size.y - 4 * dp and not clash.call(Rect2(q.x, q.y, s.w, s.h), alt[1]):
+			var rang := wege.find(alt)
+			if rang < 0:
+				rang = wege.size()
+			# 567: ohne Strich nie neben dem Kopf
+			if not (alt[1] != 2 and _seitlich(alt[0])) and (bester < 0 or rang <= bester) and frei.call(q, alt[1]):
 				x = q.x
 				y = q.y
 				done = true
-				s.stroke = alt[1]
-		# erst mit freiem Strich; geht das nirgends, lieber ohne Strich als auf einem anderen (Prüfer Runde 5: Schild auf dem grauen)
-		for strict in ([] if done else [true, false]):
-			for qi in spots.size():
-				# 567: neben dem Kopf nur mit Strich zu ihm; ohne Strich darüber (höher) oder unter den Pfoten, sonst wirkt sie herrenlos
-				if not strict and _seitlich(qi):
-					continue
-				var q: Vector2 = spots[qi]
-				# Runde 16: unter den Pfoten ragte es unten ins Bedienfeld (abgeschnitten); nur ganz in der Szene
-				if q.y >= 34 * dp and q.y + s.h <= sr.size.y - 4 * dp and not clash.call(Rect2(q.x, q.y, s.w, s.h), strict):
-					x = q.x
-					y = q.y
-					done = true
-					sign_wahl[s.id] = [qi, strict, 0.0]
-					break
-			if not done:
-				# höher über dem eigenen Kopf, bis frei
-				var yy: float = s.y
-				while clash.call(Rect2(s.x, yy, s.w, s.h), strict) and yy - step >= 34 * dp:
-					yy -= step
-				if not clash.call(Rect2(s.x, yy, s.w, s.h), strict):
-					x = s.x
-					y = yy
-					done = true
-					sign_wahl[s.id] = [-1, strict, yy - s.y]
-			if done:
-				s.stroke = strict
-				break
+				s.stroke = alt[1] != 1
+		if not done and bester >= 0:
+			var w1: Array = wege[bester]
+			var q: Vector2 = spots[w1[0]] if w1[0] >= 0 else Vector2(s.x, s.y + w1[2])
+			x = q.x
+			y = q.y
+			done = true
+			s.stroke = w1[1] != 1     # geht der Strich durch einen anderen, lieber keiner (Prüfer Runde 5)
+			sign_wahl[s.id] = w1.duplicate()
+		if not done:
+			# höher über dem eigenen Kopf, bis frei
+			var yy: float = s.y
+			while clash.call(Rect2(s.x, yy, s.w, s.h), 0) and yy - step >= 34 * dp:
+				yy -= step
+			x = s.x
+			y = yy
+			sign_wahl[s.id] = [-1, 0, yy - s.y]
 		# 438: ein neuer Platz wird angefahren (gut 0,1 s), nicht gesprungen
 		var fuss := Vector2(s.fx, s.foot)
 		var ziel := fuss + _gleiten("ansage:" + String(s.id), Vector2(x, y) - fuss)     # am eigenen Fußpunkt, sonst hinkt es dem Laufenden nach
@@ -1886,6 +1906,9 @@ func _paint_signs() -> void:
 		# a thin stroke down to the one who announces it, so a sign pushed up still belongs to someone
 		var a := _stroke_from(r, s.fx, s.head)
 		var e := _stroke_to(r, s)
+		# 536: über dem eigenen Namen endet der Strich an ihm (lief sonst senkrecht durch die Schrift)
+		if name_rects.has(s.id) and r.end.y <= (name_rects[s.id] as Rect2).position.y + 1:
+			e.y = minf(e.y, (name_rects[s.id] as Rect2).position.y)
 		if s.stroke and a.distance_to(e) > 2 * dp and (r.position.y > s.foot or s.head - r.end.y > 2 * dp or s.fx < r.position.x or s.fx > r.end.x):
 			overlay.draw_line(a, e, Color(s.border, 0.7), maxf(1.0, dp), true)
 		var f = m.find(s.id)
