@@ -21,7 +21,7 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [833](ansehen/833-kampfschirm.md) | Unterer Kampfschirm ohne Kasten im Kasten | Jerry | 11.11., 23:46 |
-| [861](ansehen/861-umhang.md) | Umhangbuckel im Kampf: was die Messung zeigt | Tom | 11.11., 23:35 |
+| [861](ansehen/861-umhang.md) | Umhangbuckel im Kampf: Ursache gefunden, Behebung gebaut | Tom | 11.11., 23:48 |
 | [991](ansehen/991-testmenue-zustand.md) | Testmenü: jeder Schalter zeigt seinen Zustand am Zeichen | Tom | 11.11., 21:16 |
 
 ## Zu tun
@@ -40,7 +40,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
-**Tom** – offen 124, Muss 104, startbar 10
+**Tom** – offen 124, Muss 104, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -131,7 +131,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 852 | K | Von Homer (432a A, Chef 10.11., 12:05): Aschgeborene bauen: Modell Mensch mit aschgrauer S | ruht |
 | 856 | M | Von Sokrates (Chef 10.11., 12:51, Fund t274, Bild): Zwischensequenz: Rückfrage „Überspring | wartet auf Test/Build (gebaut) |
 | 860 | M | Von Sokrates (Chef 10.11., 13:07, t274.10 „Ja“): Chronik (Hauptauftrag, Aufträge, Bisher g | Sperre 620.1 B: 16 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.7 |
-| 861 | M | Von Sokrates (Chef 10.11., 13:12, Bild t274.14): Umhang des Kämpfers im Kampf rechts am Rü | startbar |
+| 861 | M | Von Sokrates (Chef 10.11., 13:12, Bild t274.14): Umhang des Kämpfers im Kampf rechts am Rü | wartet auf Sokrates |
 | 867 | M | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die | Sperre 620.1 B: 16 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.9 |
 | 882.1 | M | Von Perikles (882, Umzug BRS Schritt 8): mit 870.9 auch godot-kampf.yml 41 (exportIntro) a | Sperre 620.1 B: 16 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.9 |
 | 926 | M | Von Jerry (870.6): Gegenstandsfenster im Menü ohne Würfel (menue.gd 754, 843–847, 1351 wue | wartet auf Test/Build (gebaut) |
@@ -167,7 +167,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 990 | M | Von Sokrates (Chef 11.11., 20:19, Fund t277, Bild): Staubflocken in Thessas Kramladen schw | wartet auf Test/Build (gebaut) |
 | 991 | M | Von Sokrates (Chef 11.11., 20:24, Test 277): Testmenü: jeder Schalter zeigt seinen Zustand | wartet auf Test/Build (gebaut) |
 | 994 | M | Von Sokrates (Chef 11.11., 20:54, Test 277.18): Klangzeile zeigt beim neuen Spiel ständig | wartet auf Test/Build (gebaut) |
-| Pflege | K | von Werkzeug (340.3, 11.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 15181 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
 
 **Jerry** – offen 130, Muss 112, startbar 13
 
@@ -301,8 +301,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 1002 | K | Von Tuffy (620.2c, wie 296.3): Siegerpose im Kampf fehlt (nur Film film_sieger_2963.gd; Pr | startbar |
 | 1003 | M? | Von Tuffy (620.2c, zu 95): Heldin keucht im Kampf mit Männerstimme: spiel.gd 1502 gibt kla | startbar |
 | 1004 | M? | Von Tuffy (620.2c, zu 72.10a.9): „Decken“ hängt an cls FIGHTER (kampf_ui.gd 700, mars.gd 8 | startbar |
-| Pflege | K | von Werkzeug (340.3, 11.11.): 15726 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 1006 | M | Von Tom (861): skelett_506 „Skelette im Gleichklang“ (Stehen 0,51/0,55/0,81) rot auch auf | Sperre 620.1 B: 29 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 595 |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 15618 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 12, Muss 11, startbar 0
 
@@ -334,7 +334,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 54, Muss 39, startbar 30
+**Sokrates** – offen 55, Muss 40, startbar 31
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -385,13 +385,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 765 | M | Wochentermin 13.11.: Rollenspiegel Sokrates (rollenspiegel.sh Sokrates) (719); deckt 02.–1 | Termin 13.11. 08:00 |
 | 782 | M | Von Tom (697): ein Lauf am Rechner frei? Der erste (17:38) brach vor dem Zeichnen ab (Proj | startbar |
 | 827 | M | Stärkstes Modell nur für festgefahrene Vorgänge (zwei Rückläufer oder über 30 $), ab 14.11 | startbar |
+| 861 | M | Von Sokrates (Chef 10.11., 13:12, Bild t274.14): Umhang des Kämpfers im Kampf rechts am Rü | startbar |
 | 850 | K | Systemlösung? Halt: 7 frühere Vorgänge (244, 321.1, 488, 793, 662 …), neu 849; einmal grun | startbar |
 | 862 | K | Systemlösung? Umhang: 6 frühere Vorgänge (58, 488, 463, 463.1, 656 …), neu 861; einmal gru | startbar |
 | 869 | K | Systemlösung? Rüstung: 2 frühere Vorgänge (49, 817), neu 868; einmal grundsätzlich lösen? | startbar |
 | 930 | M | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (wartet) |
 | 985 | K | Systemlösung? Nebel: 2 frühere Vorgänge (505, 502), neu 785.7; einmal grundsätzlich lösen? | startbar |
 | 644a | M | Rückfrage: Mindeststufe zum Tragen, Stärke je Gegenstandsstufe, Abstand der Funde (Chef 11 | Chef (Datei in der Chefsache) |
-| Pflege | K | von Werkzeug (340.3, 11.11.): 15300 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 15407 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
