@@ -74,7 +74,7 @@ def duell(W, held, mon, rng, handlung=None, zauber=None):
         nonlocal mleben
         fw = held.f(fert_name)
         if rng.random() < sim.trefferchance(W, fw, mon["abwehr"], bonus):
-            s = sim.schaden_roh(W, grund, fw, d, rng, k["kritisch_prozent_je_gewandtheit"] * held.werte["gewandtheit"]) * faktor
+            s = sim.schaden_roh(W, grund, fw, d, rng, sim.krit_prozent(W, held.werte["gewandtheit"], fw)) * faktor
             s *= schw.get(typ, 1.0) if typ else 1.0
             mleben -= sim.endschaden(W, s, mon["ruestung"] * ruestung_anteil)
             return True
