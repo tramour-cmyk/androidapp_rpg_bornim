@@ -966,21 +966,15 @@ func weiter() -> void:
 		spricht_mit = ""
 	if held: _steht_auf(held.kachel)
 
-# 542 Uniques.make: das Einzelstueck mit Grundform, Seltenheit, Plus und Werten aus texte.json „einzelstuecke“, Stufe wie
-# maxOf(areaLevel, hero.level); zurueck „Name (Seltenheit)“
-static func einzelstueck(id: String) -> bool:
-	Sprache.lade()
-	return Sprache.texte.get("einzelstuecke", {}).get(id, {}).has("grundform")
+# 542 Uniques.make: das Einzelstueck, Stufe wie maxOf(areaLevel, hero.level); zurueck „Name (Seltenheit)“. 870.6: Grundform,
+# Seltenheit, Guete und Zusatzeigenschaften nach dem BRS aus den Regelwerten (werte.json „gegenstaende“ „einzelstuecke“), Name aus dem
+# Gegenstandskatalog (Beute.name)
+static func einzelstueck(id: String) -> bool: return Beute.einzelstueck(id).has("grundform")
 
 func einzel_gabe(id: String) -> String:
-	var e: Dictionary = Sprache.texte["einzelstuecke"][id]
-	var ilvl := maxi(int(karte.daten.get("stufe", 1)), held_werte().stufe)
-	var rolls := []
-	for r in e.get("rolls", []): rolls.append([String(r[0]), int(r[1])])
-	var g := {"uid": zustand.neue_uid(), "base": String(e["grundform"]), "rarity": String(e["rarity"]), "ilvl": ilvl, "plus": int(e.get("plus", 0)),
-		"rolls": rolls, "unique": id, "name_seed": 0}
+	var g := Beute.einzel(id, zustand.neue_uid(), maxi(int(karte.daten.get("stufe", 1)), held_werte().stufe))
 	zustand.ausruestung_dazu(g)
-	return "%s (%s)" % [Beute.name(g), Sprache.t(e["seltenheit"])]
+	return "%s (%s)" % [Beute.name(g), Sprache.t(BrsHeld.daten()["seltenheiten"][String(g["rarity"])]["name"])]
 
 # Loot.generate mit Mindestseltenheit (rarityFor special, floor) und Platz, Stufe wie maxOf(areaLevel, hero.level)
 func gear_gabe(was: String) -> String:

@@ -17,6 +17,7 @@ func _initialize() -> void:
 	_gewichtung()
 	_wirkung()
 	_laden_preis()
+	_einzelstuecke()
 	print("GEGENSTAENDE870 %d Fehler" % fehler)
 	quit(1 if fehler else 0)
 
@@ -146,3 +147,20 @@ func _laden_preis() -> void:
 	var g0 := {"uid": 1, "base": "longsword", "rarity": "COMMON", "ilvl": 1, "guete": 0, "rolls": [], "unique": null}
 	var g2 := g0.duplicate(); g2["guete"] = 2
 	pruefe(Beute.preis(g2) > Beute.preis(g0), "Meisterhaft teurer: %d gegen %d" % [Beute.preis(g2), Beute.preis(g0)])
+
+func _einzelstuecke() -> void:
+	var zusatz: Dictionary = BrsHeld.lade()["gegenstaende"]["zusatz"]
+	var es: Dictionary = BrsHeld.lade()["gegenstaende"]["einzelstuecke"]
+	for id in es:
+		var g := Beute.einzel(String(id), 1, 4)
+		var k := Katalog.eintrag(String(id))
+		pruefe(not k.is_empty() and String(k.get("grundform", "")) == String(g["base"]), "Einzelstück %s: im Katalog mit derselben Grundform" % id)
+		pruefe(Beute.name(g, "de") == String(k.get("name", {}).get("de", "")), "Einzelstück %s heißt wie im Katalog: %s" % [id, Beute.name(g, "de")])
+		for ro in g["rolls"]: pruefe(zusatz.has(String(ro[0])), "Einzelstück %s: %s nicht in der Liste" % [id, ro[0]])
+		for sp in ["de", "en"]:
+			var x := alt_in(Beute.listen_zeile(g, sp))
+			pruefe(x == "", "Einzelstück %s nennt %s" % [id, x])
+	pruefe(Beute.name(Beute.einzel("gauntlets_ogre", 1, 4), "de") == "Kroggs Pranken", "Kroggs Pranken (870.15)")
+	pruefe(Beute.name(Beute.einzel("cloak_protection", 1, 4), "en") == "Bulwark Cloak", "Wehrmantel englisch (870.15)")
+	pruefe(BrsHeld.fertigkeit_von(String(Beute.einzel("rapier_whisper", 1, 4)["base"])) == "Dolche", "Flüsterklinge ist ein Dolch (870.14)")
+	pruefe(int(Beute.einzel("greataxe_grak", 1, 6)["guete"]) == 2, "Graks Kriegsaxt meisterhaft (870a 6)")

@@ -54,6 +54,9 @@ static func l(schluessel: String, werte: Array = []) -> String:
 static func ding(id: String, anzahl: int = 1) -> String:
 	lade()
 	var e: Dictionary = texte.get("einzelstuecke", {})
+	var ez := Beute.einzelstueck(id)     # 870.6: Einzelstueck nach dem BRS, Name aus dem Gegenstandskatalog
+	if not ez.is_empty():
+		return "%s (%s)" % [t(Katalog.eintrag(id).get("name", e.get(id, {}).get("name", id))), t(BrsHeld.daten()["seltenheiten"][String(ez["seltenheit"])]["name"])]
 	if e.has(id): return "%s (%s)" % [t(e[id]["name"]), t(e[id]["seltenheit"])]
 	var d: Dictionary = texte.get("dinge", {})
 	return ("%d× " % anzahl if anzahl > 1 else "") + (t(d[id]["name"]) if d.has(id) else id)

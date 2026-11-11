@@ -171,6 +171,15 @@ static func erzeuge_mit_uid(w, neue_uid: Callable, stufe: int, r: String, held =
 	g["uid"] = neue_uid.call()
 	return g
 
+# 870.6: Einzelstuecke nach dem BRS (werte.json „gegenstaende“ „einzelstuecke“): Grundform, Seltenheit, Guete, feste Zusatzeigenschaften
+static func einzelstueck(id: String) -> Dictionary: return r_().get("einzelstuecke", {}).get(id, {})
+static func einzel(id: String, uid: int, stufe: int) -> Dictionary:
+	var e := einzelstueck(id)
+	var rolls: Array = []
+	for r in e.get("zusatz", []): rolls.append((r as Array).duplicate())
+	return {"uid": uid, "base": String(e["grundform"]), "rarity": String(e["seltenheit"]), "ilvl": stufe, "guete": int(e.get("guete", 0)),
+		"rolls": rolls, "unique": id, "name_seed": 0}
+
 # Loot.torch: eine schlichte Fackel (84.1)
 static func fackel(uid: int) -> Dictionary:
 	return {"uid": uid, "base": "torch", "rarity": "COMMON", "ilvl": 1, "guete": 0, "rolls": [], "unique": null, "name_seed": 0}
@@ -204,7 +213,7 @@ static func hauptwert(hw: BrsHeld) -> String:
 	var best := "kraft"
 	for g in BrsHeld.grundwerte():
 		if hw.wert(g) > hw.wert(best): best = g
-	return String(BrsHeld.AFFIX.get(best, "STR"))
+	return String(BrsHeld.AFFIX.get(best, BrsHeld.AFFIX["kraft"]))
 
 static func fuer_held(hw: BrsHeld, w, stufe: int, seltenheit: String):
 	var haupt := hauptwert(hw)

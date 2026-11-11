@@ -518,6 +518,24 @@
       "RING": ["STR", "DEX", "CON", "INT", "WIS", "CHA", "CRIT", "SPELL", "SP"]
     },
     "_erlaubt": "A nach alt GearBases.affixesFor ohne Altwerte; Waffen mit Zauberkraft (Stab, Zauberstab) und Fokus wie FOKUS; SKILL kommt ab episch zu jeder Liste",
+    "einzelstuecke": {
+      "ring_protection":     {"grundform": "ring",           "seltenheit": "RARE",     "guete": 0, "zusatz": [["AC", 1], ["HP", 5]]},
+      "gauntlets_ogre":      {"grundform": "gloves",         "seltenheit": "RARE",     "guete": 0, "zusatz": [["STR", 1], ["CRIT", 3]]},
+      "greataxe_grak":       {"grundform": "greataxe",       "seltenheit": "RARE",     "guete": 2, "zusatz": [["STR", 1], ["CRIT", 3]]},
+      "longsword_oakford":   {"grundform": "longsword",      "seltenheit": "RARE",     "guete": 2, "zusatz": [["STR", 1], ["HP", 5]]},
+      "staff_of_embers":     {"grundform": "staff",          "seltenheit": "RARE",     "guete": 2, "zusatz": [["CHA", 1], ["SPELL", 10]]},
+      "rapier_whisper":      {"grundform": "dagger",         "seltenheit": "RARE",     "guete": 2, "zusatz": [["DEX", 1], ["CRIT", 3]]},
+      "mace_of_dawn":        {"grundform": "mace",           "seltenheit": "RARE",     "guete": 2, "zusatz": [["STR", 1], ["SPELL", 10]]},
+      "amulet_grimfang":     {"grundform": "amulet",         "seltenheit": "RARE",     "guete": 0, "zusatz": [["DEX", 1], ["CRIT", 3], ["HP", 5]]},
+      "cloak_protection":    {"grundform": "cloak",          "seltenheit": "RARE",     "guete": 0, "zusatz": [["AC", 1], ["TENACITY", 5]]},
+      "cloak_thessa":        {"grundform": "cloak",          "seltenheit": "UNCOMMON", "guete": 0, "zusatz": [["TENACITY", 5]]},
+      "dagger_borin":        {"grundform": "dagger",         "seltenheit": "UNCOMMON", "guete": 0, "zusatz": [["CRIT", 3]]},
+      "greatsword_nameless": {"grundform": "greatsword",     "seltenheit": "RARE",     "guete": 2, "zusatz": [["STR", 1], ["CRIT", 3]]},
+      "spear_wolf":          {"grundform": "spear",          "seltenheit": "RARE",     "guete": 2, "zusatz": [["STR", 1], ["HP", 5]]},
+      "longbow_blackyew":    {"grundform": "longbow",        "seltenheit": "RARE",     "guete": 2, "zusatz": [["DEX", 1], ["CRIT", 3]]},
+      "crossbow_nightwatch": {"grundform": "light_crossbow", "seltenheit": "RARE",     "guete": 2, "zusatz": [["WIS", 1], ["CRIT", 3]]}
+    },
+    "_einzelstuecke": "870.6 (870a 6 A: alt „+1“ wird Meisterhaft, Zusatzeigenschaften nur aus N 11): Werte A nach den alten Stuecken (Uniques.kt; Strahlen-, Feuer-, Blutungs- und Schadenswerte durch kritisch, Zauberschaden, Leben ersetzt); Namen und Texte im Gegenstandskatalog; Fluesterklinge als Dolch (Homer 870.14); vier neue Stuecke der Truhe cave_3 (STORY-BRS-HELD.md); Wurfwaffen (Elstern) fehlt noch eine Grundform",
     "fertigkeit_grund": 10,
     "_fertigkeit_grund": "A (870a 6, kein Klassenfilter): Beute nach den Fertigkeiten des Helden gewichtet: Gewicht je Grundform = fertigkeit_grund + Wert der Fertigkeit, die sie braucht (Waffengruppe, Ruestung, Schild); ohne Fertigkeit fertigkeit_grund + fertigkeit_grund"
   },
