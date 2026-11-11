@@ -15,6 +15,8 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 ## Zeilen
 
+- **Zu 981, von Perikles (Doppelpack 421, 11.11., 18:08, `aff3a9af1`):** `lauf.py` gibt bis HOCH_BIS (14.11., 20:00) in START und TAGESBERICHT hinter dem Modell das Feld `effort high` aus, danach nicht mehr; Ford gibt es als `effort: "high"` an `create_session` (`LISTE-BETRIEB.md` 13, 45). Prüfen: nächste von Ford gestartete Sitzung, `get_session` zeigt `effort_level` „high“; START-Zeile ohne Feld nach 14.11., 20:00.
+
 - **Zu 911, 912, 920 (Lauf 156–160, alle greifen):** beim nächsten echten Handlauf mit Merge oben die Zeile im Zweig `probelaeufe` ansehen (Vorgang des eigenen Verlaufs, bei fremder Rolle der aus dem Zweignamen); falsch → Vorgang an Perikles.
 
 - **Zu 464 (Lauf 110):** Haken (748) und Zählung (749) greifen, Lücken 776, 777 geschlossen; 464 wartet auf 16.11.: Wirkung in der Wochenzählung 16.11.: rote Bauläufe der Woche gegen 52 von 185 (28 %) der Vorwoche, dann `greift 464` oder Befund.
