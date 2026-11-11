@@ -59,4 +59,5 @@ Bekannt (814, aus deinem Film, Ursache wird gesucht): das Huhn fliegt nicht auf,
 - 277.1 ✓ (Chef 11.11., 20:15, an Sokrates: „277.1 passt“)
 - 277.2 ✓ (Chef 11.11., 20:17)
 - 277.3 ✓ (Chef 11.11., 20:17)
+- 277.4 ✓ (Chef 11.11., 20:20; Wert 0, Held ohne Kräutersammeln)
 - Außer der Reihe (Chef 11.11., 20:19, Bild Thessas Kramladen, Tag 2, 16:40): „Die Partikel gehen über den Raum hinaus“ → Vorgang 990 (Tom, aus 814)
