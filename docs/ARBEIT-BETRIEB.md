@@ -382,5 +382,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 15:42 11.11.: Marke Archiv session_01Hmoj77wBb8etw38joLU3pv (lauf.py)
 - 15:42 11.11.: Marke Archiv session_01Hmoj764Xohhm2BV7hoFr4a (lauf.py)
 - 15:47 11.11.: Startsperre 15:47 Start Diogenes (lauf.py)
+- 16:04 11.11.: Startsperre 16:04 Start Sokrates (Ford, vor dem Start; Neustart-Meldung 16:04, 992cc7d82)
 - 15:47 11.11.: Marke Archiv session_01Hmoj76Noedhu3n5aWVALaq (lauf.py)
 - 15:58 11.11.: Marke Abgleich Vorentscheid 966 ohne Datei in chefsache/billigen/ und ohne  (lauf.py)
