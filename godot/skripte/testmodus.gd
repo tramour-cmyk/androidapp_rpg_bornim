@@ -336,7 +336,8 @@ static func reiter(m: Menue) -> void:
 				func(): probe_stufe = STUFEN_PROBE[(STUFEN_PROBE.find(probe_stufe) + 1) % STUFEN_PROBE.size()], "", str(probe_stufe))])
 		m.zeile(t.call("Starten als:", "Start as:"), 13, Stil.DIM)
 		m.luecke(4)
-		reihe.call(HERKUENFTE.map(func(k): return [ErschaffungBrs.herkunft_name(k), func(): m.test.emit("probe", [probe_gegner, k, probe_stufe])]))
+		for i in range(0, HERKUENFTE.size(), 2):   # 870.4: zwei je Reihe, „Klosterschüler“ passt nicht in ein Viertel (testmenue_mass_425)
+			reihe.call(HERKUENFTE.slice(i, i + 2).map(func(k): return [ErschaffungBrs.herkunft_name(k), func(): m.test.emit("probe", [probe_gegner, k, probe_stufe])]))
 	m.gruppe(t.call("Beute erzeugen", "Create loot"))
 	var st: Dictionary = BrsHeld.daten()["seltenheiten"]
 	var sel: Array = st.keys()
