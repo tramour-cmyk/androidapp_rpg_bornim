@@ -52,6 +52,28 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 152 · 771 Probe 657 ausgewertet: Erstfunde des Chefs t272–t275 (11.11., 07:2x)
+
+Quellen: Ergebnisse der Prüflisten `ansehen/t2xx-sammelbuild.md` in Git, Vorgangsarchiv, neue Vorgangsnummern im Testzeitraum (Commit-Zeit Berlin; Commits tragen teils UTC).
+
+- **Grundlage aus 657 D mischt zwei Maße:** t266 11 und t268 11 sind neue Vorgänge aus dem Test ohne durchgefallene Prüfzeile (Lauf 76); 269 9 und 270 7 sind durchgefallene oder nicht prüfbare Prüfzeilen („Rückläufer“). Hier beide Maße für jeden Build:
+
+| Build | Prüfzeilen | neue Vorgänge aus dem Test | durchgefallen oder nicht prüfbar | Wiederholfunde |
+|---|---|---|---|---|
+| t266 | – | 11 (Lauf 76) | – | – |
+| t268 | – | 11 (Lauf 76) | – | 6 (Sokrates 620) |
+| t269 | 28 | 9 oder 10 (664, 665, 668, 670, 677, 678, 679, 682, 697; 661 um 15:11 vor dem ersten Ergebnis 15:23) | 9 | 6 |
+| t270 | 13 | 3 (701, 702, 709) | 7 | 7 |
+| t272 | 10 | 0 | 0 | 1 (751) |
+| t273 | 16 | 2 (832 Lizenzpunkt, 833 Knöpfe) | 7 (273.13; 6 nicht prüfbar) | 4 (Sokrates 620) |
+| t274 | 18 | 9 (856, 857, 860, 861, 863, 864, 865, 867, 868) | 4 (274.2, .12, .14; .13 nicht prüfbar) | 3 (Sokrates 620) |
+| t275 | 14 | 0 | 0 | 2 (868, 864) |
+
+- **Ergebnis:** neue Vorgänge 0, 2, 9, 0 (zusammen 11) gegen 11, 11, 9 oder 10, 3 (34 oder 35); durchgefallene Zeilen 0, 7, 4, 0 (11) gegen 9, 7 bei 269 und 270 (16 in zwei Builds). Gegen die Zahlen aus 657 D (zusammen 38) liegt die Probe nach beiden Maßen bei 11.
+- **Zugeordnet:** 867 und 868 zu t274 (Chef 13:48, nach „Test durch“ 13:34, am selben Build gesehen); 804–806 in t272 nicht gezählt (Wunsch zum Graspaket 21:12, kein Fund); 857 (Name) und 865 (Neustart im Test) gezählt, weil Lauf 76 jeden neuen Vorgang aus dem Test zählte.
+- **Befund D152.1 → 903 (Perikles):** Ergebnis vorlegen; der Chef entscheidet nach 657 D über weitere Listen und die Seite.
+- **Nicht geprüft:** Ursache des Rückgangs (Checkliste, Gegenlesen der Prüflisten seit 866, Umfang der Builds); ob ein Lauf die Funde hätte finden können (Z3); Prüfzeilen t266 und t268.
+
 ## Lauf 151 · 893 bedingter Nachfolger (Perikles, `65d23431b`; 11.11., 03:2x)
 
 - `nachfolger()` an 7 Übergaben in einer Kopie: „Tom – Sammelbuild 888 (wenn 709 und 506 fertig)“ und „…, Wenn 506 fertig“ → „bedingt“, Zeilenregel gilt; „„Tom – Sammelbuild 888“ (wenn …)“ verliert die Bedingung hinter dem Anführungszeichen, die neue Nummernsuche findet aber 888 und die Sperre der Zeile greift; „Tom – 870.4: Brunnen“, „Tom – Sammelbuild 888“, „keiner“ unverändert richtig. „Tom – Wochenziel 16.11.“ liefert Nummer „16.11“, harmlos (`titel_datum` greift vorher, keine Zeile 16.11). Kein Fall seit dem Bau im Protokoll (Tom-Starts 20:07, 21:05 hatten den Nachfolger „Testbitte 888“ ohne Bedingung). **893 greift** (Lauf 151).
