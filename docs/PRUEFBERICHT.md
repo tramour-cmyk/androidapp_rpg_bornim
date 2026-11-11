@@ -52,6 +52,12 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 178 · 970 mit 965 Sperre 779 (Perikles, Doppelpack 421, `4d1486e9f`; 11.11., 16:4x)
+
+- **970 greift** (`greift 970 178`): eigene Dateien je Zweig gegen `git branch -r --contains` je Commit nachgerechnet: 705 nur `mars.gd` (2 eigene Commits, `kampf_ui.gd` weg), 709.1 nur `figur.gd` (Commit `8bbafbcb6` liegt auch auf `jerry-709a-tiefbiss`, zählt richtig nicht), 945 `kampf_ui.gd`. Namen: „greift“, „greifen“, „Lage“ keine, „Lager“, „Wolfes“, „Aldrics“, „Greifs“ ja. `--stand` 1,7 s (vorher 8,2 s).
+- **965 greift** (`greift 965 178`), Lücke 970 geschlossen. Sperre 779 jetzt: Tom 9 startbar, 2 gesperrt (814, 831 → 680 `gebiet.gd`); Jerry 18 startbar, 14 gesperrt, alle mit echtem Grund (Nummer, Wolf, Grak, `figur.gd`). Über allem steht heute ohnehin Sperre 620.1 B (Tom 10, Jerry 20 ungetestet) bis zum Sammelbuild 968.
+- Grenze: der laufende Sammelbuild heißt `claude/tom-968-sammel`, nicht `claude/build-…`, und wird nicht ausgenommen. Folgen heute keine (Abgleich mit und ohne ihn: nur 532 und 935, die darauf liegen); bekommt ein schon gemergter Zweig danach Commits, zählen seine älteren nicht mehr als eigen (zu wenig gesperrt, bis der Sammelbuild auf `main` ist). Kein Vorgang.
+
 ## Lauf 177 · 965 Sperre 779 (Perikles, Doppelpack 421, `7fc03538b`; 11.11., 15:5x)
 
 - **Startbar:** `--stand` neu Tom 8, Jerry 20 (alte Fassung `7fc03538b~1` jetzt Tom 2, Jerry 0); greift.
