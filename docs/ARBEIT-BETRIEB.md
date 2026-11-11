@@ -75,6 +75,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 08:06 11.11.: Lauf 08:04: Spike …7A7ke „Spike – 492“ und Tuffy …774gF „Tuffy – 536“ in Hoch gestartet (Muss, Chef 07:16). Zwischenfall: `lauf.py` aus dem Arbeitskopf `androidapp_rpg_bornim` gerufen rechnete mit altem Stand (START Spike 680, Tuffy 705, beide schon gebaut); Marken gestrichen, nichts gestartet. Künftig `lauf.py` aus `/home/user/bornim-main/tools` rufen oder vorher im Arbeitskopf `git pull origin main`
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry (07:04 Jerry 806, 08:05 Jerry 806, 10:26 Jerry 595) aus eigener Beurteilung aus (Kaufrepo, Pacing, Sitzungsgrenze), ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch: 59 Muss). Lücke im Werkzeug: Startsperre wird geschrieben, auch wenn nie gestartet wird; kein WARNUNG-LAUT wie bei ARCHIVIERE. Vorschlag an den Chef gestellt
 
 - 08:04 11.11.: Start Perikles 264.1 (Chef 08:00 „Läufe frei“): …75nyB „Perikles – 264.1: Lauf 8“ in Hoch gestartet; Perikles …7727 archiviert (3,29 $ nachgebucht auf 901), Sokrates …77G3d archiviert (7,05 $ auf 870, 903, 709). Lauf 08:03 lief nicht als Wecker, Plan von Hand gerechnet; falsche START Spike/Tuffy 680/705 entfielen nach `git pull` (Stand gebaut war nachgezogen)
