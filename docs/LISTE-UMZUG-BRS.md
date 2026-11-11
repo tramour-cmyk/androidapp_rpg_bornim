@@ -49,7 +49,7 @@ Ehrlich gesagt: weniger weit, als meine Vorlage 870 (14:05) behauptete. Dort sta
 
 **Vorgänge (10.11., 15:32):** Schritt 0 Zweige 870.16 (Ford); 2 870.2, 3 870.3, 5 870.5, 6 870.6 (Jerry); 4 870.4, 6 870.7, 7 870.8, 8 870.9, 9 870.13 (Tom); 8 870.10, Wächter 870.11, Projektplan und Abschluss 870.12 (Perikles); Texte 870.14 (vor 4/5), 870.15 (Schritt 8) (Homer). Reihenfolge über „wartet auf“.
 
-**Zwei Testbuilds beim Chef:** **B1** nach Schritt 4 und 5 (neues Spiel mit BRS-Erschaffung, Dorf, Wolfskampf nur BRS), dazu Schritt 7 Spielstände (870.8; 11.11., 07:41: „Weiter“ lud sonst einen Mischhelden aus Build 275); **B2** nach Schritt 6, 8, 9 (Beute, Laden, Höhle, Handbuch, Wächter). Zusammen etwa 19–29 Entwicklersitzungen (Summe der Tabelle); zum Maß: 478 (Rechenkern) 6,50 $, 470 (Erschaffung) bisher 43 $, 709 bisher 38 $. Kosten 400–600 $ (oben).
+**Zwei Testbuilds beim Chef:** (B1 und B2 sind Umzugspakete, keine Builds: in Prüflisten, Meldungen und Chefsache nur die Build-Nummer, etwa „Build 277 (Umzugspaket B1)“; Chef 11.11., 15:51.) **B1** nach Schritt 4 und 5 (neues Spiel mit BRS-Erschaffung, Dorf, Wolfskampf nur BRS), dazu Schritt 7 Spielstände (870.8; 11.11., 07:41: „Weiter“ lud sonst einen Mischhelden aus Build 275); **B2** nach Schritt 6, 8, 9 (Beute, Laden, Höhle, Handbuch, Wächter). Zusammen etwa 19–29 Entwicklersitzungen (Summe der Tabelle); zum Maß: 478 (Rechenkern) 6,50 $, 470 (Erschaffung) bisher 43 $, 709 bisher 38 $. Kosten 400–600 $ (oben).
 **Guthaben:** Tom und Jerry arbeiten zugleich (Chef 10.11., 16:04, 826 „eine zugleich“ zurück). Pause für 870.x: Chefsache 870b.
 
 ## 4. Schritte im Einzelnen
