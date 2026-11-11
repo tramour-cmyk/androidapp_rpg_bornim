@@ -807,6 +807,9 @@ def main():
     except Exception as e:
         ausgabe.append("WARNUNG Rückmeldungswächter fehlgeschlagen: %s (559, Perikles)" % e)
     wochen += vorentscheid_marken + neue_marken
+    # 942 (D171.2): eine hängende Sitzung, die derselbe Lauf archiviert (auch als Vorgänger beim START), meldet nicht „Sitzung hängt“
+    haengt_weg = lambda l: " Sitzung hängt: " in l and any(l.endswith("code/%s (927)" % a) for a in archiviert)
+    ausgabe = [l for l in ausgabe if not haengt_weg(l)]
     for l in ausgabe: print(l)
     if not ausgabe: print("NICHTS: nichts zu tun")
     if sperre and (sperren or neue_warnungen or wochen):
