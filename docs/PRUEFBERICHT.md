@@ -52,6 +52,35 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 160 · 920 mit 911, 912 (Perikles, `8239e20ab`; 11.11., 10:0x)
+
+- **920, 911, 912 greifen.** Skript Lauf 158 erneut: spike-581-ausruestung über Jerrys `44dec34a2` → 581, tuffy-784-sollbild über Toms `93173963c` → 784; alle Fälle aus Lauf 158 unverändert; eigener Verlauf auf spike-680-absturz → 680, tuffy-536-tips → 536, spike-581-ausruestung → 581. Kopf von `probelauf.py` nennt die Regel jetzt. Kein echter Handlauf mit Merge oben seit dem Bau (letzte Zeile 09:52); Blick darauf im Vorrat.
+
+## Lauf 159 · 916 `lauf.py --wecker`, `--ohne` beim Zusatzentwickler (Perikles, Doppelpack 421, `0551bdb6b`; 11.11., 10:0x)
+
+- **916 greift** (`greift 916 159`). Trockenlauf in einer Kopie (`--ohne-pull`, gestellte Kurzzeilen: Jerry working, Tuffy – 784 ruht 41 bzw. 92 Minuten, Perikles ruht 32 Minuten): ohne `--wecker` START Tuffy 784 und ARCHIVIERE der alten Sitzung; mit `--wecker` Tuffy „NICHTS Tuffy: belegt“, kein ARCHIVIERE, keine Buchung, auch nach 92 Minuten; mit Wecker auf Perikles kein Nachfolger-START, kein ARCHIVIERE, kein WEITER. `--ohne 784:Test`: AUSGESCHLOSSEN 784, Tuffy startet auf 910 statt 784. `LISTE-BETRIEB.md` 3 und 4 nennen `list_triggers` und `--wecker`.
+- Grenze: eine Sitzung mit Wecker bleibt neben einer neueren derselben Rolle stehen; nach zwei Läufen meldet die Mehrfach-Prüfung laut. Kein echter Lauf mit `--wecker` seit dem Bau.
+
+## Lauf 158 · 913, 914 mit 911, 912 (Perikles, Doppelpack 421, `da0a446d3`; 11.11., 10:0x)
+
+- **913, 914 greifen** (`greift 913 158`, `greift 914 158`). Nachgestellt mit Merge-Commit oben (`commit-tree`, zweite Eltern origin/main) und `nr_aus_verlauf(REPO, sha, zweig)`: tom-870-4-held über `93173963c` → 870.4 (Fall 09:19), über Jerrys `44dec34a2` → 870.4 (D156.1), über den heutigen Stand (oben Jerrys 910) → 870.4; perikles-264-runner → 264.1, jerry-348-642-wolf-abstand → 642, jerry-717-rueckwaerts → 778, jerry-709a-tiefbiss → 709a. Handweg über `vorgang_aus_ref` an allen 640 Zweigen `claude/*`: Zweige mit Merge oben geben den eigenen Verlauf, obwohl `vorgaenge()` FETCH_HEAD auf main stellt (jerry-39-schwierigkeit → 62m statt Name 39); je Aufruf etwa 1 s.
+- **D158.1 → 920 (Perikles), 911 und 912 warten darauf:** die Rolle kommt aus dem ersten Wort des Zweigs; `spike`, `tuffy` stehen nicht in `BESITZER`, Besitzer in der Liste sind nur Tom und Jerry, die Prüfung „fremde Rolle“ entfällt. Nachgestellt: spike-581-ausruestung über `44dec34a2` → 864 statt 581, tuffy-784-sollbild über `93173963c` → 870.4 statt 784. Beide Zweige laufen heute.
+- Klasse 3: Kopf von `probelauf.py` (Zeile 15) nennt „Name bei fremder Rolle“ nicht; Push-Weg nimmt den Zweig aus `HEAD`, nicht aus dem Push-Ziel.
+- Echter Handlauf mit Merge oben seit dem Bau: keiner (letzte Zeilen 09:52 806, 910, beide mit Nummer oben; 910 ist Jerrys Commit auf B1, zählt richtig unter 910).
+
+## Lauf 157 · 912 Vorgang aus dem Zweignamen (Perikles, Doppelpack 421, `b945f7e2b`; 11.11., 09:3x)
+
+- **912 greift für B1:** `nr_aus_zweigname('claude/tom-870-4-held')` = 870.4.
+- **D157.1 → 913 (Perikles):** `nr_aus_zweigname` liest die Liste mit `zweig_lesen(…, "main")` (`git fetch origin main`) und verbiegt FETCH_HEAD; `vorgang_aus_ref` liest danach mit `nr_aus_verlauf(REPO, "FETCH_HEAD")` main statt des Zweigs. Nachgestellt: FETCH_HEAD `8bbafbcb6` (jerry-709a-tiefbiss) → `d44d730a5` (origin/main), Ergebnis None statt 709a; ein Handlauf auf einem Zweig ohne Nummer im Namen zählt wieder unter dem Zweignamen (911 kehrt zurück). Push-Weg (HEAD) nicht betroffen.
+- **D157.2 → 914 (Perikles):** Name gegen eigenen Verlauf über 34 Zweige `claude/*` (ohne Sammelbuild): abweichend `perikles-264-runner` 264 / 264.1, `jerry-348-642-wolf-abstand` 348 / 642, `jerry-717-rueckwaerts` 717 / 778; der Name trägt oft die übergeordnete Nummer. Wirkt nur bei Merge oben; dann zählt etwa ein 264.1-Lauf unter 264, „264.1, Läufe frei“ greift nicht. Mein Hinweis „Zweigname“ (Zu 912) trägt das mit.
+- **Nicht geprüft:** Push-Weg mit Ziel-Zweig im Refspec, der nicht HEAD ist (Name aus `rev-parse HEAD`).
+
+## Lauf 156 · 911 Handlauf ohne Nummer oben, 264.1 Uhrzeit im Feld „wartet auf“ (Perikles, Doppelpack 421, `025dcf1bf`, `caf221f84`, `ee20ff5a8`; 11.11., 09:2x)
+
+- **D156.1 → 912 (Perikles), 911 wartet darauf:** nachgestellt im Modul gegen `origin/claude/tom-870-4-held`: `nr_aus_verlauf(…, 93173963c)` = 870.4 (der Fall von 09:19 greift), aber der Zweig steht schon weiter: oben Toms Merge `e0c57e573` „Merge 864 und 904 (Jerry) in B1“, erste Eltern Jerrys `44dec34a2` „864: …“. `vorgang_aus_ref` gibt 864; der nächste B1-Lauf zählt unter Jerrys 864 (stand 0, wird verbraucht), nicht unter 870.4, das Sokrates 09:12/09:19 für diesen Lauf freigab. Reihenfolge Commit oben → eigener Commit → Name in Klammern → Zweig wie im Kopf von `probelauf.py`; kein echter Merge-Lauf seit 09:22 im Zweig `probelaeufe` (letzte Zeilen 09:20).
+- **264.1 greift:** Probe in einer Klonkopie mit gestellter Zeile 264.1 und Uhrzeit heute 23:50: im Feld „wartet auf“ Exit 0; im Titel, im Stand, im Bereich je Exit 1 „Uhrzeit 23:50 liegt nach jetzt“. Spaltenfolge passt zum Listenkopf (Feld 6 = „wartet auf“); ohne Befund. Kopf von `commit-pruefung.py` nennt die Ausnahme nicht, kein Befund. 264.1 selbst bleibt offen (Runnerprobe).
+- **Nicht geprüft:** Push-Weg mit veraltetem `origin/main` in der Arbeitskopie und ohne eigenen Commit mit Nummer (dann zählte ein Commit von `main` statt des Zweigs; nicht nachgestellt, selten).
+
 ## Lauf 155 · 907, 908 Halbsatz 324 und Checkliste beim Entwurf (Perikles, Doppelpack 421, `559dc33c7`; 11.11., 08:1x)
 
 - **907 greift:** Punkt 3 trägt wieder „auch wenn der getestete noch nicht auf `main` ist (324)“, gleicher Sinn wie der Wortlaut in `ad191efb8` (Chef 22.10., 23:26). Archiv 324 bleibt kurz, sein Verweis auf `LISTE-BAUEN-TESTEN.md` führt über deren Zeile 26 zur Checkliste; ohne Befund.

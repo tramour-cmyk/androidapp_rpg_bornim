@@ -108,9 +108,9 @@ Vorschlag Homer, 03.11.; Vorgang 504 (Chef 03.11., 07:52: „Mindestens 3 … Le
 3. Das Morgenlicht weist niemanden ab. Lass mich sehen, was dir fehlt. · Lyra ist zurück, und du hast sie gebracht. Setz dich, {name}. — EN: The Dawnlight turns no one away. Let me see what ails you. · Lyra is back, and you brought her. Sit down, {name}.
 
 `[504.osric.heilung]` (Erzähler)
-1. bisher: „Ein warmes Licht umhüllt dich. TP und ZP sind vollständig wiederhergestellt.“
-2. Osric murmelt ein Gebet, und Wärme fließt in deine Glieder. TP und ZP sind vollständig wiederhergestellt. — EN: Osric murmurs a prayer, and warmth flows into your limbs. HP and SP are fully restored.
-3. Der Schmerz ebbt ab, als Osrics Hände über deine Wunden gleiten. TP und ZP sind vollständig wiederhergestellt. — EN: The pain ebbs as Osric's hands pass over your wounds. HP and SP are fully restored.
+1. bisher: „Ein warmes Licht umhüllt dich. Leben und Mana sind wieder voll.“
+2. Osric murmelt ein Gebet, und Wärme fließt in deine Glieder. Leben und Mana sind wieder voll. — EN: Osric murmurs a prayer, and warmth flows into your limbs. Life and mana are full again.
+3. Der Schmerz ebbt ab, als Osrics Hände über deine Wunden gleiten. Leben und Mana sind wieder voll. — EN: The pain ebbs as Osric's hands pass over your wounds. Life and mana are full again.
 
 `[504.osric.bitte]` (vor Lyras Rettung)
 1. bisher: „Bitte … finde Schwester Lyra …“

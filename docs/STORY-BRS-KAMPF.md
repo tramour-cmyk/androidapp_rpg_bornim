@@ -39,6 +39,11 @@ Nur Ergebnis und Trefferchance; der Wurf von 1 bis 100 erscheint nicht (868: „
 - `[870.14.kraft.schoepfen]` neue Konstante für den Helden (Kraft schöpfen; heute MSG72_USES und HEALSSELF): {0} schöpft Kraft: +{1} TP. / EN: {0} draws strength: +{1} HP. MSG72_GATHERS bleibt die Meldung des Gegners zu „Kraft sammeln“.
 - `[870.14.satt]` MSG399_FED: {0} ist gut gestärkt: trifft leichter und schlägt härter. / EN: {0} is well fed: lands blows more easily and hits harder.
 - `[870.14.flucht]` MSG296_FLED: {0} ist entkommen! / EN: {0} gets away! · MSG296_CANTFLEE: Die Flucht misslingt! / EN: The escape fails! (Ergebnis der Fluchtprobe in Prozent)
+- **Wolf vor dem Feuer (915, 705a B; ersetzt `[870.14.gegen.wolf]` in `STORY-BRS-HELD.md`, MSG870_GEGEN_WOLF; gilt für jedes Feuer, auch aus Wurfmitteln):**
+  - `[915.wolf.flucht]` Kampfzeile, jedes Mal: Die Wölfe weichen vor dem Feuer zurück, dann sind sie zwischen den Bäumen fort. / EN: The wolves shy from the fire, then they are gone among the trees. · flieht nur einer: Der Wolf weicht vor dem Feuer zurück, dann ist er zwischen den Bäumen fort. / EN: The wolf shies from the fire, then it is gone among the trees.
+  - `[915.wolf.erstmals]` gleich danach, nur beim ersten Vertreiben je Spielstand (solange die Gegenwirkung des Wolfs nicht im Bestiarium steht): Feuer verjagt Wölfe, sobald ihr Leitwolf halb tot ist, und mit ihnen gehen Beute und Erfahrung. / EN: Fire drives wolves off once their leader is half dead, and with them go loot and experience.
+  - `[915.lohn.vertrieben]` Lohn nach dem Kampf, jedes Mal, wenn danach kein Gegner mehr stand (`kein_lohn`), auch unter dem Autopiloten: Vor dem Feuer geflohen: keine Beute, keine Erfahrung. / EN: Fled from the fire: no loot, no experience.
+  - Bedingung: vor dem Feuer geflohene Wölfe bringen weder Beute noch Erfahrung, auch wenn andere Gegner bleiben (heute zählt `erfahrung_des_siegs` sie mit); wer nach 399.2a flieht, weil sein Leitwolf fiel, zählt wie bisher.
 - `[870.14.nobattle]` MSG72_NOBATTLE: In diesem Kampf schon genutzt. / EN: Already used in this battle.
 - ST_SHRUGS, ST_STEADFAST, ST_SHAKES: Wortlaut bleibt; sie sind jetzt das Ergebnis einer Abwehrprobe in Prozent.
 - Englisch nach Regel (1) in `mars_texte.gd` nachziehen: „smouldering“ → „smoldering“, „creeps round“ → „creeps around“ (MSG72_FLANKEMPTY, MSG130_SIGN_FLANK).
