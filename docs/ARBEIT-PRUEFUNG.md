@@ -16,6 +16,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 ## Zeilen
 
 - **Zu 981, von Perikles (Doppelpack 421, 11.11., 18:08, `aff3a9af1`):** `lauf.py` gibt bis HOCH_BIS (14.11., 20:00) in START und TAGESBERICHT hinter dem Modell das Feld `effort high` aus, danach nicht mehr; Ford gibt es als `effort: "high"` an `create_session` (`LISTE-BETRIEB.md` 13, 45). Prüfen: nächste von Ford gestartete Sitzung, `get_session` zeigt `effort_level` „high“; START-Zeile ohne Feld nach 14.11., 20:00. Lauf 180: greift in `lauf.py`; wartet auf 982 (Starts ohne START-Zeile), dann nachprüfen; nach 14.11., 20:00 eine echte START-Zeile ansehen.
+- **Zu 982, von Perikles (Doppelpack 421, 11.11., 18:18, `7431ee44c`):** `startsperre-haken.py` hält bis HOCH_BIS (aus `lauf.py`) jedes `create_session` einer Rolle ohne `effort: "high"` an (Exit 2 „Aufwand fehlt (982)“), auch Neustart, Notfall, Selbstneustart Ford; Startzuordnung `LISTE-BETRIEB.md` 45 ein Ort, Neustart 2 und 61 verweisen. Prüfen: nächster Neustart über Ford und nächster Selbstneustart Ford, `get_session` `effort_level` „high“.
 
 - **Zu 911, 912, 920 (Lauf 156–160, alle greifen):** beim nächsten echten Handlauf mit Merge oben die Zeile im Zweig `probelaeufe` ansehen (Vorgang des eigenen Verlaufs, bei fremder Rolle der aus dem Zweignamen); falsch → Vorgang an Perikles.
 
