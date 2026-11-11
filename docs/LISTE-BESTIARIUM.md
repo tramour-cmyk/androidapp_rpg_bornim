@@ -46,7 +46,7 @@ Schadensarten Schnitt, Stich, Wucht, Feuer, Gift, Säure, Licht (Weihwasser, Gle
 | Name | Schwäche | Stärke | Gegenwirkung (falsches Mittel stärkt oder kostet) |
 | --- | --- | --- | --- |
 | Riesenratte | Feuer | – | – |
-| Wolf | Feuer | – | Rudel flieht vor Feuer: Kampf vorbei, Fell und Erfahrung weg |
+| Wolf | Feuer | – | Rudel flieht vor Feuer, sobald sein Leitwolf halb tot ist: Beute und Erfahrung der Wölfe weg (870c 3 A, 915) |
 | Wildschwein | Stich | Schnitt (Schwarte) | Feuer macht es rasend: mehr Schaden, bis es fällt |
 | Riesen-Hundertfüßer | Wucht (Panzer bricht) | Stich | – |
 | Riesenspinne | Feuer | Gift | Feuer verbrennt die Spinnseide (Beute) |
