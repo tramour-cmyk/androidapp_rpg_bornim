@@ -134,7 +134,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 861 | M | Von Sokrates (Chef 10.11., 13:12, Bild t274.14): Umhang des Kämpfers im Kampf rechts am Rü | startbar |
 | 867 | M | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die | startbar |
 | 875 | M | Von Homer (857a A, Chef 10.11., 13:35): Fertigkeit Kräuterkunde heißt im Spiel Kräutersamm | startbar |
-| Pflege | K | von Werkzeug (340.3, 11.11.): 15269 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 15902 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 88, Muss 73, startbar 12
 
@@ -226,8 +226,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 876 | M | Von Homer (857a A, Chef 10.11., 13:35): Simulation 444 Kräuterkunde → Kräutersammeln, Tran | Sperre 620.1 B: 11 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.5 (simulation) |
 | 854.1 | M | Von Tom (888, Lauf 42906784036): kauf_cache.py ablegen bricht ab, Zeile 21 ModuleNotFoundE | Sperre 620.1 B: 11 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 854 (ablegen) |
 | 904 | M | Von Tom (870.4, B1): sim444_870 am Rechner (97a32cfe2): SCRIPT ERROR mars.gd:903 _erwartet | wartet auf Test/Build (gebaut) |
-| Pflege | K | von Werkzeug (340.3, 11.11.): 15135 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 909 | M? | Von Sokrates (Chef 11.11., 08:52, zu 854): Lauf schneller: Schritt „Skripte prüfen“ (24 mi | startbar |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 15165 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 25, Muss 12, startbar 1
 
@@ -272,7 +272,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | wartet auf 903 (wartet) |
 
-**Sokrates** – offen 49, Muss 36, startbar 26
+**Sokrates** – offen 50, Muss 36, startbar 27
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -325,6 +325,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 850 | K | Systemlösung? Halt: 7 frühere Vorgänge (244, 321.1, 488, 793, 662 …), neu 849; einmal grun | startbar |
 | 862 | K | Systemlösung? Umhang: 6 frühere Vorgänge (58, 488, 463, 463.1, 656 …), neu 861; einmal gru | startbar |
 | 869 | K | Systemlösung? Rüstung: 2 frühere Vorgänge (49, 817), neu 868; einmal grundsätzlich lösen? | startbar |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 15608 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
