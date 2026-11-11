@@ -2,9 +2,9 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `f889a51c5` (11.11., 13:16)
+**Gelesen bis:** `6aa67278b` (11.11., 14:25)
 
-**Übergabe (11.11., 13:16):** erledigt: 933.1 (`[423.schaffen]` und `[423.volk]` neu nach 933 A: beginnt bei 3, 9 Punkte, höchstens 8, Volk 2 bis 9; fremd geprüft; Spannen in `[870.14.wert.kopf]`, `[817.kopf]` auf 2–9; Zu 933 an Tom); 934 (Spinnseide, Giftdrüse, Pim „Brandflaschen“, Nachtwache „Armbrust“, `[870.15.tasche]`; fremd geprüft; Zu 870.6 an Jerry). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
+**Übergabe (11.11., 14:25, `session_01Hmoj77msFPdKMJVr6dKunK`):** erledigt: 954.1 (`STORY-BRS-ERSCHAFFUNG.md` `[954.1.…]`, zweimal fremd geprüft gegen `tom-870-4-held`; Zu 954 an Tom, Start Tom bei Ford); Chefsache 954a (Wahlen ohne Wirkung) gestellt, Telegram 14:25; 959, 960 an Jerry; Zu 870.4 an Tom (Heldenreiter-Zeilen ohne Wirkung); 955 (Heiltrank-Text, `greater_potion` ohne „auch im Kampf“; Zu 955 an Tom). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
 
 ## Zeilen
 - **Zu 954a (Homer 11.11., 14:18):** Chefsache `entscheiden/954a-wahlen-ohne-wirkung.md`; bei A: Tom Liste „nicht_waehlbar“ mit 954, Vorgang an Jerry für Glückskind.
