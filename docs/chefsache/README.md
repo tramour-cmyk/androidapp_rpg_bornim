@@ -156,7 +156,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 861 | M | Von Sokrates (Chef 10.11., 13:12, Bild t274.14): Umhang des Kämpfers im Kampf rechts am Rü | Pause, nicht frei |
 | 867 | M | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 653 (figuren) |
 | 875 | M | Von Homer (857a A, Chef 10.11., 13:35): Fertigkeit Kräuterkunde heißt im Spiel Kräutersamm | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 470 (erschaffung) |
-| Pflege | K | von Werkzeug (340.3, 11.11.): 15293 Bytes (Grenze 15000), Erledigtes streichen | Pause, nicht frei |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 15123 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | Pause, nicht frei |
 
 **Jerry** – offen 86, Muss 72, startbar 0, PAUSE bis 13.11., 20:00 Uhr, frei für 870.x, 709, 709.1, 854, 506.1, 506.2
 
