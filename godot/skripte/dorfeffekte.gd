@@ -280,20 +280,60 @@ func fahne(fuss: Vector3) -> void:
 
 # ---------------------------------------------------------------- Staub im Licht
 ## R7 dust_motes in Schenke und Laden: nur die Flocken (Lichtschacht und Licht der Vorlage aus; das Licht malt raumlicht.gd), je Fenster
-## (raum.py „tageslicht“, die Lichtquelle vor dem Fenster) ein Schwarm gut eine Kachel in den Raum; die Fenster hinten zuerst
+## (raum.py „tageslicht“, die Lichtquelle vor dem Fenster) ein Schwarm im Lichtkegel; die Fenster hinten zuerst.
+## 990 (Chef 11.11., 20:19 und 20:51, t277: „Die Partikel gehen über den Raum hinaus“; in der Schenke „bei der Tür … irgendwelche
+## Partikel“, an den Fenstern keine): vorher stand der Schwarm 1,9 m von der Lichtquelle zur Raummitte hin, die Quelle steht aber
+## 1,6 m vor der Wand, also nur gut 0,2 m innen, schräg zur Mitte, und die Austrittsform der Vorlage reichte durch die Wand ins
+## Schwarze. Jetzt: Mitte im Kegel zwischen Fenster und Lichtfleck am Boden („ziel“), eigene Austrittsform, die mit dem Weg der
+## Flocken innen bleibt (staub_kasten), und nur am Tag (nacht: das Fenster ist dunkel)
+const STAUB_RAND := 0.2                    # so weit bleiben Flocken samt Weg von der Innenseite der Wand (m)
+var staub: Array[GPUParticles3D] = []
+
 func baue_staub() -> void:
 	var k := gebiet.karte
-	var mitte := Vector3(k.breite * Karte.TS / 2, 0, k.hoehe * Karte.TS / 2)
-	var fenster: Array[Vector3] = []
+	var lichter: Array = []
 	for l in gebiet.info["lichter"]:
-		if l["art"] == "tageslicht" or l["art"] == "fenster": fenster.append(Gebiet.gpos(l["pos"]))
-	fenster.sort_custom(func(a, b): return a.z < b.z)
-	for q in fenster.slice(0, 3):   # Leistung: hoechstens drei Schwaerme je Raum
-		var d := Vector3(mitte.x - q.x, 0, mitte.z - q.z)
-		var p := Vector3(q.x, 0.2, q.z) + d.normalized() * minf(d.length(), 1.6 * Karte.TS)
-		var fx := setze("effects/dust_motes.tscn", p, 0.6, ["Shaft", "Light"])
+		if l["art"] == "tageslicht" or l["art"] == "fenster": lichter.append(l)
+	lichter.sort_custom(func(a, b): return Gebiet.gpos(a["pos"]).z < Gebiet.gpos(b["pos"]).z)
+	for l in lichter.slice(0, 3):   # Leistung: hoechstens drei Schwaerme je Raum
+		var q := Gebiet.gpos(l["pos"])
+		var z := Gebiet.gpos(l["ziel"]) if l.has("ziel") else Vector3(k.breite * Karte.TS / 2, 0, k.hoehe * Karte.TS / 2)
+		var fx := setze("effects/dust_motes.tscn", Vector3.ZERO, 0.6, ["Shaft", "Light"])
 		if fx == null: return
 		daempfe(fx, 0.5, 0.75)
+		for gp in fx.find_children("*", "GPUParticles3D", true, false):
+			var p := gp as GPUParticles3D
+			var pm := p.process_material as ParticleProcessMaterial
+			var weg := staub_weg(pm, p.lifetime)
+			var kasten := staub_kasten(q, z, k.breite, k.hoehe, weg)
+			fx.position = kasten["mitte"]
+			p.position = Vector3.ZERO
+			pm.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_BOX
+			pm.emission_box_extents = kasten["halb"]
+			p.visibility_aabb = AABB(-kasten["halb"] - Vector3.ONE * weg, (kasten["halb"] + Vector3.ONE * weg) * 2.0)
+			staub.append(p)
+
+## Weg einer Flocke in ihrer Lebenszeit (m): Anfangstempo und Schwere; was die Vorlage sonst treibt, faengt STAUB_RAND
+static func staub_weg(pm: ParticleProcessMaterial, lebenszeit: float) -> float:
+	var v := maxf(absf(pm.initial_velocity_max), absf(pm.initial_velocity_min))
+	return minf(v * lebenszeit + 0.5 * pm.gravity.length() * lebenszeit * lebenszeit, 0.6)
+
+## 990: Mitte und halbe Groesse des Schwarms fuer das Fenster mit Lichtquelle [quelle] (vor der Wand) und Lichtfleck [ziel] (am Boden
+## im Raum) in einem Raum von [breite] x [hoehe] Kacheln (Waende in den Randkacheln); [weg]: so weit treiben die Flocken aus dem Kasten.
+## Der Kasten liegt im Kegel, gut 0,8 m innen vor dem Fenster, und mit [weg] und STAUB_RAND ganz innerhalb der Innenwaende.
+static func staub_kasten(quelle: Vector3, ziel: Vector3, breite: int, hoehe: int, weg := 0.0) -> Dictionary:
+	var n := Vector3(ziel.x - quelle.x, 0, ziel.z - quelle.z).normalized()   # vom Fenster in den Raum
+	var mitte := Vector3(ziel.x, 1.2, ziel.z) - n * 0.55
+	var halb := Vector3(0.45, 0.5, 0.45)
+	if absf(n.x) > absf(n.z): halb = Vector3(0.4, 0.5, 0.5)
+	else: halb = Vector3(0.5, 0.5, 0.4)
+	var lo := Vector3(Karte.TS, 0.1, Karte.TS) + Vector3.ONE * (STAUB_RAND + weg)
+	var hi := Vector3((breite - 1) * Karte.TS, 2.4, (hoehe - 1) * Karte.TS) - Vector3.ONE * (STAUB_RAND + weg)
+	for a in 3:
+		var platz := (hi[a] - lo[a]) / 2.0
+		halb[a] = clampf(minf(halb[a], platz), 0.05, 1.0)
+		mitte[a] = clampf(mitte[a], lo[a] + halb[a], maxf(lo[a] + halb[a], hi[a] - halb[a]))
+	return {"mitte": mitte, "halb": halb}
 
 # ---------------------------------------------------------------- Fussstaub
 ## Fussstaub, wo der Fuss aufsetzt (Held.schritt_phase: 0 rechter, 0,5 linker Ballen), nur auf Erde (Bodenmaske Rot, nicht Pflaster,
@@ -387,6 +427,10 @@ func _process(dt: float) -> void:
 
 func nacht(k: float) -> void:
 	nacht_k = k
+	for p in staub:   # 990: Staub nur im Licht der Fenster, abends verblasst er mit dem Tageslicht (814 bekannt: leuchtete abends)
+		if not is_instance_valid(p): continue
+		p.amount_ratio = clampf(1.0 - k * 1.4, 0.0, 1.0)
+		p.visible = p.amount_ratio > 0.02
 	for pm in rauch_pm:
 		pm.color = Color(0.92, 0.9, 0.88, 0.85).lerp(Color(0.42, 0.4, 0.39, 0.75), k)
 	var brennt := k > 0.2   # abends und nachts; am Tag stecken die Fackeln kalt im Halter
