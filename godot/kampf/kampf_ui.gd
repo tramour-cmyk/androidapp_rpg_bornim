@@ -808,7 +808,8 @@ func _build_orders() -> void:
 				bild.custom_minimum_size = Vector2(32, 32) * dp
 				bild.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 				zeile.add_child(bild)
-				var b := _button("%s ×%d" % [[it.de, it.en][lang], int(m.potions[id])], true, func(): _set_pick("drink_at", item), false, true)
+				var wurf := String(it.get("kind", "")) == "BOMB"     # 935: Wurfmittel wirft man auf einen Gegner
+				var b := _button("%s ×%d" % [[it.de, it.en][lang], int(m.potions[id])], true, func(): _set_pick("throw_at" if wurf else "drink_at", item), false, true)
 				b.alignment = HORIZONTAL_ALIGNMENT_LEFT
 				b.clip_text = true
 				b.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
@@ -831,6 +832,14 @@ func _build_orders() -> void:
 					var item: String = pick_arg
 					# 532 (alt ALREADY_FULL): wem der Trank nichts bringt (volles Leben, beim Kräutertrank auch keine Zustände), der ist nicht wählbar
 					items.append(_button("%s  %d/%d" % [tg.name(lang), tg.hp, tg.max_hp], m.drink_helps(item, tg), func(): k.order(["drink", item, id])))
+			items.append(back)
+			_choices(items)
+		"throw_at":
+			var items := []
+			for tg in m.throw_targets(pick_arg):
+				var id: String = tg.id
+				var item: String = pick_arg
+				items.append(_button(_target_label(tg), true, func(): k.order(["throw", item, id])))
 			items.append(back)
 			_choices(items)
 

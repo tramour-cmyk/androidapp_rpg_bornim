@@ -409,7 +409,7 @@
     "_wirkung": "A: Wirkung = 0,5 + 0,05 x Kraeuterkunde, hoechstens 2: ohne Kraeuterkunde 0,5 (halbe Wirkung statt Gift), Startwert 10 = 1, Decke Kapitel 1 (24) = 1,7, ab 30 = 2",
     "Steinhaut": {"preis": 40, "runden": 2, "schutz": 0.5, "_steinhaut": "A: zwei Runden kommt Schaden x (1 - 0,5 x Wirkung) an; Wirkung 2 = unverwundbar (Chef 18:55)"},
     "Berserkertrank": {"preis": 40, "runden": 3, "schaden_plus": 0.5, "_berserker": "A: drei Runden Waffenschaden x (1 + 0,5 x Wirkung); nicht fuer Zauber"},
-    "Alchemistenfeuer": {"schaden": 10, "fertigkeit": "Wurfwaffen", "typ": "feuer", "_feuer": "A: geworfen (Treffer mit Wurfwaffen und Wahrnehmung), Grundschaden 10 x Wirkung, Feuer; Preis aus 'wirtschaft'; geworfen, wenn sein Grundschaden den der Waffe oder des Zaubers uebersteigt"},
+    "Alchemistenfeuer": {"schaden": 10, "fertigkeit": "Wurfwaffen", "typ": "feuer", "_feuer": "A: geworfen (Treffer mit Wurfwaffen und Wahrnehmung), Grundschaden 10 x Wirkung, Feuer; Preis aus 'wirtschaft'; geworfen, wenn sein Grundschaden den der Waffe oder des Zaubers uebersteigt"}, "Weihwasser": {"schaden": 10, "typ": "licht", "nur_untote": true, "_weihwasser": "935 (Jerry 11.11.): A wie Alchemistenfeuer, Schadensart Licht (Schwaeche der Untoten), nur gegen Untote (alt Battle.blockedItem NOT_UNDEAD); im Spiel trifft jeder Wurf (Text gegenstaende.json), Wirkung nach Kraeuterkunde wie oben"},
     "heiltraenke": 2,
     "satz": {"Steinhaut": 1, "Berserkertrank": 1, "Alchemistenfeuer": 2},
     "_satz": "A: Beutel vor dem Bosskampf: 2 Heiltraenke, dazu 1 Steinhaut, 1 Berserkertrank, 2 Alchemistenfeuer. Steinhaut in Runde 1, Berserkertrank danach (nur wer mit der Waffe kaempft), Feuer statt schwaecherem Angriff; Heiltrank unter 35 % Leben wie in 'wirtschaft'",

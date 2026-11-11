@@ -562,9 +562,9 @@ func tageszeit() -> String:   # Kampfort.tageszeit: tag, abend, nacht
 
 # gegner wie kampf/probe.gd FOES; [probe] (Test „MARS-Probekampf“, Skirmish.probe): Held und Soeldner [klasse, stufe] statt des eigenen
 # Helden, danach bleibt er, wie er war (kein Lohn, keine TP, kein Tod)
-## 532: was der Held im Kampf trinken kann (alt ItemKind POTION, Battle.useItem), in dieser Folge in der Tasche des Kampforts;
-## Wurfmittel (alchemist_fire, holy_water) kommen mit 935 dazu
-const KAMPF_TASCHE := ["potion", "greater_potion", "superior_potion", "remedy"]
+## 532, 935: was der Held im Kampf trinken oder werfen kann (alt ItemKind POTION, BOMB; Battle.useItem), in dieser Folge in der
+## Tasche des Kampforts
+const KAMPF_TASCHE := ["potion", "greater_potion", "superior_potion", "remedy", "alchemist_fire", "holy_water"]
 
 func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroeffnung := "", nr := 0) -> String:
 	var hw := held_werte() if probe.is_empty() else Testmodus.probeheld(String(probe[0]), int(probe[1]))
@@ -641,7 +641,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	kamera.make_current()
 	visible = true; ui.visible = true
 	if probe.is_empty():
-		for id in tasche:   # 532: getrunken (fehlt ein Ding in der Tasche des Kampfs, ist nichts verbraucht)
+		for id in tasche:   # 532, 935: getrunken oder geworfen (fehlt ein Ding in der Tasche des Kampfs, ist nichts verbraucht)
 			var rest := int((erg["rest"] as Dictionary).get(id, tasche[id]))
 			if rest < int(tasche[id]): zustand.weg(id, int(tasche[id]) - rest)
 	if probe.is_empty() and bool(erg.get("rauch", false)) and zustand.anzahl(Geschichte.SMOKE_BUNDLE) > 0: zustand.weg(Geschichte.SMOKE_BUNDLE, 1)   # 494: geworfen

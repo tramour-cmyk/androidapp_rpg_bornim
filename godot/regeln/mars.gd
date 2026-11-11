@@ -872,9 +872,23 @@ func drinkable() -> Array:
 	return potions.keys().filter(func(k): return potions[k] > 0 and String(items.get(k, {}).get("kind", "POTION")) == "POTION")
 
 
-## 532: die Tasche im Kampf, alles, was sich jetzt benutzen lässt (Wurfmittel kommen mit 935 dazu)
+## 532, 935: die Tasche im Kampf, alles, was sich jetzt benutzen lässt (trinken, werfen)
 func bag() -> Array:
-	return drinkable()
+	return drinkable() + throwable()
+
+
+## 935 (alt Battle.useItem BOMB): Wurfmittel (tabellen.json „kind“ BOMB), die jetzt ein Ziel haben
+func throwable() -> Array:
+	return potions.keys().filter(func(k): return potions[k] > 0 and String(items.get(k, {}).get("kind", "")) == "BOMB" \
+			and not throw_targets(k).is_empty())
+
+
+## 935: wen ein Wurf erreicht: jeden stehenden Gegner, Weihwasser nur Untote (alt Battle.blockedItem NOT_UNDEAD; werte.json
+## „kampftraenke“ „nur_untote“)
+func throw_targets(item: String) -> Array:
+	var d: Dictionary = BrsKampf.w().get("kampftraenke", {}).get(String(items.get(item, {}).get("brs", "")), {})
+	return all.filter(func(x): return x.side != "PARTY" and x.standing() and x.monster != null \
+			and (not bool(d.get("nur_untote", false)) or bool(x.monster.get("undead", false))))
 
 
 ## 532 (alt Battle.blockedItem ALREADY_FULL): ob [item] [t] etwas bringt: Leben fehlt, oder der Kräutertrank hat Zustände zu
@@ -1245,6 +1259,8 @@ func _perform(f: Fighter, o: Array) -> void:
 			_use_skill(f, o[1], t)
 		"drink":
 			_drink(f, o[1], by_id(o[2]))
+		"throw":
+			_throw(f, o[1], by_id(o[2]))
 		"flee":
 			_flee(f)
 
@@ -1434,6 +1450,32 @@ func _drink(f: Fighter, item: String, t: Fighter) -> void:
 		_say(fmt(X.MSG72_GIVES, lang, [f.name(lang), t.name(lang), nm, n]), f.id, t.id, 0, null, false, false, "DRINK")
 	if heilt:
 		_say(fmt(MSG532_CURED, lang, [t.name(lang)]), f.id, t.id, 0, null, false, false, "STATUS")
+
+
+## 935 (alt Battle.useItem BOMB; gegenstaende.json: „ein Wurfgeschoss, das immer trifft“): der Wurf trifft immer; Schaden nach dem
+## BRS aus werte.json „kampftraenke“ (Grundschaden × Wirkung nach Kräuterkunde des Werfers, Schwäche nach der Schadensart, Rüstung
+## ab), Gegenwirkung wie bei Zaubern (Wölfe fliehen vor Feuer, 915); Alchemistenfeuer setzt zwei Züge in Brand. Fliegt sichtbar wie
+## Funkenpfeil bzw. Gleißstrahl (vorhandene Effekte, LISTE-EFFEKTE.md)
+func _throw(f: Fighter, item: String, t: Fighter) -> void:
+	assert(potions.get(item, 0) > 0 and t in throw_targets(item))
+	potions[item] -= 1
+	var def: Dictionary = items[item]
+	_say(fmt(THROWS, lang, [f.name(lang), [def.de, def.en][lang]]), f.id, t.id, 0, null, false, false, "THROW")
+	var kt: Dictionary = BrsKampf.w().get("kampftraenke", {})
+	var d: Dictionary = kt.get(String(def.get("brs", "")), {})
+	var kk := float(f.b.get("fert", {}).get("Kräuterkunde", 0)) if f.b is Dictionary else 0.0
+	var wirkung := clampf(float(kt.get("wirkung_grund", 1.0)) + float(kt.get("wirkung_je_kraeuterkunde", 0.0)) * kk, 0.0, float(kt.get("wirkung_max", 2.0)))
+	var info := ["BRS", 0, 0, 100.0, true, 0, false, false]
+	var typ = d.get("typ")
+	var schw := _schwaeche(f, t, typ, info)
+	var n := maxi(0, roundi(float(d.get("schaden", 0)) * wirkung * schw) - int(roundf(float(t.b.get("ruestung", 0)))))
+	casting = "SACRED_FLAME" if String(typ) == "licht" else "FIRE_BOLT"
+	_vor_treffer(t, typ)
+	_hurt(t, n, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), n]), info)
+	casting = null
+	_gegenwirkung(f, t, typ)
+	if item == "alchemist_fire" and statuses and outcome == "ONGOING" and t.standing():
+		_inflict(t, "BURN", 2)
 
 
 ## 870.4: ein Trank heilt den Helden fest wie in der Welt (werte.json „welt“ „heilung“, Leben nach BRS), sonst wie bisher im Maß des BRS

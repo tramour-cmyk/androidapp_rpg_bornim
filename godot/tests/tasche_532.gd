@@ -2,7 +2,8 @@ extends SceneTree
 # 532 ohne Bild (Durchspielregel 488; t273.13): die ganze Tasche im MARS-Kampf wie im alten (Battle.useItem), nach dem BRS (870.4:
 # Heilung des Helden aus werte.json „welt“ „heilung“). Großer Heiltrank heilt mehr als der einfache, der Kräutertrank nimmt
 # Zustände (der Rausch bleibt), voll und ohne Zustände ist er nicht wählbar; aufruf.gd nimmt aus lage „tasche“ nur, was man im
-# Kampf trinkt (kein Ausdauertrank, kein Leuchtfunke, kein Fleisch; Wurfmittel erst mit 935). Die Liste der Tasche im Kampfort
+# Kampf trinkt oder wirft (kein Ausdauertrank, kein Leuchtfunke, kein Fleisch). 935: Alchemistenfeuer trifft immer, Schaden nach
+# dem BRS, setzt in Brand; Weihwasser nur gegen Untote. Die Liste der Tasche im Kampfort
 # (kampf_ui.gd „bag“) läuft nicht aus dem Schirm und lässt den Kasten gleich hoch.
 # Aufruf: im Ordner godot mit -s res://tests/tasche_532.gd -> „TASCHE532 ok“; BILD=<datei.png> mit Fenster: Bild der offenen Tasche
 const Mars = preload("res://regeln/mars.gd")
@@ -38,11 +39,13 @@ func _lauf() -> void:
 	a.tabellen = tab
 	var voll := {"potion": 1, "greater_potion": 1, "superior_potion": 1, "remedy": 1, "alchemist_fire": 2}
 
-	# Tasche: Tränke trinkbar, Wurfmittel noch nicht (935)
+	# Tasche: Tränke trinkbar, Feuer werfbar, Weihwasser ohne Untote nicht (935)
+	voll["holy_water"] = 1
 	var m = _kampf(tab, a, skills, monsters, 1, voll)
 	var held = m.find("hero")
 	pruefe("trinkbar", m.drinkable(), ["potion", "greater_potion", "superior_potion", "remedy"])
-	pruefe("Tasche", m.bag(), ["potion", "greater_potion", "superior_potion", "remedy"])
+	pruefe("Tasche", m.bag(), ["potion", "greater_potion", "superior_potion", "remedy", "alchemist_fire"])
+	pruefe("Weihwasser ohne Untote: kein Ziel", m.throw_targets("holy_water").size(), 0)
 	pruefe("voll: Heiltrank bringt nichts", m.drink_helps("potion", held), false)
 	pruefe("voll ohne Zustände: Kräutertrank bringt nichts", m.drink_helps("remedy", held), false)
 
@@ -56,6 +59,33 @@ func _lauf() -> void:
 		pruefe("Kräutertrank verbraucht", int(m.potions["remedy"]), 0)
 	else:
 		f += 1; print("FEHLER Held nicht am Zug (Kräutertrank)")
+
+	# 935: Alchemistenfeuer trifft immer, Schaden nach BRS (werte.json „kampftraenke“), Brand, verbraucht
+	var wuerfe := 0
+	var getroffen := 0
+	var brand := 0
+	for seed in 30:
+		var m2 = _kampf(tab, a, skills, monsters, 100 + seed, {"alchemist_fire": 1})
+		var h2 = m2.find("hero")
+		if m2.outcome != "ONGOING" or m2.current() != h2:
+			continue
+		wuerfe += 1
+		var r = m2.all.filter(func(x): return x.side == "FOES" and x.standing())[0]
+		r.max_hp = 500
+		r.hp = 500
+		var log: Array = m2.act(["throw", "alchemist_fire", r.id], func(_t, _x): return "NONE")
+		if r.hp < 500: getroffen += 1
+		if r.status.has("BURN") or log.any(func(e): return e.cue == "STATUS" and e.target == r.id): brand += 1
+		if int(m2.potions["alchemist_fire"]) != 0: f += 1; print("FEHLER Feuer nicht verbraucht")
+		if seed == 0: print("  ", log.map(func(e): return e.text).slice(0, 4))
+	print("Alchemistenfeuer: %d Würfe, %d Treffer, %d Brand" % [wuerfe, getroffen, brand])
+	pruefe("Feuer trifft immer", wuerfe > 0 and getroffen == wuerfe, true)
+	pruefe("Feuer setzt in Brand", brand == wuerfe, true)
+	var m4 = _kampf(tab, a, skills, monsters, 7, {"holy_water": 1})
+	var r4 = m4.all.filter(func(x): return x.side == "FOES")[0]
+	r4.monster = (r4.monster as Dictionary).duplicate()
+	r4.monster["undead"] = true
+	pruefe("Weihwasser gegen Untote werfbar", m4.throwable(), ["holy_water"])
 
 	# Großer Heiltrank heilt mehr als der einfache, der überragende mehr als der große
 	var heil := {"potion": 0, "greater_potion": 0, "superior_potion": 0}
@@ -79,7 +109,7 @@ func _lauf() -> void:
 			{"tasche": {"potion": 2, "remedy": 1, "stamina_potion": 1, "spark_potion": 1, "alchemist_fire": 1, "raw_meat": 3}})
 	pruefe("Kampf beginnt", ok, true)
 	if ok:
-		pruefe("Tasche im Kampf", a.kampf.mars.potions, {"potion": 2, "remedy": 1})
+		pruefe("Tasche im Kampf", a.kampf.mars.potions, {"potion": 2, "remedy": 1, "alchemist_fire": 1})
 		# die Liste der Tasche: zehn Dinge, der Kasten bleibt gleich hoch, keine Zeile ragt aus dem Schirm
 		var k = a.kampf
 		for i in 1800:     # bis der Held wählt (Blende und Eröffnung laufen)
@@ -90,7 +120,7 @@ func _lauf() -> void:
 		if ui == null:
 			f += 1; print("FEHLER kein Kampf-UI")
 		else:
-			for id in ["potion", "greater_potion", "superior_potion", "remedy"]:
+			for id in ["potion", "greater_potion", "superior_potion", "remedy", "alchemist_fire"]:
 				k.mars.potions[id] = 10
 			ui.pick = "main"
 			ui._build_orders()
@@ -113,7 +143,7 @@ func _lauf() -> void:
 				for i in 10:
 					await process_frame
 				root.get_texture().get_image().save_png(OS.get_environment("BILD"))
-			pruefe("Knöpfe der Tasche (4 Dinge, Zurück)", knoepfe, 5)
+			pruefe("Knöpfe der Tasche (5 Dinge, Zurück)", knoepfe, 6)
 			pruefe("keine Zeile aus dem Schirm", raus, 0)
 			pruefe("Kasten gleich hoch (%.0f gegen %.0f px)" % [ui.panel.size.y, h0], absf(ui.panel.size.y - h0) <= 2.0, true)
 			ui._set_pick("main")
