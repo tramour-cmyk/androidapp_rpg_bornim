@@ -4,8 +4,8 @@ extends Control
 # Ueberblendungen, je ein Satz im Kasten darunter, das letzte Bild schwarz; ein Tippen fragt nur, ob uebersprungen wird (104),
 # die Szene laeuft derweil weiter. Ueber Bild 3 der Fackelzug (IntroLife.kt, IntroScreen.kt squareLife), darunter Wind, Fluss,
 # Grillen, unter dem schwarzen Bild Glocke und Rufe (IntroSoundUi.kt, IntroSound.kt); die Titelmusik leise, mit dem schwarzen
-# Bild voll (Music.kt INTRO_LEVEL). Zeiten, Saetze und der Zug aus core: daten/intro.json (IntroExport.kt), die Bilder aus
-# app/src/main/assets/intro als .bild (godot.yml). Die Tempelszene (68) laeuft spaeter ueber dieselbe Uhr („tempel“).
+# Bild voll (Music.kt INTRO_LEVEL). Zeiten, Saetze und der Zug: daten/intro.json (einst IntroExport.kt), die Bilder als
+# .bild in daten/intro (870.9 eingecheckt). Die Tempelszene (68) laeuft spaeter ueber dieselbe Uhr („tempel“).
 
 signal fertig
 

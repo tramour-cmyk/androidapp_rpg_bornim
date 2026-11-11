@@ -1,0 +1,284 @@
+{
+  "kachel": 8,
+  "rand": 10,
+  "karten": {
+    "village": {
+      "name": {"de":"Bornim","en":"Bornim"},
+      "art": "TOWN",
+      "breite": 36,
+      "hoehe": 32,
+      "bild_breite": 924,
+      "bild_hoehe": 828,
+      "oben": ""
+    },
+    "inn": {
+      "name": {"de":"Zum Schlafenden Greif","en":"The Sleeping Griffin"},
+      "art": "INTERIOR",
+      "breite": 10,
+      "hoehe": 8,
+      "bild_breite": 300,
+      "bild_hoehe": 252,
+      "oben": "village"
+    },
+    "shop": {
+      "name": {"de":"Thessas Kramladen","en":"Thessa's General Store"},
+      "art": "INTERIOR",
+      "breite": 9,
+      "hoehe": 7,
+      "bild_breite": 276,
+      "bild_hoehe": 228,
+      "oben": "village"
+    },
+    "elder": {
+      "name": {"de":"Haus des Ältesten","en":"Elder's House"},
+      "art": "INTERIOR",
+      "breite": 9,
+      "hoehe": 6,
+      "bild_breite": 276,
+      "bild_hoehe": 204,
+      "oben": "village"
+    },
+    "temple": {
+      "name": {"de":"Tempel des Morgenlichts","en":"Temple of the Dawnlight"},
+      "art": "INTERIOR",
+      "breite": 9,
+      "hoehe": 7,
+      "bild_breite": 276,
+      "bild_hoehe": 228,
+      "oben": "village"
+    }
+  },
+  "land": {
+    "breite": 200,
+    "hoehe": 300,
+    "fein": 3,
+    "wild": ["forest","deep_forest"],
+    "orte": [
+      {
+        "karte": "village",
+        "x": 100,
+        "y": 226,
+        "r": 26,
+        "schrift_x": 60,
+        "schrift_y": 214,
+        "name": {"de":"Bornim","en":"Bornim"}
+      },
+      {
+        "karte": "forest",
+        "x": 92,
+        "y": 140,
+        "r": 40,
+        "schrift_x": 54,
+        "schrift_y": 174,
+        "name": {"de":"Flüsterwald","en":"Whisperwood"}
+      },
+      {
+        "karte": "deep_forest",
+        "x": 166,
+        "y": 112,
+        "r": 28,
+        "schrift_x": 166,
+        "schrift_y": 133,
+        "name": {"de":"Tiefer Flüsterwald","en":"Deep Whisperwood"}
+      }
+    ]
+  },
+  "haeuser": [
+    {
+      "karte": "village",
+      "x": 6,
+      "y": 5,
+      "name": {"de":"Schänke","en":"Inn"},
+      "innen": "inn",
+      "bewohner": ["rowena","borin"]
+    },
+    {
+      "karte": "village",
+      "x": 28,
+      "y": 5,
+      "name": {"de":"Kramladen","en":"Store"},
+      "innen": "shop",
+      "bewohner": ["thessa"]
+    },
+    {
+      "karte": "village",
+      "x": 5,
+      "y": 20,
+      "name": {"de":"Ältester","en":"Elder"},
+      "innen": "elder",
+      "bewohner": ["aldric"]
+    },
+    {
+      "karte": "village",
+      "x": 28,
+      "y": 20,
+      "name": {"de":"Tempel","en":"Temple"},
+      "innen": "temple",
+      "bewohner": ["osric","lyra_temple"]
+    },
+    {"karte":"village","x":12,"y":5,"name":{"de":"Bäcker","en":"Baker"},"innen":"","bewohner":[]},
+    {"karte":"village","x":23,"y":5,"name":{"de":"Kael","en":"Kael"},"innen":"","bewohner":[]},
+    {"karte":"village","x":5,"y":14,"name":{"de":"Gwenna","en":"Gwenna"},"innen":"","bewohner":[]},
+    {"karte":"village","x":30,"y":13,"name":{"de":"Schmied","en":"Smith"},"innen":"","bewohner":[]},
+    {"karte":"village","x":13,"y":22,"name":{"de":"Pim","en":"Pim"},"innen":"","bewohner":[]}
+  ],
+  "leute": [
+    {
+      "id": "aldric",
+      "name": {"de":"Ältester Aldric","en":"Elder Aldric"},
+      "was": {"de":"Haus des Ältesten","en":"the Elder's house"},
+      "karte": "village",
+      "x": 5,
+      "y": 20,
+      "innen": "elder",
+      "innen_x": 7,
+      "innen_y": 3
+    },
+    {
+      "id": "rowena",
+      "name": {"de":"Rowena","en":"Rowena"},
+      "was": {"de":"Wirtin im Schlafenden Greif","en":"innkeeper at the Sleeping Griffin"},
+      "karte": "village",
+      "x": 6,
+      "y": 5,
+      "innen": "inn",
+      "innen_x": 1,
+      "innen_y": 2
+    },
+    {
+      "id": "borin",
+      "name": {"de":"Borin","en":"Borin"},
+      "was": {"de":"sitzt meist in der Schänke","en":"mostly sits in the inn"},
+      "karte": "village",
+      "x": 6,
+      "y": 5,
+      "innen": "inn",
+      "innen_x": 8,
+      "innen_y": 4
+    },
+    {
+      "id": "thessa",
+      "name": {"de":"Thessa","en":"Thessa"},
+      "was": {"de":"Kramladen","en":"the general store"},
+      "karte": "village",
+      "x": 28,
+      "y": 5,
+      "innen": "shop",
+      "innen_x": 4,
+      "innen_y": 2
+    },
+    {
+      "id": "osric",
+      "name": {"de":"Bruder Osric","en":"Brother Osric"},
+      "was": {"de":"Tempel","en":"the temple"},
+      "karte": "village",
+      "x": 28,
+      "y": 20,
+      "innen": "temple",
+      "innen_x": 4,
+      "innen_y": 2
+    },
+    {
+      "id": "lyra_temple",
+      "name": {"de":"Schwester Lyra","en":"Sister Lyra"},
+      "was": {"de":"Tempel","en":"the temple"},
+      "karte": "village",
+      "x": 28,
+      "y": 20,
+      "innen": "temple",
+      "innen_x": 6,
+      "innen_y": 2
+    },
+    {
+      "id": "jorin",
+      "name": {"de":"Wache Jorin","en":"Guard Jorin"},
+      "was": {"de":"Wache am Schlagbaum","en":"guards the barrier"},
+      "karte": "village",
+      "x": 15,
+      "y": 3
+    },
+    {
+      "id": "bram",
+      "name": {"de":"Bauer Bram","en":"Farmer Bram"},
+      "was": {"de":"Feld im Süden","en":"the field in the south"},
+      "karte": "village",
+      "x": 20,
+      "y": 29
+    },
+    {
+      "id": "gwenna",
+      "name": {"de":"Gwenna","en":"Gwenna"},
+      "was": {"de":"wohnt hier mit ihrer Familie","en":"lives here with her family"},
+      "karte": "village",
+      "x": 5,
+      "y": 14
+    },
+    {
+      "id": "pim",
+      "name": {"de":"Pim","en":"Pim"},
+      "was": {"de":"wohnt hier mit seinen Eltern","en":"lives here with his parents"},
+      "karte": "village",
+      "x": 13,
+      "y": 22
+    },
+    {
+      "id": "liska",
+      "name": {"de":"Liska","en":"Liska"},
+      "was": {"de":"Magd im Schlafenden Greif","en":"maid at the Sleeping Griffin"},
+      "karte": "village",
+      "x": 8,
+      "y": 7
+    },
+    {
+      "id": "garrick",
+      "name": {"de":"Jäger Garrick","en":"Hunter Garrick"},
+      "was": {"de":"Lager im Flüsterwald","en":"camp in the Whisperwood"},
+      "karte": "forest",
+      "x": 10,
+      "y": 9
+    },
+    {
+      "id": "morwen",
+      "name": {"de":"Kräuterfrau Morwen","en":"Morwen the Herbalist"},
+      "was": {"de":"Hütte im Tiefen Wald","en":"hut in the Deep Whisperwood"},
+      "karte": "deep_forest",
+      "x": 25,
+      "y": 30
+    }
+  ],
+  "dienste": [
+    {
+      "karte": "village",
+      "x": 6,
+      "y": 5,
+      "art": "INN",
+      "name": {"de":"Zum Schlafenden Greif","en":"The Sleeping Griffin"}
+    },
+    {
+      "karte": "village",
+      "x": 28,
+      "y": 5,
+      "art": "SHOP",
+      "name": {"de":"Thessas Kramladen","en":"Thessa's General Store"}
+    },
+    {
+      "karte": "village",
+      "x": 28,
+      "y": 20,
+      "art": "TEMPLE",
+      "name": {"de":"Tempel des Morgenlichts","en":"Temple of the Dawnlight"}
+    }
+  ],
+  "aeltester": [{"karte":"elder","x":7,"y":3},{"karte":"village","x":5,"y":20}],
+  "worte": {
+    "aeltester": {"de":"Ältester Aldric","en":"Elder Aldric"},
+    "landkarte": {"de":"Landkarte","en":"Map of the land"},
+    "gebietskarte_hoch": {"de":"↑ Gebietskarte","en":"↑ Area map"},
+    "landkarte_hoch": {"de":"↑ Landkarte","en":"↑ Land map"},
+    "auftraege": {"de":"Aufträge","en":"Quests"},
+    "leute": {"de":"Leute","en":"People"},
+    "dienste": {"de":"Dienste","en":"Services"},
+    "chronik": {"de":"In der Chronik","en":"In the chronicle"},
+    "sueden": {"de":"nach Süden","en":"to the south"}
+  }
+}

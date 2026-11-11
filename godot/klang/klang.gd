@@ -1,11 +1,11 @@
 extends Node
 # 399.3 (Chef 28.10., 16:42: Klang in die Spielfassung; 398, Chef 11:38: „dass wir den Ton NICHT neu erfinden … sondern
 # wiederverwenden“): Musik und Klang wie im alten Spiel, Zahlen aus Music.kt (MusicDirector), MusicPlayer.kt, SfxPlayer.kt,
-# Footsteps.kt, Mix (SoundSettings.kt). Die Aufnahmen kopiert godot.yml aus app/src/main/assets nach daten/klang, dazu
-# liste.json (Dateinamen ohne Endung je Ordner). Fehlen sie (Tests am Rechner), bleibt alles still.
-# Kampfklang nach MarsSound.kt; was das alte Spiel synthetisiert, rendert KlangExport.kt im Bau als .wav (nicht neu gebaut).
+# Footsteps.kt, Mix (SoundSettings.kt). Die Aufnahmen liegen in daten/klang (870.9 eingecheckt, einst aus app/src/main/assets),
+# liste.json (Dateinamen ohne Endung je Ordner) schreibt godot.yml. Fehlen sie (Tests am Rechner), bleibt alles still.
+# Kampfklang nach MarsSound.kt; was das alte Spiel synthetisiert, liegt als .wav aus KlangExport.kt in daten/klang (870.9).
 # Ortsklang wie PlaceSound.kt, Ambience.kt, RiverSound.kt (WorldScreen.kt: Wind, Halle, Feuer, Fluss, Tropfen, Knarren, Husten);
-# Raumklang wie Room.kt: die Fassungen aus app/src/main/assets/raum (Vorschau RAUMKLANG=spiel), die synthetischen aus KlangExport.kt.
+# Raumklang wie Room.kt: die Fassungen in daten/klang/raum (einst app/src/main/assets/raum, Vorschau RAUMKLANG=spiel), samt der synthetischen.
 # Kleines Leben und ferne Laute wie WildSound.kt (517): Vögel am Tag, Grillen und Eule nachts, im Tiefen Wald fernes Wolfsheulen,
 # in der Höhle Grollen im Berg.
 # Noch nicht hier (Folgeschritte 399.3): Leute (Tassen, Stühle, D1.10), Teich, Hühner, pickende Vögel, Regen (gibt es in Godot noch nicht),
