@@ -27,7 +27,7 @@ Was der Chef zu Waffe, Schild und Kampf im Bild entschieden hat, steht nur hier 
 |---|---|---|---|
 | F1 | Schild hebt sich vor dem Biss, nicht danach | 454 (13:1x) | ja |
 | F2 | Biss und Hieb treffen das Ziel | 454, 348.12 (28.10.) | ja |
-| F3 | Reihenfolge Angriff, Treffer, Tod, Neuformation | 439 (31.10.) | ja |
+| F3 | Reihenfolge Angriff, Treffer, Tod; die Übrigen bleiben stehen: eine Figur bewegt sich nur aus Angriff, Platztausch oder Flucht im eigenen Zug, Ausweichen vor einem Angriff (F5) oder Weichen beim Platztausch (F9) | 439 (31.10.), 930a A (11.11., 16:09) | ja |
 | F4 | Tod sichtbar als Zusammenbruch, für alle (Helden, Gegner, Tiere): zusammenbrechen, kurz liegen, dann ausblenden, nicht zu schnell weg | 440 (31.10.), 348.12 (28.10.), 461c (01.11., 22:35) | ja |
 | F5 | Ausweichen mit Ortswechsel: rasch zur Seite oder zurück, nur auf einen Angriff hin; danach bleibt er dort stehen und rückt erst mit dem eigenen Zug zurecht | 348.12f (27.10.), 348.12 (01.11., 22:45), 703 A (08.11., 21:36) | ja |
 | F6 | Zauber: der Kegel kommt nicht aus dem Körper des Helden (Seitenschritt; ebenso Schüsse aus der zweiten Reihe); Arkanpfeil (früher „Magisches Geschoss“, BRS 12) ohne Schritt, durch den Helden abgenommen | 348.7b (27.10., 19:49; 28.10., 10:43, 15:28) | ja |
