@@ -299,3 +299,67 @@ Ob der Kampf abwechslungsreich, zu schwer oder langweilig ist, zeigt erst das Sp
 
 **Gesamtempfehlung:** 1 und 2 zusammen in die Probe, 3 an Grak testen, 4 und 5 später. Keine dieser Optionen ersetzt den Test am Gerät.
 
+## Entwurf zur Entscheidung: Handgemenge und Abstand (930)
+
+Regelseite Sokrates, 11.11. Sie gilt erst, wenn der Chef entschieden hat. Der Weg dahin: gegenlesen, dann Rechnung und Film von Jerry, dann die Datei in `entscheiden/`. Quellen sind die Wortlaute des Chefs vom 11.11. (12:17–12:56) und Homers Ideen 930.1 (beide in `LISTE-IDEEN.md` unter „Handgemenge“) sowie der Code auf `claude/tom-870-4-held` (`9a34fec2a`).
+
+**Heute:** Die Regeln kennen keinen Abstand. Es gibt nur zwei Reihen je Seite (72.11). Nahkampf trifft die vordere Reihe, solange dort jemand steht; Fernkampf trifft jeden (`mars.gd` 939–945). Dass die Figuren vorlaufen und wieder zurückgehen, passiert nur im Bild (F7, `figur.gd` 1963–1998). „Auf Abstand“ ist nur eine Haltung mit Gegenstoß, Tempo je Gegner gibt es nicht, und die Simulation 444 rechnet ohne Reihen und ohne Abstand. Das Hin und Her kostet heute die meiste Zeit einer Runde (F9: Held 2,4 s, Wolf 3,4 s), ohne dass dabei etwas entschieden wird.
+
+**Ziel (Chef):** Wer die Gegner nicht auf Distanz hält, hat sie am Leib und nimmt leichter Schaden. Wer zurückweicht, darf trotzdem handeln; es gibt keine Wand, an der das Zurückweichen endet. Zurückstoßen geht mit Schild, mit einem harten Treffer oder mit Feuer. Der Fernkämpfer gewinnt durch Abstand Zeit, langsame Gegner spielen sich anders als schnelle, und eine falsche Entscheidung darf schiefgehen.
+
+### Regeln für Kapitel 1 (Vorschlag)
+
+1. **Abstand.** Jeder Gegner steht zum Helden **nah** (im Handgemenge) oder **fern**. Die Reihen bleiben, wie sie sind: Sie sagen, wie eine Seite aufgestellt ist. Der Abstand gilt zusätzlich, zwischen den Seiten. Wer hinten steht, ist für Nahkämpfer der anderen Seite immer fern. Sichtbar wird der Abstand im Bild: Ein naher Gegner steht am Helden und läuft nicht mehr nach jedem Schlag zurück.
+2. **Zug = Schritt + Handlung.** In seinem Zug darf jeder einen Schritt machen, **vor** (an einen Gegner heran, dann ist er nah) oder **zurück** (aus dem Handgemenge, dann sind alle nah stehenden Gegner fern), und danach eine Handlung. Der Schritt kostet keine Handlung; das ist die Antwort auf den Einwand des Chefs von 12:28. Wer vortritt und dann schlägt, rennt im Bild hin und bleibt danach stehen; das Zurückgehen ohne Grund entfällt (F7 und F9 werden angepasst). Der Platztausch (`mars.gd` 1200–1212) bleibt daneben bestehen.
+3. **Tempo je Gegner** (neu im Bestiarium; die Zahlen rechnet Jerry mit 444): Steht ein Nahkämpfer fern, sagt er „rückt heran“ an.
+   - **langsam** (etwa Wiedergänger, 506): braucht seinen ganzen Zug für den Weg;
+   - **normal** (etwa Goblin, Grak): rückt heran und schlägt mit Ungunst;
+   - **schnell** (etwa Wolf, Grimmzahn, Wildschwein): rückt heran und schlägt voll. Beim Wolf ist das sein Anspringen; beim Wildschwein der Ansturm aus der Ferne (doppelter Schaden, verfehlt er, steht es offen; Homer 15).
+4. **Rückzug.** Der Schritt zurück ist frei, mit zwei Folgen:
+   - **Nachsetzen:** Schnelle Gegner, die nah stehen, setzen sofort nach. Das ist ein angesagter Schlag mit Ring (R1). Bei perfekt greift der Gegner ins Leere und bleibt fern, bei gut bekommt der Held halben Schaden. Normale und langsame Gegner setzen nicht nach.
+   - **Außer Atem:** Wer zweimal hintereinander zurückweicht, ist außer Atem (wie heute beim Ankommen nach einem Lauf, `mars.gd` 561–566, `[86.9.atem]`). Dann gilt Ungunst, bis er einen Zug lang stehen bleibt. So endet das ewige Weglaufen von selbst, ohne Wand (Homer 1).
+5. **Zurückdrängen** (Kampfhandlungen nach 870a 3, mit Ring R2: bei perfekt wirkt die Handlung stärker, bei gut wie im Tipp):
+   - **Schildstoß** statt Schildwall (Homer 5): ein naher Gegner taumelt auf fern, ohne Schaden; bei perfekt verliert er sein nächstes Heranrücken. Schildwall wirkt in Kapitel 1 nie, denn der Held kämpft dort allein (168 D). Er kommt mit Garrick in Kapitel 2.
+   - **Wuchtschlag** (Zweihänder): trifft er, taumelt der Gegner auf fern (Homer 6). Der Unterschied zum Schild: Der Wuchtschlag macht Schaden, kann aber verfehlen.
+   - **Auf Abstand** (Stangenwaffen) wird echt: Wer heranrückt, läuft in die Spitze. Den Gegenstoß gibt es schon (`mars.gd` 1700–1702).
+   - **Feuer:** Flammenfächer lässt nahe Gegner weichen; Tiere weichen eher (Gegenwirkung 915). Das kommt statt eines neuen Zaubers „Glutring“ (Homer 9) und spart ein neues Bild.
+6. **Fernkampf und Magie:** Von fern schießt und zaubert man ohne Nachsetzen und ohne Ungunst; aus dem Handgemenge geht es auch, ohne Strafe in Kapitel 1 (Homer 11 verworfen, denn er träfe das Jägerkind allein zu hart). Der Vorteil auf Abstand ist die gewonnene Zeit, bis der Gegner heran ist.
+7. **Eröffnung:**
+   - Ein Kampf beginnt fern.
+   - Beim Überfall der Gegner (AMBUSHED, `herde.gd`) beginnt er nah.
+   - Gelingt dem Helden der Hinterhalt (HERO_FIRST), wählt er den Abstand: nah für Dolch und Kämpfer, fern für Schütze und Magier (Homer 12). Der Hinterhalt hat einen Ring (R3): Bei perfekt verlieren alle Gegner die erste Runde, bei daneben sind sie gewarnt.
+8. **Gefährte oder Söldner:** Die Gegner stehen am vorderen Helden; wer hinten steht, ist für sie fern, solange niemand durchbricht (Durchbruch heute, `mars.gd` 1650–1690).
+9. **Gegner mit eigener Abstandsregel** (je eine, nur Kapitel 1):
+   - Krogg schleudert den Helden mit dem Prankenhieb auf fern; diesem Schlag weicht man aus, statt ihn abzufangen (Ring in einer zweiten Farbe, R6; einmal erklärt).
+   - Die Riesenspinne zieht mit dem Netz heran.
+   - Wiedergänger lassen sich nicht zurückdrängen (Homer 19).
+10. **Ring:**
+    - Im eigenen Zug kommt der Ring nur bei Handlungen, nie beim normalen Schlag, und höchstens einer je Zug. Auto gibt immer „gut“ (Homer, Regel gegen Routine).
+    - Das **Ringtempo** hängt am Zustand: Ausdauer und Wunden machen ihn schneller, Fertigkeit und Trank langsamer, ohne Deckel (Chef 12:53, „das ist das Leben“). Statt eines springenden Rings gibt es einen zitternden, damit er lesbar bleibt.
+    - Einen Ausweg in jeder Runde gibt es nicht (Chef 12:56). Die Gefahr muss vorher lesbar sein, und die Flucht steht immer zur Wahl, gelingt aber nicht sicher. Die Flucht heute, nach Gewandtheit und nie vor einem Boss (`mars.gd` 1373–1395), bleibt.
+
+### Was dabei mitgeändert wird
+
+- `DESIGN-KAMPF.md`: F7 (Absetzen nur noch beim Weg auf fern), F9 (neue Höchstdauern für den Schlag im Handgemenge; misst `sollbild_784`), F3 (930a).
+- 72.11: Zu den Reihen kommt der Abstand dazu. Das ist eine Entscheidung des Chefs.
+- 870a 3: In Kapitel 1 tritt der Schildstoß an die Stelle des Schildwalls (Texte Homer, `STORY-BRS-KOENNEN.md`).
+- Bestiarium: Tempo je Art. Simulation 444: Abstand und Tempo kommen neu dazu (Jerry); ohne sie misst 444 diese Regeln nicht.
+
+### Fragen an den Chef (kommen mit Rechnung und Film nach `entscheiden/`)
+
+1. Zwei Stufen (nah, fern) oder drei (nah, fern, weit)? Ich empfehle zwei: Sie sind lesbar, und das Zurückweichen aus fern bringt dann keinen weiteren Abstand, die Kamera geht nur mit. Drei Stufen erst, wenn zwei tragen.
+2. Schildstoß statt Schildwall in Kapitel 1?
+3. Feuer drängt über den Flammenfächer, oder ein eigener Zauber Glutring?
+4. Beginnt ein Kampf grundsätzlich fern?
+
+### Stärkstes Gegenargument und Weg
+
+**Gegenargument:** Das ist ein neues System vor dem Ende von Kapitel 1, mit neuer Bewegung, neuer Simulation und neuen Tests. Die Oberste Direktive will wenige, gut gemachte Stücke.
+
+**Weg:**
+- Nur der Kern kommt in Kapitel 1: Regeln 1 bis 4, dazu Schildstoß, Wuchtschlag und Auf Abstand, Krogg und Wildschwein. Alles andere wartet bis nach dem Meilenstein (Pfade ab Kapitel 2, Homer).
+- Der Kern spart Bewegung, statt neue hinzuzufügen: Wer nah steht, läuft nicht mehr hin und her. Die Runde wird also kürzer, nicht länger.
+- Gebaut wird erst, wenn die Rechnung zeigt, dass kein Weg den anderen erschlägt. Das gilt vor allem für den Magier, der von fern zwei Züge gewinnt.
+
+**Aufwand:** groß, mehrere Sitzungen Jerry (Regeln, Bild, 444, Tests). Das ist meine Schätzung, Jerry rechnet nach.
+
