@@ -52,6 +52,12 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 181 · 982 Startsperre-Haken Aufwand, Nachprüfung 981 (Perikles, Doppelpack 421, `7431ee44c`; 11.11., 19:0x)
+
+- **982 greift** (`greift 982 181`): Haken im Klon mit echtem Eingabe-JSON: Tom ohne `effort` und mit „medium“ Exit 2 „Aufwand fehlt (982)“, mit „high“ weiter zur Startsperre (750 A, Exit 2 wie vorher), Helfer ohne Rolle Exit 0; `aufwand()` 14.11., 19:59 hält an, 20:00 und 15.11. frei. Stichtag liest er aus `lauf.py` (ein Ort). Alle 8 Sitzungen seit 18:18 zeigen in `get_session` `effort_level` „high“: Selbstneustart Ford 18:26 (vorher „medium“, Lauf 180), Neustarts über Ford Sokrates 18:22, Spike 18:22 und 18:48, Tuffy 18:25, Jerry 18:28, START Homer und Diogenes 19:04. Regeltexte `LISTE-BETRIEB.md` 13, 45, 61 und `LISTE-RELEASE-NEUSTART.md` 2 nennen den Aufwand.
+- **981 greift** (`greift 981 181`): Lücke D180.1 durch 982 geschlossen; START 19:04 kam mit „high“ an.
+- Nicht geprüft: START-Zeile nach 14.11., 20:00 in echt (nur im Klon); kein Notfall-Neustart seit 18:18.
+
 ## Lauf 180 · 981 Aufwand Hoch in START (Perikles, Doppelpack 421, `aff3a9af1`; 11.11., 18:1x)
 
 - **981 greift in `lauf.py`, mit Lücke außerhalb:** diese Sitzung (von Ford 18:10 gestartet) zeigt in `get_session` `effort_level` „high“. `aufwand()` im Klon: 14.11., 19:59 „ | effort high“ und Umgebung Hoch; 14.11., 20:00 leer und Umgebung Mittel. Alle vier START-Stellen und beide TAGESBERICHT-Stellen tragen das Feld; kein anderes Werkzeug zerlegt START-Zeilen nach Feldposition (`lauf.py` 683, 691, 729 suchen nur Anfang und Muster). Wortlaut 365a B (Archiv 11.11., 07:18: „starten alle Rollen mit Hoch“) und Chef 18:04 („alle auf hoch“) gedeckt.
