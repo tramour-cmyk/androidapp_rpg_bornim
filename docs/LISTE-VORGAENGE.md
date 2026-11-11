@@ -220,7 +220,7 @@
 | 956 | Von 870.6a A (Chef 11.11., 13:55): Gift, Brand, Blutung als Anteil am vollen Leben mit dem Stufenfaktor D wie beim Schaden verrechnen (DESIGN-BRS 7, Entscheidung 73); vor Kapitel 2 | Jerry | M | nach Meilenstein, vor Kapitel 2 | – | – | – | E Kampf | – |
 | Pflege | von Werkzeug (340.3, 11.11.): 15900 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 930.3 | Von Sokrates (930): Rechnung und Film zur Regelseite Handgemenge (DESIGN-KAMPF.md, Entwurf 930): Abstand nah/fern und Tempo in sim444, Siegquoten je Herkunft gegen heute; Film eine Runde Rudel gegen 784-Tabelle (F9); nach B1 | Jerry | M | startbar | 930.2 | – | – | E Kampf | – |
-| 958 | Von Tuffy (870.6): Test kampfzustand_532 rot auf main und B1: „Zustände hinein“ erwartet DRUNK draußen, MARS kennt DRUNK aber (mars.gd 106) | Jerry | M | startbar | – | – | – | E Kampf | – |
+| 958 | Von Tuffy (870.6): Test kampfzustand_532 rot auf main und B1: „Zustände hinein“ erwartet DRUNK draußen, MARS kennt DRUNK aber (mars.gd 106) | Jerry | M | gebaut, Geprüft an: 2ce39538f | – | claude/tuffy-958-leiden | – | E Kampf | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
