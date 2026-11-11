@@ -176,7 +176,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 990 | M | Von Sokrates (Chef 11.11., 20:19, Fund t277, Bild): Staubflocken in Thessas Kramladen schw | Sperre 620.1 B: 16 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 680 (schenke) |
 | 991 | M | Von Sokrates (Chef 11.11., 20:24, Test 277): Testmenü: jeder Schalter zeigt seinen Zustand | startbar |
 
-**Jerry** – offen 127, Muss 117, startbar 5
+**Jerry** – offen 128, Muss 118, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -307,6 +307,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 988 | M | Von Tom (968, Lauf 43060687068): rote Tests in Build 277: held_kampf_403 (Kleriker ohne Sc | startbar |
 | 986 | M? | Von Homer (840): Eingebungen nach BRS bauen wie den Wolfssprung, Texte und Bauhinweise in | startbar |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 16006 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 993 | M | Von Sokrates (Chef 11.11., 20:47, Test 277, Probekampf Zauberlehrling): Arkanpfeil „sieht | startbar |
 
 **Perikles** – offen 12, Muss 11, startbar 0
 
