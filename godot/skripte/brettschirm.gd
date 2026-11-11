@@ -41,9 +41,9 @@ func _ready() -> void:
 	titel.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	titel.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	spalte.add_child(titel)
-	spalte.add_child(Erschaffung.luecke(6))
+	spalte.add_child(Stil.luecke(6))
 	spalte.add_child(Spielstaende.zier())
-	spalte.add_child(Erschaffung.luecke(10))
+	spalte.add_child(Stil.luecke(10))
 	rolle = ScrollContainer.new()
 	rolle.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	rolle.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
@@ -58,7 +58,7 @@ func _ready() -> void:
 	var zk := Spielstaende.knopf("neben", "Zurück" if de else "Back", func(): wahl.emit(""), true)
 	zk.name = "Zurueck"
 	fuss.add_child(Spielstaende.knopfzeile(zk, null))
-	spalte.add_child(Erschaffung.luecke(10))
+	spalte.add_child(Stil.luecke(10))
 	spalte.add_child(fuss)
 	Spielstaende.folge_inhalt(spalte, rolle, liste)
 	baue()
@@ -86,7 +86,7 @@ func baue() -> void:
 		var v := VBoxContainer.new()
 		v.name = "Aushang_" + String(j["id"])
 		v.add_theme_constant_override("separation", int(4 * DP))
-		v.add_child(Erschaffung.luecke(6))
+		v.add_child(Stil.luecke(6))
 		v.add_child(_satz(Sprache.t(j["titel"]), 16, Stil.BRIGHT, true))   # 584: Titel des Aushangs halbfett (alt BoardScreen.kt 67 fett)
 		v.add_child(_satz(Sprache.t(j["aushang"]), 15, Stil.TEXT))
 		v.add_child(_satz(("Lohn: " if de else "Reward: ") + Sprache.t(j["lohn"]), 13.5, Spielstaende.ANGABE))

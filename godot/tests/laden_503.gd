@@ -35,7 +35,7 @@ func _lauf() -> void:
 	if Sprache.aktiv() != "de": Sprache.wechsle()
 	var z := Zustand.new()
 	z.name = "Thora"; z.gold = 100
-	var hw := Heldwerte.erschaffe("Thora", "HUMAN", "FIGHTER", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Thora", "Mensch", "Wachsoldat", z.neue_uid)
 	for i in 3: z.beutel.append(Beute.erzeuge_mit_uid(KotlinZufall.new(70 + i), z.neue_uid, 2, "COMMON", ""))
 	z.beutel.append(Beute.erzeuge_mit_uid(KotlinZufall.new(90), z.neue_uid, 2, "RARE", ""))
 	var gew := z.beutel.filter(func(g): return Laden.ausruestung_verkaeuflich(g) and String(g["rarity"]) == "COMMON").size()

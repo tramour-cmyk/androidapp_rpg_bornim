@@ -1169,9 +1169,8 @@ func _start(seed := -1) -> void:
 	fight = Kampfort.new()
 	if OS.get_environment("PLATZ") != "":     # 493: Standbild je Kampfort im Wald (PLATZ=teich …)
 		fight.platz = OS.get_environment("PLATZ")
-	# 296.2: der Held der Probe steht am Anfang seiner Stufe; ohne LP kein Kampf
-	var xp := int(tables.xpForLevel[int(hs.hero.level)])
-	if not fight.setup(party, foes, tables, {"potion": 2}, func(_outcome): visible = true, seed, {"xp": xp}):
+	# 296.2: der Held der Probe steht am Anfang seiner Stufe (870.5: lohn.gd ohne Stand); ohne LP kein Kampf
+	if not fight.setup(party, foes, tables, {"potion": 2}, func(_outcome): visible = true, seed, {}):
 		visible = true
 		fight.free()
 		fight = null

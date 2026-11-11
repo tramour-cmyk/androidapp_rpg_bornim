@@ -1071,3 +1071,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 972 | Von Sokrates (966 A neu, Chef 11.11., 15:58): Texte Kochen und Alchemie mit Ring: Rezeptnamen, verkohlt, Sud verdorben, Morwen lehrt ein Rezept; [966.1.kessel] prüfen | G Story | M | 2,04 $ | Homer | erledigt |
 | 954a.2 | Von Sokrates (954a D, Chef 11.11., 15:15): Mittelweg Fertigkeiten einplanen: Aufteilung Tom und Jerry, Reihenfolge, Bauvorgänge nach Abschluss des Umzugs (870) anlegen | B Abläufe | M | – | Perikles | erledigt |
 | 930a | Rückfrage (Chef 11.11., 13:57, zu 930): F3 ohne Neuformation – nach einem Tod bleiben die übrigen Gegner stehen, Bewegung nur mit eigenem Grund | E Kampf | M | 1,23 $ | Sokrates | erledigt |
+| 406.2 | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) · zurück t269 | E Kampf | M | 47,33 $ | Jerry | erledigt, B: Ablauf heraus (Zweig gleich main) |

@@ -16,8 +16,8 @@ func _lauf() -> void:
 	Sprache.lade()
 	if Sprache.aktiv() != "de": Sprache.wechsle()
 	var z := Zustand.new()
-	for held in [["Thora", "DWARF", "FIGHTER"], ["Mira", "ELF", "WIZARD"]]:
-		var hw := Heldwerte.erschaffe(held[0], held[1], held[2], {}, z.neue_uid)
+	for held in [["Thora", "Zwerg", "Wachsoldat"], ["Mira", "Elf", "Zauberlehrling"]]:
+		var hw := BrsHeld.fuer_spiel(held[0], held[1], held[2], z.neue_uid)
 		var m := Menue.new(hw, z)
 		root.add_child(m)
 		var lage := []

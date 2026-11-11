@@ -31,8 +31,8 @@ func _lauf() -> void:
 	root.add_child(ui)
 	var z := Zustand.new()
 	z.name = "Thora"; z.gold = 37; z.dazu("potion", 3); z.dazu("herbs", 4)
-	var hw := Heldwerte.erschaffe("Thora", "HUMAN", "FIGHTER", {}, z.neue_uid)
-	hw.ep_dazu(int(Heldwerte.regel("ep_fuer_stufe")[2]))
+	var hw := BrsHeld.fuer_spiel("Thora", "Mensch", "Wachsoldat", z.neue_uid)
+	Testmodus.stufe_setzen(hw, z, 2)
 	z.beutel.append(Beute.erzeuge_mit_uid(KotlinZufall.new(42), z.neue_uid, 3, "RARE", "FIGHTER"))
 	z.beutel.append(Beute.erzeuge_mit_uid(KotlinZufall.new(7), z.neue_uid, 2, "COMMON", "FIGHTER"))
 	z.beutel.append(Beute.erzeuge_mit_uid(KotlinZufall.new(9), z.neue_uid, 2, "COMMON", "FIGHTER"))
@@ -45,7 +45,7 @@ func _lauf() -> void:
 	await process_frame
 	menue.erschaffung()
 	await _bild("erschaffung")
-	var e: Erschaffung = menue.get_node("Erschaffung")
+	var e: ErschaffungBrs = menue.get_node("Erschaffung")
 	e.rolle.scroll_vertical = 100000
 	await _bild("erschaffung_unten")
 	e.queue_free()
@@ -58,12 +58,7 @@ func _lauf() -> void:
 	var m := Menue.new(hw, z)
 	ebene2.add_child(m)
 	await _bild("menue_held")
-	if hw.offen > 0:
-		m.geplant["STR"] = 1
-		m.frage_verteilen()
-		await _bild("rueckfrage_verteilen")
-		m.geplant.clear()
-		await _weg(m)
+	# 870.4: keine Attributspunkte mehr, also keine Rueckfrage „Punkte verteilen?“
 	m.erklaere("STR")
 	await _bild("erklaerung")
 	await _weg(m)
