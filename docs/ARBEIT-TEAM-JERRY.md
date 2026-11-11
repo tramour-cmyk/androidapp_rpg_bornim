@@ -6,7 +6,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 **Vorrang (von Sokrates, Chef 11.11., 07:16; Pause aufgehoben):** „wenn sie nichts mehr für den Umzug zu tun haben, ob sie dann Pause haben. Ja, macht ja keinen Sinn.“ und „lass das Spike und Taffy das machen. Fehler ausmerzen“. (1) Umzug 870.x und was B1 aufhält zuerst; (2) wartet der Umzug, Fehler aus den Tests des Chefs (Muss, wiederholte zuerst, z. B. 864, 863); kein Neues (Chef 10.11., 14:08: „nicht wieder irgendeinen Füllefanz neu anfangen“). Tuffy nimmt Fehler aus den Tests, solange Jerry am Umzug ist. Umzugsdateien (`LISTE-UMZUG-BRS.md` 4) ändert nur der Umzugszweig (Grundsatz 5).
 
-**Übergabe (11.11., 13:07):** 910 Logs 336/338/341/346 verglichen (Zu 910), ruht: add_repo Kaufrepo vom Wächter abgelehnt, Ford gemeldet; 784 gebaut (F9, Messschritt `fe357783d`, Tuffys SOLL), 931 und 932 angelegt; 854 Lauf 347 (1 von 2) läuft seit 12:15. Letzte Antwort: 910 ruht bis zum Kaufrepo, weiter an 784. Nachfolger: Jerry – 854: Lauf 347 auswerten
+**Übergabe (11.11., 13:07):** 910 Logs 336/338/341/346 verglichen (Zu 910). Neustart zurück: Chef 13:09 „Binde alle Repos ein, die du brauchst, insbesondere die Kaufrepo.“ (Sitzung bleibt, 818); 784 gebaut (F9, Messschritt `fe357783d`, Tuffys SOLL), 931 und 932 angelegt; 854 Lauf 347 läuft seit 12:15. Nachfolger: Jerry – 854: Lauf 347 auswerten
 
 ## Einzelheiten
 - **Zu 933.2, von Sokrates (Chef 11.11., 13:07 „A“; Archiv 933 A):** Volk senkt jetzt bis 2 (`volk_min` 2). Sim 444 gegenrechnen (Elf Zähigkeit 2, Orkblütiger Wille 2, Zwerg/Aschgeborene Gewandtheit 2, Hügelvolk Kraft 2), und Vorschlag an Tom, wie `sinne_ab` und `kraut_wahrnehmung_ab` (heute 3, `maxi(0, wert − 3)`) die 2 mitrechnen; Befund kurz an Sokrates.
