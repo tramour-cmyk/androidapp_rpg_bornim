@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [930a](entscheiden/930a-kein-nachruecken.md) | **Muss** | E Kampf | 11.11., 14:00 | Heute rücken die übrigen Wölfe nach jedem Tod auf neue Plätze. Vorschlag: Sie bleiben stehen, wo sie sind, und bewegen sich nur noch, wenn ihr eigener Zug einen Grund dafür liefert. | Sokrates |
-| [948](entscheiden/948-dolch.md) | **Muss** | E Kampf | 11.11., 13:56 | Der Dolch war da, aber 1,6 cm breit und 0,4 cm dünn, im Kampfbild nur ein Strich; zwei breitere Fassungen zur Wahl. | Jerry |
 | [954a](entscheiden/954a-wahlen-ohne-wirkung.md) | M? | E Kampf | 11.11., 14:18 | 13 der 36 frei wählbaren Fertigkeiten und ein Volksmerkmal tun in Kapitel 1 nichts; wie bei Bergbau ausblenden, statt „wirkt noch nicht“ zu sagen. | Homer |
 
 ## Zu billigen
@@ -252,7 +251,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 946 | M | Fund t276 (Chef-Bild 11.11., 13:29): Ansage „! Anspringen“ des dritten Wolfs liegt oben un | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 945 (aufruf.gd) |
 | 620.2c | M | Von Sokrates (620, Lehre aus 945): Abgleich alt Teil c: erledigte Kampf-Funde des Chefs de | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 945 |
 | 947 | M | Fund t276.12 (Chef 11.11., 13:36): MARS-Probekampf stellt dem Helden einen Söldner gleiche | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 945 (soldner) |
-| 948 | M | Fund t276.12 (Chef-Bild 11.11., 13:33): Herumtreiber soll Dolch tragen (werte.json herkuen | Chef (Datei in der Chefsache) |
+| 948 | M | Fund t276.12 (Chef-Bild 11.11., 13:33): Herumtreiber soll Dolch tragen (werte.json herkuen | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 945 (aufruf.gd) |
 | 949 | M | Fund t276.13 (Chef 11.11., 13:44): perfekter Ring gegen Grak – Kampftext „greift an, schlä | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 945 (mussen) |
 | 950 | M | Fund t276 (Chef 11.11., 13:44): MARS-Probekampf, Platztausch im Team (Held und Söldner) gl | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (gleitet) |
 | 952 | M | Von Sokrates (Chef 11.11., 13:53, Erschaffung Mensch): kritisch 7 % schon als Anfänger („k | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (sokrates) |
