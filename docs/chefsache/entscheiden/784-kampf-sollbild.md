@@ -2,7 +2,7 @@
 Tuffy · 11.11., 10:38 · E Kampf · aus 654 A (Chef 09.11., 17:46: Kampf-Sollbild zuerst, danach Oberfläche und Klang)
 Kurz: Eine Runde gegen das Rudel dauert heute etwa 30 s, der Held wartet davon 26 s; das Sollbild schafft sie in 14,6 s, ohne die Ansage zu kürzen.
 
-Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/42986312526 (Prüflauf 342; Film `784-runde.mp4` per Telegram 11.11., 10:4x; Messung `tests/sollbild_784.gd`)
+Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/42986312526 (Prüflauf 342; [Film](bilder:2026-11/11-1040-784-Tuffy.mp4), Telegram 11.11., 10:40; Messung `tests/sollbild_784.gd`)
 
 **Frage:** Soll diese Runde das Maß sein, an dem jeder Kampffund gemessen wird: im Film von dir und als Test bei jedem Lauf?
 
