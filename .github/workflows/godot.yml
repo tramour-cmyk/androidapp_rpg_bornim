@@ -531,6 +531,7 @@ jobs:
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/atemlos_592.gd 2>&1 | grep -E "^(ok|FEHLER|Atemlos 592)|SCRIPT ERROR"   # 592 atemlos kurz stehen (Tom)
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/glas_608.gd 2>&1 | grep -E "^FALSCH|GLAS608|SCRIPT ERROR"   # 608 Fenster durchsichtiger Haeuser nach der Tageszeit (Tom)
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/ruhe_test.gd 2>&1 | grep -E "RUHE|FEHLER|SCRIPT ERROR"   # 397, 592 Ruhebewegungen ohne Muede
+          set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/ruhe_kauf_595.gd 2>&1 | grep -E "^(ok|FEHLER|RUHE595)|SCRIPT ERROR"   # 595 Ruhebewegungen Egel, Schnecke
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/stufe_538.gd 2>&1 | grep -E "FEHLER|STUFE|SCRIPT ERROR"   # 538 Stufengrenze Kapitel 1, Stufe in Gespraechen
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/licht_539.gd 2>&1 | grep -E "FEHLER|LICHT|SCRIPT ERROR"   # 539 Licht folgt der Uhr
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/klopfen_611.gd 2>&1 | grep -E "^FALSCH|KLOPFEN611|SCRIPT ERROR"   # 611 Klopfen hoerbar (Tom)
