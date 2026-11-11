@@ -204,11 +204,27 @@ def srd_woerter():
     return w + SRD_DAZU
 
 
+# 978 (870.9): texte.json und held.json, bisher im Bau aus core erzeugt, einmal eingecheckt, sind Bestand, keine neuen Zeilen,
+# wenn ihre kompakte Form (tools/karten/karten.py kanon) gleich dem Export von f32a789e6 ist; spätere Änderungen prüft srd_neu
+# wie jede Zeile, --srd-bestand findet sie weiter (870.13).
+BESTAND_870_9 = {"godot/daten/texte.json": "74d37eb3fb2759194a4b18c1972a5a0dfc8305724df64bd197c1712ca7f76fd7",
+                 "godot/daten/held.json": "2e955c9b15d268abee7954ea5e9e8001fb244c055024adbb8f21e0bb0f529d2d"}
+
+
+def bestand_870_9(p):
+    """978: die neu angelegte Datei p ist der unveränderte Export aus core (Stand f32a789e6)."""
+    if p not in BESTAND_870_9: return False
+    import hashlib, json
+    try: k = json.dumps(json.loads(git("show", ":" + p)), ensure_ascii=False, separators=(",", ":"))
+    except ValueError: return False
+    return hashlib.sha256(k.encode()).hexdigest() == BESTAND_870_9[p]
+
+
 def srd_neu(dat):
     """870.11 (870, Umzug BRS Schritt 9): neue Zeilen unter godot/ (ohne tests/) mit SRD-Begriffen. Hält an, sobald 870.4 erledigt
     (nicht mehr offen in der Liste), vorher Warnung. (stop, warn)"""
     wege = [p for s, p in dat if s != "D" and p.startswith("godot/") and "/tests/" not in "/" + p
-            and p.endswith((".gd", ".tscn", ".tres", ".json", ".csv", ".txt", ".cfg"))]
+            and p.endswith((".gd", ".tscn", ".tres", ".json", ".csv", ".txt", ".cfg")) and not (s == "A" and bestand_870_9(p))]
     if not wege: return [], []
     muster = re.compile(r"(?<![\wÄÖÜäöüß])(%s)(?![\wÄÖÜäöüß])" % "|".join(map(re.escape, srd_woerter())))
     funde = {}
