@@ -44,8 +44,7 @@ func _lauf() -> void:
 	await process_frame
 	var t := texte(l.inhalt)
 	var wuerfel := RegEx.create_from_string("\\d+[Wd]\\d+")     # 944 (t276.5): nie ein Würfeltext, die Wirkung sagt die Meldung
-	pruefe(wuerfel.search(" ".join(t)) == null, "Würfeltext in der Liste: %s" % [t])
-	pruefe("heilt 14" in t, "Kurzangabe des Heiltranks fehlt: %s" % [t])     # 870.6: feste Zahl statt Würfel
+	pruefe(wuerfel.search(" ".join(t)) == null and not " ".join(t).contains("heilt"), "Würfeltext in der Liste: %s" % [t])
 	pruefe(not Sprache.t(Laden.ding("potion")["info"]) in t, "Langtext steht in der Liste")
 	var gross := label(l.inhalt, Laden.name("greater_potion"))
 	pruefe(gross != null and farbe(gross) == Color(Menue.SELTEN["UNCOMMON"]), "Großer Heiltrank nicht in der Farbe „ungewöhnlich“")
@@ -58,8 +57,7 @@ func _lauf() -> void:
 	var sel := String(Sprache.t(BrsHeld.daten()["seltenheiten"]["UNCOMMON"]["name"]))
 	var sl := label(kasten, sel)
 	pruefe(sl != null and farbe(sl) == Color(Menue.SELTEN["UNCOMMON"]), "Mengenkasten ohne Seltenheit „%s“: %s" % [sel, kt])
-	pruefe(wuerfel.search(" ".join(kt)) == null, "Würfeltext im Mengenkasten: %s" % [kt])     # 944
-	pruefe("heilt 28" in kt, "Mengenkasten ohne Wirkung: %s" % [kt])
+	pruefe(wuerfel.search(" ".join(kt)) == null and not " ".join(kt).contains("heilt"), "Würfeltext im Mengenkasten: %s" % [kt])     # 944
 	pruefe(Sprache.t(Laden.ding("greater_potion")["info"]) in kt, "Mengenkasten ohne Langtext")
 	kasten.queue_free()
 
