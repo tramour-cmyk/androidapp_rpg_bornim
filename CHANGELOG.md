@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **Build 275 auf `main`** (Tom und Jerry; t275 freigegeben, Chef 11.11., 07:08; PR #194): 470 Erschaffung nach BRS; 663 nur Touch; 475 Leute des Dorfs mit eigenen Gesichtern; 661 Blenden in einem Aufbau; 540 Südrand; 653 Halt für Waffen und Schilde; 506, 506.1 Untote ruhiger, langsame Gegner kommen nach vorn; 709 Treffen; 870.2, 870.3 Kampfwerte aus dem BRS.
+
 - **Testbuild baut von selbst** (894, Chef 10.11.): jeder Push auf `claude/build-<n>` startet die Godot-APK; der alte Kotlin-Lauf erscheint am PR nicht mehr; die Version in den Prüflisten kommt aus dem Godot-Lauf (0.348.<n>).
 
 - **Werkzeug `lauf.py`** (837, Chef 10.11.): kommt 5 Minuten nach einer Startsperre keine Sitzung der Rolle, meldet der nächste Lauf laut „Start <Rolle> nicht angekommen“; die Sperre hält die Rolle dann nicht mehr fest.
