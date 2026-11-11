@@ -166,10 +166,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 990 | M | Von Sokrates (Chef 11.11., 20:19, Fund t277, Bild): Staubflocken in Thessas Kramladen schw | Sperre 620.1 B: 16 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 680 (schenke) |
 | 991 | M | Von Sokrates (Chef 11.11., 20:24, Test 277): Testmenü: jeder Schalter zeigt seinen Zustand | startbar |
 
-**Jerry** – offen 126, Muss 116, startbar 5
+**Jerry** – offen 127, Muss 117, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 992 | M | Von Sokrates (Chef 11.11., 20:29, Test 277, wiederholt zu 709): Kampf: Bildschirm springt | startbar |
 | 945 | M | Wiederholfund t276.12 (Chef 11.11., 13:29, Bild; alt 241.2, Kotlin 20.10.): Held und Söldn | wartet auf Test (Build 277) |
 | 900 | M | Von Tom (870.4, B1; „jetzt“ 10.11., 22:24, Nachtauftrag Chef): Lauf 335 rot an wolf_mess_4 | wartet auf Test/Build (gebaut) |
 | 870.2 | M | Von Sokrates (870, Umzug BRS Schritt 2): Schnittstelle Held ↔ Kampf: BrsHeld.kampfblatt() | wartet auf Test/Build (gebaut) |
