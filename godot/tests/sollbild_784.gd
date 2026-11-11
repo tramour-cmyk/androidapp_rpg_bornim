@@ -16,7 +16,7 @@ const FPS := 30.0
 ## Sollbild (784 A, Chef 11.11., 12:15; docs/DESIGN-KAMPF.md F9, Tempo „Normal“): Höchstdauer in Sekunden
 const SOLL := {
 	"held_angriff": 2.4,      # vom Tippen bis der Held wieder an seinem Platz steht (zügig rückwärts heim, Chef 12:09)
-	"held_aufstehen": -1.0,   # 702 C: angesprungen, im eigenen Zug aufstehen und gleich angreifen; F9: Zahl nach dem ersten Film, bis dahin nur messen
+	"held_aufstehen": 3.5,    # 702 C (F9): angesprungen, im eigenen Zug aufstehen (Zeile 1,1 s) und gleich angreifen (2,4 s)
 	"soeldner": 2.0,          # Zug des Söldners: Schritt zur Seite, Zauber, Zeile beim Aufschlag, zurück
 	"wolf_zug": 3.4,          # Zug eines Wolfs, vorn wie hinten (Platztausch): Ansage bis die nächste Figur beginnt
 	"wolf_hin": 0.6,          # Wolf vom Platz bis zum Biss
