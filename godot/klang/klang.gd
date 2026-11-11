@@ -302,6 +302,10 @@ func _warte(s: float) -> void:
 
 ## Ein Klang [id] (Sound-Name klein, z. B. "click", "door", "coins") mit einer zufälligen seiner Aufnahmen
 func effekt(id: String, pegel := 0.8, tempo := 1.0, nr := -1) -> void:
+	# 994 (Chef 11.11., 20:54, t277.18: „steht ständig … hand scratch“): was zu weit weg ist, um es zu hören (Tierlaute über
+	# TIER_WEIT, Pegel 0), startet nichts und steht nicht in der Klangzeile; vorher jede Sekunde „hen_scratch 0.00 Blende“ je Huhn im Dorf
+	if pegel <= 0.0:
+		return
 	if not effekte_an:
 		_merke(id, pegel, null, "Effekte aus")
 		return
@@ -342,9 +346,22 @@ var protokoll: Array = []                        # {"was", "pegel", "p" (Spieler
 
 
 func _merke(was: String, pegel: float, p: AudioStreamPlayer, grund: String) -> void:
-	protokoll.append({"was": was, "pegel": pegel, "p": p, "grund": grund, "t": Time.get_ticks_msec(), "ende_ms": -1})
+	# 994: derselbe Klang gleich wieder (das fressende Huhn scharrt jede Sekunde) ist eine Zeile mit „×n“, damit seltene wie door_n
+	# in den letzten zehn bleiben
+	var art := _klangart(was)
+	var n := 1
+	if not protokoll.is_empty() and _klangart(String(protokoll[-1].was)) == art:
+		n = int(protokoll[-1].get("n", 1)) + 1
+		protokoll.pop_back()
+	protokoll.append({"was": was, "pegel": pegel, "p": p, "grund": grund, "t": Time.get_ticks_msec(), "ende_ms": -1, "n": n})
 	if protokoll.size() > PROTOKOLL_MAX:
 		protokoll.pop_front()
+
+
+## Name eines Klangs ohne die Nummer der Aufnahme („hen_scratch_2“ -> „hen_scratch“)
+static func _klangart(was: String) -> String:
+	var i := was.rfind("_")
+	return was.substr(0, i) if i > 0 and was.substr(i + 1).is_valid_int() else was
 
 
 ## Der Spieler [p] wird für einen neuen Klang gebraucht: spielt seiner noch, ist er abgebrochen (alle STROEME belegt)
@@ -373,7 +390,8 @@ func protokoll_zeilen() -> Array:
 				lage = "spielt %.1f s" % p.get_playback_position()
 			else:
 				lage = "verklungen"
-		r.append("%s  %.2f  %s  (vor %.1f s)" % [e.was, e.pegel, lage, (jetzt - int(e.t)) / 1000.0])
+		var mal := " ×%d" % int(e.n) if int(e.get("n", 1)) > 1 else ""
+		r.append("%s%s  %.2f  %s  (vor %.1f s)" % [e.was, mal, e.pegel, lage, (jetzt - int(e.t)) / 1000.0])
 	return r
 
 
