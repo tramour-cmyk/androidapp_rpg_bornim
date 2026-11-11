@@ -389,7 +389,7 @@ const WERT_TEXT := {
 		["Abwehr gegen Flächenwirkungen wie Feuer.", "Resisting area effects such as fire."]],
 	"zaehigkeit": [["Leben: +%d je Punkt.", "Life: +%d per point.", "leben"],
 		["Ausdauer, zusammen mit Wille.", "Stamina, together with Will."],
-		["Abwehr gegen Gift und Krankheit.", "Resisting poison and disease."]],
+		["Abwehr gegen Gift.", "Resisting poison."]],   # 963: Krankheit gibt es in Kapitel 1 nicht
 	"verstand": [],
 	"wille": [["Mana: +%d je Punkt.", "Mana: +%d per point.", "mana"],
 		["Stärke deiner Zauber.", "The strength of your spells."],
@@ -397,7 +397,7 @@ const WERT_TEXT := {
 		["Abwehr gegen Furcht und Zauber.", "Resisting fear and spells."]],
 	"wahrnehmung": [["Treffen im Fernkampf: +%d %% je Punkt.", "Ranged accuracy: +%d%% per point.", "fern"],
 		["Hinterhalte bemerken.", "Noticing ambushes."],
-		["Hilft dem Spähen, Verstecktes und Fallen zu finden, und dem Kräutersammeln.", "Helps Scouting find hidden things and traps, and helps Foraging."]],
+		["Aussicht auf ein Kraut mehr beim Sammeln.", "A chance of an extra herb when foraging."]],   # 963: nur das wirkt (Laden.kraut_chance); Spähen-Zeile erst, wenn Spähen wirkt
 }
 
 static func erklaerung(h: BrsHeld, g: String) -> Array:
@@ -773,8 +773,7 @@ static func tragen_hinweise(hw: BrsHeld, g: Dictionary) -> Array:
 	var r: Array = []
 	if BrsHeld.metall(String(g["base"])):
 		r.append(["Metall: Evokation, Illusion und Beschwörung wirken darin nicht." if de else "Metal: Evocation, Illusion and Summoning will not work in it.", false])
-	if BrsHeld.ruestung_von(String(g["base"])) == "Schwere Rüstung" and String(b["slot"]) == "CHEST":
-		r.append(["Schwere Rüstung: darin kannst du nicht schleichen." if de else "Heavy armor: you cannot sneak in it.", false])
+	# 963: [870.14.ding.klirrt] „Schwere Rüstung: darin kannst du nicht schleichen.“ ruht, bis Schleichen im Spiel wirkt (Homer 11.11.)
 	if Beute.ist_waffe(b) and bool(b.get("zweihaendig", false)):
 		r.append(["Braucht beide Hände: kein Schild dazu." if de else "Needs both hands: no shield with it.", false])
 	var f := BrsHeld.fertigkeit_von(String(g["base"]))
