@@ -87,7 +87,11 @@ static func aus_blatt(k: Dictionary) -> Dictionary:
 	return {"stufe": int(k.get("stufe", 1)), "werte": (k.get("werte", {}) as Dictionary).duplicate(), "fert": (k.get("fert", {}) as Dictionary).duplicate(),
 		"herkunft": String(k.get("herkunft", "Wanderer")), "ruestung": String(k.get("ruestung", {}).get("art", "keine")),
 		"schild": not (k.get("schild", {}) as Dictionary).is_empty(), "zauber": (k.get("faehigkeiten", []) as Array).filter(func(z): return w()["zauber"].has(z)),
-		"waffe": String(k.get("waffe", {}).get("gruppe", "")), "leben": int(k.get("leben", 0)), "volk": String(k.get("volk", ""))}
+		"waffe": String(k.get("waffe", {}).get("gruppe", "")), "leben": int(k.get("leben", 0)), "volk": String(k.get("volk", "")),
+		# 870.6: Güte der getragenen Stücke als Faktor, Zusatzeigenschaften (Schutzwert, kritisch, Zauberschaden, Abwehrprobe), Mana
+		"waffe_faktor": float(k.get("waffe", {}).get("guete_faktor", 1.0)), "ruestung_faktor": float(k.get("ruestung", {}).get("guete_faktor", 1.0)),
+		"schild_faktor": float(k.get("schild", {}).get("guete_faktor", 1.0)), "zusatz": (k.get("zusatz", {}) as Dictionary).duplicate(),
+		"mana": int(k.get("mana", 0))}
 
 
 ## 870.2: Waffengruppe, mit der der Held schlägt: die Hauptwaffe aus dem Blatt, eine gezogene Zweitwaffe ([zweite]) nach ihrer Grundform
@@ -137,16 +141,17 @@ static func held_abwehr(b: Dictionary, art: String, waffe: String, schild_in_han
 	return best
 
 
-## Abzug des Helden: Rüstung × (1 + Rüstungsfertigkeit/100), dazu der Schild × (1 + Schild/100), wenn er ihn trägt.
+## Abzug des Helden: Rüstung × Güte × (1 + Rüstungsfertigkeit/100), dazu der Schild × Güte × (1 + Schild/100), wenn er ihn trägt, und
+## der Schutzwert der Zusatzeigenschaften (870.6).
 static func held_abzug(b: Dictionary, schild_in_hand: bool) -> float:
 	var W := w()
 	var k: Dictionary = W["kampf"]
 	var r: Dictionary = W["ruestungen"].get(b.ruestung, W["ruestungen"]["keine"])
 	var je := float(k["ruestungsfertigkeit_im_abzug_je_punkt"])
-	var a := float(r["wert"]) * (1.0 + (float(b.fert.get(String(r["fertigkeit"]), 0)) if r["fertigkeit"] != null else 0.0) * je)
+	var a := float(r["wert"]) * float(b.get("ruestung_faktor", 1.0)) * (1.0 + (float(b.fert.get(String(r["fertigkeit"]), 0)) if r["fertigkeit"] != null else 0.0) * je)
 	if b.schild and schild_in_hand:
-		a += float(W["ruestungen"]["schild_wert"]) * (1.0 + float(b.fert.get("Schild", 0)) * je)
-	return a
+		a += float(W["ruestungen"]["schild_wert"]) * float(b.get("schild_faktor", 1.0)) * (1.0 + float(b.fert.get("Schild", 0)) * je)
+	return a + float(b.get("zusatz", {}).get("schutz", 0))     # 870.6: Güte, Schutzwert der Zusatzeigenschaften
 
 
 ## Ein Schlag mit den Würfeln aus [rng] in der Reihenfolge der Simulation (Treffer, Glück, kritisch, Streuung) wie Brs.schaden, mit

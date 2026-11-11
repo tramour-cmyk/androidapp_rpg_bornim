@@ -97,7 +97,7 @@ func _init() -> void:
 	# 399.1 (Homer): „Geweihtes Heiligensymbol“ wie Gear.PREFIX_FOR; Beute fuer die Klasse wie Loot.suits
 	var hs := {"base": "holy_symbol", "rarity": "RARE", "rolls": [["SPELL", 1], ["WIS", 1]], "name_seed": 1}
 	pruefe("Heiligensymbol", [Beute.name(hs, "de"), Beute.name(hs, "en")], ["Geweihtes Heiligensymbol der Eule", "Hallowed Holy Symbol of the Owl"])
-	pruefe("Fokus je Klasse", [Beute.passt("CLERIC", "holy_symbol"), Beute.passt("WIZARD", "holy_symbol"), Beute.passt("WIZARD", "orb"), Beute.passt("CLERIC", "tome")], [true, false, true, false])
+	# 870.6: kein Filter nach Klasse mehr (870a 6), die Prüfung „Fokus je Klasse“ entfällt
 	# 399.1 Bilder der Dinge (ThingArtExport): jede Grundform je Seltenheit, jeder Vorrat und das Gold
 	var fehlt := []
 	for id in BrsHeld.daten()["grundform_reihe"]:

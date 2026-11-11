@@ -988,7 +988,7 @@ func gear_gabe(was: String) -> String:
 	var hw := held_werte()
 	var w := KotlinZufall.new(randi())
 	var ilvl := maxi(int(karte.daten.get("stufe", 1)), hw.stufe)
-	var g := Beute.erzeuge(w, zustand.neue_uid(), ilvl, Beute.seltenheit_fuer(hw, w, ilvl, true, t[0]), "", t[1] if t.size() > 1 else "")   # 870.4: ohne Klasse
+	var g := Beute.erzeuge(w, zustand.neue_uid(), ilvl, Beute.seltenheit_fuer(hw, w, ilvl, true, t[0]), hw, t[1] if t.size() > 1 else "", true)   # 870.6: nach seinen Fertigkeiten, besonderer Fund
 	zustand.ausruestung_dazu(g)
 	return "%s (%s)" % [Beute.name(g), Sprache.t(BrsHeld.daten()["seltenheiten"][String(g["rarity"])]["name"])]
 

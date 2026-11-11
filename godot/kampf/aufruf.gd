@@ -175,7 +175,7 @@ static func ersatzwaffe(h):
 			continue
 		var d: Dictionary = h.grundform(id)
 		if String(d["art"]) == "WEAPON" and bool(d["fern"]) == fern:
-			return {"uid": -1 - i, "base": id, "rarity": "COMMON", "ilvl": 1, "plus": 0, "rolls": [], "unique": false}
+			return {"uid": -1 - i, "base": id, "rarity": "COMMON", "ilvl": 1, "guete": 0, "rolls": [], "unique": false}
 	return null
 
 
@@ -186,10 +186,9 @@ static func blatt(h, zweite = null) -> Dictionary:
 	return {"name": h.name, "race": HeldFigur.volk_modell(h.volk), "herkunft": h.herkunft, "level": h.stufe,
 		"sp": h.mana, "sp_max": h.max_mana(), "skills": [], "main": _waffe(h, h.waffe()), "second": _waffe(h, zweite) if zweite != null else null,
 		"off": _waffe(h, h.nebenwaffe()) if h.nebenwaffe() != null else null,
-		"tenacity": mini(h.bonus("TENACITY"), 60), "schild": String(schild["base"]) if schild != null else "",   # 406: Modell in der Hand (figur.gd)
-		"hits": {"POISON": h.bonus("POISON_HIT"), "BLEED": h.bonus("BLEED_HIT"), "STUN": h.bonus("STUN_HIT")},
-		# 534 (alt Hero.lifeSteal, damageReduction): Lebensraub, Schadensminderung der Ausrüstung für mars.gd
-		"lifesteal": mini(h.bonus("LIFESTEAL"), 30), "reduction": h.bonus("RESIST"),
+		"schild": String(schild["base"]) if schild != null else "",   # 406: Modell in der Hand (figur.gd)
+		# 870.6: Lebensraub, Schadensminderung, Standhaftigkeit, Gift-/Blutungs-/Betäubungschance der alten Ausrüstung entfallen
+		# (nicht in der Liste DESIGN-BRS.md 11); was die Ausrüstung nach BRS gibt, steht im Kampfblatt „brs“ („zusatz“)
 		"brs_ruestung": h.ruestung(), "brs": h.mein_kampfblatt()}
 
 

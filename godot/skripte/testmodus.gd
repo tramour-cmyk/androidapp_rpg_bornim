@@ -130,7 +130,7 @@ static func vorraete(hw: BrsHeld, z: Zustand, n := 10) -> void:
 	if z.anzahl(Geschichte.SMOKE_BUNDLE) == 0: z.dazu(Geschichte.SMOKE_BUNDLE, 1)
 
 static func schlicht(z: Zustand, hw: BrsHeld, base: String) -> Dictionary:   # Gear(0, base, COMMON, level)
-	return {"uid": z.neue_uid(), "base": base, "rarity": "COMMON", "ilvl": hw.stufe, "plus": 0, "rolls": [], "unique": null, "name_seed": 0}
+	return {"uid": z.neue_uid(), "base": base, "rarity": "COMMON", "ilvl": hw.stufe, "guete": 0, "rolls": [], "unique": null, "name_seed": 0}
 
 # Game.cheatWeapon / cheatOffHand: was die Hand hielt, kommt in die Tasche
 static func waffe(hw: BrsHeld, z: Zustand, base: String, neben := false) -> void:
@@ -345,7 +345,7 @@ static func reiter(m: Menue) -> void:
 		m.zeichenreihe(sel.slice(i, i + 4).map(func(r): return zk.call(gross_anfang(Sprache.t(st[r]["name"])), null,
 			t.call("Erzeugt ein Stück dieser Seltenheit auf der Stufe des Helden.", "Creates an item of this rarity at the hero's level."),
 			func():   # Game.cheatLoot
-				var g := z.ausruestung_dazu(Beute.erzeuge(KotlinZufall.new(randi()), z.neue_uid(), hw.stufe, String(r), ""))
+				var g := z.ausruestung_dazu(Beute.erzeuge(KotlinZufall.new(randi()), z.neue_uid(), hw.stufe, String(r), hw))   # 870.6: nach seinen Fertigkeiten
 				m.meldung(t.call("Erhalten: ", "Received: ") + Beute.name(g)), "GEM")))
 
 # cheatChapterEnd: ein begehbares Feld neben Aldric im Haus des Aeltesten, mit Blick zu ihm: [Kachel, Blick]; [] ohne Aldric

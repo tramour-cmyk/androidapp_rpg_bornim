@@ -79,7 +79,6 @@ const MSG535_FLUTTERS = ["{0} flattert davon – daneben!", "{0} flutters away �
 const FLUTTER := 0.2
 ## 534 (Abgleich 512, Sokrates: im alten Weltkampf Battle.kt, in MARS fehlend): Lebensraub und Schadensminderung der
 ## Ausrüstung, Unerbittlichkeit der Orkblütigen, Einschüchtern zu Kampfbeginn (Perks.cowChance); Wortlaut aus Battle.kt Msg
-const MSG534_LIFESTEAL = ["{0} saugt {1} TP ab.", "{0} drains {1} HP."]
 const MSG534_RELENTLESS = ["Letzter Atemzug: {0} bleibt stehen!", "Last Breath: {0} stays standing!"]     # [870.14.letzter.atemzug]
 const MSG534_COWED = ["{0} zögert, eingeschüchtert von {1}!", "{0} hesitates, cowed by {1}!"]
 ## 506 (alt Battle.kt Msg.fortitude, Msg.elfImmune): Untotenzähigkeit des Wiedergängers (Monsters.kt zombie UNDEAD_FORTITUDE: ein
@@ -587,7 +586,7 @@ func _brs_zauber_kennen(f: Fighter) -> void:
 		if kennt:
 			f.zauber.append(id)
 	var h: Dictionary = W["held"]
-	f.max_sp = int(h.get("mana_basis", 10)) + int(h.get("mana_je_wille", 5)) * int(f.b.werte.get("wille", 0))
+	f.max_sp = int(f.b.get("mana", 0)) if int(f.b.get("mana", 0)) > 0 else int(h.get("mana_basis", 10)) + int(h.get("mana_je_wille", 5)) * int(f.b.werte.get("wille", 0))     # 870.6: aus dem Kampfblatt (mit Mana der Ausrüstung)
 	var alt_max := int(f.hero.get("sp_max", 0))
 	f.srd_sp = f.sp if alt_max > 0 else -1
 	f.sp = clampi(roundi(float(f.max_sp) * f.sp / alt_max), 0, f.max_sp) if alt_max > 0 else f.max_sp
@@ -899,9 +898,14 @@ func _auto_order(f: Fighter) -> Array:
 func _erwartet_zauber(f: Fighter, t: Fighter, id: String) -> float:
 	var z: Dictionary = BrsKampf.w()["zauber"][ZAUBER[id]]
 	var fert := float(f.b.fert.get(String(z["schule"]), 0))
-	var grund := (float(z["schaden"]) + float(f.b.werte.get("wille", 0))) * (1.0 + fert / 100.0)
+	var grund := (float(z["schaden"]) + float(f.b.werte.get("wille", 0))) * (1.0 + fert / 100.0) * _zauber_faktor(f)
 	var schw := float(t.b.get("schwaeche", {}).get(_typ(z), 1.0))
 	return BrsKampf.Brs.trefferchance(fert, float(t.b.abwehr)) * maxf(0.0, grund * schw - float(t.b.ruestung))
+
+
+## 870.6: Zauberschaden der Zusatzeigenschaften (Prozent) als Faktor
+func _zauber_faktor(f: Fighter) -> float:
+	return 1.0 + float(f.b.get("zusatz", {}).get("zauber", 0)) / 100.0
 
 
 ## 904 (sim444_870, Zauberlehrling gegen Grak und Grimmzahn): Arkanpfeil hat in werte.json „typ“: null (ohne Schadensart);
@@ -1431,21 +1435,6 @@ func _penalty(f: Fighter) -> int:
 	return (2 if f.status.has("SLOW") else 0) + _weakness(f)
 
 
-## 534 (alt Battle.weaponAttack, Hero.lifeSteal): wer mit Lebensraub trifft, heilt sich um den Anteil des Schadens (höchstens 30 %)
-func _life_steal(f: Fighter, dealt: int) -> void:
-	var steal: int = mini(30, int(f.hero.get("lifesteal", 0))) if f.hero != null else 0
-	if steal <= 0 or dealt <= 0 or not f.standing() or f.hp >= f.max_hp:
-		return
-	var n := mini(f.max_hp - f.hp, maxi(1, dealt * steal / 100))
-	f.hp += n
-	_say(fmt(MSG534_LIFESTEAL, lang, [f.name(lang), n]), f.id, f.id, 0, null, false, false, "HEAL")
-
-
-## 534 (alt Battle.hitHero, Hero.damageReduction): Schadensminderung der Ausrüstung gegen jeden Treffer eines Gegners
-func _reduction(t: Fighter) -> int:
-	return maxi(0, int(t.hero.get("reduction", 0))) if t.hero != null else 0
-
-
 func _weakness(f: Fighter) -> int:
 	return 2 if f.status.has("WEAK") else 0
 
@@ -1465,10 +1454,10 @@ func _inflict(t: Fighter, st: String, turns: int, save = null, die = null) -> bo
 			var P := _proben()
 			var gegen = _staerkster_gegner(t)
 			var schwere := (int(save[1]) - int(P.get("abwehr_mitte", 11))) * float(P.get("je_punkt", 5))
-			if gegen != null and _probe(t, String(save[0]), gegen, "", -schwere):
+			if gegen != null and _probe(t, String(save[0]), gegen, "", -schwere + float(t.b.get("zusatz", {}).get("abwehr", 0))):     # 870.6: Abwehrprobe der Ausrüstung
 				_say(fmt(ST_SHRUGS, lang, [who]), null, t.id)
 				return false
-		var ten := int(h.get("tenacity", 0))
+		var ten := int(t.b.get("zusatz", {}).get("abwehr", 0)) if save == null else 0     # 870.6: Abwehrprobe der Ausrüstung (alt Standhaftigkeit)
 		if ten > 0 and dice.chance(ten / 100.0):
 			_say(fmt(ST_STEADFAST, lang, [who]), null, t.id)
 			return false
@@ -1733,7 +1722,7 @@ func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := 
 		_say(fmt(pick("MSG72_EVADES" if re == PERFECT else "MSG72_GOOD"), lang, [t.name(lang)]), t.id)
 	dmg = int(dmg * SHARE[re])
 	if dmg > 0:     # 478: kein Mindestschaden (Modell D: ein Kratzer kann 0 sein)
-		dmg = maxi(0, dmg - _srd(t, _weakness(foe)) - _srd(t, _reduction(t)))
+		dmg = maxi(0, dmg - _srd(t, _weakness(foe)))
 	if intent.id == "venom":
 		_say(fmt(pick("MSG130_VENOMHITS"), lang, [foe.name(lang), t.name(lang)]), foe.id, t.id, 0, null, false, false, "VENOM")
 	if dmg > 0:
@@ -2075,7 +2064,8 @@ func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapo
 	var gruppe := BrsKampf.waffe_held(f.b, wsheet, w != null and w != f.main_weapon())     # 870.2: Haupt- aus dem Kampfblatt
 	var wd: Dictionary = W["waffen"].get(gruppe, W["waffen"]["Faustkampf"])
 	var gw = wd.get("grundwert")
-	var grund := float(wd["schaden"]) + (float(f.b.werte.get(gw, 0)) if gw != null else 0.0)
+	var zweite: bool = w != null and w != f.main_weapon()
+	var grund := float(wd["schaden"]) * (1.0 if zweite else float(f.b.get("waffe_faktor", 1.0))) + (float(f.b.werte.get(gw, 0)) if gw != null else 0.0)     # 870.6: Güte
 	var bonus := _brs_bonus(mode, -_penalty(f) + _fed(f))
 	if String(wd.get("art", "nah")) == "fern":
 		bonus += float(k["fernkampf_treffer_je_wahrnehmung"]) * float(f.b.werte.get("wahrnehmung", 0))
@@ -2084,7 +2074,8 @@ func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapo
 	f.geschlagen = true
 	grund *= float(mod.get("schaden", 1.0))
 	var e := BrsKampf.schlag(dice.rng, float(f.b.fert.get(gruppe, 0)), float(t.b.abwehr), grund, float(int(f.b.stufe) - int(t.b.stufe)),
-			float(t.b.ruestung) * float(mod.get("ruestung", 1.0)), bonus, float(k["kritisch_prozent_je_gewandtheit"]) * float(f.b.werte.get("gewandtheit", 0)))
+			float(t.b.ruestung) * float(mod.get("ruestung", 1.0)), bonus, float(k["kritisch_prozent_je_gewandtheit"]) * float(f.b.werte.get("gewandtheit", 0))
+			+ float(f.b.get("zusatz", {}).get("krit", 0)))     # 870.6: kritisch der Zusatzeigenschaften
 	if held_immer_krit and f == lead() and e.treffer and not e.kritisch:     # Testmenü „Kritisch“
 		e.kritisch = true
 		e.schaden = float(BrsKampf.Brs.runde(float(e.schaden) * float(k["kritisch_faktor"])))
@@ -2105,7 +2096,6 @@ func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapo
 	_vor_treffer(t, wd.get("typ"))
 	_hurt(t, n, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), n]), info, true)
 	_gegenwirkung(f, t, wd.get("typ"))
-	_life_steal(f, n)
 	if not statuses or outcome != "ONGOING" or not t.standing():
 		return
 	var type := str(wsheet.get("type", "BLUDGEONING"))
@@ -2113,18 +2103,13 @@ func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapo
 		_inflict(t, "BLEED", 3)
 	if e.kritisch and type == "BLUDGEONING" and dice.chance(0.5):
 		_inflict(t, "STUN", 1)
-	var hits: Dictionary = f.hero.get("hits", {})
-	for st in ["POISON", "BLEED", "STUN"]:
-		var c := int(hits.get(st, 0))
-		if c > 0 and outcome == "ONGOING" and t.standing() and not t.status.has(st) and dice.chance(c / 100.0):
-			_inflict(t, st, 1 if st == "STUN" else 3)
 
 
 ## 870.5: Zauber mit Angriff nach dem BRS: Fertigkeit der Schule gegen die Abwehr des Ziels, Grundschaden des Zaubers + Wille,
 ## Schwäche nach der Schadensart (ohne Art keine), Beistand und Sättigung dazu (sim.py, handlungen.py schlag)
 func _brs_zauber(f: Fighter, t: Fighter, z: Dictionary) -> void:
 	var mode := _row_mode(f, t, false)
-	var grund := float(z["schaden"]) + float(f.b.werte.get("wille", 0))
+	var grund := (float(z["schaden"]) + float(f.b.werte.get("wille", 0))) * _zauber_faktor(f)     # 870.6: Zauberschaden der Ausrüstung
 	var e := {}
 	for i in 30:     # Testmenü „Rettung nie“: Gegner wehren keinen Zauber ab
 		e = BrsKampf.schlag(dice.rng, float(f.b.fert.get(String(z["schule"]), 0)), float(t.b.abwehr), grund,
