@@ -146,7 +146,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 933 | M | Grundwerte 933 A umsetzen (Chef 11.11., 13:07): Volk senkt bis 2, hebt bis 9 (volk_min 2, | wartet auf 933.2 (startbar) |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 15114 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 101, Muss 87, startbar 8
+**Jerry** – offen 103, Muss 89, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -251,6 +251,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 937 | M? | Von Tom (786): Ruhelaute der Monster auf der Karte wie alt: schnüffeln, grunzen, klappern, | startbar |
 | 946 | M | Fund t276 (Chef-Bild 11.11., 13:29): Ansage „! Anspringen“ des dritten Wolfs liegt oben un | Sperre 620.1 B: 15 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolfs) |
 | 620.2c | M | Von Sokrates (620, Lehre aus 945): Abgleich alt Teil c: erledigte Kampf-Funde des Chefs de | Sperre 620.1 B: 15 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (sokrates) |
+| 947 | M | Fund t276.12 (Chef 11.11., 13:36): MARS-Probekampf stellt dem Helden einen Söldner gleiche | Sperre 620.1 B: 15 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.5 (herkunft) |
+| 948 | M | Fund t276.12 (Chef-Bild 11.11., 13:33): Herumtreiber soll Dolch tragen (werte.json herkuen | startbar |
 
 **Perikles** – offen 19, Muss 12, startbar 4
 
