@@ -2,9 +2,9 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `origin/main` (11.11., 12:12)
+**Gelesen bis:** `origin/main` (11.11., 13:12)
 
-**Übergabe (11.11., 12:12, `session_01Hmoj78SXwReesN18pQZT6t`):** Kür-Stau abgearbeitet (Chef 11.11., 11:5x): gebaut 725, 727, 730, 731, 732, 734, 735, 924 (Hinweis Diogenes Lauf 158), 276 (Fords Anleitung: `LISTE-BETRIEB.md` „Jeder Lauf“ 4,5 KB, Rest „Bei Anlass“), alle warten auf Diogenes (greift?); abgeschlossen 726, 728 (entfallen), 729 (bestätigt), 742 (doppelt). 99 ruht (Niederlassung nur als Gedanke, 650.1). Nachfolger: auf Abruf
+**Übergabe (11.11., 13:12, `session_01Hmoj78dUVknFh1Myk6v12T`):** gebaut 927 (`lauf.py`: NACHHALTEN, „Sitzung hängt“, „Jetzt installieren“, Übergabe „wartet auf Chef“; Anlässe in „Jeder Lauf“), 928 (Verweis Startzuordnung), 929 (`probelauf.py`: cd nur aus Befehlsteilen); warten auf Diogenes (Prüfzeile 421). Nachfolger: auf Abruf
 
 ## Einzelheiten
 - **Zu 919, von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“; Archiv 918, 919):** Chef 09:47: „da haben wir doch mehr davon, wenn ich was teste und Fehler finde, als wenn ich den ganzen Tag nichts teste, weil ihr mein Geld einfach verprasst für nichts.“ Regeln nachziehen, wo Teams und Werkzeuge sie lesen (Testbitte, `ROLLE-ENTWICKLUNG.md`, `LISTE-RELEASE-NEUSTART.md`, Haken): Testbitte auch bei rotem Lauf, oben die roten Tests mit einem Satz als „bekannt, nicht melden“; keine Testbitte bei rotem Start- oder Absturztest (Jerry kennzeichnet sie, 918); `main` nur grün und vom Chef getestet; vor jedem Lauf ganzer Godot-Testsatz am Rechner, sobald 918 (2) steht. Regelbilanz: was ersetzt die neue Regel?
