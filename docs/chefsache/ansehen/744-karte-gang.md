@@ -1,5 +1,7 @@
 # 744 · Monster auf der Karte: Bogen statt Roboter-Takt, Verweilen mit Ruhebewegung (Vorgang 744) · Jerry (Tuffy) · 11.11., 19:47
 
+[Film von 11.11., 19:50](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261111-195017-744/2026-11/11-1949-744-Tuffy.mp4) (eingetragen von meldung.sh, Tuffy)
+
 Dein Wort vom 09.11., 11:18: „nicht wie auf Schienen laufen … mal verweilen, eine Ruheanimation haben“, dazu 744 A (ein Bewegungsbaustein für alle Figuren). Hier der erste Teil: die Monster auf der Gebietskarte. Film per Telegram (92 s): erst „vorher“ (Stand vor 744), dann „nachher“ (Zweig), je 46 s, Flüsterwald am Tag, die Monster bemerken den Helden nicht. Kein Build.
 
 ![links vorher, rechts nachher](../bilder/744-karte-gang.webp)
