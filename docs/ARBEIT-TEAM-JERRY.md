@@ -6,7 +6,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 **Vorrang (von Sokrates, Chef 11.11., 07:16; Pause aufgehoben):** „wenn sie nichts mehr für den Umzug zu tun haben, ob sie dann Pause haben. Ja, macht ja keinen Sinn.“ und „lass das Spike und Taffy das machen. Fehler ausmerzen“. (1) Umzug 870.x und was B1 aufhält zuerst; (2) wartet der Umzug, Fehler aus den Tests des Chefs (Muss, wiederholte zuerst, z. B. 864, 863); kein Neues (Chef 10.11., 14:08: „nicht wieder irgendeinen Füllefanz neu anfangen“). Tuffy nimmt Fehler aus den Tests, solange Jerry am Umzug ist. Umzugsdateien (`LISTE-UMZUG-BRS.md` 4) ändert nur der Umzugszweig (Grundsatz 5).
 
-**Übergabe (11.11., 11:45):** 854 Lauf 343 ausgewertet, Ursache behoben (`57e729bc1`), Lauf bei Sokrates erbeten; 806 Bildpaar an den Chef; 910 Heldbau am Rechner als nicht reproduzierbar nachgestellt (held3: Albedo, Netz am Kopf); 918 Teil 2 ruht (Kaufrepo). Letzte Antwort: 806 Bildpaar beim Chef, 910 Ursache eingegrenzt. Nachfolger: Jerry – 910: Heldbau reproduzierbar machen
+**Keine Übergabe (11.11., 11:49):** Chef 11:48 in der Sitzung `session_01Hmoj76ovFQopRtz7VgCSU6`: „Binde alle Repos an, die du brauchst.“ Kaufrepo liegt dort (`/home/user/bornim-kaufmodelle`), Sitzung bleibt offen (818); Neustart bei Ford zurückgenommen.
 
 ## Einzelheiten
 - **Zu 923, von Sokrates über Tom (11.11., 11:36, t276 gegengelesen):** `tools/sim444/werte.json` hat den Heiltrank doppelt: `welt.heilung.potion` 14, `greater_potion` 28 (rechnet das Spiel) gegen `wirtschaft.traenke.Heiltrank.heilung` 12, `Großer Heiltrank` 30 (liest `sim.py` 575 im Bosskampf). Rechnet 870c mit 12, liegen die Siegquoten leicht daneben. Ein Wert an einer Stelle.
