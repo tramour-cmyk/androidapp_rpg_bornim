@@ -44,14 +44,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
-**Tom** – offen 96, Muss 77, startbar 0, PAUSE bis 13.11., 20:00 Uhr, frei für 870.x, 506, 470, 888
+**Tom** – offen 96, Muss 77, startbar 1, PAUSE bis 13.11., 20:00 Uhr, frei für 870.x, 506, 470, 888
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 825 | M | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635 | wartet auf Test/Build (gebaut) |
 | 697 | M | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | wartet auf 782 (startbar) |
 | 680 | M | Absturz: Testmenü Sprung Wald → Dorf, in der Schenke schon hakelig, nach Met immer zäher, | Pause, nicht frei |
-| 870.4 | M | Von Sokrates (870, Umzug BRS Schritt 4; „jetzt“ 10.11., 22:24, Nachtauftrag Chef): Held: H | wartet auf 900 (in Arbeit) |
+| 870.4 | M | Von Sokrates (870, Umzug BRS Schritt 4; „jetzt“ 10.11., 22:24, Nachtauftrag Chef): Held: H | startbar |
 | 870.7 | M | Von Sokrates (870, Umzug BRS Schritt 6): Laden, Vergleich und Gegenstandsfenster nach BRS- | wartet auf 870.4 (in Arbeit) |
 | 870.8 | M | Von Sokrates (870, Umzug BRS Schritt 7): Spielstände Version 2 mit BRS-Held; alte laden ni | wartet auf 870.4 (in Arbeit) |
 | 870.9 | M | Von Sokrates (870, Umzug BRS Schritt 8): Godot ganz aus Kotlin (870a 7 B): zuerst festlege | wartet auf 870.4 (in Arbeit) |
@@ -145,11 +145,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 867 | M | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die | Pause, nicht frei |
 | 875 | M | Von Homer (857a A, Chef 10.11., 13:35): Fertigkeit Kräuterkunde heißt im Spiel Kräutersamm | Pause, nicht frei |
 
-**Jerry** – offen 86, Muss 72, startbar 1, PAUSE bis 13.11., 20:00 Uhr, frei für 870.x, 900, 709, 709.1, 854, 506.1, 506.2
+**Jerry** – offen 86, Muss 72, startbar 0, PAUSE bis 13.11., 20:00 Uhr, frei für 870.x, 900, 709, 709.1, 854, 506.1, 506.2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 900 | M | Von Tom (870.4, B1; „jetzt“ 10.11., 22:24, Nachtauftrag Chef): Lauf 335 rot an wolf_mess_4 | startbar |
+| 900 | M | Von Tom (870.4, B1; „jetzt“ 10.11., 22:24, Nachtauftrag Chef): Lauf 335 rot an wolf_mess_4 | wartet auf Test/Build (gebaut) |
 | 870.2 | M | Von Sokrates (870, Umzug BRS Schritt 2): Schnittstelle Held ↔ Kampf: BrsHeld.kampfblatt() | wartet auf Test/Build (gebaut) |
 | 870.3 | M | Von Sokrates (870, Umzug BRS Schritt 3): Daten: werte.json einzige Quelle (Jungwolf, Leibw | wartet auf Test/Build (gebaut) |
 | 709.1 | M | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar (aus 709 abgetrennt, Chef 10.11., | Chef (Datei in der Chefsache) |
@@ -158,16 +158,16 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | wartet auf Test (Build) |
 | 870.5 | M | Von Sokrates (870, Umzug BRS Schritt 5): Kampf nur BRS: Schalter, SRD-Zweige, W20 weg; Pro | wartet auf Test/Build (gebaut) |
 | 870.6 | M | Von Sokrates (870, Umzug BRS Schritt 6; „jetzt“ 10.11., 22:24, Nachtauftrag Chef): Gegenst | wartet auf 870.4 (in Arbeit) |
-| 751 | M | Kampf: Knopfleiste des Helden manchmal leer („…“), keine Menüfunktion, auch ohne „ganzer B | Pause, nicht frei |
-| 406.2 | M | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) | Pause, nicht frei |
+| 751 | M | Kampf: Knopfleiste des Helden manchmal leer („…“), keine Menüfunktion, auch ohne „ganzer B | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (figur.gd) |
+| 406.2 | M | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (schild) |
 | 642 | M | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 | ruht |
-| 705 | M | Zauberlehrling Stufe 1 gewinnt gegen Wolf und Rudel selten (BRS 2–30 %, Messung anspringen | Pause, nicht frei |
+| 705 | M | Zauberlehrling Stufe 1 gewinnt gegen Wolf und Rudel selten (BRS 2–30 %, Messung anspringen | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
 | 806 | M | Kampforte mit den Effektpaketen schöner: Gras und Blumen aus R9, Boden, Staub; Bilder/s ni | Pause, nicht frei |
-| 595 | M | Kampfbewegungen der Kaufgegner: Spinne mehr Angriffe, Egel und Schnecke schneller, Treffhö | Pause, nicht frei |
-| 616 | M | Kampf: Gegner weichen nach dem Angriff rückwärts zurück statt vorwärts zu laufen (Chef 07. | Pause, nicht frei |
-| 532 | M | Kampf: Held geht ohne Zauberpunkte, Verbrauchtes, Zustände, Metrausch und ohne die ganze T | Pause, nicht frei |
+| 595 | M | Kampfbewegungen der Kaufgegner: Spinne mehr Angriffe, Egel und Schnecke schneller, Treffhö | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (figur.gd) |
+| 616 | M | Kampf: Gegner weichen nach dem Angriff rückwärts zurück statt vorwärts zu laufen (Chef 07. | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (laufen) |
+| 532 | M | Kampf: Held geht ohne Zauberpunkte, Verbrauchtes, Zustände, Metrausch und ohne die ganze T | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (sokrates) |
 | 536 | M | Kampf: Erklärungen bei langem Drücken (MarsTips), Grund bei gesperrtem Zauber, „Kein Ziel | Pause, nicht frei |
-| 296.2 | M | MARS spielnötig: Beute/Erfahrung, Fliehen, Eröffnung, Zustände, eigene Ausrüstung, Schalte | Pause, nicht frei |
+| 296.2 | M | MARS spielnötig: Beute/Erfahrung, Fliehen, Eröffnung, Zustände, eigene Ausrüstung, Schalte | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.5 (erfahrung) |
 | 551 | M | MARS: Rahmen des unteren Kastens links und rechts unterbrochen (Chef 04.11., 00:21) | ruht |
 | 534 | M | Kampf: Zauber und Fähigkeiten fehlen in „Können“ (Magierrüstung, Untote vertreiben, Spirit | ruht (424: altes SRD-System) |
 | 467 | M | Ausdauer nach BRS statt SRD (ausdauer.gd: Konstitution, Stärke 13), Formel aus 427 (Chef 0 | ruht |
@@ -213,7 +213,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 644.2 | M | Gegenstandskatalog: Zahlen nach 469 in 444 (Tempo, Parieren, Durchschlag, Güte, Stufe), C1 | ruht |
 | 681 | M | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | ruht |
 | 744 | M | Karte: Streuner und Leute bewegen sich natürlich, verweilen mit Ruhebewegung statt Roboter | Pause, nicht frei |
-| 760 | M | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht | Pause, nicht frei |
+| 760 | M | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
 | 770 | M | Wochentermin 13.11.: Rollenspiegel Jerry (rollenspiegel.sh Jerry) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 | 784 | M | Kampf-Sollbild „Wolfsrudel, eine Runde“: wer geht wohin, Höchstdauer je Handlung, Ausweich | Pause, nicht frei |
 | 786 | M | Klangliste alt gegen neu: je Anlass alt, neu, fehlt (654 A, als Drittes) | wartet auf 784 (startbar) |
@@ -222,18 +222,18 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 811 | K | Von Perikles (800, 650.2 C1): Kommentar in godot/regeln/brs_kampf.gd Zeile 3 nennt DESIGN- | Pause, nicht frei |
 | 823 | K | Von Perikles (822, 745 A2): Abschnitt „## Checkliste“ in LISTE-MARS.md, je Regel zum Kampf | Pause, nicht frei |
 | 824 | M? | Kampf: Schurke ohne Schild geht beim Angriff kurz 3,4–3,8 m/s in „Gehen“ (Bewegung höchste | Pause, nicht frei |
-| 833 | M | Unterer Kampfschirm nach Signatur: kein Kasten im Kasten (Bericht, Leiste, Befehle), Knöpf | Pause, nicht frei |
+| 833 | M | Unterer Kampfschirm nach Signatur: kein Kasten im Kasten (Bericht, Leiste, Befehle), Knöpf | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 854 (bauen) |
 | 836 | M? | Von Homer (830): Hinweis „Nahkampf erreicht nur die vordere Reihe.“ steht in jedem Kampf, | Pause, nicht frei |
-| 840 | M | Von Sokrates (830 A, Chef 10.11., 11:00): Eingebung beim ersten Auftreten nach 210 B in Go | Pause, nicht frei |
-| 841 | M | Von Sokrates (807a A, Chef 10.11., 11:01): Goblin-Späher einschüchtern nach STORY-K1-FERTI | Pause, nicht frei |
+| 840 | M | Von Sokrates (830 A, Chef 10.11., 11:00): Eingebung beim ersten Auftreten nach 210 B in Go | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (sokrates) |
+| 841 | M | Von Sokrates (807a A, Chef 10.11., 11:01): Goblin-Späher einschüchtern nach STORY-K1-FERTI | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (sokrates) |
 | 844 | M? | Kampf: Goblins und Kobolde haben keine Angriffsbewegung (nur Gehen, Stehen), gleiten im St | Pause, nicht frei |
 | 845 | M? | Kampf: Krogg steht 0,65 m hinter seinem Platz, beim Planen des Helden liest seine Lage den | Pause, nicht frei |
-| 863 | M | Von Sokrates (Chef 10.11., 13:19, t274.15): Ratte aus der hinteren Reihe tapst zum Angriff | Pause, nicht frei |
-| 864 | M | Von Sokrates (Chef 10.11., 13:26, t274.16): Fledermäuse beamen nach dem Angriff auf die Au | Pause, nicht frei |
+| 863 | M | Von Sokrates (Chef 10.11., 13:19, t274.15): Ratte aus der hinteren Reihe tapst zum Angriff | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolfe) |
+| 864 | M | Von Sokrates (Chef 10.11., 13:26, t274.16): Fledermäuse beamen nach dem Angriff auf die Au | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (sokrates) |
 | 868 | M | Von Sokrates (Chef 10.11., 13:48): Kampf zeigt noch Rüstungsklasse und Würfelwerte; nur no | Pause, nicht frei |
-| 872 | M | Kampf auf Halt 653 umstellen: Waffen und Schilde der Gegner und des Helden im Kampfort mit | Pause, nicht frei |
-| 876 | M | Von Homer (857a A, Chef 10.11., 13:35): Simulation 444 Kräuterkunde → Kräutersammeln, Tran | Pause, nicht frei |
-| 854.1 | M | Von Tom (888, Lauf 42906784036): kauf_cache.py ablegen bricht ab, Zeile 21 ModuleNotFoundE | Pause, nicht frei |
+| 872 | M | Kampf auf Halt 653 umstellen: Waffen und Schilde der Gegner und des Helden im Kampfort mit | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (schilde) |
+| 876 | M | Von Homer (857a A, Chef 10.11., 13:35): Simulation 444 Kräuterkunde → Kräutersammeln, Tran | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.5 (simulation) |
+| 854.1 | M | Von Tom (888, Lauf 42906784036): kauf_cache.py ablegen bricht ab, Zeile 21 ModuleNotFoundE | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 854 (ablegen) |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 17853 Bytes (Grenze 15000), Erledigtes streichen | Pause, nicht frei |
 
 **Perikles** – offen 24, Muss 11, startbar 0
