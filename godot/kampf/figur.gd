@@ -1129,9 +1129,14 @@ func _process(_dt: float) -> void:
 ## 96 % in Hocke, dort gab es keine): wer daheim ruht, spielt alle RUHE_MS eine Ruhebewegung seiner Grundhaltung, nie zweimal
 ## dieselbe hintereinander; nach dem eigenen Angriff zuerst Hecheln. Knurren und Hecheln mit dem Ruhelaut des Wolfs (idle_wolf_2
 ## Knurren, idle_wolf_3 Schnauben; tools/klang/ruhe.py), höchstens einer zugleich im Rudel (RUHE_LAUT_ABSTAND_MS wie MonsterIdle.GAP_MS).
-const RUHE := {"Stehen": ["Lefzen", "Scharren", "Knurren"], "Hocke": ["HockeKnurren", "HockeUmsehenL", "HockeUmsehenR"]}
+## 744 A (Chef 09.11., 11:22: ein Bewegungsbaustein für alle Figuren auf Karte und Kampfort, „mal verweilen, eine Ruheanimation
+## haben“; Karte abgenommen 11.11., 20:05): nicht nur der Wolf, jede Art spielt in Ruhe, was ihr Modell hat (Bestand wie RUHE_KARTE in
+## streuner.gd: Ratte, Fledermaus, Spinne, Grabhund Lefzen; Egel, Schnecke, Grabhund Umsehen; Wiedergänger Lauern); ohne Drohen (die
+## Ansage beim Heulen) und ohne Fressen (Keiler mitten im Kampf). Wer nur eine hat, wiederholt sie (sonst nur einmal im Kampf).
+const RUHE := {"Stehen": ["Lefzen", "Scharren", "Knurren", "Umsehen", "Lauern"], "Hocke": ["HockeKnurren", "HockeUmsehenL", "HockeUmsehenR"]}
 const RUHE_HECHELN := {"Stehen": "Hecheln", "Hocke": "HockeHecheln"}
-const RUHE_GESTEN := ["Lefzen", "Scharren", "ScharrenR", "Knurren", "Hecheln", "HockeKnurren", "HockeUmsehenL", "HockeUmsehenR", "HockeHecheln"]
+const RUHE_GESTEN := ["Lefzen", "Scharren", "ScharrenR", "Knurren", "Hecheln", "HockeKnurren", "HockeUmsehenL", "HockeUmsehenR", "HockeHecheln",
+	"Umsehen", "Lauern", "Schnauben"]
 const RUHE_MS := [3000, 7000]
 const RUHE_LAUT := {"Knurren": [1, 0.4], "HockeKnurren": [1, 0.4], "Hecheln": [2, 0.3], "HockeHecheln": [2, 0.3]}
 const RUHE_LAUT_ABSTAND_MS := 1800
@@ -1194,8 +1199,15 @@ func _ruhe_uhr() -> int:
 	return int(kampfort.clock_ms) if kampfort != null and "clock_ms" in kampfort else Time.get_ticks_msec()
 
 
+## 744: hat das Modell diese Ruhebewegung (Scharren je nach Seite, Lefzen beim Keiler als Schnauben)
+func _hat_ruhe(n: String) -> bool:
+	if n == "Scharren":
+		return anim.has_animation(scharren_name())
+	return anim.has_animation(n) or anim.has_animation(String(ALIAS.get(n, n)))
+
+
 func _ruhebewegung() -> void:
-	if anim == null or down or not anim.has_animation("Lefzen") or bedroht():
+	if anim == null or down or fighter.monster == null or bedroht():
 		return
 	var grund: String = anim.current_animation
 	if not RUHE.has(grund) or grund != ("Hocke" if pouncing else "Stehen") or (tween and tween.is_running()):
@@ -1216,7 +1228,10 @@ func _ruhebewegung() -> void:
 	nach_biss = false
 	var wahl: String = RUHE_HECHELN[grund] if hecheln else ""
 	if wahl == "":
-		var liste: Array = RUHE[grund].filter(func(n): return n != ruhe_vor and anim.has_animation(n if n != "Scharren" else scharren_name()))
+		var alle: Array = RUHE[grund].filter(func(n): return _hat_ruhe(n))
+		var liste: Array = alle.filter(func(n): return n != ruhe_vor)
+		if liste.is_empty():
+			liste = alle     # 744: nur eine Ruhebewegung (Ratte, Schnecke …): dieselbe wieder
 		if liste.is_empty():
 			return
 		wahl = String(liste[randi_range(0, liste.size() - 1)])
@@ -1225,6 +1240,8 @@ func _ruhebewegung() -> void:
 		kampfort.set_meta("ruhe_beginn_ms", now)
 	if wahl == "Scharren":
 		wahl = scharren_name()
+	elif not anim.has_animation(wahl):
+		wahl = String(ALIAS.get(wahl, wahl))     # 744: der Keiler schnaubt (Lefzen)
 	_play(wahl, RUHE_BLENDE)
 	anim.set_blend_time(wahl, grund, RUHE_BLENDE)
 	anim.queue(grund)
