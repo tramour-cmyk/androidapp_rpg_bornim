@@ -9,14 +9,11 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [930a](entscheiden/930a-kein-nachruecken.md) | **Muss** | E Kampf | 11.11., 14:00 | Heute rücken die übrigen Wölfe nach jedem Tod auf neue Plätze. Vorschlag: Sie bleiben stehen, wo sie sind, und bewegen sich nur noch, wenn ihr eigener Zug einen Grund dafür liefert. | Sokrates |
+| [966](entscheiden/966-alchemie-kochen-ueben.md) | – | E Welt | 11.11., 15:46 | Üben nur mit eigener Leistung des Helden; Vorschlag Ring wie beim Schlösserknacken, unter dem Rang ohne Ring und ohne Übung. | Sokrates |
 
 ## Zu billigen
 
-Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers.
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [966](billigen/966-alchemie-kochen-ueben.md) | – | E Welt | 11.11., 15:36 | Alchemie übt bei Morwens Sud, Kochen beim Braten am Lagerfeuer; beide bleiben wählbar. | Sokrates |
+Nichts offen.
 
 ## Anzusehen
 
@@ -43,7 +40,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
-**Tom** – offen 105, Muss 85, startbar 8
+**Tom** – offen 105, Muss 85, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -149,9 +146,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 954 | M | Von Sokrates (Chef 11.11., 13:55 „1 ja“): Erschaffung – Gedrückthalten erklärt je Grundwer | startbar |
 | 964 | M | Von Tom (Zu 870.4, Homer 14:15): Metall sperrt Evokation, Illusion, Beschwörung im Kampf; | wartet auf Test/Build (gebaut) |
 | 963 | M | Von Tom (Zu 870.4, Fremdprüfung Homer 14:15): Heldenreiter Wortlaut ohne Wirkungsloses: Zä | startbar |
-| 966.2 | M | Von Sokrates (966 Vorentscheid): Alchemie übt bei jedem Sud Morwens (laden.gd braue), Koch | startbar |
+| 966.2 | M | Von Sokrates (966 Vorentscheid): Alchemie übt bei jedem Sud Morwens (laden.gd braue), Koch | ruht |
 | 967 | M | Von Tuffy (948): halt_653 am Rechner 8 Fehler, Schild im Körper bei KLOSTER_M (20 Ecken, b | startbar |
-| Pflege | K | von Werkzeug (340.3, 11.11.): 15476 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 15710 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 106, Muss 98, startbar 20
 
