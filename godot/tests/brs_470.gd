@@ -39,9 +39,10 @@ func _lauf() -> void:
 	b.waehle("Bogen")
 	pruefe("abwählen", b.wahl, ["Spähen"])
 	pruefe("nicht wählbar: Bergbau", BrsHeld.waehlbar()["Sammeln"].has("Bergbau"), false)
+	pruefe("nicht wählbar in Kapitel 1: Illusion, Beschwörung (984.1)", [BrsHeld.waehlbar()["Magie"].has("Illusion"), BrsHeld.waehlbar()["Magie"].has("Beschwörung"), b.kann_waehlen("Illusion")], [false, false, false])
 	var n := 0
 	for gr in BrsHeld.waehlbar(): n += (BrsHeld.waehlbar()[gr] as Array).size()
-	pruefe("37 Fertigkeiten, Bergbau erst ab Kapitel 2", n, 36)
+	pruefe("37 Fertigkeiten, Bergbau erst ab Kapitel 2, Illusion und Beschwörung nicht in Kapitel 1", n, 34)
 	# Herkunft verteilt vor wie sim444 (Spalte 21) und gibt ihre Fertigkeiten mit dem Startwert
 	var W := BrsHeld.lade()
 	for hk in BrsHeld.herkuenfte():
