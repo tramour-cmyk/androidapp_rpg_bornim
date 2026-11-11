@@ -22,7 +22,7 @@
 | 492 | Blutzahnhöhle begehbar mit Krogg, Grak, Lyra (Orte O8; Wochenziel 03.11., 488; von Jerry an Tom, Chef 07:54) | Tom | M | wartet, Grundsatz 5 (Zweig ändert spiel.gd, geschichte.gd, zustand.gd); nach B1 auf neuen Stand (Sokrates 11.11., 01:57) | 870.4 | claude/tom-492-durchspiel | – | E Technik | 83,14 $ |
 | 581 | Ausrüstung: Seite breiter als der Schirm, Reiter springen (Abgleich 512b) · zurück t269 | Tom | M | gebaut, Geprüft an: d0f90a681 (Behebung seit 268 auf main; ✗ t269.16 war 605; nächster Sammelbuild, eigene Prüfzeile) | – | claude/spike-581-ausruestung | – | E Oberfläche | 4,79 $ |
 | 521 | Build 249, Ausrüstung: Wechselschirm eines Platzes wie alt (Bild, Art und Wert, ▲/▼, „nicht tragbar“ matt) (Chef 03.11., 23:23, Bild) · zurück t269 | Tom | M | startbar, Fund t269.16 | – | claude/tom-521-tasche | – | E Oberfläche | – |
-| 636 | Schlagbaum öffnet ohne Türgeräusch (alt G:1162 Sound.DOOR; Abgleich 620.2a) | Tom | M | startbar, A (Chef 09.11., 06:55): Geräusch fehlt trotz Satz | – | claude/tom-636-schlagbaum | – | E Welt | – |
+| 636 | Schlagbaum öffnet ohne Türgeräusch (alt G:1162 Sound.DOOR; Abgleich 620.2a) | Tom | M | in Arbeit, bei Spike | – | claude/tom-636-schlagbaum | – | E Welt | – |
 | 635 | Lyra fehlt als Figur im Tempel und in der Höhle: Kennung lyra_temple/lyra_cave, gebaut wird nur „lyra“ (Abgleich 620.2a) · zurück t274 | Tom | M | startbar, Fund t274.13 | – | claude/tom-635-lyra | – | E Welt | – |
 | 569 | Baumkronen ohne erkennbare Tuschelinie, „ein einziger Brei“ (Chef 04.11., 19:44, Bild 558 Probe 4) | Tom | M | ruht, Kampf zuerst (338.1) | – | – | – | E Oberfläche | – |
 | 568 | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | Tom | M | ruht | – | – | – | E Oberfläche | – |
