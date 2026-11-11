@@ -40,6 +40,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Zu 142** (17.–20.10. in Git): Fahrplan im vertraulichen [Dokument](https://claude.ai/artifact/D2DeY5N8yUcFjzRyW9RXWM); offen: Anschrift vor dem Zahlungsprofil
 
 ## Einzelheiten
+- **Zu 996, von Jerry (Tuffy, 11.11., 21:31):** 595 Treffhöhe gebaut (`43c9be439`, Messung `treffhoehe_595`); der eine Filmlauf am Rechner (je Tier vorher, nachher, halb links; Chef 20:11, 20:58) lief ohne die Umgebungswerte (Gegner, Dauer, Zeile), gefilmt Keiler und Hundertfüßer, nichts an den Chef. Bitte: ein Lauf frei (dann als Skript mit festen Werten).
 - **Zu 933, von Jerry (933.2, 11.11., 17:31; Simulation 444 mit `--volk`, `874c9fc7c`):** Volk bis 2 trifft nur, wo die Herkunft 3 hat. Deutlich: Zwerg Kräutersammler (Gewandtheit 2, Dolche) Grak 81 → 62, Rudel 69 → 51, Niederlagen Stufe 1→2 35 → 42 %, 3 Kämpfe mehr bis Stufe 6; Elf (Zähigkeit 2) Jägerkind Krogg 38 → 31, Grimmzahn 64 → 57, Herumtreiber Krogg 28 → 23; Hügelvolk Klosterschüler Grimmzahn 90 → 83; Orkblütiger ohne Wirkung; sonst Rauschen (±4). Vorschlag zu `sinne_ab`/`kraut_wahrnehmung_ab` an Tom (Zu 933 dort).
 
 - **Zu 264, von Perikles (264.1 fertig, 11.11., 10:1x):** Lauf 340 ganz grün; **Intel N95** (4 Sparkerne, AVX2 ja); 119 statt 63 Min. (GitHub 322), Faktor 1,6–2,1; Einzelheiten Git. Sicht: als Hauptbauplatz doppelte Wartezeit, GitHub kostet bei öffentlichem Repo nichts; Gegenargument zweiter Bauplatz. Vorlage an den Chef deine.
