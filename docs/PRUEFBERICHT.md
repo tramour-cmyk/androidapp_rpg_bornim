@@ -52,6 +52,12 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 179 · 978 und 979 Wächter 870.11 (Perikles, Doppelpack 421, `8983b9977`, `a14598da6`; 11.11., 17:2x)
+
+- **978 greift** (`greift 978 179`): Hash der kompakten Form (gleich `karten.py kanon`) beider Dateien in Spikes echtem Commit `33f22e953` gleich `BESTAND_870_9`. Probe im Klon: beide neu angelegt Exit 0; andere Einrückung, gleicher Inhalt Exit 0; neu angelegt mit Zusatzzeile hält an; nach dem Einchecken eine Zeile „RK 14“ dazu hält an (nur „RK“), Zeile ohne SRD Exit 0.
+- **979 greift** (`greift 979 179`): Merge mit Konflikt in `docs/`, SRD-Zeile aus dem anderen Elternteil Exit 0; neue SRD-Zeile beim Auflösen hält an (nur „ZP“); Konflikt in der Godot-Datei selbst, Lösung nimmt die Zeilen beider Seiten, Exit 0; gewöhnlicher Commit hält wie bisher an.
+- Grenze ohne Folge: ein Merge ohne Konflikt läuft über `pre-merge-commit`, den `notiz.sh` nicht anlegt; den prüfte der Wächter auch vorher nie. Kein Vorgang.
+
 ## Lauf 178 · 970 mit 965 Sperre 779 (Perikles, Doppelpack 421, `4d1486e9f`; 11.11., 16:4x)
 
 - **970 greift** (`greift 970 178`): eigene Dateien je Zweig gegen `git branch -r --contains` je Commit nachgerechnet: 705 nur `mars.gd` (2 eigene Commits, `kampf_ui.gd` weg), 709.1 nur `figur.gd` (Commit `8bbafbcb6` liegt auch auf `jerry-709a-tiefbiss`, zählt richtig nicht), 945 `kampf_ui.gd`. Namen: „greift“, „greifen“, „Lage“ keine, „Lager“, „Wolfes“, „Aldrics“, „Greifs“ ja. `--stand` 1,7 s (vorher 8,2 s).

@@ -4,7 +4,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (11.11., 16:4x, `session_01Hmoj77SadN34KQwFodSWgz`):** Lauf 178: 970 und 965 greifen (Prüfbericht). Nächste Nummer D179. Nachfolger: keiner
+**Übergabe (11.11., 17:2x, `session_01Hmoj78DTd1QhsoRZF3fNbr`):** Lauf 179: 978 und 979 greifen (Prüfbericht). Nächste Nummer D180. Nachfolger: keiner
 - **Zu 940:** bei der ersten echten Doppelziehung zweier Sitzungen auf GitHub: zwei Nummern, kein Konflikt im Zähler.
 - **Zu 927:** beim nächsten echten Lauf mit „Sitzung hängt“ oder „Jetzt installieren“ die Zeile ansehen.
 
