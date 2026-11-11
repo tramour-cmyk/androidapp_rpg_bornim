@@ -187,12 +187,12 @@
       "waffe": "Stumpfe Waffen", "ruestung": "keine", "schild": false, "zauber": ["Bannschild", "Funkenpfeil"]
     },
     "Klosterschüler": {
-      "fertigkeiten": ["Heilmagie", "Heilkunde", "Kräuterkunde"],
+      "fertigkeiten": ["Heilmagie", "Heilkunde", "Kräutersammeln"],
       "plus": {"wille": 3, "zaehigkeit": 1, "verstand": 2}, "plus_variante": {"kraft": 2, "zaehigkeit": 1},
       "waffe": "Stumpfe Waffen", "ruestung": "Leichte Rüstung", "schild": false, "zauber": ["Wundsegen"]
     },
     "Kräutersammler": {
-      "fertigkeiten": ["Kräuterkunde", "Alchemie", "Spähen"],
+      "fertigkeiten": ["Kräutersammeln", "Alchemie", "Spähen"],
       "plus": {"verstand": 3, "wahrnehmung": 3}, "plus_variante": {"gewandtheit": 2, "zaehigkeit": 1},
       "waffe": "Dolche", "ruestung": "Leichte Rüstung", "schild": false, "zauber": []
     },
@@ -397,18 +397,18 @@
       "Magie": ["Evokation", "Schutzmagie", "Heilmagie", "Illusion", "Beschwörung"],
       "Wildnis": ["Tiere beruhigen"],
       "Gesellschaft": ["Überreden", "Einschüchtern", "Handeln"],
-      "Sammeln": ["Kräuterkunde", "Bergbau", "Angeln", "Jagd"],
+      "Sammeln": ["Kräutersammeln", "Bergbau", "Angeln", "Jagd"],
       "Meisterschaften": ["Schmieden", "Lederarbeit", "Alchemie", "Kochen", "Runenkunde", "Heilkunde"],
       "_fertigkeiten": "N 3: 37 Fertigkeiten in acht Gruppen; Bergbau zeigt sich ab Kapitel 2 (461c), zur Wahl erst dann"
     },
     "nicht_waehlbar": ["Bergbau"]
   },
   "kampftraenke": {
-    "_quelle": "481.1 (Jerry 02.11.): Vorschlag Sokrates (Zu 481, Chat 18:58): Kampftraenke mit Preis, je ein Zug, Wirkung nach Kraeuterkunde statt Sperre; Chef 18:55 'zwei Runden unverwundbar'. Alle Zahlen A",
+    "_quelle": "481.1 (Jerry 02.11.): Vorschlag Sokrates (Zu 481, Chat 18:58): Kampftraenke mit Preis, je ein Zug, Wirkung nach Kraeuterkunde statt Sperre; seit 876 (857a A, Chef 10.11.) nach Alchemie; Chef 18:55 'zwei Runden unverwundbar'. Alle Zahlen A",
     "wirkung_grund": 0.5,
-    "wirkung_je_kraeuterkunde": 0.05,
+    "wirkung_je_alchemie": 0.05,
     "wirkung_max": 2.0,
-    "_wirkung": "A: Wirkung = 0,5 + 0,05 x Kraeuterkunde, hoechstens 2: ohne Kraeuterkunde 0,5 (halbe Wirkung statt Gift), Startwert 10 = 1, Decke Kapitel 1 (24) = 1,7, ab 30 = 2",
+    "_wirkung": "A: Wirkung = 0,5 + 0,05 x Alchemie (857a A), hoechstens 2: ohne Alchemie 0,5 (halbe Wirkung statt Gift), Startwert 10 = 1, Decke Kapitel 1 (24) = 1,7, ab 30 = 2",
     "Steinhaut": {"preis": 40, "runden": 2, "schutz": 0.5, "_steinhaut": "A: zwei Runden kommt Schaden x (1 - 0,5 x Wirkung) an; Wirkung 2 = unverwundbar (Chef 18:55)"},
     "Berserkertrank": {"preis": 40, "runden": 3, "schaden_plus": 0.5, "_berserker": "A: drei Runden Waffenschaden x (1 + 0,5 x Wirkung); nicht fuer Zauber"},
     "Alchemistenfeuer": {"schaden": 10, "fertigkeit": "Wurfwaffen", "typ": "feuer", "_feuer": "A: geworfen (Treffer mit Wurfwaffen und Wahrnehmung), Grundschaden 10 x Wirkung, Feuer; Preis aus 'wirtschaft'; geworfen, wenn sein Grundschaden den der Waffe oder des Zaubers uebersteigt"},
@@ -417,10 +417,10 @@
     "satz": {"Steinhaut": 1, "Berserkertrank": 1, "Alchemistenfeuer": 2},
     "_satz": "A: Beutel vor dem Bosskampf: 2 Heiltraenke, dazu 1 Steinhaut, 1 Berserkertrank, 2 Alchemistenfeuer. Steinhaut in Runde 1, Berserkertrank danach (nur wer mit der Waffe kaempft), Feuer statt schwaecherem Angriff; Heiltrank unter 35 % Leben wie in 'wirtschaft'",
     "proben": {"Satz wie oben": {"Steinhaut": 1, "Berserkertrank": 1, "Alchemistenfeuer": 2}, "2 Steinhaut, 1 Berserker, 4 Feuer": {"Steinhaut": 2, "Berserkertrank": 1, "Alchemistenfeuer": 4}, "6 Feuer": {"Alchemistenfeuer": 6}},
-    "proben_kraeuterkunde": [10, 24, 30],
-    "_proben": "Tabelle 6b: nur Kraeutersammler, andere Beutel und Kraeuterkunde-Werte (je 2 Heiltraenke dazu)",
-    "kraeuterkunde_decke": 24,
-    "_decke": "Spalte 'Kraeuterkunde 24': wer mit Kraeuterkunde beginnt, hat sie bis zur Decke von Kapitel 1 geuebt (Sammeln ist nicht gerechnet)"
+    "proben_alchemie": [10, 24, 30],
+    "_proben": "Tabelle 6b: nur Kraeutersammler, andere Beutel und Alchemie-Werte (je 2 Heiltraenke dazu)",
+    "alchemie_decke": 24,
+    "_decke": "Spalte 'Alch. 24': wer mit Alchemie beginnt, hat sie bis zur Decke von Kapitel 1 geuebt (Sammeln ist nicht gerechnet)"
   },
   "welt": {
     "_quelle": "870.4 (Tom 11.11., LISTE-UMZUG-BRS.md Schritt 4): die Welt nach dem BRS statt nach dem SRD (Heldwerte entfallen). Alle Zahlen A als Uebergang, so gewaehlt, dass sich wenig aendert (Leben nach BRS sind auf Stufe 1 etwa doppelt so gross wie die alten TP); Vorentscheid Sokrates erbeten (783 W5), Messung 444, Vorlage an den Chef vor B1",
@@ -437,7 +437,7 @@
     "kraut_je_kraeuterkunde": 0.01,
     "kraut_je_wahrnehmung": 0.05,
     "kraut_wahrnehmung_ab": 3,
-    "_kraut": "A: Chance auf ein Kraut mehr: 1 % je Punkt Kraeuterkunde und 5 % je Punkt Wahrnehmung ueber 3 (alt 15 % je Punkt Mod(WEI))",
+    "_kraut": "A: Chance auf ein Kraut mehr: 1 % je Punkt Kraeutersammeln (Schluessel heisst noch kraeuterkunde, 875) und 5 % je Punkt Wahrnehmung ueber 3 (alt 15 % je Punkt Mod(WEI))",
     "bemerken_felder": 4,
     "bemerken_je_gewandtheit": 0.2,
     "bemerken_min": 2,
