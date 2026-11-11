@@ -98,7 +98,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:18 11.11.: Sokrates …77wg6 archiviert, 5,21 $ auf 870, 854; Nachfolger …78v4Q läuft
 - 09:06 11.11.: Lauf 09:04: Perikles-Nachfolger …79rUs „264.1: Lauf 340 auswerten“, Spike …76LAQ „581“, Tuffy …78DRe „784“ in Hoch gestartet. Tuffy 854 ausgeschlossen (`--ohne`: Jerry baut 854 auf `claude/jerry-854-block`, Chef 08:52). `WEITER Tom` nicht ausgeführt (Wecker 09:07 Lauf 338). Archiviert und gebucht: Perikles …75ny (3,07 $, 264.1), Tuffy …774g (5,78 $, 536 fertig), Diogenes …76ns (1,03 $, 907/908, Befund keiner)
 - 08:14 11.11.: Diogenes …78YAW (903, Lauf 154 gepusht) archiviert, 1,59 $ auf 903
-- 08:13 11.11.: Start-Meldung Perikles 907, 908 (Diogenes Lauf 154, 057ada2b6): als „Weiter: 907, 908“ an Perikles …75nyB (läuft, Lauf 8). Spike …7A7ke (492 ohne Arbeit, hängt an 870.4) archiviert, 1,47 $ auf 492; Spike 492 dauerhaft `--ohne`. Tom …78hPe: `WEITER Tom` bewusst nicht ausgeführt (Wecker 08:38, Lauf 338)
 - 11:50 11.11.: Neustart Jerry (6633fd231) zurückgenommen: Jerry alt …76ovF meldete 11:49, der Chef habe ihm 11:48 das Kaufrepo freigegeben („Binde alle Repos an, die du brauchst“), die Sitzung bleibe bis 400 Tsd. Token offen. Der Nachfolger …785pF „Jerry – 910“ (11:49 gestartet, ohne Arbeit, 0 $) ist archiviert; je Rolle eine Sitzung. Startsperre 11:49 Jerry gilt damit nicht.
 - 11:36 11.11.: Neustart Perikles (3723bca76): Nachfolger …773WJ „Perikles – 882“ in Hoch gestartet; Perikles …75iDf archiviert, 3,89 $ auf 921, 882. Diogenes …77f5D „Diogenes – 921“ (Auftrag Perikles ab6ad7ad1, 11:16) läuft; „Weiter: 882“ an Perikles (Tom 11:33) hat der volle Kontext verhindert. Fehler von mir: die Startsperre 11:35 mit Bash angehängt statt mit Edit (Notizenregel); ab jetzt Edit.
 - 09:24 11.11.: Startsperre 09:24 Start Diogenes (Ford, vor dem Start; Auftrag Diogenes 911 und 264.1, caf221f84, ee20ff5a8; Umgebung Hoch)
@@ -358,3 +357,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:13 11.11.: Marke Übergabe-Chef Perikles 11.11. 13:12 (lauf.py)
 - 13:43 11.11.: Startsperre 13:43 Start Tom, Perikles (lauf.py)
 - 13:53 11.11.: Startsperre 13:53 Start Sokrates (Ford, vor dem Start; Neustart-Meldung 13:52, 094fc94e2)
+- 13:58 11.11.: Startsperre 13:58 Start Diogenes, Homer, Spike (lauf.py)
+- 13:58 11.11.: Marke Mehrfach-Warnung Sokrates session_01Hmoj776indCKGcWefzN5PU (lauf.py)
+- 13:58 11.11.: Marke Mehrfach Sokrates (lauf.py)
