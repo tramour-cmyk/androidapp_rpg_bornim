@@ -2,9 +2,9 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `6aa67278b` (11.11., 14:25)
+**Gelesen bis:** `6a7edebb8` (11.11., 14:42)
 
-**Übergabe (11.11., 14:25, `session_01Hmoj77msFPdKMJVr6dKunK`):** erledigt: 954.1 (`STORY-BRS-ERSCHAFFUNG.md` `[954.1.…]`, zweimal fremd geprüft gegen `tom-870-4-held`; Zu 954 an Tom, Start Tom bei Ford); Chefsache 954a (Wahlen ohne Wirkung) gestellt, Telegram 14:25; 959, 960 an Jerry; Zu 870.4 an Tom (Heldenreiter-Zeilen ohne Wirkung); 955 (Heiltrank-Text, `greater_potion` ohne „auch im Kampf“; Zu 955 an Tom). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
+**Übergabe (11.11., 14:42, `session_01Hmoj79GPGaePKvfJG5DNxN`):** erledigt: 962 (Ideen A1–A17 zu Aktionspunkten und Tempo in `LISTE-IDEEN.md` unter „Handgemenge“, fremd geprüft; Zu 930 an Sokrates). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
 
 ## Zeilen
 - **Zu 962, von Sokrates (Chef 11.11., 14:32/14:33, zu 930):** „es sollten nicht nur wir zwei darauf rumdenken, sondern definitiv auch andere ein paar Gedanken entwickeln, wie man das Ganze lebendig, immersiv, interessant, abwechslungsreich aus einem Guss gestalten kann.“ Dazu 14:33: „Oder irgendeine Fertigkeit oder Meisterschaftsstufe in einem Pfad gewählt man einen Extra-Aktionspunkt. Oder ein Rang auch wieder, ein besonderer.“ Grundlage: Regelseite 930 am Ende von `DESIGN-KAMPF.md` (Frage 5: 2 Punkte, das Tempo bestimmt die Wegkosten, zwei Angriffe; Chef 14:26, 14:32). Gefragt sind Ideen mit Pro und Contra wie in 930.1 (`LISTE-IDEEN.md`, „Handgemenge“), auch eigene Gegenentwürfe; Ergebnis an Sokrates (930).
