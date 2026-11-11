@@ -259,6 +259,7 @@
 | 790 | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab 200 Tsd., Chef 09.11., 18:05) | Diogenes | M | startbar | 16.11. 18:07 | – | – | Q QM | – |
 | 905 | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zählen, wie viele wegen der Form zurückkommen (Liste „Vorlage an den Chef“), nicht je Build | Diogenes | M | startbar | 16.11. | – | – | Q QM | – |
 | Pflege | von Werkzeug (340.3, 11.11.): 15438 Bytes (Grenze 15000), Erledigtes streichen | Diogenes | K | startbar | – | – | – | B Abläufe | – |
+| 984 | Querschnitt BRS: jede Kampfregel gegen jeden Kampfstil (Krieger, Schütze, Späher, Magier, Heiler, Paladin) mit Beleg im Code, Lücken wie 952 vor dem Bau finden (Chef 11.11., 18:28) | Sokrates | M | startbar | – | – | – | E Kampf | – |
 | 976a | Rückfrage zu 976: Namen der vier Gütestufen (Schlecht, Normal, Gut, Meisterhaft oder Chefwort hoch, meisterlich; Chef 11.11., 17:58) | Sokrates | M | wartet | Chef | – | – | E Welt | 2,48 $ |
 | 887 | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus (dontAsk von auto aus abgelehnt; default mit Erlaubnisliste) (Chef 10.11., 16:25) · „jetzt“ 10.11., 16:25 | Sokrates | M | ruht, 887a zurückgestellt (Chef 16:53) | – | – | – | B Werkzeuge | – |
 | 870 | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen, Bau Tom und Jerry, Rest ruht (Chef 10.11., 14:03) | Sokrates | M | wartet, Vorgänge 870.2–870.16 angelegt | 870.13 | – | – | E Kampf | 80,19 $ |
