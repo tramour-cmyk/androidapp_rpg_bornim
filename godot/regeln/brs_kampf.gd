@@ -154,18 +154,19 @@ static func held_abzug(b: Dictionary, schild_in_hand: bool) -> float:
 
 
 ## Ein Schlag mit den Würfeln aus [rng] in der Reihenfolge der Simulation (Treffer, Glück, kritisch, Streuung) wie Brs.schaden, mit
-## allen Einzelheiten: {treffer, wurf (1–100), chance (Prozent), kritisch, glueck, schaden}.
-static func schlag(rng: RandomNumberGenerator, fertigkeit: float, abwehr: float, grund: float, d: float, abzug: float, bonus := 0.0, kritisch_prozent := 0.0) -> Dictionary:
+## allen Einzelheiten: {treffer, wurf (1–100), chance (Prozent), kritisch, glueck, schaden}. [rng]: RandomNumberGenerator oder die
+## Würfel des Kampfs (wuerfel.gd randf, 987: mit Band reproduzierbar).
+static func schlag(rng, fertigkeit: float, abwehr: float, grund: float, d: float, abzug: float, bonus := 0.0, kritisch_prozent := 0.0) -> Dictionary:
 	var k: Dictionary = w()["kampf"]
 	var chance := Brs.trefferchance(fertigkeit, abwehr, bonus)
-	var z := rng.randf()
+	var z: float = rng.randf()
 	var e := {"treffer": z < chance, "wurf": int(floor(z * 100.0)) + 1, "chance": roundi(chance * 100.0), "kritisch": false,
 		"glueck": false, "schaden": 0.0}
 	if not e.treffer:
 		return e
-	var zg := rng.randf()
-	var zk := rng.randf() if kritisch_prozent > 0.0 else 1.0
-	var zs := rng.randf()
+	var zg: float = rng.randf()
+	var zk: float = rng.randf() if kritisch_prozent > 0.0 else 1.0
+	var zs: float = rng.randf()
 	e.glueck = zg < float(k["glueckstreffer_anteil"]) and Brs.stufenfaktor(d) < 1.0
 	e.kritisch = kritisch_prozent > 0.0 and zk * 100.0 < kritisch_prozent
 	e.schaden = Brs.endschaden(Brs.schaden_roh(grund, fertigkeit, d, zg, zk, zs, kritisch_prozent), abzug)
