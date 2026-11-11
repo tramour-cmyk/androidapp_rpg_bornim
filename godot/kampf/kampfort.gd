@@ -83,6 +83,9 @@ var tageszeit := "tag"
 ## 493: welcher Kampfort im Wald (kampfort_wald.py SPOT): lichtung, waldrand, teich, baum, felsen, steinkreis; fehlt sein Modell im
 ## Bau, die Lichtung
 var platz := "lichtung"
+## 836 (Homer 830): Flaggen des Spielstands (Zustand.flaggen, dasselbe Dictionary; aufruf.gd aus lage „flaggen“); Hinweise, die einmal
+## je Spielstand kommen, merken sich hier, dass sie gezeigt sind. Proben und Tests: leer, je Kampf neu
+var flaggen := {}
 ## 527: Tempo aus dem Menue System (Bedienung.tempo_faktor; aufruf.gd setzt es, Proben und Tests bleiben bei 1): alle Bewegungen,
 ## Wartezeiten und Zeilen des Kampfs laufen über Engine.time_scale so viel mal so lang, die Blende davor und der Reaktionsring nicht
 ## (der Ring misst in Echtzeit)

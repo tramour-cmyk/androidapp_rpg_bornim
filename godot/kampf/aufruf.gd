@@ -247,6 +247,7 @@ func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := 
 	kampf.tempo_knopf = true     # 600: Knopf im Kampfort schaltet es weiter
 	kampf.tageszeit = tageszeit
 	kampf.ort = ort
+	if lage.get("flaggen") is Dictionary: kampf.flaggen = lage.flaggen     # 836: dasselbe Dictionary wie Zustand.flaggen, nicht kopiert
 	kampf.platz = String(lage.get("platz", "lichtung"))     # 493: Kampfort im Wald nach der Kachel (Kampfort.platz_fuer)
 	# 870.5: Lohn nach BRS (lohn.gd): Heldenstufe aus lage „stand“ (Zustand.stufe_brs, Brs.neuer_stand), ohne ihn am Anfang der
 	# Stufe des Helden; Erfahrungstopf nach lage „gebiet“ (werte.json „Wald“, „Tiefer Wald“, „Höhle“; "" ohne Topf)
