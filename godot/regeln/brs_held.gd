@@ -302,6 +302,9 @@ func ausdauer_s() -> float:
 func zu_schwer() -> bool:
 	return ruestung() == "Schwere Rüstung" and wert("kraft") < int(welt().get("ausdauer", {}).get("schwer_kraft", 7))
 
+## 870d (Vorentscheid Sokrates): Schwaechen und Staerken der Gegner vorher sehen ab Verstand „wissen_verstand_ab“ (Ziel-Tipp, Bestiarium)
+func kennt_schwaechen() -> bool: return wert("verstand") >= int(welt().get("wissen_verstand_ab", 6))
+
 ## Aus wie vielen Feldern ein jagendes Monster den Helden bemerkt (welt „bemerken_…“; alt Perks.noticeRange nach Geschicklichkeit)
 func bemerkt_aus() -> int:
 	var wl := welt()

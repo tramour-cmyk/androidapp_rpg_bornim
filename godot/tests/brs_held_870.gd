@@ -45,6 +45,8 @@ func _lauf() -> void:
 	pruefe("Schutzwert (Mittlere Ruestung, Schild)", w.schutzwert(), Brs.runde(float(ru["Mittlere Rüstung"]["wert"]) * (1.0 + 10 * je) + float(ru["schild_wert"]) * (1.0 + 10 * je)))
 	pruefe("Schaden Einhaender", w.schaden(), Brs.runde((6.0 + w.wert("kraft")) * (1.0 + 10 * float(W["kampf"]["fertigkeit_im_schaden_je_punkt"]))))
 	pruefe("Kritisch", w.krit_prozent(), roundi(float(W["kampf"]["kritisch_prozent_je_gewandtheit"]) * w.wert("gewandtheit")))
+	pruefe("870d: Schwaechen ab Verstand 6", [BrsHeld.neu("", "Zauberlehrling").kennt_schwaechen(), BrsHeld.neu("", "Wachsoldat").kennt_schwaechen()],
+		[BrsHeld.neu("", "Zauberlehrling").wert("verstand") >= 6, BrsHeld.neu("", "Wachsoldat").wert("verstand") >= 6])
 	pruefe("jeder darf alles tragen", w.kann_tragen({"uid": 1, "base": "plate", "rarity": "COMMON", "ilvl": 1, "plus": 0, "rolls": []}), true)
 	# Zusatzeigenschaft auf einen Grundwert wirkt, im Kapitel gedeckelt (Kapitel 1: +1)
 	var zaeh := w.wert("zaehigkeit")

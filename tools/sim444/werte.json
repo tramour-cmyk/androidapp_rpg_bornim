@@ -442,6 +442,8 @@
     "hinterhalt_min": 0.4,
     "sinne_ab": 3,
     "_sinne": "A: Monster bemerken den Helden aus bemerken_felder, je Punkt Gewandtheit ueber sinne_ab ein Fuenftelfeld spaeter (abgerundet, Gewandtheit 8: ein Feld), mindestens bemerken_min (alt je zwei Punkte Mod(GES) ein Feld); Hinterhalt je Punkt Wahrnehmung ueber sinne_ab 7,5 % seltener, hoechstens bis 40 % (alt 15 % je Punkt Mod(WEI))",
+    "wissen_verstand_ab": 6,
+    "_wissen": "870d Vorentscheid Sokrates (11.11., 02:00): Schwaechen und Staerken der Gegner vorher sehen ab Verstand 6 (alt INT 12)",
     "leiden_zaehigkeit_ab": 5,
     "_leiden": "A: Gift und Blutung aus einem Kampf klingen je Punkt Zaehigkeit ueber 5 eine Runde frueher ab (alt Mod(KON))",
     "gebiet": {"forest": "Wald", "deep_forest": "Tiefer Wald", "cave": "Höhle"},
