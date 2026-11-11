@@ -311,6 +311,7 @@ Regelseite Sokrates, 11.11. Sie gilt erst, wenn der Chef entschieden hat. Der We
 
 1. **Abstand.** Jeder Gegner steht zum Helden **nah** (im Handgemenge) oder **fern**. Die Reihen bleiben, wie sie sind: Sie sagen, wie eine Seite aufgestellt ist. Der Abstand gilt zusätzlich, zwischen den Seiten. Wer hinten steht, ist für Nahkämpfer der anderen Seite immer fern. Sichtbar wird der Abstand im Bild: Ein naher Gegner steht am Helden und läuft nicht mehr nach jedem Schlag zurück.
 2. **Zug = Schritt + Handlung.** In seinem Zug darf jeder einen Schritt machen, **vor** (an einen Gegner heran, dann ist er nah) oder **zurück** (aus dem Handgemenge, dann sind alle nah stehenden Gegner fern), und danach eine Handlung. Der Schritt kostet keine Handlung; das ist die Antwort auf den Einwand des Chefs von 12:28. Wer vortritt und dann schlägt, rennt im Bild hin und bleibt danach stehen; das Zurückgehen ohne Grund entfällt (F7 und F9 werden angepasst). Der Platztausch (`mars.gd` 1200–1212) bleibt daneben bestehen.
+   - **Heranrücken des Helden** (Chef 14:23: „wenn er weit hinten steht, muss ich halt näher aufrücken … vielleicht kann ich ihn gar nicht angreifen, weil ich zu weit weg stehe“): Der Held hat auch ein Tempo, wie die Gegner in Regel 3. Mit normalem Tempo schlägt er nach dem Heranrücken mit Ungunst. In schwerer Rüstung braucht er den ganzen Zug für den Weg. Ist er schnell (hohe Gewandtheit, leichte Rüstung), schlägt er voll. Zurückweichen und dann schießen oder zaubern bleibt frei (12:28).
 3. **Tempo je Gegner** (neu im Bestiarium; die Zahlen rechnet Jerry mit 444): Steht ein Nahkämpfer fern, sagt er „rückt heran“ an.
    - **langsam** (etwa Wiedergänger, 506): braucht seinen ganzen Zug für den Weg;
    - **normal** (etwa Goblin, Grak): rückt heran und schlägt mit Ungunst;
@@ -318,6 +319,7 @@ Regelseite Sokrates, 11.11. Sie gilt erst, wenn der Chef entschieden hat. Der We
 4. **Rückzug.** Der Schritt zurück ist frei, mit zwei Folgen:
    - **Nachsetzen:** Schnelle Gegner, die nah stehen, setzen sofort nach. Das ist ein angesagter Schlag mit Ring (R1). Bei perfekt greift der Gegner ins Leere und bleibt fern, bei gut bekommt der Held halben Schaden. Normale und langsame Gegner setzen nicht nach.
    - **Außer Atem:** Wer zweimal hintereinander zurückweicht, ist außer Atem (wie heute beim Ankommen nach einem Lauf, `mars.gd` 561–566, `[86.9.atem]`). Dann gilt Ungunst, bis er einen Zug lang stehen bleibt. So endet das ewige Weglaufen von selbst, ohne Wand (Homer 1).
+   - **Flucht der Gegner** (Chef 14:23: „vielleicht will er auch fliehen und ich sehe das und kriege dann … einen Gelegenheitsangriff … nur wenn ich halt ein Fernkämpfer bin“): Wer flieht, sagt es einen Zug vorher an („weicht zurück, sucht den Ausweg“). Fern stehend erreichen ihn nur Schuss und Zauber, also ein freier Schuss. Steht er nah, gibt es das Nachsetzen auch für den Helden, gleich für beide Seiten. Ein Nahkämpfer, der fern steht, muss erst heranrücken; meist ist der Gegner dann fort.
 5. **Zurückdrängen** (Kampfhandlungen nach 870a 3, mit Ring R2: bei perfekt wirkt die Handlung stärker, bei gut wie im Tipp):
    - **Schildstoß** statt Schildwall (Homer 5): ein naher Gegner taumelt auf fern, ohne Schaden; bei perfekt verliert er sein nächstes Heranrücken. Schildwall wirkt in Kapitel 1 nie, denn der Held kämpft dort allein (168 D). Er kommt mit Garrick in Kapitel 2.
    - **Wuchtschlag** (Zweihänder): trifft er, taumelt der Gegner auf fern (Homer 6). Der Unterschied zum Schild: Der Wuchtschlag macht Schaden, kann aber verfehlen.
@@ -347,7 +349,7 @@ Regelseite Sokrates, 11.11. Sie gilt erst, wenn der Chef entschieden hat. Der We
 
 ### Fragen an den Chef (kommen mit Rechnung und Film nach `entscheiden/`)
 
-1. Zwei Stufen (nah, fern) oder drei (nah, fern, weit)? Ich empfehle zwei: Sie sind lesbar, und das Zurückweichen aus fern bringt dann keinen weiteren Abstand, die Kamera geht nur mit. Drei Stufen erst, wenn zwei tragen.
+1. Zwei Stufen (nah, fern) oder drei (nah, fern, weit)? Ich empfehle zwei: Sie sind lesbar, und das Zurückweichen aus fern bringt dann keinen weiteren Abstand, die Kamera geht nur mit. Drei Stufen erst, wenn zwei tragen. Chef 14:23 („wie viel Abstand ist denn dazwischen?“): Die Tiefe, die er sucht (nicht gleich angreifen können), kommt bei zwei Stufen über das Tempo des Helden (Regel 2). Eine dritte Stufe „weit“ bringt sie nur dann zusätzlich, wenn auch Fliehende dorthin gehen.
 2. Schildstoß statt Schildwall in Kapitel 1?
 3. Feuer drängt über den Flammenfächer, oder ein eigener Zauber Glutring?
 4. Beginnt ein Kampf grundsätzlich fern?
