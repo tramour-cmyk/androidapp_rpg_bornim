@@ -144,7 +144,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 926 | M | Von Jerry (870.6): Gegenstandsfenster im Menü ohne Würfel (menue.gd 754, 843–847, 1351 wue | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 632 (jerry) |
 | 933 | M | Grundwerte 933 A umsetzen (Chef 11.11., 13:07): Volk senkt bis 2, hebt bis 9 (volk_min 2, | wartet auf 933.1 (startbar) |
 
-**Jerry** – offen 94, Muss 85, startbar 5
+**Jerry** – offen 95, Muss 85, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -242,6 +242,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 931 | M | Von 784 A (Chef 11.11., 12:15): Wolf vorn – „Anspringen!“ steht, während er sich duckt (ke | Sperre 620.1 B: 14 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (biss) |
 | 932 | M | Von 784 A (Chef 11.11., 12:15/12:09): Angriff des Helden höchstens 2,4 s – rennt zum Ziel, | Sperre 620.1 B: 14 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (messen) |
 | 933.2 | M | Von Sokrates (933, Chef 11.11., 13:07): Sim 444 Gegenprobe Grundwerte mit Volk bis 2 (volk | Sperre 620.1 B: 14 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (sokrates) |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 15350 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 18, Muss 12, startbar 3
 
