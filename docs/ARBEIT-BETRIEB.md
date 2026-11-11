@@ -276,3 +276,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 06:04 11.11.: Startsperre 06:04 Start Diogenes (lauf.py)
 - 06:04 11.11.: Marke Archiv session_01Hmoj76RTdd4QGSu9nQwVYy (lauf.py)
 - 06:04 11.11.: Marke Archiv session_01Hmoj77DnCMZu9jpdRWbgZT (lauf.py)
+- 07:04 11.11.: Startsperre 07:04 Start Tom (lauf.py)
+- 07:04 11.11.: Marke Archiv-Warnung session_01Hmoj76RTdd4QGSu9nQwVYy (lauf.py)
+- 07:04 11.11.: Marke Archiv-Warnung session_01Hmoj77DnCMZu9jpdRWbgZT (lauf.py)
+- 07:04 11.11.: Marke Start-fehlt Diogenes 11.11.-06:04 (lauf.py)
