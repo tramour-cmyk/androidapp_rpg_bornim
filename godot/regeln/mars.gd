@@ -882,7 +882,7 @@ func _auto_order(f: Fighter) -> Array:
 			break
 	var foes := feinde(f)
 	# 705 (Sokrates 10.11., 11:47, Chef „829 A, ein Zauberer zaubert“): ein Flächenzauber auf eine Reihe mit zwei stehenden Gegnern,
-	# solange das Mana reicht (alt Brennende Hände, BRS Flammenfächer und Glutkugel), mit derselben Rücklage für Wundsegen
+	# solange das Mana reicht (Flammenfächer und Glutkugel), mit derselben Rücklage für Wundsegen
 	for c in ["Z_GLUT", "Z_FAECHER"]:
 		if c in can and blocked(f, c) == null and (f.b.is_empty() or not "Z_WUND" in can or (int(f.sp) - int(skills[c].amount)) * 2 >= f.max_sp):
 			var reihe = _reihe_fuer(f, c, foes)
