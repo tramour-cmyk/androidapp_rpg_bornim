@@ -52,6 +52,11 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 175 · 943 (Perikles, Doppelpack 421, `330744269`; 11.11., 14:1x)
+
+- Acht Fälle als Hakeneingabe an `probelauf.py`, neu gegen alt (`330744269~1`): Heredoc mit einzelnem `"`, danach `cd $VAR` → hält jetzt an (alt nicht); dasselbe mit cd nur im Text → frei (alt hielt an); `-m` mit cd im Text, `-F` Heredoc, `cd "$HOME/…"` frei; echtes `cd $VAR`, Heredoc ohne Zeichen und danach `cd $VAR`, zwei Heredocs → halten an.
+- **D175.1 → 961 (Perikles, K):** beginnt der Heredoc-Körper mit `"` (erstes Zeichen), bricht die Suche nach dem schließenden `"` dort ab, bevor der Sprung über den Körper greift (`text_bereiche`: Schleifenbedingung `befehl[j] != c` vor der Heredoc-Prüfung). Das `"` nach `)` öffnet dann neu, `&& cd $W && git push` gilt als Text: kein Halt (`text_bereiche` gibt (15, 29), (29, 36), (43, 64); `cd_befehle` leer). Selten, aber dieselbe Art wie D171.3. **943 wartet auf 961.**
+
 ## Lauf 174 · 942, 957 mit 927, 940 (Perikles, Doppelpack 421, `1bc93e6e5`, `74b3132b3`; 11.11., 14:1x)
 
 - **942 greift** (`greift 942 174`): Kurzzeilen in einer Kopie (`--ohne-pull`): Jerry alt working 3 h ruhig, neu idle → nur ARCHIVIERE (vorher dazu WARNUNG-LAUT „Sitzung hängt“, alter Code nachgestellt); alte Sitzung als Vorgänger eines START → nur ARCHIVIERE; Diogenes allein hängend, nichts Startbares → WARNUNG-LAUT „Sitzung hängt“ bleibt. Grenze: die Marke „Hängt <Kennung>“ wird auch für die gestrichene Zeile geschrieben (harmlos, Sitzung ist weg).
