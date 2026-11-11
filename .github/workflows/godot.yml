@@ -37,6 +37,9 @@ on:
       leute:
         description: "Gesichter der Leute 475 (Tom): ja"
         default: ""
+      cache:
+        description: "Kauf-Cache (854, 910): neu = Treffer übergehen, voll bauen, dann Gegenprobe gegen den abgelegten Stand"
+        default: ""
 
 # 894: mehrere Pushes auf einen Testbuild hintereinander, es baut nur der neueste (von Hand gestartete Läufe bleiben)
 concurrency:
@@ -94,7 +97,10 @@ jobs:
           GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
         run: |
           python3 -c "import yaml" 2> /dev/null || python3 -m pip install -q pyyaml   # vor setup-python: System-Python
-          if python3 tools/godot/kauf_cache.py pruefen; then echo "KAUF_CACHE=treffer" >> $GITHUB_ENV
+          # 910 (Sokrates 09:47): cache=neu baut voll trotz Treffer (Verdacht: abgelegter Stand unvollständig), Gegenprobe beim Ablegen
+          if [ "${{ github.event.inputs.cache }}" = "neu" ]; then echo "KAUF-CACHE neu (von Hand): Treffer übergangen, voller Bau"
+            python3 tools/godot/kauf_cache.py vorher && echo "KAUF_CACHE=bauen" >> $GITHUB_ENV
+          elif python3 tools/godot/kauf_cache.py pruefen; then echo "KAUF_CACHE=treffer" >> $GITHUB_ENV
           else python3 tools/godot/kauf_cache.py vorher && echo "KAUF_CACHE=bauen" >> $GITHUB_ENV; fi
       # 804 (Chef 09.11., 21:12): Grass & Wind Kit v1.0.1 (REEBOO, gekauft, stufe1) fuers Gras im Dorf und Wald (skripte/grasbausatz.gd);
       # die Lizenz verbietet die Weitergabe der Dateien: nie ins Repo (godot/.gitignore), nie als Artefakt, nur in den Bau. Nur, was das
@@ -410,6 +416,8 @@ jobs:
         run: |
           python3 -c "import yaml" 2> /dev/null || python3 -m pip install -q pyyaml   # 854 (Lauf 335: No module named 'yaml', nie abgelegt)
           python3 tools/godot/kauf_cache.py ablegen || echo "Ablegen misslungen (Schreibrecht KAUF_TOKEN?), Bau geht weiter"
+          # 910: nach vollem Bau trotz Treffer zeigen, welche abgelegte Datei vom frisch gebauten Stand abweicht
+          if [ "${{ github.event.inputs.cache }}" = "neu" ]; then python3 tools/godot/kauf_cache.py vergleich || true; fi
       - name: Kaufmodelle verschluesseln (348.12i)
         run: |
           K=$(openssl rand -hex 32)
