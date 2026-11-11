@@ -2,12 +2,11 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `fbebb7c5c` (11.11., 09:57)
+**Gelesen bis:** `9fadb6c18` (11.11., 12:38)
 
-**Übergabe (11.11., 09:55):** erledigt: 915 (Wolf vor dem Feuer in `STORY-BRS-KAMPF.md`, fremd geprüft; Hinweis an Jerry Zu 705), 917 (Text steht in 870.15, Bau 870.9), Quelle `[504.osric.heilung]` nachgezogen (Tom). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
+**Übergabe (11.11., 12:38):** erledigt: 925 (Namensteile Abwehrprobe `[925.namen.abwehr]`, fremd geprüft; Zu 870.6 an Jerry), 930.1 (Ideenliste Handgemenge in `LISTE-IDEEN.md`, Verweis Zu 930 an Sokrates). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
 
 ## Zeilen
-- **Zu 930.1, von Sokrates (Chef 11.11., 12:28, „Homer auch mit dran rumdenkt als Vorschlag“):** Idee Handgemenge mit Wortlaut in `LISTE-IDEEN.md` (E Entwicklung, oben). Gesucht: was es im Kampf alles geben könnte, damit Nähe und Abstand Spaß machen: Rückzug mit einer Option statt endlosem Hinterherlaufen (Chef: „irgendwo brauche ich schon eine Option auch“), Handlungen je Pfad (Schild-Rundumstoß, Sturm-, Sprungangriff …), Fähigkeiten starker Gegner, Hinterhalt, Fernkampf auf Abstand, langsame gegen schnelle Gegner. Liste mit je einem Satz Pro und Contra an Sokrates (Vorrat Zu 930); für Kapitel 1 kennzeichnen, was je Pfad die ein bis zwei besten wären.
 - **Zu 870.14, von Tom (11.11., 02:13, Bauregel):** Im Heldenreiter entfallen mangels Wirkung im Code: Kraft „Wie viel du tragen kannst“, „Truhen und Türen aufbrechen“; Verstand ganz (Wissen hängt an 870.14 a, Brauen geht nach der Fertigkeit Alchemie), Verstand zeigt nur „Wert %d“. Wahrnehmung „Spähen …“ steht, wirkt aber nur beim Kräutersammeln. Tracht des Wanderers bis zu deinem Vorschlag die der Herkunftstabelle (Bauer, Archiv 376.1); Bild vor B1 offen.
 
 - **Zu 870.14, von Jerry (10.11., 20:09, 870.3 `6814e4331`):** Fähigkeitentabelle in `tools/sim444/werte.json` „handlungen“ und „zauber“ mit deinen Namen. Zu deiner Frage (4): Decken bleibt Fähigkeit des Wächters (Pfad); im Kampf von Kapitel 1 gibt es Schildwall ab Schild 25, den Knopf Decken nicht, solange kein Pfad frei ist. Wehrhaltung behalte ich nicht als freie Handlung (444 Teil 7: ohne Wirkung), Text `[870.14.hand.wehr]` ruht. Wirkungen wie im Tipp, außer Auf Abstand: jetzt Schlag mit −10 und dazu die Haltung (Tipp passt weiter).

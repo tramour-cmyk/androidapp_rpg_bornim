@@ -66,6 +66,7 @@ Homer 10.11.; Texte für Schritt 4 und 5 des Umzugs (`LISTE-UMZUG-BRS.md`; Vorg�
 - `[870.14.ding.grundwert]` (statt „Finesse: trifft mit GES oder STÄ“, „Fernkampf: trifft mit GES“) Schaden mit %s / EN: Damage with %s (Kraft oder Gewandtheit nach `werte.json`); Armbrust: `[870.14.ding.armbrust]` Schaden ohne Grundwert. / EN: Damage without an attribute.
 - Rüstung: nur „Schutzwert %d“ (ohne „+ GES (max 2)“ und ohne „Obergrenze“-Zeilen). „Vielseitig, mit beiden Händen“ samt Würfeltext, „Als %s kannst du das nicht tragen“ (Vergleich), „Zauberkraft +%d“ und „Zauberkraft nützt nur Zauberwirkern“ entfallen (Zauberkraft steht nicht in der Liste 11).
 - Zusatzeigenschaften nur nach `DESIGN-BRS.md` 11: „+%d Kraft“ usw., „+%d Schutzwert“, „+%d Leben“, „+%d Mana“, „+%d %% kritisch“, „+%d %% Zauberschaden“, „+%d %% Abwehrprobe“; EN „+%d Strength“, „+%d Protection“, „+%d Life“, „+%d Mana“, „+%d%% critical“, „+%d%% spell damage“, „+%d%% resistance roll“.
+- `[925.namen.abwehr]` **Namensteile der Zusatzeigenschaft Abwehrprobe** (Kennung ABWEHR; Muster wie die übrigen, `Gear.kt` `Affix`): Vorsilbe **Wehrhaft** (+ Endung je Geschlecht: Wehrhafter Umhang, Wehrhaftes Amulett), Endung **des Hexenjägers** (Schild des Hexenjägers). EN: Vorsilbe **Defiant** (Defiant Cloak), Endung **of the Witch Hunter** (Shield of the Witch Hunter). Abwehrprobe fällt heute an Schild, Umhang, Amulett (`werte.json`). Wehrhaft = wehrt ab, ohne Gefeitheit zu versprechen; der Hexenjäger trotzt Gift, Furcht und Zauber.
 
 ## Die Truhe in der Blutzahnhöhle (cave_3, 632)
 
