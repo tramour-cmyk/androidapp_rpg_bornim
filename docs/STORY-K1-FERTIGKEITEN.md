@@ -53,14 +53,62 @@ Gegenstand in der Tasche, zu kaufen bei Osric und Thessa (807 A); anlegen nur au
 
 `[807.verband.voll]` (Trefferpunkte voll) Du bist unverletzt. / EN: You are unhurt.
 
-## Alchemie: am Kessel (966.1, Homer 11.11.)
+## Kochen und Alchemie mit Ring (972, Homer 11.11.)
 
-Jeder Sud bei Morwen übt Alchemie (966 A); der Held geht ihr am Kessel zur Hand. Die Zeile ersetzt `Msgs.brewed` („Morwen braut dir: {0}.“), auch beim Brauen ×5 und „so viele wie möglich“; `{0}` = Trank, beim mehrfachen Brauen mit Anzahl („Heiltrank ×3“). Man hört sie oft, darum drei Wortlaute (504). `brewedTwo` („Mit deinem Wissen holt ihr zwei Tränke heraus: 2× {0}.“) bleibt; es sagt schon „ihr“.
+Grundlage: 966 A neu (Chef 11.11., 15:58 „966 ja, mit Ring“; `DESIGN-BRS.md` 8 „Kochen und Alchemie“). Der Held brät und braut selbst, je ein Ring wie beim Knacken; unter dem Rang ohne Ring und fast ohne Übung. `[966.1.kessel]` (der Held hilft Morwen) ist gestrichen (Git). Jeder Knopf nennt die Fertigkeit in Klammern; was man oft hört, in drei Wortlauten (504). `{0}` = Gericht oder Trank, bei mehreren mit Anzahl („Heiltrank ×3“).
 
-`[966.1.kessel]` (Morwen hat gebraut)
-1. Du gehst Morwen am Kessel zur Hand. Sie braut dir: {0}. — EN: You lend Morwen a hand at the cauldron. She brews for you: {0}.
-2. Du rührst, bis der Sud dunkel wird; Morwen nickt. Heraus kommt: {0}. — EN: You stir until the brew turns dark; Morwen nods. Out comes: {0}.
-3. Morwen lässt dich das Feuer schüren und achtet darauf, was du dir merkst. Heraus kommt: {0}. — EN: Morwen has you stoke the fire and watches what you take in. Out comes: {0}.
+**Rezepte Kochen** (am Lagerfeuer; Name = Gericht; Schwierigkeit nach `DESIGN-BRS.md` 8: Spieß wenig, Wildschwein oder Kraut mehr):
+
+| Rezept | Zutaten | Schwierigkeit |
+| --- | --- | --- |
+| `[972.rezept.spiess]` Gebratenes Fleisch / EN: Roast Meat (wie heute `roast_meat`) | 1 Rohes Fleisch | leicht |
+| `[972.rezept.kraeuterbraten]` Kräuterbraten / EN: Herb Roast | 2 Rohes Fleisch, 1 Heilkräuter | mittel |
+| `[972.rezept.wildschwein]` Wildschweinbraten / EN: Boar Roast | 1 Wildschweinkeule | schwer |
+
+Wildschweinbraten nur, wenn das Wildschwein mit Jagd eine eigene Keule gibt (954a.11, Jerry): `[972.keule]` Wildschweinkeule / EN: Boar Haunch · `[972.keule.text]` Schwer und fett. Wer sie zu braten versteht, isst wie ein Fürst. / EN: Heavy and fatty. Whoever knows how to roast it eats like a lord. Sonst entfällt die Zeile. Beschreibungen: `[972.kraeuterbraten.text]` Fleisch, mit Kräutern über dem Feuer gegart. Stärkt mehr als ein einfacher Braten. / EN: Meat cooked over the fire with herbs. More filling than a plain roast. · `[972.wildschwein.text]` Ein ganzer Braten vom Keiler. Danach hält man lange durch. / EN: A whole boar roast. It keeps you going for a long time.
+
+**Rezepte Alchemie** (an Morwens Kessel; Name = Trank wie heute in `Items.kt`; Zutaten und Gold wie heute in `Recipes.kt`): Heiltrank, Kräutertrank, Großer Heiltrank, Alchemistenfeuer. Morwen zeigt jedes Rezept einmal.
+
+`[972.kochen.knopf]` (am Lagerfeuer, mit Zutaten) Braten (Kochen) / EN: Roast (Cooking)
+
+`[972.kochen.gut]` (gelingt)
+1. Außen knusprig, innen saftig: {0}. — EN: Crisp outside, juicy within: {0}.
+2. Du wendest im richtigen Augenblick. Fett zischt in der Glut: {0}. — EN: You turn it at just the right moment. Fat hisses in the embers: {0}.
+3. Gut durch, nicht verbrannt: {0}. — EN: Cooked through, not burnt: {0}.
+
+`[972.kochen.verkohlt]` (daneben; das Stück ist verloren)
+1. Zu lange. Das Fleisch ist schwarz und hart wie Rinde. — EN: Too long. The meat is black and hard as bark.
+2. Die Flamme schlägt hoch, und das Stück verkohlt. — EN: The flame leaps up, and the meat chars.
+3. Verkohlt. Selbst die Wölfe würden es liegen lassen. — EN: Charred. Even the wolves wouldn't touch it.
+
+`[972.kochen.leicht]` (unter dem Rang, ohne Ring) Das kannst du im Schlaf: {0}. / EN: You could do this in your sleep: {0}.
+
+`[972.morwen.lehrt]` (Morwen zeigt ein Rezept; {0} = Trank)
+1. Sieh genau hin, ich zeig es nur einmal. / So braut man das: {0}. — EN: Watch closely, I'll only show you once. / That's how it's done: {0}.
+2. Merk dir die Reihenfolge. Wer sie vertauscht, trinkt Gift. / {0}. Jetzt kannst du es. — EN: Remember the order. Swap it, and you're drinking poison. / {0}. Now you know it.
+3. Ich schreib dir nichts auf. Was du dir nicht merkst, war nie deins. / Das war's: {0}. — EN: I won't write it down for you. What you don't remember was never yours. / That was it: {0}.
+
+`[972.rezept.neu]` (Meldung danach) Rezept gelernt: {0} / EN: Recipe learned: {0}
+
+`[972.brauen.knopf]` (an Morwens Kessel, Rezept gelernt) Brauen (Alchemie) / EN: Brew (Alchemy)
+
+`[972.brauen.gut]` (gelingt; ersetzt `Msgs.brewed` „Morwen braut dir: {0}.“)
+1. Der Sud wird klar und dunkel. Du füllst ab: {0}. — EN: The brew turns clear and dark. You bottle it: {0}.
+2. Gerade genug Hitze. Morwen nickt: {0}. — EN: Just enough heat. Morwen nods: {0}.
+3. Du ziehst den Kessel vom Feuer, bevor er kocht: {0}. — EN: You pull the cauldron off the fire before it boils: {0}.
+
+`[972.brauen.zwei]` (gelingt, Alchemie holt einen zweiten Trank heraus; ersetzt `Msgs.brewedTwo`) Mit deinem Wissen reicht es für einen zweiten: {0}. / EN: Your know-how stretches it to a second one: {0}. ({0} mit Anzahl, „Heiltrank ×2“)
+
+`[972.brauen.verdorben]` (daneben; Zutaten verloren)
+1. Zu heiß. Der Sud wird braun und stinkt. Alles ist hin. — EN: Too hot. The brew turns brown and stinks. It's all ruined.
+2. Es schäumt über und zischt ins Feuer. Nichts zu retten. — EN: It foams over and hisses into the fire. Nothing to save.
+3. Morwen schüttelt den Kopf. „Verkocht. Das kippst du weg, nicht in dich hinein.“ — EN: Morwen shakes her head. “Boiled away. You pour that out, not down your throat.”
+
+`[972.brauen.leicht]` (unter dem Rang, ohne Ring) Das geht dir leicht von der Hand: {0}. / EN: It comes easily to you: {0}.
+
+**Geänderte Texte** (alte Wortlaute in Git): `[972.herbs.text]` Heilkräuter: Wachsen auf Blumenwiesen im Wald. Daraus braut man Tränke. / EN: Grow in flower meadows in the woods. Potions are brewed from them. · `[972.giftdruese.text]` Giftdrüse: Aus einer Riesenspinne. Daraus mischt man Alchemistenfeuer. / EN: From a giant spider. Used to mix Alchemist's Fire. · `[870.15.handel]` in `STORY-BRS-ANLEITUNG.md` (Satz zu Morwen, 972) · `Msgs.roasted` („Du brätst {0}× Fleisch über dem Feuer. Es duftet herrlich!“) entfällt, das Fleisch brät nicht mehr von selbst.
+
+**Offen für den Bau (966.2, Tom):** (1) Braut Morwen weiter für Helden ohne Alchemie? Dann bleibt „Morwen braut dir: {0}.“ für diesen Fall; sonst entfällt es. (2) Die Beschreibung von Gebratenem Fleisch sagt „+1 auf Angriffe und Schaden“, im Umzugszweig heilt Essen Leben (`menue.gd` 718); nach dem Bau angleichen, Wortlaut dann von mir.
 
 ## Grundfertigkeiten in der Welt (Plan 954a.1, Texte festgesetzt 954a.4, Homer 11.11.)
 
@@ -184,7 +232,7 @@ Bedingung: ein feindliches Tier (Wolf, Wildschwein, Riesenfledermaus) hat den He
 - **Satz bei nicht wählbaren Fertigkeiten** (statt „Kommt, wenn die Welt es bietet“, das wie eine Systemmeldung klingt): `[954a.1.spaeter]` Das lehrt dich die Welt jenseits von Bornim. / EN: The world beyond Bornim will teach you this.
 - **Bei Illusion und Beschwörung:** `[954a.1.schule]` Diese Schule lehrt nur ein Meister, und keiner lebt in Bornim. / EN: Only a master teaches this school, and none lives in Bornim.
 - **Angeln:** steht in der Gruppe, hängt aber an 509 und 568 (Fische fürs Angeln, Chef 10.11., 11:50); kommt Angeln in Kapitel 1, wird es wählbar.
-- **Kräutersammeln, Alchemie** bleiben wählbar (D). **Kochen:** bleibt wählbar und übt beim Braten am Lagerfeuer, Alchemie bei Morwens Sud (966 A; Zeile `[966.1.kessel]` oben).
+- **Kräutersammeln, Alchemie** bleiben wählbar (D). **Kochen:** bleibt wählbar; der Held brät und braut selbst mit Ring (966 A neu, Abschnitt „Kochen und Alchemie mit Ring“ oben).
 
 ### Schmiedelehrling
 
@@ -200,11 +248,11 @@ Bedingung: ein feindliches Tier (Wolf, Wildschwein, Riesenfledermaus) hat den He
 `[954a.4.borin.geflickt]` (gelingt)
 1. Der letzte Schlag sitzt. Borin brummt; das ist fast ein Lob. — EN: The last blow lands true. Borin grunts; that's almost praise.
 2. Du schreckst das Eisen ab. Es zischt, und es hält. — EN: You quench the iron. It hisses, and it holds.
-3. Borin: Hrmpf. Nicht schön, aber es hält. — EN: Borin: Hrmph. Not pretty, but it holds.
+3. Borin brummt: „Hrmpf. Nicht schön, aber es hält.“ — EN: Borin grunts: “Hrmph. Not pretty, but it holds.”
 
 `[954a.4.borin.daneben]` (misslingt; das Stück bleibt, wie es war)
 1. Der Hammer prallt ab. Das Stück bleibt, wie es war. — EN: The hammer glances off. The piece stays as it was.
-2. Borin: Zu kalt geschlagen. Mach's warm und noch mal. — EN: Borin: Struck too cold. Heat it and go again.
+2. „Zu kalt geschlagen“, sagt Borin. „Mach's warm und noch mal.“ — EN: “Struck too cold,” says Borin. “Heat it and go again.”
 3. Daneben. Borin sagt nichts, aber er sieht hin. — EN: A miss. Borin says nothing, but he's watching.
 
 `[954a.4.borin.zuschwer]` (Stück über dem Rang) Hrmpf. Das ist nichts für deine Hände, noch nicht. Gib her. / EN: Hrmph. That's not for your hands, not yet. Give it here.
