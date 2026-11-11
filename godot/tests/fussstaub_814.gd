@@ -63,20 +63,20 @@ func _lauf() -> void:
 			print("FUSS814 %s: %d Fussstaub in 2,5 s" % ["Rennen" if rennen else "Gehen", neu.size()])
 			if not neu.is_empty():
 				_teilchen("Fussstaub (danach)", neu[0])
-		# Spike 22:16: die Vorlage roh, ohne DorfEffekte.einmal (Start und Aufräumen), zum Vergleich: stösst sie von selbst aus?
-		var roh := fx.setze("effects/footstep_dust.tscn", g.karte.kachel_pos(Vector2i(17, 6)), DorfEffekte.STAUB_K)
-		if roh:
-			_teilchen("Fussstaub roh (gleich)", roh)
-			await warte(3)
-			_teilchen("Fussstaub roh (3 Bilder)", roh)
-			roh.queue_free()
 		# Federn wie beim Huhn
 		var vorf := fx.get_child_count()
 		fx.federn(g.karte.kachel_pos(Vector2i(10, 28)))
 		if fx.get_child_count() > vorf:
 			_teilchen("Federn (gleich)", fx.get_child(fx.get_child_count() - 1))
-			await warte(3)
-			_teilchen("Federn (3 Bilder)", fx.get_child(fx.get_child_count() - 1))
+			var feder: Node = fx.get_child(fx.get_child_count() - 1)
+			# Lauf 362: nach 3 Bildern stiess keine Teilchenquelle der Federn aus (_play_id 1); je Bild bis 1 s, ob und wann sie es tun
+			var an := []
+			for i in 60:
+				await process_frame
+				if not is_instance_valid(feder): an.append("%d weg" % i); break
+				var e := feder.find_children("*", "GPUParticles3D", true, false).filter(func(q): return (q as GPUParticles3D).emitting).map(func(q): return String(q.name))
+				if i % 6 == 0 or (not e.is_empty() and an.is_empty()): an.append("%d:%s" % [i, ",".join(e) if not e.is_empty() else "-"])
+			print("FUSS814 Federn stossen aus (Bild: Quellen): %s" % " ".join(an))
 	print("FUSS814 fertig")
 	quit(0)
 
