@@ -147,7 +147,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 951 | M | Fund t276 (Chef 11.11., 13:44): Blende Flüsterwald zeigte nur den Namen; DESIGN-BLENDE 7: | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 944 (fund) |
 | 954 | M | Von Sokrates (Chef 11.11., 13:55 „1 ja“): Erschaffung – Gedrückthalten erklärt je Grundwer | wartet auf 954.1 (startbar) |
 
-**Jerry** – offen 109, Muss 99, startbar 3
+**Jerry** – offen 108, Muss 99, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -221,7 +221,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 802 | K | Rest 211.14 (Kür, Tuffy): Held und Söldner gehen beim Wechsel statt 0,4 s zu gleiten (figu | ruht |
 | 803 | K | Rest 211.14 (Kür, Tuffy): Gegner durch Antippen der Figur als Ziel wählen | ruht |
 | 811 | K | Von Perikles (800, 650.2 C1): Kommentar in godot/regeln/brs_kampf.gd Zeile 3 nennt DESIGN- | wartet auf Test/Build (gebaut) |
-| 823 | K | Von Perikles (822, 745 A2): Abschnitt „## Checkliste“ in LISTE-MARS.md, je Regel zum Kampf | startbar |
 | 824 | M | Kampf: Schurke ohne Schild geht beim Angriff kurz 3,4–3,8 m/s in „Gehen“ (Bewegung höchste | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (lauf) |
 | 833 | M | Unterer Kampfschirm nach Signatur: kein Kasten im Kasten (Bericht, Leiste, Befehle), Knöpf | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 945 (knopfe) |
 | 836 | M | Von Homer (830): Hinweis „Nahkampf erreicht nur die vordere Reihe.“ steht in jedem Kampf, | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 863 (reihe) |
