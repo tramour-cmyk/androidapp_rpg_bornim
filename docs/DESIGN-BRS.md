@@ -85,7 +85,7 @@ Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit, Wil
 
 ### Wie Fertigkeiten wachsen
 
-- **Durch Tun.** Jede Benutzung gegen ein passendes Ziel bringt Übung. Zu leichte Ziele bringen kaum etwas. Je höher die Fertigkeit, desto mehr Übung braucht der nächste Schritt.
+- **Durch Tun.** Jede Benutzung gegen ein passendes Ziel bringt Übung. Zu leichte Ziele bringen kaum etwas: weit unter dem eigenen Können höchstens ein Zehntel (966, Chef 11.11., 15:58: „nicht 0,2 … dann 0,1 als Ergebnis … die Belohnung sollte nicht so groß sein“). Nichts übt nebenbei: geübt wird nur, wo der Held selbst etwas leistet (Chef 15:44). Je höher die Fertigkeit, desto mehr Übung braucht der nächste Schritt.
 - **Wert und Ränge:** Jede Fertigkeit hat einen Wert von 0 bis 100. Die Ränge sind Abschnitte dieses Werts: Anfänger (0–24), Geselle (25–49), Meister (50–74), Großmeister (75–100). Bei 100 ist die Fertigkeit fertig.
 - **Prüfung am Ende jedes Rangs.** Üben hebt den Wert bis zum Ende des Rangs (zum Beispiel 49). Dann bleibt er stehen, bis eine Prüfung bestanden ist; erst dann steigt er weiter. Was man in der Zwischenzeit übt, wird bis zu einem kleinen Puffer gemerkt.
   - **Fertigkeiten deines Pfads** prüft dein Lehrmeister (Abschnitt 5). Eine Prüfung öffnet den nächsten Rang für alle Kernfertigkeiten des Pfads.
@@ -189,7 +189,7 @@ Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, abe
 | Meisterschaft | Hauptfertigkeit | Zulieferfertigkeit | Stellt her |
 | --- | --- | --- | --- |
 | Schmied | Schmieden | Bergbau | Waffen, Metallrüstung, Dietriche, Reparatur von Metall |
-| Lederarbeit | Lederarbeit | Jagd | Leder, leichte Rüstung, Taschen, Köcher, Reparatur von Leder und Stoff |
+| Lederarbeit (Name offen, 975) | Lederarbeit | Jagd | Leder, leichte Rüstung, Taschen, Köcher, Roben und Stoffkleidung (Stoff vom Händler; Chef 11.11., 16:31), Reparatur von Leder und Stoff |
 | Alchemist | Alchemie | Kräutersammeln | Tränke, Gegengifte, Gifte, Elixiere |
 | Runenmeister | Runenkunde | Bergbau | Verzauberungen, Runen auf Ausrüstung |
 | Feldkoch | Kochen | Angeln oder Jagd | Mahlzeiten mit kleinem Bonus |
@@ -213,6 +213,7 @@ Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, abe
 - **Fallen** stehen an Truhen und frei in Höhlen und Verliesen. Erst entdecken (Wahrnehmung, Spähen), dann entschärfen (Fallen entschärfen). Ohne die Fertigkeit löst die Falle aus.
 - **Truhen und Schlösser:** Jede Truhe hat eine Schlossstufe, die zum Gebiet passt. Dietriche gibt es zu kaufen und vom Schmied, in Güteklassen; ein besserer Dietrich hilft, ein schlechter kann brechen. Ohne Schlüssel knackt man das Schloss oder bricht es mit Kraft auf (laut, kann zerbrechliche Beute beschädigen). Besondere Truhen öffnen Schlüssel oder Quests. Truhen in Häusern von NPCs bleiben zu; Stehlen gibt es nicht.
   - **Knacken (954a.1, Chef 11.11., 15:26):** Truhen und Türen. Je Zuhaltung ein Ring wie im MARS (leichtes Schloss eine, schweres drei), tippen im richtigen Moment; die Fertigkeit und ein guter Dietrich machen den Ring langsamer und das gute Fenster breiter; daneben verbiegt sich der Dietrich, ein schlechter bricht. Geübt wird nur beim Öffnen, ein schwereres Schloss bringt mehr, ein leichtes wenig, verbrauchte Dietriche nie. Ein Schloss weit über dem Rang zeigt „zu schwer für dich“, eines unter dem Rang öffnet sich ohne Ring. Wenige verschlossene Truhen und Türen, je höchstens etwa 5 Sekunden, aber genug Gelegenheiten, dass die Fertigkeit sich lohnt (Chef: „ohne Gelegenheiten die Fertigkeit anzuwenden, brauche ich auch die Fertigkeit nicht“).
+  - **Kochen und Alchemie (966, Chef 11.11., 15:58 „mit Ring“):** wie Knacken. **Kochen:** der Held brät selbst am Lagerfeuer, ein Ring (wenden im richtigen Moment, etwa 3 s); gelungen gibt der Braten mehr Leben, daneben verkohlt das Stück; Übung einmal je Mahlzeit, nicht je Stück, nach Schwierigkeit (Spieß wenig, Wildschwein oder Rezept mit Kraut mehr). **Alchemie:** der Held braut selbst am Kessel, Morwen lehrt je Trank ein Rezept; ein Ring für die Hitze, daneben verdirbt der Sud und die Kräuter sind weg; Übung nur am eigenen Sud nach Schwierigkeit des Rezepts. Unter dem Rang ohne Ring, Übung höchstens ein Zehntel.
 - **Tiere beruhigen:** Ein feindliches Tier lässt sich vor dem Kampf beruhigen; gelingt es, dreht es ab, und der Held bekommt Erfahrung wie für einen Sieg. Je höher der Rang, desto stärkere Tiere.
 - **Tierbegleiter:** Nur der Waldläufer bekommt mit seinem Pfad ein Tier, das ihn begleitet und auf dem Platz eines Gefährten mitkämpft. Tiere werden weder verkauft noch in den Beutel gepackt.
 
@@ -244,7 +245,7 @@ Ernten ist eine kurze Tätigkeit ohne Minispiel. Fundorte wachsen nach einer Zei
 
 **Herstellen:**
 - **Werkorte gestaffelt:** einfache Rezepte überall (Lagerfeuer), höhere an Schmiede, Werkbank, Alchemietisch, Gerberei.
-- **Feste Rezepte** zuerst; Experimentieren kommt später, nur für Alchemie und Kochen. Rezepte gibt es bei Lehrmeistern und Handwerkern, in Büchern, als Belohnung und beim Händler.
+- **Feste Rezepte** zuerst; Experimentieren kommt später, nur für Alchemie und Kochen. Rezepte gibt es bei Lehrmeistern und Handwerkern, in Büchern, als Belohnung und beim Händler. **Rezeptbuch** (Chef 11.11., 16:31): eins für alle Handwerke, zeigt die Rezeptliste je Handwerk. **Wege:** wer die Fertigkeit hat, bekommt die einfachen Rezepte beim Lehrmeister ohne Quest (Morwen: Heiltrank, Kräutertrank), wer nicht, kauft sie; starke Rezepte (Großer Heiltrank, Alchemistenfeuer) für alle nur über eine Quest (481: Feuer kippt sonst früh die Kämpfe).
 - **Alchemie** wird als erste Rezeptgruppe gebaut, danach Rüstung.
 - **Technik:** Jedes Rezept ist ein Datensatz (Zutaten, Fertigkeit und Rang, Werkort, Ergebnis). Tasche, Truhe, Werkort-Ablage und Händlerware sind dasselbe Bauteil. Die Rezeptliste zeigt drei Zustände: herstellbar, eine Zutat fehlt, gesperrt. Das Inventar ist eine Liste wie im alten Spiel, kein Raster; Herstellen ohne Wartebalken.
 - **NPC-Handwerker** stellen gegen Gebühr her, wenn man die Zutaten bringt.
