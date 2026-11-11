@@ -4,7 +4,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `be9056557` (11.11., 15:41)
 
-**Übergabe (11.11., 16:50, `session_01Hmoj766hmP7VphRnXp5x63`):** erledigt: 975 (Rezeptwege in `STORY-K1-FERTIGKEITEN.md`: Morwen lehrt Alchemisten, Rezept als Ware, Brandflasche aus „Gift gegen Gift“, Großer Heiltrank für Grimmzahn, Kochen bei Rowena, Rezeptbuch; Giftdrüse wieder Text 934; `[870.15.handel]`, `STORY-PLAN-K1.md` angepasst; fremd geprüft; Zu 976 an Tom). 975a beim Chef. Nachfolger: Homer – 766: Rollenspiegel (13.11.).
+**Übergabe (11.11., 16:57, `session_01Hmoj766hmP7VphRnXp5x63`):** erledigt: 974 (`[974.tip.tasche]` in `STORY-BRS-KAMPF.md`, fremd geprüft, Zu 974 an Jerry); 975 (Rezeptwege in `STORY-K1-FERTIGKEITEN.md`: Morwen lehrt Alchemisten, Rezept als Ware, Brandflasche aus „Gift gegen Gift“, Großer Heiltrank für Grimmzahn, Kochen bei Rowena, Rezeptbuch; Giftdrüse wieder Text 934; `[870.15.handel]`, `STORY-PLAN-K1.md` angepasst; fremd geprüft; Zu 976 an Tom). 975a beim Chef. `../bornim-main` hängt in einem Merge (Hinweis bei Perikles; Rücksetzen auf `origin/main` erbeten beim Chef 16:55). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
 
 ## Zeilen
 - **Zu 975a (aus 975, Chef 11.11., 16:31):** „können wir das dann vielleicht Handarbeit nennen? … Was wäre denn ein guter Oberbegriff? Kunst, Handkunst, Kunsthandwerk … Ringe schmieden und Amulette. Das haben wir ja auch nicht. Schwierig.“ Vorlage `chefsache/entscheiden/975a-name-leder-stoff.md` (Votum A Schneidern/Schneider, fremd geprüft 16:47); nach der Antwort Namen in `DESIGN-BRS.md`, Handbuch, Lehrmeistertexten, Erschaffung, Codestellen an Tom (976, 870). Schmuck steht in `LISTE-IDEEN.md`.
