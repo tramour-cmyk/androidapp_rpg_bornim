@@ -342,10 +342,10 @@ def vorgang_aus_ref(ref, ablauf):
         if ablauf and not ablauf.isdigit():
             datei = ablauf if "/" in ablauf else ".github/workflows/" + ablauf
             name = (re.search(r"^name:\s*(.+)$", git("show", f"FETCH_HEAD:{datei}").stdout, re.M) or [None, ""])[1]
-    nr = re.match(r"\s*(?:\w+:\s*)?(" + NR + r")\b", nachricht) or re.search(r"\((" + NR + r")\)", name)
-    if nr:
-        return nr.group(1)
-    return (nr_aus_verlauf(REPO, "FETCH_HEAD") if ref else None) or ref or ablauf or "?"
+    nr = re.match(r"\s*(?:\w+:\s*)?(" + NR + r")\b", nachricht)
+    eigen = nr_aus_verlauf(REPO, "FETCH_HEAD") if ref and not nr else None  # 911
+    nr = nr or re.search(r"\((" + NR + r")\)", name)
+    return nr.group(1) if nr and not eigen else (eigen or ref or ablauf or "?")
 
 
 def nr_aus_verlauf(wo, rev):
