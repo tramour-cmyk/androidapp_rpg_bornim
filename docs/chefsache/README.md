@@ -16,6 +16,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [814](ansehen/814-dorfeffekte-abend.md) | Dorfeffekte am Abend, Film Lauf 2 | – | 11.11., 13:16 |
 | [831](ansehen/831-baeume.md) | Bäume aus dem Nature MegaKit mit unserer Signatur | Tom | 11.11., 12:49 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
@@ -131,7 +132,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 785 | M | Oberfläche einmal ganz gegen alt: jeder Schirm und jede Bedienung als eine Liste, jeder Un | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.4 (liste) |
 | 698 | M | Grafikstufen im Systemmenü mit Effekten (Niedrig/Mittel/Hoch, Automatisch per Leistungstes | wartet auf 623 (startbar) |
 | 816 | M | Effekte Szene 1 Dorf am Abend nach LISTE-EFFEKTE (Reihenfolge 623.8): gedämpft, Bilder/s n | wartet auf 698 (startbar) |
-| 814 | M | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staub im Licht, Fußstaub, Fahne, Wind, | in Arbeit bei Spike |
+| 814 | M | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staub im Licht, Fußstaub, Fahne, Wind, | Chef (Datei in der Chefsache) |
 | 831 | M | Bildtafel Bäume: vier Arten aus Stylized Nature MegaKit frei (gewöhnlich, abgestorben, Kie | Chef (Datei in der Chefsache) |
 | 839 | K | Von Homer (817): Erklärtexte der Grundwerte im Reiter Held nach BRS einbauen, Texte STORY- | ruht |
 | 842 | M | Von Sokrates (807a A, Chef 10.11., 11:01): Pim überreden und Verband nach STORY-K1-FERTIGK | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.4 (sokrates) |
@@ -249,7 +250,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 936 | M? | Von Tom (786): Musik an der Bemerkgrenze wie alt: nahe einem Monster leiser und dunkler mi | startbar |
 | 937 | M? | Von Tom (786): Ruhelaute der Monster auf der Karte wie alt: schnüffeln, grunzen, klappern, | startbar |
 
-**Perikles** – offen 18, Muss 12, startbar 0
+**Perikles** – offen 19, Muss 12, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -271,6 +272,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 927 | K | D162.1 276: Anlässe der Schritte 6–11 fehlen in „Jeder Lauf“ (Nachhalten 8, Eingang 7, Mel | wartet auf Diogenes (greift?) |
 | 928 | K | D162.2 LISTE-RELEASE-NEUSTART.md Neustart 2: „Startzuordnung in LISTE-BETRIEB.md Schritt 4 | wartet auf Diogenes (greift?) |
 | 929 | K | D163.1 probelauf.py (725): ein cd mit Variable, das nur als Text vor git commit oder push | wartet auf Diogenes (greift?) |
+| 940 | M? | Von Tom: vorgang.py neu vergibt Nummern doppelt, wenn zwei Sitzungen zugleich anlegen (11. | startbar |
 
 **Diogenes** – offen 13, Muss 7, startbar 5
 
@@ -349,6 +351,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
 Format (Muster: „So geht's“ unten): t276-b1-umzug-brs.md: Zeile 2 ist keine Bereichszeile; t276-b1-umzug-brs.md: Version 0.1.<Laufnummer> (Godot 0.348.<Laufnummer>) fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
+
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/814-dorfeffekte-abend.md
 
 ## So geht's
 
