@@ -12,6 +12,7 @@ static var geladen := false
 static var an := false                  # prefs KEY_TEST
 static var bildrate := false            # FrameMeter.on: Bilder je Sekunde ueber der Welt
 static var standort := false            # PlaceMeter.on: Karte und Kachel des Helden ueber der Welt
+static var klang := false               # 636 A (Chef 09.11., 06:55): die letzten Effekte ueber der Welt (klang.gd protokoll_zeilen)
 
 static func lade() -> void:
 	if geladen: return
@@ -182,7 +183,9 @@ static func reiter(m: Menue) -> void:
 	m.zeichenreihe([zk.call(t.call("Bildrate", "Frame rate"), an_aus.call(bildrate), t.call("Zeigt über der Welt die Bilder je Sekunde.", "Shows frames per second over the world."),
 			func(): bildrate = not bildrate, "FPS", "", bildrate),
 		zk.call(t.call("Standort", "Position"), an_aus.call(standort), t.call("Zeigt über der Welt Karte und Kachel des Helden.", "Shows the hero's map and tile over the world."),
-			func(): standort = not standort, "PIN", "", standort)])
+			func(): standort = not standort, "PIN", "", standort),
+		zk.call(t.call("Klang", "Sound"), an_aus.call(klang), t.call("Zeigt über der Welt die letzten Geräusche: spielt, verklungen, abgebrochen oder nicht gestartet.", "Shows the latest sounds over the world: playing, finished, cut off or not started."),
+			func(): klang = not klang, "SOUND", "", klang)])
 	m.geraet_box()
 	m.luecke(6)
 	m.gruppe(t.call("Held · Stufe %d", "Hero · level %d") % hw.stufe)   # 425 (Pruefer 01.11.): die Stufe einmal, nicht unter „+1“
