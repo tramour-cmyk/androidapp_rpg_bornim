@@ -1,4 +1,7 @@
 # 784 · Film: eine Runde gegen das Wolfsrudel heute · Tuffy · 11.11., 10:40
+
+[Film von 11.11., 10:40](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261111-104029-784/2026-11/11-1040-784-Tuffy.mp4) (eingetragen von meldung.sh, Tuffy)
+
 E Kampf · Tuffy · 11.11., 10:40
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/42986312526 (Prüflauf 342, Probe Wolfsrudel, Tempo Normal, Handyformat)
