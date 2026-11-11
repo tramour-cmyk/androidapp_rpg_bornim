@@ -212,6 +212,7 @@
 | 936 | Von Tom (786): Musik an der Bemerkgrenze wie alt: nahe einem Monster leiser und dunkler mit Unterlage, beim Bemerken still (Music.kt shade, Game.kt 600 threat; neu fehlt) | Jerry | M? | startbar | – | – | – | E Klang | – |
 | 937 | Von Tom (786): Ruhelaute der Monster auf der Karte wie alt: schnüffeln, grunzen, klappern, stöhnen, nur nah und solange es nicht jagt, 13 Arten (MonsterIdle.kt, G:910–925; Aufnahmen da, neu nur Wolf im Kampf) | Jerry | M? | startbar | – | – | – | E Klang | – |
 | 946 | Fund t276 (Chef-Bild 11.11., 13:29): Ansage „! Anspringen“ des dritten Wolfs liegt oben unter der Zugleiste (nur „!ger“ sichtbar); Ansagen nie unter Leiste oder Bildrand | Jerry | M | startbar | – | – | – | E Kampf | – |
+| 620.2c | Von Sokrates (620, Lehre aus 945): Abgleich alt Teil c: erledigte Kampf-Funde des Chefs der Kotlin-Zeit (Archiv, E Kampf, etwa 115) einzeln gegen Godot: gilt, Test, fehlt → Vorgang; nach B1 | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
