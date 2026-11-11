@@ -196,6 +196,7 @@
 | 904 | Von Tom (870.4, B1): sim444_870 am Rechner (97a32cfe2): SCRIPT ERROR mars.gd:903 _erwartet_zauber „Invalid call 'String' constructor: Evokation“ aus _auto_order, Zauberlehrling gegen Grimmzahn und Grak; selten (N=200 je Gegner 1–3 Mal, N=40 nicht); Autopilot fällt dann wohl auf die Waffe | Jerry | M | gebaut, Geprüft an: f8f3b2bf8 (sim444_870 N=200) | – | – | – | E Kampf | – |
 | 909 | Von Sokrates (Chef 11.11., 08:52, zu 854): Lauf schneller: Schritt „Skripte prüfen“ (24 min in Lauf 338) kürzen, ohne eine Prüfung wegzulassen; erst messen, welcher Test wie lange braucht | Jerry | M? | startbar | – | – | – | E Technik | – |
 | Pflege | von Werkzeug (340.3, 11.11.): 15165 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
+| 910 | Von Jerry (B1, Lauf 338): atem_4531 rot, Held atmet in Ruhe 3,0 cm und 3,3° statt höchstens 1,6 cm und 1,5°; gleicher Code in Lauf 336 grün (1,7 cm), also schwankend | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
