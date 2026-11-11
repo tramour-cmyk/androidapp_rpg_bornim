@@ -450,13 +450,22 @@ jobs:
           [ -d templates ] || { curl -sSL --retry 5 --retry-delay 10 --retry-all-errors -o t.tpz $base/Godot_v$GODOT-stable_export_templates.tpz && unzip -q t.tpz && rm t.tpz; }
           mkdir -p ~/.local/share/godot/export_templates/$GODOT.stable
           cp templates/android_debug.apk templates/android_release.apk templates/version.txt ~/.local/share/godot/export_templates/$GODOT.stable/
+      # 918 (Chef 11.11., 09:53 „1 ja“): ein roter Test bricht den Schritt nicht mehr ab (vorher bash -e: jeder Lauf zeigte höchstens
+      # einen Fehler, ohne APK). Jede Zeile, die unter -e abgebrochen hätte, schreibt die Falle ERR nach rot.txt (Stufe, Test, Zeile);
+      # am Ende rot, wenn rot.txt etwas enthält. Stufe „start“ = Start- und Absturztests (Import, Spiel startet, alle Skripte laden):
+      # rot dort heißt keine Testbitte; danach Stufe „test“. APK und Standbilder kommen auch bei rot (Name mit „rot“ bzw. „startrot“).
       - name: Skripte pruefen
+        id: pruefen
         run: |
+          set +e
+          ROT=$GITHUB_WORKSPACE/rot.txt; : > $ROT; STUFE=start
+          trap 'z=$(sed -n "${LINENO}p" "$0"); t=$(echo "$z" | grep -oE "tests/[a-z0-9_]+\.gd" | head -1); echo "$STUFE ${t:-Zeile $LINENO}: ${z:0:160}" >> $ROT; echo "::error::918 rot ($STUFE) ${t:-Zeile $LINENO}"' ERR
           cd godot
           ~/godot/godot --headless --import --path . 2>&1 | tail -5 || true
           timeout 120 ~/godot/godot --headless --path . --quit-after 300 2>&1 | tee check.log | tail -20
           ! grep -E "SCRIPT ERROR|Parse Error|Failed to load|ERROR:" check.log
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/skripte_pruefen.gd 2>&1 | grep -E "SKRIPTE|FALSCH"   # 399.1 Test 130
+          STUFE=test
           timeout 600 ~/godot/godot --headless --path . -s res://tests/drehteller_499.gd 2>&1 | grep -E "FEHLER|DREHTELLER499|KANDIDAT|^\[Haltung|^[A-Z]+:|^  |SCRIPT ERROR" | cut -c1-300 || true   # 499 Messung ohne Bild, vorn im Schritt (Lauf 282: brach vorher an auftraege_542 ab) (Schild-Spalt), noch nicht sperrend
           timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/drehteller_film_499.gd 2>&1 | grep -E "FEHLER|DREHTELLER499|^Film|^  |SCRIPT ERROR" | cut -c1-300 || true   # 499 Schild im Gehen (Spalt, Oberkante gegen Schultern), Messung ohne Bild, noch nicht sperrend
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/blende_594.gd 2>&1 | grep -E "BLENDE594|SCRIPT ERROR"   # 594 Gegner der Kampfblende wie alt
@@ -588,13 +597,20 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/tritte_560.gd 2>&1 | tee tritte560.log | grep -E "FALSCH|TRITTE560|SCRIPT ERROR"; grep -q "^TRITTE560 gut" tritte560.log   # 560 Tritte auf der Karte nicht gebremst (Tom)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/position_518.gd 2>&1 | tee position518.log | grep -E "FEHLER|POSITION518|SCRIPT ERROR"; grep -q "^POSITION518 0 Fehler" position518.log   # 518 Shader setzen POSITION immer
           timeout 300 ~/godot/godot --headless --path . -s res://tests/wald_491.gd 2>&1 | tee wald491.log | grep -E "FEHLER|WALD491|SCRIPT ERROR"; grep -q "^WALD491 0 Fehler" wald491.log   # 491
+          # 918: Ende; rot.txt geht mit den Bildern ins Artefakt (bornim-godot-bilder) und steht hier im Protokoll
+          trap - ERR
+          mkdir -p $GITHUB_WORKSPACE/bilder && cp $ROT $GITHUB_WORKSPACE/bilder/rot.txt
+          if [ -s $ROT ]; then echo "ROT: $(wc -l < $ROT) Zeilen"; cat $ROT; grep -q "^start " $ROT && echo "startrot" > $GITHUB_WORKSPACE/rot-stufe || echo "rot" > $GITHUB_WORKSPACE/rot-stufe; exit 1; fi
+          echo "ROT: keine"
       # fester Schluessel ueber alle Laeufe, sonst lehnt Android das Update ab (348.5, Build 9). 399.1a (Chef 28.10., 14:41): der Cache
       # eines Zweigs galt nur dort (Build 130 bekam einen neuen); jetzt nur lesen, angelegt wird er auf main (godot-schluessel.yml)
       - uses: actions/cache/restore@v4
+        if: ${{ !cancelled() }}     # 918
         with:
           path: ~/bornim-godot-schluessel
           key: bornim-godot-schluessel-2
       - name: Android-Export
+        if: ${{ !cancelled() }}     # 918: APK auch nach rotem Prüfschritt
         run: |
           K=~/bornim-godot-schluessel/debug.keystore
           [ -f $K ] || { echo "Schluessel fehlt: Godot-Schluessel (godot-schluessel.yml) auf main laufen lassen"; exit 1; }
@@ -610,13 +626,17 @@ jobs:
           ~/godot/godot --headless --path . --export-debug "Android" $GITHUB_WORKSPACE/bornim-godot.apk 2>&1 | tail -30
           ls -l $GITHUB_WORKSPACE/bornim-godot.apk
           unzip -l $GITHUB_WORKSPACE/bornim-godot.apk | grep -E "\.pck|daten" || { echo "Daten fehlen im APK"; exit 1; }
+      - name: Name des APK (918)
+        if: ${{ !cancelled() }}
+        run: echo "APK_NAME=bornim-godot-apk$( [ -f rot-stufe ] && echo -$(cat rot-stufe) )" >> $GITHUB_ENV
       - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
         with:
-          name: bornim-godot-apk
+          name: ${{ env.APK_NAME }}
           path: bornim-godot.apk
       # Standbilder mit dem Mobile-Renderer (Vulkan in Software, lavapipe) zum Pruefen und fuer das Vergleichsbild
       - name: Standbilder
-        if: github.event.inputs.bild != 'nein'     # Messlauf ohne Bild zählt nicht als Probelauf (Perikles 02.11., 19:5x)
+        if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}     # Messlauf ohne Bild zählt nicht als Probelauf (Perikles 02.11., 19:5x); 918 auch nach rot
         continue-on-error: true
         run: |
           sudo apt-get install -y -q mesa-vulkan-drivers xvfb > /dev/null
@@ -649,7 +669,7 @@ jobs:
           ls -l $GITHUB_WORKSPACE/bilder/raeume
       # 493 (Jerry): je Kampfort im Wald ein Standbild wie im Spiel (Probekampf Kleriker und Kämpfer gegen das Wolfsrudel), nur bei „493“
       - name: Kampforte Wald (493)
-        if: contains(github.event.head_commit.message, '493') || (github.event_name == 'workflow_dispatch' && contains(github.ref, '493'))   # von Hand ohne head_commit (Lauf 213: übersprungen)
+        if: ${{ !cancelled() && (contains(github.event.head_commit.message, '493') || (github.event_name == 'workflow_dispatch' && contains(github.ref, '493'))) }}   # von Hand ohne head_commit (Lauf 213: übersprungen); 918 auch nach rot
         continue-on-error: true
         run: |
           mkdir -p $GITHUB_WORKSPACE/bilder/kampforte
