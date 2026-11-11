@@ -1505,17 +1505,12 @@ func _tick(f: Fighter) -> bool:
 	return stunned
 
 
-## 296.2: what a foe's landed blow does besides the damage, as in the old fight: a critical one wounds, and its kind's
-## own special (unless MARS gives it intents of its own).
-func _foe_wounds(foe: Fighter, t: Fighter, crit: bool) -> void:
+## 296.2: what a foe's landed blow does besides the damage: its kind's own special (unless MARS gives it intents of its own).
+## 870.6a 3 A (Chef 11.11., 13:55): Gegner treffen nach dem BRS nie kritisch; Blutung und Betäubung nur über Sonderregeln.
+func _foe_wounds(foe: Fighter, t: Fighter) -> void:
 	var m: Dictionary = foe.monster
 	var first := not foe.has_hit
 	foe.has_hit = true
-	var type := str(m.get("type", ""))
-	if crit and type == "SLASHING":
-		_inflict(t, "BLEED", 2)
-	if crit and type == "BLUDGEONING":
-		_inflict(t, "STUN", 1, ["zaehigkeit", 12])
 	if art_of(m) in OWN_INTENTS:
 		return
 	match str(m.get("special", "NONE")):
@@ -1715,7 +1710,7 @@ func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := 
 	if outcome != "ONGOING" or not t.standing():
 		return
 	if statuses:
-		_foe_wounds(foe, t, bool(e.kritisch))
+		_foe_wounds(foe, t)
 		if outcome != "ONGOING" or not t.standing():
 			return
 	match intent.effect:
