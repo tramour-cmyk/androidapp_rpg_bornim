@@ -5,19 +5,19 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 ## Zehn Zeilen
 
 <!-- zahlen -->
-**Stand 11.11., 07:40** (Werkzeug `tools/tagesbericht.py`)
+**Stand 11.11., 07:43** (Werkzeug `tools/tagesbericht.py`)
 
 | # | Kennzahl | heute | Bemerkung |
 |---|---|---|---|
 | 1 | Stufe | **Stufe 1 Kern spielbar**: 2 von 4 abgenommen, 2 gebaut, 0 in Arbeit | 41 Punkte in 6 Stufen: 2 abgenommen, 2 gebaut, 5 in Arbeit, 32 offen |
 | 2 | Seit gestern | abgenommen **0**, gebaut **1**, von dir zurück **0** | Vorgänge erledigt 24 h / 7 Tage: 88 / 410, davon Spiel (Entwicklung, Gestaltung, Texte, Design) 48 / 240; neu 101 / 431 |
 | 3 | Rest geschätzt | Wochenziel 09.–15.11. „Der Kampf funktioniert“, seit deinem Nachtauftrag (10.11., 22:24) geht der Umzug aufs BRS (870) vor: Build 275 freigegeben (11.11., 07:08); Tom baut den Helden auf BRS um (870.4, Lauf seit 07:17), danach Laden, Spielstände, Kotlin-Ausstieg (870.7–870.9); Jerry … (ganz unter „Eingaben“) | Sitzungen bis zur nächsten Stufe, Tom und Jerry, montags neu |
-| 4 | Wartet auf dich | **2 entscheiden**, **3 billigen**, **1 tun** | ältestes: 709c seit 10.11., 19:35; [Chefsache](chefsache/README.md) |
+| 4 | Wartet auf dich | **3 entscheiden**, **3 billigen**, **1 tun** | ältestes: 709c seit 10.11., 19:35; [Chefsache](chefsache/README.md) |
 | 5 | Builds | Änderungen warten auf deinen Test: **9** (Tom 3, Jerry 6); rote Läufe 24 h **13 von 22** (Tom 2, Jerry 3, Build 1, Sonst 7), 7 Tage 35 von 105 | bei dir zum Testen: kein Build; ein Build nimmt alle fertigen Zweige (317) |
 | 6 | Fehler | **11** offen, davon 3 älter als drei Tage | offene Vorgänge des Spiels mit Fehler oder Befund im Titel, dazu jeder mit Build-Nummer (D55.3) |
 | 7 | Geld | Woche **0 %** (dein Bild 11.11., 07:11); gestern 588 $ Rechenwert, Spiel 75 % | Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal) |
 | 8 | Von dir zuerst gefunden | seit dem letzten Bericht (10.11., 08:07) 832 Lizenzpunkt und 833 Knöpfe (t273); 856, 857, 860, 861, 863, 864, 865, 867, 868 (t274); Filme 709.1 Wolfsbiss und 506.2 Grabhundbiss; im Betrieb 837 ausgelassene Starts, 853 Starts als Systemmeldung, 894 Build 275 eine Stunde verloren; t275 ohne neuen Fehler | Woche, zählt Diogenes montags |
-| 9 | Größtes Risiko | der Umzug aufs BRS mitten im Wochenziel; der erste Build danach (B1, 276) wird groß und bringt alte und neue Funde zugleich, „Kampf passt“ rückt hinter den Umzug. Guthaben ist nach dem Zurücksetzen (Woche 0 %, dein Bild 11.11., 07:11) kein Engpass mehr; Aufwand Hoch bis Sa (365a B) misst Sokrates |  |
+| 9 | Größtes Risiko | der Umzug aufs Bornimer Rollenspielsystem mitten im Wochenziel; der erste Build danach (276) wird groß und bringt alte und neue Funde zugleich, „Kampf passt“ rückt hinter den Umzug. Guthaben ist nach dem Zurücksetzen (Woche 0 %, dein Bild 11.11., 07:11) kein Engpass mehr; Aufwand Hoch bis Sa (365a B) misst Sokrates |  |
 | 10 | Ausführlich | [Abnahmeliste und Stand](PROJEKTPLAN.md) |  |
 
 | Rolle | offen | davon Muss | startbar | erledigt 24 h | erledigt 7 Tage |
@@ -72,4 +72,4 @@ Von Hand (Perikles), das Werkzeug übernimmt sie in die Zeilen 3, 8, 9.
 
 - Rest geschätzt: Wochenziel 09.–15.11. „Der Kampf funktioniert“, seit deinem Nachtauftrag (10.11., 22:24) geht der Umzug aufs BRS (870) vor: Build 275 freigegeben (11.11., 07:08); Tom baut den Helden auf BRS um (870.4, Lauf seit 07:17), danach Laden, Spielstände, Kotlin-Ausstieg (870.7–870.9); Jerry hat Kampfwerte und Anzeigen umgestellt (870.2, 870.3, 870.5 gebaut), Beute wartet auf den Helden (870.6). Kampf offen: 751 Knopfleiste (Jerry, in Arbeit), Wolfsangriff (709c bei dir), Grabhundbiss 506.2; Spike 680 Absturz, Tuffy 705 Werte. Schätzungen in Sitzungen fehlen weiter.
 - Von dir zuerst gefunden: seit dem letzten Bericht (10.11., 08:07) 832 Lizenzpunkt und 833 Knöpfe (t273); 856, 857, 860, 861, 863, 864, 865, 867, 868 (t274); Filme 709.1 Wolfsbiss und 506.2 Grabhundbiss; im Betrieb 837 ausgelassene Starts, 853 Starts als Systemmeldung, 894 Build 275 eine Stunde verloren; t275 ohne neuen Fehler
-- Größtes Risiko: der Umzug aufs BRS mitten im Wochenziel; der erste Build danach (B1, 276) wird groß und bringt alte und neue Funde zugleich, „Kampf passt“ rückt hinter den Umzug. Guthaben ist nach dem Zurücksetzen (Woche 0 %, dein Bild 11.11., 07:11) kein Engpass mehr; Aufwand Hoch bis Sa (365a B) misst Sokrates
+- Größtes Risiko: der Umzug aufs Bornimer Rollenspielsystem mitten im Wochenziel; der erste Build danach (276) wird groß und bringt alte und neue Funde zugleich, „Kampf passt“ rückt hinter den Umzug. Guthaben ist nach dem Zurücksetzen (Woche 0 %, dein Bild 11.11., 07:11) kein Engpass mehr; Aufwand Hoch bis Sa (365a B) misst Sokrates
