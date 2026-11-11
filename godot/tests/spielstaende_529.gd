@@ -30,7 +30,7 @@ func _lauf() -> void:
 	var hw := BrsHeld.fuer_spiel("Thora", "Zwerg", "Klosterschüler", z.neue_uid)
 	pruefe(Zustand.aus_daten(z.als_daten()).gespielt_ms == z.gespielt_ms, "gespielte Zeit geht beim Speichern verloren")
 	# Sommerzeit gespeichert (Ortszeit 14:05), heute Winter: die Karte zeigt 14:05, nicht aus der Unix-Zeit gerechnet
-	var d := {"platz": 2, "zustand": z.als_daten(), "held": hw.spiel_daten(), "ort": {"karte": "village"},
+	var d := {"version": Spielstand.VERSION, "platz": 2, "zustand": z.als_daten(), "held": hw.spiel_daten(), "ort": {"karte": "village"},
 		"gespeichert": 1, "gespeichert_ortszeit": {"year": 2026, "month": 10, "day": 24, "hour": 14, "minute": 5, "second": 0}}
 	var k := Spielstaende.karte(d)
 	root.add_child(k)

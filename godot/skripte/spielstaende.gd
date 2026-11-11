@@ -97,10 +97,11 @@ func baue() -> void:
 		var knoepfe := HBoxContainer.new()
 		knoepfe.add_theme_constant_override("separation", int(8 * DP))
 		var weg := Stil.knopf("Löschen" if de else "Delete", func(): frage_loeschen(d))
-		var los := Stil.knopf("Laden" if de else "Load", func(): laden.emit(n))
-		los.size_flags_stretch_ratio = 2.0
 		knoepfe.add_child(weg)
-		knoepfe.add_child(los)
+		if not Spielstand.alt(d):   # 870.8: alte nur loeschen
+			var los := Stil.knopf("Laden" if de else "Load", func(): laden.emit(n))
+			los.size_flags_stretch_ratio = 2.0
+			knoepfe.add_child(los)
 		var innen: VBoxContainer = k.get_child(0)   # 529: aussen (Bild und Zeilen), darunter die Knoepfe
 		innen.add_child(Stil.luecke(8))
 		innen.add_child(knoepfe)
@@ -117,7 +118,8 @@ static func karte(d: Dictionary, rahmen := true) -> PanelContainer:
 	var n := Stil.zeile((("Platz %d · " if de else "Slot %d · ") % int(d["platz"]) + String(h.get("name", ""))).to_upper(), 14, Stil.GOLD, 3.0)   # MenuHead
 	n.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	v.add_child(n)
-	v.add_child(Stil.txt(ErschaffungBrs.wer(String(h.get("volk", "Mensch")), String(h.get("herkunft", BrsHeld.WANDERER)), int(h.get("stufe", 1))), 14))   # 870.4
+	if Spielstand.alt(d): v.add_child(Stil.txt(alt_satz(de), 14, Stil.WARN))   # 870.8
+	else: v.add_child(Stil.txt(ErschaffungBrs.wer(String(h.get("volk", "Mensch")), String(h.get("herkunft", BrsHeld.WANDERER)), int(h.get("stufe", 1))), 14))   # 870.4
 	var ort := String(d.get("ort", {}).get("karte", ""))
 	var alle = JSON.parse_string(FileAccess.get_file_as_string("res://daten/karten.json")) if FileAccess.file_exists("res://daten/karten.json") else null
 	if alle is Dictionary and alle["karten"].has(ort): ort = Sprache.t(alle["karten"][ort]["name"])
@@ -136,10 +138,11 @@ static func karte(d: Dictionary, rahmen := true) -> PanelContainer:
 	aussen.add_theme_constant_override("separation", 0)
 	var reihe := HBoxContainer.new()
 	reihe.add_theme_constant_override("separation", int(10 * DP))
-	var bild := Drehteller.new(heldbild(d), 0.4, false)
-	bild.name = "Heldbild"
-	bild.mouse_filter = Control.MOUSE_FILTER_IGNORE   # Antippen gehoert der Karte (Erschaffung: Platz waehlen)
-	reihe.add_child(bild)
+	if not Spielstand.alt(d):   # 870.8: der alte Held laesst sich nach BRS nicht zeichnen
+		var bild := Drehteller.new(heldbild(d), 0.4, false)
+		bild.name = "Heldbild"
+		bild.mouse_filter = Control.MOUSE_FILTER_IGNORE   # Antippen gehoert der Karte (Erschaffung: Platz waehlen)
+		reihe.add_child(bild)
 	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	v.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	reihe.add_child(v)
@@ -152,6 +155,10 @@ static func karte(d: Dictionary, rahmen := true) -> PanelContainer:
 		p.add_child(aussen)
 		return p
 	return Stil.rahmen(aussen)
+
+# 870.8 (870a 1, DESIGN-BRS 11): Hinweis an einem Spielstand der Version 1
+static func alt_satz(de: bool) -> String:
+	return "Aus der alten Regelfassung, nicht mehr spielbar" if de else "From the old rules version, no longer playable"
 
 # HeldFigur.wahl aus dem gespeicherten Helden; {} wenn der Spielstand nichts hergibt (dann der Grundheld)
 static func heldbild(d: Dictionary) -> Dictionary:
@@ -302,10 +309,12 @@ func _voll_zeile(d: Dictionary, de: bool) -> Control:
 	var r := HBoxContainer.new()
 	r.add_theme_constant_override("separation", int(14 * DP))
 	r.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var bild := Drehteller.new(heldbild(d), 0.4, false)
-	bild.name = "Heldbild"
-	bild.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	r.add_child(bild)
+	var alt := Spielstand.alt(d)   # 870.8: ohne Bild, Ziel und Laden, nur Hinweis und Loeschen
+	if not alt:
+		var bild := Drehteller.new(heldbild(d), 0.4, false)
+		bild.name = "Heldbild"
+		bild.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		r.add_child(bild)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(2 * DP))
 	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -314,8 +323,9 @@ func _voll_zeile(d: Dictionary, de: bool) -> Control:
 	var kopf := Stil.zeile((("Platz %d · " if de else "Slot %d · ") % platz + String(h.get("name", ""))).to_upper(), 14, Stil.GOLD, 2.5)
 	kopf.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	v.add_child(kopf)
-	v.add_child(_satz(ErschaffungBrs.wer(String(h.get("volk", "Mensch")), String(h.get("herkunft", BrsHeld.WANDERER)), int(h.get("stufe", 1))), 16, Stil.TEXT))   # 870.4
-	if mit["ziel"]:   # Vorschlag 2 (Chef 12:38 „mit 2“): wo man steht, damit man nach Tagen weiss, was zu tun ist (Hauptauftrag der Chronik)
+	if alt: v.add_child(_satz(alt_satz(de), 16, Stil.WARN))
+	else: v.add_child(_satz(ErschaffungBrs.wer(String(h.get("volk", "Mensch")), String(h.get("herkunft", BrsHeld.WANDERER)), int(h.get("stufe", 1))), 16, Stil.TEXT))   # 870.4
+	if mit["ziel"] and not alt:   # Vorschlag 2 (Chef 12:38 „mit 2“): wo man steht, damit man nach Tagen weiss, was zu tun ist (Hauptauftrag der Chronik)
 		var zs := Zustand.aus_daten(z)
 		# Helfer 11:28, 11:36: in BRIGHT, dann gedaempftem Weiss noch so hell wie die Wahl und zog den Blick; 13:07 bei 62 % Weiss kaum als
 		# gedaempft zu erkennen: in gedaempftem Gold (eigene Farbe, nicht die der Angaben), schraeg, mit Abstand davor und danach
@@ -339,12 +349,12 @@ func _voll_zeile(d: Dictionary, de: bool) -> Control:
 	g.name = "Gespielt"
 	v.add_child(g)
 	r.add_child(v)
-	r.add_child(_wahl("Laden" if de else "Load"))
+	if not alt: r.add_child(_wahl("Laden" if de else "Load"))
 	var rand := MarginContainer.new()
 	rand.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	rand.add_theme_constant_override("margin_top", int(12 * DP)); rand.add_theme_constant_override("margin_bottom", int(4 * DP))
 	rand.add_child(r)
-	aussen.add_child(tippbar(rand, func(): laden.emit(platz)))
+	aussen.add_child(rand if alt else tippbar(rand, func(): laden.emit(platz)))
 	# Loeschen leise darunter, rechts unter „Laden“ (Helfer 13:07: stand links unter den Angaben), mit eigener Flaeche von 48 dp und
 	# Abstand nach oben, damit es kein Fehlgriff wird; mit Rueckfrage
 	if vorlage2:   # 557 Runde 4 (Chef 17:43): „× LÖSCHEN“ wie Wegwerfen in Warnfarbe, gleich gross wie jeder Knopf, rechts unter „LADEN ›“

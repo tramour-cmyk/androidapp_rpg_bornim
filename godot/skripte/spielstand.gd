@@ -19,8 +19,12 @@ static func gibt_es() -> bool:
 		if FileAccess.file_exists(datei(n)): return true
 	return FileAccess.file_exists(ALT)
 
-# 870.4: Version 2 traegt den Helden nach BRS (BrsHeld.spiel_daten); was mit Version 1 geschieht, regelt 870.8
+# 870.4: Version 2 traegt den Helden nach BRS (BrsHeld.spiel_daten)
 const VERSION := 2
+
+# 870.8 (870a 1 A, Chef 10.11., 15:08; DESIGN-BRS 11): Spielstaende aus der SRD-Zeit (Version 1, vor Build 130–132 ohne Version) laden
+# nicht mehr; die Liste zeigt sie mit Hinweis und Loeschen, „Weiter“ und lade() uebergehen sie
+static func alt(d: Dictionary) -> bool: return not d.is_empty() and int(d.get("version", 1)) < VERSION
 
 static func speichere(z: Zustand, hw: BrsHeld, ort: Dictionary) -> void:
 	_umziehen()
@@ -37,7 +41,7 @@ static func lade(n: int = 0) -> Dictionary:
 	if n == 0: n = letzter()
 	if n == 0 or not FileAccess.file_exists(datei(n)): return {}
 	var d = JSON.parse_string(FileAccess.get_file_as_string(datei(n)))
-	if not d is Dictionary: return {}
+	if not d is Dictionary or alt(d): return {}   # 870.8
 	d["platz"] = n
 	return d
 
@@ -55,7 +59,7 @@ static func letzter() -> int:
 	var best := 0
 	var zeit := -1
 	for d in liste():
-		if not d.is_empty() and int(d.get("gespeichert", 0)) > zeit:
+		if not d.is_empty() and not alt(d) and int(d.get("gespeichert", 0)) > zeit:   # 870.8
 			zeit = int(d.get("gespeichert", 0))
 			best = int(d["platz"])
 	return best

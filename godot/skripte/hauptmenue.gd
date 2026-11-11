@@ -295,7 +295,7 @@ func titel() -> void:
 	reihe.custom_minimum_size.x = 280 * DP
 	reihe.add_theme_constant_override("separation", int(10 * DP))
 	reihe.add_child(Stil.knopf(Sprache.u("newGame"), erschaffung))
-	if not stand.is_empty(): reihe.add_child(Stil.knopf("Spielstände" if Sprache.aktiv() == "de" else "Saved games", spielstaende))
+	if Spielstand.gibt_es(): reihe.add_child(Stil.knopf("Spielstände" if Sprache.aktiv() == "de" else "Saved games", spielstaende))   # 870.8: auch, wenn nur alte da sind (Loeschen)
 	mittig(reihe)
 	abstand(12)
 	var ue := Stil.knopf(Sprache.u("about"), ueber)   # wie alt: „Über das Spiel“ unter der Reihe, 280 dp
