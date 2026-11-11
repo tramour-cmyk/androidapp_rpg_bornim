@@ -135,9 +135,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 861 | M | Von Sokrates (Chef 10.11., 13:12, Bild t274.14): Umhang des Kämpfers im Kampf rechts am Rü | startbar |
 | 867 | M | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die | startbar |
 | 875 | M | Von Homer (857a A, Chef 10.11., 13:35): Fertigkeit Kräuterkunde heißt im Spiel Kräutersamm | startbar |
-| Pflege | K | von Werkzeug (340.3, 11.11.): 15902 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 16227 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 89, Muss 74, startbar 11
+**Jerry** – offen 88, Muss 74, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -228,14 +228,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 854.1 | M | Von Tom (888, Lauf 42906784036): kauf_cache.py ablegen bricht ab, Zeile 21 ModuleNotFoundE | Sperre 620.1 B: 11 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 854 (ablegen) |
 | 904 | M | Von Tom (870.4, B1): sim444_870 am Rechner (97a32cfe2): SCRIPT ERROR mars.gd:903 _erwartet | wartet auf Test/Build (gebaut) |
 | 909 | M? | Von Sokrates (Chef 11.11., 08:52, zu 854): Lauf schneller: Schritt „Skripte prüfen“ (24 mi | startbar |
-| Pflege | K | von Werkzeug (340.3, 11.11.): 15165 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 910 | M | Von Jerry (B1, Lauf 338): atem_4531 rot, Held atmet in Ruhe 3,0 cm und 3,3° statt höchsten | Sperre 620.1 B: 11 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (lauf) |
 
-**Perikles** – offen 25, Muss 12, startbar 1
+**Perikles** – offen 25, Muss 12, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 264.1 | M | Von Sokrates (264): Probe godot.yml auf eigenem Runner, Bauzeit je Schritt gegen GitHub · | startbar |
+| 264.1 | M | Von Sokrates (264): Probe godot.yml auf eigenem Runner, Bauzeit je Schritt gegen GitHub · | Termin 11.11. 10:00 |
 | 870.12 | M | Von Sokrates (870, Umzug BRS): Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 | wartet auf 870.13 (wartet) |
 | 870.10 | M | Von Sokrates (870, Umzug BRS Schritt 8): Kotlin-Bau aus (android.yml), mit 870.9; LISTE-UM | wartet auf 870.9 (wartet) |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf Diogenes |
@@ -296,7 +295,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 318 | M | Knappheit per Einstellung: Antwortstil „Knapp“ und Startanhang (Chef 22.10., 21:34) | startbar |
 | 246.1 | K | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | nach dem Meilenstein |
 | 296 | K | Checkliste je großem System (MARS zuerst): umgesetzt, offen, was zwischen klassisch und MA | ruht |
-| 264 | M | Bauserver auf Proxmox des Chefs (eigener GitHub-Runner): einrichten, Godot-Bau dort messen | wartet auf 264.1 (startbar) |
+| 264 | M | Bauserver auf Proxmox des Chefs (eigener GitHub-Runner): einrichten, Godot-Bau dort messen | wartet auf 264.1 (in Arbeit) |
 | 263 | K | Rolle für Finanzen und Geschäftszimmer? (Chef 20.10.) | startbar |
 | 366 | M | bornwire.de: Abschnitt „Stand“ und „Tester gesucht“ (Chef 25.10., 18:39) | startbar |
 | 365 | M | Aufwand „Hoch“ statt „Mittel“ für einzelne Rollen? (Chef 25.10., 12:36) | startbar |
