@@ -20,6 +20,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [814](ansehen/814-dorfeffekte-film.md) | Dorfeffekte, Film Lauf 1 | – | 11.11., 12:57 |
 | [831](ansehen/831-baeume.md) | Bäume aus dem Nature MegaKit mit unserer Signatur | Tom | 11.11., 12:49 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
@@ -338,6 +339,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
 Format (Muster: „So geht's“ unten): t276-b1-umzug-brs.md: Zeile 2 ist keine Bereichszeile; t276-b1-umzug-brs.md: Version 0.1.<Laufnummer> (Godot 0.348.<Laufnummer>) fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
+
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/814-dorfeffekte-film.md
 
 ## So geht's
 
