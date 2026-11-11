@@ -155,7 +155,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 954a.7 | M | Von Perikles (954a.2): Spähen durch Verweilen: Ring zeigt Heilkräuter abseits der Wiesen, | wartet auf 870 (wartet) |
 | 954a.12 | M | Von Perikles (954a.2): Erschaffung: nicht wählbare Fertigkeiten (Bergbau, Angeln, Schmiede | wartet auf 870 (wartet) |
 
-**Jerry** – offen 113, Muss 104, startbar 21
+**Jerry** – offen 113, Muss 105, startbar 20
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -271,7 +271,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 954a.10 | M | Von Perikles (954a.2): Tiere beruhigen: Wolf, Wildschwein, Riesenfledermaus ziehen ab, Erf | wartet auf 870 (wartet) |
 | 954a.11 | M | Von Perikles (954a.2): Jagd: Tiere geben öfter Fell, Fleisch, Hauer (tabellen.json), Auftr | wartet auf 870 (wartet) |
 | 954a.13 | M | Von Perikles (954a.2, D): Volksmerkmal Glückskind (Hügelvolk) wirkt nur im alten Kampf kla | wartet auf 870 (wartet) |
-| 969 | M? | Von Sokrates (Chef 11.11., 15:49): Regelwerte zum Nachschlagen, dritte Seite neben 644 und | startbar |
+| 969 | M | Von Sokrates (Chef 11.11., 15:49): Regelwerte zum Nachschlagen, dritte Seite neben 644 und | wartet auf 968 (startbar) |
 
 **Perikles** – offen 14, Muss 13, startbar 0
 
