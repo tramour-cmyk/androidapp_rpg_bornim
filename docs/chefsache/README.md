@@ -38,7 +38,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
-**Tom** – offen 123, Muss 104, startbar 13
+**Tom** – offen 124, Muss 104, startbar 14
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -165,6 +165,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 990 | M | Von Sokrates (Chef 11.11., 20:19, Fund t277, Bild): Staubflocken in Thessas Kramladen schw | wartet auf Test/Build (gebaut) |
 | 991 | M | Von Sokrates (Chef 11.11., 20:24, Test 277): Testmenü: jeder Schalter zeigt seinen Zustand | wartet auf Test/Build (gebaut) |
 | 994 | M | Von Sokrates (Chef 11.11., 20:54, Test 277.18): Klangzeile zeigt beim neuen Spiel ständig | wartet auf Test/Build (gebaut) |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 15886 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 122, Muss 112, startbar 8
 
@@ -291,7 +292,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 986 | M? | Von Homer (840): Eingebungen nach BRS bauen wie den Wolfssprung, Texte und Bauhinweise in | startbar |
 | 993 | M | Von Sokrates (Chef 11.11., 20:47, Test 277, Probekampf Zauberlehrling): Arkanpfeil „sieht | startbar |
 | 995 | M | Von Sokrates (Chef 11.11., 20:58, Film 744): Grabhund wirkt durch seine Farbe unstrukturie | Sperre 620.1 B: 27 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 744 |
-| Pflege | K | von Werkzeug (340.3, 11.11.): 18920 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 19407 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 12, Muss 11, startbar 0
 
@@ -380,7 +381,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 985 | K | Systemlösung? Nebel: 2 frühere Vorgänge (505, 502), neu 785.7; einmal grundsätzlich lösen? | startbar |
 | 644a | M | Rückfrage: Mindeststufe zum Tragen, Stärke je Gegenstandsstufe, Abstand der Funde (Chef 11 | Chef (Datei in der Chefsache) |
 | 996 | M | Von Tuffy (595): Filmlauf frei nach 480.1? Probe am Rechner 21:14 kaputt durch eigenen Feh | startbar |
-| Pflege | K | von Werkzeug (340.3, 11.11.): 15182 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 11.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
