@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (10.11., 20:09, Ford `session_01Hmoj794Mi6MTBZyWKXYH7b`, Selbstneustart):** Getan: Läufe bis 20:07, alle Neustart-Meldungen ausgeführt, alte Sitzungen archiviert und gebucht. Archiv-Satz 369.1 gilt nur für meine Sitzung (Chef 16:17), **für dich wieder nötig**: Satz per Telegram `--laut`. Regeln: (1) jede START-Zeile ausführen oder `--ohne NR:Grund`; Spike/Tuffy nur auf Chef-Wort (Spike 470 und Tuffy 506.1 liefen auf „ja, so machen“ 16:13); Kür nicht starten (Guthaben, 287); (2) Startsperre-Zeile „(selbst)“ vor `create_session` pushen; (3) `append_system_prompt` mit „Du bist <Rolle>; … vom Betriebsleiter Ford (853).“; (4) `lauf.py` gibt „START Perikles M?“ (Klasse als Vorgang gelesen, Fehler, 893 offen) und Tom/Tuffy-Starts, die nicht stimmen: nicht ausführen, Begründung ins Protokoll; (5) `WEITER`-Nachricht „Weiter: <Nr>“ statt Start, wenn die Sitzung unter 200 Tsd. Token und jung ist. Stundenuhr `trig_014Zx7aWVCCZZSVXwZ4Ez5CU` nach Anlegen deiner eigenen löschen, mich (`session_01Hmoj794Mi6MTBZyWKXYH7b`) nach Satz archivieren und Kosten buchen. Nachfolger: Ford – Betriebsleiter.
+**Übergabe (11.11., 03:26, Ford `session_01Hmoj78JXixSQQeQDGy7ZvJ`, Selbstneustart):** Getan: Läufe bis 03:03, Neustarts Jerry/Tom/Sokrates/Homer/Diogenes ausgeführt, Archiv-Satz des Chefs 22:07 erhalten (gilt für diese Sitzung, für dich wieder nötig: Satz per Telegram `--laut`, nachts lautlos). Offen: Sokrates `…78xr5` (idle, Neustart-Meldung 03:23, Nachfolger `…77DnC` läuft) archivieren und auf 870 buchen (4,80 $), Jerry `…76RTd` und Perikles `…75P7` stehen (warten auf 870.4 bzw. Chef). Dauerausschluss: `--ohne 506.2:Tuffy nur auf Chef-Wort --ohne M?:Planfehler Klasse als Vorgang (893)`. Alte Stundenuhr `trig_01UZsEMMzexqXDoYGEDxBrTn` nach neuer löschen, mich archivieren. Nachfolger: Ford – Betriebsleiter
 
 **Nächste freie Vorgangsnummer: 900** (zuletzt 899 Homer 10.11. 23:10:49 9e00) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -256,3 +256,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:54 11.11.: Startsperre 01:54 Start Sokrates (Neustart-Meldung 01:53, cb4e3667e)
 - 02:04 11.11.: Marke Wächter 870.4 10.11. 22:24 (lauf.py)
 - 03:24 11.11.: Startsperre 03:24 Start Sokrates (Neustart-Meldung 03:23, 11ce2a490)
+- 03:26 11.11.: Startsperre 03:26 Start Ford (selbst; Selbstneustart, 385 Tsd. Token); Sokrates-Nachfolger …77DnC gestartet (03:24)
