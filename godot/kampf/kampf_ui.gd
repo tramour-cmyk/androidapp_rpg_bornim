@@ -1210,9 +1210,15 @@ func cast(kind: String, by: String, on: String, crit: bool, missed: bool, after_
 	spell_seed += 1
 	var k = kampfort
 	var step_ms := 0.0
-	if kind in STEP_KINDS and by != on and k.figures.has(by) and k.figures.has(on):
+	# 993: der Arkanpfeil aus R2 fliegt gerade wie Funkenpfeil und Pfeil, darum mit Seitenschritt (348.7b (1)); die Ausnahme (5) galt
+	# den gefächerten Geschossen
+	var r2: bool = kind == "MISSILES" and by != on and arkan_r2() != null and k.figures.has(by) and k.figures.has(on)
+	if (kind in STEP_KINDS or r2) and by != on and k.figures.has(by) and k.figures.has(on):
 		step_ms = _step_aside(kind, k.figures[by], k.figures[on], after_ms, Zauber.arrives(kind))
 	after_ms += step_ms
+	if r2:
+		_arkan_flug(k.figures[by], k.figures[on], missed, after_ms)
+		return step_ms
 	# 348.7a Runde 5 (Prüfer r4: „drei Strahlen eine Bahn“): der wievielte Strahl dieses Wirkenden in Folge
 	var t: float = k.clock_ms + after_ms
 	var last: Array = _in_row.get(by + kind, [-INF, -1])
@@ -1224,6 +1230,51 @@ func cast(kind: String, by: String, on: String, crit: bool, missed: bool, after_
 	if kind in ["FIRE_BOLT", "RAYS", "FIREBALL", "BURNING_HANDS"]:
 		k.fire_light(on, after_ms + Zauber.arrives(kind), Zauber.duration(kind) - Zauber.arrives(kind), kind == "FIREBALL")
 	return step_ms
+
+
+## 993 (Chef 11.11., 20:47, Test 277, Probekampf Zauberlehrling: Arkanpfeil „sieht überhaupt nicht gut aus“): ein Pfeil aus R2
+## Stylized Projectiles, Element arcane (LISTE-EFFEKTE: R2 arcane; gekauft 623, Chef 08.11., 19:42 zu den Proben:
+## „die Effekte sind besser als unsere eigenen“), statt der drei gemalten Splitter aus dem alten Spiel (BRS: ein Pfeil).
+## Von der Stabspitze zur Brust des Ziels, daneben auf den freien Fleck am Boden (_miss_point); er kommt nach Zauber.arrives an wie
+## bisher, dann zeigt der Kampfort den Treffer. Aufruf des Pakets wie in der Probe 623.5 (effektprobe.gd _projektil, 163f07e84).
+## Fehlt das Paket (am Rechner, in den Tests ohne Kaufrepo), malt zauber.gd wie bisher.
+const ARKAN_R2 := "res://addons/reeboo_projectiles/elements/arcane/arcane_projectile.tscn"
+static var _arkan_szene = null     # PackedScene, false: nicht da
+## 993, für den Test arkan_993: je Flug [Knoten, Start, Ziel, Ankunft in ms Uhrzeit]
+var arkan_fluege: Array = []
+
+static func arkan_r2() -> PackedScene:
+	if _arkan_szene == null:
+		_arkan_szene = load(ARKAN_R2) if ResourceLoader.exists(ARKAN_R2) else false
+	return _arkan_szene if _arkan_szene is PackedScene else null
+
+
+func _arkan_flug(by, on, missed: bool, after_ms: float) -> void:
+	if after_ms > 0.0:
+		get_tree().create_timer(after_ms / 1000.0).timeout.connect(func(): _arkan_los(by, on, missed))
+	else:
+		_arkan_los(by, on, missed)
+
+
+func _arkan_los(by, on, missed: bool) -> void:
+	var k = kampfort
+	if not is_instance_valid(k) or not is_instance_valid(by) or not is_instance_valid(on):
+		return
+	var dir: Vector3 = (on.position - by.position) * Vector3(1, 0, 1)
+	dir = dir.normalized() if dir.length() > 0.01 else Vector3.ZERO
+	var hand = by.cast_point()
+	var von: Vector3 = hand if hand != null else by.position + Vector3.UP * (by.head().y - by.position.y) * START_UP + dir * (_girth(by) + 0.1)
+	var ziel: Vector3 = _miss_point(by, on, true) if missed else _aim_point(on, dir)
+	var s := maxf(Zauber.arrives("MISSILES") / 1000.0, 0.05)
+	var p := arkan_r2().instantiate()
+	for kv in [["fly_on_ready", false], ["collision_mask", 0], ["impact_on_expire", true],
+			["speed", maxf(von.distance_to(ziel), 0.1) / s], ["lifetime", s]]:
+		if kv[0] in p:
+			p.set(kv[0], kv[1])
+	k.add_child(p)
+	if p.has_method("launch"):
+		p.call("launch", von, ziel - von, -1.0, true)
+	arkan_fluege.append([p, von, ziel, Time.get_ticks_msec() + s * 1000.0])
 
 
 ## 348.7b (Chef 27.10., 19:49): wer einen eigenen Mann in der geraden Linie von Hand oder Stabspitze zum Ziel hat, tritt einen
