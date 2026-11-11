@@ -4,7 +4,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 **Vorrang (von Sokrates, Chef 11.11., 07:16; Pause aufgehoben):** „wenn sie nichts mehr für den Umzug zu tun haben, ob sie dann Pause haben. Ja, macht ja keinen Sinn.“ und „lass das Spike und Taffy das machen. Fehler ausmerzen“. (1) Umzug 870.x zuerst; (2) wartet der Umzug, Fehler aus den Tests des Chefs (Muss, wiederholte zuerst); kein Neues (Chef 10.11., 14:08: „nicht wieder irgendeinen Füllefanz neu anfangen“). Spike nimmt Fehler aus den Tests, solange Tom am Umzug ist. Umzugsdateien (`LISTE-UMZUG-BRS.md` 4) ändert nur der Umzugszweig (Grundsatz 5).
 
-**Übergabe (11.11., 14:15, `session_01Hmoj75PbExQjg3R6LQNTdb`):** Pflege; 948 übernommen (Ford), Messung `tests/dolch_948.gd` auf `claude/tom-948-dolch` (auf B1), Lauf 43025574877 (bild=nein) auswerten, dann bauen; 875 gebaut `b605a0008` auf `tuffy-876`; Grundsatz 5 an 842, 521, 756, 757, 758, 764, 860, 867 vermerkt; 861 ruht (Kaufmodelle am Rechner, add_repo abgelehnt). Nachfolger: 948 – Messlauf auswerten, Dolch beheben.
+**Übergabe (11.11., 14:17, `session_01Hmoj75PbExQjg3R6LQNTdb`):** Pflege; 948 übernommen (Ford), Ursache fand Jerry (Dolch 1,6 cm, ein Strich), Vorlage `entscheiden/948-dolch.md`, Fassung B auf `claude/jerry-948-dolch`; nach dem Urteil dort weiterbauen; meinen Messlauf abgebrochen (`claude/tom-948-dolch` nicht mehr nötig); 875 gebaut `b605a0008` auf `tuffy-876`; Grundsatz 5 an 842, 521, 756, 757, 758, 764, 860, 867 vermerkt; 861 ruht (Kaufmodelle am Rechner, add_repo abgelehnt). Nachfolger: auf Abruf (neue Sitzung).
 
 ## Einzelheiten
 
