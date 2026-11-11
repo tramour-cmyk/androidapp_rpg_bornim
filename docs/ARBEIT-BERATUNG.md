@@ -3,6 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 **Übergabe (11.11., 16:04, `session_01Hmoj784oES6dYQqKPFwHCF`):** 620: 945/751 fehlen in Lauf 350, mit Spike: kommen in den nächsten Build. 968 Sammelbuild „jetzt“ (Chef 15:49) an Tom, Ford startet Tom, Spike führt das Umzugspaket nach Lauf 350 (etwa 16:15) zusammen. 966 A neu mit Ring (Chef 15:58), 971 Jerry, 972 Homer. 954a.3 gebilligt (16:02). 969 Regelwerte zum Nachschlagen an Jerry (M?). Letzte Antwort: was beim Chef offen ist (930a, 814, 831 ansehen, 968 Test). Kosten auf: 620, 966, 954a.3, 968. Nachfolger: Sokrates – 968: Lauf 350 und Sammelbuild nachhalten
+- **Fehler 341 (11.11., 16:19):** im Votum 831 die Signatur auf „Umrisslinie“ verkürzt; Chef: „Es geht nicht um eine Umrisslinie, es geht um unsere Signatur, Lichtschatten, Tuscheeffekt“. Lehre: Signatur immer mit den drei Zwängen aus `DESIGN-STIL.md` 302 nennen.
 - **Zu 966 (Chef 15:58, Archiv):** nachhalten: 966.2 Tom nach 870, 971 Jerry (`leicht_min` 0,1), 972 Homer.
 - **Zu 968 (Chef 15:49 „jetzt“):** Sammelbuild nach dem Umzugspaket auf main; Spike führt zusammen, Ford startet Tom; Lauf freigeben (480.1). Dem Chef nur Build-Nummern nennen, nie „B1“ (Chef 15:51, an Perikles).
 - **Zu 968, von Tom (16:16):** Entwurf `docs/entwurf/t277-sammelbuild.md` bitte gegenlesen (8); Zweig `claude/build-277` liegt gemischt am Rechner (Stand Build 276 plus 16 Zweige), Push sobald Build 276 auf `main` ist. Nicht dabei: 964-Prüfung (Kettenhemd für Zauberlehrling am Gerät nicht sicher erreichbar, nur `handlungen_870`), 632 (wartet auf die Höhle).
@@ -11,10 +12,9 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Zu 930a (Chef 16:09 „930a A“, Archiv):** nachhalten: 973 Jerry nach B1.
 - **Zu 933 (Chef 11.11., 13:07 „A“, Archiv):** nachhalten: 933.1 Homer, 933.2 Jerry, dann 933 Tom nach B1.
 
-- **Zu 870, B1 (t276 freigegeben 13:44/13:50, Archiv):** nachhalten: Lauf 350 auf `claude/tom-870-4-b1` (Spike, seit 14:44, etwa 15:30), grün → B1 auf `main`; Toms Nachtrag `6aa094fe7` erst im nächsten Build. 854 Lauf 2 seit 14:31 (Jerry), grün → `main` ohne Gerätetest (854b B).
 
 
-- **Zu 870 (Chef 10.11., 14:03 und 14:08):** „wer kümmert sich denn um unser BRS, damit das jetzt mal zu 100% umgesetzt ist und damit wir nichts mehr mit SRD und Dungeons and Dragons und Wizard of the Coast zu tun haben? … ich hätte jetzt gerne mal tatsächlich die Systemumstellung“; 14:08: „federführend übernehmen … Master-Umzugsplan … soll jetzt schon Hand und Fuß haben. Und dann muss dein Plan irgendwer gegenlesen.“ Auftrag: (1) Plan, (2) Regelfragen als Chefsache, (3) Gegenlesen Diogenes, Befund als Text an den Chef, (4) nach Abnahme Pause aufheben, Vorgänge anlegen.
+- **Zu 870 (Chef 10.11., 14:03 und 14:08, Wortlaut in Git vor 11.11., 16:20):** Systemumstellung ganz auf BRS, Master-Umzugsplan federführend; Plan, Regelfragen, Gegenlesen, Vorgänge erledigt; nach Abnahme Pause aufheben.
 - **Zu 870, nachhalten:** nach B1 Kosten gegen Plan (400–600 $) prüfen, Nacht eingeschlossen (Nachtlog in Git, Stand 11.11., 08:00). Offen beim Chef: 806 an Tuffy; Regelwerte-Seite an wen; 854 nachhalten (größter Hebel für Bauzeit: Modelle 38 von 63 min).
 - **Zu 481 (Chef 13:01; 857a A):** Trankwirkung nach Alchemie; Simulation 444 Abschnitt 6 neu rechnen (Jerry).
 - **Zu 391:** Chefwort in der Sitzung überstimmt den Wächter bei `add_repo`, Fords erste Nachricht nicht; Regel bei Perikles (818); Einzelheiten in Git (09.11.).
