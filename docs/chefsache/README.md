@@ -303,7 +303,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 987 | M | Von Spike (870.9, Lauf 354): krogg_494 schwankt (am Rechner 2 von 5 rot, Rauch 0 erster Sc | wartet auf Test/Build (gebaut) |
 | 988 | M | Von Tom (968, Lauf 43060687068): rote Tests in Build 277: held_kampf_403 (Kleriker ohne Sc | Sperre 620.1 B: 33 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
 | 986 | M? | Von Homer (840): Eingebungen nach BRS bauen wie den Wolfssprung, Texte und Bauhinweise in | startbar |
-| Pflege | K | von Werkzeug (340.3, 11.11.): 15377 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 15244 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 12, Muss 11, startbar 0
 
