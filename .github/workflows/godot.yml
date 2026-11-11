@@ -272,7 +272,9 @@ jobs:
         if: env.KAUF_CACHE == 'treffer'
         env:
           GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
-        run: python3 tools/godot/kauf_cache.py holen
+        run: |
+          python3 -c "import yaml" 2> /dev/null || python3 -m pip install -q pyyaml   # 854: nach setup-python ohne yaml (Lauf 335)
+          python3 tools/godot/kauf_cache.py holen
       - name: Kampfort bauen (Jerry 348.7, 399.1)
         if: env.KAUF_CACHE != 'treffer'
         run: |
@@ -399,7 +401,9 @@ jobs:
         if: env.KAUF_CACHE == 'bauen'
         env:
           GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
-        run: python3 tools/godot/kauf_cache.py ablegen || echo "Ablegen misslungen (Schreibrecht KAUF_TOKEN?), Bau geht weiter"
+        run: |
+          python3 -c "import yaml" 2> /dev/null || python3 -m pip install -q pyyaml   # 854 (Lauf 335: No module named 'yaml', nie abgelegt)
+          python3 tools/godot/kauf_cache.py ablegen || echo "Ablegen misslungen (Schreibrecht KAUF_TOKEN?), Bau geht weiter"
       - name: Kaufmodelle verschluesseln (348.12i)
         run: |
           K=$(openssl rand -hex 32)

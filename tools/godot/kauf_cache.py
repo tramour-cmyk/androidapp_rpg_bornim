@@ -94,7 +94,9 @@ def kennung():
 
 
 def git(*a, cwd=None, check=True, **kw):
-    return subprocess.run(['git'] + list(a), cwd=cwd, check=check, text=True, **kw)
+    # 854 (Lauf 335: ls-remote Exit 128, nie ein Treffer): im Arbeitsrepo setzt actions/checkout http.https://github.com/.extraheader
+    # mit dem GITHUB_TOKEN, der gilt vor dem KAUF_TOKEN in der Adresse und darf das Kaufrepo nicht lesen; darum nie im Arbeitsrepo
+    return subprocess.run(['git'] + list(a), cwd=cwd or tempfile.gettempdir(), check=check, text=True, **kw)
 
 
 def zweig(k):
@@ -109,7 +111,11 @@ def url():
 
 def pruefen(k=None):
     k = k or kennung()
-    if not git('ls-remote', url(), 'refs/heads/' + zweig(k), capture_output=True).stdout.strip():
+    r = git('ls-remote', url(), 'refs/heads/' + zweig(k), capture_output=True, check=False)
+    if r.returncode != 0:
+        print('KAUF-CACHE Abfrage misslungen (Exit %d), gilt als kein Treffer' % r.returncode, k, r.stderr.strip()[-200:], flush=True)
+        return 1
+    if not r.stdout.strip():
         print('KAUF-CACHE kein Treffer', k, flush=True)
         return 1
     return 0
