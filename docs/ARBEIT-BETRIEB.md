@@ -98,10 +98,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:01 11.11.: Neustart Sokrates (9a3c47885): Nachfolger …77wg6 in Hoch gestartet; Sokrates …77G3d arbeitet noch, Archivieren (Kosten auf 870, 903, 709) im Lauf 08:03. Jerry …75Qj archiviert, 9,50 $ auf 751 gebucht (Jerry ersetzte seine Übergabe 07:59 um 854 zuerst; der 806-Nachfolger liest sie)
 - 08:00 11.11.: Neustart Jerry: Nachfolger …782ws „Jerry – 806“ in Hoch gestartet. Spike …76dn (680 fertig, 4,66 $) und Tuffy …7A2W (705 gebaut, 4,26 $) archiviert und gebucht
 - 07:49 11.11.: Neustart Tom (c4097ed7d): Nachfolger …78hPe „Tom – 870.4: Lauf 338 auswerten“ in Hoch gestartet (lauf.py nannte noch Mittel, von Hand Hoch), Tom …79ceB archiviert, 9,38 $ gebucht (870.4). Stillstand-Zeilen Diogenes/Perikles (nur ausgeschlossene 771, 901) nicht geschrieben
-- 07:35 11.11.: „Start Perikles 903“ (Diogenes 771): Perikles …7727 (901) arbeitet nicht, wartet auf Chef (264.1) und belegt die Rolle; statt Doppelstart „Weiter: 903“ per `send_message` an ihn. Diogenes …76FRt archiviert, 5,14 $ auf 771 gebucht
-- 07:25 11.11.: Selbstneustart ausgeführt: Ford …77YMu (Hoch), Uhr neu, alter Ford …79ZRC archiviert, 4,96 $ gebucht. Wächter 900 und 870.6 (Jerry, „jetzt“ 22:24, 9 Std.) laut gemeldet, `send_message` an Jerry nicht erreichbar; Befund an Perikles: 870.6 „wartet auf 870.4“, Wächter feuert trotzdem
-- 07:22 11.11.: **Bis Sa 14.11., 20:00 jedes create_session mit environment_id env_017fgL1YDcVTYTkJsU3APEfR (WireStorm Hoch)** (365a B, Chef 07:18; Sokrates 07:21), bis lauf.py (901) es kann; Gleichzeitig-Doppel Spike/Tuffy/Diogenes/Jerry von 07:18 (Mittel) unterbrochen, archiviert, gebucht (3,0 $ zusammen)
-- 07:10 11.11.: Archiviert und gebucht (Chef 07:09: Ford darf jede ARCHIVIERE-Zeile dauerhaft ausführen, nie auf den Satz warten): Jerry …76RTd, Sokrates …77DnC, …78xr5, Tom …79XWb, …78gmw, …77iXL, Diogenes …76Dx, Perikles …75P7, alter Ford …78JXi
 - 11:50 11.11.: Neustart Jerry (6633fd231) zurückgenommen: Jerry alt …76ovF meldete 11:49, der Chef habe ihm 11:48 das Kaufrepo freigegeben („Binde alle Repos an, die du brauchst“), die Sitzung bleibe bis 400 Tsd. Token offen. Der Nachfolger …785pF „Jerry – 910“ (11:49 gestartet, ohne Arbeit, 0 $) ist archiviert; je Rolle eine Sitzung. Startsperre 11:49 Jerry gilt damit nicht.
 - 11:36 11.11.: Neustart Perikles (3723bca76): Nachfolger …773WJ „Perikles – 882“ in Hoch gestartet; Perikles …75iDf archiviert, 3,89 $ auf 921, 882. Diogenes …77f5D „Diogenes – 921“ (Auftrag Perikles ab6ad7ad1, 11:16) läuft; „Weiter: 882“ an Perikles (Tom 11:33) hat der volle Kontext verhindert. Fehler von mir: die Startsperre 11:35 mit Bash angehängt statt mit Edit (Notizenregel); ab jetzt Edit.
 - 09:24 11.11.: Startsperre 09:24 Start Diogenes (Ford, vor dem Start; Auftrag Diogenes 911 und 264.1, caf221f84, ee20ff5a8; Umgebung Hoch)
@@ -351,3 +347,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:41 11.11.: Startsperre 12:41 Start Jerry (Ford, vor dem Start; Neustart-Meldung 12:40, 5c4d92899, 400 Tsd. Token)
 - 12:55 11.11.: Startsperre 12:55 Start Tom (Ford, vor dem Start; Neustart-Meldung 12:54, 15f9cfe0e)
 - 12:30 11.11.: Marke Mehrfach Sokrates (lauf.py)
+- 13:05 11.11.: Startsperre 13:05 Start Perikles (lauf.py)
+- 13:05 11.11.: Marke Archiv session_01Hmoj78SXwReesN18pQZT6t (lauf.py)
