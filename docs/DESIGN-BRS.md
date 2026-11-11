@@ -41,7 +41,7 @@ Wie das zusammenhängt: Kräutersammeln ist eine **Fertigkeit** (Sammeln). Sie g
 | Was | Wofür | Stufen | Wovon es abhängt | Abschnitt |
 | --- | --- | --- | --- | --- |
 | Gegenstandsstufe | Stärke und Mindeststufe zum Tragen | wie die Heldenstufe | Fund, Händler, Herstellen | 11 |
-| Güte | wie gut ein Stück gemacht ist („wie“): hebt die Werte der Grundform (Schaden, Schutzwert); bessere Güte nutzt sich langsamer ab; wie viel je Stufe, rechnet 444 | vier, von unten: Schlecht, Normal, Gut, Meisterhaft (Chef 11.11., 17:53; Namen 976a beim Chef). Heute nur Ausrüstung; für alle Dinge (Tränke, Speisen, Dietriche) mit Streuung beim Herstellen: Idee, reif mit 976 | Herstellen: der Rang setzt die Spanne (Anfänger Schlecht–Normal, Geselle Schlecht–Gut, Meister Normal–Meisterhaft, Großmeister Gut–Meisterhaft), Ring (966) und Material entscheiden darin; auch ein schlechtes Stück bringt Übung (Chef 17:53–18:01). Fund und Händler: gewürfelt. Einzelstücke: fest | 10, 11 |
+| Güte | wie gut ein Stück gemacht ist („wie“): hebt die Werte der Grundform (Schaden, Schutzwert); bessere Güte nutzt sich langsamer ab; wie viel je Stufe, rechnet 444 | vier, von unten: Schlecht, Normal, Gut, Meisterhaft (englisch Poor, Common, Fine, Masterwork; Chef 11.11., 17:53, Namen 976a A 20:13; „von hoher Güte“ darf im Erklärtext stehen). Heute nur Ausrüstung; für alle Dinge (Tränke, Speisen, Dietriche) mit Streuung beim Herstellen: Idee, reif mit 976 | Herstellen: der Rang setzt die Spanne (Anfänger Schlecht–Normal, Geselle Schlecht–Gut, Meister Normal–Meisterhaft, Großmeister Gut–Meisterhaft), Ring (966) und Material entscheiden darin; auch ein schlechtes Stück bringt Übung (Chef 17:53–18:01). Fund und Händler: gewürfelt. Einzelstücke: fest | 10, 11 |
 | Seltenheit | Zusatzeigenschaften, Preis, Zeichen („was“) | sechs: gewöhnlich, ungewöhnlich, selten, sehr selten, episch, göttlich; Decke je Kapitel | Fund, Beute, Einzelstück; beim Herstellen aus Zutaten und Rezept (Chef 18:01; Weg offen, z. B. Rezept für sehr Seltenes nur einmal benutzbar) | 11 |
 | Zustand (Abnutzung) | wie gut ein Gegenstand noch wirkt | Makellos, Benutzt, Beschädigt, Defekt (wirkt nicht mehr, geht aber nicht verloren) | sinkt beim Gebrauch; Reparatur beim NPC oder selbst | 11 |
 
@@ -65,7 +65,7 @@ Jede Regel, die im Kampf wirkt, gegen jeden Kampfstil gehalten (984, Chef 11.11.
 | Schwäche vorher sehen | Verstand ab 6 | gleich | gleich | gleich | gleich | gleich |
 | **Grundwerte, die im Kampf zählen** | Kraft, Gewandtheit, Zähigkeit | Kraft, Gewandtheit, Zähigkeit | Gewandtheit, Wahrnehmung, Zähigkeit | **Gewandtheit allein** (Schaden, Kritisch, Abwehr), Zähigkeit | **Wille allein** (Schaden, Mana), Gewandtheit nur Abwehr, Zähigkeit | wie Magier |
 
-Nicht in Kapitel 1: Illusion und Beschwörung haben keinen Zauber, sind bei der Erschaffung aber wählbar (Chefsache 984).
+Nicht in Kapitel 1: Illusion und Beschwörung haben keinen Zauber und sind bei der Erschaffung nicht wählbar wie Bergbau (984 A, Chef 11.11., 20:12; Bau 984.1 Tom); frei, sobald ein Kapitel Zauber dafür hat. Nach 952 D misst Jerry, ob die Gewandtheit noch jeden Stil trägt.
 
 **Beschlossen, noch nicht gebaut (952 D, Chef 11.11., 20:03):** kritisch = zweiter Grundwert × Fertigkeit / 50 Prozent, nie der Grundwert des Schadens: Krieger und Kämpe Gewandtheit, Späher und Schütze Wahrnehmung; Magier: Schaden aus **Verstand**, kritisch und Mana aus Wille; Heiler: Heilung und Mana aus Wille, nie kritisch. Nach dem Bau die Zeilen oben nachziehen.
 
@@ -133,7 +133,7 @@ Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit, Wil
 | Waffen (10) | Einhänder, Zweihänder, Stangenwaffen, Stumpfe Waffen, Dolche, Faustkampf, Schild, Bogen, Armbrust, Wurfwaffen | Treffen im Kampf |
 | Rüstung (4) | Leichte, Mittlere, Schwere Rüstung, Ausweichen | getroffen werden, ausweichen |
 | Schatten (4) | Schleichen, Spähen, Schlösser knacken, Fallen entschärfen | anschleichen, stehen bleiben und umsehen, Truhen, Fallen |
-| Magie (5) | Evokation, Schutzmagie, Heilmagie, Illusion, Beschwörung (mit Nekromantie) | zaubern |
+| Magie (5) | Evokation, Schutzmagie, Heilmagie, Illusion, Beschwörung (mit Nekromantie; Illusion und Beschwörung ab dem Kapitel mit eigenem Zauber, 984 A) | zaubern |
 | Wildnis (1) | Tiere beruhigen | feindliche Tiere vor dem Kampf beruhigen |
 | Gesellschaft (3) | Überreden (mit Täuschen), Einschüchtern, Handeln | Gespräche, Läden |
 | Sammeln (4) | Kräutersammeln (857a; bis 10.11. „Kräuterkunde“), Bergbau, Angeln, Jagd (Zerlegen, Fährten) | ernten, angeln, erlegte Tiere zerlegen |
@@ -316,7 +316,7 @@ Ernten ist eine kurze Tätigkeit ohne Minispiel. Fundorte wachsen nach einer Zei
 | Achse | Was sie bestimmt | Stufen |
 | --- | --- | --- |
 | Gegenstandsstufe | Stärke und Mindeststufe zum Tragen | wie die Heldenstufe |
-| Güte | wie gut es gemacht ist: hebt die Werte der Grundform (Schaden, Schutzwert) | vier: Schlecht, Normal, Gut, Meisterhaft (Chef 11.11., 17:53; Namen beim Chef) |
+| Güte | wie gut es gemacht ist: hebt die Werte der Grundform (Schaden, Schutzwert) | vier: Schlecht, Normal, Gut, Meisterhaft (Chef 11.11., 17:53; Namen 976a A, 20:13) |
 | **Seltenheit** | wie viel Besonderes darin steckt: Zahl der Zusatzeigenschaften, Preis, Zeichen | sechs, unten |
 | Zustand | wie gut es noch wirkt | Makellos, Benutzt, Beschädigt, Defekt (unten) |
 
