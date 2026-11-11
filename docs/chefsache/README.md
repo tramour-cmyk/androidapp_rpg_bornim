@@ -269,7 +269,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 973 | M | Von Sokrates (930a A, Chef 11.11., 16:09): nach einem Tod bleiben die übrigen Gegner stehe | Sperre 620.1 B: 24 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
 | 980 | M | Von Tom (968, Lauf 43051633587): Kaufskripte unter tools/blender348 nehmen glob()[0]; lieg | startbar |
 
-**Perikles** – offen 14, Muss 12, startbar 1
+**Perikles** – offen 13, Muss 12, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -286,7 +286,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 866 | M | Von Sokrates (620, Lagebild t274): Prüfliste geht nur gegengelesen raus; Wächter statt Abs | wartet auf Test/Build (gebaut) |
 | 896 | M | Von Jerry (870.5): Wächter meldet „TP“ als SRD-Begriff (886), Homer 870.14 und DESIGN-BRS | wartet auf Test/Build (gebaut) |
 | 919 | M | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): Regeln nachziehen: Testbitte auch bei rot | wartet auf 918 (startbar) |
-| Pflege | K | von Werkzeug (340.3, 11.11.): 15308 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Diogenes** – offen 9, Muss 8, startbar 1
 
