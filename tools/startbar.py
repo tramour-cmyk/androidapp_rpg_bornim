@@ -535,25 +535,83 @@ def _woerter(t):
     t = t.lower().translate(str.maketrans("äöüß", "aous"))
     return {w for w in re.findall(r"[a-z]{4,}", t) if w not in {x.translate(str.maketrans("äöüß", "aous")) for x in ALLGEMEIN}}
 
-def _dateien(zweig):
+def _gleich(a, b):
+    """Beugung bis 2 Buchstaben wie „wolf/wolfe“, kein Wortteil wie „schwert/schwertarm“ (792)."""
+    return a == b or (min(len(a), len(b)) >= 4 and abs(len(a) - len(b)) <= 2 and (a.startswith(b) or b.startswith(a)))
+
+# 965 (Chef 11.11., 14:56 „hat jeder einen Job?“): Titelwörter zählen nur als Ort oder Figur; Kurzformen, die in den Quellen nur
+# zusammengesetzt stehen („Riesenratte“, „Goblin-Späher“)
+NAMEN_EXTRA = {"ratte", "ratten", "fledermaus", "spinne", "egel", "schnecke", "hundertfusser", "spaher", "schurke", "grabhund",
+               "untote", "lager", "teich", "schenke", "schlagbaum", "lagerfeuer", "kessel", "hutte"}
+# Wörter aus Namen wie „Der alte Kael“, „Haus des Ältesten“, „Bauer Bram“, die allein keine Figur und keinen Ort meinen
+NAMEN_AUS = {"alte", "bosse", "eigenes", "graue", "grauen", "haus", "norden", "sohn", "tisch", "tiefer", "kapitelende", "schlafenden",
+             "handler", "bauer", "bruder", "schwester", "wache", "jager", "hauptmann", "wald"}  # „wald“ auch in WALD_M, Waldläufer
+_NAMEN = None
+
+def namen():
+    """965: Orte und Figuren von Kapitel 1 aus LISTE-FIGUREN.md (Spalten Figur und Ort) und PROJEKTPLAN.md 2.13–2.16 (Gegner, Orte,
+    Stationen, Leute), dazu NAMEN_EXTRA; Wörter wie _woerter."""
+    global _NAMEN
+    if _NAMEN is None:
+        n = set(NAMEN_EXTRA)
+        for z in lesen("LISTE-FIGUREN.md").split("## Abnahmelisten")[0].splitlines():
+            s = [x.strip() for x in z.strip().strip("|").split("|")]
+            if z.startswith("|") and len(s) > 2 and s[0] not in ("Figur",) and not s[0].startswith("---"):
+                n |= _woerter(s[0] + " " + s[-1])
+        p = lesen("PROJEKTPLAN.md")
+        m = re.search(r"\*\*2\.13\*\*(.*?)\*\*2\.17\*\*", p, re.S)
+        for x in re.findall(r"\[[ x]\] ([^·:\n(]+)", m.group(1) if m else ""):
+            n |= _woerter(x)
+        _NAMEN = n - NAMEN_AUS
+    return _NAMEN
+
+def _namen_im(t):
+    return {w for w in _woerter(t) if any(_gleich(w, n) for n in namen())}
+
+_GIT = {}
+
+def _git(*a):
+    """git im Werkzeugordner; gemerkt je Aufruf (startbar ruft dieselben Paare je Rolle mehrfach)."""
+    if a not in _GIT:
+        import subprocess
+        _GIT[a] = subprocess.run(["git", "-C", os.path.dirname(os.path.abspath(__file__))] + list(a), capture_output=True, text=True)
+    return _GIT[a]
+
+_DATEIEN = {}
+
+def _dateien(zweig, unter=()):
+    """Geänderte Spieldateien des Zweigs. 965: liegt der Zweig auf einem anderen aus `unter` (Stapel), nur die eigenen, gerechnet
+    ab dem obersten darunter; sonst ab main (sonst teilt jeder gestapelte Zweig alle Dateien seiner Unterlage)."""
     if not zweig or zweig in ("–", "-"): return set()
-    import subprocess
-    r = subprocess.run(["git", "-C", os.path.dirname(os.path.abspath(__file__)), "diff", "--name-only", "origin/main...origin/" + zweig],
-                       capture_output=True, text=True)
-    return {f for f in r.stdout.split() if not re.match(r"(\.github|tools|docs|test|tests)/|.*(_test|test_)[^/]*$|.*\.md$", f)} if r.returncode == 0 else set()
+    key = (zweig, tuple(sorted(unter)))
+    if key not in _DATEIEN:
+        basis, tief = "origin/main", -1
+        for u in unter:
+            if u and u != zweig and u not in ("–", "-") and _git("merge-base", "--is-ancestor", "origin/" + u, "origin/" + zweig).returncode == 0:
+                k = _git("rev-list", "--count", "origin/main..origin/" + u).stdout.strip()
+                if k.isdigit() and int(k) > max(tief, 0): basis, tief = "origin/" + u, int(k)
+        r = _git("diff", "--name-only", basis + "...origin/" + zweig)
+        _DATEIEN[key] = {f for f in r.stdout.split() if not re.match(r"(\.[^/]+|tools|docs|test|tests)/|.*(_test|test_)[^/]*$|.*\.md$", f)} if r.returncode == 0 else set()
+    return _DATEIEN[key]
 
 def ueberschneidung(d, offen):
-    """779: Text „702 (wolfe)“ der ersten ungetesteten Zeile, mit der d sich überschneidet: nennt ihre Nummer, teilt ein
-    Titelwort (Ort, Figur, Sache; Beugung bis 2 Buchstaben wie „wolf/wolfe“, kein Wortteil wie „schwert/schwertarm“, 792) oder eine geänderte Datei; sonst None."""
-    wd = _woerter(d["titel"]); fd = None
+    """779: Text „702 (wolf)“ der ersten ungetesteten Zeile, mit der d sich überschneidet: nennt ihre Nummer, teilt einen Ort oder
+    eine Figur im Titel (965: nicht mehr jedes Titelwort; Beugung wie _gleich), liegt auf ihrem Zweig (Stapel) oder teilt eine
+    eigene geänderte Datei; sonst None."""
+    wd = _namen_im(d["titel"]); fd = None
+    zweige = [o.get("zweig") for o in offen]
     for o in offen:
         if o["nr"] == d["nr"]: continue
         if re.search(r"(?<![\d.])%s(?![\d])" % re.escape(o["nr"]), d["titel"] + " " + " ".join(d.get("warte") or [])): return o["nr"]
-        gleich = sorted(a for a in wd for b in _woerter(o["titel"]) if a == b or (min(len(a), len(b)) >= 4 and abs(len(a) - len(b)) <= 2 and (a.startswith(b) or b.startswith(a))))
+        gleich = sorted(a for a in wd for b in _namen_im(o["titel"]) if _gleich(a, b))
         if gleich: return "%s (%s)" % (o["nr"], gleich[0])
         if d.get("zweig") not in (None, "", "–", "-"):
-            fd = _dateien(d["zweig"]) if fd is None else fd
-            g = fd & _dateien(o.get("zweig"))
+            oz = o.get("zweig")
+            if oz not in (None, "", "–", "-") and oz != d["zweig"] and _dateien(oz) and \
+                    _git("merge-base", "--is-ancestor", "origin/" + oz, "origin/" + d["zweig"]).returncode == 0:
+                return "%s (Zweig liegt darauf)" % o["nr"]
+            fd = _dateien(d["zweig"], zweige) if fd is None else fd
+            g = fd & _dateien(oz, zweige)
             if g: return "%s (%s)" % (o["nr"], sorted(g)[0].rsplit("/", 1)[-1])
     return None
 
