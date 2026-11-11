@@ -45,7 +45,15 @@ var glut: Array[ShaderMaterial] = []  # 490 Glut im Feuer
 func _init(k: Karte) -> void:
 	karte = k
 	Licht.nach_licht.clear()
+	mip_aufraeumen()
 	name = "Gebiet_" + k.id
+
+# 680 (Chef 08.11., 16:16: Wald -> Dorf -> Schenke immer zaeher, dann Absturz): die Vorlage des Heilkrauts haengt nicht im Baum und
+# ging beim Ortswechsel nicht mit; sie hielt ihr Netz samt Bildern der ganzen Karte fest (sprung_680: je Runde Wald, Dorf, Schenke
+# rund 100 MB mehr Speicher). Jetzt mit dem Gebiet frei
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_PREDELETE and kraut_netz and is_instance_valid(kraut_netz) and kraut_netz.get_parent() == null:
+		kraut_netz.free()
 
 func _ready() -> void:
 	var stamm := "res://daten/" + datei(karte.id)
@@ -228,17 +236,30 @@ static func bild(name: String) -> ImageTexture:
 	texcache[name] = t
 	return t
 
+# 680 (Chef 08.11., 16:16: Wald -> Dorf -> Schenke immer zaeher, dann Absturz ohne Fehlerzeile): mip legte jedes Bild unter dem
+# Bildobjekt des glTF ab, das bei jedem Laden neu ist, und hielt beide fuer immer fest; je Ortswechsel blieben Karte, Held und Leute
+# im Speicher (sprung_680: je Runde Wald, Dorf, Schenke rund 105 MB mehr). Jetzt nur schwach gemerkt: dasselbe Bild in mehreren
+# Materialien eines Ladens bleibt eins, mit dem Ort geht es
+static var mipcache := {}   # Kennung des glTF-Bilds -> WeakRef auf das Bild mit Mipmaps
+
 static func mip(t: Texture2D) -> Texture2D:
 	# Bilder aus dem glTF bekommen Mipmaps (sonst flimmern Muster in der Ferne)
 	if t == null: return null
-	if texcache.has(t): return texcache[t]
+	var id := t.get_instance_id()
+	if mipcache.has(id):
+		var alt = (mipcache[id] as WeakRef).get_ref()
+		if alt: return alt
 	var img := t.get_image()
 	if img == null: return t
 	if img.is_compressed(): img.decompress()
 	if not img.has_mipmaps(): img.generate_mipmaps()
 	var r := ImageTexture.create_from_image(img)
-	texcache[t] = r
+	mipcache[id] = weakref(r)
 	return r
+
+static func mip_aufraeumen() -> void:   # 680: Eintraege, deren Bild schon frei ist
+	for id in mipcache.keys():
+		if (mipcache[id] as WeakRef).get_ref() == null: mipcache.erase(id)
 
 # Schablone (Stencil) fuer die Tusche wie Probe Build 12: 1 = Blueten (ohne Linie, sonst schwarze Kaefer) und Buesche (eigene Linie), 2 = Held (feinere Linie)
 static var markiert := {}
