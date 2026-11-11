@@ -261,7 +261,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 958 | M | Von Tuffy (870.6): Test kampfzustand_532 rot auf main und B1: „Zustände hinein“ erwartet D | wartet auf Test/Build (gebaut) |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 15900 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 19, Muss 14, startbar 3
+**Perikles** – offen 19, Muss 15, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -279,18 +279,20 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 919 | M | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): Regeln nachziehen: Testbitte auch bei rot | wartet auf 918 (startbar) |
 | 927 | K | D162.1 276: Anlässe der Schritte 6–11 fehlen in „Jeder Lauf“ (Nachhalten 8, Eingang 7, Mel | wartet auf Diogenes (greift?) |
 | 929 | K | D163.1 probelauf.py (725): ein cd mit Variable, das nur als Text vor git commit oder push | wartet auf 943 (startbar) |
-| 940 | M | Von Tom: vorgang.py neu vergibt Nummern doppelt, wenn zwei Sitzungen zugleich anlegen (11. | wartet auf 957 (startbar) |
+| 940 | M | Von Tom: vorgang.py neu vergibt Nummern doppelt, wenn zwei Sitzungen zugleich anlegen (11. | wartet auf Diogenes (greift?) |
 | 942 | M | D171.2 lauf.py (927): eine hängende Sitzung, die derselbe Lauf archiviert (neuere Sitzung | wartet auf Diogenes (greift?) |
 | 943 | K | D171.3 probelauf.py text_bereiche (929): ein einzelnes " im Heredoc innerhalb "$(cat <<'EO | startbar |
 | 930.2 | M | Von Sokrates (930): Regelseite Handgemenge und Abstand gegenlesen (DESIGN-KAMPF.md, Entwur | startbar |
-| 957 | M? | D172.1 vorgang.py zaehler_pushen (940): Zählercommit ohne Systemzeilen, wenn die Kopie noc | startbar |
+| 957 | M | D172.1 vorgang.py zaehler_pushen (940): Zählercommit ohne Systemzeilen, wenn die Kopie noc | wartet auf Diogenes (greift?) |
 
-**Diogenes** – offen 10, Muss 8, startbar 2
+**Diogenes** – offen 12, Muss 10, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
+| 940 | M | Von Tom: vorgang.py neu vergibt Nummern doppelt, wenn zwei Sitzungen zugleich anlegen (11. | startbar |
 | 942 | M | D171.2 lauf.py (927): eine hängende Sitzung, die derselbe Lauf archiviert (neuere Sitzung | startbar |
+| 957 | M | D172.1 vorgang.py zaehler_pushen (940): Zählercommit ohne Systemzeilen, wenn die Kopie noc | startbar |
 | 927 | K | D162.1 276: Anlässe der Schritte 6–11 fehlen in „Jeder Lauf“ (Nachhalten 8, Eingang 7, Mel | startbar |
 | 461b | M | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Termin 16.11. |
 | 348.9 | M | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | ruht |
