@@ -52,6 +52,13 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 158 · 913, 914 mit 911, 912 (Perikles, Doppelpack 421, `da0a446d3`; 11.11., 10:0x)
+
+- **913, 914 greifen** (`greift 913 158`, `greift 914 158`). Nachgestellt mit Merge-Commit oben (`commit-tree`, zweite Eltern origin/main) und `nr_aus_verlauf(REPO, sha, zweig)`: tom-870-4-held über `93173963c` → 870.4 (Fall 09:19), über Jerrys `44dec34a2` → 870.4 (D156.1), über den heutigen Stand (oben Jerrys 910) → 870.4; perikles-264-runner → 264.1, jerry-348-642-wolf-abstand → 642, jerry-717-rueckwaerts → 778, jerry-709a-tiefbiss → 709a. Handweg über `vorgang_aus_ref` an allen 640 Zweigen `claude/*`: Zweige mit Merge oben geben den eigenen Verlauf, obwohl `vorgaenge()` FETCH_HEAD auf main stellt (jerry-39-schwierigkeit → 62m statt Name 39); je Aufruf etwa 1 s.
+- **D158.1 → 920 (Perikles), 911 und 912 warten darauf:** die Rolle kommt aus dem ersten Wort des Zweigs; `spike`, `tuffy` stehen nicht in `BESITZER`, Besitzer in der Liste sind nur Tom und Jerry, die Prüfung „fremde Rolle“ entfällt. Nachgestellt: spike-581-ausruestung über `44dec34a2` → 864 statt 581, tuffy-784-sollbild über `93173963c` → 870.4 statt 784. Beide Zweige laufen heute.
+- Klasse 3: Kopf von `probelauf.py` (Zeile 15) nennt „Name bei fremder Rolle“ nicht; Push-Weg nimmt den Zweig aus `HEAD`, nicht aus dem Push-Ziel.
+- Echter Handlauf mit Merge oben seit dem Bau: keiner (letzte Zeilen 09:52 806, 910, beide mit Nummer oben; 910 ist Jerrys Commit auf B1, zählt richtig unter 910).
+
 ## Lauf 157 · 912 Vorgang aus dem Zweignamen (Perikles, Doppelpack 421, `b945f7e2b`; 11.11., 09:3x)
 
 - **912 greift für B1:** `nr_aus_zweigname('claude/tom-870-4-held')` = 870.4.
