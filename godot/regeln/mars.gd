@@ -2160,6 +2160,52 @@ func _schwaeche(f: Fighter, t: Fighter, typ, info: Array) -> float:
 	return x
 
 
+## 960 (Homer 954.1; 870d gebilligt 11.11., 07:51: ab Verstand 6 sieht der Held Schwäche, Stärke und Gegenwirkung vorher): die Zeile
+## des Ziel-Tipps (langes Drücken auf einen Gegner) nach [870.14.wissen], [870.14.wissen.gegen], [870.14.wissen.unbekannt]
+## (STORY-BRS-HELD.md); ohne Verstand 6 erst, wenn in diesem Kampf eine Schwäche oder Stärke der Art genannt wurde. Ein Bestiarium über
+## Kämpfe hinweg gibt es noch nicht.
+const MSG960_WISSEN := ["Verwundbar: %s. Widersteht: %s.", "Vulnerable: %s. Resists: %s."]
+const MSG960_GEGEN := ["Vorsicht: %s.", "Beware: %s."]
+const MSG960_UNBEKANNT := ["Schwächen: unbekannt.", "Weaknesses: unknown."]
+const WISSEN_GEGEN := {
+	"wolf": ["Feuer vertreibt das Rudel samt Beute und Erfahrung, sobald sein Leitwolf halb tot ist", "fire drives off the pack, loot, experience and all, once its leader is half dead"],
+	"boar": ["Feuer macht es rasend", "fire sends it into a frenzy"],
+	"giant_spider": ["Feuer verbrennt die Seide", "fire burns the silk"],
+	"stirge": ["Blut lockt ihn", "blood draws it"],
+	"zombie": ["Feuer und Licht halten ihn liegen", "fire and light keep it down"],
+	"ochre_jelly": ["Schnitt und Wucht teilen ihn", "slash and crush split it"],
+}
+
+
+func kennt_schwaechen() -> bool:
+	var h: Fighter = find("hero")
+	if h == null or not (h.b.get("werte") is Dictionary):
+		return false
+	return int(h.b["werte"].get("verstand", 0)) >= int(BrsKampf.w().get("welt", {}).get("wissen_verstand_ab", 6))
+
+
+func wissen(t: Fighter, sprache: int) -> String:
+	if t == null or t.monster == null:
+		return ""
+	var art := art_of(t.monster)
+	var gesehen := schwaeche_gesagt.keys().any(func(k): return String(k).begins_with(art + "|"))
+	if not kennt_schwaechen() and not gesehen:
+		return MSG960_UNBEKANNT[sprache]
+	var schwach := []
+	var stark := []
+	var sw: Dictionary = t.b.get("schwaeche", {}) if t.b.get("schwaeche") is Dictionary else {}
+	for ty in sw:
+		var n: String = SCHADENSART.get(String(ty), [String(ty), String(ty)])[sprache]
+		if float(sw[ty]) > 1.0:
+			schwach.append(n)
+		elif float(sw[ty]) < 1.0:
+			stark.append(n)
+	var s: String = MSG960_WISSEN[sprache] % [", ".join(schwach) if not schwach.is_empty() else "–", ", ".join(stark) if not stark.is_empty() else "–"]
+	if WISSEN_GEGEN.has(art):
+		s += " " + MSG960_GEGEN[sprache] % WISSEN_GEGEN[art][sprache]
+	return s
+
+
 ## 870.5 Gegenwirkung, die vor dem Schaden greift: Zombie nach Feuer oder Licht steht nicht wieder auf
 func _vor_treffer(t: Fighter, typ) -> void:
 	if t.monster != null and art_of(t.monster) == "zombie" and String(typ) in ["feuer", "licht"]:
