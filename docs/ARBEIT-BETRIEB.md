@@ -75,6 +75,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 08:15 11.11.: Startsperre 08:15 Start Diogenes (Ford, vor dem Start; Auftrag Diogenes 907, 908, 559dc33c7; Umgebung Hoch)
 - 08:14 11.11.: Diogenes …78YAW (903, Lauf 154 gepusht) archiviert, 1,59 $ auf 903
 - 08:13 11.11.: Start-Meldung Perikles 907, 908 (Diogenes Lauf 154, 057ada2b6): als „Weiter: 907, 908“ an Perikles …75nyB (läuft, Lauf 8). Spike …7A7ke (492 ohne Arbeit, hängt an 870.4) archiviert, 1,47 $ auf 492; Spike 492 dauerhaft `--ohne`. Tom …78hPe: `WEITER Tom` bewusst nicht ausgeführt (Wecker 08:38, Lauf 338)
 - 08:09 11.11.: Startsperre 08:09 Start Diogenes (Ford, vor dem Start; Auftrag Diogenes 903, fa1eb5a5f; Umgebung Hoch)
