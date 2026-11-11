@@ -57,6 +57,7 @@ var anim_vor := {}
 var tief_y := {}       # Sterbender -> [[Bild, Höhe des Rumpfs]]
 var still := 0
 var diag_n := 0              # 562: Zeilen „438 DIAG“
+var gleit_n := 0             # 900: Zeilen „438 GLEIT“
 var still_spannen := []    # [ab Bild, Bilder, Zeile]
 var still_ab := -1
 var lage_vor := {}
@@ -184,6 +185,12 @@ func _bild(kf, n: int, k: String) -> void:
 			if d > GLEIT_M and not (nm in SCHRITTE):
 				var g: Array = gleiten.get(nm, [0, 0.0, 0.0])
 				gleiten[nm] = [g[0] + 1, g[1] + d, maxf(g[2], d)]
+				# 900 (Lauf 335: Biss 7 Bilder 0,56 m, ohne Kaufdaten am Rechner nicht nachstellbar): wer gleitet, wobei, je Bild
+				if nm in ["Biss", "Treffer"] and gleit_n < 30:
+					gleit_n += 1
+					print("438 GLEIT Bild %d %s %s %.2f s: %.3f m, gang=%s tween=%s abgesetzt=%s heim %.2f m, Meldung: %s" % [n, id, nm,
+						f.anim.current_animation_position, d, f.gang, f.tween != null and f.tween.is_running(), f._abgesetzt,
+						Vector2(f.home.x - p.x, f.home.z - p.z).length(), String(kf.shown.get("text", "")).left(60)])
 			elif nm in ["Gehen", "Rennen"] and f.has_method("_mps") and not f.weg.is_empty() and f.weg.has(nm):
 				var soll: float = f._mps(nm) / 30.0 * absf(f.anim.get_playing_speed())
 				if d > soll * 1.35 + 0.005:
