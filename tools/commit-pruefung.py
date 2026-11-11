@@ -295,6 +295,13 @@ def main():
         if h and h not in (open(ok).read().split() if os.path.exists(ok) else []):
             warn.append("LISTE-VORGAENGE.md von Hand geändert; neue Zeile mit `vorgang.py neu \"Titel\" \"Bereich\" KLASSE \"Besitzer\" [--nr NR]`, "
                         "Stand mit `vorgang.py stand|fertig` (275 Stufe 2; Diogenes zählt die Warnungen, danach hält sie an)")
+            try:  # 734 (D92.1): je Warnung eine Zeile in warnungen-275.tsv im Zweig probelaeufe, sonst nicht zählbar
+                sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+                import probelauf
+                probelauf.zaehlen("275", (git("config", "user.name").strip() or "?")[:20], "liste-hand", datei="warnungen-275.tsv",
+                                  lokal=os.path.expanduser("~/.bornim-warnungen-275.tsv"), extra=(h[:10], git("rev-parse", "--abbrev-ref", "HEAD").strip()))
+            except Exception:
+                pass
     if any(p == "docs/LISTE-VORGAENGE.md" and s != "D" for s, p in dat):  # 275.2: Form der Liste; nur neue Fehler halten an
         try:
             fehler = lambda rev: {"%s: %s" % f for f in startbar.pruefen_liste(startbar.vorgangsliste(git("show", rev + "docs/LISTE-VORGAENGE.md")))}
