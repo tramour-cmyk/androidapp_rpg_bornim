@@ -773,8 +773,7 @@ static func tragen_hinweise(hw: BrsHeld, g: Dictionary) -> Array:
 	var r: Array = []
 	if BrsHeld.metall(String(g["base"])):
 		r.append(["Metall: Evokation, Illusion und Beschwörung wirken darin nicht." if de else "Metal: Evocation, Illusion and Summoning will not work in it.", false])
-	if BrsHeld.ruestung_von(String(g["base"])) == "Schwere Rüstung" and String(b["slot"]) == "CHEST":
-		r.append(["Schwere Rüstung: darin kannst du nicht schleichen." if de else "Heavy armor: you cannot sneak in it.", false])
+	# [870.14.ding.klirrt] „Schwere Rüstung: darin kannst du nicht schleichen.“ ruht, bis Schleichen im Spiel wirkt (Homer, 963)
 	if Beute.ist_waffe(b) and bool(b.get("zweihaendig", false)):
 		r.append(["Braucht beide Hände: kein Schild dazu." if de else "Needs both hands: no shield with it.", false])
 	var f := BrsHeld.fertigkeit_von(String(g["base"]))
@@ -812,7 +811,6 @@ static func stueck_zeilen_von(hw: BrsHeld, g: Dictionary) -> Array:
 	var waffe := Beute.ist_waffe(b)
 	var wo := String(d["plaetze"][String(b["slot"])][sp])
 	if waffe and zweihaendig.call(g): wo = "Beide Hände" if de else "Both hands"
-	elif b.get("vielseitig") != null: wo = "Vielseitig: eine oder beide Hände" if de else "Versatile: one or both hands"
 	elif waffe: wo = "Haupt- oder Nebenhand" if de else "Main or off hand"
 	wo += (" · Stufe " if de else " · Level ") + str(int(g["ilvl"]))
 	var gewicht := String(b.get("gewicht", "NONE"))
@@ -1306,7 +1304,6 @@ static func stueck_zeilen_b(hw: BrsHeld, g: Dictionary) -> Array:
 	var zwei := waffe and bool(b["zweihaendig"])
 	var wo := String(d["plaetze"][String(b["slot"])][sp])
 	if zwei: wo = "Beide Hände" if de else "Both hands"
-	elif b.get("vielseitig") != null: wo = "Vielseitig: eine oder beide Hände" if de else "Versatile: one or both hands"
 	elif waffe: wo = "Haupt- oder Nebenhand" if de else "Main or off hand"
 	wo += (" · Stufe " if de else " · Level ") + str(int(g["ilvl"]))
 	var gewicht := String(b.get("gewicht", "NONE"))
