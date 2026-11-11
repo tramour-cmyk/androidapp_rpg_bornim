@@ -1,35 +1,37 @@
 # Tom und Jerry · Build 277 · Sammelbuild nach Build 276 · PR folgt
-Ganzes Spiel · Tom (581, 635, 636, 680, 875, 964, 966.2), Jerry (536, 751, 784, 806, 811, 863, 868, 870.6, 876, 910, 945, 948, 958) · Entwurf 11.11., 16:15 · APK folgt mit dem Lauf · Geprüft an: `claude/build-277` (Stand Build 276 plus alle fertigen Zweige)
+Ganzes Spiel · Tom (581, 635, 636, 680, 814, 875, 964), Jerry (536, 751, 784, 806, 811, 863, 868, 870.6, 876, 910, 945, 948, 958) · Entwurf 11.11., 16:20 · APK folgt mit dem Lauf · Geprüft an: `claude/build-277` (Stand Build 276 plus alle fertigen Zweige)
 
-Ein Weg: über Build 276 installieren, Hauptmenü, „Weiter“ mit deinem Spielstand aus Build 276; erst Dorf (A), dann Wald mit Kräutern, Kampf und Lagerfeuer (B), zurück zu Morwen (C), zuletzt Probekämpfe und Sprünge im Reiter „Test“ (D). Den Reiter „Test“ gibt es nur im Testmodus: im Hauptmenü siebenmal aufs Firmenzeichen tippen. Was nicht passt, reicht als Nummer (z. B. 277.5) mit einem Wort.
+Ein Weg: über Build 276 installieren, Hauptmenü, „Weiter“ mit deinem Spielstand aus Build 276; erst Dorf am Tag (A), dann Wald mit Kräutern und Kampf (B), zurück ins Dorf am Abend und zu Jorin (C), zuletzt Probekämpfe und Sprünge im Reiter „Test“ (D). Den Reiter „Test“ gibt es nur im Testmodus: im Hauptmenü siebenmal aufs Firmenzeichen tippen. Was nicht passt, reicht als Nummer (z. B. 277.5) mit einem Wort.
 
 Verglichen (alt gegen neu): keine neuen Schirme; Ausrüstungsseite und Laden gegen Build 276.
 
-Im Bau geprüft: `auto_945`, `leiste_751` (Knöpfe im Kampf), `begriffe_868` (im Kampf keine Rüstungsklasse, kein W20, keine Würfel), `platztausch_863`, `handlungen_870` (964: in mittlerer und schwerer Rüstung keine Zauber aus Hervorrufung, Illusion, Beschwörung), `waffe_948`, `atem_4531` (910), `kraeutersammeln_875` (Spielstände behalten Wert und Übung), `kampfuebung_471` (966.2), `laden_582`, `menue_breite_581`, `sprung_680`; am Rechner (läuft nicht im Bau): `kampfzustand_532` 0 (958: Metrausch nur über „betrunken“); 811 (Kommentar) und 876 (Simulation) ohne Wirkung im Spiel; 784 misst den Kampftakt, der Film dazu kommt gesondert.
+Im Bau geprüft: `auto_945`, `leiste_751` (Knöpfe im Kampf), `begriffe_868` (im Kampf keine Rüstungsklasse, kein W20, keine Würfel), `platztausch_863`, `handlungen_870` (964: in mittlerer und schwerer Rüstung keine Zauber aus Hervorrufung, Illusion, Beschwörung), `waffe_948`, `atem_4531` (910), `kraeutersammeln_875` (Spielstände behalten Wert und Übung), `laden_582`, `menue_breite_581`, `sprung_680`; am Rechner (läuft nicht im Bau): `kampfzustand_532` 0 (958: Metrausch nur über „betrunken“); 811 (Kommentar) und 876 (Simulation) ohne Wirkung im Spiel; 784 misst den Kampftakt, der Film dazu kommt gesondert.
 
-## A · Dorf
+Bekannt (814, aus deinem Film, Ursache wird gesucht): das Huhn fliegt nicht auf, auch wenn der Held direkt daneben steht; der Staub in der Schenke leuchtet auch abends wie im Tageslicht.
+
+## A · Dorf am Tag
 
 | # | Team | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|---|
 | 277.1 | Tom | 581 | Tasche → Reiter „Ausrüstung“, dann die Reiter durchtippen; einen Platz antippen | die Seite passt in den Schirm, links und rechts gleicher Rand; die Reiterzeichen stehen in jedem Reiter an derselben Stelle | Seite breiter als der Schirm, Reiter springen beim Wechsel |
 | 277.2 | Jerry | 870.6 | Thessas Kramladen: Ausrüstung ansehen | Stücke ohne „+1“; Namen mit Zusatz wie „… des Fuchses“; Waffen mit „Schaden n · Art“ als Zahl | „+1“ im Namen, Würfel wie „1W8+1“ |
 | 277.3 | Tom | 875 | Tasche → Reiter „Held“, Fertigkeiten | die Fertigkeit heißt „Kräutersammeln“, mit dem Wert, den sie in Build 276 als Kräuterkunde hatte | „Kräuterkunde“, Wert auf 0 gefallen |
+| 277.4 | Tom | 814 | auf einem Erdweg im Dorf laufen (nicht auf Pflaster) | bei jedem Schritt ein kleines Staubwölkchen an den Füßen | kein Staub an den Füßen |
 
 ## B · Wald
 
 | # | Team | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|---|
-| 277.4 | Tom | 875 | Heilkräuter pflücken | Meldung „Du pflückst Heilkräuter“; steigt der Wert, „Kräutersammeln ↑ n“ | „Kräuterkunde ↑ n“ |
-| 277.5 | Jerry | 806 | Testmodus → Anzeigen „Bildrate“ an; zum Wolf gehen, Kampf, Bilder/s links ablesen; dann Welt „Kampfnebel“ aus, nächster Kampf, wieder ablesen | Kampfort mit dichtem Gras und Blumen in Flecken, dünner Bodennebel, hinter den Kämpfern zwei Lichtschächte mit Staub; Bilder/s mit Nebel kaum unter denen ohne | kahler Boden zwischen den Büscheln, Nebel bis über die Köpfe, Ruckeln nur mit Nebel (dann beide Zahlen nennen) |
-| 277.6 | Jerry | 536 | im Wolfskampf auf die Ansagen der Wölfe achten („! Anspringen“) | die Ansage steht dicht über dem Kopf des Wolfs, nie auf einem Namen | Ansage seitlich mit langer Linie, verdeckt einen Namen |
-| 277.7 | Jerry | 751, 945 | im Wolfskampf „Held selbst“ antippen bis „Held Auto“ (Söldner, wenn dabei, auch auf Auto); ein paar Züge zusehen, dann beide wieder aus | im Zug der Gegner stehen die Knöpfe matt an ihrem Platz, darüber „<Name> ist dran“; die Auto-Schalter bleiben immer antippbar; nach dem Ausschalten hält der Kampf bei deinem nächsten Zug | Knöpfe weg oder „…“, Auto nicht mehr abschaltbar |
-| 277.8 | Tom | 966.2 | Kampf gewinnen, rohes Fleisch einstecken, am Lagerfeuer rasten (Kurze Erholung reicht) | Zeile „Du brätst n× Fleisch über dem Feuer“; danach im Reiter „Held“ Kochen höher als vorher oder neu unter den Fertigkeiten | Fleisch brät, Kochen bleibt gleich |
+| 277.5 | Tom | 875 | Heilkräuter pflücken | Meldung „Du pflückst Heilkräuter“; steigt der Wert, „Kräutersammeln ↑ n“ | „Kräuterkunde ↑ n“ |
+| 277.6 | Jerry | 806 | Testmodus → Anzeigen „Bildrate“ an; zum Wolf gehen, Kampf, Bilder/s links ablesen; dann Welt „Kampfnebel“ aus, nächster Kampf, wieder ablesen | Kampfort mit dichtem Gras und Blumen in Flecken, dünner Bodennebel, hinter den Kämpfern zwei Lichtschächte mit Staub; Bilder/s mit Nebel kaum unter denen ohne | kahler Boden zwischen den Büscheln, Nebel bis über die Köpfe, Ruckeln nur mit Nebel (dann beide Zahlen nennen) |
+| 277.7 | Jerry | 536 | im Wolfskampf auf die Ansagen der Wölfe achten („! Anspringen“) | die Ansage steht dicht über dem Kopf des Wolfs, nie auf einem Namen | Ansage seitlich mit langer Linie, verdeckt einen Namen |
+| 277.8 | Jerry | 751, 945 | im Wolfskampf „Held selbst“ antippen bis „Held Auto“ (Söldner, wenn dabei, auch auf Auto); ein paar Züge zusehen, dann beide wieder aus | im Zug der Gegner stehen die Knöpfe matt an ihrem Platz, darüber „<Name> ist dran“; die Auto-Schalter bleiben immer antippbar; nach dem Ausschalten hält der Kampf bei deinem nächsten Zug | Knöpfe weg oder „…“, Auto nicht mehr abschaltbar |
 
-## C · Morwen
+## C · Dorf am Abend, Jorin
 
 | # | Team | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|---|
-| 277.9 | Tom | 966.2 | in Morwens Hütte einen Heiltrank brauen, gleich danach noch einen; dann ×5, wenn die Kräuter reichen | erster Satz „Du gehst Morwen am Kessel zur Hand. Sie braut dir: Heiltrank.“, danach ein anderer der drei Sätze; beim Verlassen „Alchemie ↑ n“, sobald ein Punkt erreicht ist | „Morwen braut dir: Heiltrank.“; Alchemie im Reiter „Held“ unverändert nach vielen Suden |
+| 277.9 | Tom | 814 | abends (nach 18 Uhr) über den Dorfplatz gehen, Anzeige „Bildrate“ an | Rauch aus den Kaminen, Fackeln flackern, die Fahne weht, Gras weicht dem Helden aus; Fußstaub schwächer als am Tag; Bilder/s wie am Tag | Effekte fehlen oder grell, Ruckeln |
 | 277.10 | Tom | 636 | Testmodus → Anzeigen „Klang“ an; neues Spiel auf einem freien Platz, Aldrics Auftrag holen, zu Jorin, nach „Dann wollen wir mal.“ weitertippen | der Schlagbaum hebt sich hörbar; oben in der Klangzeile `door_n … spielt` | kein Geräusch: dann die Klangzeile abschreiben (ein Foto genügt) |
 
 ## D · Reiter „Test“
