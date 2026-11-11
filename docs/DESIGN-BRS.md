@@ -21,8 +21,8 @@ Jede Stufenleiter des Spiels steht hier mit ihren Stufen, wovon sie abhängt und
 
 | Was | Wofür | Stufen | Wovon es abhängt | Abschnitt |
 | --- | --- | --- | --- | --- |
-| Heldenstufe | Leben, Größenordnung im Kampf, Zugang zu Gebieten | 1, 2, 3 …; jedes Kapitel setzt eine Grenze (weich, bis zwei darüber) | Erfahrung aus Kampf, Quests, Story und Fertigkeitsaufstiegen | 4 |
-| Grundwerte (6) | Begabung: Kraft, Gewandtheit, Zähigkeit, Verstand, Wille, Wahrnehmung | Start 3 bis 8 | wachsen langsam mit den Fertigkeiten | 2 |
+| Heldenstufe | Leben, Größenordnung im Kampf, Zugang zu Gebieten | 1, 2, 3 …; jedes Kapitel setzt eine Grenze (weich, bis zwei darüber) | Erfahrung aus Kampf, Quests, Story und Fertigkeitsaufstiegen. Bis zur nächsten Stufe 100 × jetzige Stufe; Sieg 10 × Gegnerstufe² (Boss × 3; Held höher um d: × (1 − d/9), ab 9 null; Gegner höher um d: × (1 + d/10), höchstens × 2); Topf je Gebiet 10 × Stufe² je Art, leer 10 %; je 5 Fertigkeitspunkte 20 × Heldenstufe, höchstens 40 % einer Stufe; Bewährungsprobe 25 × Heldenstufe; über der Kapitelgrenze ein Viertel (Regelwerte `erfahrung`, Seite 969) | 4 |
+| Grundwerte (6) | Begabung: Kraft, Gewandtheit, Zähigkeit, Verstand, Wille, Wahrnehmung | Start 3 bis 8 | in Kapitel 1 fest (870a 4 A); ab Kapitel 2 mit den Fertigkeiten, **Formel offen**; Ausrüstung gibt Zusatzeigenschaften (heute gedeckelt: höchstens + Kapitelnummer je Grundwert, Chef 21:01 dagegen, 644a) | 2 |
 | Fertigkeiten (37) | Können im Einzelnen, auch Sammeln wie Kräutersammeln und Handwerk wie Schmieden | Wert 0 bis 100 in vier Rängen: Anfänger, Geselle, Meister, Großmeister; bei 100 fertig | durch Tun bis zur Rangdecke; der nächste Rang braucht eine Prüfung (Entwurf F) | 3 |
 | Pfad oder Meisterschaft | Rolle des Helden: ein Pfad (Kampf und Lebensweg, mit Auflagen), dazu beliebig viele Meisterschaften (Handwerk, ohne Auflagen) | Anwärter → Eingeweihter → Titel → hoher Titel | Lehrmeister: Zusage, dann Weihe, Titelprüfung, Hohe Prüfung (Entwurf F, Namen 466) | 5, 6 |
 
