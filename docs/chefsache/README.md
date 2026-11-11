@@ -22,6 +22,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [856](ansehen/856-ueberspringen.md) | Zwischensequenz: „Überspringen?“ und Satz ohne Kasten (Vorgang 856) | Spike | 11.11., 19:03 |
 | [870.7](ansehen/8707-gegenstandsfenster.md) | Gegenstandsfenster mit den Werten unseres Regelwerks (Vorgang 870.7) | Tom | 11.11., 17:16 |
 
 ## Zu tun
