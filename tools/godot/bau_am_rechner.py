@@ -5,8 +5,9 @@
 # Blender als Modul: python3 -m venv ~/bl && ~/bl/bin/pip install bpy==5.2.3 numpy pillow; ln -s ~/bl bl (im Repo, nicht committen).
 # Aufruf im Repo: python3 tools/godot/bau_am_rechner.py [--laden] [--cache] [Schritt-Anfang …]
 #   ohne Schritte: Karten und Texte, CC0, Modelle, Held je Klasse, Kampfort (am Rechner mit 4 Kernen etwa 35 Minuten)
-#   --cache (854): ohne Schritte erst Karten und Texte, dann die gebauten Modelle aus dem Kaufrepo (kauf_cache.py holen, wenige
-#   Minuten); nur ohne Treffer --laden und Bau, danach ablegen, damit die nächste Sitzung nicht bei Null anfängt
+#   --cache (854): ohne Schritte erst Karten und Texte, dann je Block (figur, dorf, klassen, kampf) die gebauten Modelle aus dem
+#   Kaufrepo (kauf_cache.py, wenige Minuten); nur was fehlt --laden und Bau, danach ablegen, damit die nächste Sitzung nicht bei Null
+#   anfängt
 #   danach: cd godot && ~/godot/godot --headless --import --path . ; dann die Tests wie im Prüfschritt
 # Rohdateien bleiben in /home/user/bornim-kaufmodelle (nie in dieses Repo); godot/daten und godot/kampf/daten sind ignoriert.
 import json, os, re, subprocess, sys, tempfile, urllib.request
@@ -66,18 +67,28 @@ def schritte(namen):
             sys.exit(r.returncode)
 
 def cache(mit_laden):
+    # 854 Kennung je Block: wie godot.yml; pruefen setzt KAUF_<BLOCK>, KAUF_FIGUR_BAUEN, KAUF_ALLES, KAUF_HOLEN, die Schritte und
+    # ihre Teile richten sich danach (am Rechner gelten die Bedingungen „if:“ der Schritte nicht, darum hier)
     kc = [sys.executable, os.path.join(REPO, 'tools/godot/kauf_cache.py')]
-    env = dict(os.environ, RUNNER_TEMP=RT, KAUF=KAUF)
-    # Leute vor dem Holen (wie auf dem Bauserver): ihre Dateien liegen nicht im Cache, holen ersetzt danach die Kaufschilde;
-    # sie brauchen die CC0-Pakete (rig.py: Bewegungen aus UAL1_Standard.glb)
-    schritte(['Karten und Texte', 'CC0-Pakete', 'Leute bauen'])
-    if subprocess.run(kc + ['holen'], cwd=REPO, env=env).returncode == 0:
-        return
-    if mit_laden:
+    os.environ.update(RUNNER_TEMP=RT, KAUF=KAUF)
+    schritte(['Karten und Texte', 'CC0-Pakete'])
+    e = os.path.join(RT, 'kauf_env'); os.makedirs(RT, exist_ok=True); open(e, 'w').close()
+    subprocess.run(kc + ['pruefen', '--env', e], cwd=REPO)
+    os.environ.update(dict(z.strip().split('=', 1) for z in open(e) if '=' in z))
+    if os.environ['KAUF_ALLES'] != 'treffer' and mit_laden:
         laden()
-    subprocess.run(kc + ['vorher'], cwd=REPO, env=env, check=True)
-    schritte([n for n in SCHRITTE[1:] if n not in ('CC0-Pakete', 'Leute bauen')])
-    subprocess.run(kc + ['ablegen'], cwd=REPO, env=env, check=True)
+    if os.environ['KAUF_ALLES'] != 'treffer':
+        schritte(['Modelle bauen'])
+    if os.environ['KAUF_KLASSEN'] != 'treffer':
+        schritte(['Held je Klasse'])
+    # Leute vor dem Holen (wie auf dem Bauserver): ihre Dateien liegen nicht im Cache, holen ersetzt danach die Kaufschilde
+    schritte(['Leute bauen'])
+    if os.environ['KAUF_HOLEN'] == 'ja':
+        subprocess.run(kc + ['holen'], cwd=REPO, check=True)
+    if os.environ['KAUF_KAMPF'] != 'treffer':
+        schritte(['Kampfort bauen'])
+    if os.environ['KAUF_ALLES'] != 'treffer':
+        subprocess.run(kc + ['ablegen'], cwd=REPO, check=True)
 
 if __name__ == '__main__':
     args = sys.argv[1:]
