@@ -35,7 +35,7 @@ Vier Dinge machen den Helden aus. Mehr muss man nicht wissen, um zu spielen.
 | Wille | Mana, Zauberstärke, Konzentration, Furchtresistenz, Überzeugungskraft |
 | Wahrnehmung | verstärkt Spähen beim Entdecken von Verstecktem und Fallen (Entscheidung 83), Fernkampf-Treffgenauigkeit, Hinterhalte bemerken, Fährten |
 
-Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit und Wille, **Mana** aus Wille. Charisma gibt es nicht; die soziale Wirkung kommt aus Ruf und Gesellschaftsfertigkeiten.
+Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit, Wille und Stufe, je Stufe langsamer steigend als das Leben (930 Frage 10, Chef 11.11., 14:45; Zahlen Jerry mit 444), **Mana** aus Wille. Charisma gibt es nicht; die soziale Wirkung kommt aus Ruf und Gesellschaftsfertigkeiten.
 
 ### Heldenerschaffung
 
