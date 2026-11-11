@@ -2,9 +2,9 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `origin/main` (11.11., 11:16)
+**Gelesen bis:** `origin/main` (11.11., 11:40)
 
-**Übergabe (11.11., 11:34, `session_01Hmoj75iDfwKQgWXbcDzviq`):** 921 (`lauf.py`: Nachfolger „auf Abruf“ startet nach der Zeilenregel, M? mit Auftrag; Stellungnahme Sokrates per WEITER an laufende Sitzung) gebaut, Prüfung bei Diogenes; M?-Entscheid 824, 836, 844, 845, 909 → M; 882 (Ford 11:33, startbar seit 870.4 gebaut) nicht angefangen, Kontext voll. Nachfolger: Perikles – 882
+**Übergabe (11.11., 11:41, `session_01Hmoj773WJz1uF15hi5Tx1R`):** 882 erledigt: Werkzeuge beim Kotlin-Ausstieg in `LISTE-UMZUG-BRS.md` 8 („Werkzeuge (882)“), Folge 870.9 → 882.1 (Tom) → 882.2 (Perikles) → 870.10. Nachfolger: auf Abruf
 
 ## Einzelheiten
 - **Zu 919, von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“; Archiv 918, 919):** Chef 09:47: „da haben wir doch mehr davon, wenn ich was teste und Fehler finde, als wenn ich den ganzen Tag nichts teste, weil ihr mein Geld einfach verprasst für nichts.“ Regeln nachziehen, wo Teams und Werkzeuge sie lesen (Testbitte, `ROLLE-ENTWICKLUNG.md`, `LISTE-RELEASE-NEUSTART.md`, Haken): Testbitte auch bei rotem Lauf, oben die roten Tests mit einem Satz als „bekannt, nicht melden“; keine Testbitte bei rotem Start- oder Absturztest (Jerry kennzeichnet sie, 918); `main` nur grün und vom Chef getestet; vor jedem Lauf ganzer Godot-Testsatz am Rechner, sobald 918 (2) steht. Regelbilanz: was ersetzt die neue Regel?

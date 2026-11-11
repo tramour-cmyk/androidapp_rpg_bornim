@@ -24,6 +24,8 @@ Ausgabe, Zeile für Zeile auszuführen:
   TAGESBERICHT-FEHLT TT.MM.: …                                      → Ford meldet laut eine Zeile an den Chef (448); die TAGESBERICHT-Zeile daneben startet Perikles erneut
   WÄCHTER <Nr> | <Rollen> | <session_id|-> | <Text>                  → Ford: meldung.sh --laut Ford "<Text>" und send_message <Text> an die Sitzung (383; einmal je „jetzt“, Marke schreibt --sperre; auch 559: „wartet auf Chef“ trotz neuerer Rückmeldung, einmal je Rückmeldung)
   AUSGESCHLOSSEN NR: Grund                                          → Ford hat die Zeile mit --ohne ausgeschlossen; Ford meldet Grund lautlos (190.2)
+  GELÖST <Nr> | <Rolle> | wartet auf … erfüllt | <session_id|->      → send_message „GELÖST <Nr>: wartet auf … erfüllt, startbar“ an die Sitzung (bei - nichts); --sperre hat die Zeile gesetzt (275.2), Notizen pushen
+  (Bedeutung dieser Zeilen ist Fords Anleitung, LISTE-BETRIEB.md „Jeder Lauf“ 4 verweist hierher, 276)
 --ohne NR:Grund  (mehrfach) schließt die Zeile NR für diesen Lauf aus; lauf.py nimmt dann die nächste startbare Zeile derselben Rolle (190.2). Ohne Grund gilt es nicht.
 --wecker ID[,ID]  (mehrfach) Sitzungen mit offenem eigenem Weckruf (list_triggers: enabled, next_run_at in der Zukunft, persistent_session_id) gelten als laufend:
              belegen ihre Rolle (auch Spike/Tuffy), werden nicht archiviert und bekommen kein WEITER, auch nach 20 oder 60 Minuten Ruhe (916, Tuffy 784 am 11.11.).
@@ -270,14 +272,17 @@ def juengste(ss):
     return max(ss, key=lambda x: (z(x["updated_at"]), z(x["created_at"])))
 
 def titel_datum(titel):
-    """Erstes TT.MM. im Titel, wenn es in der Zukunft liegt; heute mit „um/ab H:MM“ danach, wenn die Uhrzeit noch kommt (375); sonst None."""
+    """Erstes TT.MM. im Titel, wenn es in der Zukunft liegt; heute mit Uhrzeit, wenn sie noch kommt (375): gleich nach dem
+    Datum („16.11., 8 Uhr“, „16.11. 08:00“; 727, D62.2) oder „um/ab H:MM“ danach; sonst None."""
     for m in re.finditer(r"(?<!\d)(\d\d?)\.(\d\d)\.", titel):
         try: d = startbar.jahr_von(int(m.group(1)), int(m.group(2)))
         except ValueError: continue
         if d > JETZT.date(): return "%02d.%02d." % (d.day, d.month)
-        u = re.search(r"\b(?:um|ab)\s+(\d\d?)[:.](\d\d)\b", titel[m.end():])
-        if d == JETZT.date() and u and (int(u.group(1)), int(u.group(2))) > (JETZT.hour, JETZT.minute):
-            return "%02d.%02d., %d:%s" % (d.day, d.month, int(u.group(1)), u.group(2))
+        rest = titel[m.end():]
+        u = re.match(r"\s*,?\s*(?:(?:um|ab)\s+)?(\d\d?)(?:[:.](\d\d)(?:\s*Uhr)?|\s*Uhr)\b", rest) or \
+            re.search(r"\b(?:um|ab)\s+(\d\d?)[:.](\d\d)\b", rest)
+        if d == JETZT.date() and u and (int(u.group(1)), int(u.group(2) or 0)) > (JETZT.hour, JETZT.minute):
+            return "%02d.%02d., %d:%s" % (d.day, d.month, int(u.group(1)), u.group(2) or "00")
     return None
 
 def warnungen_bekannt():
