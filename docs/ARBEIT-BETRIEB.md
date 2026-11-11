@@ -77,10 +77,9 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry (07:04 Jerry 806, 08:05 Jerry 806, 10:26 Jerry 595) aus eigener Beurteilung aus (Kaufrepo, Pacing, Sitzungsgrenze), ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch: 59 Muss). Lücke im Werkzeug: Startsperre wird geschrieben, auch wenn nie gestartet wird; kein WARNUNG-LAUT wie bei ARCHIVIERE. Vorschlag an den Chef gestellt
 
-- 07:59 11.11.: Startsperre 07:59 Start Jerry (Neustart-Meldung 07:58, f48aaad02; Umgebung Hoch)
-- 08:01 11.11.: Startsperre 08:01 Start Sokrates (Neustart-Meldung 07:59, 9a3c47885; Umgebung Hoch)
 - 08:01 11.11.: Neustart Sokrates (9a3c47885): Nachfolger …77wg6 in Hoch gestartet; Sokrates …77G3d arbeitet noch, Archivieren (Kosten auf 870, 903, 709) im Lauf 08:03. Jerry …75Qj archiviert, 9,50 $ auf 751 gebucht (Jerry ersetzte seine Übergabe 07:59 um 854 zuerst; der 806-Nachfolger liest sie)
 - 08:00 11.11.: Neustart Jerry: Nachfolger …782ws „Jerry – 806“ in Hoch gestartet. Spike …76dn (680 fertig, 4,66 $) und Tuffy …7A2W (705 gebaut, 4,26 $) archiviert und gebucht
+- 07:49 11.11.: Neustart Tom (c4097ed7d): Nachfolger …78hPe „Tom – 870.4: Lauf 338 auswerten“ in Hoch gestartet (lauf.py nannte noch Mittel, von Hand Hoch), Tom …79ceB archiviert, 9,38 $ gebucht (870.4). Stillstand-Zeilen Diogenes/Perikles (nur ausgeschlossene 771, 901) nicht geschrieben
 - 07:35 11.11.: „Start Perikles 903“ (Diogenes 771): Perikles …7727 (901) arbeitet nicht, wartet auf Chef (264.1) und belegt die Rolle; statt Doppelstart „Weiter: 903“ per `send_message` an ihn. Diogenes …76FRt archiviert, 5,14 $ auf 771 gebucht
 - 07:25 11.11.: Selbstneustart ausgeführt: Ford …77YMu (Hoch), Uhr neu, alter Ford …79ZRC archiviert, 4,96 $ gebucht. Wächter 900 und 870.6 (Jerry, „jetzt“ 22:24, 9 Std.) laut gemeldet, `send_message` an Jerry nicht erreichbar; Befund an Perikles: 870.6 „wartet auf 870.4“, Wächter feuert trotzdem
 - 07:22 11.11.: **Bis Sa 14.11., 20:00 jedes create_session mit environment_id env_017fgL1YDcVTYTkJsU3APEfR (WireStorm Hoch)** (365a B, Chef 07:18; Sokrates 07:21), bis lauf.py (901) es kann; Gleichzeitig-Doppel Spike/Tuffy/Diogenes/Jerry von 07:18 (Mittel) unterbrochen, archiviert, gebucht (3,0 $ zusammen)
@@ -98,10 +97,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:09 10.11.: Diogenes …75f9 archiviert, gebucht (2,76 $, 890/891); Diogenes 896 gestartet …79zSr (Perikles 23:06); Tom …9Deoz archiviert, gebucht (7,52 $, 888)
 - 23:04 10.11.: Jerry …794Tg archiviert, gebucht (6,04 $, 870.5); Tom-Nachfolger …75w84 (23:03), Vorgänger …9Deoz wartet auf Ruhe
 - 22:52 10.11.: Sokrates …76uBk archiviert, gebucht (6,15 $ zu gleichen Teilen auf 888, 709c, 870); Jerry-Nachfolger …76RTd (22:51), Vorgänger …794Tg wartet auf Ruhe
-- 22:28 10.11.: Sokrates-Nachfolger …75g2D gestartet; alter Sokrates …76uBk (5,98 $, Kosten auf 888, 709c, 870) wartet auf Ruhe, archiviert der nächste Lauf
-- 22:27 10.11.: Jerry …76riB archiviert, gebucht (6,18 $, 870.5). Sokrates 22:27 (Chef 22:24, Umzug über Nacht): Läufe laufen die Nacht durch, jede startbare 870.x und Nachfolger Tom/Jerry ohne Rückfrage, Spike/Tuffy aus; entspricht der Startregel
-- 22:08 10.11.: Chef-Satz 22:07 erhalten; archiviert und gebucht: Jerry …78Q1 (21,19 $, 870.5), …7991 (17,15 $, 870.2), …78Uv4 (5,02 $, 870.5), Perikles …79eG (6,59 $, 264.1), Ford …794Mi6M (6,99 $, Betrieb)
-- 07:49 11.11.: Neustart Tom (c4097ed7d): Nachfolger …78hPe „Tom – 870.4: Lauf 338 auswerten“ in Hoch gestartet (lauf.py nannte noch Mittel, von Hand Hoch), Tom …79ceB archiviert, 9,38 $ gebucht (870.4). Stillstand-Zeilen Diogenes/Perikles (nur ausgeschlossene 771, 901) nicht geschrieben
+- 07:59 11.11.: Startsperre 07:59 Start Jerry (Neustart-Meldung 07:58, f48aaad02; Umgebung Hoch)
+- 08:01 11.11.: Startsperre 08:01 Start Sokrates (Neustart-Meldung 07:59, 9a3c47885; Umgebung Hoch)
 - 07:46 11.11.: Neustart Perikles (a244b11af): Nachfolger „264.1“ nicht startbar (wartet auf Chef), kein Start; Perikles …7727 bleibt stehen, 1,55 $ gebucht (901). START Diogenes 771 und WEITER Perikles 901 mit `--ohne` ausgeschlossen (771 und 901 erledigt, Stand nicht gesetzt; Hinweis in ihren Vorräten); Startsperre 07:45 von Hand gestrichen (nichts gestartet)
 - 13:30 10.11.: Startsperre 13:30 Start Ford (selbst)
 - 13:30 10.11.: Startsperre 13:30 Start Sokrates (Neustart auf Meldung 9fc0c053b, Nachfolger 620 Test t274 ab 274); Startsperre 13:30 Start Ford (selbst).
@@ -303,3 +300,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:45 11.11.: Nachfolger-Warnung Perikles (Übergabe 11.11., 07:44) (lauf.py)
 - 07:48 11.11.: Startsperre 07:48 Start Tom (lauf.py)
 - 07:48 11.11.: Marke Archiv session_01Hmoj79ceBFrhQUMijFMfsW (lauf.py)
+- 08:03 11.11.: Startsperre 08:03 Start Perikles (Start-Meldung 08:01, ee2eaddfd, Chef „264.1, Läufe frei“; Umgebung Hoch; Spike/Tuffy-Starts aus altem Stand 680/705 entfielen nach git pull, gebaut)
+- 08:01 11.11.: Marke Mehrfach Sokrates (lauf.py)
+- 08:01 11.11.: Marke Start-fehlt Spike 11.11.-07:21 (lauf.py)
+- 08:01 11.11.: Marke Start-fehlt Tuffy 11.11.-07:21 (lauf.py)
+- 08:01 11.11.: Marke Archiv session_01Hmoj7727yEYpa1M7HvBAsA (lauf.py)
