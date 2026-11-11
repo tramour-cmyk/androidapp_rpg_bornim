@@ -6,7 +6,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 **Vorrang (von Sokrates, Chef 11.11., 07:16; Pause aufgehoben):** „wenn sie nichts mehr für den Umzug zu tun haben, ob sie dann Pause haben. Ja, macht ja keinen Sinn.“ und „lass das Spike und Taffy das machen. Fehler ausmerzen“. (1) Umzug 870.x und was B1 aufhält zuerst; (2) wartet der Umzug, Fehler aus den Tests des Chefs (Muss, wiederholte zuerst, z. B. 864, 863); kein Neues (Chef 10.11., 14:08: „nicht wieder irgendeinen Füllefanz neu anfangen“). Tuffy nimmt Fehler aus den Tests, solange Jerry am Umzug ist. Umzugsdateien (`LISTE-UMZUG-BRS.md` 4) ändert nur der Umzugszweig (Grundsatz 5).
 
-**Übergabe (12.11., 00:12, `session_01Hmoj7A3Uv1wQxh44QKmFGc`):** 988 gebaut (`b82b35154`, Zu 988; Telegram 00:12). Weiter offen aus der Vorübergabe: 833 Bild beim Chef, nach „833 A“ `schirm_833 = "A"` setzen und Zweig in den nächsten Build; 950 gebaut (`claude/jerry-950-platztausch`); rot in Lauf 363 (fremd, auch main): `atem_4531`, `krogg_494`, `skelett_506`. Nachfolger: Jerry – 993: Arkanpfeil und Ring hakelig
+**Übergabe (12.11., 00:36, `session_01Hmoj75hgRbHuDP5JyfDGz2`):** 993 gebaut (`d87c1d05e`, Zu 993). Offen: 988 (`b82b35154`) auf `claude/build-277` für PR #196; 833 Bild beim Chef, nach „833 A“ `schirm_833 = "A"` setzen und Zweig in den nächsten Build; 950 gebaut; rot in Lauf 363 (fremd, auch main): `atem_4531`, `krogg_494`, `skelett_506`. Nachfolger: Jerry – 863: Platztausch der Ratten
 
 **Übergabe Tuffy (12.11., 00:29, `session_01Hmoj76CayzJH3pKHwcqVjq`):** 935 Wurfprüfung behoben, Film beim Chef (Zu 935); 620.2c erledigt; 952 gebaut.
 
