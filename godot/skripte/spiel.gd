@@ -1079,7 +1079,7 @@ func oeffne_menue(reiter := "") -> void:
 	m.test.connect(func(was: String, mit: Array):   # 399.1 Reiter „Test“: erst das Menue zu, dann in der Welt
 		# 555 (Chef 11:52: „Wenn ich auf Kartenzoom klicke, dann bin ich sofort aus dem Testmenü draußen“): Schalter bleiben wie alt im
 		# Menue, die Wirkung steht als kurze Meldung; nur Orts-, Kampf- und Schirmwechsel schliessen
-		if was in ["zoom", "nacht", "tiere", "gras"]:
+		if was in ["zoom", "nacht", "tiere", "gras", "kampfeffekte"]:
 			test_tat(was, [])
 			var de := Sprache.aktiv() == "de"
 			match was:
@@ -1087,6 +1087,7 @@ func oeffne_menue(reiter := "") -> void:
 				"nacht": m.meldung(("Nacht, 23:00 Uhr" if de else "Night, 11 pm") if licht.ziel > 0.5 else ("Tag, 12:00 Uhr" if de else "Day, noon"))
 				"tiere": m.meldung("Tiere umgeschaltet" if de else "Animals toggled")
 				"gras": m.meldung(("Gras: Grass & Wind" if de else "Grass: Grass & Wind") if GrasBausatz.an else ("Gras: unser altes" if de else "Grass: our old one"))
+				"kampfeffekte": m.meldung(("Kampfnebel an" if de else "Battle mist on") if KampfEffekte.an else ("Kampfnebel aus" if de else "Battle mist off"))
 			return
 		m.zu.emit()
 		test_tat(was, mit))
@@ -1115,6 +1116,8 @@ func test_tat(was: String, mit: Array) -> void:
 		"gras":   # 804: Gras des Kits gegen unser altes, zum Vergleich und fuer die Bilder/s vorher und nachher
 			GrasBausatz.an = not GrasBausatz.an
 			if gebiet: gebiet.gras_neu()
+		"kampfeffekte":   # 806: Bodennebel und Lichtschächte im Kampfort, ab dem nächsten Kampf
+			KampfEffekte.an = not KampfEffekte.an
 		"teleport":
 			await abblenden(1.0)
 			var von := karte.id

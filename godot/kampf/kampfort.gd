@@ -354,6 +354,22 @@ func _build_forest() -> void:
 	ground.position.y = -0.01
 	forest.add_child(ground)
 	_grass()
+	_lichtung_806()
+
+
+## 806: Bodennebel (R8) und zwei Lichtschächte mit Staub (R7) hinter den Kämpfern, von der Kamera aus gesehen (wie _grass: 15 m
+## Abstand, Blick örtlich (0,866, −0,5)); Paket fehlt oder Grafikstufe aus: nichts
+func _lichtung_806() -> void:
+	if OS.get_environment("EFFEKTE_806") == "0":     # Vergleich und Bilder/s vorher
+		return
+	# Chef 10.11., 08:58 (Standbild Lichtung): „Nebel halb so dicht, nur am Boden“: Dichte 0,55 → 0,28, Lagen bis 0,45 m statt 1 m;
+	# NEBEL_806=0 nur ohne Nebel (Bildpaar an/aus am selben Ort)
+	if OS.get_environment("NEBEL_806") != "0":
+		KampfEffekte.nebel(self, 0.45, 0.28)
+	var cam_l := Vector2(-0.866 * 15.0, 0.5 * 15.0)
+	for quer: float in [-5.5, 4.5]:
+		var q := cam_l + Vector2(0.866, -0.5) * 22.0 + Vector2(0.5, 0.866) * quer
+		KampfEffekte.staub(forest, Vector3(q.x, 0.0, q.y), 1.6)
 
 
 func _toon_all(n: Node) -> void:
@@ -460,10 +476,58 @@ func _grass() -> void:
 	mmi.material_override = hm
 	forest.add_child(mmi)
 	halm_mat = hm
+	# 806 (Chef 09.11., 21:12: Kampforte mit den Paketen schöner): Gras und Blumen des Kits wie im Dorf (804, GrasBausatz) an den
+	# Stellen unserer Büschel, unser Gras dann aus; fehlt das Kit oder ist der Schalter aus (698), bleibt halm.gdshader
+	if GrasBausatz.aktiv():
+		# Chef 10.11., 08:58: „Vielleicht ein bisschen mehr Gras“, die Blumen sah er kaum: jede zweite Stelle trägt einen zweiten
+		# Büschel daneben (der Bausatz nimmt jede dritte, so 1,5-mal so viele), und in Flecken von einigen Metern Blumenwiese (Bausatz:
+		# dort 30 % Blumen statt 1,5 %), damit sie als Gruppen zu sehen sind statt einzeln verstreut
+		var stellen: Array[Vector3] = []
+		var art := PackedByteArray()
+		var rb := RandomNumberGenerator.new()
+		rb.seed = 806
+		for i in xf.size():
+			var o: Vector3 = xf[i].origin
+			var fleck: bool = sin(o.x * 0.35 + 1.3) * sin(o.z * 0.41 + sin(o.x * 0.2)) > 0.62
+			stellen.append(o)
+			art.append(2 if fleck else 0)
+			if i % 2 == 0:
+				stellen.append(o + Vector3(rb.randf_range(-0.35, 0.35), 0.0, rb.randf_range(-0.35, 0.35)))
+				art.append(2 if fleck else 0)
+		kit_gras = GrasBausatz.baue(forest, stellen, art)
+		# Standbild 10.11. (Jerry, vor der Vorlage): ohne unser Gras lag zwischen den Büscheln kahler Boden, und die hellen Spitzen der
+		# Büschel standen wie Stroh im Bild: unser Gras bleibt als Grund, die Spitzen dunkler (Lichtung im Wald, nicht Sommerwiese)
+		for k in kit_gras:
+			var m := k.material_override as ShaderMaterial
+			if m == null or k.name.begins_with("Gras_flower"):
+				continue
+			m = m.duplicate() as ShaderMaterial
+			for f in ["tip_color", "dry_tip_color"]:
+				var c = m.get_shader_parameter(f)
+				if c is Color:
+					m.set_shader_parameter(f, (c as Color).darkened(0.35))
+			k.material_override = m
+
+
+var kit_gras: Array[MultiMeshInstance3D] = []
+## 806: die Kämpfer schieben das Gras des Kits beiseite (Kit: höchstens vier Schieber), die Gruppe zuerst
+func _kit_schieber() -> void:
+	if kit_gras.is_empty():
+		return
+	var n := 0
+	for side in ["PARTY", "FOES"]:
+		for fig in figures.values():
+			if fig.fighter.side != side or not fig.visible:
+				continue
+			if n >= 4:
+				return
+			GrasBausatz.schieber(fig)
+			n += 1
 
 
 var halm_mat: ShaderMaterial = null
 func _grass_spots() -> void:
+	_kit_schieber()
 	if halm_mat == null:
 		return
 	var sp: Array[Vector3] = []

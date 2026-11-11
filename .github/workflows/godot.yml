@@ -125,6 +125,18 @@ jobs:
           echo "Gras-Kit: $(ls $d/meshes | tr '\n' ' ')"; echo "Gras-Kit MIT: $(cat godot/daten/gras_mit.txt)"; grep -c "gw_\|GrassWind" godot/project.godot
       # 415 (Jerry, Chef „415 jetzt“ 02.11., 10:55; „415d muss ins nächste Build“ 22:05): Beams Free Sample (reeboolabs) aus
       # bornim-kaufmodelle anhang/beams; die Lizenz verbietet die Weitergabe der Dateien, darum nie ins Repo (godot/.gitignore), nur in den Bau
+      # 806 (Chef 09.11., 21:12: Kampforte mit den Paketen schöner): aus R7 Stylized VFX v2.0 Lichtschacht mit Staub (dust_motes) und
+      # aus R8 Weather FX nur der Bodennebel (mist-Shader, ohne Wettersteuerung: die griffe in Himmel und Licht ein); Lizenz wie 804:
+      # nie ins Repo (godot/.gitignore), nur in den Bau; nur, was kampf/kampf_effekte.gd lädt. Fehlt ein Paket, bleibt der Kampfort wie bisher.
+      - name: Effekt-Pakete (806, privat)
+        run: |
+          v=$(find "$KAUF/anhang/stufe1" -maxdepth 4 -type d -path '*Stylized_VFX_v2*/addons/reeboo_vfx' 2>/dev/null | head -1)
+          if [ -n "$v" ]; then d=godot/addons/reeboo_vfx; mkdir -p $d/effects
+            cp "$v/vfx_effect.gd" $d/ && cp -r "$v/shaders" "$v/textures" $d/ && cp "$v/effects/dust_motes.tscn" "$v/effects/footstep_dust.tscn" $d/effects/
+            echo "R7: $(ls $d/effects | tr '\n' ' ')"; else echo "R7: nicht da"; fi
+          w=$(find "$KAUF/anhang/stufe1" -maxdepth 4 -type d -path '*Weather_FX*/addons/weather_fx' 2>/dev/null | head -1)
+          if [ -n "$w" ]; then d=godot/addons/weather_fx/shaders_3d; mkdir -p $d
+            cp "$w/shaders_3d/mist.gdshader" "$w/shaders_3d/wfx_field.gdshaderinc" $d/; echo "R8: $(ls $d | tr '\n' ' ')"; else echo "R8: nicht da"; fi
       - name: Beams-Probe (415, privat)
         run: |
           d=$(find "$KAUF/anhang/beams" -type d -path '*addons/reeboo_beams' 2>/dev/null | head -1)
@@ -698,6 +710,9 @@ jobs:
             PLATZ=$o VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 400 xvfb-run -a -s "-screen 0 1080x2340x24" \
               ~/godot/godot --path . res://kampf/probe.tscn --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --bild=$GITHUB_WORKSPACE/bilder/kampforte/$o.png 2>&1 | grep -E "SCRIPT ERROR|^Dran" | cut -c1-300 || true
           done
+          # 806 (Chef 10.11., 08:58: „nächstes Mal Paar Nebel an/aus am selben Ort“): die Lichtung noch einmal ohne Nebel
+          NEBEL_806=0 PLATZ=lichtung VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 400 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . res://kampf/probe.tscn --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --bild=$GITHUB_WORKSPACE/bilder/kampforte/lichtung-ohne-nebel.png 2>&1 | grep -E "SCRIPT ERROR" | cut -c1-300 || true
           ls -l $GITHUB_WORKSPACE/bilder/kampforte
       # 499 (Chef 03.11., 07:14): Held im Drehteller mit Grundausruestung je Klasse, Abstand Waffe-Faust und Schild-Ruecken, Bilder
       # 499 Probebild (511; Chef 08.11., 12:41 „Und wie bewegen die sich dann mit beim Gehen?“): mit film=nein Drehteller je Klasse
