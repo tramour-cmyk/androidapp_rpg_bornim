@@ -290,3 +290,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:22 11.11.: **Bis Sa 14.11., 20:00 jedes create_session mit environment_id env_017fgL1YDcVTYTkJsU3APEfR (WireStorm Hoch)** (365a B, Chef 07:18; Sokrates 07:21), bis lauf.py (901) es kann; Gleichzeitig-Doppel Spike/Tuffy/Diogenes/Jerry von 07:18 (Mittel) unterbrochen, archiviert, gebucht (3,0 $ zusammen)
 - 07:22 11.11.: Startsperre 07:22 Start Tom (Neustart-Meldung 07:21, 0d88e082c; Umgebung Hoch)
 - 07:24 11.11.: Startsperre 07:24 Start Ford (selbst; Selbstneustart in Hoch, 300 Tsd. Token)
+- 07:24 11.11.: Startsperre 07:24 Start Perikles (901 „jetzt“, Sokrates 07:22; Umgebung Hoch)
