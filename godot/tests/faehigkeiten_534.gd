@@ -14,7 +14,7 @@ var skills := {}
 
 
 func _initialize() -> void:
-	tab =JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	tab =Tabellen.lade()
 	for m in tab.monsters:
 		monsters[m.id] = m
 	for s in tab.skills:

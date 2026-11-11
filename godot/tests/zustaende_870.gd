@@ -15,7 +15,7 @@ var monsters := {}
 var skills := {}
 
 func _initialize() -> void:
-	tab = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	tab = Tabellen.lade()
 	for m in tab.monsters: monsters[m.id] = m
 	for s in tab.skills: skills[s.id] = s
 	Sprache.lade()
@@ -23,6 +23,11 @@ func _initialize() -> void:
 	_schwach_satt()
 	_spinnseide()
 	_dinge()
+	# 870.6 (Sokrates 20:05): tabellen.json ist gelöscht, Tabellen.lade() liefert die Monster nach BRS
+	pruefe(not FileAccess.file_exists("res://regeln/tabellen.json"), "regeln/tabellen.json gibt es nicht mehr")
+	for m in tab.monsters:
+		pruefe(int(m.hp[0]) == 0 and int(m.hp[2]) == int(Brs.monster(String(m.id)).get("leben", -1)), "%s: Leben nach BRS, kein Würfel (%s)" % [m.id, m.hp])
+		pruefe(String(m.de) == Brs.name(String(m.id)), "%s heißt nach BRS: %s" % [m.id, m.de])
 	print("ZUSTAENDE870 %d Fehler" % fehler)
 	quit(1 if fehler else 0)
 
@@ -50,7 +55,7 @@ func _zustaende() -> void:
 		h.hp = h.max_hp
 		h.status[st] = 3
 		m._tick(h)
-		var gift := BrsKampf.mittel(h.poison_die) / BrsKampf.mittel([1, 6, 0]) if st == "POISON" else 1.0     # schwächeres Gift im Verhältnis
+		var gift: float = h.gift if st == "POISON" else 1.0     # schwächeres Gift nach seiner Stärke
 		var soll := maxi(1, roundi(float(h.max_hp) * float(z["schaden_anteil"][st]) * gift))
 		pruefe(h.max_hp - h.hp == soll, "%s: %d Schaden statt %d (Anteil am vollen Leben %d)" % [st, h.max_hp - h.hp, soll, h.max_hp])
 	var m = _kampf(["wolf"], 3)

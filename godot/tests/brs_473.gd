@@ -16,7 +16,7 @@ func _lauf() -> void:
 	if Brs.lade().is_empty():
 		print("FALSCH daten/werte.json fehlt"); quit(1); return
 	# jede Art des Spiels (tabellen.json, Monsters.kt) hat Werte im Bestiarium
-	var tab: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	var tab: Dictionary = Tabellen.lade()
 	for m in tab.monsters:
 		pruefe("Werte für %s" % m.id, Brs.monster(m.id).is_empty(), false)
 	var ken: Array = (Brs.lade().get("kennungen", {}) as Dictionary).keys().filter(func(k): return not String(k).begins_with("_"))

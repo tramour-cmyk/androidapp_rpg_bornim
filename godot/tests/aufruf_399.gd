@@ -17,7 +17,7 @@ func _initialize() -> void:
 
 
 func _alle() -> void:
-	var tab: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	var tab: Dictionary = Tabellen.lade()
 	var fehler := 0
 	var n := 0
 	for fall in [["WOLVES", "tag"], ["RATS", "abend"], ["GRAK", "nacht"], ["GRIMM", "tag"]]:

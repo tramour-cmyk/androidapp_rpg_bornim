@@ -274,7 +274,7 @@ class Fighter:
 	## 296.2: the statuses with the turns they still last, in the order they came; the poison's die; turns after a
 	## stun in which no new one takes hold; the statuses have acted this turn; has landed a blow in this fight.
 	var status := {}
-	var poison_die: Array = [1, 4, 0]
+	var gift := 1.0     # 870.6: Stärke des Gifts, das auf ihm wirkt (werte.json „monsterregeln“ „gift“)
 	var stun_guard := 0
 	var ticked := false
 	var has_hit := false
@@ -386,7 +386,7 @@ var called := 0
 var casting = null
 
 
-## [party] and [foes] are Fighters; [tables] the monsters, items and skills (godot/regeln/tabellen.json).
+## [party] and [foes] are Fighters; [tables] the monsters, items and skills (870.6: regeln/tabellen.gd Tabellen.lade(), nach BRS).
 func _init(party: Array, foes: Array, tables: Dictionary, p_dice, p_words, p_lang := 0, p_winded := false, p_opening := "NORMAL") -> void:
 	opening = p_opening
 	dice = p_dice
@@ -1456,7 +1456,7 @@ func _inflict(t: Fighter, st: String, turns: int, save = null, die = null) -> bo
 			return false
 	t.status[st] = maxi(int(t.status.get(st, 0)), turns)
 	if st == "POISON" and die != null:
-		t.poison_die = die
+		t.gift = float(die)
 	if st == "STUN":
 		t.stun_guard = 3
 	_say(fmt(ST_GAINED[st], lang, [who]), null, t.id, 0, null, false, false, "STATUS")
@@ -1487,10 +1487,10 @@ func _tick(f: Fighter) -> bool:
 			break
 		if f.monster != null and Zustaende.immune(f.monster, st):
 			continue
-		# 870.6: Anteil am vollen Leben (werte.json „zustaende“ „schaden_anteil“), ein schwächeres Gift im Verhältnis der alten Mittel
+		# 870.6: Anteil am vollen Leben (werte.json „zustaende“ „schaden_anteil“), ein schwächeres Gift nach seiner Stärke
 		var anteil := float(_zw().get("schaden_anteil", {}).get(st, 0.08))
 		if st == "POISON":
-			anteil *= BrsKampf.mittel(f.poison_die) / maxf(0.01, BrsKampf.mittel([1, 6, 0]))
+			anteil *= f.gift
 			if _volk(f) == "Zwerg":
 				anteil *= 0.5
 		var dmg: int = _anteil(f, anteil)
@@ -1520,7 +1520,7 @@ func _foe_wounds(foe: Fighter, t: Fighter, crit: bool) -> void:
 		return
 	match str(m.get("special", "NONE")):
 		"POISON":
-			_inflict(t, "POISON", 3, ["zaehigkeit", 11], m.get("poison", [1, 6, 0]))
+			_inflict(t, "POISON", 3, ["zaehigkeit", 11], float(m.get("gift", 1.0)))
 		"SURPRISE_ATTACK":
 			if first:
 				_inflict(t, "STUN", 1, ["zaehigkeit", 12])
@@ -2238,8 +2238,8 @@ func _brs_auf_held(foe: Fighter, t: Fighter, intent: Dictionary, mode: int) -> D
 	var in_hand := not t.drawn
 	var abw: Array = BrsKampf.held_abwehr(t.b, String(foe.b.get("art", "nah")), tw, in_hand)
 	var faktor := 1.0
-	if intent.extra != null and BrsKampf.mittel(m.dmg) > 0.0:
-		faktor += BrsKampf.mittel(intent.extra) / BrsKampf.mittel(m.dmg)
+	if intent.extra != null:     # 870.6: Zusatzschaden der Absicht als Anteil am Schaden (werte.json „absicht_zusatz“)
+		faktor += float(BrsKampf.w().get("absicht_zusatz", {}).get(String(intent.id), 0.0))
 	if bool(foe.b.get("ueberfall", false)) and not foe.has_hit:     # 870.5: der erste Treffer des Überfalls mit Wucht (444 „erster_treffer_faktor“)
 		faktor *= float(_ueberfall().get("erster_treffer_faktor", 1.0))
 	return BrsKampf.schlag(dice.rng, float(foe.b.angriff), float(abw[1]), float(foe.b.schaden) * faktor,

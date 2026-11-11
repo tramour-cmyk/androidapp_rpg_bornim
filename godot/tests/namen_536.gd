@@ -16,7 +16,7 @@ func _ruhig(k) -> void:
 func _lauf() -> void:
 	Engine.time_scale = 30.0
 	var f := 0
-	var tab = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	var tab = Tabellen.lade()
 	var held: Dictionary = tab.probe.FIGHTER.hero
 	var a = Aufruf.new()
 	root.add_child(a)

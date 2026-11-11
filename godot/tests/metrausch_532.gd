@@ -10,7 +10,7 @@ func _initialize() -> void: _lauf.call_deferred()
 
 func _lauf() -> void:
 	var f := 0
-	var tab = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	var tab = Tabellen.lade()
 	var skills := {}
 	for s in tab.skills: skills[s.id] = s
 	var monsters := {}

@@ -20,7 +20,7 @@ func pruefe(ok: bool, was: String) -> void:
 
 
 func _lauf() -> void:
-	var tabellen: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	var tabellen: Dictionary = Tabellen.lade()
 	var skills := {}
 	for s in tabellen.skills:
 		skills[s.id] = s

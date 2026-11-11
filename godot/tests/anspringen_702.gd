@@ -18,7 +18,7 @@ func _initialize() -> void:
 		print("Heldwerte fehlen: keine Messung")
 		quit(0)
 		return
-	var tab: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	var tab: Dictionary = Tabellen.lade()
 	var skills := {}
 	for s in tab.skills:
 		skills[s.id] = s

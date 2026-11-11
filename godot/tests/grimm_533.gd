@@ -24,7 +24,7 @@ func _soll(gut: bool, was: String) -> void:
 
 
 func _lauf() -> void:
-	var tab: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	var tab: Dictionary = Tabellen.lade()
 	var monsters := {}
 	for m in tab.monsters:
 		monsters[m.id] = m
@@ -34,12 +34,12 @@ func _lauf() -> void:
 	# 533 (Chef 04.11., 20:30, Blende mit „gelben Augen“): Art dire_wolf, Körper und Rudelregeln des Wolfs
 	_soll(g.id == Figur.GRIMM and g.monster.id == Mars.DIRE_WOLF and Mars.koerper_of(g.monster) == Mars.WOLF and Mars.wolfig(g.monster) and Figur.vier(g),
 		"Grimmzahn vorn, Art dire_wolf, Körper des Wolfs (id %s, Art %s, Körper %s)" % [g.id, g.monster.id, Mars.koerper_of(g.monster)])
-	_soll(int(g.monster.ac) == 14 and int(g.monster.atk) == 4 and (g.monster.dmg as Array).map(func(x): return int(x)) == [2, 6, 1] and g.max_hp >= 8 and g.max_hp <= 44,
-		"Werte RK %s, Angriff %s, Schaden %s, TP %d" % [g.monster.ac, g.monster.atk, g.monster.dmg, g.max_hp])
-	_soll(g.boss() and int(g.monster.xp) == 450, "Boss %s, EP %s" % [g.boss(), g.monster.xp])
+	# 870.6: Werte nach BRS (werte.json „monster“ Grimmzahn, „merkmale“ „rudel“ „Leibwache“), keine RK, kein Würfel, keine EP der alten Fassung
+	_soll(g.max_hp == int(Brs.monster("dire_wolf").leben), "Leben nach BRS %d (soll %d)" % [g.max_hp, int(Brs.monster("dire_wolf").leben)])
+	_soll(g.boss(), "Boss %s" % g.boss())
 	for w in foes.slice(1):
-		_soll(w.follows == Figur.GRIMM and int(w.monster.atk) == 3 and (w.monster.dmg as Array).map(func(x): return int(x)) == [1, 4, 0] and is_equal_approx(float(w.monster.chance), 0.55) and int(w.monster.xp) == 0,
-			"%s Leibwache: folgt %s, Angriff %s, Schaden %s, Anteil %s" % [w.id, w.follows, w.monster.atk, w.monster.dmg, w.monster.get("chance")])
+		_soll(w.follows == Figur.GRIMM and String(w.monster.get("rudel", "")) == "Leibwache" and is_equal_approx(float(w.monster.chance), 0.55),
+			"%s Leibwache: folgt %s, Rudel %s, Anteil %s" % [w.id, w.follows, w.monster.get("rudel"), w.monster.get("chance")])
 	# der Kampf: keine Flucht, kein Autopilot; Grimmzahn zuerst, dann muss die Leibwache fliehen
 	var held: Dictionary = tab.probe.FIGHTER.hero
 	var a = AufrufS.new()

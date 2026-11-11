@@ -9,7 +9,7 @@ const Kampfort = preload("res://kampf/kampfort.gd")
 
 
 func _initialize() -> void:
-	var tab: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	var tab: Dictionary = Tabellen.lade()
 	var m := {}
 	for x in tab.monsters: m[String(x.id)] = x
 	var h: Dictionary = tab.probe.FIGHTER.hero

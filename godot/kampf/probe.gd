@@ -24,7 +24,7 @@ var still_name := ""
 
 
 func _ready() -> void:
-	tables = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	tables = Tabellen.lade()
 	set_anchors_preset(Control.PRESET_FULL_RECT)
 	var bg := ColorRect.new()
 	bg.color = Color.BLACK

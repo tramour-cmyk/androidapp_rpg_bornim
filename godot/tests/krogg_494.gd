@@ -18,7 +18,7 @@ func _initialize() -> void:
 
 
 func _lauf() -> void:
-	var tab: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	var tab: Dictionary = Tabellen.lade()
 	var krogg: Array = tab.monsters.filter(func(m): return m.id == "bugbear")
 	if krogg.is_empty() or not krogg[0].boss or krogg[0].loot.filter(func(l): return l.item == "rusty_key").is_empty():
 		fehler += 1

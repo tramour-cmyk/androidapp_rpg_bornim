@@ -34,7 +34,7 @@ func _lauf() -> void:
 
 
 func _regeln() -> void:
-	var tab: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	var tab: Dictionary = Tabellen.lade()
 	var sp: Array = tab.monsters.filter(func(m): return m.id == "giant_spider")
 	if sp.is_empty():
 		fehler += 1

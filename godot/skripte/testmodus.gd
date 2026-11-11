@@ -82,7 +82,7 @@ static func feinde(alle := false) -> Dictionary:
 static var _gruppe_da := {}
 static func gruppe_da(g: String) -> bool:
 	if _gruppe_da.has(g): return _gruppe_da[g]
-	var tab: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	var tab: Dictionary = Tabellen.lade()
 	var monsters := {}
 	for m in tab.monsters: monsters[m.id] = m
 	var ja := true
@@ -399,7 +399,7 @@ static func station(name_: String, z: Zustand) -> Array:
 
 # 555: die Monster der Karte, die es im Spiel gibt (Streuner.da), mit Namen aus den Regeln
 static func monster_namen() -> Dictionary:
-	var tab = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json")) if FileAccess.file_exists("res://regeln/tabellen.json") else null
+	var tab = Tabellen.lade()     # 870.6: nach BRS (regeln/tabellen.gd)
 	if not tab is Dictionary: return {}
 	var namen := {}
 	for mo in tab["monsters"]: namen[String(mo["id"])] = String(mo["de"] if Sprache.aktiv() == "de" else mo["en"])

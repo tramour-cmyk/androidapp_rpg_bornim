@@ -44,7 +44,7 @@ static func mittel(expr) -> float:
 	return float(expr[0]) * (float(expr[1]) + 1.0) / 2.0 + float(expr[2])
 
 
-## Was ein Held oder Söldner nach dem BRS ist. [sheet]: MARS-Blatt (aufruf.blatt, tabellen.json „probe“); [daten]: der Held nach BRS
+## Was ein Held oder Söldner nach dem BRS ist. [sheet]: MARS-Blatt (aufruf.blatt, Tabellen.probe()); [daten]: der Held nach BRS
 ## aus dem Spielstand (BrsHeld.als_daten, zustand.brs) oder leer.
 static func held(sheet: Dictionary, daten := {}) -> Dictionary:
 	var W := w()

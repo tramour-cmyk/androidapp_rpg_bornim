@@ -16,7 +16,7 @@ static func lingers(st: String) -> bool:
 	return st in ["POISON", "BLEED", "WEAK"]
 
 
-## Wesen, die einen Zustand gar nicht erleiden können ([m] Monster aus tabellen.json: id, immune = Schadensarten; ein Zustand
+## Wesen, die einen Zustand gar nicht erleiden können ([m] Monster aus Tabellen.lade(), 870.6 werte.json „monsterregeln“: id, immune = Schadensarten; ein Zustand
 ## mit Namen in immune zählt auch, wie bisher in mars.gd und tests/mars_regeln.gd).
 static func immune(m: Dictionary, st: String) -> bool:
 	if st in m.get("immune", []):
