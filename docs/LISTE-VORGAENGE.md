@@ -285,7 +285,7 @@
 | 862 | Systemlösung? Umhang: 6 frühere Vorgänge (58, 488, 463, 463.1, 656 …), neu 861; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Figuren | – |
 | 869 | Systemlösung? Rüstung: 2 frühere Vorgänge (49, 817), neu 868; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Kampf | – |
 | 873 | Systemlösung? Griff: 3 frühere Vorgänge (653, 643, 524), neu 872; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Kampf | – |
-| 884 | D140.3 (Diogenes, 870.18): wartet-auf-Lücken im Umzug: 870.13 ohne 870.15, 870.2 ohne 870.16, 870.16 nur 4 Zweige, Schadensarten 870a 8 ohne Vorgang; Prüfbericht Lauf 140 | Sokrates | M | startbar | – | – | – | B Abläufe | – |
+| 884 | D140.3 (Diogenes, 870.18): wartet-auf-Lücken im Umzug: 870.13 ohne 870.15, 870.2 ohne 870.16, 870.16 nur 4 Zweige, Schadensarten 870a 8 ohne Vorgang; Prüfbericht Lauf 140 | Sokrates | M | erledigt | – | – | – | B Abläufe | – |
 | 885 | D140.4 (Diogenes, 870.18): LISTE-UMZUG-BRS widersprüchlich: Sitzungen, Schritt 8, Risiken, Chefsache 870a, Kostenzuschreibung, Store-Kennung; Prüfbericht Lauf 140 | Sokrates | M | startbar | – | – | – | B Abläufe | – |
 | 897 | Von Jerry (870.5): Gegenwirkung Riesenspinne „Feuer verbrennt die Spinnseide“ ohne Seide als Beute (nur Spinnendrüse); Beute oder Gegenwirkung anpassen | Sokrates | M | startbar | – | – | – | E Kampf | – |
 | 843 | D126.1 (Diogenes, 838): START ohne Sitzung 14 von 39 (09.11., 19:04 bis 10.11., 11:08), keiner mit --ohne; 3 ohne Grund (22:44 Spike, 10:25 Jerry, Perikles) | Ford | M | startbar | – | – | – | B Steuerung | 12,41 $ |
