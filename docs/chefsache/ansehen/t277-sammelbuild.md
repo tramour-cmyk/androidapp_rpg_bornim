@@ -1,12 +1,13 @@
 # Tom und Jerry · Build 277 · Sammelbuild nach Build 276 · PR #196
-Ganzes Spiel · Tom (581, 635, 636, 680, 814, 875, 964), Jerry (532, 536, 751, 784, 806, 811, 863, 868, 870.6, 876, 910, 935, 945, 948, 958) · Entwurf 11.11., 16:43 · APK folgt mit dem Lauf · Geprüft an: `claude/build-277` (Stand Build 276 plus alle fertigen Zweige, `8a07045f8`)
+Ganzes Spiel · Tom (581, 635, 636, 680, 814, 875, 964), Jerry (532, 536, 751, 784, 806, 811, 863, 868, 870.6, 876, 910, 935, 945, 948, 958) · Entwurf 11.11., 16:43, APK 19:12 · [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43060687068/artifacts/13882345442) · Geprüft an: `claude/build-277` `65ea0e915` (Lauf 355)
+Rot, bekannt, nicht melden: `held_kampf_403` (Schild des Klerikers im Kampf), `wolf_mess_438`, `begriffe_868` (liest eine beim Umzug gelöschte Datei) – Prüftests des Kampfs, Vorgang 988 (Jerry); Start- und Absturztests grün.
 Gegengelesen: Sokrates 11.11., 16:58
 
 Ein Weg: über Build 276 installieren, Hauptmenü, „Weiter“ mit deinem Spielstand aus Build 276; erst Dorf am Tag (A), dann Wald mit Kräutern und Kampf (B), zurück ins Dorf am Abend (C), dann Probekämpfe und Sprünge im Reiter „Test“ (D), zuletzt ein neues Spiel für Jorins Schlagbaum (E). Den Reiter „Test“ gibt es nur im Testmodus: im Hauptmenü siebenmal aufs Firmenzeichen tippen. Was nicht passt, reicht als Nummer (z. B. 277.5) mit einem Wort.
 
 Verglichen (alt gegen neu): keine neuen Schirme; Ausrüstungsseite, Laden und Tasche im Kampf gegen Build 276.
 
-Im Bau geprüft: `auto_945`, `leiste_751` (Knöpfe im Kampf), `tasche_532`, `begriffe_868` (im Kampf keine Rüstungsklasse, kein W20, keine Würfel), `platztausch_863`, `handlungen_870` (964: in mittlerer und schwerer Rüstung keine Zauber aus Hervorrufung, Illusion, Beschwörung), `waffe_948`, `atem_4531` (910), `kraeutersammeln_875` (Spielstände behalten Wert und Übung), `laden_582`, `menue_breite_581`, `sprung_680`; am Rechner (läuft nicht im Bau): `kampfzustand_532` 0 (958: Metrausch nur über „betrunken“); 811 (Kommentar) und 876 (Simulation) ohne Wirkung im Spiel; 784 misst den Kampftakt, der Film dazu kommt gesondert.
+Im Bau geprüft: `auto_945`, `leiste_751` (Knöpfe im Kampf), `tasche_532`, `platztausch_863`, `handlungen_870` (964: in mittlerer und schwerer Rüstung keine Zauber aus Hervorrufung, Illusion, Beschwörung), `waffe_948`, `atem_4531` (910), `kraeutersammeln_875` (Spielstände behalten Wert und Übung), `laden_582`, `menue_breite_581`, `sprung_680`; am Rechner (läuft nicht im Bau): `kampfzustand_532` 0 (958: Metrausch nur über „betrunken“); 811 (Kommentar) und 876 (Simulation) ohne Wirkung im Spiel; 784 misst den Kampftakt, der Film dazu kommt gesondert.
 
 Bekannt (814, aus deinem Film, Ursache wird gesucht): das Huhn fliegt nicht auf, auch wenn der Held direkt daneben steht; der Staub in der Schenke leuchtet auch abends wie im Tageslicht.
 
