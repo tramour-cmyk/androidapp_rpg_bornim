@@ -52,6 +52,13 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 177 · 965 Sperre 779 (Perikles, Doppelpack 421, `7fc03538b`; 11.11., 15:5x)
+
+- **Startbar:** `--stand` neu Tom 8, Jerry 20 (alte Fassung `7fc03538b~1` jetzt Tom 2, Jerry 0); greift.
+- **Verbliebene Sperren 779:** Tom keine; Jerry 16. Nummer 8 (844, 845 → 709; 918 → 910; 932, 930.3 → 784; 935 → 870.6; 620.2c → 945; 950 → 863), Figur 3 (760, 931 Wolf; 949 Grak), Datei 5 (709.1, 705, 946 → 945 `kampf_ui.gd`; 406.2, 595 → 900 `figur.gd`). Nachgerechnet nur mit eigenen Commits: 406.2, 595, 709.1 überschneiden sich echt mit 910 (`figur.gd`); 705 und 946 nicht, beide sperrt aber „Wolf“. Ergebnis gleich, Begründung bei 705 und 709.1 falsch.
+- **D177.1 → 970 (Perikles, K):** fremde Unterlage zählt als eigene Datei (`claude/jerry-870-5-kampf` nicht in der Unterlage; mehrere merge-bases bei 709.1); Namen treffen Verben („greift“, „greifen“ → Greif; „Lage“ → Lager). **965 wartet auf 970.**
+- **Laufzeit:** nicht wie vorher: alt 5,4–5,9 s, neu 8,2–8,4 s (je zweimal); Hinweis in 970.
+
 ## Lauf 176 · 961 mit 943, 929 (Perikles, Doppelpack 421, `6135ffd31`; 11.11., 14:2x)
 
 - **961 greift** (`greift 961 176`): 15 Fälle, `cd_ziel` und Hakeneingabe (Exit) neu gegen alt (`6135ffd31~1`). Heredoc-Körper beginnt mit `"`, danach `cd $W` → hält jetzt an (alt frei); Körper nur `"` → hält an (alt frei); drei Heredocs mit `"` vorn → hält an (alt frei); Körper mit `"` vorn und cd nur im Text → frei. Die acht Fälle aus Lauf 175 unverändert (1, 6, 7, 8 halten, 2–5 frei); `'` vorn im Körper, Backslash vor dem Ende, Heredoc in `'…'` halten an.
