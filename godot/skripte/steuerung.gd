@@ -195,7 +195,7 @@ func _ready() -> void:
 # Masse wie alt in dp: Wischen Aktionsknopf 76, 22 vom Rand, Renntaste 58, 31 vom Rand, 112 von unten, Schild 106 und 46;
 func richte_ein() -> void:
 	Bedienung.lade()
-	mess.visible = "--messen" in OS.get_cmdline_user_args() or Testmodus.bildrate or Testmodus.standort
+	mess.visible = "--messen" in OS.get_cmdline_user_args() or Testmodus.bildrate or Testmodus.standort or Testmodus.klang   # 636 A Klang
 	var dp := AktionsKnopf.DP
 	var li := Bedienung.links
 	JOY = Bedienung.ring_dp() * dp
@@ -510,7 +510,8 @@ var standort := ""                       # 399.1 Testmodus „Standort anzeigen�
 func messe(times: Array) -> void:
 	if not mess.visible or Engine.get_process_frames() % 15 != 0 or times.is_empty(): return
 	if not ("--messen" in OS.get_cmdline_user_args() or Testmodus.bildrate):
-		mess.text = standort
+		mess.text = standort if Testmodus.standort else ""
+		_klang_zeilen()
 		return
 	var s := times.duplicate()
 	s.sort()
@@ -525,3 +526,10 @@ func messe(times: Array) -> void:
 		Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME),
 		int(Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME) / 1000.0)]
 	if Testmodus.standort: mess.text += "\n" + standort
+	_klang_zeilen()
+
+# 636 A: Testmodus „Klang“, die letzten Effekte (klang.gd protokoll_zeilen) unter den übrigen Messwerten
+func _klang_zeilen() -> void:
+	var k := get_node_or_null("/root/Klang")
+	if not Testmodus.klang or k == null: return
+	mess.text = ("" if mess.text == "" else mess.text + "\n") + "\n".join(k.protokoll_zeilen())

@@ -1,6 +1,7 @@
 extends SceneTree
 # 636 (Abgleich 620.2a): öffnet Jorin den Schlagbaum (Flagge barrier_open), hört man das Türgeräusch wie alt (Game.kt SetFlag,
 # Sound.DOOR); andere Flaggen klingen nicht. Braucht godot/daten wie im Bau (Klang). Ohne Bild.
+# 636 A: der Testmodus „Klang“ zeigt über der Welt, ob das Türgeräusch spielt, abgebrochen oder gar nicht gestartet wurde.
 # Aufruf: im Ordner godot mit -s res://tests/schlagbaum_636.gd -> „SCHLAGBAUM636 n Fehler“
 
 var fehler := 0
@@ -41,5 +42,24 @@ func _lauf() -> void:
 	var l2 := laute(kl, vorher)
 	pruefe(l2.any(func(n): return String(n).begins_with("door")), "Schlagbaum auf mit Türgeräusch: %s" % str(l2))
 	pruefe(spiel.zustand.has(Geschichte.BARRIER_OPEN), "Flagge gesetzt")
+	# 636 A: Anzeige „Klang“ im Testmodus
+	Testmodus.klang = true
+	spiel.ui.richte_ein()
+	for i in 16: await process_frame
+	var txt := String(spiel.ui.mess.text)
+	pruefe(spiel.ui.mess.visible, "Anzeige Klang sichtbar")
+	pruefe(txt.contains("Klang: alle") and txt.contains("door_") and txt.contains("spielt"), "Anzeige: Türgeräusch spielt: " + txt.replace("\n", " | "))
+	for i in kl.STROEME: kl.effekt("click", 0.35)
+	for i in 16: await process_frame
+	txt = String(spiel.ui.mess.text)
+	pruefe(txt.contains("door_") and txt.contains("abgebrochen"), "Anzeige: verdrängter Klang abgebrochen: " + txt.replace("\n", " | "))
+	kl.effekte_an = false
+	kl.effekt("door")
+	kl.effekte_an = true
+	kl.effekt("gibtsnicht")
+	for i in 16: await process_frame
+	txt = String(spiel.ui.mess.text)
+	pruefe(txt.contains("door  0.80  Effekte aus") and txt.contains("gibtsnicht  0.80  keine Aufnahme"), "Anzeige: nicht gestartet mit Grund: " + txt.replace("\n", " | "))
+	Testmodus.klang = false
 	print("SCHLAGBAUM636 %d Fehler" % fehler)
 	quit(1 if fehler > 0 else 0)
