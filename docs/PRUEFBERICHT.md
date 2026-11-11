@@ -52,6 +52,12 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 176 · 961 mit 943, 929 (Perikles, Doppelpack 421, `6135ffd31`; 11.11., 14:2x)
+
+- **961 greift** (`greift 961 176`): 15 Fälle, `cd_ziel` und Hakeneingabe (Exit) neu gegen alt (`6135ffd31~1`). Heredoc-Körper beginnt mit `"`, danach `cd $W` → hält jetzt an (alt frei); Körper nur `"` → hält an (alt frei); drei Heredocs mit `"` vorn → hält an (alt frei); Körper mit `"` vorn und cd nur im Text → frei. Die acht Fälle aus Lauf 175 unverändert (1, 6, 7, 8 halten, 2–5 frei); `'` vorn im Körper, Backslash vor dem Ende, Heredoc in `'…'` halten an.
+- **943 greift** (`greift 943 176`), Lücke 961 geschlossen; **929 greift** (`greift 929 176`), Lücke 943 geschlossen.
+- Nicht geprüft: echter Lauf einer Teamsitzung mit Heredoc-Commit und `cd $VAR` (keiner seit dem Bau).
+
 ## Lauf 175 · 943 (Perikles, Doppelpack 421, `330744269`; 11.11., 14:1x)
 
 - Acht Fälle als Hakeneingabe an `probelauf.py`, neu gegen alt (`330744269~1`): Heredoc mit einzelnem `"`, danach `cd $VAR` → hält jetzt an (alt nicht); dasselbe mit cd nur im Text → frei (alt hielt an); `-m` mit cd im Text, `-F` Heredoc, `cd "$HOME/…"` frei; echtes `cd $VAR`, Heredoc ohne Zeichen und danach `cd $VAR`, zwei Heredocs → halten an.

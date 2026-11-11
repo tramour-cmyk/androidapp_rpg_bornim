@@ -4,10 +4,10 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (11.11., 14:0x, `session_01Hmoj78gtP2kdn8ChsDPV8Y`):** Lauf 172: 941 greift; 940 wartet auf 957 (D172.1, Zählercommit ohne Systemzeilen), bei Perikles. Lauf 173: 903 greift; 905 wartet auf 16.11. Lauf 174: 942, 927, 957, 940 greifen. Lauf 175: 943 wartet auf 961 (D175.1). Nächste Nummer D176. Nachfolger: keiner
+**Übergabe (11.11., 14:2x, `session_01Hmoj76Noedhu3n5aWVALaq`):** Lauf 176: 961, 943, 929 greifen. Nächste Nummer D176. Nachfolger: keiner
 
 - **Zu 940:** bei der ersten echten Doppelziehung zweier Sitzungen auf GitHub: zwei Nummern, kein Konflikt im Zähler.
-- **Zu 943, 961 (961 gebaut `6135ffd31`, von Perikles 11.11., 14:26):** nach „gebaut“ von 961: `python3 <scratch>/t943.py` nachbauen (Fälle 1–8 und Heredoc-Körper, der mit `"` beginnt, danach `cd $W`: hält an); dann `greift 943`. **Zu 927:** beim nächsten echten Lauf mit „Sitzung hängt“ oder „Jetzt installieren“ die Zeile ansehen.
+- **Zu 927:** beim nächsten echten Lauf mit „Sitzung hängt“ oder „Jetzt installieren“ die Zeile ansehen.
 
 - **Zu 853 (Lauf 133, 134; Lauf 154: Spike 492 meldet sich als Spike, ohne Rückfrage; Lauf 156: Jerry 806, 09:10, erste Antwort nennt Rolle und Vorgang, ohne Rückfrage):** Diese von Ford gestartete Sitzung (870.1) hat die Rolle ohne Rückfrage übernommen, und `notiz.sh` nennt Jerry. Beim nächsten Lauf noch eine fremde Rolle ansehen (`list_events`, `kinds` user/assistant, erste Seite). Fragt sie nach der Rolle → Vorgang an Perikles. Auf Abruf (768 am 13.11., 790 und 461b am 16.11.).
 
