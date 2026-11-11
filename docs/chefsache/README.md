@@ -40,7 +40,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 | 954a.1 | M | Von Sokrates (954a D, Chef 11.11., 15:15): Mittelweg Fertigkeiten, Einbindung in die Welt: | startbar |
 
-**Tom** – offen 102, Muss 83, startbar 0
+**Tom** – offen 103, Muss 83, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -146,6 +146,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 954 | M | Von Sokrates (Chef 11.11., 13:55 „1 ja“): Erschaffung – Gedrückthalten erklärt je Grundwer | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 875 (erschaffung) |
 | 964 | M | Von Tom (Zu 870.4, Homer 14:15): Metall sperrt Evokation, Illusion, Beschwörung im Kampf; | wartet auf Test/Build (gebaut) |
 | 963 | M | Von Tom (Zu 870.4, Fremdprüfung Homer 14:15): Heldenreiter Wortlaut ohne Wirkungsloses: Zä | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 875 (krautersammeln) |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 15093 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 109, Muss 100, startbar 1
 
@@ -259,7 +260,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 958 | M | Von Tuffy (870.6): Test kampfzustand_532 rot auf main und B1: „Zustände hinein“ erwartet D | wartet auf Test/Build (gebaut) |
 | 959 | M | Von Homer (954.1): werte.json herkuenfte Schmiedelehrling hat nur Schmieden, Bergbau; 461c | Sperre 620.1 B: 18 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.3 (json) |
 | 960 | M | Von Homer (954.1): Verstand ohne Wirkung: BrsHeld.kennt_schwaechen (870d, ab Verstand 6 Sc | Sperre 620.1 B: 18 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (brsheld) |
-| Pflege | K | von Werkzeug (340.3, 11.11.): 15435 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 15012 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 14, Muss 12, startbar 1
 
@@ -293,7 +294,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 54, Muss 39, startbar 32
+**Sokrates** – offen 53, Muss 39, startbar 31
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -350,7 +351,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 930a | M | Rückfrage (Chef 11.11., 13:57, zu 930): F3 ohne Neuformation – nach einem Tod bleiben die | startbar |
 | 930.3 | M | Von Sokrates (930): Rechnung und Film zur Regelseite Handgemenge (DESIGN-KAMPF.md, Entwurf | startbar |
 | 966 | M? | Von Homer (aus 963, Tom 14:56): Alchemie und Kochen wirken in Kapitel 1, werden aber nie g | startbar |
-| Pflege | K | von Werkzeug (340.3, 11.11.): 18226 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
