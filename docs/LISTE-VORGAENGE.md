@@ -107,7 +107,6 @@
 | 861 | Von Sokrates (Chef 10.11., 13:12, Bild t274.14): Umhang des Kämpfers im Kampf rechts am Rücken stark gewölbt (Handaxt und Schild, Rückenansicht); Ursache nachstellen, nicht raten (656 bestanden t272) | Tom | M | startbar | – | – | – | E Figuren | – |
 | 867 | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die aktuellen Helden | Tom | M | startbar | – | – | – | G Stil | – |
 | 875 | Von Homer (857a A, Chef 10.11., 13:35): Fertigkeit Kräuterkunde heißt im Spiel Kräutersammeln, EN Foraging; Erschaffung, Talenttext, Übung beim Pflücken | Tom | M | startbar | – | – | – | E Kampf | – |
-| Pflege | von Werkzeug (340.3, 11.11.): 15173 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
 | 900 | Von Tom (870.4, B1; „jetzt“ 10.11., 22:24, Nachtauftrag Chef): Lauf 335 rot an wolf_mess_438 mit BRS-Kampf: Biss gleitet 0,56 m (Grenze 0,5), Wolf in Schild, Klinge oder Unterarm des Helden 8 (vorher 0), Klinge durch Wolf ohne Treffer 3; Kämpfe jetzt mit 14 statt 5 Würfelzeilen | Jerry | M | gebaut, Geprüft an: Lauf 336 | – | claude/jerry-900-wolfmess | – | E Kampf | 10,26 $ |
 | 870.2 | Von Sokrates (870, Umzug BRS Schritt 2): Schnittstelle Held ↔ Kampf: BrsHeld.kampfblatt() statt aufruf.gd blatt() aus Heldwerte; Test brs_blatt zuerst (Jerry), Werte liefert Tom; LISTE-UMZUG-BRS.md 4 | Jerry | M | gebaut, Geprüft an: 490464059 (claude/build-275, Test brs_blatt_870) | – | claude/jerry-870-2-kampfblatt | – | E Kampf | 17,15 $ |
 | 870.3 | Von Sokrates (870, Umzug BRS Schritt 3): Daten: werte.json einzige Quelle (Jungwolf, Leibwache über 444), Kennungstabelle je Art, Fähigkeiten- und Zaubertabelle, tabellen.json gelöscht (649a 1–2); LISTE-UMZUG-BRS.md 4 | Jerry | M | gebaut, Geprüft an: 6814e4331 (claude/build-275; tabellen.json löschen an Sokrates: 870.6) | – | claude/jerry-870-3-daten | – | E Kampf | – |
@@ -193,8 +192,8 @@
 | 872 | Kampf auf Halt 653 umstellen: Waffen und Schilde der Gegner und des Helden im Kampfort mit Halt.anlegen/Halt.gegenstand (Griff, Spitze, Länge je Modell aus regeln/halt.json) statt je Gegner gemessen; Fertiges bleibt (von Tom, Chef 10.11., 12:33/14:22) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 876 | Von Homer (857a A, Chef 10.11., 13:35): Simulation 444 Kräuterkunde → Kräutersammeln, Trankwirkung nach Alchemie statt Kräuterkunde, Abschnitt 6 neu rechnen | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 854.1 | Von Tom (888, Lauf 42906784036): kauf_cache.py ablegen bricht ab, Zeile 21 ModuleNotFoundError yaml; Cache wird nicht gefüllt, Bau ging weiter (Held je Klasse 36 Min.) | Jerry | M | startbar | – | – | – | B Werkzeuge | – |
-| Pflege | von Werkzeug (340.3, 11.11.): 18407 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 904 | Von Tom (870.4, B1): sim444_870 am Rechner (97a32cfe2): SCRIPT ERROR mars.gd:903 _erwartet_zauber „Invalid call 'String' constructor: Evokation“ aus _auto_order, Zauberlehrling gegen Grimmzahn und Grak; selten (N=200 je Gegner 1–3 Mal, N=40 nicht); Autopilot fällt dann wohl auf die Waffe | Jerry | M | startbar | – | – | – | E Kampf | – |
+| Pflege | von Werkzeug (340.3, 11.11.): 18758 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
@@ -223,6 +222,7 @@
 | 882 | D140.1 (Diogenes, 870.18): Kotlin-Ausstieg ohne Werkzeuge: 870.10 nennt nur android.yml; an core hängen auch Kerntests (tools/t logik), godot-kampf.yml, vorschau.yml, tools/preview, story.sh, probelauf.py, setup-session.sh; Liste Prüfbericht Lauf 140 | Perikles | M | startbar | 870.4 | – | – | B Werkzeuge | – |
 | 896 | Von Jerry (870.5): Wächter meldet „TP“ als SRD-Begriff (886), Homer 870.14 und DESIGN-BRS 12 lassen TP in Meldungen stehen; Widerspruch klären | Perikles | M | gebaut, Geprüft an: de7ccc403 | – | – | – | E Technik | 0,53 $ |
 | 903 | D152.1 von Diogenes (771, 657 D): Probe 657 ausgewertet, Prüfbericht Lauf 152; Grundlage 11, 11, 9, 7 mischt zwei Maße (neue Vorgänge, durchgefallene Zeilen); Entscheidung des Chefs über weitere Listen und die Seite vorlegen | Perikles | M | startbar, 903 B (Chef 07:46) | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 11.11.): 15394 Bytes (Grenze 15000), Erledigtes streichen | Perikles | K | startbar | – | – | – | B Abläufe | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
@@ -284,7 +284,7 @@
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +905,76 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 767 | Wochentermin 13.11.: Rollenspiegel Ford (rollenspiegel.sh Ford) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Ford | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 11.11.): 39817 Bytes (Grenze 15000), Erledigtes streichen; Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 11.11.): 40585 Bytes (Grenze 15000), Erledigtes streichen; Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
