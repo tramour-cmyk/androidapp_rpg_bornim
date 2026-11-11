@@ -260,7 +260,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 956 | M | Von 870.6a A (Chef 11.11., 13:55): Gift, Brand, Blutung als Anteil am vollen Leben mit dem | nach dem Meilenstein |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 15900 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 19, Muss 14, startbar 2
+**Perikles** – offen 19, Muss 15, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -277,14 +277,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 896 | M | Von Jerry (870.5): Wächter meldet „TP“ als SRD-Begriff (886), Homer 870.14 und DESIGN-BRS | wartet auf Test/Build (gebaut) |
 | 903 | M | D152.1 von Diogenes (771, 657 D): Probe 657 ausgewertet, Prüfbericht Lauf 152; Grundlage 1 | wartet auf Diogenes (greift?) |
 | 919 | M | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): Regeln nachziehen: Testbitte auch bei rot | wartet auf 918 (startbar) |
-| 927 | K | D162.1 276: Anlässe der Schritte 6–11 fehlen in „Jeder Lauf“ (Nachhalten 8, Eingang 7, Mel | wartet auf 942 (startbar) |
+| 927 | K | D162.1 276: Anlässe der Schritte 6–11 fehlen in „Jeder Lauf“ (Nachhalten 8, Eingang 7, Mel | wartet auf Diogenes (greift?) |
 | 929 | K | D163.1 probelauf.py (725): ein cd mit Variable, das nur als Text vor git commit oder push | wartet auf 943 (startbar) |
 | 940 | M | Von Tom: vorgang.py neu vergibt Nummern doppelt, wenn zwei Sitzungen zugleich anlegen (11. | wartet auf Diogenes (greift?) |
 | 941 | M | D171.1 lauf.py neu_fuer_chef (927): „wartet auf Chef“ zählt überall in der Übergabezeile, | wartet auf Diogenes (greift?) |
-| 942 | K | D171.2 lauf.py (927): eine hängende Sitzung, die derselbe Lauf archiviert (neuere Sitzung | startbar |
+| 942 | M | D171.2 lauf.py (927): eine hängende Sitzung, die derselbe Lauf archiviert (neuere Sitzung | wartet auf Diogenes (greift?) |
 | 943 | K | D171.3 probelauf.py text_bereiche (929): ein einzelnes " im Heredoc innerhalb "$(cat <<'EO | startbar |
 
-**Diogenes** – offen 11, Muss 10, startbar 4
+**Diogenes** – offen 13, Muss 11, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -299,6 +299,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 903 | M | D152.1 von Diogenes (771, 657 D): Probe 657 ausgewertet, Prüfbericht Lauf 152; Grundlage 1 | startbar |
 | 940 | M | Von Tom: vorgang.py neu vergibt Nummern doppelt, wenn zwei Sitzungen zugleich anlegen (11. | startbar |
 | 941 | M | D171.1 lauf.py neu_fuer_chef (927): „wartet auf Chef“ zählt überall in der Übergabezeile, | startbar |
+| 942 | M | D171.2 lauf.py (927): eine hängende Sitzung, die derselbe Lauf archiviert (neuere Sitzung | startbar |
+| 927 | K | D162.1 276: Anlässe der Schritte 6–11 fehlen in „Jeder Lauf“ (Nachhalten 8, Eingang 7, Mel | startbar |
 
 **Sokrates** – offen 51, Muss 38, startbar 29
 
