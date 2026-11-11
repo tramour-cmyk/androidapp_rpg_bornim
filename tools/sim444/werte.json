@@ -38,7 +38,9 @@
     "ruestungsfertigkeit_im_abzug_je_punkt": 0.01,
     "glueckstreffer_anteil": 0.01,
     "kritisch_faktor": 1.5,
-    "kritisch_prozent_je_gewandtheit": 1,
+    "kritisch_je_punkt": 1,
+    "kritisch_fertigkeit_teiler": 50,
+    "_kritisch": "952 D (Chef 11.11., 20:03): kritisch in Prozent = zweiter Grundwert x Fertigkeit / 50, nie der Grundwert des Schadens; welcher Grundwert: 'kritisch' je Waffengruppe und Schule (null = nie kritisch)",
     "ausweichen_je_gewandtheit": 2,
     "fernkampf_treffer_je_wahrnehmung": 1,
     "parieren_anteil_waffenfertigkeit": 0.5,
@@ -114,19 +116,28 @@
 
   "waffen": {
     "_quelle": "N 4: Grundschaden und Grundwert; Klingen fuer Schleim-Widerstand A",
-    "Faustkampf":   {"schaden": 2,  "grundwert": "kraft",       "art": "nah",  "typ": "wucht"},
-    "Dolche":       {"schaden": 4,  "grundwert": "gewandtheit", "art": "nah",  "typ": "stich"},
-    "Wurfwaffen":   {"schaden": 4,  "grundwert": "gewandtheit", "art": "fern", "typ": "stich"},
-    "Einhänder":    {"schaden": 6,  "grundwert": "kraft",       "art": "nah",  "typ": "schnitt"},
-    "Stumpfe Waffen": {"schaden": 6, "grundwert": "kraft",      "art": "nah",  "typ": "wucht"},
-    "Bogen":        {"schaden": 6,  "grundwert": "gewandtheit", "art": "fern", "typ": "stich"},
-    "Stangenwaffen":{"schaden": 8,  "grundwert": "kraft",       "art": "nah",  "typ": "stich"},
-    "Armbrust":     {"schaden": 8,  "grundwert": null,          "art": "fern", "typ": "stich"},
-    "Zweihänder":   {"schaden": 10, "grundwert": "kraft",       "art": "nah",  "typ": "schnitt"}
+    "Faustkampf":   {"schaden": 2,  "grundwert": "kraft",       "art": "nah",  "typ": "wucht", "kritisch": "gewandtheit"},
+    "Dolche":       {"schaden": 4,  "grundwert": "gewandtheit", "art": "nah",  "typ": "stich", "kritisch": "wahrnehmung"},
+    "Wurfwaffen":   {"schaden": 4,  "grundwert": "gewandtheit", "art": "fern", "typ": "stich", "kritisch": "wahrnehmung"},
+    "Einhänder":    {"schaden": 6,  "grundwert": "kraft",       "art": "nah",  "typ": "schnitt", "kritisch": "gewandtheit"},
+    "Stumpfe Waffen": {"schaden": 6, "grundwert": "kraft",      "art": "nah",  "typ": "wucht", "kritisch": "gewandtheit"},
+    "Bogen":        {"schaden": 6,  "grundwert": "gewandtheit", "art": "fern", "typ": "stich", "kritisch": "wahrnehmung"},
+    "Stangenwaffen":{"schaden": 8,  "grundwert": "kraft",       "art": "nah",  "typ": "stich", "kritisch": "gewandtheit"},
+    "Armbrust":     {"schaden": 8,  "grundwert": null,          "art": "fern", "typ": "stich", "kritisch": "wahrnehmung"},
+    "Zweihänder":   {"schaden": 10, "grundwert": "kraft",       "art": "nah",  "typ": "schnitt", "kritisch": "gewandtheit"}
+  },
+
+  "schulen": {
+    "_quelle": "952 D (Chef 11.11., 20:03): Grundwert des Zauberschadens (Heilung: Wille) und des kritischen Treffers je Schule; Mana bleibt Wille",
+    "Evokation":   {"grundwert": "verstand", "kritisch": "wille"},
+    "Illusion":    {"grundwert": "verstand", "kritisch": "wille"},
+    "Beschwörung": {"grundwert": "verstand", "kritisch": "wille"},
+    "Heilmagie":   {"grundwert": "wille",    "kritisch": null},
+    "Schutzmagie": {"grundwert": "wille",    "kritisch": null}
   },
 
   "zauber": {
-    "_quelle": "N 4: Zauber wie Waffe, Grundwert Wille, Fertigkeit = Schule; Grundschaden, Kosten, Heilung A",
+    "_quelle": "N 4: Zauber wie Waffe, Grundwert nach der Schule (schulen, 952 D), Fertigkeit = Schule; Grundschaden, Kosten, Heilung A",
     "Funkenpfeil": {"schule": "Evokation", "schaden": 6, "kosten": 4, "art": "zauber", "typ": "feuer"},
     "Wundsegen":   {"schule": "Heilmagie", "heilung": 6, "kosten": 5, "heilen_unter": 0.5,
                     "_heilung": "Heilung = (6 + Wille) x (1 + Heilmagie / 100), wenn Leben unter der Haelfte"},

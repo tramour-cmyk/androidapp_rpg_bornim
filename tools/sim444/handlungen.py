@@ -74,7 +74,7 @@ def duell(W, held, mon, rng, handlung=None, zauber=None):
         nonlocal mleben
         fw = held.f(fert_name)
         if rng.random() < sim.trefferchance(W, fw, mon["abwehr"], bonus):
-            s = sim.schaden_roh(W, grund, fw, d, rng, sim.krit_prozent(W, held.werte["gewandtheit"], fw)) * faktor
+            s = sim.schaden_roh(W, grund, fw, d, rng, sim.krit_prozent(W, held, fert_name, fw)) * faktor
             s *= schw.get(typ, 1.0) if typ else 1.0
             mleben -= sim.endschaden(W, s, mon["ruestung"] * ruestung_anteil)
             return True
@@ -131,7 +131,7 @@ def duell(W, held, mon, rng, handlung=None, zauber=None):
         elif zauber in ("Arkanpfeil", "Gleißstrahl", "Funkenpfeil") and mana >= Z[zauber]["kosten"]:
             zb = Z[zauber]
             mana -= zb["kosten"]
-            schlag(zb["schule"], zb["schaden"] + held.werte["wille"], 0.0, zb.get("typ"))
+            schlag(zb["schule"], sim.zauber_grund(W, held, zb), 0.0, zb.get("typ"))
         elif h in ("Finte", "Ruhige Hand") and z["naechster"] == 0 and \
                 sim.trefferchance(W, held.f(held.waffe), mon["abwehr"], waffenbonus()) < 0.6:
             z["naechster"] = H[h]["naechster_treffer"]

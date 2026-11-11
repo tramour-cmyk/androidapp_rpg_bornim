@@ -46,7 +46,9 @@ func _lauf() -> void:
 	var je := float(W["kampf"]["ruestungsfertigkeit_im_abzug_je_punkt"])
 	pruefe("Schutzwert (Mittlere Ruestung, Schild)", w.schutzwert(), Brs.runde(float(ru["Mittlere Rüstung"]["wert"]) * (1.0 + 10 * je) + float(ru["schild_wert"]) * (1.0 + 10 * je)))
 	pruefe("Schaden Einhaender", w.schaden(), Brs.runde((6.0 + w.wert("kraft")) * (1.0 + 10 * float(W["kampf"]["fertigkeit_im_schaden_je_punkt"]))))
-	pruefe("Kritisch", w.krit_prozent(), roundi(float(W["kampf"]["kritisch_prozent_je_gewandtheit"]) * w.wert("gewandtheit")))
+	pruefe("Kritisch (952 D: Gewandtheit × Einhänder / 50)", w.krit_prozent(), roundi(float(W["kampf"]["kritisch_je_punkt"]) * w.wert("gewandtheit") * w.fertigkeit("Einhänder") / float(W["kampf"]["kritisch_fertigkeit_teiler"])))
+	pruefe("952 D: Dolch nach Wahrnehmung, Heilmagie nie", [BrsKampf.krit_prozent({"wahrnehmung": 20, "gewandtheit": 5}, "Dolche", 20), BrsKampf.krit_prozent({"wille": 20}, "Heilmagie", 50)], [8.0, 0.0])
+	pruefe("952 D: Evokation Schaden aus Verstand", BrsKampf.zauber_grundwert("Evokation"), "verstand")
 	pruefe("870d: Schwaechen ab Verstand 6", [BrsHeld.neu("", "Zauberlehrling").kennt_schwaechen(), BrsHeld.neu("", "Wachsoldat").kennt_schwaechen()],
 		[BrsHeld.neu("", "Zauberlehrling").wert("verstand") >= 6, BrsHeld.neu("", "Wachsoldat").wert("verstand") >= 6])
 	pruefe("jeder darf alles tragen", w.kann_tragen({"uid": 1, "base": "plate", "rarity": "COMMON", "ilvl": 1, "plus": 0, "rolls": []}), true)
