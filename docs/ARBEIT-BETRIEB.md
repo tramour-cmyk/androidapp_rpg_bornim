@@ -377,3 +377,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 15:33 11.11.: Marke Archiv session_01Hmoj7A8R4y7izSakSh7RmB (lauf.py)
 - 15:37 11.11.: Startsperre 15:37 Start Homer (lauf.py)
 - 15:39 11.11.: Startsperre 15:39 Start Sokrates (Ford, vor dem Start; Neustart-Meldung 15:38, 84f6552c0)
+- 15:41 11.11.: Startsperre 15:41 Start Jerry (Ford, vor dem Start; Neustart-Meldung 15:38, 636254f88; Nachfolger braucht das Kaufrepo für den Film, Chef gebeten)
+- 15:42 11.11.: Startsperre 15:42 Start Tom (lauf.py)
+- 15:42 11.11.: Marke Archiv session_01Hmoj77wBb8etw38joLU3pv (lauf.py)
+- 15:42 11.11.: Marke Archiv session_01Hmoj764Xohhm2BV7hoFr4a (lauf.py)

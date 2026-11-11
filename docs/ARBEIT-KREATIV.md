@@ -2,9 +2,9 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `ac2a58925` (11.11., 15:33)
+**Gelesen bis:** `be9056557` (11.11., 15:41)
 
-**Übergabe (11.11., 15:33, `session_01Hmoj79GPGaePKvfJG5DNxN`):** erledigt: 962 (Ideen A1–A17 in `LISTE-IDEEN.md` „Handgemenge“; Zu 930 an Sokrates); 963 (Texte `STORY-BRS-HELD.md`, zurück an Tom); 966 an Sokrates; 954a.1 (Plan und Texte Grundfertigkeiten, Knacken mit zehn Schlössern, `STORY-K1-FERTIGKEITEN.md` „Grundfertigkeiten in der Welt“, fremd geprüft; Zu 954a.2 an Perikles). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
+**Übergabe (11.11., 15:41, `session_01Hmoj7ABQueZeiE3QMaWnD4`):** erledigt: 966.1 (Zeile `[966.1.kessel]` in drei Wortlauten, `STORY-K1-FERTIGKEITEN.md` „Alchemie: am Kessel“, ersetzt `Msgs.brewed`; 966.2 Tom startbar). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
 
 ## Zeilen
 - **Zu 962, von Sokrates (Chef 11.11., 14:32/14:33, zu 930):** „es sollten nicht nur wir zwei darauf rumdenken, sondern definitiv auch andere ein paar Gedanken entwickeln, wie man das Ganze lebendig, immersiv, interessant, abwechslungsreich aus einem Guss gestalten kann.“ Dazu 14:33: „Oder irgendeine Fertigkeit oder Meisterschaftsstufe in einem Pfad gewählt man einen Extra-Aktionspunkt. Oder ein Rang auch wieder, ein besonderer.“ Grundlage: Regelseite 930 am Ende von `DESIGN-KAMPF.md` (Frage 5: 2 Punkte, das Tempo bestimmt die Wegkosten, zwei Angriffe; Chef 14:26, 14:32). Gefragt sind Ideen mit Pro und Contra wie in 930.1 (`LISTE-IDEEN.md`, „Handgemenge“), auch eigene Gegenentwürfe; Ergebnis an Sokrates (930).

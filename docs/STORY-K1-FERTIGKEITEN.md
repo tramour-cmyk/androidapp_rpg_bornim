@@ -53,6 +53,15 @@ Gegenstand in der Tasche, zu kaufen bei Osric und Thessa (807 A); anlegen nur au
 
 `[807.verband.voll]` (Trefferpunkte voll) Du bist unverletzt. / EN: You are unhurt.
 
+## Alchemie: am Kessel (966.1, Homer 11.11.)
+
+Jeder Sud bei Morwen übt Alchemie (966 A); der Held geht ihr am Kessel zur Hand. Die Zeile ersetzt `Msgs.brewed` („Morwen braut dir: {0}.“), auch beim Brauen ×5 und „so viele wie möglich“; `{0}` = Trank, beim mehrfachen Brauen mit Anzahl („Heiltrank ×3“). Man hört sie oft, darum drei Wortlaute (504). `brewedTwo` („Mit deinem Wissen holt ihr zwei Tränke heraus: 2× {0}.“) bleibt; es sagt schon „ihr“.
+
+`[966.1.kessel]` (Morwen hat gebraut)
+1. Du gehst Morwen am Kessel zur Hand. Sie braut dir: {0}. — EN: You lend Morwen a hand at the cauldron. She brews for you: {0}.
+2. Du rührst, bis der Sud dunkel wird; Morwen nickt. Heraus kommt: {0}. — EN: You stir until the brew turns dark; Morwen nods. Out comes: {0}.
+3. Morwen lässt dich das Feuer schüren und sieht zu, was du dir merkst. Heraus kommt: {0}. — EN: Morwen has you stoke the fire and watches what you take in. Out comes: {0}.
+
 ## Grundfertigkeiten in der Welt (954a.1, Entwurf Homer 11.11.; an Perikles 954a.2)
 
 **Auftrag:** 954a D (Chef 11.11., 15:15, Vorgangsarchiv): sieben Grundfertigkeiten wirken ab Kapitel 1, je genau eine Wirkung an Vorhandenem; Bau erst nach dem Umzug (870). Hier: wo sie in Kapitel 1 vorkommen, Texte, was aus Sicht von Story und Spielgefühl wegbleibt. **Gilt nicht**, bevor Perikles schneidet; Spieltexte unten sind Entwurf, wortgetreu erst nach dem Schnitt.
@@ -137,7 +146,7 @@ Texte (Entwurf; Zeilen, die oft kommen, in drei Wortlauten nach 504):
 - **Satz bei nicht wählbaren Fertigkeiten** (statt „Kommt, wenn die Welt es bietet“, das wie eine Systemmeldung klingt): `[954a.1.spaeter]` Das lehrt dich die Welt jenseits von Bornim. / EN: The world beyond Bornim will teach you this.
 - **Bei Illusion und Beschwörung:** `[954a.1.schule]` Diese Schule lehrt nur ein Meister, und keiner lebt in Bornim. / EN: Only a master teaches this school, and none lives in Bornim.
 - **Angeln:** steht in der Gruppe, hängt aber an 509 und 568 (Fische fürs Angeln, Chef 10.11., 11:50); kommt Angeln in Kapitel 1, wird es wählbar.
-- **Kräutersammeln, Alchemie** bleiben wählbar (D). **Kochen:** wirkt (Essen), wird nie geübt; das liegt bei Sokrates (966).
+- **Kräutersammeln, Alchemie** bleiben wählbar (D). **Kochen:** bleibt wählbar und übt beim Braten am Lagerfeuer, Alchemie bei Morwens Sud (966 A; Zeile `[966.1.kessel]` oben).
 
 ### Schmiedelehrling
 
