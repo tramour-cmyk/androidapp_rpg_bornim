@@ -155,6 +155,7 @@ Zuletzt verworfen (Chef 09.11., 11:21, 743 „alle verwerfen“): Spiel-Engine G
 
 ### Balance und Attribute
 
+- **Schmuck herstellen: Ringe und Amulette** (Chef 11.11., 16:31, zu 975: „Ringe schmieden und Amulette. Das haben wir ja auch nicht. Schwierig.“): kein Handwerk stellt heute Schmuck her (fünf Meisterschaften, Entscheidung 56; `DESIGN-BRS.md` 6). Vorschlag Homer: keine sechste Meisterschaft; der Schmied fasst (Ring, Kette aus Bergbau-Metall), der Runenmeister gibt die Wirkung (Rune), also zwei Handwerke an einem Stück. *Pro:* Schmuck wird begehrt, ohne neue Fertigkeit; Runenkunde bekommt einen eigenen Gegenstand. *Contra:* zwei Handwerke für ein Stück sind mühsam für Alleinspieler; Schmuck als Fund (Gwennas Ring) verliert an Wert. → **später:** nach Stufe 4, mit dem Runenmeister (in Kapitel 1 kein Lehrmeister).
 - **48–50 Dungeons, Lehrer, weitere Klassen** (aus dem Vorrat Sokrates, 27.10.): zufallsgenerierte Dungeons und Questhöhlen (48a–48f ja, Archiv bis `f3ec7200`); Lehrer für Waffen-, Rüstungs-, Rettungswurf-Übung und Talente; weitere Klassen, ggf. zum Kauf (`alt/DESIGN-HELDENBAU.md`). → **später:** nach dem Meilenstein Kapitel 1.
 
 - **Charisma, Gesprächsoptionen:** „Überreden“ oder „Einschüchtern“ bei Wachen, Händlern, Bösewichten, wenn es zur Geschichte passt. → **später:** Vorschlag mit 133 (Vorrat Homer), gebaut in Kapitel 2.

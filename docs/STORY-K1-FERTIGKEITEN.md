@@ -67,7 +67,7 @@ Grundlage: 966 A neu (Chef 11.11., 15:58 „966 ja, mit Ring“; `DESIGN-BRS.md`
 
 Wildschweinbraten nur, wenn das Wildschwein mit Jagd eine eigene Keule gibt (954a.11, Jerry): `[972.keule]` Wildschweinkeule / EN: Boar Haunch · `[972.keule.text]` Schwer und fett. Wer sie zu braten versteht, isst wie ein Fürst. / EN: Heavy and fatty. Whoever knows how to roast it eats like a lord. Sonst entfällt die Zeile. Beschreibungen: `[972.kraeuterbraten.text]` Fleisch, mit Kräutern über dem Feuer gegart. Stärkt mehr als ein einfacher Braten. / EN: Meat cooked over the fire with herbs. More filling than a plain roast. · `[972.wildschwein.text]` Ein ganzer Braten vom Keiler. Danach hält man lange durch. / EN: A whole boar roast. It keeps you going for a long time.
 
-**Rezepte Alchemie** (an Morwens Kessel; Name = Trank wie heute in `Items.kt`; Zutaten und Gold wie heute in `Recipes.kt`): Heiltrank, Kräutertrank, Großer Heiltrank, Alchemistenfeuer. Morwen zeigt jedes Rezept einmal.
+**Rezepte Alchemie** (an Morwens Kessel; Name = Trank wie heute in `Items.kt`, Alchemistenfeuer heißt Brandflasche nach 934; Zutaten und Gold wie heute in `Recipes.kt`): Heiltrank, Kräutertrank, Großer Heiltrank, Brandflasche. Morwen zeigt jedes Rezept einmal; wie man an welches kommt, steht unter „Rezeptwege“ (975).
 
 `[972.kochen.knopf]` (am Lagerfeuer, mit Zutaten) Braten (Kochen) / EN: Roast (Cooking)
 
@@ -86,13 +86,13 @@ Wildschweinbraten nur, wenn das Wildschwein mit Jagd eine eigene Keule gibt (954
 `[972.morwen.lehrt]` (Morwen zeigt ein Rezept; {0} = Trank)
 1. Sieh genau hin, ich zeig es nur einmal. / So braut man das: {0}. — EN: Watch closely, I'll only show you once. / That's how it's done: {0}.
 2. Merk dir die Reihenfolge. Wer sie vertauscht, trinkt Gift. / {0}. Jetzt kannst du es. — EN: Remember the order. Swap it, and you're drinking poison. / {0}. Now you know it.
-3. Ich schreib dir nichts auf. Was du dir nicht merkst, war nie deins. / Das war's: {0}. — EN: I won't write it down for you. What you don't remember was never yours. / That was it: {0}.
+3. Aufschreiben musst du es selbst. Ich sag es nicht zweimal. / Das war's: {0}. — EN: Write it down yourself. I won't say it twice. / That was it: {0}. (975: ersetzt „Ich schreib dir nichts auf …“, das dem Rezeptbuch widersprach)
 
 `[972.rezept.neu]` (Meldung danach) Rezept gelernt: {0} / EN: Recipe learned: {0}
 
 `[972.brauen.knopf]` (an Morwens Kessel, Rezept gelernt) Brauen (Alchemie) / EN: Brew (Alchemy)
 
-`[972.brauen.gut]` (gelingt; ersetzt `Msgs.brewed` „Morwen braut dir: {0}.“)
+`[972.brauen.gut]` (gelingt, eigener Sud; `Msgs.brewed` „Morwen braut dir: {0}.“ bleibt für Morwens Brauen gegen Münzen, 975)
 1. Der Sud wird klar und dunkel. Du füllst ab: {0}. — EN: The brew turns clear and dark. You bottle it: {0}.
 2. Gerade genug Hitze. Morwen nickt: {0}. — EN: Just enough heat. Morwen nods: {0}.
 3. Du ziehst den Kessel vom Feuer, bevor er kocht: {0}. — EN: You pull the cauldron off the fire before it boils: {0}.
@@ -106,9 +106,34 @@ Wildschweinbraten nur, wenn das Wildschwein mit Jagd eine eigene Keule gibt (954
 
 `[972.brauen.leicht]` (unter dem Rang, ohne Ring) Das geht dir leicht von der Hand: {0}. / EN: It comes easily to you: {0}.
 
-**Geänderte Texte** (alte Wortlaute in Git): `[972.herbs.text]` Heilkräuter: Wachsen auf Blumenwiesen im Wald. Daraus braut man Tränke. / EN: Grow in flower meadows in the woods. Potions are brewed from them. · `[972.giftdruese.text]` Giftdrüse: Aus einer Riesenspinne. Daraus mischt man Alchemistenfeuer. / EN: From a giant spider. Used to mix Alchemist's Fire. · `[870.15.handel]` in `STORY-BRS-ANLEITUNG.md` (Satz zu Morwen, 972) · `Msgs.roasted` („Du brätst {0}× Fleisch über dem Feuer. Es duftet herrlich!“) entfällt, das Fleisch brät nicht mehr von selbst.
+**Geänderte Texte** (alte Wortlaute in Git): `[972.herbs.text]` Heilkräuter: Wachsen auf Blumenwiesen im Wald. Daraus braut man Tränke. / EN: Grow in flower meadows in the woods. Potions are brewed from them. · Giftdrüse (`spider_gland`): es gilt der Text von 934 in `STORY-BRS-OBERFLAECHE.md` („Morwen mischt daraus Brandflaschen.“; Morwen braut weiter, 975); `[972.giftdruese.text]` mit „Alchemistenfeuer“ ist gestrichen · `[870.15.handel]` in `STORY-BRS-ANLEITUNG.md` (Satz zu Morwen, 972, 975) · `Msgs.roasted` („Du brätst {0}× Fleisch über dem Feuer. Es duftet herrlich!“) entfällt, das Fleisch brät nicht mehr von selbst.
 
-**Offen für den Bau (966.2, Tom):** (1) Braut Morwen weiter für Helden ohne Alchemie? Dann bleibt „Morwen braut dir: {0}.“ für diesen Fall; sonst entfällt es. (2) Die Beschreibung von Gebratenem Fleisch sagt „+1 auf Angriffe und Schaden“, im Umzugszweig heilt Essen Leben (`menue.gd` 718); nach dem Bau angleichen, Wortlaut dann von mir.
+**Rezeptwege (975, Homer 11.11.; Chef 11.11., 16:31, Archiv „Rezepte, Rezeptbuch, Roben“; `DESIGN-BRS.md` 10 „Wege“):**
+
+- **Morwen braut weiter gegen Münzen, für jeden, wie heute** („Morwens Rezepte“, `laden.gd`; Meldung bleibt `Msgs.brewed` „Morwen braut dir: {0}.“, ohne Ring, ohne Übung), alle vier Tränke. Die Quest gibt nur das eigene Rezept; Großer Heiltrank und Brandflasche bleiben käuflich (Morwen, Thessa: `geschichte.gd` 48–49). Knopf fürs eigene Brauen `[972.brauen.knopf]`, für ihr Brauen `[975.brauen.lassen]`.
+- **Held mit Alchemie** (Wert über 0) beim ersten Treffen: nach dem Gegengift und nach dem Rauchbündel (`smoke_against_krogg`), direkt vor `[504.morwen.kraeuter]`: `[975.morwen.alchemist]`, dann zweimal `[972.morwen.lehrt]` (Heiltrank, Kräutertrank), je mit `[972.rezept.neu]`. Kein Gold, keine Quest. `[972.morwen.lehrt]` wählt seinen Wortlaut immer nach 504, nirgends fest.
+- **Held ohne Alchemie:** die beiden Rezepte stehen in Morwens Ware (`[975.rezept.ware]`); nach dem Kauf `[972.morwen.lehrt]` und `[972.rezept.neu]`. Preis ist Balance (Chef). Vorschlag Homer: das Fünffache ihres Braulohns von heute (Heiltrank 5, Kräutertrank 2 Gold, `Recipes.kt` 14–15), also 25 und 10 Gold.
+- **Brandflasche: Lohn von „Gift gegen Gift“** statt der zwei Kräutertränke (Giftdrüsen bringen, lernen, was man daraus macht); 50 Gold bleiben. Neue Wortlaute des Aushangs und der Abgabe unten, ersetzen die in `STORY-PLAN-K1.md` „Gift gegen Gift“.
+- **Großer Heiltrank: Dank für Grimmzahn** (Morwen schickt den Helden zu ihm, Chronik „Grimmzahn“). Eigener Merker „Grimmzahn tot, Rezept noch nicht gegeben“; in jedem Zweig von Morwens Gespräch (erstes Treffen, Rauchbündel, sonst) direkt vor `[504.morwen.kraeuter]`: `[975.morwen.grimmzahn]` statt `[504.morwen.wieder.danach]`, dann `[972.morwen.lehrt]` und `[972.rezept.neu]`. Fällt Grimmzahn vor dem ersten Treffen, kommt es nach ihrem Gruß und nach den Alchemie-Rezepten.
+- **Kochen** (dieselbe Regel, `DESIGN-BRS.md` 10): Gebratenes Fleisch kennt jeder von Anfang an (heute brät jeder, Grundrezept). Kräuterbraten und Wildschweinbraten (dieser nur mit Keule, 954a.11) lehrt Rowena, Lehrmeisterin Feldkoch (`STORY-RUF-K1.md`): Held mit Kochen beim ersten Gespräch in der Schenke nach dem Erwachen-Gespräch `[975.rowena.lehrt]`, dann je Rezept `[972.rezept.neu]`; ohne Kochen kauft man sie bei ihr (`[975.rezept.ware]`, Text `[975.rezept.ware.rowena]`), Preis wie oben Balance (Chef).
+
+`[975.rowena.lehrt]` (einmal) Du hast schon über offenem Feuer gekocht, das seh ich an deinen Fingern. Zwei Sachen zeig ich dir. Mehr nicht, sonst kommt keiner mehr zu mir. / EN: You've cooked over an open fire before, I can see it in your fingers. I'll show you two things. No more, or nobody will come to me anymore. · `[975.rezept.ware.rowena]` Rowena zeigt es dir einmal. Danach brätst du es selbst am Lagerfeuer. / EN: Rowena shows you how, once. After that you roast it yourself at a campfire.
+
+`[975.morwen.alchemist]` (einmal) Du riechst nach Kesselrauch. Wer schon mal einen Sud gerührt hat, dem zeig ich, wie ich es mache. / EN: You smell of cauldron smoke. Anyone who's stirred a brew before, I'll show them how I do it.
+
+`[975.rezept.ware]` (Ware bei Morwen; {0} = Trank) Rezept: {0} / EN: Recipe: {0} · `[975.rezept.ware.text]` Morwen zeigt es dir einmal. Danach braust du es selbst an ihrem Kessel. / EN: Morwen shows you how, once. After that you brew it yourself at her cauldron.
+
+`[975.brauen.lassen]` (Knopf, Morwen braut gegen Münzen) Brauen lassen / EN: Have it brewed
+
+`[975.morwen.grimmzahn]` (einmal, erster Besuch nach Grimmzahns Fall) Grimmzahn ist tot? Dann hast du dir etwas verdient, das ich nicht jedem zeige. / EN: Grimfang is dead? Then you've earned something I don't show just anyone.
+
+`[975.gift.aushang]` (ersetzt den Aushang „Gift gegen Gift“) Drei Giftdrüsen von Riesenspinnen, ganz, nicht zerquetscht. Ich zahle in Gold und zeige dir, was man daraus macht. Wer mich sucht, findet mich tief im Wald am Feuer. – Morwen / EN: Three venom glands from giant spiders, whole, not crushed. I pay in gold, and I'll show you what can be made of them. Whoever seeks me will find me deep in the woods by the fire. – Morwen
+
+`[975.gift.abgabe]` (ersetzt Morwens Satz bei der Abgabe; danach `[972.morwen.lehrt]` mit Brandflasche, `[972.rezept.neu]`) Drei, und keine geplatzt. Du hast ruhige Hände. Die brauchst du jetzt auch: Was in so einer Drüse steckt, brennt. / EN: Three, and none burst. You have steady hands. You'll need them now: what's inside a gland like that burns.
+
+**Rezeptbuch** (`DESIGN-BRS.md` 10: eins für alle Handwerke, je Handwerk eine Liste, drei Zustände): `[975.buch]` Rezeptbuch / EN: Recipe Book · `[975.buch.leer]` (ein Handwerk ohne Rezept) Noch kein Rezept. Lehrmeister, Händler und Bücher lehren welche. / EN: No recipes yet. Mentors, merchants and books teach some. · `[975.buch.bereit]` Herstellbar / EN: Ready to make · `[975.buch.fehlt]` ({0} = fehlende Zutaten mit Anzahl) Fehlt: {0} / EN: Missing: {0} · `[975.buch.rang]` ({0} = Fertigkeit, {1} = Rang) Braucht {0} ab {1} / EN: Needs {0} at {1} · `[975.buch.ort]` ({0} = Werkort) Werkort: {0} / EN: Workplace: {0} · `[975.ort.kessel]` Morwens Kessel / EN: Morwen's cauldron · `[975.ort.feuer]` Lagerfeuer / EN: Campfire. Reiter je Handwerk mit dem Namen der Fertigkeit (Kochen, Alchemie …); der Name für Leder und Stoff folgt aus der Chefsache 975a.
+
+**Offen für den Bau (966.2, Tom):** (1) erledigt (975): Morwen braut weiter, siehe „Rezeptwege“. (2) Die Beschreibung von Gebratenem Fleisch sagt „+1 auf Angriffe und Schaden“, im Umzugszweig heilt Essen Leben (`menue.gd` 718); nach dem Bau angleichen, Wortlaut dann von mir.
 
 ## Grundfertigkeiten in der Welt (Plan 954a.1, Texte festgesetzt 954a.4, Homer 11.11.)
 
