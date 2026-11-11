@@ -353,6 +353,7 @@ Regelseite Sokrates, 11.11. Sie gilt erst, wenn der Chef entschieden hat. Der We
 2. Schildstoß statt Schildwall in Kapitel 1?
 3. Feuer drängt über den Flammenfächer, oder ein eigener Zauber Glutring?
 4. Beginnt ein Kampf grundsätzlich fern?
+5. **Aktionspunkte statt Tempo?** Chef 14:26: „vielleicht kann man das auch so irgendwie fast mit Aktionspunkten verbinden … ich kann entweder zwei Bewegungen machen oder eine Bewegung einen Angriff, aber wenn halt einer weiter hinten steht, brauche ich allein schon zwei Bewegungen und wenn ich schwere Rüstung habe, bin ich sowieso langsamer … Könnte man ja überlegen.“ Fassung Sokrates: Jeder Zug hat 2 Punkte. Ein Schritt kostet 1 Punkt, in schwerer Rüstung 2. Eine Handlung kostet 1 Punkt, und es gibt höchstens eine je Zug. Der Abstand zählt in Schritten: nah 0, fern 1, weit 2; damit hat Frage 1 eine Antwort, drei Stufen. Gegner bekommen Punkte nach ihrem Tempo (langsam 1, normal 2, schnell 3); das ersetzt Regel 3 und das Tempo des Helden in Regel 2. Ich empfehle das, weil man die Kosten sieht statt einer versteckten Ungunst. Stärkstes Gegenargument: mehr Tippen je Zug am Handy und längere Runden (F9). Weg: Tippt man „Angreifen“ auf einen Gegner, der fern steht, geht der Held selbst so weit wie nötig, und vorher zeigt ein Punktezähler, ob es reicht; wer nichts plant, tippt also einmal wie heute.
 
 ### Stärkstes Gegenargument und Weg
 
