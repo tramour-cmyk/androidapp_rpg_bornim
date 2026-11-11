@@ -13,6 +13,8 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 ## Zeilen
 
+- **Zu 264.1, von Perikles (Doppelpack 421, 11.11., 09:10, `ee20ff5a8`):** `commit-pruefung.py` nimmt in `LISTE-VORGAENGE.md` das Feld „wartet auf“ von der Prüfung „Uhrzeit liegt nach jetzt“ aus; vorher hielt sie `vorgang.py warte NR` mit späterer Uhrzeit von heute an, obwohl die Liste „TT.MM. HH:MM“ erlaubt. Prüfen: eine spätere Uhrzeit von heute im Titel oder Stand hält weiter an.
+
 - **Zu 464 (Lauf 110):** Haken (748) und Zählung (749) greifen, Lücken 776, 777 geschlossen; 464 wartet auf 16.11.: Wirkung in der Wochenzählung 16.11.: rote Bauläufe der Woche gegen 52 von 185 (28 %) der Vorwoche, dann `greift 464` oder Befund.
 - **Zu 719 (Perikles, „719 A“):** Wochenzählung kommt montags ab 8 Uhr als Vorgang „Wochentermin TT.MM.: Wochenzählung …“; nach der Zählung erledigt setzen. Zeile „Woche“ erledigt 09.11.
 - **Zu 724, 755:** Bereich B mit „gebaut“ kommt als „wartet auf Diogenes“ zu mir; greift → `vorgang.py greift NR LAUF`, Lücke → eigener Vorgang und `warte NR <Lücke>`.

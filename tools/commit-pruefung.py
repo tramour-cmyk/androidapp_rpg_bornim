@@ -259,7 +259,11 @@ def main():
         if z.startswith("+++ b/"): datei = z[6:]; continue
         if not z.startswith("+") or z.startswith("+++"): continue
         t = z[1:]
-        for m in re.finditer(r"(?<!\d)" + re.escape(heute).replace(r"\.", r"\.") + r",? (\d\d):(\d\d)(?!\d)", t):
+        tz = t
+        if datei == "docs/LISTE-VORGAENGE.md" and t.startswith("| ") and t.count("|") >= 8:
+            # 264.1: Feld „wartet auf“ darf eine spätere Uhrzeit von heute tragen (vorgang.py warte NR "TT.MM. HH:MM", Automatik A)
+            zellen = t.split("|"); tz = "|".join(zellen[:6] + zellen[7:])
+        for m in re.finditer(r"(?<!\d)" + re.escape(heute).replace(r"\.", r"\.") + r",? (\d\d):(\d\d)(?!\d)", tz):
             if jetzt.replace(hour=int(m.group(1)), minute=int(m.group(2))) > jetzt + datetime.timedelta(minutes=5):
                 stop.append("%s: Uhrzeit %s:%s liegt nach jetzt (%s)" % (datei, m.group(1), m.group(2), jetzt.strftime("%H:%M"))); break
         mm = re.match(r"\| ([^|]+?) \| (M\?|M|K|–|-) \|", t)
