@@ -479,13 +479,22 @@ def ohne_film(eingaben):
 SAMMELBUILD = re.compile(r"(?:refs/heads/)?claude/build-\d+")  # 646: Sammelbuild für den Gerätetest des Chefs ist keine Probe
 
 
+def sammelbuild_frei(ref, eingaben=None):
+    """646: ein Lauf auf claude/build-<n> ist der Testbuild des Chefs, keine Probe; 730 (D86.1, Diogenes Lauf 86): aber nur ohne
+    Probe-Eingaben. Ein Handlauf mit kampf=ja, dorf=ja, schild=ja … (Filme, Vergleiche) zählt; bild=nein, film=nein ändern nichts.
+    (Nicht auf android.yml beschränkt: seit 894 baut godot.yml jeden Testbuild selbst.)"""
+    if not SAMMELBUILD.fullmatch(str(ref or "")):
+        return False
+    return not any(str(v).strip() for k, v in (eingaben or {}).items() if k not in ("bild", "film", "ref"))
+
+
 def handlauf_mcp(d):
     """407: `actions_run_trigger` über den GitHub-Server: (Vorgang, Art), RERUN zum Anhalten, oder None."""
     e = d.get("tool_input") or {}
     methode = e.get("method", "")
     if methode in ("rerun_workflow_run", "rerun_failed_jobs"):
         return RERUN
-    if methode != "run_workflow" or SAMMELBUILD.fullmatch(str(e.get("ref") or "")):
+    if methode != "run_workflow" or sammelbuild_frei(e.get("ref"), e.get("inputs") or {}):
         return None
     return vorgang_aus_ref(e.get("ref"), str(e.get("workflow_id") or "")), "hand", not ohne_film(e.get("inputs") or {})
 
@@ -501,7 +510,7 @@ def handlauf_bash(befehl):
         ref = re.search(r"(?:--ref|-r)[=\s]+(\S+)", m.group(1))
         eing = dict(re.findall(r"(?:-f|-F|--field|--raw-field)[=\s]+[\"']?(\w+)=([^\s\"']*)", m.group(1)))
         ref = ref.group(1).strip("\"'") if ref else ""
-        if SAMMELBUILD.fullmatch(ref):
+        if sammelbuild_frei(ref, eing):
             return None
         return vorgang_aus_ref(ref, ablauf), "hand", not ohne_film(eing)
     m = API_LAUF.search(befehl)
@@ -512,7 +521,9 @@ def handlauf_bash(befehl):
         eing = dict(re.findall(r"\\?[\"'](bild|film)\\?[\"']\s*:\s*\\?[\"'](\w+)", befehl))
         eing.update(re.findall(r"(?:-f|-F|--field|--raw-field)[=\s]+[\"']?inputs\[(bild|film)\]=(\w+)", befehl))
         ref = ref.group(1) if ref else ""
-        if SAMMELBUILD.fullmatch(ref):
+        alle = dict(re.findall(r"\\?[\"'](\w+)\\?[\"']\s*:\s*\\?[\"']([^\"'\\]*)", befehl))  # 730: jede Eingabe, nicht nur bild/film
+        alle.update(re.findall(r"(?:-f|-F|--field|--raw-field)[=\s]+[\"']?inputs\[(\w+)\]=([^\s\"']*)", befehl))
+        if sammelbuild_frei(ref, alle):
             return None
         return vorgang_aus_ref(ref, m.group(1)), "hand", not ohne_film(eing)
     return None
