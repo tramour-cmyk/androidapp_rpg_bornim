@@ -8,7 +8,7 @@ extends SceneTree
 
 const KLASSEN := ["Wachsoldat", "Klosterschüler", "Herumtreiber", "Zauberlehrling"]
 # 417a (Archiv 417, 03.11., 06:54 „417 passt“, Stand 3b29ac0cb): Waffe in der Hand, Schild auf dem Ruecken; Schwert mit dem Einhandgang
-const GANG := {"Wachsoldat": "einhand", "Klosterschüler": "einhand", "Herumtreiber": "einhand", "Zauberlehrling": ""}   # 870.4: Startausruestung nach Herkunft (Streitkolben, Dolch)
+const GANG := {"Wachsoldat": "einhand", "Klosterschüler": "", "Herumtreiber": "einhand", "Zauberlehrling": ""}   # 870.4: Startausruestung nach Herkunft (Kampfstab bis 458.3, 870e Nachtrag; Dolch)
 const SCHILD := {"Wachsoldat": true, "Klosterschüler": false, "Herumtreiber": false, "Zauberlehrling": false}
 const FAUST_M := 0.03
 const RUECKEN_M := 0.06

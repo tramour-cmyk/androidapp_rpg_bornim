@@ -452,13 +452,13 @@
       "Wachsoldat": ["longsword", "chain_shirt", "round_shield"],
       "Jägerkind": ["shortbow", "leather"],
       "Zauberlehrling": ["quarterstaff", "robe"],
-      "Klosterschüler": ["mace", "leather"],
+      "Klosterschüler": ["quarterstaff", "leather"],
       "Kräutersammler": ["dagger", "leather"],
-      "Schmiedelehrling": ["mace", "leather"],
+      "Schmiedelehrling": ["quarterstaff", "leather"],
       "Herumtreiber": ["dagger", "leather"],
       "Wanderer": ["shortsword", "leather"]
     },
-    "_start": "Startausruestung je Herkunft nach 'herkuenfte' (Waffe, Ruestung, Schild) als Grundform der Gegenstaende; Gold und Heiltraenke aus 'wirtschaft' (startgold, start_heiltraenke)"
+    "_start": "Klosterschueler und Schmiedelehrling bis 458.3 Kampfstab statt Streitkolben (870e Nachtrag, kein Modell). Startausruestung je Herkunft nach 'herkuenfte' (Waffe, Ruestung, Schild) als Grundform der Gegenstaende; Gold und Heiltraenke aus 'wirtschaft' (startgold, start_heiltraenke)"
   },
   "kennungen": {
     "_quelle": "870.3 (649a Schritt 1): Kennung im Spiel -> Art (Zeile in 'monster'), Anzeigename (DESIGN-BRS.md 12, STORY-BRS-OBERFLAECHE.md [870.15.namen.monster]), Gruppe; interne Kennungen bleiben. Modell und Bewegung: Figurenkatalog 649.2",

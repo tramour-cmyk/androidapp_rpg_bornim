@@ -1640,6 +1640,12 @@ func bilder() -> void:
 	held.rotation.y = atan2(zu.x, zu.z)
 	await get_tree().create_timer(2.0).timeout
 	await knips(dir + "/nah.png")
+	# 870.4 (LISTE-UMZUG-BRS.md Schritt 4 Pruefung): der Heldenreiter nach BRS als Bild vor B1, Spielgroesse, Held wie im Spiel
+	kamera.nah_fern()
+	ui.leiste.visible = true
+	oeffne_menue("held")
+	await get_tree().create_timer(2.0).timeout
+	await knips(dir + "/heldenreiter.png")
 	get_tree().quit()
 
 # 348.6 Leute: --gang=<ordner> stellt die Leute nebeneinander auf den Platz, seitlich zur Kamera, und legt je 0,1 s
