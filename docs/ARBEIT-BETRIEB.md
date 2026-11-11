@@ -253,3 +253,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:04 11.11.: Marke Start-fehlt Tom 11.11.-00:29 (lauf.py)
 - 01:04 11.11.: Nachfolger-Warnung Tom (Übergabe 11.11., 00:28) (lauf.py)
 - 01:06 11.11.: Startsperre 01:06 Start Tom (lauf.py)
+- 01:08 11.11.: Tom 870.4 gestartet …78gmw (Sokrates 01:06, Commit 0e2bf8427)
