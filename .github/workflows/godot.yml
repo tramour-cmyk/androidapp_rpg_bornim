@@ -562,6 +562,7 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/gluehwuermchen_514.gd 2>&1 | tee glueh514.log | grep -E "FEHLER|GLUEH514|SCRIPT ERROR"; grep -q "^GLUEH514 0 Fehler" glueh514.log   # 514 Gluehwuermchen wie alt
           timeout 300 ~/godot/godot --headless --path . -s res://tests/effekte_814.gd 2>&1 | tee effekte814.log | grep -E "FEHLER|EFFEKTE814|SCRIPT ERROR"; grep -q "^EFFEKTE814 0 Fehler" effekte814.log   # 814 Effekte Szene 1 Dorf (Spike)
           timeout 300 ~/godot/godot --headless --path . -s res://tests/fussstaub_814.gd 2>&1 | grep -E "FUSS814|SCRIPT ERROR" | head -80 || true   # 814 t277.5: Fussstaub und Federn, nur Messung
+          timeout 300 ~/godot/godot --headless --path . -s res://tests/huhn_814.gd 2>&1 | tee huhn814.log | grep -E "^HUHN814 [^ ]|SCRIPT ERROR" | head -40 || true; grep -E "^HUHN814   " huhn814.log | head -150 || true   # 814 Chef 16:14: Huhn fliegt nicht auf, nur Messung
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_472.gd 2>&1 | grep -E "FALSCH|BRS472|SCRIPT ERROR"   # 472 Heldenstufe aus Erfahrung
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_471.gd 2>&1 | grep -E "FALSCH|BRS471|SCRIPT ERROR"   # 471 Fertigkeiten durch Tun (BRS 1.2)
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/kampfuebung_471.gd 2>&1 | grep -E "FALSCH|KAMPFUEBUNG471|SCRIPT ERROR"   # 471 Uebung im Kampf, gutgeschrieben nach dem Sieg
