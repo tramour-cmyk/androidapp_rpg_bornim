@@ -75,17 +75,14 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
-- 09:42 11.11.: Ablösung 110 (Chef startete Ford von Hand, Tiefe 0): neue Uhr `trig_01UJV…`, alte Uhr gelöscht, alter Ford …77YMu archiviert (idle seit 08:34), 11,68 $ auf Betrieb gebucht; Diogenes-Archivierung 09:41 übernommen (`send_later`), Chefsache 110 gestrichen
 
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` (Kurzzeilen mit „has_more: ja“) und ignorierte die Warnung „Seite abgeschnitten, Plan unvollständig“. Behoben: archiviert, 4,89 $ auf 470; künftig alle Seiten über `after_id` lesen (Ausgabe in Datei, mit `python3` nur nicht archivierte Sitzungen herausziehen), Warnung „abgeschnitten“ gilt als Abbruch
-- 09:24 11.11.: Startsperre 09:24 Start Diogenes (Ford, vor dem Start; Auftrag Diogenes 911 und 264.1, caf221f84, ee20ff5a8; Umgebung Hoch)
-- 09:23 11.11.: Neustart Tom: Nachfolger …75P7U „Tom – 870.4: Lauf 341 auswerten“ in Hoch gestartet; Tom …78hPe archiviert, 7,75 $ auf 870.4. Startsperre 09:22 Start Tom (Neustart-Meldung 09:21, c2cf0ac30; Umgebung Hoch). Perikles …79rUs: „Weiter: 911“ (Tom 09:19) als Nachricht gesendet
-- 09:18 11.11.: Sokrates …77wg6 archiviert, 5,21 $ auf 870, 854; Nachfolger …78v4Q läuft
-- 09:14 11.11.: Startsperre 09:14 Start Sokrates (Neustart-Meldung 09:13, ea70e638d; Umgebung Hoch); Jerry …782ws archiviert, 18,89 $ auf 806, 854
-- 09:10 11.11.: Startsperre 09:10 Start Jerry (Neustart-Meldung 09:09, 2fbe2351f; Umgebung Hoch)
-- 09:06 11.11.: Lauf 09:04: Perikles-Nachfolger …79rUs „264.1: Lauf 340 auswerten“, Spike …76LAQ „581“, Tuffy …78DRe „784“ in Hoch gestartet. Tuffy 854 ausgeschlossen (`--ohne`: Jerry baut 854 auf `claude/jerry-854-block`, Chef 08:52). `WEITER Tom` nicht ausgeführt (Wecker 09:07 Lauf 338). Archiviert und gebucht: Perikles …75ny (3,07 $, 264.1), Tuffy …774g (5,78 $, 536 fertig), Diogenes …76ns (1,03 $, 907/908, Befund keiner)
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry (07:04 Jerry 806, 08:05 Jerry 806, 10:26 Jerry 595) aus eigener Beurteilung aus (Kaufrepo, Pacing, Sitzungsgrenze), ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch: 59 Muss). Lücke im Werkzeug: Startsperre wird geschrieben, auch wenn nie gestartet wird; kein WARNUNG-LAUT wie bei ARCHIVIERE. Vorschlag an den Chef gestellt
 
+- 09:43 11.11.: Lauf (alle 15 Seiten `list_sessions` gelesen): Spike …76LAQ (581 schon erledigt, 2,48 $ auf 581) und Diogenes …76KYg (911, 912, 1,09 $ je Vorgang, Arbeit wartet auf 913/914 bei Perikles) archiviert; START Spike 636 ausgeführt (Muss, lauf.py). Zeiten der Chatmeldungen vor 09:41 waren geschätzt, nicht von der Uhr.
+- 09:39 11.11.: Ablösung 110 (Chef startete Ford von Hand, Tiefe 0): neue Uhr `trig_01UJV…`, alte Uhr gelöscht, alter Ford …77YMu archiviert (idle seit 08:34), 11,68 $ auf Betrieb gebucht; Diogenes-Archivierung 09:41 übernommen (`send_later`), Chefsache 110 gestrichen
+- 09:18 11.11.: Sokrates …77wg6 archiviert, 5,21 $ auf 870, 854; Nachfolger …78v4Q läuft
+- 09:06 11.11.: Lauf 09:04: Perikles-Nachfolger …79rUs „264.1: Lauf 340 auswerten“, Spike …76LAQ „581“, Tuffy …78DRe „784“ in Hoch gestartet. Tuffy 854 ausgeschlossen (`--ohne`: Jerry baut 854 auf `claude/jerry-854-block`, Chef 08:52). `WEITER Tom` nicht ausgeführt (Wecker 09:07 Lauf 338). Archiviert und gebucht: Perikles …75ny (3,07 $, 264.1), Tuffy …774g (5,78 $, 536 fertig), Diogenes …76ns (1,03 $, 907/908, Befund keiner)
 - 08:14 11.11.: Diogenes …78YAW (903, Lauf 154 gepusht) archiviert, 1,59 $ auf 903
 - 08:13 11.11.: Start-Meldung Perikles 907, 908 (Diogenes Lauf 154, 057ada2b6): als „Weiter: 907, 908“ an Perikles …75nyB (läuft, Lauf 8). Spike …7A7ke (492 ohne Arbeit, hängt an 870.4) archiviert, 1,47 $ auf 492; Spike 492 dauerhaft `--ohne`. Tom …78hPe: `WEITER Tom` bewusst nicht ausgeführt (Wecker 08:38, Lauf 338)
 - 08:06 11.11.: Lauf 08:04: Spike …7A7ke „Spike – 492“ und Tuffy …774gF „Tuffy – 536“ in Hoch gestartet (Muss, Chef 07:16). Zwischenfall: `lauf.py` aus dem Arbeitskopf `androidapp_rpg_bornim` gerufen rechnete mit altem Stand (START Spike 680, Tuffy 705, beide schon gebaut); Marken gestrichen, nichts gestartet. Künftig `lauf.py` aus `/home/user/bornim-main/tools` rufen oder vorher im Arbeitskopf `git pull origin main`
@@ -103,9 +100,10 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:08 11.11.: Tom 870.4 gestartet …78gmw (Sokrates 01:06, Commit 0e2bf8427)
 - 01:05 11.11.: Lauf 01:04: nichts gestartet. Tom …785yR archiviert, gebucht (0,65 $, 870.4); Tom gesperrt (620.1 B, 10 ungetestete Muss, Test t275 beim Chef), Jerry 870.6 wartet auf 870.4, Perikles 264.1 wartet auf Chef; Stillstand Ursache Test/Chef, kein Fehler
 - 00:31 11.11.: Tom …75w84 archiviert, gebucht (4,35 $, 888). Tom …785yR meldet 870.4 nicht startbar (wartet auf 870.2 ungetestet in t275, Überschneidung 653/Sperre 779), endet ohne Arbeit; Tom erst nach Test t275 neu starten
-- 00:30 11.11.: Tom 870.4 gestartet …785yR (Neustart 00:27); Homer …7A7Yy (1,33 $, 899) und Diogenes …79zSr (1,06 $, 896/898) archiviert, gebucht; Tom …75w84 (4,10 $, 888) archiviert der nächste Lauf
-- 00:05 11.11.: Lauf 00:04: START Perikles „M?“ nicht ausgeführt (Planfehler 893); Perikles …75P7 wartet auf Chef (264.1, Läufe frei)
-- 23:27 10.11.: Neustart Jerry 23:26 (8ebbb5f32): Nachfolger „870.6 wartet auf 870.4“ nicht startbar, kein Start; Jerry …76RTd bleibt stehen (belegt), Muss-Arbeit sonst keine. Start folgt, sobald 870.4 durch (lauf.py)
+- 09:24 11.11.: Startsperre 09:24 Start Diogenes (Ford, vor dem Start; Auftrag Diogenes 911 und 264.1, caf221f84, ee20ff5a8; Umgebung Hoch)
+- 09:23 11.11.: Neustart Tom: Nachfolger …75P7U „Tom – 870.4: Lauf 341 auswerten“ in Hoch gestartet; Tom …78hPe archiviert, 7,75 $ auf 870.4. Startsperre 09:22 Start Tom (Neustart-Meldung 09:21, c2cf0ac30; Umgebung Hoch). Perikles …79rUs: „Weiter: 911“ (Tom 09:19) als Nachricht gesendet
+- 09:14 11.11.: Startsperre 09:14 Start Sokrates (Neustart-Meldung 09:13, ea70e638d; Umgebung Hoch); Jerry …782ws archiviert, 18,89 $ auf 806, 854
+- 09:10 11.11.: Startsperre 09:10 Start Jerry (Neustart-Meldung 09:09, 2fbe2351f; Umgebung Hoch)
 - 08:15 11.11.: Startsperre 08:15 Start Diogenes (Ford, vor dem Start; Auftrag Diogenes 907, 908, 559dc33c7; Umgebung Hoch)
 - 08:09 11.11.: Startsperre 08:09 Start Diogenes (Ford, vor dem Start; Auftrag Diogenes 903, fa1eb5a5f; Umgebung Hoch)
 - 07:59 11.11.: Startsperre 07:59 Start Jerry (Neustart-Meldung 07:58, f48aaad02; Umgebung Hoch)
@@ -321,3 +319,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:04 11.11.: Marke Start-fehlt Spike 11.11.-08:05 (lauf.py)
 - 09:04 11.11.: Marke Archiv session_01Hmoj75nyB9hCtDncgRwnXC (lauf.py)
 - 09:04 11.11.: Marke Archiv session_01Hmoj774gFykp2ZWEU1e46m (lauf.py)
+- 09:41 11.11.: Startsperre 09:41 Start Spike (lauf.py)
+- 09:41 11.11.: Marke Archiv session_01Hmoj76LAQQMn2ovaYB6abt (lauf.py)
