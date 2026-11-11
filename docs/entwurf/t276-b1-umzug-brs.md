@@ -9,7 +9,7 @@ Verglichen (alt gegen neu): Heldenreiter mit dem Reiter von Build 275 (Grundwert
 
 Im Bau geprüft: `brs_held_870`, `brs_held_834`, `brs_470`, `spielstand_test`, `testmenue_470`, `testmenue_555`, `handlungen_870`, `mars_regeln`, `faehigkeiten_534`, `brs_kampf_478`, `sim444_870` (Messung je Herkunft gegen Rudel, Krogg, Grimmzahn, Grak), Zahlen der Welt nur aus `werte.json` (870e).
 
-Bekannt: Klosterschüler zeigt seinen Streitkolben nicht (kein Modell, 458.3); Lösung beim Vorentscheid 870e.
+Bekannt: Klosterschüler und Schmiedelehrling tragen bis zum Streitkolbenmodell (458.3) einen Kampfstab (Vorentscheid 870e).
 
 ## A · Neues Spiel
 
@@ -23,14 +23,14 @@ Bekannt: Klosterschüler zeigt seinen Streitkolben nicht (kein Modell, 458.3); L
 |---|---|---|---|---|---|
 | 276.2 | Tom | 870.4 | Tasche → Reiter „Held“ | oben Name, „Mensch · Wanderer“, „Heldenstufe 1“ und Gold 20; Balken Leben, Mana, Erfahrung; Zeile Schutzwert, Schaden, Kritisch in Prozent; sechs Grundwerte mit den Zahlen aus der Erschaffung; Fertigkeiten | Klasse, Rüstungsklasse, Übungsbonus, Würfel wie „1W8+1“, „ZP“ |
 | 276.3 | Tom | 870.4 | im Reiter „Held“ auf einen Grundwert tippen, dann auf einen zweiten | je Grundwert ein kurzer Satz, was er bringt | kein Satz, Satz mit SRD-Wörtern (Stärke, Konstitution) |
-| 276.4 | Tom | 870.4 | Tasche → Heiltrank benutzen (am besten nach dem Kampf in C, wenn Leben fehlt) | Leben steigt um 14; in der Tasche anfangs 2 Heiltränke | Wurf oder Würfelzahl im Text |
+| 276.4 | Tom | 870.4 | Tasche → Heiltrank benutzen (am besten nach dem Kampf in C, wenn Leben fehlt) | Leben steigt um 14, höchstens bis voll; in der Tasche anfangs 2 Heiltränke | Wurf oder Würfelzahl im Text |
 | 276.5 | Tom | 870.4 | Thessas Kramladen: Preise einer Waffe ansehen, dann Vergleich mit der getragenen | Preise wie in Build 275 ungefähr; Vergleich ohne Rüstungsklasse | Absturz, „Deine Klasse kann das nicht tragen“ |
 
 ## C · Wald
 
 | # | Team | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|---|
-| 276.6 | Jerry | 870.5 | Reiter „Test“ → Teleport „Wald“, zum Wolf gehen, Kampf | über dem Getroffenen nur Ergebnis und Trefferchance; Kopf „Mana a/b“; Knopf „Können“; keine Würfel, keine Rüstungsklasse | „gegen RK“, „RW … gegen SG“, „(Vorteil)“, „ZP“ |
+| 276.6 | Jerry | 870.5 | Reiter „Test“ → Teleport „Wald“, zum Wolf gehen, Kampf | über dem Getroffenen nur Ergebnis und Trefferchance; Knopf „Können“; keine Würfel, keine Rüstungsklasse | „gegen RK“, „RW … gegen SG“, „(Vorteil)“, „ZP“ |
 | 276.7 | Jerry | 870.5 | im Wolfskampf „Können“ öffnen | nur, was die Fertigkeiten freigeben (Wanderer: mindestens „Kraft schöpfen“) | Klassenfähigkeiten wie „Zweiter Atem“ |
 | 276.8 | Jerry | 870.5 | Wolfskampf gewinnen | Erfahrung nach dem BRS in der Lohnzeile; im Reiter „Held“ wächst der Erfahrungsbalken | „Attributspunkte“, alte EP-Zahlen |
 | 276.9 | Tom | 870.4 | am Lagerfeuer im Wald rasten | Wahl „Kurze Erholung · 2 Stunden“ und „Langes Ausruhen · 9 Stunden“ mit Satz darunter; nach Langem Ausruhen Leben und Mana voll | „Kurze Rast“, „Lange Rast“, 1 oder 8 Stunden |
@@ -39,5 +39,5 @@ Bekannt: Klosterschüler zeigt seinen Streitkolben nicht (kein Modell, 458.3); L
 
 | # | Team | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|---|
-| 276.10 | Jerry | 870.5, 705 | Reiter „Test“ → MARS-Probekampf, Gegner Wolfsrudel, „Starten als“ nacheinander Wachsoldat, Zauberlehrling, Herumtreiber, Klosterschüler; jeweils „Automatik“ | jeder Kampf läuft bis zum Ende; Zauberlehrling wirkt Zauber und hat Mana; Wachsoldat mit Schild | Kampf hängt, Zauberlehrling ohne Mana |
-| 276.11 | Jerry | 870.5 | MARS-Probekampf gegen Grak als Wachsoldat | Grak ruft höchstens einen Goblin | Grak ruft Goblin und Späher |
+| 276.10 | Jerry | 870.5, 705 | Reiter „Test“ → MARS-Probekampf: „Gegner“ antippen bis „Wolfsrudel“, dann unter „Starten als:“ nacheinander Wachsoldat, Zauberlehrling, Herumtreiber, Klosterschüler; im Kampf „Held selbst“ antippen bis „Held Auto“ | jeder Kampf läuft bis zum Ende; Zauberlehrling: Kopf „Mana a/b“, wirkt Zauber; Wachsoldat mit Schild; Klosterschüler mit Kampfstab | Kampf hängt, Zauberlehrling ohne Mana |
+| 276.11 | Jerry | 870.5 | Reiter „Test“ → MARS-Probekampf: „Gegner“ antippen bis „Grak“, unter „Starten als:“ Wachsoldat | Grak ruft höchstens einen Goblin | Grak ruft Goblin und Späher |
