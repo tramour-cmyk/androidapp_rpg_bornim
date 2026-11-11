@@ -12,7 +12,7 @@ const STARR_S := 9.0
 const ZUGLEICH_S := 0.5
 const GRUND := ["Stehen", "Hocke", "Kampfstehen", "SS_IdleCombat"]
 const KAMPF := ["Gehen", "Rennen", "Biss", "Hauer", "Hieb", "Hieb2", "Sprung", "Sprungbiss", "Ansturm", "Treffer", "Ausweichen",
-	"Ausweichen links", "Tod", "Heulen", "Drohen", "Netzwurf", "Bisskette", "Spucken", "Auferstehen", "Kriechen"]
+	"Ausweichen links", "Ausweichen zurück", "Treffer links", "Treffer rechts", "Abwehr", "Tod", "Heulen", "Drohen", "Netzwurf", "Bisskette", "Spucken", "Auferstehen", "Kriechen"]
 const GRUPPEN := ["WOLVES", "RATS", "BATS", "SPINNE", "BOARS", "LEECHES", "SLUGS", "WIEDERGAENGER3", "GRABHUNDE", "SKELETONS", "GOBLINS"]
 
 var ruhe := {}            # id -> Bilder in Ruhe
@@ -34,6 +34,7 @@ func _run() -> void:
 	await process_frame
 	var gruppen: PackedStringArray = OS.get_environment("GEGNER").split(",") if OS.get_environment("GEGNER") != "" else PackedStringArray(GRUPPEN)
 	for g in gruppen:
+		print("RUHE744 Gruppe %s" % g)
 		var p = Probe.new()
 		p.hero_cls = "FIGHTER"
 		p.merc_cls = "CLERIC"
