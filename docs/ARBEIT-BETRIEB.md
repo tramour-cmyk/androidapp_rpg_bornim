@@ -254,3 +254,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:04 11.11.: Nachfolger-Warnung Tom (Übergabe 11.11., 00:28) (lauf.py)
 - 01:06 11.11.: Startsperre 01:06 Start Tom (lauf.py)
 - 01:08 11.11.: Tom 870.4 gestartet …78gmw (Sokrates 01:06, Commit 0e2bf8427)
+- 01:54 11.11.: Startsperre 01:54 Start Sokrates (Neustart-Meldung 01:53, cb4e3667e)
