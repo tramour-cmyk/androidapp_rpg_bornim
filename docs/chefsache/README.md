@@ -307,10 +307,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 15438 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Sokrates** – offen 51, Muss 38, startbar 27
+**Sokrates** – offen 52, Muss 39, startbar 28
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 984 | M | Querschnitt BRS: jede Kampfregel gegen jeden Kampfstil (Krieger, Schütze, Späher, Magier, | startbar |
 | 976a | M | Rückfrage zu 976: Namen der vier Gütestufen (Schlecht, Normal, Gut, Meisterhaft oder Chefw | Chef (Datei in der Chefsache) |
 | 887 | M | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus (dontAsk von | ruht |
 | 870 | M | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen, Bau Tom u | wartet auf 870.13 (wartet) |
