@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [814](entscheiden/814-film-abend.md) | **Muss** | E Welt | 11.11., 12:56 | Lauf 1 lief am Tag, Fackeln und Fahne nicht im Bild; ein zweiter Lauf am Abend oder gleich in den Build? | Spike (Team Tom) |
 
 ## Zu billigen
 
