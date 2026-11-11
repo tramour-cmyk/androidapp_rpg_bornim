@@ -245,7 +245,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 923 | M | Von Tom/Sokrates (t276 gegengelesen): Heiltrank in tools/sim444/werte.json doppelt, welt.h | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (sokrates) |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 15197 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 22, Muss 12, startbar 0
+**Perikles** – offen 24, Muss 12, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -271,6 +271,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 903 | M | D152.1 von Diogenes (771, 657 D): Probe 657 ausgewertet, Prüfbericht Lauf 152; Grundlage 1 | wartet auf Test t276 (Chef) |
 | 919 | M | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): Regeln nachziehen: Testbitte auch bei rot | wartet auf 918 (startbar) |
 | 924 | K | probelauf.py Push-Weg: Zweig für „fremde Rolle“ aus dem Push-Ziel statt aus HEAD (Hinweis | wartet auf Diogenes (greift?) |
+| 927 | K | D162.1 276: Pflichten ohne Anlass in „Jeder Lauf“: Nachhalten (8, täglich ab 8 Uhr), Einga | startbar |
+| 928 | K | D162.2 LISTE-RELEASE-NEUSTART.md Neustart 2: „Startzuordnung in LISTE-BETRIEB.md Schritt 4 | startbar |
 
 **Diogenes** – offen 17, Muss 7, startbar 9
 
