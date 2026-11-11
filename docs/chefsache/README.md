@@ -44,7 +44,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 | 966.1 | M | Von Sokrates (966 Vorentscheid): ein Satz, wenn der Held Morwen am Kessel zur Hand geht (A | startbar |
 
-**Tom** – offen 105, Muss 84, startbar 2
+**Tom** – offen 105, Muss 85, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -151,7 +151,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 964 | M | Von Tom (Zu 870.4, Homer 14:15): Metall sperrt Evokation, Illusion, Beschwörung im Kampf; | wartet auf Test/Build (gebaut) |
 | 963 | M | Von Tom (Zu 870.4, Fremdprüfung Homer 14:15): Heldenreiter Wortlaut ohne Wirkungsloses: Zä | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 875 (krautersammeln) |
 | 966.2 | M | Von Sokrates (966 Vorentscheid): Alchemie übt bei jedem Sud Morwens (laden.gd braue), Koch | wartet auf 966.1 (startbar) |
-| 967 | M? | Von Tuffy (948): halt_653 am Rechner 8 Fehler, Schild im Körper bei KLOSTER_M (20 Ecken, b | startbar |
+| 967 | M | Von Tuffy (948): halt_653 am Rechner 8 Fehler, Schild im Körper bei KLOSTER_M (20 Ecken, b | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 680 (wald) |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 15093 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 106, Muss 98, startbar 0
