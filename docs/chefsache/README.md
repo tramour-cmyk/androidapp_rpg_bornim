@@ -36,7 +36,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 974 | K | Von Jerry (532): Erklärung beim Gedrückthalten der Tasche im Kampf (marstips.gd BAG: „Ein | startbar |
 | 975a | M | Von Sokrates (975, Chef 11.11., 16:31): Name des Handwerks für Leder und Stoff (Handarbeit | Chef (Datei in der Chefsache) |
 
-**Tom** – offen 109, Muss 89, startbar 10
+**Tom** – offen 108, Muss 89, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -148,7 +148,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 954a.12 | M | Von Perikles (954a.2): Erschaffung: nicht wählbare Fertigkeiten (Bergbau, Angeln, Lederarb | wartet auf 870 (wartet) |
 | 954a.9 | M | Von Perikles (954a.2, 954a.3 B): Schmiedelehrling flickt selbst an Borins Amboss mit dem R | wartet auf 870 (wartet) |
 | 976 | M | Von Sokrates (Chef 11.11., 16:31): Rezeptbuch für alle Handwerke (Rezeptliste DESIGN-BRS H | startbar |
-| Pflege | K | von Werkzeug (340.3, 11.11.): 17266 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 112, Muss 104, startbar 18
 
