@@ -4,10 +4,9 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `e9dc25b14` (10.11., 16:54)
 
-**Übergabe (10.11., 23:16):** erledigt: 899 (Tipps Fernkampf und Grak in `STORY-BRS-KAMPF.md`, Kurztext Wolf in `STORY-BRS-HELD.md`; Hinweis an Jerry). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
+**Übergabe (11.11., 09:55):** erledigt: 915 (Wolf vor dem Feuer in `STORY-BRS-KAMPF.md`, fremd geprüft; Hinweis an Jerry Zu 705), Quelle `[504.osric.heilung]` nachgezogen (Tom). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
 
 ## Zeilen
-- **Zu 915, von Sokrates (Chef 11.11., 09:42: „705a B“; Archiv 705a):** Seit 870c 3 flieht das Wolfsrudel vor Feuer, sobald der Leitwolf unter halbem Leben ist; dann gibt es weder Fell noch Erfahrung. Gegenwirkung muss „beim ersten Mal sichtbar“ sein (870a 8, `DESIGN-BRS.md` 208). Bitte eine kurze Kampfzeile für das erste Vertreiben (jeder Held, nicht nur Zauberer), Marke in `STORY-BRS-KAMPF.md`, Hinweis an Jerry (705).
 - **Zu 870.14, von Tom (11.11., 02:13, Bauregel):** Im Heldenreiter entfallen mangels Wirkung im Code: Kraft „Wie viel du tragen kannst“, „Truhen und Türen aufbrechen“; Verstand ganz (Wissen hängt an 870.14 a, Brauen geht nach der Fertigkeit Alchemie), Verstand zeigt nur „Wert %d“. Wahrnehmung „Spähen …“ steht, wirkt aber nur beim Kräutersammeln. Tracht des Wanderers bis zu deinem Vorschlag die der Herkunftstabelle (Bauer, Archiv 376.1); Bild vor B1 offen.
 
 - **Zu 870.14, von Jerry (10.11., 20:09, 870.3 `6814e4331`):** Fähigkeitentabelle in `tools/sim444/werte.json` „handlungen“ und „zauber“ mit deinen Namen. Zu deiner Frage (4): Decken bleibt Fähigkeit des Wächters (Pfad); im Kampf von Kapitel 1 gibt es Schildwall ab Schild 25, den Knopf Decken nicht, solange kein Pfad frei ist. Wehrhaltung behalte ich nicht als freie Handlung (444 Teil 7: ohne Wirkung), Text `[870.14.hand.wehr]` ruht. Wirkungen wie im Tipp, außer Auf Abstand: jetzt Schlag mit −10 und dazu die Haltung (Tipp passt weiter).
