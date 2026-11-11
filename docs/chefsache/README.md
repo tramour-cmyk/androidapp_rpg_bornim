@@ -154,7 +154,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 977 | M | Von Tuffy (744): Grimmzahn im Dorf ohne Ruhebewegung, leute.gd 266 nutzt Streuner.Stub, de | startbar |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 15239 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 112, Muss 104, startbar 8
+**Jerry** – offen 112, Muss 104, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -170,7 +170,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 642 | M | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 | ruht |
 | 705 | M | Zauberlehrling Stufe 1 gewinnt gegen Wolf und Rudel selten (BRS 2–30 %, Messung anspringen | Sperre 620.1 B: 26 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
 | 806 | M | Kampforte mit den Effektpaketen schöner: Gras und Blumen aus R9, Boden, Staub; Bilder/s ni | wartet auf Test (Build 277) |
-| 595 | M | Kampfbewegungen der Kaufgegner: Spinne mehr Angriffe, Egel und Schnecke schneller, Treffhö | wartet auf 595.1 (startbar) |
+| 595 | M | Kampfbewegungen der Kaufgegner: Spinne mehr Angriffe, Egel und Schnecke schneller, Treffhö | startbar |
 | 616 | M | Kampf: Gegner weichen nach dem Angriff rückwärts zurück statt vorwärts zu laufen (Chef 07. | wartet auf Test/Build (gebaut) |
 | 532 | M | Kampf: Held geht ohne Zauberpunkte, Verbrauchtes, Zustände, Metrausch und ohne die ganze T | wartet auf Test (Build 277) |
 | 536 | M | Kampf: Erklärungen bei langem Drücken (MarsTips), Grund bei gesperrtem Zauber, „Kein Ziel | wartet auf Test (Build 277) |
@@ -306,7 +306,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 15438 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Sokrates** – offen 53, Muss 39, startbar 29
+**Sokrates** – offen 52, Muss 38, startbar 28
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -361,7 +361,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 862 | K | Systemlösung? Umhang: 6 frühere Vorgänge (58, 488, 463, 463.1, 656 …), neu 861; einmal gru | startbar |
 | 869 | K | Systemlösung? Rüstung: 2 frühere Vorgänge (49, 817), neu 868; einmal grundsätzlich lösen? | startbar |
 | 930 | M | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (wartet) |
-| 595.1 | M | Von Jerry (595): Lauf 352 rot vor dem Film (Bauwerkzeug: halb ausgepacktes Rar, behoben 15 | startbar |
 | Pflege | K | von Werkzeug (340.3, 11.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 ## So geht's
 
