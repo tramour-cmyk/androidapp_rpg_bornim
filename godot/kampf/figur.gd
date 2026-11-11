@@ -39,6 +39,9 @@ const ERSATZ_KOPF := {"giant_rat": 0.4, "giant_bat": 0.98, "kaufwolf": 1.06, "ka
 const ERSATZ_SCHATTEN := {"giant_rat": [0.3, 0.85, -0.08], "giant_bat": [0.9, 0.5, -0.04]}
 ## Ersatz ohne Umgebungsvariable (Prüf-APK: Probekampf „Ratten“ setzt giant_rat); ERSATZ geht vor
 static var ersatz_art := ""
+## 930.3 (Probe Handgemenge, nur Film und Messung, nie im Spiel): wer nah ist, bleibt nah: der Held geht nach dem Hieb nicht heim,
+## der Gegner setzt nach dem Biss nicht ab; beide stehen dort, wo sie schlugen (Entwurf 930 Regel 1, F7 und F9 entfallen dort)
+static var nah_930 := false
 static func ersatz() -> String:
 	return OS.get_environment("ERSATZ") if OS.has_environment("ERSATZ") else ersatz_art
 ## 494 (Wochenziel 03.11. Reihe 3): Vierbeiner mit eigenen Regeln (tabellen.json, MARS allgemein), im Bild wie der Wolf: Körper,
@@ -2378,7 +2381,7 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 						break
 				if gefunden:
 					break
-			if not gefunden:
+			if not gefunden or nah_930:
 				zurueck = 0.0
 		var ab0 := ende
 		ende = ende - rueck_dir * zurueck
@@ -2390,6 +2393,8 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 		# (wolf_mess_438, Kleriker 41 s: Wolf 3 rückte quer hinter dem beißenden Wolf 1 vorbei, der dann dorthin absetzte): die anderen
 		# kennen den Platz, an dem er abgesetzt stehen wird
 		bahn = bahn.slice(0, bahn.size() - 1) + [ende] if not bahn.is_empty() else [start, ende]     # statt heim: der Platz des Absetzens
+		if nah_930:     # 930.3: der Platz am Helden ist jetzt sein Platz (kein Zurechtrücken in die Reihe)
+			home = Vector3(ende.x, home.y, ende.z)
 		tween.tween_callback(func(): gang = ""; bahn = []; _turn_home())
 		busy_ms = int((t_run + bl + t_back + 0.3) * 1000.0)
 		anlauf_ms = int(t_run * 1000.0)
@@ -2973,7 +2978,11 @@ func _held_schlag(other, weiter := 0.0) -> int:
 	if _gang_ss("Zurück") == "SS_WalkBackwards":
 		back_mps = _held_mps("SS_WalkBackwards") * ANGRIFF_GANG     # 562: zurück im Schritt wie hin
 	var back := maxf(HERO_BACK_S, heim / back_mps)
-	tween.tween_callback(func(): _back_home(back, other))
+	if nah_930:
+		back = 0.0
+		tween.tween_callback(func(): home = position; _face(other.position - position); _idle())
+	else:
+		tween.tween_callback(func(): _back_home(back, other))
 	if other.has_method("halt_fuer_hieb"):
 		other.halt_fuer_hieb(int((t_run + bl + 0.2) * 1000.0))     # 900: bis zum Ende des Hiebs (im selben Bild wie der Plan)
 	busy_ms = int((t_run + bl + back) * 1000.0)

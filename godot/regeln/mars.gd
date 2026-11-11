@@ -12,6 +12,9 @@ const BrsKampf = preload("res://regeln/brs_kampf.gd")
 ## 555 Testmenue „Kampfhilfen“ wie alt (Battle.heroCritsAlways, foesFailSaves), dazu „unsterblich“: der Held faellt nie unter 1 TP;
 ## von Hand an, sonst immer aus (die Gegenproben laufen ohne sie)
 static var held_immer_krit := false
+## 930.3 (Probe Handgemenge, nur Film und Messung, nie im Spiel): nach einem Treffer im Nahkampf schlägt der Held ein zweites Mal
+## (Schwung, Entwurf 930 Regel 2), Ziel frei unter den Gegnern in Reichweite
+static var schwung_930 := false
 static var gegner_ohne_rettung := false
 static var held_unsterblich := false
 ## The lines by name, for the ones picked in several wordings.
@@ -1225,7 +1228,12 @@ func _perform(f: Fighter, o: Array) -> void:
 		"attack":
 			var t := by_id(o[1])
 			assert(t in targets(f))
+			var hp0 := t.hp
 			_attack_action(f, t)
+			if schwung_930 and f.hero != null and not f.ranged() and outcome == "ONGOING" and (t.hp < hp0 or not t.standing()):
+				var t2 = _again(f, t, true)
+				if t2 != null:
+					_weapon_attack(f, t2)
 		"use":
 			assert(blocked(f, o[1]) == null)
 			var t = by_id(o[2]) if o.size() > 2 and o[2] != null else null
