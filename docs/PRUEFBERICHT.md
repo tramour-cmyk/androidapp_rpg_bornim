@@ -52,6 +52,19 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Läufe 163–170 · Kür-Stau Perikles (725, 727, 730, 731, 732, 734, 735, 924; 11.11., 12:1x–12:2x)
+
+Je Vorgang Probe gegen den Befund des alten Laufs; nichts davon in einem echten Lauf eines Teams gesehen.
+
+- **163 · 725 greift mit Lücke** (`warte 725 929`). `cd "$HOME/…"`, `W=…; cd $W`, `export W=… && cd "${W}/…"`, `cd ~/…`, `git -C "$W"` lösen auf; `cd $W` ohne Zuweisung, `cd "$(…)"`, Backticks, Schleifenvariable halten an. **D163.1 → 929:** steht ein cd mit Variable nur als Text vor `git commit`/`git push` (Commit-Nachricht, Vorgangstitel, JSON in printf), hält der Haken ebenso an: nachgestellt mit `probelauf.py < f725.json` (Exit 2), zweimal live an eigenen Befehlen dieser Sitzung (printf mit Probe-JSON; `vorgang.py neu` mit dem Befundtitel).
+- **164 · 727 greift** (`greift 727 164`). Mit JETZT 16.11., 07:10: „ab 16.11., 8 Uhr“, „ab 16.11., 08:00“, „16.11. 18:07 Uhr“, „16.11., 20 Uhr“ geben Datum mit Uhrzeit; um 09:00 die vergangenen None; „16.11., 12 Rollen“ None; am Vortag nur das Datum. Grenze: „16.11.: 8 Uhr“ (Doppelpunkt) wird nicht gelesen; kein Nachfolger nutzt diese Form.
+- **165 · 730 greift** (`greift 730 165`). Auf `claude/build-276`: ohne Eingaben, nur `bild`/`film`, `kampf` leer → frei; `kampf=ja` über `actions_run_trigger`, `gh workflow run -f kampf=656`, API mit `inputs[kampf]` und mit JSON `dorf` → gezählt. Grenze: `leute=nein`, `kamin=nein` zählen, obwohl godot.yml nur „ja“ auswertet.
+- **166 · 731 greift** (`greift 731 166`). Haken ist für `push_files|create_or_update_file` eingetragen. Teamzweig mit Spielcode ohne „Alt:“ hält an (auch einzelne Datei, auch Spike); mit „Alt:“, nur `godot/tests/`, `main` frei. Wie beim Weg über git zählt nur „Alt:“ am Zeilenanfang.
+- **167 · 732 greift** (`greift 732 167`). Beide `git grep` mit `-e`; „-n“ findet 36 Dateien wörtlich, „-Bühne“ 0 ohne Fehler, „Kampfort“ 32.
+- **168 · 734 greift** (`greift 734 168`). In einem Klon von Hand geänderte Liste: Warnung und Zeile `275 | ? | liste-hand | Kennung | Listenhash | main` (trocken, ohne Push). Grenze: Name aus `git config user.name`, auf allen Rollen gleich; die Rolle ist aus der Zeile nicht abzulesen, gezählt wird die Woche. Im Zweig `probelaeufe` noch keine Datei (keine Warnung seit dem Bau).
+- **169 · 735 greift** (`greift 735 169`). Kopf `DESIGN-KAMPF.md` nennt die Prüfung vor dem Versand (783 W1) statt „Verstoß hält den Lauf an“; `DESIGN-ABNAHME.md` 11 war schon angeglichen. Für die Zählung 461b am 16.11.: die alten Archiveinträge 461a, 511, 621.1 tragen kein „→ ersetzt durch“, und 783 W1 im Archiv nennt nur „ersetzt 511, 578“.
+- **170 · 924 greift** (`greift 924 170`). Klon auf `claude/jerry-909-x`, oben „831: Probe“ (Tom): mit Push-Ziel `claude/tom-831-x` 831, aus HEAD wie vorher 909.
+
 ## Lauf 162 · 276 Fords Anleitung auf eine Seite (Perikles, `cb73d5a6a`; 11.11., 12:1x)
 
 - **276 greift mit Lücke** (`warte 276 927, 928`). Gegen die Empfehlung Sokrates (`LISTE-ABLAUF-274.md` „Ford“, `ad8e7e16c`): Startlektüre jetzt `ROLLE-BETRIEB.md` plus „Jeder Lauf“ 4531 Bytes (vorher die ganze Datei, heute 17484; Ziel war etwa 3 KB). Jede Ausgabezeile, die `lauf.py` schreibt (18 Arten), steht im Kopf; RÜCKMELDUNG ist nur Eingabe aus `regelcheck.py`. Abgleich alt/neu: jede gestrichene Stelle steht im Kopf von `lauf.py` oder unter „Bei Anlass“; Umgebung neu nach 901 (365a B) statt des überholten „Hoch nur auf Wort“.
