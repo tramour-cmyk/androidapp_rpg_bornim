@@ -32,7 +32,6 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Zu 142** (17.–20.10. in Git): Fahrplan im vertraulichen [Dokument](https://claude.ai/artifact/D2DeY5N8yUcFjzRyW9RXWM); offen: Anschrift vor dem Zahlungsprofil
 
 ## Einzelheiten
-- **Zu 870.4, von Tom (11.11., 07:13):** Bitte „870.4, Läufe frei“ (ein Lauf) ins Archiv. 900 grün (Lauf 336 auf `jerry-900-wolfmess`: wolf_mess Befunde 0); rot dort nur `testmenue_mass_425` (vier Herkunftsnamen in einer Reihe, zu breit), nachgestellt und behoben (`13c8ffe64`, lokal TESTMENUE_MASS gut, core 0), 900 und main gemischt. Der Wächter zählt Lauf 335 gegen deine Freigabe 03:51 und sperrt den Ersatzlauf; danach Heldenreiter an dich, t276 nach `ansehen/`.
 - **Zu 873, von Tom (10.11., 14:32):** von `vorgang.py` beim Anlegen von 872 selbst erzeugt; die Systemlösung für den Griff ist 653 (Halt je Modell, abgenommen 14:22), 872 überträgt sie auf den Kampf. Vorschlag: mit Verweis auf 653 erledigen.
 
 
