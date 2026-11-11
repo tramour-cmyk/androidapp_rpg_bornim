@@ -66,7 +66,7 @@ Gilt bis zum Umzug auf das BRS; danach `[870.14.wert.…]` in `STORY-BRS-HELD.md
 
 Homer 10.11.; ersetzt die SRD-Sätze aus `Perks.describe` (Ausfuhr `held.json` „erklaerung“, `menue.gd` 293; gleicher Wortlaut in `talente.gd` `describe`). Wörter nach `[423.werte]` und 683 (Schutzwert/Protection, Leben/Life); Grundwert in Klammern = alter Schlüssel der Brücke `brs_held.gd` `ATTR_ALT`. **Nur, was der Code heute tut** (normales Spiel, Schalter BRS478 aus; fremd geprüft 10.11., 10:48, `godot` main 92b2f63f3); Platzhalter wie im Code. Gestrichen, weil es nirgends wirkt: Abwehr gegen Umwerfen, Wurfflaschen +Schaden, Abwehr gegen Netze, Schwächen erkennen, Lernen +Erfahrung, Abwehr gegen Flüche, Sicht im Nebel, Spirituelle Waffe. Kommt eine Wirkung dazu, kommt ihre Zeile mit; rechnet der Kampf nach BRS (2.3), werden Nahkampf, Fernkampf, Schutzwert und Leben neu geschrieben.
 
-`[817.kopf]` (Grundwert nach BRS, 3–9, nicht der SRD-Wert der Brücke) Wert %d / EN: Value %d
+`[817.kopf]` (Grundwert nach BRS, 2–9 (933), nicht der SRD-Wert der Brücke) Wert %d / EN: Value %d
 
 `[817.kraft]` (STR)
 - Treffer und Schaden mit Nahkampfwaffen; leichte Klingen (Dolch, Kurzschwert, Krummsäbel, Rapier) nehmen die Gewandtheit, wenn sie höher ist. / EN: Accuracy and damage with melee weapons; light blades (dagger, shortsword, scimitar, rapier) use Agility if it is higher.

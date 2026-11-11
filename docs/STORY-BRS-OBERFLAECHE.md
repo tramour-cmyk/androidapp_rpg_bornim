@@ -35,11 +35,13 @@ Entfallen mit `erschaffung.gd`, `heldwerte.gd` und den Klassen (Schritt 4), ohne
 
 Texte ohne Würfel (Wirkung und Zahl stehen in den Regelwerten und in der Meldung):
 
-- `potion`: Ein klassischer roter Heiltrank. Wirkt sofort, auch im Kampf. — bleibt.
-- `greater_potion`: „Doppelt so stark wie …“ → Stärker als der einfache Heiltrank. Wirkt sofort, auch im Kampf. / EN: Stronger than the plain healing potion. Works at once, also in battle.
+- `potion` (955, Chef 11.11., 13:55; statt „Ein klassischer roter Heiltrank …“): Rot, mit einem Geschmack nach Eisen; schließt kleine Wunden. Wirkt sofort, auch im Kampf. / EN: Red, with a taste of iron; it closes small wounds. Works at once, even in battle.
+- `greater_potion`: „Doppelt so stark wie …“ → Stärker als der einfache Heiltrank. Wirkt sofort, auch im Kampf. / EN: Stronger than the plain healing potion. Works at once, even in battle. (Homer 11.11., 955: in den Kampf kommt heute nur `potion`, `aufruf.gd` 246; bis Großer und Kostbarer Heiltrank dort trinkbar sind, ohne „, auch im Kampf“ / „, even in battle“)
 - `alchemist_fire`: Wurfmittel. Feuer, setzt den Gegner in Brand. / EN: Thrown. Fire; sets the foe ablaze. („trifft immer“ nur, wenn 870.5 es so baut)
 - `holy_water`: Wurfmittel. Licht; wirkt nur gegen Untote, dort aber hart. / EN: Thrown. Light; harms only the undead, but hard.
 - `roast_meat`: Stärkt für den nächsten Kampf: du triffst leichter und schlägst härter. / EN: Fortifies you for the next battle: you land blows more easily and hit harder. (wie `[870.14.satt]`)
+- `spider_silk` (934): Fein und zäh wie Draht, aus dem Leib einer Riesenspinne. Feuer frisst sie im Nu. Händler zahlen gut dafür. / EN: Fine and tough as wire, from the body of a giant spider. Fire consumes it in an instant. Traders pay well for it. (Feuer verbrennt die Seide, `lohn.gd` 78)
+- `spider_gland` (934): „… Morwen kann daraus Alchemistenfeuer mischen.“ → Aus einer Riesenspinne. Morwen mischt daraus Brandflaschen. / EN: From a giant spider. Morwen mixes firebottles from it. (Rezept Morwen: Brandflasche aus 1 Giftdrüse, `Recipes.kt` 17)
 
 Namen mit SRD-Herkunft (Vorschlag Homer; Text und Wirkung bleiben, nur der Name wechselt):
 
