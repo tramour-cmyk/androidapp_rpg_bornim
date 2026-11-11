@@ -562,16 +562,24 @@ func tageszeit() -> String:   # Kampfort.tageszeit: tag, abend, nacht
 
 # gegner wie kampf/probe.gd FOES; [probe] (Test „MARS-Probekampf“, Skirmish.probe): Held und Soeldner [klasse, stufe] statt des eigenen
 # Helden, danach bleibt er, wie er war (kein Lohn, keine TP, kein Tod)
+## 532, 935: was der Held im Kampf trinken oder werfen kann (alt ItemKind POTION, BOMB; Battle.useItem), in dieser Folge in der
+## Tasche des Kampforts
+const KAMPF_TASCHE := ["potion", "greater_potion", "superior_potion", "remedy", "alchemist_fire", "holy_water"]
+
 func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroeffnung := "", nr := 0) -> String:
 	var hw := held_werte() if probe.is_empty() else Testmodus.probeheld(String(probe[0]), int(probe[1]))
 	var soeldner = null if probe.is_empty() else Testmodus.probeheld(String(probe[0]), int(probe[1]))
-	var erg := {"ende": "", "tp": {}, "lohn": {}, "rest": zustand.anzahl("potion"), "held": null}
+	var erg := {"ende": "", "tp": {}, "lohn": {}, "rest": {}, "held": null}
+	# 532 (Durchspielregel 488): die ganze Tasche in den Kampf; danach wird nur weggenommen, was verbraucht ist
+	var tasche := {}
+	for id in KAMPF_TASCHE:
+		if zustand.anzahl(id) > 0: tasche[id] = zustand.anzahl(id)
 	var aufruf := AufrufS.new()
 	add_child(aufruf)
 	aufruf.ende.connect(func(o, tp, lohn):
 		erg["tp"] = tp; erg["lohn"] = lohn
 		if aufruf.kampf and aufruf.kampf.mars:
-			erg["rest"] = int(aufruf.kampf.mars.potions.get("potion", 0))
+			erg["rest"] = aufruf.kampf.mars.potions.duplicate()
 			erg["held"] = aufruf.kampf.mars.find("hero")     # 532: ZP, Verbrauchtes, Zustände nach dem Kampf
 			erg["rauch"] = aufruf.kampf.mars.smoke_thrown     # 494: Morwens Rauchbündel geworfen (Battle.smokeBundle nimmt es weg)
 		erg["ende"] = String(o))
@@ -597,6 +605,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	if probe.is_empty(): lage["aussehen"] = zustand.aussehen   # 403 (Jerry): der Held im Kampf wie im Dorf (HeldFigur)
 	if probe.is_empty(): lage["leiden"] = zustand.leiden.duplicate()   # 532 (Jerry): Zustände aus dem letzten Kampf (GameState.ailments)
 	if probe.is_empty(): lage["betrunken"] = zustand.betrunken()   # 532 Metrausch wie alt (Battle.drunk): betrunken aus der Schenke in den Kampf
+	if probe.is_empty(): lage["tasche"] = tasche   # 532: die ganze Tasche (aufruf.gd starte)
 	if probe.is_empty(): lage["rauch"] = zustand.anzahl(Geschichte.SMOKE_BUNDLE)   # 494 (Jerry, D4.1): Morwens Rauchbündel gegen Krogg
 	if probe.is_empty(): lage["brs"] = zustand.brs   # 478 (Jerry): der Held nach BRS, wenn der Kampf nach BRS rechnet (brs_kampf.gd)
 	if probe.is_empty() and not zustand.fert.is_empty(): lage["brs_fert"] = zustand.fert["werte"]   # 471: was er seither geuebt hat
@@ -631,7 +640,10 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	for k in umgebung.size(): umgebung[k].environment = env_alt[k]
 	kamera.make_current()
 	visible = true; ui.visible = true
-	if probe.is_empty() and int(erg["rest"]) < zustand.anzahl("potion"): zustand.weg("potion", zustand.anzahl("potion") - int(erg["rest"]))   # getrunken
+	if probe.is_empty():
+		for id in tasche:   # 532, 935: getrunken oder geworfen (fehlt ein Ding in der Tasche des Kampfs, ist nichts verbraucht)
+			var rest := int((erg["rest"] as Dictionary).get(id, tasche[id]))
+			if rest < int(tasche[id]): zustand.weg(id, int(tasche[id]) - rest)
 	if probe.is_empty() and bool(erg.get("rauch", false)) and zustand.anzahl(Geschichte.SMOKE_BUNDLE) > 0: zustand.weg(Geschichte.SMOKE_BUNDLE, 1)   # 494: geworfen
 	var lohn: Dictionary = erg["lohn"]
 	var ende := [String(erg["ende"])]

@@ -36,6 +36,7 @@ var root: Control
 var overlay: Control
 var panel: PanelContainer
 var log_area: Control
+var log_box: PanelContainer     # 532: weicht der rollbaren Tasche, solange sie offen ist
 var party_row: HBoxContainer
 var orders: VBoxContainer
 var full_log: PanelContainer
@@ -170,7 +171,7 @@ func _ready() -> void:
 	var col := VBoxContainer.new()
 	col.add_theme_constant_override("separation", int(6 * dp))
 	panel.add_child(col)
-	var log_box := PanelContainer.new()
+	log_box = PanelContainer.new()
 	log_box.add_theme_stylebox_override("panel", _box(Color.BLACK, Color(RIM, RIM.a * 0.35), 6, 2, 1.0))
 	log_box.custom_minimum_size = Vector2(0, 116 * dp)
 	log_box.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -662,6 +663,9 @@ func _spot_name(s: Vector2i) -> String:
 
 
 func _build_orders() -> void:
+	# 532: Bericht und Befehle zusammen, so hoch wie jetzt; die Tasche nimmt beides ein, damit der Kasten (und die Kamera) nicht springt
+	var ganz_h: float = (log_box.size.y + 6 * dp if log_box.visible else 0.0) + orders.size.y
+	log_box.visible = true
 	for c in orders.get_children():
 		c.queue_free()
 	var k = kampfort
@@ -723,7 +727,7 @@ func _build_orders() -> void:
 						_set_pick("target"), false, false, Tips.ATTACK),
 				_button(t("Können", "Abilities"),     # [870.14.knopf.koennen]
 						 not matt and not m.moves(f).is_empty(), func(): _set_pick("skills"), false, false, Tips.SKILLS),
-				_button(t("Tasche", "Bag"), not matt and not m.drinkable().is_empty(), func(): _set_pick("bag"), false, false, Tips.BAG),
+				_button(t("Tasche", "Bag"), not matt and not m.bag().is_empty(), func(): _set_pick("bag"), false, false, Tips.BAG),
 				_button(t("Wechsel", "Switch"), not matt and (m.can_swap(f) or m.can_draw(f)), func(): _set_pick("place"), false, false, Tips.PLACE),
 			]
 			var low := [_button(t("Abwehr", "Defend"), not matt, func(): k.order(["wait"]), false, true, Tips.DEFEND)]
@@ -820,20 +824,57 @@ func _build_orders() -> void:
 			items.append(back)
 			_choices(items)
 		"bag":
-			var items := []
-			for id in m.drinkable():
+			# 532 (t273.13, Chef: „Früher gab es da so eine Scroll-Liste“; alt BattleScreen.BagMenu): je Ding eine Zeile über die
+			# ganze Breite, Bild links, Name und Anzahl, rollbar an der Stelle des Berichts; „Zurück“ fest darunter. Vorher drei Kästen
+			# je Zeile, nach ihrer Aufschrift breit: mit „×10“ liefen sie rechts aus dem Schirm, „Zurück“ abgeschnitten
+			var liste := VBoxContainer.new()
+			liste.add_theme_constant_override("separation", int(6 * dp))
+			liste.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			for id in m.bag():
 				var it: Dictionary = m.items[id]
 				var item: String = id
-				items.append(_button("%s ×%d" % [[it.de, it.en][lang], int(m.potions[id])], true, func(): _set_pick("drink_at", item)))
-			items.append(back)
-			_choices(items)
+				var zeile := HBoxContainer.new()
+				zeile.add_theme_constant_override("separation", int(8 * dp))
+				var bild := TextureRect.new()
+				bild.texture = Kartenreiter.bild("ding-" + id)
+				bild.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+				bild.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+				bild.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+				bild.custom_minimum_size = Vector2(32, 32) * dp
+				bild.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+				zeile.add_child(bild)
+				var wurf := String(it.get("kind", "")) == "BOMB"     # 935: Wurfmittel wirft man auf einen Gegner
+				var b := _button("%s ×%d" % [[it.de, it.en][lang], int(m.potions[id])], true, func(): _set_pick("throw_at" if wurf else "drink_at", item), false, true)
+				b.alignment = HORIZONTAL_ALIGNMENT_LEFT
+				b.clip_text = true
+				b.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+				zeile.add_child(b)
+				liste.add_child(zeile)
+			var rolle := ScrollContainer.new()
+			rolle.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+			rolle.size_flags_vertical = Control.SIZE_EXPAND_FILL
+			rolle.add_child(liste)
+			log_box.visible = false
+			back.custom_minimum_size.y = 48 * dp
+			rolle.custom_minimum_size.y = maxf(ganz_h - 48 * dp - 6 * dp, 54 * dp)
+			orders.add_child(rolle)
+			orders.add_child(_row([back]))
 		"drink_at":
 			var items := []
 			for tg in m.fighters():
 				if tg.side == f.side and tg.standing():
 					var id: String = tg.id
 					var item: String = pick_arg
-					items.append(_button("%s  %d/%d" % [tg.name(lang), tg.hp, tg.max_hp], true, func(): k.order(["drink", item, id])))
+					# 532 (alt ALREADY_FULL): wem der Trank nichts bringt (volles Leben, beim Kräutertrank auch keine Zustände), der ist nicht wählbar
+					items.append(_button("%s  %d/%d" % [tg.name(lang), tg.hp, tg.max_hp], m.drink_helps(item, tg), func(): k.order(["drink", item, id])))
+			items.append(back)
+			_choices(items)
+		"throw_at":
+			var items := []
+			for tg in m.throw_targets(pick_arg):
+				var id: String = tg.id
+				var item: String = pick_arg
+				items.append(_button(_target_label(tg), true, func(): k.order(["throw", item, id])))
 			items.append(back)
 			_choices(items)
 

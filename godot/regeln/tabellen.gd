@@ -6,7 +6,8 @@ extends RefCounted
 # - monsters: je Kennung aus werte.json „kennungen“ (Name nach DESIGN-BRS.md 12), „monster“ (Leben, Boss) und „monsterregeln“
 #   (Sonderregel, Schadensart des Angriffs, Gift, immun, Gold, Beute); keine Würfel des SRD mehr: „hp“ ist das Leben nach BRS als
 #   fester Ausdruck [0, 0, Leben], „gold“ der gleichverteilte Wurf von min bis max.
-# - items: die Dinge mit Namen aus daten/texte.json (Sprache, mit Homers Namen 870.15); Heilung steht in werte.json „welt“ „heilung“.
+# - items: die Dinge mit Namen aus daten/texte.json (Sprache, mit Homers Namen 870.15); Heilung steht in werte.json „welt“ „heilung“;
+#   was im Kampf geht, sagt werte.json „kampftasche“ (532, 935: kind, cures, brs).
 # - skills: leer; die Kampfhandlungen und Zauber nach BRS legt MARS selbst an (mars.gd _brs_handlungen).
 # - probe: Probehelden je alter Klasse (Probekampf des Testmenüs, kampf/probe.gd, Tests) als Held nach BRS der passenden Herkunft
 #   (BrsKampf.KLASSE_HERKUNFT), Heldenstufe 3, mit Ausrüstung der Herkunft.
@@ -47,7 +48,16 @@ static func items() -> Array:
 	var d: Dictionary = Sprache.texte.get("dinge", {})
 	for id in d:
 		var n = d[id].get("name", {})
-		out.append({"id": String(id), "de": String(n.get("de", id)) if n is Dictionary else String(id), "en": String(n.get("en", id)) if n is Dictionary else String(id)})
+		var it := {"id": String(id), "de": String(n.get("de", id)) if n is Dictionary else String(id), "en": String(n.get("en", id)) if n is Dictionary else String(id)}
+		# 532, 935: was man im Kampf trinkt oder wirft (werte.json „kampftasche“): kind POTION, BOMB; cures; brs = Eintrag in „kampftraenke“
+		var kt: Dictionary = Brs.lade().get("kampftasche", {})
+		if String(id) in kt.get("trinken", []):
+			it["kind"] = "POTION"
+			it["cures"] = String(id) in kt.get("heilt_zustaende", [])
+		elif kt.get("werfen", {}).has(String(id)):
+			it["kind"] = "BOMB"
+			it["brs"] = String(kt.werfen[String(id)])
+		out.append(it)
 	return out
 
 ## Probehelden je alter Klasse: {"hero": {hp, hero: Blatt}, "merc": {...}} wie früher tabellen.json „probe“

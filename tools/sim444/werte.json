@@ -422,6 +422,12 @@
     "alchemie_decke": 24,
     "_decke": "Spalte 'Alch. 24': wer mit Alchemie beginnt, hat sie bis zur Decke von Kapitel 1 geuebt (Sammeln ist nicht gerechnet)"
   },
+  "kampftasche": {
+    "_quelle": "532, 935 (Jerry 11.11.; alt ItemKind POTION, BOMB, Battle.useItem): was der Held im Kampf aus der Tasche nimmt; trinken (Heilung: welt heilung), werfen (Ding -> Eintrag in kampftraenke), heilt_zustaende: nimmt alle Zustaende ausser dem Rausch",
+    "trinken": ["potion", "greater_potion", "superior_potion", "remedy"],
+    "werfen": {"alchemist_fire": "Alchemistenfeuer", "holy_water": "Weihwasser"},
+    "heilt_zustaende": ["remedy"]
+  },
   "welt": {
     "_quelle": "870.4 (Tom 11.11., LISTE-UMZUG-BRS.md Schritt 4): die Welt nach dem BRS statt nach dem SRD (Heldwerte entfallen). Alle Zahlen A als Uebergang, so gewaehlt, dass sich wenig aendert (Leben nach BRS sind auf Stufe 1 etwa doppelt so gross wie die alten TP); Vorentscheid Sokrates erbeten (783 W5), Messung 444, Vorlage an den Chef vor B1",
     "heilung": {"potion": 14, "greater_potion": 28, "superior_potion": 56, "remedy": 5, "roast_meat": 14},
