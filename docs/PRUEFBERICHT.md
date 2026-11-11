@@ -52,6 +52,12 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 173 · 903 B (2) Checkliste „Vorlage an den Chef“ (Perikles, Doppelpack 421, `6f06ed112`; 11.11., 14:0x)
+
+- **903 greift** (`greift 903 173`): deckt, was B nennt (Bild, Film, Chefsache, Antwort ins Archiv). Alle zehn Quellen tragen: 715 `ROLLE-PROJEKT.md` 107, 302.3 Bekannte Fehler, 457 und 890 `commit-pruefung.py`, 434 Rollendatei, 364 Archiv, 799 `probelauf.py` 865, Bildmaße `chefsache/README.md` 374, 655, 783 W1, W8, 338.2, 383.3, t78 im Archiv oder in `CLAUDE.md`. `treffer`: `entscheiden/`, `billigen/`, `tun/`, `ansehen/948-…` → Vorlage; `ansehen/t276-…` → Build und Test; README, `bilder/` → nichts. Zusatztext 2582 Zeichen, ganz.
+- Grenze: der Abschnitt „Zum Kopieren“ erscheint nicht mehr von selbst bei `entscheiden/` (vorher ja); Punkt 4 verweist darauf.
+- 905 wartet auf 16.11. (zählen, sobald etwa zehn Vorlagen da sind).
+
 ## Lauf 172 · 940, 941 (Perikles, Doppelpack 421, `2ac1ac48b`; 11.11., 14:0x)
 
 - **941 greift** (`greift 941 172`): `warte_chef_nummern` an 14 Fällen: Merkmal in „…“, "…", `…` still; „653 … wartet auf Chef“ → 653; „506a wartet auf den Chef; 423 wartet auf Chefsache 857“ → 506a, 857; „72s.1“, „948 (Dolch)“, „948: …, wartet auf Chefsache 948a“ richtig; Datum davor gibt „?“ mit Satzteil (meldet trotzdem). Echte Vorräte 14:02: kein Treffer, richtig (keine Übergabe wartet auf den Chef). Grenze: Mehrzahl „948 und 949 warten auf Chef“ zählt nicht (auch vorher nicht).
