@@ -12,7 +12,8 @@ Probelauf heißt:
   `tools/pruef348/` (alle außer `rechner.sh`) oder `*_lauf.sh`; der Vorgang steht davor: `PROBE=<Nr> bash …`;
   kein Probelauf: `godot --headless --path <dir> -s res://tests/<datei>.gd` ohne Bildbefehl in der Testdatei (390a);
 - ein Ablauf auf GitHub, von Hand gestartet (407, 02.11.: 20 Filme zu 417 über `tom-probe-417.yml` ungezählt): `actions_run_trigger`
-  (run_workflow) oder `gh workflow run`/API `…/dispatches`; Vorgang = erste Nummer der Commit-Nachricht oben auf dem Zweig (ohne Nummer, etwa ein Merge: jüngster eigener Commit mit Nummer, 911),
+  (run_workflow) oder `gh workflow run`/API `…/dispatches`; Vorgang = erste Nummer der Commit-Nachricht oben auf dem Zweig (ohne Nummer, etwa ein Merge: jüngster eigener Commit mit Nummer, 911;
+  gehört dessen Vorgang einer anderen Rolle als der Zweig, Spike wie Tom, Tuffy wie Jerry: Vorgang aus dem Zweignamen, 912, 920),
   sonst Nummer in Klammern im Namen des Ablaufs; auch ein Messlauf mit bild=nein (646, ersetzt 390a für den Bauserver),
   nur ein Sammelbuild `claude/build-<n>` für den Gerätetest nicht; Neustart eines Laufs (rerun) hält der Haken an;
 - ein Push auf einen Zweig `claude/…`, der einen Ablauf auslöst (letzter Commit ohne „[skip ci]“, Änderung
@@ -350,6 +351,7 @@ def vorgang_aus_ref(ref, ablauf):
 
 
 BESITZER = ("Homer", "Tom", "Jerry", "Perikles", "Diogenes", "Sokrates", "Ford")
+ZUSATZ_TEAM = {"Spike": "Tom", "Tuffy": "Jerry"}  # Zusatzentwickler (433)
 
 
 def vorgaenge():
@@ -405,6 +407,7 @@ def nr_aus_verlauf(wo, rev, zweig=None):
             eigen = nr.group(1); break
     bekannt = vorgaenge()
     rolle = (zweig or "").removeprefix("refs/heads/").removeprefix("claude/").split("-")[0].capitalize()
+    rolle = ZUSATZ_TEAM.get(rolle, rolle)  # 920 (D158.1): Spike arbeitet Toms, Tuffy Jerrys Zeilen; Besitzer in der Liste ist das Team
     if eigen and not (rolle in BESITZER and bekannt.get(eigen) in BESITZER and bekannt.get(eigen) != rolle):
         return eigen
     return nr_aus_zweigname(zweig, bekannt) or eigen
