@@ -320,7 +320,7 @@ static func name(g: Dictionary, sprache: String = "") -> String:
 # Kotlin teilt ganze Zahlen zur Null hin
 static func _ganz_div(a: int, b: int) -> int: return int(a / b) if a >= 0 else -int(-a / b)
 
-# DiceExpr.label: „1W8+1“, englisch „1d8+1“
+# DiceExpr.label: „1W8+1“, englisch „1d8+1“; 944: nie mehr in einem Text des Spiels (nur Tests der alten Werte)
 static func wuerfel_text(e: Array, plus: int, de: bool) -> String:
 	var bonus := int(e[2]) + plus
 	var b := ("+%d" % bonus) if bonus > 0 else (str(bonus) if bonus < 0 else "")
@@ -332,10 +332,9 @@ static func kennwert(g: Dictionary, sprache: String = "") -> String:
 	var de := sprache == "de"
 	var b := grundform(String(g["base"]))
 	var plus := int(g["plus"])
-	if b["schaden"] != null:
-		var t := wuerfel_text(b["schaden"], plus, de)
-		if b["vielseitig"] != null: t += "/" + wuerfel_text(b["vielseitig"], plus, de)
-		return t + " " + String(d_()["schadensarten"][String(b["schadensart"])][sprache])
+	if b["schaden"] != null:     # 944 (t276.5): [870.14.ding.schaden] ohne Würfel, wie Menue.schaden_text
+		var wd: Dictionary = BrsHeld.lade()["waffen"].get(BrsHeld.fertigkeit_von(String(g["base"])), {})
+		return ("Schaden %d · %s" if de else "Damage %d · %s") % [int(wd.get("schaden", 0)), String(d_()["schadensarten"][String(b["schadensart"])][sprache])]
 	if String(b["slot"]) == "CHEST" and int(b["ruestung"]) > 0: return ("Schutzwert " if de else "Protection ") + str(int(b["ruestung"]) + plus)
 	if String(b["art"]) == "SHIELD": return ("Schutzwert +" if de else "Protection +") + str(int(b["ruestung"]) + plus)
 	if int(b["fokus"]) > 0: return ("Zauberkraft +" if de else "Spell power +") + str(int(b["fokus"]))
