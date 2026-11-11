@@ -18,7 +18,8 @@ Muss durch Wartende (190.3, 162): wartet eine Muss-Zeile auf Nummer X, zählt X 
 Zeilen mit „wiederholt“ im Titel stehen vor allem anderen, nur die „jetzt“-Zeilen davor (620.1 A).
 Ab 6 gebauten oder zu testenden Muss eines Teams (ohne Sammelbuild) sperrt neues Muss bis zum Test, aber nur, wenn es sich mit
 Ungetestetem überschneidet (Nummer, Titelwort wie Ort oder Figur, geänderte Datei; 779, Chef 09.11., 17:30); frei bleiben wiederholt,
-„jetzt“, Rückläufer mit Build und Angefangenes (620.1 B, Chef 08.11., 10:55/10:57).
+„jetzt“, Rückläufer mit Build und Angefangenes (620.1 B, Chef 08.11., 10:55/10:57; ein Rückläufer ist ein Fund, den der Chef
+zum zweiten Mal meldet, also „wiederholt“ nach 620.1 A; Angefangenes ist kein neues Muss; 729).
 Wächter 424: eine sonst startbare Zeile, die Regeln des alten Systems nennt, ruht. Exit 1 bei unlesbaren oder ungültigen Zeilen.
 Laufende Sitzungen kennt das Werkzeug nicht; die liest Ford aus list_sessions.
 """
