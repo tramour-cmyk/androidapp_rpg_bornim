@@ -39,7 +39,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
-**Tom** – offen 110, Muss 90, startbar 8
+**Tom** – offen 124, Muss 104, startbar 12
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -153,8 +153,22 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 976 | M | Von Sokrates (Chef 11.11., 16:31): Rezeptbuch für alle Handwerke (Rezeptliste DESIGN-BRS H | startbar |
 | 977 | M | Von Tuffy (744): Grimmzahn im Dorf ohne Ruhebewegung, leute.gd 266 nutzt Streuner.Stub, de | startbar |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 15239 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 785.1 | M | Von Spike (785): Reiter Held zeigt den Anteil der Ausrüstung je Grundwert und den Satz zur | wartet auf 870.13 (wartet) |
+| 785.2 | M | Von Spike (785): Reiter Fertigkeiten: Antippen erklärt, was die Fertigkeit tut (alt Satz j | wartet auf 870.13 (wartet) |
+| 785.3 | M | Von Spike (785): Vorratsfenster der Tasche nennt die Seltenheit als Wort wie alt (Dialogs. | wartet auf 870.13 (wartet) |
+| 785.4 | M | Von Spike (785): Gegenstandsfenster nennt bei Fernwaffen „Fernkampf“ wie alt (GearUi.kt 19 | wartet auf 870.13 (wartet) |
+| 785.5 | M | Von Spike (785): Kampfwerte im Reiter Ausrüstung mit Zeile für die Nebenhandwaffe wie alt | wartet auf 870.13 (wartet) |
+| 785.6 | M | Von Spike (785): Kampfwerte zeigen Lebensraub, Widerstand, Goldfund, EP-Bonus der getragen | wartet auf 870.13 (wartet) |
+| 785.7 | M | Von Spike (785): Karte im Menü: Wald, Tiefer Wald, Höhle als Kartenblatt mit Nebel, Höhlen | wartet auf 870.9 (in Arbeit) |
+| 785.8 | M | Von Spike (785): Karte im Menü: Lagerfeuer-Marken und Zielmarke eines Auftrags wie alt (Me | startbar |
+| 785.19 | M | Von Spike (785): Gespräche: Text erscheint Zeichen für Zeichen, Tippen zeigt ihn ganz, wie | startbar |
+| 785.20 | M | Von Spike (785): Klick-Klang auch auf Knöpfen im Stil 549a (PanelContainer: Spielstände, E | startbar |
+| 785.21 | M | Von Spike (785): Android-Zurück wie alt: in der Welt öffnet sie das Menü (WorldScreen.kt 1 | wartet auf 870.13 (wartet) |
+| 785.22 | M | Von Spike (785): Leiste zeigt den Zustand „Satt“ wie alt (WorldScreen.kt 2856–2872; zustan | wartet auf 870.13 (wartet) |
+| 785.23 | M | Von Spike (785): Renntaste geht von selbst aus, wenn der Held steht oder außer Atem ist (W | startbar |
+| 785.24 | M | Von Spike (785): Laden: Vorräte mit Wirkungszeile in der Liste wie alt (ShopScreen.kt 226– | wartet auf 870.13 (wartet) |
 
-**Jerry** – offen 113, Muss 104, startbar 9
+**Jerry** – offen 123, Muss 114, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -271,6 +285,16 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 980 | M | Von Tom (968, Lauf 43051633587): Kaufskripte unter tools/blender348 nehmen glob()[0]; lieg | startbar |
 | 983 | M | Kampf: Goblin geht nach Umstellen der Reihe nicht an seinen Platz, Skriptfehler „Gehen“ in | wartet auf Test/Build (gebaut) |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 15157 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 785.9 | M | Von Spike (785): MARS-Probekampf im Systemmenü mit Regelseite (Reihen, Ansagen, Ring, Perf | wartet auf 870.13 (wartet) |
+| 785.10 | M | Von Spike (785): Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber | wartet auf 870.13 (wartet) |
+| 785.11 | M | Von Spike (785): Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterschei | wartet auf 870.13 (wartet) |
+| 785.12 | M | Von Spike (785): Ring: Ersthinweis am ersten Ring und Erklärung des Zeichens im Bericht; U | wartet auf 870.13 (wartet) |
+| 785.13 | M | Von Spike (785): Ersthinweise im Kampf: „Nahkampf erreicht nur die vordere Reihe“ nur im e | wartet auf 870.13 (wartet) |
+| 785.14 | M | Von Spike (785): Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „ha | wartet auf 870.13 (wartet) |
+| 785.15 | M | Von Spike (785): Erklärfenster im Kampf lässt sich wegtippen und verschwindet während des | wartet auf 870.13 (wartet) |
+| 785.16 | M | Von Spike (785): Raster- und Würfelschalter im Kampf über Kämpfe gemerkt (GameViewModel.kt | wartet auf 870.13 (wartet) |
+| 785.17 | M | Von Spike (785): Zurück-Taste im Kampf schließt Untermenü und ganzen Bericht (BS 631, SK 3 | wartet auf 870.13 (wartet) |
+| 785.18 | M | Von Spike (785): Stufenaufstieg im Endfeld des Kampfes hervorgehoben (alt eigenes Feld „St | wartet auf 870.13 (wartet) |
 
 **Perikles** – offen 14, Muss 13, startbar 0
 
@@ -307,7 +331,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 15438 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Sokrates** – offen 52, Muss 39, startbar 28
+**Sokrates** – offen 53, Muss 39, startbar 29
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -363,6 +387,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 862 | K | Systemlösung? Umhang: 6 frühere Vorgänge (58, 488, 463, 463.1, 656 …), neu 861; einmal gru | startbar |
 | 869 | K | Systemlösung? Rüstung: 2 frühere Vorgänge (49, 817), neu 868; einmal grundsätzlich lösen? | startbar |
 | 930 | M | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (wartet) |
+| 985 | K | Systemlösung? Nebel: 2 frühere Vorgänge (505, 502), neu 785.7; einmal grundsätzlich lösen? | startbar |
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
