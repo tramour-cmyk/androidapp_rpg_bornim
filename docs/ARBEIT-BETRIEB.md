@@ -75,13 +75,11 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
-- 08:15 11.11.: Startsperre 08:15 Start Diogenes (Ford, vor dem Start; Auftrag Diogenes 907, 908, 559dc33c7; Umgebung Hoch)
-- 08:14 11.11.: Diogenes …78YAW (903, Lauf 154 gepusht) archiviert, 1,59 $ auf 903
-- 08:13 11.11.: Start-Meldung Perikles 907, 908 (Diogenes Lauf 154, 057ada2b6): als „Weiter: 907, 908“ an Perikles …75nyB (läuft, Lauf 8). Spike …7A7ke (492 ohne Arbeit, hängt an 870.4) archiviert, 1,47 $ auf 492; Spike 492 dauerhaft `--ohne`. Tom …78hPe: `WEITER Tom` bewusst nicht ausgeführt (Wecker 08:38, Lauf 338)
-- 08:09 11.11.: Startsperre 08:09 Start Diogenes (Ford, vor dem Start; Auftrag Diogenes 903, fa1eb5a5f; Umgebung Hoch)
-- 08:06 11.11.: Lauf 08:04: Spike …7A7ke „Spike – 492“ und Tuffy …774gF „Tuffy – 536“ in Hoch gestartet (Muss, Chef 07:16). Zwischenfall: `lauf.py` aus dem Arbeitskopf `androidapp_rpg_bornim` gerufen rechnete mit altem Stand (START Spike 680, Tuffy 705, beide schon gebaut); Marken gestrichen, nichts gestartet. Künftig `lauf.py` aus `/home/user/bornim-main/tools` rufen oder vorher im Arbeitskopf `git pull origin main`
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry (07:04 Jerry 806, 08:05 Jerry 806, 10:26 Jerry 595) aus eigener Beurteilung aus (Kaufrepo, Pacing, Sitzungsgrenze), ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch: 59 Muss). Lücke im Werkzeug: Startsperre wird geschrieben, auch wenn nie gestartet wird; kein WARNUNG-LAUT wie bei ARCHIVIERE. Vorschlag an den Chef gestellt
 
+- 08:14 11.11.: Diogenes …78YAW (903, Lauf 154 gepusht) archiviert, 1,59 $ auf 903
+- 08:13 11.11.: Start-Meldung Perikles 907, 908 (Diogenes Lauf 154, 057ada2b6): als „Weiter: 907, 908“ an Perikles …75nyB (läuft, Lauf 8). Spike …7A7ke (492 ohne Arbeit, hängt an 870.4) archiviert, 1,47 $ auf 492; Spike 492 dauerhaft `--ohne`. Tom …78hPe: `WEITER Tom` bewusst nicht ausgeführt (Wecker 08:38, Lauf 338)
+- 08:06 11.11.: Lauf 08:04: Spike …7A7ke „Spike – 492“ und Tuffy …774gF „Tuffy – 536“ in Hoch gestartet (Muss, Chef 07:16). Zwischenfall: `lauf.py` aus dem Arbeitskopf `androidapp_rpg_bornim` gerufen rechnete mit altem Stand (START Spike 680, Tuffy 705, beide schon gebaut); Marken gestrichen, nichts gestartet. Künftig `lauf.py` aus `/home/user/bornim-main/tools` rufen oder vorher im Arbeitskopf `git pull origin main`
 - 08:04 11.11.: Start Perikles 264.1 (Chef 08:00 „Läufe frei“): …75nyB „Perikles – 264.1: Lauf 8“ in Hoch gestartet; Perikles …7727 archiviert (3,29 $ nachgebucht auf 901), Sokrates …77G3d archiviert (7,05 $ auf 870, 903, 709). Lauf 08:03 lief nicht als Wecker, Plan von Hand gerechnet; falsche START Spike/Tuffy 680/705 entfielen nach `git pull` (Stand gebaut war nachgezogen)
 - 08:01 11.11.: Neustart Sokrates (9a3c47885): Nachfolger …77wg6 in Hoch gestartet; Sokrates …77G3d arbeitet noch, Archivieren (Kosten auf 870, 903, 709) im Lauf 08:03. Jerry …75Qj archiviert, 9,50 $ auf 751 gebucht (Jerry ersetzte seine Übergabe 07:59 um 854 zuerst; der 806-Nachfolger liest sie)
 - 08:00 11.11.: Neustart Jerry: Nachfolger …782ws „Jerry – 806“ in Hoch gestartet. Spike …76dn (680 fertig, 4,66 $) und Tuffy …7A2W (705 gebaut, 4,26 $) archiviert und gebucht
@@ -99,9 +97,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:30 11.11.: Tom 870.4 gestartet …785yR (Neustart 00:27); Homer …7A7Yy (1,33 $, 899) und Diogenes …79zSr (1,06 $, 896/898) archiviert, gebucht; Tom …75w84 (4,10 $, 888) archiviert der nächste Lauf
 - 00:05 11.11.: Lauf 00:04: START Perikles „M?“ nicht ausgeführt (Planfehler 893); Perikles …75P7 wartet auf Chef (264.1, Läufe frei)
 - 23:27 10.11.: Neustart Jerry 23:26 (8ebbb5f32): Nachfolger „870.6 wartet auf 870.4“ nicht startbar, kein Start; Jerry …76RTd bleibt stehen (belegt), Muss-Arbeit sonst keine. Start folgt, sobald 870.4 durch (lauf.py)
-- 23:14 10.11.: Homer 899 gestartet …7A7Yy (Jerry 23:13); Homer …79xc archiviert, gebucht (10,30 $, 870.15)
-- 23:09 10.11.: Diogenes …75f9 archiviert, gebucht (2,76 $, 890/891); Diogenes 896 gestartet …79zSr (Perikles 23:06); Tom …9Deoz archiviert, gebucht (7,52 $, 888)
-- 23:04 10.11.: Jerry …794Tg archiviert, gebucht (6,04 $, 870.5); Tom-Nachfolger …75w84 (23:03), Vorgänger …9Deoz wartet auf Ruhe
+- 08:15 11.11.: Startsperre 08:15 Start Diogenes (Ford, vor dem Start; Auftrag Diogenes 907, 908, 559dc33c7; Umgebung Hoch)
+- 08:09 11.11.: Startsperre 08:09 Start Diogenes (Ford, vor dem Start; Auftrag Diogenes 903, fa1eb5a5f; Umgebung Hoch)
 - 07:59 11.11.: Startsperre 07:59 Start Jerry (Neustart-Meldung 07:58, f48aaad02; Umgebung Hoch)
 - 08:01 11.11.: Startsperre 08:01 Start Sokrates (Neustart-Meldung 07:59, 9a3c47885; Umgebung Hoch)
 - 07:46 11.11.: Neustart Perikles (a244b11af): Nachfolger „264.1“ nicht startbar (wartet auf Chef), kein Start; Perikles …7727 bleibt stehen, 1,55 $ gebucht (901). START Diogenes 771 und WEITER Perikles 901 mit `--ohne` ausgeschlossen (771 und 901 erledigt, Stand nicht gesetzt; Hinweis in ihren Vorräten); Startsperre 07:45 von Hand gestrichen (nichts gestartet)
@@ -311,3 +308,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:01 11.11.: Marke Start-fehlt Tuffy 11.11.-07:21 (lauf.py)
 - 08:01 11.11.: Marke Archiv session_01Hmoj7727yEYpa1M7HvBAsA (lauf.py)
 - 08:05 11.11.: Startsperre 08:05 Start Spike, Tuffy (lauf.py)
+- 09:04 11.11.: Startsperre 09:04 Start Perikles, Spike, Tuffy (lauf.py; Tom nicht, Wecker 09:07; Tuffy statt 854 auf 784, 854 baut Jerry)
+- 09:04 11.11.: Marke Start-fehlt Spike 11.11.-08:05 (lauf.py)
+- 09:04 11.11.: Marke Archiv session_01Hmoj75nyB9hCtDncgRwnXC (lauf.py)
+- 09:04 11.11.: Marke Archiv session_01Hmoj774gFykp2ZWEU1e46m (lauf.py)
