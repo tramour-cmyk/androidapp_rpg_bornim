@@ -63,7 +63,13 @@ def quelle():
     t = sorted(glob.glob(os.path.join(KAUF, '**', 'DARKNESS_SPIDER.FBX'), recursive=True))
     if not t:
         sys.exit('DARKNESS_SPIDER.FBX nicht gefunden unter %s' % KAUF)
-    return t[0], os.path.dirname(t[0])
+    # 968 (Lauf 43051633587): im Kaufordner liegen zwei Fassungen, „DARKNESS SPIDER RAW FILES“ als ASCII-FBX (Blender liest sie nicht)
+    # und die aus dem Unity-Paket; sortiert kam die ASCII-Fassung zuerst. Nur Binär-FBX nehmen (Kopf „Kaydara FBX Binary“).
+    binaer = [f for f in t if open(f, 'rb').read(18) == b'Kaydara FBX Binary']
+    if not binaer:
+        sys.exit('DARKNESS_SPIDER.FBX nur als ASCII-FBX vorhanden (Blender liest sie nicht): %s' % ', '.join(t))
+    print('SPINNE Quelle %s (von %d)' % (binaer[0], len(t)), flush=True)
+    return binaer[0], os.path.dirname(binaer[0])
 
 
 def bild(pfad, kante):
