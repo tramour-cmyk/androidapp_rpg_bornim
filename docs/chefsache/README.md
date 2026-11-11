@@ -48,7 +48,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
-**Tom** – offen 104, Muss 85, startbar 1, PAUSE bis 13.11., 20:00 Uhr, frei für 870.x, 506, 470, 888
+**Tom** – offen 104, Muss 85, startbar 0, PAUSE bis 13.11., 20:00 Uhr, frei für 870.x, 506, 470, 888
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -61,7 +61,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 697 | M | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | wartet auf 782 (startbar) |
 | 680 | M | Absturz: Testmenü Sprung Wald → Dorf, in der Schenke schon hakelig, nach Met immer zäher, | Pause, nicht frei |
 | 506 | M | Untote im Kampf: Skelett, Zombie, Ghul (aus 494, Spike; Wochenziel 03.11., 488) · zurück t | wartet auf Test (Build 275) |
-| 870.4 | M | Von Sokrates (870, Umzug BRS Schritt 4; „jetzt“ 10.11., 22:24, Nachtauftrag Chef): Held: H | startbar |
+| 870.4 | M | Von Sokrates (870, Umzug BRS Schritt 4; „jetzt“ 10.11., 22:24, Nachtauftrag Chef): Held: H | wartet auf 900 (startbar) |
 | 870.7 | M | Von Sokrates (870, Umzug BRS Schritt 6): Laden, Vergleich und Gegenstandsfenster nach BRS- | wartet auf 870.4 (in Arbeit) |
 | 870.8 | M | Von Sokrates (870, Umzug BRS Schritt 7): Spielstände Version 2 mit BRS-Held; alte laden ni | wartet auf 870.4 (in Arbeit) |
 | 870.9 | M | Von Sokrates (870, Umzug BRS Schritt 8): Godot ganz aus Kotlin (870a 7 B): zuerst festlege | wartet auf 870.4 (in Arbeit) |
@@ -157,10 +157,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 867 | M | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 653 (figuren) |
 | 875 | M | Von Homer (857a A, Chef 10.11., 13:35): Fertigkeit Kräuterkunde heißt im Spiel Kräutersamm | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 470 (erschaffung) |
 
-**Jerry** – offen 86, Muss 72, startbar 0, PAUSE bis 13.11., 20:00 Uhr, frei für 870.x, 709, 709.1, 854, 506.1, 506.2
+**Jerry** – offen 87, Muss 73, startbar 0, PAUSE bis 13.11., 20:00 Uhr, frei für 870.x, 709, 709.1, 854, 506.1, 506.2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 900 | M | Von Tom (870.4, B1): Lauf 335 rot an wolf_mess_438 mit BRS-Kampf: Biss gleitet 0,56 m (Gre | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 854 (jetzt) |
 | 870.2 | M | Von Sokrates (870, Umzug BRS Schritt 2): Schnittstelle Held ↔ Kampf: BrsHeld.kampfblatt() | wartet auf Test/Build (gebaut) |
 | 870.3 | M | Von Sokrates (870, Umzug BRS Schritt 3): Daten: werte.json einzige Quelle (Jungwolf, Leibw | wartet auf Test/Build (gebaut) |
 | 709.1 | M | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar (aus 709 abgetrennt, Chef 10.11., | Chef (Datei in der Chefsache) |
