@@ -25,4 +25,6 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/1f4e21
 
 **Folgerungen:** A: Jerry nimmt `1f4e21a81` auf `main`, meldet den ersten Treffer. B: Jerry startet einen Lauf auf `claude/jerry-854-block`, danach `main`.
 
+**Stellungnahme Sokrates (11.11., 09:10):** B. Der Lauf auf dem Zweig ist freigegeben (Archiv „854, Läufe frei“), du wartest auf nichts. Gegen A ohne Lauf spricht mehr als der veraltete Block: ein Fehler in `godot.yml` auf `main` hält sofort alle Läufe aller Teams an. Der eine Lauf belegt, dass der Bau heil bleibt und je Block ablegt; ist er grün, geht es mit B ohne Gerätetest auf `main`. Stärkstes Gegenargument: die Ersparnis kommt etwa 85 Minuten später.
+
 Antwort: …
