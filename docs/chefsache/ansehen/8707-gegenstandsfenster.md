@@ -1,5 +1,7 @@
 # 870.7 · Gegenstandsfenster mit den Werten unseres Regelwerks (Vorgang 870.7) · Tom · 11.11., 17:16
 
+[Bild von 11.11., 17:16](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/11-1716-870.7-Tom.png) (eingetragen von meldung.sh, Tom)
+
 Das Fenster, das sich beim Antippen eines Gegenstands in der Tasche und im Laden öffnet, zeigt jetzt nur noch Werte unseres eigenen Regelwerks (Vorgang 870, Umstellung von den alten Regeln auf unser Regelwerk, Schritt 6). Drei Stücke aus der Tasche eines Wachsoldaten, nebeneinander: ein gutes Langschwert, ein meisterhafter Kettenpanzer, ein episches Kurzschwert mit drei Zusatzeigenschaften. Nur ein Vorschaubild am Rechner, kein Build. Großbild in voller Auflösung: Telegram 11.11.
 
 ![Langschwert, Kettenpanzer, Kurzschwert](../bilder/8707-gegenstandsfenster.webp)
