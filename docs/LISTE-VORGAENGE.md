@@ -264,6 +264,7 @@
 | 1003 | Von Tuffy (620.2c, zu 95): Heldin keucht im Kampf mit Männerstimme: spiel.gd 1502 gibt klang.atme kein Geschlecht mit (5af6cd0f0 „bis der Held ein Geschlecht hat“) | Jerry | M? | startbar | – | – | – | E Klang | – |
 | 1004 | Von Tuffy (620.2c, zu 72.10a.9): „Decken“ hängt an cls FIGHTER (kampf_ui.gd 700, mars.gd 852), der BRS-Held sieht den Knopf nie, Tipps und Regeltexte nennen ihn | Jerry | M? | startbar | – | – | – | E Kampf | – |
 | Pflege | von Werkzeug (340.3, 11.11.): 15726 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
+| 1006 | Von Tom (861): skelett_506 „Skelette im Gleichklang“ (Stehen 0,51/0,55/0,81) rot auch auf claude/tom-861-umhang ohne a1ab43c8d (Lauf 361, c30ad98fd, Stand main 21:21); Verdacht 595 damit widerlegt, wohl auch main | Jerry | M | startbar | – | – | – | Q QS | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
