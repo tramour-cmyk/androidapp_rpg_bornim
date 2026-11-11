@@ -66,6 +66,63 @@ COMMIT_F = re.compile(r"\bgit\s+(?:-C\s+\S+\s+)?commit\b[^\n]*?\s-[a-zA-Z]*F\s*-
 TEST_SKRIPT = re.compile(r"(?:^|\s)-s\s+[\"']?res://tests/([\w./-]+\.gd)\b")
 BILDBEFEHL = re.compile(r"save_png|save_jpg|save_webp|save_exr|get_image\s*\(|get_texture\s*\(|MovieWriter|screenshot", re.I)
 CD = re.compile(r"\bcd\s+([^\s;&|]+)")
+ZUWEISUNG = re.compile(r"(?:^|[;&|(\s])(?:export\s+)?([A-Za-z_]\w*)=(\"[^\"]*\"|'[^']*'|[^\s;&|]*)")
+VARIABLE = re.compile(r"\$(?:\{(\w+)\}|(\w+))")
+
+
+class Unaufloesbar(Exception):
+    """725 (D72): Ziel eines `cd` mit Variable oder Befehlsersetzung, die der Haken nicht auflösen kann."""
+
+
+def cd_pfad(roh, cwd, vorher=""):
+    """725 (D72, Diogenes Lauf 70): `cd $VAR`, `cd "$HOME/…"`, `cd ~/…` auflösen; Variablen aus Zuweisungen in `vorher`
+    (Befehlstext vor diesem cd: `W=…; cd $W`, `export W=…`), sonst aus der Umgebung. Bleibt `$` oder eine Befehlsersetzung
+    übrig: Unaufloesbar; der Haken hält an, statt in einem erfundenen Ordner nichts zu finden und durchzulassen."""
+    ziel = roh.strip("\"'")
+    lokal = {m.group(1): m.group(2).strip("\"'") for m in ZUWEISUNG.finditer(vorher)}
+    for _ in range(3):  # W=$HOME/x; cd $W
+        neu = VARIABLE.sub(lambda m: lokal.get(m.group(1) or m.group(2), os.environ.get(m.group(1) or m.group(2), m.group(0))), ziel)
+        if neu == ziel:
+            break
+        ziel = neu
+    ziel = os.path.expanduser(ziel)
+    if "$" in ziel or "`" in ziel:
+        raise Unaufloesbar(f"725 (D72): Ziel `cd {roh}` kann der Haken nicht auflösen; Figurenstand (513.1), Parse (464) und "
+                           "Zählung (621 A) liefen sonst im falschen Ordner und ließen durch. Ziel ausschreiben "
+                           "(`cd /home/user/…`) oder `git -C <Pfad>`.")
+    return os.path.join(cwd, ziel)
+
+
+def cd_ziel(befehl, cwd, erstes=False):
+    """Ordner nach dem ersten (erstes=True) oder letzten `cd` in befehl, sonst cwd; Unaufloesbar wie cd_pfad."""
+    ms = list(CD.finditer(befehl))
+    if not ms:
+        return cwd
+    m = ms[0] if erstes else ms[-1]
+    return cd_pfad(m.group(1), cwd, befehl[:m.start()])
+
+
+def wo_von(befehl, m, cwd):
+    """Arbeitskopie eines git-Befehls (Treffer m mit `-C` in Gruppe 1): letztes cd davor, darin `-C`."""
+    vorn = befehl[:m.start()]
+    if not m.group(1):
+        return cd_ziel(vorn, cwd)
+    try:
+        basis = cd_ziel(vorn, cwd)
+    except Unaufloesbar:  # `-C` mit festem Pfad braucht das cd nicht
+        basis = cwd
+    return cd_pfad(m.group(1), basis, vorn)
+
+
+def cd_ordner(befehl, cwd):
+    """Alle auflösbaren cd-Ziele (Suche nach Dateien; Unauflösbares fällt weg)."""
+    aus = []
+    for m in CD.finditer(befehl):
+        try:
+            aus.append(cd_pfad(m.group(1), cwd, befehl[:m.start()]))
+        except Unaufloesbar:
+            pass
+    return aus
 CI_ZWEIG = re.compile(r"claude/[\w./-]+")  # 407 (02.11.): jeder Arbeitszweig, auch grundstand-461, spike-, tuffy-
 BEFEHL_ANFANG = r"(?:^|[;&|(`]|\$\()\s*(?:\w+=\S*\s+)*"  # nur als Befehl, nicht in einer Commit-Nachricht (Fehlzählung 02.11.)
 GH_LAUF = re.compile(BEFEHL_ANFANG + r"gh\s+workflow\s+run\s+([^\n|;&]*)", re.M)
@@ -87,7 +144,7 @@ def testlauf(lauf, befehl, cwd):
         return False
     p = re.search(r"--path[=\s]+(\S+)", lauf)
     pfad = os.path.expanduser(p.group(1).strip("\"'")) if p else "."
-    for basis in [cwd] + [os.path.join(cwd, os.path.expanduser(c)) for c in CD.findall(befehl)]:
+    for basis in [cwd] + cd_ordner(befehl, cwd):
         datei = os.path.join(basis, pfad, "tests", s.group(1))
         if os.path.isfile(datei):
             return not BILDBEFEHL.search(open(datei, encoding="utf-8", errors="replace").read())
@@ -207,8 +264,7 @@ def push_lauf(befehl, cwd):
     m = PUSH.search(befehl)
     if not m:
         return None
-    cds = CD.findall(befehl[:m.start()])  # `cd ../bornim-main && git push`: Zweig des cd-Ziels (Jerry 12:05, 13:08)
-    wo = m.group(1) or (os.path.join(cwd, os.path.expanduser(cds[-1].strip("\"'"))) if cds else cwd)
+    wo = wo_von(befehl, m, cwd)  # `cd ../bornim-main && git push`: Zweig des cd-Ziels (Jerry 12:05, 13:08); 725
     ziel = CI_ZWEIG.search(m.group(2))
     zweig = ziel.group(0).split(":")[-1] if ziel else git("rev-parse", "--abbrev-ref", "HEAD", cwd=wo).stdout.strip()
     if not CI_ZWEIG.fullmatch(zweig) or SAMMELBUILD.fullmatch(zweig):  # 646, 627: Sammelbuild für den Gerätetest ist keine Probe
@@ -485,8 +541,7 @@ def parse_pruefen(befehl, cwd):
     m = PUSH.search(befehl)
     if not m:
         return None
-    cds = CD.findall(befehl[:m.start()])
-    wo = m.group(1) or (os.path.join(cwd, os.path.expanduser(cds[-1].strip("\"'"))) if cds else cwd)
+    wo = wo_von(befehl, m, cwd)
     ziel = re.search(r"claude/[\w./-]+", m.group(2))
     zweig = ziel.group(0).split(":")[-1] if ziel else git("rev-parse", "--abbrev-ref", "HEAD", cwd=wo).stdout.strip()
     if not zweig.startswith("claude/"):
@@ -566,8 +621,7 @@ def rot_vorher(befehl, cwd, lauf_holen=letzter_lauf):
     if not m:
         return None
     vorn = befehl[:m.start()]
-    cds = CD.findall(vorn)
-    wo = m.group(1) or (os.path.join(cwd, os.path.expanduser(cds[-1].strip("\"'"))) if cds else cwd)
+    wo = wo_von(befehl, m, cwd)
     ziel = CI_ZWEIG.search(m.group(2))
     if not ziel and len([a for a in m.group(2).split() if not a.startswith("-")]) >= 2:
         return None  # ausdrücklich ein anderer Zweig (git push origin main)
@@ -618,8 +672,7 @@ def alt_fehlt(befehl, cwd):
     m = PUSH.search(befehl)
     if not m:
         return None
-    cds = CD.findall(befehl[:m.start()])
-    wo = m.group(1) or (os.path.join(cwd, os.path.expanduser(cds[-1].strip("\"'"))) if cds else cwd)
+    wo = wo_von(befehl, m, cwd)
     ziel = CI_ZWEIG.search(m.group(2))
     teile = [t for t in m.group(2).split() if not t.startswith("-")]
     if not ziel and len(teile) >= 2:  # `git push origin main`: ausdrücklich ein anderer Zweig
@@ -656,7 +709,7 @@ def filmlauf_rechner(befehl, cwd):
     if FILM.search(befehl):
         return True
     for m in SKRIPT.finditer(befehl):
-        for basis in [cwd, REPO] + [os.path.join(cwd, os.path.expanduser(c)) for c in CD.findall(befehl)]:
+        for basis in [cwd, REPO] + cd_ordner(befehl, cwd):
             datei = os.path.join(basis, m.group(0))
             if os.path.isfile(datei):
                 if FILM.search(open(datei, encoding="utf-8", errors="replace").read()):
@@ -704,8 +757,7 @@ def ohne_heredoc(befehl):
 
 
 def arbeitskopie(befehl, cwd):
-    cds = CD.findall(befehl)
-    return os.path.join(cwd, os.path.expanduser(cds[0].strip("\"'"))) if cds else cwd
+    return cd_ziel(befehl, cwd, erstes=True)
 
 
 def figur_sperre(wo, rev):
@@ -762,8 +814,7 @@ def vorlage_unvollstaendig(befehl, cwd, d=None):
     m = GIT_SCHREIBT.search(befehl)
     if not m:
         return None
-    cds = CD.findall(befehl[:m.start()])
-    wo = m.group(1) or (os.path.join(cwd, os.path.expanduser(cds[-1].strip("\"'"))) if cds else cwd)
+    wo = wo_von(befehl, m, cwd)
     wurzel = git("rev-parse", "--show-toplevel", cwd=wo).stdout.strip()
     if not wurzel or not os.path.isdir(os.path.join(wurzel, "docs", "chefsache")):
         return None
@@ -925,8 +976,7 @@ def bereich_merken(pfade, befehl, sitzung, cwd="."):
         import bereichslisten as bl
         if not pfade and re.search(r"\bgit\b.*\b(commit|push)\b", befehl):
             m = GIT_SCHREIBT.search(befehl)
-            cds = CD.findall(befehl[:m.start()]) if m else []
-            wo = (m.group(1) if m else None) or os.path.join(cwd, os.path.expanduser(cds[-1].strip("\"'")) if cds else cwd)
+            wo = wo_von(befehl, m, cwd) if m else cd_ziel(befehl, cwd)
             pfade = bl.pfade_git(befehl, wo)
         BEREICH["text"] = bl.zusatz(pfade, befehl, sitzung)
     except Exception:
@@ -941,4 +991,7 @@ def hinweis_geben(text=""):
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Unaufloesbar as e:  # 725
+        anhalten(str(e))
