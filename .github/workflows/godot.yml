@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
     inputs:
       kampf:
-        description: "Kampfort-Filme: ja (453 r3, 453.1 Vergleich), 461 (Grundstand-Film Kampfort), 4531 (Heldenatem Feld 2 gegen neu), 2963 (Siegerposen) oder 656 (Umhang: Film; mit film=nein Bilder vorher/nachher)"
+        description: "Kampfort-Filme: ja (453 r3, 453.1 Vergleich), 461 (Grundstand-Film Kampfort), 4531 (Heldenatem Feld 2 gegen neu), 2963 (Siegerposen), 656 (Umhang: Film; mit film=nein Bilder vorher/nachher) oder 861 (Umhang je Klasse: Messung und Film)"
         default: ""
       dorf:
         description: "Dorf-Film Grundstand (461.1): ja"
@@ -846,8 +846,29 @@ jobs:
               -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/656-vorher-neu.mp4 || true
           fi
           ls -l $B
+      # 861 (Chef 10.11., 13:12; 11.11., 12:09; 11.11., 20:11 „Umhangbuckel“; nachstellen im Filmlauf, alle Klassen mit Umhang):
+      # film_umhang_861.gd je Klasse (Kämpfer, Kleriker, Schurke, Magier) mit der Ausrüstung der Probe: erst die Messung (Abstand
+      # Umhang zum Körper je Kampfbewegung gegen Stehen, Gewichte, Beitrag je Knochen; Zeilen „Umhang 861“ im Protokoll), dann der Film
+      # von hinten, zu beiden Seiten und schräg von hinten; alle vier hintereinander in 861-umhang.mp4; nur von Hand mit kampf=861
+      - name: Umhang 861 Messung und Film (nur von Hand mit kampf=861)
+        if: ${{ !cancelled() && github.event.inputs.kampf == '861' }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/umhang861; mkdir -p $B
+          cd godot
+          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
+          : > $RUNNER_TEMP/861.txt
+          for k in FIGHTER CLERIC ROGUE WIZARD; do
+            KLASSE=$k timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+              --write-movie $RUNNER_TEMP/861-$k.avi --fixed-fps 30 -s res://tests/film_umhang_861.gd > $B/861-$k.log 2>&1 || true
+            grep -E "SCRIPT ERROR|^Film|^Umhang 861|^    |^Signatur|FEHLER" $B/861-$k.log | head -120 || true
+            ffmpeg -loglevel error -y -i $RUNNER_TEMP/861-$k.avi -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast $B/861-$k.mp4 || true
+            [ -s $B/861-$k.mp4 ] && echo "file '$B/861-$k.mp4'" >> $RUNNER_TEMP/861.txt
+          done
+          [ -s $RUNNER_TEMP/861.txt ] && ffmpeg -loglevel error -y -f concat -safe 0 -i $RUNNER_TEMP/861.txt -c copy $B/861-umhang.mp4 || true
+          ls -l $B
       - name: Kampfort-Filme Grundstand (453 r3, 453.1; nur von Hand mit kampf=ja)
-        if: ${{ !cancelled() && github.event.inputs.kampf != '' && github.event.inputs.kampf != '2963' && github.event.inputs.kampf != '656' && github.event.inputs.film != 'nein' }}
+        if: ${{ !cancelled() && github.event.inputs.kampf != '' && github.event.inputs.kampf != '2963' && github.event.inputs.kampf != '656' && github.event.inputs.kampf != '861' && github.event.inputs.film != 'nein' }}
         continue-on-error: true
         run: |
           B=$GITHUB_WORKSPACE/bilder/kampf461; mkdir -p $B
