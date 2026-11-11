@@ -43,7 +43,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 954a | M? | Rückfrage aus 954.1: in der Erschaffung nur Fertigkeiten zur Wahl, die in Kapitel 1 wirken | Chef (Datei in der Chefsache) |
 | 963 | M | Von Tom (Zu 870.4, Fremdprüfung Homer 14:15): Heldenreiter Wortlaut ohne Wirkungsloses: Zä | startbar |
 
-**Tom** – offen 101, Muss 81, startbar 1
+**Tom** – offen 102, Muss 82, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -129,7 +129,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 764 | M | Heldenreiter zeigt aktive Zustände (betrunken usw.) mit Erklärung; Tippen auf die Leiste ö | wartet auf 870.7 (wartet) |
 | 769 | M | Wochentermin 13.11.: Rollenspiegel Tom (rollenspiegel.sh Tom) (719); deckt 02.–13.11., Woc | Termin 13.11. 08:00 |
 | 756 | M | Gegenstände: wie Seltenheit, Abnutzung und übrige Merkmale bei anlegbarer Ausrüstung angez | wartet auf 870.7 (wartet) |
-| 785 | M | Oberfläche einmal ganz gegen alt: jeder Schirm und jede Bedienung als eine Liste, jeder Un | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 581 (schirm) |
+| 785 | M | Oberfläche einmal ganz gegen alt: jeder Schirm und jede Bedienung als eine Liste, jeder Un | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 581 (schirm) |
 | 698 | M | Grafikstufen im Systemmenü mit Effekten (Niedrig/Mittel/Hoch, Automatisch per Leistungstes | wartet auf 623 (startbar) |
 | 816 | M | Effekte Szene 1 Dorf am Abend nach LISTE-EFFEKTE (Reihenfolge 623.8): gedämpft, Bilder/s n | wartet auf 698 (startbar) |
 | 814 | M | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staub im Licht, Fußstaub, Fahne, Wind, | Chef (Datei in der Chefsache) |
@@ -143,11 +143,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 867 | M | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die | wartet auf 870.9 (wartet) |
 | 875 | M | Von Homer (857a A, Chef 10.11., 13:35): Fertigkeit Kräuterkunde heißt im Spiel Kräutersamm | wartet auf Test/Build (gebaut) |
 | 882.1 | M | Von Perikles (882, Umzug BRS Schritt 8): mit 870.9 auch godot-kampf.yml 41 (exportIntro) a | wartet auf 870.9 (wartet) |
-| 926 | M | Von Jerry (870.6): Gegenstandsfenster im Menü ohne Würfel (menue.gd 754, 843–847, 1351 wue | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 944 (beute) |
+| 926 | M | Von Jerry (870.6): Gegenstandsfenster im Menü ohne Würfel (menue.gd 754, 843–847, 1351 wue | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 944 (beute) |
 | 933 | M | Grundwerte 933 A umsetzen (Chef 11.11., 13:07): Volk senkt bis 2, hebt bis 9 (volk_min 2, | wartet auf 933.2 (startbar) |
-| 951 | M | Fund t276 (Chef 11.11., 13:44): Blende Flüsterwald zeigte nur den Namen; DESIGN-BLENDE 7: | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 944 (fund) |
-| 954 | M | Von Sokrates (Chef 11.11., 13:55 „1 ja“): Erschaffung – Gedrückthalten erklärt je Grundwer | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 875 (erschaffung) |
+| 951 | M | Fund t276 (Chef 11.11., 13:44): Blende Flüsterwald zeigte nur den Namen; DESIGN-BLENDE 7: | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 944 (fund) |
+| 954 | M | Von Sokrates (Chef 11.11., 13:55 „1 ja“): Erschaffung – Gedrückthalten erklärt je Grundwer | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 875 (erschaffung) |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 15645 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 964 | M | Von Tom (Zu 870.4, Homer 14:15): Metall sperrt Evokation, Illusion, Beschwörung im Kampf; | wartet auf Test/Build (gebaut) |
 
 **Jerry** – offen 108, Muss 100, startbar 0
 
@@ -262,10 +263,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 959 | M | Von Homer (954.1): werte.json herkuenfte Schmiedelehrling hat nur Schmieden, Bergbau; 461c | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.3 (json) |
 | 960 | M | Von Homer (954.1): Verstand ohne Wirkung: BrsHeld.kennt_schwaechen (870d, ab Verstand 6 Sc | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (brsheld) |
 
-**Perikles** – offen 12, Muss 11, startbar 0
+**Perikles** – offen 13, Muss 11, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 965 | M? | Von Sokrates (Chef 11.11., 14:56: hat jeder einen Job?): Sperre 779 in startbar.py greift | startbar |
 | 870.12 | M | Von Sokrates (870, Umzug BRS): Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 | wartet auf 870.13 (wartet) |
 | 882.2 | M | 882 Werkzeuge ohne Kotlin: tools/t logik auf Godot-Logiksatz samt Kerntest-Marke, check-en | wartet auf 882.1 (startbar) |
 | 870.10 | M | Von Sokrates (870, Umzug BRS Schritt 8): Kotlin-Bau aus (android.yml), mit 870.9; LISTE-UM | wartet auf 870.9 (wartet) |
