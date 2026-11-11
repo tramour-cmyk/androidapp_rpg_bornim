@@ -555,6 +555,28 @@
     "fertigkeit_grund": 10,
     "_fertigkeit_grund": "A (870a 6, kein Klassenfilter): Beute nach den Fertigkeiten des Helden gewichtet: Gewicht je Grundform = fertigkeit_grund + Wert der Fertigkeit, die sie braucht (Waffengruppe, Ruestung, Schild); ohne Fertigkeit fertigkeit_grund + fertigkeit_grund"
   },
+  "monsterregeln": {
+    "_quelle": "870.6 (LISTE-UMZUG-BRS.md 3: tabellen.json geloescht): was das Spiel je Kennung ausser den Werten (monster) braucht: Sonderregel im Kampf (MARS), Schadensart des Angriffs (Schnitt blutet, Wucht betaeubt bei kritisch), Gift im Verhaeltnis zum ueblichen (alt 1W4 gegen 1W6), immun gegen Zustaende, Gold nur, wo 'wirtschaft' 'beute' keins nennt (Bosse; Wurf gleichverteilt min bis max), Beute als Kennung der Dinge mit Chance (alt Monsters.kt; Spinnseide 870.6, A). Tierteile bleiben Beute, bis es Zerlegen im Spiel gibt",
+    "wolf":             {"sonder": "KNOCKDOWN", "typ": "stich", "beute": [["potion", 0.12], ["raw_meat", 0.6], ["wolf_pelt", 0.45]]},
+    "hobgoblin_captain": {"sonder": "MARTIAL_ADVANTAGE", "typ": "schnitt", "gold": [8, 80], "beute": [["sun_amulet", 1.0], ["prophet_letter", 1.0], ["grak_key", 1.0]]},
+    "goblin":           {"sonder": "NONE", "typ": "schnitt", "beute": [["potion", 0.15], ["alchemist_fire", 0.06]]},
+    "goblin_archer":    {"sonder": "NONE", "typ": "stich", "beute": [["potion", 0.15], ["alchemist_fire", 0.05]]},
+    "giant_spider":     {"sonder": "POISON", "typ": "stich", "gift": 1.0, "beute": [["greater_potion", 0.15], ["spider_gland", 0.6], ["spider_silk", 0.5]]},
+    "dire_wolf":        {"sonder": "KNOCKDOWN", "typ": "stich", "gold": [4, 40], "beute": [["greater_potion", 0.5], ["wolf_pelt", 1.0], ["raw_meat", 1.0]]},
+    "giant_rat":        {"sonder": "NONE", "typ": "stich", "beute": [["potion", 0.08], ["raw_meat", 0.3]]},
+    "giant_bat":        {"sonder": "EVASIVE", "typ": "stich", "beute": [["potion", 0.1], ["bat_wing", 0.6]]},
+    "kobold":           {"sonder": "PACK_TACTICS", "typ": "stich", "beute": [["potion", 0.12], ["alchemist_fire", 0.04]]},
+    "goblin_shaman":    {"sonder": "SHAMAN", "typ": "wucht", "beute": [["potion", 0.25], ["greater_potion", 0.06]]},
+    "boar":             {"sonder": "CHARGE", "typ": "schnitt", "beute": [["potion", 0.08], ["raw_meat", 0.8], ["boar_tusk", 0.5]]},
+    "giant_centipede":  {"sonder": "POISON", "typ": "stich", "gift": 0.71, "beute": [["potion", 0.1]]},
+    "bugbear":          {"sonder": "SURPRISE_ATTACK", "typ": "stich", "gold": [4, 40], "beute": [["rusty_key", 1.0]]},
+    "stirge":           {"sonder": "BLOOD_DRAIN", "typ": "stich", "beute": [["potion", 0.06]]},
+    "ochre_jelly":      {"sonder": "ACID", "typ": "wucht", "immun": ["BLEED", "STUN", "BLIND"], "beute": [["greater_potion", 0.2]]},
+    "skeleton":         {"sonder": "NONE", "typ": "stich", "immun": ["POISON", "BLEED"], "beute": [["potion", 0.08], ["holy_water", 0.04]]},
+    "zombie":           {"sonder": "UNDEAD_FORTITUDE", "typ": "wucht", "immun": ["POISON", "BLEED"], "beute": [["potion", 0.1], ["holy_water", 0.06]]},
+    "ghoul":            {"sonder": "PARALYZE", "typ": "schnitt", "immun": ["POISON"], "beute": [["greater_potion", 0.15], ["holy_water", 0.06]]}
+  },
+  "absicht_zusatz": {"heavy": 0.82, "breakthrough": 0.41, "venom": 0.93, "aim": 0.64, "_quelle": "870.6: Zusatzschaden einer Absicht als Anteil am Schaden des Gegners (alt Wuerfel der Absicht durch Schaden des Monsters: Grak 2W6 bzw. 1W6 zu 1W10+3, Spinne 2W6 zu 1W8+3, Spaeher 1W6 zu 1W6+2)"},
   "kennungen": {
     "_quelle": "870.3 (649a Schritt 1): Kennung im Spiel -> Art (Zeile in 'monster'), Anzeigename (DESIGN-BRS.md 12, STORY-BRS-OBERFLAECHE.md [870.15.namen.monster]), Gruppe; interne Kennungen bleiben. Modell und Bewegung: Figurenkatalog 649.2",
     "giant_rat":         {"art": "Riesenratte",        "de": "Riesenratte",            "en": "Giant Rat",          "gruppe": "Tier"},
