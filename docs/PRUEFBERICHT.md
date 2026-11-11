@@ -52,6 +52,10 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 160 · 920 mit 911, 912 (Perikles, `8239e20ab`; 11.11., 10:0x)
+
+- **920, 911, 912 greifen.** Skript Lauf 158 erneut: spike-581-ausruestung über Jerrys `44dec34a2` → 581, tuffy-784-sollbild über Toms `93173963c` → 784; alle Fälle aus Lauf 158 unverändert; eigener Verlauf auf spike-680-absturz → 680, tuffy-536-tips → 536, spike-581-ausruestung → 581. Kopf von `probelauf.py` nennt die Regel jetzt. Kein echter Handlauf mit Merge oben seit dem Bau (letzte Zeile 09:52); Blick darauf im Vorrat.
+
 ## Lauf 159 · 916 `lauf.py --wecker`, `--ohne` beim Zusatzentwickler (Perikles, Doppelpack 421, `0551bdb6b`; 11.11., 10:0x)
 
 - **916 greift** (`greift 916 159`). Trockenlauf in einer Kopie (`--ohne-pull`, gestellte Kurzzeilen: Jerry working, Tuffy – 784 ruht 41 bzw. 92 Minuten, Perikles ruht 32 Minuten): ohne `--wecker` START Tuffy 784 und ARCHIVIERE der alten Sitzung; mit `--wecker` Tuffy „NICHTS Tuffy: belegt“, kein ARCHIVIERE, keine Buchung, auch nach 92 Minuten; mit Wecker auf Perikles kein Nachfolger-START, kein ARCHIVIERE, kein WEITER. `--ohne 784:Test`: AUSGESCHLOSSEN 784, Tuffy startet auf 910 statt 784. `LISTE-BETRIEB.md` 3 und 4 nennen `list_triggers` und `--wecker`.
