@@ -19,6 +19,9 @@ var halm_mmi: MultiMeshInstance3D       # 804: unser Gras, aus, solange das Gras
 var kit_gras: Array[MultiMeshInstance3D] = []
 var kit_stellen: Array[Vector3] = []
 var kit_art := PackedByteArray()
+var effekte: DorfEffekte             # 814 Effekte Szene 1 (Kaminrauch, Fackeln, Staub, Fahne, Wind, Federn), nach DorfEffekte.an
+var bereit := false                   # 814: aufgebaut (gras_neu darf die Effekte schalten)
+var insel_ohne := PackedVector4Array()   # 814: Lichtinseln ohne die der Effekte (Fackel der Schenke)
 
 # 804: Gras und Blumen des Kits an den Stellen unseres Grases, unser Gras dann aus; nach GrasBausatz.an (Grafikstufe 698, Testmenue)
 func gras_neu() -> void:
@@ -27,6 +30,10 @@ func gras_neu() -> void:
 	for m in kit_gras: m.visible = GrasBausatz.an
 	if halm_mmi: halm_mmi.visible = kit_gras.is_empty() or not GrasBausatz.an
 	if held and GrasBausatz.an and not kit_gras.is_empty(): GrasBausatz.schieber(held)
+	# 814: bis zum Ende des Umzugs schaltet „Gras“ im Testmenue auch die Effekte der Szene 1 (Bilder/s mit und ohne Pakete);
+	# spiel.gd und testmodus.gd aendert bis dahin nur der Umzug (LISTE-UMZUG-BRS 2.5), danach ein eigener Schalter
+	DorfEffekte.an = GrasBausatz.an
+	if bereit: effekte_neu()
 var insel_liste := PackedVector4Array()
 var lampen: Array[OmniLight3D] = []
 var raumlicht: Raumlicht   # 399.5 Grundriss
@@ -87,6 +94,36 @@ func _ready() -> void:
 	else: baue_lampen()
 	baue_leben()
 	if String(karte.daten.get("art", "")) == "FOREST": baue_dunkel()
+	insel_ohne = insel_liste
+	bereit = true
+	effekte_neu()
+
+# 814: Effekte der Szene 1 nach DorfEffekte.an (Grafikstufe 698, Testmenue); aus: unser Rauch und die Lichtinseln wie vorher
+func effekte_neu() -> void:
+	var soll := DorfEffekte.aktiv() and DorfEffekte.fuer(karte.id)
+	if soll and effekte == null:
+		effekte = DorfEffekte.new(self)
+		add_child(effekte)
+		effekte.nacht_k = nacht_jetzt
+		effekte.baue()
+	elif not soll and effekte:
+		effekte.queue_free()
+		effekte = null
+		for r in rauch: r.visible = true
+		inseln_setzen(insel_ohne)
+
+## 814: eine Lichtinsel dazu (Boden, Gras, Wasser malen sie selbst, BODEN_SCHICHT)
+func insel_dazu(i: Vector4) -> void:
+	var neu := insel_liste.duplicate()
+	neu.append(i)
+	inseln_setzen(neu.slice(0, 64))
+
+func inseln_setzen(inseln: PackedVector4Array) -> void:
+	insel_liste = inseln
+	for m in [boden, halme, wasser, korn_mat]:
+		if m:
+			m.set_shader_parameter("inseln", inseln)
+			m.set_shader_parameter("inseln_n", inseln.size())
 
 # 490 Kartenrand (Orte und Welt W19, alt MapEdge): hinter dem Waldring laeuft der Wald ins Dunkel; ab 3 Kacheln vor dem Rand
 # weich dunkler, ab 12 schwarz (liegt knapp ueber dem Boden, Baeume des Rings stehen darin)
@@ -322,7 +359,10 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 			mi.set_surface_override_material(i, m)
 	for c in n.get_children(): male(c, g, mark, aus)
 
+var nacht_jetzt := 0.0
 func nacht(k: float) -> void:
+	nacht_jetzt = k
+	if effekte: effekte.nacht(k)
 	if raumlicht: raumlicht.nacht(k)
 	# 348.9: nachts wie alt geeicht (Laternen, Fenster, Lichtinseln am Boden kleiner; alt p90 46)
 	for o in lampen: o.light_energy = 1.4 * k   # 348.6: alt nur ein kleiner Hof um die Laterne (Helfer: neu 4-mal zu hell, zu weit)

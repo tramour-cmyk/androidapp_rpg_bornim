@@ -141,6 +141,24 @@ jobs:
         run: |
           d=$(find "$KAUF/anhang/beams" -type d -path '*addons/reeboo_beams' 2>/dev/null | head -1)
           if [ -n "$d" ]; then mkdir -p godot/addons && cp -r "$d" godot/addons/ && echo "Beams-Probe: $(ls godot/addons/reeboo_beams/beams_3d)"; else echo "Beams-Probe: nicht da"; fi
+      # 814 (Spike; 623.8 A, Chef 09.11., 22:23): Effekte Szene 1 Dorf am Abend (skripte/dorfeffekte.gd) aus REEBOO Stylized VFX v2.0
+      # (R7, enthaelt Pack 1) und Pack 3 (R4), beide unter addons/reeboo_vfx (gemeinsame Dateien gleich, 11.11. verglichen), dazu aus
+      # den Surface Shaders (R11) nur die Fahne (cloth_flag) mit ihren Texturen. Lizenz verbietet die Weitergabe: nie ins Repo
+      # (godot/.gitignore), nur in den Bau. Fehlt ein Paket, bleibt das Dorf wie bisher. Jerry (623.2) nimmt dieselben Pakete von hier.
+      - name: Effektpakete (814, privat)
+        run: |
+          d=godot/addons/reeboo_vfx
+          for p in REEBOO_Stylized_VFX_v2 Stylized_VFX_Pack_3; do
+            s=$(find "$KAUF/anhang/stufe1" -maxdepth 4 -type d -path "*${p}*/addons/reeboo_vfx" 2>/dev/null | head -1)
+            [ -n "$s" ] && { mkdir -p $d && cp -r "$s/." $d/ && rm -f $d/README.md $d/LICENSE.txt; } || echo "Effekte: $p nicht da"
+          done
+          s=$(find "$KAUF/anhang/stufe1" -maxdepth 4 -type d -path '*Stylized_Surface_Shaders*/addons/reeboo_surfaces' 2>/dev/null | head -1)
+          if [ -n "$s" ]; then
+            f=godot/addons/reeboo_surfaces; mkdir -p $f/shaders $f/textures
+            cp "$s/shaders/cloth_flag.gdshader" "$s/shaders/surface_common.gdshaderinc" $f/shaders/
+            cp "$s/textures/fabric_rgba.png" "$s/textures/fabric_normal.png" "$s/textures/noise_rgba.png" $f/textures/
+          else echo "Effekte: Surface Shaders nicht da"; fi
+          echo "Effekte: $(ls $d/effects $d/pack3_effects 2>/dev/null | grep -cE '\.tscn$') Szenen, Fahne $(ls godot/addons/reeboo_surfaces/shaders 2>/dev/null | tr '\n' ' ')"
       - uses: actions/setup-python@v5
         id: py
         with:
@@ -540,6 +558,7 @@ jobs:
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/zustaende_870.gd 2>&1 | grep -E "FALSCH|ZUSTAENDE870|SCRIPT ERROR"   # 870.6 Zustände, Tränke, Spinnseide ohne SRD-Maß (Tuffy)
           timeout 60 ~/godot/godot --headless --path . -s res://tests/masse_498.gd 2>&1 | tee masse498.log | grep -E "FEHLER|MASSE498|SCRIPT ERROR"; grep -q "^MASSE498 0 Fehler" masse498.log   # 498 Schrift wie alt
           timeout 120 ~/godot/godot --headless --path . -s res://tests/gluehwuermchen_514.gd 2>&1 | tee glueh514.log | grep -E "FEHLER|GLUEH514|SCRIPT ERROR"; grep -q "^GLUEH514 0 Fehler" glueh514.log   # 514 Gluehwuermchen wie alt
+          timeout 300 ~/godot/godot --headless --path . -s res://tests/effekte_814.gd 2>&1 | tee effekte814.log | grep -E "FEHLER|EFFEKTE814|SCRIPT ERROR"; grep -q "^EFFEKTE814 0 Fehler" effekte814.log   # 814 Effekte Szene 1 Dorf (Spike)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_472.gd 2>&1 | grep -E "FALSCH|BRS472|SCRIPT ERROR"   # 472 Heldenstufe aus Erfahrung
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_471.gd 2>&1 | grep -E "FALSCH|BRS471|SCRIPT ERROR"   # 471 Fertigkeiten durch Tun (BRS 1.2)
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/kampfuebung_471.gd 2>&1 | grep -E "FALSCH|KAMPFUEBUNG471|SCRIPT ERROR"   # 471 Uebung im Kampf, gutgeschrieben nach dem Sieg
