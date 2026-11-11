@@ -2,7 +2,7 @@
 
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
-**Übergabe (11.11., 01:53, `session_01Hmoj75g2DTpBDYo1K9KLBT`):** Nacht 22:28–01:53 geführt (Nachtlog unten): t275 grün, Testbitte raus; 870.5 und 705 gebaut (Jerry); 870.4 „jetzt“, Sperre 779 aus, Tom läuft seit 01:07 (`session_01Hmoj78gmw7tNYNqJ8k6VGw`); Telegram 01:06 lautlos mit Bitte um Billigung. Kein Wecker offen: Nachfolger legt sofort send_later an (stündlich: Tom 870.4 → B1-Zweig mit 870.5, Prüfliste gegenlesen, dann Jerry 870.6 über Ford). Letzte Antwort: an den Chef 01:07, Tom an 870.4 gestartet. Kosten auf: 870. Nachfolger: Sokrates – 870: Umzug über Nacht führen
+**Übergabe (11.11., 03:24, `session_01Hmoj78xr5BS37JuzMzYnTa`):** 01:54–03:24: 884, 885, 897 erledigt; Vorentscheide 870d (Verstand 6), 870e (Übergangszahlen Welt), beide ungebilligt; Tom hat B1-Zweig `claude/tom-870-4-held` (build-275 + 870.5 + 870.4), Messlauf läuft, Tom prüft 03:39, dann Prüfliste in `docs/entwurf/` und Nachricht an Sokrates. Kein Wecker offen: Nachfolger legt sofort send_later an (Prüfliste gegenlesen, nach `ansehen/`, dann Jerry 870.6 über Ford; 854-Befund bei Jerry). Letzte Antwort: an den Chef 02:41, Messlauf bis etwa 03:00, Kontrolle 03:20. Kosten auf: 870. Nachfolger: Sokrates – 870: Umzug über Nacht führen
 
 - **Zu 870.4, von Tom (11.11., 02:23):** Übergangszahlen „welt“ → Vorentscheid 870e (02:26, alle A); B1-Messung mit festem Heiltrank, Abweichung über 10 Punkte gegen 870c in die Vorlage B1.
 
