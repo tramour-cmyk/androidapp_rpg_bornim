@@ -47,8 +47,9 @@ func _env(n: String, d: String) -> String:
 
 
 func _lauf() -> void:
-	DisplayServer.window_set_size(Vector2i(1080, 2340))
-	root.size = Vector2i(1080, 2340)
+	if DisplayServer.get_name() == "headless":     # Lauf 342: im Film gibt --resolution die Größe vor (1080×2340 war zu langsam, nach 15 min abgebrochen)
+		DisplayServer.window_set_size(Vector2i(1080, 2340))
+		root.size = Vector2i(1080, 2340)
 	var s := int(_env("SEED", "7"))
 	var runden := int(_env("RUNDEN", "2"))
 	seed(s)
@@ -132,7 +133,7 @@ func _uhr_anlegen() -> void:
 	var deck := CanvasLayer.new()
 	deck.layer = 100
 	uhr = Label.new()
-	uhr.position = Vector2(24, 24)
+	uhr.position = Vector2(24, 150)     # Lauf 342: oben lag sie über der Zugleiste
 	uhr.add_theme_font_size_override("font_size", 34)
 	uhr.add_theme_color_override("font_color", Color(1.0, 0.86, 0.45))
 	uhr.add_theme_color_override("font_outline_color", Color.BLACK)
