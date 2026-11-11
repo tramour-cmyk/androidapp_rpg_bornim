@@ -79,6 +79,10 @@ func _gegner(g: String) -> void:
 	var p = Probe.new()
 	p.hero_cls = "FIGHTER"
 	p.merc_cls = "CLERIC"
+	# 595 (Chef 05.11., 19:2x: „Riesenegel – … Schurke schlägt beim Angriff darüber (der Egel ist ja am Boden)“): mit NR=595 kämpft
+	# neben dem Helden mit Schwert und Schild ein Söldner mit Kurzschwert ohne Schild (Probe ROGUE), vorn wie der Held
+	if nr == "595":
+		p.merc_cls = "ROGUE"
 	p.foe = g
 	root.add_child(p)
 	await process_frame
@@ -143,7 +147,7 @@ func _gegner(g: String) -> void:
 		f.visible = true
 	# Teil 2: Kampf auf Autopilot, Echtzeit
 	if lz:     # 506 (Helfer: Zeile verkehrt herum): die Helden kämpfen gegen den Gegner, nicht umgekehrt
-		lz.text = "Kämpfer und Kleriker gegen %s · Autopilot, Echtzeit" % String(Probe.FOES[g])
+		lz.text = ("Schwert und Schild, Kurzschwert gegen %s · Autopilot, Echtzeit" if nr == "595" else "Kämpfer und Kleriker gegen %s · Autopilot, Echtzeit") % String(Probe.FOES[g])
 	kf.mars.find("merc").auto = true
 	# 595 (Lauf 42719583920: die Spinne stand nach dem ersten Biss 14 s still): der Autopilot schaltet bei angesagter starker Absicht
 	# ab (mars.gd autopilot_blocked, im Spiel richtig: der Spieler entscheidet); im Film handelt der Held selbst wie der Söldner

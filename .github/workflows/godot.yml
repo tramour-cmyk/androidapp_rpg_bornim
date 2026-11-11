@@ -986,7 +986,7 @@ jobs:
         continue-on-error: true
         env:
           GEGNER: ${{ github.event.inputs.gegner }}
-          NR: ${{ contains(github.ref, '506') && '506' || '' }}   # 506: Nummer in Überschrift und Bildnamen
+          NR: ${{ contains(github.ref, '506') && '506' || contains(github.ref, '595') && '595' || '' }}   # 506, 595: Nummer in Überschrift und Bildnamen
         run: |
           B=$GITHUB_WORKSPACE/bilder/gegner494; mkdir -p $B
           cd godot
