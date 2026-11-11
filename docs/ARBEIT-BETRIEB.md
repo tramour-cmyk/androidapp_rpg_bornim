@@ -98,8 +98,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:10 11.11.: Archiviert und gebucht (Chef 07:09: Ford darf jede ARCHIVIERE-Zeile dauerhaft ausführen, nie auf den Satz warten): Jerry …76RTd, Sokrates …77DnC, …78xr5, Tom …79XWb, …78gmw, …77iXL, Diogenes …76Dx, Perikles …75P7, alter Ford …78JXi
 - 07:05 11.11.: Morgen 11.11.: regelcheck 4 Pflegefehler (ARBEIT-BETRIEB 35 KB, -JERRY 17 KB, -TOM 15 KB, Übergabe über 700 Zeichen); Kosten-Tabelle nicht gelaufen (Seiten zu groß); Archiv-Satz des Chefs fehlt für 7 Sitzungen
 - 04:05 11.11.: Start Diogenes 893 nicht ausgeführt (Diogenes hat 893 03:29 geprüft, Lauf 151, Zeile steht noch offen; --ohne 893:erledigt von Diogenes 03:29)
-- 01:55 11.11.: Sokrates …75g2D archiviert, gebucht (4,85 $ auf 888, 709c, 870); Nachfolger …78xr5 (01:54)
-- 01:08 11.11.: Tom 870.4 gestartet …78gmw (Sokrates 01:06, Commit 0e2bf8427)
 - 09:24 11.11.: Startsperre 09:24 Start Diogenes (Ford, vor dem Start; Auftrag Diogenes 911 und 264.1, caf221f84, ee20ff5a8; Umgebung Hoch)
 - 09:23 11.11.: Neustart Tom: Nachfolger …75P7U „Tom – 870.4: Lauf 341 auswerten“ in Hoch gestartet; Tom …78hPe archiviert, 7,75 $ auf 870.4. Startsperre 09:22 Start Tom (Neustart-Meldung 09:21, c2cf0ac30; Umgebung Hoch). Perikles …79rUs: „Weiter: 911“ (Tom 09:19) als Nachricht gesendet
 - 09:14 11.11.: Startsperre 09:14 Start Sokrates (Neustart-Meldung 09:13, ea70e638d; Umgebung Hoch); Jerry …782ws archiviert, 18,89 $ auf 806, 854
@@ -326,3 +324,10 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:06 11.11.: Startsperre 10:06 Start Sokrates (Ford, vor dem Start; Neustart-Meldung 10:05, 2ef59aad9)
 - 10:08 11.11.: Startsperre 10:08 Start Jerry (Ford, vor dem Start; Neustart-Meldung 10:07, bed9aafc6)
 - 10:09 11.11.: Startsperre 10:09 Start Tom (Ford, vor dem Start; Neustart-Meldung 10:07, 74d5fe8ff)
+- 11:05 11.11.: Startsperre 11:05 Start Perikles, Spike (lauf.py)
+- 11:05 11.11.: Marke Stellungnahme Sokrates 11.11. (lauf.py)
+- 11:05 11.11.: Marke Start-fehlt Diogenes 11.11.-09:44 (lauf.py)
+- 11:05 11.11.: Marke Start-fehlt Homer 11.11.-09:44 (lauf.py)
+- 11:05 11.11.: Marke Start-fehlt Perikles 11.11.-09:47 (lauf.py)
+- 11:05 11.11.: Marke Start-fehlt Spike 11.11.-09:41 (lauf.py)
+- 11:05 11.11.: Marke Start-fehlt Tuffy 11.11.-09:04 (lauf.py)
