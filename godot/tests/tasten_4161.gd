@@ -105,7 +105,7 @@ func _lauf() -> void:
 	Sprache.lade()
 	var z := Zustand.new()
 	z.gold = 37; z.dazu("potion", 2)
-	var hw := Heldwerte.erschaffe("Mira", "HUMAN", "FIGHTER", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Mira", "Mensch", "Wachsoldat", z.neue_uid)
 	z.beutel.append(Beute.erzeuge_mit_uid(KotlinZufall.new(42), z.neue_uid, 3, "RARE", "FIGHTER"))
 	var m := Menue.new(hw, z)
 	root.add_child(m)

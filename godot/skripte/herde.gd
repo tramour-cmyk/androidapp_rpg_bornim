@@ -12,7 +12,7 @@ static var bestand := {}          # Karte -> [Daten je Monster] (Game.herds; neu
 static var wiederkehr := {}       # Karte -> [Schritte, ab denen eines wiederkommt] (Game.respawns)
 
 var karte: Karte
-var spiel                         # spiel.gd: Held, Zustand, Heldwerte, Licht
+var spiel                         # spiel.gd: Held, Zustand, BrsHeld, Licht
 var enc: Dictionary
 var schutz: Array = []
 var liste: Array[Streuner] = []
@@ -107,8 +107,8 @@ func frei(p: Vector2i, ohne: Streuner = null) -> bool:
 	return true
 
 func reichweite() -> int:
-	var hw: Heldwerte = spiel.held_werte()
-	var r := maxi(2, 4 - maxi(0, hw.mod("DEX")) / 2)                               # Perks.noticeRange
+	var hw: BrsHeld = spiel.held_werte()
+	var r := hw.bemerkt_aus()                                                       # Perks.noticeRange (870.4: Gewandtheit)
 	if spiel.im_dunkeln() and spiel.zustand.funke: r += Streuner.SPARK_NOTICE         # Light.noticeExtra
 	if spiel.held.laeuft and spiel.held.geht(): r += Streuner.RUN_NOISE               # Stamina.RUN_NOISE
 	return r
@@ -117,7 +117,7 @@ func schritt(dt: float) -> void:
 	jetzt += int(dt * 1000.0)
 	if spiel.held == null: return
 	var h: Vector2i = spiel.held.kachel
-	var hw: Heldwerte = spiel.held_werte()
+	var hw: BrsHeld = spiel.held_werte()
 	var stark: bool = hw.stufe >= int(karte.daten.get("stufe", 1)) + 5
 	var am_schutz := sicher(h)
 	var hp: Vector3 = spiel.held.position
@@ -331,7 +331,7 @@ func betreten(t: Vector2i) -> void:
 		schonzeit -= 1
 		return
 	if aus or beachten_nicht or enc.is_empty() or not karte.zeichen(t) in enc.get("kacheln", []) or not sicher(t).is_empty(): return
-	var weise := maxf(0.4, 1.0 - 0.15 * maxi(0, spiel.held_werte().mod("WIS")))   # Perks.ambushFactor
+	var weise: float = spiel.held_werte().hinterhalt_faktor()   # Perks.ambushFactor (870.4: Wahrnehmung)
 	if zufall.randf() < float(enc.get("rate", 0.0)) * weise:
 		var m := ziehe((enc.get("tabelle", []) as Array).filter(func(e): return Streuner.da(String(e[0]))))   # alt: immer die Tagestabelle
 		if m != "": kampf.emit(m, "AMBUSHED", null)

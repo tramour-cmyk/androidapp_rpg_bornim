@@ -5,7 +5,6 @@
 extends SceneTree
 
 const AufrufS = preload("res://kampf/aufruf.gd")
-const HW = preload("res://skripte/heldwerte.gd")
 
 var fehler := 0
 
@@ -17,7 +16,7 @@ func _initialize() -> void:
 
 func _lauf() -> void:
 	for er in ["NORMAL", "AMBUSHED", "HERO_FIRST"]:
-		for k in ["WIZARD", "FIGHTER"]:
+		for k in ["Zauberlehrling", "Wachsoldat"]:   # 870.4: Herkunft statt Klasse
 			for seed in [1, 2, 3, 7]:
 				var r: String = await _einer(er, k, seed)
 				print(("ok     " if r.begins_with("wartet") else "FEHLER ") + "%s %s Wurf %d: %s" % [er, k, seed, r])
@@ -30,7 +29,7 @@ func _lauf() -> void:
 func _einer(er: String, klasse: String, seed: int) -> String:
 	var a = AufrufS.new()
 	root.add_child(a)
-	var h = HW.erschaffe("Alrik", "HUMAN", klasse)
+	var h = BrsHeld.fuer_spiel("Alrik", "Mensch", klasse)
 	var lage := {"atemlos": false, "satt": false, "eroeffnung": er, "blende": true, "platz": "lichtung"}
 	if not a.starte("RATS", h, null, "wald", "tag", 2, -1, -1, seed, Callable(), lage):
 		return "nicht gestartet"

@@ -13,12 +13,12 @@ Entwurf Homer, 01.11.; Vorgang 447.4, Abnahmeliste 3.2 (Meisterschaften; Ablauf 
 `[447.4.morwen.alchemie.nein]` Dann kauf weiter bei mir. Mir soll's recht sein. / EN: Then keep buying from me. Suits me.
 `[447.4.morwen.alchemie.grenze]` Für heute kannst du genug. Den Rest zeigt dir die Welt, und dann prüfe ich dich. / EN: You know enough for now. The world will show you the rest, and then I'll test you.
 
-### Jäger Garrick · Lederarbeit (Lederarbeit, Jagd)
+### Jäger Garrick · Schneider (Schneidern, Jagd)
 
 `[447.4.garrick.leder.ruf]` Deine Felle sind sauber abgezogen, und was du daraus machst, hält. / EN: Your pelts are cleanly skinned, and what you make of them holds.
-`[447.4.garrick.leder.frage]` Willst du das Leder richtig lernen? Gerben, schneiden, nähen. / EN: Do you want to learn leather properly? Tanning, cutting, stitching.
+`[447.4.garrick.leder.frage]` Willst du richtig schneidern lernen? Gerben, zuschneiden, nähen. Erst Leder; Tuch ist danach leicht. / EN: Do you want to learn tailoring properly? Tanning, cutting, stitching. Leather first; cloth comes easy after.
 `[447.4.garrick.leder.ja]` Gut. Du kannst schon was. Sieh dir an, wie ich's mach. / EN: Good. You already know a thing or two. Watch how I do it.
-`[447.4.garrick.leder.hinweis]` Ein Loch im Fell ist ein Loch in der Rüstung. Zieh langsam ab. / EN: A hole in the pelt is a hole in the armour. Skin slowly.
+`[447.4.garrick.leder.hinweis]` Ein Loch im Fell ist ein Loch in der Rüstung. Zieh langsam ab. / EN: A hole in the pelt is a hole in the armor. Skin slowly.
 `[447.4.garrick.leder.nein]` Gut. Thessa kauft Felle auch roh. / EN: Fine. Thessa buys pelts raw as well.
 `[447.4.garrick.leder.grenze]` Mehr Leder gibt dieser Wald nicht her. Draußen gibt's andere Tiere; dann prüf ich dich. / EN: These woods give no better leather. Out there are other beasts; then I'll test you.
 

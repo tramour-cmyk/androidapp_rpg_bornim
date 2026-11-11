@@ -23,7 +23,7 @@ var zustand := Zustand.new()                     # 390: Flaggen, Taschen, Gold (
 var szene: Array = []                            # 390: Befehle, die noch laufen (Game.queue)
 var ziel_person: Leute                           # 390: angetippte Person: beim Ankommen ansprechen
 var angebot_uhr := 0.0                           # 390: Knopf neu, wenn Leute herankommen oder gehen
-var werte: Heldwerte                             # 390 (Rast): TP und ZP des Helden (Hero), bis die Erschaffung ihn uebergibt
+var werte: BrsHeld                               # 870.4: der Held nach BRS (Leben, Mana, Ausruestung, Stufe), einzige Quelle seiner Werte
 var rast_ort := ""                               # 390 (Mode.Rest): Feld offen an "feuer", "schenke" oder "zimmer"
 var rast_notiz := ""
 var rast_zweites := false
@@ -114,8 +114,7 @@ func starte(w: Dictionary) -> void:
 	Herde.neues_spiel()   # 490: Game.herds gehoeren zum laufenden Spiel
 	if not stand.is_empty():
 		zustand = Zustand.aus_daten(stand["zustand"])
-		werte = Heldwerte.aus_daten(stand["held"])
-		werte.ep_dazu(0, Geschichte.stufendeckel(zustand))   # 538 Game.begin: Erfahrung ueber dem Kapiteldeckel (aeltere Spielstaende) zurueck auf den Deckel
+		werte = BrsHeld.aus_spiel_daten(stand["held"])   # 870.4
 		stufe_abgleichen()
 		var o: Dictionary = stand["ort"]
 		blende.color.a = 1.0
@@ -126,14 +125,15 @@ func starte(w: Dictionary) -> void:
 	zustand = Zustand.new()   # nichts vom vorigen Spiel: Flaggen, Gold, Taschen, Ort
 	zustand.name = String(w.get("name", zustand.name))
 	zustand.aussehen = (w.get("aussehen", {}) as Dictionary).duplicate()   # 376.1
-	werte = Heldwerte.erschaffe(zustand.name, String(w.get("volk", "HUMAN")), String(w.get("klasse", "FIGHTER")), w.get("werte", {}), zustand.neue_uid)   # 399.1 Punktekauf
-	startvorrat(zustand, werte.klasse)
-	# 470: Held nach BRS (Erschaffung 1.1) im Spielstand; bis 2.3 kaempft er mit den SRD-Werten der Bruecke (BrsHeld.alt, Rueckfrage 470a)
+	# 470, 870.4: der Held nach BRS (Erschaffung 1.1) mit der Startausruestung seiner Herkunft (werte.json „welt“ „start“)
 	zustand.brs = (w.get("brs", {}) as Dictionary).duplicate(true)
-	if w.has("srd"):
-		for a in Heldwerte.ATTRIBUTE: werte.basis[a] = int(w["srd"].get(a, werte.basis[a]))
-		werte.start = werte.basis.duplicate()
-		werte.voll()
+	werte = BrsHeld.aus_daten(zustand.brs) if not zustand.brs.is_empty() else BrsHeld.neu()
+	if zustand.brs.is_empty(): zustand.brs = werte.als_daten()
+	werte.name = zustand.name
+	werte.ausstatten(zustand.neue_uid)
+	startvorrat(zustand)
+	stufe_abgleichen()
+	werte.voll()
 	# 399.1 wie alt (69, GameViewModel.newGame): einmal die Ankunft bei Nacht, dann erwacht der Held neben dem Bett der Schenke
 	# (Story.START), wo Rowena ihn weckt; vorher begann das neue Spiel am Brunnen
 	await zwischenbild("intro")
@@ -543,7 +543,7 @@ func vor_tuer(alle: Dictionary, id: String, a: Dictionary) -> Vector2i:
 # Der Weg in den Wald fuehrt in den Kampfort von Jerry (kampf/kampfort.gd, MARS) gegen ein Wolfsrudel, bis Wald und tiefer Wald als
 # Gebietskarten stehen; danach zurueck vor den Ausgang, die Trefferpunkte bleiben. Verloren: wie Game.kt (154) vier Stunden vergehen,
 # der Held erwacht ganz geheilt im Wiederkehrort (steht dieser Grundriss noch nicht, vor dessen Tuer im Dorf). Das Kampfblatt
-# kommt aus den Heldwerten (kampf/aufruf.gd, 399.2 Jerry).
+# kommt aus BrsHeld (kampf/aufruf.gd, 399.2 Jerry; 870.4).
 const WALD := ["forest", "deep_forest"]
 const AufrufS = preload("res://kampf/aufruf.gd")
 var kampf: Node
@@ -586,7 +586,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	var beute := func() -> Array:
 		var w := KotlinZufall.new(randi())
 		var ilvl := int(karte.daten.get("stufe", 1))   # 543 Battle.finishWin: Stufe des Gebiets, in dem gekaempft wird (Tiefer Wald 2, Hoehle 3)
-		var st: Dictionary = Heldwerte.lade()["seltenheiten"]
+		var st: Dictionary = BrsHeld.daten()["seltenheiten"]
 		return Beute.beute(hw, w, ilvl, false, false, zustand.neue_uid).map(func(g): return {"gear": g, "name": Beute.name(g), "rarity": Sprache.t(st[String(g["rarity"])]["name"])})
 	var k0 := Time.get_ticks_msec()
 	var lage := {"atemlos": zustand.atemlos, "satt": zustand.satt} if probe.is_empty() else {}   # 399.2 (Jerry): wie der Held kommt
@@ -600,6 +600,9 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	if probe.is_empty(): lage["rauch"] = zustand.anzahl(Geschichte.SMOKE_BUNDLE)   # 494 (Jerry, D4.1): Morwens Rauchbündel gegen Krogg
 	if probe.is_empty(): lage["brs"] = zustand.brs   # 478 (Jerry): der Held nach BRS, wenn der Kampf nach BRS rechnet (brs_kampf.gd)
 	if probe.is_empty() and not zustand.fert.is_empty(): lage["brs_fert"] = zustand.fert["werte"]   # 471: was er seither geuebt hat
+	# 870.5 (Jerry, lohn.gd): Lohn nach BRS aus dem Stand der Heldenstufe und dem Erfahrungstopf des Gebiets (werte.json „welt“ „gebiet“)
+	if probe.is_empty(): lage["stand"] = zustand.stufe_brs()
+	if probe.is_empty(): lage["gebiet"] = String(BrsHeld.welt().get("gebiet", {}).get(karte.id, ""))
 	# 493 (Jerry): Kampfort im Wald nach dem, was um den Helden steht (wie alt BattleScene.spotFor); im Testmodus wählbar
 	lage["platz"] = Testmodus.kampfort if Testmodus.ist_an() and Testmodus.kampfort != "" else load("res://kampf/kampfort.gd").platz_fuer(karte, held.kachel)
 	var gestartet: bool = aufruf.starte(gegner, hw, soeldner, "wald", tageszeit(), zustand.anzahl("potion") if probe.is_empty() else 2, -1, -1, -1, beute, lage)
@@ -636,21 +639,15 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	if ende[0] == "NONE" or not probe.is_empty():
 		held.setze(zurueck, "DOWN"); kamera.springe(); await abblenden(0.0)
 		return ende[0]
-	var tp_nach := int(erg["tp"].get("hero", hw.tp))
-	# 532 (Jerry, Abgleich 512; alt Battle.kt 487–489, Game.keepAilments): Zauberpunkte und „einmal je Rast“ verbraucht, Zustände bleiben
+	var tp_nach := int(erg["tp"].get("hero", hw.leben))
+	# 532 (Jerry, Abgleich 512; alt Battle.kt 487–489, Game.keepAilments): Mana verbraucht, Zustände bleiben; 870.4: kürzer je Zähigkeit
 	var hf = erg["held"]
 	if hf != null:
-		hw.zp = clampi(int(hf.sp), 0, hw.max_zp())
-		var tabelle: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
-		for s in tabelle.skills:
-			if s.cost == "PER_REST" and hf.uses.has(s.id):
-				var weg := int(s.amount) - int(hf.uses[s.id])
-				if weg > 0: hw.verbraucht[String(s.id)] = weg
-				else: hw.verbraucht.erase(String(s.id))
-	zustand.leiden = AufrufS.leiden_nach(hf, ende[0], hw.mod("CON"))
+		hw.mana = clampi(int(hf.sp), 0, hw.max_mana())
+	zustand.leiden = AufrufS.leiden_nach(hf, ende[0], maxi(0, hw.wert("zaehigkeit") - int(BrsHeld.welt().get("leiden_zaehigkeit_ab", 5))))
 	if ende[0] == "LOST":
 		Rast.vergeht(zustand, 4 * 60)   # Game.DEATH_HOURS
-		hw.voll()   # 532: Hero.restoreFully (TP, ZP, Verbrauchtes)
+		hw.voll()   # 532: Hero.restoreFully (Leben, Mana)
 		var wk: Dictionary = zustand.wiederkehr
 		var alle: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://daten/karten.json"))
 		# Test 132 (Chef 16:09: „Bei Heilung bin ich nicht vor der Schenke, sondern vor dem Tempel“): wie Game.kt state.place =
@@ -666,14 +663,15 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 		kamera.springe(); await abblenden(0.0)
 		ui.sage(zeilen(variiere([{"text": {"de": "Du erwachst an einem sicheren Ort … Der Heimweg hat Stunden gedauert.", "en": "You wake up somewhere safe… The way home took hours."}}])))
 		return ende[0]
-	hw.tp = clampi(tp_nach, 1, hw.max_tp())
+	hw.leben = clampi(tp_nach, 1, hw.max_leben())
 	if ende[0] == "WON": zustand.siege += 1   # 399.1: GameState.battlesWon (System „Siege“, Thessas Ware); zaehlte bisher nie
 	var gestiegen := fertigkeiten_nach_kampf(uebung, ende[0]) if uebung != null else ""   # 471
 	if not lohn.is_empty():
 		zustand.gold += int(lohn.get("gold", 0))
 		for d in lohn.get("items", []): zustand.dazu(String(d))   # Beute (Felle, Zaehne)
 		for g in lohn.get("gear", []): zustand.ausruestung_dazu(g)   # 399.2 Ausruestung aus dem Kampflohn
-		hw.ep_dazu(int(lohn.get("xp", 0)), Geschichte.stufendeckel(zustand))   # Hero.gainXp mit Story.levelCap (538): Stufe hoeher heilt ganz
+		# 870.5 (Jerry, lohn.gd): neuer Stand der Heldenstufe nach BRS (Grenze und weiche Grenze rechnet Brs.gib_erfahrung); Stufe hoeher heilt ganz
+		if lohn.get("stand") is Dictionary and not (lohn["stand"] as Dictionary).is_empty(): zustand.brs_stufe = (lohn["stand"] as Dictionary).duplicate(true)
 		stufe_abgleichen()
 	held.setze(zurueck, blick_nach)
 	kamera.springe()
@@ -686,9 +684,9 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 func fertigkeiten_nach_kampf(u: Kampfuebung, ende: String) -> String:
 	var s := zustand.fertigkeiten_stand()
 	if s.is_empty(): return ""
-	zustand.stufe_held = held_werte().stufe
 	var ev := u.gutschreiben(ende, s, zustand.stufe_brs())
 	zustand.spiegle()
+	stufe_abgleichen()   # 870.4: die Erfahrung der Fertigkeiten kann die Heldenstufe heben
 	return Kampfuebung.notiz(ev)
 
 # ---------------------------------------------------------------- 490 Kampf mit einem Monster der Karte (Game.engage, startBattle, endBattle)
@@ -767,7 +765,7 @@ func oeffne_kiste(k: Dictionary) -> void:
 	var bef: Array = []
 	if k.has("ding"):
 		var ding := String(k["ding"])
-		if ding == Geschichte.CLASS_WEAPON: ding = Geschichte.klassen_waffe(held_werte().klasse)   # 632 Game.openChest wie alt
+		if ding == Geschichte.CLASS_WEAPON: ding = Geschichte.truhen_waffe(held_werte().fertigkeiten_jetzt())   # 632, 870.4: nach der stärksten Fertigkeit
 		bef.append({"art": "geben", "ding": ding, "anzahl": int(k.get("anzahl", 1))})
 	if int(k.get("gold", 0)) > 0: bef.append({"art": "gold", "anzahl": int(k["gold"])})
 	if bef.is_empty(): ui.sage([{"text": Sprache.u("chestEmpty")}])
@@ -811,7 +809,7 @@ func kraeuter_neu() -> void:
 func pfluecke(t: Vector2i) -> void:
 	if not kraut_da(t): return
 	zustand.gepflueckt["%s:%d:%d" % [karte.id, t.x, t.y]] = kraut_heute()
-	var weise := 0.15 * maxi(0, held_werte().mod("WIS"))   # Perks.extraHerbChance
+	var weise := Laden.kraut_chance(held_werte())   # 870.4: Kräuterkunde und Wahrnehmung (alt Perks.extraHerbChance)
 	var n := 1 + (1 if randf() < 0.3 else 0) + (1 if randf() < weise else 0)
 	zustand.dazu("herbs", n)
 	klang("effekt", ["loot"])
@@ -990,9 +988,9 @@ func gear_gabe(was: String) -> String:
 	var hw := held_werte()
 	var w := KotlinZufall.new(randi())
 	var ilvl := maxi(int(karte.daten.get("stufe", 1)), hw.stufe)
-	var g := Beute.erzeuge(w, zustand.neue_uid(), ilvl, Beute.seltenheit_fuer(hw, w, ilvl, true, t[0]), hw.klasse, t[1] if t.size() > 1 else "")
+	var g := Beute.erzeuge(w, zustand.neue_uid(), ilvl, Beute.seltenheit_fuer(hw, w, ilvl, true, t[0]), "", t[1] if t.size() > 1 else "")   # 870.4: ohne Klasse
 	zustand.ausruestung_dazu(g)
-	return "%s (%s)" % [Beute.name(g), Sprache.t(Heldwerte.lade()["seltenheiten"][String(g["rarity"])]["name"])]
+	return "%s (%s)" % [Beute.name(g), Sprache.t(BrsHeld.daten()["seltenheiten"][String(g["rarity"])]["name"])]
 
 # ---------------------------------------------------------------- Anschlagbrett (399.1, BoardScreen.kt): was haengt, mit Aushang
 # und Lohn, je einer „Annehmen“ (angenommen: grau); nichts: verblichene Naegel; „Zurück“ schliesst (Game.advance)
@@ -1174,7 +1172,7 @@ func test_tat(was: String, mit: Array) -> void:
 			get_tree().current_scene.queue_free()
 			get_tree().current_scene = s
 		"erschaffung_brs":   # 470a B; 834 (Spike, Chef 10.11., 10:21): „Abenteuer beginnen“ speichert das laufende Spiel und beginnt ein neues
-			# mit dem Helden nach BRS (zustand.brs) im freien oder gewaehlten Platz; gekaempft wird bis 2.3 mit der SRD-Bruecke (BrsHeld.alt)
+			# mit dem Helden nach BRS (zustand.brs) im freien oder gewaehlten Platz
 			var ebene := CanvasLayer.new()
 			ebene.layer = 40
 			ebene.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -1296,19 +1294,30 @@ func held_figur_neu(vorher: String) -> void:
 func fackel_neu() -> void:
 	if held: held.fackel_neu(Menue.fackel(held_werte()), String(karte.daten.get("art", "")) == "INTERIOR")
 
-# 538: die Gespraeche (Geschichte, s.stufe(): Garrick vor Krogg) fragen den Spielstand nach der Stufe des Helden (alt s.hero.level)
+# 538, 870.4: die Heldenstufe steht im Stand nach BRS (zustand.brs_stufe, Kampf und Uebung schreiben hinein); der Held spiegelt sie,
+# eine Stufe hoeher heilt ganz (Jerry 870.5: Leben und Mana voll)
 func stufe_abgleichen() -> void:
-	zustand.stufe_held = held_werte().stufe
+	var h := held_werte()
+	var neu := zustand.stufe()
+	if neu > h.stufe:
+		h.stufe = neu
+		h.voll()
+	else:
+		h.stufe = neu
+		h.begrenze()
 
-# 543 GameState.newGame: Startgold der Klasse (15–25) und was von ihren Startdingen keine Ausruestung ist (Heiltraenke) in die Tasche
-static func startvorrat(z: Zustand, klasse: String) -> void:
-	var d := Heldwerte.lade()
-	var k: Dictionary = d["klassen"].get(klasse, {})
-	z.gold = int(k.get("startgold", 0))
-	for id in k.get("start", []):
-		if not d["grundformen"].has(id) and not Laden.ding(String(id)).is_empty(): z.dazu(String(id))
-func held_werte() -> Heldwerte:
-	if werte == null: werte = Heldwerte.erschaffe(zustand.name, "HUMAN", "FIGHTER")
+# 543, 870.4: Startgold und Heiltraenke fuer jede Herkunft gleich (werte.json „wirtschaft“ startgold, start_heiltraenke)
+static func startvorrat(z: Zustand) -> void:
+	var wi: Dictionary = BrsHeld.lade().get("wirtschaft", {})
+	z.gold = int(wi.get("startgold", 20))
+	z.dazu("potion", int(wi.get("start_heiltraenke", 2)))
+
+func held_werte() -> BrsHeld:
+	if werte == null:
+		werte = BrsHeld.aus_daten(zustand.brs) if not zustand.brs.is_empty() else BrsHeld.neu()
+		werte.name = zustand.name
+		werte.voll()
+	if not zustand.fert.is_empty(): werte.geuebt = zustand.fert["werte"]   # 471: was er seither geuebt hat
 	return werte
 
 func platz() -> Dictionary:
@@ -1631,6 +1640,12 @@ func bilder() -> void:
 	held.rotation.y = atan2(zu.x, zu.z)
 	await get_tree().create_timer(2.0).timeout
 	await knips(dir + "/nah.png")
+	# 870.4 (LISTE-UMZUG-BRS.md Schritt 4 Pruefung): der Heldenreiter nach BRS als Bild vor B1, Spielgroesse, Held wie im Spiel
+	kamera.nah_fern()
+	ui.leiste.visible = true
+	oeffne_menue("held")
+	await get_tree().create_timer(2.0).timeout
+	await knips(dir + "/heldenreiter.png")
 	get_tree().quit()
 
 # 348.6 Leute: --gang=<ordner> stellt die Leute nebeneinander auf den Platz, seitlich zur Kamera, und legt je 0,1 s
@@ -1940,8 +1955,8 @@ func gehen_499() -> void:
 	ui.oben.visible = false
 	ui.leiste.visible = false
 	zustand.minuten = 11 * 60
-	for k in ["FIGHTER", "CLERIC"]:
-		werte = Heldwerte.erschaffe("Thora", "HUMAN", k, {}, zustand.neue_uid)
+	for k in ["Wachsoldat", "Klosterschüler"]:
+		werte = BrsHeld.fuer_spiel("Thora", "Mensch", k, zustand.neue_uid)
 		betrete("village", Vector2i(6, 8), "RIGHT")
 		for l in leute.get_children(): l.free()
 		held.leute = []
@@ -2371,7 +2386,7 @@ func robe_bilder() -> void:
 	ui.mess.visible = false
 	ui.oben.visible = false
 	ui.leiste.visible = false
-	werte = Heldwerte.erschaffe(zustand.name, "HUMAN", "WIZARD")
+	werte = BrsHeld.fuer_spiel(zustand.name, "Mensch", "Zauberlehrling")
 	var orte := [["wald_tag", "deep_forest", Vector2i(21, 14), 10 * 60, false], ["wald_nacht", "deep_forest", Vector2i(21, 14), 22 * 60 + 25, true],
 		["dorf_tag", "village", Vector2i(6, 8), 11 * 60, false], ["dorf_nah", "village", Vector2i(6, 8), 11 * 60, false]]
 	var nacht := false
@@ -2479,9 +2494,9 @@ func rast_probe() -> void:
 	var log := func(was: String) -> void:
 		var knoepfe := ui.wahl_box.get_children().filter(func(c): return c is Button).map(func(b): return "%s%s" % [b.text, "" if not b.disabled else " (aus)"])
 		print("RASTPROBE %s | Feld %s %s | Text %s '%s' | Tag %d %02d:%02d | TP %d/%d | Gold %d | Met %d | Nacht %s | %s" % [was, ui.waehlt(), knoepfe,
-			ui.spricht(), ui.text.text, zustand.tag, zustand.minuten / 60, zustand.minuten % 60, h.tp, h.max_tp(), zustand.gold, zustand.met, licht.ziel > 0.5,
+			ui.spricht(), ui.text.text, zustand.tag, zustand.minuten / 60, zustand.minuten % 60, h.leben, h.max_leben(), zustand.gold, zustand.met, licht.ziel > 0.5,
 			zustand.taschen])
-	h.tp = 1
+	h.leben = 1
 	zustand.minuten = 20 * 60
 	oeffne_rast("feuer")
 	log.call("Feuer offen")

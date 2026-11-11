@@ -1,10 +1,11 @@
 extends SceneTree
-# 506 ohne Bild: Probekampf „Skelette“ (aufruf.gd SKELETONS): drei Skelette mit ihren eigenen Regeln aus tabellen.json (Monsters.kt
-# skeleton: Name, Trefferpunkte 2W8+4, Kurzschwert 1W6+2, gegen Gift gefeit), MARS spielt den Kampf auf Autopilot zu Ende.
+# 506 ohne Bild: Probekampf „Skelette“ (aufruf.gd SKELETONS): drei Skelette mit Name und Leben nach BRS aus werte.json (922: nicht
+# mehr SRD 2W8+4), MARS spielt den Kampf auf Autopilot zu Ende.
 # Mit Kaufpaketen (kaufskelett.py): drei Kits in skeleton-info.json, je Nummer eines, Bewegungen, Maße, Glutpunkte, Kopfdrehung.
 # Aufruf: im Ordner godot mit -s res://tests/skelett_506.gd (Exit 0 = gut)
 
 const Probe = preload("res://kampf/probe.gd")
+const Brs = preload("res://regeln/brs.gd")
 
 var fehler := 0
 
@@ -179,10 +180,11 @@ func _kampf(k: String, bis_ende: bool) -> void:
 	if feinde.size() != 3 or feinde.any(func(f): return String(f.monster.id) != "skeleton" or String(f.monster.de) != "Skelett"):
 		fehler += 1
 		print("FEHLER Gegner: %s" % [feinde.map(func(f): return "%s/%s" % [f.monster.id, f.monster.de])])
+	var leben := int(Brs.monster("skeleton").get("leben", -1))     # 922 (Lauf 346): BRS aus werte.json (36), nicht SRD 6–20
 	for f in feinde:
-		if f.max_hp < 6 or f.max_hp > 20:
+		if f.max_hp != leben:
 			fehler += 1
-			print("FEHLER Trefferpunkte %d (6–20)" % f.max_hp)
+			print("FEHLER Trefferpunkte %d (werte.json %d)" % [f.max_hp, leben])
 	if k == "FIGHTER":
 		for i in 30:
 			await process_frame

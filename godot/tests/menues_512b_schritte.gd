@@ -135,11 +135,11 @@ func stueck(z: Zustand, base: String, rar: String, rolls: Array) -> Dictionary:
 	return z.ausruestung_dazu({"uid": 0, "base": base, "rarity": rar, "ilvl": 3, "plus": 0, "rolls": rolls, "unique": null, "name_seed": 0})
 
 # Thora wie Menue512b.kt held512
-func held(name_ := "Thora", volk := "HUMAN", klasse := "FIGHTER") -> Array:
+func held(name_ := "Thora", volk := "Mensch", klasse := "Wachsoldat") -> Array:
 	var z := Zustand.new()
 	z.name = name_
-	var hw := Heldwerte.erschaffe(name_, volk, klasse, {}, z.neue_uid)
-	hw.ep_dazu(int(Heldwerte.regel("ep_fuer_stufe")[3]))
+	var hw := BrsHeld.fuer_spiel(name_, volk, klasse, z.neue_uid)
+	Testmodus.stufe_setzen(hw, z, 3)
 	z.setze(Geschichte.INTRO_DONE)
 	z.taschen.clear()
 	for p in [["potion", 3], ["greater_potion", 1], ["herbs", 2], ["wolf_pelt", 2]]: z.dazu(p[0], p[1])
@@ -150,8 +150,7 @@ func held(name_ := "Thora", volk := "HUMAN", klasse := "FIGHTER") -> Array:
 	z.gold = 137; z.tag = 3; z.minuten = 14 * 60 + 20
 	for f in [Geschichte.QUEST_STARTED, Geschichte.BARRIER_OPEN, Geschichte.KROGG_HINT, "job_tusks", "job_tusks_done"]: z.setze(f)
 	Auftraege.nimm(z, Auftraege.von("pelts"))
-	hw.voll(); hw.zp = hw.max_zp()
-	z.stufe_held = hw.stufe
+	hw.voll(); hw.mana = hw.max_mana()
 	return [hw, z]
 
 func im_beutel(z: Zustand, base: String) -> Dictionary:
@@ -159,7 +158,7 @@ func im_beutel(z: Zustand, base: String) -> Dictionary:
 		if String(g["base"]) == base: return g
 	return {}
 
-func speichere(n: int, hw: Heldwerte, z: Zustand, karte := "inn") -> void:
+func speichere(n: int, hw: BrsHeld, z: Zustand, karte := "inn") -> void:
 	Spielstand.platz = n
 	Spielstand.speichere(z, hw, {"karte": karte, "x": 4, "y": 6, "blick": "UP"})
 
@@ -170,9 +169,9 @@ func vier_plaetze() -> void:
 	var t := held()
 	speichere(1, t[0], t[1])
 	var i := 2
-	for h in [["Mira", "ELF", "WIZARD"], ["Borin", "DWARF", "CLERIC"], ["Ilse", "HALFLING", "ROGUE"]]:
+	for h in [["Mira", "Elf", "Zauberlehrling"], ["Borin", "Zwerg", "Klosterschüler"], ["Ilse", "Hügelvolk", "Herumtreiber"]]:
 		var z := Zustand.new(); z.name = h[0]
-		var hw := Heldwerte.erschaffe(h[0], h[1], h[2], {}, z.neue_uid)
+		var hw := BrsHeld.fuer_spiel(h[0], h[1], h[2], z.neue_uid)
 		speichere(i, hw, z)
 		i += 1
 	Spielstand.platz = 1
@@ -282,7 +281,7 @@ func spielstaende() -> void:
 
 func erschaffung() -> void:
 	alle_plaetze_leer()
-	var d := Heldwerte.lade()
+	var d := BrsHeld.daten()
 	var m := Hauptmenue.new(ui)
 	buehne.add_child(m)
 	await frames(2)
@@ -291,7 +290,7 @@ func erschaffung() -> void:
 	var e: ErschaffungBrs = m.get_node("Erschaffung")   # 470: Seite „Neues Spiel“ nach BRS
 	await host.knips("10_erschaffung_oben")
 	var i := 1
-	for v in [["Elf", "ELF"], ["Zwerg", "DWARF"], ["Hügelvolk", "HALFLING"], ["Orkblütiger", "HALF_ORC"]]:
+	for v in [["Elf", "Elf"], ["Zwerg", "Zwerg"], ["Hügelvolk", "Hügelvolk"], ["Orkblütiger", "Orkblütiger"]]:
 		await druecke(e, ErschaffungBrs.tx(ErschaffungBrs.VOLK[v[0]]))
 		await frames(3)
 		e.rolle.scroll_vertical = 0
@@ -304,7 +303,7 @@ func erschaffung() -> void:
 	e.aussehen["statur"] = "kraeftig"
 	e.baue()
 	await frames(3)
-	await rolle_zu(e.rolle, "Aussehen" if HeldFigur.da(e.klasse(), "w") else ErschaffungBrs.tx(ErschaffungBrs.T["volk"]))
+	await rolle_zu(e.rolle, "Aussehen" if HeldFigur.da(e.b.herkunft, "w") else ErschaffungBrs.tx(ErschaffungBrs.T["volk"]))
 	await host.knips("15_erschaffung_aussehen")
 	i = 6
 	for k in ["Zauberlehrling", "Herumtreiber", "Klosterschüler"]:
@@ -333,7 +332,7 @@ func erschaffung() -> void:
 	await leeren()
 	alle_plaetze_leer()
 
-func menue_mit(hw: Heldwerte, z: Zustand) -> Menue:
+func menue_mit(hw: BrsHeld, z: Zustand) -> Menue:
 	var m := Menue.new(hw, z)
 	m.ort = {"karte": "village", "x": 17, "y": 13, "blick": "UP"}
 	buehne.add_child(m)
@@ -346,25 +345,17 @@ func reiter(m: Menue, r: String) -> void:
 
 func spielermenue() -> void:
 	var t := held()
-	var hw: Heldwerte = t[0]
+	var hw: BrsHeld = t[0]
 	var z: Zustand = t[1]
 	var m: Menue = await menue_mit(hw, z)
 	await host.knips("25_held_oben")
 	await ganz_unten(m.rolle)
 	await host.knips("26_held_unten")
 	m.rolle.scroll_vertical = 0
-	await tippe_text(m, Sprache.t(Heldwerte.lade()["attribute"]["STR"]["name"]), "=")
+	await tippe_text(m, ErschaffungBrs.tx(ErschaffungBrs.GRUNDWERT["kraft"]), "=")
 	await host.knips("27_held_erklaerung")
 	await schliesse_fenster(m)
-	hw.offen = 2
-	await reiter(m, "held")
-	m.geplant = {"STR": 1}; m.baue()
-	await frames(3)
-	await host.knips("28_held_punkte")
-	await druecke(m, "Übernehmen")
-	await host.knips("29_held_verteilen")
-	await schliesse_fenster(m)
-	hw.offen = 0
+	# 870.4: keine Attributspunkte mehr (28, 29 entfallen)
 	await reiter(m, "tasche")
 	await host.knips("30_tasche_oben")
 	await ganz_unten(m.rolle)
@@ -399,7 +390,7 @@ func spielermenue() -> void:
 	await tippe_text(m, Beute.name(schwert), "~")
 	await host.knips("40_ausruestung_wechsel_stueck")
 	await schliesse_fenster(m)
-	await tippe_text(m, Sprache.t(Heldwerte.lade()["plaetze"]["AMULET"]), "=")
+	await tippe_text(m, Sprache.t(BrsHeld.daten()["plaetze"]["AMULET"]), "=")
 	await host.knips("41_ausruestung_leerplatz")
 	await schliesse_fenster(m)
 	await reiter(m, "karte")
@@ -457,7 +448,7 @@ func laden() -> void:
 	Bedienung.rueckfragen = true
 	var a: Array = await laden_mit(WAREN, false)
 	var l: LadenSchirm = a[0]
-	var hw: Heldwerte = a[1]
+	var hw: BrsHeld = a[1]
 	var z: Zustand = a[2]
 	await host.knips("52_laden_kaufen")
 	await ganz_unten(l.rolle)
@@ -506,7 +497,7 @@ func laden() -> void:
 	await leeren()
 
 # spiel.gd zeige_rast, Wort fuer Wort (die Welt dahinter ist hier das graugruene Feld)
-func zeige_rast(ort: String, z: Zustand, hw: Heldwerte, notiz := "", zweites := false) -> void:
+func zeige_rast(ort: String, z: Zustand, hw: BrsHeld, notiz := "", zweites := false) -> void:
 	var lang_ok := Rast.lange_erlaubt(z)
 	var titel := Sprache.r({"feuer": "ask", "schenke": "tavern", "zimmer": "room"}[ort])
 	var zeilen_: Array = []
@@ -528,7 +519,7 @@ func zeige_rast(ort: String, z: Zustand, hw: Heldwerte, notiz := "", zweites := 
 func rast() -> void:
 	await leeren()
 	var t := held()
-	var hw: Heldwerte = t[0]
+	var hw: BrsHeld = t[0]
 	var z: Zustand = t[1]
 	z.minuten = 20 * 60
 	ui.leiste.zeige(hw, z, false)   # die Leiste oben wie im Spiel (alt: die Welt mit ihrer Leiste hinter dem Fenster)

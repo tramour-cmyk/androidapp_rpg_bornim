@@ -16,12 +16,12 @@ func _lauf() -> void:
 	var z := Zustand.new()
 	z.name = "Alt"; z.gold = 777; z.setze("met_rowena")
 	Spielstand.platz = 1
-	Spielstand.speichere(z, Heldwerte.erschaffe("Alt", "HUMAN", "FIGHTER", {}, z.neue_uid), {"karte": "village", "x": 19, "y": 13, "blick": "DOWN"})
+	Spielstand.speichere(z, BrsHeld.fuer_spiel("Alt", "Mensch", "Wachsoldat", z.neue_uid), {"karte": "village", "x": 19, "y": 13, "blick": "DOWN"})
 	spiel.starte({"laden": true, "platz": 1})
 	for i in 5: await process_frame
 	print("geladen: %s %s, %s, Gold %d" % [spiel.karte.id, spiel.held.kachel, spiel.zustand.name, spiel.zustand.gold])
 	if spiel.karte.id != "village" or spiel.held.kachel != Vector2i(19, 13) or spiel.zustand.gold != 777: fehler += 1; print("FEHLER Laden")
-	spiel.starte({"name": "Neu", "volk": "ELF", "klasse": "WIZARD", "werte": {}, "platz": 2})
+	spiel.starte({"name": "Neu", "brs": BrsHeld.neu("Elf", "Zauberlehrling").als_daten(), "platz": 2})   # 870.4: der Held nach BRS
 	for i in 30:   # die Ankunft bei Nacht: fertig, sobald sie da ist (Tippen „Überspringen?“ gibt es ohne Finger nicht)
 		await process_frame
 		var zb := root.find_children("*", "Zwischenbild", true, false)
@@ -29,10 +29,10 @@ func _lauf() -> void:
 	for i in 5: await process_frame
 	var soll := Vector2i(int(Rast.START["x"]), int(Rast.START["y"]))
 	print("neu: %s %s, %s, Gold %d, met_rowena %s, %s, Platz %d" % [spiel.karte.id, spiel.held.kachel, spiel.zustand.name, spiel.zustand.gold,
-		spiel.zustand.flaggen.has("met_rowena"), spiel.held_werte().klasse, Spielstand.platz])
+		spiel.zustand.flaggen.has("met_rowena"), spiel.held_werte().herkunft, Spielstand.platz])
 	if spiel.karte.id != String(Rast.START["karte"]) or spiel.held.kachel != soll: fehler += 1; print("FEHLER neues Spiel nicht im Bett der Schenke")
 	if spiel.zustand.name != "Neu" or spiel.zustand.gold == 777 or spiel.zustand.flaggen.has("met_rowena"): fehler += 1; print("FEHLER neues Spiel erbt den Zustand")
-	if spiel.held_werte().klasse != "WIZARD" or Spielstand.platz != 2: fehler += 1; print("FEHLER neuer Held oder Platz")
+	if spiel.held_werte().herkunft != "Zauberlehrling" or Spielstand.platz != 2: fehler += 1; print("FEHLER neuer Held oder Platz")
 	var alt := Spielstand.lade(1)
 	if alt.is_empty() or int(alt["zustand"].get("gold", 0)) != 777: fehler += 1; print("FEHLER alter Spielstand ueberschrieben")
 	for n in range(1, Spielstand.PLAETZE + 1): Spielstand.loesche(n)

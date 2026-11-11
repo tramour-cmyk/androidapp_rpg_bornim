@@ -27,7 +27,7 @@ func _lauf() -> void:
 	Bedienung.fert_gruppen = {}
 	var z := Zustand.new()
 	z.name = "Thora"
-	var hw := Heldwerte.erschaffe("Thora", "HUMAN", "FIGHTER", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Thora", "Mensch", "Wachsoldat", z.neue_uid)
 	z.brs = BrsHeld.neu("Mensch", "Wachsoldat").als_daten()
 	var m := Menue.new(hw, z)
 	root.add_child(m)

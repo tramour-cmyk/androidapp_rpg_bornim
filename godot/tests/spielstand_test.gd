@@ -9,22 +9,66 @@ func _leer() -> void:
 	for n in range(1, Spielstand.PLAETZE + 1): Spielstand.loesche(n)
 	if FileAccess.file_exists(Spielstand.ALT): DirAccess.remove_absolute(ProjectSettings.globalize_path(Spielstand.ALT))
 
+# 870.8 (870a 1): ein echter Spielstand der Version 1 (Build 275, main 11.11., Zwerg Kaempfer „Brann“, tests/golden) laedt nicht:
+# „Weiter“ fehlt, lade() gibt nichts, die Liste zeigt ihn mit Hinweis und nur Loeschen, in beiden Entwuerfen; kein Absturz
+func _alt_870_8() -> int:
+	var f := 0
+	_leer()
+	var q := FileAccess.open(Spielstand.datei(2), FileAccess.WRITE); q.store_string(FileAccess.get_file_as_string("res://tests/golden/spielstand_v1.json")); q.close()
+	if not Spielstand.alt(Spielstand.liste()[1]) or not Spielstand.lade(2).is_empty() or not Spielstand.lade().is_empty() or Spielstand.letzter() != 0 or not Spielstand.gibt_es():
+		f += 1; print("FEHLER 870.8 Spielstand: alt %s, lade %s, letzter %d" % [Spielstand.alt(Spielstand.liste()[1]), Spielstand.lade(2).keys(), Spielstand.letzter()])
+	var st := Steuerung.new()
+	root.add_child(st)
+	var m := Hauptmenue.new(st)
+	st.add_child(m)
+	await process_frame
+	var texte: Array = m.box.find_children("*", "Button", true, false).filter(func(c): return not c.is_queued_for_deletion()).map(func(b): return KH.text(b))
+	if texte.any(func(t): return t.to_lower().begins_with("weiter") or t.to_lower().begins_with("continue")) or not texte.any(func(t): return t.to_lower().contains("spielst") or t.to_lower().contains("saved")):
+		f += 1; print("FEHLER 870.8 Hauptmenue: %s" % [texte])
+	st.queue_free()
+	for e in ["", "B"]:
+		Spielstaende.entwurf = e
+		var sp := Spielstaende.new()
+		root.add_child(sp)
+		await process_frame
+		var geladen := []
+		sp.laden.connect(func(p): geladen.append(p))
+		var satz := Spielstaende.alt_satz(Sprache.aktiv() == "de")
+		var woerter: Array = sp.liste.find_children("*", "", true, false).filter(func(c): return c is Label or c is Button).map(func(c): return String(c.text).replace("\u00a0", " "))   # ohne_waise
+		var alle := " | ".join(PackedStringArray(woerter))
+		var laden_ := woerter.filter(func(t): return t.to_lower().begins_with("laden") or t.to_lower().begins_with("load"))
+		if not alle.contains(satz) or not alle.to_upper().contains("BRANN") or laden_.size() != 0 or sp.liste.find_child("Heldbild", true, false) != null:
+			f += 1; print("FEHLER 870.8 Spielstaende %s: %s" % [e, alle])
+		# Antippen der Zeile laedt nicht
+		for c in sp.liste.find_children("*", "Control", true, false):
+			if c.gui_input.get_connections().size() > 0:
+				for gedrueckt in [true, false]:
+					var tipp := InputEventMouseButton.new(); tipp.pressed = gedrueckt; tipp.button_index = MOUSE_BUTTON_LEFT; tipp.position = Vector2(10, 10)
+					c.gui_input.emit(tipp)
+		await process_frame
+		if geladen.has(2): f += 1; print("FEHLER 870.8 Spielstaende %s: alter Stand laedt" % e)
+		print("870.8 Spielstaende %s: %s" % [e, alle.replace("\n", " | ").left(240)])
+		sp.queue_free()
+		await process_frame
+	Spielstaende.entwurf = "B"
+	return f
+
 func _lauf() -> void:
 	var fehler := 0
 	_leer()
 	Spielstand.platz = 1
 	var z := Zustand.new()
 	z.name = "Mira"; z.gold = 23; z.dazu("potion", 2); z.setze("met_jorin")
-	var hw := Heldwerte.erschaffe("Mira", "ELF", "WIZARD", {}, z.neue_uid)
-	hw.tp = 3
+	var hw := BrsHeld.fuer_spiel("Mira", "Elf", "Zauberlehrling", z.neue_uid)
+	hw.leben = 3
 	Spielstand.speichere(z, hw, {"karte": "inn", "x": 4, "y": 6, "blick": "UP"})
 	var d := Spielstand.lade()
 	var z2 := Zustand.aus_daten(d["zustand"])
-	var h2 := Heldwerte.aus_daten(d["held"])
+	var h2 := BrsHeld.aus_spiel_daten(d["held"])
 	if z2.gold != 23 or z2.anzahl("potion") != 2 or not z2.has("met_jorin"): fehler += 1; print("FEHLER Zustand")
-	if h2.klasse != "WIZARD" or h2.volk != "ELF" or h2.tp != 3 or h2.max_tp() != hw.max_tp() or h2.rk() != hw.rk(): fehler += 1; print("FEHLER Held %s" % h2.als_daten())
+	if h2.herkunft != "Zauberlehrling" or h2.volk != "Elf" or h2.leben != 3 or h2.max_leben() != hw.max_leben() or h2.schutzwert() != hw.schutzwert(): fehler += 1; print("FEHLER Held %s" % h2.spiel_daten())
 	if String(d["ort"]["karte"]) != "inn": fehler += 1; print("FEHLER Ort")
-	print("Spielstand: %s %s %s, TP %d/%d, RK %d" % [h2.name, h2.volk, h2.klasse, h2.tp, h2.max_tp(), h2.rk()])
+	print("Spielstand: %s %s %s, Leben %d/%d, Schutzwert %d" % [h2.name, h2.volk, h2.herkunft, h2.leben, h2.max_leben(), h2.schutzwert()])
 	# 399.1 vier Plaetze wie alt: der alte eine Stand wird Platz 1, „Weiter“ nimmt den zuletzt gespeicherten, Loeschen, erster freier
 	var alt := FileAccess.get_file_as_string(Spielstand.datei(1))
 	_leer()
@@ -72,7 +116,7 @@ func _lauf() -> void:
 	await tippe.call(Sprache.u("start"))   # Abenteuer beginnen (unten rechts)
 	await process_frame
 	print("Hauptmenue: %s" % ergebnis)
-	if ergebnis.get("volk") != "DWARF" or String(ergebnis.get("brs", {}).get("herkunft", "")) != "Klosterschüler" or String(ergebnis.get("name", "")) == "" or int(ergebnis.get("platz", 0)) != 1: fehler += 1; print("FEHLER Hauptmenue")
+	if String(ergebnis.get("brs", {}).get("volk", "")) != "Zwerg" or ergebnis.has("klasse") or String(ergebnis.get("brs", {}).get("herkunft", "")) != "Klosterschüler" or String(ergebnis.get("name", "")) == "" or int(ergebnis.get("platz", 0)) != 1: fehler += 1; print("FEHLER Hauptmenue")
 	if int(ergebnis.get("brs", {}).get("grundwerte", {}).get("kraft", -1)) != vor_kraft: fehler += 1; print("FEHLER Grundwerte: Kraft %s statt %d" % [ergebnis.get("brs", {}).get("grundwerte", {}).get("kraft"), vor_kraft])
 	# alle vier Plaetze belegt: Abenteuer beginnen fragt, wen der Neue ersetzt (alt SlotChooser); Antippen des zweiten waehlt Platz 2
 	for n in range(1, 5):
@@ -128,6 +172,8 @@ func _lauf() -> void:
 	ja[ja.size() - 1].pressed.emit()
 	await process_frame
 	if geladen != [4] or Spielstand.liste()[3].size() != 0: fehler += 1; print("FEHLER Spielstaende %s" % [geladen])
+	sp.queue_free()
+	fehler += await _alt_870_8()
 	_leer()
 	print("SPIELSTAND %d Fehler" % fehler)
 	quit(1 if fehler else 0)

@@ -2,7 +2,7 @@ class_name Hauptmenue
 extends Control
 # 399 (Chef 28.10., 12:34: spielbar zuerst): Hauptmenue (292) und Erschaffung. Fortsetzen, wenn ein Spielstand liegt; Neues Spiel fuehrt
 # in die Erschaffung (erschaffung_brs.gd, 470), „Spielstände“ zu den vier Plaetzen (spielstaende.gd). Ende: Signal fertig({"laden": true,
-# "platz"}) oder fertig({"name", "volk", "klasse", "werte", "platz"}).
+# "platz"}) oder fertig({"name", "brs", "aussehen", "platz"}) (870.4).
 # 399.1 (Test 130, Chef 14:38: „Einfach mal das alte Spiel nehmen … so soll es im neuen halt auch schon“; 14:39 „an die
 # Designvorgaben halten“): Aussehen wie App.kt MainMenuColumn (292.3, Entwurf A): schwarz, Titel gross in gesperrten Versalien, Zier,
 # Kapitelzeile, das Bild der vier im warmen Lichtkegel (assets/menu/hauptmenue.jpg, im Bau kopiert), Hauptweg golden umrandet,
@@ -294,11 +294,11 @@ func titel() -> void:
 	var reihe := HBoxContainer.new()
 	reihe.custom_minimum_size.x = 280 * DP
 	reihe.add_theme_constant_override("separation", int(10 * DP))
-	reihe.add_child(Erschaffung.knopf(Sprache.u("newGame"), erschaffung))
-	if not stand.is_empty(): reihe.add_child(Erschaffung.knopf("Spielstände" if Sprache.aktiv() == "de" else "Saved games", spielstaende))
+	reihe.add_child(Stil.knopf(Sprache.u("newGame"), erschaffung))
+	if Spielstand.gibt_es(): reihe.add_child(Stil.knopf("Spielstände" if Sprache.aktiv() == "de" else "Saved games", spielstaende))   # 870.8: auch, wenn nur alte da sind (Loeschen)
 	mittig(reihe)
 	abstand(12)
-	var ue := Erschaffung.knopf(Sprache.u("about"), ueber)   # wie alt: „Über das Spiel“ unter der Reihe, 280 dp
+	var ue := Stil.knopf(Sprache.u("about"), ueber)   # wie alt: „Über das Spiel“ unter der Reihe, 280 dp
 	ue.custom_minimum_size.x = 280 * DP
 	mittig(ue)
 	abstand(18)
@@ -418,9 +418,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 static func lizenz_texte(box: VBoxContainer, de: bool) -> void:
 	var kopf := func(t: String) -> void:
-		box.add_child(Erschaffung.luecke(8))
+		box.add_child(Stil.luecke(8))
 		box.add_child(Stil.zeile(t.to_upper(), 14, Stil.GOLD, 3.0))   # 630 (549a): Zwischenueberschrift 14 sp
-	var klein := func(t: String) -> void: box.add_child(Erschaffung.txt(umbrechen(t), 13, Spielstaende.ANGABE))   # 549a: nie unter 13 sp
+	var klein := func(t: String) -> void: box.add_child(Stil.txt(umbrechen(t), 13, Spielstaende.ANGABE))   # 549a: nie unter 13 sp
 	kopf.call("Godot Engine")
 	klein.call(("Dieses Spiel nutzt die Godot Engine unter folgender Lizenz:" if de else "This game uses Godot Engine, available under the following license:"))
 	klein.call(Engine.get_license_text().strip_edges())
@@ -459,17 +459,17 @@ func ueber() -> void:
 	# 630 (549a „Schirm“): ohne Kasten; Titel 22 sp mit Zierlinie, Abschnitte durch schlichte Linien, unten „‹ ZURÜCK“
 	var d := Spielstaende.schirm(self, Sprache.u("title"), func(): pass, 0.0)   # 526: Android-Zurück wie „Zurück“ (Spielstaende.schirm)
 	var v: VBoxContainer = d["inhalt"]
-	v.add_child(Erschaffung.txt(Sprache.u("aboutText"), 16))
-	v.add_child(Erschaffung.luecke(12))
+	v.add_child(Stil.txt(Sprache.u("aboutText"), 16))
+	v.add_child(Stil.luecke(12))
 	var de := Sprache.aktiv() == "de"
 	# 497 (Chef 03.11., 07:09): beide mitgelieferten Schriften (Fondamento fuer die Ortsnamen der Karte, kartenreiter.gd)
-	v.add_child(Erschaffung.txt(("Schriften" if de else "Fonts") + ": Alegreya, Fondamento – SIL Open Font License 1.1", 13.5, Spielstaende.ANGABE))
+	v.add_child(Stil.txt(("Schriften" if de else "Fonts") + ": Alegreya, Fondamento – SIL Open Font License 1.1", 13.5, Spielstaende.ANGABE))
 	# 497: Godot Engine (MIT) mit Drittteilen, Wortlaut aus der Engine selbst (Godot-Doku „Complying with licenses“); erst auf Tippen
-	v.add_child(Erschaffung.luecke(6))
-	v.add_child(Erschaffung.txt("Godot Engine – MIT License · godotengine.org/license", 13.5, Spielstaende.ANGABE))
-	v.add_child(Erschaffung.luecke(6))
-	v.add_child(Erschaffung.txt(HOSKINS_ZEILE, 13.5, Spielstaende.ANGABE))   # 781
-	v.add_child(Erschaffung.luecke(6))
+	v.add_child(Stil.luecke(6))
+	v.add_child(Stil.txt("Godot Engine – MIT License · godotengine.org/license", 13.5, Spielstaende.ANGABE))
+	v.add_child(Stil.luecke(6))
+	v.add_child(Stil.txt(HOSKINS_ZEILE, 13.5, Spielstaende.ANGABE))   # 781
+	v.add_child(Stil.luecke(6))
 	var lizenzen := VBoxContainer.new()
 	lizenzen.add_theme_constant_override("separation", int(4 * DP))
 	lizenzen.visible = false
@@ -500,7 +500,7 @@ func ueber() -> void:
 			zp.resized.connect(func(): zp.pivot_offset = zp.size / 2)
 			zp.rotation = -PI / 2
 			zz.add_child(zp)
-			lizenzen.add_child(Erschaffung.luecke(8))
+			lizenzen.add_child(Stil.luecke(8))
 			var zu := Spielstaende.tippbar(zz, func(): lizenzen.visible = false; pf.rotation = 0.0)
 			zu.name = "LizenzenZu"
 			lizenzen.add_child(zu)
@@ -510,16 +510,16 @@ func ueber() -> void:
 	auf.name = "Lizenzen"
 	v.add_child(auf)
 	v.add_child(lizenzen)
-	v.add_child(Erschaffung.luecke(12))
+	v.add_child(Stil.luecke(12))
 	v.add_child(Spielstaende.linie())
-	v.add_child(Erschaffung.luecke(12))
+	v.add_child(Stil.luecke(12))
 	v.add_child(Stil.zeile(String(DANK_KOPF["de" if de else "en"]).to_upper().replace("ß", "SS"), 14, Stil.GOLD, 3.0))   # 623.7
-	v.add_child(Erschaffung.luecke(8))
-	v.add_child(Erschaffung.txt(String(DANK_SATZ["de" if de else "en"]), 15))
+	v.add_child(Stil.luecke(8))
+	v.add_child(Stil.txt(String(DANK_SATZ["de" if de else "en"]), 15))
 	for e in DANK:
-		v.add_child(Erschaffung.luecke(6))
-		v.add_child(Erschaffung.txt(String(e[0]["de" if de else "en"]) + ": " + String(e[1]["de" if de else "en"]), 13.5, Spielstaende.ANGABE))
-	v.add_child(Erschaffung.luecke(18))
+		v.add_child(Stil.luecke(6))
+		v.add_child(Stil.txt(String(e[0]["de" if de else "en"]) + ": " + String(e[1]["de" if de else "en"]), 13.5, Spielstaende.ANGABE))
+	v.add_child(Stil.luecke(18))
 	var tex: Texture2D = load(LOGO) if ResourceLoader.exists(LOGO) else null
 	if tex:
 		var r := TextureRect.new()
@@ -529,8 +529,8 @@ func ueber() -> void:
 		r.custom_minimum_size = Vector2(130, 130.0 * tex.get_height() / tex.get_width()) * DP
 		r.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		v.add_child(r)
-	v.add_child(Erschaffung.luecke(6))
+	v.add_child(Stil.luecke(6))
 	var ver := String(ProjectSettings.get_setting("application/config/version", ""))
-	var z := Erschaffung.txt("© 2026 · " + ("v%s · " % ver if ver != "" else "") + "SRD 5.1 · CC BY 4.0", 13.5, Spielstaende.ANGABE)
+	var z := Stil.txt("© 2026 · " + ("v%s · " % ver if ver != "" else "") + "SRD 5.1 · CC BY 4.0", 13.5, Spielstaende.ANGABE)
 	z.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	v.add_child(z)

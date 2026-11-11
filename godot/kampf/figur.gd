@@ -454,10 +454,10 @@ static var kampf_info: Dictionary = {}
 func _kaufheld() -> Node3D:
 	if fighter.monster != null or OS.get_environment("ALTHELD") != "" or not FileAccess.file_exists(KAMPF_BEW):
 		return null
-	var k := String(fighter.hero.get("cls", "FIGHTER"))
+	var k := _herkunft()     # 870.4: Tracht nach der Herkunft (BrsHeld), Probeblätter mit Klasse wie bisher
 	if not HeldFigur.da(k):
 		return null
-	var w := {"klasse": k, "volk": String(fighter.hero.get("race", "HUMAN")), "aussehen": fighter.hero.get("look", {}), "ausruestung": {}}
+	var w := {"herkunft": k, "volk": String(fighter.hero.get("race", "HUMAN")), "aussehen": fighter.hero.get("look", {}), "ausruestung": {}}
 	var m := HeldFigur.baue(w, mats)
 	if m == null:
 		return null
@@ -774,7 +774,7 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 		# Schild bleibt, wo er war (hier um dieselbe Drehung zurück), die Faust dreht SchildFaust nach jeder Pose
 		knick_achse = b.z.normalized().cross(hx).normalized()
 		knick_knochen = bi
-		var knick := Basis(knick_achse, deg_to_rad(KNICK_GRAD.get(fighter.hero.get("cls", ""), 0.0)))
+		var knick := Basis(knick_achse, deg_to_rad(KNICK_GRAD.get(_tracht(), 0.0)))
 		knick_quat = knick.get_rotation_quaternion()
 		b = knick.inverse() * b
 		o = knick.inverse() * o
@@ -1112,7 +1112,7 @@ func _process(_dt: float) -> void:
 	if not paws.is_empty():
 		_paw_shadow_update()
 	_schritt_sync(_dt)
-	if aim != null and neck and not down and not (tween and tween.is_running()):
+	if aim != null and neck and not down and not (tween and tween.is_running()) and not bedroht():
 		if halt != null:
 			_face_sanft()
 		else:
@@ -1145,12 +1145,57 @@ var ruhe_vor := ""
 var nach_biss := false      # 453: nach dem eigenen Angriff zuerst Hecheln
 
 
+## 900 (wolf_mess_438, Lauf 335 mit dem BRS-Kampf: der Held trat an einen kauernden Wolf, der sich währenddessen nach ihm drehte
+## (44° in Hocke) oder eine Ruhebewegung begann (HockeUmsehenR, HockeKnurren): Schild 0,14 m, Klinge 0,12 m im Wolf, der Stand galt
+## für die Haltung beim Planen): wer zum Ziel eines Hiebs wird, dreht sich bis zu dessen Ende nicht und beginnt keine Ruhebewegung;
+## eine laufende endet weich in der Grundhaltung. Der Stand gilt für den Körper jetzt und die ganze Grundschleife (koerper_ruhe)
+var bedroht_bis := -1
+func bedroht() -> bool:
+	return bedroht_bis >= 0 and _ruhe_uhr() < bedroht_bis
+
+
+func halt_fuer_hieb(ms: int) -> void:
+	bedroht_bis = _ruhe_uhr() + ms
+	fidget_at = 0
+	if anim and fighter.monster != null and String(anim.current_animation) in RUHE_GESTEN:
+		var grund := "Hocke" if pouncing else "Stehen"
+		if anim.has_animation(grund):
+			_play(grund, RUHE_BLENDE)
+
+
+## 900: der Körper als Ziel eines Hiebs wie koerper(), dazu die ganze Grundschleife (Hocke wendet den Kopf, Stehen blickt um) in
+## RUHE_PROBEN Haltungen; danach läuft die Bewegung weiter, wo sie war
+const RUHE_PROBEN := 6
+func koerper_ruhe() -> Array:
+	var ks: Array = koerper()
+	if fighter.monster == null or anim == null or down:
+		return ks
+	var grund := "Hocke" if pouncing else "Stehen"
+	var sk := _find(model, "Skeleton3D") as Skeleton3D if model else null
+	if sk == null or not anim.has_animation(grund):
+		return ks
+	var vor := String(anim.current_animation)
+	var vor_t: float = anim.current_animation_position if vor != "" else 0.0
+	var vor_v: float = anim.get_playing_speed() if vor != "" else 1.0
+	var l: float = anim.get_animation(grund).length
+	anim.play(grund, 0.0)
+	for i in RUHE_PROBEN:
+		anim.seek(l * i / float(RUHE_PROBEN), true)
+		sk.force_update_all_bone_transforms()
+		ks.append_array(koerper())
+	if vor != "":
+		anim.play(vor, 0.0, vor_v)
+		anim.seek(vor_t, true)
+	sk.force_update_all_bone_transforms()
+	return ks
+
+
 func _ruhe_uhr() -> int:
 	return int(kampfort.clock_ms) if kampfort != null and "clock_ms" in kampfort else Time.get_ticks_msec()
 
 
 func _ruhebewegung() -> void:
-	if anim == null or down or not anim.has_animation("Lefzen"):
+	if anim == null or down or not anim.has_animation("Lefzen") or bedroht():
 		return
 	var grund: String = anim.current_animation
 	if not RUHE.has(grund) or grund != ("Hocke" if pouncing else "Stehen") or (tween and tween.is_running()):
@@ -2615,7 +2660,7 @@ func announce(intent, at = null) -> void:
 	var p: bool = intent != null and intent.effect == "POUNCE"
 	var turned: bool = at != aim
 	aim = at
-	if turned and not (tween and tween.is_running()) and halt == null:
+	if turned and not (tween and tween.is_running()) and halt == null and not bedroht():
 		_face()
 	# 439: „Anspringen!“ (FOE_STRIKES) nimmt die Ansage weg, der Biss folgt in der nächsten Meldung; so lange gilt der Sprung
 	if pouncing and not p:
@@ -2819,7 +2864,7 @@ func _held_schlag(other, weiter := 0.0) -> int:
 	if flat.length() > 0.01 and not _hieb_bahn(hn).is_empty():
 		var us := Time.get_ticks_usec()
 		var d := flat.normalized()
-		var ziel: Array = other.koerper()
+		var ziel: Array = other.koerper_ruhe() if other.has_method("koerper_ruhe") else other.koerper()
 		if ziel_bei != Vector3.INF:
 			var v := Vector3(ziel_bei.x - other.position.x, 0.0, ziel_bei.z - other.position.z)
 			ziel = ziel.map(func(c): return [c[0] + v, c[1] + v, c[2]])
@@ -2929,6 +2974,8 @@ func _held_schlag(other, weiter := 0.0) -> int:
 		back_mps = _held_mps("SS_WalkBackwards") * ANGRIFF_GANG     # 562: zurück im Schritt wie hin
 	var back := maxf(HERO_BACK_S, heim / back_mps)
 	tween.tween_callback(func(): _back_home(back, other))
+	if other.has_method("halt_fuer_hieb"):
+		other.halt_fuer_hieb(int((t_run + bl + 0.2) * 1000.0))     # 900: bis zum Ende des Hiebs (im selben Bild wie der Plan)
 	busy_ms = int((t_run + bl + back) * 1000.0)
 	anlauf_ms = 0
 	return int((t_run + auf) * 1000.0 / 0.42)
@@ -3084,7 +3131,18 @@ const FAUST_GRAD := -50.0
 ## 406a E3 Lauf 190 (Faust −50°, gemessen in skeleton_updated): Kämpfer 2,1–2,7 cm, Kleriker 3,7–4,0 cm vor der Vorderseite, vor allem
 ## Ring- und kleiner Finger; Knick im Handgelenk nach hinten je Klasse (Knöchel etwa 9 cm vom Gelenk: 3 cm ≈ 20°, 4,5 cm ≈ 30°),
 ## gemessen mit schild_406 KNICK (je ±10° dazu)
-const KNICK_GRAD := {"FIGHTER": 20.0, "CLERIC": 30.0}
+const KNICK_GRAD := {"WACHE": 20.0, "KLOSTER": 30.0}     # 870.4: je Tracht (vorher je Klasse)
+const KLASSE_HERKUNFT := {"FIGHTER": "Wachsoldat", "CLERIC": "Klosterschüler", "ROGUE": "Herumtreiber", "WIZARD": "Zauberlehrling"}
+
+
+## 870.4: Herkunft des Helden für die Tracht; Probeblätter (probe.gd, tabellen.json „probe“) nennen noch die Klasse
+func _herkunft() -> String:
+	var h := String(fighter.hero.get("herkunft", ""))
+	return h if h != "" else String(KLASSE_HERKUNFT.get(String(fighter.hero.get("cls", "")), "Wachsoldat"))
+
+
+func _tracht() -> String:
+	return String(HeldFigur.lade_info().get("herkuenfte", {}).get(HeldFigur.kennung(_herkunft()), {}).get("tracht", ""))
 var knick_achse := Vector3.ZERO
 var knick_quat := Quaternion.IDENTITY
 var knick_knochen := -1
@@ -3470,7 +3528,11 @@ static func _strecke(sk: Skeleton3D, g: Array, inv: Transform3D, flach := false)
 static var hieb_plaene := {}
 func _hieb_plan_merk(hn: String, other, ziel: Array, to: Vector3, d: Vector3, soll: float) -> Array:
 	var rel := wrapf(other.rotation.y - atan2(-d.x, -d.z), -PI, PI)
-	var key := "%d|%s|%s|%.2f|%d|%.2f" % [get_instance_id(), hn, other._mein_ersatz() if other.fighter.monster != null else "Held", soll, roundi(rad_to_deg(rel) / 15.0), other.model.global_transform.basis.get_scale().x if other.model else 1.0]
+	# 900: auch nach Grundhaltung und laufender Ruhebewegung (der Stand galt sonst für die Haltung, in der er zuerst geplant wurde)
+	var haltung := ""
+	if other.fighter.monster != null and other.anim:
+		haltung = ("Hocke" if other.pouncing else "Stehen") + "/" + (String(other.anim.current_animation) if String(other.anim.current_animation) in RUHE_GESTEN else "")
+	var key := "%d|%s|%s|%.2f|%d|%.2f|%s" % [get_instance_id(), hn, other._mein_ersatz() if other.fighter.monster != null else "Held", soll, roundi(rad_to_deg(rel) / 15.0), other.model.global_transform.basis.get_scale().x if other.model else 1.0, haltung]
 	if not hieb_plaene.has(key):
 		hieb_plaene[key] = hieb_plan(_hieb_bahn(hn), ziel, to, d, soll, HIEB_KOERPER_LUFT)
 	return hieb_plaene[key]

@@ -105,7 +105,7 @@ func _lauf() -> void:
 	var box := VBoxContainer.new()
 	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	rolle.add_child(box)
-	for i in 40: box.add_child(Erschaffung.knopf("Knopf %d" % i, func(): gedrueckt += 1))
+	for i in 40: box.add_child(Stil.knopf("Knopf %d" % i, func(): gedrueckt += 1))
 	await warte(5)
 	await wische((box.get_child(3) as Control).get_global_rect().get_center(), 10, -30.0)
 	pruefe(rolle.scroll_vertical > 100, "Probeliste: Wischen auf einem Knopf rollt (scroll %d)" % rolle.scroll_vertical)
@@ -126,7 +126,7 @@ func _lauf() -> void:
 	# Testmenue: Kampfliste (Chef: „unter Kampfbeschwören … wenn ich jetzt auf Fledermäuse klicke“)
 	var z := Zustand.new()
 	z.name = "Mira"; z.gold = 100
-	var hw := Heldwerte.erschaffe("Mira", "HUMAN", "FIGHTER", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Mira", "Mensch", "Wachsoldat", z.neue_uid)
 	for i in 30: z.beutel.append(Beute.erzeuge_mit_uid(KotlinZufall.new(70 + i), z.neue_uid, 2, "COMMON", ""))
 	z.dazu("potion", 3); z.dazu("herbs", 2); z.dazu("wolf_pelt", 2)
 	Testmodus.an = true; Testmodus.geladen = true

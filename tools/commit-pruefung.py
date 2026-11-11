@@ -204,19 +204,45 @@ def srd_woerter():
     return w + SRD_DAZU
 
 
+# 978 (870.9): texte.json und held.json, bisher im Bau aus core erzeugt, einmal eingecheckt, sind Bestand, keine neuen Zeilen,
+# wenn ihre kompakte Form (tools/karten/karten.py kanon) gleich dem Export von f32a789e6 ist; spätere Änderungen prüft srd_neu
+# wie jede Zeile, --srd-bestand findet sie weiter (870.13).
+BESTAND_870_9 = {"godot/daten/texte.json": "74d37eb3fb2759194a4b18c1972a5a0dfc8305724df64bd197c1712ca7f76fd7",
+                 "godot/daten/held.json": "2e955c9b15d268abee7954ea5e9e8001fb244c055024adbb8f21e0bb0f529d2d"}
+
+
+def bestand_870_9(p):
+    """978: die neu angelegte Datei p ist der unveränderte Export aus core (Stand f32a789e6)."""
+    if p not in BESTAND_870_9: return False
+    import hashlib, json
+    try: k = json.dumps(json.loads(git("show", ":" + p)), ensure_ascii=False, separators=(",", ":"))
+    except ValueError: return False
+    return hashlib.sha256(k.encode()).hexdigest() == BESTAND_870_9[p]
+
+
 def srd_neu(dat):
     """870.11 (870, Umzug BRS Schritt 9): neue Zeilen unter godot/ (ohne tests/) mit SRD-Begriffen. Hält an, sobald 870.4 erledigt
     (nicht mehr offen in der Liste), vorher Warnung. (stop, warn)"""
     wege = [p for s, p in dat if s != "D" and p.startswith("godot/") and "/tests/" not in "/" + p
-            and p.endswith((".gd", ".tscn", ".tres", ".json", ".csv", ".txt", ".cfg"))]
+            and p.endswith((".gd", ".tscn", ".tres", ".json", ".csv", ".txt", ".cfg")) and not (s == "A" and bestand_870_9(p))]
     if not wege: return [], []
     muster = re.compile(r"(?<![\wÄÖÜäöüß])(%s)(?![\wÄÖÜäöüß])" % "|".join(map(re.escape, srd_woerter())))
+    def dazu(*gegen):
+        aus, datei = [], ""
+        for z in git("diff", "--cached", "-U0", "--no-renames", *gegen, "--", *wege).splitlines():
+            if z.startswith("+++ b/"): datei = z[6:]; continue
+            if z.startswith("+") and not z.startswith("+++"): aus.append((datei, z[1:]))
+        return aus
+    neu = dazu()
+    # 979: beim Abschluss eines Merges nur Zeilen, die in keinem Elternteil stehen (Konfliktlösung); den Rest hat der Wächter
+    # beim Commit im jeweiligen Zweig gesehen
+    mh = git("rev-parse", "-q", "--verify", "MERGE_HEAD").strip()
+    if mh:
+        auch = set(dazu(mh))
+        neu = [x for x in neu if x in auch]
     funde = {}
-    datei = ""
-    for z in git("diff", "--cached", "-U0", "--no-renames", "--", *wege).splitlines():
-        if z.startswith("+++ b/"): datei = z[6:]; continue
-        if not z.startswith("+") or z.startswith("+++"): continue
-        for m in muster.finditer(z[1:]): funde.setdefault(datei, set()).add(m.group(1))
+    for datei, z in neu:
+        for m in muster.finditer(z): funde.setdefault(datei, set()).add(m.group(1))
     if not funde: return [], []
     text = "neue SRD-Begriffe im Godot-Spiel (870.11, Namen nur nach DESIGN-BRS.md 12): " + "; ".join(
         "%s: %s" % (d, ", ".join(sorted(w))) for d, w in sorted(funde.items()))
