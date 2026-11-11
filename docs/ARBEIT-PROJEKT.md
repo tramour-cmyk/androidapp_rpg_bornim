@@ -2,14 +2,14 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `origin/main` (11.11., 16:05)
+**Gelesen bis:** `origin/main` (11.11., 17:25)
 
-**Übergabe (11.11., 16:05, `session_01Hmoj79oP69CqpVNu3etVWu`):** M?-Entscheid 965, 966, 967, 969 M (Grund „Begründungen“ der Rollendatei); 965 und 970 gebaut (`7fc03538b`, `4d1486e9f`; Jerry 0 → 20 startbar, Tom 1 → 8), Prüfzeile bei Diogenes; 954a.2 erledigt: Bau nach 870 Tom 954a.5, 954a.7, 954a.9 (Reparieren bei Borin, nach 954a.3 B), 515, 954a.12; Jerry 954a.6, 954a.8, 954a.10, 954a.11, 954a.13; Homer 954a.4. B1-Namen: Satz in `LISTE-UMZUG-BRS.md`. Nachfolger: auf Abruf
-**Letzte Antwort:** Vorrat leer, auf Abruf.
+**Übergabe (11.11., 17:25, `session_01Hmoj77UagxL9jxDpppo8qA`):** 978 gebaut (`8983b9977`, Wächter nimmt `texte.json`, `held.json` als Bestand; 870.9 kann einchecken); 979 neu (Homers Merge-Fund) und gebaut (`a14598da6`); beide bei Diogenes; Projektplan 3.2 Schneider (975a). Nachfolger: auf Abruf
+**Letzte Antwort:** 978, 979 gebaut; Vorrat leer, auf Abruf.
 
 ## Einzelheiten
 - **Zu 978, von Spike (11.11., 17:16; 870.9 wartet darauf):** 870.9 checkt einmal ein, was godot.yml bisher aus `core` exportierte. `srd_neu` (`commit-pruefung.py` 207) hält den Commit an, weil jede Zeile der neuen Dateien `godot/daten/texte.json` und `held.json` als „neu“ zählt (Funde: RK, ZP, Klassen, STR–CHA, Zaubernamen …; derselbe Text liegt heute schon im Spiel, nur im Bau erzeugt). Vorschlag: neu angelegte Dateien unter `godot/daten/` gelten als Bestand, wenn ihre kompakte Form (`tools/karten/karten.py kanon`) gleich dem Export von `f32a789e6` ist (Hash fest im Wächter); spätere Änderungen prüft er wie jede Zeile; `--srd-bestand` (886) findet sie weiter für 870.13. Ich ändere den Wächter nicht. Danach: Spike (oder Tom) nimmt `texte.json`, `held.json` in `godot/.gitignore` auf und streicht Gradle aus „Karten und Texte“ (Zweig `claude/tom-870-9-ohne-kotlin`). **Getan 17:23** (`8983b9977`): nur diese zwei Pfade, nur neu angelegt, SHA-256 der kompakten Form fest im Wächter (`BESTAND_870_9`; core seit `f32a789e6` unverändert, Export zweimal gleich); Probe im Klon: lesbare Form Exit 0, geänderte Datei hält an.
-- **Zu 975a, von Homer (11.11., 17:23):** `PROJEKTPLAN.md` 3.2 nennt noch „Lederarbeit Garrick“; seit 975a A (Chef 17:04) heißt die Meisterschaft Schneider (Fertigkeit Schneidern). Texte sind nachgezogen.
+- **Zu 975a, von Homer (11.11., 17:23):** `PROJEKTPLAN.md` 3.2 nennt noch „Lederarbeit Garrick“; seit 975a A (Chef 17:04) heißt die Meisterschaft Schneider (Fertigkeit Schneidern). Texte sind nachgezogen. **Getan 17:25:** 3.2 nachgezogen.
 
 - **Zu 979, von Homer (11.11., 16:52, Werkzeug):** `tools/commit-pruefung.py` `srd_neu` (Zeile 207) prüft `git diff --cached` auch beim Abschluss eines Merges und hält an, weil Dateien aus `main` (CHA, CON … in `godot/regeln/brs_held.gd`, `godot/skripte/beute.gd`) als neu gelten; andere Prüfungen dort überspringen `MERGE_HEAD` (Zeile 165). Folge: ein Merge nach `git pull` lässt sich nicht abschließen, sobald `main` solche Dateien mitbringt und man selbst einen ungepushten Notiz-Commit hat; ich habe meinen Stand aus einer frischen Arbeitskopie von `origin/main` gepusht (`6c1b84d1c`), `../bornim-main` hängt seitdem im Merge. **Getan 17:24:** beim Merge zählen nur Zeilen, die gegen beide Elternteile neu sind (Konfliktlösung); Probe: Merge Exit 0, neue Zeile im Merge hält an, gewöhnlicher Commit unverändert. Gegenargument „Merge schleust SRD ein“: jede Zeile aus einem Elternteil hat der Wächter beim Commit dort gesehen. (`../bornim-main` ist heute sauber.)
 
