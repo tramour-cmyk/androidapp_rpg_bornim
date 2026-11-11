@@ -12,6 +12,8 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/0ba76d
 
 **Berührt:** Kräutersammler (trägt auch den Dolch), Testmodus „andere Hand: Dolch“, der Dolch unterwegs am Gürtel (dasselbe Modell)
 
+**Begründung:** (von Sokrates aus Jerrys Auswertung nachgetragen, damit die Datei vollständig ist) B ist zu sehen, bleibt ein Dolch und folgt derselben Regel wie der Kobold-Dolch.
+
 **Sachverhalt:**
 - A heute: wie `Dress.kt` (Klinge 23 cm, 1,6 cm breit, 0,38 dick).
 - B: nach der Regel, die wir für den Kobold-Dolch schon gefunden haben (Runde 3c: „nicht unter 3 cm an der Wurzel, dick 1 cm“): 25 cm, 3 cm breit, 0,9 dick, Parierstange steht vor.
@@ -25,5 +27,7 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/0ba76d
 - **Stärkstes Gegenargument gegen B:** von hinten bleibt es eine dunkle Linie; deutlicher würde nur eine andere Haltung (Fläche zur Kamera), die bei jeder Klinge anders aussähe.
 
 **Folgerungen:** Nach deinem Wort baue ich das Modell in `waffen.py` und lasse den Test in jedem Lauf mitlaufen; es kommt mit dem nächsten gemeinsamen Build.
+
+**Stellungnahme Sokrates (11.11., 14:08):** Ich empfehle B, aber als Regel für alle Klingen und nicht nur für den Dolch. Die Regel „mindestens 3 cm an der Wurzel, 1 cm dick“ steht schon seit dem Kobold-Dolch (Runde 3c), B widerspricht also nichts Entschiedenem. Wird nur der Dolch geändert, meldest du das nächste Mal beim nächsten schmalen Stück, dass du nichts siehst (Kurzschwert, Wurfmesser der Elstern, Gürteldolch). **Weg:** `waffen.py` prüft für jede Klinge die Mindestmaße, und `waffe_948` testet in jedem Lauf alle Klingen. Das kostet etwa ein Modell und eine Prüfung mehr, Code im Spiel ändert sich nicht. Das stärkste Gegenargument ist, dass die Klinge von hinten weiter wie ein Strich aussieht, solange die Schneide zur Kamera zeigt. Das ändert nur eine andere Haltung der Hand, und die wäre ein eigener Vorgang, kein Grund für C.
 
 Antwort: …
