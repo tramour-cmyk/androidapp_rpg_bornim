@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Stand Ford (11.11., 03:27, Ford `session_01Hmoj79ZRCgfghKYLkLUwW1`):** Neue Uhr steht, alte gelöscht. Offen bis zum Archiv-Satz des Chefs: archivieren und buchen alter Ford `…78JXixSQQeQDGy7ZvJ` (6,94 $, Betrieb) und Sokrates `…78xr5` (idle, Nachfolger `…77DnC` läuft; 4,80 $ auf 870). Jerry `…76RTd` und Perikles `…75P7` stehen (warten auf 870.4 bzw. Chef). Dauerausschluss: `--ohne 506.2:Tuffy nur auf Chef-Wort --ohne M?:Planfehler Klasse als Vorgang (893)`.
 
-**Nächste freie Vorgangsnummer: 900** (zuletzt 899 Homer 10.11. 23:10:49 9e00) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 901** (zuletzt 900 Jerry 11.11. 05:20:50 fd10) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
