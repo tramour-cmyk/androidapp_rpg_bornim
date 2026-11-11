@@ -34,7 +34,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
-**Tom** – offen 125, Muss 105, startbar 13
+**Tom** – offen 126, Muss 106, startbar 13
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -163,6 +163,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 989 | M | Von Sokrates (952 D, Chef 11.11., 20:03): Heldenseite zeigt kritisch je Waffe und Zauber n | wartet auf 952 (startbar) |
 | 984.1 | M | Von Sokrates (984 A, Chef 11.11., 20:12): Illusion und Beschwörung in Kapitel 1 bei der Er | startbar |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 15591 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
+| 990 | M | Von Sokrates (Chef 11.11., 20:19, Fund t277, Bild): Staubflocken in Thessas Kramladen schw | Sperre 620.1 B: 16 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 680 (schenke) |
 
 **Jerry** – offen 126, Muss 116, startbar 5
 
