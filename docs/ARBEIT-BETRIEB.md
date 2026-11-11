@@ -75,6 +75,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 08:09 11.11.: Startsperre 08:09 Start Diogenes (Ford, vor dem Start; Auftrag Diogenes 903, fa1eb5a5f; Umgebung Hoch)
 - 08:06 11.11.: Lauf 08:04: Spike …7A7ke „Spike – 492“ und Tuffy …774gF „Tuffy – 536“ in Hoch gestartet (Muss, Chef 07:16). Zwischenfall: `lauf.py` aus dem Arbeitskopf `androidapp_rpg_bornim` gerufen rechnete mit altem Stand (START Spike 680, Tuffy 705, beide schon gebaut); Marken gestrichen, nichts gestartet. Künftig `lauf.py` aus `/home/user/bornim-main/tools` rufen oder vorher im Arbeitskopf `git pull origin main`
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry (07:04 Jerry 806, 08:05 Jerry 806, 10:26 Jerry 595) aus eigener Beurteilung aus (Kaufrepo, Pacing, Sitzungsgrenze), ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch: 59 Muss). Lücke im Werkzeug: Startsperre wird geschrieben, auch wenn nie gestartet wird; kein WARNUNG-LAUT wie bei ARCHIVIERE. Vorschlag an den Chef gestellt
 
