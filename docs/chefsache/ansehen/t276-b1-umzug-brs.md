@@ -52,7 +52,7 @@ Bekannt: Klosterschüler und Schmiedelehrling tragen bis zum Streitkolbenmodell 
 
 ## Ergebnis
 
-Chef 11.11., 13:44 an Sokrates: „getestet und freigegeben“; 276.9 nicht genannt (nachgefragt).
+Chef 11.11., 13:44 an Sokrates: „getestet und freigegeben“; 276.9 auf Nachfrage 13:50: „hat auch gepasst. Ich habe Erfahrungspunkte gekriegt.“
 
 - 276.1 ✓
 - 276.2 ✓ (Frage: Langdruck in der Erschaffung gibt keinen Erklärtext, etwa zu Fertigkeiten)
@@ -62,6 +62,7 @@ Chef 11.11., 13:44 an Sokrates: „getestet und freigegeben“; 276.9 nicht gena
 - 276.6 ✓
 - 276.7 ✓
 - 276.8 ✓
+- 276.9 ✓
 - 276.10 ✓
 - 276.11 ✓
 - 276.12 ✓ (Funde nebenbei: 945 Auto nicht abschaltbar, 946 Ansage unter Zugleiste, 947 Söldner-Klon, 948 Dolch)
