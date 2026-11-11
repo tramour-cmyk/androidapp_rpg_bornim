@@ -272,3 +272,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 05:22 11.11.: Marke Start-fehlt Diogenes 11.11.-04:04 (lauf.py)
 - 05:22 11.11.: Marke Archiv session_01Hmoj77iXLHoCZDR7BAbTYy (lauf.py)
 - 05:24 11.11.: Startsperre 05:24 Start Jerry (Neustart-Meldung Sokrates 05:22, a814ab94d; Start Tom 05:22 von lauf.py nicht ausgeführt: 870.4 wartet auf 900)
+- 05:25 11.11.: Startsperre 05:25 Start Sokrates (Neustart-Meldung 05:23, dd41fa48f)
