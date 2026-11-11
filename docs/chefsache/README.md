@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [984](entscheiden/984-querschnitt-brs.md) | **Muss** | E Kampf | 11.11., 18:39 | Jede Kampfregel gegen jeden Kampfstil gehalten (Tabelle „Querschnitt“ in `DESIGN-BRS.md` oben). Zwei Funde brauchen dich; einer ist mit 952 C schon gestellt. | Sokrates |
 | [976a](entscheiden/976a-guetestufen-namen.md) | **Muss** | E Welt | 11.11., 18:16 | Vier Gütestufen sind entschieden; offen ist nur der Name: Schlecht, Normal, Gut, Meisterhaft (Empfehlung) oder deine Wörter Schlecht, Normal, Hoch, Meisterlich. | Sokrates |
 | [952](entscheiden/952-kritisch.md) | **Muss** | E Kampf | 11.11., 17:27 | Kritisch hängt heute nur an der Gewandtheit (7 Gewandtheit = 7 %); Vorschlag: Gewandtheit × Waffenfertigkeit / 50, zu Beginn rund 1 %. | Jerry |
 
@@ -331,11 +332,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 15438 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Sokrates** – offen 53, Muss 39, startbar 29
+**Sokrates** – offen 53, Muss 39, startbar 28
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 984 | M | Querschnitt BRS: jede Kampfregel gegen jeden Kampfstil (Krieger, Schütze, Späher, Magier, | startbar |
+| 984 | M | Querschnitt BRS: jede Kampfregel gegen jeden Kampfstil (Krieger, Schütze, Späher, Magier, | Chef (Datei in der Chefsache) |
 | 976a | M | Rückfrage zu 976: Namen der vier Gütestufen (Schlecht, Normal, Gut, Meisterhaft oder Chefw | Chef (Datei in der Chefsache) |
 | 887 | M | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus (dontAsk von | ruht |
 | 870 | M | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen, Bau Tom u | wartet auf 870.13 (wartet) |
