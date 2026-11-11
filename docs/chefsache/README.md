@@ -131,7 +131,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 867 | M | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.8 (sokrates) |
 | 875 | M | Von Homer (857a A, Chef 10.11., 13:35): Fertigkeit Kräuterkunde heißt im Spiel Kräutersamm | startbar |
 
-**Jerry** – offen 90, Muss 75, startbar 12
+**Jerry** – offen 89, Muss 75, startbar 11
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -224,7 +224,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 909 | M? | Von Sokrates (Chef 11.11., 08:52, zu 854): Lauf schneller: Schritt „Skripte prüfen“ (24 mi | startbar |
 | 910 | M | Von Jerry (B1, Lauf 338): atem_4531 rot, Held atmet in Ruhe 3,0 cm und 3,3° statt höchsten | startbar |
 | 918 | M | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): godot.yml lässt alle Tests durchlaufen, sa | startbar |
-| Pflege | K | von Werkzeug (340.3, 11.11.): 15500 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 26, Muss 13, startbar 0
 
