@@ -9,7 +9,7 @@ Verglichen (alt gegen neu): Heldenreiter mit dem Reiter von Build 275 (Grundwert
 
 Im Bau geprüft: `brs_held_870`, `brs_held_834`, `brs_470`, `spielstand_test`, `testmenue_470`, `testmenue_555`, `handlungen_870`, `mars_regeln`, `faehigkeiten_534`, `brs_kampf_478`, `sim444_870` (Messung je Herkunft gegen Rudel, Krogg, Grimmzahn, Grak), Zahlen der Welt nur aus `werte.json` (870e).
 
-Bekannt: Klosterschüler und Schmiedelehrling tragen bis zum Streitkolbenmodell (458.3) einen Kampfstab (Vorentscheid 870e).
+Bekannt: Klosterschüler und Schmiedelehrling tragen bis zum Streitkolbenmodell (458.3) einen Kampfstab (Vorentscheid 870e); Siegquoten unverändert, weil Stab und Streitkolben beide zur Gruppe „Stumpfe Waffen“ zählen und der Kampf nur nach der Gruppe rechnet.
 
 ## A · Neues Spiel
 
