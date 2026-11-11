@@ -442,7 +442,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:14 11.11.: Startsperre 22:14 Start Sokrates (Neustart-Meldung 22:13, b55a9a9a3, „Sokrates – Nacht: Betrieb im Blick, Bauläufe hängen“; Umgebung Hoch, effort high); Sokrates alt …77wAb archiviert (22:14), 13,60 $ auf 644 gebucht
 - 22:17 11.11.: Startsperre 22:17 Start Ford (selbst)
 - 23:04 11.11.: Marke Archiv session_01Hmoj77TqYPPzSwWJnxFKxV (lauf.py)
-- 23:48 11.11.: Startsperre 23:48 Start Jerry (Neustart-Meldung 23:47, de6e95ea6; Nachfolger „Jerry – 988: rote Prüftests (wolf_mess_438)“; Hoch, effort high).
+- 23:48 11.11.: Startsperre 23:48 Start Jerry (Neustart-Meldung 23:47, de6e95ea6; Nachfolger …7A3Uv1wQxh44QKmFGc „Jerry – 988: rote Prüftests (wolf_mess_438)“; Hoch, effort high bestätigt). Jerry alt …76NLMvq9jNtnLrmxom lief 23:48 noch: im Lauf 00:03 archivieren und auf 833 buchen. Tom alt …78ScPpEgC4rehT6joh 23:48 archiviert, 9,73 $ auf 861, 954.2 gebucht.
 - 23:33 11.11.: Startsperre 23:33 Start Tom (Neustart-Meldung 23:33, efa09a9b4; Nachfolger …77m67VFcXPeA7kSXqt „Tom – 861: Modellstand 656 prüfen, Umhang beheben“; Hoch, effort high bestätigt). Tom alt …78ScPpEgC4rehT6joh lief 23:33 noch: im Lauf 00:03 archivieren und auf 861, 954.2 buchen.
 - 23:30 11.11.: Startsperre 23:30 Start Homer, Spike (lauf.py). Lauf 23:30 (Tom-Meldung 23:29: Homer 954.2): Homer …7882hJCzdqb8SLvPZz „Homer – 954.2“ und Spike …77Z838grLETgmwhtMt „Spike – 963“ in Hoch, effort high bestätigt, gestartet; Homer alt …798PZ (986, 5,20 $) und Spike alt …78Chk52 (814, 9,61 $) archiviert und gebucht; GELÖST 861 an Tom.
 - 23:30 11.11.: Marke Archiv session_01Hmoj798PZHPo2cEXLJVxaZ (lauf.py)
