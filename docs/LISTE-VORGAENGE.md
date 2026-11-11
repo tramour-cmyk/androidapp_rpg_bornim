@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 922 | Von Tom (B1, Lauf 346): wildschwein_494 und skelett_506 prüfen noch SRD-Trefferpunkte (2W8+2 → 4–18, 6–20), nach BRS 18–46 und 36; Spannen an werte.json anpassen; Tor für B1 auf main · „jetzt“ 11.11., 14:21 | Tom | M | startbar, Chef 14:21: wer frei ist, statt Jerry | – | – | – | E Kampf | – |
+| 922 | Von Tom (B1, Lauf 346): wildschwein_494 und skelett_506 prüfen noch SRD-Trefferpunkte (2W8+2 → 4–18, 6–20), nach BRS 18–46 und 36; Spannen an werte.json anpassen; Tor für B1 auf main · „jetzt“ 11.11., 14:21 | Tom | M | erledigt | – | – | – | E Kampf | – |
 | 944 | Fund t276.5 (Chef 11.11., 13:22, Bild): Würfeltexte weg, wo Beute.wuerfel_text steht: Heiltrank „heilt 2W4+2“ (menue.gd:754, Laden ladenschirm.gd:513, Test laden_582), Waffenschaden (menue.gd:843–847, 1351f., beute.gd:336); Wirkung nur in der Meldung; in B1 vor dem Zusammenführen | Tom | M | gebaut, Geprüft an: 9a34fec2a | – | claude/tom-870-4-held | – | E Kampf | 6,25 $ |
 | 825 | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635, 542, 543, 632; Jerry 593, 547, 597), Prüfliste ansehen/t<n>, build <n> --mit für jede Nummer (774) | Tom | M | gebaut, Geprüft an: Lauf 42793721837, t274 beim Chef | – | – | – | E Technik | 8,33 $ |
 | 697 | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | Tom | M | in Arbeit, erster Messlauf ohne Wert (nicht importiert) | 782 | claude/tom-697-drehteller | – | E Figuren | – |
