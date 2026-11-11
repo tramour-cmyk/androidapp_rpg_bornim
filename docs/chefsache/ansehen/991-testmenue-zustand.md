@@ -1,5 +1,7 @@
 # 991 · Testmenü: jeder Schalter zeigt seinen Zustand am Zeichen · Tom · 11.11., 21:16
 
+[Bild von 11.11., 21:18](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/11-2118-991-Tom.png) (eingetragen von meldung.sh, Tom)
+
 Reiter „Test“, Abschnitt Held und Welt, links wie in Build 277, rechts neu. Eine Regel für alle Schalter: an = Zeichen gold, aus = Zeichen matt und durchgestrichen, darunter immer „an“/„aus“ oder der Wert. Knöpfe, die nur etwas tun (Gold, Heilen, Truhen, Bosse, Orte, Stationen, Strahlen), bleiben gold. Nur ein Vorschaubild am Rechner, kein Build; im Bild sind Kampfnebel aus und Gras mit Kit (das gekaufte Gras) gestellt. Unter „Tiere“ fehlt im Bild noch das Wort „aus“; es ist inzwischen ergänzt.
 
 ![Testmenü vorher und nachher](../bilder/991-testmenue.webp)
