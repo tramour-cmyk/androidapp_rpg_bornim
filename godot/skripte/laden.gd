@@ -191,25 +191,47 @@ static func kosten(r: Dictionary) -> String:
 	if int(r["gold"]) > 0: teile.append(("%d Gold" if Sprache.aktiv() == "de" else "%d gold") % int(r["gold"]))
 	return ", ".join(teile)
 
+# 966 A (Vorentscheid Sokrates 11.11., 15:36; Text Homer [966.1.kessel], STORY-K1-FERTIGKEITEN.md „Alchemie: am Kessel“, ersetzt
+# Msgs.brewed): der Held geht Morwen am Kessel zur Hand; drei Wortlaute, beim ersten Mal der erste, danach nie derselbe zweimal
+# hintereinander (504.1, Skript.wahl; gezaehlt in Zustand.varianten)
+const KESSEL_MARKE := "966.1.kessel"
+const KESSEL := [
+	["Du gehst Morwen am Kessel zur Hand. Sie braut dir: {0}.", "You lend Morwen a hand at the cauldron. She brews for you: {0}."],
+	["Du rührst, bis der Sud dunkel wird; Morwen nickt. Heraus kommt: {0}.", "You stir until the brew turns dark; Morwen nods. Out comes: {0}."],
+	["Morwen lässt dich das Feuer schüren und sieht zu, was du dir merkst. Heraus kommt: {0}.",
+		"Morwen has you stoke the fire and watches what you take in. Out comes: {0}."],
+]
+static func kessel_satz(z: Zustand, trank: String) -> String:
+	var i := Skript.wahl(z, KESSEL_MARKE, KESSEL.size())
+	var v: Array = z.varianten.get(KESSEL_MARKE, [0, -1])
+	z.varianten[KESSEL_MARKE] = [int(v[0]) + 1, i]
+	return Sprache.t({"de": KESSEL[i][0], "en": KESSEL[i][1]}).replace("{0}", trank)
+
 # Game.brew: Zutaten und Gold weg, ein Trank; ein kluger Held holt manchmal einen zweiten heraus (Perks.extraBrewChance).
-# wurf: Zufallszahl 0..1 (Dice.chance), im Test fest
+# 966 A: jeder Sud uebt Alchemie (Zustand.uebe, „Alchemie ↑ n“ nach dem Laden). wurf: Zufallszahl 0..1 (Dice.chance), im Test fest
 func braue(z: Zustand, hw: BrsHeld, r: Dictionary, wurf: float = randf()) -> String:
 	if not bezahlbar(z, r): return Sprache.l("missing")
+	var aus := String(r["ergebnis"])
+	if sud(z, hw, r, wurf): return Sprache.l("brewedTwo", [name(aus)])
+	return kessel_satz(z, name(aus))
+
+## ein Sud ohne Meldung; true, wenn zwei Traenke herauskamen
+func sud(z: Zustand, hw: BrsHeld, r: Dictionary, wurf: float) -> bool:
 	for id in r["zutaten"]: z.weg(String(id), int(r["zutaten"][id]))
 	z.gold -= int(r["gold"])
 	var aus := String(r["ergebnis"])
 	z.dazu(aus)
-	if wurf < brau_chance(hw):
-		z.dazu(aus)
-		return Sprache.l("brewedTwo", [name(aus)])
-	return Sprache.l("brewed", [name(aus)])
+	var zwei := wurf < brau_chance(hw)
+	if zwei: z.dazu(aus)
+	z.uebe("Alchemie")   # 966 A
+	return zwei
 
-# 525 (Sokrates 04.11.: „×1, ×5, so viele wie möglich“): n-mal brauen; die Meldung nennt, was herauskam („Morwen braut dir: Heiltrank ×3.“)
+# 525 (Sokrates 04.11.: „×1, ×5, so viele wie möglich“): n-mal brauen; die Meldung nennt, was herauskam („Sie braut dir: Heiltrank ×3.“)
 func braue_mehr(z: Zustand, hw: BrsHeld, r: Dictionary, n: int, wurf: Callable = func(): return randf()) -> String:
 	n = mini(n, wie_oft(z, r))
 	if n < 1: return Sprache.l("missing")
 	if n == 1: return braue(z, hw, r, float(wurf.call()))
 	var aus := String(r["ergebnis"])
 	var vorher := z.anzahl(aus)
-	for i in n: braue(z, hw, r, float(wurf.call()))
-	return Sprache.l("brewed", [mit_anzahl(aus, z.anzahl(aus) - vorher)])
+	for i in n: sud(z, hw, r, float(wurf.call()))
+	return kessel_satz(z, mit_anzahl(aus, z.anzahl(aus) - vorher))

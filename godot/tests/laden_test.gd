@@ -53,7 +53,7 @@ func _init() -> void:
 	pruefe("Rezept", [r["ergebnis"], Laden.kosten(r)], ["potion", "2× Heilkräuter, 5 Gold"])
 	pruefe("fehlt", Laden.new([], true).braue(m, h, r, 0.99), "Dafür fehlen dir Zutaten oder Gold.")
 	m.gold = 12; m.dazu("herbs", 4)
-	pruefe("brauen", Laden.new([], true).braue(m, h, r, 0.99), "Morwen braut dir: Heiltrank.")
+	pruefe("brauen", Laden.new([], true).braue(m, h, r, 0.99), "Du gehst Morwen am Kessel zur Hand. Sie braut dir: Heiltrank.")   # 966.1
 	pruefe("nach Brauen", [m.gold, m.anzahl("herbs"), m.anzahl("potion")], [7, 2, 1])
 	h.geuebt = {"Alchemie": 40}   # 870.4: 40 % (werte.json „welt“ brauen_je_alchemie)
 	pruefe("zwei", Laden.new([], true).braue(m, h, r, 0.39), "Mit deinem Wissen holt ihr zwei Tränke heraus: 2× Heiltrank.")
