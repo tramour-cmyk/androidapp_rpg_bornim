@@ -568,7 +568,8 @@ const KAMPF_TASCHE := ["potion", "greater_potion", "superior_potion", "remedy", 
 
 func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroeffnung := "", nr := 0) -> String:
 	var hw := held_werte() if probe.is_empty() else Testmodus.probeheld(String(probe[0]), int(probe[1]))
-	var soeldner = null if probe.is_empty() else Testmodus.probeheld(String(probe[0]), int(probe[1]))
+	# 947 (Chef 11.11., t276.12): der Söldner nur, wenn im Reiter Test zugeschaltet (probe[2]); in Kapitel 1 kämpft der Held allein (168 D)
+	var soeldner = null if probe.size() < 3 or not bool(probe[2]) else Testmodus.probeheld(String(probe[0]), int(probe[1]))
 	var erg := {"ende": "", "tp": {}, "lohn": {}, "rest": {}, "held": null}
 	# 532 (Durchspielregel 488): die ganze Tasche in den Kampf; danach wird nur weggenommen, was verbraucht ist
 	var tasche := {}
@@ -1202,7 +1203,7 @@ func test_tat(was: String, mit: Array) -> void:
 		"kampf", "probe":
 			if not ResourceLoader.exists("res://kampf/kampfort.gd"): return
 			await abblenden(1.0)
-			await kampf_im_wald(held.kachel, String(mit[0]), [] if was == "kampf" else [String(mit[1]), int(mit[2])])
+			await kampf_im_wald(held.kachel, String(mit[0]), [] if was == "kampf" else [String(mit[1]), int(mit[2]), mit.size() > 3 and bool(mit[3])])
 
 # 399.1 Schwarzblende mit Worten wie alt (Ortsblende, 24.1): auf der stehenden Blende Name und Satz, dann steigt der Ort auf;
 # [von] leer beim Spielbeginn, [erster] beim ersten Besuch. Ohne daten/intro.json wie bisher nur die Blende

@@ -50,6 +50,7 @@ static var eroeffnung := "NORMAL"       # 399.2 (Jerry, TestTab.kt opening): wer
 static var kampfort := ""               # 493 (Jerry): Kampfort im Wald für den beschworenen Kampf; leer: nach der Kachel wie im Spiel
 static var probe_gegner := "GRAK"
 static var probe_stufe := 3
+static var probe_soeldner := false   # 947 (Chef 11.11., t276.12): in Kapitel 1 kämpft der Held allein (168 D: Söldner ab K3); Söldner zuschaltbar
 static var merker_auf := false
 static var bericht_auf := false
 static var alles_sichtbar := false      # 555 wie alt Game.seeAll; wirkt mit dem Nebel (505, nebel.gd)
@@ -340,12 +341,14 @@ static func reiter(m: Menue) -> void:
 		if not fs.has(probe_gegner): probe_gegner = String(ids[0])
 		m.zeichenreihe([zk.call(t.call("Gegner", "Foes"), String(fs[probe_gegner]), t.call("Wechselt die Gegner des Probekampfs.", "Changes the foes of the trial fight."),
 				func(): probe_gegner = String(ids[(ids.find(probe_gegner) + 1) % ids.size()]), "SKULL"),
-			zk.call(t.call("Stufe", "Level"), null, t.call("Stufe von Held und Söldner im Probekampf; die Zahl im Kreis.", "Level of hero and mercenary in the trial fight; the number in the circle."),
-				func(): probe_stufe = STUFEN_PROBE[(STUFEN_PROBE.find(probe_stufe) + 1) % STUFEN_PROBE.size()], "", str(probe_stufe))])
+			zk.call(t.call("Stufe", "Level"), null, t.call("Stufe des Helden (und des Söldners) im Probekampf; die Zahl im Kreis.", "Level of the hero (and the mercenary) in the trial fight; the number in the circle."),
+				func(): probe_stufe = STUFEN_PROBE[(STUFEN_PROBE.find(probe_stufe) + 1) % STUFEN_PROBE.size()], "", str(probe_stufe)),
+			zk.call(t.call("Söldner", "Mercenary"), an_aus.call(probe_soeldner), t.call("Ein Söldner derselben Herkunft kämpft an der Seite des Helden; aus wie in Kapitel 1.", "A mercenary of the same origin fights beside the hero; off as in chapter 1."),
+				func(): probe_soeldner = not probe_soeldner, "SHIELD", "", probe_soeldner)])
 		m.zeile(t.call("Starten als:", "Start as:"), 13, Stil.DIM)
 		m.luecke(4)
 		for i in range(0, HERKUENFTE.size(), 2):   # 870.4: zwei je Reihe, „Klosterschüler“ passt nicht in ein Viertel (testmenue_mass_425)
-			reihe.call(HERKUENFTE.slice(i, i + 2).map(func(k): return [ErschaffungBrs.herkunft_name(k), func(): m.test.emit("probe", [probe_gegner, k, probe_stufe])]))
+			reihe.call(HERKUENFTE.slice(i, i + 2).map(func(k): return [ErschaffungBrs.herkunft_name(k), func(): m.test.emit("probe", [probe_gegner, k, probe_stufe, probe_soeldner])]))
 	m.gruppe(t.call("Beute erzeugen", "Create loot"))
 	var st: Dictionary = BrsHeld.daten()["seltenheiten"]
 	var sel: Array = st.keys()
