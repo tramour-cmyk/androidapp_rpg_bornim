@@ -115,11 +115,13 @@ def text_bereiche(befehl):
             continue
         if c in "'\"":
             j = i + 1
-            while j < n and befehl[j] != c:
+            while j < n:
                 hd = next((e for s, e in heredocs if s <= j < e), None)  # 943 (D171.3): ein " im Heredoc-Körper schließt nicht
-                if hd is not None:
+                if hd is not None:  # 961 (D175.1): Sprung vor dem Vergleich, auch wenn der Körper mit " beginnt
                     j = hd
                     continue
+                if befehl[j] == c:
+                    break
                 j += 2 if c == '"' and befehl[j] == "\\" else 1
             aus.append((i + 1, j))
             i = j + 1
