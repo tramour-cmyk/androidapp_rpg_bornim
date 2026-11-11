@@ -42,7 +42,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 954.1 | M | Von Sokrates (954, Chef 11.11., 13:55): je ein Satz zum Gedrückthalten in der Erschaffung | startbar |
 | 955 | M | Von Sokrates (Chef 11.11., 13:55 „2 ja“): Text Heiltrank (potion) ohne „klassisch“ neu (he | startbar |
 
-**Tom** – offen 101, Muss 81, startbar 4
+**Tom** – offen 100, Muss 81, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -146,7 +146,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 933 | M | Grundwerte 933 A umsetzen (Chef 11.11., 13:07): Volk senkt bis 2, hebt bis 9 (volk_min 2, | wartet auf 933.2 (startbar) |
 | 951 | M | Fund t276 (Chef 11.11., 13:44): Blende Flüsterwald zeigte nur den Namen; DESIGN-BLENDE 7: | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 944 (fund) |
 | 954 | M | Von Sokrates (Chef 11.11., 13:55 „1 ja“): Erschaffung – Gedrückthalten erklärt je Grundwer | wartet auf 954.1 (startbar) |
-| Pflege | K | von Werkzeug (340.3, 11.11.): 15034 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 109, Muss 99, startbar 3
 
@@ -258,11 +257,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 952 | M | Von Sokrates (Chef 11.11., 13:53, Erschaffung Mensch): kritisch 7 % schon als Anfänger („k | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (sokrates) |
 | 953 | M | Von Sokrates (Chef 11.11., 13:53, Erschaffung Mensch): kritisch 7 % schon als Anfänger („k | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (sokrates) |
 | 956 | M | Von 870.6a A (Chef 11.11., 13:55): Gift, Brand, Blutung als Anteil am vollen Leben mit dem | nach dem Meilenstein |
-| Pflege | K | von Werkzeug (340.3, 11.11.): 15900 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 930.3 | M | Von Sokrates (930): Rechnung und Film zur Regelseite Handgemenge (DESIGN-KAMPF.md, Entwurf | wartet auf 930.2 (startbar) |
 | 958 | M | Von Tuffy (870.6): Test kampfzustand_532 rot auf main und B1: „Zustände hinein“ erwartet D | wartet auf Test/Build (gebaut) |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 15900 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 19, Muss 14, startbar 3
+**Perikles** – offen 19, Muss 15, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -280,18 +279,20 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 919 | M | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): Regeln nachziehen: Testbitte auch bei rot | wartet auf 918 (startbar) |
 | 927 | K | D162.1 276: Anlässe der Schritte 6–11 fehlen in „Jeder Lauf“ (Nachhalten 8, Eingang 7, Mel | wartet auf Diogenes (greift?) |
 | 929 | K | D163.1 probelauf.py (725): ein cd mit Variable, das nur als Text vor git commit oder push | wartet auf 943 (startbar) |
-| 940 | M | Von Tom: vorgang.py neu vergibt Nummern doppelt, wenn zwei Sitzungen zugleich anlegen (11. | wartet auf 957 (startbar) |
+| 940 | M | Von Tom: vorgang.py neu vergibt Nummern doppelt, wenn zwei Sitzungen zugleich anlegen (11. | wartet auf Diogenes (greift?) |
 | 942 | M | D171.2 lauf.py (927): eine hängende Sitzung, die derselbe Lauf archiviert (neuere Sitzung | wartet auf Diogenes (greift?) |
 | 943 | K | D171.3 probelauf.py text_bereiche (929): ein einzelnes " im Heredoc innerhalb "$(cat <<'EO | startbar |
 | 930.2 | M | Von Sokrates (930): Regelseite Handgemenge und Abstand gegenlesen (DESIGN-KAMPF.md, Entwur | startbar |
-| 957 | M? | D172.1 vorgang.py zaehler_pushen (940): Zählercommit ohne Systemzeilen, wenn die Kopie noc | startbar |
+| 957 | M | D172.1 vorgang.py zaehler_pushen (940): Zählercommit ohne Systemzeilen, wenn die Kopie noc | wartet auf Diogenes (greift?) |
 
-**Diogenes** – offen 10, Muss 8, startbar 2
+**Diogenes** – offen 12, Muss 10, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
+| 940 | M | Von Tom: vorgang.py neu vergibt Nummern doppelt, wenn zwei Sitzungen zugleich anlegen (11. | startbar |
 | 942 | M | D171.2 lauf.py (927): eine hängende Sitzung, die derselbe Lauf archiviert (neuere Sitzung | startbar |
+| 957 | M | D172.1 vorgang.py zaehler_pushen (940): Zählercommit ohne Systemzeilen, wenn die Kopie noc | startbar |
 | 927 | K | D162.1 276: Anlässe der Schritte 6–11 fehlen in „Jeder Lauf“ (Nachhalten 8, Eingang 7, Mel | startbar |
 | 461b | M | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Termin 16.11. |
 | 348.9 | M | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | ruht |
@@ -359,8 +360,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
-
-Format (Muster: „So geht's“ unten): entscheiden/948-dolch.md: fehlt Begründung (364, [Muster](MUSTER.md))
 
 Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/814-dorfeffekte-abend.md
 
