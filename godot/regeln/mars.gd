@@ -881,8 +881,15 @@ func _auto_order(f: Fighter) -> Array:
 			cantrip = c
 			break
 	var foes := feinde(f)
+	# 705 (Sokrates 10.11., 11:47, Chef „829 A, ein Zauberer zaubert“): ein Flächenzauber auf eine Reihe mit zwei stehenden Gegnern,
+	# solange das Mana reicht (alt Brennende Hände, BRS Flammenfächer und Glutkugel), mit derselben Rücklage für Wundsegen
+	for c in ["Z_GLUT", "Z_FAECHER"]:
+		if c in can and blocked(f, c) == null and (f.b.is_empty() or not "Z_WUND" in can or (int(f.sp) - int(skills[c].amount)) * 2 >= f.max_sp):
+			var reihe = _reihe_fuer(f, c, foes)
+			if reihe != null:
+				return ["use", c, reihe.id]
 	if cantrip != null and not foes.is_empty():
-		var ziel = _min_hp(foes)
+		var ziel = _zauber_ziel(f, cantrip, foes)
 		# 705 (Sokrates 10.11., 23:16, wie 444 Teil 6): ein Zauber nur, wenn er mehr bringt als die Waffe, und das Mana für die Heilung bleibt
 		var bleibt: int = int(f.sp) - int(skills[cantrip].amount)
 		var heil_vorrat: bool = f.b.is_empty() or not "Z_WUND" in can or bleibt * 2 >= f.max_sp     # die Hälfte bleibt für Wundsegen
@@ -891,8 +898,44 @@ func _auto_order(f: Fighter) -> Array:
 			return ["use", cantrip, ziel.id]
 	if can_draw(f) and f.place.x == FRONT and f.weapon() != null and f.weapon().ranged and f.spare() != null and not f.spare().ranged:
 		return ["draw"]
-	var t = _min_hp(targets(f))
+	var t = _anfuehrer(targets(f))     # 705: fällt der Anführer, flieht sein Gefolge (399.2a)
+	if t == null:
+		t = _min_hp(targets(f))
 	return ["attack", t.id] if t != null else ["wait"]
+
+
+## 705: ein Gegner in der Reihe, die Zauber [c] mit mindestens zwei stehenden Gegnern trifft (Flammenfächer die vordere, solange dort
+## einer steht, wie _brs_wirke; Glutkugel die gewählte, die vollere), sonst null
+func _reihe_fuer(f: Fighter, c: String, foes: Array):
+	var reihen: Array = [FRONT] if c == "Z_FAECHER" and foes.any(func(x): return x.place.x == FRONT) else [FRONT, BACK]
+	var best = null
+	var n_best := 1
+	for r in reihen:
+		var in_reihe := foes.filter(func(x): return x.place.x == r)
+		if in_reihe.size() > n_best:
+			n_best = in_reihe.size()
+			best = _min_hp(in_reihe)
+	return best
+
+
+## 705: wen ein Zauber auf einen trifft: Feuer gegen ein Rudel auf den Leitwolf, solange er über der Hälfte steht (870c 3 A: erst
+## dann flieht das Rudel vor dem Feuer, _gegenwirkung; wer es weiß, zielt auf ihn), sonst der Schwächste
+func _zauber_ziel(f: Fighter, c: String, foes: Array):
+	var z: Dictionary = BrsKampf.w()["zauber"].get(ZAUBER.get(c, ""), {}) if BrsKampf.an() else {}
+	if str(z.get("typ", "")) == "feuer":
+		for x in foes:
+			if x.monster != null and art_of(x.monster) == WOLF and x.follows == "" and x.hp * 2 >= x.max_hp \
+					and foes.any(func(y): return y.follows == x.id):
+				return x
+	return _min_hp(foes)
+
+
+## 705: der Anführer unter [list], dem noch einer folgt (Leitwolf mit Jungwölfen), sonst null
+func _anfuehrer(list: Array):
+	for x in list:
+		if x.follows == "" and all.any(func(y): return y.side == x.side and y.standing() and y.follows == x.id):
+			return x
+	return null
 
 
 ## 705: erwarteter Schaden je Zug nach dem BRS (Trefferchance × Schaden nach Fertigkeit und Schwäche, minus Rüstung), ohne Würfel
@@ -900,7 +943,7 @@ func _erwartet_zauber(f: Fighter, t: Fighter, id: String) -> float:
 	var z: Dictionary = BrsKampf.w()["zauber"][ZAUBER[id]]
 	var fert := float(f.b.fert.get(String(z["schule"]), 0))
 	var grund := (float(z["schaden"]) + float(f.b.werte.get("wille", 0))) * (1.0 + fert / 100.0)
-	var schw := float(t.b.get("schwaeche", {}).get(String(z.get("typ", "")), 1.0))
+	var schw := float(t.b.get("schwaeche", {}).get(str(z.get("typ", "")), 1.0))
 	return BrsKampf.Brs.trefferchance(fert, float(t.b.abwehr)) * maxf(0.0, grund * schw - float(t.b.ruestung))
 
 
@@ -912,7 +955,7 @@ func _erwartet_waffe(f: Fighter, t: Fighter) -> float:
 	var gw = wd.get("grundwert")
 	var fert := float(f.b.fert.get(gruppe, 0))
 	var grund := (float(wd["schaden"]) + (float(f.b.werte.get(gw, 0)) if gw != null else 0.0)) * (1.0 + fert / 100.0)
-	var schw := float(t.b.get("schwaeche", {}).get(String(wd.get("typ", "")), 1.0))
+	var schw := float(t.b.get("schwaeche", {}).get(str(wd.get("typ", "")), 1.0))
 	return BrsKampf.Brs.trefferchance(fert, float(t.b.abwehr)) * maxf(0.0, grund * schw - float(t.b.ruestung))
 
 

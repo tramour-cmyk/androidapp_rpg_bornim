@@ -70,7 +70,7 @@ func _lauf() -> void:
 	quit(0)
 
 
-func _blatt(hk: String, s: int, fert: Dictionary, tab: Dictionary) -> Dictionary:
+static func _blatt(hk: String, s: int, fert: Dictionary, tab: Dictionary) -> Dictionary:
 	var bh = BrsHeldS.neu("Mensch", hk)
 	if hk == "Wanderer":     # verteilt selbst; gerechnet wie 444 als Kampfbau (werte.json „herkuenfte“ „Wanderer“ plus, plus_variante)
 		var d: Dictionary = Brs.lade().herkuenfte.Wanderer
