@@ -572,7 +572,7 @@ class Beutel:
 
     def trinke(self):
         self.nimm("Heiltrank")
-        return self.W["wirtschaft"]["traenke"]["Heiltrank"]["heilung"]
+        return trank_heilung(self.W, "Heiltrank")
 
 
 def satz_preis(W):
@@ -686,6 +686,14 @@ def ist_tier(W, name):
     return name in W["wirtschaft"]["tiere_beruhigen"]["arten"]
 
 
+# 923 (Sokrates über Tom, t276): der Heiltrank heilt im Spiel nach welt.heilung (mars.gd, Welt); eine Stelle für Spiel und Rechnung
+TRANK_KENNUNG = {"Heiltrank": "potion", "Großer Heiltrank": "greater_potion"}
+
+
+def trank_heilung(W, name):
+    return W["welt"]["heilung"][TRANK_KENNUNG[name]]
+
+
 def rang_von(W, wert):
     """Rang nach Reparatur-Tabelle (N 11): hoechster Rang, dessen Untergrenze erreicht ist, sonst None."""
     best = None
@@ -784,11 +792,10 @@ class Wirt:
         return self.traenke["Heiltrank"] > 0 or self.traenke["Großer Heiltrank"] > 0
 
     def trinke(self):
-        t = self.W["wirtschaft"]["traenke"]
         name = "Heiltrank" if self.traenke["Heiltrank"] > 0 else "Großer Heiltrank"
         self.traenke[name] -= 1
         self.z["getrunken"] += 1
-        return t[name]["heilung"]
+        return trank_heilung(self.W, name)
 
     # --- Beute, Zerlegen
     def beute(self, name, mon, rng):
@@ -1194,7 +1201,7 @@ def bericht_wirtschaft(W, we, laeufe):
       f"{round(100 * r['selbst_anteil'])} % als Material. Ladenpreise alt: "
       + ", ".join(f"{v['ding']} {v['preis']}" for k, v in wi["ausruestung"].items() if not k.startswith("_") and isinstance(v, dict) and "ding" in v) + ".")
     tr = wi["traenke"]
-    a(f"- **Tränke:** Heiltrank heilt {tr['Heiltrank']['heilung']}, großer {tr['Großer Heiltrank']['heilung']} (Preis {wi['preise']['Heiltrank']} und {wi['preise']['Großer Heiltrank']}); "
+    a(f"- **Tränke:** Heiltrank heilt {trank_heilung(W, 'Heiltrank')}, großer {trank_heilung(W, 'Großer Heiltrank')} (Preis {wi['preise']['Heiltrank']} und {wi['preise']['Großer Heiltrank']}); "
       f"getrunken statt Angriff unter {round(100 * tr['trinken_unter'])} % Leben; im Dorf bis {tr['vorrat_ziel']} im Beutel, wer Alchemie hat, braut für {tr['brauen_kosten']} Gold.")
     a("")
     a("### 5.1 Gold je Lauf bis Stufe 6")

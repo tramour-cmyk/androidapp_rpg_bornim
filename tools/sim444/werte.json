@@ -351,8 +351,7 @@
 
     "traenke": {
       "_quelle": "Wirkung im BRS ohne Zahl (A); alt heilt der Heiltrank 2W4+2, der grosse 4W4+4; Preis alt",
-      "Heiltrank": {"heilung": 12},
-      "Großer Heiltrank": {"heilung": 30},
+      "_heilung": "923: Heilung der Heiltraenke nur in welt.heilung (potion, greater_potion), wie im Spiel",
       "trinken_unter": 0.35,
       "_trinken": "A: Held trinkt statt anzugreifen, wenn Leben unter 35 % (erst den kleinen, dann den grossen)",
       "vorrat_ziel": 3,
