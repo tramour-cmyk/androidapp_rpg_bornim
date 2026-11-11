@@ -107,6 +107,7 @@
 | 861 | Von Sokrates (Chef 10.11., 13:12, Bild t274.14): Umhang des Kämpfers im Kampf rechts am Rücken stark gewölbt (Handaxt und Schild, Rückenansicht); Ursache nachstellen, nicht raten (656 bestanden t272) | Tom | M | startbar | – | – | – | E Figuren | – |
 | 867 | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die aktuellen Helden | Tom | M | startbar | – | – | – | G Stil | – |
 | 875 | Von Homer (857a A, Chef 10.11., 13:35): Fertigkeit Kräuterkunde heißt im Spiel Kräutersammeln, EN Foraging; Erschaffung, Talenttext, Übung beim Pflücken | Tom | M | startbar | – | – | – | E Kampf | – |
+| Pflege | von Werkzeug (340.3, 11.11.): 15153 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
 | 900 | Von Tom (870.4, B1; „jetzt“ 10.11., 22:24, Nachtauftrag Chef): Lauf 335 rot an wolf_mess_438 mit BRS-Kampf: Biss gleitet 0,56 m (Grenze 0,5), Wolf in Schild, Klinge oder Unterarm des Helden 8 (vorher 0), Klinge durch Wolf ohne Treffer 3; Kämpfe jetzt mit 14 statt 5 Würfelzeilen | Jerry | M | gebaut, Geprüft an: Lauf 336 | – | claude/jerry-900-wolfmess | – | E Kampf | 10,26 $ |
 | 870.2 | Von Sokrates (870, Umzug BRS Schritt 2): Schnittstelle Held ↔ Kampf: BrsHeld.kampfblatt() statt aufruf.gd blatt() aus Heldwerte; Test brs_blatt zuerst (Jerry), Werte liefert Tom; LISTE-UMZUG-BRS.md 4 | Jerry | M | gebaut, Geprüft an: 490464059 (claude/build-275, Test brs_blatt_870) | – | claude/jerry-870-2-kampfblatt | – | E Kampf | 17,15 $ |
 | 870.3 | Von Sokrates (870, Umzug BRS Schritt 3): Daten: werte.json einzige Quelle (Jungwolf, Leibwache über 444), Kennungstabelle je Art, Fähigkeiten- und Zaubertabelle, tabellen.json gelöscht (649a 1–2); LISTE-UMZUG-BRS.md 4 | Jerry | M | gebaut, Geprüft an: 6814e4331 (claude/build-275; tabellen.json löschen an Sokrates: 870.6) | – | claude/jerry-870-3-daten | – | E Kampf | – |
@@ -119,7 +120,7 @@
 | 751 | Kampf: Knopfleiste des Helden manchmal leer („…“), keine Menüfunktion, auch ohne „ganzer Bericht“ (Chef 09.11., 14:00, Fund t271, Bild Wolfsrudel) | Jerry | M | startbar, 751 A (Chef 17:46) | – | claude/jerry-717-rueckwaerts | – | E Oberfläche | – |
 | 406.2 | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) · zurück t269 | Jerry | M | startbar, 406.2 B: Ablauf heraus | – | claude/tuffy-406-2-schild | – | E Kampf | 47,33 $ |
 | 642 | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 Seeds 1, 3 am Rechner; im Bau misst nur Seed 7), auch mit altem Heldentempo; von Jerry zu 438 | Jerry | M | ruht, wartet auf Kaufrepo (391), Ursache vermutet | – | claude/jerry-348-642-wolf-abstand | – | E Kampf | 6,63 $ |
-| 705 | Zauberlehrling Stufe 1 gewinnt gegen Wolf und Rudel selten (BRS 2–30 %, Messung anspringen_702; Befund Tuffy zu 702, 08.11.) | Jerry | M | startbar, Autopilot Zauber gegen Waffe gebaut (3678d06e6); offen Brennende Hände, Messung zaubernd | – | – | – | E Kampf | 2,22 $ |
+| 705 | Zauberlehrling Stufe 1 gewinnt gegen Wolf und Rudel selten (BRS 2–30 %, Messung anspringen_702; Befund Tuffy zu 702, 08.11.) | Jerry | M | in Arbeit, bei Tuffy | – | – | – | E Kampf | 2,22 $ |
 | 806 | Kampforte mit den Effektpaketen schöner: Gras und Blumen aus R9, Boden, Staub; Bilder/s nicht unter heute (Chef 09.11., 21:12, über Sokrates) · „jetzt“ 09.11., 21:12 | Jerry | M | startbar, Bild gesehen 10.11., 08:58 | – | claude/jerry-806-kampfort | – | E Kampf | 10,17 $ |
 | 595 | Kampfbewegungen der Kaufgegner: Spinne mehr Angriffe, Egel und Schnecke schneller, Treffhöhe, Ruckeln, Ruhe (Chef 05.11., 19:2x, t266.1) | Jerry | M | startbar, zweiter Probefilm frei (08:43) | – | claude/jerry-595-kaufgegner | – | E Kampf | 13,24 $ |
 | 616 | Kampf: Gegner weichen nach dem Angriff rückwärts zurück statt vorwärts zu laufen (Chef 07.11., t268) | Jerry | M | startbar, gelöst 08.11.: 478 | – | – | – | E Kampf | – |
@@ -192,10 +193,11 @@
 | 872 | Kampf auf Halt 653 umstellen: Waffen und Schilde der Gegner und des Helden im Kampfort mit Halt.anlegen/Halt.gegenstand (Griff, Spitze, Länge je Modell aus regeln/halt.json) statt je Gegner gemessen; Fertiges bleibt (von Tom, Chef 10.11., 12:33/14:22) | Jerry | M | startbar | 653 | – | – | E Kampf | – |
 | 876 | Von Homer (857a A, Chef 10.11., 13:35): Simulation 444 Kräuterkunde → Kräutersammeln, Trankwirkung nach Alchemie statt Kräuterkunde, Abschnitt 6 neu rechnen | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 854.1 | Von Tom (888, Lauf 42906784036): kauf_cache.py ablegen bricht ab, Zeile 21 ModuleNotFoundError yaml; Cache wird nicht gefüllt, Bau ging weiter (Held je Klasse 36 Min.) | Jerry | M | startbar | – | – | – | B Werkzeuge | – |
-| Pflege | von Werkzeug (340.3, 11.11.): 17853 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 11.11.): 18407 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
+| 901 | Von Sokrates (365a B, Chef 11.11., 07:18; „jetzt“ 11.11., 07:18): lauf.py UMGEBUNG alle Rollen auf HOCH bis Sa 14.11., 20:00, danach von selbst MITTEL | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
 | 264.1 | Von Sokrates (264): Probe godot.yml auf eigenem Runner, Bauzeit je Schritt gegen GitHub · „jetzt“ 10.11., 17:20 | Perikles | M | wartet, Lauf 8 braucht Freigabe | Chef | claude/perikles-264-runner | – | B Werkzeuge | 20,56 $ |
 | 870.12 | Von Sokrates (870, Umzug BRS): Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 neu fassen; nach Abnahme 868, 534, 467, 469, 644.1, 644.2, 644.4, 649.1, 811, 296, 344 schließen; LISTE-UMZUG-BRS.md 4 Schritt 9 | Perikles | M | wartet, 2.3 und 2.17 neu gefasst, Schließen nach Abnahme | 870.13 | – | – | B Abläufe | – |
 | 870.10 | Von Sokrates (870, Umzug BRS Schritt 8): Kotlin-Bau aus (android.yml), mit 870.9; LISTE-UMZUG-BRS.md 4 | Perikles | M | wartet | 870.9, 882 | – | – | B Werkzeuge | – |
@@ -227,7 +229,7 @@
 | 768 | Wochentermin 13.11.: Rollenspiegel Diogenes (rollenspiegel.sh Diogenes) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Diogenes | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 771 | Probe 657 auswerten: Erstfunde des Chefs t272–t275 gegen 11, 11, 9, 7 (von Perikles, Werkzeug 657 greift laut Lauf 104) | Diogenes | M | startbar | – | – | – | Q QM | – |
 | 790 | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab 200 Tsd., Chef 09.11., 18:05) | Diogenes | M | startbar | 16.11. 18:07 | – | – | Q QM | – |
-| 365a | Rückfrage: Aufwand Hoch für Tom und Jerry bis Sa 14.11., 20:00 (Chef 11.11., 07:13) | Sokrates | M | startbar | Chef | – | – | B Abläufe | – |
+| 365a | Rückfrage: Aufwand Hoch für Tom und Jerry bis Sa 14.11., 20:00 (Chef 11.11., 07:13) | Sokrates | M | erledigt | – | – | – | B Abläufe | – |
 | 887 | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus (dontAsk von auto aus abgelehnt; default mit Erlaubnisliste) (Chef 10.11., 16:25) · „jetzt“ 10.11., 16:25 | Sokrates | M | ruht, 887a zurückgestellt (Chef 16:53) | – | – | – | B Werkzeuge | – |
 | 870 | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen, Bau Tom und Jerry, Rest ruht (Chef 10.11., 14:03) | Sokrates | M | wartet, Vorgänge 870.2–870.16 angelegt | 870.13 | – | – | E Kampf | 51,82 $ |
 | 780 | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für unsere gekauften Protofactor-Animsets und Janpec, die KI-Sitzungen mit Skripten bearbeiten? (aus 623.1) | Sokrates | M | wartet, Protofactor ja 10.11., 04:48; offen Janpec | 23.11. | – | – | M Veröffentlichung | – |
@@ -282,7 +284,7 @@
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +900,80 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 767 | Wochentermin 13.11.: Rollenspiegel Ford (rollenspiegel.sh Ford) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Ford | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 11.11.): 37349 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 11.11.): 38088 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |

@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Stand Ford (11.11., 03:27, Ford `session_01Hmoj79ZRCgfghKYLkLUwW1`):** Neue Uhr steht, alte gelöscht. Offen bis zum Archiv-Satz des Chefs: archivieren und buchen alter Ford `…78JXixSQQeQDGy7ZvJ` (6,94 $, Betrieb) und Sokrates `…78xr5` (idle, Nachfolger `…77DnC` läuft; 4,80 $ auf 870). Jerry `…76RTd` und Perikles `…75P7` stehen (warten auf 870.4 bzw. Chef). Dauerausschluss: `--ohne 506.2:Tuffy nur auf Chef-Wort --ohne M?:Planfehler Klasse als Vorgang (893)`.
 
-**Nächste freie Vorgangsnummer: 901** (zuletzt 900 Jerry 11.11. 05:20:50 fd10) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 902** (zuletzt 901 Perikles 11.11. 07:18:31 a5bf) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -22,6 +22,8 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 
 ## Eingang
+
+- **von Sokrates (Chef 11.11., 07:18, „365a B“):** bis Sa 14.11., 20:00 alle Rollen mit Aufwand „Hoch“ starten (Umgebung `HOCH` „WireStorm Hoch“, `env_017fgL1YDcVTYTkJsU3APEfR`), bis Perikles `lauf.py` umgestellt hat (901) von Hand; **Chef 07:19:** „Und Ford soll alles so schnell wie es geht neu starten und Arbeit verteilen.“ Laufende Sitzungen jetzt übergeben lassen und mit HOCH neu starten (Tom erst nach Start des B1-Laufs), dann verteilen.
 
 - **von Sokrates (Chef 11.11., 07:12):** „einen kostenlosen Wochenreset gekriegt. Insofern, alle können voll arbeiten. Auf geht's.“ Ab sofort `lauf.py` ohne `--nur-muss` (Sparstufe von 08.11. aus, 287 gilt wieder ab 80 %); alle Rollen startbar, Kür nach Muss. **Chef 07:16:** Teampausen bis 13.11. aufgehoben („macht ja keinen Sinn“); Spike und Tuffy starten auf Fehlern aus den Tests des Chefs (Muss, „Fehler ausmerzen“), solange Tom bzw. Jerry am Umzug sind; Tom und Jerry ohne Kür (kein Neues bis B2). Vorrang oben in den Teamvorräten.
 - **Zu 826, von Sokrates (Chef 10.11., 16:04, Archiv):** „eine Entwicklersitzung zugleich“ zurückgenommen: Tom und Jerry laufen zugleich, bis das Laufende vor dem Umzug fertig ist (709, 506.1, 506, 470); `lauf.py`/Startsperre nachziehen, falls sie es noch sperrt.
@@ -283,3 +285,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:04 11.11.: Marke Start-fehlt Diogenes 11.11.-06:04 (lauf.py)
 - 07:18 11.11.: Startsperre 07:18 Start Jerry, Diogenes, Spike, Tuffy (lauf.py)
 - 07:18 11.11.: Marke Archiv session_01Hmoj75a7Gfv7C6MjF1aCbK (lauf.py)
+- 07:20 11.11.: Startsperre 07:20 Start Sokrates (Neustart-Meldung 07:19, e0a8460d7; Umgebung Hoch, 365a B Chef 07:18)
