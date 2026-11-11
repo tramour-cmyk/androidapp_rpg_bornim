@@ -424,7 +424,7 @@ static func eigene_haut(fi) -> bool:
 ## Kandidaten „Pro_…“ aus der UAL Pro), übertragen wie HeldFigur.bewegungen. Fehlen die Dateien (Bau ohne Kaufmodelle) oder
 ## steht ALTHELD=1, bleibt der bisherige Held (held.bin).
 const KAMPF_BEW := "res://daten/kampf-bewegungen.bin"
-const KAMPF_SCHLEIFEN := ["Kampfstehen", "Pro_Sword_Idle", "SS_IdleCombat", "SS_IdleBreathe", "SS_WalkForward", "SS_RunForward", "SS_WalkBackwards"]
+const KAMPF_SCHLEIFEN := ["Kampfstehen", "Pro_Sword_Idle", "SS_IdleCombat", "SS_WalkForward", "SS_RunForward", "SS_WalkBackwards"]
 ## 406: was held_kampf.py zu den Bewegungen misst (Tempo von Gehen und Rennen, Griff von Schild und Schwert, Aufschlag)
 const KAMPF_INFO := "res://daten/kampf-bewegungen.json"
 var kauf := false
@@ -970,7 +970,7 @@ func _play(name: String, blend := 0.15) -> void:
 ## Ruhebewegung der UAL (Idle_Loop, aus ihr Kampfstehen in kampf.py) atmet selbst zweimal in 2,5 s (Schulter 2,1 cm, Kopf 4°; gemessen
 ## 01.11.), beide Helden im Gleichtakt: in den Ruhebewegungen des Kampfs bleibt darum ihr erstes Bild stehen (_ohne_atem), das auch
 ## Anfang und Ende jeder Kampfbewegung ist, und nur die Schicht atmet.
-const ATEM_RUHE := ["Kampfstehen", "Stehen", "SS_IdleCombat", "SS_IdleBreathe"]
+const ATEM_RUHE := ["Kampfstehen", "Stehen", "SS_IdleCombat"]
 var atem = null
 
 func _atem_an() -> void:
@@ -1035,44 +1035,13 @@ func _gang_ss(nm: String) -> String:
 	return g if _ss() and anim.has_animation(g) else nm
 
 
-## 406.2 (Chef t269.21, 08.11., 16:06: Abwehr zur Seite „schwer zu beurteilen“, „Schild immer gehoben wie vorher“): in Ruhe hält der
-## Held mit Schild ihn gesenkt (SS_IdleBreathe); kommt ein Angriff auf ihn, hebt er ihn sofort in die Kampfhaltung (SS_IdleCombat,
-## vor dem Biss wie 454), pariert daraus und senkt ihn BEREIT_MS nach der letzten Abwehr wieder. Ohne SS_IdleBreathe wie vorher.
-const BEREIT_MS := 1800.0
-const RUHE_SENKEN := 0.6     # Blende zum gesenkten Schild: langsam, nicht fallen lassen
-const HEBEN := 0.25          # Blende zur Kampfhaltung, wenn der Angriff angesagt wird
-var bereit_bis_ms := 0.0
-
-func _uhr_ms() -> float:
-	return kampfort.clock_ms if kampfort != null and is_instance_valid(kampfort) else float(Time.get_ticks_msec())
-
-func _ss_ruhe() -> String:
-	if not anim.has_animation("SS_IdleBreathe") or OS.get_environment("SCHILD_OBEN") != "":     # SCHILD_OBEN=1: wie vorher
-		return "SS_IdleCombat"
-	return "SS_IdleCombat" if _uhr_ms() < bereit_bis_ms else "SS_IdleBreathe"
-
-func _senken() -> void:
-	if down or not _ss() or _uhr_ms() < bereit_bis_ms - 1.0:
-		return
-	if anim.current_animation == "SS_IdleCombat":
-		_idle()
-
-## Schild hoch, sobald ein Angriff auf den Helden angesagt ist (aus der Ruhe; eine laufende Bewegung bleibt)
-func _heben(lands_ms: int) -> void:
-	bereit_bis_ms = maxf(bereit_bis_ms, _uhr_ms() + lands_ms + BEREIT_MS)
-	if anim.current_animation == "SS_IdleBreathe":
-		_play("SS_IdleCombat", HEBEN)
-
 var _schleifen := 0     # 453 r3: wie oft die Grundschleife neu begann (Versatz je Wolf, für Prüfläufe fest)
 
 func _idle() -> void:
 	if down:
 		return
 	if _ss():
-		var nm := _ss_ruhe()
-		_play(nm, RUHE_SENKEN if nm == "SS_IdleBreathe" and anim.current_animation == "SS_IdleCombat" else 0.2)
-		if nm == "SS_IdleCombat" and bereit_bis_ms > 0.0:
-			get_tree().create_timer(maxf(0.05, (bereit_bis_ms - _uhr_ms()) / 1000.0)).timeout.connect(_senken)
+		_play("SS_IdleCombat", 0.2)
 		return
 	if kauf and anim and anim.has_animation("Kampfstehen") and not _stab():
 		# 403: die Klinge liegt im Faustloch wie in kampf.py; in Stehen (UAL) zeigte sie waagerecht nach vorn auf Hüfthöhe
@@ -3292,7 +3261,6 @@ func blockt() -> bool:
 func abwehr(lands_ms: int, art: String, von := Vector3.INF, gelungen := false, tief := false) -> void:
 	if not _ss():
 		return
-	_heben(lands_ms)
 	var liste: Array = (ABWEHR.get(art, ABWEHR["nah"]) as Array).filter(func(x): return anim.has_animation(x))
 	if gelungen and von != Vector3.INF and art != "fern":
 		var pl := _parade_liste(von, art, tief).filter(func(x): return anim.has_animation(x))

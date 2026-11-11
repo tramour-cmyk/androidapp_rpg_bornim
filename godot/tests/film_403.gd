@@ -35,18 +35,7 @@ func _run() -> void:
 	schwarz.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	deck.add_child(schwarz)
 	root.add_child(deck)
-	# 406.2: KLASSEN=CLERIC:oben,CLERIC zeigt denselben Kampf erst wie vorher (SCHILD_OBEN, Schild immer gehoben), dann neu;
-	# der Name steht oben im Bild
-	var schild_lb := Label.new()
-	schild_lb.add_theme_font_size_override("font_size", 30)
-	schild_lb.position = Vector2(16, 12)
-	deck.add_child(schild_lb)
-	for kk in (OS.get_environment("KLASSEN").split(",") if OS.get_environment("KLASSEN") != "" else PackedStringArray(KLASSEN)):
-		var k: String = kk.get_slice(":", 0)
-		var oben: bool = kk.get_slice(":", 1) == "oben"
-		if kk.contains(":") or OS.get_environment("KLASSEN").contains(":"):
-			OS.set_environment("SCHILD_OBEN", "1" if oben else "")
-			schild_lb.text = "vorher: Schild immer oben" if oben else "neu: Schild gesenkt, hoch beim Angriff"
+	for k in (OS.get_environment("KLASSEN").split(",") if OS.get_environment("KLASSEN") != "" else PackedStringArray(KLASSEN)):
 		schwarz.color.a = 1.0
 		var p = Probe.new()
 		p.hero_cls = k

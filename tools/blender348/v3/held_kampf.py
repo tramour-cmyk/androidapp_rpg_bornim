@@ -124,9 +124,7 @@ for name in ['Ruhelage'] + EIGEN:
 SS = ['IdleCombat', 'BlockLight', 'BlockMedium1', 'BlockMedium2', 'BlockHeavy1', 'BlockHeavy2', 'ParryHigh1', 'ParryHigh2', 'ParryLow',
       'ParryLeft', 'ParryRight', 'ShieldAttack1', 'ShieldAttack2', 'ShieldAttack3', 'GetHitLightFront', 'GetHitHeavyFront',
       'GetHitLightLeft', 'GetHitLightRight', 'WalkForward', 'RunForward', 'WalkBackwards', 'SwordAttack1', 'SwordAttack2',
-      'SwordAttack3', 'IdleBreathe', 'IdleGetReady']
-# 406.2 (Chef t269.21, 08.11., 16:06: „Schild immer gehoben wie vorher“): Ruhe mit gesenktem Schild (IdleBreathe), Bereitmachen
-# (IdleGetReady) als Übergang; die Kampfhaltung (IdleCombat) nur, wenn ein Angriff auf den Helden kommt
+      'SwordAttack3']
 # Handdrall pruefen: Knoechel von Zeige- und Kleinfinger mit (ein verdrehter Schild faellt sonst erst im Bild auf)
 PRUEF_SS = PRUEF + ['index_01_l', 'pinky_01_l', 'index_01_r', 'pinky_01_r']
 KAUF = os.environ.get('KAUF', '')

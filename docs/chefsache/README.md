@@ -26,7 +26,7 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 7, Muss 3, startbar 1
+**Homer** – offen 8, Muss 4, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -36,6 +36,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 10.11.; „star
 | 72 | K | Profil und Marktvergleich | ruht |
 | 348.12g | M | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
+| 807 | M | Tätigkeiten ohne Kampf für Fertigkeiten in Kapitel 1 vorschlagen (Schleichen, Spähen, Schl | startbar |
 | 830 | M | Von Sokrates (705 B, Chef 10.11., 08:43): Lehrsatz zur Ansage des Wolfssprungs im ersten W | startbar |
 
 **Tom** – offen 103, Muss 84, startbar 6
