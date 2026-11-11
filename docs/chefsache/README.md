@@ -25,6 +25,12 @@ Nichts offen.
 | [856](ansehen/856-ueberspringen.md) | Zwischensequenz: „Überspringen?“ und Satz ohne Kasten (Vorgang 856) | Spike | 11.11., 19:03 |
 | [870.7](ansehen/8707-gegenstandsfenster.md) | Gegenstandsfenster mit den Werten unseres Regelwerks (Vorgang 870.7) | Tom | 11.11., 17:16 |
 
+**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
+
+| Folge | Version | Build | Was | Wer | Seit |
+|---|---|---|---|---|---|
+| 1 | [0.348.355](ansehen/t277-sammelbuild.md) | [Build 277](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43060687068/artifacts/13882345442) | Sammelbuild nach Build 276 | Tom und Jerry | 11.11., 16:43 |
+
 ## Zu tun
 
 Nichts offen.
@@ -169,7 +175,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 785.23 | M | Von Spike (785): Renntaste geht von selbst aus, wenn der Held steht oder außer Atem ist (W | startbar |
 | 785.24 | M | Von Spike (785): Laden: Vorräte mit Wirkungszeile in der Liste wie alt (ShopScreen.kt 226– | wartet auf 870.13 (wartet) |
 
-**Jerry** – offen 123, Muss 115, startbar 2
+**Jerry** – offen 124, Muss 116, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -296,6 +302,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 785.17 | M | Von Spike (785): Zurück-Taste im Kampf schließt Untermenü und ganzen Bericht (BS 631, SK 3 | wartet auf 870.13 (wartet) |
 | 785.18 | M | Von Spike (785): Stufenaufstieg im Endfeld des Kampfes hervorgehoben (alt eigenes Feld „St | wartet auf 870.13 (wartet) |
 | 987 | M | Von Spike (870.9, Lauf 354): krogg_494 schwankt (am Rechner 2 von 5 rot, Rauch 0 erster Sc | wartet auf Test/Build (gebaut) |
+| 988 | M | Von Tom (968, Lauf 43060687068): rote Tests in Build 277: held_kampf_403 (Kleriker ohne Sc | Sperre 620.1 B: 33 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
 
 **Perikles** – offen 12, Muss 11, startbar 0
 
@@ -384,6 +391,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 869 | K | Systemlösung? Rüstung: 2 frühere Vorgänge (49, 817), neu 868; einmal grundsätzlich lösen? | startbar |
 | 930 | M | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (wartet) |
 | 985 | K | Systemlösung? Nebel: 2 frühere Vorgänge (505, 502), neu 785.7; einmal grundsätzlich lösen? | startbar |
+## Lücken
+
+Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
+
+Format (Muster: „So geht's“ unten): t277-sammelbuild.md: Zeile 2 ist keine Bereichszeile
+
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.

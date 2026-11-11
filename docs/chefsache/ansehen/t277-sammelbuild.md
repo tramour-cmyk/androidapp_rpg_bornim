@@ -1,4 +1,4 @@
-# Tom und Jerry · Build 277 · Sammelbuild nach Build 276 · PR #196
+# Tom und Jerry · Build 277 · 0.348.355 · Sammelbuild nach Build 276 · PR #196
 Ganzes Spiel · Tom (581, 635, 636, 680, 814, 875, 964), Jerry (532, 536, 751, 784, 806, 811, 863, 868, 870.6, 876, 910, 935, 945, 948, 958) · Entwurf 11.11., 16:43, APK 19:12 · [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43060687068/artifacts/13882345442) · Geprüft an: `claude/build-277` `65ea0e915` (Lauf 355)
 Rot, bekannt, nicht melden: `held_kampf_403` (Schild des Klerikers im Kampf), `wolf_mess_438`, `begriffe_868` (liest eine beim Umzug gelöschte Datei) – Prüftests des Kampfs, Vorgang 988 (Jerry); Start- und Absturztests grün.
 Gegengelesen: Sokrates 11.11., 16:58
