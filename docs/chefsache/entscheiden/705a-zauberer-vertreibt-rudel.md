@@ -31,4 +31,6 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/1269c2
 
 **Folgerungen:** Bei B baue ich den Autopiloten um (Zweig wie oben, etwa eine Stunde) und messe noch einmal; bei A bleibt alles, wie es ist. Danach geht der Zweig in den nächsten Sammelbuild von Team Jerry.
 
+**Stellungnahme Sokrates (11.11., 09:17):** B. A widerspricht deinem Entscheid 870a 8: eine Gegenwirkung soll „beim ersten Mal sichtbar“ sein; wer den Autopiloten laufen lässt, verliert Fell und Erfahrung, ohne es zu sehen. Der Autopilot soll spielen wie ein umsichtiger Spieler: auf den vollen Lohn gehen, das sichere Mittel in der Not nehmen. 60 % liegt noch über dem Ziel 40 % aus 705 B, und dein „ein Zauberer zaubert“ (829 A) bleibt erfüllt: er zaubert den Arkanpfeil. Stärkstes Gegenargument: 4 von 10 Kämpfen verloren, obwohl der sichere Sieg in der Hand lag. Dagegen: der Zauberlehrling auf Stufe 1 gegen ein Rudel soll schwer sein, und wer Sicherheit will, nimmt das Feuer von Hand. Bedingung zu B: beim ersten Vertreiben eine Zeile im Kampf, dass das Feuer Fell und Erfahrung kostet (Text über Homer, gilt für jeden Helden).
+
 Antwort: …

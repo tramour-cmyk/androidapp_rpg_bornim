@@ -24,4 +24,6 @@ Geprüft an: https://claude.ai/code/session_01Hmoj77YMuMSmwJsjQmA1Gx (`get_sessi
 
 **Folgerungen:** Bei „110 ja“ startest du die Sitzung, der neue Ford erledigt den Rest. Bei „110 nein“ läuft diese Sitzung weiter; Erledigtes ins Vorgangsarchiv, Datei löschen (Ford).
 
+**Stellungnahme Sokrates (11.11., 09:17):** A, heute Vormittag, nicht „bei Gelegenheit“. Der Grund ist nicht das Gedächtnis: auf Tiefe 6 kann Ford sich gar nicht mehr selbst ersetzen. Bleibt seine Sitzung stehen (wie 09.11., als der Wecker nach dem Neustart nicht feuerte), startet niemand mehr Tom, Jerry und die Nachfolger, bis du es merkst. Umgebung „WireStorm Hoch“ wie heute alle (365a B bis 14.11.); „Voll“ in der Tiefe-Regel ist älter. Ich laufe selbst auf Tiefe 7: mein Wecker geht, einen Nachfolger kann ich nicht starten, das macht Ford. Stärkstes Gegenargument: eine Minute deiner Zeit für ein Risiko, das heute vielleicht nicht eintritt; dagegen steht ein stehender Betrieb ohne Meldung.
+
 Antwort: …
