@@ -183,6 +183,15 @@ def trefferchance(W, angriff, abwehr, bonus=0.0):
     return max(k["trefferchance_min"], min(k["trefferchance_max"], c)) / 100.0
 
 
+def krit_prozent(W, gewandtheit, fertigkeit):
+    """952 (Chef 11.11., 13:53: kritisch 7 % schon als Anfaenger „krass“): ohne „kritisch_fertigkeit_teiler“ wie bisher Gewandtheit in %;
+    mit Teiler t waechst er mit der Waffenfertigkeit: Gewandtheit x Fertigkeit / t (Fertigkeit 0 = nie kritisch)."""
+    k = W["kampf"]
+    p = k["kritisch_prozent_je_gewandtheit"] * gewandtheit
+    t = k.get("kritisch_fertigkeit_teiler")
+    return p * fertigkeit / t if t else p
+
+
 def schaden_roh(W, grund, fertigkeit, d, rng, kritisch_prozent=0.0):
     """(Waffe + Grundwert) x (1 + Fertigkeit/100) x Stufenfaktor, mit Glueckstreffer, Krit, Streuung."""
     k = W["kampf"]
@@ -409,7 +418,7 @@ def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False, beutel=
                 bonus += umr["naechster_angriff_treffer"]
                 zust["liegt"] = False
             if rng.random() < trefferchance(W, fw, mon["abwehr"], bonus):
-                s = schaden_roh(W, grund, fw, d_held, rng, k["kritisch_prozent_je_gewandtheit"] * held.werte["gewandtheit"])
+                s = schaden_roh(W, grund, fw, d_held, rng, krit_prozent(W, held.werte["gewandtheit"], fw))
                 s *= schwaeche.get(typ, 1.0)
                 mleben -= endschaden(W, s, mon["ruestung"])
                 if wirt is not None and aktion is None and waffe_name == held.waffe:
