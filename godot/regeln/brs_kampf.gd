@@ -1,6 +1,6 @@
 extends RefCounted
 # 478 (Chef 07.11., 16:3x: „Wir packen das BRS auf jeden Fall jetzt auch mit dazu“; 470a C: der Rechenkern des Kampfs zieht vor, die
-# Darstellung bleibt bei 2.3): MARS rechnet Treffer, Schaden und Leben nach dem BRS, Modell D (DESIGN-SPIELSYSTEM-2-0-ENTWURF.md
+# Darstellung bleibt bei 2.3): MARS rechnet Treffer, Schaden und Leben nach dem BRS, Modell D (DESIGN-BRS.md
 # Abschnitt 7 und Entwurf A), mit denselben Formeln und Zahlen wie die Simulation 444 (tools/sim444/sim.py, daten/werte.json über
 # regeln/brs.gd). Hier stehen nur die Brücken: was ein Kämpfer nach dem BRS ist (Grundwerte, Fertigkeiten, Waffe, Rüstung, Schild,
 # Stufe) und ein Schlag mit allen Einzelheiten für Bericht, Bild und Zustände.
