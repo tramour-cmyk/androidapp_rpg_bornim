@@ -364,3 +364,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 14:23 11.11.: Startsperre 14:23 Start Tom, Perikles (lauf.py)
 - 14:26 11.11.: Startsperre 14:26 Start Diogenes (lauf.py)
 - 14:34 11.11.: Startsperre 14:34 Start Sokrates (Ford, vor dem Start; Neustart-Meldung 14:33, e590d045a, zweite Erinnerung des Hakens; Letzte Antwort an den Chef steht in der Startnachricht)
+- 14:35 11.11.: Startsperre 14:35 Start Homer, Spike (lauf.py)
+- 14:35 11.11.: Marke Mehrfach-Warnung Sokrates session_01Hmoj76P6G4wjQbJWvF9mZ8 (lauf.py)
+- 14:35 11.11.: Marke Mehrfach Sokrates (lauf.py)
