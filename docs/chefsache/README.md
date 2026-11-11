@@ -135,7 +135,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 867 | M | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die | startbar |
 | 875 | M | Von Homer (857a A, Chef 10.11., 13:35): Fertigkeit Kräuterkunde heißt im Spiel Kräutersamm | startbar |
 
-**Jerry** – offen 87, Muss 73, startbar 14
+**Jerry** – offen 87, Muss 73, startbar 13
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -156,7 +156,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 595 | M | Kampfbewegungen der Kaufgegner: Spinne mehr Angriffe, Egel und Schnecke schneller, Treffhö | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (figur.gd) |
 | 616 | M | Kampf: Gegner weichen nach dem Angriff rückwärts zurück statt vorwärts zu laufen (Chef 07. | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (laufen) |
 | 532 | M | Kampf: Held geht ohne Zauberpunkte, Verbrauchtes, Zustände, Metrausch und ohne die ganze T | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (sokrates) |
-| 536 | M | Kampf: Erklärungen bei langem Drücken (MarsTips), Grund bei gesperrtem Zauber, „Kein Ziel | startbar |
+| 536 | M | Kampf: Erklärungen bei langem Drücken (MarsTips), Grund bei gesperrtem Zauber, „Kein Ziel | in Arbeit bei Tuffy |
 | 296.2 | M | MARS spielnötig: Beute/Erfahrung, Fliehen, Eröffnung, Zustände, eigene Ausrüstung, Schalte | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.5 (erfahrung) |
 | 551 | M | MARS: Rahmen des unteren Kastens links und rechts unterbrochen (Chef 04.11., 00:21) | ruht |
 | 534 | M | Kampf: Zauber und Fähigkeiten fehlen in „Können“ (Magierrüstung, Untote vertreiben, Spirit | ruht (424: altes SRD-System) |
