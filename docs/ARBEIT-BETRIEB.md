@@ -73,6 +73,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry (07:04 Jerry 806, 08:05 Jerry 806, 10:26 Jerry 595) aus eigener Beurteilung aus (Kaufrepo, Pacing, Sitzungsgrenze), ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch: 59 Muss). Lücke im Werkzeug: Startsperre wird geschrieben, auch wenn nie gestartet wird; kein WARNUNG-LAUT wie bei ARCHIVIERE. Vorschlag an den Chef gestellt
 
+- 01:05 11.11.: Lauf 01:04: nichts gestartet. Tom …785yR archiviert, gebucht (0,65 $, 870.4); Tom gesperrt (620.1 B, 10 ungetestete Muss, Test t275 beim Chef), Jerry 870.6 wartet auf 870.4, Perikles 264.1 wartet auf Chef; Stillstand Ursache Test/Chef, kein Fehler
 - 00:31 11.11.: Tom …75w84 archiviert, gebucht (4,35 $, 888). Tom …785yR meldet 870.4 nicht startbar (wartet auf 870.2 ungetestet in t275, Überschneidung 653/Sperre 779), endet ohne Arbeit; Tom erst nach Test t275 neu starten
 - 00:30 11.11.: Tom 870.4 gestartet …785yR (Neustart 00:27); Homer …7A7Yy (1,33 $, 899) und Diogenes …79zSr (1,06 $, 896/898) archiviert, gebucht; Tom …75w84 (4,10 $, 888) archiviert der nächste Lauf
 - 00:05 11.11.: Lauf 00:04: START Perikles „M?“ nicht ausgeführt (Planfehler 893); Perikles …75P7 wartet auf Chef (264.1, Läufe frei)
@@ -92,7 +93,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:05 10.11.: Lauf: alle Rollen belegt, nichts zu starten; alte Sitzungen Perikles, Tom 506, Jerry 709, Sokrates, Diogenes archiviert und gebucht. Neue Tom und Jerry fragten nach der Rolle, „Tom“/„Jerry“ per Nachricht nachgeschickt.
 - 11:30 10.11.: Ford-Wechsel: neue Uhr `trig_01DaEk3uTJQPBm2dGUEGi1Mf`, alte gelöscht; Archivieren der alten Ford-Sitzung und von Sokrates t273 (Wecker 11:29) wartet auf Archiv-Satz bzw. Wecker. START Spike 825 mit --ohne (Spike-Sitzung idle, offener Wecker 11:57 für Build 274). Tom 506, Jerry 709, Tuffy 406.2, Homer 807, Perikles, Diogenes 838 laufen.
 - 11:10 10.11.: alle START-Zeilen ausgeführt (Sokrates-Befund 11:08): Homer 807, Perikles (837, 832), Diogenes 838, Tuffy 406.2. Perikles-START von 10:25 war nicht ausgeführt worden. Ab jetzt: jede START-Zeile ausführen oder --ohne mit Grund nach vorgang.py <Nr>
-- 11:06 10.11.: Tom 661 archiviert, gebucht; Tom 506, Jerry 709, Spike 825, Sokrates t273 laufen; Vorrat Tom 475 wartet auf Kaufrepo (Tom 661 meldete)
 - 13:30 10.11.: Startsperre 13:30 Start Ford (selbst)
 - 13:30 10.11.: Startsperre 13:30 Start Sokrates (Neustart auf Meldung 9fc0c053b, Nachfolger 620 Test t274 ab 274); Startsperre 13:30 Start Ford (selbst).
 - 12:47 10.11.: Startsperre 12:47 Start Sokrates (Neustart auf Meldung 5f05423f9, Nachfolger 620 Lagebild nach Test t274).
@@ -252,4 +252,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:29 11.11.: Startsperre 00:29 Start Tom (Neustart-Meldung 00:27, c94a14582)
 - 01:04 11.11.: Marke Start-fehlt Tom 11.11.-00:29 (lauf.py)
 - 01:04 11.11.: Nachfolger-Warnung Tom (Übergabe 11.11., 00:28) (lauf.py)
-- 01:05 11.11.: Lauf 01:04: nichts gestartet. Tom …785yR archiviert, gebucht (0,65 $, 870.4); Tom gesperrt (620.1 B, 10 ungetestete Muss, Test t275 beim Chef), Jerry 870.6 wartet auf 870.4, Perikles 264.1 wartet auf Chef; Stillstand Ursache Test/Chef, kein Fehler
+- 01:06 11.11.: Startsperre 01:06 Start Tom (lauf.py)
