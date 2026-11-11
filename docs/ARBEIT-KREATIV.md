@@ -2,9 +2,9 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `e9dc25b14` (10.11., 16:54)
+**Gelesen bis:** `fbebb7c5c` (11.11., 09:57)
 
-**Übergabe (11.11., 09:55):** erledigt: 915 (Wolf vor dem Feuer in `STORY-BRS-KAMPF.md`, fremd geprüft; Hinweis an Jerry Zu 705), Quelle `[504.osric.heilung]` nachgezogen (Tom). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
+**Übergabe (11.11., 09:55):** erledigt: 915 (Wolf vor dem Feuer in `STORY-BRS-KAMPF.md`, fremd geprüft; Hinweis an Jerry Zu 705), 917 (Text steht in 870.15, Bau 870.9), Quelle `[504.osric.heilung]` nachgezogen (Tom). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
 
 ## Zeilen
 - **Zu 870.14, von Tom (11.11., 02:13, Bauregel):** Im Heldenreiter entfallen mangels Wirkung im Code: Kraft „Wie viel du tragen kannst“, „Truhen und Türen aufbrechen“; Verstand ganz (Wissen hängt an 870.14 a, Brauen geht nach der Fertigkeit Alchemie), Verstand zeigt nur „Wert %d“. Wahrnehmung „Spähen …“ steht, wirkt aber nur beim Kräutersammeln. Tracht des Wanderers bis zu deinem Vorschlag die der Herkunftstabelle (Bauer, Archiv 376.1); Bild vor B1 offen.
