@@ -23,6 +23,12 @@ Nichts offen.
 | [784](ansehen/784-runde-film.md) | Film: eine Runde gegen das Wolfsrudel heute | Tuffy | 11.11., 10:40 |
 | [806](ansehen/806-kampfort.md) | Bild: Lichtung mit und ohne Nebel | Jerry | 11.11., 11:34 |
 
+**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
+
+| Folge | Version | Build | Was | Wer | Seit |
+|---|---|---|---|---|---|
+| 1 | [–](ansehen/t276-b1-umzug-brs.md) | [Build 276](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/42992315811/artifacts/13846274684) | B1 | Tom und Jerry | 11.11., 03:33 |
+
 ## Zu tun
 
 Nichts offen.
@@ -333,6 +339,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 862 | K | Systemlösung? Umhang: 6 frühere Vorgänge (58, 488, 463, 463.1, 656 …), neu 861; einmal gru | startbar |
 | 869 | K | Systemlösung? Rüstung: 2 frühere Vorgänge (49, 817), neu 868; einmal grundsätzlich lösen? | startbar |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 15632 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+## Lücken
+
+Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
+
+Format (Muster: „So geht's“ unten): t276-b1-umzug-brs.md: Zeile 2 ist keine Bereichszeile; t276-b1-umzug-brs.md: Version 0.1.<Laufnummer> (Godot 0.348.<Laufnummer>) fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
+
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
