@@ -30,6 +30,8 @@ os.makedirs(ZIEL, exist_ok=True)
 
 # Teile unseres Helden, die Kleidung sind (Helm, Schild, Schwert, Scheide nicht: Kleidung, kein Geraet)
 KLEID = {'belt', 'buckle', 'boots', 'chain', 'cuff', 'clasp', 'cloak', 'pants', 'sleeves', 'tabard', 'robe'}   # robe: Magier (trachten.json)
+# 475: KLEID_MEHR=<teile> (Liste mit Komma): weitere Teile der Leute (Schuerze, Schal, Kopftuch, Reif, Sonne …, held_klassen.py LEUTE_KLEID)
+KLEID |= {t for t in os.environ.get('KLEID_MEHR', '').split(',') if t}
 # eng anliegend: Gewichte vom fremden Koerper darunter (bewegt sich wie er; mit unseren Gewichten stach er in jeder Haltung ausser
 # der Probe durch, pruef_tracht.py); Wappenrock und Umhang behalten unsere (folgen den Oberschenkeln nur zum Teil)
 ENG = {'belt', 'buckle', 'boots', 'chain', 'cuff', 'clasp', 'pants', 'sleeves'}
@@ -293,10 +295,30 @@ if HUELLE.any():
     print('SCHALE HINAUS', len(_noetig), 'Ecken der Huelle im Koerper,', _mit, 'mitgeschoben')
 print('KLEIDUNG HINAUS', raus, 'von', len(VK2))
 umhang_dbg(VK2, 'hinaus')
+# 475 Lauf 2 (Chef 04.11., 20:49: „mit irgendwelchen Verhüllungen im Gesicht … genau der gleiche Scheiß wie das letzte Mal“), am Rechner
+# nachgestellt (Kopfbilder Garrick, Liska, Jorin, Morwen aus Lauf 1 nachgebaut): unsere Kopfteile aus held3 (Kapuze, Gugel, Helm,
+# Ringpanzer am Helm, Kopftuch) sind fuer unseren Kopf gebaut und lagen am Kaufkopf binnen VERDECKT vor dem Gesicht; Schritt 7 nahm die
+# Gesichtshaut darunter weg (Loch, durch das man ins Kopfinnere sieht) und schob Haut zurueck (Splitter), OHNE_TEIL loeschte die
+# Teile erst danach. KOPF_FREI=1 (held_klassen.py, Leute): was im Kopf liegt (ueber dem Kinn, im Umkreis 17 cm um die Kopfmitte) und die
+# OHNE-Teile fallen schon hier aus dem Abdeck-Test und spaeter aus dem Kleid; das Kopftuch bleibt, zaehlt aber nicht als Abdeckung
+# (held_klassen.py kopfsitz setzt es auf den Kaufkopf)
+KOPF_WEG = np.zeros(len(VK2), bool)
+_kf_aus = np.zeros(len(VK2), bool)
+if os.environ.get('KOPF_FREI') == '1':
+    _nm = np.array([TEILNAMEN[i] for i in tl[ist_kleid]])
+    _kmitte = QV[WQ[:, iH] > 0.5].mean(0)
+    _tuch = np.isin(_nm, ['tuch', 'tuch_knoten', 'tuch_zipfel']); _bleibt = np.isin(_nm, ['circlet', 'circlet_stein'])
+    _ohne = np.isin(_nm, [t for t in os.environ.get('OHNE_TEIL', '').split(',') if t])
+    # hinter dem Hals bleibt der Kragen bis 4,5 cm ueber dem Kinn (Pruefer 21:29: gezackte Fetzen und Loecher am Kragen, wo er durchschnitten war)
+    KOPF_WEG = (((VK2[:, 2] > KINN_Z + 0.005) & (np.linalg.norm(VK2 - _kmitte, axis=1) < 0.17)
+                 & ((VK2[:, 1] < hals_y) | (VK2[:, 2] > KINN_Z + 0.045))) | _ohne) & ~_tuch & ~_bleibt
+    _kf_aus = KOPF_WEG | _tuch | _bleibt
+    print('KOPF FREI', {t: int((KOPF_WEG & (_nm == t)).sum()) for t in sorted(set(_nm[KOPF_WEG]))}, 'Ecken weg; Tuch', int(_tuch.sum()),
+          'Ecken ohne Abdeck-Test')
 # ---------------------------------------------------------------- 7. Koerper unter der Kleidung weg
 kme = kleid.data
 KF = [tuple(p.vertices) for p in kme.polygons]
-kbvh = BVHTree.FromPolygons([Vector(v) for v in VK2], KF)
+kbvh = BVHTree.FromPolygons([Vector(v) for v in VK2], [f_ for f_ in KF if not _kf_aus[list(f_)].any()] or KF)
 # 376.1 Halszacken (Helfer: graue Zacken vorn am Hals, Vorderseiten): Flaechen am Hals, die Stauchen (5) und Hinausschieben (6)
 # umgedreht haben (Normale gegen vorher < 0), und solche, deren Ecken mehr als 1 cm auseinander geschoben wurden
 def _nrm(P, f): return np.cross(P[f[1]] - P[f[0]], P[f[2]] - P[f[0]])
@@ -539,10 +561,10 @@ kleid.parent = qa
 md = kleid.modifiers.new('Armature', 'ARMATURE'); md.object = qa
 # 376.1 Magier: OHNE_TEIL=pants (Liste mit Komma; trachten.json „ohne“): unter der Robe stach die Hose im Lauf durch (pruef_tracht.py Jog 36)
 ohne = [t for t in os.environ.get('OHNE_TEIL', '').split(',') if t in TEILNAMEN]
-if ohne:
+if ohne or KOPF_WEG.any():   # 475 Lauf 2: dazu was im Kopf liegt (KOPF_FREI)
     bm = bmesh.new(); bm.from_mesh(kme); bm.verts.ensure_lookup_table()
-    bmesh.ops.delete(bm, geom=[bm.verts[i] for i in np.where(np.isin(LT, [TEILNAMEN.index(t) for t in ohne]))[0]], context='VERTS')
-    bm.to_mesh(kme); bm.free(); print('OHNE', ohne)
+    bmesh.ops.delete(bm, geom=[bm.verts[i] for i in np.where(np.isin(LT, [TEILNAMEN.index(t) for t in ohne]) | KOPF_WEG)[0]], context='VERTS')
+    bm.to_mesh(kme); bm.free(); print('OHNE', ohne, 'Kopf', int(KOPF_WEG.sum()), 'Ecken')
 # 376.1 Urteil Tracht (Chef 01.11., 20:2x, Wachsoldat: „da kommt immer ein Farbstreifen durch den Umhang durch“): die hintere Bahn des
 # Wappenrocks folgt den Oberschenkeln, der Umhang nicht; sie stach auf Gesaesshoehe 1-2 cm durch (pruef_flecken.py, Strahl von hinten:
 # Wappenrock vor dem Umhang, in jeder Bewegung, auch ohne Abbau). Unter dem Umhang sieht sie niemand: mit Umhang faellt sie weg

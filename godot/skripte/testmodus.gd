@@ -215,9 +215,9 @@ static func reiter(m: Menue) -> void:
 			"In a fight the hero never drops below 1 hit point; for playing through."), func(): Mars.held_unsterblich = not Mars.held_unsterblich, "", "∞", Mars.held_unsterblich),
 		zk.call(t.call("Schnell", "Fast"), an_aus.call(Held.schnell > 1.0), t.call("Gehen und Laufen dreimal so schnell, damit der Weg durch Kapitel 1 flott geht.",
 			"Walking and running three times as fast, to cross chapter 1 quickly."), func(): Held.schnell = 1.0 if Held.schnell > 1.0 else 3.0, "RUN", "", Held.schnell > 1.0)])
-	# 470a B: die Seite „Neues Spiel“ nach BRS 1.1 bis 2.3 nur hier; „Abenteuer beginnen“ und „Zurück“ fuehren in die Welt zurueck
-	m.zeichenreihe([zk.call(t.call("Erschaffung BRS", "Creation BRS"), null, t.call("Zeigt die neue Seite „Neues Spiel“ nach BRS 1.1. Ins Spiel kommt sie mit dem Kampf nach BRS (2.3); bis dahin ändert sie den Helden nicht.",
-		"Shows the new “New game” page after BRS 1.1. It enters the game with BRS combat (2.3); until then it does not change the hero."), func(): m.test.emit("erschaffung_brs", []), "RULES")])
+	# 470a B: die Seite „Neues Spiel“ nach BRS 1.1 bis 2.3 nur hier; 834: „Abenteuer beginnen“ beginnt ein neues Spiel mit diesem Helden, „Zurück“ fuehrt in die Welt zurueck
+	m.zeichenreihe([zk.call(t.call("Erschaffung BRS", "Creation BRS"), null, t.call("Neue Seite „Neues Spiel“ nach BRS 1.1. „Abenteuer beginnen“ speichert dieses Spiel und beginnt ein neues mit dem Helden nach BRS (Fertigkeiten, Übung); gekämpft wird bis 2.3 wie bisher.",
+		"New “New game” page after BRS 1.1. “Begin adventure” saves this game and starts a new one with the BRS hero (skills, practice); combat stays as before until 2.3."), func(): m.test.emit("erschaffung_brs", []), "RULES")])
 	if waffen_auf:
 		var alle: Array = [""]
 		for id in Beute.grundformen():
@@ -412,7 +412,7 @@ static func monster_namen() -> Dictionary:
 	for mo in tab["monsters"]: namen[String(mo["id"])] = String(mo["de"] if Sprache.aktiv() == "de" else mo["en"])
 	# 494 (Prüfer 512b): Riesenegel und Säureschnecke heißen nach LISTE-FIGUREN wie im Kampf (aufruf.gd NAMEN_494), nicht Stirge, Ockergallerte
 	var neu: Dictionary = load("res://kampf/aufruf.gd").NAMEN_494
-	for paar in [["stirge", "LEECHES"], ["ochre_jelly", "SLUGS"]]:
+	for paar in [["stirge", "LEECHES"], ["ochre_jelly", "SLUGS"], ["zombie", "WIEDERGAENGER"], ["ghoul", "GRABHUND"]]:     # 506
 		if namen.has(paar[0]) and neu.has(paar[1]): namen[paar[0]] = String(neu[paar[1]][0 if Sprache.aktiv() == "de" else 1])
 	var r := {}
 	for a in Streuner.GRUPPE:

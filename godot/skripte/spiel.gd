@@ -8,6 +8,8 @@ const START := "village"
 const START_KACHEL := Vector2i(19, 13)          # Dorfplatz am Brunnen (Probe Build 11)
 
 var karte: Karte
+# 834 (Spike): Held aus „Erschaffung BRS“ im Testmenue; nach dem Neuladen der Szene beginnt mit ihm ein neues Spiel ohne Hauptmenue
+static var neu_brs := {}
 var gebiet: Gebiet
 var held: Held
 var leute: Node3D                                # 348.6 Leute der Karte (leute.gd)
@@ -66,6 +68,12 @@ func _ready() -> void:
 	Rand.beim_start = Rand.oben(get_viewport())
 	add_child(Rand.band(Rand.beim_start))   # 399.4: schwarz, was die Kamera des Handys verdeckt
 	# 399: Hauptmenue und Erschaffung zuerst, ausser bei Probelaeufen am Rechner (--bilder, --figuren …, Tests ohne Fenster)
+	if not neu_brs.is_empty():   # 834: neues Spiel mit dem Helden aus „Erschaffung BRS“ (Testmenue), wie aus dem Hauptmenue
+		var nw: Dictionary = neu_brs
+		neu_brs = {}
+		add_child(Helligkeit.schicht())
+		starte(nw)
+		return
 	if OS.get_cmdline_user_args().is_empty() and DisplayServer.get_name() != "headless":
 		var ebene := CanvasLayer.new()   # 399.1 (Test 130: Probeknoepfe und Windrose lagen ueber dem Menue): eigene Ebene ueber allem
 		ebene.layer = 50
@@ -591,10 +599,21 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	if probe.is_empty(): lage["betrunken"] = zustand.betrunken()   # 532 Metrausch wie alt (Battle.drunk): betrunken aus der Schenke in den Kampf
 	if probe.is_empty(): lage["rauch"] = zustand.anzahl(Geschichte.SMOKE_BUNDLE)   # 494 (Jerry, D4.1): Morwens Rauchbündel gegen Krogg
 	if probe.is_empty(): lage["brs"] = zustand.brs   # 478 (Jerry): der Held nach BRS, wenn der Kampf nach BRS rechnet (brs_kampf.gd)
+	if probe.is_empty() and not zustand.fert.is_empty(): lage["brs_fert"] = zustand.fert["werte"]   # 471: was er seither geuebt hat
 	# 493 (Jerry): Kampfort im Wald nach dem, was um den Helden steht (wie alt BattleScene.spotFor); im Testmodus wählbar
 	lage["platz"] = Testmodus.kampfort if Testmodus.ist_an() and Testmodus.kampfort != "" else load("res://kampf/kampfort.gd").platz_fuer(karte, held.kachel)
 	var gestartet: bool = aufruf.starte(gegner, hw, soeldner, "wald", tageszeit(), zustand.anzahl("potion") if probe.is_empty() else 2, -1, -1, -1, beute, lage)
 	if probe.is_empty(): zustand.satt = false   # 399.1: Battle.wellFed endet mit dem Kampfbeginn (der Kampfort gibt +1, 399.2)
+	# 471: welche Fertigkeiten der Held im Kampf benutzt, hoert Kampfuebung mit (wie der Kampfort); gutgeschrieben am Kampfende
+	var uebung: Kampfuebung = null
+	if gestartet and probe.is_empty() and not zustand.fertigkeiten_stand().is_empty() and aufruf.kampf != null and aufruf.kampf.mars != null:
+		uebung = Kampfuebung.new()
+		var m = aufruf.kampf.mars
+		var vorher: Callable = m.listener
+		var daten := zustand.brs
+		m.listener = func(e):
+			uebung.hoere(e, m, daten)
+			if vorher.is_valid(): vorher.call(e)
 	if gestartet:
 		for we in umgebung: we.environment = null
 		visible = false; ui.visible = false
@@ -649,6 +668,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 		return ende[0]
 	hw.tp = clampi(tp_nach, 1, hw.max_tp())
 	if ende[0] == "WON": zustand.siege += 1   # 399.1: GameState.battlesWon (System „Siege“, Thessas Ware); zaehlte bisher nie
+	var gestiegen := fertigkeiten_nach_kampf(uebung, ende[0]) if uebung != null else ""   # 471
 	if not lohn.is_empty():
 		zustand.gold += int(lohn.get("gold", 0))
 		for d in lohn.get("items", []): zustand.dazu(String(d))   # Beute (Felle, Zaehne)
@@ -658,7 +678,18 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	held.setze(zurueck, blick_nach)
 	kamera.springe()
 	await abblenden(0.0)
+	if gestiegen != "": ui.kurz(gestiegen)   # 471: „Bogen ↑ 12“, wenn die Welt wieder zu sehen ist
 	return ende[0]
+
+# 471: Uebung aus dem Kampf gutschreiben (nur nach einem Sieg), Bewaehrungsprobe; die Erfahrung der Fertigkeiten geht in die Heldenstufe
+# nach BRS (zustand.brs_stufe, Stufe wie der Held, bis 472 ihn fuehrt). Gibt die Notiz „Bogen ↑ 12“ zurueck oder leer.
+func fertigkeiten_nach_kampf(u: Kampfuebung, ende: String) -> String:
+	var s := zustand.fertigkeiten_stand()
+	if s.is_empty(): return ""
+	zustand.stufe_held = held_werte().stufe
+	var ev := u.gutschreiben(ende, s, zustand.stufe_brs())
+	zustand.spiegle()
+	return Kampfuebung.notiz(ev)
 
 # ---------------------------------------------------------------- 490 Kampf mit einem Monster der Karte (Game.engage, startBattle, endBattle)
 # Die Welt ruht im Kampf; danach steht der Held, wo er stand, mit seinem Blick; das Monster ist nach dem Sieg fort (herde.gd)
@@ -784,7 +815,9 @@ func pfluecke(t: Vector2i) -> void:
 	var n := 1 + (1 if randf() < 0.3 else 0) + (1 if randf() < weise else 0)
 	zustand.dazu("herbs", n)
 	klang("effekt", ["loot"])
-	ui.kurz(Sprache.t({"de": "Du pflückst Heilkräuter (+%d)." % n, "en": "You pick healing herbs (+%d)." % n}))
+	zustand.uebe("Kräuterkunde")   # 471: Pfluecken uebt Kraeuterkunde
+	var auf := zustand.fert_notiz()
+	ui.kurz(Sprache.t({"de": "Du pflückst Heilkräuter (+%d)." % n, "en": "You pick healing herbs (+%d)." % n}) + ("\n" + auf if auf != "" else ""))
 	kraeuter_neu()
 
 func abblenden(ziel: float) -> void:
@@ -1140,20 +1173,25 @@ func test_tat(was: String, mit: Array) -> void:
 			get_tree().root.add_child(s)
 			get_tree().current_scene.queue_free()
 			get_tree().current_scene = s
-		"erschaffung_brs":   # 470a B: Seite nach BRS 1.1 nur ansehen; der Held bleibt, wie er ist
+		"erschaffung_brs":   # 470a B; 834 (Spike, Chef 10.11., 10:21): „Abenteuer beginnen“ speichert das laufende Spiel und beginnt ein neues
+			# mit dem Helden nach BRS (zustand.brs) im freien oder gewaehlten Platz; gekaempft wird bis 2.3 mit der SRD-Bruecke (BrsHeld.alt)
 			var ebene := CanvasLayer.new()
 			ebene.layer = 40
 			ebene.process_mode = Node.PROCESS_MODE_ALWAYS
 			add_child(ebene)
 			var e := ErschaffungBrs.new()
-			e.ziel = maxi(Spielstand.platz, 1)   # nie die Platzwahl: es wird nichts gespeichert
+			e.ziel = 0   # 834: erster freier Platz, sind alle belegt, die Platzwahl (795)
 			ebene.add_child(e)
 			get_tree().paused = true
 			var weg := func():
 				ebene.queue_free()
 				get_tree().paused = false
 			e.zurueck.connect(weg)
-			e.fertig.connect(func(_w): weg.call())
+			e.fertig.connect(func(w):
+				weg.call()
+				speichere()
+				neu_brs = w
+				get_tree().reload_current_scene())
 		"kampf", "probe":
 			if not ResourceLoader.exists("res://kampf/kampfort.gd"): return
 			await abblenden(1.0)
@@ -1415,6 +1453,8 @@ func oeffne_laden(waren: Array, brauen: bool) -> void:
 		laden = null
 		laden_schirm = null
 		weiter()
+		var auf := zustand.fert_notiz()   # 471: „Handeln ↑ 3“ nach dem Laden
+		if auf != "": ui.kurz(auf)
 		_steht_auf(held.kachel))
 
 func zeige_zeilen(z: Array) -> void:
@@ -1669,6 +1709,13 @@ func leute_blatt() -> void:
 		if r == 0 and k == reihe / 2: mitte_n = l
 	held.leute = leute.get_children()
 	print("LEUTE BLATT ", ids)
+	if "--gesichter" in OS.get_cmdline_user_args():   # 475: zuerst alle Gesichter nebeneinander
+		if "--gesichtervergleich" in OS.get_cmdline_user_args():   # Lauf 2: wie Lauf 1 (Nahebene) und doppelt so weit (Zoom), zum Vergleich
+			await gesichter(dir, true, "leute_gesichter_nah.png")
+			await gesichter(dir, false, "leute_gesichter_weit.png", 2.0)
+		if "--gesichterspiel" in OS.get_cmdline_user_args():   # Spur (c): Spielgroesse (Chef 04.11., 20:49), Tusche wie im Spiel
+			await gesichter(dir, false, "leute_gesichter_spiel.png", Kamera.NAH / GESICHT_BREITE, true)
+		await gesichter(dir)
 	kamera.ziel = mitte_n
 	kamera.springe()
 	await get_tree().create_timer(1.5).timeout
@@ -1708,6 +1755,106 @@ func leute_blatt() -> void:
 	await get_tree().create_timer(2.5).timeout
 	await knips(dir + "/leute_nacht.png")
 	get_tree().quit()
+
+# 475 (Chef 03.11., 07:47: „mit individuellem Gesicht … damit die alle wieder gleich ausschauen“): je Person ein Bild des Kopfs mit der
+# Spielkamera (Tusche, Licht wie im Spiel), schmal und flacher wie das Kopfblatt (figurenprobe.gd), die anderen ausgeblendet; zusammen
+# in leute_gesichter.png (4 Spalten, Name darunter). Zeilen GESICHT: Person, Kaufkoerper oder alt
+const GESICHT_BREITE := 0.55          # m Bildbreite der Kamera
+const GESICHT_KACHEL := 420           # Punkte je Bild (Quadrat um den Kopf)
+const GESICHT_NAME := 50              # Punkte fuer den Namen unter dem Quadrat (Lauf 2, Pruefer 22:24: Aldrics Bart lag in der Schrift)
+# 475 Lauf 2 (Pruefer 20:39: „Im ganzen Blatt fehlt die Tuschelinie“): nah = wie Lauf 1 (Nahebene kurz vor die Person); sonst bleibt die
+# Nahebene, und statt dessen sind Dorf und Held ausgeblendet (was vor dem Kopf stand, waren Haeuser); Licht und Kamera wie im Spiel
+# 475 Spur (c) (Tom 04.11., 22:3x): bei 0,55 m Bildbreite traf tusche.gdshader „knick“ (0,06 m Tiefenkruemmung ueber 1–2 Bildpunkte) kaum
+# eine Kante, nur der Umriss blieb; ausschnitt = Spielgroesse: Kamera auf weit × 0,55 m (NAH 3,4 m), aus dem Bild nur die 0,55 m um den Kopf,
+# ohne Glaetten vergroessert (so gross wie am Handy, jeder Bildpunkt sichtbar)
+func gesichter(dir: String, nah := false, datei := "leute_gesichter.png", weit := 1.0, ausschnitt := false) -> void:
+	var alle: Array = leute.get_children().filter(func(x): return x is Leute and not x.is_queued_for_deletion())
+	var mk := Node3D.new()
+	leute.add_child(mk)
+	var neig_vorher: float = kamera.neigung
+	var zoom_vorher: float = kamera.zoom
+	kamera.neigung = -12.0
+	kamera.zoom = GESICHT_BREITE * weit
+	# Lauf 258 (Pruefer 05:16: fuenf von zwoelf Bildern zeigten nur Dachziegel): die Kamera steht 40 m zurueck (kamera.gd folge), Haeuser
+	# davor verdeckten den Kopf; die Nahebene kurz vor die Person, was davor steht, faellt weg
+	var near_vorher: float = kamera.near
+	if nah: kamera.near = 40.0 - 1.5
+	var welt_sichtbar: Array = []
+	if not nah:
+		for n in [gebiet, held]:
+			if n is Node3D: welt_sichtbar.append([n, (n as Node3D).visible]); (n as Node3D).visible = false
+	var name_l := Label.new()
+	name_l.add_theme_font_override("font", Stil.schrift())
+	name_l.add_theme_font_size_override("font_size", 30)
+	name_l.add_theme_color_override("font_color", Color("f0c850"))
+	name_l.add_theme_color_override("font_outline_color", Color("201408"))
+	name_l.add_theme_constant_override("outline_size", 8)
+	name_l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	var grund := StyleBoxFlat.new()   # der Streifen unter dem Quadrat zeigt sonst den Rumpf hinter dem Namen
+	grund.bg_color = Color("0e0b08")
+	name_l.add_theme_stylebox_override("normal", grund)
+	var ebene := CanvasLayer.new()
+	ebene.layer = 50
+	add_child(ebene)
+	ebene.add_child(name_l)
+	var vp := get_viewport().get_visible_rect().size
+	name_l.size = Vector2(GESICHT_KACHEL, 40)
+	name_l.size = Vector2(vp.x, 90)
+	name_l.add_theme_font_size_override("font_size", 64)   # das Quadrat wird von der Bildbreite auf 420 Punkte verkleinert
+	name_l.position = Vector2(0, vp.y * 0.5 + vp.x * 0.5 + 10)   # unter dem Quadrat, nie ueber Bart oder Kinn
+	var kacheln: Array[Image] = []
+	for l in alle:
+		if l == mk: continue
+		for x in alle: x.visible = x == l
+		var kopf: Vector3 = l.global_position + Vector3.UP * (l.kopfhoehe() - 0.13)
+		var sk := Gebiet.finde(l.modell, "Skeleton3D") as Skeleton3D
+		if sk and sk.find_bone("Head") >= 0:
+			kopf = sk.global_transform * sk.get_bone_global_pose(sk.find_bone("Head")).origin + Vector3.UP * 0.09
+		mk.position = leute.to_local(kopf)
+		# zur Kamera gewandt (Lauf 258: Gesichter nicht zu sehen); die Kamera sitzt auf ihrer +Z-Seite, die Person blickt nach +Z (leute.gd)
+		var blick_vorher: float = l.blick
+		l.blick = deg_to_rad(kamera.gieren_ziel); l.rotation.y = l.blick
+		kamera.ziel = mk
+		kamera.springe()
+		name_l.text = String(l.daten["id"]).capitalize()
+		await get_tree().create_timer(0.6).timeout
+		await RenderingServer.frame_post_draw
+		var im := get_viewport().get_texture().get_image()
+		# Lauf 258 (Pruefer 05:16: je Bild nur das Viertel oben links, Rest schwarz): vp ist die Flaeche der Oberflaeche (1080 x 2340,
+		# canvas_items), das Bild hat die Fenstergroesse (--resolution 540x1170); Ausschnitt in Bildpunkten des Bilds
+		# und das Quadrat ueber die ganze Bildbreite (GESICHT_BREITE 0,55 m), 420 von 1080 Punkten waren nur 0,21 m, enger als ein Kopf
+		var kk := im.get_width()
+		if ausschnitt: kk = int(round(im.get_width() / weit))
+		var c := Vector2i(im.get_width() / 2 - kk / 2, im.get_height() / 2 - kk / 2)
+		var stueck := im.get_region(Rect2i(c, Vector2i(kk, kk)))
+		if kk != GESICHT_KACHEL: stueck.resize(GESICHT_KACHEL, GESICHT_KACHEL, Image.INTERPOLATE_NEAREST if ausschnitt else Image.INTERPOLATE_LANCZOS)
+		# der Name steht unter dem Quadrat: als eigener Streifen unter die Kachel
+		var sc := im.get_width() / vp.x
+		var ny := clampi(int(name_l.position.y * sc) + 1, 0, im.get_height() - 1)
+		var streifen := im.get_region(Rect2i(0, ny, im.get_width(), mini(int(88.0 * sc), im.get_height() - ny)))
+		streifen.resize(GESICHT_KACHEL, GESICHT_NAME, Image.INTERPOLATE_LANCZOS)
+		var kachel := Image.create(GESICHT_KACHEL, GESICHT_KACHEL + GESICHT_NAME, false, stueck.get_format())
+		kachel.blit_rect(stueck, Rect2i(Vector2i.ZERO, stueck.get_size()), Vector2i.ZERO)
+		kachel.blit_rect(streifen, Rect2i(Vector2i.ZERO, streifen.get_size()), Vector2i(0, GESICHT_KACHEL))
+		stueck = kachel
+		kacheln.append(stueck)
+		l.blick = blick_vorher; l.rotation.y = blick_vorher
+		print("GESICHT ", l.daten["id"], " ", "Kaufkoerper" if String(l.modell.name).begins_with("Person_") else "alt", " Kopf ", kopf)
+	var sp := 4
+	var zeilen := ceili(kacheln.size() / float(sp))
+	var blatt := Image.create(sp * GESICHT_KACHEL, zeilen * (GESICHT_KACHEL + GESICHT_NAME), false, kacheln[0].get_format() if kacheln.size() > 0 else Image.FORMAT_RGBA8)
+	blatt.fill(Color("0e0b08"))
+	for i in kacheln.size():
+		blatt.blit_rect(kacheln[i], Rect2i(Vector2i.ZERO, kacheln[i].get_size()), Vector2i((i % sp) * GESICHT_KACHEL, (i / sp) * (GESICHT_KACHEL + GESICHT_NAME)))
+	blatt.save_png(dir + "/" + datei)
+	print("GESICHTER ", kacheln.size(), " ", dir + "/" + datei, " nah" if nah else " ohne Dorf")
+	for w in welt_sichtbar: (w[0] as Node3D).visible = w[1]
+	ebene.queue_free()
+	mk.queue_free()
+	kamera.near = near_vorher
+	for x in alle: x.visible = true
+	kamera.neigung = neig_vorher
+	kamera.zoom = zoom_vorher
 
 # 348.6 Held (Chef 18:06/18:20 zur Dorf-APK): --held=<ordner> Brunnen und Marktstand, Gehen in Rennen (Bild je 1/15 s),
 # Rennen seitlich nah, nachts Stehen, Gehen, Rennen mit der Fackel

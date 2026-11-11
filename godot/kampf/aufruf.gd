@@ -18,7 +18,10 @@ var tabellen: Dictionary
 
 
 ## 494 (Kauf 348.12c, LISTE-FIGUREN): der Riesenegel ersetzt die Stirge, die Säureschnecke die Ockergallerte
-const NAMEN_494 := {"LEECHES": ["Riesenegel", "Giant Leech"], "SLUGS": ["Säureschnecke", "Acid Slug"]}
+const NAMEN_494 := {"LEECHES": ["Riesenegel", "Giant Leech"], "SLUGS": ["Säureschnecke", "Acid Slug"],
+	# 506 (348.12c, LISTE-FIGUREN): der Wiedergänger ersetzt den Zombie, der Grabhund den Ghul (Regeln unter dem alten Namen)
+	"WIEDERGAENGER": ["Wiedergänger", "Revenant"], "WIEDERGAENGER3": ["Wiedergänger", "Revenant"],
+	"GRABHUND": ["Grabhund", "Grave Hound"], "GRABHUNDE": ["Grabhund", "Grave Hound"]}
 
 
 ## Die Gegner einer Gruppe (Aufstellung, Namen und Aussehen wie im Probekampf; probe.gd ruft das auch)
@@ -62,6 +65,17 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 		"RATTE": [["rat", Mars.WOLF, Vector2i(0, 0)]],     # 577: Körper des Wolfs, Kennung und Regeln der eigenen Art (ART)
 		"FLEDERMAUS": [["bat", Mars.WOLF, Vector2i(0, 0)]],
 		"SPINNE": [["spider", Mars.SPIDER, Vector2i(0, 0)]],
+		# 506: drei Skelette wie im alten Spiel (MonsterKit.kt skeleton: Kurzschwert und Helm, Kurzschwert und Schild, Speer und Helm),
+		# Regeln aus Monsters.kt skeleton (tabellen.json), im Bild der gekaufte Skelettritter (kaufskelett.py, je Nummer ein Kit)
+		"SKELETONS": [["skel1", "skeleton", Vector2i(0, 0)], ["skel2", "skeleton", Vector2i(0, 1)], ["skel3", "skeleton", Vector2i(1, 0)]],
+		# 506: auf der Karte je allein wie im alten Spiel (Roamers.kt ein Monster, Packs.kt ohne Rudel für Untote); das Kit bringt das
+		# Monster der Karte mit („fell“), im Probekampf je Nummer. Wiedergänger (Regeln Monsters.kt zombie, kaufuntoter.py) und Grabhund
+		# (Regeln ghoul, kaufgrabhund.py); WIEDERGAENGER3 und GRABHUNDE zeigen alle drei Kits bzw. Häute nebeneinander (Probe, Testmenü)
+		"SKELETT": [["skel1", "skeleton", Vector2i(0, 0)]],
+		"WIEDERGAENGER": [["zombie1", "zombie", Vector2i(0, 0)]],
+		"GRABHUND": [["hound1", "ghoul", Vector2i(0, 0)]],
+		"WIEDERGAENGER3": [["zombie1", "zombie", Vector2i(0, 0)], ["zombie2", "zombie", Vector2i(0, 1)], ["zombie3", "zombie", Vector2i(1, 0)]],
+		"GRABHUNDE": [["hound1", "ghoul", Vector2i(0, 0)], ["hound2", "ghoul", Vector2i(0, 1)], ["hound3", "ghoul", Vector2i(1, 0)]],
 	}.get(foe, [])
 	Figur.ersatz_art = {"RATS": "giant_rat", "BATS": "giant_bat", "SHAMANS": Figur.SHAMAN, "KOBOLDS": Figur.KOBOLD, "BOARS": "kauf_keiler", "CENTIPEDES": "kauf_hundertfuesser", "LEECHES": "kauf_egel", "SLUGS": "kauf_schnecke", "RATTE": "giant_rat", "FLEDERMAUS": "giant_bat"}.get(foe, "")
 	# 348.12f eingebaut (Chef 28.10., 11:50: Kaufwolf abgenommen, Archiv 27.10., 21:51: „eigener entfällt“): Wölfe sind der gekaufte
@@ -89,7 +103,9 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 			var fuehrer: Dictionary = monsters.get("dire_wolf", m)
 			m.atk = int(fuehrer.atk) + int(LEIBWACHE.atk_shift)
 			m.dmg = LEIBWACHE.dmg
-			m.chance = LEIBWACHE.chance
+			m.chance = float(Brs.begleiter("Leibwache", "dire_wolf").get("chance", LEIBWACHE.chance))     # 870.3: werte.json
+			m.rudel = "Leibwache"     # 870.3: Werte nach BRS aus werte.json „merkmale“ „rudel“ (brs_kampf.gd gegner)
+			m.anfuehrer = "dire_wolf"
 			m.xp = 0     # lohn.gd zählt sie als Leibwache des Leitwolfs (xpShare), nicht einzeln
 			m.flee = LEIBWACHE.flee
 		elif ART.has(foe) and monsters.has(ART[foe]):
@@ -137,7 +153,9 @@ static func rudel(monsters: Dictionary, dice) -> Array:
 	jung.dmg = JUNGWOLF.dmg
 	jung.xp = 0     # lohn.gd zählt sie als Rudel des Wolfs (xpShare), nicht einzeln
 	jung.flee = JUNGWOLF.flee
-	jung.chance = JUNGWOLF.chance     # 399.2b (Chef 28.10., 15:32): beißt wie alt nur zu 50 % je Runde (Packs.kt cubs)
+	jung.chance = float(Brs.begleiter("Jungwolf", "wolf").get("chance", JUNGWOLF.chance))     # 399.2b (Chef 28.10., 15:32): 50 % je Runde (Packs.kt cubs); 870.3: werte.json
+	jung.rudel = "Jungwolf"     # 870.3: Werte nach BRS aus werte.json „merkmale“ „rudel“ (brs_kampf.gd gegner)
+	jung.anfuehrer = "wolf"
 	var n: int = dice.roll_expr([1, 2, 0])
 	for i in n:
 		var f = Mars.monster_fighter("cub%d" % (i + 1), [Vector2i(0, 1), Vector2i(1, 0)][i], jung, maxi(1, int(dice.roll_expr(wolf.hp) * float(JUNGWOLF.hp_share))))
@@ -218,10 +236,19 @@ func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := 
 	var monsters := {}
 	for m in tabellen.monsters:
 		monsters[m.id] = m
+		if Brs.name(String(m.id)) != "":     # 870.3: Anzeigename aus werte.json „kennungen“ ([870.15.namen.monster]), nicht SRD
+			m.de = Brs.name(String(m.id))
+			m.en = Brs.name(String(m.id), 1)
 	var party := [_kaempfer("hero", held, held_tp, Vector2i(Mars.FRONT, 0), skills)]
 	party[0].hero["look"] = lage.get("aussehen", {})     # 403: Kopf, Haar, Haut wie im Dorf (Zustand.aussehen, HeldFigur)
 	if not (lage.get("brs", {}) as Dictionary).is_empty():
-		party[0].hero["brs_daten"] = lage.brs     # 478: der Held nach BRS aus dem Spielstand (zustand.brs, BrsHeld.als_daten)
+		# 870.2 (LISTE-UMZUG-BRS.md Schritt 2): der Held nach BRS aus dem Spielstand (zustand.brs) als Kampfblatt; was er trägt, bis
+		# 870.4 aus den Heldwerten (Grundform der Waffe, Rüstung nach Gewicht, Schild), Geübtes aus zustand.fert (471)
+		var hb: Dictionary = party[0].hero
+		party[0].hero["brs"] = BrsHeld.aus_daten(lage.brs).kampfblatt(int(hb.level),
+			{"waffe": String(hb.main.id), "ruestung": String(hb.get("brs_ruestung", "keine")), "schild": String(hb.get("schild", ""))}, lage.get("brs_fert", {}))
+	elif not (lage.get("brs_fert", {}) as Dictionary).is_empty():
+		party[0].hero["brs_fert"] = lage.brs_fert     # 471: geuebte Werte ohne Spielstand nach BRS (brs_kampf.gd held „brs_fert“)
 	leiden_auf(party[0], lage.get("leiden", {}))     # 532
 	if bool(lage.get("betrunken", false)):     # 532 Metrausch wie alt (Battle.drunk): bis zur Rast, im Kampf ohne Ende
 		party[0].status["DRUNK"] = Mars.LASTING

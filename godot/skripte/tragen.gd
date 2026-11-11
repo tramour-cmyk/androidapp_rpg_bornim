@@ -35,6 +35,7 @@ var waffe: Node3D             # top_level, wird je Bild gestellt
 var modell: Node3D            # Wurzel der Figur (+Z vorn, +X links, wie heldfigur.gd)
 var anim: AnimationPlayer
 var griff := Vector3.ZERO     # Faust im Raum des Handknochens (heldfigur.gd faust)
+var halt := {}                # 653: Maße des Gegenstands (Halt.gegenstand): Griff, Schaft, Schneide aus dem Modell statt Modellregel 4
 var achse := Vector3.UP       # Kleinfinger- zu Zeigefingerknoechel im Raum des Handknochens
 var unten := 0.0              # Stab: Laenge unter dem Ursprung
 var mittel := 0.0             # gleitendes Mittel des Armschwungs (vorn-hinten), m
@@ -164,13 +165,28 @@ func _process_modification() -> void:
 		_: x = G.basis * ac                      # Schneide, Blatt nach aussen
 	x = (x - dw * x.dot(dw)).normalized()
 	var ms := mass()
-	waffe.global_basis = Basis(x, dw, x.cross(dw)).scaled(Vector3.ONE * ms)
 	var o := G * mitte   # Mitte der geschlossenen Faust (Pruefer 417: an den Knoecheln lag die Hand nur auf)
 	if art == "stab":
 		if stab_fuss != Vector3.INF: o = stab_fuss + dw * unten * ms   # der Schaft laeuft durch die Faust, der Fuss steht
 		else: o = G * mitte + dw * 0.18 * ms                           # im Rennen unter der Mitte gefasst
 	elif art == "schulter": o = G * mitte + dw * axt_griff * ms
-	waffe.global_position = o
+	_stelle(x, dw, o)
+
+# 653 (Chef 10.11., 14:22 „653 passt“): die Waffe an ihren Platz, Lage = Ziel · Griffrahmen⁻¹ (Halt.lage): Ziel y = Schaft [dw],
+# z = wohin Modell +X zeigt (Schneide, beim Bogen der Ruecken) [z], Ursprung am Griff [o] (Welt). Ohne Maße wie Modellregel 4
+# (Griff = Ursprung, Schaft +Y)
+func _stelle(z: Vector3, dw: Vector3, o: Vector3) -> void:
+	var ms := mass()
+	if halt.is_empty():
+		waffe.global_basis = Basis(z, dw, z.cross(dw)).scaled(Vector3.ONE * ms)
+		waffe.global_position = o
+		return
+	# z ist hier die Richtung von Modell +X (Schneide, beim Bogen der Ruecken, waffen.py); Halt nennt beim Bogen die Seite der Sehne
+	# „vorn“: Griff und Schaft aus Halt, die Drehung um den Schaft wie Modellregel 4
+	var m := halt.duplicate()
+	m["vorn"] = Vector3.RIGHT
+	var ziel := Transform3D(Basis(dw.cross(z), dw, z).scaled(Vector3.ONE * ms), o)
+	waffe.global_transform = ziel * Halt.griff_rahmen(m).affine_inverse()
 
 # 417 Runde 5 (Pruefer 13:3x: Schwert durch Schild, Schild vor Brust und Gesicht, Bogen im Becken): die Waffe so in der Hand, wie die
 # Hersteller der Pakete sie in ihren Unity-Prefabs an die Hand haengen (Messung 3f, griff417b.py, Lauf 41310719427), umgerechnet in den
@@ -253,9 +269,7 @@ func _paket(sk: Skeleton3D, ih: int) -> void:
 	if waffe == null: return
 	var x := (G.basis * R.basis.x).normalized()
 	x = (x - dw * x.dot(dw)).normalized()
-	var ms := mass()
-	waffe.global_basis = Basis(x, dw, x.cross(dw)).scaled(Vector3.ONE * ms)
-	waffe.global_position = G * p + (dw * zwei_schieben * ms if gang == "axt" else Vector3.ZERO)
+	_stelle(x, dw, G * p + (dw * zwei_schieben * mass() if gang == "axt" else Vector3.ZERO))
 
 # Oberarm um die Vorwaertsachse der Figur nach aussen, die Faust weg vom Bein (rechts schwert_abspreiz, links schild_abspreiz)
 func _abspreizen(sk: Skeleton3D, ih: int, grad: float) -> void:
@@ -284,8 +298,12 @@ func _schildarm(sk: Skeleton3D) -> void:
 	var z := (G.basis * (R.basis * SCHILD_NORMALE)).normalized()
 	var y := (G.basis * R.basis.y).normalized()
 	y = (y - z * y.dot(z)).normalized()
-	waffe.global_basis = Basis(y.cross(z), y, z).scaled(Vector3.ONE * mass())
-	waffe.global_position = G * (R * SCHILD_PUNKT)
+	if halt.is_empty():
+		waffe.global_basis = Basis(y.cross(z), y, z).scaled(Vector3.ONE * mass())
+		waffe.global_position = G * (R * SCHILD_PUNKT)
+	else:   # 653: Schild mit Oberkante [y] und Vorderseite [z] aus Halt (Fessel, oben, vorn je Modell)
+		var ziel := Transform3D(Basis(y.cross(z), y, z).scaled(Vector3.ONE * mass()), G * (R * SCHILD_PUNKT))
+		waffe.global_transform = ziel * Halt.griff_rahmen(halt).affine_inverse()
 	faust_welt = G * R.origin; schaft_welt = y
 
 # Wanderstab: Fuss am Boden (Welt), im Gehen umgesetzt, wenn die Faust STAB_VOR darueber hinaus ist; Ergebnis Richtung im Skelettraum

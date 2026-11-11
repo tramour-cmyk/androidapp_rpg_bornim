@@ -50,36 +50,41 @@ func _lauf() -> void:
 		await process_frame
 		var bs: Array = m.box.find_children("*", "Button", true, false).filter(func(c): return not c.is_queued_for_deletion())
 		bs[i].pressed.emit()
-	await druecke.call(0)   # Neues Spiel (ohne Spielstand der erste Knopf): 399.1 Erschaffung auf einer Seite (erschaffung.gd)
+	await druecke.call(0)   # Neues Spiel (ohne Spielstand der erste Knopf): 470 Erschaffung nach BRS (erschaffung_brs.gd)
 	await process_frame
-	var e: Erschaffung = m.get_node("Erschaffung")
-	# 630: Wahlfelder, − und + und die Knoepfe unten ohne Rahmen, nach Aufschrift (KH)
-	var d_ := Heldwerte.lade()
+	var e: ErschaffungBrs = m.get_node("Erschaffung")
+	# 630/470: Wahlfelder, − und + und die Knoepfe unten ohne Rahmen, nach Aufschrift (KH)
 	var tippe := func(t: String, anfang := false) -> void:
 		await process_frame
 		var k := KH.finde(e, t, anfang)
 		if k == null: fehler += 1; print("FEHLER Erschaffung ohne „%s“: %s" % [t, KH.texte(e)])
 		else: KH.tippe(k)
-	await tippe.call(Sprache.t(d_["voelker"]["DWARF"]["name"]))
-	await tippe.call(Sprache.t(d_["klassen"]["CLERIC"]["name"]))
-	await tippe.call("−")   # STR einen weniger (erstes −), ein Punkt frei
+	if KH.finde(e, ("Kämpfer" if Sprache.aktiv() == "de" else "Fighter").to_upper()) != null: fehler += 1; print("FEHLER Erschaffung: alte Klassenwahl noch da")
+	await tippe.call(ErschaffungBrs.tx(ErschaffungBrs.VOLK["Zwerg"]).to_upper())
+	await tippe.call(ErschaffungBrs.tx(ErschaffungBrs.HERKUNFT["Klosterschüler"]).to_upper().replace("ß", "SS"))
+	var vor_kraft := e.b.wert("kraft")
+	await tippe.call("−")   # Kraft einen weniger (erstes −), ein Punkt frei: Abenteuer beginnen gesperrt
+	if e.b.frei() != 1: fehler += 1; print("FEHLER Grundwerte: − gibt keinen Punkt frei (%d)" % e.b.frei())
+	await tippe.call(Sprache.u("start"))
+	await process_frame
+	if not ergebnis.is_empty(): fehler += 1; print("FEHLER Erschaffung: beginnt mit freiem Punkt")
+	await tippe.call("+")   # erstes + (Kraft) wieder hoch
 	await tippe.call(Sprache.u("start"))   # Abenteuer beginnen (unten rechts)
 	await process_frame
 	print("Hauptmenue: %s" % ergebnis)
-	if ergebnis.get("volk") != "DWARF" or ergebnis.get("klasse") != "CLERIC" or String(ergebnis.get("name", "")) == "" or int(ergebnis.get("platz", 0)) != 1: fehler += 1; print("FEHLER Hauptmenue")
-	var vor := Heldwerte.vorschlag("CLERIC")
-	if int(ergebnis.get("werte", {}).get("STR", 0)) != int(vor["STR"]) - 1 or not Heldwerte.gueltiger_kauf(ergebnis.get("werte", {})): fehler += 1; print("FEHLER Punktekauf")
-	var h3 := Heldwerte.erschaffe(String(ergebnis["name"]), "DWARF", "CLERIC", ergebnis["werte"])
-	if h3.basis["STR"] != int(vor["STR"]) - 1 + 1: fehler += 1; print("FEHLER Punktekauf im Helden: STR %d" % h3.basis["STR"])   # Zwerg STR +1
+	if ergebnis.get("volk") != "DWARF" or String(ergebnis.get("brs", {}).get("herkunft", "")) != "Klosterschüler" or String(ergebnis.get("name", "")) == "" or int(ergebnis.get("platz", 0)) != 1: fehler += 1; print("FEHLER Hauptmenue")
+	if int(ergebnis.get("brs", {}).get("grundwerte", {}).get("kraft", -1)) != vor_kraft: fehler += 1; print("FEHLER Grundwerte: Kraft %s statt %d" % [ergebnis.get("brs", {}).get("grundwerte", {}).get("kraft"), vor_kraft])
 	# alle vier Plaetze belegt: Abenteuer beginnen fragt, wen der Neue ersetzt (alt SlotChooser); Antippen des zweiten waehlt Platz 2
 	for n in range(1, 5):
 		Spielstand.platz = n
 		Spielstand.speichere(z, hw, {"karte": "inn", "x": 4, "y": 6, "blick": "UP"})
-	var e2 := Erschaffung.new()
+	var e2 := ErschaffungBrs.new()
 	root.add_child(e2)
 	await process_frame
 	var w2 := {}
 	e2.fertig.connect(func(w): w2.merge(w))
+	e2.volk_waehlen("Zwerg")   # Mensch waehlt eine Fertigkeit selbst, sonst ist die Seite nicht fertig
+	await process_frame
 	e2.beginne()
 	await process_frame
 	# 630: nur im Fenster, ohne den Knopf Abbrechen
@@ -90,6 +95,24 @@ func _lauf() -> void:
 			var tipp := InputEventMouseButton.new(); tipp.pressed = gedrueckt; tipp.button_index = MOUSE_BUTTON_LEFT; tipp.position = Vector2(10, 10)
 			karten[1].gui_input.emit(tipp)
 		if int(w2.get("platz", 0)) != 2: fehler += 1; print("FEHLER Platzwahl: %s" % w2)
+	e2.queue_free()
+	# 795: dieselbe Platzwahl in der Erschaffung nach BRS (ohne Rahmen wie 700): Fenster, vier tippbare Zeilen, Loslassen schliesst
+	var e3 := ErschaffungBrs.new()
+	root.add_child(e3)
+	await process_frame
+	var n3 := e3.get_child_count()
+	e3.platzwahl()
+	await process_frame
+	var schl3 := e3.get_child(e3.get_child_count() - 1)
+	var karten3: Array = schl3.find_children("Platz*", "", true, false)
+	if schl3.find_child("Fenster", true, false) == null or karten3.size() != 4: fehler += 1; print("FEHLER Platzwahl BRS: %d Zeilen" % karten3.size())
+	else:
+		for gedrueckt in [true, false]:
+			var tipp := InputEventMouseButton.new(); tipp.pressed = gedrueckt; tipp.button_index = MOUSE_BUTTON_LEFT; tipp.position = Vector2(10, 10)
+			karten3[1].gui_input.emit(tipp)
+		await process_frame
+		if e3.get_child_count() != n3: fehler += 1; print("FEHLER Platzwahl BRS: Fenster bleibt nach dem Tippen")
+	e3.queue_free()
 	# Spielstaende: vier Karten, Loeschen fragt nach und loescht Platz 4
 	Spielstaende.entwurf = ""   # 557: Karten im alten Aussehen; B prüft spielstaende_529
 	var sp := Spielstaende.new()

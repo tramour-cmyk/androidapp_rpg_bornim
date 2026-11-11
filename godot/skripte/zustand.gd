@@ -6,6 +6,8 @@ extends RefCounted
 var name := "Alrik"
 var aussehen := {}                     # 376.1 Kopfform, Haar, Bart, Haar- und Hautfarbe (HeldFigur.VORGABE)
 var brs := {}                          # 470: Held nach BRS (BrsHeld.als_daten: Volk, Herkunft, Grundwerte, Startfertigkeiten)
+var fert := {}                         # 471: Fertigkeiten durch Tun (BrsFertigkeit.neuer_stand: Werte, Uebung, Rangdecke, Probe, bekannt)
+var brs_stufe := {}                    # 471: Heldenstufe nach BRS (Brs.neuer_stand), nimmt die Erfahrung der Fertigkeiten; Stufe wie der Held, bis 472 ihn fuehrt
 var stufe_held := 1
 var gold := 0
 var taschen := {}                      # Ding -> Anzahl (GameState.inventory)
@@ -80,12 +82,48 @@ func als_daten() -> Dictionary:
 		"ausdauer": ausdauer, "atemlos": atemlos, "ausdauer_trank": ausdauer_trank, "funke": funke, "satt": satt, "lange_rast_tag": lange_rast_tag,
 		"met": met, "leiden": leiden.duplicate(), "wiederkehr": wiederkehr.duplicate(), "beutel": beutel.duplicate(true), "siege": siege, "schritte": schritte,
 		"laden_verkauft": laden_verkauft.keys(), "uid_zaehler": uid_zaehler, "gehoert": gehoert.duplicate(true), "aussehen": aussehen.duplicate(),
-		"gepflueckt": gepflueckt.duplicate(), "brs": brs.duplicate(true), "gespielt_ms": gespielt_ms, "varianten": varianten.duplicate(true)}
+		"gepflueckt": gepflueckt.duplicate(), "brs": brs.duplicate(true), "fert": fert.duplicate(true), "brs_stufe": brs_stufe.duplicate(true), "gespielt_ms": gespielt_ms, "varianten": varianten.duplicate(true)}
+
+## 471: Stand der Fertigkeiten nach BRS, beim ersten Mal aus den Startfertigkeiten des Helden (leer ohne BRS-Held)
+func fertigkeiten_stand() -> Dictionary:
+	if fert.is_empty() and not brs.is_empty(): fert = BrsFertigkeit.neuer_stand(brs.get("fertigkeiten", {}))
+	return fert
+
+## 471: Heldenstufe nach BRS fuer die Uebung, Stufe wie der Held (bis 472 ihn fuehrt)
+func stufe_brs() -> Dictionary:
+	if brs_stufe.is_empty(): brs_stufe = Brs.neuer_stand()
+	brs_stufe["stufe"] = stufe_held
+	return brs_stufe
+
+## 471: eine Taetigkeit ausserhalb des Kampfs (Kraeuter pfluecken, Handeln im Laden) uebt [f] einmal, Ziel der eigenen Stufe; die
+## Ereignisse sammeln sich fuer die naechste Notiz (fert_notiz)
+var fert_ev: Array = []
+func uebe(f: String) -> void:
+	var s := fertigkeiten_stand()
+	if s.is_empty(): return
+	fert_ev.append_array(BrsFertigkeit.uebe(s, stufe_brs(), f, stufe_held))
+	spiegle()
+
+## 471: die geuebten Werte auch in brs.fertigkeiten (Heldenreiter 762 liest dort), nur Bekanntes
+func spiegle() -> void:
+	if fert.is_empty() or brs.is_empty(): return
+	var w := {}
+	for n in fert["bekannt"]: w[String(n)] = BrsFertigkeit.wert(fert, String(n))
+	brs["fertigkeiten"] = w
+
+## 471: „Handeln ↑ 3“ fuer alles seit der letzten Notiz, oder leer
+func fert_notiz() -> String:
+	var t := Kampfuebung.notiz(fert_ev)
+	fert_ev.clear()
+	return t
 
 static func aus_daten(d: Dictionary) -> Zustand:
 	var z := Zustand.new()
 	z.aussehen = (d.get("aussehen", {}) as Dictionary).duplicate()
 	if d.get("brs") is Dictionary and not (d["brs"] as Dictionary).is_empty(): z.brs = BrsHeld.aus_daten(d["brs"]).als_daten()   # 470: Zahlen wieder ganz
+	if d.get("fert") is Dictionary: z.fert = (d["fert"] as Dictionary).duplicate(true)   # 471
+	if d.get("brs_stufe") is Dictionary: z.brs_stufe = (d["brs_stufe"] as Dictionary).duplicate(true)
+	z.spiegle()
 	z.name = String(d.get("name", z.name)); z.stufe_held = int(d.get("stufe", 1)); z.gold = int(d.get("gold", 0))
 	for k in d.get("taschen", {}): z.taschen[String(k)] = int(d["taschen"][k])
 	for f in d.get("flaggen", []): z.flaggen[String(f)] = true

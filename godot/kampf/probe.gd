@@ -11,7 +11,7 @@ const Aufruf = preload("res://kampf/aufruf.gd")
 const Signatur = preload("res://kampf/signatur.gd")
 const CLASSES := ["FIGHTER", "WIZARD", "ROGUE", "CLERIC"]
 const NAMES := {"FIGHTER": "Kämpfer", "WIZARD": "Magier", "ROGUE": "Schurke", "CLERIC": "Kleriker"}
-const FOES := {"WOLVES": "Wolfsrudel", "RUDEL": "Wolf mit Jungwölfen", "GRAK": "Grak", "SPIDER": "Riesenspinne und Wolf", "SCOUT": "Goblin-Späher und Goblin", "RATS": "Ratten", "BATS": "Fledermäuse", "GRIMM": "Grimmzahn", "GOBLINS": "Goblins", "SCOUTS": "Goblin-Späher", "SHAMANS": "Goblin-Schamanen", "KOBOLDS": "Kobolde", "BOARS": "Wildschwein", "CENTIPEDES": "Hundertfüßer", "KROGG": "Krogg", "LEECHES": "Riesenegel", "SLUGS": "Säureschnecke", "RATTE": "Ratte", "FLEDERMAUS": "Fledermaus", "SPINNE": "Spinne allein"}
+const FOES := {"WOLVES": "Wolfsrudel", "RUDEL": "Wolf mit Jungwölfen", "GRAK": "Grak", "SPIDER": "Riesenspinne und Wolf", "SCOUT": "Goblin-Späher und Goblin", "RATS": "Ratten", "BATS": "Fledermäuse", "GRIMM": "Grimmzahn", "GOBLINS": "Goblins", "SCOUTS": "Goblin-Späher", "SHAMANS": "Goblin-Schamanen", "KOBOLDS": "Kobolde", "BOARS": "Wildschwein", "CENTIPEDES": "Hundertfüßer", "KROGG": "Krogg", "LEECHES": "Riesenegel", "SLUGS": "Säureschnecke", "RATTE": "Ratte", "FLEDERMAUS": "Fledermaus", "SPINNE": "Spinne allein", "SKELETONS": "Skelette", "WIEDERGAENGER3": "Wiedergänger", "GRABHUNDE": "Grabhunde"}
 
 var tables: Dictionary
 var hero_cls := "FIGHTER"

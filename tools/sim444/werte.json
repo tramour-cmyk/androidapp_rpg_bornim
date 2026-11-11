@@ -105,7 +105,32 @@
     "Wundsegen":   {"schule": "Heilmagie", "heilung": 6, "kosten": 5, "heilen_unter": 0.5,
                     "_heilung": "Heilung = (6 + Wille) x (1 + Heilmagie / 100), wenn Leben unter der Haelfte"},
     "Bannschild":  {"schule": "Schutzmagie", "ruestung": 2, "kosten": 4,
-                    "_bannschild": "A: einmal je Kampf in Runde 1, Ruestung +2, Abzug mit Schutzmagie als Fertigkeit"}
+                    "_bannschild": "A: einmal je Kampf in Runde 1, Ruestung +2, Abzug mit Schutzmagie als Fertigkeit"},
+    "_neu": "870.3 (870a 3 A, Namen STORY-BRS-KOENNEN.md [870.14.zauber.*]): Zahlen A, gemessen mit 444 Teil 7; 'ab' = Fertigkeitswert der Schule; 'ziele': eins, reihe (vordere oder gewaehlte Reihe), drei (drei Strahlen, je ein Ziel)",
+    "Arkanpfeil":  {"schule": "Evokation", "schaden": 5, "kosten": 3, "art": "zauber", "typ": null, "ab": 10, "ziele": "eins",
+                    "_arkan": "ohne Schadensart: keine Schwaeche, keine Staerke"},
+    "Glutstrahlen": {"schule": "Evokation", "schaden": 4, "kosten": 6, "art": "zauber", "typ": "feuer", "ab": 25, "ziele": "drei"},
+    "Flammenfächer": {"schule": "Evokation", "schaden": 5, "kosten": 6, "art": "zauber", "typ": "feuer", "ab": 25, "ziele": "reihe"},
+    "Glutkugel":   {"schule": "Evokation", "schaden": 8, "kosten": 10, "art": "zauber", "typ": "feuer", "ab": 40, "ziele": "reihe"},
+    "Arkanhaut":   {"schule": "Schutzmagie", "ruestung": 2, "kosten": 5, "ab": 25, "_arkanhaut": "A: bis Kampfende Ruestung +2 (mit Schutzmagie wie Bannschild), zusammen mit Bannschild"},
+    "Gleißstrahl": {"schule": "Heilmagie", "schaden": 5, "kosten": 4, "art": "zauber", "typ": "licht", "ab": 10, "ziele": "eins"},
+    "Beistand":    {"schule": "Heilmagie", "treffer": 25, "runden": 4, "kosten": 4, "ab": 25, "_beistand": "A: eigene Trefferchance +25 Prozentpunkte fuer 4 Runden"}
+  },
+
+  "handlungen": {
+    "_quelle": "870.3 (870a 3 A, DESIGN-BRS.md 7): Kampfhandlungen haengen an Fertigkeiten, frei ab Rang Geselle ('ab' 25 = erste Rangdecke + 1, held rangdecken_kapitel); Kraft schoepfen fuer alle; Namen STORY-BRS-KOENNEN.md [870.14.hand.*]; alle Zahlen A, gemessen mit 444 Teil 7, dann Chef",
+    "Kraft schöpfen": {"fertigkeit": null, "alle": true, "ab": 0, "je_kampf": 1, "heilung_anteil": 0.25, "unter": 0.5, "_kraft": "einmal je Kampf, ganzer Zug: Leben + 25 % des Hoechstwerts, wenn unter der Haelfte"},
+    "Finte":          {"fertigkeit": "Einhänder", "ab": 25, "naechster_treffer": 30, "_finte": "ganzer Zug ohne Schaden, der naechste Schlag +30 Prozentpunkte"},
+    "Stich aus dem Hinterhalt": {"fertigkeit": "Dolche", "ab": 25, "schaden_faktor": 1.5, "nur_erster": true, "_hinterhalt": "der erste eigene Schlag im Kampf (oder gegen einen Ueberraschten) x 1,5"},
+    "Wuchtschlag":    {"fertigkeit": "Zweihänder", "ab": 25, "schaden_faktor": 1.5, "treffer": -15},
+    "Auf Abstand":    {"fertigkeit": "Stangenwaffen", "ab": 25, "treffer": -10, "gegenstoss_faktor": 0.5, "_abstand": "Schlag mit -10 Prozentpunkten, dazu Haltung bis zum naechsten Zug: wer den Helden im Nahkampf angreift, laeuft zuerst in die Spitze (Schlag x 0,5)"},
+    "Schädelstoß":    {"fertigkeit": "Stumpfe Waffen", "ab": 25, "treffer": -10, "betaeubt_chance": 0.3, "betaeubt_zuege": 1},
+    "Griff":          {"fertigkeit": "Faustkampf", "ab": 25, "_griff": "Ziel kann bis zum naechsten Zug des Helden nicht den Platz wechseln oder fliehen; Schlag x 0,5"},
+    "Schildwall":     {"fertigkeit": "Schild", "ab": 25, "_schildwall": "Vorform von Decken (Waechter): eine Runde lang faengt der Schild einen Schlag gegen den Gefaehrten daneben ab (Abwehr mit Schild)"},
+    "Ruhige Hand":    {"fertigkeit": "Bogen", "ab": 25, "naechster_treffer": 30, "_ruhig": "Vorform von Zielschuss (Scharfschuetze): ganzer Zug, der naechste Schuss +30 Prozentpunkte"},
+    "Durchschlag":    {"fertigkeit": "Armbrust", "ab": 25, "ruestung_anteil": 0.5},
+    "Zwei auf einmal": {"fertigkeit": "Wurfwaffen", "ab": 25, "wuerfe": 2, "schaden_faktor": 0.6},
+    "Wehrhaltung":    {"fertigkeit": null, "ab": 0, "abwehr": 15, "treffer": -15, "_wehr": "Haltung bis zum naechsten Zug: Abwehr +15, eigener Treffer -15 (alte 'Kampfstil Verteidigung'; Homer: nur wenn behalten); 444 Teil 7: ohne Wirkung, darum nicht frei (kein 'alle'), Chef entscheidet"}
   },
 
   "ruestungen": {
@@ -189,7 +214,8 @@
     "_quelle": "427.1 (Jerry 02.11.): aus dem alten Spiel umgerechnet (core Packs.kt, Battle.kt, Monsters.kt), A; 1 Punkt W20 = 5 % = 10 Punkte Angriff (trefferchance_je_punkt 0,5)",
     "rudel": {
       "_info": "A: Begleiter stehen hinter dem Anfuehrer, jeder greift je Runde nach ihm mit 'chance' an, nicht angreifbar, fliehen, wenn er faellt (wie im alten Spiel). Angriff = Anfuehrer + angriff_verschiebung, Schaden = Anfuehrer x schaden_anteil",
-      "Leibwache": {"_quelle": "Packs.kt guard: 2 Woelfe, 55 %, -1 auf W20, 1W4 gegen 2W6+1 des Leitwolfs", "anzahl": 2, "chance": 0.55, "angriff_verschiebung": -10, "schaden_anteil": 0.31}
+      "Leibwache": {"_quelle": "Packs.kt guard: 2 Woelfe, 55 %, -1 auf W20, 1W4 gegen 2W6+1 des Leitwolfs", "anzahl": 2, "chance": 0.55, "angriff_verschiebung": -10, "schaden_anteil": 0.31, "koerper": "Wolf", "leben_anteil": 1.0},
+      "Jungwolf": {"_quelle": "A (870.3): Packs.kt cubs, 399.2a: 1-2 Jungwoelfe hinter dem Wolf, 50 %, -1 auf W20, 1W3 gegen 2W4+2 des Wolfs, halbe Leben; im Spiel angreifbar; Simulation kennt sie noch nicht (Werte ueber 444, dann Chef)", "anzahl": [1, 2], "chance": 0.5, "angriff_verschiebung": -10, "schaden_anteil": 0.29, "koerper": "Wolf", "leben_anteil": 0.5}
     },
     "umreissen": {"_quelle": "Monsters.kt KNOCKDOWN: bei Treffer Rettungswurf Staerke 11 (etwa die Haelfte), sonst liegt der Held, sein naechster Angriff mit Nachteil", "chance_bei_treffer": 0.5, "naechster_angriff_treffer": -25},
     "ueberfall": {"_quelle": "Monsters.kt SURPRISE_ATTACK, Battle.kt: erster Treffer +2W6 (zu 2W8+2 also x1,6) und betaeubt (Konstitution 12, etwa die Haelfte) fuer einen Zug; Sokrates 02.11., 19:0x: Held beginnt im Nachteil (Gegner zuerst); Morwens Rauch (D4.1): der erste Hieb geht fehl", "gegner_zuerst": true, "erster_treffer_faktor": 1.6, "betaeubt_chance": 0.5, "betaeubt_zuege": 1}
@@ -367,5 +393,26 @@
     "_proben": "Tabelle 6b: nur Kraeutersammler, andere Beutel und Kraeuterkunde-Werte (je 2 Heiltraenke dazu)",
     "kraeuterkunde_decke": 24,
     "_decke": "Spalte 'Kraeuterkunde 24': wer mit Kraeuterkunde beginnt, hat sie bis zur Decke von Kapitel 1 geuebt (Sammeln ist nicht gerechnet)"
+  },
+  "kennungen": {
+    "_quelle": "870.3 (649a Schritt 1): Kennung im Spiel -> Art (Zeile in 'monster'), Anzeigename (DESIGN-BRS.md 12, STORY-BRS-OBERFLAECHE.md [870.15.namen.monster]), Gruppe; interne Kennungen bleiben. Modell und Bewegung: Figurenkatalog 649.2",
+    "giant_rat":         {"art": "Riesenratte",        "de": "Riesenratte",            "en": "Giant Rat",          "gruppe": "Tier"},
+    "kobold":            {"art": "Kobold",             "de": "Kobold",                 "en": "Kobold",             "gruppe": "Kobold"},
+    "stirge":            {"art": "Blutflügler",        "de": "Riesenegel",             "en": "Giant Leech",        "gruppe": "Tier"},
+    "wolf":              {"art": "Wolf",               "de": "Wolf",                   "en": "Wolf",               "gruppe": "Tier"},
+    "boar":              {"art": "Wildschwein",        "de": "Wildschwein",            "en": "Boar",               "gruppe": "Tier"},
+    "giant_centipede":   {"art": "Riesen-Hundertfüßer", "de": "Riesen-Hundertfüßer",   "en": "Giant Centipede",    "gruppe": "Tier"},
+    "goblin":            {"art": "Goblin",             "de": "Goblin",                 "en": "Goblin",             "gruppe": "Goblin"},
+    "goblin_archer":     {"art": "Goblin-Späher",      "de": "Goblin-Späher",          "en": "Goblin Scout",       "gruppe": "Goblin"},
+    "skeleton":          {"art": "Skelett",            "de": "Skelett",                "en": "Skeleton",           "gruppe": "Untoter"},
+    "zombie":            {"art": "Zombie",             "de": "Zombie",                 "en": "Zombie",             "gruppe": "Untoter"},
+    "giant_bat":         {"art": "Riesenfledermaus",   "de": "Riesenfledermaus",       "en": "Giant Bat",          "gruppe": "Tier"},
+    "goblin_shaman":     {"art": "Goblin-Schamane",    "de": "Goblin-Schamane",        "en": "Goblin Shaman",      "gruppe": "Goblin"},
+    "giant_spider":      {"art": "Riesenspinne",       "de": "Riesenspinne",           "en": "Giant Spider",       "gruppe": "Tier"},
+    "ghoul":             {"art": "Ghul",               "de": "Ghul",                   "en": "Ghoul",              "gruppe": "Untoter"},
+    "ochre_jelly":       {"art": "Ockerschleim",       "de": "Säureschnecke",          "en": "Acid Slug",          "gruppe": "Tier"},
+    "bugbear":           {"art": "Krogg",              "de": "Krogg der Grobian",      "en": "Krogg the Brute",    "gruppe": "Bärenschrat"},
+    "dire_wolf":         {"art": "Grimmzahn",          "de": "Grimmzahn, der Leitwolf", "en": "Grimfang the Alpha", "gruppe": "Tier"},
+    "hobgoblin_captain": {"art": "Grak",               "de": "Hauptmann Grak",         "en": "Captain Grak",       "gruppe": "Goblin-Hauptmann"}
   }
 }
