@@ -381,6 +381,7 @@ var smoke_thrown := false
 var smoke_spent := false
 const KROGG := "bugbear"
 const THROWS := ["{0} wirft {1}!", "{0} throws {1}!"]     # Battle.kt Msg.throws
+const MSG532_CURED := ["{0} ist von allen Leiden befreit!", "{0} is cured of all ailments!"]     # Battle.kt Msg.cured
 const SMOKE_BUNDLE := ["Rauchbündel", "Smoke Bundle"]     # Items.kt smoke_bundle
 var aim_spot := {}
 var retargeted := {}
@@ -866,8 +867,20 @@ func guardable(f: Fighter) -> Array:
 	return out
 
 
+## Was sich trinken lässt (Heiltränke, Kräutertrank; tabellen.json „kind“ POTION); 532: Wurfmittel wirft man (935).
 func drinkable() -> Array:
-	return potions.keys().filter(func(k): return potions[k] > 0)
+	return potions.keys().filter(func(k): return potions[k] > 0 and String(items.get(k, {}).get("kind", "POTION")) == "POTION")
+
+
+## 532: die Tasche im Kampf, alles, was sich jetzt benutzen lässt (Wurfmittel kommen mit 935 dazu)
+func bag() -> Array:
+	return drinkable()
+
+
+## 532 (alt Battle.blockedItem ALREADY_FULL): ob [item] [t] etwas bringt: Leben fehlt, oder der Kräutertrank hat Zustände zu
+## heilen (der Rausch bleibt)
+func drink_helps(item: String, t: Fighter) -> bool:
+	return t.hp < t.max_hp or (bool(items.get(item, {}).get("cures", false)) and t.status.keys().any(func(k): return k != "DRUNK"))
 
 
 # 72.13: heal a friend below half, else a cantrip, else the weapon.
@@ -1405,6 +1418,13 @@ func _drink(f: Fighter, item: String, t: Fighter) -> void:
 	assert(potions.get(item, 0) > 0 and t.standing() and t.side == f.side)
 	potions[item] -= 1
 	var def: Dictionary = items[item]
+	# 532 (alt Battle.useItem: curable vor dem Heilen): der Kräutertrank nimmt alle Zustände, nur der Rausch bleibt bis zur Rast
+	var heilt: bool = bool(def.get("cures", false)) and t.status.keys().any(func(k): return k != "DRUNK")
+	if heilt:
+		var rausch: bool = t.status.has("DRUNK")
+		t.status.clear()
+		if rausch:
+			t.status["DRUNK"] = LASTING
 	var n := maxi(0, mini(t.max_hp - t.hp, _heilung(t, item, def)))     # 478, 870.4
 	t.hp += n
 	var nm: String = [def.de, def.en][lang]
@@ -1412,6 +1432,8 @@ func _drink(f: Fighter, item: String, t: Fighter) -> void:
 		_say(fmt(X.MSG72_DRINKS, lang, [f.name(lang), nm, n]), f.id, t.id, 0, null, false, false, "DRINK")
 	else:
 		_say(fmt(X.MSG72_GIVES, lang, [f.name(lang), t.name(lang), nm, n]), f.id, t.id, 0, null, false, false, "DRINK")
+	if heilt:
+		_say(fmt(MSG532_CURED, lang, [t.name(lang)]), f.id, t.id, 0, null, false, false, "STATUS")
 
 
 ## 870.4: ein Trank heilt den Helden fest wie in der Welt (werte.json „welt“ „heilung“, Leben nach BRS), sonst wie bisher im Maß des BRS

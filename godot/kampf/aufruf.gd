@@ -251,7 +251,15 @@ func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := 
 	# 870.5: Lohn nach BRS (lohn.gd): Heldenstufe aus lage „stand“ (Zustand.stufe_brs, Brs.neuer_stand), ohne ihn am Anfang der
 	# Stufe des Helden; Erfahrungstopf nach lage „gebiet“ (werte.json „Wald“, „Tiefer Wald“, „Höhle“; "" ohne Topf)
 	var stand: Dictionary = lage.get("stand", {})
-	if not kampf.setup(party, foes, tabellen, {"potion": traenke}, _fertig, seed, {"stand": stand, "gebiet": String(lage.get("gebiet", "")), "beute": beute, "atemlos": bool(lage.get("atemlos", false)), "satt": bool(lage.get("satt", false)), "eroeffnung": String(lage.get("eroeffnung", "NORMAL")), "blende": bool(lage.get("blende", false)), "rauch": int(lage.get("rauch", 0))}):
+	# 532 (Durchspielregel 488): die ganze Tasche (lage „tasche“: Ding -> Anzahl), nur was im Kampf geht (tabellen.json „kind“),
+	# sonst nur Heiltränke; übrig danach kampf.mars.potions
+	var tasche: Dictionary = {"potion": traenke}
+	if lage.has("tasche"):
+		tasche = {}
+		for id in lage.tasche:
+			if int(lage.tasche[id]) > 0 and tabellen.items.any(func(it): return String(it.id) == String(id) and String(it.get("kind", "")) == "POTION"):
+				tasche[String(id)] = int(lage.tasche[id])
+	if not kampf.setup(party, foes, tabellen, tasche, _fertig, seed, {"stand": stand, "gebiet": String(lage.get("gebiet", "")), "beute": beute, "atemlos": bool(lage.get("atemlos", false)), "satt": bool(lage.get("satt", false)), "eroeffnung": String(lage.get("eroeffnung", "NORMAL")), "blende": bool(lage.get("blende", false)), "rauch": int(lage.get("rauch", 0))}):
 		kampf.free()
 		kampf = null
 		_fertig.call_deferred("NONE")
