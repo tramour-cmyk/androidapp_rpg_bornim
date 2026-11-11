@@ -2,13 +2,12 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 11.11., 08:03 (lauf.py)
+**Stand:** 11.11., 08:04 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
-| Sokrates | [Sokrates – 870: B1 bis Testbitte t276 begleiten (11.11., 07:20)](https://claude.ai/code/session_01Hmoj77G3ddYZTEtGAven4Q) | 870 | – | 11.11., 07:20 |
 | Ford | [Ford – Betriebsleiter (11.11., 07:24)](https://claude.ai/code/session_01Hmoj77YMuMSmwJsjQmA1Gx) | Betrieb | – | 11.11., 07:22 |
-| Perikles | [Perikles – 901: lauf.py Umgebung Hoch bis Sa (11.11., 07:24)](https://claude.ai/code/session_01Hmoj7727yEYpa1M7HvBAsA) | 901 | – | 11.11., 07:23 |
 | Tom | [Tom – 870.4: Lauf 338 auswerten, Heldenreiter, Prüfliste B1 (11.11., 07:49)](https://claude.ai/code/session_01Hmoj78hPeRqHWdpaU2Xkwe) | 870.4 | – | 11.11., 07:48 |
 | Jerry | [Jerry – 806: Bildpaar Nebel an/aus an den Chef (11.11., 07:59)](https://claude.ai/code/session_01Hmoj782ws5ijLUmLyhUfLb) | 806 | – | 11.11., 07:59 |
 | Sokrates | [Sokrates – 870: B1 bis Testbitte t276 begleiten (11.11., 08:01)](https://claude.ai/code/session_01Hmoj77wg6yhbVouQ7CNZv3) | 870 | – | 11.11., 08:00 |
+| Perikles | [Perikles – 264.1: Lauf 8 auf dem Runner (11.11., 08:03)](https://claude.ai/code/session_01Hmoj75nyB9hCtDncgRwnXC) | 264.1 | – | 11.11., 08:03 |
