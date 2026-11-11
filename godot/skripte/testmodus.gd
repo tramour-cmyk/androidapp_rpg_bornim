@@ -66,7 +66,9 @@ const MERKER := [["intro_done", "Erwacht", "Woke up"], ["quest_started", "Auftra
 # 555 Stationen von Kapitel 1: Name, Karte, Person (oder Kachel und Blick), Merker bis dahin (Index in MERKER, ausschliesslich)
 const STATIONEN := [["Garrick", "forest", "garrick", 3], ["Morwen", "deep_forest", "morwen", 5], ["Grimmzahn", "deep_forest", "grimfang", 7],
 	["Höhle", "forest", [Vector2i(10, 1), "UP"], 8], ["Krogg", "cave", "krogg", 9], ["Grak", "cave", [Vector2i(10, 7), "UP"], 11],
-	["Lyra", "cave", "lyra_cave", 12]]
+	["Lyra", "cave", "lyra_cave", 12], ["Tempel", "temple", "lyra_temple", 14]]
+# 635 (Chef, t274.13: „Lyra steht erst nach der Befreiung im Tempel; Sprung im Reiter ‚Test‘ nötig“): Station „Tempel“ = Lyra befreit
+# und fort aus der Höhle, Amulett in der Tasche, vor Aldric; der Held steht neben Lyra im Tempel
 
 ## 555 (Chef 04.11., 11:52, t257 251.1: „wenn ich auf eine Spinne klicke, dann kommt die nicht“): die Spinne hat noch kein Modell
 ## (Streuner.da), der Kampf zeigte statt ihrer einen zweiten Wolf; ebenso Fledermaeuse. Nur Gruppen, deren Monster ein Modell haben;
