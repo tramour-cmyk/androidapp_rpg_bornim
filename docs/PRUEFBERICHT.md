@@ -52,6 +52,18 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 171 · 927, 928, 929 mit 276, 725 (Perikles, Doppelpack 421, `a611dc8b3`, `d3ad958d7`, `82749deb1`; 11.11., 13:1x)
+
+- **Echter Ford-Lauf:** 13:11 `NACHHALTEN` mit Marke „Nachhalten 11.11.“, 13:13 nicht wieder (einmal am Tag greift). 13:13 Marke „Übergabe-Chef Perikles 11.11. 13:12“ = Fehlalarm (Hinweis Ford).
+- **D171.1 → 941 (Perikles, M?):** `neu_fuer_chef` sucht „wartet auf (den )?Chef“ in der ganzen Übergabezeile; Perikles' Übergabe nennt das Merkmal nur (Übergabe „wartet auf Chef“) und löste laut aus. Nachgestellt mit der echten Übergabe: Treffer. Die echten Fälle seit 25.10. haben die Form „<Nr> … wartet auf Chef“ (Tom 10.11., 13:57: 653; Homer 10.11., 13:13: 857; Homer 01.11.: 423); die Ausgabe gibt nur die ersten 200 Zeichen der Zeile, keine Nummer (Schritt 9 alt: „mit Nummer“). Vorschlag: nur außerhalb „…“ zählen, die Nummer davor in die Zeile.
+- **D171.2 → 942 (Perikles):** gestellte Kurzzeilen (Jerry alt `working`, 3 Stunden ruhig; Jerry neu `idle`): derselbe Lauf gibt `ARCHIVIERE` und `WARNUNG-LAUT Sitzung hängt` für die alte Sitzung. Die Schleife lässt `archiviert` nicht aus.
+- **928 greift** (`greift 928 171`): „Startzuordnung“ steht in `LISTE-BETRIEB.md` Zeile 43 unter „Bei Anlass“ (ab Zeile 24); Neustart 2 verweist dorthin.
+- **276 greift** (`greift 276 171`): „Jeder Lauf“ nennt den Anlass jedes Schritts 6–11 (D162.1 Teil 1); 941, 942 sind Lücken von 927, nicht von 276.
+- **D171.3 → 943 (Perikles):** `text_bereiche` an sechs Fällen: `-m "… cd $VAR …"`, `-F` Heredoc, `"$(cat <<'EOF' … cd $VAR …)"` laufen durch; echtes `cd $VAR` hält an; `cd "$HOME/…"` löst auf. Aber ein einzelnes `"` im Heredoc innerhalb `"$(cat <<'EOF' …)"`, danach `&& cd $VAR && git push`: Ziel cwd, kein Halt (die Paarung der Anführungszeichen zählt den Heredoc-Körper mit). Selten (deutsche Texte nehmen „…“), dann aber lautlos im falschen Ordner wie vor 725.
+- **725 greift** (`greift 725 171`): `cd $VAR` hält an, Text-`cd` hält nicht mehr an; 943 ist Lücke von 929.
+- **929 wartet auf 943**, **927 auf 941, 942.**
+- Nicht geprüft: echter Lauf mit „Sitzung hängt“ und „Jetzt installieren“ (keiner seit dem Bau); nachts `WARNUNG` statt `WARNUNG-LAUT` nur im Code gelesen.
+
 ## Läufe 163–170 · Kür-Stau Perikles (725, 727, 730, 731, 732, 734, 735, 924; 11.11., 12:1x–12:2x)
 
 Je Vorgang Probe gegen den Befund des alten Laufs; nichts davon in einem echten Lauf eines Teams gesehen.
