@@ -93,14 +93,16 @@ def cd_pfad(roh, cwd, vorher=""):
     return os.path.join(cwd, ziel)
 
 
-HEREDOC = re.compile(r"<<-?\s*['\"]?(\w+)['\"]?[^\n]*\n(.*?)(?:\n[ \t]*\1\b|\Z)", re.S)
+# 943: eigener Name, HEREDOC weiter unten (Zeile ~810) überschrieb diesen mit anderen Gruppen; Körper galten nie als Text
+HEREDOC_TEXT = re.compile(r"<<-?\s*['\"]?(\w+)['\"]?[^\n]*\n(.*?)(?:\n[ \t]*\1\b|\Z)", re.S)
 
 
 def text_bereiche(befehl):
     """929 (D163.1): Bereiche (Anfang, Ende), die nur Text sind: Heredoc-Körper, dann Inhalt von '…' und "…" außerhalb davon.
     Ein `cd` darin (Commit-Nachricht, Vorgangstitel) ist kein Befehl. Das Ziel eines echten `cd "$HOME/x"` bleibt lesbar,
     weil nur der Anfang des Treffers zählt. Grenze: `bash -c "cd …"` gilt ebenfalls als Text."""
-    aus = [(m.start(2), m.end(2)) for m in HEREDOC.finditer(befehl)]
+    aus = [(m.start(2), m.end(2)) for m in HEREDOC_TEXT.finditer(befehl)]
+    heredocs = list(aus)
     i, n = 0, len(befehl)
     while i < n:
         imtext = next((e for s, e in aus if s <= i < e), None)
@@ -114,6 +116,10 @@ def text_bereiche(befehl):
         if c in "'\"":
             j = i + 1
             while j < n and befehl[j] != c:
+                hd = next((e for s, e in heredocs if s <= j < e), None)  # 943 (D171.3): ein " im Heredoc-Körper schließt nicht
+                if hd is not None:
+                    j = hd
+                    continue
                 j += 2 if c == '"' and befehl[j] == "\\" else 1
             aus.append((i + 1, j))
             i = j + 1
