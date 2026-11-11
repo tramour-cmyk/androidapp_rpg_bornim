@@ -3084,7 +3084,7 @@ const FAUST_GRAD := -50.0
 ## 406a E3 Lauf 190 (Faust −50°, gemessen in skeleton_updated): Kämpfer 2,1–2,7 cm, Kleriker 3,7–4,0 cm vor der Vorderseite, vor allem
 ## Ring- und kleiner Finger; Knick im Handgelenk nach hinten je Klasse (Knöchel etwa 9 cm vom Gelenk: 3 cm ≈ 20°, 4,5 cm ≈ 30°),
 ## gemessen mit schild_406 KNICK (je ±10° dazu)
-const KNICK_GRAD := {"WACHE": 20.0, "KLOSTER": 30.0}     # 870.4: je Tracht (vorher Kämpfer, Kleriker)
+const KNICK_GRAD := {"WACHE": 20.0, "KLOSTER": 30.0}     # 870.4: je Tracht (vorher je Klasse)
 const KLASSE_HERKUNFT := {"FIGHTER": "Wachsoldat", "CLERIC": "Klosterschüler", "ROGUE": "Herumtreiber", "WIZARD": "Zauberlehrling"}
 
 

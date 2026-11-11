@@ -120,7 +120,9 @@ static func aus_daten(d: Dictionary) -> Zustand:
 	z.aussehen = (d.get("aussehen", {}) as Dictionary).duplicate()
 	if d.get("brs") is Dictionary and not (d["brs"] as Dictionary).is_empty(): z.brs = BrsHeld.aus_daten(d["brs"]).als_daten()   # 470: Zahlen wieder ganz
 	if d.get("fert") is Dictionary: z.fert = (d["fert"] as Dictionary).duplicate(true)   # 471
-	if d.get("brs_stufe") is Dictionary: z.brs_stufe = (d["brs_stufe"] as Dictionary).duplicate(true)
+	if d.get("brs_stufe") is Dictionary:
+		z.brs_stufe = (d["brs_stufe"] as Dictionary).duplicate(true)
+		if z.brs_stufe.has("stufe"): z.brs_stufe["stufe"] = int(z.brs_stufe["stufe"])   # 870.4: JSON liefert 1.0
 	z.spiegle()
 	z.name = String(d.get("name", z.name)); z.gold = int(d.get("gold", 0))
 	for k in d.get("taschen", {}): z.taschen[String(k)] = int(d["taschen"][k])

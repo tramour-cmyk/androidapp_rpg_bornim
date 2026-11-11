@@ -124,10 +124,11 @@ func _lauf() -> void:
 	else: print("ohne daten/leute/leute.json: Stimmen nicht geprueft")
 	pruefe("Ruf Pegel", [1, 3, 5, 9].map(func(d): return snappedf(Ruf.pegel(d), 0.01)), [0.6, 0.45, 0.3, 0.3])
 	var hr := BrsHeld.fuer_spiel("A", "Mensch", "Herumtreiber")
-	hr.basis["DEX"] = 10
+	hr.volk = ""   # 870.4: Gewandtheit nach BRS (werte.json „welt“ bemerken_…)
+	hr.verteilt["gewandtheit"] = 3
 	var r10 := Ruf.reichweite(hr)
-	hr.basis["DEX"] = 18
-	pruefe("Ruf Reichweite", [r10, Ruf.reichweite(hr)], [4, 2])
+	hr.verteilt["gewandtheit"] = 8
+	pruefe("Ruf Reichweite", [r10, Ruf.reichweite(hr)], [4, 3])
 	var rund := Zustand.aus_daten(JSON.parse_string(JSON.stringify(y.als_daten())))
 	pruefe("Ruf gespeichert", rund.gehoert, y.gehoert)
 	var lp := Leute.new(Karte.lade("village"), {"id": "probe", "x": 20, "y": 13}, null)

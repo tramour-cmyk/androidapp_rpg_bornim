@@ -295,7 +295,7 @@ func kopf_neu() -> void:
 	n.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	kopf.add_child(n)
 	kopf.add_child(txt("%s · %s · %s %d" % [tx(VOLK.get(b.volk, {"de": b.volk})), tx(HERKUNFT.get(b.herkunft, {"de": b.herkunft})), Sprache.u("level"), 1], 14))
-	kopf.add_child(txt("%s %d   %s %d" % [tx(T["leben"]), b.max_leben(1), tx(T["mana"]), b.max_mana()], 15, Stil.TEXT, true))   # 584: halbfett wie TP/RK alt
+	kopf.add_child(txt("%s %d   %s %d" % [tx(T["leben"]), b.max_leben(1), tx(T["mana"]), b.max_mana()], 15, Stil.TEXT, true))   # 584: halbfett wie alt
 	kopf.add_child(luecke(4))
 	var gw := BrsHeld.grundwerte()
 	for i in range(0, gw.size(), 2):

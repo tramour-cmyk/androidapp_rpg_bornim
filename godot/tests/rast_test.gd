@@ -58,7 +58,7 @@ func _init() -> void:
 	pruefe("Zimmer Zeilen", r["zeilen"], ["Du steigst die Treppe hinauf und schläfst neun Stunden. Leben, Mana und Ausdauer sind voll."])   # 604 [604.zimmerfertig]
 	s.gold = 5
 	r = Rast.rasten(s, h2, "lang", "zimmer", {"karte": "inn", "x": 9, "y": 2, "blick": "LEFT"})
-	pruefe("Zimmer schon heute", r, {"nein": "Heute hast du schon lange gerastet."})
+	pruefe("Zimmer schon heute", r, {"nein": "Das Lange Ausruhen hattest du heute schon."})
 	# Met: 2 Gold, Ausdauer voll, der fuenfte macht betrunken, dann schenkt Rowena nicht mehr; nach Kapitel 1 frei
 	var m := Zustand.new()
 	m.gold = 20; m.ausdauer = 0.1

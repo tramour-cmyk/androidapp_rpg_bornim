@@ -138,7 +138,7 @@ func _lauf() -> void:
 		zk = m.inhalt.find_children("*", "Zeichenknopf", true, false)
 		zk[0].tat.call(); zk[2].tat.call()
 		if gesendet != ["speichern", "hauptmenue"] or not m.meldung_.visible: fehler += 1; print("FEHLER System sendet ", gesendet)
-	if m.leiste.get_child_count() != 6: fehler += 1; print("FEHLER %d Reiter" % m.leiste.get_child_count())
+	if m.leiste.get_child_count() != 6: fehler += 1; print("FEHLER %d Reiter: %s" % [m.leiste.get_child_count(), m.leiste.get_children().map(func(c): return c.text if c is Button else c.name)])
 	# 399.3.1 Lautstaerke: drei Regler, Antippen in der Mitte stellt Musik auf 50 % (Klang.stelle)
 	var kl: Node = root.get_node_or_null("Klang")   # der Autoload, gibt es ihn mit -s nicht, ein eigener
 	var eigener := kl == null

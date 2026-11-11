@@ -59,7 +59,7 @@ static func daten() -> Dictionary:
 	return D
 
 # 683 (Regelwerk Abschnitt 12, [423.werte]): die Zusatzeigenschaften der Gegenstaende heissen nach dem BRS (Staerke -> Kraft …,
-# Ruestungsklasse -> Schutzwert, Trefferpunkte -> Leben, Zauberpunkte -> Mana)
+# Schutzwert, Leben, Mana nach DESIGN-BRS.md 12)
 const BRS_AFFIX := {"STR": {"de": "Kraft", "en": "Strength"}, "DEX": {"de": "Gewandtheit", "en": "Agility"},
 	"CON": {"de": "Zähigkeit", "en": "Toughness"}, "INT": {"de": "Verstand", "en": "Wits"}, "WIS": {"de": "Wahrnehmung", "en": "Perception"},
 	"CHA": {"de": "Wille", "en": "Will"}, "ALL_STATS": {"de": "alle Grundwerte", "en": "all attributes"},

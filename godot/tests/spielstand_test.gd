@@ -72,7 +72,7 @@ func _lauf() -> void:
 	await tippe.call(Sprache.u("start"))   # Abenteuer beginnen (unten rechts)
 	await process_frame
 	print("Hauptmenue: %s" % ergebnis)
-	if ergebnis.get("volk") != "DWARF" or String(ergebnis.get("brs", {}).get("herkunft", "")) != "Klosterschüler" or String(ergebnis.get("name", "")) == "" or int(ergebnis.get("platz", 0)) != 1: fehler += 1; print("FEHLER Hauptmenue")
+	if String(ergebnis.get("brs", {}).get("volk", "")) != "Zwerg" or ergebnis.has("klasse") or String(ergebnis.get("brs", {}).get("herkunft", "")) != "Klosterschüler" or String(ergebnis.get("name", "")) == "" or int(ergebnis.get("platz", 0)) != 1: fehler += 1; print("FEHLER Hauptmenue")
 	if int(ergebnis.get("brs", {}).get("grundwerte", {}).get("kraft", -1)) != vor_kraft: fehler += 1; print("FEHLER Grundwerte: Kraft %s statt %d" % [ergebnis.get("brs", {}).get("grundwerte", {}).get("kraft"), vor_kraft])
 	# alle vier Plaetze belegt: Abenteuer beginnen fragt, wen der Neue ersetzt (alt SlotChooser); Antippen des zweiten waehlt Platz 2
 	for n in range(1, 5):
