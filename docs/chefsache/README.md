@@ -261,7 +261,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 958 | M | Von Tuffy (870.6): Test kampfzustand_532 rot auf main und B1: „Zustände hinein“ erwartet D | wartet auf Test/Build (gebaut) |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 15900 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 14, Muss 11, startbar 1
+**Perikles** – offen 14, Muss 11, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -277,14 +277,16 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 866 | M | Von Sokrates (620, Lagebild t274): Prüfliste geht nur gegengelesen raus; Wächter statt Abs | wartet auf Test/Build (gebaut) |
 | 896 | M | Von Jerry (870.5): Wächter meldet „TP“ als SRD-Begriff (886), Homer 870.14 und DESIGN-BRS | wartet auf Test/Build (gebaut) |
 | 919 | M | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): Regeln nachziehen: Testbitte auch bei rot | wartet auf 918 (startbar) |
-| 929 | K | D163.1 probelauf.py (725): ein cd mit Variable, das nur als Text vor git commit oder push | wartet auf 943 (startbar) |
-| 943 | K | D171.3 probelauf.py text_bereiche (929): ein einzelnes " im Heredoc innerhalb "$(cat <<'EO | startbar |
+| 929 | K | D163.1 probelauf.py (725): ein cd mit Variable, das nur als Text vor git commit oder push | wartet auf Diogenes (greift?) |
+| 943 | K | D171.3 probelauf.py text_bereiche (929): ein einzelnes " im Heredoc innerhalb "$(cat <<'EO | wartet auf Diogenes (greift?) |
 
-**Diogenes** – offen 8, Muss 7, startbar 0
+**Diogenes** – offen 10, Muss 7, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
+| 929 | K | D163.1 probelauf.py (725): ein cd mit Variable, das nur als Text vor git commit oder push | startbar |
+| 943 | K | D171.3 probelauf.py text_bereiche (929): ein einzelnes " im Heredoc innerhalb "$(cat <<'EO | startbar |
 | 461b | M | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Termin 16.11. |
 | 348.9 | M | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | ruht |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
