@@ -59,4 +59,17 @@ Geprüft an: [65ea0e915](https://github.com/tramour-cmyk/androidapp_rpg_bornim/c
 - Jerry misst in 644.2, mit welcher Stufe der Held die Truhe der Höhle und das Kapitelende erreicht. Weicht das ab, lege ich dir die Zahlen vor.
 - Bei B rechnet Jerry zuerst alle Gegner neu. Bei C ändere ich nur das Regelwerk.
 
+<details><summary>Befund des Helfers (Gegenprüfung 20:32, Wortlaut gekürzt; geprüft war die erste Fassung, Empfehlung damals B)</summary>
+
+- Stimmt: `kann_tragen` immer wahr; Beute nach Gebietsstufe, Gaben nach Gebiet oder Held; Händler in Heldenstufe; Rüstungswerte 1/3/5, Schild 2; Schutzwert nur Brust und Schild; Katalogstufen; Gegnerstufen; alte Sperre nur nach Klasse; Rechnung 16 → 20.
+- Fokus: Zauberstab, Magierstab, Zauberkugel, Foliant, Heiligensymbol; Stäbe sind zugleich Stumpfe Waffen, würden unter B doppelt wachsen.
+- Auf `main` wirken AC, HP, SP, SPELL, DAMAGE, ATTACK, CRIT im Kampf nicht, die Anzeige „Schutzwert 11–18“ ist alt (in Build 277 durch 870.6 behoben, von mir nachgeprüft).
+- Boss-Einzelstücke (Graks Kriegsaxt, Grimmzahns Fang, Ogerhandschuhe, Umhang des Schutzes) werden in Godot nicht vergeben (Vorgang 633).
+- Die Stufe wirkt auch auf die Auswahl der Grundformen (vier Wirkungen, nicht drei).
+- Unter B gewinnt je nach Waffe 20 % (Dolch) bis 50 % (Armbrust ohne Grundwert); Krieger mit Rüstung und Schild am meisten, Späher am wenigsten.
+- Gaben „wie heute“ widerspricht „höchstens plus 1“ (Held 1 in der Höhle bekommt Stufe 3).
+- Lücken: welche Gegnerstufe bei Rudeln zählt (Vorschlag: der Anführer); Nebenhandwaffe und Ersatzwaffe; alte Spielstände und Testmenü (Getragenes bleibt oder fällt ab); Güte und Stufe auf derselben Zahl ohne Regel; der Vergleich zeigt keine Zeile für Zauber; Ring des Ältesten Stufe 6 am Kapitelende ist für einen Helden unter 6 nicht tragbar; Truhe gibt Bogen-, Armbrust-, Zweihänder- und Stangenwaffen-Kämpfern eine fremde Waffe.
+- Stärkstes Gegenargument gegen B: Die Stufe zählt doppelt (Kampfmodell plus Gerät), Kapitel 1 wird leichter, wenn nicht alle Gegner neu gerechnet werden; Tretmühle beim Gerät, entwertet Güte, Herstellen und Einzelstücke. Daraufhin habe ich die Empfehlung auf A gedreht.
+</details>
+
 Antwort: …
