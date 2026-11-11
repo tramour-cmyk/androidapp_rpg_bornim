@@ -176,7 +176,7 @@
 | 760 | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht (Chef 09.11., 14:00, Fund t271) | Jerry | M | startbar, 760 A (Chef 17:46) | – | – | – | E Kampf | – |
 | 770 | Wochentermin 13.11.: Rollenspiegel Jerry (rollenspiegel.sh Jerry) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Jerry | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 784 | Kampf-Sollbild „Wolfsrudel, eine Runde“: wer geht wohin, Höchstdauer je Handlung, Ausweichen bleibt; selbst am Handybild nachspielen, dann Maß für jeden Kampffund (654 A, Chef 09.11., 17:46) | Jerry | M | gebaut, Geprüft an: bb5d4e44c (misst nach F9) | 863 | claude/tuffy-784-sollbild | – | E Kampf | 11,32 $ |
-| 786 | Klangliste alt gegen neu: je Anlass alt, neu, fehlt (654 A, als Drittes) | Jerry | M | in Arbeit, übernommen von Tom, Zweig claude/tom-786-klangliste | – | – | – | E Klang | – |
+| 786 | Klangliste alt gegen neu: je Anlass alt, neu, fehlt (654 A, als Drittes) | Jerry | M | erledigt | – | – | – | E Klang | – |
 | 802 | Rest 211.14 (Kür, Tuffy): Held und Söldner gehen beim Wechsel statt 0,4 s zu gleiten (figur.gd glide_to ohne Wurzelweg) | Jerry | K | ruht, bis Test 825 (620, Perikles) | – | – | – | E Kampf | – |
 | 803 | Rest 211.14 (Kür, Tuffy): Gegner durch Antippen der Figur als Ziel wählen | Jerry | K | startbar | – | – | – | E Kampf | – |
 | 811 | Von Perikles (800, 650.2 C1): Kommentar in godot/regeln/brs_kampf.gd Zeile 3 nennt DESIGN-SPIELSYSTEM-2-0-ENTWURF.md, Datei heißt seit 09.11. DESIGN-BRS.md; beim nächsten Commit dort mitziehen | Jerry | K | startbar | – | – | – | E Kampf | – |
@@ -204,6 +204,10 @@
 | 932 | Von 784 A (Chef 11.11., 12:15/12:09): Angriff des Helden höchstens 2,4 s – rennt zum Ziel, schlägt, Zeile beim Aufschlag, geht zügig rückwärts heim (F9); messen erst mit 863 im Build | Jerry | M | startbar | 863 | – | – | E Kampf | – |
 | 933.2 | Von Sokrates (933, Chef 11.11., 13:07): Sim 444 Gegenprobe Grundwerte mit Volk bis 2 (volk_min 2, werte.json), Formeln mit Nullpunkt 3 (sinne_ab, kraut_wahrnehmung_ab) Vorschlag an Tom | Jerry | M | startbar | – | – | – | E Kampf | – |
 | Pflege | von Werkzeug (340.3, 11.11.): 15350 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
+| 934 | Von Tom (786): Klang bei Handel, Rast und Gaben wie alt: Münzen beim Kaufen, Verkaufen, Zurückkaufen, Zimmer, Met und Gold aus Szenen; Brauen; Heilen bei Rast und Szene; Gegenstand aus Szene (alt G:207–1689; neu still, rast.gd liefert klang, keiner spielt ihn) | Jerry | M? | startbar | – | – | – | E Klang | – |
+| 935 | Von Tom (786): Kampfklang wie alt: Ring (schwerer Schwung beim Öffnen, Block bei gut und perfekt), Wolfsgeheul beim Erscheinen (halb so oft), Siegfenster mit Beute, epischer Beute, Münzen und Stufenaufstieg (alt SkirmishScreen 548, 713, 726; BattleScreen 523, 587) | Jerry | M? | startbar | – | – | – | E Klang | – |
+| 936 | Von Tom (786): Musik an der Bemerkgrenze wie alt: nahe einem Monster leiser und dunkler mit Unterlage, beim Bemerken still (Music.kt shade, Game.kt 600 threat; neu fehlt) | Jerry | M? | startbar | – | – | – | E Klang | – |
+| 937 | Von Tom (786): Ruhelaute der Monster auf der Karte wie alt: schnüffeln, grunzen, klappern, stöhnen, nur nah und solange es nicht jagt, 13 Arten (MonsterIdle.kt, G:910–925; Aufnahmen da, neu nur Wolf im Kampf) | Jerry | M? | startbar | – | – | – | E Klang | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
