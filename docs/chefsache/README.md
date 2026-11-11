@@ -151,8 +151,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 967 | M | Von Tuffy (948): halt_653 am Rechner 8 Fehler, Schild im Körper bei KLOSTER_M (20 Ecken, b | startbar |
 | 954a.5 | M | Von Perikles (954a.2): Schleichen auf der Gebietskarte: Schleichtaste, geduckt und langsam | wartet auf 870 (wartet) |
 | 954a.7 | M | Von Perikles (954a.2, 954a.3 A): Spähen durch Verweilen: Ring zeigt Heilkräuter abseits de | wartet auf 870 (wartet) |
-| 954a.12 | M | Von Perikles (954a.2): Erschaffung: nicht wählbare Fertigkeiten (Bergbau, Angeln, Schmiede | wartet auf 870 (wartet) |
-| 954a.9 | M | Von Perikles (954a.2, 954a.3 B): Schmiedelehrling repariert bei Borin (Auftrag Griffschale | wartet auf 870 (wartet) |
+| 954a.12 | M | Von Perikles (954a.2): Erschaffung: nicht wählbare Fertigkeiten (Bergbau, Angeln, Lederarb | wartet auf 870 (wartet) |
+| 954a.9 | M | Von Perikles (954a.2, 954a.3 B): Schmiedelehrling flickt selbst an Borins Amboss mit dem R | wartet auf 870 (wartet) |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 15522 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 114, Muss 105, startbar 22
