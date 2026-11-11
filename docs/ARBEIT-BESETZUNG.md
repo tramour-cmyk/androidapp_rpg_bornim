@@ -2,12 +2,14 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 11.11., 02:04 (lauf.py)
+**Stand:** 11.11., 03:27 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
+| Spike | [Spike – 470 (10.11., 16:19)](https://claude.ai/code/session_01Hmoj76eB7YXWnfTAdgJ9og) | 470 | – | 10.11., 16:18 |
 | Ford | [Ford – Betriebsleiter (10.11., 20:09)](https://claude.ai/code/session_01Hmoj78JXixSQQeQDGy7ZvJ) | Betrieb | – | 10.11., 20:09 |
 | Perikles | [Perikles – 264.1: Lauf 7 auswerten (10.11., 21:07)](https://claude.ai/code/session_01Hmoj75P7xwKnkPuLhgyB1T) | 264.1 | – | 10.11., 21:06 |
 | Jerry | [Jerry – 870.5: 870c A bauen (Grak, Fernkampf, Jungwölfe) (10.11., 22:51)](https://claude.ai/code/session_01Hmoj76RTdd4QGSu9nQwVYy) | 870.5 | – | 10.11., 22:51 |
 | Tom | [Tom – 870.4: Held nach BrsHeld (11.11., 01:07)](https://claude.ai/code/session_01Hmoj78gmw7tNYNqJ8k6VGw) | 870.4 | – | 11.11., 01:07 |
-| Sokrates | [Sokrates – 870: Umzug über Nacht führen (11.11., 01:54)](https://claude.ai/code/session_01Hmoj78xr5BS37JuzMzYnTa) | 870 | – | 11.11., 01:53 |
+| Sokrates | [Sokrates – 870: Umzug über Nacht führen (11.11., 03:24)](https://claude.ai/code/session_01Hmoj77DnCMZu9jpdRWbgZT) | 870 | – | 11.11., 03:24 |
+| Ford | [Ford – Betriebsleiter (11.11., 03:26)](https://claude.ai/code/session_01Hmoj79ZRCgfghKYLkLUwW1) | Betrieb | – | 11.11., 03:24 |
