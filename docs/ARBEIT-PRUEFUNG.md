@@ -6,6 +6,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Übergabe (11.11., 14:2x, `session_01Hmoj76Noedhu3n5aWVALaq`):** Lauf 176: 961, 943, 929 greifen. Nächste Nummer D176. Nachfolger: keiner
 
+- **Zu 965, von Perikles (Doppelpack 421, 11.11., 15:46, `7fc03538b`):** Sperre 779 in `startbar.py`: Titelwörter zählen nur als Ort oder Figur (`namen()` aus `LISTE-FIGUREN.md` und `PROJEKTPLAN.md` 2.13–2.16), gestapelte Zweige vergleichen nur eigene Dateien, ein Zweig auf einem ungetesteten Zweig zählt. Prüfen: `startbar.py --stand` gibt Jerry und Tom wieder Startbares (vorher 0 und 1, danach 20 und 7); jede verbliebene Überschneidung trifft Ort, Figur, Nummer oder eigene Datei; Laufzeit wie vorher (etwa 8 s).
 - **Zu 940:** bei der ersten echten Doppelziehung zweier Sitzungen auf GitHub: zwei Nummern, kein Konflikt im Zähler.
 - **Zu 927:** beim nächsten echten Lauf mit „Sitzung hängt“ oder „Jetzt installieren“ die Zeile ansehen.
 
