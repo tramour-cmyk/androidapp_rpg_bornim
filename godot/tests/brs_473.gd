@@ -39,9 +39,10 @@ func _lauf() -> void:
 	var wolf := Brs.monster("wolf")
 	pruefe("Wolf", [wolf.stufe, wolf.leben, wolf.ruestung, wolf.schaden, wolf.angriff, wolf.abwehr, wolf.wachsamkeit], [2.0, 25.0, 1.0, 6.0, 15.0, 12.0, 30.0])
 	var grak := Brs.monster("hobgoblin_captain")
-	pruefe("Grak", [grak.stufe, grak.leben, grak.angriff, grak.abwehr, Brs.boss("hobgoblin_captain")], [6.0, 75.0, 25.0, 38.0, true])
-	pruefe("Skelett gegen Stumpfes", Brs.monster("skeleton").get("schwaeche", {}).get("stumpf"), 1.5)
-	pruefe("Ockerschleim gegen Klingen", Brs.monster("ochre_jelly").get("schwaeche", {}).get("klinge"), 0.5)
+	pruefe("Grak", [grak.stufe, grak.leben, grak.angriff, grak.abwehr, Brs.boss("hobgoblin_captain")], [6.0, 60.0, 25.0, 38.0, true])     # 870c 1 A: Leben 75 -> 60
+	pruefe("Skelett gegen Stumpfes", Brs.monster("skeleton").get("schwaeche", {}).get("wucht"), 1.5)
+	pruefe("Skelett gegen Stich", Brs.monster("skeleton").get("schwaeche", {}).get("stich"), 0.5)     # 870.5: Schadensarten (870a 8 A)
+	pruefe("Säureschnecke gegen Feuer", Brs.monster("ochre_jelly").get("schwaeche", {}).get("feuer"), 1.5)
 	pruefe("unbekannt leer", Brs.monster("drache").is_empty(), true)
 	# Rundung wie Python: halbe auf die gerade
 	pruefe("runde", [Brs.runde(4.5), Brs.runde(5.5), Brs.runde(2.4), Brs.runde(2.6), Brs.runde(0.5)], [4, 6, 2, 3, 0])

@@ -55,6 +55,7 @@ static func begleiter(rudel: String, anfuehrer: String) -> Dictionary:
 	b.schaden = float(f["schaden"]) * float(r.get("schaden_anteil", 1.0))
 	b.leben = maxi(1, runde(float(b["leben"]) * float(r.get("leben_anteil", 1.0))))
 	b.chance = float(r.get("chance", 1.0))
+	b.angreifbar = bool(r.get("angreifbar", true))     # 870.5: Leibwache nicht (wie alt Packs.kt guard, 444 „rudel“)
 	return b
 
 static func stufe(id: String) -> int: return int(monster(id).get("stufe", 0))

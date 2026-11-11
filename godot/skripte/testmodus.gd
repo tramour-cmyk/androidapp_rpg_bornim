@@ -300,11 +300,7 @@ static func reiter(m: Menue) -> void:
 			"Hero always crits: every weapon hit of the hero is critical, to test the killing blow."), func(): Mars.held_immer_krit = not Mars.held_immer_krit, "BLOOD", "", Mars.held_immer_krit),
 		zk.call(t.call("Rettung", "Saves"), t.call("nie", "never") if Mars.gegner_ohne_rettung else t.call("wie im Spiel", "as in game"),
 			t.call("Gegner bestehen keine Rettungswürfe: Zauber, denen man ausweichen kann, treffen immer voll.", "Foes fail every save: spells one can dodge always hit in full."),
-			func(): Mars.gegner_ohne_rettung = not Mars.gegner_ohne_rettung, "", "✗", Mars.gegner_ohne_rettung),
-		# 478 (Jerry): der Rechenkern nach dem BRS (regeln/brs_kampf.gd), bis der Chef ihn abnimmt nur hier
-		zk.call(t.call("Rechnung", "Rules"), "BRS" if Mars.BrsKampf.schalter else "SRD", t.call("Kampf nach dem BRS (Modell D, Zahlen wie die Simulation 444) oder nach dem alten SRD; gilt ab dem nächsten Kampf.",
-			"Combat by the BRS (model D, numbers as in simulation 444) or by the old SRD; applies from the next fight."),
-			func(): Mars.BrsKampf.schalter = not Mars.BrsKampf.schalter, "DICE", "", Mars.BrsKampf.schalter)])
+			func(): Mars.gegner_ohne_rettung = not Mars.gegner_ohne_rettung, "", "✗", Mars.gegner_ohne_rettung)])     # 870.5: Schalter BRS/SRD weg, BRS immer
 	# 415 (Jerry, Chef „415 jetzt“ 02.11., 10:55): Handyprobe der Beams-Probe im Kampfort (kampf/strahlprobe.gd)
 	m.zeichenreihe([zk.call(t.call("Strahlen", "Beams"), null, t.call("415: drei Strahlen der Beams-Probe im Kampfort, mit Bildern je Sekunde; Renderer umschaltbar.",
 		"415: three beams of the Beams sample in the battle place, with frames per second; renderer switchable."), func(): m.test.emit("strahlen", []), "FPS")])

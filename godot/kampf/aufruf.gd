@@ -106,7 +106,7 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 			m.chance = float(Brs.begleiter("Leibwache", "dire_wolf").get("chance", LEIBWACHE.chance))     # 870.3: werte.json
 			m.rudel = "Leibwache"     # 870.3: Werte nach BRS aus werte.json „merkmale“ „rudel“ (brs_kampf.gd gegner)
 			m.anfuehrer = "dire_wolf"
-			m.xp = 0     # lohn.gd zählt sie als Leibwache des Leitwolfs (xpShare), nicht einzeln
+			m.xp = 0     # lohn.gd zählt sie als Begleiter des Leitwolfs (werte.json „erfahrung_anteil“), nicht einzeln
 			m.flee = LEIBWACHE.flee
 		elif ART.has(foe) and monsters.has(ART[foe]):
 			# 535 (Abgleich 512, Sokrates: „Ratten und Fledermäuse als Wölfe, Schamane ohne Heilen“): Werte, Name, Lohn und Regeln
@@ -133,7 +133,7 @@ const ART := {"RATS": Mars.RAT, "BATS": Mars.BAT, "KOBOLDS": Mars.KOBOLD, "SHAMA
 ## 399.2a (Chef 28.10., 14:19, Archiv: „Wolf mit 1 bis 2 Jungwölfen“, der Held allein): der Waldkampf wie im alten Spiel
 ## (Packs.kt cubs): vorn der Wolf, dazu 1–2 Jungwölfe, halb so groß (scale 0,55), Biss 1W3, Angriff −1; neu, weil MARS
 ## Trefferpunkte braucht: halb so viele wie ein Wolf; sie folgen dem Wolf und fliehen, wenn er fällt (mars.gd follows);
-## Erfahrung wie alt über lohn.gd (Leitwolf, je Jungwolf 0,3 dazu)
+## Erfahrung nach BRS über lohn.gd (Wolf, je Jungwolf werte.json „erfahrung_anteil“)
 const JUNGWOLF := {"de": "Jungwolf", "en": "Young wolf", "scale": 0.55, "atk_shift": -1, "dmg": [1, 3, 0], "hp_share": 0.5, "chance": 0.5,
 	"flee": ["Mit eingezogenem Schwanz fliehen die Jungwölfe ins Unterholz!", "Tails tucked, the young wolves flee into the undergrowth!"]}
 
@@ -151,7 +151,7 @@ static func rudel(monsters: Dictionary, dice) -> Array:
 	jung.scale = JUNGWOLF.scale
 	jung.atk = int(wolf.atk) + int(JUNGWOLF.atk_shift)
 	jung.dmg = JUNGWOLF.dmg
-	jung.xp = 0     # lohn.gd zählt sie als Rudel des Wolfs (xpShare), nicht einzeln
+	jung.xp = 0     # lohn.gd zählt sie als Begleiter des Wolfs (werte.json „erfahrung_anteil“), nicht einzeln
 	jung.flee = JUNGWOLF.flee
 	jung.chance = float(Brs.begleiter("Jungwolf", "wolf").get("chance", JUNGWOLF.chance))     # 399.2b (Chef 28.10., 15:32): 50 % je Runde (Packs.kt cubs); 870.3: werte.json
 	jung.rudel = "Jungwolf"     # 870.3: Werte nach BRS aus werte.json „merkmale“ „rudel“ (brs_kampf.gd gegner)
@@ -197,7 +197,7 @@ static func blatt(h, zweite = null) -> Dictionary:
 		faehig.append(String(f))
 	return {"name": h.name, "race": h.volk, "cls": h.klasse, "level": h.stufe, "dex": h.mod("DEX"), "wis": h.mod("WIS"),
 		"ac": rk, "acDrawn": rk_zweite, "crit": h.krit_ab(), "spellAtk": h.zauberangriff(), "spellDc": h.zauber_sg(),
-		"sp": h.zp, "skills": faehig, "main": _waffe(h, h.waffe()), "second": _waffe(h, zweite) if zweite != null else null,
+		"sp": h.zp, "sp_max": h.max_zp(), "skills": faehig, "main": _waffe(h, h.waffe()), "second": _waffe(h, zweite) if zweite != null else null,
 		"off": _waffe(h, h.nebenwaffe(), true) if h.nebenwaffe() != null else null,
 		"con": h.mod("CON"), "prof": h.uebung(), "saves": RETTUNG.get(h.klasse, []),
 		"tenacity": h.standhaft(), "schild": String(schild["base"]) if schild != null else "",   # 406: Modell in der Hand (figur.gd)
@@ -226,7 +226,7 @@ static func _waffe(h, w, nebenhand := false) -> Dictionary:
 ## false: kein Kampf (Held ohne LP); ende kommt dann gleich mit „NONE“
 ## [lage]: wie der Held aus der Welt kommt, {"atemlos": bool, "satt": bool, "eroeffnung": "NORMAL" | "AMBUSHED" | "HERO_FIRST",
 ## "blende": die schwarze Blende vor dem Kampf, 402; "rauch": Morwens Rauchbündel im Gepäck, gegen Krogg, 494; übrig danach
-## kampf.mars.smoke} (399.2)
+## kampf.mars.smoke; "stand": Heldenstufe nach BRS (Brs.neuer_stand), "gebiet": Gebiet für den Erfahrungstopf, 870.5} (399.2)
 func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := "tag", traenke := 2, held_tp := -1, soeldner_tp := -1, seed := -1, beute := Callable(), lage := {}) -> bool:
 	tabellen = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
 	var dice = Wuerfel.new(null if seed < 0 else seed + 1)
@@ -266,9 +266,10 @@ func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := 
 	kampf.tageszeit = tageszeit
 	kampf.ort = ort
 	kampf.platz = String(lage.get("platz", "lichtung"))     # 493: Kampfort im Wald nach der Kachel (Kampfort.platz_fuer)
-	# Erfahrung für den Lohn: der Held bringt seine mit, ein Blatt steht am Anfang seiner Stufe (wie die Probe, 296.2)
-	var xp: int = int(tabellen.xpForLevel[int(held.level)]) if held is Dictionary else int(held.ep)
-	if not kampf.setup(party, foes, tabellen, {"potion": traenke}, _fertig, seed, {"xp": xp, "beute": beute, "atemlos": bool(lage.get("atemlos", false)), "satt": bool(lage.get("satt", false)), "eroeffnung": String(lage.get("eroeffnung", "NORMAL")), "blende": bool(lage.get("blende", false)), "rauch": int(lage.get("rauch", 0))}):
+	# 870.5: Lohn nach BRS (lohn.gd): Heldenstufe aus lage „stand“ (Zustand.stufe_brs, Brs.neuer_stand), ohne ihn am Anfang der
+	# Stufe des Helden; Erfahrungstopf nach lage „gebiet“ (werte.json „Wald“, „Tiefer Wald“, „Höhle“; "" ohne Topf)
+	var stand: Dictionary = lage.get("stand", {})
+	if not kampf.setup(party, foes, tabellen, {"potion": traenke}, _fertig, seed, {"stand": stand, "gebiet": String(lage.get("gebiet", "")), "beute": beute, "atemlos": bool(lage.get("atemlos", false)), "satt": bool(lage.get("satt", false)), "eroeffnung": String(lage.get("eroeffnung", "NORMAL")), "blende": bool(lage.get("blende", false)), "rauch": int(lage.get("rauch", 0))}):
 		kampf.free()
 		kampf = null
 		_fertig.call_deferred("NONE")
@@ -329,6 +330,7 @@ func _fertig(ergebnis: String) -> void:
 				tp[f.id] = f.hp
 				if kampf.mars.brs and f.srd_hp > 0:     # 478: zurück in die Leben der Welt (SRD), im selben Anteil
 					tp[f.id] = clampi(roundi(float(f.hp) * f.srd_hp / maxf(1.0, f.max_hp)), 1 if f.hp > 0 else 0, f.srd_hp)
+				f.sp = Mars.sp_nach(f)     # 870.5: Mana zurück in Heldwerte zp, im selben Anteil (bis 870.4)
 		lohn = kampf.reward
 	ende.emit(ergebnis, tp, lohn)
 	queue_free()

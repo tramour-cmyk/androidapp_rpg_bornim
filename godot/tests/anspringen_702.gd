@@ -29,8 +29,7 @@ func _initialize() -> void:
 	var a = Aufruf.new()
 	var nur := OS.get_environment("NUR")
 	print("Rechnung Regel   Spieler  Klasse   Gegner  Siege  Züge  verloren  längste  ≥3 am Stück")
-	for rechnung in ["SRD", "BRS"]:
-		Mars.BrsKampf.schalter = rechnung == "BRS"
+	for rechnung in ["BRS"]:     # 870.5: SRD fiel
 		for regel in ["", "handeln"]:
 			for ausweichen in [false, true]:
 				for k in ["FIGHTER", "WIZARD", "ROGUE", "CLERIC"]:

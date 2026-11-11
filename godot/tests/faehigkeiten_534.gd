@@ -1,6 +1,6 @@
 # 534 (Abgleich 512 zu Build 249, Sokrates): was der alte Weltkampf (Battle.kt) konnte und MARS fehlte, Teil 1 ohne Zauber:
 # Lebensraub (Anteil des Schadens als Heilung, höchstens 30 %), Schadensminderung der Ausrüstung gegen Treffer der Gegner
-# (mindestens 1), Unerbittlichkeit der Orkblütigen (einmal je Kampf mit 1 TP stehen), Einschüchtern zu Kampfbeginn (8 % je
+# (nach dem BRS nicht unter 0), Unerbittlichkeit der Orkblütigen (einmal je Kampf mit 1 TP stehen), Einschüchtern zu Kampfbeginn (8 % je
 # Charisma-Punkt, nie Boss, nie im Hinterhalt). Prüfung ohne Grafik.
 # Aufruf: im Ordner godot mit -s res://tests/faehigkeiten_534.gd (Exit 0 = richtig)
 extends SceneTree
@@ -15,7 +15,7 @@ var skills := {}
 
 
 func _initialize() -> void:
-	tab = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	tab =JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
 	for m in tab.monsters:
 		monsters[m.id] = m
 	for s in tab.skills:
@@ -43,6 +43,10 @@ func _kampf(extra: Dictionary, foe_ids: Array, seed: int, opening := "NORMAL"):
 		foes.append(Mars.monster_fighter("f%d" % i, Mars.SPOTS[i], monsters[foe_ids[i]], 999))
 	var m = Mars.new([h], foes, tab, Wuerfel.new(seed), Wuerfel.new(7), 0, false, opening)
 	m.chosen = true
+	m.brs_einrichten()     # 870.5: nur nach dem BRS; der Held bleibt bei 999 Leben im Maß 1, so zählen Minderung und Raub wie gesetzt
+	h.max_hp = 999
+	h.hp = 999
+	h.srd_hp = 999
 	return m
 
 
@@ -65,10 +69,10 @@ func _minderung() -> void:
 	for i in ohne.size():
 		if ohne[i] > 0:
 			treffer += 1
-			gut = gut and mit[i] == maxi(1, ohne[i] - 3)
+			gut = gut and mit[i] == maxi(0, ohne[i] - 3)     # 478: nach dem BRS kein Mindestschaden
 		else:
 			gut = gut and mit[i] == 0
-	_soll(gut and treffer > 50, "Schadensminderung 3: jeder Biss 3 weniger, mindestens 1 (%d Treffer)" % treffer)
+	_soll(gut and treffer > 50, "Schadensminderung 3: jeder Biss 3 weniger, nicht unter 0 (%d Treffer)" % treffer)
 
 
 func _lebensraub() -> void:
