@@ -97,6 +97,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:28 10.11.: Sokrates-Nachfolger …75g2D gestartet; alter Sokrates …76uBk (5,98 $, Kosten auf 888, 709c, 870) wartet auf Ruhe, archiviert der nächste Lauf
 - 22:27 10.11.: Jerry …76riB archiviert, gebucht (6,18 $, 870.5). Sokrates 22:27 (Chef 22:24, Umzug über Nacht): Läufe laufen die Nacht durch, jede startbare 870.x und Nachfolger Tom/Jerry ohne Rückfrage, Spike/Tuffy aus; entspricht der Startregel
 - 22:08 10.11.: Chef-Satz 22:07 erhalten; archiviert und gebucht: Jerry …78Q1 (21,19 $, 870.5), …7991 (17,15 $, 870.2), …78Uv4 (5,02 $, 870.5), Perikles …79eG (6,59 $, 264.1), Ford …794Mi6M (6,99 $, Betrieb)
+- 07:49 11.11.: Neustart Tom (c4097ed7d): Nachfolger …78hPe „Tom – 870.4: Lauf 338 auswerten“ in Hoch gestartet (lauf.py nannte noch Mittel, von Hand Hoch), Tom …79ceB archiviert, 9,38 $ gebucht (870.4). Stillstand-Zeilen Diogenes/Perikles (nur ausgeschlossene 771, 901) nicht geschrieben
 - 07:46 11.11.: Neustart Perikles (a244b11af): Nachfolger „264.1“ nicht startbar (wartet auf Chef), kein Start; Perikles …7727 bleibt stehen, 1,55 $ gebucht (901). START Diogenes 771 und WEITER Perikles 901 mit `--ohne` ausgeschlossen (771 und 901 erledigt, Stand nicht gesetzt; Hinweis in ihren Vorräten); Startsperre 07:45 von Hand gestrichen (nichts gestartet)
 - 13:30 10.11.: Startsperre 13:30 Start Ford (selbst)
 - 13:30 10.11.: Startsperre 13:30 Start Sokrates (Neustart auf Meldung 9fc0c053b, Nachfolger 620 Test t274 ab 274); Startsperre 13:30 Start Ford (selbst).
