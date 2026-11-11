@@ -52,6 +52,13 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 174 · 942, 957 mit 927, 940 (Perikles, Doppelpack 421, `1bc93e6e5`, `74b3132b3`; 11.11., 14:1x)
+
+- **942 greift** (`greift 942 174`): Kurzzeilen in einer Kopie (`--ohne-pull`): Jerry alt working 3 h ruhig, neu idle → nur ARCHIVIERE (vorher dazu WARNUNG-LAUT „Sitzung hängt“, alter Code nachgestellt); alte Sitzung als Vorgänger eines START → nur ARCHIVIERE; Diogenes allein hängend, nichts Startbares → WARNUNG-LAUT „Sitzung hängt“ bleibt. Grenze: die Marke „Hängt <Kennung>“ wird auch für die gestrichene Zeile geschrieben (harmlos, Sitzung ist weg).
+- **927 greift** (`greift 927 174`): Lücken 941 (Lauf 172) und 942 geschlossen; echter Lauf mit „Sitzung hängt“ oder „Jetzt installieren“ steht aus (Vorrat).
+- **957 greift** (`greift 957 174`): frische Kopie ohne eigenen Commit → Zählercommit mit Co-Authored-By und Claude-Session (Kennung gleich der Sitzung); ohne Umgebungskennung nur Co-Authored-By. Grenze: Co-Authored-By kommt dann aus dem jüngsten Commit auf `main` und kann ein anderes Modell nennen als das der Sitzung.
+- **940 greift** (`greift 940 174`).
+
 ## Lauf 173 · 903 B (2) Checkliste „Vorlage an den Chef“ (Perikles, Doppelpack 421, `6f06ed112`; 11.11., 14:0x)
 
 - **903 greift** (`greift 903 173`): deckt, was B nennt (Bild, Film, Chefsache, Antwort ins Archiv). Alle zehn Quellen tragen: 715 `ROLLE-PROJEKT.md` 107, 302.3 Bekannte Fehler, 457 und 890 `commit-pruefung.py`, 434 Rollendatei, 364 Archiv, 799 `probelauf.py` 865, Bildmaße `chefsache/README.md` 374, 655, 783 W1, W8, 338.2, 383.3, t78 im Archiv oder in `CLAUDE.md`. `treffer`: `entscheiden/`, `billigen/`, `tun/`, `ansehen/948-…` → Vorlage; `ansehen/t276-…` → Build und Test; README, `bilder/` → nichts. Zusatztext 2582 Zeichen, ganz.
