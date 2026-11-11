@@ -5,6 +5,8 @@
 # (tests/schilde_film.gd, im Spielstil gezeichnet) und schilde.json (Name, Paket, Dreiecke).
 # Aufruf: KAUF=<kaufpakete> ZIEL=<ordner> bl/bin/python -I schilde_bestand.py
 import bpy, os, sys, json, glob
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import kaufquelle     # 980: von doppelten Kaufdateien nur, was Blender liest (Binär-FBX)
 from mathutils import Vector, Matrix
 
 KAUF = os.environ.get('KAUF', os.path.expanduser('~/kauf'))
@@ -13,8 +15,7 @@ os.makedirs(ZIEL, exist_ok=True)
 
 
 def finde(muster):
-    f = sorted(glob.glob(os.path.join(KAUF, '**', muster), recursive=True))
-    return f[0] if f else None
+    return kaufquelle.finde(KAUF, muster, 'SCHILD')
 
 
 # (Kennung, Paket, Datei)

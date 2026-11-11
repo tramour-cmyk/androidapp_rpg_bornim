@@ -7,7 +7,9 @@
 # Rahmen der Hand wie zauber385.py (x: Handgelenk -> Mittelfinger, z: x kreuz (Kleinfinger -> Zeigefinger), y: z kreuz x; Ursprung am
 # Handgelenk, Laengen durch die Handlaenge), damit gleicht die Uebertragung die Hand Quelle -> Ziel ab.
 # Aufruf: KAUF=<kaufpakete> bl/bin/python -I griff417b.py
-import bpy, glob, json, math, os
+import bpy, glob, json, math, os, sys
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import kaufquelle     # 980: von doppelten Kaufdateien nur, was Blender liest (Binär-FBX)
 from mathutils import Matrix, Quaternion, Vector
 
 KAUF = os.environ['KAUF']
@@ -130,7 +132,7 @@ def hauptachsen(pts, o):
 
 
 # die Figur, an der Unity die Props haengt: Lage der Props im Rahmen ihrer Hand (Ruhe)
-sk = sorted(glob.glob(os.path.join(KAUF, '**', 'SK_Protof-Actor.fbx'), recursive=True))
+sk = kaufquelle.alle(KAUF, 'SK_Protof-Actor.fbx', 'GRIFF')
 RUHE = True
 SK = None
 for versuch in ({}, {'ignore_leaf_bones': True}, {'use_anim': False, 'ignore_leaf_bones': True}):

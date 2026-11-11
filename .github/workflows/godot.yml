@@ -172,6 +172,7 @@ jobs:
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq libxi6 libxxf86vm1 libxfixes3 libxrender1 libgl1 libsm6 libxkbcommon0 > /dev/null
           [ -x bl/bin/python ] || { rm -rf bl; python -m venv bl && bl/bin/pip -q install bpy==5.2.3 numpy pillow; }
+          python3 -I tools/blender348/kaufquelle_test.py > /dev/null || python3 -I tools/blender348/kaufquelle_test.py   # 980: von doppelten Kaufdateien nur Binär-FBX (Spinne, Lauf 43051633587)
       # 348.6 Held und Leute auf dem CC0-Geruest (348.12): Knochen und Bewegungen aus Quaternius' Universal Animation Library (CC0 1.0)
       - uses: actions/cache@v4
         with:

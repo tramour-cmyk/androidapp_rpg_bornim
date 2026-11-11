@@ -14,6 +14,8 @@ from mathutils import Matrix, Quaternion, Vector
 
 HIER = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HIER)
+sys.path.insert(0, os.path.dirname(HIER))
+import kaufquelle     # 980: von doppelten Kaufdateien nur, was Blender liest (Binär-FBX)
 import geruest as GE
 
 SRC = os.environ.get('SRC', os.path.join(os.environ.get('OUT', '/home/user/q376/out'), 'held.glb'))
@@ -132,8 +134,7 @@ tempo, griff, kontakt = {}, {}, {}
 
 
 def ss_datei(n):
-    f = sorted(glob.glob(os.path.join(KAUF, '**', 'Humanoid@%sS&S.fbx' % n), recursive=True)) if KAUF else []
-    return f[0] if f else None
+    return kaufquelle.finde(KAUF, 'Humanoid@%sS&S.fbx' % n, 'SWORD&SHIELD')
 
 
 def rahmen(h, m, i, k):
@@ -197,7 +198,7 @@ if ss_datei('IdleCombat'):
     H = 'humanoid_ '
     for k, (datei, s_, pos, rot) in PROP.items():
         vorher = set(bpy.data.objects); va = set(bpy.data.actions)
-        bpy.ops.import_scene.fbx(filepath=sorted(glob.glob(os.path.join(KAUF, '**', datei), recursive=True))[0])
+        bpy.ops.import_scene.fbx(filepath=kaufquelle.alle(KAUF, datei, 'PROP')[0])
         P = next(o for o in bpy.data.objects if o.type == 'MESH' and o not in vorher)
         pv = [v.co.copy() for v in P.data.vertices]
         bpy.ops.import_scene.fbx(filepath=ss_datei('IdleCombat'))
