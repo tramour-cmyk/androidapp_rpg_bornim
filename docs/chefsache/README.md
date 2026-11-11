@@ -20,6 +20,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [833](ansehen/833-kampfschirm.md) | Unterer Kampfschirm ohne Kasten im Kasten | Jerry | 11.11., 23:46 |
 | [861](ansehen/861-umhang.md) | Umhangbuckel im Kampf: was die Messung zeigt | Tom | 11.11., 23:35 |
 | [991](ansehen/991-testmenue-zustand.md) | Testmenü: jeder Schalter zeigt seinen Zustand am Zeichen | Tom | 11.11., 21:16 |
 
