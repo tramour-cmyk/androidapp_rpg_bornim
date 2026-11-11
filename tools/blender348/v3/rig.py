@@ -24,25 +24,6 @@ scn.render.engine = 'CYCLES'; scn.cycles.samples = 4; scn.cycles.device = 'CPU'
 # 558: mit der Stoffschicht (held3.py STOFF) backt die Umgebungsverdeckung mit; 4 Proben je Punkt rauschen, 24 glatt
 if float(os.environ.get('STOFF', '0')) > 0: scn.cycles.samples = int(os.environ.get('STOFF_PROBEN', '24'))
 meshes = [o for o in bpy.data.objects if o.type == 'MESH']
-# 910 (Jerry 11.11.): held3.py legt bei Kugeln, Augen, Lidern, Ohr, Schließe die Flächen nicht in fester Folge ab (gleiche Ecken und Flächen,
-# andere Reihenfolge, am Rechner zwei Läufe nachgestellt); Abwickeln, Backen und Abbau hängen an der Folge, darum war held.bin bei
-# gleichem Code jedes Mal anders (Gegenprobe Lauf 346: 42 von 164 Dateien, atem_4531 kippte). Hier jede Fläche fest nach ihren
-# Eckennummern sortiert und mit der kleinsten Ecke zuerst neu gelegt: gleiche Eingabe, gleicher Bau.
-import bmesh as _bmesh
-def _feste_folge(o):
-    bm = _bmesh.new(); bm.from_mesh(o.data); bm.verts.ensure_lookup_table()
-    flaechen = []
-    for f in bm.faces:
-        v = [x.index for x in f.verts]; k = v.index(min(v)); flaechen.append((tuple(v[k:] + v[:k]), f.material_index, f.smooth))
-    flaechen.sort()
-    for f in list(bm.faces): bm.faces.remove(f)
-    for v, mi, glatt in flaechen:
-        try: f = bm.faces.new([bm.verts[i] for i in v])
-        except ValueError: continue
-        f.material_index = mi; f.smooth = glatt
-    n_ = len(bm.verts)
-    bm.edges.sort(key=lambda e: min(x.index for x in e.verts) * n_ + max(x.index for x in e.verts))   # auch die Kanten (Folge zählt beim Abbau)
-    bm.to_mesh(o.data); bm.free()
 # 348.5: Albedo in ein Bild backen (statt Eckfarben): Gewebe, Ringe, Abnutzung und Gesicht bleiben scharf
 ATLAS = int(os.environ.get('ATLAS', '2048'))
 img = bpy.data.images.new('held_albedo', ATLAS, ATLAS, alpha=False, float_buffer=False)
@@ -51,7 +32,6 @@ for o in meshes:
     if o.modifiers:   # Modifikatoren (Solidify am Schild) vorher anwenden, damit das Netz dem Bild entspricht
         dg = bpy.context.evaluated_depsgraph_get(); new = bpy.data.meshes.new_from_object(o.evaluated_get(dg))
         o.modifiers.clear(); o.data = new; me = new
-    _feste_folge(o)   # 910
     while me.uv_layers: me.uv_layers.remove(me.uv_layers[0])
     me.uv_layers.new(name='UVMap')
 # 376.1 Urteil Tracht (Chef 01.11., 20:2x: Farbstreifen durch den Umhang, Flecken in der Robe): der Abbau auf 6000 liess der Kauffigur
