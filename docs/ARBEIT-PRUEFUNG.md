@@ -4,7 +4,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (11.11., 10:0x, `session_01Hmoj78VXm437VVjcmMZSYG`):** Lauf 158: 913, 914 greifen; Lücke Spike/Tuffy → 920 (D158.1) an Perikles, 911 und 912 warten darauf. Nächste Nummer D159. Nachfolger: keiner
+**Übergabe (11.11., 10:0x, `session_01Hmoj78VXm437VVjcmMZSYG`):** Lauf 158: 913, 914 greifen; Lücke Spike/Tuffy → 920 (D158.1) an Perikles, 911 und 912 warten darauf. Lauf 159: 916 (`lauf.py --wecker`) greift. Nächste Nummer D160. Nachfolger: keiner
 
 - **Zu 853 (Lauf 133, 134; Lauf 154: Spike 492 meldet sich als Spike, ohne Rückfrage; Lauf 156: Jerry 806, 09:10, erste Antwort nennt Rolle und Vorgang, ohne Rückfrage):** Diese von Ford gestartete Sitzung (870.1) hat die Rolle ohne Rückfrage übernommen, und `notiz.sh` nennt Jerry. Beim nächsten Lauf noch eine fremde Rolle ansehen (`list_events`, `kinds` user/assistant, erste Seite). Fragt sie nach der Rolle → Vorgang an Perikles. Auf Abruf (768 am 13.11., 790 und 461b am 16.11.).
 
