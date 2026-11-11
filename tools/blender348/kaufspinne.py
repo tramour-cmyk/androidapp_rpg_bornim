@@ -61,6 +61,12 @@ def quelle():
     if not KAUF:
         sys.exit('KAUF fehlt (Ordner mit den gekauften Modellen)')
     t = sorted(glob.glob(os.path.join(KAUF, '**', 'DARKNESS_SPIDER.FBX'), recursive=True))
+    # 595 (Lauf 352: eine halb ausgepackte Kopie aus dem Rar lag vorn, Blender: „ASCII FBX files are not supported“): nur ganze
+    # binäre FBX (Kopf „Kaydara FBX Binary“), die anderen werden genannt
+    for f in t:
+        if open(f, 'rb').read(18) != b'Kaydara FBX Binary':
+            print('QUELLE übergangen (kein binäres FBX): %s' % f)
+    t = [f for f in t if open(f, 'rb').read(18) == b'Kaydara FBX Binary']
     if not t:
         sys.exit('DARKNESS_SPIDER.FBX nicht gefunden unter %s' % KAUF)
     return t[0], os.path.dirname(t[0])
