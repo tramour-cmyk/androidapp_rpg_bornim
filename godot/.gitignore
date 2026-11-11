@@ -1,9 +1,10 @@
 # erzeugt im Bau (godot.yml): Modelle und Bilder aus tools/blender348, Kopien aus tools/; Kampfort (Jerry) unter kampf/daten.
 # 870.9 (870a 7 B): was früher aus core kam, ist Godot-Quelle und eingecheckt: Karten (Bearbeitung tools/karten/karten.py), Texte,
-# Intro, Kartenblätter, Bilder der Dinge, Hauptmenübild, Schrift, Klang; texte.json und held.json noch aus core, bis der Wächter
-# 870.11 ihren SRD-Bestand nicht als neu zählt oder er bereinigt ist (Vorgang an Perikles, 870.9)
+# Texte, Held, Intro, Kartenblätter, Bilder der Dinge, Hauptmenübild, Schrift, Klang
 daten/*
 !daten/karten.json
+!daten/texte.json
+!daten/held.json
 !daten/intro.json
 !daten/intro/
 !daten/kartenblatt.json

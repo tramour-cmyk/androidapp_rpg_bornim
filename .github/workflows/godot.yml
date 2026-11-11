@@ -53,22 +53,17 @@ jobs:
       GODOT: "4.7.2"
     steps:
       - uses: actions/checkout@v5
-      # Java fuer den Android-Export (keytool, apksigner); Gradle nur noch fuer texte.json und held.json (870.9, bis der Waechter 870.11
-      # ihren SRD-Bestand nicht als neu zaehlt oder er bereinigt ist)
+      # Java nur fuer den Android-Export (keytool, apksigner), nicht mehr fuer core (870.9)
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: 17
-      - uses: gradle/actions/setup-gradle@v4
-      # 870.9 (870a 7 B, Chef 10.11., 15:25): Karten, Intro mit Bildern, Kartenblaetter, Bilder der Dinge, Schrift (Fondamento, OFL),
+      # 870.9 (870a 7 B, Chef 10.11., 15:25): Karten, Texte, Held, Intro mit Bildern, Kartenblaetter, Bilder der Dinge, Schrift (Fondamento, OFL),
       # Hauptmenuebild und Klang sind seit dem letzten Export aus core (f32a789e6) Godot-Quelle unter godot/daten (eingecheckt,
       # godot/.gitignore); Karten bearbeiten: tools/karten/karten.py, Regeln: tests/karten_regeln.gd (Pruefschritt)
       - name: Karten und Texte
         run: |
-          python3 tools/karten/karten.py pruefen godot/daten/karten.json godot/daten/intro.json godot/daten/kartenblatt.json godot/daten/klang/kampfklang.json
-          ./gradlew -p core test --tests '*TextExportTest*' --tests '*HeroExportTest*' -q
-          ./gradlew -p core exportTexts -Pout=$GITHUB_WORKSPACE/godot/daten/texte.json -q
-          ./gradlew -p core exportHero -Pout=$GITHUB_WORKSPACE/godot/daten/held.json -q
+          python3 tools/karten/karten.py pruefen godot/daten/karten.json godot/daten/texte.json godot/daten/held.json godot/daten/intro.json godot/daten/kartenblatt.json godot/daten/klang/kampfklang.json
           # 473: Monsterwerte und Regeln BRS (Modell D) aus derselben Datei wie die Simulation 444 (godot/regeln/brs.gd)
           cp tools/sim444/werte.json godot/daten/
           cp godot/bilder/logo-quer.svg godot/daten/logo.bild   # 292 Vorspann: Firmenzeichen scharf in jeder Groesse (hauptmenue.gd logo)

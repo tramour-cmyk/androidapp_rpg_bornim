@@ -1,6 +1,6 @@
 extends SceneTree
 # 390: Gegenprobe Rast (skripte/rast.gd) gegen Resting.kt und Game.rest, drinkMead, Cmd.Rest: Faelle mit den Zahlen des alten
-# Spiels. Ohne Bild, endet mit Exit 0 oder 1. Braucht daten/held.json und texte.json (godot.yml „Karten und Texte“).
+# Spiels. Ohne Bild, endet mit Exit 0 oder 1. Braucht daten/held.json und texte.json (870.9 eingecheckt).
 # Aufruf: Godot unsichtbar im Ordner godot mit -s res://tests/rast_test.gd
 
 var fehler := 0
