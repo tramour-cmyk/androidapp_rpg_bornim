@@ -30,7 +30,7 @@ Bekannt: Klosterschüler und Schmiedelehrling tragen bis zum Streitkolbenmodell 
 
 | # | Team | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|---|
-| 276.6 | Jerry | 870.5 | Reiter „Test“ → Teleport „Wald“, zum Wolf gehen, Kampf | über dem Getroffenen nur Ergebnis und Trefferchance; Knopf „Können“; keine Würfel, keine Rüstungsklasse | „gegen RK“, „RW … gegen SG“, „(Vorteil)“, „ZP“ |
+| 276.6 | Jerry | 870.5, 868 | Reiter „Test“ → Teleport „Wald“, zum Wolf gehen, Kampf; dabei die Würfelergebnisse über den Figuren lesen | über dem Getroffenen nur Ergebnis und Trefferchance; Knopf „Können“; keine Würfel, keine Rüstungsklasse | „gegen RK“, „RW … gegen SG“, „(Vorteil)“, „ZP“ |
 | 276.7 | Jerry | 870.5 | im Wolfskampf „Können“ öffnen | nur, was die Fertigkeiten freigeben (Wanderer: mindestens „Kraft schöpfen“) | Klassenfähigkeiten wie „Zweiter Atem“ |
 | 276.8 | Jerry | 870.5 | Wolfskampf gewinnen | Erfahrung nach dem BRS in der Lohnzeile; im Reiter „Held“ wächst der Erfahrungsbalken | „Attributspunkte“, alte EP-Zahlen |
 | 276.9 | Tom | 870.4 | am Lagerfeuer im Wald rasten | Wahl „Kurze Erholung · 2 Stunden“ und „Langes Ausruhen · 9 Stunden“ mit Satz darunter; nach Langem Ausruhen Leben und Mana voll | „Kurze Rast“, „Lange Rast“, 1 oder 8 Stunden |
