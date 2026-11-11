@@ -62,6 +62,7 @@ Bekannt (814, aus deinem Film, Ursache wird gesucht): das Huhn fliegt nicht auf,
 - 277.4 ✓ (Chef 11.11., 20:20; Wert 0, Held ohne Kräutersammeln)
 - 277.5 ✗ Staubwölkchen beim Gehen auf dem Erdweg nicht zu sehen (Chef 11.11., 20:21: „Ich finde das Staubwölkchen einfach nicht. Vielleicht sehe ich aber auch zu schlecht.“); Ursache nachstellen (zu klein und gedämpft, `STAUB_K` 0,5 mit `daempfe` 0,7, oder Erdweg-Maske `erde()` greift nicht), Standbild aus dem Spiel zum Vergleich
 - 277.6 ✓ (Chef 11.11., 20:23)
-- 277.8 ✓ (Chef 11.11., 20:27; 277.7 noch ohne Rückmeldung)
+- 277.7 offen, erster Teil (Chef 11.11., 20:27, Bild Wolfskampf mit Nebel): Bilder/s 13 im Kampf (langsamstes 1 %: 88 ms, längstes 148 ms, über 50 ms: 1217), Zeichenaufrufe 170, Dreiecke 347k; Lichtschächte und Nebel im Bild kaum zu sehen; Zahl ohne Kampfnebel folgt
+- 277.8 ✓ (Chef 11.11., 20:27)
 - Außer der Reihe (Chef 11.11., 20:24): Testmenü zeigt am Zeichen nicht, was an oder aus ist → Vorgang 991 (Tom)
 - Außer der Reihe (Chef 11.11., 20:19, Bild Thessas Kramladen, Tag 2, 16:40): „Die Partikel gehen über den Raum hinaus“ → Vorgang 990 (Tom, aus 814)
