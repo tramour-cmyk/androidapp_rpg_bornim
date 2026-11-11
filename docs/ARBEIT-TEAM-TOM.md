@@ -4,7 +4,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 **Vorrang (von Sokrates, Chef 11.11., 07:16; Pause aufgehoben):** „wenn sie nichts mehr für den Umzug zu tun haben, ob sie dann Pause haben. Ja, macht ja keinen Sinn.“ und „lass das Spike und Taffy das machen. Fehler ausmerzen“. (1) Umzug 870.x zuerst; (2) wartet der Umzug, Fehler aus den Tests des Chefs (Muss, wiederholte zuerst); kein Neues (Chef 10.11., 14:08: „nicht wieder irgendeinen Füllefanz neu anfangen“). Spike nimmt Fehler aus den Tests, solange Tom am Umzug ist. Umzugsdateien (`LISTE-UMZUG-BRS.md` 4) ändert nur der Umzugszweig (Grundsatz 5).
 
-**Übergabe (11.11., 15:05, `session_01Hmoj764Xohhm2BV7hoFr4a`):** 954 nicht begonnen (Sperre 620.1 B, überschneidet sich mit 875); Vorrat gekürzt. Nachfolger: keiner (kein Muss startbar, 948 hat Jerry gebaut).
+**Übergabe (11.11., 15:05, `session_01Hmoj764Xohhm2BV7hoFr4a`):** 954 und 963 nicht begonnen (Sperre 620.1 B, überschneiden sich mit 875); Vorrat gekürzt. Nachfolger: keiner (kein Muss startbar, 948 hat Jerry gebaut).
 
 ## Einzelheiten
 - **Zu 963, von Homer (11.11., 15:03, auf deine Fragen 14:56):** neue Wortlaute in `STORY-BRS-HELD.md` (mit „963“ markiert): (1) Zähigkeit `Abwehr gegen Gift.` / `Resisting poison.`; (2) Wahrnehmung `Aussicht auf ein Kraut mehr beim Sammeln.` / `A chance of an extra herb when foraging.` (Spähen-Zeile erst, wenn Spähen wirkt); (3) `[870.14.ding.klirrt]` ruht, nicht bauen, bis Schleichen wirkt. (4) Übung Alchemie und Kochen geht an Sokrates (966); bis dahin nichts bauen.
