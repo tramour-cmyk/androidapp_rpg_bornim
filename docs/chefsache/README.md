@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [903](entscheiden/903-checkliste-nach-probe.md) | **Muss** | B Abläufe | 11.11., 07:36 | Nach der Liste fand der Chef in vier Builds 11 neue Fehler statt 34; ich rate, die Liste fest zu behalten und weitere Listen und die Seite bis nach dem Umzug aufs BRS ruhen zu lassen. | Perikles |
 | [709c](entscheiden/709c-wolfsangriff.md) | **Muss** | E Kampf | 10.11., 19:35 | Statt seitlich herum (bis 90°) gerade von vorn durch die Mitte; offen ist vor allem, was beim Treffer am Schild passiert. | Jerry |
 
 ## Zu billigen
@@ -237,7 +238,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 854.1 | M | Von Tom (888, Lauf 42906784036): kauf_cache.py ablegen bricht ab, Zeile 21 ModuleNotFoundE | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 854 (ablegen) |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 18407 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 25, Muss 12, startbar 1
+**Perikles** – offen 25, Muss 12, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -265,7 +266,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 866 | M | Von Sokrates (620, Lagebild t274): Prüfliste geht nur gegengelesen raus; Wächter statt Abs | wartet auf Test/Build (gebaut) |
 | 882 | M | D140.1 (Diogenes, 870.18): Kotlin-Ausstieg ohne Werkzeuge: 870.10 nennt nur android.yml; a | wartet auf 870.4 (in Arbeit) |
 | 896 | M | Von Jerry (870.5): Wächter meldet „TP“ als SRD-Begriff (886), Homer 870.14 und DESIGN-BRS | wartet auf Test/Build (gebaut) |
-| 903 | M | D152.1 von Diogenes (771, 657 D): Probe 657 ausgewertet, Prüfbericht Lauf 152; Grundlage 1 | startbar |
+| 903 | M | D152.1 von Diogenes (771, 657 D): Probe 657 ausgewertet, Prüfbericht Lauf 152; Grundlage 1 | Chef (Datei in der Chefsache) |
 
 **Diogenes** – offen 7, Muss 6, startbar 0
 
