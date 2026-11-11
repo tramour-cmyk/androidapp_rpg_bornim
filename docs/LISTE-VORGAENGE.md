@@ -112,7 +112,6 @@
 | 951 | Fund t276 (Chef 11.11., 13:44): Blende Flüsterwald zeigte nur den Namen; DESIGN-BLENDE 7: nur bei häufigen Wechseln nur der Name, sonst ein Satz (fünf je Ort, nie zweimal hintereinander); ortsblende.gd zeigt ab dem zweiten Besuch nur den Namen; gegen alt prüfen | Tom | M | startbar | – | – | – | E Welt | – |
 | 954 | Von Sokrates (Chef 11.11., 13:55 „1 ja“): Erschaffung – Gedrückthalten erklärt je Grundwert, Volk, Herkunft und Fertigkeit in einem Satz, wie im Systemmenü (menue.gd erklaere_zeichen); Sätze aus 954.1 | Tom | M | startbar | – | – | – | E Kampf | – |
 | 964 | Von Tom (Zu 870.4, Homer 14:15): Metall sperrt Evokation, Illusion, Beschwörung im Kampf; zwei Grundwertzeilen ohne Wirkung gestrichen; nicht in B1 (Spike 14:57) | Tom | M | gebaut, Geprüft an: 6aa094fe7 (handlungen_870 am Rechner grün) | – | claude/tom-870-4-held | – | E Kampf | 2,81 $ |
-| Pflege | von Werkzeug (340.3, 11.11.): 15056 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
 | 963 | Von Tom (Zu 870.4, Fremdprüfung Homer 14:15): Heldenreiter Wortlaut ohne Wirkungsloses: Zähigkeit „Gift und Krankheit“ (nur Gift wirkt), Wahrnehmung „Spähen … Kräutersammeln“ (nur Kräuter wirkt); „klirrt“ ohne Schleichen im Spiel behalten?; Alchemie (Morwen braut) und Kochen (kein Kochen, nur Essen) nie geübt: wie üben? | Tom | M | startbar | – | – | – | E Kampf | – |
 | 945 | Wiederholfund t276.12 (Chef 11.11., 13:29, Bild; alt 241.2, Kotlin 20.10.): Held und Söldner auf Auto, dann sind alle Knöpfe weg und Auto ist nicht mehr abschaltbar; Schalter Auto aus muss immer sichtbar bleiben; Test, der beide auf Auto stellt und zurückschaltet; in B1 vor dem Zusammenführen | Jerry | M | gebaut, Geprüft an: f531562e5 | – | claude/jerry-945-auto | – | E Kampf | – |
 | 854 | Gebaute Kaufmodelle im Kaufrepo ablegen, nur bei Änderung neu bauen statt je Sitzung über 20 Min. (Chef 10.11., 12:34: ja; greift nicht, Lauf 336, 338) · „jetzt“ 11.11., 08:01 | Jerry | M | gebaut, Geprüft an: Lauf 347 (je Block abgelegt), Lauf 2 von 2 seit 14:31 | – | – | – | E Technik | 31,51 $ |
@@ -222,7 +221,7 @@
 | 958 | Von Tuffy (870.6): Test kampfzustand_532 rot auf main und B1: „Zustände hinein“ erwartet DRUNK draußen, MARS kennt DRUNK aber (mars.gd 106) | Jerry | M | gebaut, Geprüft an: 2ce39538f | – | claude/tuffy-958-leiden | – | E Kampf | – |
 | 959 | Von Homer (954.1): werte.json herkuenfte Schmiedelehrling hat nur Schmieden, Bergbau; 461c (3) sagt dazu Stumpfe Waffen; er trägt seine Waffe mit Fertigkeit 0 (main und Umzugszweige) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 960 | Von Homer (954.1): Verstand ohne Wirkung: BrsHeld.kennt_schwaechen (870d, ab Verstand 6 Schwächen und Stärken sehen) liest im Umzugszweig keiner; Ziel-Tipp danach richten | Jerry | M | startbar | – | – | – | E Kampf | – |
-| Pflege | von Werkzeug (340.3, 11.11.): 15309 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 11.11.): 15435 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
@@ -298,14 +297,14 @@
 | 869 | Systemlösung? Rüstung: 2 frühere Vorgänge (49, 817), neu 868; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Kampf | – |
 | 930 | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerry, Ideen Homer, Regeln gegenlesen Perikles oder Diogenes (Chef 11.11., 12:28) | Sokrates | M | startbar | 930.3 | – | – | E Kampf | 13,89 $ |
 | 930a | Rückfrage (Chef 11.11., 13:57, zu 930): F3 ohne Neuformation – nach einem Tod bleiben die übrigen Gegner stehen, Bewegung nur mit eigenem Grund | Sokrates | M | startbar | – | – | – | E Kampf | – |
-| Pflege | von Werkzeug (340.3, 11.11.): 17437 Bytes (Grenze 15000), Erledigtes streichen | Sokrates | K | startbar | – | – | – | B Abläufe | – |
 | 966 | Von Homer (aus 963, Tom 14:56): Alchemie und Kochen wirken in Kapitel 1, werden aber nie geübt (Prüfregel DESIGN-BRS.md 3); Vorschlag Homer: Alchemie übt bei Morwens Sud, Kochen in Kapitel 1 nicht wählbar (wie Bergbau 461c, zu 954a); Vorentscheid oder Frage | Sokrates | M? | startbar | – | – | – | G Balance | – |
+| Pflege | von Werkzeug (340.3, 11.11.): 18226 Bytes (Grenze 15000), Erledigtes streichen | Sokrates | K | startbar | – | – | – | B Abläufe | – |
 | 843 | D126.1 (Diogenes, 838): START ohne Sitzung 14 von 39 (09.11., 19:04 bis 10.11., 11:08), keiner mit --ohne; 3 ohne Grund (22:44 Spike, 10:25 Jerry, Perikles) | Ford | M | startbar | – | – | – | B Steuerung | 12,41 $ |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +917,44 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 767 | Wochentermin 13.11.: Rollenspiegel Ford (rollenspiegel.sh Ford) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Ford | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 906 | lauf.py startet Zusatzentwickler auf Zeilen, deren Zweig Umzugsdateien berührt (492 am 11.11., 08:04: claude/tom-492-durchspiel ändert spiel.gd; Grundsatz 5 LISTE-UMZUG-BRS, Zu 870.4 Sokrates 01:57); Sperre nach geänderten Dateien prüfen (von Spike) | Ford | M? | startbar | – | – | – | B Steuerung | – |
-| Pflege | von Werkzeug (340.3, 11.11.): 53742 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 11.11.): 53870 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
