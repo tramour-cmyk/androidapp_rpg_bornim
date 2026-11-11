@@ -64,5 +64,6 @@ Bekannt (814, aus deinem Film, Ursache wird gesucht): das Huhn fliegt nicht auf,
 - 277.6 ✓ (Chef 11.11., 20:23)
 - 277.7 ✗ Ruckeln mit und ohne Nebel: mit Nebel Bilder/s 13 im Kampf (langsamstes 1 %: 88 ms, längstes 148 ms, über 50 ms: 1217), Zeichenaufrufe 170, Dreiecke 347k; ohne Nebel 17 (66 ms, 137 ms, über 50 ms: 1237), 135, 323k (Chef 11.11., 20:27 und 20:30, zwei Bilder); Lichtschächte und Nebel im Bild kaum zu sehen; Chef 20:28: „auf jeden Fall sehr hoppelig, gerade beim Start und alles … kein Top-Spielerlebnis“; 20:30: „den Nebel habe ich wirklich nicht gesehen. Keine Ahnung, wo der da gewesen sein soll.“ (kostet 4 Bilder/s, unsichtbar). Bildschirm springt → Vorgang 992 (Jerry)
 - 277.8 ✓ (Chef 11.11., 20:27)
+- 277.9 ✓ (Chef 11.11., 20:31)
 - Außer der Reihe (Chef 11.11., 20:24): Testmenü zeigt am Zeichen nicht, was an oder aus ist → Vorgang 991 (Tom)
 - Außer der Reihe (Chef 11.11., 20:19, Bild Thessas Kramladen, Tag 2, 16:40): „Die Partikel gehen über den Raum hinaus“ → Vorgang 990 (Tom, aus 814)
