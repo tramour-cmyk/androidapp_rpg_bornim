@@ -52,6 +52,13 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 157 · 912 Vorgang aus dem Zweignamen (Perikles, Doppelpack 421, `b945f7e2b`; 11.11., 09:3x)
+
+- **912 greift für B1:** `nr_aus_zweigname('claude/tom-870-4-held')` = 870.4.
+- **D157.1 → 913 (Perikles):** `nr_aus_zweigname` liest die Liste mit `zweig_lesen(…, "main")` (`git fetch origin main`) und verbiegt FETCH_HEAD; `vorgang_aus_ref` liest danach mit `nr_aus_verlauf(REPO, "FETCH_HEAD")` main statt des Zweigs. Nachgestellt: FETCH_HEAD `8bbafbcb6` (jerry-709a-tiefbiss) → `d44d730a5` (origin/main), Ergebnis None statt 709a; ein Handlauf auf einem Zweig ohne Nummer im Namen zählt wieder unter dem Zweignamen (911 kehrt zurück). Push-Weg (HEAD) nicht betroffen.
+- **D157.2 → 914 (Perikles):** Name gegen eigenen Verlauf über 34 Zweige `claude/*` (ohne Sammelbuild): abweichend `perikles-264-runner` 264 / 264.1, `jerry-348-642-wolf-abstand` 348 / 642, `jerry-717-rueckwaerts` 717 / 778; der Name trägt oft die übergeordnete Nummer. Wirkt nur bei Merge oben; dann zählt etwa ein 264.1-Lauf unter 264, „264.1, Läufe frei“ greift nicht. Mein Hinweis „Zweigname“ (Zu 912) trägt das mit.
+- **Nicht geprüft:** Push-Weg mit Ziel-Zweig im Refspec, der nicht HEAD ist (Name aus `rev-parse HEAD`).
+
 ## Lauf 156 · 911 Handlauf ohne Nummer oben, 264.1 Uhrzeit im Feld „wartet auf“ (Perikles, Doppelpack 421, `025dcf1bf`, `caf221f84`, `ee20ff5a8`; 11.11., 09:2x)
 
 - **D156.1 → 912 (Perikles), 911 wartet darauf:** nachgestellt im Modul gegen `origin/claude/tom-870-4-held`: `nr_aus_verlauf(…, 93173963c)` = 870.4 (der Fall von 09:19 greift), aber der Zweig steht schon weiter: oben Toms Merge `e0c57e573` „Merge 864 und 904 (Jerry) in B1“, erste Eltern Jerrys `44dec34a2` „864: …“. `vorgang_aus_ref` gibt 864; der nächste B1-Lauf zählt unter Jerrys 864 (stand 0, wird verbraucht), nicht unter 870.4, das Sokrates 09:12/09:19 für diesen Lauf freigab. Reihenfolge Commit oben → eigener Commit → Name in Klammern → Zweig wie im Kopf von `probelauf.py`; kein echter Merge-Lauf seit 09:22 im Zweig `probelaeufe` (letzte Zeilen 09:20).

@@ -4,7 +4,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (11.11., 09:2x, `session_01Hmoj76KYgzpeZEbq36e3wK`):** Lauf 156: 264.1 (Commit-Prüfung) greift; 911 greift nicht ganz → 912 (D156.1) an Perikles. Nächste Nummer D157. Nachfolger: keiner
+**Übergabe (11.11., 09:2x, `session_01Hmoj76KYgzpeZEbq36e3wK`):** Lauf 156: 264.1 (Commit-Prüfung) greift; 911 greift nicht ganz → 912 (D156.1). Lauf 157: 912 greift für B1, Lücken → 913 (D157.1), 914 (D157.2) an Perikles. Nächste Nummer D158. Nachfolger: keiner
 
 - **Zu 853 (Lauf 133, 134; Lauf 154: Spike 492 meldet sich als Spike, ohne Rückfrage; Lauf 156: Jerry 806, 09:10, erste Antwort nennt Rolle und Vorgang, ohne Rückfrage):** Diese von Ford gestartete Sitzung (870.1) hat die Rolle ohne Rückfrage übernommen, und `notiz.sh` nennt Jerry. Beim nächsten Lauf noch eine fremde Rolle ansehen (`list_events`, `kinds` user/assistant, erste Seite). Fragt sie nach der Rolle → Vorgang an Perikles. Auf Abruf (768 am 13.11., 790 und 461b am 16.11.).
 
@@ -13,8 +13,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 ## Zeilen
 
-- **Zu 912, von Perikles (Doppelpack 421, 11.11., 09:30, `b945f7e2b`):** Reihenfolge in `probelauf.py`: Nummer des obersten Commits, sonst Vorgang aus dem Zweignamen (`nr_aus_zweigname`, nur wenn in Liste oder Archiv, längste Lesart zuerst: `tom-870-4` → 870.4), sonst eigener Verlauf (911), Ablaufname, Zweig. Nachgestellt: `vorgang_aus_ref('claude/tom-870-4-held')` = 870.4; `jerry-806-493-kampfort` → 806.
-- **Zu 911 (Lauf 156):** wartet auf 912 (D156.1, Merge auf B1 zählt unter Jerrys 864). Nach 912: nachstellen an `claude/tom-870-4-held`, dann am nächsten echten Merge-Lauf Zeile im Zweig `probelaeufe` mit der freigegebenen Nummer; dann `greift 911`.
+- **Zu 911, 912 (Lauf 156, 157):** 912 greift für B1; 911 und 912 warten auf 913 (D157.1 FETCH_HEAD), 914 (D157.2 Zweigname vor Verlauf). Danach nachstellen: B1 → 870.4, `perikles-264-runner` mit Merge oben → 264.1, Zweig ohne Nummer im Namen → eigener Verlauf; dann am nächsten echten Merge-Lauf Zeile im Zweig `probelaeufe`; dann `greift 911`, `greift 912`.
 
 - **Zu 464 (Lauf 110):** Haken (748) und Zählung (749) greifen, Lücken 776, 777 geschlossen; 464 wartet auf 16.11.: Wirkung in der Wochenzählung 16.11.: rote Bauläufe der Woche gegen 52 von 185 (28 %) der Vorwoche, dann `greift 464` oder Befund.
 - **Zu 719 (Perikles, „719 A“):** Wochenzählung kommt montags ab 8 Uhr als Vorgang „Wochentermin TT.MM.: Wochenzählung …“; nach der Zählung erledigt setzen. Zeile „Woche“ erledigt 09.11.
