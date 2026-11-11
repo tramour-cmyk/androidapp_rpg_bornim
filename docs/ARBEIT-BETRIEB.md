@@ -411,6 +411,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:28 11.11.: Startsperre 18:28 Start Jerry (Ford, vor dem Start; Meldung Ford alt 18:28, Sokrates gab 595 frei, effort high)
 - 18:24 11.11.: Startsperre 18:24 Start Tuffy (Ford, vor dem Start; Neustart-Meldung 058507b24, effort high)
 - 18:25 11.11.: Startsperre 18:25 Start Ford (selbst; Aufwand Hoch, Meldung Perikles 18:19: meine Sitzung lief auf „medium“)
+- 19:59 11.11.: Startsperre 19:59 Start Jerry (Ford, vor dem Start; Neustart-Meldung 7cbd100b3, effort high)
 - 19:17 11.11.: Startsperre 19:17 Start Sokrates (Ford, vor dem Start; Neustart-Meldung 8717da33a, effort high)
 - 19:11 11.11.: Startsperre 19:11 Start Tuffy (Ford, vor dem Start; Neustart-Meldung e9cf56384, effort high)
 - 18:21 11.11.: Startsperre 18:21 Start Spike, Sokrates (Ford, vor dem Start; Neustart-Meldungen 18:14 und 18:17, effort high)
