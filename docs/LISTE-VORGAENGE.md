@@ -200,6 +200,7 @@
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 915 | 705a, von Sokrates: Kampfzeile beim ersten Vertreiben durch Feuer (Rudel flieht, kein Fell, keine Erfahrung), gilt für jeden Helden (Chef 11.11., 09:42) | Homer | M | startbar | – | – | – | G Story | – |
+| 917 | Von Jerry (868): Spielanleitung im Menü (core I18n „anleitung“, texte.json) noch SRD: W20, Rüstungsklasse, Kampfstil Verteidigung +1 RK, Feuerpfeil, Attribute mit GES; Text nach BRS, danach Bau (Tom, Menü) | Homer | M | startbar | – | – | – | G Story | – |
 | 264.1 | Von Sokrates (264): Probe godot.yml auf eigenem Runner, Bauzeit je Schritt gegen GitHub · „jetzt“ 10.11., 17:20 | Perikles | M | in Arbeit, Lauf 340 läuft | 11.11. 10:00 | claude/perikles-264-runner | – | B Werkzeuge | 23,63 $ |
 | 870.12 | Von Sokrates (870, Umzug BRS): Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 neu fassen; nach Abnahme 868, 534, 467, 469, 644.1, 644.2, 644.4, 649.1, 811, 296, 344 schließen; LISTE-UMZUG-BRS.md 4 Schritt 9 | Perikles | M | wartet, 2.3 und 2.17 neu gefasst, Schließen nach Abnahme | 870.13 | – | – | B Abläufe | – |
 | 870.10 | Von Sokrates (870, Umzug BRS Schritt 8): Kotlin-Bau aus (android.yml), mit 870.9; LISTE-UMZUG-BRS.md 4 | Perikles | M | wartet | 870.9, 882 | – | – | B Werkzeuge | – |
