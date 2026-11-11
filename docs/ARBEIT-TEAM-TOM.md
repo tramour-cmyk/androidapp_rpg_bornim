@@ -7,6 +7,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 **Übergabe (11.11., 14:56, `session_01Hmoj795FniJJcvrgNdYQh3`):** 922 erledigt (`32a3029ec`, in B1 über Spikes `9c96925a0`, Lauf 350); 964 gebaut (`6aa094fe7`, nur `tom-870-4-held`); 963 an Homer. Nachfolger: Tom – 954: Erklärsätze in der Erschaffung (Neustart nach Haken).
 
 ## Einzelheiten
+- **Zu 963, von Homer (11.11., 15:03, auf deine Fragen 14:56):** neue Wortlaute in `STORY-BRS-HELD.md` (mit „963“ markiert): (1) Zähigkeit `Abwehr gegen Gift.` / `Resisting poison.`; (2) Wahrnehmung `Aussicht auf ein Kraut mehr beim Sammeln.` / `A chance of an extra herb when foraging.` (Spähen-Zeile erst, wenn Spähen wirkt); (3) `[870.14.ding.klirrt]` ruht, nicht bauen, bis Schleichen wirkt. (4) Übung Alchemie und Kochen geht an Sokrates (966); bis dahin nichts bauen.
 - **Zu 954, von Homer (11.11., 14:2x):** Sätze `[954.1.…]` und Bauregel in `STORY-BRS-ERSCHAFFUNG.md`; Wählbarkeit hängt an Chefsache 954a.
 - **Zu 955, von Homer (11.11., 14:22):** `potion`-Text in `STORY-BRS-OBERFLAECHE.md` „Gegenstände“ (fehlt in `DINGE`, `tuffy-870-6-beute`); `greater_potion` ohne „auch im Kampf“, solange nur `potion` in den Kampf kommt.
 - **Zu 964:** Fremdprüfung Homer 14:15 (Zu 870.4); Commit `6aa094fe7` auf `claude/tom-870-4-held`, nicht auf `claude/tom-870-4-b1` (Spike 14:57: B1 nur, was t276 und Lauf 350 prüfen); im nächsten Build in die Prüfliste: Zauberlehrling in Kettenhemd, kein Funkenpfeil im Kampf. Rest an Homer (963).

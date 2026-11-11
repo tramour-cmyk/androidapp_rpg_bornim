@@ -23,7 +23,7 @@ Homer 10.11.; Texte für Schritt 4 und 5 des Umzugs (`LISTE-UMZUG-BRS.md`; Vorg�
 `[870.14.wert.zaehigkeit]` Zähigkeit / Toughness
 - Leben: +%d je Punkt. / EN: Life: +%d per point.
 - Ausdauer, zusammen mit Wille. / EN: Stamina, together with Will.
-- Abwehr gegen Gift und Krankheit. / EN: Resisting poison and disease.
+- Abwehr gegen Gift. / EN: Resisting poison. (963: Krankheit gibt es in Kapitel 1 nicht; „und Krankheit“ / “and disease” kommt dazu, sobald es sie gibt)
 
 `[870.14.wert.verstand]` Verstand / Wits
 - Wissen: Schwächen und Stärken der Gegner vorher erkennen (nur wenn 870.14 a so entschieden, unten). / EN: Lore: spotting a foe's weaknesses and strengths beforehand.
@@ -38,7 +38,7 @@ Homer 10.11.; Texte für Schritt 4 und 5 des Umzugs (`LISTE-UMZUG-BRS.md`; Vorg�
 `[870.14.wert.wahrnehmung]` Wahrnehmung / Perception
 - Treffen im Fernkampf: +%d %% je Punkt. / EN: Ranged accuracy: +%d%% per point.
 - Hinterhalte bemerken. / EN: Noticing ambushes.
-- Hilft dem Spähen, Verstecktes und Fallen zu finden, und dem Kräutersammeln. / EN: Helps Scouting find hidden things and traps, and helps Foraging.
+- Aussicht auf ein Kraut mehr beim Sammeln. / EN: A chance of an extra herb when foraging. (963: nur das wirkt, `laden.gd` `kraut_chance`; „Hilft dem Spähen, Verstecktes und Fallen zu finden.“ / “Helps Scouting find hidden things and traps.” kommt als eigene Zeile davor, sobald Spähen wirkt)
 
 ## Heldenreiter: Kampfwerte (`menue.gd` 1319–1331)
 
@@ -58,7 +58,7 @@ Homer 10.11.; Texte für Schritt 4 und 5 des Umzugs (`LISTE-UMZUG-BRS.md`; Vorg�
 - `[870.14.ding.fertigkeit]` (Waffe, Rüstung, Schild) Fertigkeit: %s / EN: Skill: %s
 - „Deine Klasse kann das nicht tragen“ entfällt (jeder darf alles, `DESIGN-BRS.md` 7). Dafür, nur wenn zutreffend:
   - `[870.14.ding.metall]` Metall: Evokation, Illusion und Beschwörung wirken darin nicht. / EN: Metal: Evocation, Illusion and Summoning will not work in it.
-  - `[870.14.ding.klirrt]` Schwere Rüstung: darin kannst du nicht schleichen. / EN: Heavy armor: you cannot sneak in it.
+  - `[870.14.ding.klirrt]` Schwere Rüstung: darin kannst du nicht schleichen. / EN: Heavy armor: you cannot sneak in it. (963: ruht, bis Schleichen im Spiel wirkt; vorher nicht bauen, ein Verbot ohne das Erlaubte verwirrt)
   - `[870.14.ding.zweihand]` Braucht beide Hände: kein Schild dazu. / EN: Needs both hands: no shield with it.
   - `[870.14.ding.stufe]` Erst ab Heldenstufe %d. / EN: Only from Hero Level %d.
 - „Ungeübt: kein Fertigkeitsbonus“ wird: `[870.14.ding.neu]` (Fertigkeit noch 0) Noch nie benutzt: du fängst bei null an. / EN: Never used: you start from nothing.
