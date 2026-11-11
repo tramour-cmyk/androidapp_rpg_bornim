@@ -21,7 +21,6 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [784](ansehen/784-runde-film.md) | Film: eine Runde gegen das Wolfsrudel heute | Tuffy | 11.11., 10:40 |
-| [806](ansehen/806-kampfort.md) | Bild: Lichtung mit und ohne Nebel | Jerry | 11.11., 11:34 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
@@ -146,7 +145,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 875 | M | Von Homer (857a A, Chef 10.11., 13:35): Fertigkeit Kräuterkunde heißt im Spiel Kräutersamm | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.4 (erschaffung) |
 | 882.1 | M | Von Perikles (882, Umzug BRS Schritt 8): mit 870.9 auch godot-kampf.yml 41 (exportIntro) a | wartet auf 870.9 (wartet) |
 
-**Jerry** – offen 91, Muss 82, startbar 4
+**Jerry** – offen 91, Muss 82, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -163,7 +162,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 406.2 | M | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (schild) |
 | 642 | M | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 | ruht |
 | 705 | M | Zauberlehrling Stufe 1 gewinnt gegen Wolf und Rudel selten (BRS 2–30 %, Messung anspringen | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
-| 806 | M | Kampforte mit den Effektpaketen schöner: Gras und Blumen aus R9, Boden, Staub; Bilder/s ni | Chef (Datei in der Chefsache) |
+| 806 | M | Kampforte mit den Effektpaketen schöner: Gras und Blumen aus R9, Boden, Staub; Bilder/s ni | startbar |
 | 595 | M | Kampfbewegungen der Kaufgegner: Spinne mehr Angriffe, Egel und Schnecke schneller, Treffhö | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (figur.gd) |
 | 616 | M | Kampf: Gegner weichen nach dem Angriff rückwärts zurück statt vorwärts zu laufen (Chef 07. | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (laufen) |
 | 532 | M | Kampf: Held geht ohne Zauberpunkte, Verbrauchtes, Zustände, Metrausch und ohne die ganze T | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (sokrates) |
@@ -242,7 +241,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 922 | M | Von Tom (B1, Lauf 346): wildschwein_494 und skelett_506 prüfen noch SRD-Trefferpunkte (2W8 | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.3 (json) |
 | 923 | M | Von Tom/Sokrates (t276 gegengelesen): Heiltrank in tools/sim444/werte.json doppelt, welt.h | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (sokrates) |
 
-**Perikles** – offen 21, Muss 12, startbar 0
+**Perikles** – offen 21, Muss 12, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -259,8 +258,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 725 | K | D72 probelauf.py: arbeitskopie/push_lauf lösen cd $VAR und cd "$HOME/…" nicht auf, figur_s | wartet auf Diogenes (greift?) |
 | 727 | K | D62.2 lauf.py: Uhrzeit im Nachfolger („ab 16.11., 8 Uhr“) wird am Tag selbst nicht gelesen | wartet auf Diogenes (greift?) |
 | 730 | K | D86.1 probelauf.py: Ausnahme Sammelbuild gilt für jeden Ablauf auf claude/build-<n> (godot | wartet auf Diogenes (greift?) |
-| 731 | K | D87.1 Prüfung „Alt:“ (647) greift nicht bei Push über den GitHub-Server (push_files, creat | ruht |
-| 732 | K | D89.1 glossar.py: Begriff mit Bindestrich vorn geht als Schalter an git grep; -e davor (vo | ruht |
+| 731 | K | D87.1 Prüfung „Alt:“ (647) greift nicht bei Push über den GitHub-Server (push_files, creat | wartet auf Diogenes (greift?) |
+| 732 | K | D89.1 glossar.py: Begriff mit Bindestrich vorn geht als Schalter an git grep; -e davor (vo | startbar |
 | 734 | K | D92.1 Warnung „LISTE-VORGAENGE.md von Hand geändert“ wird nirgends festgehalten, Woche War | ruht |
 | 735 | K | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-ABNAHME.md 11 und Kopf DESIGN-KAMPF | ruht |
 | 866 | M | Von Sokrates (620, Lagebild t274): Prüfliste geht nur gegengelesen raus; Wächter statt Abs | wartet auf Test/Build (gebaut) |
@@ -268,7 +267,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 903 | M | D152.1 von Diogenes (771, 657 D): Probe 657 ausgewertet, Prüfbericht Lauf 152; Grundlage 1 | wartet auf Test t276 (Chef) |
 | 919 | M | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): Regeln nachziehen: Testbitte auch bei rot | wartet auf 918 (startbar) |
 
-**Diogenes** – offen 12, Muss 7, startbar 4
+**Diogenes** – offen 13, Muss 7, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -277,6 +276,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 725 | K | D72 probelauf.py: arbeitskopie/push_lauf lösen cd $VAR und cd "$HOME/…" nicht auf, figur_s | startbar |
 | 727 | K | D62.2 lauf.py: Uhrzeit im Nachfolger („ab 16.11., 8 Uhr“) wird am Tag selbst nicht gelesen | startbar |
 | 730 | K | D86.1 probelauf.py: Ausnahme Sammelbuild gilt für jeden Ablauf auf claude/build-<n> (godot | startbar |
+| 731 | K | D87.1 Prüfung „Alt:“ (647) greift nicht bei Push über den GitHub-Server (push_files, creat | startbar |
 | 461b | M | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Termin 16.11. |
 | 348.9 | M | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | ruht |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
