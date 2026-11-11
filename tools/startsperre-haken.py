@@ -7,7 +7,9 @@ Rolle: Titel bis „ – “ („Perikles – 775: …“), sonst erstes Wort de
 Unbekannte Rolle (Name, den das Protokoll nie führt): durchlassen, kein Projektstart. Netz weg: liest die lokale Kopie.
 Notfall-Neustart durch eine Sitzung selbst (LISTE-RELEASE-NEUSTART.md Schritt 2): Zeile „- HH:MM TT.MM.: Startsperre HH:MM
 Start <Name> (selbst)“ ins Protokoll, pushen, dann create_session.
-Aufruf: als PreToolUse-Haken (JSON auf stdin); zum Prüfen: startsperre-haken.py --rolle NAME
+982 (D180.1, zu 981): bis HOCH_BIS aus lauf.py (901: Chef 11.11., 07:18, 365a B „alle Rollen mit Hoch“) hält der Haken jedes
+create_session einer Rolle ohne `effort: "high"` an, gleich auf welchem Weg (START-Zeile, Neustart, Notfall, Selbstneustart Ford).
+Aufruf: als PreToolUse-Haken (JSON auf stdin); zum Prüfen: startsperre-haken.py --rolle NAME [--effort WERT]
 """
 import datetime, json, os, re, subprocess, sys
 
@@ -62,15 +64,36 @@ def pruefen(rolle, jetzt=None):
             "von ARBEIT-BETRIEB.md, pushen, dann create_session." % (rolle, rolle, seit, rolle))
 
 
+def hoch_bis():
+    """982: Stichtag aus lauf.py (ein Ort); ohne lesbare Zeile None (dann keine Prüfung)."""
+    try: t = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "lauf.py"), encoding="utf-8").read()
+    except OSError: return None
+    m = re.search(r"^HOCH_BIS = datetime\.datetime\((\d+), (\d+), (\d+), (\d+), (\d+)", t, re.M)
+    if not m: return None
+    import zoneinfo
+    return datetime.datetime(*map(int, m.groups()), tzinfo=zoneinfo.ZoneInfo("Europe/Berlin"))
+
+
+def aufwand(rolle, effort, jetzt=None):
+    b = hoch_bis()
+    import zoneinfo
+    jetzt = jetzt or datetime.datetime.now(zoneinfo.ZoneInfo("Europe/Berlin"))
+    if b is None or jetzt >= b or effort == "high": return None
+    return ("Aufwand fehlt (982): bis %s starten alle Rollen mit Aufwand hoch (901, 365a B); create_session für %s mit "
+            "`effort: \"high\"` wiederholen (START-Zeile: Feld „effort high“, LISTE-BETRIEB.md Startzuordnung)." % (b.strftime("%d.%m., %H:%M"), rolle))
+
+
 def main():
     if "--rolle" in sys.argv:
-        f = pruefen(sys.argv[sys.argv.index("--rolle") + 1]); print(f or "frei"); sys.exit(2 if f else 0)
+        r = sys.argv[sys.argv.index("--rolle") + 1]
+        e = sys.argv[sys.argv.index("--effort") + 1] if "--effort" in sys.argv else None
+        f = pruefen(r) or aufwand(r, e); print(f or "frei"); sys.exit(2 if f else 0)
     try: daten = json.load(sys.stdin)
     except Exception: sys.exit(0)
     if not str(daten.get("tool_name", "")).endswith("create_session"): sys.exit(0)
     rolle = rolle_aus(daten.get("tool_input") or {})
     if not rolle: sys.exit(0)
-    f = pruefen(rolle)
+    f = aufwand(rolle, (daten.get("tool_input") or {}).get("effort")) or pruefen(rolle)
     if f:
         print(f, file=sys.stderr); sys.exit(2)
 
