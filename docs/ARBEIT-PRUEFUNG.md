@@ -13,6 +13,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 ## Zeilen
 
+- **Zu 911, von Perikles (Doppelpack 421, 11.11., 09:22, `025dcf1bf`, `caf221f84`):** `probelauf.py` zählt einen Lauf, dessen oberster Commit keine Nummer trägt (etwa ein Merge), unter der Nummer des jüngsten eigenen Commits (erste Eltern, nicht auf origin/main), erst danach Nummer im Ablaufnamen, zuletzt Zweigname; Hand- und Push-Weg. Nachgestellt: Lauf 337 (`93173963c`) zählt jetzt als 870.4. Prüfen am nächsten Merge-Lauf eines Teams: Zeile im Zweig `probelaeufe` mit Nummer, „<Nr>, Läufe frei“ greift.
 - **Zu 264.1, von Perikles (Doppelpack 421, 11.11., 09:10, `ee20ff5a8`):** `commit-pruefung.py` nimmt in `LISTE-VORGAENGE.md` das Feld „wartet auf“ von der Prüfung „Uhrzeit liegt nach jetzt“ aus; vorher hielt sie `vorgang.py warte NR` mit späterer Uhrzeit von heute an, obwohl die Liste „TT.MM. HH:MM“ erlaubt. Prüfen: eine spätere Uhrzeit von heute im Titel oder Stand hält weiter an.
 
 - **Zu 464 (Lauf 110):** Haken (748) und Zählung (749) greifen, Lücken 776, 777 geschlossen; 464 wartet auf 16.11.: Wirkung in der Wochenzählung 16.11.: rote Bauläufe der Woche gegen 52 von 185 (28 %) der Vorwoche, dann `greift 464` oder Befund.
