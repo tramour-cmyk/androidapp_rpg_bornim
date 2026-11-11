@@ -1005,4 +1005,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 771 | Probe 657 auswerten: Erstfunde des Chefs t272–t275 gegen 11, 11, 9, 7 (von Perikles, Werkzeug 657 greift laut Lauf 104) | Q QM | M | 5,95 $ | Diogenes | erledigt |
 | 365a | Rückfrage: Aufwand Hoch für Tom und Jerry bis Sa 14.11., 20:00 (Chef 11.11., 07:13) | B Abläufe | M | – | Sokrates | erledigt |
 | 902 | Von Ford und Sokrates (383): Wächter meldet laut trotz „wartet auf“ oder Stand gebaut (870.6, 900 am 11.11., 07:24; 264 am 10.11.); solche Zeilen auslassen | B Werkzeuge | M | – | Perikles | erledigt, greift Lauf 153 |
-| 901 | Von Sokrates (365a B, Chef 11.11., 07:18; „jetzt“ 11.11., 07:18): lauf.py UMGEBUNG alle Rollen auf HOCH bis Sa 14.11., 20:00, danach von selbst MITTEL | B Werkzeuge | M | – | Perikles | erledigt, greift Lauf 153 |
+| 901 | Von Sokrates (365a B, Chef 11.11., 07:18; „jetzt“ 11.11., 07:18): lauf.py UMGEBUNG alle Rollen auf HOCH bis Sa 14.11., 20:00, danach von selbst MITTEL | B Werkzeuge | M | 1,55 $ | Perikles | erledigt, greift Lauf 153 |
