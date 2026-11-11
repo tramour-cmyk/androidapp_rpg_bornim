@@ -32,7 +32,7 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 2, startbar 1
+**Homer** – offen 4, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -40,9 +40,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 | 954a | M? | Rückfrage aus 954.1: in der Erschaffung nur Fertigkeiten zur Wahl, die in Kapitel 1 wirken | Chef (Datei in der Chefsache) |
-| 963 | M | Von Tom (Zu 870.4, Fremdprüfung Homer 14:15): Heldenreiter Wortlaut ohne Wirkungsloses: Zä | startbar |
 
-**Tom** – offen 102, Muss 82, startbar 1
+**Tom** – offen 103, Muss 83, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -148,6 +147,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 954 | M | Von Sokrates (Chef 11.11., 13:55 „1 ja“): Erschaffung – Gedrückthalten erklärt je Grundwer | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 875 (erschaffung) |
 | 964 | M | Von Tom (Zu 870.4, Homer 14:15): Metall sperrt Evokation, Illusion, Beschwörung im Kampf; | wartet auf Test/Build (gebaut) |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 15056 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 963 | M | Von Tom (Zu 870.4, Fremdprüfung Homer 14:15): Heldenreiter Wortlaut ohne Wirkungsloses: Zä | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 875 (krautersammeln) |
 
 **Jerry** – offen 109, Muss 100, startbar 1
 
@@ -294,7 +294,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 52, Muss 38, startbar 29
+**Sokrates** – offen 53, Muss 38, startbar 30
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -350,6 +350,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 930 | M | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (startbar) |
 | 930a | M | Rückfrage (Chef 11.11., 13:57, zu 930): F3 ohne Neuformation – nach einem Tod bleiben die | startbar |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 17437 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 966 | M? | Von Homer (aus 963, Tom 14:56): Alchemie und Kochen wirken in Kapitel 1, werden aber nie g | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
