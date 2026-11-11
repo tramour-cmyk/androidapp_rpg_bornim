@@ -261,7 +261,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 952 | M | Von Sokrates (Chef 11.11., 13:53, Erschaffung Mensch): kritisch 7 % schon als Anfänger („k | startbar |
 | 953 | M | Von Sokrates (Chef 11.11., 13:53, Erschaffung Mensch): kritisch 7 % schon als Anfänger („k | startbar |
 | 956 | M | Von 870.6a A (Chef 11.11., 13:55): Gift, Brand, Blutung als Anteil am vollen Leben mit dem | nach dem Meilenstein |
-| 930.3 | M | Von Sokrates (930): Rechnung und Film zur Regelseite Handgemenge (DESIGN-KAMPF.md, Entwurf | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 784 |
+| 930.3 | M | Von Sokrates (930): Rechnung (fertig, handgemenge_930.md) und Film zur Regelseite Handgeme | wartet auf 931 (startbar) |
 | 958 | M | Von Tuffy (870.6): Test kampfzustand_532 rot auf main und B1: „Zustände hinein“ erwartet D | wartet auf Test/Build (gebaut) |
 | 959 | M | Von Homer (954.1): werte.json herkuenfte Schmiedelehrling hat nur Schmieden, Bergbau; 461c | startbar |
 | 960 | M | Von Homer (954.1): Verstand ohne Wirkung: BrsHeld.kennt_schwaechen (870d, ab Verstand 6 Sc | startbar |
@@ -361,7 +361,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 850 | K | Systemlösung? Halt: 7 frühere Vorgänge (244, 321.1, 488, 793, 662 …), neu 849; einmal grun | startbar |
 | 862 | K | Systemlösung? Umhang: 6 frühere Vorgänge (58, 488, 463, 463.1, 656 …), neu 861; einmal gru | startbar |
 | 869 | K | Systemlösung? Rüstung: 2 frühere Vorgänge (49, 817), neu 868; einmal grundsätzlich lösen? | startbar |
-| 930 | M | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (startbar) |
+| 930 | M | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (wartet) |
 | 930a | M | Rückfrage (Chef 11.11., 13:57, zu 930): F3 ohne Neuformation – nach einem Tod bleiben die | startbar |
 ## Lücken
 
