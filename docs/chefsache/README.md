@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [644a](entscheiden/644a-mindeststufe.md) | **Muss** | E Kampf | 11.11., 22:01 | Mindeststufe zum Tragen bauen, wie im Regelwerk vorgesehen; ein Stück ab Stufe 4 trägt die doppelte Zusatzeigenschaft (Leben +10 statt +5) statt mehr Grundschaden; Funde höchstens eine Stufe über dem Helden; Deckel streichen, Menge an der Quelle steuern; Grundwert +1 durch Üben, Zahl aus der Rechnung | Sokrates |
 
 ## Zu billigen
 
@@ -319,7 +323,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 54, Muss 39, startbar 31
+**Sokrates** – offen 54, Muss 39, startbar 30
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -374,7 +378,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 869 | K | Systemlösung? Rüstung: 2 frühere Vorgänge (49, 817), neu 868; einmal grundsätzlich lösen? | startbar |
 | 930 | M | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (wartet) |
 | 985 | K | Systemlösung? Nebel: 2 frühere Vorgänge (505, 502), neu 785.7; einmal grundsätzlich lösen? | startbar |
-| 644a | M | Rückfrage: Mindeststufe zum Tragen, Stärke je Gegenstandsstufe, Abstand der Funde (Chef 11 | startbar |
+| 644a | M | Rückfrage: Mindeststufe zum Tragen, Stärke je Gegenstandsstufe, Abstand der Funde (Chef 11 | Chef (Datei in der Chefsache) |
 | 996 | M | Von Tuffy (595): Filmlauf frei nach 480.1? Probe am Rechner 21:14 kaputt durch eigenen Feh | startbar |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 15182 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 ## So geht's
