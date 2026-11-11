@@ -1465,7 +1465,7 @@ func _inflict(t: Fighter, st: String, turns: int, save = null, die = null) -> bo
 			var P := _proben()
 			var gegen = _staerkster_gegner(t)
 			var schwere := (int(save[1]) - int(P.get("abwehr_mitte", 11))) * float(P.get("je_punkt", 5))
-			if gegen != null and _probe(t, String(save[0]), gegen, "", -schwere):
+			if gegen != null and _probe(t, String(save[0]), gegen, "", -schwere + float(t.b.get("zusatz", {}).get("abwehr", 0))):     # 870.6
 				_say(fmt(ST_SHRUGS, lang, [who]), null, t.id)
 				return false
 		var ten := int(h.get("tenacity", 0))
@@ -2076,6 +2076,8 @@ func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapo
 	var wd: Dictionary = W["waffen"].get(gruppe, W["waffen"]["Faustkampf"])
 	var gw = wd.get("grundwert")
 	var grund := float(wd["schaden"]) + (float(f.b.werte.get(gw, 0)) if gw != null else 0.0)
+	if w == null or w == f.main_weapon():     # 870.6: Güte der Hauptwaffe (werte.json „gegenstaende“ „guete“)
+		grund += float(f.b.get("guete", 0)) * float(W.get("gegenstaende", {}).get("guete", {}).get("schaden_je_stufe", 1))
 	var bonus := _brs_bonus(mode, -_penalty(f) + _fed(f))
 	if String(wd.get("art", "nah")) == "fern":
 		bonus += float(k["fernkampf_treffer_je_wahrnehmung"]) * float(f.b.werte.get("wahrnehmung", 0))
@@ -2084,7 +2086,8 @@ func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapo
 	f.geschlagen = true
 	grund *= float(mod.get("schaden", 1.0))
 	var e := BrsKampf.schlag(dice.rng, float(f.b.fert.get(gruppe, 0)), float(t.b.abwehr), grund, float(int(f.b.stufe) - int(t.b.stufe)),
-			float(t.b.ruestung) * float(mod.get("ruestung", 1.0)), bonus, float(k["kritisch_prozent_je_gewandtheit"]) * float(f.b.werte.get("gewandtheit", 0)))
+			float(t.b.ruestung) * float(mod.get("ruestung", 1.0)), bonus, float(k["kritisch_prozent_je_gewandtheit"]) * float(f.b.werte.get("gewandtheit", 0))
+			+ float(f.b.get("zusatz", {}).get("krit", 0)))     # 870.6: kritisch aus der Ausrüstung
 	if held_immer_krit and f == lead() and e.treffer and not e.kritisch:     # Testmenü „Kritisch“
 		e.kritisch = true
 		e.schaden = float(BrsKampf.Brs.runde(float(e.schaden) * float(k["kritisch_faktor"])))
@@ -2136,7 +2139,8 @@ func _brs_zauber(f: Fighter, t: Fighter, z: Dictionary) -> void:
 		_say(fmt(wolf(f, "MSG279_WOLFMISSES", "MSG72_MISSES"), lang, [f.name(lang), t.name(lang)]), f.id, t.id, 0, info)
 		return
 	var schw := _schwaeche(f, t, z.get("typ"), info)     # 870.5 (870a 8 A)
-	var n := maxi(0, roundi(float(e.schaden) * schw) + (_srd(t, _fed(f)) if schw > 0.0 else 0))
+	var zs := 1.0 + float(f.b.get("zusatz", {}).get("zauberschaden", 0)) / 100.0     # 870.6: Zauberschaden der Ausrüstung
+	var n := maxi(0, roundi(float(e.schaden) * schw * zs) + (_srd(t, _fed(f)) if schw > 0.0 else 0))
 	_vor_treffer(t, z.get("typ"))
 	_hurt(t, n, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), n]), info)
 	_gegenwirkung(f, t, z.get("typ"))

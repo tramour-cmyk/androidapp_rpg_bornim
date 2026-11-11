@@ -63,14 +63,22 @@ static func daten() -> Dictionary:
 const BRS_AFFIX := {"STR": {"de": "Kraft", "en": "Strength"}, "DEX": {"de": "Gewandtheit", "en": "Agility"},
 	"CON": {"de": "Zähigkeit", "en": "Toughness"}, "INT": {"de": "Verstand", "en": "Wits"}, "WIS": {"de": "Wahrnehmung", "en": "Perception"},
 	"CHA": {"de": "Wille", "en": "Will"}, "ALL_STATS": {"de": "alle Grundwerte", "en": "all attributes"},
-	"AC": {"de": "Schutzwert", "en": "Protection"}, "HP": {"de": "Leben", "en": "Life"}, "SP": {"de": "Mana", "en": "Mana"}}
+	"AC": {"de": "Schutzwert", "en": "Protection"}, "HP": {"de": "Leben", "en": "Life"}, "SP": {"de": "Mana", "en": "Mana"},
+	# 870.6 (Homer 870.14, STORY-BRS-HELD „Zusatzeigenschaften nur nach DESIGN-BRS.md 11“): Prozentwerte
+	"CRIT": {"de": "kritisch", "en": "critical"}, "SPELL": {"de": "Zauberschaden", "en": "spell damage"},
+	"ABWEHR": {"de": "Abwehrprobe", "en": "resistance roll"}}
+const BRS_PROZENT := ["CRIT", "SPELL", "ABWEHR"]
 
 const BRS_KURZ := {"STR": {"de": "KRA", "en": "STR"}, "DEX": {"de": "GEW", "en": "AGI"}, "CON": {"de": "ZÄH", "en": "TOU"},
 	"INT": {"de": "VER", "en": "WIT"}, "WIS": {"de": "WAH", "en": "PER"}, "CHA": {"de": "WIL", "en": "WIL"}}
 
 static func brs_woerter(d: Dictionary) -> void:
+	if d.has("affixdaten") and not d["affixdaten"].has("ABWEHR"):     # 870.6: neu im BRS, ohne Namensteile (Vorsilbe, Endung: Homer)
+		d["affixdaten"]["ABWEHR"] = {"name": BRS_AFFIX["ABWEHR"], "prozent": true}
 	for a in BRS_AFFIX:
-		if d.get("affixdaten", {}).has(a): d["affixdaten"][a]["name"] = BRS_AFFIX[a]
+		if d.get("affixdaten", {}).has(a):
+			d["affixdaten"][a]["name"] = BRS_AFFIX[a]
+			if a in BRS_PROZENT: d["affixdaten"][a]["prozent"] = true
 		if d.get("attribute", {}).has(a):
 			d["attribute"][a]["name"] = BRS_AFFIX[a]
 			d["attribute"][a]["kurz"] = BRS_KURZ[a]
@@ -157,7 +165,7 @@ const AFFIX := {"kraft": "STR", "gewandtheit": "DEX", "zaehigkeit": "CON", "vers
 func ausruestungs_bonus(g: String) -> int:
 	if ausruestung.is_empty() or not AFFIX.has(g): return 0
 	var a := String(AFFIX[g])
-	var d: Dictionary = daten().get("regeln", {}).get("deckel", {})
+	var d: Dictionary = lade().get("gegenstaende", {}).get("deckel", {})     # 870.6: Deckel aus den Regelwerten
 	var roh := roh_bonus(a) + roh_bonus("ALL_STATS")
 	return mini(roh, kapitel + int(d.get(a, 0)))
 func ausruestung_gedeckelt(g: String) -> bool:
@@ -218,8 +226,8 @@ func fertig() -> bool: return frei() == 0 and wahl.size() == wahl_anzahl()
 ## Leben voll auf [s] (ohne Angabe die Heldenstufe)
 func max_leben(s := -1) -> int:
 	if s < 0: s = stufe
-	return int(h()["leben_basis"]) + int(h()["leben_je_stufe"]) * s + int(h()["leben_je_zaehigkeit"]) * wert("zaehigkeit")
-func max_mana() -> int: return int(h()["mana_basis"]) + int(h()["mana_je_wille"]) * wert("wille")
+	return int(h()["leben_basis"]) + int(h()["leben_je_stufe"]) * s + int(h()["leben_je_zaehigkeit"]) * wert("zaehigkeit") + bonus("HP")
+func max_mana() -> int: return int(h()["mana_basis"]) + int(h()["mana_je_wille"]) * wert("wille") + bonus("SP")   # 870.6: + Zusatz
 
 func begrenze() -> void:
 	leben = clampi(leben, 0, max_leben())
@@ -230,7 +238,7 @@ func voll() -> void:
 	mana = max_mana()
 
 ## Kritische Treffer in Prozent (N 4: Gewandtheit in Prozent)
-func krit_prozent() -> int: return roundi(float(lade()["kampf"]["kritisch_prozent_je_gewandtheit"]) * wert("gewandtheit"))
+func krit_prozent() -> int: return roundi(float(lade()["kampf"]["kritisch_prozent_je_gewandtheit"]) * wert("gewandtheit")) + bonus("CRIT")
 
 ## Schaden eines Treffers mit der Hauptwaffe gegen einen Gegner gleicher Stufe ohne Ruestung, ohne Zufall (Modell D: (Grundschaden
 ## + Grundwert) x (1 + Fertigkeit/100), wie mars.gd _brs_waffe)
@@ -289,7 +297,7 @@ func schutzwert() -> int:
 	var je := float(lade()["kampf"]["ruestungsfertigkeit_im_abzug_je_punkt"])
 	var a := float(r["wert"]) * (1.0 + (fertigkeit(String(r["fertigkeit"])) if r["fertigkeit"] != null else 0) * je)
 	if schild() != null: a += float(ru["schild_wert"]) * (1.0 + fertigkeit("Schild") * je)
-	return Brs.runde(a)
+	return Brs.runde(a + float(getragen()["zusatz"]["schutz"]))     # 870.6: Güte, Zusatz Schutzwert (wie BrsKampf.held_abzug)
 
 ## Ausdauer: wie viele Sekunden der Held rennen kann (welt „ausdauer“, aus Zaehigkeit und Wille, 467)
 func ausdauer_s() -> float:
@@ -331,8 +339,8 @@ func roh_bonus(affix: String) -> int:
 ## Zusatzeigenschaft aller getragenen Stuecke, im Kapitel gedeckelt (Rules.gearCap; held.json regeln.deckel)
 func bonus(affix: String) -> int:
 	var roh := roh_bonus(affix)
-	var d: Dictionary = daten().get("regeln", {}).get("deckel", {})
-	return mini(roh, kapitel + int(d[affix])) if d.has(affix) else roh
+	var d: Dictionary = lade().get("gegenstaende", {}).get("deckel", {})     # 870.6: Deckel aus den Regelwerten
+	return mini(roh, kapitel + int(d[affix])) if d.has(affix) and not affix.begins_with("_") else roh
 
 func waffe(): return ding("MAIN_HAND")
 static func ist_waffe(g) -> bool: return g != null and String(grundform(g["base"])["art"]) == "WEAPON"
@@ -426,7 +434,12 @@ static func freie_faehigkeiten(fert: Dictionary, schon := []) -> Array:
 func getragen() -> Dictionary:
 	var w_ = waffe()
 	var s = schild()
-	return {"waffe": String(w_["base"]) if w_ != null else "", "ruestung": ruestung(), "schild": String(s["base"]) if s != null else ""}
+	var gd: Dictionary = lade().get("gegenstaende", {}).get("guete", {})
+	var brust = ding("CHEST")
+	var schutz := bonus("AC") + int(gd.get("schutz_je_stufe", 1)) * ((Beute.guete(brust) if brust != null else 0) + (Beute.guete(s) if s != null else 0))
+	return {"waffe": String(w_["base"]) if w_ != null else "", "ruestung": ruestung(), "schild": String(s["base"]) if s != null else "",
+		"guete": Beute.guete(w_) if w_ != null else 0,     # 870.6: Güte der Waffe, Rüstung, Schild und die Zusatzeigenschaften im Kampf
+		"zusatz": {"schutz": schutz, "abwehr": bonus("ABWEHR"), "zauberschaden": bonus("SPELL"), "krit": bonus("CRIT")}}
 
 ## Alles, was der Kampf vom Helden braucht, nach dem BRS (ersetzt aufruf.gd blatt() aus den Heldwerten). [stufe_]: Heldenstufe;
 ## [aus]: was er trägt (getragen()): {"waffe": Grundform, "" = unbewaffnet; "ruestung": Rüstung des BRS („keine“,
@@ -456,6 +469,7 @@ func kampfblatt(stufe_ := 1, aus := {}, geuebt_ := {}) -> Dictionary:
 		"ausdauer": aus.get("ausdauer", null),     # 467: Ausdauer nach BRS noch offen, bis dahin liefert sie der Spielstand
 		"waffe": {"id": String(aus.get("waffe", "")), "gruppe": gruppe, "grundschaden": int(wd.get("schaden", 0)),
 			"grundwert": wd.get("grundwert"), "art": String(wd.get("art", "nah")), "guete": int(aus.get("guete", 0))},
+		"zusatz": aus.get("zusatz", {}),     # 870.6: was die Ausrüstung dazugibt (getragen()): schutz, abwehr, zauberschaden, krit
 		"ruestung": {"art": r_art, "schutzwert": int(ru.get(r_art, {}).get("wert", 0)), "fertigkeit": ru.get(r_art, {}).get("fertigkeit")},
 		"schild": schild_, "faehigkeiten": faehig}
 

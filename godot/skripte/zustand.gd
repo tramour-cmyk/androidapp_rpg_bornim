@@ -74,7 +74,7 @@ static func stueck(g: Dictionary) -> Dictionary:
 	var rolls: Array = []
 	for r in g.get("rolls", []): rolls.append([String(r[0]), int(r[1])])
 	return {"uid": int(g.get("uid", 0)), "base": String(g["base"]), "rarity": String(g.get("rarity", "COMMON")), "ilvl": int(g.get("ilvl", 1)),
-		"plus": int(g.get("plus", 0)), "rolls": rolls, "unique": g.get("unique"), "name_seed": int(g.get("name_seed", 0))}
+		"plus": int(g.get("plus", 0)), "guete": Beute.guete(g), "rolls": rolls, "unique": g.get("unique"), "name_seed": int(g.get("name_seed", 0))}   # 870.6: Güte
 
 func als_daten() -> Dictionary:
 	return {"name": name, "stufe": stufe(), "gold": gold, "taschen": taschen.duplicate(), "flaggen": flaggen.keys(), "minuten": minuten, "tag": tag,

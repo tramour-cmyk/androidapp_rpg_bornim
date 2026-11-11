@@ -480,5 +480,42 @@
     "bugbear":           {"art": "Krogg",              "de": "Krogg der Grobian",      "en": "Krogg the Brute",    "gruppe": "Bärenschrat"},
     "dire_wolf":         {"art": "Grimmzahn",          "de": "Grimmzahn, der Leitwolf", "en": "Grimfang the Alpha", "gruppe": "Tier"},
     "hobgoblin_captain": {"art": "Grak",               "de": "Hauptmann Grak",         "en": "Captain Grak",       "gruppe": "Goblin-Hauptmann"}
+  },
+
+  "gegenstaende": {
+    "_quelle": "870.6: Zusatzeigenschaften nur aus der Liste 870a 6 A (DESIGN-BRS 11, Chef 10.11., 15:08) mit deren Zahlen; Verteilung je Art und Guete aus der Seltenheit sind Startwerte der alten Fassung (Gear.kt affixesFor, Loot.kt plus); 444 misst, dann Chef",
+    "zusatz": {
+      "STR": {"wert": 1}, "DEX": {"wert": 1}, "CON": {"wert": 1}, "INT": {"wert": 1}, "WIS": {"wert": 1}, "CHA": {"wert": 1},
+      "AC":     {"wert": 1, "zwei_ab_stufe": 6, "_": "Schutzwert +1, ab Gegenstandsstufe 6 auch +2 (Startwert, alt 1 + ilvl/6)"},
+      "HP":     {"wert": 5},
+      "SP":     {"wert": 5},
+      "CRIT":   {"wert": 3,  "_": "kritisch +3 %"},
+      "SPELL":  {"wert": 10, "_": "Zauberschaden +10 %"},
+      "ABWEHR": {"wert": 5,  "_": "Abwehrprobe +5 %"}
+    },
+    "deckel": {"STR": 0, "DEX": 0, "CON": 0, "INT": 0, "WIS": 0, "CHA": 0, "AC": 0,
+      "_": "Summe aller getragenen Stuecke hoechstens Kapitel + Wert (alt Rules.gearCap); Leben, Mana, kritisch, Zauberschaden, Abwehrprobe ohne Deckel (Startwert)"},
+    "je_art": {
+      "_": "Startwert: alte Listen (Gear.kt affixesFor) ohne Altwerte; ABWEHR an Schild, Umhang, Amulett",
+      "WEAPON":       ["STR", "DEX", "CRIT"],
+      "WEAPON_FOKUS": ["INT", "WIS", "SPELL", "SP", "CRIT"],
+      "SHIELD":       ["AC", "HP", "CON", "STR", "ABWEHR"],
+      "FOCUS":        ["SPELL", "SP", "INT", "WIS", "CHA", "HP"],
+      "HEAD":         ["STR", "DEX", "CON", "INT", "WIS", "CHA", "AC", "HP", "SP", "SPELL"],
+      "CHEST":        ["AC", "HP", "STR", "DEX", "CON"],
+      "ARMS":         ["STR", "DEX", "CRIT", "AC"],
+      "LEGS":         ["DEX", "CON", "AC", "HP"],
+      "CLOAK":        ["AC", "DEX", "CHA", "HP", "ABWEHR"],
+      "AMULET":       ["STR", "DEX", "CON", "INT", "WIS", "CHA", "SPELL", "HP", "SP", "ABWEHR"],
+      "SONST":        ["STR", "DEX", "CON", "INT", "WIS", "CHA", "CRIT", "SPELL", "SP"]
+    },
+    "guete": {
+      "_": "0 Normal, 1 Gut, 2 Meisterhaft (DESIGN-BRS 11): hebt den Grundschaden der Waffe und den Schutzwert von Ruestung und Schild je Stufe; Einzelstuecke mit altem +1 sind Meisterhaft (870a 6 A)",
+      "namen": {"de": ["Normal", "Gut", "Meisterhaft"], "en": ["Normal", "Fine", "Masterwork"]},
+      "schaden_je_stufe": 1,
+      "schutz_je_stufe": 1,
+      "aus_seltenheit": {"COMMON": [0, 0], "UNCOMMON": [0, 0], "RARE": [1, 1], "VERY_RARE": [1, 2], "EPIC": [2, 2], "DIVINE": [2, 2]},
+      "_aus_seltenheit": "Startwert aus dem alten plus (RARE +1, VERY_RARE +1 bis +2, EPIC +2, DIVINE +3) als [von, bis]; nur Waffe, Brust, Schild"
+    }
   }
 }

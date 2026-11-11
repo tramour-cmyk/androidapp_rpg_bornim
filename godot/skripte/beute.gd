@@ -5,6 +5,9 @@ extends RefCounted
 # {uid, base, rarity, ilvl, plus, rolls: [[Affix, Wert], …], unique, name_seed}. Wuerfel: alles mit next_int, d, chance, pick,
 # weighted (KotlinZufall, oder Jerrys regeln/wuerfel.gd plus weighted). Daten aus held.json (HeroExport).
 # Gegenprobe: tests/beute_golden.gd gegen Loot.kt (Proben „laden“, „beute“).
+# 870.6 (Umzug BRS Schritt 6): Zusatzeigenschaften nur aus der Liste DESIGN-BRS 11 mit festen Zahlen (werte.json „gegenstaende“),
+# kein „plus“ mehr, dafür Güte (0 Normal, 1 Gut, 2 Meisterhaft, Feld „guete“); keine Klasse; Anzeige ohne Würfel. Der Zufall zieht
+# in derselben Reihenfolge wie Loot.kt, nur mit anderen Listen.
 
 const SELTENHEIT := ["COMMON", "UNCOMMON", "RARE", "VERY_RARE", "EPIC", "DIVINE"]
 const GEWICHT := [560, 270, 115, 40, 12, 3]           # Loot.baseWeights, je Mille vor Magiefund
@@ -99,24 +102,19 @@ static func passt(k: String, id: String) -> bool:
 		"WEAPON": return geuebt(k, id) and (int(b["fokus"]) == 0 or bool(kd["zauberer"]))
 	return false
 
-# GearBases.affixesFor
+# GearBases.affixesFor, 870.6: nur Zusatzeigenschaften des BRS (werte.json „gegenstaende“ „je_art“), und nur solche mit Namen
+static func g_() -> Dictionary: return BrsHeld.lade().get("gegenstaende", {})
 static func affixe_fuer(id: String) -> Array:
 	var b := grundform(id)
-	var slot := String(b["slot"])
 	var art := String(b["art"])
-	if art == "WEAPON" and int(b["fokus"]) > 0: return ["INT", "WIS", "SPELL", "SP", "ATTACK", "DAMAGE", "FIRE", "CRIT", "STUN_HIT"]
-	if art == "WEAPON": return ["STR", "DEX", "ATTACK", "DAMAGE", "CRIT", "FIRE", "RADIANT", "LIFESTEAL", "POISON_HIT", "BLEED_HIT", "STUN_HIT"]
-	if art == "SHIELD": return ["AC", "HP", "RESIST", "CON", "STR"]
-	if art == "LIGHT": return []
-	if art == "FOCUS": return ["SPELL", "SP", "INT", "WIS", "CHA", "HP"]
-	match slot:
-		"HEAD": return WERTE + ["AC", "HP", "SP", "SPELL", "MAGIC_FIND", "XP"]
-		"CHEST": return ["AC", "HP", "RESIST", "STR", "DEX", "CON", "TENACITY"]
-		"ARMS": return ["STR", "DEX", "ATTACK", "DAMAGE", "CRIT", "AC", "LIFESTEAL", "BLEED_HIT", "POISON_HIT"]
-		"LEGS": return ["DEX", "CON", "AC", "HP", "RESIST", "GOLD_FIND", "TENACITY"]
-		"CLOAK": return ["AC", "RESIST", "DEX", "CHA", "HP", "MAGIC_FIND", "TENACITY"]
-		"AMULET": return WERTE + ["SPELL", "HP", "SP", "XP", "MAGIC_FIND", "RESIST", "TENACITY"]
-	return WERTE + ["ATTACK", "DAMAGE", "CRIT", "SPELL", "GOLD_FIND", "MAGIC_FIND", "LIFESTEAL", "SP"]
+	var je: Dictionary = g_().get("je_art", {})
+	var schluessel := String(b["slot"])
+	if art == "WEAPON": schluessel = "WEAPON_FOKUS" if int(b["fokus"]) > 0 else "WEAPON"
+	elif art in ["SHIELD", "FOCUS"]: schluessel = art
+	elif art == "LIGHT": return []
+	var liste: Array = je.get(schluessel, je.get("SONST", []))
+	var ad: Dictionary = d_().get("affixdaten", {})
+	return liste.filter(func(a): return ad.has(String(a))).map(func(a): return String(a))
 
 # Loot.generate: ein zufaelliges Stueck; fuer eine Klasse nur, was zu ihr passt (sonst alles)
 static func erzeuge(w, uid: int, ilvl: int, seltenheit: String, fuer_klasse: String = "", slot: String = "") -> Dictionary:
@@ -136,47 +134,24 @@ static func wuerfle(uid: int, id: String, ilvl: int, seltenheit: String, w) -> D
 	var b := grundform(id)
 	var erlaubt := affixe_fuer(id)
 	var rolls: Array = []
-	if seltenheit == "DIVINE": rolls.append(["ALL_STATS", 1 + w.d(2) - 1 + ilvl / 8])
 	while rolls.size() < affixzahl(seltenheit) and not erlaubt.is_empty():
 		var a: String = w.pick(erlaubt)
 		erlaubt.erase(a)
 		rolls.append([a, wert(a, ilvl, seltenheit, w)])
 	var verbesserbar := ist_waffe(b) or String(b["slot"]) == "CHEST" or String(b["art"]) == "SHIELD"
-	var plus := 0
+	var guete := 0
 	if verbesserbar:
-		match seltenheit:
-			"RARE": plus = 1
-			"VERY_RARE": plus = 1 + w.d(2) - 1
-			"EPIC": plus = 2
-			"DIVINE": plus = 3
-	return {"uid": uid, "base": id, "rarity": seltenheit, "ilvl": ilvl, "plus": plus, "rolls": rolls, "unique": null, "name_seed": w.d(10000)}
+		var spanne: Array = g_().get("guete", {}).get("aus_seltenheit", {}).get(seltenheit, [0, 0])
+		guete = int(spanne[0]) + (w.d(int(spanne[1]) - int(spanne[0]) + 1) - 1 if int(spanne[1]) > int(spanne[0]) else 0)
+	return {"uid": uid, "base": id, "rarity": seltenheit, "ilvl": ilvl, "plus": 0, "guete": guete, "rolls": rolls, "unique": null, "name_seed": w.d(10000)}
 
-# Loot.value: Staerke waechst mit der Gegenstandsstufe, episch und goettlich hoeher
-static func wert(a: String, ilvl: int, seltenheit: String, w) -> int:
-	var bis := func(n: int) -> int: return 0 if n <= 0 else w.d(n + 1) - 1
-	var roh := 0
-	match a:
-		"STR", "DEX", "CON", "INT", "WIS", "CHA": roh = 1 + bis.call(ilvl / 4)
-		"ALL_STATS": roh = 1
-		"AC": roh = 1 + bis.call(ilvl / 6)
-		"ATTACK": roh = 1 + bis.call(ilvl / 5)
-		"DAMAGE": roh = 1 + bis.call(ilvl / 3)
-		"SPELL": roh = 1 + bis.call(ilvl / 6)
-		"HP": roh = 3 + bis.call(ilvl * 2)
-		"SP": roh = 1 + bis.call(1 + ilvl / 2)
-		"CRIT": roh = 1
-		"FIRE", "RADIANT": roh = 1 + bis.call(1 + ilvl / 2)
-		"LIFESTEAL": roh = 3 + bis.call(7)
-		"RESIST": roh = 1 + bis.call(ilvl / 5)
-		"GOLD_FIND": roh = 10 + bis.call(40)
-		"MAGIC_FIND": roh = 5 + bis.call(25)
-		"XP": roh = 5 + bis.call(15)
-		"POISON_HIT", "BLEED_HIT": roh = 8 + bis.call(12)
-		"STUN_HIT": roh = 5 + bis.call(8)
-		"TENACITY": roh = 10 + bis.call(20)
-	var schub := 1.25 if seltenheit == "EPIC" else (1.5 if seltenheit == "DIVINE" else 1.0)
-	if schub == 1.0 or a == "CRIT": return roh
-	return maxi(roh + 1, int(roh * schub))
+# Loot.value, 870.6: feste Zahlen aus DESIGN-BRS 11 (werte.json „gegenstaende“ „zusatz“); Schutzwert ab einer Gegenstandsstufe auch +2.
+# [w] bleibt für die Aufrufer; es wird nur beim Schutzwert gewürfelt.
+static func wert(a: String, ilvl: int, _seltenheit: String, w) -> int:
+	var z: Dictionary = g_().get("zusatz", {}).get(a, {"wert": 1})
+	var n := int(z.get("wert", 1))
+	if z.has("zwei_ab_stufe") and ilvl >= int(z["zwei_ab_stufe"]) and w.chance(0.5): n += 1
+	return n
 
 # Loot.drops: was ein besiegtes Monster fallen laesst; [neue_uid] gibt die Kennung (GameState.nextUid)
 static func beute(hw: BrsHeld, w, ilvl: int, boss: bool, elite: bool, neue_uid: Callable) -> Array:
@@ -188,11 +163,11 @@ static func beute(hw: BrsHeld, w, ilvl: int, boss: bool, elite: bool, neue_uid: 
 		seltenheiten.append(seltenheit_fuer(hw, w, ilvl, true, "UNCOMMON"))
 	elif w.chance(0.38):
 		seltenheiten.append(seltenheit_fuer(hw, w, ilvl, false))
-	# zwei Drittel fuer die Klasse des Helden (870.4: der Held nach BRS hat keine; die Zufallszahl bleibt, 870.6 Jerry)
+	# 870.6: ohne Klasse; die Zufallszahl der alten zwei Drittel bleibt, damit die Reihenfolge der Würfe gleich bleibt
 	var out: Array = []
 	for r in seltenheiten:
-		var k := "" if w.chance(0.67) else ""
-		out.append(erzeuge_mit_uid(w, neue_uid, ilvl, r, k))
+		w.chance(0.67)
+		out.append(erzeuge_mit_uid(w, neue_uid, ilvl, r, ""))
 	return out
 
 # generate zieht die Grundform vor der Kennung
@@ -203,7 +178,7 @@ static func erzeuge_mit_uid(w, neue_uid: Callable, ilvl: int, r: String, k: Stri
 
 # Loot.torch: eine schlichte Fackel (84.1)
 static func fackel(uid: int) -> Dictionary:
-	return {"uid": uid, "base": "torch", "rarity": "COMMON", "ilvl": 1, "plus": 0, "rolls": [], "unique": null, "name_seed": 0}
+	return {"uid": uid, "base": "torch", "rarity": "COMMON", "ilvl": 1, "plus": 0, "guete": 0, "rolls": [], "unique": null, "name_seed": 0}
 
 # Loot.shopGear: Thessas Ware; neu alle acht Siege und mit jeder Stufe (59e.3: bleibt sonst)
 static func ladenware(hw: BrsHeld, siege: int) -> Array:
@@ -304,6 +279,9 @@ static func name(g: Dictionary, sprache: String = "") -> String:
 	var rolls: Array = g["rolls"]
 	var erster = d_()["affixdaten"][String(rolls[0][0])] if rolls.size() > 0 else null
 	var zweiter = d_()["affixdaten"][String(rolls[1][0])] if rolls.size() > 1 else null
+	# 870.6: eine Zusatzeigenschaft ohne Namensteile (Abwehrprobe, bis Homer sie nennt) gibt keine Vorsilbe und keine Endung
+	if erster != null and not erster.has("vor_de"): erster = null
+	if zweiter != null and not zweiter.has("nach_de"): zweiter = null
 	var vor = null
 	if erster != null:
 		var eigen = d_().get("vorsilbe_fuer", {}).get("%s:%s" % [g["base"], rolls[0][0]])   # 399.1 Gear.PREFIX_FOR: „Geweihtes Heiligensymbol“
@@ -320,25 +298,30 @@ static func name(g: Dictionary, sprache: String = "") -> String:
 # Kotlin teilt ganze Zahlen zur Null hin
 static func _ganz_div(a: int, b: int) -> int: return int(a / b) if a >= 0 else -int(-a / b)
 
-# DiceExpr.label: „1W8+1“, englisch „1d8+1“
+# 870.6: Güte eines Stücks (0 Normal, 1 Gut, 2 Meisterhaft); alte Stücke mit „plus“ zählen als Güte (870a 6 A: +1 wird Meisterhaft)
+static func guete(g: Dictionary) -> int:
+	if g.has("guete"): return clampi(int(g["guete"]), 0, 2)
+	return 2 if int(g.get("plus", 0)) > 0 else 0
+
+# DiceExpr.label: „1W8+1“, englisch „1d8+1“ (870.6: nur noch für die Gegenstandsfenster im Menü, bis 644.4 sie ohne Würfel zeigt)
 static func wuerfel_text(e: Array, plus: int, de: bool) -> String:
 	var bonus := int(e[2]) + plus
 	var b := ("+%d" % bonus) if bonus > 0 else (str(bonus) if bonus < 0 else "")
 	return "%d%s%d%s" % [int(e[0]), "W" if de else "d", int(e[1]), b]
 
-# Gear.keyValue: die eine Zahl, die am meisten sagt; "" wenn keine
+# Gear.keyValue, 870.6 ohne Würfel: Schaden der Waffengruppe nach BRS plus Güte, Schutzwert nach BRS plus Güte; "" wenn keine Zahl
 static func kennwert(g: Dictionary, sprache: String = "") -> String:
 	if sprache == "": sprache = Sprache.aktiv()
 	var de := sprache == "de"
-	var b := grundform(String(g["base"]))
-	var plus := int(g["plus"])
-	if b["schaden"] != null:
-		var t := wuerfel_text(b["schaden"], plus, de)
-		if b["vielseitig"] != null: t += "/" + wuerfel_text(b["vielseitig"], plus, de)
-		return t + " " + String(d_()["schadensarten"][String(b["schadensart"])][sprache])
-	if String(b["slot"]) == "CHEST" and int(b["ruestung"]) > 0: return ("Schutzwert " if de else "Protection ") + str(int(b["ruestung"]) + plus)
-	if String(b["art"]) == "SHIELD": return ("Schutzwert +" if de else "Protection +") + str(int(b["ruestung"]) + plus)
-	if int(b["fokus"]) > 0: return ("Zauberkraft +" if de else "Spell power +") + str(int(b["fokus"]))
+	var id := String(g["base"])
+	var b := grundform(id)
+	var gd: Dictionary = g_().get("guete", {})
+	if String(b["art"]) == "WEAPON" and int(b["fokus"]) == 0:
+		var gruppe: String = BrsHeld.WAFFE_GRUPPE.get(id, "Einhänder")
+		var n := int(BrsHeld.lade()["waffen"].get(gruppe, {}).get("schaden", 0)) + guete(g) * int(gd.get("schaden_je_stufe", 1))
+		return ("Schaden %d" if de else "Damage %d") % n
+	var sw := BrsHeld.schutzwert_von(id)
+	if sw > 0: return ("Schutzwert %d" if de else "Protection %d") % (sw + guete(g) * int(gd.get("schutz_je_stufe", 1)))
 	return ""
 
 # Gear.listLine: die Zeile unter dem Namen in Tasche und Laden: was es ist (wenn der Name es nicht sagt), wo, die Zahl
@@ -348,9 +331,8 @@ static func listen_zeile(g: Dictionary, sprache: String = "") -> String:
 	var b := grundform(String(g["base"]))
 	var art := String(b[sprache])
 	var gezeigt := name(g, sprache)
-	var plus := int(g["plus"])
 	var teile: Array = []
-	if not gezeigt.containsn(art): teile.append(art + (" +%d" % plus if plus > 0 else ""))
+	if not gezeigt.containsn(art): teile.append(art)
 	var wo := ""
 	if ist_waffe(b) and bool(b["fern"]): wo = "Fernwaffe" if de else "Ranged weapon"
 	elif ist_waffe(b): wo = "Waffe" if de else "Weapon"
