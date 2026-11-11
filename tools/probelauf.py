@@ -675,6 +675,31 @@ TEAMZWEIG = re.compile(r"claude/(?:tom|jerry|spike|tuffy)-[\w./-]+")
 ALT_ZEILE = re.compile(r"^Alt:\s*\S", re.M)
 
 
+def spielcode(pfade):
+    return [p for p in pfade if p.startswith("godot/") and not p.startswith("godot/tests/") and not p.endswith((".uid", ".import"))]
+
+
+def alt_meldung(zweig, spiel):
+    return ("647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser "
+            f"machen“): Push auf {zweig} ändert Spielcode ({', '.join(spiel[:3])}{' …' if len(spiel) > 3 else ''}), aber keine "
+            "Commit-Nachricht nennt die alte Fassung. Vor dem Bauen die Fundstelle in app/ oder core/ lesen, dann eine Zeile "
+            "„Alt: <Datei:Zeilen>, übernommen: …, besser: …“ in die Nachricht (git commit --amend, solange nicht gepusht), "
+            "oder „Alt: keine (<Grund>)“, wenn es nichts Altes gibt.")
+
+
+def alt_fehlt_mcp(d):
+    """731 (D87.1, Diogenes Lauf 87): dieselbe Prüfung für push_files/create_or_update_file auf die mitgegebene Nachricht."""
+    e = d.get("tool_input") or {}
+    zweig = str(e.get("branch") or "")
+    if not TEAMZWEIG.fullmatch(zweig):
+        return None
+    pfade = [str(f.get("path", "")) for f in (e.get("files") or []) if isinstance(f, dict)] + ([str(e["path"])] if e.get("path") else [])
+    spiel = spielcode(pfade)
+    if not spiel or ALT_ZEILE.search(str(e.get("message") or "")):
+        return None
+    return alt_meldung(zweig, spiel).replace("(git commit --amend, solange nicht gepusht)", "(Feld message)")
+
+
 def alt_fehlt(befehl, cwd):
     """647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen, die schon da sind,
     übernehmen und besser machen“): ein Push auf einen Teamzweig mit Spielcode unter godot/ (ohne tests/) braucht in einer
@@ -704,15 +729,10 @@ def alt_fehlt(befehl, cwd):
     if neu:
         pfade += git("diff", "--name-only", "HEAD", cwd=wo).stdout.split()
         texte += "\n" + (neu_f.group(2) if neu_f else neu.group(1))
-    spiel = [p for p in pfade if p.startswith("godot/") and not p.startswith("godot/tests/")
-             and not p.endswith((".uid", ".import"))]
+    spiel = spielcode(pfade)
     if not spiel or ALT_ZEILE.search(texte):
         return None
-    return ("647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser "
-            f"machen“): Push auf {zweig} ändert Spielcode ({', '.join(spiel[:3])}{' …' if len(spiel) > 3 else ''}), aber keine "
-            "Commit-Nachricht nennt die alte Fassung. Vor dem Bauen die Fundstelle in app/ oder core/ lesen, dann eine Zeile "
-            "„Alt: <Datei:Zeilen>, übernommen: …, besser: …“ in die Nachricht (git commit --amend, solange nicht gepusht), "
-            "oder „Alt: keine (<Grund>)“, wenn es nichts Altes gibt.")
+    return alt_meldung(zweig, spiel)
 
 
 def filmlauf_rechner(befehl, cwd):
@@ -883,6 +903,8 @@ def main():
         except (OSError, subprocess.SubprocessError, ValueError, ImportError):
             grund = None
         if grund:
+            anhalten(grund)
+        if (grund := alt_fehlt_mcp(d)):  # 731
             anhalten(grund)
         try:
             e = d.get("tool_input") or {}
