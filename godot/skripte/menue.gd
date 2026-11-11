@@ -1629,6 +1629,13 @@ func erklaere_zeichen(name_: String, satz: String) -> void:
 	schliesse_erklaerung()
 	Zeichenknopf.offen = name_
 	_zeichen_neu()
+	var f := erklaer_kasten(name_, satz, schliesse_erklaerung)
+	add_child(f)
+	erklaer_fenster = f
+	Zurueck.melde(f, schliesse_erklaerung)   # alt back: erst das Fenster, dann das Menue
+
+# 954: dasselbe Fenster auch in der Erschaffung (ErschaffungBrs.erklaere); [zu] schliesst es beim Antippen
+static func erklaer_kasten(name_: String, satz: String, zu: Callable) -> Control:
 	var f := VBoxContainer.new()
 	f.add_theme_constant_override("separation", 0)
 	f.anchor_left = 0; f.anchor_right = 1; f.anchor_top = 1; f.anchor_bottom = 1
@@ -1663,7 +1670,7 @@ func erklaere_zeichen(name_: String, satz: String) -> void:
 	innen.add_theme_stylebox_override("panel", si)
 	innen.mouse_filter = Control.MOUSE_FILTER_STOP
 	innen.gui_input.connect(func(e: InputEvent):
-		if Spielstaende.tipp(e) and not e.pressed: schliesse_erklaerung())   # 605: nur die Maus, sonst zweimal
+		if Spielstaende.tipp(e) and not e.pressed: zu.call())   # 605: nur die Maus, sonst zweimal
 	aussen.add_child(innen)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(4 * DP))
@@ -1678,9 +1685,7 @@ func erklaere_zeichen(name_: String, satz: String) -> void:
 		s.add_theme_constant_override("line_spacing", int(round(2 * Stil.SP)))   # lineHeight 19 sp
 		s.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		v.add_child(s)
-	add_child(f)
-	erklaer_fenster = f
-	Zurueck.melde(f, schliesse_erklaerung)   # alt back: erst das Fenster, dann das Menue
+	return f
 
 func schliesse_erklaerung() -> void:
 	if is_instance_valid(erklaer_fenster): erklaer_fenster.queue_free()
