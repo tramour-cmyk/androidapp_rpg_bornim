@@ -111,6 +111,8 @@ Zuletzt verworfen (Chef 09.11., 11:21, 743 „alle verwerfen“): Spiel-Engine G
 
 ### Oberfläche
 
+- **Zoom in Innenräumen nach Bildschirmbreite** (Chef 11.11., 13:44, an Sokrates, beim Test t276): „eine ganz schöne Sache wäre Zoom in Innenräumen, dass der Zoom sich automatisch so einstellt, dass die Bildschirmbreite optimal ausgenutzt ist … sinnvoller Zoom … bei Innenansichten.“ Sokrates: passt zu 590 (Innenräume, Tom); Gegenargument: kleine Räume wirken dann riesig, große winzig; Weg: Raumbreite füllen, aber mit Grenzen nach oben und unten.
+
 - **Spielstand in der Cloud über Google Play** (Chef 23.10., 18:32: „dass jemand … sich mit Google anmeldet … und seinen Spielstand in der Cloud speichert … ein guter Service“). Befund Sokrates: Android sichert die App-Daten schon heute von selbst in Google Drive (`allowBackup="true"`, ohne eigene Regeln); bei Neuinstallation oder neuem Handy kommen sie zurück. Echtes Mitnehmen über mehrere Geräte bräuchte die Play-Spieldienste (Anmeldung, gespeicherte Spiele), mit Entwicklerkonto (341.1b). Vorschlag: vor dem Marktstart nur prüfen, ob die Sicherung den Spielstand wirklich erfasst; Play-Spieldienste nach dem Marktstart. → **später:** Befund galt der Kotlin-Fassung, für den Godot-Export neu prüfen; Prüfung zu Stufe 5 (marktreif), Play-Dienste Stufe 6.
 
 - **59.6 Händler: Filter** „nur tragbare“, Sortierung nach Platz (Chef 12.10., 22:49). → **später:** wenn es mehr Ware gibt (Kapitel 2).
