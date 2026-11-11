@@ -2,9 +2,9 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `origin/main` (10.11., 23:07)
+**Gelesen bis:** `origin/main` (11.11., 07:25)
 
-**Übergabe (10.11., 23:07, `session_01Hmoj75P7xwKnkPuLhgyB1T`):** 264.1 Lauf 7 (332) ausgewertet: alle Bauschritte grün, rot im Export (Schlüssel am falschen Ort), behoben `d2738d53b`, CPU-Ausgabe `b38d8bd01`; Chefsache tun/2641. 896 gebaut. Nachfolger: Perikles – 264.1: Lauf 8 nach „264.1, Läufe frei“
+**Übergabe (11.11., 07:26, `session_01Hmoj7727yEYpa1M7HvBAsA`):** 901 gebaut `bdd36bbb1` (`lauf.py` bis Sa 14.11., 20:00 HOCH, dann MITTEL), wartet auf Diogenes; Ford im Eingang benachrichtigt. Nachfolger: Perikles – 264.1: Lauf 8 nach „264.1, Läufe frei“
 
 ## Einzelheiten
 - **Zu 264.1 (Perikles, 10.11., 21:2x):** Läufe 3–6 (327–331) rot im CC0-Schritt: zstd fehlte; CC0-Zwischenspeicher entpackt auf dem eigenen Runner nach `~/actions-runner/cc0` statt `~/cc0` (sudo dort nur apt-get). Lauf 7 = 332, Freigabe Chef 21:04; jede weitere Runde braucht wieder „264.1, Läufe frei“ (621 A). Runner `bornim-build`: Ubuntu 24.04, 4 Kerne, 15 GB, 99 GB frei (wie GitHub-Maschine). GitHub Lauf 322: core 1:18, Kauf 1:33, Blender 0:25, Modelle 3:45, Held je Klasse 11:43, Leute 8:43, Kampfort 13:51, Skripte prüfen 16:46, Export 0:37, gesamt 63 Min. Lauf 332: core 2:52, Kauf 4:49, Blender 1:25 (Zwischenspeicher erst nach erstem grünen Lauf), CC0 0:45 (Treffer), Modelle 7:33, Held 24:12, Leute 15:36, Kampfort 26:05, Skripte prüfen 25:52, gesamt 111 Min.; Export rot: Schlüssel nach `~/actions-runner/` entpackt.
