@@ -900,8 +900,15 @@ func _erwartet_zauber(f: Fighter, t: Fighter, id: String) -> float:
 	var z: Dictionary = BrsKampf.w()["zauber"][ZAUBER[id]]
 	var fert := float(f.b.fert.get(String(z["schule"]), 0))
 	var grund := (float(z["schaden"]) + float(f.b.werte.get("wille", 0))) * (1.0 + fert / 100.0)
-	var schw := float(t.b.get("schwaeche", {}).get(String(z.get("typ", "")), 1.0))
+	var schw := float(t.b.get("schwaeche", {}).get(_typ(z), 1.0))
 	return BrsKampf.Brs.trefferchance(fert, float(t.b.abwehr)) * maxf(0.0, grund * schw - float(t.b.ruestung))
+
+
+## 904 (sim444_870, Zauberlehrling gegen Grak und Grimmzahn): Arkanpfeil hat in werte.json „typ“: null (ohne Schadensart);
+## String(null) brach _auto_order ab, der Autopilot nahm dann die Waffe
+func _typ(d: Dictionary) -> String:
+	var x = d.get("typ")
+	return "" if x == null else String(x)
 
 
 func _erwartet_waffe(f: Fighter, t: Fighter) -> float:
@@ -912,7 +919,7 @@ func _erwartet_waffe(f: Fighter, t: Fighter) -> float:
 	var gw = wd.get("grundwert")
 	var fert := float(f.b.fert.get(gruppe, 0))
 	var grund := (float(wd["schaden"]) + (float(f.b.werte.get(gw, 0)) if gw != null else 0.0)) * (1.0 + fert / 100.0)
-	var schw := float(t.b.get("schwaeche", {}).get(String(wd.get("typ", "")), 1.0))
+	var schw := float(t.b.get("schwaeche", {}).get(_typ(wd), 1.0))
 	return BrsKampf.Brs.trefferchance(fert, float(t.b.abwehr)) * maxf(0.0, grund * schw - float(t.b.ruestung))
 
 
