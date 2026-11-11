@@ -232,7 +232,7 @@
 | 954a.10 | Von Perikles (954a.2): Tiere beruhigen: Wolf, Wildschwein, Riesenfledermaus ziehen ab, Erfahrung ohne Beute, Rudel nur ohne Leitwolf, nicht Bosse und Dorftiere ([423.tiere]; mit 841); Abnahme 3.6 | Jerry | M | startbar | 870, 954a.3 | – | – | E Kampf | – |
 | 954a.11 | Von Perikles (954a.2): Jagd: Tiere geben öfter Fell, Fleisch, Hauer (tabellen.json), Aufträge Thessa und Borin nehmen es ab; Abnahme 3.4 | Jerry | M | startbar | 870 | – | – | G Balance | – |
 | 954a.13 | Von Perikles (954a.2, D): Volksmerkmal Glückskind (Hügelvolk) wirkt nur im alten Kampf klassisch.gd, der entfällt (870a 2); Wirkung im MARS nach BRS | Jerry | M | startbar | 870 | – | – | E Kampf | – |
-| 969 | Von Sokrates (Chef 11.11., 15:49): Regelwerte zum Nachschlagen, dritte Seite neben 644 und 649: je Regel Satz, Formel, heutige Zahl, erzeugt aus tools/sim444/werte.json, nie von Hand | Jerry | M? | startbar | – | – | – | B Abläufe | – |
+| 969 | Von Sokrates (Chef 11.11., 15:49): Regelwerte zum Nachschlagen, dritte Seite neben 644 und 649: je Regel Satz, Formel, heutige Zahl, erzeugt aus tools/sim444/werte.json, nie von Hand | Jerry | M | startbar | 968 | – | – | B Abläufe | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
