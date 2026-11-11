@@ -8,7 +8,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 - **Zu 933 (Chef 11.11., 13:07 „A“, Archiv):** nachhalten: 933.1 Homer, 933.2 Jerry, dann 933 Tom nach B1.
 
-- **Zu 870, B1 (11.11., 11:37):** Lauf 346 fertig: Starttests grün, rot nur 922; t276 gegengelesen, in `ansehen/`, an den Chef (Telegram laut). Nach „passt“: PR erst zusammenführen, wenn 922 behoben und der Lauf grün ist (919). Folgevorgänge: 923 (Heiltrank doppelt), 910 (Heldbau nicht reproduzierbar, 42/164 Dateien).
+- **Zu 870, B1 (Chef 11.11., 13:44 „getestet und freigegeben“):** Ergebnis in der Prüfliste committet (`754e9dfc7`), `vorgang.py build 276` gelaufen (870.5 „zu testen“, weil 276.9 nicht genannt). Offen: 276.9 beim Chef nachgefragt (13:50); danach Archiv „t276 freigegeben“, Prüfliste löschen (Commit-Prüfung 774 verlangt 870.5 mit Build 276). PR erst, wenn 922 behoben und Lauf grün (919), 944 dabei.
 
 - **Zu 854 (11.11., 12:08):** Teil 1 auf main; Teil 2 Lauf 343 rot (yaml), behoben `57e729bc1`; „854, Läufe frei“ zwei Läufe auf `claude/jerry-854-block` (Archiv), Jerry benachrichtigt.
 
