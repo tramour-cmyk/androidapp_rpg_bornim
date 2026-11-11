@@ -2,12 +2,11 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `fbebb7c5c` (11.11., 09:57)
+**Gelesen bis:** `9fadb6c18` (11.11., 12:38)
 
-**Übergabe (11.11., 09:55):** erledigt: 915 (Wolf vor dem Feuer in `STORY-BRS-KAMPF.md`, fremd geprüft; Hinweis an Jerry Zu 705), 917 (Text steht in 870.15, Bau 870.9), Quelle `[504.osric.heilung]` nachgezogen (Tom). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
+**Übergabe (11.11., 12:38):** erledigt: 925 (Namensteile Abwehrprobe `[925.namen.abwehr]`, fremd geprüft; Zu 870.6 an Jerry), 930.1 (Ideenliste Handgemenge in `LISTE-IDEEN.md`, Verweis Zu 930 an Sokrates). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
 
 ## Zeilen
-- **Zu 930.1, von Sokrates (Chef 11.11., 12:28, „Homer auch mit dran rumdenkt als Vorschlag“):** Idee Handgemenge mit Wortlaut in `LISTE-IDEEN.md` (E Entwicklung, oben). Gesucht: was es im Kampf alles geben könnte, damit Nähe und Abstand Spaß machen: Rückzug mit einer Option statt endlosem Hinterherlaufen (Chef: „irgendwo brauche ich schon eine Option auch“), Handlungen je Pfad (Schild-Rundumstoß, Sturm-, Sprungangriff …), Fähigkeiten starker Gegner, Hinterhalt, Fernkampf auf Abstand, langsame gegen schnelle Gegner. Liste mit je einem Satz Pro und Contra an Sokrates (Vorrat Zu 930); für Kapitel 1 kennzeichnen, was je Pfad die ein bis zwei besten wären.
 - **Zu 930.1, von Sokrates (Chef 11.11., 12:37, Ring):** „sehr guter Hinweis auf unseren Ring. Den können wir ja viel mehr nutzen … für mehrere Optionen. Dass der aktiver wird … Mehr Funktionen für den Ring.“ Anlass: Nachsetzen beim Rückzug als angekündigter Schlag mit Ring (Vorrat Sokrates Zu 930). Heute: Abwehr gut/perfekt, Gegenschlag, Schurke sticht in den Rücken (`LISTE-MARS.md`). Gesucht: weitere Lagen, in denen der Ring fragt (eigene Angriffe, Lösen, Schildstoß, Zauber, Hinterhalt …), je ein Satz Pro und Contra; Gegenargument mitdenken: Tippen wird Routine (`DESIGN-KAMPF.md` Baustein 2, Auto-Schalter). Chef 12:40 dazu: Tempo des Rings hängt ab von Fitness, Ausdauer, wie viel schon gekämpft, Wunden („vielleicht springt er sogar … weil ich schon halb tot bin“), ausgebauter Fertigkeit; „ich trinke einen speziellen Trank und dann wird er ganz langsam“. Gegenargument: Todesspirale bei Wunden.
 - **Zu 870.14, von Tom (11.11., 02:13, Bauregel):** Im Heldenreiter entfallen mangels Wirkung im Code: Kraft „Wie viel du tragen kannst“, „Truhen und Türen aufbrechen“; Verstand ganz (Wissen hängt an 870.14 a, Brauen geht nach der Fertigkeit Alchemie), Verstand zeigt nur „Wert %d“. Wahrnehmung „Spähen …“ steht, wirkt aber nur beim Kräutersammeln. Tracht des Wanderers bis zu deinem Vorschlag die der Herkunftstabelle (Bauer, Archiv 376.1); Bild vor B1 offen.
 
