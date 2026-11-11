@@ -572,6 +572,7 @@ func fliehe() -> bool:
 		return false
 	if not flucht:
 		flucht = true
+		if String(daten["tier"]) == "huhn" and DorfEffekte.jetzt: DorfEffekte.jetzt.federn(global_position)   # 814 Federn (R4)
 		tempo_jetzt = maxf(tempo_jetzt, flucht_tempo() * 0.6)   # aufgeschreckt: gleich mit Schwung
 	ziel = n
 	weg.clear()
