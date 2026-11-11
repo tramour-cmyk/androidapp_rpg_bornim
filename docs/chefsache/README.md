@@ -232,7 +232,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 910 | M | Von Jerry (B1, Lauf 338): atem_4531 rot, Held atmet in Ruhe 3,0 cm und 3,3° statt höchsten | Sperre 620.1 B: 11 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (lauf) |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 15034 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 29, Muss 16, startbar 2
+**Perikles** – offen 30, Muss 16, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -265,6 +265,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 912 | M | D156.1 (911, Diogenes): probelauf.py zählt den nächsten Handlauf auf B1 claude/tom-870-4-h | wartet auf 913 (startbar) |
 | 913 | M | D157.1 (912, Diogenes): nr_aus_zweigname liest die Liste über zweig_lesen(…, "main") = git | startbar |
 | 914 | M | D157.2 (912, Diogenes): Zweigname vor eigenem Verlauf gibt bei Merge oben die Oberbegriffs | startbar |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 15125 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Diogenes** – offen 8, Muss 7, startbar 0
 
