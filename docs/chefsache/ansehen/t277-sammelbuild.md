@@ -61,4 +61,11 @@ Bekannt (814, aus deinem Film, Ursache wird gesucht): das Huhn fliegt nicht auf,
 - 277.3 ✓ (Chef 11.11., 20:17)
 - 277.4 ✓ (Chef 11.11., 20:20; Wert 0, Held ohne Kräutersammeln)
 - 277.5 ✗ Staubwölkchen beim Gehen auf dem Erdweg nicht zu sehen (Chef 11.11., 20:21: „Ich finde das Staubwölkchen einfach nicht. Vielleicht sehe ich aber auch zu schlecht.“); Ursache nachstellen (zu klein und gedämpft, `STAUB_K` 0,5 mit `daempfe` 0,7, oder Erdweg-Maske `erde()` greift nicht), Standbild aus dem Spiel zum Vergleich
+- 277.6 ✓ (Chef 11.11., 20:23)
+- 277.7 ✗ Ruckeln mit und ohne Nebel: mit Nebel Bilder/s 13 im Kampf (langsamstes 1 %: 88 ms, längstes 148 ms, über 50 ms: 1217), Zeichenaufrufe 170, Dreiecke 347k; ohne Nebel 17 (66 ms, 137 ms, über 50 ms: 1237), 135, 323k (Chef 11.11., 20:27 und 20:30, zwei Bilder); Lichtschächte und Nebel im Bild kaum zu sehen; Chef 20:28: „auf jeden Fall sehr hoppelig, gerade beim Start und alles … kein Top-Spielerlebnis“; 20:30: „den Nebel habe ich wirklich nicht gesehen. Keine Ahnung, wo der da gewesen sein soll.“ (kostet 4 Bilder/s, unsichtbar). Bildschirm springt → Vorgang 992 (Jerry)
+- 277.8 ✓ (Chef 11.11., 20:27)
+- 277.9 ✓ (Chef 11.11., 20:31)
+- 277.10 ✗ Treffer und Brennen passen, der Wurf nicht (Chef 11.11., 20:34: „soweit alles schicki. Aber es war natürlich kein Wurf, das war ja wie ein Feuerball … Keine Parabel, die geworfen wurde, sondern ein nach vorne gerichteter Schubser“): Brandflasche im Bogen werfen (Wurfbewegung des Helden, Flasche fliegt sichtbar in einer Parabel, zerschellt am Ziel)
+- 277.11 ✓ (Chef 11.11., 20:34)
+- Außer der Reihe (Chef 11.11., 20:24): Testmenü zeigt am Zeichen nicht, was an oder aus ist → Vorgang 991 (Tom)
 - Außer der Reihe (Chef 11.11., 20:19, Bild Thessas Kramladen, Tag 2, 16:40): „Die Partikel gehen über den Raum hinaus“ → Vorgang 990 (Tom, aus 814)
