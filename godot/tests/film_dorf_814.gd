@@ -22,6 +22,11 @@ func abschnitt(text: String) -> void:
 	titel.text = text
 	print("FILM814 %s (Bild %d)" % [text, Engine.get_process_frames()])
 
+# Lauf 1 (11.11., 12:52): mit Argument folgt das Licht nicht der Uhr (spiel.gd licht_nach_uhr), der Film lief am Tag; Abend von Hand
+func abend() -> void:
+	spiel.licht.ziel = 0.75
+	spiel.licht.stelle(0.75)
+
 func ui_aus() -> void:
 	for n in ["mess", "oben", "leiste", "textfeld"]:
 		var k = spiel.ui.get(n)
@@ -44,8 +49,9 @@ func _lauf() -> void:
 	spiel.zustand.minuten = 20 * 60 + 30
 	# 1 Schlagbaum ohne, dann mit
 	GrasBausatz.an = false
-	spiel.betrete("village", Vector2i(17, 7), "UP")
+	spiel.betrete("village", Vector2i(17, 5), "UP")
 	for i in 5: await process_frame
+	abend()
 	ui_aus()
 	spiel.kamera.springe()
 	print("FILM814 Anfang nacht %.2f" % spiel.gebiet.nacht_jetzt)
@@ -79,19 +85,26 @@ func _lauf() -> void:
 		if String(l.daten.get("tier", "")) == "huhn": huhn = l; break
 	if huhn:
 		var k: Vector2i = huhn.kachel
-		spiel.held.setze(k + Vector2i(-4, 0), "RIGHT")
+		var start := k + Vector2i(-3, 0)
+		for d in [Vector2i(-3, 0), Vector2i(3, 0), Vector2i(0, 3), Vector2i(0, -3)]:
+			if spiel.karte.begehbar(k + d): start = k + d; break
+		spiel.held.setze(start, "RIGHT")
 		spiel.kamera.springe()
 		abschnitt("814 · Huhn fliegt auf: Federn")
 		await warte(1.0)
-		spiel.held.richtung = Vector3(1, 0, 0)
-		await warte(2.5)
-		spiel.held.richtung = Vector3.ZERO
+		print("FILM814 Huhn %s, Held %s, Weg %s" % [k, start, spiel.held.geh_zu(spiel.karte.kachel_pos(k))])
+		# Lauf 1: das Huhn floh nicht, der Held kam nicht nah genug (FLUCHT_NAH 1,45 Kacheln); jetzt bis zu 6 s auf das Huhn zu
+		for i in 180:
+			await process_frame
+			if huhn.flucht: print("FILM814 Huhn flieht nach %.1f s" % (i / 30.0)); break
+			if i % 30 == 29: spiel.held.geh_zu(huhn.position)
 		await warte(2.5)
 	else:
 		print("FILM814 kein Huhn")
 	# 4 Schenke innen
 	spiel.betrete("inn", Vector2i(4, 6), "UP")
 	for i in 5: await process_frame
+	abend()
 	ui_aus()
 	spiel.kamera.springe()
 	abschnitt("814 · in der Schenke: Staub im Licht")
