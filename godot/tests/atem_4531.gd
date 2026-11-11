@@ -208,5 +208,9 @@ func _run() -> void:
 	_check(hieb_a > 0.3, "Kampfzüge strengen an (größter Sprung %.2f)" % hieb_a)
 	print("im Kampf: Held über halb angestrengt in %.0f %% der Bilder" % (100.0 * hoch / maxf(1, bilder)))
 	_check(kf.mars.outcome != "ONGOING", "Kampf endet (%s)" % kf.mars.outcome)
+	# 910 (Lauf 338): ein Wolf sprang den Helden in der Ruhemessung an, Sturz ohne Anstrengung, die Bilder danach galten als Ruhe
+	held.atem.anstrengung = 0.0
+	held.knocked_down()
+	_check(held.atem.anstrengung > 0.5, "Sturz strengt an (%.2f)" % held.atem.anstrengung)
 	print("Atem 453.1: %d Fehler" % fails)
 	quit(1 if fails > 0 else 0)
