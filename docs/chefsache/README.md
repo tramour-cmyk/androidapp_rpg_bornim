@@ -40,7 +40,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
-**Tom** – offen 123, Muss 104, startbar 5
+**Tom** – offen 123, Muss 104, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -155,7 +155,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 785.5 | M | Von Spike (785): Kampfwerte im Reiter Ausrüstung mit Zeile für die Nebenhandwaffe wie alt | wartet auf 870.13 (wartet) |
 | 785.6 | M | Von Spike (785): Kampfwerte zeigen Lebensraub, Widerstand, Goldfund, EP-Bonus der getragen | wartet auf 870.13 (wartet) |
 | 785.7 | M | Von Spike (785): Karte im Menü: Wald, Tiefer Wald, Höhle als Kartenblatt mit Nebel, Höhlen | Sperre 620.1 B: 18 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.9 |
-| 785.8 | M | Von Spike (785): Karte im Menü: Lagerfeuer-Marken und Zielmarke eines Auftrags wie alt (Me | startbar |
+| 785.8 | M | Von Spike (785): Karte im Menü: Lagerfeuer-Marken und Zielmarke eines Auftrags wie alt (Me | wartet auf 505 (startbar) |
 | 785.19 | M | Von Spike (785): Gespräche: Text erscheint Zeichen für Zeichen, Tippen zeigt ihn ganz, wie | startbar |
 | 785.20 | M | Von Spike (785): Klick-Klang auch auf Knöpfen im Stil 549a (PanelContainer: Spielstände, E | startbar |
 | 785.21 | M | Von Spike (785): Android-Zurück wie alt: in der Welt öffnet sie das Menü (WorldScreen.kt 1 | wartet auf 870.13 (wartet) |
