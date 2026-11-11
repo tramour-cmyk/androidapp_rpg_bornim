@@ -250,7 +250,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 923 | M | Von Tom/Sokrates (t276 gegengelesen): Heiltrank in tools/sim444/werte.json doppelt, welt.h | wartet auf Test/Build (gebaut) |
 | 931 | M | Von 784 A (Chef 11.11., 12:15): Wolf vorn – „Anspringen!“ steht, während er sich duckt (ke | wartet auf 863 (startbar) |
 | 932 | M | Von 784 A (Chef 11.11., 12:15/12:09): Angriff des Helden höchstens 2,4 s – rennt zum Ziel, | wartet auf 863 (startbar) |
-| 935 | M | Von Tuffy (870.6): Wurfmittel im MARS nicht zu benutzen (Brandflasche, Weihwasser): Wurf m | Sperre 620.1 B: 27 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 806 (spiel.gd) |
+| 935 | M | Von Tuffy (870.6): Wurfmittel im MARS nicht zu benutzen (Brandflasche, Weihwasser): Wurf m | in Arbeit bei Tuffy |
 | 938 | M | Von Tom (786): Klang bei Handel, Rast und Gaben wie alt: Münzen beim Kaufen, Verkaufen, Zu | ruht |
 | 939 | M | Von Tom (786): Kampfklang wie alt: Ring (schwerer Schwung beim Öffnen, Block bei gut und p | wartet auf Test/Build (gebaut) |
 | 936 | M | Von Tom (786): Musik an der Bemerkgrenze wie alt: nahe einem Monster leiser und dunkler mi | ruht |
