@@ -295,6 +295,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:30 11.11.: Startsperre 23:30 Start Homer, Spike (lauf.py). Lauf 23:30 (Tom-Meldung 23:29: Homer 954.2): Homer …7882hJCzdqb8SLvPZz „Homer – 954.2“ und Spike …77Z838grLETgmwhtMt „Spike – 963“ in Hoch, effort high bestätigt, gestartet; Homer alt …798PZ (986, 5,20 $) und Spike alt …78Chk52 (814, 9,61 $) archiviert und gebucht; GELÖST 861 an Tom.
 - 23:30 11.11.: Marke Archiv session_01Hmoj798PZHPo2cEXLJVxaZ (lauf.py)
 - 23:30 11.11.: Marke Archiv session_01Hmoj78Chk526NpZcAaA2PN (lauf.py)
-- 00:03 12.11.: Startsperre 00:03 Start Spike (lauf.py)
+- 00:03 12.11.: Startsperre 00:03 Start Spike (lauf.py). Lauf 00:03: Spike …7667YeBDQoVo4PDtp2 „Spike – 976“ in Hoch, effort high bestätigt, gestartet; Spike alt …77Z838 (963, 2,54 $) und Jerry alt …76NLMvq (833, 15,02 $) archiviert und gebucht. Homer …7882hJ („Homer – 954.2“) ruht ohne offenen Vorgang (766 am 13.11., 08:00).
 - 00:03 12.11.: Marke Mehrfach Jerry (lauf.py)
 - 00:03 12.11.: Marke Archiv session_01Hmoj77Z838grLETgmwhtMt (lauf.py)
