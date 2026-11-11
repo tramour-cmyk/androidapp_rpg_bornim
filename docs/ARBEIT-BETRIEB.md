@@ -302,3 +302,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:03 12.11.: Marke Mehrfach Jerry (lauf.py)
 - 00:03 12.11.: Marke Archiv session_01Hmoj77Z838grLETgmwhtMt (lauf.py)
 - 00:37 12.11.: Startsperre 00:37 Start Jerry (Neustart-Meldung 00:35, f2dddf776; Nachfolger "Jerry – 863: Platztausch der Ratten"; Hoch, effort high)
+- 00:38 12.11.: Neustart Jerry (f2dddf776): Nachfolger …76SsibYiY9PE3GyCjT "Jerry – 863: Platztausch der Ratten" (Hoch, effort high bestätigt); Jerry alt …75hgRbHuDP5JyfDGz2 (8,42 $ auf 993) und Jerry …7A3Uv1wQxh44QKmFGc (6,90 $ auf 988) archiviert und gebucht.
