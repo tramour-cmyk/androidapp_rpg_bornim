@@ -49,6 +49,30 @@
     "schaden_runden": true
   },
 
+  "proben": {
+    "_quelle": "870.5 (870a 5 A, DESIGN-BRS.md 7): Proben als Prozent wie die Trefferchance; alle Zahlen vorlaeufig (A, Jerry), die Simulation kennt sie noch nicht; Werte-Vorlage an den Chef vor B1",
+    "_formel": "Chance = basis + je_punkt x (eigener Grundwert - Grundwert dagegen) + je_stufe x (eigene Stufe - Stufe dagegen), begrenzt auf min bis max; Gegner ohne Grundwerte zaehlen mit gegner_grundwert",
+    "basis": 50,
+    "je_punkt": 5,
+    "je_stufe": 5,
+    "min": 5,
+    "max": 95,
+    "gegner_grundwert": 5,
+    "_abwehr": "Abwehrprobe gegen einen Zustand mit Zaehigkeit (Gift, Betaeubung, Blindheit), Wille oder Gewandtheit gegen den staerksten stehenden Gegner; je Punkt Schwere des alten Rettungswurfs ueber abwehr_mitte ein Grundwertpunkt mehr dagegen",
+    "abwehr_mitte": 11,
+    "_initiative": "Reihenfolge nach je_punkt x Gewandtheit + je_stufe x Stufe + Zufall 0 bis initiative_streuung; ausser Atem minus initiative_atemlos",
+    "initiative_streuung": 100,
+    "initiative_atemlos": 25,
+    "_flucht": "Gewandtheit des Helden gegen die des schnellsten stehenden Gegners (Stufe dazu); betrunken mit Ungunst (merkmale umreissen)"
+  },
+
+  "gegenwirkung": {
+    "_quelle": "870.5 (870a 8 A, LISTE-BESTIARIUM.md): das falsche Mittel staerkt oder kostet, nie toedlich; Zahlen A (Jerry), Werte-Vorlage an den Chef vor B1; Simulation kennt sie noch nicht",
+    "rasend_schaden": 1.5,
+    "blut_schaden": 1.5,
+    "teilen_leben": 0.5
+  },
+
   "erfahrung": {
     "_quelle": "N 4 Tabelle 'Zahlen fuer die Simulation', Modell D; Fertigkeits- und Proben-Erfahrung A",
     "je_gegner_faktor": 10,
@@ -88,15 +112,15 @@
 
   "waffen": {
     "_quelle": "N 4: Grundschaden und Grundwert; Klingen fuer Schleim-Widerstand A",
-    "Faustkampf":   {"schaden": 2,  "grundwert": "kraft",       "art": "nah",  "typ": "stumpf"},
-    "Dolche":       {"schaden": 4,  "grundwert": "gewandtheit", "art": "nah",  "typ": "klinge"},
-    "Wurfwaffen":   {"schaden": 4,  "grundwert": "gewandtheit", "art": "fern", "typ": "klinge"},
-    "Einhänder":    {"schaden": 6,  "grundwert": "kraft",       "art": "nah",  "typ": "klinge"},
-    "Stumpfe Waffen": {"schaden": 6, "grundwert": "kraft",      "art": "nah",  "typ": "stumpf"},
+    "Faustkampf":   {"schaden": 2,  "grundwert": "kraft",       "art": "nah",  "typ": "wucht"},
+    "Dolche":       {"schaden": 4,  "grundwert": "gewandtheit", "art": "nah",  "typ": "stich"},
+    "Wurfwaffen":   {"schaden": 4,  "grundwert": "gewandtheit", "art": "fern", "typ": "stich"},
+    "Einhänder":    {"schaden": 6,  "grundwert": "kraft",       "art": "nah",  "typ": "schnitt"},
+    "Stumpfe Waffen": {"schaden": 6, "grundwert": "kraft",      "art": "nah",  "typ": "wucht"},
     "Bogen":        {"schaden": 6,  "grundwert": "gewandtheit", "art": "fern", "typ": "stich"},
-    "Stangenwaffen":{"schaden": 8,  "grundwert": "kraft",       "art": "nah",  "typ": "klinge"},
+    "Stangenwaffen":{"schaden": 8,  "grundwert": "kraft",       "art": "nah",  "typ": "stich"},
     "Armbrust":     {"schaden": 8,  "grundwert": null,          "art": "fern", "typ": "stich"},
-    "Zweihänder":   {"schaden": 10, "grundwert": "kraft",       "art": "nah",  "typ": "klinge"}
+    "Zweihänder":   {"schaden": 10, "grundwert": "kraft",       "art": "nah",  "typ": "schnitt"}
   },
 
   "zauber": {
@@ -189,33 +213,34 @@
   },
 
   "monster": {
+    "_schwaeche": "870.5 (870a 8 A, LISTE-BESTIARIUM.md): Schwaeche x1,5, Staerke x0,5, immun 0 je Schadensart (schnitt, stich, wucht, feuer, gift, saeure, licht); Waffen tragen ihre Art (Dolche, Speere, Boegen stechen, Schwerter schneiden, Stumpfes und Faust wucht), A",
     "_quelle": "B 'Werte 2.0' (427, Chef 02.11., 18:54; Krogg, Grimmzahn vorlaeufig bis 427.1); art nah/fern/zauber und Schwaechen A nach B-Spalte 'Angriff' und Hinweis Schwaechen +-50 %",
-    "Riesenratte":        {"stufe": 1, "leben": 20, "ruestung": 1, "schaden": 3,  "angriff": 10, "abwehr": 5,  "wachsamkeit": 10, "art": "nah", "gebiet": ["Wald", "Höhle"]},
+    "Riesenratte":        {"stufe": 1, "leben": 20, "ruestung": 1, "schaden": 3,  "angriff": 10, "abwehr": 5,  "wachsamkeit": 10, "art": "nah", "gebiet": ["Wald", "Höhle"], "schwaeche": {"feuer": 1.5}},
     "Kobold":             {"stufe": 1, "leben": 24, "ruestung": 1, "schaden": 3,  "angriff": 10, "abwehr": 5,  "wachsamkeit": 0,  "art": "nah", "gebiet": ["Wald", "Tiefer Wald"]},
-    "Blutflügler":        {"stufe": 1, "leben": 18, "ruestung": 2, "schaden": 3,  "angriff": 15, "abwehr": 9,  "wachsamkeit": 0,  "art": "nah", "gebiet": ["Wald", "Tiefer Wald"]},
-    "Wolf":               {"stufe": 2, "leben": 25, "ruestung": 1, "schaden": 6,  "angriff": 15, "abwehr": 12, "wachsamkeit": 30, "art": "nah", "gebiet": ["Wald", "Tiefer Wald"]},
-    "Wildschwein":        {"stufe": 2, "leben": 29, "ruestung": 0, "schaden": 3,  "angriff": 10, "abwehr": 8,  "wachsamkeit": 10, "art": "nah", "gebiet": ["Wald", "Tiefer Wald"]},
-    "Riesen-Hundertfüßer":{"stufe": 2, "leben": 22, "ruestung": 1, "schaden": 3,  "angriff": 15, "abwehr": 12, "wachsamkeit": 0,  "art": "nah", "gebiet": ["Wald", "Tiefer Wald"]},
+    "Blutflügler":        {"stufe": 1, "leben": 18, "ruestung": 2, "schaden": 3,  "angriff": 15, "abwehr": 9,  "wachsamkeit": 0,  "art": "nah", "gebiet": ["Wald", "Tiefer Wald"], "schwaeche": {"feuer": 1.5}},
+    "Wolf":               {"stufe": 2, "leben": 25, "ruestung": 1, "schaden": 6,  "angriff": 15, "abwehr": 12, "wachsamkeit": 30, "art": "nah", "gebiet": ["Wald", "Tiefer Wald"], "schwaeche": {"feuer": 1.5}},
+    "Wildschwein":        {"stufe": 2, "leben": 29, "ruestung": 0, "schaden": 3,  "angriff": 10, "abwehr": 8,  "wachsamkeit": 10, "art": "nah", "gebiet": ["Wald", "Tiefer Wald"], "schwaeche": {"stich": 1.5, "schnitt": 0.5}},
+    "Riesen-Hundertfüßer":{"stufe": 2, "leben": 22, "ruestung": 1, "schaden": 3,  "angriff": 15, "abwehr": 12, "wachsamkeit": 0,  "art": "nah", "gebiet": ["Wald", "Tiefer Wald"], "schwaeche": {"wucht": 1.5, "stich": 0.5}},
     "Goblin":             {"stufe": 2, "leben": 18, "ruestung": 2, "schaden": 5,  "angriff": 15, "abwehr": 16, "wachsamkeit": 10, "art": "nah", "gebiet": ["Wald", "Tiefer Wald", "Höhle"]},
     "Goblin-Späher":      {"stufe": 2, "leben": 22, "ruestung": 1, "schaden": 5,  "angriff": 15, "abwehr": 12, "wachsamkeit": 20, "art": "fern", "gebiet": ["Wald", "Tiefer Wald", "Höhle"]},
-    "Skelett":            {"stufe": 2, "leben": 36, "ruestung": 1, "schaden": 5,  "angriff": 15, "abwehr": 12, "wachsamkeit": 10, "art": "nah", "gebiet": ["Wald", "Tiefer Wald", "Höhle"], "schwaeche": {"stumpf": 1.5}},
-    "Zombie":             {"stufe": 2, "leben": 44, "ruestung": 0, "schaden": 3,  "angriff": 10, "abwehr": 2,  "wachsamkeit": 0,  "art": "nah", "gebiet": ["Wald", "Tiefer Wald", "Höhle"]},
-    "Riesenfledermaus":   {"stufe": 3, "leben": 46, "ruestung": 1, "schaden": 5,  "angriff": 20, "abwehr": 17, "wachsamkeit": 40, "art": "nah", "gebiet": ["Wald", "Tiefer Wald", "Höhle"]},
-    "Goblin-Schamane":    {"stufe": 3, "leben": 29, "ruestung": 1, "schaden": 4,  "angriff": 15, "abwehr": 15, "wachsamkeit": 50, "art": "zauber", "gebiet": ["Tiefer Wald", "Höhle"]},
-    "Riesenspinne":       {"stufe": 4, "leben": 43, "ruestung": 2, "schaden": 7,  "angriff": 25, "abwehr": 24, "wachsamkeit": 40, "art": "nah", "gebiet": ["Tiefer Wald", "Höhle"]},
-    "Ghul":               {"stufe": 4, "leben": 37, "ruestung": 1, "schaden": 6,  "angriff": 25, "abwehr": 20, "wachsamkeit": 40, "art": "nah", "gebiet": ["Tiefer Wald", "Höhle"]},
-    "Ockerschleim":       {"stufe": 5, "leben": 44, "ruestung": 0, "schaden": 5,  "angriff": 30, "abwehr": 17, "wachsamkeit": 10, "art": "nah", "gebiet": ["Höhle"], "schwaeche": {"klinge": 0.5}},
+    "Skelett":            {"stufe": 2, "leben": 36, "ruestung": 1, "schaden": 5,  "angriff": 15, "abwehr": 12, "wachsamkeit": 10, "art": "nah", "gebiet": ["Wald", "Tiefer Wald", "Höhle"], "schwaeche": {"wucht": 1.5, "stich": 0.5, "gift": 0}},
+    "Zombie":             {"stufe": 2, "leben": 44, "ruestung": 0, "schaden": 3,  "angriff": 10, "abwehr": 2,  "wachsamkeit": 0,  "art": "nah", "gebiet": ["Wald", "Tiefer Wald", "Höhle"], "schwaeche": {"feuer": 1.5, "gift": 0}},
+    "Riesenfledermaus":   {"stufe": 3, "leben": 46, "ruestung": 1, "schaden": 5,  "angriff": 20, "abwehr": 17, "wachsamkeit": 40, "art": "nah", "gebiet": ["Wald", "Tiefer Wald", "Höhle"], "schwaeche": {"stich": 1.5}},
+    "Goblin-Schamane":    {"stufe": 3, "leben": 29, "ruestung": 1, "schaden": 4,  "angriff": 15, "abwehr": 15, "wachsamkeit": 50, "art": "zauber", "gebiet": ["Tiefer Wald", "Höhle"], "schwaeche": {"stich": 1.5, "feuer": 0.5}},
+    "Riesenspinne":       {"stufe": 4, "leben": 43, "ruestung": 2, "schaden": 7,  "angriff": 25, "abwehr": 24, "wachsamkeit": 40, "art": "nah", "gebiet": ["Tiefer Wald", "Höhle"], "schwaeche": {"feuer": 1.5, "gift": 0.5}},
+    "Ghul":               {"stufe": 4, "leben": 37, "ruestung": 1, "schaden": 6,  "angriff": 25, "abwehr": 20, "wachsamkeit": 40, "art": "nah", "gebiet": ["Tiefer Wald", "Höhle"], "schwaeche": {"licht": 1.5, "gift": 0}},
+    "Ockerschleim":       {"stufe": 5, "leben": 44, "ruestung": 0, "schaden": 5,  "angriff": 30, "abwehr": 17, "wachsamkeit": 10, "art": "nah", "gebiet": ["Höhle"], "schwaeche": {"feuer": 1.5, "saeure": 0}},
     "Krogg":              {"stufe": 4, "leben": 55, "ruestung": 2, "schaden": 7,  "angriff": 20, "abwehr": 28, "wachsamkeit": 60, "art": "nah", "gebiet": ["Höhle"], "boss": true, "ueberfall": true},
     "Grimmzahn":          {"stufe": 5, "leben": 55, "ruestung": 2, "schaden": 7,  "angriff": 22, "abwehr": 29, "wachsamkeit": 80, "art": "nah", "gebiet": ["Tiefer Wald"], "boss": true, "rudel": "Leibwache", "umreissen": true},
-    "Grak":               {"stufe": 6, "leben": 75, "ruestung": 2, "schaden": 7,  "angriff": 25, "abwehr": 38, "wachsamkeit": 90, "art": "nah", "gebiet": ["Höhle"], "boss": true}
+    "Grak":               {"stufe": 6, "leben": 60, "ruestung": 2, "schaden": 7,  "angriff": 25, "abwehr": 38, "wachsamkeit": 90, "art": "nah", "gebiet": ["Höhle"], "boss": true, "_leben": "870c 1 A (Vorentscheid Sokrates 10.11.): 75 -> 60, Wachsoldat Stufe 6 ohne Ring etwa 85 % im echten Kampf (ruft hoechstens einen Goblin)"}
   },
 
   "merkmale": {
     "_quelle": "427.1 (Jerry 02.11.): aus dem alten Spiel umgerechnet (core Packs.kt, Battle.kt, Monsters.kt), A; 1 Punkt W20 = 5 % = 10 Punkte Angriff (trefferchance_je_punkt 0,5)",
     "rudel": {
-      "_info": "A: Begleiter stehen hinter dem Anfuehrer, jeder greift je Runde nach ihm mit 'chance' an, nicht angreifbar, fliehen, wenn er faellt (wie im alten Spiel). Angriff = Anfuehrer + angriff_verschiebung, Schaden = Anfuehrer x schaden_anteil",
-      "Leibwache": {"_quelle": "Packs.kt guard: 2 Woelfe, 55 %, -1 auf W20, 1W4 gegen 2W6+1 des Leitwolfs", "anzahl": 2, "chance": 0.55, "angriff_verschiebung": -10, "schaden_anteil": 0.31, "koerper": "Wolf", "leben_anteil": 1.0},
-      "Jungwolf": {"_quelle": "A (870.3): Packs.kt cubs, 399.2a: 1-2 Jungwoelfe hinter dem Wolf, 50 %, -1 auf W20, 1W3 gegen 2W4+2 des Wolfs, halbe Leben; im Spiel angreifbar; Simulation kennt sie noch nicht (Werte ueber 444, dann Chef)", "anzahl": [1, 2], "chance": 0.5, "angriff_verschiebung": -10, "schaden_anteil": 0.29, "koerper": "Wolf", "leben_anteil": 0.5}
+      "_info": "A: Begleiter stehen hinter dem Anfuehrer, jeder greift je Runde nach ihm mit 'chance' an, nicht angreifbar (angreifbar: false; Jungwolf im Spiel angreifbar), fliehen, wenn er faellt (wie im alten Spiel). Angriff = Anfuehrer + angriff_verschiebung, Schaden = Anfuehrer x schaden_anteil",
+      "Leibwache": {"_quelle": "Packs.kt guard: 2 Woelfe, 55 %, -1 auf W20, 1W4 gegen 2W6+1 des Leitwolfs", "anzahl": 2, "chance": 0.55, "angriff_verschiebung": -10, "schaden_anteil": 0.31, "koerper": "Wolf", "leben_anteil": 1.0, "angreifbar": false, "erfahrung_anteil": 0.25, "_erfahrung_anteil": "vorlaeufig (870.5): wie alt Packs.kt xpShare 0,25 je Wolf der Leibwache; Werte-Vorlage an den Chef vor B1"},
+      "Jungwolf": {"_quelle": "A (870.3): Packs.kt cubs, 399.2a: 1-2 Jungwoelfe hinter dem Wolf, 50 %, -1 auf W20, 1W3 gegen 2W4+2 des Wolfs, halbe Leben; im Spiel angreifbar; seit 870c 3 A rechnet die Simulation sie als Monster 'Rudel' (Wolf mit 1-2 Jungwoelfen, nicht angreifbar, fliehen mit ihm); Werte bleiben: Wanderer Stufe 1 gegen das Rudel im echten Kampf 69 % (Ziel etwa 70)", "anzahl": [1, 2], "chance": 0.5, "angriff_verschiebung": -10, "schaden_anteil": 0.29, "koerper": "Wolf", "leben_anteil": 0.5, "angreifbar": true, "erfahrung_anteil": 0.3, "_erfahrung_anteil": "vorlaeufig (870.5): wie alt Packs.kt xpShare 0,3 je Jungwolf; Werte-Vorlage an den Chef vor B1"}
     },
     "umreissen": {"_quelle": "Monsters.kt KNOCKDOWN: bei Treffer Rettungswurf Staerke 11 (etwa die Haelfte), sonst liegt der Held, sein naechster Angriff mit Nachteil", "chance_bei_treffer": 0.5, "naechster_angriff_treffer": -25},
     "ueberfall": {"_quelle": "Monsters.kt SURPRISE_ATTACK, Battle.kt: erster Treffer +2W6 (zu 2W8+2 also x1,6) und betaeubt (Konstitution 12, etwa die Haelfte) fuer einen Zug; Sokrates 02.11., 19:0x: Held beginnt im Nachteil (Gegner zuerst); Morwens Rauch (D4.1): der erste Hieb geht fehl", "gegner_zuerst": true, "erster_treffer_faktor": 1.6, "betaeubt_chance": 0.5, "betaeubt_zuege": 1}
@@ -393,6 +418,47 @@
     "_proben": "Tabelle 6b: nur Kraeutersammler, andere Beutel und Kraeuterkunde-Werte (je 2 Heiltraenke dazu)",
     "kraeuterkunde_decke": 24,
     "_decke": "Spalte 'Kraeuterkunde 24': wer mit Kraeuterkunde beginnt, hat sie bis zur Decke von Kapitel 1 geuebt (Sammeln ist nicht gerechnet)"
+  },
+  "welt": {
+    "_quelle": "870.4 (Tom 11.11., LISTE-UMZUG-BRS.md Schritt 4): die Welt nach dem BRS statt nach dem SRD (Heldwerte entfallen). Alle Zahlen A als Uebergang, so gewaehlt, dass sich wenig aendert (Leben nach BRS sind auf Stufe 1 etwa doppelt so gross wie die alten TP); Vorentscheid Sokrates erbeten (783 W5), Messung 444, Vorlage an den Chef vor B1",
+    "heilung": {"potion": 14, "greater_potion": 28, "superior_potion": 56, "remedy": 5, "roast_meat": 14},
+    "_heilung": "A: Leben fest statt Wuerfel, je das Doppelte des alten Mittels (Heiltrank alt 2W4+2 = 7); gilt in der Welt und im Kampf",
+    "essen_je_kochen": 0.2,
+    "_essen": "A: eine Mahlzeit heilt dazu 0,2 Leben je Punkt Kochen (alt: Modifikator Konstitution)",
+    "ausdauer": {"sekunden": 6, "je_punkt": 0.5, "mitte": 10, "je_zwei_stufen": 1, "min": 2, "schwer_kraft": 7},
+    "_ausdauer": "A (467 offen): Rennen reicht sekunden + je_punkt x (Zaehigkeit + Wille - mitte) + je_zwei_stufen je zwei Heldenstufen, mindestens min; halb so lange in schwerer Ruestung unter Kraft schwer_kraft (alt: 6 + 2 x Mod(KON), Staerke 13)",
+    "handeln_je_punkt": 0.002,
+    "_handeln": "A: kaufen je Punkt Handeln 0,2 % billiger, verkaufen 0,2 % teurer (Handeln 100: 20 %, wie alt hoechstens Charisma +4); Ruf spaeter",
+    "brauen_je_alchemie": 0.01,
+    "_brauen": "A: Chance auf einen Trank mehr bei Morwens Sud je Punkt Alchemie 1 % (alt 10 % je Punkt Mod(INT))",
+    "kraut_je_kraeuterkunde": 0.01,
+    "kraut_je_wahrnehmung": 0.05,
+    "kraut_wahrnehmung_ab": 3,
+    "_kraut": "A: Chance auf ein Kraut mehr: 1 % je Punkt Kraeuterkunde und 5 % je Punkt Wahrnehmung ueber 3 (alt 15 % je Punkt Mod(WEI))",
+    "bemerken_felder": 4,
+    "bemerken_je_gewandtheit": 0.2,
+    "bemerken_min": 2,
+    "hinterhalt_je_wahrnehmung": 0.075,
+    "hinterhalt_min": 0.4,
+    "sinne_ab": 3,
+    "_sinne": "A: Monster bemerken den Helden aus bemerken_felder, je Punkt Gewandtheit ueber sinne_ab ein Fuenftelfeld spaeter (abgerundet, Gewandtheit 8: ein Feld), mindestens bemerken_min (alt je zwei Punkte Mod(GES) ein Feld); Hinterhalt je Punkt Wahrnehmung ueber sinne_ab 7,5 % seltener, hoechstens bis 40 % (alt 15 % je Punkt Mod(WEI))",
+    "wissen_verstand_ab": 6,
+    "_wissen": "870d Vorentscheid Sokrates (11.11., 02:00): Schwaechen und Staerken der Gegner vorher sehen ab Verstand 6 (alt INT 12)",
+    "leiden_zaehigkeit_ab": 5,
+    "_leiden": "A: Gift und Blutung aus einem Kampf klingen je Punkt Zaehigkeit ueber 5 eine Runde frueher ab (alt Mod(KON))",
+    "gebiet": {"forest": "Wald", "deep_forest": "Tiefer Wald", "cave": "Höhle"},
+    "_gebiet": "Karte -> Gebiet fuer den Erfahrungstopf (lohn.gd, Brs.gib_erfahrung); andere Karten ohne Topf",
+    "start": {
+      "Wachsoldat": ["longsword", "chain_shirt", "round_shield"],
+      "Jägerkind": ["shortbow", "leather"],
+      "Zauberlehrling": ["quarterstaff", "robe"],
+      "Klosterschüler": ["quarterstaff", "leather"],
+      "Kräutersammler": ["dagger", "leather"],
+      "Schmiedelehrling": ["quarterstaff", "leather"],
+      "Herumtreiber": ["dagger", "leather"],
+      "Wanderer": ["shortsword", "leather"]
+    },
+    "_start": "Klosterschueler und Schmiedelehrling bis 458.3 Kampfstab statt Streitkolben (870e Nachtrag, kein Modell). Startausruestung je Herkunft nach 'herkuenfte' (Waffe, Ruestung, Schild) als Grundform der Gegenstaende; Gold und Heiltraenke aus 'wirtschaft' (startgold, start_heiltraenke)"
   },
   "kennungen": {
     "_quelle": "870.3 (649a Schritt 1): Kennung im Spiel -> Art (Zeile in 'monster'), Anzeigename (DESIGN-BRS.md 12, STORY-BRS-OBERFLAECHE.md [870.15.namen.monster]), Gruppe; interne Kennungen bleiben. Modell und Bewegung: Figurenkatalog 649.2",

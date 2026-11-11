@@ -66,6 +66,106 @@ COMMIT_F = re.compile(r"\bgit\s+(?:-C\s+\S+\s+)?commit\b[^\n]*?\s-[a-zA-Z]*F\s*-
 TEST_SKRIPT = re.compile(r"(?:^|\s)-s\s+[\"']?res://tests/([\w./-]+\.gd)\b")
 BILDBEFEHL = re.compile(r"save_png|save_jpg|save_webp|save_exr|get_image\s*\(|get_texture\s*\(|MovieWriter|screenshot", re.I)
 CD = re.compile(r"\bcd\s+([^\s;&|]+)")
+ZUWEISUNG = re.compile(r"(?:^|[;&|(\s])(?:export\s+)?([A-Za-z_]\w*)=(\"[^\"]*\"|'[^']*'|[^\s;&|]*)")
+VARIABLE = re.compile(r"\$(?:\{(\w+)\}|(\w+))")
+
+
+class Unaufloesbar(Exception):
+    """725 (D72): Ziel eines `cd` mit Variable oder Befehlsersetzung, die der Haken nicht auflösen kann."""
+
+
+def cd_pfad(roh, cwd, vorher=""):
+    """725 (D72, Diogenes Lauf 70): `cd $VAR`, `cd "$HOME/…"`, `cd ~/…` auflösen; Variablen aus Zuweisungen in `vorher`
+    (Befehlstext vor diesem cd: `W=…; cd $W`, `export W=…`), sonst aus der Umgebung. Bleibt `$` oder eine Befehlsersetzung
+    übrig: Unaufloesbar; der Haken hält an, statt in einem erfundenen Ordner nichts zu finden und durchzulassen."""
+    ziel = roh.strip("\"'")
+    lokal = {m.group(1): m.group(2).strip("\"'") for m in ZUWEISUNG.finditer(vorher)}
+    for _ in range(3):  # W=$HOME/x; cd $W
+        neu = VARIABLE.sub(lambda m: lokal.get(m.group(1) or m.group(2), os.environ.get(m.group(1) or m.group(2), m.group(0))), ziel)
+        if neu == ziel:
+            break
+        ziel = neu
+    ziel = os.path.expanduser(ziel)
+    if "$" in ziel or "`" in ziel:
+        raise Unaufloesbar(f"725 (D72): Ziel `cd {roh}` kann der Haken nicht auflösen; Figurenstand (513.1), Parse (464) und "
+                           "Zählung (621 A) liefen sonst im falschen Ordner und ließen durch. Ziel ausschreiben "
+                           "(`cd /home/user/…`) oder `git -C <Pfad>`.")
+    return os.path.join(cwd, ziel)
+
+
+# 943: eigener Name, HEREDOC weiter unten (Zeile ~810) überschrieb diesen mit anderen Gruppen; Körper galten nie als Text
+HEREDOC_TEXT = re.compile(r"<<-?\s*['\"]?(\w+)['\"]?[^\n]*\n(.*?)(?:\n[ \t]*\1\b|\Z)", re.S)
+
+
+def text_bereiche(befehl):
+    """929 (D163.1): Bereiche (Anfang, Ende), die nur Text sind: Heredoc-Körper, dann Inhalt von '…' und "…" außerhalb davon.
+    Ein `cd` darin (Commit-Nachricht, Vorgangstitel) ist kein Befehl. Das Ziel eines echten `cd "$HOME/x"` bleibt lesbar,
+    weil nur der Anfang des Treffers zählt. Grenze: `bash -c "cd …"` gilt ebenfalls als Text."""
+    aus = [(m.start(2), m.end(2)) for m in HEREDOC_TEXT.finditer(befehl)]
+    heredocs = list(aus)
+    i, n = 0, len(befehl)
+    while i < n:
+        imtext = next((e for s, e in aus if s <= i < e), None)
+        if imtext is not None:
+            i = imtext
+            continue
+        c = befehl[i]
+        if c == "\\":
+            i += 2
+            continue
+        if c in "'\"":
+            j = i + 1
+            while j < n:
+                hd = next((e for s, e in heredocs if s <= j < e), None)  # 943 (D171.3): ein " im Heredoc-Körper schließt nicht
+                if hd is not None:  # 961 (D175.1): Sprung vor dem Vergleich, auch wenn der Körper mit " beginnt
+                    j = hd
+                    continue
+                if befehl[j] == c:
+                    break
+                j += 2 if c == '"' and befehl[j] == "\\" else 1
+            aus.append((i + 1, j))
+            i = j + 1
+            continue
+        i += 1
+    return aus
+
+
+def cd_befehle(befehl):
+    """Treffer von CD, die als Befehl stehen, nicht in Text (929)."""
+    bereiche = text_bereiche(befehl)
+    return [m for m in CD.finditer(befehl) if not any(s <= m.start() < e for s, e in bereiche)]
+
+
+def cd_ziel(befehl, cwd, erstes=False):
+    """Ordner nach dem ersten (erstes=True) oder letzten `cd` in befehl, sonst cwd; Unaufloesbar wie cd_pfad."""
+    ms = cd_befehle(befehl)
+    if not ms:
+        return cwd
+    m = ms[0] if erstes else ms[-1]
+    return cd_pfad(m.group(1), cwd, befehl[:m.start()])
+
+
+def wo_von(befehl, m, cwd):
+    """Arbeitskopie eines git-Befehls (Treffer m mit `-C` in Gruppe 1): letztes cd davor, darin `-C`."""
+    vorn = befehl[:m.start()]
+    if not m.group(1):
+        return cd_ziel(vorn, cwd)
+    try:
+        basis = cd_ziel(vorn, cwd)
+    except Unaufloesbar:  # `-C` mit festem Pfad braucht das cd nicht
+        basis = cwd
+    return cd_pfad(m.group(1), basis, vorn)
+
+
+def cd_ordner(befehl, cwd):
+    """Alle auflösbaren cd-Ziele (Suche nach Dateien; Unauflösbares fällt weg)."""
+    aus = []
+    for m in cd_befehle(befehl):
+        try:
+            aus.append(cd_pfad(m.group(1), cwd, befehl[:m.start()]))
+        except Unaufloesbar:
+            pass
+    return aus
 CI_ZWEIG = re.compile(r"claude/[\w./-]+")  # 407 (02.11.): jeder Arbeitszweig, auch grundstand-461, spike-, tuffy-
 BEFEHL_ANFANG = r"(?:^|[;&|(`]|\$\()\s*(?:\w+=\S*\s+)*"  # nur als Befehl, nicht in einer Commit-Nachricht (Fehlzählung 02.11.)
 GH_LAUF = re.compile(BEFEHL_ANFANG + r"gh\s+workflow\s+run\s+([^\n|;&]*)", re.M)
@@ -87,7 +187,7 @@ def testlauf(lauf, befehl, cwd):
         return False
     p = re.search(r"--path[=\s]+(\S+)", lauf)
     pfad = os.path.expanduser(p.group(1).strip("\"'")) if p else "."
-    for basis in [cwd] + [os.path.join(cwd, os.path.expanduser(c)) for c in CD.findall(befehl)]:
+    for basis in [cwd] + cd_ordner(befehl, cwd):
         datei = os.path.join(basis, pfad, "tests", s.group(1))
         if os.path.isfile(datei):
             return not BILDBEFEHL.search(open(datei, encoding="utf-8", errors="replace").read())
@@ -207,8 +307,7 @@ def push_lauf(befehl, cwd):
     m = PUSH.search(befehl)
     if not m:
         return None
-    cds = CD.findall(befehl[:m.start()])  # `cd ../bornim-main && git push`: Zweig des cd-Ziels (Jerry 12:05, 13:08)
-    wo = m.group(1) or (os.path.join(cwd, os.path.expanduser(cds[-1].strip("\"'"))) if cds else cwd)
+    wo = wo_von(befehl, m, cwd)  # `cd ../bornim-main && git push`: Zweig des cd-Ziels (Jerry 12:05, 13:08); 725
     ziel = CI_ZWEIG.search(m.group(2))
     zweig = ziel.group(0).split(":")[-1] if ziel else git("rev-parse", "--abbrev-ref", "HEAD", cwd=wo).stdout.strip()
     if not CI_ZWEIG.fullmatch(zweig) or SAMMELBUILD.fullmatch(zweig):  # 646, 627: Sammelbuild für den Gerätetest ist keine Probe
@@ -237,7 +336,7 @@ def push_lauf(befehl, cwd):
     if not los:  # Tom 02.11., 16:3x: Push ohne Lauf zählte als Probelauf
         return None
     nr = re.match(r"\s*(?:\w+:\s*)?(" + NR + r")\b", nachricht)
-    return (nr.group(1) if nr else (nr_aus_verlauf(wo, "HEAD") or zweig)), los == FILMT  # 911
+    return (nr.group(1) if nr else (nr_aus_verlauf(wo, "HEAD", zweig) or zweig)), los == FILMT  # 911; 924: Rolle aus dem Push-Ziel
 
 
 FILMT = 2
@@ -423,13 +522,22 @@ def ohne_film(eingaben):
 SAMMELBUILD = re.compile(r"(?:refs/heads/)?claude/build-\d+")  # 646: Sammelbuild für den Gerätetest des Chefs ist keine Probe
 
 
+def sammelbuild_frei(ref, eingaben=None):
+    """646: ein Lauf auf claude/build-<n> ist der Testbuild des Chefs, keine Probe; 730 (D86.1, Diogenes Lauf 86): aber nur ohne
+    Probe-Eingaben. Ein Handlauf mit kampf=ja, dorf=ja, schild=ja … (Filme, Vergleiche) zählt; bild=nein, film=nein ändern nichts.
+    (Nicht auf android.yml beschränkt: seit 894 baut godot.yml jeden Testbuild selbst.)"""
+    if not SAMMELBUILD.fullmatch(str(ref or "")):
+        return False
+    return not any(str(v).strip() for k, v in (eingaben or {}).items() if k not in ("bild", "film", "ref"))
+
+
 def handlauf_mcp(d):
     """407: `actions_run_trigger` über den GitHub-Server: (Vorgang, Art), RERUN zum Anhalten, oder None."""
     e = d.get("tool_input") or {}
     methode = e.get("method", "")
     if methode in ("rerun_workflow_run", "rerun_failed_jobs"):
         return RERUN
-    if methode != "run_workflow" or SAMMELBUILD.fullmatch(str(e.get("ref") or "")):
+    if methode != "run_workflow" or sammelbuild_frei(e.get("ref"), e.get("inputs") or {}):
         return None
     return vorgang_aus_ref(e.get("ref"), str(e.get("workflow_id") or "")), "hand", not ohne_film(e.get("inputs") or {})
 
@@ -445,7 +553,7 @@ def handlauf_bash(befehl):
         ref = re.search(r"(?:--ref|-r)[=\s]+(\S+)", m.group(1))
         eing = dict(re.findall(r"(?:-f|-F|--field|--raw-field)[=\s]+[\"']?(\w+)=([^\s\"']*)", m.group(1)))
         ref = ref.group(1).strip("\"'") if ref else ""
-        if SAMMELBUILD.fullmatch(ref):
+        if sammelbuild_frei(ref, eing):
             return None
         return vorgang_aus_ref(ref, ablauf), "hand", not ohne_film(eing)
     m = API_LAUF.search(befehl)
@@ -456,7 +564,9 @@ def handlauf_bash(befehl):
         eing = dict(re.findall(r"\\?[\"'](bild|film)\\?[\"']\s*:\s*\\?[\"'](\w+)", befehl))
         eing.update(re.findall(r"(?:-f|-F|--field|--raw-field)[=\s]+[\"']?inputs\[(bild|film)\]=(\w+)", befehl))
         ref = ref.group(1) if ref else ""
-        if SAMMELBUILD.fullmatch(ref):
+        alle = dict(re.findall(r"\\?[\"'](\w+)\\?[\"']\s*:\s*\\?[\"']([^\"'\\]*)", befehl))  # 730: jede Eingabe, nicht nur bild/film
+        alle.update(re.findall(r"(?:-f|-F|--field|--raw-field)[=\s]+[\"']?inputs\[(\w+)\]=([^\s\"']*)", befehl))
+        if sammelbuild_frei(ref, alle):
             return None
         return vorgang_aus_ref(ref, m.group(1)), "hand", not ohne_film(eing)
     return None
@@ -485,8 +595,7 @@ def parse_pruefen(befehl, cwd):
     m = PUSH.search(befehl)
     if not m:
         return None
-    cds = CD.findall(befehl[:m.start()])
-    wo = m.group(1) or (os.path.join(cwd, os.path.expanduser(cds[-1].strip("\"'"))) if cds else cwd)
+    wo = wo_von(befehl, m, cwd)
     ziel = re.search(r"claude/[\w./-]+", m.group(2))
     zweig = ziel.group(0).split(":")[-1] if ziel else git("rev-parse", "--abbrev-ref", "HEAD", cwd=wo).stdout.strip()
     if not zweig.startswith("claude/"):
@@ -566,8 +675,7 @@ def rot_vorher(befehl, cwd, lauf_holen=letzter_lauf):
     if not m:
         return None
     vorn = befehl[:m.start()]
-    cds = CD.findall(vorn)
-    wo = m.group(1) or (os.path.join(cwd, os.path.expanduser(cds[-1].strip("\"'"))) if cds else cwd)
+    wo = wo_von(befehl, m, cwd)
     ziel = CI_ZWEIG.search(m.group(2))
     if not ziel and len([a for a in m.group(2).split() if not a.startswith("-")]) >= 2:
         return None  # ausdrücklich ein anderer Zweig (git push origin main)
@@ -610,6 +718,31 @@ TEAMZWEIG = re.compile(r"claude/(?:tom|jerry|spike|tuffy)-[\w./-]+")
 ALT_ZEILE = re.compile(r"^Alt:\s*\S", re.M)
 
 
+def spielcode(pfade):
+    return [p for p in pfade if p.startswith("godot/") and not p.startswith("godot/tests/") and not p.endswith((".uid", ".import"))]
+
+
+def alt_meldung(zweig, spiel):
+    return ("647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser "
+            f"machen“): Push auf {zweig} ändert Spielcode ({', '.join(spiel[:3])}{' …' if len(spiel) > 3 else ''}), aber keine "
+            "Commit-Nachricht nennt die alte Fassung. Vor dem Bauen die Fundstelle in app/ oder core/ lesen, dann eine Zeile "
+            "„Alt: <Datei:Zeilen>, übernommen: …, besser: …“ in die Nachricht (git commit --amend, solange nicht gepusht), "
+            "oder „Alt: keine (<Grund>)“, wenn es nichts Altes gibt.")
+
+
+def alt_fehlt_mcp(d):
+    """731 (D87.1, Diogenes Lauf 87): dieselbe Prüfung für push_files/create_or_update_file auf die mitgegebene Nachricht."""
+    e = d.get("tool_input") or {}
+    zweig = str(e.get("branch") or "")
+    if not TEAMZWEIG.fullmatch(zweig):
+        return None
+    pfade = [str(f.get("path", "")) for f in (e.get("files") or []) if isinstance(f, dict)] + ([str(e["path"])] if e.get("path") else [])
+    spiel = spielcode(pfade)
+    if not spiel or ALT_ZEILE.search(str(e.get("message") or "")):
+        return None
+    return alt_meldung(zweig, spiel).replace("(git commit --amend, solange nicht gepusht)", "(Feld message)")
+
+
 def alt_fehlt(befehl, cwd):
     """647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen, die schon da sind,
     übernehmen und besser machen“): ein Push auf einen Teamzweig mit Spielcode unter godot/ (ohne tests/) braucht in einer
@@ -618,8 +751,7 @@ def alt_fehlt(befehl, cwd):
     m = PUSH.search(befehl)
     if not m:
         return None
-    cds = CD.findall(befehl[:m.start()])
-    wo = m.group(1) or (os.path.join(cwd, os.path.expanduser(cds[-1].strip("\"'"))) if cds else cwd)
+    wo = wo_von(befehl, m, cwd)
     ziel = CI_ZWEIG.search(m.group(2))
     teile = [t for t in m.group(2).split() if not t.startswith("-")]
     if not ziel and len(teile) >= 2:  # `git push origin main`: ausdrücklich ein anderer Zweig
@@ -640,15 +772,10 @@ def alt_fehlt(befehl, cwd):
     if neu:
         pfade += git("diff", "--name-only", "HEAD", cwd=wo).stdout.split()
         texte += "\n" + (neu_f.group(2) if neu_f else neu.group(1))
-    spiel = [p for p in pfade if p.startswith("godot/") and not p.startswith("godot/tests/")
-             and not p.endswith((".uid", ".import"))]
+    spiel = spielcode(pfade)
     if not spiel or ALT_ZEILE.search(texte):
         return None
-    return ("647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser "
-            f"machen“): Push auf {zweig} ändert Spielcode ({', '.join(spiel[:3])}{' …' if len(spiel) > 3 else ''}), aber keine "
-            "Commit-Nachricht nennt die alte Fassung. Vor dem Bauen die Fundstelle in app/ oder core/ lesen, dann eine Zeile "
-            "„Alt: <Datei:Zeilen>, übernommen: …, besser: …“ in die Nachricht (git commit --amend, solange nicht gepusht), "
-            "oder „Alt: keine (<Grund>)“, wenn es nichts Altes gibt.")
+    return alt_meldung(zweig, spiel)
 
 
 def filmlauf_rechner(befehl, cwd):
@@ -656,7 +783,7 @@ def filmlauf_rechner(befehl, cwd):
     if FILM.search(befehl):
         return True
     for m in SKRIPT.finditer(befehl):
-        for basis in [cwd, REPO] + [os.path.join(cwd, os.path.expanduser(c)) for c in CD.findall(befehl)]:
+        for basis in [cwd, REPO] + cd_ordner(befehl, cwd):
             datei = os.path.join(basis, m.group(0))
             if os.path.isfile(datei):
                 if FILM.search(open(datei, encoding="utf-8", errors="replace").read()):
@@ -704,8 +831,7 @@ def ohne_heredoc(befehl):
 
 
 def arbeitskopie(befehl, cwd):
-    cds = CD.findall(befehl)
-    return os.path.join(cwd, os.path.expanduser(cds[0].strip("\"'"))) if cds else cwd
+    return cd_ziel(befehl, cwd, erstes=True)
 
 
 def figur_sperre(wo, rev):
@@ -762,8 +888,7 @@ def vorlage_unvollstaendig(befehl, cwd, d=None):
     m = GIT_SCHREIBT.search(befehl)
     if not m:
         return None
-    cds = CD.findall(befehl[:m.start()])
-    wo = m.group(1) or (os.path.join(cwd, os.path.expanduser(cds[-1].strip("\"'"))) if cds else cwd)
+    wo = wo_von(befehl, m, cwd)
     wurzel = git("rev-parse", "--show-toplevel", cwd=wo).stdout.strip()
     if not wurzel or not os.path.isdir(os.path.join(wurzel, "docs", "chefsache")):
         return None
@@ -821,6 +946,8 @@ def main():
         except (OSError, subprocess.SubprocessError, ValueError, ImportError):
             grund = None
         if grund:
+            anhalten(grund)
+        if (grund := alt_fehlt_mcp(d)):  # 731
             anhalten(grund)
         try:
             e = d.get("tool_input") or {}
@@ -925,8 +1052,7 @@ def bereich_merken(pfade, befehl, sitzung, cwd="."):
         import bereichslisten as bl
         if not pfade and re.search(r"\bgit\b.*\b(commit|push)\b", befehl):
             m = GIT_SCHREIBT.search(befehl)
-            cds = CD.findall(befehl[:m.start()]) if m else []
-            wo = (m.group(1) if m else None) or os.path.join(cwd, os.path.expanduser(cds[-1].strip("\"'")) if cds else cwd)
+            wo = wo_von(befehl, m, cwd) if m else cd_ziel(befehl, cwd)
             pfade = bl.pfade_git(befehl, wo)
         BEREICH["text"] = bl.zusatz(pfade, befehl, sitzung)
     except Exception:
@@ -941,4 +1067,7 @@ def hinweis_geben(text=""):
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Unaufloesbar as e:  # 725
+        anhalten(str(e))

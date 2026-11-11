@@ -15,7 +15,7 @@ func _lauf() -> void:
 	root.add_child(spiel)
 	for i in 5: await process_frame
 	var hw = spiel.held_werte()
-	var tp0: int = hw.tp
+	var tp0: int = hw.leben
 	var aus: Dictionary = {}
 	for a in spiel.karte.daten.get("ausgaenge", []):
 		if String(a["ziel"]["karte"]) == "forest": aus = a; break
@@ -25,7 +25,7 @@ func _lauf() -> void:
 	while spiel.kampf == null and Time.get_ticks_msec() - t0 < 10000: await process_frame
 	var k = spiel.kampf
 	if k == null: print("FEHLER kein Kampf"); quit(1); return
-	print("Kampf: %d Gegner, Held %d/%d TP, Welt sichtbar %s" % [k.mars.fighters().filter(func(f): return f.side == "FOES").size(), tp0, hw.max_tp(), spiel.visible])
+	print("Kampf: %d Gegner, Held %d/%d TP, Welt sichtbar %s" % [k.mars.fighters().filter(func(f): return f.side == "FOES").size(), tp0, hw.max_leben(), spiel.visible])
 	if spiel.visible: fehler += 1; print("FEHLER Welt im Kampf sichtbar")
 	await process_frame
 	k.mars.set_autopilot(true)
@@ -47,11 +47,11 @@ func _lauf() -> void:
 	t0 = Time.get_ticks_msec()
 	while (spiel.kampf != null or not spiel.visible) and Time.get_ticks_msec() - t0 < 10000: await process_frame
 	for i in 30: await process_frame
-	print("zurueck: Welt sichtbar %s, Held auf %s, TP %d/%d, Kamera aktiv %s" % [spiel.visible, spiel.held.kachel, hw.tp, hw.max_tp(), spiel.kamera.current])
+	print("zurueck: Welt sichtbar %s, Held auf %s, TP %d/%d, Kamera aktiv %s" % [spiel.visible, spiel.held.kachel, hw.leben, hw.max_leben(), spiel.kamera.current])
 	if not spiel.visible: fehler += 1; print("FEHLER Welt nicht zurueck")
 	if not spiel.kamera.current: fehler += 1; print("FEHLER Kamera")
-	if aus_k == "WON" and hw.tp != maxi(1, hp_k): fehler += 1; print("FEHLER TP nach Sieg")
-	if aus_k == "LOST" and hw.tp != hw.max_tp(): fehler += 1; print("FEHLER TP nach Niederlage")
+	if aus_k == "WON" and hw.leben != maxi(1, hp_k): fehler += 1; print("FEHLER TP nach Sieg")
+	if aus_k == "LOST" and hw.leben != hw.max_leben(): fehler += 1; print("FEHLER TP nach Niederlage")
 	if aus_k != "LOST" and spiel.held.kachel.y > 3: fehler += 1; print("FEHLER Held nicht am Waldausgang")
 	print("WALD_KAMPF %d Fehler" % fehler)
 	quit(1 if fehler else 0)

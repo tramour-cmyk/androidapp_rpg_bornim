@@ -17,35 +17,35 @@ func _init() -> void:
 		quit(1)
 		return
 	var hier := {"karte": "forest", "x": 10, "y": 12, "blick": "UP"}
-	# kurze Rast am Feuer: eine Stunde, ein Viertel der TP aufgerundet, Ausdauer voll, Trank, Funke, Met enden
+	# Kurze Erholung am Feuer (870.4): zwei Stunden, ein Viertel des Lebens aufgerundet, Ausdauer voll, Trank, Funke, Met enden
 	var z := Zustand.new()
-	var h := Heldwerte.erschaffe("Alrik", "HUMAN", "FIGHTER")
-	h.tp = 1
+	var h := BrsHeld.fuer_spiel("Alrik", "Mensch", "Wachsoldat")
+	h.leben = 1
 	z.minuten = 23 * 60 + 30; z.tag = 3; z.ausdauer = 0.2; z.atemlos = true; z.ausdauer_trank = true; z.funke = true; z.met = 3
 	z.dazu("raw_meat", 2)
 	var r := Rast.rasten(z, h, "kurz", "feuer", hier)
-	var viertel := (h.max_tp() + 3) / 4
-	pruefe("kurz TP", h.tp, mini(h.max_tp(), 1 + viertel))
-	pruefe("kurz Uhr", [z.tag, z.minuten], [4, 30])
+	var viertel := (h.max_leben() + 3) / 4
+	pruefe("kurz TP", h.leben, mini(h.max_leben(), 1 + viertel))
+	pruefe("kurz Uhr", [z.tag, z.minuten], [4, 90])
 	pruefe("kurz endet", [z.ausdauer, z.atemlos, z.ausdauer_trank, z.funke, z.met], [1.0, false, false, false, 0])
-	pruefe("kurz Zeilen", r["zeilen"], ["Eine Stunde Ruhe. Die Ausdauer ist voll, +%d TP." % viertel, "Dein Funke ist verglommen.",
+	pruefe("kurz Zeilen", r["zeilen"], ["Zwei Stunden Ruhe. Die Ausdauer ist voll, +%d TP." % viertel, "Dein Funke ist verglommen.",
 		"Du brätst 2× Fleisch über dem Feuer. Es duftet herrlich!"])
 	pruefe("Fleisch", [z.anzahl("raw_meat"), z.anzahl("roast_meat")], [0, 2])
 	pruefe("kurz Wiederkehr", z.wiederkehr, hier)
 	pruefe("kurz Gold", z.gold, 0)
-	# lange Rast: 8 Stunden, alles voll, Zustaende weg, einmal je Tag
-	h.tp = 2; z.leiden = {"POISON": 3}; z.minuten = 20 * 60
+	# Langes Ausruhen (870.4): 9 Stunden, alles voll, Zustaende weg, einmal je Tag
+	h.leben = 2; z.leiden = {"POISON": 3}; z.minuten = 20 * 60
 	r = Rast.rasten(z, h, "lang", "feuer", hier)
-	pruefe("lang TP ZP", [h.tp, h.zp], [h.max_tp(), h.max_zp()])
-	pruefe("lang Uhr", [z.tag, z.minuten, z.lange_rast_tag], [5, 4 * 60, 5])
+	pruefe("lang TP ZP", [h.leben, h.mana], [h.max_leben(), h.max_mana()])
+	pruefe("lang Uhr", [z.tag, z.minuten, z.lange_rast_tag], [5, 5 * 60, 5])
 	pruefe("lang Leiden", z.leiden.size(), 0)
-	pruefe("lang Zeilen", r["zeilen"], ["Acht Stunden Schlaf. TP, ZP und Ausdauer sind voll."])
+	pruefe("lang Zeilen", r["zeilen"], ["Neun Stunden Schlaf. Leben, Mana und Ausdauer sind voll."])
 	r = Rast.rasten(z, h, "lang", "feuer", hier)
-	pruefe("lang zweimal", r, {"nein": "Heute hast du schon lange gerastet."})
+	pruefe("lang zweimal", r, {"nein": "Das Lange Ausruhen hattest du heute schon."})
 	pruefe("kurz geht noch", Rast.rasten(z, h, "kurz", "feuer", hier).has("zeilen"), true)
 	# Zimmer: 5 Gold, sonst nicht; kurz gibt es nur am Feuer; an der Theke gebucht: wach neben dem Bett
 	var s := Zustand.new()
-	var h2 := Heldwerte.erschaffe("Mira", "ELF", "WIZARD")
+	var h2 := BrsHeld.fuer_spiel("Mira", "Elf", "Zauberlehrling")
 	var theke := {"karte": "inn", "x": 4, "y": 6, "blick": "UP"}
 	s.gold = 4
 	pruefe("Zimmer arm", Rast.rasten(s, h2, "lang", "schenke", theke), {"nein": "Dafür reicht dein Gold nicht."})
@@ -55,10 +55,10 @@ func _init() -> void:
 	pruefe("Zimmer Gold", s.gold, 2)
 	pruefe("Zimmer Klang", r["klang"], ["muenzen", "heilen"])
 	pruefe("Zimmer Platz", [r["ort"], s.wiederkehr], [Rast.START, Rast.START])
-	pruefe("Zimmer Zeilen", r["zeilen"], ["Du steigst die Treppe hinauf und schläfst acht Stunden. TP, ZP und Ausdauer sind voll."])   # 604 [604.zimmerfertig]
+	pruefe("Zimmer Zeilen", r["zeilen"], ["Du steigst die Treppe hinauf und schläfst neun Stunden. Leben, Mana und Ausdauer sind voll."])   # 604 [604.zimmerfertig]
 	s.gold = 5
 	r = Rast.rasten(s, h2, "lang", "zimmer", {"karte": "inn", "x": 9, "y": 2, "blick": "LEFT"})
-	pruefe("Zimmer schon heute", r, {"nein": "Heute hast du schon lange gerastet."})
+	pruefe("Zimmer schon heute", r, {"nein": "Das Lange Ausruhen hattest du heute schon."})
 	# Met: 2 Gold, Ausdauer voll, der fuenfte macht betrunken, dann schenkt Rowena nicht mehr; nach Kapitel 1 frei
 	var m := Zustand.new()
 	m.gold = 20; m.ausdauer = 0.1
@@ -77,9 +77,9 @@ func _init() -> void:
 	pruefe("Rowena", [Rast.rowena_sagt(Zustand.new(), "X", false).begins_with("Rowena: „Ein Met"), Rast.rowena_sagt(Zustand.new(), "X", true).begins_with("Rowena: „Oben")], [true, true])
 	# Tempel (Cmd.Rest): alles voll, Wiederkehr hier; Heilen ohne Wiederkehr
 	var t := Zustand.new()
-	h.tp = 1; t.leiden = {"BLEED": 2}; t.ausdauer = 0.0
+	h.leben = 1; t.leiden = {"BLEED": 2}; t.ausdauer = 0.0
 	Rast.heilen(t, h, {"karte": "temple", "x": 5, "y": 5, "blick": "UP"})
-	pruefe("Tempel", [h.tp, t.leiden.size(), t.ausdauer, t.wiederkehr["karte"]], [h.max_tp(), 0, 1.0, "temple"])
+	pruefe("Tempel", [h.leben, t.leiden.size(), t.ausdauer, t.wiederkehr["karte"]], [h.max_leben(), 0, 1.0, "temple"])
 	# Speichern und Laden behalten alles
 	var neu := Zustand.aus_daten(z.als_daten())
 	pruefe("Spielstand", [neu.lange_rast_tag, neu.wiederkehr, neu.tag, neu.minuten], [z.lange_rast_tag, z.wiederkehr, z.tag, z.minuten])

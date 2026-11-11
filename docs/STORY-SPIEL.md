@@ -336,29 +336,29 @@ EN: He calls for help. That I cannot stop, but I can hit him while he roars.
 
 `[210T.gather]` Kraft sammeln: er heilt sich um 2W10 Lebenspunkte. Hilft: ein Fünftel seiner Lebenspunkte vorher abnehmen, dann bleibt die Heilung aus.
 EN: Gather strength: he heals 2d10 life points. Helps: take a fifth of his life points first and the healing fails.
-`[210T.gather.eingebung]` Er holt Luft. Jetzt nachsetzen, sonst steht er gleich wieder voll da.
+`[210T.gather.eingebung]` (ersetzt durch `[986.gather]`, `STORY-BRS-KAMPF.md`) Er holt Luft. Jetzt nachsetzen, sonst steht er gleich wieder voll da.
 EN: He is catching his breath. Press now, or he stands whole again.
 
 `[210T.breakthrough]` Durchbrechen: er stößt die Figur vorn nach hinten und schlägt die dahinter, die nun vorn steht, mit 1W6 mehr Schaden. Hilft: der Bedrohte tritt selbst nach vorn, dann bleibt ein einfacher Schlag; oder ein Fünftel seiner Lebenspunkte vorher.
 EN: Break through: he shoves the front figure back and strikes the one behind, now in front, with 1d6 extra damage. Helps: the threatened one steps forward, leaving a plain blow; or a fifth of his life points first.
-`[210T.breakthrough.eingebung]` Er will durch die Reihe. Steht der Bedrohte schon vorn, läuft er ins Leere.
+`[210T.breakthrough.eingebung]` (ersetzt durch `[986.breakthrough]`, `STORY-BRS-KAMPF.md`) Er will durch die Reihe. Steht der Bedrohte schon vorn, läuft er ins Leere.
 EN: He means to break the line. If the threatened one already stands in front, he charges into nothing.
 
 **Goblin**
 
 `[210T.stab]` Stich: ein einfacher Schlag, ohne Ring. Hilft: Abwehr gibt ihm Nachteil; meist lohnt der eigene Angriff mehr.
 EN: Stab: a plain blow, without a ring. Helps: Defend gives it disadvantage; usually your own attack is worth more.
-`[210T.stab.eingebung]` Nur ein Stich. Dafür lohnt kein Ausweichen.
+`[210T.stab.eingebung]` (ersetzt durch `[986.stab]`, `STORY-BRS-KAMPF.md`) Nur ein Stich. Dafür lohnt kein Ausweichen.
 EN: Just a stab. Not worth dodging.
 
 `[210T.hieb]` (348.12, Chef 27.10., 09:49 „Ansage über Homer“: Goblin mit Krummsäbel oder Beil sagt „Hieb“ an statt „Stich“; beim Umzug für alle: Waffen nach Schadensart Hieb, Stich, Schlag, Tiere mit eigenem Namen wie Biss, Klauen, Hauer) Hieb: ein einfacher Schlag, ohne Ring. Hilft: Abwehr gibt ihm Nachteil; meist lohnt der eigene Angriff mehr.
 EN: Slash: a plain blow, without a ring. Helps: Defend gives it disadvantage; usually your own attack is worth more.
-`[210T.hieb.eingebung]` Nur ein Hieb. Dafür lohnt kein Ausweichen.
+`[210T.hieb.eingebung]` (ersetzt durch `[986.hieb]`, `STORY-BRS-KAMPF.md`) Nur ein Hieb. Dafür lohnt kein Ausweichen.
 EN: Just a slash. Not worth dodging.
 
-`[210T.flank]` Flanke: er läuft um die Reihe und schlägt eine Figur hinten, ohne Deckung. Hilft: die Figur wechselt die Reihe, dann schlägt er ins Leere; oder jeder Treffer auf ihn, auch ein leichter. (348.12: „schlägt“ statt „sticht“)
+`[210T.flank]` (ersetzt durch `[986.flank.tip]`, `STORY-BRS-KAMPF.md`) Flanke: er läuft um die Reihe und schlägt eine Figur hinten, ohne Deckung. Hilft: die Figur wechselt die Reihe, dann schlägt er ins Leere; oder jeder Treffer auf ihn, auch ein leichter. (348.12: „schlägt“ statt „sticht“)
 EN: Flank: he runs round the line and strikes a figure at the back, without cover. Helps: that figure changes places and he strikes at nothing; or any hit on him, however light.
-`[210T.flank.eingebung]` Er will hintenrum. Ein Kratzer hält ihn auf, ein Wechsel der Reihe auch.
+`[210T.flank.eingebung]` (ersetzt durch `[986.flank]`, `STORY-BRS-KAMPF.md`) Er will hintenrum. Ein Kratzer hält ihn auf, ein Wechsel der Reihe auch.
 EN: He means to go round. A scratch stops him, and so does a change of place.
 
 **Wolf**
@@ -370,14 +370,14 @@ EN: It crouches to leap. Whoever no longer stands there is not struck.
 `[830.sprung]` (fest, Chef 10.11., 11:00: „830 A“; 705 B; ersetzt `[210T.pounce.eingebung]`: Eingebung im Kampfbericht direkt nach der ersten Ansage „Anspringen“, einmal je Spielstand; nennt den Knopf „Wechsel“, 225; Bau 840) Er will springen. Stehe ich nicht mehr dort, wohin er springt, schnappt er ins Leere. Wechsel, und mir bleibt noch ein halber Zug.
 EN: It means to leap. If I no longer stand where it leaps, it snaps at nothing. Switch, and I still have half a turn.
 
-`[210T.circle]` Einkreisen: alle Wölfe beißen zugleich dieselbe Figur. Hilft: jeder Treffer auf den Wolf, der es ansagt, auch ein leichter, zerstreut das Rudel.
+`[210T.circle]` (ersetzt durch `[986.circle.tip]`, `STORY-BRS-KAMPF.md`) Einkreisen: alle Wölfe beißen zugleich dieselbe Figur. Hilft: jeder Treffer auf den Wolf, der es ansagt, auch ein leichter, zerstreut das Rudel.
 EN: Circle: every wolf bites the same figure at once. Helps: any hit on the wolf that calls it, however light, scatters the pack.
-`[210T.circle.eingebung]` Der eine führt das Rudel. Den treffen, egal wie leicht.
+`[210T.circle.eingebung]` (ersetzt durch `[986.circle]`, `STORY-BRS-KAMPF.md`) Der eine führt das Rudel. Den treffen, egal wie leicht.
 EN: That one leads the pack. Hit it, however lightly.
 
 `[210T.growl]` (399.2b, Chef 28.10., 15:32: Jungwölfe beißen wie alt nur zu 50 % je Runde; Ansagezeichen „…“) Knurren: der Jungwolf greift diese Runde nicht an. Hilft: Zeit für einen Schlag auf den großen Wolf.
 EN: Growl: the young wolf does not attack this round. Helps: time to strike at the big wolf.
-`[210T.growl.eingebung]` Der Junge traut sich nicht. Erst der Große.
+`[210T.growl.eingebung]` (ersetzt durch `[986.growl]`, `STORY-BRS-KAMPF.md`) Der Junge traut sich nicht. Erst der Große.
 EN: The young one holds back. The big one first.
 
 `[399.2b.knurrt]` Zeile im Zug, eine der drei nach Zufall; {0} = Name mit Artikel wie in `mars_texte.gd`:
@@ -389,19 +389,19 @@ EN: The young one holds back. The big one first.
 
 `[210T.venom]` Gift sammeln: der nächste Biss hat 2W6 mehr Schaden, ohne Ring. Hilft: ein Fünftel ihrer Lebenspunkte vorher, dann versiegt das Gift; sonst Abwehr.
 EN: Gather venom: the next bite deals 2d6 extra damage, without a ring. Helps: a fifth of her life points first and the venom dries up; otherwise Defend.
-`[210T.venom.eingebung]` Das Gift kommt ohne Warnung. Ich muss sie treffen, bevor sie beißt.
+`[210T.venom.eingebung]` (ersetzt durch `[986.venom]`, `STORY-BRS-KAMPF.md`) Das Gift kommt ohne Warnung. Ich muss sie treffen, bevor sie beißt.
 EN: The venom comes without warning. I must hit her before she bites.
 
 `[210T.web]` Netz werfen: trifft es, verliert die Figur ihren nächsten Zug. Hilft: den Ring perfekt treffen; Abwehr gibt ihr Nachteil.
 EN: Cast web: if it hits, the figure loses its next turn. Helps: meet the ring perfectly; Defend gives her disadvantage.
-`[210T.web.eingebung]` Das Netz fliegt langsam. Wer den Moment trifft, ist frei.
+`[210T.web.eingebung]` (ersetzt durch `[986.web]`, `STORY-BRS-KAMPF.md`) Das Netz fliegt langsam. Wer den Moment trifft, ist frei.
 EN: The web flies slowly. Catch the moment and you are free.
 
 **Goblin-Späher**
 
 `[210T.aim]` Anlegen: ein Schuss mit 1W6 mehr Schaden, ohne Ring. Hilft: die Figur geht in Abwehr, dann duckt sie sich und der Pfeil geht vorbei.
 EN: Take aim: a shot with 1d6 extra damage, without a ring. Helps: that figure goes on the defensive, ducks, and the arrow misses.
-`[210T.aim.eingebung]` Er zielt auf mich. Ducke ich mich, verfehlt er.
+`[210T.aim.eingebung]` (ersetzt durch `[986.aim]`, `STORY-BRS-KAMPF.md`) Er zielt auf mich. Ducke ich mich, verfehlt er.
 EN: He is aiming at me. If I duck, he misses.
 
 `[210T.shadow]` In den Schatten: er verschwindet, bis zu seinem nächsten Zug haben Angriffe auf ihn Nachteil. Hilft: jeder Treffer vorher, auch ein leichter, hält ihn im Licht.

@@ -19,8 +19,8 @@ MAX = 6000  # Zeichen je Bereich im Zusatztext (Build und Test ganz)
 BEREICHE = {
     "Build und Test": ("LISTE-CHECK-BUILD-TEST.md", None,
                        r"^docs/chefsache/ansehen/t\d+-", r"\bclaude/build-\d+|vorgang\.py\s+build\b"),
-    "Vorlage an den Chef": ("chefsache/MUSTER.md", "Zum Kopieren",
-                            r"^docs/chefsache/(entscheiden|billigen)/", None),
+    "Vorlage an den Chef": ("chefsache/MUSTER.md", "Checkliste Vorlage an den Chef",  # 903 B (2): zweite Liste als Probe, 905 zählt
+                            r"^docs/chefsache/((entscheiden|billigen|tun)/|ansehen/(?!t\d+-))", None),
     "Aussehen und Modelle": ("DESIGN-STIL.md", "Signatur (302)",
                              r"^godot/(shader|bilder|tiere)/|\.(glb|gdshader)$|^tools/blender", r"\bblender\b"),
     "Kampf": ("LISTE-MARS.md", "Checkliste",

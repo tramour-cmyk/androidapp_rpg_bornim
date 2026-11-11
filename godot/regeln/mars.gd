@@ -17,7 +17,23 @@ static var held_unsterblich := false
 ## The lines by name, for the ones picked in several wordings.
 ## 399.2b (Homer [399.2b.knurrt]): die Zeile im Zug, wenn ein Jungwolf nur knurrt; gibt es im alten MARS nicht, darum nicht in mars_texte.gd
 ## Battle.kt Msg.fed (399.2, satt)
-const MSG399_FED := ["{0} ist gut gestärkt: +1 auf Angriffe und Schaden.", "{0} is well fed: +1 to attacks and damage."]
+const MSG399_FED := ["{0} ist gut gestärkt: trifft leichter und schlägt härter.", "{0} is well fed: lands blows more easily and hits harder."]     # [870.14.satt]
+## 870.5 (870a 8 A): Schadensarten und die Zeilen beim ersten Treffer (Homer STORY-BRS-HELD.md [870.14.schwach], [870.14.stark],
+## [870.14.immun]; Namen [870.14.namen], englisch im Satz klein)
+const SCHADENSART := {"schnitt": ["Schnitt", "slash"], "stich": ["Stich", "pierce"], "wucht": ["Wucht", "crush"], "feuer": ["Feuer", "fire"],
+	"gift": ["Gift", "poison"], "saeure": ["Säure", "acid"], "licht": ["Licht", "light"]}
+const MSG870_SCHWACH := ["{0} ist verwundbar gegen {1}!", "{0} is vulnerable to {1}!"]
+const MSG870_STARK := ["{1} richtet bei {0} wenig aus.", "{1} does little against {0}."]
+const MSG870_IMMUN := ["{1} prallt an {0} ab.", "{1} has no effect on {0}."]
+## 870.5 (870a 8 A): Gegenwirkungen beim ersten Mal (Homer STORY-BRS-HELD.md [870.14.gegen.*])
+const MSG870_GEGEN_WOLF := ["Die Wölfe weichen vor dem Feuer zurück, dann sind sie zwischen den Bäumen fort. Kein Fell, keine Erfahrung.",
+	"The wolves shy from the fire, then they are gone among the trees. No pelt, no experience."]
+const MSG870_GEGEN_SCHWEIN := ["Das Feuer macht {0} rasend.", "The fire drives {0} into a frenzy."]
+const MSG870_GEGEN_FLUEGER := ["{0} wittert dein Blut und saugt gieriger.", "{0} smells your blood and feeds more greedily."]
+const MSG870_GEGEN_ZOMBIE := ["{0} zerfällt. Diesmal steht er nicht wieder auf.", "{0} crumbles. This time it does not rise again."]
+const MSG870_GEGEN_SCHLEIM := ["Der Schleim teilt sich.", "The slime splits in two."]
+## [870.14.kraft.schoepfen]
+const MSG870_KRAFT := ["{0} schöpft Kraft: +{1} TP.", "{0} draws strength: +{1} HP."]
 const MSG399_GROWLS := [["{0} knurrt, wagt aber keinen Biss.", "{0} snarls but dares no bite."],
 	["{0} duckt sich und fletscht die Zähne, kommt aber nicht heran.", "{0} crouches and bares its teeth, but does not come in."],
 	["{0} knurrt und hält Abstand.", "{0} growls and keeps its distance."]]
@@ -64,7 +80,7 @@ const FLUTTER := 0.2
 ## 534 (Abgleich 512, Sokrates: im alten Weltkampf Battle.kt, in MARS fehlend): Lebensraub und Schadensminderung der
 ## Ausrüstung, Unerbittlichkeit der Orkblütigen, Einschüchtern zu Kampfbeginn (Perks.cowChance); Wortlaut aus Battle.kt Msg
 const MSG534_LIFESTEAL = ["{0} saugt {1} TP ab.", "{0} drains {1} HP."]
-const MSG534_RELENTLESS = ["{0} bleibt mit eisernem Willen stehen!", "{0} stays standing through sheer will!"]
+const MSG534_RELENTLESS = ["Letzter Atemzug: {0} bleibt stehen!", "Last Breath: {0} stays standing!"]     # [870.14.letzter.atemzug]
 const MSG534_COWED = ["{0} zögert, eingeschüchtert von {1}!", "{0} hesitates, cowed by {1}!"]
 ## 506 (alt Battle.kt Msg.fortitude, Msg.elfImmune): Untotenzähigkeit des Wiedergängers (Monsters.kt zombie UNDEAD_FORTITUDE: ein
 ## tödlicher Schlag ohne Krit, kein gleißender Schaden, W20 + Kon-Rettung ≥ 5 + Schaden, dann bleibt er mit 1 TP stehen) und die
@@ -76,8 +92,8 @@ const COW_PER_CHA := 0.08
 const BREAK_SHARE := 5
 ## 296.2: the lines of the old fight, the same words in MARS (Skirmish.kt Msg296, Zweig claude/build-89).
 const MSG296_STILLSURPRISED = ["{0} ist noch überrascht und kann nicht reagieren!", "{0} is still caught off guard!"]
-const MSG296_FLED = ["{0} ist entkommen!", "{0} got away safely!"]
-const MSG296_CANTFLEE = ["Die Flucht misslingt!", "Couldn't get away!"]
+const MSG296_FLED = ["{0} ist entkommen!", "{0} gets away!"]     # [870.14.flucht]
+const MSG296_CANTFLEE = ["Die Flucht misslingt!", "The escape fails!"]
 ## 296.2: the statuses of the old fight (core Status.kt): name, short sign, colour of the sign.
 const STATUS := {
 	"POISON": [["Vergiftet", "Poisoned"], ["Gift", "Psn"], Color("6FB83A")],
@@ -92,14 +108,14 @@ const STATUS := {
 }
 ## 536: was ein Zustand bewirkt, wortgetreu aus Status.kt desc (der Tipp auf ein Zustandsschild im Kampf)
 const STATUS_DESC := {
-	"POISON": ["Schaden zu Beginn jeder Runde.", "Damage at the start of each round."],
+	"POISON": ["Schaden zu Beginn jeder Runde. Abwehr mit Zähigkeit.", "Damage at the start of each round. Resisted with Toughness."],     # [870.14.zustand.*]
 	"BURN": ["Starker Schaden zu Beginn jeder Runde.", "Heavy damage at the start of each round."],
-	"BLEED": ["Schaden jede Runde, Heilung nur halb so stark.", "Damage each round, healing is halved."],
+	"BLEED": ["Schaden jede Runde, Heilung nur halb so stark.", "Damage each round; healing is halved."],
 	"STUN": ["Setzt die nächste Runde aus.", "Loses the next turn."],
-	"SLOW": ["−2 auf Angriff und Rüstungsklasse.", "−2 to attack and armor class."],
-	"WEAK": ["−2 auf Angriff und Schaden.", "−2 to attack and damage."],
-	"BLIND": ["Angriffe mit Nachteil.", "Attacks with disadvantage."],
-	"DRUNK": ["Angriffe und Flucht mit Nachteil, bis zur nächsten Rast.", "Attacks and fleeing at a disadvantage, until your next rest."],
+	"SLOW": ["Trifft schlechter und weicht schlechter aus.", "Hits less often and dodges less well."],
+	"WEAK": ["Trifft schlechter und macht weniger Schaden.", "Hits less often and deals less damage."],
+	"BLIND": ["Angriffe mit Ungunst.", "Attacks at disfavor."],
+	"DRUNK": ["Angriffe und Flucht mit Ungunst, bis zur nächsten Rast.", "Attacks and fleeing at disfavor, until your next rest."],
 }
 ## A status that does not wear off by itself (Status.LASTING).
 const LASTING := 99
@@ -122,16 +138,15 @@ const ST_STUNNED := ["{0} ist betäubt und kann nicht handeln!", "{0} is stunned
 const ST_ENDS := ["{0} ist nicht mehr {1}.", "{0} is no longer {1}."]
 const ST_SHRUGS := ["{0} widersteht der Wirkung!", "{0} resists the effect!"]
 const ST_STEADFAST := ["{0} bleibt standhaft!", "{0} stands firm!"]
-const ST_DWARF := ["Zwergische Zähigkeit: {0} widersteht dem Gift!", "Dwarven resilience: {0} resists the poison!"]
+const ST_DWARF := ["Steinblut: {0} widersteht dem Gift!", "Stoneblood: {0} resists the poison!"]     # [870.14.steinblut]
 const ST_SHAKES := ["{0} schüttelt die Betäubung ab!", "{0} shrugs off the stun!"]
 const MSG296_DAMAGE := ["{0} Schaden.", "{0} damage."]
 ## 296.2: the kinds whose specials MARS plays through their own intents, not the old fight's.
 const OWN_INTENTS := [GRAK, CALLED, SCOUT, WOLF, DIRE_WOLF, SPIDER]
-const CALL_MAX := 2
+const CALL_MAX := 1     # 870c 1 A: Grak ruft höchstens einen Goblin
 const GATHER_HEAL := [2, 10, 0]
 const PROBE_LEVEL := 3
 const EASY_GAP := 4.0
-const PRAYER_HEAL := [1, 6, 0]
 
 ## Reaction: how well the attacked figure met the ring (72.11), with its share of the damage.
 const NONE := "NONE"
@@ -139,15 +154,47 @@ const GOOD := "GOOD"
 const PERFECT := "PERFECT"
 const SHARE := {"NONE": 1.0, "GOOD": 0.5, "PERFECT": 0.0}
 
-## Whom a move is aimed at (72.10a.3).
-const AIM := {
-	"FIRE_BOLT": "FOE", "MAGIC_MISSILE": "FOE", "SCORCHING_RAY": "FOE", "SACRED_FLAME": "FOE", "FEINT": "FOE", "ACTION_SURGE": "FOE",
-	"FIREBALL": "ROW", "BURNING_HANDS": "ROW", "SECOND_WIND": "SELF", "BLESS": "SELF", "CURE_WOUNDS": "ALLY",
+## Whom a move is aimed at (72.10a.3): 870.5 nur noch Zauber (ZAUBER_ZIEL) und Kampfhandlungen (HANDLUNG_ZIEL), ziel_von.
+
+## 870.5 (870a 3 A, DESIGN-BRS.md 7): Kampfhandlungen hängen an Fertigkeiten (werte.json „handlungen“, Zahlen dort, A mit 444 Teil 7);
+## frei ab dem Rang in „ab“, Kraft schöpfen für alle; Waffenhandlungen nur mit einer Waffe ihrer Gruppe in der Hand, Schildwall nur
+## mit Schild. Kennung -> Name in werte.json; Namen im Spiel Homer [870.14.hand.*] (STORY-BRS-KOENNEN.md). Wehrhaltung ist nicht
+## frei (444 Teil 7 ohne Wirkung, Chef entscheidet). Extra-Angriff, Doppelzug (ACTION_SURGE), Zweiwaffenkampf und die übrigen Klassenfähigkeiten
+## entfallen.
+const HANDLUNG := {
+	"H_KRAFT": "Kraft schöpfen", "H_FINTE": "Finte", "H_HINTERHALT": "Stich aus dem Hinterhalt", "H_WUCHT": "Wuchtschlag",
+	"H_ABSTAND": "Auf Abstand", "H_SCHAEDEL": "Schädelstoß", "H_GRIFF": "Griff", "H_SCHILDWALL": "Schildwall",
+	"H_RUHIG": "Ruhige Hand", "H_DURCH": "Durchschlag", "H_ZWEI": "Zwei auf einmal",
 }
-## 348.7b (Chef 27.10., 19:49): Brennende Hände eigener Effekt (Kegel aus den Händen); im Kotlin-Kern noch FIREBALL (mars_golden.gd)
-const FX := {
-	"FIRE_BOLT": "FIRE_BOLT", "MAGIC_MISSILE": "MISSILES", "SCORCHING_RAY": "RAYS", "FIREBALL": "FIREBALL", "BURNING_HANDS": "BURNING_HANDS",
-	"SACRED_FLAME": "SACRED_FLAME", "CURE_WOUNDS": "HEAL", "SECOND_WIND": "HEAL", "BLESS": "BLESS",
+const HANDLUNG_NAME := {
+	"H_KRAFT": ["Kraft schöpfen", "Draw Strength"], "H_FINTE": ["Finte", "Feint"], "H_HINTERHALT": ["Stich aus dem Hinterhalt", "Ambush Stab"],
+	"H_WUCHT": ["Wuchtschlag", "Crushing Swing"], "H_ABSTAND": ["Auf Abstand", "Hold at Bay"], "H_SCHAEDEL": ["Schädelstoß", "Skull Knock"],
+	"H_GRIFF": ["Griff", "Grapple"], "H_SCHILDWALL": ["Schildwall", "Shield Wall"], "H_RUHIG": ["Ruhige Hand", "Steady Hand"],
+	"H_DURCH": ["Durchschlag", "Punch Through"], "H_ZWEI": ["Zwei auf einmal", "Double Throw"],
+}
+## 870.5 (DESIGN-BRS.md 4, 12): Zauber nach dem BRS (werte.json „zauber“): Fertigkeit der Schule, Grundwert Wille, Kosten in Mana;
+## bekannt sind die des Kampfblatts (Herkunft) und die, deren Schule „ab“ erreicht. Namen Homer [870.14.zauber.*]. Die alten Zauber
+## der Klassen entfallen. FX: das Bild des alten Zaubers (zauber.gd), bis es eigene gibt.
+const ZAUBER := {
+	"Z_FUNKEN": "Funkenpfeil", "Z_ARKAN": "Arkanpfeil", "Z_STRAHLEN": "Glutstrahlen", "Z_FAECHER": "Flammenfächer", "Z_GLUT": "Glutkugel",
+	"Z_HAUT": "Arkanhaut", "Z_BANN": "Bannschild", "Z_WUND": "Wundsegen", "Z_GLEISS": "Gleißstrahl", "Z_BEISTAND": "Beistand",
+}
+const ZAUBER_NAME := {
+	"Z_FUNKEN": ["Funkenpfeil", "Spark Bolt"], "Z_ARKAN": ["Arkanpfeil", "Arcane Dart"], "Z_STRAHLEN": ["Glutstrahlen", "Ember Rays"],
+	"Z_FAECHER": ["Flammenfächer", "Flame Fan"], "Z_GLUT": ["Glutkugel", "Ember Orb"], "Z_HAUT": ["Arkanhaut", "Arcane Skin"],
+	"Z_BANN": ["Bannschild", "Ward"], "Z_WUND": ["Wundsegen", "Woundmend"], "Z_GLEISS": ["Gleißstrahl", "Glare Ray"], "Z_BEISTAND": ["Beistand", "Succor"],
+}
+const ZAUBER_ZIEL := {
+	"Z_FUNKEN": "FOE", "Z_ARKAN": "FOE", "Z_STRAHLEN": "FOE", "Z_FAECHER": "ROW", "Z_GLUT": "ROW", "Z_HAUT": "SELF", "Z_BANN": "SELF",
+	"Z_WUND": "ALLY", "Z_GLEISS": "FOE", "Z_BEISTAND": "SELF",
+}
+const ZAUBER_FX := {
+	"Z_FUNKEN": "FIRE_BOLT", "Z_ARKAN": "MISSILES", "Z_STRAHLEN": "RAYS", "Z_FAECHER": "BURNING_HANDS", "Z_GLUT": "FIREBALL",
+	"Z_HAUT": "BLESS", "Z_BANN": "BLESS", "Z_WUND": "HEAL", "Z_GLEISS": "SACRED_FLAME", "Z_BEISTAND": "BLESS",
+}
+const HANDLUNG_ZIEL := {
+	"H_KRAFT": "SELF", "H_FINTE": "SELF", "H_RUHIG": "SELF", "H_SCHILDWALL": "SELF", "H_HINTERHALT": "FOE", "H_WUCHT": "FOE",
+	"H_ABSTAND": "FOE", "H_SCHAEDEL": "FOE", "H_GRIFF": "FOE", "H_DURCH": "FOE", "H_ZWEI": "FOE",
 }
 
 
@@ -158,7 +205,7 @@ static func _intent(id: String, de: String, en: String, kind := "STRIKE", extra 
 
 
 var I_HEAVY := _intent("heavy", "Schwerer Hieb", "Heavy blow", "STRIKE", [2, 6, 0], true, true, true)
-var I_CALL := _intent("call", "Rudel rufen", "Call the pack", "CALL", null, false, false)
+var I_CALL := _intent("call", "Hilfe rufen", "Call for help", "CALL", null, false, false)     # Homer 899 [870.14.ansage.call]
 var I_GATHER := _intent("gather", "Kraft sammeln", "Gather strength", "GATHER", null, false, false, true)
 var I_STAB := _intent("stab", "Stich", "Stab", "STRIKE", null, false, false)
 ## 348.12 (Chef 27.10., 09:49; Homer [210T.hieb]): Goblin mit Krummsäbel oder Beil sagt „Hieb“ an; gewollte Abweichung vom alten MARS
@@ -199,8 +246,27 @@ class Fighter:
 	var taken_since_announce := 0
 	var sp := 0
 	var uses := {}
-	var blessed := false
 	var sneaked := false
+	## 870.5: die freien Kampfhandlungen (Kennungen aus HANDLUNG); Bonus des nächsten Schlags (Finte, Ruhige Hand); Haltungen bis zum
+	## eigenen nächsten Zug (Auf Abstand, Schildwall); wer ihn im Griff hält; hat in diesem Kampf schon geschlagen (Hinterhalt)
+	var handlungen: Array = []
+	## 870.5: Zauber nach dem BRS (Kennungen aus ZAUBER), Mana höchstens (sp ist das Mana im Kampf), Mana der alten Rechnung zum
+	## Zurückrechnen nach dem Kampf; Schutz aus Bannschild und Arkanhaut (Abzug), Runden mit Beistand, Bannschild schon gewirkt
+	var zauber: Array = []
+	var max_sp := 0
+	var srd_sp := -1
+	var schutz := 0.0
+	var beistand := 0
+	var bann_genutzt := false
+	var naechster := 0.0
+	var abstand := false
+	var schildwall := false
+	var gegriffen_von := ""
+	var geschlagen := false
+	## 870.5 Gegenwirkungen: rasend (Wildschwein nach Feuer), steht nicht wieder auf (Zombie nach Feuer oder Licht), hat sich geteilt
+	var rasend := false
+	var kein_zaeh := false
+	var geteilt := false
 	var held := false
 	var prone := false
 	var waited := false
@@ -219,19 +285,13 @@ class Fighter:
 	## 399.2a: the leader this one follows (a young wolf its wolf, Packs.kt); it flees when the leader falls
 	var follows := ""
 	var fled := false
-	## 478: was er nach dem BRS ist (brs_kampf.gd held, gegner); leer, solange der Kampf nach dem SRD rechnet
+	## 478: was er nach dem BRS ist (brs_kampf.gd held, gegner)
 	var b := {}
 	## 478: seine Leben nach dem SRD beim Umrechnen (Maßstab für alles, was noch in Würfeln des SRD rechnet)
 	var srd_hp := 0
 
 	func standing() -> bool:
 		return hp > 0 and not fled
-
-	func ac() -> int:
-		var slow := 2 if status.has("SLOW") else 0
-		if hero == null:
-			return int(monster.ac) - slow
-		return (int(hero.acDrawn) if drawn else int(hero.ac)) - slow
 
 	func main_weapon():
 		if hero == null or str(hero.main.id) == "":
@@ -246,12 +306,6 @@ class Fighter:
 	func spare():
 		return main_weapon() if drawn else second
 
-	## 89.2 (c): the light weapon in the other hand, while the main one is in hand (SRD: two-weapon fighting).
-	func off_hand():
-		if hero == null or drawn or hero.get("off") == null or main_weapon() == null:
-			return null
-		return hero.off
-
 	func ranged() -> bool:
 		var w = weapon()
 		return (w != null and w.ranged) or (monster != null and (monster.id == "goblin_archer" or monster.id == "giant_spider"))
@@ -263,8 +317,12 @@ class Fighter:
 	func boss() -> bool:
 		return monster != null and monster.boss
 
+	## 870.5: Grimmzahns Leibwache steht hinter ihm und ist nicht angreifbar (werte.json „rudel“ „angreifbar“, wie alt Packs.kt guard)
+	func angreifbar() -> bool:
+		return bool(b.get("angreifbar", true))
+
 	func has(skill: String) -> bool:
-		return hero != null and skill in hero.skills
+		return hero != null and (skill in hero.skills or skill in handlungen)
 
 	func level() -> int:
 		return int(hero.level)
@@ -285,10 +343,6 @@ var fed := false
 var monsters := {}
 var items := {}
 var skills := {}
-## 296.2: what a won fight brings (regeln/lohn.gd): a pack's share per companion by leader, the levels by experience, the cap.
-var packs := {}
-var xp_for_level: Array = []
-var level_cap := 20
 
 var all: Array = []
 var last_wording := {}
@@ -303,6 +357,10 @@ var outcome := "ONGOING"
 var opening := "NORMAL"
 ## 534: wer seine Unerbittlichkeit in diesem Kampf schon gebraucht hat (alt Battle.relentlessUsed)
 var relentless_used := {}
+## 870.5: welche Schwäche oder Stärke (Gegnerart|Schadensart) schon genannt ist
+var schwaeche_gesagt := {}
+## 870.5 Gegenwirkung Wolf: das Rudel floh vor dem Feuer, der Kampf bringt keine Beute und keine Erfahrung (lohn.gd)
+var kein_lohn := false
 ## 506: der laufende Schlag des Helden ist ein Krit (Untotenzähigkeit hält dann nicht); vor _hurt gesetzt, danach zurück
 var krit_jetzt := false
 var surprised := {}
@@ -313,8 +371,6 @@ var turn := 0
 var _log: Array = []
 ## Hears every message as it is said: func(event: Dictionary).
 var listener: Callable
-## 89.2 (c): Extra Attack and the other hand as in the SRD; off only to replay the fights of the Kotlin core (MARS golden).
-var srd_attacks := true
 ## 296.2: the statuses of the old fight (off for the replays of the Kotlin MARS on main, which has none).
 var statuses := true
 var potions := {}
@@ -346,9 +402,6 @@ func _init(party: Array, foes: Array, tables: Dictionary, p_dice, p_words, p_lan
 		items[it.id] = it
 	for s in tables.skills:
 		skills[s.id] = s
-	packs = tables.get("packs", {})
-	xp_for_level = tables.get("xpForLevel", [])
-	level_cap = int(tables.get("levelCap", 20))
 	all = party + foes
 	var kinds := {}
 	for f in foes:
@@ -371,9 +424,9 @@ func _init(party: Array, foes: Array, tables: Dictionary, p_dice, p_words, p_lan
 		var gap: float = float(lv) - top
 		if gap >= EASY_GAP:
 			easy_gap = gap
+	brs_einrichten()     # 870.5: immer; vor der Initiative, die nach dem BRS rechnet
 	for f in all:
-		var dex: int = int(f.hero.dex) if f.hero != null else int(f.monster.dex)
-		f.initiative = dice.d20(-1 if winded and f == party[0] else 0) + dex
+		f.initiative = _initiative(f, winded and f == party[0])
 	var idx := {}
 	for i in all.size():
 		idx[all[i]] = i
@@ -390,22 +443,18 @@ func _init(party: Array, foes: Array, tables: Dictionary, p_dice, p_words, p_lan
 		order = order.filter(func(x): return x.side == "PARTY") + order.filter(func(x): return x.side != "PARTY")
 		for f in foes:
 			surprised[f.id] = true
+	elif bool(_ueberfall().get("gegner_zuerst", false)):     # 870.5: Überfall (Krogg) schlägt vor dem Helden (werte.json „merkmale“ „ueberfall“, 444)
+		order = order.filter(func(x): return x.side == "FOES" and bool(x.b.get("ueberfall", false))) + order.filter(func(x): return not (x.side == "FOES" and bool(x.b.get("ueberfall", false))))
 	for f in foes:
 		announce(f)
-	if BrsKampf.an():
-		brs_einrichten()
 
 
-## 478: ein Angriffswurf, nach dem SRD („ATTACK“, W20) oder dem BRS („BRS“: Wurf 1–100, Chance, kritisch an Stelle 7)
+## 478, 870.5: ein Angriffswurf nach dem BRS: ["BRS", Wurf 1–100, 0, Chance, Treffer, Lage, von hinten, kritisch]
 static func ist_angriff(roll) -> bool:
-	return roll != null and (roll[0] == "ATTACK" or roll[0] == "BRS")
+	return roll != null and roll[0] == "BRS"
 
 static func ist_krit(roll) -> bool:
-	if roll == null or not roll[4]:
-		return false
-	if roll[0] == "BRS":
-		return roll.size() > 7 and bool(roll[7])
-	return roll[0] == "ATTACK" and int(roll[1]) == 20
+	return ist_angriff(roll) and roll[4] and roll.size() > 7 and bool(roll[7])
 
 
 ## 702 C (Chef 09.11., 06:56, Archiv „702 C, Anspringen: aufstehen und handeln“; Messung tests/anspringen_702.gd): wer
@@ -414,10 +463,14 @@ static func ist_krit(roll) -> bool:
 ## (Aufstehen kostet den ganzen Zug), nur für mars_golden und die Messung.
 var anspringen := "handeln"
 
-## 478: der Kampf rechnet nach dem BRS (Modell D, brs_kampf.gd); Leben der Gruppe im selben Anteil wie vorher, Gegner nach dem Bestiarium
+## 478, 870.5: der Kampf rechnet nur nach dem BRS (Modell D, brs_kampf.gd); Leben der Gruppe im selben Anteil wie vorher, Gegner nach
+## dem Bestiarium (daten/werte.json); true, sobald der Kampf eingerichtet ist (aufruf.gd liest es)
 var brs := false
 
 func brs_einrichten() -> void:
+	assert(BrsKampf.an(), "870.5: daten/werte.json fehlt (tools/sim444/werte.json)")
+	if brs:     # nur einmal umrechnen (start ruft es, manche Tests vorher)
+		return
 	brs = true
 	for f in all:
 		_brs_kaempfer(f)
@@ -430,8 +483,10 @@ func _brs_kaempfer(f: Fighter) -> void:
 		f.srd_hp = f.max_hp
 		f.hp = clampi(roundi(float(f.hp) * mx / maxf(1.0, f.max_hp)), 1 if f.hp > 0 else 0, mx)
 		f.max_hp = mx
+		_brs_handlungen(f)
 	elif f.monster != null:
 		f.b = BrsKampf.gegner(f.monster, monsters.get(String(f.monster.id), {}))
+		assert(not f.b.is_empty(), "870.5: kein Gegner %s in werte.json" % String(f.monster.id))
 		if f.b.is_empty():
 			return
 		var mx := int(f.b.leben)
@@ -440,16 +495,152 @@ func _brs_kaempfer(f: Fighter) -> void:
 		f.max_hp = mx
 
 
+## 870.5: von den Klassenfähigkeiten bleiben nur die Zauber (bis zu ihrem Teil); dazu die Kampfhandlungen, die seine Fertigkeiten
+## freigeben (werte.json „handlungen“: „alle“ oder Fertigkeit ab „ab“); Kraft schöpfen „je_kampf“ mal
+func _brs_handlungen(f: Fighter) -> void:
+	f.hero = (f.hero as Dictionary).duplicate()
+	f.hero.skills = []     # 870.5: keine Klassenfähigkeiten und alten Zauber mehr
+	f.uses.clear()
+	_brs_zauber_kennen(f)
+	var H: Dictionary = BrsKampf.w().get("handlungen", {})
+	f.handlungen = []
+	for id in HANDLUNG:
+		var h = H.get(HANDLUNG[id])
+		if not (h is Dictionary):
+			continue
+		var frei: bool = bool(h.get("alle", false)) or (h.get("fertigkeit") != null and int(f.b.fert.get(String(h.fertigkeit), 0)) >= int(h.get("ab", 0)))
+		if frei:
+			f.handlungen.append(id)
+			if h.has("je_kampf"):
+				f.uses[id] = int(h.je_kampf)
+	for id in ZAUBER:
+		if not skills.has(id):
+			var zw: Dictionary = BrsKampf.w()["zauber"].get(ZAUBER[id], {})
+			skills[id] = {"id": id, "de": ZAUBER_NAME[id][0], "en": ZAUBER_NAME[id][1], "cost": "SPELL_POINTS", "amount": int(zw.get("kosten", 0)),
+				"cls": "", "level": 0}
+	for id in HANDLUNG:
+		if not skills.has(id):
+			var cost := "PER_BATTLE" if id == "H_KRAFT" else "HANDLUNG"
+			skills[id] = {"id": id, "de": HANDLUNG_NAME[id][0], "en": HANDLUNG_NAME[id][1], "cost": cost, "amount": 1, "cls": "", "level": 0}
+
+
+## 870.5 (870a 5 A): Grundwert für Proben; Gegner ohne Grundwerte zählen mit „gegner_grundwert“ (werte.json „proben“)
+func _proben() -> Dictionary:
+	return BrsKampf.w().get("proben", {})
+
+
+func _grundwert(f: Fighter, name: String) -> float:
+	var P := _proben()
+	var w = f.b.get("werte", {}) if name != "" else {}
+	if w.has(name):
+		return float(w[name])
+	return float(P.get("gegner_grundwert", 5))
+
+
+## Chance in Prozent: [f] mit [wert] gegen [g] mit [gegen] (leer: gegner_grundwert), Stufe dazu
+func _probe_chance(f: Fighter, wert: String, g: Fighter, gegen: String, bonus := 0.0) -> float:
+	var P := _proben()
+	var c := float(P.get("basis", 50)) + float(P.get("je_punkt", 5)) * (_grundwert(f, wert) - _grundwert(g, gegen)) \
+			+ float(P.get("je_stufe", 5)) * float(int(f.b.get("stufe", 1)) - int(g.b.get("stufe", 1))) + bonus
+	return clampf(c, float(P.get("min", 5)), float(P.get("max", 95)))
+
+
+func _probe(f: Fighter, wert: String, g: Fighter, gegen: String, bonus := 0.0) -> bool:
+	return dice.next_int(0, 100) < roundi(_probe_chance(f, wert, g, gegen, bonus))
+
+
+func _staerkster_gegner(t: Fighter):
+	var best = null
+	for x in all:
+		if x.side != t.side and x.standing() and (best == null or int(x.b.get("stufe", 1)) > int(best.b.get("stufe", 1))):
+			best = x
+	return best
+
+
+## Reihenfolge (werte.json „proben“ „_initiative“); Zufall vom Würfel (0 bis Streuung), so spielt ein Band in Tests mit
+func _initiative(f: Fighter, atemlos := false) -> int:
+	var P := _proben()
+	var n := float(P.get("je_punkt", 5)) * _grundwert(f, "gewandtheit") + float(P.get("je_stufe", 5)) * float(int(f.b.get("stufe", 1)))
+	n += float(dice.next_int(0, int(P.get("initiative_streuung", 100))))
+	if atemlos:
+		n -= float(P.get("initiative_atemlos", 25))
+	return roundi(n)
+
+
+## 506 Untotenzähigkeit als Prozent: dieselbe Chance wie früher (Zähigkeit gegen 5 + Schaden, 5 % je Punkt), Schaden im alten Maß
+func _zaeh_haelt(t: Fighter, dmg: int) -> bool:
+	var alt := roundi(float(dmg) / maxf(0.01, massstab(t)))
+	var c := 5 * (21 - (ZAEH_DC + alt - int(t.monster.get("con", 0))))
+	return dice.next_int(0, 100) < clampi(c, 0, 100)
+
+
+## 870.5: welche Zauber [f] kennt (Kampfblatt, sonst Herkunft; dazu jeder mit „ab“, den die Fertigkeit der Schule erreicht) und sein
+## Mana (held mana_basis + mana_je_wille × Wille); das Mana der Welt kommt im selben Anteil herein (sp von sp_max), ohne Angabe voll
+func _brs_zauber_kennen(f: Fighter) -> void:
+	var W := BrsKampf.w()
+	f.zauber = []
+	for id in ZAUBER:
+		var z: Dictionary = W["zauber"].get(ZAUBER[id], {})
+		if z.is_empty():
+			continue
+		var kennt: bool = ZAUBER[id] in f.b.get("zauber", []) or (z.has("ab") and int(f.b.fert.get(String(z.schule), 0)) >= int(z.ab))
+		if kennt:
+			f.zauber.append(id)
+	var h: Dictionary = W["held"]
+	f.max_sp = int(h.get("mana_basis", 10)) + int(h.get("mana_je_wille", 5)) * int(f.b.werte.get("wille", 0))
+	var alt_max := int(f.hero.get("sp_max", 0))
+	f.srd_sp = f.sp if alt_max > 0 else -1
+	f.sp = clampi(roundi(float(f.max_sp) * f.sp / alt_max), 0, f.max_sp) if alt_max > 0 else f.max_sp
+
+
+## 870.5: das Mana nach dem Kampf in der Rechnung der Welt (870.4: BrsHeld, dieselbe Zahl), im selben Anteil; ohne Angabe unverändert
+static func sp_nach(f) -> int:
+	var alt_max := int(f.hero.get("sp_max", 0)) if f.hero != null else 0
+	if alt_max <= 0 or f.max_sp <= 0:
+		return f.srd_sp if f.srd_sp >= 0 else f.sp
+	return clampi(roundi(float(alt_max) * f.sp / f.max_sp), 0, alt_max)
+
+
+## 870.5: das Volk nach dem BRS (Kampfblatt „volk“), sonst aus dem alten Blatt; Merkmale Steinblut, Letzter Atemzug (DESIGN-BRS.md 2)
+const VOLK_ALT := {"HUMAN": "Mensch", "ELF": "Elf", "DWARF": "Zwerg", "HALFLING": "Hügelvolk", "HALF_ORC": "Orkblütiger"}
+
+func _volk(f: Fighter) -> String:
+	if f.hero == null:
+		return ""
+	if f.b is Dictionary and String(f.b.get("volk", "")) != "":
+		return String(f.b.volk)
+	var k = f.hero.get("brs")
+	if k is Dictionary and String(k.get("volk", "")) != "":
+		return String(k.volk)
+	return String(VOLK_ALT.get(String(f.hero.get("race", "")), ""))
+
+
+static func ziel_von(s: String) -> String:
+	return HANDLUNG_ZIEL.get(s, ZAUBER_ZIEL.get(s, ""))
+
+
+## 870.5: Werte einer Kampfhandlung (werte.json „handlungen“)
+func _hw(id: String) -> Dictionary:
+	return BrsKampf.w().get("handlungen", {}).get(HANDLUNG.get(id, ""), {})
+
+
+## 870.5: die Handlung passt zu dem, was [f] in der Hand hat (Waffengruppe, Schild)
+func _handlung_passt(f: Fighter, id: String) -> bool:
+	var fert = _hw(id).get("fertigkeit")
+	if fert == null:
+		return true
+	if fert == "Schild":
+		return bool(f.b.get("schild", false)) and not f.drawn
+	var w = f.weapon()
+	return BrsKampf.waffe_held(f.b, w if w != null else f.hero.main, w != null and w != f.main_weapon()) == String(fert)
+
+
 ## 478: Schaden und Heilung, die noch in Würfeln des SRD rechnen, im Verhältnis der Leben des Getroffenen (brs_kampf.gd, Annahme)
 func massstab(t: Fighter) -> float:
 	return float(t.max_hp) / maxf(1.0, t.srd_hp) if brs and t.srd_hp > 0 else 1.0
 
 func _srd(t: Fighter, n: int) -> int:
 	return roundi(n * massstab(t)) if brs else n
-
-func _brs(f: Fighter, t: Fighter) -> bool:
-	return brs and not f.b.is_empty() and not t.b.is_empty()
-
 
 static func cr_value(cr: String) -> float:
 	var p := cr.split("/")
@@ -604,8 +795,9 @@ func moves(f: Fighter) -> Array:
 	if f.hero == null:
 		return []
 	var out := []
-	for s in skills.keys():
-		if s in f.hero.skills and AIM.has(s):
+	out.append_array(f.zauber)     # 870.5
+	for s in f.handlungen:
+		if _handlung_passt(f, s):
 			out.append(s)
 	return out
 
@@ -625,13 +817,21 @@ func blocked(f: Fighter, s: String):
 
 
 func aim_at(f: Fighter, s: String) -> Array:
-	match AIM.get(s, ""):
+	if s == "H_HINTERHALT":     # 870.5: nur der erste eigene Schlag oder gegen einen Überraschten
+		return targets(f).filter(func(x): return not f.geschlagen or surprised.has(x.id))
+	if HANDLUNG_ZIEL.get(s) == "FOE":
+		return targets(f)
+	if s == "Z_BANN" and f.bann_genutzt:     # einmal je Kampf
+		return []
+	if s == "Z_WUND":     # nur, wer nicht voll ist
+		return all.filter(func(x): return x.side == f.side and x.standing() and x.hp < x.max_hp)
+	match ziel_von(s):
 		"FOE":
 			if (s == "FEINT" or s == "ACTION_SURGE") and not _feints_past(f, s):
 				return targets(f)
-			return all.filter(func(x): return x.side != f.side and x.standing())
+			return feinde(f)
 		"ROW":
-			return all.filter(func(x): return x.side != f.side and x.standing())
+			return feinde(f)
 		"SELF":
 			return [f]
 		"ALLY":
@@ -649,7 +849,7 @@ func _covers(f: Fighter) -> bool:
 
 ## The announced blows [f] can draw onto himself by covering (72.10a.9).
 func guardable(f: Fighter) -> Array:
-	if f.hero == null or f.hero.cls != "FIGHTER" or f.place.x != FRONT or not f.standing():
+	if f.hero == null or String(f.hero.get("cls", "")) != "FIGHTER" or f.place.x != FRONT or not f.standing():     # 870.4: der Held nach BRS hat keine Klasse
 		return []
 	var out := []
 	for id in intents:
@@ -670,20 +870,57 @@ func _auto_order(f: Fighter) -> Array:
 			if friend == null or float(x.hp) / x.max_hp < float(friend.hp) / friend.max_hp:
 				friend = x
 	var can := moves(f)
-	if friend != null and "CURE_WOUNDS" in can and blocked(f, "CURE_WOUNDS") == null:
-		return ["use", "CURE_WOUNDS", friend.id]
+	var kraft := _hw("H_KRAFT")
+	if "H_KRAFT" in can and blocked(f, "H_KRAFT") == null and f.hp < f.max_hp * float(kraft.get("unter", 0.5)):     # 870.5
+		return ["use", "H_KRAFT", f.id]
+	if friend != null and "Z_WUND" in can and blocked(f, "Z_WUND") == null and friend in aim_at(f, "Z_WUND"):
+		return ["use", "Z_WUND", friend.id]
 	var cantrip = null
-	for c in ["FIRE_BOLT", "SACRED_FLAME"]:
-		if c in can:
+	for c in ["Z_FUNKEN", "Z_ARKAN", "Z_GLEISS"]:     # 870.5: solange das Mana reicht
+		if c in can and blocked(f, c) == null:
 			cantrip = c
 			break
-	var foes := all.filter(func(x): return x.side != f.side and x.standing())
+	var foes := feinde(f)
 	if cantrip != null and not foes.is_empty():
-		return ["use", cantrip, _min_hp(foes).id]
+		var ziel = _min_hp(foes)
+		# 705 (Sokrates 10.11., 23:16, wie 444 Teil 6): ein Zauber nur, wenn er mehr bringt als die Waffe, und das Mana für die Heilung bleibt
+		var bleibt: int = int(f.sp) - int(skills[cantrip].amount)
+		var heil_vorrat: bool = f.b.is_empty() or not "Z_WUND" in can or bleibt * 2 >= f.max_sp     # die Hälfte bleibt für Wundsegen
+		var w_ziel = _min_hp(targets(f))
+		if f.b.is_empty() or (heil_vorrat and (w_ziel == null or _erwartet_zauber(f, ziel, cantrip) > _erwartet_waffe(f, w_ziel))):
+			return ["use", cantrip, ziel.id]
 	if can_draw(f) and f.place.x == FRONT and f.weapon() != null and f.weapon().ranged and f.spare() != null and not f.spare().ranged:
 		return ["draw"]
 	var t = _min_hp(targets(f))
 	return ["attack", t.id] if t != null else ["wait"]
+
+
+## 705: erwarteter Schaden je Zug nach dem BRS (Trefferchance × Schaden nach Fertigkeit und Schwäche, minus Rüstung), ohne Würfel
+func _erwartet_zauber(f: Fighter, t: Fighter, id: String) -> float:
+	var z: Dictionary = BrsKampf.w()["zauber"][ZAUBER[id]]
+	var fert := float(f.b.fert.get(String(z["schule"]), 0))
+	var grund := (float(z["schaden"]) + float(f.b.werte.get("wille", 0))) * (1.0 + fert / 100.0)
+	var schw := float(t.b.get("schwaeche", {}).get(_typ(z), 1.0))
+	return BrsKampf.Brs.trefferchance(fert, float(t.b.abwehr)) * maxf(0.0, grund * schw - float(t.b.ruestung))
+
+
+## 904 (sim444_870, Zauberlehrling gegen Grak und Grimmzahn): Arkanpfeil hat in werte.json „typ“: null (ohne Schadensart);
+## String(null) brach _auto_order ab, der Autopilot nahm dann die Waffe
+func _typ(d: Dictionary) -> String:
+	var x = d.get("typ")
+	return "" if x == null else String(x)
+
+
+func _erwartet_waffe(f: Fighter, t: Fighter) -> float:
+	var W := BrsKampf.w()
+	var w = f.weapon()
+	var gruppe := BrsKampf.waffe_held(f.b, w if w != null else f.hero.main, w != null and w != f.main_weapon())
+	var wd: Dictionary = W["waffen"].get(gruppe, W["waffen"]["Faustkampf"])
+	var gw = wd.get("grundwert")
+	var fert := float(f.b.fert.get(gruppe, 0))
+	var grund := (float(wd["schaden"]) + (float(f.b.werte.get(gw, 0)) if gw != null else 0.0)) * (1.0 + fert / 100.0)
+	var schw := float(t.b.get("schwaeche", {}).get(_typ(wd), 1.0))
+	return BrsKampf.Brs.trefferchance(fert, float(t.b.abwehr)) * maxf(0.0, grund * schw - float(t.b.ruestung))
 
 
 func _min_hp(list: Array):
@@ -694,9 +931,14 @@ func _min_hp(list: Array):
 	return best
 
 
+## 870.5: wen [f] überhaupt treffen kann: die stehenden Gegner ohne Grimmzahns Leibwache (Fighter.angreifbar)
+func feinde(f: Fighter) -> Array:
+	return all.filter(func(x): return x.side != f.side and x.standing() and x.angreifbar())
+
+
 ## Whom [f] can strike: melee reaches the front row while anyone stands there, ranged reaches all (72.11).
 func targets(f: Fighter) -> Array:
-	var other := all.filter(func(x): return x.side != f.side and x.standing())
+	var other := feinde(f)
 	if f.ranged():
 		return other
 	var front := other.filter(func(x): return x.place.x == FRONT)
@@ -717,7 +959,7 @@ func autopilot_blocked(hp = null):
 	if all.any(func(x): return x.side == "FOES" and x.boss()):
 		return ["Nicht gegen Bosse.", "Not against bosses."]
 	if h * 3 < l.max_hp:
-		return ["Unter einem Drittel der Lebenspunkte.", "Below a third of life points."]
+		return ["Unter einem Drittel seines Lebens.", "Below a third of its Life."]
 	if not easy() and intents.values().any(func(p): return p[0].strong):
 		return ["Starke Absicht angekündigt.", "Strong intent announced."]
 	return null
@@ -936,6 +1178,14 @@ func _skip_to_choice(react: Callable) -> void:
 func _perform(f: Fighter, o: Array) -> void:
 	f.waited = o[0] == "wait"
 	f.cover_from = []
+	# 870.5: Haltungen und Griff halten bis zum eigenen nächsten Zug; Beistand zählt die eigenen Züge
+	if f.beistand > 0:
+		f.beistand -= 1
+	f.abstand = false
+	f.schildwall = false
+	for x in all:
+		if x.gegriffen_von == f.id:
+			x.gegriffen_von = ""
 	match o[0]:
 		"wait":
 			_say(fmt(pick("MSG72_WAITS"), lang, [f.name(lang)]), f.id)
@@ -968,7 +1218,6 @@ func _perform(f: Fighter, o: Array) -> void:
 			var t := by_id(o[1])
 			assert(t in targets(f))
 			_attack_action(f, t)
-			_off_hand_attack(f, t)
 		"use":
 			assert(blocked(f, o[1]) == null)
 			var t = by_id(o[2]) if o.size() > 2 and o[2] != null else null
@@ -982,16 +1231,8 @@ func _perform(f: Fighter, o: Array) -> void:
 func _again(f: Fighter, t: Fighter, weapon: bool):
 	if t.standing():
 		return t
-	var l := targets(f) if weapon else all.filter(func(x): return x.side != f.side and x.standing())
+	var l := targets(f) if weapon else feinde(f)
 	return l[0] if not l.is_empty() else null
-
-
-func _cantrip_dice(f: Fighter) -> int:
-	var n := 1
-	for lv in [5, 11, 17]:
-		if f.level() >= lv:
-			n += 1
-	return n
 
 
 func _use_skill(f: Fighter, s: String, t) -> void:
@@ -1001,53 +1242,93 @@ func _use_skill(f: Fighter, s: String, t) -> void:
 			f.sp -= int(sk.amount)
 		"PER_BATTLE", "PER_REST":
 			f.uses[s] = f.uses[s] - 1
-	var spell: bool = sk.cost == "SPELL_POINTS" or sk.cost == "NONE"
-	_say(fmt(X.MSG72_CASTS if spell else X.MSG72_USES, lang, [f.name(lang), [sk.de, sk.en][lang]]), f.id)
-	casting = FX.get(s)
+	var spell: bool = sk.cost == "SPELL_POINTS" or sk.cost == "NONE"     # Kampfhandlungen (870.5): „setzt … ein“ wie Fähigkeiten
+	if s != "H_KRAFT":     # [870.14.kraft.schoepfen]: eine Zeile statt zwei
+		_say(fmt(X.MSG72_CASTS if spell else X.MSG72_USES, lang, [f.name(lang), [sk.de, sk.en][lang]]), f.id)
+	casting = ZAUBER_FX.get(s)
 	_cast(f, s, t)
 	casting = null
 
 
 func _cast(f: Fighter, s: String, t) -> void:
+	if HANDLUNG.has(s):
+		_handlung(f, s, t)
+		return
+	if ZAUBER.has(s):
+		_brs_wirke(f, s, t)
+		return
+
+## 870.5: ein Zauber nach dem BRS (werte.json „zauber“, wie tools/sim444/handlungen.py duell und sim.py kampf)
+func _brs_wirke(f: Fighter, s: String, t) -> void:
+	var W := BrsKampf.w()
+	var z: Dictionary = W["zauber"][ZAUBER[s]]
+	var k: Dictionary = W["kampf"]
+	var fert := float(f.b.fert.get(String(z.schule), 0))
 	match s:
-		"SECOND_WIND":
-			_heal(f, f, dice.roll(1, 10) + f.level())
-		"ACTION_SURGE":
-			# 89.2 (c): two Attack actions, each with Extra Attack, and the other hand once (bonus action, SRD)
-			var tt = _again(f, t, true)
-			for i in 2:
-				if outcome == "ONGOING" and tt != null:
-					tt = _attack_action(f, tt)
-			_off_hand_attack(f, tt if tt != null else t)
-		"FEINT":
-			_weapon_attack(f, t, true, not _feints_past(f, s))
-		"FIRE_BOLT":
-			_spell_attack(f, t, [_cantrip_dice(f), 10, 0])
-		"MAGIC_MISSILE":
-			var dmg := 0
-			for i in 3:
-				dmg += dice.roll_expr([1, 4, 1])
-			dmg = _srd(t, dmg)     # 478
-			_hurt(t, dmg, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), dmg]))
-		"SCORCHING_RAY":
+		"Z_FUNKEN", "Z_ARKAN", "Z_GLEISS":
+			_brs_zauber(f, t, z)
+		"Z_STRAHLEN":
 			var tt = t
 			for i in 3:
 				tt = _again(f, tt, false) if tt != null else null
 				if outcome == "ONGOING" and tt != null:
-					_spell_attack(f, tt, [2, 6, 0])
-		"FIREBALL", "BURNING_HANDS":
-			var amount: int = dice.roll_expr([3, 6, 0] if s == "BURNING_HANDS" else [8, 6, 0])
-			var row: int = t.place.x
-			for g in all.filter(func(x): return x.side == t.side and x.standing() and x.place.x == row):
+					_brs_zauber(f, tt, z)
+		"Z_FAECHER", "Z_GLUT":
+			var row: int = FRONT if s == "Z_FAECHER" and all.any(func(x): return x.side == t.side and x.standing() and x.place.x == FRONT) else t.place.x
+			for g in all.filter(func(x): return x.side == t.side and x.standing() and x.angreifbar() and x.place.x == row):
 				if outcome == "ONGOING":
-					_save_spell(f, g, amount, true)
-		"SACRED_FLAME":
-			_save_spell(f, t, dice.roll_expr([_cantrip_dice(f), 8, 0]), false)
-		"CURE_WOUNDS":
-			_heal(f, t, dice.roll(1 + f.level() / 2, 8) + int(f.hero.wis))
-		"BLESS":
-			f.blessed = true
+					_brs_zauber(f, g, z)
+		"Z_WUND":
+			var n := mini(t.max_hp - t.hp, roundi((float(z.heilung) + float(f.b.werte.get("wille", 0))) * (1.0 + fert / 100.0)))
+			t.hp += n
+			if f == t:
+				_say(fmt(X.MSG72_HEALSSELF, lang, [f.name(lang), n]), f.id, t.id, 0, null, false, false, "HEAL")
+			else:
+				_say(fmt(X.MSG72_HEALS, lang, [f.name(lang), t.name(lang), n]), f.id, t.id, 0, null, false, false, "HEAL")
+		"Z_HAUT", "Z_BANN":
+			f.schutz += float(z.ruestung) * (1.0 + fert * float(k["ruestungsfertigkeit_im_abzug_je_punkt"]))
+			if s == "Z_BANN":
+				f.bann_genutzt = true
+		"Z_BEISTAND":
+			f.beistand = int(z.get("runden", 4))
 			_say(fmt(X.MSG72_BLESSED, lang, [f.name(lang)]), f.id, f.id)
+
+
+## 870.5: eine Kampfhandlung (werte.json „handlungen“, wie tools/sim444/handlungen.py duell)
+func _handlung(f: Fighter, s: String, t) -> void:
+	var h := _hw(s)
+	match s:
+		"H_KRAFT":
+			var n := mini(f.max_hp - f.hp, roundi(f.max_hp * float(h.get("heilung_anteil", 0.25))))
+			f.hp += n
+			_say(fmt(MSG870_KRAFT, lang, [f.name(lang), n]), f.id, f.id, 0, null, false, false, "HEAL")
+		"H_FINTE", "H_RUHIG":
+			f.naechster = float(h.get("naechster_treffer", 0))
+		"H_SCHILDWALL":
+			f.schildwall = true
+		"H_HINTERHALT":
+			_weapon_attack(f, t, false, true, null, {"schaden": float(h.get("schaden_faktor", 1.0))})
+		"H_WUCHT":
+			_weapon_attack(f, t, false, true, null, {"treffer": float(h.get("treffer", 0)), "schaden": float(h.get("schaden_faktor", 1.0))})
+		"H_ABSTAND":
+			f.abstand = true
+			_weapon_attack(f, t, false, true, null, {"treffer": float(h.get("treffer", 0))})
+		"H_SCHAEDEL":
+			var hp0: int = t.hp
+			_weapon_attack(f, t, false, true, null, {"treffer": float(h.get("treffer", 0))})
+			if t.hp < hp0 and outcome == "ONGOING" and t.standing() and dice.chance(float(h.get("betaeubt_chance", 0))):
+				_inflict(t, "STUN", int(h.get("betaeubt_zuege", 1)))
+		"H_GRIFF":
+			t.gegriffen_von = f.id
+			_weapon_attack(f, t, false, true, null, {"schaden": 0.5})
+		"H_DURCH":
+			_weapon_attack(f, t, false, true, null, {"ruestung": float(h.get("ruestung_anteil", 1.0))})
+		"H_ZWEI":
+			var tt = t
+			for i in int(h.get("wuerfe", 2)):
+				if outcome == "ONGOING" and tt != null:
+					_weapon_attack(f, tt, false, true, null, {"schaden": float(h.get("schaden_faktor", 1.0))})
+					tt = _again(f, tt, true)
 
 
 # 72.10a.7, 223, 203, 208: what the rows and stances do to an attack roll.
@@ -1055,7 +1336,9 @@ func _row_mode(f: Fighter, t: Fighter, weapon: bool, extra := 0, cover := true) 
 	var dis := 0
 	if cover and t.place.x == BACK and all.any(func(x): return x.side == t.side and x.standing() and x.place.x == FRONT):
 		dis += 1
-	if weapon and f.ranged() and f.place.x == FRONT and t.place.x == FRONT:
+	# 870c 2 A: der Schütze der Gruppe schießt allein vorn ohne Nachteil; erst mit einem Gefährten neben ihm gilt die Regel
+	if weapon and f.ranged() and f.place.x == FRONT and t.place.x == FRONT \
+			and (f.side != "PARTY" or all.any(func(x): return x != f and x.side == f.side and x.standing() and x.place.x == FRONT)):
 		dis += 1
 	if weapon and cover and from_back(f):
 		dis += 1
@@ -1076,55 +1359,9 @@ func from_back(f: Fighter) -> bool:
 	return not f.ranged() and not f.reach() and _covers(f)
 
 
-func _bless(f: Fighter) -> int:
-	return dice.roll(1, 4) if f.blessed else 0
-
-
 ## Battle.fedBonus: +1, wenn der Held satt in den Kampf ging (nur der Held, nicht der Söldner)
 func _fed(f: Fighter) -> int:
 	return 1 if fed and f == lead() else 0
-
-
-func _spell_attack(f: Fighter, t: Fighter, dmg: Array) -> void:
-	if _brs(f, t):
-		_brs_zauber(f, t, dmg)
-		return
-	var mode := _row_mode(f, t, false)
-	var r: int = dice.d20(mode)
-	var bonus: int = int(f.hero.spellAtk) + _bless(f) + _fed(f)
-	var crit := r == 20
-	var hit := r != 1 and (crit or r + bonus >= t.ac())
-	var info := ["ATTACK", r, bonus, t.ac(), hit, mode, false]
-	if not hit:
-		_say(fmt(wolf(f, "MSG279_WOLFMISSES", "MSG72_MISSES"), lang, [f.name(lang), t.name(lang)]), f.id, t.id, 0, info)
-		return
-	var n := maxi(1, dice.roll_expr([dmg[0] * 2, dmg[1], dmg[2]] if crit else dmg) + _fed(f))
-	krit_jetzt = crit     # 506
-	_hurt(t, n, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), n]), info)
-	krit_jetzt = false
-
-
-func _save_spell(f: Fighter, t: Fighter, amount: int, half: bool) -> void:
-	amount = _srd(t, amount)     # 478
-	var dc: int = int(f.hero.spellDc)
-	var mod: int = int(t.hero.dex) if t.hero != null else int(t.monster.dex)
-	var r: int = dice.d20(1 if t.waited else 0)
-	var saved := r + mod >= dc and not (gegner_ohne_rettung and t.side == "FOES")
-	var info := ["SAVE", r, mod, dc, saved, 0, false]
-	if saved and not half:
-		_say(fmt(X.MSG72_DODGES, lang, [t.name(lang)]), f.id, t.id, 0, info)
-		return
-	var n := maxi(1, amount / 2 if saved else amount)
-	_hurt(t, n, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), n]), info)
-
-
-func _heal(f: Fighter, t: Fighter, amount: int) -> void:
-	var n := maxi(0, mini(t.max_hp - t.hp, _srd(t, amount)))     # 478
-	t.hp += n
-	if f == t:
-		_say(fmt(X.MSG72_HEALSSELF, lang, [f.name(lang), n]), f.id, t.id, 0, null, false, false, "HEAL")
-	else:
-		_say(fmt(X.MSG72_HEALS, lang, [f.name(lang), t.name(lang), n]), f.id, t.id, 0, null, false, false, "HEAL")
 
 
 func _draw(f: Fighter) -> void:
@@ -1138,17 +1375,18 @@ func can_flee(f: Fighter) -> bool:
 	return f.side == "PARTY" and f.hero != null and not all.any(func(x): return x.side == "FOES" and x.standing() and x.boss())
 
 
+## 870.5 (870a 5 A): Flucht als Probe in Prozent, Gewandtheit gegen den schnellsten stehenden Gegner (werte.json „proben“); vorher
 ## 296.2: the roll of the old fight (Battle flee): d20 + Dexterity (+2 for an elf) against 10 + the quickest standing
 ## foe's Dexterity save; cunning action always gets away. On success the fight ends as "FLED".
 func _flee(f: Fighter) -> void:
 	assert(can_flee(f))
-	var elf := 2 if str(f.hero.get("race", "")) == "ELF" else 0
-	var top := -99
+	var schnell = null
 	for x in all:
-		if x.side == "FOES" and x.standing():
-			top = maxi(top, int(x.monster.dex))
-	# 532 (alt Battle.kt 616): betrunken flieht er mit Nachteil
-	if f.has("CUNNING_ACTION") or dice.d20(-1 if f.status.has("DRUNK") else 0) + int(f.hero.dex) + elf >= 10 + top:
+		if x.side == "FOES" and x.standing() and (schnell == null or _grundwert(x, "gewandtheit") > _grundwert(schnell, "gewandtheit")):
+			schnell = x
+	# 532 (alt Battle.kt 616): betrunken flieht er mit Ungunst
+	var bonus := -absf(BrsKampf.nachteil()) if f.status.has("DRUNK") else 0.0
+	if schnell == null or _probe(f, "gewandtheit", schnell, "gewandtheit", bonus):
 		_say(fmt(MSG296_FLED, lang, [f.name(lang)]), f.id)
 		outcome = "FLED"
 	else:
@@ -1159,7 +1397,7 @@ func _drink(f: Fighter, item: String, t: Fighter) -> void:
 	assert(potions.get(item, 0) > 0 and t.standing() and t.side == f.side)
 	potions[item] -= 1
 	var def: Dictionary = items[item]
-	var n := maxi(0, mini(t.max_hp - t.hp, _srd(t, dice.roll_expr(def.heal))))     # 478
+	var n := maxi(0, mini(t.max_hp - t.hp, _heilung(t, item, def)))     # 478, 870.4
 	t.hp += n
 	var nm: String = [def.de, def.en][lang]
 	if f == t:
@@ -1168,69 +1406,24 @@ func _drink(f: Fighter, item: String, t: Fighter) -> void:
 		_say(fmt(X.MSG72_GIVES, lang, [f.name(lang), t.name(lang), nm, n]), f.id, t.id, 0, null, false, false, "DRINK")
 
 
-## The Attack action: one blow, a second with Extra Attack (Battle.attackAction, 89.2 c). Returns whom to strike next.
+## 870.4: ein Trank heilt den Helden fest wie in der Welt (werte.json „welt“ „heilung“, Leben nach BRS), sonst wie bisher im Maß des BRS
+func _heilung(t: Fighter, item: String, def: Dictionary) -> int:
+	var fest = BrsKampf.w().get("welt", {}).get("heilung", {}).get(item)
+	if fest != null and t.hero != null:
+		return int(fest)
+	return _srd(t, dice.roll_expr(def.heal))
+
+
+## The Attack action: one blow (870.5: Extra-Angriff und Zweiwaffenkampf entfallen, 870a 3 A). Returns whom to strike next.
 func _attack_action(f: Fighter, t: Fighter, advantage := false, cover := true):
 	_weapon_attack(f, t, advantage, cover)
-	var tt = _again(f, t, true)
-	if srd_attacks and f.has("EXTRA_ATTACK") and outcome == "ONGOING" and tt != null:
-		_weapon_attack(f, tt)
-		tt = _again(f, tt, true)
-	return tt
+	return _again(f, t, true)
 
 
-## 89.2 (c): the blow of the other hand after the Attack action, at whom still stands.
-func _off_hand_attack(f: Fighter, t: Fighter) -> void:
-	var w = f.off_hand() if srd_attacks else null
-	var tt = _again(f, t, true) if w != null and outcome == "ONGOING" else null
-	if tt != null:
-		_weapon_attack(f, tt, false, true, w)
-
-
-func _weapon_attack(f: Fighter, t: Fighter, advantage := false, cover := true, with_weapon = null) -> void:
-	if _brs(f, t):
-		_brs_waffe(f, t, advantage, cover, with_weapon)
-		return
-	var mode := _row_mode(f, t, true, 1 if advantage else 0, cover)
-	var r: int = dice.d20(mode)
-	var crit := r >= int(f.hero.crit) or (held_immer_krit and r != 1 and f == lead())
-	var w = with_weapon if with_weapon != null else f.weapon()
-	var wsheet: Dictionary = w if w != null else f.hero.main
-	var bonus: int = int(wsheet.atk) + _bless(f) - _penalty(f) + _fed(f)
-	var hit := r != 1 and (crit or r + bonus >= t.ac())
-	# 535 (alt Battle.weaponAttack, EVASIVE): einem Nahkampfhieb weicht die Fledermaus zu 20 % aus, ein Schuss trifft sie wie sonst
-	var flattert: bool = hit and t.monster != null and art_of(t.monster) == BAT and not bool(wsheet.get("ranged", false)) and dice.chance(FLUTTER)
-	if flattert:
-		hit = false
-	var info := ["ATTACK", r, bonus, t.ac(), hit, mode, cover and from_back(f)]
-	if flattert:
-		_say(fmt(MSG535_FLUTTERS, lang, [t.name(lang)]), f.id, t.id, 0, info)
-		return
-	if not hit:
-		_say(fmt(wolf(f, "MSG279_WOLFMISSES", "MSG72_MISSES"), lang, [f.name(lang), t.name(lang)]), f.id, t.id, 0, info)
-		return
-	var base: Array = wsheet.dmg
-	var dmg: int = dice.roll_expr([int(base[0]) * 2, base[1], base[2]] if crit else base)
-	if f.has("SNEAK_ATTACK") and (advantage or not f.sneaked):
-		dmg += dice.roll(maxi(1, f.level() / 2), 6)
-	f.sneaked = true
-	dmg = maxi(1, dmg - _weakness(f) + _fed(f))
-	krit_jetzt = crit     # 506
-	_hurt(t, dmg, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), dmg]), info, true)
-	krit_jetzt = false
-	_life_steal(f, dmg)
-	if not statuses or outcome != "ONGOING" or not t.standing():
-		return
-	# 296.2: critical hits wound as in the old fight, blades make bleed, blunt weapons can stun; and the gear's own
-	var type := str(wsheet.get("type", "BLUDGEONING"))
-	if crit and type == "SLASHING":
-		_inflict(t, "BLEED", 3)
-	if crit and type == "BLUDGEONING" and dice.chance(0.5):
-		_inflict(t, "STUN", 1)
-	var hits: Dictionary = f.hero.get("hits", {})
-	for st in ["POISON", "BLEED", "STUN"]:
-		var c := int(hits.get(st, 0))
-		if c > 0 and outcome == "ONGOING" and t.standing() and not t.status.has(st) and dice.chance(c / 100.0):
-			_inflict(t, st, 1 if st == "STUN" else 3)
+## 870.5: ein Schlag mit der Waffe nur nach dem BRS (_brs_waffe); [mod] einer Kampfhandlung: treffer (Prozentpunkte), schaden
+## (Faktor), ruestung (Anteil der Rüstung des Ziels)
+func _weapon_attack(f: Fighter, t: Fighter, advantage := false, cover := true, with_weapon = null, mod := {}) -> void:
+	_brs_waffe(f, t, advantage, cover, with_weapon, mod)
 
 
 ## 296.2: slowed or weakened, −2 on the attack each (the old fight).
@@ -1268,17 +1461,18 @@ func _inflict(t: Fighter, st: String, turns: int, save = null, die = null) -> bo
 	var who := t.name(lang)
 	var h = t.hero
 	if h != null:
-		if save != null:
-			var ab: String = save[0]
-			var prof: int = int(h.get("prof", 0)) if ab in h.get("saves", []) else 0
-			if dice.d20() + int(h.get(ab.to_lower(), 0)) + prof >= int(save[1]):
+		if save != null:     # 870.5: Abwehrprobe in Prozent gegen den stärksten stehenden Gegner (werte.json „proben“)
+			var P := _proben()
+			var gegen = _staerkster_gegner(t)
+			var schwere := (int(save[1]) - int(P.get("abwehr_mitte", 11))) * float(P.get("je_punkt", 5))
+			if gegen != null and _probe(t, String(save[0]), gegen, "", -schwere):
 				_say(fmt(ST_SHRUGS, lang, [who]), null, t.id)
 				return false
 		var ten := int(h.get("tenacity", 0))
 		if ten > 0 and dice.chance(ten / 100.0):
 			_say(fmt(ST_STEADFAST, lang, [who]), null, t.id)
 			return false
-		if st == "POISON" and str(h.get("race", "")) == "DWARF" and dice.chance(0.5):
+		if st == "POISON" and _volk(t) == "Zwerg" and dice.chance(0.5):     # Steinblut (Wirkung wie bisher, bis 444)
 			_say(fmt(ST_DWARF, lang, [who]), null, t.id)
 			return false
 	else:
@@ -1323,7 +1517,7 @@ func _tick(f: Fighter) -> bool:
 		if f.monster != null and Zustaende.immune(f.monster, st):
 			continue
 		var dmg: int = dice.roll_expr(f.poison_die if st == "POISON" else ([1, 6, 0] if st == "BURN" else [1, 4, 0])) + scale
-		if st == "POISON" and f.hero != null and str(f.hero.get("race", "")) == "DWARF":
+		if st == "POISON" and _volk(f) == "Zwerg":
 			dmg = (dmg + 1) / 2
 		dmg = maxi(1, _srd(f, dmg))     # 478
 		_hurt(f, dmg, "", fmt(ST_HURTS[st], lang, [who]) + " " + fmt(MSG296_DAMAGE, lang, [dmg]))
@@ -1347,26 +1541,26 @@ func _foe_wounds(foe: Fighter, t: Fighter, crit: bool) -> void:
 	if crit and type == "SLASHING":
 		_inflict(t, "BLEED", 2)
 	if crit and type == "BLUDGEONING":
-		_inflict(t, "STUN", 1, ["CON", 12])
+		_inflict(t, "STUN", 1, ["zaehigkeit", 12])
 	if art_of(m) in OWN_INTENTS:
 		return
 	match str(m.get("special", "NONE")):
 		"POISON":
-			_inflict(t, "POISON", 3, ["CON", 11], m.get("poison", [1, 6, 0]))
+			_inflict(t, "POISON", 3, ["zaehigkeit", 11], m.get("poison", [1, 6, 0]))
 		"SURPRISE_ATTACK":
 			if first:
-				_inflict(t, "STUN", 1, ["CON", 12])
+				_inflict(t, "STUN", 1, ["zaehigkeit", 12])
 		"EVASIVE":
 			if dice.chance(0.2):
-				_inflict(t, "BLIND", 2, ["CON", 10])
+				_inflict(t, "BLIND", 2, ["zaehigkeit", 10])
 		"BLOOD_DRAIN":
 			if dice.chance(0.3):
 				_inflict(t, "BLEED", 2)
 		"PARALYZE":     # 506: Grabhund
-			if t.hero != null and String(t.hero.get("race", "")) == "ELF":
+			if _volk(t) == "Elf":
 				_say(fmt(MSG506_ELF, lang, [t.name(lang)]), t.id)
 			else:
-				_inflict(t, "STUN", 1, ["CON", 10])
+				_inflict(t, "STUN", 1, ["zaehigkeit", 10])
 
 
 func _foe_turn(foe: Fighter, react: Callable) -> void:
@@ -1401,7 +1595,7 @@ func _foe_turn(foe: Fighter, react: Callable) -> void:
 			_summon(foe)
 		"GATHER":
 			if intent.effect != "CIRCLE":
-				var heal := mini(foe.max_hp - foe.hp, dice.roll_expr(GATHER_HEAL))
+				var heal := mini(foe.max_hp - foe.hp, _srd(foe, dice.roll_expr(GATHER_HEAL)))     # 870.5: im Maß des BRS
 				foe.hp += heal
 				_say(fmt(X.MSG72_GATHERS, lang, [foe.name(lang), heal]), foe.id, foe.id, 0, null, false, false, "GATHER")
 	var r := targets(foe)
@@ -1497,21 +1691,21 @@ func _lineup_attack(foe: Fighter, intent: Dictionary, aimed: Array, react: Calla
 
 func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := true, retarget := false) -> void:
 	var m: Dictionary = foe.monster
+	# 870.5 Schildwall: ein Gefährte daneben mit Schildwall fängt den Schlag (einmal, mit seiner Abwehr)
+	for x in all:
+		if x != t and x.side == t.side and x.standing() and x.schildwall and x.place.x == t.place.x and absi(x.place.y - t.place.y) == 1:
+			x.schildwall = false
+			t = x
+			break
+	# 870.5 Auf Abstand: wer ihn im Nahkampf angreift, läuft zuerst in die Spitze
+	if t.abstand and t.standing() and t.hero != null and String(foe.b.get("art", "nah")) == "nah":
+		_weapon_attack(t, foe, false, false, null, {"schaden": float(_hw("H_ABSTAND").get("gegenstoss_faktor", 0.5))})
+		if outcome != "ONGOING" or not foe.standing():
+			return
 	var mode := _row_mode(foe, t, true, -1 if retarget else 0, cover)
-	var r: int = 0
-	var success := false
-	var info: Array
-	var brs_dmg := -1
-	if _brs(foe, t):
-		var e := _brs_auf_held(foe, t, intent, mode)
-		success = e.treffer
-		brs_dmg = int(e.schaden)
-		info = ["BRS", e.wurf, 0, e.chance, success, mode, cover and from_back(foe), false]
-	else:
-		r = dice.d20(mode)
-		var atk: int = int(m.atk) - _penalty(foe)
-		success = not (r == 1 or (r != 20 and r + atk < t.ac()))
-		info = ["ATTACK", r, atk, t.ac(), success, mode, cover and from_back(foe)]
+	var e := _brs_auf_held(foe, t, intent, mode)     # 870.5: nur nach dem BRS
+	var success: bool = e.treffer
+	var info := ["BRS", e.wurf, 0, e.chance, success, mode, cover and from_back(foe), bool(e.kritisch)]
 	if str(m.id) == KROGG and smoke_thrown and not smoke_spent:
 		# D4.1: der Rauch brennt in den Augen, der erste Schlag geht fehl, mit ihm der Überraschungsschlag (Battle.enemyAttack)
 		smoke_spent = true
@@ -1526,19 +1720,20 @@ func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := 
 	if not success:
 		_say(fmt(wolf(foe, "MSG279_WOLFMISSES", "MSG72_MISSES"), lang, [foe.name(lang), t.name(lang)]), foe.id, t.id, 0, info)
 		return
-	var md: Array = m.dmg
-	var dmg: int = brs_dmg
-	if brs_dmg < 0:
-		dmg = dice.roll_expr([int(md[0]) * 2, md[1], md[2]] if r == 20 else md)
-		if intent.extra != null:
-			dmg += dice.roll_expr(intent.extra)
+	var dmg := int(e.schaden)
+	var G: Dictionary = BrsKampf.w().get("gegenwirkung", {})
+	if foe.rasend:     # 870.5 Gegenwirkung Wildschwein
+		dmg = roundi(dmg * float(G.get("rasend_schaden", 1.5)))
+	if art_of(m) == "stirge" and t.status.has("BLEED"):     # 870.5 Gegenwirkung Blutflügler
+		dmg = roundi(dmg * float(G.get("blut_schaden", 1.5)))
+		if not schwaeche_gesagt.has("gegen|stirge"):
+			schwaeche_gesagt["gegen|stirge"] = true
+			_say(fmt(MSG870_GEGEN_FLUEGER, lang, [foe.name(lang)]), foe.id, t.id)
 	if re != NONE:
 		_say(fmt(pick("MSG72_EVADES" if re == PERFECT else "MSG72_GOOD"), lang, [t.name(lang)]), t.id)
 	dmg = int(dmg * SHARE[re])
-	if dmg > 0 and brs_dmg >= 0:     # 478: kein Mindestschaden (Modell D: ein Kratzer kann 0 sein)
+	if dmg > 0:     # 478: kein Mindestschaden (Modell D: ein Kratzer kann 0 sein)
 		dmg = maxi(0, dmg - _srd(t, _weakness(foe)) - _srd(t, _reduction(t)))
-	elif dmg > 0:
-		dmg = maxi(1, dmg - _weakness(foe) - _reduction(t))
 	if intent.id == "venom":
 		_say(fmt(pick("MSG130_VENOMHITS"), lang, [foe.name(lang), t.name(lang)]), foe.id, t.id, 0, null, false, false, "VENOM")
 	if dmg > 0:
@@ -1546,7 +1741,7 @@ func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := 
 	if outcome != "ONGOING" or not t.standing():
 		return
 	if statuses:
-		_foe_wounds(foe, t, r == 20)
+		_foe_wounds(foe, t, bool(e.kritisch))
 		if outcome != "ONGOING" or not t.standing():
 			return
 	match intent.effect:
@@ -1559,30 +1754,43 @@ func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := 
 			_say(fmt(pick("MSG130_WEBHOLDS"), lang, [foe.name(lang), t.name(lang)]), foe.id, t.id, 0, null, false, false, "WEB")
 
 
-# 72.10a.9, 219.3, 219.4, 336: what a perfect ring gives besides the blow caught, by class.
+# 72.10a.9, 219.3, 219.4, 336: what a perfect ring gives besides the blow caught. 870.5 (870a 3 A, ohne Klassen): nach dem, was
+# er kann, in dieser Folge: Zauberer der Evokation ohne Nahkampfwaffe flammt zurück (Funkenpfeil, ohne Mana), mit Dolch tritt er
+# hinter den Gegner, wer Wundsegen kennt, betet (Wundsegen ohne Mana), mit Nahkampfwaffe schlägt er zurück; sonst nur ausweichen.
 func _perfect_answer(t: Fighter, foe: Fighter, info: Array) -> void:
-	var cls = t.hero.cls if t.hero != null else ""
-	var answers := false
-	if cls == "FIGHTER" or cls == "ROGUE" or cls == "CLERIC":
-		answers = true
-	elif cls == "WIZARD":
-		answers = "FIRE_BOLT" in moves(t)
-	if t.hero == null or not answers:
-		_say(fmt(pick("MSG72_EVADES"), lang, [t.name(lang)]), foe.id, t.id, 0, info)
-		return
-	match cls:
-		"FIGHTER":
+	var art := ""
+	if t.hero != null:
+		var w = t.weapon()
+		var gruppe := BrsKampf.waffe_held(t.b, w if w != null else t.hero.main, w != null and w != t.main_weapon())
+		var nah := String(BrsKampf.w()["waffen"].get(gruppe, {}).get("art", "nah")) == "nah" and gruppe != "Faustkampf"
+		if not nah and ("Z_FUNKEN" in t.zauber or "Z_ARKAN" in t.zauber):
+			art = "FLAMMEN"
+		elif gruppe == "Dolche":
+			art = "HINTER"
+		elif "Z_WUND" in t.zauber:
+			art = "GEBET"
+		elif nah:
+			art = "SCHLAG"
+	match art:
+		"SCHLAG":
 			_say(fmt(X.MSG72_STRIKESBACK, lang, [t.name(lang), foe.name(lang)]), t.id, foe.id, 0, null, true)
 			_weapon_attack(t, foe)
-		"ROGUE":
+		"HINTER":
 			_say(fmt(X.MSG72_STEPSBEHIND, lang, [t.name(lang), foe.name(lang)]), t.id, foe.id, 0, null, true, false, "BEHIND")
 			_weapon_attack(t, foe, true, false)
-		"CLERIC":
+		"GEBET":
 			_say(fmt(X.MSG72_PRAYS, lang, [t.name(lang)]), t.id, null, 0, null, true)
-			_heal(t, t, dice.roll_expr(PRAYER_HEAL))
-		"WIZARD":
+			var z: Dictionary = BrsKampf.w()["zauber"]["Wundsegen"]
+			var n := mini(t.max_hp - t.hp, roundi((float(z.heilung) + float(t.b.werte.get("wille", 0))) * (1.0 + float(t.b.fert.get(String(z.schule), 0)) / 100.0)))
+			t.hp += n
+			_say(fmt(X.MSG72_HEALSSELF, lang, [t.name(lang), n]), t.id, t.id, 0, null, false, false, "HEAL")
+		"FLAMMEN":
 			_say(fmt(X.MSG72_FLAMESBACK, lang, [t.name(lang), foe.name(lang)]), t.id, foe.id, 0, null, true)
-			_spell_attack(t, foe, [_cantrip_dice(t), 10, 0])
+			casting = "FIRE_BOLT"
+			_brs_zauber(t, foe, BrsKampf.w()["zauber"]["Funkenpfeil"])
+			casting = null
+		_:
+			_say(fmt(pick("MSG72_EVADES"), lang, [t.name(lang)]), foe.id, t.id, 0, info)
 
 
 ## The foe picks its next move and its target (72.11).
@@ -1617,6 +1825,8 @@ func _covered() -> Array:
 
 # 285: a pounce from the back row ends in front; the friend leapt over steps back into its place.
 func _leap_forward(foe: Fighter) -> void:
+	if foe.gegriffen_von != "":     # 870.5 Griff: kommt nicht vom Fleck
+		return
 	if foe.place.x != BACK:
 		return
 	var ahead := all.filter(func(x): return x.side == foe.side and x != foe and x.standing() and x.place.x == FRONT)
@@ -1732,9 +1942,8 @@ func _summon(by: Fighter) -> void:
 	var m: Dictionary = monsters[SCOUT if scout else CALLED]
 	called += 1
 	var g := monster_fighter("gob%d" % called, spot, m, dice.roll_expr(m.hp))
-	if brs:
-		_brs_kaempfer(g)     # 478
-	g.initiative = dice.d20() + int(m.dex)
+	_brs_kaempfer(g)     # 478
+	g.initiative = _initiative(g)
 	g.called_in = true
 	var kin := all.filter(func(x): return x.monster != null and x.monster.id == m.id)
 	if not kin.is_empty():
@@ -1756,15 +1965,15 @@ func _hurt(t: Fighter, full: int, by: String, text: String, roll = null, wound :
 	var dmg := int(full * quick_harm()) if quick_run and t.side == "PARTY" else full
 	var floor_hp := 1 if (not chosen and t.side == "PARTY" and t.hp > 0) or (held_unsterblich and t == lead()) else 0
 	# 534 (alt Battle.hitHero, Rasse Orkblütig): einmal je Kampf bleibt er mit 1 TP stehen
-	var unerbittlich := floor_hp == 0 and t.side == "PARTY" and t.hero != null and String(t.hero.get("race", "")) == "HALF_ORC" \
+	var unerbittlich := floor_hp == 0 and t.side == "PARTY" and _volk(t) == "Orkblütiger" \
 			and t.hp > 0 and t.hp <= dmg and not relentless_used.has(t.id)
 	if unerbittlich:
 		relentless_used[t.id] = true
 		floor_hp = 1
 	# 506 (alt Battle.dealDamage): Untotenzähigkeit des Wiedergängers
-	var zaeh: bool = floor_hp == 0 and t.side == "FOES" and t.monster != null and str(t.monster.get("special", "")) == "UNDEAD_FORTITUDE" \
+	var zaeh: bool = floor_hp == 0 and t.side == "FOES" and t.monster != null and str(t.monster.get("special", "")) == "UNDEAD_FORTITUDE" and not t.kein_zaeh \
 			and t.hp > 0 and t.hp <= dmg and by != "" and not krit_jetzt \
-			and dice.d20() + int(t.monster.get("con", 0)) >= ZAEH_DC + dmg
+			and _zaeh_haelt(t, dmg)
 	if zaeh:
 		floor_hp = 1
 	t.hp = maxi(t.hp - dmg, floor_hp)
@@ -1786,6 +1995,8 @@ func _hurt(t: Fighter, full: int, by: String, text: String, roll = null, wound :
 	if t.side == "FOES":
 		intents.erase(t.id)
 		_say(fmt(wolf(t, "MSG279_WOLFFALLS", "MSG72_FALLS"), lang, [t.name(lang)]), null, t.id, 0, null, false, false, "FOE_FALLS")
+		if t.kein_zaeh:     # 870.5 Gegenwirkung Zombie
+			_say(fmt(MSG870_GEGEN_ZOMBIE, lang, [t.name(lang)]), null, t.id)
 		_pack_flees(t)
 	elif t == all[0]:
 		_say(fmt(pick("MSG72_HEROFALLS"), lang, [t.name(lang)]), null, t.id, 0, null, false, false, "HERO_FALLS")
@@ -1801,7 +2012,7 @@ func _hurt(t: Fighter, full: int, by: String, text: String, roll = null, wound :
 ## 399.2a: when [leader] falls, those who follow it run (Packs.kt flee: one line for all, as in the old fight)
 func _pack_flees(leader: Fighter) -> void:
 	var first := true
-	for f in all.filter(func(x): return x.side == "FOES" and x.standing() and x.follows == leader.id):
+	for f in all.filter(func(x): return x.side == "FOES" and x.standing() and x.follows == leader.id and x.gegriffen_von == ""):     # 870.5 Griff
 		f.fled = true
 		intents.erase(f.id)
 		_say(str(f.monster.flee[lang]) if first and f.monster.has("flee") else "", null, f.id, 0, null, false, false, "FOE_FLEES")
@@ -1855,7 +2066,7 @@ func _brs_bonus(mode: int, w20: int) -> float:
 
 ## Held oder Söldner schlägt mit der Waffe: Fertigkeit der Waffengruppe gegen die Abwehr des Gegners, Schaden (Waffe + Grundwert)
 ## × (1 + Fertigkeit/100) × Stufenfaktor, kritisch nach Gewandtheit, minus Rüstung (sim.py kampf, Held handelt)
-func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapon) -> void:
+func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapon, mod := {}) -> void:
 	var mode := _row_mode(f, t, true, 1 if advantage else 0, cover)
 	var w = with_weapon if with_weapon != null else f.weapon()
 	var wsheet: Dictionary = w if w != null else f.hero.main
@@ -1865,11 +2076,15 @@ func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapo
 	var wd: Dictionary = W["waffen"].get(gruppe, W["waffen"]["Faustkampf"])
 	var gw = wd.get("grundwert")
 	var grund := float(wd["schaden"]) + (float(f.b.werte.get(gw, 0)) if gw != null else 0.0)
-	var bonus := _brs_bonus(mode, _bless(f) - _penalty(f) + _fed(f))
+	var bonus := _brs_bonus(mode, -_penalty(f) + _fed(f))
 	if String(wd.get("art", "nah")) == "fern":
 		bonus += float(k["fernkampf_treffer_je_wahrnehmung"]) * float(f.b.werte.get("wahrnehmung", 0))
+	bonus += float(mod.get("treffer", 0.0)) + f.naechster + _beistand(f)     # 870.5: Kampfhandlung, Finte, Ruhige Hand, Beistand
+	f.naechster = 0.0
+	f.geschlagen = true
+	grund *= float(mod.get("schaden", 1.0))
 	var e := BrsKampf.schlag(dice.rng, float(f.b.fert.get(gruppe, 0)), float(t.b.abwehr), grund, float(int(f.b.stufe) - int(t.b.stufe)),
-			float(t.b.ruestung), bonus, float(k["kritisch_prozent_je_gewandtheit"]) * float(f.b.werte.get("gewandtheit", 0)))
+			float(t.b.ruestung) * float(mod.get("ruestung", 1.0)), bonus, float(k["kritisch_prozent_je_gewandtheit"]) * float(f.b.werte.get("gewandtheit", 0)))
 	if held_immer_krit and f == lead() and e.treffer and not e.kritisch:     # Testmenü „Kritisch“
 		e.kritisch = true
 		e.schaden = float(BrsKampf.Brs.runde(float(e.schaden) * float(k["kritisch_faktor"])))
@@ -1884,13 +2099,12 @@ func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapo
 	if not hit:
 		_say(fmt(wolf(f, "MSG279_WOLFMISSES", "MSG72_MISSES"), lang, [f.name(lang), t.name(lang)]), f.id, t.id, 0, info)
 		return
-	var dmg := float(e.schaden) * float(t.b.get("schwaeche", {}).get(String(wd.get("typ", "")), 1.0))
-	var n := roundi(dmg)
-	if f.has("SNEAK_ATTACK") and (advantage or not f.sneaked):
-		n += _srd(t, dice.roll(maxi(1, f.level() / 2), 6))
-	f.sneaked = true
-	n = maxi(0, n - _srd(t, _weakness(f)) + _srd(t, _fed(f)))
+	var schw := _schwaeche(f, t, wd.get("typ"), info)     # 870.5 (870a 8 A)
+	var n := roundi(float(e.schaden) * schw)
+	n = maxi(0, n - _srd(t, _weakness(f)) + (_srd(t, _fed(f)) if schw > 0.0 else 0))
+	_vor_treffer(t, wd.get("typ"))
 	_hurt(t, n, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), n]), info, true)
+	_gegenwirkung(f, t, wd.get("typ"))
 	_life_steal(f, n)
 	if not statuses or outcome != "ONGOING" or not t.standing():
 		return
@@ -1906,26 +2120,123 @@ func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapo
 			_inflict(t, st, 1 if st == "STUN" else 3)
 
 
-## Zauber mit Angriff (Feuerpfeil, Sengender Strahl): Funkenpfeil des BRS, Grundschaden (6 + Wille) im Verhältnis zum alten Würfel,
-## Fertigkeit der Schule (Evokation) für Treffer und Schaden
-func _brs_zauber(f: Fighter, t: Fighter, dmg: Array) -> void:
+## 870.5: Zauber mit Angriff nach dem BRS: Fertigkeit der Schule gegen die Abwehr des Ziels, Grundschaden des Zaubers + Wille,
+## Schwäche nach der Schadensart (ohne Art keine), Beistand und Sättigung dazu (sim.py, handlungen.py schlag)
+func _brs_zauber(f: Fighter, t: Fighter, z: Dictionary) -> void:
 	var mode := _row_mode(f, t, false)
-	var W := BrsKampf.w()
-	var zb: Dictionary = W["zauber"]["Funkenpfeil"]
-	var grund := (float(zb["schaden"]) + float(f.b.werte.get("wille", 0))) * BrsKampf.mittel(dmg) / BrsKampf.mittel(BrsKampf.FEUERPFEIL_SRD)
-	var e := BrsKampf.schlag(dice.rng, float(f.b.fert.get(String(zb["schule"]), 0)), float(t.b.abwehr), grund,
-			float(int(f.b.stufe) - int(t.b.stufe)), float(t.b.ruestung), _brs_bonus(mode, _bless(f) + _fed(f)))
+	var grund := float(z["schaden"]) + float(f.b.werte.get("wille", 0))
+	var e := {}
+	for i in 30:     # Testmenü „Rettung nie“: Gegner wehren keinen Zauber ab
+		e = BrsKampf.schlag(dice.rng, float(f.b.fert.get(String(z["schule"]), 0)), float(t.b.abwehr), grund,
+				float(int(f.b.stufe) - int(t.b.stufe)), float(t.b.ruestung), _brs_bonus(mode, _fed(f)) + _beistand(f))
+		if e.treffer or not (gegner_ohne_rettung and t.side == "FOES"):
+			break
 	var info := ["BRS", e.wurf, 0, e.chance, e.treffer, mode, false, false]
 	if not e.treffer:
 		_say(fmt(wolf(f, "MSG279_WOLFMISSES", "MSG72_MISSES"), lang, [f.name(lang), t.name(lang)]), f.id, t.id, 0, info)
 		return
-	var n := maxi(0, roundi(float(e.schaden) * float(t.b.get("schwaeche", {}).get(String(zb.get("typ", "")), 1.0))) + _srd(t, _fed(f)))
+	var schw := _schwaeche(f, t, z.get("typ"), info)     # 870.5 (870a 8 A)
+	var n := maxi(0, roundi(float(e.schaden) * schw) + (_srd(t, _fed(f)) if schw > 0.0 else 0))
+	_vor_treffer(t, z.get("typ"))
 	_hurt(t, n, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), n]), info)
+	_gegenwirkung(f, t, z.get("typ"))
+
+
+## 870.5 (870a 8 A, LISTE-BESTIARIUM.md): Faktor der Schadensart [typ] gegen [t] (Schwäche 1,5, Stärke 0,5, immun 0, werte.json
+## „schwaeche“); beim ersten Treffer dieser Art auf diese Gegnerart eine Zeile (Homer [870.14.schwach] …), im Kasten ein Wort
+func _schwaeche(f: Fighter, t: Fighter, typ, info: Array) -> float:
+	if typ == null or String(typ) == "":
+		return 1.0
+	var x := float(t.b.get("schwaeche", {}).get(String(typ), 1.0))
+	if x == 1.0:
+		return x
+	info.append(x)
+	var k := art_of(t.monster) + "|" + String(typ)
+	if not schwaeche_gesagt.has(k):
+		schwaeche_gesagt[k] = true
+		var name: Array = SCHADENSART.get(String(typ), [String(typ), String(typ)])
+		var satz: Array = MSG870_SCHWACH if x > 1.0 else (MSG870_STARK if x > 0.0 else MSG870_IMMUN)
+		_say(fmt(satz, lang, [t.name(lang), name[lang]]), f.id, t.id)
+	return x
+
+
+## 870.5 Gegenwirkung, die vor dem Schaden greift: Zombie nach Feuer oder Licht steht nicht wieder auf
+func _vor_treffer(t: Fighter, typ) -> void:
+	if t.monster != null and art_of(t.monster) == "zombie" and String(typ) in ["feuer", "licht"]:
+		t.kein_zaeh = true
+
+
+## 870.5 (870a 8 A, LISTE-BESTIARIUM.md): das falsche Mittel stärkt den Gegner oder kostet etwas, nie tödlich, beim ersten Mal sichtbar
+## (Zahlen werte.json „gegenwirkung“, A). Die Spinnseide fehlt, solange die Spinne keine Seide als Beute trägt.
+func _gegenwirkung(f: Fighter, t: Fighter, typ) -> void:
+	if t.monster == null or typ == null or outcome != "ONGOING":
+		return
+	var art := art_of(t.monster)
+	var ty := String(typ)
+	if art == WOLF and ty == "feuer":
+		# 870c 3 A: Feuer vertreibt das Rudel erst, wenn sein Leitwolf (dem t folgt, sonst t selbst) unter halbem Leben ist
+		var leit = by_id(t.follows) if t.follows != "" else t
+		if leit != null and leit.standing() and leit.hp * 2 >= leit.max_hp:
+			return
+		var rudel := all.filter(func(x): return x.side == "FOES" and x.standing() and x.monster != null and art_of(x.monster) == WOLF)
+		var erst := true
+		for x in rudel:     # eine Zeile für alle, jeder läuft (wie _pack_flees)
+			x.fled = true
+			intents.erase(x.id)
+			_say(MSG870_GEGEN_WOLF[lang] if erst else "", null, x.id, 0, null, false, false, "FOE_FLEES")
+			erst = false
+		if not all.any(func(x): return x.side == "FOES" and x.standing()):
+			kein_lohn = true     # nur, wenn das Rudel allein war (Grimmzahn bleibt und zählt)
+			outcome = "WON"
+	elif art == "boar" and ty == "feuer" and t.standing() and not t.rasend:
+		t.rasend = true
+		_say(fmt(MSG870_GEGEN_SCHWEIN, lang, [t.name(lang)]), f.id, t.id)
+	elif art == "ochre_jelly" and ty in ["schnitt", "wucht"] and t.standing() and not t.geteilt and t.hp >= 2:
+		var spot = _free_foe_spot()
+		if spot == null:
+			return
+		t.geteilt = true
+		for gone in all.duplicate():
+			if gone.side == "FOES" and gone.place == spot:
+				if order.find(gone) < turn:
+					turn -= 1
+				all.erase(gone)
+				order.erase(gone)
+		var g := monster_fighter(t.id + "b", spot, t.monster, 1)
+		g.b = t.b
+		g.srd_hp = t.srd_hp
+		g.max_hp = t.max_hp
+		g.hp = int(t.hp * float(BrsKampf.w().get("gegenwirkung", {}).get("teilen_leben", 0.5)))
+		t.hp -= g.hp
+		g.geteilt = true
+		g.initiative = t.initiative
+		var top := 0
+		for x in all:
+			if x.monster != null and art_of(x.monster) == art:
+				top = maxi(top, x.nr)
+		if t.nr == 0:
+			t.nr = 1
+		g.nr = maxi(top, t.nr) + 1
+		all.append(g)
+		order.insert(order.find(t) + 1, g)
+		_say(MSG870_GEGEN_SCHLEIM[lang], t.id, g.id)
+		announce(g)
+
+
+## 870.5: Beistand: Prozentpunkte auf die eigene Trefferchance, solange er wirkt
+func _beistand(f: Fighter) -> float:
+	return float(BrsKampf.w()["zauber"].get("Beistand", {}).get("treffer", 0)) if f.beistand > 0 else 0.0
 
 
 ## Ein Gegner schlägt den Helden oder Söldner (sim.py auf_held): Angriff gegen die beste Abwehr (Ausweichen, Schild, Parieren), Schaden
 ## Grundschaden × (1 + Angriff/100) × Stufenfaktor, minus Rüstung und Schild; die Stärke der Ansage (Schwerer Hieb …) im Verhältnis
 ## ihres Würfels zum Biss der Art
+## 870.5: Merkmal Überfall nach dem BRS (werte.json „merkmale“ „ueberfall“: Gegner zuerst, erster Treffer stärker; betäubt wie bisher
+## über die Abwehrprobe in _foe_wounds)
+func _ueberfall() -> Dictionary:
+	return BrsKampf.w().get("merkmale", {}).get("ueberfall", {})
+
+
 func _brs_auf_held(foe: Fighter, t: Fighter, intent: Dictionary, mode: int) -> Dictionary:
 	var m: Dictionary = foe.monster
 	var wt = t.weapon()
@@ -1935,5 +2246,7 @@ func _brs_auf_held(foe: Fighter, t: Fighter, intent: Dictionary, mode: int) -> D
 	var faktor := 1.0
 	if intent.extra != null and BrsKampf.mittel(m.dmg) > 0.0:
 		faktor += BrsKampf.mittel(intent.extra) / BrsKampf.mittel(m.dmg)
+	if bool(foe.b.get("ueberfall", false)) and not foe.has_hit:     # 870.5: der erste Treffer des Überfalls mit Wucht (444 „erster_treffer_faktor“)
+		faktor *= float(_ueberfall().get("erster_treffer_faktor", 1.0))
 	return BrsKampf.schlag(dice.rng, float(foe.b.angriff), float(abw[1]), float(foe.b.schaden) * faktor,
-			float(int(foe.b.stufe) - int(t.b.stufe)), BrsKampf.held_abzug(t.b, in_hand), _brs_bonus(mode, -_penalty(foe)))
+			float(int(foe.b.stufe) - int(t.b.stufe)), BrsKampf.held_abzug(t.b, in_hand) + t.schutz, _brs_bonus(mode, -_penalty(foe)))     # 870.5: Bannschild, Arkanhaut

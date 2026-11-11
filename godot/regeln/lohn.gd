@@ -1,88 +1,106 @@
-# 348.7 (296.2): what a won fight brings, as the old fight's Battle.finishWin: experience by the leader's worth (higher
-# monster levels and each pack mate worth more), gold and the items the leader may leave; levels by experience, up to
-# the chapter's cap. Still missing until the hero and the bag are ported (Tom, 348.6): gear drops (Loot.drops), elite and
-# shimmering foes, the bonuses of gear and perks (passed in as factors), the bag the items go into.
+# 870.5 (Umzug BRS Schritt 5): was ein gewonnener Kampf bringt, nach dem BRS (DESIGN-BRS.md 4, Modell D): Erfahrung je Gegner
+# (Brs.erfahrung: 10 × Stufe², Boss × 3, Faktor nach Stufenunterschied), Begleiter ohne eigene Art (Jungwolf, Leibwache) mit
+# einem Anteil ihres Anführers (werte.json „merkmale“ „rudel“ „erfahrung_anteil“), gutgeschrieben über Brs.gib_erfahrung
+# (Erfahrungstopf je Gebiet, weiche Kapitelgrenze, Aufstieg). Gold und Beute wie bisher vom Anführer (Umbau mit 870.6).
+# Texte: STORY-BRS-KAMPF.md „Lohn nach dem Kampf“ [870.14.lohn.*].
 extends RefCounted
 
-# Battle.kt Msg
-const GAIN_XP := ["{0} erhält {1} EP.", "{0} gained {1} XP."]
-const CAPPED := ["Höchststufe für Kapitel 1 erreicht – keine weiteren EP in diesem Kapitel. Beute und Ausrüstung gibt es weiterhin.",
-	"Highest level for chapter 1 reached – no further XP in this chapter. Loot and gear still drop."]
-const GAIN_GOLD := ["Du erbeutest {0} Gold.", "You got {0} gold."]
+const GAIN_XP := ["{0} erhält {1} EP.", "{0} gains {1} XP."]     # [870.14.lohn.ep]
+const GAIN_GOLD := ["Du erbeutest {0} Gold.", "You take {0} gold."]     # [870.14.lohn.gold]
 const LOOT := ["Beute: {0}!", "Loot: {0}!"]
 const GEAR_LOOT := ["Beute: {0} ({1})!", "Loot: {0} ({1})!"]
-const LEVEL_UP := ["{0} erreicht Stufe {1}!", "{0} grew to level {1}!"]
-const NEW_SKILL := ["Neue Fähigkeit: {0}!", "New ability: {0}!"]
-const RESTORED := ["TP und ZP von {0} sind vollständig aufgefüllt!", "{0}'s HP and SP are fully restored!"]
-const POINTS := ["+{0} Attributspunkt(e) – verteile sie im Menü.", "+{0} ability point(s) – spend them in the menu."]
-# Rules.abilityLevels
-const ABILITY_LEVELS := [4, 8, 12, 16, 19]
-const MAX_LEVEL := 20
+const LEVEL_UP := ["{0} erreicht Heldenstufe {1}!", "{0} reaches Hero Level {1}!"]     # [870.14.lohn.stufe]
+const GRENZE := ["Die Grenze von Kapitel 1 ist erreicht. Erfahrung gibt es nur noch zu einem Viertel; Beute und Ausrüstung wie bisher.",
+	"You have reached the limit of Chapter 1. From now on you gain only a quarter of the experience; loot and gear drop as before."]     # [870.14.lohn.grenze]
+const ENDE := ["Weiter trägt dich Kapitel 1 nicht. Erfahrung gibt es keine mehr; Beute und Ausrüstung wie bisher.",
+	"Chapter 1 can take you no further. You gain no more experience; loot and gear drop as before."]     # [870.14.lohn.ende]
+const TOPF := ["Hier hast du gelernt, was es zu lernen gab. Die Gegner dieser Gegend lehren dich kaum noch etwas.",
+	"You have learned what there is to learn here. The foes of these parts teach you little now."]     # [870.14.lohn.topf]
+const RESTORED := ["Leben und Mana von {0} sind wieder voll.", "{0}'s life and mana are full again."]     # [870.14.lohn.voll]
 
 
-## The reward of the won fight [mars] for its hero (the party's first): [xp] the hero's experience before, [over] how
-## many levels the hero stands above the place (Battle.over), [cap] the highest level, null for the chapter's.
-## [gear]: the gear the world rolled for this win (Loot.drops, 399.2: skripte/beute.gd), each {gear, name, rarity} with
-## names in the fight's language; told after the items, the rarest first (Battle.finishWin).
-## Returns {xp, gold, items, gear, level, levels, xp_total, lines}; nothing is added anywhere, the caller does that.
-static func reward(mars, xp: int, dice, over := 0, cap = null, xp_factor := 1.0, gold_factor := 1.0, gear := []) -> Dictionary:
+## Erfahrung des Siegs für einen Helden der Heldenstufe [stufe], vor Topf und Grenze: jeder besiegte Gegner mit eigener Art
+## nach Brs.erfahrung, jeder Begleiter (monster „rudel“) mit erfahrung_anteil × Erfahrung seines Anführers; Gerufene zählen nicht.
+## Zurück {menge, boss}: boss, wenn ein Boss dabei ist (dann nicht aus dem Topf, DESIGN-BRS.md 4).
+static func erfahrung_des_siegs(mars, stufe: int) -> Dictionary:
+	var menge := 0.0
+	var boss := false
+	for f in mars.all:
+		if f.side != "FOES" or f.monster == null or f.called_in:
+			continue
+		var m: Dictionary = f.monster
+		if m.has("rudel"):
+			var r = Brs.lade().get("merkmale", {}).get("rudel", {}).get(String(m.rudel), {})
+			var anteil: float = float(r.get("erfahrung_anteil", 0.0)) if r is Dictionary else 0.0
+			menge += anteil * Brs.erfahrung(stufe, String(m.get("anfuehrer", "")))
+			continue
+		var id := String(m.get("id", ""))
+		menge += Brs.erfahrung(stufe, id)
+		boss = boss or Brs.boss(id)
+	return {"menge": menge, "boss": boss}
+
+
+## Der Lohn des gewonnenen Kampfs [mars] für seinen Helden (der erste der Gruppe): [stand] die Heldenstufe nach BRS
+## (Brs.neuer_stand: stufe, ep, ep_fert, toepfe), [gebiet] das Gebiet des Kampfs nach werte.json („Wald“, „Tiefer Wald“,
+## „Höhle“; "" ohne Topf). [gear]: Ausrüstung, die die Welt für diesen Sieg gewürfelt hat (skripte/beute.gd), je {gear, name,
+## rarity}, nach den Gegenständen genannt. Zurück {xp, gold, items, gear, level, levels, stand, lines}; [stand] selbst bleibt
+## unverändert, der neue Stand steht in „stand“, die Welt schreibt ihn gut. Leerer [stand]: Anfang der Stufe des Kämpfers.
+static func reward(mars, stand: Dictionary, dice, gebiet := "", gear := []) -> Dictionary:
 	assert(mars.outcome == "WON")
-	var tables_xp: Array = mars.xp_for_level
-	var top: int = int(mars.level_cap) if cap == null else int(cap)
 	var hero = mars.all[0]
+	var h: Dictionary = stand.duplicate(true)
+	if h.is_empty():     # ohne Stand (Proben, Tests): am Anfang der Stufe des Kämpfers
+		h = Brs.neuer_stand()
+		h["stufe"] = clampi(int(hero.level()), 1, Brs.hoechste_stufe())
+	if not h.has("toepfe"):
+		h["toepfe"] = {}
 	var lang: int = mars.lang
-	var foes: Array = mars.all.filter(func(f): return f.side == "FOES" and f.monster != null and not f.called_in)
-	# the old fight had one foe with its pack: the worthiest is the leader, the others its companions
-	var leader = foes[0]
-	for f in foes:
-		if int(f.monster.xp) > int(leader.monster.xp):
-			leader = f
-	foes.erase(leader)
-	var m: Dictionary = leader.monster
-	var pack = mars.packs.get(m.get("pack", m.id))     # 533: Grimmzahn trägt die id des Wolfs, zählt aber seine Leibwache
-	var mates := 0
-	if pack != null:
-		mates = foes.filter(func(f): return String(f.monster.id) == pack.mate).size()     # 535: Kobolde nach Art
-	var scale := 1.0 + 0.35 * over + 0.05 * over * over
-	var share: float = float(pack.xpShare) if pack != null else 0.0
-	var worth := int(int(m.xp) * scale * (1.0 + share * mates) * xp_factor)
-	var gold := int(dice.roll_expr(m.gold) * (1.0 + over * 0.3) * gold_factor)
-	var items: Array = []
-	for e in m.get("loot", []):
-		if dice.chance(float(e.chance)) and mars.items.has(e.item):
-			items.append(e.item)
-	var level: int = hero.level()
-	var total := xp + worth
-	var target := level
-	while target < mini(MAX_LEVEL, top) and total >= int(tables_xp[target + 1]):
-		target += 1
-	# at a chapter's level cap no further experience is gathered (Hero.gainXp)
-	if top < MAX_LEVEL:
-		total = mini(total, int(tables_xp[top]))
-	var earned := maxi(0, total - xp)
 	var name: String = hero.name(lang)
+	var vorher := int(h["stufe"])
+	var kein_lohn := bool(mars.get("kein_lohn"))     # 870.5 Gegenwirkung Wolf: das Rudel floh vor dem Feuer
+	var sieg := erfahrung_des_siegs(mars, vorher)
+	var roh: float = 0.0 if kein_lohn else float(sieg.menge)
+	var rest_vorher: float = float(h["toepfe"].get(gebiet, Brs.topf_voll(gebiet))) if gebiet != "" else 0.0
+	var r := Brs.gib_erfahrung(h, roh, "kampf", gebiet, bool(sieg.boss))
+	var nachher := int(h["stufe"])
+	# Gold und Gegenstände vom Anführer (dem wertvollsten Gegner), wie bisher
+	var foes: Array = mars.all.filter(func(f): return f.side == "FOES" and f.monster != null and not f.called_in)
+	var gold := 0
+	var items: Array = []
+	if not foes.is_empty() and not kein_lohn:
+		var leader = foes[0]
+		for f in foes:
+			if Brs.erfahrung(vorher, String(f.monster.get("id", ""))) > Brs.erfahrung(vorher, String(leader.monster.get("id", ""))):
+				leader = f
+		var m: Dictionary = leader.monster
+		gold = int(dice.roll_expr(m.gold)) if m.has("gold") else 0
+		for e in m.get("loot", []):
+			if dice.chance(float(e.chance)) and mars.items.has(e.item):
+				items.append(e.item)
+	var earned := roundi(float(r.gegeben))
 	var lines: Array = []
 	if earned > 0:
 		lines.append(_f(GAIN_XP, lang, [name, earned]))
-	if earned < worth and top < MAX_LEVEL and target >= top:
-		lines.append(CAPPED[lang])
+	if roh > 0.0 and vorher >= Brs.hoechste_stufe():
+		lines.append(ENDE[lang])
+	if gebiet != "" and rest_vorher > 0.0 and bool(r.topf_leer):
+		lines.append(TOPF[lang])
 	if gold > 0:
 		lines.append(_f(GAIN_GOLD, lang, [gold]))
 	for it in items:
 		lines.append(_f(LOOT, lang, [[mars.items[it].de, mars.items[it].en][lang]]))
 	for g in gear:
 		lines.append(_f(GEAR_LOOT, lang, [g.name, g.rarity]))
-	for lvl in range(level + 1, target + 1):
+	for lvl in range(vorher + 1, nachher + 1):
 		lines.append(_f(LEVEL_UP, lang, [name, lvl]))
-		for s in mars.skills.values():
-			if s.cls == hero.hero.cls and int(s.level) == lvl:
-				lines.append(_f(NEW_SKILL, lang, [[s.de, s.en][lang]]))
-	if target > level:
+	if vorher < Brs.grenze() and nachher >= Brs.grenze():
+		lines.append(GRENZE[lang])
+	if vorher < Brs.hoechste_stufe() and nachher >= Brs.hoechste_stufe():
+		lines.append(ENDE[lang])
+	if nachher > vorher:
 		lines.append(_f(RESTORED, lang, [name]))
-		var points := 2 * (ABILITY_LEVELS.filter(func(a): return a <= target).size() - ABILITY_LEVELS.filter(func(a): return a <= level).size())
-		if points > 0:
-			lines.append(_f(POINTS, lang, [points]))
-	return {"xp": earned, "gold": gold, "items": items, "gear": gear.map(func(g): return g.gear), "level": target, "levels": target - level, "xp_total": total, "lines": lines}
+	return {"xp": earned, "gold": gold, "items": items, "gear": gear.map(func(g): return g.gear), "level": nachher,
+		"levels": nachher - vorher, "stand": h, "lines": lines}
 
 
 static func _f(t: Array, lang: int, args: Array) -> String:

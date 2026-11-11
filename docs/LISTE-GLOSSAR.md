@@ -81,6 +81,7 @@ Namen im Spiel (Völker, Zauber, Monster, Regelwerte) stehen nicht hier, sondern
 | **Gefährte**, **Söldner** | Menschen an der Seite des Helden; andere, die mitgehen: **Begleiter** | – | – | `CLAUDE.md` „Begriffe“ |
 | **Hauptmenü** | erster Schirm mit Auswahl | – | Titelbild | `CLAUDE.md` „Begriffe“ (292) |
 | **BRS** | Bornimer Rollenspielsystem, unsere Regeln | – → Glossar des Spielsystems | – | `DESIGN-BRS.md` |
+| **Stufen** | jede Stufenleiter im Spiel (Heldenstufe, Ränge, Ruf, Schlossstufe, Gegenstandsstufe, Güte, Seltenheit, Zustand) mit Stufen und wovon sie abhängt | BRS | Klassenstufe | `DESIGN-BRS.md` „Alle Stufen auf einen Blick“ |
 
 ## Abkürzungen
 

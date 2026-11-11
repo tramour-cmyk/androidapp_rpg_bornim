@@ -8,7 +8,7 @@ Lesen:
   vorgang.py pruefen                    Formprüfung der ganzen Liste (Exit 1 bei Fehlern)
 Schreiben (Chef 27.10., 15:20: nur über dieses Werkzeug; danach committen und pushen):
   vorgang.py neu "Titel" "Bereich" KL "Besitzer" [--nr NR] [--oben]   neue Zeile (Stand startbar); ohne --nr die nächste freie Nummer
-                                       aus ARBEIT-BETRIEB.md (zählt hoch); ans Ende der Zeilen des Besitzers (--oben: an den Anfang)
+                                       aus ARBEIT-BETRIEB.md (zählt hoch; gilt erst, wenn der Zähler auf origin/main gepusht ist, 940); ans Ende der Zeilen des Besitzers (--oben: an den Anfang)
   vorgang.py stand NR "Stand"          Wort der Liste, dahinter nach Komma ein kurzer Zusatz; „gebaut“ nur mit „Geprüft an: <Link|Lauf|Commit>“
                                        (340.4); „wartet auf X[: …]“ setzt Wort „wartet“ und das Feld
   vorgang.py warte NR "X, Y" | –       Feld „wartet auf“: Nummer, Rolle, Datum TT.MM.[ HH:MM], t<Build> oder Chef[ <Datei>] (Automatik A)
@@ -190,6 +190,49 @@ def fern_zaehler():
 def fern_nummern():
     return set(re.findall(r"(?m)^\| (\d+) \|", _fern(startbar.LISTE)))
 
+def _git(*a, env=None, eingabe=None):
+    p = subprocess.run(["git", "-C", DOCS] + list(a), capture_output=True, text=True, timeout=30, env=env, input=eingabe)
+    return p.returncode, p.stdout.strip(), p.stderr
+
+def zaehler_pushen(zeile, nr, besitzer):
+    """940 (Tom 11.11., 13:13: 934, 935 doppelt): die Nummer gilt erst, wenn der Zähler auf origin/main steht. Ein Commit nur mit der
+    Zählerzeile, gebaut auf origin/main ohne Index und Arbeitskopie (commit-tree), wird gepusht. „gültig“; „abgewiesen“ (ein anderer
+    war schneller: neu holen); „aus“ (kein Netz, nicht auf main, BORNIM_OHNE_ZAEHLERPUSH=1: alter Weg, Mischkonflikt als Warnung)."""
+    if os.environ.get("BORNIM_OHNE_ZAEHLERPUSH"): return "aus"
+    try:
+        if _git("rev-parse", "--abbrev-ref", "HEAD")[1] != "main": return "aus"
+        _fern("ARBEIT-BETRIEB.md")  # holt origin/main einmal je Versuch
+        rc, basis, _ = _git("rev-parse", "origin/main")
+        rc2, alt, _ = _git("show", "origin/main:docs/ARBEIT-BETRIEB.md")
+        mm = re.search(r"\*\*Nächste freie Vorgangsnummer: (\d+)\*\*( \(zuletzt [^)]*\))?", alt) if rc == rc2 == 0 else None
+        if not mm or int(mm.group(1)) > int(nr): return "abgewiesen" if mm else "aus"
+        rc, blob, _ = _git("hash-object", "-w", "--stdin", eingabe=alt.replace(mm.group(0), zeile, 1) + "\n")
+        import tempfile
+        with tempfile.TemporaryDirectory() as t:
+            env = dict(os.environ, GIT_INDEX_FILE=os.path.join(t, "index"))
+            _git("read-tree", basis, env=env)
+            _git("update-index", "--cacheinfo", "100644,%s,docs/ARBEIT-BETRIEB.md" % blob, env=env)
+            rc, baum, _ = _git("write-tree", env=env)
+        # Systemzeilen aus dem letzten eigenen Commit dieser Kopie (Reflog „commit“), sonst ohne
+        _, log, _ = _git("log", "-g", "-n", "200", "--format=%H%x1f%gs", "HEAD")
+        eigen = next((l.split("\x1f")[0] for l in log.splitlines() if "\x1f" in l and l.split("\x1f")[1].startswith("commit")), None)
+        # 957 (D172.1): frische Sitzung ohne eigenen Commit: Co-Authored-By aus dem jüngsten Commit auf origin/main, der eine trägt;
+        # Claude-Session aus CLAUDE_CODE_REMOTE_SESSION_ID (cse_… = session_…)
+        _, text, _ = _git("log", "-1", "--format=%B", eigen) if eigen else (0, "", "")
+        if "Co-Authored-By:" not in text: _, text2, _ = _git("log", "-30", "--format=%B", "origin/main"); text += "\n" + text2
+        co = next((l for l in text.splitlines() if l.startswith("Co-Authored-By:")), None)
+        sid = os.environ.get("CLAUDE_CODE_REMOTE_SESSION_ID", "")
+        cs = ("Claude-Session: https://claude.ai/code/session_" + sid[4:]) if sid.startswith("cse_") else \
+            next((l for l in (_git("log", "-1", "--format=%B", eigen)[1] if eigen else "").splitlines() if l.startswith("Claude-Session:")), None)
+        anhang = "\n".join(x for x in (co, cs) if x)
+        rc, neu_c, _ = _git("commit-tree", baum, "-p", basis, "-m", "Zähler: %s vergeben (%s, 940)" % (nr, besitzer) + ("\n\n" + anhang if anhang else ""))
+        if rc or not neu_c: return "aus"
+        rc, _, err = _git("push", "-q", "origin", "%s:refs/heads/main" % neu_c)
+        if rc == 0: return "gültig"
+        return "abgewiesen" if re.search(r"rejected|fetch first|non-fast-forward|stale info", err) else "aus"
+    except Exception:
+        return "aus"
+
 def neu(titel, bereich, kl, besitzer, nr=None, oben=False):
     """275 Stufe 2, 275.2: neue Zeile (Stand startbar, Kosten –); ohne --nr die nächste freie Nummer aus ARBEIT-BETRIEB.md, die hochzählt."""
     if kl not in ("M", "K", "M?"): sys.exit("vorgang.py: Klasse M, K oder M?")
@@ -205,14 +248,21 @@ def neu(titel, bereich, kl, besitzer, nr=None, oben=False):
         b = startbar.lesen("ARBEIT-BETRIEB.md")
         m = re.search(r"\*\*Nächste freie Vorgangsnummer: (\d+)\*\*( \(zuletzt [^)]*\))?", b)
         if not m: sys.exit("vorgang.py: Zähler in ARBEIT-BETRIEB.md nicht gefunden")
-        nr = str(max([int(m.group(1))] + fern_zaehler())); d["nr"] = nr  # 880: nie unter dem Zähler auf origin/main
-        while nr in startbar.VORG or any(d2["nr"] == nr for d2 in startbar.zeilen_liste()) or nr in fern_nummern():
-            nr = str(int(nr) + 1); d["nr"] = nr
-        # 653 doppelt: zwei Sitzungen zogen dieselbe Nummer, die gleiche Zählerzeile mischte git still.
-        # Die Marke macht jede Ziehung verschieden, gleichzeitiges Ziehen wird ein Mischkonflikt.
         import secrets, time
-        marke = " (zuletzt %s %s %s %s)" % (nr, besitzer, time.strftime("%d.%m. %H:%M:%S"), secrets.token_hex(2))
-        schreiben("ARBEIT-BETRIEB.md", b.replace(m.group(0), "**Nächste freie Vorgangsnummer: %d**%s" % (int(nr) + 1, marke), 1))
+        for versuch in range(6):
+            nr = str(max([int(m.group(1))] + fern_zaehler())); d["nr"] = nr  # 880: nie unter dem Zähler auf origin/main
+            while nr in startbar.VORG or any(d2["nr"] == nr for d2 in startbar.zeilen_liste()) or nr in fern_nummern():
+                nr = str(int(nr) + 1); d["nr"] = nr
+            # 653 doppelt: zwei Sitzungen zogen dieselbe Nummer, die gleiche Zählerzeile mischte git still.
+            # Die Marke macht jede Ziehung verschieden, gleichzeitiges Ziehen wird ein Mischkonflikt.
+            marke = " (zuletzt %s %s %s %s)" % (nr, besitzer, time.strftime("%d.%m. %H:%M:%S"), secrets.token_hex(2))
+            zeile = "**Nächste freie Vorgangsnummer: %d**%s" % (int(nr) + 1, marke)
+            r = zaehler_pushen(zeile, nr, besitzer)
+            if r != "abgewiesen": break
+            _FERN.clear()  # ein anderer war schneller: frisch holen, nächste Nummer
+        else: sys.exit("vorgang.py: Zähler sechsmal abgewiesen (origin/main bewegt sich zu schnell); nichts angelegt, gleich noch einmal")
+        if r != "gültig": schreiben("ARBEIT-BETRIEB.md", b.replace(m.group(0), zeile, 1))
+        # gültig: der Zähler steht auf origin/main; die eigene Kopie holt ihn beim nächsten pull ohne Konflikt (Zeile hier unverändert)
     L = text_liste().split("\n")
     eigen, ende = gruppe(L, besitzer)
     L.insert(eigen[0] if oben and eigen else ende, startbar.zeile_text(d))
@@ -472,7 +522,7 @@ SCHREIBT = ("stand", "warte", "setze", "klasse", "fertig", "rang", "neu", "build
 
 def liegt_melden(vorher):
     """891 (654, Chef 10.11., 17:15; 506 lag 16:43–17:00, Ford lief erst 16:59): neu startbares Muss nennen; läuft keine Sitzung
-    der Rolle, meldet der Schreibende es Ford sofort wie einen Nachfolger („Start <Rolle> <Nr>, <Commit>“, LISTE-BETRIEB.md 26)."""
+    der Rolle, meldet der Schreibende es Ford sofort wie einen Nachfolger („Start <Rolle> <Nr>, <Commit>“, LISTE-BETRIEB.md „Meldungen an Ford“)."""
     try:
         startbar.neu_laden()
         neu = sorted(startbar.startbares_muss() - vorher)

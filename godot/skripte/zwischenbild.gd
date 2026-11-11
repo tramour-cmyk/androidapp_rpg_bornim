@@ -89,7 +89,7 @@ func _ready() -> void:
 	unter_leben = _lebensflaeche(rahmen)
 	ober_bild = _bildflaeche(rahmen)
 	ober_leben = _lebensflaeche(rahmen)
-	inhalt.add_child(Erschaffung.luecke(14))
+	inhalt.add_child(Stil.luecke(14))
 	# der Satz im Kasten: schwarz, duenner Goldrand, die Serife der schwarzen Schirme (19 sp, Zeile 27 sp, Sperrung 0,4 sp)
 	var rand := MarginContainer.new()
 	rand.add_theme_constant_override("margin_left", int(16 * DP))
@@ -440,11 +440,11 @@ func frage() -> void:
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(8 * DP))
 	v.custom_minimum_size.x = get_viewport_rect().size.x - 48 * DP
-	mitte.add_child(Rueckfrage.halte(Erschaffung.kasten(v)))
+	mitte.add_child(Rueckfrage.halte(Stil.rahmen(v)))
 	v.add_child(Stil.zeile(("Überspringen?" if de else "Skip?").to_upper(), 14, Stil.TEXT, 3.0))
-	v.add_child(Erschaffung.txt("Die Zwischensequenz endet, du kannst sie in der Chronik wieder ansehen." if de else "This ends the cutscene; you can watch it again in the Chronicle.", 16))
-	v.add_child(Erschaffung.knopf("Überspringen" if de else "Skip", func(): beende()))
-	v.add_child(Erschaffung.knopf(Sprache.t(Menue.ABBRECHEN), func(): fragt.queue_free(); fragt = null))   # 618: „Abbrechen“ statt „Weiter ansehen“
+	v.add_child(Stil.txt("Die Zwischensequenz endet, du kannst sie in der Chronik wieder ansehen." if de else "This ends the cutscene; you can watch it again in the Chronicle.", 16))
+	v.add_child(Stil.knopf("Überspringen" if de else "Skip", func(): beende()))
+	v.add_child(Stil.knopf(Sprache.t(Menue.ABBRECHEN), func(): fragt.queue_free(); fragt = null))   # 618: „Abbrechen“ statt „Weiter ansehen“
 
 func beende() -> void:
 	if vorbei: return

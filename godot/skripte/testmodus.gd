@@ -42,7 +42,7 @@ static func ist_an() -> bool:
 
 const STUFEN_PROBE := [3, 5, 6, 8, 11]          # Skirmish.PROBE_LEVEL und die Stufen aus 259
 const NEBENHAND := ["", "shield", "round_shield", "dagger"]   # cheatOffHand
-const KLASSEN := ["FIGHTER", "WIZARD", "ROGUE", "CLERIC"]
+const HERKUENFTE := ["Wachsoldat", "Zauberlehrling", "Herumtreiber", "Klosterschüler"]   # 870.4: Probehelden nach Herkunft statt Klasse
 
 static var waffen_auf := false
 static var eroeffnung := "NORMAL"       # 399.2 (Jerry, TestTab.kt opening): wer zuerst handelt im beschworenen Kampf
@@ -100,32 +100,28 @@ static func ohne_modell() -> Array:
 	var alle := feinde(true)
 	return alle.keys().filter(func(g): return not gruppe_da(String(g))).map(func(g): return String(alle[g]))
 
-# Held und Soeldner der MARS-Probe: Mensch der Klasse auf der Stufe, Werte wie vorgeschlagen
-static func probeheld(klasse: String, stufe: int) -> Heldwerte:
-	var h := Heldwerte.erschaffe("Probe", "HUMAN", klasse)
-	h.ep_dazu(int(Heldwerte.regel("ep_fuer_stufe")[stufe]))
+# Held und Soeldner der MARS-Probe: Mensch der Herkunft (870.4) auf der Stufe, Punkte wie die Herkunft sie verteilt, ihre Ausruestung
+static func probeheld(herkunft: String, stufe: int) -> BrsHeld:
+	var h := BrsHeld.fuer_spiel("Probe", "Mensch", herkunft)
+	h.stufe = clampi(stufe, 1, Brs.hoechste_stufe())
 	h.voll()
-	h.zp = h.max_zp()
 	return h
 
-# Game.cheatLevel: hinauf mit EP, hinab mit Stufe, EP und Punkten wie bei einem, der so weit kam; danach voll geheilt
-static func stufe_setzen(hw: Heldwerte, z: Zustand, ziel: int) -> void:
-	var t := clampi(ziel, 1, int(Heldwerte.regel("max_stufe")))
-	var tab: Array = Heldwerte.regel("ep_fuer_stufe")
-	if t > hw.stufe: hw.ep_dazu(maxi(0, int(tab[t]) - hw.ep))
-	elif t < hw.stufe:
-		hw.stufe = t
-		hw.ep = int(tab[t])
-		hw.passe_punkte()
+# Game.cheatLevel, 870.4: Heldenstufe nach BRS setzen (Stand in zustand.brs_stufe, Erfahrung am Anfang der Stufe); danach voll geheilt
+static func stufe_setzen(hw: BrsHeld, z: Zustand, ziel: int) -> void:
+	var t := clampi(ziel, 1, Brs.hoechste_stufe())
+	var st := z.stufe_brs()
+	st["stufe"] = t
+	st["ep"] = 0.0
+	st["ep_fert"] = 0.0
+	hw.stufe = t
 	heile(hw)
-	z.stufe_held = hw.stufe
 
-static func heile(hw: Heldwerte) -> void:   # Hero.restoreFully
+static func heile(hw: BrsHeld) -> void:   # Hero.restoreFully
 	hw.voll()
-	hw.zp = hw.max_zp()
 
 # Game.cheatSupplies: jeder Vorrat ausser Schluesseldingen auf mindestens n, Fackeln auf zwei, ein Rauchbuendel
-static func vorraete(hw: Heldwerte, z: Zustand, n := 10) -> void:
+static func vorraete(hw: BrsHeld, z: Zustand, n := 10) -> void:
 	var dinge: Dictionary = Sprache.texte.get("dinge", {})
 	for id in dinge:
 		if String(dinge[id].get("art", "")) != "KEY" and z.anzahl(id) < n: z.dazu(id, n - z.anzahl(id))
@@ -135,11 +131,11 @@ static func vorraete(hw: Heldwerte, z: Zustand, n := 10) -> void:
 	for i in maxi(0, 2 - fackeln): z.ausruestung_dazu(Beute.fackel(0))
 	if z.anzahl(Geschichte.SMOKE_BUNDLE) == 0: z.dazu(Geschichte.SMOKE_BUNDLE, 1)
 
-static func schlicht(z: Zustand, hw: Heldwerte, base: String) -> Dictionary:   # Gear(0, base, COMMON, level)
+static func schlicht(z: Zustand, hw: BrsHeld, base: String) -> Dictionary:   # Gear(0, base, COMMON, level)
 	return {"uid": z.neue_uid(), "base": base, "rarity": "COMMON", "ilvl": hw.stufe, "plus": 0, "rolls": [], "unique": null, "name_seed": 0}
 
 # Game.cheatWeapon / cheatOffHand: was die Hand hielt, kommt in die Tasche
-static func waffe(hw: Heldwerte, z: Zustand, base: String, neben := false) -> void:
+static func waffe(hw: BrsHeld, z: Zustand, base: String, neben := false) -> void:
 	var platz := "OFF_HAND" if neben else "MAIN_HAND"
 	var alt = hw.ablegen(platz)
 	if alt != null: z.beutel.append(alt)
@@ -171,7 +167,7 @@ static func reiter(m: Menue) -> void:
 		var r := HBoxContainer.new()
 		r.add_theme_constant_override("separation", int(6 * Menue.DP))
 		for k in knoepfe:
-			var b := Erschaffung.knopf(String(k[0]), k[1])
+			var b := Stil.knopf(String(k[0]), k[1])
 			b.clip_text = false   # 425 (Pruefer 01.11.: „Wolf mit Jungwölfen“ am Rand abgeschnitten): lange Namen brechen um
 			b.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 			r.add_child(b)
@@ -192,12 +188,12 @@ static func reiter(m: Menue) -> void:
 	m.geraet_box()
 	m.luecke(6)
 	m.gruppe(t.call("Held · Stufe %d", "Hero · level %d") % hw.stufe)   # 425 (Pruefer 01.11.): die Stufe einmal, nicht unter „+1“
-	var stufe_satz: String = t.call("Stufe des Helden ändern; danach voll geheilt. Hinab mit Stufe, Erfahrung und Punkten wie bei einem, der so weit kam.",
-		"Change the hero's level, then fully healed. Down sets level, experience and points as for one who got that far.")
+	var stufe_satz: String = t.call("Heldenstufe ändern; die Erfahrung beginnt am Anfang der Stufe, danach voll geheilt.",
+		"Change the hero level; experience starts at the beginning of the level, then fully healed.")
 	m.zeichenreihe([-5, -1, 1, 5].map(func(d): return zk.call(t.call("Stufe", "Level"), null, stufe_satz,
 		func(): stufe_setzen(hw, z, hw.stufe + d), "", ("+%d" % d) if d > 0 else ("−%d" % -d))))
 	m.zeichenreihe([zk.call("Gold", str(z.gold), t.call("Gibt 1000 Gold.", "Gives 1000 gold."), func(): z.gold += 1000, "COIN"),
-		zk.call(t.call("Heilen", "Heal"), "%d/%d" % [hw.tp, hw.max_tp()], t.call("Trefferpunkte und Zauberplätze voll.", "Hit points and spell slots full."),
+		zk.call(t.call("Heilen", "Heal"), "%d/%d" % [hw.leben, hw.max_leben()], t.call("Leben und Mana voll.", "Life and mana full."),
 			func(): heile(hw), "HEAL"),
 		zk.call(t.call("Vorräte", "Supplies"), "10", t.call("Jeder Vorrat auf mindestens 10, dazu zwei Fackeln und ein Rauchbündel.", "Every supply to at least 10, plus two torches and a smoke bundle."),
 			func():
@@ -302,11 +298,7 @@ static func reiter(m: Menue) -> void:
 			"Hero always crits: every weapon hit of the hero is critical, to test the killing blow."), func(): Mars.held_immer_krit = not Mars.held_immer_krit, "BLOOD", "", Mars.held_immer_krit),
 		zk.call(t.call("Rettung", "Saves"), t.call("nie", "never") if Mars.gegner_ohne_rettung else t.call("wie im Spiel", "as in game"),
 			t.call("Gegner bestehen keine Rettungswürfe: Zauber, denen man ausweichen kann, treffen immer voll.", "Foes fail every save: spells one can dodge always hit in full."),
-			func(): Mars.gegner_ohne_rettung = not Mars.gegner_ohne_rettung, "", "✗", Mars.gegner_ohne_rettung),
-		# 478 (Jerry): der Rechenkern nach dem BRS (regeln/brs_kampf.gd), bis der Chef ihn abnimmt nur hier
-		zk.call(t.call("Rechnung", "Rules"), "BRS" if Mars.BrsKampf.schalter else "SRD", t.call("Kampf nach dem BRS (Modell D, Zahlen wie die Simulation 444) oder nach dem alten SRD; gilt ab dem nächsten Kampf.",
-			"Combat by the BRS (model D, numbers as in simulation 444) or by the old SRD; applies from the next fight."),
-			func(): Mars.BrsKampf.schalter = not Mars.BrsKampf.schalter, "DICE", "", Mars.BrsKampf.schalter)])
+			func(): Mars.gegner_ohne_rettung = not Mars.gegner_ohne_rettung, "", "✗", Mars.gegner_ohne_rettung)])     # 870.5: Schalter BRS/SRD weg, BRS immer
 	# 415 (Jerry, Chef „415 jetzt“ 02.11., 10:55): Handyprobe der Beams-Probe im Kampfort (kampf/strahlprobe.gd)
 	m.zeichenreihe([zk.call(t.call("Strahlen", "Beams"), null, t.call("415: drei Strahlen der Beams-Probe im Kampfort, mit Bildern je Sekunde; Renderer umschaltbar.",
 		"415: three beams of the Beams sample in the battle place, with frames per second; renderer switchable."), func(): m.test.emit("strahlen", []), "FPS")])
@@ -346,15 +338,16 @@ static func reiter(m: Menue) -> void:
 				func(): probe_stufe = STUFEN_PROBE[(STUFEN_PROBE.find(probe_stufe) + 1) % STUFEN_PROBE.size()], "", str(probe_stufe))])
 		m.zeile(t.call("Starten als:", "Start as:"), 13, Stil.DIM)
 		m.luecke(4)
-		reihe.call(KLASSEN.map(func(k): return [Sprache.t(Heldwerte.lade()["klassen"][k]["name"]), func(): m.test.emit("probe", [probe_gegner, k, probe_stufe])]))
+		for i in range(0, HERKUENFTE.size(), 2):   # 870.4: zwei je Reihe, „Klosterschüler“ passt nicht in ein Viertel (testmenue_mass_425)
+			reihe.call(HERKUENFTE.slice(i, i + 2).map(func(k): return [ErschaffungBrs.herkunft_name(k), func(): m.test.emit("probe", [probe_gegner, k, probe_stufe])]))
 	m.gruppe(t.call("Beute erzeugen", "Create loot"))
-	var st: Dictionary = Heldwerte.lade()["seltenheiten"]
+	var st: Dictionary = BrsHeld.daten()["seltenheiten"]
 	var sel: Array = st.keys()
 	for i in range(0, sel.size(), 4):
 		m.zeichenreihe(sel.slice(i, i + 4).map(func(r): return zk.call(gross_anfang(Sprache.t(st[r]["name"])), null,
-			t.call("Erzeugt ein Stück dieser Seltenheit auf der Stufe des Helden, passend zur Klasse.", "Creates an item of this rarity at the hero's level, suited to the class."),
+			t.call("Erzeugt ein Stück dieser Seltenheit auf der Stufe des Helden.", "Creates an item of this rarity at the hero's level."),
 			func():   # Game.cheatLoot
-				var g := z.ausruestung_dazu(Beute.erzeuge(KotlinZufall.new(randi()), z.neue_uid(), hw.stufe, String(r), hw.klasse))
+				var g := z.ausruestung_dazu(Beute.erzeuge(KotlinZufall.new(randi()), z.neue_uid(), hw.stufe, String(r), ""))
 				m.meldung(t.call("Erhalten: ", "Received: ") + Beute.name(g)), "GEM")))
 
 # cheatChapterEnd: ein begehbares Feld neben Aldric im Haus des Aeltesten, mit Blick zu ihm: [Kachel, Blick]; [] ohne Aldric
@@ -433,9 +426,9 @@ static func absturz(m: Menue, t: Callable) -> void:
 	text += t.call("\n\nSeit Start, Fehler:\n", "\n\nSince start, errors:\n") + "\n".join(PackedStringArray(jetzt))
 	var r := HBoxContainer.new()
 	r.add_theme_constant_override("separation", int(6 * Menue.DP))
-	r.add_child(Erschaffung.knopf(t.call("Absturzbericht schließen", "Hide crash report") if bericht_auf else t.call("Absturzbericht zeigen …", "Show crash report…"), func(): bericht_auf = not bericht_auf; m.baue()))
+	r.add_child(Stil.knopf(t.call("Absturzbericht schließen", "Hide crash report") if bericht_auf else t.call("Absturzbericht zeigen …", "Show crash report…"), func(): bericht_auf = not bericht_auf; m.baue()))
 	if bericht_auf:
-		var k := Erschaffung.knopf(t.call("Kopieren", "Copy"), func(): DisplayServer.clipboard_set(text); m.meldung(t.call("Absturzbericht kopiert.", "Crash report copied.")))
+		var k := Stil.knopf(t.call("Kopieren", "Copy"), func(): DisplayServer.clipboard_set(text); m.meldung(t.call("Absturzbericht kopiert.", "Crash report copied.")))
 		k.size_flags_stretch_ratio = 0.5
 		r.add_child(k)
 	m.inhalt.add_child(r)

@@ -25,9 +25,20 @@ const CHAPTER2_STARTED := "chapter2_started"
 const CHAPTER1_LEVEL_CAP := 6
 const SMOKE_BUNDLE := "smoke_bundle"
 const CLASS_WEAPON := "@class_weapon"
-## 632 Story.classWeapon: die Truhe cave_3 gibt jedem Helden eine Waffe seiner Klasse (Einzelstück)
-static func klassen_waffe(klasse: String) -> String:
-	return {"FIGHTER": "longsword_oakford", "WIZARD": "staff_of_embers", "ROGUE": "rapier_whisper", "CLERIC": "mace_of_dawn"}.get(klasse, "longsword_oakford")
+## 632, 870.4 (STORY-BRS-HELD.md „Die Truhe in der Blutzahnhöhle“): die Truhe cave_3 gibt die Waffe zur stärksten Waffenfertigkeit
+## des Helden, eine Magieschule darüber den Glutstab oder Morgenröte; bei Gleichstand gewinnt, was in TRUHE_FOLGE zuerst kommt.
+## Gruppen ohne eigenes Stück (Zweihänder, Stangenwaffen, Bogen, Armbrust, Wurfwaffen; Stücke 870.6) geben die nächststärkere mit Stück.
+const TRUHE_FOLGE := ["Einhänder", "Zweihänder", "Stangenwaffen", "Stumpfe Waffen", "Dolche", "Bogen", "Armbrust", "Wurfwaffen",
+	"Evokation", "Heilmagie", "Schutzmagie", "Illusion", "Beschwörung"]
+const TRUHE_STUECK := {"Einhänder": "longsword_oakford", "Dolche": "rapier_whisper", "Stumpfe Waffen": "mace_of_dawn",
+	"Heilmagie": "mace_of_dawn", "Schutzmagie": "mace_of_dawn", "Evokation": "staff_of_embers", "Illusion": "staff_of_embers",
+	"Beschwörung": "staff_of_embers"}
+static func truhen_waffe(fert: Dictionary) -> String:
+	var best := ""
+	for f in TRUHE_FOLGE:
+		if not TRUHE_STUECK.has(f): continue
+		if best == "" or int(fert.get(f, 0)) > int(fert.get(best, 0)): best = f
+	return String(TRUHE_STUECK[best])
 
 const rowena := {"de": "Rowena", "en": "Rowena"}
 const borin := {"de": "Borin", "en": "Borin"}
@@ -112,7 +123,7 @@ static func gespraech(id: String, s: Zustand) -> Array:
 			else:
 				k.variante(s, "504.osric.gruss.danach", osric, [["Gesegnet seist du, {name}. Lass mich deine Wunden versorgen.", "Blessings upon you, {name}. Let me tend to your wounds."]])
 			k.rest()
-			k.variante(s, "504.osric.heilung", {}, [["Ein warmes Licht umhüllt dich. TP und ZP sind vollständig wiederhergestellt.", "A warm light surrounds you. HP and SP are fully restored."]])
+			k.variante(s, "504.osric.heilung", {}, [["Ein warmes Licht umhüllt dich. Leben und Mana sind wieder voll.", "A warm light surrounds you. Life and mana are full again."]])
 			if not s.has(LYRA_RESCUED):
 				k.variante(s, "504.osric.bitte", osric, [["Bitte … finde Schwester Lyra. Ohne sie und das Amulett ist dieser Tempel nur ein kalter Steinhaufen.", "Please… find Sister Lyra. Without her and the amulet, this temple is just a cold pile of stones."]])
 		"lyra_temple":
@@ -214,7 +225,6 @@ static func wants_smoke(s: Zustand) -> bool: return s.has(HUNTER_MET) and not s.
 
 static func kapitel(s: Zustand) -> int: return 2 if s.has(CHAPTER2_STARTED) else 1
 # 538 (Story.levelCap): hoechste Stufe im laufenden Kapitel; darueber sammelt der Held keine Erfahrung (Battle.kt, Game.begin)
-static func stufendeckel(s: Zustand) -> int: return int(Heldwerte.regel("max_stufe")) if s.has(CHAPTER2_STARTED) else CHAPTER1_LEVEL_CAP
 
 # beim Betreten einer Karte (MapDef.onEnter)
 static func betreten(karte_id: String, s: Zustand) -> Array:
