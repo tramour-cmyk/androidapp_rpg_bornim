@@ -45,14 +45,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
-**Tom** – offen 96, Muss 77, startbar 0, PAUSE bis 13.11., 20:00 Uhr, frei für 870.x, 506, 470, 888
+**Tom** – offen 96, Muss 77, startbar 1, PAUSE bis 13.11., 20:00 Uhr, frei für 870.x, 506, 470, 888
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 825 | M | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635 | wartet auf Test/Build (gebaut) |
 | 697 | M | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | wartet auf 782 (startbar) |
 | 680 | M | Absturz: Testmenü Sprung Wald → Dorf, in der Schenke schon hakelig, nach Met immer zäher, | Pause, nicht frei |
-| 870.4 | M | Von Sokrates (870, Umzug BRS Schritt 4; „jetzt“ 10.11., 22:24, Nachtauftrag Chef): Held: H | wartet auf Sokrates |
+| 870.4 | M | Von Sokrates (870, Umzug BRS Schritt 4; „jetzt“ 10.11., 22:24, Nachtauftrag Chef): Held: H | startbar |
 | 870.7 | M | Von Sokrates (870, Umzug BRS Schritt 6): Laden, Vergleich und Gegenstandsfenster nach BRS- | wartet auf 870.4 (in Arbeit) |
 | 870.8 | M | Von Sokrates (870, Umzug BRS Schritt 7): Spielstände Version 2 mit BRS-Held; alte laden ni | wartet auf 870.4 (in Arbeit) |
 | 870.9 | M | Von Sokrates (870, Umzug BRS Schritt 8): Godot ganz aus Kotlin (870a 7 B): zuerst festlege | wartet auf 870.4 (in Arbeit) |
@@ -279,7 +279,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 
-**Sokrates** – offen 52, Muss 38, startbar 28
+**Sokrates** – offen 51, Muss 37, startbar 27
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -330,7 +330,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 765 | M | Wochentermin 13.11.: Rollenspiegel Sokrates (rollenspiegel.sh Sokrates) (719); deckt 02.–1 | Termin 13.11. 08:00 |
 | 782 | M | Von Tom (697): ein Lauf am Rechner frei? Der erste (17:38) brach vor dem Zeichnen ab (Proj | startbar |
 | 827 | M | Stärkstes Modell nur für festgefahrene Vorgänge (zwei Rückläufer oder über 30 $), ab 14.11 | startbar |
-| 870.4 | M | Von Sokrates (870, Umzug BRS Schritt 4; „jetzt“ 10.11., 22:24, Nachtauftrag Chef): Held: H | startbar |
 | 850 | K | Systemlösung? Halt: 7 frühere Vorgänge (244, 321.1, 488, 793, 662 …), neu 849; einmal grun | startbar |
 | 862 | K | Systemlösung? Umhang: 6 frühere Vorgänge (58, 488, 463, 463.1, 656 …), neu 861; einmal gru | startbar |
 | 869 | K | Systemlösung? Rüstung: 2 frühere Vorgänge (49, 817), neu 868; einmal grundsätzlich lösen? | startbar |
