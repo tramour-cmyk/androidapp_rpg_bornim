@@ -434,3 +434,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:04 11.11.: Marke Hängt session_01Hmoj75z7Peb3nnb3Mn3EMZ 2026-11-11T19:17 (lauf.py)
 - 22:04 11.11.: Marke Start-fehlt Spike 11.11.-20:58 (lauf.py)
 - 22:04 11.11.: Marke Archiv session_01Hmoj75z7Peb3nnb3Mn3EMZ (lauf.py)
+- 22:06 11.11.: Lauf 22:03: Jerry …76NLMvq9jNtnLrmxom „Jerry – 833“ und Spike …78Chk526NpZcAaA2PN „Spike – 814“ in Hoch, effort high, gestartet. Jerry alt …75z7P (988, seit 20:17 an Bash-Freigabe `rm -f bl` hängend, Arbeit bis 20:09 gepusht auf `claude/jerry-988-rote-tests` `b089dc238`) auf Chef-Wort 21:53 archiviert, Kosten nicht lesbar: 7,00 $ Schätzung (19 Minuten Lauf × 0,37 $) auf 988 gebucht. Spike 951 (1,76 $) und Tom alt …79Kfy (13,85 $) archiviert; alle alten Sitzungen weg. Lehre: Neustart-Meldungen nicht nur annehmen, Archivierung sofort im selben Lauf ausführen, ARCHIVIERE-Zeilen nie liegen lassen.
