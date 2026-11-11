@@ -12,6 +12,7 @@ Inhaltsverzeichnis: jede Zeile sagt in einem Satz, was in der Datei steht und wo
 - [Leitbild](DESIGN-LEITBILD.md): wie das Spiel im Ganzen sein soll; gilt, wenn sich zwei Dateien widersprechen.
 - [Regeln (BRS)](DESIGN-BRS.md): unser eigenes Rollenspielsystem, wie es gilt (für uns; für Spieler erklärt es das Spielerhandbuch unter „Das Spiel“).
 - [Alle Stufen auf einen Blick](DESIGN-BRS.md#alle-stufen-auf-einen-blick): jede Stufenleiter im Spiel (Heldenstufe, Ränge der Fertigkeiten, Ruf, Güte, Seltenheit, Zustand …) mit ihren Stufen, wovon sie abhängt und wo die Einzelheiten stehen.
+- [Querschnitt je Kampfstil](DESIGN-BRS.md#querschnitt-jede-kampfregel-je-kampfstil): jede Kampfregel gegen Krieger, Kämpe, Schütze, Späher, Magier, Heiler (Ist im Code); wer eine Kampfregel, Waffe oder Schule einführt, trägt sie dort ein (984).
 - [Kosten](LISTE-KOSTEN.md): wofür das Guthaben je Bereich, Tag und Woche ausgegeben wurde (rechnet ein Werkzeug aus).
 
 ## Das Spiel
