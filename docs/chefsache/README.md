@@ -32,15 +32,16 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 3, Muss 1, startbar 0
+**Homer** – offen 4, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
+| 933.1 | M | Von Sokrates (933, Chef 11.11., 13:07): Erschaffungstext Grundwerte ehrlich: beginnt bei 3 | startbar |
 
-**Tom** – offen 97, Muss 78, startbar 0
+**Tom** – offen 98, Muss 79, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -141,8 +142,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 875 | M | Von Homer (857a A, Chef 10.11., 13:35): Fertigkeit Kräuterkunde heißt im Spiel Kräutersamm | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.4 (erschaffung) |
 | 882.1 | M | Von Perikles (882, Umzug BRS Schritt 8): mit 870.9 auch godot-kampf.yml 41 (exportIntro) a | wartet auf 870.9 (wartet) |
 | 926 | M | Von Jerry (870.6): Gegenstandsfenster im Menü ohne Würfel (menue.gd 754, 843–847, 1351 wue | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 632 (jerry) |
+| 933 | M | Grundwerte 933 A umsetzen (Chef 11.11., 13:07): Volk senkt bis 2, hebt bis 9 (volk_min 2, | wartet auf 933.1 (startbar) |
 
-**Jerry** – offen 93, Muss 84, startbar 4
+**Jerry** – offen 94, Muss 85, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -239,6 +241,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 923 | M | Von Tom/Sokrates (t276 gegengelesen): Heiltrank in tools/sim444/werte.json doppelt, welt.h | Sperre 620.1 B: 14 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (sokrates) |
 | 931 | M | Von 784 A (Chef 11.11., 12:15): Wolf vorn – „Anspringen!“ steht, während er sich duckt (ke | Sperre 620.1 B: 14 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (biss) |
 | 932 | M | Von 784 A (Chef 11.11., 12:15/12:09): Angriff des Helden höchstens 2,4 s – rennt zum Ziel, | Sperre 620.1 B: 14 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (messen) |
+| 933.2 | M | Von Sokrates (933, Chef 11.11., 13:07): Sim 444 Gegenprobe Grundwerte mit Volk bis 2 (volk | Sperre 620.1 B: 14 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (sokrates) |
 
 **Perikles** – offen 18, Muss 12, startbar 3
 

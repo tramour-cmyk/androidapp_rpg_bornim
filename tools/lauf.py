@@ -21,6 +21,8 @@ Ausgabe, Zeile für Zeile auszuführen:
   VORRAT-LEER: …                                                    → Ford meldet es einmal am Tag (Schritt 9, 192.2)
   (WOCHENSTART entfällt seit 719: Wochentermine legt --sperre als Muss-Vorgänge an, Zeile „NICHTS <Rolle>: Wochentermin <Nr> angelegt …“; Ford pusht die Notizen, gestartet wird per START)
   TAGESBERICHT TT.MM. | Perikles | Titel | erste Nachricht                → dasselbe für den Tagesbericht ab 7:30, Sa, So 9:30 (247.1, Marke „Tagesbericht TT.MM.“)
+  NACHHALTEN TT.MM.: …                                              → Ford führt LISTE-BETRIEB.md Schritt 8 aus (einmal am Tag ab 8 Uhr, 927)
+  WARNUNG(-LAUT) Sitzung hängt / Jetzt installieren / Übergabe wartet auf Chef → wie jede Warnung melden, nachts lautlos (Schritt 9, 927)
   TAGESBERICHT-FEHLT TT.MM.: …                                      → Ford meldet laut eine Zeile an den Chef (448); die TAGESBERICHT-Zeile daneben startet Perikles erneut
   WÄCHTER <Nr> | <Rollen> | <session_id|-> | <Text>                  → Ford: meldung.sh --laut Ford "<Text>" und send_message <Text> an die Sitzung (383; einmal je „jetzt“, Marke schreibt --sperre; auch 559: „wartet auf Chef“ trotz neuerer Rückmeldung, einmal je Rückmeldung)
   AUSGESCHLOSSEN NR: Grund                                          → Ford hat die Zeile mit --ohne ausgeschlossen; Ford meldet Grund lautlos (190.2)
@@ -57,7 +59,7 @@ gibt WARNUNG-LAUT (Marke „Mehrfach <Rolle>“). Marken schreibt nur --sperre.
 Startprüfung (837): gibt es 5 Minuten nach der jüngsten Startsperre einer Rolle keine Sitzung dieser Rolle (neu angelegt oder, bei WEITER, danach tätig),
 steht WARNUNG-LAUT „Start <Rolle> nicht angekommen“ (einmal, Marke „Start-fehlt <Rolle> <Zeit>“; START ausgelassen ohne --ohne oder gescheitert), und die Sperre belegt die Rolle nicht mehr.
 Laufend = Status working/blocked und updated_at jünger als 60 Minuten, oder offener Weckruf (--wecker, 916) (Start-Sperre und Belegung 20 Minuten). Laufend oder jünger als 20 Minuten: Rolle belegt, kein zweiter Start.
-Nicht Sache des Werkzeugs: „Neustart <Name>, <Commit>“ (Nachricht), Wochenstart, Tagesbericht, Meldungen, Eingang (bleiben bei Ford).
+Nicht Sache des Werkzeugs: „Neustart <Name>, <Commit>“ (Nachricht), Eingang, Leermeldung eines Teams (bleiben bei Ford, LISTE-BETRIEB.md „Jeder Lauf“).
 """
 import os, re, sys, datetime, zoneinfo, subprocess
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -122,6 +124,27 @@ def lesen(p):
 
 def berlin(d):
     return d.strftime("%d.%m., %H:%M")
+
+def laut_nachts():
+    """Schritt 9: laut melden, nachts (22–7 Uhr) lautlos (ROLLE-BETRIEB.md)."""
+    return "WARNUNG-LAUT" if 7 <= JETZT.hour < 22 else "WARNUNG"
+
+def neu_fuer_chef(betrieb, vorraete):
+    """927 (Schritt 9): (Marke, Text) für „Jetzt installieren“ in ARBEIT-BETRIEB.md und jede Übergabe „wartet auf Chef“,
+    nur mit Datum von heute oder gestern (Marken leben zwei Tage, 270)."""
+    tage = {JETZT.date(), JETZT.date() - datetime.timedelta(days=1)}
+    def frisch(tt, mm):
+        try: return datetime.date(JETZT.year, int(mm), int(tt)) in tage
+        except ValueError: return False
+    aus = []
+    m = re.search(r"^\*\*Jetzt installieren:\*\*\s*(.*?Release\s+(\S+)\s+\((\d\d)\.(\d\d)\..*)$", betrieb, re.M)
+    if m and frisch(m.group(3), m.group(4)):
+        aus.append(("Installieren %s" % m.group(2), "Jetzt installieren: %s" % m.group(1)[:200]))
+    for r, txt in sorted(vorraete.items()):
+        u = re.search(r"^\*\*Übergabe[^\n]*?\((\d\d)\.(\d\d)\.,?\s*(\d\d:\d\d)[^\n]*", txt, re.M)
+        if u and re.search(r"wartet auf (den )?Chef", u.group(0)) and frisch(u.group(1), u.group(2)):
+            aus.append(("Übergabe-Chef %s %s.%s. %s" % (r, u.group(1), u.group(2), u.group(3)), "%s: Übergabe wartet auf Chef: %s" % (r, u.group(0)[:200])))
+    return aus
 
 def startmarken():
     """Rolle → letzter Startzeitpunkt aus „Startsperre HH:MM Start <Name>“ im Protokoll. Datum aus dem Zeilenkopf
@@ -523,6 +546,16 @@ def main():
             neue_marken.append("Mehrfach-Warnung %s %s" % (r.replace(" ", "-"), aelteste))
             ausgabe.append("WARNUNG-LAUT %d Sitzungen im Bereich %s in zwei Läufen hintereinander (seit %s, 261.5)" % (len(offene), r, vor[0].strftime("%H:%M")))
         if not [d for d in zeiten if (JETZT - d).total_seconds() < 1800]: neue_marken.append("Mehrfach " + r.replace(" ", "-"))
+    # 927 (D162.1, Schritt 9): Sitzung hängt = working/blocked, aber seit 60 Minuten ohne neues updated_at (zwei Läufe) und ohne Weckruf; einmal je Sitzung und Stand, nachts lautlos
+    for s in leb:
+        r, laufend, ruhig, _ = s["_info"]
+        bucket = s.get("status_bucket", "")
+        if laufend or not ("WORKING" in bucket or "BLOCKED" in bucket or s.get("session_status") == "SESSION_STATUS_RUNNING"): continue
+        m = "Hängt %s %s" % (s["id"], s["updated_at"][:16])
+        if ("Marke " + m) in marke_alt: continue
+        ausgabe.append("%s Sitzung hängt: %s „%s“ seit %s ohne Lebenszeichen, https://claude.ai/code/%s (927)" % (
+            laut_nachts(), r, s.get("title", ""), berlin(z(s["updated_at"])), s["id"]))
+        neue_marken.append(m)
     # 837 (Chef 10.11., 10:4x): Startsperre ohne Sitzung meldet laut (START ausgelassen oder gescheitert) und belegt die Rolle nicht
     nicht_da = set()
     for name, d in sorted(marken.items()):  # nur die jüngste Sperre je Rolle; ein späterer Start ersetzt einen früheren
@@ -699,6 +732,12 @@ def main():
     # 247.1: Tagesbericht täglich ab 7:30 (Sa, So 9:30), ersetzt Morgenbericht und Tagesrückblick (90)
     if per_start(*((9, 30) if JETZT.weekday() >= 5 else (7, 30))):
         einmal("Tagesbericht %s" % heute, "TAGESBERICHT %s | Perikles | Perikles – 448: Tagesbericht %s | Perikles Tagesbericht (448)" % (heute, heute))
+    # 927 (D162.1): Anlässe, die Ford sonst nur unter „Bei Anlass“ fände, als Ausgabezeile
+    if per_start(8, 0):  # Schritt 8 Nachhalten, im ersten Lauf ab 8 Uhr
+        einmal("Nachhalten %s" % heute, "NACHHALTEN %s: LISTE-BETRIEB.md Schritt 8 (Zeilen „von …“, Freigaben)" % heute)
+    vorraete = {r: lesen(os.path.join(DOCS, f)) for r, f in VORRAT.items() if r not in ("Spike", "Tuffy") and os.path.exists(os.path.join(DOCS, f))}
+    for marke, text in neu_fuer_chef(lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md")), vorraete):
+        einmal(marke, "%s %s (Schritt 9, 927)" % (laut_nachts(), text))
     # 448 (Chef 01.11., 11:09): fehlt der Bericht um 10 Uhr (Sa, So 12 Uhr), meldet Ford dem Chef laut eine Zeile und startet Perikles erneut
     if per_start(*((12, 0) if JETZT.weekday() >= 5 else (10, 0))) and not bericht_da and "Tagesbericht fehlt %s" % heute not in marke_text:
         wie = "Perikles läuft noch, Ford erinnert ihn" if per_belegt else "Perikles neu gestartet"  # D55.5: kein „neu gestartet“ ohne Start
