@@ -290,7 +290,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 919 | M | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): Regeln nachziehen: Testbitte auch bei rot | wartet auf 918 (startbar) |
 | 982 | M | D180.1 von Diogenes (Lauf 180, zu 981): Starts außerhalb lauf.py ohne effort high – Neusta | wartet auf Diogenes |
 
-**Diogenes** – offen 10, Muss 9, startbar 2
+**Diogenes** – offen 11, Muss 9, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -304,8 +304,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 768 | M | Wochentermin 13.11.: Rollenspiegel Diogenes (rollenspiegel.sh Diogenes) (719); deckt 02.–1 | Termin 13.11. 08:00 |
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 15438 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Sokrates** – offen 52, Muss 39, startbar 28
+**Sokrates** – offen 53, Muss 39, startbar 29
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -361,6 +362,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 869 | K | Systemlösung? Rüstung: 2 frühere Vorgänge (49, 817), neu 868; einmal grundsätzlich lösen? | startbar |
 | 930 | M | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (wartet) |
 | 595.1 | M | Von Jerry (595): Lauf 352 rot vor dem Film (Bauwerkzeug: halb ausgepacktes Rar, behoben 15 | startbar |
+| Pflege | K | von Werkzeug (340.3, 11.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
