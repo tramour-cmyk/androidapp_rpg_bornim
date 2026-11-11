@@ -298,11 +298,7 @@
 | 850 | Systemlösung? Halt: 7 frühere Vorgänge (244, 321.1, 488, 793, 662 …), neu 849; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | B Abläufe | – |
 | 862 | Systemlösung? Umhang: 6 frühere Vorgänge (58, 488, 463, 463.1, 656 …), neu 861; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Figuren | – |
 | 869 | Systemlösung? Rüstung: 2 frühere Vorgänge (49, 817), neu 868; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Kampf | – |
-<<<<<<< HEAD
-| 930 | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerry, Ideen Homer, Regeln gegenlesen Perikles oder Diogenes (Chef 11.11., 12:28) | Sokrates | M | wartet, Befund 930.4 eingearbeitet | 930.3 | – | – | E Kampf | 13,89 $ |
-=======
-| 930 | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerry, Ideen Homer, Regeln gegenlesen Perikles oder Diogenes (Chef 11.11., 12:28) | Sokrates | M | startbar, Befund Perikles 930.4 einarbeiten | – | – | – | E Kampf | 17,05 $ |
->>>>>>> e9b04177cdb0c447ac74ffc8c4f27c939b17d02c
+| 930 | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerry, Ideen Homer, Regeln gegenlesen Perikles oder Diogenes (Chef 11.11., 12:28) | Sokrates | M | wartet, Befund 930.4 eingearbeitet | 930.3 | – | – | E Kampf | 17,05 $ |
 | 930a | Rückfrage (Chef 11.11., 13:57, zu 930): F3 ohne Neuformation – nach einem Tod bleiben die übrigen Gegner stehen, Bewegung nur mit eigenem Grund | Sokrates | M | startbar | – | – | – | E Kampf | – |
 | 966 | Von Homer (aus 963, Tom 14:56): Alchemie und Kochen wirken in Kapitel 1, werden aber nie geübt (Prüfregel DESIGN-BRS.md 3); Vorschlag Homer: Alchemie übt bei Morwens Sud, Kochen in Kapitel 1 nicht wählbar (wie Bergbau 461c, zu 954a); Vorentscheid oder Frage | Sokrates | M? | startbar | – | – | – | G Balance | – |
 | 843 | D126.1 (Diogenes, 838): START ohne Sitzung 14 von 39 (09.11., 19:04 bis 10.11., 11:08), keiner mit --ohne; 3 ohne Grund (22:44 Spike, 10:25 Jerry, Perikles) | Ford | M | startbar | – | – | – | B Steuerung | 12,41 $ |
