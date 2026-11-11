@@ -1134,11 +1134,13 @@ func _process(_dt: float) -> void:
 ## Idle_02, Idle_03, im Kampf nie gespielt, nur der Wolf und wer „Lefzen“ hat ruhte mit Gesten): „Umsehen“ der Quelle gehört zu den
 ## Ruhebewegungen im Stehen; dazu je Art, was nur sie hat (RUHE_DAZU). Spinne, Ratte, Wolf und Grabhund bleiben wie abgenommen, nur der
 ## Grabhund blickt jetzt auch um (seine Quelle idleLookAround)
-const RUHE := {"Stehen": ["Lefzen", "Scharren", "Knurren", "Umsehen"], "Hocke": ["HockeKnurren", "HockeUmsehenL", "HockeUmsehenR"]}
+## 744 (Kampfort, Chef 20:05 „weiter mit dem Kampfort“; ruhe_kampf_744: Wiedergänger 22 s ohne Ruhebewegung): auch „Lauern“ (idle5 der
+## Quelle, kaufuntoter.py) gehört dazu
+const RUHE := {"Stehen": ["Lefzen", "Scharren", "Knurren", "Umsehen", "Lauern"], "Hocke": ["HockeKnurren", "HockeUmsehenL", "HockeUmsehenR"]}
 const RUHE_DAZU := {"kauf_egel": ["Drohen"]}
 const RUHE_HECHELN := {"Stehen": "Hecheln", "Hocke": "HockeHecheln"}
 const RUHE_GESTEN := ["Lefzen", "Scharren", "ScharrenR", "Knurren", "Hecheln", "HockeKnurren", "HockeUmsehenL", "HockeUmsehenR", "HockeHecheln",
-	"Umsehen", "Drohen"]
+	"Umsehen", "Drohen", "Lauern"]
 const RUHE_MS := [3000, 7000]
 const RUHE_LAUT := {"Knurren": [1, 0.4], "HockeKnurren": [1, 0.4], "Hecheln": [2, 0.3], "HockeHecheln": [2, 0.3]}
 const RUHE_LAUT_ABSTAND_MS := 1800
@@ -1202,7 +1204,7 @@ func _ruhe_uhr() -> int:
 
 
 func _ruhebewegung() -> void:
-	if anim == null or down or not (anim.has_animation("Lefzen") or anim.has_animation("Umsehen")) or bedroht():
+	if anim == null or down or not (anim.has_animation("Lefzen") or anim.has_animation("Umsehen") or anim.has_animation("Lauern")) or bedroht():
 		return
 	var grund: String = anim.current_animation
 	if not RUHE.has(grund) or grund != ("Hocke" if pouncing else "Stehen") or (tween and tween.is_running()):
