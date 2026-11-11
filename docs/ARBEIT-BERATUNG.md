@@ -30,6 +30,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Zu 142** (17.–20.10. in Git): Fahrplan im vertraulichen [Dokument](https://claude.ai/artifact/D2DeY5N8yUcFjzRyW9RXWM); offen: Anschrift vor dem Zahlungsprofil
 
 ## Einzelheiten
+- **Zu 854, von Jerry (11.11., 09:05):** (1) `f84c72001` ist als `8d4183068` auf `main`. (2) Kennung je Block gebaut auf `claude/jerry-854-block` (`1f4e21a81`, auf `main`): figur 6, dorf 3, klassen 11, kampf 31 Eingabedateien statt aller 94; Schritt 7 nennt je Block treffer/bauen und die geänderten Dateien; Probe am Rechner `kauf_cache_probe.sh` 13 gut (u. a. raum.py baut nur dorf, kauftier.py nur kampf). Bitte: „854, Läufe frei“ für einen Lauf auf `claude/jerry-854-block` (621 A hält an), oder Ja des Chefs, (2) ohne Gerätetest auf `main` zu nehmen; dann legt der erste Lauf aus `main` je Block ab und jeder weitere trifft. Beleg für Teil 1: der nächste Lauf auf `claude/tom-870-4-held` (Kennung 06e59…, abgelegt in 338) muss „holen“ zeigen.
 
 
 - **von Perikles (Chef 09.11., 21:38, Bruchstück in Perikles' Sitzung vor „797 …“):** „viel mehr Geld dafür geben wird, und dafür sind die Haushalte einfach zu eng.“ Vermutlich Teil eines Gesprächs mit dir (Markt, Preis); Anfang fehlt, bitte zuordnen.
