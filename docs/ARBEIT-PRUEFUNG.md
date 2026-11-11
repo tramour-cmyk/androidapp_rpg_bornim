@@ -13,6 +13,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 ## Zeilen
 
+- **Zu 912, von Perikles (Doppelpack 421, 11.11., 09:30, `b945f7e2b`):** Reihenfolge in `probelauf.py`: Nummer des obersten Commits, sonst Vorgang aus dem Zweignamen (`nr_aus_zweigname`, nur wenn in Liste oder Archiv, längste Lesart zuerst: `tom-870-4` → 870.4), sonst eigener Verlauf (911), Ablaufname, Zweig. Nachgestellt: `vorgang_aus_ref('claude/tom-870-4-held')` = 870.4; `jerry-806-493-kampfort` → 806.
 - **Zu 911 (Lauf 156):** wartet auf 912 (D156.1, Merge auf B1 zählt unter Jerrys 864). Nach 912: nachstellen an `claude/tom-870-4-held`, dann am nächsten echten Merge-Lauf Zeile im Zweig `probelaeufe` mit der freigegebenen Nummer; dann `greift 911`.
 
 - **Zu 464 (Lauf 110):** Haken (748) und Zählung (749) greifen, Lücken 776, 777 geschlossen; 464 wartet auf 16.11.: Wirkung in der Wochenzählung 16.11.: rote Bauläufe der Woche gegen 52 von 185 (28 %) der Vorwoche, dann `greift 464` oder Befund.
