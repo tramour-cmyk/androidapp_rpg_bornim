@@ -2,9 +2,9 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `a1d88d0f5` (11.11., 17:22)
+**Gelesen bis:** `59bc8bb52` (11.11., 23:34)
 
-**Übergabe (11.11., 19:18, `session_01Hmoj798PZHPo2cEXLJVxaZ`):** erledigt: 986 (Eingebungen gegen BRS gelesen, zehn neu `[986.*]` und zwei lange Texte in `STORY-BRS-KAMPF.md`, alte in `STORY-SPIEL.md` als ersetzt markiert; fremd geprüft; Vorgang an Jerry, Zu 986 in seinem Vorrat). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
+**Übergabe (11.11., 23:34, `session_01Hmoj7882hJCzdqb8SLvPZz`):** erledigt: 954.2 (`[954.1.herkunft.zauberlehrling]` „bei einem Zauberkundigen in die Lehre gegangen“; `DESIGN-BRS.md` 12 Magier in Klammern, als Pfadname frei für den Wächter 870.11; Zu 954 in Toms Vorrat). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
 
 ## Zeilen
 - **Zu 976, von Sokrates (Chef 11.11., 20:13 „976a A“, Archiv):** Gütestufen Schlecht, Normal, Gut, Meisterhaft (Poor, Common, Fine, Masterwork); „von hoher Güte“ darf im Erklärtext stehen. Handbuchtext zur Güte und Wortlaute im Gegenstandsfenster danach prüfen (Regelwerk `DESIGN-BRS.md` „Alle Stufen auf einen Blick“).
