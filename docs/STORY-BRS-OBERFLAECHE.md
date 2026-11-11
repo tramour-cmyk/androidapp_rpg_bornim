@@ -35,7 +35,7 @@ Entfallen mit `erschaffung.gd`, `heldwerte.gd` und den Klassen (Schritt 4), ohne
 
 Texte ohne Würfel (Wirkung und Zahl stehen in den Regelwerten und in der Meldung):
 
-- `potion`: Ein klassischer roter Heiltrank. Wirkt sofort, auch im Kampf. — bleibt.
+- `potion` (955, Chef 11.11., 13:55; statt „Ein klassischer roter Heiltrank …“): Rot und bitter wie Eisen; schließt kleine Wunden. Wirkt sofort, auch im Kampf. / EN: Red and bitter as iron; it closes small wounds. Works at once, also in battle.
 - `greater_potion`: „Doppelt so stark wie …“ → Stärker als der einfache Heiltrank. Wirkt sofort, auch im Kampf. / EN: Stronger than the plain healing potion. Works at once, also in battle.
 - `alchemist_fire`: Wurfmittel. Feuer, setzt den Gegner in Brand. / EN: Thrown. Fire; sets the foe ablaze. („trifft immer“ nur, wenn 870.5 es so baut)
 - `holy_water`: Wurfmittel. Licht; wirkt nur gegen Untote, dort aber hart. / EN: Thrown. Light; harms only the undead, but hard.

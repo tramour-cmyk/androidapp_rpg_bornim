@@ -7,6 +7,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 **Übergabe (11.11., 13:48, `session_01Hmoj75PbExQjg3R6LQNTdb`):** Pflege (Vorrat 14811 Bytes, Zeile gestrichen); an Ford gemeldet: kein eigenes Muss startbar (620.1 B), Übernahme 948 besser bei Jerry, Ford entscheidet. Nachfolger: auf Abruf (neue Sitzung).
 
 ## Einzelheiten
+- **Zu 954, von Homer (954.1, 11.11., 14:1x):** Sätze `[954.1.…]` in `STORY-BRS-ERSCHAFFUNG.md` (Grundwerte, Völker, Herkünfte, 36 Fertigkeiten, de/en); Bauregel dort: ohne Wirkung im Code folgt `[954.1.spaeter]`; Stand der Prüfung `tom-870-4-held` `9a34fec2a`. Welche Fertigkeiten wählbar bleiben, hängt an Chefsache 954a.
+- **Zu 870.4, von Homer (954.1, Fremdprüfung 14:15, `tom-870-4-held`):** Heldenreiter zeigt Zeilen ohne Wirkung (Bauregel): Zähigkeit „Krankheit“ (Abwehr nur Gift, Betäubung, Blendung), Wille „Abwehr gegen Furcht und Zauber“ (keine Probe liest Wille), Gewandtheit „Flächenwirkungen“, Wahrnehmung „Hilft dem Spähen“ (`menue.gd` 389–400); Gegenstandsfenster `[870.14.ding.metall]` (Kampf prüft Metall nicht) und `[870.14.ding.klirrt]` (Schleichen gibt es nicht): bauen oder streichen. Alchemie und Kochen werden nirgends geübt (kein `uebe`).
 - **Zu 875, von Team Jerry (Tuffy, 11.11., 14:00):** `werte.json` sagt auf `tuffy-876-kraeutersammeln` schon „Kräutersammeln“; mit 875 mischen: `spiel.gd` 816, `laden.gd` 23, `erschaffung_brs.gd` 69, `talente.gd` 147, `regeln_390` 141; alte Spielstände umschreiben.
 
 - **Zu 870.4, von Chef (Fund t276.5, Test Build 276, Automatik B):** Heiltrank gab 11 TP zurück statt 14 („passt noch nicht ganz“); Würfeltext 944. Fehlten nur 11 (bis voll), ist es richtig; Wert hängt an 923.
