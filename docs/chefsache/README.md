@@ -13,13 +13,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 ## Zu billigen
 
-Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers.
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [870e](billigen/870e-uebergangszahlen-welt.md) | **Muss** | E Kampf | 11.11., 02:26 | Mit dem Wegfall der alten Heldwerte brauchen Heiltrank, Rennen, Preise, Brauen, Kräuter, Bemerken, Hinterhalt und Startausrüstung neue Zahlen; Tom hat sie so gewählt, dass sich im Spiel wenig ändert. | Sokrates (Vorentscheid, Vorlage Tom 02:23) |
-| [870d](billigen/870d-wissen-verstand.md) | **Muss** | E Kampf | 11.11., 02:00 | 870a 8 A sagt „mit der Fertigkeit Wissen sieht man sie vorher“; diese Fertigkeit gibt es im BRS nicht. Ich habe festgelegt: ab Verstand 6 sieht der Held Schwäche, Stärke und Gegenwirkung vorher. | Sokrates (Vorentscheid, Hinweis Homer 870.14 a) |
-| [870c](billigen/870c-werte-vorlage.md) | **Muss** | E Kampf | 10.11., 22:27 | Im echten Kampf ist Grak außer für den Wachsoldaten kaum zu schlagen, Grimmzahn für Jägerkind und Klosterschüler viel schwerer, Krogg für fünf Herkünfte leichter als in 444; Hauptgrund sind drei Regeln des alten Kampfs. | Sokrates (Vorentscheid, Vorlage Jerry 22:10) |
+Nichts offen.
 
 ## Anzusehen
 
