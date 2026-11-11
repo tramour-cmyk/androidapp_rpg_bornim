@@ -52,6 +52,12 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 155 · 907, 908 Halbsatz 324 und Checkliste beim Entwurf (Perikles, Doppelpack 421, `559dc33c7`; 11.11., 08:1x)
+
+- **907 greift:** Punkt 3 trägt wieder „auch wenn der getestete noch nicht auf `main` ist (324)“, gleicher Sinn wie der Wortlaut in `ad191efb8` (Chef 22.10., 23:26). Archiv 324 bleibt kurz, sein Verweis auf `LISTE-BAUEN-TESTEN.md` führt über deren Zeile 26 zur Checkliste; ohne Befund.
+- **908 greift:** Probe im Worktree von `origin/main` (`ef45c989c`): neue `docs/entwurf/t999-probe.md` zeigt alle 13 Punkte, Exit 0; neue `docs/entwurf/x999-probe.md` (ohne `t<n>-`) zeigt nichts. `--no-renames` (Zeile 229) lässt auch das Verschieben nach `ansehen/` als „A“ erscheinen; Kopf der Liste nennt beide Orte.
+- **Nicht geprüft:** 903 (2) zweite Liste, 905.
+
 ## Lauf 154 · 903 B Checkliste fest (Perikles, Doppelpack 421, `fa1eb5a5f`; 11.11., 08:1x)
 
 - **Punkt 3 alt gegen neu, Satz für Satz:** alle Regeln stehen noch (alle fertigen Punkte beider Teams, mindestens 4, ohne Obergrenze, 6 Testbuilds am Tag, unter 4 nur auf Ja/„jetzt“, 2-Tage-Frage `--laut`, eigene Zweige, `claude/build-<n>`, Prüfliste als Weg nach Orten, `vorgang.py build`, offener Build nimmt auf, getesteter ist zu, Konflikt, Sperre); „je Punkt Team und Vorgang“ trägt Punkt 10 (Spalten Team, Nr.). **Verloren:** „auch wenn der getestete noch nicht auf `main` ist“ (324, Chef 22.10., 23:26); Archiv 324 hat den Halbsatz nicht → **D154.1 = 907** (Perikles). Ohne Befund: „(beider Teams)“ beim Auslöser 4 fehlt, der Satz davor sagt es.
