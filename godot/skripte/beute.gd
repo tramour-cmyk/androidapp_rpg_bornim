@@ -113,7 +113,8 @@ static func zusatz_text(r: Array, sprache: String = "") -> String:
 	var a := String(r[0]); var n := int(r[1])
 	if a == "SKILL": return "+%d %s" % [n, String(r[2]) if r.size() > 2 else ""]
 	var namen := {"CRIT": ["kritisch", "critical"], "SPELL": ["Zauberschaden", "spell damage"], "TENACITY": ["Abwehrprobe", "resistance roll"]}
-	var wort: String = (namen[a][0 if de else 1]) if namen.has(a) else Sprache.t(d_()["affixdaten"].get(a, {}).get("name", a))
+	var nm = d_()["affixdaten"].get(a, {}).get("name", a)
+	var wort: String = (namen[a][0 if de else 1]) if namen.has(a) else (String(nm.get(sprache, nm.get("de", a))) if nm is Dictionary else String(nm))     # in der verlangten Sprache
 	if zusatz_prozent(a): return ("+%d %% %s" if de else "+%d%% %s") % [n, wort]
 	return "+%d %s" % [n, wort]
 

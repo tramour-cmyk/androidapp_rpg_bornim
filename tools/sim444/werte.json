@@ -471,8 +471,8 @@
     "_treffer": "Prozentpunkte auf die Trefferchance (alt -2, -2, +1 auf den W20, je Punkt 5 %)",
     "schaden_faktor": {"WEAK": 0.8, "satt": 1.1},
     "_schaden_faktor": "A: Faktor auf den Schaden eines Treffers (alt -2 bzw. +1 Schaden)",
-    "sammeln_anteil": 0.5,
-    "_sammeln": "A: der Schamane heilt sich beim Sammeln um diesen Anteil seines vollen Lebens (alt 2W10 gegen 4W6 Trefferpunkte)",
+    "sammeln_anteil": 0.28,
+    "_sammeln": "A: Grak heilt sich beim Sammeln um diesen Anteil seines vollen Lebens (alt 2W10 gegen 6W10+6 Trefferpunkte, im Mittel 11 von 39 = 28 %; 0,5 nahm 444 bis 11 Punkte bei Stufe 5, 870.6 Tuffy 11.11.)",
     "untot_zaeh": {"basis": 95, "je_prozent": 1.1},
     "_untot_zaeh": "A: Chance in Prozent, dass ein Wiedergaenger einen toedlichen Treffer mit 1 Leben uebersteht: basis - je_prozent x Schaden in Prozent seines vollen Lebens (alt 5 x (21 - (5 + Schaden - KON)))"
   },
