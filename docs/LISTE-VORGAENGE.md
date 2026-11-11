@@ -112,7 +112,7 @@
 | 933 | Grundwerte 933 A umsetzen (Chef 11.11., 13:07): Volk senkt bis 2, hebt bis 9 (volk_min 2, brs_held.gd:152), sinne_ab und kraut_wahrnehmung_ab so, dass 2 kostet; Erschaffungstext aus 933.1; nach B1 | Tom | M | startbar | 933.2 | – | – | E Kampf | 4,95 $ |
 | 951 | Fund t276 (Chef 11.11., 13:44): Blende Flüsterwald zeigte nur den Namen; DESIGN-BLENDE 7: nur bei häufigen Wechseln nur der Name, sonst ein Satz (fünf je Ort, nie zweimal hintereinander); ortsblende.gd zeigt ab dem zweiten Besuch nur den Namen; gegen alt prüfen | Tom | M | startbar | – | – | – | E Welt | – |
 | 954 | Von Sokrates (Chef 11.11., 13:55 „1 ja“): Erschaffung – Gedrückthalten erklärt je Grundwert, Volk, Herkunft und Fertigkeit in einem Satz, wie im Systemmenü (menue.gd erklaere_zeichen); Sätze aus 954.1 | Tom | M | startbar | – | – | – | E Kampf | – |
-| Pflege | von Werkzeug (340.3, 11.11.): 15852 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 11.11.): 16019 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
 | 945 | Wiederholfund t276.12 (Chef 11.11., 13:29, Bild; alt 241.2, Kotlin 20.10.): Held und Söldner auf Auto, dann sind alle Knöpfe weg und Auto ist nicht mehr abschaltbar; Schalter Auto aus muss immer sichtbar bleiben; Test, der beide auf Auto stellt und zurückschaltet; in B1 vor dem Zusammenführen | Jerry | M | gebaut, Geprüft an: f531562e5 | – | claude/jerry-945-auto | – | E Kampf | – |
 | 854 | Gebaute Kaufmodelle im Kaufrepo ablegen, nur bei Änderung neu bauen statt je Sitzung über 20 Min. (Chef 10.11., 12:34: ja; greift nicht, Lauf 336, 338) · „jetzt“ 11.11., 08:01 | Jerry | M | gebaut, Geprüft an: 57e729bc1, Lauf 12:15 (1 von 2) | – | – | – | E Technik | 31,51 $ |
 | 900 | Von Tom (870.4, B1; „jetzt“ 10.11., 22:24, Nachtauftrag Chef): Lauf 335 rot an wolf_mess_438 mit BRS-Kampf: Biss gleitet 0,56 m (Grenze 0,5), Wolf in Schild, Klinge oder Unterarm des Helden 8 (vorher 0), Klinge durch Wolf ohne Treffer 3; Kämpfe jetzt mit 14 statt 5 Würfelzeilen | Jerry | M | gebaut, Geprüft an: Lauf 336 | – | claude/jerry-900-wolfmess | – | E Kampf | 10,26 $ |
@@ -298,13 +298,13 @@
 | 869 | Systemlösung? Rüstung: 2 frühere Vorgänge (49, 817), neu 868; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Kampf | – |
 | 930 | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerry, Ideen Homer, Regeln gegenlesen Perikles oder Diogenes (Chef 11.11., 12:28) | Sokrates | M | startbar | 930.3 | – | – | E Kampf | 9,07 $ |
 | 930a | Rückfrage (Chef 11.11., 13:57, zu 930): F3 ohne Neuformation – nach einem Tod bleiben die übrigen Gegner stehen, Bewegung nur mit eigenem Grund | Sokrates | M | startbar | – | – | – | E Kampf | – |
-| Pflege | von Werkzeug (340.3, 11.11.): 17216 Bytes (Grenze 15000), Erledigtes streichen | Sokrates | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 11.11.): 16904 Bytes (Grenze 15000), Erledigtes streichen | Sokrates | K | startbar | – | – | – | B Abläufe | – |
 | 843 | D126.1 (Diogenes, 838): START ohne Sitzung 14 von 39 (09.11., 19:04 bis 10.11., 11:08), keiner mit --ohne; 3 ohne Grund (22:44 Spike, 10:25 Jerry, Perikles) | Ford | M | startbar | – | – | – | B Steuerung | 12,41 $ |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +917,44 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 767 | Wochentermin 13.11.: Rollenspiegel Ford (rollenspiegel.sh Ford) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Ford | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 906 | lauf.py startet Zusatzentwickler auf Zeilen, deren Zweig Umzugsdateien berührt (492 am 11.11., 08:04: claude/tom-492-durchspiel ändert spiel.gd; Grundsatz 5 LISTE-UMZUG-BRS, Zu 870.4 Sokrates 01:57); Sperre nach geänderten Dateien prüfen (von Spike) | Ford | M? | startbar | – | – | – | B Steuerung | – |
-| Pflege | von Werkzeug (340.3, 11.11.): 52342 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 11.11.): 52401 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
