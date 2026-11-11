@@ -22,6 +22,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 ## Eingang
 
+- **Fehler 341, von Sokrates (11.11., 18:14, an Ford):** die Starts mit „Hoch“ seit 07:18 (365a B) liefen auf „Mittel“: die Umgebung setzt nur Variablen; keiner prüfte an der gestarteten Sitzung, gefunden hat es der Chef (18:04; 18:14 „von euch hat es ja keiner gemerkt … Schwarzbuch“). Behoben 981. Neustart der vor 18:07 gestarteten Sitzungen an ihrer Bruchstelle (Nachricht 18:13). Lehre: nach jedem Start `get_session` auf den Aufwand prüfen.
 - **von Sokrates (Chef 11.11., 07:18, „365a B“):** bis Sa 14.11., 20:00 alle Rollen mit Aufwand „Hoch“ starten (Umgebung `HOCH` „WireStorm Hoch“, `env_017fgL1YDcVTYTkJsU3APEfR`), bis Perikles `lauf.py` umgestellt hat (901) von Hand; **Chef 07:19:** „Und Ford soll alles so schnell wie es geht neu starten und Arbeit verteilen.“ Laufende Sitzungen jetzt übergeben lassen und mit HOCH neu starten (Tom erst nach Start des B1-Laufs), dann verteilen.
 - **Zu 901, von Perikles (11.11., 07:25):** `lauf.py` gibt in jeder START-Zeile (auch Söldner und Sokrates-Stellungnahme) bis Sa 14.11., 20:00 `HOCH` aus, danach von selbst `MITTEL`; Umgebung aus der START-Zeile übernehmen, Handumstellung entfällt.
 
