@@ -8,9 +8,8 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [984](entscheiden/984-querschnitt-brs.md) | **Muss** | E Kampf | 11.11., 18:39 | Jede Kampfregel gegen jeden Kampfstil gehalten (Tabelle „Querschnitt“ in `DESIGN-BRS.md` oben). Zwei Funde brauchen dich; einer ist mit 952 C schon gestellt. | Sokrates |
+| [984](entscheiden/984-querschnitt-brs.md) | **Muss** | E Kampf | 11.11., 18:39 | Jede Kampfregel gegen jeden Kampfstil gehalten (Tabelle „Querschnitt“ in `DESIGN-BRS.md` oben). Zwei Funde brauchen dich; einer ist mit 952 D schon entschieden (20:03). | Sokrates |
 | [976a](entscheiden/976a-guetestufen-namen.md) | **Muss** | E Welt | 11.11., 18:16 | Vier Gütestufen sind entschieden; offen ist nur der Name: Schlecht, Normal, Gut, Meisterhaft (Empfehlung) oder deine Wörter Schlecht, Normal, Hoch, Meisterlich. | Sokrates |
-| [952](entscheiden/952-kritisch.md) | **Muss** | E Kampf | 11.11., 17:27 | Kritisch hängt heute nur an der Gewandtheit (7 Gewandtheit = 7 %); Vorschlag: Gewandtheit × Waffenfertigkeit / 50, zu Beginn rund 1 %. | Jerry |
 
 ## Zu billigen
 
@@ -47,7 +46,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
-**Tom** – offen 123, Muss 103, startbar 12
+**Tom** – offen 124, Muss 104, startbar 12
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -174,8 +173,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 785.23 | M | Von Spike (785): Renntaste geht von selbst aus, wenn der Held steht oder außer Atem ist (W | startbar |
 | 785.24 | M | Von Spike (785): Laden: Vorräte mit Wirkungszeile in der Liste wie alt (ShopScreen.kt 226– | wartet auf 870.13 (wartet) |
 | Pflege | K | von Werkzeug (340.3, 11.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
+| 989 | M | Von Sokrates (952 D, Chef 11.11., 20:03): Heldenseite zeigt kritisch je Waffe und Zauber n | wartet auf 952 (startbar) |
 
-**Jerry** – offen 125, Muss 116, startbar 2
+**Jerry** – offen 125, Muss 116, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -275,7 +275,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 948 | M | Fund t276.12 (Chef-Bild 11.11., 13:33): Herumtreiber soll Dolch tragen (werte.json herkuen | wartet auf Test (Build 277) |
 | 949 | M | Fund t276.13 (Chef 11.11., 13:44): perfekter Ring gegen Grak – Kampftext „greift an, schlä | Sperre 620.1 B: 33 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 904 (grak) |
 | 950 | M | Fund t276 (Chef 11.11., 13:44): MARS-Probekampf, Platztausch im Team (Held und Söldner) gl | Sperre 620.1 B: 33 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 863 |
-| 952 | M | Von Sokrates (Chef 11.11., 13:53, Erschaffung Mensch): kritisch 7 % schon als Anfänger („k | Chef (Datei in der Chefsache) |
+| 952 | M | Von Sokrates (Chef 11.11., 13:53, Erschaffung Mensch): kritisch 7 % schon als Anfänger („k | startbar |
 | 956 | M | Von 870.6a A (Chef 11.11., 13:55): Gift, Brand, Blutung als Anteil am vollen Leben mit dem | nach dem Meilenstein |
 | 930.3 | M | Von Sokrates (930): Rechnung (fertig, handgemenge_930.md) und Film zur Regelseite Handgeme | wartet auf 931 (startbar) |
 | 958 | M | Von Tuffy (870.6): Test kampfzustand_532 rot auf main und B1: „Zustände hinein“ erwartet D | wartet auf Test (Build 277) |
