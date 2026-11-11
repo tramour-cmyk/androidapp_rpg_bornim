@@ -44,7 +44,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
-**Tom** – offen 96, Muss 77, startbar 1
+**Tom** – offen 97, Muss 77, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -144,8 +144,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 867 | M | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.4 (sokrates) |
 | 875 | M | Von Homer (857a A, Chef 10.11., 13:35): Fertigkeit Kräuterkunde heißt im Spiel Kräutersamm | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.4 (erschaffung) |
 | 882.1 | M | Von Perikles (882, Umzug BRS Schritt 8): mit 870.9 auch godot-kampf.yml 41 (exportIntro) a | wartet auf 870.9 (wartet) |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 15289 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 91, Muss 82, startbar 5
+**Jerry** – offen 92, Muss 82, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -240,8 +241,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 918 | M | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): godot.yml lässt alle Tests durchlaufen, sa | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 854 |
 | 922 | M | Von Tom (B1, Lauf 346): wildschwein_494 und skelett_506 prüfen noch SRD-Trefferpunkte (2W8 | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.3 (json) |
 | 923 | M | Von Tom/Sokrates (t276 gegengelesen): Heiltrank in tools/sim444/werte.json doppelt, welt.h | Sperre 620.1 B: 12 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (sokrates) |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 15197 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 21, Muss 12, startbar 1
+**Perikles** – offen 21, Muss 12, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -261,13 +263,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 731 | K | D87.1 Prüfung „Alt:“ (647) greift nicht bei Push über den GitHub-Server (push_files, creat | wartet auf Diogenes (greift?) |
 | 732 | K | D89.1 glossar.py: Begriff mit Bindestrich vorn geht als Schalter an git grep; -e davor (vo | wartet auf Diogenes (greift?) |
 | 734 | K | D92.1 Warnung „LISTE-VORGAENGE.md von Hand geändert“ wird nirgends festgehalten, Woche War | wartet auf Diogenes (greift?) |
-| 735 | K | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-ABNAHME.md 11 und Kopf DESIGN-KAMPF | startbar |
+| 735 | K | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-ABNAHME.md 11 und Kopf DESIGN-KAMPF | wartet auf Diogenes (greift?) |
 | 866 | M | Von Sokrates (620, Lagebild t274): Prüfliste geht nur gegengelesen raus; Wächter statt Abs | wartet auf Test/Build (gebaut) |
 | 896 | M | Von Jerry (870.5): Wächter meldet „TP“ als SRD-Begriff (886), Homer 870.14 und DESIGN-BRS | wartet auf Test/Build (gebaut) |
 | 903 | M | D152.1 von Diogenes (771, 657 D): Probe 657 ausgewertet, Prüfbericht Lauf 152; Grundlage 1 | wartet auf Test t276 (Chef) |
 | 919 | M | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): Regeln nachziehen: Testbitte auch bei rot | wartet auf 918 (startbar) |
 
-**Diogenes** – offen 15, Muss 7, startbar 7
+**Diogenes** – offen 16, Muss 7, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -279,6 +281,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 731 | K | D87.1 Prüfung „Alt:“ (647) greift nicht bei Push über den GitHub-Server (push_files, creat | startbar |
 | 732 | K | D89.1 glossar.py: Begriff mit Bindestrich vorn geht als Schalter an git grep; -e davor (vo | startbar |
 | 734 | K | D92.1 Warnung „LISTE-VORGAENGE.md von Hand geändert“ wird nirgends festgehalten, Woche War | startbar |
+| 735 | K | D92.4 Überholtes ohne „→ ersetzt durch“ (461b): DESIGN-ABNAHME.md 11 und Kopf DESIGN-KAMPF | startbar |
 | 461b | M | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Termin 16.11. |
 | 348.9 | M | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | ruht |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
@@ -287,7 +290,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | wartet auf 903 (wartet) |
 
-**Sokrates** – offen 50, Muss 36, startbar 28
+**Sokrates** – offen 49, Muss 36, startbar 27
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -340,7 +343,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 850 | K | Systemlösung? Halt: 7 frühere Vorgänge (244, 321.1, 488, 793, 662 …), neu 849; einmal grun | startbar |
 | 862 | K | Systemlösung? Umhang: 6 frühere Vorgänge (58, 488, 463, 463.1, 656 …), neu 861; einmal gru | startbar |
 | 869 | K | Systemlösung? Rüstung: 2 frühere Vorgänge (49, 817), neu 868; einmal grundsätzlich lösen? | startbar |
-| Pflege | K | von Werkzeug (340.3, 11.11.): 15632 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
