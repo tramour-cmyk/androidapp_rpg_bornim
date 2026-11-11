@@ -11,6 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
+| 968 | Von Sokrates (Chef 11.11., 15:49 „großer Test … so schnell wie möglich, damit die anderen wieder arbeiten können“; „jetzt“ 11.11., 15:49): Sammelbuild gleich nach B1 auf main: alle fertigen Zweige beider Teams (Tom 10, Jerry 17, mit 945, 751, 6aa094fe7), eine Prüfliste ansehen/t<n> in Testreihenfolge, build <n> --mit für jede Nummer (774) | Tom | M | startbar | – | – | – | E Technik | – |
 | 944 | Fund t276.5 (Chef 11.11., 13:22, Bild): Würfeltexte weg, wo Beute.wuerfel_text steht: Heiltrank „heilt 2W4+2“ (menue.gd:754, Laden ladenschirm.gd:513, Test laden_582), Waffenschaden (menue.gd:843–847, 1351f., beute.gd:336); Wirkung nur in der Meldung; in B1 vor dem Zusammenführen | Tom | M | gebaut, Geprüft an: 9a34fec2a | – | claude/tom-870-4-held | – | E Kampf | 6,25 $ |
 | 825 | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635, 542, 543, 632; Jerry 593, 547, 597), Prüfliste ansehen/t<n>, build <n> --mit für jede Nummer (774) | Tom | M | gebaut, Geprüft an: Lauf 42793721837, t274 beim Chef | – | – | – | E Technik | 8,33 $ |
 | 697 | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | Tom | M | in Arbeit, erster Messlauf ohne Wert (nicht importiert) | 782 | claude/tom-697-drehteller | – | E Figuren | – |
@@ -222,6 +223,7 @@
 | 958 | Von Tuffy (870.6): Test kampfzustand_532 rot auf main und B1: „Zustände hinein“ erwartet DRUNK draußen, MARS kennt DRUNK aber (mars.gd 106) | Jerry | M | gebaut, Geprüft an: 2ce39538f | – | claude/tuffy-958-leiden | – | E Kampf | – |
 | 959 | Von Homer (954.1): werte.json herkuenfte Schmiedelehrling hat nur Schmieden, Bergbau; 461c (3) sagt dazu Stumpfe Waffen; er trägt seine Waffe mit Fertigkeit 0 (main und Umzugszweige) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 960 | Von Homer (954.1): Verstand ohne Wirkung: BrsHeld.kennt_schwaechen (870d, ab Verstand 6 Schwächen und Stärken sehen) liest im Umzugszweig keiner; Ziel-Tipp danach richten | Jerry | M | startbar | – | – | – | E Kampf | – |
+| 969 | Von Sokrates (Chef 11.11., 15:49): Regelwerte zum Nachschlagen, dritte Seite neben 644 und 649: je Regel Satz, Formel, heutige Zahl, erzeugt aus tools/sim444/werte.json, nie von Hand | Jerry | M? | startbar | – | – | – | B Abläufe | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
