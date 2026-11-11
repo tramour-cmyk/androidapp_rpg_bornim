@@ -143,21 +143,21 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 900 | M | Von Tom (870.4, B1; „jetzt“ 10.11., 22:24, Nachtauftrag Chef): Lauf 335 rot an wolf_mess_4 | wartet auf Test/Build (gebaut) |
 | 870.2 | M | Von Sokrates (870, Umzug BRS Schritt 2): Schnittstelle Held ↔ Kampf: BrsHeld.kampfblatt() | wartet auf Test/Build (gebaut) |
 | 870.3 | M | Von Sokrates (870, Umzug BRS Schritt 3): Daten: werte.json einzige Quelle (Jungwolf, Leibw | wartet auf Test/Build (gebaut) |
-| 709.1 | M | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar (aus 709 abgetrennt, Chef 10.11., | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (schild) |
-| 506.2 | M | Grabhund-Biss reicht sichtbar bis zum Helden, nicht nur knapp an den Schild (von Sokrates, | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (biss) |
+| 709.1 | M | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar (aus 709 abgetrennt, Chef 10.11., | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (schild) |
+| 506.2 | M | Grabhund-Biss reicht sichtbar bis zum Helden, nicht nur knapp an den Schild (von Sokrates, | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (biss) |
 | 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | wartet auf Test (Build) |
 | 870.5 | M | Von Sokrates (870, Umzug BRS Schritt 5): Kampf nur BRS: Schalter, SRD-Zweige, W20 weg; Pro | wartet auf Test/Build (gebaut) |
 | 870.6 | M | Von Sokrates (870, Umzug BRS Schritt 6; „jetzt“ 10.11., 22:24, Nachtauftrag Chef): Gegenst | wartet auf 870.4 (in Arbeit) |
 | 751 | M | Kampf: Knopfleiste des Helden manchmal leer („…“), keine Menüfunktion, auch ohne „ganzer B | wartet auf Test/Build (gebaut) |
-| 406.2 | M | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (schild) |
+| 406.2 | M | Angriff gehen statt rennen, Parade mit Schild je Richtung (Chef 03.11., 06:59, Schildfilm) | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (schild) |
 | 642 | M | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 | ruht |
 | 705 | M | Zauberlehrling Stufe 1 gewinnt gegen Wolf und Rudel selten (BRS 2–30 %, Messung anspringen | Chef (Datei in der Chefsache) |
 | 806 | M | Kampforte mit den Effektpaketen schöner: Gras und Blumen aus R9, Boden, Staub; Bilder/s ni | startbar |
-| 595 | M | Kampfbewegungen der Kaufgegner: Spinne mehr Angriffe, Egel und Schnecke schneller, Treffhö | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (figur.gd) |
-| 616 | M | Kampf: Gegner weichen nach dem Angriff rückwärts zurück statt vorwärts zu laufen (Chef 07. | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (laufen) |
-| 532 | M | Kampf: Held geht ohne Zauberpunkte, Verbrauchtes, Zustände, Metrausch und ohne die ganze T | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (sokrates) |
+| 595 | M | Kampfbewegungen der Kaufgegner: Spinne mehr Angriffe, Egel und Schnecke schneller, Treffhö | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (figur.gd) |
+| 616 | M | Kampf: Gegner weichen nach dem Angriff rückwärts zurück statt vorwärts zu laufen (Chef 07. | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (laufen) |
+| 532 | M | Kampf: Held geht ohne Zauberpunkte, Verbrauchtes, Zustände, Metrausch und ohne die ganze T | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (sokrates) |
 | 536 | M | Kampf: Erklärungen bei langem Drücken (MarsTips), Grund bei gesperrtem Zauber, „Kein Ziel | in Arbeit bei Tuffy |
-| 296.2 | M | MARS spielnötig: Beute/Erfahrung, Fliehen, Eröffnung, Zustände, eigene Ausrüstung, Schalte | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.5 (erfahrung) |
+| 296.2 | M | MARS spielnötig: Beute/Erfahrung, Fliehen, Eröffnung, Zustände, eigene Ausrüstung, Schalte | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.5 (erfahrung) |
 | 551 | M | MARS: Rahmen des unteren Kastens links und rechts unterbrochen (Chef 04.11., 00:21) | ruht |
 | 534 | M | Kampf: Zauber und Fähigkeiten fehlen in „Können“ (Magierrüstung, Untote vertreiben, Spirit | ruht (424: altes SRD-System) |
 | 467 | M | Ausdauer nach BRS statt SRD (ausdauer.gd: Konstitution, Stärke 13), Formel aus 427 (Chef 0 | ruht |
@@ -203,7 +203,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 644.2 | M | Gegenstandskatalog: Zahlen nach 469 in 444 (Tempo, Parieren, Durchschlag, Güte, Stufe), C1 | ruht |
 | 681 | M | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | ruht |
 | 744 | M | Karte: Streuner und Leute bewegen sich natürlich, verweilen mit Ruhebewegung statt Roboter | startbar |
-| 760 | M | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
+| 760 | M | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
 | 770 | M | Wochentermin 13.11.: Rollenspiegel Jerry (rollenspiegel.sh Jerry) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 | 784 | M | Kampf-Sollbild „Wolfsrudel, eine Runde“: wer geht wohin, Höchstdauer je Handlung, Ausweich | startbar |
 | 786 | M | Klangliste alt gegen neu: je Anlass alt, neu, fehlt (654 A, als Drittes) | wartet auf 784 (startbar) |
@@ -212,22 +212,22 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 811 | K | Von Perikles (800, 650.2 C1): Kommentar in godot/regeln/brs_kampf.gd Zeile 3 nennt DESIGN- | startbar |
 | 823 | K | Von Perikles (822, 745 A2): Abschnitt „## Checkliste“ in LISTE-MARS.md, je Regel zum Kampf | startbar |
 | 824 | M? | Kampf: Schurke ohne Schild geht beim Angriff kurz 3,4–3,8 m/s in „Gehen“ (Bewegung höchste | startbar |
-| 833 | M | Unterer Kampfschirm nach Signatur: kein Kasten im Kasten (Bericht, Leiste, Befehle), Knöpf | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 854 (bauen) |
+| 833 | M | Unterer Kampfschirm nach Signatur: kein Kasten im Kasten (Bericht, Leiste, Befehle), Knöpf | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 854 (bauen) |
 | 836 | M? | Von Homer (830): Hinweis „Nahkampf erreicht nur die vordere Reihe.“ steht in jedem Kampf, | startbar |
-| 840 | M | Von Sokrates (830 A, Chef 10.11., 11:00): Eingebung beim ersten Auftreten nach 210 B in Go | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 854 (bauen) |
-| 841 | M | Von Sokrates (807a A, Chef 10.11., 11:01): Goblin-Späher einschüchtern nach STORY-K1-FERTI | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 854 (bauen) |
+| 840 | M | Von Sokrates (830 A, Chef 10.11., 11:00): Eingebung beim ersten Auftreten nach 210 B in Go | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 854 (bauen) |
+| 841 | M | Von Sokrates (807a A, Chef 10.11., 11:01): Goblin-Späher einschüchtern nach STORY-K1-FERTI | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 854 (bauen) |
 | 844 | M? | Kampf: Goblins und Kobolde haben keine Angriffsbewegung (nur Gehen, Stehen), gleiten im St | startbar |
 | 845 | M? | Kampf: Krogg steht 0,65 m hinter seinem Platz, beim Planen des Helden liest seine Lage den | startbar |
-| 863 | M | Von Sokrates (Chef 10.11., 13:19, t274.15): Ratte aus der hinteren Reihe tapst zum Angriff | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolfe) |
-| 864 | M | Von Sokrates (Chef 10.11., 13:26, t274.16): Fledermäuse beamen nach dem Angriff auf die Au | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (sokrates) |
+| 863 | M | Von Sokrates (Chef 10.11., 13:19, t274.15): Ratte aus der hinteren Reihe tapst zum Angriff | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolfe) |
+| 864 | M | Von Sokrates (Chef 10.11., 13:26, t274.16): Fledermäuse beamen nach dem Angriff auf die Au | wartet auf Test/Build (gebaut) |
 | 868 | M | Von Sokrates (Chef 10.11., 13:48): Kampf zeigt noch Rüstungsklasse und Würfelwerte; nur no | startbar |
-| 872 | M | Kampf auf Halt 653 umstellen: Waffen und Schilde der Gegner und des Helden im Kampfort mit | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (schilde) |
-| 876 | M | Von Homer (857a A, Chef 10.11., 13:35): Simulation 444 Kräuterkunde → Kräutersammeln, Tran | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.5 (simulation) |
-| 854.1 | M | Von Tom (888, Lauf 42906784036): kauf_cache.py ablegen bricht ab, Zeile 21 ModuleNotFoundE | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 854 (ablegen) |
+| 872 | M | Kampf auf Halt 653 umstellen: Waffen und Schilde der Gegner und des Helden im Kampfort mit | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (schilde) |
+| 876 | M | Von Homer (857a A, Chef 10.11., 13:35): Simulation 444 Kräuterkunde → Kräutersammeln, Tran | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.5 (simulation) |
+| 854.1 | M | Von Tom (888, Lauf 42906784036): kauf_cache.py ablegen bricht ab, Zeile 21 ModuleNotFoundE | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 854 (ablegen) |
 | 904 | M | Von Tom (870.4, B1): sim444_870 am Rechner (97a32cfe2): SCRIPT ERROR mars.gd:903 _erwartet | startbar |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 15658 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 27, Muss 14, startbar 3
+**Perikles** – offen 27, Muss 14, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -256,14 +256,16 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 882 | M | D140.1 (Diogenes, 870.18): Kotlin-Ausstieg ohne Werkzeuge: 870.10 nennt nur android.yml; a | wartet auf 870.4 (in Arbeit) |
 | 896 | M | Von Jerry (870.5): Wächter meldet „TP“ als SRD-Begriff (886), Homer 870.14 und DESIGN-BRS | wartet auf Test/Build (gebaut) |
 | 903 | M | D152.1 von Diogenes (771, 657 D): Probe 657 ausgewertet, Prüfbericht Lauf 152; Grundlage 1 | wartet auf Test t276 (Chef) |
-| 907 | M | D154.1 von Diogenes (903, Lauf 154): Checkliste Punkt 3 verlor „auch wenn der getestete no | startbar |
-| 908 | M | D154.2 von Diogenes (903, Lauf 154): Checkliste Build und Test erscheint nur beim Verschie | startbar |
+| 907 | M | D154.1 von Diogenes (903, Lauf 154): Checkliste Punkt 3 verlor „auch wenn der getestete no | wartet auf Diogenes (greift?) |
+| 908 | M | D154.2 von Diogenes (903, Lauf 154): Checkliste Build und Test erscheint nur beim Verschie | wartet auf Diogenes (greift?) |
 
-**Diogenes** – offen 8, Muss 7, startbar 0
+**Diogenes** – offen 10, Muss 9, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
+| 907 | M | D154.1 von Diogenes (903, Lauf 154): Checkliste Punkt 3 verlor „auch wenn der getestete no | startbar |
+| 908 | M | D154.2 von Diogenes (903, Lauf 154): Checkliste Build und Test erscheint nur beim Verschie | startbar |
 | 461b | M | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Termin 16.11. |
 | 348.9 | M | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | ruht |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |

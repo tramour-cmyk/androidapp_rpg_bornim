@@ -13,6 +13,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 ## Zeilen
 
+- **Zu 907, 908, von Perikles (Doppelpack 421, 11.11., 08:13, `559dc33c7`):** 907 Halbsatz „auch wenn der getestete noch nicht auf `main` ist (324)“ zurück in Checkliste 3; 908 `commit-pruefung.py` zeigt die Checkliste schon bei neuer `docs/entwurf/t<n>-….md` (Probe im Worktree: Liste erscheint, Exit 0), Kopf der Liste nennt beide Orte.
 - **Zu 464 (Lauf 110):** Haken (748) und Zählung (749) greifen, Lücken 776, 777 geschlossen; 464 wartet auf 16.11.: Wirkung in der Wochenzählung 16.11.: rote Bauläufe der Woche gegen 52 von 185 (28 %) der Vorwoche, dann `greift 464` oder Befund.
 - **Zu 719 (Perikles, „719 A“):** Wochenzählung kommt montags ab 8 Uhr als Vorgang „Wochentermin TT.MM.: Wochenzählung …“; nach der Zählung erledigt setzen. Zeile „Woche“ erledigt 09.11.
 - **Zu 724, 755:** Bereich B mit „gebaut“ kommt als „wartet auf Diogenes“ zu mir; greift → `vorgang.py greift NR LAUF`, Lücke → eigener Vorgang und `warte NR <Lücke>`.
