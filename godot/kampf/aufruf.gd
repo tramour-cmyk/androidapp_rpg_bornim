@@ -62,6 +62,9 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 		"RATTE": [["rat", Mars.WOLF, Vector2i(0, 0)]],     # 577: Körper des Wolfs, Kennung und Regeln der eigenen Art (ART)
 		"FLEDERMAUS": [["bat", Mars.WOLF, Vector2i(0, 0)]],
 		"SPINNE": [["spider", Mars.SPIDER, Vector2i(0, 0)]],
+		# 506: drei Skelette wie im alten Spiel (MonsterKit.kt skeleton: Kurzschwert und Helm, Kurzschwert und Schild, Speer und Helm),
+		# Regeln aus Monsters.kt skeleton (tabellen.json), im Bild der gekaufte Skelettritter (kaufskelett.py, je Nummer ein Kit)
+		"SKELETONS": [["skel1", "skeleton", Vector2i(0, 0)], ["skel2", "skeleton", Vector2i(0, 1)], ["skel3", "skeleton", Vector2i(1, 0)]],
 	}.get(foe, [])
 	Figur.ersatz_art = {"RATS": "giant_rat", "BATS": "giant_bat", "SHAMANS": Figur.SHAMAN, "KOBOLDS": Figur.KOBOLD, "BOARS": "kauf_keiler", "CENTIPEDES": "kauf_hundertfuesser", "LEECHES": "kauf_egel", "SLUGS": "kauf_schnecke", "RATTE": "giant_rat", "FLEDERMAUS": "giant_bat"}.get(foe, "")
 	# 348.12f eingebaut (Chef 28.10., 11:50: Kaufwolf abgenommen, Archiv 27.10., 21:51: „eigener entfällt“): Wölfe sind der gekaufte
@@ -222,6 +225,8 @@ func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := 
 	party[0].hero["look"] = lage.get("aussehen", {})     # 403: Kopf, Haar, Haut wie im Dorf (Zustand.aussehen, HeldFigur)
 	if not (lage.get("brs", {}) as Dictionary).is_empty():
 		party[0].hero["brs_daten"] = lage.brs     # 478: der Held nach BRS aus dem Spielstand (zustand.brs, BrsHeld.als_daten)
+	if not (lage.get("brs_fert", {}) as Dictionary).is_empty():
+		party[0].hero["brs_fert"] = lage.brs_fert     # 471: geuebte Werte (zustand.fert, brs_kampf.gd held „brs_fert“)
 	leiden_auf(party[0], lage.get("leiden", {}))     # 532
 	if bool(lage.get("betrunken", false)):     # 532 Metrausch wie alt (Battle.drunk): bis zur Rast, im Kampf ohne Ende
 		party[0].status["DRUNK"] = Mars.LASTING

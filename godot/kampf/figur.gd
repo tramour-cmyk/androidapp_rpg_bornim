@@ -78,6 +78,11 @@ const KOBOLD_KITS := ["kappe", "schild", "fell"]
 const GRAK_KITS := ["hauptmann"]
 ## 494 Krogg (krogg_gestalt.py, Superheld mit gekauftem Bärenkopf): ein Kit, Morgenstern in der rechten Faust im Modell (Knochen „waffe“)
 const KROGG_KITS := ["krogg"]
+## 506 Skelett (kaufskelett.py, gekaufter Skelettritter): drei Kits wie MonsterKit.kt skeleton, Waffen und Helm im Modell
+const SKELETT := "skeleton"
+const SKELETT_KITS := ["schwert", "schild", "speer"]
+## Zweibeiner (Gerüst mit Waffen und Kits in <art>-info.json): Goblin, Späher, Grak, Krogg, Skelett
+const ZWEI := [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG, SKELETT]
 ## Kurzbogen wie Dress.bow: 0,58 der Größe des Schützen (waffen.py baut ihn 101 cm, für den Menschen)
 ## Späher Runde 2 (Prüfer 1: „von der Schulter bis auf Fußhöhe, für einen Kurzbogen groß“): 0,48
 const GOB_BOGEN := 0.48 / 1.01
@@ -160,7 +165,7 @@ func setup(f, k) -> void:
 		_arm_kauf()
 	elif fighter.monster == null:
 		_arm()
-	elif Mars.koerper_of(fighter.monster) in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG]:
+	elif Mars.koerper_of(fighter.monster) in ZWEI:
 		_arm_goblin()
 	if fighter.monster != null:
 		var sk: Skeleton3D = _find(model, "Skeleton3D")
@@ -216,9 +221,15 @@ void fragment() {
 		pm.size = Vector2(es[0], es[1]) * _scale(); vor = es[2]
 	elif (wolf or eigene_haut(fighter)) and mass.has("laenge_m"):     # 494: auch die gekaufte Spinne (vorher 0,95 rund unter 1,69 m Beinen); 387 Runde 2 (Prüfer: Schatten in Wolfsgröße, bei Huhn und Kaninchen doppelt so breit): nach dem Kauftier
 		pm.size = Vector2(mass.get("breite_m", 0.4) * 1.3, mass.laenge_m * 0.9) * _scale(); vor = 0.0
+	# 506 (Helfer 08.11., 12:55, A4 „Schatten als Scheibe“): unter dem Skelett deckt kein Fleisch den runden Schatten, zwischen den
+	# dünnen Knochen lag eine dunkle Scheibe; schmaler und heller, so breit wie das Becken (Kauf 0,52 m breit mit Armen)
+	var dunkel := 0.78
+	if fighter != null and fighter.monster != null and Mars.koerper_of(fighter.monster) == SKELETT:
+		pm.size = Vector2(0.6, 0.6); dunkel = 0.5
 	mi.mesh = pm
 	var m := ShaderMaterial.new()
 	m.shader = shadow_shader
+	m.set_shader_parameter("dichte", dunkel)
 	mi.material_override = m
 	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	mi.position = Vector3(0, 0.02, vor * _scale() if wolf else 0.0)     # Rumpfmitte des Wolfs liegt 0,15 m vor dem Ursprung
@@ -362,7 +373,7 @@ func _model_path() -> String:
 		if ERSATZ_FELLE.has(art):
 			return "res://kampf/daten/%s-%s.bin" % [art, ERSATZ_FELLE[art][n % ERSATZ_FELLE[art].size()]]
 		return "res://kampf/daten/wolf-%s.bin" % WOLF_COATS[n % WOLF_COATS.size()]
-	if Mars.koerper_of(fighter.monster) in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG]:     # 348.7: Goblin, Späher je Nummer eines der drei Kits (goblin.py, MonsterKits)
+	if Mars.koerper_of(fighter.monster) in ZWEI:     # 348.7: Goblin, Späher je Nummer eines der drei Kits (goblin.py, MonsterKits)
 		return "res://kampf/daten/%s-%s.bin" % [_gob_art(), _gob_kit()]
 	# 494 Riesenspinne (kaufspinne.py): gekaufte Gegner, die keine Vierbeiner sind, haben wie die Kauftiere drei Häute in
 	# <id>-info.json; je Nummer eine (drei Varianten, DESIGN-STIL „Abwechslung“)
@@ -414,7 +425,7 @@ static func _kauf_felle(a: String) -> Array:
 ## 494: gekaufter Gegner mit eigenen Häuten in <id>-info.json (kaufspinne.py), weder Vierbeiner noch Zweibeiner (die haben dort
 ## Felle oder Kits), in echter Größe wie die Kauftiere
 static func eigene_haut(fi) -> bool:
-	return fi != null and fi.monster != null and not vier(fi) and not Mars.koerper_of(fi.monster) in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG] \
+	return fi != null and fi.monster != null and not vier(fi) and not Mars.koerper_of(fi.monster) in ZWEI \
 			and not _kauf_felle(Mars.koerper_of(fi.monster)).is_empty()
 
 
@@ -576,7 +587,7 @@ func _arm() -> void:
 
 ## Goblin, Späher, Grak: Zweibeiner auf dem Gerüst aus goblin.py oder grak_gestalt.py
 func _zweibeiner() -> bool:
-	return fighter.monster != null and Mars.koerper_of(fighter.monster) in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG]
+	return fighter.monster != null and Mars.koerper_of(fighter.monster) in ZWEI
 
 
 ## 403: Waffe und Schild am Kaufkörper. Der Kaufkörper ruht in der T-Pose, darum wie beim Goblin nach der Haltung in Stehen
@@ -636,6 +647,8 @@ func _gob_kit() -> String:
 		return GRAK_KITS[0]
 	if Mars.koerper_of(fighter.monster) == Mars.KROGG:
 		return KROGG_KITS[0]
+	if Mars.koerper_of(fighter.monster) == SKELETT:     # 506: je Nummer ein Kit (Kurzschwert und Helm, Kurzschwert und Schild, Speer und Helm)
+		return SKELETT_KITS[(maxi(fighter.nr, 1) - 1) % SKELETT_KITS.size()]
 	var kits: Array = SCOUT_KITS if Mars.koerper_of(fighter.monster) == Mars.SCOUT else (SHAMAN_KITS if _gob_art() == SHAMAN else (KOBOLD_KITS if _gob_art() == KOBOLD else GOBLIN_KITS))
 	return kits[(maxi(fighter.nr, 1) - 1) % kits.size()]
 
@@ -672,6 +685,9 @@ func _arm_goblin() -> void:
 		# 348.12 Probe CC0-Gerüst (goblin.py GERUEST=cc0): der Handknochen beginnt am Handgelenk, der Griff liegt näher
 		var grip: float = info.get("griff_hand_m", 0.0) if info.get("geruest", "") == "cc0" else info.get("griff_m", GRIP_CM * CM)
 		_hold(sk, "R" if i == 0 else "L", w[i], grip, info.get("handflaeche_m", PALM_CM * CM), sz, info.get("axt", {}))
+	if _gob_art() == SKELETT:     # 506 (LISTE-FIGUREN „Skelett“ 3): in jeder Augenhöhle ein schwacher Glutpunkt (kaufskelett.py augen)
+		for m in mats:
+			m.set_shader_parameter("glut", 1.2)
 	if _gob_art() == SHAMAN:     # Augen und der Schädel am Stab glimmen grün (Eckfarbe mit Alpha 0; goblin.py, waffen.py)
 		for m in mats:
 			m.set_shader_parameter("glut", 1.8)     # Runde 1b (Prüfer 1a: nicht zu sehen) 2,5; 1c (Prüfer 1b: gelb statt grün) 1,8
@@ -3636,4 +3652,6 @@ func head() -> Vector3:
 		h = float(mass.koerper_hoch_m) + 0.25
 	if gob_h > 0.0:     # Goblin Runde 2 (Prüfer Runde 1: Ansage fern der Goblins): Scheitel aus goblin.py, gebückt etwas tiefer
 		h = gob_h * 0.85
+		if Mars.koerper_of(fighter.monster) == SKELETT:     # 506 (Helfer 08.11., 12:55: Lebensbalken auf den Köpfen): das Skelett steht
+			h = gob_h + 0.15     # aufrecht, Scheitel 1,72–1,79 m mit Helm (kaufskelett.py groesse_cm); 0,85 davon lag 26 cm unter dem Scheitel
 	return position + Vector3(0, h * (_scale() if fighter.monster != null else 1.0), 0)
