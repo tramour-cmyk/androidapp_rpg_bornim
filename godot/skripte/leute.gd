@@ -484,6 +484,10 @@ func frei_fuer_mich(t: Vector2i, held_da := false) -> bool:
 # zu Kachel weitergeht, stand bisher ein Bild lang (Stehen 0,25 s angespielt, dann Gehen 0,18 s an zufaelliger Stelle: Sprung je
 # Kachel). Jetzt entscheidet sie erst, ob sie weitergeht; nur wer stehen bleibt, blendet in die Pause
 func _process(dt: float) -> void:
+	# 977 (Tuffy 744): der Kampfort-Ersatz Streuner.Stub hat keine laufende Uhr, figur._ruhebewegung wartete bei 0 ewig; Grimmzahn
+	# stand darum ohne Ruhebewegung. Die Uhr läuft mit der Spielzeit (vor der Figur, die als Kind danach verarbeitet wird)
+	if monster and modell != null and "kampfort" in modell and modell.kampfort != null:
+		modell.kampfort.clock_ms = float(Time.get_ticks_msec())
 	if ziel.x >= 0:
 		laufe(dt)
 		return
