@@ -6,7 +6,7 @@ Stand 14.10.2026. Original seit 16.10. hier (99g); vorher Docs-Dokument „Borni
 
 ## Waffe, Schild und Kampf im Bild: was gilt (461)
 
-Was der Chef zu Waffe, Schild und Kampf im Bild entschieden hat, steht nur hier (461d, 01.11., 22:5x; vorher `LISTE-GRUNDSTAND-461.md`); Figuren und Bewegung (A–D) in `DESIGN-STIL.md`, Film und Vorlage (G) und wie geprüft wird in `DESIGN-ABNAHME.md` „Vor jeder Vorlage“. Spalte „Prüfer“: ja = Chefwort und prüfbar, ein Verstoß hält den Lauf an (461a, 511, 621.1; `DESIGN-ABNAHME.md`); „Maß“ = Zahl von uns, nur Richtwert. Neue Entscheidung: die Zeile hier im selben Commit ändern, am alten Archiveintrag „→ ersetzt durch …“ (461b).
+Was der Chef zu Waffe, Schild und Kampf im Bild entschieden hat, steht nur hier (461d, 01.11., 22:5x; vorher `LISTE-GRUNDSTAND-461.md`); Figuren und Bewegung (A–D) in `DESIGN-STIL.md`, Film und Vorlage (G) und wie geprüft wird in `DESIGN-ABNAHME.md` „Vor jeder Vorlage“. Spalte „Prüfer“: ja = Chefwort und prüfbar, der Ersteller prüft selbst vor dem Versand und behebt einen Verstoß vorher (783 W1, ersetzt 461a, 511, 621.1; `DESIGN-ABNAHME.md` „Prüfung vor dem Versand“); „Maß“ = Zahl von uns, nur Richtwert. Neue Entscheidung: die Zeile hier im selben Commit ändern, am alten Archiveintrag „→ ersetzt durch …“ (461b).
 
 ### E Waffe und Schild
 
@@ -31,8 +31,9 @@ Was der Chef zu Waffe, Schild und Kampf im Bild entschieden hat, steht nur hier 
 | F4 | Tod sichtbar als Zusammenbruch, für alle (Helden, Gegner, Tiere): zusammenbrechen, kurz liegen, dann ausblenden, nicht zu schnell weg | 440 (31.10.), 348.12 (28.10.), 461c (01.11., 22:35) | ja |
 | F5 | Ausweichen mit Ortswechsel: rasch zur Seite oder zurück, nur auf einen Angriff hin; danach bleibt er dort stehen und rückt erst mit dem eigenen Zug zurecht | 348.12f (27.10.), 348.12 (01.11., 22:45), 703 A (08.11., 21:36) | ja |
 | F6 | Zauber: der Kegel kommt nicht aus dem Körper des Helden (Seitenschritt; ebenso Schüsse aus der zweiten Reihe); Arkanpfeil (früher „Magisches Geschoss“, BRS 12) ohne Schritt, durch den Helden abgenommen | 348.7b (27.10., 19:49; 28.10., 10:43, 15:28) | ja |
-| F7 | Ein Gegner zeigt dem Helden nie den Rücken, außer auf der Flucht: nach dem Angriff ein bis zwei Schritte rückwärts absetzen und dort stehen; zurück in die Reihe nur mit eigenem Zug, Gesicht zum Helden; keine Schienenbahnen, kein langes Rückwärtsgehen | 717 C (09.11., 08:58) | ja |
+| F7 | Ein Gegner zeigt dem Helden nie den Rücken, außer auf der Flucht: nach dem Angriff ein bis zwei Schritte rückwärts absetzen und dort stehen; zurück in die Reihe nur mit eigenem Zug, Gesicht zum Helden; keine Schienenbahnen, kein langes Rückwärtsgehen (Ausnahme Platztausch, F9) | 717 C (09.11., 08:58) | ja |
 | F8 | Zurechtrücken der Gegner beginnt in ihrem eigenen Zug und darf in den Zug des Helden hinein auslaufen (nie erst dort anfangen): seine Knöpfe kommen sofort, beim Losgehen wartet er nur auf sein eigenes Ziel; das Zurechtrücken dauert nie länger als das Wählen | 717.1 A (09.11., 09:03) | ja |
+| F9 | Kampftakt nach dem Sollbild „Wolfsrudel, eine Runde“ (Tempo „Normal“; „Ruhig“ macht alles gleichmäßig langsamer): Runde von Wahl zu Wahl höchstens 14,6 s, davon wartet der Held ohne Knöpfe höchstens 12,2 s. Je Handlung höchstens: **Held 2,4 s** (rennt zum Ziel, schlägt, Zeile beim Aufschlag, geht zügig rückwärts heim; umdrehen nur auf der Flucht); **Söldner 2,0 s** (Schritt zur Seite, Zauber, Zeile beim Aufschlag, zurück); **Wolf vorn 3,4 s** („Anspringen!“ steht, während er sich duckt, keine eigene Pause; Sprung bis zum Biss 0,6 s; Schild oder Ausweichen des Helden vorher, 0,5 s; Absetzen ein, zwei Schritte rückwärts, 0,8 s; dabei die Ansage des nächsten Zugs, zwei Zeilen zu je 1,1 s, ungekürzt); **Wolf hinten 3,4 s** (Platztausch auf dem kürzesten Weg durch die Lücke, kein Bogen; der vordere weicht nach dem Biss rückwärts auf den hinteren Platz, 1 s, darf in die nächste Handlung laufen; zählt als Zug des Springers, Ausnahme zu F7/F8). Angesprungen nach 702 C (Held fällt, steht im eigenen Zug auf und greift gleich an): 3,5 s (Zeile 1,1 s und Angriff 2,4 s). Test `sollbild_784.gd` misst jeden Lauf, hält einen Build erst nach dem ersten grünen Film an den Chef an | 784 A (11.11., 12:15; Held rückwärts 12:09) | ja |
 
 ## Kurzfassung
 
@@ -297,4 +298,76 @@ Ob der Kampf abwechslungsreich, zu schwer oder langweilig ist, zeigt erst das Sp
 5. **Aufstellung je nach Lage:** Bei einem Überfall von hinten stehen die Gegner links vorn, im Engpass ist nur eine Figur vorn. *Gegenargument:* Der Spieler muss sich umgewöhnen, und es braucht mehr Regeln. **Empfehlung: noch nicht,** erst zusammen mit der Gruppenfrage (72q).
 
 **Gesamtempfehlung:** 1 und 2 zusammen in die Probe, 3 an Grak testen, 4 und 5 später. Keine dieser Optionen ersetzt den Test am Gerät.
+
+## Entwurf zur Entscheidung: Handgemenge und Abstand (930)
+
+Regelseite Sokrates, 11.11. Sie gilt erst, wenn der Chef entschieden hat. Der Weg dahin: gegenlesen, dann Rechnung und Film von Jerry, dann die Datei in `entscheiden/`. Quellen sind die Wortlaute des Chefs vom 11.11. (12:17–12:56) und Homers Ideen 930.1 (beide in `LISTE-IDEEN.md` unter „Handgemenge“) sowie der Code auf `claude/tom-870-4-held` (`9a34fec2a`).
+
+**Heute:** Die Regeln kennen keinen Abstand. Es gibt nur zwei Reihen je Seite (72.11). Nahkampf trifft die vordere Reihe, solange dort jemand steht; Fernkampf trifft jeden (`mars.gd` 939–945). Dass die Figuren vorlaufen und wieder zurückgehen, passiert nur im Bild (F7, `figur.gd` 1963–1998). „Auf Abstand“ ist nur eine Haltung mit Gegenstoß, Tempo je Gegner gibt es nicht, und die Simulation 444 rechnet ohne Reihen und ohne Abstand. Das Hin und Her kostet heute die meiste Zeit einer Runde (F9: Held 2,4 s, Wolf 3,4 s), ohne dass dabei etwas entschieden wird.
+
+**Ziel (Chef):** Wer die Gegner nicht auf Distanz hält, hat sie am Leib und nimmt leichter Schaden. Wer zurückweicht, darf trotzdem handeln; es gibt keine Wand, an der das Zurückweichen endet. Zurückstoßen geht mit Schild, mit einem harten Treffer oder mit Feuer. Der Fernkämpfer gewinnt durch Abstand Zeit, langsame Gegner spielen sich anders als schnelle, und eine falsche Entscheidung darf schiefgehen.
+
+### Regeln für Kapitel 1 (Vorschlag)
+
+1. **Abstand.** Jeder Gegner steht zum Helden **nah** (im Handgemenge) oder **fern**. Die Reihen bleiben, wie sie sind: Sie sagen, wie eine Seite aufgestellt ist (nebeneinander oder einer vorn, einer hinten), und wer gedeckt ist (Nahkampf trifft vorn, solange dort jemand steht). Der Abstand ist etwas anderes: Er sagt, wie weit die Seiten und die einzelnen Figuren voneinander entfernt sind (Chef 14:28: „Das eine ist, wie die eine Formation auf der eigenen Seite ist … Und Nähe und Ferne oder Abstand zueinander ist, wie die zwei gegnerischen Seiten zueinander stehen oder die einzelnen Protagonisten der jeweiligen Seite“). Reihe und Abstand hängen deshalb nicht aneinander: Auch wer hinten steht, kann nah sein, etwa wenn er nachrückt (Perikles W3). 72.11 (14.10.) wählte die Reihen „statt nah/fern“, weil damals beides als Alternative zur Wahl stand (Baustein 7). Jetzt kommt der Abstand zu den Reihen hinzu. 72.11 wird damit ergänzt, nicht zurückgenommen (Perikles W1). Sichtbar wird der Abstand im Bild: Ein naher Gegner steht am Helden und läuft nicht mehr nach jedem Schlag zurück.
+2. **Zug = Schritt + Handlung.** In seinem Zug darf jeder einen Schritt machen, **vor** (an einen Gegner heran, dann ist er nah) oder **zurück** (aus dem Handgemenge, dann sind alle nah stehenden Gegner fern), und danach eine Handlung. Der Schritt kostet keine Handlung; das ist die Antwort auf den Einwand des Chefs von 12:28. Wer vortritt und dann schlägt, rennt im Bild hin und bleibt danach stehen; das Zurückgehen ohne Grund entfällt (F7 und F9 werden angepasst). Der Platztausch (`mars.gd` 1200–1212) bleibt daneben bestehen.
+   - **Heranrücken des Helden** (Chef 14:23: „wenn er weit hinten steht, muss ich halt näher aufrücken … vielleicht kann ich ihn gar nicht angreifen, weil ich zu weit weg stehe“): Der Held hat auch ein Tempo, wie die Gegner in Regel 3. Mit normalem Tempo schlägt er nach dem Heranrücken mit Ungunst. In schwerer Rüstung braucht er den ganzen Zug für den Weg. Ist er schnell (hohe Gewandtheit, leichte Rüstung), schlägt er voll. Zurückweichen und dann schießen oder zaubern bleibt frei (12:28).
+3. **Tempo je Gegner** (neu im Bestiarium; die Zahlen rechnet Jerry mit 444): Steht ein Nahkämpfer fern, sagt er „rückt heran“ an.
+   - **langsam** (etwa Wiedergänger, 506): braucht seinen ganzen Zug für den Weg;
+   - **normal** (etwa Goblin, Grak): rückt heran und schlägt mit Ungunst;
+   - **schnell** (etwa Wolf, Grimmzahn, Wildschwein): rückt heran und schlägt voll. Beim Wolf ist das sein Anspringen; beim Wildschwein der Ansturm aus der Ferne (doppelter Schaden, verfehlt er, steht es offen; Homer 15).
+4. **Rückzug.** Der Schritt zurück ist frei, mit zwei Folgen:
+   - **Nachsetzen:** Schnelle Gegner, die nah stehen, setzen sofort nach. Das ist ein angesagter Schlag mit Ring (R1). Bei perfekt greift der Gegner ins Leere und bleibt fern, bei gut bekommt der Held halben Schaden. Normale und langsame Gegner setzen nicht nach.
+   - **Außer Atem:** Wer zweimal hintereinander zurückweicht, ist außer Atem (wie heute beim Ankommen nach einem Lauf, `mars.gd` 561–566, `[86.9.atem]`). Dann gilt Ungunst, bis er einen Zug lang stehen bleibt. So endet das ewige Weglaufen von selbst, ohne Wand (Homer 1).
+   - **Flucht der Gegner** (Chef 14:23: „vielleicht will er auch fliehen und ich sehe das und kriege dann … einen Gelegenheitsangriff … nur wenn ich halt ein Fernkämpfer bin“): Wer flieht, sagt es einen Zug vorher an („weicht zurück, sucht den Ausweg“). Fern stehend erreichen ihn nur Schuss und Zauber, also ein freier Schuss. Steht er nah, gibt es das Nachsetzen auch für den Helden, gleich für beide Seiten. Ein Nahkämpfer, der fern steht, muss erst heranrücken; meist ist der Gegner dann fort.
+5. **Zurückdrängen** (Kampfhandlungen nach 870a 3, mit Ring R2: bei perfekt wirkt die Handlung stärker, bei gut wie im Tipp):
+   - **Schildstoß** statt Schildwall (Homer 5): ein naher Gegner taumelt auf fern, ohne Schaden; bei perfekt verliert er sein nächstes Heranrücken. Schildwall wirkt in Kapitel 1 nie, denn der Held kämpft dort allein (168 D). Er kommt mit Garrick in Kapitel 2.
+   - **Wuchtschlag** (Zweihänder): trifft er, taumelt der Gegner auf fern (Homer 6). Der Unterschied zum Schild: Der Wuchtschlag macht Schaden, kann aber verfehlen.
+   - **Auf Abstand** (Stangenwaffen) wird echt: Wer heranrückt, läuft in die Spitze. Den Gegenstoß gibt es schon (`mars.gd` 1700–1702).
+   - **Feuer:** Flammenfächer lässt nahe Gegner weichen; Tiere weichen eher (Gegenwirkung 915). Das kommt statt eines neuen Zaubers „Glutring“ (Homer 9) und spart ein neues Bild.
+6. **Fernkampf und Magie:** Von fern schießt und zaubert man ohne Nachsetzen und ohne Ungunst; aus dem Handgemenge geht es auch, ohne Strafe in Kapitel 1 (Homer 11 verworfen, denn er träfe das Jägerkind allein zu hart). Der Vorteil auf Abstand ist die gewonnene Zeit, bis der Gegner heran ist.
+7. **Eröffnung:**
+   - Ein Kampf beginnt fern.
+   - Beim Überfall der Gegner (AMBUSHED, `herde.gd`) beginnt er nah.
+   - Gelingt dem Helden der Hinterhalt (HERO_FIRST), wählt er den Abstand: nah für Dolch und Kämpfer, fern für Schütze und Magier (Homer 12). Der Hinterhalt hat einen Ring (R3): Bei perfekt verlieren alle Gegner die erste Runde, bei daneben sind sie gewarnt.
+8. **Gefährte oder Söldner:** Die Gegner stehen am vorderen Helden; wer hinten steht, ist für sie fern, solange niemand durchbricht (Durchbruch heute, `mars.gd` 1650–1690).
+9. **Gegner mit eigener Abstandsregel** (je eine, nur Kapitel 1):
+   - Krogg schleudert den Helden mit dem Prankenhieb auf fern; diesem Schlag weicht man aus, statt ihn abzufangen (Ring in einer zweiten Farbe, R6; einmal erklärt).
+   - Die Riesenspinne zieht mit dem Netz heran.
+   - Wiedergänger lassen sich nicht zurückdrängen (Homer 19).
+10. **Ring:**
+    - Im eigenen Zug kommt der Ring nur bei Handlungen, nie beim normalen Schlag, und höchstens einer je Zug. Auto gibt immer „gut“ (Homer, Regel gegen Routine).
+    - Das **Ringtempo** hängt am Zustand: Ausdauer und Wunden machen ihn schneller, Fertigkeit und Trank langsamer, ohne Deckel (Chef 12:53, „das ist das Leben“). Statt eines springenden Rings gibt es einen zitternden, damit er lesbar bleibt.
+    - Einen Ausweg in jeder Runde gibt es nicht (Chef 12:56). Die Gefahr muss vorher lesbar sein, und die Flucht steht immer zur Wahl, gelingt aber nicht sicher. Die Flucht heute, nach Gewandtheit und nie vor einem Boss (`mars.gd` 1373–1395), bleibt.
+
+### Was dabei mitgeändert wird
+
+- `DESIGN-KAMPF.md`: F7 (Absetzen nur noch beim Weg auf fern), F9 (neue Höchstdauern für den Schlag im Handgemenge; misst `sollbild_784`), F3 (930a).
+- 72.11: Zu den Reihen kommt der Abstand dazu. Das ist eine Entscheidung des Chefs.
+- 870a 3: In Kapitel 1 tritt der Schildstoß an die Stelle des Schildwalls (Texte Homer, `STORY-BRS-KOENNEN.md`).
+- Bestiarium: Tempo je Art. Simulation 444: Abstand und Tempo kommen neu dazu (Jerry); ohne sie misst 444 diese Regeln nicht.
+
+### Fragen an den Chef (kommen mit Rechnung und Film nach `entscheiden/`)
+
+1. Zwei Stufen (nah, fern) oder drei (nah, fern, weit)? Ich empfehle zwei: Sie sind lesbar, und das Zurückweichen aus fern bringt dann keinen weiteren Abstand, die Kamera geht nur mit. Drei Stufen erst, wenn zwei tragen. Chef 14:23 („wie viel Abstand ist denn dazwischen?“): Die Tiefe, die er sucht (nicht gleich angreifen können), kommt bei zwei Stufen über das Tempo des Helden (Regel 2). Eine dritte Stufe „weit“ bringt sie nur dann zusätzlich, wenn auch Fliehende dorthin gehen.
+2. Schildstoß statt Schildwall in Kapitel 1?
+3. Feuer drängt über den Flammenfächer, oder ein eigener Zauber Glutring?
+4. Beginnt ein Kampf grundsätzlich fern?
+5. **Aktionspunkte statt Tempo?** Chef 14:26: „vielleicht kann man das auch so irgendwie fast mit Aktionspunkten verbinden … ich kann entweder zwei Bewegungen machen oder eine Bewegung einen Angriff, aber wenn halt einer weiter hinten steht, brauche ich allein schon zwei Bewegungen und wenn ich schwere Rüstung habe, bin ich sowieso langsamer … Könnte man ja überlegen.“ Fassung Sokrates: Jeder Zug hat 2 Punkte. Ein Schritt kostet 1 Punkt, in schwerer Rüstung 2. Eine Handlung kostet 1 Punkt, und es gibt höchstens eine je Zug. Der Abstand zählt in Schritten: nah 0, fern 1, weit 2; damit hat Frage 1 eine Antwort, drei Stufen. Gegner bekommen Punkte nach ihrem Tempo (langsam 1, normal 2, schnell 3); das ersetzt Regel 3 und das Tempo des Helden in Regel 2. Ich empfehle das, weil man die Kosten sieht statt einer versteckten Ungunst. Stärkstes Gegenargument: mehr Tippen je Zug am Handy und längere Runden (F9). Weg: Tippt man „Angreifen“ auf einen Gegner, der fern steht, geht der Held selbst so weit wie nötig, und vorher zeigt ein Punktezähler, ob es reicht; wer nichts plant, tippt also einmal wie heute.
+   - **Chef 14:32:** „da sollten andere noch drauf gucken … eine Art Geschwindigkeit ist schon auch entscheidend … Gewandtheit, Zähigkeit, Ausdauer … völlig überladen oder Leichtrüstung, schwere Rüstung … Grundfertigkeiten und Grundwerte und auch beim Gegner … So ein Schleim ist halt wahrscheinlich etwas langsamer als ein Wolf … entweder dann sich in Aktionspunkte umrechnen lassen oder halt dann einfach der Weg mehr kosten … Es gibt zum Beispiel 2 Aktionspunkte und aus meiner Sicht kann man auch 2-mal angreifen … wenn 3 Wölfe um mich rumstehen, wieso soll ich denn nicht 2 Wölfe zumindest angreifen dürfen … Wenn einer 2 Felder entfernt steht sozusagen und ich bin schnell, dann kostet mich das einen Aktionspunkt, bin ich langsam, kostet es mich alle Aktionspunkte.“
+   - **Fassung danach (Sokrates):** Jeder hat 2 Punkte; das Tempo bestimmt, was der Weg kostet, nicht wie viele Punkte man hat (so bleibt die Zahl 2 lesbar). Tempo des Helden aus Gewandtheit, dazu Rüstung, Last (überladen) und eine Fertigkeit; Ausdauer ist im BRS abgeleitet (Zähigkeit und Wille), sie bremst erst, wenn sie leer ist. Gegner: Tempo im Bestiarium (Schleim langsam, Wolf schnell). Zwei Angriffe je Zug erlaubt. **Stärkstes Gegenargument:** Zwei Angriffe verdoppeln den Schaden des Helden gegen einen einzelnen starken Gegner (Grak, Krogg), dann stimmt keine Zahl aus 444 mehr. **Weg:** Der zweite Angriff geht nur gegen ein anderes Ziel oder mit Ungunst; damit bleibt der Fall des Chefs (drei Wölfe) voll erhalten.
+   - **Chef 14:33:** Extra-Aktionspunkt über eine Fertigkeit, eine Meisterschaftsstufe in einem Pfad oder einen besonderen Rang.
+   - **Chef 14:35:** „ich würde da Ausdauer schon auch mit reinbringen. Geringe Ausdauer, schwere Waffe, schwere Rüstung, dann gehen meine Aktionspunkte irgendwann auch runter.“ Fassung Sokrates: Schwere Waffe und schwere Rüstung kosten je Handlung Ausdauer. Fällt die Ausdauer unter ein Viertel, hat man nur noch 1 Punkt. Ein Zug ohne Handlung (Atem holen, „Kraft schöpfen“) füllt sie wieder auf. Stärkstes Gegenargument: Geringe Ausdauer macht schon den Ring schneller (Chef 12:40). Weniger Punkte kommen dann doppelt dazu, und der Kampf kippt in eine Abwärtsspirale. Weg: Die Ausdauer wirkt nur über eines von beiden, oder der Ring wird erst bei leerer Ausdauer schneller. Das rechnet Jerry.
+   - **Gegenlesen** (Chef 14:32): Homer mit Ideenrunde (962), Perikles (Widersprüche), Jerry (Rechnung 444 und Film); erst dann die Vorlage.
+
+### Stärkstes Gegenargument und Weg
+
+**Gegenargument:** Das ist ein neues System vor dem Ende von Kapitel 1, mit neuer Bewegung, neuer Simulation und neuen Tests. Die Oberste Direktive will wenige, gut gemachte Stücke.
+
+**Weg:**
+- Nur der Kern kommt in Kapitel 1: Regeln 1 bis 4, dazu Schildstoß, Wuchtschlag und Auf Abstand, Krogg und Wildschwein. Alles andere wartet bis nach dem Meilenstein (Pfade ab Kapitel 2, Homer).
+- Der Kern spart Bewegung, statt neue hinzuzufügen: Wer nah steht, läuft nicht mehr hin und her. Die Runde wird also kürzer, nicht länger.
+- Gebaut wird erst, wenn die Rechnung zeigt, dass kein Weg den anderen erschlägt. Das gilt vor allem für den Magier, der von fern zwei Züge gewinnt.
+
+**Aufwand:** groß, mehrere Sitzungen Jerry (Regeln, Bild, 444, Tests). Das ist meine Schätzung, Jerry rechnet nach.
 

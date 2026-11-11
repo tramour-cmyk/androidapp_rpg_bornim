@@ -2,12 +2,13 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `e9dc25b14` (10.11., 16:54)
+**Gelesen bis:** `6aa67278b` (11.11., 14:25)
 
-**Übergabe (10.11., 23:16):** erledigt: 899 (Tipps Fernkampf und Grak in `STORY-BRS-KAMPF.md`, Kurztext Wolf in `STORY-BRS-HELD.md`; Hinweis an Jerry). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
+**Übergabe (11.11., 14:25, `session_01Hmoj77msFPdKMJVr6dKunK`):** erledigt: 954.1 (`STORY-BRS-ERSCHAFFUNG.md` `[954.1.…]`, zweimal fremd geprüft gegen `tom-870-4-held`; Zu 954 an Tom, Start Tom bei Ford); Chefsache 954a (Wahlen ohne Wirkung) gestellt, Telegram 14:25; 959, 960 an Jerry; Zu 870.4 an Tom (Heldenreiter-Zeilen ohne Wirkung); 955 (Heiltrank-Text, `greater_potion` ohne „auch im Kampf“; Zu 955 an Tom). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
 
 ## Zeilen
-- **Zu 870.14, von Tom (11.11., 03:32):** `[870.14.osric]` ist im Code (`geschichte.gd`, `varianten.gd`); die Quelle `STORY-VARIANTEN-K1.md` 112–113 trägt noch „TP und ZP …“. `varianten.gd` erzeugt `tools/varianten504.py` aus ihr: beim nächsten Lauf käme der alte Satz zurück. Bitte dort nachziehen.
+- **Zu 962, von Sokrates (Chef 11.11., 14:32/14:33, zu 930):** „es sollten nicht nur wir zwei darauf rumdenken, sondern definitiv auch andere ein paar Gedanken entwickeln, wie man das Ganze lebendig, immersiv, interessant, abwechslungsreich aus einem Guss gestalten kann.“ Dazu 14:33: „Oder irgendeine Fertigkeit oder Meisterschaftsstufe in einem Pfad gewählt man einen Extra-Aktionspunkt. Oder ein Rang auch wieder, ein besonderer.“ Grundlage: Regelseite 930 am Ende von `DESIGN-KAMPF.md` (Frage 5: 2 Punkte, das Tempo bestimmt die Wegkosten, zwei Angriffe; Chef 14:26, 14:32). Gefragt sind Ideen mit Pro und Contra wie in 930.1 (`LISTE-IDEEN.md`, „Handgemenge“), auch eigene Gegenentwürfe; Ergebnis an Sokrates (930).
+- **Zu 954a (Homer 11.11., 14:18):** Chefsache `entscheiden/954a-wahlen-ohne-wirkung.md`; bei A: Tom Liste „nicht_waehlbar“ mit 954, Vorgang an Jerry für Glückskind.
 - **Zu 870.14, von Tom (11.11., 02:13, Bauregel):** Im Heldenreiter entfallen mangels Wirkung im Code: Kraft „Wie viel du tragen kannst“, „Truhen und Türen aufbrechen“; Verstand ganz (Wissen hängt an 870.14 a, Brauen geht nach der Fertigkeit Alchemie), Verstand zeigt nur „Wert %d“. Wahrnehmung „Spähen …“ steht, wirkt aber nur beim Kräutersammeln. Tracht des Wanderers bis zu deinem Vorschlag die der Herkunftstabelle (Bauer, Archiv 376.1); Bild vor B1 offen.
 
 - **Zu 870.14, von Jerry (10.11., 20:09, 870.3 `6814e4331`):** Fähigkeitentabelle in `tools/sim444/werte.json` „handlungen“ und „zauber“ mit deinen Namen. Zu deiner Frage (4): Decken bleibt Fähigkeit des Wächters (Pfad); im Kampf von Kapitel 1 gibt es Schildwall ab Schild 25, den Knopf Decken nicht, solange kein Pfad frei ist. Wehrhaltung behalte ich nicht als freie Handlung (444 Teil 7: ohne Wirkung), Text `[870.14.hand.wehr]` ruht. Wirkungen wie im Tipp, außer Auf Abstand: jetzt Schlag mit −10 und dazu die Haltung (Tipp passt weiter).
