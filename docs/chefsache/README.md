@@ -39,14 +39,13 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 4, Muss 1, startbar 1
+**Homer** – offen 3, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
-| 986 | M? | Von Jerry (840): übrige Eingebungen [210T.*.eingebung] (STORY-SPIEL.md „Ansagen erklärt“) | startbar |
 
 **Tom** – offen 123, Muss 103, startbar 12
 
@@ -176,7 +175,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 785.24 | M | Von Spike (785): Laden: Vorräte mit Wirkungszeile in der Liste wie alt (ShopScreen.kt 226– | wartet auf 870.13 (wartet) |
 | Pflege | K | von Werkzeug (340.3, 11.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 
-**Jerry** – offen 124, Muss 116, startbar 2
+**Jerry** – offen 125, Muss 116, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -304,6 +303,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 785.18 | M | Von Spike (785): Stufenaufstieg im Endfeld des Kampfes hervorgehoben (alt eigenes Feld „St | wartet auf 870.13 (wartet) |
 | 987 | M | Von Spike (870.9, Lauf 354): krogg_494 schwankt (am Rechner 2 von 5 rot, Rauch 0 erster Sc | wartet auf Test/Build (gebaut) |
 | 988 | M | Von Tom (968, Lauf 43060687068): rote Tests in Build 277: held_kampf_403 (Kleriker ohne Sc | Sperre 620.1 B: 33 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
+| 986 | M? | Von Homer (840): Eingebungen nach BRS bauen wie den Wolfssprung, Texte und Bauhinweise in | startbar |
 
 **Perikles** – offen 12, Muss 11, startbar 0
 
