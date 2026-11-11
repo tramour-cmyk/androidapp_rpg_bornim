@@ -154,7 +154,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 977 | M | Von Tuffy (744): Grimmzahn im Dorf ohne Ruhebewegung, leute.gd 266 nutzt Streuner.Stub, de | startbar |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 15239 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 112, Muss 104, startbar 9
+**Jerry** – offen 113, Muss 104, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -270,6 +270,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 973 | M | Von Sokrates (930a A, Chef 11.11., 16:09): nach einem Tod bleiben die übrigen Gegner stehe | Sperre 620.1 B: 26 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
 | 980 | M | Von Tom (968, Lauf 43051633587): Kaufskripte unter tools/blender348 nehmen glob()[0]; lieg | startbar |
 | 983 | M | Kampf: Goblin geht nach Umstellen der Reihe nicht an seinen Platz, Skriptfehler „Gehen“ in | wartet auf Test/Build (gebaut) |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 15157 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 14, Muss 13, startbar 0
 
@@ -306,7 +307,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 15438 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Sokrates** – offen 52, Muss 38, startbar 28
+**Sokrates** – offen 51, Muss 38, startbar 27
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -361,7 +362,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 862 | K | Systemlösung? Umhang: 6 frühere Vorgänge (58, 488, 463, 463.1, 656 …), neu 861; einmal gru | startbar |
 | 869 | K | Systemlösung? Rüstung: 2 frühere Vorgänge (49, 817), neu 868; einmal grundsätzlich lösen? | startbar |
 | 930 | M | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (wartet) |
-| Pflege | K | von Werkzeug (340.3, 11.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
