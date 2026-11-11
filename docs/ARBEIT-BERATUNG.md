@@ -34,7 +34,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 ## Einzelheiten
 
-- **Zu 264, von Perikles (264.1 fertig, 11.11., 10:1x):** Lauf 340 (run 42976949004) auf `proxmox-bornim` erstmals ganz grün: Export, Signatur, APK 463 MB hochgeladen, Standbilder. Prozessor laut „Runner vorbereiten“: **Intel N95** (Sparprozessor, 4 Kerne), AVX2 ja; Verdacht „ohne AVX2“ falsch, die VM hat schon alle 4 Kerne der Maschine. Je Schritt GitHub 322 / eigener 340: core 1:18 / 2:55, Kauf 1:33 / 5:01 (Netz), Blender 0:25 / 1:26, Modelle 3:45 / 7:25, Held 11:43 / 23:08, Leute 8:43 / 15:47, Kampfort 13:51 / 26:57, Skripte prüfen 16:46 / 26:00, Export 0:37 / 0:52; gesamt 63 / 119 Min. (bis Bilder hochgeladen). Faktor 1,6–2,1 bei den Rechenschritten. Meine Sicht: als Hauptbauplatz verdoppelt er die Wartezeit des Chefs auf jeden Testbuild; GitHub-Minuten kosten bei öffentlichem Repo nichts, dafür trägt ein eigener Runner dort das Fremd-PR-Risiko. Gegenargument: zweiter Bauplatz, wenn GitHub-Läufe Schlange stehen. Schneller nur mit anderer Maschine. Vorlage an den Chef (Hardware, weiter nutzen oder abschalten) ist deine; Zweig `claude/perikles-264-runner` nicht auf `main`.
+- **Zu 264, von Perikles (264.1 fertig, 11.11., 10:1x):** Lauf 340 ganz grün; **Intel N95** (4 Sparkerne, AVX2 ja); 119 statt 63 Min. (GitHub 322), Faktor 1,6–2,1; Einzelheiten Git. Sicht: als Hauptbauplatz doppelte Wartezeit, GitHub kostet bei öffentlichem Repo nichts; Gegenargument zweiter Bauplatz. Vorlage an den Chef deine.
 
 
 - **von Perikles (Chef 09.11., 21:38, Bruchstück in Perikles' Sitzung vor „797 …“):** „viel mehr Geld dafür geben wird, und dafür sind die Haushalte einfach zu eng.“ Vermutlich Teil eines Gesprächs mit dir (Markt, Preis); Anfang fehlt, bitte zuordnen.
