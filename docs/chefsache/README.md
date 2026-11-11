@@ -162,14 +162,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 785.22 | M | Von Spike (785): Leiste zeigt den Zustand „Satt“ wie alt (WorldScreen.kt 2856–2872; zustan | wartet auf 870.13 (wartet) |
 | 785.23 | M | Von Spike (785): Renntaste geht von selbst aus, wenn der Held steht oder außer Atem ist (W | startbar |
 | 785.24 | M | Von Spike (785): Laden: Vorräte mit Wirkungszeile in der Liste wie alt (ShopScreen.kt 226– | wartet auf 870.13 (wartet) |
-| 989 | M | Von Sokrates (952 D, Chef 11.11., 20:03): Heldenseite zeigt kritisch je Waffe und Zauber n | wartet auf 952 (startbar) |
+| 989 | M | Von Sokrates (952 D, Chef 11.11., 20:03): Heldenseite zeigt kritisch je Waffe und Zauber n | wartet auf 952 (in Arbeit) |
 | 984.1 | M | Von Sokrates (984 A, Chef 11.11., 20:12): Illusion und Beschwörung in Kapitel 1 bei der Er | startbar |
 | 990 | M | Von Sokrates (Chef 11.11., 20:19, Fund t277, Bild): Staubflocken in Thessas Kramladen schw | wartet auf Test/Build (gebaut) |
 | 991 | M | Von Sokrates (Chef 11.11., 20:24, Test 277): Testmenü: jeder Schalter zeigt seinen Zustand | wartet auf Test/Build (gebaut) |
 | 994 | M | Von Sokrates (Chef 11.11., 20:54, Test 277.18): Klangzeile zeigt beim neuen Spiel ständig | wartet auf Test/Build (gebaut) |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 15181 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
 
-**Jerry** – offen 130, Muss 112, startbar 13
+**Jerry** – offen 130, Muss 112, startbar 12
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -262,7 +262,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 947 | M | Fund t276.12 (Chef 11.11., 13:36): MARS-Probekampf stellt dem Helden einen Söldner gleiche | wartet auf Test/Build (gebaut) |
 | 949 | M | Fund t276.13 (Chef 11.11., 13:44): perfekter Ring gegen Grak – Kampftext „greift an, schlä | Sperre 620.1 B: 29 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 904 (grak) |
 | 950 | M | Fund t276 (Chef 11.11., 13:44): MARS-Probekampf, Platztausch im Team (Held und Söldner) gl | wartet auf Test/Build (gebaut) |
-| 952 | M | Von Sokrates (Chef 11.11., 13:53, Erschaffung Mensch): kritisch 7 % schon als Anfänger („k | startbar |
+| 952 | M | Von Sokrates (Chef 11.11., 13:53, Erschaffung Mensch): kritisch 7 % schon als Anfänger („k | in Arbeit bei Tuffy |
 | 956 | M | Von 870.6a A (Chef 11.11., 13:55): Gift, Brand, Blutung als Anteil am vollen Leben mit dem | nach dem Meilenstein |
 | 930.3 | M | Von Sokrates (930): Rechnung (fertig, handgemenge_930.md) und Film zur Regelseite Handgeme | wartet auf 931 (startbar) |
 | 958 | M | Von Tuffy (870.6): Test kampfzustand_532 rot auf main und B1: „Zustände hinein“ erwartet D | wartet auf Test (Build) |
