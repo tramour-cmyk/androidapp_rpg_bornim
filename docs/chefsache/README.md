@@ -150,12 +150,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 963 | M | Von Tom (Zu 870.4, Fremdprüfung Homer 14:15): Heldenreiter Wortlaut ohne Wirkungsloses: Zä | startbar |
 | 966.2 | M | Von Sokrates (966 A neu, Chef 11.11., 15:58): Kochen und Alchemie mit Ring wie Knacken (DE | wartet auf 870 (wartet) |
 | 967 | M | Von Tuffy (948): halt_653 am Rechner 8 Fehler, Schild im Körper bei KLOSTER_M (20 Ecken, b | startbar |
-| Pflege | K | von Werkzeug (340.3, 11.11.): 15710 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 954a.5 | M | Von Perikles (954a.2): Schleichen auf der Gebietskarte: Schleichtaste, geduckt und langsam | wartet auf 870 (wartet) |
 | 954a.7 | M | Von Perikles (954a.2): Spähen durch Verweilen: Ring zeigt Heilkräuter abseits der Wiesen, | wartet auf 870 (wartet) |
 | 954a.12 | M | Von Perikles (954a.2): Erschaffung: nicht wählbare Fertigkeiten (Bergbau, Angeln, Schmiede | wartet auf 870 (wartet) |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 15522 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 114, Muss 106, startbar 21
+**Jerry** – offen 115, Muss 106, startbar 22
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -273,6 +273,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 954a.13 | M | Von Perikles (954a.2, D): Volksmerkmal Glückskind (Hügelvolk) wirkt nur im alten Kampf kla | wartet auf 870 (wartet) |
 | 969 | M | Von Sokrates (Chef 11.11., 15:49): Regelwerte zum Nachschlagen, dritte Seite neben 644 und | wartet auf 968 (startbar) |
 | 971 | M | Von Sokrates (966, Chef 11.11., 15:58): werte.json ueben.leicht_min 0,2 → 0,1 (leichte Zie | startbar |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 15771 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 15, Muss 13, startbar 2
 
