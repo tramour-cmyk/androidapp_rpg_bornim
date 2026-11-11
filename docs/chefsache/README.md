@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [705a](entscheiden/705a-zauberer-vertreibt-rudel.md) | **Muss** | E Kampf | 11.11., 07:41 | Zaubert der Zauberlehrling, gewinnt er gegen das Rudel 9 von 10 Kämpfe, aber 85 % davon fliehen die Wölfe vor dem Feuer: kein Fell, keine Erfahrung. | Tuffy |
-| [903](entscheiden/903-checkliste-nach-probe.md) | **Muss** | B Abläufe | 11.11., 07:36 | Nach der Liste fand der Chef in vier Builds 11 neue Fehler statt 34; ich rate, die Liste fest zu behalten und weitere Listen und die Seite bis nach dem Umzug aufs BRS ruhen zu lassen. | Perikles |
 | [709c](entscheiden/709c-wolfsangriff.md) | **Muss** | E Kampf | 10.11., 19:35 | Statt seitlich herum (bis 90°) gerade von vorn durch die Mitte; offen ist vor allem, was beim Treffer am Schild passiert. | Jerry |
 
 ## Zu billigen
@@ -52,7 +51,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 |---|---|---|---|
 | 825 | M | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635 | wartet auf Test/Build (gebaut) |
 | 697 | M | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | wartet auf 782 (startbar) |
-| 680 | M | Absturz: Testmenü Sprung Wald → Dorf, in der Schenke schon hakelig, nach Met immer zäher, | in Arbeit bei Spike |
+| 680 | M | Absturz: Testmenü Sprung Wald → Dorf, in der Schenke schon hakelig, nach Met immer zäher, | wartet auf Test/Build (gebaut) |
 | 870.4 | M | Von Sokrates (870, Umzug BRS Schritt 4; „jetzt“ 10.11., 22:24, Nachtauftrag Chef): Held: H | startbar |
 | 870.7 | M | Von Sokrates (870, Umzug BRS Schritt 6): Laden, Vergleich und Gegenstandsfenster nach BRS- | wartet auf 870.4 (in Arbeit) |
 | 870.8 | M | Von Sokrates (870, Umzug BRS Schritt 7): Spielstände Version 2 mit BRS-Held; alte laden ni | wartet auf Test/Build (gebaut) |
@@ -240,7 +239,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | Pflege | K | von Werkzeug (340.3, 11.11.): 18407 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 904 | M | Von Tom (870.4, B1): sim444_870 am Rechner (97a32cfe2): SCRIPT ERROR mars.gd:903 _erwartet | startbar |
 
-**Perikles** – offen 25, Muss 12, startbar 0
+**Perikles** – offen 25, Muss 12, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -268,7 +267,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 866 | M | Von Sokrates (620, Lagebild t274): Prüfliste geht nur gegengelesen raus; Wächter statt Abs | wartet auf Test/Build (gebaut) |
 | 882 | M | D140.1 (Diogenes, 870.18): Kotlin-Ausstieg ohne Werkzeuge: 870.10 nennt nur android.yml; a | wartet auf 870.4 (in Arbeit) |
 | 896 | M | Von Jerry (870.5): Wächter meldet „TP“ als SRD-Begriff (886), Homer 870.14 und DESIGN-BRS | wartet auf Test/Build (gebaut) |
-| 903 | M | D152.1 von Diogenes (771, 657 D): Probe 657 ausgewertet, Prüfbericht Lauf 152; Grundlage 1 | Chef (Datei in der Chefsache) |
+| 903 | M | D152.1 von Diogenes (771, 657 D): Probe 657 ausgewertet, Prüfbericht Lauf 152; Grundlage 1 | startbar |
 
 **Diogenes** – offen 7, Muss 6, startbar 0
 
