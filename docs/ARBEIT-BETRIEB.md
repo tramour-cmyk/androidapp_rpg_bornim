@@ -98,8 +98,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:06 11.11.: Lauf 08:04: Spike …7A7ke „Spike – 492“ und Tuffy …774gF „Tuffy – 536“ in Hoch gestartet (Muss, Chef 07:16). Zwischenfall: `lauf.py` aus dem Arbeitskopf `androidapp_rpg_bornim` gerufen rechnete mit altem Stand (START Spike 680, Tuffy 705, beide schon gebaut); Marken gestrichen, nichts gestartet. Künftig `lauf.py` aus `/home/user/bornim-main/tools` rufen oder vorher im Arbeitskopf `git pull origin main`
 - 08:04 11.11.: Start Perikles 264.1 (Chef 08:00 „Läufe frei“): …75nyB „Perikles – 264.1: Lauf 8“ in Hoch gestartet; Perikles …7727 archiviert (3,29 $ nachgebucht auf 901), Sokrates …77G3d archiviert (7,05 $ auf 870, 903, 709). Lauf 08:03 lief nicht als Wecker, Plan von Hand gerechnet; falsche START Spike/Tuffy 680/705 entfielen nach `git pull` (Stand gebaut war nachgezogen)
 - 08:01 11.11.: Neustart Sokrates (9a3c47885): Nachfolger …77wg6 in Hoch gestartet; Sokrates …77G3d arbeitet noch, Archivieren (Kosten auf 870, 903, 709) im Lauf 08:03. Jerry …75Qj archiviert, 9,50 $ auf 751 gebucht (Jerry ersetzte seine Übergabe 07:59 um 854 zuerst; der 806-Nachfolger liest sie)
-- 08:00 11.11.: Neustart Jerry: Nachfolger …782ws „Jerry – 806“ in Hoch gestartet. Spike …76dn (680 fertig, 4,66 $) und Tuffy …7A2W (705 gebaut, 4,26 $) archiviert und gebucht
-- 07:49 11.11.: Neustart Tom (c4097ed7d): Nachfolger …78hPe „Tom – 870.4: Lauf 338 auswerten“ in Hoch gestartet (lauf.py nannte noch Mittel, von Hand Hoch), Tom …79ceB archiviert, 9,38 $ gebucht (870.4). Stillstand-Zeilen Diogenes/Perikles (nur ausgeschlossene 771, 901) nicht geschrieben
 - 11:50 11.11.: Neustart Jerry (6633fd231) zurückgenommen: Jerry alt …76ovF meldete 11:49, der Chef habe ihm 11:48 das Kaufrepo freigegeben („Binde alle Repos an, die du brauchst“), die Sitzung bleibe bis 400 Tsd. Token offen. Der Nachfolger …785pF „Jerry – 910“ (11:49 gestartet, ohne Arbeit, 0 $) ist archiviert; je Rolle eine Sitzung. Startsperre 11:49 Jerry gilt damit nicht.
 - 11:36 11.11.: Neustart Perikles (3723bca76): Nachfolger …773WJ „Perikles – 882“ in Hoch gestartet; Perikles …75iDf archiviert, 3,89 $ auf 921, 882. Diogenes …77f5D „Diogenes – 921“ (Auftrag Perikles ab6ad7ad1, 11:16) läuft; „Weiter: 882“ an Perikles (Tom 11:33) hat der volle Kontext verhindert. Fehler von mir: die Startsperre 11:35 mit Bash angehängt statt mit Edit (Notizenregel); ab jetzt Edit.
 - 09:24 11.11.: Startsperre 09:24 Start Diogenes (Ford, vor dem Start; Auftrag Diogenes 911 und 264.1, caf221f84, ee20ff5a8; Umgebung Hoch)
@@ -352,3 +350,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:30 11.11.: Marke Mehrfach Sokrates (lauf.py)
 - 13:05 11.11.: Startsperre 13:05 Start Perikles (lauf.py)
 - 13:05 11.11.: Marke Archiv session_01Hmoj78SXwReesN18pQZT6t (lauf.py)
+- 13:11 11.11.: Startsperre 13:11 Start Homer (lauf.py)
+- 13:11 11.11.: Marke Nachhalten 11.11. (lauf.py)
