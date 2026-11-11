@@ -1,8 +1,8 @@
 class_name BrsHeld
 extends RefCounted
-# 470 (Abnahme 1.1): Erschaffung nach dem BRS (Nachschlagewerk Abschnitt 2, E 68-72, 77, 78). Jeder Grundwert beginnt bei 1, der
-# Spieler verteilt 21 Punkte, danach liegt jeder zwischen 3 und 8; das Volk gibt +1/+1/-1 (Mensch +1 frei) und darf bis 9 heben,
-# nie unter 3 senken; die Herkunft verteilt vor (aenderbar) und gibt ihre Startfertigkeiten, der Wanderer verteilt selbst und waehlt
+# 470 (Abnahme 1.1): Erschaffung nach dem BRS (Nachschlagewerk Abschnitt 2, E 68-72, 77, 78). Jeder Grundwert beginnt bei 3, der
+# Spieler verteilt 9 Punkte bis hoechstens 8 (intern start 1, 21 Punkte, Untergrenze 3); das Volk gibt +1/+1/-1 (Mensch +1 frei) und
+# darf bis 9 heben und bis 2 senken (933 A, Chef 11.11., 13:07); die Herkunft verteilt vor (aenderbar) und gibt ihre Startfertigkeiten, der Wanderer verteilt selbst und waehlt
 # zwei, der Mensch waehlt eine mehr (Wandelbar); jede Startfertigkeit beginnt beim Startwert (10).
 # 870.4 (LISTE-UMZUG-BRS.md Schritt 4): BrsHeld ist die einzige Quelle fuer die Werte des Helden im Spiel; heldwerte.gd (SRD, Hero.kt)
 # entfaellt. Dazu gehoeren Name, Heldenstufe (Spiegel von Zustand.brs_stufe, Brs.neuer_stand), Leben und Mana jetzt, was er traegt
@@ -149,7 +149,7 @@ func grundwert(g: String) -> int:
 	var v := int(verteilt.get(g, unten()))
 	var p := volk_plus(g)
 	if p > 0: return mini(v + p, maxi(v, int(e().get("volk_max", 9))))
-	if p < 0: return maxi(v + p, mini(v, int(e().get("volk_min", 3))))
+	if p < 0: return maxi(v + p, mini(v, int(e().get("volk_min", 2))))
 	return v
 
 ## Grundwert -> Kennung seiner Zusatzeigenschaft an Gegenstaenden (held.json affixdaten; Kennungen bleiben, Namen nach BRS_AFFIX)
@@ -308,13 +308,13 @@ func kennt_schwaechen() -> bool: return wert("verstand") >= int(welt().get("wiss
 ## Aus wie vielen Feldern ein jagendes Monster den Helden bemerkt (welt „bemerken_…“; alt Perks.noticeRange nach Geschicklichkeit)
 func bemerkt_aus() -> int:
 	var wl := welt()
-	var weniger := int(float(wl.get("bemerken_je_gewandtheit", 0.2)) * maxi(0, wert("gewandtheit") - int(wl.get("sinne_ab", 3))))
+	var weniger := int(float(wl.get("bemerken_je_gewandtheit", 0.2)) * (wert("gewandtheit") - int(wl.get("sinne_ab", 3))))     # 933: eine 2 zaehlt mit
 	return maxi(int(wl.get("bemerken_min", 2)), int(wl.get("bemerken_felder", 4)) - weniger)
 
 ## Faktor auf die Chance eines Hinterhalts nach Wahrnehmung (alt Perks.ambushFactor nach Weisheit)
 func hinterhalt_faktor() -> float:
 	var wl := welt()
-	return maxf(float(wl.get("hinterhalt_min", 0.4)), 1.0 - float(wl.get("hinterhalt_je_wahrnehmung", 0.075)) * maxi(0, wert("wahrnehmung") - int(wl.get("sinne_ab", 3))))
+	return maxf(float(wl.get("hinterhalt_min", 0.4)), 1.0 - float(wl.get("hinterhalt_je_wahrnehmung", 0.075)) * (wert("wahrnehmung") - int(wl.get("sinne_ab", 3))))     # 933: eine 2 zaehlt mit
 
 # ---------------------------------------------------------------- Ausruestung (aus heldwerte.gd 390, Hero.equip)
 static func gesamt(g: Dictionary, affix: String) -> int:

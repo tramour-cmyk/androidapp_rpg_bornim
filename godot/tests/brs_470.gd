@@ -29,10 +29,13 @@ func _lauf() -> void:
 	pruefe("alle verteilt", [b.frei(), b.kann_hoch("kraft")], [0, false])
 	# Elf: Gewandtheit +1, Wahrnehmung +1, Zähigkeit −1; Zähigkeit 4 -> 3, Gewandtheit 3 -> 4
 	pruefe("Elf", [b.wert("gewandtheit"), b.wert("wahrnehmung"), b.wert("zaehigkeit"), b.wert("wille")], [4, 4, 3, 8])
-	# Malus nie unter 3: Zwerg mit Gewandtheit 3 bleibt 3; Bonus hebt 8 auf 9
+	# 933 A (Chef 11.11., 13:07): Malus bis 2, Zwerg mit Gewandtheit 3 hat 2; Bonus hebt 8 auf 9
 	var z := BrsHeld.neu("Zwerg", "Wanderer")
 	for i in 5: z.hoch("zaehigkeit")
-	pruefe("Zwerg", [z.wert("gewandtheit"), z.wert("zaehigkeit"), z.wert("verstand")], [3, 9, 4])
+	pruefe("Zwerg", [z.wert("gewandtheit"), z.wert("zaehigkeit"), z.wert("verstand")], [2, 9, 4])
+	z.hoch("gewandtheit")
+	pruefe("Zwerg Gewandtheit 4 -> 3", z.wert("gewandtheit"), 3)
+	pruefe("Volk senkt bis 2, hebt bis 9", [int(BrsHeld.e()["volk_min"]), int(BrsHeld.e()["volk_max"])], [2, 9])
 	# Fertigkeiten wählen
 	b.waehle("Bogen"); b.waehle("Bergbau"); b.waehle("Spähen"); b.waehle("Dolche")
 	pruefe("Wanderer wählt zwei, Bergbau nicht", [b.wahl, b.fertig()], [["Bogen", "Spähen"], true])

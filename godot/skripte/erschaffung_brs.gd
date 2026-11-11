@@ -4,7 +4,7 @@ extends Control
 # 14:39 „an die Designvorgaben halten“): eine Seite wie CreateScreen.kt im schwarzen Look (LocalVeil): oben fest der Held, der sich
 # dreht, daneben Name, Volk, Herkunft, Leben, Mana und die sechs Grundwerte; darunter rollend Name, Volk, Aussehen, Herkunft,
 # Grundwerte, Startfertigkeiten; unten fest Zurueck und Abenteuer beginnen. Masse in dp/sp wie alt (Theme.kt Txt, VeilHead, Panel).
-# 470 (Abnahme 1.1, BRS): ohne Klasse; sechs Grundwerte ab 1 mit 21 Punkten (3 bis 8), Volk mit Plus, Minus und Merkmal, Herkunft
+# 470 (Abnahme 1.1, BRS): ohne Klasse; sechs Grundwerte ab 3 mit 9 Punkten (bis 8), Volk mit Plus, Minus (bis 2, 933) und Merkmal, Herkunft
 # freiwillig (verteilt vor, aenderbar) oder Wanderer, Startfertigkeiten; Regeln und Zahlen in regeln/brs_held.gd aus daten/werte.json.
 # Texte wortgetreu aus dem Handbuch (STORY-HANDBUCH-1.md, Marken [423.…]). 870.4: ohne Bruecke zum SRD; Tracht, Beispielkopf und
 # Grundausruestung im Drehteller nach der Herkunft (HeldFigur, werte.json „welt“ „start“).
@@ -25,11 +25,11 @@ const DP := AktionsKnopf.DP
 # Handbuch (Homer, 423): Namen und Saetze in beiden Sprachen, wortgetreu
 const T := {
 	"werte": {"de": "Die sechs Grundwerte", "en": "The six attributes"},                                     # [423.werte]
-	"schaffen": {"de": "Jeder Grundwert beginnt bei 1. Du verteilst 21 Punkte; danach liegt jeder Wert zwischen 3 und 8. Die Untergrenze bindet zwölf Punkte, neun sind frei: du kannst einen Wert stark machen oder mehrere ein wenig.",
-		"en": "Every attribute starts at 1. You spend 21 points; afterwards each value lies between 3 and 8. The floor binds twelve points, nine are free: make one value strong, or several a little."},   # [423.schaffen]
+	"schaffen": {"de": "Jeder Grundwert beginnt bei 3. Du verteilst 9 Punkte, kein Wert steigt dabei über 8: du kannst einen Wert stark machen oder mehrere ein wenig.",
+		"en": "Every attribute starts at 3. You spend 9 points, and none may go above 8 this way: make one value strong, or raise several a little."},   # [423.schaffen] (933.1)
 	"volk": {"de": "Dein Volk", "en": "Your people"},                                                        # [423.volk]
-	"volk_text": {"de": "Dein Volk gibt einen kleinen Vorteil und einen kleinen Nachteil und ein Merkmal, das man merkt. Es darf einen Wert auf 9 heben, aber keinen unter 3 drücken.",
-		"en": "Your people grant a small boon, a small flaw and a trait you will notice. They may lift a value to 9, but never push one below 3."},
+	"volk_text": {"de": "Dein Volk gibt einen kleinen Vorteil, meist auch einen kleinen Nachteil, und ein Merkmal, das man merkt. Es kann Werte auf 9 heben oder auf 2 senken.",
+		"en": "Your people grant a small boon, usually a small flaw, and a trait you will notice. They may lift values to 9 or lower them to 2."},   # [423.volk] (933.1)
 	"herkunft": {"de": "Herkunft, wenn du willst", "en": "Origin, if you wish"},                              # [423.herkunft]
 	"herkunft_text": {"de": "Eine Herkunft verteilt die Punkte für dich vor, gibt dir zwei oder drei Fertigkeiten mit dem Wert {held.startfertigkeit} und die Ausrüstung dazu. Ein Satz sagt dir, wohin sie meist führt. Die Punkte darfst du danach noch ändern.",
 		"en": "An origin spends the points for you, gives you two or three skills at {held.startfertigkeit} and the gear to match. One line tells you where it usually leads. You may still move the points afterwards."},
@@ -376,7 +376,7 @@ func grundwerte() -> void:
 				var gg := int(round(sp_ * 0.95 * Stil.SP))
 				n.add_theme_font_size_override("font_size", gg)
 				if n.get_theme_font("font").get_string_size(n.text, HORIZONTAL_ALIGNMENT_LEFT, -1, gg).x <= n.size.x: break)
-		var vp := b.volk_plus(g)   # Pruefer 14:5x: auch ein Minus, das die Untergrenze 3 auffaengt (Elf, Zaehigkeit 3)
+		var vp := b.volk_plus(g)   # Pruefer 14:5x: auch das Minus des Volks (933: Elf, Zaehigkeit 3 -> 2)
 		for z in [[str(b.wert(g)), 16, Stil.TEXT, 28], [vorzeichen(vp).replace("-", "−") if vp != 0 else "", 13, Stil.GOLD if vp > 0 else Spielstaende.mangel(), 28]]:
 			var l := txt(z[0], z[1], z[2], z[1] == 16)   # 584: der Wert halbfett wie alt
 			l.autowrap_mode = TextServer.AUTOWRAP_OFF
