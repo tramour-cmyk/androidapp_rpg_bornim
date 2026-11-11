@@ -320,3 +320,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:41 11.11.: Startsperre 09:41 Start Spike (lauf.py)
 - 09:41 11.11.: Marke Archiv session_01Hmoj76LAQQMn2ovaYB6abt (lauf.py)
 - 09:44 11.11.: Startsperre 09:44 Start Diogenes, Homer (lauf.py; Tuffy 784 bewusst nicht: wartet auf Weckruf 10:12, Archivieren verlöre ihn)
+- 09:47 11.11.: Startsperre 09:47 Start Perikles (Neustart-Meldung 09:46, 365df6eb8; Tuffy 784 weiter bewusst nicht)
