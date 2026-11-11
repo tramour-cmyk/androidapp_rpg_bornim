@@ -227,7 +227,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 870.4 | M | Von Sokrates (870, Umzug BRS Schritt 4; „jetzt“ 10.11., 22:24, Nachtauftrag Chef): Held: H | wartet auf 910 (startbar) |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 17085 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 30, Muss 17, startbar 1
+**Perikles** – offen 30, Muss 17, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -260,9 +260,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 912 | M | D156.1 (911, Diogenes): probelauf.py zählt den nächsten Handlauf auf B1 claude/tom-870-4-h | wartet auf Diogenes (greift?) |
 | 913 | M | D157.1 (912, Diogenes): nr_aus_zweigname holt main über zweig_lesen und verbiegt FETCH_HEA | wartet auf Diogenes (greift?) |
 | 914 | M | D157.2 (912, Diogenes): Zweigname vor eigenem Verlauf gibt bei Merge oben die Oberbegriffs | wartet auf Diogenes (greift?) |
-| 916 | M | Von Ford (09:44): lauf.py Zusatzentwickler-Zweig (612 ff.) kennt --ohne nicht und hält ein | startbar |
+| 916 | M | Von Ford (09:44): lauf.py Zusatzentwickler-Zweig (612 ff.) kennt --ohne nicht und hält ein | wartet auf Diogenes (greift?) |
 
-**Diogenes** – offen 12, Muss 11, startbar 4
+**Diogenes** – offen 13, Muss 12, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -271,6 +271,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 912 | M | D156.1 (911, Diogenes): probelauf.py zählt den nächsten Handlauf auf B1 claude/tom-870-4-h | startbar |
 | 913 | M | D157.1 (912, Diogenes): nr_aus_zweigname holt main über zweig_lesen und verbiegt FETCH_HEA | startbar |
 | 914 | M | D157.2 (912, Diogenes): Zweigname vor eigenem Verlauf gibt bei Merge oben die Oberbegriffs | startbar |
+| 916 | M | Von Ford (09:44): lauf.py Zusatzentwickler-Zweig (612 ff.) kennt --ohne nicht und hält ein | startbar |
 | 461b | M | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Termin 16.11. |
 | 348.9 | M | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | ruht |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
