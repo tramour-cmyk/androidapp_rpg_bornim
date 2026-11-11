@@ -38,7 +38,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
-**Tom** – offen 124, Muss 104, startbar 12
+**Tom** – offen 124, Muss 104, startbar 11
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -123,7 +123,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 698 | M | Grafikstufen im Systemmenü mit Effekten (Niedrig/Mittel/Hoch, Automatisch per Leistungstes | wartet auf 623 (startbar) |
 | 816 | M | Effekte Szene 1 Dorf am Abend nach LISTE-EFFEKTE (Reihenfolge 623.8): gedämpft, Bilder/s n | wartet auf 698 (startbar) |
 | 814 | M | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staub im Licht, Fußstaub, Fahne, Wind, | Termin 11.11. 23:05 |
-| 831 | M | Bildtafel Bäume: vier Arten aus Stylized Nature MegaKit frei (gewöhnlich, abgestorben, Kie | startbar |
+| 831 | M | Bildtafel Bäume: vier Arten aus Stylized Nature MegaKit frei (gewöhnlich, abgestorben, Kie | wartet auf 1005 (startbar) |
 | 839 | K | Von Homer (817): Erklärtexte der Grundwerte im Reiter Held nach BRS einbauen, Texte STORY- | ruht |
 | 842 | M | Von Sokrates (807a A, Chef 10.11., 11:01): Pim überreden und Verband nach STORY-K1-FERTIGK | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.7 |
 | 852 | K | Von Homer (432a A, Chef 10.11., 12:05): Aschgeborene bauen: Modell Mensch mit aschgrauer S | ruht |
@@ -331,10 +331,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 52, Muss 38, startbar 28
+**Sokrates** – offen 53, Muss 39, startbar 29
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 1005 | M | Von Tom (831): Läufe frei für ein Standbild des Einbaus im Wald? Der gezählte Probelauf 22 | startbar |
 | 887 | M | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus (dontAsk von | ruht |
 | 870 | M | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen, Bau Tom u | wartet auf 870.13 (wartet) |
 | 780 | M | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für uns | Termin 23.11. |
