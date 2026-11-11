@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [644a](entscheiden/644a-mindeststufe.md) | **Muss** | E Kampf | 11.11., 20:34 | Mindeststufe zum Tragen bauen, wie im Regelwerk vorgesehen; ab Stufe 4 doppelte Zusatzeigenschaften statt mehr Grundschaden; Funde höchstens eine Stufe über dem Helden | Sokrates |
 
 ## Zu billigen
 
@@ -328,7 +332,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 52, Muss 38, startbar 29
+**Sokrates** – offen 52, Muss 38, startbar 28
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -383,7 +387,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 869 | K | Systemlösung? Rüstung: 2 frühere Vorgänge (49, 817), neu 868; einmal grundsätzlich lösen? | startbar |
 | 930 | M | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (wartet) |
 | 985 | K | Systemlösung? Nebel: 2 frühere Vorgänge (505, 502), neu 785.7; einmal grundsätzlich lösen? | startbar |
-| 644a | M | Rückfrage: Mindeststufe zum Tragen, Stärke je Gegenstandsstufe, Abstand der Funde (Chef 11 | startbar |
+| 644a | M | Rückfrage: Mindeststufe zum Tragen, Stärke je Gegenstandsstufe, Abstand der Funde (Chef 11 | Chef (Datei in der Chefsache) |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
