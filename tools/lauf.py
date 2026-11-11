@@ -142,8 +142,25 @@ def neu_fuer_chef(betrieb, vorraete):
         aus.append(("Installieren %s" % m.group(2), "Jetzt installieren: %s" % m.group(1)[:200]))
     for r, txt in sorted(vorraete.items()):
         u = re.search(r"^\*\*Übergabe[^\n]*?\((\d\d)\.(\d\d)\.,?\s*(\d\d:\d\d)[^\n]*", txt, re.M)
-        if u and re.search(r"wartet auf (den )?Chef", u.group(0)) and frisch(u.group(1), u.group(2)):
-            aus.append(("Übergabe-Chef %s %s.%s. %s" % (r, u.group(1), u.group(2), u.group(3)), "%s: Übergabe wartet auf Chef: %s" % (r, u.group(0)[:200])))
+        if not u or not frisch(u.group(1), u.group(2)): continue
+        nrn = warte_chef_nummern(u.group(0))
+        if nrn:
+            aus.append(("Übergabe-Chef %s %s.%s. %s" % (r, u.group(1), u.group(2), u.group(3)), "%s: Übergabe wartet auf Chef: %s" % (r, "; ".join(nrn))))
+    return aus
+
+VORGANG_NR = r"\d{1,4}[a-z]?(?:\.\d+[a-z]?)*"
+
+def warte_chef_nummern(zeile):
+    """941 (D171.1): je „wartet auf (den) Chef(sache N)“ außerhalb von „…“, "…", `…` die Vorgangsnummer mit kurzem Zusatz;
+    die Nummer nach „Chefsache“, sonst die letzte im selben Satzteil davor (bis ; oder Satzende); Datum und Uhrzeit zählen nicht."""
+    ohne = re.sub(r"„[^“\n]*“|\"[^\"\n]*\"|`[^`\n]*`", lambda m: " " * len(m.group(0)), zeile)
+    aus = []
+    for m in re.finditer(r"wartet auf (?:den )?Chef(?:sache\s+(%s))?" % VORGANG_NR, ohne):
+        teil = re.split(r";|\.\s|\):\*\*", ohne[:m.start()])[-1]
+        vorher = [t for t in re.findall(r"(?<![\w.:,-])(%s)(?![\w,:-])" % VORGANG_NR, teil) if not re.fullmatch(r"\d\d\.\d\d", t)]
+        nr = m.group(1) or (vorher[-1] if vorher else "?")
+        zusatz = re.sub(r"\s+", " ", zeile[m.start() - len(teil):m.end()]).strip()
+        aus.append("%s (%s)" % (nr, ("…" + zusatz[-119:]) if len(zusatz) > 120 else zusatz))
     return aus
 
 def startmarken():

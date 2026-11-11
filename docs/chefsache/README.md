@@ -4,11 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [870.6a](entscheiden/870.6a-zustaende-sammeln.md) | **Muss** | E Kampf | 11.11., 13:41 | Mit einem Wert (Grak heilt beim Sammeln 28 % statt 50 % seines Lebens) liegen die Bosskämpfe wieder wie vor 870.6; Gift, Brand und Blutung am Helden kommen dort nicht vor, Gegner treffen nach dem BRS nie kritisch. | Tuffy |
+Nichts offen.
 
 ## Zu billigen
 
@@ -31,15 +27,17 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 3, Muss 1, startbar 0
+**Homer** – offen 5, Muss 3, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
+| 954.1 | M | Von Sokrates (954, Chef 11.11., 13:55): je ein Satz zum Gedrückthalten in der Erschaffung | startbar |
+| 955 | M | Von Sokrates (Chef 11.11., 13:55 „2 ja“): Text Heiltrank (potion) ohne „klassisch“ neu (he | startbar |
 
-**Tom** – offen 100, Muss 80, startbar 6
+**Tom** – offen 101, Muss 81, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -143,8 +141,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 933 | M | Grundwerte 933 A umsetzen (Chef 11.11., 13:07): Volk senkt bis 2, hebt bis 9 (volk_min 2, | wartet auf 933.2 (startbar) |
 | 951 | M | Fund t276 (Chef 11.11., 13:44): Blende Flüsterwald zeigte nur den Namen; DESIGN-BLENDE 7: | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 944 (fund) |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 15034 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 954 | M | Von Sokrates (Chef 11.11., 13:55 „1 ja“): Erschaffung – Gedrückthalten erklärt je Grundwer | wartet auf 954.1 (startbar) |
 
-**Jerry** – offen 106, Muss 96, startbar 4
+**Jerry** – offen 107, Muss 97, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -254,6 +253,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | Pflege | K | von Werkzeug (340.3, 11.11.): 15658 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 952 | M | Von Sokrates (Chef 11.11., 13:53, Erschaffung Mensch): kritisch 7 % schon als Anfänger („k | Sperre 620.1 B: 14 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (sokrates) |
 | 953 | M | Von Sokrates (Chef 11.11., 13:53, Erschaffung Mensch): kritisch 7 % schon als Anfänger („k | Sperre 620.1 B: 14 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (sokrates) |
+| 956 | M | Von 870.6a A (Chef 11.11., 13:55): Gift, Brand, Blutung als Anteil am vollen Leben mit dem | nach dem Meilenstein |
 
 **Perikles** – offen 19, Muss 14, startbar 5
 
