@@ -93,6 +93,8 @@ func _run() -> void:
 	var los_ms := -1.0
 	var hieb := false
 	var ziel_id := ""
+	var ziel_da := Transform3D()     # wo das Ziel stand, als die Flasche ankam; danach zieht es weiter (Zug der Wölfe, Sterben)
+	var ziel_box := AABB()
 	while n < 30 * 90:
 		await process_frame
 		n += 1
@@ -106,6 +108,10 @@ func _run() -> void:
 				hieb = true
 			if Zauber.bahn.size() > 0 and art != "":
 				spur.append(Zauber.bahn[-1])
+				var zf = kf.figures.get(ziel_id)
+				if zf:
+					ziel_da = zf.global_transform
+					ziel_box = zf.footprint()
 			if n > 30 * 4 and not kf.busy and not kf.playing:
 				break
 			continue
@@ -150,9 +156,16 @@ func _run() -> void:
 		print("  Weite %.1f m, Scheitel %.2f m über der Geraden bei Punkt %d von %d, Start %.2f m hoch, Ende %.2f m" % [weite, ueber, hoechst, spur.size(), a.y, b.y])
 		pruefe(ueber >= 0.2 * weite, "im Bogen: Scheitel %.2f m bei %.1f m Weite" % [ueber, weite])
 		pruefe(hoechst > spur.size() * 0.25 and hoechst < spur.size() * 0.75, "Scheitel mitten im Flug")
+		# Lauf 360 (mit Kaufmodellen) maß gegen den Ort des Wolfs am Ende der Probe, nach seinem eigenen Zug: 1,78 m „daneben“, im
+		# Film Treffer. Gemessen wird jetzt gegen sein Umriss in dem Bild, in dem die Flasche ankam (eine Handbreit darum)
 		var tz = kf.figures.get(ziel_id)
-		if tz:
-			var dz := Vector2(b.x - tz.global_position.x, b.z - tz.global_position.z).length()
-			pruefe(dz < 1.5, "kommt am Ziel an (%.2f m daneben)" % dz)
+		if tz and ziel_box.size != Vector3.ZERO:
+			var lok: Vector3 = ziel_da.affine_inverse() * b
+			var box := ziel_box.grow(0.25)
+			var dx := maxf(0.0, maxf(box.position.x - lok.x, lok.x - box.end.x))
+			var dz := maxf(0.0, maxf(box.position.z - lok.z, lok.z - box.end.z))
+			var weg := Vector2(tz.global_position.x - ziel_da.origin.x, tz.global_position.z - ziel_da.origin.z).length()
+			print("  Ziel zog nach der Ankunft noch %.2f m weiter; Umriss %.2f × %.2f m" % [weg, ziel_box.size.x, ziel_box.size.z])
+			pruefe(Vector2(dx, dz).length() < 0.01, "kommt am Ziel an (%.2f m neben dem Umriss beim Aufschlag)" % Vector2(dx, dz).length())
 	print("WURF935 %d Fehler" % fehler)
 	quit(1 if fehler > 0 else 0)
