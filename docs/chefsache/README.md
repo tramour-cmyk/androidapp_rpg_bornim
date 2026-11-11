@@ -40,10 +40,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
-**Tom** – offen 105, Muss 85, startbar 7
+**Tom** – offen 106, Muss 86, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 968 | M | Von Sokrates (Chef 11.11., 15:49 „großer Test … so schnell wie möglich, damit die anderen | startbar |
 | 944 | M | Fund t276.5 (Chef 11.11., 13:22, Bild): Würfeltexte weg, wo Beute.wuerfel_text steht: Heil | wartet auf Test/Build (gebaut) |
 | 825 | M | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635 | wartet auf Test/Build (gebaut) |
 | 697 | M | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | wartet auf 782 (startbar) |
@@ -150,7 +151,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 967 | M | Von Tuffy (948): halt_653 am Rechner 8 Fehler, Schild im Körper bei KLOSTER_M (20 Ecken, b | startbar |
 | Pflege | K | von Werkzeug (340.3, 11.11.): 15710 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 106, Muss 98, startbar 20
+**Jerry** – offen 107, Muss 98, startbar 21
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -260,6 +261,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 958 | M | Von Tuffy (870.6): Test kampfzustand_532 rot auf main und B1: „Zustände hinein“ erwartet D | wartet auf Test/Build (gebaut) |
 | 959 | M | Von Homer (954.1): werte.json herkuenfte Schmiedelehrling hat nur Schmieden, Bergbau; 461c | startbar |
 | 960 | M | Von Homer (954.1): Verstand ohne Wirkung: BrsHeld.kennt_schwaechen (870d, ab Verstand 6 Sc | startbar |
+| 969 | M? | Von Sokrates (Chef 11.11., 15:49): Regelwerte zum Nachschlagen, dritte Seite neben 644 und | startbar |
 
 **Perikles** – offen 14, Muss 13, startbar 1
 
