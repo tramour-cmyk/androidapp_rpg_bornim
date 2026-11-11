@@ -175,6 +175,16 @@ func _messen(ruhe: String, hiebe: Array, abwehr: Array) -> void:
 			if bo == null or we == null or v.is_empty():
 				continue
 			var je: int = int(bo.size() / v.size())
+			# Lauf 361: Kaufkörper und Augen bringen einen eigenen zweiten UV-Satz mit (Werte bis 3,9); als Umhang zählt nur ein Netz,
+			# dessen UV2 ganz aus Marken 0/1 besteht (held_klassen.py vorrang_marke), sonst zählten Arme und Hände des Körpers als Umhang
+			var marke: bool = uv2 != null and (uv2 as PackedVector2Array).size() == v.size()
+			if marke:
+				for t in (uv2 as PackedVector2Array):
+					if (t.x != 0.0 and t.x != 1.0) or (t.y != 0.0 and t.y != 1.0):
+						marke = false
+						break
+				if not marke:
+					print("Umhang 861: Netz %s Fläche %d mit eigenem UV2 (kein Umhang)" % [m.name, s])
 			for i in v.size():
 				var bb := PackedInt32Array()
 				var ww := PackedFloat32Array()
@@ -182,7 +192,7 @@ func _messen(ruhe: String, hiebe: Array, abwehr: Array) -> void:
 					if we[i * je + k] > 1e-4:
 						bb.append(bo[i * je + k])
 						ww.append(we[i * je + k])
-				if uv2 != null and (uv2 as PackedVector2Array).size() == v.size() and uv2[i].x > 0.5:
+				if marke and uv2[i].x > 0.5:
 					umhang.append(ecken.size())
 				ecken.append([ni, v[i], bb, ww])
 	print("Umhang 861: %d Netze mit Haut, %d Ecken, davon Umhang %d" % [netze.size(), ecken.size(), umhang.size()])
@@ -204,7 +214,9 @@ func _messen(ruhe: String, hiebe: Array, abwehr: Array) -> void:
 	for i in ecken.size():
 		ref_pos[i] = _haut(i, ref_g)
 		tief = minf(tief, ref_pos[i].y)
-		if not ist_umhang.has(i):
+		# Lauf 361 lokal nachgestellt: unter dem Umhang liegen in Ruhe die Hände; hebt sich die Hand, wuchs der Abstand, ohne dass
+		# der Umhang sich rührt. Als „darunter“ zählt darum nur, was nicht am Arm hängt (Rumpf, Beine, Kleidung am Rumpf)
+		if not ist_umhang.has(i) and _armgewicht(i) < 0.5:
 			var key := Vector3i(floori(ref_pos[i].x / ZELLE), floori(ref_pos[i].y / ZELLE), floori(ref_pos[i].z / ZELLE))
 			if not raster.has(key):
 				raster[key] = PackedInt32Array()
@@ -298,6 +310,24 @@ func _beitrag(i: int, g: Array, vz: float, aus: Dictionary, u: Vector3) -> void:
 		var d: Vector3 = K.basis * (ww[k] * ((g[bi[0]] as Transform3D) * (bi[1] as Transform3D) * v - (ref_g[bi[0]] as Transform3D) * (bi[1] as Transform3D) * v))
 		var nm := sk.get_bone_name(bi[0])
 		aus[nm] = float(aus.get(nm, 0.0)) + vz * d.dot(u)
+
+
+func _armgewicht(i: int) -> float:
+	var e: Array = ecken[i]
+	var binds: Array = netze[e[0]]["binds"]
+	var bb: PackedInt32Array = e[2]
+	var ww: PackedFloat32Array = e[3]
+	var a := 0.0
+	for k in bb.size():
+		var bi: Array = binds[bb[k]]
+		if bi[0] < 0:
+			continue
+		var nm := String(sk.get_bone_name(bi[0]))
+		for v in ["upperarm", "lowerarm", "hand", "thumb", "index", "middle", "ring", "pinky"]:
+			if nm.begins_with(v):
+				a += ww[k]
+				break
+	return a
 
 
 func _gewichte(i: int) -> String:

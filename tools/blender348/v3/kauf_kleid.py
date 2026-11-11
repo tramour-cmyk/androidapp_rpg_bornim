@@ -490,7 +490,9 @@ if (ARM_LUFT > 0 or ARM_GEW > 0) and 'cloak' in TEILNAMEN and 'sleeves' in TEILN
 if 'cloak' in TID and os.environ.get('UMHANG_ARM', '') != '1':
     _ic = TID['cloak']; _bis = float(os.environ.get('UMHANG_ARM_BIS', '0.04'))
     _finger = ('thumb', 'index', 'middle', 'ring', 'pinky')
-    _n_arm = 0
+    _n_arm = _n_wirbel = 0
+    _sfade = float(os.environ.get('UMHANG_SCHLUESSEL', '0.10'))
+    _wirbel = [(Q_KN.index(n), QP_MAT[n].translation.z) for n in ('spine_01', 'spine_02', 'spine_03') if n in Q_KN and n in QP_MAT]
     for _seite in ('l', 'r'):
         _arm = [k for k, nm in enumerate(Q_KN) if nm.endswith('_' + _seite) and nm.startswith(('upperarm', 'lowerarm', 'hand') + _finger)]
         _sch = 'clavicle_' + _seite
@@ -500,9 +502,17 @@ if 'cloak' in TID and os.environ.get('UMHANG_ARM', '') != '1':
             w_arm = float(WKq[i, _arm].sum())
             if w_arm < 1e-4: continue
             k_ = float(np.clip((_sz - VK2[i, 2]) / max(_bis, 1e-3), 0.0, 1.0))   # 0 auf der Schulter, 1 ab _bis darunter
-            WKq[i, _js] += w_arm * k_; WKq[i, _arm] *= (1.0 - k_); _n_arm += 1
+            # 861 (Chef 10.11., 11.11. „Umhangbuckel“; am Rechner nachgestellt mit film_umhang_861.gd auf dem Kaufstand von Lauf 361):
+            # am Schluesselbein hingen auch Ecken 35-40 cm unter der Schulter, an der Seite bis Hueftehoehe; hebt der Schildarm die
+            # Schulter, schwenkt der Umhang dort bis 54 cm vom Koerper ab. Unter der Schulter geht das Armgewicht darum auf den naechsten
+            # Rueckenwirbel (nach Hoehe), nur binnen UMHANG_SCHLUESSEL (m) unter _bis aufs Schluesselbein (Probe am Kaufmodell: Abwehr
+            # 54 -> 15 cm, Ecken ueber 6 cm 144 -> 32). UMHANG_SCHLUESSEL=9: wie 656
+            _s = float(np.clip(1.0 - ((_sz - VK2[i, 2]) - _bis) / max(_sfade, 1e-3), 0.0, 1.0))
+            _jw = min(_wirbel, key=lambda t: abs(t[1] - VK2[i, 2]))[0] if _wirbel else _js
+            WKq[i, _js] += w_arm * k_ * _s; WKq[i, _jw] += w_arm * k_ * (1.0 - _s); WKq[i, _arm] *= (1.0 - k_); _n_arm += 1
+            _n_wirbel += _s < 1.0
     WKq = WKq / WKq.sum(1, keepdims=True)
-    print('UMHANG OHNE ARM', _n_arm, 'Ecken (Armgewichte an das Schluesselbein)')
+    print('UMHANG OHNE ARM', _n_arm, 'Ecken (Armgewichte an das Schluesselbein), davon', _n_wirbel, 'tiefer an den Ruecken')
 VK3 = np.empty_like(VK2)
 for i, v in enumerate(VK2):
     A = np.tensordot(WKq[i], SA, axes=1)
