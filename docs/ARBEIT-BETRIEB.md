@@ -79,7 +79,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 
 - 07:59 11.11.: Startsperre 07:59 Start Jerry (Neustart-Meldung 07:58, f48aaad02; Umgebung Hoch)
 - 08:01 11.11.: Startsperre 08:01 Start Sokrates (Neustart-Meldung 07:59, 9a3c47885; Umgebung Hoch)
-- 08:00 11.11.: Neustart Jerry: Nachfolger …782ws „Jerry – 806“ in Hoch gestartet; Jerry …75Qj (751) arbeitet noch (Push-Wiederholung), Archivieren im nächsten Lauf. Spike …76dn (680 fertig, 4,66 $) und Tuffy …7A2W (705 gebaut, 4,26 $) archiviert und gebucht
+- 08:01 11.11.: Neustart Sokrates (9a3c47885): Nachfolger …77wg6 in Hoch gestartet; Sokrates …77G3d arbeitet noch, Archivieren (Kosten auf 870, 903, 709) im Lauf 08:03. Jerry …75Qj archiviert, 9,50 $ auf 751 gebucht (Jerry ersetzte seine Übergabe 07:59 um 854 zuerst; der 806-Nachfolger liest sie)
+- 08:00 11.11.: Neustart Jerry: Nachfolger …782ws „Jerry – 806“ in Hoch gestartet. Spike …76dn (680 fertig, 4,66 $) und Tuffy …7A2W (705 gebaut, 4,26 $) archiviert und gebucht
 - 07:35 11.11.: „Start Perikles 903“ (Diogenes 771): Perikles …7727 (901) arbeitet nicht, wartet auf Chef (264.1) und belegt die Rolle; statt Doppelstart „Weiter: 903“ per `send_message` an ihn. Diogenes …76FRt archiviert, 5,14 $ auf 771 gebucht
 - 07:25 11.11.: Selbstneustart ausgeführt: Ford …77YMu (Hoch), Uhr neu, alter Ford …79ZRC archiviert, 4,96 $ gebucht. Wächter 900 und 870.6 (Jerry, „jetzt“ 22:24, 9 Std.) laut gemeldet, `send_message` an Jerry nicht erreichbar; Befund an Perikles: 870.6 „wartet auf 870.4“, Wächter feuert trotzdem
 - 07:22 11.11.: **Bis Sa 14.11., 20:00 jedes create_session mit environment_id env_017fgL1YDcVTYTkJsU3APEfR (WireStorm Hoch)** (365a B, Chef 07:18; Sokrates 07:21), bis lauf.py (901) es kann; Gleichzeitig-Doppel Spike/Tuffy/Diogenes/Jerry von 07:18 (Mittel) unterbrochen, archiviert, gebucht (3,0 $ zusammen)
