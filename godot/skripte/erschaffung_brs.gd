@@ -6,11 +6,11 @@ extends Control
 # Grundwerte, Startfertigkeiten; unten fest Zurueck und Abenteuer beginnen. Masse in dp/sp wie alt (Theme.kt Txt, VeilHead, Panel).
 # 470 (Abnahme 1.1, BRS): ohne Klasse; sechs Grundwerte ab 1 mit 21 Punkten (3 bis 8), Volk mit Plus, Minus und Merkmal, Herkunft
 # freiwillig (verteilt vor, aenderbar) oder Wanderer, Startfertigkeiten; Regeln und Zahlen in regeln/brs_held.gd aus daten/werte.json.
-# Texte wortgetreu aus dem Handbuch (STORY-HANDBUCH-1.md, Marken [423.…]). Bis 2.3 kaempft der Held nach dem SRD: Klasse und
-# SRD-Werte aus der Bruecke BrsHeld.alt() (Rueckfrage 470a), auch fuer Tracht und Grundausruestung im Drehteller.
+# Texte wortgetreu aus dem Handbuch (STORY-HANDBUCH-1.md, Marken [423.…]). 870.4: ohne Bruecke zum SRD; Tracht, Beispielkopf und
+# Grundausruestung im Drehteller nach der Herkunft (HeldFigur, werte.json „welt“ „start“).
 # 376.1 Aussehen wie alt nach dem Volk: Haut und Haar als Farbtoene des Volks (Appearance.kt), dazu Gesicht, Frisur, Bart des
 # Kaufkopfs (HeldFigur), Geschlecht und Statur wie die alte Seite.
-# Ende: Signal fertig({"name", "volk", "klasse", "werte", "srd", "brs", "aussehen", "platz"}) oder zurueck.
+# Ende: Signal fertig({"name", "brs", "aussehen", "platz"}) oder zurueck.
 # 470 (Chef 10.11., 12:58 „470 jetzt“; Archiv: „Neues Spiel“ erst nach bestandenem t274.18): „Neues Spiel“ im Hauptmenue und in den
 # Spielstaenden fuehrt hierher, die alte Klassenwahl (SRD) ist weg; im Testmenue bleibt „Erschaffung BRS“ (834).
 # 470 (549a, wie 630 an der alten Seite): Schirm ohne Kasten, Seitenrand 24 dp, eine Zierlinie unter dem Kopf, Abschnitte durch
@@ -57,12 +57,12 @@ const HERKUNFT := {
 	"Wanderer": {"de": "Wanderer", "en": "Wanderer", "satz": {"de": "Wer keine Herkunft will, ist Wanderer: er verteilt selbst und wählt zwei Fertigkeiten, ebenfalls mit dem Wert {held.startfertigkeit}.",
 		"en": "Whoever wants no origin is a Wanderer: he spends his own points and picks two skills, likewise at {held.startfertigkeit}."}},
 }                                                                                                           # [423.herkunft.liste], [423.herkunft]
-const GRUPPE := {"Waffen": {"de": "Waffen", "en": "Weapons"}, "Rüstung": {"de": "Rüstung", "en": "Armour"}, "Schatten": {"de": "Schatten", "en": "Shadow"},
+const GRUPPE := {"Waffen": {"de": "Waffen", "en": "Weapons"}, "Rüstung": {"de": "Rüstung", "en": "Armor"}, "Schatten": {"de": "Schatten", "en": "Shadow"},
 	"Magie": {"de": "Magie", "en": "Magic"}, "Wildnis": {"de": "Wildnis", "en": "Wilds"}, "Gesellschaft": {"de": "Gesellschaft", "en": "Society"},
 	"Sammeln": {"de": "Sammeln", "en": "Gathering"}, "Meisterschaften": {"de": "Handwerk", "en": "Craft"}}  # [423.fert.liste]
 const FERT := {"Einhänder": "One-handed", "Zweihänder": "Two-handed", "Stangenwaffen": "Polearms", "Stumpfe Waffen": "Blunt Weapons",
 	"Dolche": "Daggers", "Faustkampf": "Brawling", "Schild": "Shield", "Bogen": "Bow", "Armbrust": "Crossbow", "Wurfwaffen": "Throwing",
-	"Leichte Rüstung": "Light Armour", "Mittlere Rüstung": "Medium Armour", "Schwere Rüstung": "Heavy Armour", "Ausweichen": "Dodge",
+	"Leichte Rüstung": "Light Armor", "Mittlere Rüstung": "Medium Armor", "Schwere Rüstung": "Heavy Armor", "Ausweichen": "Dodge",
 	"Schleichen": "Stealth", "Spähen": "Scouting", "Schlösser knacken": "Lockpicking", "Fallen entschärfen": "Disarming Traps",
 	"Evokation": "Evocation", "Schutzmagie": "Warding", "Heilmagie": "Healing Magic", "Illusion": "Illusion", "Beschwörung": "Summoning",
 	"Tiere beruhigen": "Calming Beasts", "Überreden": "Persuasion", "Einschüchtern": "Intimidation", "Handeln": "Haggling",
@@ -76,7 +76,7 @@ var rolle: ScrollContainer
 var inhalt: VBoxContainer
 var kopf: VBoxContainer               # Zusammenfassung neben dem Helden
 var unten: Control                    # Platz der Knopfzeile unten (gesperrt, solange etwas fehlt)
-var aussehen := HeldFigur.vorgabe("FIGHTER")   # 376.1; Beispielkopf der Klasse der Bruecke (Chef 28.10., 23:0x), bis der Spieler selbst waehlt
+var aussehen := HeldFigur.vorgabe("Wachsoldat")   # 376.1; Beispielkopf der Herkunft (Chef 28.10., 23:0x), bis der Spieler selbst waehlt
 var aussehen_eigen := false
 var teller: Drehteller
 var teller_wahl := ""                 # zuletzt gezeigte Wahl (Punkte bauen die Seite neu, den Helden nicht)
@@ -84,14 +84,19 @@ var teller_wahl := ""                 # zuletzt gezeigte Wahl (Punkte bauen die 
 func _init() -> void:
 	name = "Erschaffung"
 	b = BrsHeld.neu("Mensch", BrsHeld.herkuenfte()[0] if not BrsHeld.herkuenfte().is_empty() else BrsHeld.WANDERER)
-	aussehen = HeldFigur.vorgabe(klasse())
+	aussehen = HeldFigur.vorgabe(b.herkunft)
 
 func _process(dt: float) -> void: Messung.bild(dt, "Erschaffung")   # 416.1: laengste Bildpause auch hier
 
 static func tx(d) -> String: return Sprache.t(d)
+## 870.4 ([870.14.wanderer.kapitel]): „Volk · Herkunft · Heldenstufe n“ (Kapitelschirm, Spielstaende), mit [name_] vorn
+static func volk_name(v: String) -> String: return tx(VOLK.get(v, {"de": v, "en": v}))
+static func herkunft_name(h: String) -> String: return tx(HERKUNFT.get(h, {"de": h, "en": h}))
+static func heldenstufe(n: int) -> String: return ("Heldenstufe %d" if Sprache.aktiv() == "de" else "Hero Level %d") % n
+static func wer(v: String, h: String, n: int, name_ := "") -> String:
+	return (name_ + " · " if name_ != "" else "") + "%s · %s · %s" % [volk_name(v), herkunft_name(h), heldenstufe(n)]
 static func sw(t: String) -> String: return t.replace("{held.startfertigkeit}", str(int(BrsHeld.h().get("startfertigkeit", 10))))
 static func fert_name(f: String) -> String: return f if Sprache.aktiv() == "de" else String(FERT.get(f, f))
-func klasse() -> String: return String(b.alt()["klasse"])   # Bruecke bis 2.3 (470a): Tracht und Grundausruestung im Drehteller
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -181,7 +186,7 @@ func baue() -> void:
 	vk.add_child(txt(tx(VOLK[b.volk]["satz"]) if VOLK.has(b.volk) else b.merkmal(), 15, Stil.GOLD))
 	inhalt.add_child(vk)
 	inhalt.add_child(Spielstaende.linie())
-	if HeldFigur.da(klasse(), String(aussehen.get("geschlecht", "m"))):
+	if HeldFigur.da(b.herkunft, String(aussehen.get("geschlecht", "m"))):
 		aussehen_wahl()
 		inhalt.add_child(Spielstaende.linie())
 	# Herkunft
@@ -210,17 +215,17 @@ func baue() -> void:
 func volk_waehlen(v: String) -> void:
 	b.volk = v
 	b.waehle_herkunft(b.herkunft)   # Wahl der Fertigkeiten an die Zahl des Volks anpassen (Mensch eine mehr); Punkte bleiben
-	var vg := HeldFigur.vorgabe(klasse(), String(aussehen.get("geschlecht", "m")))
+	var vg := HeldFigur.vorgabe(b.herkunft, String(aussehen.get("geschlecht", "m")))
 	aussehen["haut"] = int(vg["haut"])
 	aussehen["haarfarbe"] = int(vg["haarfarbe"])
 	baue()
 
 func herkunft_waehlen(h: String) -> void:
 	b.waehle_herkunft(h)
-	if not aussehen_eigen:   # Beispielkopf der Klasse der Bruecke, solange der Spieler nichts gewaehlt hat; Geschlecht und Statur bleiben
+	if not aussehen_eigen:   # Beispielkopf der Herkunft, solange der Spieler nichts gewaehlt hat; Geschlecht und Statur bleiben
 		var g := String(aussehen.get("geschlecht", "m"))
 		var st := String(aussehen.get("statur", "normal"))
-		aussehen = HeldFigur.vorgabe(klasse(), g)
+		aussehen = HeldFigur.vorgabe(b.herkunft, g)
 		aussehen["statur"] = st
 	baue()
 
@@ -231,9 +236,8 @@ func beginne(p: int = 0) -> void:
 	if p == 0:
 		platzwahl()
 		return
-	var a := b.alt()
 	fertig.emit({"name": name_.strip_edges() if name_.strip_edges() != "" else Sprache.u("defaultName"),
-		"volk": a["volk"], "klasse": a["klasse"], "werte": {}, "srd": a["srd"], "brs": b.als_daten(), "aussehen": aussehen.duplicate(), "platz": p})
+		"brs": b.als_daten(), "aussehen": aussehen.duplicate(), "platz": p})
 
 # SlotChooser: alle Plaetze belegt; der gewaehlte Spielstand geht verloren
 func platzwahl() -> void:
@@ -275,10 +279,11 @@ func platzwahl() -> void:
 	v.add_child(Spielstaende.linie())
 	v.add_child(Spielstaende.knopfzeile(Spielstaende.knopf("neben", "Abbrechen" if de else "Cancel", func(): schleier.queue_free(), true), null))
 
-# alter Held fuer Drehteller und Grundausruestung (Bruecke bis 2.3)
-func held() -> Heldwerte:
-	var a := b.alt()
-	var h := Heldwerte.erschaffe(name_ if name_.strip_edges() != "" else "?", String(a["volk"]), String(a["klasse"]))
+# der Held mit der Startausruestung seiner Herkunft fuer den Drehteller (870.4)
+func held() -> BrsHeld:
+	var h := BrsHeld.aus_daten(b.als_daten())
+	h.name = name_ if name_.strip_edges() != "" else "?"
+	h.ausstatten()
 	return h
 
 # HeroSummary: Name, Volk · Herkunft · Stufe, Leben und Mana, die sechs Grundwerte zu zweit
@@ -290,7 +295,7 @@ func kopf_neu() -> void:
 	n.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	kopf.add_child(n)
 	kopf.add_child(txt("%s · %s · %s %d" % [tx(VOLK.get(b.volk, {"de": b.volk})), tx(HERKUNFT.get(b.herkunft, {"de": b.herkunft})), Sprache.u("level"), 1], 14))
-	kopf.add_child(txt("%s %d   %s %d" % [tx(T["leben"]), b.leben(1), tx(T["mana"]), b.mana()], 15, Stil.TEXT, true))   # 584: halbfett wie TP/RK alt
+	kopf.add_child(txt("%s %d   %s %d" % [tx(T["leben"]), b.max_leben(1), tx(T["mana"]), b.max_mana()], 15, Stil.TEXT, true))   # 584: halbfett wie alt
 	kopf.add_child(luecke(4))
 	var gw := BrsHeld.grundwerte()
 	for i in range(0, gw.size(), 2):
@@ -341,7 +346,7 @@ func wahl(was: Array, gewaehlt: String, wort: Callable, nimm: Callable, spalten 
 	g.add_theme_constant_override("h_separation", int(6 * DP))
 	g.add_theme_constant_override("v_separation", int(6 * DP))
 	for x in was:
-		var k := Erschaffung.wahlfeld(String(wort.call(x)), x == gewaehlt, func(): nimm.call(x))
+		var k := Stil.wahlfeld(String(wort.call(x)), x == gewaehlt, func(): nimm.call(x))
 		k.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		g.add_child(k)
 	return g
@@ -381,12 +386,12 @@ func grundwerte() -> void:
 			l.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 			r.add_child(l)
 		if mensch:   # Wahlfeld ohne Rahmen, der gewaehlte Wert BRIGHT auf RAISED (549a)
-			var f := Erschaffung.wahlfeld("+1", b.frei_ziel() == g, func(): b.mensch_frei = g; baue())
+			var f := Stil.wahlfeld("+1", b.frei_ziel() == g, func(): b.mensch_frei = g; baue())
 			f.custom_minimum_size.x = 48 * DP
 			f.size_flags_horizontal = Control.SIZE_SHRINK_END
 			r.add_child(f)
-		r.add_child(Erschaffung.zahl_knopf("−", func(): b.runter(g); baue(), b.kann_runter(g)))
-		r.add_child(Erschaffung.zahl_knopf("+", func(): b.hoch(g); baue(), b.kann_hoch(g)))
+		r.add_child(Stil.zahl_knopf("−", func(): b.runter(g); baue(), b.kann_runter(g)))
+		r.add_child(Stil.zahl_knopf("+", func(): b.hoch(g); baue(), b.kann_hoch(g)))
 		p.add_child(r)
 	inhalt.add_child(p)
 
@@ -409,22 +414,21 @@ func fertigkeiten() -> void:
 			g.add_theme_constant_override("h_separation", int(6 * DP))
 			g.add_theme_constant_override("v_separation", int(6 * DP))
 			for f in liste:
-				var k := Erschaffung.wahlfeld(fert_name(String(f)), b.wahl.has(f), func(): b.waehle(String(f)); baue(), b.wahl.has(f) or b.kann_waehlen(String(f)))
+				var k := Stil.wahlfeld(fert_name(String(f)), b.wahl.has(f), func(): b.waehle(String(f)); baue(), b.wahl.has(f) or b.kann_waehlen(String(f)))
 				k.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 				g.add_child(k)
 			for i in (2 - liste.size() % 2) % 2: g.add_child(luecke_breit())   # Pruefer 02.11., 14:5x: „Tiere beruhigen“ allein in seiner Gruppe war breiter
 			p.add_child(g)
 	inhalt.add_child(p)
 
-# HeroTurntable (drehteller.gd); 376.1 mit Klasse der Bruecke, Aussehen und Grundausruestung
+# HeroTurntable (drehteller.gd); 376.1, 870.4 mit Herkunft, Aussehen und Grundausruestung
 func vorschau() -> Control:
 	teller = Drehteller.new(wahl_jetzt(), 0.9)
 	teller_wahl = str(wahl_jetzt())
 	return teller
 
 func wahl_jetzt() -> Dictionary:
-	var a := b.alt()
-	return {"klasse": a["klasse"], "volk": a["volk"], "aussehen": aussehen.duplicate(), "ausruestung": held().ausruestung}
+	return {"herkunft": b.herkunft, "volk": HeldFigur.volk_modell(b.volk), "aussehen": aussehen.duplicate(), "ausruestung": held().ausruestung}
 
 func zeige_held() -> void:
 	var w := wahl_jetzt()
@@ -443,8 +447,8 @@ func aussehen_wahl() -> void:
 		func(x): aussehen["statur"] = x; baue()))
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(8 * DP))
-	v.add_child(toene("Haut" if de else "Skin", HeldFigur.toene_liste(String(b.alt()["volk"]), "haut"), "haut"))
-	v.add_child(toene("Haar" if de else "Hair", HeldFigur.toene_liste(String(b.alt()["volk"]), "haar"), "haarfarbe"))
+	v.add_child(toene("Haut" if de else "Skin", HeldFigur.toene_liste(b.volk, "haut"), "haut"))
+	v.add_child(toene("Haar" if de else "Hair", HeldFigur.toene_liste(b.volk, "haar"), "haarfarbe"))
 	inhalt.add_child(v)
 	for teil in [["form", HeldFigur.formen()], ["frisur", HeldFigur.frisuren(g)], ["bart", HeldFigur.baerte(g)]]:
 		if (teil[1] as Array).size() < 2: continue   # Heldin: kein Bart
@@ -456,7 +460,7 @@ func aussehen_wahl() -> void:
 func geschlecht_waehlen(g: String) -> void:
 	aussehen["geschlecht"] = g
 	if not aussehen_eigen or String(aussehen.get("frisur", "")) not in HeldFigur.frisuren(g):
-		aussehen["frisur"] = String(HeldFigur.vorgabe(klasse(), g)["frisur"])
+		aussehen["frisur"] = String(HeldFigur.vorgabe(b.herkunft, g)["frisur"])
 	if String(aussehen.get("bart", "")) not in HeldFigur.baerte(g): aussehen["bart"] = ""
 	baue()
 
@@ -495,10 +499,10 @@ func toene(wort: String, liste: Array, schluessel: String) -> Control:
 
 # ---------------------------------------------------------------- Bausteine aus erschaffung.gd (549a)
 
-static func vorzeichen(n: int) -> String: return Erschaffung.vorzeichen(n)
-static func txt(t: String, groesse_sp: float, farbe := Stil.TEXT, fett := false) -> Label: return Erschaffung.txt(t, groesse_sp, farbe, fett)
-static func kopfzeile(t: String) -> Label: return Erschaffung.kopfzeile(t)
-static func luecke(hoch_dp: float, breit_dp := 0.0) -> Control: return Erschaffung.luecke(hoch_dp, breit_dp)
+static func vorzeichen(n: int) -> String: return Stil.vorzeichen(n)
+static func txt(t: String, groesse_sp: float, farbe := Stil.TEXT, fett := false) -> Label: return Stil.txt(t, groesse_sp, farbe, fett)
+static func kopfzeile(t: String) -> Label: return Stil.kopfzeile(t)
+static func luecke(hoch_dp: float, breit_dp := 0.0) -> Control: return Stil.luecke(hoch_dp, breit_dp)
 
 # leere Zelle, die im Raster so breit wird wie ein Feld (Feld allein in seiner Reihe bleibt halb breit)
 static func luecke_breit() -> Control:

@@ -1,6 +1,6 @@
 # 399.2b (Tom 28.10., 15:05: „Rudel allein“ verliert 3 von 4 Klassen): Messung ohne Bild, nur die Regeln (mars.gd) wie im
 # Kampfort aus dem Aufruf (aufruf.gd starte, kampfort.gd setup): je Klasse ein neu erschaffener Held (Stufe 1, Toms
-# skripte/heldwerte.gd und daten/held.json aus 399.1), ohne Söldner, 2 Heiltränke, auf Autopilot (er wehrt „gut“ ab, mars.gd
+# regeln/brs_held.gd (870.4) und daten/held.json aus 399.1), ohne Söldner, 2 Heiltränke, auf Autopilot (er wehrt „gut“ ab, mars.gd
 # _foe_turn), unter einem Drittel LP greift er den ersten erreichbaren Gegner an (wie aufruf_399); N Würfe gegen den Wolf allein
 # und gegen das Rudel (aufruf.gd rudel).
 # Run: godot --headless --path godot -s res://tests/rudel_mess.gd   (druckt eine Tabelle, Exit 0; ohne Toms Dateien Exit 0 mit Hinweis)
@@ -13,11 +13,10 @@ const N := 300
 
 
 func _initialize() -> void:
-	if not (FileAccess.file_exists("res://skripte/heldwerte.gd") and FileAccess.file_exists("res://daten/held.json")):
+	if not (FileAccess.file_exists("res://daten/held.json")):
 		print("Heldwerte fehlen (vor 399.1): keine Messung")
 		quit(0)
 		return
-	var HW = load("res://skripte/heldwerte.gd")
 	var tab: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
 	var skills := {}
 	for s in tab.skills:
@@ -27,7 +26,7 @@ func _initialize() -> void:
 		monsters[m.id] = m
 	var a = Aufruf.new()
 	print("Klasse   Gegner  Siege  LP-Rest bei Sieg")
-	for k in ["FIGHTER", "WIZARD", "ROGUE", "CLERIC"]:
+	for k in ["Wachsoldat", "Zauberlehrling", "Herumtreiber", "Klosterschüler"]:   # 870.4: Herkunft statt Klasse
 		for gegner in ["WOLF", "RUDEL"]:
 			var siege := 0
 			var rest := 0
@@ -35,7 +34,7 @@ func _initialize() -> void:
 				var foes: Array = Aufruf.rudel(monsters, Wuerfel.new(s * 7 + 1))
 				if gegner == "WOLF":
 					foes = [foes[0]]
-				var hero = a._kaempfer("hero", HW.erschaffe("Alrik", "HUMAN", k), -1, Vector2i(Mars.FRONT, 0), skills)
+				var hero = a._kaempfer("hero", BrsHeld.fuer_spiel("Alrik", "Mensch", k), -1, Vector2i(Mars.FRONT, 0), skills)
 				var mars = Mars.new([hero], foes, tab, Wuerfel.new(s * 7 + 2), Wuerfel.new(s * 7 + 281), 0, false)
 				mars.potions["potion"] = 2
 				var react := func(_t, _i): return Mars.NONE

@@ -40,7 +40,7 @@ func _lauf() -> void:
 	pruefe("Dank wortgleich", Sprache.t(c[1]["text"]), "Drei. Gut. Die Felle riechen noch nach Blut – das wäscht sich aus. Hier, dein Lohn. Und den Umhang hab ich aus dem letzten Winter. Der hält warm.")
 	pruefe("andere nicht", Auftraege.abgabe(z, "borin"), [])
 	# Menue Chronik zeigt den Auftrag mit Stand
-	var hw := Heldwerte.erschaffe("Mira", "ELF", "WIZARD", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Mira", "Elf", "Zauberlehrling", z.neue_uid)
 	var m := Menue.new(hw, z)
 	root.add_child(m)
 	await process_frame
@@ -123,11 +123,12 @@ func _lauf() -> void:
 		pruefe("Ruf Stimmen", ["pim", "thessa", "aldric", "borin", "wache"].map(Ruf.stimme), ["hail_child", "hail_woman", "hail_man", "hail_man", ""])
 	else: print("ohne daten/leute/leute.json: Stimmen nicht geprueft")
 	pruefe("Ruf Pegel", [1, 3, 5, 9].map(func(d): return snappedf(Ruf.pegel(d), 0.01)), [0.6, 0.45, 0.3, 0.3])
-	var hr := Heldwerte.erschaffe("A", "HUMAN", "ROGUE")
-	hr.basis["DEX"] = 10
+	var hr := BrsHeld.fuer_spiel("A", "Mensch", "Herumtreiber")
+	hr.volk = ""   # 870.4: Gewandtheit nach BRS (werte.json „welt“ bemerken_…)
+	hr.verteilt["gewandtheit"] = 3
 	var r10 := Ruf.reichweite(hr)
-	hr.basis["DEX"] = 18
-	pruefe("Ruf Reichweite", [r10, Ruf.reichweite(hr)], [4, 2])
+	hr.verteilt["gewandtheit"] = 8
+	pruefe("Ruf Reichweite", [r10, Ruf.reichweite(hr)], [4, 3])
 	var rund := Zustand.aus_daten(JSON.parse_string(JSON.stringify(y.als_daten())))
 	pruefe("Ruf gespeichert", rund.gehoert, y.gehoert)
 	var lp := Leute.new(Karte.lade("village"), {"id": "probe", "x": 20, "y": 13}, null)

@@ -6,15 +6,15 @@ extends RefCounted
 #   Standbilder: <ausgabe>/tragen/<figur>_<Bewegung>_<phase>_<ansicht>.png (rechts, links, vorn, hinten), Kamera auf Brusthoehe
 #   --teil=tragenaxt: nur die Kriegsaxt in den Fassungen AXT_FASSUNGEN (Runde 3), Figur FIGHTER_<Fassung>
 #   Messung: je Bild der Abstand der Waffe zum Koerper (verformtes Netz, ohne die tragende Hand): unter 0 steckt sie im Koerper
-const FIGUREN := [["WIZARD", "quarterstaff"], ["FIGHTER", "greataxe"], ["ROGUE", "shortbow"]]
+const FIGUREN := [["Zauberlehrling", "quarterstaff"], ["Wachsoldat", "greataxe"], ["Herumtreiber", "shortbow"]]   # 870.4: Herkunft statt Klasse
 # Runde 3 (--teil=tragenaxt, Chef 01.11., 11:32: Stab, Bogen passen; „der Axtkopf muss nach unten“, „ein bisschen weiter nach vorne
 # ziehen“): nur die Kriegsaxt in drei Fassungen nebeneinander: Name, Griff unter dem Ursprung (m, Kopf 0,80 darueber), Blatt haengt
 const AXT_FASSUNGEN := [["bisher", 0.40, false], ["A", 0.15, true], ["B", 0.0, true]]
 # Runde 4 (--teil=tragenpakete, Chef 01.11., 12:21: Axt Runde 3 „schwebt“; 348.12c Pakete): Gehen und Rennen je Waffe aus den
 # Protofactor-Paketen (bewegungen.bin Gehen_<gang>, Rennen_<gang>), Waffe in der Faust (tragen.gd _paket); im Tempo des Spiels
 # (held.gd: Gehen 1,84, Rennen 3,68 Kacheln/s, speed_scale wie dort), damit man sieht, wie es im Spiel aussieht
-const PAKET_FIGUREN := [["axt", "FIGHTER", {"MAIN_HAND": {"base": "greataxe"}}], ["einhand", "FIGHTER", {"MAIN_HAND": {"base": "longsword"}}],
-	["schild", "FIGHTER", {"MAIN_HAND": {"base": "longsword"}, "OFF_HAND": {"base": "round_shield"}}], ["bogen", "ROGUE", {"MAIN_HAND": {"base": "shortbow"}}]]
+const PAKET_FIGUREN := [["axt", "Wachsoldat", {"MAIN_HAND": {"base": "greataxe"}}], ["einhand", "Wachsoldat", {"MAIN_HAND": {"base": "longsword"}}],
+	["schild", "Wachsoldat", {"MAIN_HAND": {"base": "longsword"}, "OFF_HAND": {"base": "round_shield"}}], ["bogen", "Herumtreiber", {"MAIN_HAND": {"base": "shortbow"}}]]
 # Rennen beide Fassungen (Chef 02.11., 14:46 Rennen zu vorgebeugt; 14:50/14:52 Rennen A „vernünftig“): je Waffe ausser Bogen (passt)
 # eine zweite Figur „pkA_<art>“ mit HeldFigur.WAFFEN_RENNEN „A“ (Beine und Rumpf aus Rennen A, Arme aus dem Paket); Film nur von der
 # Seite der Waffe, ohne Standbilder
@@ -51,7 +51,7 @@ func figuren_bauen(axt := false, pakete := false) -> void:
 	if pakete:
 		for e in PAKET_FIGUREN:
 			liste.append(["pk_" + e[0], e[1] + "_" + e[0], e[1], String(e[2]["MAIN_HAND"]["base"]), e[0]])
-			fp.klasse_figur("pk_" + e[0], {"klasse": e[1], "volk": "HUMAN", "aussehen": HeldFigur.vorgabe(e[1]), "ausruestung": e[2]})
+			fp.klasse_figur("pk_" + e[0], {"herkunft": e[1], "volk": "HUMAN", "aussehen": HeldFigur.vorgabe(e[1]), "ausruestung": e[2]})
 			if fp.figuren.has("pk_" + e[0]):
 				var mm := modell("pk_" + e[0])
 				fp.protokoll.append("GANG %s: %s, Tempo %.2f / %.2f m/s" % [e[0], mm.get_meta("gang", "FEHLT"), float(mm.get_meta("gang_gehen_m_je_s", 0.0)),
@@ -60,16 +60,16 @@ func figuren_bauen(axt := false, pakete := false) -> void:
 		for e in PAKET_FIGUREN:
 			if e[0] not in PAKET_A: continue
 			liste.append(["pkA_" + e[0], e[1] + "_" + e[0] + "_A", e[1], String(e[2]["MAIN_HAND"]["base"]), e[0], "A"])
-			fp.klasse_figur("pkA_" + e[0], {"klasse": e[1], "volk": "HUMAN", "aussehen": HeldFigur.vorgabe(e[1]), "ausruestung": e[2], "waffen_rennen": "A"})
+			fp.klasse_figur("pkA_" + e[0], {"herkunft": e[1], "volk": "HUMAN", "aussehen": HeldFigur.vorgabe(e[1]), "ausruestung": e[2], "waffen_rennen": "A"})
 		cam = fp.spiel.kamera
 		return
 	if axt:
-		for a in AXT_FASSUNGEN: liste.append(["ax_" + a[0], "FIGHTER_" + a[0], "FIGHTER", "greataxe"])
+		for a in AXT_FASSUNGEN: liste.append(["ax_" + a[0], "FIGHTER_" + a[0], "Wachsoldat", "greataxe"])
 	else:
 		for e in FIGUREN: liste.append(["tr_" + e[0], e[0], e[0], e[1]])
 	for i in liste.size():
 		var e: Array = liste[i]
-		fp.klasse_figur(e[0], {"klasse": e[2], "volk": "HUMAN", "aussehen": HeldFigur.vorgabe(e[2]),
+		fp.klasse_figur(e[0], {"herkunft": e[2], "volk": "HUMAN", "aussehen": HeldFigur.vorgabe(e[2]),
 			"ausruestung": {"MAIN_HAND": {"base": e[3]}}})
 		if axt and fp.figuren.has(e[0]):
 			var sk := Gebiet.finde(modell(e[0]), "Skeleton3D") as Skeleton3D

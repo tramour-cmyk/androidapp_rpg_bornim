@@ -28,11 +28,11 @@ func _lauf() -> void:
 	if Sprache.aktiv() != "de": Sprache.wechsle()
 	# wie beim Chef (Bild t268-kopffeld): ein anderes Stueck fuellt die Obergrenze schon, jedes Attribut bekommt im Vergleich eine Notiz
 	# in zwei Zeilen, das Fenster wird hoeher als der Schirm
-	for klasse in ["FIGHTER", "ROGUE", "WIZARD", "CLERIC"]:
+	for klasse in ["Wachsoldat", "Herumtreiber", "Zauberlehrling", "Klosterschüler"]:
 		for id in Beute.grundformen():
 			if String(Beute.grundform(id)["slot"]) != "HEAD": continue
 			var z := Zustand.new()
-			var hw := Heldwerte.erschaffe("Thora", "HUMAN", klasse, {}, z.neue_uid)
+			var hw := BrsHeld.fuer_spiel("Thora", "Mensch", klasse, z.neue_uid)
 			hw.anlegen({"uid": z.neue_uid.call(), "base": "amulet", "rarity": "RARE", "ilvl": 1, "plus": 0, "rolls": [["ALL_STATS", 1]], "unique": null, "name_seed": 0})
 			var g := Beute.wuerfle(z.neue_uid.call(), id, 8, "DIVINE", KotlinZufall.new(5))
 			z.beutel.append(g)

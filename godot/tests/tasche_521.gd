@@ -26,7 +26,7 @@ func _lauf() -> void:
 	Sprache.lade()
 	Sprache.setze("de")
 	var z := Zustand.new()
-	var hw := Heldwerte.erschaffe("Probe", "HUMAN", "WIZARD", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Probe", "Mensch", "Zauberlehrling", z.neue_uid)
 	var schwert := ding(z, "longsword")
 	var gross := ding(z, "greatsword")
 	var kappe := ding(z, "leather_cap", "UNCOMMON")
@@ -47,7 +47,7 @@ func _lauf() -> void:
 	var alle := " | ".join(texte(m))
 	print("Tasche: ", alle)
 	pruefe(alle.contains("zweihändig") or alle.containsn("zweih"), "Zweihänder als zweihändig erkennbar")
-	pruefe(alle.contains("nicht tragbar"), "nicht Tragbares sagt es")
+	pruefe(not alle.contains("nicht tragbar"), "870.4: jeder darf alles tragen, kein „nicht tragbar“")
 	for h in r:
 		if not bool(h.get_meta("tragbar")): pruefe(int(h.get_meta("pfeil")) == 0, "kein ▲/▼ an nicht Tragbarem")
 	# Reihenfolge: Seltenheit, dann Platz (Kopf vor Ring, beide ungewoehnlich)
@@ -62,7 +62,7 @@ func _lauf() -> void:
 		loesch.pressed.emit()
 		await process_frame
 		pruefe(not z.funke, "nach Löschen ist der Funke aus")
-	# Wechselschirm: Haupthand zeigt beide Waffen als Zeilen; Kopf: die Kappe ist fuer den Magier nicht tragbar, mit Grund
+	# Wechselschirm: Haupthand zeigt beide Waffen als Zeilen; Kopf: 870.4 die Kappe darf jeder tragen
 	m.reiter = "ausruestung"
 	m.baue()
 	await process_frame
@@ -73,6 +73,6 @@ func _lauf() -> void:
 	m.waehle("HEAD")
 	await process_frame
 	w = " | ".join(texte(m))
-	pruefe(w.contains("Als Magier kannst du das nicht tragen") or (w.contains("Als ") and w.contains("kannst du das nicht tragen")), "Wechselschirm Kopf nennt den Grund: %s" % w.right(160))
+	pruefe(not w.contains("kannst du das nicht tragen"), "Wechselschirm Kopf ohne Sperre nach Klasse: %s" % w.right(160))
 	print("TASCHE521 %d Fehler" % fehler)
 	quit(1 if fehler else 0)

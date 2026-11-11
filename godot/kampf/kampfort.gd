@@ -521,8 +521,15 @@ func _fit_camera() -> void:
 	for fig in figures.values():
 		if fig.dead_at >= 0:     # 573: wer gefallen ist, bleibt liegen, wo er fiel (Krogg sprang am Ende 1,5 m, Grak 2,9 m)
 			fig.snap_to(fig.position + _ground(0, 0) - g_alt)
-		else:
+		elif zuege == 0 and not busy:
 			fig.snap_to(_spot_pos(fig.fighter, shown.places[fig.fighter.id]))
+		else:
+			# 864 (Chef 10.11., 13:26 und 11.11., 07:08: „Beam-Schritt … in die Ausgangsgegnerlage zurück“, beam_864): wächst der Kasten zu
+			# Beginn des Heldenzugs („…“ → Knöpfe), passt die Kamera neu; wer nach seinem Angriff beim Helden stehen blieb (717.1, rückt
+			# erst im eigenen Zug in die Reihe), sprang hier auf seinen Platz. Jetzt rückt jeder nur mit dem Boden, der Abstand zum Platz bleibt
+			var platz := _spot_pos(fig.fighter, shown.places[fig.fighter.id])
+			fig.snap_to(fig.position + platz - fig.home)
+			fig.home = platz
 
 
 ## 249: Zoom und Ruck des Schlags in [hit] wie im alten MARS: in 110 ms (tödlich 220) heran, so lange der Halt dauert
@@ -1046,7 +1053,7 @@ func _play_say(e: Dictionary) -> void:
 	for id in figures:
 		figures[id].im_schatten(im_schatten.has(id))
 	for f in mars.fighters():
-		# called to the fight (Rudel rufen); the rules' thread may already hold one this message does not know yet
+		# called to the fight (Hilfe rufen); the rules' thread may already hold one this message does not know yet
 		if not figures.has(f.id) and e.places.has(f.id):
 			var fig := Figur.new()
 			fig.setup(f, self)
@@ -1333,7 +1340,8 @@ func _done() -> void:
 	if mars.outcome == "WON" and reward.is_empty():
 		# 399.2: Ausrüstung als Beute (Loot.drops) würfelt die Welt, die Held und Tasche kennt (progress „beute“, aufruf.gd)
 		var beute: Callable = progress.get("beute", Callable())
-		reward = Lohn.reward(mars, int(progress.get("xp", 0)), mars.dice, int(progress.get("over", 0)), progress.get("cap"), 1.0, 1.0,
+		# 870.5: Heldenstufe nach BRS (progress „stand“, Brs.neuer_stand) und Gebiet für den Erfahrungstopf (progress „gebiet“)
+		reward = Lohn.reward(mars, progress.get("stand", {}), mars.dice, String(progress.get("gebiet", "")),
 			beute.call() if beute.is_valid() else [])
 	if mars.outcome == "ONGOING" and mars.pilot_next():
 		go_on()

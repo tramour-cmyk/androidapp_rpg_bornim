@@ -3,9 +3,8 @@ extends Control
 # 399.1 Menue wie im alten Spiel (MenuScreen.kt MenuBody; Test 132, Chef 16:09: „Gold … Trefferpunkte … Taschen … weiß ich alles
 # nicht … es gibt ja kein Menü und nichts“): oben gross der Name des Reiters in gesperrten Goldversalien, darunter die Reiter, im
 # Kasten der Inhalt, unten „Schließen“. Die Leiste (Tasche) oeffnet es, das Spiel steht so lange. Reiter wie alt:
-# - Held (HeroTab): der Held auf dem Drehteller, Name, Volk · Klasse, Stufe und Gold; TP, ZP, EP als Balken; RK, Angriff, Schaden,
-#   Uebungsbonus mit Waffe, Zauberangriff und SG; die Attribute mit dem Anteil der Ausruestung (blau, * ueber dem Kapiteldeckel) und
-#   Modifikator; freie Punkte mit − und +, Zuruecksetzen und Uebernehmen (mit Rueckfrage); Faehigkeiten mit Volksmerkmal.
+# - Held (HeroTab, 870.4 nach BRS): der Held auf dem Drehteller, Name, Volk · Herkunft, Heldenstufe und Gold; Leben, Mana, Erfahrung
+#   als Balken; Schutzwert, Schaden, Kritisch; die sechs Grundwerte mit Erklaerung; Fertigkeiten (762) und Volksmerkmal.
 # - Tasche (BagTab): Vorraete mit Gold zuerst, Dinge mit Anzahl; Ausruestung in der Tasche nach Seltenheit.
 #   Antippen (BagTab): Traenke, Essen, Ausdauertrank und Leuchtfunke benutzen (Game.useItemOutside), Ausruestung anlegen, in die
 #   Nebenhand, wegwerfen (mit Rueckfrage und Haendlerpreis).
@@ -33,11 +32,10 @@ const BLAU := Color("82aaf2")      # gearBlue auf Schwarz (Veil.of rare)
 const GRUEN := Color("86c46e")     # Veil.good: geplante Werte
 const SELTEN := {"COMMON": "bdb6a8", "UNCOMMON": "86c46e", "RARE": "82aaf2", "VERY_RARE": "bc8ef2", "EPIC": "f29e50", "DIVINE": "eac650"}
 
-var hw: Heldwerte
+var hw: BrsHeld
 var z: Zustand
 var reiter := "held"
 var ort := {}                      # 399.1 Karte: wo der Held steht (spiel.gd platz)
-var geplant := {}                  # Attribut -> geplante Punkte (pending)
 var kopf: Label
 var leiste: HBoxContainer
 var inhalt: VBoxContainer
@@ -51,7 +49,7 @@ var wuerfel := func(n: int, w: int) -> int:
 	for i in n: t += randi_range(1, w)
 	return t
 
-func _init(h: Heldwerte, zu_: Zustand) -> void:
+func _init(h: BrsHeld, zu_: Zustand) -> void:
 	hw = h; z = zu_
 	name = "Menue"
 
@@ -80,7 +78,7 @@ func _ready() -> void:
 	leiste = HBoxContainer.new()
 	leiste.add_theme_constant_override("separation", int(6 * DP))
 	spalte.add_child(leiste)
-	meldung_ = Erschaffung.txt("", 15, Stil.BRIGHT)
+	meldung_ = Stil.txt("", 15, Stil.BRIGHT)
 	meldung_.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	meldung_.visible = false
 	spalte.add_child(meldung_)
@@ -111,7 +109,7 @@ func baue() -> void:
 		c.queue_free()
 	# 399.1: Reiter als Zeichen wie alt (TabSign, 60j); Woerter passten zu viert nicht in die Breite
 	for r in ["held"] + (["fertigkeiten"] if not brs_fertigkeiten().is_empty() else []) + ["tasche", "ausruestung", "karte", "chronik", "system"] + (["test"] if Testmodus.ist_an() else []):   # 399.1 wie alt Tab.TEST
-		var stern: bool = (r == "held" and hw.offen > 0) or (r == "chronik" and reiter != "chronik" and Chronik.frisch(z))
+		var stern: bool = r == "chronik" and reiter != "chronik" and Chronik.frisch(z)   # 870.4: keine Attributspunkte mehr
 		leiste.add_child(Reiterzeichen.knopf(r, wort(r), func(): tippe_reiter(r), r == reiter, stern))
 	for c in inhalt.get_children():
 		inhalt.remove_child(c)
@@ -140,7 +138,7 @@ func tippe_reiter(r: String) -> void:
 		zu.emit()
 		return
 	if r != "karte": karte_direkt = false
-	reiter = r; geplant.clear(); schliesse_erklaerung(); baue()
+	reiter = r; schliesse_erklaerung(); baue()
 
 func wort(r: String) -> String:
 	if r == "chronik": return Sprache.t(CHRONIK)
@@ -160,17 +158,17 @@ func meldung(t: String) -> void:
 		if f != null and f.text == mein: f.visible = false)
 
 func zeile(t: String, sp: float, farbe := Stil.TEXT, fett := false) -> Label:
-	var l := Erschaffung.txt(t, sp, farbe, fett)
+	var l := Stil.txt(t, sp, farbe, fett)
 	inhalt.add_child(l)
 	return l
 
-func luecke(dp: float) -> void: inhalt.add_child(Erschaffung.luecke(dp))
+func luecke(dp: float) -> void: inhalt.add_child(Stil.luecke(dp))
 
 # LabeledBar: Wort 36 dp, Balken, Wert 96 dp
 func balken(wort: String, wert: int, hoechst: int, farbe: Color, text := "") -> void:
 	var r := HBoxContainer.new()
 	r.add_theme_constant_override("separation", int(8 * DP))
-	var w := Erschaffung.txt(wort, 14, Stil.TEXT, true)   # 584: LabeledBar, Wort halbfett wie alt
+	var w := Stil.txt(wort, 14, Stil.TEXT, true)   # 584: LabeledBar, Wort halbfett wie alt
 	w.size_flags_horizontal = Control.SIZE_FILL
 	w.custom_minimum_size.x = 36 * DP
 	r.add_child(w)
@@ -180,16 +178,18 @@ func balken(wort: String, wert: int, hoechst: int, farbe: Color, text := "") -> 
 	b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	b.anteil = float(wert) / maxf(1.0, float(hoechst)); b.farbe = farbe
 	r.add_child(b)
-	var v := Erschaffung.txt(text if text != "" else "%d / %d" % [wert, hoechst], 14)
+	var v := Stil.txt(text if text != "" else "%d / %d" % [wert, hoechst], 14)
 	v.size_flags_horizontal = Control.SIZE_FILL
 	v.custom_minimum_size.x = 96 * DP
 	r.add_child(v)
 	inhalt.add_child(r)
 
 # ---------------------------------------------------------------- Held (HeroTab)
+# 870.4 (LISTE-UMZUG-BRS.md Schritt 4): der Held nach BRS: Name, Volk · Herkunft, Heldenstufe und Gold; Leben, Mana, Erfahrung nach
+# BRS (Brs.bedarf); Schutzwert, Schaden, Kritisch; die sechs Grundwerte (in Kapitel 1 fest, 870a 4), antippbar mit Erklaerung
+# ([870.14.wert.…]); Fertigkeiten (762), Volksmerkmal. Keine Klasse, keine Attributspunkte, kein Uebungsbonus mehr.
 func held() -> void:
 	var de := Sprache.aktiv() == "de"
-	var d := Heldwerte.lade()
 	var oben := HBoxContainer.new()
 	oben.add_theme_constant_override("separation", int(10 * DP))
 	oben.add_child(Drehteller.new(HeldFigur.wahl(hw, z)))
@@ -198,98 +198,52 @@ func held() -> void:
 	wer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	wer.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	wer.add_child(Stil.zeile(hw.name.to_upper(), 14, Stil.GOLD, 3.0))   # MenuHead
-	wer.add_child(Erschaffung.txt("%s · %s" % [Sprache.t(d["voelker"][hw.volk]["name"]), Sprache.t(d["klassen"][hw.klasse]["name"])], 15))
-	wer.add_child(Erschaffung.txt("%s %d   %s: %d" % [Sprache.u("level"), hw.stufe, Sprache.u("gold"), z.gold], 15, Stil.TEXT, true))   # 584: MenuScreen.kt 586
+	wer.add_child(Stil.txt("%s · %s" % [ErschaffungBrs.volk_name(hw.volk), ErschaffungBrs.herkunft_name(hw.herkunft)], 15))
+	wer.add_child(Stil.txt("%s   %s: %d" % [ErschaffungBrs.heldenstufe(hw.stufe), Sprache.u("gold"), z.gold], 15, Stil.TEXT, true))   # 584: MenuScreen.kt 586
 	oben.add_child(wer)
 	inhalt.add_child(oben)
 	luecke(8)
-	var anteil := float(hw.tp) / maxf(1.0, float(hw.max_tp()))
-	balken(Sprache.u("hp"), hw.tp, hw.max_tp(), Leiste.HP_GRUEN if anteil > 0.5 else (Leiste.HP_GELB if anteil > 0.2 else Leiste.ROT))
-	if hw.max_zp() > 0: balken(Sprache.u("sp"), hw.zp, hw.max_zp(), Leiste.BLAU)
-	var tab: Array = Heldwerte.regel("ep_fuer_stufe")
-	if hw.stufe >= Geschichte.stufendeckel(z) and hw.stufe < int(Heldwerte.regel("max_stufe")):
-		# 528 (MenuScreen.kt 594–601, Story.capped): am Deckel des Kapitels zaehlen die EP fuer spaeter; der Balken voll mit der Zahl
-		balken(Sprache.u("xp"), 1, 1, Leiste.GOLD_HELL, str(hw.ep))
+	var anteil := float(hw.leben) / maxf(1.0, float(hw.max_leben()))
+	balken(Sprache.u("hp"), hw.leben, hw.max_leben(), Leiste.HP_GRUEN if anteil > 0.5 else (Leiste.HP_GELB if anteil > 0.2 else Leiste.ROT))
+	if hw.max_mana() > 0: balken(Sprache.u("sp"), hw.mana, hw.max_mana(), Leiste.BLAU)
+	var st := z.stufe_brs()
+	if int(st["stufe"]) >= Brs.hoechste_stufe():
+		# 528 (MenuScreen.kt 594–601, Story.capped): auf der hoechsten Stufe des Kapitels gibt es keine Erfahrung mehr; der Balken voll
+		balken(Sprache.u("xp"), 1, 1, Leiste.GOLD_HELL, str(int(st["ep"])))
 		var satz := zeile("Höchststufe für Kapitel 1 erreicht. In diesem Kapitel gibt es keine weiteren EP; Kämpfe lohnen sich weiter für Beute und Ausrüstung." if de
 			else "Maximum level for Chapter 1 reached. No more XP this chapter; fights still pay off in loot and gear.", 13, Stil.DIM)
 		satz.name = "Hoechststufe"
-	elif hw.stufe < int(Heldwerte.regel("max_stufe")):
-		var von := int(tab[hw.stufe]); var bis := int(tab[hw.stufe + 1])
-		balken(Sprache.u("xp"), hw.ep - von, bis - von, Leiste.GOLD_HELL, "%d / %d" % [hw.ep, bis])
+	else:
+		var bis := roundi(Brs.bedarf(int(st["stufe"])))
+		balken(Sprache.u("xp"), int(st["ep"]), bis, Leiste.GOLD_HELL, "%d / %d" % [int(st["ep"]), bis])
 	luecke(8)
-	var s := hw.schaden()
-	zeile("%s %d   %s %s   %s %s" % [Sprache.u("ac"), hw.rk(), Sprache.u("attack"), Erschaffung.vorzeichen(hw.angriff()), Sprache.u("damage"), Beute.wuerfel_text(s, 0, de)], 15, Stil.TEXT, true)   # 584: MenuScreen.kt 605
-	zeile("%s %s" % [Sprache.u("proficiency"), Erschaffung.vorzeichen(hw.uebung())] + (" · " + Beute.name(hw.waffe()) if hw.waffe() != null else ""), 14, Stil.DIM)
-	if bool(hw.klassendaten()["zauberer"]):
-		zeile(("Zauberangriff " if de else "Spell attack ") + Erschaffung.vorzeichen(hw.zauberangriff()) + ("   Zauber-SG " if de else "   Spell save DC ") + str(hw.zauber_sg()), 14, Stil.DIM)
+	zeile("%s %d   %s %d   %s %d %%" % [KAMPFWERT["schutz"][0 if de else 1], hw.schutzwert(), KAMPFWERT["schaden"][0 if de else 1], hw.schaden(),
+		KAMPFWERT["krit"][0 if de else 1], hw.krit_prozent()], 15, Stil.TEXT, true)   # 584: MenuScreen.kt 605
+	if hw.waffe() != null: zeile(Beute.name(hw.waffe()), 14, Stil.DIM)
 	luecke(10)
-	var verplant := 0
-	for a in geplant: verplant += int(geplant[a])
-	if hw.offen > 0: zeile(Sprache.u("points", [hw.offen - verplant]), 15, Stil.WARN, true)
 	zeile("Tippe auf einen Grundwert, um zu sehen, was er bringt." if de else "Tap an attribute to see what it does.", 12, Stil.DIM)
-	var blau := false
-	for a in Heldwerte.ATTRIBUTE:
-		var plus := int(geplant.get(a, 0))
+	for g in BrsHeld.grundwerte():
 		var r := HBoxContainer.new()
 		r.add_theme_constant_override("separation", 0)
-		var n := Erschaffung.txt(Sprache.t(d["attribute"][a]["name"]), 14 if hw.offen > 0 else 16)
+		var n := Stil.txt(ErschaffungBrs.tx(ErschaffungBrs.GRUNDWERT[g]), 16)
 		n.autowrap_mode = TextServer.AUTOWRAP_OFF
 		n.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		n.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		r.add_child(n)
-		tippbar(n, func(): erklaere(a))
-		var w := hw.wert(a) + plus
-		var aus := hw.ausruestungs_bonus(a)
-		if aus != 0: blau = true
-		for spalte in [["%d→%d" % [hw.wert(a), w] if plus > 0 else str(w), 16, GRUEN if plus > 0 else Stil.TEXT, 56],
-				[(Erschaffung.vorzeichen(aus) + ("*" if hw.ausruestung_gedeckelt(a) else "")) if aus != 0 else "", 14, BLAU, 30],
-				["(%s)" % Erschaffung.vorzeichen(Heldwerte.mod_von(w)), 15, Stil.DIM, 44]]:
-			var l := Erschaffung.txt(spalte[0], spalte[1], spalte[2], spalte[2] != Stil.DIM)   # 584: Wert und Ausruestung fett wie alt (MenuScreen.kt 632, 637)
-			l.autowrap_mode = TextServer.AUTOWRAP_OFF
-			l.size_flags_horizontal = Control.SIZE_FILL
-			l.custom_minimum_size.x = spalte[3] * DP
-			l.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-			r.add_child(l)
-		if hw.offen > 0:
-			var weg := Erschaffung.knopf("−", func():
-				if plus <= 1: geplant.erase(a)
-				else: geplant[a] = plus - 1
-				baue())
-			weg.size_flags_horizontal = Control.SIZE_FILL
-			weg.custom_minimum_size = Vector2(44, 36) * DP
-			weg.disabled = plus <= 0
-			r.add_child(weg)
-			r.add_child(Erschaffung.luecke(0, 4))
-			var dazu := Erschaffung.knopf("+", func(): geplant[a] = plus + 1; baue())
-			dazu.size_flags_horizontal = Control.SIZE_FILL
-			dazu.custom_minimum_size = Vector2(44, 36) * DP
-			dazu.add_theme_color_override("font_color", Stil.GOLD)
-			dazu.disabled = not hw.kann_steigern(a, verplant) or int(hw.basis[a]) + plus >= int(Heldwerte.regel("max_wert"))
-			r.add_child(dazu)
-		inhalt.add_child(r)
-	if blau:
-		zeile("Blau: Bonus durch Ausrüstung (im Wert enthalten)" if de else "Blue: bonus from gear (included in the score)", 12, BLAU)
-		var k := hw.kapitel
-		zeile(("In Kapitel %d gibt Ausrüstung insgesamt höchstens +%d je Grundwert, auf Angriff, Zauberangriff und Schutzwert sowie +%d Schaden. * = Deine Ausrüstung könnte mehr." if de
-			else "In chapter %d, all gear together adds at most +%d to each attribute, attack, spell attack and protection, and +%d damage. * = your gear could give more.") % [k, k, k + 1], 12, Stil.DIM)
-	if verplant > 0:
-		var r := HBoxContainer.new()
-		r.add_theme_constant_override("separation", int(8 * DP))
-		r.add_child(Erschaffung.knopf("Zurücksetzen" if de else "Reset", func(): geplant.clear(); baue()))
-		r.add_child(Erschaffung.knopf("Übernehmen" if de else "Apply", frage_verteilen))
-		luecke(6)
+		tippbar(n, func(): erklaere(g))
+		var l := Stil.txt(str(hw.wert(g)), 16, Stil.TEXT, true)   # 584: Wert fett wie alt (MenuScreen.kt 632)
+		l.autowrap_mode = TextServer.AUTOWRAP_OFF
+		l.custom_minimum_size.x = 56 * DP
+		l.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		r.add_child(l)
 		inhalt.add_child(r)
 	luecke(10)
 	fertigkeiten_kurz()
-	zeile(Sprache.u("skills").to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))   # MenuHead
-	zeile(Sprache.t(d["voelker"][hw.volk]["merkmal"]), 14, Stil.GOLD)
-	for f in d["faehigkeiten"]:
-		var fd: Dictionary = d["faehigkeiten"][f]
-		if String(fd["klasse"]) != hw.klasse or bool(fd.get("mars", false)): continue
-		var hat := hw.hat(f)
-		var tag := ("  (%s)" % Sprache.u("fromLevel", [int(fd["stufe"])])) if not hat else (("  (%s)" % Sprache.u("passive")) if String(fd.get("kosten", "")) == "PASSIVE" else "")
-		zeile(Sprache.t(fd["name"]) + tag, 15, Stil.TEXT if hat else Stil.DIM, true)   # 584: MenuScreen.kt 691
-		zeile(Sprache.t(fd["text"]), 13, Stil.DIM)
+	if hw.merkmal() != "": zeile(hw.merkmal(), 14, Stil.GOLD)
+
+# 870.14 (STORY-BRS-HELD.md „Kampfwerte“): Woerter der Kampfwerte, deutsch und englisch
+const KAMPFWERT := {"leben": ["Leben", "Life"], "mana": ["Mana", "Mana"], "ausdauer": ["Ausdauer", "Stamina"], "schutz": ["Schutzwert", "Protection"],
+	"schaden": ["Schaden", "Damage"], "krit": ["Kritisch", "Critical"]}
 
 # 762 (Chef 09.11., 14:49): die Fertigkeiten des Helden nach BRS mit Wert, Rang und dem Weg bis zum Ende des Rangs; Raenge und
 # Grenzen aus dem Handbuch [423.rang] (Anfaenger bis 24, Geselle bis 49, Meister bis 74, Grossmeister bis 100). Chef 20:59 (Rat
@@ -321,12 +275,12 @@ func fertigkeit_zeile(n: String, w: int) -> void:
 	if i > 0: unten = int(RAENGE[i - 1][0])
 	var z1 := HBoxContainer.new()
 	z1.add_theme_constant_override("separation", int(8 * DP))
-	var l := Erschaffung.txt(ErschaffungBrs.fert_name(n), 15)
+	var l := Stil.txt(ErschaffungBrs.fert_name(n), 15)
 	l.autowrap_mode = TextServer.AUTOWRAP_OFF
 	l.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	z1.add_child(l)
-	var rw := Erschaffung.txt("%s  %d" % [String(r[1] if de else r[2]), w], 15, Stil.GOLD)
+	var rw := Stil.txt("%s  %d" % [String(r[1] if de else r[2]), w], 15, Stil.GOLD)
 	rw.autowrap_mode = TextServer.AUTOWRAP_OFF
 	rw.size_flags_horizontal = Control.SIZE_FILL
 	z1.add_child(rw)
@@ -393,14 +347,14 @@ func gruppen_kopf(gr: String, geuebt: int, alle: int, offen: bool) -> Control:
 	h.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	h.custom_minimum_size.y = 48 * DP
 	h.add_theme_constant_override("separation", int(10 * DP))
-	var l := Erschaffung.txt(ErschaffungBrs.tx(ErschaffungBrs.GRUPPE.get(gr, {"de": gr, "en": gr})).to_upper(), 14, Stil.GOLD)
+	var l := Stil.txt(ErschaffungBrs.tx(ErschaffungBrs.GRUPPE.get(gr, {"de": gr, "en": gr})).to_upper(), 14, Stil.GOLD)
 	l.add_theme_font_override("font", Stil.variante(3.0))   # MenuHead
 	l.autowrap_mode = TextServer.AUTOWRAP_OFF
 	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	l.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	h.add_child(l)
-	var a := Erschaffung.txt("%d/%d" % [geuebt, alle], 14, Stil.GOLD if geuebt > 0 else Stil.DIM)
+	var a := Stil.txt("%d/%d" % [geuebt, alle], 14, Stil.GOLD if geuebt > 0 else Stil.DIM)
 	a.autowrap_mode = TextServer.AUTOWRAP_OFF
 	a.size_flags_horizontal = Control.SIZE_SHRINK_END
 	a.size_flags_vertical = Control.SIZE_SHRINK_CENTER
@@ -423,39 +377,45 @@ func gruppen_kopf(gr: String, geuebt: int, alle: int, offen: bool) -> Control:
 	k.name = "Gruppe_" + gr
 	return k
 
-# ConfirmDialog „Punkte verteilen?“: je Attribut alt → neu, „Das kann nicht rückgängig gemacht werden.“
-# Perks.describe (Ausfuhr held.json „erklaerung“): Wert und Modifikator, die Zeile der Klasse, dann was der Modifikator bringt
-static func erklaerung(h: Heldwerte, a: String) -> Array:
-	var de := Sprache.aktiv() == "de"
-	var d := Heldwerte.lade()
-	var m := clampi(h.mod(a), -5, 10)
-	var l := "de" if de else "en"
-	var out := [("Wert %d, Modifikator %s" if de else "Score %d, modifier %s") % [h.wert(a), Erschaffung.vorzeichen(h.mod(a))]]
-	out.append_array(d.get("erklaerung_klasse", {}).get("%s:%s" % [h.klasse, a], {}).get(l, []))
-	out.append_array(d.get("erklaerung", {}).get(a, {}).get(str(m), {}).get(l, []))
+# 870.4 ([870.14.wert.…], STORY-BRS-HELD.md): was ein Grundwert bringt, mit den Zahlen der Regelwerte. Bauregel: nur Zeilen, deren
+# Wirkung im Code steht (Kraft: Tragen und Aufbrechen fehlen; Verstand: Wissen und Handwerk fehlen; gemeldet an Homer)
+const WERT_KOPF := ["Wert %d", "Value %d"]
+const WERT_TEXT := {
+	"kraft": [["Schaden mit Nahkampfwaffen und Fäusten, außer Dolchen.", "Damage with melee weapons and fists, except daggers."]],
+	"gewandtheit": [["Schaden mit Dolchen, Bögen und Wurfwaffen.", "Damage with daggers, bows and throwing weapons."],
+		["Wer ausweicht, ist schwerer zu treffen: +%d je Punkt.", "When you dodge, you are harder to hit: +%d per point.", "ausweichen"],
+		["Kritische Treffer: %d %% Aussicht, anderthalbfacher Schaden.", "Critical hits: %d%% chance, half again as much damage.", "krit"],
+		["Wer im Kampf zuerst handelt, und die Aussicht zu fliehen.", "Who acts first in combat, and your chance to flee."],
+		["Abwehr gegen Flächenwirkungen wie Feuer.", "Resisting area effects such as fire."]],
+	"zaehigkeit": [["Leben: +%d je Punkt.", "Life: +%d per point.", "leben"],
+		["Ausdauer, zusammen mit Wille.", "Stamina, together with Will."],
+		["Abwehr gegen Gift und Krankheit.", "Resisting poison and disease."]],
+	"verstand": [],
+	"wille": [["Mana: +%d je Punkt.", "Mana: +%d per point.", "mana"],
+		["Stärke deiner Zauber.", "The strength of your spells."],
+		["Ausdauer, zusammen mit Zähigkeit.", "Stamina, together with Toughness."],
+		["Abwehr gegen Furcht und Zauber.", "Resisting fear and spells."]],
+	"wahrnehmung": [["Treffen im Fernkampf: +%d %% je Punkt.", "Ranged accuracy: +%d%% per point.", "fern"],
+		["Hinterhalte bemerken.", "Noticing ambushes."],
+		["Hilft dem Spähen, Verstecktes und Fallen zu finden, und dem Kräutersammeln.", "Helps Scouting find hidden things and traps, and helps Foraging."]],
+}
+
+static func erklaerung(h: BrsHeld, g: String) -> Array:
+	var i := 0 if Sprache.aktiv() == "de" else 1
+	var W := BrsHeld.lade()
+	var zahl := {"ausweichen": int(W["kampf"]["ausweichen_je_gewandtheit"]), "krit": h.krit_prozent(), "leben": int(W["held"]["leben_je_zaehigkeit"]),
+		"mana": int(W["held"]["mana_je_wille"]), "fern": int(W["kampf"]["fernkampf_treffer_je_wahrnehmung"])}
+	var out := [WERT_KOPF[i] % h.wert(g)]
+	for t in WERT_TEXT.get(g, []):
+		out.append(String(t[i]) % zahl[t[2]] if t.size() > 2 else String(t[i]))
 	return out
 
-func erklaere(a: String) -> void:
+func erklaere(g: String) -> void:
 	var z_ := []
-	for i in erklaerung(hw, a).size():
-		var t := Erschaffung.txt(erklaerung(hw, a)[i], 15 if i == 0 else 14)
-		z_.append(t)
-	dialog(Sprache.t(Heldwerte.lade()["attribute"][a]["name"]), Stil.GOLD, z_, [["OK", func(): pass]])
-
-func frage_verteilen() -> void:
-	# 630 (549a): Rueckfrage ohne Kasten wie jede (Spielstaende.frage): Titel, Zierlinie, Zeilen mittig, „‹ ABBRECHEN“ links,
-	# „JA, VERTEILEN ›“ rechts; Tippen daneben und Android-Zurück wie Abbrechen (526)
-	var de := Sprache.aktiv() == "de"
-	var d := Heldwerte.lade()
-	var zl: Array = []
-	for a in geplant:
-		zl.append(Erschaffung.txt("%s: %d → %d" % [Sprache.t(d["attribute"][a]["name"]), hw.wert(a), hw.wert(a) + int(geplant[a])], 16, Stil.TEXT, true))   # 584: MenuScreen.kt 676
-	zl.append(Erschaffung.txt("Das kann nicht rückgängig gemacht werden." if de else "This can't be undone.", 13.5, Spielstaende.ANGABE))
-	Spielstaende.frage(self, "Punkte verteilen?" if de else "Spend points?", zl, "", "Ja, verteilen" if de else "Yes, spend", Stil.BRIGHT, func():
-		for a in geplant:
-			for i in int(geplant[a]): hw.steigern(a)   # Hero.applyPoints
-		geplant.clear()
-		baue())
+	var e := erklaerung(hw, g)
+	for i in e.size():
+		z_.append(Stil.txt(e[i], 15 if i == 0 else 14))
+	dialog(ErschaffungBrs.tx(ErschaffungBrs.GRUNDWERT[g]), Stil.GOLD, z_, [["OK", func(): pass]])
 
 # ---------------------------------------------------------------- Tasche (BagTab)
 func tasche() -> void:
@@ -465,11 +425,11 @@ func tasche() -> void:
 	# 523 (Abgleich 512) wie alt (84.5): der Funke brennt bis zur naechsten Rast; „Löschen“, weg ist weg
 	if z.funke:
 		var fr := HBoxContainer.new()
-		var fn := Erschaffung.txt(Laden.name("spark_potion"), 15)
+		var fn := Stil.txt(Laden.name("spark_potion"), 15)
 		fn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		fr.add_child(fn)
 		var be: Dictionary = Sprache.texte.get("benutzen", {})
-		var kn := Erschaffung.knopf(Sprache.t(be.get("sparkOut", {"de": "Löschen", "en": "Put out"})), func():
+		var kn := Stil.knopf(Sprache.t(be.get("sparkOut", {"de": "Löschen", "en": "Put out"})), func():
 			z.funke = false
 			meldung(Sprache.t(be.get("sparkGone", {"de": "Der Funke verglimmt. Weg ist weg.", "en": "The spark fades. Gone is gone."})))
 			baue())
@@ -484,7 +444,7 @@ func tasche() -> void:
 		var info := Sprache.t(dd.get("info", ""))
 		if info != "":
 			var spalte: VBoxContainer = p.get_child(1)   # nach dem Bild
-			spalte.add_child(Erschaffung.txt(info, 13, Stil.DIM))
+			spalte.add_child(Stil.txt(info, 13, Stil.DIM))
 		inhalt.add_child(p)
 		tippbar(p, func(): frage_ding(String(id)))
 	luecke(10)
@@ -526,16 +486,16 @@ func ausruestungszeile(g: Dictionary) -> HBoxContainer:
 	s.add_theme_constant_override("separation", 0)
 	s.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	s.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	var n := Erschaffung.txt(Beute.name(g), 16, farbe_von(g))
+	var n := Stil.txt(Beute.name(g), 16, farbe_von(g))
 	n.max_lines_visible = 2
 	s.add_child(n)
 	var ok := hw.kann_tragen(g)
 	# 521/523 (Chef 04.11., 12:01: Robe des Ankers zeigte nur „Oberkörper“): ohne Kennwert die zwei ersten Boni wie im Wechselschirm (557)
 	var unten := Menue.listen_zeile_b(g)
-	if unten == "": unten = Testmodus.gross_anfang(Sprache.t(Heldwerte.lade()["seltenheiten"][String(g["rarity"])].get("name", g["rarity"])))   # Ring, Amulett ohne Kennwert: alt leer
+	if unten == "": unten = Testmodus.gross_anfang(Sprache.t(BrsHeld.daten()["seltenheiten"][String(g["rarity"])].get("name", g["rarity"])))   # Ring, Amulett ohne Kennwert: alt leer
 	if zweihaendig(g) and not unten.containsn("zweih") and not Beute.name(g).containsn("zweih"): unten += " · " + ("zweihändig" if de else "two-handed")
 	if not ok: unten += " · " + ("nicht tragbar" if de else "can't wear")
-	s.add_child(Erschaffung.txt(unten, 12, Stil.DIM if ok else AKZENT))
+	s.add_child(Stil.txt(unten, 12, Stil.DIM if ok else AKZENT))
 	r.add_child(s)
 	var angelegt := false
 	for pl in PLATZ_REIHE:
@@ -544,7 +504,7 @@ func ausruestungszeile(g: Dictionary) -> HBoxContainer:
 	var u = Vergleich.von(hw, g).urteil() if ok and not angelegt else null
 	# 521/523 (Chef 04.11., 12:01: „das in der Mitte … wird gar nicht bewertet“): gemischt mit ◆ in Gold wie der Wechselschirm (557)
 	if u != null:
-		var pf := Erschaffung.txt({1: "▲", -1: "▼", 0: "◆"}[int(u)], 18, {1: BESSER, -1: AKZENT, 0: Stil.BRIGHT}[int(u)])
+		var pf := Stil.txt({1: "▲", -1: "▼", 0: "◆"}[int(u)], 18, {1: BESSER, -1: AKZENT, 0: Stil.BRIGHT}[int(u)])
 		pf.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		r.add_child(pf)
 	r.set_meta("tragbar", ok)
@@ -559,9 +519,9 @@ func posten(n: String, rechts: String, farbe: Color, bild: Control = null) -> HB
 	var s := VBoxContainer.new()
 	s.add_theme_constant_override("separation", 0)
 	s.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	s.add_child(Erschaffung.txt(n, 16, farbe))
+	s.add_child(Stil.txt(n, 16, farbe))
 	r.add_child(s)
-	var w := Erschaffung.txt(rechts, 15)
+	var w := Stil.txt(rechts, 15)
 	w.size_flags_horizontal = Control.SIZE_FILL
 	w.autowrap_mode = TextServer.AUTOWRAP_OFF
 	w.size_flags_vertical = Control.SIZE_SHRINK_BEGIN   # Helfer: „×2“ stand auf Hoehe der Beschreibung statt des Namens
@@ -727,7 +687,13 @@ func abbrechen() -> String: return Sprache.t(ABBRECHEN)
 
 # ---------------------------------------------------------------- Dinge benutzen (Game.useItemOutside)
 # Leuchtfunke, Ausdauertrank, Essen, Heiltrank und Kraeutertrank ausserhalb des Kampfes; Antwort wie alt (Light, Resting, Msgs, Ui)
-static func benutze(z: Zustand, hw: Heldwerte, id: String, wuerfel_: Callable) -> String:
+# 870.4: Leben fest nach BRS (werte.json „welt“ „heilung“, wie im Kampf), ohne Eintrag wie bisher mit den Wuerfeln des Dings
+static func heilung(id: String, h: Array, wuerfel_: Callable) -> int:
+	var fest = BrsHeld.welt().get("heilung", {}).get(id)
+	if fest != null: return int(fest)
+	return int(wuerfel_.call(int(h[0]), int(h[1]))) + int(h[2])
+
+static func benutze(z: Zustand, hw: BrsHeld, id: String, wuerfel_: Callable) -> String:
 	var dd := Laden.ding(id)
 	var art := String(dd.get("art", ""))
 	var b: Dictionary = Sprache.texte.get("benutzen", {})
@@ -746,20 +712,20 @@ static func benutze(z: Zustand, hw: Heldwerte, id: String, wuerfel_: Callable) -
 		return Sprache.r("staminaDrunk", [hw.name])
 	var h: Array = dd.get("heilt", [])
 	if art == "FOOD" and not h.is_empty():
-		if z.satt and hw.tp >= hw.max_tp(): return sag.call("alreadyFed", [hw.name])
+		if z.satt and hw.leben >= hw.max_leben(): return sag.call("alreadyFed", [hw.name])
 		z.weg(id)
-		var vor := hw.tp
-		hw.tp = mini(hw.max_tp(), hw.tp + int(wuerfel_.call(int(h[0]), int(h[1]))) + int(h[2]) + Laden.TALENTE.meal_bonus(hw))   # Perks.mealBonus
+		var vor := hw.leben
+		hw.leben = mini(hw.max_leben(), hw.leben + heilung(id, h, wuerfel_) + Laden.essen_bonus(hw))   # Perks.mealBonus (870.4: Kochen)
 		z.satt = true
-		return sag.call("ate", [hw.name, Laden.name(id), hw.tp - vor])
+		return sag.call("ate", [hw.name, Laden.name(id), hw.leben - vor])
 	if art != "POTION" or h.is_empty(): return Sprache.u("cannotUseHere")
 	var heilt := bool(dd.get("heilt_leiden", false)) and not z.leiden.is_empty()
-	if hw.tp >= hw.max_tp() and not heilt: return Sprache.u("alreadyFull")
+	if hw.leben >= hw.max_leben() and not heilt: return Sprache.u("alreadyFull")
 	z.weg(id)
-	var vor := hw.tp
-	hw.tp = mini(hw.max_tp(), hw.tp + int(wuerfel_.call(int(h[0]), int(h[1]))) + int(h[2]))
+	var vor := hw.leben
+	hw.leben = mini(hw.max_leben(), hw.leben + heilung(id, h, wuerfel_))
 	if heilt: z.leiden.clear()
-	var geheilt: String = sag.call("healed", [hw.name, hw.tp - vor])
+	var geheilt: String = sag.call("healed", [hw.name, hw.leben - vor])
 	return (sag.call("cured", [hw.name]) + " " + geheilt) if heilt else geheilt
 
 # 523 (Abgleich 512, Game.kt useItemOutside): wie alt ein Klang, wenn etwas wirklich benutzt wurde: Essen „heal“, Traenke und Funke
@@ -783,9 +749,8 @@ func frage_ding(id: String) -> void:
 	bild.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	zeilen.append(bild)
 	var info := Sprache.t(dd.get("info", ""))
-	if info != "": zeilen.append(Erschaffung.txt(info, 15))
-	var h: Array = dd.get("heilt", [])
-	if not h.is_empty(): zeilen.append(Erschaffung.txt(("heilt " if de else "heals ") + Beute.wuerfel_text(h, 0, de), 14, Stil.DIM))
+	if info != "": zeilen.append(Stil.txt(info, 15))
+	# 944 (Chef 11.11., 13:22, t276.5): keine Würfel im Text; was er heilt, sagt die Meldung (STORY-BRS-OBERFLAECHE „Gegenstände“)
 	var farbe := Color(SELTEN.get(String(dd.get("seltenheit", "COMMON")), "e6ddcb"))
 	if trinkbar:
 		var wort := ("Essen" if de else "Eat") if art == "FOOD" else Sprache.u("use")
@@ -801,13 +766,29 @@ func einhandwaffe(g: Dictionary) -> bool: return Beute.ist_waffe(Beute.grundform
 # GearDetails, soweit ohne Vergleich: was und wo, Stufe, Gewicht; die Grundzahl; jede Eigenschaft (Affix.line)
 func stueck_zeilen(g: Dictionary) -> Array: return Menue.stueck_zeilen_von(hw, g)
 
+# 870.4 ([870.14.ding.…], DESIGN-BRS.md 7): jeder darf alles tragen; was darin nicht geht, nur wenn es zutrifft: [Text, Warnung]
+static func tragen_hinweise(hw: BrsHeld, g: Dictionary) -> Array:
+	var de := Sprache.aktiv() == "de"
+	var b := Beute.grundform(String(g["base"]))
+	var r: Array = []
+	if BrsHeld.metall(String(g["base"])):
+		r.append(["Metall: Evokation, Illusion und Beschwörung wirken darin nicht." if de else "Metal: Evocation, Illusion and Summoning will not work in it.", false])
+	if BrsHeld.ruestung_von(String(g["base"])) == "Schwere Rüstung" and String(b["slot"]) == "CHEST":
+		r.append(["Schwere Rüstung: darin kannst du nicht schleichen." if de else "Heavy armor: you cannot sneak in it.", false])
+	if Beute.ist_waffe(b) and bool(b.get("zweihaendig", false)):
+		r.append(["Braucht beide Hände: kein Schild dazu." if de else "Needs both hands: no shield with it.", false])
+	var f := BrsHeld.fertigkeit_von(String(g["base"]))
+	if f != "" and hw.fertigkeit(f) <= 0:
+		r.append(["Noch nie benutzt: du fängst bei null an." if de else "Never used: you start from nothing.", true])
+	return r
+
 # GearDetails fuer Tasche, Ausruestung und Laden (399.1: auch spiel.gd zeige_stueck)
-static func stueck_zeilen_von(hw: Heldwerte, g: Dictionary) -> Array:
+static func stueck_zeilen_von(hw: BrsHeld, g: Dictionary) -> Array:
 	var de := Sprache.aktiv() == "de"
 	var farbe_von := func(x: Dictionary) -> Color: return Color(SELTEN.get(String(x["rarity"]), "e6ddcb"))
 	var zweihaendig := func(x) -> bool: return x != null and bool(Beute.grundform(String(x["base"]))["zweihaendig"])
 	var b := Beute.grundform(String(g["base"]))
-	var d := Heldwerte.lade()
+	var d := BrsHeld.daten()
 	var z_: Array = []
 	var sp := "de" if de else "en"
 	var fett := func(l: Label) -> Label:
@@ -828,7 +809,7 @@ static func stueck_zeilen_von(hw: Heldwerte, g: Dictionary) -> Array:
 	if not (hat_art and gezeigt.containsn(selten)):
 		var gross := selten.left(1).to_upper() + selten.substr(1)
 		art_zeile = gross + plus_t if hat_art else ((gross + String(d["endungen"][String(b["geschlecht"])]) + " " + art + plus_t) if de else (gross + " " + art + plus_t))
-	if art_zeile != "": z_.append(Erschaffung.txt(art_zeile, 14, farbe_von.call(g)))
+	if art_zeile != "": z_.append(Stil.txt(art_zeile, 14, farbe_von.call(g)))
 	# Gear.wearLine · Stufe · Gewicht; beidhaendige Waffe fett in Rot (ein Schild muss herunter)
 	var waffe := Beute.ist_waffe(b)
 	var wo := String(d["plaetze"][String(b["slot"])][sp])
@@ -838,55 +819,41 @@ static func stueck_zeilen_von(hw: Heldwerte, g: Dictionary) -> Array:
 	wo += (" · Stufe " if de else " · Level ") + str(int(g["ilvl"]))
 	var gewicht := String(b.get("gewicht", "NONE"))
 	if gewicht != "NONE": wo += " · " + Sprache.t(d["ruestungsarten"].get(gewicht, {"de": "Stoff", "en": "cloth"}))
-	var wl := Erschaffung.txt(wo, 13, Stil.WARN if waffe and zweihaendig.call(g) else Stil.DIM)
+	var wl := Stil.txt(wo, 13, Stil.WARN if waffe and zweihaendig.call(g) else Stil.DIM)
 	z_.append(fett.call(wl) if waffe and zweihaendig.call(g) else wl)
 	# [84.1.laden] wozu die Fackel ist (Light.torchAbout)
 	if String(b["art"]) == "LIGHT":
-		z_.append(Erschaffung.txt("Pech und Werg auf einem Stock. In der Nebenhand, statt eines Schilds. Im Dunkeln siehst du weiter als mit einem Leuchtfunken. Brennt, solange du sie trägst." if de else
+		z_.append(Stil.txt("Pech und Werg auf einem Stock. In der Nebenhand, statt eines Schilds. Im Dunkeln siehst du weiter als mit einem Leuchtfunken. Brennt, solange du sie trägst." if de else
 			"Pitch and tow on a stick. Held in the off hand, instead of a shield. In the dark you see further than with a Lightspark. Burns as long as you carry it.", 14))
 	# was dafuer abgelegt wird und das Urteil gleich oben, ohne Rollen; die Tabelle unten sagt warum (59.3: nie fuer Getragenes)
 	var v: Vergleich = Vergleich.von(hw, g) if hw.kann_tragen(g) and not hw.ausruestung.values().any(func(x): return x != null and int(x["uid"]) == int(g["uid"])) else null
 	if v:
 		if not v.ersetzt.is_empty():
 			var anderer := v.ersetzt.any(func(x): return String(Beute.grundform(String(x["base"]))["slot"]) != String(b["slot"]))
-			var el := Erschaffung.txt(("Ersetzt: " if de else "Replaces: ") + ", ".join(PackedStringArray(v.ersetzt.map(func(x): return Beute.name(x)))), 13, Stil.WARN if anderer else Stil.DIM)
+			var el := Stil.txt(("Ersetzt: " if de else "Replaces: ") + ", ".join(PackedStringArray(v.ersetzt.map(func(x): return Beute.name(x)))), 13, Stil.WARN if anderer else Stil.DIM)
 			z_.append(fett.call(el) if anderer else el)
-		z_.append(fett.call(Erschaffung.txt(v.satz(), 14, {1: GRUEN, -1: Stil.WARN}.get(v.urteil(), Stil.TEXT))))
+		z_.append(fett.call(Stil.txt(v.satz(), 14, {1: GRUEN, -1: Stil.WARN}.get(v.urteil(), Stil.TEXT))))
 	# Grundzahlen: Schaden je Griff, Angriff, Eigenschaften der Waffe; RK der Ruestung mit GES; Schild; Zauberkraft
 	if b.get("schaden") != null:
-		var viel = b.get("vielseitig")
-		var w_ = hw.waffe()
-		var beide: bool = viel != null and w_ != null and int(w_["uid"]) == int(g["uid"]) and hw.beide_haende_mit(g)
-		var art_s := Sprache.t(d["schadensarten"].get(String(b["schadensart"]), {"de": "", "en": ""}))
-		z_.append(fett.call(Erschaffung.txt("%s: %s %s%s" % [Sprache.u("damage"), Beute.wuerfel_text(viel if beide else b["schaden"], plus, de), art_s,
-			((" (beide Hände)" if de else " (both hands)") if beide else "")], 16)))
-		if viel != null:
-			z_.append(Erschaffung.txt(((("Mit einer Hand (Schild oder Zweitwaffe): " if de else "In one hand (shield or second weapon): ") + Beute.wuerfel_text(b["schaden"], plus, de)) if beide else
-				(("Mit beiden Händen (andere Hand leer): " if de else "In both hands (other hand empty): ") + Beute.wuerfel_text(viel, plus, de))), 14, Stil.DIM))
-		if plus > 0: z_.append(fett.call(Erschaffung.txt("%s +%d" % [Sprache.u("attack"), plus], 15)))
+		# 944 (t276.5): Schaden als Zahl nach dem BRS ([870.14.ding.schaden]), ohne Würfel und ohne „vielseitig“ (entfällt, Homer 870.14)
+		z_.append(fett.call(Stil.txt(schaden_text(g, de), 16)))
+		if plus > 0: z_.append(fett.call(Stil.txt("%s +%d" % [Sprache.u("attack"), plus], 15)))
 		var zuege: Array = []
 		if bool(b.get("finesse", false)): zuege.append("Finesse")
 		if bool(b.get("fern", false)): zuege.append("Fernkampf" if de else "Ranged")
-		if not zuege.is_empty(): z_.append(Erschaffung.txt(" · ".join(PackedStringArray(zuege)), 13, Stil.DIM))
-	if String(b["slot"]) == "CHEST" and int(b.get("ruestung", 0)) > 0:
-		var ges: String = {"LIGHT": " + " + Heldwerte.kurzwort("DEX"), "MEDIUM": " + %s (max 2)" % Heldwerte.kurzwort("DEX")}.get(gewicht, "")
-		z_.append(fett.call(Erschaffung.txt("%s %d%s" % [("Schutzwert" if de else "Protection"), int(b["ruestung"]) + plus, ges], 16)))
-	if String(b["art"]) == "SHIELD": z_.append(fett.call(Erschaffung.txt("%s +%d" % [("Schutzwert" if de else "Protection"), int(b["ruestung"]) + plus], 16)))
-	if int(b.get("fokus", 0)) > 0: z_.append(fett.call(Erschaffung.txt(("Zauberkraft +%d" if de else "Spell power +%d") % int(b["fokus"]), 16)))
+		if not zuege.is_empty(): z_.append(Stil.txt(" · ".join(PackedStringArray(zuege)), 13, Stil.DIM))
+	# 870.4 ([870.14.ding.…]): Schutzwert nach BRS ohne Gewandtheit, Zauberkraft entfaellt
+	if (String(b["slot"]) == "CHEST" and int(b.get("ruestung", 0)) > 0) or String(b["art"]) == "SHIELD":
+		z_.append(fett.call(Stil.txt("%s %d" % [("Schutzwert" if de else "Protection"), BrsHeld.schutzwert_von(String(g["base"]))], 16)))
 	# Eigenschaften (Affix.line), blau wie alt
 	for r in g["rolls"]:
 		var a := String(r[0]); var w := int(r[1])
 		var ad: Dictionary = d["affixdaten"][a]
-		var t := ("Kritisch ab %d" % (20 - w) if de else "Critical on %d–20" % (20 - w)) if a == "CRIT" else \
+		var t := ("+%d %% kritisch" % w if de else "+%d%% critical" % w) if a == "CRIT" else \
 			"+%d%s %s" % [w, "%" if bool(ad["prozent"]) else "", Sprache.t(ad["name"])]
-		z_.append(Erschaffung.txt(t, 16, Color(SELTEN["RARE"])))
+		z_.append(Stil.txt(t, 16, Color(SELTEN["RARE"])))
 	# Warnungen
-	if not hw.kann_tragen(g):
-		z_.append(Erschaffung.txt("Deine Klasse kann das nicht tragen." if de else "Your class can't wear this.", 15, Stil.WARN))
-	elif waffe and not hw.geuebt(g):
-		z_.append(Erschaffung.txt("Ungeübt: kein Fertigkeitsbonus auf Angriffe." if de else "Untrained: no skill bonus to attacks.", 15, Stil.WARN))
-	if int(b.get("fokus", 0)) > 0 and not bool(hw.klassendaten()["zauberer"]):
-		z_.append(Erschaffung.txt("Zauberkraft nützt nur Zauberwirkern." if de else "Spell power only helps spellcasters.", 13, Stil.DIM))
+	for t in Menue.tragen_hinweise(hw, g): z_.append(Stil.txt(t[0], 15 if t[1] else 13, Stil.WARN if t[1] else Stil.DIM))
 	# Vergleich: alles, was sich aendert, Getragenes neben dem Neuen, Gewinn gruen, Verlust rot, Hinweise darunter
 	if v and not v.zeilen.is_empty(): z_.append(vergleich_tabelle(v.zeilen, de))
 	return z_
@@ -923,7 +890,7 @@ static func vergleich_tabelle(zeilen: Array, de: bool) -> Control:
 		if String(r.get("notiz", "")) != "":
 			var n := MarginContainer.new()
 			n.add_theme_constant_override("margin_left", int(10 * DP))
-			n.add_child(Erschaffung.txt(String(r["notiz"]), 12, Stil.DIM))
+			n.add_child(Stil.txt(String(r["notiz"]), 12, Stil.DIM))
 			t.add_child(n)
 	return t
 
@@ -950,7 +917,7 @@ func lege_ab(platz: String) -> void:
 
 # 399.1 Light.torch: eine Fackel in der Nebenhand; torchChange: nur im Dunkeln (nachts draussen, in der Hoehle) sagt es etwas
 var dunkel := false
-static func fackel(h: Heldwerte) -> bool:
+static func fackel(h: BrsHeld) -> bool:
 	var g = h.ding("OFF_HAND")
 	return g != null and String(Beute.grundform(String(g["base"]))["art"]) == "LIGHT"
 
@@ -978,13 +945,13 @@ func frage_wegwerfen(g: Dictionary) -> void:
 		return
 	if entwurf == "B" and Spielstaende.vorlage2:   # 557 Vorlage 2: Rueckfrage ohne Rahmen
 		Spielstaende.frage(self, "Wirklich wegwerfen?" if de else "Really discard?", [
-			Erschaffung.txt(Menue.name_mit_seltenheit(g), 16, farbe_von(g)),
-			Erschaffung.txt(("Der Gegenstand ist danach verloren. Beim Händler bekämst du dafür %d Gold." if de else "The item will be gone for good. A trader would pay you %d gold for it.") % preis, 15)],
+			Stil.txt(Menue.name_mit_seltenheit(g), 16, farbe_von(g)),
+			Stil.txt(("Der Gegenstand ist danach verloren. Beim Händler bekämst du dafür %d Gold." if de else "The item will be gone for good. A trader would pay you %d gold for it.") % preis, 15)],
 			"KREUZ", "Wegwerfen" if de else "Discard", Stil.WARN, func(): wirf_weg(g))
 		return
 	dialog("Wirklich wegwerfen?" if de else "Really discard?", farbe_von(g), [
-		Erschaffung.txt("%s (%s)" % [Beute.name(g), Sprache.t(Heldwerte.lade()["seltenheiten"][String(g["rarity"])].get("name", g["rarity"]))], 16, farbe_von(g)),
-		Erschaffung.txt(("Der Gegenstand ist danach verloren. Beim Händler bekämst du dafür %d Gold." if de else "The item will be gone for good. A trader would pay you %d gold for it.") % preis, 15)],
+		Stil.txt("%s (%s)" % [Beute.name(g), Sprache.t(BrsHeld.daten()["seltenheiten"][String(g["rarity"])].get("name", g["rarity"]))], 16, farbe_von(g)),
+		Stil.txt(("Der Gegenstand ist danach verloren. Beim Händler bekämst du dafür %d Gold." if de else "The item will be gone for good. A trader would pay you %d gold for it.") % preis, 15)],
 		[["Wegwerfen" if de else "Discard", func(): wirf_weg(g)], [abbrechen(), func(): pass]])
 
 func wirf_weg(g: Dictionary) -> void:
@@ -1003,7 +970,7 @@ func passend(platz: String) -> Array:
 		return Menue.vor(a, b))
 	return l
 
-func platzname(platz: String) -> String: return Sprache.t(Heldwerte.lade()["plaetze"][platz])
+func platzname(platz: String) -> String: return Sprache.t(BrsHeld.daten()["plaetze"][platz])
 
 # 557 (Chef 04.11., 12:38: „noch eine andere Stelle im Spiel im neuen Design dazupacken, um einen besseren Eindruck (vorher-nachher)
 # zu gewinnen“): Wechselliste eines Platzes als Entwurf B „ohne Kasten“ (549a), im Spiel weiter „“ (Kasten wie alt) bis zum Urteil
@@ -1016,19 +983,11 @@ func waehle(platz: String) -> void:
 	var de := Sprache.aktiv() == "de"
 	var l := passend(platz)
 	var zeilen: Array = []
-	if l.is_empty(): zeilen.append(Erschaffung.txt("Nichts Passendes im Beutel." if de else "Nothing in the bag fits.", 15, Stil.DIM))
+	if l.is_empty(): zeilen.append(Stil.txt("Nichts Passendes im Beutel." if de else "Nothing in the bag fits.", 15, Stil.DIM))
 	var schleier := {}   # 399.1 (Test 139.10): ein Lambda haelt den Wert von damals; die Liste wird erst unten zum Kasten
 	for g in l:
 		# 521: Zeile wie in der Tasche; nicht Tragbares matt mit dem Grund darunter wie alt (MenuScreen choose)
-		var p: Control = ausruestungszeile(g)
-		if not hw.kann_tragen(g):
-			var v := VBoxContainer.new()
-			v.add_theme_constant_override("separation", 0)
-			v.add_child(p)
-			var kl := Sprache.t(hw.klassendaten()["name"])
-			v.add_child(Erschaffung.txt(("Als %s kannst du das nicht tragen." if de else "As a %s you cannot wear this.") % kl, 13, Stil.DIM))
-			v.modulate.a = 0.45
-			p = v
+		var p: Control = ausruestungszeile(g)   # 870.4: jeder darf alles tragen
 		tippbar(p, func():
 			schleier["k"].queue_free()
 			dialog(Beute.name(g), farbe_von(g), stueck_zeilen(g), [[Sprache.u("equip"), func(): meldung(lege_an(g, platz == "OFF_HAND" and String(Beute.grundform(String(g["base"]))["slot"]) != "OFF_HAND")); baue(), hw.kann_tragen(g)],
@@ -1061,9 +1020,9 @@ func _waehle_b(platz: String) -> void:
 	var kopf := Stil.zeile(platzname(platz).to_upper(), 22, Stil.GOLD, 3.0)
 	kopf.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	spalte.add_child(kopf)
-	spalte.add_child(Erschaffung.luecke(6))
+	spalte.add_child(Stil.luecke(6))
 	spalte.add_child(Spielstaende.zier())
-	spalte.add_child(Erschaffung.luecke(8))
+	spalte.add_child(Stil.luecke(8))
 	var an = hw.ding(platz)
 	var jetzt := HBoxContainer.new()
 	jetzt.add_theme_constant_override("separation", int(14 * DP))
@@ -1102,7 +1061,7 @@ func _waehle_b(platz: String) -> void:
 	liste.add_theme_constant_override("separation", 0)
 	rolle.add_child(liste)
 	var l := passend(platz)
-	if l.is_empty(): liste.add_child(Erschaffung.txt("Nichts Passendes im Beutel." if de else "Nothing in the bag fits.", 15, Stil.DIM))
+	if l.is_empty(): liste.add_child(Stil.txt("Nichts Passendes im Beutel." if de else "Nothing in the bag fits.", 15, Stil.DIM))
 	for g in l:
 		if liste.get_child_count() > 0: liste.add_child(Spielstaende.linie())
 		liste.add_child(_wechsel_zeile_b(g, platz, zu, de))
@@ -1124,7 +1083,7 @@ func _waehle_b(platz: String) -> void:
 static func listen_zeile_b(g: Dictionary) -> String:
 	var t := Beute.listen_zeile(g)
 	if Beute.kennwert(g) != "" or g.get("rolls", []).is_empty(): return t
-	var d := Heldwerte.lade()
+	var d := BrsHeld.daten()
 	var de := Sprache.aktiv() == "de"
 	var teile: Array = []
 	for r in g["rolls"]:
@@ -1133,7 +1092,7 @@ static func listen_zeile_b(g: Dictionary) -> String:
 		if d["attribute"].has(a): teile.append("+%d %s" % [w, Sprache.t(d["attribute"][a]["kurz"])])
 		elif a == "AC": teile.append(("+%d Schutzwert" if de else "+%d Protection") % w)
 		elif a == "ALL_STATS": teile.append(("+%d alle" if de else "+%d all") % w)
-		elif a == "CRIT": teile.append(("Krit. ab %d" if de else "Crit %d+") % (20 - w))
+		elif a == "CRIT": teile.append(("+%d %% krit." if de else "+%d%% crit") % w)   # 870.4: kritisch in Prozent
 		elif not ad.is_empty(): teile.append("+%d%s %s" % [w, "%" if bool(ad["prozent"]) else "", Sprache.t(ad["name"])])
 		if teile.size() == 2: break
 	var k := " · ".join(PackedStringArray(teile)) + (" …" if g["rolls"].size() > 2 else "")
@@ -1159,7 +1118,7 @@ func _wechsel_zeile_b(g: Dictionary, platz: String, zu: Callable, de: bool) -> C
 	n.custom_minimum_size.x = 60 * DP
 	v.add_child(n)
 	var unten := Menue.listen_zeile_b(g)
-	if unten == "": unten = Testmodus.gross_anfang(Sprache.t(Heldwerte.lade()["seltenheiten"][String(g["rarity"])].get("name", g["rarity"])))
+	if unten == "": unten = Testmodus.gross_anfang(Sprache.t(BrsHeld.daten()["seltenheiten"][String(g["rarity"])].get("name", g["rarity"])))
 	if zweihaendig(g) and not unten.containsn("zweih") and not Beute.name(g).containsn("zweih"): unten += " · " + ("zweihändig" if de else "two-handed")
 	var u = Vergleich.von(hw, g).urteil() if ok else null
 	var wort := ""
@@ -1171,10 +1130,6 @@ func _wechsel_zeile_b(g: Dictionary, platz: String, zu: Callable, de: bool) -> C
 	ul.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	ul.custom_minimum_size.x = 60 * DP
 	v.add_child(ul)
-	if not ok:
-		var kl := Sprache.t(hw.klassendaten()["name"])
-		# Helfer 13:04: in der matten Zeile war der rote Grund auf Schwarz kaum lesbar: nur Bild, Name, Angaben matt, der Grund in Warnfarbe voll
-		v.add_child(Stil.zeile(("Als %s kannst du das nicht tragen." if de else "As a %s you cannot wear this.") % kl, 13, Spielstaende.mangel()))
 	r.add_child(v)
 	if u != null:
 		var pf := Stil.zeile("▲" if u == 1 else ("▼" if u == -1 else "◆"), 18, GRUEN if u == 1 else (Spielstaende.mangel() if u == -1 else Stil.BRIGHT))   # wie das Fenster
@@ -1226,7 +1181,7 @@ func fenster_b(g: Dictionary, anlegen := Callable(), zurueck := Callable()) -> C
 		schleier.color = Color.BLACK
 		breite = get_viewport_rect().size.x - 48 * DP
 	v.custom_minimum_size.x = breite
-	mitte.add_child(Rueckfrage.halte(v if Spielstaende.vorlage2 else Erschaffung.kasten(v)))
+	mitte.add_child(Rueckfrage.halte(v if Spielstaende.vorlage2 else Stil.rahmen(v)))
 	var inhalt: VBoxContainer = v
 	if Spielstaende.vorlage2:   # 605 (Chef 08.11., 15:57, Bild t268-kopffeld): bei vielen Boni und Notizen im Vergleich lag der Fuss unter dem Schirm
 		inhalt = _rollend(v)
@@ -1292,7 +1247,7 @@ func _rollend(v: VBoxContainer) -> VBoxContainer:
 # (Pruefer 17:12 zur Rueckfrage Wegwerfen)
 static func name_mit_seltenheit(g: Dictionary) -> String:
 	var n := Beute.name(g)
-	var s := Sprache.t(Heldwerte.lade()["seltenheiten"][String(g["rarity"])].get("name", g["rarity"]))
+	var s := Sprache.t(BrsHeld.daten()["seltenheiten"][String(g["rarity"])].get("name", g["rarity"]))
 	return n if n.containsn(s) else "%s (%s)" % [n, s]
 
 # Pruefer 17:12: „1W6“ liest sich in Alegreya wie „IW6“ (die Eins ist dort ein I mit Faehnchen, auch in den Ziffernformen lnum, tnum):
@@ -1303,10 +1258,10 @@ static func wuerfel_lesbar(wurzel: Node) -> void:
 	for l in wurzel.find_children("*", "Label", true, false):
 		if re.search(l.text): l.text = re.sub(l.text, "$1\u00a0W$2", true)
 
-static func stueck_zeilen_b(hw: Heldwerte, g: Dictionary) -> Array:
+static func stueck_zeilen_b(hw: BrsHeld, g: Dictionary) -> Array:
 	var de := Sprache.aktiv() == "de"
 	var sp := "de" if de else "en"
-	var d := Heldwerte.lade()
+	var d := BrsHeld.daten()
 	var b := Beute.grundform(String(g["base"]))
 	var farbe := Color(SELTEN.get(String(g["rarity"]), "e6ddcb"))
 	var fett := func(l: Label) -> Label:
@@ -1366,7 +1321,7 @@ static func stueck_zeilen_b(hw: Heldwerte, g: Dictionary) -> Array:
 			var anderer := v.ersetzt.any(func(x): return String(Beute.grundform(String(x["base"]))["slot"]) != String(b["slot"]))
 			z_.append(satz.call(("Ersetzt: " if de else "Replaces: ") + ", ".join(PackedStringArray(v.ersetzt.map(func(x): return Beute.name(x)))), 13, Spielstaende.mangel() if anderer else Stil.DIM))
 	# 549a (8): keine zweite schlichte Linie unter der Zierlinie; Abstand statt Linie
-	z_.append(Erschaffung.luecke(4) if Spielstaende.vorlage2 else Spielstaende.linie())
+	z_.append(Stil.luecke(4) if Spielstaende.vorlage2 else Spielstaende.linie())
 	# Grundzahlen
 	var waffe := Beute.ist_waffe(b)
 	var zwei := waffe and bool(b["zweihaendig"])
@@ -1383,18 +1338,14 @@ static func stueck_zeilen_b(hw: Heldwerte, g: Dictionary) -> Array:
 		z_.append(satz.call("Pech und Werg auf einem Stock. In der Nebenhand, statt eines Schilds. Im Dunkeln siehst du weiter als mit einem Leuchtfunken. Brennt, solange du sie trägst." if de else
 			"Pitch and tow on a stick. Held in the off hand, instead of a shield. In the dark you see further than with a Lightspark. Burns as long as you carry it.", 14, Stil.TEXT))
 	if b.get("schaden") != null:
-		var viel = b.get("vielseitig")
-		var art_s := Sprache.t(d["schadensarten"].get(String(b["schadensart"]), {"de": "", "en": ""}))
-		z_.append(fett.call(satz.call("%s: %s %s" % [Sprache.u("damage"), Beute.wuerfel_text(b["schaden"], plus, de), art_s], 16, Stil.TEXT)))
-		if viel != null: z_.append(satz.call(("Mit beiden Händen (andere Hand leer): " if de else "In both hands (other hand empty): ") + Beute.wuerfel_text(viel, plus, de), 14, Stil.DIM))
+		z_.append(fett.call(satz.call(schaden_text(g, de), 16, Stil.TEXT)))     # 944 (t276.5): ohne Würfel
 		if plus > 0: z_.append(fett.call(satz.call("%s +%d" % [Sprache.u("attack"), plus], 15, Stil.TEXT)))
-		if bool(b.get("finesse", false)): z_.append(satz.call(("Finesse: trifft mit %s oder %s, was höher ist" if de else "Finesse: hits with %s or %s, whichever is higher") % [Heldwerte.kurzwort("DEX"), Heldwerte.kurzwort("STR")], 13, Stil.DIM))
-		if bool(b.get("fern", false)): z_.append(satz.call(("Fernkampf: trifft mit %s" if de else "Ranged: hits with %s") % Heldwerte.kurzwort("DEX"), 13, Stil.DIM))
-	if String(b["slot"]) == "CHEST" and int(b.get("ruestung", 0)) > 0:
-		var ges: String = {"LIGHT": " + " + Heldwerte.kurzwort("DEX"), "MEDIUM": " + %s (max 2)" % Heldwerte.kurzwort("DEX")}.get(gewicht, "")
-		z_.append(fett.call(satz.call("%s %d%s" % [("Schutzwert" if de else "Protection"), int(b["ruestung"]) + plus, ges], 16, Stil.TEXT)))
-	if String(b["art"]) == "SHIELD": z_.append(fett.call(satz.call("%s +%d" % [("Schutzwert" if de else "Protection"), int(b["ruestung"]) + plus], 16, Stil.TEXT)))
-	if int(b.get("fokus", 0)) > 0: z_.append(fett.call(satz.call(("Zauberkraft +%d" if de else "Spell power +%d") % int(b["fokus"]), 16, Stil.TEXT)))
+		# 870.4 ([870.14.ding.grundwert], [870.14.ding.armbrust]): der Grundwert im Schaden nach werte.json „waffen“
+		var gw = BrsHeld.lade()["waffen"].get(BrsHeld.fertigkeit_von(String(g["base"])), {}).get("grundwert")
+		if gw == null: z_.append(satz.call("Schaden ohne Grundwert." if de else "Damage without an attribute.", 13, Stil.DIM))
+		else: z_.append(satz.call(("Schaden mit %s" if de else "Damage with %s") % ErschaffungBrs.tx(ErschaffungBrs.GRUNDWERT.get(String(gw), {"de": gw, "en": gw})), 13, Stil.DIM))
+	if (String(b["slot"]) == "CHEST" and int(b.get("ruestung", 0)) > 0) or String(b["art"]) == "SHIELD":   # 870.4: Schutzwert nach BRS
+		z_.append(fett.call(satz.call("%s %d" % [("Schutzwert" if de else "Protection"), BrsHeld.schutzwert_von(String(g["base"]))], 16, Stil.TEXT)))
 	# Boni: wirksam in Gold; was die Obergrenze ganz oder zum Teil schluckt, matt mit dem, was wirkt
 	if not g.get("rolls", []).is_empty():
 		z_.append(Spielstaende.linie())
@@ -1402,7 +1353,7 @@ static func stueck_zeilen_b(hw: Heldwerte, g: Dictionary) -> Array:
 		for r in g["rolls"]:
 			var a := String(r[0]); var w := int(r[1])
 			var ad: Dictionary = d["affixdaten"][a]
-			var t := ("Kritisch ab %d" % (20 - w) if de else "Critical on %d–20" % (20 - w)) if a == "CRIT" else \
+			var t := ("+%d %% kritisch" % w if de else "+%d%% critical" % w) if a == "CRIT" else \
 				"+%d%s %s" % [w, "%" if bool(ad["prozent"]) else "", Sprache.t(ad["name"])]
 			var e: Array = wk.get(a, [w, w])
 			if e.size() > 2 and int(e[1]) != int(e[2]):   # alle Attribute: je Attribut verschieden viel (Helfer 14:18: „wirkt nur teils“ sagte zu wenig)
@@ -1412,13 +1363,8 @@ static func stueck_zeilen_b(hw: Heldwerte, g: Dictionary) -> Array:
 				var pz := "%" if bool(ad["prozent"]) else ""
 				z_.append(satz.call(t + (" – wirkt +%d%s (Obergrenze)" if de else " – gives +%d%s (limit)") % [int(e[1]), pz], 15, Stil.DIM))
 			else: z_.append(satz.call(t, 16, Stil.BRIGHT))
-	# Warnungen
-	if not hw.kann_tragen(g):
-		z_.append(satz.call(("Als %s kannst du das nicht tragen." if de else "As a %s you cannot wear this.") % Sprache.t(hw.klassendaten()["name"]), 15, Spielstaende.mangel()))
-	elif waffe and not hw.geuebt(g):
-		z_.append(satz.call("Ungeübt: kein Fertigkeitsbonus auf Angriffe." if de else "Untrained: no skill bonus to attacks.", 15, Spielstaende.mangel()))
-	if int(b.get("fokus", 0)) > 0 and not bool(hw.klassendaten()["zauberer"]):
-		z_.append(satz.call("Zauberkraft nützt nur Zauberwirkern." if de else "Spell power only helps spellcasters.", 13, Stil.DIM))
+	# Warnungen (870.4: Tragen nach BRS)
+	for t in Menue.tragen_hinweise(hw, g): z_.append(satz.call(t[0], 15 if t[1] else 13, Spielstaende.mangel() if t[1] else Stil.DIM))
 	# Helfer 14:18: die Sammelzeile „Attribute: … Bonus wirkt nicht“ der Tabelle widersprach den Bonuszeilen („wirkt +1“: was das Stueck
 	# selbst bringt; die Sammelzeile: gegen das, was es ersetzt). Jede Bonuszeile sagt schon, was die Obergrenze schluckt: hier ohne sie.
 	# 701 (Chef 08.11., 20:37 „wirkt überbordend“): ohne jede Zeile, die nur den Deckel wiederholt („doppelt“, Vergleich.von)
@@ -1452,23 +1398,21 @@ func ausruestung() -> void:
 	inhalt.add_child(puppe)
 	luecke(10)
 	zeile(("Kampfwerte" if de else "Combat stats").to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))
-	wert_zeile("Schutzwert" if de else "Protection", str(hw.rk()))
-	wert_zeile(Sprache.u("attack"), Erschaffung.vorzeichen(hw.angriff()))
-	wert_zeile(Sprache.u("damage"), Beute.wuerfel_text(hw.schaden(), 0, de))
-	var n = hw.nebenwaffe()
-	if n != null: wert_zeile("Nebenhand" if de else "Off hand", "%s · %s" % [Erschaffung.vorzeichen(hw.angriff_mit(n)), Beute.wuerfel_text(hw.schaden_mit(n, true), 0, de)])
-	wert_zeile("Kritisch ab" if de else "Critical on", str(hw.krit_ab()) if de else "%d–20" % hw.krit_ab())
-	if bool(hw.klassendaten()["zauberer"]): wert_zeile("Zauberangriff / SG" if de else "Spell attack / DC", "%s / %d" % [Erschaffung.vorzeichen(hw.zauberangriff()), hw.zauber_sg()])
-	var ad: Dictionary = Heldwerte.lade()["affixdaten"]
-	if hw.lebensraub() > 0: wert_zeile(Sprache.t(ad["LIFESTEAL"]["name"]), "%d%%" % hw.lebensraub())
-	if hw.schadensminderung() > 0: wert_zeile(Sprache.t(ad["RESIST"]["name"]), str(hw.schadensminderung()))
-	for a in ["MAGIC_FIND", "GOLD_FIND", "XP"]:
-		if hw.bonus(a) > 0: wert_zeile(Sprache.t(ad[a]["name"]), "+%d%%" % hw.bonus(a))
+	# 870.4 ([870.14.kw.…]): Leben, Mana, Ausdauer, Schutzwert, Schaden als Zahl, Kritisch in Prozent; Magiefund bleibt (13 offen)
+	var i := 0 if de else 1
+	wert_zeile(KAMPFWERT["leben"][i], "%d/%d" % [hw.leben, hw.max_leben()])
+	if hw.max_mana() > 0: wert_zeile(KAMPFWERT["mana"][i], "%d/%d" % [hw.mana, hw.max_mana()])
+	wert_zeile(KAMPFWERT["ausdauer"][i], str(roundi(hw.ausdauer_s())))
+	wert_zeile(KAMPFWERT["schutz"][i], str(hw.schutzwert()))
+	wert_zeile(KAMPFWERT["schaden"][i], str(hw.schaden()))
+	wert_zeile(KAMPFWERT["krit"][i], ("%d %%" if de else "%d%%") % hw.krit_prozent())
+	var ad: Dictionary = BrsHeld.daten()["affixdaten"]
+	if hw.bonus("MAGIC_FIND") > 0: wert_zeile(Sprache.t(ad["MAGIC_FIND"]["name"]), "+%d%%" % hw.bonus("MAGIC_FIND"))
 
 func wert_zeile(wort: String, wert: String) -> void:
 	var r := HBoxContainer.new()
-	r.add_child(Erschaffung.txt(wort, 15))
-	var w := Erschaffung.txt(wert, 15, Stil.BRIGHT)
+	r.add_child(Stil.txt(wort, 15))
+	var w := Stil.txt(wert, 15, Stil.BRIGHT)
 	w.size_flags_horizontal = Control.SIZE_FILL
 	w.autowrap_mode = TextServer.AUTOWRAP_OFF
 	r.add_child(w)
@@ -1549,7 +1493,7 @@ func fach(platz: String) -> Control:
 		rahmen.add_child(sp)
 	else: rahmen.add_child(n)
 	v.add_child(rahmen)
-	var p := Erschaffung.txt(platzname(platz), 11, Stil.DIM)
+	var p := Stil.txt(platzname(platz), 11, Stil.DIM)
 	p.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	v.add_child(p)
 	tippbar(v, func(): tippe_fach("MAIN_HAND" if zwei else platz))
@@ -1756,9 +1700,9 @@ func geraet_box() -> void:
 	var de := Sprache.aktiv() == "de"
 	var reihe_ := HBoxContainer.new()
 	reihe_.add_theme_constant_override("separation", int(6 * DP))
-	reihe_.add_child(Erschaffung.knopf(("Gerät schließen" if de else "Hide device info") if geraet_auf else ("Gerät zeigen …" if de else "Show device…"), func(): geraet_auf = not geraet_auf; baue()))
+	reihe_.add_child(Stil.knopf(("Gerät schließen" if de else "Hide device info") if geraet_auf else ("Gerät zeigen …" if de else "Show device…"), func(): geraet_auf = not geraet_auf; baue()))
 	if geraet_auf:
-		var b := Erschaffung.knopf("Kopieren" if de else "Copy", func(): DisplayServer.clipboard_set(geraeteangaben()); meldung("Geräteangaben kopiert." if de else "Device details copied."))
+		var b := Stil.knopf("Kopieren" if de else "Copy", func(): DisplayServer.clipboard_set(geraeteangaben()); meldung("Geräteangaben kopiert." if de else "Device details copied."))
 		b.size_flags_stretch_ratio = 0.5
 		reihe_.add_child(b)
 	inhalt.add_child(reihe_)
@@ -1789,7 +1733,7 @@ func anleitung() -> void:
 	var v: VBoxContainer = d["inhalt"]
 	var halbfett := Stil.variante(0.2, false, true)   # 584: der echte halbfette Schnitt wie alt (GuideScreen.kt 57, SemiBold) statt kuenstlich verdickt
 	var gerade := Stil.variante(0.2)
-	for t in anleitung_teile(hw.klasse):
+	for t in anleitung_teile(""):   # 870.4: ohne Klasse nur die allgemeinen Teile; Handbuch nach BRS mit 870.9 (Homer 870.15)
 		var st := stuecke(t)
 		var absatz := VBoxContainer.new()
 		absatz.add_theme_constant_override("separation", 0)
@@ -1866,7 +1810,7 @@ class Regler extends VBoxContainer:
 		size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		var kopf := HBoxContainer.new()
 		add_child(kopf)
-		var n := Erschaffung.txt(name_, 14)
+		var n := Stil.txt(name_, 14)
 		kopf.add_child(n)
 		zahl = Stil.zeile("", 14 * 0.95, Stil.BRIGHT, 0.2, false, true)   # 584: Wert halbfett wie alt (SoundSettings.kt 64)
 		kopf.add_child(zahl)
@@ -1923,7 +1867,7 @@ func kaestchen(zeilen: Array) -> void:
 # 528 (ChronicleTab.kt 100): „Auf der Karte“, nur wo die Karte ein Zeichen des Auftraggebers hat; oeffnet die Karte auf ihm
 func auf_der_karte(wer: String) -> Array:
 	if not Kartenreiter.hat_geber(z, wer): return []
-	var b := Erschaffung.knopf("Auf der Karte" if de_() else "On the map", func():
+	var b := Stil.knopf("Auf der Karte" if de_() else "On the map", func():
 		Kartenreiter.fokus_wer = wer
 		karte_direkt = false
 		reiter = "karte"; baue())
@@ -1939,8 +1883,8 @@ func chronik() -> void:
 	Chronik.gelesen(z)
 	var r := HBoxContainer.new()
 	r.add_theme_constant_override("separation", int(6 * DP))
-	r.add_child(Erschaffung.knopf("Aufträge" if de else "Quests", func(): bisher = false; baue(), not bisher))
-	r.add_child(Erschaffung.knopf("Bisher geschehen" if de else "Story so far", func(): bisher = true; baue(), bisher))
+	r.add_child(Stil.knopf("Aufträge" if de else "Quests", func(): bisher = false; baue(), not bisher))
+	r.add_child(Stil.knopf("Bisher geschehen" if de else "Story so far", func(): bisher = true; baue(), bisher))
 	inhalt.add_child(r)
 	luecke(10)
 	if bisher:
@@ -1952,22 +1896,22 @@ func chronik() -> void:
 		# 68: die Morgenandacht am Ende von Kapitel 1 kann man wieder ansehen, sobald das Kapitel vorbei ist (ChronicleTab onTemple)
 		if Zwischenbild.da() and z.has(Geschichte.CHAPTER1_DONE):
 			luecke(12)
-			var t := Erschaffung.knopf("Die Morgenandacht ansehen" if de else "Watch the dawn service", func(): andacht.emit())
+			var t := Stil.knopf("Die Morgenandacht ansehen" if de else "Watch the dawn service", func(): andacht.emit())
 			t.custom_minimum_size.y = 36 * DP
 			t.add_theme_font_size_override("font_size", int(round(14 * Stil.SP)))
 			inhalt.add_child(t)
 		# 69d: die Ankunft bei Nacht gehoert vor den ersten Eintrag; man kann sie wieder ansehen (ChronicleTab onIntro)
 		if Zwischenbild.da():
 			luecke(12)
-			var b := Erschaffung.knopf("Die Ankunft ansehen" if de else "Watch the arrival", func(): ankunft.emit())
+			var b := Stil.knopf("Die Ankunft ansehen" if de else "Watch the arrival", func(): ankunft.emit())
 			b.custom_minimum_size.y = 36 * DP
 			b.add_theme_font_size_override("font_size", int(round(14 * Stil.SP)))
 			inhalt.add_child(b)
 		return
-	kaestchen([Erschaffung.txt("Hauptauftrag" if de else "Main quest", 13, Stil.GOLD), Erschaffung.txt(Sprache.t(Geschichte.ziel(z)), 16, Stil.BRIGHT, true)])   # 584: ChronicleTab.kt 72, 78, 92 halbfett
+	kaestchen([Stil.txt("Hauptauftrag" if de else "Main quest", 13, Stil.GOLD), Stil.txt(Sprache.t(Geschichte.ziel(z)), 16, Stil.BRIGHT, true)])   # 584: ChronicleTab.kt 72, 78, 92 halbfett
 	for t in Chronik.offen(z):
 		luecke(8)
-		kaestchen([Erschaffung.txt(Sprache.t(t["titel"]), 16, Stil.TEXT, true), Erschaffung.txt(Sprache.t(t["text"]).replace("{name}", hw.name), 14)])
+		kaestchen([Stil.txt(Sprache.t(t["titel"]), 16, Stil.TEXT, true), Stil.txt(Sprache.t(t["text"]).replace("{name}", hw.name), 14)])
 	# 399.1 Nebenauftraege vom Anschlagbrett (ChronicleTab): Titel, von wem, Aushang, Stand oder „Bereit zur Abgabe“, Lohn
 	var getragen := Auftraege.getragen(z)
 	if not getragen.is_empty():
@@ -1978,16 +1922,25 @@ func chronik() -> void:
 		var hat := Auftraege.stand(z, j)
 		var bereit := hat >= int(j["anzahl"])
 		var wer := Sprache.t(j["geber_name"])
-		kaestchen([Erschaffung.txt(Sprache.t(j["titel"]), 16, Stil.TEXT, true), Erschaffung.txt(("von " if de else "from ") + wer, 13, Stil.DIM),
-			Erschaffung.txt(Sprache.t(j["aushang"]), 14),
-			Erschaffung.txt((("Bereit zur Abgabe – bei %s" if de else "Ready to turn in to %s") % wer) if bereit
+		kaestchen([Stil.txt(Sprache.t(j["titel"]), 16, Stil.TEXT, true), Stil.txt(("von " if de else "from ") + wer, 13, Stil.DIM),
+			Stil.txt(Sprache.t(j["aushang"]), 14),
+			Stil.txt((("Bereit zur Abgabe – bei %s" if de else "Ready to turn in to %s") % wer) if bereit
 				else "%d %s %d · %s" % [hat, "von" if de else "of", int(j["anzahl"]), Laden.name(String(j["ding"]))], 14, GRUEN if bereit else Stil.GOLD),
-			Erschaffung.txt(("Lohn: " if de else "Reward: ") + Sprache.t(j["lohn"]), 13, Stil.DIM)] + auf_der_karte(String(j["geber"])))
+			Stil.txt(("Lohn: " if de else "Reward: ") + Sprache.t(j["lohn"]), 13, Stil.DIM)] + auf_der_karte(String(j["geber"])))
 	var fertig := Chronik.fertig(z)
 	var fertig_j := Auftraege.alle().filter(func(j): return Auftraege.erledigt(z, j))
 	if not fertig.is_empty() or not fertig_j.is_empty():
 		luecke(12)
-		inhalt.add_child(Erschaffung.knopf(("Erledigt (%d)" if de else "Done (%d)") % (fertig.size() + fertig_j.size()) + (" ▴" if erledigt_auf else " ▾"), func(): erledigt_auf = not erledigt_auf; baue()))
+		inhalt.add_child(Stil.knopf(("Erledigt (%d)" if de else "Done (%d)") % (fertig.size() + fertig_j.size()) + (" ▴" if erledigt_auf else " ▾"), func(): erledigt_auf = not erledigt_auf; baue()))
 		if erledigt_auf:
 			for t in fertig: zeile("✓ " + Sprache.t(t["titel"]), 14, Stil.DIM)
 			for j in fertig_j: zeile("✓ " + Sprache.t(j["titel"]) + " · " + Sprache.t(j["geber_name"]), 14, Stil.DIM)
+
+
+## 944 (Chef 11.11., 13:22, t276.5): [870.14.ding.schaden] „Schaden %d · %s“, Grundschaden der Waffengruppe (werte.json „waffen“,
+## wie BrsHeld.schaden und mars.gd _brs_waffe), Schadensart wie bisher; nie ein Würfel
+static func schaden_text(g: Dictionary, de: bool) -> String:
+	var b := Beute.grundform(String(g["base"]))
+	var wd: Dictionary = BrsHeld.lade()["waffen"].get(BrsHeld.fertigkeit_von(String(g["base"])), {})
+	var art := Sprache.t(BrsHeld.daten()["schadensarten"].get(String(b.get("schadensart", "")), {"de": "", "en": ""}))
+	return ("Schaden %d · %s" if de else "Damage %d · %s") % [int(wd.get("schaden", 0)), art]

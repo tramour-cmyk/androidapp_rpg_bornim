@@ -1,12 +1,13 @@
 extends SceneTree
-# 494 ohne Bild: Probekampf „Wildschwein“ (aufruf.gd BOARS): ein Wildschwein mit seinen eigenen Regeln aus tabellen.json (Monsters.kt boar:
-# Name, Trefferpunkte 2W8+2, Hauer), MARS spielt es auf Autopilot zu Ende; im Bild ein Vierbeiner (Figur.vier), mit Kaufmodell der Keiler.
-# Dazu der Riesen-Hundertfüßer (CENTIPEDES, Monsters.kt giant_centipede, 2W6+1), Riesenegel (LEECHES), Säureschnecke (SLUGS),
-# Riesenratte (RATTE) und Riesenfledermaus (FLEDERMAUS).
+# 494 ohne Bild: Probekampf „Wildschwein“ (aufruf.gd BOARS): ein Wildschwein mit Name und Hauern, Leben nach BRS aus werte.json
+# (922: nicht mehr SRD 2W8+2), MARS spielt es auf Autopilot zu Ende; im Bild ein Vierbeiner (Figur.vier), mit Kaufmodell der Keiler.
+# Dazu der Riesen-Hundertfüßer (CENTIPEDES), Riesenegel (LEECHES), Säureschnecke (SLUGS), Riesenratte (RATTE) und Riesenfledermaus
+# (FLEDERMAUS), je mit Leben aus werte.json.
 # Aufruf: im Ordner godot mit -s res://tests/wildschwein_494.gd
 
 const Probe = preload("res://kampf/probe.gd")
 const Figur = preload("res://kampf/figur.gd")
+const Brs = preload("res://regeln/brs.gd")
 
 var fehler := 0
 
@@ -18,19 +19,19 @@ func _initialize() -> void:
 
 func _lauf() -> void:
 	for k in ["FIGHTER", "WIZARD"]:
-		await _kampf(k, "BOARS", "boar", "Wildschwein", 4, 18)
-	await _kampf("FIGHTER", "CENTIPEDES", "giant_centipede", "Riesen-Hundertfüßer", 3, 13)
-	# Kauf 348.12c: Riesenegel (Regeln der Stirge, 2W4+1) und Säureschnecke (Regeln der Ockergallerte, 5W10+5), Namen nach LISTE-FIGUREN
-	await _kampf("FIGHTER", "LEECHES", "stirge", "Riesenegel", 3, 9)
-	await _kampf("FIGHTER", "SLUGS", "ochre_jelly", "Säureschnecke", 10, 55)
-	# Jerry 18:4x: Riesenratte (2W6) und Riesenfledermaus (4W10) je allein mit eigenen Regeln wie im alten Spiel
-	await _kampf("FIGHTER", "RATTE", "giant_rat", "Riesenratte", 2, 12)
-	await _kampf("WIZARD", "FLEDERMAUS", "giant_bat", "Riesenfledermaus", 4, 40)
+		await _kampf(k, "BOARS", "boar", "Wildschwein")
+	await _kampf("FIGHTER", "CENTIPEDES", "giant_centipede", "Riesen-Hundertfüßer")
+	# Kauf 348.12c: Riesenegel (Kennung der Stirge) und Säureschnecke (Kennung der Ockergallerte), Namen nach LISTE-FIGUREN
+	await _kampf("FIGHTER", "LEECHES", "stirge", "Riesenegel")
+	await _kampf("FIGHTER", "SLUGS", "ochre_jelly", "Säureschnecke")
+	# Jerry 18:4x: Riesenratte und Riesenfledermaus je allein mit eigenen Regeln wie im alten Spiel
+	await _kampf("FIGHTER", "RATTE", "giant_rat", "Riesenratte")
+	await _kampf("WIZARD", "FLEDERMAUS", "giant_bat", "Riesenfledermaus")
 	print("WILDSCHWEIN 494 %s" % ("gut" if fehler == 0 else "%d FEHLER" % fehler))
 	quit(1 if fehler > 0 else 0)
 
 
-func _kampf(k: String, foe: String, id: String, de: String, lo: int, hi: int) -> void:
+func _kampf(k: String, foe: String, id: String, de: String) -> void:
 	var p = Probe.new()
 	p.hero_cls = k
 	p.merc_cls = "CLERIC"
@@ -49,9 +50,10 @@ func _kampf(k: String, foe: String, id: String, de: String, lo: int, hi: int) ->
 	if feinde.size() != 1 or String(feinde[0].monster.id) != id or String(feinde[0].monster.de) != de:
 		fehler += 1
 		print("FEHLER Gegner: %s" % [feinde.map(func(f): return "%s/%s" % [f.monster.id, f.monster.de])])
-	elif feinde[0].max_hp < lo or feinde[0].max_hp > hi:
+	elif feinde[0].max_hp != int(Brs.monster(id).get("leben", -1)):
+		# 922 (Lauf 346): Leben nach BRS aus werte.json (Wildschwein 29), nicht mehr die SRD-Spanne (2W8+2 → 4–18)
 		fehler += 1
-		print("FEHLER Trefferpunkte %d (%d–%d)" % [feinde[0].max_hp, lo, hi])
+		print("FEHLER Trefferpunkte %d (werte.json %d)" % [feinde[0].max_hp, int(Brs.monster(id).get("leben", -1))])
 	var fig = kf.figures.get(String(feinde[0].id)) if not feinde.is_empty() else null
 	if fig == null or not Figur.vier(fig.fighter):
 		fehler += 1

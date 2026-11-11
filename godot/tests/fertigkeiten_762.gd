@@ -28,7 +28,7 @@ func _lauf() -> void:
 		pruefe("Rang", String(Menue.rang_von(r[0])[1]) == r[1], "%d: %s statt %s" % [r[0], Menue.rang_von(r[0])[1], r[1]])
 	for brs in [true, false]:
 		var z := Zustand.new()
-		var hw := Heldwerte.erschaffe("Thora", "HUMAN", "FIGHTER", {}, z.neue_uid)
+		var hw := BrsHeld.fuer_spiel("Thora", "Mensch", "Wachsoldat", z.neue_uid)
 		if brs: z.brs = BrsHeld.neu("Mensch", "Wachsoldat").als_daten()
 		var m := Menue.new(hw, z)
 		root.add_child(m)

@@ -23,7 +23,7 @@ func _lauf() -> void:
 	root.add_child(kl)
 	var z := Zustand.new()
 	z.name = "Mira"; z.schritte = 1234; z.siege = 5
-	var hw := Heldwerte.erschaffe("Mira", "ELF", "WIZARD", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Mira", "Elf", "Zauberlehrling", z.neue_uid)
 	var m := Menue.new(hw, z)
 	root.add_child(m)
 	m.reiter = "system"; m.baue()
