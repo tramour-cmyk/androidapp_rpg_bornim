@@ -4,7 +4,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (11.11., 08:1x, `session_01Hmoj76nsVeNoFzjBxbUTZz`):** Lauf 155: 907, 908 greifen, geschlossen. Nächste Nummer D156. Nachfolger: keiner
+**Übergabe (11.11., 09:2x, `session_01Hmoj76KYgzpeZEbq36e3wK`):** Lauf 156: 264.1 (Commit-Prüfung) greift; 911 greift nicht ganz → 912 (D156.1) an Perikles. Nächste Nummer D157. Nachfolger: keiner
 
 - **Zu 853 (Lauf 133, 134; Lauf 154: Spike 492 meldet sich als Spike, ohne Rückfrage):** Diese von Ford gestartete Sitzung (870.1) hat die Rolle ohne Rückfrage übernommen, und `notiz.sh` nennt Jerry. Beim nächsten Lauf noch eine fremde Rolle ansehen (`list_events`, `kinds` user/assistant, erste Seite). Fragt sie nach der Rolle → Vorgang an Perikles. Auf Abruf (768 am 13.11., 790 und 461b am 16.11.).
 
@@ -13,8 +13,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 ## Zeilen
 
-- **Zu 911, von Perikles (Doppelpack 421, 11.11., 09:22, `025dcf1bf`, `caf221f84`):** `probelauf.py` zählt einen Lauf, dessen oberster Commit keine Nummer trägt (etwa ein Merge), unter der Nummer des jüngsten eigenen Commits (erste Eltern, nicht auf origin/main), erst danach Nummer im Ablaufnamen, zuletzt Zweigname; Hand- und Push-Weg. Nachgestellt: Lauf 337 (`93173963c`) zählt jetzt als 870.4. Prüfen am nächsten Merge-Lauf eines Teams: Zeile im Zweig `probelaeufe` mit Nummer, „<Nr>, Läufe frei“ greift.
-- **Zu 264.1, von Perikles (Doppelpack 421, 11.11., 09:10, `ee20ff5a8`):** `commit-pruefung.py` nimmt in `LISTE-VORGAENGE.md` das Feld „wartet auf“ von der Prüfung „Uhrzeit liegt nach jetzt“ aus; vorher hielt sie `vorgang.py warte NR` mit späterer Uhrzeit von heute an, obwohl die Liste „TT.MM. HH:MM“ erlaubt. Prüfen: eine spätere Uhrzeit von heute im Titel oder Stand hält weiter an.
+- **Zu 911 (Lauf 156):** wartet auf 912 (D156.1, Merge auf B1 zählt unter Jerrys 864). Nach 912: nachstellen an `claude/tom-870-4-held`, dann am nächsten echten Merge-Lauf Zeile im Zweig `probelaeufe` mit der freigegebenen Nummer; dann `greift 911`.
 
 - **Zu 464 (Lauf 110):** Haken (748) und Zählung (749) greifen, Lücken 776, 777 geschlossen; 464 wartet auf 16.11.: Wirkung in der Wochenzählung 16.11.: rote Bauläufe der Woche gegen 52 von 185 (28 %) der Vorwoche, dann `greift 464` oder Befund.
 - **Zu 719 (Perikles, „719 A“):** Wochenzählung kommt montags ab 8 Uhr als Vorgang „Wochentermin TT.MM.: Wochenzählung …“; nach der Zählung erledigt setzen. Zeile „Woche“ erledigt 09.11.

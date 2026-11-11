@@ -52,6 +52,12 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 156 · 911 Handlauf ohne Nummer oben, 264.1 Uhrzeit im Feld „wartet auf“ (Perikles, Doppelpack 421, `025dcf1bf`, `caf221f84`, `ee20ff5a8`; 11.11., 09:2x)
+
+- **D156.1 → 912 (Perikles), 911 wartet darauf:** nachgestellt im Modul gegen `origin/claude/tom-870-4-held`: `nr_aus_verlauf(…, 93173963c)` = 870.4 (der Fall von 09:19 greift), aber der Zweig steht schon weiter: oben Toms Merge `e0c57e573` „Merge 864 und 904 (Jerry) in B1“, erste Eltern Jerrys `44dec34a2` „864: …“. `vorgang_aus_ref` gibt 864; der nächste B1-Lauf zählt unter Jerrys 864 (stand 0, wird verbraucht), nicht unter 870.4, das Sokrates 09:12/09:19 für diesen Lauf freigab. Reihenfolge Commit oben → eigener Commit → Name in Klammern → Zweig wie im Kopf von `probelauf.py`; kein echter Merge-Lauf seit 09:22 im Zweig `probelaeufe` (letzte Zeilen 09:20).
+- **264.1 greift:** Probe in einer Klonkopie mit gestellter Zeile 264.1 und Uhrzeit heute 23:50: im Feld „wartet auf“ Exit 0; im Titel, im Stand, im Bereich je Exit 1 „Uhrzeit 23:50 liegt nach jetzt“. Spaltenfolge passt zum Listenkopf (Feld 6 = „wartet auf“); ohne Befund. Kopf von `commit-pruefung.py` nennt die Ausnahme nicht, kein Befund. 264.1 selbst bleibt offen (Runnerprobe).
+- **Nicht geprüft:** Push-Weg mit veraltetem `origin/main` in der Arbeitskopie und ohne eigenen Commit mit Nummer (dann zählte ein Commit von `main` statt des Zweigs; nicht nachgestellt, selten).
+
 ## Lauf 155 · 907, 908 Halbsatz 324 und Checkliste beim Entwurf (Perikles, Doppelpack 421, `559dc33c7`; 11.11., 08:1x)
 
 - **907 greift:** Punkt 3 trägt wieder „auch wenn der getestete noch nicht auf `main` ist (324)“, gleicher Sinn wie der Wortlaut in `ad191efb8` (Chef 22.10., 23:26). Archiv 324 bleibt kurz, sein Verweis auf `LISTE-BAUEN-TESTEN.md` führt über deren Zeile 26 zur Checkliste; ohne Befund.
