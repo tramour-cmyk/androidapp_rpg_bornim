@@ -216,10 +216,15 @@ def zaehler_pushen(zeile, nr, besitzer):
         # Systemzeilen aus dem letzten eigenen Commit dieser Kopie (Reflog „commit“), sonst ohne
         _, log, _ = _git("log", "-g", "-n", "200", "--format=%H%x1f%gs", "HEAD")
         eigen = next((l.split("\x1f")[0] for l in log.splitlines() if "\x1f" in l and l.split("\x1f")[1].startswith("commit")), None)
-        anhang = ""
-        if eigen:
-            _, text, _ = _git("log", "-1", "--format=%B", eigen)
-            anhang = "\n".join(l for l in text.splitlines() if l.startswith(("Co-Authored-By:", "Claude-Session:")))
+        # 957 (D172.1): frische Sitzung ohne eigenen Commit: Co-Authored-By aus dem jüngsten Commit auf origin/main, der eine trägt;
+        # Claude-Session aus CLAUDE_CODE_REMOTE_SESSION_ID (cse_… = session_…)
+        _, text, _ = _git("log", "-1", "--format=%B", eigen) if eigen else (0, "", "")
+        if "Co-Authored-By:" not in text: _, text2, _ = _git("log", "-30", "--format=%B", "origin/main"); text += "\n" + text2
+        co = next((l for l in text.splitlines() if l.startswith("Co-Authored-By:")), None)
+        sid = os.environ.get("CLAUDE_CODE_REMOTE_SESSION_ID", "")
+        cs = ("Claude-Session: https://claude.ai/code/session_" + sid[4:]) if sid.startswith("cse_") else \
+            next((l for l in (_git("log", "-1", "--format=%B", eigen)[1] if eigen else "").splitlines() if l.startswith("Claude-Session:")), None)
+        anhang = "\n".join(x for x in (co, cs) if x)
         rc, neu_c, _ = _git("commit-tree", baum, "-p", basis, "-m", "Zähler: %s vergeben (%s, 940)" % (nr, besitzer) + ("\n\n" + anhang if anhang else ""))
         if rc or not neu_c: return "aus"
         rc, _, err = _git("push", "-q", "origin", "%s:refs/heads/main" % neu_c)
