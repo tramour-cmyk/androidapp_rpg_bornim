@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Stand Ford (11.11., 03:27, Ford `session_01Hmoj79ZRCgfghKYLkLUwW1`):** Neue Uhr steht, alte gelöscht. Offen bis zum Archiv-Satz des Chefs: archivieren und buchen alter Ford `…78JXixSQQeQDGy7ZvJ` (6,94 $, Betrieb) und Sokrates `…78xr5` (idle, Nachfolger `…77DnC` läuft; 4,80 $ auf 870). Jerry `…76RTd` und Perikles `…75P7` stehen (warten auf 870.4 bzw. Chef). Dauerausschluss: `--ohne 506.2:Tuffy nur auf Chef-Wort --ohne M?:Planfehler Klasse als Vorgang (893)`.
+**Übergabe (11.11., 07:24, Ford `session_01Hmoj79ZRCgfghKYLkLUwW1`, Selbstneustart in Hoch auf Wort Sokrates/Chef 07:20):** Getan: alles Archivieren und Kosten erfasst (Chef 07:09: Ford archiviert und bucht jede ARCHIVIERE-Zeile ohne Satz, dauerhaft); Neustart aller Rollen in Hoch 07:21 (365a B, Chef 07:18); Tom, Sokrates, Jerry 751, Diogenes 771, Spike 680, Tuffy 705 laufen in Hoch. **Bis Sa 14.11., 20:00 jedes `create_session` mit environment_id `env_017fgL1YDcVTYTkJsU3APEfR` (WireStorm Hoch)**, bis `lauf.py` (901) das kann; vor jedem Start laufende Sitzung der Rolle prüfen (07:18-Doppel: Startzeile von lauf.py gilt erst nach `list_sessions`). Ohne `--nur-muss` (Wochenreset 07:12), Teampausen aufgehoben. Dauerausschluss: `--ohne 506.2:Tuffy nur auf Chef-Wort --ohne M?:Planfehler Klasse als Vorgang (893)`. Nachfolger: Ford – Betriebsleiter
 
 **Nächste freie Vorgangsnummer: 902** (zuletzt 901 Perikles 11.11. 07:18:31 a5bf) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -289,3 +289,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:21 11.11.: Startsperre 07:21 Start Jerry, Diogenes, Spike, Tuffy (Neustart in Umgebung Hoch, Chef 07:19 laut Sokrates; Sitzungen von 07:18 ohne Arbeit ersetzt)
 - 07:22 11.11.: **Bis Sa 14.11., 20:00 jedes create_session mit environment_id env_017fgL1YDcVTYTkJsU3APEfR (WireStorm Hoch)** (365a B, Chef 07:18; Sokrates 07:21), bis lauf.py (901) es kann; Gleichzeitig-Doppel Spike/Tuffy/Diogenes/Jerry von 07:18 (Mittel) unterbrochen, archiviert, gebucht (3,0 $ zusammen)
 - 07:22 11.11.: Startsperre 07:22 Start Tom (Neustart-Meldung 07:21, 0d88e082c; Umgebung Hoch)
+- 07:24 11.11.: Startsperre 07:24 Start Ford (selbst; Selbstneustart in Hoch, 300 Tsd. Token)
