@@ -2853,6 +2853,7 @@ func _held_mps(nm: String) -> float:
 ## Jetzt hin 1,34 und zurück 1,5 m/s, je Schritte im Tempo des Wegs (Füße stehen), zurück ohne Kurve
 const ANGRIFF_GANG := 2.0
 const VERFEHLT_M := 0.3
+const NIEDRIG_M := 0.8          # 595: Ziel mit dem Rücken so tief (Egel 0,27, Ratte 0,56, Schnecke 0,69 m): Hieb nach Zielhöhe
 const HIEB_VOR := 0.12
 const HIEB_ZURUECK_M := 0.3
 const HIEB_TIEF := 0.02           # 709: so tief dringt die Klinge beim Treffer in den Körper (Kapseln)
@@ -2898,6 +2899,31 @@ func _held_schlag(other, weiter := 0.0) -> int:
 		if not hiebe.is_empty():
 			hn = hiebe[randi() % hiebe.size()]
 			auf = float(kampf_info.get("kontakt", {}).get(hn, HELD_AUFSCHLAG))
+	# 595 (Chef 11.11., 20:09, wiederholt: „der eine … kein Schild … steckt ja immer oben drüber … der mit Schwert und Schild schlägt
+	# manchmal von oben nach unten … aber manchmal schlägt er auch einfach drüber“; treffhoehe_595, Egel 0,27 m hoch: tiefster Punkt der
+	# Klinge im Hieb ohne Schild 0,80 m, mit Schild SS_SwordAttack1 0,61, 3 0,33, nur 2 0,13 m, und der 0,32 m rechts neben der Mitte):
+	# gegen ein niedriges Ziel nur, was hinunterreicht, für jeden, nach der Höhe des Ziels; der Held tritt so weit seitlich, dass der
+	# tiefste Punkt der Klinge auf die Mitte des Ziels fällt. Ohne Schild zählen die Schwerthiebe des Satzes mit, wenn er sie hat
+	var seit := 0.0
+	var ruecken := INF
+	if other.has_method("niedrig") and other.niedrig() and not _hieb_bahn(hn).is_empty():
+		ruecken = -INF
+		for c in (other.koerper_ruhe() if other.has_method("koerper_ruhe") else other.koerper()):
+			ruecken = maxf(ruecken, maxf((c[0] as Vector3).y, (c[1] as Vector3).y) + float(c[2]))
+		ruecken -= other.position.y
+	if ruecken <= NIEDRIG_M:
+		var reicht := func(h): return _landepunkt(h).y <= ruecken - HIEB_TIEF
+		var tief_genug: Array = hiebe.filter(reicht)
+		if tief_genug.is_empty() and not _ss():
+			tief_genug = ["SS_SwordAttack1", "SS_SwordAttack2", "SS_SwordAttack3"].filter(func(x): return anim.has_animation(x) and reicht.call(x))
+		if tief_genug.is_empty():
+			var alle: Array = hiebe + ["SS_SwordAttack1", "SS_SwordAttack2", "SS_SwordAttack3"].filter(func(x): return anim.has_animation(x) and not x in hiebe)
+			alle.sort_custom(func(a1, b1): return _landepunkt(a1).y < _landepunkt(b1).y)
+			tief_genug = alle.slice(0, 1)
+		hiebe = tief_genug
+		hn = hiebe[randi() % hiebe.size()]
+		auf = float(kampf_info.get("kontakt", {}).get(hn, HELD_AUFSCHLAG))
+		seit = _landepunkt(hn).x
 	# 709 (Chef 08.11., 21:36: „dass die Angriffe so sind, dass sie den Gegner treffen“; treffen_709: die Klinge blieb beim Treffer
 	# 0,1–1 m vor dem Körper, der Aufschlag lag bis 3 Bilder neben ihrem nächsten Punkt): der Stand nach dem Weg der Klinge durch
 	# den Hieb gegen den Körper des Ziels; beim Treffer dringt sie HIEB_TIEF ein, daneben bleibt sie [weiter] davor. Der Aufschlag
@@ -2912,7 +2938,8 @@ func _held_schlag(other, weiter := 0.0) -> int:
 			ziel = ziel.map(func(c): return [c[0] + v, c[1] + v, c[2]])
 		var soll: float = weiter if weiter > 0.0 else -HIEB_TIEF
 		# erst der gewürfelte Hieb; erreicht er das Ziel nicht, ohne dass Körper oder Schild hineingehen, ein anderer, sonst der weiteste
-		var plan: Array = _hieb_plan_merk(hn, other, ziel, to, d, soll)
+		var nied: bool = seit != 0.0
+		var plan: Array = _hieb_plan_merk(hn, other, ziel, to, d, soll, seit)
 		var plaene := {hn: plan}
 		# 709 (wolf_mess_438 Kämpfer 84,3 s: SS_SwordAttack2 schwingt zweimal, der getroffene Wolf zuckt in „Treffer“ nach vorn, der
 		# zweite Schwung fuhr 0,12 m in ihn): ein Hieb, dessen zweiter Schwung dem Ziel nach dem Aufschlag noch NACH_LUFT nahe kommt,
@@ -2924,13 +2951,15 @@ func _held_schlag(other, weiter := 0.0) -> int:
 			rest.shuffle()
 			var best: String = hn
 			for h in rest:
-				plaene[h] = _hieb_plan_merk(h, other, ziel, to, d, soll)
+				plaene[h] = _hieb_plan_merk(h, other, ziel, to, d, soll, _landepunkt(h).x if nied else 0.0)
 				if wert.call(plaene[h]) > wert.call(plaene[best]):
 					best = h
 				if wert.call(plaene[h]) >= 0.0:
 					break
 			hn = best
 			plan = plaene[hn]
+			if nied:
+				seit = _landepunkt(hn).x
 		stand_voll = plan[0]
 		stand = minf(stand_voll, flat.length())
 		auf = float(plan[1]) / maxf(float(tempo.get(hn, 1.0)), 0.1) + HIEB_VERZUG
@@ -2938,6 +2967,11 @@ func _held_schlag(other, weiter := 0.0) -> int:
 			print("709 Ziel %s: pos %s glob %s heim %s; gang %s, tween %s, bahn %d, heim %.2f m weg" % [other.fighter.id, other.position, other.global_position, other.home, other.gang, other.tween != null and other.tween.is_running(), other.bahn.size(), Vector2(other.home.x - other.position.x, other.home.z - other.position.z).length()])
 			print("709 Hieb %s %s an %s: Stand %.2f (Klinge %.2f, Körper %.2f), Abstand jetzt %.2f, Aufschlag %.2f s, %d µs, Pläne %d" % [fighter.id, hn, other.fighter.id, plan[0], plan[2], plan[3], flat.length(), auf, Time.get_ticks_usec() - us, plaene.size()])
 	var start := position + flat.normalized() * maxf(0.0, flat.length() - stand) if flat.length() > 0.01 else position
+	# 595: seitlich so weit, dass der tiefste Punkt der Klinge auf die Mitte des niedrigen Ziels fällt; der Blick bleibt zum Ziel parallel
+	var blick: Vector3 = to - start
+	if seit != 0.0 and flat.length() > 0.01:
+		blick = flat.normalized()
+		start -= Basis(Vector3.UP, atan2(blick.x, blick.z)) * Vector3(seit, 0.0, 0.0)
 	# 717 C (wolf_mess_438: der abgesetzte Wolf stand dort, wo der Held zum Hieb auf einen anderen hintrat, 22 cm ineinander): steht am
 	# Platz des Hiebs ein anderer, tritt der Held seitlich versetzt an das Ziel heran
 	if flat.length() > 0.01 and not _stand_frei(start, other):
@@ -3005,7 +3039,7 @@ func _held_schlag(other, weiter := 0.0) -> int:
 	var ziel_ort: Vector3 = other.position
 	tween.tween_callback(func():
 		gang = "hieb"
-		_face(to - start)
+		_face(blick)
 		_play(hn, 0.08)
 		if OS.get_environment("SCHAU_709") != "":
 			print("709 Hieb los %s: ich %s, Ziel %s (bei Plan %s, start %s), Stand %.2f (geplant %.2f), Ziel ging %.2f m, steht jetzt %s" % [fighter.id, position, other.position, ziel_ort, start, Vector2(position.x - other.position.x, position.z - other.position.z).length(), stand_voll, Vector2(other.position.x - ziel_ort.x, other.position.z - ziel_ort.z).length(), String(other.anim.current_animation) if other.anim else ""]))
@@ -3386,6 +3420,23 @@ func koerper() -> Array:
 ## Waffe: was der Held in der Waffenhand trägt (Strecke längs des Kastens), beim Tier Kopf, Kiefer, Zunge; Körper: beim Held Rumpf,
 ## Kopf, Beine und der Schild (Kreuz durch seine Fläche, halbe Dicke), beim Tier die übrigen Knochen ab 4 cm. Einmal je Angriff
 ## gemessen (Haltung je Bild gesetzt, danach die laufende Bewegung wieder hergestellt); leer ohne Gerüst oder Waffe
+## 595: der tiefste Punkt der Waffe im Angriff [hn] im eigenen Raum (+Z zum Ziel; x seitlich, y über dem Boden); ohne Weg 0
+var landepunkte := {}
+func _landepunkt(hn: String) -> Vector3:
+	if landepunkte.has(hn):
+		return landepunkte[hn]
+	var best := Vector3(0.0, INF, 0.0)
+	for st in _hieb_bahn(hn):
+		for w in st[1]:
+			for q in [w[0], w[1]]:
+				if (q as Vector3).y < best.y:
+					best = q
+	if best.y == INF:
+		best = Vector3.ZERO
+	landepunkte[hn] = best
+	return best
+
+
 const BISS_TEILE := ["head", "jaw", "tongue", "kopf", "fang", "mouth", "maul", "schnauze", "beak"]
 var hieb_bahn := {}
 func _hieb_bahn(hn: String, versatz := 0.0) -> Array:
@@ -3568,15 +3619,18 @@ static func _strecke(sk: Skeleton3D, g: Array, inv: Transform3D, flach := false)
 ## 709: hieb_plan, gemerkt je Hieb, Art des Ziels, Treffer oder daneben und Blickwinkel des Ziels zur Figur (15°-Stufen): das
 ## Ziel steht dabei in seiner Ruhe, der Plan gilt wieder (gegen die flache Schnecke kostet er sonst bis 0,1 s)
 static var hieb_plaene := {}
-func _hieb_plan_merk(hn: String, other, ziel: Array, to: Vector3, d: Vector3, soll: float) -> Array:
+func _hieb_plan_merk(hn: String, other, ziel: Array, to: Vector3, d: Vector3, soll: float, seit := 0.0) -> Array:
 	var rel := wrapf(other.rotation.y - atan2(-d.x, -d.z), -PI, PI)
 	# 900: auch nach Grundhaltung und laufender Ruhebewegung (der Stand galt sonst für die Haltung, in der er zuerst geplant wurde)
 	var haltung := ""
 	if other.fighter.monster != null and other.anim:
 		haltung = ("Hocke" if other.pouncing else "Stehen") + "/" + (String(other.anim.current_animation) if String(other.anim.current_animation) in RUHE_GESTEN else "")
 	var key := "%d|%s|%s|%.2f|%d|%.2f|%s" % [get_instance_id(), hn, other._mein_ersatz() if other.fighter.monster != null else "Held", soll, roundi(rad_to_deg(rel) / 15.0), other.model.global_transform.basis.get_scale().x if other.model else 1.0, haltung]
+	key += "|%.2f" % seit
 	if not hieb_plaene.has(key):
-		hieb_plaene[key] = hieb_plan(_hieb_bahn(hn), ziel, to, d, soll, HIEB_KOERPER_LUFT)
+		# 595: steht der Held [seit] seitlich (Klinge auf die Mitte), liegt das Ziel in seinem Raum um so viel in x verschoben
+		var to_s: Vector3 = to - Basis(Vector3.UP, atan2(d.x, d.z)) * Vector3(seit, 0.0, 0.0)
+		hieb_plaene[key] = hieb_plan(_hieb_bahn(hn), ziel, to_s, d, soll, HIEB_KOERPER_LUFT)
 	return hieb_plaene[key]
 
 
