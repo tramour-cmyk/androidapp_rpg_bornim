@@ -116,6 +116,7 @@ func _lauf() -> void:
 		for r in k.daten.get("ring", []):
 			var t := Vector2i(int(r[0]), int(r[1]))
 			pruefe(not (t.x >= 0 and t.y >= 0 and t.x < k.breite and t.y < k.hoehe), "%s: Ring %s in der Karte" % [id, r])
+		fassaden(k)
 	var start := Vector2i(int(Rast.START["x"]), int(Rast.START["y"]))
 	var sk := Karte.lade(String(Rast.START["karte"]))
 	pruefe(frei(sk, start, leute(sk)), "Startplatz %s %s nicht frei" % [Rast.START["karte"], start])
@@ -127,6 +128,35 @@ func _lauf() -> void:
 	wege_aus_dem_dorf()
 	print("KARTENREGELN %d Karten, %d Fehler" % [karten.size(), fehler])
 	quit(1 if fehler else 0)
+
+# Fassaden (MapTownIso.houses, facades): von Hand gepflegt, seit die Karten Quelle sind. Je Haus (Lauf aus Wand, Fenster, Tür mit
+# Dach darüber) genau ein Eintrag, Breite und Tiefe passen, vorn ein Zeichen je Kachel (# W D) mit Tür, seitlich 2 oder 3
+func fassaden(k: Karte) -> void:
+	if not k.daten.has("fassaden"): return
+	var wand := ["WALL", "WINDOW", "DOOR"]
+	var dach := ["ROOF", "ROOF_BLUE"]
+	var haeuser := {}
+	for y in k.hoehe:
+		var x := 0
+		while x < k.breite:
+			if not kachel(k, Vector2i(x, y)) in wand or (x > 0 and kachel(k, Vector2i(x - 1, y)) in wand):
+				x += 1; continue
+			var n := 0
+			while x + n < k.breite and kachel(k, Vector2i(x + n, y)) in wand: n += 1
+			var reihen := 0
+			while reihen < 3 and range(n).all(func(i): return kachel(k, Vector2i(x + i, y - reihen - 1)) in dach): reihen += 1
+			haeuser[Vector2i(x, y)] = Vector2i(n, reihen + 1)
+			x += n
+	var gesehen := {}
+	for f in k.daten["fassaden"]:
+		var t := xy(f)
+		var vorn := String(f["vorn"])
+		gesehen[t] = true
+		pruefe(haeuser.has(t), "%s: Fassade %s ohne Haus" % [k.id, t])
+		if haeuser.has(t): pruefe(haeuser[t] == Vector2i(int(f["n"]), int(f["d"])), "%s: Fassade %s %dx%d, Haus %s" % [k.id, t, int(f["n"]), int(f["d"]), haeuser[t]])
+		pruefe(vorn.length() == int(f["n"]) and "D" in vorn and vorn.replace("#", "").replace("W", "").replace("D", "") == "", "%s: Fassade %s vorn „%s“" % [k.id, t, vorn])
+		pruefe(String(f["seite"]).length() in [2, 3], "%s: Fassade %s seitlich „%s“" % [k.id, t, f["seite"]])
+	for t in haeuser: pruefe(gesehen.has(t), "%s: Haus %s ohne Fassade" % [k.id, t])
 
 # VillageTest.everyDoorAndPersonCanBeReached: vom Dorfplatz (Spiel.START_KACHEL) jede offene Tür, jeder Mensch auf freiem Grund,
 # und jeder Grundriss führt vor seine Tür auf freien Grund
