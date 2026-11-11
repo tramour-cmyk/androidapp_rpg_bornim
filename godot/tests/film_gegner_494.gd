@@ -145,6 +145,15 @@ func _gegner(g: String) -> void:
 	if lz:     # 506 (Helfer: Zeile verkehrt herum): die Helden kämpfen gegen den Gegner, nicht umgekehrt
 		lz.text = "Kämpfer und Kleriker gegen %s · Autopilot, Echtzeit" % String(Probe.FOES[g])
 	kf.mars.find("merc").auto = true
+	# 595 (Lauf 42719583920: die Spinne stand nach dem ersten Biss 14 s still): der Autopilot schaltet bei angesagter starker Absicht
+	# ab (mars.gd autopilot_blocked, im Spiel richtig: der Spieler entscheidet); im Film handelt der Held selbst wie der Söldner
+	kf.mars.find("hero").auto = true
+	# 595 (Riesenegel fiel im Film nach 2 s, bevor er einmal angriff): im Film halten die Gegner bis zum Ende aus, damit ihre Bewegungen
+	# zu sehen sind (nur der Film; die Regeln bleiben)
+	for f in kf.mars.all:
+		if f.side == "FOES":
+			f.max_hp = maxi(f.max_hp, 60)
+			f.hp = f.max_hp
 	kf.mars.set_autopilot(true)
 	if not kf.busy:
 		kf.go_on()
@@ -152,7 +161,9 @@ func _gegner(g: String) -> void:
 	var dauer := int(OS.get_environment("DAUER_MS")) if OS.get_environment("DAUER_MS") != "" else DAUER_MS
 	if bilder != "":
 		dauer = 2000
-	while n < dauer * 30 / 1000 and kf.mars.outcome == "ONGOING":
+	# 595 (Lauf 42719583920: „Riesenegel: Kampf WON nach 0,0 s“): MARS rechnet voraus, der Ausgang steht fest, während die Züge noch
+	# spielen; gefilmt wird, bis der letzte Zug gespielt ist
+	while n < dauer * 30 / 1000 and (kf.mars.outcome == "ONGOING" or kf.busy or kf.playing):
 		await process_frame
 		n += 1
 		if bilder != "":

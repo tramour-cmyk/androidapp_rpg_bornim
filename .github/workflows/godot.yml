@@ -370,7 +370,7 @@ jobs:
           # ausgedünnt auf 5.800 Dreiecke; nur mit Kaufpaketen, dann verschlüsselt (gekauft)
           if [ -n "$(find ${KAUF:-/kein} -name DARKNESS_SPIDER.FBX 2>/dev/null | head -1)" ]; then
             KAUF=$KAUF OUT=$RUNNER_TEMP/spinne timeout 1200 bl/bin/python -I tools/blender348/kaufspinne.py > spinne.log 2>&1 || { tail -40 spinne.log; exit 1; }
-            grep -E "^(DREIECKE|MASS|WEG|TEMPO|HALTUNG je|BODEN tiefster)" spinne.log | cut -c1-200 || true
+            grep -E "^(DREIECKE|MASS|WEG|TEMPO|HALTUNG je|BODEN tiefster|BISS)" spinne.log | cut -c1-200 || true
             for f in $RUNNER_TEMP/spinne/giant_spider-*.glb; do cp $f $D/$(basename $f .glb).bin; echo kampf/daten/$(basename $f .glb).bin >> $D/kauf.txt; done
             cp $RUNNER_TEMP/spinne/giant_spider-info.json $D/
           fi
