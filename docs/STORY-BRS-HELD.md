@@ -105,7 +105,7 @@ Meldungen im Kampf (einmal je Art, beim ersten Treffer mit der Schadensart):
 - Kasten am Schaden (wie „kritisch“): `[870.14.kasten.schwach]` verwundbar / EN: vulnerable · `[870.14.kasten.stark]` widersteht / EN: resists
 
 Gegenwirkung (beim ersten Mal, sichtbar):
-- `[870.14.gegen.wolf]` Wolf, Feuer: Die Wölfe weichen vor dem Feuer zurück, dann sind sie zwischen den Bäumen fort. Kein Fell, keine Erfahrung. / EN: The wolves shy from the fire, then they are gone among the trees. No pelt, no experience.
+- `[870.14.gegen.wolf]` Wolf, Feuer: ersetzt durch `[915.wolf.flucht]`, `[915.wolf.erstmals]`, `[915.lohn.vertrieben]` in `STORY-BRS-KAMPF.md` (915).
 - `[870.14.gegen.schwein]` Wildschwein, Feuer: Das Feuer macht {0} rasend. / EN: The fire drives {0} into a frenzy.
 - `[870.14.gegen.spinne]` Riesenspinne, Feuer: Die Seide der Spinne verbrennt zu Asche. / EN: The spider's silk burns to ash.
 - `[870.14.gegen.flueger]` Blutflügler, Held blutet: {0} wittert dein Blut und saugt gieriger. / EN: {0} smells your blood and feeds more greedily.
@@ -114,5 +114,5 @@ Gegenwirkung (beim ersten Mal, sichtbar):
 
 Vorher erkannt (Wissen) im Ziel-Tipp und im Bestiarium:
 - `[870.14.wissen]` Verwundbar: %s. Widersteht: %s. / EN: Vulnerable: %s. Resists: %s. (fehlt eins: „–“)
-- `[870.14.wissen.gegen]` (Art mit Gegenwirkung) Vorsicht: %s. / EN: Beware: %s. Kurztexte: Wolf „Feuer vertreibt das Rudel samt Beute, sobald sein Anführer halb tot ist“ / “fire drives off the pack, loot and all, once its leader is half dead” (899, 870c 3 A; `[870.14.gegen.wolf]` bleibt); Wildschwein „Feuer macht es rasend“ / “fire sends it into a frenzy”; Spinne „Feuer verbrennt die Seide“ / “fire burns the silk”; Blutflügler „Blut lockt ihn“ / “blood draws it”; Zombie „Feuer und Licht halten ihn liegen“ / “fire and light keep it down”; Ockerschleim „Schnitt und Wucht teilen ihn“ / “slash and crush split it”.
+- `[870.14.wissen.gegen]` (Art mit Gegenwirkung) Vorsicht: %s. / EN: Beware: %s. Kurztexte: Wolf „Feuer vertreibt das Rudel samt Beute und Erfahrung, sobald sein Leitwolf halb tot ist“ / “fire drives off the pack, loot, experience and all, once its leader is half dead” (899, 870c 3 A; 915); Wildschwein „Feuer macht es rasend“ / “fire sends it into a frenzy”; Spinne „Feuer verbrennt die Seide“ / “fire burns the silk”; Blutflügler „Blut lockt ihn“ / “blood draws it”; Zombie „Feuer und Licht halten ihn liegen“ / “fire and light keep it down”; Ockerschleim „Schnitt und Wucht teilen ihn“ / “slash and crush split it”.
 - `[870.14.wissen.unbekannt]` (nicht erkannt, noch nie bekämpft) Schwächen: unbekannt. / EN: Weaknesses: unknown.
