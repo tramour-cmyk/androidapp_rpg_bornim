@@ -335,31 +335,43 @@ def vorgang_aus_ref(ref, ablauf):
     """407: Vorgang eines von Hand gestarteten Ablaufs: erste Nummer der Commit-Nachricht oben auf ref, sonst Nummer in
     Klammern im Namen des Ablaufs („Tom Probe Tragart (417)“), sonst der Zweig selbst."""
     ref = (ref or "").removeprefix("refs/heads/")
-    STAND_REF["zweig"] = ref  # 912: nr_aus_verlauf liest den Zweignamen
-    nachricht, name = "", ""
+    nachricht, name, sha = "", "", ""
     if ref and git("fetch", "-q", "origin", ref).returncode == 0:
-        STAND_REF.update(wo=REPO, rev=git("rev-parse", "FETCH_HEAD").stdout.strip())
+        sha = git("rev-parse", "FETCH_HEAD").stdout.strip()
+        STAND_REF.update(wo=REPO, rev=sha)
         nachricht = git("log", "-1", "--format=%B", "FETCH_HEAD").stdout
         if ablauf and not ablauf.isdigit():
             datei = ablauf if "/" in ablauf else ".github/workflows/" + ablauf
             name = (re.search(r"^name:\s*(.+)$", git("show", f"FETCH_HEAD:{datei}").stdout, re.M) or [None, ""])[1]
     nr = re.match(r"\s*(?:\w+:\s*)?(" + NR + r")\b", nachricht)
-    eigen = nr_aus_verlauf(REPO, "FETCH_HEAD") if ref and not nr else None  # 911
+    eigen = nr_aus_verlauf(REPO, sha, ref) if sha and not nr else None  # 911, 913
     nr = nr or re.search(r"\((" + NR + r")\)", name)
     return nr.group(1) if nr and not eigen else (eigen or ref or ablauf or "?")
 
 
-def nr_aus_zweigname(zweig):
-    """912: Vorgang aus dem Zweignamen („claude/tom-870-4-held“ → 870.4), nur wenn es ihn in der Vorgangsliste oder im
-    Archiv gibt; längste Lesart zuerst („870-4“ → 870.4, sonst 870)."""
-    teile = (zweig or "").removeprefix("refs/heads/").removeprefix("claude/").split("-")
+BESITZER = ("Homer", "Tom", "Jerry", "Perikles", "Diogenes", "Sokrates", "Ford")
+
+
+def vorgaenge():
+    """912: {Nummer: Besitzer} aus Vorgangsliste und Archiv (Stand main, sonst die Arbeitskopie)."""
     texte = []
     for name in ("docs/LISTE-VORGAENGE.md", "docs/LISTE-VORGAENGE-ARCHIV.md"):
         _, t = zweig_lesen(name, "main")
         if not t and os.path.exists(os.path.join(REPO, name)):
             t = open(os.path.join(REPO, name), encoding="utf-8").read()
         texte.append(t)
-    bekannt = set(re.findall(r"^\| (" + NR + r") \|", "\n".join(texte), re.M))
+    aus = {}
+    for z in "\n".join(texte).splitlines():
+        m = re.match(r"\| (" + NR + r") \|", z)
+        if m:
+            zellen = [c.strip() for c in z.split("|")]
+            aus.setdefault(m.group(1), next((c for c in zellen if c in BESITZER), ""))
+    return aus
+
+
+def nr_aus_zweigname(zweig, bekannt):
+    """912: Vorgang aus dem Zweignamen („claude/tom-870-4-held“ → 870.4), nur wenn es ihn gibt; längste Lesart zuerst."""
+    teile = (zweig or "").removeprefix("refs/heads/").removeprefix("claude/").split("-")
     for i, t in enumerate(teile):
         if not re.fullmatch(r"\d+[a-z]?", t):
             continue
@@ -375,20 +387,27 @@ def nr_aus_zweigname(zweig):
     return None
 
 
-def nr_aus_verlauf(wo, rev):
-    """911 (Tom 11.11., 09:19): oben ein Merge („Merge remote-tracking branch …“) oder Commit ohne Nummer; dann der Vorgang
-    im Zweignamen (912), sonst die erste Nummer des jüngsten eigenen Commits (erste Eltern, eingemischte Zweige zählen nicht) mit Nummer, nicht auf origin/main, damit „<Nr>, Läufe frei“ greift und der Lauf
-    nicht unter dem Zweignamen zählt."""
-    zweig = git("rev-parse", "--abbrev-ref", rev, cwd=wo).stdout.strip() if rev == "HEAD" else STAND_REF.get("zweig", "")
-    aus_name = nr_aus_zweigname(zweig)  # 912 (D156.1): B1 von Tom, oben Jerrys Merge; der Zweig gehört Toms 870.4
-    if aus_name:
-        return aus_name
-    log = git("log", "--first-parent", "--no-merges", "-n", "30", "--format=%B%x00", rev, "^origin/main", cwd=wo).stdout
+def nr_aus_verlauf(wo, rev, zweig=None):
+    """911 (Tom 11.11., 09:19): oben ein Merge oder Commit ohne Nummer. Dann die Nummer des jüngsten eigenen Commits
+    (erste Eltern, nicht auf origin/main), außer sein Vorgang gehört einer anderen Rolle als der Zweig (912, D156.1: B1
+    claude/tom-…, oben Jerrys 864); dann der Vorgang im Zweignamen, zuletzt doch der Verlauf. 914 (D157.2): Verlauf vor
+    Name, sonst 264 statt 264.1, 348 statt 642. 913 (D157.1): rev vorher fest auflösen, zweig_lesen verbiegt FETCH_HEAD."""
+    sha = git("rev-parse", "--verify", "-q", rev, cwd=wo).stdout.strip()
+    if zweig is None:
+        zweig = git("rev-parse", "--abbrev-ref", "HEAD", cwd=wo).stdout.strip() if rev == "HEAD" else ""
+    if not sha:
+        return None
+    log = git("log", "--first-parent", "--no-merges", "-n", "30", "--format=%B%x00", sha, "^origin/main", cwd=wo).stdout
+    eigen = None
     for nachricht in log.split("\0"):
         nr = re.match(r"\s*(?:\w+:\s*)?(" + NR + r")\b", nachricht)
         if nr:
-            return nr.group(1)
-    return None
+            eigen = nr.group(1); break
+    bekannt = vorgaenge()
+    rolle = (zweig or "").removeprefix("refs/heads/").removeprefix("claude/").split("-")[0].capitalize()
+    if eigen and not (rolle in BESITZER and bekannt.get(eigen) in BESITZER and bekannt.get(eigen) != rolle):
+        return eigen
+    return nr_aus_zweigname(zweig, bekannt) or eigen
 
 
 def ohne_film(eingaben):
