@@ -11,7 +11,7 @@ Im Bau geprüft: `brs_held_870`, `brs_held_834`, `brs_470`, `spielstand_test` (m
 
 Am Rechner geprüft (11.11., 07:43, Stand `97a32cfe2`; laufen nicht im Bau): `mars_regeln` 0 abweichend; `sim444_870` je Herkunft gegen Rudel, Krogg, Grimmzahn, Grak, 200 Kämpfe je Zelle, ohne Ring: Zahlen wie in 870c (Wachsoldat gegen Grak auf Stufe 6: 83 %); dabei selten ein Skriptfehler im Autopiloten des Zauberlehrlings gegen Grimmzahn und Grak (Vorgang 904, Jerry).
 
-Bekannt: Klosterschüler und Schmiedelehrling tragen bis zum Streitkolbenmodell (458.3) einen Kampfstab (Vorentscheid 870e); Siegquoten unverändert, weil Stab und Streitkolben beide zur Gruppe „Stumpfe Waffen“ zählen und der Kampf nur nach der Gruppe rechnet (nachgesehen in `BrsHeld.kampfblatt`).
+Bekannt: Klosterschüler und Schmiedelehrling tragen bis zum Streitkolbenmodell (458.3) einen Kampfstab (Vorentscheid 870e); Siegquoten unverändert, weil Stab und Streitkolben beide zur Gruppe „Stumpfe Waffen“ zählen und der Kampf nur nach der Gruppe rechnet (nachgesehen in `BrsHeld.kampfblatt`). Jeder Held hat Mana und einen Mana-Balken, auch ohne Zauber (870e). Lücke: Verstand zeigt beim Antippen nur die Zahl; „ab Verstand 6 Schwächen und Stärken der Gegner vorher sehen“ (870d) ist gerechnet, aber noch nirgends im Spiel zu sehen (Ziel-Tipp, Bestiarium); Handwerk und Alchemie fehlen ebenso.
 
 ## A · Hauptmenü und neues Spiel
 
@@ -25,7 +25,7 @@ Bekannt: Klosterschüler und Schmiedelehrling tragen bis zum Streitkolbenmodell 
 | # | Team | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|---|
 | 276.3 | Tom | 870.4 | Tasche → Reiter „Held“ | oben Name, „Mensch · Wanderer“, „Heldenstufe 1“ und Gold 20; Balken Leben, Mana, Erfahrung; Zeile Schutzwert, Schaden, Kritisch in Prozent; sechs Grundwerte mit den Zahlen aus der Erschaffung; Fertigkeiten | Klasse, Rüstungsklasse, Übungsbonus, Würfel wie „1W8+1“, „ZP“ |
-| 276.4 | Tom | 870.4 | im Reiter „Held“ auf einen Grundwert tippen, dann auf einen zweiten | je Grundwert ein kurzer Satz, was er bringt | kein Satz, Satz mit SRD-Wörtern (Stärke, Konstitution) |
+| 276.4 | Tom | 870.4 | im Reiter „Held“ auf einen Grundwert tippen, dann auf einen zweiten | oben „Wert“ mit der Zahl, darunter je Zeile, was der Grundwert bringt (Verstand nur die Zahl, siehe Bekannt) | kein Satz bei Kraft, Gewandtheit, Zähigkeit, Wille, Wahrnehmung; Satz mit SRD-Wörtern (Stärke, Konstitution) |
 | 276.5 | Tom | 870.4 | Tasche → Heiltrank benutzen (am besten nach dem Kampf in C, wenn Leben fehlt) | Leben steigt um 14, höchstens bis voll; in der Tasche anfangs 2 Heiltränke | Wurf oder Würfelzahl im Text |
 | 276.6 | Tom | 870.4 | Thessas Kramladen: Preise einer Waffe ansehen, dann Vergleich mit der getragenen | Preise wie in Build 275 ungefähr; Vergleich ohne Rüstungsklasse | Absturz, „Deine Klasse kann das nicht tragen“ |
 
