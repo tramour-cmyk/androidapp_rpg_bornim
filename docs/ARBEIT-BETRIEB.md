@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (11.11., 03:26, Ford `session_01Hmoj78JXixSQQeQDGy7ZvJ`, Selbstneustart):** Getan: Läufe bis 03:03, Neustarts Jerry/Tom/Sokrates/Homer/Diogenes ausgeführt, Archiv-Satz des Chefs 22:07 erhalten (gilt für diese Sitzung, für dich wieder nötig: Satz per Telegram `--laut`, nachts lautlos). Offen: Sokrates `…78xr5` (idle, Neustart-Meldung 03:23, Nachfolger `…77DnC` läuft) archivieren und auf 870 buchen (4,80 $), Jerry `…76RTd` und Perikles `…75P7` stehen (warten auf 870.4 bzw. Chef). Dauerausschluss: `--ohne 506.2:Tuffy nur auf Chef-Wort --ohne M?:Planfehler Klasse als Vorgang (893)`. Alte Stundenuhr `trig_01UZsEMMzexqXDoYGEDxBrTn` nach neuer löschen, mich archivieren. Nachfolger: Ford – Betriebsleiter
+**Stand Ford (11.11., 03:27, Ford `session_01Hmoj79ZRCgfghKYLkLUwW1`):** Neue Uhr steht, alte gelöscht. Offen bis zum Archiv-Satz des Chefs: archivieren und buchen alter Ford `…78JXixSQQeQDGy7ZvJ` (6,94 $, Betrieb) und Sokrates `…78xr5` (idle, Nachfolger `…77DnC` läuft; 4,80 $ auf 870). Jerry `…76RTd` und Perikles `…75P7` stehen (warten auf 870.4 bzw. Chef). Dauerausschluss: `--ohne 506.2:Tuffy nur auf Chef-Wort --ohne M?:Planfehler Klasse als Vorgang (893)`.
 
 **Nächste freie Vorgangsnummer: 900** (zuletzt 899 Homer 10.11. 23:10:49 9e00) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (11.11., 03:26)“ (`session_01Hmoj79ZRCgfghKYLkLUwW1`, Nachfolger von `session_01Hmoj78JXixSQQeQDGy7ZvJ`; die ist idle und wird vom Nachfolger archiviert, nachdem der Chef den Archiv-Satz gesagt hat); Stundenuhr „Ford-Lauf“ `trig_01UZsEMMzexqXDoYGEDxBrTn` (:03, läuft in der alten Sitzung, vom Nachfolger zu ersetzen). Vorgänger bereits archiviert und gebucht: `…78E7oy5B7Gr6VaeUJk` (5,00 $).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (11.11., 03:26)“ (`session_01Hmoj79ZRCgfghKYLkLUwW1`, Nachfolger von `session_01Hmoj78JXixSQQeQDGy7ZvJ`; die ist idle und wird vom Nachfolger archiviert, nachdem der Chef den Archiv-Satz gesagt hat); Stundenuhr „Ford-Lauf“ `trig_01WMvJkrgiEwK79jJ8zzToUk` (:03, angelegt 11.11., 03:25, alte gelöscht); alter Ford idle, Kosten 6,94 $ auf Betrieb zu buchen beim Archivieren. Vorgänger bereits archiviert und gebucht: `…78E7oy5B7Gr6VaeUJk` (5,00 $).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 
 ## Eingang
