@@ -108,7 +108,7 @@ func _blenden() -> void:
 		var geblendet := 0
 		for i in 1000:
 			h.status.erase("BLIND")
-			m._foe_wounds(m.all[1], h, false)
+			m._foe_wounds(m.all[1], h)
 			if h.status.has("BLIND"):
 				geblendet += 1
 		_soll((geblendet > 20 and geblendet < 250) if c[1] else geblendet == 0, "%s blendet: %d von 1000" % [c[0], geblendet])
