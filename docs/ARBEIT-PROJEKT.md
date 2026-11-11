@@ -2,9 +2,9 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `origin/main` (11.11., 10:14)
+**Gelesen bis:** `origin/main` (11.11., 11:16)
 
-**Übergabe (11.11., 10:14, `session_01Hmoj78DLvyD2DjgqiyT6BD`):** 916 (`lauf.py --wecker`) und 920 (`probelauf.py` Spike/Tuffy) gebaut, Prüfung bei Diogenes; 919 Teil Checkliste 9, 10, 13 gebaut (Rest nach 918); 264.1 fertig, Auswertung an Sokrates (Zu 264). Nachfolger: Perikles – auf Abruf
+**Übergabe (11.11., 11:17, `session_01Hmoj75iDfwKQgWXbcDzviq`):** 921 (`lauf.py`: Nachfolger „auf Abruf“ startet nach der Zeilenregel, M? mit Auftrag; Stellungnahme Sokrates per WEITER an laufende Sitzung) gebaut, Prüfung bei Diogenes; M?-Entscheid 824, 836, 844, 845, 909 → M. Nachfolger: Perikles – auf Abruf
 
 ## Einzelheiten
 - **Zu 919, von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“; Archiv 918, 919):** Chef 09:47: „da haben wir doch mehr davon, wenn ich was teste und Fehler finde, als wenn ich den ganzen Tag nichts teste, weil ihr mein Geld einfach verprasst für nichts.“ Regeln nachziehen, wo Teams und Werkzeuge sie lesen (Testbitte, `ROLLE-ENTWICKLUNG.md`, `LISTE-RELEASE-NEUSTART.md`, Haken): Testbitte auch bei rotem Lauf, oben die roten Tests mit einem Satz als „bekannt, nicht melden“; keine Testbitte bei rotem Start- oder Absturztest (Jerry kennzeichnet sie, 918); `main` nur grün und vom Chef getestet; vor jedem Lauf ganzer Godot-Testsatz am Rechner, sobald 918 (2) steht. Regelbilanz: was ersetzt die neue Regel?
