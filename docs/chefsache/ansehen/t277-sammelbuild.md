@@ -53,3 +53,7 @@ Bekannt (814, aus deinem Film, Ursache wird gesucht): das Huhn fliegt nicht auf,
 | # | Team | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|---|
 | 277.18 | Tom | 636 | Testmodus → Anzeigen „Klang“ an; neues Spiel auf einem freien Platz, Aldrics Auftrag holen, zu Jorin, nach „Dann wollen wir mal.“ weitertippen | der Schlagbaum hebt sich hörbar; oben in der Klangzeile `door_n … spielt` | kein Geräusch: dann die Klangzeile abschreiben (ein Foto genügt) |
+
+## Ergebnis
+
+- 277.1 ✓ (Chef 11.11., 20:15, an Sokrates: „277.1 passt“)
