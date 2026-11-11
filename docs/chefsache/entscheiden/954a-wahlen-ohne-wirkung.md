@@ -28,4 +28,6 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/9a34fe
 
 **Folgerungen:** Bei A trägt Tom die Liste mit 954 ein, Jerry bekommt einen Vorgang für Glückskind; die Sätze `[954.1.…]` gelten unverändert (Bauregel dort).
 
+**Stellungnahme Sokrates (11.11., 14:28):** Ich empfehle A. Es widerspricht nichts Entschiedenem, sondern folgt dem Grundsatz „Sichtbar wird nur, was man getan hat“ (`DESIGN-BRS.md` „Durch Tun“) und der Bergbau-Regel (461c). Weil man Fertigkeiten durch Tun später ohnehin bekommt, verliert der Schleicher weniger, als Homers Gegenargument sagt. Die Kosten sind klein. Das stärkere Gegenargument ist ein anderes: Die eigentliche Falle bleibt bei den Herkünften. Herumtreiber und Jägerkind tragen je zwei Fertigkeiten, die in Kapitel 1 nichts tun, und die Herkunft wählt man vor den freien Fertigkeiten. Deshalb sollten diese beiden Herkünfte als eigene Frage zu Homer und dann zu dir kommen, statt nur „wirkt noch nicht“ zu zeigen.
+
 Antwort: …
