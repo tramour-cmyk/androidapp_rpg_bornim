@@ -222,7 +222,7 @@
 | 882 | D140.1 (Diogenes, 870.18): Kotlin-Ausstieg ohne Werkzeuge: 870.10 nennt nur android.yml; an core hängen auch Kerntests (tools/t logik), godot-kampf.yml, vorschau.yml, tools/preview, story.sh, probelauf.py, setup-session.sh; Liste Prüfbericht Lauf 140 | Perikles | M | startbar | 870.4 | – | – | B Werkzeuge | – |
 | 896 | Von Jerry (870.5): Wächter meldet „TP“ als SRD-Begriff (886), Homer 870.14 und DESIGN-BRS 12 lassen TP in Meldungen stehen; Widerspruch klären | Perikles | M | gebaut, Geprüft an: de7ccc403 | – | – | – | E Technik | 0,53 $ |
 | 903 | D152.1 von Diogenes (771, 657 D): Probe 657 ausgewertet, Prüfbericht Lauf 152; Grundlage 11, 11, 9, 7 mischt zwei Maße (neue Vorgänge, durchgefallene Zeilen); Entscheidung des Chefs über weitere Listen und die Seite vorlegen | Perikles | M | wartet, (1), (4) gebaut, Geprüft an: fa1eb5a5f; (2) sobald B1 im Test | t276 | – | – | B Abläufe | 2,35 $ |
-| Pflege | von Werkzeug (340.3, 11.11.): 15394 Bytes (Grenze 15000), Erledigtes streichen | Perikles | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 11.11.): 15394 Bytes (Grenze 15000), Erledigtes streichen | Perikles | K | erledigt | – | – | – | B Abläufe | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
