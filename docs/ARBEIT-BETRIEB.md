@@ -354,4 +354,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:11 11.11.: Startsperre 13:11 Start Homer (lauf.py)
 - 13:11 11.11.: Marke Nachhalten 11.11. (lauf.py)
 - 13:13 11.11.: Startsperre 13:13 Start Diogenes (lauf.py)
+- 13:18 11.11.: Startsperre 13:18 Start Tuffy (Ford, vor dem Start; Neustart-Meldung 13:17, e78293327)
 - 13:13 11.11.: Marke Übergabe-Chef Perikles 11.11. 13:12 (lauf.py)
