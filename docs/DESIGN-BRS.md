@@ -67,6 +67,8 @@ Jede Regel, die im Kampf wirkt, gegen jeden Kampfstil gehalten (984, Chef 11.11.
 
 Nicht in Kapitel 1: Illusion und Beschwörung haben keinen Zauber, sind bei der Erschaffung aber wählbar (Chefsache 984).
 
+**Beschlossen, noch nicht gebaut (952 D, Chef 11.11., 20:03):** kritisch = zweiter Grundwert × Fertigkeit / 50 Prozent, nie der Grundwert des Schadens: Krieger und Kämpe Gewandtheit, Späher und Schütze Wahrnehmung; Magier: Schaden aus **Verstand**, kritisch und Mana aus Wille; Heiler: Heilung und Mana aus Wille, nie kritisch. Nach dem Bau die Zeilen oben nachziehen.
+
 ## 1. Die Grundidee
 
 **Du wirst, was du tust.** Es gibt keine Klasse, die man am Anfang wählt. Wer viel mit dem Bogen schießt, wird ein besserer Schütze. Wer zaubert, wird ein besserer Zauberer. Wer schleicht und Dolche führt, bekommt irgendwann Besuch von einem Lehrmeister, der ihm einen Pfad anbietet.
@@ -83,10 +85,10 @@ Nicht in Kapitel 1: Illusion und Beschwörung haben keinen Zauber, sind bei der 
 | Grundwert | Wirkt auf |
 | --- | --- |
 | Kraft | Nahkampfschaden, Tragkraft, Aufbrechen und Heben |
-| Gewandtheit | Tempo, Ausweichen, Fingerfertigkeit, kritische Treffer |
+| Gewandtheit | Tempo, Ausweichen, Fingerfertigkeit, kritische Treffer im Nahkampf |
 | Zähigkeit | Leben, Rüstung tragen, Widerstand gegen Gift, Krankheit, Kälte |
-| Verstand | Wissen, Handwerk, Alchemie, Lerntempo |
-| Wille | Mana, Zauberstärke, Konzentration, Furchtresistenz, Überzeugungskraft |
+| Verstand | Wissen, Handwerk, Alchemie, Lerntempo, Zauberstärke der Umgebungsmagie (Evokation, Illusion, Beschwörung; 952 D) |
+| Wille | Mana, Heil- und Schutzmagie, kritische Treffer der Umgebungsmagie, Konzentration, Furchtresistenz, Überzeugungskraft |
 | Wahrnehmung | verstärkt Spähen beim Entdecken von Verstecktem und Fallen (Entscheidung 83), Fernkampf-Treffgenauigkeit, Hinterhalte bemerken, Fährten |
 
 Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit, Wille und Stufe, je Stufe langsamer steigend als das Leben (930 Frage 10, Chef 11.11., 14:45; Zahlen Jerry mit 444), **Mana** aus Wille. Charisma gibt es nicht; die soziale Wirkung kommt aus Ruf und Gesellschaftsfertigkeiten.
@@ -175,9 +177,10 @@ Die **Heldenstufe** wächst über Erfahrung. Sie bestimmt Leben, die Stärke im 
 | Leben des Helden | 10 + 5 × Stufe + 2 × Zähigkeit |
 | Grundschaden der Waffe | Faustkampf 2, Dolch und Wurfwaffe 4, Einhänder, Stumpfe Waffe und Bogen 6, Stangenwaffe und Armbrust 8, Zweihänder 10 |
 | Grundwert im Schaden | Kraft im Nahkampf, Gewandtheit bei Dolch, Bogen und Wurfwaffe, keiner bei der Armbrust |
-| Gewandtheit | Abwehr beim Ausweichen + 2 je Punkt; kritischer Treffer (anderthalbfach) Gewandtheit in Prozent |
+| Gewandtheit | Abwehr beim Ausweichen + 2 je Punkt |
+| Kritischer Treffer (anderthalbfach) | Grundwert × Fertigkeit / 50 Prozent; Grundwert: Gewandtheit im Nahkampf, Wahrnehmung bei Dolch, Wurfwaffe, Bogen, Armbrust, Wille bei Evokation, Illusion, Beschwörung; Heil- und Schutzmagie nie (952 D, Chef 11.11., 20:03; heute noch Gewandtheit in Prozent) |
 | Wahrnehmung | Trefferchance im Fernkampf + 1 Prozentpunkt je Punkt |
-| Zauber | Schaden wie Waffe mit Grundschaden des Zaubers, Grundwert Wille, Fertigkeit = Schule; Mana 10 + 5 × Wille |
+| Zauber | Schaden wie Waffe mit Grundschaden des Zaubers, Fertigkeit = Schule; Grundwert Verstand bei Evokation, Illusion, Beschwörung (Teilchen der Umgebung verstehen und formen), Wille bei Heil- und Schutzmagie (952 D, Chef 11.11., 20:03; heute noch überall Wille); Mana 10 + 5 × Wille |
 
 Die Ätherdichte (Entscheidung 76) ist noch ohne Zahl.
 
@@ -253,7 +256,7 @@ Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, abe
 ## 7. Kampf
 
 - **Die Stufe entscheidet viel.** Der Unterschied der Stufen zwischen Angreifer und Verteidiger bestimmt, wie viel Schaden ankommt. Ein Held der Stufe 50 erledigt ein Monster der Stufe 1 mühelos, und es kann ihm nicht schaden. Fertigkeiten, Waffen und Grundwerte geben den Rest. **Rechenmodell D „Trennung“ gilt (Entscheidung 73):** die Stufe bestimmt die Größenordnung, die Fertigkeit Treffer und Schaden; Zahlen sind Startwerte für die Simulation.
-- **Zufall nur als Würze:** kleine Streuung statt W20; ein Glückstreffer (1 von 100) ist nur ein Kratzer („Kratzer reicht“); kritische Treffer und Ausweichen hängen an Gewandtheit und Fertigkeit. Gegen Gegner, die 9 Stufen und mehr unter dem Helden stehen, gibt es keine Erfahrung (Entscheidung 73).
+- **Zufall nur als Würze:** kleine Streuung statt W20; ein Glückstreffer (1 von 100) ist nur ein Kratzer („Kratzer reicht“); Ausweichen hängt an Gewandtheit und Fertigkeit; kritische Treffer an Fertigkeit und dem zweiten Grundwert der Angriffsart, nie dem des Schadens (952 D, Chef 11.11., 20:03: Nahkampf Gewandtheit, Dolch, Wurfwaffe, Bogen, Armbrust Wahrnehmung, Evokation, Illusion, Beschwörung Wille, Heil- und Schutzmagie nie). Gegen Gegner, die 9 Stufen und mehr unter dem Helden stehen, gibt es keine Erfahrung (Entscheidung 73).
 - **Abwehr:** Die Schildfertigkeit und die Rüstungsfertigkeit erhöhen den Schadensabzug: Abzug = Rüstungswert × (1 + Fertigkeit / 100); die Rüstungsfertigkeit senkt nur den Schaden, nicht die Trefferchance (Entscheidung 74). **Parieren:** Für die Trefferchance zählt als Abwehr der beste von Schild, Ausweichen und halber Fertigkeit der Nahkampfwaffe, nur gegen Nahkampf; gegen Pfeile und Zauber gelten nur Schild und Ausweichen. Riposte bleibt Fähigkeit des Duellanten (Entscheidung 75).
 - **Schleichen und Hinterhalt:** Mit der Schleichtaste nähert sich der Held. Bleibt er unbemerkt (Schleichen gegen die Wachsamkeit des Gegners, ohne Würfel), greift er als Erster an und bekommt den Vorteil des Hinterhalts. Mehr Gegner sind schwerer zu überlisten. **Bosse** sind wachsamer, ihr Hinterhalt-Bonus ist gedeckelt.
 - **Ausschlüsse sind hart.** Metall stört die Aufnahme der Magiepartikel aus der Umgebung (Entscheidung 10, 33). Die Sperre hängt an der Schule, nicht am Pfad (Entscheidung 80): Evokation, Illusion und Beschwörung gehen für jeden nur ohne Metall, also in Stoff oder Leder; Heil- und Schutzmagie auch in Metall. Dazu trägt der Magier ab der Titelprüfung keine Rüstung, der Kriegsmagier nur leichte. In schwerer Rüstung geht Schleichen nicht („Deine Rüstung klirrt“). Zweihänder und Schild schließen sich aus. Jeder Held hat höchstens einen Pfad.
