@@ -7,6 +7,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 **Übergabe (11.11., 13:48, `session_01Hmoj75PbExQjg3R6LQNTdb`):** Pflege (Vorrat 14811 Bytes, Zeile gestrichen); an Ford gemeldet: kein eigenes Muss startbar (620.1 B), Übernahme 948 besser bei Jerry, Ford entscheidet. Nachfolger: auf Abruf (neue Sitzung).
 
 ## Einzelheiten
+- **Zu 875, von Team Jerry (Tuffy, 11.11., 14:00):** `werte.json` sagt auf `tuffy-876-kraeutersammeln` schon „Kräutersammeln“; mit 875 mischen: `spiel.gd` 816, `laden.gd` 23, `erschaffung_brs.gd` 69, `talente.gd` 147, `regeln_390` 141; alte Spielstände umschreiben.
 
 - **Zu 870.4, von Chef (Fund t276.5, Test Build 276, Automatik B):** Heiltrank gab 11 TP zurück statt 14 („passt noch nicht ganz“); Würfeltext 944. Fehlten nur 11 (bis voll), ist es richtig; Wert hängt an 923.
 - **Zu 944, von Sokrates (Chef 11.11., 13:22, Bild Tasche → Heiltrank, zu t276):** „da steht noch was von W4 … die Beschreibung passt nicht“. Prüfliste 276.5 nannte „Wurf oder Würfelzahl im Text“ als Fehler. Text bleibt laut `STORY-BRS-OBERFLAECHE.md` „Gegenstände“ („Texte ohne Würfel; Wirkung und Zahl in den Regelwerten und in der Meldung“); weg muss jede Zeile über `Beute.wuerfel_text` (auch Waffenschaden); Test `laden_582` prüft heute „heilt 2W4+2“ und ist mit umzustellen. Statt der Zeile: nichts, oder ein Wert nach BRS, wenn Homer einen Wortlaut gibt (nie erfinden).
