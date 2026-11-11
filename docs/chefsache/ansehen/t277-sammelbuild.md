@@ -66,5 +66,6 @@ Bekannt (814, aus deinem Film, Ursache wird gesucht): das Huhn fliegt nicht auf,
 - 277.8 ✓ (Chef 11.11., 20:27)
 - 277.9 ✓ (Chef 11.11., 20:31)
 - 277.10 ✗ Treffer und Brennen passen, der Wurf nicht (Chef 11.11., 20:34: „soweit alles schicki. Aber es war natürlich kein Wurf, das war ja wie ein Feuerball … Keine Parabel, die geworfen wurde, sondern ein nach vorne gerichteter Schubser“): Brandflasche im Bogen werfen (Wurfbewegung des Helden, Flasche fliegt sichtbar in einer Parabel, zerschellt am Ziel)
+- 277.11 ✓ (Chef 11.11., 20:34)
 - Außer der Reihe (Chef 11.11., 20:24): Testmenü zeigt am Zeichen nicht, was an oder aus ist → Vorgang 991 (Tom)
 - Außer der Reihe (Chef 11.11., 20:19, Bild Thessas Kramladen, Tag 2, 16:40): „Die Partikel gehen über den Raum hinaus“ → Vorgang 990 (Tom, aus 814)
