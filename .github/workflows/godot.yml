@@ -473,6 +473,8 @@ jobs:
           set -o pipefail; SCHAU_SCHILD=1 SCHAU_709=1 timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/wolf_mess_438.gd 2>&1 | grep -E "^(— |  |Befunde|Wolf 438|Kampf |438 DIAG|438 GLEIT|Schild |709 (Ziel|Hieb))|SCRIPT ERROR"   # 900: SCHAU_SCHILD, SCHAU_709, GLEIT bis B1 grün   # 438, 439, 440 (Jerry): Wölfe ohne Gleiten, Reihenfolge, Tod
           # 593 (Jerry): Ausweichen auch rückwärts (Ratten, Spinne, Grak, Wölfe); meldet, hält noch nicht an
           timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/ausweichen_593.gd 2>&1 | grep -E "^(ok|FEHLER|  |AUSWEICHEN593)|SCRIPT ERROR" || true
+          # 864 (Jerry): kein Sprung der Gegner auf ihre Plätze, wenn der Held an den Zug kommt; meldet, hält noch nicht an
+          GEGNER=BATS,GRABHUNDE,WOLVES,RATS timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/beam_864.gd 2>&1 | grep -E "^(  Sprung|Kampf |BEAM864)|SCRIPT ERROR" || true
           # 546, 703 A (Jerry): Wölfe weichen rasch aus und bleiben danach stehen; meldet, hält noch nicht an
           timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/ausweichen_546.gd 2>&1 | grep -E "^(ok|FEHLER|AUSWEICHEN_546)|SCRIPT ERROR" || true
           # 415 r3 (Jerry): Strahlenprobe ohne Bild, Stabspitze hinter dem Körper (F6), Strahl durch eine Figur (E3), Richtung (F2); meldet nur

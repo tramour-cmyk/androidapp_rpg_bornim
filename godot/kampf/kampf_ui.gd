@@ -1898,6 +1898,7 @@ func _gleiten(key: String, ziel: Vector2) -> Vector2:
 ## eines anderen „…“ statt der Knöpfe, wurde der Kasten niedriger, die Kamera passte neu und alle rückten mit dem Boden 0,65 m,
 ## nur der Weg des Helden, der gerade zum Hieb ging, nicht: die Klinge schlug 0,45 m vor dem Wolf in die Luft): während eines
 ## Zugs nie, erst wenn er vorbei ist (kampfort._done)
+var _passt_warte := 0
 func panel_passt() -> void:
 	var vs2: Vector2 = get_viewport().get_visible_rect().size
 	backdrop.position = Vector2(0, vs2.y - panel_height())
@@ -1905,6 +1906,15 @@ func panel_passt() -> void:
 	if kampfort.busy and kampfort.zuege > 0:     # beim Aufbau (vor dem ersten Zug) gleich, wie bisher
 		return
 	if absf(panel.size.y - fitted_h) > 1.0:
+		# 864 (beam_864, Wölfe): wer gerade noch geht, folgt einer festen Bahn; rückte der Boden dabei, sprang er danach 0,65 m. Darum
+		# erst, wenn alle stehen (höchstens 2 s warten)
+		if kampfort.zuege > 0 and _passt_warte < 20:
+			for fig in kampfort.figures.values():
+				if fig.dead_at < 0 and fig.tween != null and fig.tween.is_running():
+					_passt_warte += 1
+					get_tree().create_timer(0.1).timeout.connect(panel_passt)
+					return
+		_passt_warte = 0
 		fitted_h = panel.size.y
 		kampfort._fit_camera()
 
