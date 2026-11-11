@@ -1,5 +1,7 @@
 # 856 · Zwischensequenz: „Überspringen?“ und Satz ohne Kasten (Vorgang 856) · Spike · 11.11., 19:03
 
+[Bild von 11.11., 19:03](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/11-1903-856-Spike.png) (eingetragen von meldung.sh, Spike)
+
 Dein Fund aus Build 274: beim Tippen in die Zwischensequenz kam „Überspringen?“ noch im alten Kasten mit Goldrahmen und gerahmten Knöpfen, das Spiel schien halb durch, und der Satz unter dem Bild stand in einem Kasten. Nur ein Vorschaubild am Rechner, kein Build; kommt im nächsten Build mit.
 
 ![Intro mit Satz, Rückfrage, Tempelszene mit Satz, Rückfrage](../bilder/856-ueberspringen.webp)
