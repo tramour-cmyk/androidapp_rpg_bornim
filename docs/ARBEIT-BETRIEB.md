@@ -75,6 +75,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 09:14 11.11.: Startsperre 09:14 Start Sokrates (Neustart-Meldung 09:13, ea70e638d; Umgebung Hoch); Jerry …782ws archiviert, 18,89 $ auf 806, 854
 - 09:10 11.11.: Startsperre 09:10 Start Jerry (Neustart-Meldung 09:09, 2fbe2351f; Umgebung Hoch)
 - 09:06 11.11.: Lauf 09:04: Perikles-Nachfolger …79rUs „264.1: Lauf 340 auswerten“, Spike …76LAQ „581“, Tuffy …78DRe „784“ in Hoch gestartet. Tuffy 854 ausgeschlossen (`--ohne`: Jerry baut 854 auf `claude/jerry-854-block`, Chef 08:52). `WEITER Tom` nicht ausgeführt (Wecker 09:07 Lauf 338). Archiviert und gebucht: Perikles …75ny (3,07 $, 264.1), Tuffy …774g (5,78 $, 536 fertig), Diogenes …76ns (1,03 $, 907/908, Befund keiner)
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry (07:04 Jerry 806, 08:05 Jerry 806, 10:26 Jerry 595) aus eigener Beurteilung aus (Kaufrepo, Pacing, Sitzungsgrenze), ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch: 59 Muss). Lücke im Werkzeug: Startsperre wird geschrieben, auch wenn nie gestartet wird; kein WARNUNG-LAUT wie bei ARCHIVIERE. Vorschlag an den Chef gestellt
