@@ -10,6 +10,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 |---|---|---|---|---|---|
 | [854b](entscheiden/854b-cache-je-block-main.md) | **Muss** | E Technik | 11.11., 09:06 | Kauf-Cache je Block (figur, dorf, klassen, kampf) ohne Gerätetest auf main, damit jeder Lauf nur neu baut, was sich geändert hat. | Jerry |
 | [705a](entscheiden/705a-zauberer-vertreibt-rudel.md) | **Muss** | E Kampf | 11.11., 07:41 | Zaubert der Zauberlehrling, gewinnt er gegen das Rudel 9 von 10 Kämpfe, aber 85 % davon fliehen die Wölfe vor dem Feuer: kein Fell, keine Erfahrung. | Tuffy |
+| [110](entscheiden/110-ford-von-hand-starten.md) | – | B Abläufe | 11.11., 09:11 | Neuen Ford in claude.ai/code von Hand starten (Umgebung WireStorm Hoch, erste Nachricht „Ford“), weil Ford sich auf Tiefe 6 nicht mehr selbst neu starten kann. | Ford |
 
 ## Zu billigen
 
