@@ -38,7 +38,7 @@ Homer 11.11.; Vorgang 954.1 für den Bau 954 (Tom): Gedrückthalten auf Grundwer
 
 Vor dem Doppelpunkt steht der Name: er ist der Kopf der Blase, nicht Teil des Satzes; der Satz beginnt im Bau groß („Große Schwerter, Äxte …“). Bei den Völkern dagegen gehört das Merkmal zum Satz (Kopf ist das Volk).
 
-Mit Wirkung im Umzugszweig: Waffen außer Wurfwaffen, alle Rüstungen, Ausweichen, Evokation, Schutzmagie, Heilmagie, Handeln, Kräuterkunde, Alchemie, Kochen. Ohne (heute mit `[954.1.spaeter]`): Wurfwaffen (keine Waffe gehört dazu), Schleichen, Spähen, Schlösser knacken, Fallen entschärfen, Illusion, Beschwörung, Tiere beruhigen, Überreden, Einschüchtern, Angeln, Jagd, Schmieden, Lederarbeit, Runenkunde, Heilkunde (Überreden, Heilkunde mit 842, Einschüchtern mit 841).
+Mit Wirkung im Umzugszweig: Waffen außer Wurfwaffen, alle Rüstungen, Ausweichen, Evokation, Schutzmagie, Heilmagie, Handeln, Kräuterkunde, Alchemie, Kochen. Ohne (heute mit `[954.1.spaeter]`): Wurfwaffen (keine Waffe gehört dazu), Schleichen, Spähen, Schlösser knacken, Fallen entschärfen, Illusion, Beschwörung, Tiere beruhigen, Überreden, Einschüchtern, Angeln, Jagd, Schmieden, Schneidern, Runenkunde, Heilkunde (Überreden, Heilkunde mit 842, Einschüchtern mit 841).
 
 **Waffen**
 - `[954.1.fert.einhaender]` Einhänder: Schwerter, Äxte und andere Waffen für eine Hand; die zweite bleibt frei für einen Schild. / EN: Swords, axes and other one-handed weapons; your other hand stays free for a shield.
@@ -84,7 +84,7 @@ Mit Wirkung im Umzugszweig: Waffen außer Wurfwaffen, alle Rüstungen, Ausweiche
 
 **Handwerk**
 - `[954.1.fert.schmieden]` Schmieden: Waffen und Rüstung aus Metall fertigen und flicken, auch Dietriche. / EN: Make and mend metal weapons and armor, lockpicks too.
-- `[954.1.fert.leder]` Lederarbeit: gerben, schneidern, Leder und Stoff flicken, für leichte Rüstung, Taschen und Köcher. / EN: Tan, tailor and mend leather and cloth, for light armor, bags and quivers.
+- `[954.1.fert.leder]` Schneidern: gerben, nähen, Leder und Stoff flicken, für leichte Rüstung, Roben, Taschen und Köcher. / EN: Tailoring: tan, sew and mend leather and cloth, for light armor, robes, bags and quivers.
 - `[954.1.fert.alchemie]` Alchemie: wer sich auf Tränke versteht, bekommt beim Brauen öfter einen zweiten dazu. / EN: If you know your potions, a brew more often yields a second one.
 - `[954.1.fert.kochen]` Kochen: was du isst, stärkt dich mehr. / EN: What you eat does you more good.
 - `[954.1.fert.runen]` Runenkunde: Runen und Verzauberungen auf deine Ausrüstung legen. / EN: Lay runes and enchantments on your gear.
