@@ -6,7 +6,7 @@ Stand 14.10.2026. Original seit 16.10. hier (99g); vorher Docs-Dokument „Borni
 
 ## Waffe, Schild und Kampf im Bild: was gilt (461)
 
-Was der Chef zu Waffe, Schild und Kampf im Bild entschieden hat, steht nur hier (461d, 01.11., 22:5x; vorher `LISTE-GRUNDSTAND-461.md`); Figuren und Bewegung (A–D) in `DESIGN-STIL.md`, Film und Vorlage (G) und wie geprüft wird in `DESIGN-ABNAHME.md` „Vor jeder Vorlage“. Spalte „Prüfer“: ja = Chefwort und prüfbar, ein Verstoß hält den Lauf an (461a, 511, 621.1; `DESIGN-ABNAHME.md`); „Maß“ = Zahl von uns, nur Richtwert. Neue Entscheidung: die Zeile hier im selben Commit ändern, am alten Archiveintrag „→ ersetzt durch …“ (461b).
+Was der Chef zu Waffe, Schild und Kampf im Bild entschieden hat, steht nur hier (461d, 01.11., 22:5x; vorher `LISTE-GRUNDSTAND-461.md`); Figuren und Bewegung (A–D) in `DESIGN-STIL.md`, Film und Vorlage (G) und wie geprüft wird in `DESIGN-ABNAHME.md` „Vor jeder Vorlage“. Spalte „Prüfer“: ja = Chefwort und prüfbar, der Ersteller prüft selbst vor dem Versand und behebt einen Verstoß vorher (783 W1, ersetzt 461a, 511, 621.1; `DESIGN-ABNAHME.md` „Prüfung vor dem Versand“); „Maß“ = Zahl von uns, nur Richtwert. Neue Entscheidung: die Zeile hier im selben Commit ändern, am alten Archiveintrag „→ ersetzt durch …“ (461b).
 
 ### E Waffe und Schild
 
