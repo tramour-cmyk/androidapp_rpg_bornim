@@ -359,90 +359,90 @@ Fortschritt wie Abschnitt 1, aber mit 21 Punkten (Entscheidung 77), Gold und Beu
 
 ## 6. Tränke im Bosskampf (481.1)
 
-Jerry, 02.11.; Werkzeug auf Zweig `claude/jerry-481-1-traenke` (4bb60ba5e), nur dieser Teil: `python3 tools/sim444/sim.py --nur-traenke`; Werte heute (`werte.json` mit Merkmalen 427.1), daher andere Bosszahlen als Abschnitt 2 oben.
+Jerry, 02.11.; neu gerechnet Tuffy, 11.11. (876, 857a A: Kräuterkunde heißt Kräutersammeln, die Trankwirkung hängt an Alchemie; Zweig `claude/tuffy-876-kraeutersammeln`). Nur dieser Teil: `python3 tools/sim444/sim.py --nur-traenke`; Werte heute (mit Grak nach 870c und 870.6), daher andere Bosszahlen als Abschnitt 2 oben.
 
 **Befund (nur Zahlen, Einstellen bei Sokrates):**
-1. **Zwei Heiltränke (50 Gold) tragen am meisten:** Herkünfte ab 50 % Krogg 2 → 6, Grimmzahn 5 → 6, Grak 4 → 7, Krogg mit Rauch 5 → 7.
-2. **Kampftränke ohne Kräuterkunde schaden** (Wirkung 0,5, jeder Trank ein Zug): schlechter als nur Heiltränke, etwa Zauberlehrling gegen Grimmzahn 85 → 40 %.
-3. **Kräutersammler bleibt fast chancenlos:** ohne 0–2 %, Heil 3–14 %, Kampf 8–27 %. In der Simulation übt nichts seine Kräuterkunde (Sammeln nicht gerechnet), sie bleibt bei 10.
-4. **Erst Kräuterkunde 24 (Decke Kapitel 1) und viel Feuer bringen ihn zur Mitte:** 6 Alchemistenfeuer (230 Gold) 64 / 53 / 49 %, mit Rauch 81 % (6b); mit dem Satz wie oben nur 20–25 %.
-5. Klosterschüler (beginnt auch mit Kräuterkunde) gewinnt schon ohne Tränke 69–96 %.
+1. **Zwei Heiltränke (50 Gold) tragen am meisten:** Herkünfte ab 50 % Krogg 2 → 6, Grimmzahn 5 → 6, Grak 7 → 7, Krogg mit Rauch 5 → 7.
+2. **Kampftränke ohne Alchemie schaden** (Wirkung 0,5, jeder Trank ein Zug): schlechter als nur Heiltränke, etwa Zauberlehrling gegen Grimmzahn 85 → 37 %.
+3. **Mit Alchemie beginnt nur der Kräutersammler.** Der Klosterschüler (bisher Kräuterkunde 10, Wirkung 1) braut jetzt mit Wirkung 0,5: mit Kampftränken gegen Grimmzahn 80 → 72 %, sonst ±2 (Krogg 94, Grak 98, Krogg mit Rauch 97); ohne Tränke unverändert 69–97 %.
+4. **Kräutersammler bleibt fast chancenlos:** ohne 0–5 %, Heil 4–20 %, Kampf 10–30 %. In der Simulation übt nichts seine Alchemie (Brauen nicht gerechnet), sie bleibt bei 10.
+5. **Erst Alchemie 24 (Decke Kapitel 1) und viel Feuer bringen ihn zur Mitte:** 6 Alchemistenfeuer (230 Gold) 62 / 58 / 72 %, mit Rauch 81 % (6b); mit dem Satz wie oben 24–54 %.
 
-Offen: wie Kräuterkunde in Kapitel 1 steigt (Sammeln), Preise und Wirkung (alle A).
+Offen: wie Alchemie in Kapitel 1 steigt (Brauen), Preise und Wirkung (alle A).
 
-Held auf der Stufe des Bosses, Fertigkeiten aus Abschnitt 1 (18 Punkte); je Fall 1000 Kämpfe; Sieg in %. „ohne“ wie Abschnitt 2; „Heil“: 2 Heiltränke; „Kampf“: dazu 1 Steinhaut, 1 Berserkertrank, 2 Alchemistenfeuer (Beutel 190 Gold), Wirkung nach Kräuterkunde wie gerechnet; „Kampf, KK 24“: nur wer mit Kräuterkunde beginnt, geübt bis zur Decke von Kapitel 1.
+Held auf der Stufe des Bosses, Fertigkeiten aus Abschnitt 1 (18 Punkte); je Fall 1000 Kämpfe; Sieg in %. „ohne“ wie Abschnitt 2; „Heil“: 2 Heiltränke; „Kampf“: dazu 1 Steinhaut, 1 Berserkertrank, 2 Alchemistenfeuer (Beutel 190 Gold), Wirkung nach Alchemie wie gerechnet; „Kampf, Alch. 24“: nur wer mit Alchemie beginnt, geübt bis zur Decke von Kapitel 1.
 
-- **Wirkung** = 0.5 + 0.05 × Kräuterkunde, höchstens 2.0 (ohne 0,5, Startwert 10 = 1, 24 = 1,7). Steinhaut: 2 Runden Schaden × (1 − 0.5 × Wirkung), bei 2 unverwundbar; Berserkertrank: 3 Angriffe mit Waffenschaden × (1 + 0.5 × Wirkung), nicht für Zauberer; Alchemistenfeuer: geworfen, Grundschaden 10 × Wirkung, Feuer. Jeder Trank kostet einen Zug. Alle Zahlen Annahmen (`werte.json` „kampftraenke“).
+- **Wirkung** = 0.5 + 0.05 × Alchemie, höchstens 2.0 (ohne 0,5, Startwert 10 = 1, 24 = 1,7). Steinhaut: 2 Runden Schaden × (1 − 0.5 × Wirkung), bei 2 unverwundbar; Berserkertrank: 3 Angriffe mit Waffenschaden × (1 + 0.5 × Wirkung), nicht für Zauberer; Alchemistenfeuer: geworfen, Grundschaden 10 × Wirkung, Feuer. Jeder Trank kostet einen Zug. Alle Zahlen Annahmen (`werte.json` „kampftraenke“).
 
 **Krogg**
 
-| Herkunft | Kräuterkunde | ohne | Heil | Kampf | Kampf, KK 24 |
+| Herkunft | Alchemie | ohne | Heil | Kampf | Kampf, Alch. 24 |
 |---|---|---|---|---|---|
 | Wachsoldat | 0 | **100** | **100** | **100** | – |
-| Jägerkind | 0 | 26 | **67** | **50** | – |
-| Zauberlehrling | 0 | 24 | **60** | 40 | – |
-| Klosterschüler | 10 | **91** | **96** | **96** | **98** |
-| Kräutersammler | 10 | 0 | 3 | 8 | 25 |
-| Schmiedelehrling | 0 | 14 | 47 | 34 | – |
-| Herumtreiber | 0 | 18 | **53** | 38 | – |
-| Wanderer | 0 | 39 | **72** | **63** | – |
+| Jägerkind | 0 | 26 | **66** | **55** | – |
+| Zauberlehrling | 0 | 26 | **63** | 39 | – |
+| Klosterschüler | 0 | **89** | **96** | **94** | – |
+| Kräutersammler | 10 | 0 | 4 | 10 | 24 |
+| Schmiedelehrling | 0 | 15 | 44 | 32 | – |
+| Herumtreiber | 0 | 20 | **54** | 40 | – |
+| Wanderer | 0 | 38 | **71** | **66** | – |
 | ab 50 % | | 2 | 6 | 4 | |
 
 **Grimmzahn**
 
-| Herkunft | Kräuterkunde | ohne | Heil | Kampf | Kampf, KK 24 |
+| Herkunft | Alchemie | ohne | Heil | Kampf | Kampf, Alch. 24 |
 |---|---|---|---|---|---|
 | Wachsoldat | 0 | **100** | **100** | **100** | – |
-| Jägerkind | 0 | **54** | **71** | **60** | – |
-| Zauberlehrling | 0 | **65** | **85** | 40 | – |
-| Klosterschüler | 10 | **69** | **80** | **78** | **84** |
-| Kräutersammler | 10 | 1 | 6 | 12 | 24 |
-| Schmiedelehrling | 0 | 29 | 49 | 35 | – |
-| Herumtreiber | 0 | 38 | **58** | 46 | – |
-| Wanderer | 0 | **59** | **75** | **65** | – |
+| Jägerkind | 0 | **53** | **71** | **57** | – |
+| Zauberlehrling | 0 | **65** | **85** | 37 | – |
+| Klosterschüler | 0 | **69** | **79** | **72** | – |
+| Kräutersammler | 10 | 1 | 4 | 10 | 26 |
+| Schmiedelehrling | 0 | 33 | 46 | 36 | – |
+| Herumtreiber | 0 | 37 | **58** | 47 | – |
+| Wanderer | 0 | **56** | **75** | **62** | – |
 | ab 50 % | | 5 | 6 | 4 | |
 
 **Grak**
 
-| Herkunft | Kräuterkunde | ohne | Heil | Kampf | Kampf, KK 24 |
+| Herkunft | Alchemie | ohne | Heil | Kampf | Kampf, Alch. 24 |
 |---|---|---|---|---|---|
 | Wachsoldat | 0 | **100** | **100** | **100** | – |
-| Jägerkind | 0 | 48 | **75** | **70** | – |
-| Zauberlehrling | 0 | **56** | **80** | **52** | – |
-| Klosterschüler | 10 | **87** | **93** | **96** | **96** |
-| Kräutersammler | 10 | 1 | 4 | 10 | 20 |
-| Schmiedelehrling | 0 | 27 | **52** | 48 | – |
-| Herumtreiber | 0 | 34 | **59** | **53** | – |
-| Wanderer | 0 | **60** | **80** | **74** | – |
-| ab 50 % | | 4 | 7 | 6 | |
+| Jägerkind | 0 | **74** | **90** | **87** | – |
+| Zauberlehrling | 0 | **75** | **91** | **74** | – |
+| Klosterschüler | 0 | **97** | **99** | **98** | – |
+| Kräutersammler | 10 | 5 | 20 | 30 | 47 |
+| Schmiedelehrling | 0 | **53** | **76** | **68** | – |
+| Herumtreiber | 0 | **55** | **81** | **76** | – |
+| Wanderer | 0 | **77** | **92** | **86** | – |
+| ab 50 % | | 7 | 7 | 7 | |
 
 **Krogg mit Rauch**
 
-| Herkunft | Kräuterkunde | ohne | Heil | Kampf | Kampf, KK 24 |
+| Herkunft | Alchemie | ohne | Heil | Kampf | Kampf, Alch. 24 |
 |---|---|---|---|---|---|
 | Wachsoldat | 0 | **100** | **100** | **100** | – |
-| Jägerkind | 0 | **64** | **90** | **84** | – |
-| Zauberlehrling | 0 | **72** | **93** | **75** | – |
-| Klosterschüler | 10 | **96** | **99** | **98** | **98** |
-| Kräutersammler | 10 | 2 | 14 | 27 | 47 |
-| Schmiedelehrling | 0 | 46 | **76** | **67** | – |
-| Herumtreiber | 0 | 46 | **77** | **69** | – |
-| Wanderer | 0 | **77** | **91** | **89** | – |
+| Jägerkind | 0 | **64** | **90** | **85** | – |
+| Zauberlehrling | 0 | **72** | **93** | **71** | – |
+| Klosterschüler | 0 | **97** | **99** | **97** | – |
+| Kräutersammler | 10 | 2 | 14 | 27 | **54** |
+| Schmiedelehrling | 0 | 49 | **75** | **67** | – |
+| Herumtreiber | 0 | 49 | **80** | **75** | – |
+| Wanderer | 0 | **77** | **92** | **87** | – |
 | ab 50 % | | 5 | 7 | 7 | |
 
 ### 6b. Kräutersammler mit anderem Beutel
 
-Sieg in %, je 2 Heiltränke dazu; Kräuterkunde gesetzt. Preis des Beutels in Gold.
+Sieg in %, je 2 Heiltränke dazu; Alchemie gesetzt. Preis des Beutels in Gold.
 
-| Kräuterkunde | Beutel | Gold | Krogg | Grimmzahn | Grak | Krogg mit Rauch |
+| Alchemie | Beutel | Gold | Krogg | Grimmzahn | Grak | Krogg mit Rauch |
 |---|---|---|---|---|---|---|
-| 10 | Satz wie oben | 190 | 8 | 11 | 10 | 26 |
-| 10 | 2 Steinhaut, 1 Berserker, 4 Feuer | 290 | 8 | 8 | 7 | 27 |
-| 10 | 6 Feuer | 230 | 8 | 11 | 6 | 29 |
-| 24 | Satz wie oben | 190 | 20 | 24 | 22 | 47 |
-| 24 | 2 Steinhaut, 1 Berserker, 4 Feuer | 290 | 49 | 38 | 35 | **68** |
-| 24 | 6 Feuer | 230 | **64** | **53** | 49 | **81** |
-| 30 | Satz wie oben | 190 | 36 | 33 | 35 | **60** |
-| 30 | 2 Steinhaut, 1 Berserker, 4 Feuer | 290 | **69** | **54** | **55** | **79** |
-| 30 | 6 Feuer | 230 | **75** | **68** | **64** | **87** |
+| 10 | Satz wie oben | 190 | 8 | 11 | 29 | 27 |
+| 10 | 2 Steinhaut, 1 Berserker, 4 Feuer | 290 | 10 | 8 | 25 | 25 |
+| 10 | 6 Feuer | 230 | 11 | 9 | 25 | 29 |
+| 24 | Satz wie oben | 190 | 26 | 24 | 49 | **51** |
+| 24 | 2 Steinhaut, 1 Berserker, 4 Feuer | 290 | 49 | 40 | **62** | **70** |
+| 24 | 6 Feuer | 230 | **62** | **58** | **72** | **81** |
+| 30 | Satz wie oben | 190 | 38 | 35 | **57** | **60** |
+| 30 | 2 Steinhaut, 1 Berserker, 4 Feuer | 290 | **62** | **55** | **76** | **78** |
+| 30 | 6 Feuer | 230 | **75** | **71** | **80** | **88** |
 

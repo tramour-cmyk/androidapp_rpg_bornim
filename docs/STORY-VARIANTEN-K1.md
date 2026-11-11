@@ -28,9 +28,10 @@ Vorschlag Homer, 03.11.; Vorgang 504 (Chef 03.11., 07:52: „Mindestens 3 … Le
 3. Wenn noch einmal etwas aus dem Wald kommt, stehe ich hier. Aber ich bin froh, wenn du dann nicht weit bist, {name}. — EN: If anything comes out of those woods again, I'll be standing right here. But I'll be glad if you're not far off, {name}.
 
 `[504.pim.vor]`
-1. bisher: „Papa sagt, Goblins haben Angst vor Feuer! … / Thessa verkauft Alchemistenfeuer …“
-2. Ich war schon mal am Schlagbaum! Jorin hat mich am Kragen zurückgezogen. / Goblins fürchten Feuer, sagt Papa. Thessa verkauft Alchemistenfeuer, damit kann jeder zaubern, auch ohne Magier zu sein! — EN: I've been to the barrier once! Jorin dragged me back by the collar. / Goblins fear fire, Dad says. Thessa sells alchemist's fire; anyone can do magic with it, even without being a wizard!
-3. Hast du schon mal einen Goblin gesehen? Ganz echt? Wie riechen die? / Papa sagt, Feuer macht ihnen Angst. Mit Thessas Alchemistenfeuer kämpft jeder wie ein Magier. — EN: Have you ever seen a goblin? A real one? What do they smell like? / Dad says fire scares them. With Thessa's alchemist's fire anyone can fight like a wizard.
+1. bisher: „Papa sagt, Goblins haben Angst vor Feuer! … / Thessa verkauft Brandflaschen …“ (Wortlaut `STORY-PLAN-K1.md`, Pim)
+2. Ich war schon mal am Schlagbaum! Jorin hat mich am Kragen zurückgezogen. / Goblins fürchten Feuer, sagt Papa. Thessa verkauft Brandflaschen, damit kann jeder zaubern, auch ohne Magier zu sein! — EN: I've been to the barrier once! Jorin dragged me back by the collar. / Goblins fear fire, Dad says. Thessa sells firebottles; anyone can do magic with them, even without being a wizard!
+3. Hast du schon mal einen Goblin gesehen? Ganz echt? Wie riechen die? / Papa sagt, Feuer macht ihnen Angst. Mit Thessas Brandflaschen kämpft jeder wie ein Magier. — EN: Have you ever seen a goblin? A real one? What do they smell like? / Dad says fire scares them. With Thessa's firebottles anyone can fight like a wizard.
+(934: Alchemistenfeuer heißt Brandflasche, `STORY-BRS-OBERFLAECHE.md`.)
 
 `[504.pim.danach]`
 1. bisher: „Wenn ich groß bin, werde ich auch ein Held! …“
@@ -108,9 +109,9 @@ Vorschlag Homer, 03.11.; Vorgang 504 (Chef 03.11., 07:52: „Mindestens 3 … Le
 3. Das Morgenlicht weist niemanden ab. Lass mich sehen, was dir fehlt. · Lyra ist zurück, und du hast sie gebracht. Setz dich, {name}. — EN: The Dawnlight turns no one away. Let me see what ails you. · Lyra is back, and you brought her. Sit down, {name}.
 
 `[504.osric.heilung]` (Erzähler)
-1. bisher: „Ein warmes Licht umhüllt dich. TP und ZP sind vollständig wiederhergestellt.“
-2. Osric murmelt ein Gebet, und Wärme fließt in deine Glieder. TP und ZP sind vollständig wiederhergestellt. — EN: Osric murmurs a prayer, and warmth flows into your limbs. HP and SP are fully restored.
-3. Der Schmerz ebbt ab, als Osrics Hände über deine Wunden gleiten. TP und ZP sind vollständig wiederhergestellt. — EN: The pain ebbs as Osric's hands pass over your wounds. HP and SP are fully restored.
+1. bisher: „Ein warmes Licht umhüllt dich. Leben und Mana sind wieder voll.“
+2. Osric murmelt ein Gebet, und Wärme fließt in deine Glieder. Leben und Mana sind wieder voll. — EN: Osric murmurs a prayer, and warmth flows into your limbs. Life and mana are full again.
+3. Der Schmerz ebbt ab, als Osrics Hände über deine Wunden gleiten. Leben und Mana sind wieder voll. — EN: The pain ebbs as Osric's hands pass over your wounds. Life and mana are full again.
 
 `[504.osric.bitte]` (vor Lyras Rettung)
 1. bisher: „Bitte … finde Schwester Lyra …“

@@ -18,7 +18,8 @@ Muss durch Wartende (190.3, 162): wartet eine Muss-Zeile auf Nummer X, zählt X 
 Zeilen mit „wiederholt“ im Titel stehen vor allem anderen, nur die „jetzt“-Zeilen davor (620.1 A).
 Ab 6 gebauten oder zu testenden Muss eines Teams (ohne Sammelbuild) sperrt neues Muss bis zum Test, aber nur, wenn es sich mit
 Ungetestetem überschneidet (Nummer, Titelwort wie Ort oder Figur, geänderte Datei; 779, Chef 09.11., 17:30); frei bleiben wiederholt,
-„jetzt“, Rückläufer mit Build und Angefangenes (620.1 B, Chef 08.11., 10:55/10:57).
+„jetzt“, Rückläufer mit Build und Angefangenes (620.1 B, Chef 08.11., 10:55/10:57; ein Rückläufer ist ein Fund, den der Chef
+zum zweiten Mal meldet, also „wiederholt“ nach 620.1 A; Angefangenes ist kein neues Muss; 729).
 Wächter 424: eine sonst startbare Zeile, die Regeln des alten Systems nennt, ruht. Exit 1 bei unlesbaren oder ungültigen Zeilen.
 Laufende Sitzungen kennt das Werkzeug nicht; die liest Ford aus list_sessions.
 """
@@ -534,25 +535,107 @@ def _woerter(t):
     t = t.lower().translate(str.maketrans("äöüß", "aous"))
     return {w for w in re.findall(r"[a-z]{4,}", t) if w not in {x.translate(str.maketrans("äöüß", "aous")) for x in ALLGEMEIN}}
 
+BEUGUNG = {"e", "en", "es", "s", "n", "er", "ern", "ens"}
+KEIN_NAME = {"greifen", "greife"}  # 970 (b): Verb, nicht der Greif
+
+def _gleich(a, b):
+    """Beugung wie „wolf/wolfe“, „aldric/aldrics“, kein Wortteil wie „schwert/schwertarm“ (792); 970 (b): nur echte Endungen,
+    also nicht „greift/greif“, „lage/lager“."""
+    if a == b: return True
+    k, l = sorted((a, b), key=len)
+    return len(k) >= 4 and l.startswith(k) and l[len(k):] in BEUGUNG and l not in KEIN_NAME
+
+# 965 (Chef 11.11., 14:56 „hat jeder einen Job?“): Titelwörter zählen nur als Ort oder Figur; Kurzformen, die in den Quellen nur
+# zusammengesetzt stehen („Riesenratte“, „Goblin-Späher“)
+NAMEN_EXTRA = {"ratte", "ratten", "fledermaus", "spinne", "egel", "schnecke", "hundertfusser", "spaher", "schurke", "grabhund",
+               "untote", "lager", "teich", "schenke", "schlagbaum", "lagerfeuer", "kessel", "hutte"}
+# Wörter aus Namen wie „Der alte Kael“, „Haus des Ältesten“, „Bauer Bram“, die allein keine Figur und keinen Ort meinen
+NAMEN_AUS = {"alte", "bosse", "eigenes", "graue", "grauen", "haus", "norden", "sohn", "tisch", "tiefer", "kapitelende", "schlafenden",
+             "handler", "bauer", "bruder", "schwester", "wache", "jager", "hauptmann", "wald"}  # „wald“ auch in WALD_M, Waldläufer
+_NAMEN = None
+
+def namen():
+    """965: Orte und Figuren von Kapitel 1 aus LISTE-FIGUREN.md (Spalten Figur und Ort) und PROJEKTPLAN.md 2.13–2.16 (Gegner, Orte,
+    Stationen, Leute), dazu NAMEN_EXTRA; Wörter wie _woerter."""
+    global _NAMEN
+    if _NAMEN is None:
+        n = set(NAMEN_EXTRA)
+        for z in lesen("LISTE-FIGUREN.md").split("## Abnahmelisten")[0].splitlines():
+            s = [x.strip() for x in z.strip().strip("|").split("|")]
+            if z.startswith("|") and len(s) > 2 and s[0] not in ("Figur",) and not s[0].startswith("---"):
+                n |= _woerter(s[0] + " " + s[-1])
+        p = lesen("PROJEKTPLAN.md")
+        m = re.search(r"\*\*2\.13\*\*(.*?)\*\*2\.17\*\*", p, re.S)
+        for x in re.findall(r"\[[ x]\] ([^·:\n(]+)", m.group(1) if m else ""):
+            n |= _woerter(x)
+        _NAMEN = n - NAMEN_AUS
+    return _NAMEN
+
+def _namen_im(t):
+    return {w for w in _woerter(t) if any(_gleich(w, n) for n in namen())}
+
+_GIT = {}
+
+def _git(*a):
+    """git im Werkzeugordner; gemerkt je Aufruf (startbar ruft dieselben Paare je Rolle mehrfach)."""
+    if a not in _GIT:
+        import subprocess
+        _GIT[a] = subprocess.run(["git", "-C", os.path.dirname(os.path.abspath(__file__))] + list(a), capture_output=True, text=True)
+    return _GIT[a]
+
+_DATEIEN = {}
+
+_ZWEIGE = None
+
 def _dateien(zweig):
+    """Spieldateien, die die eigenen Commits des Zweigs ändern: Commits, die weder auf main noch auf einem anderen Zweig liegen,
+    außer Zweigen, die auf diesem aufbauen (965, 970 (a): sonst teilt jeder gestapelte Zweig alle Dateien seiner Unterlage,
+    auch einer, die keine Zeile der Liste trägt)."""
+    global _ZWEIGE
     if not zweig or zweig in ("–", "-"): return set()
-    import subprocess
-    r = subprocess.run(["git", "-C", os.path.dirname(os.path.abspath(__file__)), "diff", "--name-only", "origin/main...origin/" + zweig],
-                       capture_output=True, text=True)
-    return {f for f in r.stdout.split() if not re.match(r"(\.github|tools|docs|test|tests)/|.*(_test|test_)[^/]*$|.*\.md$", f)} if r.returncode == 0 else set()
+    if _ZWEIGE is None:  # einmal: alle Commits über main mit Eltern und Dateien, je Commit die Zweige, die ihn enthalten
+        eltern, dateien, spitzen, enthalten = {}, {}, {}, {}
+        for z in _git("log", "--format=%H %P", "--remotes=origin", "--not", "origin/main").stdout.splitlines():
+            h, *p = z.split(); eltern[h] = p
+        c = None
+        for z in _git("log", "--name-only", "--format=@%H", "--remotes=origin", "--not", "origin/main").stdout.splitlines():
+            if z.startswith("@"): c = z[1:]; dateien[c] = set()
+            elif z and c: dateien[c].add(z)
+        for z in _git("for-each-ref", "--format=%(objectname) %(refname:short)", "refs/remotes/origin").stdout.splitlines():
+            h, r = z.split(" ", 1)
+            if r.startswith("origin/claude/build-") or r in ("origin", "origin/HEAD") or h not in eltern: continue  # Sammelbuilds tragen fremde Zweige
+            spitzen[r[len("origin/"):]] = h
+            offen = [h]
+            while offen:
+                k = offen.pop()
+                if r in enthalten.setdefault(k, set()): continue
+                enthalten[k].add(r); offen += [e for e in eltern.get(k, []) if e in eltern]
+        _ZWEIGE = (spitzen, enthalten, dateien)
+    if zweig not in _DATEIEN:
+        spitzen, enthalten, dateien = _ZWEIGE
+        s = spitzen.get(zweig)
+        auf = enthalten.get(s, set())  # Zweige, die auf diesem aufbauen
+        eigen = [k for k, r in enthalten.items() if s and ("origin/" + zweig) in r and r <= auf]
+        _DATEIEN[zweig] = {f for k in eigen for f in dateien.get(k, ()) if not re.match(r"(\.[^/]+|tools|docs|test|tests)/|.*(_test|test_)[^/]*$|.*\.md$", f)}
+    return _DATEIEN[zweig]
 
 def ueberschneidung(d, offen):
-    """779: Text „702 (wolfe)“ der ersten ungetesteten Zeile, mit der d sich überschneidet: nennt ihre Nummer, teilt ein
-    Titelwort (Ort, Figur, Sache; Beugung bis 2 Buchstaben wie „wolf/wolfe“, kein Wortteil wie „schwert/schwertarm“, 792) oder eine geänderte Datei; sonst None."""
-    wd = _woerter(d["titel"]); fd = None
+    """779: Text „702 (wolf)“ der ersten ungetesteten Zeile, mit der d sich überschneidet: nennt ihre Nummer, teilt einen Ort oder
+    eine Figur im Titel (965: nicht mehr jedes Titelwort; Beugung wie _gleich), liegt auf ihrem Zweig (Stapel) oder teilt eine
+    eigene geänderte Datei; sonst None."""
+    wd = _namen_im(d["titel"]); fd = None
     for o in offen:
         if o["nr"] == d["nr"]: continue
         if re.search(r"(?<![\d.])%s(?![\d])" % re.escape(o["nr"]), d["titel"] + " " + " ".join(d.get("warte") or [])): return o["nr"]
-        gleich = sorted(a for a in wd for b in _woerter(o["titel"]) if a == b or (min(len(a), len(b)) >= 4 and abs(len(a) - len(b)) <= 2 and (a.startswith(b) or b.startswith(a))))
+        gleich = sorted(a for a in wd for b in _namen_im(o["titel"]) if _gleich(a, b))
         if gleich: return "%s (%s)" % (o["nr"], gleich[0])
         if d.get("zweig") not in (None, "", "–", "-"):
+            oz = o.get("zweig")
+            if oz not in (None, "", "–", "-") and oz != d["zweig"] and _dateien(oz) and \
+                    _git("merge-base", "--is-ancestor", "origin/" + oz, "origin/" + d["zweig"]).returncode == 0:
+                return "%s (Zweig liegt darauf)" % o["nr"]
             fd = _dateien(d["zweig"]) if fd is None else fd
-            g = fd & _dateien(o.get("zweig"))
+            g = fd & _dateien(oz)
             if g: return "%s (%s)" % (o["nr"], sorted(g)[0].rsplit("/", 1)[-1])
     return None
 
@@ -594,7 +677,7 @@ LIEGT_ROLLEN = ["Tom", "Jerry", "Diogenes", "Homer", "Perikles"]  # wie lauf.STA
 
 def startbares_muss():
     """891 (654, Chef 10.11., 17:15): {(Rolle, Nr)} startbarer Muss-Zeilen nach Pause und „frei für“ (wie lauf.stand). Läuft keine
-    Sitzung der Rolle, „liegt“ die Zeile: wer sie startbar gemacht hat, meldet es Ford sofort (vorgang.py, LISTE-BETRIEB.md 26)."""
+    Sitzung der Rolle, „liegt“ die Zeile: wer sie startbar gemacht hat, meldet es Ford sofort (vorgang.py, LISTE-BETRIEB.md „Meldungen an Ford“)."""
     aus = set()
     for datei, rolle in ROLLEN:
         if rolle not in LIEGT_ROLLEN: continue
@@ -736,6 +819,8 @@ def main():
         elif sperren:
             print("      nicht startbar: " + "; ".join("%s: %s" % s for s in sperren[:6]) + (" …" if len(sperren) > 6 else ""))
     if not md:
+        mf = ["%s (%s)" % (z[0], rolle) for _, rolle in ROLLEN for z in plan(rolle) if z[1] == "M?" and not z[4]]
+        if mf: print("  M? für Perikles (190.8; lauf.py startet es als Muss „M? entscheiden“, 921): " + ", ".join(mf))
         for r in UEBERNAHME:
             u = uebernahme(r, info)
             if u: print("  Übernahme für %s: %s" % (r, u))

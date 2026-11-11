@@ -750,8 +750,7 @@ func frage_ding(id: String) -> void:
 	zeilen.append(bild)
 	var info := Sprache.t(dd.get("info", ""))
 	if info != "": zeilen.append(Stil.txt(info, 15))
-	var h: Array = dd.get("heilt", [])
-	if not h.is_empty(): zeilen.append(Stil.txt(("heilt " if de else "heals ") + Beute.wuerfel_text(h, 0, de), 14, Stil.DIM))
+	# 944 (Chef 11.11., 13:22, t276.5): keine Würfel im Text; was er heilt, sagt die Meldung (STORY-BRS-OBERFLAECHE „Gegenstände“)
 	var farbe := Color(SELTEN.get(String(dd.get("seltenheit", "COMMON")), "e6ddcb"))
 	if trinkbar:
 		var wort := ("Essen" if de else "Eat") if art == "FOOD" else Sprache.u("use")
@@ -836,15 +835,8 @@ static func stueck_zeilen_von(hw: BrsHeld, g: Dictionary) -> Array:
 		z_.append(fett.call(Stil.txt(v.satz(), 14, {1: GRUEN, -1: Stil.WARN}.get(v.urteil(), Stil.TEXT))))
 	# Grundzahlen: Schaden je Griff, Angriff, Eigenschaften der Waffe; RK der Ruestung mit GES; Schild; Zauberkraft
 	if b.get("schaden") != null:
-		var viel = b.get("vielseitig")
-		var w_ = hw.waffe()
-		var beide: bool = viel != null and w_ != null and int(w_["uid"]) == int(g["uid"]) and hw.beide_haende_mit(g)
-		var art_s := Sprache.t(d["schadensarten"].get(String(b["schadensart"]), {"de": "", "en": ""}))
-		z_.append(fett.call(Stil.txt("%s: %s %s%s" % [Sprache.u("damage"), Beute.wuerfel_text(viel if beide else b["schaden"], plus, de), art_s,
-			((" (beide Hände)" if de else " (both hands)") if beide else "")], 16)))
-		if viel != null:
-			z_.append(Stil.txt(((("Mit einer Hand (Schild oder Zweitwaffe): " if de else "In one hand (shield or second weapon): ") + Beute.wuerfel_text(b["schaden"], plus, de)) if beide else
-				(("Mit beiden Händen (andere Hand leer): " if de else "In both hands (other hand empty): ") + Beute.wuerfel_text(viel, plus, de))), 14, Stil.DIM))
+		# 944 (t276.5): Schaden als Zahl nach dem BRS ([870.14.ding.schaden]), ohne Würfel und ohne „vielseitig“ (entfällt, Homer 870.14)
+		z_.append(fett.call(Stil.txt(schaden_text(g, de), 16)))
 		if plus > 0: z_.append(fett.call(Stil.txt("%s +%d" % [Sprache.u("attack"), plus], 15)))
 		var zuege: Array = []
 		if bool(b.get("finesse", false)): zuege.append("Finesse")
@@ -1346,10 +1338,7 @@ static func stueck_zeilen_b(hw: BrsHeld, g: Dictionary) -> Array:
 		z_.append(satz.call("Pech und Werg auf einem Stock. In der Nebenhand, statt eines Schilds. Im Dunkeln siehst du weiter als mit einem Leuchtfunken. Brennt, solange du sie trägst." if de else
 			"Pitch and tow on a stick. Held in the off hand, instead of a shield. In the dark you see further than with a Lightspark. Burns as long as you carry it.", 14, Stil.TEXT))
 	if b.get("schaden") != null:
-		var viel = b.get("vielseitig")
-		var art_s := Sprache.t(d["schadensarten"].get(String(b["schadensart"]), {"de": "", "en": ""}))
-		z_.append(fett.call(satz.call("%s: %s %s" % [Sprache.u("damage"), Beute.wuerfel_text(b["schaden"], plus, de), art_s], 16, Stil.TEXT)))
-		if viel != null: z_.append(satz.call(("Mit beiden Händen (andere Hand leer): " if de else "In both hands (other hand empty): ") + Beute.wuerfel_text(viel, plus, de), 14, Stil.DIM))
+		z_.append(fett.call(satz.call(schaden_text(g, de), 16, Stil.TEXT)))     # 944 (t276.5): ohne Würfel
 		if plus > 0: z_.append(fett.call(satz.call("%s +%d" % [Sprache.u("attack"), plus], 15, Stil.TEXT)))
 		# 870.4 ([870.14.ding.grundwert], [870.14.ding.armbrust]): der Grundwert im Schaden nach werte.json „waffen“
 		var gw = BrsHeld.lade()["waffen"].get(BrsHeld.fertigkeit_von(String(g["base"])), {}).get("grundwert")
@@ -1946,3 +1935,12 @@ func chronik() -> void:
 		if erledigt_auf:
 			for t in fertig: zeile("✓ " + Sprache.t(t["titel"]), 14, Stil.DIM)
 			for j in fertig_j: zeile("✓ " + Sprache.t(j["titel"]) + " · " + Sprache.t(j["geber_name"]), 14, Stil.DIM)
+
+
+## 944 (Chef 11.11., 13:22, t276.5): [870.14.ding.schaden] „Schaden %d · %s“, Grundschaden der Waffengruppe (werte.json „waffen“,
+## wie BrsHeld.schaden und mars.gd _brs_waffe), Schadensart wie bisher; nie ein Würfel
+static func schaden_text(g: Dictionary, de: bool) -> String:
+	var b := Beute.grundform(String(g["base"]))
+	var wd: Dictionary = BrsHeld.lade()["waffen"].get(BrsHeld.fertigkeit_von(String(g["base"])), {})
+	var art := Sprache.t(BrsHeld.daten()["schadensarten"].get(String(b.get("schadensart", "")), {"de": "", "en": ""}))
+	return ("Schaden %d · %s" if de else "Damage %d · %s") % [int(wd.get("schaden", 0)), art]

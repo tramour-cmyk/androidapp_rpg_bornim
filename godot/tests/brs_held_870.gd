@@ -6,6 +6,8 @@ extends SceneTree
 
 const AufrufS = preload("res://kampf/aufruf.gd")
 const BrsKampf = preload("res://regeln/brs_kampf.gd")
+const Mars = preload("res://regeln/mars.gd")
+const Wuerfel = preload("res://regeln/wuerfel.gd")
 
 var fehler := 0
 
@@ -90,6 +92,30 @@ func _lauf() -> void:
 	z.dazu("potion", 1)
 	Menue.benutze(z, h, "potion", func(a, b_): return 0)
 	pruefe("Heiltrank heilt fest", h.leben, mini(h.max_leben(), 1 + int(wl["heilung"]["potion"])))
+	# t276.5 (Chef 11.11., „11 statt 14“): fehlt viel, genau 14 und die Meldung nennt 14; fehlen 11, bis voll und die Meldung nennt 11;
+	# im Kampf dieselben Zahlen
+	var trank := int(wl["heilung"]["potion"])
+	for fehlt in [h.max_leben() - 1, 11]:
+		h.leben = h.max_leben() - fehlt
+		z.dazu("potion", 1)
+		var vor := h.leben
+		var s := Menue.benutze(z, h, "potion", func(a, b_): return 0)
+		pruefe("Heiltrank Welt, fehlen %d" % fehlt, [h.leben - vor, s.contains(" %d " % mini(fehlt, trank)) or s.contains(" %d " % mini(fehlt, trank))], [mini(fehlt, trank), true])
+	var tab: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	var skills := {}
+	for sk in tab.skills: skills[sk.id] = sk
+	var monsters := {}
+	for mo in tab.monsters: monsters[mo.id] = mo
+	var auf = AufrufS.new()
+	for fehlt in [h.max_leben() - 1, 11]:
+		h.leben = h.max_leben() - fehlt
+		var held = auf._kaempfer("hero", h, -1, Vector2i(Mars.FRONT, 0), skills)
+		var mars = Mars.new([held], [AufrufS.rudel(monsters, Wuerfel.new(3))[0]], tab, Wuerfel.new(5), Wuerfel.new(7), 0, false)
+		mars.potions["potion"] = 1
+		var vor: int = held.hp
+		mars._drink(held, "potion", held)
+		pruefe("Heiltrank Kampf, fehlen %d" % fehlt, [held.max_hp, held.hp - vor], [h.max_leben(), mini(fehlt, trank)])
+	auf.free()
 	# Heldenstufe: der Zustand fuehrt sie, Testmenue setzt sie
 	Testmodus.stufe_setzen(h, z, 3)
 	pruefe("Stufe im Zustand und am Helden", [z.stufe(), h.stufe, h.leben], [3, 3, h.max_leben()])

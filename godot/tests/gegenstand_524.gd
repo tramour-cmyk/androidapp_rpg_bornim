@@ -33,8 +33,11 @@ func _lauf() -> void:
 	var schwert := stueck(z, "longsword", "UNCOMMON", 1)
 	var t := texte(Menue.stueck_zeilen_von(kaempfer, schwert))
 	print("Langschwert: ", t)
-	for soll in ["Vielseitig: eine oder beide Hände · Stufe 3", "Schaden: 1W8+1 Hieb", "Mit beiden Händen (andere Hand leer): 1W10+1", "Angriff +1"]:
+	# 944 (t276.5): Schaden als Zahl nach dem BRS, kein Würfel, keine Zeile „Mit beiden Händen“
+	var grund := int(BrsHeld.lade()["waffen"][BrsHeld.fertigkeit_von("longsword")]["schaden"])
+	for soll in ["Vielseitig: eine oder beide Hände · Stufe 3", "Schaden %d · Hieb" % grund, "Angriff +1"]:
 		pruefe(t.contains(soll), "Langschwert ohne „%s“" % soll)
+	pruefe(RegEx.create_from_string("\\d+W\\d+").search(t) == null and not t.contains("Mit beiden Händen"), "Langschwert mit Würfeltext: %s" % t)
 	var panzer := stueck(z, "chain_mail", "COMMON")
 	t = texte(Menue.stueck_zeilen_von(kaempfer, panzer))
 	print("Kettenpanzer: ", t)

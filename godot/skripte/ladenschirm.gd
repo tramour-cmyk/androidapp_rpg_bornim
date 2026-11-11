@@ -510,10 +510,10 @@ func stueck(g: Dictionary, kauf: bool) -> void:
 			[["%s · %s" % [Sprache.u("sell"), preis_text(p)], tu], [abbrechen(), func(): pass]])
 	dialog(Beute.name(g), farbe_von(g), zl, [["%s · %s" % [Sprache.u("buy") if kauf else Sprache.u("sell"), preis_text(p)], frage, ok], [abbrechen(), func(): pass]])
 
-# 582: Kurzangabe (ItemDef.stats aus core, „heilt 2W4+2“) als Unterzeile; ohne Wirkung (Ausdauertrank) keine
-static func kurz(id: String) -> Array:
-	var k = Laden.ding(id).get("kurz")
-	return [Sprache.t(k)] if k is Dictionary else []
+# 582: Kurzangabe als Unterzeile. 944 (Chef 11.11., 13:22, t276.5): „kurz“ kommt aus ItemDef.stats (core) und ist immer ein
+# Würfeltext („heilt 2W4+2“); Texte ohne Würfel, die Wirkung steht in der Meldung (STORY-BRS-OBERFLAECHE „Gegenstände“)
+static func kurz(_id: String) -> Array:
+	return []
 
 # 582: Dialogs.ItemDetails: Seltenheit in ihrer Farbe, die Wirkung hell, dann der Langtext
 static func details(id: String) -> Array:
@@ -521,9 +521,7 @@ static func details(id: String) -> Array:
 	var s := String(d.get("seltenheit", "COMMON"))
 	var sel: Dictionary = BrsHeld.daten()["seltenheiten"].get(s, {})
 	var r: Array = [Stil.txt(Sprache.t(sel.get("name", s)), 14, Color(Menue.SELTEN.get(s, "e6ddcb")))]
-	var k = d.get("kurz")
-	if k is Dictionary:
-		r.append(Stil.txt(Sprache.t(k), 16, Stil.BRIGHT))   # alt fett; einen halbfetten Schnitt gibt es noch nicht (584)
+	# 944: ohne die Kurzangabe aus core (Würfeltext)
 	r.append(Stil.txt(Sprache.t(d.get("info", "")), 14, Stil.DIM))
 	return r
 

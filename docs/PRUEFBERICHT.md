@@ -52,6 +52,157 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 178 · 970 mit 965 Sperre 779 (Perikles, Doppelpack 421, `4d1486e9f`; 11.11., 16:4x)
+
+- **970 greift** (`greift 970 178`): eigene Dateien je Zweig gegen `git branch -r --contains` je Commit nachgerechnet: 705 nur `mars.gd` (2 eigene Commits, `kampf_ui.gd` weg), 709.1 nur `figur.gd` (Commit `8bbafbcb6` liegt auch auf `jerry-709a-tiefbiss`, zählt richtig nicht), 945 `kampf_ui.gd`. Namen: „greift“, „greifen“, „Lage“ keine, „Lager“, „Wolfes“, „Aldrics“, „Greifs“ ja. `--stand` 1,7 s (vorher 8,2 s).
+- **965 greift** (`greift 965 178`), Lücke 970 geschlossen. Sperre 779 jetzt: Tom 9 startbar, 2 gesperrt (814, 831 → 680 `gebiet.gd`); Jerry 18 startbar, 14 gesperrt, alle mit echtem Grund (Nummer, Wolf, Grak, `figur.gd`). Über allem steht heute ohnehin Sperre 620.1 B (Tom 10, Jerry 20 ungetestet) bis zum Sammelbuild 968.
+- Grenze: der laufende Sammelbuild heißt `claude/tom-968-sammel`, nicht `claude/build-…`, und wird nicht ausgenommen. Folgen heute keine (Abgleich mit und ohne ihn: nur 532 und 935, die darauf liegen); bekommt ein schon gemergter Zweig danach Commits, zählen seine älteren nicht mehr als eigen (zu wenig gesperrt, bis der Sammelbuild auf `main` ist). Kein Vorgang.
+
+## Lauf 177 · 965 Sperre 779 (Perikles, Doppelpack 421, `7fc03538b`; 11.11., 15:5x)
+
+- **Startbar:** `--stand` neu Tom 8, Jerry 20 (alte Fassung `7fc03538b~1` jetzt Tom 2, Jerry 0); greift.
+- **Verbliebene Sperren 779:** Tom keine; Jerry 16. Nummer 8 (844, 845 → 709; 918 → 910; 932, 930.3 → 784; 935 → 870.6; 620.2c → 945; 950 → 863), Figur 3 (760, 931 Wolf; 949 Grak), Datei 5 (709.1, 705, 946 → 945 `kampf_ui.gd`; 406.2, 595 → 900 `figur.gd`). Nachgerechnet nur mit eigenen Commits: 406.2, 595, 709.1 überschneiden sich echt mit 910 (`figur.gd`); 705 und 946 nicht, beide sperrt aber „Wolf“. Ergebnis gleich, Begründung bei 705 und 709.1 falsch.
+- **D177.1 → 970 (Perikles, K):** fremde Unterlage zählt als eigene Datei (`claude/jerry-870-5-kampf` nicht in der Unterlage; mehrere merge-bases bei 709.1); Namen treffen Verben („greift“, „greifen“ → Greif; „Lage“ → Lager). **965 wartet auf 970.**
+- **Laufzeit:** nicht wie vorher: alt 5,4–5,9 s, neu 8,2–8,4 s (je zweimal); Hinweis in 970.
+
+## Lauf 176 · 961 mit 943, 929 (Perikles, Doppelpack 421, `6135ffd31`; 11.11., 14:2x)
+
+- **961 greift** (`greift 961 176`): 15 Fälle, `cd_ziel` und Hakeneingabe (Exit) neu gegen alt (`6135ffd31~1`). Heredoc-Körper beginnt mit `"`, danach `cd $W` → hält jetzt an (alt frei); Körper nur `"` → hält an (alt frei); drei Heredocs mit `"` vorn → hält an (alt frei); Körper mit `"` vorn und cd nur im Text → frei. Die acht Fälle aus Lauf 175 unverändert (1, 6, 7, 8 halten, 2–5 frei); `'` vorn im Körper, Backslash vor dem Ende, Heredoc in `'…'` halten an.
+- **943 greift** (`greift 943 176`), Lücke 961 geschlossen; **929 greift** (`greift 929 176`), Lücke 943 geschlossen.
+- Nicht geprüft: echter Lauf einer Teamsitzung mit Heredoc-Commit und `cd $VAR` (keiner seit dem Bau).
+
+## Lauf 175 · 943 (Perikles, Doppelpack 421, `330744269`; 11.11., 14:1x)
+
+- Acht Fälle als Hakeneingabe an `probelauf.py`, neu gegen alt (`330744269~1`): Heredoc mit einzelnem `"`, danach `cd $VAR` → hält jetzt an (alt nicht); dasselbe mit cd nur im Text → frei (alt hielt an); `-m` mit cd im Text, `-F` Heredoc, `cd "$HOME/…"` frei; echtes `cd $VAR`, Heredoc ohne Zeichen und danach `cd $VAR`, zwei Heredocs → halten an.
+- **D175.1 → 961 (Perikles, K):** beginnt der Heredoc-Körper mit `"` (erstes Zeichen), bricht die Suche nach dem schließenden `"` dort ab, bevor der Sprung über den Körper greift (`text_bereiche`: Schleifenbedingung `befehl[j] != c` vor der Heredoc-Prüfung). Das `"` nach `)` öffnet dann neu, `&& cd $W && git push` gilt als Text: kein Halt (`text_bereiche` gibt (15, 29), (29, 36), (43, 64); `cd_befehle` leer). Selten, aber dieselbe Art wie D171.3. **943 wartet auf 961.**
+
+## Lauf 174 · 942, 957 mit 927, 940 (Perikles, Doppelpack 421, `1bc93e6e5`, `74b3132b3`; 11.11., 14:1x)
+
+- **942 greift** (`greift 942 174`): Kurzzeilen in einer Kopie (`--ohne-pull`): Jerry alt working 3 h ruhig, neu idle → nur ARCHIVIERE (vorher dazu WARNUNG-LAUT „Sitzung hängt“, alter Code nachgestellt); alte Sitzung als Vorgänger eines START → nur ARCHIVIERE; Diogenes allein hängend, nichts Startbares → WARNUNG-LAUT „Sitzung hängt“ bleibt. Grenze: die Marke „Hängt <Kennung>“ wird auch für die gestrichene Zeile geschrieben (harmlos, Sitzung ist weg).
+- **927 greift** (`greift 927 174`): Lücken 941 (Lauf 172) und 942 geschlossen; echter Lauf mit „Sitzung hängt“ oder „Jetzt installieren“ steht aus (Vorrat).
+- **957 greift** (`greift 957 174`): frische Kopie ohne eigenen Commit → Zählercommit mit Co-Authored-By und Claude-Session (Kennung gleich der Sitzung); ohne Umgebungskennung nur Co-Authored-By. Grenze: Co-Authored-By kommt dann aus dem jüngsten Commit auf `main` und kann ein anderes Modell nennen als das der Sitzung.
+- **940 greift** (`greift 940 174`).
+
+## Lauf 173 · 903 B (2) Checkliste „Vorlage an den Chef“ (Perikles, Doppelpack 421, `6f06ed112`; 11.11., 14:0x)
+
+- **903 greift** (`greift 903 173`): deckt, was B nennt (Bild, Film, Chefsache, Antwort ins Archiv). Alle zehn Quellen tragen: 715 `ROLLE-PROJEKT.md` 107, 302.3 Bekannte Fehler, 457 und 890 `commit-pruefung.py`, 434 Rollendatei, 364 Archiv, 799 `probelauf.py` 865, Bildmaße `chefsache/README.md` 374, 655, 783 W1, W8, 338.2, 383.3, t78 im Archiv oder in `CLAUDE.md`. `treffer`: `entscheiden/`, `billigen/`, `tun/`, `ansehen/948-…` → Vorlage; `ansehen/t276-…` → Build und Test; README, `bilder/` → nichts. Zusatztext 2582 Zeichen, ganz.
+- Grenze: der Abschnitt „Zum Kopieren“ erscheint nicht mehr von selbst bei `entscheiden/` (vorher ja); Punkt 4 verweist darauf.
+- 905 wartet auf 16.11. (zählen, sobald etwa zehn Vorlagen da sind).
+
+## Lauf 172 · 940, 941 (Perikles, Doppelpack 421, `2ac1ac48b`; 11.11., 14:0x)
+
+- **941 greift** (`greift 941 172`): `warte_chef_nummern` an 14 Fällen: Merkmal in „…“, "…", `…` still; „653 … wartet auf Chef“ → 653; „506a wartet auf den Chef; 423 wartet auf Chefsache 857“ → 506a, 857; „72s.1“, „948 (Dolch)“, „948: …, wartet auf Chefsache 948a“ richtig; Datum davor gibt „?“ mit Satzteil (meldet trotzdem). Echte Vorräte 14:02: kein Treffer, richtig (keine Übergabe wartet auf den Chef). Grenze: Mehrzahl „948 und 949 warten auf Chef“ zählt nicht (auch vorher nicht).
+- **940 im Nachbau dicht:** Bare-Kopie von `main`, drei Klone, drei gleichzeitige `neu` → 957, 958, 959; nach Commit, pull, push Zähler 960, ARBEIT-BETRIEB.md ohne Konflikt, `vorgang.py pruefen` ohne Fehler. Ohne Netz (origin fehlt): alter Weg, Zähler lokal. Gleicher Besitzer gleichzeitig: Mischkonflikt in LISTE-VORGAENGE.md (Zeilen an derselben Stelle), wie vor 940, nicht Teil von 940.
+- **Echt 14:03:** meine Ziehung 957 legte `daccba151` „Zähler: 957 vergeben (Perikles, 940)“ auf origin/main.
+- **D172.1 → 957 (Perikles, M?):** dieser Zählercommit hat keine Systemzeilen (Co-Authored-By, Claude-Session); `zaehler_pushen` nimmt sie nur aus einem eigenen Commit im Reflog, eine frische Sitzung hat keinen (Nachbau: mit eigenem Commit vorher kommen sie mit). CLAUDE.md „Commits mit den Systemzeilen“; die Kennung steht in `CLAUDE_CODE_REMOTE_SESSION_ID`. **940 wartet auf 957.**
+- Nicht geprüft: echte Doppelziehung zweier Sitzungen auf GitHub (bisher keine seit dem Bau); Abweisung durch GitHub nur im Nachbau (lokales Bare-Repo).
+
+## Lauf 171 · 927, 928, 929 mit 276, 725 (Perikles, Doppelpack 421, `a611dc8b3`, `d3ad958d7`, `82749deb1`; 11.11., 13:1x)
+
+- **Echter Ford-Lauf:** 13:11 `NACHHALTEN` mit Marke „Nachhalten 11.11.“, 13:13 nicht wieder (einmal am Tag greift). 13:13 Marke „Übergabe-Chef Perikles 11.11. 13:12“ = Fehlalarm (Hinweis Ford).
+- **D171.1 → 941 (Perikles, M?):** `neu_fuer_chef` sucht „wartet auf (den )?Chef“ in der ganzen Übergabezeile; Perikles' Übergabe nennt das Merkmal nur (Übergabe „wartet auf Chef“) und löste laut aus. Nachgestellt mit der echten Übergabe: Treffer. Die echten Fälle seit 25.10. haben die Form „<Nr> … wartet auf Chef“ (Tom 10.11., 13:57: 653; Homer 10.11., 13:13: 857; Homer 01.11.: 423); die Ausgabe gibt nur die ersten 200 Zeichen der Zeile, keine Nummer (Schritt 9 alt: „mit Nummer“). Vorschlag: nur außerhalb „…“ zählen, die Nummer davor in die Zeile.
+- **D171.2 → 942 (Perikles):** gestellte Kurzzeilen (Jerry alt `working`, 3 Stunden ruhig; Jerry neu `idle`): derselbe Lauf gibt `ARCHIVIERE` und `WARNUNG-LAUT Sitzung hängt` für die alte Sitzung. Die Schleife lässt `archiviert` nicht aus.
+- **928 greift** (`greift 928 171`): „Startzuordnung“ steht in `LISTE-BETRIEB.md` Zeile 43 unter „Bei Anlass“ (ab Zeile 24); Neustart 2 verweist dorthin.
+- **276 greift** (`greift 276 171`): „Jeder Lauf“ nennt den Anlass jedes Schritts 6–11 (D162.1 Teil 1); 941, 942 sind Lücken von 927, nicht von 276.
+- **D171.3 → 943 (Perikles):** `text_bereiche` an sechs Fällen: `-m "… cd $VAR …"`, `-F` Heredoc, `"$(cat <<'EOF' … cd $VAR …)"` laufen durch; echtes `cd $VAR` hält an; `cd "$HOME/…"` löst auf. Aber ein einzelnes `"` im Heredoc innerhalb `"$(cat <<'EOF' …)"`, danach `&& cd $VAR && git push`: Ziel cwd, kein Halt (die Paarung der Anführungszeichen zählt den Heredoc-Körper mit). Selten (deutsche Texte nehmen „…“), dann aber lautlos im falschen Ordner wie vor 725.
+- **725 greift** (`greift 725 171`): `cd $VAR` hält an, Text-`cd` hält nicht mehr an; 943 ist Lücke von 929.
+- **929 wartet auf 943**, **927 auf 941, 942.**
+- Nicht geprüft: echter Lauf mit „Sitzung hängt“ und „Jetzt installieren“ (keiner seit dem Bau); nachts `WARNUNG` statt `WARNUNG-LAUT` nur im Code gelesen.
+
+## Läufe 163–170 · Kür-Stau Perikles (725, 727, 730, 731, 732, 734, 735, 924; 11.11., 12:1x–12:2x)
+
+Je Vorgang Probe gegen den Befund des alten Laufs; nichts davon in einem echten Lauf eines Teams gesehen.
+
+- **163 · 725 greift mit Lücke** (`warte 725 929`). `cd "$HOME/…"`, `W=…; cd $W`, `export W=… && cd "${W}/…"`, `cd ~/…`, `git -C "$W"` lösen auf; `cd $W` ohne Zuweisung, `cd "$(…)"`, Backticks, Schleifenvariable halten an. **D163.1 → 929:** steht ein cd mit Variable nur als Text vor `git commit`/`git push` (Commit-Nachricht, Vorgangstitel, JSON in printf), hält der Haken ebenso an: nachgestellt mit `probelauf.py < f725.json` (Exit 2), zweimal live an eigenen Befehlen dieser Sitzung (printf mit Probe-JSON; `vorgang.py neu` mit dem Befundtitel).
+- **164 · 727 greift** (`greift 727 164`). Mit JETZT 16.11., 07:10: „ab 16.11., 8 Uhr“, „ab 16.11., 08:00“, „16.11. 18:07 Uhr“, „16.11., 20 Uhr“ geben Datum mit Uhrzeit; um 09:00 die vergangenen None; „16.11., 12 Rollen“ None; am Vortag nur das Datum. Grenze: „16.11.: 8 Uhr“ (Doppelpunkt) wird nicht gelesen; kein Nachfolger nutzt diese Form.
+- **165 · 730 greift** (`greift 730 165`). Auf `claude/build-276`: ohne Eingaben, nur `bild`/`film`, `kampf` leer → frei; `kampf=ja` über `actions_run_trigger`, `gh workflow run -f kampf=656`, API mit `inputs[kampf]` und mit JSON `dorf` → gezählt. Grenze: `leute=nein`, `kamin=nein` zählen, obwohl godot.yml nur „ja“ auswertet.
+- **166 · 731 greift** (`greift 731 166`). Haken ist für `push_files|create_or_update_file` eingetragen. Teamzweig mit Spielcode ohne „Alt:“ hält an (auch einzelne Datei, auch Spike); mit „Alt:“, nur `godot/tests/`, `main` frei. Wie beim Weg über git zählt nur „Alt:“ am Zeilenanfang.
+- **167 · 732 greift** (`greift 732 167`). Beide `git grep` mit `-e`; „-n“ findet 36 Dateien wörtlich, „-Bühne“ 0 ohne Fehler, „Kampfort“ 32.
+- **168 · 734 greift** (`greift 734 168`). In einem Klon von Hand geänderte Liste: Warnung und Zeile `275 | ? | liste-hand | Kennung | Listenhash | main` (trocken, ohne Push). Grenze: Name aus `git config user.name`, auf allen Rollen gleich; die Rolle ist aus der Zeile nicht abzulesen, gezählt wird die Woche. Im Zweig `probelaeufe` noch keine Datei (keine Warnung seit dem Bau).
+- **169 · 735 greift** (`greift 735 169`). Kopf `DESIGN-KAMPF.md` nennt die Prüfung vor dem Versand (783 W1) statt „Verstoß hält den Lauf an“; `DESIGN-ABNAHME.md` 11 war schon angeglichen. Für die Zählung 461b am 16.11.: die alten Archiveinträge 461a, 511, 621.1 tragen kein „→ ersetzt durch“, und 783 W1 im Archiv nennt nur „ersetzt 511, 578“.
+- **170 · 924 greift** (`greift 924 170`). Klon auf `claude/jerry-909-x`, oben „831: Probe“ (Tom): mit Push-Ziel `claude/tom-831-x` 831, aus HEAD wie vorher 909.
+
+## Lauf 162 · 276 Fords Anleitung auf eine Seite (Perikles, `cb73d5a6a`; 11.11., 12:1x)
+
+- **276 greift mit Lücke** (`warte 276 927, 928`). Gegen die Empfehlung Sokrates (`LISTE-ABLAUF-274.md` „Ford“, `ad8e7e16c`): Startlektüre jetzt `ROLLE-BETRIEB.md` plus „Jeder Lauf“ 4531 Bytes (vorher die ganze Datei, heute 17484; Ziel war etwa 3 KB). Jede Ausgabezeile, die `lauf.py` schreibt (18 Arten), steht im Kopf; RÜCKMELDUNG ist nur Eingabe aus `regelcheck.py`. Abgleich alt/neu: jede gestrichene Stelle steht im Kopf von `lauf.py` oder unter „Bei Anlass“; Umgebung neu nach 901 (365a B) statt des überholten „Hoch nur auf Wort“.
+- **D162.1 → 927:** Nachhalten (8, täglich ab 8 Uhr), Eingang (7) und laut melden „Jetzt installieren“, „wartet auf Chef“, „Sitzung hängt“ (9) haben keinen Anlass, den „Jeder Lauf“ nennt (dort nur Morgen 10 und Meldung 12; VORRAT-LEER kommt über den Kopf von `lauf.py`). Wer nur „Jeder Lauf“ liest, tut sie nicht. Teil 2 der Empfehlung (Urteilsaufgaben in `lauf.py` oder zu Perikles) ist nicht umgesetzt, sie sind nur verschoben.
+- **D162.2 → 928:** `LISTE-RELEASE-NEUSTART.md` Neustart 2 verweist auf „Startzuordnung“ in `LISTE-BETRIEB.md` Schritt 4; sie steht jetzt unter „Bei Anlass“.
+- Nicht geprüft: echter Ford-Lauf nach dem Bau (Ford-Sitzung nicht gelesen).
+
+## Lauf 161 · 921 Nachfolger „auf Abruf“, M? entscheiden, Stellungnahme Sokrates (Perikles, Doppelpack 421, `ab6ad7ad1`; 11.11., 11:1x)
+
+- **921 greift** (`greift 921 161`). Trockenlauf in einer Kopie (`--ohne-pull`, Stand `93fb3cc0d`, echte Übergabe Perikles „Nachfolger: Perikles – auf Abruf“, gestellte Datei `999-probe.md` ohne Stellungnahme, gestellte Kurzzeilen): (1) ohne Perikles-Sitzung START „Perikles – M? entscheiden (11.11., 11:18)“, Nachricht nennt 824, 836, 844, 845, 909 (Jerry) und 190.8; Perikles ruht 30 Min. → WEITER mit demselben Auftrag; ruht 80 Min. → START M? und ARCHIVIERE der alten. (2) Sokrates working, ruht 10 oder 40 Min. → WEITER; ruht 61 Min. → START und ARCHIVIERE der alten; ruht 61 Min. mit `--wecker` → WEITER; working oder ruht 10 Min. mit 300 Tsd. Token → NICHTS; ruht 61 Min. mit 300 Tsd. → START und ARCHIVIERE; ohne Sokrates-Sitzung → START. (3) `startbar.py` zeigt „M? für Perikles … 824 (Jerry), 836 (Jerry), 844 (Jerry), 845 (Jerry), 909 (Jerry)“.
+- Grenze: fehlt `used_tokens` in Fords Kurzzeile, gilt eine laufende Sokrates-Sitzung als über 200 Tsd. (NICHTS, die Zeile sagt „oder unbekannt“). Kein echter Lauf mit M? oder Stellungnahme seit dem Bau (Lauf 11:15 startete nur Diogenes).
+
+## Lauf 160 · 920 mit 911, 912 (Perikles, `8239e20ab`; 11.11., 10:0x)
+
+- **920, 911, 912 greifen.** Skript Lauf 158 erneut: spike-581-ausruestung über Jerrys `44dec34a2` → 581, tuffy-784-sollbild über Toms `93173963c` → 784; alle Fälle aus Lauf 158 unverändert; eigener Verlauf auf spike-680-absturz → 680, tuffy-536-tips → 536, spike-581-ausruestung → 581. Kopf von `probelauf.py` nennt die Regel jetzt. Kein echter Handlauf mit Merge oben seit dem Bau (letzte Zeile 09:52); Blick darauf im Vorrat.
+
+## Lauf 159 · 916 `lauf.py --wecker`, `--ohne` beim Zusatzentwickler (Perikles, Doppelpack 421, `0551bdb6b`; 11.11., 10:0x)
+
+- **916 greift** (`greift 916 159`). Trockenlauf in einer Kopie (`--ohne-pull`, gestellte Kurzzeilen: Jerry working, Tuffy – 784 ruht 41 bzw. 92 Minuten, Perikles ruht 32 Minuten): ohne `--wecker` START Tuffy 784 und ARCHIVIERE der alten Sitzung; mit `--wecker` Tuffy „NICHTS Tuffy: belegt“, kein ARCHIVIERE, keine Buchung, auch nach 92 Minuten; mit Wecker auf Perikles kein Nachfolger-START, kein ARCHIVIERE, kein WEITER. `--ohne 784:Test`: AUSGESCHLOSSEN 784, Tuffy startet auf 910 statt 784. `LISTE-BETRIEB.md` 3 und 4 nennen `list_triggers` und `--wecker`.
+- Grenze: eine Sitzung mit Wecker bleibt neben einer neueren derselben Rolle stehen; nach zwei Läufen meldet die Mehrfach-Prüfung laut. Kein echter Lauf mit `--wecker` seit dem Bau.
+
+## Lauf 158 · 913, 914 mit 911, 912 (Perikles, Doppelpack 421, `da0a446d3`; 11.11., 10:0x)
+
+- **913, 914 greifen** (`greift 913 158`, `greift 914 158`). Nachgestellt mit Merge-Commit oben (`commit-tree`, zweite Eltern origin/main) und `nr_aus_verlauf(REPO, sha, zweig)`: tom-870-4-held über `93173963c` → 870.4 (Fall 09:19), über Jerrys `44dec34a2` → 870.4 (D156.1), über den heutigen Stand (oben Jerrys 910) → 870.4; perikles-264-runner → 264.1, jerry-348-642-wolf-abstand → 642, jerry-717-rueckwaerts → 778, jerry-709a-tiefbiss → 709a. Handweg über `vorgang_aus_ref` an allen 640 Zweigen `claude/*`: Zweige mit Merge oben geben den eigenen Verlauf, obwohl `vorgaenge()` FETCH_HEAD auf main stellt (jerry-39-schwierigkeit → 62m statt Name 39); je Aufruf etwa 1 s.
+- **D158.1 → 920 (Perikles), 911 und 912 warten darauf:** die Rolle kommt aus dem ersten Wort des Zweigs; `spike`, `tuffy` stehen nicht in `BESITZER`, Besitzer in der Liste sind nur Tom und Jerry, die Prüfung „fremde Rolle“ entfällt. Nachgestellt: spike-581-ausruestung über `44dec34a2` → 864 statt 581, tuffy-784-sollbild über `93173963c` → 870.4 statt 784. Beide Zweige laufen heute.
+- Klasse 3: Kopf von `probelauf.py` (Zeile 15) nennt „Name bei fremder Rolle“ nicht; Push-Weg nimmt den Zweig aus `HEAD`, nicht aus dem Push-Ziel.
+- Echter Handlauf mit Merge oben seit dem Bau: keiner (letzte Zeilen 09:52 806, 910, beide mit Nummer oben; 910 ist Jerrys Commit auf B1, zählt richtig unter 910).
+
+## Lauf 157 · 912 Vorgang aus dem Zweignamen (Perikles, Doppelpack 421, `b945f7e2b`; 11.11., 09:3x)
+
+- **912 greift für B1:** `nr_aus_zweigname('claude/tom-870-4-held')` = 870.4.
+- **D157.1 → 913 (Perikles):** `nr_aus_zweigname` liest die Liste mit `zweig_lesen(…, "main")` (`git fetch origin main`) und verbiegt FETCH_HEAD; `vorgang_aus_ref` liest danach mit `nr_aus_verlauf(REPO, "FETCH_HEAD")` main statt des Zweigs. Nachgestellt: FETCH_HEAD `8bbafbcb6` (jerry-709a-tiefbiss) → `d44d730a5` (origin/main), Ergebnis None statt 709a; ein Handlauf auf einem Zweig ohne Nummer im Namen zählt wieder unter dem Zweignamen (911 kehrt zurück). Push-Weg (HEAD) nicht betroffen.
+- **D157.2 → 914 (Perikles):** Name gegen eigenen Verlauf über 34 Zweige `claude/*` (ohne Sammelbuild): abweichend `perikles-264-runner` 264 / 264.1, `jerry-348-642-wolf-abstand` 348 / 642, `jerry-717-rueckwaerts` 717 / 778; der Name trägt oft die übergeordnete Nummer. Wirkt nur bei Merge oben; dann zählt etwa ein 264.1-Lauf unter 264, „264.1, Läufe frei“ greift nicht. Mein Hinweis „Zweigname“ (Zu 912) trägt das mit.
+- **Nicht geprüft:** Push-Weg mit Ziel-Zweig im Refspec, der nicht HEAD ist (Name aus `rev-parse HEAD`).
+
+## Lauf 156 · 911 Handlauf ohne Nummer oben, 264.1 Uhrzeit im Feld „wartet auf“ (Perikles, Doppelpack 421, `025dcf1bf`, `caf221f84`, `ee20ff5a8`; 11.11., 09:2x)
+
+- **D156.1 → 912 (Perikles), 911 wartet darauf:** nachgestellt im Modul gegen `origin/claude/tom-870-4-held`: `nr_aus_verlauf(…, 93173963c)` = 870.4 (der Fall von 09:19 greift), aber der Zweig steht schon weiter: oben Toms Merge `e0c57e573` „Merge 864 und 904 (Jerry) in B1“, erste Eltern Jerrys `44dec34a2` „864: …“. `vorgang_aus_ref` gibt 864; der nächste B1-Lauf zählt unter Jerrys 864 (stand 0, wird verbraucht), nicht unter 870.4, das Sokrates 09:12/09:19 für diesen Lauf freigab. Reihenfolge Commit oben → eigener Commit → Name in Klammern → Zweig wie im Kopf von `probelauf.py`; kein echter Merge-Lauf seit 09:22 im Zweig `probelaeufe` (letzte Zeilen 09:20).
+- **264.1 greift:** Probe in einer Klonkopie mit gestellter Zeile 264.1 und Uhrzeit heute 23:50: im Feld „wartet auf“ Exit 0; im Titel, im Stand, im Bereich je Exit 1 „Uhrzeit 23:50 liegt nach jetzt“. Spaltenfolge passt zum Listenkopf (Feld 6 = „wartet auf“); ohne Befund. Kopf von `commit-pruefung.py` nennt die Ausnahme nicht, kein Befund. 264.1 selbst bleibt offen (Runnerprobe).
+- **Nicht geprüft:** Push-Weg mit veraltetem `origin/main` in der Arbeitskopie und ohne eigenen Commit mit Nummer (dann zählte ein Commit von `main` statt des Zweigs; nicht nachgestellt, selten).
+
+## Lauf 155 · 907, 908 Halbsatz 324 und Checkliste beim Entwurf (Perikles, Doppelpack 421, `559dc33c7`; 11.11., 08:1x)
+
+- **907 greift:** Punkt 3 trägt wieder „auch wenn der getestete noch nicht auf `main` ist (324)“, gleicher Sinn wie der Wortlaut in `ad191efb8` (Chef 22.10., 23:26). Archiv 324 bleibt kurz, sein Verweis auf `LISTE-BAUEN-TESTEN.md` führt über deren Zeile 26 zur Checkliste; ohne Befund.
+- **908 greift:** Probe im Worktree von `origin/main` (`ef45c989c`): neue `docs/entwurf/t999-probe.md` zeigt alle 13 Punkte, Exit 0; neue `docs/entwurf/x999-probe.md` (ohne `t<n>-`) zeigt nichts. `--no-renames` (Zeile 229) lässt auch das Verschieben nach `ansehen/` als „A“ erscheinen; Kopf der Liste nennt beide Orte.
+- **Nicht geprüft:** 903 (2) zweite Liste, 905.
+
+## Lauf 154 · 903 B Checkliste fest (Perikles, Doppelpack 421, `fa1eb5a5f`; 11.11., 08:1x)
+
+- **Punkt 3 alt gegen neu, Satz für Satz:** alle Regeln stehen noch (alle fertigen Punkte beider Teams, mindestens 4, ohne Obergrenze, 6 Testbuilds am Tag, unter 4 nur auf Ja/„jetzt“, 2-Tage-Frage `--laut`, eigene Zweige, `claude/build-<n>`, Prüfliste als Weg nach Orten, `vorgang.py build`, offener Build nimmt auf, getesteter ist zu, Konflikt, Sperre); „je Punkt Team und Vorgang“ trägt Punkt 10 (Spalten Team, Nr.). **Verloren:** „auch wenn der getestete noch nicht auf `main` ist“ (324, Chef 22.10., 23:26); Archiv 324 hat den Halbsatz nicht → **D154.1 = 907** (Perikles). Ohne Befund: „(beider Teams)“ beim Auslöser 4 fehlt, der Satz davor sagt es.
+- **Archivverweise tragen:** 317 (Archiv Zeile 211, Wortlaut 07.11.), 783 W2 (111), 324 (704), 620.1 B (197, 198), 779 (123), 903 B (7).
+- **Liste erscheint bei t276:** Probe im Worktree von `origin/main`: neue `docs/entwurf/t276-probe.md` zeigt nichts (Exit 0); Verschieben nach `chefsache/ansehen/` zeigt alle 13 Punkte mit den neuen Sätzen „Umbau überall“ (8) und „Einstieg wie beim Chef“ (9); `CHECK_BIS` und „abgelaufen“ sind weg, keine weitere Stelle nennt das Enddatum. **Lücke:** seit 866 verschiebt der Gegenleser die Datei, also sieht nur er die Liste, nie das bauende Team → **D154.2 = 908** (Perikles; nicht durch 903 entstanden).
+- **Nicht geprüft:** (2) zweite Liste (noch nicht gebaut), 905 (wartet auf 903).
+
+## Lauf 153 · 901 Umgebung Hoch bis Sa, 902 Wächter (Perikles, `bdd36bbb1`, `efe942d38`; 11.11., 07:3x)
+
+- **901 greift:** alle fünf START-Stellen in `lauf.py` nehmen `umgebung()`; Probe mit gestellter Uhr: 11.11., 07:30 und 14.11., 19:59 jede Rolle HOCH, 14.11., 20:00 jede MITTEL; sonst keine Umgebungskennung in den Werkzeugen.
+- **902 greift:** der Wächter lässt Zeilen mit „gebaut“, „zu testen“ oder gefülltem „wartet auf“ aus (heute 870.6, 900, 854, 264, 264.1, 901). Hinweis ohne Befund: er liest das rohe Feld, nicht `startbar.offen_warte`; ein schon erfülltes „wartet auf“ schweigt bis zum nächsten Lauf, weil `loesen` (Zeile 748) nach dem Wächter (715) schreibt; höchstens eine Stunde später als nötig.
+
+## Lauf 152 · 771 Probe 657 ausgewertet: Erstfunde des Chefs t272–t275 (11.11., 07:2x)
+
+Quellen: Ergebnisse der Prüflisten `ansehen/t2xx-sammelbuild.md` in Git, Vorgangsarchiv, neue Vorgangsnummern im Testzeitraum (Commit-Zeit Berlin; Commits tragen teils UTC).
+
+- **Grundlage aus 657 D mischt zwei Maße:** t266 11 und t268 11 sind neue Vorgänge aus dem Test ohne durchgefallene Prüfzeile (Lauf 76); 269 9 und 270 7 sind durchgefallene oder nicht prüfbare Prüfzeilen („Rückläufer“). Hier beide Maße für jeden Build:
+
+| Build | Prüfzeilen | neue Vorgänge aus dem Test | durchgefallen oder nicht prüfbar | Wiederholfunde |
+|---|---|---|---|---|
+| t266 | – | 11 (Lauf 76) | – | – |
+| t268 | – | 11 (Lauf 76) | – | 6 (Sokrates 620) |
+| t269 | 28 | 9 oder 10 (664, 665, 668, 670, 677, 678, 679, 682, 697; 661 um 15:11 vor dem ersten Ergebnis 15:23) | 9 | 6 |
+| t270 | 13 | 3 (701, 702, 709) | 7 | 7 |
+| t272 | 10 | 0 | 0 | 1 (751) |
+| t273 | 16 | 2 (832 Lizenzpunkt, 833 Knöpfe) | 7 (273.13; 6 nicht prüfbar) | 4 (Sokrates 620) |
+| t274 | 18 | 9 (856, 857, 860, 861, 863, 864, 865, 867, 868) | 4 (274.2, .12, .14; .13 nicht prüfbar) | 3 (Sokrates 620) |
+| t275 | 14 | 0 | 0 | 2 (868, 864) |
+
+- **Ergebnis:** neue Vorgänge 0, 2, 9, 0 (zusammen 11) gegen 11, 11, 9 oder 10, 3 (34 oder 35); durchgefallene Zeilen 0, 7, 4, 0 (11) gegen 9, 7 bei 269 und 270 (16 in zwei Builds). Gegen die Zahlen aus 657 D (zusammen 38) liegt die Probe nach beiden Maßen bei 11.
+- **Zugeordnet:** 867 und 868 zu t274 (Chef 13:48, nach „Test durch“ 13:34, am selben Build gesehen); 804–806 in t272 nicht gezählt (Wunsch zum Graspaket 21:12, kein Fund); 857 (Name) und 865 (Neustart im Test) gezählt, weil Lauf 76 jeden neuen Vorgang aus dem Test zählte.
+- **Befund D152.1 → 903 (Perikles):** Ergebnis vorlegen; der Chef entscheidet nach 657 D über weitere Listen und die Seite.
+- **Nicht geprüft:** Ursache des Rückgangs (Checkliste, Gegenlesen der Prüflisten seit 866, Umfang der Builds); ob ein Lauf die Funde hätte finden können (Z3); Prüfzeilen t266 und t268.
+
 ## Lauf 151 · 893 bedingter Nachfolger (Perikles, `65d23431b`; 11.11., 03:2x)
 
 - `nachfolger()` an 7 Übergaben in einer Kopie: „Tom – Sammelbuild 888 (wenn 709 und 506 fertig)“ und „…, Wenn 506 fertig“ → „bedingt“, Zeilenregel gilt; „„Tom – Sammelbuild 888“ (wenn …)“ verliert die Bedingung hinter dem Anführungszeichen, die neue Nummernsuche findet aber 888 und die Sperre der Zeile greift; „Tom – 870.4: Brunnen“, „Tom – Sammelbuild 888“, „keiner“ unverändert richtig. „Tom – Wochenziel 16.11.“ liefert Nummer „16.11“, harmlos (`titel_datum` greift vorher, keine Zeile 16.11). Kein Fall seit dem Bau im Protokoll (Tom-Starts 20:07, 21:05 hatten den Nachfolger „Testbitte 888“ ohne Bedingung). **893 greift** (Lauf 151).

@@ -6,7 +6,7 @@ Homer 10.11.; Texte für Schritt 4 und 5 des Umzugs (`LISTE-UMZUG-BRS.md`; Vorg�
 
 **Bauregel (wie 817):** nur Zeilen bauen, deren Wirkung im Code steht; fehlt eine, entfällt ihre Zeile, und Tom schreibt es in den Vorrat Homer. Platzhalter %d aus den Regelwerten (`werte.json`).
 
-`[870.14.wert.kopf]` Wert %d / EN: Value %d (Grundwert 3–9; in Kapitel 1 fest, 870a 4)
+`[870.14.wert.kopf]` Wert %d / EN: Value %d (Grundwert 2–9 (933); in Kapitel 1 fest, 870a 4)
 
 `[870.14.wert.kraft]` Kraft / Strength
 - Schaden mit Nahkampfwaffen und Fäusten, außer Dolchen. / EN: Damage with melee weapons and fists, except daggers.
@@ -23,7 +23,7 @@ Homer 10.11.; Texte für Schritt 4 und 5 des Umzugs (`LISTE-UMZUG-BRS.md`; Vorg�
 `[870.14.wert.zaehigkeit]` Zähigkeit / Toughness
 - Leben: +%d je Punkt. / EN: Life: +%d per point.
 - Ausdauer, zusammen mit Wille. / EN: Stamina, together with Will.
-- Abwehr gegen Gift und Krankheit. / EN: Resisting poison and disease.
+- Abwehr gegen Gift. / EN: Resisting poison. (963: Krankheit gibt es in Kapitel 1 nicht; „und Krankheit“ / “and disease” kommt dazu, sobald es sie gibt)
 
 `[870.14.wert.verstand]` Verstand / Wits
 - Wissen: Schwächen und Stärken der Gegner vorher erkennen (nur wenn 870.14 a so entschieden, unten). / EN: Lore: spotting a foe's weaknesses and strengths beforehand.
@@ -38,7 +38,7 @@ Homer 10.11.; Texte für Schritt 4 und 5 des Umzugs (`LISTE-UMZUG-BRS.md`; Vorg�
 `[870.14.wert.wahrnehmung]` Wahrnehmung / Perception
 - Treffen im Fernkampf: +%d %% je Punkt. / EN: Ranged accuracy: +%d%% per point.
 - Hinterhalte bemerken. / EN: Noticing ambushes.
-- Hilft dem Spähen, Verstecktes und Fallen zu finden, und dem Kräutersammeln. / EN: Helps Scouting find hidden things and traps, and helps Foraging.
+- Aussicht auf ein Kraut mehr beim Sammeln. / EN: A chance of an extra herb when foraging. (963: nur das wirkt, `laden.gd` `kraut_chance`; „Hilft dem Spähen, Verstecktes und Fallen zu finden.“ / “Helps Scouting find hidden things and traps.” kommt als eigene Zeile davor, sobald Spähen wirkt)
 
 ## Heldenreiter: Kampfwerte (`menue.gd` 1319–1331)
 
@@ -58,7 +58,7 @@ Homer 10.11.; Texte für Schritt 4 und 5 des Umzugs (`LISTE-UMZUG-BRS.md`; Vorg�
 - `[870.14.ding.fertigkeit]` (Waffe, Rüstung, Schild) Fertigkeit: %s / EN: Skill: %s
 - „Deine Klasse kann das nicht tragen“ entfällt (jeder darf alles, `DESIGN-BRS.md` 7). Dafür, nur wenn zutreffend:
   - `[870.14.ding.metall]` Metall: Evokation, Illusion und Beschwörung wirken darin nicht. / EN: Metal: Evocation, Illusion and Summoning will not work in it.
-  - `[870.14.ding.klirrt]` Schwere Rüstung: darin kannst du nicht schleichen. / EN: Heavy armor: you cannot sneak in it.
+  - `[870.14.ding.klirrt]` Schwere Rüstung: darin kannst du nicht schleichen. / EN: Heavy armor: you cannot sneak in it. (963: ruht, bis Schleichen im Spiel wirkt; vorher nicht bauen, ein Verbot ohne das Erlaubte verwirrt)
   - `[870.14.ding.zweihand]` Braucht beide Hände: kein Schild dazu. / EN: Needs both hands: no shield with it.
   - `[870.14.ding.stufe]` Erst ab Heldenstufe %d. / EN: Only from Hero Level %d.
 - „Ungeübt: kein Fertigkeitsbonus“ wird: `[870.14.ding.neu]` (Fertigkeit noch 0) Noch nie benutzt: du fängst bei null an. / EN: Never used: you start from nothing.
@@ -66,6 +66,7 @@ Homer 10.11.; Texte für Schritt 4 und 5 des Umzugs (`LISTE-UMZUG-BRS.md`; Vorg�
 - `[870.14.ding.grundwert]` (statt „Finesse: trifft mit GES oder STÄ“, „Fernkampf: trifft mit GES“) Schaden mit %s / EN: Damage with %s (Kraft oder Gewandtheit nach `werte.json`); Armbrust: `[870.14.ding.armbrust]` Schaden ohne Grundwert. / EN: Damage without an attribute.
 - Rüstung: nur „Schutzwert %d“ (ohne „+ GES (max 2)“ und ohne „Obergrenze“-Zeilen). „Vielseitig, mit beiden Händen“ samt Würfeltext, „Als %s kannst du das nicht tragen“ (Vergleich), „Zauberkraft +%d“ und „Zauberkraft nützt nur Zauberwirkern“ entfallen (Zauberkraft steht nicht in der Liste 11).
 - Zusatzeigenschaften nur nach `DESIGN-BRS.md` 11: „+%d Kraft“ usw., „+%d Schutzwert“, „+%d Leben“, „+%d Mana“, „+%d %% kritisch“, „+%d %% Zauberschaden“, „+%d %% Abwehrprobe“; EN „+%d Strength“, „+%d Protection“, „+%d Life“, „+%d Mana“, „+%d%% critical“, „+%d%% spell damage“, „+%d%% resistance roll“.
+- `[925.namen.abwehr]` **Namensteile der Zusatzeigenschaft Abwehrprobe** (Kennung ABWEHR; Muster wie die übrigen, `Gear.kt` `Affix`): Vorsilbe **Wehrhaft** (+ Endung je Geschlecht: Wehrhafter Umhang, Wehrhaftes Amulett), Endung **des Hexenjägers** (Schild des Hexenjägers). EN: Vorsilbe **Defiant** (Defiant Cloak), Endung **of the Witch Hunter** (Shield of the Witch Hunter). Abwehrprobe fällt heute an Schild, Umhang, Amulett (`werte.json`). Wehrhaft = wehrt ab, ohne Gefeitheit zu versprechen; der Hexenjäger trotzt Gift, Furcht und Zauber.
 
 ## Die Truhe in der Blutzahnhöhle (cave_3, 632)
 
@@ -83,7 +84,7 @@ Für die übrigen Waffengruppen fünf neue Einzelstücke (Werte, Modell: Jerry, 
 - `[870.14.truhe.zweihand]` Die Namenlose / The Nameless (Zweihänder): Ein Zweihänder mit schartiger Schneide. In die Klinge ist ein Name geritzt, den keiner mehr lesen kann. / EN: A greatsword with a notched edge. Scratched into the blade is a name no one can read anymore.
 - `[870.14.truhe.stange]` Wolfsspieß / Wolfspear (Stangenwaffen): Ein Spieß mit eiserner Querstange. Am Schaft Kerben, eine für jeden Wolf. / EN: A spear with an iron crossbar. Notches on the shaft, one for every wolf.
 - `[870.14.truhe.bogen]` Schwarzeibe / Blackyew (Bogen): Ein Langbogen aus dunkler Eibe, die Griffwicklung von vielen Händen glatt. / EN: A longbow of dark yew, its grip worn smooth by many hands.
-- `[870.14.truhe.armbrust]` Nachtwache / Nightwatch (Armbrust): Eine schwere Armbrust mit dem verblassten Zeichen der Dorfwache. Der Spannhebel quietscht. / EN: A heavy crossbow with the faded mark of the village watch. The lever squeaks.
+- `[870.14.truhe.armbrust]` Nachtwache / Nightwatch (Armbrust): Eine Armbrust mit dem verblassten Zeichen der Dorfwache. Der Spannhebel quietscht. / EN: A crossbow with the faded mark of the village watch. The lever squeaks. (934: nur die Grundform Armbrust)
 - `[870.14.truhe.wurf]` Elstern / Magpies (Wurfwaffen): Drei Wurfmesser in einem Lederband, so blank, dass sie das Licht stehlen. / EN: Three throwing knives in a leather band, so bright they steal the light.
 - Faustkampf und Schild haben kein Stück: die Truhe nimmt die nächststärkere Waffenfertigkeit.
 
@@ -105,7 +106,7 @@ Meldungen im Kampf (einmal je Art, beim ersten Treffer mit der Schadensart):
 - Kasten am Schaden (wie „kritisch“): `[870.14.kasten.schwach]` verwundbar / EN: vulnerable · `[870.14.kasten.stark]` widersteht / EN: resists
 
 Gegenwirkung (beim ersten Mal, sichtbar):
-- `[870.14.gegen.wolf]` Wolf, Feuer: Die Wölfe weichen vor dem Feuer zurück, dann sind sie zwischen den Bäumen fort. Kein Fell, keine Erfahrung. / EN: The wolves shy from the fire, then they are gone among the trees. No pelt, no experience.
+- `[870.14.gegen.wolf]` Wolf, Feuer: ersetzt durch `[915.wolf.flucht]`, `[915.wolf.erstmals]`, `[915.lohn.vertrieben]` in `STORY-BRS-KAMPF.md` (915).
 - `[870.14.gegen.schwein]` Wildschwein, Feuer: Das Feuer macht {0} rasend. / EN: The fire drives {0} into a frenzy.
 - `[870.14.gegen.spinne]` Riesenspinne, Feuer: Die Seide der Spinne verbrennt zu Asche. / EN: The spider's silk burns to ash.
 - `[870.14.gegen.flueger]` Blutflügler, Held blutet: {0} wittert dein Blut und saugt gieriger. / EN: {0} smells your blood and feeds more greedily.
@@ -114,5 +115,5 @@ Gegenwirkung (beim ersten Mal, sichtbar):
 
 Vorher erkannt (Wissen) im Ziel-Tipp und im Bestiarium:
 - `[870.14.wissen]` Verwundbar: %s. Widersteht: %s. / EN: Vulnerable: %s. Resists: %s. (fehlt eins: „–“)
-- `[870.14.wissen.gegen]` (Art mit Gegenwirkung) Vorsicht: %s. / EN: Beware: %s. Kurztexte: Wolf „Feuer vertreibt das Rudel samt Beute, sobald sein Anführer halb tot ist“ / “fire drives off the pack, loot and all, once its leader is half dead” (899, 870c 3 A; `[870.14.gegen.wolf]` bleibt); Wildschwein „Feuer macht es rasend“ / “fire sends it into a frenzy”; Spinne „Feuer verbrennt die Seide“ / “fire burns the silk”; Blutflügler „Blut lockt ihn“ / “blood draws it”; Zombie „Feuer und Licht halten ihn liegen“ / “fire and light keep it down”; Ockerschleim „Schnitt und Wucht teilen ihn“ / “slash and crush split it”.
+- `[870.14.wissen.gegen]` (Art mit Gegenwirkung) Vorsicht: %s. / EN: Beware: %s. Kurztexte: Wolf „Feuer vertreibt das Rudel samt Beute und Erfahrung, sobald sein Leitwolf halb tot ist“ / “fire drives off the pack, loot, experience and all, once its leader is half dead” (899, 870c 3 A; 915); Wildschwein „Feuer macht es rasend“ / “fire sends it into a frenzy”; Spinne „Feuer verbrennt die Seide“ / “fire burns the silk”; Blutflügler „Blut lockt ihn“ / “blood draws it”; Zombie „Feuer und Licht halten ihn liegen“ / “fire and light keep it down”; Ockerschleim „Schnitt und Wucht teilen ihn“ / “slash and crush split it”.
 - `[870.14.wissen.unbekannt]` (nicht erkannt, noch nie bekämpft) Schwächen: unbekannt. / EN: Weaknesses: unknown.

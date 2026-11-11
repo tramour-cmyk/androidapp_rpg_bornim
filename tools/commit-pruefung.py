@@ -145,8 +145,6 @@ def effekt_ohne_liste(dat):
                 raus.append("%s: neuer Teilchenknoten ohne Zeile in LISTE-EFFEKTE.md; %s" % (p, tipp))
     return raus
 
-CHECK_BIS = 275  # 657 D: vier Builds (272–275), danach alter Zustand ohne Liste und Hinweis „abgelaufen“; verlängern nur auf Wort des Chefs
-
 def checkliste():
     """Die nummerierten Punkte aus docs/LISTE-CHECK-BUILD-TEST.md, ganz, ohne Fettdruck."""
     aus = []
@@ -261,7 +259,11 @@ def main():
         if z.startswith("+++ b/"): datei = z[6:]; continue
         if not z.startswith("+") or z.startswith("+++"): continue
         t = z[1:]
-        for m in re.finditer(r"(?<!\d)" + re.escape(heute).replace(r"\.", r"\.") + r",? (\d\d):(\d\d)(?!\d)", t):
+        tz = t
+        if datei == "docs/LISTE-VORGAENGE.md" and t.startswith("| ") and t.count("|") >= 8:
+            # 264.1: Feld „wartet auf“ darf eine spätere Uhrzeit von heute tragen (vorgang.py warte NR "TT.MM. HH:MM", Automatik A)
+            zellen = t.split("|"); tz = "|".join(zellen[:6] + zellen[7:])
+        for m in re.finditer(r"(?<!\d)" + re.escape(heute).replace(r"\.", r"\.") + r",? (\d\d):(\d\d)(?!\d)", tz):
             if jetzt.replace(hour=int(m.group(1)), minute=int(m.group(2))) > jetzt + datetime.timedelta(minutes=5):
                 stop.append("%s: Uhrzeit %s:%s liegt nach jetzt (%s)" % (datei, m.group(1), m.group(2), jetzt.strftime("%H:%M"))); break
         mm = re.match(r"\| ([^|]+?) \| (M\?|M|K|–|-) \|", t)
@@ -293,6 +295,13 @@ def main():
         if h and h not in (open(ok).read().split() if os.path.exists(ok) else []):
             warn.append("LISTE-VORGAENGE.md von Hand geändert; neue Zeile mit `vorgang.py neu \"Titel\" \"Bereich\" KLASSE \"Besitzer\" [--nr NR]`, "
                         "Stand mit `vorgang.py stand|fertig` (275 Stufe 2; Diogenes zählt die Warnungen, danach hält sie an)")
+            try:  # 734 (D92.1): je Warnung eine Zeile in warnungen-275.tsv im Zweig probelaeufe, sonst nicht zählbar
+                sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+                import probelauf
+                probelauf.zaehlen("275", (git("config", "user.name").strip() or "?")[:20], "liste-hand", datei="warnungen-275.tsv",
+                                  lokal=os.path.expanduser("~/.bornim-warnungen-275.tsv"), extra=(h[:10], git("rev-parse", "--abbrev-ref", "HEAD").strip()))
+            except Exception:
+                pass
     if any(p == "docs/LISTE-VORGAENGE.md" and s != "D" for s, p in dat):  # 275.2: Form der Liste; nur neue Fehler halten an
         try:
             fehler = lambda rev: {"%s: %s" % f for f in startbar.pruefen_liste(startbar.vorgangsliste(git("show", rev + "docs/LISTE-VORGAENGE.md")))}
@@ -320,13 +329,10 @@ def main():
         if s in ("A", "M") and re.match(r"docs/chefsache/(entscheiden|ansehen|billigen)/(?!t\d+-)[^/]+\.md$", p) \
                 and not GEPRUEFT.search(git("show", ":" + p)):
             stop.append("%s: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort" % p)
-    for s, p in dat:  # 657 D (Chef 09.11., 11:46): neue Prüfliste zeigt die Checkliste Build und Test; Probe bis Build CHECK_BIS (718)
-        m = re.match(r"docs/chefsache/ansehen/t(\d+)-[^/]+\.md$", p) if s == "A" else None
-        if not m: continue
-        if int(m.group(1)) > CHECK_BIS:
-            warn.append("Probe 657 abgelaufen (Build %s nach %d), auswerten: Diogenes zählt Erstfunde, Perikles legt dem Chef vor (718)" % (m.group(1), CHECK_BIS))
-        else:
-            print("Checkliste Build und Test (657 D), vor der Testbitte jeden Punkt abhaken:\n" + checkliste(), file=sys.stderr)
+    for s, p in dat:  # 657 D, fest seit 903 B (Chef 11.11., 07:46): neue Prüfliste zeigt die Checkliste Build und Test, ohne Enddatum;
+        # 908 (D154.2): auch beim Entwurf in docs/entwurf/, sonst sieht sie seit 866 nur der Gegenleser, nie das bauende Team
+        if s == "A" and re.match(r"docs/(chefsache/ansehen|entwurf)/t\d+-[^/]+\.md$", p):
+            print("Checkliste Build und Test (657 D, 903 B), vor der Testbitte jeden Punkt abhaken:\n" + checkliste(), file=sys.stderr)
     for s, p in dat:  # 832 (Chef 10.11., 09:29): Lizenzen sichert der Test im Bau, nie eine Prüfzeile („Im Bau geprüft“)
         if s == "A" and re.match(r"docs/chefsache/ansehen/t\d+-[^/]+\.md$", p):
             for zl in re.findall(r"(?m)^\|\s*\d+\.\d+[a-z]?\s*\|.*$", git("show", ":" + p)):

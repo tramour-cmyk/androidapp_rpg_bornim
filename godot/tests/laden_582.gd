@@ -1,7 +1,7 @@
 extends SceneTree
-# 582 (Abgleich 512b, Pruefer 05.11., 08:17): Laden wie alt. Prueft ohne Bild: Vorraete mit Kurzangabe („heilt 2W4+2“, ShopScreen.kt
-# 244) statt Langtext und in der Farbe ihrer Seltenheit (Items.kt); Ausruestung mit Platz in der Unterzeile (Gear.listLine); ▲/▼ als
-# eigenes Zeichen gruen/rot, nicht im Namen (GearUi.kt 149); Mengen- und Braukasten mit Seltenheit und Wirkung (Dialogs.ItemDetails).
+# 582 (Abgleich 512b, Pruefer 05.11., 08:17): Laden wie alt. Prueft ohne Bild: Vorraete ohne Langtext (944: auch ohne die Kurzangabe „heilt 2W4+2“, ShopScreen.kt
+# 244) und in der Farbe ihrer Seltenheit (Items.kt); Ausruestung mit Platz in der Unterzeile (Gear.listLine); ▲/▼ als
+# eigenes Zeichen gruen/rot, nicht im Namen (GearUi.kt 149); Mengen- und Braukasten mit Seltenheit, ohne Würfel (944) (Dialogs.ItemDetails).
 # Aufruf: im Ordner godot mit -s res://tests/laden_582.gd -> „LADEN582 n Fehler“
 
 var fehler := 0
@@ -43,7 +43,9 @@ func _lauf() -> void:
 	ebene.add_child(l)
 	await process_frame
 	var t := texte(l.inhalt)
-	pruefe("heilt 14" in t, "Kurzangabe des Heiltranks fehlt: %s" % [t])
+	var wuerfel := RegEx.create_from_string("\\d+[Wd]\\d+")     # 944 (t276.5): nie ein Würfeltext, die Wirkung sagt die Meldung
+	pruefe(wuerfel.search(" ".join(t)) == null, "Würfeltext in der Liste: %s" % [t])
+	pruefe("heilt 14" in t, "Kurzangabe des Heiltranks fehlt: %s" % [t])     # 870.6: feste Zahl statt Würfel
 	pruefe(not Sprache.t(Laden.ding("potion")["info"]) in t, "Langtext steht in der Liste")
 	var gross := label(l.inhalt, Laden.name("greater_potion"))
 	pruefe(gross != null and farbe(gross) == Color(Menue.SELTEN["UNCOMMON"]), "Großer Heiltrank nicht in der Farbe „ungewöhnlich“")
@@ -56,6 +58,7 @@ func _lauf() -> void:
 	var sel := String(Sprache.t(BrsHeld.daten()["seltenheiten"]["UNCOMMON"]["name"]))
 	var sl := label(kasten, sel)
 	pruefe(sl != null and farbe(sl) == Color(Menue.SELTEN["UNCOMMON"]), "Mengenkasten ohne Seltenheit „%s“: %s" % [sel, kt])
+	pruefe(wuerfel.search(" ".join(kt)) == null, "Würfeltext im Mengenkasten: %s" % [kt])     # 944
 	pruefe("heilt 28" in kt, "Mengenkasten ohne Wirkung: %s" % [kt])
 	pruefe(Sprache.t(Laden.ding("greater_potion")["info"]) in kt, "Mengenkasten ohne Langtext")
 	kasten.queue_free()

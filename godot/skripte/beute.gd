@@ -296,7 +296,7 @@ static func name(g: Dictionary, sprache: String = "") -> String:
 # Kotlin teilt ganze Zahlen zur Null hin
 static func _ganz_div(a: int, b: int) -> int: return int(a / b) if a >= 0 else -int(-a / b)
 
-# DiceExpr.label: „1W8+1“; nur noch fuer das Gegenstandsfenster in menue.gd, bis 870.7 (Tom) es nach BRS zeigt
+# DiceExpr.label: „1W8+1“, englisch „1d8+1“; 944: nie mehr in einem Text des Spiels (nur Tests der alten Werte)
 static func wuerfel_text(e: Array, plus: int, de: bool) -> String:
 	var bonus := int(e[2]) + plus
 	var b := ("+%d" % bonus) if bonus > 0 else (str(bonus) if bonus < 0 else "")
