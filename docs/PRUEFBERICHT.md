@@ -52,6 +52,13 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 162 · 276 Fords Anleitung auf eine Seite (Perikles, `cb73d5a6a`; 11.11., 12:1x)
+
+- **276 greift mit Lücke** (`warte 276 927, 928`). Gegen die Empfehlung Sokrates (`LISTE-ABLAUF-274.md` „Ford“, `ad8e7e16c`): Startlektüre jetzt `ROLLE-BETRIEB.md` plus „Jeder Lauf“ 4531 Bytes (vorher die ganze Datei, heute 17484; Ziel war etwa 3 KB). Jede Ausgabezeile, die `lauf.py` schreibt (18 Arten), steht im Kopf; RÜCKMELDUNG ist nur Eingabe aus `regelcheck.py`. Abgleich alt/neu: jede gestrichene Stelle steht im Kopf von `lauf.py` oder unter „Bei Anlass“; Umgebung neu nach 901 (365a B) statt des überholten „Hoch nur auf Wort“.
+- **D162.1 → 927:** Nachhalten (8, täglich ab 8 Uhr), Eingang (7) und laut melden „Jetzt installieren“, „wartet auf Chef“, „Sitzung hängt“ (9) haben keinen Anlass, den „Jeder Lauf“ nennt (dort nur Morgen 10 und Meldung 12; VORRAT-LEER kommt über den Kopf von `lauf.py`). Wer nur „Jeder Lauf“ liest, tut sie nicht. Teil 2 der Empfehlung (Urteilsaufgaben in `lauf.py` oder zu Perikles) ist nicht umgesetzt, sie sind nur verschoben.
+- **D162.2 → 928:** `LISTE-RELEASE-NEUSTART.md` Neustart 2 verweist auf „Startzuordnung“ in `LISTE-BETRIEB.md` Schritt 4; sie steht jetzt unter „Bei Anlass“.
+- Nicht geprüft: echter Ford-Lauf nach dem Bau (Ford-Sitzung nicht gelesen).
+
 ## Lauf 161 · 921 Nachfolger „auf Abruf“, M? entscheiden, Stellungnahme Sokrates (Perikles, Doppelpack 421, `ab6ad7ad1`; 11.11., 11:1x)
 
 - **921 greift** (`greift 921 161`). Trockenlauf in einer Kopie (`--ohne-pull`, Stand `93fb3cc0d`, echte Übergabe Perikles „Nachfolger: Perikles – auf Abruf“, gestellte Datei `999-probe.md` ohne Stellungnahme, gestellte Kurzzeilen): (1) ohne Perikles-Sitzung START „Perikles – M? entscheiden (11.11., 11:18)“, Nachricht nennt 824, 836, 844, 845, 909 (Jerry) und 190.8; Perikles ruht 30 Min. → WEITER mit demselben Auftrag; ruht 80 Min. → START M? und ARCHIVIERE der alten. (2) Sokrates working, ruht 10 oder 40 Min. → WEITER; ruht 61 Min. → START und ARCHIVIERE der alten; ruht 61 Min. mit `--wecker` → WEITER; working oder ruht 10 Min. mit 300 Tsd. Token → NICHTS; ruht 61 Min. mit 300 Tsd. → START und ARCHIVIERE; ohne Sokrates-Sitzung → START. (3) `startbar.py` zeigt „M? für Perikles … 824 (Jerry), 836 (Jerry), 844 (Jerry), 845 (Jerry), 909 (Jerry)“.
