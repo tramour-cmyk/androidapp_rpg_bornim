@@ -413,14 +413,14 @@ const V := {
 		"v": [
 			[
 				[
-					"Osric murmelt ein Gebet, und Wärme fließt in deine Glieder. TP und ZP sind vollständig wiederhergestellt.",
-					"Osric murmurs a prayer, and warmth flows into your limbs. HP and SP are fully restored."
+					"Osric murmelt ein Gebet, und Wärme fließt in deine Glieder. Leben und Mana sind wieder voll.",
+					"Osric murmurs a prayer, and warmth flows into your limbs. Life and mana are full again."
 				]
 			],
 			[
 				[
-					"Der Schmerz ebbt ab, als Osrics Hände über deine Wunden gleiten. TP und ZP sind vollständig wiederhergestellt.",
-					"The pain ebbs as Osric's hands pass over your wounds. HP and SP are fully restored."
+					"Der Schmerz ebbt ab, als Osrics Hände über deine Wunden gleiten. Leben und Mana sind wieder voll.",
+					"The pain ebbs as Osric's hands pass over your wounds. Life and mana are full again."
 				]
 			]
 		]

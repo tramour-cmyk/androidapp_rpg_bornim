@@ -123,7 +123,7 @@ static func gespraech(id: String, s: Zustand) -> Array:
 			else:
 				k.variante(s, "504.osric.gruss.danach", osric, [["Gesegnet seist du, {name}. Lass mich deine Wunden versorgen.", "Blessings upon you, {name}. Let me tend to your wounds."]])
 			k.rest()
-			k.variante(s, "504.osric.heilung", {}, [["Ein warmes Licht umhüllt dich. TP und ZP sind vollständig wiederhergestellt.", "A warm light surrounds you. HP and SP are fully restored."]])
+			k.variante(s, "504.osric.heilung", {}, [["Ein warmes Licht umhüllt dich. Leben und Mana sind wieder voll.", "A warm light surrounds you. Life and mana are full again."]])
 			if not s.has(LYRA_RESCUED):
 				k.variante(s, "504.osric.bitte", osric, [["Bitte … finde Schwester Lyra. Ohne sie und das Amulett ist dieser Tempel nur ein kalter Steinhaufen.", "Please… find Sister Lyra. Without her and the amulet, this temple is just a cold pile of stones."]])
 		"lyra_temple":
