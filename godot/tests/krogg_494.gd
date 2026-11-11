@@ -51,9 +51,10 @@ func _kampf(k: String) -> void:
 	if feinde.size() != 1 or String(feinde[0].monster.id) != "bugbear" or String(feinde[0].monster.de) != "Krogg der Grobian":
 		fehler += 1
 		print("FEHLER Gegner: %s" % [feinde.map(func(f): return "%s/%s" % [f.monster.id, f.monster.de])])
-	elif feinde[0].max_hp < 10 or feinde[0].max_hp > 45:
+	elif feinde[0].max_hp != int(preload("res://regeln/brs.gd").monster("bugbear").get("leben", -1)):
+		# 900 (Lauf 336 am Rechner, Tom: 55 statt 10–45 SRD): Leben nach BRS aus werte.json (Krogg 55)
 		fehler += 1
-		print("FEHLER Trefferpunkte %d (10–45)" % feinde[0].max_hp)
+		print("FEHLER Trefferpunkte %d (werte.json %d)" % [feinde[0].max_hp, int(preload("res://regeln/brs.gd").monster("bugbear").get("leben", -1))])
 	# Autopilot nie gegen Bosse (72p.1): der Held schlägt den ersten, den er erreicht, wie tests/kampfort_lauf.gd
 	kf.mars.find("merc").auto = true
 	var t0 := Time.get_ticks_msec()
