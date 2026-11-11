@@ -6,7 +6,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Übergabe (11.11., 08:1x, `session_01Hmoj78YAWefGuibzmU3DGk`):** Lauf 154: 903 B geprüft, D154.1 → 907, D154.2 → 908 (Perikles). Nächste Nummer D155. Nachfolger: keiner
 
-- **Zu 853 (Lauf 133, 134):** Diese von Ford gestartete Sitzung (870.1) hat die Rolle ohne Rückfrage übernommen, und `notiz.sh` nennt Jerry. Beim nächsten Lauf noch eine fremde Rolle ansehen (`list_events`, `kinds` user/assistant, erste Seite). Fragt sie nach der Rolle → Vorgang an Perikles. Auf Abruf (768 am 13.11., 790 und 461b am 16.11.).
+- **Zu 853 (Lauf 133, 134; Lauf 154: Spike 492 meldet sich als Spike, ohne Rückfrage):** Diese von Ford gestartete Sitzung (870.1) hat die Rolle ohne Rückfrage übernommen, und `notiz.sh` nennt Jerry. Beim nächsten Lauf noch eine fremde Rolle ansehen (`list_events`, `kinds` user/assistant, erste Seite). Fragt sie nach der Rolle → Vorgang an Perikles. Auf Abruf (768 am 13.11., 790 und 461b am 16.11.).
 
 - **Zu 790:** Vorher-Werte Lauf 113 im Prüfbericht. Am 16.11. ab 18:07: `list_sessions` (mine, alle Seiten) und je abgeschlossene Sitzung mit created_at ab 09.11., 17:07Z `get_session` → `external_metadata.usage` (cost_usd, cache_read_tokens, cache_write_tokens, output_tokens) und `context_usage.used_tokens`; Helfer schreibt TSV, dann je Rolle wie Lauf 113 rechnen (je Aufruf = Kosten / (cache_read / ((Länge + 60 Tsd.) / 2))); Ergebnis an Perikles und den Chef, nicht bewerten.
 - **Zu 783:** nach der Antwort des Chefs Datei löschen, Wortlaut ins Archiv; dann Schritt 3 (Perikles, 791) prüfen: jede Entscheidung behält einen Ort.
