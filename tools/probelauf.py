@@ -93,9 +93,44 @@ def cd_pfad(roh, cwd, vorher=""):
     return os.path.join(cwd, ziel)
 
 
+HEREDOC = re.compile(r"<<-?\s*['\"]?(\w+)['\"]?[^\n]*\n(.*?)(?:\n[ \t]*\1\b|\Z)", re.S)
+
+
+def text_bereiche(befehl):
+    """929 (D163.1): Bereiche (Anfang, Ende), die nur Text sind: Heredoc-Körper, dann Inhalt von '…' und "…" außerhalb davon.
+    Ein `cd` darin (Commit-Nachricht, Vorgangstitel) ist kein Befehl. Das Ziel eines echten `cd "$HOME/x"` bleibt lesbar,
+    weil nur der Anfang des Treffers zählt. Grenze: `bash -c "cd …"` gilt ebenfalls als Text."""
+    aus = [(m.start(2), m.end(2)) for m in HEREDOC.finditer(befehl)]
+    i, n = 0, len(befehl)
+    while i < n:
+        imtext = next((e for s, e in aus if s <= i < e), None)
+        if imtext is not None:
+            i = imtext
+            continue
+        c = befehl[i]
+        if c == "\\":
+            i += 2
+            continue
+        if c in "'\"":
+            j = i + 1
+            while j < n and befehl[j] != c:
+                j += 2 if c == '"' and befehl[j] == "\\" else 1
+            aus.append((i + 1, j))
+            i = j + 1
+            continue
+        i += 1
+    return aus
+
+
+def cd_befehle(befehl):
+    """Treffer von CD, die als Befehl stehen, nicht in Text (929)."""
+    bereiche = text_bereiche(befehl)
+    return [m for m in CD.finditer(befehl) if not any(s <= m.start() < e for s, e in bereiche)]
+
+
 def cd_ziel(befehl, cwd, erstes=False):
     """Ordner nach dem ersten (erstes=True) oder letzten `cd` in befehl, sonst cwd; Unaufloesbar wie cd_pfad."""
-    ms = list(CD.finditer(befehl))
+    ms = cd_befehle(befehl)
     if not ms:
         return cwd
     m = ms[0] if erstes else ms[-1]
@@ -117,7 +152,7 @@ def wo_von(befehl, m, cwd):
 def cd_ordner(befehl, cwd):
     """Alle auflösbaren cd-Ziele (Suche nach Dateien; Unauflösbares fällt weg)."""
     aus = []
-    for m in CD.finditer(befehl):
+    for m in cd_befehle(befehl):
         try:
             aus.append(cd_pfad(m.group(1), cwd, befehl[:m.start()]))
         except Unaufloesbar:
