@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
     inputs:
       kampf:
-        description: "Kampfort-Filme: ja (453 r3, 453.1 Vergleich), 461 (Grundstand-Film Kampfort), 4531 (Heldenatem Feld 2 gegen neu), 2963 (Siegerposen) oder 656 (Umhang: Film; mit film=nein Bilder vorher/nachher)"
+        description: "Kampfort-Filme: ja (453 r3, 453.1 Vergleich), 461 (Grundstand-Film Kampfort), 4531 (Heldenatem Feld 2 gegen neu), 2963 (Siegerposen), 784 (Sollbild Wolfsrudel, eine Runde) oder 656 (Umhang: Film; mit film=nein Bilder vorher/nachher)"
         default: ""
       dorf:
         description: "Dorf-Film Grundstand (461.1): ja"
@@ -518,6 +518,8 @@ jobs:
           timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/ausweichen_593.gd 2>&1 | grep -E "^(ok|FEHLER|  |AUSWEICHEN593)|SCRIPT ERROR" || true
           # 864 (Jerry): kein Sprung der Gegner auf ihre Plätze, wenn der Held an den Zug kommt; meldet, hält noch nicht an
           GEGNER=BATS,GRABHUNDE,WOLVES,RATS timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/beam_864.gd 2>&1 | grep -E "^(  Sprung|Kampf |BEAM864)|SCRIPT ERROR" || true
+          # 784 A (Jerry): Kampftakt Wolfsrudel gegen DESIGN-KAMPF F9; meldet, hält erst nach dem ersten grünen Film an den Chef an (dann STRENG=1)
+          timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/sollbild_784.gd 2>&1 | grep -E "^(ÜBER|MISST|== |  Zug|  Held wartet|SOLLBILD784)|SCRIPT ERROR" || true
           # 546, 703 A (Jerry): Wölfe weichen rasch aus und bleiben danach stehen; meldet, hält noch nicht an
           timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/ausweichen_546.gd 2>&1 | grep -E "^(ok|FEHLER|AUSWEICHEN_546)|SCRIPT ERROR" || true
           # 415 r3 (Jerry): Strahlenprobe ohne Bild, Stabspitze hinter dem Körper (F6), Strahl durch eine Figur (E3), Richtung (F2); meldet nur
@@ -890,6 +892,12 @@ jobs:
           # 461.1 (Tuffy): kampf=461 nur der Grundstand-Film Kampfort (Helden und Wölfe im Kampf; Nahteil von film_453 nicht, Prüfer Lauf 159: C2, G1)
           # 453.1 Feld 2 (Tuffy; Chef 02.11., 11:07 „steigert sich … und dann wieder normalisiert … einen Tick schneller“): kampf=4531
           # derselbe Kampf (SEED 7) wie Feld 2 links, neu rechts
+          # 784 (Tuffy, 654 A): kampf=784 eine Runde Wolfsrudel im Handyformat, Uhr oben links; das Protokoll misst gegen das Sollbild
+          if [ "${{ github.event.inputs.kampf }}" = "784" ]; then
+            film sollbild784 sollbild_784 RUNDEN=1 ZEILEN=1
+            grep -E "^==|^  |^ÜBER|^SOLLBILD" $B/sollbild784.log || true
+            ls -l $B; exit 0
+          fi
           if [ "${{ github.event.inputs.kampf }}" = "4531" ]; then
             film held-feld2 film_403 ATEM_FELD2=1 DAUER_MS=40000
             film held-neu film_403 DAUER_MS=40000
