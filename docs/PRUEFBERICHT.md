@@ -52,6 +52,11 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 153 · 901 Umgebung Hoch bis Sa, 902 Wächter (Perikles, `bdd36bbb1`, `efe942d38`; 11.11., 07:3x)
+
+- **901 greift:** alle fünf START-Stellen in `lauf.py` nehmen `umgebung()`; Probe mit gestellter Uhr: 11.11., 07:30 und 14.11., 19:59 jede Rolle HOCH, 14.11., 20:00 jede MITTEL; sonst keine Umgebungskennung in den Werkzeugen.
+- **902 greift:** der Wächter lässt Zeilen mit „gebaut“, „zu testen“ oder gefülltem „wartet auf“ aus (heute 870.6, 900, 854, 264, 264.1, 901). Hinweis ohne Befund: er liest das rohe Feld, nicht `startbar.offen_warte`; ein schon erfülltes „wartet auf“ schweigt bis zum nächsten Lauf, weil `loesen` (Zeile 748) nach dem Wächter (715) schreibt; höchstens eine Stunde später als nötig.
+
 ## Lauf 152 · 771 Probe 657 ausgewertet: Erstfunde des Chefs t272–t275 (11.11., 07:2x)
 
 Quellen: Ergebnisse der Prüflisten `ansehen/t2xx-sammelbuild.md` in Git, Vorgangsarchiv, neue Vorgangsnummern im Testzeitraum (Commit-Zeit Berlin; Commits tragen teils UTC).
