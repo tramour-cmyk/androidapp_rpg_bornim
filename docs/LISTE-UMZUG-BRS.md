@@ -1,6 +1,6 @@
 # Umzug auf das BRS (870): Master-Plan
 
-Sokrates, 10.11.2026 (Auftrag Chef 14:03, 14:08: „federführend … Master-Umzugsplan … soll jetzt schon Hand und Fuß haben. Und dann muss dein Plan irgendwer gegenlesen“). Geprüft an `origin/main` dcc60878f (10.11., 14:31), drei Bestandsaufnahmen im Code (Regeln und Kampf, Skripte, Tests/Texte/Kotlin). Regelwerk: [`DESIGN-BRS.md`](DESIGN-BRS.md). Offene Regelfragen: Chefsache 870a. Gegenlesen: Diogenes (870.1).
+Sokrates, 10.11.2026 (Auftrag Chef 14:03, 14:08: „federführend … Master-Umzugsplan … soll jetzt schon Hand und Fuß haben. Und dann muss dein Plan irgendwer gegenlesen“). Geprüft an `origin/main` dcc60878f (10.11., 14:31), drei Bestandsaufnahmen im Code (Regeln und Kampf, Skripte, Tests/Texte/Kotlin). Regelwerk: [`DESIGN-BRS.md`](DESIGN-BRS.md). Regelfragen: 870a 1–8, entschieden 10.11. (Archiv), in `DESIGN-BRS.md` nachgetragen. Gegenlesen: Diogenes (870.1).
 
 **Ziel:** Im Godot-Spiel gibt es nur noch das BRS. Kein SRD-Wert, kein SRD-Begriff, kein Umschalter, keine Brücke.
 **Fertig, wenn** (1) die Suche (Wächter, Schritt 9) im Godot-Code und in allen Spieltexten nichts mehr findet, (2) der Chef ein neues Spiel von der Erschaffung über das Dorf bis zum Wolfskampf und zur Höhle nur mit BRS spielt und dabei nichts Altes sieht, (3) der Hinweis „SRD 5.1 · CC BY 4.0“ aus dem Godot-Spiel heraus ist.
@@ -45,11 +45,11 @@ Ehrlich gesagt: weniger weit, als meine Vorlage 870 (14:05) behauptete. Dort sta
 | 8 | Ganz aus Kotlin (870a 7 B): Karten, Texte, Intro, Kartenblätter, Bilder, Klang als Godot-Quelle; Handbuch und Lizenztext neu; Kotlin-Bau aus, `core/`, `app/`, `tools/preview` ins Zweit-Repo | Tom, Homer, Perikles (`android.yml`) | 4 | Godot-Bau ohne Gradle, Kartenregeln als Godot-Tests | 4–6 Sitzungen |
 | 9 | Aufräumen, Wächter, Hinweis raus, Abnahme | Tom, Jerry, Perikles | 4–8 | Wächter grün, Chef spielt | 1–2 Sitzungen |
 
-**Nach dem Gegenlesen (Diogenes 870.1, `PRUEFBERICHT.md` Lauf 134; gilt vor den Zeilen unten):** Schritt 4 und 5 laufen auf einem gemeinsamen Umzugszweig und kommen nur zusammen als B1 auf `main` (Schritt 4 allein ist nicht spielbar, Grundsatz 6; Leser von `Heldwerte` in `beute.gd`, `spielstand.gd`, `aufruf.gd`, `spiel.gd` laut Lauf 134). Dateigrenzen nach Lauf 134 (8): `brs_held.gd`, `talente.gd` Tom; `beute.gd`, `spiel.gd` 620–657, `streuner.gd`, `testmodus.gd` Jerry; `figur.gd` 438–441 mit Schritt 4 abstimmen. Zweige für Schritt 0: Liste Lauf 134 (9). Fehlende Stellen und Zeilenfehler: Lauf 134, je Schritt mitnehmen. Pechsträhne (Projektplan 2.3) bleibt, als Prozent im BRS-Weg (Jerry, Zahlen 444). Wanderer: Startvorrat, Tracht, Kapitelschirm, Probeheld bekommen eine eigene Zeile „Wanderer“ in der Herkunftstabelle (Tom, Texte Homer). Kosten: Diogenes rechnet nach Vergleichsvorgängen 350–500 $, mit 7 B eher 400–600 $; diese Zahl gilt, nicht die unten.
+**Nach dem Gegenlesen (Diogenes 870.1, `PRUEFBERICHT.md` Lauf 134; gilt vor den Zeilen unten):** Schritt 4 und 5 laufen auf einem gemeinsamen Umzugszweig und kommen nur zusammen als B1 auf `main` (Schritt 4 allein ist nicht spielbar, Grundsatz 6; Leser von `Heldwerte` in `beute.gd`, `spielstand.gd`, `aufruf.gd`, `spiel.gd` laut Lauf 134). Dateigrenzen nach Lauf 134 (8): `brs_held.gd`, `talente.gd` Tom; `beute.gd`, `spiel.gd` 620–657, `streuner.gd`, `testmodus.gd` Jerry; `figur.gd` 438–441 mit Schritt 4 abstimmen. Zweige für Schritt 0: Liste Lauf 134 (9); die vier ruhenden aufgegeben (870.16), offene mit Commits außerhalb `build-275` an Tom und Jerry (884, 11.11.). Fehlende Stellen und Zeilenfehler: Lauf 134, je Schritt mitnehmen. Pechsträhne (Projektplan 2.3) bleibt, als Prozent im BRS-Weg (Jerry, Zahlen 444). Wanderer: Startvorrat, Tracht, Kapitelschirm, Probeheld bekommen eine eigene Zeile „Wanderer“ in der Herkunftstabelle (Tom, Texte Homer). Kosten: Diogenes rechnet nach Vergleichsvorgängen 350–500 $ (Lauf 134); mit 7 B schätzt Sokrates 400–600 $; diese Zahl gilt überall im Plan.
 
 **Vorgänge (10.11., 15:32):** Schritt 0 Zweige 870.16 (Ford); 2 870.2, 3 870.3, 5 870.5, 6 870.6 (Jerry); 4 870.4, 6 870.7, 7 870.8, 8 870.9, 9 870.13 (Tom); 8 870.10, Wächter 870.11, Projektplan und Abschluss 870.12 (Perikles); Texte 870.14 (vor 4/5), 870.15 (Schritt 8) (Homer). Reihenfolge über „wartet auf“.
 
-**Zwei Testbuilds beim Chef:** **B1** nach Schritt 4 und 5 (neues Spiel mit BRS-Erschaffung, Dorf, Wolfskampf nur BRS); **B2** nach Schritt 6–9 (Beute, Laden, Höhle, Spielstände, Handbuch, Wächter). Zusammen etwa 17–24 Entwicklersitzungen; zum Maß: 478 (Rechenkern) 6,50 $, 470 (Erschaffung) bisher 43 $, 709 bisher 38 $. Realistisch 120–200 $ für den ganzen Umzug.
+**Zwei Testbuilds beim Chef:** **B1** nach Schritt 4 und 5 (neues Spiel mit BRS-Erschaffung, Dorf, Wolfskampf nur BRS); **B2** nach Schritt 6–9 (Beute, Laden, Höhle, Spielstände, Handbuch, Wächter). Zusammen etwa 19–29 Entwicklersitzungen (Summe der Tabelle); zum Maß: 478 (Rechenkern) 6,50 $, 470 (Erschaffung) bisher 43 $, 709 bisher 38 $. Kosten 400–600 $ (oben).
 **Guthaben:** Tom und Jerry arbeiten zugleich (Chef 10.11., 16:04, 826 „eine zugleich“ zurück). Pause für 870.x: Chefsache 870b.
 
 ## 4. Schritte im Einzelnen
@@ -62,7 +62,7 @@ Ehrlich gesagt: weniger weit, als meine Vorlage 870 (14:05) behauptete. Dort sta
 
 ### Schritt 1: Regelfragen (Chef, Sokrates)
 
-Chefsache 870a mit sieben Fragen (Spielstände, klassischer Kampf, Fähigkeiten ohne Klassen, Grundwerte wachsen, Proben ohne W20, Gegenstände, Kotlin-Fassung). Nach jedem Entscheid trägt Sokrates `DESIGN-BRS.md` nach; erst dann bauen die Teams den betroffenen Teil.
+Erledigt: 870a mit acht Fragen (Spielstände, klassischer Kampf, Fähigkeiten ohne Klassen, Grundwerte wachsen, Proben ohne W20, Gegenstände, Kotlin-Fassung, Schwächen) entschieden 10.11., 15:08 und 15:25 (Archiv), `DESIGN-BRS.md` nachgetragen, Chefsache gelöscht.
 
 ### Schritt 2: Schnittstelle Held ↔ Kampf (Jerry mit Tom, 1 Sitzung)
 
@@ -139,11 +139,11 @@ Chefsache 870a mit sieben Fragen (Spielstände, klassischer Kampf, Fähigkeiten 
 - `spielstand.gd` schreibt `version: 2` mit BRS-Held und liest die Version. Alte Spielstände (Version 1) nach 870a Frage 1.
 - **Prüfung:** Test mit einem echten Spielstand der Version 1: kein Absturz, Verhalten wie entschieden.
 
-### Schritt 8: Texte und Daten aus Kotlin lösen (Tom, Homer; 2 Sitzungen)
+### Schritt 8: Texte und Daten aus Kotlin lösen (Tom, Homer, Perikles; 4–6 Sitzungen)
 
 - `daten/held.json` entfällt mit `Heldwerte`. Die Texte aus `texte.json`, die SRD nennen (RK, ZP, Übungsbonus, Trefferwürfel, Hauptattribut, „Wähle deine Klasse“, Rast, `aboutText`; TP bleibt, Trefferpunkte gibt es auch im BRS, DESIGN-BRS 12, 896), und das Handbuch (`Guide.kt`) bekommen eine eigene Godot-Quelle; Wortlaute Homer (Handbuch BRS 423.1 wird damit Muss für den Teil, der heute SRD erklärt).
 - `geschichte.gd` 345, 385, 392 „Hobgoblin“, „Grottenschrat“ (aus `Chronicle.kt`): Homer setzt Goblin-Hauptmann, Bärenschrat.
-- **Ganz aus Kotlin (870a 7 B, Chef 10.11., 15:25):** Einmal alles exportieren, was `godot.yml` 48–65 und 358 heute aus `core` holt (Karten, Texte, Held, Intro, Kartenblätter, Bilder der Dinge, Kampfklang), und als Godot-Quelle unter `godot/daten` einchecken; danach baut `godot.yml` ohne Gradle. Vorher legt Tom fest, wie Karten künftig bearbeitet werden (Werkzeug oder Datei; größtes Risiko), und nimmt die Kartenregeln der Kotlin-Tests (`VillageRoundTest` u. a.) als Godot-Tests mit. `android.yml` baut nicht mehr (Perikles); ebenso alle Werkzeuge, die an `core` hängen (Kerntests `tools/t logik`, `godot-kampf.yml`, `vorschau.yml`, `tools/preview`, `story.sh`, `probelauf.py`, `setup-session.sh`; Diogenes Lauf 140, 882). `core/`, `app/`, `tools/preview` gehen ins Zweit-Repo, lesbar für den Abgleich mit alt (620.2); offene Zweige, die `core/` ändern, vorher fertig (Schritt 0). Die Store-Kennung `de.bornim.game` (heute Kotlin-App) wechselt erst zur Veröffentlichung, Chefsache.
+- **Ganz aus Kotlin (870a 7 B, Chef 10.11., 15:25):** Einmal alles exportieren, was `godot.yml` 48–65 und 358 heute aus `core` holt (Karten, Texte, Held, Intro, Kartenblätter, Bilder der Dinge, Kampfklang), und als Godot-Quelle unter `godot/daten` einchecken; danach baut `godot.yml` ohne Gradle. Vorher legt Tom fest, wie Karten künftig bearbeitet werden (Werkzeug oder Datei; größtes Risiko), und nimmt die Kartenregeln der Kotlin-Tests (`VillageRoundTest` u. a.) als Godot-Tests mit. `android.yml` baut nicht mehr (Perikles); ebenso alle Werkzeuge, die an `core` hängen (Kerntests `tools/t logik`, `godot-kampf.yml`, `vorschau.yml`, `tools/preview`, `story.sh`, `probelauf.py`, `setup-session.sh`; Diogenes Lauf 140, 882). `core/`, `app/`, `tools/preview` gehen ins Zweit-Repo, lesbar für den Abgleich mit alt (620.2); offene Zweige, die `core/` ändern, vorher fertig (Schritt 0). Die Store-Kennung `de.bornim.game` (heute Kotlin-App) wechselt erst zur Veröffentlichung (622, ruht); Godot baut bis dahin als `de.bornim.game.godot` (`export_presets.cfg` 28).
 
 ### Schritt 9: Aufräumen, Wächter, Abnahme (Tom, Jerry, Perikles)
 
@@ -158,7 +158,7 @@ Chefsache 870a mit sieben Fragen (Spielstände, klassischer Kampf, Fähigkeiten 
 - **Zwei Teams in einem Umbau** kreuzen sich. Gegenmittel: Schnittstelle zuerst (Schritt 2), feste Dateigrenzen, Jerry besitzt `aufruf.gd`.
 - **Stille Wertänderung** beim Zusammenlegen der Monstertabellen (Jungwolf, Leibwache; Befund 649a). Gegenmittel: Test „Werte wie 444“ vor dem Löschen von `tabellen.json`.
 - **Spielstände des Chefs gehen verloren**, je nach 870a Frage 1. Gegenmittel: Hinweis im Spiel, Testmenü erzeugt Helden jeder Herkunft auf Stufe 1–6.
-- **Kosten:** 120–200 $ in einer Woche mit knappem Guthaben (826). Gegenmittel: Schritt 2–3 bis 14.11. allein, Spike und Tuffy bleiben aus; nach B1 Kosten gegen Plan prüfen.
+- **Kosten:** 400–600 $ mit knappem Guthaben; Tom und Jerry arbeiten zugleich (Chef 10.11., 16:04). Gegenmittel: Spike und Tuffy bleiben aus; nach B1 Kosten gegen Plan prüfen.
 - **Stärkstes Gegenargument gegen den ganzen Plan:** Er hält Kapitel 1 sichtbar zwei bis drei Wochen an, und am Ende sieht der Chef dieselben Orte mit anderen Zahlen. Antwort: Jeder Build bis dahin baut weiter auf Werten, die wegfallen (Menüs, Beute, Anzeigen), und die Oberste Direktive verlangt Kapitel 1 mit dem BRS; je später, desto teurer.
 
 ## 6. Pflege
