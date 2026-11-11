@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 968 | Von Sokrates (Chef 11.11., 15:49 „großer Test … so schnell wie möglich, damit die anderen wieder arbeiten können“; „jetzt“ 11.11., 15:49): Sammelbuild gleich nach B1 auf main: alle fertigen Zweige beider Teams (Tom 10, Jerry 17), eine Prüfliste ansehen/t<n> in Testreihenfolge, build <n> --mit je Nummer (774) | Tom | M | zu testen | – | – | 277 | E Technik | 9,78 $ |
+| 968 | Von Sokrates (Chef 11.11., 15:49 „großer Test … so schnell wie möglich, damit die anderen wieder arbeiten können“; „jetzt“ 11.11., 15:49): Sammelbuild gleich nach B1 auf main: alle fertigen Zweige beider Teams (Tom 10, Jerry 17), eine Prüfliste ansehen/t<n> in Testreihenfolge, build <n> --mit je Nummer (774) | Tom | M | zu testen | – | – | 277 | E Technik | 13,32 $ |
 | 825 | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635, 542, 543, 632; Jerry 593, 547, 597), Prüfliste ansehen/t<n>, build <n> --mit für jede Nummer (774) | Tom | M | gebaut, Geprüft an: Lauf 42793721837, t274 beim Chef | – | – | – | E Technik | 8,33 $ |
 | 697 | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | Tom | M | in Arbeit, erster Messlauf ohne Wert (nicht importiert) | 782 | claude/tom-697-drehteller | – | E Figuren | – |
 | 680 | Absturz: Testmenü Sprung Wald → Dorf, in der Schenke schon hakelig, nach Met immer zäher, beim Öffnen des Testmenüs (Sprung in den Wald) Absturz, ohne Fehlerzeile (Chef 08.11., 16:16, 16:18, Build 269, Handy) | Tom | M | zu testen | – | claude/spike-680-absturz | 277 | E Kampf | 5,25 $ |
@@ -235,7 +235,7 @@
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
-| 975a | Von Sokrates (975, Chef 11.11., 16:31): Name des Handwerks für Leder und Stoff (Handarbeit? Schneidern?), Oberbegriff, Vorlage entscheiden/975a | Homer | M | startbar, A (Chef 17:04): Texte umbenennen | – | – | – | E Welt | – |
+| 975a | Von Sokrates (975, Chef 11.11., 16:31): Name des Handwerks für Leder und Stoff (Handarbeit? Schneidern?), Oberbegriff, Vorlage entscheiden/975a | Homer | M | startbar, A (Chef 17:04): Texte umbenennen | – | – | – | E Welt | 3,54 $ |
 | 870.12 | Von Sokrates (870, Umzug BRS): Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 neu fassen; nach Abnahme 868, 534, 467, 469, 644.1, 644.2, 644.4, 649.1, 811, 296, 344 schließen; LISTE-UMZUG-BRS.md 4 Schritt 9 | Perikles | M | wartet, 2.3 und 2.17 neu gefasst, Schließen nach Abnahme | 870.13 | – | – | B Abläufe | – |
 | 882.2 | 882 Werkzeuge ohne Kotlin: tools/t logik auf Godot-Logiksatz samt Kerntest-Marke, check-env, setup-session, probelauf, story.sh, startbar, Probe-Abläufe, vorschau.yml, Regeltexte; LISTE-UMZUG-BRS.md 8 | Perikles | M | startbar | 882.1 | – | – | B Werkzeuge | – |
 | 870.10 | Von Sokrates (870, Umzug BRS Schritt 8): Kotlin-Bau aus (android.yml), mit 870.9; LISTE-UMZUG-BRS.md 4 | Perikles | M | wartet | 870.9, 882.2 | – | – | B Werkzeuge | – |
