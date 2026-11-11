@@ -505,6 +505,7 @@ jobs:
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/lohn_870.gd 2>&1 | grep -E "^FALSCH|LOHN870|SCRIPT ERROR"   # 870.5 Lohn nach BRS (Modell D, Topf, Grenze)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_blatt_870.gd 2>&1 | grep -E "FALSCH|BRSBLATT|SCRIPT ERROR"   # 870.2 Kampfblatt nach BRS
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_held_870.gd 2>&1 | grep -E "FALSCH|BRSHELD870|SCRIPT ERROR"   # 870.4 Held nach BRS (Tom)
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/kraeutersammeln_875.gd 2>&1 | grep -E "FALSCH|KRAEUTERSAMMELN875|SCRIPT ERROR"   # 875 Kräutersammeln statt Kräuterkunde (Tom)
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/gegenstaende_870.gd 2>&1 | grep -E "FALSCH|GEGENSTAENDE870|SCRIPT ERROR"   # 870.6 Gegenstände und Beute nach BRS (Tuffy)
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/zustaende_870.gd 2>&1 | grep -E "FALSCH|ZUSTAENDE870|SCRIPT ERROR"   # 870.6 Zustände, Tränke, Spinnseide ohne SRD-Maß (Tuffy)
           timeout 60 ~/godot/godot --headless --path . -s res://tests/masse_498.gd 2>&1 | tee masse498.log | grep -E "FEHLER|MASSE498|SCRIPT ERROR"; grep -q "^MASSE498 0 Fehler" masse498.log   # 498 Schrift wie alt

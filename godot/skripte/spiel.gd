@@ -809,11 +809,11 @@ func kraeuter_neu() -> void:
 func pfluecke(t: Vector2i) -> void:
 	if not kraut_da(t): return
 	zustand.gepflueckt["%s:%d:%d" % [karte.id, t.x, t.y]] = kraut_heute()
-	var weise := Laden.kraut_chance(held_werte())   # 870.4: Kräuterkunde und Wahrnehmung (alt Perks.extraHerbChance)
+	var weise := Laden.kraut_chance(held_werte())   # 870.4: Kräutersammeln (875) und Wahrnehmung (alt Perks.extraHerbChance)
 	var n := 1 + (1 if randf() < 0.3 else 0) + (1 if randf() < weise else 0)
 	zustand.dazu("herbs", n)
 	klang("effekt", ["loot"])
-	zustand.uebe("Kräuterkunde")   # 471: Pfluecken uebt Kraeuterkunde
+	zustand.uebe("Kräutersammeln")   # 471: Pfluecken uebt Kraeutersammeln (875, 857a A)
 	var auf := zustand.fert_notiz()
 	ui.kurz(Sprache.t({"de": "Du pflückst Heilkräuter (+%d)." % n, "en": "You pick healing herbs (+%d)." % n}) + ("\n" + auf if auf != "" else ""))
 	kraeuter_neu()

@@ -119,7 +119,9 @@ static func aus_daten(d: Dictionary) -> Zustand:
 	var z := Zustand.new()
 	z.aussehen = (d.get("aussehen", {}) as Dictionary).duplicate()
 	if d.get("brs") is Dictionary and not (d["brs"] as Dictionary).is_empty(): z.brs = BrsHeld.aus_daten(d["brs"]).als_daten()   # 470: Zahlen wieder ganz
-	if d.get("fert") is Dictionary: z.fert = (d["fert"] as Dictionary).duplicate(true)   # 471
+	if d.get("fert") is Dictionary:
+		z.fert = (d["fert"] as Dictionary).duplicate(true)   # 471
+		BrsFertigkeit.umbenennen(z.fert)   # 875: Kräuterkunde heißt jetzt Kräutersammeln
 	if d.get("brs_stufe") is Dictionary:
 		z.brs_stufe = (d["brs_stufe"] as Dictionary).duplicate(true)
 		if z.brs_stufe.has("stufe"): z.brs_stufe["stufe"] = int(z.brs_stufe["stufe"])   # 870.4: JSON liefert 1.0

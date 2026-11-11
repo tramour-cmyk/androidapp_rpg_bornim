@@ -507,7 +507,7 @@ static func aus_daten(d: Dictionary) -> BrsHeld:
 	for g in d.get("verteilt", {}):
 		if b.verteilt.has(String(g)): b.verteilt[String(g)] = int(d["verteilt"][g])
 	b.mensch_frei = String(d.get("mensch_frei", ""))
-	b.wahl = (d.get("wahl", []) as Array).map(func(x): return String(x))
+	b.wahl = (d.get("wahl", []) as Array).map(func(x): return BrsFertigkeit.neuer_name(String(x)))   # 875: alte Namen
 	return b
 
 ## Held im Spielstand (870.4; Spielstand Version 2 folgt mit 870.8): Erschaffung und was er jetzt hat
