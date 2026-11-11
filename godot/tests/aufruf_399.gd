@@ -29,22 +29,21 @@ func _alle() -> void:
 		print(("endet " if gut else "FEHLER ") + "%s %s: %s" % [fall[0], fall[1], r])
 		if not gut:
 			fehler += 1
-	# mit Toms Heldwerten (skripte/heldwerte.gd, daten/held.json), sobald beide im Zweig liegen (399.1): neu erschaffener Held je
+	# mit Toms Heldwerten (regeln/brs_held.gd (870.4), daten/held.json), sobald beide im Zweig liegen (399.1): neu erschaffener Held je
 	# Klasse gegen das Wolfsrudel, Blatt wie MarsGoldenTest.sheet
-	if FileAccess.file_exists("res://skripte/heldwerte.gd") and FileAccess.file_exists("res://daten/held.json"):
-		var HW = load("res://skripte/heldwerte.gd")
-		for k in ["FIGHTER", "WIZARD", "ROGUE", "CLERIC"]:
+	if FileAccess.file_exists("res://daten/held.json"):
+		for k in ["Wachsoldat", "Zauberlehrling", "Herumtreiber", "Klosterschüler"]:   # 870.4: Herkunft statt Klasse
 			n += 1
-			var h = HW.erschaffe("Alrik", "HUMAN", k)
+			var h = BrsHeld.fuer_spiel("Alrik", "Mensch", k)
 			var r: String = await _einer("WOLVES", "tag", h, -1, tab.probe.CLERIC.merc.hero, int(tab.probe.CLERIC.merc.hp))
 			var gut := r.begins_with("WON ") or r.begins_with("LOST ")
 			print(("endet " if gut else "FEHLER ") + "Heldwerte %s: %s" % [k, r])
 			if not gut:
 				fehler += 1
 		# 399.2a (Chef 14:19: Kapitel 1, der Held allein, Wolf mit 1–2 Jungwölfen): neu erschaffener Held ohne Söldner
-		for k in ["FIGHTER", "WIZARD", "ROGUE", "CLERIC"]:
+		for k in ["Wachsoldat", "Zauberlehrling", "Herumtreiber", "Klosterschüler"]:   # 870.4: Herkunft statt Klasse
 			n += 1
-			var h = HW.erschaffe("Alrik", "HUMAN", k)
+			var h = BrsHeld.fuer_spiel("Alrik", "Mensch", k)
 			var r: String = await _einer("RUDEL", "tag", h, -1, null, 0)
 			var gut := r.begins_with("WON ") or r.begins_with("LOST ")
 			print(("endet " if gut else "FEHLER ") + "Rudel allein %s: %s" % [k, r])

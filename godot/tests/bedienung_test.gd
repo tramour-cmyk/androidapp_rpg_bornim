@@ -81,7 +81,7 @@ func _lauf() -> void:
 	k.free()
 	# Rückfragen aus: Wegwerfen ohne Frage
 	var z := Zustand.new()
-	var hw := Heldwerte.erschaffe("Mira", "ELF", "WIZARD", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Mira", "Elf", "Zauberlehrling", z.neue_uid)
 	z.beutel.append(Beute.erzeuge_mit_uid(KotlinZufall.new(42), z.neue_uid, 3, "RARE", "WIZARD"))
 	var m := Menue.new(hw, z)
 	root.add_child(m)

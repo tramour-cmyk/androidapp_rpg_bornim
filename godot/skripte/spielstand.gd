@@ -1,5 +1,5 @@
 class_name Spielstand
-# 399: ein Spielstand wie GameViewModel.save (alt: beim Kartenwechsel und beim Weg ins Menue): Zustand (GameState), Heldwerte (Hero)
+# 399: ein Spielstand wie GameViewModel.save (alt: beim Kartenwechsel und beim Weg ins Menue): Zustand (GameState), Held (870.4: BrsHeld)
 # und Ort; Fortsetzen im Hauptmenue laedt ihn.
 # 399.1 (Spielstaende wie alt, GameViewModel.SLOTS, SlotsScreen.kt): vier Plaetze user://spielstand_<n>.json, gespeichert wird in den
 # aktiven Platz; „Weiter“ laedt den zuletzt gespeicherten. Der eine Spielstand von Build 130–132 (user://spielstand.json) wird Platz 1.
@@ -19,11 +19,14 @@ static func gibt_es() -> bool:
 		if FileAccess.file_exists(datei(n)): return true
 	return FileAccess.file_exists(ALT)
 
-static func speichere(z: Zustand, hw: Heldwerte, ort: Dictionary) -> void:
+# 870.4: Version 2 traegt den Helden nach BRS (BrsHeld.spiel_daten); was mit Version 1 geschieht, regelt 870.8
+const VERSION := 2
+
+static func speichere(z: Zustand, hw: BrsHeld, ort: Dictionary) -> void:
 	_umziehen()
 	var f := FileAccess.open(datei(platz), FileAccess.WRITE)
 	if f == null: return
-	f.store_string(JSON.stringify({"version": 1, "zustand": z.als_daten(), "held": hw.als_daten(), "ort": ort,
+	f.store_string(JSON.stringify({"version": VERSION, "zustand": z.als_daten(), "held": hw.spiel_daten(), "ort": ort,
 		"gespeichert": int(Time.get_unix_time_from_system() * 1000.0),   # ms wie alt savedAt
 		# 529: die Ortszeit beim Speichern; die Karte zeigt sie, so stimmt „Gespeichert“ auch nach einer Zeitumstellung
 		"gespeichert_ortszeit": Time.get_datetime_dict_from_system(false)}))

@@ -32,10 +32,10 @@ func _lauf() -> void:
 	# Beispielheld fuer Leiste, Spielstaende und Menue: Elfenmagierin Stufe 4, angeschlagen, vergiftet, Trank, Beute
 	var z := Zustand.new()
 	z.name = "Mira"; z.gold = 37; z.dazu("potion", 2); z.tag = 3; z.minuten = 21 * 60 + 5; z.leiden["POISON"] = 2
-	var hw := Heldwerte.erschaffe("Mira", "ELF", "WIZARD", {}, z.neue_uid)
-	hw.ep_dazu(int(Heldwerte.regel("ep_fuer_stufe")[4])); hw.tp = 9
-	z.beutel.append(Beute.erzeuge_mit_uid(KotlinZufall.new(42), z.neue_uid, 3, "RARE", "WIZARD"))
-	z.beutel.append(Beute.erzeuge_mit_uid(KotlinZufall.new(7), z.neue_uid, 2, "UNCOMMON", "WIZARD"))
+	var hw := BrsHeld.fuer_spiel("Mira", "Elf", "Zauberlehrling", z.neue_uid)
+	Testmodus.stufe_setzen(hw, z, 4); hw.leben = 9
+	z.beutel.append(Beute.erzeuge_mit_uid(KotlinZufall.new(42), z.neue_uid, 3, "RARE", ""))
+	z.beutel.append(Beute.erzeuge_mit_uid(KotlinZufall.new(7), z.neue_uid, 2, "UNCOMMON", ""))
 	ui.leiste.zeige(hw, z, true)
 	var alt_platz := Spielstand.platz
 	var gesichert := Spielstand.liste()
@@ -48,9 +48,8 @@ func _lauf() -> void:
 	await _bild("menue")
 	menue.erschaffung()
 	await _bild("erschaffung")
-	var e: Erschaffung = menue.get_node("Erschaffung")
-	e.volk = "DWARF"; e.klasse = "WIZARD"; e.gekauft = Heldwerte.vorschlag("WIZARD")
-	e.baue()
+	var e: ErschaffungBrs = menue.get_node("Erschaffung")   # 870.4: die Erschaffung nach BRS
+	e.volk_waehlen("Zwerg"); e.herkunft_waehlen("Zauberlehrling")
 	await _bild("erschaffung_zwerg_magier")
 	e.rolle.scroll_vertical = 100000
 	await _bild("erschaffung_unten")

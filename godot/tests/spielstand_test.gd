@@ -15,16 +15,16 @@ func _lauf() -> void:
 	Spielstand.platz = 1
 	var z := Zustand.new()
 	z.name = "Mira"; z.gold = 23; z.dazu("potion", 2); z.setze("met_jorin")
-	var hw := Heldwerte.erschaffe("Mira", "ELF", "WIZARD", {}, z.neue_uid)
-	hw.tp = 3
+	var hw := BrsHeld.fuer_spiel("Mira", "Elf", "Zauberlehrling", z.neue_uid)
+	hw.leben = 3
 	Spielstand.speichere(z, hw, {"karte": "inn", "x": 4, "y": 6, "blick": "UP"})
 	var d := Spielstand.lade()
 	var z2 := Zustand.aus_daten(d["zustand"])
-	var h2 := Heldwerte.aus_daten(d["held"])
+	var h2 := BrsHeld.aus_spiel_daten(d["held"])
 	if z2.gold != 23 or z2.anzahl("potion") != 2 or not z2.has("met_jorin"): fehler += 1; print("FEHLER Zustand")
-	if h2.klasse != "WIZARD" or h2.volk != "ELF" or h2.tp != 3 or h2.max_tp() != hw.max_tp() or h2.rk() != hw.rk(): fehler += 1; print("FEHLER Held %s" % h2.als_daten())
+	if h2.herkunft != "Zauberlehrling" or h2.volk != "Elf" or h2.leben != 3 or h2.max_leben() != hw.max_leben() or h2.schutzwert() != hw.schutzwert(): fehler += 1; print("FEHLER Held %s" % h2.spiel_daten())
 	if String(d["ort"]["karte"]) != "inn": fehler += 1; print("FEHLER Ort")
-	print("Spielstand: %s %s %s, TP %d/%d, RK %d" % [h2.name, h2.volk, h2.klasse, h2.tp, h2.max_tp(), h2.rk()])
+	print("Spielstand: %s %s %s, Leben %d/%d, Schutzwert %d" % [h2.name, h2.volk, h2.herkunft, h2.leben, h2.max_leben(), h2.schutzwert()])
 	# 399.1 vier Plaetze wie alt: der alte eine Stand wird Platz 1, „Weiter“ nimmt den zuletzt gespeicherten, Loeschen, erster freier
 	var alt := FileAccess.get_file_as_string(Spielstand.datei(1))
 	_leer()

@@ -17,7 +17,7 @@ func _lauf() -> void:
 	Sprache.lade()
 	var z := Zustand.new()
 	z.dazu("spark_potion", 1)
-	var hw := Heldwerte.erschaffe("Thora", "HUMAN", "FIGHTER", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Thora", "Mensch", "Wachsoldat", z.neue_uid)
 	var satz := Menue.benutze(z, hw, "spark_potion", func(a, b): return 1)
 	pruefe(z.funke, "Benutzen setzt den Funken nicht (%s)" % satz)
 	pruefe(z.anzahl("spark_potion") == 0, "Fläschchen nicht verbraucht")

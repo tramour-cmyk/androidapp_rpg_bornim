@@ -9,7 +9,7 @@ extends SceneTree
 
 const Probe = preload("res://kampf/probe.gd")
 const Figur = preload("res://kampf/figur.gd")
-const SOLL := {"FIGHTER": "round_shield", "CLERIC": "shield"}
+const SOLL := {"Wachsoldat": "round_shield", "Klosterschüler": "shield"}
 const DREIECKE := {"round_shield": 428, "shield": 864}     # kaufschild.py: PolyMech 15, Omie 2
 # Grenzen knapp über dem Stand 01.11., damit nichts schlechter wird. Vorher mit den Schilden aus waffen.py: Rücken 4,1 bis 7,2 cm
 # (Schulter, Oberarm an der Oberkante; Lage aus 376.1), Kampf bis 5,8 cm (Kleriker, Ausweichen)
@@ -483,11 +483,11 @@ func _run() -> void:
 	DisplayServer.window_set_size(Vector2i(1080, 2340))
 	root.size = Vector2i(1080, 2340)
 	await process_frame
-	if not FileAccess.file_exists("res://daten/kampf-bewegungen.bin") or not HeldFigur.da("FIGHTER"):
+	if not FileAccess.file_exists("res://daten/kampf-bewegungen.bin") or not HeldFigur.da("Wachsoldat"):
 		print("Schild 406: ohne Kauf, nichts zu prüfen")
 		quit(0)
 		return
-	var klassen := OS.get_environment("KLASSEN").split(",") if OS.get_environment("KLASSEN") != "" else PackedStringArray(["FIGHTER", "CLERIC"])
+	var klassen := OS.get_environment("KLASSEN").split(",") if OS.get_environment("KLASSEN") != "" else PackedStringArray(["Wachsoldat", "Klosterschüler"])
 	# --- unterwegs: Schild auf dem Rücken
 	var buehne := Node3D.new()
 	root.add_child(buehne)
@@ -496,10 +496,10 @@ func _run() -> void:
 	var figuren := []
 	for i in klassen.size():
 		var k := klassen[i]
-		var hw := Heldwerte.erschaffe("Test", "HUMAN", k)
+		var hw := BrsHeld.fuer_spiel("Test", "Mensch", k)
 		var off = hw.ausruestung.get("OFF_HAND")
 		_check(off is Dictionary and String(off["base"]) == SOLL[k], "%s: Startausrüstung %s (%s)" % [k, SOLL[k], off["base"] if off is Dictionary else "kein Schild"])
-		var m := HeldFigur.baue({"klasse": k, "volk": "HUMAN", "aussehen": {}, "ausruestung": hw.ausruestung}, [])
+		var m := HeldFigur.baue({"herkunft": k, "volk": "HUMAN", "aussehen": {}, "ausruestung": hw.ausruestung}, [])
 		buehne.add_child(m)
 		m.position = Vector3((i - (klassen.size() - 1) / 2.0) * 1.1, 0, 0)
 		var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
@@ -562,7 +562,7 @@ func _run() -> void:
 	for k in klassen:
 		var p = Probe.new()
 		p.hero_cls = k
-		p.merc_cls = "FIGHTER" if k != "FIGHTER" else "CLERIC"
+		p.merc_cls = "Wachsoldat" if k != "Wachsoldat" else "Klosterschüler"
 		p.foe = "WOLVES"
 		root.add_child(p)
 		await process_frame

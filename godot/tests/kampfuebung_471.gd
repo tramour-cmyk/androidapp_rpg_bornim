@@ -59,14 +59,14 @@ func _lauf() -> void:
 	# ausserhalb des Kampfs: Handeln im Laden (Kauf und Verkauf je einmal Uebung, Ziel der eigenen Stufe), Notiz danach leer
 	z2.gold = 500
 	var la := Laden.new(["potion"], false)
-	for i in 5: la.kaufe(z2, Heldwerte.erschaffe("Alrik", "HUMAN", "FIGHTER"), "potion")
+	for i in 5: la.kaufe(z2, BrsHeld.fuer_spiel("Alrik", "Mensch", "Wachsoldat"), "potion")
 	pruefe("Handeln bekannt und gestiegen", BrsFertigkeit.wert(z2.fert, "Handeln"), 2)
 	pruefe("Heldenreiter liest Handeln", int(z2.brs["fertigkeiten"].get("Handeln", -1)), 2)
 	pruefe("Notiz Handeln", z2.fert_notiz(), ErschaffungBrs.fert_name("Handeln") + " ↑ 2")
 	pruefe("Notiz danach leer", z2.fert_notiz(), "")
 	var ohne := Zustand.new()
 	ohne.gold = 500
-	la.kaufe(ohne, Heldwerte.erschaffe("Alrik", "HUMAN", "FIGHTER"), "potion")
+	la.kaufe(ohne, BrsHeld.fuer_spiel("Alrik", "Mensch", "Wachsoldat"), "potion")
 	pruefe("ohne BRS-Held kein Stand", ohne.fert.is_empty(), true)
 
 	# echter Kampf: Blatt des Probekampfs (Kaempfer) mit dem Helden nach BRS, Autopilot bis zum Ende

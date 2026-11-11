@@ -10,7 +10,7 @@ extends SceneTree
 #   PROBE=461.1 xvfb-run -a godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie <x.avi> --fixed-fps 30 \
 #     -s res://tests/film_dorf_461.gd -- --dorffilm
 
-const HELDEN := [["FIGHTER", "m", "Kämpfer"], ["CLERIC", "w", "Klerikerin"]]
+const HELDEN := [["Wachsoldat", "m", "Wachsoldat"], ["Klosterschüler", "w", "Klosterschülerin"]]   # 870.4: Herkunft statt Klasse
 
 var spiel
 var titel: Label
@@ -59,7 +59,7 @@ func _lauf() -> void:
 	for hd in HELDEN:
 		var name_held: String = hd[2]
 		spiel.zustand.aussehen = {"geschlecht": hd[1]}
-		spiel.werte = Heldwerte.erschaffe(name_held, "HUMAN", hd[0], {}, spiel.zustand.neue_uid)
+		spiel.werte = BrsHeld.fuer_spiel(name_held, "Mensch", hd[0], spiel.zustand.neue_uid)
 		spiel.betrete("village", Vector2i(19, 13), "DOWN")
 		for i in 5: await process_frame
 		spiel.ui.mess.visible = false

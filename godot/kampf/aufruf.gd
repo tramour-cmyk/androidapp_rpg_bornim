@@ -1,6 +1,6 @@
 # 399.2 (Spielfassung, Perikles 28.10., 12:4x; Chef 12:34 „Ich habe jetzt keinen funktionstüchtigen Kampf“): der Kampfort aus einem
 # Aufruf, ohne Probe-Schalter. Die Welt hängt einen Knoten mit diesem Skript ein und ruft starte(): Gegnergruppe (Schlüssel wie
-# probe.gd FOES), der Held als Toms Heldwerte (oder ein fertiges MARS-Blatt wie tabellen.json „probe“), Söldner wahlweise, Kampfort,
+# probe.gd FOES), der Held als Toms BrsHeld (oder ein fertiges MARS-Blatt wie tabellen.json „probe“), Söldner wahlweise, Kampfort,
 # Tageszeit, Tränke, wahlweise die Beute (Callable, gibt die Ausrüstung eines Siegs als [{gear, name, rarity}] wie Loot.drops,
 # Toms skripte/beute.gd; sie steht im Endfeld und in lohn.gear). Am Ende kommt das Signal ende(ergebnis, tp, lohn): ergebnis WON, LOST, FLED (NONE: ohne LP kein Kampf), tp die
 # Trefferpunkte je Kämpfer der Gruppe („hero“, „merc“), lohn wie regeln/lohn.gd nach einem Sieg; danach entfernt sich der Knoten.
@@ -164,64 +164,43 @@ static func rudel(monsters: Dictionary, dice) -> Array:
 	return foes
 
 
-const RETTUNG := {"FIGHTER": ["STR", "CON"], "WIZARD": ["INT", "WIS"], "ROGUE": ["DEX", "INT"], "CLERIC": ["WIS", "CHA"]}     # Battle.savingThrows
-
-
 ## Ersatzwaffe der anderen Art (zum Nahkampf eine Fernwaffe und umgekehrt), wie Skirmish.secondWeapon ohne Gepäck: die erste
-## schlichte, die die Klasse führen darf, als Gear-Wörterbuch; null, wenn keine passt
+## schlichte als Gear-Wörterbuch (870.4: jeder darf jede führen); null, wenn keine passt
 static func ersatzwaffe(h):
 	var fern: bool = h.waffe() == null or not bool(h.grundform(h.waffe()["base"])["fern"])
 	var schlicht := ["light_crossbow", "shortbow"] if fern else ["shortsword", "dagger", "mace", "quarterstaff"]
-	var erlaubt = h.klassendaten()["waffen"]
 	for i in schlicht.size():
 		var id: String = schlicht[i]
-		if not h.lade()["grundformen"].has(id):
+		if not BrsHeld.daten()["grundformen"].has(id):
 			continue
 		var d: Dictionary = h.grundform(id)
-		if String(d["art"]) == "WEAPON" and bool(d["fern"]) == fern and (erlaubt == null or id in erlaubt):
+		if String(d["art"]) == "WEAPON" and bool(d["fern"]) == fern:
 			return {"uid": -1 - i, "base": id, "rarity": "COMMON", "ilvl": 1, "plus": 0, "rolls": [], "unique": false}
 	return null
 
 
-## Toms Heldwerte als MARS-Blatt, Feld für Feld wie MarsGoldenTest.sheet (Hero.kt); [zweite]: die Ersatzwaffe (ersatzwaffe)
+## 870.4: der Held (BrsHeld) als MARS-Blatt: Name, Volk und Herkunft für die Figur, Stufe, Mana, Waffen in der Hand, Schild, dazu
+## das Kampfblatt nach BRS („brs“, BrsHeld.kampfblatt, Schritt 2); [zweite]: die Ersatzwaffe (ersatzwaffe)
 static func blatt(h, zweite = null) -> Dictionary:
-	var schild = h.ding("OFF_HAND")
-	if schild != null and String(h.grundform(schild["base"])["art"]) != "SHIELD":
-		schild = null
-	var rk: int = h.rk()
-	var rk_zweite := rk
-	if zweite != null and bool(h.grundform(zweite["base"])["zweihaendig"]) and schild != null:
-		rk_zweite = rk - int(h.grundform(schild["base"])["ruestung"]) - int(schild["plus"])
-	var faehig := []
-	for f in h.faehigkeiten():
-		faehig.append(String(f))
-	return {"name": h.name, "race": h.volk, "cls": h.klasse, "level": h.stufe, "dex": h.mod("DEX"), "wis": h.mod("WIS"),
-		"ac": rk, "acDrawn": rk_zweite, "crit": h.krit_ab(), "spellAtk": h.zauberangriff(), "spellDc": h.zauber_sg(),
-		"sp": h.zp, "sp_max": h.max_zp(), "skills": faehig, "main": _waffe(h, h.waffe()), "second": _waffe(h, zweite) if zweite != null else null,
-		"off": _waffe(h, h.nebenwaffe(), true) if h.nebenwaffe() != null else null,
-		"con": h.mod("CON"), "prof": h.uebung(), "saves": RETTUNG.get(h.klasse, []),
-		"tenacity": h.standhaft(), "schild": String(schild["base"]) if schild != null else "",   # 406: Modell in der Hand (figur.gd)
+	var schild = h.schild()
+	return {"name": h.name, "race": HeldFigur.volk_modell(h.volk), "herkunft": h.herkunft, "level": h.stufe,
+		"sp": h.mana, "sp_max": h.max_mana(), "skills": [], "main": _waffe(h, h.waffe()), "second": _waffe(h, zweite) if zweite != null else null,
+		"off": _waffe(h, h.nebenwaffe()) if h.nebenwaffe() != null else null,
+		"tenacity": mini(h.bonus("TENACITY"), 60), "schild": String(schild["base"]) if schild != null else "",   # 406: Modell in der Hand (figur.gd)
 		"hits": {"POISON": h.bonus("POISON_HIT"), "BLEED": h.bonus("BLEED_HIT"), "STUN": h.bonus("STUN_HIT")},
-		# 534 (alt Hero.lifeSteal, damageReduction, Perks.cowChance): Lebensraub, Schadensminderung, Charisma für mars.gd
-		"lifesteal": mini(h.bonus("LIFESTEAL"), 30), "reduction": h.bonus("RESIST"), "cha": h.mod("CHA"),
-		"brs_ruestung": _brs_ruestung(h)}     # 478: Rüstung nach dem BRS (brs_kampf.gd), aus dem Gewicht der Brustrüstung
+		# 534 (alt Hero.lifeSteal, damageReduction): Lebensraub, Schadensminderung der Ausrüstung für mars.gd
+		"lifesteal": mini(h.bonus("LIFESTEAL"), 30), "reduction": h.bonus("RESIST"),
+		"brs_ruestung": h.ruestung(), "brs": h.mein_kampfblatt()}
 
 
-## 478: die Rüstung des BRS aus dem Gewicht der Brustrüstung (Heldwerte „gewicht“: LIGHT, MEDIUM, HEAVY), sonst keine
-static func _brs_ruestung(h) -> String:
-	var r = h.ding("CHEST")
-	var gew: String = String(h.grundform(r["base"]).get("gewicht", "")) if r != null else ""
-	return {"LIGHT": "Leichte Rüstung", "MEDIUM": "Mittlere Rüstung", "HEAVY": "Schwere Rüstung"}.get(gew, "keine")
-
-
-static func _waffe(h, w, nebenhand := false) -> Dictionary:
+static func _waffe(h, w) -> Dictionary:
 	var d: Dictionary = h.grundform(w["base"]) if w != null else {}
 	return {"id": String(w["base"]) if w != null else "", "de": String(d.get("de", "")), "en": String(d.get("en", "")),
-		"atk": h.angriff_mit(w), "dmg": h.schaden_mit(w, nebenhand), "ranged": bool(d.get("fern", false)),
-		"reach": bool(d.get("reichweite", false)), "two": bool(d.get("zweihaendig", false)), "type": String(d.get("schadensart", "BLUDGEONING"))}
+		"ranged": bool(d.get("fern", false)), "reach": bool(d.get("reichweite", false)), "two": bool(d.get("zweihaendig", false)),
+		"type": String(d.get("schadensart", "BLUDGEONING"))}
 
 
-## Kampf beginnen: [gegner] wie probe.gd FOES („WOLVES“ …), [held] Heldwerte oder MARS-Blatt (dann [held_tp] dazu), [soeldner]
+## Kampf beginnen: [gegner] wie probe.gd FOES („WOLVES“ …), [held] BrsHeld oder MARS-Blatt (dann [held_tp] dazu), [soeldner]
 ## ebenso oder null, [ort] Kampfort (heute nur „wald“), [tageszeit] „tag“, „abend“ oder „nacht“, [traenke] Heiltränke im Gepäck.
 ## false: kein Kampf (Held ohne LP); ende kommt dann gleich mit „NONE“
 ## [lage]: wie der Held aus der Welt kommt, {"atemlos": bool, "satt": bool, "eroeffnung": "NORMAL" | "AMBUSHED" | "HERO_FIRST",
@@ -241,9 +220,11 @@ func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := 
 			m.en = Brs.name(String(m.id), 1)
 	var party := [_kaempfer("hero", held, held_tp, Vector2i(Mars.FRONT, 0), skills)]
 	party[0].hero["look"] = lage.get("aussehen", {})     # 403: Kopf, Haar, Haut wie im Dorf (Zustand.aussehen, HeldFigur)
-	if not (lage.get("brs", {}) as Dictionary).is_empty():
-		# 870.2 (LISTE-UMZUG-BRS.md Schritt 2): der Held nach BRS aus dem Spielstand (zustand.brs) als Kampfblatt; was er trägt, bis
-		# 870.4 aus den Heldwerten (Grundform der Waffe, Rüstung nach Gewicht, Schild), Geübtes aus zustand.fert (471)
+	if not (held is Dictionary):
+		# 870.4: der Held nach BRS, wie er ist (Stufe, was er trägt), Geübtes aus zustand.fert (471)
+		party[0].hero["brs"] = held.kampfblatt(held.stufe, held.getragen(), lage.get("brs_fert", held.geuebt))
+	elif not (lage.get("brs", {}) as Dictionary).is_empty():
+		# 870.2 (LISTE-UMZUG-BRS.md Schritt 2): ein fertiges Blatt mit dem Helden nach BRS aus dem Spielstand (zustand.brs)
 		var hb: Dictionary = party[0].hero
 		party[0].hero["brs"] = BrsHeld.aus_daten(lage.brs).kampfblatt(int(hb.level),
 			{"waffe": String(hb.main.id), "ruestung": String(hb.get("brs_ruestung", "keine")), "schild": String(hb.get("schild", ""))}, lage.get("brs_fert", {}))
@@ -254,7 +235,8 @@ func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := 
 		party[0].status["DRUNK"] = Mars.LASTING
 	if soeldner != null:
 		var sb := _als_blatt(soeldner)
-		var hinten: bool = sb.main.ranged or sb.cls == "WIZARD" or sb.cls == "CLERIC"
+		var hinten: bool = sb.main.ranged or String(sb.get("cls", "")) == "WIZARD" or String(sb.get("cls", "")) == "CLERIC" \
+			or (sb.get("brs") is Dictionary and String(sb.brs.get("waffe", {}).get("art", "nah")) == "fern")
 		party.append(_kaempfer("merc", soeldner, soeldner_tp, Vector2i(Mars.BACK, 0) if hinten else Vector2i(Mars.FRONT, 1), skills))
 	var foes := gegner(gegner_, monsters, dice)
 	if int(lage.get("nr", 0)) > 0 and not foes.is_empty():
@@ -287,14 +269,10 @@ func _als_blatt(x) -> Dictionary:
 
 func _kaempfer(id: String, x, tp: int, platz: Vector2i, skills: Dictionary):
 	var b := _als_blatt(x)
-	var max_tp: int = tp if x is Dictionary else int(x.max_tp())
+	var max_tp: int = tp if x is Dictionary else int(x.max_leben())
 	var f = Mars.hero_fighter(id, "PARTY", platz, b, max_tp, b.second, skills)
 	if not (x is Dictionary):
-		f.hp = clampi(int(x.tp), 0, max_tp)
-		# 532 (Abgleich 512, alt Battle.kt init): einmal je Rast nur, was seit der letzten Rast übrig ist (Hero.spent)
-		for s in skills.values():
-			if s.id in b.skills and s.cost == "PER_REST":
-				f.uses[s.id] = maxi(0, int(s.amount) - int(x.verbraucht.get(String(s.id), 0)))
+		f.hp = clampi(int(x.leben), 0, max_tp)     # 870.4: Leben nach BRS, im Kampf dieselbe Zahl
 	return f
 
 
@@ -328,9 +306,9 @@ func _fertig(ergebnis: String) -> void:
 		for f in kampf.mars.fighters():
 			if f.side == "PARTY":
 				tp[f.id] = f.hp
-				if kampf.mars.brs and f.srd_hp > 0:     # 478: zurück in die Leben der Welt (SRD), im selben Anteil
+				if kampf.mars.brs and f.srd_hp > 0:     # 478: zurück in die Leben der Welt im selben Anteil (870.4: dieselbe Zahl)
 					tp[f.id] = clampi(roundi(float(f.hp) * f.srd_hp / maxf(1.0, f.max_hp)), 1 if f.hp > 0 else 0, f.srd_hp)
-				f.sp = Mars.sp_nach(f)     # 870.5: Mana zurück in Heldwerte zp, im selben Anteil (bis 870.4)
+				f.sp = Mars.sp_nach(f)     # 870.5: Mana zurück in die Welt (870.4: dieselbe Zahl)
 		lohn = kampf.reward
 	ende.emit(ergebnis, tp, lohn)
 	queue_free()

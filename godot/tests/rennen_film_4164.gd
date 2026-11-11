@@ -89,7 +89,7 @@ func _feld(reihe: VBoxContainer, titel: String, ordner: String, px: Vector2i) ->
 	if ordner.begins_with("kauf:"):
 		# Tom 01.11.: der Held, wie er im Spiel laeuft (Kaufkoerper, heldfigur.gd), Kaempfer; Fassung nach „kauf:“
 		var z := Zustand.new()
-		var hw := Heldwerte.erschaffe("Probe", "HUMAN", "FIGHTER", {}, z.neue_uid)
+		var hw := BrsHeld.fuer_spiel("Probe", "Mensch", "Wachsoldat", z.neue_uid)
 		var w := HeldFigur.wahl(hw, z)
 		w["rennen"] = ordner.trim_prefix("kauf:")
 		w["ausruestung"] = {}   # ohne Waffen: Tragart ist 417

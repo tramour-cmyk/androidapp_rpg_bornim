@@ -20,8 +20,8 @@ func _lauf() -> void:
 	var z := Zustand.new()
 	z.name = "Thora"; z.gold = 640
 	for id in ["potion", "remedy", "wolf_pelt", "boar_tusk", "herbs"]: z.dazu(id, 3)
-	var hw := Heldwerte.erschaffe("Thora", "ELF", "WIZARD", {}, z.neue_uid)
-	hw.ep_dazu(int(Heldwerte.regel("ep_fuer_stufe")[9]))
+	var hw := BrsHeld.fuer_spiel("Thora", "Elf", "Zauberlehrling", z.neue_uid)
+	Testmodus.stufe_setzen(hw, z, 9)
 	for i in 8: z.beutel.append(Beute.erzeuge_mit_uid(KotlinZufall.new(40 + i), z.neue_uid, 9, ["COMMON", "UNCOMMON", "RARE", "VERY_RARE"][i % 4], "WIZARD" if i % 3 else ""))
 	var ebene := CanvasLayer.new()
 	root.add_child(ebene)

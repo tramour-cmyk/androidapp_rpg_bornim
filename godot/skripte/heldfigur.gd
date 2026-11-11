@@ -7,26 +7,34 @@ extends RefCounted
 # die angelegte Waffe und der Schild haengen unterwegs auf dem Ruecken (DESIGN-STIL „Ausruestung unterwegs“).
 # Fehlen die Dateien (Bau ohne Kaufmodelle), bleibt der bisherige Held (daten/held.bin).
 # 376.1 Tracht je Herkunft (Chef 01.11., 11:19 „wie Sokrates“, Archiv): Modell je Tracht und Geschlecht (daten/held_<TRACHT>_<M|W>.bin),
-# welche Herkunft welche Tracht traegt, sagt held-klassen.json (herkuenfte); bis die Erschaffung Herkuenfte kennt, gilt die der Klasse
-# (klasse_herkunft). Kapuze nur, wenn die Herkunft sie traegt; unter ihr kein Haar (langes Haar verborgen). Geschlecht und Statur wie
+# welche Herkunft welche Tracht traegt, sagt held-klassen.json (herkuenfte); 870.4: die Wahl traegt die Herkunft nach BRS
+# („Wachsoldat“ oder ihre Kennung „WACHSOLDAT“), keine Klasse mehr. Kapuze nur, wenn die Herkunft sie traegt; unter ihr kein Haar (langes Haar verborgen). Geschlecht und Statur wie
 # alt (CreateScreen.kt, Appearance.kt Sex, Build): aussehen.geschlecht „m“/„w“, aussehen.statur „schlank“/„normal“/„kraeftig“.
 
 const INFO := "res://daten/held-klassen.json"
 # form: Formschluessel (leer: wie gekauft); frisur, bart: Netz in haare.bin (leer: ohne); haut, haarfarbe: Nummer im Volk (held.json
 # voelker.<VOLK>.haut/haar, Appearance.kt wie die alte Erschaffung)
 const VORGABE := {"form": "", "frisur": "Hair_SimpleParted", "bart": "", "haarfarbe": 0, "haut": 0, "geschlecht": "m", "statur": "normal"}
-# Heldin: eigene Frisur je Klasse, ohne Bart (Gesicht, Haut, Haar wie beim Mann der Klasse)
-const FRAU_FRISUR := {"FIGHTER": "Hair_Ponytail_2", "CLERIC": "Hair_Buns", "ROGUE": "Hair_Bob", "WIZARD": "Hair_Long"}
+# Heldin: eigene Frisur je Herkunft, ohne Bart (Gesicht, Haut, Haar wie beim Mann der Herkunft); 870.4: je Herkunft wie bisher
+# die der Klasse, zu der sie gehoerte (Wachsoldat, Schmiedelehrling, Wanderer wie der Kaempfer …)
+const FRAU_FRISUR := {"WACHSOLDAT": "Hair_Ponytail_2", "SCHMIEDELEHRLING": "Hair_Ponytail_2", "WANDERER": "Hair_Ponytail_2",
+	"KLOSTERSCHUELER": "Hair_Buns", "HERUMTREIBER": "Hair_Bob", "JAEGERKIND": "Hair_Bob", "KRAEUTERSAMMLER": "Hair_Bob", "ZAUBERLEHRLING": "Hair_Long"}
 const GESCHLECHTER := ["m", "w"]
 const STATUREN := ["schlank", "normal", "kraeftig"]
 # Chef 28.10., 23:0x („die 6 Beispielköpfe … auf Helden drauf basteln“; Haut „klinisch tot“, „normale Hautfarbe oder eine
-# klassentypische“): je Klasse ein fertiger Beispielkopf als Vorgabe, keiner mit „Hell“; in der Erschaffung frei aenderbar
-const KLASSEN_VORGABE := {
-	"FIGHTER": {"form": "kantig", "frisur": "Hair_Buzzed", "bart": "Hair_Beard", "haarfarbe": 0, "haut": 1},
-	"CLERIC": {"form": "rund", "frisur": "Hair_Balding", "bart": "Hair_Beard", "haarfarbe": 2, "haut": 2},
-	"ROGUE": {"form": "schmal", "frisur": "Hair_Ponytail", "bart": "", "haarfarbe": 3, "haut": 1},
-	"WIZARD": {"form": "hager", "frisur": "Hair_SlickBack", "bart": "Hair_Moustache", "haarfarbe": 1, "haut": 3},
+# klassentypische“): je Klasse ein fertiger Beispielkopf als Vorgabe, keiner mit „Hell“; in der Erschaffung frei aenderbar.
+# 870.4: je Herkunft der Kopf der Klasse, zu der sie bisher gehoerte (dasselbe Bild wie vorher)
+const KAEMPFER_KOPF := {"form": "kantig", "frisur": "Hair_Buzzed", "bart": "Hair_Beard", "haarfarbe": 0, "haut": 1}
+const SCHURKEN_KOPF := {"form": "schmal", "frisur": "Hair_Ponytail", "bart": "", "haarfarbe": 3, "haut": 1}
+const HERKUNFT_VORGABE := {
+	"WACHSOLDAT": KAEMPFER_KOPF, "SCHMIEDELEHRLING": KAEMPFER_KOPF, "WANDERER": KAEMPFER_KOPF,
+	"KLOSTERSCHUELER": {"form": "rund", "frisur": "Hair_Balding", "bart": "Hair_Beard", "haarfarbe": 2, "haut": 2},
+	"HERUMTREIBER": SCHURKEN_KOPF, "JAEGERKIND": SCHURKEN_KOPF, "KRAEUTERSAMMLER": SCHURKEN_KOPF,
+	"ZAUBERLEHRLING": {"form": "hager", "frisur": "Hair_SlickBack", "bart": "Hair_Moustache", "haarfarbe": 1, "haut": 3},
 }
+# 870.4: Volk nach BRS -> Koerper und Farben der Figur (held.json voelker, held_klassen.py; Kennungen der Modelle bleiben)
+const VOLK_MODELL := {"Mensch": "HUMAN", "Elf": "ELF", "Zwerg": "DWARF", "Hügelvolk": "HALFLING", "Orkblütiger": "HALF_ORC"}
+static func volk_modell(v: String) -> String: return String(VOLK_MODELL.get(v, v if v == v.to_upper() and v != "" else "HUMAN"))
 # Haut lebendig (Chef 23:0x „klinisch tot“): Licht, Umgebung und Stimmung (licht.gd) nehmen der Haut Farbe (Lauf 1, haut.txt: Wange
 # „Warm“ 166/137/104 statt Feld 212/162/124, „Hell“ grau 180/165/141); je Kanal geeicht auf die Farbe des Felds bei gleicher
 # Helligkeit (Eichung 1,66/1,39/1,40 durch ihre Helligkeit; nicht heller: Chef „dunkler“), dazu ein Teil der Farbschwankung des Bildes
@@ -90,11 +98,14 @@ static func geschlecht_info(g: String) -> Dictionary:
 	var gs: Dictionary = lade_info().get("geschlechter", {})
 	return gs.get(g.to_upper(), gs.get("M", info))
 
-# Herkunft (Spielsystem 2.0) der Wahl: eigene, sonst die der alten Klasse
+# Herkunft (Spielsystem 2.0, 870.4) der Wahl als Kennung der Trachten (held-klassen.json herkuenfte): „Jägerkind“ -> „JAEGERKIND“;
+# ohne Angabe der Wanderer
 static func herkunft(w: Dictionary) -> String:
 	var h := String(w.get("herkunft", ""))
-	if h != "": return h
-	return String(lade_info().get("klasse_herkunft", {}).get(String(w.get("klasse", "FIGHTER")), "WACHSOLDAT"))
+	return kennung(h if h != "" else "Wanderer")
+
+static func kennung(h: String) -> String:
+	return h.to_upper().replace("Ä", "AE").replace("Ö", "OE").replace("Ü", "UE").replace("ß", "SS")
 
 # Modell der Wahl: Tracht der Herkunft und Geschlecht, z. B. „WACHE_W“; kapuze: ob die Herkunft die Kapuze traegt
 static func tracht(w: Dictionary) -> Dictionary:
@@ -110,26 +121,27 @@ static func lade_info() -> Dictionary:
 		if j is Dictionary: info = j
 	return info
 
-static func da(klasse: String, geschlecht := "m") -> bool:
-	var t := tracht({"klasse": klasse, "aussehen": {"geschlecht": geschlecht}})
+static func da(herkunft_: String = "Wachsoldat", geschlecht := "m") -> bool:
+	var t := tracht({"herkunft": herkunft_, "aussehen": {"geschlecht": geschlecht}})
 	return lade_info().get("trachten", {}).has(t["modell"]) and FileAccess.file_exists("res://daten/held_%s.bin" % t["modell"]) \
 		and FileAccess.file_exists("res://daten/bewegungen.bin")
 
-# Auswahl aus dem Spielstand
-static func wahl(w: Heldwerte, z: Zustand) -> Dictionary:
-	return {"klasse": w.klasse if w else "FIGHTER", "volk": w.volk if w else "HUMAN", "aussehen": z.aussehen if z else {},
+# Auswahl aus dem Spielstand (870.4: der Held nach BRS)
+static func wahl(w: BrsHeld, z: Zustand) -> Dictionary:
+	return {"herkunft": w.herkunft if w else "Wanderer", "volk": volk_modell(w.volk) if w else "HUMAN", "aussehen": z.aussehen if z else {},
 		"ausruestung": w.ausruestung if w else {}}
 
-static func vorgabe(klasse: String, geschlecht := "m") -> Dictionary:
+static func vorgabe(herkunft_: String, geschlecht := "m") -> Dictionary:
 	var v := VORGABE.duplicate()
-	v.merge(KLASSEN_VORGABE.get(klasse, {}), true)
+	var k := kennung(herkunft_)
+	v.merge(HERKUNFT_VORGABE.get(k, {}), true)
 	v["geschlecht"] = geschlecht
 	if geschlecht == "w":
-		v["frisur"] = String(FRAU_FRISUR.get(klasse, "Hair_Long")); v["bart"] = ""
+		v["frisur"] = String(FRAU_FRISUR.get(k, "Hair_Long")); v["bart"] = ""
 	return v
 
-static func aussehen_voll(a: Dictionary, klasse := "") -> Dictionary:
-	var v := vorgabe(klasse, String(a.get("geschlecht", "m")))
+static func aussehen_voll(a: Dictionary, herkunft_ := "") -> Dictionary:
+	var v := vorgabe(herkunft_, String(a.get("geschlecht", "m")))
 	for k in a: v[k] = a[k]
 	return v
 
@@ -173,13 +185,13 @@ static func tritte(an: Animation, sk: Skeleton3D, raum: Transform3D) -> Vector2:
 const RUECK := 0.04   # Laeufe 41427986678, 41449210697: mit Unterlagen weg (kauf_kleid UNTER_WEG) Wache Mann 11404 -> 5831, Frau 14284 -> 4788 Flecken
 const NACH := 0.0
 static func baue(w: Dictionary, mats: Array) -> Node3D:
-	var k := String(w.get("klasse", "FIGHTER"))
+	var k := String(w.get("herkunft", ""))   # leer (Leute des Dorfs mit „modell“): ohne Beispielkopf
 	var a := aussehen_voll(w.get("aussehen", {}), k)
-	var t := tracht({"klasse": k, "herkunft": w.get("herkunft", ""), "aussehen": a, "modell": w.get("modell", ""), "kapuze": w.get("kapuze", false)})
+	var t := tracht({"herkunft": k, "aussehen": a, "modell": w.get("modell", ""), "kapuze": w.get("kapuze", false)})
 	if not FileAccess.file_exists("res://daten/held_%s.bin" % t["modell"]) or not FileAccess.file_exists("res://daten/bewegungen.bin"): return null
 	var m := Gebiet.lade_glb("res://daten/held_%s.bin" % t["modell"])
 	if m == null: return null
-	m.name = "Held_" + k
+	m.name = "Held_" + herkunft(w)
 	m.set_meta("tracht", t["modell"])
 	kapuze(m, t["kapuze"])
 	if t["kapuze"]: a["frisur"] = ""   # langes Haar unter der Kapuze verborgen (Archiv 376.1)
@@ -418,7 +430,7 @@ static func _hell(c: Array) -> float:
 	return maxf(0.01, 0.2126 * l.r + 0.7152 * l.g + 0.0722 * l.b)
 
 static func toene_liste(volk: String, was: String) -> Array:
-	var v: Dictionary = Heldwerte.lade().get("voelker", {}).get(volk, {})
+	var v: Dictionary = BrsHeld.daten().get("voelker", {}).get(volk_modell(volk), {})
 	return v.get(was, [])
 
 static func ton(volk: String, was: String, i: int) -> Color:
@@ -895,7 +907,7 @@ static func person(id: String, mats: Array) -> Node3D:
 		"geschlecht": g, "statur": String(ka.get("statur", "normal")), "haut_rgb": String(p.get("haut", "D4A27C")),
 		"haar_rgb": String(p.get("haar", "5E3C26"))}
 	if kopf in ["helm", "tuch", "kapuze"]: a["frisur"] = ""   # unter Helm, Kopftuch, Kapuze kein Haar (wie Archiv 376.1)
-	var w := {"klasse": "", "modell": mo, "kapuze": kopf == "kapuze", "aussehen": a, "volk": "HUMAN",
+	var w := {"herkunft": "", "modell": mo, "kapuze": kopf == "kapuze", "aussehen": a, "volk": "HUMAN",
 		"ausruestung": {"MAIN_HAND": String(p["traegt"])} if String(p.get("traegt", "")) != "" else {}}
 	var m := baue(w, mats)
 	if m == null: return null

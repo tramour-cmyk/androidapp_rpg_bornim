@@ -6,7 +6,7 @@ extends RefCounted
 # Stufe) und ein Schlag mit allen Einzelheiten für Bericht, Bild und Zustände.
 # Seit 870.5 ohne Schalter: der SRD-Zweig der Angriffe in mars.gd ist weg.
 # Annahmen (A), bis 2.3 und die Pfade sie ersetzen: ohne Spielstand nach BRS (Probekampf, Söldner) gilt die Herkunft der alten Klasse
-# mit ihren Startfertigkeiten; Waffen und Rüstungen der Heldwerte zählen nach ihrer Gruppe; was noch in Würfeln des SRD rechnet
+# mit ihren Startfertigkeiten; Waffen und Rüstungen des Helden (BrsHeld) zählen nach ihrer Gruppe; was noch in Würfeln des SRD rechnet
 # (Fähigkeiten der Klassen, Zauber mit Rettungswurf, Heilung, Tränke, Zustände), wird mit dem Verhältnis der Leben nach BRS zu SRD
 # des Getroffenen umgerechnet (massstab), so bleibt ihr Gewicht im Kampf, wie es war.
 
@@ -19,8 +19,8 @@ static func an() -> bool:
 
 ## Herkunft für eine alte Klasse (BrsHeld.KLASSE_ALT umgekehrt, je Klasse die erste)
 const KLASSE_HERKUNFT := {"FIGHTER": "Wachsoldat", "CLERIC": "Klosterschüler", "ROGUE": "Jägerkind", "WIZARD": "Zauberlehrling"}
-## Waffe der Heldwerte (Grundform) -> Waffengruppe: BrsHeld.WAFFE_GRUPPE (870.2)
-## Gewicht der Brustrüstung (Heldwerte „gewicht“) -> Rüstung des BRS
+## Waffe des Helden (Grundform) -> Waffengruppe: BrsHeld.WAFFE_GRUPPE (870.2)
+## Gewicht der Brustrüstung (held.json „gewicht“) -> Rüstung des BRS
 const RUESTUNG := {"LIGHT": "Leichte Rüstung", "MEDIUM": "Mittlere Rüstung", "HEAVY": "Schwere Rüstung"}
 ## alte Zauber -> Zauber des BRS (werte.json „zauber“), Grundschaden im Verhältnis zum Feuerpfeil (1W10)
 const ZAUBER_ANGRIFF := ["FIRE_BOLT", "SCORCHING_RAY"]

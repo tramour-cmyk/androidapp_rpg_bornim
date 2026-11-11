@@ -51,7 +51,7 @@ func _init(wort_: String, wert_, erklaerung_: String, tat_: Callable, lang_: Cal
 		b.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		b.name = "Buchstabe"
 		kreis.add_child(b)
-	var l4 := Erschaffung.luecke(4)
+	var l4 := Stil.luecke(4)
 	l4.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	spalte.add_child(l4)
 	for t in [[wort, Stil.TEXT]] + ([[String(wert), Stil.GOLD]] if wert != null else []):

@@ -49,8 +49,8 @@ func _lauf() -> void:
 	var tag := z.tag
 	z.funke = true
 	z.lange_rast_tag = 0
-	var hw: Heldwerte = spiel.held_werte()
-	hw.tp = 1
+	var hw: BrsHeld = spiel.held_werte()
+	hw.leben = 1
 	var ziel := Testmodus.vor_aldric()
 	spiel.betrete("elder", ziel[0], ziel[1])
 	for i in 3: await process_frame
@@ -70,7 +70,7 @@ func _lauf() -> void:
 	var t := texte(ks)
 	pruefe("Titel", t.to_upper().contains(Sprache.u("title").to_upper()), true)   # 557 B: Titel in Versalien
 	pruefe("ENDE VON KAPITEL 1", t.contains("ENDE VON KAPITEL 1"), true)
-	pruefe("Zeile des Helden", t.containsn(hw.name) and t.contains("%s %d" % [Sprache.u("level"), hw.stufe]), true)   # 557 B: Name eigene Zeile in Versalien
+	pruefe("Zeile des Helden", t.containsn(hw.name) and t.contains(ErschaffungBrs.heldenstufe(hw.stufe)), true)   # 557 B: Name eigene Zeile in Versalien; 870.4 „Heldenstufe n“
 	pruefe("Spiel steht", paused, true)
 	pruefe("Welt dahinter schwarz", spiel.blende.color.a, 1.0)
 	pruefe("noch kein Morgen", [spiel.karte.id, z.minuten], ["elder", 20 * 60])
@@ -96,7 +96,7 @@ func _lauf() -> void:
 	# Morgen im Tempel
 	pruefe("Morgen: im Tempel", [spiel.karte.id, spiel.held.kachel], ["temple", Vector2i(4, 3)])
 	pruefe("Morgen: naechster Tag 6:30", [z.tag, z.minuten >= 6 * 60 + 30 and z.minuten < 6 * 60 + 40], [tag + 1, true])   # die Uhr laeuft beim Aufblenden weiter
-	pruefe("Morgen: geheilt", hw.tp, hw.max_tp())
+	pruefe("Morgen: geheilt", hw.leben, hw.max_leben())
 	pruefe("Morgen: Funke aus", z.funke, false)
 	pruefe("Morgen: Wiederkehrort Tempel", String(z.wiederkehr.get("karte", "")), "temple")
 	pruefe("Morgen: lange Rast verbraucht", z.lange_rast_tag, z.tag)

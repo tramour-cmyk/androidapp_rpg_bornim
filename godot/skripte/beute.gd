@@ -12,7 +12,7 @@ const PLAETZE := ["HEAD", "CHEST", "ARMS", "LEGS", "CLOAK", "AMULET", "RING", "M
 const KAPITEL1_UNGEWOEHNLICH := 150                    # Loot.CHAPTER1_UNCOMMON
 const WERTE := ["STR", "DEX", "CON", "INT", "WIS", "CHA"]
 
-static func d_() -> Dictionary: return Heldwerte.lade()
+static func d_() -> Dictionary: return BrsHeld.daten()
 static func grundform(id: String) -> Dictionary: return d_()["grundformen"][id]
 static func stufe_von(r: String) -> int: return SELTENHEIT.find(r)
 static func affixzahl(r: String) -> int: return int(d_()["seltenheiten"][r]["affixe"])
@@ -54,7 +54,7 @@ static func max_besonders(kap: int) -> String:
 	return "DIVINE"
 
 # Loot.rarityFor: Kapitel des Helden (Story.chapter), Magiefund mit Deckel (Hero.bonus)
-static func seltenheit_fuer(hw: Heldwerte, w, ilvl: int, besonders: bool, boden: String = "COMMON") -> String:
+static func seltenheit_fuer(hw: BrsHeld, w, ilvl: int, besonders: bool, boden: String = "COMMON") -> String:
 	var mf := hw.bonus("MAGIC_FIND")
 	if besonders: return wuerfle_seltenheit(w, ilvl, mf, boden, max_besonders(hw.kapitel))
 	if hw.kapitel == 1:
@@ -82,9 +82,10 @@ static func geuebt(k: String, id: String) -> bool:
 	var waffen = klasse(k)["waffen"]
 	return not ist_waffe(grundform(id)) or waffen == null or id in waffen
 
-# Loot.suits: kann [k] die Grundform gut brauchen
+# Loot.suits: kann [k] die Grundform gut brauchen; 870.4: ohne Klasse (der Held nach BRS) alles ausser Licht
 static func passt(k: String, id: String) -> bool:
 	var b := grundform(id)
+	if k == "": return String(b["art"]) != "LIGHT"
 	var kd := klasse(k)
 	match String(b["art"]):
 		"JEWELRY": return true
@@ -178,7 +179,7 @@ static func wert(a: String, ilvl: int, seltenheit: String, w) -> int:
 	return maxi(roh + 1, int(roh * schub))
 
 # Loot.drops: was ein besiegtes Monster fallen laesst; [neue_uid] gibt die Kennung (GameState.nextUid)
-static func beute(hw: Heldwerte, w, ilvl: int, boss: bool, elite: bool, neue_uid: Callable) -> Array:
+static func beute(hw: BrsHeld, w, ilvl: int, boss: bool, elite: bool, neue_uid: Callable) -> Array:
 	var seltenheiten: Array = []
 	if boss:
 		seltenheiten.append(seltenheit_fuer(hw, w, ilvl, true, "RARE"))
@@ -187,10 +188,10 @@ static func beute(hw: Heldwerte, w, ilvl: int, boss: bool, elite: bool, neue_uid
 		seltenheiten.append(seltenheit_fuer(hw, w, ilvl, true, "UNCOMMON"))
 	elif w.chance(0.38):
 		seltenheiten.append(seltenheit_fuer(hw, w, ilvl, false))
-	# zwei Drittel fuer die Klasse des Helden
+	# zwei Drittel fuer die Klasse des Helden (870.4: der Held nach BRS hat keine; die Zufallszahl bleibt, 870.6 Jerry)
 	var out: Array = []
 	for r in seltenheiten:
-		var k := hw.klasse if w.chance(0.67) else ""
+		var k := "" if w.chance(0.67) else ""
 		out.append(erzeuge_mit_uid(w, neue_uid, ilvl, r, k))
 	return out
 
@@ -205,7 +206,7 @@ static func fackel(uid: int) -> Dictionary:
 	return {"uid": uid, "base": "torch", "rarity": "COMMON", "ilvl": 1, "plus": 0, "rolls": [], "unique": null, "name_seed": 0}
 
 # Loot.shopGear: Thessas Ware; neu alle acht Siege und mit jeder Stufe (59e.3: bleibt sonst)
-static func ladenware(hw: Heldwerte, siege: int) -> Array:
+static func ladenware(hw: BrsHeld, siege: int) -> Array:
 	var stufe := hw.stufe
 	var w := KotlinZufall.new(KotlinZufall.s32(siege / 8 * 7919 + stufe * 31 + KotlinZufall.hash_code(hw.name)))
 	var liste: Array = []
@@ -214,7 +215,7 @@ static func ladenware(hw: Heldwerte, siege: int) -> Array:
 		var pool: Array = []
 		for id in grundformen():
 			var b := grundform(id)
-			if String(b["slot"]) == slot and int(b["ab_stufe"]) <= stufe and passt(hw.klasse, id): pool.append(id)
+			if String(b["slot"]) == slot and int(b["ab_stufe"]) <= stufe and passt("", id): pool.append(id)
 		if not pool.is_empty(): liste.append(wuerfle(-(liste.size() + 1), w.pick(pool), stufe, "COMMON", w))
 	# 84.1: immer eine schlichte Fackel
 	liste.append(fackel(-(liste.size() + 1)))
@@ -222,19 +223,27 @@ static func ladenware(hw: Heldwerte, siege: int) -> Array:
 	for k in 5:
 		var r := wuerfle_seltenheit(w, stufe, 0, "UNCOMMON", max_normal(hw.kapitel))
 		var g = fuer_held(hw, w, stufe, r) if k == 0 else null
-		if g == null: g = erzeuge(w, 0, stufe, r, hw.klasse)
+		if g == null: g = erzeuge(w, 0, stufe, r, "")
 		g["uid"] = -(liste.size() + 1)
 		liste.append(g)
 	return liste
 
-# Loot.forHero (59e.1): fuer den Platz, an dem er am schlechtesten ausgeruestet ist (leer zuerst), mit dem Hauptwert seiner Klasse
-static func fuer_held(hw: Heldwerte, w, stufe: int, seltenheit: String):
-	var haupt := String(klasse(hw.klasse)["haupt"])
+# Loot.forHero (59e.1): fuer den Platz, an dem er am schlechtesten ausgeruestet ist (leer zuerst), mit seinem Hauptwert (870.4: der
+# hoechste Grundwert nach BRS als Zusatzeigenschaft, Kraft -> STR …)
+const AFFIX_GRUNDWERT := {"kraft": "STR", "gewandtheit": "DEX", "zaehigkeit": "CON", "verstand": "INT", "wahrnehmung": "WIS", "wille": "CHA"}
+static func hauptwert(hw: BrsHeld) -> String:
+	var best := "kraft"
+	for g in BrsHeld.grundwerte():
+		if hw.wert(g) > hw.wert(best): best = g
+	return String(AFFIX_GRUNDWERT.get(best, "STR"))
+
+static func fuer_held(hw: BrsHeld, w, stufe: int, seltenheit: String):
+	var haupt := hauptwert(hw)
 	var pool := func(slot: String) -> Array:
 		var p: Array = []
 		for id in grundformen():
 			var b := grundform(id)
-			if String(b["art"]) != "LIGHT" and String(b["slot"]) == slot and int(b["ab_stufe"]) <= stufe and passt(hw.klasse, id): p.append(id)
+			if String(b["art"]) != "LIGHT" and String(b["slot"]) == slot and int(b["ab_stufe"]) <= stufe and passt("", id): p.append(id)
 		return p
 	var bester := ""
 	var bestwert := 0

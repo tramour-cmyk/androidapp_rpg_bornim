@@ -2,6 +2,7 @@ extends SceneTree
 # 376.1 ohne Bild: je Klasse die Figur (heldfigur.gd) mit Grundausruestung und Aussehen; prueft Bewegungen, Formschluessel, Haar,
 # Bart, Toenung, Waffen auf dem Ruecken und dass die Figur auf dem Boden steht. Braucht daten/held_*.bin (held_klassen.py).
 # 376.1 Tracht je Herkunft: Held und Heldin je Klasse, Statur als Formschluessel, je Herkunft die Kapuze (Jaegerkind) und kein Haar darunter.
+# 870.4: statt der vier Klassen die vier Herkuenfte, die bisher ihre Tracht trugen (Wachsoldat, Zauberlehrling, Herumtreiber, Klosterschueler)
 # godot --headless --path godot -s res://tests/held_klassen_376.gd   -> „HELDKLASSEN gut“ oder „FALSCH …“, Ende 0/1
 
 var falsch := 0
@@ -18,19 +19,19 @@ func _init() -> void:
 		quit(0)
 		return
 	herkuenfte(info)
-	for kg in ["FIGHTER", "WIZARD", "ROGUE", "CLERIC", "FIGHTER:w", "WIZARD:w", "ROGUE:w", "CLERIC:w"]:
+	for kg in ["Wachsoldat", "Zauberlehrling", "Herumtreiber", "Klosterschüler", "Wachsoldat:w", "Zauberlehrling:w", "Herumtreiber:w", "Klosterschüler:w"]:
 		var k := String(kg).get_slice(":", 0)
 		var g := "w" if String(kg).ends_with(":w") else "m"
 		pruefe(HeldFigur.da(k, g), kg + " fehlt")
 		if not HeldFigur.da(k, g): continue
-		var hw := Heldwerte.erschaffe("Test", "HUMAN", k)
+		var hw := BrsHeld.fuer_spiel("Test", "Mensch", k)
 		# Beispielkopf je Klasse (Chef 23:0x): eigene Vorgabe, Haut nicht „Hell“
 		pruefe(int(HeldFigur.vorgabe(k)["haut"]) > 0, "%s: Vorgabe Haut Hell" % k)
 		var mit_bart := "Hair_Beard" if g == "m" else ""
 		for a in [{"geschlecht": g}, {"geschlecht": g, "form": "rund", "frisur": "Hair_Buzzed", "bart": mit_bart, "haut": 3, "haarfarbe": 2, "statur": "kraeftig"},
 				{"geschlecht": g, "form": "hager", "frisur": "", "bart": "", "statur": "schlank"}]:
 			var mats := []
-			var w := {"klasse": k, "volk": "HUMAN", "aussehen": a, "ausruestung": hw.ausruestung}
+			var w := {"herkunft": k, "volk": "HUMAN", "aussehen": a, "ausruestung": hw.ausruestung}
 			var m := HeldFigur.baue(w, mats)
 			pruefe(m != null, "%s %s: keine Figur" % [k, a])
 			if m == null: continue
@@ -77,7 +78,7 @@ func _init() -> void:
 			var waffe := sk.find_children("RueckenWaffe", "", false, false).size() + m.find_children("Getragen", "", false, false).size()
 			var schild := sk.find_children("RueckenSchild", "", false, false).size()
 			pruefe(waffe == 1, "%s: Waffe auf dem Ruecken oder in der Hand %d" % [k, waffe])
-			pruefe(schild == (1 if k in ["FIGHTER", "CLERIC"] else 0), "%s: Schild auf dem Ruecken %d" % [kg, schild])
+			pruefe(schild == (1 if k == "Wachsoldat" else 0), "%s: Schild auf dem Ruecken %d" % [kg, schild])   # 870.4: Startausruestung nach Herkunft
 			# steht auf dem Boden, aufrecht, etwa menschengross
 			ap.play("Stehen")
 			ap.seek(0.0, true)
@@ -85,19 +86,19 @@ func _init() -> void:
 			var kopf := sk.get_bone_global_pose(sk.find_bone("Head")).origin
 			pruefe(absf(fuss.y) < 0.2 and kopf.y > 1.4 and kopf.y < 1.9, "%s: Fuss %.2f, Kopf %.2f m" % [k, fuss.y, kopf.y])
 			# Chef 23:0x („trägt keine Robe“): die Robe des Magiers faellt zwischen den Beinen bis unter die Waden
-			if k == "WIZARD" and a.size() == 1:
+			if k == "Zauberlehrling" and a.size() == 1:
 				var tief := 9.0
 				for mi in m.find_children("*", "MeshInstance3D", true, false):
 					if not String(mi.name).begins_with("Kleid"): continue
 					for v in ((mi as MeshInstance3D).mesh as ArrayMesh).surface_get_arrays(0)[Mesh.ARRAY_VERTEX]:
 						var p: Vector3 = HeldFigur.im_raum(m, mi) * v
 						if absf(p.x) < 0.05: tief = minf(tief, p.y)
-				pruefe(tief < 0.35, "WIZARD: Robe endet zwischen den Beinen bei %.2f m" % tief)
+				pruefe(tief < 0.35, "Zauberlehrling: Robe endet zwischen den Beinen bei %.2f m" % tief)
 			print("%s %s: %s, Gehen %.2f m/s, Kopf %.2f m, %d Netze mit Form, %d getoent" % [kg, a, m.get_meta("tracht"), m.get_meta("gehen_m_je_s"), kopf.y, mit_form, getoent])
 			m.free()
 	var v := {}
-	for k in HeldFigur.KLASSEN_VORGABE: v[str(HeldFigur.KLASSEN_VORGABE[k])] = k
-	pruefe(v.size() == 4, "Vorgaben der Klassen nicht verschieden")
+	for k in HeldFigur.HERKUNFT_VORGABE: v[str(HeldFigur.HERKUNFT_VORGABE[k])] = k
+	pruefe(v.size() == 4, "Vorgaben der Herkuenfte: %d verschiedene statt 4" % v.size())
 	print("HELDKLASSEN gut" if falsch == 0 else "HELDKLASSEN %d FALSCH" % falsch)
 	quit(0 if falsch == 0 else 1)
 
@@ -108,7 +109,7 @@ func herkuenfte(info: Dictionary) -> void:
 	for h in hk:
 		for g in ["m", "w"]:
 			var a := {"geschlecht": g, "frisur": "Hair_Long"}
-			var m := HeldFigur.baue({"klasse": "FIGHTER", "herkunft": h, "volk": "HUMAN", "aussehen": a, "ausruestung": {}}, [])
+			var m := HeldFigur.baue({"herkunft": h, "volk": "HUMAN", "aussehen": a, "ausruestung": {}}, [])
 			pruefe(m != null, "%s %s: keine Figur" % [h, g])
 			if m == null: continue
 			var kap := 0

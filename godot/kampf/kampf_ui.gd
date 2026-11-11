@@ -695,7 +695,7 @@ func _build_orders() -> void:
 			# 296.2: fliehen wie im klassischen Kampf, nie vor einem Boss
 			if not m.all.any(func(x): return x.side == "FOES" and x.boss()):
 				low.append(_button(t("Flucht", "Run"), m.can_flee(f), func(): k.order(["flee"]), false, true))
-			if f.hero != null and f.hero.cls == "FIGHTER":
+			if f.hero != null and String(f.hero.get("cls", "")) == "FIGHTER":     # 870.4: der Held nach BRS hat keine Klasse
 				low.append(_button(t("Decken", "Cover"), not m.guardable(f).is_empty(), func(): k.order(["guard"]), false, true, Tips.COVER))
 			var merc = m.find("merc")
 			if merc != null:

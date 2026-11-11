@@ -71,19 +71,22 @@ func _lauf() -> void:
 	pruefe("Wechsel zum Wanderer", [m.wahl, m.wahl_anzahl(), m.frei()], [["Handeln"], 3, 9])
 	# Leben und Mana (N 2, werte.json held)
 	var hd: Dictionary = W["held"]
-	pruefe("Leben", m.leben(1), int(hd["leben_basis"]) + int(hd["leben_je_stufe"]) + int(hd["leben_je_zaehigkeit"]) * m.wert("zaehigkeit"))
-	pruefe("Mana", m.mana(), int(hd["mana_basis"]) + int(hd["mana_je_wille"]) * m.wert("wille"))
+	pruefe("Leben", m.max_leben(1), int(hd["leben_basis"]) + int(hd["leben_je_stufe"]) + int(hd["leben_je_zaehigkeit"]) * m.wert("zaehigkeit"))
+	pruefe("Mana", m.max_mana(), int(hd["mana_basis"]) + int(hd["mana_je_wille"]) * m.wert("wille"))
 	# Spielstand hin und zurück
 	var r := BrsHeld.aus_daten(JSON.parse_string(JSON.stringify(b.als_daten())))
 	pruefe("Spielstand", r.als_daten(), b.als_daten())
 	var z3 := Zustand.new(); z3.brs = b.als_daten()
 	pruefe("Spielstand im Zustand", Zustand.aus_daten(JSON.parse_string(JSON.stringify(z3.als_daten()))).brs, b.als_daten())
-	# Brücke bis 2.3 (470a): Klasse aus der Herkunft, SRD 8..16
-	pruefe("SRD-Werte", [BrsHeld.srd_wert(3), BrsHeld.srd_wert(5), BrsHeld.srd_wert(8), BrsHeld.srd_wert(9)], [8, 11, 15, 16])
-	var zl := BrsHeld.neu("Hügelvolk", "Zauberlehrling")
-	var a := zl.alt()
-	pruefe("Zauberlehrling alt", [a["volk"], a["klasse"], a["srd"]["INT"]], ["HALFLING", "WIZARD", BrsHeld.srd_wert(zl.wert("wille"))])
-	pruefe("Klosterschüler alt", BrsHeld.neu("Mensch", "Klosterschüler").alt()["klasse"], "CLERIC")
+	# 870.4: der Held im Spiel (Heldenstufe, Leben, Mana, Startausrüstung der Herkunft) und im Spielstand
+	var sp := BrsHeld.fuer_spiel("Ada", "Zwerg", "Wachsoldat")
+	pruefe("Start Wachsoldat", [sp.waffe()["base"], sp.ruestung(), sp.schild() != null], ["longsword", "Mittlere Rüstung", true])
+	pruefe("voll", [sp.leben, sp.mana], [sp.max_leben(), sp.max_mana()])
+	sp.stufe = 3
+	pruefe("Leben Stufe 3", sp.max_leben(), int(hd["leben_basis"]) + 3 * int(hd["leben_je_stufe"]) + int(hd["leben_je_zaehigkeit"]) * sp.wert("zaehigkeit"))
+	sp.leben = 7
+	var sr := BrsHeld.aus_spiel_daten(JSON.parse_string(JSON.stringify(sp.spiel_daten())))
+	pruefe("Spielstand Held", [sr.name, sr.volk, sr.herkunft, sr.stufe, sr.leben, sr.mana, sr.ausruestung.size()], ["Ada", "Zwerg", "Wachsoldat", 3, 7, sp.mana, sp.ausruestung.size()])
 	# Seite „Neues Spiel“ passt in die Breite eines Handys (Pruefer 14:5x: Kopf mit 2 x 120 dp schob alles ueber den rechten Rand)
 	root.size = Vector2i(1080, 2340)
 	var es := ErschaffungBrs.new()

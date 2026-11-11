@@ -22,7 +22,7 @@ func _lauf() -> void:
 	if Sprache.aktiv() != "de": Sprache.wechsle()
 	var z := Zustand.new()
 	z.name = "Thora"; z.gold = 100
-	var hw := Heldwerte.erschaffe("Thora", "HUMAN", "FIGHTER", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Thora", "Mensch", "Wachsoldat", z.neue_uid)
 	var saat := 0
 	for s in 200:
 		if Beute.name(ring(z, s, [])).ends_with("Eisernen Richters"): saat = s; break

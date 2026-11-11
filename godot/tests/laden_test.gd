@@ -15,8 +15,8 @@ func _init() -> void:
 		print("LADEN: daten/held.json oder texte.json fehlt")
 		quit(1)
 		return
-	var h := Heldwerte.erschaffe("Alrik", "HUMAN", "FIGHTER")
-	h.basis["CHA"] = 10   # Mod 0: Listenpreis
+	var h := BrsHeld.fuer_spiel("Alrik", "Mensch", "Wachsoldat")
+	h.geuebt = {"Handeln": 0}   # 870.4: ohne Handeln der Listenpreis
 	var z := Zustand.new()
 	var l := Laden.new(["potion", "remedy"])
 	pruefe("Preis Heiltrank", [Laden.preis("potion"), Laden.kaufpreis(h, "potion"), Laden.verkaufspreis(h, "potion")], [25, 25, 12])
@@ -26,12 +26,11 @@ func _init() -> void:
 	pruefe("Gold nach Kauf", [z.gold, z.anzahl("potion")], [10, 2])
 	pruefe("zu teuer", l.kaufe(z, h, "potion"), "Du hast nicht genug Gold.")
 	pruefe("null", l.kaufe(z, h, "potion", 0), "Nichts")
-	# Charisma 18 (+4): 20 % billiger, 20 % mehr beim Verkauf; Charisma 3 (-4): teurer, weniger
-	h.basis["CHA"] = 18
-	pruefe("CHA 18", [Laden.kaufpreis(h, "potion"), Laden.verkaufspreis(h, "potion")], [20, 14])
-	h.basis["CHA"] = 3
-	pruefe("CHA 3", [Laden.kaufpreis(h, "potion"), Laden.verkaufspreis(h, "potion")], [30, 10])
-	h.basis["CHA"] = 10
+	# 870.4: Handeln 100 billiger beim Kauf, mehr beim Verkauf (werte.json „welt“ handeln_je_punkt)
+	h.geuebt = {"Handeln": 100}
+	var jp := float(BrsHeld.welt()["handeln_je_punkt"])
+	pruefe("Handeln 100", [Laden.kaufpreis(h, "potion"), Laden.verkaufspreis(h, "potion")], [roundi(25 * (1.0 - 100 * jp)), roundi(12 * (1.0 + 100 * jp))])
+	h.geuebt = {"Handeln": 0}
 	# verkaufen, Rueckkauf zum erzielten Preis, hoechstens fuenf, neueste zuerst
 	pruefe("verkaufen", l.verkaufe(z, h, "potion"), "Heiltrank verkauft.")
 	pruefe("Gold nach Verkauf", [z.gold, z.anzahl("potion"), l.rueckkauf], [22, 1, [{"ding": "potion", "anzahl": 1, "preis": 12}]])
@@ -48,7 +47,7 @@ func _init() -> void:
 	if schluessel != "":
 		z.dazu(schluessel)
 		pruefe("Schluessel", [Laden.verkaeuflich(schluessel), l.verkaufe(z, h, schluessel)], [false, "Das kann nicht verkauft werden."])
-	# Morwen braut: 2 Kraeuter und 5 Gold ein Heiltrank; mit Intelligenz manchmal zwei
+	# Morwen braut: 2 Kraeuter und 5 Gold ein Heiltrank; mit Alchemie (870.4) manchmal zwei
 	var m := Zustand.new()
 	var r: Dictionary = Laden.rezepte()[0]
 	pruefe("Rezept", [r["ergebnis"], Laden.kosten(r)], ["potion", "2× Heilkräuter, 5 Gold"])
@@ -56,7 +55,7 @@ func _init() -> void:
 	m.gold = 12; m.dazu("herbs", 4)
 	pruefe("brauen", Laden.new([], true).braue(m, h, r, 0.99), "Morwen braut dir: Heiltrank.")
 	pruefe("nach Brauen", [m.gold, m.anzahl("herbs"), m.anzahl("potion")], [7, 2, 1])
-	h.basis["INT"] = 18   # +4: 40 %
+	h.geuebt = {"Alchemie": 40}   # 870.4: 40 % (werte.json „welt“ brauen_je_alchemie)
 	pruefe("zwei", Laden.new([], true).braue(m, h, r, 0.39), "Mit deinem Wissen holt ihr zwei Tränke heraus: 2× Heiltrank.")
 	pruefe("nach zwei", [m.gold, m.anzahl("herbs"), m.anzahl("potion")], [2, 0, 3])
 	# Ausruestung (Game.shopGear/buyGear/sellGear/sellAllCommon): Ware bleibt, bis acht Siege oder eine Stufe dazukommen
@@ -101,7 +100,7 @@ func _init() -> void:
 	pruefe("Fokus je Klasse", [Beute.passt("CLERIC", "holy_symbol"), Beute.passt("WIZARD", "holy_symbol"), Beute.passt("WIZARD", "orb"), Beute.passt("CLERIC", "tome")], [true, false, true, false])
 	# 399.1 Bilder der Dinge (ThingArtExport): jede Grundform je Seltenheit, jeder Vorrat und das Gold
 	var fehlt := []
-	for id in Heldwerte.lade()["grundform_reihe"]:
+	for id in BrsHeld.daten()["grundform_reihe"]:
 		for sel in ["COMMON", "UNCOMMON", "RARE", "VERY_RARE", "EPIC", "DIVINE"]:
 			if Kartenreiter.bild("stueck-%s-%s" % [id, sel]) == null: fehlt.append("%s-%s" % [id, sel])
 	for id in Sprache.texte["dinge"].keys() + ["gold"]:

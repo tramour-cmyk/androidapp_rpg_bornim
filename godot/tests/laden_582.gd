@@ -35,7 +35,7 @@ func _lauf() -> void:
 	pruefe(String(Laden.ding("greater_potion").get("seltenheit", "")) == "UNCOMMON", "texte.json: Seltenheit fehlt (core TextExport)")
 	var z := Zustand.new()
 	z.name = "Thora"; z.gold = 500
-	var hw := Heldwerte.erschaffe("Thora", "HUMAN", "FIGHTER", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Thora", "Mensch", "Wachsoldat", z.neue_uid)
 	var ebene := CanvasLayer.new()
 	root.add_child(ebene)
 	var laden := Laden.new(["potion", "greater_potion", "stamina_potion"], false)
@@ -53,7 +53,7 @@ func _lauf() -> void:
 	await process_frame
 	var kasten: Control = l.get_child(l.get_child_count() - 1)
 	var kt := texte(kasten)
-	var sel := String(Sprache.t(Heldwerte.lade()["seltenheiten"]["UNCOMMON"]["name"]))
+	var sel := String(Sprache.t(BrsHeld.daten()["seltenheiten"]["UNCOMMON"]["name"]))
 	var sl := label(kasten, sel)
 	pruefe(sl != null and farbe(sl) == Color(Menue.SELTEN["UNCOMMON"]), "Mengenkasten ohne Seltenheit „%s“: %s" % [sel, kt])
 	pruefe("heilt 4W4+4" in kt, "Mengenkasten ohne Wirkung: %s" % [kt])

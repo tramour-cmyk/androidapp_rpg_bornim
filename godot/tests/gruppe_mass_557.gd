@@ -143,7 +143,7 @@ func _runde(v2: bool) -> void:
 	var probe := Zustand.new(); probe.name = "Mira"
 	if v2 and gesichert[0].is_empty():
 		Spielstand.platz = 1
-		Spielstand.speichere(probe, Heldwerte.erschaffe("Mira", "ELF", "WIZARD", {}, probe.neue_uid), {"karte": "village", "x": 4, "y": 6, "blick": "UP"})
+		Spielstand.speichere(probe, BrsHeld.fuer_spiel("Mira", "Elf", "Zauberlehrling", probe.neue_uid), {"karte": "village", "x": 4, "y": 6, "blick": "UP"})
 	var s := Spielstaende.new()
 	root.add_child(s)
 	await _messe("Spielstaende", s)
@@ -161,7 +161,7 @@ func _runde(v2: bool) -> void:
 		if gesichert[0].is_empty(): Spielstand.loesche(1)
 	s.queue_free()
 	var z := Zustand.new()
-	var hw := Heldwerte.erschaffe("Mira", "ELF", "WIZARD", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Mira", "Elf", "Zauberlehrling", z.neue_uid)
 	for r in ["UNCOMMON", "RARE", "VERY_RARE"]: z.ausruestung_dazu({"uid": 0, "base": "robe", "rarity": r, "ilvl": 3, "plus": 0, "rolls": [["DEX", 2], ["AC", 1], ["CON", 4]], "unique": null, "name_seed": 3})
 	z.ausruestung_dazu({"uid": 0, "base": "plate", "rarity": "COMMON", "ilvl": 2, "plus": 0, "rolls": [], "unique": null, "name_seed": 2})
 	# Runde 4: eine Einhandwaffe (Nebenhand, „1W6“) und ein goettlicher Ring (der Name sagt „Göttlich“ schon)

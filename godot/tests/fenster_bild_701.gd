@@ -12,7 +12,7 @@ func _lauf() -> void:
 	if Sprache.aktiv() != "de": Sprache.wechsle()
 	var z := Zustand.new()
 	z.name = "Thora"; z.gold = 100
-	var hw := Heldwerte.erschaffe("Thora", "HUMAN", "FIGHTER", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Thora", "Mensch", "Wachsoldat", z.neue_uid)
 	hw.anlegen({"uid": z.neue_uid.call(), "base": "ring", "rarity": "RARE", "ilvl": 3, "plus": 0, "rolls": [["ALL_STATS", 1]], "unique": null, "name_seed": 1})
 	var neu := {"uid": z.neue_uid.call(), "base": "amulet", "rarity": "RARE", "ilvl": 3, "plus": 0, "rolls": [["ALL_STATS", 1], ["HP", 3]], "unique": null, "name_seed": 2}
 	z.beutel.append(neu)

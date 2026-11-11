@@ -19,7 +19,7 @@ func _lauf() -> void:
 	Sprache.lade()
 	var z := Zustand.new()
 	z.name = "Mira"
-	var hw := Heldwerte.erschaffe("Mira", "HUMAN", "WIZARD", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Mira", "Mensch", "Zauberlehrling", z.neue_uid)
 	var m := Menue.new(hw, z)
 	root.add_child(m)
 	await process_frame

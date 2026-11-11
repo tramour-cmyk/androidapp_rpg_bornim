@@ -61,7 +61,7 @@ func _lauf() -> void:
 				var grund := Control.new()
 				grund.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 				root.add_child(grund)
-				Spielstaende.frage(grund, "Spielstand löschen?", [Erschaffung.txt("Alrik (Stufe 2) wird endgültig gelöscht.", 15)],
+				Spielstaende.frage(grund, "Spielstand löschen?", [Stil.txt("Alrik (Stufe 2) wird endgültig gelöscht.", 15)],
 					"KREUZ", "Löschen", Stil.WARN, func(): pass)
 				teil = grund
 		await _bild("661_%s" % f)

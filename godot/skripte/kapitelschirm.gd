@@ -7,10 +7,10 @@ extends Control
 signal weiter
 const DP := AktionsKnopf.DP
 
-var hw: Heldwerte
+var hw: BrsHeld
 var text: Dictionary
 
-func _init(hw_: Heldwerte, text_: Dictionary) -> void:
+func _init(hw_: BrsHeld, text_: Dictionary) -> void:
 	hw = hw_
 	text = text_
 	name = "Kapitelende"
@@ -44,12 +44,12 @@ func _ready() -> void:
 	var spalte := VBoxContainer.new()
 	spalte.add_theme_constant_override("separation", 0)
 	rand.add_child(spalte)
-	spalte.add_child(Erschaffung.luecke(24))
+	spalte.add_child(Stil.luecke(24))
 	var titel := fett(Stil.zeile(Sprache.u("title"), 28, Stil.BRIGHT), Stil.BRIGHT)
 	titel.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	titel.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	spalte.add_child(titel)
-	spalte.add_child(Erschaffung.luecke(16))
+	spalte.add_child(Stil.luecke(16))
 	var rolle := ScrollContainer.new()
 	rolle.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	rolle.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
@@ -57,17 +57,15 @@ func _ready() -> void:
 	innen.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	innen.add_theme_constant_override("separation", 0)
 	rolle.add_child(innen)
-	innen.add_child(Erschaffung.txt(Sprache.t(text), 18))
-	innen.add_child(Erschaffung.luecke(12))
-	var d := Heldwerte.lade()
-	var wer := "%s · %s · %s · %s %d" % [hw.name, Sprache.t(d["voelker"][hw.volk]["name"]), Sprache.t(d["klassen"][hw.klasse]["name"]),
-		Sprache.u("level"), hw.stufe]
-	innen.add_child(fett(Erschaffung.txt(wer, 15), Stil.TEXT))
-	var kasten := Erschaffung.kasten(rolle)
+	innen.add_child(Stil.txt(Sprache.t(text), 18))
+	innen.add_child(Stil.luecke(12))
+	var wer := ErschaffungBrs.wer(hw.volk, hw.herkunft, hw.stufe, hw.name)   # 870.4 [870.14.wanderer.kapitel]
+	innen.add_child(fett(Stil.txt(wer, 15), Stil.TEXT))
+	var kasten := Stil.rahmen(rolle)
 	kasten.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	spalte.add_child(kasten)
-	spalte.add_child(Erschaffung.luecke(12))
-	var k := Erschaffung.knopf(Sprache.u("next"), func(): weiter.emit())
+	spalte.add_child(Stil.luecke(12))
+	var k := Stil.knopf(Sprache.u("next"), func(): weiter.emit())
 	k.name = "Weiter"
 	spalte.add_child(k)
 
@@ -88,9 +86,9 @@ func _ready_b() -> void:
 	titel.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	titel.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	spalte.add_child(titel)
-	spalte.add_child(Erschaffung.luecke(6))
+	spalte.add_child(Stil.luecke(6))
 	spalte.add_child(Spielstaende.zier())
-	spalte.add_child(Erschaffung.luecke(18))
+	spalte.add_child(Stil.luecke(18))
 	var rolle := ScrollContainer.new()
 	rolle.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	rolle.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
@@ -103,35 +101,34 @@ func _ready_b() -> void:
 	# der Text in Absaetzen; die Zeile „ENDE VON KAPITEL 1“ (in Versalien im Text) steht fuer sich zwischen Linien in Gold
 	for absatz in Sprache.t(text).split("\n\n"):
 		if absatz == absatz.to_upper() and absatz.strip_edges() != "":
-			innen.add_child(Erschaffung.luecke(8))
+			innen.add_child(Stil.luecke(8))
 			innen.add_child(Spielstaende.linie())
-			innen.add_child(Erschaffung.luecke(14))
+			innen.add_child(Stil.luecke(14))
 			var e := Stil.zeile(absatz, 17, Stil.BRIGHT, 3.0)
 			e.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			e.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 			innen.add_child(e)
-			innen.add_child(Erschaffung.luecke(14))
+			innen.add_child(Stil.luecke(14))
 			innen.add_child(Spielstaende.linie())
-			innen.add_child(Erschaffung.luecke(22))
+			innen.add_child(Stil.luecke(22))
 			continue
-		innen.add_child(Erschaffung.txt(absatz, 18))
-		innen.add_child(Erschaffung.luecke(14))
-	var d := Heldwerte.lade()
+		innen.add_child(Stil.txt(absatz, 18))
+		innen.add_child(Stil.luecke(14))
 	spalte.add_child(Spielstaende.linie())
 	var held := VBoxContainer.new()
 	held.add_theme_constant_override("separation", int(2 * DP))
 	var nm := Stil.zeile(hw.name.to_upper(), 17, Stil.GOLD, 2.5)
 	nm.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	held.add_child(Erschaffung.luecke(10))
+	held.add_child(Stil.luecke(10))
 	held.add_child(nm)
-	var wer := Stil.zeile("%s · %s · %s %d" % [Sprache.t(d["voelker"][hw.volk]["name"]), Sprache.t(d["klassen"][hw.klasse]["name"]), Sprache.u("level"), hw.stufe], 16, Stil.TEXT)
+	var wer := Stil.zeile(ErschaffungBrs.wer(hw.volk, hw.herkunft, hw.stufe), 16, Stil.TEXT)   # 870.4
 	wer.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	wer.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	held.add_child(wer)
-	held.add_child(Erschaffung.luecke(10))
+	held.add_child(Stil.luecke(10))
 	spalte.add_child(held)
 	spalte.add_child(Spielstaende.linie())
-	spalte.add_child(Erschaffung.luecke(8))
+	spalte.add_child(Stil.luecke(8))
 	if Spielstaende.vorlage2:   # 557 Runde 4 (Chef 17:40: „ein Weiter, wenn dann rechts“): „WEITER ›“ rechts, so gross wie jeder Knopf
 		var kw := Spielstaende.knopf("haupt", Sprache.u("next"), func(): weiter.emit())
 		kw.name = "Weiter"

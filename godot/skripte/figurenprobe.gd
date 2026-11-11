@@ -721,7 +721,7 @@ func zackenzahl(img: Image, hals: Vector2) -> Array:
 # 376.1 (Chef 28.10., 22:0x: vier Klassen auf dem guten Modell, Einfluss in der Erschaffung, Grundausruestung sichtbar; „ich will
 # Bilder sehen“): die vier Klassen mit ihrer Grundausruestung (heldfigur.gd, wie im Spiel) auf dem Dorfplatz von vorn, von hinten
 # (Waffe, Schild auf dem Ruecken) und in der Spielansicht; der Kaempfer in sechs Aussehen (Kopf nah); die Erschaffung mit „Aussehen“.
-const KLASSEN_REIHE := ["FIGHTER", "CLERIC", "ROGUE", "WIZARD"]
+const KLASSEN_REIHE := ["Wachsoldat", "Klosterschüler", "Herumtreiber", "Zauberlehrling"]   # 870.4: je Herkunft wie die Klassen bisher
 # Lauf 2 (Pruefer Lauf 1: „wie Klone“): je Klasse ein anderes Aussehen; seit Chef 28.10., 23:0x die Beispielkoepfe der Klassen
 # (HeldFigur.KLASSEN_VORGABE), wie ein neuer Held sie traegt
 # Kopfblatt: erste Reihe die fuenf Gesichter mit gleicher Frisur (Pruefer Lauf 1: Formen sahen gleich aus), zweite Reihe die
@@ -757,11 +757,11 @@ func klasse_figur(kennung: String, w: Dictionary) -> void:
 func klassen() -> void:
 	for i in KLASSEN_REIHE.size():
 		var k: String = KLASSEN_REIHE[i]
-		var hw := Heldwerte.erschaffe("Probe", "HUMAN", k)
-		klasse_figur("kl_" + k, {"klasse": k, "volk": "HUMAN", "aussehen": HeldFigur.vorgabe(k), "ausruestung": hw.ausruestung})
+		var hw := BrsHeld.fuer_spiel("Probe", "Mensch", k)
+		klasse_figur("kl_" + k, {"herkunft": k, "volk": "HUMAN", "aussehen": HeldFigur.vorgabe(k), "ausruestung": hw.ausruestung})
 	for i in AUSSEHEN_PROBE.size():
-		var hw := Heldwerte.erschaffe("Probe", "HUMAN", "FIGHTER")
-		klasse_figur("ak_%d" % i, {"klasse": "FIGHTER", "volk": "HUMAN", "aussehen": AUSSEHEN_PROBE[i], "ausruestung": hw.ausruestung})
+		var hw := BrsHeld.fuer_spiel("Probe", "Mensch", "Wachsoldat")
+		klasse_figur("ak_%d" % i, {"herkunft": "Wachsoldat", "volk": "HUMAN", "aussehen": AUSSEHEN_PROBE[i], "ausruestung": hw.ausruestung})
 	await get_tree().create_timer(1.0).timeout
 	var kam: Kamera = spiel.kamera
 	var li := kam.global_basis.x; li.y = 0

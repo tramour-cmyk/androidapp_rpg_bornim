@@ -82,7 +82,7 @@ func _draw() -> void:
 
 # TabButton: 46 dp hoch, gewaehlt erhaben mit hellem Rand, sonst schwarz mit duennem Rand; nur das Zeichen
 static func knopf(a: String, wort: String, was: Callable, gewaehlt: bool, stern := false) -> Button:
-	var b := Erschaffung.knopf("", was, gewaehlt)
+	var b := Stil.knopf("", was, gewaehlt)
 	b.custom_minimum_size = Vector2(0, 46 * AktionsKnopf.DP)
 	b.tooltip_text = wort
 	var z := Reiterzeichen.new(a, Stil.BRIGHT if gewaehlt else Stil.GOLD, stern)

@@ -454,10 +454,10 @@ static var kampf_info: Dictionary = {}
 func _kaufheld() -> Node3D:
 	if fighter.monster != null or OS.get_environment("ALTHELD") != "" or not FileAccess.file_exists(KAMPF_BEW):
 		return null
-	var k := String(fighter.hero.get("cls", "FIGHTER"))
+	var k := _herkunft()     # 870.4: Tracht nach der Herkunft (BrsHeld), Probeblätter mit Klasse wie bisher
 	if not HeldFigur.da(k):
 		return null
-	var w := {"klasse": k, "volk": String(fighter.hero.get("race", "HUMAN")), "aussehen": fighter.hero.get("look", {}), "ausruestung": {}}
+	var w := {"herkunft": k, "volk": String(fighter.hero.get("race", "HUMAN")), "aussehen": fighter.hero.get("look", {}), "ausruestung": {}}
 	var m := HeldFigur.baue(w, mats)
 	if m == null:
 		return null
@@ -774,7 +774,7 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 		# Schild bleibt, wo er war (hier um dieselbe Drehung zurück), die Faust dreht SchildFaust nach jeder Pose
 		knick_achse = b.z.normalized().cross(hx).normalized()
 		knick_knochen = bi
-		var knick := Basis(knick_achse, deg_to_rad(KNICK_GRAD.get(fighter.hero.get("cls", ""), 0.0)))
+		var knick := Basis(knick_achse, deg_to_rad(KNICK_GRAD.get(_tracht(), 0.0)))
 		knick_quat = knick.get_rotation_quaternion()
 		b = knick.inverse() * b
 		o = knick.inverse() * o
@@ -3084,7 +3084,18 @@ const FAUST_GRAD := -50.0
 ## 406a E3 Lauf 190 (Faust −50°, gemessen in skeleton_updated): Kämpfer 2,1–2,7 cm, Kleriker 3,7–4,0 cm vor der Vorderseite, vor allem
 ## Ring- und kleiner Finger; Knick im Handgelenk nach hinten je Klasse (Knöchel etwa 9 cm vom Gelenk: 3 cm ≈ 20°, 4,5 cm ≈ 30°),
 ## gemessen mit schild_406 KNICK (je ±10° dazu)
-const KNICK_GRAD := {"FIGHTER": 20.0, "CLERIC": 30.0}
+const KNICK_GRAD := {"WACHE": 20.0, "KLOSTER": 30.0}     # 870.4: je Tracht (vorher Kämpfer, Kleriker)
+const KLASSE_HERKUNFT := {"FIGHTER": "Wachsoldat", "CLERIC": "Klosterschüler", "ROGUE": "Herumtreiber", "WIZARD": "Zauberlehrling"}
+
+
+## 870.4: Herkunft des Helden für die Tracht; Probeblätter (probe.gd, tabellen.json „probe“) nennen noch die Klasse
+func _herkunft() -> String:
+	var h := String(fighter.hero.get("herkunft", ""))
+	return h if h != "" else String(KLASSE_HERKUNFT.get(String(fighter.hero.get("cls", "")), "Wachsoldat"))
+
+
+func _tracht() -> String:
+	return String(HeldFigur.lade_info().get("herkuenfte", {}).get(HeldFigur.kennung(_herkunft()), {}).get("tracht", ""))
 var knick_achse := Vector3.ZERO
 var knick_quat := Quaternion.IDENTITY
 var knick_knochen := -1

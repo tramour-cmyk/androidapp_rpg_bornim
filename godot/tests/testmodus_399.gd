@@ -53,7 +53,7 @@ func _lauf() -> void:
 	hm.queue_free()
 	# Menue mit Reiter Test
 	var z := Zustand.new()
-	var hw := Heldwerte.erschaffe("Mira", "HUMAN", "FIGHTER", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Mira", "Mensch", "Wachsoldat", z.neue_uid)
 	var m := Menue.new(hw, z)
 	root.add_child(m)
 	await process_frame
@@ -66,7 +66,7 @@ func _lauf() -> void:
 	await druecke(m, "+5")
 	pruefe("Stufe +5", hw.stufe, 6)
 	await druecke(m, "−1")
-	pruefe("Stufe −1", [hw.stufe, hw.tp == hw.max_tp()], [5, true])
+	pruefe("Stufe −1", [hw.stufe, hw.leben == hw.max_leben()], [5, true])
 	await druecke(m, "Gold")
 	pruefe("Gold", z.gold, 1000)
 	await druecke(m, "Vorräte")
@@ -92,7 +92,7 @@ func _lauf() -> void:
 	pruefe("Probe", taten[-1][1] if taten.size() == 5 else [], ["GRAK", "FIGHTER", 3])
 	pruefe("vor Aldric", Testmodus.vor_aldric().size(), 2)
 	var ph := Testmodus.probeheld("WIZARD", 5)
-	pruefe("Probeheld", [ph.stufe, ph.tp == ph.max_tp(), ph.zp == ph.max_zp()], [5, true, true])
+	pruefe("Probeheld", [ph.stufe, ph.tp == ph.max_leben(), ph.zp == ph.max_mana()], [5, true, true])
 	m.queue_free()
 	# aus: kein Reiter Test
 	Testmodus.umschalten()

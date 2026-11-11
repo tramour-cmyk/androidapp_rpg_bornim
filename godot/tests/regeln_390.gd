@@ -1,26 +1,23 @@
 # 390: Pechsträhne, Ausdauer, Talente, Zustände und Spuren nach GDScript, mit den Testfällen aus core (MissStreakTest, StaminaTest,
-# PerksTest, TracksTest).
+# PerksTest, TracksTest). 870.4: die Talente nach Charisma und Co. entfallen; was sie taten, tun Fertigkeiten und Grundwerte nach BRS
+# (Laden, BrsHeld, werte.json „welt“).
 # Run: godot --headless --path godot -s res://tests/regeln_390.gd   (exit code 0 = wie im alten Spiel)
 extends SceneTree
 
 const Pech = preload("res://regeln/pechstraehne.gd")
 const Ausdauer = preload("res://regeln/ausdauer.gd")
-const Talente = preload("res://regeln/talente.gd")
 const Zustaende = preload("res://regeln/zustaende.gd")
 const Spuren = preload("res://regeln/spuren.gd")
 
 var failed := 0
 
 
-## Ein Held mit festen Werten, wie Heldwerte (mod, wert, klasse); alle 10 außer [werte].
-class Probeheld:
-	var klasse := "FIGHTER"
-	var werte := {}
-	func _init(w := {}, k := "FIGHTER") -> void:
-		werte = w
-		klasse = k
-	func wert(a: String) -> int: return int(werte.get(a, 10))
-	func mod(a: String) -> int: return floori((wert(a) - 10) / 2.0)
+## 870.4: ein Held nach BRS ohne Volk mit festen Grundwerten (sonst 5) und Fertigkeiten
+static func probeheld(werte := {}, fert := {}) -> BrsHeld:
+	var h := BrsHeld.neu("", "Wanderer")   # ohne Volk: die Werte wie gesetzt
+	for g in BrsHeld.grundwerte(): h.verteilt[g] = int(werte.get(g, 5))
+	h.geuebt = fert
+	return h
 
 
 func _init() -> void:
@@ -135,38 +132,18 @@ func _ausdauer() -> void:
 
 
 func _talente() -> void:
-	# charismaChangesPrices
-	_check("CHA 16 kauft", Talente.buy_price(Probeheld.new({"CHA": 16}), 100), 85)
-	_check("CHA 16 verkauft", Talente.sell_price(Probeheld.new({"CHA": 16}), 100), 115)
-	_check("CHA 8 kauft", Talente.buy_price(Probeheld.new({"CHA": 8}), 100), 105)
-	_check("höchstens 20 %", Talente.buy_price(Probeheld.new({"CHA": 30}), 100), 80)
-	_check("mindestens 1", Talente.buy_price(Probeheld.new({"CHA": 30}), 1), 1)
-	# intelligenceRevealsWeaknesses (die Zeile im Kampf folgt mit dem klassischen Kampf)
-	_check("INT 14 erkennt", Talente.knows_weaknesses(Probeheld.new({"INT": 14})), true)
-	_check("INT 10 erkennt nicht", Talente.knows_weaknesses(Probeheld.new({"INT": 10})), false)
-	# smallEffectsGrowWithTheModifier
-	_check("DEX 12", Talente.notice_range(Probeheld.new({"DEX": 12})), 4)
-	_check("DEX 14", Talente.notice_range(Probeheld.new({"DEX": 14})), 3)
-	_check("DEX 20", Talente.notice_range(Probeheld.new({"DEX": 20})), 2)
-	_check("WIS 14 Sicht", Talente.sight_bonus(Probeheld.new({"WIS": 14})), 1.0)
-	_check("WIS 30 Hinterhalt", Talente.ambush_factor(Probeheld.new({"WIS": 30})), 0.4)
-	_check("STR 16 Wurf", Talente.throw_bonus(Probeheld.new({"STR": 16})), 3)
-	_check("STR 8 Wurf", Talente.throw_bonus(Probeheld.new({"STR": 8})), 0)
-	_check("INT 14 Erfahrung", Talente.xp_factor(Probeheld.new({"INT": 14})), 1.06)
-	# everyAbilityIsExplained (Kleriker)
-	var h := Probeheld.new({"STR": 12, "DEX": 10, "CON": 14, "INT": 8, "WIS": 16, "CHA": 13}, "CLERIC")
-	for lang in 2:
-		for a in ["STR", "DEX", "CON", "INT", "WIS", "CHA"]:
-			var lines: Array = Talente.describe(a, h, lang)
-			_check("%s %d: mindestens drei Zeilen" % [a, lang], lines.size() >= 3, true)
-	# Wortlaut wie Perks.describe
-	_check("Kopfzeile", Talente.describe("WIS", h, 0)[0], "Wert 16, Modifikator +3")
-	_check("Kopfzeile negativ", Talente.describe("INT", h, 1)[0], "Score 8, modifier -1")
-	_check("Wahrnehmung", Talente.describe("WIS", h, 0)[3], "• Wahrnehmung: +1,5 Felder Sicht im Nebel, 45 % seltener Hinterhalte.")
-	_check("Perception", Talente.describe("WIS", h, 1)[3], "• Perception: +1.5 tiles of sight in the fog, 45 % fewer ambushes.")
-	_check("Handeln", Talente.describe("CHA", h, 0)[1], "• Handeln: 5 % günstiger einkaufen und 5 % teurer verkaufen.")
-	_check("Trading arm", Talente.describe("CHA", Probeheld.new({"CHA": 8}), 1)[1], "• Trading: buy for 5% more and sell for 5% less.")
-	_check("Lernen", Talente.describe("INT", Probeheld.new({"INT": 14}), 0)[3], "• Lernen: +6 % Erfahrung.")
+	var wl := BrsHeld.welt()
+	_check("Handeln 0 kauft", Laden.buy_price(probeheld(), 100), 100)
+	_check("Handeln 50 kauft", Laden.buy_price(probeheld({}, {"Handeln": 50}), 100), roundi(100 * (1.0 - 50 * float(wl["handeln_je_punkt"]))))
+	_check("Handeln 50 verkauft", Laden.sell_price(probeheld({}, {"Handeln": 50}), 100), roundi(100 * (1.0 + 50 * float(wl["handeln_je_punkt"]))))
+	_check("mindestens 1", Laden.buy_price(probeheld({}, {"Handeln": 100}), 1), 1)
+	_check("Alchemie 10 braut", Laden.brau_chance(probeheld({}, {"Alchemie": 10})), 10 * float(wl["brauen_je_alchemie"]))
+	_check("Kräuter", Laden.kraut_chance(probeheld({"wahrnehmung": 5}, {"Kräuterkunde": 10})),
+		10 * float(wl["kraut_je_kraeuterkunde"]) + 2 * float(wl["kraut_je_wahrnehmung"]))
+	_check("Kochen 10", Laden.essen_bonus(probeheld({}, {"Kochen": 10})), roundi(10 * float(wl["essen_je_kochen"])))
+	_check("Gewandtheit 3 bemerkt", probeheld({"gewandtheit": 3}).bemerkt_aus(), int(wl["bemerken_felder"]))
+	_check("Gewandtheit 8 bemerkt", probeheld({"gewandtheit": 8}).bemerkt_aus(), int(wl["bemerken_felder"]) - 1)
+	_check("Wahrnehmung 9 Hinterhalt", probeheld({"wahrnehmung": 9}).hinterhalt_faktor(), maxf(float(wl["hinterhalt_min"]), 1.0 - 6 * float(wl["hinterhalt_je_wahrnehmung"])))
 
 
 func _zustaende() -> void:

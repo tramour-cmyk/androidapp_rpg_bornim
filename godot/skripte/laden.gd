@@ -1,13 +1,29 @@
 class_name Laden
 extends RefCounted
 # 390 (Laden, Game.kt buy/sell/buyBack/brew, Story.shopStock, Recipes): Thessas Kramladen und Morwens Kraeuterhuette fuer Dinge
-# (Traenke, Wurfzeug, Zutaten). Preise nach Charisma wie Perks (Jerrys regeln/talente.gd): kaufen voller Preis, verkaufen der halbe.
+# (Traenke, Wurfzeug, Zutaten). 870.4: Preise nach der Fertigkeit Handeln (werte.json „welt“, statt Charisma nach regeln/talente.gd):
+# kaufen voller Preis, verkaufen der halbe.
 # Die letzten fuenf Verkaeufe eines Besuchs lassen sich zum erzielten Preis zurueckkaufen (59.4), nicht gespeichert.
 # Ausruestung (Game.shopGear/buyGear/sellGear/sellAllCommon): Thessas Ware aus skripte/beute.gd, gewuerfelt wie im alten Spiel.
 # Daten aus texte.json (TextExport: dinge, rezepte, laden) und held.json; Preise nur aus dem Gegenstandskatalog (458.2, katalog.gd),
 # Einzelstuecke unverkaeuflich (458.2a). Gegenprobe: tests/laden_test.gd, tests/beute_golden.gd, tests/katalog_test.gd.
 
-const TALENTE := preload("res://regeln/talente.gd")
+# 870.4 (LISTE-UMZUG-BRS.md Schritt 4): was frueher Charisma, Intelligenz, Weisheit, Konstitution taten (regeln/talente.gd, Perks.kt),
+# tun Fertigkeiten und Grundwerte nach dem BRS; Zahlen aus werte.json „welt“
+static func _wl() -> Dictionary: return BrsHeld.welt()
+static func kauf_faktor(hw: BrsHeld) -> float: return 1.0 - float(_wl().get("handeln_je_punkt", 0.002)) * hw.fertigkeit("Handeln")
+static func verkauf_faktor(hw: BrsHeld) -> float: return 1.0 + float(_wl().get("handeln_je_punkt", 0.002)) * hw.fertigkeit("Handeln")
+static func buy_price(hw: BrsHeld, base: int) -> int: return maxi(1, roundi(base * kauf_faktor(hw)))
+static func sell_price(hw: BrsHeld, base: int) -> int: return maxi(1, roundi(base * verkauf_faktor(hw)))
+## Chance auf einen Trank mehr bei Morwens Sud (Alchemie)
+static func brau_chance(hw: BrsHeld) -> float: return float(_wl().get("brauen_je_alchemie", 0.01)) * hw.fertigkeit("Alchemie")
+## Chance auf ein Kraut mehr beim Pfluecken (Kraeuterkunde und Wahrnehmung)
+static func kraut_chance(hw: BrsHeld) -> float:
+	var wl := _wl()
+	return float(wl.get("kraut_je_kraeuterkunde", 0.01)) * hw.fertigkeit("Kräuterkunde") \
+		+ float(wl.get("kraut_je_wahrnehmung", 0.05)) * maxi(0, hw.wert("wahrnehmung") - int(wl.get("kraut_wahrnehmung_ab", 3)))
+## Leben dazu aus einer Mahlzeit (Kochen)
+static func essen_bonus(hw: BrsHeld) -> int: return roundi(float(_wl().get("essen_je_kochen", 0.2)) * hw.fertigkeit("Kochen"))
 # Ueberschriften wie ShopScreen.kt (dort ohne eigenen Namen)
 const VORRAETE := {"de": "Vorräte", "en": "Supplies"}
 const HUETTE := {"de": "Morwens Hütte", "en": "Morwen's hut"}
@@ -51,9 +67,9 @@ static func ding(id: String) -> Dictionary:
 static func name(id: String) -> String: return Sprache.t(ding(id).get("name", id))
 static func preis(id: String) -> int: return Katalog.preis(id)
 static func verkaeuflich(id: String) -> bool: return String(ding(id).get("art", "")) != "KEY" and preis(id) > 0
-static func kaufpreis(hw: Heldwerte, id: String) -> int: return TALENTE.buy_price(hw, preis(id))
-static func verkaufspreis(hw: Heldwerte, id: String) -> int: return TALENTE.sell_price(hw, preis(id) / 2)
-static func kann_kaufen(z: Zustand, hw: Heldwerte, id: String) -> int: return z.gold / kaufpreis(hw, id)
+static func kaufpreis(hw: BrsHeld, id: String) -> int: return buy_price(hw, preis(id))
+static func verkaufspreis(hw: BrsHeld, id: String) -> int: return sell_price(hw, preis(id) / 2)
+static func kann_kaufen(z: Zustand, hw: BrsHeld, id: String) -> int: return z.gold / kaufpreis(hw, id)
 
 static func mit_anzahl(id: String, n: int) -> String: return name(id) + (" ×%d" % n if n > 1 else "")
 
@@ -62,7 +78,7 @@ static func verkauft_name(s: Dictionary) -> String:
 	return Beute.name(s["ausruestung"]) if s.has("ausruestung") else mit_anzahl(String(s["ding"]), int(s["anzahl"]))
 
 # Game.buy
-func kaufe(z: Zustand, hw: Heldwerte, id: String, n: int = 1) -> String:
+func kaufe(z: Zustand, hw: BrsHeld, id: String, n: int = 1) -> String:
 	var p := kaufpreis(hw, id) * n
 	if n < 1: return Sprache.u("nothing")
 	if z.gold < p: return Sprache.u("notEnoughGold")
@@ -72,7 +88,7 @@ func kaufe(z: Zustand, hw: Heldwerte, id: String, n: int = 1) -> String:
 	return Sprache.u("bought", [mit_anzahl(id, n)])
 
 # Game.sell: nur Verkaeufliches, nur was er hat
-func verkaufe(z: Zustand, hw: Heldwerte, id: String, n: int = 1) -> String:
+func verkaufe(z: Zustand, hw: BrsHeld, id: String, n: int = 1) -> String:
 	if n < 1 or not verkaeuflich(id) or z.anzahl(id) < n: return Sprache.u("cannotSell")
 	z.weg(id, n)
 	var p := verkaufspreis(hw, id) * n
@@ -98,17 +114,17 @@ func _verkauft(s: Dictionary) -> void:
 
 # ---------------------------------------------------------------- Ausruestung
 # Game.shopGear: Thessas Ware ohne das schon Gekaufte; die Fackel geht nie aus (180)
-static func ware(z: Zustand, hw: Heldwerte) -> Array:
+static func ware(z: Zustand, hw: BrsHeld) -> Array:
 	var satz := z.siege / 8
 	return Beute.ladenware(hw, z.siege).filter(func(g): return String(g["base"]) == "torch" or not z.laden_verkauft.has("%d:%d" % [satz, int(g["uid"])]))
 
-static func kaufpreis_von(hw: Heldwerte, g: Dictionary) -> int: return TALENTE.buy_price(hw, Beute.preis(g))
-static func verkaufspreis_von(hw: Heldwerte, g: Dictionary) -> int: return TALENTE.sell_price(hw, maxi(1, Beute.preis(g) / 4))
+static func kaufpreis_von(hw: BrsHeld, g: Dictionary) -> int: return buy_price(hw, Beute.preis(g))
+static func verkaufspreis_von(hw: BrsHeld, g: Dictionary) -> int: return sell_price(hw, maxi(1, Beute.preis(g) / 4))
 # 458.2a: Einzelstuecke haben im Katalog Preis 0 und bleiben beim Helden
 static func ausruestung_verkaeuflich(g: Dictionary) -> bool: return g.get("unique") == null or Katalog.verkaeuflich(String(g["unique"]))
 
 # Game.buyGear: in die Tasche, mit neuer Kennung
-func kaufe_ausruestung(z: Zustand, hw: Heldwerte, g: Dictionary) -> String:
+func kaufe_ausruestung(z: Zustand, hw: BrsHeld, g: Dictionary) -> String:
 	var p := kaufpreis_von(hw, g)
 	if z.gold < p: return Sprache.u("notEnoughGold")
 	z.gold -= p
@@ -120,7 +136,7 @@ func kaufe_ausruestung(z: Zustand, hw: Heldwerte, g: Dictionary) -> String:
 	return Sprache.u("bought", [Beute.name(g)])
 
 # Game.sellGear: Stueck [i] der Tasche
-func verkaufe_ausruestung(z: Zustand, hw: Heldwerte, i: int) -> String:
+func verkaufe_ausruestung(z: Zustand, hw: BrsHeld, i: int) -> String:
 	if i < 0 or i >= z.beutel.size(): return Sprache.u("cannotSell")
 	var g: Dictionary = z.beutel[i]
 	if not ausruestung_verkaeuflich(g): return Sprache.u("cannotSell")
@@ -132,7 +148,7 @@ func verkaufe_ausruestung(z: Zustand, hw: Heldwerte, i: int) -> String:
 	return Sprache.u("sold", [Beute.name(g)])
 
 # Game.sellAllCommon: alles Gewoehnliche auf einmal; gibt die Zahl
-func verkaufe_gewoehnliches(z: Zustand, hw: Heldwerte) -> int:
+func verkaufe_gewoehnliches(z: Zustand, hw: BrsHeld) -> int:
 	var weg_ := z.beutel.filter(func(g): return String(g["rarity"]) == "COMMON" and ausruestung_verkaeuflich(g))
 	for g in weg_:
 		z.beutel.erase(g)
@@ -177,19 +193,19 @@ static func kosten(r: Dictionary) -> String:
 
 # Game.brew: Zutaten und Gold weg, ein Trank; ein kluger Held holt manchmal einen zweiten heraus (Perks.extraBrewChance).
 # wurf: Zufallszahl 0..1 (Dice.chance), im Test fest
-func braue(z: Zustand, hw: Heldwerte, r: Dictionary, wurf: float = randf()) -> String:
+func braue(z: Zustand, hw: BrsHeld, r: Dictionary, wurf: float = randf()) -> String:
 	if not bezahlbar(z, r): return Sprache.l("missing")
 	for id in r["zutaten"]: z.weg(String(id), int(r["zutaten"][id]))
 	z.gold -= int(r["gold"])
 	var aus := String(r["ergebnis"])
 	z.dazu(aus)
-	if wurf < TALENTE.extra_brew_chance(hw):
+	if wurf < brau_chance(hw):
 		z.dazu(aus)
 		return Sprache.l("brewedTwo", [name(aus)])
 	return Sprache.l("brewed", [name(aus)])
 
 # 525 (Sokrates 04.11.: „×1, ×5, so viele wie möglich“): n-mal brauen; die Meldung nennt, was herauskam („Morwen braut dir: Heiltrank ×3.“)
-func braue_mehr(z: Zustand, hw: Heldwerte, r: Dictionary, n: int, wurf: Callable = func(): return randf()) -> String:
+func braue_mehr(z: Zustand, hw: BrsHeld, r: Dictionary, n: int, wurf: Callable = func(): return randf()) -> String:
 	n = mini(n, wie_oft(z, r))
 	if n < 1: return Sprache.l("missing")
 	if n == 1: return braue(z, hw, r, float(wurf.call()))

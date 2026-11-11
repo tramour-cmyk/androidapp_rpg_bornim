@@ -7,8 +7,8 @@ extends "res://tests/drehteller_499.gd"
 # Probebild: BILDER=<ordner> ohne --write-movie: je Held ein Streifen aus vier Bildern derselben Szene (nach 1, 3, 5, 7 s Gehen)
 # Messung (immer): je Sekunde Spalt des Schilds zum Koerper an Unter- und Oberkante, Oberkante gegen die Schultern
 
-const FOLGE := ["FIGHTER", "CLERIC"]
-const NAMEN := {"FIGHTER": "Kämpfer · Gehen, Schild auf dem Rücken", "CLERIC": "Kleriker · Gehen, Schild auf dem Rücken"}
+const FOLGE := ["Wachsoldat", "Klosterschüler"]
+const NAMEN := {"Wachsoldat": "Kämpfer · Gehen, Schild auf dem Rücken", "Klosterschüler": "Kleriker · Gehen, Schild auf dem Rücken"}
 const STEHEN_S := 1.0
 const GEHEN_S := 8.0
 const DT := 1.0 / 30.0
@@ -81,7 +81,7 @@ func stelle_kamera(ziel: Vector3, gieren: float) -> void:
 
 func geh(k: String, mit_bild: bool, bilder: String) -> void:
 	var z := Zustand.new()
-	var hw := Heldwerte.erschaffe("Thora", "HUMAN", k, {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Thora", "Mensch", k, z.neue_uid)
 	var w := HeldFigur.wahl(hw, z)
 	var mats := []
 	var modell := HeldFigur.baue(w, mats)

@@ -9,7 +9,7 @@ Plan und Regeln: `docs/LISTE-UMZUG-348.md` (auf `main`). Bau: `.github/workflows
 - `skripte/gebiet.gd`: Gebietskarte aus Blender (`daten/dorf.bin`) mit dem Look der Probe Build 11, Lampen, Gras, Falter, Rauch.
 - `skripte/held.gd`: Held (`daten/held.bin`), Gehen/Stehen, Fackel, Kollision, Tempo wie `FreeWalk`.
 - `skripte/kamera.gd`, `licht.gd`, `steuerung.gd`: Blick schräg von oben mit Tusche; Tag und Nacht; Tippen, Joystick, zwei Finger, Knöpfe, Textfeld.
-- `skripte/heldwerte.gd` (390): der Held wie `Hero.kt` (Werte, RK, Angriff, Schaden, Stufen, Ausruestung anlegen); Gegenprobe `tests/held_golden.gd`.
+- `regeln/brs_held.gd` (470, 870.4): der Held nach dem BRS (Erschaffung, Grundwerte, Fertigkeiten, Leben, Mana, Schutzwert, Schaden, Ausruestung anlegen, Kampfblatt); Zahlen aus `daten/werte.json`; Gegenproben `tests/brs_470.gd`, `tests/brs_blatt_870.gd`, `tests/brs_held_870.gd`.
 - `skripte/geschichte.gd`, `skript.gd`, `zustand.gd`, `sprache.gd` (390): Gespraeche und Auftraege wie `Story.kt` (Texte wortgleich, `tools/pruef348/story_texte.py`), Spielstand, Deutsch/Englisch.
 - `kampf/` (Jerry, 348.7): Kampfort mit MARS, `kampf/aufruf.gd` startet ihn aus der Welt; 399.1: der Weg in den Wald fuehrt dorthin (`spiel.gd` `kampf_im_wald`), Grundrisse aus `tools/blender348/v3/raum.py` (`daten/<id>.bin`).
 - `regeln/brs.gd` (473): Monsterwerte Kapitel 1 nach dem BRS und Rechenmodell D wie die Simulation 444, Zahlen nur aus `daten/werte.json` (Kopie von `tools/sim444/werte.json`); Gegenprobe `tests/brs_473.gd`. Der Kampf rechnet bis 2.3 noch nach SRD (`regeln/tabellen.json`).
@@ -24,7 +24,7 @@ Plan und Regeln: `docs/LISTE-UMZUG-348.md` (auf `main`). Bau: `.github/workflows
 ```
 ./gradlew -p core exportMaps -Pout=$PWD/godot/daten/karten.json
 ./gradlew -p core exportTexts -Pout=$PWD/godot/daten/texte.json   # 390: Oberflaeche, Dinge (Sprache.gd)
-./gradlew -p core exportHero -Pout=$PWD/godot/daten/held.json -Pproben=$PWD/godot/daten/held_proben.json   # 390: Held, Proben fuer tests/held_golden.gd
+./gradlew -p core exportHero -Pout=$PWD/godot/daten/held.json   # 390: Grundformen, Seltenheiten, Zusatzeigenschaften der Gegenstaende (BrsHeld.daten)
 cp tools/gegenstaende/gegenstaende.json godot/daten/   # 458.2: Stufe und Preis aller Gegenstaende (skripte/katalog.gd)
 cp tools/sim444/werte.json godot/daten/   # 473: Monsterwerte BRS (regeln/brs.gd)
 OUT=/tmp/out KARTEN=$PWD/godot/daten/karten.json python -I tools/blender348/v3/{tex,held3,rig,dorf}.py   # je Skript ein Aufruf

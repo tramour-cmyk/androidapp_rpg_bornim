@@ -25,7 +25,7 @@ func _lauf() -> void:
 	var z := Zustand.new()
 	z.name = "Alt"; z.gold = 777
 	Spielstand.platz = 1
-	Spielstand.speichere(z, Heldwerte.erschaffe("Alt", "HUMAN", "FIGHTER", {}, z.neue_uid), {"karte": "village", "x": 19, "y": 13, "blick": "DOWN"})
+	Spielstand.speichere(z, BrsHeld.fuer_spiel("Alt", "Mensch", "Wachsoldat", z.neue_uid), {"karte": "village", "x": 19, "y": 13, "blick": "DOWN"})
 	# die Seite selbst: Herkunft gewaehlt, alles verteilt; ziel 0 wie im Testmenue → erster freier Platz
 	var e := ErschaffungBrs.new()
 	e.ziel = 0
@@ -50,7 +50,7 @@ func _lauf() -> void:
 	pruefe("Name", spiel.zustand.name, "Brs")
 	pruefe("Platz", Spielstand.platz, 2)
 	var f: Dictionary = (spiel.zustand.brs as Dictionary).get("fertigkeiten", {})
-	print("BRS834 Held: %s, Fertigkeiten %s, Klasse der Bruecke %s" % [spiel.zustand.name, f, spiel.held_werte().klasse])
+	print("BRS834 Held: %s, Fertigkeiten %s, Herkunft %s" % [spiel.zustand.name, f, spiel.held_werte().herkunft])
 	pruefe("zustand.brs mit Fertigkeiten", f.is_empty(), false)
 	pruefe("Ort: Bett der Schenke", [spiel.karte.id, spiel.held.kachel], [String(Rast.START["karte"]), Vector2i(int(Rast.START["x"]), int(Rast.START["y"]))])
 	spiel.speichere()
@@ -62,7 +62,7 @@ func _lauf() -> void:
 	# alle Plaetze belegt: Platzwahl statt fertig (795)
 	for n in range(1, Spielstand.PLAETZE + 1):
 		Spielstand.platz = n
-		Spielstand.speichere(z, Heldwerte.erschaffe("Alt", "HUMAN", "FIGHTER", {}, z.neue_uid), {"karte": "village", "x": 19, "y": 13, "blick": "DOWN"})
+		Spielstand.speichere(z, BrsHeld.fuer_spiel("Alt", "Mensch", "Wachsoldat", z.neue_uid), {"karte": "village", "x": 19, "y": 13, "blick": "DOWN"})
 	var e2 := ErschaffungBrs.new()
 	root.add_child(e2)
 	await process_frame

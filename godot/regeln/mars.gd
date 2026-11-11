@@ -593,7 +593,7 @@ func _brs_zauber_kennen(f: Fighter) -> void:
 	f.sp = clampi(roundi(float(f.max_sp) * f.sp / alt_max), 0, f.max_sp) if alt_max > 0 else f.max_sp
 
 
-## 870.5: das Mana nach dem Kampf in der alten Rechnung der Welt (Heldwerte zp), im selben Anteil; ohne Angabe unverändert
+## 870.5: das Mana nach dem Kampf in der Rechnung der Welt (870.4: BrsHeld, dieselbe Zahl), im selben Anteil; ohne Angabe unverändert
 static func sp_nach(f) -> int:
 	var alt_max := int(f.hero.get("sp_max", 0)) if f.hero != null else 0
 	if alt_max <= 0 or f.max_sp <= 0:
@@ -849,7 +849,7 @@ func _covers(f: Fighter) -> bool:
 
 ## The announced blows [f] can draw onto himself by covering (72.10a.9).
 func guardable(f: Fighter) -> Array:
-	if f.hero == null or f.hero.cls != "FIGHTER" or f.place.x != FRONT or not f.standing():
+	if f.hero == null or String(f.hero.get("cls", "")) != "FIGHTER" or f.place.x != FRONT or not f.standing():     # 870.4: der Held nach BRS hat keine Klasse
 		return []
 	var out := []
 	for id in intents:
@@ -1390,13 +1390,21 @@ func _drink(f: Fighter, item: String, t: Fighter) -> void:
 	assert(potions.get(item, 0) > 0 and t.standing() and t.side == f.side)
 	potions[item] -= 1
 	var def: Dictionary = items[item]
-	var n := maxi(0, mini(t.max_hp - t.hp, _srd(t, dice.roll_expr(def.heal))))     # 478
+	var n := maxi(0, mini(t.max_hp - t.hp, _heilung(t, item, def)))     # 478, 870.4
 	t.hp += n
 	var nm: String = [def.de, def.en][lang]
 	if f == t:
 		_say(fmt(X.MSG72_DRINKS, lang, [f.name(lang), nm, n]), f.id, t.id, 0, null, false, false, "DRINK")
 	else:
 		_say(fmt(X.MSG72_GIVES, lang, [f.name(lang), t.name(lang), nm, n]), f.id, t.id, 0, null, false, false, "DRINK")
+
+
+## 870.4: ein Trank heilt den Helden fest wie in der Welt (werte.json „welt“ „heilung“, Leben nach BRS), sonst wie bisher im Maß des BRS
+func _heilung(t: Fighter, item: String, def: Dictionary) -> int:
+	var fest = BrsKampf.w().get("welt", {}).get("heilung", {}).get(item)
+	if fest != null and t.hero != null:
+		return int(fest)
+	return _srd(t, dice.roll_expr(def.heal))
 
 
 ## The Attack action: one blow (870.5: Extra-Angriff und Zweiwaffenkampf entfallen, 870a 3 A). Returns whom to strike next.

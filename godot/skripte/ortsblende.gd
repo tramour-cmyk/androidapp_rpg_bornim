@@ -108,13 +108,13 @@ static func worte_spalte(name_: String, satz: String, neben := "", gebrochen := 
 	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	v.add_theme_constant_override("separation", 0)
 	v.add_child(_zeile(name_.to_upper().replace("ß", "SS"), NAME_SP, Stil.GOLD, 3.0, 0.0))
-	v.add_child(Erschaffung.luecke(8))
+	v.add_child(Stil.luecke(8))
 	v.add_child(zier(gebrochen))
 	if satz != "":
-		v.add_child(Erschaffung.luecke(14))
+		v.add_child(Stil.luecke(14))
 		v.add_child(_zeile(satz, SATZ_SP, TEXT, 0.6, SATZ_ZEILE))
 	if neben != "":
-		v.add_child(Erschaffung.luecke(14))
+		v.add_child(Stil.luecke(14))
 		v.add_child(_zeile(neben, NEBEN_SP, Color(TEXT, 0.8), 0.4, NEBEN_ZEILE))
 	return v
 

@@ -98,7 +98,7 @@ func baue() -> void:
 	kopf.add_child(titel)
 	if not uebersicht:   # 62r: eine Stufe hoeher, der Knopf nennt wohin; auf der Landkarte keiner
 		var oben := String(karte_daten().get("oben", ""))
-		var b := Erschaffung.knopf(wort("gebietskarte_hoch" if oben != "" else "landkarte_hoch"), func():
+		var b := Stil.knopf(wort("gebietskarte_hoch" if oben != "" else "landkarte_hoch"), func():
 			if oben != "": gezeigt = oben
 			else: uebersicht = true
 			baue())
@@ -111,7 +111,7 @@ func baue() -> void:
 		add_child(reihe)
 		for g in [["QUESTS", "auftraege"], ["PEOPLE", "leute"], ["SERVICES", "dienste"]]:
 			var gruppe: String = g[0]
-			var s := Erschaffung.knopf(wort(g[1]), func(): schalter[gruppe] = not schalter[gruppe]; baue(), schalter[gruppe])
+			var s := Stil.knopf(wort(g[1]), func(): schalter[gruppe] = not schalter[gruppe]; baue(), schalter[gruppe])
 			s.custom_minimum_size = Vector2(0, 34 * DP)
 			reihe.add_child(s)
 	var rahmen := Control.new()
@@ -128,14 +128,14 @@ func tipp(text: String, chronik := false) -> void:
 	if text == "": return
 	var spalte := VBoxContainer.new()
 	spalte.add_theme_constant_override("separation", int(6 * DP))
-	spalte.add_child(Erschaffung.txt(text, 15, Stil.BRIGHT))
+	spalte.add_child(Stil.txt(text, 15, Stil.BRIGHT))
 	if chronik:
-		var b := Erschaffung.knopf(wort("chronik"), zur_chronik)
+		var b := Stil.knopf(wort("chronik"), zur_chronik)
 		b.custom_minimum_size = Vector2(0, 32 * DP)
 		b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 		b.clip_text = false   # 503
 		spalte.add_child(b)
-	tipp_kasten = Erschaffung.kasten(spalte)
+	tipp_kasten = Stil.rahmen(spalte)
 	tipp_kasten.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
 	tipp_kasten.grow_vertical = Control.GROW_DIRECTION_BEGIN
 	tipp_kasten.offset_left = 8 * DP; tipp_kasten.offset_right = -8 * DP; tipp_kasten.offset_bottom = -8 * DP

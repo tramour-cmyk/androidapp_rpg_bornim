@@ -73,7 +73,7 @@ func _lauf() -> void:
 	await warte()
 	# 2. der Weg des Chefs: Ausruestung, leeres Kopffeld, Zurueck
 	var z := Zustand.new()
-	var hw := Heldwerte.erschaffe("Thora", "DWARF", "FIGHTER", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Thora", "Zwerg", "Wachsoldat", z.neue_uid)
 	var m := Menue.new(hw, z)
 	root.add_child(m)
 	m.reiter = "ausruestung"; m.baue()

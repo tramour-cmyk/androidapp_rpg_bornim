@@ -21,16 +21,16 @@ func texte(zeilen: Array) -> Array:
 func _lauf() -> void:
 	Sprache.lade()
 	if Sprache.aktiv() != "de": Sprache.wechsle()
-	for klasse in ["FIGHTER", "WIZARD"]:
+	for klasse in ["Wachsoldat", "Zauberlehrling"]:
 		var z := Zustand.new()
-		var hw := Heldwerte.erschaffe("Thora", "HUMAN", klasse, {}, z.neue_uid)
+		var hw := BrsHeld.fuer_spiel("Thora", "Mensch", klasse, z.neue_uid)
 		hw.anlegen({"uid": z.neue_uid.call(), "base": "amulet", "rarity": "RARE", "ilvl": 1, "plus": 0, "rolls": [["ALL_STATS", 1]], "unique": null, "name_seed": 0})
 		var ring := z.ausruestung_dazu({"uid": 0, "base": "ring", "rarity": "RARE", "ilvl": 1, "plus": 0, "rolls": [["ALL_STATS", 1]], "unique": null, "name_seed": 0})
 		var v := Vergleich.von(hw, ring)
 		var b := texte(Menue.stueck_zeilen_b(hw, ring)).filter(func(t): return t.contains("Obergrenze"))
 		pruefe(b.size() == 1, "%s Fenster: Deckel einmal, %d-mal: %s" % [klasse, b.size(), str(b)])
 		var alt := texte(Menue.stueck_zeilen_von(hw, ring)).filter(func(t): return t.contains("Obergrenze"))
-		pruefe(alt.size() == 1 and String(alt[0]).begins_with("Alle Attribute"), "%s Laden: eine Sammelzeile, %d: %s" % [klasse, alt.size(), str(alt)])
+		pruefe(alt.size() == 1 and String(alt[0]).begins_with("Alle Grundwerte"), "%s Laden: eine Sammelzeile, %d: %s" % [klasse, alt.size(), str(alt)])
 		pruefe(v.urteil() == null, "%s: Urteil „bringt nichts“ (%s)" % [klasse, str(v.urteil())])
 	print("OBERGRENZE701 %s" % ("gut" if fehler == 0 else "%d Fehler" % fehler))
 	quit(1 if fehler > 0 else 0)
