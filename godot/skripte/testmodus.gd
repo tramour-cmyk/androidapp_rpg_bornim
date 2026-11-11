@@ -12,6 +12,7 @@ static var geladen := false
 static var an := false                  # prefs KEY_TEST
 static var bildrate := false            # FrameMeter.on: Bilder je Sekunde ueber der Welt
 static var standort := false            # PlaceMeter.on: Karte und Kachel des Helden ueber der Welt
+static var tiere := false               # 991: Tiermodelle um den Helden (Spiel.tiere_an_aus), fuer den Zustand am Zeichen
 static var klang := false               # 636 A (Chef 09.11., 06:55): die letzten Effekte ueber der Welt (klang.gd protokoll_zeilen)
 
 static func lade() -> void:
@@ -261,7 +262,7 @@ static func reiter(m: Menue) -> void:
 	# 555 (Chef 04.11., 20:11: „warum heißt das Ding Merker?“; Vorschlag Sokrates): „Geschichte“, Stand der Geschichte von Kapitel 1
 	welt4.append(zk.call(t.call("Geschichte", "Story"), "%d" % MERKER.filter(func(f): return z.has(String(f[0]))).size(),
 		t.call("Stand der Geschichte von Kapitel 1: was schon geschehen ist. Antippen setzt oder löscht einen Schritt, „Ort neu“ zeigt den Ort danach.",
-			"Story so far in chapter 1. A tap sets or clears a step; “Reload place” shows the place afterwards."), func(): merker_auf = not merker_auf, "FLAG", "", merker_auf))
+			"Story so far in chapter 1. A tap sets or clears a step; “Reload place” shows the place afterwards."), func(): merker_auf = not merker_auf, "FLAG", "", true))   # 991: klappt eine Liste auf wie „Waffe“, kein Schalter: immer gold
 	m.zeichenreihe(welt4)
 	if merker_auf:
 		for i in range(0, MERKER.size(), 2):
@@ -271,17 +272,20 @@ static func reiter(m: Menue) -> void:
 				m.baue()]))
 		reihe.call([[t.call("Ort neu", "Reload place"), func(): m.test.emit("ort_neu", [])]])
 	# 500 (Chef 03.11., 07:24): was nur die Probeknoepfe rechts in der Welt schalteten, hier
-	var welt2 := [zk.call(t.call("Tag / Nacht", "Day / night"), null, t.call("Schaltet zwischen Mittag und 23 Uhr; die Leute folgen der Uhr.", "Switches between noon and 11 pm; the people follow the clock."),
+	# 991 (Chef 11.11., 20:24, t277: „man kann anhand des Icons nicht sehen, was jetzt an ist“): jeder Schalter zeigt seinen Zustand,
+	# aus matt und durchgestrichen, darunter an/aus oder der Wert; Tag/Nacht nennt die Tageszeit
+	var nachts: bool = z.minuten >= 20 * 60 or z.minuten < 6 * 60
+	var welt2 := [zk.call(t.call("Tag / Nacht", "Day / night"), t.call("Nacht", "night") if nachts else t.call("Tag", "day"), t.call("Schaltet zwischen Mittag und 23 Uhr; die Leute folgen der Uhr.", "Switches between noon and 11 pm; the people follow the clock."),
 		func(): m.test.emit("nacht", []), "", "☾")]
 	if DirAccess.dir_exists_absolute("res://daten/tiere"):
-		welt2.append(zk.call(t.call("Tiere", "Animals"), null, t.call("Stellt alle Tiermodelle zum Anschauen um den Helden; noch einmal: weg.", "Puts every animal model around the hero to look at; again: gone."),
-			func(): m.test.emit("tiere", []), "STEPS"))
+		welt2.append(zk.call(t.call("Tiere", "Animals"), an_aus.call(tiere), t.call("Stellt alle Tiermodelle zum Anschauen um den Helden; noch einmal: weg.", "Puts every animal model around the hero to look at; again: gone."),
+			func(): m.test.emit("tiere", []), "STEPS", "", tiere))
 	if GrasBausatz.da():   # 804: Gras des Kits oder unser altes, gleich am Ort; Bilder/s vorher und nachher unter „Messen“
-		welt2.append(zk.call(t.call("Gras", "Grass"), null, t.call("Gras und Blumen aus Grass & Wind oder unser altes Gras, gleich hier am Ort.",
-			"Grass and flowers from Grass & Wind or our old grass, right here."), func(): m.test.emit("gras", []), "", "G"))
+		welt2.append(zk.call(t.call("Gras", "Grass"), t.call("Kit", "kit") if GrasBausatz.an else t.call("alt", "old"), t.call("Gras und Blumen aus Grass & Wind oder unser altes Gras, gleich hier am Ort.",
+			"Grass and flowers from Grass & Wind or our old grass, right here."), func(): m.test.emit("gras", []), "", "G", GrasBausatz.an))
 	if KampfEffekte.da():   # 806: Bodennebel und Lichtschächte im Kampfort an oder aus, gilt ab dem nächsten Kampf (Bilder/s vorher und nachher)
-		welt2.append(zk.call(t.call("Kampfnebel", "Battle mist"), null, t.call("Bodennebel und Lichtschächte im Kampfort an oder aus; gilt ab dem nächsten Kampf.",
-			"Ground mist and light shafts at the battle place on or off; from the next battle on."), func(): m.test.emit("kampfeffekte", []), "", "N"))
+		welt2.append(zk.call(t.call("Kampfnebel", "Battle mist"), an_aus.call(KampfEffekte.an), t.call("Bodennebel und Lichtschächte im Kampfort an oder aus; gilt ab dem nächsten Kampf.",
+			"Ground mist and light shafts at the battle place on or off; from the next battle on."), func(): m.test.emit("kampfeffekte", []), "", "N", KampfEffekte.an))
 	m.zeichenreihe(welt2)
 	m.gruppe("Teleport")
 	var orte := [[t.call("Dorf", "Village"), "village", 11, 7, "DOWN", "HOME", ""], [t.call("Wald", "Forest"), "forest", 10, 20, "UP", "", "W"],
