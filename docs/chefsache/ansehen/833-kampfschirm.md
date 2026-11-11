@@ -1,5 +1,7 @@
 # 833 · Unterer Kampfschirm ohne Kasten im Kasten · Jerry · 11.11., 23:46
 
+[Bild von 11.11., 23:47](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/11-2347-833-Jerry.png) (eingetragen von meldung.sh, Jerry)
+
 Probekampf gegen das Wolfsrudel (Mira, Söldner Bertram), links wie heute, rechts Vorschlag A. Nur Bilder, kein Build.
 
 ![Kampfschirm heute und A](../bilder/833-kampfschirm.webp)

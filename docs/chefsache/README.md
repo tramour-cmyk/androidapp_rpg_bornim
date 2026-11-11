@@ -20,6 +20,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [833](ansehen/833-kampfschirm.md) | Unterer Kampfschirm ohne Kasten im Kasten | Jerry | 11.11., 23:46 |
 | [861](ansehen/861-umhang.md) | Umhangbuckel im Kampf: was die Messung zeigt | Tom | 11.11., 23:35 |
 | [991](ansehen/991-testmenue-zustand.md) | Testmenü: jeder Schalter zeigt seinen Zustand am Zeichen | Tom | 11.11., 21:16 |
 
@@ -168,7 +169,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 994 | M | Von Sokrates (Chef 11.11., 20:54, Test 277.18): Klangzeile zeigt beim neuen Spiel ständig | wartet auf Test/Build (gebaut) |
 | Pflege | K | von Werkzeug (340.3, 11.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 
-**Jerry** – offen 129, Muss 111, startbar 14
+**Jerry** – offen 129, Muss 111, startbar 13
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -236,7 +237,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 803 | K | Rest 211.14 (Kür, Tuffy): Gegner durch Antippen der Figur als Ziel wählen | ruht |
 | 811 | K | Von Perikles (800, 650.2 C1): Kommentar in godot/regeln/brs_kampf.gd Zeile 3 nennt DESIGN- | wartet auf Test (Build) |
 | 824 | M | Kampf: Schurke ohne Schild geht beim Angriff kurz 3,4–3,8 m/s in „Gehen“ (Bewegung höchste | wartet auf Test/Build (gebaut) |
-| 833 | M | Unterer Kampfschirm nach Signatur: kein Kasten im Kasten (Bericht, Leiste, Befehle), Knöpf | startbar |
+| 833 | M | Unterer Kampfschirm nach Signatur: kein Kasten im Kasten (Bericht, Leiste, Befehle), Knöpf | Chef (Datei in der Chefsache) |
 | 836 | M | Von Homer (830): Hinweis „Nahkampf erreicht nur die vordere Reihe.“ steht in jedem Kampf, | wartet auf Test/Build (gebaut) |
 | 840 | M | Von Sokrates (830 A, Chef 10.11., 11:00): Eingebung beim ersten Auftreten nach 210 B in Go | wartet auf Test/Build (gebaut) |
 | 841 | M | Von Sokrates (807a A, Chef 10.11., 11:01): Goblin-Späher einschüchtern nach STORY-K1-FERTI | Sperre 620.1 B: 29 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 983 (goblin) |
