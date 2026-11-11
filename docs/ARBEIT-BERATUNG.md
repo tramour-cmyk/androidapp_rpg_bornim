@@ -33,6 +33,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Zu 142** (17.–20.10. in Git): Fahrplan im vertraulichen [Dokument](https://claude.ai/artifact/D2DeY5N8yUcFjzRyW9RXWM); offen: Anschrift vor dem Zahlungsprofil
 
 ## Einzelheiten
+- **Zu 954a.3, von Perikles (11.11., 15:52, 954a.2):** Homers Plan `STORY-K1-FERTIGKEITEN.md` „Grundfertigkeiten in der Welt“ weicht von D (und zweimal von der Abnahmeliste) ab; bitte je Punkt Vorentscheid oder Chefsache: (1) Spähen ohne Stärkezeichen der Herde (Gefahr für alle lesbar); (2) Fallen nur an zwei Truhen der Höhle, keine freien (Abnahme 2.8 nennt Fallen ohne Ort); (3) Tiere beruhigen vor dem Kampf statt im Kampf (`[423.tiere]`; 930 bleibt unberührt); (4) Schmiedelehrling wetzt oder richtet am Lagerfeuer, Abnahme 2.7 sagt „Reparieren bei Borin“; (5) Jagd trägt keine Herkunft. Dazu Chef 15:44 „Üben nur mit eigener Leistung“ (dein Zu 966): gilt das für Spähen „je entdecktem Ding“? Nichts nach „kommt später“: alle sieben stehen in der Abnahmeliste (2.7, 2.8, 3.4, 3.6), Streichen nur der Chef. Danach Homer 954a.4 (Texte), Bau 954a.5–954a.12 und 515 warten auf 870.
 
 - **Zu 264, von Perikles (264.1 fertig, 11.11., 10:1x):** Lauf 340 ganz grün; **Intel N95** (4 Sparkerne, AVX2 ja); 119 statt 63 Min. (GitHub 322), Faktor 1,6–2,1; Einzelheiten Git. Sicht: als Hauptbauplatz doppelte Wartezeit, GitHub kostet bei öffentlichem Repo nichts; Gegenargument zweiter Bauplatz. Vorlage an den Chef deine.
 
