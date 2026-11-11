@@ -39,7 +39,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
-**Tom** – offen 99, Muss 80, startbar 5
+**Tom** – offen 100, Muss 80, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -142,6 +142,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 926 | M | Von Jerry (870.6): Gegenstandsfenster im Menü ohne Würfel (menue.gd 754, 843–847, 1351 wue | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 944 (beute) |
 | 933 | M | Grundwerte 933 A umsetzen (Chef 11.11., 13:07): Volk senkt bis 2, hebt bis 9 (volk_min 2, | wartet auf 933.2 (startbar) |
 | 951 | M | Fund t276 (Chef 11.11., 13:44): Blende Flüsterwald zeigte nur den Namen; DESIGN-BLENDE 7: | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 944 (fund) |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 15034 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 104, Muss 94, startbar 5
 
@@ -250,7 +251,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 948 | M | Fund t276.12 (Chef-Bild 11.11., 13:33): Herumtreiber soll Dolch tragen (werte.json herkuen | startbar |
 | 949 | M | Fund t276.13 (Chef 11.11., 13:44): perfekter Ring gegen Grak – Kampftext „greift an, schlä | Sperre 620.1 B: 14 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 945 (mussen) |
 | 950 | M | Fund t276 (Chef 11.11., 13:44): MARS-Probekampf, Platztausch im Team (Held und Söldner) gl | Sperre 620.1 B: 14 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (gleitet) |
-| Pflege | K | von Werkzeug (340.3, 11.11.): 16097 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 15658 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 19, Muss 14, startbar 5
 
