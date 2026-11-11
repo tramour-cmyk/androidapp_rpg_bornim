@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [975a](entscheiden/975a-name-leder-stoff.md) | **Muss** | E Welt | 11.11., 16:49 | Lederarbeit wird Schneidern (Meisterschaft und Titel Schneider); Oberbegriff aller sechs bleibt Handwerk; Schmuck steht im Ideenspeicher. | Homer |
 
 ## Zu billigen
 
@@ -22,7 +26,7 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 2, startbar 2
+**Homer** – offen 5, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -30,7 +34,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 | 974 | K | Von Jerry (532): Erklärung beim Gedrückthalten der Tasche im Kampf (marstips.gd BAG: „Ein | startbar |
-| 975 | M | Von Sokrates (Chef 11.11., 16:31): Rezeptwege in Texte 972 (Morwen lehrt Alchemisten Heilt | startbar |
+| 975a | M | Von Sokrates (975, Chef 11.11., 16:31): Name des Handwerks für Leder und Stoff (Handarbeit | Chef (Datei in der Chefsache) |
 
 **Tom** – offen 109, Muss 89, startbar 10
 
