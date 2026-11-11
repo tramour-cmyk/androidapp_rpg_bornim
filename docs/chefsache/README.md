@@ -12,11 +12,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 ## Zu billigen
 
-Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers.
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [954a.3](billigen/954a3-grundfertigkeiten-abweichungen.md) | **Muss** | G Balance | 11.11., 15:58 | Spähen ohne Stärkezeichen, Fallen an fünf Truhen, Tiere vor dem Kampf, Schmiedelehrling repariert bei Borin wie in der Abnahmeliste, Jagd ohne Herkunft. | Sokrates |
+Nichts offen.
 
 ## Anzusehen
 
