@@ -535,9 +535,15 @@ def _woerter(t):
     t = t.lower().translate(str.maketrans("äöüß", "aous"))
     return {w for w in re.findall(r"[a-z]{4,}", t) if w not in {x.translate(str.maketrans("äöüß", "aous")) for x in ALLGEMEIN}}
 
+BEUGUNG = {"e", "en", "es", "s", "n", "er", "ern", "ens"}
+KEIN_NAME = {"greifen", "greife"}  # 970 (b): Verb, nicht der Greif
+
 def _gleich(a, b):
-    """Beugung bis 2 Buchstaben wie „wolf/wolfe“, kein Wortteil wie „schwert/schwertarm“ (792)."""
-    return a == b or (min(len(a), len(b)) >= 4 and abs(len(a) - len(b)) <= 2 and (a.startswith(b) or b.startswith(a)))
+    """Beugung wie „wolf/wolfe“, „aldric/aldrics“, kein Wortteil wie „schwert/schwertarm“ (792); 970 (b): nur echte Endungen,
+    also nicht „greift/greif“, „lage/lager“."""
+    if a == b: return True
+    k, l = sorted((a, b), key=len)
+    return len(k) >= 4 and l.startswith(k) and l[len(k):] in BEUGUNG and l not in KEIN_NAME
 
 # 965 (Chef 11.11., 14:56 „hat jeder einen Job?“): Titelwörter zählen nur als Ort oder Figur; Kurzformen, die in den Quellen nur
 # zusammengesetzt stehen („Riesenratte“, „Goblin-Späher“)
@@ -579,27 +585,45 @@ def _git(*a):
 
 _DATEIEN = {}
 
-def _dateien(zweig, unter=()):
-    """Geänderte Spieldateien des Zweigs. 965: liegt der Zweig auf einem anderen aus `unter` (Stapel), nur die eigenen, gerechnet
-    ab dem obersten darunter; sonst ab main (sonst teilt jeder gestapelte Zweig alle Dateien seiner Unterlage)."""
+_ZWEIGE = None
+
+def _dateien(zweig):
+    """Spieldateien, die die eigenen Commits des Zweigs ändern: Commits, die weder auf main noch auf einem anderen Zweig liegen,
+    außer Zweigen, die auf diesem aufbauen (965, 970 (a): sonst teilt jeder gestapelte Zweig alle Dateien seiner Unterlage,
+    auch einer, die keine Zeile der Liste trägt)."""
+    global _ZWEIGE
     if not zweig or zweig in ("–", "-"): return set()
-    key = (zweig, tuple(sorted(unter)))
-    if key not in _DATEIEN:
-        basis, tief = "origin/main", -1
-        for u in unter:
-            if u and u != zweig and u not in ("–", "-") and _git("merge-base", "--is-ancestor", "origin/" + u, "origin/" + zweig).returncode == 0:
-                k = _git("rev-list", "--count", "origin/main..origin/" + u).stdout.strip()
-                if k.isdigit() and int(k) > max(tief, 0): basis, tief = "origin/" + u, int(k)
-        r = _git("diff", "--name-only", basis + "...origin/" + zweig)
-        _DATEIEN[key] = {f for f in r.stdout.split() if not re.match(r"(\.[^/]+|tools|docs|test|tests)/|.*(_test|test_)[^/]*$|.*\.md$", f)} if r.returncode == 0 else set()
-    return _DATEIEN[key]
+    if _ZWEIGE is None:  # einmal: alle Commits über main mit Eltern und Dateien, je Commit die Zweige, die ihn enthalten
+        eltern, dateien, spitzen, enthalten = {}, {}, {}, {}
+        for z in _git("log", "--format=%H %P", "--remotes=origin", "--not", "origin/main").stdout.splitlines():
+            h, *p = z.split(); eltern[h] = p
+        c = None
+        for z in _git("log", "--name-only", "--format=@%H", "--remotes=origin", "--not", "origin/main").stdout.splitlines():
+            if z.startswith("@"): c = z[1:]; dateien[c] = set()
+            elif z and c: dateien[c].add(z)
+        for z in _git("for-each-ref", "--format=%(objectname) %(refname:short)", "refs/remotes/origin").stdout.splitlines():
+            h, r = z.split(" ", 1)
+            if r.startswith("origin/claude/build-") or r in ("origin", "origin/HEAD") or h not in eltern: continue  # Sammelbuilds tragen fremde Zweige
+            spitzen[r[len("origin/"):]] = h
+            offen = [h]
+            while offen:
+                k = offen.pop()
+                if r in enthalten.setdefault(k, set()): continue
+                enthalten[k].add(r); offen += [e for e in eltern.get(k, []) if e in eltern]
+        _ZWEIGE = (spitzen, enthalten, dateien)
+    if zweig not in _DATEIEN:
+        spitzen, enthalten, dateien = _ZWEIGE
+        s = spitzen.get(zweig)
+        auf = enthalten.get(s, set())  # Zweige, die auf diesem aufbauen
+        eigen = [k for k, r in enthalten.items() if s and ("origin/" + zweig) in r and r <= auf]
+        _DATEIEN[zweig] = {f for k in eigen for f in dateien.get(k, ()) if not re.match(r"(\.[^/]+|tools|docs|test|tests)/|.*(_test|test_)[^/]*$|.*\.md$", f)}
+    return _DATEIEN[zweig]
 
 def ueberschneidung(d, offen):
     """779: Text „702 (wolf)“ der ersten ungetesteten Zeile, mit der d sich überschneidet: nennt ihre Nummer, teilt einen Ort oder
     eine Figur im Titel (965: nicht mehr jedes Titelwort; Beugung wie _gleich), liegt auf ihrem Zweig (Stapel) oder teilt eine
     eigene geänderte Datei; sonst None."""
     wd = _namen_im(d["titel"]); fd = None
-    zweige = [o.get("zweig") for o in offen]
     for o in offen:
         if o["nr"] == d["nr"]: continue
         if re.search(r"(?<![\d.])%s(?![\d])" % re.escape(o["nr"]), d["titel"] + " " + " ".join(d.get("warte") or [])): return o["nr"]
@@ -610,8 +634,8 @@ def ueberschneidung(d, offen):
             if oz not in (None, "", "–", "-") and oz != d["zweig"] and _dateien(oz) and \
                     _git("merge-base", "--is-ancestor", "origin/" + oz, "origin/" + d["zweig"]).returncode == 0:
                 return "%s (Zweig liegt darauf)" % o["nr"]
-            fd = _dateien(d["zweig"], zweige) if fd is None else fd
-            g = fd & _dateien(oz, zweige)
+            fd = _dateien(d["zweig"]) if fd is None else fd
+            g = fd & _dateien(oz)
             if g: return "%s (%s)" % (o["nr"], sorted(g)[0].rsplit("/", 1)[-1])
     return None
 
