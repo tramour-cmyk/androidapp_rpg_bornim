@@ -39,7 +39,7 @@ Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit und 
 
 ### Heldenerschaffung
 
-- Jeder Grundwert beginnt bei **1**. Der Spieler verteilt **21 Punkte** (Entscheidung 77, ersetzt die 18 aus 64); danach liegt jeder Wert zwischen **3 und 8**. Damit sind 12 Punkte für die Untergrenze 3 gebunden und **9 frei**, etwa Wille 8, Verstand 6, Zähigkeit 4, sonst 3.
+- Jeder Grundwert beginnt bei **3**; der Spieler verteilt **9 Punkte**, kein Wert über **8** (933 A, 11.11.; gleiche Rechnung wie Entscheidung 77: Start 1, 21 Punkte, 12 für die Untergrenze 3 gebunden), etwa Wille 8, Verstand 6, Zähigkeit 4, sonst 3. Formeln rechnen auch Werte unter 3 (Volk, 933).
 - Dazu ein **Volk** mit kleinem Bonus und Malus und einem spürbaren Merkmal (Entscheidung 70, 72):
 
 | Volk | Grundwerte | Merkmal |
@@ -51,7 +51,7 @@ Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit und 
 | Orkblütiger | Kraft +1, Zähigkeit +1, Wille −1 | Letzter Atemzug |
 | Aschgeborene (ab dem Bau nach dem Meilenstein) | Wille +1, Wahrnehmung +1, Gewandtheit −1 | Aschenerbe (Ashen Legacy; 432.3, Chef 02.11., 22:05): Zauberschaden von Gegnern −25 %; nahe dem Siegel von Aschfurt (Siegelstein, Amulett) ein Zeichen am Bildrand, ohne Probe (432.2) |
 
-  Das Volk darf einen Wert auf 9 heben, aber nie unter 3 senken (Entscheidung 78). Leute in der Welt reagieren auf das Volk (Entscheidung 71).
+  Das Volk darf einen Wert auf 9 heben und auf 2 senken (933 A, ersetzt Entscheidung 78), damit sein Abzug immer greift. Leute in der Welt reagieren auf das Volk (Entscheidung 71).
   **Sechstes Volk: Aschgeborene** (432, Chef 01.11., 09:41; Werte 432.2, 02.11., 16:34): Mensch mit aschgrauer Strähne und goldenem Ring um die Iris; wählbar ab dem Bau nach dem Meilenstein Kapitel 1; vor dem Bau in Simulation 444 mit Völkern messen.
 - **Herkunft, freiwillig** (Entscheidung 68, 69): Sie verteilt die Punkte vor, gibt zwei bis drei Startfertigkeiten und passende Ausrüstung; ein Satz bei der Erschaffung sagt, wohin sie lenkt. Die Punkte kann man ändern. Wer keine will, ist **Wanderer** und verteilt selbst; er wählt zwei Startfertigkeiten. Jede Startfertigkeit beginnt bei **10** (Startwert, Vorschlag).
 
