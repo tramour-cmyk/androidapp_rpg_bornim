@@ -31,6 +31,8 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/169a6e
 - B: jede Zahl erst über 444 rechnen lassen: B1 verschiebt sich um eine bis zwei Sitzungen Jerry, ohne dass die Welt-Zahlen (Preise, Rennen) dort überhaupt vorkommen.
 - Stärkstes Gegenargument gegen A: der feste Heiltrank (14) wirkt im Kampf und verschiebt die Siegquoten aus 870c. Lösung: die B1-Messung je Herkunft (Plan 5) läuft mit den neuen Tränken; weicht eine Quote um mehr als 10 Punkte von 870c ab, kommt sie in die Vorlage B1. Zweites: Ausdauer (467) ist offen; die Formel ist ausdrücklich Übergang, 467 bleibt offen.
 
+**Nachtrag 11.11., 03:32 (Vorlage Tom 03:31, Messlauf 334 rot: Streitkolben hat kein Modell, 458.3):** Klosterschüler und Schmiedelehrling starten bis 458.3 mit **Kampfstab** statt Streitkolben. Toms Vorschlag Handaxt für den Schmiedelehrling abgelehnt: Äxte sind eine andere Waffengruppe, die Herkunft gibt Stumpfe Waffen. Gegenargument: Der Stab ist zweihändig, der Kolben einhändig; ohne Schild kostet das beide Herkünfte nichts, die B1-Messung zeigt die Wirkung. Ein Modell neu bauen (Weg B) hiesse neues Aussehen vor dem Chef, das wartet. Mit 458.3 kommt der Streitkolben zurück.
+
 **Folgerungen:** Tom baut weiter; Jerry misst B1 mit diesen Zahlen; Abweichungen in die Vorlage B1 an dich.
 
 Antwort: … (gebilligt / zurück)
