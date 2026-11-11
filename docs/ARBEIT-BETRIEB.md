@@ -342,4 +342,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:56 11.11.: Startsperre 11:56 Start Perikles (Ford, vor dem Start; Chef 11:5x: Kür bei Leerlauf, angestaute Vorgänge abarbeiten; Perikles hat 725, 726, 727 auf „ruht“)
 - 11:55 11.11.: Marke Start-fehlt Spike 11.11.-11:27 (lauf.py)
 - 12:10 11.11.: Startsperre 12:10 Start Tom, Diogenes (lauf.py)
+- 12:26 11.11.: Startsperre 12:26 Start Sokrates (Ford, vor dem Start; Neustart-Meldung 12:25, d85d0c494)
 - 12:10 11.11.: Marke Archiv session_01Hmoj76oafbC6HhR4pvoy9t (lauf.py)
