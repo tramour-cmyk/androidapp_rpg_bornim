@@ -472,7 +472,7 @@ SCHREIBT = ("stand", "warte", "setze", "klasse", "fertig", "rang", "neu", "build
 
 def liegt_melden(vorher):
     """891 (654, Chef 10.11., 17:15; 506 lag 16:43–17:00, Ford lief erst 16:59): neu startbares Muss nennen; läuft keine Sitzung
-    der Rolle, meldet der Schreibende es Ford sofort wie einen Nachfolger („Start <Rolle> <Nr>, <Commit>“, LISTE-BETRIEB.md 26)."""
+    der Rolle, meldet der Schreibende es Ford sofort wie einen Nachfolger („Start <Rolle> <Nr>, <Commit>“, LISTE-BETRIEB.md „Meldungen an Ford“)."""
     try:
         startbar.neu_laden()
         neu = sorted(startbar.startbares_muss() - vorher)

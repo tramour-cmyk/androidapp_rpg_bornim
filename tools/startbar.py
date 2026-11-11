@@ -594,7 +594,7 @@ LIEGT_ROLLEN = ["Tom", "Jerry", "Diogenes", "Homer", "Perikles"]  # wie lauf.STA
 
 def startbares_muss():
     """891 (654, Chef 10.11., 17:15): {(Rolle, Nr)} startbarer Muss-Zeilen nach Pause und „frei für“ (wie lauf.stand). Läuft keine
-    Sitzung der Rolle, „liegt“ die Zeile: wer sie startbar gemacht hat, meldet es Ford sofort (vorgang.py, LISTE-BETRIEB.md 26)."""
+    Sitzung der Rolle, „liegt“ die Zeile: wer sie startbar gemacht hat, meldet es Ford sofort (vorgang.py, LISTE-BETRIEB.md „Meldungen an Ford“)."""
     aus = set()
     for datei, rolle in ROLLEN:
         if rolle not in LIEGT_ROLLEN: continue
