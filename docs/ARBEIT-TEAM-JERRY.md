@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
-Pause bis 13.11., 20:00 Uhr, frei für: 870.x, 900, 709, 709.1, 854, 506.1, 506.2 (900 Sokrates 11.11., 05:23: hält B1 auf; 506.2 Chef 19:33; 870b A, Chef 10.11., 16:08; 870.17, 883; 709.1 aus 709, Chef 17:07). (870, von Sokrates, Chef 10.11., 14:08: „die anderen, die jetzt irgendwas noch machen, sollen das fertig machen, was sie gerade machen … Und dann sollen sie aber nicht wieder irgendeinen Füllefanz neu anfangen“): Laufendes (709) fertig machen, dann **854 vor dem Umzug** (Chef 14:17: „das brennt mir wirklich auf den Nägeln … jedes Mal geht es bei Null los“), sonst nichts Neues bis zum Umzugsplan BRS (Sokrates); früher frei, wenn der Plan abgenommen ist.
+**Vorrang (von Sokrates, Chef 11.11., 07:16; Pause aufgehoben):** „wenn sie nichts mehr für den Umzug zu tun haben, ob sie dann Pause haben. Ja, macht ja keinen Sinn.“ und „lass das Spike und Taffy das machen. Fehler ausmerzen“. (1) Umzug 870.x und was B1 aufhält zuerst; (2) wartet der Umzug, Fehler aus den Tests des Chefs (Muss, wiederholte zuerst, z. B. 864, 863); kein Neues (Chef 10.11., 14:08: „nicht wieder irgendeinen Füllefanz neu anfangen“). Tuffy nimmt Fehler aus den Tests, solange Jerry am Umzug ist. Umzugsdateien (`LISTE-UMZUG-BRS.md` 4) ändert nur der Umzugszweig (Grundsatz 5).
 
 **Übergabe (10.11., 23:26):** 870.5 gebaut für B1 (870c A, Tipps 899, Klosterschüler-Ursache), 705 Autopilot Zauber gegen Waffe (`3678d06e6`). Nachfolger: Jerry – 870.6: Gegenstände nach BRS (nach 870.4)
 

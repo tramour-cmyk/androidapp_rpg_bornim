@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-Pause bis 13.11., 20:00 Uhr, frei für: 870.x, 506, 470, 888 (870b A, Chef 10.11., 16:08; 870.17; 506.1 gehört Jerry, 883; 888 Chef 16:46). (870, von Sokrates, Chef 10.11., 14:08: „die anderen, die jetzt irgendwas noch machen, sollen das fertig machen, was sie gerade machen … Und dann sollen sie aber nicht wieder irgendeinen Füllefanz neu anfangen“): Laufendes (653, 475, 663, 540, 506) fertig machen, nichts Neues anfangen bis zum Umzugsplan BRS (Sokrates); früher frei, wenn der Plan abgenommen ist.
+**Vorrang (von Sokrates, Chef 11.11., 07:16; Pause aufgehoben):** „wenn sie nichts mehr für den Umzug zu tun haben, ob sie dann Pause haben. Ja, macht ja keinen Sinn.“ und „lass das Spike und Taffy das machen. Fehler ausmerzen“. (1) Umzug 870.x zuerst; (2) wartet der Umzug, Fehler aus den Tests des Chefs (Muss, wiederholte zuerst); kein Neues (Chef 10.11., 14:08: „nicht wieder irgendeinen Füllefanz neu anfangen“). Spike nimmt Fehler aus den Tests, solange Tom am Umzug ist. Umzugsdateien (`LISTE-UMZUG-BRS.md` 4) ändert nur der Umzugszweig (Grundsatz 5).
 
 **Übergabe (11.11., 05:28, `session_01Hmoj77iXLHoCZDR7BAbTYy`):** Lauf 335 ausgewertet: rot nur `wolf_mess_438` (fremd, 900 an Jerry, Ford gebeten); Schildtest nach Herkünften (`3bc041366`); Tests nach wolf_mess am Rechner: Regeltests (brs_473, brs_kampf_478, handlungen_870, lohn_870, brs_blatt_870, brs_held_870) gut, Bildtests ohne Modelle nicht aussagekräftig; Stab ohne Wirkung auf Siegquoten (t276). Nachfolger: Tom – 870.4: nach 900 Lauf neu, Heldenreiter an Sokrates, Prüfliste B1.
 
