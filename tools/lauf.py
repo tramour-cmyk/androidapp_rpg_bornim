@@ -68,6 +68,12 @@ JETZT = datetime.datetime.now(BERLIN)
 MITTEL = "env_01F9WxikYD4TTdhscxvPi93p"
 HOCH = "env_017fgL1YDcVTYTkJsU3APEfR"  # „WireStorm Hoch“
 UMGEBUNG = {}  # alle MITTEL (Chef 09.11., 07:23: „Der Aufwand ist auf Mittel“); Probe 365 endete 31.10.; HOCH nur auf Wort des Chefs
+HOCH_BIS = datetime.datetime(2026, 11, 14, 20, 0, tzinfo=BERLIN)  # 901: 365a B (Chef 11.11., 07:18), alle Rollen HOCH bis Sa 14.11., 20:00, danach von selbst MITTEL
+def umgebung(r):
+    """901: Umgebung für den Start einer Rolle; bis HOCH_BIS alle HOCH, sonst UMGEBUNG/MITTEL."""
+    if JETZT < HOCH_BIS:
+        return HOCH
+    return UMGEBUNG.get(startbar.ZUSATZ.get(r, r), UMGEBUNG.get(r, MITTEL))
 REPO = "https://github.com/tramour-cmyk/androidapp_rpg_bornim"  # ohne source_url startet die Sitzung ohne Repo (18.10., Jerry 39; 187)
 REVISION = "main"  # 382: ohne source_revision lasen neue Sitzungen einen alten Stand (26.10., ohne add_repo-Erlaubnis; Tom 376.1a)
 MODELL = {"Tom": "opus", "Homer": "opus", "Sokrates": "opus", "Jerry": "opus", "Perikles": "opus", "Diogenes": "opus"}  # 270: alle außer Ford groß (Chef 09.11., 13:01: „bis auf Ford grundsätzlich alle … auf Opus“)
@@ -571,7 +577,7 @@ def main():
             titel = "%s (%s)" % (thema, berlin(JETZT))
             mo, satz = modell(r, nf_nr.group(1) if nf_nr else None)
             msg = "%s\n\nNachfolger laut Übergabe in %s: %s. Zuerst Start nach deiner Rollendatei, dann die Übergabe lesen und dort weiterarbeiten; steht dort „Letzte Antwort:“, nennt die Startmeldung sie (859).%s" % (r, VORRAT[r], offen_nf, satz)
-            ausgabe.append("START %s | %s | %s | %s | %s | %s | %s" % (r, mo, UMGEBUNG.get(r, MITTEL), REPO, REVISION, titel, msg.replace("\n", "\\n")))
+            ausgabe.append("START %s | %s | %s | %s | %s | %s | %s" % (r, mo, umgebung(r), REPO, REVISION, titel, msg.replace("\n", "\\n")))
             vorgaenger(r); sperren.append(r); continue
         if pause:
             ausgabe.append("NICHTS %s: Pause bis %s" % (r, pause)); continue
@@ -596,7 +602,7 @@ def main():
             (", Zeile von %s, die auf dich wartet; fertig: `vorgang.py warte %s –` oder das Feld kürzen" % (fuer, nr)) if fuer else "", VORRAT[r])
         msg += satz
         if JETZT.weekday() == 4: msg += " Freitag: am Ende der Sitzung Rollenspiegel mit tools/rollenspiegel.sh <Rolle>, Datei nicht öffnen (340)."
-        ausgabe.append("START %s | %s | %s | %s | %s | %s | %s" % (r, mo, UMGEBUNG.get(r, MITTEL), REPO, REVISION, titel, msg.replace("\n", "\\n")))
+        ausgabe.append("START %s | %s | %s | %s | %s | %s | %s" % (r, mo, umgebung(r), REPO, REVISION, titel, msg.replace("\n", "\\n")))
         vorgaenger(r); sperren.append(r)
     # 433 (Chef 31.10., 22:1x: „Da muss doch nicht jetzt Tom drei Wochen auf Tom warten“): arbeitet Tom (Jerry), startet Spike (Tuffy)
     # die nächste startbare Muss-Zeile des Teams, die von der laufenden Arbeit unabhängig ist: andere Nummer, anderer Zweig, nicht „nur Tom“.
@@ -632,7 +638,7 @@ def main():
                "Zuerst Start nach der Rollendatei, dann sofort `python3 tools/vorgang.py stand %s 'in Arbeit, bei %s'` und pushen (sonst nimmt %s die Zeile auch), dann den Vorgang lesen; eigener Zweig; fertig: Stand setzen, keine Übergabe im Vorrat, kein Nachfolger."
                % (zusatz, nr, team, nr, team, ", ".join(sorted(besetzt - {"Nachfolger"})) or "Betrieb", nr, zusatz, team))
         mo, satz = modell(zusatz, nr); msg += satz
-        ausgabe.append("START %s | %s | %s | %s | %s | %s | %s" % (zusatz, mo, UMGEBUNG.get(team, MITTEL), REPO, REVISION, titel, msg.replace("\n", "\\n")))
+        ausgabe.append("START %s | %s | %s | %s | %s | %s | %s" % (zusatz, mo, umgebung(team), REPO, REVISION, titel, msg.replace("\n", "\\n")))
         vorgaenger(zusatz); sperren.append(zusatz)
     vorentscheid_marken = []
     try:
@@ -703,7 +709,7 @@ def main():
             if alte:
                 ausgabe.append("WEITER %s | Sokrates | Stellungnahme | %s; wird send_message abgelehnt, stattdessen START wie sonst" % (juengste(alte)["id"], msg.split("\n\n", 1)[1]))
             else:
-                ausgabe.append("START Sokrates | opus | %s | %s | %s | Sokrates – Stellungnahme (%s) | %s" % (MITTEL, REPO, REVISION, berlin(JETZT), msg.replace("\n", "\\n")))
+                ausgabe.append("START Sokrates | opus | %s | %s | %s | Sokrates – Stellungnahme (%s) | %s" % (umgebung("Sokrates"), REPO, REVISION, berlin(JETZT), msg.replace("\n", "\\n")))
             wochen.append("Stellungnahme Sokrates %s" % heute)
     try:  # 383: Wartewächter
         ww, wm = waechter(je_rolle, marke_text); ausgabe += ww; wochen += wm
