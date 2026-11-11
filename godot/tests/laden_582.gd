@@ -43,7 +43,7 @@ func _lauf() -> void:
 	ebene.add_child(l)
 	await process_frame
 	var t := texte(l.inhalt)
-	pruefe("heilt 2W4+2" in t, "Kurzangabe des Heiltranks fehlt: %s" % [t])
+	pruefe("heilt 14" in t, "Kurzangabe des Heiltranks fehlt: %s" % [t])
 	pruefe(not Sprache.t(Laden.ding("potion")["info"]) in t, "Langtext steht in der Liste")
 	var gross := label(l.inhalt, Laden.name("greater_potion"))
 	pruefe(gross != null and farbe(gross) == Color(Menue.SELTEN["UNCOMMON"]), "Großer Heiltrank nicht in der Farbe „ungewöhnlich“")
@@ -56,7 +56,7 @@ func _lauf() -> void:
 	var sel := String(Sprache.t(BrsHeld.daten()["seltenheiten"]["UNCOMMON"]["name"]))
 	var sl := label(kasten, sel)
 	pruefe(sl != null and farbe(sl) == Color(Menue.SELTEN["UNCOMMON"]), "Mengenkasten ohne Seltenheit „%s“: %s" % [sel, kt])
-	pruefe("heilt 4W4+4" in kt, "Mengenkasten ohne Wirkung: %s" % [kt])
+	pruefe("heilt 28" in kt, "Mengenkasten ohne Wirkung: %s" % [kt])
 	pruefe(Sprache.t(Laden.ding("greater_potion")["info"]) in kt, "Mengenkasten ohne Langtext")
 	kasten.queue_free()
 

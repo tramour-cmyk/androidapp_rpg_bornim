@@ -2976,6 +2976,29 @@
    }
   },
   {
+   "id": "spider_silk",
+   "name": {
+    "de": "Spinnseide",
+    "en": "Spider Silk"
+   },
+   "art": "rohstoff",
+   "platz": null,
+   "stufe": 1,
+   "preis": 20,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "beute",
+     "wo": "Riesenspinne (870.6; Feuer verbrennt sie, LISTE-BESTIARIUM.md)"
+    }
+   ],
+   "zustand": false,
+   "text": null
+  },
+  {
    "id": "bat_wing",
    "name": {
     "de": "Fledermausflügel",

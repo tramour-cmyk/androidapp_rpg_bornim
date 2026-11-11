@@ -305,8 +305,6 @@ func _fertig(ergebnis: String) -> void:
 		for f in kampf.mars.fighters():
 			if f.side == "PARTY":
 				tp[f.id] = f.hp
-				if kampf.mars.brs and f.srd_hp > 0:     # 478: zurück in die Leben der Welt im selben Anteil (870.4: dieselbe Zahl)
-					tp[f.id] = clampi(roundi(float(f.hp) * f.srd_hp / maxf(1.0, f.max_hp)), 1 if f.hp > 0 else 0, f.srd_hp)
 				f.sp = Mars.sp_nach(f)     # 870.5: Mana zurück in die Welt (870.4: dieselbe Zahl)
 		lohn = kampf.reward
 	ende.emit(ergebnis, tp, lohn)

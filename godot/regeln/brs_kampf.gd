@@ -6,9 +6,8 @@ extends RefCounted
 # Stufe) und ein Schlag mit allen Einzelheiten für Bericht, Bild und Zustände.
 # Seit 870.5 ohne Schalter: der SRD-Zweig der Angriffe in mars.gd ist weg.
 # Annahmen (A), bis 2.3 und die Pfade sie ersetzen: ohne Spielstand nach BRS (Probekampf, Söldner) gilt die Herkunft der alten Klasse
-# mit ihren Startfertigkeiten; Waffen und Rüstungen des Helden (BrsHeld) zählen nach ihrer Gruppe; was noch in Würfeln des SRD rechnet
-# (Fähigkeiten der Klassen, Zauber mit Rettungswurf, Heilung, Tränke, Zustände), wird mit dem Verhältnis der Leben nach BRS zu SRD
-# des Getroffenen umgerechnet (massstab), so bleibt ihr Gewicht im Kampf, wie es war.
+# mit ihren Startfertigkeiten; Waffen und Rüstungen des Helden (BrsHeld) zählen nach ihrer Gruppe, mit Güte (870.6). Seit 870.6 rechnet
+# nichts mehr im Maß der alten Trefferpunkte: Zustände, Heilung, Sammeln, Schwächung nach werte.json „zustaende“.
 
 const Brs = preload("res://regeln/brs.gd")
 const BrsHeldS = preload("res://regeln/brs_held.gd")

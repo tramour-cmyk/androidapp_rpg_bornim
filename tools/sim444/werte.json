@@ -46,7 +46,9 @@
     "_streuung": "A: Schaden x gleichverteilt 0,8 bis 1,2 ('kleine Streuung')",
     "held_schlaegt_zuerst": true,
     "_erstschlag": "A: Held beginnt jede Runde; Hinterhalt (Schleichen) nicht gerechnet",
-    "schaden_runden": true
+    "schaden_runden": true,
+    "leicht_ab": 4, "leicht_halb_ab": 7, "leicht_null_ab": 10,
+    "_leicht": "870.6 (LISTE-UMZUG-BRS.md 5: leichter Gegner nach Stufenunterschied statt Herausforderungsgrad): ab so vielen Heldenstufen ueber dem staerksten Gegner (kein Boss) ist der Kampf leicht; der Held verliert dann nur die Haelfte, ab 'leicht_null_ab' nichts (alt EASY_GAP 4, 7, 10 nach CR, A)"
   },
 
   "proben": {
@@ -410,6 +412,7 @@
     "Steinhaut": {"preis": 40, "runden": 2, "schutz": 0.5, "_steinhaut": "A: zwei Runden kommt Schaden x (1 - 0,5 x Wirkung) an; Wirkung 2 = unverwundbar (Chef 18:55)"},
     "Berserkertrank": {"preis": 40, "runden": 3, "schaden_plus": 0.5, "_berserker": "A: drei Runden Waffenschaden x (1 + 0,5 x Wirkung); nicht fuer Zauber"},
     "Alchemistenfeuer": {"schaden": 10, "fertigkeit": "Wurfwaffen", "typ": "feuer", "_feuer": "A: geworfen (Treffer mit Wurfwaffen und Wahrnehmung), Grundschaden 10 x Wirkung, Feuer; Preis aus 'wirtschaft'; geworfen, wenn sein Grundschaden den der Waffe oder des Zaubers uebersteigt"},
+    "Weihwasser": {"schaden": 10, "fertigkeit": "Wurfwaffen", "typ": "licht", "nur_untote": true, "_weih": "870.6 A: wie Alchemistenfeuer (alt beide 2W6), Licht, wirkt nur gegen Untote (Homer 870.15); Preis aus 'wirtschaft'"},
     "heiltraenke": 2,
     "satz": {"Steinhaut": 1, "Berserkertrank": 1, "Alchemistenfeuer": 2},
     "_satz": "A: Beutel vor dem Bosskampf: 2 Heiltraenke, dazu 1 Steinhaut, 1 Berserkertrank, 2 Alchemistenfeuer. Steinhaut in Runde 1, Berserkertrank danach (nur wer mit der Waffe kaempft), Feuer statt schwaecherem Angriff; Heiltrank unter 35 % Leben wie in 'wirtschaft'",
@@ -459,6 +462,19 @@
       "Wanderer": ["shortsword", "leather"]
     },
     "_start": "Klosterschueler und Schmiedelehrling bis 458.3 Kampfstab statt Streitkolben (870e Nachtrag, kein Modell). Startausruestung je Herkunft nach 'herkuenfte' (Waffe, Ruestung, Schild) als Grundform der Gegenstaende; Gold und Heiltraenke aus 'wirtschaft' (startgold, start_heiltraenke)"
+  },
+  "zustaende": {
+    "_quelle": "870.6 (Zu 870.6 von Tom 11.11., 02:13; Sokrates 20:05): was im Kampf noch in Wuerfeln der alten Fassung rechnete (Gift, Brand, Blutung, Schwaechung, Saettigung, Sammeln des Schamanen, Untotenzaehigkeit) nach dem BRS, ohne Massstab der alten Trefferpunkte. Alle Zahlen A, bis 444 sie misst (dann Chef)",
+    "schaden_anteil": {"POISON": 0.08, "BURN": 0.10, "BLEED": 0.06},
+    "_schaden_anteil": "A: Schaden zu Beginn jeder Runde als Anteil am vollen Leben des Betroffenen, mindestens 1 (alt Gift 1W6, Brand 1W6, Blutung 1W4: gegen einen Helden der Stufe 3 etwa 8 bis 11 %); ein schwaecheres Gift (alt 1W4, Riesen-Hundertfuesser) im Verhaeltnis der alten Mittel; Zwerge (Steinblut) die Haelfte",
+    "treffer": {"SLOW": -10, "WEAK": -10, "satt": 5},
+    "_treffer": "Prozentpunkte auf die Trefferchance (alt -2, -2, +1 auf den W20, je Punkt 5 %)",
+    "schaden_faktor": {"WEAK": 0.8, "satt": 1.1},
+    "_schaden_faktor": "A: Faktor auf den Schaden eines Treffers (alt -2 bzw. +1 Schaden)",
+    "sammeln_anteil": 0.5,
+    "_sammeln": "A: der Schamane heilt sich beim Sammeln um diesen Anteil seines vollen Lebens (alt 2W10 gegen 4W6 Trefferpunkte)",
+    "untot_zaeh": {"basis": 95, "je_prozent": 1.1},
+    "_untot_zaeh": "A: Chance in Prozent, dass ein Wiedergaenger einen toedlichen Treffer mit 1 Leben uebersteht: basis - je_prozent x Schaden in Prozent seines vollen Lebens (alt 5 x (21 - (5 + Schaden - KON)))"
   },
   "gegenstaende": {
     "_quelle": "870.6 (N 11, 870a 6 A, 644 B und C): was beim Fund gewuerfelt wird (godot/skripte/beute.gd). Seltenheiten, Gewichte, Decken, Mindeststufen, Preisfaktoren: Startwerte der alten Fassung (Loot.kt, beute.gd); Guete, Werte und Deckel der Zusatzeigenschaften, Gewichtung nach Fertigkeiten: A, bis 444 sie misst (dann Chef)",

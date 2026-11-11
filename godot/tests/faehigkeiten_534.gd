@@ -41,10 +41,9 @@ func _kampf(extra: Dictionary, foe_ids: Array, seed: int, opening := "NORMAL"):
 		foes.append(Mars.monster_fighter("f%d" % i, Mars.SPOTS[i], monsters[foe_ids[i]], 999))
 	var m = Mars.new([h], foes, tab, Wuerfel.new(seed), Wuerfel.new(7), 0, false, opening)
 	m.chosen = true
-	m.brs_einrichten()     # 870.5: nur nach dem BRS; der Held bleibt bei 999 Leben im Maß 1, so zählen Minderung und Raub wie gesetzt
+	m.brs_einrichten()     # 870.5: nur nach dem BRS; der Held bleibt bei 999 Leben
 	h.max_hp = 999
 	h.hp = 999
-	h.srd_hp = 999
 	return m
 
 
