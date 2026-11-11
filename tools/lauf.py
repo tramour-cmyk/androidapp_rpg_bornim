@@ -795,6 +795,7 @@ def waechter(je_rolle, marke_text):
     for d in startbar.zeilen_liste():  # 275.2: „jetzt“ steht im Titel oder Stand der Listenzeile
             nr, kl, rolle = d["nr"], d["kl"], d["besitzer"]
             if kl in ("–", "-") or d["wort"] in ("ruht", "erledigt"): continue
+            if d["wort"] in ("gebaut", "zu testen") or d["warte"]: continue  # 902: der Ball liegt anderswo (Test, Prüfung, anderer Vorgang, Chef); 870.6 und 900 gingen 11.11., 07:24 laut an den Chef
             zeile = d["titel"] + " | " + d["stand"]
             m = JETZT_FELD.search(zeile)
             if not m: continue
