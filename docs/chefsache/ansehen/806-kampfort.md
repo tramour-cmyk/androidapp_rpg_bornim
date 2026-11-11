@@ -1,5 +1,7 @@
 # 806 · Bild: Lichtung mit und ohne Nebel · Jerry · 11.11., 11:34
 
+[Bild von 11.11., 11:35](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/11-1135-806-Jerry.png) (eingetragen von meldung.sh, Jerry)
+
 ![Lichtung links mit Nebel, rechts ohne](../bilder/806-nebel-paar.jpg)
 
 K Kampfort · Jerry · 11.11., 11:34
