@@ -410,6 +410,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:04 11.11.: Startsperre 18:04 Start Tom (lauf.py; nicht ausgeführt: Tom …79Kfy wartet auf die APK von Build 277, Weckruf 18:30, Übergabe 968 liegt bei ihm; lauf.py wollte ihn archivieren und Tom 785 starten)
 - 18:04 11.11.: Marke Archiv session_01Hmoj79KfyC4R5VU2zspRQS (lauf.py)
 - 18:05 11.11.: Startsperre 18:05 Start Perikles (lauf.py)
+- 18:28 11.11.: Startsperre 18:28 Start Jerry (Ford, vor dem Start; Meldung Ford alt 18:28, Sokrates gab 595 frei, effort high)
 - 18:24 11.11.: Startsperre 18:24 Start Tuffy (Ford, vor dem Start; Neustart-Meldung 058507b24, effort high)
 - 18:25 11.11.: Startsperre 18:25 Start Ford (selbst; Aufwand Hoch, Meldung Perikles 18:19: meine Sitzung lief auf „medium“)
 - 18:21 11.11.: Startsperre 18:21 Start Spike, Sokrates (Ford, vor dem Start; Neustart-Meldungen 18:14 und 18:17, effort high)
