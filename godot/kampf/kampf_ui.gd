@@ -440,7 +440,11 @@ func refresh() -> void:
 	if not is_inside_tree():
 		return
 	var m = kampfort.mars
+	# 988 (wolf_mess_438, Build 277: Wolf 3,6 m in einem Bild, Ansagen bis 156 dp): nur queue_free ließ die alten Kästen und Knöpfe bis
+	# zum Ende des Bilds stehen, der Kasten war mit alten und neuen ein Bild lang 1207 statt 849 px hoch, die Kamera passte neu und alle
+	# rückten mit dem Boden; seit 945 baut jeder Zug im Kampf die matten Knöpfe neu. Jetzt gleich heraus, dann frei
 	for c in party_row.get_children():
+		party_row.remove_child(c)
 		c.queue_free()
 	for f in m.fighters():
 		if f.side != "PARTY":
@@ -666,7 +670,8 @@ func _build_orders() -> void:
 	# 532: Bericht und Befehle zusammen, so hoch wie jetzt; die Tasche nimmt beides ein, damit der Kasten (und die Kamera) nicht springt
 	var ganz_h: float = (log_box.size.y + 6 * dp if log_box.visible else 0.0) + orders.size.y
 	log_box.visible = true
-	for c in orders.get_children():
+	for c in orders.get_children():     # 988: gleich heraus (refresh), sonst ein Bild lang doppelt so hoch
+		orders.remove_child(c)
 		c.queue_free()
 	var k = kampfort
 	var m = k.mars
