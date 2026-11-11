@@ -52,6 +52,17 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/28add7
 - **Unsicher:** Magier treffen mit C erstmals kritisch, zu Beginn etwa 0,6 bis 1,6 % (Verstand 3 bis 8, Schule 10). In Kapitel 1 ist das wenig, Rechnung Jerry nach deiner Antwort.
 - **Kosten:** in `werte.json` je Waffengruppe und Schule ein Feld „kritisch aus“ neben „grundwert“, Kampf, Heldenseite (kritisch je Waffe und Zauber), Simulation; unter einer Sitzung Jerry, Heldenseite Tom.
 
-**Empfehlung Sokrates: „952 C“** (A gilt dann für das Tempo mit).
+**Nachtrag Sokrates (11.11., 20:02, zu deiner Frage 20:00: „der Zauberkundige nicht nur auf den Willen basiert … sondern auch der Verstand als Grundwert da ganz entscheidend ist“):** C gibt dem Verstand nur den kritischen Treffer der Zauber (zu Beginn etwa 1 %), entscheidend ist das nicht. Darum Variante **D**, aus Entscheidung 80 abgeleitet (Umgebungsmagie schöpft die Teilchen aus der Umgebung, Heil- und Schutzmagie aus dem eigenen Willen):
+
+| Schule | Wirkung (Schaden, Heilung) aus | kritisch aus | Mana aus |
+|---|---|---|---|
+| Evokation, Illusion, Beschwörung | **Verstand** (die Teilchen der Umgebung verstehen und formen) | Wille | Wille |
+| Heil- und Schutzmagie | Wille (aus dem eigenen Willen) | kein kritischer Treffer | Wille |
+
+- **Folge:** Der Magier braucht Verstand für seinen Schaden und Wille für Mana, Furcht und Zauberabwehr; der Heiler lebt vom Willen, der Verstand hilft ihm bei Alchemie und Schwächen. Magier und Heiler werden bei der Erschaffung verschiedene Helden, nicht derselbe mit anderem Zauber. Waffen bleiben wie C.
+- **Stärkstes Gegenargument:** Ein Held, der beides zaubert (Kriegsmagier, Paladin), braucht beide Werte und dazu Zähigkeit; das ist härter. Antwort: Das ist dieselbe Lage wie beim Krieger (Kraft, Gewandtheit, Zähigkeit) und genau die Wahl, die das Leitbild will. Jerry rechnet je Herkunft nach, ob ein Mischzauberer in Kapitel 1 gegen die Bosse nicht zurückfällt.
+- **Kosten:** in `werte.json` je Schule „grundwert“ und „kritisch aus“, `DESIGN-BRS.md` Abschnitt 2 (Tabelle der Grundwerte) und Zeile „Zauber“ in Abschnitt 6, Simulation 444; etwa eine Sitzung Jerry, Heldenseite Tom.
+
+**Empfehlung Sokrates: „952 D“** (A gilt für das Tempo; D ersetzt C nur bei den Zaubern).
 
 Antwort: …
