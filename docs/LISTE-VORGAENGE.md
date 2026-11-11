@@ -110,7 +110,6 @@
 | 882.1 | Von Perikles (882, Umzug BRS Schritt 8): mit 870.9 auch godot-kampf.yml 41 (exportIntro) auf eingecheckte Daten, tools/godot/wald_daten.sh ohne Gradle, mars_texte.py streichen (mars_texte.gd ist dann Quelle), Vergleichsbilder „alt“ (tools/preview, 348.9, 512b, 620.2) einmal rendern und ablegen; LISTE-UMZUG-BRS.md 8 | Tom | M | startbar | 870.9 | – | – | E Technik | – |
 | 926 | Von Jerry (870.6): Gegenstandsfenster im Menü ohne Würfel (menue.gd 754, 843–847, 1351 wuerfel_text), Güte zeigen ([870.14.ding.guete]); Zahlen aus Beute.kennwert und Beute.guete | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 933 | Grundwerte 933 A umsetzen (Chef 11.11., 13:07): Volk senkt bis 2, hebt bis 9 (volk_min 2, brs_held.gd:152), sinne_ab und kraut_wahrnehmung_ab so, dass 2 kostet; Erschaffungstext aus 933.1; nach B1 | Tom | M | startbar | 933.2 | – | – | E Kampf | – |
-| Pflege | von Werkzeug (340.3, 11.11.): 15114 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
 | 945 | Wiederholfund t276.12 (Chef 11.11., 13:29, Bild; alt 241.2, Kotlin 20.10.): Held und Söldner auf Auto, dann sind alle Knöpfe weg und Auto ist nicht mehr abschaltbar; Schalter Auto aus muss immer sichtbar bleiben; Test, der beide auf Auto stellt und zurückschaltet; in B1 vor dem Zusammenführen | Jerry | M | gebaut, Geprüft an: f531562e5 | – | claude/jerry-945-auto | – | E Kampf | – |
 | 854 | Gebaute Kaufmodelle im Kaufrepo ablegen, nur bei Änderung neu bauen statt je Sitzung über 20 Min. (Chef 10.11., 12:34: ja; greift nicht, Lauf 336, 338) · „jetzt“ 11.11., 08:01 | Jerry | M | gebaut, Geprüft an: 57e729bc1, Lauf 12:15 (1 von 2) | – | – | – | E Technik | 31,51 $ |
 | 900 | Von Tom (870.4, B1; „jetzt“ 10.11., 22:24, Nachtauftrag Chef): Lauf 335 rot an wolf_mess_438 mit BRS-Kampf: Biss gleitet 0,56 m (Grenze 0,5), Wolf in Schild, Klinge oder Unterarm des Helden 8 (vorher 0), Klinge durch Wolf ohne Treffer 3; Kämpfe jetzt mit 14 statt 5 Würfelzeilen | Jerry | M | gebaut, Geprüft an: Lauf 336 | – | claude/jerry-900-wolfmess | – | E Kampf | 10,26 $ |
@@ -214,6 +213,7 @@
 | 620.2c | Von Sokrates (620, Lehre aus 945): Abgleich alt Teil c: erledigte Kampf-Funde des Chefs der Kotlin-Zeit (Archiv, E Kampf, etwa 115) einzeln gegen Godot: gilt, Test, fehlt → Vorgang; nach B1 | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 947 | Fund t276.12 (Chef 11.11., 13:36): MARS-Probekampf stellt dem Helden einen Söldner gleicher Herkunft zur Seite (spiel.gd:567, Klon); in Kapitel 1 kämpft der Held allein (168 D: Söldner ab K3) → Probekampf misst zu leicht; allein als Standard, Söldner zuschaltbar | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 948 | Fund t276.12 (Chef-Bild 11.11., 13:33): Herumtreiber soll Dolch tragen (werte.json herkuenfte), im Kampf nichts in der Hand zu sehen; in der Vorschau nachstellen, Modell und Hand prüfen | Jerry | M | startbar | – | – | – | E Kampf | – |
+| Pflege | von Werkzeug (340.3, 11.11.): 16097 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
@@ -298,7 +298,7 @@
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 767 | Wochentermin 13.11.: Rollenspiegel Ford (rollenspiegel.sh Ford) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Ford | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 906 | lauf.py startet Zusatzentwickler auf Zeilen, deren Zweig Umzugsdateien berührt (492 am 11.11., 08:04: claude/tom-492-durchspiel ändert spiel.gd; Grundsatz 5 LISTE-UMZUG-BRS, Zu 870.4 Sokrates 01:57); Sperre nach geänderten Dateien prüfen (von Spike) | Ford | M? | startbar | – | – | – | B Steuerung | – |
-| Pflege | von Werkzeug (340.3, 11.11.): 51399 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 11.11.): 51494 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
