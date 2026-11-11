@@ -249,7 +249,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 936 | M? | Von Tom (786): Musik an der Bemerkgrenze wie alt: nahe einem Monster leiser und dunkler mi | startbar |
 | 937 | M? | Von Tom (786): Ruhelaute der Monster auf der Karte wie alt: schnüffeln, grunzen, klappern, | startbar |
 
-**Perikles** – offen 19, Muss 12, startbar 1
+**Perikles** – offen 19, Muss 12, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -259,30 +259,25 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf Diogenes |
 | 464 | M | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählu | Termin 16.11. |
 | 347.2 | M | Umsetzung Plan 347 nach Gegenprüfung (Chef 24.10., 16:30) | wartet auf 347 (startbar) |
-| 276 | K | Fords Anleitung auf eine Seite (Empfehlung Sokrates zu 274) | wartet auf Diogenes (greift?) |
 | 341 | M | Zielvereinbarung Perikles bis zum Marktstart: sechs messbare Ziele, geprüft von Werkzeug u | Termin 16.11. |
 | D75 | M | Filmsperre 511 zählte Film-Pushes 572 nicht (D75.1); meldung.sh --film legte Film 572 nich | Dauerzeile |
 | 99 | K | Zwei Niederlassungen | ruht |
-| 725 | K | D72 probelauf.py: arbeitskopie/push_lauf lösen cd $VAR und cd "$HOME/…" nicht auf, figur_s | wartet auf Diogenes (greift?) |
 | 866 | M | Von Sokrates (620, Lagebild t274): Prüfliste geht nur gegengelesen raus; Wächter statt Abs | wartet auf Test/Build (gebaut) |
 | 896 | M | Von Jerry (870.5): Wächter meldet „TP“ als SRD-Begriff (886), Homer 870.14 und DESIGN-BRS | wartet auf Test/Build (gebaut) |
 | 903 | M | D152.1 von Diogenes (771, 657 D): Probe 657 ausgewertet, Prüfbericht Lauf 152; Grundlage 1 | wartet auf Test t276 (Chef) |
 | 919 | M | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): Regeln nachziehen: Testbitte auch bei rot | wartet auf 918 (startbar) |
-| 927 | K | D162.1 276: Anlässe der Schritte 6–11 fehlen in „Jeder Lauf“ (Nachhalten 8, Eingang 7, Mel | wartet auf Diogenes (greift?) |
-| 928 | K | D162.2 LISTE-RELEASE-NEUSTART.md Neustart 2: „Startzuordnung in LISTE-BETRIEB.md Schritt 4 | wartet auf Diogenes (greift?) |
-| 929 | K | D163.1 probelauf.py (725): ein cd mit Variable, das nur als Text vor git commit oder push | wartet auf Diogenes (greift?) |
+| 927 | K | D162.1 276: Anlässe der Schritte 6–11 fehlen in „Jeder Lauf“ (Nachhalten 8, Eingang 7, Mel | wartet auf 941 (startbar) |
+| 929 | K | D163.1 probelauf.py (725): ein cd mit Variable, das nur als Text vor git commit oder push | wartet auf 943 (startbar) |
 | 940 | M? | Von Tom: vorgang.py neu vergibt Nummern doppelt, wenn zwei Sitzungen zugleich anlegen (11. | startbar |
+| 941 | M? | D171.1 lauf.py neu_fuer_chef (927): „wartet auf Chef“ zählt überall in der Übergabezeile, | startbar |
+| 942 | K | D171.2 lauf.py (927): eine hängende Sitzung, die derselbe Lauf archiviert (neuere Sitzung | startbar |
+| 943 | K | D171.3 probelauf.py text_bereiche (929): ein einzelnes " im Heredoc innerhalb "$(cat <<'EO | startbar |
 
-**Diogenes** – offen 13, Muss 7, startbar 5
+**Diogenes** – offen 8, Muss 7, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
-| 276 | K | Fords Anleitung auf eine Seite (Empfehlung Sokrates zu 274) (für Perikles) | startbar |
-| 725 | K | D72 probelauf.py: arbeitskopie/push_lauf lösen cd $VAR und cd "$HOME/…" nicht auf, figur_s | startbar |
-| 927 | K | D162.1 276: Anlässe der Schritte 6–11 fehlen in „Jeder Lauf“ (Nachhalten 8, Eingang 7, Mel | startbar |
-| 928 | K | D162.2 LISTE-RELEASE-NEUSTART.md Neustart 2: „Startzuordnung in LISTE-BETRIEB.md Schritt 4 | startbar |
-| 929 | K | D163.1 probelauf.py (725): ein cd mit Variable, das nur als Text vor git commit oder push | startbar |
 | 461b | M | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Termin 16.11. |
 | 348.9 | M | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | ruht |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
