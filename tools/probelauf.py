@@ -335,6 +335,7 @@ def vorgang_aus_ref(ref, ablauf):
     """407: Vorgang eines von Hand gestarteten Ablaufs: erste Nummer der Commit-Nachricht oben auf ref, sonst Nummer in
     Klammern im Namen des Ablaufs („Tom Probe Tragart (417)“), sonst der Zweig selbst."""
     ref = (ref or "").removeprefix("refs/heads/")
+    STAND_REF["zweig"] = ref  # 912: nr_aus_verlauf liest den Zweignamen
     nachricht, name = "", ""
     if ref and git("fetch", "-q", "origin", ref).returncode == 0:
         STAND_REF.update(wo=REPO, rev=git("rev-parse", "FETCH_HEAD").stdout.strip())
@@ -348,10 +349,40 @@ def vorgang_aus_ref(ref, ablauf):
     return nr.group(1) if nr and not eigen else (eigen or ref or ablauf or "?")
 
 
+def nr_aus_zweigname(zweig):
+    """912: Vorgang aus dem Zweignamen („claude/tom-870-4-held“ → 870.4), nur wenn es ihn in der Vorgangsliste oder im
+    Archiv gibt; längste Lesart zuerst („870-4“ → 870.4, sonst 870)."""
+    teile = (zweig or "").removeprefix("refs/heads/").removeprefix("claude/").split("-")
+    texte = []
+    for name in ("docs/LISTE-VORGAENGE.md", "docs/LISTE-VORGAENGE-ARCHIV.md"):
+        _, t = zweig_lesen(name, "main")
+        if not t and os.path.exists(os.path.join(REPO, name)):
+            t = open(os.path.join(REPO, name), encoding="utf-8").read()
+        texte.append(t)
+    bekannt = set(re.findall(r"^\| (" + NR + r") \|", "\n".join(texte), re.M))
+    for i, t in enumerate(teile):
+        if not re.fullmatch(r"\d+[a-z]?", t):
+            continue
+        folge = [t]
+        for u in teile[i + 1:]:
+            if not re.fullmatch(r"\d+[a-z]?", u):
+                break
+            folge.append(u)
+        for j in range(len(folge), 0, -1):
+            if ".".join(folge[:j]) in bekannt:
+                return ".".join(folge[:j])
+        return None
+    return None
+
+
 def nr_aus_verlauf(wo, rev):
-    """911 (Tom 11.11., 09:19): oben ein Merge („Merge remote-tracking branch …“) oder Commit ohne Nummer; dann die erste
-    Nummer des jüngsten eigenen Commits (erste Eltern, eingemischte Zweige zählen nicht) mit Nummer, nicht auf origin/main, damit „<Nr>, Läufe frei“ greift und der Lauf
+    """911 (Tom 11.11., 09:19): oben ein Merge („Merge remote-tracking branch …“) oder Commit ohne Nummer; dann der Vorgang
+    im Zweignamen (912), sonst die erste Nummer des jüngsten eigenen Commits (erste Eltern, eingemischte Zweige zählen nicht) mit Nummer, nicht auf origin/main, damit „<Nr>, Läufe frei“ greift und der Lauf
     nicht unter dem Zweignamen zählt."""
+    zweig = git("rev-parse", "--abbrev-ref", rev, cwd=wo).stdout.strip() if rev == "HEAD" else STAND_REF.get("zweig", "")
+    aus_name = nr_aus_zweigname(zweig)  # 912 (D156.1): B1 von Tom, oben Jerrys Merge; der Zweig gehört Toms 870.4
+    if aus_name:
+        return aus_name
     log = git("log", "--first-parent", "--no-merges", "-n", "30", "--format=%B%x00", rev, "^origin/main", cwd=wo).stdout
     for nachricht in log.split("\0"):
         nr = re.match(r"\s*(?:\w+:\s*)?(" + NR + r")\b", nachricht)
