@@ -52,6 +52,11 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 161 · 921 Nachfolger „auf Abruf“, M? entscheiden, Stellungnahme Sokrates (Perikles, Doppelpack 421, `ab6ad7ad1`; 11.11., 11:1x)
+
+- **921 greift** (`greift 921 161`). Trockenlauf in einer Kopie (`--ohne-pull`, Stand `93fb3cc0d`, echte Übergabe Perikles „Nachfolger: Perikles – auf Abruf“, gestellte Datei `999-probe.md` ohne Stellungnahme, gestellte Kurzzeilen): (1) ohne Perikles-Sitzung START „Perikles – M? entscheiden (11.11., 11:18)“, Nachricht nennt 824, 836, 844, 845, 909 (Jerry) und 190.8; Perikles ruht 30 Min. → WEITER mit demselben Auftrag; ruht 80 Min. → START M? und ARCHIVIERE der alten. (2) Sokrates working, ruht 10 oder 40 Min. → WEITER; ruht 61 Min. → START und ARCHIVIERE der alten; ruht 61 Min. mit `--wecker` → WEITER; working oder ruht 10 Min. mit 300 Tsd. Token → NICHTS; ruht 61 Min. mit 300 Tsd. → START und ARCHIVIERE; ohne Sokrates-Sitzung → START. (3) `startbar.py` zeigt „M? für Perikles … 824 (Jerry), 836 (Jerry), 844 (Jerry), 845 (Jerry), 909 (Jerry)“.
+- Grenze: fehlt `used_tokens` in Fords Kurzzeile, gilt eine laufende Sokrates-Sitzung als über 200 Tsd. (NICHTS, die Zeile sagt „oder unbekannt“). Kein echter Lauf mit M? oder Stellungnahme seit dem Bau (Lauf 11:15 startete nur Diogenes).
+
 ## Lauf 160 · 920 mit 911, 912 (Perikles, `8239e20ab`; 11.11., 10:0x)
 
 - **920, 911, 912 greifen.** Skript Lauf 158 erneut: spike-581-ausruestung über Jerrys `44dec34a2` → 581, tuffy-784-sollbild über Toms `93173963c` → 784; alle Fälle aus Lauf 158 unverändert; eigener Verlauf auf spike-680-absturz → 680, tuffy-536-tips → 536, spike-581-ausruestung → 581. Kopf von `probelauf.py` nennt die Regel jetzt. Kein echter Handlauf mit Merge oben seit dem Bau (letzte Zeile 09:52); Blick darauf im Vorrat.
