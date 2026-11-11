@@ -185,14 +185,14 @@ func _sonder(kf, art: String) -> void:
 		for i in 100:
 			held.status.erase("STUN")
 			held.stun_guard = 0
-			m._foe_wounds(feind, held, false)
+			m._foe_wounds(feind, held)
 			lahm += int(held.status.has("STUN"))
 		held.hero["race"] = "ELF"
 		var elf := 0
 		for i in 50:
 			held.status.erase("STUN")
 			held.stun_guard = 0
-			m._foe_wounds(feind, held, false)
+			m._foe_wounds(feind, held)
 			elf += int(held.status.has("STUN"))
 		held.hero["race"] = rasse
 		held.status.erase("STUN")

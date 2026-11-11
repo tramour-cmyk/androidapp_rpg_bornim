@@ -809,11 +809,11 @@ func kraeuter_neu() -> void:
 func pfluecke(t: Vector2i) -> void:
 	if not kraut_da(t): return
 	zustand.gepflueckt["%s:%d:%d" % [karte.id, t.x, t.y]] = kraut_heute()
-	var weise := Laden.kraut_chance(held_werte())   # 870.4: Kräuterkunde und Wahrnehmung (alt Perks.extraHerbChance)
+	var weise := Laden.kraut_chance(held_werte())   # 870.4: Kräutersammeln (875) und Wahrnehmung (alt Perks.extraHerbChance)
 	var n := 1 + (1 if randf() < 0.3 else 0) + (1 if randf() < weise else 0)
 	zustand.dazu("herbs", n)
 	klang("effekt", ["loot"])
-	zustand.uebe("Kräuterkunde")   # 471: Pfluecken uebt Kraeuterkunde
+	zustand.uebe("Kräutersammeln")   # 471: Pfluecken uebt Kraeutersammeln (875, 857a A)
 	var auf := zustand.fert_notiz()
 	ui.kurz(Sprache.t({"de": "Du pflückst Heilkräuter (+%d)." % n, "en": "You pick healing herbs (+%d)." % n}) + ("\n" + auf if auf != "" else ""))
 	kraeuter_neu()
@@ -966,21 +966,15 @@ func weiter() -> void:
 		spricht_mit = ""
 	if held: _steht_auf(held.kachel)
 
-# 542 Uniques.make: das Einzelstueck mit Grundform, Seltenheit, Plus und Werten aus texte.json „einzelstuecke“, Stufe wie
-# maxOf(areaLevel, hero.level); zurueck „Name (Seltenheit)“
-static func einzelstueck(id: String) -> bool:
-	Sprache.lade()
-	return Sprache.texte.get("einzelstuecke", {}).get(id, {}).has("grundform")
+# 542 Uniques.make: das Einzelstueck, Stufe wie maxOf(areaLevel, hero.level); zurueck „Name (Seltenheit)“. 870.6: Grundform,
+# Seltenheit, Guete und Zusatzeigenschaften nach dem BRS aus den Regelwerten (werte.json „gegenstaende“ „einzelstuecke“), Name aus dem
+# Gegenstandskatalog (Beute.name)
+static func einzelstueck(id: String) -> bool: return Beute.einzelstueck(id).has("grundform")
 
 func einzel_gabe(id: String) -> String:
-	var e: Dictionary = Sprache.texte["einzelstuecke"][id]
-	var ilvl := maxi(int(karte.daten.get("stufe", 1)), held_werte().stufe)
-	var rolls := []
-	for r in e.get("rolls", []): rolls.append([String(r[0]), int(r[1])])
-	var g := {"uid": zustand.neue_uid(), "base": String(e["grundform"]), "rarity": String(e["rarity"]), "ilvl": ilvl, "plus": int(e.get("plus", 0)),
-		"rolls": rolls, "unique": id, "name_seed": 0}
+	var g := Beute.einzel(id, zustand.neue_uid(), maxi(int(karte.daten.get("stufe", 1)), held_werte().stufe))
 	zustand.ausruestung_dazu(g)
-	return "%s (%s)" % [Beute.name(g), Sprache.t(e["seltenheit"])]
+	return "%s (%s)" % [Beute.name(g), Sprache.t(BrsHeld.daten()["seltenheiten"][String(g["rarity"])]["name"])]
 
 # Loot.generate mit Mindestseltenheit (rarityFor special, floor) und Platz, Stufe wie maxOf(areaLevel, hero.level)
 func gear_gabe(was: String) -> String:
@@ -988,7 +982,7 @@ func gear_gabe(was: String) -> String:
 	var hw := held_werte()
 	var w := KotlinZufall.new(randi())
 	var ilvl := maxi(int(karte.daten.get("stufe", 1)), hw.stufe)
-	var g := Beute.erzeuge(w, zustand.neue_uid(), ilvl, Beute.seltenheit_fuer(hw, w, ilvl, true, t[0]), "", t[1] if t.size() > 1 else "")   # 870.4: ohne Klasse
+	var g := Beute.erzeuge(w, zustand.neue_uid(), ilvl, Beute.seltenheit_fuer(hw, w, ilvl, true, t[0]), hw, t[1] if t.size() > 1 else "", true)   # 870.6: nach seinen Fertigkeiten, besonderer Fund
 	zustand.ausruestung_dazu(g)
 	return "%s (%s)" % [Beute.name(g), Sprache.t(BrsHeld.daten()["seltenheiten"][String(g["rarity"])]["name"])]
 

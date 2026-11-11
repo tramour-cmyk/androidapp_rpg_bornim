@@ -20,7 +20,7 @@ func _initialize() -> void:
 		print("HANDLUNGEN870 FALSCH daten/werte.json fehlt")
 		quit(1)
 		return
-	tab = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	tab = Tabellen.lade()
 	for s in tab.skills:
 		skills[s.id] = s
 	for m in tab.monsters:

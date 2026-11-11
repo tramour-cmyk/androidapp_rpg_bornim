@@ -136,7 +136,7 @@ func _lauf() -> void:
 
 # MARS mit den Kampfhilfen: jeder Waffenwurf des Helden ausser der 1 trifft (kritisch), Gegner weichen keinem Zauber aus, der Held faellt nie
 func _mars() -> void:
-	var tables: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	var tables: Dictionary = Tabellen.lade()
 	var skills := {}
 	for s in tables.skills: skills[s.id] = s
 	var wolf: Dictionary

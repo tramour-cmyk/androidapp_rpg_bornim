@@ -96,7 +96,7 @@ func _lauf() -> void:
 	pruefe("ohne Fleisch kein Kochen", float(z3.fert["uebung"].get("Kochen", 0.0)) + 100.0 * BrsFertigkeit.wert(z3.fert, "Kochen"), k1)
 
 	# echter Kampf: Blatt des Probekampfs (Kaempfer) mit dem Helden nach BRS, Autopilot bis zum Ende
-	var tab: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	var tab: Dictionary = Tabellen.lade()
 	var a = Aufruf.new()
 	root.add_child(a)
 	var ende := []
@@ -134,7 +134,8 @@ func _lauf() -> void:
 		print("Nach Sieg: %s  Notiz „%s“" % [s2["werte"], Kampfuebung.notiz(ev2)])
 		var summe := 0
 		for f in s2["werte"]: summe += int(s2["werte"][f]) - int(vor.get(f, 0))
-		pruefe("Sieg hebt Werte", summe > 0, true)
+		for f in s2["uebung"]: summe += int(float(s2["uebung"][f]) > 0.0)     # 870.6: ein kurzer Sieg füllt erst die Übung (Würfelfolge anders)
+		pruefe("Sieg schreibt Übung gut (Werte oder Übung)", summe > 0, true)
 		k.finish()
 		await process_frame
 	print("KAMPFUEBUNG471 gut" if fehler == 0 else "KAMPFUEBUNG471 %d Fehler" % fehler)

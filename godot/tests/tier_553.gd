@@ -37,7 +37,7 @@ func _lauf() -> void:
 		vorher[art] = [fig.art(), fig._scale()]
 		print("%s aufgebaut: Art „%s“, Maßstab %.3f" % [art, fig.art(), fig._scale()])
 	# ein Kampfbeginn setzt die Art noch einmal (aufruf.gd gegner)
-	var tab: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	var tab: Dictionary = Tabellen.lade()
 	var monsters := {}
 	for m in tab.monsters: monsters[m.id] = m
 	AufrufS.gegner("RATS", monsters, Wuerfel.new(null))

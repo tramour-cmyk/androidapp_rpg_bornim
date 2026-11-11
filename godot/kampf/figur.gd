@@ -3135,7 +3135,7 @@ const KNICK_GRAD := {"WACHE": 20.0, "KLOSTER": 30.0}     # 870.4: je Tracht (vor
 const KLASSE_HERKUNFT := {"FIGHTER": "Wachsoldat", "CLERIC": "Klosterschüler", "ROGUE": "Herumtreiber", "WIZARD": "Zauberlehrling"}
 
 
-## 870.4: Herkunft des Helden für die Tracht; Probeblätter (probe.gd, tabellen.json „probe“) nennen noch die Klasse
+## 870.4: Herkunft des Helden für die Tracht; Probeblätter (probe.gd, Tabellen.probe()) nennen noch die Klasse
 func _herkunft() -> String:
 	var h := String(fighter.hero.get("herkunft", ""))
 	return h if h != "" else String(KLASSE_HERKUNFT.get(String(fighter.hero.get("cls", "")), "Wachsoldat"))
