@@ -73,6 +73,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry (07:04 Jerry 806, 08:05 Jerry 806, 10:26 Jerry 595) aus eigener Beurteilung aus (Kaufrepo, Pacing, Sitzungsgrenze), ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch: 59 Muss). Lücke im Werkzeug: Startsperre wird geschrieben, auch wenn nie gestartet wird; kein WARNUNG-LAUT wie bei ARCHIVIERE. Vorschlag an den Chef gestellt
 
+- 04:05 11.11.: Start Diogenes 893 nicht ausgeführt (Diogenes hat 893 03:29 geprüft, Lauf 151, Zeile steht noch offen; --ohne 893:erledigt von Diogenes 03:29)
 - 01:55 11.11.: Sokrates …75g2D archiviert, gebucht (4,85 $ auf 888, 709c, 870); Nachfolger …78xr5 (01:54)
 - 01:08 11.11.: Tom 870.4 gestartet …78gmw (Sokrates 01:06, Commit 0e2bf8427)
 - 01:05 11.11.: Lauf 01:04: nichts gestartet. Tom …785yR archiviert, gebucht (0,65 $, 870.4); Tom gesperrt (620.1 B, 10 ungetestete Muss, Test t275 beim Chef), Jerry 870.6 wartet auf 870.4, Perikles 264.1 wartet auf Chef; Stillstand Ursache Test/Chef, kein Fehler
@@ -92,7 +93,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:06 10.11.: Lauf 21:05: Tom 888 statt START als WEITER an die Sitzung „Tom – Testbitte 888“ (192 Tsd. Token, 30 Min. ruhig); Tuffy 506.2 und Diogenes 893 nicht gestartet (Tuffy nur auf Chef-Wort, 506.2 hat Jerry nicht; 893 Kür bei --nur-muss); ARCHIVIERE Jerry …7991 und Tom …9Deoz entfallen/wartet auf Archiv-Satz; Abgleich-Warnungen 542, 632 an Tom
 - 20:09 10.11.: Lauf 20:07: START Tom 888, Diogenes 893 (Kür), Perikles „M?“, Tuffy 870.3 nicht ausgeführt (Tom-888-Sitzung läuft/wartet, Kür, Planfehler, Tuffy nur auf Chef-Wort); Wächter 888 und 264 ausgeführt
 - 13:01 10.11.: Lauf: gestartet Diogenes 848, Perikles 853 (Rolle-verweigert-Fehler, Tom 12:01 und Jerry 12:03 betroffen), Spike 470 (Chef 12:58 „470 jetzt“, statt START 653). Mit --ohne: Spike 653 (Chef: Spike baut 470), Tuffy 854 (Jerry übernimmt laut Sokrates, keine Chef-Genehmigung für Tuffy). Archiviert und gebucht: Spike 825, Tuffy 406.2, Diogenes 838, Perikles 847.
-- 12:05 10.11.: Lauf: alle Rollen belegt, nichts zu starten; alte Sitzungen Perikles, Tom 506, Jerry 709, Sokrates, Diogenes archiviert und gebucht. Neue Tom und Jerry fragten nach der Rolle, „Tom“/„Jerry“ per Nachricht nachgeschickt.
 - 13:30 10.11.: Startsperre 13:30 Start Ford (selbst)
 - 13:30 10.11.: Startsperre 13:30 Start Sokrates (Neustart auf Meldung 9fc0c053b, Nachfolger 620 Test t274 ab 274); Startsperre 13:30 Start Ford (selbst).
 - 12:47 10.11.: Startsperre 12:47 Start Sokrates (Neustart auf Meldung 5f05423f9, Nachfolger 620 Lagebild nach Test t274).
@@ -266,4 +266,9 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 04:04 11.11.: Marke Archiv session_01Hmoj79XWbxp6dVYMH8Ej49 (lauf.py)
 - 04:04 11.11.: Marke Archiv session_01Hmoj78gmw7tNYNqJ8k6VGw (lauf.py)
 - 04:04 11.11.: Marke Archiv session_01Hmoj76DxbBNCFXBAGchVEZ (lauf.py)
-- 04:05 11.11.: Start Diogenes 893 nicht ausgeführt (Diogenes hat 893 03:29 geprüft, Lauf 151, Zeile steht noch offen; --ohne 893:erledigt von Diogenes 03:29)
+- 05:22 11.11.: Startsperre 05:22 Start Tom (lauf.py)
+- 05:22 11.11.: Marke Archiv-Warnung session_01Hmoj79XWbxp6dVYMH8Ej49 (lauf.py)
+- 05:22 11.11.: Marke Archiv-Warnung session_01Hmoj78gmw7tNYNqJ8k6VGw (lauf.py)
+- 05:22 11.11.: Marke Start-fehlt Diogenes 11.11.-04:04 (lauf.py)
+- 05:22 11.11.: Marke Archiv session_01Hmoj77iXLHoCZDR7BAbTYy (lauf.py)
+- 05:24 11.11.: Startsperre 05:24 Start Jerry (Neustart-Meldung Sokrates 05:22, a814ab94d; Start Tom 05:22 von lauf.py nicht ausgeführt: 870.4 wartet auf 900)

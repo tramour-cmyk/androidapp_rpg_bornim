@@ -2,7 +2,7 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 11.11., 04:04 (lauf.py)
+**Stand:** 11.11., 05:23 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
@@ -11,4 +11,5 @@
 | Jerry | [Jerry – 870.5: 870c A bauen (Grak, Fernkampf, Jungwölfe) (10.11., 22:51)](https://claude.ai/code/session_01Hmoj76RTdd4QGSu9nQwVYy) | 870.5 | – | 10.11., 22:51 |
 | Sokrates | [Sokrates – 870: Umzug über Nacht führen (11.11., 03:24)](https://claude.ai/code/session_01Hmoj77DnCMZu9jpdRWbgZT) | 870 | – | 11.11., 03:24 |
 | Ford | [Ford – Betriebsleiter (11.11., 03:26)](https://claude.ai/code/session_01Hmoj79ZRCgfghKYLkLUwW1) | Betrieb | – | 11.11., 03:24 |
+| Diogenes | [Diogenes – 893 (11.11., 03:27)](https://claude.ai/code/session_01Hmoj76DxbBNCFXBAGchVEZ) | 893 | – | 11.11., 03:27 |
 | Tom | [Tom – 870.4: Lauf 335 auswerten, Prüfliste B1 (11.11., 03:55)](https://claude.ai/code/session_01Hmoj77iXLHoCZDR7BAbTYy) | 870.4 | – | 11.11., 03:54 |
