@@ -28,9 +28,10 @@ Vorschlag Homer, 03.11.; Vorgang 504 (Chef 03.11., 07:52: „Mindestens 3 … Le
 3. Wenn noch einmal etwas aus dem Wald kommt, stehe ich hier. Aber ich bin froh, wenn du dann nicht weit bist, {name}. — EN: If anything comes out of those woods again, I'll be standing right here. But I'll be glad if you're not far off, {name}.
 
 `[504.pim.vor]`
-1. bisher: „Papa sagt, Goblins haben Angst vor Feuer! … / Thessa verkauft Alchemistenfeuer …“
-2. Ich war schon mal am Schlagbaum! Jorin hat mich am Kragen zurückgezogen. / Goblins fürchten Feuer, sagt Papa. Thessa verkauft Alchemistenfeuer, damit kann jeder zaubern, auch ohne Magier zu sein! — EN: I've been to the barrier once! Jorin dragged me back by the collar. / Goblins fear fire, Dad says. Thessa sells alchemist's fire; anyone can do magic with it, even without being a wizard!
-3. Hast du schon mal einen Goblin gesehen? Ganz echt? Wie riechen die? / Papa sagt, Feuer macht ihnen Angst. Mit Thessas Alchemistenfeuer kämpft jeder wie ein Magier. — EN: Have you ever seen a goblin? A real one? What do they smell like? / Dad says fire scares them. With Thessa's alchemist's fire anyone can fight like a wizard.
+1. bisher: „Papa sagt, Goblins haben Angst vor Feuer! … / Thessa verkauft Brandflaschen …“ (Wortlaut `STORY-PLAN-K1.md`, Pim)
+2. Ich war schon mal am Schlagbaum! Jorin hat mich am Kragen zurückgezogen. / Goblins fürchten Feuer, sagt Papa. Thessa verkauft Brandflaschen, damit kann jeder zaubern, auch ohne Magier zu sein! — EN: I've been to the barrier once! Jorin dragged me back by the collar. / Goblins fear fire, Dad says. Thessa sells firebottles; anyone can do magic with them, even without being a wizard!
+3. Hast du schon mal einen Goblin gesehen? Ganz echt? Wie riechen die? / Papa sagt, Feuer macht ihnen Angst. Mit Thessas Brandflaschen kämpft jeder wie ein Magier. — EN: Have you ever seen a goblin? A real one? What do they smell like? / Dad says fire scares them. With Thessa's firebottles anyone can fight like a wizard.
+(934: Alchemistenfeuer heißt Brandflasche, `STORY-BRS-OBERFLAECHE.md`.)
 
 `[504.pim.danach]`
 1. bisher: „Wenn ich groß bin, werde ich auch ein Held! …“

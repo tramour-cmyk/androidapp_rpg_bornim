@@ -84,7 +84,7 @@ Für die übrigen Waffengruppen fünf neue Einzelstücke (Werte, Modell: Jerry, 
 - `[870.14.truhe.zweihand]` Die Namenlose / The Nameless (Zweihänder): Ein Zweihänder mit schartiger Schneide. In die Klinge ist ein Name geritzt, den keiner mehr lesen kann. / EN: A greatsword with a notched edge. Scratched into the blade is a name no one can read anymore.
 - `[870.14.truhe.stange]` Wolfsspieß / Wolfspear (Stangenwaffen): Ein Spieß mit eiserner Querstange. Am Schaft Kerben, eine für jeden Wolf. / EN: A spear with an iron crossbar. Notches on the shaft, one for every wolf.
 - `[870.14.truhe.bogen]` Schwarzeibe / Blackyew (Bogen): Ein Langbogen aus dunkler Eibe, die Griffwicklung von vielen Händen glatt. / EN: A longbow of dark yew, its grip worn smooth by many hands.
-- `[870.14.truhe.armbrust]` Nachtwache / Nightwatch (Armbrust): Eine schwere Armbrust mit dem verblassten Zeichen der Dorfwache. Der Spannhebel quietscht. / EN: A heavy crossbow with the faded mark of the village watch. The lever squeaks.
+- `[870.14.truhe.armbrust]` Nachtwache / Nightwatch (Armbrust): Eine Armbrust mit dem verblassten Zeichen der Dorfwache. Der Spannhebel quietscht. / EN: A crossbow with the faded mark of the village watch. The lever squeaks. (934: nur die Grundform Armbrust)
 - `[870.14.truhe.wurf]` Elstern / Magpies (Wurfwaffen): Drei Wurfmesser in einem Lederband, so blank, dass sie das Licht stehlen. / EN: Three throwing knives in a leather band, so bright they steal the light.
 - Faustkampf und Schild haben kein Stück: die Truhe nimmt die nächststärkere Waffenfertigkeit.
 

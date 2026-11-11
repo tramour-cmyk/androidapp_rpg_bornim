@@ -40,6 +40,8 @@ Texte ohne Würfel (Wirkung und Zahl stehen in den Regelwerten und in der Meldun
 - `alchemist_fire`: Wurfmittel. Feuer, setzt den Gegner in Brand. / EN: Thrown. Fire; sets the foe ablaze. („trifft immer“ nur, wenn 870.5 es so baut)
 - `holy_water`: Wurfmittel. Licht; wirkt nur gegen Untote, dort aber hart. / EN: Thrown. Light; harms only the undead, but hard.
 - `roast_meat`: Stärkt für den nächsten Kampf: du triffst leichter und schlägst härter. / EN: Fortifies you for the next battle: you land blows more easily and hit harder. (wie `[870.14.satt]`)
+- `spider_silk` (934): Fein und zäh wie Draht, aus dem Leib einer Riesenspinne. Feuer frisst sie im Nu. Händler zahlen gut dafür. / EN: Fine and tough as wire, from the body of a giant spider. Fire consumes it in an instant. Traders pay well for it. (Feuer verbrennt die Seide, `lohn.gd` 78)
+- `spider_gland` (934): „… Morwen kann daraus Alchemistenfeuer mischen.“ → Aus einer Riesenspinne. Morwen mischt daraus Brandflaschen. / EN: From a giant spider. Morwen mixes firebottles from it. (Rezept Morwen: Brandflasche aus 1 Giftdrüse, `Recipes.kt` 17)
 
 Namen mit SRD-Herkunft (Vorschlag Homer; Text und Wirkung bleiben, nur der Name wechselt):
 
