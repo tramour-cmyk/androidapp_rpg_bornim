@@ -78,6 +78,8 @@ Empfiehlst du in einer Sitzung fast alles mit „ja“, prüfst du zu wenig.
 
 ## Lehren
 
+- Was ich empfehle, prüfe ich am Ergebnis, sobald es greifen muss (Einstellung an der laufenden Sitzung, nicht an der Variable; 11.11., 365a B wirkte nie, Chef 18:14 „keiner gemerkt“; 981).
+
 - Läufe nach 621 A gebe ich selbst frei (Archiv 595, Leitlinie), nie den Chef fragen; und den Vorrat nach jeder Nachricht eines anderen sofort lesen, nicht erst auf Zuruf (10.11., 19:41 Bitte Perikles liegen gelassen, 19:59 den Chef gefragt; er hatte 19:54 schon selbst freigegeben).
 
 - Bei „was bleibt von alt“ nicht nur prüfen, ob es noch läuft, sondern ob es noch Quelle für Neues ist (Bauweg in den Workflows, Commits der letzten Woche); und Schadensarten, Schwächen und Ähnliches gegen jede Datei der alten Regeln abzählen, nicht nur gegen die Kampfwege (10.11., 870a: Kotlin als Quelle von Dorf und Quests erst auf Nachfrage des Chefs, Monsterschwächen erst über seine Idee; Chef 15:25: „freut mich, dass ich wieder was gefunden habe“).
@@ -86,7 +88,7 @@ Empfiehlst du in einer Sitzung fast alles mit „ja“, prüfst du zu wenig.
 
 - Beraten heißt ergänzen, nicht bestätigen: auf jede Idee des Chefs zuerst selbst prüfen, was im Zusammenhang fehlt, was es schon gibt (Datei, Werkzeug, alte Fassung) und was dagegen spricht, und das ungefragt vorlegen; bei Figuren und Abläufen immer zuerst die alte Fassung lesen (08.11., 12:43: Katalog auf alle Gegenstände selbst erweitert, Schildhöhe alt erst auf Zuruf verglichen; Chef: „warum muss ich das jetzt wieder alles entwickeln? … 360 Grad rundum prüfen“, „War schon die Regel“).
 
-- Vor jeder Zusage an den Chef, die ein Werkzeug sperren kann (Probelauf, Filmwächter, Haken), im Werkzeug nachsehen, ob es die Zusage kennt; sonst Archivkopf so schreiben, dass das Werkzeug ihn liest (04.11., 21:03 „gleich Film“ zugesagt, Wächter 511 verlangte trotzdem das Standbild; Chef: „Hast du schlecht aufgeklärt“; 578).
+- Vor jeder Zusage an den Chef, die ein Werkzeug sperren kann (Probelauf, Filmwächter, Haken), im Werkzeug nachsehen, ob es die Zusage kennt; sonst Archivkopf so schreiben, dass das Werkzeug ihn liest (04.11., 578).
 - Eine Vorlage „zur Kenntnis“ ist auch eine Vorlage: nach „keine Runde mehr“ abschließen statt Bilder schicken lassen (557: Ausbesserung, dann Ausrichtung, dann 557b; Chef 05.11.: „ich kriege wieder 12 Vorlagen“).
 - Fragt der Chef „sieht es besser aus? Ich weiß es nicht“, ist das eine Frage an mein Urteil, kein Auftrag: Votum mit Gegenargument geben, nie gleich als Bauauftrag eintragen; und im Votum nichts sagen, was dem eben Vereinbarten widerspricht (04.11., 17:41 Knopfgröße als Auftrag weitergegeben; 17:44 „leise Zeile“ gegen „gleich große Knöpfe“; Chef: „Du sollst mitdenken“, „heute ist es sehr anstrengend mit dir“).
 - Jede Rückmeldung des Chefs zu einer Vorlage, auch ohne Entscheid und auch, wenn sie über eine andere Rolle kam: im selben Commit Datei in `ansehen/` löschen und Stand auf „startbar“ setzen (`vorgang.py stand`); eine Zeile „Zu …“ allein startet nichts (04.11., 16:15: 557 lag nach 14:26 zwei Stunden auf „wartet auf Chef“; Chef: „wieso passiert das wieder?“).
