@@ -468,14 +468,24 @@ func _am_zug(f) -> bool:
 	return _vorn() == f
 
 
+func _party_box_dran(f) -> bool:
+	return am_zug_565 != "" and laeuft() and _am_zug(f)
+
+
+## 751 A (Chef 09.11., 21:18, t272: keine Knöpfe, keine Zugreihenfolge, „weil ich dann im dritten Zug des Wolfes … tot war …
+## das ist schon alles berechnet“): MARS rechnet den Kampf voraus; für den Spieler läuft er, bis alles gezeigt ist (679)
+func laeuft() -> bool:
+	return kampfort.mars.outcome == "ONGOING" or kampfort.busy
+
+
 ## PartyBox: Farbmarke, Name; Balken in Lebensfarbe und „hp/max“, bei Zauberern „ZP sp/max“ (ohne „LP“).
 func _party_box(f) -> Control:
 	var box := PanelContainer.new()
 	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var dran: bool = am_zug_565 != "" and kampfort.mars.outcome == "ONGOING" and _am_zug(f)
+	var dran: bool = _party_box_dran(f)
 	if dran:
 		box.add_theme_stylebox_override("panel", _box(RAISED, GOLD, 6, 3, 1.5))
-	elif am_zug_565 == "B" and kampfort.mars.outcome == "ONGOING" and _vorn() != null and _vorn().side == "PARTY":
+	elif am_zug_565 == "B" and laeuft() and _vorn() != null and _vorn().side == "PARTY":
 		box.add_theme_stylebox_override("panel", _box(Color.BLACK, Color(RIM, 0.3), 6, 3, 1.0))
 	else:
 		box.add_theme_stylebox_override("panel", _box(Color.BLACK, RIM, 6, 3, 1.0))
@@ -620,6 +630,28 @@ func _choices(items: Array) -> void:
 		i += per
 
 
+## 751 A: wer aus der Gruppe als Nächster wählt, nach der gezeigten Zugleiste (nicht nach MARS, das schon weiter ist); sonst der Held.
+func _naechster_eigener():
+	var k = kampfort
+	for id in k.shown.get("queue", []):
+		var o = k.mars.find(id)
+		if o != null and o.side == "PARTY" and k.shown.hp.get(id, o.hp) > 0:
+			return o
+	return k.mars.lead()
+
+
+## 751 A: „<Name> ist dran“ über den Knöpfen, wer in der Zugleiste das ▶ trägt; Gruppe golden, Gegner rot wie dort.
+func _dran_zeile() -> Label:
+	var l := Label.new()
+	var wer = _vorn()
+	l.text = t("%s ist dran", "%s's turn") % wer.name(lang) if wer != null else " "
+	l.add_theme_font_size_override("font_size", sp(14))
+	l.add_theme_color_override("font_color", (GOLD if wer.side == "PARTY" else WARN) if wer != null else DIM)
+	l.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	l.clip_text = true
+	return l
+
+
 func _target_label(f) -> String:
 	var hp: int = kampfort.shown.hp.get(f.id, f.hp)
 	return "%s  %d/%d" % [f.name(lang), maxi(0, hp), f.max_hp]
@@ -668,18 +700,21 @@ func _build_orders() -> void:
 		else:
 			orders.add_child(_row([_button(t("Zurück", "Back"), true, func(): k.finish())], 0, true))
 		return
-	if k.busy:
-		var w := Label.new()
-		w.text = "…"
-		w.add_theme_color_override("font_color", DIM)
-		w.add_theme_font_size_override("font_size", sp(14))
-		orders.add_child(w)
+	# 751 A (Chef 09.11., 17:46; t271–t273: „überhaupt keine Knöpfe mehr“, statt dessen „…“) und 833 A (10.11., 10:07: „Man kann es
+	# ja auch ausgrauen“): solange ein anderer zieht (der Kampfort spielt, busy), stehen die Befehlsknöpfe matt an ihrem Platz, darüber
+	# „<Name> ist dran“ nach der gezeigten Zugleiste, nie nach dem, was MARS schon vorausgerechnet hat. Die Zeile steht auch im eigenen
+	# Zug, so bleibt der Kasten gleich hoch (709: sonst passt die Kamera neu). Gefragt wird MARS dabei nicht: der Regelfaden rechnet
+	# gerade weiter. Söldner und Held Auto bleiben schaltbar, sie gelten ab der nächsten Wahl (mit dem Autopiloten ist der Kampfort
+	# sonst immer beschäftigt, und er ließe sich nie mehr abschalten).
+	var matt: bool = k.busy
+	var f = _naechster_eigener() if matt else m.current()
+	if f == null:
 		return
-	var f = m.current()
 	var back := _button(t("Zurück", "Back"), true, func(): _set_pick("main"))
-	match pick:
+	match "main" if matt else pick:
 		"main":
-			var reach: Array = m.targets(f)
+			orders.add_child(_dran_zeile())
+			var reach: Array = [] if matt else m.targets(f)
 			var top := [
 				_button(t("Angriff", "Attack"), not reach.is_empty(), func():
 					if reach.size() == 1:
@@ -687,16 +722,16 @@ func _build_orders() -> void:
 					else:
 						_set_pick("target"), false, false, Tips.ATTACK),
 				_button(t("Können", "Abilities"),     # [870.14.knopf.koennen]
-						 not m.moves(f).is_empty(), func(): _set_pick("skills"), false, false, Tips.SKILLS),
-				_button(t("Tasche", "Bag"), not m.drinkable().is_empty(), func(): _set_pick("bag"), false, false, Tips.BAG),
-				_button(t("Wechsel", "Switch"), m.can_swap(f) or m.can_draw(f), func(): _set_pick("place"), false, false, Tips.PLACE),
+						 not matt and not m.moves(f).is_empty(), func(): _set_pick("skills"), false, false, Tips.SKILLS),
+				_button(t("Tasche", "Bag"), not matt and not m.drinkable().is_empty(), func(): _set_pick("bag"), false, false, Tips.BAG),
+				_button(t("Wechsel", "Switch"), not matt and (m.can_swap(f) or m.can_draw(f)), func(): _set_pick("place"), false, false, Tips.PLACE),
 			]
-			var low := [_button(t("Abwehr", "Defend"), true, func(): k.order(["wait"]), false, true, Tips.DEFEND)]
+			var low := [_button(t("Abwehr", "Defend"), not matt, func(): k.order(["wait"]), false, true, Tips.DEFEND)]
 			# 296.2: fliehen wie im klassischen Kampf, nie vor einem Boss
 			if not m.all.any(func(x): return x.side == "FOES" and x.boss()):
-				low.append(_button(t("Flucht", "Run"), m.can_flee(f), func(): k.order(["flee"]), false, true))
+				low.append(_button(t("Flucht", "Run"), not matt and m.can_flee(f), func(): k.order(["flee"]), false, true))
 			if f.hero != null and String(f.hero.get("cls", "")) == "FIGHTER":     # 870.4: der Held nach BRS hat keine Klasse
-				low.append(_button(t("Decken", "Cover"), not m.guardable(f).is_empty(), func(): k.order(["guard"]), false, true, Tips.COVER))
+				low.append(_button(t("Decken", "Cover"), not matt and not m.guardable(f).is_empty(), func(): k.order(["guard"]), false, true, Tips.COVER))
 			var merc = m.find("merc")
 			if merc != null:
 				low.append(_button(t("Söldner ", "Mercenary ") + (t("Auto", "auto") if merc.auto else t("selbst", "manual")), true, func():
@@ -2010,7 +2045,7 @@ func _draw_switches(sr: Rect2) -> void:
 	# der Kampf läuft und kein Ring offen ist; das angetippte leuchtet, bis es gilt
 	win_rect = Rect2()
 	lose_rect = Rect2()
-	if not Testmodus.ist_an() or kampfort.mars.outcome != "ONGOING" or kampfort.ring_open:
+	if not Testmodus.ist_an() or not laeuft() or kampfort.ring_open:
 		return
 	win_rect = Rect2(links - 48 * dp, y, 48 * dp, 48 * dp)
 	lose_rect = Rect2(links - 96 * dp, y, 48 * dp, 48 * dp)
