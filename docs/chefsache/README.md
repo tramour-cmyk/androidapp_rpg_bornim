@@ -9,8 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [930a](entscheiden/930a-kein-nachruecken.md) | **Muss** | E Kampf | 11.11., 14:00 | Heute rücken die übrigen Wölfe nach jedem Tod auf neue Plätze. Vorschlag: Sie bleiben stehen, wo sie sind, und bewegen sich nur noch, wenn ihr eigener Zug einen Grund dafür liefert. | Sokrates |
-| [948](entscheiden/948-dolch.md) | **Muss** | E Kampf | 11.11., 13:56 | Der Dolch war da, aber 1,6 cm breit und 0,4 cm dünn, im Kampfbild nur ein Strich; zwei breitere Fassungen zur Wahl. | Jerry |
-| [954a](entscheiden/954a-wahlen-ohne-wirkung.md) | M? | E Kampf | 11.11., 14:18 | 13 der 36 frei wählbaren Fertigkeiten und ein Volksmerkmal tun in Kapitel 1 nichts; wie bei Bergbau ausblenden, statt „wirkt noch nicht“ zu sagen. | Homer |
 
 ## Zu billigen
 
@@ -33,17 +31,16 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 2, startbar 1
+**Homer** – offen 4, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
-| 954a | M? | Rückfrage aus 954.1: in der Erschaffung nur Fertigkeiten zur Wahl, die in Kapitel 1 wirken | Chef (Datei in der Chefsache) |
-| 962 | M | Von Sokrates (930, Chef 11.11., 14:32/14:33): Ideenrunde Aktionspunkte und Tempo im Handge | startbar |
+| 954a.1 | M | Von Sokrates (954a D, Chef 11.11., 15:15): Mittelweg Fertigkeiten, Einbindung in die Welt: | startbar |
 
-**Tom** – offen 101, Muss 81, startbar 1
+**Tom** – offen 103, Muss 83, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -129,7 +126,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 764 | M | Heldenreiter zeigt aktive Zustände (betrunken usw.) mit Erklärung; Tippen auf die Leiste ö | wartet auf 870.7 (wartet) |
 | 769 | M | Wochentermin 13.11.: Rollenspiegel Tom (rollenspiegel.sh Tom) (719); deckt 02.–13.11., Woc | Termin 13.11. 08:00 |
 | 756 | M | Gegenstände: wie Seltenheit, Abnutzung und übrige Merkmale bei anlegbarer Ausrüstung angez | wartet auf 870.7 (wartet) |
-| 785 | M | Oberfläche einmal ganz gegen alt: jeder Schirm und jede Bedienung als eine Liste, jeder Un | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 581 (schirm) |
+| 785 | M | Oberfläche einmal ganz gegen alt: jeder Schirm und jede Bedienung als eine Liste, jeder Un | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 581 (schirm) |
 | 698 | M | Grafikstufen im Systemmenü mit Effekten (Niedrig/Mittel/Hoch, Automatisch per Leistungstes | wartet auf 623 (startbar) |
 | 816 | M | Effekte Szene 1 Dorf am Abend nach LISTE-EFFEKTE (Reihenfolge 623.8): gedämpft, Bilder/s n | wartet auf 698 (startbar) |
 | 814 | M | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staub im Licht, Fußstaub, Fahne, Wind, | Chef (Datei in der Chefsache) |
@@ -143,18 +140,19 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 867 | M | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die | wartet auf 870.9 (wartet) |
 | 875 | M | Von Homer (857a A, Chef 10.11., 13:35): Fertigkeit Kräuterkunde heißt im Spiel Kräutersamm | wartet auf Test/Build (gebaut) |
 | 882.1 | M | Von Perikles (882, Umzug BRS Schritt 8): mit 870.9 auch godot-kampf.yml 41 (exportIntro) a | wartet auf 870.9 (wartet) |
-| 926 | M | Von Jerry (870.6): Gegenstandsfenster im Menü ohne Würfel (menue.gd 754, 843–847, 1351 wue | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 944 (beute) |
+| 926 | M | Von Jerry (870.6): Gegenstandsfenster im Menü ohne Würfel (menue.gd 754, 843–847, 1351 wue | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 944 (beute) |
 | 933 | M | Grundwerte 933 A umsetzen (Chef 11.11., 13:07): Volk senkt bis 2, hebt bis 9 (volk_min 2, | wartet auf 933.2 (startbar) |
-| 951 | M | Fund t276 (Chef 11.11., 13:44): Blende Flüsterwald zeigte nur den Namen; DESIGN-BLENDE 7: | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 944 (fund) |
-| 954 | M | Von Sokrates (Chef 11.11., 13:55 „1 ja“): Erschaffung – Gedrückthalten erklärt je Grundwer | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 875 (erschaffung) |
-| Pflege | K | von Werkzeug (340.3, 11.11.): 15645 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 951 | M | Fund t276 (Chef 11.11., 13:44): Blende Flüsterwald zeigte nur den Namen; DESIGN-BLENDE 7: | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 944 (fund) |
+| 954 | M | Von Sokrates (Chef 11.11., 13:55 „1 ja“): Erschaffung – Gedrückthalten erklärt je Grundwer | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 875 (erschaffung) |
+| 964 | M | Von Tom (Zu 870.4, Homer 14:15): Metall sperrt Evokation, Illusion, Beschwörung im Kampf; | wartet auf Test/Build (gebaut) |
+| 963 | M | Von Tom (Zu 870.4, Fremdprüfung Homer 14:15): Heldenreiter Wortlaut ohne Wirkungsloses: Zä | Sperre 620.1 B: 10 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 875 (krautersammeln) |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 15093 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 108, Muss 98, startbar 2
+**Jerry** – offen 107, Muss 98, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 945 | M | Wiederholfund t276.12 (Chef 11.11., 13:29, Bild; alt 241.2, Kotlin 20.10.): Held und Söldn | wartet auf Test/Build (gebaut) |
-| 854 | M | Gebaute Kaufmodelle im Kaufrepo ablegen, nur bei Änderung neu bauen statt je Sitzung über | wartet auf Test/Build (gebaut) |
 | 900 | M | Von Tom (870.4, B1; „jetzt“ 10.11., 22:24, Nachtauftrag Chef): Lauf 335 rot an wolf_mess_4 | wartet auf Test/Build (gebaut) |
 | 870.2 | M | Von Sokrates (870, Umzug BRS Schritt 2): Schnittstelle Held ↔ Kampf: BrsHeld.kampfblatt() | wartet auf Test/Build (gebaut) |
 | 870.3 | M | Von Sokrates (870, Umzug BRS Schritt 3): Daten: werte.json einzige Quelle (Jungwolf, Leibw | wartet auf Test/Build (gebaut) |
@@ -226,7 +224,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 824 | M | Kampf: Schurke ohne Schild geht beim Angriff kurz 3,4–3,8 m/s in „Gehen“ (Bewegung höchste | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (lauf) |
 | 833 | M | Unterer Kampfschirm nach Signatur: kein Kasten im Kasten (Bericht, Leiste, Befehle), Knöpf | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 945 (knopfe) |
 | 836 | M | Von Homer (830): Hinweis „Nahkampf erreicht nur die vordere Reihe.“ steht in jedem Kampf, | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 863 (reihe) |
-| 840 | M | Von Sokrates (830 A, Chef 10.11., 11:00): Eingebung beim ersten Auftreten nach 210 B in Go | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 854 (bauen) |
+| 840 | M | Von Sokrates (830 A, Chef 10.11., 11:00): Eingebung beim ersten Auftreten nach 210 B in Go | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (sokrates) |
 | 841 | M | Von Sokrates (807a A, Chef 10.11., 11:01): Goblin-Späher einschüchtern nach STORY-K1-FERTI | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 945 (knopf) |
 | 844 | M | Kampf: Goblins und Kobolde haben keine Angriffsbewegung (nur Gehen, Stehen), gleiten im St | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (treffer) |
 | 845 | M | Kampf: Krogg steht 0,65 m hinter seinem Platz, beim Planen des Helden liest seine Lage den | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 709 |
@@ -234,9 +232,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 868 | M | Von Sokrates (Chef 10.11., 13:48): Kampf zeigt noch Rüstungsklasse und Würfelwerte; nur no | wartet auf Test/Build (gebaut) |
 | 872 | M | Kampf auf Halt 653 umstellen: Waffen und Schilde der Gegner und des Helden im Kampfort mit | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (schilde) |
 | 876 | M | Von Homer (857a A, Chef 10.11., 13:35): Simulation 444 Kräuterkunde → Kräutersammeln, Tran | wartet auf Test/Build (gebaut) |
-| 854.1 | M | Von Tom (888, Lauf 42906784036): kauf_cache.py ablegen bricht ab, Zeile 21 ModuleNotFoundE | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 854 (ablegen) |
 | 904 | M | Von Tom (870.4, B1): sim444_870 am Rechner (97a32cfe2): SCRIPT ERROR mars.gd:903 _erwartet | wartet auf Test/Build (gebaut) |
-| 909 | M | Von Sokrates (Chef 11.11., 08:52, zu 854): Lauf schneller: Schritt „Skripte prüfen“ (24 mi | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 854 |
+| 909 | M | Von Sokrates (Chef 11.11., 08:52, zu 854): Lauf schneller: Schritt „Skripte prüfen“ (24 mi | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (lauf) |
 | 910 | M | Von Jerry (B1, Lauf 338): atem_4531 rot, Held atmet in Ruhe 3,0 cm und 3,3° statt höchsten | wartet auf Test/Build (gebaut) |
 | 918 | M | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): godot.yml lässt alle Tests durchlaufen, sa | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 945 (alle) |
 | 923 | M | Von Tom/Sokrates (t276 gegengelesen): Heiltrank in tools/sim444/werte.json doppelt, welt.h | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (sokrates) |
@@ -251,21 +248,23 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 946 | M | Fund t276 (Chef-Bild 11.11., 13:29): Ansage „! Anspringen“ des dritten Wolfs liegt oben un | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 945 (aufruf.gd) |
 | 620.2c | M | Von Sokrates (620, Lehre aus 945): Abgleich alt Teil c: erledigte Kampf-Funde des Chefs de | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 945 |
 | 947 | M | Fund t276.12 (Chef 11.11., 13:36): MARS-Probekampf stellt dem Helden einen Söldner gleiche | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 945 (soldner) |
-| 948 | M | Fund t276.12 (Chef-Bild 11.11., 13:33): Herumtreiber soll Dolch tragen (werte.json herkuen | Chef (Datei in der Chefsache) |
+| 948 | M | Fund t276.12 (Chef-Bild 11.11., 13:33): Herumtreiber soll Dolch tragen (werte.json herkuen | wartet auf Test/Build (gebaut) |
 | 949 | M | Fund t276.13 (Chef 11.11., 13:44): perfekter Ring gegen Grak – Kampftext „greift an, schlä | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 945 (mussen) |
 | 950 | M | Fund t276 (Chef 11.11., 13:44): MARS-Probekampf, Platztausch im Team (Held und Söldner) gl | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (gleitet) |
 | 952 | M | Von Sokrates (Chef 11.11., 13:53, Erschaffung Mensch): kritisch 7 % schon als Anfänger („k | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (sokrates) |
 | 953 | M | Von Sokrates (Chef 11.11., 13:53, Erschaffung Mensch): kritisch 7 % schon als Anfänger („k | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (sokrates) |
 | 956 | M | Von 870.6a A (Chef 11.11., 13:55): Gift, Brand, Blutung als Anteil am vollen Leben mit dem | nach dem Meilenstein |
-| 930.3 | M | Von Sokrates (930): Rechnung und Film zur Regelseite Handgemenge (DESIGN-KAMPF.md, Entwurf | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (sokrates) |
+| 930.3 | M | Von Sokrates (930): Rechnung und Film zur Regelseite Handgemenge (DESIGN-KAMPF.md, Entwurf | wartet auf Sokrates |
 | 958 | M | Von Tuffy (870.6): Test kampfzustand_532 rot auf main und B1: „Zustände hinein“ erwartet D | wartet auf Test/Build (gebaut) |
-| 959 | M? | Von Homer (954.1): werte.json herkuenfte Schmiedelehrling hat nur Schmieden, Bergbau; 461c | startbar |
-| 960 | M? | Von Homer (954.1): Verstand ohne Wirkung: BrsHeld.kennt_schwaechen (870d, ab Verstand 6 Sc | startbar |
+| 959 | M | Von Homer (954.1): werte.json herkuenfte Schmiedelehrling hat nur Schmieden, Bergbau; 461c | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.3 (json) |
+| 960 | M | Von Homer (954.1): Verstand ohne Wirkung: BrsHeld.kennt_schwaechen (870d, ab Verstand 6 Sc | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.2 (brsheld) |
+| Pflege | K | von Werkzeug (340.3, 11.11.): 15012 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 12, Muss 11, startbar 0
+**Perikles** – offen 14, Muss 12, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 965 | M? | Von Sokrates (Chef 11.11., 14:56: hat jeder einen Job?): Sperre 779 in startbar.py greift | startbar |
 | 870.12 | M | Von Sokrates (870, Umzug BRS): Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 | wartet auf 870.13 (wartet) |
 | 882.2 | M | 882 Werkzeuge ohne Kotlin: tools/t logik auf Godot-Logiksatz samt Kerntest-Marke, check-en | wartet auf 882.1 (startbar) |
 | 870.10 | M | Von Sokrates (870, Umzug BRS Schritt 8): Kotlin-Bau aus (android.yml), mit 870.9; LISTE-UM | wartet auf 870.9 (wartet) |
@@ -278,6 +277,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 866 | M | Von Sokrates (620, Lagebild t274): Prüfliste geht nur gegengelesen raus; Wächter statt Abs | wartet auf Test/Build (gebaut) |
 | 896 | M | Von Jerry (870.5): Wächter meldet „TP“ als SRD-Begriff (886), Homer 870.14 und DESIGN-BRS | wartet auf Test/Build (gebaut) |
 | 919 | M | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): Regeln nachziehen: Testbitte auch bei rot | wartet auf 918 (startbar) |
+| 954a.2 | M | Von Sokrates (954a D, Chef 11.11., 15:15): Mittelweg Fertigkeiten einplanen: Aufteilung To | wartet auf 954a.1 (startbar) |
 
 **Diogenes** – offen 8, Muss 7, startbar 0
 
@@ -292,7 +292,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 52, Muss 38, startbar 29
+**Sokrates** – offen 53, Muss 39, startbar 31
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -345,9 +345,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 11.11.; „star
 | 850 | K | Systemlösung? Halt: 7 frühere Vorgänge (244, 321.1, 488, 793, 662 …), neu 849; einmal grun | startbar |
 | 862 | K | Systemlösung? Umhang: 6 frühere Vorgänge (58, 488, 463, 463.1, 656 …), neu 861; einmal gru | startbar |
 | 869 | K | Systemlösung? Rüstung: 2 frühere Vorgänge (49, 817), neu 868; einmal grundsätzlich lösen? | startbar |
-| 930 | M | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (startbar) |
+| 930 | M | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | startbar |
 | 930a | M | Rückfrage (Chef 11.11., 13:57, zu 930): F3 ohne Neuformation – nach einem Tod bleiben die | startbar |
-| Pflege | K | von Werkzeug (340.3, 11.11.): 16834 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
+| 930.3 | M | Von Sokrates (930): Rechnung und Film zur Regelseite Handgemenge (DESIGN-KAMPF.md, Entwurf | startbar |
+| 966 | M? | Von Homer (aus 963, Tom 14:56): Alchemie und Kochen wirken in Kapitel 1, werden aber nie g | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
