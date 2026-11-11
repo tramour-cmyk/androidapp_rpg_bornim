@@ -195,7 +195,7 @@
       "waffe": "Dolche", "ruestung": "Leichte Rüstung", "schild": false, "zauber": []
     },
     "Schmiedelehrling": {
-      "fertigkeiten": ["Schmieden", "Bergbau"],
+      "fertigkeiten": ["Schmieden", "Bergbau", "Stumpfe Waffen"], "_959": "461c (3), DESIGN-BRS 2: Stumpfe Waffen gehoert zur Herkunft",
       "plus": {"kraft": 3, "zaehigkeit": 1, "verstand": 2}, "plus_variante": {"zaehigkeit": 2, "gewandtheit": 1},
       "waffe": "Stumpfe Waffen", "ruestung": "Leichte Rüstung", "schild": false, "zauber": []
     },
