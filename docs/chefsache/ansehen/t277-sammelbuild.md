@@ -57,3 +57,4 @@ Bekannt (814, aus deinem Film, Ursache wird gesucht): das Huhn fliegt nicht auf,
 ## Ergebnis
 
 - 277.1 ✓ (Chef 11.11., 20:15, an Sokrates: „277.1 passt“)
+- 277.2 ✓ (Chef 11.11., 20:17)
