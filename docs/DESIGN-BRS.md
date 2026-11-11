@@ -81,7 +81,7 @@ Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit, Wil
 | Wildnis (1) | Tiere beruhigen | feindliche Tiere vor dem Kampf beruhigen |
 | Gesellschaft (3) | Überreden (mit Täuschen), Einschüchtern, Handeln | Gespräche, Läden |
 | Sammeln (4) | Kräutersammeln (857a; bis 10.11. „Kräuterkunde“), Bergbau, Angeln, Jagd (Zerlegen, Fährten) | ernten, angeln, erlegte Tiere zerlegen |
-| Handwerk (6; 810) | Schmieden (Metall, Reparieren, Dietriche), Lederarbeit (Gerben, Schneidern, Reparieren), Alchemie (mit Giften), Kochen, Runenkunde (Verzaubern), Heilkunde | herstellen, verbinden |
+| Handwerk (6; 810) | Schmieden (Metall, Reparieren, Dietriche), Schneidern (Gerben, Nähen, Reparieren; 975a A), Alchemie (mit Giften), Kochen, Runenkunde (Verzaubern), Heilkunde | herstellen, verbinden |
 
 ### Wie Fertigkeiten wachsen
 
@@ -142,7 +142,7 @@ Die Ätherdichte (Entscheidung 76) ist noch ohne Zahl.
 | Titelprüfung | Kernfertigkeiten am Ende von Meister (74) | den Titel, z. B. „Paladin“ (in der Regel „Titelträger“) | Rang Großmeister, stärkere Fähigkeit; ab hier gelten die Auflagen | 4 |
 | Hohe Prüfung | Kernfertigkeiten bei 100 | den hohen Titel, z. B. „Hoher Paladin“ | stärkste Fähigkeit | 6 |
 
-Namen nach 466 (Chef 02.11.): **Fähigkeit** (Ability) ist, was ein Pfad gibt; Fertigkeiten haben Wert und Rang, Fähigkeiten nie. Pfadstufen: Anwärter, Eingeweihter, Titel, hoher Titel; Anfänger, Geselle, Meister, Großmeister sind nur Ränge der Fertigkeiten. Im Spiel heißen die Prüfungen nach dem Titel („Prüfung zum Paladin“, „Prüfung zum Hohen Paladin“); „Weihe“, „Titelprüfung“, „Hohe Prüfung“ stehen nur in der Regel. Stufen der Meisterschaften (466 A, Chef 02.11., 22:03) wie beim Pfad: Anwärter → Eingeweihter → Titel → „Hoher“ + Titel; Titel Schmied, Lederer, Alchemist, Runenwirker, Feldkoch (EN Aspirant, Initiate, Smith, Leatherworker, Alchemist, Runewright, Field Cook, „High …“). „Runenmeister“ und „Lederarbeit“ bleiben Namen der Meisterschaft, keine Stufe.
+Namen nach 466 (Chef 02.11.): **Fähigkeit** (Ability) ist, was ein Pfad gibt; Fertigkeiten haben Wert und Rang, Fähigkeiten nie. Pfadstufen: Anwärter, Eingeweihter, Titel, hoher Titel; Anfänger, Geselle, Meister, Großmeister sind nur Ränge der Fertigkeiten. Im Spiel heißen die Prüfungen nach dem Titel („Prüfung zum Paladin“, „Prüfung zum Hohen Paladin“); „Weihe“, „Titelprüfung“, „Hohe Prüfung“ stehen nur in der Regel. Stufen der Meisterschaften (466 A, Chef 02.11., 22:03) wie beim Pfad: Anwärter → Eingeweihter → Titel → „Hoher“ + Titel; Titel Schmied, Schneider, Alchemist, Runenwirker, Feldkoch (EN Aspirant, Initiate, Smith, Tailor, Alchemist, Runewright, Field Cook, „High …“; Schneider statt Lederer nach 975a A, Chef 11.11., 17:04). „Runenmeister“ bleibt Name der Meisterschaft, keine Stufe.
 
 **Kapitel als Takt für alle Fertigkeiten (Startwerte):**
 
@@ -189,7 +189,7 @@ Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, abe
 | Meisterschaft | Hauptfertigkeit | Zulieferfertigkeit | Stellt her |
 | --- | --- | --- | --- |
 | Schmied | Schmieden | Bergbau | Waffen, Metallrüstung, Dietriche, Reparatur von Metall |
-| Lederarbeit (Name offen, 975) | Lederarbeit | Jagd | Leder, leichte Rüstung, Taschen, Köcher, Roben und Stoffkleidung (Stoff vom Händler; Chef 11.11., 16:31), Reparatur von Leder und Stoff |
+| Schneider (975a A) | Schneidern | Jagd | Leder, leichte Rüstung, Taschen, Köcher, Roben und Stoffkleidung (Stoff vom Händler; Chef 11.11., 16:31), Reparatur von Leder und Stoff |
 | Alchemist | Alchemie | Kräutersammeln | Tränke, Gegengifte, Gifte, Elixiere |
 | Runenmeister | Runenkunde | Bergbau | Verzauberungen, Runen auf Ausrüstung |
 | Feldkoch | Kochen | Angeln oder Jagd | Mahlzeiten mit kleinem Bonus |
@@ -241,7 +241,7 @@ Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, abe
 
 Ernten ist eine kurze Tätigkeit ohne Minispiel. Fundorte wachsen nach einer Zeit nach. Höhere Gebiete liefern bessere Rohstoffe.
 
-**Die Kette vom Tier zum Gegenstand:** Jagd (zerlegen) → Kochen (Fleisch, Fisch) · Lederarbeit (Fell zu Leder, leichte Rüstung, Taschen) · Alchemie (Zähne, Giftdrüsen, seltene Fische) · Händler (alles).
+**Die Kette vom Tier zum Gegenstand:** Jagd (zerlegen) → Kochen (Fleisch, Fisch) · Schneidern (Fell zu Leder, leichte Rüstung, Taschen) · Alchemie (Zähne, Giftdrüsen, seltene Fische) · Händler (alles).
 
 **Herstellen:**
 - **Werkorte gestaffelt:** einfache Rezepte überall (Lagerfeuer), höhere an Schmiede, Werkbank, Alchemietisch, Gerberei.
@@ -316,7 +316,7 @@ Folklore-Wesen (Goblin, Kobold, Skelett, Zombie, Ghul) und Tiere behalten ihre N
 - Monsterwerte Kapitel 1 sind entschieden (427, Chef 02.11.: `LISTE-BESTIARIUM.md` „Werte 2.0“); Krogg und Grimmzahn nachgemessen, Werte wie im Bestiarium gelten endgültig (427.1, Chef 02.11., 20:22; ersetzt „offen nur Krogg und Grimmzahn, nachmessen mit Überfall, Rudel, Umreißen“), mit zwei Bedingungen: Hinweis auf Morwens Rauch spätestens nach der ersten Niederlage gegen Krogg, Krogg erst abnehmen, wenn der Rauch im Spiel zu bekommen ist; offen nur die Herkünfte (481).
 - Profil (Entwurf C) ist entschieden (Entscheidung 76); offen bleibt nur die Reihenfolge der Bausteine über Taten und Chronik hinaus.
 - Umfang der Prüfungsquests beim Lehrmeister.
-- Wie die Grundwerte ab Kapitel 2 wachsen (in Kapitel 1 nicht, 870a 4 A); Haupt- und Nebenwert für Spähen, Tiere beruhigen, Lederarbeit.
+- Wie die Grundwerte ab Kapitel 2 wachsen (in Kapitel 1 nicht, 870a 4 A); Haupt- und Nebenwert für Spähen, Tiere beruhigen, Schneidern.
 - Rufstufen, Gefährten ohne Klassen, Niederlage, Reparaturverlust, Abnutzungsrate.
 - Ruf und Lehrmeister (Abschnitt 9, D54.5).
 - Übrige Zahlen (Abschnitt 4: Helden, Übung, Erfahrung): gemessen mit Simulation 444, dann zum Chef.
@@ -425,7 +425,7 @@ Wie das zusammenhängt: Kräutersammeln ist eine **Fertigkeit** (Sammeln). Sie g
 | Seltenheit | Zusatzeigenschaften, Preis, Zeichen (seit 644 B; gilt: Abschnitt 11) | gewöhnlich bis göttlich | Fund, Beute, Einzelstück |
 | Zustand (Abnutzung) | wie gut ein Gegenstand noch wirkt | Makellos, Benutzt, Beschädigt, Defekt (wirkt nicht mehr, geht aber nicht verloren) | sinkt beim Gebrauch; Reparatur beim NPC oder selbst |
 
-Abnutzung und Reparatur: Reparieren ist keine eigene Fertigkeit mehr; Metall repariert die Fertigkeit **Schmieden**, Leder und Stoff die **Lederarbeit**. Ihr Rang bestimmt, was man reparieren kann (Anfänger: Werkzeug und Einfaches; Geselle: Metallwaffen, mittlere Rüstung, Schilde, Bögen; Meister: schwere Rüstung, Meisterstücke; Großmeister: magische Stücke mit Runenkunde). Für alle gibt es „Alles reparieren“ beim Handwerker.
+Abnutzung und Reparatur: Reparieren ist keine eigene Fertigkeit mehr; Metall repariert die Fertigkeit **Schmieden**, Leder und Stoff das **Schneidern**. Ihr Rang bestimmt, was man reparieren kann (Anfänger: Werkzeug und Einfaches; Geselle: Metallwaffen, mittlere Rüstung, Schilde, Bögen; Meister: schwere Rüstung, Meisterstücke; Großmeister: magische Stücke mit Runenkunde). Für alle gibt es „Alles reparieren“ beim Handwerker.
 
 ## Entwurf C zur Entscheidung: das eigene Profil
 

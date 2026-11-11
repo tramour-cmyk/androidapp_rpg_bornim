@@ -1,5 +1,6 @@
-# Tom und Jerry · Build 277 · Sammelbuild nach Build 276 · PR folgt
+# Tom und Jerry · Build 277 · Sammelbuild nach Build 276 · PR #196
 Ganzes Spiel · Tom (581, 635, 636, 680, 814, 875, 964), Jerry (532, 536, 751, 784, 806, 811, 863, 868, 870.6, 876, 910, 935, 945, 948, 958) · Entwurf 11.11., 16:43 · APK folgt mit dem Lauf · Geprüft an: `claude/build-277` (Stand Build 276 plus alle fertigen Zweige, `8a07045f8`)
+Gegengelesen: Sokrates 11.11., 16:58
 
 Ein Weg: über Build 276 installieren, Hauptmenü, „Weiter“ mit deinem Spielstand aus Build 276; erst Dorf am Tag (A), dann Wald mit Kräutern und Kampf (B), zurück ins Dorf am Abend (C), dann Probekämpfe und Sprünge im Reiter „Test“ (D), zuletzt ein neues Spiel für Jorins Schlagbaum (E). Den Reiter „Test“ gibt es nur im Testmodus: im Hauptmenü siebenmal aufs Firmenzeichen tippen. Was nicht passt, reicht als Nummer (z. B. 277.5) mit einem Wort.
 
@@ -26,7 +27,7 @@ Bekannt (814, aus deinem Film, Ursache wird gesucht): das Huhn fliegt nicht auf,
 | 277.6 | Tom | 875 | Heilkräuter pflücken | Meldung „Du pflückst Heilkräuter“; steigt der Wert, „Kräutersammeln ↑ n“ | „Kräuterkunde ↑ n“ |
 | 277.7 | Jerry | 806 | Testmodus → Anzeigen „Bildrate“ an; zum Wolf gehen, Kampf, Bilder/s links ablesen; dann Welt „Kampfnebel“ aus, nächster Kampf, wieder ablesen | Kampfort mit dichtem Gras und Blumen in Flecken, dünner Bodennebel, hinter den Kämpfern zwei Lichtschächte mit Staub; Bilder/s mit Nebel kaum unter denen ohne | kahler Boden zwischen den Büscheln, Nebel bis über die Köpfe, Ruckeln nur mit Nebel (dann beide Zahlen nennen) |
 | 277.8 | Jerry | 536 | im Wolfskampf auf die Ansagen der Wölfe achten („! Anspringen“) | die Ansage steht dicht über dem Kopf des Wolfs, nie auf einem Namen | Ansage seitlich mit langer Linie, verdeckt einen Namen |
-| 277.9 | Jerry | 532 | im Wolfskampf, wenn Leben fehlt: Leben ablesen, „Tasche“ antippen, Heiltrank trinken | die Tasche ist eine rollbare Liste mit Bildern über die ganze Breite, „Zurück“ darunter; das Leben steigt um 14 (Zahl nennen), höchstens bis voll; bei vollem Leben ist der Heiltrank ausgegraut | Liste abgeschnitten oder nicht rollbar, der Kasten springt, ein anderer Wert als 14 |
+| 277.9 | Jerry | 532 | im Wolfskampf, wenn Leben fehlt: Leben ablesen, „Tasche“ antippen, Heiltrank trinken | die Tasche ist eine rollbare Liste mit Bildern über die ganze Breite, „Zurück“ darunter; nach „Heiltrank“ die Wahl, wer trinkt, je Name mit Leben „n/max“, wer volles Leben hat, ist ausgegraut; das Leben steigt um 14 (Zahl nennen), höchstens bis voll | Liste abgeschnitten oder nicht rollbar, der Kasten springt, ein anderer Wert als 14 |
 | 277.10 | Jerry | 935 | im nächsten eigenen Zug „Tasche“ → Brandflasche auf einen Wolf | der Wurf trifft, der Wolf brennt zwei Züge | Brandflasche fehlt in der Tasche, Wurf ohne Wirkung |
 | 277.11 | Jerry | 751, 945 | im Wolfskampf „Held selbst“ antippen bis „Held Auto“ (Söldner, wenn dabei, auch auf Auto); ein paar Züge zusehen, dann beide wieder aus | im Zug der Gegner stehen die Knöpfe matt an ihrem Platz, darüber „<Name> ist dran“; die Auto-Schalter bleiben immer antippbar; nach dem Ausschalten hält der Kampf bei deinem nächsten Zug | Knöpfe weg oder „…“, Auto nicht mehr abschaltbar |
 
