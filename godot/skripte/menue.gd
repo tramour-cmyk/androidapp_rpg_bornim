@@ -110,7 +110,7 @@ func baue() -> void:
 		leiste.remove_child(c)
 		c.queue_free()
 	# 399.1: Reiter als Zeichen wie alt (TabSign, 60j); Woerter passten zu viert nicht in die Breite
-	for r in ["held", "tasche", "ausruestung", "karte", "chronik", "system"] + (["test"] if Testmodus.ist_an() else []):   # 399.1 wie alt Tab.TEST
+	for r in ["held"] + (["fertigkeiten"] if not brs_fertigkeiten().is_empty() else []) + ["tasche", "ausruestung", "karte", "chronik", "system"] + (["test"] if Testmodus.ist_an() else []):   # 399.1 wie alt Tab.TEST
 		var stern: bool = (r == "held" and hw.offen > 0) or (r == "chronik" and reiter != "chronik" and Chronik.frisch(z))
 		leiste.add_child(Reiterzeichen.knopf(r, wort(r), func(): tippe_reiter(r), r == reiter, stern))
 	for c in inhalt.get_children():
@@ -118,6 +118,7 @@ func baue() -> void:
 		c.queue_free()
 	match reiter:
 		"held": held()
+		"fertigkeiten": fertigkeiten_reiter()
 		"tasche": tasche()
 		"ausruestung": ausruestung()
 		"chronik": chronik()
@@ -145,6 +146,7 @@ func wort(r: String) -> String:
 	if r == "chronik": return Sprache.t(CHRONIK)
 	if r == "karte": return Sprache.t(KARTE)
 	if r == "test": return "Test"
+	if r == "fertigkeiten": return "Fertigkeiten" if Sprache.aktiv() == "de" else "Skills"
 	return Sprache.u(WORT[r])
 
 func meldung(t: String) -> void:
@@ -157,8 +159,8 @@ func meldung(t: String) -> void:
 		var f = schwach.get_ref()
 		if f != null and f.text == mein: f.visible = false)
 
-func zeile(t: String, sp: float, farbe := Stil.TEXT) -> Label:
-	var l := Erschaffung.txt(t, sp, farbe)
+func zeile(t: String, sp: float, farbe := Stil.TEXT, fett := false) -> Label:
+	var l := Erschaffung.txt(t, sp, farbe, fett)
 	inhalt.add_child(l)
 	return l
 
@@ -168,7 +170,7 @@ func luecke(dp: float) -> void: inhalt.add_child(Erschaffung.luecke(dp))
 func balken(wort: String, wert: int, hoechst: int, farbe: Color, text := "") -> void:
 	var r := HBoxContainer.new()
 	r.add_theme_constant_override("separation", int(8 * DP))
-	var w := Erschaffung.txt(wort, 14)
+	var w := Erschaffung.txt(wort, 14, Stil.TEXT, true)   # 584: LabeledBar, Wort halbfett wie alt
 	w.size_flags_horizontal = Control.SIZE_FILL
 	w.custom_minimum_size.x = 36 * DP
 	r.add_child(w)
@@ -197,7 +199,7 @@ func held() -> void:
 	wer.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	wer.add_child(Stil.zeile(hw.name.to_upper(), 14, Stil.GOLD, 3.0))   # MenuHead
 	wer.add_child(Erschaffung.txt("%s · %s" % [Sprache.t(d["voelker"][hw.volk]["name"]), Sprache.t(d["klassen"][hw.klasse]["name"])], 15))
-	wer.add_child(Erschaffung.txt("%s %d   %s: %d" % [Sprache.u("level"), hw.stufe, Sprache.u("gold"), z.gold], 15))
+	wer.add_child(Erschaffung.txt("%s %d   %s: %d" % [Sprache.u("level"), hw.stufe, Sprache.u("gold"), z.gold], 15, Stil.TEXT, true))   # 584: MenuScreen.kt 586
 	oben.add_child(wer)
 	inhalt.add_child(oben)
 	luecke(8)
@@ -216,15 +218,15 @@ func held() -> void:
 		balken(Sprache.u("xp"), hw.ep - von, bis - von, Leiste.GOLD_HELL, "%d / %d" % [hw.ep, bis])
 	luecke(8)
 	var s := hw.schaden()
-	zeile("%s %d   %s %s   %s %s" % [Sprache.u("ac"), hw.rk(), Sprache.u("attack"), Erschaffung.vorzeichen(hw.angriff()), Sprache.u("damage"), Beute.wuerfel_text(s, 0, de)], 15)
+	zeile("%s %d   %s %s   %s %s" % [Sprache.u("ac"), hw.rk(), Sprache.u("attack"), Erschaffung.vorzeichen(hw.angriff()), Sprache.u("damage"), Beute.wuerfel_text(s, 0, de)], 15, Stil.TEXT, true)   # 584: MenuScreen.kt 605
 	zeile("%s %s" % [Sprache.u("proficiency"), Erschaffung.vorzeichen(hw.uebung())] + (" · " + Beute.name(hw.waffe()) if hw.waffe() != null else ""), 14, Stil.DIM)
 	if bool(hw.klassendaten()["zauberer"]):
 		zeile(("Zauberangriff " if de else "Spell attack ") + Erschaffung.vorzeichen(hw.zauberangriff()) + ("   Zauber-SG " if de else "   Spell save DC ") + str(hw.zauber_sg()), 14, Stil.DIM)
 	luecke(10)
 	var verplant := 0
 	for a in geplant: verplant += int(geplant[a])
-	if hw.offen > 0: zeile(Sprache.u("points", [hw.offen - verplant]), 15, Stil.WARN)
-	zeile("Tippe auf ein Attribut, um zu sehen, was es bringt." if de else "Tap an ability to see what it does.", 12, Stil.DIM)
+	if hw.offen > 0: zeile(Sprache.u("points", [hw.offen - verplant]), 15, Stil.WARN, true)
+	zeile("Tippe auf einen Grundwert, um zu sehen, was er bringt." if de else "Tap an attribute to see what it does.", 12, Stil.DIM)
 	var blau := false
 	for a in Heldwerte.ATTRIBUTE:
 		var plus := int(geplant.get(a, 0))
@@ -242,7 +244,7 @@ func held() -> void:
 		for spalte in [["%d→%d" % [hw.wert(a), w] if plus > 0 else str(w), 16, GRUEN if plus > 0 else Stil.TEXT, 56],
 				[(Erschaffung.vorzeichen(aus) + ("*" if hw.ausruestung_gedeckelt(a) else "")) if aus != 0 else "", 14, BLAU, 30],
 				["(%s)" % Erschaffung.vorzeichen(Heldwerte.mod_von(w)), 15, Stil.DIM, 44]]:
-			var l := Erschaffung.txt(spalte[0], spalte[1], spalte[2])
+			var l := Erschaffung.txt(spalte[0], spalte[1], spalte[2], spalte[2] != Stil.DIM)   # 584: Wert und Ausruestung fett wie alt (MenuScreen.kt 632, 637)
 			l.autowrap_mode = TextServer.AUTOWRAP_OFF
 			l.size_flags_horizontal = Control.SIZE_FILL
 			l.custom_minimum_size.x = spalte[3] * DP
@@ -268,8 +270,8 @@ func held() -> void:
 	if blau:
 		zeile("Blau: Bonus durch Ausrüstung (im Wert enthalten)" if de else "Blue: bonus from gear (included in the score)", 12, BLAU)
 		var k := hw.kapitel
-		zeile(("In Kapitel %d gibt Ausrüstung insgesamt höchstens +%d je Attribut, auf Angriff, Zauberangriff und RK sowie +%d Schaden. * = Deine Ausrüstung könnte mehr." if de
-			else "In chapter %d, all gear together adds at most +%d to each ability, attack, spell attack and AC, and +%d damage. * = your gear could give more.") % [k, k, k + 1], 12, Stil.DIM)
+		zeile(("In Kapitel %d gibt Ausrüstung insgesamt höchstens +%d je Grundwert, auf Angriff, Zauberangriff und Schutzwert sowie +%d Schaden. * = Deine Ausrüstung könnte mehr." if de
+			else "In chapter %d, all gear together adds at most +%d to each attribute, attack, spell attack and protection, and +%d damage. * = your gear could give more.") % [k, k, k + 1], 12, Stil.DIM)
 	if verplant > 0:
 		var r := HBoxContainer.new()
 		r.add_theme_constant_override("separation", int(8 * DP))
@@ -278,6 +280,7 @@ func held() -> void:
 		luecke(6)
 		inhalt.add_child(r)
 	luecke(10)
+	fertigkeiten_kurz()
 	zeile(Sprache.u("skills").to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))   # MenuHead
 	zeile(Sprache.t(d["voelker"][hw.volk]["merkmal"]), 14, Stil.GOLD)
 	for f in d["faehigkeiten"]:
@@ -285,8 +288,140 @@ func held() -> void:
 		if String(fd["klasse"]) != hw.klasse or bool(fd.get("mars", false)): continue
 		var hat := hw.hat(f)
 		var tag := ("  (%s)" % Sprache.u("fromLevel", [int(fd["stufe"])])) if not hat else (("  (%s)" % Sprache.u("passive")) if String(fd.get("kosten", "")) == "PASSIVE" else "")
-		zeile(Sprache.t(fd["name"]) + tag, 15, Stil.TEXT if hat else Stil.DIM)
+		zeile(Sprache.t(fd["name"]) + tag, 15, Stil.TEXT if hat else Stil.DIM, true)   # 584: MenuScreen.kt 691
 		zeile(Sprache.t(fd["text"]), 13, Stil.DIM)
+
+# 762 (Chef 09.11., 14:49): die Fertigkeiten des Helden nach BRS mit Wert, Rang und dem Weg bis zum Ende des Rangs; Raenge und
+# Grenzen aus dem Handbuch [423.rang] (Anfaenger bis 24, Geselle bis 49, Meister bis 74, Grossmeister bis 100). Chef 20:59 (Rat
+# Sokrates): eigener Reiter „Fertigkeiten“ neben Held, weil es 37 werden (BRS Abschnitt 3); dort nach den acht Gruppen, die
+# geuebten mit Rang, Wert und Balken, die noch ungeuebten matt als Namen. Im Heldenreiter nur die drei hoechsten mit Sprung zum
+# Reiter. Alte Spielstaende ohne BRS-Held zeigen weder Reiter noch Abschnitt. Steigen durch Tun (471) liest dieselbe Quelle.
+const RAENGE := [[24, "Anfänger", "Novice"], [49, "Geselle", "Journeyman"], [74, "Meister", "Master"], [100, "Großmeister", "Grandmaster"]]
+
+static func rang_von(wert: int) -> Array:
+	for r in RAENGE:
+		if wert <= int(r[0]): return r
+	return RAENGE[RAENGE.size() - 1]
+
+## Name -> Wert der Fertigkeiten, die der Held hat (einzige Stelle, die den Spielstand liest)
+func brs_fertigkeiten() -> Dictionary:
+	return (z.brs.get("fertigkeiten", {}) as Dictionary) if z != null and z.brs is Dictionary else {}
+
+func _nach_wert(f: Dictionary) -> Array:
+	var namen := f.keys()
+	namen.sort_custom(func(a, b): return int(f[a]) > int(f[b]) or (int(f[a]) == int(f[b]) and String(a) < String(b)))
+	return namen
+
+## eine Fertigkeit: Name links, Rang und Wert rechts in Gold, darunter der Weg bis zum Ende des Rangs
+func fertigkeit_zeile(n: String, w: int) -> void:
+	var de := Sprache.aktiv() == "de"
+	var r := rang_von(w)
+	var unten := 0
+	var i := RAENGE.find(r)
+	if i > 0: unten = int(RAENGE[i - 1][0])
+	var z1 := HBoxContainer.new()
+	z1.add_theme_constant_override("separation", int(8 * DP))
+	var l := Erschaffung.txt(ErschaffungBrs.fert_name(n), 15)
+	l.autowrap_mode = TextServer.AUTOWRAP_OFF
+	l.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	z1.add_child(l)
+	var rw := Erschaffung.txt("%s  %d" % [String(r[1] if de else r[2]), w], 15, Stil.GOLD)
+	rw.autowrap_mode = TextServer.AUTOWRAP_OFF
+	rw.size_flags_horizontal = Control.SIZE_FILL
+	z1.add_child(rw)
+	inhalt.add_child(z1)
+	var b := Leiste.Balken.new()
+	b.custom_minimum_size = Vector2(0, 6 * DP)
+	b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	b.anteil = float(w - unten) / maxf(1.0, float(int(r[0]) - unten))
+	b.farbe = Leiste.GOLD_HELL
+	inhalt.add_child(b)
+	luecke(4)
+
+## Heldenreiter: die drei hoechsten, darunter der Sprung zum Reiter „Fertigkeiten“
+func fertigkeiten_kurz() -> void:
+	var f := brs_fertigkeiten()
+	if f.is_empty(): return
+	zeile(wort("fertigkeiten").to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))   # MenuHead
+	var namen := _nach_wert(f)
+	for n in namen.slice(0, 3): fertigkeit_zeile(String(n), int(f[n]))
+	inhalt.add_child(Spielstaende.knopf("neben", wort("fertigkeiten").to_upper() + " ›", func(): tippe_reiter("fertigkeiten")))   # 549a: Wort statt Kasten
+	luecke(10)
+
+## Reiter „Fertigkeiten“: je Gruppe (Reihenfolge der Datei) erst die geuebten nach Wert, dann die uebrigen matt
+func fertigkeiten_reiter() -> void:
+	var f := brs_fertigkeiten()
+	var gruppen: Dictionary = BrsHeld.e().get("fertigkeiten", {})
+	var nein: Array = BrsHeld.e().get("nicht_waehlbar", [])
+	var erst := true
+	for gr in BrsHeld.ohne_info(gruppen):
+		var alle: Array = gruppen[gr]
+		var hat := {}
+		for n in alle:
+			if f.has(n): hat[n] = f[n]
+		var rest := alle.filter(func(n): return not f.has(n) and not nein.has(n))
+		if hat.is_empty() and rest.is_empty(): continue
+		if not erst:   # 549a: Zwischenueberschriften durch eine schlichte Linie getrennt
+			luecke(2); inhalt.add_child(Spielstaende.linie()); luecke(2)
+		erst = false
+		var offen := gruppe_offen(gr, not hat.is_empty())
+		inhalt.add_child(gruppen_kopf(gr, hat.size(), hat.size() + rest.size(), offen))
+		if not offen: continue
+		luecke(2)
+		for n in _nach_wert(hat): fertigkeit_zeile(String(n), int(hat[n]))
+		if not rest.is_empty():
+			var m := zeile(", ".join(rest.map(func(n): return ErschaffungBrs.fert_name(String(n)))), 14, Stil.DIM)
+			m.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		luecke(6)
+
+## 762 (Chef 21:25 Idee, 21:33 „Ja.“, Votum Sokrates): Gruppen ein- und aufklappbar; ohne Umklappen offen, wer schon etwas kann,
+## zu, wer nichts kann; was der Spieler umklappt, bleibt gemerkt (Bedienung, ueber Neustarts)
+static func gruppe_offen(gr: String, vorgabe: bool) -> bool:
+	Bedienung.lade()
+	return bool(Bedienung.fert_gruppen.get(gr, vorgabe))
+
+func klappe_gruppe(gr: String, offen: bool) -> void:
+	Bedienung.fert_gruppen[gr] = not offen
+	Bedienung.speichere()
+	baue()
+
+## Kopf einer Gruppe als ganze Zeile zum Antippen (48 dp): Name in Goldversalien, rechts „geuebt/alle“ matt und der Winkel wie bei
+## den Lizenzen (585): zu nach rechts, offen nach unten
+func gruppen_kopf(gr: String, geuebt: int, alle: int, offen: bool) -> Control:
+	var h := HBoxContainer.new()
+	h.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	h.custom_minimum_size.y = 48 * DP
+	h.add_theme_constant_override("separation", int(10 * DP))
+	var l := Erschaffung.txt(ErschaffungBrs.tx(ErschaffungBrs.GRUPPE.get(gr, {"de": gr, "en": gr})).to_upper(), 14, Stil.GOLD)
+	l.add_theme_font_override("font", Stil.variante(3.0))   # MenuHead
+	l.autowrap_mode = TextServer.AUTOWRAP_OFF
+	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	l.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	h.add_child(l)
+	var a := Erschaffung.txt("%d/%d" % [geuebt, alle], 14, Stil.GOLD if geuebt > 0 else Stil.DIM)
+	a.autowrap_mode = TextServer.AUTOWRAP_OFF
+	a.size_flags_horizontal = Control.SIZE_SHRINK_END
+	a.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	a.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	h.add_child(a)
+	# der Winkel in einer Huelle ohne Container: HBoxContainer setzt die Drehung seiner Kinder beim Anordnen auf 0 zurueck
+	var pf := Spielstaende.pfeil(Stil.GOLD, false)
+	pf.name = "Winkel"
+	var hl := Control.new()
+	hl.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	hl.custom_minimum_size = Vector2(16 * DP, 16 * DP)
+	hl.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	pf.size = pf.custom_minimum_size
+	pf.pivot_offset = pf.size / 2
+	pf.position = (hl.custom_minimum_size - pf.size) / 2
+	pf.rotation = PI / 2 if offen else 0.0
+	hl.add_child(pf)
+	h.add_child(hl)
+	var k := Spielstaende.tippbar(h, func(): klappe_gruppe(gr, offen))
+	k.name = "Gruppe_" + gr
+	return k
 
 # ConfirmDialog „Punkte verteilen?“: je Attribut alt → neu, „Das kann nicht rückgängig gemacht werden.“
 # Perks.describe (Ausfuhr held.json „erklaerung“): Wert und Modifikator, die Zeile der Klasse, dann was der Modifikator bringt
@@ -314,7 +449,7 @@ func frage_verteilen() -> void:
 	var d := Heldwerte.lade()
 	var zl: Array = []
 	for a in geplant:
-		zl.append(Erschaffung.txt("%s: %d → %d" % [Sprache.t(d["attribute"][a]["name"]), hw.wert(a), hw.wert(a) + int(geplant[a])], 16))
+		zl.append(Erschaffung.txt("%s: %d → %d" % [Sprache.t(d["attribute"][a]["name"]), hw.wert(a), hw.wert(a) + int(geplant[a])], 16, Stil.TEXT, true))   # 584: MenuScreen.kt 676
 	zl.append(Erschaffung.txt("Das kann nicht rückgängig gemacht werden." if de else "This can't be undone.", 13.5, Spielstaende.ANGABE))
 	Spielstaende.frage(self, "Punkte verteilen?" if de else "Spend points?", zl, "", "Ja, verteilen" if de else "Yes, spend", Stil.BRIGHT, func():
 		for a in geplant:
@@ -734,9 +869,9 @@ static func stueck_zeilen_von(hw: Heldwerte, g: Dictionary) -> Array:
 		if bool(b.get("fern", false)): zuege.append("Fernkampf" if de else "Ranged")
 		if not zuege.is_empty(): z_.append(Erschaffung.txt(" · ".join(PackedStringArray(zuege)), 13, Stil.DIM))
 	if String(b["slot"]) == "CHEST" and int(b.get("ruestung", 0)) > 0:
-		var ges: String = {"LIGHT": " + GES" if de else " + DEX", "MEDIUM": " + GES (max 2)" if de else " + DEX (max 2)"}.get(gewicht, "")
-		z_.append(fett.call(Erschaffung.txt("%s %d%s" % [Sprache.u("ac"), int(b["ruestung"]) + plus, ges], 16)))
-	if String(b["art"]) == "SHIELD": z_.append(fett.call(Erschaffung.txt("%s +%d" % [Sprache.u("ac"), int(b["ruestung"]) + plus], 16)))
+		var ges: String = {"LIGHT": " + " + Heldwerte.kurzwort("DEX"), "MEDIUM": " + %s (max 2)" % Heldwerte.kurzwort("DEX")}.get(gewicht, "")
+		z_.append(fett.call(Erschaffung.txt("%s %d%s" % [("Schutzwert" if de else "Protection"), int(b["ruestung"]) + plus, ges], 16)))
+	if String(b["art"]) == "SHIELD": z_.append(fett.call(Erschaffung.txt("%s +%d" % [("Schutzwert" if de else "Protection"), int(b["ruestung"]) + plus], 16)))
 	if int(b.get("fokus", 0)) > 0: z_.append(fett.call(Erschaffung.txt(("Zauberkraft +%d" if de else "Spell power +%d") % int(b["fokus"]), 16)))
 	# Eigenschaften (Affix.line), blau wie alt
 	for r in g["rolls"]:
@@ -749,7 +884,7 @@ static func stueck_zeilen_von(hw: Heldwerte, g: Dictionary) -> Array:
 	if not hw.kann_tragen(g):
 		z_.append(Erschaffung.txt("Deine Klasse kann das nicht tragen." if de else "Your class can't wear this.", 15, Stil.WARN))
 	elif waffe and not hw.geuebt(g):
-		z_.append(Erschaffung.txt("Ungeübt: kein Übungsbonus auf Angriffe." if de else "Not proficient: no proficiency bonus to attacks.", 15, Stil.WARN))
+		z_.append(Erschaffung.txt("Ungeübt: kein Fertigkeitsbonus auf Angriffe." if de else "Untrained: no skill bonus to attacks.", 15, Stil.WARN))
 	if int(b.get("fokus", 0)) > 0 and not bool(hw.klassendaten()["zauberer"]):
 		z_.append(Erschaffung.txt("Zauberkraft nützt nur Zauberwirkern." if de else "Spell power only helps spellcasters.", 13, Stil.DIM))
 	# Vergleich: alles, was sich aendert, Getragenes neben dem Neuen, Gewinn gruen, Verlust rot, Hinweise darunter
@@ -996,7 +1131,7 @@ static func listen_zeile_b(g: Dictionary) -> String:
 		var a := String(r[0]); var w := int(r[1])
 		var ad: Dictionary = d["affixdaten"].get(a, {})
 		if d["attribute"].has(a): teile.append("+%d %s" % [w, Sprache.t(d["attribute"][a]["kurz"])])
-		elif a == "AC": teile.append(("+%d RK" if de else "+%d AC") % w)
+		elif a == "AC": teile.append(("+%d Schutzwert" if de else "+%d Protection") % w)
 		elif a == "ALL_STATS": teile.append(("+%d alle" if de else "+%d all") % w)
 		elif a == "CRIT": teile.append(("Krit. ab %d" if de else "Crit %d+") % (20 - w))
 		elif not ad.is_empty(): teile.append("+%d%s %s" % [w, "%" if bool(ad["prozent"]) else "", Sprache.t(ad["name"])])
@@ -1253,12 +1388,12 @@ static func stueck_zeilen_b(hw: Heldwerte, g: Dictionary) -> Array:
 		z_.append(fett.call(satz.call("%s: %s %s" % [Sprache.u("damage"), Beute.wuerfel_text(b["schaden"], plus, de), art_s], 16, Stil.TEXT)))
 		if viel != null: z_.append(satz.call(("Mit beiden Händen (andere Hand leer): " if de else "In both hands (other hand empty): ") + Beute.wuerfel_text(viel, plus, de), 14, Stil.DIM))
 		if plus > 0: z_.append(fett.call(satz.call("%s +%d" % [Sprache.u("attack"), plus], 15, Stil.TEXT)))
-		if bool(b.get("finesse", false)): z_.append(satz.call("Finesse: trifft mit GES oder STÄ, was höher ist" if de else "Finesse: hits with DEX or STR, whichever is higher", 13, Stil.DIM))
-		if bool(b.get("fern", false)): z_.append(satz.call("Fernkampf: trifft mit GES" if de else "Ranged: hits with DEX", 13, Stil.DIM))
+		if bool(b.get("finesse", false)): z_.append(satz.call(("Finesse: trifft mit %s oder %s, was höher ist" if de else "Finesse: hits with %s or %s, whichever is higher") % [Heldwerte.kurzwort("DEX"), Heldwerte.kurzwort("STR")], 13, Stil.DIM))
+		if bool(b.get("fern", false)): z_.append(satz.call(("Fernkampf: trifft mit %s" if de else "Ranged: hits with %s") % Heldwerte.kurzwort("DEX"), 13, Stil.DIM))
 	if String(b["slot"]) == "CHEST" and int(b.get("ruestung", 0)) > 0:
-		var ges: String = {"LIGHT": " + GES" if de else " + DEX", "MEDIUM": " + GES (max 2)" if de else " + DEX (max 2)"}.get(gewicht, "")
-		z_.append(fett.call(satz.call("%s %d%s" % [Sprache.u("ac"), int(b["ruestung"]) + plus, ges], 16, Stil.TEXT)))
-	if String(b["art"]) == "SHIELD": z_.append(fett.call(satz.call("%s +%d" % [Sprache.u("ac"), int(b["ruestung"]) + plus], 16, Stil.TEXT)))
+		var ges: String = {"LIGHT": " + " + Heldwerte.kurzwort("DEX"), "MEDIUM": " + %s (max 2)" % Heldwerte.kurzwort("DEX")}.get(gewicht, "")
+		z_.append(fett.call(satz.call("%s %d%s" % [("Schutzwert" if de else "Protection"), int(b["ruestung"]) + plus, ges], 16, Stil.TEXT)))
+	if String(b["art"]) == "SHIELD": z_.append(fett.call(satz.call("%s +%d" % [("Schutzwert" if de else "Protection"), int(b["ruestung"]) + plus], 16, Stil.TEXT)))
 	if int(b.get("fokus", 0)) > 0: z_.append(fett.call(satz.call(("Zauberkraft +%d" if de else "Spell power +%d") % int(b["fokus"]), 16, Stil.TEXT)))
 	# Boni: wirksam in Gold; was die Obergrenze ganz oder zum Teil schluckt, matt mit dem, was wirkt
 	if not g.get("rolls", []).is_empty():
@@ -1281,7 +1416,7 @@ static func stueck_zeilen_b(hw: Heldwerte, g: Dictionary) -> Array:
 	if not hw.kann_tragen(g):
 		z_.append(satz.call(("Als %s kannst du das nicht tragen." if de else "As a %s you cannot wear this.") % Sprache.t(hw.klassendaten()["name"]), 15, Spielstaende.mangel()))
 	elif waffe and not hw.geuebt(g):
-		z_.append(satz.call("Ungeübt: kein Übungsbonus auf Angriffe." if de else "Not proficient: no proficiency bonus to attacks.", 15, Spielstaende.mangel()))
+		z_.append(satz.call("Ungeübt: kein Fertigkeitsbonus auf Angriffe." if de else "Untrained: no skill bonus to attacks.", 15, Spielstaende.mangel()))
 	if int(b.get("fokus", 0)) > 0 and not bool(hw.klassendaten()["zauberer"]):
 		z_.append(satz.call("Zauberkraft nützt nur Zauberwirkern." if de else "Spell power only helps spellcasters.", 13, Stil.DIM))
 	# Helfer 14:18: die Sammelzeile „Attribute: … Bonus wirkt nicht“ der Tabelle widersprach den Bonuszeilen („wirkt +1“: was das Stueck
@@ -1317,7 +1452,7 @@ func ausruestung() -> void:
 	inhalt.add_child(puppe)
 	luecke(10)
 	zeile(("Kampfwerte" if de else "Combat stats").to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))
-	wert_zeile("Rüstungsklasse" if de else "Armor Class", str(hw.rk()))
+	wert_zeile("Schutzwert" if de else "Protection", str(hw.rk()))
 	wert_zeile(Sprache.u("attack"), Erschaffung.vorzeichen(hw.angriff()))
 	wert_zeile(Sprache.u("damage"), Beute.wuerfel_text(hw.schaden(), 0, de))
 	var n = hw.nebenwaffe()
@@ -1477,15 +1612,13 @@ func system() -> void:
 			Bedienung.rueckfragen, "", "?")])
 	luecke(4)
 	gruppe(t.call("Bedienung", "Input"))   # Homer [326.abschnitt.bedienung]: so steht „Steuerung“ nicht zweimal
-	var r1 := [z_.call(t.call("Steuerung", "Controls"), t.call("Klassisch", "Classic") if Bedienung.klassisch else t.call("Wischen", "Swipe"),
-		t.call("Wischen: Finger ziehen zum Laufen, weit ziehen zum Rennen, tippen zum Hinlaufen. Klassisch: Steuerkreuz und ein großer Knopf zum Handeln.",
-			"Swipe: drag to walk, drag far to run, tap to walk there. Classic: a D-pad and a big button to act."), spar.call(func(): Bedienung.klassisch = not Bedienung.klassisch), true, "CONTROLS")]
-	if not Bedienung.klassisch:   # 86.4, 131: Joystick und Renntaste nur beim Wischen
-		var gefuehl := ["Fein", "Normal", "Ruhig"] if de else ["Fine", "Normal", "Calm"]
-		r1.append(z_.call("Joystick", gefuehl[Bedienung.ring], t.call("Im Kreis geht man, über den Ring hinaus rennt man. Fein: kleiner Ring. Ruhig: großer Ring.",
-			"Inside the ring you walk; beyond it you run. Fine: small ring. Calm: large ring."), spar.call(func(): Bedienung.ring = (Bedienung.ring + 1) % 3), true, "STICK"))
-		r1.append(z_.call(t.call("Rennen", "Run"), t.call("Taste", "Button") if Bedienung.lauf_taste else "Ring", t.call("Wie du rennst. Ring: über den Ring des Joysticks hinausziehen. Taste: dazu ein eigener Knopf zum Rennen.",
-			"How you run. Ring: push past the joystick's ring. Button: adds a separate run button."), spar.call(func(): Bedienung.lauf_taste = not Bedienung.lauf_taste), true, "RUN"))
+	# 663 (Chef 08.11., 15:24): nur Touch, die Wahl „Steuerung“ (Wischen/Klassisch) ist weg; 86.4, 131: Joystick und Renntaste
+	var r1 := []
+	var gefuehl := ["Fein", "Normal", "Ruhig"] if de else ["Fine", "Normal", "Calm"]
+	r1.append(z_.call("Joystick", gefuehl[Bedienung.ring], t.call("Im Kreis geht man, über den Ring hinaus rennt man. Fein: kleiner Ring. Ruhig: großer Ring.",
+		"Inside the ring you walk; beyond it you run. Fine: small ring. Calm: large ring."), spar.call(func(): Bedienung.ring = (Bedienung.ring + 1) % 3), true, "STICK"))
+	r1.append(z_.call(t.call("Rennen", "Run"), t.call("Taste", "Button") if Bedienung.lauf_taste else "Ring", t.call("Wie du rennst. Ring: über den Ring des Joysticks hinausziehen. Taste: dazu ein eigener Knopf zum Rennen.",
+		"How you run. Ring: push past the joystick's ring. Button: adds a separate run button."), spar.call(func(): Bedienung.lauf_taste = not Bedienung.lauf_taste), true, "RUN"))
 	r1.append(z_.call(t.call("Aktion", "Action"), t.call("Links", "Left") if Bedienung.links else t.call("Rechts", "Right"), t.call("Auf welcher Seite der Aktionsknopf steht: rechts, oder links für Linkshänder.",
 		"Which side the action button sits on: right, or left for left-handed players."), spar.call(func(): Bedienung.links = not Bedienung.links), true, "HAND"))
 	zeichenreihe(r1)
@@ -1502,14 +1635,14 @@ func system() -> void:
 	# 399.3.1 Lautstaerke wie alt (SoundSettings.kt SoundAndLight, 40): Gesamt, Musik, Effekte und Ortsklang, in Schritten zu 5 (Mix.STEP);
 	# Loslassen bei Gesamt und Effekten klickt einmal, so hoert man, wie laut es nun ist (40a)
 	if k:
-		zeile(t.call("Lautstärke", "Volume"), 15, Stil.TEXT)
+		zeile(t.call("Lautstärke", "Volume").to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))   # 584: Kopf wie alt (SoundSettings.kt 43, MenuHead)
 		for r in [["all", t.call("Gesamt", "Overall"), true], ["music", t.call("Musik", "Music"), false], ["fx", t.call("Effekte und Ortsklang", "Effects and ambience"), true]]:
 			var an_: bool = k.musik_an if r[0] == "music" else (k.effekte_an if r[0] == "fx" else true)
 			inhalt.add_child(Regler.new(String(r[1]), int(k.lautstaerke[r[0]]) if an_ else 0, t.call("Aus", "Off"),
 				func(v: int): k.stelle(r[0], v), (func(): k.effekt("click", 0.35)) if r[2] else Callable()))
 		luecke(4)
 	# Helligkeit wie alt (SoundAndLight, 13e.6): „Dunkle Töne“ hebt das Schwarz, das Probezeichen liegt mit unter der Hebung
-	zeile(t.call("Helligkeit", "Brightness"), 15, Stil.TEXT)
+	zeile(t.call("Helligkeit", "Brightness").to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))   # 584: SoundSettings.kt 48 (MenuHead)
 	inhalt.add_child(Regler.new(t.call("Dunkle Töne", "Shadows"), Helligkeit.lade(), t.call("Aus", "Off"), func(v: int): Helligkeit.setze(v), Callable()))
 	inhalt.add_child(Probezeichen.new())
 	zeile(t.call("So einstellen, dass das Zeichen gerade noch zu sehen ist. Die Höhle bleibt dunkel.", "Adjust until the sign is barely visible. The cave stays dark."), 13, Stil.DIM)
@@ -1654,10 +1787,7 @@ func anleitung() -> void:
 	# 630 (549a „Schirm“): ohne Kasten, Titel 22 sp mit Zierlinie, unten „‹ ZURÜCK“ (Spielstaende.schirm)
 	var d := Spielstaende.schirm(self, Sprache.t(Sprache.texte.get("anleitung", {}).get("titel", "")), func(): pass)
 	var v: VBoxContainer = d["inhalt"]
-	var halbfett := FontVariation.new()
-	halbfett.base_font = Stil.schrift()
-	halbfett.variation_embolden = 0.5   # nur der gerade Schnitt; Compose setzt SemiBold kuenstlich
-	halbfett.spacing_glyph = int(round(0.2 * Stil.SP))
+	var halbfett := Stil.variante(0.2, false, true)   # 584: der echte halbfette Schnitt wie alt (GuideScreen.kt 57, SemiBold) statt kuenstlich verdickt
 	var gerade := Stil.variante(0.2)
 	for t in anleitung_teile(hw.klasse):
 		var st := stuecke(t)
@@ -1738,7 +1868,7 @@ class Regler extends VBoxContainer:
 		add_child(kopf)
 		var n := Erschaffung.txt(name_, 14)
 		kopf.add_child(n)
-		zahl = Stil.zeile("", 14 * 0.95, Stil.BRIGHT, 0.2)
+		zahl = Stil.zeile("", 14 * 0.95, Stil.BRIGHT, 0.2, false, true)   # 584: Wert halbfett wie alt (SoundSettings.kt 64)
 		kopf.add_child(zahl)
 		linie = Control.new()
 		linie.custom_minimum_size = Vector2(0, 36 * AktionsKnopf.DP)
@@ -1817,7 +1947,7 @@ func chronik() -> void:
 		var l := Chronik.bisher(z)
 		for i in l.size():
 			if i > 0: luecke(12)
-			zeile(Sprache.t(l[i]["titel"]), 17, Stil.BRIGHT if i == 0 else Stil.GOLD)
+			zeile(Sprache.t(l[i]["titel"]), 17, Stil.BRIGHT if i == 0 else Stil.GOLD, true)   # 584: ChronicleTab.kt 54 halbfett
 			zeile(Sprache.t(l[i]["text"]).replace("{name}", hw.name), 15, Stil.TEXT if i == 0 else Stil.DIM)
 		# 68: die Morgenandacht am Ende von Kapitel 1 kann man wieder ansehen, sobald das Kapitel vorbei ist (ChronicleTab onTemple)
 		if Zwischenbild.da() and z.has(Geschichte.CHAPTER1_DONE):
@@ -1834,10 +1964,10 @@ func chronik() -> void:
 			b.add_theme_font_size_override("font_size", int(round(14 * Stil.SP)))
 			inhalt.add_child(b)
 		return
-	kaestchen([Erschaffung.txt("Hauptauftrag" if de else "Main quest", 13, Stil.GOLD), Erschaffung.txt(Sprache.t(Geschichte.ziel(z)), 16, Stil.BRIGHT)])
+	kaestchen([Erschaffung.txt("Hauptauftrag" if de else "Main quest", 13, Stil.GOLD), Erschaffung.txt(Sprache.t(Geschichte.ziel(z)), 16, Stil.BRIGHT, true)])   # 584: ChronicleTab.kt 72, 78, 92 halbfett
 	for t in Chronik.offen(z):
 		luecke(8)
-		kaestchen([Erschaffung.txt(Sprache.t(t["titel"]), 16), Erschaffung.txt(Sprache.t(t["text"]).replace("{name}", hw.name), 14)])
+		kaestchen([Erschaffung.txt(Sprache.t(t["titel"]), 16, Stil.TEXT, true), Erschaffung.txt(Sprache.t(t["text"]).replace("{name}", hw.name), 14)])
 	# 399.1 Nebenauftraege vom Anschlagbrett (ChronicleTab): Titel, von wem, Aushang, Stand oder „Bereit zur Abgabe“, Lohn
 	var getragen := Auftraege.getragen(z)
 	if not getragen.is_empty():
@@ -1848,7 +1978,7 @@ func chronik() -> void:
 		var hat := Auftraege.stand(z, j)
 		var bereit := hat >= int(j["anzahl"])
 		var wer := Sprache.t(j["geber_name"])
-		kaestchen([Erschaffung.txt(Sprache.t(j["titel"]), 16), Erschaffung.txt(("von " if de else "from ") + wer, 13, Stil.DIM),
+		kaestchen([Erschaffung.txt(Sprache.t(j["titel"]), 16, Stil.TEXT, true), Erschaffung.txt(("von " if de else "from ") + wer, 13, Stil.DIM),
 			Erschaffung.txt(Sprache.t(j["aushang"]), 14),
 			Erschaffung.txt((("Bereit zur Abgabe – bei %s" if de else "Ready to turn in to %s") % wer) if bereit
 				else "%d %s %d · %s" % [hat, "von" if de else "of", int(j["anzahl"]), Laden.name(String(j["ding"]))], 14, GRUEN if bereit else Stil.GOLD),

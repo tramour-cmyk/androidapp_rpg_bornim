@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Startbares je Rolle (166) aus der einen Vorgangsliste `docs/LISTE-VORGAENGE.md` (275.2, Chef 07.11., 21:5x).
 
-Aufruf: python3 tools/startbar.py [--alle] [--stand] [--md] [--loesen]   (Ford ruft es in jedem Lauf, LISTE-BETRIEB.md Schritt 1 und 4)
+Aufruf: python3 tools/startbar.py [--alle] [--stand] [--md] [--loesen] [--liegt]   (--liegt: startbares Muss je Rolle nach Pause, 891)   (Ford ruft es in jedem Lauf, LISTE-BETRIEB.md Schritt 1 und 4)
 Eine Tabelle, je Vorgang eine Zeile: Nr. · Titel · Besitzer · Kl. · Stand · wartet auf · Zweig · Build · Bereich · Kosten.
 Reihenfolge der Zeilen eines Besitzers = Vorrang. Vorräte `ARBEIT-*.md` haben keine Tabelle mehr, nur Übergabe, Pause und „Zu <Nr>“.
 Je Rolle: oberstes startbares Muss und oberste startbare Kür (Kl. „M?“ zählt als Kür), dazu, warum andere Zeilen nicht startbar sind
@@ -394,7 +394,8 @@ def loesbar(d):
 ALTES_SYSTEM = re.compile(r"\bSRD\b|\b[WwDd]20\b|Rettungsw[uü]rf|Trefferw[uü]rfel|Zauberpl[aä]tz|\bCharisma\b|vier Klassen"
                           r"|Rüstungsklasse|Übungsbonus|\bTalente\b"  # nicht „Kleriker“, „Klasse“: sperrte Aussehen (Schild 406)
                           r"|talente\.gd|klassisch\.gd|core/Rules\.kt|Monsters\.kt")  # D50: Wortliste erweitert (Diogenes Lauf 50)
-ALT_FREI = re.compile(r"Spielsystem 2\.0|Bornimer Rollenspielsystem|\bBRS\b|(?<![\d.])2\.0\b|^424\b|Ersatz|Ablösung|ablösen|ohne SRD|Glossar|Lizenz|Chef erlaubt alt")  # D50
+ALT_FREI = re.compile(r"Spielsystem 2\.0|Bornimer Rollenspielsystem|\bBRS\b|(?<![\d.])2\.0\b|^424\b|Ersatz|Ablösung|ablösen|ohne SRD|Glossar|Lizenz|Chef erlaubt alt"
+                      r"|Umzug|Wächter|(?<![\d.])870(\.\d+)?\b")  # D50; 886: Umzug BRS (870) baut das alte System ab, sperrte sonst sich selbst
 
 def altes_system(thema, rest, nr=""):
     t = nr + " " + thema + " " + rest
@@ -577,6 +578,34 @@ def pause(inhalt):
             return z.strip()[:40] + " (Datum nicht lesbar)"
     return None
 
+def pause_frei(inhalt):
+    """870.17 (870b A, Chef 10.11., 16:08): „frei für: 870.x, 709, …“ in der Pause-Zeile; diese Nummern bleiben trotz Pause
+    startbar („870.x“ = alle 870.<k>), sonst nichts. Ohne Angabe []."""
+    for z in inhalt.splitlines()[:14]:
+        if "Pause bis" in z:
+            m = re.search(r"frei für:?\s*([0-9][0-9A-Za-z., ]*)", z)
+            return [x for x in re.split(r"[,\s]+", m.group(1).strip(" .")) if x] if m else []
+    return []
+
+def ist_frei(nr, frei):
+    return any(nr == f or (f.endswith(".x") and nr.startswith(f[:-1])) for f in frei)
+
+LIEGT_ROLLEN = ["Tom", "Jerry", "Diogenes", "Homer", "Perikles"]  # wie lauf.START_REIHE; Sokrates und Ford startet nie der Vorrat
+
+def startbares_muss():
+    """891 (654, Chef 10.11., 17:15): {(Rolle, Nr)} startbarer Muss-Zeilen nach Pause und „frei für“ (wie lauf.stand). Läuft keine
+    Sitzung der Rolle, „liegt“ die Zeile: wer sie startbar gemacht hat, meldet es Ford sofort (vorgang.py, LISTE-BETRIEB.md 26)."""
+    aus = set()
+    for datei, rolle in ROLLEN:
+        if rolle not in LIEGT_ROLLEN: continue
+        inhalt = lesen(datei)
+        m = [z for z in plan(rolle) if z[1] == "M" and not z[4]]
+        if pause(inhalt):
+            frei = pause_frei(inhalt)
+            m = [z for z in m if frei and ist_frei(z[0], frei)]
+        aus |= {(rolle, z[0]) for z in m}
+    return aus
+
 UEBERNAHME = {"Tom": "Jerry", "Jerry": "Tom"}
 GERAET = re.compile(r"Test|Gerät|Build|APK", re.I)
 
@@ -609,12 +638,52 @@ def loesen(schreiben=False):
         open(p, "w", encoding="utf-8").write("\n".join(L)); liste_merken(DOCS); neu_laden()
     return aus
 
+# 827 A, Bau 828 (Chef 10.11., 07:10): „festgefahren“ = zwei Rückläufer des Chefs oder über 30 $ Kosten; jede weitere Sitzung zu so
+# einem Vorgang startet lauf.py ab STARK_AB einmal auf STARK_MODELL (Marke „stärkstes Modell TT.MM.“ am Titel); Auswertung nach drei Vorgängen (Sokrates).
+# Rückläufer = Marke „zurück t<n>[, t<m>…]“ im Titel: setzt vorgang.py build <n> bei ✗; Funde außerhalb einer Prüfliste von Hand (Build des Chefs).
+STARK_AB = datetime.datetime(2026, 11, 14, 20, 0)  # Berliner Zeit
+STARK_MODELL = "fable"
+STARK_KOSTEN = 30.0
+STARK_RUECK = 2
+STARK_ROLLEN = ("Tom", "Jerry")  # Bauarbeit (Spike, Tuffy auf deren Zeilen); Beratung und Abläufe starten nicht über die Zeilenregel
+STARK_MARKE = re.compile(r"stärkstes Modell \d")  # 827 A: eine Sitzung je Vorgang, danach Auswertung
+RUECK = re.compile(r"zurück ((?:t\d+(?:, )?)+)")
+
+def rueck_builds(titel):
+    """Builds aus der Marke „zurück t269, t272“ im Titel, sortiert, ohne Doppelte."""
+    m = RUECK.search(titel or "")
+    return sorted({int(x) for x in re.findall(r"t(\d+)", m.group(1))}) if m else []
+
+def rueck_marke(titel, n):
+    """Titel mit Build n in der Marke „zurück …“ (angehängt oder ergänzt)."""
+    b = rueck_builds(titel)
+    if int(n) in b: return titel
+    neu = "zurück " + ", ".join("t%d" % x for x in sorted(b + [int(n)]))
+    return RUECK.sub(neu, titel, count=1) if b else "%s · %s" % (titel.rstrip(), neu)
+
+def kosten_wert(k):
+    m = re.search(r"\d+(?:,\d+)?", (k or "").replace(".", ""))
+    return float(m.group(0).replace(",", ".")) if m else 0.0
+
+def festgefahren(d):
+    """Grund („2 Rückläufer (t269, t272)“, „41,37 $“) oder None; nur offene Arbeit."""
+    if not d or d.get("besitzer") not in STARK_ROLLEN or d.get("wort") in ("erledigt", "ruht", "Idee", "nach Meilenstein", "Dauer") or d.get("kl") not in ("M", "K", "M?"): return None
+    b = rueck_builds(d.get("titel")); k = kosten_wert(d.get("kosten"))
+    g = (["%d Rückläufer (%s)" % (len(b), ", ".join("t%d" % x for x in b))] if len(b) >= STARK_RUECK else []) + ([d["kosten"]] if k > STARK_KOSTEN else [])
+    return ", ".join(g) or None
+
+def festgefahrene():
+    return [(d, festgefahren(d)) for d in zeilen_liste() if festgefahren(d)]
+
 def main():
     alle = "--alle" in sys.argv
     stand = "--stand" in sys.argv
     md = "--md" in sys.argv
     falsch = 0
     info = {}
+    if "--liegt" in sys.argv:  # 891: startbares Muss je Rolle; „liegt“, wenn keine Sitzung der Rolle läuft (das weiß nur list_sessions)
+        for r, nr in sorted(startbares_muss()): print("LIEGT %s %s (wenn keine Sitzung %s läuft)" % (r, nr, r))
+        return
     if "--loesen" in sys.argv:
         for nr, wer, weg, st in loesen(True): print("GELÖST %s (%s): wartet auf %s erfüllt%s" % (nr, wer, ", ".join(weg), (" → " + st) if st else ""))
     if md: print("## Offen je Rolle\n\nVom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand %s; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.\n" % datetime.date.today().strftime("%d.%m."))
@@ -630,6 +699,10 @@ def main():
         unles = sorted({nr for nr, _ in fehler if any(d["nr"] == nr and d["besitzer"] == rolle for d in zeilen_liste())})
         if unles: warn += "  UNLESBAR (Liste): " + ", ".join(unles)
         p = pause(inhalt)
+        frei = pause_frei(inhalt) if p else []
+        if p:  # 889, 892 (D148.1): Pause sperrt jede Zeile, die nicht unter „frei für“ steht, in jeder Ausgabe (auch --md, --stand)
+            zs = [z if z[4] or (frei and ist_frei(z[0], frei)) else z[:4] + ("Pause, nicht frei" if frei else "Pause",) for z in zs]
+        if frei: p += ", frei für " + ", ".join(frei)  # 870.17
         if md:
             print("**%s** – offen %d, Muss %d, startbar %d%s\n" % (rolle, len(zs), sum(1 for z in zs if z[1] == "M"), sum(1 for z in zs if not z[4]), (", PAUSE bis " + p) if p else ""))
             print("| Nr. | Kl. | Was | Stand |\n|---|---|---|---|")
@@ -655,7 +728,7 @@ def main():
         def kurz(e):
             if not e: return "–"
             return "%s %s%s" % (e[0], re.sub(r"\*\*|`", "", e[2])[:70], (" ↑ Muss: %s wartet" % ", ".join(fremd_wartend()[e[0]])) if e[0] in fremd_wartend() else "")
-        if not p: print("  %s: Muss %s | Kür %s%s%s" % (rolle, kurz(erstes["M"]), kurz(erstes["K"]), (" | nach dem Meilenstein " + kurz(erstes["N"])) if erstes["N"] else "", warn))
+        if not p or frei: print("  %s: Muss %s | Kür %s%s%s" % (rolle, kurz(erstes["M"]), kurz(erstes["K"]), (" | nach dem Meilenstein " + kurz(erstes["N"])) if erstes["N"] else "", warn))
         if stand:
             print("      offen %d, Muss %d, startbar %d, gesperrt %d" % (len(zs), sum(1 for z in zs if z[1] == "M"), sum(1 for z in zs if not z[4]), len(sperren)))
         if alle:
@@ -671,6 +744,8 @@ def main():
                   "".join("; Sperre 620.1 B für %s (%d ungetestete Muss)" % (r, ungetestet(r)) for r in UEBERNAHME if ungetestet(r) >= GRENZE_UNGETESTET)))
         if "--loesen" not in sys.argv:
             for nr, wer, weg, st in loesen(False): print("  GELÖST %s (%s): wartet auf %s erfüllt (schreibt lauf.py --sperre)" % (nr, wer, ", ".join(weg)))
+        ff = festgefahrene()
+        if ff: print("  Festgefahren (827 A; ab %s nächste Sitzung auf dem stärksten Modell): %s" % (STARK_AB.strftime("%d.%m., %H:%M"), "; ".join("%s %s: %s%s" % (d["nr"], d["besitzer"], g, " (gehabt)" if STARK_MARKE.search(d["titel"]) else "") for d, g in ff)))
         for nr, f in fehler: print("  UNLESBAR %s: %s" % (nr, f))
     sys.exit(1 if fehler else 0)
 

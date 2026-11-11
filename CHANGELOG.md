@@ -4,6 +4,15 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **Build 275 auf `main`** (Tom und Jerry; t275 freigegeben, Chef 11.11., 07:08; PR #194): 470 Erschaffung nach BRS; 663 nur Touch; 475 Leute des Dorfs mit eigenen Gesichtern; 661 Blenden in einem Aufbau; 540 Südrand; 653 Halt für Waffen und Schilde; 506, 506.1 Untote ruhiger, langsame Gegner kommen nach vorn; 709 Treffen; 870.2, 870.3 Kampfwerte aus dem BRS.
+
+- **Testbuild baut von selbst** (894, Chef 10.11.): jeder Push auf `claude/build-<n>` startet die Godot-APK; der alte Kotlin-Lauf erscheint am PR nicht mehr; die Version in den Prüflisten kommt aus dem Godot-Lauf (0.348.<n>).
+
+- **Werkzeug `lauf.py`** (837, Chef 10.11.): kommt 5 Minuten nach einer Startsperre keine Sitzung der Rolle, meldet der nächste Lauf laut „Start <Rolle> nicht angekommen“; die Sperre hält die Rolle dann nicht mehr fest.
+
+- **Build 273 auf `main`** (Tom und Jerry; t273 teilweise freigegeben, Chef 10.11., 10:19; PR #192): 683 Oberfläche mit BRS-Wörtern; 584 halbfette Köpfe wie alt; 753 Rastblende im neuen Aufbau; 781 MIT-Hinweis der REEBOO-Pakete; 804 Gras und Blumen aus dem Kit; 662 Parade mit Schild; 679 Kampfknöpfe; 211.14 Leistung. Heraus und als Rückläufer zurück: 532 (durchgefallen), 795, 762, 471 (am Gerät nicht prüfbar).
+
+- **828 Festgefahrene Vorgänge** (Perikles, Werkzeug; 827 A): `vorgang.py build <n>` hängt bei ✗ die Marke „zurück t<n>“ an den Titel (11 Zeilen mit t269 nachgetragen); `startbar.py --stand` zeigt „Festgefahren“ (Tom, Jerry: zwei Rückläufer oder über 30 $; heute 8, alle über die Kosten); `lauf.py` startet ab 14.11., 20:00 die nächste Sitzung zu so einem Vorgang einmal auf dem stärksten Modell (neue Sitzung, kein WEITER) und setzt die Marke „stärkstes Modell TT.MM.“ an den Titel; danach wieder wie alle, Auswertung nach drei (Sokrates).
 - **Build 272 auf `main`** (Tom und Jerry; t272 freigegeben, Chef 09.11., 21:22; PR #191): 656 Umhang ohne Beule unter dem Schwertarm; 560 Grimmzahn und Wölfe mit sichtbaren Tritten; 682 Held geht zügig zum Angriff, Wölfe in weichen Bögen; 717, 717.1 Wolf setzt nach dem Biss rückwärts ab, Knöpfe gleich da; 702 Anspringen ohne verlorenen Zug (Texte 712); 547, 597 Ansage vor dem Sprung; 543 Startgold und Heiltränke, Wiederkehr im Tempel; 583, 540, 617, 635, 670, 610, 522 nachgetestet; 542 Testfix.
 - **800 Notizen aufgeräumt** (Perikles; Chef 09.11., 20:52 „650.2 wie Vorschlag“): Balance-Zielkurve, Heldenbau, Kotlin-Anleitung, Durchspielbogen nach `docs/alt/`; Kapitel 2 nach `docs/kapitel2/`; Regelwerk heißt `docs/DESIGN-BRS.md`; Inhaltsverzeichnis mit Abschnitt „Für den Chef“, `tools/inhalt.py` meldet Dateien ohne Zeile und tote Links.
 - **799 Vorlagen nach Muster** (Perikles, Werkzeug; Chef 09.11., 20:46): `docs/chefsache/MUSTER.md` zum Kopieren, 758 als Beispiel; `probelauf.py` hält Commit oder Push einer unvollständigen Vorlage in `entscheiden/` oder `billigen/` an und nennt die fehlenden Teile (`tools/vorlage_pruefen.py`); die Übersicht meldet Altbestand unter „Lücken“.

@@ -1,260 +1,27 @@
 class_name Erschaffung
-extends Control
-# 399.1 Erschaffung wie im alten Spiel (Chef 28.10., 14:38: „Einfach mal das alte Spiel nehmen … so soll es im neuen halt auch schon“;
-# 14:39 „an die Designvorgaben halten“): eine Seite wie CreateScreen.kt im schwarzen Look (LocalVeil): oben fest der Held, der sich
-# dreht, daneben Name, Volk, Klasse, TP, RK, ZP und die sechs Werte; darunter rollend Name, Volk mit Beschreibung, Bonus und Merkmal,
-# Klasse mit Beschreibung, Trefferwuerfel, Hauptattribut, Ruestung und den Faehigkeiten der Stufe 1, dann der Punktekauf mit
-# Vorschlag; unten fest Zurueck und Abenteuer beginnen. Masse in dp/sp wie alt (Theme.kt Txt, VeilHead, Panel, PixelButton).
-# 376.1 Aussehen wie alt nach dem Volk: Haut und Haar als Farbtoene des Volks (Appearance.kt), dazu Gesicht, Frisur, Bart des
-# Kaufkopfs (HeldFigur); der Held im Drehteller zeigt seine Klasse mit Grundausruestung. Geschlecht und Statur wie alt (376.1).
-# Ende: Signal fertig({"name", "volk", "klasse", "werte", "aussehen", "platz"}) oder zurueck.
+extends RefCounted
+# Bausteine der Seite „Neues Spiel“ wie Theme.kt im schwarzen Look, ohne Kasten nach 549a (630): Text, Kopfzeile, Luecke, Wahlfeld,
+# − und +, dazu der alte Knopf mit Rahmen (Hauptmenue, Testmenue). Die Seite selbst ist seit 470 (Chef 10.11., 12:58 „470 jetzt“;
+# 09:32: „nicht die Herkünfte“) die Erschaffung nach BRS (erschaffung_brs.gd); die alte Klassenwahl nach dem SRD ist weg.
 
-signal fertig(wahl: Dictionary)
-signal zurueck
-
-const VOELKER := ["HUMAN", "ELF", "DWARF", "HALFLING", "HALF_ORC"]
-const KLASSEN := ["FIGHTER", "WIZARD", "ROGUE", "CLERIC"]
 const DP := AktionsKnopf.DP
 
-var name_ := ""
-var volk := "HUMAN"
-var klasse := "FIGHTER"
-var ziel := 0                         # Platz aus den Spielstaenden („Neues Spiel“ bei einem leeren), sonst der erste freie
-var gekauft := {}                     # Punktekauf vor dem Volksbonus (Hero.suggestedScores, dann + und −)
-var rolle: ScrollContainer
-var inhalt: VBoxContainer
-var kopf: VBoxContainer               # Zusammenfassung neben dem Helden
-var aussehen := HeldFigur.vorgabe("FIGHTER")   # 376.1; Beispielkopf der Klasse (Chef 28.10., 23:0x), bis der Spieler selbst waehlt
-var aussehen_eigen := false
-var teller: Drehteller
-var teller_wahl := ""                 # zuletzt gezeigte Wahl (Punktekauf baut die Seite neu, den Helden nicht)
-
-func _init() -> void:
-	name = "Erschaffung"
-
-func _process(dt: float) -> void: Messung.bild(dt, "Erschaffung")   # 416.1: laengste Bildpause auch hier
-
-func _ready() -> void:
-	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	Zurueck.melde(self, func(): zurueck.emit())   # 416.1: Android-Zurück wie „Zurück“
-	name_ = Sprache.u("defaultName")
-	gekauft = Heldwerte.vorschlag(klasse)
-	var bg := ColorRect.new()
-	bg.color = Color.BLACK
-	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	add_child(bg)
-	var rand := MarginContainer.new()
-	rand.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	# 630 (549a „Schirm“): Seitenrand 24 dp, keine Kaesten; Abschnitte durch schlichte Linien getrennt
-	for s in ["left", "right"]: rand.add_theme_constant_override("margin_" + s, int(24 * DP))
-	for s in ["top", "bottom"]: rand.add_theme_constant_override("margin_" + s, int(12 * DP))
-	add_child(rand)
-	var spalte := VBoxContainer.new()
-	spalte.add_theme_constant_override("separation", int(10 * DP))
-	rand.add_child(spalte)
-	# oben fest: der Held und was er ist
-	var oben := HBoxContainer.new()
-	oben.add_theme_constant_override("separation", int(12 * DP))
-	oben.alignment = BoxContainer.ALIGNMENT_BEGIN
-	spalte.add_child(oben)
-	oben.add_child(vorschau())
-	kopf = VBoxContainer.new()
-	kopf.add_theme_constant_override("separation", 0)
-	kopf.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	kopf.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	oben.add_child(kopf)
-	# Mitte rollt
-	rolle = ScrollContainer.new()
-	rolle.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	rolle.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER   # wie alt ohne Balken (Helfer: grauer Balken klebte am Goldrand)
-	rolle.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	spalte.add_child(Spielstaende.zier())   # 549a: genau eine Zierlinie unter dem Kopf (Held und was er ist)
-	spalte.add_child(rolle)
-	inhalt = VBoxContainer.new()
-	inhalt.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	inhalt.add_theme_constant_override("separation", int(10 * DP))
-	rolle.add_child(inhalt)
-	# unten fest (549a Knoepfe): „‹ ZURÜCK“ links, „ABENTEUER BEGINNEN ›“ rechts als Hauptwahl, je die halbe Breite, Linie darueber
-	spalte.add_child(Spielstaende.linie())
-	var unten := Spielstaende.knopfzeile(Spielstaende.knopf("neben", Sprache.u("back"), func(): zurueck.emit(), true),
-		Spielstaende.knopf("haupt", Sprache.u("start"), func(): beginne()))
-	unten.name = "Unten"
-	Menue.passe_knopfzeile(unten, get_viewport_rect().size.x - 48 * DP)   # 630: Hauptwahl in einer Zeile, nie mitten im Wort
-	spalte.add_child(unten)
-	baue()
-
-# ---------------------------------------------------------------- Aufbau
-
-func baue() -> void:
-	var y := rolle.scroll_vertical
-	var t0 := Time.get_ticks_usec()   # 416.1 (Chef: Tasten reagieren schlecht): Dauer des Neuaufbaus je Tipp, unter „Gerät“ (Ladezeit)
-	for c in inhalt.get_children():
-		inhalt.remove_child(c)
-		c.queue_free()
-	var d := Heldwerte.lade()
-	kopf_neu()
-	inhalt.add_child(kopfzeile(Sprache.u("yourName")))
-	inhalt.add_child(namensfeld())
-	inhalt.add_child(kopfzeile(Sprache.u("chooseRace")))
-	inhalt.add_child(wahl(VOELKER, volk, func(v): return Sprache.t(d["voelker"][v]["name"]), func(v): volk = v; aussehen["haut"] = int(HeldFigur.vorgabe(klasse)["haut"]); aussehen["haarfarbe"] = int(HeldFigur.vorgabe(klasse)["haarfarbe"]); baue()))
-	var vk := VBoxContainer.new()
-	vk.add_theme_constant_override("separation", 0)
-	var vd: Dictionary = d["voelker"][volk]
-	vk.add_child(txt(Sprache.t(vd["text"]), 15))
-	vk.add_child(luecke(4))
-	var bon := []
-	for a in Heldwerte.ATTRIBUTE:
-		if vd["bonus"].has(a): bon.append("%s %s" % [kurz(a), vorzeichen(int(vd["bonus"][a]))])
-	vk.add_child(txt("  ".join(PackedStringArray(bon)), 15))
-	vk.add_child(txt(Sprache.t(vd["merkmal"]), 15, Stil.GOLD))
-	inhalt.add_child(vk)
-	inhalt.add_child(Spielstaende.linie())
-	if HeldFigur.da(klasse, String(aussehen.get("geschlecht", "m"))): aussehen_wahl()
-	inhalt.add_child(kopfzeile(Sprache.u("chooseClass")))
-	inhalt.add_child(wahl(KLASSEN, klasse, func(k): return Sprache.t(d["klassen"][k]["name"]), klasse_waehlen))
-	var kk := VBoxContainer.new()
-	kk.add_theme_constant_override("separation", 0)
-	var kd: Dictionary = d["klassen"][klasse]
-	kk.add_child(txt(Sprache.t(kd["text"]), 15))
-	kk.add_child(luecke(4))
-	kk.add_child(txt("%s: %s%d · %s: %s" % [Sprache.u("hitDie"), "W" if Sprache.aktiv() == "de" else "d", int(kd["trefferwuerfel"]), Sprache.u("primary"),
-		Sprache.t(d["attribute"][String(kd["haupt"])]["name"])], 15))
-	var ru: Array = (kd["ruestung"] as Array).map(func(r): return Sprache.t(d["ruestungsarten"][String(r)]))
-	kk.add_child(txt("%s: %s%s" % [Sprache.u("armorProf"), "—" if ru.is_empty() else ", ".join(PackedStringArray(ru)),
-		(" + " + Sprache.t(Heldwerte.grundform("shield"))) if bool(kd["schilde"]) else ""], 15))
-	kk.add_child(luecke(6))
-	for f in d["faehigkeiten"]:
-		var fd: Dictionary = d["faehigkeiten"][f]
-		if String(fd["klasse"]) != klasse or int(fd["stufe"]) != 1 or bool(fd.get("mars", false)): continue
-		kk.add_child(txt("• " + Sprache.t(fd["name"]), 15))
-		kk.add_child(txt(Sprache.t(fd["text"]), 14, Spielstaende.ANGABE))   # 549a: DIM heisst gesperrt
-	inhalt.add_child(kk)
-	inhalt.add_child(Spielstaende.linie())
-	punktekauf()
-	zeige_held()
-	var ms := (Time.get_ticks_usec() - t0) / 1000.0
-	Messung.geladen("Erschaffung Tipp", maxf(ms, float(Messung.laden.get("Erschaffung Tipp", 0.0))))
-	# die Rolle bleibt, wo sie war (sonst springt sie bei jeder Wahl nach oben)
-	await get_tree().process_frame
-	rolle.scroll_vertical = y
-
-# Abenteuer beginnen: in den gewaehlten oder den ersten freien Platz; sind alle belegt, waehlt der Spieler, wen der Neue ersetzt (alt)
-func beginne(p: int = 0) -> void:
-	if p == 0: p = ziel if ziel > 0 else Spielstand.frei()
-	if p == 0:
-		platzwahl()
-		return
-	fertig.emit({"name": name_.strip_edges() if name_.strip_edges() != "" else Sprache.u("defaultName"),
-		"volk": volk, "klasse": klasse, "werte": gekauft.duplicate(), "aussehen": aussehen.duplicate(), "platz": p})
-
-# SlotChooser: alle Plaetze belegt; der gewaehlte Spielstand geht verloren
-func platzwahl() -> void:
-	# 630 (549a Rueckfrage): schwarz, oben der Titel mit Zierlinie, der Satz, die Spielstaende als Zeilen zum Antippen, Linie,
-	# „‹ ABBRECHEN“ links; Tippen daneben und Android-Zurück schliessen (526), ein Tippen ins Fenster nicht
-	var de := Sprache.aktiv() == "de"
-	var schleier := Rueckfrage.schleier(self)
-	schleier.color = Color.BLACK
-	var mitte := Spielstaende.oben()
-	schleier.add_child(mitte)
-	var v := VBoxContainer.new()
-	v.name = "Fenster"
-	v.add_theme_constant_override("separation", int(10 * DP))
-	v.custom_minimum_size.x = get_viewport_rect().size.x - 48 * DP
-	mitte.add_child(Rueckfrage.halte(v))
-	var t := Stil.zeile(("Alle Spielstand-Plätze sind belegt" if de else "All save slots are taken").to_upper(), Stil.TITEL_SP, Stil.GOLD, 3.0)   # 586a
-	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	t.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	v.add_child(t)
-	v.add_child(Spielstaende.zier())
-	var satz := txt("Welchen Helden soll der neue ersetzen? Der gewählte Spielstand geht dabei verloren." if de
-		else "Which hero should the new one replace? That saved game will be lost.", 15, Stil.WARN)
-	satz.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	v.add_child(satz)
-	for d in Spielstand.liste():
-		if d.is_empty(): continue
-		var n := int(d["platz"])
-		# 700 (549a): ohne Rahmen; die ganze Zeile ist antippbar (dunkel beim Druck, ausgeloest beim Loslassen) mit „›“ rechts
-		var zeile_ := HBoxContainer.new()
-		zeile_.add_theme_constant_override("separation", int(8 * DP))
-		zeile_.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		zeile_.custom_minimum_size.y = 48 * DP
-		zeile_.add_child(Spielstaende.karte(d, false))
-		zeile_.add_child(Spielstaende.pfeil(Stil.GOLD, false))
-		var karte := Spielstaende.tippbar(zeile_, func(): schleier.queue_free(); beginne(n))
-		karte.name = "Platz%d" % n
-		v.add_child(Spielstaende.linie())
-		v.add_child(karte)
-	v.add_child(Spielstaende.linie())
-	v.add_child(Spielstaende.knopfzeile(Spielstaende.knopf("neben", "Abbrechen" if de else "Cancel", func(): schleier.queue_free(), true), null))
-
-func held() -> Heldwerte:
-	return Heldwerte.erschaffe(name_ if name_.strip_edges() != "" else "?", volk, klasse, gekauft)
-
-# HeroSummary: Name, Volk · Klasse · Stufe, TP RK ZP, die sechs Werte zu zweit
-func kopf_neu() -> void:
-	for c in kopf.get_children():
-		kopf.remove_child(c)
-		c.queue_free()
-	var h := held()
-	var d := Heldwerte.lade()
-	var n := Stil.zeile((name_ if name_.strip_edges() != "" else "?").to_upper(), 14, Stil.GOLD, 3.0)   # MenuHead
-	n.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-	kopf.add_child(n)
-	kopf.add_child(txt("%s · %s · %s %d" % [Sprache.t(d["voelker"][volk]["name"]), Sprache.t(d["klassen"][klasse]["name"]), Sprache.u("level"), h.stufe], 14))
-	var w := "%s %d   %s %d" % [Sprache.u("hp"), h.max_tp(), Sprache.u("ac"), h.rk()]
-	if h.max_zp() > 0: w += "   %s %d" % [Sprache.u("sp"), h.max_zp()]
-	kopf.add_child(txt(w, 15))
-	kopf.add_child(luecke(4))
-	for i in range(0, 6, 2):
-		var r := HBoxContainer.new()
-		r.add_theme_constant_override("separation", 0)
-		for a in Heldwerte.ATTRIBUTE.slice(i, i + 2):
-			var l := txt("%s %d (%s)" % [kurz(a), h.wert(a), vorzeichen(h.mod(a))], 13)
-			l.autowrap_mode = TextServer.AUTOWRAP_OFF
-			l.custom_minimum_size.x = 104 * DP
-			r.add_child(l)
-		kopf.add_child(r)
-
-func namensfeld() -> Control:
-	var e := LineEdit.new()
-	e.text = name_
-	e.max_length = 12
-	e.add_theme_font_override("font", Stil.variante(0.5))
-	e.add_theme_font_size_override("font_size", int(round(24 * Stil.SP)))
-	e.add_theme_color_override("font_color", Stil.TEXT)
-	e.add_theme_color_override("caret_color", Stil.GOLD)
-	var s := Stil.kasten(Stil.RAISED, Stil.RIM, 1.0)
-	s.set_content_margin_all(12 * DP)
-	for z in ["normal", "focus"]: e.add_theme_stylebox_override(z, s)
-	e.text_changed.connect(func(t): name_ = t; kopf_neu())
-	e.text_submitted.connect(func(_t): e.release_focus())
-	return e
-
-# Choices: je Zeile drei Felder gleicher Breite; 630 (549a „gewählter Wert“): ohne Rahmen, der gewaehlte in BRIGHT auf RAISED,
-# die anderen in Gold; jedes Feld 48 dp hoch, Antippen dunkel (Spielstaende.tippbar)
-func wahl(was: Array, gewaehlt: String, wort: Callable, nimm: Callable) -> Control:
-	var g := GridContainer.new()
-	g.columns = 3
-	g.add_theme_constant_override("h_separation", int(6 * DP))
-	g.add_theme_constant_override("v_separation", int(6 * DP))
-	for w in was:
-		g.add_child(wahlfeld(String(wort.call(w)), w == gewaehlt, func(): nimm.call(w)))
-	return g
-
-static func wahlfeld(t: String, an: bool, tat: Callable) -> Control:
-	var l := Stil.zeile(t.to_upper().replace("ß", "SS"), 14, Stil.BRIGHT if an else Stil.GOLD, 1.2)
+static func wahlfeld(t: String, an: bool, tat: Callable, frei := true) -> Control:
+	var farbe := Stil.BRIGHT if an else (Stil.GOLD if frei else Color(Stil.DIM, 0.75))   # 470 (549a): nicht waehlbar gedaempft, lesbar
+	var l := Stil.zeile(t.to_upper().replace("ß", "SS"), 14, farbe, 1.2)
 	l.name = "Text"
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	l.custom_minimum_size.y = 48 * DP
 	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var p := Spielstaende.tippbar(l, tat)
+	var p := Spielstaende.tippbar(l, tat if frei or an else func(): pass)
 	if an:
 		var sb := Stil.kasten(Stil.RAISED, Color(0, 0, 0, 0), 0.0)
 		p.add_theme_stylebox_override("panel", sb)
 		p.gui_input.connect(func(_e): p.add_theme_stylebox_override("panel", sb), CONNECT_DEFERRED)   # bleibt erhaben nach dem Tippen
 	p.set_meta("gewaehlt", an)
+	p.set_meta("an", frei or an)
 	return p
 
 # − und + ohne Rahmen (549a, wie der Mengenkasten): 48 dp Tippflaeche, aus gedaempft lesbar
@@ -270,155 +37,17 @@ static func zahl_knopf(t: String, tat: Callable, an: bool) -> Control:
 	p.set_meta("an", an)
 	return p
 
-# PointBuy: Kopf mit Vorschlag, darunter Punkte uebrig, Hinweis, je Attribut Wert mit Bonus, Modifikator, − und +
-func punktekauf() -> void:
-	var de := Sprache.aktiv() == "de"
-	var summe := 0
-	for a in Heldwerte.ATTRIBUTE: summe += Heldwerte.punktkosten(int(gekauft[a]))
-	var alle := int(Heldwerte.regel("punktkauf"))
-	var uebrig := alle - summe
-	var kopfz := HBoxContainer.new()
-	var k := kopfzeile("Attribute verteilen" if de else "Assign ability scores")
-	k.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	k.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	kopfz.add_child(k)
-	var vor := Spielstaende.knopf("neben", "Vorschlag" if de else "Suggest", func(): gekauft = Heldwerte.vorschlag(klasse); baue())
-	vor.size_flags_horizontal = Control.SIZE_SHRINK_END
-	kopfz.add_child(vor)
-	inhalt.add_child(kopfz)
-	var p := VBoxContainer.new()
-	p.add_theme_constant_override("separation", int(4 * DP))
-	p.add_child(txt(("Punkte übrig: " if de else "Points left: ") + "%d / %d" % [uebrig, alle], 15, Stil.BRIGHT if uebrig > 0 else Stil.TEXT))
-	p.add_child(txt("Werte 8–15 vor Volksbonus. Höhere Werte kosten mehr (14: 7 Punkte, 15: 9 Punkte)." if de
-		else "Scores 8–15 before racial bonus. Higher scores cost more (14: 7 points, 15: 9 points).", 13.5, Spielstaende.ANGABE))
-	var d := Heldwerte.lade()
-	var lo := int(Heldwerte.regel("punktkauf_min"))
-	var hi := int(Heldwerte.regel("punktkauf_max"))
-	for a in Heldwerte.ATTRIBUTE:
-		var v := int(gekauft[a])
-		var bon := int(d["voelker"][volk]["bonus"].get(a, 0))
-		var r := HBoxContainer.new()
-		r.add_theme_constant_override("separation", 0)
-		var n := txt(Sprache.t(d["attribute"][a]["name"]) + (" ★" if a == String(d["klassen"][klasse]["haupt"]) else ""), 14)
-		n.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		n.autowrap_mode = TextServer.AUTOWRAP_OFF
-		n.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-		n.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		r.add_child(n)
-		n.resized.connect(func():   # 630: der Name ganz, notfalls kleiner bis 13 sp (549a), statt mit „…“ gekuerzt
-			if is_equal_approx(float(n.get_meta("breite", -1.0)), n.size.x): return   # nur bei neuer Breite (die Schrift aendert die Hoehe)
-			n.set_meta("breite", n.size.x)
-			for sp_ in [14.0, 13.5, 13.0]:
-				var gg := int(round(sp_ * 0.95 * Stil.SP))
-				n.add_theme_font_size_override("font_size", gg)
-				if n.get_theme_font("font").get_string_size(n.text, HORIZONTAL_ALIGNMENT_LEFT, -1, gg).x <= n.size.x: break)   # 630: bei jeder Groesse, nicht nur der ersten (0 px)
-		for z in [[str(v + bon), 16, Stil.TEXT, 26], ["+%d" % bon if bon > 0 else "", 13, Stil.GOLD, 26], ["(%s)" % vorzeichen(Heldwerte.mod_von(v + bon)), 13.5, Spielstaende.ANGABE, 34]]:
-			var l := txt(z[0], z[1], z[2])
-			l.autowrap_mode = TextServer.AUTOWRAP_OFF
-			l.custom_minimum_size.x = z[3] * DP
-			l.size_flags_horizontal = Control.SIZE_FILL   # 630 (Bild 2): feste Spalten; den Rest bekommt der Name („Geschickli…“, weil txt dehnt)
-			l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER   # Helfer: „Charisma10“ klebte am Namen
-			l.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-			r.add_child(l)
-		r.add_child(zahl_knopf("−", func(): gekauft[a] = v - 1; baue(), v > lo))
-		r.add_child(zahl_knopf("+", func(): gekauft[a] = v + 1; baue(), v < hi and Heldwerte.punktkosten(v + 1) - Heldwerte.punktkosten(v) <= uebrig))
-		p.add_child(r)
-	inhalt.add_child(p)
-
-# HeroTurntable (drehteller.gd); 376.1 mit Klasse, Aussehen und Grundausruestung
-func vorschau() -> Control:
-	teller = Drehteller.new(wahl_jetzt(), 0.9)
-	teller_wahl = str(wahl_jetzt())
-	return teller
-
-func klasse_waehlen(k: String) -> void:
-	klasse = k
-	gekauft = Heldwerte.vorschlag(k)
-	if not aussehen_eigen:   # Beispielkopf der Klasse, solange der Spieler nichts gewaehlt hat; Geschlecht und Statur bleiben
-		var g := String(aussehen.get("geschlecht", "m"))
-		var st := String(aussehen.get("statur", "normal"))
-		aussehen = HeldFigur.vorgabe(k, g)
-		aussehen["statur"] = st
-	baue()
-
-func wahl_jetzt() -> Dictionary:
-	return {"klasse": klasse, "volk": volk, "aussehen": aussehen.duplicate(), "ausruestung": held().ausruestung}
-
-func zeige_held() -> void:
-	var w := wahl_jetzt()
-	if teller == null or str(w) == teller_wahl: return
-	teller_wahl = str(w)
-	teller.zeige(w)
-
-# 376.1 Aussehen (CreateScreen.kt „Aussehen“): Haut und Haar als Farbfelder des Volks wie alt (ToneChoices), Gesicht, Frisur, Bart als Knoepfe
-func aussehen_wahl() -> void:
-	var de := Sprache.aktiv() == "de"
-	inhalt.add_child(kopfzeile("Aussehen" if de else "Appearance"))
-	# wie alt (CreateScreen.kt Choices Sex, Build): Geschlecht und Statur zuerst
-	var g := String(aussehen.get("geschlecht", "m"))
-	inhalt.add_child(wahl(HeldFigur.GESCHLECHTER, g, func(x): return HeldFigur.wort("geschlecht:" + x), geschlecht_waehlen))
-	inhalt.add_child(wahl(HeldFigur.STATUREN, String(aussehen.get("statur", "normal")), func(x): return HeldFigur.wort("statur:" + x),
-		func(x): aussehen["statur"] = x; baue()))
-	var v := VBoxContainer.new()
-	v.add_theme_constant_override("separation", int(8 * DP))
-	v.add_child(toene("Haut" if de else "Skin", HeldFigur.toene_liste(volk, "haut"), "haut"))
-	v.add_child(toene("Haar" if de else "Hair", HeldFigur.toene_liste(volk, "haar"), "haarfarbe"))
-	inhalt.add_child(v)
-	for teil in [["form", HeldFigur.formen()], ["frisur", HeldFigur.frisuren(g)], ["bart", HeldFigur.baerte(g)]]:
-		if (teil[1] as Array).size() < 2: continue   # Heldin: kein Bart
-		inhalt.add_child(txt(HeldFigur.wort(teil[0]), 14))
-		inhalt.add_child(wahl(teil[1], String(aussehen.get(teil[0], "")), func(x): return HeldFigur.wort(teil[0] + ":" + x),
-			func(x): aussehen[teil[0]] = x; aussehen_eigen = true; baue()))
-
-# Geschlecht: Frisur aus der Liste des Geschlechts (eigene bleibt, wenn es sie dort gibt), Heldin ohne Bart; Gesicht, Farben, Statur bleiben
-func geschlecht_waehlen(g: String) -> void:
-	aussehen["geschlecht"] = g
-	if not aussehen_eigen or String(aussehen.get("frisur", "")) not in HeldFigur.frisuren(g):
-		aussehen["frisur"] = String(HeldFigur.vorgabe(klasse, g)["frisur"])
-	if String(aussehen.get("bart", "")) not in HeldFigur.baerte(g): aussehen["bart"] = ""
-	baue()
-
-# ToneChoices: Beschriftung, dann je Ton ein Feld mit Namen darunter; das gewaehlte mit Goldrand
-func toene(wort: String, liste: Array, schluessel: String) -> Control:
-	var r := HBoxContainer.new()
-	r.add_theme_constant_override("separation", int(6 * DP))
-	var l := txt(wort, 14)
-	l.size_flags_horizontal = Control.SIZE_FILL
-	l.custom_minimum_size.x = 52 * DP
-	r.add_child(l)
-	var gewaehlt := clampi(int(aussehen.get(schluessel, 0)), 0, maxi(0, liste.size() - 1))
-	for i in liste.size():
-		var t: Dictionary = liste[i]
-		var sp := VBoxContainer.new()
-		sp.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		sp.add_theme_constant_override("separation", int(2 * DP))
-		sp.alignment = BoxContainer.ALIGNMENT_CENTER
-		var feld := Panel.new()
-		feld.custom_minimum_size = Vector2(34, 34) * DP
-		feld.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-		feld.mouse_filter = Control.MOUSE_FILTER_IGNORE   # 416.1: ein Panel faengt das Tippen sonst selbst ab (nur der Name darunter wirkte)
-		var sb := Stil.kasten(Color.html(String(t["rgb"])), Stil.GOLD if i == gewaehlt else Stil.RIM, 3.0 if i == gewaehlt else 1.0)
-		sb.set_corner_radius_all(int(6 * DP))
-		feld.add_theme_stylebox_override("panel", sb)
-		sp.add_child(feld)
-		var n := Stil.zeile(Sprache.t(t["name"]), 11, Stil.GOLD if i == gewaehlt else Stil.DIM, 0.0)
-		n.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		n.clip_text = true
-		sp.add_child(n)
-		var nr := i
-		sp.mouse_filter = Control.MOUSE_FILTER_STOP
-		sp.gui_input.connect(func(e): if e is InputEventMouseButton and e.pressed: aussehen[schluessel] = nr; aussehen_eigen = true; baue())
-		r.add_child(sp)
-	return r
-
 # ---------------------------------------------------------------- Bausteine wie Theme.kt im schwarzen Look
 
 static func kurz(a: String) -> String: return Sprache.t(Heldwerte.lade()["attribute"][a]["kurz"])
 static func vorzeichen(n: int) -> String: return "+%d" % n if n >= 0 else str(n)
 
 # Txt auf Schwarz: Alegreya, 0,95 der Groesse, nie kleiner als 13,7 sp, leicht gesperrt
-static func txt(t: String, groesse_sp: float, farbe := Stil.TEXT) -> Label:
-	var l := Stil.zeile(Spielstaende.ohne_waise(t), maxf(groesse_sp, 13.7) * 0.95, farbe, 0.2)   # 557 Runde 5: kein Wort allein in der letzten Zeile (nur Vorlage 2)
+# 584 (Abgleich 512b): [fett] = der halbfette Schnitt wie alt (Theme.kt Txt bold: SemiBold). Wo alt aus fettem Text in Textfarbe ab 15 sp
+# einen Kopf in Versalien machte (MenuHead), bleibt es hier halbfett: Versalien nur fuer Titel, Zwischenueberschriften und Knoepfe, nie fuer
+# Saetze, Namen oder Zahlen (549a, DESIGN-STIL.md „Schrift“); echte Koepfe setzt der Aufrufer selbst
+static func txt(t: String, groesse_sp: float, farbe := Stil.TEXT, fett := false) -> Label:
+	var l := Stil.zeile(Spielstaende.ohne_waise(t), maxf(groesse_sp, 13.7) * 0.95, farbe, 0.2, false, fett)   # 557 Runde 5: kein Wort allein in der letzten Zeile (nur Vorlage 2)
 	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	return l

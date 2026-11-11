@@ -29,6 +29,8 @@ Ausgabe, Zeile für Zeile auszuführen:
 --nur-muss   startet nur Muss, keine Kür und nichts „nach dem Meilenstein“ (D31.3: Ford setzt es bei `allowed_warning` vor Wochenmitte, D20.2).
 --sperre     trägt „Startsperre HH:MM Start <Name>“ ins Protokoll von ARBEIT-BETRIEB.md (Ford pusht, erst dann create_session).
 --aufraeumen kürzt Fords Protokoll auf die 20 neuesten Taten (plus Marken von heute und gestern) und schiebt erledigte Zeilen von LISTE-VORGAENGE.md ins Archiv (270); --sperre tut es in jedem Lauf.
+--liegt     Lauf auf eine Meldung „Start <Rolle> <Nr>, <Commit>“ (891): ruhende Sitzungen (nicht working/blocked) unter 20 Minuten belegen die Rolle nicht;
+             neue Arbeit geht per WEITER in sie (unter 200 Tsd. Token), sonst START. Startmarke und laufende Sitzungen gelten wie sonst.
 --besetzung  schreibt ARBEIT-BESETZUNG.md neu (nur Tabelle und Stand); schreibt nur, wenn sich die Tabelle ändert.
 --kosten NR USD SESSION_ID  addiert USD auf die Kostenspalte der Zeile NR in LISTE-VORGAENGE.md oder -ARCHIV.md (Ford ruft es je ARCHIVIERE-Zeile, mit der Kennung).
   Kennung Pflicht (384: nachts gebuchte Sitzungen ohne Kennung waren nicht mehr nachweisbar); ohne Sitzung nur `ohne:<Grund>`. USD frisch aus get_session nach dem Archivieren
@@ -47,6 +49,8 @@ Archivregel (261.5, vier Sätze; nur Ford ausgenommen): (1) je Bereich höchsten
 wenn sie unter 200 Tsd. Token liegt (383 A, Chef 09.11.; vorher 400 Tsd. nach 383.1) und unter 60 Minuten ruht, sonst START; (4) Kostenbuchung bleibt eigene Regel (--kosten, GEBUCHT). Kein Hindernis hält eine Sitzung.
 Prüfung des Ergebnisses: steht dieselbe Sitzung im nächsten Lauf wieder auf ARCHIVIERE, gibt es WARNUNG-LAUT „Ford hat … nicht ausgeführt“ (Marke „Archiv <id>“); mehr als eine Sitzung je Bereich in zwei Läufen hintereinander
 gibt WARNUNG-LAUT (Marke „Mehrfach <Rolle>“). Marken schreibt nur --sperre.
+Startprüfung (837): gibt es 5 Minuten nach der jüngsten Startsperre einer Rolle keine Sitzung dieser Rolle (neu angelegt oder, bei WEITER, danach tätig),
+steht WARNUNG-LAUT „Start <Rolle> nicht angekommen“ (einmal, Marke „Start-fehlt <Rolle> <Zeit>“; START ausgelassen ohne --ohne oder gescheitert), und die Sperre belegt die Rolle nicht mehr.
 Laufend = Status working/blocked und updated_at jünger als 60 Minuten (Start-Sperre und Belegung 20 Minuten). Laufend oder jünger als 20 Minuten: Rolle belegt, kein zweiter Start.
 Nicht Sache des Werkzeugs: „Neustart <Name>, <Commit>“ (Nachricht), Wochenstart, Tagesbericht, Meldungen, Eingang (bleiben bei Ford).
 """
@@ -64,9 +68,25 @@ JETZT = datetime.datetime.now(BERLIN)
 MITTEL = "env_01F9WxikYD4TTdhscxvPi93p"
 HOCH = "env_017fgL1YDcVTYTkJsU3APEfR"  # „WireStorm Hoch“
 UMGEBUNG = {}  # alle MITTEL (Chef 09.11., 07:23: „Der Aufwand ist auf Mittel“); Probe 365 endete 31.10.; HOCH nur auf Wort des Chefs
+HOCH_BIS = datetime.datetime(2026, 11, 14, 20, 0, tzinfo=BERLIN)  # 901: 365a B (Chef 11.11., 07:18), alle Rollen HOCH bis Sa 14.11., 20:00, danach von selbst MITTEL
+def umgebung(r):
+    """901: Umgebung für den Start einer Rolle; bis HOCH_BIS alle HOCH, sonst UMGEBUNG/MITTEL."""
+    if JETZT < HOCH_BIS:
+        return HOCH
+    return UMGEBUNG.get(startbar.ZUSATZ.get(r, r), UMGEBUNG.get(r, MITTEL))
 REPO = "https://github.com/tramour-cmyk/androidapp_rpg_bornim"  # ohne source_url startet die Sitzung ohne Repo (18.10., Jerry 39; 187)
 REVISION = "main"  # 382: ohne source_revision lasen neue Sitzungen einen alten Stand (26.10., ohne add_repo-Erlaubnis; Tom 376.1a)
 MODELL = {"Tom": "opus", "Homer": "opus", "Sokrates": "opus", "Jerry": "opus", "Perikles": "opus", "Diogenes": "opus"}  # 270: alle außer Ford groß (Chef 09.11., 13:01: „bis auf Ford grundsätzlich alle … auf Opus“)
+STARK_GESTARTET = []
+def modell(r, nr):
+    """827 A, Bau 828: (Modell, Satz für die Startnachricht); festgefahrener Vorgang ab startbar.STARK_AB auf dem stärksten Modell."""
+    team = startbar.ZUSATZ.get(r, r)
+    d = next((x for x in startbar.zeilen_liste() if x["nr"] == nr), None) if nr else None
+    g = startbar.festgefahren(d)
+    if g and not startbar.STARK_MARKE.search(d["titel"]) and JETZT >= startbar.STARK_AB.replace(tzinfo=BERLIN):
+        STARK_GESTARTET.append(nr)  # 827 A: „die nächste Sitzung“, eine je Vorgang; --sperre setzt die Marke an den Titel
+        return startbar.STARK_MODELL, " Stärkstes Modell (827 A): Vorgang %s ist festgefahren (%s); Ziel ist das „passt“ des Chefs mit möglichst wenig weiteren Rückläufern." % (nr, g)
+    return MODELL[team], ""
 # 718 A (Chef 09.11., 11:25): jede Probe = Abweichung vom alten Wert mit Enddatum; ab BIS gilt der alte Wert in der Tafel oben, lauf.py meldet
 # einmal am Tag „Probe <Nr> abgelaufen, auswerten“ (WARNUNG-LAUT, Marke „Probe-abgelaufen <Nr>“); verlängern nur auf Wort des Chefs (BIS ändern, Wortlaut dazu)
 PROBEN = [  # (Nr, Tafel, Schlüssel, Probewert, BIS „TT.MM.JJJJ“: ab diesem Tag alter Wert)
@@ -102,6 +122,13 @@ def startmarken():
     """Rolle → letzter Startzeitpunkt aus „Startsperre HH:MM Start <Name>“ im Protokoll. Datum aus dem Zeilenkopf
     „- HH:MM TT.MM.:“ (631: ohne Datum galt eine Marke vom Vortag als heutige); fehlt er: heute, sonst gestern."""
     aus = {}
+    for name, d in startsperren():
+        if name not in aus or d > aus[name]: aus[name] = d
+    return aus
+
+def startsperren():
+    """Alle (Rolle, Zeitpunkt) aus den Startsperren im Protokoll, auch die von Ford von Hand geschriebenen (837)."""
+    aus = []
     for l in lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md")).splitlines():
         m = re.search(r"Startsperre (\d\d):(\d\d) Start (\w+(?:, \w+)*)", l)
         if not m: continue
@@ -113,8 +140,20 @@ def startmarken():
             if d > JETZT + datetime.timedelta(days=1): d = d.replace(year=d.year - 1)
         elif d > JETZT: d -= datetime.timedelta(days=1)
         for name in m.group(3).split(", "):  # 433: „Start Tom, Spike“ sperrt beide, nicht nur den ersten
-            if name not in aus or d > aus[name]: aus[name] = d
+            aus.append((name, d))
     return aus
+
+START_PRUEF_MIN = 5  # 837: so lange nach der Startsperre muss eine Sitzung der Rolle da sein
+START_PRUEF_STD = 3  # ältere Startsperren prüft lauf.py nicht mehr (Protokoll reicht bis gestern)
+
+def start_angekommen(rolle, d, alle):
+    """837: nach der Startsperre um d gibt es eine Sitzung der Rolle, neu angelegt (START) oder,
+    nicht archiviert, danach tätig (WEITER schreibt dieselbe Sperre)."""
+    for s in alle.values():
+        if kosten.rolle(s.get("title", "")) != rolle: continue
+        if z(s["created_at"]) >= d - datetime.timedelta(minutes=START_PRUEF_MIN): return True  # Ford schrieb die Sperre auch schon nach dem Start (Jerry 10.11., 10:29/10:32)
+        if s.get("session_status") != "SESSION_STATUS_ARCHIVED" and s.get("updated_at") and z(s["updated_at"]) >= d: return True
+    return False
 
 def chefdateien_je_rolle():
     d = os.path.join(DOCS, "chefsache", "entscheiden")
@@ -140,7 +179,10 @@ def stand():
         kuer = [x[:4] for x in zs if x[1] != "M" and not x[4]]
         kuer += [(x[0], "N", x[2], x[3]) for x in zs if x[4] == "nach dem Meilenstein"]  # 190.10: letzte Stufe vor Leerlauf
         wartet = [x[0] for x in zs if (x[4] or "").startswith("Chef")]
-        aus[rolle] = (muss, kuer, startbar.pause(inhalt), wartet)
+        p = startbar.pause(inhalt); frei = startbar.pause_frei(inhalt) if p else []
+        if frei:  # 870.17: Pause mit „frei für: …“ sperrt alles außer diesen Nummern
+            muss = [x for x in muss if startbar.ist_frei(x[0], frei)]; kuer = [x for x in kuer if startbar.ist_frei(x[0], frei)]; p = None
+        aus[rolle] = (muss, kuer, p, wartet)
         GESPERRT[rolle] = {x[0]: x[4] for x in zs if x[4]}
         offen_m = [x[0] for x in zs if x[1] == "M?" and not x[4]]
         if offen_m: m_fragen.extend("%s (%s)" % (n, rolle) for n in offen_m)
@@ -187,8 +229,10 @@ def nachfolger(rolle):
             roh = q.group(1) + (" (%s)" % rest.strip(" ()*") if re.search(r"(?<!\d)\d\d?\.\d\d\.", rest) else "")
         roh = re.split(satzende, roh, maxsplit=1)[0].strip(" *„“\"")
         if re.search(r"startet\s+`?lauf\.py`?", roh): return None, zeit, "bedingt: " + roh[:60]  # 375: Termin, den lauf.py selbst startet
-        if re.match(r"keine[rn]?\b", roh, re.I): return None, zeit, "keiner"
-        if re.search(r"\b(nur wenn|falls|sobald|bis )", roh, re.I): return None, zeit, "bedingt: " + roh[:60]
+        roh = re.sub(r"^[-–—]+[\s,;:]*", "", roh).strip()  # 879 (D135.1): „– Auf Abruf (…)“, „–, auf Abruf“ ohne führenden Strich
+        if re.match(r"keine[rn]?\b", roh, re.I) or not roh: return None, zeit, "keiner"  # 871: „Nachfolger: –“ startete „<Rolle> – –“
+        # 893 (Ford 10.11., 18:04): „Tom – Sammelbuild 888 (wenn 709 und 506 fertig)“ startete stündlich; „wenn“ ist eine Bedingung
+        if re.search(r"\b(nur wenn|wenn|falls|sobald|bis )", roh, re.I): return None, zeit, "bedingt: " + roh[:60]
         if not re.match(r"(%s)\b" % "|".join(MODELL), roh): roh = "%s – %s" % (rolle, roh)
         return roh, zeit, roh
     return None, None, "keine Übergabe mit Nachfolger"
@@ -330,6 +374,7 @@ def main():
     if "--ohne-pull" not in a and not notizen_frisch(): sys.exit(1)
     nur_muss = "--nur-muss" in a
     sperre = "--sperre" in a; besetz = "--besetzung" in a
+    liegt = "--liegt" in a  # 891: Lauf auf „Start <Rolle> <Nr>“; eine ruhende Sitzung unter 20 Minuten belegt dann nicht, sie bekommt WEITER
     ausschluss = {}
     for i, x in enumerate(a):
         if x == "--ohne" and i + 1 < len(a):
@@ -468,6 +513,17 @@ def main():
             neue_marken.append("Mehrfach-Warnung %s %s" % (r.replace(" ", "-"), aelteste))
             ausgabe.append("WARNUNG-LAUT %d Sitzungen im Bereich %s in zwei Läufen hintereinander (seit %s, 261.5)" % (len(offene), r, vor[0].strftime("%H:%M")))
         if not [d for d in zeiten if (JETZT - d).total_seconds() < 1800]: neue_marken.append("Mehrfach " + r.replace(" ", "-"))
+    # 837 (Chef 10.11., 10:4x): Startsperre ohne Sitzung meldet laut (START ausgelassen oder gescheitert) und belegt die Rolle nicht
+    nicht_da = set()
+    for name, d in sorted(marken.items()):  # nur die jüngste Sperre je Rolle; ein späterer Start ersetzt einen früheren
+        alter = (JETZT - d).total_seconds() / 60
+        if alter < START_PRUEF_MIN or alter > START_PRUEF_STD * 60 or start_angekommen(name, d, alle): continue
+        nicht_da.add(name)
+        schl = "Start-fehlt %s %s" % (name, d.strftime("%d.%m.-%H:%M"))
+        if schl in marke_alt or schl in neue_marken: continue
+        ausgabe.append("WARNUNG-LAUT Start %s nicht angekommen: Startsperre %s, keine Sitzung %s seither; Ford: START ausführen oder mit --ohne NR:Grund ausschließen (837)" % (name, d.strftime("%d.%m., %H:%M"), name))
+        neue_marken.append(schl)
+    for name in nicht_da: marken.pop(name, None)  # (2) zählt nicht als Belegung
     # Starten
     for nr, grund in sorted(ausschluss.items()): ausgabe.append("AUSGESCHLOSSEN %s: %s" % (nr, grund))
     sperren = []; neue_warnungen = []
@@ -485,7 +541,7 @@ def main():
     for r in START_REIHE:
         muss, kuer, pause, _ = st.get(r, ([], [], None, []))
         # Hindernis hält nur die Sitzung der Zeile, nicht die Rolle (190.4)
-        belegt = [s for s in je_rolle.get(r, []) if s["id"] not in archiviert and (s["_info"][1] or s["_info"][2] < SPERRE_MIN)]
+        belegt = [s for s in je_rolle.get(r, []) if s["id"] not in archiviert and (s["_info"][1] or s["_info"][2] < SPERRE_MIN and not liegt)]
         nf, nf_zeit, nf_grund = nachfolger(r)
         gestartet = nf_zeit is not None and any(z(s["created_at"]) > nf_zeit for s in alle.values() if kosten.rolle(s.get("title", "")) == r)
         if nf and nf_zeit is None:
@@ -504,11 +560,12 @@ def main():
         # 641 (Diogenes 08.11., 09:07): „auf Abruf“ oder „nur auf Zuruf“ startet nur, wenn die Rolle Startbares hat
         # 754 (D99.1): mit --ohne ausgeschlossene Zeilen zählen dabei nicht als startbar
         frei_m = [x for x in muss if x[0] not in ausschluss]; frei_k = [x for x in kuer if x[0] not in ausschluss]
-        if offen_nf and re.search(r"auf (Abruf|Zuruf)", offen_nf) and not (frei_m or (frei_k and r in MIT_KUER and not nur_muss)):
+        if offen_nf and re.search(r"auf (Abruf|Zuruf)", offen_nf, re.I) and not (frei_m or (frei_k and r in MIT_KUER and not nur_muss)):
             ausgabe.append("NICHTS %s: Nachfolger „%s“ auf Abruf, nichts startbar" % (r, offen_nf))
             continue
         # 276 (Fall 251): nennt der Nachfolger eine Zeile des eigenen Vorrats, die nicht startbar ist, gilt die Zeilenregel; beim zweiten Lauf laut
-        nf_nr = re.search(r"–\s*([0-9][0-9a-zA-Z.]*[0-9a-zA-Z])", offen_nf or "")
+        # 893: Nummer auch hinter einem Wort („Tom – Sammelbuild 888“), sonst griff die Zeilenregel für gesperrte Zeilen nicht
+        nf_nr = re.search(r"–\s*(?:[^\W\d][\w-]*\s+)?([0-9][0-9a-zA-Z.]*[0-9a-zA-Z])", offen_nf or "")
         if nf_nr and nf_nr.group(1) in ausschluss:  # 375 (Ford 27.10., 10:05): --ohne gilt auch für den Nachfolger
             ausgabe.append("NICHTS %s: Nachfolger „%s“ ausgeschlossen (--ohne %s); Zeilenregel gilt" % (r, offen_nf, nf_nr.group(1)))
             offen_nf = None
@@ -518,8 +575,9 @@ def main():
         if offen_nf:
             thema = re.sub(r"\s*\([^)]*\)\s*$", "", offen_nf)
             titel = "%s (%s)" % (thema, berlin(JETZT))
-            msg = "%s\n\nNachfolger laut Übergabe in %s: %s. Zuerst Start nach deiner Rollendatei, dann die Übergabe lesen und dort weiterarbeiten." % (r, VORRAT[r], offen_nf)
-            ausgabe.append("START %s | %s | %s | %s | %s | %s | %s" % (r, MODELL[r], UMGEBUNG.get(r, MITTEL), REPO, REVISION, titel, msg.replace("\n", "\\n")))
+            mo, satz = modell(r, nf_nr.group(1) if nf_nr else None)
+            msg = "%s\n\nNachfolger laut Übergabe in %s: %s. Zuerst Start nach deiner Rollendatei, dann die Übergabe lesen und dort weiterarbeiten; steht dort „Letzte Antwort:“, nennt die Startmeldung sie (859).%s" % (r, VORRAT[r], offen_nf, satz)
+            ausgabe.append("START %s | %s | %s | %s | %s | %s | %s" % (r, mo, umgebung(r), REPO, REVISION, titel, msg.replace("\n", "\\n")))
             vorgaenger(r); sperren.append(r); continue
         if pause:
             ausgabe.append("NICHTS %s: Pause bis %s" % (r, pause)); continue
@@ -529,7 +587,8 @@ def main():
         nr, kl, thema, _ = wahl
         thema = re.sub(r"\*\*|`", "", thema)
         # 261.5 (3): neue Arbeit in der alten Sitzung weiter, wenn sie unter WEITER_TOKEN Token liegt und unter 60 Minuten ruht
-        alte = [s for s in je_rolle.get(r, []) if not s["_info"][1] and s["_info"][2] < WEITER_MIN and s["id"] not in archiviert and not s.get("_frage_alt")
+        mo, satz = modell(r, nr)
+        alte = [] if satz else [s for s in je_rolle.get(r, []) if not s["_info"][1] and s["_info"][2] < WEITER_MIN and s["id"] not in archiviert and not s.get("_frage_alt")
                 and (s.get("context_usage", {}).get("used_tokens") or s.get("external_metadata", {}).get("context_usage", {}).get("used_tokens") or 10**9) < WEITER_TOKEN]
         if alte:
             s = max(alte, key=lambda x: z(x["updated_at"]))
@@ -541,8 +600,9 @@ def main():
         msg = "%s\n\nArbeite Vorgang %s (%s) aus der Vorgangsliste (`python3 tools/vorgang.py --rolle %s`, Einzelheiten `vorgang.py %s`)%s; zuerst Start nach deiner Rollendatei, dann den Vorgang lesen und die Übergabe in %s beachten." % (
             r, nr, "Muss" if kl == "M" else "nach dem Meilenstein" if kl == "N" else "Kür", r, nr,
             (", Zeile von %s, die auf dich wartet; fertig: `vorgang.py warte %s –` oder das Feld kürzen" % (fuer, nr)) if fuer else "", VORRAT[r])
+        msg += satz
         if JETZT.weekday() == 4: msg += " Freitag: am Ende der Sitzung Rollenspiegel mit tools/rollenspiegel.sh <Rolle>, Datei nicht öffnen (340)."
-        ausgabe.append("START %s | %s | %s | %s | %s | %s | %s" % (r, MODELL[r], UMGEBUNG.get(r, MITTEL), REPO, REVISION, titel, msg.replace("\n", "\\n")))
+        ausgabe.append("START %s | %s | %s | %s | %s | %s | %s" % (r, mo, umgebung(r), REPO, REVISION, titel, msg.replace("\n", "\\n")))
         vorgaenger(r); sperren.append(r)
     # 433 (Chef 31.10., 22:1x: „Da muss doch nicht jetzt Tom drei Wochen auf Tom warten“): arbeitet Tom (Jerry), startet Spike (Tuffy)
     # die nächste startbare Muss-Zeile des Teams, die von der laufenden Arbeit unabhängig ist: andere Nummer, anderer Zweig, nicht „nur Tom“.
@@ -577,7 +637,8 @@ def main():
         msg = ("%s\n\nArbeite Vorgang %s (Muss) aus der Vorgangsliste von Team %s (`vorgang.py %s`) als Zusatzentwickler (433, ROLLE-ENTWICKLUNG.md); %s arbeitet an %s, das fasst du nicht an. "
                "Zuerst Start nach der Rollendatei, dann sofort `python3 tools/vorgang.py stand %s 'in Arbeit, bei %s'` und pushen (sonst nimmt %s die Zeile auch), dann den Vorgang lesen; eigener Zweig; fertig: Stand setzen, keine Übergabe im Vorrat, kein Nachfolger."
                % (zusatz, nr, team, nr, team, ", ".join(sorted(besetzt - {"Nachfolger"})) or "Betrieb", nr, zusatz, team))
-        ausgabe.append("START %s | %s | %s | %s | %s | %s | %s" % (zusatz, MODELL[team], UMGEBUNG.get(team, MITTEL), REPO, REVISION, titel, msg.replace("\n", "\\n")))
+        mo, satz = modell(zusatz, nr); msg += satz
+        ausgabe.append("START %s | %s | %s | %s | %s | %s | %s" % (zusatz, mo, umgebung(team), REPO, REVISION, titel, msg.replace("\n", "\\n")))
         vorgaenger(zusatz); sperren.append(zusatz)
     vorentscheid_marken = []
     try:
@@ -648,7 +709,7 @@ def main():
             if alte:
                 ausgabe.append("WEITER %s | Sokrates | Stellungnahme | %s; wird send_message abgelehnt, stattdessen START wie sonst" % (juengste(alte)["id"], msg.split("\n\n", 1)[1]))
             else:
-                ausgabe.append("START Sokrates | opus | %s | %s | %s | Sokrates – Stellungnahme (%s) | %s" % (MITTEL, REPO, REVISION, berlin(JETZT), msg.replace("\n", "\\n")))
+                ausgabe.append("START Sokrates | opus | %s | %s | %s | Sokrates – Stellungnahme (%s) | %s" % (umgebung("Sokrates"), REPO, REVISION, berlin(JETZT), msg.replace("\n", "\\n")))
             wochen.append("Stellungnahme Sokrates %s" % heute)
     try:  # 383: Wartewächter
         ww, wm = waechter(je_rolle, marke_text); ausgabe += ww; wochen += wm
@@ -679,6 +740,11 @@ def main():
         open(p, "w", encoding="utf-8").write(t)
         print("Protokoll geschrieben: bitte committen und pushen%s." % (", erst dann create_session" if sperren else ""))
     if sperre:
+        for nr in STARK_GESTARTET:  # 827 A, Bau 828: Marke „stärkstes Modell TT.MM.“ am Titel; zählt Sokrates für die Auswertung nach drei
+            d = next((x for x in startbar.zeilen_liste() if x["nr"] == nr), None)
+            if d: subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), "vorgang.py"), "setze", nr,
+                                  "titel=%s · stärkstes Modell %s" % (d["titel"].rstrip(), JETZT.strftime("%d.%m."))], capture_output=True, text=True)
+        if STARK_GESTARTET: print("Stärkstes Modell (827 A): %s, Marke am Titel (Notizen pushen)" % ", ".join(STARK_GESTARTET))
         for nr, wer, weg, neu_st in startbar.loesen(True):  # 275.2 Automatik A: erfüllte „wartet auf“ schreiben (Ford pusht)
             # D80.4: „Meldung an den Besitzer“: läuft eine Sitzung der Rolle, ihre Kennung (Ford: send_message); sonst startet lauf.py sie wie jede startbare Zeile
             sitz = [x for x in je_rolle.get(wer, []) if x["id"] not in archiviert]
@@ -729,6 +795,7 @@ def waechter(je_rolle, marke_text):
     for d in startbar.zeilen_liste():  # 275.2: „jetzt“ steht im Titel oder Stand der Listenzeile
             nr, kl, rolle = d["nr"], d["kl"], d["besitzer"]
             if kl in ("–", "-") or d["wort"] in ("ruht", "erledigt"): continue
+            if d["wort"] in ("gebaut", "zu testen") or d["warte"]: continue  # 902: der Ball liegt anderswo (Test, Prüfung, anderer Vorgang, Chef); 870.6 und 900 gingen 11.11., 07:24 laut an den Chef
             zeile = d["titel"] + " | " + d["stand"]
             m = JETZT_FELD.search(zeile)
             if not m: continue

@@ -1,6 +1,6 @@
 # Bornimer Rollenspielsystem (BRS) – Anleitung und Nachschlagewerk
 
-Name seit 01.11.2026 (451; vorher Arbeitstitel „Spielsystem 2.0“; Datei bis 09.11. `DESIGN-SPIELSYSTEM-2-0-ENTWURF.md`, seitdem `DESIGN-BRS.md`, 650.2 C1). „BRS“ als Kürzel im Text und im Spiel, nie als eigener Schriftzug oder Logo. Gültige Fassung (Vorgang 422, abgenommen vom Chef 01.11.2026; Zahlen erst nach der Rechensimulation 444). Hier steht nur, was gilt, und am Ende, was noch offen ist. Verlauf und Begründungen stehen in [`DESIGN-SPIELSYSTEM-2-0.md`](DESIGN-SPIELSYSTEM-2-0.md). Alle Zahlen sind Startwerte; sie werden mit einer Simulation in der Godot-Fassung gemessen und angepasst.
+Name seit 01.11.2026 (451; vorher Arbeitstitel „Spielsystem 2.0“; Datei bis 09.11. `DESIGN-SPIELSYSTEM-2-0-ENTWURF.md`, seitdem `DESIGN-BRS.md`, 650.2 C1). „BRS“ als Kürzel im Text und im Spiel, nie als eigener Schriftzug oder Logo. Gültige Fassung (Vorgang 422, abgenommen vom Chef 01.11.2026; Zahlen erst nach der Rechensimulation 444). Hier steht nur, was gilt, und am Ende, was noch offen ist. Die Entscheidungen des Chefs („E <Nr.>“) stehen in [`DESIGN-BRS-ENTSCHEIDUNGEN.md`](DESIGN-BRS-ENTSCHEIDUNGEN.md), Verlauf und Begründungen in [`alt/DESIGN-SPIELSYSTEM-2-0.md`](alt/DESIGN-SPIELSYSTEM-2-0.md). Alle Zahlen sind Startwerte; sie werden mit einer Simulation in der Godot-Fassung gemessen und angepasst.
 
 ## Auf einen Blick
 
@@ -60,8 +60,8 @@ Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit und 
 | Wachsoldat | Schild, Mittlere Rüstung, Einhänder | Wächter, Paladin |
 | Jägerkind | Bogen, Wurfwaffen, Spähen | Waldläufer, Scharfschütze |
 | Zauberlehrling | Evokation, Schutzmagie | Magier, Kriegsmagier |
-| Klosterschüler | Heilmagie, Heilkunde, Kräuterkunde | Heiler, Paladin |
-| Kräutersammler | Kräuterkunde, Alchemie, Spähen | Meisterschaft Alchemist |
+| Klosterschüler | Heilmagie, Heilkunde, Kräutersammeln | Heiler, Paladin |
+| Kräutersammler | Kräutersammeln, Alchemie, Spähen | Meisterschaft Alchemist |
 | Schmiedelehrling | Schmieden, Bergbau, Stumpfe Waffen (461c; Bergbau zeigt sich ab Kapitel 2) | Meisterschaft Schmied |
 | Herumtreiber | Schleichen, Spähen, Dolche | Assassine, Schatzjäger |
 | Wanderer | selbst gewählt | – |
@@ -80,7 +80,7 @@ Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit und 
 | Magie (5) | Evokation, Schutzmagie, Heilmagie, Illusion, Beschwörung (mit Nekromantie) | zaubern |
 | Wildnis (1) | Tiere beruhigen | feindliche Tiere vor dem Kampf beruhigen |
 | Gesellschaft (3) | Überreden (mit Täuschen), Einschüchtern, Handeln | Gespräche, Läden |
-| Sammeln (4) | Kräuterkunde, Bergbau, Angeln, Jagd (Zerlegen, Fährten) | ernten, angeln, erlegte Tiere zerlegen |
+| Sammeln (4) | Kräutersammeln (857a; bis 10.11. „Kräuterkunde“), Bergbau, Angeln, Jagd (Zerlegen, Fährten) | ernten, angeln, erlegte Tiere zerlegen |
 | Handwerk (6; 810) | Schmieden (Metall, Reparieren, Dietriche), Lederarbeit (Gerben, Schneidern, Reparieren), Alchemie (mit Giften), Kochen, Runenkunde (Verzaubern), Heilkunde | herstellen, verbinden |
 
 ### Wie Fertigkeiten wachsen
@@ -177,7 +177,7 @@ Die sechs Gruppen ordnen die Pfade; sie sind keine eigene Stufe:
 | Magie (Adept) | eine Schule: Evokation, Schutzmagie, Illusion oder Beschwörung | Magier | zwei Schulen | stärkste Zauber, große Manareserve | keine Rüstung |
 | | | Kriegsmagier | Evokation, Einhänder oder Zweihänder, Leichte Rüstung | Waffenzauber | nur leichte Rüstung, Magie gedeckelt |
 | | | Beschwörer | Beschwörung, eine zweite Schule (Entscheidung 82) | Diener beschwören, Untote | keine Rüstung; Ruf sinkt bei Nekromantie; keine Heilmagie |
-| Heilung (Heilkundiger) | Heilmagie, Heilkunde, Kräuterkunde | Heiler | Heilmagie, Schutzmagie, Heilkunde | Wiederbeleben, Seuchen heilen | höchstens leichte Rüstung |
+| Heilung (Heilkundiger) | Heilmagie, Heilkunde, Kräutersammeln | Heiler | Heilmagie, Schutzmagie, Heilkunde | Wiederbeleben, Seuchen heilen | höchstens leichte Rüstung |
 | | | Paladin (siehe Schutz) | | | |
 
 Alle Kernfertigkeiten stammen aus der Liste der 37 (behebt D48.4). Die Einladung kommt, wenn zwei davon Geselle sind; die Prüfungen verlangen alle am jeweiligen Rangende.
@@ -190,7 +190,7 @@ Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, abe
 | --- | --- | --- | --- |
 | Schmied | Schmieden | Bergbau | Waffen, Metallrüstung, Dietriche, Reparatur von Metall |
 | Lederarbeit | Lederarbeit | Jagd | Leder, leichte Rüstung, Taschen, Köcher, Reparatur von Leder und Stoff |
-| Alchemist | Alchemie | Kräuterkunde | Tränke, Gegengifte, Gifte, Elixiere |
+| Alchemist | Alchemie | Kräutersammeln | Tränke, Gegengifte, Gifte, Elixiere |
 | Runenmeister | Runenkunde | Bergbau | Verzauberungen, Runen auf Ausrüstung |
 | Feldkoch | Kochen | Angeln oder Jagd | Mahlzeiten mit kleinem Bonus |
 
@@ -204,6 +204,8 @@ Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, abe
 - **Schleichen und Hinterhalt:** Mit der Schleichtaste nähert sich der Held. Bleibt er unbemerkt (Schleichen gegen die Wachsamkeit des Gegners, ohne Würfel), greift er als Erster an und bekommt den Vorteil des Hinterhalts. Mehr Gegner sind schwerer zu überlisten. **Bosse** sind wachsamer, ihr Hinterhalt-Bonus ist gedeckelt.
 - **Ausschlüsse sind hart.** Metall stört die Aufnahme der Magiepartikel aus der Umgebung (Entscheidung 10, 33). Die Sperre hängt an der Schule, nicht am Pfad (Entscheidung 80): Evokation, Illusion und Beschwörung gehen für jeden nur ohne Metall, also in Stoff oder Leder; Heil- und Schutzmagie auch in Metall. Dazu trägt der Magier ab der Titelprüfung keine Rüstung, der Kriegsmagier nur leichte. In schwerer Rüstung geht Schleichen nicht („Deine Rüstung klirrt“). Zweihänder und Schild schließen sich aus. Jeder Held hat höchstens einen Pfad.
 - **Gegner gehören zu Gebieten**, damit niemand zu früh in zu hohe Stufen läuft. Höhere Gebiete sind betretbar; die Karte zeigt ihr Stufenband.
+- **Regeln aus dem Umzug (870a 1–6 A, Chef 10.11., 15:08; Plan `LISTE-UMZUG-BRS.md`):** (1) Spielstände aus der SRD-Zeit laden nicht mehr („Aus der alten Regelfassung, nicht mehr spielbar“, Löschen). (2) Gekämpft wird nur im MARS (626); `klassisch.gd` entfällt. (3) **Kampfhandlungen hängen an Fertigkeiten:** für alle Kraft schöpfen (einmal je Kampf, Leben zurück); mit Rang Geselle je Fertigkeit eine Handlung (etwa Einhänder Finte, Dolche Stich aus dem Hinterhalt, Zweihänder Wuchtschlag; Schild und Bogen eine schwächere Vorform, denn Decken und Zielschuss bleiben Fähigkeiten von Wächter und Scharfschütze, Abschnitt 5); Zauber nach Schule (Abschnitt 12); Extra-Angriff, Doppelzug, Zweiwaffenkampf entfallen; Liste und Zahlen Jerry mit 444, Namen Homer. (4) In Kapitel 1 wachsen die Grundwerte nicht. (5) **Proben als Prozent** wie die Trefferchance: Initiative und Flucht nach Gewandtheit, Abwehrprobe mit Zähigkeit (Gift, Krankheit), Wille (Furcht, Zauber), Gewandtheit (Flächen); Zahlen 444. (6) Abschnitt 11.
+- **Schwächen und Stärken der Monster (870a 8 A, Chef 10.11., 15:25):** Schadensarten Schnitt, Stich, Wucht, Feuer, Gift, Säure, Licht. Je Monsterart höchstens eine Schwäche (+50 %) und eine Stärke (−50 %), immun nur, wo die Natur es verlangt. Bei zwei bis drei Arten je Kapitel eine **Gegenwirkung**: das falsche Mittel stärkt den Gegner oder kostet etwas (Beute, Erfahrung), nie tödlich und beim ersten Mal sichtbar. Bekannt wird sie im Kampf und steht danach im Bestiarium; mit Verstand ab 6 sieht man sie vorher (870d, Vorentscheid Sokrates 11.11.; eine Fertigkeit Wissen gibt es nicht). Kampftränke und Wurfmittel tragen eine Schadensart (kaufen, erbeuten, mit Alchemie herstellen). Je Art: `LISTE-BESTIARIUM.md`; Zahlen 444.
 
 ## 8. Die Welt
 
@@ -230,7 +232,7 @@ Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, abe
 
 | Rohstoff | Fundort | Fertigkeit |
 | --- | --- | --- |
-| Kräuter, Pilze, Blüten | Wiesen, Wald, Höhlen | Kräuterkunde |
+| Kräuter, Pilze, Blüten | Wiesen, Wald, Höhlen | Kräutersammeln |
 | Erz, Steine | Adern, Felswände | Bergbau |
 | Fische | Teich, Fluss | Angeln (Fang nach Rang, Angel und Gebiet) |
 | Fleisch, Fell, Knochen, Sehnen, Zähne | erlegte Tiere | Jagd (Zerlegen nach dem Sieg; ohne Jagd weniger und schlechtere Teile, nie nichts) |
@@ -259,7 +261,9 @@ Ernten ist eine kurze Tätigkeit ohne Minispiel. Fundorte wachsen nach einer Zei
 | **Seltenheit** | wie viel Besonderes darin steckt: Zahl der Zusatzeigenschaften, Preis, Zeichen | sechs, unten |
 | Zustand | wie gut es noch wirkt | Makellos, Benutzt, Beschädigt, Defekt (unten) |
 
-Seltenheit und Güte sind getrennt: ein gewöhnliches Schwert kann meisterhaft geschmiedet sein, ein sehr seltenes nur normal. Die „Verbesserung +1“ der alten Fassung entfällt; sie geht in Güte und Runenkunde auf.
+Seltenheit und Güte sind getrennt: ein gewöhnliches Schwert kann meisterhaft geschmiedet sein, ein sehr seltenes nur normal. Die „Verbesserung +1“ der alten Fassung entfällt; sie geht in Güte und Runenkunde auf. Das „+1“ der Einzelstücke (Graks Kriegsaxt, Klinge von Bornim) wird Güte Meisterhaft (870a 6 A, Chef 10.11., 15:08).
+
+**Zusatzeigenschaften** (870a 6 A): nur aus dieser Liste: Grundwert +1, Schutzwert +1 oder +2, Leben +5, Mana +5, kritisch +3 %, Zauberschaden +10 %, Abwehrprobe +5 %; Fertigkeit +1/+2 nur ab episch (644 C1). Namensfarbe je Seltenheit bleibt. Zahlen 444; Abnutzung und Zustand kommen nach dem Umzug als eigener Vorgang.
 
 **Seltenheit:**
 
@@ -295,7 +299,7 @@ Seltenheit und Güte sind getrennt: ein gewöhnliches Schwert kann meisterhaft g
 | Halbling, Halbork | Hügelvolk, Orkblütiger |
 | Vielseitig, Scharfe Sinne, Zwergische Widerstandskraft, Glückspilz, Unerbittlich | Wandelbar, Wachsame Sinne, Steinblut, Glückskind, Letzter Atemzug |
 | Feuerball, Brennende Hände, Magisches Geschoss, Magierrüstung, Schild (Zauber), Wunden heilen | Glutkugel, Flammenfächer, Arkanpfeil, Arkanhaut, Bannschild, Wundsegen |
-| Zaubertrick, Feuerpfeil, Heilige Flamme, Segnen | Kleinzauber, Funkenpfeil, Gleißstrahl, Beistand |
+| Zaubertrick, Feuerpfeil, Heilige Flamme, Segnen, Sengender Strahl | Kleinzauber, Funkenpfeil, Gleißstrahl, Beistand, Glutstrahlen (Ember Rays; Homer 870.14) |
 | Zweiter Atem, Tatendrang, Kampfstil Verteidigung | Kraft schöpfen, Doppelzug, Wehrhaltung |
 | Stirge, Ockergallerte, Grottenschrat (Krogg), Hobgoblin (Grak) | Blutflügler, Ockerschleim, Bärenschrat, Goblin-Hauptmann |
 | Rüstungsklasse, Übungsbonus, Rettungswurf, Vorteil/Nachteil | Schutzwert, Fertigkeitsbonus, Abwehrprobe, Gunst/Ungunst |
@@ -303,18 +307,18 @@ Seltenheit und Güte sind getrennt: ein gewöhnliches Schwert kann meisterhaft g
 | Kurze Rast, Lange Rast | Kurze Erholung (2 Stunden), Langes Ausruhen (9 Stunden) |
 | Klassen Kämpfer, Schurke, Magier, Kleriker | entfallen; dafür Pfade |
 
-Folklore-Wesen (Goblin, Kobold, Skelett, Zombie, Ghul) und Tiere behalten ihre Namen. Gestrichen sind Barde, Gaukler, Taschendiebstahl, Reiter, Kaufmann und Hauptmann. Der Hinweis „SRD 5.1 · CC BY 4.0“ bleibt stehen, bis alles SRD-Abgeleitete ersetzt ist, auch die Monsterwerte und Zaubertexte.
+Folklore-Wesen (Goblin, Kobold, Skelett, Zombie, Ghul) und Tiere behalten ihre Namen, ebenso Mensch, Elf, Zwerg, Trefferpunkte und kritischer Treffer; der Trefferwürfel entfällt mit dem neuen Kampf. Die Wirkungen der Volksmerkmale und alle Beschreibungstexte werden beim Umbau neu geschrieben (Glossar vom 31.10., E 24, E 27; seit 10.11. nur noch hier, 650.2). Gestrichen sind Barde, Gaukler, Taschendiebstahl, Reiter, Kaufmann und Hauptmann. Der Hinweis „SRD 5.1 · CC BY 4.0“ bleibt stehen, bis alles SRD-Abgeleitete ersetzt ist, auch die Monsterwerte und Zaubertexte.
 
 ## 13. Offen
 
 - Monsterwerte Kapitel 1 sind entschieden (427, Chef 02.11.: `LISTE-BESTIARIUM.md` „Werte 2.0“); Krogg und Grimmzahn nachgemessen, Werte wie im Bestiarium gelten endgültig (427.1, Chef 02.11., 20:22; ersetzt „offen nur Krogg und Grimmzahn, nachmessen mit Überfall, Rudel, Umreißen“), mit zwei Bedingungen: Hinweis auf Morwens Rauch spätestens nach der ersten Niederlage gegen Krogg, Krogg erst abnehmen, wenn der Rauch im Spiel zu bekommen ist; offen nur die Herkünfte (481).
 - Profil (Entwurf C) ist entschieden (Entscheidung 76); offen bleibt nur die Reihenfolge der Bausteine über Taten und Chronik hinaus.
 - Umfang der Prüfungsquests beim Lehrmeister.
-- Wie die Grundwerte durch Fertigkeiten wachsen; Haupt- und Nebenwert für Spähen, Tiere beruhigen, Lederarbeit.
-- Rufstufen, Gefährten ohne Klassen, Niederlage, Übernahme alter Spielstände, Reparaturverlust, Abnutzungsrate.
+- Wie die Grundwerte ab Kapitel 2 wachsen (in Kapitel 1 nicht, 870a 4 A); Haupt- und Nebenwert für Spähen, Tiere beruhigen, Lederarbeit.
+- Rufstufen, Gefährten ohne Klassen, Niederlage, Reparaturverlust, Abnutzungsrate.
 - Ruf und Lehrmeister (Abschnitt 9, D54.5).
 - Übrige Zahlen (Abschnitt 4: Helden, Übung, Erfahrung): gemessen mit Simulation 444, dann zum Chef.
-- Seltenheit (Abschnitt 11): beim Herstellen und beim Händler, ob und wie Rang und Material sie bestimmen; ob die Zusatzeigenschaft Magiefund (höhere Seltenheit beim Fund) bleibt; Liste der Zusatzeigenschaften in BRS-Werten (heute noch AC, SP, WIS, CHA …); bleibt die Namensfarbe je Seltenheit; göttlich heute mit fester Eigenschaft „alle Werte“; Ersatz für das „+1“ der Einzelstücke aus Kapitel 1 (Graks Kriegsaxt, Klinge von Bornim), wenn die Verbesserung entfällt.
+- Seltenheit (Abschnitt 11): beim Herstellen und beim Händler, ob und wie Rang und Material sie bestimmen; ob die Zusatzeigenschaft Magiefund (höhere Seltenheit beim Fund) bleibt; göttlich heute mit fester Eigenschaft „alle Werte“.
 
 ---
 
@@ -399,10 +403,10 @@ Neu gefasst nach Entwurf F (Chef 31.10., 21:4x: „das irgendwie erklärt sich m
 | --- | --- | --- | --- |
 | Heldenstufe | Leben, Größenordnung im Kampf, Zugang zu Gebieten | 1, 2, 3 …; jedes Kapitel setzt eine Grenze (weich, bis zwei darüber) | Erfahrung aus Kampf, Quests, Story und Fertigkeitsaufstiegen |
 | Grundwerte (6) | Begabung: Kraft, Gewandtheit, Zähigkeit, Verstand, Wille, Wahrnehmung | Start 3 bis 8 | wachsen langsam mit den Fertigkeiten |
-| Fertigkeiten (37) | Können im Einzelnen, auch Sammeln wie Kräuterkunde und Handwerk wie Schmieden | Wert 0 bis 100 in vier Rängen: Anfänger, Geselle, Meister, Großmeister; bei 100 fertig | durch Tun bis zur Rangdecke; der nächste Rang braucht eine Prüfung (Entwurf F) |
+| Fertigkeiten (37) | Können im Einzelnen, auch Sammeln wie Kräutersammeln und Handwerk wie Schmieden | Wert 0 bis 100 in vier Rängen: Anfänger, Geselle, Meister, Großmeister; bei 100 fertig | durch Tun bis zur Rangdecke; der nächste Rang braucht eine Prüfung (Entwurf F) |
 | Pfad oder Meisterschaft | Rolle des Helden: ein Pfad (Kampf und Lebensweg, mit Auflagen), dazu beliebig viele Meisterschaften (Handwerk, ohne Auflagen) | Anwärter → Eingeweihter → Titel → hoher Titel | Lehrmeister: Zusage, dann Weihe, Titelprüfung, Hohe Prüfung (Entwurf F, Namen 466) |
 
-Wie das zusammenhängt: Kräuterkunde ist eine **Fertigkeit** (Sammeln). Sie gehört zu den Kernfertigkeiten der **Meisterschaft** Alchemist, so wie Schild zur **Berufung** Paladin gehört. Meisterschaften laufen genauso wie Berufungen (Lehrmeister, Prüfungen), nur ohne Auflagen und ohne Grenze der Anzahl. Ein eigener „Meisterschaftsrang“ entfällt; es ist die Stufe in der Meisterschaft.
+Wie das zusammenhängt: Kräutersammeln ist eine **Fertigkeit** (Sammeln). Sie gehört zu den Kernfertigkeiten der **Meisterschaft** Alchemist, so wie Schild zur **Berufung** Paladin gehört. Meisterschaften laufen genauso wie Berufungen (Lehrmeister, Prüfungen), nur ohne Auflagen und ohne Grenze der Anzahl. Ein eigener „Meisterschaftsrang“ entfällt; es ist die Stufe in der Meisterschaft.
 
 **Die Welt**
 
@@ -442,8 +446,8 @@ Abnutzung und Reparatur: Reparieren ist keine eigene Fertigkeit mehr; Metall rep
 | Schildträger | Wachsoldat | Schild, Mittlere Rüstung, Einhänder | Wächter, Paladin |
 | Schütze | Jägerkind | Bogen, Wurfwaffen, Spähen | Waldläufer, Scharfschütze |
 | Zauberer | Zauberlehrling | Evokation, Schutzmagie | Magier, Kriegsmagier |
-| Heiler | Klosterschüler | Heilmagie, Heilkunde, Kräuterkunde | Heiler, Paladin |
-| Kräuterkundiger | Kräutersammler | Kräuterkunde, Alchemie, Spähen | Meisterschaft Alchemist |
+| Heiler | Klosterschüler | Heilmagie, Heilkunde, Kräutersammeln | Heiler, Paladin |
+| Kräuterkundiger | Kräutersammler | Kräutersammeln, Alchemie, Spähen | Meisterschaft Alchemist |
 | Schmiedegeselle | Schmiedelehrling | Schmieden, Bergbau, Stumpfe Waffen (461c; Bergbau zeigt sich ab Kapitel 2) | Meisterschaft Schmied |
 | Späher (neu) | Herumtreiber | Schleichen, Spähen, Dolche | Assassine, Schatzjäger |
 | Frei | Wanderer (keine Herkunft; du verteilst die 18 Punkte selbst und wählst Startfertigkeiten frei) | selbst gewählt | – |
@@ -474,7 +478,7 @@ Anlass (Chef 31.10., 21:4x): „Anfänger, Geselle, Meister, Großmeister … ab
 2. **Üben füllt nur bis zur Rangdecke.** Durch Tun steigt der Wert bis zum Ende des Rangs (zum Beispiel 49). Weiter geht es erst nach einer **Prüfung**. Was man darüber hinaus übt, wird bis zu einem kleinen Puffer gemerkt (wie schon entschieden: „hart mit Puffer“). So kann keiner „schon Meister sein, ohne was gemacht zu haben“: Ohne Prüfung bleibt jeder am Ende seines Rangs stehen.
 3. **Wo die Prüfung stattfindet:**
    - **Fertigkeiten der eigenen Berufung** prüft der eigene Lehrmeister, gebündelt in drei Prüfungen (unten). Eine Prüfung öffnet den nächsten Rang für alle Kernfertigkeiten der Berufung zugleich.
-   - **Alle anderen Fertigkeiten: Bewährungsprobe statt Lehrstunde** (Chef 21:4x: „Lehrstunde … kann ich mir aufstecken … nicht so, dass man sich das verdient hätte … einfaches Rumlaufen“). An der Rangdecke erscheint im Heldenblatt eine Probe, die man in der Welt mit genau dieser Fertigkeit besteht, ohne irgendwohin zu laufen. Beispiele: Einhänder zum Gesellen: „drei Gegner deiner Stufe nur mit dem Schwert besiegen, ohne Heiltrank“; Schlösser knacken zum Meister: „ein Schloss der Stufe 3 öffnen“; Kräuterkunde: „eine seltene Pflanze finden“; Angeln: „einen Fisch über 3 kg fangen“. Die Proben entstehen aus wenigen Vorlagen je Fertigkeitsgruppe (acht Gruppen, drei Ränge), nicht als hundert einzelne Quests; Texte von Homer, die Chronik vermerkt jede bestandene Probe.
+   - **Alle anderen Fertigkeiten: Bewährungsprobe statt Lehrstunde** (Chef 21:4x: „Lehrstunde … kann ich mir aufstecken … nicht so, dass man sich das verdient hätte … einfaches Rumlaufen“). An der Rangdecke erscheint im Heldenblatt eine Probe, die man in der Welt mit genau dieser Fertigkeit besteht, ohne irgendwohin zu laufen. Beispiele: Einhänder zum Gesellen: „drei Gegner deiner Stufe nur mit dem Schwert besiegen, ohne Heiltrank“; Schlösser knacken zum Meister: „ein Schloss der Stufe 3 öffnen“; Kräutersammeln: „eine seltene Pflanze finden“; Angeln: „einen Fisch über 3 kg fangen“. Die Proben entstehen aus wenigen Vorlagen je Fertigkeitsgruppe (acht Gruppen, drei Ränge), nicht als hundert einzelne Quests; Texte von Homer, die Chronik vermerkt jede bestandene Probe.
    - **Großmeister nur in der eigenen Berufung oder Meisterschaft.** Fertigkeiten außerhalb kommen höchstens bis Meister. Das hält Spezialisten wertvoll und bremst den Alleskönner ohne weitere Regel.
 4. **Die Berufung beginnt beim Lehrmeister.** Statt eines „Wegs“ als eigener Stufe gibt es die **Neigung**: Das Spiel merkt, was du tust (zum Beispiel Schild und Heilmagie auf Geselle). Dann spricht dich ein Lehrmeister an: „Willst du Paladin werden?“ Du sagst ja, nein oder später. Mit Ja bist du **Anwärter**.
 5. **Drei Prüfungen der Berufung**, jede eine Quest beim Lehrmeister, mit einer passenden Tat:

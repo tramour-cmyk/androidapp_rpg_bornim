@@ -2,9 +2,11 @@
 
 Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang und Klasse, dann `send_message` an Ford „Auftrag Diogenes <Nr>“ (von Pro aus nur die Zeile); nur Chef oder Ford starten Diogenes.
 
-**Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D124 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
+**Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (09.11., 22:4x):** Lauf 124 (796 greift nach 808, 809); Lauf 123 (800 greift bis auf 813, wartet darauf). Nichts startbar; auf Abruf (813 nachprüfen, wenn gebaut; 768 am 13.11., 790 und 461b am 16.11., 771 nach Test t275).
+**Übergabe (11.11., 07:2x, `session_01Hmoj76FRtfqjDce5S91HcX`):** Lauf 152: 771 ausgewertet, D152.1 → 903 (Perikles). Lauf 153: 901, 902 greifen. Nächste Nummer D154. Nachfolger: keiner
+
+- **Zu 853 (Lauf 133, 134):** Diese von Ford gestartete Sitzung (870.1) hat die Rolle ohne Rückfrage übernommen, und `notiz.sh` nennt Jerry. Beim nächsten Lauf noch eine fremde Rolle ansehen (`list_events`, `kinds` user/assistant, erste Seite). Fragt sie nach der Rolle → Vorgang an Perikles. Auf Abruf (768 am 13.11., 790 und 461b am 16.11.).
 
 - **Zu 790:** Vorher-Werte Lauf 113 im Prüfbericht. Am 16.11. ab 18:07: `list_sessions` (mine, alle Seiten) und je abgeschlossene Sitzung mit created_at ab 09.11., 17:07Z `get_session` → `external_metadata.usage` (cost_usd, cache_read_tokens, cache_write_tokens, output_tokens) und `context_usage.used_tokens`; Helfer schreibt TSV, dann je Rolle wie Lauf 113 rechnen (je Aufruf = Kosten / (cache_read / ((Länge + 60 Tsd.) / 2))); Ergebnis an Perikles und den Chef, nicht bewerten.
 - **Zu 783:** nach der Antwort des Chefs Datei löschen, Wortlaut ins Archiv; dann Schritt 3 (Perikles, 791) prüfen: jede Entscheidung behält einen Ort.
@@ -12,7 +14,6 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 ## Zeilen
 
 - **Zu 464 (Lauf 110):** Haken (748) und Zählung (749) greifen, Lücken 776, 777 geschlossen; 464 wartet auf 16.11.: Wirkung in der Wochenzählung 16.11.: rote Bauläufe der Woche gegen 52 von 185 (28 %) der Vorwoche, dann `greift 464` oder Befund.
-- **Zu 657 (Lauf 104):** nach Build 275 Erstfunde des Chefs in t272–t275 zählen, gegen 11, 11, 9, 7 (Probe 657 D); Ergebnis an Perikles.
 - **Zu 719 (Perikles, „719 A“):** Wochenzählung kommt montags ab 8 Uhr als Vorgang „Wochentermin TT.MM.: Wochenzählung …“; nach der Zählung erledigt setzen. Zeile „Woche“ erledigt 09.11.
 - **Zu 724, 755:** Bereich B mit „gebaut“ kommt als „wartet auf Diogenes“ zu mir; greift → `vorgang.py greift NR LAUF`, Lücke → eigener Vorgang und `warte NR <Lücke>`.
 
@@ -29,7 +30,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 - **Zu 348.9, Nachmessung 02.11., 19:4x** (60 Bilder 27.10., 17:42 bis 02.11., 14:57; nur Hinweis, alle schon beim Chef): 18 Vergleichsbilder; auffällig 399.5 Innenräume (Leute und Einrichtung fehlen, Ältester nachts +23 %), 416.3 Laden (zwei Zeilen und ein Knopf fehlen), 3486 (Fensterläden); an Tom, Telegram 19:4x. Werte in Git.
 - **Zu Woche, von Perikles (371, Chef 27.10., 09:21):** in der Wochenzählung je Nacht (21–7 Uhr) Kosten der Teamsitzungen und Zahl der Bilder an den Chef; Basis Nacht 27.10.: 207 $ für 9 Stunden.
 - **Zu 348.9, 373 (Chef 27.10., 11:35):** über Aussehen und Bewegung urteilt nur der Chef; Diogenes misst nebenher als Hinweis: kein Bild wartet auf die Messung. Gradmesser Leitbild Grundsatz 1 „Düster, erwachsen, glaubwürdig. Nie niedlich, nie quietschbunt“; Messlatte 3489 (Mittel ±5 %, Streuung höchstens +25 %, Farbrichtung gleich) nur als Zahl im Hinweis.
-- **Zu 348.9, Ablauf je Vergleichsbild** (25.10., ergänzt 485): (1) `python3 tools/vglmass.py <bild>` (sonst `--halb`/`--paar`); paart es falsch, Felder ausschneiden und `--paar`. (2) Fremder Helfer (Text zurück): Vollständigkeit gegen die Bestandsliste (`LISTE-UMZUG-348.md`), Schatten wie alt (Kamera Südost; mittags kurz rechts hinten, morgens lang links hinten, abends lang rechts vorn; Arbeitsteilung 6), gedrehte Ansichten nur gegen Regeln (Arbeitsteilung 5). (3) Befunde mit Zahl als Hinweis an Chef und Team. Größe nie am Vergleichsbild messen, Maß ist `groesse_cm` in `<art>-info.json` (Jerry 26.10.).
+- **Zu 348.9, Ablauf je Vergleichsbild** (25.10., ergänzt 485): (1) `python3 tools/vglmass.py <bild>` (sonst `--halb`/`--paar`); paart es falsch, Felder ausschneiden und `--paar`. (2) Fremder Helfer (Text zurück): Vollständigkeit gegen den Bestand (`LISTE-ABGLEICH-ALT.md` 6), Schatten wie alt (Kamera Südost; mittags kurz rechts hinten, morgens lang links hinten, abends lang rechts vorn; Arbeitsteilung 6), gedrehte Ansichten nur gegen Regeln (Arbeitsteilung 5). (3) Befunde mit Zahl als Hinweis an Chef und Team. Größe nie am Vergleichsbild messen, Maß ist `groesse_cm` in `<art>-info.json` (Jerry 26.10.).
 
 ## Alte Zeilen (bis 275.2; Stand in der Liste, Gültiges als „Zu <Nr>“, Rest streichen)
 
@@ -44,3 +45,8 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 - **Alt 348.9:** **von Chef über Sokrates (25.10., 12:24):** Umzug Godot: jedes Vergleichsbild alt/neu messen, nur Hinweis an den Chef, hält nichts an (373); gedrehte Ansichten gegen Regeln (`LISTE-UMZUG-348.md` „Arbeitsteilung“ 3, 5) · ruht bis zum nächsten Vergleichsbild alt gegen neu (Nachmessung 07.11., 21:2x: 3 Bilder, nichts Neues)
 - **Alt Woche:** **Wochenzählung (QM, 106.1):** alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht (`LISTE-PRUEFUNG.md` „Wochenzählung“), dazu „Anteil Spiel“ (167.4) und „Wochentermine gelaufen“ (485) · frühestens 09.11., montags ab 8 Uhr (dazu 374 und 434 der Woche, 461b, Nächte 371, rote Läufe 464)
 - **Alt 186.3:** Ausgefüllte Prüfbögen der Tester auswerten (`tools/pruefbogen/`, mit echten Bögen ungetestet) · ruht, bis Bögen der Tester da sind (190)
+
+## Einzelheiten
+- **Zu 771, von Ford (11.11., 07:46):** Zeile 771 steht noch „startbar“, obwohl du sie in Lauf 152 ausgewertet hast (903); `lauf.py` wollte dich deshalb neu starten (ausgeschlossen). Bitte Stand setzen (`vorgang.py`).
+- **Zu 838, von Sokrates (Chef 10.11., 12:07, Starts Tom 12:01, Jerry 12:03 „komisch“):** 838 zählte „Sitzung da“ als erfüllt (6 von 6), aber beide Sitzungen standen nach dem Start untätig („Rolle unbekannt“), bis Ford nachsandte (853 Perikles). Stichprobe künftig: erste Antwort der neuen Sitzung nennt Rolle und Vorgang, nicht nur Sitzung vorhanden.
+- **Zu Woche, aus 838 (Ford, Chef 10.11., 10:4x: „und eine Prüfung für Diogenes“; 838 erledigt Lauf 127):** Fehler 341 von Ford: START-Zeilen von `lauf.py` ausgelassen. In jeder Wochenzählung Stichprobe, ob jeder START-Zeile eine Sitzung der Rolle in `list_sessions` folgte oder ein `--ohne NR:Grund` im Protokoll steht; Ford-Berichte mit „keine Arbeit“ gegen `startbar.py` prüfen (Zahl startbarer Muss je Rolle). Ergebnis in `PRUEFBERICHT.md`, Befunde als Zeile an Ford (Vorrat `ARBEIT-BETRIEB.md`).

@@ -248,10 +248,10 @@ func hauptmenue() -> void:
 	var seite: Node = m.get_child(m.get_child_count() - 1)
 	await ganz_unten(rolle_von(seite))
 	await host.knips("05_ueber_unten")
-	await druecke(seite, "Lizenzen der Engine")
+	await druecke(seite, "Lizenzen")
 	await frames(3)
 	var r := rolle_von(seite)
-	await rolle_zu(r, "Lizenzen der Engine")
+	await rolle_zu(r, "Lizenzen")
 	await host.knips("06_ueber_lizenzen")
 	await ganz_unten(r)
 	await host.knips("06b_ueber_lizenzen_ende")
@@ -288,34 +288,34 @@ func erschaffung() -> void:
 	await frames(2)
 	await druecke(m, Sprache.u("newGame"))
 	await frames(3)
-	var e: Erschaffung = m.get_node("Erschaffung")
+	var e: ErschaffungBrs = m.get_node("Erschaffung")   # 470: Seite „Neues Spiel“ nach BRS
 	await host.knips("10_erschaffung_oben")
 	var i := 1
-	for v in ["ELF", "DWARF", "HALFLING", "HALF_ORC"]:
-		await druecke(e, Sprache.t(d["voelker"][v]["name"]))
+	for v in [["Elf", "ELF"], ["Zwerg", "DWARF"], ["Hügelvolk", "HALFLING"], ["Orkblütiger", "HALF_ORC"]]:
+		await druecke(e, ErschaffungBrs.tx(ErschaffungBrs.VOLK[v[0]]))
 		await frames(3)
 		e.rolle.scroll_vertical = 0
 		await frames(2)
-		await host.knips("1%d_erschaffung_volk_%s" % [i, v.to_lower()])
+		await host.knips("1%d_erschaffung_volk_%s" % [i, String(v[1]).to_lower()])
 		i += 1
-	await druecke(e, Sprache.t(d["voelker"]["HUMAN"]["name"]))
+	await druecke(e, ErschaffungBrs.tx(ErschaffungBrs.VOLK["Mensch"]))
 	# Aussehen: Weiblich, Kraeftig (am Rechner ohne 3D-Daten zeigt die Seite den Teil nicht: HeldFigur.da)
 	e.geschlecht_waehlen("w")
 	e.aussehen["statur"] = "kraeftig"
 	e.baue()
 	await frames(3)
-	await rolle_zu(e.rolle, "Aussehen" if HeldFigur.da(e.klasse, "w") else Sprache.u("chooseRace"))
+	await rolle_zu(e.rolle, "Aussehen" if HeldFigur.da(e.klasse(), "w") else ErschaffungBrs.tx(ErschaffungBrs.T["volk"]))
 	await host.knips("15_erschaffung_aussehen")
 	i = 6
-	for k in ["WIZARD", "ROGUE", "CLERIC"]:
-		await druecke(e, Sprache.t(d["klassen"][k]["name"]))
+	for k in ["Zauberlehrling", "Herumtreiber", "Klosterschüler"]:
+		await druecke(e, ErschaffungBrs.tx(ErschaffungBrs.HERKUNFT[k]))
 		await frames(3)
-		await rolle_zu(e.rolle, Sprache.u("chooseClass"))
-		await host.knips("1%d_erschaffung_klasse_%s" % [i, k.to_lower()])
+		await rolle_zu(e.rolle, ErschaffungBrs.tx(ErschaffungBrs.T["herkunft"]))
+		await host.knips("1%d_erschaffung_herkunft_%s" % [i, k.to_lower()])
 		i += 1
-	await druecke(e, Sprache.t(d["klassen"]["FIGHTER"]["name"]))
+	await druecke(e, ErschaffungBrs.tx(ErschaffungBrs.HERKUNFT["Wachsoldat"]))
 	await frames(3)
-	await rolle_zu(e.rolle, "Attribute verteilen")
+	await rolle_zu(e.rolle, ErschaffungBrs.tx(ErschaffungBrs.T["werte"]))
 	await host.knips("19_erschaffung_punkte")
 	await ganz_unten(e.rolle)
 	await host.knips("20_erschaffung_unten")
@@ -332,17 +332,6 @@ func erschaffung() -> void:
 	await host.knips("21_erschaffung_platzwahl")
 	await leeren()
 	alle_plaetze_leer()
-	# 470a B: Erschaffung nach BRS, nur aus dem Reiter Test
-	var b := ErschaffungBrs.new()
-	buehne.add_child(b)
-	await frames(4)
-	await host.knips("22_erschaffung_brs_oben")
-	b.rolle.scroll_vertical = int(b.rolle.get_v_scroll_bar().max_value * 0.5)
-	await frames(2)
-	await host.knips("23_erschaffung_brs_mitte")
-	await ganz_unten(b.rolle)
-	await host.knips("24_erschaffung_brs_unten")
-	await leeren()
 
 func menue_mit(hw: Heldwerte, z: Zustand) -> Menue:
 	var m := Menue.new(hw, z)

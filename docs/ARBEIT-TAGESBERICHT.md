@@ -5,60 +5,60 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 ## Zehn Zeilen
 
 <!-- zahlen -->
-**Stand 09.11., 10:14** (Werkzeug `tools/tagesbericht.py`)
+**Stand 11.11., 07:43** (Werkzeug `tools/tagesbericht.py`)
 
 | # | Kennzahl | heute | Bemerkung |
 |---|---|---|---|
-| 1 | Stufe | **Stufe 1 Kern spielbar**: 0 von 4 abgenommen, 4 gebaut, 0 in Arbeit | 41 Punkte in 6 Stufen: 0 abgenommen, 4 gebaut, 6 in Arbeit, 31 offen |
-| 2 | Seit gestern | abgenommen **0**, gebaut **0**, von dir zurück **0** | Vorgänge erledigt 24 h / 7 Tage: 64 / 268, davon Spiel (Entwicklung, Gestaltung, Texte, Design) 40 / 184; neu 122 / 378 |
-| 3 | Rest geschätzt | Wochenziel 09.–15.11. „Der Kampf funktioniert“: Jerry hat 20 Kampfzeilen (717 in Arbeit), Tom 4 zum Helden, 2 übernommene, dazu 506 und das Lager der Höhle (492). (ganz unter „Eingaben“) | Sitzungen bis zur nächsten Stufe, Tom und Jerry, montags neu |
-| 4 | Wartet auf dich | **6 entscheiden**, **1 Build**, **1 tun** | ältestes: 623 seit 07.11., 20:13; [Chefsache](chefsache/README.md) |
-| 5 | Builds | Änderungen warten auf deinen Test: **20** (Tom 13, Jerry 7) | bei dir zum Testen: Build 271; ein Build nimmt alle fertigen Zweige (317) |
-| 6 | Fehler | **15** offen, davon 5 älter als drei Tage | offene Vorgänge des Spiels mit Fehler oder Befund im Titel, dazu jeder mit Build-Nummer (D55.3) |
-| 7 | Geld | Woche **10 %** (dein Bild 08.11., 08:44); gestern 729 $ Rechenwert, Spiel 75 % | Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal) |
-| 8 | Von dir zuerst gefunden | seit dem letzten Bericht (08.11., 09:18) aus Build 269 und 270 unter anderem 670, 679, 680 (Absturz), 681, 682, 683, 701, 702, 703, dazu heute 717 (08:51); die Woche 02.–08.11. zählt Diogenes im Prüfbericht | Woche, zählt Diogenes montags |
-| 9 | Größtes Risiko | Guthaben; seit 08.11., 20:42 steht die Woche auf Warnung (`allowed_warning`), Kür startet nicht mehr; dein letztes Bild (08.11., 08:44) sagte „Donnerstagnacht aufgebraucht“. Darum ruhen 54 Zeilen ohne Kampfbezug. Ein neues Bild der Nutzung zeigt, ob das reicht |  |
+| 1 | Stufe | **Stufe 1 Kern spielbar**: 2 von 4 abgenommen, 2 gebaut, 0 in Arbeit | 41 Punkte in 6 Stufen: 2 abgenommen, 2 gebaut, 5 in Arbeit, 32 offen |
+| 2 | Seit gestern | abgenommen **0**, gebaut **1**, von dir zurück **0** | Vorgänge erledigt 24 h / 7 Tage: 88 / 410, davon Spiel (Entwicklung, Gestaltung, Texte, Design) 48 / 240; neu 101 / 431 |
+| 3 | Rest geschätzt | Wochenziel 09.–15.11. „Der Kampf funktioniert“, seit deinem Nachtauftrag (10.11., 22:24) geht der Umzug aufs Bornimer Rollenspielsystem (870) vor: Build 275 freigegeben (11.11., 07:08); Tom baut den Helden darauf um (870.4, Lauf seit 07:17), danach Laden, Spielstände, Kotlin-Ausstieg … (ganz unter „Eingaben“) | Sitzungen bis zur nächsten Stufe, Tom und Jerry, montags neu |
+| 4 | Wartet auf dich | **3 entscheiden**, **3 billigen**, **1 tun** | ältestes: 709c seit 10.11., 19:35; [Chefsache](chefsache/README.md) |
+| 5 | Builds | Änderungen warten auf deinen Test: **9** (Tom 3, Jerry 6); rote Läufe 24 h **13 von 22** (Tom 2, Jerry 3, Build 1, Sonst 7), 7 Tage 35 von 105 | bei dir zum Testen: kein Build; ein Build nimmt alle fertigen Zweige (317) |
+| 6 | Fehler | **11** offen, davon 3 älter als drei Tage | offene Vorgänge des Spiels mit Fehler oder Befund im Titel, dazu jeder mit Build-Nummer (D55.3) |
+| 7 | Geld | Woche **0 %** (dein Bild 11.11., 07:11); gestern 588 $ Rechenwert, Spiel 75 % | Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal) |
+| 8 | Von dir zuerst gefunden | seit dem letzten Bericht (10.11., 08:07) 832 Lizenzpunkt und 833 Knöpfe (t273); 856, 857, 860, 861, 863, 864, 865, 867, 868 (t274); Filme 709.1 Wolfsbiss und 506.2 Grabhundbiss; im Betrieb 837 ausgelassene Starts, 853 Starts als Systemmeldung, 894 Build 275 eine Stunde verloren; t275 ohne neuen Fehler | Woche, zählt Diogenes montags |
+| 9 | Größtes Risiko | der Umzug aufs Bornimer Rollenspielsystem mitten im Wochenziel; der erste Build danach (276) wird groß und bringt alte und neue Funde zugleich, „Kampf passt“ rückt hinter den Umzug. Guthaben ist nach dem Zurücksetzen (Woche 0 %, dein Bild 11.11., 07:11) kein Engpass mehr; Aufwand Hoch bis Sa (365a B) misst Sokrates |  |
 | 10 | Ausführlich | [Abnahmeliste und Stand](PROJEKTPLAN.md) |  |
 
 | Rolle | offen | davon Muss | startbar | erledigt 24 h | erledigt 7 Tage |
 |---|---|---|---|---|---|
-| Tom | 101 | 78 | 1 | 28 | 89 |
-| Jerry | 73 | 65 | 3 | 6 | 76 |
-| Homer | 6 | 1 | 1 | 6 | 18 |
-| Sokrates | 62 | 37 | 38 | 6 | 29 |
-| Perikles | 37 | 19 | 1 | 11 | 53 |
-| Diogenes | 7 | 5 | 0 | 5 | 7 |
+| Tom | 97 | 77 | 19 | 24 | 122 |
+| Jerry | 86 | 72 | 14 | 8 | 78 |
+| Homer | 3 | 1 | 0 | 12 | 27 |
+| Sokrates | 51 | 36 | 28 | 7 | 53 |
+| Perikles | 25 | 12 | 0 | 32 | 120 |
+| Diogenes | 7 | 6 | 0 | 4 | 12 |
 <!-- /zahlen -->
 
-## Roadmap (447, von dir gebilligt 01.11. mit Stufe „Alle Systeme angelegt“; ohne Datum; jede Stufe ein Build, den du spielst; Stand 09.11., 10:1x)
+## Roadmap (447, von dir gebilligt 01.11. mit Stufe „Alle Systeme angelegt“; ohne Datum; jede Stufe ein Build, den du spielst; Stand 11.11., 07:40)
 
 | Stufe | Was du spielen kannst | Punkte | Stand |
 |---|---|---|---|
-| **1 Kern spielbar** | Erschaffung nach dem BRS, Dorf und Wald, Kampf nach neuem Rechenmodell, Fertigkeiten durch Tun, Heldenstufe | 4 | gebaut (Einzelheiten unten) |
-| **2 Kapitel 1 durchspielbar** | alle Orte bis Blutzahnhöhle, alle Quests, Bosse, Schleichen, Spähen, Rasten, je Herkunft eine Handlung | 12 | in Arbeit; diese Woche nur der Kampf (Wochenziel 09.11.), Build 271 bei dir, Höhle fehlt (unten) |
-| **3 Alle Systeme angelegt** | Lehrmeister, Meisterschaften, Ruf, Herstellen und Sammeln, Abnutzung, Tiere beruhigen, Chronik, Gegenstandskatalog | 8 | Gegenstandskatalog angelegt (458: 88 Gegenstände, Texte von Homer); Rest offen |
+| **1 Kern spielbar** | Erschaffung nach dem BRS, Dorf und Wald, Kampf nach neuem Rechenmodell, Fertigkeiten durch Tun, Heldenstufe | 4 | 1.1 und 1.4 abgenommen (720, 09.11., 14:49); 1.2 Fertigkeiten gebaut (471 in t274 bestanden); 1.3 gebaut |
+| **2 Kapitel 1 durchspielbar** | alle Orte bis Blutzahnhöhle, alle Quests, Bosse, Schleichen, Spähen, Rasten, je Herkunft eine Handlung | 12 | in Arbeit; erst der Umzug aufs BRS (870), dann der Kampf (Wochenziel 09.11.); Builds 274 und 275 getestet, 275 freigegeben |
+| **3 Alle Systeme angelegt** | Lehrmeister, Meisterschaften, Ruf, Herstellen und Sammeln, Abnutzung, Tiere beruhigen, Chronik, Gegenstandskatalog | 8 | Gegenstandskatalog angelegt (458); Fertigkeiten ohne Kampf entschieden (807 A); Rest offen |
 | **4 Kapitel 1 fertig** | Aussehen, Musik und Klang je Ort, Englisch, keine SRD-Namen, keine offenen Fehler | 10 | in Arbeit (unten) |
-| **5 marktreif** | Kapitel 1 im Play Store | 1 | in Arbeit: Gewerbeschein da (bescheinigt 05.11.); 142.4 von dir entschieden (07.11., 21:3x), D-U-N-S beantragen und Konto umstellen liegt bei dir (tun); AAB des Godot-Builds für Play bei Tom (622, startbar) |
+| **5 marktreif** | Kapitel 1 im Play Store | 1 | in Arbeit: D-U-N-S und Konto liegen bei dir (142.4); AAB des Godot-Builds bei Tom (622) |
 | **6 SRD im Code abgelöst** | nach dem Marktstart, für dich unsichtbar | 1 | – |
 
-- **Stufe 1:** Build 204 von dir freigegeben (03.11., 07:45, 487); Fertigkeiten kommen mit 2.3; abhaken erst nach deiner Abnahme der Simulation 444 (Prüfung der Stufe), dazu liegt dir noch keine Vorlage vor; der Rechenkern nach dem BRS (478) ist in Build 269 bei dir zum Test.
-- **Stufe 2:** Builds 269 und 270 hast du am 08.11. getestet (Funde t269, t270, darunter 680 Absturz und die Kampffunde 682, 702, 703); Build 271 (09.11., 00:14) liegt bei dir, darin 656 Umhang (von dir „passt“, 06:57) und 703 Ausweichen. Seit deinem „Kampf zuerst“ (08.11., 21:36) ordnet das Wochenziel 09.11. beide Teams auf den Kampf; Höhle (492) nur noch bis zum Lager, Kampforte Höhle (507), Durchspiel-Build (496) und Nebel (505) ruhen bis zu deinem „Kampf passt“.
-- **Stufe 4:** Leute des Dorfs mit Gesicht (475, Läufe 1 und 2 von dir abgelehnt, 04.11.; seitdem nicht weiter, startbar); Robe im Build 269 (558, Zeile 269.13); Klang: Tierlaute, Herzschlag, Waldklang, Rattenstimme gebaut (575), Dorftiere hörbar in 269 (591); Effekte: Kauf der Pakete 623 A bei dir (tun); restliche Schirme ohne Kasten (630) startbar.
+- **Stufe 1:** 1.2 und 1.3 sind gebaut; abhaken, wenn du beide im Spiel mit einem Helden nach dem BRS gesehen hast (kommt mit 870.4).
+- **Stufe 2:** Build 275 hast du freigegeben (11.11., 07:08, „hat soweit alles gepasst“); darin bestanden auch 475 Leute mit Gesicht, 506 Untote. Seit deinem Nachtauftrag (10.11., 22:24) läuft der Umzug aufs BRS (870): Jerry hat Kampfwerte und Anzeigen umgestellt (870.2, 870.3, 870.5 gebaut), Tom den Helden (870.4, Lauf seit 07:17); danach Laden, Spielstände, Kotlin-Ausstieg. Höhle (492) nur bis zum Lager; Durchspiel-Build (496), Nebel (505), Kampforte Höhle (507) ruhen bis „Kampf passt“.
+- **Stufe 4:** Leute mit Gesicht (475) und Untote (506) bestanden in t275; Kampforte schöner (806, Jerry, Bild gesehen 10.11., 08:58) startbar; Szenen nach 623.8 A der Reihe nach.
 
-## Wer hinkt (09.11., 10:1x)
+## Wer hinkt (11.11., 07:40)
 
-- **Wochenziel 03.–08.11. (Kapitel 1 durchspielbar) nicht erreicht** (Diogenes, Wochenzählung 09.11.): der Durchspiel-Build (496) wurde nicht gebaut, die Höhle (492) ist nicht fertig, Untote (506) sind in Arbeit. Das neue Wochenziel stellt den Kampf vor alles (dein Wort 08.11., 21:36).
-- **Tom sitzt fest:** 10 ungetestete Muss sperren ihn (620.1 B), seine Sitzung wartet seit 07:35 auf deinen Test von Build 271; Jerry darf nur seine „jetzt“ (717) bauen.
-- **Jerry trug den Kampf allein:** von den Kampfzeilen des Wochenziels lagen fast alle bei ihm; 560 (Monster drehen sich) und 680 (Absturz) gehen an Tom.
-- **Rote Läufe** (464): die Tageszahl fehlt weiter im Protokoll (D61.1, jetzt Vorgang 741 bei Ford, Kür).
+- **Wolfsangriff:** der neue Wolfsbiss (709.1) wartet auf deine Antwort zu 709c (seit 10.11., 19:35); 709 (Angriffe treffen sichtbar, 58 $) war in t275 ohne Rückmeldung und kommt in die nächste Prüfliste.
+- **Rote Läufe:** 13 von 22 in 24 Stunden; davon 7 außerhalb der Teams, vor allem die Probeläufe auf dem eigenen Bauserver (264.1, Läufe 3–7), die übrigen bei Tom 2, Jerry 3, Build 1.
+- **Festgefahren** (über 30 $ oder zwei Rückläufer, 827 A): 494 (135 $), 492 (82 $), 505 (69 $), 709 (58 $); ab 14.11., 20:00 nimmt die nächste Sitzung dafür das stärkste Modell.
+- **Schätzungen in Sitzungen** für den Rest des Wochenziels fehlen weiter.
 
-## Wo du Prioritäten setzen kannst (09.11., 10:1x)
+## Wo du Prioritäten setzen kannst (11.11., 07:40)
 
-1. **Build 271 testen** ([t271](chefsache/ansehen/t271-sammelbuild.md)): ein Weg durch Hauptmenü, Dorf, Laden, Tiefen Wald und Probekämpfe; darin 656 Umhang und 703 Ausweichen; erst dein Test löst die Sperre 620.1 B, vorher baut Tom nichts.
-2. **Bildschirmfoto der Nutzung schicken:** die Woche steht seit 08.11., 20:42 auf Warnung; ob das Ruhen von 54 Zeilen reicht, zeigt erst die neue Zahl (dein letztes Bild 08.11., 08:44).
-3. **743 entscheiden** ([743](chefsache/entscheiden/743-verwerfen-ideen.md)): 15 Ideen verwerfen, kostet dich eine Minute und hält den Ideenspeicher klein; drängt nicht.
+1. **709c entscheiden**: Wolf greift gerade von vorn an (Votum A); hält 709 und 709.1 an, Herzstück von „Kampf passt“.
+2. **903 entscheiden**: Checkliste „Build und Test“ fest behalten (Votum A); ohne Antwort zeigt die Commit-Prüfung sie beim nächsten Build 276 nicht mehr.
+3. **870c, 870d, 870e billigen**: Sokrates hat in der Nacht als „Chef“ entschieden (Bosse, Schwächen sehen, Übergangszahlen); ein „zurück“ später kostet Rückbau im Umzug.
 
-*Stärkstes Gegenargument zu 1:* Build 271 enthält viele Kleinigkeiten ohne Kampf (Menüs, Brett, Laden), deine Zeit ginge lieber in den Kampf. *Wie es zu entkräften ist:* ohne den Test bleibt Tom gesperrt, und die Kampfzeilen 656 und 703 liegen nur in diesem Build.
+*Stärkstes Gegenargument zu 1:* der Kampf bekommt mit dem Umzug ohnehin neue Regeln; ein Angriffsablauf jetzt könnte nach dem Umzug wieder anders aussehen. *Wie es zu entkräften ist:* 709c regelt Bewegung und Bild (wohin der Wolf beißt, wie Treffer und Abwehr aussehen), nicht die Zahlen; die ändert der Umzug, das Bild nicht.
 
 ## Wie das Projekt aufgebaut ist
 
@@ -70,6 +70,6 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 
 Von Hand (Perikles), das Werkzeug übernimmt sie in die Zeilen 3, 8, 9.
 
-- Rest geschätzt: Wochenziel 09.–15.11. „Der Kampf funktioniert“: Jerry hat 20 Kampfzeilen (717 in Arbeit), Tom 4 zum Helden, 2 übernommene, dazu 506 und das Lager der Höhle (492). Schätzungen in Sitzungen bringen Tom und Jerry mit der ersten Sitzung nach deinem Test von Build 271; die Schätzungen vom 03.11. (Höhle etwa 8, Untote etwa 8 Sitzungen) sind überholt.
-- Von dir zuerst gefunden: seit dem letzten Bericht (08.11., 09:18) aus Build 269 und 270 unter anderem 670, 679, 680 (Absturz), 681, 682, 683, 701, 702, 703, dazu heute 717 (08:51); die Woche 02.–08.11. zählt Diogenes im Prüfbericht
-- Größtes Risiko: Guthaben; seit 08.11., 20:42 steht die Woche auf Warnung (`allowed_warning`), Kür startet nicht mehr; dein letztes Bild (08.11., 08:44) sagte „Donnerstagnacht aufgebraucht“. Darum ruhen 54 Zeilen ohne Kampfbezug. Ein neues Bild der Nutzung zeigt, ob das reicht
+- Rest geschätzt: Wochenziel 09.–15.11. „Der Kampf funktioniert“, seit deinem Nachtauftrag (10.11., 22:24) geht der Umzug aufs Bornimer Rollenspielsystem (870) vor: Build 275 freigegeben (11.11., 07:08); Tom baut den Helden darauf um (870.4, Lauf seit 07:17), danach Laden, Spielstände, Kotlin-Ausstieg (870.7–870.9); Jerry hat Kampfwerte und Anzeigen umgestellt (870.2, 870.3, 870.5 gebaut), Beute wartet auf den Helden (870.6). Kampf offen: 751 Knopfleiste (Jerry, in Arbeit), Wolfsangriff (709c bei dir), Grabhundbiss 506.2; Spike 680 Absturz, Tuffy 705 Werte. Schätzungen in Sitzungen fehlen weiter.
+- Von dir zuerst gefunden: seit dem letzten Bericht (10.11., 08:07) 832 Lizenzpunkt und 833 Knöpfe (t273); 856, 857, 860, 861, 863, 864, 865, 867, 868 (t274); Filme 709.1 Wolfsbiss und 506.2 Grabhundbiss; im Betrieb 837 ausgelassene Starts, 853 Starts als Systemmeldung, 894 Build 275 eine Stunde verloren; t275 ohne neuen Fehler
+- Größtes Risiko: der Umzug aufs Bornimer Rollenspielsystem mitten im Wochenziel; der erste Build danach (276) wird groß und bringt alte und neue Funde zugleich, „Kampf passt“ rückt hinter den Umzug. Guthaben ist nach dem Zurücksetzen (Woche 0 %, dein Bild 11.11., 07:11) kein Engpass mehr; Aufwand Hoch bis Sa (365a B) misst Sokrates

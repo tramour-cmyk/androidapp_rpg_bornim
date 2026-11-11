@@ -233,7 +233,7 @@ static func ausloeser(karte_id: String, t: Vector2i, s: Zustand) -> Array:
 	if karte_id == "cave" and t.y == 4 and t.x in [10, 11] and not s.has(GRAK_DEFEATED): grak_talk(k, s)
 	return k.befehle
 
-# Gasthaus beim Betreten (Story.inn onEnter): Rowena weckt den Helden; der Tipp nach der Steuerung (280, 540: auch Klassisch)
+# Gasthaus beim Betreten (Story.inn onEnter): Rowena weckt den Helden; der Tipp zur Steuerung (280; 663: nur Touch)
 static func intro(k: Skript, s: Zustand) -> void:
 	if s.has(INTRO_DONE): return
 	k.say(rowena, "Na, endlich wach, {name}? Du hast geschlafen wie ein Stein.", "Well, finally awake, {name}? You slept like a log.")
@@ -241,9 +241,7 @@ static func intro(k: Skript, s: Zustand) -> void:
 	k.say(rowena, "Und letzte Nacht haben sie Schwester Lyra aus dem Tempel verschleppt – und das heilige Sonnenamulett gleich mit!", "And last night they dragged Sister Lyra out of the temple, and took the holy Sun Amulet too!")
 	k.say(rowena, "Ältester Aldric sucht verzweifelt nach Hilfe. Sein Haus liegt unten links am Dorfplatz. Geh zu ihm!", "Elder Aldric is desperate for help. His house is at the bottom left of the village square. Go and see him!")
 	# [280.tipp]
-	if Bedienung.klassisch: k.narrate("Tipp: Mit dem Steuerkreuz läufst du, der große Knopf spricht mit Leuten und untersucht Dinge. Der Beutel oben öffnet das Menü.",
-		"Tip: the D-pad moves you; the big button talks to people and examines things. The bag at the top opens the menu.")
-	else: k.narrate("Tipp: Zieh den Finger über das Bild, um zu laufen, oder tippe dorthin, wo du hinwillst. Tippe auf Leute und Dinge, um mit ihnen zu sprechen oder sie zu untersuchen. Der Beutel oben öffnet das Menü.", "Tip: drag your finger across the screen to walk, or tap where you want to go. Tap people and things to talk to them or examine them. The bag at the top opens the menu.")
+	k.narrate("Tipp: Zieh den Finger über das Bild, um zu laufen, oder tippe dorthin, wo du hinwillst. Tippe auf Leute und Dinge, um mit ihnen zu sprechen oder sie zu untersuchen. Der Beutel oben öffnet das Menü.", "Tip: drag your finger across the screen to walk, or tap where you want to go. Tap people and things to talk to them or examine them. The bag at the top opens the menu.")
 	k.flag(INTRO_DONE)
 
 # 540 (Story.southEdge, 67, 68p): was der Held am Suedrand des Dorfs denkt, nach dem Stand der Geschichte; je Abschnitt beim ersten

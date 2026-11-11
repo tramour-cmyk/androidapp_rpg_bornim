@@ -1,7 +1,7 @@
 class_name Hauptmenue
 extends Control
 # 399 (Chef 28.10., 12:34: spielbar zuerst): Hauptmenue (292) und Erschaffung. Fortsetzen, wenn ein Spielstand liegt; Neues Spiel fuehrt
-# in die Erschaffung (erschaffung.gd), „Spielstände“ zu den vier Plaetzen (spielstaende.gd). Ende: Signal fertig({"laden": true,
+# in die Erschaffung (erschaffung_brs.gd, 470), „Spielstände“ zu den vier Plaetzen (spielstaende.gd). Ende: Signal fertig({"laden": true,
 # "platz"}) oder fertig({"name", "volk", "klasse", "werte", "platz"}).
 # 399.1 (Test 130, Chef 14:38: „Einfach mal das alte Spiel nehmen … so soll es im neuen halt auch schon“; 14:39 „an die
 # Designvorgaben halten“): Aussehen wie App.kt MainMenuColumn (292.3, Entwurf A): schwarz, Titel gross in gesperrten Versalien, Zier,
@@ -354,10 +354,10 @@ func hinweis(t: String) -> void:
 		var ll = schwach.get_ref()
 		if ll != null: ll.queue_free())
 
-# 399.1 Erschaffung wie alt (erschaffung.gd): eine Seite ueber dem Menue; Zurueck fuehrt ins Hauptmenue. ziel: Platz aus den
-# Spielstaenden, sonst der erste freie
+# 399.1 Erschaffung: eine Seite ueber dem Menue; Zurueck fuehrt ins Hauptmenue. ziel: Platz aus den Spielstaenden, sonst der erste
+# freie. 470 (Chef 10.11., 12:58): die Erschaffung nach BRS (erschaffung_brs.gd) statt der alten Klassenwahl
 func erschaffung(ziel: int = 0) -> void:
-	var e := Erschaffung.new()
+	var e := ErschaffungBrs.new()
 	e.ziel = ziel
 	add_child(e)
 	e.zurueck.connect(func(): e.queue_free(); titel())
@@ -406,7 +406,15 @@ static func umbrechen(t: String) -> String:
 	schliessen.call()
 	return "\n\n".join(absaetze)
 
-const MIT_TEXT := "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
+# 781 (aus 623.1, Sokrates): die REEBOO-Pakete Grass & Wind, Water, Surface enthalten die Hashfunktionen „Hash without Sine“
+# von David Hoskins unter MIT; MIT verlangt Urheberzeile und Lizenztext in jeder Kopie, darum wie Godot (497) hier
+const HOSKINS_ZEILE := "Hash without Sine – David Hoskins – MIT License"
+const HOSKINS_COPYRIGHT := "Copyright (c) 2014 David Hoskins"
+const MIT_TEXT := """Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."""
 
 static func lizenz_texte(box: VBoxContainer, de: bool) -> void:
 	var kopf := func(t: String) -> void:
@@ -423,18 +431,15 @@ static func lizenz_texte(box: VBoxContainer, de: bool) -> void:
 			for cr in teil["copyright"]: zeilen.append("© " + String(cr))
 			zeilen.append("License: " + String(teil["license"]))
 		klein.call("\n".join(zeilen))
-	# 804: Grass & Wind Kit (REEBOO) enthaelt Hashfunktionen von David Hoskins unter MIT; MIT verlangt Copyright und Lizenztext
-	# (LISTE-QUELLEN „Offene Lizenzfragen“ 2: Hinweis wie bei Godot); Copyright-Zeile aus dem Kit (godot.yml, daten/gras_mit.txt)
-	if GrasBausatz.da():
-		kopf.call("Grass & Wind Kit · David Hoskins")
-		var cr := GrasBausatz.mit_zeile()
-		klein.call((cr if cr != "" else "David Hoskins") + "\nLicense: MIT")
-		klein.call(MIT_TEXT)
+	# 804 (Grass & Wind Kit, Hoskins MIT): der Hinweis steht einmal fuer alle REEBOO-Pakete unten (781)
 	kopf.call("Lizenztexte" if de else "License texts")
 	var li := Engine.get_license_info()
 	for k in li:
 		klein.call(String(k))
 		klein.call(String(li[k]).strip_edges())
+	kopf.call("Hashfunktionen der Effekte" if de else "Hash functions in visual effects")   # 781
+	klein.call("Hash without Sine\n" + HOSKINS_COPYRIGHT + "\nLicense: MIT")
+	klein.call(MIT_TEXT)
 
 # 623.7 (Chef 07.11., 623 F; Homer [623.dank.*] in STORY-SPIEL.md): „Mit Dank an“ unter „Lizenzen der Engine“, ueber dem Logo, nie im
 # Spielgeschehen; Schreibung der Haendlernamen wie auf RenderHub (Game-Ready Studios, Wernerkurt; 08.11. nachgesehen)
@@ -463,13 +468,15 @@ func ueber() -> void:
 	v.add_child(Erschaffung.luecke(6))
 	v.add_child(Erschaffung.txt("Godot Engine – MIT License · godotengine.org/license", 13.5, Spielstaende.ANGABE))
 	v.add_child(Erschaffung.luecke(6))
+	v.add_child(Erschaffung.txt(HOSKINS_ZEILE, 13.5, Spielstaende.ANGABE))   # 781
+	v.add_child(Erschaffung.luecke(6))
 	var lizenzen := VBoxContainer.new()
 	lizenzen.add_theme_constant_override("separation", int(4 * DP))
 	lizenzen.visible = false
 	var zl := HBoxContainer.new()
 	zl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	zl.custom_minimum_size.y = 48 * DP
-	var lt := Stil.zeile("Lizenzen der Engine" if de else "Engine licences", 15, Stil.TEXT)
+	var lt := Stil.zeile("Lizenzen" if de else "Licences", 15, Stil.TEXT)
 	lt.name = "Text"
 	lt.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	lt.size_flags_vertical = Control.SIZE_SHRINK_CENTER
@@ -485,7 +492,7 @@ func ueber() -> void:
 			var zz := HBoxContainer.new()
 			zz.mouse_filter = Control.MOUSE_FILTER_IGNORE
 			zz.custom_minimum_size.y = 48 * DP
-			var zt := Stil.zeile("Lizenzen der Engine" if de else "Engine licences", 15, Stil.TEXT)
+			var zt := Stil.zeile("Lizenzen" if de else "Licences", 15, Stil.TEXT)
 			zt.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			zt.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 			zz.add_child(zt)

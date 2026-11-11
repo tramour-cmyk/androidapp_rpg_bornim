@@ -815,11 +815,11 @@ func klassen() -> void:
 	kam.neigung = -30.0
 	for k in figuren: figuren[k].visible = false
 	# Erschaffung wie im Spiel: oben der Held im Drehteller, dann bis „Aussehen“ gerollt
-	var e := Erschaffung.new()
+	var e := ErschaffungBrs.new()   # 470: die Seite „Neues Spiel“ nach BRS
 	spiel.get_tree().root.add_child(e)
 	await get_tree().create_timer(1.5).timeout
 	await knips(aus + "/erschaffung_oben.png")
-	e.klasse = "ROGUE"; e.gekauft = Heldwerte.vorschlag("ROGUE"); e.aussehen = HeldFigur.vorgabe("ROGUE"); e.baue()
+	e.herkunft_waehlen("Herumtreiber")
 	await get_tree().create_timer(1.5).timeout
 	var ziel_y := 0
 	for c in e.inhalt.get_children():

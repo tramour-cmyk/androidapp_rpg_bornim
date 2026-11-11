@@ -169,6 +169,27 @@ def rang(nr, wie, ziel=None, rolle=None):
     schreiben(startbar.LISTE, "\n".join(L))
     print("vorgang.py: %s (%s) %s%s" % (nr, d["besitzer"], wie, (" " + ziel) if ziel else ""))
 
+_FERN = {}
+
+def _fern(datei):
+    """880 (D135.2): Stand von origin/main frisch geholt (einmal je Aufruf), damit zwei Sitzungen nicht dieselbe Nummer ziehen,
+    wenn eine noch nicht zusammengeführt hat. Ohne Netz: leer."""
+    if "_geholt" not in _FERN:
+        _FERN["_geholt"] = True
+        try: subprocess.run(["git", "-C", DOCS, "fetch", "-q", "origin", "main"], timeout=20, capture_output=True)
+        except Exception: pass
+    if datei not in _FERN:
+        try: _FERN[datei] = subprocess.run(["git", "-C", DOCS, "show", "origin/main:docs/" + datei], capture_output=True, text=True, timeout=10).stdout
+        except Exception: _FERN[datei] = ""
+    return _FERN[datei]
+
+def fern_zaehler():
+    m = re.search(r"\*\*Nächste freie Vorgangsnummer: (\d+)\*\*", _fern("ARBEIT-BETRIEB.md"))
+    return [int(m.group(1))] if m else []
+
+def fern_nummern():
+    return set(re.findall(r"(?m)^\| (\d+) \|", _fern(startbar.LISTE)))
+
 def neu(titel, bereich, kl, besitzer, nr=None, oben=False):
     """275 Stufe 2, 275.2: neue Zeile (Stand startbar, Kosten –); ohne --nr die nächste freie Nummer aus ARBEIT-BETRIEB.md, die hochzählt."""
     if kl not in ("M", "K", "M?"): sys.exit("vorgang.py: Klasse M, K oder M?")
@@ -184,7 +205,9 @@ def neu(titel, bereich, kl, besitzer, nr=None, oben=False):
         b = startbar.lesen("ARBEIT-BETRIEB.md")
         m = re.search(r"\*\*Nächste freie Vorgangsnummer: (\d+)\*\*( \(zuletzt [^)]*\))?", b)
         if not m: sys.exit("vorgang.py: Zähler in ARBEIT-BETRIEB.md nicht gefunden")
-        nr = m.group(1); d["nr"] = nr
+        nr = str(max([int(m.group(1))] + fern_zaehler())); d["nr"] = nr  # 880: nie unter dem Zähler auf origin/main
+        while nr in startbar.VORG or any(d2["nr"] == nr for d2 in startbar.zeilen_liste()) or nr in fern_nummern():
+            nr = str(int(nr) + 1); d["nr"] = nr
         # 653 doppelt: zwei Sitzungen zogen dieselbe Nummer, die gleiche Zählerzeile mischte git still.
         # Die Marke macht jede Ziehung verschieden, gleichzeitiges Ziehen wird ein Mischkonflikt.
         import secrets, time
@@ -331,7 +354,7 @@ def build_abschluss(n, datei=None, probe=False):
         elif p and all(x[1] == "✓" for x in p):
             neu_d = dict(d, stand="erledigt, t%s bestanden" % n, warte=[], build=str(n)); was = "erledigt"
         elif durch:
-            neu_d = dict(d, stand="startbar, Fund " + ", ".join("t" + x[0] for x in durch), build="–"); was = "startbar (✗ %s)" % ", ".join(x[0] for x in durch)
+            neu_d = dict(d, stand="startbar, Fund " + ", ".join("t" + x[0] for x in durch), build="–", titel=startbar.rueck_marke(d["titel"], n)); was = "startbar (✗ %s)" % ", ".join(x[0] for x in durch)
         else:
             neu_d = dict(d, stand="zu testen, ohne Rückmeldung t%s" % n, build="–"); was = "zu testen (keine Rückmeldung)"
         aus.append((d, neu_d, durch, was))
@@ -445,5 +468,23 @@ def haupt(a):
         print("== %s" % nr)
         print("\n".join(treffer(nr)) or "nichts gefunden")
 
+SCHREIBT = ("stand", "warte", "setze", "klasse", "fertig", "rang", "neu", "build")
+
+def liegt_melden(vorher):
+    """891 (654, Chef 10.11., 17:15; 506 lag 16:43–17:00, Ford lief erst 16:59): neu startbares Muss nennen; läuft keine Sitzung
+    der Rolle, meldet der Schreibende es Ford sofort wie einen Nachfolger („Start <Rolle> <Nr>, <Commit>“, LISTE-BETRIEB.md 26)."""
+    try:
+        startbar.neu_laden()
+        neu = sorted(startbar.startbares_muss() - vorher)
+    except Exception: return
+    for r, nr in neu:
+        print("LIEGT %s (%s) ist jetzt startbar (891): nach dem Push `list_sessions`; läuft keine Sitzung %s (working) und ist es nicht deine "
+              "Rolle, `send_message` an Ford „Start %s %s, <Commit>“" % (nr, r, r, r, nr))
+
 if __name__ == "__main__":
-    haupt(sys.argv[1:])
+    a = sys.argv[1:]
+    schreibt = any(x in SCHREIBT for x in a[:1] + a[2:3])  # auch nach --rolle ROLLE vorn
+    try: vorher = startbar.startbares_muss() if schreibt else None
+    except Exception: vorher = None
+    haupt(a)
+    if vorher is not None: liegt_melden(vorher)

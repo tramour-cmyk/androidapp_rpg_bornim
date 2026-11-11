@@ -3,8 +3,10 @@
 # Messungen wie wolf_mess_438, groesse_587, wenden_560 ohne Bauserverlauf laufen (Prüftreppe 1; kein Probelauf, kein Bild).
 # Vorher einmal: add_repo bornim-kaufmodelle, nach /home/user/bornim-kaufmodelle klonen (die Anhänge holt dieses Skript),
 # Blender als Modul: python3 -m venv ~/bl && ~/bl/bin/pip install bpy==5.2.3 numpy pillow; ln -s ~/bl bl (im Repo, nicht committen).
-# Aufruf im Repo: python3 tools/godot/bau_am_rechner.py [--laden] [Schritt-Anfang …]
+# Aufruf im Repo: python3 tools/godot/bau_am_rechner.py [--laden] [--cache] [Schritt-Anfang …]
 #   ohne Schritte: Karten und Texte, CC0, Modelle, Held je Klasse, Kampfort (am Rechner mit 4 Kernen etwa 35 Minuten)
+#   --cache (854): ohne Schritte erst Karten und Texte, dann die gebauten Modelle aus dem Kaufrepo (kauf_cache.py holen, wenige
+#   Minuten); nur ohne Treffer --laden und Bau, danach ablegen, damit die nächste Sitzung nicht bei Null anfängt
 #   danach: cd godot && ~/godot/godot --headless --import --path . ; dann die Tests wie im Prüfschritt
 # Rohdateien bleiben in /home/user/bornim-kaufmodelle (nie in dieses Repo); godot/daten und godot/kampf/daten sind ignoriert.
 import json, os, re, subprocess, sys, tempfile, urllib.request
@@ -13,7 +15,9 @@ import yaml
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 KAUF = os.environ.get('KAUF', '/home/user/bornim-kaufmodelle')
 RT = os.environ.get('RUNNER_TEMP', '/home/user/rt')
-SCHRITTE = ['Karten und Texte', 'CC0-Pakete', 'Modelle bauen', 'Held je Klasse', 'Kampfort bauen']
+# 854 (Tom 10.11., 14:55): „Leute bauen“ wie auf dem Bauserver vor „Kampfort bauen“ (daten/leute, daten/waffen; Kampfort liest
+# daten/waffen, die Kaufschilde ersetzen dort shield und round_shield)
+SCHRITTE = ['Karten und Texte', 'CC0-Pakete', 'Modelle bauen', 'Held je Klasse', 'Leute bauen', 'Kampfort bauen']
 
 def laden():
     # Anhänge der Version stufe1 über die API (der Zugang kommt vom Proxy der Sitzung), dann entpacken wie kauf_laden.sh
@@ -61,8 +65,29 @@ def schritte(namen):
         if r.returncode:
             sys.exit(r.returncode)
 
+def cache(mit_laden):
+    kc = [sys.executable, os.path.join(REPO, 'tools/godot/kauf_cache.py')]
+    env = dict(os.environ, RUNNER_TEMP=RT, KAUF=KAUF)
+    # Leute vor dem Holen (wie auf dem Bauserver): ihre Dateien liegen nicht im Cache, holen ersetzt danach die Kaufschilde;
+    # sie brauchen die CC0-Pakete (rig.py: Bewegungen aus UAL1_Standard.glb)
+    schritte(['Karten und Texte', 'CC0-Pakete', 'Leute bauen'])
+    if subprocess.run(kc + ['holen'], cwd=REPO, env=env).returncode == 0:
+        return
+    if mit_laden:
+        laden()
+    subprocess.run(kc + ['vorher'], cwd=REPO, env=env, check=True)
+    schritte([n for n in SCHRITTE[1:] if n not in ('CC0-Pakete', 'Leute bauen')])
+    subprocess.run(kc + ['ablegen'], cwd=REPO, env=env, check=True)
+
 if __name__ == '__main__':
     args = sys.argv[1:]
-    if '--laden' in args:
-        args.remove('--laden'); laden()
+    mit_laden = '--laden' in args
+    if mit_laden:
+        args.remove('--laden')
+    if '--cache' in args and not [a for a in args if a != '--cache']:
+        cache(mit_laden); sys.exit(0)
+    if '--cache' in args:
+        sys.exit('--cache nur ohne Schritte')
+    if mit_laden:
+        laden()
     schritte(args or SCHRITTE)
