@@ -289,7 +289,12 @@ func _process(_dt: float) -> void:
 
 
 # ---------------------------------------------------------------- the log: only whole lines, newest at the bottom
-func log_line(text: String) -> void:
+## 840 (210 B: „eigene Farbe oder kursiv“): Zeilen, die eine Eingebung des Helden sind, in Gold (EINGEBUNG_FARBE)
+var eingebungen := {}
+const EINGEBUNG_FARBE := Color("#C9A86A")
+func log_line(text: String, eingebung := false) -> void:
+	if eingebung:
+		eingebungen[text] = true
 	lines.append(text)
 	while lines.size() > 300:
 		lines.pop_front()
@@ -301,6 +306,8 @@ func log_line(text: String) -> void:
 func _words(s: String, newest: bool) -> Array:
 	var out := []
 	var base := TEXT if newest else DIM
+	if eingebungen.has(s):     # 840
+		base = EINGEBUNG_FARBE if newest else EINGEBUNG_FARBE.darkened(0.3)
 	var hi := BRIGHT if newest else GOLD
 	var ws := s.split(" ", false)
 	for i in ws.size():
