@@ -1,7 +1,7 @@
 # 784 (654 A, Chef 09.11., 17:46): Kampf-Sollbild „Wolfsrudel, eine Runde“. Spielt den Wolfsrudel der Probe (Held, Söldner,
 # drei Wölfe: zwei vorn, einer hinten) am echten Kampfort Runde für Runde und schreibt je Runde jede Meldung (wer, was, ab wann,
 # wie lange) und jeden Ortswechsel (wer, von wo nach wo, Weg, Dauer, in wessen Zug). Danach misst es gegen das Sollbild (SOLL unten,
-# Maße aus docs/DESIGN-KAMPF.md „Sollbild“) und meldet je Überschreitung eine Zeile „ÜBER“. Zeit = Spielzeit (Bilder / 30).
+# Maße aus docs/DESIGN-KAMPF.md F9) und meldet je Überschreitung eine Zeile „ÜBER“. Zeit = Spielzeit (Bilder / 30).
 # Der Spieler: wählt sofort Angriff auf das erste Ziel, tippt den Ring auf den Schlag (RING_MS). Exit = Zahl der Überschreitungen
 # (nur mit STRENG=1; sonst 0, solange der Kampf nicht hängt).
 # Aufruf: im Ordner godot mit --headless --fixed-fps 30 -s res://tests/sollbild_784.gd
@@ -13,18 +13,19 @@ const Mars = preload("res://regeln/mars.gd")
 const Signatur = preload("res://kampf/signatur.gd")
 const FPS := 30.0
 
-## Sollbild (Vorschlag 784, Maß bis zum Urteil des Chefs): Höchstdauer in Sekunden
+## Sollbild (784 A, Chef 11.11., 12:15; docs/DESIGN-KAMPF.md F9, Tempo „Normal“): Höchstdauer in Sekunden
 const SOLL := {
-	"held_angriff": 2.6,      # vom Tippen bis der Held wieder an seinem Platz steht und der Söldner beginnt
-	"soeldner": 2.6,          # Zug des Söldners
-	"wolf_zug": 3.2,          # Zug eines Wolfs: Ansage bis die nächste Figur beginnt (Biss, Treffer oder Ausweichen, zurück)
+	"held_angriff": 2.4,      # vom Tippen bis der Held wieder an seinem Platz steht (zügig rückwärts heim, Chef 12:09)
+	"held_aufstehen": 3.5,    # 702 C: angesprungen, im eigenen Zug aufstehen (eine Zeile, 1,1 s) und gleich angreifen (2,4 s)
+	"soeldner": 2.0,          # Zug des Söldners: Schritt zur Seite, Zauber, Zeile beim Aufschlag, zurück
+	"wolf_zug": 3.4,          # Zug eines Wolfs, vorn wie hinten (Platztausch): Ansage bis die nächste Figur beginnt
 	"wolf_hin": 0.6,          # Wolf vom Platz bis zum Biss
-	"wolf_zurueck": 1.0,      # Wolf nach dem Biss zurück (rückwärts, Gesicht zum Helden, F7)
+	"wolf_zurueck": 0.8,      # Wolf nach dem Biss ein, zwei Schritte rückwärts, Gesicht zum Helden (F7)
 	"ausweichen": 0.5,        # Ausweichen mit Ortswechsel (F5), Schritt zur Seite oder zurück
-	"zurechtruecken": 1.5,    # Zurechtrücken nach Platztausch oder Ausweichen (F8: nie länger als das Wählen)
-	"runde": 12.0,            # von Wahl zu Wahl des Helden (Held, Söldner, drei Wölfe)
-	"warten": 9.0,            # davon „…“: Held wartet ohne Knöpfe
-	"meldung": 1.6,           # eine Textmeldung ohne Bewegung
+	"zurechtruecken": 1.0,    # Platztausch: der vordere weicht nach dem Biss auf den hinteren Platz (Zug des Springers, F9)
+	"runde": 14.6,            # von Wahl zu Wahl des Helden (Held, Söldner, drei Wölfe)
+	"warten": 12.2,           # davon „…“: Held wartet ohne Knöpfe
+	"meldung": 1.1,           # eine Textzeile (Ansage, Biss, Beschreibung), ungekürzt (751 A)
 }
 
 var kf
@@ -217,7 +218,7 @@ func _bericht(runden: int) -> void:
 			var wer: String = zuege[i][1]
 			print("  Zug %-8s %5.1f s  (%.1f–%.1f)" % [_name(wer), z1 - z0, z0, z1])
 			if wer == "hero":
-				_mass("held_angriff", z1 - z0, "Held", z0)
+				_mass("held_aufstehen" if _steht_auf(z0, z1) else "held_angriff", z1 - z0, "Held", z0)
 			elif wer == "merc":
 				_mass("soeldner", z1 - z0, "Söldner", z0)
 				warten += z1 - z0
@@ -237,6 +238,14 @@ func _bericht(runden: int) -> void:
 				print("    Weg %-8s %-15s %5.2f s %4.1f m %s→%s im Zug %s" % [_name(w[2]), art, dauer, w[5], _p(w[3]), _p(w[4]), _name(w[6])])
 				if SOLL.has(art):
 					_mass(art, dauer, _name(w[2]), w[0])
+
+
+## 702 C: steht der Held in diesem Zug erst auf (Meldung RISES), gilt das Maß mit Aufstehen
+func _steht_auf(z0: float, z1: float) -> bool:
+	for m in meldungen:
+		if m[0] >= z0 - 0.01 and m[0] < z1 - 0.01 and m[1] == "hero" and m[2] == "RISES":
+			return true
+	return false
 
 
 ## Art eines Ortswechsels: Wolf hin (näher an die Gruppe), Wolf zurück, Ausweichen (Held, Söldner im Zug eines Gegners), sonst
