@@ -52,6 +52,14 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 172 · 940, 941 (Perikles, Doppelpack 421, `2ac1ac48b`; 11.11., 14:0x)
+
+- **941 greift** (`greift 941 172`): `warte_chef_nummern` an 14 Fällen: Merkmal in „…“, "…", `…` still; „653 … wartet auf Chef“ → 653; „506a wartet auf den Chef; 423 wartet auf Chefsache 857“ → 506a, 857; „72s.1“, „948 (Dolch)“, „948: …, wartet auf Chefsache 948a“ richtig; Datum davor gibt „?“ mit Satzteil (meldet trotzdem). Echte Vorräte 14:02: kein Treffer, richtig (keine Übergabe wartet auf den Chef). Grenze: Mehrzahl „948 und 949 warten auf Chef“ zählt nicht (auch vorher nicht).
+- **940 im Nachbau dicht:** Bare-Kopie von `main`, drei Klone, drei gleichzeitige `neu` → 957, 958, 959; nach Commit, pull, push Zähler 960, ARBEIT-BETRIEB.md ohne Konflikt, `vorgang.py pruefen` ohne Fehler. Ohne Netz (origin fehlt): alter Weg, Zähler lokal. Gleicher Besitzer gleichzeitig: Mischkonflikt in LISTE-VORGAENGE.md (Zeilen an derselben Stelle), wie vor 940, nicht Teil von 940.
+- **Echt 14:03:** meine Ziehung 957 legte `daccba151` „Zähler: 957 vergeben (Perikles, 940)“ auf origin/main.
+- **D172.1 → 957 (Perikles, M?):** dieser Zählercommit hat keine Systemzeilen (Co-Authored-By, Claude-Session); `zaehler_pushen` nimmt sie nur aus einem eigenen Commit im Reflog, eine frische Sitzung hat keinen (Nachbau: mit eigenem Commit vorher kommen sie mit). CLAUDE.md „Commits mit den Systemzeilen“; die Kennung steht in `CLAUDE_CODE_REMOTE_SESSION_ID`. **940 wartet auf 957.**
+- Nicht geprüft: echte Doppelziehung zweier Sitzungen auf GitHub (bisher keine seit dem Bau); Abweisung durch GitHub nur im Nachbau (lokales Bare-Repo).
+
 ## Lauf 171 · 927, 928, 929 mit 276, 725 (Perikles, Doppelpack 421, `a611dc8b3`, `d3ad958d7`, `82749deb1`; 11.11., 13:1x)
 
 - **Echter Ford-Lauf:** 13:11 `NACHHALTEN` mit Marke „Nachhalten 11.11.“, 13:13 nicht wieder (einmal am Tag greift). 13:13 Marke „Übergabe-Chef Perikles 11.11. 13:12“ = Fehlalarm (Hinweis Ford).
