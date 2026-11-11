@@ -11,6 +11,7 @@ Inhaltsverzeichnis: jede Zeile sagt in einem Satz, was in der Datei steht und wo
 - [Vorgangsarchiv](VORGANGSARCHIV.md): alles, was du entschieden hast, neueste oben; zum Nachschlagen, nicht zum Lesen von vorn.
 - [Leitbild](DESIGN-LEITBILD.md): wie das Spiel im Ganzen sein soll; gilt, wenn sich zwei Dateien widersprechen.
 - [Regeln (BRS)](DESIGN-BRS.md): unser eigenes Rollenspielsystem, wie es gilt (für uns; für Spieler erklärt es das Spielerhandbuch unter „Das Spiel“).
+- [Alle Stufen auf einen Blick](DESIGN-BRS.md#alle-stufen-auf-einen-blick): jede Stufenleiter im Spiel (Heldenstufe, Ränge der Fertigkeiten, Ruf, Güte, Seltenheit, Zustand …) mit ihren Stufen, wovon sie abhängt und wo die Einzelheiten stehen.
 - [Kosten](LISTE-KOSTEN.md): wofür das Guthaben je Bereich, Tag und Woche ausgegeben wurde (rechnet ein Werkzeug aus).
 
 ## Das Spiel

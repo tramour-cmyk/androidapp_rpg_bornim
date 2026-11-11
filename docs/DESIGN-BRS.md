@@ -41,8 +41,8 @@ Wie das zusammenhängt: Kräutersammeln ist eine **Fertigkeit** (Sammeln). Sie g
 | Was | Wofür | Stufen | Wovon es abhängt | Abschnitt |
 | --- | --- | --- | --- | --- |
 | Gegenstandsstufe | Stärke und Mindeststufe zum Tragen | wie die Heldenstufe | Fund, Händler, Herstellen | 11 |
-| Güte | wie gut ein Stück gemacht ist: hebt die Werte der Grundform (Schaden, Schutzwert); wie viel je Stufe, rechnet 444 | vier, von unten: Schlecht, Normal, Gut, Meisterhaft (vier Stufen und „Schlecht“ Chef 11.11., 17:53; Namen beim Chef). Heute nur Ausrüstung; für alle Dinge (Tränke, Speisen, Dietriche) mit Streuung beim Herstellen: Idee, reif mit 976 | Herstellen: Rang der Handwerksfertigkeit, Material, Ring (966); auch ein schlechtes Stück bringt Übung (Chef 17:53). Fund und Händler: gewürfelt. Einzelstücke: fest | 10, 11 |
-| Seltenheit | Zusatzeigenschaften, Preis, Zeichen | sechs: gewöhnlich, ungewöhnlich, selten, sehr selten, episch, göttlich; Decke je Kapitel | Fund, Beute, Einzelstück | 11 |
+| Güte | wie gut ein Stück gemacht ist („wie“): hebt die Werte der Grundform (Schaden, Schutzwert); bessere Güte nutzt sich langsamer ab; wie viel je Stufe, rechnet 444 | vier, von unten: Schlecht, Normal, Gut, Meisterhaft (Chef 11.11., 17:53; Namen 976a beim Chef). Heute nur Ausrüstung; für alle Dinge (Tränke, Speisen, Dietriche) mit Streuung beim Herstellen: Idee, reif mit 976 | Herstellen: der Rang setzt die Spanne (Anfänger Schlecht–Normal, Geselle Schlecht–Gut, Meister Normal–Meisterhaft, Großmeister Gut–Meisterhaft), Ring (966) und Material entscheiden darin; auch ein schlechtes Stück bringt Übung (Chef 17:53–18:01). Fund und Händler: gewürfelt. Einzelstücke: fest | 10, 11 |
+| Seltenheit | Zusatzeigenschaften, Preis, Zeichen („was“) | sechs: gewöhnlich, ungewöhnlich, selten, sehr selten, episch, göttlich; Decke je Kapitel | Fund, Beute, Einzelstück; beim Herstellen aus Zutaten und Rezept (Chef 18:01; Weg offen, z. B. Rezept für sehr Seltenes nur einmal benutzbar) | 11 |
 | Zustand (Abnutzung) | wie gut ein Gegenstand noch wirkt | Makellos, Benutzt, Beschädigt, Defekt (wirkt nicht mehr, geht aber nicht verloren) | sinkt beim Gebrauch; Reparatur beim NPC oder selbst | 11 |
 
 Abnutzung und Reparatur: Reparieren ist keine eigene Fertigkeit mehr; Metall repariert die Fertigkeit **Schmieden**, Leder und Stoff das **Schneidern**. Ihr Rang bestimmt, was man reparieren kann (Anfänger: Werkzeug und Einfaches; Geselle: Metallwaffen, mittlere Rüstung, Schilde, Bögen; Meister: schwere Rüstung, Meisterstücke; Großmeister: magische Stücke mit Runenkunde). Für alle gibt es „Alles reparieren“ beim Handwerker.
@@ -297,7 +297,7 @@ Ernten ist eine kurze Tätigkeit ohne Minispiel. Fundorte wachsen nach einer Zei
 | **Seltenheit** | wie viel Besonderes darin steckt: Zahl der Zusatzeigenschaften, Preis, Zeichen | sechs, unten |
 | Zustand | wie gut es noch wirkt | Makellos, Benutzt, Beschädigt, Defekt (unten) |
 
-Seltenheit und Güte sind getrennt: ein gewöhnliches Schwert kann meisterhaft geschmiedet sein, ein sehr seltenes nur normal. Die „Verbesserung +1“ der alten Fassung entfällt; sie geht in Güte und Runenkunde auf. Das „+1“ der Einzelstücke (Graks Kriegsaxt, Klinge von Bornim) wird Güte Meisterhaft (870a 6 A, Chef 10.11., 15:08).
+Seltenheit und Güte sind getrennt: ein gewöhnliches Schwert kann meisterhaft geschmiedet sein, ein sehr seltenes nur normal. Die Güte sagt, wie etwas gemacht ist (Rang setzt die Spanne, Ring und Material entscheiden darin, „Alle Stufen auf einen Blick“), die Seltenheit, woraus (Zutaten, Rezept); bessere Güte nutzt sich langsamer ab (Chef 11.11., 17:53–18:01). Die „Verbesserung +1“ der alten Fassung entfällt; sie geht in Güte und Runenkunde auf. Das „+1“ der Einzelstücke (Graks Kriegsaxt, Klinge von Bornim) wird Güte Meisterhaft (870a 6 A, Chef 10.11., 15:08).
 
 **Zusatzeigenschaften** (870a 6 A): nur aus dieser Liste: Grundwert +1, Schutzwert +1 oder +2, Leben +5, Mana +5, kritisch +3 %, Zauberschaden +10 %, Abwehrprobe +5 %; Fertigkeit +1/+2 nur ab episch (644 C1). Namensfarbe je Seltenheit bleibt. Zahlen 444; Abnutzung und Zustand kommen nach dem Umzug als eigener Vorgang.
 
@@ -354,7 +354,7 @@ Folklore-Wesen (Goblin, Kobold, Skelett, Zombie, Ghul) und Tiere behalten ihre N
 - Rufstufen, Gefährten ohne Klassen, Niederlage, Reparaturverlust, Abnutzungsrate.
 - Ruf und Lehrmeister (Abschnitt 9, D54.5).
 - Übrige Zahlen (Abschnitt 4: Helden, Übung, Erfahrung): gemessen mit Simulation 444, dann zum Chef.
-- Seltenheit (Abschnitt 11): beim Herstellen und beim Händler, ob und wie Rang und Material sie bestimmen; ob die Zusatzeigenschaft Magiefund (höhere Seltenheit beim Fund) bleibt; göttlich heute mit fester Eigenschaft „alle Werte“.
+- Seltenheit (Abschnitt 11): beim Herstellen bestimmen sie Zutaten und Rezept, nicht der Rang (Chef 11.11., 18:01); offen, wie genau (Zusatzeigenschaft je seltener Zutat, Einmalrezept) und beim Händler; ob die Zusatzeigenschaft Magiefund (höhere Seltenheit beim Fund) bleibt; göttlich heute mit fester Eigenschaft „alle Werte“.
 
 ---
 
