@@ -60,11 +60,13 @@ Jeder Sud bei Morwen übt Alchemie (966 A); der Held geht ihr am Kessel zur Hand
 `[966.1.kessel]` (Morwen hat gebraut)
 1. Du gehst Morwen am Kessel zur Hand. Sie braut dir: {0}. — EN: You lend Morwen a hand at the cauldron. She brews for you: {0}.
 2. Du rührst, bis der Sud dunkel wird; Morwen nickt. Heraus kommt: {0}. — EN: You stir until the brew turns dark; Morwen nods. Out comes: {0}.
-3. Morwen lässt dich das Feuer schüren und sieht zu, was du dir merkst. Heraus kommt: {0}. — EN: Morwen has you stoke the fire and watches what you take in. Out comes: {0}.
+3. Morwen lässt dich das Feuer schüren und achtet darauf, was du dir merkst. Heraus kommt: {0}. — EN: Morwen has you stoke the fire and watches what you take in. Out comes: {0}.
 
-## Grundfertigkeiten in der Welt (954a.1, Entwurf Homer 11.11.; an Perikles 954a.2)
+## Grundfertigkeiten in der Welt (Plan 954a.1, Texte festgesetzt 954a.4, Homer 11.11.)
 
-**Auftrag:** 954a D (Chef 11.11., 15:15, Vorgangsarchiv): sieben Grundfertigkeiten wirken ab Kapitel 1, je genau eine Wirkung an Vorhandenem; Bau erst nach dem Umzug (870). Hier: wo sie in Kapitel 1 vorkommen, Texte, was aus Sicht von Story und Spielgefühl wegbleibt. **Gilt nicht**, bevor Perikles schneidet; Spieltexte unten sind Entwurf, wortgetreu erst nach dem Schnitt.
+**Auftrag:** 954a D (Chef 11.11., 15:15, Vorgangsarchiv): sieben Grundfertigkeiten wirken ab Kapitel 1, je genau eine Wirkung an Vorhandenem; Bau erst nach dem Umzug (870). Hier: wo sie in Kapitel 1 vorkommen, Texte, was aus Sicht von Story und Spielgefühl wegbleibt.
+
+**Festgesetzt (954a.4, 11.11.):** Schnitt Perikles 954a.2 (alle sieben bleiben) und Vorentscheid Sokrates 954a.3 (`chefsache/billigen/954a3-…`). Alle Zeilen `[954a.1.…]` und `[954a.4.…]` wortgetreu bauen. Wo der Plan unten davon abweicht, gilt 954a.3: (1) Spähen zeigt keine Stärke, Übung je neu entdecktem Ding einmal; (2) Fallen an fünf Truhen, Abschnitt „Fallen an Truhen“; (3) Tiere beruhigen vor dem Kampf, misslingt es, greift das Tier zuerst an, Abschnitt „Tiere beruhigen“; (4) Schmiedelehrling flickt bei Borin, wetzen und richten entfallen, Abschnitt „Schmiedelehrling“; (5) Jagd ohne Herkunft.
 
 **Bestand** (Umzugszweig `claude/tom-870-4-held`, Karten in `Story.kt`): keine Truhe ist verschlossen (`World.kt` 112), es gibt keine Fallen, keine Wurfmesser (`Gear.kt` 307–330), keine Stärkeanzeige einer Herde (nur „!“ beim Bemerken, `streuner.gd` 118–126), keine Schleichtaste, kein Schärfen; Huhn, Ziege, Kaninchen kämpfen nicht. Truhen: Flüsterwald 3, Tiefer Flüsterwald 4, Höhle 3 (`cave_3` mit der Waffe nach Fertigkeit und Gwennas Ring), Dorf keine. Lagerfeuer bei Garrick und bei Morwen; in der Höhle keine Rast.
 
@@ -95,7 +97,7 @@ Chef: „ohne Gelegenheiten die Fertigkeit anzuwenden, brauche ich auch die Fert
 
 Zusammen zehn Schlösser (eine Tür, neun Truhen). *Pro:* jede Stufe kommt vor, die Schwierigkeit steigt mit dem Weg; die Beutekammer erzählt die Überfälle, Graks Truhe den Propheten. *Contra:* drei neue Orte (Fischkiste, Beutekammer mit Tür, Graks Truhe) und neuer Inhalt; ob zehn Schlösser zum Gesellen reichen, hängt an den Übungszahlen (Jerry, 444). Reicht es nicht: lieber mehr Truhen in der Höhle als eine Übungskiste bei Thessa (Üben ohne Welt wird Routine). **Bleibt weg:** Lyras Ketten bleiben am Schlüssel (Geschichte), Morwens Hütte und alle Dorfhäuser bleiben zu.
 
-Texte (Entwurf; Zeilen, die oft kommen, in drei Wortlauten nach 504):
+Texte (festgesetzt 954a.4; Zeilen, die oft kommen, in drei Wortlauten nach 504). An der Fischkiste gibt es kein Aufbrechen (Gwenna steht daneben); fünf Truhen tragen Fallen (Abschnitt „Fallen an Truhen“):
 
 `[954a.1.dietrich]` Dietrich / EN: Lockpick · `[954a.1.dietrich.gut]` Guter Dietrich / EN: Fine lockpick · Beschreibung `[954a.1.dietrich.text]` Ein gebogener Haken aus Federstahl. Billige brechen, gute verbiegen sich nur. / EN: A bent hook of spring steel. Cheap ones snap; good ones only bend.
 
@@ -123,7 +125,7 @@ Texte (Entwurf; Zeilen, die oft kommen, in drei Wortlauten nach 504):
 
 `[954a.1.kein]` (kein Dietrich in der Tasche) Ohne Dietrich kommst du hier nicht weiter. / EN: Without a lockpick you get no further here.
 
-`[954a.1.zuschwer]` (Schloss weit über dem Rang) Zu schwer für dich. Dieses Schloss braucht eine geübtere Hand. / EN: Too hard for you. This lock needs a more practised hand.
+`[954a.1.zuschwer]` (Schloss weit über dem Rang) Zu schwer für dich. Dieses Schloss braucht eine geübtere Hand. / EN: Too hard for you. This lock needs a more practiced hand.
 
 `[954a.1.leicht]` (Schloss unter dem Rang, ohne Ring) Ein Handgriff, und es ist offen. / EN: One twist, and it's open.
 
@@ -132,17 +134,53 @@ Texte (Entwurf; Zeilen, die oft kommen, in drei Wortlauten nach 504):
 2. Ein Tritt, ein Krachen. Das hat jeder gehört. — EN: A kick, a crash. Everyone heard that.
 3. Das Schloss reißt aus dem Holz. Irgendwo antwortet ein Knurren. — EN: The lock tears out of the wood. Somewhere, a growl answers. (nur draußen und in der Höhle)
 
-`[954a.1.gwenna]` (Gwenna, wenn man die Kiste anspricht, vor dem Öffnen) Seine Kiste. Den Schlüssel hatte er bei sich … Mach sie auf, wenn du kannst. Ich bring es nicht über mich. / EN: His chest. He had the key on him… Open it if you can. I can't bring myself to. · `[954a.1.gwenna.zettel]` (in der Kiste, um einen kleinen geschnitzten Fisch gewickelt) Ein Zettel, in krummer Schrift: „Für G., zum Jahrestag. Nicht vorher aufmachen.“ / EN: A note in crooked letters: “For G., for our anniversary. Don't open before then.” (Den Fisch kann man Gwenna bringen; ohne Lohn, ein Satz von ihr, Text mit dem Bau)
+`[954a.1.gwenna]` (Gwenna, wenn man die Kiste anspricht, vor dem Öffnen) Seine Kiste. Den Schlüssel hatte er bei sich … Mach sie auf, wenn du kannst. Ich bring es nicht über mich. / EN: His chest. He had the key on him… Open it if you can. I can't bring myself to. · `[954a.1.gwenna.zettel]` (in der Kiste, um einen kleinen geschnitzten Fisch gewickelt) Ein Zettel, in krummer Schrift: „Für G., zum Jahrestag. Nicht vorher aufmachen.“ / EN: A note in crooked letters: “For G., for our anniversary. Don't open before then.” · `[954a.4.gwenna.fisch]` (den Fisch Gwenna bringen; einmal, ohne Lohn) Er hat immer geschnitzt, wenn nichts biss. Also oft … Danke, dass du ihn mir bringst. / EN: He always carved when nothing was biting. So, often… Thank you for bringing it to me.
 
 `[954a.1.beutekammer]` (Beutekammer betreten) Fässer, Ballen, zerbrochene Kisten mit Händlerzeichen. Hier endet die Waldstraße. / EN: Barrels, bales, broken crates with merchants' marks. This is where the forest road ends.
 
-`[954a.1.grak.truhe]` (Graks Truhe geöffnet) Gold, sauber gezählt, in grauen Beuteln. Auf jedem dasselbe Zeichen: ein offenes Auge. / EN: Gold, neatly counted, in grey pouches. On each the same mark: an open eye. (verknüpft mit dem Fetzen am Steinkreis; Bedingung: Chef nimmt den Hinweis auf den Propheten an dieser Stelle ab, Storyplan)
+`[954a.1.grak.truhe]` (Graks Truhe geöffnet) Gold, sauber gezählt, in grauen Beuteln. Der Lohn für jede Seele. / EN: Gold, neatly counted, in gray pouches. The price of every soul. (Nimmt nur Graks eigenen Satz auf: „Der Prophet zahlt in Gold für jede Seele“, `STORY-PLAN-K1.md` 114. Kein neuer Hinweis auf den Propheten, darum ohne das Auge vom Steinkreis.)
 
 **Reihenfolge (Homer):** wie Sokrates Schleichen und Spähen zuerst; dann Wurfwaffen (eine Herkunft wartet), Schlösser mit Fallen an Truhen als ein Bau, zuletzt Tiere und Jagd. Zu 930 abgleichen: Hinterhalt (R3), Wurf aus dem Handgemenge (Regel 6), Tiere beruhigen vor dem Kampf statt Feuer im Kampf.
 
+### Fallen an Truhen (954a.3 2 B; festgesetzt 954a.4)
+
+Fünf Truhen, je eine Falle, keine freien Fallen. Zwei Arten: **Klingenfalle** der Goblins (Draht und Klinge, Schnitt) an `cave_1`, `cave_2` und einer Händlerkiste der Beutekammer; **Giftnadel** im Schloss an `deep_4` und Graks Truhe (wer dort etwas versteckt, sichert es). Spähen zeigt die Falle, dann entschärfen; wer sie nicht sieht oder beim Entschärfen versagt, löst sie aus. Jede Falle kommt nur einmal, darum je ein Wortlaut. `{0}` = verlorene Trefferpunkte (Regel 3 in `STORY-REGELN.md`).
+
+`[954a.4.falle.klinge]` (Spähen hat sie gefunden) Ein Draht, dünn wie ein Haar, vom Deckel zu einer Klinge darunter. Goblinarbeit. / EN: A wire, thin as a hair, runs from the lid to a blade beneath. Goblin work.
+
+`[954a.4.falle.nadel]` (Spähen hat sie gefunden) Im Schlüsselloch steckt eine Nadel, die Spitze dunkel verfärbt. / EN: A needle sits in the keyhole, its tip stained dark.
+
+`[954a.4.knopf.entschaerfen]` Entschärfen (Fallen entschärfen) / EN: Disarm (Disarming Traps)
+
+`[954a.4.falle.klinge.weg]` (entschärft) Du hakst den Draht aus. Die Klinge bleibt, wo sie ist. / EN: You unhook the wire. The blade stays where it is.
+
+`[954a.4.falle.nadel.weg]` (entschärft) Du hebelst die Nadel mit einem Holzspan heraus. / EN: You lever the needle out with a sliver of wood.
+
+`[954a.4.falle.klinge.aus]` (ausgelöst) Ein Schnappen, und die Klinge fährt dir über die Hand. −{0} TP. / EN: A snap, and the blade slices across your hand. −{0} HP.
+
+`[954a.4.falle.nadel.aus]` (ausgelöst; Gift) Ein Stich in den Finger. Das Brennen kriecht den Arm hinauf. −{0} TP. / EN: A prick in your finger. The burning creeps up your arm. −{0} HP.
+
+### Tiere beruhigen (954a.3 3 A; festgesetzt 954a.4)
+
+Bedingung: ein feindliches Tier (Wolf, Wildschwein, Riesenfledermaus) hat den Helden bemerkt; die Wahl steht neben „Kämpfen“ wie beim Goblin-Späher. Gelingt es, zieht das Tier ab, Erfahrung wie für einen Sieg, keine Beute. Misslingt es, beginnt der Kampf, und das Tier greift zuerst an. Ein Rudel mit Leitwolf lässt sich nicht beruhigen; nie Grimmzahn, Krogg, Dorftiere (954a.10).
+
+`[954a.4.tiere.wahl]` (Knopf) Beruhige das Tier (Tiere beruhigen) / EN: Calm the beast (Calming Beasts)
+
+`[954a.4.tiere.ja]` (gelingt; das Tier zieht ab)
+1. Du redest leise und bleibst stehen. Das Tier senkt den Kopf und trollt sich. — EN: You speak low and stand still. The beast lowers its head and slinks off.
+2. Ein langer Blick. Dann dreht es ab und ist fort. — EN: A long stare. Then it turns away and is gone.
+3. Sein Atem wird ruhiger, dann ist es still. Es zieht ab. — EN: Its breathing slows, then there is silence. It moves off.
+
+`[954a.4.tiere.nein]` (misslingt; das Tier greift zuerst an)
+1. Es hört nicht auf dich. Es geht auf dich los. — EN: It won't listen. It charges.
+2. Ein falscher Ton in deiner Stimme, und das Tier ist über dir. — EN: One wrong note in your voice, and the beast is on you.
+3. Es greift an, bevor du die Waffe hebst. — EN: It attacks before you can raise your weapon.
+
+`[954a.4.tiere.leitwolf]` (Rudel mit Leitwolf; statt des Knopfs) Der Leitwolf hört auf keinen außer sich. / EN: The pack leader listens to no one but himself.
+
 ### Sammeln und Handwerk, Illusion, Beschwörung (in der Erschaffung sichtbar, in Kapitel 1 nicht wählbar)
 
-- **Gruppenname:** Kräutersammeln, Jagd, Alchemie, Kochen und Heilkunde gehören in `DESIGN-BRS.md` 3 auch zu Sammeln und Handwerk, bleiben aber wählbar und an ihrem Platz. Eine Zeile „Sammeln und Handwerk“ nur für die gesperrten passte darum nicht. Vorschlag: eine eigene Zeile für alles Gesperrte (Bergbau, Angeln, Schmieden, Lederarbeit, Runenkunde, Illusion, Beschwörung): `[954a.1.gruppe]` Später auf deiner Reise / EN: Later on your journey.
+- **Gruppenname:** Kräutersammeln, Jagd, Alchemie, Kochen und Heilkunde gehören in `DESIGN-BRS.md` 3 auch zu Sammeln und Handwerk, bleiben aber wählbar und an ihrem Platz. Eine Zeile „Sammeln und Handwerk“ nur für die gesperrten passte darum nicht. Festgesetzt (954a.4): eine eigene Zeile für alles Gesperrte, Bergbau, Angeln, Lederarbeit, Runenkunde, Illusion, Beschwörung. **Schmieden gehört nicht mehr dazu:** es wirkt beim Flicken an Borins Amboss (954a.3 4 B) und bleibt wählbar. `[954a.1.gruppe]` Später auf deiner Reise / EN: Later on your journey.
 - **Satz bei nicht wählbaren Fertigkeiten** (statt „Kommt, wenn die Welt es bietet“, das wie eine Systemmeldung klingt): `[954a.1.spaeter]` Das lehrt dich die Welt jenseits von Bornim. / EN: The world beyond Bornim will teach you this.
 - **Bei Illusion und Beschwörung:** `[954a.1.schule]` Diese Schule lehrt nur ein Meister, und keiner lebt in Bornim. / EN: Only a master teaches this school, and none lives in Bornim.
 - **Angeln:** steht in der Gruppe, hängt aber an 509 und 568 (Fische fürs Angeln, Chef 10.11., 11:50); kommt Angeln in Kapitel 1, wird es wählbar.
@@ -151,9 +189,35 @@ Texte (Entwurf; Zeilen, die oft kommen, in drei Wortlauten nach 504):
 ### Schmiedelehrling
 
 - Heute Schmieden und Bergbau, beides ohne Wirkung in Kapitel 1, dazu ein Kampfstab (stumpf); 959 gibt Stumpfe Waffen.
-- **Schärfen am Lagerfeuer (D):** beim Rasten wetzt der Held seine Waffe, sie trifft im nächsten Kampf härter. *Contra:* einen Kampfstab schärft man nicht. Weg: der Schmiedelehrling startet mit dem vorhandenen Streitkolben (Stumpfe Waffen, 959; `Gear.kt` 312, kein neues Stück), und die Handlung heißt nach der Waffe: Klinge **wetzen**, Kolben und Stab **richten** (Kopf festkeilen, Riss verkeilen). Wirkung gleich.
-- Texte (Entwurf): `[954a.1.wetzen]` Du ziehst den Stein über die Schneide, bis sie singt. / EN: You draw the stone along the edge until it sings. · `[954a.1.richten]` Du keilst den Kopf fest und prüfst den Schaft. Er hält. / EN: You wedge the head tight and test the haft. It holds. · `[954a.1.geschaerft]` (Kasten am Schaden, im nächsten Kampf) geschärft / EN: honed
-- **Bleibt weg:** eine Schmiede in Kapitel 1. Dorrans Tür bleibt zu; dass Bornim einen Schmied hat, der nicht öffnet, und Borin in der Schänke Griffschalen braucht, ist ein loser Faden für später, kein Bau jetzt.
+- **Entfällt (954a.3 4 B, Chef 15:44):** Schärfen, Wetzen und Richten am Lagerfeuer; die Entwurfszeilen `[954a.1.wetzen]`, `[954a.1.richten]`, `[954a.1.geschaerft]` sind gestrichen (Git).
+- **Festgesetzt (954a.4): Flicken an Borins Amboss**, wie Abnahme 2.7 („Reparieren bei Borin“) und `DESIGN-BRS.md` 11 („selbst reparieren: Material, Werkort, Rang“). Borin flickt heute gegen Gold (`[447.4.ruf.borin.preis]`). Mit Schmieden steht daneben „Selbst flicken“: ohne Gold, mit dem Ring wie beim Knacken (je Schlag ein Ring); gelingt es, ist das Stück makellos, misslingt es, bleibt es, wie es war, und man darf es noch einmal versuchen. Was über dem Rang liegt (`DESIGN-BRS.md` 11), macht Borin; was weit darunter liegt, geht ohne Ring und übt nichts. Dazu einmal der **Auftrag Griffschalen**: wer Schmieden hat und Borin die drei Keilerhauer bringt, darf die Schalen selbst aufsetzen; der Lohn bleibt derselbe (`[356.hauer.lohn]`), auch wenn es misslingt.
+- **Bleibt weg:** eine Schmiede in Kapitel 1. Dorrans Tür bleibt zu (loser Faden, `STORY-PLAN-K1.md` Frage 3); der Amboss steht bei Borin.
+
+`[954a.4.borin.knopf]` (bei Borin, nur mit Schmieden und einem Stück aus Metall, das nicht makellos ist; Leder und Stoff flickt Lederarbeit, in Kapitel 1 nicht wählbar) Selbst flicken (Schmieden) / EN: Mend it yourself (Smithing)
+
+`[954a.4.borin.amboss]` (beim ersten Mal) Hrmpf. Du willst selbst ran? Da ist der Amboss. Verbeul ihn mir nicht. / EN: Hrmph. You want to do it yourself? There's the anvil. Don't dent it.
+
+`[954a.4.borin.geflickt]` (gelingt)
+1. Der letzte Schlag sitzt. Borin brummt; das ist fast ein Lob. — EN: The last blow lands true. Borin grunts; that's almost praise.
+2. Du schreckst das Eisen ab. Es zischt, und es hält. — EN: You quench the iron. It hisses, and it holds.
+3. Borin: Hrmpf. Nicht schön, aber es hält. — EN: Borin: Hrmph. Not pretty, but it holds.
+
+`[954a.4.borin.daneben]` (misslingt; das Stück bleibt, wie es war)
+1. Der Hammer prallt ab. Das Stück bleibt, wie es war. — EN: The hammer glances off. The piece stays as it was.
+2. Borin: Zu kalt geschlagen. Mach's warm und noch mal. — EN: Borin: Struck too cold. Heat it and go again.
+3. Daneben. Borin sagt nichts, aber er sieht hin. — EN: A miss. Borin says nothing, but he's watching.
+
+`[954a.4.borin.zuschwer]` (Stück über dem Rang) Hrmpf. Das ist nichts für deine Hände, noch nicht. Gib her. / EN: Hrmph. That's not for your hands, not yet. Give it here.
+
+`[954a.4.borin.leicht]` (weit unter dem Rang, ohne Ring) Ein paar Schläge, und es sitzt. / EN: A few blows, and it's done.
+
+`[954a.4.borin.schalen]` (Auftrag „Hauer für den Schmied“ abgegeben, nur mit Schmieden; statt des Satzes „Und den hier – Griffschalen aus Hauer, wie die, die ich jetzt mache.“ in `[356.hauer.dank]`; Borin legt dabei den Dolch ohne Schalen hin) Du kannst einen Hammer halten, sagt man. Dann setz die Schalen selbst auf. Ich seh zu. (Antworten: Ich mach's. / Mach du.) / EN: You can hold a hammer, they say. Then fit the plates yourself. I'll watch. (I'll do it. / You do it.)
+
+`[954a.4.borin.schalen.ja]` (gelingt) Hrmpf. Sitzt. Die Schalen sind von dir; nimm den Dolch. / EN: Hrmph. Fits. Those plates are your work; take the dagger.
+
+`[954a.4.borin.schalen.nein]` (misslingt) Schief. Gib her. … Da. So macht man das. Nimm. / EN: Crooked. Give it here. … There. That's how it's done. Take it.
+
+„Mach du.“ führt zum Satz „Und den hier – …“ von `[356.hauer.dank]` wie ohne Schmieden.
 
 ### Was aus Sicht von Story und Spielgefühl wegbleibt
 
