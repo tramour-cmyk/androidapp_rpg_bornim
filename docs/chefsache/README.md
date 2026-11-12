@@ -173,7 +173,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1040.1 | M | Von Tuffy (1040, Chef 12.11., 15:13 Lyra „dreht sich genauso bescheuert, ohne Schritte“): | wartet auf Test/Build (gebaut) |
 | 1044 | M | Von Sokrates (Chef 12.11., 16:08): Frauen stehen außerhalb des Kampfs wie eine Dame, Beine | startbar |
 | 1045 | M | Von Tuffy (Lauf 43235660324, Zweig ohne Spielstand-Änderung): spielstand_test rot, „FEHLER | startbar |
-| Pflege | K | von Werkzeug (340.3, 12.11.): 15394 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 12.11.): 15821 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 131, Muss 117, startbar 8
 
