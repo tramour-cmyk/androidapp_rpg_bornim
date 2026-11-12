@@ -46,7 +46,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
-**Tom** – offen 130, Muss 110, startbar 1
+**Tom** – offen 130, Muss 110, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -179,7 +179,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1022 | M | Von Sokrates (Chef 12.11., 08:26; Wiederholfund t268): Kartenrand aller Gebietskarten wie | Termin 12.11. 15:20 |
 | 1023 | K | Hühner wie alt: fliehen verlässlich, Federn sichtbar, auffliegen (aus 814, t278.3; Chef 12 | ruht |
 | 1035 | M | Von Sokrates (Chef 12.11., 14:39): Startbildschirm mit eigenem Zeichen statt Godot (boot_s | wartet auf Test/Build (gebaut) |
-| 1040.1 | M | Von Tuffy (1040, Chef 12.11., 15:13 Lyra „dreht sich genauso bescheuert, ohne Schritte“): | startbar |
+| 1040.1 | M | Von Tuffy (1040, Chef 12.11., 15:13 Lyra „dreht sich genauso bescheuert, ohne Schritte“): | in Arbeit bei Spike |
 
 **Jerry** – offen 144, Muss 130, startbar 2
 
