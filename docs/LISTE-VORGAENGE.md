@@ -309,7 +309,7 @@
 | 318 | Knappheit per Einstellung: Antwortstil „Knapp“ und Startanhang (Chef 22.10., 21:34) | Sokrates | M | startbar | – | – | – | B Abläufe | –; +45,66 $ |
 | 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | Sokrates | K | nach Meilenstein | – | – | – | Q QM | – |
 | 296 | Checkliste je großem System (MARS zuerst): umgesetzt, offen, was zwischen klassisch und MARS fehlt (Chef 22.10., 07:50) | Sokrates | K | ruht | – | – | – | B Abläufe | –; +2,98 $ |
-| 264 | Bauserver auf Proxmox des Chefs (eigener GitHub-Runner): einrichten, Godot-Bau dort messen gegen GitHub, Sicherheit bei öffentlichem Repo (Chef 10.11., 16:53; vorher: Arbeitsorte neben GitHub, Chef 20.10.) · „jetzt“ 10.11., 16:53 | Sokrates | M | startbar, gelöst 11.11.: 264.1 | – | – | – | B Abläufe | – |
+| 264 | Bauserver auf Proxmox des Chefs (eigener GitHub-Runner): einrichten, Godot-Bau dort messen gegen GitHub, Sicherheit bei öffentlichem Repo (Chef 10.11., 16:53; vorher: Arbeitsorte neben GitHub, Chef 20.10.) · „jetzt“ 10.11., 16:53 | Sokrates | M | wartet, Vorlage beim Chef | Chef | – | – | B Abläufe | – |
 | 263 | Rolle für Finanzen und Geschäftszimmer? (Chef 20.10.) | Sokrates | K | startbar | – | – | – | B Steuerung | – |
 | 366 | bornwire.de: Abschnitt „Stand“ und „Tester gesucht“ (Chef 25.10., 18:39) | Sokrates | M | startbar | – | – | – | M Markt | –; +25,65 $ |
 | 365 | Aufwand „Hoch“ statt „Mittel“ für einzelne Rollen? (Chef 25.10., 12:36) | Sokrates | M | startbar | – | – | – | B Abläufe | –; +4,65 $ |
