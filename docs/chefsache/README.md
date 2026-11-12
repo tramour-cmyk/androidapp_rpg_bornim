@@ -27,7 +27,7 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.348.401](ansehen/t281-kampf.md) | [Build 281](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/200) | Kampf: Zielring, ein Probekampf für alles, Zustände aus dem Paket, Goblin-Späher, Grabhund, Grimmzahn tritt | Tom und Jerry | 12.11., 21:05 |
+| 1 | [0.348.401](ansehen/t281-kampf.md) | [Build 281](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43304112399/artifacts/13991575296) | Kampf: Zielring, ein Probekampf für alles, Zustände aus dem Paket, Goblin-Späher, Grabhund, Grimmzahn tritt | Tom und Jerry | 12.11., 23:37 |
 
 ## Zu tun
 
@@ -169,7 +169,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1055 | M | Von Perikles (1052, Sokrates 16:47): Sammelbuild 281 gleich nach PR #199 auf main: alle fe | Termin 12.11. 23:48 |
+| 1055 | M | Von Perikles (1052, Sokrates 16:47): Sammelbuild 281 gleich nach PR #199 auf main: alle fe | wartet auf Test t281 (Chef) |
 | 1039 | M | Von Sokrates (Chef 12.11., 15:04, Build 280, Probekampf Grak, Schwerer Hieb): innerer Ring | wartet auf Test (Build 281) |
 | 1068 | M | Von Perikles (1048 A, H, D, Chef 12.11., 20:05): Ring bei jedem großen Schlag der Gegner ( | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1039 |
 | 1043 | M | Von Sokrates (Chef 12.11., 15:52, Fund t278.33 Build 280, zu 988): MARS-Probekampf Wölfe, | Termin 13.11. 00:00 |
