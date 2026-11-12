@@ -178,7 +178,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1023 | K | Hühner wie alt: fliehen verlässlich, Federn sichtbar, auffliegen (aus 814, t278.3; Chef 12 | ruht |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 16512 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 138, Muss 125, startbar 4
+**Jerry** – offen 138, Muss 125, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -317,7 +317,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 644a.1 | M | Von Sokrates (644a A mit Spanne, D, F; Chef 12.11., 08:21): erst Rechnung (Spannen je Stuf | wartet auf Test (Build 280) |
 | 1024 | M | Von Sokrates (Chef 12.11., 09:04, Bild Wolfskampf Build 278): Schalterreihe am rechten Ran | wartet auf Test (Build 280) |
 | 644b.1 | M | Von Sokrates (644b A, Chef 12.11., 13:40): Deckel streichen für Grundwerte und Schutzwert; | Sperre 620.1 B: 38 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 644a.1 |
-| 1031 | M | Von Sokrates (Chef 12.11., 14:08, Build 280, MARS-Probekampf Wölfe, Wachsoldat): „ganzer B | startbar |
+| 1031 | M | Von Sokrates (Chef 12.11., 14:08, Build 280, MARS-Probekampf Wölfe, Wachsoldat): „ganzer B | in Arbeit bei Tuffy |
 | 1032 | M | Von Sokrates (Chef 12.11., 14:08, Build 280, MARS-Probekampf Wölfe, Held und Söldner Wachs | startbar |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 23295 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
