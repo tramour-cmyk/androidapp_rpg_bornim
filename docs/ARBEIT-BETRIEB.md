@@ -321,3 +321,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 03:03 12.11.: Startsperre 03:03 Start Diogenes, Spike (lauf.py)
 - 03:03 12.11.: Marke Archiv session_01Hmoj77btUrnzTkmToicMe4 (lauf.py)
 - 03:03 12.11.: Marke Archiv session_01Hmoj76whoiKwDXuCf5tevk (lauf.py)
+- 03:06 12.11.: Lauf 03:03: Diogenes …76nm3tRwpGWich17Uw "Diogenes – 1010" (Hoch, effort high) gestartet, Diogenes alt …77btU (1,34 $ auf 981) archiviert; Jerry alt …78VEA (13,27 $ auf 999, 1001, 1003, 1004) und Spike alt …76who (989, 2,61 $) archiviert und gebucht. Nicht gestartet, künftig --ohne 831:Tom in Arbeit (Ersatzlauf Wald); START Spike 831 entfällt. Dauer-Liste --ohne: 506.2, M?, 492, 771, 901, 861, 831.
