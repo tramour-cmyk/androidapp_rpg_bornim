@@ -44,11 +44,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
-**Tom** – offen 124, Muss 105, startbar 1
+**Tom** – offen 125, Muss 106, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 968 | M | Von Sokrates (Chef 11.11., 15:49, „jetzt“ 11.11., 15:49): Sammelbuild 277 testen, nach Fre | startbar |
+| 968 | M | Von Sokrates (Chef 11.11., 15:49, „jetzt“ 11.11., 15:49): Sammelbuild 277 testen, nach Fre | Termin 12.11. 05:45 |
+| 1012 | M | Von Tom (968): Sammelbuild 278 von main nach dem Zusammenführen von 277, alle fertigen Zwe | wartet auf 968 (in Arbeit) |
 | 825 | M | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635 | wartet auf Test/Build (gebaut) |
 | 697 | M | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | wartet auf 782 (startbar) |
 | 870.7 | M | Von Sokrates (870, Umzug BRS Schritt 6): Laden, Vergleich und Gegenstandsfenster nach BRS- | wartet auf Test/Build (gebaut) |
