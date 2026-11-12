@@ -1,5 +1,5 @@
 extends SceneTree
-# 842 Probe mit Bild am Rechner (nicht im Bau): Knopf im Gespraech unter Pims Zeile und unter Osrics Heilung, Verband in der Tasche
+# 842 Probe mit Bild am Rechner (nicht im Bau): Wahl und „Nicht jetzt“ im Gespraech unter Pims Zeile und unter Osrics Heilung, Verband in der Tasche
 # und in Thessas Laden; die Welt dahinter fehlt am Rechner (ohne Dorfmodelle), Grund wie oberflaeche_bild.gd.
 # Aufruf: im Ordner godot, mit Fenster (xvfb-run), -s res://tests/knopf_bild_842.gd --resolution 1080x2340; Bilder nach KNOPF842_AUS
 
@@ -23,10 +23,14 @@ func _lauf() -> void:
 	var ui := Steuerung.new()
 	root.add_child(ui)
 	await process_frame
-	ui.sage([{"wer": "Pim", "text": "Thessa verkauft Alchemistenfeuer. Damit kann man sogar zaubern, ohne Magier zu sein!", "knopf": "Schick Pim heim (Überreden)"}])
+	# 842 zurueck (Chef 20:48): die Zeilen und Knoepfe aus den echten Gespraechen (Geschichte.gespraech), die Wahl rechts, „Nicht jetzt“
+	# links (Homer [1074.zweit]); Pim tagsueber, Osric vor Lyras Rettung
+	var zp := Zustand.new()
+	zp.minuten = 10 * 60
+	ui.sage([zeile_mit_knopf(Geschichte.gespraech("pim", zp))])
 	ui.weiter()
 	await _bild("1_pim")
-	ui.sage([{"text": "Ein warmes Licht umhüllt dich. Leben und Mana sind wieder voll.", "knopf": "Kaufen"}])
+	ui.sage([zeile_mit_knopf(Geschichte.gespraech("osric", zp))])
 	ui.weiter()
 	await _bild("2_osric")
 	ui.schliesse_text()
@@ -47,3 +51,17 @@ func _lauf() -> void:
 	ebene.add_child(ls)
 	await _bild("4_thessa")
 	quit(0)
+
+
+## die Zeile vor dem ersten Knopf eines Gespraechs mit diesem Knopf, wie spiel.gd weiter/_knopf_danach sie zeigt
+func zeile_mit_knopf(bef: Array) -> Dictionary:
+	var letzte := {}
+	for c in bef:
+		match String(c["art"]):
+			"sagen":
+				letzte = {"text": Sprache.t(c["text"]).replace("{name}", "Mira")}
+				if c.has("wer"): letzte["wer"] = Sprache.t(c["wer"])
+			"knopf":
+				letzte["knopf"] = Sprache.t(c["knopf"])
+				return letzte
+	return letzte

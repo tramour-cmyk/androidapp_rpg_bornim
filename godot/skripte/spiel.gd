@@ -63,6 +63,7 @@ func _ready() -> void:
 	ui.leiste.karte.connect(func(): oeffne_menue("karte"))   # 528 (86.2)
 	ui.gelesen.connect(weiter)
 	ui.knopf_im_text.connect(_knopf_gewaehlt)   # 842
+	ui.knopf_aus.connect(_knopf_ausgelassen)   # 842 „Nicht jetzt“
 	ui.gewaehlt.connect(_rast_wahl)
 	licht.nacht_geaendert.connect(_nacht)
 	Leute.uhr = func(): return zustand.minuten   # 390 Tagesablauf
@@ -1050,6 +1051,12 @@ func _knopf_danach() -> Dictionary:
 		szene.remove_at(i)
 		return p
 	return {}
+
+# 842 „Nicht jetzt“ (Homer [1074.zweit]): die Wahl faellt weg, das Gespraech laeuft weiter wie beim Weitertippen
+func _knopf_ausgelassen() -> void:
+	if knopf_offen.is_empty(): return
+	knopf_offen = {}
+	ui.naechste()
 
 func _knopf_gewaehlt() -> void:
 	if knopf_offen.is_empty(): return

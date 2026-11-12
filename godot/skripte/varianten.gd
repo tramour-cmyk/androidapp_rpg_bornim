@@ -79,8 +79,8 @@ const V := {
 					"I've been to the barrier once! Jorin dragged me back by the collar."
 				],
 				[
-					"Goblins fürchten Feuer, sagt Papa. Thessa verkauft Alchemistenfeuer, damit kann jeder zaubern, auch ohne Magier zu sein!",
-					"Goblins fear fire, Dad says. Thessa sells alchemist's fire; anyone can do magic with it, even without being a wizard!"
+					"Goblins fürchten Feuer, sagt Papa. Thessa verkauft Brandflaschen, damit kann jeder zaubern, auch ohne Magier zu sein!",
+					"Goblins fear fire, Dad says. Thessa sells firebottles; anyone can do magic with them, even without being a wizard!"
 				]
 			],
 			[
@@ -89,8 +89,8 @@ const V := {
 					"Have you ever seen a goblin? A real one? What do they smell like?"
 				],
 				[
-					"Papa sagt, Feuer macht ihnen Angst. Mit Thessas Alchemistenfeuer kämpft jeder wie ein Magier.",
-					"Dad says fire scares them. With Thessa's alchemist's fire anyone can fight like a wizard."
+					"Papa sagt, Feuer macht ihnen Angst. Mit Thessas Brandflaschen kämpft jeder wie ein Magier.",
+					"Dad says fire scares them. With Thessa's firebottles anyone can fight like a wizard."
 				]
 			]
 		]

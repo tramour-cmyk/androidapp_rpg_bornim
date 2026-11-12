@@ -162,8 +162,16 @@ func _lauf() -> void:
 	ui.weiter()   # Text ganz
 	await process_frame
 	pruefe(ui.knopf_bereit() and ui.text_knopf.modulate.a == 1.0, "Knopf steht, wenn die Zeile ganz steht")
-	var lbl: Label = ui.text_knopf.get_child(0).find_child("Text", true, false)
-	pruefe(lbl != null and lbl.text == "SCHICK PIM HEIM (ÜBERREDEN)", "Aufschrift in Versalien: %s" % (lbl.text if lbl else "–"))
+	# 842 zurueck (Chef 20:31/20:33): neben der Wahl rechts „Nicht jetzt“ links (Homer [1074.zweit]); Tippen auf den Text schaltet nicht weiter
+	var auf := ui.text_knopf.find_children("Text", "Label", true, false).map(func(l): return (l as Label).text)
+	pruefe(auf == ["NICHT JETZT", "SCHICK PIM HEIM (ÜBERREDEN)"], "Aufschriften in Versalien, Nicht jetzt links, Wahl rechts: %s" % str(auf))
+	var aus_ := [0]
+	ui.knopf_aus.connect(func(): aus_[0] += 1)
+	ui.weiter()
+	await process_frame
+	pruefe(ui.textfeld.visible and ui.knopf_bereit() and gewaehlt[0] == 0, "Weitertippen bei Wahl und Nicht jetzt: Zeile bleibt")
+	var nein_k: Control = ui.text_knopf.get_child(0).get_child(0)
+	pruefe(nein_k.has_meta("links") and bool(nein_k.get_meta("links")), "Nicht jetzt steht links mit ‹")
 	var gel := [0]
 	ui.gelesen.connect(func(): gel[0] += 1)
 	ui.schliesse_text()
@@ -210,16 +218,21 @@ func _lauf() -> void:
 	pruefe(spiel.ui.spricht() and ["Na gut. Aber nur, weil du es bist.", "Mama schimpft bestimmt …", "Wenn du es sagst, Mira."].has(spiel.ui.text.text), "Spiel: Pims Antwort %s" % spiel.ui.text.text)
 	var nach_u := float(sz.fertigkeiten_stand()["uebung"].get("Überreden", 0.0)) + BrsFertigkeit.wert(sz.fertigkeiten_stand(), "Überreden") * 1000.0
 	pruefe(nach_u > vor_u, "Spiel: Versuch übt Überreden")
-	# ohne Wahl weitertippen laesst den Knopf aus
+	# „Nicht jetzt“ laesst die Wahl aus (842 zurueck, Homer [1074.zweit]); das Gespraech laeuft weiter wie frueher beim Weitertippen
 	spiel.ui.schliesse_text(); await process_frame
 	while spiel.ui.spricht(): spiel.ui.weiter(); spiel.ui.weiter(); await process_frame
 	sz.tag += 1
 	spiel.spiele(Geschichte.gespraech("pim", sz))
 	n = 0
+	var nicht_jetzt := 0
 	while spiel.ui.spricht() and n < 10:
-		spiel.ui.weiter(); spiel.ui.weiter(); await process_frame
+		spiel.ui.weiter(); await process_frame
+		if spiel.ui.knopf_bereit():
+			spiel.ui.knopf_aus.emit(); nicht_jetzt += 1
+		else: spiel.ui.weiter()
+		await process_frame
 		n += 1
-	pruefe(not spiel.ui.spricht() and not sz.has("pim_home_%d" % sz.tag) and not sz.has("pim_tried_%d" % sz.tag), "Spiel: weitergetippt, keine Probe")
+	pruefe(nicht_jetzt == 1 and not spiel.ui.spricht() and not sz.has("pim_home_%d" % sz.tag) and not sz.has("pim_tried_%d" % sz.tag), "Spiel: Nicht jetzt, keine Probe (%d)" % nicht_jetzt)
 	spiel.queue_free()
 	await process_frame
 

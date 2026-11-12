@@ -79,7 +79,7 @@ static func gespraech(id: String, s: Zustand) -> Array:
 				k.variante(s, "504.jorin.danach", jorin, [["Seit du Grak besiegt hast, schlafe ich wieder ruhig. Danke, {name}!", "Since you beat Grak, I've been sleeping soundly again. Thanks, {name}!"]])
 		"pim":
 			if not s.has(CHAPTER1_DONE):
-				k.variante(s, "504.pim.vor", pim, [["Papa sagt, Goblins haben Angst vor Feuer! Stimmt das?", "Dad says goblins are scared of fire! Is that true?"], ["Thessa verkauft Alchemistenfeuer. Damit kann man sogar zaubern, ohne Magier zu sein!", "Thessa sells alchemist's fire. You can do magic with it without even being a wizard!"]])
+				k.variante(s, "504.pim.vor", pim, [["Papa sagt, Goblins haben Angst vor Feuer! Stimmt das?", "Dad says goblins are scared of fire! Is that true?"], ["Thessa verkauft Brandflaschen. Damit kann man sogar zaubern, ohne Magier zu sein!", "Thessa sells firebottles. You can do magic with them without even being a wizard!"]])
 				if pim_fragbar(s): pim_probe(k, s)
 			else:
 				k.variante(s, "504.pim.danach", pim, [["Wenn ich groß bin, werde ich auch ein Held! Genau wie du!", "When I grow up I'll be a hero too! Just like you!"]])
