@@ -12,8 +12,8 @@
 - Behebung (gebaut, Zweig `claude/tom-861-umhang`): Unterhalb der Schulter hängen diese Ecken jetzt am Rücken, nur das oberste Stück (10 cm) am Schlüsselbein. Probe am Kaufmodell: größter Abstand in der Abwehr 54 → 15 cm, im Hieb 47 → 17 cm; Ecken über 6 cm vom Körper 144 → 32 in der Kampfhaltung, 224 → 87 im Hieb.
 - Gilt für jeden Umhang aus diesem Bauskript: Kämpfer (Mann, Frau), Aldric, Garrick, Gwenna, Morwen, Thessa. Söldner Bertram ist damit noch nicht nachgestellt.
 
-**Nächster Schritt:** Film nachher, sobald Sokrates einen Lauf freigibt (die Modelle werden dafür neu gebaut, etwa 35 Minuten mehr).
+**Nachher (Film von 12.11., 03:19, Lauf 367):** Kämpfer mit der Behebung, von hinten, links, rechts und hinten rechts, in Kampfhaltung und mit Hieben. Gemessen größter Abstand des Umhangs vom Körper: Abwehr 21 cm (vorher 54), Kampfhaltung 8 cm, Gehen 15 cm, Rennen 30 cm (flattert hinten in Hüfthöhe). Magier, Kleriker und Schurke haben im Modell keinen Umhang; Söldner Bertram ist im Film nicht dabei.
 
-**Was du sagen sollst:** nichts nötig; oder was du im Film von 23:30 anders siehst.
+**Was du sagen sollst:** „passt“ (dann fährt 861 im nächsten Sammelbuild) oder wo du noch einen Buckel siehst (Blickrichtung, Bewegung).
 
-Geprüft an: Lauf 361, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43101958763 (Kaufstand); Messung am Rechner auf Commit 69f81d519.
+Geprüft an: Lauf 367, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43126745027 (Film); Lauf 361, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43101958763 (Kaufstand); Messung am Rechner auf Commit 69f81d519.
