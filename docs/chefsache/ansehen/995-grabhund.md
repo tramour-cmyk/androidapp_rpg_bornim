@@ -1,5 +1,7 @@
 # 995 · Grabhund: Augen, Kopf und Körper lesbar · Team Jerry · 12.11., 14:35
 
+[Bild von 12.11., 14:36](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/12-1436-995-Jerry.png) (eingetragen von meldung.sh, Jerry)
+
 E Figuren
 
 Geprüft an: [Stand 783bc44ee](https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/783bc44ee) (am Rechner, Kampfort Wald am Tag)
