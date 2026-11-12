@@ -491,6 +491,10 @@ func _process(dt: float) -> void:
 	if ziel.x >= 0 and not flucht and kann_fliehen() and held_abstand() < FLUCHT_NAH:
 		ziel = Vector2i(-1, -1)
 		weg.clear()
+	# 977 (Tuffy 744): der Kampfort-Ersatz Streuner.Stub hat keine laufende Uhr, figur._ruhebewegung wartete bei 0 ewig; Grimmzahn
+	# stand darum ohne Ruhebewegung. Die Uhr läuft mit der Spielzeit (vor der Figur, die als Kind danach verarbeitet wird)
+	if monster and modell != null and "kampfort" in modell and modell.kampfort != null:
+		modell.kampfort.clock_ms = float(Time.get_ticks_msec())
 	if ziel.x >= 0:
 		laufe(dt)
 		return
