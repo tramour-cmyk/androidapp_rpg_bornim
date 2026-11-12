@@ -197,7 +197,7 @@
     },
     "Zauberlehrling": {
       "fertigkeiten": ["Evokation", "Schutzmagie"],
-      "plus": {"wille": 5, "verstand": 1}, "plus_variante": {"zaehigkeit": 2, "gewandtheit": 1},
+      "plus": {"verstand": 3, "wille": 3}, "plus_variante": {"zaehigkeit": 2, "gewandtheit": 1}, "_1066": "1050a A (Chef 12.11., 20:02): Verstand 3, Wille 3 statt Wille 5, Verstand 1",
       "waffe": "Stumpfe Waffen", "ruestung": "keine", "schild": false, "zauber": ["Bannschild", "Funkenpfeil"]
     },
     "Klosterschüler": {

@@ -441,10 +441,41 @@ Gelesen in: Sim.
 |---|---|---|---|---|---|---|---|
 | Wachsoldat | Schild, Mittlere Rüstung, Einhänder | kraft 3; zaehigkeit 3 | gewandtheit 1; wille 1; wahrnehmung 1 | Einhänder | Mittlere Rüstung | ja | – |
 | Jägerkind | Bogen, Wurfwaffen, Spähen | gewandtheit 3; wahrnehmung 3 | zaehigkeit 2; kraft 1 | Bogen | Leichte Rüstung | nein | – |
-| Zauberlehrling | Evokation, Schutzmagie | wille 5; verstand 1 | zaehigkeit 2; gewandtheit 1 | Stumpfe Waffen | keine | nein | Bannschild, Funkenpfeil |
 | Klosterschüler | Heilmagie, Heilkunde, Kräutersammeln | wille 3; zaehigkeit 1; verstand 2 | kraft 2; zaehigkeit 1 | Stumpfe Waffen | Leichte Rüstung | nein | Wundsegen |
 | Kräutersammler | Kräutersammeln, Alchemie, Spähen | verstand 3; wahrnehmung 3 | gewandtheit 2; zaehigkeit 1 | Dolche | Leichte Rüstung | nein | – |
 | Herumtreiber | Schleichen, Spähen, Dolche | gewandtheit 4; wahrnehmung 2 | zaehigkeit 2; kraft 1 | Dolche | Leichte Rüstung | nein | – |
+
+### herkuenfte.Zauberlehrling
+
+Gelesen in: `regeln/brs_kampf.gd:20`, Sim.
+
+| Wert | heute | Formel, Erläuterung | wirkt in |
+|---|---|---|---|
+| `fertigkeiten` | Evokation, Schutzmagie | – | `regeln/brs_held.gd:217`, `regeln/brs_held.gd:227`, +2, Sim. |
+| `waffe` | Stumpfe Waffen | – | `regeln/brs_held.gd:500`, `regeln/brs_held.gd:505`, +5, Sim. |
+| `ruestung` | keine | – | `regeln/brs_held.gd:500`, `regeln/brs_held.gd:505`, +6, Sim. |
+| `schild` | nein | – | `regeln/brs_held.gd:500`, `regeln/brs_held.gd:506`, +6, Sim. |
+| `zauber` | Bannschild, Funkenpfeil | – | `regeln/brs_held.gd:489`, `regeln/brs_held.gd:502`, +4, Sim. |
+
+- **1066:** 1050a A (Chef 12.11., 20:02): Verstand 3, Wille 3 statt Wille 5, Verstand 1
+
+#### herkuenfte.Zauberlehrling.plus
+
+Gelesen in: `regeln/brs_held.gd:123`, `regeln/brs_held.gd:144`, +2, Sim.
+
+| Wert | heute | Formel, Erläuterung | wirkt in |
+|---|---|---|---|
+| `verstand` | 3 | – | `regeln/brs_held.gd:199`, `regeln/brs_held.gd:277`, +1, Sim. |
+| `wille` | 3 | – | `regeln/brs_held.gd:199`, `regeln/brs_held.gd:263`, +3, Sim. |
+
+#### herkuenfte.Zauberlehrling.plus_variante
+
+Gelesen in: `regeln/brs_held.gd:123`, `regeln/brs_kampf.gd:68`, +1, Sim.
+
+| Wert | heute | Formel, Erläuterung | wirkt in |
+|---|---|---|---|
+| `zaehigkeit` | 2 | – | `regeln/brs_held.gd:199`, `regeln/brs_held.gd:262`, +3, Sim. |
+| `gewandtheit` | 1 | – | `regeln/brs_held.gd:199`, `regeln/brs_held.gd:277`, +2, Sim. |
 
 ### herkuenfte.Schmiedelehrling
 
