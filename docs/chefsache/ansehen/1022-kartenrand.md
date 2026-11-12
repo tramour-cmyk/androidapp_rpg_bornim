@@ -1,5 +1,7 @@
 # 1022 · Kartenrand aller Gebietskarten, nachher · Tom (Spike) · 12.11., 10:38
 
+[Bild von 12.11., 10:39](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/12-1039-1022-Spike-2.png) (eingetragen von meldung.sh, Spike)
+
 [Bild von 12.11., 10:39](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/12-1039-1022-Spike.png) (eingetragen von meldung.sh, Spike)
 
 E Welt · Zweig `claude/tom-1022-kartenrand` · am Rechner ohne Kaufmodelle (ohne Leute und Monster)
