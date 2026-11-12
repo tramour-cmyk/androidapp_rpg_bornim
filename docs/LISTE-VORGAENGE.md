@@ -60,9 +60,9 @@
 | 348.1 | Vergleichsbild Gebietskarte alt/neu, 64 (heute) und 128 je Kachel (Chef 24.10., 16:51, „jetzt“ 16:54) | Tom | M | ruht, ohne Vorratszeile, Liste „raus“ (275.2) | – | – | – | E Technik | – |
 | 348.2 | Tusche nach Licht auch am Helden, Innenlinien an Bäumen: zweites Vergleichsbild jetzt (Chef 24.10., 17:30, 17:36) | Tom | M | ruht | – | – | – | E Technik | – |
 | 531a | Rückfrage: Bewegungspaket „Campfire“ für Garrick und Rast kaufen? (Chef 04.11., 19:27) | Tom | M | ruht, ohne Vorratszeile, Liste „wartet“ (275.2) | – | – | – | E Oberfläche | – |
-| 431c | Rückfrage: Völker Runde 4 am Tor angehalten, neue Läufe frei? | Tom | M | ruht, ohne Vorratszeile, Liste „Chef“ (275.2) | – | – | – | E Figuren | – |
-| 431d | Rückfrage: Völker Lauf 3 am Tor angehalten (B1 Elf, C3, G3, A1/A3 Grak, A2), neue Läufe frei, Weg A2? | Tom | M | ruht, ohne Vorratszeile, Liste „Chef“ (275.2) | – | – | – | E Figuren | – |
-| 431e | Rückfrage: Gesicht des Helden im Dorflicht fast weiß, Hauteichung nach Messung? | Tom | M | ruht, ohne Vorratszeile, Liste „Chef“ (275.2) | – | – | – | E Figuren | – |
+| 431c | Rückfrage: Völker Runde 4 am Tor angehalten, neue Läufe frei? | Tom | M | erledigt | – | – | – | E Figuren | – |
+| 431d | Rückfrage: Völker Lauf 3 am Tor angehalten (B1 Elf, C3, G3, A1/A3 Grak, A2), neue Läufe frei, Weg A2? | Tom | M | erledigt | – | – | – | E Figuren | – |
+| 431e | Rückfrage: Gesicht des Helden im Dorflicht fast weiß, Hauteichung nach Messung? | Tom | M | erledigt | – | – | – | E Figuren | – |
 | 632 | Truhe der Höhle (cave_3, 4/14) gibt „@class_weapon“ statt der Waffe der Klasse wie alt (Story.classWeapon, Game.kt 1108); von Jerry, Abgleich 620.2b | Tom | M | gebaut, Geprüft an: ca508b846 (truhe_632 lokal), fährt mit der Höhle (492) | – | claude/tom-632-truhe | – | E Welt | – |
 | 637 | Anschlagbrett: frischer blasser Zettel, solange ein ungelesener Auftrag hängt (A/MapTownIso.kt 646, J:123; „Aufgeben“ war alt nicht erreichbar: JobList ohne Aufruf; Abgleich 620.2a) | Tom | M | ruht, Kampf zuerst (338.1) | – | – | – | E Welt | – |
 | 638 | Kleinleben wie alt: Dorfhund, Katze in der Schenke, sichtbare Vögel, fallende Blätter im Wald, Hühner ziehen sich in der Dämmerung zurück (Abgleich 620.2a) | Tom | M | ruht, Kampf zuerst (338.1) | – | – | – | E Welt | – |
@@ -338,7 +338,7 @@
 | 930 | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerry, Ideen Homer, Regeln gegenlesen Perikles oder Diogenes (Chef 11.11., 12:28) | Sokrates | M | wartet, Befund 930.4 eingearbeitet | 930.3 | – | – | E Kampf | 19,74 $ |
 | 985 | Systemlösung? Nebel: 2 frühere Vorgänge (505, 502), neu 785.7; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Oberfläche | – |
 | 644a.5 | Von Tuffy (644a.1): an welchem Grundwert hängen Rüstung, Ausweichen, Schild, Armbrust und die übrigen Fertigkeiten beim Wachsen durch Üben? Gebaut: nur Waffengruppen und Schulen, 10 Punkte je +1; Regelwerk 2 und 13 nachziehen | Sokrates | M | startbar | – | – | – | E Kampf | – |
-| 1083 | Von Tom (492): 492, Läufe frei? Der eine Lauf seit 08.11. ging an eine Testschleife ohne Bild (Haken zählte sie), Bildreihe Höhle für G1 Lager fehlt | Sokrates | M | startbar | – | – | – | E Technik | – |
+| 1083 | Von Tom (492): 492, Läufe frei? Der eine Lauf seit 08.11. ging an eine Testschleife ohne Bild (Haken zählte sie), Bildreihe Höhle für G1 Lager fehlt | Sokrates | M | erledigt | – | – | – | E Technik | – |
 | 843 | D126.1 (Diogenes, 838): START ohne Sitzung 14 von 39 (09.11., 19:04 bis 10.11., 11:08), keiner mit --ohne; 3 ohne Grund (22:44 Spike, 10:25 Jerry, Perikles) | Ford | M | startbar | – | – | – | B Steuerung | 12,41 $ |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +1054,72 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
