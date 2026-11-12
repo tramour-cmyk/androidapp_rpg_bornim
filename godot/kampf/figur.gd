@@ -1270,15 +1270,40 @@ func _ruhebewegung() -> void:
 
 ## 249 (wie im alten MARS): der Getroffene zittert seitlich am Schirm, 4 dp, in 450 ms abklingend.
 func _shake() -> void:
+	var sway := _taumel()
+	var inv := global_transform.basis.inverse()
 	if hurt_at < 0.0:
+		var off := inv * Vector3(sway, 0, 0)
+		if not off.is_equal_approx(taumel_off):
+			model.position += off - taumel_off
+			taumel_off = off
 		return
 	var h: float = 1.0 - (kampfort.clock_ms - hurt_at) / 450.0
+	taumel_off = inv * Vector3(sway, 0, 0)
 	if h <= 0.0:
 		hurt_at = -1.0
-		model.position = model_rest
+		model.position = model_rest + taumel_off
 		return
 	var dx: float = sin(kampfort.clock_ms / 30.0) * 4.0 * h * kampfort.m_per_dp(global_position)
-	model.position = model_rest + global_transform.basis.inverse() * Vector3(dx, 0, 0)
+	model.position = model_rest + inv * Vector3(dx + sway, 0, 0)
+
+
+## 1036 (alt BattleScreen: „stunned: the body sways, dazed“, sin(t / 380 ms) · 3,5 dp): wer betäubt ist, schwankt seitlich, weich
+## ein und aus; als Ziel eines Hiebs (900 bedroht) rasch still, damit der Stand des Körpers gilt
+var taumel_off := Vector3.ZERO
+var _taumel_w := 0.0
+func _taumel() -> float:
+	var sh = kampfort.get("shown") if kampfort != null else null     # auf der Karte (Streuner, Leute) ein Stub ohne Kampf
+	var st = sh.get("status", {}) if sh is Dictionary else {}
+	var stun: bool = fighter != null and st is Dictionary and st.has(fighter.id) and (st[fighter.id] as Dictionary).has("STUN")
+	var an: bool = stun and not down and not bedroht() and visible
+	if not an and _taumel_w <= 0.0:
+		return 0.0
+	_taumel_w = move_toward(_taumel_w, 1.0 if an else 0.0, get_process_delta_time() / (0.4 if an else (0.15 if bedroht() else 0.4)))
+	if _taumel_w <= 0.0:
+		return 0.0
+	var phase := 1.0 if fighter.side == "PARTY" else 0.0
+	return sin(kampfort.clock_ms / (410.0 if fighter.side == "PARTY" else 380.0) + phase) * 3.5 * _taumel_w * kampfort.m_per_dp(global_position)
 
 
 func snap_to(p: Vector3) -> void:
@@ -3949,7 +3974,7 @@ func hurt(after_ms: int, dies: bool, schwer := false, art := "") -> void:
 		abwehr(after_ms, art)
 	await get_tree().create_timer(after_ms / 1000.0).timeout
 	if hurt_at < 0.0:
-		model_rest = model.position
+		model_rest = model.position - taumel_off     # 1036: ohne das Schwanken des Betäubten
 	# 249: wie im alten MARS nur Zittern und Blut; das orange Aufleuchten wirkte als greller Scherenschnitt (Prüfer 26.10.)
 	hurt_at = kampfort.clock_ms
 	_schnaufen(0.8)
