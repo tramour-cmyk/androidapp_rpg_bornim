@@ -149,7 +149,12 @@ static func halterung(sk: Skeleton3D, platz: String, koerper := "") -> Dictionar
 
 ## Korrektur je Körpertyp und Platz, nie je Paar (Chefsache 653, Gegenargument): {Körpertyp: {Platz: [x, y, z, Grad]}}; das
 ## Prüfbild (tests/halt_653.gd) zeigt, wo eine nötig ist. Später im Figurenkatalog (649)
-const KORREKTUR := {}
+## 967 (halt_653 am Rechner, Kaufstand 11.11.: Finger der linken Faust in der Haltung „Stehen“ bis 1,4 cm im Brett, je Körper
+## verschieden): der Schild um so viel nach außen, wie die Finger hineinreichen, und 2 mm Luft
+const KORREKTUR := {
+	"KLOSTER_M": {"unterarm_l": [0.0, 0.0, 0.016, 0.0]}, "KLOSTER_W": {"unterarm_l": [0.0, 0.0, 0.003, 0.0]},
+	"WALD_M": {"unterarm_l": [0.0, 0.0, 0.003, 0.0]}, "WALD_W": {"unterarm_l": [0.0, 0.0, 0.005, 0.0]},
+}
 
 # ---------------------------------------------------------------- die eine Anlegefunktion
 ## hängt Gegenstand [id] an [platz] des Körpers (Skelett sk); Lage = Halterung · Griff⁻¹. Gibt das Modell zurück (Kind eines

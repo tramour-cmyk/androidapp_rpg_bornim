@@ -1,11 +1,11 @@
 extends Node
 # 399.3 (Chef 28.10., 16:42: Klang in die Spielfassung; 398, Chef 11:38: „dass wir den Ton NICHT neu erfinden … sondern
 # wiederverwenden“): Musik und Klang wie im alten Spiel, Zahlen aus Music.kt (MusicDirector), MusicPlayer.kt, SfxPlayer.kt,
-# Footsteps.kt, Mix (SoundSettings.kt). Die Aufnahmen kopiert godot.yml aus app/src/main/assets nach daten/klang, dazu
-# liste.json (Dateinamen ohne Endung je Ordner). Fehlen sie (Tests am Rechner), bleibt alles still.
-# Kampfklang nach MarsSound.kt; was das alte Spiel synthetisiert, rendert KlangExport.kt im Bau als .wav (nicht neu gebaut).
+# Footsteps.kt, Mix (SoundSettings.kt). Die Aufnahmen liegen in daten/klang (870.9 eingecheckt, einst aus app/src/main/assets),
+# liste.json (Dateinamen ohne Endung je Ordner) schreibt godot.yml. Fehlen sie (Tests am Rechner), bleibt alles still.
+# Kampfklang nach MarsSound.kt; was das alte Spiel synthetisiert, liegt als .wav aus KlangExport.kt in daten/klang (870.9).
 # Ortsklang wie PlaceSound.kt, Ambience.kt, RiverSound.kt (WorldScreen.kt: Wind, Halle, Feuer, Fluss, Tropfen, Knarren, Husten);
-# Raumklang wie Room.kt: die Fassungen aus app/src/main/assets/raum (Vorschau RAUMKLANG=spiel), die synthetischen aus KlangExport.kt.
+# Raumklang wie Room.kt: die Fassungen in daten/klang/raum (einst app/src/main/assets/raum, Vorschau RAUMKLANG=spiel), samt der synthetischen.
 # Kleines Leben und ferne Laute wie WildSound.kt (517): Vögel am Tag, Grillen und Eule nachts, im Tiefen Wald fernes Wolfsheulen,
 # in der Höhle Grollen im Berg.
 # Noch nicht hier (Folgeschritte 399.3): Leute (Tassen, Stühle, D1.10), Teich, Hühner, pickende Vögel, Regen (gibt es in Godot noch nicht),
@@ -302,6 +302,10 @@ func _warte(s: float) -> void:
 
 ## Ein Klang [id] (Sound-Name klein, z. B. "click", "door", "coins") mit einer zufälligen seiner Aufnahmen
 func effekt(id: String, pegel := 0.8, tempo := 1.0, nr := -1) -> void:
+	# 994 (Chef 11.11., 20:54, t277.18: „steht ständig … hand scratch“): was zu weit weg ist, um es zu hören (Tierlaute über
+	# TIER_WEIT, Pegel 0), startet nichts und steht nicht in der Klangzeile; vorher jede Sekunde „hen_scratch 0.00 Blende“ je Huhn im Dorf
+	if pegel <= 0.0:
+		return
 	if not effekte_an:
 		_merke(id, pegel, null, "Effekte aus")
 		return
@@ -342,9 +346,22 @@ var protokoll: Array = []                        # {"was", "pegel", "p" (Spieler
 
 
 func _merke(was: String, pegel: float, p: AudioStreamPlayer, grund: String) -> void:
-	protokoll.append({"was": was, "pegel": pegel, "p": p, "grund": grund, "t": Time.get_ticks_msec(), "ende_ms": -1})
+	# 994: derselbe Klang gleich wieder (das fressende Huhn scharrt jede Sekunde) ist eine Zeile mit „×n“, damit seltene wie door_n
+	# in den letzten zehn bleiben
+	var art := _klangart(was)
+	var n := 1
+	if not protokoll.is_empty() and _klangart(String(protokoll[-1].was)) == art:
+		n = int(protokoll[-1].get("n", 1)) + 1
+		protokoll.pop_back()
+	protokoll.append({"was": was, "pegel": pegel, "p": p, "grund": grund, "t": Time.get_ticks_msec(), "ende_ms": -1, "n": n})
 	if protokoll.size() > PROTOKOLL_MAX:
 		protokoll.pop_front()
+
+
+## Name eines Klangs ohne die Nummer der Aufnahme („hen_scratch_2“ -> „hen_scratch“)
+static func _klangart(was: String) -> String:
+	var i := was.rfind("_")
+	return was.substr(0, i) if i > 0 and was.substr(i + 1).is_valid_int() else was
 
 
 ## Der Spieler [p] wird für einen neuen Klang gebraucht: spielt seiner noch, ist er abgebrochen (alle STROEME belegt)
@@ -373,7 +390,8 @@ func protokoll_zeilen() -> Array:
 				lage = "spielt %.1f s" % p.get_playback_position()
 			else:
 				lage = "verklungen"
-		r.append("%s  %.2f  %s  (vor %.1f s)" % [e.was, e.pegel, lage, (jetzt - int(e.t)) / 1000.0])
+		var mal := " ×%d" % int(e.n) if int(e.get("n", 1)) > 1 else ""
+		r.append("%s%s  %.2f  %s  (vor %.1f s)" % [e.was, mal, e.pegel, lage, (jetzt - int(e.t)) / 1000.0])
 	return r
 
 

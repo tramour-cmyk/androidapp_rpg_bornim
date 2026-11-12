@@ -82,7 +82,7 @@ func _lauf() -> void:
 		for id in ids:
 			var schild := String(Katalog.eintrag(id).get("art", "")) == "schild"
 			var platz := "unterarm_l" if schild else "faust_r"
-			var hl := Halt.halterung(sk, platz)
+			var hl := Halt.halterung(sk, platz, t)   # 967: mit der Korrektur des Körpertyps
 			if hl.is_empty():
 				pruefe(false, "%s: kein Platz %s" % [t, platz])
 				continue
@@ -123,6 +123,12 @@ func _lauf() -> void:
 					if absf(l.x - kb.get_center().x) > kb.size.x * 0.38 or l.y < kb.position.y + kb.size.y * 0.12 or l.y > kb.end.y - kb.size.y * 0.12: continue
 					if l.z > -0.005 and l.z < kb.end.z:
 						durch += 1; tief = maxf(tief, l.z + 0.005)
+						if OS.get_environment("DURCH_DBG") != "":
+							var bn := ""; var bd := INF
+							for b in sk.get_bone_count():
+								var o: Vector3 = ks * (lagen[b] as Transform3D).origin
+								if o.distance_to(q) < bd: bd = o.distance_to(q); bn = sk.get_bone_name(b)
+							print("  DURCH_DBG %s %s Ecke im Schild %s, Welt %s, nächster Knochen %s (%.1f cm)" % [t, id, l, q, bn, bd * 100.0])
 				print("DURCH %s %s %d Ecken, bis %.1f cm" % [t, id, durch, tief * 100.0])
 				pruefe(durch == 0, "%s %s: %d Ecken des Körpers im Schild (bis %.1f cm)" % [t, id, durch, tief * 100.0])
 				var vorn := (welt.basis * (mass["vorn"] as Vector3)).normalized()

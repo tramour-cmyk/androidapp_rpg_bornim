@@ -167,7 +167,7 @@ func _runde(v2: bool) -> void:
 	# Runde 4: eine Einhandwaffe (Nebenhand, „1W6“) und ein goettlicher Ring (der Name sagt „Göttlich“ schon)
 	var schwert := z.ausruestung_dazu({"uid": 0, "base": "shortsword", "rarity": "RARE", "ilvl": 5, "plus": 0, "rolls": [["STR", 1]], "unique": null, "name_seed": 3})
 	var ring := z.ausruestung_dazu({"uid": 0, "base": "ring", "rarity": "DIVINE", "ilvl": 9, "plus": 0, "rolls": [["DEX", 2]], "unique": null, "name_seed": 4})
-	var panzer := z.ausruestung_dazu({"uid": 0, "base": "chain_mail", "rarity": "COMMON", "ilvl": 4, "plus": 3, "rolls": [], "unique": null, "name_seed": 5})   # 557 Runde 5: „+3“ am Namen
+	var panzer := z.ausruestung_dazu({"uid": 0, "base": "chain_mail", "rarity": "COMMON", "ilvl": 4, "guete": 2, "rolls": [], "unique": null, "name_seed": 5})   # 870.7: Guete statt „+3“ am Namen
 	var m := Menue.new(hw, z)
 	root.add_child(m)
 	await process_frame
@@ -177,7 +177,7 @@ func _runde(v2: bool) -> void:
 	if v2:
 		var k := _knoepfe("Wechselliste", m.get_child(m.get_child_count() - 1))
 		pruefe("Wechselliste: ZURÜCK", k.has("ZURÜCK"), str(k.keys()))
-	pruefe("Robe mit Wert", Menue.listen_zeile_b(z.beutel[0]).contains("GES"), Menue.listen_zeile_b(z.beutel[0]))
+	pruefe("Robe mit Wert", Menue.listen_zeile_b(z.beutel[0]).contains("+2 Gewandtheit"), Menue.listen_zeile_b(z.beutel[0]))   # 870.7: Wortlaut Beute.zusatz_text
 	m.get_child(m.get_child_count() - 1).free()
 	var wuerfel := RegEx.create_from_string("\\dW\\d")
 	for g in z.beutel:
@@ -198,10 +198,9 @@ func _runde(v2: bool) -> void:
 					pruefe("Wegwerfen und Nebenhand eine Reihe, getrennt " + wo, absf(a.position.y - b.position.y) < 1 and b.position.x - a.end.x >= 8 * DP - 1, "%s / %s" % [a, b])
 			for l in f.find_children("*", "Label", true, false):
 				pruefe("1W6 mit Abstand " + wo, wuerfel.search(l.text) == null, "„%s“" % l.text)
-			if g == panzer:   # 557 Runde 5 (Chef 19:23): „+x“ in der Namenszeile, nicht allein darunter
-				var allein: Array = f.find_children("*", "Label", true, false).filter(func(l): return l.text.strip_edges() == "+3")
-				var am_namen: Array = f.find_children("*", "Label", true, false).filter(func(l): return l.text.ends_with("\u00a0+3"))
-				pruefe("+3 am Namen " + wo, allein.is_empty() and not am_namen.is_empty(), str(f.find_children("*", "Label", true, false).slice(0, 3).map(func(l): return l.text)))
+			if g == panzer:   # 870.7 ([870.14.ding.guete]): statt „+3“ am Namen (557 Runde 5) eine Zeile „Güte: Meisterhaft“, kein „+n“
+				var tx: Array = f.find_children("*", "Label", true, false).map(func(l): return l.text)
+				pruefe("Güte statt +n " + wo, tx.has("Güte: Meisterhaft") and not tx.any(func(x): return RegEx.create_from_string("(^|\\s)\\+\\d+$").search(String(x).replace("\u00a0", " ")) != null), str(tx.slice(0, 8)))
 			if g == ring:
 				var doppelt: Array = f.find_children("*", "Label", true, false).filter(func(l): return l.text.strip_edges() == "Göttlich" or l.text.containsn("(göttlich)"))
 				pruefe("Seltenheit nicht doppelt " + wo, doppelt.is_empty(), str(doppelt.map(func(l): return l.text)))
