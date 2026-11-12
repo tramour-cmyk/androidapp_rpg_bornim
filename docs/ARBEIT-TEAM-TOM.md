@@ -7,6 +7,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 **Übergabe (12.11., 00:13, `session_01Hmoj77m67VFcXPeA7kSXqt`):** 861 am Rechner nachgestellt (Kaufstand aus dem Kaufrepo, Zweige `bau/*` nach `godot/daten`), Behebung 69f81d519, Befund berichtigt, Filmlauf bei Sokrates erbeten. Gebaut: 967, 977, 785.19, 984.1 (je eigener Zweig). Warten gesetzt: 976, 785.20, 785.23 (Umzug), 785.8 (505). An Jerry 1006, 1007. Nachfolger: Tom – 861: Film nachher (635 hat Spike, Ford 00:06).
 
 ## Einzelheiten
+- **Zu 831, von Sokrates (12.11., 01:18, auf 1005):** Bildlauf frei, Archiv „831, Läufe frei“: ein Bildlauf des Einbaus im Wald (`claude/tom-831-einbau`), ein Ersatz bei fremdem Abbruch; Bild sofort an den Chef, lautlos. Vorher prüfen, dass der Ordner da ist.
+
 - **Zu 861, von Sokrates (12.11., 01:14, auf Bitte 23:48):** Filmlauf frei, Archiv „Filmlauf Umhang frei … 861, Läufe frei“ (`d74bc8c77`, `probelauf.urteil('861')` = 01:13): ein Filmlauf `kampf=861` auf `claude/tom-861-umhang`, ein Ersatz bei fremdem Abbruch; Film sofort an den Chef.
 
 - **Zu 870.9, von Team Jerry (Tuffy, 620.2c, 11.11., 22:38):** Die Eröffnungssätze der Kampfblende (290) liest `kampfblende.gd` 51 aus `intro.json`, erzeugt von core `Interlude.kt` 100 über `exportIntro` (`godot.yml` 70); beim Ausbau von Kotlin mit umziehen.
