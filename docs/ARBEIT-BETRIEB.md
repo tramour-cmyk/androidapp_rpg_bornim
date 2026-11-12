@@ -337,3 +337,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 06:04 12.11.: Marke Übergabe-Chef Jerry 12.11. 05:58 (lauf.py)
 - 06:04 12.11.: Marke Start-fehlt Jerry 12.11.-05:04 (lauf.py)
 - 06:04 12.11.: Nachfolger-Warnung Jerry (Übergabe 12.11., 05:58) (lauf.py)
+- 06:08 12.11.: Startsperre 06:08 Start Homer (lauf.py)
+- 06:08 12.11.: Marke Archiv session_01Hmoj77G2Nx26NbtbSEBGc8 (lauf.py)
