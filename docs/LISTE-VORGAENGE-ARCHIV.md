@@ -1204,3 +1204,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 431e | Rückfrage: Gesicht des Helden im Dorflicht fast weiß, Hauteichung nach Messung? | E Figuren | M | – | Tom | erledigt |
 | 1085 | Von Sokrates (1077 Nacht, Chef 12.11., 20:31 „weder ein Abbrechen, noch ein Gib PIM 5 Goldstücke“): Pim, zweiter Weg Gold: Knopf und Zeilen (gelingt immer, 5 Gold, keine Übung, Mutter dankt ohne Ruf), drei Wortlaute nach 504, in STORY-K1-FERTIGKEITEN.md | G Story | M | 3,38 $ | Homer | erledigt |
 | 1083 | Von Tom (492): 492, Läufe frei? Der eine Lauf seit 08.11. ging an eine Testschleife ohne Bild (Haken zählte sie), Bildreihe Höhle für G1 Lager fehlt | E Technik | M | 1,16 $ | Sokrates | erledigt |
+| 1045 | Von Tuffy (Lauf 43235660324, Zweig ohne Spielstand-Änderung): spielstand_test rot, „FEHLER Plaetze 1 2“ (erwartet letzter 3); auf claude/tom-1022 grün | E Technik | M | – | Tom | erledigt |
