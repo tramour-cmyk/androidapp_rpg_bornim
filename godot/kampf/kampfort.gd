@@ -202,9 +202,11 @@ func _ready() -> void:
 		verhuellt = true
 		kb.geht.connect(func():
 			verhuellt = false
+			_geheul_beim_erscheinen()     # 939: wie alt, wenn die Blende fort ist
 			_tempo_setzen())
 		ebene.add_child(kb)
 	else:
+		_geheul_beim_erscheinen()
 		_tempo_setzen()
 	_run(func(): mars.start(_react))
 
@@ -1099,6 +1101,9 @@ func _answer_ring(r: String) -> void:
 	ring_open = false
 	ring_answer = r
 	ui.ring_verdict(r)
+	var klang = get_node_or_null("/root/Klang")
+	if klang != null and r != Mars.NONE:
+		klang.effekt("block", 0.8 if r == Mars.PERFECT else 0.5)     # 939 (alt SkirmishScreen 726): Block bei perfekt, leiser bei gut
 	ring_sem.post()
 
 
@@ -1434,6 +1439,9 @@ func _play_ring(target_id: String, intent: Dictionary) -> void:
 	ring_start = Time.get_ticks_msec()
 	ring_open = true
 	ui.ring_open(target_id, intent)
+	var klang = get_node_or_null("/root/Klang")
+	if klang != null:
+		klang.effekt("swing_heavy", 0.6)     # 939 (alt SkirmishScreen 713): schwerer Schwung, wenn der Ring aufgeht
 	while ring_open:
 		await get_tree().process_frame
 	await get_tree().create_timer(0.3).timeout
@@ -1461,10 +1469,34 @@ func _done() -> void:
 		# 870.5: Heldenstufe nach BRS (progress „stand“, Brs.neuer_stand) und Gebiet für den Erfahrungstopf (progress „gebiet“)
 		reward = Lohn.reward(mars, progress.get("stand", {}), mars.dice, String(progress.get("gebiet", "")),
 			beute.call() if beute.is_valid() else [])
+		_sieg_klang()
 	if mars.outcome == "ONGOING" and mars.pilot_next():
 		go_on()
 	ui.refresh()
 	ui.panel_passt.call_deferred()     # 709: was während des Zugs an der Höhe des Kastens geschah
+
+
+## 939 (alt BattleScreen 523, 587): zum Lohn epische Beute (ab EPIC), sonst Beute, sonst Münzen; ein Stufenaufstieg danach wie
+## alt beim Weiterblättern zum Feld mit der Stufe (hier alles in einem Fenster, darum kurz nach dem Lohn)
+const STUFE_KLANG_MS := 1400
+func _sieg_klang() -> void:
+	var klang = get_node_or_null("/root/Klang")
+	if klang == null or reward.is_empty():
+		return
+	var episch: bool = (reward.get("gear", []) as Array).any(func(g): return Beute.SELTENHEIT.find(String(g.get("rarity", "COMMON"))) >= Beute.SELTENHEIT.find("EPIC"))
+	var beute: bool = not (reward.get("items", []) as Array).is_empty() or not (reward.get("gear", []) as Array).is_empty()
+	klang.effekt("loot_epic" if episch else ("loot" if beute else "coins"))
+	if int(reward.get("levels", 0)) > 0:
+		get_tree().create_timer(STUFE_KLANG_MS / 1000.0, true, false, true).timeout.connect(func(): if is_instance_valid(klang): klang.effekt("level_up"))
+
+
+## 939 (alt SkirmishScreen 548, „256: wolves now and then howl as they appear“): Wölfe heulen beim Erscheinen, halb so oft
+func _geheul_beim_erscheinen() -> void:
+	var klang = get_node_or_null("/root/Klang")
+	if klang == null or not mars.all.any(func(f): return f.side == "FOES" and f.monster != null and String(f.monster.get("id", "")) in [Mars.WOLF, Mars.DIRE_WOLF]):
+		return
+	if randf() < 0.5:
+		klang.effekt("howl")
 
 
 func again() -> void:
