@@ -2,14 +2,14 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 12.11., 07:20 (lauf.py)
+**Stand:** 12.11., 11:10 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
-| Tuffy | [Tuffy – 1007 (12.11., 01:05)](https://claude.ai/code/session_01Hmoj7AAdH3XpmB1bRL6xNn) | 1007 | – | 12.11., 01:05 |
-| Diogenes | [Diogenes – 1010 (12.11., 04:07)](https://claude.ai/code/session_01Hmoj76MeSi8FRUmYKBjQmL) | 1010 | – | 12.11., 04:07 |
-| Jerry | [Jerry – 999.1 (12.11., 06:04)](https://claude.ai/code/session_01Hmoj79CS9LVAhotYsqmwgb) | 999.1 | – | 12.11., 06:04 |
 | Homer | [Homer – 1015 (12.11., 06:08)](https://claude.ai/code/session_01Hmoj77crGw2i1MbQ6VpK2F) | 1015 | – | 12.11., 06:09 |
-| Ford | [Ford – Betriebsleiter (12.11., 06:12)](https://claude.ai/code/session_01Hmoj7A2D1aaNLiWrXiyDk2) | Betrieb | – | 12.11., 06:12 |
-| Perikles | [Perikles – 1016 (12.11., 07:04)](https://claude.ai/code/session_01Hmoj79nhucTfp4jACfXVtR) | 1016 | – | 12.11., 07:04 |
-| Tom | [Tom – 1012: Build 278 rote Tests und Testbitte (12.11., 07:21)](https://claude.ai/code/session_01Hmoj774RsgV5o7g1cGdXxh) | 1012 | – | 12.11., 07:20 |
+| Ford | [Ford](https://claude.ai/code/session_01Hmoj765JvmMM81VAZ94ovn) | Betrieb | – | 12.11., 07:26 |
+| Diogenes | [Diogenes – 1019 (12.11., 08:13)](https://claude.ai/code/session_01Hmoj75ZfDj3Zzs82FM18nF) | 1019 | – | 12.11., 08:14 |
+| Tuffy | [Tuffy – 644a.1 (12.11., 10:05)](https://claude.ai/code/session_01Hmoj79xewvr4yXDaxRRApX) | 644a.1 | – | 12.11., 10:06 |
+| Tom | [Tom – 814 (12.11., 11:04)](https://claude.ai/code/session_01Hmoj76RSQPRph1aFEc31hY) | 814 | – | 12.11., 11:05 |
+| Spike | [Spike – 644a.2 (12.11., 11:04)](https://claude.ai/code/session_01Hmoj77hd1skjBoRKtk6Sz7) | 644a.2 | – | 12.11., 11:05 |
+| Sokrates | [Sokrates – Stellungnahme (12.11., 11:04)](https://claude.ai/code/session_01Hmoj76oRjGDjaHKeRYBhmv) | Betrieb | – | 12.11., 11:05 |

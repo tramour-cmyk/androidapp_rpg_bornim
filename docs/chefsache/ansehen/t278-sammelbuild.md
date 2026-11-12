@@ -1,5 +1,6 @@
 # Tom und Jerry · Build 278 · 0.348.373 · Sammelbuild nach Build 277 · PR #197
-Ganzes Spiel · Tom (635, 785.19, 814, 856, 870.7, 870.9, 926, 933, 951, 954, 963, 964, 967, 977, 984.1, 989, 990, 991, 994, 1009), Jerry (595, 744, 806, 824, 836, 840, 909, 923, 935, 939, 950, 952, 959, 960, 971, 983, 986, 992, 993, 997, 998, 999, 1001, 1003, 1004, 1006, 1007, 1013; 988 und 1006 mit Build 277 auf `main`, hier zum Ansehen) · Entwurf 12.11., 06:05 · APK folgt
+Ganzes Spiel · Tom (635, 785.19, 814, 856, 870.7, 870.9, 926, 933, 951, 954, 963, 964, 967, 977, 984.1, 989, 990, 991, 994, 1009), Jerry (595, 744, 806, 824, 836, 840, 909, 923, 935, 939, 950, 952, 959, 960, 971, 983, 986, 992, 993, 997, 998, 999, 1001, 1003, 1004, 1006, 1007, 1013; 988 und 1006 mit Build 277 auf `main`, hier zum Ansehen) · 12.11., 07:52 · [APK (Lauf 373)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43159433416/artifacts/13919514537)
+Rot, bekannt, nicht melden: wolf_mess_438 – ein Wolfsbiss gleitet knapp über der Grenze (Vorgang 1018); wald_490 – nach einer Ruhegeste der Tiere auf der Karte eine Fehlermeldung ohne sichtbare Folge, Tiere greifen an; bewegung_997, held_kampf_403, wechsel_950, arkan_993 – Fehler in der Messung der Tests, im Spiel richtig; alle behoben für Build 279. Dazu bekannt: die Erklärsätze beim Gedrückthalten in der Erschaffung (278.36) und auf der Heldenseite (278.41) stehen noch auf dem alten Stand (Wille „stärkere Zauber“, Verstand „Wissen“, „Wurfwaffen“); neu in Build 279 (1017).
 Gegengelesen: Sokrates 12.11., 06:10
 
 Ein Weg: über Build 277 installieren, Hauptmenü, „Weiter“ mit deinem Spielstand aus Build 277; erst Dorf am Tag (A), dann Wald und Kampf (B), zurück ins Dorf am Abend (C), dann Probekämpfe und Sprünge im Reiter „Test“ (D), zuletzt ein neues Spiel für die Erschaffung (E). Den Reiter „Test“ gibt es nur im Testmodus: im Hauptmenü siebenmal aufs Firmenzeichen tippen. Was nicht passt, reicht als Nummer (z. B. 278.5) mit einem Wort.
@@ -7,8 +8,6 @@ Ein Weg: über Build 277 installieren, Hauptmenü, „Weiter“ mit deinem Spiel
 Verglichen (alt gegen neu): Gegenstandsfenster und Laden (870.7, 926) gegen das Bild, das passte (Chef 11.11., 19:57); Rückfrage „Überspringen?“ (856) gegen das Bild von 19:58; Testmenü (991) gegen Build 277.
 
 Im Bau geprüft: Spielstand „Weiter“ nimmt immer den neuesten Platz (`spielstand_test`, 1009); Karten, Texte, Intro und Kartenblätter kommen aus der Godot-Quelle statt aus Kotlin, gleich dem alten Export (`karten_regeln`, 870.9); Lauf schneller ohne weggelassene Prüfung (909); Heiltrank ein Wert an einer Stelle, heilt weiter 14 (923); leichte Ziele üben höchstens ein Zehntel (971, Simulation 444); Metall sperrt Evokation, Illusion, Beschwörung (`handlungen_870`, 964); Schild nicht mehr in der Faust (`halt_653`, 967); Grimmzahn mit Ruhebewegung (`ruhe_977`), Monster der Karte ebenso (`ruhe_1007`); kein Bildsprung im Kampf (`kamera_992`); Hinweis „Schwerer Hieb“ ohne „Decken“ (`decken_1004`); Heldin keucht mit Frauenstimme (`keuchen_1003`); Schildprüfung nach der Herkunft, der Klosterschüler ohne Schild (`schild_406`, 1013).
-
-Bekannt, nicht melden: die Erklärsätze beim Gedrückthalten in der Erschaffung (278.36) stehen noch auf dem alten Stand (Wille „stärkere Zauber“, Gewandtheit ohne Nahkampf); das Angleichen an die Heldenseite ist Vorgang 1015 (Homer).
 
 ## A · Dorf am Tag
 
@@ -75,3 +74,21 @@ Bekannt, nicht melden: die Erklärsätze beim Gedrückthalten in der Erschaffung
 | 278.39 | Jerry | 959 | Herkunft „Schmiedelehrling“ ansehen | dabei Stumpfe Waffen neben Schmieden und Bergbau | nur Schmieden und Bergbau |
 | 278.40 | Jerry | 952 | einen neuen Helden fertig erschaffen, Tasche → „Held“ | kritischer Treffer als Anfänger nahe 0 % (nicht 7 %) | 7 % schon zu Beginn |
 | 278.41 | Tom | 963, 989 | Tasche → „Held“, jeden Grundwert gedrückt halten | nur Wirkungen, die es gibt: Zähigkeit „Abwehr gegen Gift, Betäubung und Blendung“, Wahrnehmung kritisch mit Dolch, Bogen, Armbrust, Wurf, Verstand „Schaden mit Evokation“, Wille Heilung und kritisch mit Evokation; je Waffe und Zauber die Aussicht auf kritisch | „Stärke deiner Zauber“, „Flächenwirkungen“, „Furcht und Zauber“, Krankheit, Spähen |
+
+## Ergebnis
+
+- 278.23 ✗ vorab (Chef 12.11., 08:07, Film 935): Bogen passt, Flasche „so groß wie ein Ölfass“ → Zu 935 (Jerry)
+- 278.1 ✓ (Chef 12.11., 08:23: „den Scrolltext sozusagen, der passt“)
+- 278.2 ✗ dritter Fund (277.5, 277.12) (Chef 12.11., 08:24: „ich sehe diese Wölkchen wieder nicht, sorry. Außerdem frage ich mich da, wie ich das genau sehen soll dann.“) → Zu 814 (Tom)
+- Außer der Reihe (Chef 08:26, Bild Dorf Nord): Kartenrand offen, Wald nicht dicht → 1022 (Tom)
+- Außer der Reihe (Chef 08:28, Bild Dorf Süd): Beet nicht bis zum Zaun; „wo haben die denn einen Stall?“ (es gibt keinen, Hühner am Heuhaufen) → Zu 612 (Tom)
+- 278.3 ✗ zurückgestellt (Chef 12.11., 08:31: „ich höre ein Gackern, aber die Hühnchen machen eher wie eine Katze, die machen, was sie wollen. Manchmal laufen sie ein bisschen weg, manchmal nicht. Federnfliegen sehe ich jetzt wieder gar nicht … Wegflattern tun sie ja noch weniger … lasst es mit den Hühnern. Stellt es zurück“) → 1023 (Tom, ruht)
+- 278.4 ✗ weglassen (Chef 12.11., 08:34, zwei Bilder Kramladen: Staub „sieht eher aus wie ein Mückenschwarm … lassen wir echt komplett in Innenräumen raus“) → Zu 990 (Tom); 278.17 entfällt
+- 278.5 ✓ (Chef 12.11., 08:36)
+- 278.6 ✓ (Chef 12.11., 08:49)
+- 278.7 ✓ (Chef 12.11., 09:00)
+- Außer der Reihe (Chef 09:01, Log aus dem Reiter „Test“): voriger Lauf endete ohne Absturzspur, zuletzt Warnungen „RGBFloat … converting to RGBHalf“ aus Fußstaub und Federn je Schritt; seit Start nur `figures on Stub` (bekannt) → Zu 1021, 814 (Tom)
+- 278.8 ✗ Bilder/s 15 im Kampf (unter 17; 1 %: 77 ms, längste 140 ms, über 50 ms: 651; Aufrufe 154, Dreiecke 370k), Gras und Blumen da, kein Nebel (Chef 12.11., 09:04, Bild); dazu „Das scheint mir meine Anzeige etwas zu überdecken“: Schalterreihe vom Kasten halb verdeckt, Ansage über der Bildrate → Zu 806, 1024 (Jerry)
+- 278.9 ✓ (Chef 12.11., 10:22: „passt … auch in einem weiteren Kampf“, Bild Wildschwein: Bilder/s 16, im Kampf 17; Schalterreihe hier ganz sichtbar; „Treffer · widersteht · 71 %“ liegt wieder über der Bildrate → Zu 1024)
+- Außer der Reihe zu 278.10 (Chef 10:25, Bild Probekampf Wölfe): goldene Zeile kam, „ganzer Bericht“ geöffnet → Kampfort schwarz, Ansagen über dem Text, Bilder/s 7–8, Aufrufe 413, Dreiecke 914k; Namen Wolf 1–3 gegen Jungwolf in der Zugleiste → 1025 (Jerry)
+- Außer der Reihe (Chef 10:27, Bild): nach Kampfende bleibt die ganze Kampfoberfläche über der Karte stehen („mit den Menüs jetzt gar nicht mehr richtig“) → 1025 (Jerry, oben)
