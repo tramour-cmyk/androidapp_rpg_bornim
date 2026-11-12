@@ -581,7 +581,7 @@ func fliehe() -> bool:
 		return false
 	var n := flucht_kachel()
 	# 814: aufgeschreckt ist es immer, auch eingeklemmt (MapHen: FLEE schon bei near < SHY, stuck zeigt „alert“); vorher blieb ein
-	# Huhn in der Ecke am Stall (Bäume, Wasser, das zweite Huhn, die Leine) ohne Laut, Federn und Haltung einfach stehen
+	# Huhn in der Ecke am Heuhaufen (612: einen Stall gibt es nicht; Bäume, Wasser, das zweite Huhn, die Leine) ohne Laut, Federn und Haltung einfach stehen
 	if not flucht:
 		flucht = true
 		if String(daten["tier"]) == "huhn" and DorfEffekte.jetzt: DorfEffekte.jetzt.federn(global_position)   # 814 Federn (R4)
