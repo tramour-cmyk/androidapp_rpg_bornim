@@ -1199,3 +1199,8 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 1065 | Von Jerry (621 A, 1043): 1043 Lauf frei? Filmlauf 396 (kampf=1043) zeigte kein Ausweichen: Testschleife gab dem Söldner „selbst“ keinen Befehl, kein Wolf kam zum Zug (gleiche Ursache wie 1029); behoben 5af180cae auf claude/jerry-1043-ausweichen, am Rechner „erzwungen ja“; ein neuer Lauf kampf=1043 | E Kampf | M | 1,38 $ | Sokrates | erledigt |
 | 1051 | Von Jerry (841): Vorentscheid Werte Einschüchtern (Goblin-Späher verjagen): einschuechtern_basis 35, 1 je Punkt, je_stufe 5, vorläufig wie Überreden 1037; Probe ohne Rechnung in 444 | G Balance | M | 1,38 $ | Sokrates | erledigt |
 | 1082 | Von Spike zu 1022: Läufe frei, ein Bildlauf Randbilder (gezählter Lauf war ein abgebrochener Start am Rechner, 22:00) | E Welt | M | – | Sokrates | erledigt |
+| 431c | Rückfrage: Völker Runde 4 am Tor angehalten, neue Läufe frei? | E Figuren | M | – | Tom | erledigt |
+| 431d | Rückfrage: Völker Lauf 3 am Tor angehalten (B1 Elf, C3, G3, A1/A3 Grak, A2), neue Läufe frei, Weg A2? | E Figuren | M | – | Tom | erledigt |
+| 431e | Rückfrage: Gesicht des Helden im Dorflicht fast weiß, Hauteichung nach Messung? | E Figuren | M | – | Tom | erledigt |
+| 1085 | Von Sokrates (1077 Nacht, Chef 12.11., 20:31 „weder ein Abbrechen, noch ein Gib PIM 5 Goldstücke“): Pim, zweiter Weg Gold: Knopf und Zeilen (gelingt immer, 5 Gold, keine Übung, Mutter dankt ohne Ruf), drei Wortlaute nach 504, in STORY-K1-FERTIGKEITEN.md | G Story | M | 2,22 $ | Homer | erledigt |
+| 1083 | Von Tom (492): 492, Läufe frei? Der eine Lauf seit 08.11. ging an eine Testschleife ohne Bild (Haken zählte sie), Bildreihe Höhle für G1 Lager fehlt | E Technik | M | – | Sokrates | erledigt |
