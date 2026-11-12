@@ -171,7 +171,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1044 | M | Von Sokrates (Chef 12.11., 16:08): Frauen stehen außerhalb des Kampfs wie eine Dame, Beine | startbar |
 | 1045 | M | Von Tuffy (Lauf 43235660324, Zweig ohne Spielstand-Änderung): spielstand_test rot, „FEHLER | startbar |
 
-**Jerry** – offen 128, Muss 116, startbar 8
+**Jerry** – offen 129, Muss 116, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -303,6 +303,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1049 | M | Von Sokrates (Befund 12.11.): Gegner ohne eigene Ansage fallen auf „Stich“ zurück (mars.gd | wartet auf Test/Build (gebaut) |
 | 1054 | M | Von Tom (Hinweis 12.11., 16:40): tests/mars_regeln.gd nach dem Umzug veraltet (massstab, _ | wartet auf Test/Build (gebaut) |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 29558 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 1058 | M? | Von Sokrates (1050a): Simulation 444 rechnet Herkünfte ohne plus_variante (variante=False | startbar |
 
 **Perikles** – offen 13, Muss 12, startbar 0
 
@@ -335,7 +336,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 55, Muss 40, startbar 29
+**Sokrates** – offen 56, Muss 41, startbar 30
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -394,6 +395,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1051 | M | Von Jerry (841): Vorentscheid Werte Einschüchtern (Goblin-Späher verjagen): einschuechtern | startbar |
 | 1048 | M? | Ring öfter im Kampf (Chef 12.11., 14:59: „ein bisschen mehr Ring … mehr Einfluss … bei der | Chef (Datei in der Chefsache) |
 | 1056 | M | Vorentscheid: nächster Build halbiert nach Thema, 281 Kampf, 282 Dorf und Oberfläche (Chef | Chef (Datei in der Chefsache) |
+| 1050a | M | Rückfrage Zauberlehrling: Punkte der Herkunft nach 952 D (Wille 5, Verstand 1) neu verteil | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
