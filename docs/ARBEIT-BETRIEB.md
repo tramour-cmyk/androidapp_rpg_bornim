@@ -434,3 +434,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:04 12.11.: Marke Start-fehlt Spike 12.11.-17:06 (lauf.py)
 - 19:04 12.11.: Marke Archiv session_01Hmoj75RkU4dWvyaMvQyaE4 (lauf.py)
 - 20:05 12.11.: Startsperre 20:05 Start Homer (lauf.py)
+- 20:30 12.11.: Startsperre 20:30 Start Sokrates (Neustart-Meldung 378920f8c, Nachfolger „Sokrates – 760: Chefrunde und offene Fragen“, von Hand)
