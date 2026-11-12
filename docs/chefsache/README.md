@@ -47,7 +47,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
-**Tom** – offen 126, Muss 106, startbar 1
+**Tom** – offen 125, Muss 106, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -176,7 +176,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 994 | M | Von Sokrates (Chef 11.11., 20:54, Test 277.18): Klangzeile zeigt beim neuen Spiel ständig | wartet auf Test (Build 278) |
 | 1009 | M | Von Tom (831, Lauf 366): spielstand_test rot „FEHLER Plaetze 1 2“ (letzter() gab Platz 1 s | wartet auf Test (Build 278) |
 | 1017 | M | Von Homer (1015, zu 1012 Punkt 5): Erschaffung Grundwerte (erschaffung_brs.gd ERKLAER wert | wartet auf Test/Build (gebaut) |
-| Pflege | K | von Werkzeug (340.3, 12.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 
 **Jerry** – offen 132, Muss 120, startbar 1
 
@@ -346,7 +345,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 54, Muss 39, startbar 27
+**Sokrates** – offen 53, Muss 39, startbar 26
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -403,7 +402,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 930 | M | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (wartet) |
 | 985 | K | Systemlösung? Nebel: 2 frühere Vorgänge (505, 502), neu 785.7; einmal grundsätzlich lösen? | startbar |
 | 644a | M | Rückfrage: Mindeststufe zum Tragen, Stärke je Gegenstandsstufe, Abstand der Funde (Chef 11 | Chef (Datei in der Chefsache) |
-| Pflege | K | von Werkzeug (340.3, 12.11.): 15244 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
