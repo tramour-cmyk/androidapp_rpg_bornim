@@ -46,7 +46,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
-**Tom** – offen 131, Muss 110, startbar 3
+**Tom** – offen 131, Muss 110, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -132,7 +132,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 756 | M | Gegenstände: wie Seltenheit, Abnutzung und übrige Merkmale bei anlegbarer Ausrüstung angez | Sperre 620.1 B: 26 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.7 |
 | 698 | M | Grafikstufen im Systemmenü mit Effekten (Niedrig/Mittel/Hoch, Automatisch per Leistungstes | wartet auf 623 (startbar) |
 | 816 | M | Effekte Szene 1 Dorf am Abend nach LISTE-EFFEKTE (Reihenfolge 623.8): gedämpft, Bilder/s n | wartet auf 698 (startbar) |
-| 814 | M | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staub im Licht, Fußstaub, Fahne, Wind, | startbar |
+| 814 | M | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staub im Licht, Fußstaub, Fahne, Wind, | ruht |
 | 831 | M | Bildtafel Bäume: vier Arten aus Stylized Nature MegaKit frei (gewöhnlich, abgestorben, Kie | startbar |
 | 839 | K | Von Homer (817): Erklärtexte der Grundwerte im Reiter Held nach BRS einbauen, Texte STORY- | ruht |
 | 842 | M | Von Sokrates (807a A, Chef 10.11., 11:01): Pim überreden und Verband nach STORY-K1-FERTIGK | Sperre 620.1 B: 26 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.7 |
