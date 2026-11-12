@@ -2568,8 +2568,10 @@ func hoehle_bilder() -> void:
 	betrete("cave", Vector2i(10, 18), "UP")
 	if herde: herde.aus = true   # Bilder ohne Angriff
 	await get_tree().create_timer(1.5).timeout
+	# 492 G1 (Pruefer 08.11., 19:29: im Lager steht eine Gestalt am Bildrand): das Lager (Feuer 16/15, Lager 14-19/13-15) von unten
+	# mittig statt von links, die ganze Lagerstatt im Bild
 	var orte := [["eingang", Vector2i(10, 18), "UP"], ["gang", Vector2i(11, 14), "UP"], ["gitter", Vector2i(10, 7), "UP"],
-		["krogg", Vector2i(15, 11), "UP"], ["lager", Vector2i(14, 16), "RIGHT"], ["teich", Vector2i(5, 14), "LEFT"],
+		["krogg", Vector2i(15, 11), "UP"], ["lager", Vector2i(16, 16), "UP"], ["teich", Vector2i(5, 14), "LEFT"],
 		["westfluegel", Vector2i(5, 9), "UP"], ["halle", Vector2i(10, 3), "UP"]]
 	# 492 (Chef 04.11., 13:54, Zu 492 und 505: „Und wenn ich schon mal was gesehen habe … dann sehe ich das halt abgedunkelt“): der Held
 	# geht den echten Weg Kachel fuer Kachel (Nebel: nur Betretenes und Gesehenes gedaempft, der Rest schwarz), das Gitter steht offen
