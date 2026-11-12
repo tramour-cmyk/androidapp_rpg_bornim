@@ -52,6 +52,11 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 188 · 1087 Prüfliste „Passt“ (Tom, `47fd0c177` auf `claude/tom-1087-pruefliste`; 13.11., 00:0x)
+
+- **1087 greift.** Ursache im Spiel, nicht nur alter Zweig: `tools/pruefliste.py` von `main` liest `t281-kampf.md` mit 14 Zeilen, davon 0 mit „Passt“ (Spalte heißt seit 1033 „Passt“, Parser las nur „Richtig“); Build 281 zeigte im Reiter Test also leere Sollzeilen. Mit dem Zweig: t281 14 von 14, t280 (`docs/entwurf/t280-nachtrag.md`, Git) 48 von 48 wie vorher. `pruefliste_1020.gd` auf dem Zweig mit dem JSON aus t281: „Build 281, 14 Zeilen“, „PRUEFLISTE1020 0 Fehler“, Exit 0. Die übrigen Skriptfehler (`leben_basis`) nur am Rechner: `werte.json` kopiert erst die Action (`godot.yml` 71). `zug-index.py` nimmt beide Spaltennamen.
+- Nicht geprüft: Reiter Test im nächsten Build (Fix nur auf dem Zweig).
+
 ## Lauf 187 · 1078 G4, Abschluss 1076 (Perikles, `9fa7b2211`; 12.11., 21:29)
 
 - **1078 greift, 1076 greift.** G4 in `DESIGN-ABNAHME.md` G, „Prüfer: ja“, damit Teil der Prüfung vor dem Versand (783 W1): deckt Chef 20:42 (nur der Prüfgegenstand, Rest geschnitten) und 20:54 (Kamera, nicht die Standardsicht); „etwa dreimal, bis 15 s“ bleibt Vorschlag Sokrates (Herkunft 1076). `LISTE-BAUEN-TESTEN.md` 3 verweist auf G4, kein eigener Wortlaut mehr. Zweiter Ort gesucht (`dreimal`, `15 s`, `Standardsicht`, `Kurzvideo`, `Grundansicht` in docs, tools): nur CLAUDE.md 9 (Kurzfassung) und `meldung.sh` (Wächter); „Kurzvideo 5–15 s … Grundansicht“ steht nur noch in `alt/LISTE-UMZUG-348.md` (seit 10.11. Archiv), „Grundansicht“ in `LISTE-UMZUG-348.md` gilt für Vergleichsbilder, nicht für Filme.

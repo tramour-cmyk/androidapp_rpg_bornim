@@ -113,6 +113,11 @@ Vorschlag Homer, 03.11.; Vorgang 504 (Chef 03.11., 07:52: „Mindestens 3 … Le
 2. Osric murmelt ein Gebet, und Wärme fließt in deine Glieder. Leben und Mana sind wieder voll. — EN: Osric murmurs a prayer, and warmth flows into your limbs. Life and mana are full again.
 3. Der Schmerz ebbt ab, als Osrics Hände über deine Wunden gleiten. Leben und Mana sind wieder voll. — EN: The pain ebbs as Osric's hands pass over your wounds. Life and mana are full again.
 
+`[504.osric.verband]` (Osric, nach `[504.osric.heilung]`, unmittelbar vor „Kaufen ›“; vor und nach Lyras Rettung; neu 1088, Homer 13.11., Vorentscheid Sokrates 842)
+1. Mein Licht reicht nicht bis in den Wald. Aber für den Weg habe ich Verbände. — EN: My light doesn't reach into the forest. But for the road, I have bandages.
+2. Wenn du draußen blutest, bin ich nicht bei dir. Nimm Verbände mit, für ein paar Münzen. — EN: Out there, if you bleed, I won't be with you. Take some bandages, for a few coins.
+3. Saubere Leinen, fest gerollt: Verbände für unterwegs. Der Tempel gibt sie für ein paar Münzen. — EN: Clean linen, tightly rolled: bandages for the road. The temple sells them for a few coins.
+
 `[504.osric.bitte]` (vor Lyras Rettung)
 1. bisher: „Bitte … finde Schwester Lyra …“
 2. Jeden Morgen bete ich für Lyra. Bring sie zurück, {name}, und das Amulett mit ihr. — EN: Every morning I pray for Lyra. Bring her back, {name}, and the amulet with her.
