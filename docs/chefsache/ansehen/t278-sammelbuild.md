@@ -74,3 +74,8 @@ Im Bau geprüft: Spielstand „Weiter“ nimmt immer den neuesten Platz (`spiels
 | 278.39 | Jerry | 959 | Herkunft „Schmiedelehrling“ ansehen | dabei Stumpfe Waffen neben Schmieden und Bergbau | nur Schmieden und Bergbau |
 | 278.40 | Jerry | 952 | einen neuen Helden fertig erschaffen, Tasche → „Held“ | kritischer Treffer als Anfänger nahe 0 % (nicht 7 %) | 7 % schon zu Beginn |
 | 278.41 | Tom | 963, 989 | Tasche → „Held“, jeden Grundwert gedrückt halten | nur Wirkungen, die es gibt: Zähigkeit „Abwehr gegen Gift, Betäubung und Blendung“, Wahrnehmung kritisch mit Dolch, Bogen, Armbrust, Wurf, Verstand „Schaden mit Evokation“, Wille Heilung und kritisch mit Evokation; je Waffe und Zauber die Aussicht auf kritisch | „Stärke deiner Zauber“, „Flächenwirkungen“, „Furcht und Zauber“, Krankheit, Spähen |
+
+## Ergebnis
+
+- 278.23 ✗ vorab (Chef 12.11., 08:07, Film 935): Bogen passt, Flasche „so groß wie ein Ölfass“ → Zu 935 (Jerry)
+- 278.1 ✓ (Chef 12.11., 08:23: „den Scrolltext sozusagen, der passt“)
