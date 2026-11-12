@@ -88,6 +88,7 @@ func _ready() -> void:
 		return
 	betrete(START, START_KACHEL, "DOWN")
 	bilder()
+	pruefliste_bild()
 	gang_film()
 	leute_blatt()
 	held_film()
@@ -1666,6 +1667,34 @@ func bilder() -> void:
 	oeffne_menue("held")
 	await get_tree().create_timer(2.0).timeout
 	await knips(dir + "/heldenreiter.png")
+	get_tree().quit()
+
+# 1020.1: --pruefbild=<ordner> zeigt den Reiter „Test“ mit der Prüfliste des Builds: zwei Zeilen beantwortet (passt, falsch mit
+# Wort), die dritte aufgeklappt; ein Bild zugeklappt (oben), eines aufgeklappt (Zeile offen). Nur am Rechner (eigene Ablage user://)
+func pruefliste_bild() -> void:
+	var dir := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--pruefbild="): dir = a.substr(12)
+	if dir == "": return
+	DirAccess.make_dir_recursive_absolute(dir)
+	Testmodus.an = true
+	Testmodus.geladen = true
+	Sprache.setze("de")
+	var zl := Pruefliste.zeilen()
+	if zl.size() >= 3:
+		Pruefliste.setze(String(zl[0]["nr"]), "✓")
+		Pruefliste.setze(String(zl[1]["nr"]), "✗ kein Staub")
+		Pruefliste.setze(String(zl[2]["nr"]), "")
+	await get_tree().create_timer(1.0).timeout
+	oeffne_menue("test")
+	await get_tree().create_timer(1.5).timeout
+	await knips(dir + "/pruefliste.png")
+	if zl.size() >= 3:
+		Pruefliste.offen = String(zl[1]["nr"])
+		var m = get_tree().root.find_children("*", "Menue", true, false)
+		if not m.is_empty(): m[0].baue()
+		await get_tree().create_timer(1.0).timeout
+		await knips(dir + "/pruefliste_offen.png")
 	get_tree().quit()
 
 # 348.6 Leute: --gang=<ordner> stellt die Leute nebeneinander auf den Platz, seitlich zur Kamera, und legt je 0,1 s
