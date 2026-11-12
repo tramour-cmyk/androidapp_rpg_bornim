@@ -8,7 +8,7 @@ func _initialize() -> void: _lauf.call_deferred()
 
 func _lauf() -> void:
 	var f := 0
-	var tab = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	var tab = Tabellen.lade()     # 870.6: statt regeln/tabellen.json (Build 278)
 	var held: Dictionary = tab.probe.FIGHTER.hero
 	var a = Aufruf.new()
 	root.add_child(a)
