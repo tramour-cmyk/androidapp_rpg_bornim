@@ -85,6 +85,8 @@ const SKELETT_KITS := ["schwert", "schild", "speer"]
 ## zombie (Lumpen, Leichenhemd, rostiges Kettenhemd), Krallen statt Waffe. Der Grabhund (kaufgrabhund.py, ersetzt den Ghul) hat
 ## eigene Häute in ghoul-info.json wie die Riesenspinne (eigene_haut)
 const WIEDERGAENGER := "zombie"
+## 995 Grabhund: Selbstleuchten der Augen (Anteil der gemalten Farbe), hell genug für den Schatten, ohne Lichthof
+const AUGE_GLUT := 0.7
 const WIEDERGAENGER_KITS := ["lumpen", "hemd", "kette"]
 ## Zweibeiner (Gerüst mit Waffen und Kits in <art>-info.json): Goblin, Späher, Grak, Krogg, Skelett, Wiedergänger
 const ZWEI := [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG, SKELETT, WIEDERGAENGER]
@@ -999,6 +1001,9 @@ func _paint(n: Node) -> void:
 			# 506 Grabhund (kaufgrabhund.py): Mähne und Schwanzhaar sind Haarkarten mit Durchsicht (glTF „MASK“); toon.gdshader schneidet aus
 			if src is BaseMaterial3D and (src as BaseMaterial3D).transparency == BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR:
 				m.set_shader_parameter("schnitt", (src as BaseMaterial3D).alpha_scissor_threshold)
+			# 995 (Chef 11.11., 20:58: „klar erkennbare Augen in einer klaren Farbe“): Stoff „Auge“ (kaufgrabhund.py) leuchtet leicht
+			if src != null and src.resource_name == "Auge":
+				m.set_shader_parameter("glow_tex", float(OS.get_environment("AUGE_GLUT")) if OS.has_environment("AUGE_GLUT") else AUGE_GLUT)
 			mi.set_surface_override_material(i, m)
 			mats.append(m)
 	for c in n.get_children():
@@ -1346,15 +1351,40 @@ func _ruhebewegung() -> void:
 
 ## 249 (wie im alten MARS): der Getroffene zittert seitlich am Schirm, 4 dp, in 450 ms abklingend.
 func _shake() -> void:
+	var sway := _taumel()
+	var inv := global_transform.basis.inverse()
 	if hurt_at < 0.0:
+		var off := inv * Vector3(sway, 0, 0)
+		if not off.is_equal_approx(taumel_off):
+			model.position += off - taumel_off
+			taumel_off = off
 		return
 	var h: float = 1.0 - (kampfort.clock_ms - hurt_at) / 450.0
+	taumel_off = inv * Vector3(sway, 0, 0)
 	if h <= 0.0:
 		hurt_at = -1.0
-		model.position = model_rest
+		model.position = model_rest + taumel_off
 		return
 	var dx: float = sin(kampfort.clock_ms / 30.0) * 4.0 * h * kampfort.m_per_dp(global_position)
-	model.position = model_rest + global_transform.basis.inverse() * Vector3(dx, 0, 0)
+	model.position = model_rest + inv * Vector3(dx + sway, 0, 0)
+
+
+## 1036 (alt BattleScreen: „stunned: the body sways, dazed“, sin(t / 380 ms) · 3,5 dp): wer betäubt ist, schwankt seitlich, weich
+## ein und aus; als Ziel eines Hiebs (900 bedroht) rasch still, damit der Stand des Körpers gilt
+var taumel_off := Vector3.ZERO
+var _taumel_w := 0.0
+func _taumel() -> float:
+	var sh = kampfort.get("shown") if kampfort != null else null     # auf der Karte (Streuner, Leute) ein Stub ohne Kampf
+	var st = sh.get("status", {}) if sh is Dictionary else {}
+	var stun: bool = fighter != null and st is Dictionary and st.has(fighter.id) and (st[fighter.id] as Dictionary).has("STUN")
+	var an: bool = stun and not down and not bedroht() and visible
+	if not an and _taumel_w <= 0.0:
+		return 0.0
+	_taumel_w = move_toward(_taumel_w, 1.0 if an else 0.0, get_process_delta_time() / (0.4 if an else (0.15 if bedroht() else 0.4)))
+	if _taumel_w <= 0.0:
+		return 0.0
+	var phase := 1.0 if fighter.side == "PARTY" else 0.0
+	return sin(kampfort.clock_ms / (410.0 if fighter.side == "PARTY" else 380.0) + phase) * 3.5 * _taumel_w * kampfort.m_per_dp(global_position)
 
 
 func snap_to(p: Vector3) -> void:
@@ -1513,12 +1543,17 @@ func _held_wechsel() -> bool:
 	var way := d.length()
 	if way < 0.05:
 		return false
-	if d.dot(kampfort.facing(fighter.side == "FOES")) < 0.0:
-		var zurueck := _gang_ss("Zurück")
-		var v := _held_mps(zurueck if zurueck != "Zurück" else "Gehen") if kauf else WALK_MPS
-		if zurueck == "Zurück" and not anim.has_animation("Gehen"):
-			return false
-		_back_home(way / maxf(v, 0.1), null)
+	var rueck := d.dot(kampfort.facing(fighter.side == "FOES")) < 0.0
+	if _wechsel_mps(not rueck) <= 0.0:
+		return false
+	var partner = _tausch_partner()
+	if partner != null and _tausch_bogen(partner, rueck):
+		return true
+	if rueck:
+		# 1041: die Zeit für den Weg, den _back_home geht (mit Umweg), nicht für die Gerade; sonst eilt er den Umweg entlang
+		var via0 := _detour(position, home)
+		var lang0 := position.distance_to(via0) + via0.distance_to(home) if via0 != position else way
+		_back_home(lang0 / _wechsel_mps(false), null)
 		return true
 	var nm := _gang_ss("Gehen")
 	if not anim.has_animation(nm):
@@ -1536,6 +1571,117 @@ func _held_wechsel() -> bool:
 		tween.tween_property(self, "position", home, dauer)
 	tween.tween_callback(func(): _face(); _idle())
 	return true
+
+
+## 1041: Tempo (m/s) der Schritte beim Platzwechsel, vorwärts oder rückwärts; 0, wenn die Figur keine Gehbewegung dafür hat
+func _wechsel_mps(vor: bool) -> float:
+	if fighter == null or fighter.monster != null or anim == null or down or model == null:
+		return 0.0
+	var nm := _gang_ss("Gehen") if vor else _gang_ss("Zurück")
+	if nm == "Zurück":
+		nm = "Gehen"
+	if not anim.has_animation(nm):
+		return 0.0
+	return maxf(_held_mps(nm) if kauf else WALK_MPS, 0.1)
+
+
+## 1041: wer aus meiner Gruppe auf meinem neuen Platz steht und meinen alten bekommt (oder seinen neuen Platz noch nicht kennt,
+## glide_to ruft beide im selben Bild nacheinander)
+func _tausch_partner():
+	for o in kampfort.figures.values():
+		if o == self or o.fighter == null or o.fighter.monster != null or not o.visible or o.down or o.fighter.side != fighter.side:
+			continue
+		var an_ziel := Vector2(o.position.x - home.x, o.position.z - home.z).length() < 0.3
+		var zu_mir := Vector2(o.home.x - position.x, o.home.z - position.z).length() < 0.3
+		var noch_da := Vector2(o.home.x - home.x, o.home.z - home.z).length() < 0.3
+		if an_ziel and (zu_mir or noch_da):
+			return o
+	return null
+
+
+## 1041 (Chef 12.11., 15:16, Build 280: „das Jägerkind ist wie von der Tarantel gestochen … in einem Bogen rumgegangen und der
+## Söldner hat halt einfach zwei Schrittchen nach vorne gemacht, ganz gemessen“; Ursache: _back_home bekam die Zeit der Geraden für
+## den längeren Umweg über eine Ecke, im Gehtempo, der andere ging im langsamen Schritt mit Schild): beim Platztausch zweier aus
+## einer Gruppe gehen beide zugleich los und kommen zugleich an, im Tempo des Langsameren, jeder auf einem runden Bogen zu seiner
+## Rechten (so weichen sie einander aus, BOGEN_H je Seite), den Blick beim Gegner, die Schritte im Tempo des Wegs. Beide rechnen
+## denselben Bogen; nur wenn auf keiner Seite Platz vor den anderen ist, wie vorher (_detour)
+const BOGEN_H := 0.35
+const BOGEN_N := 24
+const BOGEN_LUFT := 0.3
+const BOGEN_ENGER := 0.15
+const WECHSEL_LANGSAM := 0.5     # langsamer als halbes Schritttempo laufen die Schritte nicht (die Füße rutschten)
+func _tausch_bogen(o, rueck: bool) -> bool:
+	var v := minf(_wechsel_mps(not rueck), o._wechsel_mps(rueck))
+	if v <= 0.0:
+		return false
+	# gemeinsame Richtung: vom Platz dessen, der nach hinten geht, zum Platz dessen, der nach vorn geht
+	var vorn: Vector3 = position if rueck else home
+	var hinten: Vector3 = home if rueck else position
+	var ab := Vector3(hinten.x - vorn.x, 0.0, hinten.z - vorn.z)
+	if ab.length() < 0.05:
+		return false
+	var quer := Vector3(-ab.z, 0.0, ab.x).normalized()
+	# Platz zu den anderen (außer uns beiden); steht einer schon knapp am Platz vorn (ein Wolf im Nahkampf, tausch_1041: Gerade
+	# −0,28, ein Bogen am Ende −0,40), zählt nur, dass der Bogen nicht viel enger wird als die Gerade
+	var gerade := _bogen_luft([vorn, hinten], o) - BOGEN_ENGER
+	var beste := []
+	var beste_luft := -INF
+	for sg in [1.0, -1.0]:
+		var hin := _bogen(vorn, hinten, quer * sg)        # wer nach hinten geht
+		var her := _bogen(hinten, vorn, -quer * sg)       # wer nach vorn geht, auf der anderen Seite
+		var luft := minf(_bogen_luft(hin, o), _bogen_luft(her, o))
+		if luft > beste_luft:
+			beste_luft = luft
+			beste = hin if rueck else her
+		if luft >= minf(BOGEN_LUFT, gerade):
+			break
+	if beste_luft < minf(BOGEN_LUFT, gerade):
+		if OS.get_environment("SCHAU_1041") != "":
+			print("1041 %s: Bogen ohne Platz (Luft %.2f, Gerade %.2f), wie vorher" % [fighter.id, beste_luft, gerade])
+		return false
+	var lang := 0.0
+	for i in range(1, beste.size()):
+		lang += Vector2(beste[i].x - beste[i - 1].x, beste[i].z - beste[i - 1].z).length()
+	var dauer := lang / v
+	var nm := _gang_ss("Gehen") if not rueck else _gang_ss("Zurück")
+	if nm == "Zurück":
+		nm = "Gehen"
+	var takt := clampf(v / _wechsel_mps(not rueck), WECHSEL_LANGSAM, WALK_MAX)
+	_dreh_ab()
+	if rueck and nm == "Gehen":
+		_guard(true)
+		anim.play(nm, 0.12, -takt)
+	else:
+		anim.play(nm, 0.12, takt)
+	if OS.get_environment("SCHAU_1041") != "":
+		print("1041 %s %s: %.2f m in %.2f s, %.2f m/s, Takt %.2f, Luft %.2f" % [fighter.id, "zurück" if rueck else "vor", lang, dauer, v, takt, beste_luft])
+	tween = create_tween()
+	for i in range(1, beste.size()):
+		var st := Vector2(beste[i].x - beste[i - 1].x, beste[i].z - beste[i - 1].z).length()
+		tween.tween_property(self, "position", beste[i], dauer * st / maxf(lang, 0.01))
+	tween.tween_callback(func(): _guard(false); _face(); _idle())
+	return true
+
+
+## 1041: Punkte eines runden Bogens von a nach b, in der Mitte um [seite] (Länge BOGEN_H) zur Seite
+func _bogen(a: Vector3, b: Vector3, seite: Vector3) -> Array:
+	var out := []
+	for i in BOGEN_N + 1:
+		var s := float(i) / BOGEN_N
+		# sin²: an Start und Ziel tangential (erst nach hinten oder vorn, dann zur Seite), in der Mitte am weitesten
+		out.append(a.lerp(b, s) + Vector3(seite.x, 0.0, seite.z) * BOGEN_H * pow(sin(PI * s), 2.0))
+	return out
+
+
+## 1041: kleinste Luft des Bogens zu allen anderen außer mir und dem Tauschpartner
+func _bogen_luft(pts: Array, o) -> float:
+	var g := INF
+	for f in kampfort.figures.values():
+		if f == self or f == o or not f.visible or f.down:
+			continue
+		for i in range(1, pts.size()):
+			g = minf(g, f.strecke_luft(pts[i - 1], pts[i]) - own_r())
+	return g
 
 
 func _weg() -> Dictionary:
@@ -3634,6 +3780,13 @@ func _hieb_bahn(hn: String, versatz := 0.0) -> Array:
 		var was := String(at.get_meta("was", ""))
 		if was == "":
 			continue
+		# 872 (Chef 10.11., 12:33: „Griff- und Spitzenpunkte je Gegenstand so ablegen, dass Jerry sie übernimmt statt je Gegner zu
+		# messen“): die Klinge vom Griff bis zur Spitze nach Halt.gegenstand (regeln/halt.json, sonst aus dem Modell), im Raum des
+		# angehängten Modells; ohne Maße wie bisher längs des Netzkastens (Knauf und Parierstange zählten dort mit)
+		var hm := klinge_halt(at)
+		if not hm.is_empty():
+			klinge.append([at.bone_idx, at.global_transform.affine_inverse() * (at.get_child(0) as Node3D).global_transform, hm])
+			continue
 		for mm in at.find_children("*", "MeshInstance3D", true, false):
 			(schild if was.contains("shield") else klinge).append([at.bone_idx, at.global_transform.affine_inverse() * mm.global_transform, mm.get_aabb()])
 	var tier: bool = fighter.monster != null and klinge.is_empty()
@@ -3767,8 +3920,24 @@ func schild_kapseln() -> Array:
 
 ## 709: Kasten [g] = [Knochen, Kasten zum Knochen, AABB] als Strecke [a, b, r] längs seiner längsten Achse im Raum [inv]; [flach]:
 ## der Schild als Kreuz aus zwei Strecken durch die Mitte seiner Fläche, Radius die halbe Dicke
+## 872: Maße der Klinge am Anhänger [at] nach Halt.gegenstand (Griff, Spitze im Raum des angehängten Modells), leer für Schild, Bogen,
+## Stab (beide Enden schlagen), Waffen im Modell und ohne Maße; dann gilt der Netzkasten wie bisher
+func klinge_halt(at: Node) -> Dictionary:
+	var was := String(at.get_meta("was", ""))
+	if was == "" or was == "waffe-im-modell" or was.contains("shield") or was.contains("bow") or was in STAFFS or was.begins_with("staff"):
+		return {}
+	if at.get_child_count() == 0 or not (at.get_child(0) is Node3D):
+		return {}
+	var hm := Halt.gegenstand(was)
+	if hm.is_empty() or float(hm.get("laenge", 0.0)) < 0.05:
+		return {}
+	return hm
+
+
 static func _strecke(sk: Skeleton3D, g: Array, inv: Transform3D, flach := false) -> Array:
 	var tr: Transform3D = sk.global_transform * sk.get_bone_global_pose(g[0]) * g[1]
+	if g[2] is Dictionary:     # 872: Maße nach Halt (klinge_halt), Griff bis Spitze
+		return [inv * (tr * (g[2]["griff"] as Vector3)), inv * (tr * (g[2]["spitze"] as Vector3)), 0.0]
 	var box: AABB = g[2]
 	var achsen := [box.get_longest_axis_index()]
 	var r := 0.0
@@ -4193,7 +4362,7 @@ func hurt(after_ms: int, dies: bool, schwer := false, art := "") -> void:
 		abwehr(after_ms, art)
 	await get_tree().create_timer(after_ms / 1000.0).timeout
 	if hurt_at < 0.0:
-		model_rest = model.position
+		model_rest = model.position - taumel_off     # 1036: ohne das Schwanken des Betäubten
 	# 249: wie im alten MARS nur Zittern und Blut; das orange Aufleuchten wirkte als greller Scherenschnitt (Prüfer 26.10.)
 	hurt_at = kampfort.clock_ms
 	_schnaufen(0.8)
@@ -4335,8 +4504,81 @@ func dodge(after_ms: int, nm := "") -> void:
 			tween.tween_callback(_nach_ausweichen)
 			return
 	_reichweite_merken("Ausweichen")
+	# 1043 (Chef 12.11., 15:52, t278.33: „davon hab ich nix gesehen. Da weicht nichts“; Archiv „1043a B“): Held und Söldner wichen
+	# 0,46 s auf der Stelle aus, der Fuß wanderte nicht; jetzt ein Schritt weg vom Angreifer, dann zurück an den Platz
+	if fighter.monster == null and not down and not lunging() and _ausweichen_schritt():
+		return
 	_play("Ausweichen", 0.05)
 	get_tree().create_timer(0.45).timeout.connect(_idle_wenn_frei)
+
+
+## 1043: Held und Söldner (ohne Wurzelweg) weichen mit der Bewegung „Ausweichen“ einen raschen Schritt zurück, gerade oder schräg, wo
+## der Rumpf frei bleibt und die Figur im Bild; nach der Bewegung kurz stehen, dann zurück an den Platz (_walk_home); false, wenn
+## nirgends Platz ist (dann wie bisher auf der Stelle)
+const AUSWEICH_SCHRITT_M := 0.7    # Modellmeter (× Größe): ein großer Schritt, deutlich mehr als die Neigung am Ort
+const AUSWEICH_SCHRITT_S := 0.28   # s für den Schritt: rasch los, sanft auslaufen
+const AUSWEICH_STEHEN_S := 0.35    # s stehen bleiben, bevor er zurückgeht (sonst wirkt es wie ein Zucken)
+func _ausweichen_schritt() -> bool:
+	var nm := "Ausweichen" if anim and anim.has_animation("Ausweichen") else String(ALIAS.get("Ausweichen", ""))
+	if nm == "" or anim == null or not anim.has_animation(nm):
+		return false
+	var g0 := minf(_rumpf_luft(position, rotation.y), PLATZ_LUFT)
+	var fz := Vector3(basis.z.x, 0.0, basis.z.z).normalized()
+	var blick := Vector3(sin(rotation.y), 0.0, cos(rotation.y))
+	var weit := AUSWEICH_SCHRITT_M * _scale()
+	# reihum schräg links, schräg rechts zurück (mindestens drei Varianten, DESIGN-LEITBILD 2), gerade nur, wenn beide nicht gehen
+	var seiten: Array = [35.0, -35.0, 0.0, 60.0, -60.0] if (ausweich_nr + hash(String(fighter.id))) % 2 == 0 else [-35.0, 35.0, 0.0, -60.0, 60.0]
+	# Held und Söldner stehen am Rand des Bilds (der Kasten aus _im_bild war schon am Platz draußen): der Schritt darf nur nicht
+	# weiter hinaus führen als jetzt (Mitte der Figur, Rand 8 % der Breite) und nicht in einen anderen (Luft ≥ 0 oder nicht enger)
+	var sr: Rect2 = kampfort.scene_rect()
+	var rand := func(q: Vector3) -> float:
+		var sp: Vector2 = kampfort.screen_of(q)
+		return minf(minf(sp.x, sr.size.x - sp.x), sr.size.y - sp.y)
+	var r0: float = minf(rand.call(position), 0.08 * sr.size.x)
+	var luft0 := minf(g0, 0.0)
+	for w in seiten:
+		var ziel := position - fz.rotated(Vector3.UP, deg_to_rad(w)) * weit
+		var frei := true
+		for i in range(1, 6):
+			var p := position.lerp(ziel, i / 5.0)
+			if _rumpf_luft(p, rotation.y) < luft0 or float(rand.call(p)) < r0:
+				frei = false
+				break
+		if not frei:
+			continue
+		bahn = [ziel]
+		_play(nm, 0.05)
+		var l: float = anim.get_animation(nm).length
+		tween = create_tween()
+		tween.tween_property(self, "position", ziel, AUSWEICH_SCHRITT_S).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+		tween.tween_interval(maxf(0.0, l - AUSWEICH_SCHRITT_S))
+		tween.tween_callback(_idle)     # sonst stand er in der letzten Haltung des Ausweichens still
+		tween.tween_interval(AUSWEICH_STEHEN_S)
+		tween.tween_callback(_schritt_heim)
+		if OS.get_environment("SCHAU_MESS") != "":
+			print("Ausweichen %s Schritt %.0f°, %.2f m" % [fighter.id, w, weit])
+		return true
+	return false
+
+
+## 1043: nach dem Ausweichschritt vorwärts zurück an den Platz, das Gesicht zum Gegner (wie _back_home, nur vorwärts: der Platz liegt
+## vor ihm); mit Schild im Gang des Schildsatzes
+const AUSWEICH_HEIM_S := 0.7
+func _schritt_heim() -> void:
+	if down:
+		return
+	var way := Vector2(home.x - position.x, home.z - position.z).length()
+	if way < 0.05:
+		position = home
+		_idle()
+		return
+	var g := _gang_ss("Gehen")
+	if anim and anim.has_animation(g):
+		anim.play(g, 0.12, clampf(way / AUSWEICH_HEIM_S / (_held_mps(g) if kauf else WALK_MPS), 1.0, WALK_MAX))
+	bahn = [home]
+	tween = create_tween()
+	tween.tween_property(self, "position", home, AUSWEICH_HEIM_S).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_callback(func(): bahn = []; _face(); _idle())
 
 
 ## 988 (wolf_mess_438 Lauf 369, CLERIC ohne Schild nach BRS, Bild 1330: Ausweichen auf der Stelle, die Brust neigt sich 11 px über
