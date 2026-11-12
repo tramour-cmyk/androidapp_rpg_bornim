@@ -4,7 +4,8 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (11.11., 19:0x, `session_01Hmoj77btUrnzTkmToicMe4`):** Lauf 181: 982 und 981 greifen (Prüfbericht). Nächste Nummer D182. Nachfolger: keiner
+**Übergabe (12.11., 03:0x, `session_01Hmoj76nm3tRwpGWich17Uw`):** Lauf 182: 1010 greift mit Lücke D182.1 → 1011 (Perikles), `warte 1010 1011` (Prüfbericht). Nächste Nummer D183. Nachfolger: keiner
+- **Zu 1010, 1011:** ist 1011 gebaut, nachprüfen: Laufzusage Sokrates zählt nicht, Kopf „… → **ja (Nutzer)**“ zählt; dann `greift 1010` und `greift 1011`.
 - **Zu 981, 982:** nach 14.11., 20:00 eine echte START-Zeile ohne `effort high` und eine Sitzung ohne Aufwand ansehen; falsch → Vorgang an Perikles.
 - **Zu 940:** bei der ersten echten Doppelziehung zweier Sitzungen auf GitHub: zwei Nummern, kein Konflikt im Zähler.
 - **Zu 927:** beim nächsten echten Lauf mit „Sitzung hängt“ oder „Jetzt installieren“ die Zeile ansehen.
