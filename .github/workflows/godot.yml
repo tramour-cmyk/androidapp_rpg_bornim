@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
     inputs:
       kampf:
-        description: "Kampfort-Filme: ja (453 r3, 453.1 Vergleich), 461 (Grundstand-Film Kampfort), 4531 (Heldenatem Feld 2 gegen neu), 2963 (Siegerposen), 784 (Sollbild Wolfsrudel, eine Runde), 1039 (Zielring) oder 656 (Umhang: Film; mit film=nein Bilder vorher/nachher), 935 (Wurf Brandflasche und Weihwasser)"
+        description: "Kampfort-Filme: ja (453 r3, 453.1 Vergleich), 461 (Grundstand-Film Kampfort), 4531 (Heldenatem Feld 2 gegen neu), 2963 (Siegerposen), 784 (Sollbild Wolfsrudel, eine Runde), 1039 (Zielring), 1040 (Grimmzahn wendet mit Tritten) oder 656 (Umhang: Film; mit film=nein Bilder vorher/nachher), 935 (Wurf Brandflasche und Weihwasser)"
         default: ""
       dorf:
         description: "Dorf-Film Grundstand (461.1): ja; 10401 = Lyra in der Höhle schaut dem gehenden Helden nach (Wendeschritte, Spike)"
@@ -545,6 +545,7 @@ jobs:
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/auto_945.gd 2>&1 | grep -E "^  Seed|AUTO945|SCRIPT ERROR"   # 945 Held und Söldner Auto bleiben abschaltbar (Jerry)
           set -o pipefail; timeout 400 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/wechsel_950.gd 2>&1 | grep -E "^(FEHLER|WECHSEL950|hero|merc|Abstand|Mira)|SCRIPT ERROR"   # 950 Platztausch mit Schritten
           nebenher zustaende_563 'set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/zustaende_563.gd 2>&1 | grep -E "^(ZUSTAND563|Zustand|Leiste)|SCRIPT ERROR"'   # 563 A Zustände ohne Überlappen
+          set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/tritt_1040.gd 2>&1 | grep -E "^(TRITT1040|Tritt|FEHLER)|SCRIPT ERROR"   # 1040 Monster der Geschichte tritt beim Wenden, auch wenn es dem Helden folgt
           timeout 300 ~/godot/godot --headless --path . -s res://tests/held_klassen_376.gd 2>&1 | grep -E "HELDKLASSEN|FALSCH|SCRIPT ERROR"   # 376.1
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . -s res://tests/held_kampf_403.gd 2>&1 | grep -E "^(ok|FEHLER|Held 403)|SCRIPT ERROR"   # 403 (Jerry)
           # 824: Held ohne Schild geht nach dem Hieb rückwärts im Schritttempo heim (nicht 3,8 m/s mit 1,6-facher Bewegung)
@@ -1006,6 +1007,15 @@ jobs:
           # Lauf 383 mit Wölfen: Anspringen hat keinen Ring, im ganzen Film kein Ring), der Held tippt den Ring
           if [ "${{ github.event.inputs.kampf }}" = "1039" ]; then
             film 1039-ring sollbild_784 RUNDEN=2 GEGNER=GRAK
+            ls -l $B; exit 0
+          fi
+          # 1040 (Tuffy; Chef 12.11., 15:12 Grimmzahn „wie ein Playmobil-Männchen“): kampf=1040 der Held geht im Tiefen Wald um Grimmzahn herum
+          if [ "${{ github.event.inputs.kampf }}" = "1040" ]; then
+            # Lauf 384: ohne Argument hinter „--“ legt spiel.gd das Hauptmenü über alles (399), der ganze Film zeigte nur das Menü
+            SEED=7 timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+              --write-movie $RUNNER_TEMP/1040-tritt.avi --fixed-fps 30 -s res://tests/film_tritt_1040.gd -- --film1040 > $B/1040-tritt.log 2>&1 || true
+            ffmpeg -loglevel error -y -i $RUNNER_TEMP/1040-tritt.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/1040-tritt.mp4 || true
+            grep -E "^FILM1040" $B/1040-tritt.log || true
             ls -l $B; exit 0
           fi
           if [ "${{ github.event.inputs.kampf }}" = "4531" ]; then
