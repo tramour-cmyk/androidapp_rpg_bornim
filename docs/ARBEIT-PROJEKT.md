@@ -2,13 +2,14 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `e844f13b9` (12.11., 04:04)
+**Gelesen bis:** `109293e0f` (12.11., 07:09)
 
-**Übergabe (12.11., 04:07, `session_01Hmoj75W8e6YMkpd4gxoni7`):** 1011 gebaut (`afa2141f4`): `startbar.laufzusage()` überspringt nur „<Nr>, Läufe frei“ mit „Sokrates“ ohne „Chef an“/„(Nutzer“; Probe am Archiv: 42 von 48 übersprungen, 264.1 (5×) und 510a zählen als Chefantwort; `--stand` läuft. Nachprüfung steht bei Diogenes (Zu 1010, 1011). Nachfolger: auf Abruf
-**Letzte Antwort:** 1011 gebaut; Vorrat leer, auf Abruf.
+**Übergabe (12.11., 07:10, `session_01Hmoj79nhucTfp4jACfXVtR`):** 1016: Startangaben in der Vorlage und `LISTE-BETRIEB.md` „Tiefe“ korrigiert (Voll → „WireStorm Hoch“, Modell nach Startzuordnung, Aufwand Hoch); Ford-Wache als Ersatz geprüft (Tiefe 4, brächte nur einen Neustart); Telegram 07:09 laut an den Chef. Ford stand 07:05 bei 115 Tsd. Token, Tiefe 6. Nach dem Start: neuer Ford auf Tiefe 0, Aufwand Hoch prüfen (`get_session`, Fehler 341), Antwort ins Archiv, Datei löschen, 1016 fertig. Nachfolger: Perikles – 1016 schließen (wartet auf Chef)
+**Letzte Antwort:** 1016 beim Chef: Ford heute vor 08:30 von Hand starten.
 - **Fehler 341, von Sokrates (11.11., 18:14):** 901 (365a B, „alle Hoch“ seit 07:18) startete in der Umgebung „WireStorm Hoch“, die nur Variablen setzt; die App zeigte „Mittel“, keiner prüfte das Ergebnis, gefunden hat es der Chef (18:04; 18:14 „von euch hat es ja keiner gemerkt … Schwarzbuch“). Behoben 981. Lehre: Einstellung am Ergebnis prüfen (`get_session`, App), nie an der Eingabe.
 
 ## Einzelheiten
+- **Zu 1019, von Sokrates (12.11., 07:25, Stellungnahme 1016):** Ford startet sich am Neustart-Haken neu (Protokoll 22:17, 00:22, 03:34, 06:11 bei 208–293 Tsd.), nicht bei 400 Tsd. (185, `LISTE-BETRIEB.md` „Selbstneustart“); `tools/neustart-haken.py` nimmt Ford nicht aus. Folge: Tiefe 0 bis 6 in 21 h, Handstart täglich. Vorschlag: Ford im Haken auf 400 Tsd. (wie Kaufrepo-Sitzungen, 818). Auch: Ford nannte die Vorlage 1016 statt 110 (`LISTE-BETRIEB.md` „Tiefe“).
 - **Zu 1010, von Sokrates (12.11., 01:14):** Archivkopf „<Nr>, Läufe frei“ zählt in `startbar.antworten()` als Chefantwort; bei offener Vorlage zur Nummer (`ansehen/861-umhang.md`) hält die Commit-Prüfung an. Umgangen mit Kopf ohne Nummer (`d74bc8c77`). Vorschlag: „Läufe frei“-Köpfe in `antworten()` überspringen. **Getan 02:10:** `antworten()` überspringt „- **<Nr>, Läufe frei**“; Probe: Chefantwort 861 00:10 zählt, Laufzusage 01:18 nicht; `--stand` läuft. Ab jetzt geht der Kopf mit Nummer wieder.
 - **Zu 981 (archiviert, Prüfung nach 14.11. bei Diogenes), Wortlaut bis Abnahme:** Chef 11.11., 18:04 (an Sokrates): „wer läuft denn überhaupt noch auf Aufwand hoch? … ich dachte, das hatten wir heute früh so festgelegt, dass alle auf hoch laufen, weil du scheinst ja auf mittel zu laufen“; 18:11: App zeigt bei Sokrates „Mittel“. Befund und Bau (981 `aff3a9af1`, 982 `7431ee44c`) in Git, Stand vor „Perikles: Pflege 12.11.“.
 

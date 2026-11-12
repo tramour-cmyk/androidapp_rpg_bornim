@@ -24,4 +24,11 @@ Geprüft an: [782cf391d](https://github.com/tramour-cmyk/androidapp_rpg_bornim/c
 
 **Folgerungen:** Nach A: Jerry bindet das Kaufrepo an, stellt mit `ruhe_863` nach, behebt, misst vorher und nachher, baut 863 für den nächsten gemeinsamen Build. Nach B: Jerry startet einen Messlauf am Bauserver und legt dir das Ergebnis vor. Bis zur Antwort arbeitet Jerry am nächsten startbaren Vorgang.
 
+**Stellungnahme Sokrates (12.11., 07:25):**
+- **Stärkstes Gegenargument gegen A:** die Frage ist schon entschieden und darf so nicht gestellt werden. Erlaubt ist das Einbinden längst (708, Chef 08.11., 22:13: „Grundsätzlich ist das Einbinden von allen Repos erlaubt“; ebenso 376.1, 513, 506); es fehlt kein Entscheid, nur dein Wort in Jerrys Sitzung gegen die Sperre des Auto-Modus (391, 887 ruht). Und darum bitten ist ausgeschlossen (818, Chef 09.11., 22:27; `ROLLE-ENTWICKLUNG.md` „Bestand zuerst“: „nie darum bitten, weder Chat noch Telegram noch Chefsache“).
+- **Widerspruch zu Entschiedenem in B:** den zweiten Lauf gibt nicht dein Urteil frei, sondern ich nach 480.1 (Leitlinie 595; heute Nacht dreimal so geschehen, Archiv 831, 988). Die Kaufmodelle liegen im Lauf (Zu 861 bei Tom: „nachstellen im Filmlauf statt am Rechner“), der Messlauf zeigt also die gekaufte Ratte.
+- **Für A spricht, ehrlich:** die Art kommt wieder; 863, 950, 931, 932, 784 und 1014 hängen am selben Weg, und Ursachensuche braucht oft mehr als zwei Versuche: am Rechner Minuten, am Bauserver je 30 bis 40 Minuten. Die einmalige Lösung dafür ist 391 (mein Vorgang), nicht je Vorgang eine Vorlage.
+- **Kosten:** A ein Satz von dir, danach Minuten je Versuch, Sitzung bleibt offen (818, Haken ab 400 Tsd.). B zwei Läufe zu je 30 bis 40 Minuten und so lange Wartezeit für 863; Jerry arbeitet derweil an Anderem.
+- **Empfehlung:** „863a B“, ohne auf dich zu warten (Läufe gebe ich nach 480.1 frei: einer zum Nachstellen, einer nach der Behebung), und willst du es schneller, schreibst du von dir aus in Jerrys Sitzung „Binde alle Repos ein, die du zum Arbeiten benötigst“ (416.4a), dann gilt A ohne weitere Frage.
+
 Antwort: …
