@@ -15,7 +15,7 @@ In der Probe umgesetzt, wie du es um 20:01 gesagt hast (nicht A, B oder C; deine
 - Licht: Der warme Schein steht hinter den Beinen und läuft nach allen Seiten weich ins Schwarz aus, ohne Kante; eine Lampe vorn oben bringt die Gesichter ins Licht, auch das dunkle des Zauberlehrlings.
 
 **Mir ist aufgefallen:**
-- Das Jägerkind (Zwerg) hat graues Haar und einen grauen Bart und wirkt wie ein alter Mann. Ursache: Die Herkunft gibt Haarfarbe Nr. 4, beim Menschen Rot, beim Zwerg Grau. Gilt auch in der Erschaffung. Vorschlag: beim Zwerg Rot (wie beim Menschen); sagst du ja, kommt es mit dem Einbau.
+- Das Jägerkind (Zwerg) hat graues Haar und einen grauen Bart und wirkt wie ein alter Mann. Ursache: Die Herkunft gibt die vierte Haarfarbe, beim Menschen Rot, beim Zwerg Grau. Gilt auch in der Erschaffung. Vorschlag: beim Zwerg Rot (wie beim Menschen); sagst du ja, kommt es mit dem Einbau.
 - Der Zwerg ist so groß wie die Menschen, die Elfe sieht aus wie ein Mensch: Alle Völker haben noch denselben Körper (431, nach dem Umzug).
 - Der Rundschild der Wachsoldatin ist von vorn nicht zu sehen, ihr Schwert nur als schmaler Strich an der Hand.
 - Der Kurzbogen des Jägerkinds liegt waagrecht in der Hand und wirkt fast wie eine Armbrust.
