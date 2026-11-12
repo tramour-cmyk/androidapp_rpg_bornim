@@ -162,7 +162,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1045 | M | Von Tuffy (Lauf 43235660324, Zweig ohne Spielstand-Änderung): spielstand_test rot, „FEHLER | startbar |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 16824 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 135, Muss 119, startbar 7
+**Jerry** – offen 135, Muss 120, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -300,7 +300,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1066 | M | Von Perikles (1050a A, Chef 12.11., 20:02): Herkunft Zauberlehrling plus Verstand 3, Wille | startbar |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 29492 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 1071 | M? | Von Sokrates (Chef 12.11., 20:09, Film 1036; Wiederholfund 09.11., 21:15 und 10.11., 19:29 | startbar |
-| 1072 | M? | Von Sokrates (Chef 12.11., 20:09, zu 1036; Wiederholfund 09.11. und 10.11.): hinterer Wolf | startbar |
+| 1072 | M | Von Sokrates (Chef 12.11., 20:09, zu 1036; Wiederholfund 09.11. und 10.11.): hinterer Wolf | Sperre 620.1 B: 31 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1018 (wolf) |
 
 **Perikles** – offen 14, Muss 12, startbar 1
 
