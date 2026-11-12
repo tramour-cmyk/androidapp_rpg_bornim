@@ -403,3 +403,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:05 12.11.: Startsperre 16:05 Start Diogenes (lauf.py)
 - 16:05 12.11.: Marke Archiv session_01Hmoj75ZfDj3Zzs82FM18nF (lauf.py)
 - 16:08 12.11.: Lauf 16:04: Diogenes …77ufZfvjHmbE3pvfuL (1042 Kür, Prüfzeile von Perikles) gestartet; Diogenes 1019 …75ZfDj3Zzs82FM18nF archiviert (1,45 $ gebucht). Läuft: Tom 757, Jerry 1029, Sokrates (Ring), Perikles 1042 (leer gemeldet, ruht). Weckrufe nur bei Tuffy 1036 (1036, 1039, 1040).
+- 16:20 12.11.: Neustart-Meldung Tuffy 16:18 (e1d8b4b1b, auf main; Nachfolger „Tuffy – 1039/1040: Filme an den Chef“): Tuffy …7A5QW3nspwoDNRPehg lief noch (working) und hält die Weckrufe 1039 (16:18) und 1040 (16:25); nicht archiviert, Nachholen per Weckruf 16:29 (Ford): Nachfolger starten, Weckrufe auf die neue Sitzung legen, dann archivieren.
