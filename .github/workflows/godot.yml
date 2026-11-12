@@ -1213,6 +1213,18 @@ jobs:
           VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --wendebild=$GITHUB_WORKSPACE/bilder/wende4168/probebild.png 2>&1 | grep -E "SCRIPT ERROR|^WENDE|^BILD|^LEUTE" | cut -c1-400 || true
           ls -l $GITHUB_WORKSPACE/bilder/wende4168
+      # 867 (Chef 10.11., 13:48): Hauptmenü mit den Helden des Spiels statt der vier Kotlin-Figuren, Bild vorher/nachher, nur von Hand
+      # auf claude/tom-867-…
+      - name: Hauptmenübild (867)
+        if: ${{ !cancelled() && github.event_name == 'workflow_dispatch' && contains(github.ref, 'tom-867') }}
+        continue-on-error: true
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/bilder/menue867
+          cd godot
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 \
+            -s res://tests/hauptmenue_bild_867.gd -- --aus=$GITHUB_WORKSPACE/bilder/menue867 2>&1 | grep -E "SCRIPT ERROR|^BILD|^MENU867" | cut -c1-400 || true
+          ls -l $GITHUB_WORKSPACE/bilder/menue867
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}     # 453: Filme auch nach rotem Prüfschritt; nie mit bild=nein
         with:
