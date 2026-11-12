@@ -1,4 +1,4 @@
-# Tom und Jerry · Build 279 · Version folgt · Nachtrag zu 278: Prüfliste im Spiel, Schnellstart, Probekampf-Baukasten, Fortsetzen · PR #198
+# Tom und Jerry · Build 279 · 0.348.377 · Version folgt · Nachtrag zu 278: Prüfliste im Spiel, Schnellstart, Probekampf-Baukasten, Fortsetzen · PR #198
 Ganzes Spiel · Tom (1020.1, 1021, 990, 1017), Jerry (1020.2, 863), Spike (1021 „Letztes Ende“) · 12.11., 09:38 · APK folgt
 Rot, bekannt, nicht melden: wolf_mess_438 – ein Wolfsbiss gleitet knapp über der Grenze (Vorgang 1018). Dazu bekannt und in 279 unverändert: Kartenrand im Norden offen (1022), Fußstaub nicht zu sehen (814), Beet nicht bis an den Zaun (612, kommt im nächsten Build), Bildrate im Kampf (806, 15 Bilder/s).
 Gegengelesen: Sokrates 12.11., 09:42 (6 Funde, eingearbeitet `ec72af9c4`). Die Prüfliste im Spiel stammt vom Baustart und hat diese Korrekturen noch nicht; Unterschiede nur bei 278.10, .11 (zuerst „Einmaliges“), 278.28 („Andere Hand: leer“), 278.32 (über das Intro eines neuen Spiels) und der Zeile „bekannt“.
