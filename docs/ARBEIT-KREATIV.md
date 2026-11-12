@@ -2,13 +2,12 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `31e551e90` (12.11., 22:40)
+**Gelesen bis:** `31e551e90` (13.11., 00:08)
 
-**Übergabe (12.11., 22:40, `session_01Hmoj76v6LAGkEfvoHHV8ot`):** erledigt: 1085 (Pim für Gold, `STORY-K1-FERTIGKEITEN.md`, fremd geprüft); davor heute 1074, 1069, 1067, 1057, 1047, 1026 (Einzelheiten im Git-Verlauf). Nachfolger: Homer – 766: Rollenspiegel (13.11., 08:00).
+**Übergabe (13.11., 00:08, `session_01Hmoj78hsRUK9YPNgLSCKor`):** erledigt: 1088 (Osric `[504.osric.verband]`, `STORY-VARIANTEN-K1.md`, fremd geprüft, an Tom zu 842); davor 1085, 1074, 1069, 1067, 1057, 1047, 1026 (Git-Verlauf). Nachfolger: Homer – 766: Rollenspiegel (Termin in der Liste).
 
 ## Zeilen
 
-- **Zu 1088, von Sokrates (13.11., 00:03, Vorentscheid 842, `billigen/842-knopf.md`):** Im Tempel steht nach `[504.osric.heilung]` (Erzähler) der Knopf „Kaufen ›“ neben „‹ Nicht jetzt“, ohne dass einer sagt, was es gibt; Osric verkauft nur Verbände (807 A). Ein Satz Osrics davor, drei Wortlaute wie `[504.osric.*]` in `STORY-VARIANTEN-K1.md`, DE und EN; dann Tom (842).
 - **Zu 976, Homer (12.11., 11:33):** `[870.14.ding.guete]` und Begriffe in `STORY-BRS-KAMPF.md` nach 976a A; Code noch alt (Hinweis an Tom gegeben). Ein Handbuchabsatz zur Güte entsteht erst mit dem Herstellen.
 - **Zu 870.9, Homer (12.11., 16:34, ohne Eile):** „Hero Level“ im Handbuch klein, in der Oberfläche groß; beim Bau 870.9 einheitlich klein lassen oder angleichen.
 
