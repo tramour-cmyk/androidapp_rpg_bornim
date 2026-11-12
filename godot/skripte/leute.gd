@@ -62,6 +62,7 @@ var wende_kurve := {}                   # Name -> PackedFloat32Array, Drehung in
 var wende := ""                         # laufende Wende
 var wende_start := 0.0                  # rotation.y beim Beginn der Wende
 var monster := false                   # 560 (Jerry): ein Monster der Geschichte (Grimmzahn, aussehen „monster:…“)
+var tritt_bis := 0                      # 1040: bis wann es beim Wenden tritt (Streuner.tritt_bis)
 const MONSTER_SIEHT := 4               # 560: Kacheln, ab denen es sich dem Helden zuwendet (herde.gd Lauerer 9i.2)
 var da := true                         # 390: nach der Geschichte zu sehen (Story.kt visible: besiegt, befreit)
 
@@ -499,7 +500,7 @@ func _process(dt: float) -> void:
 	stehen(dt)
 	if ziel.x >= 0: return
 	tempo_jetzt = 0.0
-	if monster and anim and anim.has_animation("Gehen") and absf(angle_difference(rotation.y, blick)) > Streuner.DREH_TRITT:
+	if monster and anim and anim.has_animation("Gehen") and (absf(angle_difference(rotation.y, blick)) > Streuner.DREH_TRITT or Time.get_ticks_msec() < tritt_bis):
 		if anim.current_animation != "Gehen": anim.play("Gehen", 0.2)     # 560: wendet mit Tritten
 		anim.speed_scale = Streuner.TRITT_TEMPO
 		return
@@ -532,7 +533,9 @@ func stehen(dt: float) -> void:
 	if monster and held and zugewandt_bis == 0 and held_abstand() <= MONSTER_SIEHT:
 		blick = atan2(held.global_position.x - global_position.x, held.global_position.z - global_position.z)
 	if monster:
+		var vorher := rotation.y
 		rotation.y = drehe(rotation.y, blick, Streuner.DREH * dt)
+		tritt_bis = Streuner.tritt_bis(tritt_bis, angle_difference(vorher, rotation.y), dt, Time.get_ticks_msec())     # 1040
 	else:
 		drehe_stehend(dt, DREH_ZU if zugewandt_bis > 0 or schaut else DREH_STEH)     # 416.8 (Tom): Wende mit Schritten
 	if still or not da: return

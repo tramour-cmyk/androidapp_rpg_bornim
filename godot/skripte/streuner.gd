@@ -38,6 +38,13 @@ const DREH_JAGD := 5.0            # rad/s, wer jagt oder flieht, kommt schneller
 const DREH_FREI := PI / 4.0       # Roamers.TURN_FREE 45 Grad: so weit wendet es im Gehen, darueber erst auf der Stelle
 const DREH_TRITT := 0.12          # rad: ab dieser Abweichung tritt es beim Wenden
 const TRITT_TEMPO := 0.6          # Gehen beim Wenden auf der Stelle, Anteil des Tempos
+## 1040 (Chef 12.11., 15:12, Grimmzahn: „wenn ich um den rumlaufe, dann dreht er sich … wie als ob er ein Playmobil-Männchen wäre“):
+## wer dem gehenden Helden mit dem Blick folgt, holt ihn je Bild ein, der Rest blieb unter 1 Grad und nie über DREH_TRITT, es drehte
+## ohne Tritt wie auf dem Drehteller; jetzt tritt es, sobald es sich merklich dreht (über TRITT_RATE), und noch TRITT_NACH_MS danach
+const TRITT_RATE := 0.15          # rad/s, gut 8 Grad je Sekunde
+const TRITT_NACH_MS := 400        # ein halber Schritt, damit die Pfoten nicht mitten im Tritt stehen bleiben
+static func tritt_bis(bis: int, gedreht: float, dt: float, jetzt: int) -> int:
+	return jetzt + TRITT_NACH_MS if absf(gedreht) > TRITT_RATE * dt else bis
 
 # ---------------------------------------------------------------- Daten eines Monsters (bleiben je Karte, solange das Spiel laeuft)
 var art := ""
