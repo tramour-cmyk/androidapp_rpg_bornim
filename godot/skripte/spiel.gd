@@ -272,6 +272,7 @@ func tiere_an_aus() -> void:
 	else:
 		for t in da: t.queue_free()
 	held.leute = leute.get_children().filter(func(l): return not l.is_queued_for_deletion())
+	Testmodus.tiere = da.is_empty()   # 991: Zustand am Zeichen im Testmenue
 
 # ---------------------------------------------------------------- Tippen, Ausgaenge, Schilder
 const NACHBARN := [Vector2i(0, -1), Vector2i(0, 1), Vector2i(1, 0), Vector2i(-1, 0)]

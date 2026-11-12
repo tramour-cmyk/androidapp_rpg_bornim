@@ -558,6 +558,8 @@ jobs:
           # 415 r3 (Jerry): Strahlenprobe ohne Bild, Stabspitze hinter dem Körper (F6), Strahl durch eine Figur (E3), Richtung (F2); meldet nur
           timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/strahl_mess_415.gd 2>&1 | grep -E "^(Strahl|STRAHL)|SCRIPT ERROR" || true
           timeout 120 ~/godot/godot --headless --path . -s res://tests/klang_test.gd 2>&1 | grep -E "^(gut|FALSCH)|KLANG|SCRIPT ERROR"   # 399.3
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/klang_994.gd 2>&1 | grep -E "^FALSCH|KLANG994|SCRIPT ERROR"   # 994 kein stummer Tierlaut, Wiederholung als eine Zeile
+          set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/staub_990.gd 2>&1 | grep -E "^FALSCH|STAUB990|SCRIPT ERROR"   # 990 Staub im Licht bleibt im Raum
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/parade_seite_662.gd 2>&1 | grep -E "PARADE662|FEHLER|SCRIPT ERROR"   # 662 Parade nach der Seite des Angreifers (Jerry)
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/todesschrei_2963.gd 2>&1 | grep -E "^(ok|FEHLER|Todesschrei 296.3)|SCRIPT ERROR"   # 296.3 Todesschrei auch bei Zauber- und Zustandstod (Jerry)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/arkan_993.gd 2>&1 | grep -E "^(Arkan 993|  |FEHLER|ARKAN993)|SCRIPT ERROR"   # 993 Arkanpfeil aus R2 (Jerry)
