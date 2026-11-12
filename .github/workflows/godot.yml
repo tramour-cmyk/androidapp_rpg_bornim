@@ -1214,17 +1214,33 @@ jobs:
           VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --wendebild=$GITHUB_WORKSPACE/bilder/wende4168/probebild.png 2>&1 | grep -E "SCRIPT ERROR|^WENDE|^BILD|^LEUTE" | cut -c1-400 || true
           ls -l $GITHUB_WORKSPACE/bilder/wende4168
-      # 1022 Kartenrand (Chef 12.11., 13:41 „1022 ja“): je Gebietskarte vom Rand aus nach Norden, Westen, Osten, Süden, Tag, mit
-      # Kaufmodellen wie im Build; nur bei „1022 Randbilder“ im Commit oder von Hand auf einem Zweig mit 1022
+      # 1022 Kartenrand (Chef 12.11., 17:00 „sinnvolle Bilder von innen auf den Kartenrand nach außen“): Spielansicht, Blick vom Helden
+      # über den Rand nach außen, an den Fundstellen aus Build 280 und im Osten und Süden der Wälder (tests/rand_bild_1022.gd); nachher =
+      # dieser Stand, vorher = Stand von claude/build-280 (dessen Shader, gebiet.gd und die drei Gebietskarten aus dessen dorf.py, alles
+      # andere gleich). Nur bei „1022 Randbilder“ im Commit oder von Hand auf einem Zweig mit 1022
       - name: Randbilder (1022)
         if: ${{ !cancelled() && (contains(github.event.head_commit.message, '1022 Randbilder') || (github.event_name == 'workflow_dispatch' && contains(github.ref, '1022'))) }}
         continue-on-error: true
         run: |
-          mkdir -p $GITHUB_WORKSPACE/bilder/rand1022
-          cd godot
-          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
-            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -s res://tests/rand_bild_1022.gd -- --rand=$GITHUB_WORKSPACE/bilder/rand1022 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^BILD" | cut -c1-400 || true
-          ls -l $GITHUB_WORKSPACE/bilder/rand1022
+          R=$GITHUB_WORKSPACE/bilder/rand1022; mkdir -p $R/nachher $R/vorher
+          knipse() {
+            (cd $1 && VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
+              ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -s res://tests/rand_bild_1022.gd -- --rand=$2 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^BILD" | cut -c1-400 || true)
+          }
+          knipse godot $R/nachher
+          A=$RUNNER_TEMP/vorher1022; mkdir -p $A
+          git fetch -q --depth=1 origin claude/build-280 && git archive FETCH_HEAD tools/blender348 godot/shader godot/skripte/gebiet.gd | tar -x -C $A
+          export OUT=$A/out KARTEN=$GITHUB_WORKSPACE/godot/daten/karten.json
+          bl/bin/python -I $A/tools/blender348/v3/tex.py > $A/tex.log 2>&1 || { tail -20 $A/tex.log; exit 1; }
+          for g in village forest deep_forest; do KARTE=$g bl/bin/python -I $A/tools/blender348/v3/dorf.py > $A/dorf-$g.log 2>&1 || { tail -20 $A/dorf-$g.log; exit 1; }; grep -h "GLB OK" $A/dorf-$g.log || true; done
+          cp -a godot $A/spiel
+          cp $A/godot/shader/*.gdshader $A/spiel/shader/ && cp $A/godot/skripte/gebiet.gd $A/spiel/skripte/
+          D=$A/spiel/daten
+          cp $OUT/dorf.glb $D/dorf.bin && cp $OUT/dorf-info.json $D/ && cp $OUT/boden-maske.png $D/boden-maske.bild
+          for g in forest deep_forest; do cp $OUT/$g.glb $D/$g.bin && cp $OUT/$g-info.json $D/ && cp $OUT/$g-boden-maske.png $D/$g-boden-maske.bild; done
+          git diff --no-index --stat godot/shader $A/spiel/shader | tail -1 || true
+          knipse $A/spiel $R/vorher
+          ls -l $R/nachher $R/vorher
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}     # 453: Filme auch nach rotem Prüfschritt; nie mit bild=nein
         with:
