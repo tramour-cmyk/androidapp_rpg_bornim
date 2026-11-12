@@ -1,5 +1,7 @@
 # 1044 · Stehhaltung der Frauen am Beispiel Lyra: Sichtung der gekauften Bewegungen · Team Tom · 13.11., 00:07
 
+[Bild von 13.11., 00:07](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/13-0007-1044-Tom.png) (eingetragen von meldung.sh, Tom)
+
 E Welt
 
 Geprüft an: [Lauf 43318704869](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43318704869) (Zweig `claude/tom-1044-frauen`, auf dem Bauserver mit den gekauften Figuren). Großbild: Telegram 13.11., 00:07.
