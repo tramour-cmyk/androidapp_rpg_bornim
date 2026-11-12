@@ -3,8 +3,8 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 **Übergabe (12.11., 16:25, `session_01Hmoj76LefYhJVf6wTSuzko`):** 264 erledigt (VM angehalten 16:09); 1038 A, R1 (Archiv; 1046 Jerry, 1047 Homer, Zu 842 Tom); Lagebild t280 (Zu 620 Perikles); 1044 Standpose Frauen an Tom. Kosten auf: 264, 1038, 620, 1044. Nachfolger: Sokrates – Ring und offene Fragen. Letzte Antwort (16:25): „1038 A, R1 eingetragen: Verband stillt Blutung, kurze Rast nur Ausdauer; Jerry rechnet vorher nach.“
-- **Offen beim Chef, ohne Datei (im Chat 15:00, 15:57 gefragt, nicht wiederholen):** Ring-Vorlage (Votum 15:00: Ring aus 930 lösen, Abwehr bei jedem angekündigten Nahangriff auch Anspringen, Angriff bei Kampfhandlungen, R4 offen; Widerspruch 406.1; Bau erst nach 1039). Bei „ja“: Vorlage in `entscheiden/`, Rechnung Jerry.
-- **Nachhalten:** Magier gegen Krogg als Balancevorlage (Zu 952, 984).
+- **Zu 1048 (Chef 12.11., 14:59: „dass wir ein bisschen mehr Ring brauchen, um ein bisschen mehr Einfluss zu haben auf die Ergebnisse bei der Abwehr und beim Angriff“):** Vorlage `entscheiden/1048-ring.md` (Votum A, S1, D; D ändert mein 930 II.3, weil Kampfhandlungen erst ab Geselle kommen). Nach Entscheid: Rechnung Jerry (Ringe je Kampf, Rundenzeit, Schaden), Bau nach 1039; Spielanleitung 72.11, Regelseite 930 Regel 4, 10, II.3 nachziehen.
+- **Nachhalten:** Magier gegen Krogg als Balancevorlage: Rechnung 1050 Jerry (drei Wege), dann `entscheiden/` und Querschnitt in `DESIGN-BRS.md`.
 - **Zu 862 (Chef 12.11., 07:10, zu 861):** „Jeder, dem ich eine Ausrüstung Umhang gebe, kann Umhang tragen. Völlig wurscht, wer es ist.“ „das lassen wir jetzt auch sein. Wir stoppen … wieder Vorlage für irgendwann. Weil so unfähig, wie ihr euch da anstellt mit diesem Umhang, das ist unglaublich.“ Umhang ruht; bisher 58, 463, 656, 861 zusammen 130,84 $. Vorlage irgendwann: Umhang als Ausrüstung für jeden Helden, eine Lösung für alle Körper, Prüfstein links gleich rechts von hinten.
 - **Zu 952 und 984, nachhalten:** Tuffys Rechnung unten (00:12) zeigt: Zauberlehrling fällt nach 952 D stark zurück, Gewandtheit liegt nicht in jedem Kampfstil vorn (984 A). Balance ist Chefsache: Vorlage mit Rechnung an den Chef (Plus des Zauberlehrlings neu verteilen?), Querschnitt in `DESIGN-BRS.md` nachziehen.
 - **Zu 952:** „952 D“ (Chef 20:03, Archiv); Regelwerk nachgetragen, Bau 952 Jerry, 989 Tom; nachhalten: Rechnung Mischzauberer von Jerry, dann Querschnitt in `DESIGN-BRS.md` nachziehen.
@@ -29,7 +29,6 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Zu 142.4 (Chef 09.11., 20:22):** D&B-Anfrage eingegangen, Case 11255677, D-U-N-S noch leer; warten auf deren E-Mail (Einzelheiten in Git, 11.11.).
 - **Zu 654:** Rest (d)–(f) für die nächste Systemrunde: `git show 99cca1404:docs/ARBEIT-BERATUNG.md`.
 - **Zu 623 (Chef 10.11., 07:43–07:58; Wortlaut `git show e99ee39da:docs/ARBEIT-BERATUNG.md`):** ganze Breite der Kaufpakete sehen; er sichtet selbst die Herstellerseiten (Links 07:59); Schaukasten ruht, bis seine Ideen da sind.
-- **Zu 1020 (Chef 12.11., 07:55, im Chat):** „schau dir mal bitte so die letzten Testszenarien an … ob mein Testmenü nicht auch noch weitere Sachen bräuchte, damit ich die Tests effektiver und schneller erledigen kann. Wie gewisse Voreinstellungen für Kämpfe … wenn ich dann ständig neue Spielstände anlegen muss und dann wieder das 50. Mal die Intro-Szene überspringen darf und das 100. Mal zu Altik laufen … pimpt mal bitte das Testmenü so weit auf, dass ich Tests schnell und effektiv durchführen kann.“ Vorlage `entscheiden/1020-testmenue.md`; Bau danach Tom (Testmenü 991), Kampfteile Jerry.
 
 ## Zeilen
 
