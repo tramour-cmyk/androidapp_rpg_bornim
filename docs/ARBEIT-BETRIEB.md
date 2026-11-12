@@ -317,3 +317,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 02:09 12.11.: Startsperre 02:09 Start Jerry, Spike (lauf.py)
 - 02:09 12.11.: Marke Start-fehlt Jerry 12.11.-02:04 (lauf.py)
 - 02:09 12.11.: Marke Start-fehlt Spike 12.11.-02:04 (lauf.py)
+- 02:11 12.11.: Start Jerry (Perikles 02:09, b95433d85; M?-Entscheid 997–1001, 1003, 1004 Muss): Jerry …78VEA65CTBXosKPurM "Jerry – 999" und Spike …76whoiKwDXuCf5tevk "Spike – 989" (Zusatz, Toms Muss) in Hoch, effort high gestartet; Jerry alt …7934La69YC63snTQki (6,43 $ auf 986, 997, 998) und Spike alt …7667YeBDQoVo4PDtp2 (8,07 $ auf 976, 635) archiviert und gebucht. --ohne 861 (Tom in Arbeit) bleibt bei künftigen Läufen.
