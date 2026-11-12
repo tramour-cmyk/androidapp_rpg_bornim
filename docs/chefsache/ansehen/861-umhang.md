@@ -1,5 +1,7 @@
 # 861 · Umhangbuckel im Kampf: Ursache gefunden, Behebung gebaut · Tom · 11.11., 23:48
 
+[Film von 12.11., 03:19](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261112-031947-861/2026-11/12-0319-861-Tom.mp4) (eingetragen von meldung.sh, Tom)
+
 [Film von 11.11., 23:30](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/11-2330-861-Tom.mp4) (Tom), Stand vorher: Kämpfer von hinten, hinten links, rechts, hinten rechts.
 
 **Berichtigung zum Befund von 23:35:** Er war falsch. Die Messung in Lauf 361 hielt Arme und Hände des Körpers für Umhang: Die gekauften Körper und die Augen haben einen eigenen zweiten Satz Bildkoordinaten, und das Messwerkzeug las ihn als Umhangmarke. „Umhang hängt an den Fingern“ betraf also die Hände selbst. Der Magier, der Kleriker und der Schurke tragen in ihrem Modell gar keinen Umhang. Im Spiel wirkt diese Marke nicht (der Wert, der sie nutzt, steht auf null).
