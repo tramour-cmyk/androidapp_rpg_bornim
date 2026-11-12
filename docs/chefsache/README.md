@@ -44,7 +44,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
-**Tom** – offen 116, Muss 94, startbar 7
+**Tom** – offen 117, Muss 94, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -164,6 +164,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1073 | M? | Von Sokrates (Chef 12.11., 20:38): Bilder der Dinge in Tasche und Laden nach unserer Signa | startbar |
 | 1079 | M | Prüfschritt ziege_4162 einmal rot: „von (-1, 0) tauscht die Ziege mit dem Helden den Platz | startbar |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 20798 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 1081 | M? | Von Sokrates (Chef 12.11., 21:28): Zoom nach außen begrenzen auf 10,2 Kacheln Breite (heut | startbar |
 
 **Jerry** – offen 134, Muss 118, startbar 4
 
