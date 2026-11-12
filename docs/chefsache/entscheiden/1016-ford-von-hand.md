@@ -6,7 +6,7 @@ Geprüft an: [LISTE-BETRIEB.md, Selbstneustart und Tiefe](https://github.com/tra
 
 **Frage:** Jede Sitzung trägt eine Tiefe: wer eine Sitzung gestartet hat, ist eins höher als seine Neue. Ab Tiefe 8 funktionieren weder neue Sitzungen noch Uhren, Weckrufe oder zeitgesteuerte Nachrichten, der Betrieb stünde. Darum bleibt Ford höchstens auf Tiefe 6 und seine Teams auf 7. Der Ford, der jetzt übergibt, liegt auf Tiefe 5, sein Nachfolger auf 6. Dieser Nachfolger darf sich nicht mehr selbst neu starten. Wann startest du den nächsten Ford von Hand?
 
-**Votum:** „1016 A“: Du startest in claude.ai/code eine Sitzung (Umgebung „Voll“, Repo `androidapp_rpg_bornim`) mit dem Wort „Ford“; sie liegt dann auf Tiefe 0. Ein Ford auf Tiefe 6 trägt etwa 2 bis 3 Stunden, bis er seine Grenze von 200 Tsd. Token erreicht; bis dahin läuft alles weiter wie jetzt, auch nachts.
+**Votum:** „1016 A“, heute Vormittag: Du startest in claude.ai/code eine Sitzung mit **Umgebung „WireStorm Hoch“, Modell Sonnet, Aufwand Hoch**, Repo `androidapp_rpg_bornim`, erste Nachricht „Ford“; sie liegt dann auf Tiefe 0. Der jetzige Ford (Tiefe 6, seit 06:12) stand um 07:05 bei 115 Tsd. Token; die Grenze von 200 Tsd. erreicht er etwa zwischen 08:30 und 09:30. (Perikles 07:07: „Voll“ korrigiert; bis 14.11. gilt „WireStorm Hoch“, Ford läuft nach Startzuordnung auf Sonnet, `LISTE-BETRIEB.md`.)
 
 **Berührt:** Ford (Stundenuhr „Ford-Lauf“, neue Sitzung legt sie selbst an), Perikles (Besitzer von 1016), `LISTE-BETRIEB.md` „Selbstneustart“
 
@@ -21,6 +21,7 @@ Geprüft an: [LISTE-BETRIEB.md, Selbstneustart und Tiefe](https://github.com/tra
 **Auswertung:**
 - **A (Empfehlung) Von Hand starten:** zwei Minuten, Tiefe 0, danach wieder ein langer Lauf ohne Handgriff. Der neue Ford archiviert den alten.
 - **B Weiterlaufen lassen und nichts tun:** der Ford auf Tiefe 6 läuft bis zur Grenze, danach liegt der Betrieb still, bis du ihn startest; kein Schaden, aber Stillstand.
+- **Geprüft, kein Ersatz (Perikles 07:07):** die Ford-Wache liegt auf Tiefe 4; ein von ihr gestarteter Ford läge auf 5 und brächte nur einen weiteren Selbstneustart, danach wieder diese Frage.
 - **Stärkstes Gegenargument gegen A:** ein Ford auf Tiefe 7 wäre noch erlaubt; die Grenze 6 ist eine Vorsicht, keine Grenze des Systems. Antwort: auf 7 liegen schon die Teams, und jede weitere Stufe nimmt ihnen Luft vor der harten Grenze 8.
 
 **Folgerungen:** Nach deinem Start archiviert der neue Ford den alten, Perikles schließt 1016, die Datei wird gelöscht.
