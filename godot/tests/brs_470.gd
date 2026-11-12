@@ -122,6 +122,13 @@ func _lauf() -> void:
 	pruefe("Wanderer gesperrt", not es.los_an(), true)
 	pruefe("oben steht warum", fe.text if fe else "", Spielstaende.ohne_waise(es.punkte_satz() + " · " + es.wahl_satz()))   # 557: letzte zwei Woerter verbunden
 	pruefe("Fertigkeiten gefunden", breiten.size() >= 30, true)
+	# 984.1, Fund t278.38 (Chef 12.11., 15:52 „sind nicht da“): Illusion und Beschwörung stehen in Kapitel 1 matt da, nicht wählbar;
+	# Bergbau bleibt verborgen bis Kapitel 2 (461c)
+	var farbe := {}
+	for l in es.inhalt.find_children("Text", "Label", true, false): farbe[(l as Label).text] = (l as Label).get_theme_color("font_color")
+	var gross := func(f: String) -> String: return ErschaffungBrs.fert_name(f).to_upper().replace("ß", "SS")
+	var matt := Color(Stil.DIM, 0.75)
+	pruefe("Illusion, Beschwörung matt da, Bergbau nicht (984.1)", [farbe.get(gross.call("Illusion")) == matt, farbe.get(gross.call("Beschwörung")) == matt, farbe.has(gross.call("Bergbau")), farbe.get(gross.call("Evokation")) == Stil.GOLD], [true, true, false, true])
 	pruefe("Fertigkeiten gleich breit", breiten.keys().filter(func(t): return absi(int(breiten[t]) - int(ziel)) > 1).map(func(t): return "%s %d" % [t, breiten[t]]), [])
 	es.queue_free()
 	print("BRS470 ", "gut" if fehler == 0 else "%d falsch" % fehler)
