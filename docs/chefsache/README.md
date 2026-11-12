@@ -30,6 +30,7 @@ Nichts offen.
 |---|---|---|---|---|---|
 | 1 | [0.348.373](ansehen/t278-sammelbuild.md) | [Build 278](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43159433416/artifacts/13919514537) | Sammelbuild nach Build 277 | Tom und Jerry | 12.11., 07:52 |
 | 2 | [0.348.377](ansehen/t279-testmenue.md) | [Build 279](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43184730118/artifacts/13931060982) | Nachtrag zu 278: Prüfliste im Spiel, Schnellstart, Probekampf-Baukasten, Fortsetzen | Tom und Jerry | 12.11., 10:28 |
+| 3 | [0.348.379](ansehen/t280-nachtrag.md) | [Build 280](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/199) | Nachtrag zu 279: Reiter „Test“ passt auf den Schirm, Bäume im Wald, Dorf Süd, Stufen der Ausrüstung | Tom und Jerry | 12.11., 12:20 |
 
 ## Zu tun
 
@@ -357,11 +358,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 57, Muss 42, startbar 32
+**Sokrates** – offen 56, Muss 41, startbar 31
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1028 | M | Von Tom (1027, Chef „jetzt“ 11:42): Prüfliste t280 gegenlesen (docs/entwurf/t280-nachtrag. | startbar |
 | 1020 | M | Testmenü für schnelle Tests: letzte Prüflisten auswerten, Vorschläge (Voreinstellungen Kam | startbar |
 | 887 | M | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus (dontAsk von | ruht |
 | 870 | M | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen, Bau Tom u | wartet auf 870.13 (wartet) |
@@ -422,7 +422,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): t278-sammelbuild.md: Zeile 2 ist keine Bereichszeile; t279-testmenue.md: Zeile 2 ist keine Bereichszeile
+Format (Muster: „So geht's“ unten): t278-sammelbuild.md: Zeile 2 ist keine Bereichszeile; t279-testmenue.md: Zeile 2 ist keine Bereichszeile; t280-nachtrag.md: Zeile 2 ist keine Bereichszeile
 
 ## So geht's
 
