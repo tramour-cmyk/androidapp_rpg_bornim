@@ -1,5 +1,7 @@
 # 814 · Fußstaub: so sieht er aus und dort findest du ihn · Tom · 12.11., 11:55
 
+[Bild von 12.11., 11:56](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/12-1156-814-Tom.png) (eingetragen von meldung.sh, Tom)
+
 E Welt · Zweig `claude/tom-814-fussstaub` · am Rechner mit den gekauften Modellen und Effekten, Bild in echter Spielzeit (30 Bilder je Sekunde)
 
 Geprüft an: [Commit b95e2a1](https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/b95e2a176)
