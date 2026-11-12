@@ -171,7 +171,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 994 | M | Von Sokrates (Chef 11.11., 20:54, Test 277.18): Klangzeile zeigt beim neuen Spiel ständig | wartet auf Test/Build (gebaut) |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 15319 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 131, Muss 113, startbar 11
+**Jerry** – offen 131, Muss 113, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -304,7 +304,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1003 | M? | Von Tuffy (620.2c, zu 95): Heldin keucht im Kampf mit Männerstimme: spiel.gd 1502 gibt kla | startbar |
 | 1004 | M? | Von Tuffy (620.2c, zu 72.10a.9): „Decken“ hängt an cls FIGHTER (kampf_ui.gd 700, mars.gd 8 | startbar |
 | 1006 | M | Von Tom (861): skelett_506 „Skelette im Gleichklang“ (Stehen 0,51/0,55/0,81) rot auch auf | Sperre 620.1 B: 32 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 595 |
-| 1007 | M | Von Tom (977): Monster der Karte (streuner.gd) mit Streuner.Stub, dessen clock_ms bei 0 bl | startbar |
+| 1007 | M | Von Tom (977): Monster der Karte (streuner.gd) mit Streuner.Stub, dessen clock_ms bei 0 bl | in Arbeit bei Tuffy |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 15468 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 12, Muss 11, startbar 0
