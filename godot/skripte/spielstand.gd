@@ -28,10 +28,15 @@ static func alt(d: Dictionary) -> bool: return not d.is_empty() and int(d.get("v
 
 static func speichere(z: Zustand, hw: BrsHeld, ort: Dictionary) -> void:
 	_umziehen()
+	# 1009: „Weiter“ nimmt den Platz mit der größten Zeit; zwei Speicherungen in derselben Millisekunde (oder eine zurückgestellte
+	# Uhr) gaben den älteren. Darum immer nach allen anderen Plätzen: eine Millisekunde über der größten Zeit, wenn die Uhr nicht vorn ist
+	var ms := int(Time.get_unix_time_from_system() * 1000.0)
+	for d in liste():
+		if not d.is_empty() and int(d["platz"]) != platz: ms = maxi(ms, int(d.get("gespeichert", 0)) + 1)
 	var f := FileAccess.open(datei(platz), FileAccess.WRITE)
 	if f == null: return
 	f.store_string(JSON.stringify({"version": VERSION, "zustand": z.als_daten(), "held": hw.spiel_daten(), "ort": ort,
-		"gespeichert": int(Time.get_unix_time_from_system() * 1000.0),   # ms wie alt savedAt
+		"gespeichert": ms,   # ms wie alt savedAt
 		# 529: die Ortszeit beim Speichern; die Karte zeigt sie, so stimmt „Gespeichert“ auch nach einer Zeitumstellung
 		"gespeichert_ortszeit": Time.get_datetime_dict_from_system(false)}))
 
