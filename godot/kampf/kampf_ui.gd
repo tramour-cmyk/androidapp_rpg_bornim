@@ -324,6 +324,30 @@ func _words(s: String, newest: bool) -> Array:
 	return out
 
 
+## 1031 (Chef 12.11., 14:08, Build 280: im ganzen Bericht „ist alles nur weiß“): der ganze Bericht in denselben Farben wie die
+## Zeilen über dem Kampfort, jede Zeile hell wie die neueste (alt SkirmishScreen.kt 1365 LogLine(l, true)): Eingebung in Gold,
+## „n Schaden“ hervorgehoben. Ein Farbwechsel nur, wo die Farbe wechselt; „[“ im Text als [lb].
+func bericht_bbcode() -> String:
+	var out := PackedStringArray()
+	for s in lines:
+		var teile := PackedStringArray()
+		var offen := ""
+		for w in _words(s, true):
+			if offen != "":
+				teile.append(" ")
+			var c: String = (w[1] as Color).to_html(false)
+			if c != offen:
+				if offen != "":
+					teile.append("[/color]")
+				teile.append("[color=#%s]" % c)
+				offen = c
+			teile.append((w[0] as String).replace("[", "[lb]"))
+		if offen != "":
+			teile.append("[/color]")
+		out.append("".join(teile))
+	return "\n".join(out)
+
+
 func _wrap(words: Array, width: float, fs: int) -> Array:
 	var rows := [[]]
 	var x := 0.0
@@ -406,7 +430,8 @@ func _show_full_log(on: bool) -> void:
 	r.add_theme_color_override("default_color", TEXT)
 	r.add_theme_font_override("normal_font", font)
 	r.add_theme_font_size_override("normal_font_size", sp(15 * 0.95))
-	r.text = "\n".join(lines)
+	r.bbcode_enabled = true
+	r.text = bericht_bbcode()
 	sc.add_child(r)
 	var close := Label.new()
 	close.text = t("Tippen schließt", "Tap to close")
