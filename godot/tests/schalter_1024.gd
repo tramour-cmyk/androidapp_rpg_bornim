@@ -26,7 +26,7 @@ func _all() -> void:
 		for s in seeds:
 			n += 1
 			var r: Array = await _one(foe, int(s))
-			print(("gut " if r[0] == 0 else "FALSCH ") + "%s Seed %s: %d von %d Bildern ein Schalter unter dem Kasten, tiefster %.0f px%s" % [foe, s, r[0], r[1], r[2], r[3]])
+			print(("gut " if r[0] == 0 else "FALSCH ") + "%s Seed %s: %d von %d Bildern ein Schalter unter dem Kasten oder eine Ansage auf der Bildrate-Zeile, tiefster Schalter %.0f px%s" % [foe, s, r[0], r[1], r[2], r[3]])
 			if r[0] > 0:
 				failed += 1
 	print("SCHALTER1024 %d Kämpfe, %d mit verdeckten Schaltern" % [n, failed])
@@ -56,6 +56,10 @@ func _one(foe: String, s: int) -> Array:
 	var dran_seit := -1.0
 	var gewachsen := false
 	var ui = k.ui
+	# Bildrate-Zeile des Testmodus wie spiel.gd _kampf_messe (24 px vom Rand, 30 % der Höhe, zwei Zeilen): keine Ansage darauf
+	var zeile := Rect2(24, 2340 * 0.30, 1080 - 48, 2 * 14 * 2.62 * 1.4)
+	ui.set("frei_halten", [zeile])     # vor 1024 gab es das Feld nicht (dann ohne Wirkung)
+	var auf_zeile := 0
 	var t0 := Time.get_ticks_msec()
 	var bad := 0
 	var bilder := 0
@@ -95,8 +99,13 @@ func _one(foe: String, s: int) -> Array:
 				wo = "; %s %s, Kasten oben %.0f px (gepasst %.0f, jetzt %.0f hoch), %.1f s" % [nm, r, oben, ui.fitted_h, ui.panel.size.y, k.clock_ms / 1000.0]
 			if ueber > 1.0:
 				schlecht = true
+		for r in ui.sign_rects:
+			if (r as Rect2).intersects(zeile):
+				schlecht = true
+				auf_zeile += 1
+				break
 		if schlecht:
 			bad += 1
 	p.queue_free()
 	await process_frame
-	return [bad, bilder, tief, wo]
+	return [bad, bilder, tief, wo + ("; Ansage auf der Bildrate-Zeile in %d Bildern" % auf_zeile)]
