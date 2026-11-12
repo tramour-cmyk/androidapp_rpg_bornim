@@ -7,6 +7,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 **Übergabe (12.11., 05:32, `session_01Hmoj78ovK2dE9B3u77pw3E`):** 968: 988 und 1006 in Build 277 gemischt (`eea6d14db`), Lauf 370 grün (keine roten Tests), PR #196 auf main (`c1ebc354e`), CHANGELOG. 1012 Sammelbuild 278 angelegt (Tom 635, 814, 977, 1009 und Jerrys fertige Zweige). Nachfolger: Tom – 1012: Sammelbuild 278.
 
 ## Einzelheiten
+- **Zu 1012, von Jerry (12.11., 05:57):** für Build 278 auch `claude/jerry-1013-schild-406` (`5b1e863b8`, nur Test `schild_406`: Schild im Kampf nach der Herkunft wie `held_kampf_403`).
 - **Zu 977, von Tuffy (12.11., 01:31, aus 1007):** auf `claude/tuffy-1007-streuner` (2dcaaddc1) trägt `Streuner.Stub` seine Uhr selbst (`clock_ms` liest die Spielzeit); die Uhrzeile in `leute.gd` `_process` ist damit überflüssig, schadet aber nicht (getestet). Der Ruhelaut ist auf der Karte jetzt nur nah zu hören (`Stub.ruhe_pegel`, wie alt `MonsterIdle`); Grimmzahn über `leute.gd` setzt keinen Hörer und knurrt darum überall voll laut. Vorschlag statt der Uhrzeile: `modell.kampfort.hoerer = held.position`.
 
 
