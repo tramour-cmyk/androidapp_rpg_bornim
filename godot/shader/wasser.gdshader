@@ -16,6 +16,15 @@ uniform vec4 inseln[64];
 uniform int inseln_n = 0;
 uniform vec3 insel_farbe : source_color = vec3(1.0, 0.66, 0.3);
 uniform vec3 mond : source_color = vec3(0.847, 0.894, 0.957);   // MOON 0xD8E4F4
+// 1022 (Chef 12.11., 08:26; alt MapEdge.fade, 27m „super“): hinter dem Kartenrand bleibt der Wald 2 Kacheln voll hell, dann laeuft er
+// weich ins Schwarz, ab 5,4 Kacheln (0,9 Ring) ganz; Boden, Wasser und alles darauf gleich (gebiet.gd rand_an)
+uniform vec3 rand_karte = vec3(0.0);   // Breite, Hoehe der Karte in Metern, an (1); aus: ueberall hell (Held, Leute, Kampfort)
+float rand_licht(vec3 w) {
+	if (rand_karte.z < 0.5) return 1.0;
+	float d = max(max(-w.x, w.x - rand_karte.x), max(-w.z, w.z - rand_karte.y)) / 1.16 - 2.0;
+	float u = clamp(1.0 - d / 3.4, 0.0, 1.0);
+	return u * u * (3.0 - 2.0 * u);
+}
 varying vec3 wpos;
 void vertex() { wpos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz; }
 float h21(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
@@ -58,5 +67,5 @@ void fragment() {
 		float ufer = smoothstep(0.5, 1.1, w);   // Runde 5 (4): 0,6..0,86 begann 8 px unter dem Nordufer mit harter Kante; weiter auslaufen
 		col += add * funkeln * smoothstep(0.52, 0.7, w) * night + mond * 0.22 * spur * (0.12 + 0.88 * funkeln) * ufer * night;
 	}
-	ALBEDO = col;
+	ALBEDO = col * rand_licht(wpos);
 }

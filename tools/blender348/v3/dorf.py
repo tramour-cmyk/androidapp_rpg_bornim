@@ -1224,6 +1224,7 @@ def fuss_verdeckt(p):
         if hm > 4.0: break
         if ch(int(math.floor(x + sd * ZUR_KAMERA[0])), int(math.floor(y + sd * ZUR_KAMERA[1]))) in HAUS: return True
     return False
+RAND_NIEDRIG = set()                                            # 1022: Kacheln mit Busch oder junger Fichte
 STAMM = {}                                                      # 348.6 Dinge: Stamm je Baumkachel (Felsen daneben, nicht darin)
 def tree(c, r):
     p = trocken(tile_c(c, r) + Vector((rnd.uniform(-20, 20), rnd.uniform(-20, 20), 0)), rad=1.0); STAMM[(c, r)] = p   # Runde 10b/c: Stamm vor dem Wasser las sich als darin (0,6 reichte nicht)
@@ -1463,6 +1464,7 @@ def bush(c, r, rand=False):
         sp = 1.0 if rand else 0.7
         p = trocken(tile_c(c, r) + Vector(((h1(c, r, 22 + s * 7) - 0.5) * TS * sp, (h1(c, r, 24 + s * 7) - 0.6) * TS * sp, 0)))
         if fuss_verdeckt(p): continue
+        RAND_NIEDRIG.add((c, r))                                    # 1022: fuer den Randtest (info rand), nur ausserhalb gezaehlt
         g = (0.65 + 0.45 * h1(c, r, 25 + s * 7)) * (0.7 if dach_davor(c, r, HAUS | set('xz')) else 1.0)   # Helfer Runde 10b: grosse Buesche sassen auf dem Dach der Wache
         if rand: g *= 0.75 + 0.6 * h1(c, r, 32 + s)
         dk, li = BUSCH_F[int(h1(c, r, 26 + s * 7) * len(BUSCH_F))]
@@ -1482,6 +1484,7 @@ def young(c, r, k):
     """junge Fichte wie MapFlora.spruce(young): etwas groesser als ein Mensch, im Sueden der Kachel"""
     p = trocken(tile_c(c, r) + Vector(((h1(c, r, 18 + k) - 0.5) * TS * 0.6, -TS * (h1(c, r, 20 + k) * 0.3 - 0.05), 0)), rad=0.8)
     if fuss_verdeckt(p): return
+    RAND_NIEDRIG.add((c, r))
     hh = 190 + 50 * h1(c, r, 6 + k)
     spruce(DORF, p, hh / 3.5, c * 53 + r * 5 + k, tiers=4)
 def low(c, r, art, rand=False):
@@ -1491,16 +1494,33 @@ def low(c, r, art, rand=False):
 # 348.6 (Befund 4, Fluss an der Kirche unter Kronen): Bewuchs und Waldring wie das alte Spiel aus dem Export
 # (MapFlora.shades: niedrig, wo eine hohe Krone Wichtiges verdeckt; MapEdge.spot: frei vor Wegen und Wasser, Hecke vor Feldern)
 LOW = {(x, y): a for x, y, a in K.get('bewuchs', [])}
+RING = 6                                                                    # wie MapEdge.RING: so viele Reihen Wald hinter dem Rand
+RING_DA = {(x, y) for x, y, _ in K.get('ring', [])}
+def ring_offen(x, y):
+    """wie MapEdge.spot open: ein Ausgang (Weg, Wasser, Wiese) liegt am Rand daneben, der Wald bleibt dort bis CLOSE offen"""
+    cx, cy = min(max(x, C0), C1), min(max(y, R0), R1)
+    entlang = y < R0 or y > R1
+    return any((ch(min(max(cx + k, C0), C1), cy) if entlang else ch(cx, min(max(cy + k, R0), R1))) != 'T' for k in range(-3, 2))
 for x, y, art in K.get('ring', []):                                         # Waldrand: Baeume um die Karte (Rahmen wie im Spiel)
     d = max(C0 - x, x - C1, R0 - y, y - R1)
     if art.startswith('baum'):
         # weiter draussen sieht die Kamera nicht hin; Runde 11 (Urteil Chef 12:11: suedlicher Ortsrand ohne Abschluss): im Sueden und
         # Osten (zur Kamera hin, unten im Bild; Grundansicht wie alt, 3486 a) der ganze Ring und dahinter weiter Wald bis 9 Kacheln
-        if d > (6 if (y > R1 or x > C1) else 4): continue
+        # 1022 (Chef 12.11., 08:26, Blick nach Norden ueber den Schlagbaum: Weg offen bis an den Bildrand, Wald nicht dicht): im
+        # Norden und Westen fehlten die Reihen 5 und 6, gerade die, in denen der Wald ueber einem Ausgang zugeht (MapEdge.CLOSE 5);
+        # jetzt auf jeder Seite der ganze Ring wie alt (27m: sechs Reihen, dann dunkel, gebiet.gd rand_licht)
+        if d > RING: continue
         outer_tree(x, y)
         if art == 'baum2' and d <= 2:                                                      # dichter als innen: zweiter Baum, halbe Kachel versetzt (nur vorn: Dreiecke)
             p0 = tile_c(x, y); outer_tree(x, y, p0 + Vector((-TS / 2, TS / 2, 0)))
     else: low(x, y, art, rand=True)
+# 1022 (689 „Suedrand ohne Abschluss“): im Dorf liess der Ring vor Feldern und Beeten ab der dritten Reihe Luecken (MapEdge: dort keine
+# hohen Kronen, die Felder bleiben im Blick); dort jetzt niedriges Gebuesch bis Reihe 4, dahinter ist es dunkel (rand_licht)
+if KARTE == 'village':
+    for y in range(R0 - 4, R1 + 5):
+        for x in range(C0 - 4, C1 + 5):
+            d = max(C0 - x, x - C1, R0 - y, y - R1)
+            if 3 <= d <= 4 and (x, y) not in RING_DA and not ring_offen(x, y): bush(x, y, True)
 for y in range(R1 + 7, R1 + 10):                                            # dahinter weiter Wald, unten im Bild (Sueden)
     for x in range(C0 - 6, C1 + 7):
         if h1(x, y, 41) < 0.85: outer_tree(x, y)
@@ -1877,6 +1897,10 @@ LICHTER_M = [dict(l, pos=[x * 0.01 for x in l['pos']]) for l in LIGHTS]
 info = dict(kachel_m=TS / 100.0, spalten=NC, zeilen=NR, ursprung=dict(spalte=C0, zeile=R0), begehbar=walk,
             karte=[ROWS[r][C0:C1 + 1] for r in range(R0, R1 + 1)], lichter=LICHTER_M,
             hinweis='Meter; Blender: x = Spalte * Kachel, y = -Zeile * Kachel (Norden +Y); in glTF/Godot: x gleich, z = +Zeile * Kachel')
+# 1022: was hinter dem Rand steht, fuer tests/rand_1022.gd (Wald dicht, jeder Weg endet im Wald)
+aussen = lambda c, r: not (C0 <= c <= C1 and R0 <= r <= R1)
+info['rand'] = dict(ring=RING, baeume=sorted([c - C0, r - R0] for c, r in STAMM if aussen(c, r)),
+                    niedrig=sorted([c - C0, r - R0] for c, r in RAND_NIEDRIG if aussen(c, r)))
 json.dump(info, open(OUT + '/%s-info.json' % AUSGABE, 'w'), indent=0)
 bpy.ops.object.select_all(action='SELECT')
 bpy.ops.export_scene.gltf(filepath=OUT + '/%s.glb' % AUSGABE, export_format='GLB', use_selection=True, export_vertex_color='ACTIVE',

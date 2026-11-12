@@ -32,6 +32,15 @@ uniform float vorrang = 0.0;       // 463: Umhang (UV2.x > 0,5, held_klassen.py 
 uniform float rueck = 0.0;         // 463: Rueckseiten (Normale von der Kamera weg) so viele Meter laengs des Blickstrahls zurueck; Lagen in Falten
 uniform float nach = 0.0;          // 463: Aermel (UV2.y > 0,5, held_klassen.py vorrang_marke) so viele Meter zurueck; verlieren gegen Umhang und Kette
 uniform float teil = 0.0;          // nur zum Messen (held.gd --teilfarbe): Eisen gruen, Kette rot, Haut (rig.py TEILMASKE) blau, Rest schwarz
+// 1022 (Chef 12.11., 08:26; alt MapEdge.fade, 27m „super“): hinter dem Kartenrand bleibt der Wald 2 Kacheln voll hell, dann laeuft er
+// weich ins Schwarz, ab 5,4 Kacheln (0,9 Ring) ganz; Boden, Wasser und alles darauf gleich (gebiet.gd rand_an)
+uniform vec3 rand_karte = vec3(0.0);   // Breite, Hoehe der Karte in Metern, an (1); aus: ueberall hell (Held, Leute, Kampfort)
+float rand_licht(vec3 w) {
+	if (rand_karte.z < 0.5) return 1.0;
+	float d = max(max(-w.x, w.x - rand_karte.x), max(-w.z, w.z - rand_karte.y)) / 1.16 - 2.0;
+	float u = clamp(1.0 - d / 3.4, 0.0, 1.0);
+	return u * u * (3.0 - 2.0 * u);
+}
 varying vec3 wpos;
 varying float v_eisen;
 varying float v_kette;
@@ -106,6 +115,8 @@ void fragment() {
 	SPECULAR = 0.0;      // kein Glanz aus der Umgebung (sonst Plastik)
 	METALLIC = 0.0;
 	EMISSION = glow_col * glow;
+	float rl = rand_licht(wpos);
+	ALBEDO *= rl; EMISSION *= rl;
 	v_hinten = (rueckseite > 1.5 && !FRONT_FACING) ? 1.0 : 0.0;
 	if (rueckseite > 0.5 && rueckseite < 1.5 && !FRONT_FACING) {
 		ALBEDO = vec3(0.0);

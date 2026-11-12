@@ -14,6 +14,15 @@ uniform int inseln_n = 0;
 uniform float night = 0.0;
 uniform vec3 insel_farbe : source_color = vec3(1.0, 0.66, 0.3);   // Lauf 14: wirkte kalt, gruenlich
 uniform float insel_kraft = 0.6;   // 348.9 nachts wie alt
+// 1022 (Chef 12.11., 08:26; alt MapEdge.fade, 27m „super“): hinter dem Kartenrand bleibt der Wald 2 Kacheln voll hell, dann laeuft er
+// weich ins Schwarz, ab 5,4 Kacheln (0,9 Ring) ganz; Boden, Wasser und alles darauf gleich (gebiet.gd rand_an)
+uniform vec3 rand_karte = vec3(0.0);   // Breite, Hoehe der Karte in Metern, an (1); aus: ueberall hell (Held, Leute, Kampfort)
+float rand_licht(vec3 w) {
+	if (rand_karte.z < 0.5) return 1.0;
+	float d = max(max(-w.x, w.x - rand_karte.x), max(-w.z, w.z - rand_karte.y)) / 1.16 - 2.0;
+	float u = clamp(1.0 - d / 3.4, 0.0, 1.0);
+	return u * u * (3.0 - 2.0 * u);
+}
 varying vec3 wpos;
 void vertex() { wpos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz; }
 float h21(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
@@ -23,6 +32,14 @@ float vnoise(vec2 p) {
 }
 void fragment() {
 	vec4 m = texture(maske, wpos.xz / karte);
+	// 1022 (Chef: „Weg offen bis an den Bildrand“): die Maske setzt die Randkachel fort; Weg und Pflaster enden unter dem Wald, der
+	// ueber einem Ausgang 5 Kacheln draussen zugeht (MapEdge.CLOSE), der Boden dort im Schatten wie unter Baeumen
+	if (rand_karte.z > 0.5) {
+		float aus = max(max(-wpos.x, wpos.x - karte.x), max(-wpos.z, wpos.z - karte.y)) / 1.16;
+		float zu = smoothstep(3.0, 5.0, aus + (vnoise(wpos.xz * 0.7) - 0.5) * 1.2);
+		m.r *= 1.0 - zu; m.g *= 1.0 - zu;
+		m.b = max(m.b, 0.6 * smoothstep(0.5, 3.0, aus));
+	}
 	vec2 p = wpos.xz;
 	float nz = vnoise(p * 0.35) * 0.65 + vnoise(p * 1.1) * 0.35;
 	vec3 g = mix(texture(gras, p / 2.32).rgb, texture(gras, vec2(p.y, -p.x) / 3.07 + 0.37).rgb, smoothstep(0.35, 0.65, nz));
@@ -37,6 +54,8 @@ void fragment() {
 	float cob = smoothstep(0.42, 0.58, m.g + (cl - 0.3) * 0.5);
 	col = mix(col, c, cob);
 	col *= 1.0 - m.b * 0.42;
+	float rl = rand_licht(wpos);
+	col *= rl;
 	ALBEDO = col;
 	if (night > 0.0) {
 		float k = 0.0;
