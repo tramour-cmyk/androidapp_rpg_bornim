@@ -289,3 +289,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:11 13.11.: Startsperre 00:11 Start Tom (Ford, Neustart-Meldung a842c0f20, Nachfolger „Tom – 1022, 492, 867: Läufe auswerten; 1044 Weg 2“; Hoch, effort high)
 - 00:12 13.11.: Neustart Tom (a842c0f20, Nachfolger „Tom – 1022, 492, 867: Läufe auswerten; 1044 Weg 2“): Tom neu …75Qov33YxcEQ81ERG7 gestartet (Hoch, effort high); Tom alt …78XaJCMm9RthHwfaWP um 00:11 archiviert, 7,22 $ auf 492, 867, 1044 gebucht; Weckrufe des alten Tom waren schon gelöscht, neue legt Tom selbst.
 - 00:27 13.11.: Startsperre 00:27 Start Tom (Ford, Neustart-Meldung a4c5b7fd7, Nachfolger „Tom – 867 Vorlage 5, 492-Lauf, 1022-Lauf, 1044 Weg 2“; Hoch, effort high)
+- 00:28 13.11.: Neustart Tom (a4c5b7fd7, Nachfolger „Tom – 867 Vorlage 5, 492-Lauf, 1022-Lauf, 1044 Weg 2“): Tom neu …77xLYE2dRMEZLXw14m gestartet (Hoch, effort high); Tom alt …75Qov33YxcEQ81ERG7 um 00:28 archiviert, 6,44 $ auf 1022, 492, 867 gebucht.
