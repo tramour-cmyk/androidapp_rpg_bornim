@@ -185,7 +185,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:06 11.11.: Startsperre 10:06 Start Sokrates (Ford, vor dem Start; Neustart-Meldung 10:05, 2ef59aad9)
 - 10:08 11.11.: Startsperre 10:08 Start Jerry (Ford, vor dem Start; Neustart-Meldung 10:07, bed9aafc6)
 - 10:09 11.11.: Startsperre 10:09 Start Tom (Ford, vor dem Start; Neustart-Meldung 10:07, 74d5fe8ff)
-- 11:05 11.11.: Startsperre 11:05 Start Spike (lauf.py; Perikles-START ohne Auftrag nicht ausgeführt)
+- 11:05 11.11.: Startsperre 11:05 Start Perikles, Spike (lauf.py)
 - 11:05 11.11.: Marke Stellungnahme Sokrates 11.11. (lauf.py)
 - 11:05 11.11.: Marke Start-fehlt Diogenes 11.11.-09:44 (lauf.py)
 - 11:05 11.11.: Marke Start-fehlt Homer 11.11.-09:44 (lauf.py)
