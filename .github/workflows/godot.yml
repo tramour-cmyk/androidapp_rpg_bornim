@@ -1,12 +1,12 @@
 name: Godot (Umzug 348)
 
-# 348.6: das Spiel in Godot (godot/): Karten aus core (MapExport), Modelle aus tools/blender348 (Blender als Modul),
+# 348.6: das Spiel in Godot (godot/): Karten, Texte, Klang eingecheckt unter godot/daten (870.9, ohne Gradle), Modelle aus tools/blender348 (Blender als Modul),
 # Android-Export; APK als Artefakt "bornim-godot-apk". Zum Testen neben dem alten Spiel: Kennung de.bornim.game.godot.
 on:
   push:
     # 894 (Chef 10.11., 19:31: Build 275 eine Stunde verloren): auch jeder Testbuild claude/build-<n> baut von selbst
     branches: ["claude/tom-348-**", "claude/jerry-348-**", "claude/build-**"]   # 461.1: Grundstand nur von Hand (wie godot-kampf.yml)
-    paths: ["godot/**", "tools/blender348/**", "tools/gegenstaende/**", "tools/sim444/**", "core/src/main/**", ".github/workflows/godot.yml"]
+    paths: ["godot/**", "tools/blender348/**", "tools/gegenstaende/**", "tools/sim444/**", "tools/karten/**", ".github/workflows/godot.yml"]
   workflow_dispatch:
     inputs:
       kampf:
@@ -56,30 +56,20 @@ jobs:
       GODOT: "4.7.2"
     steps:
       - uses: actions/checkout@v5
+      # Java nur fuer den Android-Export (keytool, apksigner), nicht mehr fuer core (870.9)
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: 17
-      - uses: gradle/actions/setup-gradle@v4
-      - name: Karten und Texte aus core
+      # 870.9 (870a 7 B, Chef 10.11., 15:25): Karten, Texte, Held, Intro mit Bildern, Kartenblaetter, Bilder der Dinge, Schrift (Fondamento, OFL),
+      # Hauptmenuebild und Klang sind seit dem letzten Export aus core (f32a789e6) Godot-Quelle unter godot/daten (eingecheckt,
+      # godot/.gitignore); Karten bearbeiten: tools/karten/karten.py, Regeln: tests/karten_regeln.gd (Pruefschritt)
+      - name: Karten und Texte
         run: |
-          ./gradlew -p core test --tests '*MapExportTest*' --tests '*TextExportTest*' --tests '*HeroExportTest*' --tests '*MapSheetExportTest*' --tests '*IntroExportTest*' -q
-          ./gradlew -p core exportMaps -Pout=$GITHUB_WORKSPACE/godot/daten/karten.json -q
-          ./gradlew -p core exportTexts -Pout=$GITHUB_WORKSPACE/godot/daten/texte.json -q
-          ./gradlew -p core exportHero -Pout=$GITHUB_WORKSPACE/godot/daten/held.json -q
+          python3 tools/karten/karten.py pruefen godot/daten/karten.json godot/daten/texte.json godot/daten/held.json godot/daten/intro.json godot/daten/kartenblatt.json godot/daten/klang/kampfklang.json
           # 473: Monsterwerte und Regeln BRS (Modell D) aus derselben Datei wie die Simulation 444 (godot/regeln/brs.gd)
           cp tools/sim444/werte.json godot/daten/
-          # 399.1 Intro wie alt (IntroExport): Saetze, Uhr, Klang, Fackelzug; die Bilder aus app/src/main/assets
-          ./gradlew -p core exportIntro -Pout=$GITHUB_WORKSPACE/godot/daten/intro.json -q
-          # als .bild wie hauptmenue.bild: Godot soll sie nicht importieren, zwischenbild.gd liest die Bytes
-          mkdir -p godot/daten/intro && for f in app/src/main/assets/intro/*.jpg app/src/main/assets/intro/*.png app/src/main/assets/tempel/*.jpg; do b=$(basename $f); cp $f godot/daten/intro/${b%.*}.bild; done
           cp godot/bilder/logo-quer.svg godot/daten/logo.bild   # 292 Vorspann: Firmenzeichen scharf in jeder Groesse (hauptmenue.gd logo)
-          # 399.1 Reiter Karte: Kartenblaetter aus core (MapSheetExport), Handschrift der Landkarte (Fondamento, OFL)
-          ./gradlew -p core exportMapSheets -Pout=$GITHUB_WORKSPACE/godot/daten -q
-          # 399.1 Bilder der Dinge (ThingArtExport): Vorraete und Ausruestung je Seltenheit wie im alten Spiel
-          ./gradlew -p core exportThingArt -Pout=$GITHUB_WORKSPACE/godot/daten -q
-          cp app/src/main/res/font/fondamento_regular.ttf godot/daten/fondamento.ttf
-          cp app/src/main/assets/OFL-Fondamento.txt godot/daten/   # 497 (Homer 07.11.): die OFL verlangt Copyright und Lizenztext bei der Weitergabe
           # 458.2: Stufe und Preis aller Gegenstaende nur aus dem Gegenstandskatalog (godot/skripte/katalog.gd)
           cp tools/gegenstaende/gegenstaende.json godot/daten/
       # 348.12e gekaufte Modelle aus dem privaten Repo bornim-kaufmodelle (348.12c a), danach unter $KAUF;
@@ -485,15 +475,12 @@ jobs:
         with:
           path: ~/godot
           key: godot-${{ env.GODOT }}
-      # 399.3 (Jerry; 398, Chef 28.10., 11:38: Klang wiederverwenden): Musik und Effekte des alten Spiels unverändert nach
-      # daten/klang, liste.json mit den Namen je Ordner für klang.gd
+      # 399.3 (Jerry; 398, Chef 28.10., 11:38: Klang wiederverwenden): Musik und Effekte des alten Spiels in daten/klang (870.9 eingecheckt,
+      # samt der synthetischen Hiebe, Bisse, Pfeile, Schwuenge als .wav, kampfklang.json und Raumfassungen raum/cave, hall, room, tavern);
+      # liste.json mit den Namen je Ordner für klang.gd
       - name: Klang (399.3)
         run: |
-          D=godot/daten/klang; mkdir -p $D
-          cp -r app/src/main/assets/music app/src/main/assets/sfx app/src/main/assets/raum $D/
-          # was das alte Spiel synthetisiert (Hiebe, Bisse, Pfeile, Schwung), aus demselben Kotlin-Code als .wav, dazu kampfklang.json
-          ./gradlew -p core exportKlang -Pout=$GITHUB_WORKSPACE/$D/sfx -q && mv $D/sfx/kampfklang.json $D/
-          # Raumfassungen (Room.kt) je Ort: raum/cave, hall, room, tavern
+          D=godot/daten/klang
           python3 -c "import json, os; d='$D'; n=lambda p: sorted(f[:-4] for f in os.listdir(p) if f.endswith(('.ogg', '.wav'))); j={o: n(os.path.join(d, o)) for o in ('music', 'sfx')}; j['raum']={r: n(os.path.join(d, 'raum', r)) for r in sorted(os.listdir(os.path.join(d, 'raum')))}; json.dump(j, open(os.path.join(d, 'liste.json'), 'w'))"
           python3 -c "import json; j=json.load(open('$D/liste.json')); print('Klang:', {k: len(v) for k, v in j.items()}, {r: len(v) for r, v in j['raum'].items()})"
       - name: Godot und Exportvorlagen
@@ -612,6 +599,7 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/klopfen_611.gd 2>&1 | grep -E "^FALSCH|KLOPFEN611|SCRIPT ERROR"   # 611 Klopfen hoerbar (Tom)
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/schreib_78519.gd 2>&1 | grep -E "^FEHLER|SCHREIB78519|SCRIPT ERROR"   # 785.19 Text Zeichen für Zeichen (Tom)
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/klopfen_629.gd 2>&1 | grep -E "^FALSCH|KLOPFEN629|SCRIPT ERROR"   # 629.1 Sprechernamen beim Klopfen (Tom)
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/karten_regeln.gd 2>&1 | grep -E "FALSCH|KARTENREGELN|SCRIPT ERROR"   # 870.9 Kartenregeln der alten Kotlin-Tests (Karten von Hand, tools/karten)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/starttexte_540.gd 2>&1 | grep -E "FEHLER|STARTTEXTE|SCRIPT ERROR"   # 540 Suedrand, Schlagbaum, 12/5, Tipp
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/suedrand_540.gd 2>&1 | grep -E "FEHLER|SUEDRAND540|SCRIPT ERROR"   # 540 t274.12: auch schräg an den Südrand stoßen
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/auftraege_542.gd 2>&1 | grep -E "FEHLER|AUFTRAEGE|SCRIPT ERROR"   # 542 Fetzen, Gwennas Ring, Aldrics Ring
@@ -715,7 +703,6 @@ jobs:
           sed -i "s/^version\/code=.*/version\/code=$GITHUB_RUN_NUMBER/; s/^version\/name=.*/version\/name=\"0.348.$GITHUB_RUN_NUMBER\"/" godot/export_presets.cfg
           # 399.1: Version fuer die Zeile unter dem Firmenzeichen im Hauptmenue; Bild der vier wie im alten Hauptmenue
           sed -i "/^\[application\]/a config/version=\"0.348.$GITHUB_RUN_NUMBER\"" godot/project.godot
-          cp app/src/main/assets/menu/hauptmenue.jpg godot/daten/hauptmenue.bild
           export GODOT_ANDROID_KEYSTORE_DEBUG_PATH=$K GODOT_ANDROID_KEYSTORE_DEBUG_USER=androiddebugkey GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD=android
           mkdir -p ~/.config/godot
           printf '[gd_resource type="EditorSettings" format=3]\n\n[resource]\nexport/android/android_sdk_path = "%s"\nexport/android/java_sdk_path = "%s"\n' "$ANDROID_SDK_ROOT" "$JAVA_HOME" > ~/.config/godot/editor_settings-${GODOT%.*}.tres

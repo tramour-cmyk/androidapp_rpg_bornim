@@ -12,7 +12,7 @@ extends Control
 signal fertig(wahl: Dictionary)
 
 const DP := AktionsKnopf.DP
-const BILD := "res://daten/hauptmenue.bild"   # JPEG aus app/src/main/assets/menu, im Bau kopiert (godot.yml)
+const BILD := "res://daten/hauptmenue.bild"   # JPEG (einst app/src/main/assets/menu), eingecheckt (870.9)
 const LOGO := "res://bilder/logo-quer.svg"
 const LOGO_SVG := "res://daten/logo.bild"       # 292 Vorspann: dasselbe SVG roh, im Bau kopiert
 var st: Steuerung

@@ -1,5 +1,22 @@
-# erzeugt im Bau (godot.yml): Karten aus core, Modelle und Bilder aus tools/blender348; Kampfort (Jerry) unter kampf/daten
-daten/
+# erzeugt im Bau (godot.yml): Modelle und Bilder aus tools/blender348, Kopien aus tools/; Kampfort (Jerry) unter kampf/daten.
+# 870.9 (870a 7 B): was früher aus core kam, ist Godot-Quelle und eingecheckt: Karten (Bearbeitung tools/karten/karten.py), Texte,
+# Texte, Held, Intro, Kartenblätter, Bilder der Dinge, Hauptmenübild, Schrift, Klang
+daten/*
+!daten/karten.json
+!daten/texte.json
+!daten/held.json
+!daten/intro.json
+!daten/intro/
+!daten/kartenblatt.json
+!daten/karte-*.bild
+!daten/land-*.bild
+!daten/ding-*.bild
+!daten/stueck-*.bild
+!daten/hauptmenue.bild
+!daten/fondamento.ttf
+!daten/OFL-Fondamento.txt
+!daten/klang/
+daten/klang/liste.json
 kampf/daten/
 .godot/
 *.import

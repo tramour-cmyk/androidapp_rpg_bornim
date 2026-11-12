@@ -22,9 +22,8 @@ Plan und Regeln: `docs/LISTE-UMZUG-348.md` (auf `main`). Bau: `.github/workflows
 ## Am Rechner
 
 ```
-./gradlew -p core exportMaps -Pout=$PWD/godot/daten/karten.json
-./gradlew -p core exportTexts -Pout=$PWD/godot/daten/texte.json   # 390: Oberflaeche, Dinge (Sprache.gd)
-./gradlew -p core exportHero -Pout=$PWD/godot/daten/held.json   # 390: Grundformen, Seltenheiten, Zusatzeigenschaften der Gegenstaende (BrsHeld.daten)
+# 870.9: Karten, Texte, Held, Intro, Kartenblaetter, Bilder der Dinge und Klang sind eingecheckt (godot/daten, ohne Gradle);
+# Karten von Hand bearbeiten, danach: python3 tools/karten/karten.py ableiten (bewuchs, ring) und tests/karten_regeln.gd
 cp tools/gegenstaende/gegenstaende.json godot/daten/   # 458.2: Stufe und Preis aller Gegenstaende (skripte/katalog.gd)
 cp tools/sim444/werte.json godot/daten/   # 473: Monsterwerte BRS (regeln/brs.gd)
 OUT=/tmp/out KARTEN=$PWD/godot/daten/karten.json python -I tools/blender348/v3/{tex,held3,rig,dorf}.py   # je Skript ein Aufruf

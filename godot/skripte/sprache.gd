@@ -122,4 +122,4 @@ static func lade() -> void:
 				for k in BRS[teil]: texte[teil][k] = BRS[teil][k]
 			dinge_brs(texte.get("dinge", {}))
 			ui = texte.get("ui", {})
-	if texte.is_empty(): push_warning("390: daten/texte.json fehlt (./gradlew -p core exportTexts)")
+	if texte.is_empty(): push_warning("390: daten/texte.json fehlt (eingecheckt seit 870.9)")
