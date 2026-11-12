@@ -12,6 +12,7 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [1084](billigen/1084-proben-rest.md) | **Muss** | E Kampf | 12.11., 23:08 | Für die Überreden-Probe bei Pim gilt Stufe 1; Handeln bekommt vorerst keine Probe | Sokrates |
 | [1085](billigen/1085-pim-gold.md) | – | G Story | 12.11., 22:33 | Pim lässt sich auch für 5 Gold heimschicken, sicher, aber ohne Übung und ohne Ruf | Sokrates |
 
 ## Anzusehen
