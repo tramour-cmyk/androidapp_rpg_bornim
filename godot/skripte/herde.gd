@@ -120,7 +120,7 @@ func schritt(dt: float) -> void:
 	var am_schutz := sicher(h)
 	var hp: Vector3 = spiel.held.position
 	for s in liste.duplicate():
-		s.zeichne(jetzt, dt)
+		s.zeichne(jetzt, dt, hp)     # 1007: hp fuer den Ruhelaut
 		# Held laeuft in ein Monster (Game.move: roamerAt): er greift an, von hinten zuerst; ein Lauerer in seinem Versteck auch
 		if s.position.distance_to(hp) < 0.8 and jetzt >= s.bewegt_ms + s.schritt_ms / 2:
 			var hb := _held_blick()

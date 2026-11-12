@@ -130,11 +130,23 @@ func _ready() -> void:
 	rotation.y = gedreht
 
 # Kampfort-Ersatz fuer figur.gd ausserhalb des Kampfs: Groesse wie im Kampf, kein Zittern
+# 1007 (Tom 977): die Uhr blieb bei 0, figur._ruhebewegung wartete ewig, kein Monster der Karte zeigte im Stehen eine Ruhegeste.
+# Jetzt laeuft sie mit der Spielzeit, fuer jeden Nutzer des Ersatzes (Streuner, Leute). Ruhelaut wie alt (Game.hearIdle,
+# MonsterIdle.volume): nur nah, voll bis NAH Kacheln, bei FERN still; ohne Hoerer voll
 class Stub:
 	extends RefCounted
-	var clock_ms := 0.0
+	const NAH := 2                 # MonsterIdle.NEAR
+	const FERN := 7                # MonsterIdle.FAR
+	var clock_ms: float:
+		get: return float(Time.get_ticks_msec())
+	var hoerer := Vector3.INF      # wo der Held steht (herde.gd je Bild), INF: keiner
 	var k
 	func _init(kf) -> void: k = kf
+	## Anteil des Ruhelauts an der Stelle wo (figur.gd _ruhebewegung): Kacheln wie alt quer und laengs gezaehlt
+	func ruhe_pegel(wo: Vector3) -> float:
+		if not hoerer.is_finite(): return 1.0
+		var d := roundi((absf(wo.x - hoerer.x) + absf(wo.z - hoerer.z)) / Karte.TS)
+		return clampf(float(FERN - maxi(d, NAH)) / float(FERN - NAH), 0.0, 1.0)
 	func foe_scale(f) -> float: return k.foe_scale(f)
 	func facing(_foe: bool) -> Vector3: return Vector3(0, 0, 1)
 	func m_per_dp(_q: Vector3) -> float: return 0.0
@@ -145,7 +157,8 @@ func wende_ms(d: Vector2i) -> int:
 	return int((w - DREH_FREI) / (DREH_JAGD if jagt else DREH) * 1000.0) if w > DREH_FREI else 0
 
 ## Lage zwischen von und kachel (gleitet in schritt_ms); Blick mit fester Rate, im Stehen mit Tritten (560)
-func zeichne(jetzt: int, dt: float) -> void:
+func zeichne(jetzt: int, dt: float, held_pos := Vector3.INF) -> void:
+	if figur and figur.kampfort is Stub: figur.kampfort.hoerer = held_pos
 	var t := clampf(float(jetzt - bewegt_ms) / maxf(1.0, float(schritt_ms)), 0.0, 1.0)
 	position = karte.kachel_pos(von).lerp(karte.kachel_pos(kachel), t)
 	var ziel := atan2(float(blick.x), float(blick.y))
@@ -161,7 +174,7 @@ func zeichne(jetzt: int, dt: float) -> void:
 			figur.anim.speed_scale = TRITT_TEMPO
 			return
 		var soll := "Gehen" if t < 1.0 else "Stehen"
-		if figur.anim.current_animation != soll and not (soll == "Stehen" and figur.anim.current_animation in ["Lefzen", "Scharren", "ScharrenR"]):
+		if figur.anim.current_animation != soll and not (soll == "Stehen" and figur.anim.current_animation in Figur.RUHE_GESTEN):   # 1007: auch Knurren, Hecheln
 			figur._play(soll, 0.2)
 		# Gehen so schnell abgespielt, wie es geht (sonst gleiten die Pfoten): Kachel je Schritt durch die Schrittzeit
 		if soll == "Gehen" and figur.weg.has("Gehen"):
