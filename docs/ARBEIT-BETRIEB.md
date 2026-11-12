@@ -314,3 +314,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 02:04 12.11.: Marke Archiv session_01Hmoj7934La69YC63snTQki (lauf.py)
 - 02:04 12.11.: Marke Archiv session_01Hmoj77m8rD5TFGQoSj81gT (lauf.py)
 - 02:04 12.11.: Marke Archiv session_01Hmoj7667YeBDQoVo4PDtp2 (lauf.py)
+- 02:07 12.11.: Lauf 02:04: Perikles …77NXYkoR442bAjQC23 "Perikles – Pflege" (Hoch, effort high) gestartet, Perikles alt …77m8r (2,77 $ auf 981) archiviert und gebucht. Nicht ausgeführt, künftig --ohne: START Spike 861 (Tom hat 861 in Arbeit, Filmlauf 367) samt ARCHIVIERE Spike …7667; START Jerry „Jerry – (Ford ruft)" (Nachfolger ohne Titel, kein Muss; 999 M? bei Perikles) samt ARCHIVIERE Jerry …7934 (idle, wartet auf 999). Sokrates: 863a-Stellungnahme wartet, Sokrates läuft. Tom …75vW6 hat 968 und von Sokrates 831 (Weiter-Nachricht 01:19).
