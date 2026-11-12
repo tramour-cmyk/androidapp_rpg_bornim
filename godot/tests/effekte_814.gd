@@ -42,7 +42,18 @@ func _lauf() -> void:
 		pruefe(k.find_child("Embers", true, false) == null, "Kaminrauch ohne Glut")
 		break
 	pruefe(fx.fackeln.size() == 3, "drei Fackeln (Schlagbaum 2, Schenke 1): %d" % fx.fackeln.size())
-	pruefe(fx.fackeln.all(func(f): return f["brennt"] and (f["licht"] as OmniLight3D).visible), "Fackeln brennen am Abend (nacht %.2f)" % fx.nacht_k)
+	var nb: Nebel = spiel.nebel
+	for f in fx.fackeln:
+		var o: OmniLight3D = f["licht"]
+		var t: Vector2i = g.karte.pos_kachel(o.global_position)
+		print("        Fackel %s brennt %s, Licht sichtbar %s, Nebel %s" % [t, f["brennt"], o.visible, str(nb.nebel(t.x, t.y)) if nb and nb.an else "aus"])
+	pruefe(fx.fackeln.all(func(f): return f["brennt"]), "Fackeln brennen am Abend (nacht %.2f)" % fx.nacht_k)
+	# 505: ein Licht auf nie gesehener Kachel bleibt aus, bis der Held dort war (nebel.gd dinge_zeigen); mit „alles sichtbar“ alle
+	Testmodus.alles_sichtbar = true
+	if nb: nb.dinge_zeigen()
+	pruefe(fx.fackeln.all(func(f): return (f["licht"] as OmniLight3D).visible), "Fackeln leuchten (alles sichtbar)")
+	Testmodus.alles_sichtbar = false
+	if nb: nb.dinge_zeigen()
 	pruefe(fx.stoffe.size() == 1, "eine Fahne: %d" % fx.stoffe.size())
 	pruefe(g.insel_liste.size() == g.insel_ohne.size() + 1, "Lichtinsel der Schenkenfackel: %d -> %d" % [g.insel_ohne.size(), g.insel_liste.size()])
 	pruefe(fx.laub.size() > 0, "Laub im Wind: %d Materialien" % fx.laub.size())
