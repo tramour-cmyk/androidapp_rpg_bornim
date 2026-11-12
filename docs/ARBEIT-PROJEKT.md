@@ -2,10 +2,10 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `d71ce75dd` (12.11., 20:04)
+**Gelesen bis:** `d94eea855` (12.11., 20:59)
 
-**Übergabe (12.11., 20:04, `session_01Hmoj77FQvSoLtm2q28ecYk`):** 1052 Wochenziel ohne Umhang, 1055 Sammelbuild 281 an Jerry; 1061 große Punkte im Projektplan (431 erster bei Tom nach 870.10); CLAUDE.md „bei Animiertem nur Film“; Chef 20:01 zu 867: neue Vorlage (Archiv, Zu 867 Tom), Nachricht brach nach „Und“ ab, Rest erfragt; 1050a A (Archiv; 1066 Jerry, 1067 Homer, 1050a Sokrates `DESIGN-BRS.md`). Nachfolger: keiner
-**Letzte Antwort:** 1048: Jerry hat noch nicht gerechnet; Rechnung kommt erst nach deiner Antwort auf 1048 und nach 1039 (Film bei dir); 867: was folgt nach „Und“?
+**Übergabe (12.11., 20:59, `session_01Hmoj78HZSSyRDb3Gaiur8D`):** 1070 M gebaut (Prüfliste geht im selben Commit wie „tN“ aus der Chefsache, Wächter; Wirkung an t281); 1076 M gebaut (Film nur Prüfgegenstand, etwa dreimal, bis 15 s, Kamera, Filmzweig mit `main` und Sammelbuild; `meldung.sh` hält über 20 s an). Nachfolger: keiner
+**Letzte Antwort:** 1070 und 1076 umgesetzt; die Prüfliste t280 war schon beim Zusammenführen 20:4x gelöscht.
 - **Fehler 341, von Sokrates (11.11., 18:14):** 901 (365a B, „alle Hoch“ seit 07:18) startete in der Umgebung „WireStorm Hoch“, die nur Variablen setzt; die App zeigte „Mittel“, keiner prüfte das Ergebnis, gefunden hat es der Chef (18:04; 18:14 „von euch hat es ja keiner gemerkt … Schwarzbuch“). Behoben 981. Lehre: Einstellung am Ergebnis prüfen (`get_session`, App), nie an der Eingabe.
 
 ## Einzelheiten
