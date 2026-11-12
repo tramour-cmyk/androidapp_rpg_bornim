@@ -188,7 +188,11 @@ func _bild(kf, n: int, k: String) -> void:
 		if vor.has(id) and not f.down:
 			var d: float = Vector2(p.x - vor[id][0].x, p.z - vor[id][0].z).length()
 			var dg: float = absf(wrapf(f.rotation.y - vor[id][1], -PI, PI))
-			if d > GLEIT_M and not (nm in SCHRITTE):
+			# 1018 (Läufe 370, 373, 380, 387: „Biss“ 7 Bilder, je bei 0,00 s mit gang=anlauf und laufendem Tween, größte 0,165 m = ein Bild
+			# Rennen bei 30 Bildern/s): im Bild, in dem der Anlauf endet, geht der Rumpf den letzten Schritt mit der Laufbewegung, und erst am
+			# Ende des Bilds schaltet der Tween auf „Biss“. Der Weg dieses Bilds gehört der Bewegung des Vorbilds, nicht der neuen
+			var schritt_vorher: bool = String(vor[id][2]) in SCHRITTE if vor[id].size() > 2 else false
+			if d > GLEIT_M and not (nm in SCHRITTE) and not schritt_vorher:
 				var g: Array = gleiten.get(nm, [0, 0.0, 0.0])
 				gleiten[nm] = [g[0] + 1, g[1] + d, maxf(g[2], d)]
 				# 900 (Lauf 335: Biss 7 Bilder 0,56 m, ohne Kaufdaten am Rechner nicht nachstellbar): wer gleitet, wobei, je Bild
@@ -213,7 +217,7 @@ func _bild(kf, n: int, k: String) -> void:
 				var g3: Array = gleiten.get("dreht auf der Stelle in " + nm, [0, 0.0, 0.0])
 				gleiten["dreht auf der Stelle in " + nm] = [g3[0] + 1, g3[1] + rad_to_deg(dg), maxf(g3[2], rad_to_deg(dg))]
 		_pfoten(f, id, nm)
-		vor[id] = [p, f.rotation.y]
+		vor[id] = [p, f.rotation.y, nm]
 		if log_an:
 			print("Bild %d %s %s %.2f x%.2f Ort %.2f,%.2f Gier %.0f tween %s unten %s" % [n, id, nm, f.anim.current_animation_position if nm != "" else 0.0, f.anim.get_playing_speed() if f.anim else 0.0,
 				p.x, p.z, rad_to_deg(f.rotation.y), f.tween != null and f.tween.is_running(), f.down])

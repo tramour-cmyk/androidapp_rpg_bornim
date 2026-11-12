@@ -446,3 +446,59 @@ Sieg in %, je 2 Heiltränke dazu; Alchemie gesetzt. Preis des Beutels in Gold.
 | 30 | 2 Steinhaut, 1 Berserker, 4 Feuer | 290 | **62** | **55** | **76** | **78** |
 | 30 | 6 Feuer | 230 | **75** | **71** | **80** | **88** |
 
+## 7. Rast nach 1038 R1: Leben von Kampf zu Kampf (1046)
+
+**Befund (Jerry, 12.11., 21:05; nur Zahlen, Einstellen bei Sokrates; Code `claude/jerry-1046` `70445f010`):**
+
+1. **Ohne Grinden durchspielbar: ja.** Stufe 6 bei allen Herkünften in 18 bis 24 Kämpfen wie mit der alten Rast (± 1, Zauberlehrling + 1 bis 2), erreicht 100 %.
+2. **Niederlagen kaum mehr:** + 0 bis 2 Prozentpunkte; Zauberlehrling 3 → 6 bis 8 % bei 8 bis 12 Kämpfen je Spieltag (Mana und Leben zugleich knapp), Kräutersammler 10 → 12 %. Geschwächt (unter halbem Leben) in einen Kampf: 0 bis 5 %.
+3. **Es kostet Gold:** Heilung 20 bis 60 Gold mehr je Kapitel (Wachsoldat 15 → 53, Jägerkind 89 → 140, Schmiedelehrling 93 → 148). Gold am Ende sinkt im Median um 30 bis 65; bei Jägerkind, Zauberlehrling, Schmiedelehrling, Herumtreiber, Wanderer auf 17 bis 38, bei jedem zehnten Lauf auf 2 bis 9 Gold. Grund: mehr Heiltränke (bis + 1,7 je Kapitel) und 2 bis 5 Verbände. Quests sind nicht gerechnet (alt 40 bis 60 Gold je Auftrag).
+4. **Lange Rast 0 bis 2 je Kapitel**, Zimmer 0,1 bis 0,9; Zauberlehrling 4 bis 7 (Mana, wie mit der alten Rast). Die Zahl der Kämpfe je Spieltag ändert wenig.
+5. **Verband:** Heilkunde steigt dabei nur von 0 auf 1 bis 2, er heilt also fast immer 5; der Klosterschüler (Heilkunde 10, Wundsegen) braucht unter 1 je Kapitel.
+6. **Lücken, nicht gerechnet:** (a) die Uhr: fünf Kurze Erholungen (10 Stunden) drehen sie zum nächsten Tag, dann ist das Lange Ausruhen am Feuer wieder frei; wer das tut, heilt weiter umsonst, nur mit Klicks. (b) Eine Niederlage heilt voll und kostet nur 4 Stunden (`spiel.gd`). (c) Blutung trifft den Helden in Kapitel 1 nur durch den Blutflügler (30 % je Treffer, 2 Runden), läuft auf der Karte nicht weiter, sondern erst im nächsten Kampf; dass der Verband sie stillt, spürt man in Kapitel 1 selten.
+
+Fortschritt wie Abschnitt 5 („kämpft“, 21 Punkte), aber Leben und Mana gehen von Kampf zu Kampf mit; 400 Läufe je Fall. Neu rechnen: `python3 tools/sim444/sim.py --nur-rast`. Zahlen in `werte.json` Block `rast_1046`.
+
+**Annahmen:**
+
+- **alt:** vor einem Kampf mit weniger als 50 % Leben Kurze Erholungen (je ein Viertel Leben, 2 Stunden) bis Leben voll; Langes Ausruhen nur für Mana.
+- **R1:** Kurze Erholung ohne Leben. Unter 50 % Leben: Verband (5 + 0,2 je Punkt Heilkunde, 8 Gold, im Dorf bis 3), dann Braten (14 Leben, Fleisch aus dem Zerlegen von Ratte, Wolf, Wildschwein), dann Langes Ausruhen am Feuer, wenn heute noch nicht (9 Stunden, alles voll); im Dorf das Zimmer (5 Gold), wenn Leben oder Mana unter der Hälfte. Sonst kämpft er geschwächt.
+- **Beide:** Heiltränke wie Abschnitt 5 (im Kampf unter 35 %, im Dorf bis 3); Niederlage: Leben und Mana voll, 4 Stunden vergehen, kein Gold weg (spiel.gd). Spielbeginn 8 Uhr; Kämpfe je Spieltag 4, 8, 12 (eine Spielminute je Sekunde auf der Karte, ein Spieltag sind 24 Minuten Spiel).
+- **Nicht gerechnet:** Blutung (den Helden trifft sie in Kapitel 1 nur durch den Blutflügler, 30 % je Treffer, zwei Runden, endet mit Zähigkeit über 5 früher), Kräuter sammeln, Quests, Söldner; Kurze Erholungen nur, um die Uhr zum nächsten Tag zu drehen.
+
+| Herkunft | Regel | Kämpfe/Tag | Kämpfe bis 6 | Niederl. % | geschwächt % | Spieltage | Lange Rast | Zimmer | Kurze (alt) | Verbände | Braten | Tränke getr. | Gold Heilung | Gold am Ende (p10) | Heilkunde |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Wachsoldat | alt | 8 | 19 | 0 | 0 | 4 | 0,0 | 0,0 | 3,6 | 0,0 | 0,0 | 0,6 | 15 | 152 (105) | 0 |
+| Wachsoldat | R1 | 4 | 19 | 0 | 0 | 6 | 0,0 | 0,4 | 0,0 | 1,8 | 0,3 | 0,8 | 54 | 113 (66) | 1 |
+| Wachsoldat | R1 | 8 | 19 | 0 | 0 | 3 | 0,0 | 0,4 | 0,0 | 1,9 | 0,3 | 0,8 | 53 | 113 (64) | 1 |
+| Wachsoldat | R1 | 12 | 19 | 0 | 0 | 3 | 0,0 | 0,4 | 0,0 | 1,8 | 0,3 | 0,8 | 53 | 114 (70) | 1 |
+| Jägerkind | alt | 8 | 20 | 2 | 0 | 5 | 0,0 | 0,0 | 14,2 | 0,0 | 0,0 | 4,8 | 89 | 82 (20) | 0 |
+| Jägerkind | R1 | 4 | 20 | 3 | 1 | 7 | 1,4 | 0,4 | 0,0 | 2,7 | 2,8 | 5,9 | 142 | 27 (5) | 1 |
+| Jägerkind | R1 | 8 | 20 | 3 | 3 | 4 | 1,3 | 0,4 | 0,0 | 2,7 | 2,7 | 5,9 | 138 | 25 (5) | 1 |
+| Jägerkind | R1 | 12 | 21 | 3 | 3 | 3 | 1,2 | 0,4 | 0,0 | 2,9 | 2,8 | 6,1 | 137 | 28 (6) | 1 |
+| Zauberlehrling | alt | 8 | 22 | 3 | 0 | 7 | 6,6 | 0,0 | 14,9 | 0,0 | 0,0 | 6,3 | 120 | 66 (15) | 0 |
+| Zauberlehrling | R1 | 4 | 22 | 3 | 2 | 9 | 6,7 | 0,9 | 0,0 | 2,4 | 2,0 | 5,8 | 141 | 38 (9) | 1 |
+| Zauberlehrling | R1 | 8 | 23 | 6 | 4 | 6 | 4,9 | 0,6 | 0,0 | 2,8 | 2,7 | 7,8 | 167 | 17 (3) | 1 |
+| Zauberlehrling | R1 | 12 | 24 | 8 | 5 | 5 | 4,4 | 0,1 | 0,0 | 3,1 | 3,1 | 8,0 | 173 | 17 (2) | 1 |
+| Klosterschüler | alt | 8 | 18 | 0 | 0 | 4 | 2,1 | 0,0 | 3,2 | 0,0 | 0,0 | 2,4 | 49 | 125 (64) | 10 |
+| Klosterschüler | R1 | 4 | 18 | 0 | 0 | 6 | 2,1 | 0,3 | 0,0 | 0,6 | 0,4 | 2,5 | 76 | 91 (36) | 10 |
+| Klosterschüler | R1 | 8 | 18 | 0 | 0 | 4 | 1,9 | 0,4 | 0,0 | 0,7 | 0,4 | 2,5 | 74 | 96 (46) | 10 |
+| Klosterschüler | R1 | 12 | 18 | 1 | 0 | 3 | 1,2 | 0,7 | 0,0 | 0,9 | 0,4 | 3,1 | 89 | 80 (19) | 10 |
+| Kräutersammler | alt | 8 | 21 | 10 | 0 | 5 | 0,0 | 0,0 | 17,9 | 0,0 | 0,0 | 8,1 | 53 | 117 (85) | 0 |
+| Kräutersammler | R1 | 4 | 21 | 12 | 1 | 7 | 1,3 | 0,7 | 0,0 | 4,4 | 2,6 | 9,2 | 112 | 55 (27) | 1 |
+| Kräutersammler | R1 | 8 | 22 | 12 | 2 | 5 | 1,3 | 0,7 | 0,0 | 4,6 | 2,5 | 9,1 | 113 | 58 (27) | 2 |
+| Kräutersammler | R1 | 12 | 22 | 12 | 3 | 4 | 1,3 | 0,5 | 0,0 | 4,6 | 2,6 | 9,3 | 111 | 58 (28) | 2 |
+| Schmiedelehrling | alt | 8 | 20 | 2 | 0 | 5 | 0,0 | 0,0 | 15,2 | 0,0 | 0,0 | 5,1 | 93 | 86 (23) | 0 |
+| Schmiedelehrling | R1 | 4 | 20 | 3 | 1 | 7 | 1,3 | 0,5 | 0,0 | 3,1 | 2,8 | 6,3 | 147 | 28 (4) | 1 |
+| Schmiedelehrling | R1 | 8 | 20 | 3 | 2 | 4 | 1,2 | 0,4 | 0,0 | 3,1 | 2,9 | 6,3 | 149 | 23 (5) | 1 |
+| Schmiedelehrling | R1 | 12 | 21 | 3 | 3 | 3 | 1,1 | 0,4 | 0,0 | 3,2 | 2,9 | 6,2 | 147 | 24 (7) | 1 |
+| Herumtreiber | alt | 8 | 20 | 4 | 0 | 5 | 0,0 | 0,0 | 16,1 | 0,0 | 0,0 | 5,6 | 105 | 70 (17) | 0 |
+| Herumtreiber | R1 | 4 | 21 | 5 | 2 | 7 | 1,6 | 0,4 | 0,0 | 2,7 | 3,0 | 6,6 | 148 | 22 (5) | 1 |
+| Herumtreiber | R1 | 8 | 21 | 6 | 3 | 4 | 1,4 | 0,3 | 0,0 | 2,7 | 3,0 | 6,8 | 149 | 21 (4) | 1 |
+| Herumtreiber | R1 | 12 | 20 | 6 | 4 | 3 | 1,4 | 0,3 | 0,0 | 2,7 | 3,0 | 6,8 | 149 | 21 (4) | 1 |
+| Wanderer | alt | 8 | 21 | 1 | 0 | 5 | 0,0 | 0,0 | 14,9 | 0,0 | 0,0 | 4,6 | 86 | 97 (37) | 0 |
+| Wanderer | R1 | 4 | 20 | 2 | 1 | 7 | 1,2 | 0,5 | 0,0 | 3,2 | 2,8 | 5,8 | 140 | 34 (8) | 1 |
+| Wanderer | R1 | 8 | 21 | 2 | 2 | 4 | 1,2 | 0,4 | 0,0 | 3,2 | 2,9 | 5,9 | 139 | 34 (9) | 1 |
+| Wanderer | R1 | 12 | 20 | 2 | 3 | 3 | 1,0 | 0,5 | 0,0 | 3,1 | 2,9 | 5,9 | 138 | 31 (6) | 1 |
+
+

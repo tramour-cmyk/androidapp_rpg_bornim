@@ -2,14 +2,14 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 12.11., 14:24 (lauf.py)
+**Stand:** 12.11., 22:34 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
-| Ford | [Ford](https://claude.ai/code/session_01Hmoj765JvmMM81VAZ94ovn) | Betrieb | – | 12.11., 07:26 |
-| Diogenes | [Diogenes – 1019 (12.11., 08:13)](https://claude.ai/code/session_01Hmoj75ZfDj3Zzs82FM18nF) | 1019 | – | 12.11., 08:14 |
-| Sokrates | [Sokrates – Stellungnahme (12.11., 11:04)](https://claude.ai/code/session_01Hmoj76oRjGDjaHKeRYBhmv) | Betrieb | – | 12.11., 11:05 |
-| Homer | [Homer – 1026 (12.11., 11:26)](https://claude.ai/code/session_01Hmoj75wdp9JocYHDDCfdun) | 1026 | – | 12.11., 11:26 |
-| Tom | [Tom – 1030: Reiter Test Rollstand, Prüfliste einklappbar (12.11., 13:56)](https://claude.ai/code/session_01Hmoj79GnLFqxJnZ3kPVf75) | 1030 | – | 12.11., 13:55 |
-| Jerry | [Jerry – 995: Grabhund Augen und Kopf lesbar (12.11., 13:56)](https://claude.ai/code/session_01Hmoj76DJtggtnNPKMMxpU6) | 995 | – | 12.11., 13:55 |
-| Spike | [Spike – 756: Merkmale der Ausrüstung anzeigen (12.11., 13:58)](https://claude.ai/code/session_01Hmoj784tSBD77EZUv1K4o1) | 756 | – | 12.11., 13:55 |
+| Ford | [Ford – Betriebsleiter (12.11., 20:55)](https://claude.ai/code/session_01Hmoj78bq2gFgYwjfaKARrR) | Betrieb | – | 12.11., 20:54 |
+| Tom | [Tom – 882.1: Vergleichsbilder alt rendern (12.11., 21:54)](https://claude.ai/code/session_01Hmoj77BRJwCNZKtKJhKbcT) | 882.1 | – | 12.11., 21:52 |
+| Diogenes | [Diogenes – Pflege (12.11., 21:51)](https://claude.ai/code/session_01Hmoj79vvmPihVec5n7DUqt) | Betrieb | – | 12.11., 21:52 |
+| Spike | [Spike – 1022 (12.11., 21:51)](https://claude.ai/code/session_01Hmoj76h7E8ictHFJTTMuzz) | 1022 | – | 12.11., 21:52 |
+| Tuffy | [Tuffy – 1055: Testbitte Build 281 (12.11., 21:59)](https://claude.ai/code/session_01Hmoj75T84v7wSUd4hP2WrG) | 1055 | – | 12.11., 21:58 |
+| Jerry | [Jerry – 1043 (12.11., 22:04)](https://claude.ai/code/session_01Hmoj75trtVAizJUSkhAXHy) | 1043 | – | 12.11., 22:04 |
+| Sokrates | [Sokrates – 1077: Chefrunde Build 281 (12.11., 22:23)](https://claude.ai/code/session_01Hmoj77MurNRwDMKXMKCUHj) | 1077 | – | 12.11., 22:22 |
