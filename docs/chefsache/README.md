@@ -291,7 +291,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1041 | M? | Von Sokrates (Chef 12.11., 15:16, Build 280, 278.24 bestanden): Platztausch ungleich, der | startbar |
 | 1043 | M | Von Sokrates (Chef 12.11., 15:52, Fund t278.33 Build 280, zu 988): MARS-Probekampf Wölfe, | startbar |
 | 1046 | M | Von Sokrates (1038 A, R1, Chef 12.11., 16:24): Verband stillt Blutung (plus kleiner Teil L | startbar |
-| Pflege | K | von Werkzeug (340.3, 12.11.): 27722 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 12.11.): 27669 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 13, Muss 12, startbar 0
 
