@@ -12,10 +12,12 @@ const DP := AktionsKnopf.DP
 # „Hauptmenübild (867)“; leer: „Stehen“ der UAL mit dem Wanderstab aufgestuetzt, tragen.gd stab), die aeusseren 30 Grad zur Mitte, die
 # inneren 10, der Kopf zum Spieler (kopf: Anteil der Drehung, den Hals und Kopf zurueckdrehen)
 const HELDEN := [
-	{"herkunft": "Wachsoldat", "volk": "Mensch", "geschlecht": "w", "x": -1.32, "dreh": 30.0, "haltung": "schildwache", "kopf": 0.6},
-	{"herkunft": "Zauberlehrling", "volk": "Mensch", "geschlecht": "m", "x": -0.44, "dreh": 10.0, "haltung": "zauberer", "kopf": 0.6},
-	{"herkunft": "Jägerkind", "volk": "Zwerg", "geschlecht": "m", "x": 0.44, "dreh": -10.0, "haltung": "bogen", "kopf": 0.6},
-	{"herkunft": "Klosterschüler", "volk": "Elf", "geschlecht": "w", "x": 1.32, "dreh": -30.0, "haltung": "", "kopf": 0.6},
+	# Sokrates 23:13 (Vorlage 3 „nicht so“): Klosterschuelerin stand fast frontal -> aussen 35 Grad, der Kopf dreht weniger zurueck;
+	# Zauberlehrling hielt den Stab am ausgestreckten Arm -> Arm 22 Grad an den Koerper (arm)
+	{"herkunft": "Wachsoldat", "volk": "Mensch", "geschlecht": "w", "x": -1.32, "dreh": 35.0, "haltung": "schildwache", "kopf": 0.4},
+	{"herkunft": "Zauberlehrling", "volk": "Mensch", "geschlecht": "m", "x": -0.44, "dreh": 12.0, "haltung": "zauberer", "kopf": 0.5, "arm": 22.0},
+	{"herkunft": "Jägerkind", "volk": "Zwerg", "geschlecht": "m", "x": 0.44, "dreh": -12.0, "haltung": "bogen", "kopf": 0.5},
+	{"herkunft": "Klosterschüler", "volk": "Elf", "geschlecht": "w", "x": 1.32, "dreh": -35.0, "haltung": "", "kopf": 0.4},
 ]
 # Schein: Mitte (0,5/0,86) im Bild, Halbachsen waagrecht 0,5, nach oben 0,86, nach unten 0,14; warm in der Mitte, aussen schwarz
 const SCHEIN := """shader_type canvas_item;
@@ -94,7 +96,7 @@ func _init(breite_dp := 330.0) -> void:
 			(mt as ShaderMaterial).set_shader_parameter("metall", 1.0)
 			(mt as ShaderMaterial).set_shader_parameter("licht_dir", Basis.from_euler(sonne.rotation).z)
 		var anim := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
-		var hl := haltung(m, w, String(h["haltung"])) if anim else ""
+		var hl := haltung(m, w, String(h["haltung"]), float(h.get("arm", 0.0))) if anim else ""
 		if anim and hl == "":
 			Gebiet.bewegungen(anim, ["Stehen"])
 			hl = "Stehen" if anim.has_animation("Stehen") else ""
@@ -112,7 +114,7 @@ func _init(breite_dp := 330.0) -> void:
 ## 867: die Haltung n aus daten/menue-<n>.bin (Protofactor-Satz auf dem Geruest der UAL, zauber385.py) auf die Figur m wie
 ## HeldFigur.bewegungen (nur Drehungen, Becken im Verhaeltnis der Beckenhoehe); die Waffe in die Faust wie die Paketbewegungen
 ## (tragen.gd _paket), der Schild an den linken Arm (schildarm); ohne Datei leer (dann „Stehen“)
-static func haltung(m: Node3D, w: Dictionary, n: String) -> String:
+static func haltung(m: Node3D, w: Dictionary, n: String, arm := 0.0) -> String:
 	var datei := "res://daten/menue-%s.bin" % n
 	if n == "" or not FileAccess.file_exists(datei): return ""
 	var sc := Gebiet.lade_glb(datei)
@@ -144,6 +146,11 @@ static func haltung(m: Node3D, w: Dictionary, n: String) -> String:
 	lib.add_animation(n, an)
 	ap.add_animation_library("menue", lib)
 	var name_ := "menue/" + n
+	if arm > 0.0:   # vor die Waffen: die Waffe folgt der angezogenen Faust
+		var an_ := ArmAnziehen.new()
+		an_.grad = arm
+		an_.seite = hoehere_hand(sk, ap, name_)
+		sk.add_child(an_)
 	waffen_in_die_hand(m, sk, ap, w.get("ausruestung", {}), name_)
 	return name_
 
@@ -197,6 +204,24 @@ static func hoehere_hand(sk: Skeleton3D, ap: AnimationPlayer, bew: String) -> St
 			t = t * r
 		y[s_] = t.origin.y
 	return "r" if y["r"] >= y["l"] else "l"
+
+## 867 (Sokrates 23:13: Stab am ausgestreckten Arm wirkt steif): Oberarm der Seite um grad zum Koerper hin, um die Vorwaertsachse
+## der Figur (vor den Waffen gestellt, die Waffe folgt der Faust)
+class ArmAnziehen extends SkeletonModifier3D:
+	var grad := 0.0
+	var seite := "l"
+	func _process_modification() -> void:
+		var sk := get_skeleton()
+		if sk == null: return
+		var i := sk.find_bone("upperarm_" + seite)
+		if i < 0: return
+		var vorn := (sk.global_basis.inverse() * (sk.get_parent_node_3d().global_basis * Vector3.BACK)).normalized() if sk.is_inside_tree() and sk.get_parent_node_3d() else Vector3.BACK
+		# linke Seite der Figur ist +X: der linke Arm kommt mit negativer Drehung um vorn (+Z) herunter, der rechte mit positiver
+		var w := deg_to_rad(grad) * (-1.0 if seite == "l" else 1.0)
+		var g := sk.get_bone_global_pose(i)
+		var n := Basis(vorn, w) * g.basis.orthonormalized()
+		var p := sk.get_bone_global_pose(sk.get_bone_parent(i))
+		sk.set_bone_pose_rotation(i, (p.basis.orthonormalized().inverse() * n).get_rotation_quaternion())
 
 ## 867: Hals und Kopf um die Hochachse der Figur zum Spieler (grad, zu gleichen Teilen auf neck_01, neck_02, Head)
 class KopfDrehen extends SkeletonModifier3D:

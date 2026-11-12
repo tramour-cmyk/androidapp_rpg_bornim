@@ -29,7 +29,8 @@ const STATUREN := ["schlank", "normal", "kraeftig"]
 # die Nummer „haarfarbe“. Keine Vorgabe ergibt Grau oder Weißgrau (tests/menuehelden_867.gd)
 const KAEMPFER_KOPF := {"form": "kantig", "frisur": "Hair_Buzzed", "bart": "Hair_Beard", "haar": ["Braun", "Silberblond", "Dunkelbraun"], "haut": 1}
 const SCHURKEN_KOPF := {"form": "schmal", "frisur": "Hair_Ponytail", "bart": "", "haar": ["Rot", "Kupfer", "Rostbraun"], "haut": 1}
-const JAEGER_KOPF := {"form": "schmal", "frisur": "Hair_Ponytail", "bart": "", "haar": ["Braun", "Dunkelbraun", "Schwarz"], "haut": 1}
+# Sokrates 23:13: das Braun des Zwergs wirkte im warmen Licht rotbraun; dunkelbraun bis schwarz
+const JAEGER_KOPF := {"form": "schmal", "frisur": "Hair_Ponytail", "bart": "", "haar": ["Dunkelbraun", "Schwarz"], "haut": 1}
 const HERKUNFT_VORGABE := {
 	"WACHSOLDAT": KAEMPFER_KOPF, "SCHMIEDELEHRLING": KAEMPFER_KOPF, "WANDERER": KAEMPFER_KOPF,
 	"KLOSTERSCHUELER": {"form": "rund", "frisur": "Hair_Balding", "bart": "Hair_Beard", "haar": ["Schwarz"], "haut": 2},

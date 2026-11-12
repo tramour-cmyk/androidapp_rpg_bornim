@@ -20,7 +20,7 @@ func _initialize() -> void:
 				var l := HeldFigur.toene_liste(v, "haar")
 				var n := String(l[int(a["haarfarbe"])]["name"]["de"]) if int(a["haarfarbe"]) < l.size() else "?"
 				pruefe(n not in grau, "%s %s %s: Haar %s" % [k, v, g, n])
-				if k == "JAEGERKIND": pruefe(n not in hell, "Jägerkind %s %s: Haar %s, nicht dunkel" % [v, g, n])
+				if k == "JAEGERKIND": pruefe(n in ["Schwarz", "Dunkelbraun"], "Jägerkind %s %s: Haar %s, nicht dunkelbraun bis schwarz (Sokrates 23:13)" % [v, g, n])
 				if k == "ZAUBERLEHRLING": pruefe(n == "Schwarz", "Zauberlehrling %s %s: Haar %s statt Schwarz" % [v, g, n])
 	var haltungen := {}
 	for h in HauptmenueHelden.HELDEN:
