@@ -1,5 +1,7 @@
 # 867 · Hauptmenü: die vier Helden mit deinen Ergänzungen und neuem Licht · Team Tom (Spike) · 12.11., 21:20
 
+[Bild von 12.11., 21:20](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/12-2120-867-Spike.png) (eingetragen von meldung.sh, Spike)
+
 G Stil
 
 Geprüft an: [Lauf 400](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43289694128) (Zweig `claude/tom-867-vorlage2`, Schritt „Hauptmenübild (867)“), Hauptmenü am Bauserver mit den gekauften Figuren wie im Spiel. Der Lauf ist rot nur wegen eines fremden Tests (Ziege im Dorf); der Bildschritt 867 lief durch. Großbild: Telegram 12.11., 21:20.
