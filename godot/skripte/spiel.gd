@@ -1773,7 +1773,7 @@ func pruefliste_bild() -> void:
 	await get_tree().create_timer(1.5).timeout
 	await knips(dir + "/pruefliste.png")
 	if zl.size() >= 3:
-		Pruefliste.offen = String(zl[1]["nr"])
+		Pruefliste._oeffne(String(zl[1]["nr"]))
 		var m = get_tree().root.find_children("*", "Menue", true, false)
 		if not m.is_empty(): m[0].baue()
 		await get_tree().create_timer(1.0).timeout
