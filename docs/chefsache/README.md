@@ -24,6 +24,7 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [1036](ansehen/1036-zustaende.md) | Zustände an den Figuren wie alt | – | 12.11., 17:05 |
 | [756](ansehen/756-merkmale.md) | Merkmale der Ausrüstung: Güte und Zustand am Bild | – | 12.11., 14:21 |
 | [842](ansehen/842-knopf.md) | Pim heimschicken und Verband: Knopf im Gespräch, Bild des Verbands | – | 12.11., 15:30 |
 | [995](ansehen/995-grabhund.md) | Grabhund: Augen, Kopf und Körper lesbar | – | 12.11., 14:35 |
@@ -299,8 +300,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1040 | M | Von Sokrates (Chef 12.11., 15:12, Build 280, 278.21 Grimmzahn; Wiederholfund „Drehen auf d | wartet auf 1053 (startbar) |
 | 1046 | M | Von Sokrates (1038 A, R1, Chef 12.11., 16:24): Verband stillt Blutung (plus kleiner Teil L | startbar |
 | 1049 | M | Von Sokrates (Befund 12.11.): Gegner ohne eigene Ansage fallen auf „Stich“ zurück (mars.gd | wartet auf Test/Build (gebaut) |
-| Pflege | K | von Werkzeug (340.3, 12.11.): 29254 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 1054 | M | Von Tom (Hinweis 12.11., 16:40): tests/mars_regeln.gd nach dem Umzug veraltet (massstab, _ | wartet auf Test/Build (gebaut) |
+| Pflege | K | von Werkzeug (340.3, 12.11.): 31004 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 13, Muss 12, startbar 0
 
@@ -333,7 +334,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 56, Muss 41, startbar 30
+**Sokrates** – offen 57, Muss 41, startbar 31
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -393,6 +394,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1048 | M? | Ring öfter im Kampf (Chef 12.11., 14:59: „ein bisschen mehr Ring … mehr Einfluss … bei der | Chef (Datei in der Chefsache) |
 | 1053 | M | Von Tuffy (621 A, 480.1): 1039 und 1040 Läufe frei? Je ein Filmlauf zeigte nicht, was er s | startbar |
 | 1056 | M | Vorentscheid: nächster Build halbiert nach Thema, 281 Kampf, 282 Dorf und Oberfläche (Chef | Chef (Datei in der Chefsache) |
+| Pflege | K | von Werkzeug (340.3, 12.11.): 15396 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
