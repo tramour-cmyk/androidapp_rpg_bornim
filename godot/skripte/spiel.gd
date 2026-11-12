@@ -1508,7 +1508,8 @@ func _process(dt: float) -> void:
 	held.atemlos_neu(zustand.atemlos and kampf == null)   # 592: leer kurz stehen, Haende auf den Knien
 	if held.funke_an != zustand.funke: held.funke_neu(zustand.funke)   # 677: getrunken, geloescht, nach der Rast verglommen
 	ui.ausdauer_balken.z = zustand
-	klang("atme", [zustand.atemlos and kampf == null, zustand.ausdauer])   # 399.3 (Jerry): atemlos keucht er (Panting.kt)
+	# 399.3 (Jerry): atemlos keucht er (Panting.kt); 1003: die Heldin mit Frauenstimme (alt Panting.kt hero.sex, Erschaffung „geschlecht“)
+	klang("atme", [zustand.atemlos and kampf == null, zustand.ausdauer, String(zustand.aussehen.get("geschlecht", "m")) == "w"])
 	rufe_neu()
 	Leute.still = ui.spricht()   # 390: wer spricht, bleibt stehen (Mode.Dialog)
 	if is_instance_valid(ziel_person) and not ui.spricht():
