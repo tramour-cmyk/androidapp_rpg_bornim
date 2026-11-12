@@ -2,7 +2,7 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 12.11., 21:10 (lauf.py)
+**Stand:** 12.11., 21:11 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
@@ -14,3 +14,4 @@
 | Jerry | [Jerry – 1046: Verband stillt Blutung (12.11., 20:54)](https://claude.ai/code/session_01Hmoj79xvpYioqm5WRyMud6) | 1046 | – | 12.11., 20:54 |
 | Ford | [Ford – Betriebsleiter (12.11., 20:55)](https://claude.ai/code/session_01Hmoj78bq2gFgYwjfaKARrR) | Betrieb | – | 12.11., 20:54 |
 | Diogenes | [Diogenes – 1076 (12.11., 21:04)](https://claude.ai/code/session_01Hmoj78TftZKyaCdnhbgFaG) | 1076 | – | 12.11., 21:04 |
+| Perikles | [Perikles – 1078 (12.11., 21:10)](https://claude.ai/code/session_01Hmoj78PZLyrZi48EAPquLA) | 1078 | – | 12.11., 21:10 |
