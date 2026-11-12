@@ -251,7 +251,7 @@ Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, abe
 | Runenmeister | Runenkunde | Bergbau | Verzauberungen, Runen auf Ausrüstung |
 | Feldkoch | Kochen | Angeln oder Jagd | Mahlzeiten mit kleinem Bonus |
 
-**Heilkunde** steht in der Gruppe Handwerk (Entscheidung 59: Verbände, Wunden versorgen), ist aber keine eigene Meisterschaft; über Meister hinaus steigt sie nur im Pfad Heiler.
+**Heilkunde** steht in der Gruppe Handwerk (Entscheidung 59: Verbände, Wunden versorgen), ist aber keine eigene Meisterschaft; über Meister hinaus steigt sie nur im Pfad Heiler. **Verband** (1038 A, Chef 12.11., 16:24, „fürs Erste“): stillt Blutung, gibt nach Heilkunde etwas Leben, nur außerhalb des Kampfs; kaufen bei Osric und Thessa; herstellen mit dem Rezeptbuch aus Heilkräutern und Leinen am Lagerfeuer ab Anfänger, mit Spinnseide stärker; später schließt er Wunden (72c). **Kurze Rast** gibt nur Ausdauer, kein Leben (1038 R1).
 
 ## 7. Kampf
 
