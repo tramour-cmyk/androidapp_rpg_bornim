@@ -1,4 +1,5 @@
-# 348.6: Vergleichsbild alt/neu: tools/vgl348.py <alt: tools/preview/build/screens> <neu: --bilder-Ordner> <aus>
+# 348.6: Vergleichsbild alt/neu: tools/vgl348.py <alt> <neu: --bilder-Ordner> <aus>
+# alt (882.1): einmal gerendert im Zweig „bilder“, holen mit `bash tools/alt_bilder.sh karte <alt>` (ohne Gradle)
 import sys, os
 from PIL import Image, ImageDraw, ImageFont
 alt, neu, out = sys.argv[1:4]
