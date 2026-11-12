@@ -239,8 +239,23 @@ func voll() -> void:
 	leben = max_leben()
 	mana = max_mana()
 
-## Kritische Treffer in Prozent (N 4: Gewandtheit in Prozent)
-func krit_prozent() -> int: return roundi(float(lade()["kampf"]["kritisch_prozent_je_gewandtheit"]) * wert("gewandtheit")) + bonus("CRIT")
+## Kritische Treffer in Prozent mit der Hauptwaffe (952 D: zweiter Grundwert der Waffengruppe × Fertigkeit / 50, BrsKampf.krit_prozent)
+func krit_prozent() -> int:
+	var gruppe := waffengruppe()
+	var werte := {}
+	for g in ["kraft", "gewandtheit", "zaehigkeit", "verstand", "wille", "wahrnehmung"]: werte[g] = wert(g)
+	return roundi(krit_von(werte, gruppe, float(fertigkeit(gruppe) + fertigkeit_bonus(gruppe)))) + bonus("CRIT")
+
+## 952 D (Chef 11.11., 20:03; sim.py krit_prozent): kritisch in Prozent = zweiter Grundwert × Fertigkeit / 50, nie der Grundwert des
+## Schadens; welcher, steht je Waffengruppe und Schule in werte.json unter „kritisch“ (null: nie, Heil- und Schutzmagie)
+static func krit_von(werte: Dictionary, gruppe_oder_schule: String, fertigkeit: float) -> float:
+	var W := lade()
+	var k: Dictionary = W["kampf"]
+	var eintrag = W["waffen"].get(gruppe_oder_schule, W.get("schulen", {}).get(gruppe_oder_schule, {}))
+	var g = eintrag.get("kritisch") if eintrag is Dictionary else null
+	if g == null or String(g) == "":
+		return 0.0
+	return float(k["kritisch_je_punkt"]) * float(werte.get(String(g), 0)) * fertigkeit / float(k["kritisch_fertigkeit_teiler"])
 
 ## Schaden eines Treffers mit der Hauptwaffe gegen einen Gegner gleicher Stufe ohne Ruestung, ohne Zufall (Modell D: (Grundschaden
 ## + Grundwert) x (1 + Fertigkeit/100), wie mars.gd _brs_waffe)

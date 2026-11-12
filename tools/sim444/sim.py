@@ -183,6 +183,23 @@ def trefferchance(W, angriff, abwehr, bonus=0.0):
     return max(k["trefferchance_min"], min(k["trefferchance_max"], c)) / 100.0
 
 
+def krit_prozent(W, held, fert_name, fertigkeit):
+    """952 D (Chef 11.11., 20:03): kritisch in Prozent = zweiter Grundwert x Fertigkeit / 50; der Grundwert steht je Waffengruppe
+    und Schule unter 'kritisch' (Nahkampf Gewandtheit, Dolch, Wurfwaffe, Bogen, Armbrust Wahrnehmung, Evokation, Illusion,
+    Beschwoerung Wille), null = nie kritisch (Heil- und Schutzmagie)."""
+    k = W["kampf"]
+    eintrag = W["waffen"].get(fert_name) or W["schulen"].get(fert_name) or {}
+    g = eintrag.get("kritisch")
+    if not g:
+        return 0.0
+    return k["kritisch_je_punkt"] * held.werte[g] * fertigkeit / k["kritisch_fertigkeit_teiler"]
+
+
+def zauber_grund(W, held, zb):
+    """952 D: Grundschaden des Zaubers + Grundwert der Schule (Evokation, Illusion, Beschwoerung Verstand; Heil-, Schutzmagie Wille)."""
+    return zb.get("schaden", zb.get("heilung", 0)) + held.werte[W["schulen"][zb["schule"]]["grundwert"]]
+
+
 def schaden_roh(W, grund, fertigkeit, d, rng, kritisch_prozent=0.0):
     """(Waffe + Grundwert) x (1 + Fertigkeit/100) x Stufenfaktor, mit Glueckstreffer, Krit, Streuung."""
     k = W["kampf"]
@@ -344,7 +361,7 @@ def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False, beutel=
         # 481.1: Feuer statt eines schwaecheren Angriffs (Grundschaden verglichen)
         if aktion in (None, "Funkenpfeil") and beutel is not None and beutel.hat("Alchemistenfeuer"):
             if aktion == "Funkenpfeil":
-                g_jetzt = z["Funkenpfeil"]["schaden"] + held.werte["wille"]
+                g_jetzt = zauber_grund(W, held, z["Funkenpfeil"])
             else:
                 gw = waffe["grundwert"]
                 g_jetzt = (waffe["schaden"] + (held.werte[gw] if gw else 0)) * l_waffe
@@ -376,7 +393,7 @@ def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False, beutel=
         elif aktion == "Wundsegen":
             zb = z["Wundsegen"]
             mana -= zb["kosten"]
-            heil = (zb["heilung"] + held.werte["wille"]) * (1 + held.f(zb["schule"]) / 100.0)
+            heil = zauber_grund(W, held, zb) * (1 + held.f(zb["schule"]) / 100.0)
             leben = min(lmax, leben + round(heil))
             if lernen:
                 held.uebe(zb["schule"], mon["stufe"])
@@ -393,7 +410,7 @@ def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False, beutel=
                 zb = z["Funkenpfeil"]
                 mana -= zb["kosten"]
                 fert_name = zb["schule"]
-                grund = zb["schaden"] + held.werte["wille"]
+                grund = zauber_grund(W, held, zb)
                 bonus = 0.0
                 typ = zb["typ"]
             else:
@@ -409,7 +426,7 @@ def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False, beutel=
                 bonus += umr["naechster_angriff_treffer"]
                 zust["liegt"] = False
             if rng.random() < trefferchance(W, fw, mon["abwehr"], bonus):
-                s = schaden_roh(W, grund, fw, d_held, rng, k["kritisch_prozent_je_gewandtheit"] * held.werte["gewandtheit"])
+                s = schaden_roh(W, grund, fw, d_held, rng, krit_prozent(W, held, fert_name, fw))
                 s *= schwaeche.get(typ, 1.0)
                 mleben -= endschaden(W, s, mon["ruestung"])
                 if wirt is not None and aktion is None and waffe_name == held.waffe:
@@ -1016,6 +1033,16 @@ def pruefen(W):
         ist("Trankwirkung ohne Alchemie", wirkung_von(W, 0), 0.5, tol=0.001)
         ist("Trankwirkung Alchemie 10", wirkung_von(W, 10), 1.0, tol=0.001)
         ist("Trankwirkung Alchemie 40 (Deckel)", wirkung_von(W, 40), 2.0, tol=0.001)
+    if "schulen" in W:   # 952 D: kritisch = zweiter Grundwert x Fertigkeit / 50, Zauberschaden nach der Schule
+        class P:
+            werte = {"kraft": 12, "gewandtheit": 10, "zaehigkeit": 5, "verstand": 8, "wille": 15, "wahrnehmung": 20}
+        ist("Kritisch Einhänder (Gewandtheit 10, Fertigkeit 20)", krit_prozent(W, P, "Einhänder", 20), 4.0, tol=0.001)
+        ist("Kritisch Dolche (Wahrnehmung 20, Fertigkeit 20)", krit_prozent(W, P, "Dolche", 20), 8.0, tol=0.001)
+        ist("Kritisch Anfänger (Fertigkeit 0)", krit_prozent(W, P, "Bogen", 0), 0.0, tol=0.001)
+        ist("Kritisch Evokation (Wille 15, Fertigkeit 10)", krit_prozent(W, P, "Evokation", 10), 3.0, tol=0.001)
+        ist("Kritisch Heilmagie nie", krit_prozent(W, P, "Heilmagie", 50), 0.0, tol=0.001)
+        ist("Funkenpfeil Grund 6 + Verstand 8", zauber_grund(W, P, W["zauber"]["Funkenpfeil"]), 14, tol=0.001)
+        ist("Gleißstrahl Grund 5 + Wille 15", zauber_grund(W, P, W["zauber"]["Gleißstrahl"]), 20, tol=0.001)
     print("Ergebnis:", "in Ordnung" if fehler == 0 else f"{fehler} Fehler")
     return fehler
 
