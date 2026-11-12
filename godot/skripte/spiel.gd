@@ -59,7 +59,9 @@ func _ready() -> void:
 	ui.aktion.connect(_aktion)
 	ui.knopf.connect(_knopf)
 	ui.windrose.zurueck.connect(kamera.nach_norden)
-	ui.leiste.menue.connect(oeffne_menue)
+	# 764 (Chef 09.11., 14:49: „wenn ich im Status oben in der Statusleiste drücke … kriege ich keine Erklärung“): mit einem Zustand
+	# in der Leiste oeffnet sie den Heldenreiter, dort steht er mit Erklaerung
+	ui.leiste.menue.connect(func(): oeffne_menue("held" if ui.leiste.zustaende_da else ""))
 	ui.leiste.karte.connect(func(): oeffne_menue("karte"))   # 528 (86.2)
 	ui.gelesen.connect(weiter)
 	ui.gewaehlt.connect(_rast_wahl)
