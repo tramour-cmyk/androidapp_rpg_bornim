@@ -45,4 +45,24 @@ func _lauf() -> void:
 		var w := HauptmenueHelden.wahl(h)
 		print("MENU867 %s: Ausruestung %s" % [h["herkunft"], (w["ausruestung"] as Dictionary).keys().map(func(p): return "%s=%s" % [p, str(w["ausruestung"][p].get("base", "?")) if w["ausruestung"][p] is Dictionary else str(w["ausruestung"][p])])])
 	await knips("867_nachher")
+	await ausschnitt(neu, "867_helden")
+	# 867 Haltungen A (Sokrates: „Haltungen in allen Blickrichtungen prüfen“): jeder Held um sich selbst gedreht, die Waffe bleibt in
+	# der Hand, nichts schwebt oder steckt im Koerper
+	for g in [90, 180, 270]:
+		for f in neu.figuren: f.rotation.y += deg_to_rad(90.0)
+		neu._bilder = 0
+		neu._v.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+		for k in 10: await process_frame
+		await ausschnitt(neu, "867_helden_%d" % g)
+	for f in neu.figuren: print("MENU867 %s: Haltung %s" % [f.get_child(0).name, f.get_meta("haltung", "")])
 	quit()
+
+
+## die Helden allein, doppelt so gross (Gesichter, Haende, Waffen)
+func ausschnitt(neu: Control, n: String) -> void:
+	await RenderingServer.frame_post_draw
+	var r := Rect2i(neu.get_global_rect())
+	var img := root.get_texture().get_image().get_region(r)
+	img.resize(img.get_width() * 2, img.get_height() * 2, Image.INTERPOLATE_LANCZOS)
+	img.save_png(aus + "/" + n + ".png")
+	print("BILD ", aus + "/" + n + ".png")

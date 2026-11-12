@@ -545,6 +545,7 @@ jobs:
           set -o pipefail; timeout 400 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/wechsel_950.gd 2>&1 | grep -E "^(FEHLER|WECHSEL950|hero|merc|Abstand|Mira)|SCRIPT ERROR"   # 950 Platztausch mit Schritten
           nebenher zustaende_563 'set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/zustaende_563.gd 2>&1 | grep -E "^(ZUSTAND563|Zustand|Leiste)|SCRIPT ERROR"'   # 563 A Zustände ohne Überlappen
           timeout 300 ~/godot/godot --headless --path . -s res://tests/held_klassen_376.gd 2>&1 | grep -E "HELDKLASSEN|FALSCH|SCRIPT ERROR"   # 376.1
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/menuehelden_867.gd 2>&1 | tee menue867.log | grep -E "FEHLER|MENUEHELDEN867|SCRIPT ERROR"; grep -q "^MENUEHELDEN867 0 Fehler" menue867.log   # 867 Haarfarben der Vorgaben, Haltungen (Tom)
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . -s res://tests/held_kampf_403.gd 2>&1 | grep -E "^(ok|FEHLER|Held 403)|SCRIPT ERROR"   # 403 (Jerry)
           # 824: Held ohne Schild geht nach dem Hieb rückwärts im Schritttempo heim (nicht 3,8 m/s mit 1,6-facher Bewegung)
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/angriff_824.gd 2>&1 | grep -E "^(ANGRIFF824|FEHLER|MASS)|SCRIPT ERROR"   # 824 (Jerry)
@@ -1220,6 +1221,24 @@ jobs:
         continue-on-error: true
         run: |
           mkdir -p $GITHUB_WORKSPACE/bilder/menue867
+          # 867 Haltungen A (Chef 12.11., 21:55): je Held eine ruhige Stehhaltung aus den gekauften Protofactor-Saetzen auf das Geruest der
+          # UAL (zauber385.py wie die SS_-Bewegungen in held_kampf.py), daten/menue-<haltung>.bin (gekauft, kauf.txt). Ruhig heisst ohne
+          # Kampfhaltung, Umsehen, Zielen, Hocken, Wurzelweg (_RM); von den uebrigen der kuerzeste Name. Alle Kandidaten stehen im Protokoll.
+          P=$(find ${KAUF:-/kein} -path '*Unreal-Godot*' -name UAL1.glb 2>/dev/null | sort | head -1)
+          echo "MENU867 UAL $P"
+          find ${KAUF:-/kein} -name 'Humanoid@*Idle*.fbx' 2>/dev/null | sed "s|.*/||" | sort | tr '\n' ' ' | cut -c1-3000; echo
+          ruhig() { find ${KAUF:-/kein} -name "$1" 2>/dev/null | grep -iE "${2:-.}" | awk -v ex="${3:-combat|look|aim|draw|crouch|_rm|nobow|without|ready|hit|injur}" '{ n=$0; sub(/.*\//, "", n); if (tolower(n) ~ ex) next; print length(n), $0 }' | sort -n | head -1 | cut -d' ' -f2-; }
+          for n in schildwache zauberer bogen; do
+            case $n in
+              schildwache) f=$(ruhig 'Humanoid@Idle*S&S.fbx'); [ -n "$f" ] || f=$(ruhig 'Humanoid@IdleCombatS&S.fbx' . '_rm');;
+              zauberer) f=$(ruhig 'Humanoid@IdleWizard.fbx');;
+              bogen) f=$(ruhig 'Humanoid@Idle*Bow*.fbx'); [ -n "$f" ] || f=$(ruhig 'Humanoid@*Idle*.fbx' 'bow');;
+            esac
+            [ -n "$f" ] && [ -n "$P" ] || { echo "MENU867 FEHLT $n"; continue; }
+            QUELLE="$f" ZIEL="$P" NAME="Menue_$n" OUT=$RUNNER_TEMP/menue-$n.glb BECKEN=bein bl/bin/python -I tools/blender348/v3/zauber385.py > menue-$n.log 2>&1 \
+              && cp $RUNNER_TEMP/menue-$n.glb godot/daten/menue-$n.bin && echo "MENU867 HALTUNG $n aus ${f#$KAUF/} $(grep -E '^(ZAUBER385|ABWEICHUNG)' menue-$n.log | tr '\n' ' ')" \
+              || { echo "MENU867 FEHLER $n"; tail -20 menue-$n.log; }
+          done
           cd godot
           VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 \

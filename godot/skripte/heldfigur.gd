@@ -24,13 +24,17 @@ const STATUREN := ["schlank", "normal", "kraeftig"]
 # Chef 28.10., 23:0x („die 6 Beispielköpfe … auf Helden drauf basteln“; Haut „klinisch tot“, „normale Hautfarbe oder eine
 # klassentypische“): je Klasse ein fertiger Beispielkopf als Vorgabe, keiner mit „Hell“; in der Erschaffung frei aenderbar.
 # 870.4: je Herkunft der Kopf der Klasse, zu der sie bisher gehoerte (dasselbe Bild wie vorher)
-const KAEMPFER_KOPF := {"form": "kantig", "frisur": "Hair_Buzzed", "bart": "Hair_Beard", "haarfarbe": 0, "haut": 1}
-const SCHURKEN_KOPF := {"form": "schmal", "frisur": "Hair_Ponytail", "bart": "", "haarfarbe": 3, "haut": 1}
+# 867 (Chef 12.11., 21:55 „dunkelhaariges Jägerkind“; Sokrates: Haarfarbe beim Namen statt Nummer im Volk, die 3 gab Zwerg Grau und Elf
+# Weißgrau): „haar“ = Namen in Vorrangfolge, der erste, den das Volk hat (held.json voelker.<VOLK>.haar name.de); vorgabe() macht daraus
+# die Nummer „haarfarbe“. Keine Vorgabe ergibt Grau oder Weißgrau (tests/menuehelden_867.gd)
+const KAEMPFER_KOPF := {"form": "kantig", "frisur": "Hair_Buzzed", "bart": "Hair_Beard", "haar": ["Braun", "Silberblond", "Dunkelbraun"], "haut": 1}
+const SCHURKEN_KOPF := {"form": "schmal", "frisur": "Hair_Ponytail", "bart": "", "haar": ["Rot", "Kupfer", "Rostbraun"], "haut": 1}
+const JAEGER_KOPF := {"form": "schmal", "frisur": "Hair_Ponytail", "bart": "", "haar": ["Braun", "Dunkelbraun", "Schwarz"], "haut": 1}
 const HERKUNFT_VORGABE := {
 	"WACHSOLDAT": KAEMPFER_KOPF, "SCHMIEDELEHRLING": KAEMPFER_KOPF, "WANDERER": KAEMPFER_KOPF,
-	"KLOSTERSCHUELER": {"form": "rund", "frisur": "Hair_Balding", "bart": "Hair_Beard", "haarfarbe": 2, "haut": 2},
-	"HERUMTREIBER": SCHURKEN_KOPF, "JAEGERKIND": SCHURKEN_KOPF, "KRAEUTERSAMMLER": SCHURKEN_KOPF,
-	"ZAUBERLEHRLING": {"form": "hager", "frisur": "Hair_SlickBack", "bart": "Hair_Moustache", "haarfarbe": 2, "haut": 3},
+	"KLOSTERSCHUELER": {"form": "rund", "frisur": "Hair_Balding", "bart": "Hair_Beard", "haar": ["Schwarz"], "haut": 2},
+	"HERUMTREIBER": SCHURKEN_KOPF, "JAEGERKIND": JAEGER_KOPF, "KRAEUTERSAMMLER": SCHURKEN_KOPF,
+	"ZAUBERLEHRLING": {"form": "hager", "frisur": "Hair_SlickBack", "bart": "Hair_Moustache", "haar": ["Schwarz"], "haut": 3},
 }
 # 870.4: Volk nach BRS -> Koerper und Farben der Figur (held.json voelker, held_klassen.py; Kennungen der Modelle bleiben)
 const VOLK_MODELL := {"Mensch": "HUMAN", "Elf": "ELF", "Zwerg": "DWARF", "Hügelvolk": "HALFLING", "Orkblütiger": "HALF_ORC"}
@@ -131,17 +135,20 @@ static func wahl(w: BrsHeld, z: Zustand) -> Dictionary:
 	return {"herkunft": w.herkunft if w else "Wanderer", "volk": volk_modell(w.volk) if w else "HUMAN", "aussehen": z.aussehen if z else {},
 		"ausruestung": w.ausruestung if w else {}}
 
-static func vorgabe(herkunft_: String, geschlecht := "m") -> Dictionary:
+static func vorgabe(herkunft_: String, geschlecht := "m", volk := "HUMAN") -> Dictionary:
 	var v := VORGABE.duplicate()
 	var k := kennung(herkunft_)
 	v.merge(HERKUNFT_VORGABE.get(k, {}), true)
+	if v.has("haar"):   # 867: Name -> Nummer im Volk
+		v["haarfarbe"] = haar_nummer(volk, v["haar"])
+		v.erase("haar")
 	v["geschlecht"] = geschlecht
 	if geschlecht == "w":
 		v["frisur"] = String(FRAU_FRISUR.get(k, "Hair_Long")); v["bart"] = ""
 	return v
 
-static func aussehen_voll(a: Dictionary, herkunft_ := "") -> Dictionary:
-	var v := vorgabe(herkunft_, String(a.get("geschlecht", "m")))
+static func aussehen_voll(a: Dictionary, herkunft_ := "", volk := "HUMAN") -> Dictionary:
+	var v := vorgabe(herkunft_, String(a.get("geschlecht", "m")), volk)
 	for k in a: v[k] = a[k]
 	return v
 
@@ -186,7 +193,7 @@ const RUECK := 0.04   # Laeufe 41427986678, 41449210697: mit Unterlagen weg (kau
 const NACH := 0.0
 static func baue(w: Dictionary, mats: Array) -> Node3D:
 	var k := String(w.get("herkunft", ""))   # leer (Leute des Dorfs mit „modell“): ohne Beispielkopf
-	var a := aussehen_voll(w.get("aussehen", {}), k)
+	var a := aussehen_voll(w.get("aussehen", {}), k, String(w.get("volk", "HUMAN")))
 	var t := tracht({"herkunft": k, "aussehen": a, "modell": w.get("modell", ""), "kapuze": w.get("kapuze", false)})
 	if not FileAccess.file_exists("res://daten/held_%s.bin" % t["modell"]) or not FileAccess.file_exists("res://daten/bewegungen.bin"): return null
 	var m := Gebiet.lade_glb("res://daten/held_%s.bin" % t["modell"])
@@ -431,6 +438,14 @@ static func _lin(c: Array) -> Vector3:
 static func _hell(c: Array) -> float:
 	var l := Color(float(c[0]), float(c[1]), float(c[2])).srgb_to_linear()
 	return maxf(0.01, 0.2126 * l.r + 0.7152 * l.g + 0.0722 * l.b)
+
+# 867: die erste der Haarfarben namen (deutsch), die das Volk hat; sonst die erste des Volks
+static func haar_nummer(volk: String, namen: Array) -> int:
+	var l := toene_liste(volk, "haar")
+	for n in namen:
+		for i in l.size():
+			if String(l[i].get("name", {}).get("de", "")) == String(n): return i
+	return 0
 
 static func toene_liste(volk: String, was: String) -> Array:
 	var v: Dictionary = BrsHeld.daten().get("voelker", {}).get(volk_modell(volk), {})

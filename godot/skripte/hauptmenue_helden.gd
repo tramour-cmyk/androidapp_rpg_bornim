@@ -7,11 +7,15 @@ extends Control
 # Schwarz. Ein Standbild: nach wenigen Bildern zeichnet der Teller nicht mehr (wie Drehteller dreht=false). Ohne Modelle (am Rechner) leer.
 
 const DP := AktionsKnopf.DP
+# 867 (Chef 12.11., 21:55 „867 Haltungen A“; 21:40 „pro Char eine andere Haltung, in der Waffe und Schild gesehen werden“): je Held eine
+# eigene ruhige Stehhaltung mit der Waffe in der Hand (haltung: Datei daten/menue-<haltung>.bin aus den Protofactor-Saetzen, godot.yml
+# „Hauptmenübild (867)“; leer: „Stehen“ der UAL mit dem Wanderstab aufgestuetzt, tragen.gd stab), die aeusseren 30 Grad zur Mitte, die
+# inneren 10, der Kopf zum Spieler (kopf: Anteil der Drehung, den Hals und Kopf zurueckdrehen)
 const HELDEN := [
-	{"herkunft": "Wachsoldat", "volk": "Mensch", "geschlecht": "w", "x": -1.32, "dreh": 18.0},
-	{"herkunft": "Zauberlehrling", "volk": "Mensch", "geschlecht": "m", "x": -0.44, "dreh": 6.0},
-	{"herkunft": "Jägerkind", "volk": "Zwerg", "geschlecht": "m", "x": 0.44, "dreh": -6.0},
-	{"herkunft": "Klosterschüler", "volk": "Elf", "geschlecht": "w", "x": 1.32, "dreh": -18.0},
+	{"herkunft": "Wachsoldat", "volk": "Mensch", "geschlecht": "w", "x": -1.32, "dreh": 30.0, "haltung": "schildwache", "kopf": 0.6},
+	{"herkunft": "Zauberlehrling", "volk": "Mensch", "geschlecht": "m", "x": -0.44, "dreh": 10.0, "haltung": "zauberer", "kopf": 0.6},
+	{"herkunft": "Jägerkind", "volk": "Zwerg", "geschlecht": "m", "x": 0.44, "dreh": -10.0, "haltung": "bogen", "kopf": 0.6},
+	{"herkunft": "Klosterschüler", "volk": "Elf", "geschlecht": "w", "x": 1.32, "dreh": -30.0, "haltung": "", "kopf": 0.6},
 ]
 # Schein: Mitte (0,5/0,86) im Bild, Halbachsen waagrecht 0,5, nach oben 0,86, nach unten 0,14; warm in der Mitte, aussen schwarz
 const SCHEIN := """shader_type canvas_item;
@@ -90,18 +94,130 @@ func _init(breite_dp := 330.0) -> void:
 			(mt as ShaderMaterial).set_shader_parameter("metall", 1.0)
 			(mt as ShaderMaterial).set_shader_parameter("licht_dir", Basis.from_euler(sonne.rotation).z)
 		var anim := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
-		if anim:
+		var hl := haltung(m, w, String(h["haltung"])) if anim else ""
+		if anim and hl == "":
 			Gebiet.bewegungen(anim, ["Stehen"])
-			if anim.has_animation("Stehen"):
-				anim.play("Stehen")
-				anim.seek(anim.get_animation("Stehen").length * (0.15 + 0.2 * figuren.size()), true)   # nicht im Gleichtakt (C3)
+			hl = "Stehen" if anim.has_animation("Stehen") else ""
+		if hl != "":
+			anim.play(hl)
+			anim.seek(anim.get_animation(hl).length * (0.15 + 0.2 * figuren.size()), true)   # nicht im Gleichtakt (C3)
+		var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
+		if sk and float(h.get("kopf", 0.0)) > 0.0:
+			var kd := KopfDrehen.new()
+			kd.grad = -float(h["dreh"]) * float(h["kopf"])
+			sk.add_child(kd)
+		trg.set_meta("haltung", hl)
 		figuren.append(trg)
+
+## 867: die Haltung n aus daten/menue-<n>.bin (Protofactor-Satz auf dem Geruest der UAL, zauber385.py) auf die Figur m wie
+## HeldFigur.bewegungen (nur Drehungen, Becken im Verhaeltnis der Beckenhoehe); die Waffe in die Faust wie die Paketbewegungen
+## (tragen.gd _paket), der Schild an den linken Arm (schildarm); ohne Datei leer (dann „Stehen“)
+static func haltung(m: Node3D, w: Dictionary, n: String) -> String:
+	var datei := "res://daten/menue-%s.bin" % n
+	if n == "" or not FileAccess.file_exists(datei): return ""
+	var sc := Gebiet.lade_glb(datei)
+	if sc == null: return ""
+	var ap0 := Gebiet.finde(sc, "AnimationPlayer") as AnimationPlayer
+	var sk0 := Gebiet.finde(sc, "Skeleton3D") as Skeleton3D
+	var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
+	var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
+	if ap0 == null or sk0 == null or ap == null or sk == null or ap0.get_animation_list().is_empty():
+		sc.free(); return ""
+	var f := sk.get_bone_rest(sk.find_bone("pelvis")).origin.length() / maxf(0.01, sk0.get_bone_rest(sk0.find_bone("pelvis")).origin.length())
+	var namen := Array(ap0.get_animation_list()).filter(func(x): return String(x) != "RESET")
+	var wahl_ := namen.filter(func(x): return String(x).contains("Menue_"))
+	if namen.is_empty():
+		sc.free(); return ""
+	var an := ap0.get_animation(wahl_[0] if not wahl_.is_empty() else namen[0]).duplicate(true) as Animation
+	sc.free()
+	var pfad := String(m.get_path_to(sk)) if sk.is_inside_tree() else str(HeldFigur._pfad(m, sk))
+	for t in range(an.get_track_count() - 1, -1, -1):
+		var bn := String(an.track_get_path(t)).get_slice(":", 1)
+		an.track_set_path(t, NodePath("%s:%s" % [pfad, bn]))
+		var ty := an.track_get_type(t)
+		if ty == Animation.TYPE_SCALE_3D or (ty == Animation.TYPE_POSITION_3D and bn not in ["pelvis", "root"]) or sk.find_bone(bn) < 0:
+			an.remove_track(t)
+		elif ty == Animation.TYPE_POSITION_3D:
+			for i in an.track_get_key_count(t): an.track_set_key_value(t, i, an.track_get_key_value(t, i) * f)
+	an.loop_mode = Animation.LOOP_LINEAR
+	var lib := AnimationLibrary.new()
+	lib.add_animation(n, an)
+	ap.add_animation_library("menue", lib)
+	var name_ := "menue/" + n
+	waffen_in_die_hand(m, sk, ap, w.get("ausruestung", {}), name_)
+	return name_
+
+## 867: Waffe und Schild wie in der Haltung gehalten: was bewaffne() auf den Ruecken oder als Wanderstab gestellt hat, weg; die Waffe in
+## die Hand, die in der Haltung hoeher steht (Stab des Zauberers), der Bogen links, der Schild an den linken Arm
+static func waffen_in_die_hand(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, aus: Dictionary, bew: String) -> void:
+	var neben = aus.get("OFF_HAND")
+	var schild := HeldFigur._modell(neben) if neben is Dictionary and String(Beute.grundform(String(neben.get("base", ""))).get("art", "")) == "SHIELD" else ""
+	var waffe := HeldFigur._modell(aus.get("MAIN_HAND"))
+	for alt in sk.find_children("Ruecken*", "", false, false): alt.free()
+	for alt in m.get_children():
+		if String(alt.name).contains("Getragen"): alt.free()
+	for alt in sk.get_children():
+		if alt is Tragen: alt.free()
+	var bogen := waffe in Tragen.GANG_BOGEN
+	var seite := "l" if bogen else hoehere_hand(sk, ap, bew)
+	var paare := []
+	if waffe != "": paare.append([waffe, "bogen" if bogen else "einhand", seite])
+	if schild != "": paare.append([schild, "schildarm", "l"])
+	for p in paare:
+		var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % p[0])
+		if d == null: continue
+		d.name = "Getragen"
+		d.top_level = true
+		m.add_child(d)
+		Gebiet.male(d, null, 2, [])
+		var t := Tragen.new("", d, m, HeldFigur.faust(sk, String(p[2])))
+		t.halt = Halt.gegenstand(String(p[0]))
+		t.gang = String(p[1]); t.seite = String(p[2]); t.anim = ap
+		t.schild_abspreiz = 0.0; t.schwert_abspreiz = 0.0   # die Haltung fuehrt den Arm
+		sk.add_child(t)
+	print("MENU867 Haltung %s: Waffe %s in %s, Schild %s" % [bew, waffe, seite, schild])
+
+## die Hand, die in der Haltung (Mitte der Bewegung) hoeher steht: r oder l
+static func hoehere_hand(sk: Skeleton3D, ap: AnimationPlayer, bew: String) -> String:
+	var an := ap.get_animation(bew)
+	var y := {"l": 0.0, "r": 0.0}
+	for s_ in y:
+		var i := sk.find_bone("hand_" + s_)
+		if i < 0: continue
+		# Weltlage aus den Spuren der Kette bis zur Wurzel, Bild in der Mitte
+		var t := Transform3D.IDENTITY
+		var b := i
+		var kette := []
+		while b >= 0:
+			kette.push_front(b); b = sk.get_bone_parent(b)
+		for k in kette:
+			var r := sk.get_bone_rest(k)
+			var tr := an.find_track(NodePath("%s:%s" % [String(an.track_get_path(0)).get_slice(":", 0), sk.get_bone_name(k)]), Animation.TYPE_ROTATION_3D)
+			if tr >= 0: r.basis = Basis(an.rotation_track_interpolate(tr, an.length * 0.5))
+			t = t * r
+		y[s_] = t.origin.y
+	return "r" if y["r"] >= y["l"] else "l"
+
+## 867: Hals und Kopf um die Hochachse der Figur zum Spieler (grad, zu gleichen Teilen auf neck_01, neck_02, Head)
+class KopfDrehen extends SkeletonModifier3D:
+	var grad := 0.0
+	func _process_modification() -> void:
+		var sk := get_skeleton()
+		if sk == null or absf(grad) < 0.1: return
+		var kette := ["neck_01", "neck_02", "Head"].map(func(n): return sk.find_bone(n)).filter(func(i): return i >= 0)
+		if kette.is_empty(): return
+		var oben := (sk.global_basis.inverse() * Vector3.UP).normalized() if sk.is_inside_tree() else Vector3.UP   # Hochachse der Welt im Skelettraum
+		for i in kette:
+			var g := sk.get_bone_global_pose(i)
+			var n := Basis(oben, deg_to_rad(grad / kette.size())) * g.basis.orthonormalized()
+			var p := sk.get_bone_global_pose(sk.get_bone_parent(i))
+			sk.set_bone_pose_rotation(i, (p.basis.orthonormalized().inverse() * n).get_rotation_quaternion())
 
 ## die Wahl eines Helden wie in der Erschaffung (erschaffung_brs.gd wahl_jetzt): Herkunft, Volk, Aussehen, Startausruestung
 static func wahl(h: Dictionary) -> Dictionary:
 	var b := BrsHeld.neu(String(h["volk"]), String(h["herkunft"]))
 	b.ausstatten()
-	var g := String(h["geschlecht"])
+	var g := String(h["geschlecht"])   # Haarfarbe der Herkunft nach dem Volk (HeldFigur.vorgabe, baue mit volk)
 	var a := {"geschlecht": g}
 	# Frisur, Bart, Haar- und Hautfarbe der Herkunft wie in der Erschaffung (HeldFigur.vorgabe); 867 Chef 18:23: mit derselben ersten
 	# Frisur fuer alle Maenner sahen Zauberlehrling und Jaegerkind aus „wie Brüder“
