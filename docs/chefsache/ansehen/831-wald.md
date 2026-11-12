@@ -1,5 +1,7 @@
 # 831 · Bäume aus dem Nature MegaKit im Wald, Spielbild · Tom · 12.11., 03:18
 
+[Bild von 12.11., 03:18](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/12-0318-831-Tom.png) (eingetragen von meldung.sh, Tom)
+
 ![Wald 10 Uhr: links und Mitte Tiefer Flüsterwald, rechts Flüsterwald](../bilder/831-wald.webp)
 
 Eingebaut wie entschieden (11.11., 16:19 „831 wie Sokrates“): abgestorbene Bäume 3 und 5, Kiefer 5. Sie stehen zwischen unseren Eichen und Fichten, im Flüsterwald etwa jeder achte Baum abgestorben und jeder achte eine Kiefer, im Tiefen Flüsterwald etwa jeder sechste abgestorben. Sie bekommen Licht, Schatten und Tusche wie unsere Bäume (Kronen der Kiefern mit Tusche nach Licht, Wind und Durchsicht).
