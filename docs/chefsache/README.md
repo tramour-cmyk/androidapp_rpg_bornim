@@ -55,7 +55,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1012 | M | Von Tom (968): Sammelbuild 278 von main nach dem Zusammenführen von 277, alle fertigen Zwe | Termin 12.11. 06:55 |
+| 1012 | M | Von Tom (968): Sammelbuild 278 von main nach dem Zusammenführen von 277, alle fertigen Zwe | Termin 12.11. 07:26 |
 | 825 | M | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635 | wartet auf Test/Build (gebaut) |
 | 697 | M | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | wartet auf 782 (startbar) |
 | 870.7 | M | Von Sokrates (870, Umzug BRS Schritt 6): Laden, Vergleich und Gegenstandsfenster nach BRS- | wartet auf Test (Build 278) |
