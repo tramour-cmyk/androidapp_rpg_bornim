@@ -2,10 +2,10 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `109293e0f` (12.11., 07:09)
+**Gelesen bis:** `217e2efbe` (12.11., 08:16)
 
-**Übergabe (12.11., 07:10, `session_01Hmoj79nhucTfp4jACfXVtR`):** 1016: Startangaben in der Vorlage und `LISTE-BETRIEB.md` „Tiefe“ korrigiert (Voll → „WireStorm Hoch“, Modell nach Startzuordnung, Aufwand Hoch); Ford-Wache als Ersatz geprüft (Tiefe 4, brächte nur einen Neustart); Telegram 07:09 laut an den Chef. Ford stand 07:05 bei 115 Tsd. Token, Tiefe 6. Nach dem Start: neuer Ford auf Tiefe 0, Aufwand Hoch prüfen (`get_session`, Fehler 341), Antwort ins Archiv, Datei löschen, 1016 fertig. Nachfolger: Perikles – 1016 schließen (wartet auf Chef)
-**Letzte Antwort:** 1016 beim Chef: Ford heute vor 08:30 von Hand starten.
+**Übergabe (12.11., 08:17, `session_01Hmoj7A2JDffJnrk5Dagztc`):** 448 Tagesbericht 12.11. (gegengelesen, 14 Befunde eingearbeitet, Telegram laut 08:16); Projektplan 2.3 und 4.8 auf „in Arbeit“. 1019 M und gebaut (`57f798597`, Neustart-Haken nimmt Ford bis 400 Tsd. aus), Prüfzeile Diogenes, Auftrag an Ford. Nachfolger: Perikles – (Ford ruft)
+**Letzte Antwort:** 448 Tagesbericht 12.11.: Build 278 testen, 644a und 264 entscheiden, Bild der Nutzung.
 - **Fehler 341, von Sokrates (11.11., 18:14):** 901 (365a B, „alle Hoch“ seit 07:18) startete in der Umgebung „WireStorm Hoch“, die nur Variablen setzt; die App zeigte „Mittel“, keiner prüfte das Ergebnis, gefunden hat es der Chef (18:04; 18:14 „von euch hat es ja keiner gemerkt … Schwarzbuch“). Behoben 981. Lehre: Einstellung am Ergebnis prüfen (`get_session`, App), nie an der Eingabe.
 
 ## Einzelheiten
