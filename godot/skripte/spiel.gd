@@ -725,17 +725,31 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	kamera.springe()
 	await abblenden(0.0)
 	if gestiegen != "": ui.kurz(gestiegen)   # 471: „Bogen ↑ 12“, wenn die Welt wieder zu sehen ist
+	if grundwert_gestiegen: klang("effekt", ["level_up"])   # 644a F: ein Grundwert gestiegen, gemeldet wie ein Aufstieg
 	return ende[0]
 
 # 471: Uebung aus dem Kampf gutschreiben (nur nach einem Sieg), Bewaehrungsprobe; die Erfahrung der Fertigkeiten geht in die Heldenstufe
 # nach BRS (zustand.brs_stufe, Stufe wie der Held, bis 472 ihn fuehrt). Gibt die Notiz „Bogen ↑ 12“ zurueck oder leer.
+# 644a F: ist dabei ein Grundwert durchs Ueben gestiegen (BrsHeld.uebungs_plus), steht er dahinter wie eine Fertigkeit
+# („Gewandtheit ↑ 6“, Wert wie im Heldenreiter) und grundwert_gestiegen ist wahr (Klang wie ein Aufstieg)
+var grundwert_gestiegen := false
 func fertigkeiten_nach_kampf(u: Kampfuebung, ende: String) -> String:
+	grundwert_gestiegen = false
 	var s := zustand.fertigkeiten_stand()
 	if s.is_empty(): return ""
+	var vorher: Dictionary = (s.get("werte", {}) as Dictionary).duplicate()
 	var ev := u.gutschreiben(ende, s, zustand.stufe_brs())
 	zustand.spiegle()
 	stufe_abgleichen()   # 870.4: die Erfahrung der Fertigkeiten kann die Heldenstufe heben
-	return Kampfuebung.notiz(ev)
+	var t := Kampfuebung.notiz(ev)
+	var gw := grundwerte_notiz(vorher)
+	grundwert_gestiegen = gw != ""
+	return gw if t == "" else (t if gw == "" else t + "  ·  " + gw)
+
+## 644a F: „Kraft ↑ 5“ je Grundwert, der seit [vorher] (Geuebtes vor dem Kampf) durchs Ueben gestiegen ist, sonst leer
+func grundwerte_notiz(vorher: Dictionary) -> String:
+	var hw := held_werte()
+	return "  ·  ".join(hw.grundwerte_gestiegen(vorher).map(func(g): return "%s ↑ %d" % [Sprache.t(ErschaffungBrs.GRUNDWERT[String(g)]), hw.wert(String(g))]))
 
 # ---------------------------------------------------------------- 490 Kampf mit einem Monster der Karte (Game.engage, startBattle, endBattle)
 # Die Welt ruht im Kampf; danach steht der Held, wo er stand, mit seinem Blick; das Monster ist nach dem Sieg fort (herde.gd)
@@ -1014,22 +1028,24 @@ func weiter() -> void:
 		spricht_mit = ""
 	if held: _steht_auf(held.kachel)
 
-# 542 Uniques.make: das Einzelstueck, Stufe wie maxOf(areaLevel, hero.level); zurueck „Name (Seltenheit)“. 870.6: Grundform,
+# 542 Uniques.make: das Einzelstueck, Stufe aus dem Gegenstandskatalog (644a A, DESIGN-BRS.md 11 „Funde“; vorher maxOf(areaLevel,
+# hero.level)); zurueck „Name (Seltenheit)“. 870.6: Grundform,
 # Seltenheit, Guete und Zusatzeigenschaften nach dem BRS aus den Regelwerten (werte.json „gegenstaende“ „einzelstuecke“), Name aus dem
 # Gegenstandskatalog (Beute.name)
 static func einzelstueck(id: String) -> bool: return Beute.einzelstueck(id).has("grundform")
 
 func einzel_gabe(id: String) -> String:
-	var g := Beute.einzel(id, zustand.neue_uid(), maxi(int(karte.daten.get("stufe", 1)), held_werte().stufe))
+	var g := Beute.einzel(id, zustand.neue_uid(), Katalog.stufe(id))
 	zustand.ausruestung_dazu(g)
 	return "%s (%s)" % [Beute.name(g), Sprache.t(BrsHeld.daten()["seltenheiten"][String(g["rarity"])]["name"])]
 
-# Loot.generate mit Mindestseltenheit (rarityFor special, floor) und Platz, Stufe wie maxOf(areaLevel, hero.level)
+# Loot.generate mit Mindestseltenheit (rarityFor special, floor) und Platz, Stufe wie maxOf(areaLevel, hero.level), hoechstens
+# Heldenstufe + 1 (644a A, Beute.gabe_stufe)
 func gear_gabe(was: String) -> String:
 	var t := was.trim_prefix("@gear:").split(":")
 	var hw := held_werte()
 	var w := KotlinZufall.new(randi())
-	var ilvl := maxi(int(karte.daten.get("stufe", 1)), hw.stufe)
+	var ilvl := Beute.gabe_stufe(int(karte.daten.get("stufe", 1)), hw.stufe)
 	var g := Beute.erzeuge(w, zustand.neue_uid(), ilvl, Beute.seltenheit_fuer(hw, w, ilvl, true, t[0]), hw, t[1] if t.size() > 1 else "", true)   # 870.6: nach seinen Fertigkeiten, besonderer Fund
 	zustand.ausruestung_dazu(g)
 	return "%s (%s)" % [Beute.name(g), Sprache.t(BrsHeld.daten()["seltenheiten"][String(g["rarity"])]["name"])]

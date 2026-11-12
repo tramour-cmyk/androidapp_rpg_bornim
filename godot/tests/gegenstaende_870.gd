@@ -218,7 +218,8 @@ func _beute_stufe_644a() -> void:
 	var ids := {}
 	for i in 300:
 		for g in Beute.kampfbeute(_held(2), w, ["wolf", "wolf"], neu):
-			pruefe(int(g["ilvl"]) == 2, "Wolfsrudel bei Held 2: Stufe 2 (%d)" % int(g["ilvl"]))
+			var soll := Katalog.stufe(String(g["base"])) if String(g["rarity"]) == "COMMON" else 2     # 644a.2: gewöhnlich = Stufe der Grundform
+			pruefe(int(g["ilvl"]) == soll, "Wolfsrudel bei Held 2: Stufe %d (%d)" % [soll, int(g["ilvl"])])
 			pruefe(g.get("unique") == null, "Wolf ohne Einzelstück")
 			pruefe(not ids.has(int(g["uid"])), "jede Beute mit neuer Kennung")
 			ids[int(g["uid"])] = true
