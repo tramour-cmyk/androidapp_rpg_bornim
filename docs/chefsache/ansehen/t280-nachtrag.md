@@ -83,7 +83,57 @@ Im Bau geprüft: jeder Reiter höchstens so breit wie der Schirm (`breite_1027`)
 
 ## Ergebnis
 
-Laufend aus dem Chat mit Sokrates, bis „Ergebnis kopieren“ kommt.
+„Ergebnis kopieren“ des Chefs (12.11., 15:52), wörtlich:
+
+- 280.1 ✓
+- 280.2 ✓
+- 280.3 ✓
+- 280.4 ✓
+- 280.6 ✓
+- 280.7 ✓
+- 280.8 ✓
+- 279.1 ✓
+- 279.2 ✓
+- 279.3 ✓
+- 279.4 ✓
+- 279.5 ✓
+- 279.6 ✓
+- 279.7 ✓
+- 279.8 ✓
+- 279.9 ✓
+- 279.10 ✓
+- 278.9 ✓
+- 278.10 ✓
+- 278.11 ✓
+- 278.12 ✓
+- 278.13 ✓
+- 278.14 ✓
+- 278.15 ✓
+- 278.18 ✓
+- 278.19 ✓
+- 278.20 ✓
+- 278.21 ✓
+- 278.22 ✓
+- 278.24 ✓
+- 278.25 ✓
+- 278.26 ✓
+- 278.27 ✓
+- 278.28 ✓
+- 278.29 ✗ welcheg ring? angriffszauber kommt, aber welcher Ring?
+- 278.30 ✓
+- 278.31 ✓
+- 278.32 ✓
+- 278.33 ✗ davon hab ich nix gesehen. Da weicht nichts
+- 278.34 ✓
+- 278.35 ✓
+- 278.36 ✓
+- 278.37 ✓
+- 278.38 ✗ sind nicht da
+- 278.39 ✓
+- 278.40 ✓
+- 278.41 ✓
+
+Gebucht (Sokrates, 15:54): 278.x und 279.x von Hand, weil `vorgang.py build 280` nur Zeilen 280.x liest: bestanden erledigt; ✗ 278.29 → 993, ✗ 278.33 → 1043 (988 war schon erledigt), ✗ 278.38 → 984.1; 806 bleibt offen (278.19 war nur die Messung). Während des Tests im Chat:
 
 - Außer der Reihe (Chef 12.11., 13:51 und 13:52, Bilder Dorf Nord und Süd): Kartenrand offen, 1022 nicht im Build → Zu 1022 (Tom)
 - Außer der Reihe (Chef 13:52, Bild Marktplatz): Marktstände geklont → 589 ruht weiter (Chef 14:01)
