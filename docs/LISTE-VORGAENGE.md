@@ -277,8 +277,8 @@
 | 1014 | Von Jerry (1013, Lauf 365 und 370): schild_406 FIGHTER SS_ParryLow: Körper bis 0,071 m im Schild (untere Kante, 1–2 Messbilder); Ursache nur mit Kaufmodellen am Rechner nachstellbar | Jerry | M | gebaut, Geprüft an: 10c515fef (schild_406 mit Kaufmodellen, vorher rot) | – | claude/jerry-1014-parrylow | – | E Kampf | – |
 | 644a.1 | Von Sokrates (644a A mit Spanne, D, F; Chef 12.11., 08:21): erst Rechnung (Spannen je Stufe, schlimmster und üblicher Fall ohne Deckel, Punkte fürs Üben), dann bauen: Beutestufe mit 633, Stufenschritte als Spanne, Deckel weg, Grundwert-Gewicht halb, Wachsen durch Üben | Jerry | M | in Arbeit, bei Tuffy | – | – | – | E Kampf | – |
 | 1024 | Von Sokrates (Chef 12.11., 09:04, Bild Wolfskampf Build 278): Schalterreihe am rechten Rand (Kreuz, Schwert, Tempo, Würfel, Raster) vom unteren Kasten halb verdeckt; Ansage „! Anspringen“ liegt über der Bildrate-Anzeige; nichts darf Anzeigen oder Schalter verdecken | Jerry | M | startbar | – | – | – | E Kampf | – |
-| Pflege | von Werkzeug (340.3, 12.11.): 18671 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 644b | Von Tuffy (644a.1, Rechnung): Deckel trotz Zahlen weg? Hauptwert üblich +4 bei Schütze, Späher; Schutzwert in 1 von 10 Durchgängen +4 bis +5; offen: Grundwert für Rüstung, Ausweichen, Schild | Jerry | M | in Arbeit, bei Tuffy | – | – | – | E Kampf | – |
+| Pflege | von Werkzeug (340.3, 12.11.): 18671 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
@@ -361,7 +361,7 @@
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 767 | Wochentermin 13.11.: Rollenspiegel Ford (rollenspiegel.sh Ford) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Ford | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 906 | lauf.py startet Zusatzentwickler auf Zeilen, deren Zweig Umzugsdateien berührt (492 am 11.11., 08:04: claude/tom-492-durchspiel ändert spiel.gd; Grundsatz 5 LISTE-UMZUG-BRS, Zu 870.4 Sokrates 01:57); Sperre nach geänderten Dateien prüfen (von Spike) | Ford | M? | startbar | – | – | – | B Steuerung | – |
-| Pflege | von Werkzeug (340.3, 12.11.): 60298 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 12.11.): 60655 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
