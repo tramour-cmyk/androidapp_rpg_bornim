@@ -126,6 +126,29 @@ func _lauf() -> void:
 	pruefe(ueb_nach > ueb_vor, "Anlegen übt Heilkunde (%.2f -> %.2f)" % [ueb_vor, ueb_nach])
 	hw.geuebt["Heilkunde"] = 100
 	pruefe(Menue.verband_heilung(hw) == 25, "Großmeister heilt 25 (%d)" % Menue.verband_heilung(hw))
+	hw.geuebt.erase("Heilkunde")
+
+	# 1038 A, 1047: Verband stillt Blutung; volles Leben und Blutung -> verbraucht, Blutung weg, ohne „ +0 TP“
+	pruefe(String(Laden.ding("bandage").get("info", {}).get("de", "")) == "Saubere Leinenstreifen, fest gerollt. Stillt Blutung; wer Heilkunde versteht, holt mehr heraus. Nur außerhalb des Kampfs.", "Beschreibung [807.verband.text]")
+	hw.leben = hw.max_leben()
+	v.leiden["BLEED"] = 3
+	v.leiden["POISON"] = 2
+	var t3 := Menue.benutze(v, hw, "bandage", func(a, b): return 1)
+	pruefe(not v.leiden.has("BLEED") and v.leiden.has("POISON") and v.anzahl("bandage") == 0, "Blutung gestillt, Gift bleibt, Verband verbraucht (%s)" % str(v.leiden))
+	pruefe(t3.begins_with("Ein fester Knoten, und das Blut steht.") and not t3.contains("TP"), "Wortlaut 1 [807.verband.blut] ohne „ +0 TP“: %s" % t3)
+	# verletzt und blutend: Blutung weg, volle Heilung (nicht halbiert), zweiter Wortlaut [807.verband.blut]
+	v.dazu("bandage", 1)
+	hw.leben = 1
+	v.leiden["BLEED"] = 2
+	var t4 := Menue.benutze(v, hw, "bandage", func(a, b): return 1)
+	var soll4 := roundi(5 + 0.2 * hw.fertigkeit("Heilkunde"))
+	pruefe(hw.leben == 1 + soll4 and not v.leiden.has("BLEED"), "blutend: Blutung weg, +%d Leben ungeteilt (Leben %d)" % [soll4, hw.leben])
+	pruefe(t4.begins_with("Du presst den Verband auf die Wunde. Sie blutet nicht mehr. +%d TP." % soll4) or t4.begins_with("Lage um Lage, straff gewickelt. Die Blutung hört auf. +%d TP." % soll4), "Wortlaut 2 oder 3 [807.verband.blut]: %s" % t4)
+	# ohne Blutung, volles Leben: „Du bist unverletzt.“, bleibt in der Tasche
+	v.dazu("bandage", 1)
+	hw.leben = hw.max_leben()
+	var t5 := Menue.benutze(v, hw, "bandage", func(a, b): return 1)
+	pruefe(t5 == "Du bist unverletzt." and v.anzahl("bandage") == 1, "voll ohne Blutung: [807.verband.voll], bleibt (%s)" % t5)
 
 	# Textkasten: der Knopf steht unter der Zeile, erst nach dem Schreiben tippbar, und schliesst die Zeile
 	var ui := Steuerung.new()

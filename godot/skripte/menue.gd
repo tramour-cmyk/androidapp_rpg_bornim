@@ -735,12 +735,17 @@ static func benutze(z: Zustand, hw: BrsHeld, id: String, wuerfel_: Callable) -> 
 	var geheilt: String = sag.call("healed", [hw.name, hw.leben - vor])
 	return (sag.call("cured", [hw.name]) + " " + geheilt) if heilt else geheilt
 
-# 842 (807 A, STORY-K1-FERTIGKEITEN.md „Heilkunde: Verband“): nur ausserhalb des Kampfs (hier immer), heilt grund + je_heilkunde x
-# Heilkunde Leben (werte.json „welt“ „verband“, gerundet), uebt Heilkunde; bei vollen Leben nichts verbraucht
-const VERBAND_AN := [   # [807.verband.an]
+# 842 (807 A, 1038 A, STORY-K1-FERTIGKEITEN.md „Heilkunde: Verband“): nur ausserhalb des Kampfs (hier immer); stillt zuerst die
+# Blutung (z.leiden „BLEED“, darum halbiert sie die Heilung nicht), dann grund + je_heilkunde x Heilkunde Leben (werte.json „welt“
+# „verband“, gerundet), uebt Heilkunde; ohne Blutung und mit vollem Leben nichts verbraucht ([807.verband.voll])
+const VERBAND_AN := [   # [807.verband.an] (der Held blutete nicht)
 	["Du ziehst den Verband fest. +{0} TP.", "You pull the bandage tight. +{0} HP."],
 	["Du wäschst die Wunde aus und wickelst den Verband darum. +{0} TP.", "You wash out the wound and wrap the bandage around it. +{0} HP."],
-	["Ein fester Knoten, und das Blut steht. +{0} TP.", "One firm knot, and the bleeding stops. +{0} HP."]]
+	["Du verbindest die Wunde und prüfst, ob der Verband sitzt. +{0} TP.", "You bind the wound and check that the bandage holds. +{0} HP."]]
+const VERBAND_BLUT := [   # [807.verband.blut] (die Blutung ist gestillt)
+	["Ein fester Knoten, und das Blut steht. +{0} TP.", "One firm knot, and the blood stops. +{0} HP."],
+	["Du presst den Verband auf die Wunde. Sie blutet nicht mehr. +{0} TP.", "You press the bandage onto the wound. It bleeds no more. +{0} HP."],
+	["Lage um Lage, straff gewickelt. Die Blutung hört auf. +{0} TP.", "Layer on layer, wrapped tight. The bleeding stops. +{0} HP."]]
 const VERBAND_KAMPF := {"de": "Im Kampf bleibt keine Zeit für einen Verband.", "en": "There's no time for a bandage in combat."}   # [807.verband.kampf]
 const VERBAND_VOLL := {"de": "Du bist unverletzt.", "en": "You are unhurt."}   # [807.verband.voll]
 
@@ -749,15 +754,21 @@ static func verband_heilung(hw: BrsHeld) -> int:
 	return roundi(float(v.get("grund", 5)) + float(v.get("je_heilkunde", 0.2)) * hw.fertigkeit("Heilkunde"))
 
 static func verband(z: Zustand, hw: BrsHeld, id: String) -> String:
-	if hw.leben >= hw.max_leben(): return Sprache.t(VERBAND_VOLL)
+	var blutet := int(z.leiden.get("BLEED", 0)) > 0
+	if not blutet and hw.leben >= hw.max_leben(): return Sprache.t(VERBAND_VOLL)
 	z.weg(id)
+	z.leiden.erase("BLEED")
 	var vor := hw.leben
 	hw.leben = mini(hw.max_leben(), hw.leben + verband_heilung(hw))
 	z.uebe("Heilkunde", float(BrsHeld.welt().get("verband", {}).get("uebung", 1.0)))
-	var i := Skript.wahl(z, "807.verband.an", VERBAND_AN.size())
-	var vv: Array = z.varianten.get("807.verband.an", [0, -1])
-	z.varianten["807.verband.an"] = [int(vv[0]) + 1, i]
-	var t := String(VERBAND_AN[i][0 if Sprache.aktiv() == "de" else 1]).replace("{0}", str(hw.leben - vor))
+	var marke := "807.verband.blut" if blutet else "807.verband.an"
+	var liste: Array = VERBAND_BLUT if blutet else VERBAND_AN
+	var i := Skript.wahl(z, marke, liste.size())
+	var vv: Array = z.varianten.get(marke, [0, -1])
+	z.varianten[marke] = [int(vv[0]) + 1, i]
+	var t := String(liste[i][0 if Sprache.aktiv() == "de" else 1])
+	var plus := hw.leben - vor
+	t = t.replace(" +{0} TP.", "").replace(" +{0} HP.", "") if plus == 0 else t.replace("{0}", str(plus))   # 1047: bei 0 entfaellt „ +{0} TP“
 	var auf := z.fert_notiz()
 	return t + ("\n" + auf if auf != "" else "")
 
