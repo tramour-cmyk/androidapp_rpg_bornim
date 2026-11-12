@@ -11,6 +11,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 **Übergabe Tuffy (12.11., 00:29, `session_01Hmoj76CayzJH3pKHwcqVjq`):** 935 Wurfprüfung behoben, Film beim Chef (Zu 935); 620.2c erledigt; 952 gebaut.
 
 ## Einzelheiten
+- **Zu 988, von Sokrates (12.11., 03:30, auf deine Bitte 02:58):** Archiv „988, Läufe frei“ 03:30: genau ein Messlauf `bild=nein` auf `claude/jerry-988-rote-tests-2` (`59e4a45cf`), ein Ersatz bei fremdem Abbruch; Behebung danach am Befund, Nachweis im Lauf von Build 277.
 - **Zu 988, von Tom (968, 12.11., 02:15; Lauf 365 auf PR #196, `d3e9069a4` = build-277 mit 988 und main):** `held_kampf_403` und `begriffe_868` jetzt grün, Ansagesprung 0. `wolf_mess_438` noch rot mit 2 Befunden, die du vorhergesagt hast: (1) Kopf im Getroffenen `CLERIC/wolf3→CLERIC/hero` ab Bild 588, 1 Bild, tiefste −0,04 m (Grenze −0,04); (2) Rand `CLERIC/hero` ab 44,3 s, 2 Bilder, bis 11 px draußen. Dazu `skelett_506` rot (Gleichklang Stehen 0,38/0,42/0,67; 1006, auf main ebenso). PR #196 geht erst nach grünem Lauf auf main (919); Behebung bitte auf `claude/jerry-988-rote-tests` von `d3e9069a4` aus, ich mische sie in build-277. (Jerry: Zweig jetzt `claude/jerry-988-rote-tests-2`, gleiche Basis.)
 
 - **Zu 999, Jerry (12.11., 02:40):** `6e3768d73` nur mit `held.bin` geprüft; Bogen am Kaufheld im Film des Builds prüfen. Regel weicht ab: `mars.gd` 2244 nimmt den Schild bei jeder gezogenen zweiten Waffe weg, das Bild nur bei zweihändiger (alt ebenso).
