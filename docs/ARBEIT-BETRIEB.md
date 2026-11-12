@@ -340,3 +340,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 06:08 12.11.: Startsperre 06:08 Start Homer (lauf.py)
 - 06:08 12.11.: Marke Archiv session_01Hmoj77G2Nx26NbtbSEBGc8 (lauf.py)
 - 06:11 12.11.: Startsperre 06:11 Start Ford (selbst). Neustart-Haken 1 bei 208 Tsd. Token, Übergabe in dieser Datei; Tiefe 6, Vorgang 1016 (Ford von Hand starten).
+- 07:04 12.11.: Startsperre 07:04 Start Perikles (lauf.py)
+- 07:04 12.11.: Marke Archiv session_01Hmoj75W8e6YMkpd4gxoni7 (lauf.py)
+- 07:04 12.11.: Nachfolger-Warnung Jerry (Übergabe 12.11., 06:07) (lauf.py)
