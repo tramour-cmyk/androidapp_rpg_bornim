@@ -40,13 +40,14 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 3, Muss 1, startbar 0
+**Homer** – offen 4, Muss 1, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
+| Pflege | K | von Werkzeug (340.3, 12.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 
 **Tom** – offen 113, Muss 92, startbar 7
 
@@ -294,9 +295,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1041 | M? | Von Sokrates (Chef 12.11., 15:16, Build 280, 278.24 bestanden): Platztausch ungleich, der | startbar |
 | 1043 | M | Von Sokrates (Chef 12.11., 15:52, Fund t278.33 Build 280, zu 988): MARS-Probekampf Wölfe, | startbar |
 | 1046 | M | Von Sokrates (1038 A, R1, Chef 12.11., 16:24): Verband stillt Blutung (plus kleiner Teil L | startbar |
-| Pflege | K | von Werkzeug (340.3, 12.11.): 27669 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 1049 | M | Von Sokrates (Befund 12.11.): Gegner ohne eigene Ansage fallen auf „Stich“ zurück (mars.gd | startbar |
 | 1050 | M | Von Sokrates (952 D, 984 A; Rechnung Tuffy 12.11., 00:12): Zauberlehrling fällt zurück (Bo | startbar |
+| Pflege | K | von Werkzeug (340.3, 12.11.): 29254 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 13, Muss 12, startbar 0
 
@@ -329,7 +330,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 54, Muss 39, startbar 30
+**Sokrates** – offen 54, Muss 39, startbar 29
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -386,7 +387,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 644a.4 | M | Vorentscheid: Waffen der Truhe in der Blutzahnhöhle (cave_3) Stufe 3 statt 4, sonst vor Kr | startbar |
 | 644a.5 | M | Von Tuffy (644a.1): an welchem Grundwert hängen Rüstung, Ausweichen, Schild, Armbrust und | startbar |
 | 1051 | M | Von Jerry (841): Vorentscheid Werte Einschüchtern (Goblin-Späher verjagen): einschuechtern | startbar |
-| 1048 | M? | Ring öfter im Kampf (Chef 12.11., 14:59: „ein bisschen mehr Ring … mehr Einfluss … bei der | startbar |
+| 1048 | M? | Ring öfter im Kampf (Chef 12.11., 14:59: „ein bisschen mehr Ring … mehr Einfluss … bei der | Chef (Datei in der Chefsache) |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
