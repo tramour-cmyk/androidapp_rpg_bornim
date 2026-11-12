@@ -2,9 +2,9 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `06465b7c1` (12.11., 11:36)
+**Gelesen bis:** `11314d0b9` (12.11., 18:05)
 
-**Übergabe (12.11., 16:51, `session_01Hmoj75rDsp7Ru9i6tUeydE`):** erledigt: Pflege (Übergabe gekürzt, Offenes als Zu 976 und Zu 870.9 in die Zeilen). Davor (16:34): 1047 (Verband `[807.verband.*]`, kurze Rast `[870.15.rast]`, `[870.15.zustaende]` nach 1038 A, R1; fremd geprüft); 1026 (`[1026.grundwert.auf]`, `[870.14.wert.kopf]`, `[870.15.held]` nach 644a F); Zu 976 (`[870.14.ding.guete]` nach 976a A). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
+**Übergabe (12.11., 18:15, `session_01Hmoj79isyazoj4eK9fM9A9`):** erledigt: 1057 (Grundangriffe je Art `[1057.ansage.*]` in `STORY-BRS-KAMPF.md`, fremd geprüft, an Jerry als Zu 1049; `[870.14.wissen.gegen]` mit Namen nach 348.12c). Davor (16:51): Pflege; 1047; 1026; Zu 976. Nachfolger: Homer – 766: Rollenspiegel (13.11.).
 
 ## Zeilen
 
