@@ -38,20 +38,25 @@ Bedingung: Kampfanfang, unter den Gegnern ein Goblin-Späher; die Wahl steht neb
 
 ## Heilkunde: Verband
 
-Gegenstand in der Tasche, zu kaufen bei Osric und Thessa (807 A); anlegen nur außerhalb des Kampfs, heilt etwas, je Rang in Heilkunde mehr; Anlegen übt Heilkunde. `{0}` = zurückgewonnene Trefferpunkte, Form wie die übrigen Heilmeldungen (`STORY-SPIEL.md`).
+Gegenstand in der Tasche, zu kaufen bei Osric und Thessa (807 A); anlegen nur außerhalb des Kampfs; stillt Blutung und gibt etwas Leben, je Punkt Heilkunde mehr (1038 A, Chef 12.11., 16:24); ob Blutung die Heilung des Verbands noch halbiert, legt Jerry fest (1046); Anlegen übt Heilkunde. `{0}` = tatsächlich zurückgewonnene Trefferpunkte, Form wie die übrigen Heilmeldungen (`STORY-SPIEL.md`); ist `{0}` null, entfällt „ +{0} TP“ / „ +{0} HP“. Texte angepasst an 1038 A (Homer 12.11., 1047).
 
 `[807.verband.name]` Verband / EN: Bandage
 
-`[807.verband.text]` (Beschreibung in Tasche und Laden) Saubere Leinenstreifen, fest gerollt. Außerhalb des Kampfs anlegen; wer Heilkunde versteht, holt mehr heraus. / EN: Clean strips of linen, tightly rolled. Apply outside of combat; the more you know of Medicine, the more it mends.
+`[807.verband.text]` (Beschreibung in Tasche und Laden) Saubere Leinenstreifen, fest gerollt. Stillt Blutung; wer Heilkunde versteht, holt mehr heraus. Nur außerhalb des Kampfs. / EN: Clean strips of linen, tightly rolled. Stops bleeding; the more you know of Medicine, the more it mends. Outside of combat only.
 
-`[807.verband.an]` (angelegt)
+`[807.verband.an]` (angelegt, der Held blutete nicht)
 1. Du ziehst den Verband fest. +{0} TP. — EN: You pull the bandage tight. +{0} HP.
 2. Du wäschst die Wunde aus und wickelst den Verband darum. +{0} TP. — EN: You wash out the wound and wrap the bandage around it. +{0} HP.
-3. Ein fester Knoten, und das Blut steht. +{0} TP. — EN: One firm knot, and the bleeding stops. +{0} HP.
+3. Du verbindest die Wunde und prüfst, ob der Verband sitzt. +{0} TP. — EN: You bind the wound and check that the bandage holds. +{0} HP.
+
+`[807.verband.blut]` (angelegt, die Blutung ist gestillt)
+1. Ein fester Knoten, und das Blut steht. +{0} TP. — EN: One firm knot, and the blood stops. +{0} HP.
+2. Du presst den Verband auf die Wunde. Sie blutet nicht mehr. +{0} TP. — EN: You press the bandage onto the wound. It bleeds no more. +{0} HP.
+3. Lage um Lage, straff gewickelt. Die Blutung hört auf. +{0} TP. — EN: Layer on layer, wrapped tight. The bleeding stops. +{0} HP.
 
 `[807.verband.kampf]` (im Kampf gewählt) Im Kampf bleibt keine Zeit für einen Verband. / EN: There's no time for a bandage in combat.
 
-`[807.verband.voll]` (Trefferpunkte voll) Du bist unverletzt. / EN: You are unhurt.
+`[807.verband.voll]` (Leben voll und keine Blutung; der Verband bleibt in der Tasche) Du bist unverletzt. / EN: You are unhurt.
 
 ## Kochen und Alchemie mit Ring (972, Homer 11.11.)
 
