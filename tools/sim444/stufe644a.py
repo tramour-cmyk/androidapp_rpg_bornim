@@ -198,6 +198,20 @@ def bestes(B, held, stuecke, kennung):
     return sum(je_platz.values())
 
 
+def ausstatten(B, held, stuecke, haupt, schutz_eins=False):
+    """Eine Ausrüstung: je Platz das eine Stück, das Hauptwert + Schutzwert zusammen am meisten hebt; zurück (Hauptwert, Schutzwert)."""
+    je_platz = {}
+    for fid, z, st in stuecke:
+        if not traegt(B, held, fid):
+            continue
+        h = 1 if AFFIX[haupt] in z else 0
+        sw = (1 if schutz_eins else (st - 1) // 3 + 1) if "AC" in z else 0
+        p = B.formen[fid]["slot"]
+        if h + sw > sum(je_platz.get(p, (0, 0))):
+            je_platz[p] = (h, sw)
+    return sum(v[0] for v in je_platz.values()), sum(v[1] for v in je_platz.values())
+
+
 def schlimmst(B, held, kennung, wert=1):
     """Jeder Platz, der die Kennung haben kann und den der Held trägt, mit ihr."""
     n = 0
@@ -221,6 +235,8 @@ def main():
     ap.add_argument("--laeufe", type=int, default=200)
     ap.add_argument("--saat", type=int, default=644)
     ap.add_argument("--kaempfe", type=int, default=400, help="Kämpfe je Zelle in Teil 5")
+    ap.add_argument("--durch", type=int, default=300, help="Durchgänge je Kampfstil in Teil 6")
+    ap.add_argument("--je", type=int, default=40, help="Kämpfe je Durchgang und Boss in Teil 6")
     ap.add_argument("--schwelle", type=int, help="Punkte je Grundwert +1 (sonst werte.json ueben grundwert_punkte, sonst 10)")
     ap.add_argument("--aus")
     a = ap.parse_args()
@@ -346,8 +362,44 @@ def main():
                 sg = sum(1 for _ in range(a.kaempfe) if sim.kampf(W, h, mon, rng)["sieg"])
                 zellen.append("%.0f %% (+%d/+%d)" % (100 * sg / a.kaempfe, plus, schutz))
             z.append("| %s | %s | %s |" % (name, bn, " | ".join(zellen)))
-    sim.held_abzug = _abzug
     z.append("")
+    # 6. je Durchgang: eine Ausrüstung, Siegquote gegen Krogg und Grak
+    z.append("## 6. Je Durchgang: eine Ausrüstung (je Platz ein Stück), damit gegen Krogg und Grak (je Durchgang %d Kämpfe)\n" % a.je)
+    z.append("Wege: heute = Deckel (+1, Schutzwert +2), ohne Üben; B = ohne Deckel, Schutzwert je Stück +1 (Stufe 1–3) bzw. +2 (4–6), "
+             "mit Üben; A = ohne Deckel, Schutzwert je Stück immer +1, mit Üben; H = wie B, Schutzwert würfelt mit halbem Gewicht. "
+             "Zellen: Siegquote über alle Durchgänge / im besten Zehntel der Durchgänge; dahinter Hauptwert und Schutzwert üblich (Median).\n")
+    z.append("| Kampfstil | Boss | heute | B | A | H |")
+    z.append("| --- | --- | --- | --- | --- | --- |")
+    BH = Beute(W, formen, True)
+    BS = Beute(W, formen, True, True)
+    for name, (hk, haupt, ds) in ergebnisse.items():
+        fert = {f: round(statistics.median(d["ende"].get(f, 0) for d in ds)) for f in ds[0]["ende"]}
+        wege = {"heute": [], "B": [], "A": [], "H": []}
+        for d in ds[:a.durch]:
+            ue = gewinn(d["start"], d["ende"], zu)[haupt] // n
+            st = funde(W, BH, d, rng)
+            hb, sb = ausstatten(BH, d["held"], st, haupt)
+            ha, sa = ausstatten(BH, d["held"], st, haupt, True)
+            hh, shh = ausstatten(BS, d["held"], funde(W, BS, d, rng), haupt)
+            wege["heute"].append((min(hb, 1), min(sb, 2)))
+            wege["B"].append((hb + ue, sb))
+            wege["A"].append((ha + ue, sa))
+            wege["H"].append((hh + ue, shh))
+        for bn in ("Krogg", "Grak"):
+            mon = bosse[bn]
+            zellen = []
+            for weg in ("heute", "B", "A", "H"):
+                quoten = []
+                for plus, schutz in wege[weg]:
+                    h = sim.held_auf_stufe(W, hk, mon["stufe"], fert)
+                    h.werte[haupt] += plus
+                    h.extra_schutz = schutz
+                    quoten.append(sum(1 for _ in range(a.je) if sim.kampf(W, h, mon, rng)["sieg"]) / a.je)
+                hm = statistics.median(x[0] for x in wege[weg]); sm = statistics.median(x[1] for x in wege[weg])
+                zellen.append("%.0f / %.0f %% (+%d/+%d)" % (100 * statistics.mean(quoten), 100 * q(quoten, 0.9), hm, sm))
+            z.append("| %s | %s | %s |" % (name, bn, " | ".join(zellen)))
+    z.append("")
+    sim.held_abzug = _abzug
     text = "\n".join(z)
     if a.aus:
         with open(a.aus, "w", encoding="utf-8") as f:
