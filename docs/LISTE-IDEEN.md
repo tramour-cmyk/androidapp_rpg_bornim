@@ -123,7 +123,7 @@ Zuletzt verworfen (Chef 09.11., 11:21, 743 „alle verwerfen“): Spiel-Engine G
 
 ### Oberfläche
 
-- **Zoom nach außen begrenzen** (Chef 12.11., 21:14, an Sokrates): „Können wir die Kamera vom Zoomfaktor mal begrenzen? Momentan können wir soweit raus, dass man fast eine ganze Karte auf einmal sieht... Das frisst FPS und passt auch nicht zur Sichtlinie bzw. Sichtweite.“ Befund: `kamera.gd` `kneifen` bis FERN × 1,6 = 14,4 m Breite (12,4 Kacheln, hochkant weit mehr in die Tiefe); alt höchstens 10,5 Kacheln (`MapZoom`). Votum im Chat 21:16, wartet auf Chefwort; dann Tom.
+- **Zoom nach außen begrenzen** (Chef 12.11., 21:14, an Sokrates): „Können wir die Kamera vom Zoomfaktor mal begrenzen? Momentan können wir soweit raus, dass man fast eine ganze Karte auf einmal sieht... Das frisst FPS und passt auch nicht zur Sichtlinie bzw. Sichtweite.“ Befund: `kamera.gd` `kneifen` bis FERN × 1,6 = 14,4 m Breite (12,4 Kacheln, hochkant weit mehr in die Tiefe); alt höchstens 10,5 Kacheln (`MapZoom`). 21:15: „Und sorgt auch am Kartenrand dafür, dass die Sicht weit ins Niemandsland führt...“ (zu 1022; die Kamera folgt dem Helden auch am Rand, alt ebenso). Votum im Chat 21:16, wartet auf Chefwort (A alte Fernstufe 10,5 Kacheln, B Grundansicht +25 %, etwa 9,7); dann Tom.
 
 - **Zoom in Innenräumen nach Bildschirmbreite** (Chef 11.11., 13:44, an Sokrates, beim Test t276): „eine ganz schöne Sache wäre Zoom in Innenräumen, dass der Zoom sich automatisch so einstellt, dass die Bildschirmbreite optimal ausgenutzt ist … sinnvoller Zoom … bei Innenansichten.“ Sokrates: passt zu 590 (Innenräume, Tom); Gegenargument: kleine Räume wirken dann riesig, große winzig; Weg: Raumbreite füllen, aber mit Grenzen nach oben und unten.
 
