@@ -8,11 +8,7 @@ Nichts offen.
 
 ## Zu billigen
 
-Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers.
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [1051](billigen/1051-einschuechtern.md) | **Muss** | G Balance | 12.11., 22:06 | Den Goblin-Späher verjagen gelingt anfangs zu 45 %, an der Rangdecke von Kapitel 1 zu 59 %, je Heldenstufe über dem Späher 5 % mehr; wie Überreden | Sokrates |
+Nichts offen.
 
 ## Anzusehen
 
@@ -160,7 +156,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1081 | M? | Von Sokrates (Chef 12.11., 21:28): Zoom nach außen begrenzen auf 10,2 Kacheln Breite (heut | startbar |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 22607 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 132, Muss 118, startbar 2
+**Jerry** – offen 133, Muss 119, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -296,6 +292,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1072 | M | Von Sokrates (Chef 12.11., 20:09, zu 1036; Wiederholfund 09.11. und 10.11.): hinterer Wolf | Sperre 620.1 B: 33 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1036 |
 | 1036.1 | M | Von Tuffy (1036, Chef 12.11., 20:52): neue Vorlage Zustände: jeder Zustand des Codes (auch | Sperre 620.1 B: 33 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1036 |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 27543 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
+| 1084 | M | Von Sokrates (1051 A, Chef 12.11., 22:18): Proben mit Fertigkeit ohne Grundwert (Überreden | startbar |
 
 **Perikles** – offen 14, Muss 13, startbar 0
 
