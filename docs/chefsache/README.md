@@ -8,8 +8,8 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [867](entscheiden/867-menuehelden.md) | **Muss** | G Stil | 12.11., 18:28 | Das Hauptmenü zeigt die Figuren des Spiels selbst: Wachsoldatin (Mensch), Zauberlehrling (Mensch), Jägerkind (Zwerg), Klosterschülerin (Elf). Sind es diese vier? | Tom |
 | [1050a](entscheiden/1050a-zauberlehrling.md) | **Muss** | G Balance | 12.11., 17:24 | Seit der Zauberschaden aus Verstand kommt, legt die Herkunft Zauberlehrling ihre Punkte noch auf Wille. Vorschlag: Verstand und Wille je 3, wie beim Jägerkind Schaden und Kritisch je 3. | Sokrates |
-| [867](entscheiden/867-menuehelden.md) | **Muss** | G Stil | 12.11., 17:20 | Das Hauptmenü zeigt die Figuren des Spiels selbst: Wachsoldatin (Mensch), Zauberlehrling (Mensch), Jägerkind (Zwerg), Klosterschülerin (Elf). Sind es diese vier? | Tom |
 | [1048](entscheiden/1048-ring.md) | M? | E Kampf | 12.11., 16:41 | Heute kommt der Ring nur bei Grak, der Spinne und beim Decken; Wölfe, Grimmzahn und Krogg greifen ohne Ring an. Vorschlag: Ring bei jedem großen Schlag der Gegner, dazu ein Ring beim eigenen Angriff, der nur belohnt. | Sokrates |
 
 ## Zu billigen
