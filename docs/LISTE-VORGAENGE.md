@@ -284,6 +284,7 @@
 | Pflege | von Werkzeug (340.3, 12.11.): 26333 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 1039 | Von Sokrates (Chef 12.11., 15:04, Build 280, Probekampf Grak, Schwerer Hieb): innerer Ring kaum zu sehen, man erkennt nicht, wann man tippen muss; Ring lesbar machen (Zielring kräftig, Signatur gold) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 1040 | Von Sokrates (Chef 12.11., 15:12, Build 280, 278.21 Grimmzahn; Wiederholfund „Drehen auf der Stelle“ t268): Figur dreht sich im Stehen zum Helden wie eine Plastikpuppe, ohne Schritte; Drehen auf der Stelle mit Tritt- oder Wendeschritten im Baustein 744, für alle Figuren | Jerry | M | startbar | – | – | – | E Figuren | – |
+| 1041 | Von Sokrates (Chef 12.11., 15:16, Build 280, 278.24 bestanden): Platztausch ungleich, der nach hinten Gehende hastet in eckigem Bogen, der andere schreitet gemessen zwei Schritte vor; beide im selben Takt und runden Bogen | Jerry | M? | startbar | – | – | – | E Kampf | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |

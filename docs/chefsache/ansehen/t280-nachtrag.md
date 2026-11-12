@@ -99,3 +99,4 @@ Laufend aus dem Chat mit Sokrates, bis „Ergebnis kopieren“ kommt.
 - 278.13 ✓ (Chef 15:07: Schalter „waren weg“ während des Rings gegen Grak)
 - 278.21 ✓ Ruhebewegung (Chef 15:12: „Ja, aber …“); Drehen auf der Stelle wie Plastikpuppe, Wiederholfund → 1040 (Jerry)
 - Zu 278.22 (Chef 15:13): Lyra dreht sich ebenso ohne Schritte „wie auf dem Drehteller“ → 1040
+- 278.24 ✓ (Chef 15:16: „Schrittbewegung war da, alles gut“); Takt ungleich, Bogen eckig → 1041 (Jerry, M?)
