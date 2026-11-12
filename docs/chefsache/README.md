@@ -38,7 +38,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
-**Tom** – offen 128, Muss 108, startbar 6
+**Tom** – offen 129, Muss 108, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -170,6 +170,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 644a.2 | M | Von Sokrates (644a A, D, F; Chef 12.11., 08:21): Mindeststufe zum Anlegen (Laden „Nicht tr | wartet auf Test (Build 280) |
 | 1022 | M | Von Sokrates (Chef 12.11., 08:26, Bild Dorf Tag 1 13:39; Wiederholfund t268): Kartenrand a | startbar |
 | 1023 | K | Hühner wie alt: fliehen verlässlich, Federn sichtbar, auffliegen (aus 814, t278.3; Chef 12 | ruht |
+| Pflege | K | von Werkzeug (340.3, 12.11.): 17380 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
 
 **Jerry** – offen 136, Muss 123, startbar 2
 
@@ -309,8 +310,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1014 | M | Von Jerry (1013, Lauf 365 und 370): schild_406 FIGHTER SS_ParryLow: Körper bis 0,071 m im | wartet auf Test (Build 280) |
 | 644a.1 | M | Von Sokrates (644a A mit Spanne, D, F; Chef 12.11., 08:21): erst Rechnung (Spannen je Stuf | wartet auf Test (Build 280) |
 | 1024 | M | Von Sokrates (Chef 12.11., 09:04, Bild Wolfskampf Build 278): Schalterreihe am rechten Ran | wartet auf Test (Build 280) |
-| Pflege | K | von Werkzeug (340.3, 12.11.): 21627 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 644b.1 | M | Von Sokrates (644b A, Chef 12.11., 13:40): Deckel streichen für Grundwerte und Schutzwert; | Sperre 620.1 B: 38 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 644a.1 |
+| Pflege | K | von Werkzeug (340.3, 12.11.): 22355 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 13, Muss 12, startbar 0
 
@@ -402,7 +403,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 644a.4 | M | Vorentscheid: Waffen der Truhe in der Blutzahnhöhle (cave_3) Stufe 3 statt 4, sonst vor Kr | startbar |
 | 644a.5 | M | Von Tuffy (644a.1): an welchem Grundwert hängen Rüstung, Ausweichen, Schild, Armbrust und | startbar |
 | 935 | M | Von Tuffy (870.6): Wurfmittel im MARS nicht zu benutzen (Brandflasche, Weihwasser): Wurf m | startbar |
-| Pflege | K | von Werkzeug (340.3, 12.11.): 15834 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 12.11.): 16511 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
