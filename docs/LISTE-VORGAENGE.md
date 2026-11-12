@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 1027 | Von Sokrates (Chef 12.11., 11:42, Build 279, zu 1020.1): Reiter „Test“ passt nicht auf den Bildschirm (Reiterleiste, Schnelltasten, „Nächste“, Prüflistenzeilen rechts abgeschnitten); korrigieren, neuer Build · „jetzt“ 12.11., 11:42 | Tom | M | zu testen | – | claude/tom-1027-testreiter | 280 | E Technik | – |
+| 1027 | Von Sokrates (Chef 12.11., 11:42, Build 279, zu 1020.1): Reiter „Test“ passt nicht auf den Bildschirm (Reiterleiste, Schnelltasten, „Nächste“, Prüflistenzeilen rechts abgeschnitten); korrigieren, neuer Build · „jetzt“ 12.11., 11:42 | Tom | M | zu testen | – | claude/tom-1027-testreiter | 280 | E Technik | 25,06 $ |
 | 1021 | Von Sokrates (Chef 12.11., 08:09): Spiel fängt am Handy von vorne an, wenn man kurz in eine andere App wechselt (Fokus weg); Spielstand und Lage beim Zurückkehren erhalten · „jetzt“ 12.11., 08:09 | Tom | M | zu testen | – | claude/tom-1021-fortsetzen | 279 | E Technik | 4,57 $ |
 | 1020.1 | Von Sokrates (1020 D zuerst, dann A, E): Prüfliste im Spiel (Zeilen lesen, ✓/✗ mit Wort, Ergebnis kopieren; danach je Zeile Knopf „Lage herstellen“), Schnellstart, Kleinigkeiten (Chef 12.11., 08:09) · „jetzt“ 12.11., 08:09 | Tom | M | zu testen | – | claude/tom-1020-pruefliste | 279 | E Oberfläche | – |
 | 1012 | Von Tom (968): Sammelbuild 278 von main nach dem Zusammenführen von 277, alle fertigen Zweige beider Teams (Tom 635, 814, 977, 1009; Jerry laut startbar.py 41 warten), Prüfliste ansehen/t278, build 278 --mit | Tom | M | zu testen, APK Lauf 373; Nachträge Build 279 | – | claude/build-278 | – | E Technik | 42,72 $ |
