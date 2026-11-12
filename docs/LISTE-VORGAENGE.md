@@ -259,6 +259,7 @@
 | 1072 | Von Sokrates (Chef 12.11., 20:09, zu 1036; Wiederholfund 09.11. und 10.11.): hinterer Wolf im Rudel läuft außen herum statt durch die Lücke in der Mitte | Jerry | M | startbar, 1072 so (Chef 20:27): nach 281 Vorlage, Bau vor 760 und 1068 | – | – | – | E Kampf | – |
 | 1075 | Von Jerry (1029): Kampftests mit derselben Schleife wie probekampf_1020 (go_on auch beim Söldner „selbst“) prüfen, ob dort ein Söldner mitkämpft und der Kampf stehen bleibt (Schwanken) | Jerry | M? | startbar | – | – | – | E Kampf | – |
 | Pflege | von Werkzeug (340.3, 12.11.): 32682 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
+| 1036.1 | Von Tuffy (1036, Chef 12.11., 20:52): neue Vorlage Zustände: jeder Zustand des Codes (auch Niedergeworfen, Verflucht, Festgehalten, Gesegnet, Geschwächt, Geblendet, Betrunken) mit allen passenden Effekten aller Kaufpakete, Brennen in zwei, drei Größen; Film nur mit dem Zustand, mehrmals | Jerry | M | startbar | – | – | – | G Stil | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
