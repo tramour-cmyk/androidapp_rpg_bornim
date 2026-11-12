@@ -2,6 +2,14 @@
 
 **Festgesetzt** (Homer, 10.11.; Chef 10.11., 11:01: „807a A“): Texte wortgetreu bauen; jeder Knopf nennt die Fertigkeit in Klammern. Vorgang 807 A (Chef 09.11., 22:26: Pim überreden, Goblin-Späher einschüchtern, Verband). Bau: 842 Tom (Pim, Verband), 841 Jerry (Einschüchtern, wie Tiere beruhigen 3.6, `[423.tiere]`). Zeilen, die man wiederholt hört, in drei Wortlauten nach 504 (`STORY-VARIANTEN-K1.md` „Regeln für den Bau“); einmalige Zeilen und Knöpfe einfach. „ / “ trennt zwei Sprechblasen derselben Figur, „· Erzähler:“ leitet einen erzählten Satz ein (im Bau `narrate`). Keine Zahlen außer dem Platzhalter; ob es gelingt, entscheidet die Probe auf die Fertigkeit (BRS); die Zeilen nennen sie nicht, nur der Knopf.
 
+## Zweiter Knopf bei jeder Wahl im Gespräch (1074)
+
+Chef 12.11., 20:48 (842 zurück): neben jedem Knopf einer Wahl im Gespräch ein sichtbarer zweiter Knopf, Baustein `Skript.knopf` (Bau 842 Tom). Er steht links mit „‹“, die Wahl rechts mit „›“, wie Abbrechen und Benutzen in der Tasche. Antippen lässt die Wahl aus, das Gespräch geht weiter wie bisher beim Weitertippen (bei Osric folgt vor Lyras Rettung noch `[504.osric.bitte]`); die Wahl bleibt fürs nächste Mal (bei Pim: nach einem Versuch erst am nächsten Tag wieder). Solange die zwei Knöpfe stehen, überspringt ein Tippen auf den Text sie nicht, damit keiner eine Wahl aus Versehen verliert.
+
+`[1074.zweit]` (zweiter Knopf, für jede Wahl derselbe; heute Pim neben `[807.pim.wahl]`, Osric neben „Kaufen“) Nicht jetzt / EN: Not now
+
+Warum nicht „Weiter“: mit „‹“ links widerspricht es sich, und es sagt nicht, ob die Wahl damit genommen ist oder nicht. „Abbrechen“ klingt nach Menü, nicht nach Gespräch.
+
 ## Überreden: Pim heimschicken
 
 Bedingung: tagsüber, Pim ist draußen; die Wahl erscheint im Gespräch mit Pim nach seiner Zeile `[504.pim.vor]`. Misslingt es, kann man es am nächsten Tag wieder versuchen. Gelingt es, dankt die Mutter beim nächsten Klopfen, Ruf steigt (807 A, 3.3).
