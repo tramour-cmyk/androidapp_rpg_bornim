@@ -5,7 +5,15 @@ extends RefCounted
 ## Heilung, Segen, Brennende Hände und der Pfeil. Maß wie alt: u = Höhe des Getroffenen / 40 (ein Wolf steht rund 40 Einheiten hoch).
 
 ## Was fliegt, geht beim Fehlschlag am Ziel vorbei (BattleFx.kt FLYING)
-const FLYING := ["ARROW", "FIRE_BOLT", "MISSILES", "RAYS", "FIREBALL", "SACRED_FLAME", "WEB"]
+const FLYING := ["ARROW", "FIRE_BOLT", "MISSILES", "RAYS", "FIREBALL", "SACRED_FLAME", "WEB", "BOMB_FIRE", "BOMB_HOLY"]
+## 935 (Chef 11.11., 20:34: „kein Wurf … Keine Parabel, die geworfen wurde“): Brandflasche und
+## Weihwasser fliegen wie alt (BattleFx.kt flask) als Flasche, die sich überschlägt, im hohen Bogen und zerschellen am Ziel;
+## Scheitel bei FLASK_RISE der Weite über der Geraden (bei 6 m etwa 2 m), Flug die erste Hälfte der Dauer (BattleScreen flight 0,5)
+const FLASK_RISE := 0.32
+const FLASK_FLUG := 0.5
+const BOMBS := ["BOMB_FIRE", "BOMB_HOLY"]
+const GLASS := Color("dde6ea")
+const STEAM := Color("e8ecee")
 ## 494 Netz der Riesenspinne (MarsTips.kt: „Das Netz fliegt langsam“): grauweiße Fäden, matt (Gold bleibt einziger Glanz)
 const WEB_SILK := Color("d8d4c8")
 
@@ -56,7 +64,7 @@ static func duration(kind: String) -> float:
 	match kind:
 		"FIREBALL", "SACRED_FLAME", "BURNING_HANDS":
 			return 900.0
-		"MISSILES", "FIRE_BOLT", "ARROW", "HEAL", "BLESS":
+		"MISSILES", "FIRE_BOLT", "ARROW", "HEAL", "BLESS", "BOMB_FIRE", "BOMB_HOLY":     # 935: wie alt 750
 			return 750.0
 		"WEB":     # 494: langsamer als der Pfeil, bleibt kurz am Ziel kleben
 			return 1100.0
@@ -71,6 +79,8 @@ static func arrives(kind: String) -> float:
 			share = 0.6
 		"WEB":
 			share = 0.55
+		"BOMB_FIRE", "BOMB_HOLY":
+			share = FLASK_FLUG
 		"FIREBALL", "FIRE_BOLT", "MISSILES":
 			share = 0.42
 		"RAYS", "BURNING_HANDS":
@@ -628,6 +638,58 @@ func _web(p: float, from: Vector2, hit: Vector2, u: float) -> void:
 			ci.draw_line(at.lerp(spitzen[i], ring), at.lerp(spitzen[(i + 1) % 8], ring), _a(WEB_SILK, a * 0.8), 0.5 * u, true)
 
 
+## 935 Wurfmittel wie alt (BattleFx.kt flask): eine Flasche (Glas, Flüssigkeit, Korken, bei der Brandflasche ein brennender Lappen
+## im Hals) überschlägt sich im hohen Bogen und zerschellt: Scherben, Spritzer, die fallen; Feuer bleibt brennend am Ziel hängen,
+## Weihwasser zischt als Dampf auf
+func _flask(p: float, from: Vector2, to: Vector2, u: float, holy: bool) -> void:
+	var liquid := Color("9cc8e8") if holy else Color("ff8a2a")
+	if p < FLASK_FLUG:
+		var t := p / FLASK_FLUG
+		var pos := _arc(from, to, t, 0.0, FLASK_RISE)
+		var w := deg_to_rad(p * 760.0)
+		var at := func(v: Vector2) -> Vector2: return pos + (v * u).rotated(w)
+		var oval := func(c: Vector2, rx: float, ry: float) -> PackedVector2Array:
+			var pts := PackedVector2Array()
+			for i in 14:
+				var a := TAU * i / 14.0
+				pts.append(at.call(c + Vector2(cos(a) * rx, sin(a) * ry)))
+			return pts
+		var eck := func(x0: float, y0: float, x1: float, y1: float) -> PackedVector2Array:
+			return PackedVector2Array([at.call(Vector2(x0, y0)), at.call(Vector2(x1, y0)), at.call(Vector2(x1, y1)), at.call(Vector2(x0, y1))])
+		ci.draw_colored_polygon(eck.call(-2.2, -11.0, 2.2, -4.0), _a(GLASS, 0.7))          # Hals
+		ci.draw_colored_polygon(oval.call(Vector2(0, 2.5), 7.0, 7.0), _a(GLASS, 0.55))      # Bauch
+		ci.draw_colored_polygon(oval.call(Vector2(0, 4.5), 5.5, 4.0), _a(liquid, 0.9))      # Flüssigkeit
+		ci.draw_colored_polygon(oval.call(Vector2(-3.0, -1.0), 1.5, 2.0), _a(WHITE, 0.6))   # Glanz
+		ci.draw_colored_polygon(eck.call(-2.6, -13.5, 2.6, -10.5), Color("6a4a2a"))         # Korken
+		if not holy:     # der brennende Lappen im Hals; die Flamme steht nach oben, wie die Flasche auch liegt
+			var hals: Vector2 = at.call(Vector2(0, -13.0))
+			_tongue(hals, 7 * u, 3.5 * u, sin(p * 50.0) * 1.5 * u, FIRE, 0.9)
+			_tongue(hals, 4 * u, 2 * u, 0.0, FIRE_HOT, 0.9)
+		return
+	_at_hit()
+	var s := (p - FLASK_FLUG) / (1.0 - FLASK_FLUG)
+	for i in 9:     # Scherben
+		var a := _rf() * TAU
+		var d := (10 + _rf() * 22) * u * s
+		var q := Vector2(to.x + cos(a) * d, to.y + sin(a) * d * 0.7 + s * s * 18 * u)
+		ci.draw_line(q, q + Vector2(cos(a + 1.0), sin(a + 1.0)) * 2.5 * u, _a(Color("e8f0f4"), 1.0 - s), 1.0 * u, true)
+	for i in 14:     # Spritzer, nach oben geschleudert, dann fallend
+		var a := PI + _rf() * PI
+		var d := (12 + _rf() * 20) * u * s
+		_square(liquid, Vector2(to.x + cos(a) * d, to.y + sin(a) * d * 0.8 + s * s * 26 * u), (2.6 - s) * u, (1.0 - s) * 0.9)
+	var flash := clampf(1.0 - s / 0.25, 0.0, 1.0)
+	if holy:
+		if flash > 0.0:
+			_glow(to, 20 * u, [_a(WHITE, 0.6 * flash), _a(liquid, 0.25 * flash), NONE])
+		for i in 6:     # zischt als Dampf auf
+			var tt := clampf(s * (0.7 + _rf() * 0.5), 0.0, 1.0)
+			_glow(Vector2(to.x + (_rf() - 0.5) * 24 * u + sin(tt * 5.0 + i) * 3 * u, to.y - tt * 34 * u), (4 + 7 * tt) * u, [_a(STEAM, 0.4 * (1 - tt)), _a(STEAM, 0.0)])
+	else:
+		if flash > 0.0:
+			_glow(to, 26 * u, [_a(FIRE_HOT, 0.8 * flash), _a(FIRE, 0.35 * flash), NONE])
+		_clinging_fire(to, s, u, 1.5)
+
+
 ## Einschlag (Helfer Runde 2: Pfeil ohne Einschlag): er steckt kurz, wo er traf, ein Ruck Splitter und Staub, dann vergeht er
 func _arrow_lands(p: float, from: Vector2, hit: Vector2, u: float) -> void:
 	var s := (p - 0.6) / 0.4
@@ -665,6 +727,8 @@ func draw_fx(kind: String, sd: int, p: float, source: Vector2, target: Vector2, 
 			_web(p, source, hit, u)
 		"FIRE_BOLT":
 			_fire_bolt(p, source, hit, u)
+		"BOMB_FIRE", "BOMB_HOLY":
+			_flask(p, source, hit, u, kind == "BOMB_HOLY")
 		"FIREBALL":
 			_fireball(p, source, hit, ground, u)
 		"MISSILES":

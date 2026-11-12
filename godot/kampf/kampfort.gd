@@ -1221,6 +1221,8 @@ func _play_say(e: Dictionary) -> void:
 	if fx != null:
 		fx_zahl[fx] = int(fx_zahl.get(fx, 0)) + 1
 		var los: float = maxf(0.0, float(figures[actor].netz_los_ms)) if fx == "WEB" else 0.0     # 494: das Netz fliegt mitten im Netzwurf los
+		if fx in Zauber.BOMBS:     # 935: die Flasche fliegt los, wenn der Arm über dem Kopf nach vorn geht
+			los = maxf(0.0, float(figures[actor].wurf_los_ms))
 		var step: float = ui.cast(fx, actor, target, _crit(e), _missed(e) or e.cue == "DUCKED", los)
 		lands = int(step + los + Zauber.arrives(fx))
 		busy_ms = maxi(busy_ms, figures[actor].busy_ms)     # 348.7b: Seitenschritt hin und zurück

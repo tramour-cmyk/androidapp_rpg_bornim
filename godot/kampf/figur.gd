@@ -2811,6 +2811,11 @@ func announce(intent, at = null) -> void:
 var angesagt = null
 var netz_los_ms := -1
 const NETZ_LOS := 0.45      # Anteil des Netzwurfs, bei dem das Netz den Hinterleib verlässt (Stichprobe im Kauf, ungeprüft: 511)
+## 935 (Chef 11.11., 20:34: „kein Wurf … ein nach vorne gerichteter Schubser“): wer eine Flasche wirft, holt mit dem Hieb über die
+## Schulter aus und lässt sie los, wenn der Arm über dem Kopf nach vorn geht (Hieb: oben bei 0,35, Mitte bei 0,41 der Bewegung)
+var wurf_los_ms := -1
+const WURF_LOS := 0.38
+const WURFMITTEL := ["BOMB_FIRE", "BOMB_HOLY"]     # wie Zauber.BOMBS
 
 ## A blow, bite, shot or spell at [other]; returns how long it takes (ms).
 ## 662 (Chef t270.9: „keine Seite erkennbar“): wo der Angriff ankommt (Platz vor dem Biss oder Hieb, im Raum des Kampforts);
@@ -2823,6 +2828,7 @@ func strike(other, e: Dictionary) -> int:
 	var spell: bool = e.spell != null
 	var ranged: bool = fighter.ranged()
 	netz_los_ms = -1
+	wurf_los_ms = -1
 	# 494 (Zu 494, kein Chefentscheid): die Spinne zählt in MARS als Fernkämpfer (Netz aus der hinteren Reihe), sie beißt aber wie im
 	# alten Spiel (SkirmishScreen: Pfeil nur bei attackFx ARROW, die Spinne hat BITE); nur „Netz werfen“ wirft, mit Netz statt Pfeil.
 	# Vorher spielte sie bei jedem Angriff „Ausholen“ (hat sie nicht: stand still) und ein Pfeil flog
@@ -2839,6 +2845,15 @@ func strike(other, e: Dictionary) -> int:
 			get_tree().create_timer(l).timeout.connect(_idle_wenn_frei)
 			busy_ms = int(l * 1000.0)
 			return netz_los_ms
+	if spell and String(e.spell) in WURFMITTEL and anim and anim.has_animation("Hieb"):
+		_schnaufen(0.6)
+		_face(other.position - position)
+		_play("Hieb", 0.08)     # im Stand: Wurfbewegung über die Schulter, die Flasche fliegt aus der Hand (kampf_ui.gd cast_point)
+		var lw: float = anim.get_animation("Hieb").length / float(tempo.get("Hieb", 1.0))
+		wurf_los_ms = int(lw * WURF_LOS * 1000.0)
+		get_tree().create_timer(lw).timeout.connect(func(): _face(); _idle())
+		busy_ms = int(lw * 1000.0)
+		return wurf_los_ms
 	if spell or ranged:
 		_schnaufen(0.6)
 		_face(other.position - position)

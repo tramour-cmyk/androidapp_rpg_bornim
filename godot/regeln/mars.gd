@@ -1461,9 +1461,9 @@ func _drink(f: Fighter, item: String, t: Fighter) -> void:
 
 
 ## 935 (alt Battle.useItem BOMB; gegenstaende.json: „ein Wurfgeschoss, das immer trifft“): der Wurf trifft immer; Schaden nach dem
-## BRS aus werte.json „kampftraenke“ (Grundschaden × Wirkung nach Kräuterkunde des Werfers, Schwäche nach der Schadensart, Rüstung
+## BRS aus werte.json „kampftraenke“ (Grundschaden × Wirkung nach Alchemie des Werfers, Schwäche nach der Schadensart, Rüstung
 ## ab), Gegenwirkung wie bei Zaubern (Wölfe fliehen vor Feuer, 915); Alchemistenfeuer setzt zwei Züge in Brand. Fliegt sichtbar wie
-## Funkenpfeil bzw. Gleißstrahl (vorhandene Effekte, LISTE-EFFEKTE.md)
+## Funkenpfeil bzw. Gleißstrahl (vorhandene Effekte, LISTE-EFFEKTE.md); 935 (Chef 11.11., 20:34): seitdem als Flasche im Bogen
 func _throw(f: Fighter, item: String, t: Fighter) -> void:
 	assert(potions.get(item, 0) > 0 and t in throw_targets(item))
 	potions[item] -= 1
@@ -1471,13 +1471,15 @@ func _throw(f: Fighter, item: String, t: Fighter) -> void:
 	_say(fmt(THROWS, lang, [f.name(lang), [def.de, def.en][lang]]), f.id, t.id, 0, null, false, false, "THROW")
 	var kt: Dictionary = BrsKampf.w().get("kampftraenke", {})
 	var d: Dictionary = kt.get(String(def.get("brs", "")), {})
-	var kk := float(f.b.get("fert", {}).get("Kräuterkunde", 0)) if f.b is Dictionary else 0.0
-	var wirkung := clampf(float(kt.get("wirkung_grund", 1.0)) + float(kt.get("wirkung_je_kraeuterkunde", 0.0)) * kk, 0.0, float(kt.get("wirkung_max", 2.0)))
+	# 935: Wirkung nach Alchemie wie in der Simulation 444 (sim.py wirkung, 857a A, 876); „Kräuterkunde“ gibt es seit 875 nicht mehr,
+	# so blieb jeder Wurf bei der halben Wirkung (wirkung_grund 0,5)
+	var alch := float(f.b.get("fert", {}).get("Alchemie", 0)) if f.b is Dictionary else 0.0
+	var wirkung := clampf(float(kt.get("wirkung_grund", 1.0)) + float(kt.get("wirkung_je_alchemie", 0.0)) * alch, 0.0, float(kt.get("wirkung_max", 2.0)))
 	var info := ["BRS", 0, 0, 100.0, true, 0, false, false]
 	var typ = d.get("typ")
 	var schw := _schwaeche(f, t, typ, info)
 	var n := maxi(0, roundi(float(d.get("schaden", 0)) * wirkung * schw) - int(roundf(float(t.b.get("ruestung", 0)))))
-	casting = "SACRED_FLAME" if String(typ) == "licht" else "FIRE_BOLT"
+	casting = "BOMB_HOLY" if String(typ) == "licht" else "BOMB_FIRE"     # 935: fliegt als Flasche im Bogen (zauber.gd _flask), wie alt
 	_vor_treffer(t, typ)
 	_hurt(t, n, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), n]), info)
 	casting = null

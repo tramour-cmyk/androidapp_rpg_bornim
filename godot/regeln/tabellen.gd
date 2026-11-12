@@ -35,7 +35,9 @@ static func monsters() -> Array:
 		var b := Brs.monster(String(id))
 		var r: Dictionary = mr.get(id, {})
 		var g: Array = wb.get(String(k.get("art", "")), {}).get("gold", r.get("gold", [0, 0]))
+		# 935: untot nach „kennungen“ „gruppe“ (Untoter): Weihwasser („kampftraenke“ nur_untote) fand ohne das Feld nie ein Ziel
 		out.append({"id": String(id), "de": String(k.get("de", id)), "en": String(k.get("en", id)), "hp": [0, 0, int(b.get("leben", 1))],
+			"undead": String(k.get("gruppe", "")) == "Untoter",
 			"boss": bool(b.get("boss", false)), "special": String(r.get("sonder", "NONE")), "type": String(TYP.get(String(r.get("typ", "stich")), "PIERCING")),
 			"gift": float(r.get("gift", 1.0)), "immune": (r.get("immun", []) as Array).duplicate(),
 			"gold": [1, maxi(1, int(g[1]) - int(g[0]) + 1), int(g[0]) - 1] if int(g[1]) > 0 else [0, 0, 0],
