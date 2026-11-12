@@ -2,7 +2,7 @@
 
 Nachschlagen (969, Chef 11.11., 15:49): jede Zahl des Bornimer Rollenspielsystems, mit der das Spiel heute rechnet, je Block die Regel als Satz (`DESIGN-BRS.md`), Formel und Erläuterung, die heutige Zahl und wo sie im Spiel gelesen wird. Aus `tools/sim444/werte.json` mit `python3 tools/regelwerte.py`.
 
-**Stand:** `werte.json` aus Commit `9f966745e` auf `main`; 27 Blöcke.
+**Stand:** `werte.json` aus Commit `a94a9efb2` auf `main`; 27 Blöcke.
 
 - **Ändern:** nur in `werte.json` auf einem Arbeitszweig (das Spiel liest die Datei, also testet der Chef); nach dem Mischen auf `main` das Werkzeug laufen lassen und die Seite committen. Wer Einfluss nehmen will, nennt Block und Wert (z. B. `ueben.bedarf_teiler`).
 - **Herkunft** je Block: N = Nachschlagewerk DESIGN-BRS.md, B = LISTE-BESTIARIUM.md 'Werte 2.0', A = Annahme (im Nachschlagewerk ohne Zahl, hier gesetzt, damit gerechnet werden kann).
