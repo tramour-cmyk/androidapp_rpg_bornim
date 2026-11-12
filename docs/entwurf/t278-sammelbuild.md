@@ -60,7 +60,7 @@ Bekannt, nicht melden: die Erklärsätze beim Gedrückthalten in der Erschaffung
 | 278.30 | Jerry | 997 | im Testkampf auf die Zeile unter der Zugleiste achten | je Figur, die sich bewegt, Name und laufende Bewegung (z. B. „Ansgar: Hieb_2“); wer ruht, ohne Zeile | nur Haken und Kreuz |
 | 278.31 | Jerry | 1004 | im Probekampf gegen Grak seine Ansage „Schwerer Hieb“ lange drücken | Hinweis ohne „Decken“: „… sonst Abwehr oder den Ring treffen“ | Hinweis nennt „Decken“ |
 | 278.32 | Tom | 856 | Sprung zu einer Zwischensequenz, „Überspringen“ antippen | die Rückfrage „Überspringen?“ ohne Kasten und Goldrand wie im Bild von 19:58, der Erzähltext ebenso | alter Kasten mit Goldrahmen, gerahmte Knöpfe |
-| 278.33 | Jerry | 988 | MARS-Probekampf gegen Wölfe: warten, bis ein Wolf auf der Stelle ausweicht | das Bild geht schon zu Beginn des Ausweichens zurück, Kopf und Rand des Wolfs bleiben im Bild | Kopf oder Rand angeschnitten, Bild springt spät zurück |
+| 278.33 | Jerry | 988 | MARS-Probekampf gegen Wölfe, starten als „Klosterschüler“: warten, bis der Held auf der Stelle ausweicht | das Bild geht schon zu Beginn des Ausweichens zurück, der Held bleibt ganz im Bild | Held am Rand angeschnitten, Bild springt spät zurück |
 | 278.34 | Jerry | 1006 | Probekampf gegen Skelette, ein paar Züge zusehen | die Skelette bewegen sich im Stehen jedes für sich | alle im Gleichklang |
 
 ## E · Neues Spiel: Erschaffung und Held
