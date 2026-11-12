@@ -47,7 +47,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 968 | M | Von Sokrates (Chef 11.11., 15:49, „jetzt“ 11.11., 15:49): Sammelbuild 277 testen, nach Fre | wartet auf 988 (startbar) |
+| 968 | M | Von Sokrates (Chef 11.11., 15:49, „jetzt“ 11.11., 15:49): Sammelbuild 277 testen, nach Fre | wartet auf 988 (in Arbeit) |
 | 825 | M | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635 | wartet auf Test/Build (gebaut) |
 | 697 | M | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | wartet auf 782 (startbar) |
 | 870.7 | M | Von Sokrates (870, Umzug BRS Schritt 6): Laden, Vergleich und Gegenstandsfenster nach BRS- | wartet auf Test/Build (gebaut) |
@@ -292,7 +292,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 785.17 | M | Von Spike (785): Zurück-Taste im Kampf schließt Untermenü und ganzen Bericht (BS 631, SK 3 | wartet auf 870.13 (wartet) |
 | 785.18 | M | Von Spike (785): Stufenaufstieg im Endfeld des Kampfes hervorgehoben (alt eigenes Feld „St | wartet auf 870.13 (wartet) |
 | 987 | M | Von Spike (870.9, Lauf 354): krogg_494 schwankt (am Rechner 2 von 5 rot, Rauch 0 erster Sc | wartet auf Test/Build (gebaut) |
-| 988 | M | Von Tom (968, Lauf 43060687068): rote Tests in Build 277: held_kampf_403 (Kleriker ohne Sc | Sperre 620.1 B: 38 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
+| 988 | M | Von Tom (968, Lauf 43060687068): rote Tests in Build 277: held_kampf_403 (Kleriker ohne Sc | wartet auf Sokrates |
 | 986 | M? | Von Homer (840): Eingebungen nach BRS bauen wie den Wolfssprung, Texte und Bauhinweise in | wartet auf Test/Build (gebaut) |
 | 993 | M | Von Sokrates (Chef 11.11., 20:47, Test 277, Probekampf Zauberlehrling): Arkanpfeil „sieht | wartet auf Test/Build (gebaut) |
 | 995 | M | Von Sokrates (Chef 11.11., 20:58, Film 744): Grabhund wirkt durch seine Farbe unstrukturie | Sperre 620.1 B: 38 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 744 |
@@ -343,7 +343,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 53, Muss 38, startbar 28
+**Sokrates** – offen 54, Muss 39, startbar 29
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -393,6 +393,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 765 | M | Wochentermin 13.11.: Rollenspiegel Sokrates (rollenspiegel.sh Sokrates) (719); deckt 02.–1 | Termin 13.11. 08:00 |
 | 782 | M | Von Tom (697): ein Lauf am Rechner frei? Der erste (17:38) brach vor dem Zeichnen ab (Proj | startbar |
 | 827 | M | Stärkstes Modell nur für festgefahrene Vorgänge (zwei Rückläufer oder über 30 $), ab 14.11 | startbar |
+| 988 | M | Von Tom (968, Lauf 43060687068): rote Tests in Build 277: held_kampf_403 (Kleriker ohne Sc | startbar |
 | 850 | K | Systemlösung? Halt: 7 frühere Vorgänge (244, 321.1, 488, 793, 662 …), neu 849; einmal grun | startbar |
 | 862 | K | Systemlösung? Umhang: 6 frühere Vorgänge (58, 488, 463, 463.1, 656 …), neu 861; einmal gru | startbar |
 | 869 | K | Systemlösung? Rüstung: 2 frühere Vorgänge (49, 817), neu 868; einmal grundsätzlich lösen? | startbar |
