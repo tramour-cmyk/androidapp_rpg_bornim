@@ -378,4 +378,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:06 12.11.: Startsperre 12:06 (lauf.py; Jerry-START „Pflege“ Kür und Perikles-START ohne Auftrag nicht ausgeführt, nichts gestartet)
 - 12:18 12.11.: Startsperre 12:18 (lauf.py; Jerry-START „Pflege“ Kür und Perikles-START ohne Auftrag nicht ausgeführt, nichts gestartet)
 - 13:05 12.11.: Startsperre 13:05 (lauf.py; Jerry-START „Pflege“ Kür und Perikles-START ohne Auftrag nicht ausgeführt, nichts gestartet)
-- 13:08 12.11.: Lauf 13:04: nichts gestartet (Tom belegt: Wecker Build 280, Übergabe 12:21; Jerry nur Kür, Perikles ohne Auftrag). Keine Archivierung, keine rote Läufe-Prüfung möglich (GitHub-Werkzeug nicht erreichbar).
+- 13:08 12.11.: Lauf 13:04: nichts gestartet (Tom belegt: Wecker Build 280, Übergabe 12:21; Jerry nur Kür, Perikles ohne Auftrag). Keine Archivierung. Läufe: keine roten (build-280: Läufe 378/379 von Tom abgebrochen, Neustart von Hand 12:24).
