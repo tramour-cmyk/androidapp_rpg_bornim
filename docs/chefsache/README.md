@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [1016](entscheiden/1016-ford-von-hand.md) | **Muss** | B Abläufe | 12.11., 06:12 | Der Ford, der jetzt startet, liegt auf Tiefe 6; der nächste Selbstneustart ist damit nicht mehr erlaubt, du startest dann in claude.ai/code einen neuen Ford von Hand. | Ford |
 | [264](entscheiden/264-bauserver.md) | **Muss** | B Abläufe | 12.11., 01:12 | Abschalten und bei GitHub abmelden, der Bauplan bleibt im Repo; wieder einschalten, wenn das Repo privat wird oder GitHub einen ganzen Arbeitstag nicht baut | Sokrates |
 | [863a](entscheiden/863a-nachstellen.md) | **Muss** | E Kampf | 12.11., 01:07 | Kaufmodelle für Jerrys Sitzung freigeben (Sicherheitsprüfung hat das Anbinden abgelehnt), dann Ursache am Rechner nachstellen und erst danach bauen | Jerry |
 | [644a](entscheiden/644a-mindeststufe.md) | **Muss** | E Kampf | 11.11., 22:02 | Mindeststufe zum Tragen bauen, wie im Regelwerk vorgesehen; ein Stück ab Stufe 4 trägt die doppelte Zusatzeigenschaft (Leben +10 statt +5) statt mehr Grundschaden; Funde höchstens eine Stufe über dem Helden; Deckel streichen, Menge an der Quelle steuern; Grundwert +1 durch Üben, Zahl aus der Rechnung | Sokrates |
