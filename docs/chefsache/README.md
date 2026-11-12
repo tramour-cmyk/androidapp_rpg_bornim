@@ -12,16 +12,11 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [1022](billigen/1022-kartenrand.md) | **Muss** | E Welt | 12.11., 23:50 | der weiche Rand ins Dunkel passt; Weg am Schlagbaum und Fluss sollen noch mit ins Dunkel laufen, dann fährt er im nächsten Build | Sokrates |
 | [1084](billigen/1084-proben-rest.md) | **Muss** | E Kampf | 12.11., 23:08 | Für die Überreden-Probe bei Pim gilt Stufe 1; Handeln bekommt vorerst keine Probe | Sokrates |
 | [1085](billigen/1085-pim-gold.md) | – | G Story | 12.11., 22:33 | Pim lässt sich auch für 5 Gold heimschicken, sicher, aber ohne Übung und ohne Ruf | Sokrates |
 
 ## Anzusehen
-
-**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
-
-| Nr. | Was | Wer | Seit |
-|---|---|---|---|
-| [1022](ansehen/1022-kartenrand.md) | Kartenrand weich ins Dunkel, vorher/nachher | – | 12.11., 23:42 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
@@ -45,7 +40,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
-**Tom** – offen 115, Muss 92, startbar 4
+**Tom** – offen 115, Muss 92, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -153,7 +148,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 785.24 | M | Von Spike (785): Laden: Vorräte mit Wirkungszeile in der Liste wie alt (ShopScreen.kt 226– | wartet auf 870.13 (wartet) |
 | 984.1 | M | Von Sokrates (984 A, Chef 11.11., 20:12): Illusion und Beschwörung in Kapitel 1 bei der Er | wartet auf Test (Build 281) |
 | 1009 | M | Von Tom (831, Lauf 366): spielstand_test rot „FEHLER Plaetze 1 2“ (letzter() gab Platz 1 s | wartet auf Test (Build) |
-| 1022 | M | Von Sokrates (Chef 12.11., 08:26; Wiederholfund t268): Kartenrand aller Gebietskarten wie | Chef (Datei in der Chefsache) |
+| 1022 | M | Von Sokrates (Chef 12.11., 08:26; Wiederholfund t268): Kartenrand aller Gebietskarten wie | startbar |
 | 1023 | K | Hühner wie alt: fliehen verlässlich, Federn sichtbar, auffliegen (aus 814, t278.3; Chef 12 | ruht |
 | 1035 | M | Von Sokrates (Chef 12.11., 14:39): Startbildschirm mit eigenem Zeichen statt Godot (boot_s | wartet auf Test/Build (gebaut) |
 | 1040.1 | M | Von Tuffy (1040, Chef 12.11., 15:13 Lyra „dreht sich genauso bescheuert, ohne Schritte“): | wartet auf Test (Build 281) |
@@ -163,7 +158,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1081 | M? | Von Sokrates (Chef 12.11., 21:28): Zoom nach außen begrenzen auf 10,2 Kacheln Breite (heut | startbar |
 | 1086 | M | Von Sokrates (1077 Nacht, zu 842): Pim zweiter Weg „Gib Pim 5 Gold“ bauen nach Homers Text | wartet auf 842 (in Arbeit) |
 | 1087 | M | Prüfschritt pruefliste_1020 rot auf claude/tom-867-vorlage2 (Lauf 43310455270): Prüfliste | wartet auf Diogenes (greift?) |
-| Pflege | K | von Werkzeug (340.3, 12.11.): 18621 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 12.11.): 17519 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 133, Muss 119, startbar 1
 
@@ -301,7 +296,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1072 | M | Von Sokrates (Chef 12.11., 20:09, zu 1036; Wiederholfund 09.11. und 10.11.): hinterer Wolf | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1036 |
 | 1036.1 | M | Von Tuffy (1036, Chef 12.11., 20:52): neue Vorlage Zustände: jeder Zustand des Codes (auch | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1036 |
 | 1084 | M | Von Sokrates (1051 A, Chef 12.11., 22:18): Proben mit Fertigkeit ohne Grundwert (Überreden | wartet auf Test/Build (gebaut) |
-| Pflege | K | von Werkzeug (340.3, 12.11.): 25558 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
+| Pflege | K | von Werkzeug (340.3, 12.11.): 25498 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 14, Muss 13, startbar 0
 
