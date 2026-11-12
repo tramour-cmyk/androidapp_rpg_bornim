@@ -987,6 +987,13 @@ jobs:
             grep -E "^==|^  |^ÜBER|^SOLLBILD" $B/sollbild784.log || true
             ls -l $B; exit 0
           fi
+          # 1043 (Chef 12.11., 15:52, t278.33 „Da weicht nichts“): kampf=1043 Probekampf Wölfe, Klosterschüler, Ausweichen erzwungen,
+          # Messung (Bewegung, Weg von Fuß und Kopf) im Protokoll
+          if [ "${{ github.event.inputs.kampf }}" = "1043" ]; then
+            film ausweichen1043 ausweichen_1043 FILM=1
+            grep -E "^[0-9.]+ s|^Held|^Ausweichen|^AUSWEICHEN" $B/ausweichen1043.log || true
+            ls -l $B; exit 0
+          fi
           if [ "${{ github.event.inputs.kampf }}" = "4531" ]; then
             film held-feld2 film_403 ATEM_FELD2=1 DAUER_MS=40000
             film held-neu film_403 DAUER_MS=40000
