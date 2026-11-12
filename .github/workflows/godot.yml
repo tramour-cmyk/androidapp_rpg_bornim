@@ -990,8 +990,11 @@ jobs:
           # 1043 (Chef 12.11., 15:52, t278.33 „Da weicht nichts“): kampf=1043 Probekampf Wölfe, Klosterschüler, Ausweichen erzwungen,
           # Messung (Bewegung, Weg von Fuß und Kopf) im Protokoll
           if [ "${{ github.event.inputs.kampf }}" = "1043" ]; then
-            film ausweichen1043 ausweichen_1043 FILM=1
-            grep -E "^[0-9.]+ s|^Held|^Ausweichen|^AUSWEICHEN" $B/ausweichen1043.log || true
+            # Lauf 389: ohne Argument hinter „--“ legt spiel.gd das Hauptmenü über alles (399), held fehlte (spiel.gd test_tat), kein Kampf; wie 1040
+            SEED=7 FILM=1 timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+              --write-movie $RUNNER_TEMP/ausweichen1043.avi --fixed-fps 30 -s res://tests/ausweichen_1043.gd -- --film1043 > $B/ausweichen1043.log 2>&1 || true
+            ffmpeg -loglevel error -y -i $RUNNER_TEMP/ausweichen1043.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/ausweichen1043.mp4 || true
+            grep -E "SCRIPT ERROR|^[0-9.]+ s|^Held|^Ausweichen|^AUSWEICHEN" $B/ausweichen1043.log || true
             ls -l $B; exit 0
           fi
           if [ "${{ github.event.inputs.kampf }}" = "4531" ]; then
