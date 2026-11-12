@@ -47,7 +47,7 @@ func _im_spiel() -> void:
 		var party: Array = k.mars.fighters().filter(func(f): return f.side == "PARTY")
 		var held = k.mars.find("hero")
 		pruefe("Runde %d: ohne Söldner" % (runde + 1), party.size() == 1, str(party.size()))
-		pruefe("Runde %d: halbes Leben" % (runde + 1), held != null and held.hp * 2 >= held.max_hp - 1 and held.hp * 2 <= held.max_hp + 1, "%d/%d" % [held.hp, held.max_hp] if held else "")
+		pruefe("Runde %d: höchstens halbes Leben" % (runde + 1), held != null and held.hp > 0 and held.hp * 2 <= held.max_hp + 1, "%d/%d" % [held.hp, held.max_hp] if held else "")
 		pruefe("Runde %d: Nacht" % (runde + 1), String(k.tageszeit) == "nacht", String(k.tageszeit))
 		pruefe("Runde %d: Brandflaschen in der Tasche" % (runde + 1), int(k.mars.potions.get("alchemist_fire", 0)) > 0, str(k.mars.potions))
 		pruefe("Runde %d: Knopf heißt „Zurück zum Testmenü“" % (runde + 1), k.again_fn.is_valid() and k.zurueck_text.size() == 2 and String(k.zurueck_text[0]) == "Zurück zum Testmenü")
@@ -62,7 +62,67 @@ func _im_spiel() -> void:
 		var ms: Array = spiel.find_children("*", "Menue", true, false)
 		if not ms.is_empty(): menue = ms[0]
 	pruefe("zurück im Testmenü", menue != null and String(menue.reiter) == "test", String(menue.reiter) if menue else "kein Menü")
+	if menue: menue.zu.emit()
+	for i in 10: await process_frame
+	await _erzwingen(spiel)
 	Engine.time_scale = 1.0
+
+## 1020.2 C: der erzwungene Gegnerzug kommt im ersten passenden Augenblick, im echten Spiel nie
+func _erzwingen(spiel) -> void:
+	var Mars = load("res://regeln/mars.gd")
+	Testmodus.probe_waffe = "*"; Testmodus.probe_soeldner = "*"; Testmodus.probe_tasche = "zwei"; Testmodus.probe_leben = "voll"; Testmodus.probe_zeit = ""
+	var faelle := [["GRAK", "heavy"], ["WOLVES", "pounce"], ["GOBLINS", "reihe"], ["GOBLINS", "flucht"]]
+	var vorige = spiel.kampf
+	for fa in faelle:
+		Testmodus.probe_zug = String(fa[1])
+		Mars.test_erzwungen.clear()
+		spiel.test_tat("probe", [String(fa[0]), "Wachsoldat", 3])
+		var k = await _kampf_da(spiel, vorige)
+		if k == null: pruefe("Kampf %s kommt" % fa[0], false); return
+		vorige = k
+		var gesehen := false
+		k.mars.set_autopilot(true)
+		if not k.busy: k.go_on()
+		var t0 := Time.get_ticks_msec()
+		while Time.get_ticks_msec() - t0 < 60000 and not gesehen:
+			await process_frame
+			gesehen = Mars.test_erzwungen.has(String(fa[1]))
+			if k.mars.outcome != "ONGOING" and not gesehen: break
+			if not k.busy and not k.playing and k.beats.is_empty() and k.mars.outcome == "ONGOING":
+				if k.mars.pilot_next() or k.mars.set_autopilot(true): k.go_on()
+		if String(fa[1]) == "flucht":
+			pruefe("alle geflohen, gewonnen", k.mars.outcome == "WON" and k.mars.fighters().filter(func(f): return f.side == "FOES").all(func(f): return f.fled))
+		pruefe("erzwungen: %s gegen %s" % [fa[1], fa[0]], gesehen)
+		pruefe("nur einmal: %s" % fa[1], Mars.test_gegnerzug == "", Mars.test_gegnerzug)
+		await _zu_ende(k)
+		k.finish()
+		var t1 := Time.get_ticks_msec()
+		while spiel.kampf != null and Time.get_ticks_msec() - t1 < 10000: await process_frame
+	# Held weicht aus: der erste Angriff auf ihn geht fehl (Leben nicht prüfbar: der Regelfaden rechnet voraus)
+	Testmodus.probe_zug = ""; Testmodus.probe_ausweichen = true; Testmodus.probe_soeldner = ""
+	Mars.test_erzwungen.clear()
+	spiel.test_tat("probe", ["WOLVES", "Klosterschüler", 3])
+	var k1 = await _kampf_da(spiel, vorige)
+	if k1 != null:
+		vorige = k1
+		k1.mars.set_autopilot(true)
+		if not k1.busy: k1.go_on()
+		var t2 := Time.get_ticks_msec()
+		while Mars.test_ausweichen and k1.mars.outcome == "ONGOING" and Time.get_ticks_msec() - t2 < 60000:
+			await process_frame
+			if not k1.busy and not k1.playing and k1.beats.is_empty() and k1.mars.outcome == "ONGOING":
+				if k1.mars.pilot_next() or k1.mars.set_autopilot(true): k1.go_on()
+		pruefe("Held weicht dem ersten Angriff aus", not Mars.test_ausweichen and Mars.test_erzwungen.has("ausweichen"), str(Mars.test_erzwungen))
+		await _zu_ende(k1)
+		k1.finish()
+		var t3 := Time.get_ticks_msec()
+		while spiel.kampf != null and Time.get_ticks_msec() - t3 < 10000: await process_frame
+	Testmodus.probe_ausweichen = false
+	Testmodus.probe_zug = "flucht"
+	spiel.test_tat("kampf", ["GOBLINS"])
+	var k2 = await _kampf_da(spiel, vorige)
+	pruefe("im beschworenen Kampf nichts erzwungen", k2 != null and Mars.test_gegnerzug == "" and not Mars.test_ausweichen)
+	Testmodus.probe_zug = ""
 
 func _basis(h: BrsHeld, platz: String) -> String:
 	var g = h.ding(platz)

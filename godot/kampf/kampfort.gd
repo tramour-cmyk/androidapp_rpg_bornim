@@ -208,7 +208,7 @@ func _ready() -> void:
 
 ## 600: Ruhig, Normal, Schnell wie im Menü (Bedienung.tempo), gilt sofort, bleibt gespeichert; während der Blende erst, wenn sie geht
 func tempo_wechseln() -> void:
-	Bedienung.tempo = (Bedienung.tempo + 1) % 3
+	Bedienung.tempo = (Bedienung.tempo + 1) % (4 if Testmodus.ist_an() else 3)     # 1020.2 C: im Testmodus auch „sehr schnell“
 	Bedienung.speichere()
 	tempo = Bedienung.tempo_faktor()
 	if verhuellt:

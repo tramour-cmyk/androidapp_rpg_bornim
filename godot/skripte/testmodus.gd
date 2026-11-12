@@ -125,6 +125,10 @@ static var probe_tasche := "zwei"
 static var probe_leben := "voll"
 static var probe_zeit := ""             # "" nach der Spieluhr
 static var probe_waffen_auf := false
+# 1020.2 C: einmal je Probekampf erzwungen (Mars.test_gegnerzug, Mars.test_ausweichen; spiel.gd kampf_im_wald setzt sie bei jedem Start)
+const PROBE_ZUEGE := ["", "pounce", "heavy", "reihe", "flucht"]
+static var probe_zug := ""
+static var probe_ausweichen := false
 
 ## Held, Söldner, Leben und Tasche des Probekampfs nach der Wahl im Reiter; [herkunft], [stufe] wie gewählt oder aus einem Test
 static func probe_aufbau(herkunft: String, stufe: int) -> Dictionary:
@@ -433,6 +437,18 @@ static func probekampf(m: Menue, t: Callable, zk: Callable, reihe: Callable, fs:
 		zk.call(t.call("Kampfort", "Battle place"), String(kampforte()[kampfort]), t.call("Wo der Probekampf und der beschworene Kampf stattfinden: wie im Spiel nach dem, was um dich steht, oder einer der sechs Orte im Wald.",
 			"Where the trial fight and a summoned fight take place: as in the game by what stands around you, or one of the six places in the woods."),
 			func(): kampfort = String(weiter(kampforte().keys(), kampfort)), "PIN")])
+	# 1020.2 C: was sonst nur mit Warten kommt, einmal je Probekampf erzwingen; Tempo bis „sehr schnell“
+	var zuege := {"": t.call("Zufall", "random"), "pounce": t.call("Anspringen", "Pounce"), "heavy": t.call("Schwerer Hieb", "Heavy blow"),
+		"reihe": t.call("Reihe umstellen", "Reorder rows"), "flucht": t.call("Flucht", "Flight")}
+	var tempi: Array = [t.call("Ruhig", "Calm"), t.call("Normal", "Normal"), t.call("Schnell", "Fast"), t.call("Sehr schnell", "Very fast")]
+	m.zeichenreihe([zk.call(t.call("Gegnerzug", "Foe move"), String(zuege[probe_zug]), t.call("Erzwingt im Probekampf einmal: Anspringen (Wölfe), Schwerer Hieb (Grak), ein Gegner der hinteren Reihe tauscht nach vorn, oder alle Gegner fliehen. Danach wieder Zufall; „Nochmal“ erzwingt es erneut.",
+			"Forces once in the trial fight: pounce (wolves), heavy blow (Grak), a back-row foe swaps forward, or every foe flees. Then random again; “Again” forces it anew."),
+			func(): probe_zug = String(weiter(PROBE_ZUEGE, probe_zug)), "SKULL", "", probe_zug != ""),
+		zk.call(t.call("Ausweichen", "Dodge"), t.call("erzwingen", "forced") if probe_ausweichen else t.call("Zufall", "random"),
+			t.call("Der erste Angriff auf den Helden im Probekampf geht fehl: er weicht aus, mit Schild wehrt er ab.", "The first attack on the hero in the trial fight misses: he dodges, with a shield he blocks."),
+			func(): probe_ausweichen = not probe_ausweichen, "", "↷", probe_ausweichen),
+		zk.call(t.call("Tempo", "Pace"), String(tempi[clampi(Bedienung.tempo, 0, 3)]), t.call("Tempo im Kampf; „sehr schnell“ gibt es nur im Testmodus, zum Warten.",
+			"Pace in battle; “very fast” exists only in test mode, for waiting."), func(): Bedienung.tempo = (Bedienung.tempo + 1) % 4, "", "»")])
 	if probe_waffen_auf:
 		var alle := probe_waffen()
 		for i in range(0, alle.size(), 2):

@@ -14,6 +14,12 @@ const BrsKampf = preload("res://regeln/brs_kampf.gd")
 static var held_immer_krit := false
 static var gegner_ohne_rettung := false
 static var held_unsterblich := false
+## 1020.2 C (Chef 12.11., 08:09; Vorlage 1020 C, nur Reiter Test): der nächste passende Gegnerzug wird erzwungen, dann gilt wieder
+## der Zufall: „pounce“ Anspringen (Wölfe), „heavy“ Schwerer Hieb (Grak), „reihe“ ein Gegner der hinteren Reihe tauscht nach vorn,
+## „flucht“ alle Gegner fliehen; [test_ausweichen]: der nächste Angriff auf den Helden geht fehl, er weicht aus (mit Schild: Abwehr)
+static var test_gegnerzug := ""
+static var test_ausweichen := false
+static var test_erzwungen: Array = []     # was davon wirklich kam (tests/probekampf_1020.gd)
 ## The lines by name, for the ones picked in several wordings.
 ## 399.2b (Homer [399.2b.knurrt]): die Zeile im Zug, wenn ein Jungwolf nur knurrt; gibt es im alten MARS nicht, darum nicht in mars_texte.gd
 ## Battle.kt Msg.fed (399.2, satt)
@@ -1614,6 +1620,8 @@ func _foe_turn(foe: Fighter, react: Callable) -> void:
 	var intent: Dictionary = plan[0]
 	var aimed: Array = plan[1]
 	foe.hidden = false
+	if _test_zug(foe):     # 1020.2 C
+		return
 	if intent.effect == "GROWL":     # 399.2b: knurrt nur (Homer [399.2b.knurrt])
 		_say(fmt(pick("MSG399_GROWLS"), lang, [foe.name(lang)]), foe.id, null, 0, null, false, false, "GROWLS")
 		announce(foe)
@@ -1747,6 +1755,11 @@ func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := 
 	var e := _brs_auf_held(foe, t, intent, mode)     # 870.5: nur nach dem BRS
 	var success: bool = e.treffer
 	var info := ["BRS", e.wurf, 0, e.chance, success, mode, cover and from_back(foe), bool(e.kritisch)]
+	if test_ausweichen and t.id == "hero":     # 1020.2 C: der Held weicht aus
+		test_ausweichen = false
+		test_erzwungen.append("ausweichen")
+		success = false
+		info[4] = false
 	if str(m.id) == KROGG and smoke_thrown and not smoke_spent:
 		# D4.1: der Rauch brennt in den Augen, der erste Schlag geht fehl, mit ihm der Überraschungsschlag (Battle.enemyAttack)
 		smoke_spent = true
@@ -1837,6 +1850,34 @@ func _perfect_answer(t: Fighter, foe: Fighter, info: Array) -> void:
 			_say(fmt(pick("MSG72_EVADES"), lang, [t.name(lang)]), foe.id, t.id, 0, info)
 
 
+## 1020.2 C: erzwungene Gegnerzüge aus dem Reiter Test, die nicht über die Ansage gehen. „reihe“: ein Nahkämpfer der hinteren Reihe
+## tauscht vor diesem Zug nach vorn (wie 863 _leap_forward; der Kampfort lässt ihn im Zug der Gegner hinübergehen); „flucht“: alle
+## Gegner fliehen wie das Rudel vor dem Feuer (870c 3 A), ohne Lohn. Gibt true zurück, wenn der Zug damit zu Ende ist.
+func _test_zug(foe: Fighter) -> bool:
+	if test_gegnerzug == "reihe":
+		var hinten := all.filter(func(x): return x.side == "FOES" and x.standing() and x.place.x == BACK and x.gegriffen_von == "" and String(x.b.get("art", "nah")) == "nah")
+		if not hinten.is_empty() and all.any(func(x): return x.side == "FOES" and x.standing() and x.place.x == FRONT):
+			test_gegnerzug = ""
+			var vorher: Vector2i = hinten[0].place
+			_leap_forward(hinten[0])
+			if hinten[0].place != vorher:
+				test_erzwungen.append("reihe")
+	elif test_gegnerzug == "flucht":
+		test_gegnerzug = ""
+		var erst := true
+		for x in all.filter(func(x): return x.side == "FOES" and x.standing()):
+			x.fled = true
+			intents.erase(x.id)
+			_say(MSG1020_FLIEHEN[lang] if erst else "", null, x.id, 0, null, false, false, "FOE_FLEES")
+			erst = false
+		kein_lohn = true
+		outcome = "WON"
+		test_erzwungen.append("flucht")
+		return true
+	return false
+
+const MSG1020_FLIEHEN := ["Test: alle Gegner fliehen.", "Test: every foe flees."]     # Zeile des Testmodus, kein Spieltext
+
 ## The foe picks its next move and its target (72.11).
 func announce(foe: Fighter) -> void:
 	if not foe.standing() or outcome != "ONGOING":
@@ -1925,6 +1966,10 @@ func _pick_intent(foe: Fighter) -> Dictionary:
 	if id == SHAMAN:     # 535: Heilen, Fluch, Feuerstoß des Schamanen fehlen noch (Ansagen über Homer); bis dahin kämpft er wie ein Goblin
 		id = CALLED
 	if id == WOLF or id == DIRE_WOLF:
+		if test_gegnerzug == "pounce":     # 1020.2 C
+			test_gegnerzug = ""
+			test_erzwungen.append("pounce")
+			return I_POUNCE
 		var others := all.filter(func(x): return x.side == "FOES" and x.standing() and wolfig(x.monster)).size()
 		var circling := intents.values().any(func(p): return p[0].effect == "CIRCLE")
 		var can := [I_POUNCE, I_POUNCE]
@@ -1944,6 +1989,10 @@ func _pick_intent(foe: Fighter) -> Dictionary:
 		return dice.pick(can2)
 	if id != GRAK:
 		return plain
+	if test_gegnerzug == "heavy":     # 1020.2 C
+		test_gegnerzug = ""
+		test_erzwungen.append("heavy")
+		return I_HEAVY
 	var can3 := [I_HEAVY, I_HEAVY]
 	if lineup:
 		can3.append(I_BREAKTHROUGH)

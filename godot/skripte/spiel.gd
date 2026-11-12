@@ -571,6 +571,9 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	var pa: Dictionary = {} if probe.is_empty() else Testmodus.probe_aufbau(String(probe[0]), int(probe[1]))
 	var hw: BrsHeld = held_werte() if probe.is_empty() else pa["held"]
 	var soeldner = null if probe.is_empty() else pa["soeldner"]
+	var mars_s = load("res://regeln/mars.gd")
+	mars_s.test_gegnerzug = "" if probe.is_empty() else Testmodus.probe_zug     # 1020.2 C: nur im Probekampf, nie im Spiel
+	mars_s.test_ausweichen = false if probe.is_empty() else Testmodus.probe_ausweichen
 	var erg := {"ende": "", "tp": {}, "lohn": {}, "rest": {}, "held": null}
 	# 532 (Durchspielregel 488): die ganze Tasche in den Kampf; danach wird nur weggenommen, was verbraucht ist
 	var tasche := {}
