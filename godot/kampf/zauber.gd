@@ -52,6 +52,10 @@ static var d_to := 10.0
 static var d_hit := 10.0
 static var d_miss := 10.0
 static var m_px := 0.01
+## 935: Höhe der fliegenden Flasche (m) im letzten Bild; FLASK_HOEHE_U: vom Korken (-13,5) bis zum Bauch (9,5) in Einheiten u
+static var flasche_m := 0.0
+const FLASK_HOEHE_U := 23.0
+const FLASK_M := 0.22     # 935: Höhe der Flasche (m), wie ein Krug in der Hand des Helden
 ## Fehlschuss: Bodenpunkt am Schirm, den kampf_ui.gd frei von Figuren wählt (INF: wie bisher neben dem Ziel)
 static var miss_at := Vector2.INF
 ## 348.7a Runde 3, Probe BAHN_PRUEF: jeder Bahnpunkt im Raum (kampf_ui.gd prüft, ob er in einer Figur steckt oder hinter ihr liegt)
@@ -647,7 +651,16 @@ func _flask(p: float, from: Vector2, to: Vector2, u: float, holy: bool) -> void:
 		var t := p / FLASK_FLUG
 		var pos := _arc(from, to, t, 0.0, FLASK_RISE)
 		var w := deg_to_rad(p * 760.0)
-		var at := func(v: Vector2) -> Vector2: return pos + (v * u).rotated(w)
+		# 935 (Chef 12.11., 08:07: „es wird ja so groß wie ein Ölfass. Es ist riesig“; wurf_935 vorher 0,66–0,77 m): u wächst mit der
+		# Bildhöhe des Ziels (kampf_ui _draw_spells: tall / 40), die Flasche war so 0,6 der Höhe des Wolfs. Jetzt in echter Größe
+		# FLASK_M, an jedem Punkt der Bahn in ihrer Tiefe (Tafel: Bildpunkte je Meter dort)
+		var uf := u
+		if ci != null and ci.has_method("world_at"):
+			var px_m: float = (ci.world_at(pos + Vector2(0, 1), ci.depth) - ci.world_at(pos, ci.depth)).length()
+			if px_m > 0.0:
+				uf = FLASK_M / (FLASK_HOEHE_U * px_m)
+			flasche_m = FLASK_HOEHE_U * uf * px_m
+		var at := func(v: Vector2) -> Vector2: return pos + (v * uf).rotated(w)
 		var oval := func(c: Vector2, rx: float, ry: float) -> PackedVector2Array:
 			var pts := PackedVector2Array()
 			for i in 14:
@@ -663,8 +676,8 @@ func _flask(p: float, from: Vector2, to: Vector2, u: float, holy: bool) -> void:
 		ci.draw_colored_polygon(eck.call(-2.6, -13.5, 2.6, -10.5), Color("6a4a2a"))         # Korken
 		if not holy:     # der brennende Lappen im Hals; die Flamme steht nach oben, wie die Flasche auch liegt
 			var hals: Vector2 = at.call(Vector2(0, -13.0))
-			_tongue(hals, 7 * u, 3.5 * u, sin(p * 50.0) * 1.5 * u, FIRE, 0.9)
-			_tongue(hals, 4 * u, 2 * u, 0.0, FIRE_HOT, 0.9)
+			_tongue(hals, 7 * uf, 3.5 * uf, sin(p * 50.0) * 1.5 * uf, FIRE, 0.9)
+			_tongue(hals, 4 * uf, 2 * uf, 0.0, FIRE_HOT, 0.9)
 		return
 	_at_hit()
 	var s := (p - FLASK_FLUG) / (1.0 - FLASK_FLUG)

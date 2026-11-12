@@ -14,6 +14,9 @@ const AufrufS = preload("res://kampf/aufruf.gd")
 const Wuerfel = preload("res://regeln/wuerfel.gd")
 
 var fehler := 0
+var groesse: Array = []
+const FLASCHE_MIN_M := 0.15
+const FLASCHE_MAX_M := 0.30
 
 
 func pruefe(ok: bool, was: String) -> void:
@@ -108,6 +111,9 @@ func _run() -> void:
 				hieb = true
 			if Zauber.bahn.size() > 0 and art != "":
 				spur.append(Zauber.bahn[-1])
+				if Zauber.flasche_m > 0.0:
+					groesse.append(Zauber.flasche_m)
+					Zauber.flasche_m = 0.0
 				var zf = kf.figures.get(ziel_id)
 				if zf:
 					ziel_da = zf.global_transform
@@ -133,6 +139,14 @@ func _run() -> void:
 				kf.order(["attack", ts[0].id] if not ts.is_empty() else ["wait"])
 	pruefe(geworfen, "Held wirft Alchemistenfeuer auf %s" % ziel_id)
 	pruefe(art == "BOMB_FIRE", "fliegt als Flasche (%s)" % art)
+	# 935 (Chef 12.11., 08:07: „es wird ja so groß wie ein Ölfass. Es ist riesig“): die Flasche fliegt in echter Größe, etwa 0,2 bis
+	# 0,25 m wie ein Krug in der Hand, an jedem Punkt der Bahn
+	if groesse.is_empty():
+		pruefe(false, "Größe der Flasche gemessen")
+	else:
+		var gmin: float = groesse.min()
+		var gmax: float = groesse.max()
+		pruefe(gmin >= FLASCHE_MIN_M and gmax <= FLASCHE_MAX_M, "Flasche %.2f bis %.2f m hoch (soll %.2f bis %.2f m)" % [gmin, gmax, FLASCHE_MIN_M, FLASCHE_MAX_M])
 	var hf = kf.figures.get("hero")
 	if hf and hf.anim and hf.anim.has_animation("Hieb"):
 		pruefe(hieb, "Held holt mit dem Hieb aus")
