@@ -22,7 +22,6 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [831](ansehen/831-wald.md) | Bäume aus dem Nature MegaKit im Wald, Spielbild | Tom | 12.11., 03:18 |
-| [833](ansehen/833-kampfschirm.md) | Unterer Kampfschirm ohne Kasten im Kasten | Jerry | 11.11., 23:46 |
 | [935](ansehen/935-wurf.md) | Wurfmittel im Kampf: Flasche im Bogen geworfen | Tuffy | 12.11., 00:16 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
@@ -247,7 +246,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 803 | K | Rest 211.14 (Kür, Tuffy): Gegner durch Antippen der Figur als Ziel wählen | ruht |
 | 811 | K | Von Perikles (800, 650.2 C1): Kommentar in godot/regeln/brs_kampf.gd Zeile 3 nennt DESIGN- | wartet auf Test (Build) |
 | 824 | M | Kampf: Schurke ohne Schild geht beim Angriff kurz 3,4–3,8 m/s in „Gehen“ (Bewegung höchste | wartet auf Test (Build 278) |
-| 833 | M | Unterer Kampfschirm nach Signatur: kein Kasten im Kasten (Bericht, Leiste, Befehle), Knöpf | Chef (Datei in der Chefsache) |
+| 833 | M | Unterer Kampfschirm nach Signatur: kein Kasten im Kasten (Bericht, Leiste, Befehle), Knöpf | Sperre 620.1 B: 36 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 836 (kampf_ui.gd) |
 | 836 | M | Von Homer (830): Hinweis „Nahkampf erreicht nur die vordere Reihe.“ steht in jedem Kampf, | wartet auf Test (Build 278) |
 | 840 | M | Von Sokrates (830 A, Chef 10.11., 11:00): Eingebung beim ersten Auftreten nach 210 B in Go | wartet auf Test (Build 278) |
 | 841 | M | Von Sokrates (807a A, Chef 10.11., 11:01): Goblin-Späher einschüchtern nach STORY-K1-FERTI | Sperre 620.1 B: 36 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 983 (goblin) |
