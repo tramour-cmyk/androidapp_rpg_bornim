@@ -22,6 +22,12 @@ Nichts offen.
 |---|---|---|---|
 | [867](ansehen/867-menuehelden.md) | Hauptmenü: die vier Helden mit deinen Ergänzungen und neuem Licht | – | 12.11., 21:20 |
 
+**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
+
+| Folge | Version | Build | Was | Wer | Seit |
+|---|---|---|---|---|---|
+| 1 | [–](ansehen/t281-kampf.md) | Build 281 | Kampf: Zielring, ein Probekampf für alles, Platztausch, Goblin-Späher, Grabhund, Grimmzahn tritt | Tom und Jerry | 12.11., 21:05 |
+
 ## Zu tun
 
 Nichts offen.
@@ -157,7 +163,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1045 | M | Von Tuffy (Lauf 43235660324, Zweig ohne Spielstand-Änderung): spielstand_test rot, „FEHLER | startbar |
 | 1073 | M? | Von Sokrates (Chef 12.11., 20:38): Bilder der Dinge in Tasche und Laden nach unserer Signa | startbar |
 | 1079 | M | Prüfschritt ziege_4162 einmal rot: „von (-1, 0) tauscht die Ziege mit dem Helden den Platz | startbar |
-| Pflege | K | von Werkzeug (340.3, 12.11.): 22045 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 12.11.): 20347 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 134, Muss 118, startbar 5
 
@@ -393,7 +399,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 644a.5 | M | Von Tuffy (644a.1): an welchem Grundwert hängen Rüstung, Ausweichen, Schild, Armbrust und | startbar |
 | 1051 | M | Von Jerry (841): Vorentscheid Werte Einschüchtern (Goblin-Späher verjagen): einschuechtern | startbar |
 | 1065 | M | Von Jerry (621 A, 1043): 1043 Lauf frei? Filmlauf 396 (kampf=1043) zeigte kein Ausweichen: | startbar |
-| Pflege | K | von Werkzeug (340.3, 12.11.): 15522 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 12.11.): 15366 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
+## Lücken
+
+Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
+
+Format (Muster: „So geht's“ unten): t281-kampf.md: Version 0.1.<Laufnummer> (Godot 0.348.<Laufnummer>) fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
+
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
