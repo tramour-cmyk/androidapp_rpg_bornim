@@ -11,6 +11,7 @@ const Figur = preload("res://kampf/figur.gd")     # 494: Figur.vier
 const Zauber = preload("res://kampf/zauber.gd")
 const Tafel = preload("res://kampf/tafel.gd")
 const Tips = preload("res://kampf/marstips.gd")     # 536: Texte für langes Drücken (MarsTips.kt)
+const HINWEIS_REIHE := "kampf_hinweis_reihe"     # 836: Flagge im Spielstand, der Reihenhinweis ist gezeigt
 
 # Theme.kt, Veil
 const TEXT := Color("#E6DDCB")
@@ -214,8 +215,10 @@ func _ready() -> void:
 	full_log.mouse_filter = Control.MOUSE_FILTER_STOP
 	full_log.gui_input.connect(_full_log_input)
 	root.add_child(full_log)
-	if not kampfort.mars.lead().hero.get("seen_rows", false):
+	# 836 (Homer 830): einmal je Spielstand, nicht in jedem Kampf (seen_rows setzte niemand); Proben ohne Spielstand je Kampf
+	if not kampfort.flaggen.has(HINWEIS_REIHE):
 		log_line(t("Nahkampf erreicht nur die vordere Reihe.", "Melee reaches only the front row."))
+		kampfort.flaggen[HINWEIS_REIHE] = true
 
 
 ## 399.2 (Test 133, Chef 16:4x: Schalter Position und Schaden „gehen nicht“): ein Tippen kommt als Berührung und als
