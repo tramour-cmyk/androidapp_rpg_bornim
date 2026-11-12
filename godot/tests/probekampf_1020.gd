@@ -96,7 +96,10 @@ func _erzwingen(spiel) -> void:
 			if k.mars.outcome != "ONGOING" and not gesehen: break
 			if not k.busy and not k.playing and k.beats.is_empty() and k.mars.outcome == "ONGOING": _weiter(k)
 		if String(fa[1]) == "flucht":
-			pruefe("alle geflohen, gewonnen", k.mars.outcome == "WON" and k.mars.fighters().filter(func(f): return f.side == "FOES").all(func(f): return f.fled))
+			# 1029 (Tuffy 19:52): wer vor der Flucht fiel, flieht nicht mehr (_test_zug nimmt nur Stehende); Held und Söldner greifen vorher an
+			var gegner: Array = k.mars.fighters().filter(func(f): return f.side == "FOES")
+			pruefe("alle geflohen, gewonnen", k.mars.outcome == "WON" and gegner.any(func(f): return f.fled) and gegner.all(func(f): return f.fled or f.hp <= 0),
+				str(gegner.map(func(f): return "%s %d %s" % [f.id, f.hp, f.fled])))
 		pruefe("erzwungen: %s gegen %s" % [fa[1], fa[0]], gesehen)
 		pruefe("nur einmal: %s" % fa[1], Mars.test_gegnerzug == "", Mars.test_gegnerzug)
 		await _zu_ende(k)
