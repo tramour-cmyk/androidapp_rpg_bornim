@@ -11,6 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
+| 1030 | Von Sokrates (Chef 12.11., 13:53, Build 280, Rückläufer zu 1020.1): Reiter „Test“ springt nach jedem Schalter (Bildrate, Uhrzeit) ganz nach oben; Prüfliste nicht einklappbar, ewig scrollen bis zu den Schaltern | Tom | M | startbar | – | – | – | E Technik | – |
 | 1027 | Von Sokrates (Chef 12.11., 11:42, Build 279, zu 1020.1): Reiter „Test“ passt nicht auf den Bildschirm (Reiterleiste, Schnelltasten, „Nächste“, Prüflistenzeilen rechts abgeschnitten); korrigieren, neuer Build · „jetzt“ 12.11., 11:42 | Tom | M | zu testen | – | claude/tom-1027-testreiter | 280 | E Technik | 25,06 $ |
 | 1021 | Von Sokrates (Chef 12.11., 08:09): Spiel fängt am Handy von vorne an, wenn man kurz in eine andere App wechselt (Fokus weg); Spielstand und Lage beim Zurückkehren erhalten · „jetzt“ 12.11., 08:09 | Tom | M | zu testen | – | claude/tom-1021-fortsetzen | 280 | E Technik | 4,57 $ |
 | 1020.1 | Von Sokrates (1020 D zuerst, dann A, E): Prüfliste im Spiel (Zeilen lesen, ✓/✗ mit Wort, Ergebnis kopieren; danach je Zeile Knopf „Lage herstellen“), Schnellstart, Kleinigkeiten (Chef 12.11., 08:09) · „jetzt“ 12.11., 08:09 | Tom | M | zu testen | – | claude/tom-1020-pruefliste | 280 | E Oberfläche | – |
