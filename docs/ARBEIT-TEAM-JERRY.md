@@ -8,7 +8,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 **Übergabe (12.11., 15:01, `session_01Hmoj76DJtggtnNPKMMxpU6`):** 995 Grabhund gebaut (`claude/jerry-995-grabhund` `783bc44ee`), Probe gelb/rot beim Chef (`ansehen/995-grabhund.md`); nach seiner Wahl AUGE in `kaufgrabhund.py` setzen. 1032 im einzelnen Kampf nicht nachgestellt (`claude/jerry-1032-treffer`, wartet auf 1025). 1037 Werte gebaut (`claude/jerry-1037-werte`), Vorentscheid 1038 bei Sokrates, Start Tom 842 an Ford. 1036 Abgleich alt in Zu 1036, Bau Tuffy. Nachfolger: keiner (nur Pflege)
 
-**Übergabe Tuffy (12.11., 16:17):** 1036 beim Chef; 1039, 1040 Filmläufe laufen. Nachfolger: Tuffy – 1039/1040: Filme an den Chef
+**Übergabe Tuffy (12.11., 16:50):** Filme 1039, 1040 unbrauchbar, behoben; neuer Lauf nach 1053 (Sokrates). Nachfolger: keiner
 
 ## Einzelheiten
 - **Hinweis von Tom (12.11., 16:40):** `tests/mars_regeln.gd` 222 ruft auf build-280 `b.massstab()`, das es seit dem Umzug nicht gibt (SCRIPT ERROR, dazu „'atk'“); `godot-kampf.yml` bleibt grün, weil es nur „0 abweichend“ sucht.
