@@ -46,7 +46,7 @@ func _lauf() -> void:
 		print("BRS478 FALSCH daten/werte.json fehlt")
 		quit(1)
 		return
-	tables = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	tables = Tabellen.lade()
 	for s in tables.skills:
 		skills[s.id] = s
 	var monsters := {}
@@ -71,8 +71,6 @@ func _lauf() -> void:
 	var wolf := BrsKampf.gegner(monsters.wolf, monsters.wolf)
 	pruefe("Wolf nach dem Bestiarium: Stufe 2, Leben 25, Angriff 15", int(wolf.stufe) == 2 and int(wolf.leben) == 25 and int(wolf.angriff) == 15, str(wolf))
 	var jung: Dictionary = monsters.wolf.duplicate(true)
-	jung.atk = int(monsters.wolf.atk) - 1
-	jung.dmg = [1, 3, 0]
 	jung.scale = 0.55
 	jung.chance = 0.5
 	jung.rudel = "Jungwolf"     # 870.3: Werte aus werte.json „merkmale“ „rudel“

@@ -75,6 +75,8 @@ static func reward(mars, stand: Dictionary, dice, gebiet := "", gear := []) -> D
 		var m: Dictionary = leader.monster
 		gold = int(dice.roll_expr(m.gold)) if m.has("gold") else 0
 		for e in m.get("loot", []):
+			if String(e.item) == "spider_silk" and foes.any(func(f): return f.seide_weg):     # 870.6 Gegenwirkung: verbrannt
+				continue
 			if dice.chance(float(e.chance)) and mars.items.has(e.item):
 				items.append(e.item)
 	var earned := roundi(float(r.gegeben))

@@ -1,14 +1,13 @@
 extends RefCounted
 # 478 (Chef 07.11., 16:3x: „Wir packen das BRS auf jeden Fall jetzt auch mit dazu“; 470a C: der Rechenkern des Kampfs zieht vor, die
-# Darstellung bleibt bei 2.3): MARS rechnet Treffer, Schaden und Leben nach dem BRS, Modell D (DESIGN-SPIELSYSTEM-2-0-ENTWURF.md
+# Darstellung bleibt bei 2.3): MARS rechnet Treffer, Schaden und Leben nach dem BRS, Modell D (DESIGN-BRS.md
 # Abschnitt 7 und Entwurf A), mit denselben Formeln und Zahlen wie die Simulation 444 (tools/sim444/sim.py, daten/werte.json über
 # regeln/brs.gd). Hier stehen nur die Brücken: was ein Kämpfer nach dem BRS ist (Grundwerte, Fertigkeiten, Waffe, Rüstung, Schild,
 # Stufe) und ein Schlag mit allen Einzelheiten für Bericht, Bild und Zustände.
 # Seit 870.5 ohne Schalter: der SRD-Zweig der Angriffe in mars.gd ist weg.
 # Annahmen (A), bis 2.3 und die Pfade sie ersetzen: ohne Spielstand nach BRS (Probekampf, Söldner) gilt die Herkunft der alten Klasse
-# mit ihren Startfertigkeiten; Waffen und Rüstungen des Helden (BrsHeld) zählen nach ihrer Gruppe; was noch in Würfeln des SRD rechnet
-# (Fähigkeiten der Klassen, Zauber mit Rettungswurf, Heilung, Tränke, Zustände), wird mit dem Verhältnis der Leben nach BRS zu SRD
-# des Getroffenen umgerechnet (massstab), so bleibt ihr Gewicht im Kampf, wie es war.
+# mit ihren Startfertigkeiten; Waffen und Rüstungen des Helden (BrsHeld) zählen nach ihrer Gruppe, mit Güte (870.6). Seit 870.6 rechnet
+# nichts mehr im Maß der alten Trefferpunkte: Zustände, Heilung, Sammeln, Schwächung nach werte.json „zustaende“.
 
 const Brs = preload("res://regeln/brs.gd")
 const BrsHeldS = preload("res://regeln/brs_held.gd")
@@ -45,7 +44,7 @@ static func mittel(expr) -> float:
 	return float(expr[0]) * (float(expr[1]) + 1.0) / 2.0 + float(expr[2])
 
 
-## Was ein Held oder Söldner nach dem BRS ist. [sheet]: MARS-Blatt (aufruf.blatt, tabellen.json „probe“); [daten]: der Held nach BRS
+## Was ein Held oder Söldner nach dem BRS ist. [sheet]: MARS-Blatt (aufruf.blatt, Tabellen.probe()); [daten]: der Held nach BRS
 ## aus dem Spielstand (BrsHeld.als_daten, zustand.brs) oder leer.
 static func held(sheet: Dictionary, daten := {}) -> Dictionary:
 	var W := w()
@@ -87,7 +86,11 @@ static func aus_blatt(k: Dictionary) -> Dictionary:
 	return {"stufe": int(k.get("stufe", 1)), "werte": (k.get("werte", {}) as Dictionary).duplicate(), "fert": (k.get("fert", {}) as Dictionary).duplicate(),
 		"herkunft": String(k.get("herkunft", "Wanderer")), "ruestung": String(k.get("ruestung", {}).get("art", "keine")),
 		"schild": not (k.get("schild", {}) as Dictionary).is_empty(), "zauber": (k.get("faehigkeiten", []) as Array).filter(func(z): return w()["zauber"].has(z)),
-		"waffe": String(k.get("waffe", {}).get("gruppe", "")), "leben": int(k.get("leben", 0)), "volk": String(k.get("volk", ""))}
+		"waffe": String(k.get("waffe", {}).get("gruppe", "")), "leben": int(k.get("leben", 0)), "volk": String(k.get("volk", "")),
+		# 870.6: Güte der getragenen Stücke als Faktor, Zusatzeigenschaften (Schutzwert, kritisch, Zauberschaden, Abwehrprobe), Mana
+		"waffe_faktor": float(k.get("waffe", {}).get("guete_faktor", 1.0)), "ruestung_faktor": float(k.get("ruestung", {}).get("guete_faktor", 1.0)),
+		"schild_faktor": float(k.get("schild", {}).get("guete_faktor", 1.0)), "zusatz": (k.get("zusatz", {}) as Dictionary).duplicate(),
+		"mana": int(k.get("mana", 0))}
 
 
 ## 870.2: Waffengruppe, mit der der Held schlägt: die Hauptwaffe aus dem Blatt, eine gezogene Zweitwaffe ([zweite]) nach ihrer Grundform
@@ -137,16 +140,17 @@ static func held_abwehr(b: Dictionary, art: String, waffe: String, schild_in_han
 	return best
 
 
-## Abzug des Helden: Rüstung × (1 + Rüstungsfertigkeit/100), dazu der Schild × (1 + Schild/100), wenn er ihn trägt.
+## Abzug des Helden: Rüstung × Güte × (1 + Rüstungsfertigkeit/100), dazu der Schild × Güte × (1 + Schild/100), wenn er ihn trägt, und
+## der Schutzwert der Zusatzeigenschaften (870.6).
 static func held_abzug(b: Dictionary, schild_in_hand: bool) -> float:
 	var W := w()
 	var k: Dictionary = W["kampf"]
 	var r: Dictionary = W["ruestungen"].get(b.ruestung, W["ruestungen"]["keine"])
 	var je := float(k["ruestungsfertigkeit_im_abzug_je_punkt"])
-	var a := float(r["wert"]) * (1.0 + (float(b.fert.get(String(r["fertigkeit"]), 0)) if r["fertigkeit"] != null else 0.0) * je)
+	var a := float(r["wert"]) * float(b.get("ruestung_faktor", 1.0)) * (1.0 + (float(b.fert.get(String(r["fertigkeit"]), 0)) if r["fertigkeit"] != null else 0.0) * je)
 	if b.schild and schild_in_hand:
-		a += float(W["ruestungen"]["schild_wert"]) * (1.0 + float(b.fert.get("Schild", 0)) * je)
-	return a
+		a += float(W["ruestungen"]["schild_wert"]) * float(b.get("schild_faktor", 1.0)) * (1.0 + float(b.fert.get("Schild", 0)) * je)
+	return a + float(b.get("zusatz", {}).get("schutz", 0))     # 870.6: Güte, Schutzwert der Zusatzeigenschaften
 
 
 ## Ein Schlag mit den Würfeln aus [rng] in der Reihenfolge der Simulation (Treffer, Glück, kritisch, Streuung) wie Brs.schaden, mit

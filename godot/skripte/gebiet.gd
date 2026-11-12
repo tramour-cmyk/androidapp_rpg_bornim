@@ -19,6 +19,9 @@ var halm_mmi: MultiMeshInstance3D       # 804: unser Gras, aus, solange das Gras
 var kit_gras: Array[MultiMeshInstance3D] = []
 var kit_stellen: Array[Vector3] = []
 var kit_art := PackedByteArray()
+var effekte: DorfEffekte             # 814 Effekte Szene 1 (Kaminrauch, Fackeln, Staub, Fahne, Wind, Federn), nach DorfEffekte.an
+var bereit := false                   # 814: aufgebaut (gras_neu darf die Effekte schalten)
+var insel_ohne := PackedVector4Array()   # 814: Lichtinseln ohne die der Effekte (Fackel der Schenke)
 
 # 804: Gras und Blumen des Kits an den Stellen unseres Grases, unser Gras dann aus; nach GrasBausatz.an (Grafikstufe 698, Testmenue)
 func gras_neu() -> void:
@@ -27,6 +30,10 @@ func gras_neu() -> void:
 	for m in kit_gras: m.visible = GrasBausatz.an
 	if halm_mmi: halm_mmi.visible = kit_gras.is_empty() or not GrasBausatz.an
 	if held and GrasBausatz.an and not kit_gras.is_empty(): GrasBausatz.schieber(held)
+	# 814: bis zum Ende des Umzugs schaltet „Gras“ im Testmenue auch die Effekte der Szene 1 (Bilder/s mit und ohne Pakete);
+	# spiel.gd und testmodus.gd aendert bis dahin nur der Umzug (LISTE-UMZUG-BRS 2.5), danach ein eigener Schalter
+	DorfEffekte.an = GrasBausatz.an
+	if bereit: effekte_neu()
 var insel_liste := PackedVector4Array()
 var lampen: Array[OmniLight3D] = []
 var raumlicht: Raumlicht   # 399.5 Grundriss
@@ -45,7 +52,15 @@ var glut: Array[ShaderMaterial] = []  # 490 Glut im Feuer
 func _init(k: Karte) -> void:
 	karte = k
 	Licht.nach_licht.clear()
+	mip_aufraeumen()
 	name = "Gebiet_" + k.id
+
+# 680 (Chef 08.11., 16:16: Wald -> Dorf -> Schenke immer zaeher, dann Absturz): die Vorlage des Heilkrauts haengt nicht im Baum und
+# ging beim Ortswechsel nicht mit; sie hielt ihr Netz samt Bildern der ganzen Karte fest (sprung_680: je Runde Wald, Dorf, Schenke
+# rund 100 MB mehr Speicher). Jetzt mit dem Gebiet frei
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_PREDELETE and kraut_netz and is_instance_valid(kraut_netz) and kraut_netz.get_parent() == null:
+		kraut_netz.free()
 
 func _ready() -> void:
 	var stamm := "res://daten/" + datei(karte.id)
@@ -79,6 +94,36 @@ func _ready() -> void:
 	else: baue_lampen()
 	baue_leben()
 	if String(karte.daten.get("art", "")) == "FOREST": baue_dunkel()
+	insel_ohne = insel_liste
+	bereit = true
+	effekte_neu()
+
+# 814: Effekte der Szene 1 nach DorfEffekte.an (Grafikstufe 698, Testmenue); aus: unser Rauch und die Lichtinseln wie vorher
+func effekte_neu() -> void:
+	var soll := DorfEffekte.aktiv() and DorfEffekte.fuer(karte.id)
+	if soll and effekte == null:
+		effekte = DorfEffekte.new(self)
+		add_child(effekte)
+		effekte.nacht_k = nacht_jetzt
+		effekte.baue()
+	elif not soll and effekte:
+		effekte.queue_free()
+		effekte = null
+		for r in rauch: r.visible = true
+		inseln_setzen(insel_ohne)
+
+## 814: eine Lichtinsel dazu (Boden, Gras, Wasser malen sie selbst, BODEN_SCHICHT)
+func insel_dazu(i: Vector4) -> void:
+	var neu := insel_liste.duplicate()
+	neu.append(i)
+	inseln_setzen(neu.slice(0, 64))
+
+func inseln_setzen(inseln: PackedVector4Array) -> void:
+	insel_liste = inseln
+	for m in [boden, halme, wasser, korn_mat]:
+		if m:
+			m.set_shader_parameter("inseln", inseln)
+			m.set_shader_parameter("inseln_n", inseln.size())
 
 # 490 Kartenrand (Orte und Welt W19, alt MapEdge): hinter dem Waldring laeuft der Wald ins Dunkel; ab 3 Kacheln vor dem Rand
 # weich dunkler, ab 12 schwarz (liegt knapp ueber dem Boden, Baeume des Rings stehen darin)
@@ -228,17 +273,30 @@ static func bild(name: String) -> ImageTexture:
 	texcache[name] = t
 	return t
 
+# 680 (Chef 08.11., 16:16: Wald -> Dorf -> Schenke immer zaeher, dann Absturz ohne Fehlerzeile): mip legte jedes Bild unter dem
+# Bildobjekt des glTF ab, das bei jedem Laden neu ist, und hielt beide fuer immer fest; je Ortswechsel blieben Karte, Held und Leute
+# im Speicher (sprung_680: je Runde Wald, Dorf, Schenke rund 105 MB mehr). Jetzt nur schwach gemerkt: dasselbe Bild in mehreren
+# Materialien eines Ladens bleibt eins, mit dem Ort geht es
+static var mipcache := {}   # Kennung des glTF-Bilds -> WeakRef auf das Bild mit Mipmaps
+
 static func mip(t: Texture2D) -> Texture2D:
 	# Bilder aus dem glTF bekommen Mipmaps (sonst flimmern Muster in der Ferne)
 	if t == null: return null
-	if texcache.has(t): return texcache[t]
+	var id := t.get_instance_id()
+	if mipcache.has(id):
+		var alt = (mipcache[id] as WeakRef).get_ref()
+		if alt: return alt
 	var img := t.get_image()
 	if img == null: return t
 	if img.is_compressed(): img.decompress()
 	if not img.has_mipmaps(): img.generate_mipmaps()
 	var r := ImageTexture.create_from_image(img)
-	texcache[t] = r
+	mipcache[id] = weakref(r)
 	return r
+
+static func mip_aufraeumen() -> void:   # 680: Eintraege, deren Bild schon frei ist
+	for id in mipcache.keys():
+		if (mipcache[id] as WeakRef).get_ref() == null: mipcache.erase(id)
 
 # Schablone (Stencil) fuer die Tusche wie Probe Build 12: 1 = Blueten (ohne Linie, sonst schwarze Kaefer) und Buesche (eigene Linie), 2 = Held (feinere Linie)
 static var markiert := {}
@@ -304,7 +362,10 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 			mi.set_surface_override_material(i, m)
 	for c in n.get_children(): male(c, g, mark, aus)
 
+var nacht_jetzt := 0.0
 func nacht(k: float) -> void:
+	nacht_jetzt = k
+	if effekte: effekte.nacht(k)
 	if raumlicht: raumlicht.nacht(k)
 	# 348.9: nachts wie alt geeicht (Laternen, Fenster, Lichtinseln am Boden kleiner; alt p90 46)
 	for o in lampen: o.light_energy = 1.4 * k   # 348.6: alt nur ein kleiner Hof um die Laterne (Helfer: neu 4-mal zu hell, zu weit)

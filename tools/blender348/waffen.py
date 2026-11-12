@@ -49,9 +49,16 @@ def box(P, lo, hi, col):
               [(x0, y0, z0), (x1, y0, z0), (x1, y0, z1), (x0, y0, z1)], [(x0, y1, z0), (x0, y1, z1), (x1, y1, z1), (x1, y1, z0)],
               [(x0, y0, z0), (x0, y0, z1), (x0, y1, z1), (x0, y1, z0)], [(x1, y0, z0), (x1, y1, z0), (x1, y1, z1), (x1, y0, z1)]):
         face(P, q, col)
+# 948 B für alle Klingen (Chef 11.11., 15:03: „Das gilt für alles, wie du es empfohlen hattest.“): jede Klinge an der Wurzel
+# nicht unter 3 cm, 1 cm dick (Regel des Kobold-Dolchs, Runde 3c), sonst ist sie im Kampfbild ein Strich; Maße wie die
+# Parameter von blade() (w0, t0: von der Mitte bis zur Schneide bzw. zur Fläche). Prüft jede Klinge beim Bau, waffe_948 im Lauf
+KLINGE_WURZEL, KLINGE_DICKE = 3.0, 1.0
+
 def blade(P, z0, length, w0, w1, t0, tip, fuller=0.0, curve=0.0):
     """Klinge ab z0 (cm) nach +Z: Rauten-Querschnitt (Schneide ±X, Fläche ±Y), verjüngt von w0 auf w1, Spitze tip cm lang;
     curve (cm, Dress.kt): die Klinge biegt sich zur Spitze um curve · (Anteil der Länge)² nach X (Krummsäbel −7)"""
+    assert w0 >= KLINGE_WURZEL and t0 >= KLINGE_DICKE, \
+        'Klinge %.2f breit, %.2f dick an der Wurzel: Mindestmaß %.1f und %.1f (948 B für alle Klingen)' % (w0, t0, KLINGE_WURZEL, KLINGE_DICKE)
     steps = 10 if curve else 6
     rows = []
     body = length - tip
@@ -97,17 +104,22 @@ def shield_board(P, outline, thick, face_col, rim=IRON, stripe=None):
     bm.free()
     box(P, (-5 * CM, 0, -1.2 * CM), (5 * CM, 3 * CM, 1.2 * CM), LEATHER)   # die Fessel
 
-def build_dagger(P): sword(P, 4.5, 4.0, 1.25, 1.5, 4.6, 4.2, 0.6, 23.0, 1.6, 1.0, 0.38, 8.0)
+# 948 (Chef 11.11., 13:33, t276.12: Herumtreiber „im Kampf nichts in der Hand zu sehen“): die Klinge aus Dress.kt (1,6 cm breit, 0,38 dick)
+# ist im Kampfbild ein Strich; nach der Regel des Kobold-Dolchs (Runde 3c): an der Wurzel 3 cm, Parierstange steht vor; Chef 14:59
+# „948 B“ (0,9 dick), 15:03 Mindestmaß für alle Klingen (1 cm dick): 1,0
+def build_dagger(P): sword(P, 4.5, 4.0, 1.35, 1.6, 4.8, 5.5, 0.8, 25.0, 3.0, 1.8, 1.0, 8.0)
 # Goblin Runde 6 (Prüfer Runde 5: Dolch mit der Hand ein schwarzer Klumpen): breiter und länger, eine Parierstange, die vorsteht
-def build_dagger_gob(P): sword(P, 4.5, 4.5, 1.4, 1.7, 5.0, 5.5, 0.7, 32.0, 2.4, 1.4, 0.45, 10.0)
+# 948 B für alle Klingen: Wurzel 2,4 → 3,0 (Spitzenbreite im selben Verhältnis), dick 0,45 → 1,0
+def build_dagger_gob(P): sword(P, 4.5, 4.5, 1.4, 1.7, 5.0, 5.5, 0.7, 32.0, 3.0, 1.75, 1.0, 10.0)
 # Kobold Runde 3 (Diogenes r2c (e): Dolch wie eine Gabel; Prüfer: die Umrisslinie läuft an beiden Seiten der dünnen Klinge als
 # zwei Zinken über die Spitze hinaus): breites, kurzes Schlachtmesser mit dicker, stumpfer Spitze, die Linie schließt sich
 # Kobold Runde 3b (Prüfer 3a: der Dolch im Kampfbild Pixelstaub, 3,6 cm Klinge sind dort 6 Bildpunkte): kürzer und breiter, Griff dicker
 # Kobold Runde 3c (Prüfer 3b: ein Schlachtmesser, die Liste verlangt einen Dolch): Dolchklinge, die sich zur Spitze verjüngt,
 # breit genug, dass die Umrisslinie sich schließt (nicht unter 3 cm an der Wurzel, dick 1 cm), vorstehende Parierstange
 def build_dagger_kobold(P): sword(P, 4.0, 4.0, 1.6, 1.9, 4.8, 6.5, 0.9, 22.0, 3.6, 2.2, 1.0, 9.0)
-def build_shortsword(P): sword(P, 5.0, 5.0, 1.35, 1.9, 5.6, 6.5, 0.7, 41.0, 2.3, 1.8, 0.4, 8.0, 0.6)
-def build_longsword(P): sword(P, 9.0, 5.0, 1.35, 2.2, 5.6, 10.0, 0.75, 69.0, 2.5, 1.5, 0.42, 12.0, 0.65)
+# 948 B für alle Klingen: Kurzschwert Wurzel 2,3 → 3,0, Langschwert 2,5 → 3,0 (Spitzenbreite im selben Verhältnis), dick → 1,0
+def build_shortsword(P): sword(P, 5.0, 5.0, 1.35, 1.9, 5.6, 6.5, 0.7, 41.0, 3.0, 2.35, 1.0, 8.0, 0.6)
+def build_longsword(P): sword(P, 9.0, 5.0, 1.35, 2.2, 5.6, 10.0, 0.75, 69.0, 3.0, 1.8, 1.0, 12.0, 0.65)
 def build_quarterstaff(P):
     # Kampfstab: in der Mitte gefasst (buttPart 1,0), 85 cm vor und hinter der Hand, Lederwicklung an der Hand
     tube(P, -85, 85, 1.6, 1.45, WOOD, n=8)
@@ -165,7 +177,8 @@ def build_crude_shield(P):
     bm.free()
     box(P, (-5 * CM, 0, -1.2 * CM), (5 * CM, 3 * CM, 1.2 * CM), LEATHER)   # die Fessel
 # 348.7 Goblin (MonsterKits): Krummsäbel und Handbeil wie Dress.kt (grip, guard, blade, haft, HEAD_AT)
-def build_scimitar(P): sword(P, 5.0, 5.0, 1.3, 1.6, 5.6, 5.0, 0.6, 59.0, 1.8, 2.5, 0.42, 13.0, curve=-7.0)
+# 948 B für alle Klingen: Wurzel 1,8 → 3,0, die Klinge wird zur Spitze breiter im selben Verhältnis (2,5 → 4,2), dick → 1,0
+def build_scimitar(P): sword(P, 5.0, 5.0, 1.3, 1.6, 5.6, 5.0, 0.6, 59.0, 3.0, 4.2, 1.0, 13.0, curve=-7.0)
 def build_handaxe(P, s=1.0, sz=None):
     # Stiel 9 cm hinter, 37 cm vor der Hand; Kopf bei 32 cm: Tülle, Blatt nach +X (Schneide), Nacken nach −X
     # s: Kopf größer (Goblin Runde 6, Prüfer Runde 5: Beilkopf dunkel und klein)
@@ -234,7 +247,7 @@ def build_spear(P):
     tube(P, -40, 62, 1.25, 1.1, WOOD, n=8)
     tube(P, -4, 5, 1.4, 1.4, LEATHER, n=8)
     tube(P, 60, 66, 1.5, 1.2, DARK, n=8)
-    blade(P, 65, 15, 1.6, 2.4, 0.5, 7.0)
+    blade(P, 65, 15, 3.0, 4.5, 1.0, 7.0)   # 948 B für alle Klingen: Blatt an der Wurzel 1,6 → 3,0 (breiteste Stelle 2,4 → 4,5), dick → 1,0
 
 # 348.7 Goblin-Späher (MonsterKits goblin_archer): Kurzbogen wie Dress.bow, ungespannt in Ruhe: 0,58 der Größe des Menschen
 # (101 cm), Griff am Ursprung, Wurfarme längs +Z, der Rücken des Bogens nach +X (zum Gegner), die Spitzen 9 % der Länge

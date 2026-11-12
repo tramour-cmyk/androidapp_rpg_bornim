@@ -20,7 +20,7 @@ func _initialize() -> void:
 		print("HANDLUNGEN870 FALSCH daten/werte.json fehlt")
 		quit(1)
 		return
-	tab = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	tab = Tabellen.lade()
 	for s in tab.skills:
 		skills[s.id] = s
 	for m in tab.monsters:
@@ -281,6 +281,15 @@ func _zauber() -> void:
 	var m = _kampf("Einhänder", {"Evokation": 25, "Heilmagie": 25, "Schutzmagie": 10}, ["wolf"])
 	var h = m.by_id("hero")
 	h.b.zauber = ["Funkenpfeil", "Wundsegen", "Bannschild"]
+	# 870.4 (DESIGN-BRS.md 7, [870.14.ding.metall]): in Metall (mittlere, schwere Rüstung) keine Evokation, Illusion, Beschwörung
+	m._brs_zauber_kennen(h)
+	var in_metall: Array = m.moves(h)
+	pruefe("Mittlere Rüstung: keine Evokation, Heil- und Schutzmagie bleiben",
+			not ("Z_FUNKEN" in in_metall or "Z_STRAHLEN" in in_metall or "Z_FAECHER" in in_metall) and "Z_WUND" in in_metall and "Z_BANN" in in_metall, str(in_metall))
+	h.b.ruestung = "Schwere Rüstung"
+	m._brs_zauber_kennen(h)
+	pruefe("Schwere Rüstung: keine Evokation", not ("Z_FUNKEN" in m.moves(h)), str(m.moves(h)))
+	h.b.ruestung = "Leichte Rüstung"
 	m._brs_zauber_kennen(h)
 	var mv: Array = m.moves(h)
 	pruefe("Zauber aus dem Kampfblatt und nach Schule (Evokation 25: Glutstrahlen, Flammenfächer; nicht Glutkugel ab 40)",

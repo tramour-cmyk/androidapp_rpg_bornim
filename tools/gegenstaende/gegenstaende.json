@@ -1973,8 +1973,8 @@
   {
    "id": "gauntlets_ogre",
    "name": {
-    "de": "Handschuhe der Ogerkraft",
-    "en": "Gauntlets of Ogre Power"
+    "de": "Kroggs Pranken",
+    "en": "Krogg's Gauntlets"
    },
    "art": "einzelstueck",
    "platz": "arme",
@@ -2106,10 +2106,10 @@
    "platz": "haupthand",
    "stufe": 4,
    "preis": 0,
-   "netz": null,
+   "netz": "waffen.py dagger",
    "material": null,
    "zeichen": null,
-   "modell": null,
+   "modell": "unser Netz (waffen.py, Jerry)",
    "bezug": [
     {
      "weg": "fund"
@@ -2125,7 +2125,7 @@
     "stufe": null,
     "quelle": "Kotlin"
    },
-   "grundform": "rapier"
+   "grundform": "dagger"
   },
   {
    "id": "mace_of_dawn",
@@ -2157,6 +2157,114 @@
     "quelle": "Kotlin"
    },
    "grundform": "mace"
+  },
+  {
+   "id": "greatsword_nameless",
+   "name": {
+    "de": "Die Namenlose",
+    "en": "The Nameless"
+   },
+   "art": "einzelstueck",
+   "platz": "beide_haende",
+   "stufe": 4,
+   "preis": 0,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "fund",
+     "wo": "Truhe in der Blutzahnhöhle (cave_3, 870.14)"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Ein Zweihänder mit schartiger Schneide. In die Klinge ist ein Name geritzt, den keiner mehr lesen kann.",
+    "en": "A greatsword with a notched edge. Scratched into the blade is a name no one can read anymore."
+   },
+   "grundform": "greatsword"
+  },
+  {
+   "id": "spear_wolf",
+   "name": {
+    "de": "Wolfsspieß",
+    "en": "Wolfspear"
+   },
+   "art": "einzelstueck",
+   "platz": "haupthand",
+   "stufe": 4,
+   "preis": 0,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "fund",
+     "wo": "Truhe in der Blutzahnhöhle (cave_3, 870.14)"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Ein Spieß mit eiserner Querstange. Am Schaft Kerben, eine für jeden Wolf.",
+    "en": "A spear with an iron crossbar. Notches on the shaft, one for every wolf."
+   },
+   "grundform": "spear"
+  },
+  {
+   "id": "longbow_blackyew",
+   "name": {
+    "de": "Schwarzeibe",
+    "en": "Blackyew"
+   },
+   "art": "einzelstueck",
+   "platz": "beide_haende",
+   "stufe": 4,
+   "preis": 0,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "fund",
+     "wo": "Truhe in der Blutzahnhöhle (cave_3, 870.14)"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Ein Langbogen aus dunkler Eibe, die Griffwicklung von vielen Händen glatt.",
+    "en": "A longbow of dark yew, its grip worn smooth by many hands."
+   },
+   "grundform": "longbow"
+  },
+  {
+   "id": "crossbow_nightwatch",
+   "name": {
+    "de": "Nachtwache",
+    "en": "Nightwatch"
+   },
+   "art": "einzelstueck",
+   "platz": "beide_haende",
+   "stufe": 4,
+   "preis": 0,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "fund",
+     "wo": "Truhe in der Blutzahnhöhle (cave_3, 870.14)"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Eine schwere Armbrust mit dem verblassten Zeichen der Dorfwache. Der Spannhebel quietscht.",
+    "en": "A heavy crossbow with the faded mark of the village watch. The lever squeaks."
+   },
+   "grundform": "light_crossbow"
   },
   {
    "id": "amulet_grimfang",
@@ -2193,8 +2301,8 @@
   {
    "id": "cloak_protection",
    "name": {
-    "de": "Umhang des Schutzes",
-    "en": "Cloak of Protection"
+    "de": "Wehrmantel",
+    "en": "Bulwark Cloak"
    },
    "art": "einzelstueck",
    "platz": "umhang",
@@ -2866,6 +2974,29 @@
     "stufe": null,
     "quelle": "Kotlin"
    }
+  },
+  {
+   "id": "spider_silk",
+   "name": {
+    "de": "Spinnseide",
+    "en": "Spider Silk"
+   },
+   "art": "rohstoff",
+   "platz": null,
+   "stufe": 1,
+   "preis": 20,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "beute",
+     "wo": "Riesenspinne (870.6; Feuer verbrennt sie, LISTE-BESTIARIUM.md)"
+    }
+   ],
+   "zustand": false,
+   "text": null
   },
   {
    "id": "bat_wing",

@@ -92,7 +92,8 @@ func _lauf() -> void:
 	pruefe("Truhen und Kraeuter", not z.has("kiste:cave_1") and z.gepflueckt.is_empty())
 	# Stationen: Merker bis dahin, spaetere geloescht, Schluesseldinge, ein begehbares Feld
 	var erwartet := {"Garrick": ["barrier_open", "hunter_met"], "Morwen": ["krogg_hint", "hedda_met"], "Grimmzahn": ["smoke_given", "grimfang_defeated"],
-		"Höhle": ["grimfang_defeated", "cave_seen"], "Krogg": ["cave_seen", "krogg_defeated"], "Grak": ["gate_open", "grak_defeated"], "Lyra": ["grak_defeated", "lyra_rescued"]}
+		"Höhle": ["grimfang_defeated", "cave_seen"], "Krogg": ["cave_seen", "krogg_defeated"], "Grak": ["gate_open", "grak_defeated"], "Lyra": ["grak_defeated", "lyra_rescued"],
+		"Tempel": ["lyra_gone", "chapter1_done"]}
 	for s in Testmodus.STATIONEN:
 		var n := String(s[0])
 		z.setze(Geschichte.CHAPTER1_DONE)
@@ -107,7 +108,7 @@ func _lauf() -> void:
 		pruefe("Station %s Blick" % n, String(ziel[2]) in ["UP", "DOWN", "LEFT", "RIGHT"], str(ziel[2]))
 		var rauch := z.anzahl(Geschichte.SMOKE_BUNDLE)
 		pruefe("Station %s Rauchbuendel" % n, rauch == (1 if n in ["Grimmzahn", "Höhle", "Krogg"] else 0), str(rauch))
-		pruefe("Station %s Amulett" % n, z.anzahl("sun_amulet") == (1 if n == "Lyra" else 0), str(z.anzahl("sun_amulet")))
+		pruefe("Station %s Amulett" % n, z.anzahl("sun_amulet") == (1 if n in ["Lyra", "Tempel"] else 0), str(z.anzahl("sun_amulet")))
 		pruefe("Station %s Graks Schluessel" % n, z.anzahl("grak_key") == (1 if n == "Lyra" else 0), str(z.anzahl("grak_key")))
 	# Grak: der Weg hinauf fuehrt ueber das Feld, auf dem er spricht (Geschichte.ausloeser, Zeile 4)
 	Testmodus.station("Grak", z)
@@ -135,7 +136,7 @@ func _lauf() -> void:
 
 # MARS mit den Kampfhilfen: jeder Waffenwurf des Helden ausser der 1 trifft (kritisch), Gegner weichen keinem Zauber aus, der Held faellt nie
 func _mars() -> void:
-	var tables: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	var tables: Dictionary = Tabellen.lade()
 	var skills := {}
 	for s in tables.skills: skills[s.id] = s
 	var wolf: Dictionary

@@ -20,14 +20,16 @@ func _lauf() -> void:
 	Sprache.lade()
 	# 870.4 (STORY-BRS-HELD.md „Die Truhe in der Blutzahnhöhle“): die Waffe zur stärksten Fertigkeit, Gleichstand nach der Folge
 	var faelle := [[{}, "longsword_oakford"], [{"Einhänder": 10, "Schild": 10}, "longsword_oakford"], [{"Dolche": 12, "Einhänder": 10}, "rapier_whisper"],
-		[{"Bogen": 12, "Dolche": 10}, "rapier_whisper"], [{"Evokation": 10, "Schutzmagie": 10}, "staff_of_embers"], [{"Heilmagie": 10, "Stumpfe Waffen": 10}, "mace_of_dawn"],
-		[{"Heilmagie": 12, "Einhänder": 10}, "mace_of_dawn"], [{"Einhänder": 10, "Evokation": 10}, "longsword_oakford"], [{"Zweihänder": 20, "Stumpfe Waffen": 5}, "mace_of_dawn"]]
+		[{"Bogen": 12, "Dolche": 10}, "longbow_blackyew"], [{"Evokation": 10, "Schutzmagie": 10}, "staff_of_embers"], [{"Heilmagie": 10, "Stumpfe Waffen": 10}, "mace_of_dawn"],
+		[{"Heilmagie": 12, "Einhänder": 10}, "mace_of_dawn"], [{"Einhänder": 10, "Evokation": 10}, "longsword_oakford"], [{"Zweihänder": 20, "Stumpfe Waffen": 5}, "greatsword_nameless"],
+		[{"Stangenwaffen": 15, "Einhänder": 10}, "spear_wolf"], [{"Armbrust": 15, "Bogen": 10}, "crossbow_nightwatch"],
+		[{"Wurfwaffen": 20, "Dolche": 12}, "rapier_whisper"]]     # 870.6: vier neue Stücke; Wurfwaffen noch ohne, dann die nächststärkere
 	for f in faelle:
 		var w := Geschichte.truhen_waffe(f[0])
 		pruefe(w == f[1], "%s bekommt %s (soll %s)" % [f[0], w, f[1]])
 	for w in Geschichte.TRUHE_STUECK.values():
-		pruefe(Sprache.texte.get("einzelstuecke", {}).get(w, {}).has("grundform"), "%s ist ein Einzelstück mit Grundform" % w)
-	pruefe(Geschichte.truhen_waffe(BrsHeld.fuer_spiel("T", "Mensch", "Jägerkind").fertigkeiten_jetzt()) == "longsword_oakford", "Jägerkind ohne Bogenstück: Einhänder")
+		pruefe(Beute.einzelstueck(w).has("grundform") and Katalog.hat(w), "%s ist ein Einzelstück mit Grundform und im Katalog (870.6)" % w)
+	pruefe(Geschichte.truhen_waffe(BrsHeld.fuer_spiel("T", "Mensch", "Jägerkind").fertigkeiten_jetzt()) == "longbow_blackyew", "Jägerkind: Schwarzeibe (870.6)")
 	pruefe(Geschichte.truhen_waffe(BrsHeld.fuer_spiel("T", "Mensch", "Zauberlehrling").fertigkeiten_jetzt()) == "staff_of_embers", "Zauberlehrling: Glutstab")
 	var k: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://daten/karten.json"))["karten"]
 	var truhe := {}

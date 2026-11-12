@@ -36,6 +36,7 @@ var root: Control
 var overlay: Control
 var panel: PanelContainer
 var log_area: Control
+var log_box: PanelContainer     # 532: weicht der rollbaren Tasche, solange sie offen ist
 var party_row: HBoxContainer
 var orders: VBoxContainer
 var full_log: PanelContainer
@@ -170,7 +171,7 @@ func _ready() -> void:
 	var col := VBoxContainer.new()
 	col.add_theme_constant_override("separation", int(6 * dp))
 	panel.add_child(col)
-	var log_box := PanelContainer.new()
+	log_box = PanelContainer.new()
 	log_box.add_theme_stylebox_override("panel", _box(Color.BLACK, Color(RIM, RIM.a * 0.35), 6, 2, 1.0))
 	log_box.custom_minimum_size = Vector2(0, 116 * dp)
 	log_box.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -439,7 +440,11 @@ func refresh() -> void:
 	if not is_inside_tree():
 		return
 	var m = kampfort.mars
+	# 988 (wolf_mess_438, Build 277: Wolf 3,6 m in einem Bild, Ansagen bis 156 dp): nur queue_free ließ die alten Kästen und Knöpfe bis
+	# zum Ende des Bilds stehen, der Kasten war mit alten und neuen ein Bild lang 1207 statt 849 px hoch, die Kamera passte neu und alle
+	# rückten mit dem Boden; seit 945 baut jeder Zug im Kampf die matten Knöpfe neu. Jetzt gleich heraus, dann frei
 	for c in party_row.get_children():
+		party_row.remove_child(c)
 		c.queue_free()
 	for f in m.fighters():
 		if f.side != "PARTY":
@@ -468,14 +473,24 @@ func _am_zug(f) -> bool:
 	return _vorn() == f
 
 
+func _party_box_dran(f) -> bool:
+	return am_zug_565 != "" and laeuft() and _am_zug(f)
+
+
+## 751 A (Chef 09.11., 21:18, t272: keine Knöpfe, keine Zugreihenfolge, „weil ich dann im dritten Zug des Wolfes … tot war …
+## das ist schon alles berechnet“): MARS rechnet den Kampf voraus; für den Spieler läuft er, bis alles gezeigt ist (679)
+func laeuft() -> bool:
+	return kampfort.mars.outcome == "ONGOING" or kampfort.busy
+
+
 ## PartyBox: Farbmarke, Name; Balken in Lebensfarbe und „hp/max“, bei Zauberern „ZP sp/max“ (ohne „LP“).
 func _party_box(f) -> Control:
 	var box := PanelContainer.new()
 	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var dran: bool = am_zug_565 != "" and kampfort.mars.outcome == "ONGOING" and _am_zug(f)
+	var dran: bool = _party_box_dran(f)
 	if dran:
 		box.add_theme_stylebox_override("panel", _box(RAISED, GOLD, 6, 3, 1.5))
-	elif am_zug_565 == "B" and kampfort.mars.outcome == "ONGOING" and _vorn() != null and _vorn().side == "PARTY":
+	elif am_zug_565 == "B" and laeuft() and _vorn() != null and _vorn().side == "PARTY":
 		box.add_theme_stylebox_override("panel", _box(Color.BLACK, Color(RIM, 0.3), 6, 3, 1.0))
 	else:
 		box.add_theme_stylebox_override("panel", _box(Color.BLACK, RIM, 6, 3, 1.0))
@@ -620,6 +635,28 @@ func _choices(items: Array) -> void:
 		i += per
 
 
+## 751 A: wer aus der Gruppe als Nächster wählt, nach der gezeigten Zugleiste (nicht nach MARS, das schon weiter ist); sonst der Held.
+func _naechster_eigener():
+	var k = kampfort
+	for id in k.shown.get("queue", []):
+		var o = k.mars.find(id)
+		if o != null and o.side == "PARTY" and k.shown.hp.get(id, o.hp) > 0:
+			return o
+	return k.mars.lead()
+
+
+## 751 A: „<Name> ist dran“ über den Knöpfen, wer in der Zugleiste das ▶ trägt; Gruppe golden, Gegner rot wie dort.
+func _dran_zeile() -> Label:
+	var l := Label.new()
+	var wer = _vorn()
+	l.text = t("%s ist dran", "%s's turn") % wer.name(lang) if wer != null else " "
+	l.add_theme_font_size_override("font_size", sp(14))
+	l.add_theme_color_override("font_color", (GOLD if wer.side == "PARTY" else WARN) if wer != null else DIM)
+	l.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	l.clip_text = true
+	return l
+
+
 func _target_label(f) -> String:
 	var hp: int = kampfort.shown.hp.get(f.id, f.hp)
 	return "%s  %d/%d" % [f.name(lang), maxi(0, hp), f.max_hp]
@@ -630,7 +667,11 @@ func _spot_name(s: Vector2i) -> String:
 
 
 func _build_orders() -> void:
-	for c in orders.get_children():
+	# 532: Bericht und Befehle zusammen, so hoch wie jetzt; die Tasche nimmt beides ein, damit der Kasten (und die Kamera) nicht springt
+	var ganz_h: float = (log_box.size.y + 6 * dp if log_box.visible else 0.0) + orders.size.y
+	log_box.visible = true
+	for c in orders.get_children():     # 988: gleich heraus (refresh), sonst ein Bild lang doppelt so hoch
+		orders.remove_child(c)
 		c.queue_free()
 	var k = kampfort
 	var m = k.mars
@@ -668,18 +709,21 @@ func _build_orders() -> void:
 		else:
 			orders.add_child(_row([_button(t("Zurück", "Back"), true, func(): k.finish())], 0, true))
 		return
-	if k.busy:
-		var w := Label.new()
-		w.text = "…"
-		w.add_theme_color_override("font_color", DIM)
-		w.add_theme_font_size_override("font_size", sp(14))
-		orders.add_child(w)
+	# 751 A (Chef 09.11., 17:46; t271–t273: „überhaupt keine Knöpfe mehr“, statt dessen „…“) und 833 A (10.11., 10:07: „Man kann es
+	# ja auch ausgrauen“): solange ein anderer zieht (der Kampfort spielt, busy), stehen die Befehlsknöpfe matt an ihrem Platz, darüber
+	# „<Name> ist dran“ nach der gezeigten Zugleiste, nie nach dem, was MARS schon vorausgerechnet hat. Die Zeile steht auch im eigenen
+	# Zug, so bleibt der Kasten gleich hoch (709: sonst passt die Kamera neu). Gefragt wird MARS dabei nicht: der Regelfaden rechnet
+	# gerade weiter. Söldner und Held Auto bleiben schaltbar, sie gelten ab der nächsten Wahl (mit dem Autopiloten ist der Kampfort
+	# sonst immer beschäftigt, und er ließe sich nie mehr abschalten).
+	var matt: bool = k.busy
+	var f = _naechster_eigener() if matt else m.current()
+	if f == null:
 		return
-	var f = m.current()
 	var back := _button(t("Zurück", "Back"), true, func(): _set_pick("main"))
-	match pick:
+	match "main" if matt else pick:
 		"main":
-			var reach: Array = m.targets(f)
+			orders.add_child(_dran_zeile())
+			var reach: Array = [] if matt else m.targets(f)
 			var top := [
 				_button(t("Angriff", "Attack"), not reach.is_empty(), func():
 					if reach.size() == 1:
@@ -687,16 +731,16 @@ func _build_orders() -> void:
 					else:
 						_set_pick("target"), false, false, Tips.ATTACK),
 				_button(t("Können", "Abilities"),     # [870.14.knopf.koennen]
-						 not m.moves(f).is_empty(), func(): _set_pick("skills"), false, false, Tips.SKILLS),
-				_button(t("Tasche", "Bag"), not m.drinkable().is_empty(), func(): _set_pick("bag"), false, false, Tips.BAG),
-				_button(t("Wechsel", "Switch"), m.can_swap(f) or m.can_draw(f), func(): _set_pick("place"), false, false, Tips.PLACE),
+						 not matt and not m.moves(f).is_empty(), func(): _set_pick("skills"), false, false, Tips.SKILLS),
+				_button(t("Tasche", "Bag"), not matt and not m.bag().is_empty(), func(): _set_pick("bag"), false, false, Tips.BAG),
+				_button(t("Wechsel", "Switch"), not matt and (m.can_swap(f) or m.can_draw(f)), func(): _set_pick("place"), false, false, Tips.PLACE),
 			]
-			var low := [_button(t("Abwehr", "Defend"), true, func(): k.order(["wait"]), false, true, Tips.DEFEND)]
+			var low := [_button(t("Abwehr", "Defend"), not matt, func(): k.order(["wait"]), false, true, Tips.DEFEND)]
 			# 296.2: fliehen wie im klassischen Kampf, nie vor einem Boss
 			if not m.all.any(func(x): return x.side == "FOES" and x.boss()):
-				low.append(_button(t("Flucht", "Run"), m.can_flee(f), func(): k.order(["flee"]), false, true))
+				low.append(_button(t("Flucht", "Run"), not matt and m.can_flee(f), func(): k.order(["flee"]), false, true))
 			if f.hero != null and String(f.hero.get("cls", "")) == "FIGHTER":     # 870.4: der Held nach BRS hat keine Klasse
-				low.append(_button(t("Decken", "Cover"), not m.guardable(f).is_empty(), func(): k.order(["guard"]), false, true, Tips.COVER))
+				low.append(_button(t("Decken", "Cover"), not matt and not m.guardable(f).is_empty(), func(): k.order(["guard"]), false, true, Tips.COVER))
 			var merc = m.find("merc")
 			if merc != null:
 				low.append(_button(t("Söldner ", "Mercenary ") + (t("Auto", "auto") if merc.auto else t("selbst", "manual")), true, func():
@@ -785,20 +829,57 @@ func _build_orders() -> void:
 			items.append(back)
 			_choices(items)
 		"bag":
-			var items := []
-			for id in m.drinkable():
+			# 532 (t273.13, Chef: „Früher gab es da so eine Scroll-Liste“; alt BattleScreen.BagMenu): je Ding eine Zeile über die
+			# ganze Breite, Bild links, Name und Anzahl, rollbar an der Stelle des Berichts; „Zurück“ fest darunter. Vorher drei Kästen
+			# je Zeile, nach ihrer Aufschrift breit: mit „×10“ liefen sie rechts aus dem Schirm, „Zurück“ abgeschnitten
+			var liste := VBoxContainer.new()
+			liste.add_theme_constant_override("separation", int(6 * dp))
+			liste.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			for id in m.bag():
 				var it: Dictionary = m.items[id]
 				var item: String = id
-				items.append(_button("%s ×%d" % [[it.de, it.en][lang], int(m.potions[id])], true, func(): _set_pick("drink_at", item)))
-			items.append(back)
-			_choices(items)
+				var zeile := HBoxContainer.new()
+				zeile.add_theme_constant_override("separation", int(8 * dp))
+				var bild := TextureRect.new()
+				bild.texture = Kartenreiter.bild("ding-" + id)
+				bild.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+				bild.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+				bild.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+				bild.custom_minimum_size = Vector2(32, 32) * dp
+				bild.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+				zeile.add_child(bild)
+				var wurf := String(it.get("kind", "")) == "BOMB"     # 935: Wurfmittel wirft man auf einen Gegner
+				var b := _button("%s ×%d" % [[it.de, it.en][lang], int(m.potions[id])], true, func(): _set_pick("throw_at" if wurf else "drink_at", item), false, true)
+				b.alignment = HORIZONTAL_ALIGNMENT_LEFT
+				b.clip_text = true
+				b.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+				zeile.add_child(b)
+				liste.add_child(zeile)
+			var rolle := ScrollContainer.new()
+			rolle.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+			rolle.size_flags_vertical = Control.SIZE_EXPAND_FILL
+			rolle.add_child(liste)
+			log_box.visible = false
+			back.custom_minimum_size.y = 48 * dp
+			rolle.custom_minimum_size.y = maxf(ganz_h - 48 * dp - 6 * dp, 54 * dp)
+			orders.add_child(rolle)
+			orders.add_child(_row([back]))
 		"drink_at":
 			var items := []
 			for tg in m.fighters():
 				if tg.side == f.side and tg.standing():
 					var id: String = tg.id
 					var item: String = pick_arg
-					items.append(_button("%s  %d/%d" % [tg.name(lang), tg.hp, tg.max_hp], true, func(): k.order(["drink", item, id])))
+					# 532 (alt ALREADY_FULL): wem der Trank nichts bringt (volles Leben, beim Kräutertrank auch keine Zustände), der ist nicht wählbar
+					items.append(_button("%s  %d/%d" % [tg.name(lang), tg.hp, tg.max_hp], m.drink_helps(item, tg), func(): k.order(["drink", item, id])))
+			items.append(back)
+			_choices(items)
+		"throw_at":
+			var items := []
+			for tg in m.throw_targets(pick_arg):
+				var id: String = tg.id
+				var item: String = pick_arg
+				items.append(_button(_target_label(tg), true, func(): k.order(["throw", item, id])))
 			items.append(back)
 			_choices(items)
 
@@ -1018,6 +1099,7 @@ func _draw_overlay() -> void:
 	# wie alt jeder Wählbare und nach langem Drücken alle drei Sekunden lang (sanft aus, SOFT_MS); die Ansage steigt dann über den
 	# Namen (_draw_intents named), vorher lag sie auf ihm
 	named.clear()
+	name_rects.clear()
 	var weich := clampf(float(names_until - Time.get_ticks_msec()) / SOFT_MS, 0.0, 1.0)
 	var waehlbar: Array = m.targets(current) if pick == "target" and current != null else []
 	for id in k.figures:
@@ -1028,7 +1110,7 @@ func _draw_overlay() -> void:
 		var a: float = 1.0 if waehlbar.has(f) else weich
 		if a > 0.0:
 			named[id] = true
-			_name_tag(_foot(fig), _tall(fig), f.name(lang), f == current, a, f.side == "FOES")
+			name_rects[id] = _name_tag(_foot(fig), _tall(fig), f.name(lang), f == current, a, f.side == "FOES")
 	_draw_spells()
 	# 249: Blut unter den Ansagen (Prüfer 26.10.: Tropfen lagen auf dem Text)
 	_draw_blood()
@@ -1677,6 +1759,7 @@ const NAMES_MS := 3000     # SkirmishScreen NAMES_MS
 const SOFT_MS := 400.0     # SkirmishScreen SOFT_MS
 var names_until := 0
 var named := {}     # 536: wer gerade seinen Namen trägt (die Ansage steigt darüber)
+var name_rects := {}     # 536 t270.10: wo die Namen dieses Bilds stehen; keine Ansage legt sich darauf
 
 func _name_h() -> float:
 	return sp(12) * 1.35 + 2 * dp
@@ -1686,7 +1769,7 @@ func _name_h() -> float:
 func _name_top(foot: Vector2, tall: float, bar: bool) -> float:
 	return foot.y - tall - (28.0 if bar else 24.0) * dp
 
-func _name_tag(foot: Vector2, tall: float, nm: String, now: bool, alpha := 1.0, bar := true) -> void:
+func _name_tag(foot: Vector2, tall: float, nm: String, now: bool, alpha := 1.0, bar := true) -> Rect2:
 	var fs := sp(12)
 	var w := font.get_string_size(nm, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x + 12 * dp
 	var h := _name_h()
@@ -1695,6 +1778,7 @@ func _name_tag(foot: Vector2, tall: float, nm: String, now: bool, alpha := 1.0, 
 	_chip(r, Color(0, 0, 0, alpha), Color(rim, rim.a * alpha), 1.0)
 	var tc: Color = BRIGHT if now else TEXT
 	overlay.draw_string(font, Vector2(r.position.x + 6 * dp, r.position.y + h * 0.76), nm, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, Color(tc, tc.a * alpha))
+	return r
 
 
 ## Ansagen (IntentSign): „! Anspringen“ im Rahmen, Farbe des Angezielten; von unten nach oben ohne Überlappen (layOut).
@@ -1763,64 +1847,81 @@ func _draw_intents(sr: Rect2) -> void:
 	var placed := []
 	var step := 26 * dp
 	for s in signs:
-		var clash := func(r: Rect2, strict: bool) -> bool:
+		# Prüfstufe: 2 frei von fremden Körpern samt Strich, 1 nur der Schild frei von Körpern, 0 wie alt (SkirmishScreen layOut):
+		# nur nie auf einer anderen Ansage, einem Namen oder einer Leiste
+		var clash := func(r: Rect2, mode: int) -> bool:
 			for o in placed:
 				if r.intersects(Rect2(o.x, o.y, o.w, o.h).grow(2 * dp)):
 					return true
-			# auch der Strich zum eigenen Kopf darf durch keinen anderen laufen (Prüfer Runde 4: durch das Hinterteil des grauen)
-			var a := _stroke_from(r, s.fx, s.head)
-			var e := _stroke_to(r, s)
-			for id in bodies:
-				if id != s.id and (r.intersects(bodies[id]) or (strict and _seg_hits(a, e, bodies[id].grow(-2 * dp)))):
+			# 536 t270.10 (Chef 08.11., 20:54: beim rechten Jungwolf verdeckte die Ansage den Namen): nie auf einem Namen, auch dem eigenen
+			for nid in name_rects:
+				if r.intersects((name_rects[nid] as Rect2).grow(1 * dp)):
 					return true
 			# 563: nie auf der Lebensleiste eines anderen (die grüne Leiste lief durch die Schrift)
 			for bid in balken_vor:
 				if bid != s.id and r.intersects(Rect2(balken_vor[bid], Vector2(44 * dp, 4 * dp)).grow(2 * dp)):
 					return true
+			if mode == 0:
+				return false
+			# auch der Strich zum eigenen Kopf darf durch keinen anderen laufen (Prüfer Runde 4: durch das Hinterteil des grauen)
+			var a := _stroke_from(r, s.fx, s.head)
+			var e := _stroke_to(r, s)
+			for id in bodies:
+				if id != s.id and (r.intersects(bodies[id]) or (mode == 2 and _seg_hits(a, e, bodies[id].grow(-2 * dp)))):
+					return true
 			return false
 		var spots: Array = [Vector2(s.x, s.y)] + s.alts
+		var frei := func(q: Vector2, mode: int) -> bool:
+			return q.y >= 34 * dp and q.y + s.h <= sr.size.y - 4 * dp and not clash.call(Rect2(q.x, q.y, s.w, s.h), mode)
+		# 536 t270.10 (Chef 08.11., 20:54, Foto Wolfsrudel: „Klappt wohl nicht so, oder????“, wiederholt nach t268.20): die Ansagen
+		# hingen seitlich mit langer Linie statt dicht über dem Kopf (Messung ansage_536: mit Namen jede zweite). Wie alt zuerst über
+		# dem eigenen Kopf (über dem Namen), auch wenn dahinter ein anderer steht; deckt sie eine andere Ansage, einen Namen oder eine
+		# Leiste, eine Zeile höher (höchstens drei); erst danach die Plätze neben dem Kopf und unter den Pfoten
+		var wege: Array = [[0, 2, 0.0], [0, 0, 0.0]]
+		for i in range(1, 4):
+			wege.append([-1, 0, -step * i])
+		wege += [[1, 2, 0.0], [2, 2, 0.0], [3, 2, 0.0], [3, 1, 0.0]]
 		var y: float = s.y
 		var x: float = s.x
 		var done := false
 		s.stroke = true
-		# 438 (Prüfer Film r2: Ansagen springen über und unter, 21,6–25 s): der Platz vom letzten Bild bleibt, solange er frei ist;
-		# erst wenn nicht, wird neu gesucht (sonst wechselte es mit jedem Schritt eines Nachbarn hin und her)
+		# 438 (Prüfer Film r2: Ansagen springen über und unter, 21,6–25 s): der Platz vom letzten Bild bleibt, solange er frei ist und
+		# kein besserer frei wird (536: vorher blieb eine Ansage seitlich, auch wenn über dem Kopf längst Platz war)
 		var alt = sign_wahl.get(s.id)
-		# 567 (Chef 04.11., Build 257: „+ In den Schatten“ hing rechts neben keinem): ohne Strich nie neben dem Kopf
-		if alt != null and alt[0] < spots.size() and not (not alt[1] and _seitlich(alt[0])):
+		var bester := -1
+		for wi in wege.size():
+			var w0: Array = wege[wi]
+			var q: Vector2 = spots[w0[0]] if w0[0] >= 0 else Vector2(s.x, s.y + w0[2])
+			if frei.call(q, w0[1]):
+				bester = wi
+				break
+		if alt != null and alt.size() == 3 and alt[0] < spots.size():
 			var q: Vector2 = spots[alt[0]] if alt[0] >= 0 else Vector2(s.x, s.y + alt[2])
-			if q.y >= 34 * dp and q.y + s.h <= sr.size.y - 4 * dp and not clash.call(Rect2(q.x, q.y, s.w, s.h), alt[1]):
+			var rang := wege.find(alt)
+			if rang < 0:
+				rang = wege.size()
+			# 567: ohne Strich nie neben dem Kopf
+			if not (alt[1] != 2 and _seitlich(alt[0])) and (bester < 0 or rang <= bester) and frei.call(q, alt[1]):
 				x = q.x
 				y = q.y
 				done = true
-				s.stroke = alt[1]
-		# erst mit freiem Strich; geht das nirgends, lieber ohne Strich als auf einem anderen (Prüfer Runde 5: Schild auf dem grauen)
-		for strict in ([] if done else [true, false]):
-			for qi in spots.size():
-				# 567: neben dem Kopf nur mit Strich zu ihm; ohne Strich darüber (höher) oder unter den Pfoten, sonst wirkt sie herrenlos
-				if not strict and _seitlich(qi):
-					continue
-				var q: Vector2 = spots[qi]
-				# Runde 16: unter den Pfoten ragte es unten ins Bedienfeld (abgeschnitten); nur ganz in der Szene
-				if q.y >= 34 * dp and q.y + s.h <= sr.size.y - 4 * dp and not clash.call(Rect2(q.x, q.y, s.w, s.h), strict):
-					x = q.x
-					y = q.y
-					done = true
-					sign_wahl[s.id] = [qi, strict, 0.0]
-					break
-			if not done:
-				# höher über dem eigenen Kopf, bis frei
-				var yy: float = s.y
-				while clash.call(Rect2(s.x, yy, s.w, s.h), strict) and yy - step >= 34 * dp:
-					yy -= step
-				if not clash.call(Rect2(s.x, yy, s.w, s.h), strict):
-					x = s.x
-					y = yy
-					done = true
-					sign_wahl[s.id] = [-1, strict, yy - s.y]
-			if done:
-				s.stroke = strict
-				break
+				s.stroke = alt[1] != 1
+		if not done and bester >= 0:
+			var w1: Array = wege[bester]
+			var q: Vector2 = spots[w1[0]] if w1[0] >= 0 else Vector2(s.x, s.y + w1[2])
+			x = q.x
+			y = q.y
+			done = true
+			s.stroke = w1[1] != 1     # geht der Strich durch einen anderen, lieber keiner (Prüfer Runde 5)
+			sign_wahl[s.id] = w1.duplicate()
+		if not done:
+			# höher über dem eigenen Kopf, bis frei
+			var yy: float = s.y
+			while clash.call(Rect2(s.x, yy, s.w, s.h), 0) and yy - step >= 34 * dp:
+				yy -= step
+			x = s.x
+			y = yy
+			sign_wahl[s.id] = [-1, 0, yy - s.y]
 		# 438: ein neuer Platz wird angefahren (gut 0,1 s), nicht gesprungen
 		var fuss := Vector2(s.fx, s.foot)
 		var ziel := fuss + _gleiten("ansage:" + String(s.id), Vector2(x, y) - fuss)     # am eigenen Fußpunkt, sonst hinkt es dem Laufenden nach
@@ -1851,6 +1952,9 @@ func _paint_signs() -> void:
 		# a thin stroke down to the one who announces it, so a sign pushed up still belongs to someone
 		var a := _stroke_from(r, s.fx, s.head)
 		var e := _stroke_to(r, s)
+		# 536: über dem eigenen Namen endet der Strich an ihm (lief sonst senkrecht durch die Schrift)
+		if name_rects.has(s.id) and r.end.y <= (name_rects[s.id] as Rect2).position.y + 1:
+			e.y = minf(e.y, (name_rects[s.id] as Rect2).position.y)
 		if s.stroke and a.distance_to(e) > 2 * dp and (r.position.y > s.foot or s.head - r.end.y > 2 * dp or s.fx < r.position.x or s.fx > r.end.x):
 			overlay.draw_line(a, e, Color(s.border, 0.7), maxf(1.0, dp), true)
 		var f = m.find(s.id)
@@ -2010,7 +2114,7 @@ func _draw_switches(sr: Rect2) -> void:
 	# der Kampf läuft und kein Ring offen ist; das angetippte leuchtet, bis es gilt
 	win_rect = Rect2()
 	lose_rect = Rect2()
-	if not Testmodus.ist_an() or kampfort.mars.outcome != "ONGOING" or kampfort.ring_open:
+	if not Testmodus.ist_an() or not laeuft() or kampfort.ring_open:
 		return
 	win_rect = Rect2(links - 48 * dp, y, 48 * dp, 48 * dp)
 	lose_rect = Rect2(links - 96 * dp, y, 48 * dp, 48 * dp)

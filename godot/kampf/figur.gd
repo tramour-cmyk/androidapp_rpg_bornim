@@ -1102,7 +1102,40 @@ func _idle() -> void:
 		var z := RandomNumberGenerator.new()
 		z.seed = hash("%s/%s/%d" % [fighter.id, grund, _schleifen])
 		_schleifen += 1
-		anim.seek(z.randf() * lang, true)
+		anim.seek(_versatz_frei(grund, lang, z.randf() * lang), true)
+
+
+## 1006 (skelett_506 Lauf 361, 365: Stehen bei 0,38 und 0,42 s): der Zufall des Versatzes traf beim neuen Anfang der Schleife fast
+## die Stelle eines anderen Skeletts (Schleife 1,03 s, Abstand 0,04 s, also im Gleichklang). Liegt [t0] näher als VERSATZ_MIN der
+## Schleife an der Stelle eines anderen, der dieselbe Grundschleife gleich lang spielt, dann in Zwölfteln weiter zur ersten freien
+## Stelle (keine frei: die mit dem größten Abstand)
+const VERSATZ_MIN := 0.15
+func _versatz_frei(grund: String, lang: float, t0: float) -> float:
+	if kampfort == null or lang <= 0.0:
+		return t0
+	var stellen: Array[float] = []
+	for o in kampfort.figures.values():
+		if o == self or o.down or o.anim == null or o.anim.current_animation != grund:
+			continue
+		if not o.anim.has_animation(grund) or absf(o.anim.get_animation(grund).length - lang) > 0.01:
+			continue
+		stellen.append(o.anim.current_animation_position)
+	if stellen.is_empty():
+		return t0
+	var best := t0
+	var best_d := -1.0
+	for k in 12:
+		var t := fposmod(t0 + lang * k / 12.0, lang)
+		var d := lang
+		for s in stellen:
+			var u := absf(t - s)
+			d = minf(d, minf(u, lang - u))
+		if d >= VERSATZ_MIN * lang:
+			return t
+		if d > best_d:
+			best_d = d
+			best = t
+	return best
 
 
 # Prüfer Runde 25: Blick und Rumpf wurden nur bei der Ansage gerichtet; rückte das Ziel danach auf seinen Platz, sah der Wolf
@@ -3135,7 +3168,7 @@ const KNICK_GRAD := {"WACHE": 20.0, "KLOSTER": 30.0}     # 870.4: je Tracht (vor
 const KLASSE_HERKUNFT := {"FIGHTER": "Wachsoldat", "CLERIC": "Klosterschüler", "ROGUE": "Herumtreiber", "WIZARD": "Zauberlehrling"}
 
 
-## 870.4: Herkunft des Helden für die Tracht; Probeblätter (probe.gd, tabellen.json „probe“) nennen noch die Klasse
+## 870.4: Herkunft des Helden für die Tracht; Probeblätter (probe.gd, Tabellen.probe()) nennen noch die Klasse
 func _herkunft() -> String:
 	var h := String(fighter.hero.get("herkunft", ""))
 	return h if h != "" else String(KLASSE_HERKUNFT.get(String(fighter.hero.get("cls", "")), "Wachsoldat"))
@@ -4032,8 +4065,45 @@ func dodge(after_ms: int, nm := "") -> void:
 			_pfad_fahren(best, false, AUSWEICH_BOGEN)     # 438: im Lauf drehte er 28° je Bild; 546: im Schritt zu träge
 			tween.tween_callback(_nach_ausweichen)
 			return
+	_reichweite_merken("Ausweichen")
 	_play("Ausweichen", 0.05)
 	get_tree().create_timer(0.45).timeout.connect(_idle_wenn_frei)
+
+
+## 988 (wolf_mess_438 Lauf 369, CLERIC ohne Schild nach BRS, Bild 1330: Ausweichen auf der Stelle, die Brust neigt sich 11 px über
+## den linken Rand, die Linse ging erst im selben Bild zurück, rand_z 0,98 → 0,97): die Haltungen einer Bewegung auf der Stelle einmal
+## abgetastet, als Punkte der Kapseln im eigenen Maß ([Ort, Halbmesser]); _rand_kamera nimmt sie, solange die Bewegung läuft, und geht
+## so schon zu Beginn so weit zurück, wie die Figur sich neigen wird
+const REICHWEITE_PROBEN := 8
+var reichweite := {}     # Bewegung -> [[Vector3 im Maß der Figur, Halbmesser]]
+func _reichweite_merken(nm: String) -> void:
+	if anim and not anim.has_animation(nm):
+		nm = ALIAS.get(nm, nm)     # wie _play: unter dem Namen, den current_animation dann zeigt
+	if reichweite.has(nm) or anim == null or not anim.has_animation(nm) or model == null:
+		return
+	var sk := _find(model, "Skeleton3D") as Skeleton3D
+	if sk == null:
+		return
+	var vor := String(anim.current_animation)
+	var vor_t: float = anim.current_animation_position if vor != "" else 0.0
+	var vor_v: float = anim.get_playing_speed() if vor != "" else 1.0
+	var l: float = anim.get_animation(nm).length
+	var inv := global_transform.affine_inverse()
+	var pts: Array = []
+	anim.play(nm, 0.0)
+	for i in REICHWEITE_PROBEN + 1:
+		anim.seek(l * i / float(REICHWEITE_PROBEN), true)
+		sk.force_update_all_bone_transforms()
+		for c in kapseln():
+			pts.append([inv * (c[0] as Vector3), float(c[2])])
+			pts.append([inv * (c[1] as Vector3), float(c[2])])
+	if vor != "":
+		anim.play(vor, 0.0, vor_v)
+		anim.seek(vor_t, true)
+	else:
+		anim.stop()
+	sk.force_update_all_bone_transforms()
+	reichweite[nm] = pts
 
 
 ## 703 A (Chef 08.11., 21:36: „wenn sie ausgewichen sind, einfach stehen bleiben … Braucht man doch gar nicht.“; ändert F5):
@@ -4220,6 +4290,7 @@ func _fade_out(x: float) -> void:
 
 
 func knocked_down() -> void:
+	_schnaufen(1.0)     # 910: angesprungen und gestürzt strengt an wie ein Treffer (sonst zählten die Bilder danach als Ruhe)
 	if _ss() and not anim.has_animation("Sturz"):     # 406: mit Schild der schwere Treffer des Satzes, Schild oben
 		_play("SS_GetHitHeavyFront", 0.1)
 		get_tree().create_timer(anim.get_animation("SS_GetHitHeavyFront").length - 0.1).timeout.connect(_idle_wenn_frei)
