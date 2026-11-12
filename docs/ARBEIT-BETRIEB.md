@@ -396,3 +396,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 15:33 12.11.: Startsperre 15:33 Start Tom (lauf.py; Tom auf 1022 laut Übergabe statt 1040.1, da Spike 1040.1 hat; Jerry-START 1041 Kür nicht ausgeführt)
 - 15:33 12.11.: Marke Archiv session_01Hmoj76marbMeLGds3T3ePv (lauf.py)
 - 15:33 12.11.: Nachfolger-Warnung Tom (Übergabe 12.11., 15:30) (lauf.py)
+- 15:37 12.11.: Zweite Neustart-Meldung Tom (06f2b80ed, auf main; Tom 842 ruhte, kein Weckruf): Nachfolger Tom …761eAvyDy1MgdXkna1 „Tom – 1022: Kartenrand aller Gebietskarten“ gestartet (lauf.py bot wegen Termin-Rest 15:20 nur 1040.1 an, das Spike hat); Tom 842 …76marbMeLGds3T3ePv archiviert (15,00 $ gebucht). Jerry …76DJtggtnNPKMMxpU6 (995) wartet auf Chef, nicht archiviert; Jerry-START 1041 Kür ausgelassen.
