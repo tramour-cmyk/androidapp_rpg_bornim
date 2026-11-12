@@ -163,7 +163,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1044 | M? | Von Sokrates (Chef 12.11., 16:08): Frauen stehen außerhalb des Kampfs wie eine Dame, Beine | startbar |
 | 1045 | M | Von Tuffy (Lauf 43235660324, Zweig ohne Spielstand-Änderung): spielstand_test rot, „FEHLER | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1022 |
 
-**Jerry** – offen 125, Muss 112, startbar 6
+**Jerry** – offen 125, Muss 112, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -289,7 +289,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1039 | M | Von Sokrates (Chef 12.11., 15:04, Build 280, Probekampf Grak, Schwerer Hieb): innerer Ring | wartet auf Test/Build (gebaut) |
 | 1040 | M | Von Sokrates (Chef 12.11., 15:12, Build 280, 278.21 Grimmzahn; Wiederholfund „Drehen auf d | wartet auf Test/Build (gebaut) |
 | 1041 | M? | Von Sokrates (Chef 12.11., 15:16, Build 280, 278.24 bestanden): Platztausch ungleich, der | startbar |
-| 1043 | M | Von Sokrates (Chef 12.11., 15:52, Fund t278.33 Build 280, zu 988): MARS-Probekampf Wölfe, | Sperre 620.1 B: 25 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolfe) |
+| 1043 | M | Von Sokrates (Chef 12.11., 15:52, Fund t278.33 Build 280, zu 988): MARS-Probekampf Wölfe, | startbar |
 | 1046 | M | Von Sokrates (1038 A, R1, Chef 12.11., 16:24): Verband stillt Blutung (plus kleiner Teil L | startbar |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 27722 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
