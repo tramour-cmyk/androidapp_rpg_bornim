@@ -291,7 +291,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1066 | M | Von Perikles (1050a A, Chef 12.11., 20:02): Herkunft Zauberlehrling plus Verstand 3, Wille | wartet auf Test (Build 281) |
 | 1072 | M | Von Sokrates (Chef 12.11., 20:09, zu 1036; Wiederholfund 09.11. und 10.11.): hinterer Wolf | Sperre 620.1 B: 33 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1036 |
 | 1036.1 | M | Von Tuffy (1036, Chef 12.11., 20:52): neue Vorlage Zustände: jeder Zustand des Codes (auch | Sperre 620.1 B: 33 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1036 |
-| Pflege | K | von Werkzeug (340.3, 12.11.): 27316 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
+| Pflege | K | von Werkzeug (340.3, 12.11.): 27543 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
 
 **Perikles** – offen 14, Muss 13, startbar 0
 
