@@ -198,6 +198,15 @@ static func waehlbar() -> Dictionary:
 	for gr in ohne_info(fd): r[gr] = (fd[gr] as Array).filter(func(f): return not nein.has(f))
 	return r
 
+## 984.1 (Fund t278.38, Chef 12.11., 15:52 „sind nicht da“): was die Erschaffung zeigt (Gruppe -> Namen), auch die nicht waehlbaren
+## (matt); ohne „verborgen“ (Bergbau ab Kapitel 2, 461c)
+static func zur_ansicht() -> Dictionary:
+	var r := {}
+	var fd: Dictionary = e().get("fertigkeiten", {})
+	var weg: Array = e().get("verborgen", [])
+	for gr in ohne_info(fd): r[gr] = (fd[gr] as Array).filter(func(f): return not weg.has(f))
+	return r
+
 func kann_waehlen(f: String) -> bool:
 	return not herkunft_fertigkeiten().has(f) and not wahl.has(f) and wahl.size() < wahl_anzahl() and not (e().get("nicht_waehlbar", []) as Array).has(f)
 
