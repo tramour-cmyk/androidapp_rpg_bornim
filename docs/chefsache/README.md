@@ -309,7 +309,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 863a | M | Rückfrage: 863 nachstellen mit Kaufratte am Rechner (Kaufrepo freigeben) oder Messlauf am | Chef (Datei in der Chefsache) |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 15052 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 13, Muss 11, startbar 1
+**Perikles** – offen 14, Muss 11, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -326,6 +326,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 896 | M | Von Jerry (870.5): Wächter meldet „TP“ als SRD-Begriff (886), Homer 870.14 und DESIGN-BRS | wartet auf Test/Build (gebaut) |
 | 919 | M | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): Regeln nachziehen: Testbitte auch bei rot | wartet auf 918 (startbar) |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 15318 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 1010 | K | Von Sokrates (12.11., 01:14): startbar.antworten() zählt Archivkopf „<Nr>, Läufe frei“ als | startbar |
 
 **Diogenes** – offen 8, Muss 7, startbar 0
 
