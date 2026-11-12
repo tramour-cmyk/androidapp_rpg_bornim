@@ -2,7 +2,7 @@
 
 E Kampf
 
-Geprüft an: [Lauf 43235660324](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43235660324) (Zweig `claude/jerry-1036-zustaende`); Film unten, von Tuffy selbst angesehen
+Geprüft an: [Lauf 43235660324](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43235660324) (Zweig `claude/jerry-1036-zustaende`); Film oben, von Tuffy selbst angesehen
 
 Dein Wort (12.11., 14:48, Build 280, Brandflasche): „da sieht man kein Brennen. Das hatten wir alles schon unter Kotlin, die ganzen Effekte, die sichtbaren.“ Im Film (Probekampf gegen Wölfe) tragen ab 0:27 Ansgar (vorn, mit Umhang) und der graue Wolf (oben) je Zustand 2,6 s denselben Zustand, der Name steht oben links; ab 0:48 flackert der Schaden der Runde bei Brennend, Vergiftet und Blutend auf.
 
