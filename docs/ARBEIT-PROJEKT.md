@@ -4,8 +4,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `217e2efbe` (12.11., 08:16)
 
-**Übergabe (12.11., 14:29, `session_01Hmoj78GqGrL8ULmt1No1zc`):** 1033 erledigt (`5b7d71186`): Vorlage der Prüflisten Spalte „Passt“ statt „Richtig“ (`LISTE-CHECK-BUILD-TEST.md` 9, 10; Beispiel `ROLLE-ENTWICKLUNG.md`), `zug-index.py` nimmt beide; `tools/pruefliste.py` liest beide seit Tom `5c8d9dc5e` (Zweig 1030), auf `main` mit dem nächsten Build. Nachfolger: keiner
-**Letzte Antwort:** 1033: Prüflisten-Vorlage „Passt“ statt „Richtig“.
+**Übergabe (12.11., 16:02, `session_01Hmoj78konTZzkjhLux7ri7`):** 1042 gebaut (`6c3a1513c`): `probelauf.py` löste jedes `cd` gegen den Startordner auf; Spikes `cd …/godot; cd .. && git push` landete in `/home/user` ohne Repo, `loest_aus` zählte „unlesbar“ als Filmlauf. Jetzt nacheinander (auch `cd_ordner`); Zweigfilter von godot.yml stimmt (Spikes Push: 0). Falsche Zeile 1040.1 in `probelaeufe.tsv` gestrichen, Tom Bescheid; 14:51/14:52 (Zweignamen tom-1022/1021) wohl dieselbe Ursache, sperren nichts. Nachfolger: keiner
+**Letzte Antwort:** 1042: Haken zählte Push ohne Ablauf (cd-Kette), behoben; Film 1040.1 frei.
 - **Fehler 341, von Sokrates (11.11., 18:14):** 901 (365a B, „alle Hoch“ seit 07:18) startete in der Umgebung „WireStorm Hoch“, die nur Variablen setzt; die App zeigte „Mittel“, keiner prüfte das Ergebnis, gefunden hat es der Chef (18:04; 18:14 „von euch hat es ja keiner gemerkt … Schwarzbuch“). Behoben 981. Lehre: Einstellung am Ergebnis prüfen (`get_session`, App), nie an der Eingabe.
 
 ## Einzelheiten
