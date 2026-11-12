@@ -171,7 +171,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1009 | M | Von Tom (831, Lauf 366): spielstand_test rot „FEHLER Plaetze 1 2“ (letzter() gab Platz 1 s | wartet auf Test (Build 278) |
 | 1017 | M | Von Homer (1015, zu 1012 Punkt 5): Erschaffung Grundwerte (erschaffung_brs.gd ERKLAER wert | wartet auf Test/Build (gebaut) |
 
-**Jerry** – offen 133, Muss 121, startbar 3
+**Jerry** – offen 134, Muss 121, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -308,6 +308,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1007 | M | Von Tom (977): Monster der Karte (streuner.gd) mit Streuner.Stub, dessen clock_ms bei 0 bl | wartet auf Test (Build 278) |
 | 1013 | M | Von Jerry (988, Lauf 370 auf main): schild_406 erwartet im Kampf beim CLERIC einen Schild, | wartet auf Test (Build 278) |
 | 1014 | M | Von Jerry (1013, Lauf 365 und 370): schild_406 FIGHTER SS_ParryLow: Körper bis 0,071 m im | Sperre 620.1 B: 35 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1013 |
+| Pflege | K | von Werkzeug (340.3, 12.11.): 16307 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 13, Muss 12, startbar 0
 
