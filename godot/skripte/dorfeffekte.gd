@@ -359,8 +359,25 @@ func tritt(held: Node3D) -> void:
 	var rechts := h.global_basis.x.normalized()
 	var p := h.global_position + rechts * 0.1 * tritt_seite
 	if not erde(p): return
-	var fx := setze("effects/footstep_dust.tscn", Vector3(p.x, 0.02, p.z), STAUB_K * (1.3 if cur.begins_with("Rennen") else 1.0))
+	var k := float(OS.get_environment("STAUB_GROESSE")) if OS.get_environment("STAUB_GROESSE") != "" else STAUB_K
+	var fx := setze("effects/footstep_dust.tscn", Vector3(p.x, 0.02, p.z), k * (1.3 if cur.begins_with("Rennen") else 1.0))
 	if fx: daempfe(fx, 0.8, 1.0 - 0.4 * nacht_k, STAUB_DECK)
+	if fx: nah_am_boden(fx)
+
+## 814 (dritter Fund t278.2, am Rechner nachgestellt: die Woelkchen entstanden, waren aber unsichtbar, auch vierfach gross): der Shader
+## der Vorlage blendet aus, was naeher als 0,25 m vor dem Boden dahinter liegt (proximity_fade, weiche Teilchen). Von oben gesehen liegt
+## der Boden kaum hinter dem Staub, die Woelkchen 0,1 m ueber der Erde verschwanden ganz. Nur noch die letzten STAUB_NAH m (die Kante,
+## wo das Viereck den Boden schneidet); jede Wolke hat ihr eigenes Material (nach_tusche)
+const STAUB_NAH := 0.04
+static func nah_am_boden(fx: Node) -> void:
+	for gi in fx.find_children("*", "GeometryInstance3D", true, false):
+		var m = (gi as GeometryInstance3D).material_override
+		if m is ShaderMaterial and (m as ShaderMaterial).shader and (m as ShaderMaterial).shader.get_shader_uniform_list().any(func(u): return u.name == "proximity_fade"):
+			(m as ShaderMaterial).set_shader_parameter("proximity_fade", float(OS.get_environment("STAUB_FADE")) if OS.get_environment("STAUB_FADE") != "" else STAUB_NAH)
+			(m as ShaderMaterial).set_shader_parameter("alpha_scale", float(OS.get_environment("STAUB_ALPHA")) if OS.get_environment("STAUB_ALPHA") != "" else 1.0)
+			if OS.get_environment("STAUB_VORGABE") != "":
+				for kv in [["noise_scale", 1.0], ["erosion_edge", 0.06], ["edge_color", Color(0, 0, 0, 0)], ["noise_scroll", Vector2.ZERO], ["ring_width", 0.15]]:
+					(m as ShaderMaterial).set_shader_parameter(kv[0], kv[1])
 
 func erde(p: Vector3) -> bool:
 	var img := Gebiet.maske_bild(gebiet.karte.id)
