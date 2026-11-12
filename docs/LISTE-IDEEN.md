@@ -81,6 +81,8 @@ Zuletzt verworfen (Chef 09.11., 11:21, 743 „alle verwerfen“): Spiel-Engine G
 
 ### Figuren
 
+- **Borin trinkt und isst am Tisch** (Chef 12.11., 20:54, an Sokrates, zu 758, Kür): „schön, wenn mal Borin irgendwann so weit kriegen, wie in der Kotlin-Version, dass er dann mal sein Bierchen trinkt oder was isst oder sonst was treibt. Aber gut, das ist dann von mir als Kür.“ Abwechseln mit Trinken, Essen, Umschauen (758 A, Teil „nicht in dieser Runde“); Vorbild alt.
+
 - **Katze im Gasthaus** (Chef 28.10., 16:24, aus 395a): wie im alten Spiel (`MapCat.kt`: schläft am Herd, setzt sich auf, streckt sich); Farbe egal; Quaternius hat keine; die Siamkatze von MadeCG (RenderHub) gefällt dem Chef „eh nicht so gut“. Erst nach Leuten, Dorf und Klang. Vorschlag Chef 16:31: [Kurilian Bobtail](https://www.renderhub.com/nyilonelycompany/kurilian-bobtail-cat), 18 $ statt 30 $ (Aktion bis etwa 31.10.), Extended Use, 23 Bewegungen (Namen nicht auf der Seite), 23.234 Dreiecke (Regel: höchstens 6000, also stark ausdünnen), 4K-Texturen. → **reif, zu W21** (Katze fehlt im Kleinleben): Aktion abgelaufen; Modell wählt und kauft der Chef, dann Tom.
 
 - **Feinschliff aller Figuren und Animationen** (Chef 23.10., 12:54: „genereller Merker für Figuren- und Animationsfeintuning (alle Monster!!! Und Helden)“): Griff, Haltung und Ablauf bei allen Monstern und Helden prüfen und glätten, möglichst zusammen mit der Tusche für Figuren (302.1). Erster Fall: Grak, schwerer Hieb (320, Bilder in Git vor 12:54): im Ausholen Arme vor dem Gesicht, Hände nicht wie beim Holzspalten, Stiel in der Szene zu flach, Doppelblatt im Seitenblick, Schurz kantig, kein Schatten beim Vorspringen. Bau Jerry (Monster) und Tom (Helden). → **später:** Projektplan, Gegner: „Feinarbeit danach“, also nach 2.13 (alle Gegner im Spiel); dann zusammen mit 52.
@@ -95,6 +97,7 @@ Zuletzt verworfen (Chef 09.11., 11:21, 743 „alle verwerfen“): Spiel-Engine G
 
 ### Kampf
 
+- **Feueraura des Zauberkundigen** (Chef 12.11., 20:52, an Sokrates, zu 1036): „Aurafire würde ich jetzt nicht nehmen als Brennendeffekt, sondern eher als Angriffsverteidigung. Sozusagen, dass der Magier sich selbst entzündet und Gegner, die an ihm dran stehen, verbrannt werden … so einen brennenden Ring um sich machen oder brennende Haut.“ Effekt `aura_fire` (Combat Mega, gekauft); Zauber mit Homer (Name, Text) und Jerry (Werte 444); passt zu Schulen in `DESIGN-BRS.md`.
 - **Kritische Treffer der Gegner** (Sokrates zu 870.6a 3 A, 11.11.): heute treffen Gegner nie kritisch; mit Werten je Gegner im Bestiarium (Wolf, Grak) dürfen Kämpfe plötzlich kippen (Chef 12:56); nach dem Meilenstein, mit Sim 444.
 
 - **Zugleiste aus MARS auch im klassischen Kampf** (Chef 20.10., 07:20, Wortlaut: „Allgemein: Zugleiste aus Mars auch im alten Kampf?“): Sokrates nachgesehen (`Battle.kt`): klassisch einmal Initiative zu Beginn, dann streng Held, Gegner, Held, Gegner; Rudel und Begleiter handeln im Zug des Anführers. Pro: gleiches Bild in beiden Systemen (212), Hinterhalt und „Gegner schneller“ sichtbar. Contra: die Leiste zeigt nur den ständigen Wechsel, also nichts Neues, und kostet Platz auf dem kleinen Schirm; Arbeit an einem Bildschirm, den MARS ablösen könnte. Empfehlung Sokrates: noch nicht; erst wenn der klassische Kampf mehrere Helden oder wechselnde Reihenfolge bekommt. → **noch nicht** (Chef 07:22: „Ok, noch nicht“).

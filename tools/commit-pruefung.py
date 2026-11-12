@@ -345,6 +345,9 @@ def main():
             n = m.group(1)
             wege = {x for x in git("ls-tree", "-r", "--name-only", "HEAD", "docs/chefsache/ansehen/").split()} | {p for s, p in dat}
             pl = "".join(git("show", "HEAD:" + x) + git("show", ":" + x) for x in wege if re.match(r"docs/chefsache/ansehen/t%s-[^/]+\.md$" % n, x))
+            # 1070 (Chef 12.11., 20:06 „warum steht der … 280er immer noch drin“): getestet heißt weg, im selben Commit wie „tN“ (Git behält sie)
+            noch = [x for x in git("ls-files", "--full-name", ":/docs/chefsache/ansehen/").split() if re.match(r"docs/chefsache/ansehen/t%s-[^/]+\.md$" % n, x)]
+            if noch: stop.append("VORGANGSARCHIV.md: Test t%s eingetragen, Prüfliste noch in der Chefsache (%s); im selben Commit `git rm` (1070, LISTE-CHECK-BUILD-TEST.md 11)" % (n, ", ".join(noch)))
             import vorgang  # 775: dieselbe Lesart wie vorgang.py build (mehrere Nummern, Haken in Spalte 1)
             genannt = {x for nrs, _, _ in vorgang.ergebnisse(n, pl).values() for x in nrs}
             lose = [d["nr"] for d in startbar.vorgangsliste(git("show", ":docs/LISTE-VORGAENGE.md")) if d["nr"] in genannt and d.get("build") != n and d["wort"] in ("zu testen", "gebaut")]
