@@ -40,13 +40,14 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 3, Muss 1, startbar 0
+**Homer** – offen 4, Muss 1, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
+| Pflege | K | von Werkzeug (340.3, 12.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 
 **Tom** – offen 113, Muss 92, startbar 7
 
@@ -294,9 +295,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1041 | M? | Von Sokrates (Chef 12.11., 15:16, Build 280, 278.24 bestanden): Platztausch ungleich, der | startbar |
 | 1043 | M | Von Sokrates (Chef 12.11., 15:52, Fund t278.33 Build 280, zu 988): MARS-Probekampf Wölfe, | startbar |
 | 1046 | M | Von Sokrates (1038 A, R1, Chef 12.11., 16:24): Verband stillt Blutung (plus kleiner Teil L | startbar |
-| Pflege | K | von Werkzeug (340.3, 12.11.): 27669 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 1049 | M | Von Sokrates (Befund 12.11.): Gegner ohne eigene Ansage fallen auf „Stich“ zurück (mars.gd | startbar |
 | 1050 | M | Von Sokrates (952 D, 984 A; Rechnung Tuffy 12.11., 00:12): Zauberlehrling fällt zurück (Bo | startbar |
+| Pflege | K | von Werkzeug (340.3, 12.11.): 29254 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 13, Muss 12, startbar 0
 
