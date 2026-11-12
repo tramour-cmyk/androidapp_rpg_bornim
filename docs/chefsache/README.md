@@ -133,7 +133,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 839 | K | Von Homer (817): Erklärtexte der Grundwerte im Reiter Held nach BRS einbauen, Texte STORY- | ruht |
 | 842 | M | Von Sokrates (807a A, Chef 10.11., 11:01): Pim überreden und Verband nach STORY-K1-FERTIGK | Sperre 620.1 B: 23 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.7 |
 | 852 | K | Von Homer (432a A, Chef 10.11., 12:05): Aschgeborene bauen: Modell Mensch mit aschgrauer S | ruht |
-| 856 | M | Von Sokrates (Chef 10.11., 12:51, Fund t274, Bild): Zwischensequenz: Rückfrage „Überspring | wartet auf Test/Build (gebaut) |
+| 856 | M | Von Sokrates (Chef 10.11., 12:51, Fund t274, Bild): Zwischensequenz: Rückfrage „Überspring | wartet auf Test (Build 278) |
 | 860 | M | Von Sokrates (Chef 10.11., 13:07, t274.10 „Ja“): Chronik (Hauptauftrag, Aufträge, Bisher g | Sperre 620.1 B: 23 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.7 |
 | 861 | M | Von Sokrates (Chef 10.11., 13:12, Bild t274.14): Umhang des Kämpfers im Kampf rechts am Rü | Chef (Datei in der Chefsache) |
 | 867 | M | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die | Sperre 620.1 B: 23 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.9 |
@@ -240,7 +240,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 802 | K | Rest 211.14 (Kür, Tuffy): Held und Söldner gehen beim Wechsel statt 0,4 s zu gleiten (figu | ruht |
 | 803 | K | Rest 211.14 (Kür, Tuffy): Gegner durch Antippen der Figur als Ziel wählen | ruht |
 | 811 | K | Von Perikles (800, 650.2 C1): Kommentar in godot/regeln/brs_kampf.gd Zeile 3 nennt DESIGN- | wartet auf Test (Build) |
-| 824 | M | Kampf: Schurke ohne Schild geht beim Angriff kurz 3,4–3,8 m/s in „Gehen“ (Bewegung höchste | wartet auf Test/Build (gebaut) |
+| 824 | M | Kampf: Schurke ohne Schild geht beim Angriff kurz 3,4–3,8 m/s in „Gehen“ (Bewegung höchste | wartet auf Test (Build 278) |
 | 833 | M | Unterer Kampfschirm nach Signatur: kein Kasten im Kasten (Bericht, Leiste, Befehle), Knöpf | Chef (Datei in der Chefsache) |
 | 836 | M | Von Homer (830): Hinweis „Nahkampf erreicht nur die vordere Reihe.“ steht in jedem Kampf, | wartet auf Test (Build 278) |
 | 840 | M | Von Sokrates (830 A, Chef 10.11., 11:00): Eingebung beim ersten Auftreten nach 210 B in Go | wartet auf Test (Build 278) |
@@ -280,7 +280,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 971 | M | Von Sokrates (966, Chef 11.11., 15:58): werte.json ueben.leicht_min 0,2 → 0,1 (leichte Zie | wartet auf Test (Build 278) |
 | 973 | M | Von Sokrates (930a A, Chef 11.11., 16:09): nach einem Tod bleiben die übrigen Gegner stehe | Sperre 620.1 B: 36 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
 | 980 | M | Von Tom (968, Lauf 43051633587): Kaufskripte unter tools/blender348 nehmen glob()[0]; lieg | wartet auf Test/Build (gebaut) |
-| 983 | M | Kampf: Goblin geht nach Umstellen der Reihe nicht an seinen Platz, Skriptfehler „Gehen“ in | wartet auf Test/Build (gebaut) |
+| 983 | M | Kampf: Goblin geht nach Umstellen der Reihe nicht an seinen Platz, Skriptfehler „Gehen“ in | wartet auf Test (Build 278) |
 | 785.9 | M | Von Spike (785): MARS-Probekampf im Systemmenü mit Regelseite (Reihen, Ansagen, Ring, Perf | wartet auf 870.13 (wartet) |
 | 785.10 | M | Von Spike (785): Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber | wartet auf 870.13 (wartet) |
 | 785.11 | M | Von Spike (785): Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterschei | wartet auf 870.13 (wartet) |
