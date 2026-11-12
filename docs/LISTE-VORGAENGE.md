@@ -280,7 +280,6 @@
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
-| 644a.3 | Von Sokrates (644a A; Chef 12.11., 08:21): Stufen der Einzelstücke gegen die Geschichte prüfen (Ring des Ältesten 6 am Kapitelende für Helden unter 6 nicht tragbar; Truhe der Blutzahnhöhle 4) | Homer | M | erledigt | – | – | – | E Kampf | – |
 | 870.12 | Von Sokrates (870, Umzug BRS): Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 neu fassen; nach Abnahme 868, 534, 467, 469, 644.1, 644.2, 644.4, 649.1, 811, 296, 344 schließen; LISTE-UMZUG-BRS.md 4 Schritt 9 | Perikles | M | wartet, 2.3 und 2.17 neu gefasst, Schließen nach Abnahme | 870.13 | – | – | B Abläufe | – |
 | 882.2 | 882 Werkzeuge ohne Kotlin: tools/t logik auf Godot-Logiksatz samt Kerntest-Marke, check-env, setup-session, probelauf, story.sh, startbar, Probe-Abläufe, vorschau.yml, Regeltexte; LISTE-UMZUG-BRS.md 8 | Perikles | M | startbar | 882.1 | – | – | B Werkzeuge | – |
 | 870.10 | Von Sokrates (870, Umzug BRS Schritt 8): Kotlin-Bau aus (android.yml), mit 870.9; LISTE-UMZUG-BRS.md 4 | Perikles | M | wartet | 870.9, 882.2 | – | – | B Werkzeuge | – |
@@ -353,7 +352,6 @@
 | 869 | Systemlösung? Rüstung: 2 frühere Vorgänge (49, 817), neu 868; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Kampf | – |
 | 930 | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerry, Ideen Homer, Regeln gegenlesen Perikles oder Diogenes (Chef 11.11., 12:28) | Sokrates | M | wartet, Befund 930.4 eingearbeitet | 930.3 | – | – | E Kampf | 19,74 $ |
 | 985 | Systemlösung? Nebel: 2 frühere Vorgänge (505, 502), neu 785.7; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Oberfläche | – |
-| 644a | Rückfrage: Mindeststufe zum Tragen, Stärke je Gegenstandsstufe, Abstand der Funde (Chef 11.11., 19:56) | Sokrates | M | erledigt, A mit Spanne, D, F (Chef 12.11., 08:21) | – | – | – | E Kampf | – |
 | 644a.4 | Vorentscheid: Waffen der Truhe in der Blutzahnhöhle (cave_3) Stufe 3 statt 4, sonst vor Krogg nicht tragbar (Homer 644a.3) | Sokrates | M | startbar | – | – | – | E Kampf | – |
 | 843 | D126.1 (Diogenes, 838): START ohne Sitzung 14 von 39 (09.11., 19:04 bis 10.11., 11:08), keiner mit --ohne; 3 ohne Grund (22:44 Spike, 10:25 Jerry, Perikles) | Ford | M | startbar | – | – | – | B Steuerung | 12,41 $ |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +994,84 $ |
