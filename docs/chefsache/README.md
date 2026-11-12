@@ -8,7 +8,11 @@ Nichts offen.
 
 ## Zu billigen
 
-Nichts offen.
+Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers.
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [1051](billigen/1051-einschuechtern.md) | **Muss** | G Balance | 12.11., 22:06 | Den Goblin-Späher verjagen gelingt anfangs zu 45 %, an der Rangdecke von Kapitel 1 zu 59 %, je Heldenstufe über dem Späher 5 % mehr; wie Überreden | Sokrates |
 
 ## Anzusehen
 
@@ -325,7 +329,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 52, Muss 38, startbar 28
+**Sokrates** – offen 51, Muss 37, startbar 27
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -380,7 +384,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 930 | M | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (wartet) |
 | 985 | K | Systemlösung? Nebel: 2 frühere Vorgänge (505, 502), neu 785.7; einmal grundsätzlich lösen? | startbar |
 | 644a.5 | M | Von Tuffy (644a.1): an welchem Grundwert hängen Rüstung, Ausweichen, Schild, Armbrust und | startbar |
-| 1051 | M | Von Jerry (841): Vorentscheid Werte Einschüchtern (Goblin-Späher verjagen): einschuechtern | startbar |
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
