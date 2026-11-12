@@ -4,7 +4,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `59bc8bb52` (11.11., 23:34)
 
-**Übergabe (12.11., 01:14, `session_01Hmoj77G2Nx26NbtbSEBGc8`):** erledigt: 1008 (Grundwert-Erklärtexte nach 952 D in `STORY-BRS-HELD.md`, fremd geprüft gegen `claude/tuffy-952-kritisch`; Wirkungsloses ruht; Zu 989 in Toms Vorrat, dort auch: 870d `kennt_schwaechen` wirkt im Spiel nicht). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
+**Übergabe (12.11., 06:14, `session_01Hmoj77crGw2i1MbQ6VpK2F`):** erledigt: 1015 (Erschaffung Grundwerte `[954.1.wert.…]` nach 1008 in `STORY-BRS-ERSCHAFFUNG.md`, Wurfwaffen ruhen auch im Heldenreiter `STORY-BRS-HELD.md`, fremd geprüft gegen `claude/build-278`; Bau 1017 bei Tom). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
 
 ## Zeilen
 - **Zu 976, von Sokrates (Chef 11.11., 20:13 „976a A“, Archiv):** Gütestufen Schlecht, Normal, Gut, Meisterhaft (Poor, Common, Fine, Masterwork); „von hoher Güte“ darf im Erklärtext stehen. Handbuchtext zur Güte und Wortlaute im Gegenstandsfenster danach prüfen (Regelwerk `DESIGN-BRS.md` „Alle Stufen auf einen Blick“).

@@ -13,7 +13,7 @@ Homer 10.11.; Texte für Schritt 4 und 5 des Umzugs (`LISTE-UMZUG-BRS.md`; Vorg�
 - ruht (Bauregel, Tom 11.11.): „Wie viel du tragen kannst.“ / “How much you can carry.”; „Truhen und Türen aufbrechen.“ / “Forcing chests and doors.”; kommen dazu, sobald sie wirken.
 
 `[870.14.wert.gewandtheit]` Gewandtheit / Agility
-- Schaden mit Dolchen, Bögen und Wurfwaffen. / EN: Damage with daggers, bows and throwing weapons.
+- Schaden mit Dolchen und Bögen. / EN: Damage with daggers and bows. (1015: „und Wurfwaffen“ / “and throwing weapons” wie unten, sobald es eine Wurfwaffe gibt)
 - Wer ausweicht, ist schwerer zu treffen: +%d je Punkt. / EN: When you dodge, you are harder to hit: +%d per point.
 - Kritische Treffer (anderthalbfacher Schaden) mit Nahkampfwaffen und Fäusten, außer Dolchen; die Waffenfertigkeit zählt mit. / EN: Critical hits (half again as much damage) with melee weapons and fists, except daggers; weapon skill counts as well. (1008, nach 952 D; ohne Zahl, die Aussicht mit der Hauptwaffe zeigen die Kampfwerte `[870.14.kw.krit]`)
 - Wer im Kampf zuerst handelt, und die Aussicht zu fliehen. / EN: Who acts first in combat, and your chance to flee.
@@ -38,7 +38,7 @@ Homer 10.11.; Texte für Schritt 4 und 5 des Umzugs (`LISTE-UMZUG-BRS.md`; Vorg�
 
 `[870.14.wert.wahrnehmung]` Wahrnehmung / Perception
 - Treffen im Fernkampf: +%d %% je Punkt. / EN: Ranged accuracy: +%d%% per point.
-- Kritische Treffer (anderthalbfacher Schaden) mit Dolchen, Bögen, Armbrüsten und Wurfwaffen; die Waffenfertigkeit zählt mit. / EN: Critical hits (half again as much damage) with daggers, bows, crossbows and throwing weapons; weapon skill counts as well. (1008, nach 952 D)
+- Kritische Treffer (anderthalbfacher Schaden) mit Dolchen, Bögen und Armbrüsten; die Waffenfertigkeit zählt mit. / EN: Critical hits (half again as much damage) with daggers, bows and crossbows; weapon skill counts as well. (1008, nach 952 D; 1015: „und Wurfwaffen“ / “and throwing weapons” kommt dazu, sobald es eine Wurfwaffe gibt; heute keine Grundform, `werte.json` „Elstern“, Bauregel)
 - Hinterhalte bemerken. / EN: Noticing ambushes.
 - Aussicht auf ein Kraut mehr beim Sammeln. / EN: A chance of an extra herb when foraging. (963: nur das wirkt, `laden.gd` `kraut_chance`; „Hilft dem Spähen, Verstecktes und Fallen zu finden.“ / “Helps Scouting find hidden things and traps.” kommt als eigene Zeile davor, sobald Spähen wirkt)
 
