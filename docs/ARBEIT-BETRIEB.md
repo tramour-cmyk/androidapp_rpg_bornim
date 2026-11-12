@@ -416,3 +416,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:48 12.11.: Marke Start-fehlt Spike 12.11.-16:32 (lauf.py)
 - 16:48 12.11.: Marke Archiv session_01Hmoj76DZ2CCSESfbp5Jwjh (lauf.py)
 - 16:48 12.11.: Marke Archiv session_01Hmoj78konTZzkjhLux7ri7 (lauf.py)
+- 17:06 12.11.: Startsperre 17:06 Start Spike (1022 auf Wunsch Tom, von Hand)
