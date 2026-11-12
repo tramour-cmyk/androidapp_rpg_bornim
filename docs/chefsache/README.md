@@ -46,10 +46,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
-**Tom** – offen 131, Muss 110, startbar 2
+**Tom** – offen 132, Muss 111, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 1027 | M | Von Sokrates (Chef 12.11., 11:42, Build 279, zu 1020.1): Reiter „Test“ passt nicht auf den | startbar |
 | 1021 | M | Von Sokrates (Chef 12.11., 08:09): Spiel fängt am Handy von vorne an, wenn man kurz in ein | wartet auf Test (Build 279) |
 | 1020.1 | M | Von Sokrates (1020 D zuerst, dann A, E): Prüfliste im Spiel (Zeilen lesen, ✓/✗ mit Wort, E | wartet auf Test (Build 279) |
 | 1012 | M | Von Tom (968): Sammelbuild 278 von main nach dem Zusammenführen von 277, alle fertigen Zwe | wartet auf Test (Build) |
