@@ -93,3 +93,4 @@ Laufend aus dem Chat mit Sokrates, bis „Ergebnis kopieren“ kommt.
 - 279.6 ✓ (Chef 14:20: nach dem Ende durch Android ohne Hauptmenü gleich im Spiel)
 - 279.3 ✓ (Chef 14:29)
 - 278.19 ✓ Messung kam (Chef 14:41, Bild): alles an 16 Bilder/s, ohne Schatten 29, ohne Bäume und Boden 52 → Zu 806 (Jerry)
+- Zu 280.8 (Chef 14:48): nach der Brandflasche kein sichtbares Brennen am Ziel, wie alle Zustandseffekte aus Kotlin → 1036 (Jerry); Flaschengröße nicht beurteilt

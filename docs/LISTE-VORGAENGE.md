@@ -280,6 +280,7 @@
 | 1032 | Von Sokrates (Chef 12.11., 14:08, Build 280, MARS-Probekampf Wölfe, Held und Söldner Wachsoldat): nach dem eigenen Angriff taumelt ein Wachsoldat getroffen, im Bericht steht ein Angriff, aber der Angreifer macht keine Bewegung | Jerry | M | startbar | – | – | – | E Kampf | – |
 | Pflege | von Werkzeug (340.3, 12.11.): 23295 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 1034 | Von Sokrates (Chef 12.11., 14:38, Idee 14:34, zu 1020.2): ein Probekampf für alles: Held „Spielheld“ (zählt im Spielstand) oder „Testheld“ (wie MARS-Probekampf), Söldner für beide, Gegner als Knöpfe, „Kampf beschwören“ entfällt | Jerry | M | startbar | – | – | – | E Kampf | – |
+| 1036 | Von Sokrates (Chef 12.11., 14:48, Build 280, Probekampf Brandflasche): sichtbare Zustände an Figuren fehlen (kein Brennen nach dem Wurf); alle sichtbaren Zustandseffekte wie in der Kotlin-Fassung (Abgleich alt) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
