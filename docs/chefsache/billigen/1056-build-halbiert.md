@@ -12,7 +12,7 @@ Geprüft an: [Lauf 43246197851 auf PR #199](https://github.com/tramour-cmyk/andr
 - Punkte ohne etwas zu sehen (Tests, Werkzeuge, Skripte) fahren in 281 mit und stehen nicht auf der Prüfliste.
 - Gilt nur für diese beiden Builds; danach wieder ein gemeinsamer Build nach 317.
 
-**Umgesetzt:** noch nicht. Perikles plant es mit 1052, wer zuerst bittet, legt 281 an, sobald Build 280 auf `main` ist.
+**Umgesetzt:** noch nicht. Jerry baut 281 mit 1055 (Perikles hat ihn 16:5x angelegt), sobald Build 280 auf `main` ist; Zu 1055 bei Jerry.
 
 **Rückbau:** ein Build mit allem, wie bisher (317).
 
