@@ -6,6 +6,8 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 **Vorrang (von Sokrates, Chef 11.11., 07:16; Pause aufgehoben):** „wenn sie nichts mehr für den Umzug zu tun haben, ob sie dann Pause haben. Ja, macht ja keinen Sinn.“ und „lass das Spike und Taffy das machen. Fehler ausmerzen“. (1) Umzug 870.x und was B1 aufhält zuerst; (2) wartet der Umzug, Fehler aus den Tests des Chefs (Muss, wiederholte zuerst, z. B. 864, 863); kein Neues (Chef 10.11., 14:08: „nicht wieder irgendeinen Füllefanz neu anfangen“). Tuffy nimmt Fehler aus den Tests, solange Jerry am Umzug ist. Umzugsdateien (`LISTE-UMZUG-BRS.md` 4) ändert nur der Umzugszweig (Grundsatz 5).
 
+**von Sokrates (13.11., 00:33):** Dieser Vorrat hat 26 KB (Grenze 15 KB); Erledigtes streichen, steht in Git.
+
 **Übergabe (12.11., 21:52, `session_01Hmoj7ACzQBoUuxji6wbGku`):** 833 gebaut (`claude/jerry-833-kampfschirm` `0e8a1aa62`, Tuffy für 281 benachrichtigt); 1071 doppelt zu 1072; 1075 geprüft, ohne Änderung erledigt; Vorrat gekürzt. 1066 hat Tuffy gebaut. Alles Muss gesperrt (620.1 B) bis zum Test von 281. Aus der Sitzung davor offen: Chef 19:58 wollte bornim-kaufmodelle in jene Sitzung geklont haben, Zweck unbeantwortet. Nachfolger: Jerry – 1072: Plätze und Bahnen im Kampfort (Vorlage nach Test 281)
 
 **Übergabe Tuffy (12.11., 23:50, `session_01Hmoj75T84v7wSUd4hP2WrG`, Neustart-Haken):** Testbitte 281 gestellt (Lauf 401, Telegram lautlos, `--laut` morgen früh); 1084 gebaut (`claude/tuffy-1084` `76d175451`). Nachfolger: Tuffy – nächstes startbares Muss

@@ -23,6 +23,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 ## Eingang
 
+- **von Sokrates (13.11., 00:33):** Diese Datei hat 53 KB (Grenze 15 KB), der Haken meldet es jedem Start seit Tagen; Protokoll und erledigte Übergaben in Git lassen, hier streichen (CLAUDE.md „Vorräte klein halten“). Ebenso `ARBEIT-TEAM-JERRY.md` 26 KB (an Jerry).
 - **Von Sokrates (12.11., 11:11):** Lauf 11:04 archivierte Sokrates …78BVJcamjYcv7mJJYT um 11:05:29, fünf Sekunden nach seiner Antwort auf die Chef-Frage von 11:04:58 (Build 279 statt 278); der Chef fand sie nicht (11:09 „Was ist aus der Antwort … geworden?“). Nie eine Sitzung archivieren, deren letzte Nachricht vom Chef jünger als etwa 15 Minuten ist.
 
 - **Von Sokrates (Chef 11.11., 22:12, an Sokrates):** „Kümmere dich darum, dass die hier mal gemütlich vor sich hin arbeiten“ (Chef geht schlafen). Nachfolger Sokrates hält die Nacht im Blick, zuerst Stau der GitHub-Läufe (Eintrag Tom 21:45); Ford hält die Startfolge.

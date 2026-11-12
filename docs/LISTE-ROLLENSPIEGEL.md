@@ -181,3 +181,17 @@ Ist-Soll-Abgleich jeder Rolle (340, Chef 23.10., 09:46). **Wann:** freitags am E
 8. Lauf 404 (über 80 Minuten, Kauf-Cache verfehlt) für 32 s Film ohne Ausweichen.
 9. Fehlt: „Jeder Filmtest begrenzt nach Bildern, nie nach Uhrzeit (--write-movie läuft langsamer als Echtzeit)“; streichen würde ich nichts.
 10. Ernste Ansage: dreimal derselbe Fehlertyp (Testschleife, nicht Spiel) kostet Läufe und Chefzeit. Schritte: (a) Filmtests am Rechner mit Seed und FILM=1 ohne Bild bis zum Ende durchlaufen lassen, (b) Grenzen nach Bildern, (c) Prüfzeile im Test, die abbricht, wenn der Prüfgegenstand nicht vorkam.
+
+### Sokrates (13.11., 00:32, Sitzung „Sokrates – 1077: Nachtführung und Chefrunde Build 281 (13.11., 00:29)“)
+
+0. Angekündigt 02.11.: (a) Wächter für Chefsache-Dateien mit Archiv-Entscheid, (b) Rückmeldung zuerst im Chat, (c) Vorgänger lesen; geschehen 2 von 3: (a) steht als Commit-Prüfung und „Lücken“ (Chefsache-README 383.3), (b) gilt; (c) brach am 12.11., 18:27 (Haarfarbe erneut gefragt, Fehler 341 18:29).
+1. Halb erfüllt: „Beraten heißt ergänzen“ und „Vorlage zuerst gegen das gebilligte Muster“: 867 zweimal mit A empfohlen gegen Muster 292.3 (12.11., 21:40), 1051 nur gegen Kapitel 1 statt gegen die Kapiteltabelle gerechnet (22:15).
+2. Etwa 60 % Chef (Chefrunden 1036, 1039, 1051, 867, 1072; Nacht 1077), 30 % Teams (Läufe nach 621 A, Gegenlesen t280, t281), 10 % Notizen; richtig, aber das Gegenlesen hat nicht gehalten (t280 1022, Fehler 341 13:51).
+3. Z3 Ziel 0, Ist mindestens 10 Fehler 341 vom 11.11. bis 12.11. (`ARBEIT-BERATUNG.md`: 952, 365a, 644a, 1036, 1022, 867 dreimal, 1072, 1051); verfehlt. Z4 und Ze zählt Diogenes; 1051 Vorentscheid hielt keine 20 Minuten (Archiv 22:06 → 22:18).
+4. Vorgelegt 1051 (zwei Wege mit Zahlen; der Chef wählte A erst, nachdem er selbst den Verlauf über Kapitel 4 fand), 867 (ohne Gegenprobe am Muster), 1072 (ohne die sechs Plätze 72v, die er selbst nannte); es fehlte jedes Mal die Prüfung gegen das, was schon beschlossen war.
+5. Die Nachtentscheide 1077 (Vorentscheide 1022, 842, 1044, 1084, 1085; 867 zweimal „nicht so“): Bildurteile ohne den Chef, er kann sie morgen zurückweisen; ungeprüft gemeldet war t280 „bekannt: Kartenrand“ (1022 nicht im Build).
+6. Nicht gemeldet: dass `ARBEIT-BETRIEB.md` (53 KB) und `ARBEIT-TEAM-JERRY.md` (26 KB) seit Tagen über der Grenze liegen; der Haken meldet es jedem, keiner trug es ein, ich bis 13.11., 00:33 auch nicht (dann Eingang Ford, Vorrat Jerry), weil ich es für ihre Sache hielt; Haltung 4 sagt: eintragen.
+7. Der Chef wartete auf Vorlagen, die erst im dritten Anlauf stimmten (867 Vorlage 1 bis 5); verkürzt hätte eine Prüfliste je Vorlage aus dem gebilligten Muster, vor dem ersten Lauf an Tom.
+8. Am meisten gekostet, am wenigsten gebracht: Läufe für Vorlagen, die ich nicht vorher gegen das Muster gelegt hatte (867 Vorlagen 2 bis 4, 1043 drei Filmläufe ohne Ausweichen).
+9. Unklar: ob „Läufe frei“ nach 621 A auch nachts ohne Kostengrenze gilt; streichen würde ich nichts; es fehlt ein Wächter, der eine Zahl einer Fertigkeit über alle Kapitel rechnet (Lehre 1051).
+10. Ernste Ansage: Inhalte und Tempo tragen, aber zehn Fehler 341 in zwei Tagen sind genau mein typischer Fehler (zustimmen und warten statt gegen Beschlossenes prüfen). Schritte: (a) jede Vorlage vor dem Lauf gegen das gebilligte Muster und das Archiv der Nummer als drei Prüfpunkte an das Team; (b) jede Zahl bei 0, 24, 49, 74, 100 gegen BRS 5; (c) beim Start die letzten zehn Nachrichten des Vorgängers lesen, bevor ich etwas frage.
