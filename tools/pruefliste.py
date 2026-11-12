@@ -2,7 +2,7 @@
 # 1020.1 (Chef 12.11., 08:09, „jetzt“; Vorlage 1020 D Stufe 1): die laufende Prüfliste kommt beim Bau ins Spiel, der Reiter „Test“
 # zeigt sie Zeile für Zeile (testmodus.gd, pruefliste.gd). Liest eine Prüfliste `t<n>-….md` (Aufbau LISTE-CHECK-BUILD-TEST.md 10) und
 # schreibt sie als JSON: Build, Kopfzeile, Sätze vor der ersten Tabelle, Abschnitte mit Zeilen (Nummer, Team, Vorgang, Wo und wie,
-# Richtig, Falsch).
+# Richtig, Falsch). 1087: die Spalte heisst nach LISTE-CHECK-BUILD-TEST.md 10 „Passt“ (t281), frueher „Richtig“ (t280); beide.
 # Aufruf: python3 tools/pruefliste.py AUS.json [DATEI.md]
 #   ohne DATEI: die Prüfliste mit der höchsten Nummer auf origin/main (docs/chefsache/ansehen, sonst docs/entwurf); holt main
 #   flach, wenn es fehlt. Keine Prüfliste: JSON mit leeren Abschnitten, das Spiel zeigt dann „keine Prüfliste im Bau“.
@@ -73,7 +73,7 @@ def lies(text, quelle=''):
                 abschnitt = {'titel': '', 'zeilen': []}
                 aus['abschnitte'].append(abschnitt)
             abschnitt['zeilen'].append({'nr': nr, 'team': d.get('team', ''), 'vorgang': d.get('nr.', d.get('nr', '')),
-                                        'wo': d.get('wo und wie', ''), 'richtig': d.get('richtig', ''), 'falsch': d.get('falsch', '')})
+                                        'wo': d.get('wo und wie', ''), 'richtig': d.get('passt', d.get('richtig', '')), 'falsch': d.get('falsch', '')})
             continue
         # im Spiel nur, was beim Prüfen hilft: der Weg und was bekannt ist (nicht Teamliste, „Verglichen“, „Im Bau geprüft“)
         if not aus['abschnitte'] and re.match(r'(Rot|Bekannt|Ein Weg|Dazu bekannt)', z.strip()):
