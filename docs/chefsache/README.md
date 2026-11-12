@@ -314,8 +314,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1014 | M | Von Jerry (1013, Lauf 365 und 370): schild_406 FIGHTER SS_ParryLow: Körper bis 0,071 m im | wartet auf Test/Build (gebaut) |
 | 644a.1 | M | Von Sokrates (644a A mit Spanne, D, F; Chef 12.11., 08:21): erst Rechnung (Spannen je Stuf | in Arbeit bei Tuffy |
 | 1024 | M | Von Sokrates (Chef 12.11., 09:04, Bild Wolfskampf Build 278): Schalterreihe am rechten Ran | startbar |
-| Pflege | K | von Werkzeug (340.3, 12.11.): 18671 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 644b | M | Von Tuffy (644a.1, Rechnung): Deckel trotz Zahlen weg? Hauptwert üblich +4 bei Schütze, Sp | in Arbeit bei Tuffy |
+| Pflege | K | von Werkzeug (340.3, 12.11.): 18671 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 13, Muss 12, startbar 0
 
