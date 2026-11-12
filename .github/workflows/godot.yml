@@ -37,6 +37,9 @@ on:
       leute:
         description: "Gesichter der Leute 475 (Tom): ja"
         default: ""
+      karte:
+        description: "Kartenfilm 744 (Jerry): ja = Monster auf der Karte vorher (Stand vor 744) und nachher, ein Film"
+        default: ""
       cache:
         description: "Kauf-Cache (854, 910): neu = Treffer übergehen, voll bauen, dann Gegenprobe gegen den abgelegten Stand"
         default: ""
@@ -684,6 +687,7 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/varianten_504.gd 2>&1 | tee varianten504.log | grep -E "FEHLER|VARIANTEN504|SCRIPT ERROR"; grep -q "^VARIANTEN504 0 Fehler" varianten504.log   # 504.1 Gespraeche in Varianten
           timeout 300 ~/godot/godot --headless --path . -s res://tests/wald_490.gd 2>&1 | tee wald490.log | grep -E "FEHLER|WALD490|SCRIPT ERROR"; grep -q "^WALD490 0 Fehler" wald490.log   # 490
           timeout 120 ~/godot/godot --headless --path . -s res://tests/wenden_560.gd 2>&1 | tee wenden560.log | grep -E "FEHLER|WENDEN560|SCRIPT ERROR"; grep -q "^WENDEN560 0 Fehler" wenden560.log   # 560 Monster wenden mit Tritten
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/gang_744.gd 2>&1 | tee gang744.log | grep -E "FEHLER|GANG744|SCRIPT ERROR"; grep -q "^GANG744 0 Fehler" gang744.log   # 744 A Bewegungsbaustein: Bogen, Verweilen, Ruhebewegung
           timeout 120 ~/godot/godot --headless --path . -s res://tests/tritte_560.gd 2>&1 | tee tritte560.log | grep -E "FALSCH|TRITTE560|SCRIPT ERROR"; grep -q "^TRITTE560 gut" tritte560.log   # 560 Tritte auf der Karte nicht gebremst (Tom)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/position_518.gd 2>&1 | tee position518.log | grep -E "FEHLER|POSITION518|SCRIPT ERROR"; grep -q "^POSITION518 0 Fehler" position518.log   # 518 Shader setzen POSITION immer
           timeout 300 ~/godot/godot --headless --path . -s res://tests/wald_491.gd 2>&1 | tee wald491.log | grep -E "FEHLER|WALD491|SCRIPT ERROR"; grep -q "^WALD491 0 Fehler" wald491.log   # 491
@@ -843,6 +847,31 @@ jobs:
           grep -E "SCRIPT ERROR|^DORF461 (Held|fertig|.*stoesst)" $GITHUB_WORKSPACE/bilder/grundstand/dorf461.log | cut -c1-400 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/dorf461.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $GITHUB_WORKSPACE/bilder/grundstand/dorf461.mp4 || true
           ls -l $GITHUB_WORKSPACE/bilder/grundstand
+      # 744 A (Chef 09.11., 11:18): Monster auf der Gebietskarte, vorher (herde.gd, streuner.gd vor 744, Commit 1dad9bbdc) und nachher
+      # (Zweig), je 45 s mit derselben Datei film_karte_744.gd, nacheinander in einem Film; Zeilen KARTE744 zum Messen
+      - name: Kartenfilm 744
+        if: ${{ !cancelled() && github.event.inputs.karte == 'ja' && github.event.inputs.film != 'nein' }}
+        continue-on-error: true
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/bilder/karte744
+          command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
+          sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
+          git fetch -q --depth=1 origin 1dad9bbdce0c044328c1a7b0404c1f604be28d63
+          rm -rf $RUNNER_TEMP/vorher && cp -a godot $RUNNER_TEMP/vorher
+          for f in herde.gd streuner.gd; do git show FETCH_HEAD:godot/skripte/$f > $RUNNER_TEMP/vorher/skripte/$f; done
+          for f in vorher nachher; do
+            d=$GITHUB_WORKSPACE/godot; [ $f = vorher ] && d=$RUNNER_TEMP/vorher
+            (cd $d && timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" \
+              ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/karte744-$f.avi --fixed-fps 30 \
+              -s res://tests/film_karte_744.gd -- --kartefilm744=$f > $GITHUB_WORKSPACE/bilder/karte744/$f.log 2>&1) || true
+            grep -E "SCRIPT ERROR|FEHLER|^KARTE744 [a-z]+ (Monster|gefilmt|start|fertig)" $GITHUB_WORKSPACE/bilder/karte744/$f.log | cut -c1-400 || true
+          done
+          ab() { grep -oE "^KARTE744 $1 start bild=[0-9]+" $GITHUB_WORKSPACE/bilder/karte744/$1.log | grep -oE "[0-9]+$" | awk '{printf "%.2f", $1 / 30}'; }
+          av=$(ab vorher); an=$(ab nachher); echo "Kartenfilm 744 ab vorher ${av:-0} s, nachher ${an:-0} s"
+          ffmpeg -loglevel error -y -ss ${av:-0} -i $RUNNER_TEMP/karte744-vorher.avi -ss ${an:-0} -i $RUNNER_TEMP/karte744-nachher.avi \
+            -filter_complex "[0:v]scale=540:-2,setsar=1[a];[1:v]scale=540:-2,setsar=1[b];[a][b]concat=n=2:v=1:a=0[v]" -map "[v]" \
+            -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $GITHUB_WORKSPACE/bilder/karte744/karte744.mp4 || true
+          ls -l $GITHUB_WORKSPACE/bilder/karte744
       # 453 r3 und 453.1 (Jerry; Chef 01.11., 19:5x: „453 r2 passt … aber die Helden sehe jetzt wieder ‚doof‘ aus. Waren wir da nicht
       # schon weiter???“): Wölfe r3 mit und ohne Atemschicht; Helden im Kampf (film_403, gleiche Würfel) in fünf Fassungen, je ein
       # Kandidat seit Film 403 an: Atemschicht (ATEM_ALT), Schwert-und-Schild-Bewegungen (OHNE_SS), Signatur (OHNE_SIGNATUR).

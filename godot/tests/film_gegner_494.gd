@@ -136,7 +136,7 @@ func _gegner(g: String) -> void:
 		return
 	if lb:
 		lb.text = nr + " · " + String(Probe.FOES[g])
-		lz.text = "Ruhe, von nah" + (" · " + OS.get_environment("ZEILE") if OS.get_environment("ZEILE") != "" else "")
+		lz.text = "Ruhe, von nah" + (" · " + OS.get_environment("ZEILE") if OS.get_environment("ZEILE") != "" else "")     # 744: vorher/nachher
 	await _blende(0.0)
 	if bilder != "":
 		await _knips(bilder + "/%s-%s-nah.png" % [nr, g])
@@ -147,7 +147,8 @@ func _gegner(g: String) -> void:
 		kf.cam.make_current()
 		if kf.ui != null:
 			kf.ui.visible = true
-	await create_timer(4.0 if bilder == "" else 0.5).timeout
+	# 744: RUHE_S verlängert die Ruhe von nah (Ruhebewegungen kommen alle 3–7 s), DAUER_MS=0 lässt den Kampf aus
+	await create_timer((float(OS.get_environment("RUHE_S")) if OS.get_environment("RUHE_S") != "" else 4.0) if bilder == "" else 0.5).timeout
 	for f in verborgen:
 		f.visible = true
 	# Teil 2: Kampf auf Autopilot, Echtzeit

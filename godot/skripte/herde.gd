@@ -95,11 +95,13 @@ func neu(schon: Array) -> Dictionary:
 	return {"art": ziehe(t), "kachel": p, "heim": p, "blick": blicke[zufall.randi_range(0, 3)], "nr": zufall.randi_range(1, 4)}
 
 # ---------------------------------------------------------------- wie updateRoamers
-func frei(p: Vector2i) -> bool:
+func frei(p: Vector2i, ohne: Streuner = null) -> bool:
 	if not karte.begehbar(p) or not karte.ausgang(p).is_empty() or not sicher(p).is_empty(): return false
 	if p == spiel.held.kachel: return false
 	for s in liste:
+		if s == ohne: continue
 		if s.kachel == p: return false
+		if s.gang != null and s.gang.naechste(jetzt) == p: return false     # 744: im Gang ist die naechste Kachel belegt
 	for l in spiel.leute.get_children():
 		if l is Leute and l.kachel == p: return false
 	return true
@@ -122,10 +124,23 @@ func schritt(dt: float) -> void:
 	for s in liste.duplicate():
 		s.zeichne(jetzt, dt, hp)     # 1007: hp fuer den Ruhelaut
 		# Held laeuft in ein Monster (Game.move: roamerAt): er greift an, von hinten zuerst; ein Lauerer in seinem Versteck auch
-		if s.position.distance_to(hp) < 0.8 and jetzt >= s.bewegt_ms + s.schritt_ms / 2:
+		if s.position.distance_to(hp) < 0.8 and (s.gang != null or jetzt >= s.bewegt_ms + s.schritt_ms / 2):
 			var hb := _held_blick()
 			_los(s, "HERO_FIRST" if s.blick == hb or (s.temper() == "LAUERER" and not s.jagt) else "NORMAL")
 			return
+		# 744: im Gang die Kachel nachziehen; bemerkt ein Jaeger den Helden (oder meidet ihn), endet der Gang weich auf der naechsten Kachel
+		if s.gang != null:
+			s.gang_takt(jetzt, _frei_fuer(s))
+			if s.gang != null:
+				if jetzt >= s.naechst_ms and not s.heimweg:
+					s.naechst_ms = jetzt + 250
+					var dg := absi(s.kachel.x - h.x) + absi(s.kachel.y - h.y)
+					var rg: bool = aus or beachten_nicht or jetzt < s.ruhig_bis or jetzt < frieden_bis
+					var sg := am_schutz.is_empty() and dg <= (2 if s.temper() == "LAUERER" else reichweite())
+					if not rg and ((stark and dg <= 4 and am_schutz.is_empty()) or (not stark and s.temper() == "JAEGER" and sg)):
+						s.gang.kuerze(jetzt)
+				continue
+			s.naechst_ms = maxi(s.naechst_ms, jetzt)
 		if jetzt < s.naechst_ms: continue
 		var dist := absi(s.kachel.x - h.x) + absi(s.kachel.y - h.y)
 		var vom_heim := absi(s.kachel.x - s.heim.x) + absi(s.kachel.y - s.heim.y)
@@ -134,6 +149,7 @@ func schritt(dt: float) -> void:
 		var sieht := am_schutz.is_empty() and dist <= (2 if s.temper() == "LAUERER" else reichweite())
 		if not ruhig and angst and dist <= 4 and am_schutz.is_empty():
 			s.jagt = false
+			s.auf(jetzt)
 			_auf(s, h, true, 360)
 		elif s.jagt:
 			if not am_schutz.is_empty() or ruhig or dist > 7 or vom_heim > 9:
@@ -154,6 +170,7 @@ func schritt(dt: float) -> void:
 				_auf(s, h, false, 560 if s.art == "zombie" else 380)
 		elif not ruhig and not angst and s.temper() != "WANDERER" and sieht and not s.heimweg:
 			s.jagt = true
+			s.auf(jetzt)
 			s.blick = _richtung(h - s.kachel)     # 560: bemerkt den Helden und wendet sich ihm zu, bevor es losgeht
 			s.alarm_bis = jetzt + 800
 			s.naechst_ms = jetzt + 500
@@ -162,9 +179,16 @@ func schritt(dt: float) -> void:
 			if vom_heim <= 1:
 				s.heimweg = false
 				s.naechst_ms = jetzt + 800
+				s.verweilen_bis = jetzt + Gang.verweile_ms(zufall)     # 744: daheim erst verweilen
 			else:
-				_auf(s, s.heim, false, 420)
-				s.naechst_ms = jetzt + 520
+				# 744: heim als Bogen um Hindernisse (karte.weg, schraeg erlaubt), bis zur ersten belegten Kachel; sonst Schritt fuer Schritt
+				var w := Gang.bis_belegt(karte.weg(s.kachel, s.heim), _frei_fuer(s), 6)
+				if w.size() >= 2:
+					s.geh_gang(w, jetzt, _ms_kachel(w, 420))
+					s.naechst_ms = jetzt + 250
+				else:
+					_auf(s, s.heim, false, 420)
+					s.naechst_ms = jetzt + 520
 		elif s.temper() == "LAUERER":
 			if dist <= 4: s.blick = _richtung(h - s.kachel)        # 9i.2: bleibt, dreht sich zum Helden
 			s.naechst_ms = jetzt + 1000
@@ -182,18 +206,32 @@ func _richtung(d: Vector2i) -> Vector2i:
 	if d == Vector2i.ZERO: return Vector2i(0, 1)
 	return Vector2i(signi(d.x), 0) if absi(d.x) >= absi(d.y) else Vector2i(0, signi(d.y))
 
+## 744 A (Chef 09.11., 11:18): statt alle 0,9–2,5 s ein Schritt oder eine Drehung auf der Stelle (Game.kt wander): ein Gang von 2–5
+## Kacheln als Bogen um den Heimplatz (Radius 3 wie alt), danach verweilen (meist 3–12 s) mit Ruhebewegungen der Art (streuner.gd)
 func _streife(s: Streuner) -> void:
 	s.jagt = false
-	if zufall.randi_range(0, 9) < 3:
-		s.blick = [Vector2i(0, 1), Vector2i(0, -1), Vector2i(1, 0), Vector2i(-1, 0)][zufall.randi_range(0, 3)]
+	s.naechst_ms = jetzt + 300
+	if s.gang != null: return
+	if jetzt < s.verweilen_bis:
+		s.verweile(jetzt, zufall)
+		return
+	var w := Gang.streife(s.kachel, s.gedreht, s.heim, 3, _frei_fuer(s), zufall)
+	if w.size() >= 2:
+		s.geh_gang(w, jetzt, _ms_kachel(w, 420))
+		s.verweilen_bis = s.gang.ende_ms() + Gang.verweile_ms(zufall)
+		s.geste_ab = s.gang.ende_ms() + zufall.randi_range(800, 2500)
 	else:
-		var dirs := [Vector2i(0, 1), Vector2i(0, -1), Vector2i(1, 0), Vector2i(-1, 0)]
-		dirs.shuffle()
-		for d in dirs:
-			var n: Vector2i = s.kachel + d
-			if absi(n.x - s.heim.x) + absi(n.y - s.heim.y) > 3: continue
-			if _geh(s, d, 420): break
-	s.naechst_ms = maxi(jetzt + 900 + zufall.randi_range(0, 1600), s.bewegt_ms + s.schritt_ms + 40)     # 560: nach Wende und Schritt
+		s.verweilen_bis = jetzt + Gang.verweile_ms(zufall)
+
+## frei fuer den Gang von s: die eigene Kachel zaehlt als frei (schraege Schritte an ihr vorbei)
+func _frei_fuer(s: Streuner) -> Callable:
+	return func(p: Vector2i) -> bool: return p == s.kachel or frei(p, s)
+
+## Zeit je Kachel fuer einen Gang: Grundtempo wie ein Schritt (ms * PACE), im Mittel des Bodens (Terrain.stepFactor)
+func _ms_kachel(w: Array[Vector2i], ms: int) -> float:
+	var f := 0.0
+	for i in range(1, w.size()): f += karte.schritt(w[i])
+	return ms * Streuner.PACE * f / maxf(1.0, w.size() - 1.0)
 
 ## ein Schritt zu (oder weg von) ziel entlang der besseren Achse, sonst die andere (stepTowards)
 func _auf(s: Streuner, ziel: Vector2i, weg: bool, ms: int) -> void:
@@ -256,6 +294,10 @@ func nach_kampf(s: Streuner, ende: String) -> void:
 		s.jagt = false
 		s.heimweg = true
 		s.ruhig_bis = jetzt + Streuner.FLED_CALM_MS
+		s.gang = null     # 744: ein Gang vor dem Kampf geht nicht weiter
+		s.von = s.kachel
+		s.verweilen_bis = 0
+		s.sitzt = false
 		_merke(s)
 
 # 555 wie alt Game.cheatBring (Testmenue „neben den Helden holen“): ein Monster der Art auf ein freies Feld neben dem Helden, friedlich
