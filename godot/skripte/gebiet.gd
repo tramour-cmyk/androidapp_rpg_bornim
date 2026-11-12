@@ -686,7 +686,7 @@ func halm_netz(xf: Array[Transform3D], cu: Array[Color], tex: String, korn: floa
 	var mmi := MultiMeshInstance3D.new()
 	mmi.multimesh = mm
 	mmi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	var m := ShaderMaterial.new(); m.shader = load("res://shader/halm.gdshader")
+	var m := ShaderMaterial.new(); m.shader = korn_shader() if korn > 0.5 else load("res://shader/halm.gdshader")
 	m.set_shader_parameter("tex", bild(tex))
 	m.set_shader_parameter("korn", korn)
 	m.set_shader_parameter("inseln", insel_liste)
@@ -696,6 +696,17 @@ func halm_netz(xf: Array[Transform3D], cu: Array[Color], tex: String, korn: floa
 	add_child(mmi)
 	letztes_netz = mmi
 	return m
+
+# 612 (Chef 07.11., t268: „Im Weizenfeld wächst sehr viel Wackelgras durch“): Gras und Korn schrieben keine Tiefe (halm.gdshader,
+# sonst Tusche an jedem Halm); das Gras der Wiese hinter dem Feld, in der Schraegsicht vom Korn verdeckt, malte sich je nach
+# Reihenfolge ueber das Korn. Das Korn schreibt jetzt Tiefe (Gras dahinter faellt im Tiefentest weg, auch das Gras-Kit) und
+# markiert Schablone 1 wie die Blueten: keine Tusche auf dem Korn, hinter dem Umriss ohnehin keine (tusche.gdshader hinten_ab)
+static var _korn: Shader
+static func korn_shader() -> Shader:
+	if _korn == null:
+		_korn = Shader.new()
+		_korn.code = (load("res://shader/halm.gdshader") as Shader).code.replace("depth_draw_never;", "depth_draw_opaque;\nstencil_mode write, compare_always, 1;")
+	return _korn
 
 static var _punkt: ImageTexture
 static func punkt_mat(leuchtet: bool) -> StandardMaterial3D:
