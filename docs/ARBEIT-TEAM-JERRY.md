@@ -8,10 +8,9 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 **Übergabe (12.11., 15:01, `session_01Hmoj76DJtggtnNPKMMxpU6`):** 995 Grabhund gebaut (`claude/jerry-995-grabhund` `783bc44ee`), Probe gelb/rot beim Chef (`ansehen/995-grabhund.md`); nach seiner Wahl AUGE in `kaufgrabhund.py` setzen. 1032 im einzelnen Kampf nicht nachgestellt (`claude/jerry-1032-treffer`, wartet auf 1025). 1037 Werte gebaut (`claude/jerry-1037-werte`), Vorentscheid 1038 bei Sokrates, Start Tom 842 an Ford. 1036 Abgleich alt in Zu 1036, Bau Tuffy. Nachfolger: keiner (nur Pflege)
 
-**Übergabe Tuffy (12.11., 16:17):** 1036 beim Chef; 1039, 1040 Filmläufe laufen. Nachfolger: Tuffy – 1039/1040: Filme an den Chef
+**Übergabe Tuffy (12.11., 16:50):** Filme 1039, 1040 unbrauchbar, behoben; neuer Lauf nach 1053 (Sokrates). Nachfolger: keiner
 
 ## Einzelheiten
-- **Hinweis von Tom (12.11., 16:40):** `tests/mars_regeln.gd` 222 ruft auf build-280 `b.massstab()`, das es seit dem Umzug nicht gibt (SCRIPT ERROR, dazu „'atk'“); `godot-kampf.yml` bleibt grün, weil es nur „0 abweichend“ sucht.
 - **Zu 1055, von Perikles (12.11., 16:5x, 1052, Wochenziel 2):** gleich nach PR #199 Sammelbuild 281 mit allen fertigen Zweigen beider Teams (Tom 14, Jerry 31); Prüfliste Kampf zuerst (Paket 1039, 1043, 1025/1032, 1036, 1031; 1040, 1040.1), gegengelesen vor dem Lauf, der die APK baut (1020.1). Danach dein Vorrang: das Paket, 1041, 1034 (neu geordnet).
 - **Zu 870.2, 870.3, von Sokrates über Perikles (12.11., 16:47):** sind auf `main` und im getesteten Build 280, stehen aber noch auf „gebaut“ ohne Build; bitte prüfen und mit dem Abschluss von 280 erledigen.
 - **Zu 1050, von Sokrates (952 D, 984 A):** Tuffys Befund (00:12, `claude/tuffy-952-kritisch`): nach 952 D fällt nur der Zauberlehrling zurück (Plus Wille 5, Verstand 1). Neu rechnen mit 644a (Grundwert durch Üben) und 644b (kein Deckel), dann drei Wege je Siegquote Krogg, Grimmzahn, Grak und Niederlagen 1→2: (W1) Plus Verstand 3, Wille 3; (W2) Zauberschaden je Punkt Verstand höher, bis der Zauberlehrling wieder im Feld der übrigen liegt (Zahl nennen); (W3) so lassen. Ergebnis als Zeile „Zu 1050“ an Sokrates (Vorrat Beratung), keine Änderung am Spiel.
