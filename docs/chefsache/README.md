@@ -28,6 +28,12 @@ Nichts offen.
 | [935](ansehen/935-wurf.md) | Wurfmittel im Kampf: Flasche im Bogen geworfen | Tuffy | 12.11., 00:16 |
 | [991](ansehen/991-testmenue-zustand.md) | Testmenü: jeder Schalter zeigt seinen Zustand am Zeichen | Tom | 11.11., 21:16 |
 
+**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
+
+| Folge | Version | Build | Was | Wer | Seit |
+|---|---|---|---|---|---|
+| 1 | [0.348.373](ansehen/t278-sammelbuild.md) | [Build 278](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/197) | Sammelbuild nach Build 277 | Tom und Jerry | 12.11., 06:05 |
+
 ## Zu tun
 
 Nichts offen.
@@ -399,6 +405,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 985 | K | Systemlösung? Nebel: 2 frühere Vorgänge (505, 502), neu 785.7; einmal grundsätzlich lösen? | startbar |
 | 644a | M | Rückfrage: Mindeststufe zum Tragen, Stärke je Gegenstandsstufe, Abstand der Funde (Chef 11 | Chef (Datei in der Chefsache) |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 15772 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+## Lücken
+
+Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
+
+Format (Muster: „So geht's“ unten): t278-sammelbuild.md: Zeile 2 ist keine Bereichszeile
+
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
