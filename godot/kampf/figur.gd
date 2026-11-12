@@ -2979,7 +2979,10 @@ func strike(other, e: Dictionary) -> int:
 ## HELD_AUFSCHLAG) und geht rückwärts heim (_back_home); vorher glitt er während des Hiebs bis zu zwei Meter ohne Schritt heran.
 const HELD_LUFT := 0.3
 const HELD_AUFSCHLAG := 0.37     # kampf.py Hieb: Aufschlag 0,37 s
-const HELD_ZURUECK := 2.0        # rückwärts Gehen im doppelten Schritttempo
+## 824 (angriff_562, Lauf 42707518605: der Held ohne Schild ging nach dem Hieb 1,9 m in 0,5 s rückwärts heim, 3,8 m/s mit
+## Sinuskurve, die Bewegung lief höchstens 1,6-fach mit (_schritt_sync), der stehende Fuß rutschte 2 m/s): rückwärts im Schritttempo
+## des Gehens, gleichmäßig, wie mit Schild seit 562
+const HELD_ZURUECK := 1.0
 
 ## Führt der Held einen Stab? Dann ruht er in Stehen, den Stab senkrecht (kampf.py hat Kampfstehen für die Klinge gebaut)
 func _stab() -> bool:
@@ -3219,6 +3222,7 @@ func _back_home(back: float, skip) -> void:
 	elif anim and anim.has_animation("Gehen") and way > 0.2:
 		_guard(true)
 		anim.play("Gehen", 0.12, -clampf(way / back / (_held_mps("Gehen") if kauf else WALK_MPS), 1.0, WALK_MAX))
+		gleich = kauf     # 824: der Kaufheld ohne Schild ebenso gleichmäßig (Schritte im Tempo des Wegs)
 	tween = create_tween()
 	var kurve := Tween.TRANS_LINEAR if gleich else Tween.TRANS_SINE
 	if via != from:
