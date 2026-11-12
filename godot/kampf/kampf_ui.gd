@@ -18,6 +18,7 @@ const DIM := Color("#948A78")
 const GOLD := Color("#B59A6A")
 const BRIGHT := Color("#D9BC82")
 const RIM := Color(0.710, 0.604, 0.416, 0.67)
+const RING_LEUCHT := Color("#FFF2C8")     # 1039: der Zielring im Fenster für „Perfekt“
 const LINE := Color("#9A8155")
 const WARN := Color("#D9785A")
 const RAISED := Color("#17140F")
@@ -1189,8 +1190,21 @@ func _draw_overlay() -> void:
 		var c2 := _foot(fig) - Vector2(0, h * 0.45)
 		var p3 := clampf(float(Time.get_ticks_msec() - ring_t0) / k.RING_MS, 0.0, 1.3)
 		var r0 := h * 0.55
-		overlay.draw_arc(c2, r0, 0, TAU, 48, Color(GOLD, 0.55), 1.5 * dp, true)
-		overlay.draw_arc(c2, r0 * (1.0 + 1.6 * maxf(0.0, 1.0 - p3)), 0, TAU, 64, BRIGHT, 4.0 * dp, true)
+		# 1039 (Chef 12.11., 15:04, Build 280: „tat ich mich ganz schwer, den inneren Ring zu sehen. Also wann ich überhaupt den Ring
+		# drücken muss“): der Zielring kräftig in Gold mit schwarzem Rand (alt 1,5 dp, Gold 55 %, ging vor Gras und Figur unter);
+		# im Fenster für „Gut“ leuchtet er auf, am hellsten im Fenster für „Perfekt“ (kampfort.gd GOOD_MS, PERFECT_MS)
+		var off_ms := absf(float(Time.get_ticks_msec() - ring_t0) - k.RING_MS)
+		var jetzt := clampf(1.0 - (off_ms - k.PERFECT_MS) / float(k.GOOD_MS - k.PERFECT_MS), 0.0, 1.0)
+		var wi := (3.0 + 1.5 * jetzt) * dp
+		overlay.draw_arc(c2, r0, 0, TAU, 64, Color(0, 0, 0, 0.6), wi + 2.5 * dp, true)
+		overlay.draw_arc(c2, r0, 0, TAU, 64, BRIGHT.lerp(RING_LEUCHT, jetzt), wi, true)
+		# der große Ring zieht sich zusammen und läuft wie alt (RingAround) noch etwas über den kleinen hinaus, blasser werdend
+		var k1 := maxf(1.0 - p3, -0.25)
+		var now := r0 * (1.0 + 1.6 * k1)
+		if now > 0.0:
+			var a := clampf(1.0 - absf(k1) * 0.4, 0.3, 1.0)
+			overlay.draw_arc(c2, now, 0, TAU, 64, Color(0, 0, 0, 0.5 * a), 6.0 * dp, true)
+			overlay.draw_arc(c2, now, 0, TAU, 64, Color(GOLD, a), 4.0 * dp, true)
 		var hint := t("Tippen, wenn der große Ring auf dem kleinen liegt", "Tap when the large ring lies on the small one")
 		overlay.draw_string(font, Vector2(0, sr.size.y - 12 * dp), hint, HORIZONTAL_ALIGNMENT_CENTER, sr.size.x, sp(14), DIM)
 
