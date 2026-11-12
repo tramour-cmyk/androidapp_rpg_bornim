@@ -80,3 +80,5 @@ Im Bau geprüft: Spielstand „Weiter“ nimmt immer den neuesten Platz (`spiels
 - 278.23 ✗ vorab (Chef 12.11., 08:07, Film 935): Bogen passt, Flasche „so groß wie ein Ölfass“ → Zu 935 (Jerry)
 - 278.1 ✓ (Chef 12.11., 08:23: „den Scrolltext sozusagen, der passt“)
 - 278.2 ✗ dritter Fund (277.5, 277.12) (Chef 12.11., 08:24: „ich sehe diese Wölkchen wieder nicht, sorry. Außerdem frage ich mich da, wie ich das genau sehen soll dann.“) → Zu 814 (Tom)
+- Außer der Reihe (Chef 08:26, Bild Dorf Nord): Kartenrand offen, Wald nicht dicht → 1022 (Tom)
+- Außer der Reihe (Chef 08:28, Bild Dorf Süd): Beet nicht bis zum Zaun; „wo haben die denn einen Stall?“ (es gibt keinen, Hühner am Heuhaufen) → Zu 612 (Tom)
