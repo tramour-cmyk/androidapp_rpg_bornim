@@ -3634,6 +3634,13 @@ func _hieb_bahn(hn: String, versatz := 0.0) -> Array:
 		var was := String(at.get_meta("was", ""))
 		if was == "":
 			continue
+		# 872 (Chef 10.11., 12:33: „Griff- und Spitzenpunkte je Gegenstand so ablegen, dass Jerry sie übernimmt statt je Gegner zu
+		# messen“): die Klinge vom Griff bis zur Spitze nach Halt.gegenstand (regeln/halt.json, sonst aus dem Modell), im Raum des
+		# angehängten Modells; ohne Maße wie bisher längs des Netzkastens (Knauf und Parierstange zählten dort mit)
+		var hm := klinge_halt(at)
+		if not hm.is_empty():
+			klinge.append([at.bone_idx, at.global_transform.affine_inverse() * (at.get_child(0) as Node3D).global_transform, hm])
+			continue
 		for mm in at.find_children("*", "MeshInstance3D", true, false):
 			(schild if was.contains("shield") else klinge).append([at.bone_idx, at.global_transform.affine_inverse() * mm.global_transform, mm.get_aabb()])
 	var tier: bool = fighter.monster != null and klinge.is_empty()
@@ -3767,8 +3774,24 @@ func schild_kapseln() -> Array:
 
 ## 709: Kasten [g] = [Knochen, Kasten zum Knochen, AABB] als Strecke [a, b, r] längs seiner längsten Achse im Raum [inv]; [flach]:
 ## der Schild als Kreuz aus zwei Strecken durch die Mitte seiner Fläche, Radius die halbe Dicke
+## 872: Maße der Klinge am Anhänger [at] nach Halt.gegenstand (Griff, Spitze im Raum des angehängten Modells), leer für Schild, Bogen,
+## Stab (beide Enden schlagen), Waffen im Modell und ohne Maße; dann gilt der Netzkasten wie bisher
+func klinge_halt(at: Node) -> Dictionary:
+	var was := String(at.get_meta("was", ""))
+	if was == "" or was == "waffe-im-modell" or was.contains("shield") or was.contains("bow") or was in STAFFS or was.begins_with("staff"):
+		return {}
+	if at.get_child_count() == 0 or not (at.get_child(0) is Node3D):
+		return {}
+	var hm := Halt.gegenstand(was)
+	if hm.is_empty() or float(hm.get("laenge", 0.0)) < 0.05:
+		return {}
+	return hm
+
+
 static func _strecke(sk: Skeleton3D, g: Array, inv: Transform3D, flach := false) -> Array:
 	var tr: Transform3D = sk.global_transform * sk.get_bone_global_pose(g[0]) * g[1]
+	if g[2] is Dictionary:     # 872: Maße nach Halt (klinge_halt), Griff bis Spitze
+		return [inv * (tr * (g[2]["griff"] as Vector3)), inv * (tr * (g[2]["spitze"] as Vector3)), 0.0]
 	var box: AABB = g[2]
 	var achsen := [box.get_longest_axis_index()]
 	var r := 0.0
