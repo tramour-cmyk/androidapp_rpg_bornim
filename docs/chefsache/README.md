@@ -12,7 +12,11 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 ## Zu billigen
 
-Nichts offen.
+Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers.
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [1056](billigen/1056-build-halbiert.md) | **Muss** | B Steuerung | 12.11., 16:54 | Nach Build 280 kommen zwei kleinere Builds statt eines großen: 281 mit dem Kampf (Wochenziel), 282 mit Dorf und Oberfläche gleich danach. | Sokrates |
 
 ## Anzusehen
 
@@ -331,7 +335,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 55, Muss 40, startbar 30
+**Sokrates** – offen 56, Muss 41, startbar 30
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -390,6 +394,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1051 | M | Von Jerry (841): Vorentscheid Werte Einschüchtern (Goblin-Späher verjagen): einschuechtern | startbar |
 | 1048 | M? | Ring öfter im Kampf (Chef 12.11., 14:59: „ein bisschen mehr Ring … mehr Einfluss … bei der | Chef (Datei in der Chefsache) |
 | 1053 | M | Von Tuffy (621 A, 480.1): 1039 und 1040 Läufe frei? Je ein Filmlauf zeigte nicht, was er s | startbar |
+| 1056 | M | Vorentscheid: nächster Build halbiert nach Thema, 281 Kampf, 282 Dorf und Oberfläche (Chef | Chef (Datei in der Chefsache) |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
