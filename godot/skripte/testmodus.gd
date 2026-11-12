@@ -283,9 +283,12 @@ static func reiter(m: Menue) -> void:
 	if GrasBausatz.da():   # 804: Gras des Kits oder unser altes, gleich am Ort; Bilder/s vorher und nachher unter „Messen“
 		welt2.append(zk.call(t.call("Gras", "Grass"), t.call("Kit", "kit") if GrasBausatz.an else t.call("alt", "old"), t.call("Gras und Blumen aus Grass & Wind oder unser altes Gras, gleich hier am Ort.",
 			"Grass and flowers from Grass & Wind or our old grass, right here."), func(): m.test.emit("gras", []), "", "G", GrasBausatz.an))
-	if KampfEffekte.da():   # 806: Bodennebel und Lichtschächte im Kampfort an oder aus, gilt ab dem nächsten Kampf (Bilder/s vorher und nachher)
-		welt2.append(zk.call(t.call("Kampfnebel", "Battle mist"), an_aus.call(KampfEffekte.an), t.call("Bodennebel und Lichtschächte im Kampfort an oder aus; gilt ab dem nächsten Kampf.",
-			"Ground mist and light shafts at the battle place on or off; from the next battle on."), func(): m.test.emit("kampfeffekte", []), "", "N", KampfEffekte.an))
+	if KampfEffekte.da():   # 806: Lichtschächte im Kampfort an oder aus, gilt ab dem nächsten Kampf (Bilder/s vorher und nachher; Bodennebel seit Test 277 aus)
+		welt2.append(zk.call(t.call("Lichtschächte", "Light shafts"), an_aus.call(KampfEffekte.an), t.call("Lichtschächte im Kampfort an oder aus; gilt ab dem nächsten Kampf.",
+			"Light shafts at the battle place on or off; from the next battle on."), func(): m.test.emit("kampfeffekte", []), "", "N", KampfEffekte.an))
+	# 806 (Fund t277.7): der nächste Kampf hält vor dem ersten Zug an und misst je Baustein Bild-, Grafik- und Zeichenzeit
+	welt2.append(zk.call(t.call("Kampf messen", "Measure battle"), null, t.call("Der nächste Kampf misst etwa 40 s lang, was jeder Baustein (Gras, Tusche, Schatten …) an Zeit kostet; Ergebnis über dem Kampfort und unter „Gerät zeigen“.",
+		"The next battle measures for about 40 s what each part (grass, ink, shadows …) costs; result above the battle place and under “Show device”."), func(): m.test.emit("kampfmessen", []), "", "M"))
 	m.zeichenreihe(welt2)
 	m.gruppe("Teleport")
 	var orte := [[t.call("Dorf", "Village"), "village", 11, 7, "DOWN", "HOME", ""], [t.call("Wald", "Forest"), "forest", 10, 20, "UP", "", "W"],

@@ -75,6 +75,7 @@ var shown := {}            # the last message played: hp, places, intents, queue
 ## 296.2: the hero's experience before the fight, how far above the place he stands, the level cap (null: chapter's)
 var progress := {}
 var verhuellt := false     # 402: die Blende vor dem Kampf steht noch (Kampfblende.gd)
+var messpause := false     # 806: „Kampf messen“ (Bausteine806) hält die Meldungen an, bis jeder Baustein gemessen ist
 ## 296.2: what the won fight brings ({xp, gold, items, level, levels, xp_total, lines}), empty otherwise
 var reward := {}
 ## 399.2 (aufruf.gd): Kampfort und Tageszeit aus dem Aufruf; heute gibt es nur den Wald, die Tageszeit dämpft das Licht
@@ -363,14 +364,15 @@ func _build_forest() -> void:
 	_lichtung_806()
 
 
-## 806: Bodennebel (R8) und zwei Lichtschächte mit Staub (R7) hinter den Kämpfern, von der Kamera aus gesehen (wie _grass: 15 m
-## Abstand, Blick örtlich (0,866, −0,5)); Paket fehlt oder Grafikstufe aus: nichts
+## 806: zwei Lichtschächte mit Staub (R7) hinter den Kämpfern, von der Kamera aus gesehen (wie _grass: 15 m Abstand, Blick örtlich
+## (0,866, −0,5)); Paket fehlt oder Grafikstufe aus: nichts
 func _lichtung_806() -> void:
 	if OS.get_environment("EFFEKTE_806") == "0":     # Vergleich und Bilder/s vorher
 		return
-	# Chef 10.11., 08:58 (Standbild Lichtung): „Nebel halb so dicht, nur am Boden“: Dichte 0,55 → 0,28, Lagen bis 0,45 m statt 1 m;
-	# NEBEL_806=0 nur ohne Nebel (Bildpaar an/aus am selben Ort)
-	if OS.get_environment("NEBEL_806") != "0":
+	# Kein Bodennebel mehr (Archiv „806, Lichtung mit Nebel“, 11.11., 12:06: mit Nebel nur, wenn die Bilder/s nicht sinken, sonst ohne):
+	# Test 277 (Chef 20:27/20:30) 13 Bilder/s mit, 17 ohne, und „den Nebel habe ich wirklich nicht gesehen“; vier Lagen über den
+	# ganzen Schirm kosteten am Handy etwa 18 ms je Bild. NEBEL_806=1 zeigt ihn noch zum Vergleich (Bildpaar am Rechner)
+	if OS.get_environment("NEBEL_806") == "1":
 		KampfEffekte.nebel(self, 0.45, 0.28)
 	var cam_l := Vector2(-0.866 * 15.0, 0.5 * 15.0)
 	for quer: float in [-5.5, 4.5]:
@@ -1138,7 +1140,7 @@ func _process(_dt: float) -> void:
 	_grass_spots()
 	if ring_open and Time.get_ticks_msec() > ring_start + RING_MS + GOOD_MS + 60:
 		_answer_ring(Mars.NONE)
-	if playing or verhuellt:     # 402: unter der Blende warten Worte und Züge
+	if playing or verhuellt or messpause:     # 402: unter der Blende warten Worte und Züge; 806: ebenso beim Messen
 		return
 	if end_asked != null:
 		_skip_beats()

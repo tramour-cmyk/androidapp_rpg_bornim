@@ -635,6 +635,9 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 		kampf = aufruf.kampf
 		Messung.kampf_ms = Time.get_ticks_msec() - k0
 		Messung.kampf_beginn("%s, %s" % [gegner, String(lage["platz"])])   # 211.14: Leistung je Kampf am Gerät
+		if kampf and Bausteine806.naechster:   # 806: Testmenü „Kampf messen“, nur dieser Kampf
+			Bausteine806.naechster = false
+			kampf.add_child(Bausteine806.new(kampf))
 		if kampf and kampf.cam: kampf.cam.make_current()
 	while erg["ende"] == "": await get_tree().process_frame
 	kampf = null
@@ -1093,7 +1096,7 @@ func oeffne_menue(reiter := "") -> void:
 	m.test.connect(func(was: String, mit: Array):   # 399.1 Reiter „Test“: erst das Menue zu, dann in der Welt
 		# 555 (Chef 11:52: „Wenn ich auf Kartenzoom klicke, dann bin ich sofort aus dem Testmenü draußen“): Schalter bleiben wie alt im
 		# Menue, die Wirkung steht als kurze Meldung; nur Orts-, Kampf- und Schirmwechsel schliessen
-		if was in ["zoom", "nacht", "tiere", "gras", "kampfeffekte"]:
+		if was in ["zoom", "nacht", "tiere", "gras", "kampfeffekte", "kampfmessen"]:
 			test_tat(was, [])
 			var de := Sprache.aktiv() == "de"
 			match was:
@@ -1101,7 +1104,8 @@ func oeffne_menue(reiter := "") -> void:
 				"nacht": m.meldung(("Nacht, 23:00 Uhr" if de else "Night, 11 pm") if licht.ziel > 0.5 else ("Tag, 12:00 Uhr" if de else "Day, noon"))
 				"tiere": m.meldung("Tiere umgeschaltet" if de else "Animals toggled")
 				"gras": m.meldung(("Gras: Grass & Wind" if de else "Grass: Grass & Wind") if GrasBausatz.an else ("Gras: unser altes" if de else "Grass: our old one"))
-				"kampfeffekte": m.meldung(("Kampfnebel an" if de else "Battle mist on") if KampfEffekte.an else ("Kampfnebel aus" if de else "Battle mist off"))
+				"kampfeffekte": m.meldung(("Lichtschächte an" if de else "Light shafts on") if KampfEffekte.an else ("Lichtschächte aus" if de else "Light shafts off"))
+				"kampfmessen": m.meldung(("Der nächste Kampf misst jeden Baustein (etwa 40 s)" if de else "The next battle measures each part (about 40 s)") if Bausteine806.naechster else ("Kampf messen aus" if de else "Battle measuring off"))
 			return
 		m.zu.emit()
 		test_tat(was, mit))
@@ -1130,8 +1134,10 @@ func test_tat(was: String, mit: Array) -> void:
 		"gras":   # 804: Gras des Kits gegen unser altes, zum Vergleich und fuer die Bilder/s vorher und nachher
 			GrasBausatz.an = not GrasBausatz.an
 			if gebiet: gebiet.gras_neu()
-		"kampfeffekte":   # 806: Bodennebel und Lichtschächte im Kampfort, ab dem nächsten Kampf
+		"kampfeffekte":   # 806: Lichtschächte im Kampfort, ab dem nächsten Kampf (Bodennebel seit Test 277 aus)
 			KampfEffekte.an = not KampfEffekte.an
+		"kampfmessen":   # 806: der nächste Kampf misst Bild-, Grafik- und Zeichenzeit je Baustein (Bausteine806)
+			Bausteine806.naechster = not Bausteine806.naechster
 		"teleport":
 			await abblenden(1.0)
 			var von := karte.id
@@ -1554,7 +1560,8 @@ func _process(dt: float) -> void:
 # 211.14 (Rest 211.13, Sokrates 20.10.: „Leistung am A56 messen“): im Kampf ist die Steuerung mit ihrer Bildrate verborgen; dieselbe
 # Anzeige auf eigener Ebene unter dem Rand (Rand.EBENE - 1), links in der Mitte über dem Kampfort, wo weder Zugleiste noch Knöpfe sind
 func _kampf_messe() -> void:
-	var an := "--messen" in OS.get_cmdline_user_args() or Testmodus.bildrate
+	var bs = kampf.get_node_or_null("Bausteine806") if kampf else null   # 806: Messlauf „Kampf messen“ zeigt sich immer
+	var an: bool = "--messen" in OS.get_cmdline_user_args() or Testmodus.bildrate or bs != null
 	if kampf_mess == null:
 		if not an: return
 		var e := CanvasLayer.new()
@@ -1573,7 +1580,7 @@ func _kampf_messe() -> void:
 		kampf_mess.add_theme_constant_override("outline_size", 8)
 		e.add_child(kampf_mess)
 	kampf_mess.get_parent().visible = an
-	if an and Engine.get_process_frames() % 15 == 0: kampf_mess.text = Messung.kampf_zeile()
+	if an and Engine.get_process_frames() % 15 == 0: kampf_mess.text = bs.stand if bs != null else Messung.kampf_zeile()
 
 # ---------------------------------------------------------------- Standbilder am Rechner (Vergleich alt/neu)
 func bilder() -> void:
