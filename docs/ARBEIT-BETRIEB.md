@@ -458,6 +458,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:51 12.11.: Marke Archiv session_01Hmoj77PijmyEaUrqCKUMZo (lauf.py)
 - 21:51 12.11.: Marke Archiv session_01Hmoj77o4gpxMkFhcBeDkZo (lauf.py)
 - 21:57 12.11.: Startsperre 21:57 Start Jerry (lauf.py)
+- 22:01 12.11.: Startsperre 22:01 Start Sokrates (Ford, Neustart-Meldung ad3e781e6)
 - 21:58 12.11.: Startsperre 21:58 Start Tuffy (Ford, Neustart-Meldung 128ff1fd5, Nachfolger „Testbitte Build 281“; lauf.py gibt Tuffy nur bei freier Zeile aus)
 - 21:57 12.11.: Marke Start-fehlt Homer 12.11.-21:18 (lauf.py)
 - 21:57 12.11.: Marke Start-fehlt Perikles 12.11.-21:10 (lauf.py)
