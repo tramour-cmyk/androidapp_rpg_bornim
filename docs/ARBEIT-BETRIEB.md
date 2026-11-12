@@ -443,3 +443,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:55 12.11.: Startsperre 20:55 Start Jerry, Ford (Neustart-Meldung 09727af77, Nachfolger „Jerry – 1046: Verband stillt Blutung“; Ford selbst: Selbstneustart Neustart-Haken 400 Tsd. Token)
 - 20:57 12.11.: Marke Archiv session_01Hmoj76oFZoFEBnGQRKReMr (lauf.py)
 - 21:04 12.11.: Startsperre 21:04 Start Diogenes (lauf.py)
+- 21:10 12.11.: Startsperre 21:10 Start Perikles (lauf.py)
+- 21:10 12.11.: Marke Archiv session_01Hmoj78HZSSyRDb3Gaiur8D (lauf.py)
