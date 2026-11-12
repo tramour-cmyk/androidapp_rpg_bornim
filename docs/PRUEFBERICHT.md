@@ -52,6 +52,17 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 183 · 1011 Nachprüfung 1010: nur Laufzusagen von Sokrates überspringen (Perikles, Doppelpack 421, `afa2141f4`; 12.11., 04:1x)
+
+- **1011 greift, 1010 greift** (`greift 1011 183`, `greift 1010 183`): `laufzusage()` gegen alle 46 Köpfe „<Nr>, Läufe frei“ im echten Archiv: 40 von Sokrates nach 480.1 übersprungen, 6 Chefantworten zählen (264.1 ×5 „Chef an Perikles/Sokrates … → **ja (Nutzer)**“, 510a 03.11., 13:02 „Chef an Sokrates“); `antworten()` liefert 510a und 264.1, 861 und 988 nicht; `beantwortet()` leer, `--stand` läuft; Commit-Prüfung nutzt dieselbe Funktion (`commit-pruefung.py` 307).
+- Nicht geprüft: echter Commit mit neuer Laufzusage zu einer offenen Vorlage. Restfall ohne Beleg: eine Laufzusage von Sokrates, deren Anlass „Chef an …“ wörtlich nennt, zählte als Chefantwort (im Archiv kein Fall).
+
+## Lauf 182 · 1010 `startbar.antworten()` ohne „Läufe frei“-Köpfe (Perikles, Doppelpack 421, `8da3952f4`; 12.11., 03:0x)
+
+- **1010 greift mit Lücke** (`warte 1010 1011`): Laufzusage „- **861, Läufe frei** (12.11., 03:00, Sokrates nach 480.1)“ zählt nicht mehr, `beantwortet()` auf dem echten Archiv leer, `--stand` läuft; Commit-Prüfung nutzt dieselbe Funktion (`commit-pruefung.py` 307).
+- **D182.1 (Klasse 2, Perikles, Vorgang 1011):** die Regel überspringt jeden Kopf „<Nr>, Läufe frei“, gleich wer antwortet. Von 22 solchen Köpfen mit Schlusswort enden 6 auf „→ **ja (Nutzer)**“ (Chef an Sokrates oder Perikles: 264.1 ×5, 510a); 510a (03.11., 13:02) beantwortete `entscheiden/510a-zweiter-lauf.md`. Probe: derselbe Kopf mit „Chef an Sokrates … → **ja (Nutzer)**“ ergibt `{}`, 383.3 hielte nicht an. Vorschlag: nur Köpfe mit Schlusswort „(Sokrates)**“ überspringen.
+- Nicht geprüft: echter Commit mit neuer Laufzusage zu einer offenen Vorlage (nur Funktion im Klon).
+
 ## Lauf 181 · 982 Startsperre-Haken Aufwand, Nachprüfung 981 (Perikles, Doppelpack 421, `7431ee44c`; 11.11., 19:0x)
 
 - **982 greift** (`greift 982 181`): Haken im Klon mit echtem Eingabe-JSON: Tom ohne `effort` und mit „medium“ Exit 2 „Aufwand fehlt (982)“, mit „high“ weiter zur Startsperre (750 A, Exit 2 wie vorher), Helfer ohne Rolle Exit 0; `aufwand()` 14.11., 19:59 hält an, 20:00 und 15.11. frei. Stichtag liest er aus `lauf.py` (ein Ort). Alle 8 Sitzungen seit 18:18 zeigen in `get_session` `effort_level` „high“: Selbstneustart Ford 18:26 (vorher „medium“, Lauf 180), Neustarts über Ford Sokrates 18:22, Spike 18:22 und 18:48, Tuffy 18:25, Jerry 18:28, START Homer und Diogenes 19:04. Regeltexte `LISTE-BETRIEB.md` 13, 45, 61 und `LISTE-RELEASE-NEUSTART.md` 2 nennen den Aufwand.
