@@ -2000,6 +2000,13 @@ func _draw_intents(sr: Rect2) -> void:
 		# 438: ein neuer Platz wird angefahren (gut 0,1 s), nicht gesprungen
 		var fuss := Vector2(s.fx, s.foot)
 		var ziel := fuss + _gleiten("ansage:" + String(s.id), Vector2(x, y) - fuss)     # am eigenen Fußpunkt, sonst hinkt es dem Laufenden nach
+		# 1029 (schalter_1024, Lauf 380: 1 von 2202 Bildern): der Platz ist frei, der Weg dorthin nicht immer; führt das Gleiten über
+		# eine Anzeige (Bildrate im Testmodus), springt die Ansage gleich an ihren Platz
+		for fr in frei_halten:
+			if Rect2(ziel.x, ziel.y, s.w, s.h).intersects(fr as Rect2):
+				ziel = Vector2(x, y)
+				glatt["ansage:" + String(s.id)] = [ziel - fuss, kampfort.clock_ms]
+				break
 		s.x = ziel.x
 		s.y = ziel.y
 		placed.append(s)
