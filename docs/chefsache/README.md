@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [264](entscheiden/264-bauserver.md) | **Muss** | B Abläufe | 12.11., 01:12 | Abschalten und bei GitHub abmelden, der Bauplan bleibt im Repo; wieder einschalten, wenn das Repo privat wird oder GitHub einen ganzen Arbeitstag nicht baut | Sokrates |
-| [644a](entscheiden/644a-mindeststufe.md) | **Muss** | E Kampf | 11.11., 22:02 | Mindeststufe zum Tragen bauen, wie im Regelwerk vorgesehen; ein Stück ab Stufe 4 trägt die doppelte Zusatzeigenschaft (Leben +10 statt +5) statt mehr Grundschaden; Funde höchstens eine Stufe über dem Helden; Deckel streichen, Menge an der Quelle steuern; Grundwert +1 durch Üben, Zahl aus der Rechnung | Sokrates |
 
 ## Zu billigen
 
@@ -37,15 +36,16 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 3, Muss 1, startbar 0
+**Homer** – offen 4, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
+| 644a.3 | M | Von Sokrates (644a A; Chef 12.11., 08:21): Stufen der Einzelstücke gegen die Geschichte pr | startbar |
 
-**Tom** – offen 127, Muss 108, startbar 2
+**Tom** – offen 128, Muss 109, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -176,8 +176,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 994 | M | Von Sokrates (Chef 11.11., 20:54, Test 277.18): Klangzeile zeigt beim neuen Spiel ständig | wartet auf Test (Build 278) |
 | 1009 | M | Von Tom (831, Lauf 366): spielstand_test rot „FEHLER Plaetze 1 2“ (letzter() gab Platz 1 s | wartet auf Test (Build 278) |
 | 1017 | M | Von Homer (1015, zu 1012 Punkt 5): Erschaffung Grundwerte (erschaffung_brs.gd ERKLAER wert | wartet auf Test/Build (gebaut) |
+| 644a.2 | M | Von Sokrates (644a A, D, F; Chef 12.11., 08:21): Mindeststufe zum Anlegen (Laden „Nicht tr | startbar |
 
-**Jerry** – offen 134, Muss 121, startbar 3
+**Jerry** – offen 135, Muss 122, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -315,6 +316,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1013 | M | Von Jerry (988, Lauf 370 auf main): schild_406 erwartet im Kampf beim CLERIC einen Schild, | wartet auf Test (Build 278) |
 | 1014 | M | Von Jerry (1013, Lauf 365 und 370): schild_406 FIGHTER SS_ParryLow: Körper bis 0,071 m im | Sperre 620.1 B: 35 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1013 |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 16307 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 644a.1 | M | Von Sokrates (644a A mit Spanne, D, F; Chef 12.11., 08:21): erst Rechnung (Spannen je Stuf | startbar |
 
 **Perikles** – offen 13, Muss 12, startbar 0
 
@@ -347,7 +349,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 53, Muss 39, startbar 26
+**Sokrates** – offen 52, Muss 38, startbar 26
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -403,7 +405,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 869 | K | Systemlösung? Rüstung: 2 frühere Vorgänge (49, 817), neu 868; einmal grundsätzlich lösen? | startbar |
 | 930 | M | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (wartet) |
 | 985 | K | Systemlösung? Nebel: 2 frühere Vorgänge (505, 502), neu 785.7; einmal grundsätzlich lösen? | startbar |
-| 644a | M | Rückfrage: Mindeststufe zum Tragen, Stärke je Gegenstandsstufe, Abstand der Funde (Chef 11 | Chef (Datei in der Chefsache) |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
