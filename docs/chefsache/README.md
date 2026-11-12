@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [644b](entscheiden/644b-deckel.md) | **Muss** | E Kampf | 12.11., 10:49 | Deckel weg wie entschieden; dazu würfelt der Schutzwert beim Fund wie die Grundwerte mit halbem Gewicht, sonst schlägt ein Drittel der Durchgänge von Schütze, Späher und Wanderer Krogg sicher (mindestens 95 % der Kämpfe) | Tuffy |
 | [264](entscheiden/264-bauserver.md) | **Muss** | B Abläufe | 12.11., 01:12 | Abschalten und bei GitHub abmelden, der Bauplan bleibt im Repo; wieder einschalten, wenn das Repo privat wird oder GitHub einen ganzen Arbeitstag nicht baut | Sokrates |
 
 ## Zu billigen
@@ -316,8 +315,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1014 | M | Von Jerry (1013, Lauf 365 und 370): schild_406 FIGHTER SS_ParryLow: Körper bis 0,071 m im | wartet auf Test (Build 280) |
 | 644a.1 | M | Von Sokrates (644a A mit Spanne, D, F; Chef 12.11., 08:21): erst Rechnung (Spannen je Stuf | wartet auf Test (Build 280) |
 | 1024 | M | Von Sokrates (Chef 12.11., 09:04, Bild Wolfskampf Build 278): Schalterreihe am rechten Ran | wartet auf Test (Build 280) |
-| 644b | M | Von Tuffy (644a.1, Rechnung): Deckel trotz Zahlen weg, und Schutzwert mit halbem Gewicht w | Chef (Datei in der Chefsache) |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 21627 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 644b.1 | M | Von Sokrates (644b A, Chef 12.11., 13:40): Deckel streichen für Grundwerte und Schutzwert; | Sperre 620.1 B: 38 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 644a.1 |
 
 **Perikles** – offen 13, Muss 12, startbar 0
 
