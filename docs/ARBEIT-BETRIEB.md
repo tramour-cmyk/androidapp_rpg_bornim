@@ -399,3 +399,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 15:56 12.11.: Startsperre 15:56 Start Tom, Jerry, Perikles (lauf.py)
 - 15:56 12.11.: Marke Archiv session_01Hmoj761eAvyDy1MgdXkna1 (lauf.py)
 - 15:56 12.11.: Marke Archiv session_01Hmoj78GqGrL8ULmt1No1zc (lauf.py)
+- 16:00 12.11.: Meldung Sokrates 15:55 (t280 getestet, Commit 45bbfe15f, Sperre 620.1 B fällt): geprüft; gestartet Tom …78KYFfF3h2fQVEitqa (757), Jerry …75a913VoHB2ziBNYRr (1029 schalter_1024 rot zuerst), Perikles …78konTZzkjhLux7ri7 (1042 Kür, Spike-Hinweis probelauf.py); archiviert und gebucht: Tom 1022 (1,61 $), Jerry 995 (20,12 $; Frage bleibt in `ansehen/995-grabhund.md`), Perikles 1033 (1,30 $). Weckrufe nur bei Tuffy 1036 (nicht angefasst, `--wecker`). Merge PR #199 erst nach Freigabe des Chefs.
