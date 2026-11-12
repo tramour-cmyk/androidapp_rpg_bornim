@@ -108,8 +108,16 @@ func _lauf() -> void:
 				max_us = maxi(max_us, int(ui.tafel_us))
 			schwankt = maxf(schwankt, fig_w.taumel_off.length())
 		var soll: bool = not (st == "BLEED" and blut <= 0)
-		print("Zustand %s: Ecken %d, Schwanken %.3f m" % [st, ecken, schwankt])
-		if soll and ecken == 0:
+		# 1036 (Chef 20:52): mit Paket hängt sein Effekt an beiden Figuren und die Tafel malt diesen Zustand nicht
+		var mit_paket: bool = ui.zustand_szene(st) != null
+		var an := 0
+		for key in [String(wolf) + "|" + st, "hero|" + st]:
+			if ui._paket_fx.has(key) and is_instance_valid(ui._paket_fx[key]) and ui._paket_fx[key].get_parent() != null:
+				an += 1
+		print("Zustand %s: Ecken %d, Schwanken %.3f m, Paket %s" % [st, ecken, schwankt, ("an %d Figuren" % an) if mit_paket else "nicht da"])
+		if mit_paket and an < 2:
+			_fehler("%s: Effekt des Pakets hängt nur an %d von 2 Figuren" % [st, an])
+		if not mit_paket and soll and ecken == 0:
 			_fehler("%s zeichnet nichts" % st)
 		if st == "STUN" and schwankt < 0.005:
 			_fehler("der betäubte Wolf schwankt nicht (%.3f m)" % schwankt)
@@ -117,6 +125,8 @@ func _lauf() -> void:
 	if schild:
 		schild.text = ""
 	await _bilder(int(FPS))
+	if not ui._paket_fx.is_empty():
+		_fehler("nach dem Ende der Zustände hängen noch %d Effekte des Pakets" % ui._paket_fx.size())
 	if fig_w.model.position.distance_to(platz) > 0.001:
 		_fehler("der Wolf steht nach dem Betäuben nicht an seinem Platz (%.3f m)" % fig_w.model.position.distance_to(platz))
 	# je Schadenszustand einmal das Aufflackern der Runde (mars.gd _tick: ohne Täter, Zeile nach ST_HURTS)
