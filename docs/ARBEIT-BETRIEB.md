@@ -418,3 +418,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:48 12.11.: Marke Archiv session_01Hmoj78konTZzkjhLux7ri7 (lauf.py)
 - 17:06 12.11.: Startsperre 17:06 Start Spike (1022 auf Wunsch Tom, von Hand)
 - 17:11 12.11.: Startsperre 17:11 Start Sokrates, Tuffy (Neustart-Meldungen 00384b2a8 und d2554ad21, Nachfolger „Sokrates – 1048: Ring und offene Fragen“ und „Tuffy – 1036: Zustände kräftiger“, von Hand)
+- 17:18 12.11.: Startsperre 17:18 Start Jerry (Neustart-Meldung fe03fe5db, Nachfolger „Jerry – 1055: Build 280 auf main, Sammelbuild 281 Kampf“, von Hand)
