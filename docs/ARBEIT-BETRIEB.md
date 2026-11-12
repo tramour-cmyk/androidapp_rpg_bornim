@@ -356,3 +356,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:13 12.11.: Startsperre 08:13 Start Diogenes, Spike, Tuffy (lauf.py)
 - 08:13 12.11.: Marke Archiv session_01Hmoj76MeSi8FRUmYKBjQmL (lauf.py)
 - 08:13 12.11.: Marke Archiv session_01Hmoj7AAdH3XpmB1bRL6xNn (lauf.py)
+- 08:16 12.11.: Auftrag Perikles 08:13 (Diogenes 1019, Prüfzeile 57f798597) geprüft und ausgeführt: Diogenes …75ZfDj3Zzs82FM18nF; dazu Spike …79rReQeD9gdL8Prmpp (1021, Tom-Muss „jetzt“ 08:09), Tuffy …77GZt45MJ7mkLqnBfm (1020.2, Jerry-Muss „jetzt“ 08:09); alt archiviert: Diogenes 1010 (1,05 $ gebucht), Tuffy 1007 (3,52 $ schon gebucht)
