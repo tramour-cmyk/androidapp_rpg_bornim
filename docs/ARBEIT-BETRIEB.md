@@ -286,3 +286,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:04 13.11.: Marke Start-fehlt Homer 12.11.-22:34 (lauf.py)
 - 00:04 13.11.: Marke Start-fehlt Spike 12.11.-21:51 (lauf.py)
 - 00:05 13.11.: Lauf 00:04: Homer …78hsRUK9YPNgLSCKor „Homer – 1088“ (Sokrates 00:04, Osric-Satz) und Diogenes …78w2wPxieifiNqTSWc „Diogenes – 1087“ gestartet (Hoch, effort high); Spike 882.1 ausgeschlossen (Tom in Arbeit, Zu-Absatz); Perikles-Stillstand ohne Vorgang ignoriert; Abgleich-Warnungen „gebaut ohne Build“ (23 Zeilen Tom/Jerry) lautlos, Build tragen die Teams ein.
+- 00:11 13.11.: Startsperre 00:11 Start Tom (Ford, Neustart-Meldung a842c0f20, Nachfolger „Tom – 1022, 492, 867: Läufe auswerten; 1044 Weg 2“; Hoch, effort high)
