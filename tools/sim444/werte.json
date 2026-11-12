@@ -411,7 +411,8 @@
       "Meisterschaften": ["Schmieden", "Lederarbeit", "Alchemie", "Kochen", "Runenkunde", "Heilkunde"],
       "_fertigkeiten": "N 3: 37 Fertigkeiten in acht Gruppen; Bergbau zeigt sich ab Kapitel 2 (461c), zur Wahl erst dann"
     },
-    "nicht_waehlbar": ["Bergbau"]
+    "nicht_waehlbar": ["Bergbau", "Illusion", "Beschwörung"],
+    "_nicht_waehlbar": "984.1 (Chef 11.11., 20:12 „984 A“): Illusion und Beschwörung in Kapitel 1 nicht zur Wahl wie Bergbau (461c)"
   },
   "kampftraenke": {
     "_quelle": "481.1 (Jerry 02.11.): Vorschlag Sokrates (Zu 481, Chat 18:58): Kampftraenke mit Preis, je ein Zug, Wirkung nach Kraeuterkunde statt Sperre; seit 876 (857a A, Chef 10.11.) nach Alchemie; Chef 18:55 'zwei Runden unverwundbar'. Alle Zahlen A",
