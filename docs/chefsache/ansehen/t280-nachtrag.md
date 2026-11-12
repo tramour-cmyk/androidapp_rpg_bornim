@@ -46,7 +46,7 @@ Im Bau geprüft: jeder Reiter höchstens so breit wie der Schirm (`breite_1027`)
 | 278.12 | Jerry | 960 | einen Gegner lange drücken, vor und nach dem ersten Treffer | unter Name und Absicht seine Schwächen, Stärken und die Gegenwirkung; mit Verstand unter 6 erst nach einem Treffer, sonst „unbekannt“ | keine Schwächen, auch nach dem Treffer |
 | 278.13 | Jerry | 1001 | MARS-Probekampf gegen Grak, „Gegnerzug“ auf „Schwerer Hieb“; wenn Grak zuschlägt, erscheint der Ring zum Abwehren (nur bei Graks Schwerem Hieb und dem Netz der Spinne, nicht bei Wölfen; korrigiert 14:55, vorher falsch „Ring öffnen (Angriff)“); dabei auf die Schalter am Rand achten | Raster-, Würfel- und Tempo-Schalter sind weg, solange der Ring wartet, und kommen danach wieder | Schalter stehen während des Rings |
 | 278.14 | Jerry | 998 | im Kampf das Raster einschalten | goldenes Raster, kräftiger als bisher, mit dunklem Grund | blasses, dünnes Raster wie in Build 277 |
-| 278.15 | Jerry | 939 | im Kampf hören: Ring öffnen, gut oder perfekt treffen; ein Wolf erscheint; den Kampf gewinnen | schwerer Schwung beim Öffnen, Block bei gut und perfekt; Wolfsgeheul beim Erscheinen (nicht jedes Mal); im Siegfenster Klang für Beute, Münzen, Stufenaufstieg | stumm |
+| 278.15 | Jerry | 939 | hören, in zwei Probekämpfen (korrigiert 15:07): gegen Grak mit „Schwerer Hieb“ den Ring gut oder perfekt treffen und gewinnen; gegen Wölfe auf den Kampfbeginn achten (Geheul jedes zweite Mal) | schwerer Schwung beim Öffnen, Block bei gut und perfekt; Wolfsgeheul beim Erscheinen (nicht jedes Mal); im Siegfenster Klang für Beute, Münzen, Stufenaufstieg | stumm |
 
 ## C · Reiter „Test“: Probekämpfe und Sprünge
 
