@@ -1,8 +1,8 @@
 class_name BrsHeld
 extends RefCounted
-# 470 (Abnahme 1.1): Erschaffung nach dem BRS (Nachschlagewerk Abschnitt 2, E 68-72, 77, 78). Jeder Grundwert beginnt bei 1, der
-# Spieler verteilt 21 Punkte, danach liegt jeder zwischen 3 und 8; das Volk gibt +1/+1/-1 (Mensch +1 frei) und darf bis 9 heben,
-# nie unter 3 senken; die Herkunft verteilt vor (aenderbar) und gibt ihre Startfertigkeiten, der Wanderer verteilt selbst und waehlt
+# 470 (Abnahme 1.1): Erschaffung nach dem BRS (Nachschlagewerk Abschnitt 2, E 68-72, 77, 78). Jeder Grundwert beginnt bei 3, der
+# Spieler verteilt 9 Punkte bis hoechstens 8 (intern start 1, 21 Punkte, Untergrenze 3); das Volk gibt +1/+1/-1 (Mensch +1 frei) und
+# darf bis 9 heben und bis 2 senken (933 A, Chef 11.11., 13:07); die Herkunft verteilt vor (aenderbar) und gibt ihre Startfertigkeiten, der Wanderer verteilt selbst und waehlt
 # zwei, der Mensch waehlt eine mehr (Wandelbar); jede Startfertigkeit beginnt beim Startwert (10).
 # 870.4 (LISTE-UMZUG-BRS.md Schritt 4): BrsHeld ist die einzige Quelle fuer die Werte des Helden im Spiel; heldwerte.gd (SRD, Hero.kt)
 # entfaellt. Dazu gehoeren Name, Heldenstufe (Spiegel von Zustand.brs_stufe, Brs.neuer_stand), Leben und Mana jetzt, was er traegt
@@ -153,15 +153,46 @@ func frei_ziel() -> String:
 		if int(verteilt[g]) > int(verteilt[best]): best = g
 	return best
 
-## Endwert: verteilt plus Volk (das Volk hebt hoechstens bis volk_max und senkt nie unter volk_min; in Kapitel 1 fest, 870a 4), dazu
-## was die Ausruestung gibt (870.4: Zusatzeigenschaft des Grundwerts und „alle Grundwerte“, im Kapitel gedeckelt wie bisher)
-func wert(g: String) -> int: return grundwert(g) + ausruestungs_bonus(g)
+## Endwert: verteilt plus Volk (das Volk hebt hoechstens bis volk_max und senkt nie unter volk_min), dazu was Ueben gibt (644a F, ersetzt
+## 870a 4 „in Kapitel 1 fest“) und was die Ausruestung gibt (870.4: Zusatzeigenschaft des Grundwerts und „alle Grundwerte“, Deckel nach
+## werte.json „deckel“)
+func wert(g: String) -> int: return grundwert(g) + uebungs_plus(g) + ausruestungs_bonus(g)
+
+## 644a F (Chef 12.11., 08:21): an welchem Grundwert eine Fertigkeit haengt: werte.json „ueben“ „grundwert_von“, sonst „grundwert“ ihrer
+## Waffengruppe oder Schule („waffen“, „schulen“); "" an keinem
+static func grundwert_der_fertigkeit(f: String) -> String:
+	var W_ := lade()
+	var gv = W_.get("ueben", {}).get("grundwert_von", {}).get(f)
+	if gv != null: return String(gv)
+	for blk in ["waffen", "schulen"]:
+		var d = W_.get(blk, {}).get(f)
+		if d is Dictionary and d.get("grundwert") != null: return String(d["grundwert"])
+	return ""
+
+## 644a F: Punkte, die die Fertigkeiten an [g] seit dem Start gewonnen haben (geuebt ueber dem Startwert; „Fertigkeit +n“ der
+## Ausruestung zaehlt nicht); [geuebt_] statt des Geuebten dieses Helden
+func geuebte_punkte(g: String, geuebt_ = null) -> int:
+	var ge: Dictionary = geuebt if geuebt_ == null else geuebt_
+	var start := fertigkeiten()
+	var n := 0
+	for f in ge:
+		if grundwert_der_fertigkeit(String(f)) == g: n += maxi(0, int(ge[f]) - int(start.get(String(f), 0)))
+	return n
+
+## 644a F: was Ueben dem Grundwert [g] gibt: +1 je „ueben“ „grundwert_punkte“ gewonnene Punkte
+func uebungs_plus(g: String, geuebt_ = null) -> int:
+	var n := int(lade().get("ueben", {}).get("grundwert_punkte", 0))
+	return geuebte_punkte(g, geuebt_) / n if n > 0 else 0
+
+## 644a F (fuer die Meldung „Grundwert gestiegen“, 644a.2 Tom): die Grundwerte, die durch Ueben hoeher sind als mit [geuebt_vorher]
+func grundwerte_gestiegen(geuebt_vorher: Dictionary) -> Array:
+	return grundwerte().filter(func(g): return uebungs_plus(String(g)) > uebungs_plus(String(g), geuebt_vorher))
 
 func grundwert(g: String) -> int:
 	var v := int(verteilt.get(g, unten()))
 	var p := volk_plus(g)
 	if p > 0: return mini(v + p, maxi(v, int(e().get("volk_max", 9))))
-	if p < 0: return maxi(v + p, mini(v, int(e().get("volk_min", 3))))
+	if p < 0: return maxi(v + p, mini(v, int(e().get("volk_min", 2))))
 	return v
 
 ## Grundwert -> Kennung seiner Zusatzeigenschaft an Gegenstaenden (held.json affixdaten; Kennungen bleiben, Namen nach BRS_AFFIX)
@@ -239,8 +270,23 @@ func voll() -> void:
 	leben = max_leben()
 	mana = max_mana()
 
-## Kritische Treffer in Prozent (N 4: Gewandtheit in Prozent)
-func krit_prozent() -> int: return roundi(float(lade()["kampf"]["kritisch_prozent_je_gewandtheit"]) * wert("gewandtheit")) + bonus("CRIT")
+## Kritische Treffer in Prozent mit der Hauptwaffe (952 D: zweiter Grundwert der Waffengruppe × Fertigkeit / 50, BrsKampf.krit_prozent)
+func krit_prozent() -> int:
+	var gruppe := waffengruppe()
+	var werte := {}
+	for g in ["kraft", "gewandtheit", "zaehigkeit", "verstand", "wille", "wahrnehmung"]: werte[g] = wert(g)
+	return roundi(krit_von(werte, gruppe, float(fertigkeit(gruppe) + fertigkeit_bonus(gruppe)))) + bonus("CRIT")
+
+## 952 D (Chef 11.11., 20:03; sim.py krit_prozent): kritisch in Prozent = zweiter Grundwert × Fertigkeit / 50, nie der Grundwert des
+## Schadens; welcher, steht je Waffengruppe und Schule in werte.json unter „kritisch“ (null: nie, Heil- und Schutzmagie)
+static func krit_von(werte: Dictionary, gruppe_oder_schule: String, fertigkeit: float) -> float:
+	var W := lade()
+	var k: Dictionary = W["kampf"]
+	var eintrag = W["waffen"].get(gruppe_oder_schule, W.get("schulen", {}).get(gruppe_oder_schule, {}))
+	var g = eintrag.get("kritisch") if eintrag is Dictionary else null
+	if g == null or String(g) == "":
+		return 0.0
+	return float(k["kritisch_je_punkt"]) * float(werte.get(String(g), 0)) * fertigkeit / float(k["kritisch_fertigkeit_teiler"])
 
 ## Schaden eines Treffers mit der Hauptwaffe gegen einen Gegner gleicher Stufe ohne Ruestung, ohne Zufall (Modell D: (Grundschaden
 ## + Grundwert) x (1 + Fertigkeit/100), wie mars.gd _brs_waffe)
@@ -319,13 +365,13 @@ func kennt_schwaechen() -> bool: return wert("verstand") >= int(welt().get("wiss
 ## Aus wie vielen Feldern ein jagendes Monster den Helden bemerkt (welt „bemerken_…“; alt Perks.noticeRange nach Geschicklichkeit)
 func bemerkt_aus() -> int:
 	var wl := welt()
-	var weniger := int(float(wl.get("bemerken_je_gewandtheit", 0.2)) * maxi(0, wert("gewandtheit") - int(wl.get("sinne_ab", 3))))
+	var weniger := int(float(wl.get("bemerken_je_gewandtheit", 0.2)) * (wert("gewandtheit") - int(wl.get("sinne_ab", 3))))     # 933: eine 2 zaehlt mit
 	return maxi(int(wl.get("bemerken_min", 2)), int(wl.get("bemerken_felder", 4)) - weniger)
 
 ## Faktor auf die Chance eines Hinterhalts nach Wahrnehmung (alt Perks.ambushFactor nach Weisheit)
 func hinterhalt_faktor() -> float:
 	var wl := welt()
-	return maxf(float(wl.get("hinterhalt_min", 0.4)), 1.0 - float(wl.get("hinterhalt_je_wahrnehmung", 0.075)) * maxi(0, wert("wahrnehmung") - int(wl.get("sinne_ab", 3))))
+	return maxf(float(wl.get("hinterhalt_min", 0.4)), 1.0 - float(wl.get("hinterhalt_je_wahrnehmung", 0.075)) * (wert("wahrnehmung") - int(wl.get("sinne_ab", 3))))     # 933: eine 2 zaehlt mit
 
 # ---------------------------------------------------------------- Ausruestung (aus heldwerte.gd 390, Hero.equip)
 static func gesamt(g: Dictionary, affix: String) -> int:
@@ -371,8 +417,10 @@ func beide_haende_mit(w_) -> bool:
 	var hw = waffe()
 	return bool(d["zweihaendig"]) or (d["vielseitig"] != null and hw != null and int(w_["uid"]) == int(hw["uid"]) and ding("OFF_HAND") == null)
 
-## jeder darf alles tragen (DESIGN-BRS.md 7); was darin nicht geht (Metall und Magie, Schleichen), sagt das Gegenstandsfenster
-func kann_tragen(_g: Dictionary) -> bool: return true
+## jeder darf alles tragen (DESIGN-BRS.md 7), aber erst ab der Stufe des Stuecks (644a A, DESIGN-BRS.md 11 „Mindeststufe“); was
+## darin nicht geht (Metall und Magie, Schleichen), sagt das Gegenstandsfenster. Nur Anlegen prueft das: Getragenes bleibt angelegt
+## (alte Spielstaende, Testmenue), auch wenn es hoeher ist
+func kann_tragen(g: Dictionary) -> bool: return stufe >= int(g.get("ilvl", 1))
 
 ## an den eigenen Platz; zurueck kommt, was dafuer herunter musste (Hero.equip)
 func anlegen(g: Dictionary) -> Array:

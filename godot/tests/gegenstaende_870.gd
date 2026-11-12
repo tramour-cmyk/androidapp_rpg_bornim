@@ -3,7 +3,8 @@ extends SceneTree
 # Geprüft: kein „plus“, Güte 0 bis 2; Zusatzeigenschaften nur aus der Liste des Regelwerks mit dem Wert der Regelwerte; kein Name, keine
 # Listenzeile, keine Zusatzeigenschaft nennt einen Altwert oder Würfel; Decken in Kapitel 1 (Seltenheit, Güte); Beute folgt den
 # Fertigkeiten; Wirkung am Helden (Leben, Mana, kritisch, Schutzwert, Güte im Schaden) und im Kampfblatt; Händler verkaufen Güte Normal;
-# Preis wächst mit der Güte.
+# Preis wächst mit der Güte. 644a.1 (A mit Spanne, D, F): Zusatzeigenschaften in der Spanne ihrer Stufe, Grundwerte halb so oft,
+# Beute in der Stufe des stärksten Gegners (höchstens Heldenstufe + 1), Bosse mit Bossbeute und Einzelstück (633), Grundwert wächst durch Üben.
 # Aufruf: im Ordner godot mit -s res://tests/gegenstaende_870.gd -> „GEGENSTAENDE870 n Fehler“ (Exit 0 = richtig)
 
 const BrsKampf = preload("res://regeln/brs_kampf.gd")
@@ -18,6 +19,9 @@ func _initialize() -> void:
 	_wirkung()
 	_laden_preis()
 	_einzelstuecke()
+	_spanne_644a()
+	_beute_stufe_644a()
+	_ueben_644a()
 	print("GEGENSTAENDE870 %d Fehler" % fehler)
 	quit(1 if fehler else 0)
 
@@ -52,7 +56,8 @@ func _funde() -> void:
 		for ro in g["rolls"]:
 			var a := String(ro[0])
 			pruefe(zusatz.has(a), "Fund %d: Zusatzeigenschaft %s nicht in der Liste" % [i, a])
-			pruefe(int(ro[1]) == Beute.zusatz_wert(a, stufe), "Fund %d: %s %d statt %d" % [i, a, int(ro[1]), Beute.zusatz_wert(a, stufe)])
+			var spn: Array = Beute.zusatz_spanne(a, stufe)
+			pruefe(int(ro[1]) >= int(spn[0]) and int(ro[1]) <= int(spn[1]), "Fund %d: %s %d nicht in %s (Stufe %d)" % [i, a, int(ro[1]), spn, stufe])
 			if a == "SKILL": pruefe(Beute.stufe_von(r) >= Beute.stufe_von("EPIC") and (ro as Array).size() == 3, "Fertigkeit +n nur ab episch, mit Fertigkeit")
 			for sp in ["de", "en"]:
 				var x := alt_in(Beute.zusatz_text(ro, sp))
@@ -166,3 +171,77 @@ func _einzelstuecke() -> void:
 	pruefe(int(Beute.einzel("greataxe_grak", 1, 6)["guete"]) == 2, "Graks Kriegsaxt meisterhaft (870a 6)")
 	var anker := {"uid": 1, "base": "cloak", "rarity": "UNCOMMON", "ilvl": 1, "guete": 0, "rolls": [["TENACITY", 5]], "unique": null, "name_seed": 1}
 	pruefe(Beute.name(anker, "de") == "Wehrhafter Umhang" and Beute.name(anker, "en") == "Defiant Cloak", "Abwehrprobe heißt nach Homer 925: %s / %s" % [Beute.name(anker, "de"), Beute.name(anker, "en")])
+
+## 644a A mit Spanne (DESIGN-BRS.md 11): Startwerte, Schritte alle drei Stufen, gewürfelt in der Spanne, Grundwert immer +1; D: Grundwerte halb
+func _spanne_644a() -> void:
+	pruefe(Beute.zusatz_spanne("HP", 1) == [4, 6] and Beute.zusatz_spanne("HP", 3) == [4, 6], "Leben Stufe 1–3: +4 bis +6 (%s)" % [Beute.zusatz_spanne("HP", 3)])
+	pruefe(Beute.zusatz_spanne("HP", 4) == [8, 12] and Beute.zusatz_spanne("SP", 6) == [8, 12], "Leben, Mana Stufe 4–6 doppelt")
+	pruefe(Beute.zusatz_spanne("CRIT", 7) == [6, 12], "kritisch Stufe 7–9 dreifach: %s" % [Beute.zusatz_spanne("CRIT", 7)])
+	pruefe(Beute.zusatz_spanne("SPELL", 10) == [32, 48] and Beute.zusatz_spanne("TENACITY", 13) == [20, 30], "Zauberschaden 10–12 vierfach, danach je drei Stufen ein Schritt")
+	pruefe(Beute.zusatz_spanne("AC", 3) == [1, 1] and Beute.zusatz_spanne("AC", 4) == [2, 2] and Beute.zusatz_spanne("AC", 9) == [3, 3], "Schutzwert +1, +2, +3")
+	for st in [1, 4, 9, 12]: pruefe(Beute.zusatz_spanne("STR", st) == [1, 1], "Grundwert immer +1 (Stufe %d)" % st)
+	pruefe(Beute.zusatz_spanne("SKILL", 5) == [1, 1] and Beute.zusatz_spanne("SKILL", 6) == [2, 2], "Fertigkeit +1, ab Stufe 6 +2 (episch)")
+	# alle Werte der Spanne kommen vor, keiner daneben
+	var w := KotlinZufall.new(644)
+	var gesehen := {}
+	for i in 600: gesehen[Beute.zusatz_wert("HP", 5, w)] = true
+	pruefe(gesehen.keys().all(func(x): return int(x) >= 8 and int(x) <= 12) and gesehen.size() == 5, "Leben Stufe 5 würfelt 8 bis 12: %s" % [gesehen.keys()])
+	# Grundwerte halb so oft wie die übrigen: Ring (6 Grundwerte, 3 übrige) mit einer Zusatzeigenschaft
+	var gw := 0
+	var n := 4000
+	for i in n:
+		var g := Beute.wuerfle(i, "ring", 2, "UNCOMMON", w)
+		if Beute.r_()["zusatz"][String(g["rolls"][0][0])].has("grundwert"): gw += 1
+	var soll := 6.0 * 1 / (6 * 1 + 3 * 2)     # halbes Gewicht: 6 Grundwerte zu je 1, 3 übrige zu je 2
+	pruefe(absf(float(gw) / n - soll) < 0.04, "Ring: Grundwert in %.2f der Fälle, soll %.2f (halbes Gewicht)" % [float(gw) / n, soll])
+
+## 644a A: Beute in der Stufe des stärksten Gegners, höchstens Heldenstufe + 1; 633: Bosse mit Bossbeute und ihrem Einzelstück
+func _beute_stufe_644a() -> void:
+	pruefe(Beute.beute_stufe(["wolf"], 1) == 2, "Wolf (2) bei Held 1: Stufe 2 (%d)" % Beute.beute_stufe(["wolf"], 1))
+	pruefe(Beute.beute_stufe(["giant_rat", "dire_wolf"], 1) == 2, "Grimmzahn (5) bei Held 1: höchstens 2 (%d)" % Beute.beute_stufe(["giant_rat", "dire_wolf"], 1))
+	pruefe(Beute.beute_stufe(["giant_rat", "wolf"], 6) == 2, "Held 6 gegen Wolf: Stufe des Gegners (%d)" % Beute.beute_stufe(["giant_rat", "wolf"], 6))
+	pruefe(Beute.beute_stufe(["bugbear"], 4) == 4, "Krogg bei Held 4: Stufe 4")
+	var uid := [0]
+	var neu := func() -> int:
+		uid[0] += 1
+		return uid[0]
+	var h := _held(4)
+	var w := KotlinZufall.new(633)
+	var hat := func(l: Array, id: String) -> bool: return l.any(func(g): return g.get("unique") == id)
+	var krogg := Beute.kampfbeute(h, w, ["bugbear"], neu)
+	pruefe(hat.call(krogg, "gauntlets_ogre"), "Krogg lässt Kroggs Pranken fallen (633)")
+	var pr: Array = krogg.filter(func(g): return g.get("unique") == "gauntlets_ogre")
+	pruefe(not pr.is_empty() and int(pr[0]["ilvl"]) == Katalog.stufe("gauntlets_ogre"), "Kroggs Pranken in der Stufe des Katalogs (%s)" % [pr[0]["ilvl"] if not pr.is_empty() else "-"])
+	pruefe(krogg.any(func(g): return g.get("unique") == null and String(g["rarity"]) == "RARE"), "Krogg gibt Bossbeute (ein seltenes Stück)")
+	pruefe(hat.call(Beute.kampfbeute(_held(5), w, ["dire_wolf"], neu), "amulet_grimfang"), "Grimmzahn lässt Grimmzahns Fang fallen (633)")
+	pruefe(hat.call(Beute.kampfbeute(_held(6), w, ["hobgoblin_captain"], neu), "greataxe_grak"), "Grak lässt Graks Kriegsaxt fallen (633)")
+	var ids := {}
+	for i in 300:
+		for g in Beute.kampfbeute(_held(2), w, ["wolf", "wolf"], neu):
+			var soll := Katalog.stufe(String(g["base"])) if String(g["rarity"]) == "COMMON" else 2     # 644a.2: gewöhnlich = Stufe der Grundform
+			pruefe(int(g["ilvl"]) == soll, "Wolfsrudel bei Held 2: Stufe %d (%d)" % [soll, int(g["ilvl"])])
+			pruefe(g.get("unique") == null, "Wolf ohne Einzelstück")
+			pruefe(not ids.has(int(g["uid"])), "jede Beute mit neuer Kennung")
+			ids[int(g["uid"])] = true
+
+## 644a F: Grundwert wächst durch Üben, +1 je „grundwert_punkte“ gewonnene Punkte der Fertigkeiten an ihm
+func _ueben_644a() -> void:
+	var n := int(BrsHeld.lade()["ueben"]["grundwert_punkte"])
+	pruefe(n > 0, "Zahl der Punkte in den Regelwerten: %d" % n)
+	pruefe(BrsHeld.grundwert_der_fertigkeit("Einhänder") == "kraft" and BrsHeld.grundwert_der_fertigkeit("Dolche") == "gewandtheit", "Einhänder an Kraft, Dolche an Gewandtheit")
+	pruefe(BrsHeld.grundwert_der_fertigkeit("Evokation") == "verstand" and BrsHeld.grundwert_der_fertigkeit("Heilmagie") == "wille", "Evokation an Verstand, Heilmagie an Wille (952 D)")
+	var h := _held(1)     # Wachsoldat: Einhänder, Schild, Mittlere Rüstung ab 10
+	var kraft := h.wert("kraft")
+	h.geuebt = {"Einhänder": 10 + n - 1}
+	pruefe(h.wert("kraft") == kraft and h.uebungs_plus("kraft") == 0, "%d Punkte: noch nicht" % (n - 1))
+	var vorher := h.geuebt.duplicate()
+	h.geuebt = {"Einhänder": 10 + n}
+	pruefe(h.wert("kraft") == kraft + 1, "%d Punkte Einhänder: Kraft +1 (%d statt %d)" % [n, h.wert("kraft"), kraft + 1])
+	pruefe(h.grundwerte_gestiegen(vorher) == ["kraft"], "Meldung: Kraft gestiegen (%s)" % [h.grundwerte_gestiegen(vorher)])
+	pruefe(h.grundwerte_gestiegen(h.geuebt).is_empty(), "ohne neues Üben keine Meldung")
+	h.geuebt = {"Einhänder": 10 + n, "Stumpfe Waffen": n}     # Stumpfe Waffen ab 0 (nicht Startfertigkeit), auch an Kraft
+	pruefe(h.uebungs_plus("kraft") == 2, "zwei Fertigkeiten an Kraft zählen zusammen: +%d" % h.uebungs_plus("kraft"))
+	h.geuebt = {"Mittlere Rüstung": 10 + 3 * n, "Schild": 10 + 3 * n}     # noch an keinem Grundwert (offen, 644b)
+	pruefe(BrsHeld.grundwerte().all(func(g): return h.uebungs_plus(String(g)) == 0), "Rüstung und Schild heben keinen Grundwert")
+	h.geuebt = {"Einhänder": 10 + n}
+	pruefe(int(h.mein_kampfblatt()["werte"]["kraft"]) == kraft + 1, "Kampfblatt mit gewachsenem Grundwert")

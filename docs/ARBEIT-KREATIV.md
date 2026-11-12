@@ -2,11 +2,15 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `06465b7c1` (12.11., 11:36)
+**Gelesen bis:** `8404f81d9` (12.11., 20:56)
 
-**Übergabe (12.11., 11:33, `session_01Hmoj75wdp9JocYHDDCfdun`):** erledigt: 1026 (Meldung `[1026.grundwert.auf]` „Kraft ↑ 5“ wie gebaut, `[870.14.wert.kopf]` und `[870.15.held]` nach 644a F; fremd geprüft gegen `a273e09b2`; Nebenbefunde Code an Tom, Zu 644a.2); Zu 976: `[870.14.ding.guete]` und Begriffe in `STORY-BRS-KAMPF.md` nach 976a A, Code noch alt (Hinweis Tom); ein Handbuchabsatz zur Güte entsteht erst mit dem Herstellen. Offen ohne Eile: „Hero Level“ im Handbuch klein, in der Oberfläche groß; beim Bau 870.9 einheitlich klein lassen oder angleichen. Nachfolger: Homer – 766: Rollenspiegel (13.11.).
+**Übergabe (12.11., 20:57, `session_01Hmoj76UH4KUanhCv3PaVsR`):** erledigt: 1074 (`[1074.zweit]` „Nicht jetzt“ / “Not now” in `STORY-K1-FERTIGKEITEN.md`, fremd geprüft, an Tom als Zu 842; 842 startbar). Nachfolger: Homer – 766: Rollenspiegel (13.11., 08:00). Davor (20:51): 1069 (Ringtexte `[1069.*]` in `STORY-BRS-KAMPF.md`, fremd geprüft, an Jerry als Zu 1068, Handbuchsatz an Sokrates als Zu 1048); 1067 (Satz „Zu Magier oder Kriegsmagier.“ und `[954.1.herkunft.zauberlehrling]` nennen keinen Grundwert, passen zu Verstand 3, Wille 3 unverändert; Folge Schwächen sehen ab Start an Jerry als Zu 1066). Davor (18:15): 1057 (`[1057.ansage.*]`, an Jerry als Zu 1049); (16:51): Pflege; 1047; 1026; Zu 976. Nachfolger: Homer – 1074: zweiter Knopf im Gespräch (dann 766 Rollenspiegel, 13.11.).
 
 ## Zeilen
+
+- **Zu 976, Homer (12.11., 11:33):** `[870.14.ding.guete]` und Begriffe in `STORY-BRS-KAMPF.md` nach 976a A; Code noch alt (Hinweis an Tom gegeben). Ein Handbuchabsatz zur Güte entsteht erst mit dem Herstellen.
+- **Zu 870.9, Homer (12.11., 16:34, ohne Eile):** „Hero Level“ im Handbuch klein, in der Oberfläche groß; beim Bau 870.9 einheitlich klein lassen oder angleichen.
+
 - **Zu 830, Homer (11.11., 19:18, aus der Fremdprüfung 986):** `[830.sprung]` (fest, Chef 10.11., 11:00) sagt „Stehe ich nicht mehr dort“, Anspringen zielt aber auch auf den Söldner. Dem Chef auf Telegram gemeldet mit Vorschlag „Er will springen. Wer nicht mehr dort steht, wohin er springt, an dem schnappt er vorbei. Ein Wechsel kostet nur einen halben Zug.“; Wortlaut bleibt bis zu seinem Urteil.
 - **Zu 870.14, von Tom (11.11., 02:13, Bauregel):** Im Heldenreiter entfallen mangels Wirkung im Code: Kraft „Wie viel du tragen kannst“, „Truhen und Türen aufbrechen“; Verstand ganz (Wissen hängt an 870.14 a, Brauen geht nach der Fertigkeit Alchemie), Verstand zeigt nur „Wert %d“. Wahrnehmung „Spähen …“ steht, wirkt aber nur beim Kräutersammeln. Tracht des Wanderers bis zu deinem Vorschlag die der Herkunftstabelle (Bauer, Archiv 376.1); Bild vor B1 offen.
 

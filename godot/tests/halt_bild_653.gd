@@ -60,7 +60,7 @@ func blatt(k: String, ids: Array, aus: String) -> void:
 	var zellen: Array[Image] = []
 	for id in ids:
 		var schild := String(Katalog.eintrag(id).get("art", "")) == "schild"
-		var d := Halt.anlegen(sk, "unterarm_l" if schild else "faust_r", id, "Gehalten653")
+		var d := Halt.anlegen(sk, "unterarm_l" if schild else "faust_r", id, "Gehalten653", k)   # 967: Korrektur des Körpertyps
 		if d == null:
 			print("FEHLT ", k, " ", id)
 			continue

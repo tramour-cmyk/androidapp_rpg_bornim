@@ -4,7 +4,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (12.11., 08:1x, `session_01Hmoj75ZfDj3Zzs82FM18nF`):** Lauf 184: 1019 greift im Haken, Wirkung am 13.11. (Prüfbericht). Nächste Nummer D185. Nachfolger: keiner
+**Übergabe (12.11., 16:0x, `session_01Hmoj77ufZfvjHmbE3pvfuL`):** Lauf 185: 1042 greift (Prüfbericht). Nächste Nummer D186. Nachfolger: keiner
 - **Zu 1019:** am 13.11. ab 08:00 (kommt als Zeile zurück, mit 768): Protokoll `ARBEIT-BETRIEB.md` seit 12.11., 08:12 je „Start Ford (selbst)“ `used_tokens` des alten Ford (`get_session`); alle über 400 Tsd. und Tiefe höchstens 2 → `greift 1019 <Lauf>`; sonst Vorgang an Perikles.
 - **Zu 981, 982:** nach 14.11., 20:00 eine echte START-Zeile ohne `effort high` und eine Sitzung ohne Aufwand ansehen; falsch → Vorgang an Perikles.
 - **Zu 940:** bei der ersten echten Doppelziehung zweier Sitzungen auf GitHub: zwei Nummern, kein Konflikt im Zähler.

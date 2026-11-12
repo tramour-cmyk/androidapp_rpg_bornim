@@ -4,7 +4,7 @@ extends Control
 # 14:39 „an die Designvorgaben halten“): eine Seite wie CreateScreen.kt im schwarzen Look (LocalVeil): oben fest der Held, der sich
 # dreht, daneben Name, Volk, Herkunft, Leben, Mana und die sechs Grundwerte; darunter rollend Name, Volk, Aussehen, Herkunft,
 # Grundwerte, Startfertigkeiten; unten fest Zurueck und Abenteuer beginnen. Masse in dp/sp wie alt (Theme.kt Txt, VeilHead, Panel).
-# 470 (Abnahme 1.1, BRS): ohne Klasse; sechs Grundwerte ab 1 mit 21 Punkten (3 bis 8), Volk mit Plus, Minus und Merkmal, Herkunft
+# 470 (Abnahme 1.1, BRS): ohne Klasse; sechs Grundwerte ab 3 mit 9 Punkten (bis 8), Volk mit Plus, Minus (bis 2, 933) und Merkmal, Herkunft
 # freiwillig (verteilt vor, aenderbar) oder Wanderer, Startfertigkeiten; Regeln und Zahlen in regeln/brs_held.gd aus daten/werte.json.
 # Texte wortgetreu aus dem Handbuch (STORY-HANDBUCH-1.md, Marken [423.…]). 870.4: ohne Bruecke zum SRD; Tracht, Beispielkopf und
 # Grundausruestung im Drehteller nach der Herkunft (HeldFigur, werte.json „welt“ „start“).
@@ -25,11 +25,11 @@ const DP := AktionsKnopf.DP
 # Handbuch (Homer, 423): Namen und Saetze in beiden Sprachen, wortgetreu
 const T := {
 	"werte": {"de": "Die sechs Grundwerte", "en": "The six attributes"},                                     # [423.werte]
-	"schaffen": {"de": "Jeder Grundwert beginnt bei 1. Du verteilst 21 Punkte; danach liegt jeder Wert zwischen 3 und 8. Die Untergrenze bindet zwölf Punkte, neun sind frei: du kannst einen Wert stark machen oder mehrere ein wenig.",
-		"en": "Every attribute starts at 1. You spend 21 points; afterwards each value lies between 3 and 8. The floor binds twelve points, nine are free: make one value strong, or several a little."},   # [423.schaffen]
+	"schaffen": {"de": "Jeder Grundwert beginnt bei 3. Du verteilst 9 Punkte, kein Wert steigt dabei über 8: du kannst einen Wert stark machen oder mehrere ein wenig.",
+		"en": "Every attribute starts at 3. You spend 9 points, and none may go above 8 this way: make one value strong, or raise several a little."},   # [423.schaffen] (933.1)
 	"volk": {"de": "Dein Volk", "en": "Your people"},                                                        # [423.volk]
-	"volk_text": {"de": "Dein Volk gibt einen kleinen Vorteil und einen kleinen Nachteil und ein Merkmal, das man merkt. Es darf einen Wert auf 9 heben, aber keinen unter 3 drücken.",
-		"en": "Your people grant a small boon, a small flaw and a trait you will notice. They may lift a value to 9, but never push one below 3."},
+	"volk_text": {"de": "Dein Volk gibt einen kleinen Vorteil, meist auch einen kleinen Nachteil, und ein Merkmal, das man merkt. Es kann Werte auf 9 heben oder auf 2 senken.",
+		"en": "Your people grant a small boon, usually a small flaw, and a trait you will notice. They may lift values to 9 or lower them to 2."},   # [423.volk] (933.1)
 	"herkunft": {"de": "Herkunft, wenn du willst", "en": "Origin, if you wish"},                              # [423.herkunft]
 	"herkunft_text": {"de": "Eine Herkunft verteilt die Punkte für dich vor, gibt dir zwei oder drei Fertigkeiten mit dem Wert {held.startfertigkeit} und die Ausrüstung dazu. Ein Satz sagt dir, wohin sie meist führt. Die Punkte darfst du danach noch ändern.",
 		"en": "An origin spends the points for you, gives you two or three skills at {held.startfertigkeit} and the gear to match. One line tells you where it usually leads. You may still move the points afterwards."},
@@ -68,6 +68,100 @@ const FERT := {"Einhänder": "One-handed", "Zweihänder": "Two-handed", "Stangen
 	"Tiere beruhigen": "Calming Beasts", "Überreden": "Persuasion", "Einschüchtern": "Intimidation", "Handeln": "Haggling",
 	"Kräutersammeln": "Foraging", "Bergbau": "Mining", "Angeln": "Fishing", "Jagd": "Hunting", "Schmieden": "Smithing",
 	"Lederarbeit": "Leatherwork", "Alchemie": "Alchemy", "Kochen": "Cooking", "Runenkunde": "Runecraft", "Heilkunde": "Medicine"}
+
+# 954 (Chef 11.11., 13:55 „1 ja“; Saetze Homer STORY-BRS-ERSCHAFFUNG.md, wortgetreu): Gedrueckthalten auf Grundwert, Volk, Herkunft
+# oder Fertigkeit zeigt Name und einen Satz im Fenster des Systemmenues (Menue.erklaer_kasten). Wirkt etwas in Kapitel 1 noch nicht
+# (Bauregel 954.1, Chef 15:15 „954a D nach Abschluss Umzug“), folgt [954.1.spaeter]; die Liste OHNE_WIRKUNG ist die von Homer (11.11.)
+const SPAETER := {"de": "In diesem Kapitel wirkt das noch nicht.", "en": "This has no effect yet in this chapter."}   # [954.1.spaeter]
+const ERKLAER := {
+	"wert": {   # [954.1.wert.…]
+		"kraft": {"de": "Mehr Schaden mit Nahkampfwaffen und Fäusten, außer mit Dolchen.", "en": "More damage with melee weapons and fists, except daggers."},
+		"gewandtheit": {"de": "Mehr Schaden mit Dolchen und Bögen, öfter kritisch mit Nahkampfwaffen und Fäusten außer Dolchen; dazu Ausweichen, wer zuerst handelt und ob du entkommst.",
+			"en": "More damage with daggers and bows, more critical hits with melee weapons and fists except daggers; also dodging, who acts first and whether you get away."},
+		"zaehigkeit": {"de": "Mehr Leben und Ausdauer; Gift, Betäubung und Blendung wehrst du leichter ab.", "en": "More life and stamina; you resist poison, stunning and blinding more easily."},
+		"verstand": {"de": "Mehr Schaden mit Evokation.", "en": "More damage with Evocation."},
+		"wille": {"de": "Mehr Mana und Ausdauer, stärkere Heilmagie und öfter kritische Treffer mit Evokation.",
+			"en": "More mana and stamina, stronger Healing Magic and more critical hits with Evocation."},
+		"wahrnehmung": {"de": "Du triffst besser mit Fernwaffen, öfter kritisch mit Dolchen, Bögen und Armbrüsten, gerätst seltener in einen Hinterhalt und findest mehr Kräuter.",
+			"en": "You hit better at range and land more critical hits with daggers, bows and crossbows; you fall into ambushes less often and find more herbs."},
+	},
+	"volk": {   # [954.1.volk.…]
+		"Mensch": {"de": "Wandelbar: ein freier Punkt, wohin du willst, und eine Fertigkeit mehr zum Start.", "en": "Adaptable: one free point wherever you like, and one extra skill at the start."},
+		"Elf": {"de": "Wachsame Sinne: dich lähmt nichts.", "en": "Watchful Senses: nothing can paralyze you."},
+		"Zwerg": {"de": "Steinblut: Gift wehrst du oft ganz ab, und was durchkommt, schadet dir nur halb.",
+			"en": "Stoneblood: you often shrug off poison entirely, and what gets through hurts you only half as much."},
+		"Hügelvolk": {"de": "Glückskind: das Glück steht dir bei, wenn es darauf ankommt.", "en": "Child of Fortune: luck is on your side when it matters."},
+		"Orkblütiger": {"de": "Letzter Atemzug: einmal je Kampf lässt dich ein tödlicher Treffer mit dem letzten Rest Leben stehen.",
+			"en": "Last Breath: once per battle, a killing blow leaves you standing with your last scrap of life."},
+	},
+	"herkunft": {   # [954.1.herkunft.…]
+		"Wachsoldat": {"de": "Du hast Wache gestanden: mit Schild, Einhandwaffe und Rüstung stehst du vorn und hältst viel aus.",
+			"en": "You stood watch: with shield, weapon and armor you hold the front and take a beating."},
+		"Jägerkind": {"de": "Du bist im Wald groß geworden: du triffst aus der Ferne und gerätst selten in einen Hinterhalt.",
+			"en": "You grew up in the woods: you strike from afar and rarely walk into an ambush."},
+		# Zauberlehrling: Satz wartet auf 954.2 (Homer; die Commit-Pruefung 870.11 haelt das Wort der alten Klasse an)
+		"Klosterschüler": {"de": "Im Kloster hast du heilen gelernt: mit Wundsegen schließt du Wunden, deine und die deiner Gefährten.",
+			"en": "You learned to heal in the cloister: with Woundmend you close wounds, your own and your companions'."},
+		"Kräutersammler": {"de": "Du kennst die Kräuter am Wegrand: du findest mehr davon und holst beim Brauen mehr heraus.",
+			"en": "You know the herbs by the wayside: you find more of them and get more out of every brew."},
+		"Schmiedelehrling": {"de": "Am Amboss bist du stark geworden: Hammer und Hitze haben dich gehärtet, du schlägst kräftig zu.",
+			"en": "You grew strong at the anvil: hammer and heat have hardened you, and you hit hard."},
+		"Herumtreiber": {"de": "Du hast dich auf der Straße durchgeschlagen: flink, rasch mit dem Dolch und schwer zu fassen.",
+			"en": "You scraped by on the streets: nimble, quick with a dagger and hard to pin down."},
+		"Wanderer": {"de": "Ohne Herkunft: du verteilst die Punkte selbst und wählst deine Fertigkeiten.", "en": "No origin: you spend the points yourself and pick your own skills."},
+	},
+	"fert": {   # [954.1.fert.…]; der Name ist der Kopf des Fensters, der Satz beginnt gross
+		"Einhänder": {"de": "Schwerter, Äxte und andere Waffen für eine Hand; die zweite bleibt frei für einen Schild.", "en": "Swords, axes and other one-handed weapons; your other hand stays free for a shield."},
+		"Zweihänder": {"de": "Große Schwerter, Äxte und Hämmer für beide Hände, kein Schild dazu; keine Nahkampfwaffe trifft schwerer.",
+			"en": "Great swords, axes and hammers for both hands, no shield with them; no melee weapon hits harder."},
+		"Stangenwaffen": {"de": "Speere und andere lange Waffen; mit der Spitze hältst du den Gegner auf Abstand.", "en": "Spears and other long weapons; with the point you keep the foe at bay."},
+		"Stumpfe Waffen": {"de": "Streitkolben, Hammer und Stab schlagen mit Wucht statt mit der Schneide.", "en": "Maces, hammers and staves strike with weight, not with an edge."},
+		"Dolche": {"de": "Kurze Klingen, geführt mit Gewandtheit statt Kraft; am schlimmsten für den, der dich nicht kommen sieht.",
+			"en": "Short blades, wielded with Agility rather than Strength; worst for a foe who never saw you coming."},
+		"Faustkampf": {"de": "Mit bloßen Fäusten, wenn nichts anderes zur Hand ist; ein harter Griff hält den Gegner am Platz.", "en": "Bare fists when nothing else is at hand; a hard grip holds the foe in place."},
+		"Schild": {"de": "Fängt Schläge ab und deckt später auch, wer neben dir steht.", "en": "Catches blows, and later covers whoever stands beside you too."},
+		"Bogen": {"de": "Pfeile aus der Ferne; Gewandtheit gibt ihnen Wucht, Wahrnehmung lenkt sie ins Ziel.", "en": "Arrows from afar; Agility drives them, Perception guides them home."},
+		"Armbrust": {"de": "Bolzen schlagen hart ein, ganz gleich, wie stark oder gewandt du bist.", "en": "Bolts hit hard, however strong or agile you are."},
+		"Wurfwaffen": {"de": "Wurfmesser und Ähnliches, mit Gewandtheit geschleudert.", "en": "Throwing knives and the like, hurled with Agility."},
+		"Leichte Rüstung": {"de": "Leder; schützt wenig und hindert kaum.", "en": "Leather; little protection, hardly in your way."},
+		"Mittlere Rüstung": {"de": "Mehr Schutz als Leder, weniger als schwere Rüstung.", "en": "More protection than leather, less than heavy armor."},
+		"Schwere Rüstung": {"de": "Der beste Schutz, doch ohne genug Kraft geht dir darin bald der Atem aus.", "en": "The best protection, but without enough Strength you soon run out of breath in it."},
+		"Ausweichen": {"de": "Du entgehst Hieben, statt sie abzufangen; Gewandtheit hilft dabei.", "en": "You slip blows instead of catching them; Agility helps."},
+		"Schleichen": {"de": "Ungesehen an Gegner herankommen und zuerst zuschlagen.", "en": "Get close to foes unseen and strike first."},
+		"Spähen": {"de": "Stehen bleiben und umsehen, um Verstecktes und Fallen zu finden.", "en": "Stop and look around to find hidden things and traps."},
+		"Schlösser knacken": {"de": "Verschlossene Truhen und Türen ohne Schlüssel öffnen.", "en": "Open locked chests and doors without a key."},
+		"Fallen entschärfen": {"de": "Fallen unschädlich machen, bevor sie zuschnappen.", "en": "Render traps harmless before they spring."},
+		"Evokation": {"de": "Feuer und reine Kraft gegen deine Gegner.", "en": "Fire and pure force against your foes."},
+		"Schutzmagie": {"de": "Schilde und Häute aus Kraft, die Schläge dämpfen.", "en": "Shields and skins of force that dull blows."},
+		"Heilmagie": {"de": "Wunden schließen und grelles Licht gegen deine Gegner rufen.", "en": "Close wounds and call harsh light down on your foes."},
+		"Illusion": {"de": "Trugbilder, die Gegner täuschen und verwirren.", "en": "Phantoms that deceive and confuse your foes."},
+		"Beschwörung": {"de": "Wesen rufen, die für dich kämpfen, bis hin zur Macht über die Toten.", "en": "Call up beings to fight for you, and even command the dead."},
+		"Tiere beruhigen": {"de": "Ein feindliches Tier vor dem Kampf besänftigen, damit es abzieht.", "en": "Soothe a hostile beast before battle so it moves off."},
+		"Überreden": {"de": "Andere mit Worten umstimmen, notfalls mit einer Lüge.", "en": "Win others over with words, with a lie if need be."},
+		"Einschüchtern": {"de": "Mit Blick und Drohung Gegner vertreiben, bevor es zum Kampf kommt.", "en": "Drive foes off with a look and a threat before it comes to blows."},
+		"Handeln": {"de": "Im Laden günstiger kaufen und teurer verkaufen.", "en": "Buy for less and sell for more in shops."},
+		"Kräutersammeln": {"de": "Kräuter am Wegrand finden und pflücken; je besser du bist, desto mehr.", "en": "Find and pick herbs by the wayside; the better you are, the more you get."},
+		"Angeln": {"de": "Fische fangen, an Bach und See.", "en": "Catch fish in streams and lakes."},
+		"Jagd": {"de": "Erlegte Tiere zerlegen und Fährten lesen.", "en": "Dress slain beasts and read tracks."},
+		"Schmieden": {"de": "Waffen und Rüstung aus Metall fertigen und flicken, auch Dietriche.", "en": "Make and mend metal weapons and armor, lockpicks too."},
+		"Lederarbeit": {"de": "Gerben, nähen, Leder und Stoff flicken, für leichte Rüstung, Roben, Taschen und Köcher.",
+			"en": "Tan, sew and mend leather and cloth, for light armor, robes, bags and quivers."},   # [954.1.fert.leder]; Name Schneidern mit 975a
+		"Alchemie": {"de": "Wer sich auf Tränke versteht, bekommt beim Brauen öfter einen zweiten dazu.", "en": "If you know your potions, a brew more often yields a second one."},
+		"Kochen": {"de": "Was du isst, stärkt dich mehr.", "en": "What you eat does you more good."},
+		"Runenkunde": {"de": "Runen und Verzauberungen auf deine Ausrüstung legen.", "en": "Lay runes and enchantments on your gear."},
+		"Heilkunde": {"de": "Wunden verbinden; wer sich darauf versteht, holt aus einem Verband mehr heraus.", "en": "Bind wounds; the more you know of it, the more a bandage mends."},
+	},
+}
+# ohne Wirkung im Spiel (STORY-BRS-ERSCHAFFUNG.md „Mit Wirkung im Umzugszweig … Ohne“; Glückskind nur im alten klassisch.gd). 1017 (Homer 1015):
+# Verstand wirkt (Evokationsschaden) und steht nicht mehr hier; der Satz zum Wissen kommt erst mit 960 (kennt_schwaechen im Spiel)
+const OHNE_WIRKUNG := ["Hügelvolk", "Wurfwaffen", "Schleichen", "Spähen", "Schlösser knacken", "Fallen entschärfen", "Illusion",
+	"Beschwörung", "Tiere beruhigen", "Überreden", "Einschüchtern", "Angeln", "Jagd", "Schmieden", "Lederarbeit", "Runenkunde", "Heilkunde"]
+
+## 954: der Satz zum Gedrueckthalten ([art] wert, volk, herkunft, fert), mit [954.1.spaeter], wo es noch nicht wirkt; "" ohne Satz
+static func erklaerung(art: String, k: String) -> String:
+	var d = (ERKLAER.get(art, {}) as Dictionary).get(k, null)
+	if d == null: return ""
+	return tx(d) + (" " + tx(SPAETER) if OHNE_WIRKUNG.has(k) else "")
 
 var name_ := ""
 var b := BrsHeld.neu("Mensch", "Wachsoldat")   # 470: der Held nach BRS; Vorgabe die erste Herkunft der Liste
@@ -173,7 +267,7 @@ func baue() -> void:
 	inhalt.add_child(namensfeld())
 	# Volk (Wort „Volk“, nie „Rasse“, E 70)
 	inhalt.add_child(kopfzeile(tx(T["volk"])))
-	inhalt.add_child(wahl(BrsHeld.voelker(), b.volk, func(v): return tx(VOLK.get(v, {"de": v, "en": v})), volk_waehlen))
+	inhalt.add_child(wahl(BrsHeld.voelker(), b.volk, func(v): return tx(VOLK.get(v, {"de": v, "en": v})), volk_waehlen, 3, "volk"))
 	var vk := VBoxContainer.new()
 	vk.add_theme_constant_override("separation", 0)
 	vk.add_child(txt(tx(T["volk_text"]), 13.5, Spielstaende.ANGABE))   # 549a: DIM heisst gesperrt
@@ -191,7 +285,7 @@ func baue() -> void:
 		inhalt.add_child(Spielstaende.linie())
 	# Herkunft
 	inhalt.add_child(kopfzeile(tx(T["herkunft"])))
-	inhalt.add_child(wahl(BrsHeld.herkuenfte(), b.herkunft, func(h): return tx(HERKUNFT.get(h, {"de": h, "en": h})), herkunft_waehlen, 2))   # zwei Spalten: „Schmiedelehrling“ ganz
+	inhalt.add_child(wahl(BrsHeld.herkuenfte(), b.herkunft, func(h): return tx(HERKUNFT.get(h, {"de": h, "en": h})), herkunft_waehlen, 2, "herkunft"))   # zwei Spalten: „Schmiedelehrling“ ganz
 	var hk := VBoxContainer.new()
 	hk.add_theme_constant_override("separation", 0)
 	if b.herkunft != BrsHeld.WANDERER:
@@ -340,16 +434,59 @@ func namensfeld() -> Control:
 	return e
 
 # Choices: je Zeile drei Felder gleicher Breite; 549a (wie 630): ohne Rahmen, das gewaehlte BRIGHT auf RAISED, die anderen in Gold
-func wahl(was: Array, gewaehlt: String, wort: Callable, nimm: Callable, spalten := 3) -> Control:
+# 954: [art] nennt die Saetze zum Gedrueckthalten (ERKLAER)
+func wahl(was: Array, gewaehlt: String, wort: Callable, nimm: Callable, spalten := 3, art := "") -> Control:
 	var g := GridContainer.new()
 	g.columns = spalten
 	g.add_theme_constant_override("h_separation", int(6 * DP))
 	g.add_theme_constant_override("v_separation", int(6 * DP))
 	for x in was:
-		var k := Stil.wahlfeld(String(wort.call(x)), x == gewaehlt, func(): nimm.call(x))
+		var gehalten := [false]
+		var tat := func() -> void:
+			if not gehalten[0]: nimm.call(x)
+		var k := Stil.wahlfeld(String(wort.call(x)), x == gewaehlt, tat)
 		k.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		if art != "": haltbar(k, String(wort.call(x)), erklaerung(art, String(x)), gehalten)
 		g.add_child(k)
 	return g
+
+# 954 wie Zeichenknopf (425, 571): nach HALTEN Sekunden still gedrueckt oeffnet das Fenster mit [kopf_] und [satz], und das Loslassen
+# waehlt dann nicht (gehalten[0], von der Tat des Feldes gelesen; Spielstaende.tippbar ruft sie vor diesem Handler); wer weiter als
+# WISCH schiebt, rollt und bekommt keine Erklaerung
+func haltbar(p: Control, kopf_: String, satz: String, gehalten := [false]) -> void:
+	if satz == "": return
+	if p.mouse_filter == Control.MOUSE_FILTER_IGNORE: p.mouse_filter = Control.MOUSE_FILTER_STOP
+	var ab := [Vector2.INF]
+	var nr := [0]
+	p.gui_input.connect(func(e: InputEvent):
+		if Spielstaende.tipp(e):
+			nr[0] += 1
+			if e.pressed:
+				ab[0] = e.global_position
+				gehalten[0] = false
+				var n: int = nr[0]
+				get_tree().create_timer(Zeichenknopf.HALTEN).timeout.connect(func():
+					if nr[0] == n and ab[0] != Vector2.INF:   # Loslassen und Rollen zaehlen nr hoch; das Feld nicht fassen (nach dem Tippen frei)
+						gehalten[0] = true
+						erklaere(kopf_, satz))
+			else:
+				ab[0] = Vector2.INF
+				gehalten[0] = false
+		elif e is InputEventMouseMotion and ab[0] != Vector2.INF and (e.global_position as Vector2).distance_to(ab[0]) > Spielstaende.WISCH * DP:
+			ab[0] = Vector2.INF
+			nr[0] += 1)
+
+var erklaer_fenster: Control
+
+func erklaere(kopf_: String, satz: String) -> void:
+	schliesse_erklaerung()
+	erklaer_fenster = Menue.erklaer_kasten(kopf_, satz, schliesse_erklaerung)
+	add_child(erklaer_fenster)
+	Zurueck.melde(erklaer_fenster, schliesse_erklaerung)   # Android-Zurück schliesst erst das Fenster
+
+func schliesse_erklaerung() -> void:
+	if is_instance_valid(erklaer_fenster): erklaer_fenster.queue_free()
+	erklaer_fenster = null
 
 # Grundwerte verteilen (wie PointBuy alt): Punkte uebrig, Satz aus dem Handbuch, je Wert Name, Endwert, Volk, − und +; beim Menschen
 # waehlt „+1“ den Wert mit dem freien Punkt
@@ -368,6 +505,7 @@ func grundwerte() -> void:
 		n.autowrap_mode = TextServer.AUTOWRAP_OFF
 		n.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		n.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		haltbar(n, tx(GRUNDWERT[g]), erklaerung("wert", g))   # 954: der Name erklaert, − und + bleiben zum Tippen
 		r.add_child(n)
 		n.resized.connect(func():   # 630: der Name ganz, notfalls kleiner bis 13 sp (549a), statt mit „…“ gekuerzt
 			if is_equal_approx(float(n.get_meta("breite", -1.0)), n.size.x): return
@@ -376,7 +514,7 @@ func grundwerte() -> void:
 				var gg := int(round(sp_ * 0.95 * Stil.SP))
 				n.add_theme_font_size_override("font_size", gg)
 				if n.get_theme_font("font").get_string_size(n.text, HORIZONTAL_ALIGNMENT_LEFT, -1, gg).x <= n.size.x: break)
-		var vp := b.volk_plus(g)   # Pruefer 14:5x: auch ein Minus, das die Untergrenze 3 auffaengt (Elf, Zaehigkeit 3)
+		var vp := b.volk_plus(g)   # Pruefer 14:5x: auch das Minus des Volks (933: Elf, Zaehigkeit 3 -> 2)
 		for z in [[str(b.wert(g)), 16, Stil.TEXT, 28], [vorzeichen(vp).replace("-", "−") if vp != 0 else "", 13, Stil.GOLD if vp > 0 else Spielstaende.mangel(), 28]]:
 			var l := txt(z[0], z[1], z[2], z[1] == 16)   # 584: der Wert halbfett wie alt
 			l.autowrap_mode = TextServer.AUTOWRAP_OFF
@@ -414,8 +552,13 @@ func fertigkeiten() -> void:
 			g.add_theme_constant_override("h_separation", int(6 * DP))
 			g.add_theme_constant_override("v_separation", int(6 * DP))
 			for f in liste:
-				var k := Stil.wahlfeld(fert_name(String(f)), b.wahl.has(f), func(): b.waehle(String(f)); baue(), b.wahl.has(f) or b.kann_waehlen(String(f)))
+				var gehalten := [false]
+				var tat := func() -> void:
+					if gehalten[0]: return
+					b.waehle(String(f)); baue()
+				var k := Stil.wahlfeld(fert_name(String(f)), b.wahl.has(f), tat, b.wahl.has(f) or b.kann_waehlen(String(f)))
 				k.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+				haltbar(k, fert_name(String(f)), erklaerung("fert", String(f)), gehalten)   # 954: auch eine nicht waehlbare erklaert sich
 				g.add_child(k)
 			for i in (2 - liste.size() % 2) % 2: g.add_child(luecke_breit())   # Pruefer 02.11., 14:5x: „Tiere beruhigen“ allein in seiner Gruppe war breiter
 			p.add_child(g)

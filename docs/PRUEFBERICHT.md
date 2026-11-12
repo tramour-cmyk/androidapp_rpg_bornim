@@ -52,6 +52,11 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 185 · 1042 `probelauf.py` cd-Kette (Perikles, `6c3a1513c`; 12.11., 16:0x)
+
+- **1042 greift** (`greift 1042 185`): Spikes Push 15:45 (`5b6906b79` auf `claude/tom-1040-1-wendeschritt`, ändert `godot.yml`) im Klon nachgestellt, `push_lauf` alt gegen neu: `cd …/godot && …; cd .. && git push` alt „Film“ (Arbeitskopie außerhalb des Repos), neu keine Probe (Arbeitskopie richtig); ebenso relatives `cd godot; cd ..` und drei cd nacheinander. Gegenprobe gleicher Befehl auf `claude/tom-348-x`: neu Probe 1040.1 mit Film, zählt also weiter. Zweigfilter `godot.yml` (`tom-348-**`, `jerry-348-**`, `build-**`) im Commit unverändert; GitHub: 0 Läufe auf dem Zweig, die gestrichene Zeile war falsch.
+- Grenze (kein Vorgang, selten): ein `cd` in einer Unterschale gilt jetzt weiter; `(cd godot && …); cd tools && git push` ergibt `godot/tools` statt `tools` (alt richtig), dann zählt der Haken wie vor 1042 einen Film zu viel.
+
 ## Lauf 184 · 1019 Neustart-Haken nimmt Ford aus (Perikles, Doppelpack 421, `57f798597`; 12.11., 08:1x)
 
 - **1019 greift im Haken, Wirkung offen** (`warte 1019 13.11. 08:00`): `neustart-haken.py prompt` mit Probeprotokollen: erste Nachricht „Ford“ 250 Tsd. still, 450 Tsd. Erinnerung; „Tom“ 250 Tsd. Erinnerung; „Ford 2“ und „Ford-Wache“ wie Ford (Wortgrenze am Bindestrich, unschädlich). Der Prompt-Haken liest `/home/user/bornim-main/tools/`, wirkt also nach dem nächsten `notiz.sh` des laufenden Ford ohne Neustart. Fords Sitzung `…765JvmMM81VAZ94ovn` (von Hand 07:26): erste Nachricht „Ford“, `name()` erkennt sie; 264 Tsd. `used_tokens` um 08:15. Sie bindet zudem `bornim-kaufmodelle` ein, dort galt 400 Tsd. schon nach 818. `LISTE-BETRIEB.md` 61 nennt das Wort „Ford“ als erste Nachricht beim Selbstneustart.

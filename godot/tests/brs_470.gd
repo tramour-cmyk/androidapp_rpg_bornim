@@ -29,19 +29,23 @@ func _lauf() -> void:
 	pruefe("alle verteilt", [b.frei(), b.kann_hoch("kraft")], [0, false])
 	# Elf: Gewandtheit +1, Wahrnehmung +1, Zähigkeit −1; Zähigkeit 4 -> 3, Gewandtheit 3 -> 4
 	pruefe("Elf", [b.wert("gewandtheit"), b.wert("wahrnehmung"), b.wert("zaehigkeit"), b.wert("wille")], [4, 4, 3, 8])
-	# Malus nie unter 3: Zwerg mit Gewandtheit 3 bleibt 3; Bonus hebt 8 auf 9
+	# 933 A (Chef 11.11., 13:07): Malus bis 2, Zwerg mit Gewandtheit 3 hat 2; Bonus hebt 8 auf 9
 	var z := BrsHeld.neu("Zwerg", "Wanderer")
 	for i in 5: z.hoch("zaehigkeit")
-	pruefe("Zwerg", [z.wert("gewandtheit"), z.wert("zaehigkeit"), z.wert("verstand")], [3, 9, 4])
+	pruefe("Zwerg", [z.wert("gewandtheit"), z.wert("zaehigkeit"), z.wert("verstand")], [2, 9, 4])
+	z.hoch("gewandtheit")
+	pruefe("Zwerg Gewandtheit 4 -> 3", z.wert("gewandtheit"), 3)
+	pruefe("Volk senkt bis 2, hebt bis 9", [int(BrsHeld.e()["volk_min"]), int(BrsHeld.e()["volk_max"])], [2, 9])
 	# Fertigkeiten wählen
 	b.waehle("Bogen"); b.waehle("Bergbau"); b.waehle("Spähen"); b.waehle("Dolche")
 	pruefe("Wanderer wählt zwei, Bergbau nicht", [b.wahl, b.fertig()], [["Bogen", "Spähen"], true])
 	b.waehle("Bogen")
 	pruefe("abwählen", b.wahl, ["Spähen"])
 	pruefe("nicht wählbar: Bergbau", BrsHeld.waehlbar()["Sammeln"].has("Bergbau"), false)
+	pruefe("nicht wählbar in Kapitel 1: Illusion, Beschwörung (984.1)", [BrsHeld.waehlbar()["Magie"].has("Illusion"), BrsHeld.waehlbar()["Magie"].has("Beschwörung"), b.kann_waehlen("Illusion")], [false, false, false])
 	var n := 0
 	for gr in BrsHeld.waehlbar(): n += (BrsHeld.waehlbar()[gr] as Array).size()
-	pruefe("37 Fertigkeiten, Bergbau erst ab Kapitel 2", n, 36)
+	pruefe("37 Fertigkeiten, Bergbau erst ab Kapitel 2, Illusion und Beschwörung nicht in Kapitel 1", n, 34)
 	# Herkunft verteilt vor wie sim444 (Spalte 21) und gibt ihre Fertigkeiten mit dem Startwert
 	var W := BrsHeld.lade()
 	for hk in BrsHeld.herkuenfte():

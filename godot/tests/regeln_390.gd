@@ -144,6 +144,10 @@ func _talente() -> void:
 	_check("Gewandtheit 3 bemerkt", probeheld({"gewandtheit": 3}).bemerkt_aus(), int(wl["bemerken_felder"]))
 	_check("Gewandtheit 8 bemerkt", probeheld({"gewandtheit": 8}).bemerkt_aus(), int(wl["bemerken_felder"]) - 1)
 	_check("Wahrnehmung 9 Hinterhalt", probeheld({"wahrnehmung": 9}).hinterhalt_faktor(), maxf(float(wl["hinterhalt_min"]), 1.0 - 6 * float(wl["hinterhalt_je_wahrnehmung"])))
+	# 933 A: das Volk senkt bis 2; eine 2 bringt weniger als eine 3 (Hinterhalt haeufiger, weniger Kraeuter), Bemerken bleibt (abgerundet)
+	_check("Wahrnehmung 2 Hinterhalt", probeheld({"wahrnehmung": 2}).hinterhalt_faktor(), 1.0 + float(wl["hinterhalt_je_wahrnehmung"]))
+	_check("Wahrnehmung 2 Kräuter", Laden.kraut_chance(probeheld({"wahrnehmung": 2})), -float(wl["kraut_je_wahrnehmung"]))
+	_check("Gewandtheit 2 bemerkt", probeheld({"gewandtheit": 2}).bemerkt_aus(), int(wl["bemerken_felder"]))
 
 
 func _zustaende() -> void:
