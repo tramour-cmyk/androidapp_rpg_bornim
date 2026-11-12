@@ -137,7 +137,9 @@ func starte(w: Dictionary) -> void:
 	werte.voll()
 	# 399.1 wie alt (69, GameViewModel.newGame): einmal die Ankunft bei Nacht, dann erwacht der Held neben dem Bett der Schenke
 	# (Story.START), wo Rowena ihn weckt; vorher begann das neue Spiel am Brunnen
-	await zwischenbild("intro")
+	# 1020.1 A (Chef 12.11., 07:55: „das 50. Mal die Intro-Szene überspringen“): Schnellstart im Testmodus ohne Intro, schon erwacht
+	if w.get("schnell", false): zustand.setze(Geschichte.INTRO_DONE)
+	else: await zwischenbild("intro")
 	blende.color.a = 1.0
 	klang("verhuelle", [true])
 	betrete(String(Rast.START["karte"]), Vector2i(int(Rast.START["x"]), int(Rast.START["y"])), String(Rast.START["blick"]))
@@ -1139,6 +1141,35 @@ func test_tat(was: String, mit: Array) -> void:
 			KampfEffekte.an = not KampfEffekte.an
 		"kampfmessen":   # 806: der nächste Kampf misst Bild-, Grafik- und Zeichenzeit je Baustein (Bausteine806)
 			Bausteine806.naechster = not Bausteine806.naechster
+		"lage_merken":   # 1020.1 A: die Lage jetzt in den Lageplatz (Testmodus.LAGEPLATZ), der eigene Platz bleibt
+			var eigen := Spielstand.platz
+			buche_spielzeit()
+			Spielstand.platz = Testmodus.LAGEPLATZ
+			Spielstand.speichere(zustand, held_werte(), platz())
+			Spielstand.platz = eigen
+			ui.kurz(Sprache.t({"de": "Lage gemerkt.", "en": "Situation saved."}))
+		"lage_zurueck":   # 1020.1 A: zurück in die gemerkte Lage; gespeichert wird weiter in den eigenen Platz
+			var eigen2 := Spielstand.platz
+			var stand := Spielstand.lade(Testmodus.LAGEPLATZ)
+			if stand.is_empty():
+				ui.kurz(Sprache.t({"de": "Noch keine Lage gemerkt.", "en": "No situation saved yet."}))
+				return
+			await abblenden(1.0)
+			var von2 := karte.id
+			zustand = Zustand.aus_daten(stand["zustand"])
+			werte = BrsHeld.aus_spiel_daten(stand["held"])
+			stufe_abgleichen()
+			var o: Dictionary = stand["ort"]
+			betrete(String(o["karte"]), Vector2i(int(o["x"]), int(o["y"])), String(o["blick"]))
+			Spielstand.platz = eigen2
+			await ortsworte(von2, false)
+			ui.kurz(Sprache.t({"de": "Gemerkte Lage.", "en": "Saved situation."}))
+		"einmaliges":   # 1020.1 A: Eingebungen, Kampfhinweise und Ortssätze wie beim ersten Mal
+			for f in zustand.flaggen.keys():
+				if String(f).begins_with("eingebung_") or String(f).begins_with("kampf_hinweis_"): zustand.flaggen.erase(f)
+			Ortsblende.besuche.clear()
+			Ortsblende.letzter.clear()
+			ui.kurz(Sprache.t({"de": "Eingebungen, Kampfhinweise und Ortssätze wie beim ersten Mal.", "en": "Insights, fight hints and place lines as the first time."}))
 		"teleport":
 			await abblenden(1.0)
 			var von := karte.id

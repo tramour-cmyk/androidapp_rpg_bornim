@@ -47,6 +47,13 @@ const NEBENHAND := ["", "shield", "round_shield", "dagger"]   # cheatOffHand
 const HERKUENFTE := ["Wachsoldat", "Zauberlehrling", "Herumtreiber", "Klosterschüler"]   # 870.4: Probehelden nach Herkunft statt Klasse
 
 static var waffen_auf := false
+# 1020.1 A: Schnellstart und Lage merken je auf einem eigenen Platz hinter den vier des Spielers (Spielstand.PLAETZE), nie auf seinem
+const TESTPLATZ := 9
+const LAGEPLATZ := 8
+static var schnell_herkunft := "Wachsoldat"
+static func schnellstart() -> Dictionary:
+	var hw := probeheld(schnell_herkunft, 1)
+	return {"schnell": true, "platz": TESTPLATZ, "name": "Test", "brs": hw.als_daten()}
 static var eroeffnung := "NORMAL"       # 399.2 (Jerry, TestTab.kt opening): wer zuerst handelt im beschworenen Kampf
 static var kampfort := ""               # 493 (Jerry): Kampfort im Wald für den beschworenen Kampf; leer: nach der Kachel wie im Spiel
 static var probe_gegner := "GRAK"
@@ -178,7 +185,19 @@ static func reiter(m: Menue) -> void:
 	m.zeile(t.call("Testmodus", "Test mode").to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))   # 584: Kopf wie alt (TestTab.kt 50, MenuHead)
 	m.luecke(8)
 	absturz(m, t)
-	Pruefliste.zeige(m, t)   # 1020.1: die Prüfliste des Builds zuerst
+	# 1020.1 A: Lage merken und zurück, Einmaliges zurücksetzen, Herkunft für den Schnellstart im Hauptmenü
+	m.gruppe(t.call("Schnelltest", "Quick test"))
+	m.zeichenreihe([zk.call(t.call("Lage merken", "Save spot"), null, t.call("Merkt sich Ort, Uhrzeit, Held und Geschichte auf einem eigenen Testplatz; dein Spielstand bleibt.",
+			"Remembers place, time, hero and story on a test slot of its own; your save stays."), func(): m.test.emit("lage_merken", []), "PIN"),
+		zk.call(t.call("Lage zurück", "Back to spot"), null, t.call("Zurück in die gemerkte Lage, um einen Prüfpunkt zu wiederholen.", "Back to the saved situation, to repeat a check."),
+			func(): m.test.emit("lage_zurueck", []), "", "↺"),
+		zk.call(t.call("Einmaliges", "One-time"), null, t.call("Eingebungen, Kampfhinweise und Ortssätze erscheinen wieder wie beim ersten Mal.",
+			"Insights, fight hints and place lines appear again as the first time."), func(): m.test.emit("einmaliges", []), "FLAG"),
+		zk.call(t.call("Schnellstart", "Quick start"), ErschaffungBrs.herkunft_name(schnell_herkunft), t.call("Herkunft des Helden für „Schnellstart“ im Hauptmenü: neues Spiel ohne Intro und Erschaffung auf einem Testplatz.",
+			"Background of the hero for “Quick start” in the main menu: a new game without intro and creation on a test slot."),
+			func(): schnell_herkunft = HERKUENFTE[(HERKUENFTE.find(schnell_herkunft) + 1) % HERKUENFTE.size()], "RUN")])
+	m.luecke(6)
+	Pruefliste.zeige(m, t)   # 1020.1: die Prüfliste des Builds gleich danach
 	m.gruppe(t.call("Anzeigen", "Displays"))
 	# 425 wie alt (TestTab.kt): nur die Messwerte offen, Geraet, System und Grafik erst hinter „Gerät zeigen …“ (DeviceBox)
 	var ml := Engine.get_main_loop()
