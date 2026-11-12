@@ -458,6 +458,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:51 12.11.: Marke Archiv session_01Hmoj77PijmyEaUrqCKUMZo (lauf.py)
 - 21:51 12.11.: Marke Archiv session_01Hmoj77o4gpxMkFhcBeDkZo (lauf.py)
 - 21:57 12.11.: Startsperre 21:57 Start Jerry (lauf.py)
+- 23:51 12.11.: Startsperre 23:51 Start Ford (selbst, Neustart-Haken 400 Tsd., Übergabe 23:50)
 - 23:47 12.11.: Startsperre 23:47 Start Sokrates (Ford, Neustart-Meldung b2314d1bb)
 - 22:23 12.11.: Startsperre 22:23 Start Sokrates (Ford, Neustart-Meldung 2764c75ba)
 - 22:01 12.11.: Startsperre 22:01 Start Sokrates (Ford, Neustart-Meldung ad3e781e6)
