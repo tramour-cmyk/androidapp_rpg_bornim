@@ -93,9 +93,15 @@ Nachschlagen (969, Chef 11.11., 15:49): jede Zahl des Bornimer Rollenspielsystem
 | `abwehr_mitte` | 11 | Abwehrprobe gegen einen Zustand mit Zaehigkeit (Gift, Betaeubung, Blindheit), Wille oder Gewandtheit gegen den staerksten stehenden Gegner; je Punkt Schwere des alten Rettungswurfs ueber abwehr_mitte ein Grundwertpunkt mehr dagegen | `regeln/mars.gd:1512` |
 | `initiative_streuung` | 100 | Reihenfolge nach je_punkt x Gewandtheit + je_stufe x Stufe + Zufall 0 bis initiative_streuung; ausser Atem minus initiative_atemlos | `regeln/mars.gd:560` |
 | `initiative_atemlos` | 25 | – | `regeln/mars.gd:562` |
+| `ueberreden_basis` | 35 | 1037 (807 A, Pim heimschicken; vorlaeufig A, Jerry, Vorentscheid Sokrates): Ueberreden hat keinen Grundwert, also Chance = ueberreden_basis + ueberreden_je_punkt x Fertigkeitswert Ueberreden - Gegenwert der Figur (ueberreden_gegen, sonst 0), begrenzt auf min bis max; ohne Fertigkeit 35 %, Startwert 10 = 45 %, Kapitel-1-Decke 24 = 59 %; Uebung je Versuch wie ueben uebung_je_benutzung, gelungen oder nicht | – |
+| `ueberreden_je_punkt` | 1 | – | – |
 
 - **formel:** Chance = basis + je_punkt x (eigener Grundwert - Grundwert dagegen) + je_stufe x (eigene Stufe - Stufe dagegen), begrenzt auf min bis max; Gegner ohne Grundwerte zaehlen mit gegner_grundwert
 - **flucht:** Gewandtheit des Helden gegen die des schnellsten stehenden Gegners (Stufe dazu); betrunken mit Ungunst (merkmale umreissen)
+
+| Eintrag | Pim |
+|---|---|
+| ueberreden_gegen | 0 |
 
 ## gegenwirkung
 
@@ -589,7 +595,7 @@ Gelesen in: `regeln/mars.gd:445`, `regeln/mars.gd:2301`, +1, Sim.
 
 ### wirtschaft.preise
 
-Herkunft: Ladenpreise alt (Katalog 458 'alt'); Teile ohne alten Preis A
+Herkunft: Ladenpreise alt (Katalog 458 'alt'); Teile ohne alten Preis A; Verband 1037 A
 
 Gelesen in: Sim.
 
@@ -597,6 +603,7 @@ Gelesen in: Sim.
 |---|---|---|---|
 | `Heiltrank` | 25 | – | Sim. |
 | `Großer Heiltrank` | 75 | – | Sim. |
+| `Verband` | 8 | – | – |
 | `Alchemistenfeuer` | 30 | – | Sim. |
 | `Weihwasser` | 25 | – | – |
 | `Fleisch` | 6 | – | – |
@@ -993,6 +1000,14 @@ Gelesen in: `regeln/mars.gd:1483`
 | `superior_potion` | 56 | – | – |
 | `remedy` | 5 | – | – |
 | `roast_meat` | 14 | – | – |
+
+### welt.verband
+
+| Wert | heute | Formel, Erläuterung | wirkt in |
+|---|---|---|---|
+| `grund` | 5 | – | – |
+| `je_heilkunde` | 0,2 | – | – |
+| `uebung` | 1 | – | – |
 
 ### welt.ausdauer
 

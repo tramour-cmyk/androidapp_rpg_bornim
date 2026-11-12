@@ -4,6 +4,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **Ganzer Kampfbericht in Farbe** (Tuffy, 1031; Chef 12.11., 14:08, Build 280: „ist alles nur weiß“): „▴ ganzer Bericht“ zeigt die Zeilen in denselben Farben wie die Zeilen über dem Kampfort, jede hell wie die neueste (wie alt): Eingebung in Gold, „n Schaden“ hervorgehoben. Test `bericht_1031`. Zweig `claude/tuffy-1031-berichtfarben` (auf Build 280).
 - **Regelwerte zum Nachschlagen** (Jerry, 969; Chef 11.11., 15:49): `docs/LISTE-REGELWERTE.md`, erzeugt von `tools/regelwerte.py` aus `tools/sim444/werte.json`: je Block die Regel als Satz aus `DESIGN-BRS.md`, Formel und Erläuterung, heutige Zahl und wo das Spiel sie liest. Die Commit-Prüfung hält eine veraltete Seite an, `notiz.sh` warnt.
 
 - **Build 277 auf `main`** (Tom und Jerry; t277 freigegeben „mit den Ergänzungen“, Chef 11.11., 20:54; PR #196, Lauf 370 grün): Sammelbuild nach Build 276. Tom 581, 635, 636, 680, 814, 875, 964; Jerry 532, 536, 751, 784, 806, 811, 863, 868, 870.6, 876, 910, 935, 945, 948, 958; dazu die roten Tests behoben (988, 1006). Durchgefallen und zurück an die Teams: 277.5 und 277.12 Fußstaub, Fackel (814), 277.7 Ruckeln, 277.10 Wurf der Brandflasche, 277.14 Platztausch der Ratten, 277.16 Lyra (635); Funde 990–994.
