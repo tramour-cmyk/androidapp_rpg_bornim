@@ -713,6 +713,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 		return ende[0]
 	hw.leben = clampi(tp_nach, 1, hw.max_leben())
 	if ende[0] == "WON": zustand.siege += 1   # 399.1: GameState.battlesWon (System „Siege“, Thessas Ware); zaehlte bisher nie
+	grundwert_gestiegen = false   # 644a F (Homer 1026): ein Kampf ohne Uebung spielt den Aufstiegsklang des vorigen nicht noch einmal
 	var gestiegen := fertigkeiten_nach_kampf(uebung, ende[0]) if uebung != null else ""   # 471
 	if not lohn.is_empty():
 		zustand.gold += int(lohn.get("gold", 0))
