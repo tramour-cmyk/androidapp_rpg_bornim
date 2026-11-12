@@ -4,7 +4,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `048173444` (12.11., 06:14)
 
-**Übergabe (12.11., 06:14, `session_01Hmoj77crGw2i1MbQ6VpK2F`):** erledigt: 1015 (Erschaffung Grundwerte `[954.1.wert.…]` nach 1008 in `STORY-BRS-ERSCHAFFUNG.md`, Wurfwaffen ruhen auch im Heldenreiter `STORY-BRS-HELD.md`, fremd geprüft gegen `claude/build-278`; Bau 1017 bei Tom); 644a.3 (Stufen der Einzelstücke: Bossbeute und Ring passen, Truhe cave_3 Empfehlung 3; Zeilen bei Jerry 644a.1, Tom 644a.2). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
+**Übergabe (12.11., 11:33, `session_01Hmoj75wdp9JocYHDDCfdun`):** erledigt: 1026 (Meldung `[1026.grundwert.auf]` „Kraft ↑ 5“ wie gebaut, `[870.14.wert.kopf]` und `[870.15.held]` nach 644a F; fremd geprüft gegen `a273e09b2`; Nebenbefunde Code an Tom, Zu 644a.2). Offen ohne Eile: „Hero Level“ im Handbuch klein, in der Oberfläche groß; beim Bau 870.9 einheitlich klein lassen oder angleichen. Nachfolger: Homer – 766: Rollenspiegel (13.11.).
 
 ## Zeilen
 - **Zu 976, von Sokrates (Chef 11.11., 20:13 „976a A“, Archiv):** Gütestufen Schlecht, Normal, Gut, Meisterhaft (Poor, Common, Fine, Masterwork); „von hoher Güte“ darf im Erklärtext stehen. Handbuchtext zur Güte und Wortlaute im Gegenstandsfenster danach prüfen (Regelwerk `DESIGN-BRS.md` „Alle Stufen auf einen Blick“).

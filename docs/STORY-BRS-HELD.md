@@ -6,7 +6,9 @@ Homer 10.11.; Texte für Schritt 4 und 5 des Umzugs (`LISTE-UMZUG-BRS.md`; Vorg�
 
 **Bauregel (wie 817):** nur Zeilen bauen, deren Wirkung im Code steht; fehlt eine, entfällt ihre Zeile, und Tom schreibt es in den Vorrat Homer. Platzhalter %d aus den Regelwerten (`werte.json`).
 
-`[870.14.wert.kopf]` Wert %d / EN: Value %d (Grundwert 2–9 (933); in Kapitel 1 fest, 870a 4)
+`[870.14.wert.kopf]` Wert %d / EN: Value %d (Endwert wie `BrsHeld.wert`: verteilt mit Volk 2–9 (933), dazu Üben (644a F, ersetzt „in Kapitel 1 fest“, 870a 4) und Ausrüstung)
+
+`[1026.grundwert.auf]` Meldung, wenn ein Grundwert durch Üben steigt: {Grundwert} ↑ {Wert} / EN: {attribute} ↑ {value}, etwa „Kraft ↑ 5“ / “Strength ↑ 5” (Homer 12.11., 1026; gebaut 644a.2 Tom, `spiel.gd` `grundwerte_notiz`). Wert wie `[870.14.wert.kopf]`; Name nach `[870.14.wert.…]`. Steht hinter den Fertigkeiten derselben Notiz, getrennt wie dort („Einhänder ↑ 12  ·  Kraft ↑ 5“): erst die Ursache, dann die Folge; dazu der Aufstiegsklang. Kein Wort wie „gestiegen“: dasselbe Zeichen wie bei Fertigkeiten (`[423.fert.wachsen]`) und beim Ruf (`[447.4.ruf.auf]`), der Klang zeigt das Seltene (in Kapitel 1 etwa einmal beim Hauptwert, 644a F). Gegenargument: in 1,8 s neben zwei Fertigkeiten leicht zu übersehen; dann eigene Zeile darunter, nicht mehr Worte.
 
 `[870.14.wert.kraft]` Kraft / Strength
 - Schaden mit Nahkampfwaffen und Fäusten, außer Dolchen. / EN: Damage with melee weapons and fists, except daggers.
