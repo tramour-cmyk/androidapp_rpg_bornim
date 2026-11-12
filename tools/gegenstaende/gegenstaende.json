@@ -2608,6 +2608,36 @@
    }
   },
   {
+   "id": "bandage",
+   "name": {
+    "de": "Verband",
+    "en": "Bandage"
+   },
+   "art": "werkzeug",
+   "platz": null,
+   "stufe": 1,
+   "preis": 8,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Osric"
+    },
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Saubere Leinenstreifen, fest gerollt. Außerhalb des Kampfs anlegen; wer Heilkunde versteht, holt mehr heraus.",
+    "en": "Clean strips of linen, tightly rolled. Apply outside of combat; the more you know of Medicine, the more it mends."
+   }
+  },
+  {
    "id": "stamina_potion",
    "name": {
     "de": "Ausdauertrank",
