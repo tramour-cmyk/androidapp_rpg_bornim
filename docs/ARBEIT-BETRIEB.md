@@ -406,3 +406,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:26 12.11.: Marke Rückmeldung 842 12.11. 16:24 (lauf.py)
 - 16:26 12.11.: Marke Archiv session_01Hmoj75wdp9JocYHDDCfdun (lauf.py)
 - 16:26 12.11.: Marke Archiv session_01Hmoj75iGtq9c9Q8reRo233 (lauf.py)
+- 16:29 12.11.: Startsperre 16:29 Start Sokrates (Neustart-Meldung 9dc6d541b, Nachfolger „Sokrates – Ring und offene Fragen“, von Hand)
