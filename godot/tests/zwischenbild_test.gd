@@ -107,6 +107,16 @@ func _lauf() -> void:
 	# Ueberspringen: fragen, dann beenden
 	z.frage()
 	pruefe("fragt", z.fragt != null, true)
+	# 856 (t274): die Rückfrage nach 549a: ganz deckend, kein Rahmen, „‹ ABBRECHEN“ links, „ÜBERSPRINGEN ›“ rechts; der Satz ohne Goldrand
+	pruefe("Rückfrage deckend", (z.fragt as ColorRect).color, Color.BLACK)
+	var gerahmt := z.fragt.find_children("*", "PanelContainer", true, false).filter(func(p):
+		var sb = (p as PanelContainer).get_theme_stylebox("panel")
+		return sb is StyleBoxFlat and (sb as StyleBoxFlat).border_width_top > 0)
+	pruefe("Rückfrage ohne Rahmen", gerahmt.size(), 0)
+	var kn: Array = z.fragt.find_children("*", "PanelContainer", true, false).filter(func(p): return p.has_meta("knopf")).map(func(p):
+		return [String(p.get_meta("knopf")), bool(p.get_meta("links")), (p.find_child("Text", true, false) as Label).text])
+	pruefe("Knöpfe", kn, [["neben", true, "ABBRECHEN"], ["haupt", false, "ÜBERSPRINGEN"]])
+	pruefe("Satz ohne Goldrand", (z.satz_kasten.get_theme_stylebox("panel") as StyleBoxFlat).border_width_top, 0)
 	var ende := [false]
 	z.fertig.connect(func(): ende[0] = true)
 	z.beende()
