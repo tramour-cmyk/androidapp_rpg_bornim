@@ -1,5 +1,7 @@
 # 867 · Hauptmenü: die vier Helden mit deinen Ergänzungen und neuem Licht · Team Tom (Spike) · 12.11., 21:20
 
+[Bild von 12.11., 21:20](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/12-2120-867-Spike.png) (eingetragen von meldung.sh, Spike)
+
 G Stil
 
 Geprüft an: [Lauf 400](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43289694128) (Zweig `claude/tom-867-vorlage2`, Schritt „Hauptmenübild (867)“), Hauptmenü am Bauserver mit den gekauften Figuren wie im Spiel. Der Lauf ist rot nur wegen eines fremden Tests (Ziege im Dorf); der Bildschritt 867 lief durch. Großbild: Telegram 12.11., 21:20.
@@ -13,7 +15,7 @@ In der Probe umgesetzt, wie du es um 20:01 gesagt hast (nicht A, B oder C; deine
 - Licht: Der warme Schein steht hinter den Beinen und läuft nach allen Seiten weich ins Schwarz aus, ohne Kante; eine Lampe vorn oben bringt die Gesichter ins Licht, auch das dunkle des Zauberlehrlings.
 
 **Mir ist aufgefallen:**
-- Das Jägerkind (Zwerg) hat graues Haar und einen grauen Bart und wirkt wie ein alter Mann. Ursache: Die Herkunft gibt Haarfarbe Nr. 4, beim Menschen Rot, beim Zwerg Grau. Gilt auch in der Erschaffung. Vorschlag: beim Zwerg Rot (wie beim Menschen); sagst du ja, kommt es mit dem Einbau.
+- Das Jägerkind (Zwerg) hat graues Haar und einen grauen Bart und wirkt wie ein alter Mann. Ursache: Die Herkunft gibt die vierte Haarfarbe, beim Menschen Rot, beim Zwerg Grau. Gilt auch in der Erschaffung. Vorschlag: beim Zwerg Rot (wie beim Menschen); sagst du ja, kommt es mit dem Einbau.
 - Der Zwerg ist so groß wie die Menschen, die Elfe sieht aus wie ein Mensch: Alle Völker haben noch denselben Körper (431, nach dem Umzug).
 - Der Rundschild der Wachsoldatin ist von vorn nicht zu sehen, ihr Schwert nur als schmaler Strich an der Hand.
 - Der Kurzbogen des Jägerkinds liegt waagrecht in der Hand und wirkt fast wie eine Armbrust.
