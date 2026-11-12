@@ -26,6 +26,25 @@ static func rang(wert: int) -> int:
 		if wert <= int(o[i]): return i
 	return o.size() - 1
 
+## 875 (857a A, Chef 10.11., 13:35): umbenannte Fertigkeiten; Spielstände aus Build 276 tragen noch den alten Namen
+const UMBENANNT := {"Kräuterkunde": "Kräutersammeln"}
+static func neuer_name(f: String) -> String: return String(UMBENANNT.get(f, f))
+
+## den Stand eines älteren Spielstands auf die heutigen Namen bringen (Wert, Übung, Decke, Probe, bekannt)
+static func umbenennen(s: Dictionary) -> void:
+	for teil in ["werte", "uebung", "decke", "probe"]:
+		var d = s.get(teil)
+		if not d is Dictionary: continue
+		for alt in UMBENANNT:
+			if (d as Dictionary).has(alt):
+				if not (d as Dictionary).has(UMBENANNT[alt]): d[UMBENANNT[alt]] = d[alt]
+				(d as Dictionary).erase(alt)
+	if s.get("bekannt") is Array:
+		var neu := []
+		for f in s["bekannt"]:
+			if not neu.has(neuer_name(String(f))): neu.append(neuer_name(String(f)))
+		s["bekannt"] = neu
+
 ## Neuer Stand mit den Startfertigkeiten (BrsHeld.fertigkeiten(): Name -> Startwert); sie gelten als bekannt
 static func neuer_stand(start := {}) -> Dictionary:
 	var s := {"werte": {}, "uebung": {}, "decke": {}, "probe": {}, "bekannt": []}

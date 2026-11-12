@@ -63,7 +63,7 @@ static func lage(mars) -> Dictionary:
 	var vorn = feinde[0]
 	var wert := -1
 	for f in feinde:
-		var w := (1000000 if bool(f.monster.get("boss", false)) else 0) + int(f.monster.get("xp", 0))
+		var w := (1000000 if bool(f.monster.get("boss", false)) else 0) + Brs.stufe(String(f.monster.id))     # 870.6: Stufe nach BRS statt EP alt
 		if w > wert: vorn = f; wert = w
 	var gleich := feinde.filter(func(f): return String(f.monster.id) == String(vorn.monster.id)).size()
 	return {"id": String(vorn.monster.id), "name": String([vorn.monster.de, vorn.monster.en][mars.lang]), "boss": bool(vorn.monster.get("boss", false)),

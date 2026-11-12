@@ -17,10 +17,10 @@ static func buy_price(hw: BrsHeld, base: int) -> int: return maxi(1, roundi(base
 static func sell_price(hw: BrsHeld, base: int) -> int: return maxi(1, roundi(base * verkauf_faktor(hw)))
 ## Chance auf einen Trank mehr bei Morwens Sud (Alchemie)
 static func brau_chance(hw: BrsHeld) -> float: return float(_wl().get("brauen_je_alchemie", 0.01)) * hw.fertigkeit("Alchemie")
-## Chance auf ein Kraut mehr beim Pfluecken (Kraeuterkunde und Wahrnehmung)
+## Chance auf ein Kraut mehr beim Pfluecken (Kraeutersammeln und Wahrnehmung; 875)
 static func kraut_chance(hw: BrsHeld) -> float:
 	var wl := _wl()
-	return float(wl.get("kraut_je_kraeuterkunde", 0.01)) * hw.fertigkeit("Kräuterkunde") \
+	return float(wl.get("kraut_je_kraeutersammeln", 0.01)) * hw.fertigkeit("Kräutersammeln") \
 		+ float(wl.get("kraut_je_wahrnehmung", 0.05)) * maxi(0, hw.wert("wahrnehmung") - int(wl.get("kraut_wahrnehmung_ab", 3)))
 ## Leben dazu aus einer Mahlzeit (Kochen)
 static func essen_bonus(hw: BrsHeld) -> int: return roundi(float(_wl().get("essen_je_kochen", 0.2)) * hw.fertigkeit("Kochen"))

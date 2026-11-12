@@ -303,13 +303,16 @@ func _warte(s: float) -> void:
 ## Ein Klang [id] (Sound-Name klein, z. B. "click", "door", "coins") mit einer zufälligen seiner Aufnahmen
 func effekt(id: String, pegel := 0.8, tempo := 1.0, nr := -1) -> void:
 	if not effekte_an:
+		_merke(id, pegel, null, "Effekte aus")
 		return
 	if not id in DURCH:
 		pegel *= schleier_pegel()
 		if pegel <= 0.0:
+			_merke(id, pegel, null, "Blende")
 			return
 	var takes: Array = liste.get("sfx", []).filter(func(n): return String(n).begins_with(id + "_") and String(n).substr(id.length() + 1).is_valid_int())
 	if takes.is_empty():
+		_merke(id, pegel, null, "keine Aufnahme")
 		return
 	var take := String(takes[_zufall.randi_range(0, takes.size() - 1)])
 	if nr >= 0 and takes.has("%s_%d" % [id, nr + 1]):     # 399.1 Intro: eine bestimmte Aufnahme (IntroSound.Cue.take)
@@ -319,14 +322,59 @@ func effekt(id: String, pegel := 0.8, tempo := 1.0, nr := -1) -> void:
 	if s == null:
 		s = _strom("sfx/" + take)
 	if s == null:
+		_merke(take, pegel, null, "nicht geladen")
 		return
 	var p := _effekte[_naechster]
 	_naechster = (_naechster + 1) % STROEME
+	_abgebrochen(p)
 	p.stop()
 	p.stream = s
 	p.pitch_scale = tempo
 	p.volume_db = linear_to_db(maxf(pegel, 0.0001))
 	p.play()
+	_merke(take, pegel, p, "")
+
+
+# 636 A (Chef 09.11., 06:55: Satz am Schlagbaum kam, trotzdem kein Geräusch; am Rechner spielt door_n ganz): die letzten Effekte für
+# den Testmodus „Klang“ über der Welt, damit das Gerät zeigt, ob ein Klang gespielt, abgebrochen oder gar nicht erst gestartet wurde
+const PROTOKOLL_MAX := 10
+var protokoll: Array = []                        # {"was", "pegel", "p" (Spieler oder null), "grund", "t" (ticks), "ende_ms" (-1: offen)}
+
+
+func _merke(was: String, pegel: float, p: AudioStreamPlayer, grund: String) -> void:
+	protokoll.append({"was": was, "pegel": pegel, "p": p, "grund": grund, "t": Time.get_ticks_msec(), "ende_ms": -1})
+	if protokoll.size() > PROTOKOLL_MAX:
+		protokoll.pop_front()
+
+
+## Der Spieler [p] wird für einen neuen Klang gebraucht: spielt seiner noch, ist er abgebrochen (alle STROEME belegt)
+func _abgebrochen(p: AudioStreamPlayer) -> void:
+	for e in protokoll:
+		if e.p == p:
+			if p.playing and e.ende_ms < 0:
+				e.ende_ms = Time.get_ticks_msec() - int(e.t)
+				e.grund = "abgebrochen"
+			e.p = null
+
+
+## Zeilen für die Anzeige: neueste oben, je Klang Name, Pegel, Lage (spielt, verklungen, abgebrochen, nicht gestartet) und Alter;
+## dazu die Regler, weil ein Klang auch an ihnen still sein kann
+func protokoll_zeilen() -> Array:
+	var r: Array = ["Klang: alle %d %%, Effekte %d %%%s, %d Spieler" % [lautstaerke.all, lautstaerke.fx, "" if effekte_an else " (aus)", STROEME]]
+	var jetzt := Time.get_ticks_msec()
+	for i in range(protokoll.size() - 1, -1, -1):
+		var e: Dictionary = protokoll[i]
+		var lage := String(e.grund)
+		if lage == "abgebrochen":
+			lage = "abgebrochen nach %.1f s" % (e.ende_ms / 1000.0)
+		elif lage == "":
+			var p = e.p
+			if p != null and is_instance_valid(p) and p.playing:
+				lage = "spielt %.1f s" % p.get_playback_position()
+			else:
+				lage = "verklungen"
+		r.append("%s  %.2f  %s  (vor %.1f s)" % [e.was, e.pegel, lage, (jetzt - int(e.t)) / 1000.0])
+	return r
 
 
 ## SfxPlayer.voice: die Stimme des Monsters [id] („angriff“, „schmerz“, „tod“), tiefer für Grimmzahn und Elite (Recorded.voiceOf)

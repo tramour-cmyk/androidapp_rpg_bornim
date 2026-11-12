@@ -562,16 +562,24 @@ func tageszeit() -> String:   # Kampfort.tageszeit: tag, abend, nacht
 
 # gegner wie kampf/probe.gd FOES; [probe] (Test „MARS-Probekampf“, Skirmish.probe): Held und Soeldner [klasse, stufe] statt des eigenen
 # Helden, danach bleibt er, wie er war (kein Lohn, keine TP, kein Tod)
+## 532, 935: was der Held im Kampf trinken oder werfen kann (alt ItemKind POTION, BOMB; Battle.useItem), in dieser Folge in der
+## Tasche des Kampforts
+const KAMPF_TASCHE := ["potion", "greater_potion", "superior_potion", "remedy", "alchemist_fire", "holy_water"]
+
 func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroeffnung := "", nr := 0) -> String:
 	var hw := held_werte() if probe.is_empty() else Testmodus.probeheld(String(probe[0]), int(probe[1]))
 	var soeldner = null if probe.is_empty() else Testmodus.probeheld(String(probe[0]), int(probe[1]))
-	var erg := {"ende": "", "tp": {}, "lohn": {}, "rest": zustand.anzahl("potion"), "held": null}
+	var erg := {"ende": "", "tp": {}, "lohn": {}, "rest": {}, "held": null}
+	# 532 (Durchspielregel 488): die ganze Tasche in den Kampf; danach wird nur weggenommen, was verbraucht ist
+	var tasche := {}
+	for id in KAMPF_TASCHE:
+		if zustand.anzahl(id) > 0: tasche[id] = zustand.anzahl(id)
 	var aufruf := AufrufS.new()
 	add_child(aufruf)
 	aufruf.ende.connect(func(o, tp, lohn):
 		erg["tp"] = tp; erg["lohn"] = lohn
 		if aufruf.kampf and aufruf.kampf.mars:
-			erg["rest"] = int(aufruf.kampf.mars.potions.get("potion", 0))
+			erg["rest"] = aufruf.kampf.mars.potions.duplicate()
 			erg["held"] = aufruf.kampf.mars.find("hero")     # 532: ZP, Verbrauchtes, Zustände nach dem Kampf
 			erg["rauch"] = aufruf.kampf.mars.smoke_thrown     # 494: Morwens Rauchbündel geworfen (Battle.smokeBundle nimmt es weg)
 		erg["ende"] = String(o))
@@ -597,6 +605,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	if probe.is_empty(): lage["aussehen"] = zustand.aussehen   # 403 (Jerry): der Held im Kampf wie im Dorf (HeldFigur)
 	if probe.is_empty(): lage["leiden"] = zustand.leiden.duplicate()   # 532 (Jerry): Zustände aus dem letzten Kampf (GameState.ailments)
 	if probe.is_empty(): lage["betrunken"] = zustand.betrunken()   # 532 Metrausch wie alt (Battle.drunk): betrunken aus der Schenke in den Kampf
+	if probe.is_empty(): lage["tasche"] = tasche   # 532: die ganze Tasche (aufruf.gd starte)
 	if probe.is_empty(): lage["rauch"] = zustand.anzahl(Geschichte.SMOKE_BUNDLE)   # 494 (Jerry, D4.1): Morwens Rauchbündel gegen Krogg
 	if probe.is_empty(): lage["brs"] = zustand.brs   # 478 (Jerry): der Held nach BRS, wenn der Kampf nach BRS rechnet (brs_kampf.gd)
 	if probe.is_empty() and not zustand.fert.is_empty(): lage["brs_fert"] = zustand.fert["werte"]   # 471: was er seither geuebt hat
@@ -631,7 +640,10 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	for k in umgebung.size(): umgebung[k].environment = env_alt[k]
 	kamera.make_current()
 	visible = true; ui.visible = true
-	if probe.is_empty() and int(erg["rest"]) < zustand.anzahl("potion"): zustand.weg("potion", zustand.anzahl("potion") - int(erg["rest"]))   # getrunken
+	if probe.is_empty():
+		for id in tasche:   # 532, 935: getrunken oder geworfen (fehlt ein Ding in der Tasche des Kampfs, ist nichts verbraucht)
+			var rest := int((erg["rest"] as Dictionary).get(id, tasche[id]))
+			if rest < int(tasche[id]): zustand.weg(id, int(tasche[id]) - rest)
 	if probe.is_empty() and bool(erg.get("rauch", false)) and zustand.anzahl(Geschichte.SMOKE_BUNDLE) > 0: zustand.weg(Geschichte.SMOKE_BUNDLE, 1)   # 494: geworfen
 	var lohn: Dictionary = erg["lohn"]
 	var ende := [String(erg["ende"])]
@@ -809,11 +821,11 @@ func kraeuter_neu() -> void:
 func pfluecke(t: Vector2i) -> void:
 	if not kraut_da(t): return
 	zustand.gepflueckt["%s:%d:%d" % [karte.id, t.x, t.y]] = kraut_heute()
-	var weise := Laden.kraut_chance(held_werte())   # 870.4: Kräuterkunde und Wahrnehmung (alt Perks.extraHerbChance)
+	var weise := Laden.kraut_chance(held_werte())   # 870.4: Kräutersammeln (875) und Wahrnehmung (alt Perks.extraHerbChance)
 	var n := 1 + (1 if randf() < 0.3 else 0) + (1 if randf() < weise else 0)
 	zustand.dazu("herbs", n)
 	klang("effekt", ["loot"])
-	zustand.uebe("Kräuterkunde")   # 471: Pfluecken uebt Kraeuterkunde
+	zustand.uebe("Kräutersammeln")   # 471: Pfluecken uebt Kraeutersammeln (875, 857a A)
 	var auf := zustand.fert_notiz()
 	ui.kurz(Sprache.t({"de": "Du pflückst Heilkräuter (+%d)." % n, "en": "You pick healing herbs (+%d)." % n}) + ("\n" + auf if auf != "" else ""))
 	kraeuter_neu()
@@ -966,21 +978,15 @@ func weiter() -> void:
 		spricht_mit = ""
 	if held: _steht_auf(held.kachel)
 
-# 542 Uniques.make: das Einzelstueck mit Grundform, Seltenheit, Plus und Werten aus texte.json „einzelstuecke“, Stufe wie
-# maxOf(areaLevel, hero.level); zurueck „Name (Seltenheit)“
-static func einzelstueck(id: String) -> bool:
-	Sprache.lade()
-	return Sprache.texte.get("einzelstuecke", {}).get(id, {}).has("grundform")
+# 542 Uniques.make: das Einzelstueck, Stufe wie maxOf(areaLevel, hero.level); zurueck „Name (Seltenheit)“. 870.6: Grundform,
+# Seltenheit, Guete und Zusatzeigenschaften nach dem BRS aus den Regelwerten (werte.json „gegenstaende“ „einzelstuecke“), Name aus dem
+# Gegenstandskatalog (Beute.name)
+static func einzelstueck(id: String) -> bool: return Beute.einzelstueck(id).has("grundform")
 
 func einzel_gabe(id: String) -> String:
-	var e: Dictionary = Sprache.texte["einzelstuecke"][id]
-	var ilvl := maxi(int(karte.daten.get("stufe", 1)), held_werte().stufe)
-	var rolls := []
-	for r in e.get("rolls", []): rolls.append([String(r[0]), int(r[1])])
-	var g := {"uid": zustand.neue_uid(), "base": String(e["grundform"]), "rarity": String(e["rarity"]), "ilvl": ilvl, "plus": int(e.get("plus", 0)),
-		"rolls": rolls, "unique": id, "name_seed": 0}
+	var g := Beute.einzel(id, zustand.neue_uid(), maxi(int(karte.daten.get("stufe", 1)), held_werte().stufe))
 	zustand.ausruestung_dazu(g)
-	return "%s (%s)" % [Beute.name(g), Sprache.t(e["seltenheit"])]
+	return "%s (%s)" % [Beute.name(g), Sprache.t(BrsHeld.daten()["seltenheiten"][String(g["rarity"])]["name"])]
 
 # Loot.generate mit Mindestseltenheit (rarityFor special, floor) und Platz, Stufe wie maxOf(areaLevel, hero.level)
 func gear_gabe(was: String) -> String:
@@ -988,7 +994,7 @@ func gear_gabe(was: String) -> String:
 	var hw := held_werte()
 	var w := KotlinZufall.new(randi())
 	var ilvl := maxi(int(karte.daten.get("stufe", 1)), hw.stufe)
-	var g := Beute.erzeuge(w, zustand.neue_uid(), ilvl, Beute.seltenheit_fuer(hw, w, ilvl, true, t[0]), "", t[1] if t.size() > 1 else "")   # 870.4: ohne Klasse
+	var g := Beute.erzeuge(w, zustand.neue_uid(), ilvl, Beute.seltenheit_fuer(hw, w, ilvl, true, t[0]), hw, t[1] if t.size() > 1 else "", true)   # 870.6: nach seinen Fertigkeiten, besonderer Fund
 	zustand.ausruestung_dazu(g)
 	return "%s (%s)" % [Beute.name(g), Sprache.t(BrsHeld.daten()["seltenheiten"][String(g["rarity"])]["name"])]
 
@@ -1085,7 +1091,7 @@ func oeffne_menue(reiter := "") -> void:
 	m.test.connect(func(was: String, mit: Array):   # 399.1 Reiter „Test“: erst das Menue zu, dann in der Welt
 		# 555 (Chef 11:52: „Wenn ich auf Kartenzoom klicke, dann bin ich sofort aus dem Testmenü draußen“): Schalter bleiben wie alt im
 		# Menue, die Wirkung steht als kurze Meldung; nur Orts-, Kampf- und Schirmwechsel schliessen
-		if was in ["zoom", "nacht", "tiere", "gras"]:
+		if was in ["zoom", "nacht", "tiere", "gras", "kampfeffekte"]:
 			test_tat(was, [])
 			var de := Sprache.aktiv() == "de"
 			match was:
@@ -1093,6 +1099,7 @@ func oeffne_menue(reiter := "") -> void:
 				"nacht": m.meldung(("Nacht, 23:00 Uhr" if de else "Night, 11 pm") if licht.ziel > 0.5 else ("Tag, 12:00 Uhr" if de else "Day, noon"))
 				"tiere": m.meldung("Tiere umgeschaltet" if de else "Animals toggled")
 				"gras": m.meldung(("Gras: Grass & Wind" if de else "Grass: Grass & Wind") if GrasBausatz.an else ("Gras: unser altes" if de else "Grass: our old one"))
+				"kampfeffekte": m.meldung(("Kampfnebel an" if de else "Battle mist on") if KampfEffekte.an else ("Kampfnebel aus" if de else "Battle mist off"))
 			return
 		m.zu.emit()
 		test_tat(was, mit))
@@ -1121,6 +1128,8 @@ func test_tat(was: String, mit: Array) -> void:
 		"gras":   # 804: Gras des Kits gegen unser altes, zum Vergleich und fuer die Bilder/s vorher und nachher
 			GrasBausatz.an = not GrasBausatz.an
 			if gebiet: gebiet.gras_neu()
+		"kampfeffekte":   # 806: Bodennebel und Lichtschächte im Kampfort, ab dem nächsten Kampf
+			KampfEffekte.an = not KampfEffekte.an
 		"teleport":
 			await abblenden(1.0)
 			var von := karte.id
