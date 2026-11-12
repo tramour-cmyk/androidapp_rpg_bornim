@@ -424,3 +424,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:04 12.11.: Startsperre 18:04 Start Homer (lauf.py)
 - 18:04 12.11.: Marke Archiv session_01Hmoj77nTECTS8x8kwyj7ab (lauf.py)
 - 18:04 12.11.: Marke Start-fehlt Homer 12.11.-16:48 (lauf.py)
+- 18:25 12.11.: Startsperre 18:25 Start Tuffy (Neustart-Meldung c22b46180, Nachfolger „Tuffy – 1041: Platztausch im selben Takt“, von Hand)
