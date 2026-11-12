@@ -163,7 +163,7 @@ func setup(party: Array, foes: Array, p_tables: Dictionary, potions: Dictionary,
 	mars.smoke = int(p_progress.get("rauch", 0))     # D4.1, 494: Morwens Rauchbündel gegen Krogg (aufruf.gd lage „rauch“)
 	for k in potions:
 		mars.potions[k] = int(potions[k])
-	mars.listener = func(e): _post({"say": e})
+	mars.listener = func(e): _post({"say": _mit_waffen(e)})
 	return true
 
 
@@ -1003,6 +1003,17 @@ func _answer_ring(r: String) -> void:
 	ring_sem.post()
 
 
+## 999: welche Waffe jeder der Gruppe gerade führt (Fighter.drawn), mit der Meldung, wie sie gesagt wurde; die Figur zeigt sie, wenn
+## die Meldung dran ist (Wechsel ohne Zugverlust, mars.gd „draw“, „swap“ mit Waffe)
+func _mit_waffen(e: Dictionary) -> Dictionary:
+	var d := {}
+	for f in mars.fighters():
+		if f.hero != null:
+			d[f.id] = f.drawn
+	e["drawn"] = d
+	return e
+
+
 func _state_now() -> Dictionary:
 	var hp := {}
 	var places := {}
@@ -1052,6 +1063,9 @@ func _play_say(e: Dictionary) -> void:
 	var im_schatten: Dictionary = e.get("hidden", {})
 	for id in figures:
 		figures[id].im_schatten(im_schatten.has(id))
+	for id in e.get("drawn", {}):     # 999
+		if figures.has(id):
+			figures[id].waffe_ziehen(bool(e.drawn[id]))
 	for f in mars.fighters():
 		# called to the fight (Hilfe rufen); the rules' thread may already hold one this message does not know yet
 		if not figures.has(f.id) and e.places.has(f.id):
