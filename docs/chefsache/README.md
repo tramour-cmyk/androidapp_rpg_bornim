@@ -27,12 +27,12 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [1022](ansehen/1022-kartenrand.md) | Kartenrand aus der Spielansicht, vorher/nachher | – | 12.11., 17:58 |
+| [1036](ansehen/1036-zustaende.md) | Zustände an den Figuren: Paket oder eigen | – | 12.11., 18:22 |
+| [1039](ansehen/1039-ring.md) | Zielring beim Schweren Hieb lesbar | – | 12.11., 18:22 |
+| [1040](ansehen/1040-tritt.md) | Grimmzahn dreht sich mit Schritten | – | 12.11., 18:22 |
 | [756](ansehen/756-merkmale.md) | Merkmale der Ausrüstung: Güte und Zustand am Bild | – | 12.11., 14:21 |
 | [842](ansehen/842-knopf.md) | Pim heimschicken und Verband: Knopf im Gespräch, Bild des Verbands | – | 12.11., 15:30 |
 | [995](ansehen/995-grabhund.md) | Grabhund: Augen, Kopf und Körper lesbar | – | 12.11., 14:35 |
-| [1036](ansehen/1036-zustaende.md) | Zustände an den Figuren: Paket oder eigen, je Zustand (Film) | – | 12.11., 18:22 |
-| [1039](ansehen/1039-ring.md) | Zielring beim Schweren Hieb lesbar (Film) | – | 12.11., 18:22 |
-| [1040](ansehen/1040-tritt.md) | Grimmzahn dreht sich mit Schritten (Film) | – | 12.11., 18:22 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
@@ -409,6 +409,8 @@ Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 Format (Muster: „So geht's“ unten): t280-nachtrag.md: Zeile 2 ist keine Bereichszeile
 
 Beantwortet, Datei noch da (383.3: der Absender löscht sofort): ansehen/t280-nachtrag.md (Antwort t280, 12.11., 15:52)
+
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/1036-zustaende.md, ansehen/1039-ring.md, ansehen/1040-tritt.md
 
 ## So geht's
 
