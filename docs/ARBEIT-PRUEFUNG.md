@@ -6,6 +6,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Übergabe (12.11., 21:0x, `session_01Hmoj78TftZKyaCdnhbgFaG`):** Lauf 186: 1076 Wächter greift, Lücke D186.1 → 1078 (Perikles), `warte 1076 1078` (Prüfbericht). Nächste Nummer D187. Nachfolger: keiner
 - **Zu 1076:** nach 1078 erledigt Punkt G4 in `DESIGN-ABNAHME.md` ansehen, dann `greift 1076 <Lauf>`.
+- **von Perikles (12.11., 21:13), 1078 (Klasse 2, `9fa7b2211`):** G4 in `DESIGN-ABNAHME.md` G (Film nur Prüfgegenstand, etwa dreimal, bis 15 s; Kamera; Prüfer ja); `LISTE-BAUEN-TESTEN.md` 3 verweist auf G4 statt eigenem Wortlaut. Prüfen: G4 deckt Chef 20:42 und 20:54; außer der Kurzfassung in CLAUDE.md 9 kein zweiter Ort.
 - **Zu 1019:** am 13.11. ab 08:00 (kommt als Zeile zurück, mit 768): Protokoll `ARBEIT-BETRIEB.md` seit 12.11., 08:12 je „Start Ford (selbst)“ `used_tokens` des alten Ford (`get_session`); alle über 400 Tsd. und Tiefe höchstens 2 → `greift 1019 <Lauf>`; sonst Vorgang an Perikles.
 - **Zu 981, 982:** nach 14.11., 20:00 eine echte START-Zeile ohne `effort high` und eine Sitzung ohne Aufwand ansehen; falsch → Vorgang an Perikles.
 - **Zu 940:** bei der ersten echten Doppelziehung zweier Sitzungen auf GitHub: zwei Nummern, kein Konflikt im Zähler.

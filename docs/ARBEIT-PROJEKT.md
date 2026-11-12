@@ -2,10 +2,9 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `d94eea855` (12.11., 20:59)
+**Gelesen bis:** `9fa7b2211` (12.11., 21:13)
 
-**Übergabe (12.11., 20:59, `session_01Hmoj78HZSSyRDb3Gaiur8D`):** 1070 M gebaut (Prüfliste geht im selben Commit wie „tN“ aus der Chefsache, Wächter; Wirkung an t281); 1076 M gebaut (Film nur Prüfgegenstand, etwa dreimal, bis 15 s, Kamera, Filmzweig mit `main` und Sammelbuild; `meldung.sh` hält über 20 s an). Nachfolger: keiner
-**Letzte Antwort:** 1070 und 1076 umgesetzt; die Prüfliste t280 ist mit dem Zusammenführen von 280 inzwischen weg.
+**Übergabe (12.11., 21:13, `session_01Hmoj78PZLyrZi48EAPquLA`):** 1078 M gebaut (G4 in `DESIGN-ABNAHME.md`, Prüfer ja; `LISTE-BAUEN-TESTEN.md` 3 verweist), Prüfzeile bei Diogenes. Nachfolger: keiner
 - **Fehler 341, von Sokrates (11.11., 18:14):** 901 (365a B, „alle Hoch“ seit 07:18) startete in der Umgebung „WireStorm Hoch“, die nur Variablen setzt; die App zeigte „Mittel“, keiner prüfte das Ergebnis, gefunden hat es der Chef (18:04; 18:14 „von euch hat es ja keiner gemerkt … Schwarzbuch“). Behoben 981. Lehre: Einstellung am Ergebnis prüfen (`get_session`, App), nie an der Eingabe.
 
 ## Einzelheiten

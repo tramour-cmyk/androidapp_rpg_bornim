@@ -278,7 +278,7 @@
 | 1019 | Von Sokrates (zu 1016): Ford startet sich am Neustart-Haken (200 Tsd., 383 A) neu statt bei 400 Tsd. (185, LISTE-BETRIEB); Tiefe 0 bis 6 in 21 h, Handstart täglich; Ford im Haken auf 400 Tsd. ausnehmen | Perikles | M | gebaut, Geprüft an: 57f798597 | 13.11. 08:00 | – | – | B Abläufe | 1,45 $ |
 | 1070 | Getestete Prüfliste sofort aus der Chefsache, nicht erst beim Zusammenführen (Chef 12.11., 20:06; von Sokrates) | Perikles | M | gebaut, Geprüft an: 95e4f4bef | t281 | – | – | B Steuerung | 3,36 $ |
 | 1076 | Film zeigt nur den Prüfgegenstand, etwa dreimal, höchstens etwa 15 s (Chef 12.11., 20:42 zu 1039; von Sokrates) | Perikles | M | gebaut, Geprüft an: 54289ed83 | 1078 | – | – | B Steuerung | – |
-| 1078 | D186.1 (Diogenes, zu 1076): Kamera auf den Prüfgegenstand (Chef 12.11., 20:54) und nur der Prüfgegenstand fehlen als Punkt in DESIGN-ABNAHME G (Prüfung vor dem Versand prüft nur Punkte mit „Prüfer: ja“); Vorschlag G4 „Prüfer: ja“ | Perikles | M | startbar | – | – | – | B Steuerung | – |
+| 1078 | D186.1 (Diogenes, zu 1076): Kamera auf den Prüfgegenstand (Chef 12.11., 20:54) und nur der Prüfgegenstand fehlen als Punkt in DESIGN-ABNAHME G (Prüfung vor dem Versand prüft nur Punkte mit „Prüfer: ja“); Vorschlag G4 „Prüfer: ja“ | Perikles | M | gebaut, Geprüft an: 9fa7b2211 | – | – | – | B Steuerung | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
