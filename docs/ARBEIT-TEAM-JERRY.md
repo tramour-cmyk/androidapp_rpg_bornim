@@ -8,7 +8,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 **Übergabe (12.11., 15:01, `session_01Hmoj76DJtggtnNPKMMxpU6`):** 995 Grabhund gebaut (`claude/jerry-995-grabhund` `783bc44ee`), Probe gelb/rot beim Chef (`ansehen/995-grabhund.md`); nach seiner Wahl AUGE in `kaufgrabhund.py` setzen. 1032 im einzelnen Kampf nicht nachgestellt (`claude/jerry-1032-treffer`, wartet auf 1025). 1037 Werte gebaut (`claude/jerry-1037-werte`), Vorentscheid 1038 bei Sokrates, Start Tom 842 an Ford. 1036 Abgleich alt in Zu 1036, Bau Tuffy. Nachfolger: keiner (nur Pflege)
 
-**Übergabe Tuffy (12.11., 17:10):** Läufe 1039, 1040 (1053) starten. Nachfolger: Tuffy – 1036: Zustände kräftiger
+**Übergabe Tuffy (12.11., 17:11):** Läufe 391, 392 ansehen. Nachfolger: Tuffy – 1036: Zustände kräftiger
 
 ## Einzelheiten
 - **Zu 1036, von Sokrates (Chef 12.11., 17:01–17:04, Film Lauf 43235660324 gesehen):** 17:02: „da kriegt man ja gar nichts von der Zustimmung [Zuständen]. Das ist viel zu klein oder unsichtbar oder wie auch immer, das muss intensiver sein.“ Alle Zustände deutlich größer und kräftiger (am Wolf so lesbar wie am Helden, Maß Kotlin). 17:03: „Ich will keine Standbilder zum Zustand. Das muss Animation sein, also braucht es einen Film.“ 17:04 (woher die Effekte?): Paket Status Effects VFX (Kaufrepo `stufe1`) ungenutzt; im neuen Film je Zustand Paket (wo vorhanden; Brennend aus Combat VFX Mega) und eigen verstärkt nacheinander, Chef wählt; Signatur beachten.
