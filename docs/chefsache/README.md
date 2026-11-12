@@ -53,10 +53,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 | 1057 | M | Von Jerry (1049): Ansage des Grundangriffs je Art ohne eigene (heute alle „Stich“): Krogg | startbar |
 
-**Tom** – offen 113, Muss 93, startbar 5
+**Tom** – offen 113, Muss 93, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 431 | M | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, da | startbar |
 | 1030 | M | Von Sokrates (Chef 12.11., 13:53, Build 280, Rückläufer zu 1020.1): Reiter „Test“ springt | wartet auf Test/Build (gebaut) |
 | 825 | M | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635 | wartet auf Test/Build (gebaut) |
 | 697 | M | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | wartet auf 782 (startbar) |
@@ -70,7 +71,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 495 | M | Zufallsspieler spielt Kapitel 1 in Godot durch (Abnahme 2.2; Wochenziel 03.11., 488) | wartet auf 492 (startbar) |
 | 505 | M | Bau Nebel des Krieges und Sichtfeld des Helden (Archiv 502; Welt W24, W25) | wartet auf 492 (startbar) |
 | 515 | M | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 0 | wartet auf 870 (wartet) |
-| 431 | M | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, da | ruht |
 | 376.1 | M | Probeblatt Quaternius-Figuren mit Bewegungsraster als Film (Chef kaufte 27.10., 12:20) | ruht |
 | 455.1 | M | Probeblatt Baukasten: Roben, Umhänge, Stiefel je Netz × Material × Zeichen (Chef 01.11., 1 | ruht |
 | 513 | M | Ein Figurenstand für alle Zweige; Schild, Robe Magier, Umhang jetzt (Chef 03.11., 15:56, „ | ruht |
