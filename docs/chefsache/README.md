@@ -16,6 +16,12 @@ Nichts offen.
 
 ## Anzusehen
 
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [1022](ansehen/1022-kartenrand.md) | Kartenrand aller Gebietskarten, nachher | – | 12.11., 10:38 |
+
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
 | Folge | Version | Build | Was | Wer | Seit |
