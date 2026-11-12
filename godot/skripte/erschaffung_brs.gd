@@ -76,14 +76,14 @@ const SPAETER := {"de": "In diesem Kapitel wirkt das noch nicht.", "en": "This h
 const ERKLAER := {
 	"wert": {   # [954.1.wert.…]
 		"kraft": {"de": "Mehr Schaden mit Nahkampfwaffen und Fäusten, außer mit Dolchen.", "en": "More damage with melee weapons and fists, except daggers."},
-		"gewandtheit": {"de": "Mehr Schaden mit Dolchen, Bögen und Wurfwaffen; dazu Ausweichen, kritische Treffer, wer zuerst handelt und ob du entkommst.",
-			"en": "More damage with daggers, bows and throwing weapons; also dodging, critical hits, who acts first and whether you get away."},
+		"gewandtheit": {"de": "Mehr Schaden mit Dolchen und Bögen, öfter kritisch mit Nahkampfwaffen und Fäusten außer Dolchen; dazu Ausweichen, wer zuerst handelt und ob du entkommst.",
+			"en": "More damage with daggers and bows, more critical hits with melee weapons and fists except daggers; also dodging, who acts first and whether you get away."},
 		"zaehigkeit": {"de": "Mehr Leben und Ausdauer; Gift, Betäubung und Blendung wehrst du leichter ab.", "en": "More life and stamina; you resist poison, stunning and blinding more easily."},
-		"verstand": {"de": "Wissen: mit hohem Verstand erkennst du Schwächen und Stärken der Gegner, bevor du kämpfst.",
-			"en": "Lore: with high Wits you spot a foe's weaknesses and strengths before you fight."},
-		"wille": {"de": "Mehr Mana und Ausdauer und stärkere Zauber, auch beim Heilen.", "en": "More mana and stamina, and stronger spells, healing included."},
-		"wahrnehmung": {"de": "Du triffst besser mit Fernwaffen, gerätst seltener in einen Hinterhalt und findest mehr Kräuter.",
-			"en": "You hit better at range, fall into ambushes less often and find more herbs."},
+		"verstand": {"de": "Mehr Schaden mit Evokation.", "en": "More damage with Evocation."},
+		"wille": {"de": "Mehr Mana und Ausdauer, stärkere Heilmagie und öfter kritische Treffer mit Evokation.",
+			"en": "More mana and stamina, stronger Healing Magic and more critical hits with Evocation."},
+		"wahrnehmung": {"de": "Du triffst besser mit Fernwaffen, öfter kritisch mit Dolchen, Bögen und Armbrüsten, gerätst seltener in einen Hinterhalt und findest mehr Kräuter.",
+			"en": "You hit better at range and land more critical hits with daggers, bows and crossbows; you fall into ambushes less often and find more herbs."},
 	},
 	"volk": {   # [954.1.volk.…]
 		"Mensch": {"de": "Wandelbar: ein freier Punkt, wohin du willst, und eine Fertigkeit mehr zum Start.", "en": "Adaptable: one free point wherever you like, and one extra skill at the start."},
@@ -152,8 +152,9 @@ const ERKLAER := {
 		"Heilkunde": {"de": "Wunden verbinden; wer sich darauf versteht, holt aus einem Verband mehr heraus.", "en": "Bind wounds; the more you know of it, the more a bandage mends."},
 	},
 }
-# ohne Wirkung im Spiel (STORY-BRS-ERSCHAFFUNG.md „Mit Wirkung im Umzugszweig … Ohne“; Verstand bis 960, Glückskind nur im alten klassisch.gd)
-const OHNE_WIRKUNG := ["verstand", "Hügelvolk", "Wurfwaffen", "Schleichen", "Spähen", "Schlösser knacken", "Fallen entschärfen", "Illusion",
+# ohne Wirkung im Spiel (STORY-BRS-ERSCHAFFUNG.md „Mit Wirkung im Umzugszweig … Ohne“; Glückskind nur im alten klassisch.gd). 1017 (Homer 1015):
+# Verstand wirkt (Evokationsschaden) und steht nicht mehr hier; der Satz zum Wissen kommt erst mit 960 (kennt_schwaechen im Spiel)
+const OHNE_WIRKUNG := ["Hügelvolk", "Wurfwaffen", "Schleichen", "Spähen", "Schlösser knacken", "Fallen entschärfen", "Illusion",
 	"Beschwörung", "Tiere beruhigen", "Überreden", "Einschüchtern", "Angeln", "Jagd", "Schmieden", "Lederarbeit", "Runenkunde", "Heilkunde"]
 
 ## 954: der Satz zum Gedrueckthalten ([art] wert, volk, herkunft, fert), mit [954.1.spaeter], wo es noch nicht wirkt; "" ohne Satz

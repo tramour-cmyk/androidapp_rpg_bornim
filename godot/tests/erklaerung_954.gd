@@ -78,6 +78,7 @@ func _lauf() -> void:
 		var s := ErschaffungBrs.erklaerung(art, x)
 		pruefe(s.ends_with(Sprache.t(ErschaffungBrs.SPAETER)), "%s ohne Wirkung endet mit [954.1.spaeter]: %s" % [x, s])
 	pruefe(not ErschaffungBrs.erklaerung("fert", "Einhänder").contains(Sprache.t(ErschaffungBrs.SPAETER)), "Einhänder wirkt, ohne [954.1.spaeter]")
+	pruefe(not ErschaffungBrs.erklaerung("wert", "verstand").contains(Sprache.t(ErschaffungBrs.SPAETER)), "Verstand wirkt (Evokation, 1017), ohne [954.1.spaeter]")
 	# 2. am Schirm
 	root.size = Vector2i(720, 1520)
 	var w := ErschaffungBrs.new()

@@ -381,11 +381,11 @@ func gruppen_kopf(gr: String, geuebt: int, alle: int, offen: bool) -> Control:
 # Wirkung im Code steht. 989 (Homer 1008, nach 952 D): kritisch je Waffengruppe und Schule (werte.json „kritisch“) ohne Zahl, die
 # Aussicht mit der Hauptwaffe zeigen die Kampfwerte; Zauberschaden Evokation aus Verstand, Heilmagie aus Wille. Ruhen ohne Wirkung:
 # Gewandtheit „Flächenwirkungen“, Wille „Furcht und Zauber“, Verstand „Wissen“ (kennt_schwaechen ruft nur der Test) und „Handwerk“;
-# 963: Zähigkeit ohne Krankheit, Wahrnehmung nur Kraut (Laden.kraut_chance)
+# 963: Zähigkeit ohne Krankheit, Wahrnehmung nur Kraut (Laden.kraut_chance). 1017 (Homer 1015): ohne „Wurfwaffen“, solange es keine gibt
 const WERT_KOPF := ["Wert %d", "Value %d"]
 const WERT_TEXT := {
 	"kraft": [["Schaden mit Nahkampfwaffen und Fäusten, außer Dolchen.", "Damage with melee weapons and fists, except daggers."]],
-	"gewandtheit": [["Schaden mit Dolchen, Bögen und Wurfwaffen.", "Damage with daggers, bows and throwing weapons."],
+	"gewandtheit": [["Schaden mit Dolchen und Bögen.", "Damage with daggers and bows."],
 		["Wer ausweicht, ist schwerer zu treffen: +%d je Punkt.", "When you dodge, you are harder to hit: +%d per point.", "ausweichen"],
 		["Kritische Treffer (anderthalbfacher Schaden) mit Nahkampfwaffen und Fäusten, außer Dolchen; die Waffenfertigkeit zählt mit.",
 			"Critical hits (half again as much damage) with melee weapons and fists, except daggers; weapon skill counts as well."],
@@ -400,8 +400,8 @@ const WERT_TEXT := {
 			"Critical hits (half again as much damage) with Evocation; the skill counts as well."],
 		["Ausdauer, zusammen mit Zähigkeit.", "Stamina, together with Toughness."]],
 	"wahrnehmung": [["Treffen im Fernkampf: +%d %% je Punkt.", "Ranged accuracy: +%d%% per point.", "fern"],
-		["Kritische Treffer (anderthalbfacher Schaden) mit Dolchen, Bögen, Armbrüsten und Wurfwaffen; die Waffenfertigkeit zählt mit.",
-			"Critical hits (half again as much damage) with daggers, bows, crossbows and throwing weapons; weapon skill counts as well."],
+		["Kritische Treffer (anderthalbfacher Schaden) mit Dolchen, Bögen und Armbrüsten; die Waffenfertigkeit zählt mit.",
+			"Critical hits (half again as much damage) with daggers, bows and crossbows; weapon skill counts as well."],
 		["Hinterhalte bemerken.", "Noticing ambushes."],
 		["Aussicht auf ein Kraut mehr beim Sammeln.", "A chance of an extra herb when foraging."]],
 }
