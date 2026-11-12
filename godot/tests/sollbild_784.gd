@@ -71,6 +71,7 @@ func _lauf() -> void:
 			quit(1)
 			return
 		_uhr_anlegen()
+		kf.ui.uhr = func() -> int: return int(Engine.get_process_frames() * 1000.0 / FPS)     # 1039: Ring nach Filmzeit
 	while kf.verhuellt:
 		await process_frame
 	# im Film sieht man die Knöpfe einen Augenblick, bevor der Spieler tippt (zählt nicht zur Runde)

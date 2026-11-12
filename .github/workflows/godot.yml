@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
     inputs:
       kampf:
-        description: "Kampfort-Filme: ja (453 r3, 453.1 Vergleich), 461 (Grundstand-Film Kampfort), 4531 (Heldenatem Feld 2 gegen neu), 2963 (Siegerposen), 784 (Sollbild Wolfsrudel, eine Runde) oder 656 (Umhang: Film; mit film=nein Bilder vorher/nachher), 935 (Wurf Brandflasche und Weihwasser)"
+        description: "Kampfort-Filme: ja (453 r3, 453.1 Vergleich), 461 (Grundstand-Film Kampfort), 4531 (Heldenatem Feld 2 gegen neu), 2963 (Siegerposen), 784 (Sollbild Wolfsrudel, eine Runde), 1039 (Zielring) oder 656 (Umhang: Film; mit film=nein Bilder vorher/nachher), 935 (Wurf Brandflasche und Weihwasser)"
         default: ""
       dorf:
         description: "Dorf-Film Grundstand (461.1): ja; 10401 = Lyra in der Höhle schaut dem gehenden Helden nach (Wendeschritte, Spike)"
@@ -1000,6 +1000,12 @@ jobs:
           if [ "${{ github.event.inputs.kampf }}" = "784" ]; then
             film sollbild784 sollbild_784 RUNDEN=1 ZEILEN=1
             grep -E "^==|^  |^ÜBER|^SOLLBILD" $B/sollbild784.log || true
+            ls -l $B; exit 0
+          fi
+          # 1039 (Tuffy; Chef 12.11., 15:04 „den inneren Ring zu sehen“): kampf=1039 zwei Runden gegen Grak wie beim Chef (Schwerer Hieb mit Ring;
+          # Lauf 383 mit Wölfen: Anspringen hat keinen Ring, im ganzen Film kein Ring), der Held tippt den Ring
+          if [ "${{ github.event.inputs.kampf }}" = "1039" ]; then
+            film 1039-ring sollbild_784 RUNDEN=2 GEGNER=GRAK
             ls -l $B; exit 0
           fi
           if [ "${{ github.event.inputs.kampf }}" = "4531" ]; then
