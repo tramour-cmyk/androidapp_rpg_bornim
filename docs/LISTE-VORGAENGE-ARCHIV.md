@@ -1114,3 +1114,5 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 1015 | Von Tom (1012, Sokrates Gegenlesen t278): Erklärtexte der Erschaffung (erschaffung_brs.gd 79–86, [954.1.…]) stehen vor 1008: Wille „stärkere Zauber“, Gewandtheit „kritische Treffer“ ohne Nahkampf; angleichen an STORY-BRS-HELD.md 1008 | G Story | M | – | Homer | erledigt |
 | 863a | Rückfrage: 863 nachstellen mit Kaufratte am Rechner (Kaufrepo freigeben) oder Messlauf am Bauserver (Jerry 12.11., 01:07) | E Kampf | M | – | Jerry | erledigt |
 | 1016 | Von Ford (12.11., 06:10, Regel 110 Tiefe): Ford von Hand in claude.ai/code starten, sobald der Ford auf Tiefe 6 ans Ende kommt | B Abläufe | M | 2,08 $ | Perikles | erledigt |
+| 644a.3 | Von Sokrates (644a A; Chef 12.11., 08:21): Stufen der Einzelstücke gegen die Geschichte prüfen (Ring des Ältesten 6 am Kapitelende für Helden unter 6 nicht tragbar; Truhe der Blutzahnhöhle 4) | E Kampf | M | – | Homer | erledigt |
+| 644a | Rückfrage: Mindeststufe zum Tragen, Stärke je Gegenstandsstufe, Abstand der Funde (Chef 11.11., 19:56) | E Kampf | M | – | Sokrates | erledigt, A mit Spanne, D, F (Chef 12.11., 08:21) |

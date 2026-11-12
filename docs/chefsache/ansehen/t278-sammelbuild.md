@@ -86,3 +86,6 @@ Im Bau geprüft: Spielstand „Weiter“ nimmt immer den neuesten Platz (`spiels
 - 278.4 ✗ weglassen (Chef 12.11., 08:34, zwei Bilder Kramladen: Staub „sieht eher aus wie ein Mückenschwarm … lassen wir echt komplett in Innenräumen raus“) → Zu 990 (Tom); 278.17 entfällt
 - 278.5 ✓ (Chef 12.11., 08:36)
 - 278.6 ✓ (Chef 12.11., 08:49)
+- 278.7 ✓ (Chef 12.11., 09:00)
+- Außer der Reihe (Chef 09:01, Log aus dem Reiter „Test“): voriger Lauf endete ohne Absturzspur, zuletzt Warnungen „RGBFloat … converting to RGBHalf“ aus Fußstaub und Federn je Schritt; seit Start nur `figures on Stub` (bekannt) → Zu 1021, 814 (Tom)
+- 278.8 ✗ Bilder/s 15 im Kampf (unter 17; 1 %: 77 ms, längste 140 ms, über 50 ms: 651; Aufrufe 154, Dreiecke 370k), Gras und Blumen da, kein Nebel (Chef 12.11., 09:04, Bild); dazu „Das scheint mir meine Anzeige etwas zu überdecken“: Schalterreihe vom Kasten halb verdeckt, Ansage über der Bildrate → Zu 806, 1024 (Jerry)
