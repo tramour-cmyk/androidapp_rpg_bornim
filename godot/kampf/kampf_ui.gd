@@ -978,7 +978,8 @@ func scene_tip(p: Vector2) -> String:
 				s += ": " + str(plan[0].name[lang])
 				if plan.size() > 1 and not (plan[1] as Array).is_empty() and k.mars.find(plan[1][0]) != null:
 					s += " → " + k.mars.find(plan[1][0]).name(lang)
-			return s
+			var w: String = k.mars.wissen(f, lang)     # 960: Schwächen ab Verstand 6 (870d)
+			return s + ("\n" + w if w != "" else "")
 	return ""
 
 
