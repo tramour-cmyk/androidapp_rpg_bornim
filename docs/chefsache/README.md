@@ -54,7 +54,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 | 1057 | M | Von Jerry (1049): Ansage des Grundangriffs je Art ohne eigene (heute alle „Stich“): Krogg | startbar |
 
-**Tom** – offen 114, Muss 93, startbar 6
+**Tom** – offen 114, Muss 93, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -128,7 +128,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 613.2 | M | Zwischensequenzen: Bewegung sichtbar wie alt (Kerzenflackern, atmendes Licht, Staub im Str | ruht |
 | 713 | K | Von Homer (586.1): Erklärfenster beim Gedrückthalten (menue.gd:1561) noch mit Goldrand und | ruht |
 | 757 | M | Schenke: neuer Tisch 7/2 (aus 604) wirkt als 1:1-Kopie des Tischs vor der Theke, gleiche S | wartet auf Test/Build (gebaut) |
-| 758 | M | Borin soll in der Schenke am Tisch sitzen wie in der alten Fassung, nicht seitlich daneben | startbar |
+| 758 | M | Borin soll in der Schenke am Tisch sitzen wie in der alten Fassung, nicht seitlich daneben | wartet auf 1063 (startbar) |
 | 764 | M | Heldenreiter zeigt aktive Zustände (betrunken usw.) mit Erklärung; Tippen auf die Leiste ö | wartet auf Test/Build (gebaut) |
 | 769 | M | Wochentermin 13.11.: Rollenspiegel Tom (rollenspiegel.sh Tom) (719); deckt 02.–13.11., Woc | Termin 13.11. 08:00 |
 | 756 | M | Gegenstände: wie Seltenheit, Abnutzung und übrige Merkmale bei anlegbarer Ausrüstung angez | Chef (Datei in der Chefsache) |
@@ -340,7 +340,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 56, Muss 41, startbar 29
+**Sokrates** – offen 57, Muss 42, startbar 30
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -400,6 +400,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1048 | M? | Ring öfter im Kampf (Chef 12.11., 14:59: „ein bisschen mehr Ring … mehr Einfluss … bei der | Chef (Datei in der Chefsache) |
 | 1056 | M | Vorentscheid: nächster Build halbiert nach Thema, 281 Kampf, 282 Dorf und Oberfläche (Chef | Chef (Datei in der Chefsache) |
 | 1050a | M | Rückfrage Zauberlehrling: Punkte der Herkunft nach 952 D (Wille 5, Verstand 1) neu verteil | Chef (Datei in der Chefsache) |
+| 1063 | M | Von Tom (621 A, 480.1): 758 Läufe frei? Sitzfilm Lauf 43246170504 kaputt: Held blieb an de | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
