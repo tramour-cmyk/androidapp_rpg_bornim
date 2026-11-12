@@ -100,3 +100,4 @@ Laufend aus dem Chat mit Sokrates, bis „Ergebnis kopieren“ kommt.
 - 278.21 ✓ Ruhebewegung (Chef 15:12: „Ja, aber …“); Drehen auf der Stelle wie Plastikpuppe, Wiederholfund → 1040 (Jerry)
 - Zu 278.22 (Chef 15:13): Lyra dreht sich ebenso ohne Schritte „wie auf dem Drehteller“ → 1040
 - 278.24 ✓ (Chef 15:16: „Schrittbewegung war da, alles gut“); Takt ungleich, Bogen eckig → 1041 (Jerry, M?)
+- Zu 278.25 (Chef 15:19): Wechsel bot Armbrust statt Bogen, in der Hand nichts zu sehen (Armbrust hat noch kein Modell, 999.2 ruht); zurück Langschwert und Schild da; Zweihänder noch nicht geprüft
