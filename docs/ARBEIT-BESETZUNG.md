@@ -2,7 +2,7 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 12.11., 13:54 (lauf.py)
+**Stand:** 12.11., 14:05 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
@@ -11,3 +11,6 @@
 | Tuffy | [Tuffy – 644a.1 (12.11., 10:05)](https://claude.ai/code/session_01Hmoj79xewvr4yXDaxRRApX) | 644a.1 | – | 12.11., 10:06 |
 | Sokrates | [Sokrates – Stellungnahme (12.11., 11:04)](https://claude.ai/code/session_01Hmoj76oRjGDjaHKeRYBhmv) | Betrieb | – | 12.11., 11:05 |
 | Homer | [Homer – 1026 (12.11., 11:26)](https://claude.ai/code/session_01Hmoj75wdp9JocYHDDCfdun) | 1026 | – | 12.11., 11:26 |
+| Tom | [Tom – 1030: Reiter Test Rollstand, Prüfliste einklappbar (12.11., 13:56)](https://claude.ai/code/session_01Hmoj79GnLFqxJnZ3kPVf75) | 1030 | – | 12.11., 13:55 |
+| Jerry | [Jerry – 995: Grabhund Augen und Kopf lesbar (12.11., 13:56)](https://claude.ai/code/session_01Hmoj76DJtggtnNPKMMxpU6) | 995 | – | 12.11., 13:55 |
+| Spike | [Spike – 756: Merkmale der Ausrüstung anzeigen (12.11., 13:58)](https://claude.ai/code/session_01Hmoj784tSBD77EZUv1K4o1) | 756 | – | 12.11., 13:55 |
