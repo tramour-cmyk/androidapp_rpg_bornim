@@ -12,6 +12,7 @@ signal laufen(an: bool)
 signal knopf(was: String)
 signal gelesen                          # 390: Textfeld zu, die Szene geht weiter (Game.advance)
 signal gewaehlt(id: String)             # 390 (Rast): Knopf im Wahlfeld, "" = Weiter
+signal knopf_im_text                    # 842: Knopf unter der Zeile im Textkasten (spiel.gd _knopf_gewaehlt)
 
 const GOLD := Color(0.86, 0.68, 0.32)
 var JOY := 94.0 * AktionsKnopf.DP            # 131 (alt StickFeel.runAt): im Ring gehen, darueber hinaus laufen; 399.1 nach Bedienung.ring
@@ -33,6 +34,8 @@ var mess: Label
 var textfeld: PanelContainer
 var sprecher: Label                     # 399.1: Name im Kasten, gesperrte Versalien in Gold
 var weiter_zeichen: Label               # ▼, blinkt wie alt alle 400 ms
+var text_knopf: HBoxContainer           # 842: Knopf im Gespraech unter der Zeile
+var knopf_text := ""
 var text: Label
 var zeilen: Array = []
 var lauf_an := false
@@ -165,6 +168,13 @@ func _ready() -> void:
 	text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	text.add_theme_constant_override("line_spacing", int(4 * Stil.SP))   # Zeilenhoehe 24 sp bei 17 sp
 	spalte.add_child(text)
+	# 842 (807a A): Knopf im Gespraech (Probe, Kaufen) unter der Zeile, rechts, wie die Knoepfe ohne Kasten (549a: Versalien, hell golden,
+	# „›“); erst, wenn die Zeile ganz steht (wie ▼)
+	text_knopf = HBoxContainer.new()
+	text_knopf.alignment = BoxContainer.ALIGNMENT_END
+	text_knopf.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	text_knopf.visible = false
+	spalte.add_child(text_knopf)
 	# 583 (Abgleich 512b, „Sammel▼“): das ▼ lag unten rechts im Textbereich und damit auf der letzten Zeile; jetzt steht es unter
 	# dem Text im unteren Rand des Kastens (16 dp), rechts in den Seitenrand geschoben, und deckt nie ein Wort
 	var ecke := Control.new()
@@ -414,6 +424,15 @@ var schreib_ms := 0.0
 func schreibt() -> bool:
 	return textfeld.visible and text.visible_characters >= 0 and text.visible_characters < text.get_total_character_count()
 
+# 842: der Knopf steht und laesst sich tippen (Zeile ganz geschrieben)
+func knopf_bereit() -> bool: return textfeld.visible and text_knopf.visible and knopf_text != "" and not schreibt()
+
+# 842: Zeile zu ohne weitere Zeilen; die Szene geht weiter (gelesen)
+func schliesse_text() -> void:
+	zeilen.clear()
+	knopf_text = ""
+	naechste()
+
 func weiter() -> void:
 	if schreibt():
 		text.visible_characters = -1
@@ -422,6 +441,7 @@ func weiter() -> void:
 
 func _process(dt: float) -> void:
 	if weiter_zeichen != null: weiter_zeichen.visible = not schreibt()   # ▼ erst, wenn der Text ganz steht (alt DialogDraft.kt 65)
+	if text_knopf != null: text_knopf.modulate.a = 0.0 if schreibt() else 1.0   # 842: Platz von Anfang an, nichts springt
 	if not schreibt(): return
 	schreib_ms += dt * 1000.0
 	var n := int(schreib_ms / ZEICHEN_MS)
@@ -449,6 +469,16 @@ func naechste() -> void:
 	text.visible_characters = 0   # 785.19: Zeichen für Zeichen wie alt
 	schreib_ms = 0.0
 	text.add_theme_font_override("font", Stil.variante(0.3, not z.has("wer")))   # Erzaehltes schraeg wie alt
+	knopf_text = String(z.get("knopf", ""))   # 842
+	for c in text_knopf.get_children():
+		text_knopf.remove_child(c)
+		c.queue_free()
+	if knopf_text != "":
+		var kn := Spielstaende.knopf("haupt", knopf_text, func(): if knopf_bereit(): knopf_im_text.emit())
+		kn.size_flags_horizontal = Control.SIZE_SHRINK_END
+		text_knopf.add_child(kn)
+	text_knopf.visible = knopf_text != ""
+	text_knopf.modulate.a = 0.0
 	textfeld.visible = true
 	zeige_knoepfe()   # Renntaste schien durch das Textfeld (Helferbefund 348.6)
 
@@ -461,6 +491,9 @@ func _text_tippen(e: InputEvent) -> void:
 	if e is InputEventScreenTouch: _tipp_text(e as InputEventScreenTouch)
 
 func _tipp_text(t: InputEventScreenTouch) -> void:
+	if knopf_bereit() and text_knopf.get_global_rect().grow(4 * AktionsKnopf.DP).has_point(t.position):   # 842: der Knopf, nicht weiter
+		druck_im_text = false
+		return
 	if t.pressed:
 		druck_im_text = true
 		return

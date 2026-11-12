@@ -13,12 +13,14 @@ func narrate(de: String, en: String) -> void: befehle.append({"art": "sagen", "t
 # Zufall unter allen, nie derselbe zweimal hintereinander; „w“ (nur Wiederholung): danach nur W1–W3. Die Wahl haengt nur am
 # Spielstand (Zustand.varianten: Marke -> [wie oft gehoert, letzte Wahl]), gezaehlt erst, wenn das Gespraech laeuft (Befehl
 # „variante“, spiel.gd); so aendert ein Blick auf das Gespraech (Ruf.neu) nichts. wer leer: Erzaehler
-func variante(s: Zustand, marke: String, wer: Dictionary, erste: Array) -> void:
-	var alle: Array = [erste] + Array((Varianten.V.get(marke, {}) as Dictionary).get("v", []))
+# 842: [weitere] statt Varianten.V fuer Marken ausserhalb der STORY-VARIANTEN-Dateien (807, STORY-K1-FERTIGKEITEN.md); eine Blase
+# [de, en, true] ist erzaehlt („· Erzähler:“), ohne Sprecher
+func variante(s: Zustand, marke: String, wer: Dictionary, erste: Array, weitere: Array = []) -> void:
+	var alle: Array = [erste] + (weitere if not weitere.is_empty() else Array((Varianten.V.get(marke, {}) as Dictionary).get("v", [])))
 	var i := Skript.wahl(s, marke, alle.size())
 	for b in alle[i]:
 		var c := {"art": "sagen", "text": {"de": String(b[0]), "en": String(b[1])}, "marke": marke}
-		if not wer.is_empty(): c["wer"] = wer
+		if not wer.is_empty() and not (b.size() > 2 and bool(b[2])): c["wer"] = wer
 		befehle.append(c)
 	befehle.append({"art": "variante", "marke": marke, "wahl": i})
 
@@ -46,3 +48,10 @@ func chapter_end() -> void: befehle.append({"art": "kapitelende"})
 func temple_scene() -> void: befehle.append({"art": "tempelszene"})
 func morning(ort: Dictionary) -> void: befehle.append({"art": "morgen", "ort": ort})
 func tavern() -> void: befehle.append({"art": "schenke"})
+# 842 (807 A, 807a A): ein Knopf im Gespraech ({de, en}) unter der letzten Zeile davor; angetippt laufen [dann] (Befehle), wer
+# weitertippt, laesst ihn aus. probe: der Knopf nennt die Fertigkeit; spiel.gd wuerfelt die Chance (Geschichte.probe_chance), uebt
+# [fert] und spielt [ja] oder [nein]; [gegen]: wessen Gegenwert zaehlt (werte.json „proben“)
+func knopf(text: Dictionary, dann: Array) -> void: befehle.append({"art": "knopf", "knopf": text, "dann": dann})
+func probe(fert: String, gegen: String, text: Dictionary, ja: Array, nein: Array) -> void:
+	befehle.append({"art": "knopf", "knopf": text, "probe": {"fert": fert, "gegen": gegen, "ja": ja, "nein": nein}})
+func shop_nur(waren: Array) -> void: befehle.append({"art": "laden", "waren": waren, "brauen": false, "nur_vorraete": true})   # 842 Osric

@@ -57,7 +57,8 @@ const krogg := {"de": "Krogg", "en": "Krogg"}
 const grak := {"de": "Grak", "en": "Grak"}
 const morwen := {"de": "Kräuterfrau Morwen", "en": "Morwen the Herbalist"}
 const HERBALIST_HERBS := {"de": "Auf den bunten Blumenwiesen im Wald wachsen Heilkräuter – achte auf die hellgrünen Pflanzen und lauf einfach darüber. Was du pflückst, wächst am nächsten Tag nach. Bring sie mir, dann braue ich dir Tränke für ein paar Münzen. Fledermausflügel und Giftdrüsen nehme ich auch.", "en": "Healing herbs grow in the colorful flower meadows of the forest – look for the light green plants and just walk over them. What you pick grows back the next day. Bring them to me and I'll brew you potions for a few coins. I'll take bat wings and venom glands too."}
-const SHOP_STOCK := ["potion", "greater_potion", "superior_potion", "remedy", "stamina_potion", "spark_potion", "alchemist_fire", "holy_water"]
+const SHOP_STOCK := ["potion", "greater_potion", "superior_potion", "remedy", "bandage", "stamina_potion", "spark_potion", "alchemist_fire", "holy_water"]   # 842 Verband
+const OSRIC_STOCK := ["bandage"]   # 842 (807 A): Verbände bei Osric und Thessa
 const HERBALIST_STOCK := ["potion", "greater_potion", "remedy", "stamina_potion", "holy_water"]
 const CHAPTER_END_TEXT := {"de": "Bornim feiert bis tief in die Nacht. Das Sonnenamulett ist zurück in Bornim, und Schwester Lyra ist in Sicherheit.\n\nDoch der Brief mit dem grauen Siegel lässt dich nicht los. Wer ist der Graue Prophet? Und was ist der Tag der Asche?\n\nENDE VON KAPITEL 1\n\nDu kannst weiterspielen, Monster jagen und deinen Helden verbessern.", "en": "Bornim celebrates late into the night. The Sun Amulet is back in Bornim, and Sister Lyra is safe.\n\nBut the letter with the gray seal won't leave your mind. Who is the Gray Prophet? And what is the Day of Ashes?\n\nEND OF CHAPTER 1\n\nYou can keep playing, hunt monsters and improve your hero."}
 
@@ -79,6 +80,7 @@ static func gespraech(id: String, s: Zustand) -> Array:
 		"pim":
 			if not s.has(CHAPTER1_DONE):
 				k.variante(s, "504.pim.vor", pim, [["Papa sagt, Goblins haben Angst vor Feuer! Stimmt das?", "Dad says goblins are scared of fire! Is that true?"], ["Thessa verkauft Alchemistenfeuer. Damit kann man sogar zaubern, ohne Magier zu sein!", "Thessa sells alchemist's fire. You can do magic with it without even being a wizard!"]])
+				if pim_fragbar(s): pim_probe(k, s)
 			else:
 				k.variante(s, "504.pim.danach", pim, [["Wenn ich groß bin, werde ich auch ein Held! Genau wie du!", "When I grow up I'll be a hero too! Just like you!"]])
 		"bram":
@@ -125,6 +127,10 @@ static func gespraech(id: String, s: Zustand) -> Array:
 				k.variante(s, "504.osric.gruss.danach", osric, [["Gesegnet seist du, {name}. Lass mich deine Wunden versorgen.", "Blessings upon you, {name}. Let me tend to your wounds."]])
 			k.rest()
 			k.variante(s, "504.osric.heilung", {}, [["Ein warmes Licht umhüllt dich. Leben und Mana sind wieder voll.", "A warm light surrounds you. Life and mana are full again."]])
+			var laden := Skript.new()   # 842: Verbände kaufen, nur auf den Knopf (Heilen bleibt ein Tippen)
+			laden.shop_nur(OSRIC_STOCK)
+			Sprache.lade()
+			k.knopf(Sprache.texte.get("ui", {}).get("buy", {"de": "Kaufen", "en": "Buy"}), laden.befehle)
 			if not s.has(LYRA_RESCUED):
 				k.variante(s, "504.osric.bitte", osric, [["Bitte … finde Schwester Lyra. Ohne sie und das Amulett ist dieser Tempel nur ein kalter Steinhaufen.", "Please… find Sister Lyra. Without her and the amulet, this temple is just a cold pile of stones."]])
 		"lyra_temple":
@@ -202,6 +208,49 @@ static func counter(k: Skript, s: Zustand) -> void:
 	k.tavern()
 
 # wer zu sehen ist (Npc.visible in Story.kt); Lyras Abgang aus der Halle (Leave 10/7 -> LYRA_GONE) folgt mit der Hoehle
+# ---------------------------------------------------------------- 842 Pim heimschicken (807 A, STORY-K1-FERTIGKEITEN.md „Überreden“)
+# tagsueber im Gespraech nach [504.pim.vor] ein Knopf mit Probe auf Ueberreden, ein Versuch je Tag; gelingt es, geht Pim fuer den Rest
+# des Tages heim (Leute.frueh_heim) und die Mutter dankt beim naechsten Klopfen am Tag einmal ([807.pim.dank], Flagge PIM_DANK fuer
+# den Ruf je Person, DESIGN-BRS 9, sobald es ihn gibt: 447.4.1)
+const PIM_HEIM := "pim_sent_home"          # einmal gelungen
+const PIM_DANK := "pim_mother_thanked"     # die Mutter hat gedankt
+const PIM_WAHL := {"de": "Schick Pim heim (Überreden)", "en": "Send Pim home (Persuasion)"}   # [807.pim.wahl]
+const PIM_JA := [   # [807.pim.ja]
+	[["Na gut. Aber nur, weil du es bist.", "Fine. But only because it's you."], ["Pim trottet heim, mit einem letzten Blick zum Schlagbaum.", "Pim trudges home, with one more glance back at the barrier.", true]],
+	[["Mama schimpft bestimmt …", "Mom's going to scold me…"], ["Erzählst du mir morgen von den Goblins? Versprochen?", "Will you tell me about the goblins tomorrow? Promise?"]],
+	[["Wenn du es sagst, {name}.", "If you say so, {name}."], ["Er rennt los, als wären die Wölfe schon hinter ihm.", "He runs off as if the wolves were already behind him.", true]]]
+const PIM_NEIN := [   # [807.pim.nein]
+	[["Ich bin doch schon groß! Und Jorin hält eh Wache.", "I'm big already! And Jorin's keeping watch anyway."]],
+	[["Nur noch ein bisschen. Ich will sehen, ob ein Goblin kommt.", "Just a little longer. I want to see if a goblin comes."]],
+	[["Du klingst wie Mama.", "You sound like Mom."], ["Er verschränkt die Arme und rührt sich nicht.", "He folds his arms and doesn't budge.", true]]]
+const PIM_DANK_TEXT := {"de": "„Pim kam heim, ganz zahm. Was du ihm auch gesagt hast: danke, {name}.“", "en": "“Pim came home, meek as a lamb. Whatever you told him: thank you, {name}.”"}   # [807.pim.dank]
+const PIMS_TUER := Vector2i(13, 22)
+
+static func pim_heute(s: Zustand) -> String: return "pim_home_%d" % s.tag          # heute heimgeschickt
+static func pim_versucht(s: Zustand) -> String: return "pim_tried_%d" % s.tag      # heute vergeblich versucht
+static func pim_fragbar(s: Zustand) -> bool:
+	return Licht.nacht_um(s.minuten) <= Licht.NACHT_AB and not s.has(pim_heute(s)) and not s.has(pim_versucht(s))
+
+static func pim_probe(k: Skript, s: Zustand) -> void:
+	var ja := Skript.new()
+	ja.flag(pim_heute(s))
+	ja.flag(PIM_HEIM)
+	ja.variante(s, "807.pim.ja", pim, PIM_JA[0], PIM_JA.slice(1))
+	var nein := Skript.new()
+	nein.flag(pim_versucht(s))
+	nein.variante(s, "807.pim.nein", pim, PIM_NEIN[0], PIM_NEIN.slice(1))
+	k.probe("Überreden", "Pim", PIM_WAHL, ja.befehle, nein.befehle)
+
+## wer heute frueher heimgeht und drinnen bleibt (Leute.plan_jetzt)
+static func frueh_heim(id: String, s: Zustand) -> bool: return id == "pim" and s.has(pim_heute(s))
+
+## Chance einer Probe im Gespraech in Prozent (werte.json „proben“ <fert>_basis, _je_punkt, _gegen; begrenzt auf min bis max)
+static func probe_chance(fert: String, wert: int, gegen: String) -> int:
+	var p: Dictionary = BrsHeld.lade().get("proben", {})
+	var n := fert.to_lower().replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("ß", "ss")
+	var c := float(p.get(n + "_basis", 0)) + float(p.get(n + "_je_punkt", 0)) * wert - float((p.get(n + "_gegen", {}) as Dictionary).get(gegen, 0))
+	return clampi(roundi(c), int(p.get("min", 5)), int(p.get("max", 95)))
+
 static func sichtbar(id: String, s: Zustand) -> bool:
 	match id:
 		"lyra_temple": return s.has(LYRA_RESCUED)
@@ -312,9 +361,14 @@ static func klopf_sprecher(karte_id: String, t: Vector2i, liste: Array) -> Array
 	return r
 
 static func klopfen(karte_id: String, t: Vector2i, s: Zustand) -> Dictionary:
+	if karte_id == "village" and t == PIMS_TUER and pim_dankt(s): return PIM_DANK_TEXT   # 842 [807.pim.dank] statt [504.tuer.pim]
 	if karte_id == "village" and t == Vector2i(12, 5) and s.has(CHAPTER1_DONE):
 		return {"de": "„Du hast die Goblins vertrieben? … Morgen vielleicht. Heute nicht.“", "en": "“You drove off the goblins? … Tomorrow, maybe. Not today.”"}
 	return {}
+
+## 842: die Mutter dankt beim naechsten Klopfen am Tag nach dem ersten Erfolg, einmal (spiel.gd setzt danach PIM_DANK)
+static func pim_dankt(s: Zustand) -> bool:
+	return s.has(PIM_HEIM) and not s.has(PIM_DANK) and Licht.nacht_um(s.minuten) <= Licht.NACHT_AB
 
 # 541 (Game.interact): was der Held sieht, wenn er ein Ding der Karte mit dem Knopf untersucht (Navigation.actionAt LOOK); {} = nichts.
 # Zeichen wie Tile.ch; t fuer den Marktstand (drei Saetze je Lage), nachts fuer die Laterne, innen fuer die Bank

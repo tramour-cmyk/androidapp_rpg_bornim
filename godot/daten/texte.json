@@ -564,6 +564,16 @@
       "preis": 0,
       "art": "KEY",
       "seltenheit": "COMMON"
+    },
+    "bandage": {
+      "name": {"de":"Verband","en":"Bandage"},
+      "info": {
+        "de": "Saubere Leinenstreifen, fest gerollt. Außerhalb des Kampfs anlegen; wer Heilkunde versteht, holt mehr heraus.",
+        "en": "Clean strips of linen, tightly rolled. Apply outside of combat; the more you know of Medicine, the more it mends."
+      },
+      "preis": 8,
+      "art": "BANDAGE",
+      "seltenheit": "COMMON"
     }
   },
   "rezepte": [

@@ -716,6 +716,7 @@ static func benutze(z: Zustand, hw: BrsHeld, id: String, wuerfel_: Callable) -> 
 		if z.ausdauer_trank: return Sprache.r("staminaAlready")
 		z.weg(id); z.ausdauer_trank = true
 		return Sprache.r("staminaDrunk", [hw.name])
+	if art == "BANDAGE": return verband(z, hw, id)   # 842
 	var h: Array = dd.get("heilt", [])
 	if art == "FOOD" and not h.is_empty():
 		if z.satt and hw.leben >= hw.max_leben(): return sag.call("alreadyFed", [hw.name])
@@ -734,14 +735,40 @@ static func benutze(z: Zustand, hw: BrsHeld, id: String, wuerfel_: Callable) -> 
 	var geheilt: String = sag.call("healed", [hw.name, hw.leben - vor])
 	return (sag.call("cured", [hw.name]) + " " + geheilt) if heilt else geheilt
 
+# 842 (807 A, STORY-K1-FERTIGKEITEN.md „Heilkunde: Verband“): nur ausserhalb des Kampfs (hier immer), heilt grund + je_heilkunde x
+# Heilkunde Leben (werte.json „welt“ „verband“, gerundet), uebt Heilkunde; bei vollen Leben nichts verbraucht
+const VERBAND_AN := [   # [807.verband.an]
+	["Du ziehst den Verband fest. +{0} TP.", "You pull the bandage tight. +{0} HP."],
+	["Du wäschst die Wunde aus und wickelst den Verband darum. +{0} TP.", "You wash out the wound and wrap the bandage around it. +{0} HP."],
+	["Ein fester Knoten, und das Blut steht. +{0} TP.", "One firm knot, and the bleeding stops. +{0} HP."]]
+const VERBAND_KAMPF := {"de": "Im Kampf bleibt keine Zeit für einen Verband.", "en": "There's no time for a bandage in combat."}   # [807.verband.kampf]
+const VERBAND_VOLL := {"de": "Du bist unverletzt.", "en": "You are unhurt."}   # [807.verband.voll]
+
+static func verband_heilung(hw: BrsHeld) -> int:
+	var v: Dictionary = BrsHeld.welt().get("verband", {})
+	return roundi(float(v.get("grund", 5)) + float(v.get("je_heilkunde", 0.2)) * hw.fertigkeit("Heilkunde"))
+
+static func verband(z: Zustand, hw: BrsHeld, id: String) -> String:
+	if hw.leben >= hw.max_leben(): return Sprache.t(VERBAND_VOLL)
+	z.weg(id)
+	var vor := hw.leben
+	hw.leben = mini(hw.max_leben(), hw.leben + verband_heilung(hw))
+	z.uebe("Heilkunde", float(BrsHeld.welt().get("verband", {}).get("uebung", 1.0)))
+	var i := Skript.wahl(z, "807.verband.an", VERBAND_AN.size())
+	var vv: Array = z.varianten.get("807.verband.an", [0, -1])
+	z.varianten["807.verband.an"] = [int(vv[0]) + 1, i]
+	var t := String(VERBAND_AN[i][0 if Sprache.aktiv() == "de" else 1]).replace("{0}", str(hw.leben - vor))
+	var auf := z.fert_notiz()
+	return t + ("\n" + auf if auf != "" else "")
+
 # 523 (Abgleich 512, Game.kt useItemOutside): wie alt ein Klang, wenn etwas wirklich benutzt wurde: Essen „heal“, Traenke und Funke
 # „potion“; nichts, wenn der Held schon voll ist oder der Funke schon brennt
 func benutze_mit_klang(id: String, art: String) -> void:
 	var vor := z.anzahl(id)
 	meldung(Menue.benutze(z, hw, id, wuerfel))
 	var k := get_node_or_null("/root/Klang")
-	if k and z.anzahl(id) < vor: k.effekt("heal" if art == "FOOD" else "potion")
-	letzter_klang = ("heal" if art == "FOOD" else "potion") if z.anzahl(id) < vor else ""
+	if k and z.anzahl(id) < vor: k.effekt("heal" if art in ["FOOD", "BANDAGE"] else "potion")   # 842: Verband wie Essen
+	letzter_klang = ("heal" if art in ["FOOD", "BANDAGE"] else "potion") if z.anzahl(id) < vor else ""
 
 var letzter_klang := ""   # 523: fuer den Test ohne Klangknoten
 
@@ -749,7 +776,7 @@ func frage_ding(id: String) -> void:
 	var dd := Laden.ding(id)
 	var art := String(dd.get("art", ""))
 	var de := Sprache.aktiv() == "de"
-	var trinkbar := art in ["POTION", "FOOD", "TONIC"]
+	var trinkbar := art in ["POTION", "FOOD", "TONIC", "BANDAGE"]   # 842: Verband anlegen
 	var zeilen: Array = []
 	var bild := Menue.bild_feld("ding-" + id, 48)   # Dialogs.kt: SupplyPicture 48 dp
 	bild.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
