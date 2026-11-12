@@ -1643,6 +1643,8 @@ func _kampf_messe() -> void:
 		e.add_child(kampf_mess)
 	kampf_mess.get_parent().visible = an
 	if an and Engine.get_process_frames() % 15 == 0: kampf_mess.text = bs.stand if bs != null else Messung.kampf_zeile()
+	# 1024 (Chef 12.11., 09:04: Ansage über der Bildrate-Zeile): der Kampfschirm hält die Zeile frei
+	if kampf and kampf.get("ui") != null: kampf.ui.frei_halten = [kampf_mess.get_global_rect()] if an and kampf_mess.text != "" else []
 
 # ---------------------------------------------------------------- Standbilder am Rechner (Vergleich alt/neu)
 func bilder() -> void:
