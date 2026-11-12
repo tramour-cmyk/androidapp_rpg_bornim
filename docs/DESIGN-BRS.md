@@ -21,8 +21,8 @@ Jede Stufenleiter des Spiels steht hier mit ihren Stufen, wovon sie abhängt und
 
 | Was | Wofür | Stufen | Wovon es abhängt | Abschnitt |
 | --- | --- | --- | --- | --- |
-| Heldenstufe | Leben, Größenordnung im Kampf, Zugang zu Gebieten | 1, 2, 3 …; jedes Kapitel setzt eine Grenze (weich, bis zwei darüber) | Erfahrung aus Kampf, Quests, Story und Fertigkeitsaufstiegen | 4 |
-| Grundwerte (6) | Begabung: Kraft, Gewandtheit, Zähigkeit, Verstand, Wille, Wahrnehmung | Start 3 bis 8 | wachsen langsam mit den Fertigkeiten | 2 |
+| Heldenstufe | Leben, Größenordnung im Kampf, Zugang zu Gebieten | 1, 2, 3 …; jedes Kapitel setzt eine Grenze (weich, bis zwei darüber) | Erfahrung aus Kampf, Quests, Story und Fertigkeitsaufstiegen. Bis zur nächsten Stufe 100 × jetzige Stufe; Sieg 10 × Gegnerstufe² (Boss × 3; Held höher um d: × (1 − d/9), ab 9 null; Gegner höher um d: × (1 + d/10), höchstens × 2); Topf je Gebiet 10 × Stufe² je Art, leer 10 %; je 5 Fertigkeitspunkte 20 × Heldenstufe, höchstens 40 % einer Stufe; Bewährungsprobe 25 × Heldenstufe; über der Kapitelgrenze ein Viertel (Regelwerte `erfahrung`, Seite 969) | 4 |
+| Grundwerte (6) | Begabung: Kraft, Gewandtheit, Zähigkeit, Verstand, Wille, Wahrnehmung | Start 3 bis 8 | in Kapitel 1 fest (870a 4 A); ab Kapitel 2 mit den Fertigkeiten, **Formel offen**; Ausrüstung gibt Zusatzeigenschaften (heute gedeckelt: höchstens + Kapitelnummer je Grundwert, Chef 21:01 dagegen, 644a) | 2 |
 | Fertigkeiten (37) | Können im Einzelnen, auch Sammeln wie Kräutersammeln und Handwerk wie Schmieden | Wert 0 bis 100 in vier Rängen: Anfänger, Geselle, Meister, Großmeister; bei 100 fertig | durch Tun bis zur Rangdecke; der nächste Rang braucht eine Prüfung (Entwurf F) | 3 |
 | Pfad oder Meisterschaft | Rolle des Helden: ein Pfad (Kampf und Lebensweg, mit Auflagen), dazu beliebig viele Meisterschaften (Handwerk, ohne Auflagen) | Anwärter → Eingeweihter → Titel → hoher Titel | Lehrmeister: Zusage, dann Weihe, Titelprüfung, Hohe Prüfung (Entwurf F, Namen 466) | 5, 6 |
 
@@ -41,11 +41,33 @@ Wie das zusammenhängt: Kräutersammeln ist eine **Fertigkeit** (Sammeln). Sie g
 | Was | Wofür | Stufen | Wovon es abhängt | Abschnitt |
 | --- | --- | --- | --- | --- |
 | Gegenstandsstufe | Stärke und Mindeststufe zum Tragen | wie die Heldenstufe | Fund, Händler, Herstellen | 11 |
-| Güte | wie gut ein Stück gemacht ist („wie“): hebt die Werte der Grundform (Schaden, Schutzwert); bessere Güte nutzt sich langsamer ab; wie viel je Stufe, rechnet 444 | vier, von unten: Schlecht, Normal, Gut, Meisterhaft (Chef 11.11., 17:53; Namen 976a beim Chef). Heute nur Ausrüstung; für alle Dinge (Tränke, Speisen, Dietriche) mit Streuung beim Herstellen: Idee, reif mit 976 | Herstellen: der Rang setzt die Spanne (Anfänger Schlecht–Normal, Geselle Schlecht–Gut, Meister Normal–Meisterhaft, Großmeister Gut–Meisterhaft), Ring (966) und Material entscheiden darin; auch ein schlechtes Stück bringt Übung (Chef 17:53–18:01). Fund und Händler: gewürfelt. Einzelstücke: fest | 10, 11 |
+| Güte | wie gut ein Stück gemacht ist („wie“): hebt die Werte der Grundform (Schaden, Schutzwert); bessere Güte nutzt sich langsamer ab; wie viel je Stufe, rechnet 444 | vier, von unten: Schlecht, Normal, Gut, Meisterhaft (englisch Poor, Common, Fine, Masterwork; Chef 11.11., 17:53, Namen 976a A 20:13; „von hoher Güte“ darf im Erklärtext stehen). Heute nur Ausrüstung; für alle Dinge (Tränke, Speisen, Dietriche) mit Streuung beim Herstellen: Idee, reif mit 976 | Herstellen: der Rang setzt die Spanne (Anfänger Schlecht–Normal, Geselle Schlecht–Gut, Meister Normal–Meisterhaft, Großmeister Gut–Meisterhaft), Ring (966) und Material entscheiden darin; auch ein schlechtes Stück bringt Übung (Chef 17:53–18:01). Fund und Händler: gewürfelt. Einzelstücke: fest | 10, 11 |
 | Seltenheit | Zusatzeigenschaften, Preis, Zeichen („was“) | sechs: gewöhnlich, ungewöhnlich, selten, sehr selten, episch, göttlich; Decke je Kapitel | Fund, Beute, Einzelstück; beim Herstellen aus Zutaten und Rezept (Chef 18:01; Weg offen, z. B. Rezept für sehr Seltenes nur einmal benutzbar) | 11 |
 | Zustand (Abnutzung) | wie gut ein Gegenstand noch wirkt | Makellos, Benutzt, Beschädigt, Defekt (wirkt nicht mehr, geht aber nicht verloren) | sinkt beim Gebrauch; Reparatur beim NPC oder selbst | 11 |
 
 Abnutzung und Reparatur: Reparieren ist keine eigene Fertigkeit mehr; Metall repariert die Fertigkeit **Schmieden**, Leder und Stoff das **Schneidern**. Ihr Rang bestimmt, was man reparieren kann (Anfänger: Werkzeug und Einfaches; Geselle: Metallwaffen, mittlere Rüstung, Schilde, Bögen; Meister: schwere Rüstung, Meisterstücke; Großmeister: magische Stücke mit Runenkunde). Für alle gibt es „Alles reparieren“ beim Handwerker.
+
+## Querschnitt: jede Kampfregel je Kampfstil
+
+Jede Regel, die im Kampf wirkt, gegen jeden Kampfstil gehalten (984, Chef 11.11., 18:28, nach 952: „schon wieder was gefunden, was noch keiner bedacht hat“). **Ist-Stand im Code** (`main`, 11.11.: `werte.json`, `brs_kampf.gd`, `mars.gd`), nicht Absicht. Wer eine Kampfregel, eine Waffengruppe oder eine Schule einführt oder ändert, trägt sie hier je Spalte ein; ein leeres Feld ist eine Frage, keine Absicht. Funde und Vorschläge: Chefsache 984.
+
+| Regel | Krieger (Einhänder, Schild; Wachsoldat) | Kämpe (Zweihänder) | Schütze (Bogen; Jägerkind) | Späher (Dolch; Herumtreiber) | Magier (Evokation; Zauberlehrling) | Heiler (Heilmagie; Klosterschüler) |
+| --- | --- | --- | --- | --- | --- | --- |
+| Treffer | Einhänder gegen Abwehr | Zweihänder | Bogen, + 1 je Wahrnehmung | Dolche | Evokation, ohne Grundwert | Heilmagie (Gleißstrahl), ohne Grundwert |
+| Schaden aus | Kraft | Kraft | Gewandtheit | Gewandtheit | Wille | Wille |
+| Kritisch | Gewandtheit | Gewandtheit | Gewandtheit | Gewandtheit | **nie** | **nie** |
+| Abwehr (bester Wert) | Schild-Fertigkeit; Ausweichen (Fertigkeit + 2 × Gewandtheit); Parieren ½ Einhänder nur gegen Nahkampf | Ausweichen; Parieren ½ Zweihänder | nur Ausweichen | Ausweichen; Parieren ½ Dolche | nur Ausweichen (Stab: Parieren ½ Stumpfe Waffen) | wie Magier |
+| Abzug | Rüstung × (1 + Rüstungsfertigkeit/100) + Schild | Rüstung | Rüstung | Rüstung | keine Rüstung; Bannschild, Arkanhaut | Rüstung erlaubt (Heilmagie) |
+| Handlung ab Geselle | Finte; Schildwall | Wuchtschlag | Ruhige Hand | Stich aus dem Hinterhalt | Glutstrahlen, Flammenfächer, Arkanhaut | Beistand |
+| Leben, Mana | Zähigkeit | Zähigkeit | Zähigkeit | Zähigkeit | Zähigkeit; Mana aus Wille | Zähigkeit; Mana aus Wille |
+| Initiative, Flucht | Gewandtheit | Gewandtheit | Gewandtheit | Gewandtheit | Gewandtheit | Gewandtheit |
+| Abwehrproben | Zähigkeit (Gift), Wille (Furcht, Zauber), Gewandtheit (Flächen) | gleich | gleich | gleich | gleich | gleich |
+| Schwäche vorher sehen | Verstand ab 6 | gleich | gleich | gleich | gleich | gleich |
+| **Grundwerte, die im Kampf zählen** | Kraft, Gewandtheit, Zähigkeit | Kraft, Gewandtheit, Zähigkeit | Gewandtheit, Wahrnehmung, Zähigkeit | **Gewandtheit allein** (Schaden, Kritisch, Abwehr), Zähigkeit | **Wille allein** (Schaden, Mana), Gewandtheit nur Abwehr, Zähigkeit | wie Magier |
+
+Nicht in Kapitel 1: Illusion und Beschwörung haben keinen Zauber und sind bei der Erschaffung nicht wählbar wie Bergbau (984 A, Chef 11.11., 20:12; Bau 984.1 Tom); frei, sobald ein Kapitel Zauber dafür hat. Nach 952 D misst Jerry, ob die Gewandtheit noch jeden Stil trägt.
+
+**Beschlossen, noch nicht gebaut (952 D, Chef 11.11., 20:03):** kritisch = zweiter Grundwert × Fertigkeit / 50 Prozent, nie der Grundwert des Schadens: Krieger und Kämpe Gewandtheit, Späher und Schütze Wahrnehmung; Magier: Schaden aus **Verstand**, kritisch und Mana aus Wille; Heiler: Heilung und Mana aus Wille, nie kritisch. Nach dem Bau die Zeilen oben nachziehen.
 
 ## 1. Die Grundidee
 
@@ -63,10 +85,10 @@ Abnutzung und Reparatur: Reparieren ist keine eigene Fertigkeit mehr; Metall rep
 | Grundwert | Wirkt auf |
 | --- | --- |
 | Kraft | Nahkampfschaden, Tragkraft, Aufbrechen und Heben |
-| Gewandtheit | Tempo, Ausweichen, Fingerfertigkeit, kritische Treffer |
+| Gewandtheit | Tempo, Ausweichen, Fingerfertigkeit, kritische Treffer im Nahkampf |
 | Zähigkeit | Leben, Rüstung tragen, Widerstand gegen Gift, Krankheit, Kälte |
-| Verstand | Wissen, Handwerk, Alchemie, Lerntempo |
-| Wille | Mana, Zauberstärke, Konzentration, Furchtresistenz, Überzeugungskraft |
+| Verstand | Wissen, Handwerk, Alchemie, Lerntempo, Zauberstärke der Umgebungsmagie (Evokation, Illusion, Beschwörung; 952 D) |
+| Wille | Mana, Heil- und Schutzmagie, kritische Treffer der Umgebungsmagie, Konzentration, Furchtresistenz, Überzeugungskraft |
 | Wahrnehmung | verstärkt Spähen beim Entdecken von Verstecktem und Fallen (Entscheidung 83), Fernkampf-Treffgenauigkeit, Hinterhalte bemerken, Fährten |
 
 Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit, Wille und Stufe, je Stufe langsamer steigend als das Leben (930 Frage 10, Chef 11.11., 14:45; Zahlen Jerry mit 444), **Mana** aus Wille. Charisma gibt es nicht; die soziale Wirkung kommt aus Ruf und Gesellschaftsfertigkeiten.
@@ -111,7 +133,7 @@ Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit, Wil
 | Waffen (10) | Einhänder, Zweihänder, Stangenwaffen, Stumpfe Waffen, Dolche, Faustkampf, Schild, Bogen, Armbrust, Wurfwaffen | Treffen im Kampf |
 | Rüstung (4) | Leichte, Mittlere, Schwere Rüstung, Ausweichen | getroffen werden, ausweichen |
 | Schatten (4) | Schleichen, Spähen, Schlösser knacken, Fallen entschärfen | anschleichen, stehen bleiben und umsehen, Truhen, Fallen |
-| Magie (5) | Evokation, Schutzmagie, Heilmagie, Illusion, Beschwörung (mit Nekromantie) | zaubern |
+| Magie (5) | Evokation, Schutzmagie, Heilmagie, Illusion, Beschwörung (mit Nekromantie; Illusion und Beschwörung ab dem Kapitel mit eigenem Zauber, 984 A) | zaubern |
 | Wildnis (1) | Tiere beruhigen | feindliche Tiere vor dem Kampf beruhigen |
 | Gesellschaft (3) | Überreden (mit Täuschen), Einschüchtern, Handeln | Gespräche, Läden |
 | Sammeln (4) | Kräutersammeln (857a; bis 10.11. „Kräuterkunde“), Bergbau, Angeln, Jagd (Zerlegen, Fährten) | ernten, angeln, erlegte Tiere zerlegen |
@@ -155,9 +177,10 @@ Die **Heldenstufe** wächst über Erfahrung. Sie bestimmt Leben, die Stärke im 
 | Leben des Helden | 10 + 5 × Stufe + 2 × Zähigkeit |
 | Grundschaden der Waffe | Faustkampf 2, Dolch und Wurfwaffe 4, Einhänder, Stumpfe Waffe und Bogen 6, Stangenwaffe und Armbrust 8, Zweihänder 10 |
 | Grundwert im Schaden | Kraft im Nahkampf, Gewandtheit bei Dolch, Bogen und Wurfwaffe, keiner bei der Armbrust |
-| Gewandtheit | Abwehr beim Ausweichen + 2 je Punkt; kritischer Treffer (anderthalbfach) Gewandtheit in Prozent |
+| Gewandtheit | Abwehr beim Ausweichen + 2 je Punkt |
+| Kritischer Treffer (anderthalbfach) | Grundwert × Fertigkeit / 50 Prozent; Grundwert: Gewandtheit im Nahkampf, Wahrnehmung bei Dolch, Wurfwaffe, Bogen, Armbrust, Wille bei Evokation, Illusion, Beschwörung; Heil- und Schutzmagie nie (952 D, Chef 11.11., 20:03; heute noch Gewandtheit in Prozent) |
 | Wahrnehmung | Trefferchance im Fernkampf + 1 Prozentpunkt je Punkt |
-| Zauber | Schaden wie Waffe mit Grundschaden des Zaubers, Grundwert Wille, Fertigkeit = Schule; Mana 10 + 5 × Wille |
+| Zauber | Schaden wie Waffe mit Grundschaden des Zaubers, Fertigkeit = Schule; Grundwert Verstand bei Evokation, Illusion, Beschwörung (Teilchen der Umgebung verstehen und formen), Wille bei Heil- und Schutzmagie (952 D, Chef 11.11., 20:03; heute noch überall Wille); Mana 10 + 5 × Wille |
 
 Die Ätherdichte (Entscheidung 76) ist noch ohne Zahl.
 
@@ -233,7 +256,7 @@ Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, abe
 ## 7. Kampf
 
 - **Die Stufe entscheidet viel.** Der Unterschied der Stufen zwischen Angreifer und Verteidiger bestimmt, wie viel Schaden ankommt. Ein Held der Stufe 50 erledigt ein Monster der Stufe 1 mühelos, und es kann ihm nicht schaden. Fertigkeiten, Waffen und Grundwerte geben den Rest. **Rechenmodell D „Trennung“ gilt (Entscheidung 73):** die Stufe bestimmt die Größenordnung, die Fertigkeit Treffer und Schaden; Zahlen sind Startwerte für die Simulation.
-- **Zufall nur als Würze:** kleine Streuung statt W20; ein Glückstreffer (1 von 100) ist nur ein Kratzer („Kratzer reicht“); kritische Treffer und Ausweichen hängen an Gewandtheit und Fertigkeit. Gegen Gegner, die 9 Stufen und mehr unter dem Helden stehen, gibt es keine Erfahrung (Entscheidung 73).
+- **Zufall nur als Würze:** kleine Streuung statt W20; ein Glückstreffer (1 von 100) ist nur ein Kratzer („Kratzer reicht“); Ausweichen hängt an Gewandtheit und Fertigkeit; kritische Treffer an Fertigkeit und dem zweiten Grundwert der Angriffsart, nie dem des Schadens (952 D, Chef 11.11., 20:03: Nahkampf Gewandtheit, Dolch, Wurfwaffe, Bogen, Armbrust Wahrnehmung, Evokation, Illusion, Beschwörung Wille, Heil- und Schutzmagie nie). Gegen Gegner, die 9 Stufen und mehr unter dem Helden stehen, gibt es keine Erfahrung (Entscheidung 73).
 - **Abwehr:** Die Schildfertigkeit und die Rüstungsfertigkeit erhöhen den Schadensabzug: Abzug = Rüstungswert × (1 + Fertigkeit / 100); die Rüstungsfertigkeit senkt nur den Schaden, nicht die Trefferchance (Entscheidung 74). **Parieren:** Für die Trefferchance zählt als Abwehr der beste von Schild, Ausweichen und halber Fertigkeit der Nahkampfwaffe, nur gegen Nahkampf; gegen Pfeile und Zauber gelten nur Schild und Ausweichen. Riposte bleibt Fähigkeit des Duellanten (Entscheidung 75).
 - **Schleichen und Hinterhalt:** Mit der Schleichtaste nähert sich der Held. Bleibt er unbemerkt (Schleichen gegen die Wachsamkeit des Gegners, ohne Würfel), greift er als Erster an und bekommt den Vorteil des Hinterhalts. Mehr Gegner sind schwerer zu überlisten. **Bosse** sind wachsamer, ihr Hinterhalt-Bonus ist gedeckelt.
 - **Ausschlüsse sind hart.** Metall stört die Aufnahme der Magiepartikel aus der Umgebung (Entscheidung 10, 33). Die Sperre hängt an der Schule, nicht am Pfad (Entscheidung 80): Evokation, Illusion und Beschwörung gehen für jeden nur ohne Metall, also in Stoff oder Leder; Heil- und Schutzmagie auch in Metall. Dazu trägt der Magier ab der Titelprüfung keine Rüstung, der Kriegsmagier nur leichte. In schwerer Rüstung geht Schleichen nicht („Deine Rüstung klirrt“). Zweihänder und Schild schließen sich aus. Jeder Held hat höchstens einen Pfad.
@@ -293,7 +316,7 @@ Ernten ist eine kurze Tätigkeit ohne Minispiel. Fundorte wachsen nach einer Zei
 | Achse | Was sie bestimmt | Stufen |
 | --- | --- | --- |
 | Gegenstandsstufe | Stärke und Mindeststufe zum Tragen | wie die Heldenstufe |
-| Güte | wie gut es gemacht ist: hebt die Werte der Grundform (Schaden, Schutzwert) | vier: Schlecht, Normal, Gut, Meisterhaft (Chef 11.11., 17:53; Namen beim Chef) |
+| Güte | wie gut es gemacht ist: hebt die Werte der Grundform (Schaden, Schutzwert) | vier: Schlecht, Normal, Gut, Meisterhaft (Chef 11.11., 17:53; Namen 976a A, 20:13) |
 | **Seltenheit** | wie viel Besonderes darin steckt: Zahl der Zusatzeigenschaften, Preis, Zeichen | sechs, unten |
 | Zustand | wie gut es noch wirkt | Makellos, Benutzt, Beschädigt, Defekt (unten) |
 
@@ -341,7 +364,7 @@ Seltenheit und Güte sind getrennt: ein gewöhnliches Schwert kann meisterhaft g
 | Rüstungsklasse, Übungsbonus, Rettungswurf, Vorteil/Nachteil | Schutzwert, Fertigkeitsbonus, Abwehrprobe, Gunst/Ungunst |
 | Zauberpunkte, Zauberplatz | Mana |
 | Kurze Rast, Lange Rast | Kurze Erholung (2 Stunden), Langes Ausruhen (9 Stunden) |
-| Klassen Kämpfer, Schurke, Magier, Kleriker | entfallen; dafür Pfade |
+| Klassen Kämpfer, Schurke, Kleriker (die Klasse Magier ebenso; das Wort bleibt als Pfad, 954.2) | entfallen; dafür Pfade |
 
 Folklore-Wesen (Goblin, Kobold, Skelett, Zombie, Ghul) und Tiere behalten ihre Namen, ebenso Mensch, Elf, Zwerg, Trefferpunkte und kritischer Treffer; der Trefferwürfel entfällt mit dem neuen Kampf. Die Wirkungen der Volksmerkmale und alle Beschreibungstexte werden beim Umbau neu geschrieben (Glossar vom 31.10., E 24, E 27; seit 10.11. nur noch hier, 650.2). Gestrichen sind Barde, Gaukler, Taschendiebstahl, Reiter, Kaufmann und Hauptmann. Der Hinweis „SRD 5.1 · CC BY 4.0“ bleibt stehen, bis alles SRD-Abgeleitete ersetzt ist, auch die Monsterwerte und Zaubertexte.
 

@@ -2,6 +2,32 @@
 
 Was der Chef entschieden hat, neueste oben (99g.1). Je Vorgang: Nummer, Datum, Entscheidung, *Leitlinien*, Antwort des Chefs und wessen Empfehlung („Nutzer“ = Chef). **Neue Einträge ab 21.10. höchstens etwa 250 Zeichen** (274): Wortlaut des Chefs, soweit er die Entscheidung trägt, steht hier; Begründung in der Rollendatei dessen, der empfiehlt (`CLAUDE.md` „Jeder Text an einem Ort“); Anlass und langer Wortlaut nur in der Chefsache-Datei und „Zu ‹Nr›“, nach dem Löschen in Git. Ältere Einträge bleiben. Einträge werden nicht geändert, außer dem Anhang „→ ersetzt durch <Nr., Datum>“ am alten Eintrag, wenn ein neuer ihn ablöst (461b); was gilt, steht in den DESIGN-Dateien je Thema (461d: Punkte mit Kennung in `DESIGN-STIL.md`, `DESIGN-KAMPF.md`, `DESIGN-ABNAHME.md`), das Archiv ist Verlauf; wer einen Punkt aus der Chefsache entscheiden lässt, trägt ihn hier oben ein und löscht im selben Schritt die Datei in `docs/chefsache/`. Nur Text: Bilder und Hörproben der Einträge bis 16.10. stehen in den [alten Beschlüssen](https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM) (abgelöst 16.10.); Dateinamen in älteren Einträgen sind die damaligen.
 
+- **833, Läufe frei** (11.11., 22:53, Sokrates nach 480.1, Leitlinie 595; Lauf 363 machte die Bilder, lud sie mit `bild=nein` nicht hoch, behoben `fbc1ce7e9`, eigenes Artefakt `schirm833`): ein Lauf auf `claude/jerry-833-kampfschirm`, ein Ersatz bei fremdem Abbruch; Vorlage sofort an den Chef.
+
+- **861, Läufe frei** (11.11., 22:18, Sokrates nach 480.1, Leitlinie 595; Lauf 358 „startup_failure“ ohne Job, GitHub-Störung 21:22–22:01): ein Lauf auf `claude/tom-861-umhang` (Messung und Film), ein Ersatz bei fremdem Abbruch; Film sofort an den Chef.
+
+- **814, Läufe frei** (11.11., 22:18, Sokrates nach 480.1, Leitlinie 595; Lauf 359 „startup_failure“ ohne Job, GitHub-Störung): ein Messlauf auf `claude/tom-814-fussstaub`, ein Ersatz bei fremdem Abbruch.
+
+- **595, Läufe frei** (11.11., 22:18, Sokrates nach 480.1, 996; Probe am Rechner verlor die Umgebungswerte, falsche Tiere gefilmt; Abhilfe Skript mit festen Werten): ein Filmlauf Treffhöhe (`43c9be439`, je Tier vorher/nachher nacheinander, halb links), ein Ersatz bei fremdem Abbruch; Film sofort an den Chef.
+
+- **t277, Build 277 freigegeben** (11.11., 20:54, Chef an Sokrates: „Getestet und freigegeben mit den Ergänzungen“; Ergebnis in `ansehen/t277-sammelbuild.md`): ✗ 277.5, .7, .10, .12, .14, .16, Rest ✓; Funde 990–994; PR #196 auf `main` erst, wenn 988 behoben und der Lauf grün ist (919) → **freigegeben (Nutzer)**
+
+- **744, Kampfort Ruhebewegungen** (11.11., 20:58, Chef an Sokrates: „passt dann erstmal so“; „schlau gewesen, wenn die Bewegungen gleich nacheinander gekommen wären“; `ansehen/744-kampf-ruhe.md` in Git): abgenommen, nächster Build; Filme vorher/nachher je Tier direkt nacheinander; Grabhund-Augen 995.
+
+- **976a A, Namen der Gütestufen** (11.11., 20:13, Chef an Sokrates: „Ich nehme Empfehlung A“; Chefsache `entscheiden/976a-guetestufen-namen.md` in Git): Schlecht, Normal, Gut, Meisterhaft (Poor, Common, Fine, Masterwork) → **ja (Nutzer; Votum Sokrates)**; Tom 976, 870.7, Homer
+
+- **984 A, Querschnitt Regelwerk** (11.11., 20:12, Chef an Sokrates: „984 A“; Chefsache `entscheiden/984-querschnitt-brs.md` in Git): Illusion und Beschwörung in Kapitel 1 nicht wählbar wie Bergbau (984.1 Tom); nach 952 D misst Jerry, ob die Gewandtheit jeden Stil trägt → **ja (Nutzer; Votum Sokrates)**
+
+- **595, Kaufgegner** (11.11., 20:09, Chef an Sokrates: „gefällt mir alles sehr gut … ziemlich cool“; Film Lauf 356, `ansehen/595-kaufgegner.md` in Git): Spinne, Egel, Säureschnecke abgenommen; offen Treffhöhe der Kämpfer gegen niedrige Gegner („völlig sinnentleert“), Zu 595 bei Jerry.
+
+- **744, Karte** (11.11., 20:05, Chef an Sokrates: „744 passt“, „Es geht in die richtige Richtung … nicht aussieht wie wir Dreijährige. Gut.“; Film Lauf 357, `ansehen/744-karte-gang.md` in Git): Bewegung auf der Karte abgenommen, Knurren bleibt; weiter Kampfort.
+
+- **952 D, kritischer Treffer und Zaubergrundwert** (11.11., 20:03, Chef an Sokrates: „952 D“, nach seiner Frage 20:00 „Verstand als Grundwert da ganz entscheidend“; Chefsache `entscheiden/952-kritisch.md` in Git): kritisch = zweiter Grundwert × Fertigkeit / 50 %; Zauberschaden der Umgebungsmagie aus Verstand, Heilung und Mana aus Wille → **ja (Nutzer; Votum Sokrates)**; Bau 952 Jerry, 989 Tom
+
+- **870.7, 856, Bilder** (11.11., Chef an Sokrates 19:57 „870.7 passt“, 19:58 „856 passt“): Gegenstandsfenster und „Überspringen?“ ohne Kasten fahren im nächsten Build.
+
+- **744, Läufe frei** (11.11., 18:36, Sokrates nach 480.1, Leitlinie 595; Lauf 353 war Messlauf ohne Bild, zählte nach 646 als Probe, zeigte dem Chef nichts): ein Filmlauf auf `claude/tuffy-744-bewegung` mit `ce46d4a36` und `karte=ja` (vorher/nachher in einem Film), ein Ersatz bei fremdem Abbruch; Film sofort an den Chef.
+
 - **595, Läufe frei** (11.11., 18:26, Sokrates nach 480.1, Leitlinie 595; Lauf 352 rot in „Kampfort bauen“: 7z-Absturz beim Rar der Spinne, halbe Kopie, nachgestellt und behoben `15c41ce5b`): ein Filmlauf auf `claude/jerry-595-kaufgegner-b1`, ein Ersatz bei fremdem Abbruch; Film sofort an den Chef.
 
 - **Güte: vier Stufen, nach Rang, Seltenheit aus Zutaten** (11.11., 17:53–18:01, Chef an Sokrates: „4 Gütestufen … klar gibt es schlecht“; „als Azubi … maximal schlecht oder normal“; 18:01 „Ja, so machen wir das … das gefällt mir jetzt“): Güte aus Rang und Ring (Anfänger Schlecht–Normal … Großmeister Gut–Meisterhaft), Übung auch bei schlechtem Stück; Seltenheit aus Zutaten und Rezept (Weg offen, Beispiel Einmalrezept); bessere Güte nutzt sich langsamer ab; Namen 976a → **ja (Nutzer; Vorschlag Sokrates)**

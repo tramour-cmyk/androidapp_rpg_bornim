@@ -12,6 +12,7 @@ Inhaltsverzeichnis: jede Zeile sagt in einem Satz, was in der Datei steht und wo
 - [Leitbild](DESIGN-LEITBILD.md): wie das Spiel im Ganzen sein soll; gilt, wenn sich zwei Dateien widersprechen.
 - [Regeln (BRS)](DESIGN-BRS.md): unser eigenes Rollenspielsystem, wie es gilt (für uns; für Spieler erklärt es das Spielerhandbuch unter „Das Spiel“).
 - [Alle Stufen auf einen Blick](DESIGN-BRS.md#alle-stufen-auf-einen-blick): jede Stufenleiter im Spiel (Heldenstufe, Ränge der Fertigkeiten, Ruf, Güte, Seltenheit, Zustand …) mit ihren Stufen, wovon sie abhängt und wo die Einzelheiten stehen.
+- [Querschnitt je Kampfstil](DESIGN-BRS.md#querschnitt-jede-kampfregel-je-kampfstil): jede Kampfregel gegen Krieger, Kämpe, Schütze, Späher, Magier, Heiler (Ist im Code); wer eine Kampfregel, Waffe oder Schule einführt, trägt sie dort ein (984).
 - [Kosten](LISTE-KOSTEN.md): wofür das Guthaben je Bereich, Tag und Woche ausgegeben wurde (rechnet ein Werkzeug aus).
 
 ## Das Spiel
@@ -43,6 +44,7 @@ Arbeitslisten; du musst sie nicht lesen.
 - [Checkliste MARS](LISTE-MARS.md): was im Kampfsystem (MARS) schon geht und was noch fehlt.
 - [Umzug nach Godot](LISTE-UMZUG-348.md): Regeln für den Neubau des Spiels in Godot, dem neuen Spielbaukasten; die Fassung bis 10.11. liegt in [alt/](alt/LISTE-UMZUG-348.md).
 - [Abgleich alt](LISTE-ABGLEICH-ALT.md): was die alte Handy-Fassung je Ort und Figur hatte, damit im Neubau nichts verloren geht.
+- [Abgleich Oberfläche](LISTE-ABGLEICH-OBERFLAECHE.md): jeder Schirm und jede Bedienung alt gegen Godot, je Lücke ein Vorgang 785.n (785).
 - [Klang alt gegen neu](LISTE-KLANG-ALT-NEU.md): jedes Geräusch der alten Fassung je Anlass, ob es in Godot klingt und wer das Fehlende baut.
 - [3D-Modelle je Körperstelle](LISTE-NETZE.md) („Netzliste“; Netz heißt 3D-Modell): welche Kleidung und Rüstung es für Kopf, Körper, Arme, Beine und Umhang schon gibt, was wir anpassen und was noch fehlt.
 - Was zu Figuren und Kampf entschieden ist, steht in der [Abnahme](DESIGN-ABNAHME.md) unter „Vor jeder Vorlage“; jede Vorlage wird dagegen geprüft.
