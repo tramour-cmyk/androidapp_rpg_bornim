@@ -54,7 +54,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 | 1057 | M | Von Jerry (1049): Ansage des Grundangriffs je Art ohne eigene (heute alle „Stich“): Krogg | startbar |
 
-**Tom** – offen 114, Muss 93, startbar 5
+**Tom** – offen 113, Muss 93, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -171,7 +171,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1040.1 | M | Von Tuffy (1040, Chef 12.11., 15:13 Lyra „dreht sich genauso bescheuert, ohne Schritte“): | wartet auf Test/Build (gebaut) |
 | 1044 | M | Von Sokrates (Chef 12.11., 16:08): Frauen stehen außerhalb des Kampfs wie eine Dame, Beine | startbar |
 | 1045 | M | Von Tuffy (Lauf 43235660324, Zweig ohne Spielstand-Änderung): spielstand_test rot, „FEHLER | startbar |
-| Pflege | K | von Werkzeug (340.3, 12.11.): 16369 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 131, Muss 117, startbar 9
 
@@ -306,8 +305,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1054 | M | Von Tom (Hinweis 12.11., 16:40): tests/mars_regeln.gd nach dem Umzug veraltet (massstab, _ | wartet auf Test/Build (gebaut) |
 | 1058 | M? | Von Sokrates (1050a): Simulation 444 rechnet Herkünfte ohne plus_variante (variante=False | startbar |
 | 1060 | M | Von Tom (Chef 12.11., 17:34 „Wieso dauern denn jetzt die Runs wieder so lange?“, Lauf 4324 | wartet auf Test/Build (gebaut) |
-| Pflege | K | von Werkzeug (340.3, 12.11.): 30083 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 1062 | M? | Von Sokrates (654, aus 1059): Filmlauf zeigt nur das Hauptmenü, dritter Fund gleicher Ursa | startbar |
+| Pflege | K | von Werkzeug (340.3, 12.11.): 30541 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 13, Muss 12, startbar 0
 
