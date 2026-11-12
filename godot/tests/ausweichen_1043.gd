@@ -32,6 +32,7 @@ func _lauf() -> void:
 	var erzwungen_ms := -1.0
 	var mess = null     # [Beginn ms, Fuß, Kopf am Schirm, weitester Fuß m, weitester Kopf px, Bewegungen]
 	var befunde := []
+	var ausweich_film := 0
 	t0 = Time.get_ticks_msec()
 	while Time.get_ticks_msec() - t0 < (300000 if OS.get_environment("FILM") != "" else 90000):
 		await process_frame
@@ -47,10 +48,18 @@ func _lauf() -> void:
 		if erzwungen_ms < 0.0 and Mars.test_erzwungen.has("ausweichen"):
 			erzwungen_ms = k.clock_ms
 			print("%.2f s Regel: Ausweichen verbraucht" % (k.clock_ms / 1000.0))
+		# 1076 (Chef 12.11., 20:42: Film nur der Prüfgegenstand, etwa dreimal, bis 15 s): im Film dreimal erzwungen, die Regel setzt
+		# test_ausweichen nach jedem Mal zurück (mars.gd 1847)
+		if OS.get_environment("FILM") != "" and not k.mars.test_ausweichen and Mars.test_erzwungen.count("ausweichen") < 3:
+			k.mars.test_ausweichen = true
 		var kopf: Vector2 = k.screen_of(held.head())
 		var zz := "%d/%d" % [held.ausweich_nr, held.abwehr_nr]
 		if zz != zaehler:
 			print("%.2f s Held Ausweichen/Abwehr %s; Bericht: %s" % [k.clock_ms / 1000.0, zz, str(k.ui.lines.back()) if not k.ui.lines.is_empty() else ""])
+			if zz.get_slice("/", 0) != zaehler.get_slice("/", 0):
+				# Filmzeit für den Schnitt in godot.yml (--fixed-fps 30: ein Bild je Durchlauf)
+				print("SCHNITT1043 %.2f" % (Engine.get_process_frames() / 30.0))
+				ausweich_film += 1
 			zaehler = zz
 			mess = [k.clock_ms, held.position, kopf, 0.0, 0.0, []]
 		var a := String(held.anim.current_animation) if held.anim else ""
@@ -67,6 +76,8 @@ func _lauf() -> void:
 				befunde.append(b)
 				mess = null
 		if erzwungen_ms >= 0.0 and mess == null and not befunde.is_empty() and OS.get_environment("FILM") == "":
+			break
+		if ausweich_film >= 3 and mess == null:     # 1076: nach dem dritten Ausweichen ist der Film zu Ende
 			break
 	print("AUSWEICHEN1043 erzwungen %s; %s" % ["ja" if erzwungen_ms >= 0.0 else "nein", "; ".join(befunde) if not befunde.is_empty() else "kein Ausweichen gezeigt"])
 	quit(0)

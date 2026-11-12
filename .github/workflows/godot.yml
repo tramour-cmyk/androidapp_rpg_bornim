@@ -1042,7 +1042,15 @@ jobs:
             SEED=7 FILM=1 timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
               --write-movie $RUNNER_TEMP/ausweichen1043.avi --fixed-fps 30 -s res://tests/ausweichen_1043.gd -- --film1043 > $B/ausweichen1043.log 2>&1 || true
             ffmpeg -loglevel error -y -i $RUNNER_TEMP/ausweichen1043.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/ausweichen1043.mp4 || true
-            grep -E "SCRIPT ERROR|^[0-9.]+ s|^Held|^Ausweichen|^AUSWEICHEN" $B/ausweichen1043.log || true
+            grep -E "SCRIPT ERROR|^[0-9.]+ s|^Held|^Ausweichen|^AUSWEICHEN|^SCHNITT" $B/ausweichen1043.log || true
+            # 1076 (Chef 12.11., 20:42): nur der Prüfgegenstand, etwa dreimal, bis 15 s: je Ausweichen 2 s davor bis 2 s danach
+            i=0; : > $RUNNER_TEMP/s1043.txt
+            for t in $(grep -oP '^SCHNITT1043 \K[0-9.]+' $B/ausweichen1043.log); do
+              i=$((i+1)); a=$(python3 -c "print(max(0.0, $t - 2.0))")
+              ffmpeg -loglevel error -y -ss $a -t 4 -i $RUNNER_TEMP/ausweichen1043.avi -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast $RUNNER_TEMP/s1043-$i.mp4 || true
+              echo "file '$RUNNER_TEMP/s1043-$i.mp4'" >> $RUNNER_TEMP/s1043.txt
+            done
+            [ $i -gt 0 ] && ffmpeg -loglevel error -y -f concat -safe 0 -i $RUNNER_TEMP/s1043.txt -c copy $B/ausweichen1043-schnitt.mp4 || true
             ls -l $B; exit 0
           fi
           # 1039 (Tuffy; Chef 12.11., 15:04 „den inneren Ring zu sehen“): kampf=1039 zwei Runden gegen Grak wie beim Chef (Schwerer Hieb mit Ring;
