@@ -10,6 +10,7 @@ const Mars = preload("res://regeln/mars.gd")
 const Figur = preload("res://kampf/figur.gd")     # 494: Figur.vier
 const Zauber = preload("res://kampf/zauber.gd")
 const Tafel = preload("res://kampf/tafel.gd")
+const Zustandsbild = preload("res://kampf/zustandsbild.gd")     # 1036: Zustände an der Figur
 const Tips = preload("res://kampf/marstips.gd")     # 536: Texte für langes Drücken (MarsTips.kt)
 const HINWEIS_REIHE := "kampf_hinweis_reihe"     # 836: Flagge im Spielstand, der Reihenhinweis ist gezeigt
 
@@ -69,6 +70,9 @@ var bleeding := {}
 ## 348.7 (Rest aus 249): laufende Zauber und Pfeile {kind, by, on, crit, missed, seed, t0}, je Treffer einer (BattleFxLayer)
 var spells: Array = []
 var zauber := Zauber.new()
+## 1036: was die Zustände an den Figuren zeigen (zustandsbild.gd), dazu das Aufflackern je Runde {on, st, seed, t0}
+var zustandsbild := Zustandsbild.new()
+var flares: Array = []
 var tafel     # 348.7a: Pinsel in der 3D-Szene (tafel.gd), beim ersten Zauber
 ## Leistung (Probe-Log „Tafeln“): Ecken und Mikrosekunden des letzten Bilds mit Zaubern
 var tafel_ecken := 0
@@ -1490,7 +1494,7 @@ func _line_blocker(a: Vector3, b: Vector3, figs: Array):
 ## (Figur.cast_point, beim Loslassen festgehalten) zur Brust des Getroffenen, über alles hinweg, was dazwischen steht
 func _draw_spells() -> void:
 	var k = kampfort
-	if spells.is_empty() and tafel == null:
+	if spells.is_empty() and tafel == null and not _zustaende_da():
 		return
 	var t0 := Time.get_ticks_usec()
 	if tafel == null:
@@ -1541,10 +1545,217 @@ func _draw_spells() -> void:
 		if Zauber.pruef and flying:
 			_bahn_pruef(sp, by, on, p)
 	spells = still
+	_draw_zustaende()
 	tafel.end()
 	if tafel.verts > 0:
 		tafel_ecken = tafel.verts
 		tafel_us = Time.get_ticks_usec() - t0
+
+
+## 1036: trägt eine Figur einen Zustand oder flackert einer auf (sonst braucht es keine Tafel)
+func _zustaende_da() -> bool:
+	return not flares.is_empty() or not (kampfort.shown.get("status", {}) as Dictionary).is_empty() or not _paket_fx.is_empty()
+
+
+## 1036 (Chef 12.11., 20:52, Film 18:22): diese Zustände zeigt der gekaufte Effekt (Status Effects VFX und Stylized VFX, REEBOO;
+## nur im Bau unter addons/reeboo_vfx, Lizenz: nie ins Repo); fehlt das Paket, malt zustandsbild.gd wie bisher. Brennend „gefällt
+## mir gut“, Vergiftet, Blutend (die Lache bringt der Effekt mit), Betäubt („besser als diese Vögelchen“, also nicht stun_stars),
+## Verlangsamt; Geschwächt, Geblendet, Betrunken bleiben eigen (neue Vorlage)
+const ZUSTAND_PAKET := {"BURN": "res://addons/reeboo_vfx/effects/burning.tscn",
+		"POISON": "res://addons/reeboo_vfx/status_effects/poisoned.tscn", "BLEED": "res://addons/reeboo_vfx/status_effects/bleeding.tscn",
+		"STUN": "res://addons/reeboo_vfx/status_effects/shocked.tscn", "SLOW": "res://addons/reeboo_vfx/status_effects/chilled.tscn"}
+## laufende Effekte aus dem Paket: "<id>|<Zustand>" -> Knoten an der Figur
+var _paket_fx := {}
+static var _paket_szene := {}
+
+
+## 1036: die Szene des Pakets zum Zustand st, oder null ohne Paket (einmal geladen)
+static func zustand_szene(st: String):
+	if not ZUSTAND_PAKET.has(st):
+		return null
+	if not _paket_szene.has(st):
+		var pfad: String = ZUSTAND_PAKET[st]
+		var r = load(pfad) if ResourceLoader.exists(pfad) else null
+		_paket_szene[st] = r if r is PackedScene else null
+	return _paket_szene[st]
+
+
+## 1036: hängt den Effekt des Pakets an die Figur, solange der Zustand hält, und lässt ihn danach auslaufen; true, wenn das
+## Paket den Zustand zeigt (dann malt zustandsbild.gd ihn nicht). Größe wie im Film 18:22: Tiere nach ihrem Körper (das Paket
+## misst für 1,8 m), Menschen wie geliefert
+func _paket_an(id: String, st: String, fig, aktiv: Dictionary) -> bool:
+	var sz = zustand_szene(st)
+	if sz == null:
+		return false
+	var key := id + "|" + st
+	aktiv[key] = true
+	if _paket_fx.has(key) and is_instance_valid(_paket_fx[key]):
+		return true
+	var fx: Node = (sz as PackedScene).instantiate()
+	if "loop" in fx:
+		fx.set("loop", true)
+	fig.add_child(fx)
+	if fx is Node3D:
+		(fx as Node3D).position = Vector3.ZERO
+		if fig.fighter.monster != null:
+			var box: AABB = _koerper_kasten(fig)
+			var gr := maxf(box.size.y, maxf(box.size.x, box.size.z) * 0.8)
+			(fx as Node3D).scale = Vector3.ONE * clampf(gr / 1.8, 0.7, 2.0)
+	_paket_fx[key] = fx
+	return true
+
+
+## 1036: Effekte, deren Zustand vorbei ist (oder deren Figur fiel), laufen aus und gehen nach einer halben Sekunde
+func _paket_aus(aktiv: Dictionary) -> void:
+	for key in _paket_fx.keys():
+		if aktiv.has(key):
+			continue
+		var fx = _paket_fx[key]
+		_paket_fx.erase(key)
+		if not is_instance_valid(fx):
+			continue
+		if fx.has_method("stop"):
+			fx.call("stop")
+		get_tree().create_timer(0.5).timeout.connect(func(): if is_instance_valid(fx): fx.queue_free())
+
+
+## 1036 (Chef 12.11., 14:48: „da sieht man kein Brennen. Das hatten wir alles schon unter Kotlin“): die Zustände an jeder
+## Figur, solange sie halten (alt BattleScreen drawStatus, je Figur im eigenen Takt), die Blutlache am Platz, das Aufflackern
+## beim Schaden je Runde; als Tafel vor der Figur (Figuren davor verdecken es)
+func _draw_zustaende() -> void:
+	var k = kampfort
+	zustandsbild.ci = tafel
+	_flare_merken()
+	var st_of: Dictionary = k.shown.get("status", {})
+	var blood: int = k.blood_level()
+	var t: float = k.clock_ms / 1000.0
+	var aktiv := {}     # 1036: Effekte aus dem Paket, die bleiben
+	for id in st_of:
+		if not k.figures.has(id) or (st_of[id] as Dictionary).is_empty():
+			continue
+		var fig = k.figures[id]
+		if not fig.visible or fig.down or k.shown.hp.get(id, fig.fighter.hp) <= 0:
+			continue
+		var paket := {}
+		for st in st_of[id]:
+			if _paket_an(String(id), String(st), fig, aktiv):
+				paket[st] = true
+		if paket.size() == (st_of[id] as Dictionary).size():
+			continue
+		var body := _koerper(fig)
+		# nicht im Gleichtakt (alt: Held 0,7 s versetzt)
+		var ts: float = t + (0.7 if fig.fighter.side == "PARTY" else 0.0) + float(absi(hash(String(id))) % 97) * 0.031
+		if (st_of[id] as Dictionary).has("BLEED") and not paket.has("BLEED") and blood > 0:
+			var heim: Vector2 = k.screen_of(fig.home)
+			tafel.depth = _depth(fig.home)
+			zustandsbild.pool(ts, heim.x, heim.y, body.u, blood)
+		tafel.depth = _front_depth(fig)
+		for st in st_of[id]:
+			if not paket.has(st):
+				zustandsbild.draw_status(String(st), ts, body, body.u, blood)
+	_paket_aus(aktiv)
+	var still := []
+	for fl in flares:
+		var p: float = (k.clock_ms - float(fl.t0)) / Zustandsbild.FLARE_MS
+		if p >= 1.0 or not k.figures.has(fl.on):
+			continue
+		still.append(fl)
+		if p < 0.0:
+			continue
+		var fig = k.figures[fl.on]
+		tafel.depth = _front_depth(fig)
+		zustandsbild.flare(String(fl.st), int(fl.seed), p, _koerper(fig).chest, _tall(fig) / 40.0)
+	flares = still
+
+
+## 1036: Schaden eines Zustands zu Beginn des Zugs (mars.gd _tick: ohne Täter, Zeile nach ST_HURTS) flackert einmal auf
+var _flare_seen = null
+func _flare_merken() -> void:
+	var k = kampfort
+	var e = k.shown
+	if is_same(e, _flare_seen):
+		return
+	_flare_seen = e
+	if not (e is Dictionary) or e.get("actor") != null or e.get("target") == null or int(e.get("damage", 0)) <= 0:
+		return
+	var f = k.mars.find(e.target)
+	if f == null:
+		return
+	var txt := String(e.get("text", ""))
+	for st in Mars.ST_HURTS:
+		if txt.begins_with(String(Mars.ST_HURTS[st][lang]).format([f.name(lang)])):
+			spell_seed += 1
+			flares.append({"on": String(e.target), "st": st, "seed": spell_seed * 7919, "t0": k.clock_ms})
+			return
+
+
+## 1036 (alt BodyFit): wo der Körper einer Figur am Schirm liegt: Umriss ihrer Netze (ohne Bodenschatten) als Rechteck, Mitte
+## und halbe Breite des Rumpfs, Brust, Boden, Kopf (Knochen, sonst oben in der Mitte), u wie alt (Held: Brusthöhe / 70,
+## Gegner: Breite / 90)
+var _zk_box := {}
+var _zk_kopf := {}
+func _koerper(fig) -> Dictionary:
+	var k = kampfort
+	var id := String(fig.fighter.id)
+	if not _zk_box.has(id):
+		_zk_box[id] = _koerper_kasten(fig)
+	var box: AABB = _zk_box[id]
+	var foot := _foot(fig)
+	var r := Rect2(k.screen_of(fig.global_transform * box.get_endpoint(0)), Vector2.ZERO)
+	for i in range(1, 8):
+		r = r.expand(k.screen_of(fig.global_transform * box.get_endpoint(i)))
+	if r.size.y < 4 * dp:     # ohne Netze: die Höhe der Figur
+		r = Rect2(foot.x - _tall(fig) * 0.2, foot.y - _tall(fig), _tall(fig) * 0.4, _tall(fig))
+	var vier: bool = Figur.vier(fig.fighter)
+	var unten := minf(foot.y, r.end.y)
+	var chest := Vector2(0, lerpf(unten, r.position.y, 0.55))
+	var cx: float = r.get_center().x if vier else foot.x
+	var half: float = r.size.x * 0.5 * 0.85 if vier else minf(r.size.x * 0.5, (unten - r.position.y) * 0.17)
+	chest.x = cx
+	var h := maxf(foot.y - chest.y, 4 * dp)
+	var u: float = maxf(r.size.x / 90.0 if vier else h / 70.0, 0.5 * dp)
+	var head := Vector2(cx, chest.y - h * 0.8 + h * 0.12)
+	var kopf = _kopf_punkt(fig)
+	if kopf != null:
+		head = kopf
+	return {"rect": r, "cx": cx, "half": half, "chest": chest, "ground": foot.y, "head": head, "u": u}
+
+
+## Kasten der Netze einer Figur in ihrem eigenen Raum (einmal je Figur, in Ruhe); Bodenschatten und Pfotenflecken nicht
+func _koerper_kasten(fig) -> AABB:
+	var inv: Transform3D = fig.global_transform.affine_inverse()
+	var box := AABB()
+	var first := true
+	for m in fig.find_children("*", "MeshInstance3D", true, false):
+		var mi := m as MeshInstance3D
+		if mi.name == "Bodenschatten" or mi.has_meta("pfotenschatten") or mi.mesh == null or not mi.visible:
+			continue
+		var b: AABB = (inv * mi.global_transform) * mi.get_aabb()
+		box = b if first else box.merge(b)
+		first = false
+	return box
+
+
+## Kopf am Schirm aus dem Kopfknochen (Kaufheld „Head“, Tiere „kopf“), eine Handbreit darüber (Augen); null ohne Knochen
+func _kopf_punkt(fig):
+	var id := String(fig.fighter.id)
+	if not _zk_kopf.has(id):
+		var sk: Skeleton3D = null
+		for n in fig.find_children("*", "Skeleton3D", true, false):
+			sk = n as Skeleton3D
+			break
+		var bi := -1
+		if sk != null:
+			for nm in ["Head", "head", "kopf", "Kopf", "neck_01", "hals"]:
+				bi = sk.find_bone(nm)
+				if bi >= 0:
+					break
+		_zk_kopf[id] = [sk, bi]
+	var e: Array = _zk_kopf[id]
+	if e[0] == null or not is_instance_valid(e[0]) or int(e[1]) < 0:
+		return null
+	var sk: Skeleton3D = e[0]
+	return kampfort.screen_of(sk.global_transform * sk.get_bone_global_pose(int(e[1])).origin + Vector3.UP * 0.08)
 
 
 var _umriss := {}
