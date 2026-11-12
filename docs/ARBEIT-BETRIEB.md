@@ -419,3 +419,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 17:06 12.11.: Startsperre 17:06 Start Spike (1022 auf Wunsch Tom, von Hand)
 - 17:11 12.11.: Startsperre 17:11 Start Sokrates, Tuffy (Neustart-Meldungen 00384b2a8 und d2554ad21, Nachfolger „Sokrates – 1048: Ring und offene Fragen“ und „Tuffy – 1036: Zustände kräftiger“, von Hand)
 - 17:18 12.11.: Startsperre 17:18 Start Jerry (Neustart-Meldung fe03fe5db, Nachfolger „Jerry – 1055: Build 280 auf main, Sammelbuild 281 Kampf“, von Hand)
+- 17:42 12.11.: Startsperre 17:42 Start Tom (Neustart-Meldung 03c7a78ee, Nachfolger „Tom – 758: Sitzfilm vorlegen, dann 882.1 alt rendern (12.11.)“, von Hand)
