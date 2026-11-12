@@ -21,6 +21,7 @@ Nichts offen.
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.348.373](ansehen/t278-sammelbuild.md) | [Build 278](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43159433416/artifacts/13919514537) | Sammelbuild nach Build 277 | Tom und Jerry | 12.11., 07:52 |
+| 2 | [0.348.377](ansehen/t279-testmenue.md) | [Build 279](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/198) | Version folgt | Tom und Jerry | 12.11., 09:38 |
 
 ## Zu tun
 
@@ -407,7 +408,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): t278-sammelbuild.md: Zeile 2 ist keine Bereichszeile
+Format (Muster: „So geht's“ unten): t278-sammelbuild.md: Zeile 2 ist keine Bereichszeile; t279-testmenue.md: Zeile 2 ist keine Bereichszeile
 
 ## So geht's
 
