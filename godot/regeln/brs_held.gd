@@ -417,8 +417,10 @@ func beide_haende_mit(w_) -> bool:
 	var hw = waffe()
 	return bool(d["zweihaendig"]) or (d["vielseitig"] != null and hw != null and int(w_["uid"]) == int(hw["uid"]) and ding("OFF_HAND") == null)
 
-## jeder darf alles tragen (DESIGN-BRS.md 7); was darin nicht geht (Metall und Magie, Schleichen), sagt das Gegenstandsfenster
-func kann_tragen(_g: Dictionary) -> bool: return true
+## jeder darf alles tragen (DESIGN-BRS.md 7), aber erst ab der Stufe des Stuecks (644a A, DESIGN-BRS.md 11 „Mindeststufe“); was
+## darin nicht geht (Metall und Magie, Schleichen), sagt das Gegenstandsfenster. Nur Anlegen prueft das: Getragenes bleibt angelegt
+## (alte Spielstaende, Testmenue), auch wenn es hoeher ist
+func kann_tragen(g: Dictionary) -> bool: return stufe >= int(g.get("ilvl", 1))
 
 ## an den eigenen Platz; zurueck kommt, was dafuer herunter musste (Hero.equip)
 func anlegen(g: Dictionary) -> Array:

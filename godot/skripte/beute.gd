@@ -150,7 +150,7 @@ static func gewicht_fuer(held, id: String) -> int:
 	return grund + (held.fertigkeit(f) if f != "" else grund)
 
 # Loot.generate: ein zufaelliges Stueck; mit Held nach seinen Fertigkeiten gewichtet, sonst gleich
-static func erzeuge(w, uid: int, stufe: int, seltenheit: String, held = null, slot: String = "", besonders := false) -> Dictionary:
+static func erzeuge(w, uid: int, stufe: int, seltenheit: String, held = null, slot: String = "", besonders := false, ohne_grundwert := false) -> Dictionary:
 	stufe = maxi(stufe, 1)
 	var pool: Array = []
 	for id in grundformen():
@@ -159,11 +159,18 @@ static func erzeuge(w, uid: int, stufe: int, seltenheit: String, held = null, sl
 			pool.append([id, gewicht_fuer(held, id)])
 	var id: String = w.weighted(pool)
 	var kap: int = held.kapitel if held is BrsHeld else 1
-	return wuerfle(uid, id, stufe, seltenheit, w, wuerfle_guete(w, besonders, kap))
+	return wuerfle(uid, id, stufe, seltenheit, w, wuerfle_guete(w, besonders, kap), ohne_grundwert)
 
-# Loot.roll: Zusatzeigenschaften je Platz, jede hoechstens einmal
-static func wuerfle(uid: int, id: String, stufe: int, seltenheit: String, w, guete := 0) -> Dictionary:
+## 644a A: Stufe eines gewoehnlichen Stuecks ist die seiner Grundform aus dem Katalog (DESIGN-BRS.md 11 „Mindeststufe“)
+static func grundform_stufe(id: String) -> int: return maxi(int(grundform(id).get("ab_stufe", 1)), 1)
+## 644a D: Zusatzeigenschaft auf einen Grundwert (werte.json „zusatz“ mit „grundwert“)
+static func ist_grundwert(a: String) -> bool: return r_()["zusatz"].get(a, {}).has("grundwert")
+
+# Loot.roll: Zusatzeigenschaften je Platz, jede hoechstens einmal; [ohne_grundwert]: keine auf Grundwerte (644a D, Laden in Kapitel 1)
+static func wuerfle(uid: int, id: String, stufe: int, seltenheit: String, w, guete := 0, ohne_grundwert := false) -> Dictionary:
+	if seltenheit == "COMMON": stufe = grundform_stufe(id)     # 644a A: gewoehnlich = Stufe der Grundform
 	var erlaubt := zusatz_fuer(id, seltenheit)
+	if ohne_grundwert: erlaubt = erlaubt.filter(func(a): return not ist_grundwert(String(a)))
 	var rolls: Array = []
 	while rolls.size() < zusatzzahl(seltenheit) and not erlaubt.is_empty():
 		var a: String = w.weighted(erlaubt.map(func(x): return [x, zusatz_gewicht(String(x))]))     # 644a D: Grundwerte halb
@@ -211,6 +218,11 @@ static func kampfbeute(hw: BrsHeld, w, gegner: Array, neue_uid: Callable) -> Arr
 				out.append(einzel(String(e[0]), neue_uid.call(), Katalog.stufe(String(e[0]))))
 	return out
 
+## 644a A: Stufe einer Gabe (Belohnung, Fund aus der Geschichte): die des Gebiets oder des Helden, was hoeher ist (Uniques.make,
+## Loot.generate), hoechstens Heldenstufe + „beute_stufe_ueber_held“ wie die Beute (DESIGN-BRS.md 11 „Funde“: Gaben ebenso)
+static func gabe_stufe(gebiet: int, heldenstufe: int) -> int:
+	return mini(maxi(gebiet, heldenstufe), maxi(heldenstufe, 1) + int(r_().get("beute_stufe_ueber_held", 1)))
+
 # generate zieht die Grundform vor der Kennung
 static func erzeuge_mit_uid(w, neue_uid: Callable, stufe: int, r: String, held = null) -> Dictionary:
 	var g := erzeuge(w, 0, stufe, r, held)
@@ -230,9 +242,12 @@ static func einzel(id: String, uid: int, stufe: int) -> Dictionary:
 static func fackel(uid: int) -> Dictionary:
 	return {"uid": uid, "base": "torch", "rarity": "COMMON", "ilvl": 1, "guete": 0, "rolls": [], "unique": null, "name_seed": 0}
 
-# Loot.shopGear: Thessas Ware; neu alle acht Siege und mit jeder Stufe (59e.3: bleibt sonst); Haendler verkaufen Guete Normal
+# Loot.shopGear: Thessas Ware; neu alle acht Siege und mit jeder Stufe (59e.3: bleibt sonst); Haendler verkaufen Guete Normal.
+# 644a A, D: nur, was der Held tragen kann (Stufe hoechstens seine); vor Kapitel „laden_grundwert_ab_kapitel“ nichts mit Grundwert
+static func laden_ohne_grundwert(hw: BrsHeld) -> bool: return hw.kapitel < int(r_().get("laden_grundwert_ab_kapitel", 2))
 static func ladenware(hw: BrsHeld, siege: int) -> Array:
 	var stufe := hw.stufe
+	var ohne := laden_ohne_grundwert(hw)
 	var w := KotlinZufall.new(KotlinZufall.s32(siege / 8 * 7919 + stufe * 31 + KotlinZufall.hash_code(hw.name)))
 	var liste: Array = []
 	# das Grundlegende jedes Platzes
@@ -247,8 +262,8 @@ static func ladenware(hw: BrsHeld, siege: int) -> Array:
 	# eine Handvoll magischer Stuecke, das erste fuer den Helden (59e.1)
 	for k in 5:
 		var r := wuerfle_seltenheit(w, stufe, 0, "UNCOMMON", max_normal(hw.kapitel))
-		var g = fuer_held(hw, w, stufe, r) if k == 0 else null
-		if g == null: g = erzeuge(w, 0, stufe, r)
+		var g = fuer_held(hw, w, stufe, r, ohne) if k == 0 else null
+		if g == null: g = erzeuge(w, 0, stufe, r, null, "", false, ohne)
 		g["guete"] = 0
 		g["uid"] = -(liste.size() + 1)
 		liste.append(g)
@@ -261,7 +276,8 @@ static func hauptwert(hw: BrsHeld) -> String:
 		if hw.wert(g) > hw.wert(best): best = g
 	return String(BrsHeld.AFFIX.get(best, BrsHeld.AFFIX["kraft"]))
 
-static func fuer_held(hw: BrsHeld, w, stufe: int, seltenheit: String):
+## [ohne_grundwert] (644a D, Laden in Kapitel 1): der schwaechste Platz wie sonst, aber ohne Grundwert, also ohne seinen Hauptwert
+static func fuer_held(hw: BrsHeld, w, stufe: int, seltenheit: String, ohne_grundwert := false):
 	var haupt := hauptwert(hw)
 	var pool := func(slot: String) -> Array:
 		var p: Array = []
@@ -280,6 +296,7 @@ static func fuer_held(hw: BrsHeld, w, stufe: int, seltenheit: String):
 			bestwert = n
 	if bester == "": return null
 	var formen: Array = pool.call(bester)
+	if ohne_grundwert: return wuerfle(0, w.pick(formen), stufe, seltenheit, w, 0, true)
 	var mit := formen.filter(func(id): return haupt in zusatz_fuer(id, seltenheit))
 	if not mit.is_empty(): formen = mit
 	var g := wuerfle(0, w.pick(formen), stufe, seltenheit, w)

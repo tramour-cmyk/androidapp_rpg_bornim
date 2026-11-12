@@ -544,7 +544,9 @@
     "grundwert_gewicht": 0.5,
     "_zusatz_gewicht": "644a D: beim Fund wuerfeln Grundwerte als Zusatzeigenschaft mit halbem Gewicht (zusatz_gewicht x grundwert_gewicht) gegenueber den uebrigen (zusatz_gewicht)",
     "beute_stufe_ueber_held": 1,
-    "_beute_stufe": "644a A: Beute eines Kampfs in der Stufe des staerksten Gegners, hoechstens Heldenstufe + beute_stufe_ueber_held (beute.gd beute_stufe)",
+    "_beute_stufe": "644a A: Beute eines Kampfs in der Stufe des staerksten Gegners, hoechstens Heldenstufe + beute_stufe_ueber_held (beute.gd beute_stufe); Gaben ebenso (beute.gd gabe_stufe)",
+    "laden_grundwert_ab_kapitel": 2,
+    "_laden_grundwert_ab_kapitel": "644a D (N 11 'Kein Deckel'): Haendler verkaufen erst ab diesem Kapitel Stuecke mit einem Grundwert als Zusatzeigenschaft (beute.gd laden_ohne_grundwert)",
     "deckel": {"STR": [1, 0], "DEX": [1, 0], "CON": [1, 0], "INT": [1, 0], "WIS": [1, 0], "CHA": [1, 0], "AC": [1, 1]},
     "_deckel": "A: was alle getragenen Stuecke zusammen hoechstens geben: [je Kapitel, plus] (alt Rules.gearCap: Grundwerte Kapitel, Schutzwert Kapitel); die uebrigen ohne Deckel",
     "erlaubt": {
