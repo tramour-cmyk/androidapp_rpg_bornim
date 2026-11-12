@@ -6,7 +6,7 @@ Geprüft an: [LISTE-BETRIEB.md, Selbstneustart und Tiefe](https://github.com/tra
 
 **Frage:** Jede Sitzung trägt eine Tiefe: wer eine Sitzung gestartet hat, ist eins höher als seine Neue. Ab Tiefe 8 funktionieren weder neue Sitzungen noch Uhren, Weckrufe oder zeitgesteuerte Nachrichten, der Betrieb stünde. Darum bleibt Ford höchstens auf Tiefe 6 und seine Teams auf 7. Der Ford, der jetzt übergibt, liegt auf Tiefe 5, sein Nachfolger auf 6. Dieser Nachfolger darf sich nicht mehr selbst neu starten. Wann startest du den nächsten Ford von Hand?
 
-**Votum:** „1016 A“, heute Vormittag: Du startest in claude.ai/code eine Sitzung mit **Umgebung „WireStorm Hoch“, Modell Sonnet, Aufwand Hoch**, Repo `androidapp_rpg_bornim`, erste Nachricht „Ford“; sie liegt dann auf Tiefe 0. Der jetzige Ford (Tiefe 6, seit 06:12) stand um 07:05 bei 115 Tsd. Token; die Grenze von 200 Tsd. erreicht er etwa zwischen 08:30 und 09:30. (Perikles 07:07: „Voll“ korrigiert; bis 14.11. gilt „WireStorm Hoch“, Ford läuft nach Startzuordnung auf Sonnet, `LISTE-BETRIEB.md`.)
+**Votum:** „1016 A“, heute Vormittag: Du startest in claude.ai/code eine Sitzung mit **Umgebung „WireStorm Hoch“, Modell für Ford nach Startzuordnung (`LISTE-BETRIEB.md`), Aufwand Hoch**, Repo `androidapp_rpg_bornim`, erste Nachricht „Ford“; sie liegt dann auf Tiefe 0. Der jetzige Ford (Tiefe 6, seit 06:12) stand um 07:05 bei 115 Tsd. Token; die Grenze von 200 Tsd. erreicht er etwa zwischen 08:30 und 09:30. (Perikles 07:07: „Voll“ korrigiert; bis 14.11. gilt „WireStorm Hoch“.)
 
 **Berührt:** Ford (Stundenuhr „Ford-Lauf“, neue Sitzung legt sie selbst an), Perikles (Besitzer von 1016), `LISTE-BETRIEB.md` „Selbstneustart“
 
