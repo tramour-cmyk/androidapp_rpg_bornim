@@ -282,6 +282,7 @@
 | 1036 | Von Sokrates (Chef 12.11., 14:48, Build 280, Probekampf Brandflasche): sichtbare Zustände an Figuren fehlen (kein Brennen nach dem Wurf); alle sichtbaren Zustandseffekte wie in der Kotlin-Fassung (Abgleich alt) | Jerry | M | in Arbeit, bei Tuffy | – | – | – | E Kampf | – |
 | 1037 | Von Tom (842, 807 A): Werte in werte.json für Überreden ohne Grundwert (Chance aus Fertigkeitswert, Pim heimschicken) und Verband (Heilung je Rang Heilkunde, Preis bei Osric und Thessa, Stufe im Katalog); Zahlen vorläufig wie proben, Vorentscheid Sokrates (783 W5) | Jerry | M | gebaut, Geprüft an: 7696371e0 | – | – | – | E Kampf | – |
 | Pflege | von Werkzeug (340.3, 12.11.): 26333 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
+| 1039 | Von Sokrates (Chef 12.11., 15:04, Build 280, Probekampf Grak, Schwerer Hieb): innerer Ring kaum zu sehen, man erkennt nicht, wann man tippen muss; Ring lesbar machen (Zielring kräftig, Signatur gold) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |

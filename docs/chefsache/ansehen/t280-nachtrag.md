@@ -94,3 +94,5 @@ Laufend aus dem Chat mit Sokrates, bis „Ergebnis kopieren“ kommt.
 - 279.3 ✓ (Chef 14:29)
 - 278.19 ✓ Messung kam (Chef 14:41, Bild): alles an 16 Bilder/s, ohne Schatten 29, ohne Bäume und Boden 52 → Zu 806 (Jerry)
 - Zu 280.8 (Chef 14:48): nach der Brandflasche kein sichtbares Brennen am Ziel, wie alle Zustandseffekte aus Kotlin → 1036 (Jerry); Flaschengröße nicht beurteilt
+- Außer der Reihe (Chef 14:54, Bild Wolf springt): kein Ring bei Wölfen; Ring gibt es nur bei Graks Schwerem Hieb und dem Netz der Spinne (aus Kotlin), gegen 406.1 („Ring bei angekündigten Nahangriffen“) → Vorschlag Ring-Vorlage (Sokrates)
+- Außer der Reihe (Chef 15:04, Bild Siegfenster Grak): innerer Ring kaum zu sehen → 1039 (Jerry); etwas unrund (Bilder/s im Kampf 10, 806); Graks Kriegsaxt in der Beute; Siegfenster des Probekampfs nennt Erfahrung und Stufen ohne Folgen → Zu 1039, 1034
