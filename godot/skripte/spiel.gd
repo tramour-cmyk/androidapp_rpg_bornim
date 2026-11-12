@@ -432,6 +432,10 @@ func _aktion() -> void:
 				zustand.setze(Geschichte.PIM_DANK)
 				anders = {"de": String(anders["de"]).replace("{name}", zustand.name), "en": String(anders["en"]).replace("{name}", zustand.name)}
 			var gesagt: Array = [{"text": anders}] if not anders.is_empty() else variiere(a["klopfen"]["nacht" if nachts else "tag"])   # 504.1 Varianten
+			# 1086 [1085.pim.dank]: nach dem ersten Heimschicken fuer Gold dankt die Mutter einmal, ohne Ruf; nach [807.pim.dank], wenn beide anliegen
+			if not dankt and karte.id == "village" and z == Geschichte.PIMS_TUER and Geschichte.pim_gold_dankt(zustand):
+				zustand.setze(Geschichte.PIM_GOLD_DANK)
+				gesagt = Geschichte.PIM_GOLD_DANK_TEXT.map(func(t): return {"text": {"de": String(t["de"]).replace("{name}", zustand.name), "en": String(t["en"]).replace("{name}", zustand.name)}})
 			ui.sage(zeilen(Geschichte.klopf_sprecher(karte.id, z, gesagt)))   # 629.1 mit dem Namen der Stimme
 			zustand.setze("heard_%d_%d" % [z.x, z.y])   # 399.1 Karte: wer hier wohnt (MapPeople.heard)
 		return
@@ -980,8 +984,8 @@ func weiter() -> void:
 			"sagen":
 				var e := {"text": Sprache.t(c["text"]).replace("{name}", zustand.name)}
 				if c.has("wer"): e["wer"] = Sprache.t(c["wer"]).replace("{name}", zustand.name)
-				knopf_offen = _knopf_danach()   # 842: ein Knopf (Probe, Kaufen) steht unter der letzten Zeile davor
-				if not knopf_offen.is_empty(): e["knopf"] = Sprache.t(knopf_offen["knopf"])
+				knopf_offen = _knopf_danach()   # 842: Knoepfe (Probe, Kaufen, 1086 Gold) stehen unter der letzten Zeile davor
+				if not knopf_offen.is_empty(): e["knopf"] = knopf_offen.map(func(k): return Sprache.t(k["knopf"]))
 				zeige(e)
 				return
 			"flagge":
@@ -1003,6 +1007,7 @@ func weiter() -> void:
 				zeige({"text": Sprache.u("found", [Sprache.ding(String(c["ding"]), int(c["anzahl"]))])})
 				return
 			"nehmen": zustand.weg(String(c["ding"]), int(c["anzahl"]))
+			"zahlen": zustand.gold = maxi(0, zustand.gold - int(c["anzahl"]))   # 1086: Gold geben ohne eigene Zeile (Pim)
 			"gold":
 				zustand.gold += int(c["anzahl"])
 				zeige({"text": Sprache.u("foundGold", [int(c["anzahl"])])})
@@ -1040,28 +1045,30 @@ func weiter() -> void:
 
 # 842 (807 A): folgt nach dieser Zeile (nur Buchfuehrung „variante“ dazwischen) ein Knopf (Skript.knopf, Skript.probe), kommt er aus der
 # Szene und unter die Zeile; wer weitertippt, laesst ihn aus
-var knopf_offen := {}
+var knopf_offen: Array = []   # 1086: alle Knoepfe hintereinander (Pim: Ueberreden, Gold)
 var probe_wurf := Callable()   # Tests: fester Wurf 0–1; sonst randf()
-func _knopf_danach() -> Dictionary:
-	for i in szene.size():
+func _knopf_danach() -> Array:
+	var r: Array = []
+	var i := 0
+	while i < szene.size():
 		var a := String(szene[i]["art"])
-		if a == "variante": continue
-		if a != "knopf": return {}
-		var p: Dictionary = szene[i]
+		if a == "variante":
+			i += 1; continue
+		if a != "knopf": break
+		r.append(szene[i])
 		szene.remove_at(i)
-		return p
-	return {}
+	return r
 
 # 842 „Nicht jetzt“ (Homer [1074.zweit]): die Wahl faellt weg, das Gespraech laeuft weiter wie beim Weitertippen
 func _knopf_ausgelassen() -> void:
 	if knopf_offen.is_empty(): return
-	knopf_offen = {}
+	knopf_offen = []
 	ui.naechste()
 
-func _knopf_gewaehlt() -> void:
-	if knopf_offen.is_empty(): return
-	var k := knopf_offen
-	knopf_offen = {}
+func _knopf_gewaehlt(nr := 0) -> void:
+	if knopf_offen.is_empty() or nr < 0 or nr >= knopf_offen.size(): return
+	var k: Dictionary = knopf_offen[nr]
+	knopf_offen = []
 	var bef: Array = k.get("dann", [])
 	var auf := ""
 	if k.has("probe"):

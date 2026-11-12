@@ -156,7 +156,7 @@ func _lauf() -> void:
 	root.add_child(ui)
 	await process_frame
 	var gewaehlt := [0]
-	ui.knopf_im_text.connect(func(): gewaehlt[0] += 1)
+	ui.knopf_im_text.connect(func(_nr): gewaehlt[0] += 1)
 	ui.sage([{"wer": "Pim", "text": "Papa sagt, Goblins haben Angst vor Feuer! Stimmt das?", "knopf": "Schick Pim heim (Überreden)"}])
 	await process_frame
 	pruefe(ui.text_knopf.visible and ui.text_knopf.get_child_count() == 1 and not ui.knopf_bereit(), "Knopf da, während des Schreibens nicht tippbar")
@@ -217,7 +217,7 @@ func _lauf() -> void:
 		n += 1
 	pruefe(spiel.ui.knopf_bereit() and not spiel.knopf_offen.is_empty(), "Spiel: Knopf unter Pims letzter Zeile")
 	spiel.probe_wurf = func(): return 0.0
-	spiel.ui.knopf_im_text.emit()
+	spiel.ui.knopf_im_text.emit(0)
 	await process_frame
 	pruefe(sz.has("pim_home_%d" % sz.tag) and sz.has(Geschichte.PIM_HEIM), "Spiel: gelungen, Pim geht heute heim")
 	pruefe(spiel.ui.spricht() and ["Na gut. Aber nur, weil du es bist.", "Mama schimpft bestimmt …", "Wenn du es sagst, Mira."].has(spiel.ui.text.text), "Spiel: Pims Antwort %s" % spiel.ui.text.text)
@@ -238,6 +238,34 @@ func _lauf() -> void:
 		await process_frame
 		n += 1
 	pruefe(nicht_jetzt == 1 and not spiel.ui.spricht() and not sz.has("pim_home_%d" % sz.tag) and not sz.has("pim_tried_%d" % sz.tag), "Spiel: Nicht jetzt, keine Probe (%d)" % nicht_jetzt)
+	# 1086 (Homer 1085): mit 5 Gold eine zweite Wahl „Gib Pim 5 Gold“ unter Ueberreden; gelingt immer, kostet 5 Gold, uebt nichts
+	for gold in [12, 3]:
+		sz.tag += 1
+		sz.gold = gold
+		spiel.spiele(Geschichte.gespraech("pim", sz))
+		n = 0
+		while not spiel.ui.knopf_bereit() and spiel.ui.spricht() and n < 6:
+			spiel.ui.weiter(); await process_frame
+			if not spiel.ui.knopf_bereit(): spiel.ui.weiter(); await process_frame
+			n += 1
+		var aufs: Array = spiel.ui.text_knopf.find_children("Text", "Label", true, false).map(func(l): return (l as Label).text)
+		if gold < Geschichte.PIM_GOLD_PREIS:
+			pruefe(spiel.knopf_offen.size() == 1 and not aufs.has("GIB PIM 5 GOLD"), "Gold %d: ohne Gold-Knopf %s" % [gold, str(aufs)])
+			spiel.ui.knopf_aus.emit(); await process_frame
+			while spiel.ui.spricht(): spiel.ui.weiter(); spiel.ui.weiter(); await process_frame
+			continue
+		pruefe(spiel.knopf_offen.size() == 2 and aufs == ["SCHICK PIM HEIM (ÜBERREDEN)", "GIB PIM 5 GOLD", "NICHT JETZT"], "Gold %d: Überreden, Gold, Nicht jetzt %s" % [gold, str(aufs)])
+		var u0 := float(sz.fertigkeiten_stand()["uebung"].get("Überreden", 0.0)) + BrsFertigkeit.wert(sz.fertigkeiten_stand(), "Überreden") * 1000.0
+		spiel.ui.knopf_im_text.emit(1)
+		await process_frame
+		var u1 := float(sz.fertigkeiten_stand()["uebung"].get("Überreden", 0.0)) + BrsFertigkeit.wert(sz.fertigkeiten_stand(), "Überreden") * 1000.0
+		pruefe(sz.gold == gold - 5 and sz.has("pim_home_%d" % sz.tag) and sz.has(Geschichte.PIM_GOLD_HEIM) and u1 == u0, "Gold: 5 weg (%d), Pim heim, keine Übung" % sz.gold)
+		pruefe(["Echtes Gold? Für mich?", "Dafür geh ich heim. Aber morgen komm ich wieder!", "Davon spar ich auf eine Brandflasche!"].has(spiel.ui.text.text), "Gold: Pims Zeile %s" % spiel.ui.text.text)
+		while spiel.ui.spricht(): spiel.ui.weiter(); spiel.ui.weiter(); await process_frame
+	sz.setze(Geschichte.PIM_DANK)
+	pruefe(Geschichte.pim_gold_dankt(sz), "Mutter dankt nach Gold einmal ([1085.pim.dank])")
+	sz.setze(Geschichte.PIM_GOLD_DANK)
+	pruefe(not Geschichte.pim_gold_dankt(sz), "Mutter dankt nur einmal für Gold")
 	spiel.queue_free()
 	await process_frame
 

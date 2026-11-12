@@ -39,6 +39,7 @@ func flag(f: String) -> void: befehle.append({"art": "flagge", "flagge": f})
 func give(ding: String, anzahl: int = 1) -> void: befehle.append({"art": "geben", "ding": ding, "anzahl": anzahl})
 func take(ding: String, anzahl: int = 1) -> void: befehle.append({"art": "nehmen", "ding": ding, "anzahl": anzahl})
 func gold(n: int) -> void: befehle.append({"art": "gold", "anzahl": n})
+func zahlen(n: int) -> void: befehle.append({"art": "zahlen", "anzahl": n})   # 1086: Gold weg, ohne Zeile
 # Kampf: der Rest der Szene nur nach einem Sieg; sieg_flagge wird dann gesetzt (Cmd.Fight)
 func fight(monster: String, sieg_flagge: String = "") -> void: befehle.append({"art": "kampf", "monster": monster, "flagge": sieg_flagge})
 func shop(waren: Array, brauen: bool = false) -> void: befehle.append({"art": "laden", "waren": waren, "brauen": brauen})

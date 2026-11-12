@@ -225,6 +225,19 @@ const PIM_NEIN := [   # [807.pim.nein]
 	[["Du klingst wie Mama.", "You sound like Mom."], ["Er verschränkt die Arme und rührt sich nicht.", "He folds his arms and doesn't budge.", true]]]
 const PIM_DANK_TEXT := {"de": "„Pim kam heim, ganz zahm. Was du ihm auch gesagt hast: danke, {name}.“", "en": "“Pim came home, meek as a lamb. Whatever you told him: thank you, {name}.”"}   # [807.pim.dank]
 const PIMS_TUER := Vector2i(13, 22)
+# 1086 (Homer 1085, Vorentscheid Sokrates 12.11., 22:33): dritter Knopf, nur mit mindestens PIM_GOLD_PREIS Gold; gelingt immer, kostet das
+# Gold, uebt nichts, kein Ruf; Pim geht fuer den Tag heim (wie Ueberreden), die Mutter dankt einmal beim naechsten Klopfen ([1085.pim.dank])
+const PIM_GOLD_PREIS := 5
+const PIM_GOLD_HEIM := "pim_gold_home"        # einmal fuer Gold heimgeschickt
+const PIM_GOLD_DANK := "pim_mother_gold"      # die Mutter hat dafuer gedankt
+const PIM_GOLD_WAHL := {"de": "Gib Pim {0} Gold", "en": "Give Pim {0} gold"}   # [1085.pim.wahl]
+const PIM_GOLD := [   # [1085.pim.gold]
+	[["Echtes Gold? Für mich?", "Real gold? For me?"], ["Pim beißt auf jede Münze, wie er es bei Thessa gesehen hat, und rennt heim.", "Pim bites every coin, the way he's seen it done at Thessa's, and runs home.", true]],
+	[["Dafür geh ich heim. Aber morgen komm ich wieder!", "Okay, for that I'll go home. But I'm coming back tomorrow!"], ["Sag's nicht Mama.", "Don't tell Mom."]],
+	[["Davon spar ich auf eine Brandflasche!", "I'm saving this for a firebottle!"], ["Er rennt los, die Faust fest um die Münzen.", "He runs off, his fist clenched tight around the coins.", true]]]
+const PIM_GOLD_DANK_TEXT := [   # [1085.pim.dank], zwei Zeilen
+	{"de": "„Pim kam heim, Gold in der Faust. Woher, sagt er nicht, aber ich kann es mir denken.“", "en": "“Pim came home with gold in his fist. He won't say where it's from, but I can guess.”"},
+	{"de": "„Danke, {name}. Nur lernt er so nie, wann man heimkommt.“", "en": "“Thank you, {name}. But this way he'll never learn when to come home.”"}]
 
 static func pim_heute(s: Zustand) -> String: return "pim_home_%d" % s.tag          # heute heimgeschickt
 static func pim_versucht(s: Zustand) -> String: return "pim_tried_%d" % s.tag      # heute vergeblich versucht
@@ -240,6 +253,14 @@ static func pim_probe(k: Skript, s: Zustand) -> void:
 	nein.flag(pim_versucht(s))
 	nein.variante(s, "807.pim.nein", pim, PIM_NEIN[0], PIM_NEIN.slice(1))
 	k.probe("Überreden", "Pim", PIM_WAHL, ja.befehle, nein.befehle)
+	if s.gold >= PIM_GOLD_PREIS:   # 1086: Gold, nur wer es hat (sonst fehlt der Knopf)
+		var gold := Skript.new()
+		gold.zahlen(PIM_GOLD_PREIS)
+		gold.flag(pim_heute(s))
+		gold.flag(PIM_GOLD_HEIM)
+		gold.variante(s, "1085.pim.gold", pim, PIM_GOLD[0], PIM_GOLD.slice(1))
+		var w := {"de": String(PIM_GOLD_WAHL["de"]).replace("{0}", str(PIM_GOLD_PREIS)), "en": String(PIM_GOLD_WAHL["en"]).replace("{0}", str(PIM_GOLD_PREIS))}
+		k.knopf(w, gold.befehle)
 
 ## wer heute frueher heimgeht und drinnen bleibt (Leute.plan_jetzt)
 static func frueh_heim(id: String, s: Zustand) -> bool: return id == "pim" and s.has(pim_heute(s))
@@ -369,6 +390,10 @@ static func klopfen(karte_id: String, t: Vector2i, s: Zustand) -> Dictionary:
 ## 842: die Mutter dankt beim naechsten Klopfen am Tag nach dem ersten Erfolg, einmal (spiel.gd setzt danach PIM_DANK)
 static func pim_dankt(s: Zustand) -> bool:
 	return s.has(PIM_HEIM) and not s.has(PIM_DANK) and Licht.nacht_um(s.minuten) <= Licht.NACHT_AB
+
+## 1086 [1085.pim.dank]: nach dem ersten Heimschicken fuer Gold einmal, tagsueber, nach [807.pim.dank] (spiel.gd setzt PIM_GOLD_DANK)
+static func pim_gold_dankt(s: Zustand) -> bool:
+	return s.has(PIM_GOLD_HEIM) and not s.has(PIM_GOLD_DANK) and Licht.nacht_um(s.minuten) <= Licht.NACHT_AB
 
 # 541 (Game.interact): was der Held sieht, wenn er ein Ding der Karte mit dem Knopf untersucht (Navigation.actionAt LOOK); {} = nichts.
 # Zeichen wie Tile.ch; t fuer den Marktstand (drei Saetze je Lage), nachts fuer die Laterne, innen fuer die Bank

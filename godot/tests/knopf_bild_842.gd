@@ -27,6 +27,7 @@ func _lauf() -> void:
 	# links (Homer [1074.zweit]); Pim tagsueber, Osric vor Lyras Rettung
 	var zp := Zustand.new()
 	zp.minuten = 10 * 60
+	zp.gold = 37   # 1086: mit Gold auch „Gib Pim 5 Gold“
 	ui.sage([zeile_mit_knopf(Geschichte.gespraech("pim", zp))])
 	ui.weiter()
 	await _bild("1_pim")
@@ -59,9 +60,14 @@ func zeile_mit_knopf(bef: Array) -> Dictionary:
 	for c in bef:
 		match String(c["art"]):
 			"sagen":
+				if letzte.has("knopf"): return letzte
 				letzte = {"text": Sprache.t(c["text"]).replace("{name}", "Mira")}
 				if c.has("wer"): letzte["wer"] = Sprache.t(c["wer"])
-			"knopf":
-				letzte["knopf"] = Sprache.t(c["knopf"])
-				return letzte
+			"variante": pass
+			"knopf":   # 1086: alle Knoepfe hintereinander
+				var k: Array = letzte.get("knopf", [])
+				k.append(Sprache.t(c["knopf"]))
+				letzte["knopf"] = k
+			_:
+				if letzte.has("knopf"): return letzte
 	return letzte
