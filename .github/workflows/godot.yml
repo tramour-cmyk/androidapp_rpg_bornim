@@ -517,6 +517,11 @@ jobs:
           ! grep -E "SCRIPT ERROR|Parse Error|Failed to load|ERROR:" check.log
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/skripte_pruefen.gd 2>&1 | grep -E "SKRIPTE|FALSCH"   # 399.1 Test 130
           STUFE=test
+          # 909 (Chef 11.11., 08:52): die vier längsten Messungen laufen nebenher (Lauf 353: schild_406 491 s, wolf_mess_438 138 s,
+          # zustaende_563 85 s, strahl_mess_415 66 s von 1405 s); Befehl unverändert, Ausgabe und Ende kommen gesammelt vor „918: Ende“,
+          # rot wie vorher (Zeile in rot.txt). Keine der vier schreibt nach user://.
+          NEBEN=$GITHUB_WORKSPACE/nebenher; mkdir -p $NEBEN; : > $NEBEN/pids; echo "909: $(nproc) Kerne"
+          nebenher() { local n=$1; shift; ( s=$SECONDS; ( set -o pipefail; eval "$1" ); r=$?; echo "NEBENHER $n Ende $r nach $((SECONDS-s)) s"; exit $r ) > $NEBEN/$n.log 2>&1 & echo "$! $n" >> $NEBEN/pids; }
           timeout 600 ~/godot/godot --headless --path . -s res://tests/drehteller_499.gd 2>&1 | grep -E "FEHLER|DREHTELLER499|KANDIDAT|^\[Haltung|^[A-Z]+:|^  |SCRIPT ERROR" | cut -c1-300 || true   # 499 Messung ohne Bild, vorn im Schritt (Lauf 282: brach vorher an auftraege_542 ab) (Schild-Spalt), noch nicht sperrend
           timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/drehteller_film_499.gd 2>&1 | grep -E "FEHLER|DREHTELLER499|^Film|^  |SCRIPT ERROR" | cut -c1-300 || true   # 499 Schild im Gehen (Spalt, Oberkante gegen Schultern), Messung ohne Bild, noch nicht sperrend
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/blende_594.gd 2>&1 | grep -E "BLENDE594|SCRIPT ERROR"   # 594 Gegner der Kampfblende wie alt
@@ -538,16 +543,16 @@ jobs:
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/am_zug_565.gd 2>&1 | grep -E "^(FEHLER|AMZUG565)|SCRIPT ERROR"   # 565 A Kasten am Zug
           set -o pipefail; SEEDS=4 timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/leiste_751.gd 2>&1 | grep -E "^  |LEISTE751"   # 751 A Knöpfe matt, „<Name> ist dran“, Zugleiste, kein verratener Ausgang (Jerry)
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/auto_945.gd 2>&1 | grep -E "^  Seed|AUTO945|SCRIPT ERROR"   # 945 Held und Söldner Auto bleiben abschaltbar (Jerry)
-          set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/zustaende_563.gd 2>&1 | grep -E "^(ZUSTAND563|Zustand|Leiste)|SCRIPT ERROR"   # 563 A Zustände ohne Überlappen
+          nebenher zustaende_563 'set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/zustaende_563.gd 2>&1 | grep -E "^(ZUSTAND563|Zustand|Leiste)|SCRIPT ERROR"'   # 563 A Zustände ohne Überlappen
           timeout 300 ~/godot/godot --headless --path . -s res://tests/held_klassen_376.gd 2>&1 | grep -E "HELDKLASSEN|FALSCH|SCRIPT ERROR"   # 376.1
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . -s res://tests/held_kampf_403.gd 2>&1 | grep -E "^(ok|FEHLER|Held 403)|SCRIPT ERROR"   # 403 (Jerry)
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4531.gd 2>&1 | grep -E "^(ok|FEHLER|Held|Söldner|nach|in den|im Kampf|Atem 453)|SCRIPT ERROR"   # 453.1 (Tuffy)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/atem_rechnung_4531.gd 2>&1 | grep -E "^(ok|FEHLER|Anstrengung|Atemrechnung)|SCRIPT ERROR"   # 453.1 Feld 2 (Tuffy)
           # 406 b (Jerry): Schild im Kampf, auch linke Schulter und Oberarm gegen den Schild; misst und meldet, haelt noch nicht an
-          timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/schild_406.gd 2>&1 | grep -E "^(ok|FEHLER|  |SCHILD|Schild|Kampf )|SCRIPT ERROR" || true
+          nebenher schild_406 'timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/schild_406.gd 2>&1 | grep -E "^(ok|FEHLER|  |SCHILD|Schild|Kampf )|SCRIPT ERROR" || true'
           # 406a G1 (Jerry): Kampfkamera des Schlussfilms ohne Bild, angeschnittene Figuren je Kampf; meldet nur
           MESS=1 TEIL=kampf timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/film_406.gd 2>&1 | grep -E "^Film 406|AUSSERHALB|SCRIPT ERROR" || true
-          set -o pipefail; SCHAU_SCHILD=1 SCHAU_709=1 timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/wolf_mess_438.gd 2>&1 | grep -E "^(— |  |Befunde|Wolf 438|Kampf |438 DIAG|438 GLEIT|Schild |709 (Ziel|Hieb))|SCRIPT ERROR"   # 900: SCHAU_SCHILD, SCHAU_709, GLEIT bis B1 grün   # 438, 439, 440 (Jerry): Wölfe ohne Gleiten, Reihenfolge, Tod
+          nebenher wolf_mess_438 'set -o pipefail; SCHAU_SCHILD=1 SCHAU_709=1 timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/wolf_mess_438.gd 2>&1 | grep -E "^(— |  |Befunde|Wolf 438|Kampf |438 DIAG|438 GLEIT|Schild |709 (Ziel|Hieb))|SCRIPT ERROR"'   # 900: SCHAU_SCHILD, SCHAU_709, GLEIT bis B1 grün   # 438, 439, 440 (Jerry): Wölfe ohne Gleiten, Reihenfolge, Tod
           # 593 (Jerry): Ausweichen auch rückwärts (Ratten, Spinne, Grak, Wölfe); meldet, hält noch nicht an
           timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/ausweichen_593.gd 2>&1 | grep -E "^(ok|FEHLER|  |AUSWEICHEN593)|SCRIPT ERROR" || true
           # 864 (Jerry): kein Sprung der Gegner auf ihre Plätze, wenn der Held an den Zug kommt; meldet, hält noch nicht an
@@ -558,7 +563,7 @@ jobs:
           # 546, 703 A (Jerry): Wölfe weichen rasch aus und bleiben danach stehen; meldet, hält noch nicht an
           timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/ausweichen_546.gd 2>&1 | grep -E "^(ok|FEHLER|AUSWEICHEN_546)|SCRIPT ERROR" || true
           # 415 r3 (Jerry): Strahlenprobe ohne Bild, Stabspitze hinter dem Körper (F6), Strahl durch eine Figur (E3), Richtung (F2); meldet nur
-          timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/strahl_mess_415.gd 2>&1 | grep -E "^(Strahl|STRAHL)|SCRIPT ERROR" || true
+          nebenher strahl_mess_415 'timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/strahl_mess_415.gd 2>&1 | grep -E "^(Strahl|STRAHL)|SCRIPT ERROR" || true'
           timeout 120 ~/godot/godot --headless --path . -s res://tests/klang_test.gd 2>&1 | grep -E "^(gut|FALSCH)|KLANG|SCRIPT ERROR"   # 399.3
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/klang_994.gd 2>&1 | grep -E "^FALSCH|KLANG994|SCRIPT ERROR"   # 994 kein stummer Tierlaut, Wiederholung als eine Zeile
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/staub_990.gd 2>&1 | grep -E "^FALSCH|STAUB990|SCRIPT ERROR"   # 990 Staub im Licht bleibt im Raum
@@ -677,6 +682,8 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/tritte_560.gd 2>&1 | tee tritte560.log | grep -E "FALSCH|TRITTE560|SCRIPT ERROR"; grep -q "^TRITTE560 gut" tritte560.log   # 560 Tritte auf der Karte nicht gebremst (Tom)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/position_518.gd 2>&1 | tee position518.log | grep -E "FEHLER|POSITION518|SCRIPT ERROR"; grep -q "^POSITION518 0 Fehler" position518.log   # 518 Shader setzen POSITION immer
           timeout 300 ~/godot/godot --headless --path . -s res://tests/wald_491.gd 2>&1 | tee wald491.log | grep -E "FEHLER|WALD491|SCRIPT ERROR"; grep -q "^WALD491 0 Fehler" wald491.log   # 491
+          # 909: auf die Messungen nebenher warten, Ausgabe zeigen; rot wie eine eigene Zeile (wait in && || löst die Falle nicht aus)
+          while read pid n; do wait $pid && rc=0 || rc=$?; echo "── nebenher $n"; cat $NEBEN/$n.log; [ $rc -eq 0 ] || { echo "$STUFE tests/$n.gd: nebenher, Ende $rc" >> $ROT; echo "::error::918 rot ($STUFE) tests/$n.gd"; }; done < $NEBEN/pids
           # 918: Ende; rot.txt geht mit den Bildern ins Artefakt (bornim-godot-bilder) und steht hier im Protokoll
           trap - ERR
           mkdir -p $GITHUB_WORKSPACE/bilder && cp $ROT $GITHUB_WORKSPACE/bilder/rot.txt
