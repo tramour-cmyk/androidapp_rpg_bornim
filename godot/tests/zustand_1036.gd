@@ -86,7 +86,7 @@ func _lauf() -> void:
 				ecken = maxi(ecken, int(ui.tafel.verts))
 				max_us = maxi(max_us, int(ui.tafel_us))
 			schwankt = maxf(schwankt, fig_w.taumel_off.length())
-		var soll := not (st == "BLEED" and blut <= 0)
+		var soll: bool = not (st == "BLEED" and blut <= 0)
 		print("Zustand %s: Ecken %d, Schwanken %.3f m" % [st, ecken, schwankt])
 		if soll and ecken == 0:
 			_fehler("%s zeichnet nichts" % st)
