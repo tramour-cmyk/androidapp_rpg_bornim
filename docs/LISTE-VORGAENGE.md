@@ -248,13 +248,14 @@
 | 1041 | Von Sokrates (Chef 12.11., 15:16, Build 280, 278.24 bestanden): Platztausch ungleich, der nach hinten Gehende hastet in eckigem Bogen, der andere schreitet gemessen zwei Schritte vor; beide im selben Takt und runden Bogen | Jerry | M? | startbar | – | – | – | E Kampf | – |
 | 1043 | Von Sokrates (Chef 12.11., 15:52, Fund t278.33 Build 280, zu 988): MARS-Probekampf Wölfe, Klosterschüler, „Ausweichen“ erzwungen: „davon hab ich nix gesehen. Da weicht nichts“ | Jerry | M | in Arbeit, Film kampf=1043 läuft | – | claude/jerry-1043-ausweichen | – | E Kampf | – |
 | 1046 | Von Sokrates (1038 A, R1, Chef 12.11., 16:24): Verband stillt Blutung (plus kleiner Teil Leben nach Heilkunde, nur außerhalb des Kampfs); kurze Rast gibt nur Ausdauer, kein Leben; Simulation 444: Kapitel 1 ohne Grinden durchspielbar? | Jerry | M | startbar | – | – | – | G Balance | – |
-| Pflege | von Werkzeug (340.3, 12.11.): 27669 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 1049 | Von Sokrates (Befund 12.11.): Gegner ohne eigene Ansage fallen auf „Stich“ zurück (mars.gd _pick_intent), auch Krogg mit Morgenstern, Ockerschleim, Wildschwein, Kobold, Skelett, Hundertfüßer, Blutegel; Absicht je Art (Name, stark, Ring) als Tabelle in werte.json statt Zweigen im Code, Namen Homer | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 1050 | Von Sokrates (952 D, 984 A; Rechnung Tuffy 12.11., 00:12): Zauberlehrling fällt zurück (Bossstufe Krogg 25 → 7 %, Grimmzahn 65 → 30, Grak 76 → 45); mit 644a, 644b neu rechnen und drei Wege daneben, für Balancevorlage an den Chef | Jerry | M | startbar | – | – | – | G Balance | – |
+| Pflege | von Werkzeug (340.3, 12.11.): 29254 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 1047 | Von Sokrates (1038 A, R1, Chef 12.11., 16:24): Texte Verband (stillt Blutung) und kurze Rast (nur Ausdauer, kein Leben) prüfen und anpassen, deutsch und englisch | Homer | M | erledigt | – | – | – | G Story | – |
+| Pflege | von Werkzeug (340.3, 12.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Homer | K | startbar | – | – | – | B Abläufe | – |
 | 870.12 | Von Sokrates (870, Umzug BRS): Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 neu fassen; nach Abnahme 868, 534, 467, 469, 644.1, 644.2, 644.4, 649.1, 811, 296, 344 schließen; LISTE-UMZUG-BRS.md 4 Schritt 9 | Perikles | M | wartet, 2.3 und 2.17 neu gefasst, Schließen nach Abnahme | 870.13 | – | – | B Abläufe | – |
 | 882.2 | 882 Werkzeuge ohne Kotlin: tools/t logik auf Godot-Logiksatz samt Kerntest-Marke, check-env, setup-session, probelauf, story.sh, startbar, Probe-Abläufe, vorschau.yml, Regeltexte; LISTE-UMZUG-BRS.md 8 | Perikles | M | startbar | 882.1 | – | – | B Werkzeuge | – |
 | 870.10 | Von Sokrates (870, Umzug BRS Schritt 8): Kotlin-Bau aus (android.yml), mit 870.9; LISTE-UMZUG-BRS.md 4 | Perikles | M | wartet | 882.2 | – | – | B Werkzeuge | – |
@@ -335,7 +336,7 @@
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 767 | Wochentermin 13.11.: Rollenspiegel Ford (rollenspiegel.sh Ford) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Ford | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 906 | lauf.py startet Zusatzentwickler auf Zeilen, deren Zweig Umzugsdateien berührt (492 am 11.11., 08:04: claude/tom-492-durchspiel ändert spiel.gd; Grundsatz 5 LISTE-UMZUG-BRS, Zu 870.4 Sokrates 01:57); Sperre nach geänderten Dateien prüfen (von Spike) | Ford | M? | startbar | – | – | – | B Steuerung | – |
-| Pflege | von Werkzeug (340.3, 12.11.): 67189 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 12.11.): 66455 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
