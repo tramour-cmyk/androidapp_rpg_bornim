@@ -384,3 +384,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:32 12.11.: Marke Start-fehlt Tom 12.11.-11:04 (lauf.py)
 - 13:54 12.11.: Startsperre 13:54 Start Tom, Jerry, Spike (lauf.py; Tom auf 1030 statt 764 laut Start-Meldung Sokrates, Perikles-START ohne Auftrag nicht ausgeführt)
 - 13:54 12.11.: Marke Archiv session_01Hmoj77hd1skjBoRKtk6Sz7 (lauf.py)
+- 13:58 12.11.: Start-Meldung Sokrates 13:54 „Start Tom 1030“ (c226fe4, auf main; Chef 13:53 im Test von Build 280, Rückläufer zu 1020.1, Sperre gilt nicht): geprüft; nach Chef-Test 870.7 fiel die Sperre 620.1 B auf 38. Gestartet: Tom …79GnLFqxJnZ3kPVf75 (1030 statt lauf.py-Zeile 764, Vorrang Chef-Fund), Jerry …76DJtggtnNPKMMxpU6 (995), Spike …784tSBD77EZUv1K4o1 (756). Spike 644a.2 …77hd1skjBoRKtk6Sz7 archiviert (7,59 $ gebucht). Perikles-START ohne Auftrag nicht ausgeführt.
