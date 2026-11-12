@@ -179,7 +179,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1023 | K | Hühner wie alt: fliehen verlässlich, Federn sichtbar, auffliegen (aus 814, t278.3; Chef 12 | ruht |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 16512 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 138, Muss 125, startbar 2
+**Jerry** – offen 139, Muss 126, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -321,6 +321,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1031 | M | Von Sokrates (Chef 12.11., 14:08, Build 280, MARS-Probekampf Wölfe, Wachsoldat): „ganzer B | wartet auf Test/Build (gebaut) |
 | 1032 | M | Von Sokrates (Chef 12.11., 14:08, Build 280, MARS-Probekampf Wölfe, Held und Söldner Wachs | startbar |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 23295 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 1034 | M | Von Sokrates (Chef 12.11., 14:38, Idee 14:34, zu 1020.2): ein Probekampf für alles: Held „ | Sperre 620.1 B: 40 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1020.2 |
 
 **Perikles** – offen 13, Muss 12, startbar 0
 
