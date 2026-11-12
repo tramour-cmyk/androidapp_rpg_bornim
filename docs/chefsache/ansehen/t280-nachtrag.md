@@ -80,3 +80,15 @@ Im Bau geprüft: jeder Reiter höchstens so breit wie der Schirm (`breite_1027`)
 | 278.39 | Jerry | 959 | Herkunft „Schmiedelehrling“ ansehen | dabei Stumpfe Waffen neben Schmieden und Bergbau | nur Schmieden und Bergbau |
 | 278.40 | Jerry | 952 | einen neuen Helden fertig erschaffen, Tasche → „Held“ | kritischer Treffer als Anfänger nahe 0 % (nicht 7 %) | 7 % schon zu Beginn |
 | 278.41 | Tom | 963, 989, 1017 | Tasche → „Held“, jeden Grundwert gedrückt halten | nur Wirkungen, die es gibt: Zähigkeit „Abwehr gegen Gift, Betäubung und Blendung“, Wahrnehmung kritisch mit Dolch, Bogen, Armbrust (ohne Wurfwaffen), Verstand „Schaden mit Evokation“, Wille Heilung und kritisch mit Evokation; je Waffe und Zauber die Aussicht auf kritisch | „Stärke deiner Zauber“, „Flächenwirkungen“, „Furcht und Zauber“, Krankheit, Spähen |
+
+## Ergebnis
+
+Laufend aus dem Chat mit Sokrates, bis „Ergebnis kopieren“ kommt.
+
+- Außer der Reihe (Chef 12.11., 13:51 und 13:52, Bilder Dorf Nord und Süd): Kartenrand offen, 1022 nicht im Build → Zu 1022 (Tom)
+- Außer der Reihe (Chef 13:52, Bild Marktplatz): Marktstände geklont → 589 ruht weiter (Chef 14:01)
+- Außer der Reihe (Chef 13:53): Reiter „Test“ springt nach jedem Schalter nach oben, Prüfliste nicht einklappbar → 1030 (Tom)
+- Außer der Reihe (Chef 14:08, Probekampf Wölfe, Wachsoldat): ganzer Bericht ohne Farben → 1031; Treffer ohne Angriffsbewegung → 1032 (Jerry)
+- 279.1 ✓ (Chef 14:20: „scheint zu funktionieren. Nach Neustart auch“; Beschriftung „Richtig“ statt „Passt“ → Zu 1030)
+- 279.6 ✓ (Chef 14:20: nach dem Ende durch Android ohne Hauptmenü gleich im Spiel)
+- 279.3 ✓ (Chef 14:29)
