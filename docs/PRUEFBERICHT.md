@@ -52,6 +52,11 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 184 · 1019 Neustart-Haken nimmt Ford aus (Perikles, Doppelpack 421, `57f798597`; 12.11., 08:1x)
+
+- **1019 greift im Haken, Wirkung offen** (`warte 1019 13.11. 08:00`): `neustart-haken.py prompt` mit Probeprotokollen: erste Nachricht „Ford“ 250 Tsd. still, 450 Tsd. Erinnerung; „Tom“ 250 Tsd. Erinnerung; „Ford 2“ und „Ford-Wache“ wie Ford (Wortgrenze am Bindestrich, unschädlich). Der Prompt-Haken liest `/home/user/bornim-main/tools/`, wirkt also nach dem nächsten `notiz.sh` des laufenden Ford ohne Neustart. Fords Sitzung `…765JvmMM81VAZ94ovn` (von Hand 07:26): erste Nachricht „Ford“, `name()` erkennt sie; 264 Tsd. `used_tokens` um 08:15. Sie bindet zudem `bornim-kaufmodelle` ein, dort galt 400 Tsd. schon nach 818. `LISTE-BETRIEB.md` 61 nennt das Wort „Ford“ als erste Nachricht beim Selbstneustart.
+- Nicht geprüft: echter Selbstneustart; am 13.11. ab 08:00 im Protokoll `ARBEIT-BETRIEB.md` jeden „Start Ford (selbst)“ seit 08:12 gegen `used_tokens` (unter 400 Tsd. → Vorgang an Perikles) und die Tiefe des dann laufenden Ford (12.11. Tiefe 0 um 07:26).
+
 ## Lauf 183 · 1011 Nachprüfung 1010: nur Laufzusagen von Sokrates überspringen (Perikles, Doppelpack 421, `afa2141f4`; 12.11., 04:1x)
 
 - **1011 greift, 1010 greift** (`greift 1011 183`, `greift 1010 183`): `laufzusage()` gegen alle 46 Köpfe „<Nr>, Läufe frei“ im echten Archiv: 40 von Sokrates nach 480.1 übersprungen, 6 Chefantworten zählen (264.1 ×5 „Chef an Perikles/Sokrates … → **ja (Nutzer)**“, 510a 03.11., 13:02 „Chef an Sokrates“); `antworten()` liefert 510a und 264.1, 861 und 988 nicht; `beantwortet()` leer, `--stand` läuft; Commit-Prüfung nutzt dieselbe Funktion (`commit-pruefung.py` 307).
