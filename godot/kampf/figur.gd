@@ -586,12 +586,59 @@ func _arm() -> void:
 	var sk := _find(model, "Skeleton3D") as Skeleton3D
 	if sk == null:
 		return
-	var main: String = fighter.hero.main.id if fighter.hero.has("main") and not fighter.hero.main.ranged else ""
+	var main: String = _waffe_id()
 	if main != "":
-		_hold(sk, "R", main)
+		_hold(sk, _waffenhand(), main)
 	var off: String = _schild()
 	if off != "":
 		_hold(sk, "L", off)
+
+
+## 999 (alt Skirmish.looks, 72.10a.11: „sehe ich nicht am Avatar“; 268: „Wechsel auf Armbrust, ist aber Zweihänder“): was der Held
+## gerade führt, die erste Waffe oder nach „Waffe wechseln“ die zweite (wie Fighter.weapon); nur fürs Bild
+var gezogen := false
+
+func _in_hand():
+	if fighter.hero == null:
+		return null
+	if gezogen and fighter.second != null:
+		return fighter.second
+	return fighter.main_weapon()
+
+
+## Kennung des Modells der Waffe in der Hand, "" ohne Waffe oder ohne Modell (die Armbrust hat noch keins)
+func _waffe_id() -> String:
+	var w = _in_hand()
+	if w == null or String(w.id) == "" or not FileAccess.file_exists("res://kampf/daten/%s.bin" % w.id):
+		return ""
+	return String(w.id)
+
+
+## 999: der Bogen steht in der linken Faust (alt Dress.bow: „A bow in the left hand, standing upright“), jede andere Waffe rechts
+func _waffenhand() -> String:
+	var w = _in_hand()
+	return "L" if w != null and bool(w.ranged) and String(w.id).contains("bow") else "R"
+
+
+## 999: nach „Waffe wechseln“ die andere Waffe in der Hand (die Meldung der Regeln bringt „drawn“, kampfort.gd); eine zweihändige
+## nimmt die Schildhand mit, der Schild ist weg, bis die erste wieder in der Hand ist (alt looks: gear.remove(OFF_HAND))
+func waffe_ziehen(an: bool) -> void:
+	if fighter.hero == null or an == gezogen:
+		return
+	gezogen = an
+	var sk := _find(model, "Skeleton3D") as Skeleton3D if model else null
+	if sk == null:
+		return
+	for at in sk.find_children("*", "BoneAttachment3D", true, false):
+		if at.has_meta("was") and String(at.get_meta("was")) != "waffe-im-modell":
+			at.get_parent().remove_child(at)
+			at.queue_free()
+	hieb_bahn.clear()
+	if kauf:
+		_arm_kauf(true)
+	else:
+		sk.reset_bone_poses()     # wie beim Aufbau: _hold richtet nach der Ruhelage aus, die Bewegung setzt im nächsten Bild fort
+		_arm()
 
 
 ## Goblin, Späher, Grak: Zweibeiner auf dem Gerüst aus goblin.py oder grak_gestalt.py
@@ -602,7 +649,7 @@ func _zweibeiner() -> bool:
 ## 403: Waffe und Schild am Kaufkörper. Der Kaufkörper ruht in der T-Pose, darum wie beim Goblin nach der Haltung in Stehen
 ## ausgerichtet (erst im Baum); die Klinge liegt längs des Faustlochs (HeldFigur.faust: zwischen den Knöcheln von Zeige- und
 ## Kleinfinger), wie kampf.py die Bewegungen gebaut hat (faust_R), die Schneide in der Ebene aus Faustloch und Handknochen
-func _arm_kauf() -> void:
+func _arm_kauf(gleich := false) -> void:
 	var sk := _find(model, "Skeleton3D") as Skeleton3D
 	if sk == null:
 		return
@@ -616,14 +663,19 @@ func _arm_kauf() -> void:
 		# Prüfer Film 403: der Schild stand quer in Kopfhöhe; im ersten Bild im Baum galt noch die T-Pose, erst ein Bild später die Haltung
 		anim.play(halt)
 		anim.seek(0.0, true)
-		await get_tree().process_frame
-		anim.seek(0.0, true)
+		if not gleich:     # 999: beim Wechsel im Kampf steht die Figur längst im Baum, die Haltung gilt sofort (kein Bild in Ruhelage)
+			await get_tree().process_frame
+			anim.seek(0.0, true)
 		sk.force_update_all_bone_transforms()
-	var main: String = fighter.hero.main.id if fighter.hero.has("main") and not fighter.hero.main.ranged else ""
-	if main != "":
+	var main: String = _waffe_id()
+	if main != "" and _waffenhand() == "L":
+		_hold(sk, "L", main)
+	elif main != "":
 		var fr := HeldFigur.faust(sk, "r")
 		_hold(sk, "R", main, GRIP_CM * CM, PALM_CM * CM, 1.0, {}, fr)
 	var off: String = _schild()
+	if schild_faust != null:     # 999: ohne Schild (zweihändige Waffe) bleiben die Finger offen
+		schild_faust.active = off != ""
 	if off != "":
 		_hold(sk, "L", off)
 		if _ss() and schild_faust == null:     # 406a E3: die Finger der Schildhand zur Faust, nicht außen auf dem Schild
@@ -639,6 +691,9 @@ func _arm_kauf() -> void:
 
 
 func _schild() -> String:
+	var w = _in_hand()
+	if w != null and bool(w.get("two", false)):     # 999 (268): eine zweihändige Waffe braucht die Schildhand
+		return ""
 	if fighter.hero.has("schild"):
 		return String(fighter.hero["schild"])
 	return OFF_HAND.get(fighter.hero.get("cls", ""), "")
@@ -864,7 +919,8 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 		b = Basis(edge, ax, edge.cross(ax))
 		o = Vector3(0, grip, 0) + inward * palm
 	w.transform = Transform3D(Basis(b.x * size, b.y * size, b.z * size), o)
-	w.name = "Waffe" if side == "R" else "Schild"
+	# 999: der Bogen des Helden links ist seine Waffe (cast_point: der Pfeil geht vom Bogen aus); beim Späher bleibt es, wie es war
+	w.name = "Waffe" if side == "R" or (fighter.monster == null and what.contains("bow")) else "Schild"
 	w.set_meta("stab", what in STAFFS or what == "staff-schamane")     # 348.7b: Zauber ab der Stabspitze (cast_point)
 	if fighter.monster != null and (what in ["shortbow", "staff-schamane"] or what.ends_with("-rost") or what.ends_with("-grob")):
 		# Späher Runde 1c (Prüfer 1a, 1b: der Bogen ein schwarzer Strich, die Tusche ist breiter als der Wurfarm): ohne Tusche wie
@@ -2870,7 +2926,8 @@ const HELD_ZURUECK := 2.0        # rückwärts Gehen im doppelten Schritttempo
 
 ## Führt der Held einen Stab? Dann ruht er in Stehen, den Stab senkrecht (kampf.py hat Kampfstehen für die Klinge gebaut)
 func _stab() -> bool:
-	return fighter.monster == null and fighter.hero.has("main") and not fighter.hero.main.ranged and String(fighter.hero.main.id) in STAFFS
+	var w = _in_hand() if fighter.monster == null else null     # 999: der Stab, den er gerade führt
+	return w != null and not bool(w.ranged) and String(w.id) in STAFFS
 
 
 func _held_mps(nm: String) -> float:
