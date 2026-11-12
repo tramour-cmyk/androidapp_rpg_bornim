@@ -1,5 +1,7 @@
 # 1022 · Kartenrand Süden und Osten, vorher/nachher · Tom · 12.11., 15:36
 
+[Bild von 12.11., 15:39](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/12-1539-1022-Tom.png) (eingetragen von meldung.sh, Tom)
+
 E Welt · Zweig `claude/tom-1022-kartenrand` · am Rechner ohne Kaufmodelle (ohne Leute und Monster)
 
 Geprüft an: [Lauf 43224786392](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43224786392), [Commit 6330fff](https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/6330fffec421d3a4a98cd53bc883c4cf5c6521e1)
