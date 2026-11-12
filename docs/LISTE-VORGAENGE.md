@@ -258,7 +258,6 @@
 | 1072 | Von Sokrates (Chef 12.11., 20:09, zu 1036; Wiederholfund 09.11. und 10.11.): hinterer Wolf im Rudel läuft außen herum statt durch die Lücke in der Mitte | Jerry | M | startbar, 1072 so (Chef 20:27): nach 281 Vorlage, Bau vor 760 und 1068 | – | – | – | E Kampf | 1,52 $ |
 | 1036.1 | Von Tuffy (1036, Chef 12.11., 20:52): neue Vorlage Zustände: jeder Zustand des Codes (auch Niedergeworfen, Verflucht, Festgehalten, Gesegnet, Geschwächt, Geblendet, Betrunken) mit allen passenden Effekten aller Kaufpakete, Brennen in zwei, drei Größen; Film nur mit dem Zustand, mehrmals | Jerry | M | startbar | – | – | – | G Stil | – |
 | 1084 | Von Sokrates (1051 A, Chef 12.11., 22:18): Proben mit Fertigkeit ohne Grundwert (Überreden, Einschüchtern, Handeln, Tiere beruhigen) 30 % + 0,6 je Punkt + 5 je Stufe, 5 bis 95; werte.json, Simulation 444 alle Kapitel | Jerry | M | gebaut, fährt im nächsten Build; Geprüft an: 76d175451 (sim --pruefen, einschuechtern_841) | – | claude/tuffy-1084 | – | G Balance | 1,16 $ |
-| Pflege | von Werkzeug (340.3, 13.11.): 25368 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | erledigt | – | – | – | B Abläufe | – |
@@ -337,8 +336,9 @@
 | 930 | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerry, Ideen Homer, Regeln gegenlesen Perikles oder Diogenes (Chef 11.11., 12:28) | Sokrates | M | wartet, Befund 930.4 eingearbeitet | 930.3 | – | – | E Kampf | 19,74 $ |
 | 985 | Systemlösung? Nebel: 2 frühere Vorgänge (505, 502), neu 785.7; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Oberfläche | – |
 | 644a.5 | Von Tuffy (644a.1): an welchem Grundwert hängen Rüstung, Ausweichen, Schild, Armbrust und die übrigen Fertigkeiten beim Wachsen durch Üben? Gebaut: nur Waffengruppen und Schulen, 10 Punkte je +1; Regelwerk 2 und 13 nachziehen | Sokrates | M | startbar | – | – | – | E Kampf | – |
+| Pflege | von Werkzeug (340.3, 13.11.): 15609 Bytes (Grenze 15000), Erledigtes streichen | Sokrates | K | startbar | – | – | – | B Abläufe | – |
 | Spiegel | von Werkzeug (340.3, Rollenspiegel Woche 13.11.): `tools/rollenspiegel.sh Ford` zeigt die Fragen; Antwort mit `--antwort` anhängen, committen, pushen | Ford | M | startbar | – | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 13.11.): 53962 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 13.11.): 54390 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 <<<<<<< HEAD
 | 1043a | Von Jerry (1043, Sokrates 22:03, Nacht nach 1077): Lauf 404 ohne Ausweichen (Testfehler), vierter Filmlauf oder anderer Weg? | Sokrates | M | erledigt | – | – | – | E Kampf | 0,90 $ |
 =======
