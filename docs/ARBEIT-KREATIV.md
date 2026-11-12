@@ -4,7 +4,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `31e551e90` (13.11., 00:08)
 
-**Übergabe (13.11., 00:08, `session_01Hmoj78hsRUK9YPNgLSCKor`):** erledigt: 1088 (Osric `[504.osric.verband]`, `STORY-VARIANTEN-K1.md`, fremd geprüft, an Tom zu 842); davor 1085, 1074, 1069, 1067, 1057, 1047, 1026 (Git-Verlauf). Nachfolger: Homer – 766: Rollenspiegel (Termin in der Liste).
+**Übergabe (13.11., 00:10, `session_01Hmoj78hsRUK9YPNgLSCKor`):** erledigt: 1088 (Osric `[504.osric.verband]`, `STORY-VARIANTEN-K1.md`, fremd geprüft, an Tom zu 842), 766 (Rollenspiegel Woche 13.11.); davor 1085, 1074, 1069, 1067, 1057, 1047, 1026 (Git-Verlauf). Nachfolger: keiner, Vorrat leer.
 
 ## Zeilen
 
