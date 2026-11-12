@@ -21,8 +21,8 @@ const AUTOPILOT := ["Spielt deinen Helden: Waffe, Kleinzauber, Heilung für eine
 
 ## 210: langes Drücken auf die Ansage eines Gegners (210T)
 const INTENTS := {
-	"heavy": ["Schwerer Hieb: die Axt mit voller Wucht, weit mehr Schaden, gegen eine Figur. Hilft: vorher ein Fünftel seines Lebens nehmen, dann taumelt er und der Zug ist verloren; sonst Abwehr, Decken oder den Ring treffen.",
-		"Heavy blow: the axe at full force, far more damage, against one figure. Counter: take a fifth of his life first and he staggers, his turn lost; otherwise Defend, Cover or meet the ring."],
+	"heavy": ["Schwerer Hieb: die Axt mit voller Wucht, weit mehr Schaden, gegen eine Figur. Hilft: vorher ein Fünftel seines Lebens nehmen, dann taumelt er und der Zug ist verloren; sonst Abwehr oder den Ring treffen.",
+		"Heavy blow: the axe at full force, far more damage, against one figure. Counter: take a fifth of his life first and he staggers, his turn lost; otherwise Defend or meet the ring."],
 	"call": ["Hilfe rufen: ein Goblin kommt, höchstens einmal im Kampf. Hilft: Verhindern lässt es sich nicht; nutze den Zug, um Grak selbst zuzusetzen oder dich aufzustellen.",
 		"Call for help: a goblin comes, at most once per battle. Counter: it cannot be stopped; use the turn to wear Grak down or to set your line."],
 	"gather": ["Kraft sammeln: er heilt sich um einen guten Teil seines Lebens. Hilft: vorher ein Fünftel seines Lebens nehmen, dann bleibt die Heilung aus.",
