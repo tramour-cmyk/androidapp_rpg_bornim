@@ -34,7 +34,11 @@ var reihe := []       # 439: [Bild, Text] Verstöße gegen Angriff, Treffer, Tod
 var tote := {}        # k -> [Bild bis Ende des Liegens]
 ## 438 Prüfer Film 08:18: Drehsprünge in jeder Bewegung, Kopf im Helden, Würfelzeile vor dem Treffer
 const DREH_BILD_GRAD := 16.0     # TURN_DPS 450°/s bei 30 Bildern: 15° je Bild
-const KOPF_M := -0.04
+# 988 (Lauf 369, CLERIC ohne Schild nach BRS, Bild 281 und 588: Kiefer beim Biss −0,040 m an Becken–Brust): seit 709 (Chef 08.11.,
+# 21:36: Angriffe treffen) fasst die Kieferkapsel (Jaw 0,04 m) BISS_TIEF (0,01 m) in den Körper; die Grenze −0,04 (01.11., vor 709)
+# verbot jede Berührung, mit Schild fiel das nie auf (der Biss trifft dort den Schild). Jetzt die Knochen des Kopfs so weit draußen,
+# wie die Kieferkapsel abzüglich BISS_TIEF reicht; tiefer misst weiter r2 (KOERPER_M, Kapsel gegen Kapsel)
+const KOPF_M := -0.03     # = figur.gd BISS_TIEF − Kieferkapsel 0,04
 const WOLF_KOPF := ["kopf", "Wolf_Head_TopSHJnt", "Wolf_Head_JawEndSHJnt"]
 const KOERPER := [["pelvis", "spine_03", 0.17], ["spine_03", "neck_01", 0.14], ["neck_01", "Head", 0.08], ["Head", "Head", 0.11],
 	["thigh_l", "calf_l", 0.08], ["thigh_r", "calf_r", 0.08]]
@@ -252,7 +256,7 @@ func _bild(kf, n: int, k: String) -> void:
 			var t := -INF
 			for q in pts:
 				t = maxf(t, _im_koerper(b, q))
-			# 988 (Lauf 355/365 auf Build 277, Kleriker ohne Schild nach BRS): wer, in welcher Bewegung, welcher Knochen an welcher Kapsel
+			# 988 (Lauf 355/365 auf Build 277, CLERIC ohne Schild nach BRS): wer, in welcher Bewegung, welcher Knochen an welcher Kapsel
 			if t > KOPF_M - 0.02 and diag_kopf_n < 24:
 				diag_kopf_n += 1
 				print("438 DIAG Kopf Bild %d %s: %s %s gang=%s auf %s rot %.0f | %s %s auf %s rot %.0f ss=%s hurt=%s | t %.3f %s | Abstand %.2f busy=%s hit=%s Zeile %s" % [n, k,

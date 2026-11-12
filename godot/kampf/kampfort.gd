@@ -686,6 +686,17 @@ func _rand_kamera() -> void:
 				need = minf(need, (c.x - m) / absf(dw.x))
 			if absf(dw.y) > 1.0:
 				need = minf(need, (c.y - m) / absf(dw.y))
+		# 988 (wolf_mess_438 Lauf 369: CLERIC neigte sich beim Ausweichen auf der Stelle 11 px über den Rand): eine Bewegung auf
+		# der Stelle zählt mit allen Haltungen, die sie noch nimmt (Figur.reichweite), nicht nur mit der jetzigen
+		var rw: Array = fig.reichweite.get(String(fig.anim.current_animation), []) if fig.anim else []
+		for e in rw:
+			var q: Vector3 = fig.global_transform * (e[0] as Vector3)
+			var d3: Vector2 = (screen_of(q) - c) / rand_z
+			var r3: float = float(e[1]) / m_per_dp(q) * (sr.size.x / 412.0) / rand_z
+			if absf(d3.x) > 1.0:
+				need = minf(need, (c.x - m) / (absf(d3.x) + r3))
+			if absf(d3.y) > 1.0:
+				need = minf(need, (c.y - m) / (absf(d3.y) + r3))
 		# 438 (wolf_mess_438: Wolf 1 drehte am Rand auf der Stelle, der Kopf schwang 45 px hinaus): wer gerade läuft oder dreht,
 		# zählt mit dem ganzen Kreis, den sein Körper beim Drehen überstreicht
 		if fig.tween and fig.tween.is_running():

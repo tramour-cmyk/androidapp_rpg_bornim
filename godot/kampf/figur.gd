@@ -4065,8 +4065,45 @@ func dodge(after_ms: int, nm := "") -> void:
 			_pfad_fahren(best, false, AUSWEICH_BOGEN)     # 438: im Lauf drehte er 28° je Bild; 546: im Schritt zu träge
 			tween.tween_callback(_nach_ausweichen)
 			return
+	_reichweite_merken("Ausweichen")
 	_play("Ausweichen", 0.05)
 	get_tree().create_timer(0.45).timeout.connect(_idle_wenn_frei)
+
+
+## 988 (wolf_mess_438 Lauf 369, CLERIC ohne Schild nach BRS, Bild 1330: Ausweichen auf der Stelle, die Brust neigt sich 11 px über
+## den linken Rand, die Linse ging erst im selben Bild zurück, rand_z 0,98 → 0,97): die Haltungen einer Bewegung auf der Stelle einmal
+## abgetastet, als Punkte der Kapseln im eigenen Maß ([Ort, Halbmesser]); _rand_kamera nimmt sie, solange die Bewegung läuft, und geht
+## so schon zu Beginn so weit zurück, wie die Figur sich neigen wird
+const REICHWEITE_PROBEN := 8
+var reichweite := {}     # Bewegung -> [[Vector3 im Maß der Figur, Halbmesser]]
+func _reichweite_merken(nm: String) -> void:
+	if anim and not anim.has_animation(nm):
+		nm = ALIAS.get(nm, nm)     # wie _play: unter dem Namen, den current_animation dann zeigt
+	if reichweite.has(nm) or anim == null or not anim.has_animation(nm) or model == null:
+		return
+	var sk := _find(model, "Skeleton3D") as Skeleton3D
+	if sk == null:
+		return
+	var vor := String(anim.current_animation)
+	var vor_t: float = anim.current_animation_position if vor != "" else 0.0
+	var vor_v: float = anim.get_playing_speed() if vor != "" else 1.0
+	var l: float = anim.get_animation(nm).length
+	var inv := global_transform.affine_inverse()
+	var pts: Array = []
+	anim.play(nm, 0.0)
+	for i in REICHWEITE_PROBEN + 1:
+		anim.seek(l * i / float(REICHWEITE_PROBEN), true)
+		sk.force_update_all_bone_transforms()
+		for c in kapseln():
+			pts.append([inv * (c[0] as Vector3), float(c[2])])
+			pts.append([inv * (c[1] as Vector3), float(c[2])])
+	if vor != "":
+		anim.play(vor, 0.0, vor_v)
+		anim.seek(vor_t, true)
+	else:
+		anim.stop()
+	sk.force_update_all_bone_transforms()
+	reichweite[nm] = pts
 
 
 ## 703 A (Chef 08.11., 21:36: „wenn sie ausgewichen sind, einfach stehen bleiben … Braucht man doch gar nicht.“; ändert F5):
