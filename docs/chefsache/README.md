@@ -302,9 +302,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1046 | M | Von Sokrates (1038 A, R1, Chef 12.11., 16:24): Verband stillt Blutung (plus kleiner Teil L | startbar |
 | 1049 | M | Von Sokrates (Befund 12.11.): Gegner ohne eigene Ansage fallen auf „Stich“ zurück (mars.gd | wartet auf Test/Build (gebaut) |
 | 1054 | M | Von Tom (Hinweis 12.11., 16:40): tests/mars_regeln.gd nach dem Umzug veraltet (massstab, _ | wartet auf Test/Build (gebaut) |
-| Pflege | K | von Werkzeug (340.3, 12.11.): 29558 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 1058 | M? | Von Sokrates (1050a): Simulation 444 rechnet Herkünfte ohne plus_variante (variante=False | startbar |
 | 1060 | M | Von Tom (Chef 12.11., 17:34 „Wieso dauern denn jetzt die Runs wieder so lange?“, Lauf 4324 | startbar |
+| Pflege | K | von Werkzeug (340.3, 12.11.): 30631 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 14, Muss 13, startbar 1
 
