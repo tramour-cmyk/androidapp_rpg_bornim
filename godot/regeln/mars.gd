@@ -35,6 +35,14 @@ const MSG870_GEGEN_ZOMBIE := ["{0} zerfällt. Diesmal steht er nicht wieder auf.
 const MSG870_GEGEN_SCHLEIM := ["Der Schleim teilt sich.", "The slime splits in two."]
 ## [870.14.kraft.schoepfen]
 const MSG870_KRAFT := ["{0} schöpft Kraft: +{1} TP.", "{0} draws strength: +{1} HP."]
+## 840 (830 A, Chef 10.11., 11:00; 210 B): Eingebung des Helden beim ersten Auftreten einer Ansage, einmal je Spielstand (gesehen),
+## im Kampfbericht direkt nach der Ansage; Wortlaut STORY-SPIEL.md. Zuerst nur der Wolfssprung [830.sprung]; die übrigen 210T-Eingebungen
+## erst, wenn Homer sie gegen die Regeln nach BRS gelesen hat
+const EINGEBUNG := {"pounce": ["Er will springen. Stehe ich nicht mehr dort, wohin er springt, schnappt er ins Leere. Wechsel, und mir bleibt noch ein halber Zug.",
+	"It means to leap. If I no longer stand where it leaps, it snaps at nothing. Switch, and I still have half a turn."]}
+const GESEHEN_EINGEBUNG := "eingebung_"     # + Ansage, Flagge im Spielstand (Zustand.flaggen über Kampfort.flaggen, 836)
+## 836, 840: Flaggen des Spielstands (dasselbe Dictionary wie Zustand.flaggen; Proben leer, je Kampf neu)
+var gesehen := {}
 const MSG399_GROWLS := [["{0} knurrt, wagt aber keinen Biss.", "{0} snarls but dares no bite."],
 	["{0} duckt sich und fletscht die Zähne, kommt aber nicht heran.", "{0} crouches and bares its teeth, but does not come in."],
 	["{0} knurrt und hält Abstand.", "{0} growls and keeps its distance."]]
@@ -1969,6 +1977,10 @@ func _say_announce(foe: Fighter) -> void:
 	var key := "MSG130_SIGN_" + str(intent.id).to_upper()
 	if TX.has(key):
 		_say(fmt(pick(key), lang, [foe.name(lang), "", target]), foe.id)
+	var nr := GESEHEN_EINGEBUNG + str(intent.id)
+	if EINGEBUNG.has(str(intent.id)) and not gesehen.has(nr):     # 840: einmal je Spielstand, gleich nach der ersten Ansage
+		gesehen[nr] = true
+		_say(EINGEBUNG[str(intent.id)][lang], null, null, 0, null, false, false, "EINGEBUNG")
 
 
 func _summon(by: Fighter) -> void:

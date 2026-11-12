@@ -163,6 +163,7 @@ func setup(party: Array, foes: Array, p_tables: Dictionary, potions: Dictionary,
 	# NORMAL, AMBUSHED Gegner zuerst, HERO_FIRST Held zuerst)
 	mars = Mars.new(party, foes, tables, dice, words, lang, bool(p_progress.get("atemlos", false)), String(p_progress.get("eroeffnung", "NORMAL")))
 	mars.fed = bool(p_progress.get("satt", false))
+	mars.gesehen = flaggen     # 840: Eingebungen einmal je Spielstand (836: Zustand.flaggen, aufruf.gd setzt flaggen vor setup)
 	mars.smoke = int(p_progress.get("rauch", 0))     # D4.1, 494: Morwens Rauchbündel gegen Krogg (aufruf.gd lage „rauch“)
 	for k in potions:
 		mars.potions[k] = int(potions[k])
@@ -1300,7 +1301,7 @@ func _play_say(e: Dictionary) -> void:
 ## Zeile, Bedienfeld und Würfel einer Meldung (438: beim Aufschlag, sonst sofort); vorweg Gezeigtes nicht noch einmal
 func _zeigen(e: Dictionary) -> void:
 	if e.text != "" and not e.get("vorweg", false):
-		ui.log_line(e.text)
+		ui.log_line(e.text, e.get("cue") == "EINGEBUNG")     # 840: die Eingebung des Helden in eigener Farbe
 	ui.refresh()
 	ui.show_roll(e)
 
