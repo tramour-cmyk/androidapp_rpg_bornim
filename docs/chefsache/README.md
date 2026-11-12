@@ -160,11 +160,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1081 | M? | Von Sokrates (Chef 12.11., 21:28): Zoom nach außen begrenzen auf 10,2 Kacheln Breite (heut | startbar |
 | 1086 | M | Von Sokrates (1077 Nacht, zu 842): Pim zweiter Weg „Gib Pim 5 Gold“ bauen nach Homers Text | wartet auf Test/Build (gebaut) |
 
-**Jerry** – offen 134, Muss 120, startbar 2
+**Jerry** – offen 133, Muss 119, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| Spiegel | M | von Werkzeug (340.3, Rollenspiegel Woche 13.11.): tools/rollenspiegel.sh Jerry zeigt die F | startbar |
 | 1055 | M | Von Perikles (1052, Sokrates 16:47): Sammelbuild 281 gleich nach PR #199 auf main: alle fe | wartet auf Test t281 (Chef) |
 | 1039 | M | Von Sokrates (Chef 12.11., 15:04, Build 280, Probekampf Grak, Schwerer Hieb): innerer Ring | wartet auf Test (Build 281) |
 | 1068 | M | Von Perikles (1048 A, H, D, Chef 12.11., 20:05): Ring bei jedem großen Schlag der Gegner ( | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1039 |
@@ -297,7 +296,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1072 | M | Von Sokrates (Chef 12.11., 20:09, zu 1036; Wiederholfund 09.11. und 10.11.): hinterer Wolf | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1036 |
 | 1036.1 | M | Von Tuffy (1036, Chef 12.11., 20:52): neue Vorlage Zustände: jeder Zustand des Codes (auch | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1036 |
 | 1084 | M | Von Sokrates (1051 A, Chef 12.11., 22:18): Proben mit Fertigkeit ohne Grundwert (Überreden | wartet auf Test/Build (gebaut) |
-| Pflege | K | von Werkzeug (340.3, 13.11.): 25498 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 13.11.): 25609 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 15, Muss 14, startbar 1
 
@@ -331,7 +330,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 53, Muss 38, startbar 29
+**Sokrates** – offen 52, Muss 38, startbar 28
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -387,7 +386,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 930 | M | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (wartet) |
 | 985 | K | Systemlösung? Nebel: 2 frühere Vorgänge (505, 502), neu 785.7; einmal grundsätzlich lösen? | startbar |
 | 644a.5 | M | Von Tuffy (644a.1): an welchem Grundwert hängen Rüstung, Ausweichen, Schild, Armbrust und | startbar |
-| Pflege | K | von Werkzeug (340.3, 13.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
