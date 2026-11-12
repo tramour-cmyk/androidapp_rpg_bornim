@@ -10,7 +10,7 @@ R=/home/user/androidapp_rpg_bornim; B=~/bl/bin/python
 mkdir -p $O $S
 for p in medieval-village-megakit stylized-nature-megakit fantasy-props-megakit; do [ -d ~/cc0/$p ] || PAKETE=$p bash $R/tools/blender348/v3/cc0_laden.sh ~/cc0; done
 cd $R
-[ -f $O/karten.json ] || ./gradlew -p core exportMaps -Pout=$O/karten.json -q
+cp godot/daten/karten.json $O/karten.json   # 882.1: seit 870.9 eingecheckt, kein Gradle
 export KARTEN=$O/karten.json
 for s in tex held3 rig dorf; do [ -f $O/.$s ] || { OUT=$O $B -I tools/blender348/v3/$s.py > $O/$s.log 2>&1 && touch $O/.$s; } || { tail -30 $O/$s.log; exit 1; }; done
 for g in inn shop elder temple; do OUT=$O KARTE=$g $B -I tools/blender348/v3/raum.py > $O/raum-$g.log 2>&1 || { tail -30 $O/raum-$g.log; exit 1; }; grep -h "^NETZE\|^GLB" $O/raum-$g.log; done
@@ -20,8 +20,7 @@ cp $O/dorf.glb $D/dorf.bin; cp $O/dorf-info.json $D/
 for g in inn shop elder temple; do cp $O/$g.glb $D/$g.bin; cp $O/$g-info.json $D/; done
 for t in gras erde pflaster halme korn weiss; do cp $O/tex/$t.png $D/$t.bild; done
 cp $O/boden-maske.png $D/boden-maske.bild
-./gradlew -p core exportTexts -Pout=$D/texte.json -q
-./gradlew -p core exportHero -Pout=$D/held.json -q
+cp godot/daten/texte.json godot/daten/held.json $D/   # 882.1: seit 870.9 eingecheckt, kein Gradle
 (cd $G && ~/godot/godot --headless --import --path . > $A/import.log 2>&1 || true)
 rm -rf $A/bild && mkdir -p $A/bild
 (cd $G && VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 1500 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --path . \

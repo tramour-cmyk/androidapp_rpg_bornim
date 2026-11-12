@@ -3,7 +3,7 @@ set -e
 S=/tmp/claude-0/-home-user-androidapp-rpg-bornim/186fd555-4c28-5ea3-ac12-1427c2c6e341/scratchpad
 R=/home/user/androidapp_rpg_bornim
 cd $R
-[ -f $S/karten.json ] || ./gradlew -p core exportMaps -Pout=$S/karten.json -q
+cp godot/daten/karten.json $S/karten.json   # 882.1: seit 870.9 eingecheckt, kein Gradle
 export KARTEN=$S/karten.json
 B=~/bl/bin/python
 mkdir -p $S/out

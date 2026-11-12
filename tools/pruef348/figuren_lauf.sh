@@ -18,7 +18,7 @@ UAL=$(find $K/src/678371987 -path "*Unreal-Godot/UAL1.glb" 2>/dev/null | head -1
 KS=$K/src; [ -n "$OHNEKAUF" ] && KS=
 Q=~/cc0 KAUF=$KS OUT=$A/fig $B -I $R/tools/blender348/v3/quaternius.py | grep -E "FIGUR|FEHLT|OK"
 cd $R
-[ -f $O/karten.json ] || ./gradlew -p core exportMaps -Pout=$O/karten.json -q
+cp godot/daten/karten.json $O/karten.json   # 882.1: seit 870.9 eingecheckt, kein Gradle
 export KARTEN=$O/karten.json
 for s in tex held3 rig dorf; do [ -f $O/.$s ] || { OUT=$O $B -I tools/blender348/v3/$s.py > $O/$s.log 2>&1 && touch $O/.$s; } || { tail -30 $O/$s.log; exit 1; }; done
 git show origin/claude/jerry-348-kampf:tools/blender348/waffen.py > $O/waffen.py
