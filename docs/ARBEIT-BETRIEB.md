@@ -472,3 +472,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:04 12.11.: Marke Start-fehlt Jerry 12.11.-21:57 (lauf.py)
 - 22:34 12.11.: Startsperre 22:34 Start Homer (lauf.py)
 - 22:34 12.11.: Marke Abgleich Vorentscheid 1077 ohne Datei in chefsache/billigen/ und ohne (lauf.py)
+- 23:52 12.11.: Startsperre 23:52 Start Tom (Ford, Neustart-Meldung 6c48c7fd0, Nachfolger „Tom – 492, 867, 1044: Läufe auswerten, 842 Bild (12.11.)“; Hoch, effort high)
