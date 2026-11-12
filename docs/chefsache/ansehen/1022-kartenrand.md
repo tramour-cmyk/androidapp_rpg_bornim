@@ -1,22 +1,26 @@
-# 1022 · Kartenrand aller Gebietskarten, nachher · Tom (Spike) · 12.11., 10:38
+# 1022 · Kartenrand aus der Spielansicht, vorher/nachher · Tom (Spike) · 12.11., 17:58
 
-[Bild von 12.11., 10:39](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/12-1039-1022-Spike-3.png) (eingetragen von meldung.sh, Spike)
+[Bild von 12.11., 17:59](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/12-1759-1022-Spike-3.png) (eingetragen von meldung.sh, Spike)
 
-[Bild von 12.11., 10:39](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/12-1039-1022-Spike-2.png) (eingetragen von meldung.sh, Spike)
+[Bild von 12.11., 17:59](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/12-1759-1022-Spike-2.png) (eingetragen von meldung.sh, Spike)
 
-[Bild von 12.11., 10:39](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/12-1039-1022-Spike.png) (eingetragen von meldung.sh, Spike)
+[Bild von 12.11., 17:59](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/12-1759-1022-Spike.png) (eingetragen von meldung.sh, Spike)
 
-E Welt · Zweig `claude/tom-1022-kartenrand` · am Rechner ohne Kaufmodelle (ohne Leute und Monster)
+E Welt · Zweig `claude/tom-1022-kartenrand` · auf dem Bauserver mit Kaufmodellen, wie im Spiel
 
-Geprüft an: [Commit 55901b2](https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/55901b2ed6ca5ca4fc376a6983aea05d22122b52)
+Geprüft an: [Lauf 43256618987](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43256618987), [Commit 327ff24](https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/327ff24f7)
 
-![Dorf, Flüsterwald, Tiefer Wald; je Reihe Nord, West, Ost, Süd](../bilder/1022-rand-nachher.webp)
+So aufgenommen: Spielansicht bei Tag, die Karte jeweils so gedreht, dass der Held zum Rand schaut (der Rand liegt oben im Bild). Links vorher (Stand Build 280, so wie du es gespielt hast), rechts nachher (1022). Je Bild die obere Hälfte des Schirms bis knapp unter den Helden.
 
-Oben Dorf, Mitte Flüsterwald, unten Tiefer Wald; je Reihe vom Rand aus nach Norden, Westen, Osten, Süden, bei Tag.
+![Dorf Nord am Schlagbaum, Dorf Süd an der Brücke, Kornfeld](../bilder/1022-rand-1.webp)
 
-- Norden und Westen: Wald dicht, mehrere Reihen, läuft ins Dunkel; der Weg hinter dem Schlagbaum endet im Wald.
-- **Offen, Süden und Osten** (zur Kamera hin): der Wald hinter dem Rand steht als harte schwarze Wand mit gezackter Kronenkante; nicht behoben, Probelauf-Grenze erreicht.
-- Vorher-Bilder fehlen aus demselben Grund; für den Norden ist dein Bild aus Build 278 das Vorher.
-- Automatisch geprüft: `rand_1022` grün auf allen drei Gebietskarten.
+![Fluss im Westen und Osten des Dorfs, Flüsterwald Ost](../bilder/1022-rand-2.webp)
 
-**Was du sagen sollst:** „1022 ja“: Süden und Osten weich auslaufen lassen (das Dunkel richtet sich nach dem Boden, den eine Krone im Bild verdeckt), dann ein Lauf mit Bildpaar vorher/nachher; oder dein Urteil zum Bild.
+![Flüsterwald Süd, Tiefer Wald Ost und Süd](../bilder/1022-rand-3.webp)
+
+- **Vorher:** hinter dem Schlagbaum und hinter der Brücke läuft der Weg offen bis an den oberen Bildrand; am Fluss endet das Wasser vor einem Stück Weg und Wiese; in den Wäldern hört der Wald in hellem Grün auf.
+- **Nachher:** hinter dem Rand Wald und dann Dunkel; der Weg hinter Schlagbaum und Brücke endet nach etwa zwei Kacheln im Dunkel; der Fluss läuft ins Dunkel; in den Wäldern dasselbe auf allen Seiten.
+- **Rest, mir ist aufgefallen:** (1) im Dunkel schimmern schwache Stämme und Halme durch (gut zu sehen in Dorf Nord, Brücke, Flüsterwald Ost und Süd); (2) am Fluss im Westen und Osten endet das Wasser mit einer geraden waagerechten Kante im Dunkel; (3) hinter dem Schlagbaum bleiben zwei helle Stücke Weg vor dem Dunkel stehen.
+- Der Bildlauf war rot an `schalter_1024` (bekannt, Vorgang 1029 behebt es auf `claude/build-280`, nicht auf diesem Zweig), die Bilder betrifft das nicht.
+
+**Was du sagen sollst:** „1022 passt“ (fährt im nächsten Build); oder „Rest weg“ mit den Nummern (1), (2), (3), die weg sollen (dann ein weiterer Lauf); oder dein Urteil zu den Bildern.

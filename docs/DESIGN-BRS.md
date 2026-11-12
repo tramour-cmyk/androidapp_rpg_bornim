@@ -251,7 +251,7 @@ Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, abe
 | Runenmeister | Runenkunde | Bergbau | Verzauberungen, Runen auf Ausrüstung |
 | Feldkoch | Kochen | Angeln oder Jagd | Mahlzeiten mit kleinem Bonus |
 
-**Heilkunde** steht in der Gruppe Handwerk (Entscheidung 59: Verbände, Wunden versorgen), ist aber keine eigene Meisterschaft; über Meister hinaus steigt sie nur im Pfad Heiler.
+**Heilkunde** steht in der Gruppe Handwerk (Entscheidung 59: Verbände, Wunden versorgen), ist aber keine eigene Meisterschaft; über Meister hinaus steigt sie nur im Pfad Heiler. **Verband** (1038 A, Chef 12.11., 16:24, „fürs Erste“): stillt Blutung, gibt nach Heilkunde etwas Leben, nur außerhalb des Kampfs; kaufen bei Osric und Thessa; herstellen mit dem Rezeptbuch aus Heilkräutern und Leinen am Lagerfeuer ab Anfänger, mit Spinnseide stärker; später schließt er Wunden (72c). **Kurze Rast** gibt nur Ausdauer, kein Leben (1038 R1).
 
 ## 7. Kampf
 
@@ -328,7 +328,7 @@ Seltenheit und Güte sind getrennt: ein gewöhnliches Schwert kann meisterhaft g
 - **Mindeststufe:** ein Stück der Stufe n legt erst ein Held der Stufe n an; Getragenes bleibt angelegt (alte Spielstände, Testmenü). Gewöhnliche Stücke haben die Stufe ihrer Grundform aus dem Katalog.
 - **Stärke:** die Stufe hebt nur die Zusatzeigenschaften, in Schritten von drei Stufen, als **Spanne**; gewürfelt beim Fund, am Stück steht die Zahl, die wirkt. Startwerte (Rechnung 644.2): Stufe 1–3 Leben und Mana +4 bis +6, kritisch +2 bis +4 %, Zauberschaden +8 bis +12 %, Abwehrprobe +4 bis +6 %, Schutzwert +1; Stufe 4–6 doppelt (Leben +8 bis +12 …, Schutzwert +2), 7–9 dreifach, 10–12 vierfach, danach alle drei Stufen ein Schritt. Grundwert je Stück immer +1; Schaden und Schutz der Grundform hebt nur die Güte.
 - **Funde:** Beute in der Stufe des stärksten Gegners, höchstens Heldenstufe +1; Gaben ebenso; Händler nur, was der Held tragen kann; Einzelstücke mit Stufe aus dem Katalog (Homer prüft gegen die Geschichte).
-- **Kein Deckel:** was am Stück steht, wirkt. Grundwerte würfeln als Zusatzeigenschaft mit halbem Gewicht; Händler verkaufen in Kapitel 1 keine Stücke mit Grundwert; vorher rechnet Jerry den schlimmsten und üblichen Fall (über +3 üblich: Zahlen an den Chef).
+- **Kein Deckel:** was am Stück steht, wirkt. Grundwerte und Schutzwert würfeln als Zusatzeigenschaft mit halbem Gewicht (Schutzwert 644b A, Chef 12.11., 13:40, nach Rechnung 644a.1: üblich Grundwert +3 bis +4, Schutzwert +1 bis +2); Händler verkaufen in Kapitel 1 keine Stücke mit Grundwert.
 
 **Seltenheit:**
 

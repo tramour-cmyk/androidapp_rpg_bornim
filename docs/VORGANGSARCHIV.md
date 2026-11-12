@@ -2,6 +2,48 @@
 
 Was der Chef entschieden hat, neueste oben (99g.1). Je Vorgang: Nummer, Datum, Entscheidung, *Leitlinien*, Antwort des Chefs und wessen Empfehlung („Nutzer“ = Chef). **Neue Einträge ab 21.10. höchstens etwa 250 Zeichen** (274): Wortlaut des Chefs, soweit er die Entscheidung trägt, steht hier; Begründung in der Rollendatei dessen, der empfiehlt (`CLAUDE.md` „Jeder Text an einem Ort“); Anlass und langer Wortlaut nur in der Chefsache-Datei und „Zu ‹Nr›“, nach dem Löschen in Git. Ältere Einträge bleiben. Einträge werden nicht geändert, außer dem Anhang „→ ersetzt durch <Nr., Datum>“ am alten Eintrag, wenn ein neuer ihn ablöst (461b); was gilt, steht in den DESIGN-Dateien je Thema (461d: Punkte mit Kennung in `DESIGN-STIL.md`, `DESIGN-KAMPF.md`, `DESIGN-ABNAHME.md`), das Archiv ist Verlauf; wer einen Punkt aus der Chefsache entscheiden lässt, trägt ihn hier oben ein und löscht im selben Schritt die Datei in `docs/chefsache/`. Nur Text: Bilder und Hörproben der Einträge bis 16.10. stehen in den [alten Beschlüssen](https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM) (abgelöst 16.10.); Dateinamen in älteren Einträgen sind die damaligen.
 
+- **431, Kleiderschrank** (12.11., 17:53, Chef an Sokrates: „Ja, so machen wir das mit dem Kleiderschrank“; Vorschlag im Chat 17:51): Kleidung je Fach einmal auf dem Grundkörper, Statur und Volk per Skript, Haut darunter weg, Prüfung `pruef_flecken.py`; Kauf erst danach je leerem Fach; Tom nach dem Umzug; 461 unverändert → **ja (Nutzer; Votum Sokrates)**
+
+- **757, Schenke: jeder Tisch mit eigenem Gedeck** (12.11., 17:33, Chef an Tom: „Vorgang 757 passt.“; Chefsache `ansehen/757-schenkentisch.md` in Git): Gedeck je Tisch, drei Sätze der Reihe nach; fährt im nächsten Build → **passt (Nutzer)**
+
+- **1039, Läufe frei** (12.11., 17:10, Sokrates nach 621 A, aus 1053 unten): genau ein Filmlauf, ein Ersatz bei fremdem Abbruch.
+
+- **1040, Läufe frei** (12.11., 17:10, Sokrates nach 621 A, aus 1053 unten): genau ein Filmlauf, ein Ersatz bei fremdem Abbruch.
+
+- **1036, Läufe frei** (12.11., 17:10, Sokrates nach 621 A, aus 1053 unten): genau ein Filmlauf nach dem Umbau „intensiver“, ein Ersatz bei fremdem Abbruch.
+
+- **1053, Läufe frei** (12.11., 17:08, Sokrates nach 621 A, Leitlinie 595, auf Bitte Tuffy 17:07; Filmläufe 383 und 384 zeigten nicht, was sie sollen, Ursachen behoben `ff91671a5`, `720182750`): je genau ein Filmlauf für 1039 (Ring an Graks Schwerem Hieb, da Anspringen heute keinen Ring hat) und 1040, dazu einer für 1036 erst nach dem Umbau „intensiver“ (je Zustand Paket Status Effects VFX und eigen verstärkt nacheinander); je ein Ersatz bei fremdem Abbruch; Film selbst ansehen, dann sofort an den Chef (lautlos), nur Film.
+
+- **1036, Zustände intensiver** (12.11., 17:02, Chef an Sokrates zum Film Lauf 43235660324: „da kriegt man ja gar nichts von der Zustimmung [Zuständen]. Das ist viel zu klein oder unsichtbar oder wie auch immer, das muss intensiver sein.“; davor 17:01 „keine Bilder hinterlegt“; `ansehen/1036-zustaende.md` in Git): alle Zustandseffekte deutlich größer und kräftiger, neuer Film; 17:03: „Ich will keine Standbilder zum Zustand. Das muss Animation sein, also braucht es einen Film. Keine Standbilder zu Statuseffekten, die animiert sind.“; Jerry → **nachbessern, nur Film (Nutzer)**
+
+- **1022, Kartenrand neu vorlegen** (12.11., 17:00, Chef an Sokrates zum Bildpaar 15:39: „nochmal vorlegen und diesmal sinnvolle Bilder von innen auf den Kartenrand nach außen machen, weil nur dann sieht man, ob das was gebracht hat oder nicht“; `ansehen/1022-kartenrand.md` in Git): Bilder in der Spielansicht, Karte gedreht, Blick vom Helden über den Rand nach außen, an seinen Fundstellen; Tom → **neu vorlegen (Nutzer)**
+
+- **1056, nächster Build halbiert nach Thema** (12.11., 16:54, Vorentscheid Sokrates auf Chef 16:53: „können wir den nächsten Build dann nicht doch taktisch halbieren“; Chefsache `billigen/1056-build-halbiert.md`): nach 280 erst Build 281 Kampf (Wochenziel), gleich danach 282 Dorf und Oberfläche auf 281; Internes fährt in 281 ohne Prüfzeile; danach wieder 317; Perikles mit 1052 → **Vorentscheid**
+
+- **1038 A, R1, Verband stillt Blutung, kurze Rast ohne Leben** (12.11., 16:24, Chef an Sokrates: „1038 A, R1 fürs Erste“; Chefsache `entscheiden/1038-verband.md` in Git): Verband stillt Blutung, kaufen jetzt, herstellen mit dem Rezeptbuch (Heilkräuter und Leinen, Spinnseide stärker); kurze Rast nur Ausdauer; 1046 Jerry (mit Rechnung), 1047 Homer, Zu 842 Tom → **A, R1 vorläufig (Nutzer; Votum Sokrates)**
+
+- **1044, Standpose der Frauen** (12.11., 16:08, Chef an Sokrates: „Die Damen posen im Stand sozusagen, wenn es keine Kampfpose sein soll, jetzt am Beispiel Lyra, bitte machen.“): außerhalb des Kampfs ruhige Standpose mit geschlossenen Beinen, zuerst Lyra, dann alle Frauen; Pakete zuerst sichten; Tom → **ja (Nutzer; Votum Sokrates 15:21)**
+
+- **1038, Zahlen für Überreden und Verband** (12.11., 16:06, Vorentscheid Sokrates auf Zahlen Jerry 1037, 783 W5; Chefsache `billigen/1038-ueberreden-verband.md`): Überreden 35 % + 1 je Punkt, Pim ohne Abzug; Verband 5 + 0,2 Leben je Punkt Heilkunde, 8 Gold, nur außerhalb des Kampfs; `7696371e0` → **Vorentscheid** · zurück 12.11. (Chef 16:12: „um Lebenspunkte zu heilen nicht, sondern er muss Wunden heilen“; neu `entscheiden/1038-verband.md`)
+
+- **264, eigener Bauserver: VM aus, Anmeldung bleibt** (12.11., 16:00, Chef an Sokrates: „Zu Vorgang 264, ja, ich werde nur die VM ausschalten heute Abend.“; Chefsache `entscheiden/264-bauserver.md` in Git): gebaut wird bei GitHub; Runner `proxmox-bornim` bleibt angemeldet, GitHub meldet ihn nach 14 Tagen ohne Verbindung selbst ab; Bauplan bleibt auf `claude/perikles-264-runner`; wieder an, wenn das Repo privat wird oder GitHub einen Arbeitstag nicht baut → **A ohne Abmelden (Nutzer; Votum Sokrates A)**
+
+- **280, Build 280 freigegeben mit Anmerkungen** (12.11., 15:55, Chef an Sokrates: „Somit müsste mein Test abgeschlossen sein. Ich gebe ihn mit meinen Anmerkungen frei.“): PR #199 auf `main`, sobald der Lauf grün ist (1029 schalter_1024; 919); die drei ✗ (993, 1043, 984.1) und die Funde im Test als eigene Vorgänge, kein Rückbau; Zusammenführen Jerry mit 1029 → **freigegeben (Nutzer)**
+
+- **t280, Build 280 getestet** (12.11., 15:52, Chef an Sokrates: „Build 280 · Ergebnis“, kopiert aus dem Reiter „Test“; Ergebnis in `ansehen/t280-nachtrag.md`): ✗ 278.29, .33, .38, Rest ✓; Funde im Test 1030–1041, 1043; PR #199 auf `main` erst nach Freigabe und grünem Lauf (1029 schalter_1024, 919) → **getestet (Nutzer)**
+
+- **1034, ein Probekampf mit Spielheld oder Testheld** (12.11., 14:38, Chef an Sokrates, auf seine Idee 14:34: „Ja, aber dein Gegenargument betrifft ja nur Tester wie mich“): Wahl Spielheld (zählt) oder Testheld (ohne Folgen), Söldner für beide, Gegner als Knöpfe, „Kampf beschwören“ entfällt, kein Warnhinweis; Jerry → **ja (Nutzer; Votum Sokrates mit Hinweis, Hinweis verworfen)**
+
+- **756, Läufe frei** (12.11., 14:19, Sokrates nach 480.1 auf Bitte Spike 14:18; Probelauf 1 von 1 zeigte verdeckten Namen im Ausrüstungsplatz, behoben `5fc8653df`, am Einzelbild geprüft): genau ein Bildlauf `PROBE=756` mit `merkmale_bild_756` auf `claude/tom-756-merkmale`, ein Ersatz bei fremdem Abbruch; Bild selbst ansehen, dann sofort an den Chef (lautlos).
+
+- **1022, Kartenrand Süden und Osten** (12.11., 13:41, Chef an Sokrates: „1022 ja“; Chefsache `ansehen/1022-kartenrand.md` in Git, eingetragen von Tom aus Zu 1022): Süden und Osten weich auslaufen wie Norden und Westen, Dunkel nach dem verdeckten Boden; ein Lauf mit Bildpaar vorher/nachher → **ja (Nutzer)**
+
+- **814, Fußstaub** (12.11., 13:41, Chef an Sokrates: „814 passt, mal im Spiel sehen“; Sollbild `ansehen/814-fussstaub.md` in Git, eingetragen von Tom aus Zu 814): `b95e2a176` im nächsten gemeinsamen Build mit Prüfpunkt → **passt (Nutzer)**
+
+- **644b A, Deckel weg, Schutzwert mit halbem Gewicht** (12.11., 13:40, Chef an Sokrates: „644b A“; Chefsache `entscheiden/644b-deckel.md` in Git, Rechnung Tuffy 644a.1): kein Deckel für Grundwerte und Schutzwert; Schutzwert würfelt beim Fund mit halbem Gewicht wie die Grundwerte; Regelwerk 11; 644b.1 Jerry → **A (Nutzer; Votum Tuffy und Sokrates)**
+
+- **1012, Prüflisten 278 und 279 abgelöst durch 280** (12.11., 12:53 und 13:36, Chef an Sokrates: „Dann können doch die anderen 2 weg hier, die 78 und 79“; „mach das doch so vernünftig, dass das für mich verschwindet und nichts kaputt geht“; Ergebnis 278 in Git `ansehen/t278-sammelbuild.md`): bestanden 278.1, .5, .6, .7, .9 erledigt; alles Offene aus 278 und 279 mit Build 280 → **erledigt (Nutzer)**
+
 - **1020.1, Prüfliste im Spiel** (12.11., 08:58, Chef an Sokrates: „1020.1 passt, her damit“; Bilder Tom 08:20, `ansehen/10201-pruefliste.md` in Git): Reiter „Test“ mit Zeilen, Haken oder Kreuz mit Wort, „Nächste“, „Ergebnis kopieren“, gespeichert; sofort als Build 279 auf Build 278 → **passt (Nutzer)**
 
 - **990, kein Staub im Licht in Innenräumen** (12.11., 08:34, Chef an Sokrates zu t278.4, zwei Bilder Thessas Kramladen: „lassen wir jetzt mal in Innenräumen weg. Das macht null Sinn. Das sieht eher aus wie ein Mückenschwarm … Aus 3 verschiedenen Richtungen kommt das Licht … lassen wir echt komplett in Innenräumen raus“): Staubflocken aus allen Innenräumen entfernen; draußen vielleicht (Kampfort, Teich, dunkler Wald), `LISTE-EFFEKTE.md` → **weglassen (Nutzer)**

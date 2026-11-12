@@ -2,14 +2,16 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 12.11., 12:06 (lauf.py)
+**Stand:** 12.11., 17:01 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
-| Ford | [Ford](https://claude.ai/code/session_01Hmoj765JvmMM81VAZ94ovn) | Betrieb | – | 12.11., 07:26 |
-| Diogenes | [Diogenes – 1019 (12.11., 08:13)](https://claude.ai/code/session_01Hmoj75ZfDj3Zzs82FM18nF) | 1019 | – | 12.11., 08:14 |
-| Tuffy | [Tuffy – 644a.1 (12.11., 10:05)](https://claude.ai/code/session_01Hmoj79xewvr4yXDaxRRApX) | 644a.1 | – | 12.11., 10:06 |
-| Tom | [Tom – 814: Fußstaub sichtbar (12.11., 11:06)](https://claude.ai/code/session_01Hmoj76RSQPRph1aFEc31hY) | 814 | – | 12.11., 11:05 |
-| Spike | [Spike – 644a.2 (12.11., 11:04)](https://claude.ai/code/session_01Hmoj77hd1skjBoRKtk6Sz7) | 644a.2 | – | 12.11., 11:05 |
-| Sokrates | [Sokrates – Stellungnahme (12.11., 11:04)](https://claude.ai/code/session_01Hmoj76oRjGDjaHKeRYBhmv) | Betrieb | – | 12.11., 11:05 |
-| Homer | [Homer – 1026 (12.11., 11:26)](https://claude.ai/code/session_01Hmoj75wdp9JocYHDDCfdun) | 1026 | – | 12.11., 11:26 |
+| Jerry | [Jerry – 1029: schalter_1024 rot (12.11., 15:56)](https://claude.ai/code/session_01Hmoj75a913VoHB2ziBNYRr) | 1029 | – | 12.11., 15:57 |
+| Diogenes | [Diogenes – 1042 (12.11., 16:05)](https://claude.ai/code/session_01Hmoj77ufZfvjHmbE3pvfuL) | 1042 | – | 12.11., 16:05 |
+| Sokrates | [Sokrates – Ring und offene Fragen (12.11., 16:27)](https://claude.ai/code/session_01Hmoj75QDTU6qN3FfqoeLW6) | Betrieb | – | 12.11., 16:27 |
+| Tuffy | [Tuffy – 1039/1040: Filme an den Chef (12.11., 16:29)](https://claude.ai/code/session_01Hmoj79CGyC1x1xp9Q3CMs7) | 1039 | – | 12.11., 16:28 |
+| Ford | [Ford – Betriebsleiter (12.11., 16:30)](https://claude.ai/code/session_01Hmoj75vHDV7DRdnFPv7t4g) | Betrieb | – | 12.11., 16:30 |
+| Tom | [Tom – 757: Läufe 757, 758, 867 ansehen und vorlegen (12.11., 16:44)](https://claude.ai/code/session_01Hmoj76U5PeYx3ncHsdqbdR) | 757 | – | 12.11., 16:44 |
+| Homer | [Homer – Pflege (12.11., 16:48)](https://claude.ai/code/session_01Hmoj75rDsp7Ru9i6tUeydE) | Betrieb | – | 12.11., 16:49 |
+| Perikles | [Perikles – 1052: Wochenziel ohne Umhang, Sammelbuild 281 (12.11., 16:49)](https://claude.ai/code/session_01Hmoj77FQvSoLtm2q28ecYk) | 1052 | – | 12.11., 16:49 |
+| Spike | [Spike – 842 (12.11., 16:48)](https://claude.ai/code/session_01Hmoj76mXsprncaLS4gg7Z4) | 842 | – | 12.11., 16:49 |

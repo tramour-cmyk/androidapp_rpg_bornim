@@ -1,8 +1,9 @@
-# Tom und Jerry · Build 280 · Nachtrag zu 279: Reiter „Test“ passt auf den Schirm, Bäume im Wald, Dorf Süd, Stufen der Ausrüstung · PR #199
-Ganzes Spiel · Tom (1027, 831, 644a.2), Spike (612), Jerry (1024, 935, 1014), Tuffy (644a.1, 633) · 12.11., 12:20 · APK folgt (Lauf zu PR #199)
-Rot, bekannt, nicht melden: wolf_mess_438 – ein Wolfsbiss gleitet knapp über der Grenze (Vorgang 1018). Dazu bekannt und in 280 unverändert: Kartenrand im Süden und Osten (1022), Fußstaub (814, Bild beim Chef, kommt nach deinem Urteil), Bildrate im Kampf (806).
+# Tom und Jerry · Build 280 · 0.348.379 · Nachtrag zu 279: Reiter „Test“ passt auf den Schirm, Bäume im Wald, Dorf Süd, Stufen der Ausrüstung · PR #199
+Ganzes Spiel · Tom (1027, 831, 644a.2), Spike (612), Jerry (1024, 935, 1014), Tuffy (644a.1, 633) · 12.11., 13:10 · [APK (Lauf 380)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43208884654/artifacts/13942508968)
+Rot, bekannt, nicht melden: wolf_mess_438 – ein Wolfsbiss gleitet knapp über der Grenze (Vorgang 1018); schalter_1024 – in einem von 2202 Bildern stand die Ansage kurz auf der Bildrate-Zeile (Vorgang 1029, Jerry; bei 280.7 genau hinsehen). Dazu bekannt und in 280 unverändert: Kartenrand an allen Seiten wie in Build 278 (1022 ist noch nicht in 280, auch der Norden nicht; korrigiert 13:52 nach deinem Bild), Fußstaub (814, Bild beim Chef, kommt nach deinem Urteil), Bildrate im Kampf (806). Probekämpfe im Dorf starten, nicht im Wald (1025, zwei Kämpfe zugleich, noch offen).
+Gegengelesen: Sokrates 12.11., 12:24 (4 Funde, eingearbeitet): 280.5 (Grundwert steigt durchs Üben) gestrichen, weil vom Spielstand aus erst nach etwa 10 gewonnenen Fertigkeitspunkten erreichbar und der Reiter „Test“ keinen Weg dorthin hat (kommt mit einem Weg im nächsten Build); 280.6 nur noch Kroggs Einzelstück, weil der Probekampf keine Stufe 1 anbietet (3, 5, 6, 8, 11) und das Siegfenster die Stufe der Beute nicht zeigt (Probebeute kommt nicht in die Tasche; Beutestufe sichert `gegenstaende_870`); 280.8 Tasche mit Flaschen; Weg bis 280.8.
 
-Ein Weg: über Build 279 installieren, Hauptmenü, „Weiter“ mit deinem Spielstand; zuerst den Reiter „Test“ öffnen: dort steht diese Prüfliste und passt jetzt auf den Schirm (280.1). Dann die neuen Punkte 280.2 bis 280.7, danach die Punkte aus Build 279 und 278 (Nummern 279.x und 278.x, Wortlaut wie dort, nur an Build 280 angepasst). Den Reiter „Test“ gibt es nur im Testmodus: im Hauptmenü siebenmal aufs Firmenzeichen tippen.
+Ein Weg: über Build 279 installieren, Hauptmenü, „Weiter“ mit deinem Spielstand; zuerst den Reiter „Test“ öffnen: dort steht diese Prüfliste und passt jetzt auf den Schirm (280.1). Dann die neuen Punkte 280.2 bis 280.8, danach die Punkte aus Build 279 und 278 (Nummern 279.x und 278.x, Wortlaut wie dort, nur an Build 280 angepasst). Den Reiter „Test“ gibt es nur im Testmodus: im Hauptmenü siebenmal aufs Firmenzeichen tippen.
 
 Verglichen (alt gegen neu): Reiter „Test“ im Hochformat 1080 × 2340 vorher und nachher (Bild in der Meldung zu 1027); jede Zeichenreihe aller Reiter gegen die Schirmbreite.
 
@@ -16,10 +17,9 @@ Im Bau geprüft: jeder Reiter höchstens so breit wie der Schirm (`breite_1027`)
 | 280.2 | Tom | 612 | Dorf Süd am Fluss, am Tag | drei verschiedene Heuhaufen, kein Gras im Korn, das Beet geht bis an den Zaun | gleiche Heuhaufen mit Stab, Gras im Korn, Grasstreifen vor dem Zaun |
 | 280.3 | Tom | 831 | Reiter „Test“ → „Bildrate“ an, „Uhrzeit“ auf 10 Uhr; Flüsterwald vom Waldeingang zum Feuer gehen; dann „Uhrzeit“ auf 23 Uhr, denselben Weg | zwischen unseren Bäumen abgestorbene Bäume und Kiefern mit Tuschelinie (im Schatten dicker, im Licht dünner) und Schatten am Boden; Bilder je Sekunde wie im Dorf | Bäume ohne Linie oder ohne Schatten, Nadeln als Vierecke, Bilder je Sekunde deutlich unter dem Dorf |
 | 280.4 | Tom | 644a.2 | Reiter „Test“ → Stufe „−5“ bis Stufe 1; Thessas Laden öffnen; danach Stufe wieder hoch | Stücke über deiner Stufe stehen matt unter „Nicht tragbar“; was du schon trägst, bleibt angelegt; mit höherer Stufe rücken sie nach oben | alles tragbar, oder Getragenes fällt ab |
-| 280.5 | Tom | 644a.2 | nach einem gewonnenen Kampf, in dem ein Grundwert durchs Üben steigt (öfter mit derselben Waffe kämpfen); dann noch einen Kampf ohne Anstieg | über der Welt „Kraft ↑ 5“ (oder ein anderer Grundwert) bei den Fertigkeiten und der Klang eines Aufstiegs; im Kampf danach kein Aufstiegsklang | kein Hinweis, oder der Klang kommt nach jedem Kampf |
-| 280.6 | Jerry | 644a.1, 633 | Reiter „Test“ → „MARS-Probekampf“ mit Stufe 1 gegen Wölfe gewinnen; dann gegen Krogg gewinnen | nach den Wölfen Beute höchstens Stufe 2; nach Krogg sein Einzelstück „Kroggs Pranken“ in der Beute | Beute weit über deiner Stufe; Krogg ohne sein Stück |
+| 280.6 | Jerry | 633 | Reiter „Test“ → „Unsterblich“ an; unter „MARS-Probekampf“ Gegner „Krogg“, Stufe 3, „Probekampf starten“ und gewinnen | im Siegfenster unter der Beute „Kroggs Pranken“ | Krogg ohne sein Stück |
 | 280.7 | Jerry | 1024 | Reiter „Test“ → „Bildrate“ an, dann einen Wolfskampf beginnen und die Ansage „Anspringen“ abwarten | die Schalter am rechten Rand (Kreuz, Schwert, Tempo, Würfel, Raster) liegen frei, keine Ansage über der Bildrate-Zeile | unterer Kasten verdeckt die Schalter halb, Ansage auf der Bildrate |
-| 280.8 | Jerry | 935 | MARS-Probekampf: Brandflasche werfen | die Flasche ist im Flug etwa so groß wie die Hand des Helden | winzig oder riesig |
+| 280.8 | Jerry | 935 | MARS-Probekampf mit „Tasche“ auf „Tränke, Flaschen“: Brandflasche werfen | die Flasche ist im Flug etwa so groß wie die Hand des Helden | winzig oder riesig |
 
 ## A · Reiter „Test“ und Hauptmenü
 
@@ -44,9 +44,9 @@ Im Bau geprüft: jeder Reiter höchstens so breit wie der Schirm (`breite_1027`)
 | 278.10 | Jerry | 840, 986 | vorher Reiter „Test“ → „Einmaliges“ (279.4); dann im ersten Wolfskampf auf die Ansage „Anspringen“ achten; im Kampf mit Grimmzahn, Krogg oder Grak ebenso auf deren erste Ansagen | direkt nach der ersten Ansage eine Eingebung des Helden in Gold im Bericht, einmal je Spielstand und Ansage; beim nächsten Mal nicht wieder | keine Eingebung, oder sie kommt in jedem Kampf |
 | 278.11 | Jerry | 836 | vorher Reiter „Test“ → „Einmaliges“ (279.4); dann im ersten und zweiten Kampf auf den Hinweis „Nahkampf erreicht nur die vordere Reihe.“ achten | steht nur einmal je Spielstand, im zweiten Kampf nicht mehr | steht in jedem Kampf |
 | 278.12 | Jerry | 960 | einen Gegner lange drücken, vor und nach dem ersten Treffer | unter Name und Absicht seine Schwächen, Stärken und die Gegenwirkung; mit Verstand unter 6 erst nach einem Treffer, sonst „unbekannt“ | keine Schwächen, auch nach dem Treffer |
-| 278.13 | Jerry | 1001 | im Kampf einen Ring öffnen (Angriff) und auf die Schalter am Rand achten | Raster-, Würfel- und Tempo-Schalter sind weg, solange der Ring wartet, und kommen danach wieder | Schalter stehen während des Rings |
+| 278.13 | Jerry | 1001 | MARS-Probekampf gegen Grak, „Gegnerzug“ auf „Schwerer Hieb“; wenn Grak zuschlägt, erscheint der Ring zum Abwehren (nur bei Graks Schwerem Hieb und dem Netz der Spinne, nicht bei Wölfen; korrigiert 14:55, vorher falsch „Ring öffnen (Angriff)“); dabei auf die Schalter am Rand achten | Raster-, Würfel- und Tempo-Schalter sind weg, solange der Ring wartet, und kommen danach wieder | Schalter stehen während des Rings |
 | 278.14 | Jerry | 998 | im Kampf das Raster einschalten | goldenes Raster, kräftiger als bisher, mit dunklem Grund | blasses, dünnes Raster wie in Build 277 |
-| 278.15 | Jerry | 939 | im Kampf hören: Ring öffnen, gut oder perfekt treffen; ein Wolf erscheint; den Kampf gewinnen | schwerer Schwung beim Öffnen, Block bei gut und perfekt; Wolfsgeheul beim Erscheinen (nicht jedes Mal); im Siegfenster Klang für Beute, Münzen, Stufenaufstieg | stumm |
+| 278.15 | Jerry | 939 | hören, in zwei Probekämpfen (korrigiert 15:07): gegen Grak mit „Schwerer Hieb“ den Ring gut oder perfekt treffen und gewinnen; gegen Wölfe auf den Kampfbeginn achten (Geheul jedes zweite Mal) | schwerer Schwung beim Öffnen, Block bei gut und perfekt; Wolfsgeheul beim Erscheinen (nicht jedes Mal); im Siegfenster Klang für Beute, Münzen, Stufenaufstieg | stumm |
 
 ## C · Reiter „Test“: Probekämpfe und Sprünge
 
@@ -80,3 +80,74 @@ Im Bau geprüft: jeder Reiter höchstens so breit wie der Schirm (`breite_1027`)
 | 278.39 | Jerry | 959 | Herkunft „Schmiedelehrling“ ansehen | dabei Stumpfe Waffen neben Schmieden und Bergbau | nur Schmieden und Bergbau |
 | 278.40 | Jerry | 952 | einen neuen Helden fertig erschaffen, Tasche → „Held“ | kritischer Treffer als Anfänger nahe 0 % (nicht 7 %) | 7 % schon zu Beginn |
 | 278.41 | Tom | 963, 989, 1017 | Tasche → „Held“, jeden Grundwert gedrückt halten | nur Wirkungen, die es gibt: Zähigkeit „Abwehr gegen Gift, Betäubung und Blendung“, Wahrnehmung kritisch mit Dolch, Bogen, Armbrust (ohne Wurfwaffen), Verstand „Schaden mit Evokation“, Wille Heilung und kritisch mit Evokation; je Waffe und Zauber die Aussicht auf kritisch | „Stärke deiner Zauber“, „Flächenwirkungen“, „Furcht und Zauber“, Krankheit, Spähen |
+
+## Ergebnis
+
+„Ergebnis kopieren“ des Chefs (12.11., 15:52), wörtlich:
+
+- 280.1 ✓
+- 280.2 ✓
+- 280.3 ✓
+- 280.4 ✓
+- 280.6 ✓
+- 280.7 ✓
+- 280.8 ✓
+- 279.1 ✓
+- 279.2 ✓
+- 279.3 ✓
+- 279.4 ✓
+- 279.5 ✓
+- 279.6 ✓
+- 279.7 ✓
+- 279.8 ✓
+- 279.9 ✓
+- 279.10 ✓
+- 278.9 ✓
+- 278.10 ✓
+- 278.11 ✓
+- 278.12 ✓
+- 278.13 ✓
+- 278.14 ✓
+- 278.15 ✓
+- 278.18 ✓
+- 278.19 ✓
+- 278.20 ✓
+- 278.21 ✓
+- 278.22 ✓
+- 278.24 ✓
+- 278.25 ✓
+- 278.26 ✓
+- 278.27 ✓
+- 278.28 ✓
+- 278.29 ✗ welcheg ring? angriffszauber kommt, aber welcher Ring?
+- 278.30 ✓
+- 278.31 ✓
+- 278.32 ✓
+- 278.33 ✗ davon hab ich nix gesehen. Da weicht nichts
+- 278.34 ✓
+- 278.35 ✓
+- 278.36 ✓
+- 278.37 ✓
+- 278.38 ✗ sind nicht da
+- 278.39 ✓
+- 278.40 ✓
+- 278.41 ✓
+
+Gebucht (Sokrates, 15:54): 278.x und 279.x von Hand, weil `vorgang.py build 280` nur Zeilen 280.x liest: bestanden erledigt; ✗ 278.29 → 993, ✗ 278.33 → 1043 (988 war schon erledigt), ✗ 278.38 → 984.1; 806 bleibt offen (278.19 war nur die Messung). Während des Tests im Chat:
+
+- Außer der Reihe (Chef 12.11., 13:51 und 13:52, Bilder Dorf Nord und Süd): Kartenrand offen, 1022 nicht im Build → Zu 1022 (Tom)
+- Außer der Reihe (Chef 13:52, Bild Marktplatz): Marktstände geklont → 589 ruht weiter (Chef 14:01)
+- Außer der Reihe (Chef 13:53): Reiter „Test“ springt nach jedem Schalter nach oben, Prüfliste nicht einklappbar → 1030 (Tom)
+- Außer der Reihe (Chef 14:08, Probekampf Wölfe, Wachsoldat): ganzer Bericht ohne Farben → 1031; Treffer ohne Angriffsbewegung → 1032 (Jerry)
+- 279.1 ✓ (Chef 14:20: „scheint zu funktionieren. Nach Neustart auch“; Beschriftung „Richtig“ statt „Passt“ → Zu 1030)
+- 279.6 ✓ (Chef 14:20: nach dem Ende durch Android ohne Hauptmenü gleich im Spiel)
+- 279.3 ✓ (Chef 14:29)
+- 278.19 ✓ Messung kam (Chef 14:41, Bild): alles an 16 Bilder/s, ohne Schatten 29, ohne Bäume und Boden 52 → Zu 806 (Jerry)
+- Zu 280.8 (Chef 14:48): nach der Brandflasche kein sichtbares Brennen am Ziel, wie alle Zustandseffekte aus Kotlin → 1036 (Jerry); Flaschengröße nicht beurteilt
+- Außer der Reihe (Chef 14:54, Bild Wolf springt): kein Ring bei Wölfen; Ring gibt es nur bei Graks Schwerem Hieb und dem Netz der Spinne (aus Kotlin), gegen 406.1 („Ring bei angekündigten Nahangriffen“) → Vorschlag Ring-Vorlage (Sokrates)
+- Außer der Reihe (Chef 15:04, Bild Siegfenster Grak): innerer Ring kaum zu sehen → 1039 (Jerry); etwas unrund (Bilder/s im Kampf 10, 806); Graks Kriegsaxt in der Beute; Siegfenster des Probekampfs nennt Erfahrung und Stufen ohne Folgen → Zu 1039, 1034
+- 278.13 ✓ (Chef 15:07: Schalter „waren weg“ während des Rings gegen Grak)
+- 278.21 ✓ Ruhebewegung (Chef 15:12: „Ja, aber …“); Drehen auf der Stelle wie Plastikpuppe, Wiederholfund → 1040 (Jerry)
+- Zu 278.22 (Chef 15:13): Lyra dreht sich ebenso ohne Schritte „wie auf dem Drehteller“ → 1040
+- 278.24 ✓ (Chef 15:16: „Schrittbewegung war da, alles gut“); Takt ungleich, Bogen eckig → 1041 (Jerry, M?)
+- Zu 278.25 (Chef 15:19): Wechsel bot Armbrust statt Bogen, in der Hand nichts zu sehen (Armbrust hat noch kein Modell, 999.2 ruht); zurück Langschwert und Schild da; Zweihänder noch nicht geprüft

@@ -88,3 +88,5 @@ Zustände des Spiels aus `godot/regeln/mars.gd` STATUS; volles Paket Status Effe
 | Betrunken (DRUNK) | keiner (Confused am nächsten) | nein |
 | Gestärkt, Segen, Rüstung (Zauber) | Blessed, Armor Up, Buff Gain | Armor Up, Buff Gain |
 | Im Schatten (566) | keiner; R7 shadow_burst beim Verschwinden, blass eigen (Material) | nein |
+
+**Gebaut bis zur Probe des Pakets (1036, Tuffy 12.11.; Chef 14:48 „Das hatten wir alles schon unter Kotlin“):** alle acht Zustände eigen wie alt (`BattleFx.kt` drawStatus, Blutlache, Aufflackern je Runde; Betäubte schwanken), `godot/kampf/zustandsbild.gd`, Zweig `claude/jerry-1036-zustaende`, Stand Vorschlag. Status Effects aus dem Paket: wartet auf Kaufrepo (391).
