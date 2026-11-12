@@ -3,6 +3,8 @@
 # Schalter (Raster, Würfel, Tempo, Kreuz, Haken) unter die Oberkante des Kastens reichen, wie er gerade steht; der Kasten wächst
 # im ersten Zug um WACHSEN_PX (vorher: 445 von 2097 Bildern 150 px darunter). Der Held wartet je Zug 1,5 s auf ein Tippen (AUTO=1: Autopilot).
 # Run: godot --headless --path godot -s res://tests/schalter_1024.gd   (GEGNER=…, SEEDS=…; Exit 0 = nie verdeckt)
+# 1029: ZEILE_Y=<px> legt die Zeile woandershin (ohne Kaufwolf trat die Ansage bei 702 px nie darauf, bei 500 und 600 px schon:
+# die Ansage glitt über die Zeile an ihren freien Platz); DIAG=1 druckt jedes Bild mit Ansage auf der Zeile
 extends SceneTree
 
 const Probe = preload("res://kampf/probe.gd")
@@ -57,7 +59,7 @@ func _one(foe: String, s: int) -> Array:
 	var gewachsen := false
 	var ui = k.ui
 	# Bildrate-Zeile des Testmodus wie spiel.gd _kampf_messe (24 px vom Rand, 30 % der Höhe, zwei Zeilen): keine Ansage darauf
-	var zeile := Rect2(24, 2340 * 0.30, 1080 - 48, 2 * 14 * 2.62 * 1.4)
+	var zeile := Rect2(24, float(OS.get_environment("ZEILE_Y")) if OS.get_environment("ZEILE_Y") != "" else 2340 * 0.30, 1080 - 48, 2 * 14 * 2.62 * 1.4)
 	ui.set("frei_halten", [zeile])     # vor 1024 gab es das Feld nicht (dann ohne Wirkung)
 	var auf_zeile := 0
 	var t0 := Time.get_ticks_msec()
@@ -103,6 +105,8 @@ func _one(foe: String, s: int) -> Array:
 			if (r as Rect2).intersects(zeile):
 				schlecht = true
 				auf_zeile += 1
+				if OS.get_environment("DIAG") != "":
+					print("DIAG1024 %.2f s r %s zeile %s frei %s wahl %s" % [k.clock_ms / 1000.0, r, zeile, ui.frei_halten, ui.sign_wahl])
 				break
 		if schlecht:
 			bad += 1

@@ -88,3 +88,7 @@ Zustände des Spiels aus `godot/regeln/mars.gd` STATUS; volles Paket Status Effe
 | Betrunken (DRUNK) | keiner (Confused am nächsten) | nein |
 | Gestärkt, Segen, Rüstung (Zauber) | Blessed, Armor Up, Buff Gain | Armor Up, Buff Gain |
 | Im Schatten (566) | keiner; R7 shadow_burst beim Verschwinden, blass eigen (Material) | nein |
+
+**Gebaut bis zur Probe des Pakets (1036, Tuffy 12.11.; Chef 14:48 „Das hatten wir alles schon unter Kotlin“):** alle acht Zustände eigen wie alt (`BattleFx.kt` drawStatus, Blutlache, Aufflackern je Runde; Betäubte schwanken), `godot/kampf/zustandsbild.gd`, Zweig `claude/jerry-1036-zustaende`, Stand Vorschlag. Status Effects aus dem Paket: wartet auf Kaufrepo (391).
+
+**Im Spiel (1036, Chef 12.11., 20:52 zum Film 18:22; Tuffy, `d55fba1e1`, Build 281):** Brennend `reeboo_vfx/effects/burning`, Vergiftet `status_effects/poisoned`, Blutend `status_effects/bleeding` (Lache im Effekt), Betäubt `status_effects/shocked` (nicht `stun_stars`), Verlangsamt `status_effects/chilled`; Tabelle `ZUSTAND_PAKET` in `godot/kampf/kampf_ui.gd`, hängt an der Figur, solange der Zustand hält (Tiere nach Körpergröße 0,7–2), ohne Paket eigen (`zustandsbild.gd`). Geschwächt, Geblendet, Betrunken bleiben eigen bis zur neuen Vorlage (alle Zustände, alle passenden Effekte, Brennen in zwei, drei Größen).

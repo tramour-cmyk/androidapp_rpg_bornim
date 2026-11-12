@@ -137,12 +137,16 @@ def cd_befehle(befehl):
 
 
 def cd_ziel(befehl, cwd, erstes=False):
-    """Ordner nach dem ersten (erstes=True) oder letzten `cd` in befehl, sonst cwd; Unaufloesbar wie cd_pfad."""
+    """Ordner nach dem ersten (erstes=True) oder letzten `cd` in befehl, sonst cwd; Unaufloesbar wie cd_pfad.
+    1042 (Spike 12.11.): jedes cd gilt relativ zum Ordner des vorigen (`cd …/godot && …; cd .. && git push`), nicht zu cwd;
+    sonst lag die Arbeitskopie außerhalb des Repos, loest_aus fand keine Abläufe und zählte den Push als Filmlauf."""
     ms = cd_befehle(befehl)
     if not ms:
         return cwd
-    m = ms[0] if erstes else ms[-1]
-    return cd_pfad(m.group(1), cwd, befehl[:m.start()])
+    wo = cwd
+    for m in ms[:1] if erstes else ms:
+        wo = os.path.normpath(cd_pfad(m.group(1), wo, befehl[:m.start()]))
+    return wo
 
 
 def wo_von(befehl, m, cwd):
@@ -159,10 +163,11 @@ def wo_von(befehl, m, cwd):
 
 def cd_ordner(befehl, cwd):
     """Alle auflösbaren cd-Ziele (Suche nach Dateien; Unauflösbares fällt weg)."""
-    aus = []
+    aus, wo = [], cwd
     for m in cd_befehle(befehl):
         try:
-            aus.append(cd_pfad(m.group(1), cwd, befehl[:m.start()]))
+            wo = os.path.normpath(cd_pfad(m.group(1), wo, befehl[:m.start()]))  # 1042: relativ zum vorigen cd
+            aus.append(wo)
         except Unaufloesbar:
             pass
     return aus

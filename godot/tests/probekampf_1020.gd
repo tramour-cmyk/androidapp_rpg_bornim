@@ -24,11 +24,17 @@ func _zu_ende(k) -> void:
 	while Time.get_ticks_msec() - t0 < 60000:
 		await process_frame
 		if k.mars.outcome != "ONGOING" and not k.busy and not k.playing and k.beats.is_empty(): break
-		if not k.busy and not k.playing and k.beats.is_empty() and k.mars.outcome == "ONGOING":
-			if k.mars.pilot_next() or k.mars.set_autopilot(true): k.go_on()
-			else:
-				var ts: Array = k.mars.targets(k.mars.current())
-				k.order(["attack", ts[0].id] if not ts.is_empty() else ["wait"])
+		if not k.busy and not k.playing and k.beats.is_empty() and k.mars.outcome == "ONGOING": _weiter(k)
+
+## 1029: wer am Zug ist und nicht vom Autopiloten gespielt wird (der Söldner „selbst“, der Held bei gesperrtem Autopiloten), bekommt
+## einen Befehl; bisher rief die Schleife dann nur go_on, das sofort wieder beim Söldner hielt: kein Gegner kam mehr zum Zug, und nach
+## Tausenden leeren Läufen blieb ein neuer Regelfaden ab und zu ganz stehen (busy, Lauf 393 rot „erzwungen: reihe gegen GOBLINS“)
+func _weiter(k) -> void:
+	k.mars.set_autopilot(true)
+	if k.mars.pilot_next(): k.go_on()
+	else:
+		var ts: Array = k.mars.targets(k.mars.current())
+		k.order(["attack", ts[0].id] if not ts.is_empty() else ["wait"])
 
 ## im Spiel wie aus dem Reiter: Bogen, kein Söldner, volle Tasche, halbes Leben, Nacht; nach dem Kampf „Nochmal“ (derselbe Aufbau),
 ## dann „Zurück zum Testmenü“ (das Menü steht auf dem Reiter Test)
@@ -88,10 +94,12 @@ func _erzwingen(spiel) -> void:
 			await process_frame
 			gesehen = Mars.test_erzwungen.has(String(fa[1]))
 			if k.mars.outcome != "ONGOING" and not gesehen: break
-			if not k.busy and not k.playing and k.beats.is_empty() and k.mars.outcome == "ONGOING":
-				if k.mars.pilot_next() or k.mars.set_autopilot(true): k.go_on()
+			if not k.busy and not k.playing and k.beats.is_empty() and k.mars.outcome == "ONGOING": _weiter(k)
 		if String(fa[1]) == "flucht":
-			pruefe("alle geflohen, gewonnen", k.mars.outcome == "WON" and k.mars.fighters().filter(func(f): return f.side == "FOES").all(func(f): return f.fled))
+			# 1029 (Tuffy 19:52): wer vor der Flucht fiel, flieht nicht mehr (_test_zug nimmt nur Stehende); Held und Söldner greifen vorher an
+			var gegner: Array = k.mars.fighters().filter(func(f): return f.side == "FOES")
+			pruefe("alle geflohen, gewonnen", k.mars.outcome == "WON" and gegner.any(func(f): return f.fled) and gegner.all(func(f): return f.fled or f.hp <= 0),
+				str(gegner.map(func(f): return "%s %d %s" % [f.id, f.hp, f.fled])))
 		pruefe("erzwungen: %s gegen %s" % [fa[1], fa[0]], gesehen)
 		pruefe("nur einmal: %s" % fa[1], Mars.test_gegnerzug == "", Mars.test_gegnerzug)
 		await _zu_ende(k)
@@ -110,8 +118,7 @@ func _erzwingen(spiel) -> void:
 		var t2 := Time.get_ticks_msec()
 		while Mars.test_ausweichen and k1.mars.outcome == "ONGOING" and Time.get_ticks_msec() - t2 < 60000:
 			await process_frame
-			if not k1.busy and not k1.playing and k1.beats.is_empty() and k1.mars.outcome == "ONGOING":
-				if k1.mars.pilot_next() or k1.mars.set_autopilot(true): k1.go_on()
+			if not k1.busy and not k1.playing and k1.beats.is_empty() and k1.mars.outcome == "ONGOING": _weiter(k1)
 		pruefe("Held weicht dem ersten Angriff aus", not Mars.test_ausweichen and Mars.test_erzwungen.has("ausweichen"), str(Mars.test_erzwungen))
 		await _zu_ende(k1)
 		k1.finish()

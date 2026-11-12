@@ -2,6 +2,14 @@
 
 **Festgesetzt** (Homer, 10.11.; Chef 10.11., 11:01: „807a A“): Texte wortgetreu bauen; jeder Knopf nennt die Fertigkeit in Klammern. Vorgang 807 A (Chef 09.11., 22:26: Pim überreden, Goblin-Späher einschüchtern, Verband). Bau: 842 Tom (Pim, Verband), 841 Jerry (Einschüchtern, wie Tiere beruhigen 3.6, `[423.tiere]`). Zeilen, die man wiederholt hört, in drei Wortlauten nach 504 (`STORY-VARIANTEN-K1.md` „Regeln für den Bau“); einmalige Zeilen und Knöpfe einfach. „ / “ trennt zwei Sprechblasen derselben Figur, „· Erzähler:“ leitet einen erzählten Satz ein (im Bau `narrate`). Keine Zahlen außer dem Platzhalter; ob es gelingt, entscheidet die Probe auf die Fertigkeit (BRS); die Zeilen nennen sie nicht, nur der Knopf.
 
+## Zweiter Knopf bei jeder Wahl im Gespräch (1074)
+
+Chef 12.11., 20:48 (842 zurück): neben jedem Knopf einer Wahl im Gespräch ein sichtbarer zweiter Knopf, Baustein `Skript.knopf` (Bau 842 Tom). Er steht links mit „‹“, die Wahl rechts mit „›“, wie Abbrechen und Benutzen in der Tasche. Antippen lässt die Wahl aus, das Gespräch geht weiter wie bisher beim Weitertippen (bei Osric folgt vor Lyras Rettung noch `[504.osric.bitte]`); die Wahl bleibt fürs nächste Mal (bei Pim: nach einem Versuch erst am nächsten Tag wieder). Solange die zwei Knöpfe stehen, überspringt ein Tippen auf den Text sie nicht, damit keiner eine Wahl aus Versehen verliert.
+
+`[1074.zweit]` (zweiter Knopf, für jede Wahl derselbe; heute Pim neben `[807.pim.wahl]`, Osric neben „Kaufen“) Nicht jetzt / EN: Not now
+
+Warum nicht „Weiter“: mit „‹“ links widerspricht es sich, und es sagt nicht, ob die Wahl damit genommen ist oder nicht. „Abbrechen“ klingt nach Menü, nicht nach Gespräch.
+
 ## Überreden: Pim heimschicken
 
 Bedingung: tagsüber, Pim ist draußen; die Wahl erscheint im Gespräch mit Pim nach seiner Zeile `[504.pim.vor]`. Misslingt es, kann man es am nächsten Tag wieder versuchen. Gelingt es, dankt die Mutter beim nächsten Klopfen, Ruf steigt (807 A, 3.3).
@@ -38,20 +46,25 @@ Bedingung: Kampfanfang, unter den Gegnern ein Goblin-Späher; die Wahl steht neb
 
 ## Heilkunde: Verband
 
-Gegenstand in der Tasche, zu kaufen bei Osric und Thessa (807 A); anlegen nur außerhalb des Kampfs, heilt etwas, je Rang in Heilkunde mehr; Anlegen übt Heilkunde. `{0}` = zurückgewonnene Trefferpunkte, Form wie die übrigen Heilmeldungen (`STORY-SPIEL.md`).
+Gegenstand in der Tasche, zu kaufen bei Osric und Thessa (807 A); anlegen nur außerhalb des Kampfs; stillt Blutung und gibt etwas Leben, je Punkt Heilkunde mehr (1038 A, Chef 12.11., 16:24); ob Blutung die Heilung des Verbands noch halbiert, legt Jerry fest (1046); Anlegen übt Heilkunde. `{0}` = tatsächlich zurückgewonnene Trefferpunkte, Form wie die übrigen Heilmeldungen (`STORY-SPIEL.md`); ist `{0}` null, entfällt „ +{0} TP“ / „ +{0} HP“. Texte angepasst an 1038 A (Homer 12.11., 1047).
 
 `[807.verband.name]` Verband / EN: Bandage
 
-`[807.verband.text]` (Beschreibung in Tasche und Laden) Saubere Leinenstreifen, fest gerollt. Außerhalb des Kampfs anlegen; wer Heilkunde versteht, holt mehr heraus. / EN: Clean strips of linen, tightly rolled. Apply outside of combat; the more you know of Medicine, the more it mends.
+`[807.verband.text]` (Beschreibung in Tasche und Laden) Saubere Leinenstreifen, fest gerollt. Stillt Blutung; wer Heilkunde versteht, holt mehr heraus. Nur außerhalb des Kampfs. / EN: Clean strips of linen, tightly rolled. Stops bleeding; the more you know of Medicine, the more it mends. Outside of combat only.
 
-`[807.verband.an]` (angelegt)
+`[807.verband.an]` (angelegt, der Held blutete nicht)
 1. Du ziehst den Verband fest. +{0} TP. — EN: You pull the bandage tight. +{0} HP.
 2. Du wäschst die Wunde aus und wickelst den Verband darum. +{0} TP. — EN: You wash out the wound and wrap the bandage around it. +{0} HP.
-3. Ein fester Knoten, und das Blut steht. +{0} TP. — EN: One firm knot, and the bleeding stops. +{0} HP.
+3. Du verbindest die Wunde und prüfst, ob der Verband sitzt. +{0} TP. — EN: You bind the wound and check that the bandage holds. +{0} HP.
+
+`[807.verband.blut]` (angelegt, die Blutung ist gestillt)
+1. Ein fester Knoten, und das Blut steht. +{0} TP. — EN: One firm knot, and the blood stops. +{0} HP.
+2. Du presst den Verband auf die Wunde. Sie blutet nicht mehr. +{0} TP. — EN: You press the bandage onto the wound. It bleeds no more. +{0} HP.
+3. Lage um Lage, straff gewickelt. Die Blutung hört auf. +{0} TP. — EN: Layer on layer, wrapped tight. The bleeding stops. +{0} HP.
 
 `[807.verband.kampf]` (im Kampf gewählt) Im Kampf bleibt keine Zeit für einen Verband. / EN: There's no time for a bandage in combat.
 
-`[807.verband.voll]` (Trefferpunkte voll) Du bist unverletzt. / EN: You are unhurt.
+`[807.verband.voll]` (Leben voll und keine Blutung; der Verband bleibt in der Tasche) Du bist unverletzt. / EN: You are unhurt.
 
 ## Kochen und Alchemie mit Ring (972, Homer 11.11.)
 
