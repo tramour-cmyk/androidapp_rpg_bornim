@@ -45,7 +45,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 | 1015 | M | Von Tom (1012, Sokrates Gegenlesen t278): Erklärtexte der Erschaffung (erschaffung_brs.gd | startbar |
 
-**Tom** – offen 124, Muss 105, startbar 0
+**Tom** – offen 125, Muss 105, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -173,6 +173,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 991 | M | Von Sokrates (Chef 11.11., 20:24, Test 277): Testmenü: jeder Schalter zeigt seinen Zustand | wartet auf Test (Build 278) |
 | 994 | M | Von Sokrates (Chef 11.11., 20:54, Test 277.18): Klangzeile zeigt beim neuen Spiel ständig | wartet auf Test (Build 278) |
 | 1009 | M | Von Tom (831, Lauf 366): spielstand_test rot „FEHLER Plaetze 1 2“ (letzter() gab Platz 1 s | wartet auf Test (Build 278) |
+| Pflege | K | von Werkzeug (340.3, 12.11.): 15966 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 132, Muss 120, startbar 0
 
@@ -308,7 +309,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1004 | M | Von Tuffy (620.2c, zu 72.10a.9): „Decken“ hängt an cls FIGHTER (kampf_ui.gd 700, mars.gd 8 | wartet auf Test (Build 278) |
 | 1007 | M | Von Tom (977): Monster der Karte (streuner.gd) mit Streuner.Stub, dessen clock_ms bei 0 bl | wartet auf Test (Build 278) |
 | 863a | M | Rückfrage: 863 nachstellen mit Kaufratte am Rechner (Kaufrepo freigeben) oder Messlauf am | Chef (Datei in der Chefsache) |
-| 1013 | M | Von Jerry (988, Lauf 370 auf main): schild_406 erwartet im Kampf beim CLERIC einen Schild, | wartet auf Test/Build (gebaut) |
+| 1013 | M | Von Jerry (988, Lauf 370 auf main): schild_406 erwartet im Kampf beim CLERIC einen Schild, | wartet auf Test (Build 278) |
 | 1014 | M | Von Jerry (1013, Lauf 365 und 370): schild_406 FIGHTER SS_ParryLow: Körper bis 0,071 m im | Chef (Datei in der Chefsache) |
 
 **Perikles** – offen 12, Muss 11, startbar 0
