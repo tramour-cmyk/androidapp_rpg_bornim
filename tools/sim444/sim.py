@@ -45,7 +45,9 @@ def ohne_info(d):
 # ---------------------------------------------------------------- Held
 
 class Held:
-    def __init__(self, W, herkunft, variante=False):
+    def __init__(self, W, herkunft, variante=True):
+        # 1058 (Sokrates 12.11., 17:18): wie im Spiel (brs_held.gd waehle_herkunft, 933 A) gibt die Herkunft „plus“ und
+        # „plus_variante“, 9 Punkte; variante=False nur noch für den Vergleich mit 6 Punkten (Bericht „18“)
         self.W = W
         h = W["held"]
         hk = W["herkuenfte"][herkunft]
@@ -460,7 +462,7 @@ def ep_fuer(W, held, mon):
 
 # ---------------------------------------------------------------- Teil 1: Fortschritt
 
-def fortschritt(W, herkunft, rng, variante=False):
+def fortschritt(W, herkunft, rng, variante=True):
     monster = {n: m for n, m in ohne_info(W["monster"]).items() if not m.get("boss") and not m.get("nur_matrix")}
     fs = W["fortschritt"]
     grenze = W["held"]["kapitelgrenze"]
@@ -503,7 +505,7 @@ def fortschritt(W, herkunft, rng, variante=False):
     }
 
 
-def fortschritt_alle(W, herkunft, laeufe, rng, variante=False):
+def fortschritt_alle(W, herkunft, laeufe, rng, variante=True):
     res = [fortschritt(W, herkunft, rng, variante) for _ in range(laeufe)]
     grenze = W["held"]["kapitelgrenze"]
     out = {"laeufe": laeufe, "erreicht": sum(r["erreicht"] for r in res) / laeufe}
@@ -533,14 +535,14 @@ def fortschritt_alle(W, herkunft, laeufe, rng, variante=False):
 
 # ---------------------------------------------------------------- Teil 2: Kampfmatrix
 
-def held_auf_stufe(W, herkunft, stufe, fert, variante=False):
+def held_auf_stufe(W, herkunft, stufe, fert, variante=True):
     h = Held(W, herkunft, variante)
     h.stufe = stufe
     h.fert = dict(fert)
     return h
 
 
-def matrix(W, herkunft, fert_bei, kaempfe, rng, variante=False):
+def matrix(W, herkunft, fert_bei, kaempfe, rng, variante=True):
     out = {}
     for name, mon in ohne_info(W["monster"]).items():
         for s in W["lauf"]["stufen"]:
