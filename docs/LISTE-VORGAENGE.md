@@ -124,7 +124,7 @@
 | 1040.1 | Von Tuffy (1040, Chef 12.11., 15:13 Lyra „dreht sich genauso bescheuert, ohne Schritte“): Leute drehen im Stehen ohne Schritte, wenn sie dem gehenden Helden folgen | Tom | M | gebaut, Geprüft an: 5b6906b79, fährt im nächsten Build | – | claude/tom-1040-1-wendeschritt | – | E Figuren | – |
 | 1044 | Von Sokrates (Chef 12.11., 16:08): Frauen stehen außerhalb des Kampfs wie eine Dame, Beine geschlossen, keine Kampfpose; zuerst Lyra im Tempel, dann alle Frauen; Kaufpakete zuerst nach Standpose und Frauen-Gang sichten, Bild vorher/nachher | Tom | M | startbar | – | – | – | E Figuren | 2,02 $ |
 | 1045 | Von Tuffy (Lauf 43235660324, Zweig ohne Spielstand-Änderung): spielstand_test rot, „FEHLER Plaetze 1 2“ (erwartet letzter 3); auf claude/tom-1022 grün | Tom | M | startbar | – | – | – | E Technik | – |
-| Pflege | von Werkzeug (340.3, 12.11.): 15890 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 12.11.): 16824 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
 | 1029 | Von Tom (Build 280, Lauf 380): schalter_1024 rot, WOLVES Seed 1: in 1 von 2202 Bildern Ansage auf der Bildrate-Zeile (tiefster Schalter 0 px) | Jerry | M | gebaut, Geprüft an: 03d92bf94 (claude/build-280, am Rechner grün) | – | – | – | E Kampf | 29,19 $ |
 | 1055 | Von Perikles (1052, Sokrates 16:47): Sammelbuild 281 gleich nach PR #199 auf main: alle fertigen Zweige beider Teams, Prüfliste Kampf zuerst (Wochenziel 2), gegengelesen vor Baustart (1020.1); löst Sperre 620.1 B nach dem Test | Jerry | M | startbar | 1029 | – | – | B Steuerung | 10,97 $ |
 | 1039 | Von Sokrates (Chef 12.11., 15:04, Build 280, Probekampf Grak, Schwerer Hieb): innerer Ring kaum zu sehen, man erkennt nicht, wann man tippen muss; Ring lesbar machen (Zielring kräftig, Signatur gold) | Jerry | M | Chef: Film ansehen | Chef | – | – | E Kampf | 17,20 $ |
@@ -256,8 +256,8 @@
 | 1058 | Von Sokrates (1050a): Simulation 444 rechnet Herkünfte ohne plus_variante (variante=False in Held, held_auf_stufe, rechnung_1050.py, stufe644a.py), also mit 6 statt 9 freien Punkten; das Spiel (brs_held.gd waehle_herkunft) gibt beide; Standard auf 9 Punkte, Rechnungen 952 (00:12), 984, 1050 nachrechnen | Jerry | M? | startbar | – | – | – | G Balance | – |
 | 1060 | Von Tom (Chef 12.11., 17:34 „Wieso dauern denn jetzt die Runs wieder so lange?“, Lauf 43246170504): Kennung 854 von klassen und kampf hängt an ganz leute.json; Tom 758 (Feld sitzt) baute Held je Klasse (28 Min.) und Kampfort neu; nur die gelesenen Felder in die Kennung | Jerry | M | gebaut, Geprüft an: 1862bc2dd | – | claude/jerry-1060-kennung | – | E Technik | – |
 | 1062 | Von Sokrates (654, aus 1059): Filmlauf zeigt nur das Hauptmenü, dritter Fund gleicher Ursache (814, 1040 Lauf 384, 1043 Lauf 389: kein Argument hinter „--“, spiel.gd:77); Wächter, der so einen Film mit Fehler abbricht, statt einen Lauf zu verbrauchen | Jerry | M? | startbar | – | – | – | E Technik | – |
-| Pflege | von Werkzeug (340.3, 12.11.): 29702 Bytes (Grenze 15000), Erledigtes streichen; Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 1066 | Von Perikles (1050a A, Chef 12.11., 20:02): Herkunft Zauberlehrling plus Verstand 3, Wille 3 statt Wille 5, Verstand 1 (Zähigkeit +2, Gewandtheit +1 bleiben) in werte.json, Spiel und Simulation | Jerry | M | startbar | – | – | – | G Balance | – |
+| Pflege | von Werkzeug (340.3, 12.11.): 29492 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
@@ -344,7 +344,7 @@
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 767 | Wochentermin 13.11.: Rollenspiegel Ford (rollenspiegel.sh Ford) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Ford | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 906 | lauf.py startet Zusatzentwickler auf Zeilen, deren Zweig Umzugsdateien berührt (492 am 11.11., 08:04: claude/tom-492-durchspiel ändert spiel.gd; Grundsatz 5 LISTE-UMZUG-BRS, Zu 870.4 Sokrates 01:57); Sperre nach geänderten Dateien prüfen (von Spike) | Ford | M? | startbar | – | – | – | B Steuerung | – |
-| Pflege | von Werkzeug (340.3, 12.11.): 68712 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 12.11.): 68765 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
