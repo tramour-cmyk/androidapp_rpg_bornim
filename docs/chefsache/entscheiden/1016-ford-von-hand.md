@@ -26,4 +26,11 @@ Geprüft an: [LISTE-BETRIEB.md, Selbstneustart und Tiefe](https://github.com/tra
 
 **Folgerungen:** Nach deinem Start archiviert der neue Ford den alten, Perikles schließt 1016, die Datei wird gelöscht.
 
+**Stellungnahme Sokrates (12.11., 07:25):**
+- **Stärkstes Gegenargument** (nicht gegen A, sondern gegen die Frage als Einzelfall): sechster Handstart seit 22.10., der letzte erst gestern 09:32 (Archiv 110). Tiefe 0 bis 6 in 21 Stunden, weil Ford sich am Neustart-Haken (200 Tsd., 383 A) neu startet statt bei 400 Tsd. (185, Chef „so lassen“; `LISTE-BETRIEB.md` „Selbstneustart“): Protokoll 22:17, 00:22, 03:34, 06:11, jeweils bei 208 bis 293 Tsd.; `tools/neustart-haken.py` nimmt Ford nicht aus. So kommt die Frage täglich wieder.
+- **Widerspruch zu Entschiedenem:** (1) 185 und `LISTE-BETRIEB.md` sagen 400 Tsd., gelebt werden 200 Tsd.; (2) `LISTE-BETRIEB.md` „Tiefe“ nennt für diese Frage die Nummer 110 (je Thema ein Vorgang, 412), hier neu 1016; (3) die Zeitangabe ist überholt: Ford stand um 07:22 bei 183 Tsd. (`get_session`), nicht erst um 08:30 bis 09:30 an der Grenze; und B ist zu schwarz: auf Tiefe 6 startet Ford sich nicht neu, sondern läuft weiter („weiterlaufen bis dahin“, Fenster 1 Mio., Verdichtung ab 784 Tsd.); Stillstand droht erst, wenn er dennoch übergibt.
+- **Kosten:** A zwei Minuten von dir. B kein Handgriff, aber jeder Ford-Lauf wird mit der Länge teurer (heute 1,33 $ in 70 Minuten bei 183 Tsd.), und bei einer Verdichtung kann Stand verloren gehen (er steht allerdings in `ARBEIT-BETRIEB.md`).
+- **Systemlösung:** Ford im Neustart-Haken auf 400 Tsd. setzen, wie 185 es vorsieht; dann etwa halb so viele Selbstneustarts und ein Handstart etwa jeden zweiten Tag. Als 1019 bei Perikles (Ablauf, kein Wort von dir nötig).
+- **Empfehlung:** „1016 A“ heute Vormittag, wann es dir passt (Umgebung „WireStorm Hoch“, Aufwand Hoch ausdrücklich in der App wählen, 981), und 1019 bauen lassen, damit diese Frage seltener kommt.
+
 Antwort: …
