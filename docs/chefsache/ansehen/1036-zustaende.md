@@ -1,5 +1,7 @@
 # 1036 · Zustände an den Figuren wie alt · Team Jerry · 12.11., 17:05
 
+[Film von 12.11., 17:07](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261112-170657-1036/2026-11/12-1706-1036-Tuffy.mp4) (eingetragen von meldung.sh, Tuffy)
+
 E Kampf
 
 Geprüft an: [Lauf 43235660324](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43235660324) (Zweig `claude/jerry-1036-zustaende`); Film oben, von Tuffy selbst angesehen
