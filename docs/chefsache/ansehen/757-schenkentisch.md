@@ -1,5 +1,7 @@
 # 757 · Schenke: jeder Tisch mit eigenem Gedeck · Tom · 12.11., 17:20
 
+[Bild von 12.11., 17:21](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/12-1721-757-Tom.png) (eingetragen von meldung.sh, Tom)
+
 E Welt · Zweig `claude/tom-757-schenkentisch` · eine Probe (621 A), Spielansicht aus dem Lauf, Tagbild
 
 Geprüft an: [Lauf 43244404456](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43244404456), [Commit 8f33543](https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/8f335437c48d7cc0d38c63eaa6eabbc0f643591a)
