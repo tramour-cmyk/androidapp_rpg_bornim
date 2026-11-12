@@ -1,5 +1,7 @@
 # 1020.1 · Prüfliste im Reiter „Test“ · Tom · 12.11., 08:19
 
+[Bild von 12.11., 08:20](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/12-0820-1020.1-Tom.png) (eingetragen von meldung.sh, Tom)
+
 Geprüft an: [e76a179d0](https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/e76a179d0)
 
 Gebaut auf `claude/tom-1020-pruefliste`, Bilder vom Rechner mit der Prüfliste von Build 278; kommt mit dem nächsten Sammelbuild.
