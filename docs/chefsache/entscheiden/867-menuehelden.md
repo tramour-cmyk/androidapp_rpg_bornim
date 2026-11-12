@@ -29,4 +29,11 @@ Geprüft an: [Lauf 43246874141](https://github.com/tramour-cmyk/androidapp_rpg_b
 
 **Folgerungen:** A oder B: Tom baut ein (eine Zeile im Hauptmenü, im Zweig des Umzugs, weil die Datei dort liegt) und macht den Schein weich; fährt im nächsten Build. C: 867 ruht bis 431.
 
+**Stellungnahme Sokrates (12.11., 18:00):**
+- **Stärkstes Gegenargument gegen A:** Das Hauptmenü ist das Bild, mit dem du zu den externen Testern willst (292.3). A zeigt dort genau die Schwäche, die wir am meisten loswerden wollen (620: „Welt noch nicht lebendig, Klone“): ein Zwerg so groß wie die Menschen, eine Elfe, die keiner als Elfe erkennt. Das alte Bild hatte einen kleinen, breiten Zwerg.
+- **Für A trotzdem:** Das alte Bild verspricht Figuren, die es im Spiel nicht gibt (Spitzhut, Sonnenschild); wer danach die Erschaffung öffnet, sieht andere Helden. Und Toms Datei ist seit heute überholt, wo sie „431 ruht“ sagt: du hast 431 um 17:53 entschieden (Kleiderschrank: Statur und Volk per Skript, Tom nach dem Umzug). Damit hat der Zwerg einen festen Weg, und das Menü wird mit 431 von selbst richtig, ohne zweiten Bau. C hielte das falsche Bild bis nach dem Umzug fest.
+- **Widerspruch zu Entschiedenem:** einer, klein: 292.3 verlangt „Gesichter erkennbar“; das Gesicht des Zauberlehrlings liegt fast ganz im Schatten (Tom sagt es selbst). Kein Widerspruch zur Signatur: Lichtkegel ohne sichtbare Quelle ist dein „A jetzt, Feuer zurückgestellt“ (292.3, 22.10., 15:10); Tuschelinie im Hauptmenü erst nach dem Meilenstein (302.1); der Glanz an Kette und Helm ist derselbe wie bei Held und Drehteller im Spiel.
+- **Kosten:** A eine Zeile Einbau, weicher Schein, Licht aufs Gesicht, Wachsoldatin so gedreht, dass der Schild zu sehen ist; alles im Umzugszweig, kein Lauf extra. B dasselbe plus deine Wahl. C nichts, aber das alte Bild bleibt Wochen.
+- **Empfehlung:** „867 A“, beim Einbau dazu Gesicht des Zauberlehrlings ins Licht und den Schild der Wachsoldatin sichtbar; Zwerg und Elfe kommen mit 431.
+
 Antwort:
