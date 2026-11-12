@@ -91,7 +91,7 @@ Nicht in Kapitel 1: Illusion und Beschwörung haben keinen Zauber und sind bei d
 | Wille | Mana, Heil- und Schutzmagie, kritische Treffer der Umgebungsmagie, Konzentration, Furchtresistenz, Überzeugungskraft |
 | Wahrnehmung | verstärkt Spähen beim Entdecken von Verstecktem und Fallen (Entscheidung 83), Fernkampf-Treffgenauigkeit, Hinterhalte bemerken, Fährten |
 
-Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit, Wille und Stufe, je Stufe langsamer steigend als das Leben (930 Frage 10, Chef 11.11., 14:45; Zahlen Jerry mit 444), **Mana** aus Wille. Charisma gibt es nicht; die soziale Wirkung kommt aus Ruf und Gesellschaftsfertigkeiten.
+Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit, Wille und Stufe, je Stufe langsamer steigend als das Leben (930 Frage 10, Chef 11.11., 14:45; Zahlen Jerry mit 444), **Mana** aus Wille. Charisma gibt es nicht; die soziale Wirkung kommt aus Ruf und Gesellschaftsfertigkeiten. **Proben mit einer Fertigkeit ohne Grundwert** (Überreden, Einschüchtern, Handeln, Tiere beruhigen; 1051 A, Chef 12.11., 22:18): 30 % + 0,6 % je Punkt + 5 % je Stufe über dem Gegner (darunter weniger), 5 bis 95 %; auf gleicher Stufe Ende Anfänger 44 %, Geselle 59 %, Meister 74 %, Großmeister 90 %.
 
 ### Heldenerschaffung
 
