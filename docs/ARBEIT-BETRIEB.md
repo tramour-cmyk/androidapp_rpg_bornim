@@ -309,3 +309,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:05 12.11.: Marke Archiv session_01Hmoj76CayzJH3pKHwcqVjq (lauf.py)
 - 01:05 12.11.: Nachfolger-Warnung Tom (Übergabe 12.11., 00:13) (lauf.py)
 - 01:07 12.11.: Lauf 01:05: Tom …75vW6xAmcrgnBDZe1D „Tom – 968“, Homer …77G2Nx26NbtbSEBGc8 „Homer – 1008“, Tuffy …7AAdH3XpmB1bRL6xNn „Tuffy – 1007“ (Zusatz) in Hoch, effort high gestartet (je mit Zweig); Tom alt …77m67 (16,73 $ auf 861, 656), Homer alt …7882h (1,39 $ auf 954.2), Tuffy alt …76Cay (2,86 $ auf 935) archiviert und gebucht. Jerry 863 wartet auf Wahl Kaufmodelle/Messlauf; Jerry per Nachricht: 1007 gehört Tuffy, Chefsache-Datei anlegen. Wächter 264 per Nachricht an Sokrates. Abgleich-Warnungen 542, 632, 900, 870.2, 870.3, 709 (gebaut ohne Build) lautlos gemeldet.
+- 01:09 12.11.: Startsperre 01:09 Start Jerry (Neustart-Meldung 01:08, dfcf43604; Nachfolger "Jerry – 986: Eingebungen nach BRS"; Hoch, effort high)
