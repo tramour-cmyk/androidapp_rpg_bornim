@@ -67,6 +67,7 @@ var tables: Dictionary
 var on_end: Callable
 ## Starts the same fight anew ("Nochmal").
 var again_fn: Callable
+var zurueck_text: Array = []     # 1020.2 B: Text des Knopfs „Zurück“ [de, en], leer: „Zurück“
 var cam: Camera3D
 var ui
 var figures := {}          # id -> Figur

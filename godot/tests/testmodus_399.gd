@@ -87,9 +87,9 @@ func _lauf() -> void:
 	await druecke(m, "Kapitelende")
 	await druecke(m, "Tag / Nacht")   # 500: statt des Probeknopfs rechts in der Welt
 	await druecke(m, "Wolfsrudel")
-	await druecke(m, ErschaffungBrs.herkunft_name("Wachsoldat"))   # 870.4: Probehelden nach Herkunft
+	await druecke(m, "Probekampf starten")   # 1020.2 B: Herkunft als Schalter (Vorgabe Wachsoldat), ein Knopf startet
 	pruefe("an die Welt", taten.map(func(x): return x[0]), ["teleport", "kapitelende", "nacht", "kampf", "probe"])
-	pruefe("Probe", taten[-1][1] if taten.size() == 5 else [], ["GRAK", "Wachsoldat", 3])
+	pruefe("Probe", taten[-1][1] if taten.size() == 5 else [], ["GRAK", "Wachsoldat", 3, true])
 	pruefe("vor Aldric", Testmodus.vor_aldric().size(), 2)
 	var ph := Testmodus.probeheld("Zauberlehrling", 5)
 	pruefe("Probeheld", [ph.stufe, ph.leben == ph.max_leben(), ph.mana == ph.max_mana(), ph.herkunft], [5, true, true, "Zauberlehrling"])
