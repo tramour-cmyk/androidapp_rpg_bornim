@@ -210,7 +210,22 @@ func _ready() -> void:
 	else:
 		_geheul_beim_erscheinen()
 		_tempo_setzen()
+	# 841: mit einem Goblin-Späher wartet der Kampf auf „Kämpfen“ oder „Verjag den Späher (Einschüchtern)“ (kampf_ui.gd); nur aus dem
+	# Spiel (progress „verjagen“, spiel.gd), nicht in kampf/probe.gd und dessen Tests
+	if bool(progress.get("verjagen", false)) and mars.spaeher_zum_verjagen() != null:
+		tor = "einschuechtern"
+		ui.refresh()
+		return
 	_run(func(): mars.start(_react))
+
+
+## 841: die Wahl zu Kampfbeginn; [verjagen] wahr: erst die Probe auf Einschüchtern (Mars.start), sonst gleich der Kampf
+var tor := ""
+func tor_wahl(verjagen: bool) -> void:
+	if tor == "":
+		return
+	tor = ""
+	_run(func(): mars.start(_react, verjagen))
 
 
 ## 600: Ruhig, Normal, Schnell wie im Menü (Bedienung.tempo), gilt sofort, bleibt gespeichert; während der Blende erst, wenn sie geht
@@ -1054,6 +1069,9 @@ func order(o: Array) -> void:
 
 
 func go_on() -> void:
+	if tor != "":     # 841: weiter (Autopilot, Tests) heißt an der Wahl zu Beginn „Kämpfen“
+		tor_wahl(false)
+		return
 	if busy or mars.outcome != "ONGOING":
 		return
 	_run(func(): mars.proceed(_react))
