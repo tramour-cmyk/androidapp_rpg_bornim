@@ -34,7 +34,10 @@ func _lauf() -> void:
 	var befunde := []
 	var ausweich_film := 0
 	t0 = Time.get_ticks_msec()
-	while Time.get_ticks_msec() - t0 < (300000 if OS.get_environment("FILM") != "" else 90000):
+	# Lauf 404: im Film nach Bildern statt Uhrzeit; --write-movie lief mit 9 % der Echtzeit, 300 s Uhr waren 32 s Film, der Held
+	# wurde (Seed 7, erste Runde alle auf den Söldner) erst bei 18,8 s Kampfzeit angegriffen
+	var f0 := Engine.get_process_frames()
+	while (Engine.get_process_frames() - f0 < 30 * 120) if OS.get_environment("FILM") != "" else (Time.get_ticks_msec() - t0 < 90000):
 		await process_frame
 		if k.mars.outcome != "ONGOING" and not k.busy and not k.playing and k.beats.is_empty():
 			break
