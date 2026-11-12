@@ -240,12 +240,14 @@ func _statuses() -> void:
 	_check_s("Betäubt: Zug verloren", str(lines.filter(func(x): return "kann nicht handeln" in x).size()), "1")
 	_check_s("Betäubt: dann wieder dran", str(s.current() == hero and s.outcome == "ONGOING"), "true")
 	_check_s("Betäubt: Schutz vor neuer Betäubung", str(s._inflict(hero, "STUN", 1)), "false")
-	# slowed: −2 on the attack; weakened: −2 on attack and damage (870.5: keine Rüstungsklasse mehr)
+	# slowed and weakened hit less often, weakened deals less (870.6: werte.json „zustaende“)
 	var w = _fight(sheet, ["wolf"], 1)
 	var foe = w.by_id("f0")
 	foe.status["SLOW"] = 2
 	foe.status["WEAK"] = 2
-	_check_s("Verlangsamt und geschwächt: Angriff −4", str(w._penalty(foe)), "4")
+	var zt: Dictionary = w._zw().get("treffer", {})     # 870.6: Prozentpunkte aus werte.json „zustaende“ „treffer“
+	_check_s("Verlangsamt und geschwächt: Trefferchance", str(w._treffer_mod(foe)), str(float(zt.get("SLOW", -10)) + float(zt.get("WEAK", -10))))
+	_check_s("Geschwächt: Schaden", str(w._schaden_faktor(foe)), str(float(w._zw().get("schaden_faktor", {}).get("WEAK", 0.8))))
 	# a foe immune to it takes none; a boss shakes off a stun half the time
 	var i = _fight(sheet, ["wolf"], 1)
 	var im = i.by_id("f0")
