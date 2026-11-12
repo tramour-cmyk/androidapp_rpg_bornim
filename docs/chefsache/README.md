@@ -175,7 +175,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1023 | K | Hühner wie alt: fliehen verlässlich, Federn sichtbar, auffliegen (aus 814, t278.3; Chef 12 | ruht |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 20162 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 137, Muss 124, startbar 2
+**Jerry** – offen 138, Muss 125, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -316,6 +316,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1024 | M | Von Sokrates (Chef 12.11., 09:04, Bild Wolfskampf Build 278): Schalterreihe am rechten Ran | startbar |
 | 644b | M | Von Tuffy (644a.1, Rechnung): Deckel trotz Zahlen weg? Hauptwert üblich +4 bei Schütze, Sp | in Arbeit bei Tuffy |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 18671 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 1025 | M | Von Sokrates (Chef 12.11., 10:25, Bild Probekampf Wölfe, Build 278): „ganzer Bericht“ geöf | Sperre 620.1 B: 38 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
 
 **Perikles** – offen 13, Muss 12, startbar 0
 
