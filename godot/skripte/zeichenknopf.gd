@@ -104,11 +104,17 @@ func _zeichne() -> void:
 	var r := kreis.size.x / 2
 	var breit := (1.5 if auf else 1.0) * DP
 	kreis.draw_arc(kreis.size / 2, r - breit / 2, 0, TAU, 64, Stil.BRIGHT if auf else (Stil.GOLD if an else Stil.RIM), breit, true)
-	if buchstabe != "": return
 	var s := 24 * DP
 	var o := (kreis.size - Vector2(s, s)) / 2
+	# 991 (Chef 11.11., 20:24, t277: „Unsterblich ist auch aus … das fehlt dann da“): aus ist auch bei Buchstabe und Stiefel
+	# durchgestrichen wie bei den Zeichen (glyphe), nicht nur matt
+	var strich := func() -> void: kreis.draw_line(o + Vector2(3, 20) * s / 22.0, o + Vector2(19, 2) * s / 22.0, _tinte(), 1.5 * s / 22.0, true)
+	if buchstabe != "":
+		if not an: strich.call()
+		return
 	if zeichen == "RUN":
 		AktionsKnopf.stiefel(kreis, o, s / 24.0, _tinte())
+		if not an: strich.call()
 		return
 	if zeichen != "": Zeichenknopf.glyphe(kreis, zeichen, o, s / 22.0, _tinte(), an)
 

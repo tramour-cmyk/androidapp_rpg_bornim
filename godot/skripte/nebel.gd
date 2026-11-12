@@ -242,7 +242,10 @@ func weite() -> float:
 		if Menue.fackel(spiel.held_werte()): s = TORCH_SIGHT
 		elif spiel.zustand.funke: s = SPARK_SIGHT
 		else: s = DARK_SIGHT
-	return s + 0.5 * maxi(0, spiel.held_werte().mod("WIS"))   # Perks.sightBonus
+	# Perks.sightBonus (alt 0,5 je Mod der Weisheit über 0); nach BRS halb so viel je Punkt Wahrnehmung über „sinne_ab“,
+	# umgerechnet wie der Hinterhalt (werte.json welt „_sinne“: alt 15 % je Mod, BRS 7,5 % je Punkt)
+	var w := BrsHeld.welt()
+	return s + 0.25 * maxi(0, spiel.held_werte().wert("wahrnehmung") - int(w.get("sinne_ab", 3)))
 
 func neu_sehen(h: Vector2i, gier: float) -> bool:
 	var grad := roundf(rad_to_deg(gier) / 5.0) * 5.0   # in Schritten von 5°, sonst rechnet jede kleine Drehung neu

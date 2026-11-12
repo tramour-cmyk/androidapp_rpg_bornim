@@ -88,7 +88,7 @@ func _ready() -> void:
 	aktion_knopf.visible = false
 	# kurz ruetteln, wenn vor dir etwas zu tun ist (WorldScreen buzz)
 	aktion_knopf.pressed.connect(func():
-		if textfeld.visible: naechste(); return
+		if textfeld.visible: weiter(); return
 		if angebot != "": Bedienung.ruettle()
 		aktion.emit())
 	add_child(aktion_knopf)
@@ -195,7 +195,7 @@ func _ready() -> void:
 # Masse wie alt in dp: Wischen Aktionsknopf 76, 22 vom Rand, Renntaste 58, 31 vom Rand, 112 von unten, Schild 106 und 46;
 func richte_ein() -> void:
 	Bedienung.lade()
-	mess.visible = "--messen" in OS.get_cmdline_user_args() or Testmodus.bildrate or Testmodus.standort
+	mess.visible = "--messen" in OS.get_cmdline_user_args() or Testmodus.bildrate or Testmodus.standort or Testmodus.klang   # 636 A Klang
 	var dp := AktionsKnopf.DP
 	var li := Bedienung.links
 	JOY = Bedienung.ring_dp() * dp
@@ -406,6 +406,27 @@ func schliesse_wahl() -> void:
 	zeige_knoepfe()
 func waehlt() -> bool: return wahl_grund.visible
 
+# 785.19 (alt WorldScreen.kt 123-130, 382-388): der Text erscheint Zeichen für Zeichen, ein Zeichen je 18 ms; ein Tippen, solange er
+# noch läuft, zeigt ihn ganz, erst das nächste geht weiter. naechste() selbst (Spiel, Tests) geht immer weiter
+const ZEICHEN_MS := 18.0
+var schreib_ms := 0.0
+
+func schreibt() -> bool:
+	return textfeld.visible and text.visible_characters >= 0 and text.visible_characters < text.get_total_character_count()
+
+func weiter() -> void:
+	if schreibt():
+		text.visible_characters = -1
+		return
+	naechste()
+
+func _process(dt: float) -> void:
+	if weiter_zeichen != null: weiter_zeichen.visible = not schreibt()   # ▼ erst, wenn der Text ganz steht (alt DialogDraft.kt 65)
+	if not schreibt(): return
+	schreib_ms += dt * 1000.0
+	var n := int(schreib_ms / ZEICHEN_MS)
+	text.visible_characters = -1 if n >= text.get_total_character_count() else n
+
 func naechste() -> void:
 	if zeilen.is_empty():
 		var war := textfeld.visible
@@ -424,6 +445,9 @@ func naechste() -> void:
 	sprecher.text = String(z["wer"]).to_upper() if z.has("wer") else ""
 	sprecher.visible = z.has("wer")
 	text.text = String(z["text"])
+	text.visible_characters_behavior = TextServer.VC_CHARS_AFTER_SHAPING   # Umbruch und Kastenhöhe gleich vom ganzen Text, nichts springt
+	text.visible_characters = 0   # 785.19: Zeichen für Zeichen wie alt
+	schreib_ms = 0.0
 	text.add_theme_font_override("font", Stil.variante(0.3, not z.has("wer")))   # Erzaehltes schraeg wie alt
 	textfeld.visible = true
 	zeige_knoepfe()   # Renntaste schien durch das Textfeld (Helferbefund 348.6)
@@ -443,7 +467,7 @@ func _tipp_text(t: InputEventScreenTouch) -> void:
 	if not druck_im_text or Engine.get_process_frames() == letzter_tipp: return
 	druck_im_text = false
 	letzter_tipp = Engine.get_process_frames()
-	naechste()
+	weiter()
 
 # 390: Aufschriften neu nach dem Sprachwechsel
 func sprache_neu() -> void:
@@ -510,7 +534,8 @@ var standort := ""                       # 399.1 Testmodus „Standort anzeigen�
 func messe(times: Array) -> void:
 	if not mess.visible or Engine.get_process_frames() % 15 != 0 or times.is_empty(): return
 	if not ("--messen" in OS.get_cmdline_user_args() or Testmodus.bildrate):
-		mess.text = standort
+		mess.text = standort if Testmodus.standort else ""
+		_klang_zeilen()
 		return
 	var s := times.duplicate()
 	s.sort()
@@ -525,3 +550,10 @@ func messe(times: Array) -> void:
 		Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME),
 		int(Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME) / 1000.0)]
 	if Testmodus.standort: mess.text += "\n" + standort
+	_klang_zeilen()
+
+# 636 A: Testmodus „Klang“, die letzten Effekte (klang.gd protokoll_zeilen) unter den übrigen Messwerten
+func _klang_zeilen() -> void:
+	var k := get_node_or_null("/root/Klang")
+	if not Testmodus.klang or k == null: return
+	mess.text = ("" if mess.text == "" else mess.text + "\n") + "\n".join(k.protokoll_zeilen())

@@ -15,13 +15,21 @@ if [ -d $K/anhang ]; then
   # Sokrates 26.10.: Protofactor liefert .rar (Ratte, Version stufe1); 7z, sonst bsdtar oder unrar; ein Archiv, das keiner oeffnet, meldet sich.
   # Lauf 82: GiantRat.4.14.rar liess 7z abstuerzen, bsdtar scheiterte, unrar fehlt: zuerst unar (RAR5), auf dem Runner nachinstalliert
   if [ -n "$(find $K/anhang -name '*.rar' | head -1)" ] && ! { command -v unar && command -v unrar; } > /dev/null && command -v sudo > /dev/null; then
-    { sudo apt-get install -y -qq unar unrar-free || { sudo apt-get update -qq && sudo apt-get install -y -qq unar unrar-free; }; } > /dev/null 2>&1 || true
+    # 595 (Lauf 352: unar und unrar fehlten danach, die Installation schlug still fehl): dreimal versuchen, sonst sagen
+    for i in 1 2 3; do
+      { sudo apt-get install -y -qq unar unrar-free || { sudo apt-get update -qq && sudo apt-get install -y -qq unar unrar-free; }; } > /dev/null 2>&1 && break
+      echo "unar/unrar nicht installiert (Versuch $i)"; sleep 10
+    done
   fi
+  # 595 (Lauf 352: 7z stürzte mitten im Auspacken ab, die halbe Kopie blieb liegen, DARKNESS_SPIDER.FBX darin kaputt, Blender: „ASCII
+  # FBX files are not supported“): vor jedem weiteren Versuch und am Ende ohne Erfolg die halbe Kopie weg
   find $K/anhang -name '*.rar' | while read -r z; do d="${z%.rar}"; [ -d "$d" ] && continue; mkdir -p "$d"
     # 494 (Jerry 03.11.): GIANT.SLUG.RAW.FILES.1.rar bricht unar ab (Ende 1, Grundfarbe zu 98 % geschrieben, Netz „Attempted to read more
     # data than was available“), unrar-free packt es ganz aus: halbe Dateien weg, dann unrar
-    unar -q -f -D -o "$d" "$z" > /dev/null 2>&1 || { rm -rf "$d"; mkdir -p "$d"; unrar x -o+ -inul "$z" "$d/" > /dev/null 2>&1; } || 7z x -y -bd -o"$d" "$z" > /dev/null 2>&1 || bsdtar -xf "$z" -C "$d" 2> /dev/null || unrar x -o+ -inul "$z" "$d/" \
-      || { echo "nicht entpackt: ${z#$K/}"; rmdir "$d" 2> /dev/null || true; }
+    unar -q -f -D -o "$d" "$z" > /dev/null 2>&1 || { rm -rf "$d"; mkdir -p "$d"; unrar x -o+ -inul "$z" "$d/" > /dev/null 2>&1; } \
+      || { rm -rf "$d"; mkdir -p "$d"; 7z x -y -bd -o"$d" "$z" > /dev/null 2>&1; } || { rm -rf "$d"; mkdir -p "$d"; bsdtar -xf "$z" -C "$d" 2> /dev/null; } \
+      || { rm -rf "$d"; mkdir -p "$d"; unrar x -o+ -inul "$z" "$d/"; } \
+      || { echo "nicht entpackt: ${z#$K/}"; rm -rf "$d"; }
   done
   # Chef 26.10.: Janpec liefert .unitypackage (tar.gz, je Ding ein Ordner <guid> mit asset und pathname); nach dem Rar, das selbst eines
   # enthalten kann. Ausgepackt unter <name>/ mit den Pfaden aus pathname, ohne .meta; Pfade, die aus dem Ziel fuehren, werden uebergangen.

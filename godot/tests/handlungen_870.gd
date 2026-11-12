@@ -20,7 +20,7 @@ func _initialize() -> void:
 		print("HANDLUNGEN870 FALSCH daten/werte.json fehlt")
 		quit(1)
 		return
-	tab = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	tab = Tabellen.lade()
 	for s in tab.skills:
 		skills[s.id] = s
 	for m in tab.monsters:
@@ -39,6 +39,7 @@ func _initialize() -> void:
 	_griff()
 	_zauber()
 	_schwaechen()
+	_wissen_960()
 	_gegenwirkungen()
 	_regeln_870c()
 	print("HANDLUNGEN870 %s" % ("gut" if fehler == 0 else "%d FALSCH" % fehler))
@@ -281,6 +282,15 @@ func _zauber() -> void:
 	var m = _kampf("Einhänder", {"Evokation": 25, "Heilmagie": 25, "Schutzmagie": 10}, ["wolf"])
 	var h = m.by_id("hero")
 	h.b.zauber = ["Funkenpfeil", "Wundsegen", "Bannschild"]
+	# 870.4 (DESIGN-BRS.md 7, [870.14.ding.metall]): in Metall (mittlere, schwere Rüstung) keine Evokation, Illusion, Beschwörung
+	m._brs_zauber_kennen(h)
+	var in_metall: Array = m.moves(h)
+	pruefe("Mittlere Rüstung: keine Evokation, Heil- und Schutzmagie bleiben",
+			not ("Z_FUNKEN" in in_metall or "Z_STRAHLEN" in in_metall or "Z_FAECHER" in in_metall) and "Z_WUND" in in_metall and "Z_BANN" in in_metall, str(in_metall))
+	h.b.ruestung = "Schwere Rüstung"
+	m._brs_zauber_kennen(h)
+	pruefe("Schwere Rüstung: keine Evokation", not ("Z_FUNKEN" in m.moves(h)), str(m.moves(h)))
+	h.b.ruestung = "Leichte Rüstung"
 	m._brs_zauber_kennen(h)
 	var mv: Array = m.moves(h)
 	pruefe("Zauber aus dem Kampfblatt und nach Schule (Evokation 25: Glutstrahlen, Flammenfächer; nicht Glutkugel ab 40)",
@@ -343,6 +353,26 @@ func _schwaechen() -> void:
 	var info := []
 	pruefe("Skelett: Stich halb, Wucht anderthalb, Gift nichts", x._schwaeche(x.by_id("hero"), x.by_id("f0"), "stich", info) == 0.5
 			and x._schwaeche(x.by_id("hero"), x.by_id("f0"), "wucht", info) == 1.5 and x._schwaeche(x.by_id("hero"), x.by_id("f0"), "gift", info) == 0.0)
+
+
+## 960 (870d): Ziel-Tipp nennt Schwäche, Stärke und Gegenwirkung ab Verstand 6, sonst „unbekannt“, bis der Kampf eine nennt
+func _wissen_960() -> void:
+	var m = _kampf("Einhänder", {"Evokation": 25}, ["wolf"])
+	m.by_id("hero").b.werte["verstand"] = 3
+	m.start()
+	pruefe("960 Verstand 3: Wolf unbekannt", m.wissen(m.by_id("f0"), 0) == "Schwächen: unbekannt.", m.wissen(m.by_id("f0"), 0))
+	Mars.gegner_ohne_rettung = true
+	m._brs_zauber(m.by_id("hero"), m.by_id("f0"), BrsKampf.w()["zauber"]["Funkenpfeil"])
+	Mars.gegner_ohne_rettung = false
+	pruefe("960 Verstand 3, nach dem Feuer: Wolf verwundbar gegen Feuer", m.wissen(m.by_id("f0"), 0).begins_with("Verwundbar: Feuer. Widersteht: –."), m.wissen(m.by_id("f0"), 0))
+	var x = _kampf("Einhänder", {"Einhänder": 25}, ["skeleton"])
+	x.by_id("hero").b.werte["verstand"] = 6
+	x.start()
+	pruefe("960 Verstand 6: Skelett vorher bekannt", x.wissen(x.by_id("f0"), 0) == "Verwundbar: Wucht. Widersteht: Stich, Gift.", x.wissen(x.by_id("f0"), 1))
+	var w = _kampf("Einhänder", {"Einhänder": 25}, ["wolf"])
+	w.by_id("hero").b.werte["verstand"] = 7
+	w.start()
+	pruefe("960 Verstand 7: Wolf mit Vorsicht (englisch)", w.wissen(w.by_id("f0"), 1).ends_with("Beware: fire drives off the pack, loot, experience and all, once its leader is half dead."), w.wissen(w.by_id("f0"), 1))
 
 
 ## 870.5 (870a 8 A): Gegenwirkungen

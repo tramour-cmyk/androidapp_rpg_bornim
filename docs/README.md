@@ -28,6 +28,7 @@ Inhaltsverzeichnis: jede Zeile sagt in einem Satz, was in der Datei steht und wo
 - [Roter Faden](STORY-ROTER-FADEN.md) und [Chronik-Texte Kapitel 1](STORY-CHRONIK-TEXTE-K1.md): die Geschichte über alle Kapitel in Kürze und die Texte der Chronik im Spiel.
 - [Figuren](LISTE-FIGUREN.md): nur das Aussehen wiederkehrender Leute und Monster, damit man sie überall wiedererkennt.
 - [Gegenstände](LISTE-GEGENSTAENDE.md): alles, was man finden, kaufen oder tragen kann, nach Art und woher man es bekommt (rechnet ein Werkzeug aus).
+- [Regelwerte](LISTE-REGELWERTE.md): jede Zahl der Spielregeln mit Regel, Formel, heutigem Wert und wo sie wirkt, etwa wie Fertigkeiten wachsen (rechnet ein Werkzeug aus).
 - [Bestiarium](LISTE-BESTIARIUM.md): nur die Kampfseite jeder Monsterart (Angriffe, Beute, Werte); ihr Aussehen steht unter Figuren. Beide gehen im Figurenkatalog auf (Vorgang 649, Sokrates).
 - [Ideen](LISTE-IDEEN.md): lose Einfälle, noch nicht geprüft.
 - [Änderungshistorie](../CHANGELOG.md): was schon gebaut ist.

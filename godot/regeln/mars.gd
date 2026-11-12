@@ -14,6 +14,12 @@ const BrsKampf = preload("res://regeln/brs_kampf.gd")
 static var held_immer_krit := false
 static var gegner_ohne_rettung := false
 static var held_unsterblich := false
+## 1020.2 C (Chef 12.11., 08:09; Vorlage 1020 C, nur Reiter Test): der nächste passende Gegnerzug wird erzwungen, dann gilt wieder
+## der Zufall: „pounce“ Anspringen (Wölfe), „heavy“ Schwerer Hieb (Grak), „reihe“ ein Gegner der hinteren Reihe tauscht nach vorn,
+## „flucht“ alle Gegner fliehen; [test_ausweichen]: der nächste Angriff auf den Helden geht fehl, er weicht aus (mit Schild: Abwehr)
+static var test_gegnerzug := ""
+static var test_ausweichen := false
+static var test_erzwungen: Array = []     # was davon wirklich kam (tests/probekampf_1020.gd)
 ## The lines by name, for the ones picked in several wordings.
 ## 399.2b (Homer [399.2b.knurrt]): die Zeile im Zug, wenn ein Jungwolf nur knurrt; gibt es im alten MARS nicht, darum nicht in mars_texte.gd
 ## Battle.kt Msg.fed (399.2, satt)
@@ -29,11 +35,47 @@ const MSG870_IMMUN := ["{1} prallt an {0} ab.", "{1} has no effect on {0}."]
 const MSG870_GEGEN_WOLF := ["Die Wölfe weichen vor dem Feuer zurück, dann sind sie zwischen den Bäumen fort. Kein Fell, keine Erfahrung.",
 	"The wolves shy from the fire, then they are gone among the trees. No pelt, no experience."]
 const MSG870_GEGEN_SCHWEIN := ["Das Feuer macht {0} rasend.", "The fire drives {0} into a frenzy."]
+const MSG870_GEGEN_SPINNE := ["Die Seide der Spinne verbrennt zu Asche.", "The spider's silk burns to ash."]     # [870.14.gegen.spinne]
 const MSG870_GEGEN_FLUEGER := ["{0} wittert dein Blut und saugt gieriger.", "{0} smells your blood and feeds more greedily."]
 const MSG870_GEGEN_ZOMBIE := ["{0} zerfällt. Diesmal steht er nicht wieder auf.", "{0} crumbles. This time it does not rise again."]
 const MSG870_GEGEN_SCHLEIM := ["Der Schleim teilt sich.", "The slime splits in two."]
 ## [870.14.kraft.schoepfen]
 const MSG870_KRAFT := ["{0} schöpft Kraft: +{1} TP.", "{0} draws strength: +{1} HP."]
+## 840 (830 A, Chef 10.11., 11:00; 210 B): Eingebung des Helden beim ersten Auftreten einer Ansage, einmal je Spielstand (gesehen),
+## im Kampfbericht direkt nach der Ansage; Wolfssprung [830.sprung]. 986 (Homer, STORY-BRS-KAMPF.md „Eingebungen der Ansagen (986)“):
+## heavy, call, shadow im Wortlaut [210T.*.eingebung] (STORY-SPIEL.md), die übrigen [986.*]; bite und claw ohne Eingebung.
+## Knurren hat keine Ansage (_say_announce): seine Eingebung steht nach der ersten Zeile MSG399_GROWLS (_foe_turn)
+const EINGEBUNG := {"pounce": ["Er will springen. Stehe ich nicht mehr dort, wohin er springt, schnappt er ins Leere. Wechsel, und mir bleibt noch ein halber Zug.",
+	"It means to leap. If I no longer stand where it leaps, it snaps at nothing. Switch, and I still have half a turn."],
+	"heavy": ["Er holt zu weit aus. Treffe ich ihn jetzt hart, kommt er aus dem Tritt.",     # [210T.heavy.eingebung]
+		"He winds up too far. If I hit him hard now, he loses his footing."],
+	"call": ["Er ruft Hilfe. Die halte ich nicht auf, aber ihn kann ich treffen, solange er brüllt.",     # [210T.call.eingebung]
+		"He calls for help. That I cannot stop, but I can hit him while he roars."],
+	"shadow": ["Er sucht das Dunkel. Ein Kratzer jetzt, und er bleibt sichtbar.",     # [210T.shadow.eingebung]
+		"He seeks the dark. A scratch now, and he stays in sight."],
+	"stab": ["Nur ein Stich. Meist lohnt mein eigener Schlag mehr als die Abwehr.",     # [986.stab]
+		"Just a stab. My own blow is usually worth more than a Defend."],
+	"slash": ["Nur ein Hieb. Meist lohnt mein eigener Schlag mehr als die Abwehr.",     # [986.hieb]
+		"Just a slash. My own blow is usually worth more than a Defend."],
+	"flank": ["Er will hintenrum. Ein Kratzer hält ihn auf, ein Wechsel der Reihe auch.",     # [986.flank]
+		"He means to go around. A scratch stops him, and so does switching rows."],
+	"circle": ["Der da ruft das Rudel zusammen. Den treffen, egal wie leicht.",     # [986.circle]
+		"That one calls the pack together. Hit it, however lightly."],
+	"growl": ["Der hier hält sich zurück. Erst den Leitwolf treffen.",     # [986.growl]
+		"This one holds back. Hit the lead wolf first."],
+	"web": ["Das Netz fliegt langsam. Nur wer den Moment genau trifft, bleibt frei.",     # [986.web]
+		"The web flies slowly. Only perfect timing keeps you free."],
+	"gather": ["Er holt Luft. Jetzt nachsetzen, sonst kommt er wieder zu Kräften.",     # [986.gather]
+		"He is catching his breath. Press now, or he regains his strength."],
+	"breakthrough": ["Er will durch die Reihe. Tritt der Bedrohte vorher selbst nach vorn, bleibt Grak nur ein einfacher Schlag.",     # [986.breakthrough]
+		"He means to break the line. If the threatened one steps forward first, Grak is left with a plain blow."],
+	"venom": ["Gegen den Giftbiss hilft kein Ring. Treffe ich sie vorher hart, versiegt das Gift.",     # [986.venom]
+		"No ring helps against the venom bite. If I hit her hard first, the venom dries up."],
+	"aim": ["Er legt an. Geht der Anvisierte in Abwehr, duckt er sich, und der Pfeil geht vorbei.",     # [986.aim]
+		"He takes aim. If the one in his sights Defends, the arrow flies past."]}
+const GESEHEN_EINGEBUNG := "eingebung_"     # + Ansage, Flagge im Spielstand (Zustand.flaggen über Kampfort.flaggen, 836)
+## 836, 840: Flaggen des Spielstands (dasselbe Dictionary wie Zustand.flaggen; Proben leer, je Kampf neu)
+var gesehen := {}
 const MSG399_GROWLS := [["{0} knurrt, wagt aber keinen Biss.", "{0} snarls but dares no bite."],
 	["{0} duckt sich und fletscht die Zähne, kommt aber nicht heran.", "{0} crouches and bares its teeth, but does not come in."],
 	["{0} knurrt und hält Abstand.", "{0} growls and keeps its distance."]]
@@ -79,7 +121,6 @@ const MSG535_FLUTTERS = ["{0} flattert davon – daneben!", "{0} flutters away �
 const FLUTTER := 0.2
 ## 534 (Abgleich 512, Sokrates: im alten Weltkampf Battle.kt, in MARS fehlend): Lebensraub und Schadensminderung der
 ## Ausrüstung, Unerbittlichkeit der Orkblütigen, Einschüchtern zu Kampfbeginn (Perks.cowChance); Wortlaut aus Battle.kt Msg
-const MSG534_LIFESTEAL = ["{0} saugt {1} TP ab.", "{0} drains {1} HP."]
 const MSG534_RELENTLESS = ["Letzter Atemzug: {0} bleibt stehen!", "Last Breath: {0} stays standing!"]     # [870.14.letzter.atemzug]
 const MSG534_COWED = ["{0} zögert, eingeschüchtert von {1}!", "{0} hesitates, cowed by {1}!"]
 ## 506 (alt Battle.kt Msg.fortitude, Msg.elfImmune): Untotenzähigkeit des Wiedergängers (Monsters.kt zombie UNDEAD_FORTITUDE: ein
@@ -87,7 +128,6 @@ const MSG534_COWED = ["{0} zögert, eingeschüchtert von {1}!", "{0} hesitates, 
 ## Lähmung des Grabhunds (ghoul PARALYZE: jeder Treffer betäubt eine Runde, Kon-Rettung 10; Elfen sind immun)
 const MSG506_FORTITUDE = ["{0} weigert sich zu fallen!", "{0} refuses to fall!"]
 const MSG506_ELF = ["Elfen sind gegen Lähmung immun – {0} bleibt unbeeindruckt.", "Elves are immune to paralysis – {0} is unaffected."]
-const ZAEH_DC := 5
 const COW_PER_CHA := 0.08
 const BREAK_SHARE := 5
 ## 296.2: the lines of the old fight, the same words in MARS (Skirmish.kt Msg296, Zweig claude/build-89).
@@ -144,9 +184,7 @@ const MSG296_DAMAGE := ["{0} Schaden.", "{0} damage."]
 ## 296.2: the kinds whose specials MARS plays through their own intents, not the old fight's.
 const OWN_INTENTS := [GRAK, CALLED, SCOUT, WOLF, DIRE_WOLF, SPIDER]
 const CALL_MAX := 1     # 870c 1 A: Grak ruft höchstens einen Goblin
-const GATHER_HEAL := [2, 10, 0]
 const PROBE_LEVEL := 3
-const EASY_GAP := 4.0
 
 ## Reaction: how well the attacked figure met the ring (72.11), with its share of the damage.
 const NONE := "NONE"
@@ -219,7 +257,7 @@ var I_POUNCE := _intent("pounce", "Anspringen", "Pounce", "STRIKE", null, false,
 var I_GROWL := _intent("growl", "Knurren", "Growl", "WAIT", null, false, false, false, "GROWL")
 var I_CIRCLE := _intent("circle", "Einkreisen", "Circle", "GATHER", null, false, false, false, "CIRCLE", true)
 var I_VENOM := _intent("venom", "Gift sammeln", "Gather venom", "STRIKE", [2, 6, 0], true, false, true)
-var I_WEB := _intent("web", "Netz werfen", "Cast web", "STRIKE", null, false, true, false, "WEB")
+var I_WEB := _intent("web", "Netz werfen", "Throw web", "STRIKE", null, false, true, false, "WEB")     # 986 (4): EN wie [870.14.ansage.web]
 var I_AIM := _intent("aim", "Anlegen", "Take aim", "STRIKE", [1, 6, 0], false, false, false, "AIM")
 var I_SHADOW := _intent("shadow", "In den Schatten", "Into the shadows", "GATHER", null, false, false, false, "SHADOW", true)
 var I_BREAKTHROUGH := _intent("breakthrough", "Durchbrechen", "Break through", "STRIKE", [1, 6, 0], false, true, true, "BREAKTHROUGH")
@@ -267,6 +305,7 @@ class Fighter:
 	var rasend := false
 	var kein_zaeh := false
 	var geteilt := false
+	var seide_weg := false     # 870.6: Gegenwirkung Riesenspinne, Feuer verbrannte die Spinnseide (Beute)
 	var held := false
 	var prone := false
 	var waited := false
@@ -276,7 +315,7 @@ class Fighter:
 	## 296.2: the statuses with the turns they still last, in the order they came; the poison's die; turns after a
 	## stun in which no new one takes hold; the statuses have acted this turn; has landed a blow in this fight.
 	var status := {}
-	var poison_die: Array = [1, 4, 0]
+	var gift := 1.0     # 870.6: Stärke des Gifts, das auf ihm wirkt (werte.json „monsterregeln“ „gift“)
 	var stun_guard := 0
 	var ticked := false
 	var has_hit := false
@@ -288,7 +327,6 @@ class Fighter:
 	## 478: was er nach dem BRS ist (brs_kampf.gd held, gegner)
 	var b := {}
 	## 478: seine Leben nach dem SRD beim Umrechnen (Maßstab für alles, was noch in Würfeln des SRD rechnet)
-	var srd_hp := 0
 
 	func standing() -> bool:
 		return hp > 0 and not fled
@@ -381,6 +419,7 @@ var smoke_thrown := false
 var smoke_spent := false
 const KROGG := "bugbear"
 const THROWS := ["{0} wirft {1}!", "{0} throws {1}!"]     # Battle.kt Msg.throws
+const MSG532_CURED := ["{0} ist von allen Leiden befreit!", "{0} is cured of all ailments!"]     # Battle.kt Msg.cured
 const SMOKE_BUNDLE := ["Rauchbündel", "Smoke Bundle"]     # Items.kt smoke_bundle
 var aim_spot := {}
 var retargeted := {}
@@ -389,7 +428,7 @@ var called := 0
 var casting = null
 
 
-## [party] and [foes] are Fighters; [tables] the monsters, items and skills (godot/regeln/tabellen.json).
+## [party] and [foes] are Fighters; [tables] the monsters, items and skills (870.6: regeln/tabellen.gd Tabellen.lade(), nach BRS).
 func _init(party: Array, foes: Array, tables: Dictionary, p_dice, p_words, p_lang := 0, p_winded := false, p_opening := "NORMAL") -> void:
 	opening = p_opening
 	dice = p_dice
@@ -419,10 +458,10 @@ func _init(party: Array, foes: Array, tables: Dictionary, p_dice, p_words, p_lan
 	var lv = party[0].hero.level if party[0].hero != null else null
 	if lv != null and not foes.is_empty() and not foes.any(func(f): return f.boss()):
 		var top := 0.0
-		for f in foes:
-			top = maxf(top, cr_value(str(f.monster.cr)))
+		for f in foes:     # 870.6: nach der Stufe des BRS (werte.json „monster“), nicht nach dem Herausforderungsgrad
+			top = maxf(top, float(BrsKampf.gegner(f.monster).get("stufe", 1)))
 		var gap: float = float(lv) - top
-		if gap >= EASY_GAP:
+		if gap >= float(BrsKampf.w()["kampf"].get("leicht_ab", 4)):
 			easy_gap = gap
 	brs_einrichten()     # 870.5: immer; vor der Initiative, die nach dem BRS rechnet
 	for f in all:
@@ -480,7 +519,6 @@ func _brs_kaempfer(f: Fighter) -> void:
 	if f.hero != null:
 		f.b = BrsKampf.held(f.hero)     # 870.2: mit Kampfblatt „brs“ (aufruf.gd starte)
 		var mx := BrsKampf.leben_held(f.b)
-		f.srd_hp = f.max_hp
 		f.hp = clampi(roundi(float(f.hp) * mx / maxf(1.0, f.max_hp)), 1 if f.hp > 0 else 0, mx)
 		f.max_hp = mx
 		_brs_handlungen(f)
@@ -490,7 +528,6 @@ func _brs_kaempfer(f: Fighter) -> void:
 		if f.b.is_empty():
 			return
 		var mx := int(f.b.leben)
-		f.srd_hp = f.max_hp
 		f.hp = clampi(roundi(float(f.hp) * mx / maxf(1.0, f.max_hp)), 1 if f.hp > 0 else 0, mx)
 		f.max_hp = mx
 
@@ -567,27 +604,35 @@ func _initiative(f: Fighter, atemlos := false) -> int:
 	return roundi(n)
 
 
-## 506 Untotenzähigkeit als Prozent: dieselbe Chance wie früher (Zähigkeit gegen 5 + Schaden, 5 % je Punkt), Schaden im alten Maß
+## 506 Untotenzähigkeit als Prozent (870.6: nach dem Schaden in Prozent seines vollen Lebens, werte.json „zustaende“ „untot_zaeh“)
 func _zaeh_haelt(t: Fighter, dmg: int) -> bool:
-	var alt := roundi(float(dmg) / maxf(0.01, massstab(t)))
-	var c := 5 * (21 - (ZAEH_DC + alt - int(t.monster.get("con", 0))))
-	return dice.next_int(0, 100) < clampi(c, 0, 100)
+	var z: Dictionary = _zw().get("untot_zaeh", {})
+	var c := float(z.get("basis", 95)) - float(z.get("je_prozent", 1.1)) * 100.0 * float(dmg) / maxf(1.0, float(t.max_hp))
+	return dice.next_int(0, 100) < clampi(roundi(c), 0, 100)
 
+
+const METALL_RUESTUNG := ["Mittlere Rüstung", "Schwere Rüstung"]     # wie BrsHeld.metall
+const METALL_SPERRT := ["Evokation", "Illusion", "Beschwörung"]
 
 ## 870.5: welche Zauber [f] kennt (Kampfblatt, sonst Herkunft; dazu jeder mit „ab“, den die Fertigkeit der Schule erreicht) und sein
 ## Mana (held mana_basis + mana_je_wille × Wille); das Mana der Welt kommt im selben Anteil herein (sp von sp_max), ohne Angabe voll
 func _brs_zauber_kennen(f: Fighter) -> void:
 	var W := BrsKampf.w()
 	f.zauber = []
+	# 870.4 (DESIGN-BRS.md 7, Entscheidung 80; [870.14.ding.metall], Fremdprüfung Homer 14:15): in mittlerer und schwerer
+	# Rüstung (Metall) gehen Evokation, Illusion und Beschwörung nicht; Heil- und Schutzmagie auch in Metall
+	var metall := String(f.b.get("ruestung", "keine")) in METALL_RUESTUNG
 	for id in ZAUBER:
 		var z: Dictionary = W["zauber"].get(ZAUBER[id], {})
 		if z.is_empty():
+			continue
+		if metall and String(z.get("schule", "")) in METALL_SPERRT:
 			continue
 		var kennt: bool = ZAUBER[id] in f.b.get("zauber", []) or (z.has("ab") and int(f.b.fert.get(String(z.schule), 0)) >= int(z.ab))
 		if kennt:
 			f.zauber.append(id)
 	var h: Dictionary = W["held"]
-	f.max_sp = int(h.get("mana_basis", 10)) + int(h.get("mana_je_wille", 5)) * int(f.b.werte.get("wille", 0))
+	f.max_sp = int(f.b.get("mana", 0)) if int(f.b.get("mana", 0)) > 0 else int(h.get("mana_basis", 10)) + int(h.get("mana_je_wille", 5)) * int(f.b.werte.get("wille", 0))     # 870.6: aus dem Kampfblatt (mit Mana der Ausrüstung)
 	var alt_max := int(f.hero.get("sp_max", 0))
 	f.srd_sp = f.sp if alt_max > 0 else -1
 	f.sp = clampi(roundi(float(f.max_sp) * f.sp / alt_max), 0, f.max_sp) if alt_max > 0 else f.max_sp
@@ -635,16 +680,15 @@ func _handlung_passt(f: Fighter, id: String) -> bool:
 	return BrsKampf.waffe_held(f.b, w if w != null else f.hero.main, w != null and w != f.main_weapon()) == String(fert)
 
 
-## 478: Schaden und Heilung, die noch in Würfeln des SRD rechnen, im Verhältnis der Leben des Getroffenen (brs_kampf.gd, Annahme)
-func massstab(t: Fighter) -> float:
-	return float(t.max_hp) / maxf(1.0, t.srd_hp) if brs and t.srd_hp > 0 else 1.0
+## 870.6: was früher in Würfeln des SRD rechnete (Zustände, Sammeln, Untotenzähigkeit, Schwächung, Sättigung), nach den Regelwerten
+## (werte.json „zustaende“, A bis 444); der Maßstab der alten Trefferpunkte entfällt
+func _zw() -> Dictionary:
+	return BrsKampf.w().get("zustaende", {})
 
-func _srd(t: Fighter, n: int) -> int:
-	return roundi(n * massstab(t)) if brs else n
 
-static func cr_value(cr: String) -> float:
-	var p := cr.split("/")
-	return float(p[0]) / float(p[1]) if p.size() == 2 else float(p[0])
+## Anteil [anteil] am vollen Leben von [t], gerundet, mindestens 1
+func _anteil(t: Fighter, anteil: float) -> int:
+	return maxi(1, roundi(float(t.max_hp) * anteil))
 
 
 ## A figure on a hero sheet; [second] the second weapon's sheet or null.
@@ -682,7 +726,8 @@ func easy() -> bool:
 func quick_harm() -> float:
 	if easy_gap == null:
 		return 1.0
-	return 1.0 if easy_gap < 7 else (0.5 if easy_gap < 10 else 0.0)
+	var k: Dictionary = BrsKampf.w()["kampf"]
+	return 1.0 if easy_gap < float(k.get("leicht_halb_ab", 7)) else (0.5 if easy_gap < float(k.get("leicht_null_ab", 10)) else 0.0)
 
 
 func fighters() -> Array:
@@ -858,8 +903,34 @@ func guardable(f: Fighter) -> Array:
 	return out
 
 
+## Was sich trinken lässt (Heiltränke, Kräutertrank; tabellen.json „kind“ POTION); 532: Wurfmittel wirft man (935).
 func drinkable() -> Array:
-	return potions.keys().filter(func(k): return potions[k] > 0)
+	return potions.keys().filter(func(k): return potions[k] > 0 and String(items.get(k, {}).get("kind", "POTION")) == "POTION")
+
+
+## 532, 935: die Tasche im Kampf, alles, was sich jetzt benutzen lässt (trinken, werfen)
+func bag() -> Array:
+	return drinkable() + throwable()
+
+
+## 935 (alt Battle.useItem BOMB): Wurfmittel (tabellen.json „kind“ BOMB), die jetzt ein Ziel haben
+func throwable() -> Array:
+	return potions.keys().filter(func(k): return potions[k] > 0 and String(items.get(k, {}).get("kind", "")) == "BOMB" \
+			and not throw_targets(k).is_empty())
+
+
+## 935: wen ein Wurf erreicht: jeden stehenden Gegner, Weihwasser nur Untote (alt Battle.blockedItem NOT_UNDEAD; werte.json
+## „kampftraenke“ „nur_untote“)
+func throw_targets(item: String) -> Array:
+	var d: Dictionary = BrsKampf.w().get("kampftraenke", {}).get(String(items.get(item, {}).get("brs", "")), {})
+	return all.filter(func(x): return x.side != "PARTY" and x.standing() and x.monster != null \
+			and (not bool(d.get("nur_untote", false)) or bool(x.monster.get("undead", false))))
+
+
+## 532 (alt Battle.blockedItem ALREADY_FULL): ob [item] [t] etwas bringt: Leben fehlt, oder der Kräutertrank hat Zustände zu
+## heilen (der Rausch bleibt)
+func drink_helps(item: String, t: Fighter) -> bool:
+	return t.hp < t.max_hp or (bool(items.get(item, {}).get("cures", false)) and t.status.keys().any(func(k): return k != "DRUNK"))
 
 
 # 72.13: heal a friend below half, else a cantrip, else the weapon.
@@ -899,9 +970,14 @@ func _auto_order(f: Fighter) -> Array:
 func _erwartet_zauber(f: Fighter, t: Fighter, id: String) -> float:
 	var z: Dictionary = BrsKampf.w()["zauber"][ZAUBER[id]]
 	var fert := float(f.b.fert.get(String(z["schule"]), 0))
-	var grund := (float(z["schaden"]) + float(f.b.werte.get("wille", 0))) * (1.0 + fert / 100.0)
+	var grund := (float(z["schaden"]) + float(f.b.werte.get(BrsKampf.zauber_grundwert(String(z["schule"])), 0))) * (1.0 + fert / 100.0) * _zauber_faktor(f)     # 952 D
 	var schw := float(t.b.get("schwaeche", {}).get(_typ(z), 1.0))
 	return BrsKampf.Brs.trefferchance(fert, float(t.b.abwehr)) * maxf(0.0, grund * schw - float(t.b.ruestung))
+
+
+## 870.6: Zauberschaden der Zusatzeigenschaften (Prozent) als Faktor
+func _zauber_faktor(f: Fighter) -> float:
+	return 1.0 + float(f.b.get("zusatz", {}).get("zauber", 0)) / 100.0
 
 
 ## 904 (sim444_870, Zauberlehrling gegen Grak und Grimmzahn): Arkanpfeil hat in werte.json „typ“: null (ohne Schadensart);
@@ -1224,6 +1300,8 @@ func _perform(f: Fighter, o: Array) -> void:
 			_use_skill(f, o[1], t)
 		"drink":
 			_drink(f, o[1], by_id(o[2]))
+		"throw":
+			_throw(f, o[1], by_id(o[2]))
 		"flee":
 			_flee(f)
 
@@ -1397,6 +1475,13 @@ func _drink(f: Fighter, item: String, t: Fighter) -> void:
 	assert(potions.get(item, 0) > 0 and t.standing() and t.side == f.side)
 	potions[item] -= 1
 	var def: Dictionary = items[item]
+	# 532 (alt Battle.useItem: curable vor dem Heilen): der Kräutertrank nimmt alle Zustände, nur der Rausch bleibt bis zur Rast
+	var heilt: bool = bool(def.get("cures", false)) and t.status.keys().any(func(k): return k != "DRUNK")
+	if heilt:
+		var rausch: bool = t.status.has("DRUNK")
+		t.status.clear()
+		if rausch:
+			t.status["DRUNK"] = LASTING
 	var n := maxi(0, mini(t.max_hp - t.hp, _heilung(t, item, def)))     # 478, 870.4
 	t.hp += n
 	var nm: String = [def.de, def.en][lang]
@@ -1404,14 +1489,41 @@ func _drink(f: Fighter, item: String, t: Fighter) -> void:
 		_say(fmt(X.MSG72_DRINKS, lang, [f.name(lang), nm, n]), f.id, t.id, 0, null, false, false, "DRINK")
 	else:
 		_say(fmt(X.MSG72_GIVES, lang, [f.name(lang), t.name(lang), nm, n]), f.id, t.id, 0, null, false, false, "DRINK")
+	if heilt:
+		_say(fmt(MSG532_CURED, lang, [t.name(lang)]), f.id, t.id, 0, null, false, false, "STATUS")
 
 
-## 870.4: ein Trank heilt den Helden fest wie in der Welt (werte.json „welt“ „heilung“, Leben nach BRS), sonst wie bisher im Maß des BRS
-func _heilung(t: Fighter, item: String, def: Dictionary) -> int:
-	var fest = BrsKampf.w().get("welt", {}).get("heilung", {}).get(item)
-	if fest != null and t.hero != null:
-		return int(fest)
-	return _srd(t, dice.roll_expr(def.heal))
+## 935 (alt Battle.useItem BOMB; gegenstaende.json: „ein Wurfgeschoss, das immer trifft“): der Wurf trifft immer; Schaden nach dem
+## BRS aus werte.json „kampftraenke“ (Grundschaden × Wirkung nach Alchemie des Werfers, Schwäche nach der Schadensart, Rüstung
+## ab), Gegenwirkung wie bei Zaubern (Wölfe fliehen vor Feuer, 915); Alchemistenfeuer setzt zwei Züge in Brand. Fliegt sichtbar wie
+## Funkenpfeil bzw. Gleißstrahl (vorhandene Effekte, LISTE-EFFEKTE.md); 935 (Chef 11.11., 20:34): seitdem als Flasche im Bogen
+func _throw(f: Fighter, item: String, t: Fighter) -> void:
+	assert(potions.get(item, 0) > 0 and t in throw_targets(item))
+	potions[item] -= 1
+	var def: Dictionary = items[item]
+	_say(fmt(THROWS, lang, [f.name(lang), [def.de, def.en][lang]]), f.id, t.id, 0, null, false, false, "THROW")
+	var kt: Dictionary = BrsKampf.w().get("kampftraenke", {})
+	var d: Dictionary = kt.get(String(def.get("brs", "")), {})
+	# 935: Wirkung nach Alchemie wie in der Simulation 444 (sim.py wirkung, 857a A, 876); „Kräuterkunde“ gibt es seit 875 nicht mehr,
+	# so blieb jeder Wurf bei der halben Wirkung (wirkung_grund 0,5)
+	var alch := float(f.b.get("fert", {}).get("Alchemie", 0)) if f.b is Dictionary else 0.0
+	var wirkung := clampf(float(kt.get("wirkung_grund", 1.0)) + float(kt.get("wirkung_je_alchemie", 0.0)) * alch, 0.0, float(kt.get("wirkung_max", 2.0)))
+	var info := ["BRS", 0, 0, 100.0, true, 0, false, false]
+	var typ = d.get("typ")
+	var schw := _schwaeche(f, t, typ, info)
+	var n := maxi(0, roundi(float(d.get("schaden", 0)) * wirkung * schw) - int(roundf(float(t.b.get("ruestung", 0)))))
+	casting = "BOMB_HOLY" if String(typ) == "licht" else "BOMB_FIRE"     # 935: fliegt als Flasche im Bogen (zauber.gd _flask), wie alt
+	_vor_treffer(t, typ)
+	_hurt(t, n, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), n]), info)
+	casting = null
+	_gegenwirkung(f, t, typ)
+	if item == "alchemist_fire" and statuses and outcome == "ONGOING" and t.standing():
+		_inflict(t, "BURN", 2)
+
+
+## 870.4: ein Trank heilt fest wie in der Welt (werte.json „welt“ „heilung“, Leben nach BRS); 870.6: für jeden, ohne Würfel
+func _heilung(_t: Fighter, item: String, _def: Dictionary) -> int:
+	return int(BrsKampf.w().get("welt", {}).get("heilung", {}).get(item, 0))
 
 
 ## The Attack action: one blow (870.5: Extra-Angriff und Zweiwaffenkampf entfallen, 870a 3 A). Returns whom to strike next.
@@ -1424,30 +1536,6 @@ func _attack_action(f: Fighter, t: Fighter, advantage := false, cover := true):
 ## (Faktor), ruestung (Anteil der Rüstung des Ziels)
 func _weapon_attack(f: Fighter, t: Fighter, advantage := false, cover := true, with_weapon = null, mod := {}) -> void:
 	_brs_waffe(f, t, advantage, cover, with_weapon, mod)
-
-
-## 296.2: slowed or weakened, −2 on the attack each (the old fight).
-func _penalty(f: Fighter) -> int:
-	return (2 if f.status.has("SLOW") else 0) + _weakness(f)
-
-
-## 534 (alt Battle.weaponAttack, Hero.lifeSteal): wer mit Lebensraub trifft, heilt sich um den Anteil des Schadens (höchstens 30 %)
-func _life_steal(f: Fighter, dealt: int) -> void:
-	var steal: int = mini(30, int(f.hero.get("lifesteal", 0))) if f.hero != null else 0
-	if steal <= 0 or dealt <= 0 or not f.standing() or f.hp >= f.max_hp:
-		return
-	var n := mini(f.max_hp - f.hp, maxi(1, dealt * steal / 100))
-	f.hp += n
-	_say(fmt(MSG534_LIFESTEAL, lang, [f.name(lang), n]), f.id, f.id, 0, null, false, false, "HEAL")
-
-
-## 534 (alt Battle.hitHero, Hero.damageReduction): Schadensminderung der Ausrüstung gegen jeden Treffer eines Gegners
-func _reduction(t: Fighter) -> int:
-	return maxi(0, int(t.hero.get("reduction", 0))) if t.hero != null else 0
-
-
-func _weakness(f: Fighter) -> int:
-	return 2 if f.status.has("WEAK") else 0
 
 
 ## 296.2: a status on [t] for [turns] of its turns, as in the old fight: a hero may resist with a save, his tenacity or
@@ -1465,10 +1553,10 @@ func _inflict(t: Fighter, st: String, turns: int, save = null, die = null) -> bo
 			var P := _proben()
 			var gegen = _staerkster_gegner(t)
 			var schwere := (int(save[1]) - int(P.get("abwehr_mitte", 11))) * float(P.get("je_punkt", 5))
-			if gegen != null and _probe(t, String(save[0]), gegen, "", -schwere):
+			if gegen != null and _probe(t, String(save[0]), gegen, "", -schwere + float(t.b.get("zusatz", {}).get("abwehr", 0))):     # 870.6: Abwehrprobe der Ausrüstung
 				_say(fmt(ST_SHRUGS, lang, [who]), null, t.id)
 				return false
-		var ten := int(h.get("tenacity", 0))
+		var ten := int(t.b.get("zusatz", {}).get("abwehr", 0)) if save == null else 0     # 870.6: Abwehrprobe der Ausrüstung (alt Standhaftigkeit)
 		if ten > 0 and dice.chance(ten / 100.0):
 			_say(fmt(ST_STEADFAST, lang, [who]), null, t.id)
 			return false
@@ -1483,7 +1571,7 @@ func _inflict(t: Fighter, st: String, turns: int, save = null, die = null) -> bo
 			return false
 	t.status[st] = maxi(int(t.status.get(st, 0)), turns)
 	if st == "POISON" and die != null:
-		t.poison_die = die
+		t.gift = float(die)
 	if st == "STUN":
 		t.stun_guard = 3
 	_say(fmt(ST_GAINED[st], lang, [who]), null, t.id, 0, null, false, false, "STATUS")
@@ -1496,8 +1584,6 @@ func _tick(f: Fighter) -> bool:
 	if f.stun_guard > 0:
 		f.stun_guard -= 1
 	var who := f.name(lang)
-	# the hero's level grows the harm of what he put on the foes
-	var scale := int(all[0].hero.level) / 3 if f.side == "FOES" and all[0].hero != null else 0
 	# counted down first, so the lines that follow show the turns now left
 	var hurting := ["POISON", "BURN", "BLEED"].filter(func(st): return f.status.has(st))
 	var stunned := f.status.has("STUN")
@@ -1516,10 +1602,13 @@ func _tick(f: Fighter) -> bool:
 			break
 		if f.monster != null and Zustaende.immune(f.monster, st):
 			continue
-		var dmg: int = dice.roll_expr(f.poison_die if st == "POISON" else ([1, 6, 0] if st == "BURN" else [1, 4, 0])) + scale
-		if st == "POISON" and _volk(f) == "Zwerg":
-			dmg = (dmg + 1) / 2
-		dmg = maxi(1, _srd(f, dmg))     # 478
+		# 870.6: Anteil am vollen Leben (werte.json „zustaende“ „schaden_anteil“), ein schwächeres Gift nach seiner Stärke
+		var anteil := float(_zw().get("schaden_anteil", {}).get(st, 0.08))
+		if st == "POISON":
+			anteil *= f.gift
+			if _volk(f) == "Zwerg":
+				anteil *= 0.5
+		var dmg: int = _anteil(f, anteil)
 		_hurt(f, dmg, "", fmt(ST_HURTS[st], lang, [who]) + " " + fmt(MSG296_DAMAGE, lang, [dmg]))
 	if outcome != "ONGOING" or not f.standing():
 		return false
@@ -1531,22 +1620,17 @@ func _tick(f: Fighter) -> bool:
 	return stunned
 
 
-## 296.2: what a foe's landed blow does besides the damage, as in the old fight: a critical one wounds, and its kind's
-## own special (unless MARS gives it intents of its own).
-func _foe_wounds(foe: Fighter, t: Fighter, crit: bool) -> void:
+## 296.2: what a foe's landed blow does besides the damage: its kind's own special (unless MARS gives it intents of its own).
+## 870.6a 3 A (Chef 11.11., 13:55): Gegner treffen nach dem BRS nie kritisch; Blutung und Betäubung nur über Sonderregeln.
+func _foe_wounds(foe: Fighter, t: Fighter) -> void:
 	var m: Dictionary = foe.monster
 	var first := not foe.has_hit
 	foe.has_hit = true
-	var type := str(m.get("type", ""))
-	if crit and type == "SLASHING":
-		_inflict(t, "BLEED", 2)
-	if crit and type == "BLUDGEONING":
-		_inflict(t, "STUN", 1, ["zaehigkeit", 12])
 	if art_of(m) in OWN_INTENTS:
 		return
 	match str(m.get("special", "NONE")):
 		"POISON":
-			_inflict(t, "POISON", 3, ["zaehigkeit", 11], m.get("poison", [1, 6, 0]))
+			_inflict(t, "POISON", 3, ["zaehigkeit", 11], float(m.get("gift", 1.0)))
 		"SURPRISE_ATTACK":
 			if first:
 				_inflict(t, "STUN", 1, ["zaehigkeit", 12])
@@ -1573,8 +1657,11 @@ func _foe_turn(foe: Fighter, react: Callable) -> void:
 	var intent: Dictionary = plan[0]
 	var aimed: Array = plan[1]
 	foe.hidden = false
+	if _test_zug(foe):     # 1020.2 C
+		return
 	if intent.effect == "GROWL":     # 399.2b: knurrt nur (Homer [399.2b.knurrt])
 		_say(fmt(pick("MSG399_GROWLS"), lang, [foe.name(lang)]), foe.id, null, 0, null, false, false, "GROWLS")
+		_eingebung("growl")     # 986 (1): Knurren hat keine Ansage im Bericht
 		announce(foe)
 		_say_announce(foe)
 		return
@@ -1595,7 +1682,7 @@ func _foe_turn(foe: Fighter, react: Callable) -> void:
 			_summon(foe)
 		"GATHER":
 			if intent.effect != "CIRCLE":
-				var heal := mini(foe.max_hp - foe.hp, _srd(foe, dice.roll_expr(GATHER_HEAL)))     # 870.5: im Maß des BRS
+				var heal := mini(foe.max_hp - foe.hp, _anteil(foe, float(_zw().get("sammeln_anteil", 0.5))))     # 870.6: Anteil seines Lebens
 				foe.hp += heal
 				_say(fmt(X.MSG72_GATHERS, lang, [foe.name(lang), heal]), foe.id, foe.id, 0, null, false, false, "GATHER")
 	var r := targets(foe)
@@ -1706,13 +1793,21 @@ func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := 
 	var e := _brs_auf_held(foe, t, intent, mode)     # 870.5: nur nach dem BRS
 	var success: bool = e.treffer
 	var info := ["BRS", e.wurf, 0, e.chance, success, mode, cover and from_back(foe), bool(e.kritisch)]
+	if test_ausweichen and t.id == "hero":     # 1020.2 C: der Held weicht aus
+		test_ausweichen = false
+		test_erzwungen.append("ausweichen")
+		success = false
+		info[4] = false
 	if str(m.id) == KROGG and smoke_thrown and not smoke_spent:
 		# D4.1: der Rauch brennt in den Augen, der erste Schlag geht fehl, mit ihm der Überraschungsschlag (Battle.enemyAttack)
 		smoke_spent = true
 		foe.has_hit = true
 		success = false
 		info[4] = false
-	if intent.effect == "POUNCE":
+	# 863 (Chef 10.11., 13:19, t274.15: „bei den Wölfen … tauscht er mit einem den Platz, der in der vorderen Reihe steht … Machen die
+	# Ratten jetzt aber anscheinend nicht“; platztausch_863): jeder Nahkämpfer, der aus der hinteren Reihe angreift, tauscht wie das
+	# Anspringen (285) mit dem vorderen, statt nach vorn und wieder ganz zurück zu laufen; Fernkampf und Zauber bleiben hinten
+	if intent.effect == "POUNCE" or (foe.side == "FOES" and String(foe.b.get("art", "nah")) == "nah"):
 		_leap_forward(foe)
 	if re == PERFECT:
 		_perfect_answer(t, foe, info)
@@ -1733,7 +1828,7 @@ func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := 
 		_say(fmt(pick("MSG72_EVADES" if re == PERFECT else "MSG72_GOOD"), lang, [t.name(lang)]), t.id)
 	dmg = int(dmg * SHARE[re])
 	if dmg > 0:     # 478: kein Mindestschaden (Modell D: ein Kratzer kann 0 sein)
-		dmg = maxi(0, dmg - _srd(t, _weakness(foe)) - _srd(t, _reduction(t)))
+		dmg = roundi(dmg * _schaden_faktor(foe))     # 870.6: Schwächung als Faktor
 	if intent.id == "venom":
 		_say(fmt(pick("MSG130_VENOMHITS"), lang, [foe.name(lang), t.name(lang)]), foe.id, t.id, 0, null, false, false, "VENOM")
 	if dmg > 0:
@@ -1741,7 +1836,7 @@ func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := 
 	if outcome != "ONGOING" or not t.standing():
 		return
 	if statuses:
-		_foe_wounds(foe, t, bool(e.kritisch))
+		_foe_wounds(foe, t)
 		if outcome != "ONGOING" or not t.standing():
 			return
 	match intent.effect:
@@ -1792,6 +1887,34 @@ func _perfect_answer(t: Fighter, foe: Fighter, info: Array) -> void:
 		_:
 			_say(fmt(pick("MSG72_EVADES"), lang, [t.name(lang)]), foe.id, t.id, 0, info)
 
+
+## 1020.2 C: erzwungene Gegnerzüge aus dem Reiter Test, die nicht über die Ansage gehen. „reihe“: ein Nahkämpfer der hinteren Reihe
+## tauscht vor diesem Zug nach vorn (wie 863 _leap_forward; der Kampfort lässt ihn im Zug der Gegner hinübergehen); „flucht“: alle
+## Gegner fliehen wie das Rudel vor dem Feuer (870c 3 A), ohne Lohn. Gibt true zurück, wenn der Zug damit zu Ende ist.
+func _test_zug(foe: Fighter) -> bool:
+	if test_gegnerzug == "reihe":
+		var hinten := all.filter(func(x): return x.side == "FOES" and x.standing() and x.place.x == BACK and x.gegriffen_von == "" and String(x.b.get("art", "nah")) == "nah")
+		if not hinten.is_empty() and all.any(func(x): return x.side == "FOES" and x.standing() and x.place.x == FRONT):
+			test_gegnerzug = ""
+			var vorher: Vector2i = hinten[0].place
+			_leap_forward(hinten[0])
+			if hinten[0].place != vorher:
+				test_erzwungen.append("reihe")
+	elif test_gegnerzug == "flucht":
+		test_gegnerzug = ""
+		var erst := true
+		for x in all.filter(func(x): return x.side == "FOES" and x.standing()):
+			x.fled = true
+			intents.erase(x.id)
+			_say(MSG1020_FLIEHEN[lang] if erst else "", null, x.id, 0, null, false, false, "FOE_FLEES")
+			erst = false
+		kein_lohn = true
+		outcome = "WON"
+		test_erzwungen.append("flucht")
+		return true
+	return false
+
+const MSG1020_FLIEHEN := ["Test: alle Gegner fliehen.", "Test: every foe flees."]     # Zeile des Testmodus, kein Spieltext
 
 ## The foe picks its next move and its target (72.11).
 func announce(foe: Fighter) -> void:
@@ -1881,10 +2004,15 @@ func _pick_intent(foe: Fighter) -> Dictionary:
 	if id == SHAMAN:     # 535: Heilen, Fluch, Feuerstoß des Schamanen fehlen noch (Ansagen über Homer); bis dahin kämpft er wie ein Goblin
 		id = CALLED
 	if id == WOLF or id == DIRE_WOLF:
+		if test_gegnerzug == "pounce":     # 1020.2 C
+			test_gegnerzug = ""
+			test_erzwungen.append("pounce")
+			return I_POUNCE
 		var others := all.filter(func(x): return x.side == "FOES" and x.standing() and wolfig(x.monster)).size()
 		var circling := intents.values().any(func(p): return p[0].effect == "CIRCLE")
 		var can := [I_POUNCE, I_POUNCE]
-		if others >= 2 and not circling and chosen:
+		# 986 (3): die Leibwache ist nicht angreifbar, sagt also kein Einkreisen an ([986.circle] „Den treffen“)
+		if others >= 2 and not circling and chosen and foe.angreifbar():
 			can.append(I_CIRCLE)
 		return dice.pick(can)
 	if id == SPIDER:
@@ -1900,6 +2028,10 @@ func _pick_intent(foe: Fighter) -> Dictionary:
 		return dice.pick(can2)
 	if id != GRAK:
 		return plain
+	if test_gegnerzug == "heavy":     # 1020.2 C
+		test_gegnerzug = ""
+		test_erzwungen.append("heavy")
+		return I_HEAVY
 	var can3 := [I_HEAVY, I_HEAVY]
 	if lineup:
 		can3.append(I_BREAKTHROUGH)
@@ -1925,6 +2057,15 @@ func _say_announce(foe: Fighter) -> void:
 	var key := "MSG130_SIGN_" + str(intent.id).to_upper()
 	if TX.has(key):
 		_say(fmt(pick(key), lang, [foe.name(lang), "", target]), foe.id)
+	_eingebung(str(intent.id))
+
+
+## 840, 986: Eingebung des Helden zu einer Ansage, einmal je Spielstand, gleich nach ihrer ersten Zeile im Bericht
+func _eingebung(id: String) -> void:
+	var nr := GESEHEN_EINGEBUNG + id
+	if EINGEBUNG.has(id) and not gesehen.has(nr):
+		gesehen[nr] = true
+		_say(EINGEBUNG[id][lang], null, null, 0, null, false, false, "EINGEBUNG")
 
 
 func _summon(by: Fighter) -> void:
@@ -1959,6 +2100,7 @@ func _summon(by: Fighter) -> void:
 	order.insert(order.find(by) + 1, g)
 	_say(fmt(X.MSG72_ANSWERS, lang, [[m.de, m.en][lang]]), g.id)
 	announce(g)
+	_say_announce(g)     # 986 (2): auch der Gerufene sagt im Bericht an (und bringt so seine Eingebung)
 
 
 func _hurt(t: Fighter, full: int, by: String, text: String, roll = null, wound := false) -> void:
@@ -2060,12 +2202,34 @@ func _statuses() -> Dictionary:
 # ---------------------------------------------------------------- 478: Schläge nach dem BRS (Modell D, brs_kampf.gd)
 
 ## Vorteil und Nachteil des MARS (mode −1..1) und Segen, Sättigung, Schwächung (Punkte auf den W20) als Prozentpunkte der Trefferchance
-func _brs_bonus(mode: int, w20: int) -> float:
-	return float(mode) * absf(BrsKampf.nachteil()) + BrsKampf.PROZENT_JE_W20 * float(w20)
+func _brs_bonus(mode: int, prozent: float) -> float:
+	return float(mode) * absf(BrsKampf.nachteil()) + prozent
+
+
+## 870.6: Prozentpunkte auf die Trefferchance aus Verlangsamt, Geschwächt, Sättigung (werte.json „zustaende“ „treffer“)
+func _treffer_mod(f: Fighter, nur_satt := false) -> float:
+	var t: Dictionary = _zw().get("treffer", {})
+	var p := float(t.get("satt", 5)) if _fed(f) > 0 else 0.0
+	if not nur_satt:
+		for st in ["SLOW", "WEAK"]:
+			if f.status.has(st):
+				p += float(t.get(st, -10))
+	return p
+
+
+## 870.6: Faktor auf den Schaden aus Geschwächt und Sättigung (werte.json „zustaende“ „schaden_faktor“)
+func _schaden_faktor(f: Fighter) -> float:
+	var s: Dictionary = _zw().get("schaden_faktor", {})
+	var x := 1.0
+	if f.status.has("WEAK"):
+		x *= float(s.get("WEAK", 0.8))
+	if _fed(f) > 0:
+		x *= float(s.get("satt", 1.1))
+	return x
 
 
 ## Held oder Söldner schlägt mit der Waffe: Fertigkeit der Waffengruppe gegen die Abwehr des Gegners, Schaden (Waffe + Grundwert)
-## × (1 + Fertigkeit/100) × Stufenfaktor, kritisch nach Gewandtheit, minus Rüstung (sim.py kampf, Held handelt)
+## × (1 + Fertigkeit/100) × Stufenfaktor, kritisch nach zweitem Grundwert und Fertigkeit (952 D), minus Rüstung (sim.py kampf, Held handelt)
 func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapon, mod := {}) -> void:
 	var mode := _row_mode(f, t, true, 1 if advantage else 0, cover)
 	var w = with_weapon if with_weapon != null else f.weapon()
@@ -2075,8 +2239,9 @@ func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapo
 	var gruppe := BrsKampf.waffe_held(f.b, wsheet, w != null and w != f.main_weapon())     # 870.2: Haupt- aus dem Kampfblatt
 	var wd: Dictionary = W["waffen"].get(gruppe, W["waffen"]["Faustkampf"])
 	var gw = wd.get("grundwert")
-	var grund := float(wd["schaden"]) + (float(f.b.werte.get(gw, 0)) if gw != null else 0.0)
-	var bonus := _brs_bonus(mode, -_penalty(f) + _fed(f))
+	var zweite: bool = w != null and w != f.main_weapon()
+	var grund := float(wd["schaden"]) * (1.0 if zweite else float(f.b.get("waffe_faktor", 1.0))) + (float(f.b.werte.get(gw, 0)) if gw != null else 0.0)     # 870.6: Güte
+	var bonus := _brs_bonus(mode, _treffer_mod(f))
 	if String(wd.get("art", "nah")) == "fern":
 		bonus += float(k["fernkampf_treffer_je_wahrnehmung"]) * float(f.b.werte.get("wahrnehmung", 0))
 	bonus += float(mod.get("treffer", 0.0)) + f.naechster + _beistand(f)     # 870.5: Kampfhandlung, Finte, Ruhige Hand, Beistand
@@ -2084,7 +2249,8 @@ func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapo
 	f.geschlagen = true
 	grund *= float(mod.get("schaden", 1.0))
 	var e := BrsKampf.schlag(dice.rng, float(f.b.fert.get(gruppe, 0)), float(t.b.abwehr), grund, float(int(f.b.stufe) - int(t.b.stufe)),
-			float(t.b.ruestung) * float(mod.get("ruestung", 1.0)), bonus, float(k["kritisch_prozent_je_gewandtheit"]) * float(f.b.werte.get("gewandtheit", 0)))
+			float(t.b.ruestung) * float(mod.get("ruestung", 1.0)), bonus, BrsKampf.krit_prozent(f.b.werte, gruppe, float(f.b.fert.get(gruppe, 0)))
+			+ float(f.b.get("zusatz", {}).get("krit", 0)))     # 870.6: kritisch der Zusatzeigenschaften
 	if held_immer_krit and f == lead() and e.treffer and not e.kritisch:     # Testmenü „Kritisch“
 		e.kritisch = true
 		e.schaden = float(BrsKampf.Brs.runde(float(e.schaden) * float(k["kritisch_faktor"])))
@@ -2101,11 +2267,10 @@ func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapo
 		return
 	var schw := _schwaeche(f, t, wd.get("typ"), info)     # 870.5 (870a 8 A)
 	var n := roundi(float(e.schaden) * schw)
-	n = maxi(0, n - _srd(t, _weakness(f)) + (_srd(t, _fed(f)) if schw > 0.0 else 0))
+	n = maxi(0, roundi(n * _schaden_faktor(f)) if schw > 0.0 else n)     # 870.6: Schwächung, Sättigung als Faktor
 	_vor_treffer(t, wd.get("typ"))
 	_hurt(t, n, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), n]), info, true)
 	_gegenwirkung(f, t, wd.get("typ"))
-	_life_steal(f, n)
 	if not statuses or outcome != "ONGOING" or not t.standing():
 		return
 	var type := str(wsheet.get("type", "BLUDGEONING"))
@@ -2113,30 +2278,29 @@ func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapo
 		_inflict(t, "BLEED", 3)
 	if e.kritisch and type == "BLUDGEONING" and dice.chance(0.5):
 		_inflict(t, "STUN", 1)
-	var hits: Dictionary = f.hero.get("hits", {})
-	for st in ["POISON", "BLEED", "STUN"]:
-		var c := int(hits.get(st, 0))
-		if c > 0 and outcome == "ONGOING" and t.standing() and not t.status.has(st) and dice.chance(c / 100.0):
-			_inflict(t, st, 1 if st == "STUN" else 3)
 
 
-## 870.5: Zauber mit Angriff nach dem BRS: Fertigkeit der Schule gegen die Abwehr des Ziels, Grundschaden des Zaubers + Wille,
+## 870.5: Zauber mit Angriff nach dem BRS: Fertigkeit der Schule gegen die Abwehr des Ziels, Grundschaden des Zaubers + Grundwert
+## der Schule (952 D: Evokation Verstand, Heilmagie Wille), kritisch nach Wille und Schule (Heil- und Schutzmagie nie),
 ## Schwäche nach der Schadensart (ohne Art keine), Beistand und Sättigung dazu (sim.py, handlungen.py schlag)
 func _brs_zauber(f: Fighter, t: Fighter, z: Dictionary) -> void:
 	var mode := _row_mode(f, t, false)
-	var grund := float(z["schaden"]) + float(f.b.werte.get("wille", 0))
+	var schule := String(z["schule"])
+	var fert := float(f.b.fert.get(schule, 0))
+	var grund := (float(z["schaden"]) + float(f.b.werte.get(BrsKampf.zauber_grundwert(schule), 0))) * _zauber_faktor(f)     # 870.6: Zauberschaden der Ausrüstung; 952 D
 	var e := {}
 	for i in 30:     # Testmenü „Rettung nie“: Gegner wehren keinen Zauber ab
-		e = BrsKampf.schlag(dice.rng, float(f.b.fert.get(String(z["schule"]), 0)), float(t.b.abwehr), grund,
-				float(int(f.b.stufe) - int(t.b.stufe)), float(t.b.ruestung), _brs_bonus(mode, _fed(f)) + _beistand(f))
+		e = BrsKampf.schlag(dice.rng, fert, float(t.b.abwehr), grund,
+				float(int(f.b.stufe) - int(t.b.stufe)), float(t.b.ruestung), _brs_bonus(mode, _treffer_mod(f, true)) + _beistand(f),
+				BrsKampf.krit_prozent(f.b.werte, schule, fert))     # 952 D
 		if e.treffer or not (gegner_ohne_rettung and t.side == "FOES"):
 			break
-	var info := ["BRS", e.wurf, 0, e.chance, e.treffer, mode, false, false]
+	var info := ["BRS", e.wurf, 0, e.chance, e.treffer, mode, false, bool(e.kritisch)]
 	if not e.treffer:
 		_say(fmt(wolf(f, "MSG279_WOLFMISSES", "MSG72_MISSES"), lang, [f.name(lang), t.name(lang)]), f.id, t.id, 0, info)
 		return
 	var schw := _schwaeche(f, t, z.get("typ"), info)     # 870.5 (870a 8 A)
-	var n := maxi(0, roundi(float(e.schaden) * schw) + (_srd(t, _fed(f)) if schw > 0.0 else 0))
+	var n := maxi(0, roundi(float(e.schaden) * schw * (_schaden_faktor(f) if schw > 0.0 else 1.0)))
 	_vor_treffer(t, z.get("typ"))
 	_hurt(t, n, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), n]), info)
 	_gegenwirkung(f, t, z.get("typ"))
@@ -2160,6 +2324,52 @@ func _schwaeche(f: Fighter, t: Fighter, typ, info: Array) -> float:
 	return x
 
 
+## 960 (Homer 954.1; 870d gebilligt 11.11., 07:51: ab Verstand 6 sieht der Held Schwäche, Stärke und Gegenwirkung vorher): die Zeile
+## des Ziel-Tipps (langes Drücken auf einen Gegner) nach [870.14.wissen], [870.14.wissen.gegen], [870.14.wissen.unbekannt]
+## (STORY-BRS-HELD.md); ohne Verstand 6 erst, wenn in diesem Kampf eine Schwäche oder Stärke der Art genannt wurde. Ein Bestiarium über
+## Kämpfe hinweg gibt es noch nicht.
+const MSG960_WISSEN := ["Verwundbar: %s. Widersteht: %s.", "Vulnerable: %s. Resists: %s."]
+const MSG960_GEGEN := ["Vorsicht: %s.", "Beware: %s."]
+const MSG960_UNBEKANNT := ["Schwächen: unbekannt.", "Weaknesses: unknown."]
+const WISSEN_GEGEN := {
+	"wolf": ["Feuer vertreibt das Rudel samt Beute und Erfahrung, sobald sein Leitwolf halb tot ist", "fire drives off the pack, loot, experience and all, once its leader is half dead"],
+	"boar": ["Feuer macht es rasend", "fire sends it into a frenzy"],
+	"giant_spider": ["Feuer verbrennt die Seide", "fire burns the silk"],
+	"stirge": ["Blut lockt ihn", "blood draws it"],
+	"zombie": ["Feuer und Licht halten ihn liegen", "fire and light keep it down"],
+	"ochre_jelly": ["Schnitt und Wucht teilen ihn", "slash and crush split it"],
+}
+
+
+func kennt_schwaechen() -> bool:
+	var h: Fighter = find("hero")
+	if h == null or not (h.b.get("werte") is Dictionary):
+		return false
+	return int(h.b["werte"].get("verstand", 0)) >= int(BrsKampf.w().get("welt", {}).get("wissen_verstand_ab", 6))
+
+
+func wissen(t: Fighter, sprache: int) -> String:
+	if t == null or t.monster == null:
+		return ""
+	var art := art_of(t.monster)
+	var gesehen := schwaeche_gesagt.keys().any(func(k): return String(k).begins_with(art + "|"))
+	if not kennt_schwaechen() and not gesehen:
+		return MSG960_UNBEKANNT[sprache]
+	var schwach := []
+	var stark := []
+	var sw: Dictionary = t.b.get("schwaeche", {}) if t.b.get("schwaeche") is Dictionary else {}
+	for ty in sw:
+		var n: String = SCHADENSART.get(String(ty), [String(ty), String(ty)])[sprache]
+		if float(sw[ty]) > 1.0:
+			schwach.append(n)
+		elif float(sw[ty]) < 1.0:
+			stark.append(n)
+	var s: String = MSG960_WISSEN[sprache] % [", ".join(schwach) if not schwach.is_empty() else "–", ", ".join(stark) if not stark.is_empty() else "–"]
+	if WISSEN_GEGEN.has(art):
+		s += " " + MSG960_GEGEN[sprache] % WISSEN_GEGEN[art][sprache]
+	return s
+
+
 ## 870.5 Gegenwirkung, die vor dem Schaden greift: Zombie nach Feuer oder Licht steht nicht wieder auf
 func _vor_treffer(t: Fighter, typ) -> void:
 	if t.monster != null and art_of(t.monster) == "zombie" and String(typ) in ["feuer", "licht"]:
@@ -2167,7 +2377,7 @@ func _vor_treffer(t: Fighter, typ) -> void:
 
 
 ## 870.5 (870a 8 A, LISTE-BESTIARIUM.md): das falsche Mittel stärkt den Gegner oder kostet etwas, nie tödlich, beim ersten Mal sichtbar
-## (Zahlen werte.json „gegenwirkung“, A). Die Spinnseide fehlt, solange die Spinne keine Seide als Beute trägt.
+## (Zahlen werte.json „gegenwirkung“, A). 870.6: Feuer auf die Riesenspinne verbrennt ihre Spinnseide (lohn.gd lässt sie weg).
 func _gegenwirkung(f: Fighter, t: Fighter, typ) -> void:
 	if t.monster == null or typ == null or outcome != "ONGOING":
 		return
@@ -2188,6 +2398,9 @@ func _gegenwirkung(f: Fighter, t: Fighter, typ) -> void:
 		if not all.any(func(x): return x.side == "FOES" and x.standing()):
 			kein_lohn = true     # nur, wenn das Rudel allein war (Grimmzahn bleibt und zählt)
 			outcome = "WON"
+	elif art == "giant_spider" and ty == "feuer" and not t.seide_weg:
+		t.seide_weg = true
+		_say(MSG870_GEGEN_SPINNE[lang], f.id, t.id)
 	elif art == "boar" and ty == "feuer" and t.standing() and not t.rasend:
 		t.rasend = true
 		_say(fmt(MSG870_GEGEN_SCHWEIN, lang, [t.name(lang)]), f.id, t.id)
@@ -2204,7 +2417,6 @@ func _gegenwirkung(f: Fighter, t: Fighter, typ) -> void:
 				order.erase(gone)
 		var g := monster_fighter(t.id + "b", spot, t.monster, 1)
 		g.b = t.b
-		g.srd_hp = t.srd_hp
 		g.max_hp = t.max_hp
 		g.hp = int(t.hp * float(BrsKampf.w().get("gegenwirkung", {}).get("teilen_leben", 0.5)))
 		t.hp -= g.hp
@@ -2221,6 +2433,7 @@ func _gegenwirkung(f: Fighter, t: Fighter, typ) -> void:
 		order.insert(order.find(t) + 1, g)
 		_say(MSG870_GEGEN_SCHLEIM[lang], t.id, g.id)
 		announce(g)
+		_say_announce(g)     # 986 (2): auch der abgespaltene Schleim sagt im Bericht an
 
 
 ## 870.5: Beistand: Prozentpunkte auf die eigene Trefferchance, solange er wirkt
@@ -2244,9 +2457,9 @@ func _brs_auf_held(foe: Fighter, t: Fighter, intent: Dictionary, mode: int) -> D
 	var in_hand := not t.drawn
 	var abw: Array = BrsKampf.held_abwehr(t.b, String(foe.b.get("art", "nah")), tw, in_hand)
 	var faktor := 1.0
-	if intent.extra != null and BrsKampf.mittel(m.dmg) > 0.0:
-		faktor += BrsKampf.mittel(intent.extra) / BrsKampf.mittel(m.dmg)
+	if intent.extra != null:     # 870.6: Zusatzschaden der Absicht als Anteil am Schaden (werte.json „absicht_zusatz“)
+		faktor += float(BrsKampf.w().get("absicht_zusatz", {}).get(String(intent.id), 0.0))
 	if bool(foe.b.get("ueberfall", false)) and not foe.has_hit:     # 870.5: der erste Treffer des Überfalls mit Wucht (444 „erster_treffer_faktor“)
 		faktor *= float(_ueberfall().get("erster_treffer_faktor", 1.0))
 	return BrsKampf.schlag(dice.rng, float(foe.b.angriff), float(abw[1]), float(foe.b.schaden) * faktor,
-			float(int(foe.b.stufe) - int(t.b.stufe)), BrsKampf.held_abzug(t.b, in_hand) + t.schutz, _brs_bonus(mode, -_penalty(foe)))     # 870.5: Bannschild, Arkanhaut
+			float(int(foe.b.stufe) - int(t.b.stufe)), BrsKampf.held_abzug(t.b, in_hand) + t.schutz, _brs_bonus(mode, _treffer_mod(foe)))     # 870.5: Bannschild, Arkanhaut

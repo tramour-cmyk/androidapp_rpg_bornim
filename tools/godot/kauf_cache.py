@@ -199,7 +199,10 @@ def _liste_eingaben(block):
               and str(s.get('with', {}).get('path', '')) in ('bl', '~/cc0')]
     z.append('caches %s' % hashlib.sha256('\n'.join(caches).encode()).hexdigest()[:16])
     if b['karten']:
-        z.append('godot/daten/karten.json %s' % hashlib.sha256(open(os.path.join(REPO, 'godot/daten/karten.json'), 'rb').read()).hexdigest()[:16])
+        # 870.9: karten.json ist eingecheckt und lesbar gesetzt; die Kennung nimmt die kompakte Form (gleich dem alten Export aus core),
+        # damit ein Umbruch oder Einzug allein kein neues Dorf baut
+        k = json.dumps(json.load(open(os.path.join(REPO, 'godot/daten/karten.json'), encoding='utf-8')), ensure_ascii=False, separators=(',', ':'))
+        z.append('godot/daten/karten.json %s' % hashlib.sha256(k.encode()).hexdigest()[:16])
     if b['kauf']:
         z.append('kaufdateien %s' % hashlib.sha256(_kauf()).hexdigest()[:16])
     for vor in b['braucht']:

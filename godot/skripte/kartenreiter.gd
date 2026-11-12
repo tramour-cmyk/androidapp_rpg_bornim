@@ -46,7 +46,7 @@ static func bild(name: String) -> Texture2D:
 		_bilder[name] = ImageTexture.create_from_image(img) if not roh.is_empty() and img.load_png_from_buffer(roh) == OK else null
 	return _bilder[name]
 
-# 62g: Handschrift der Ortsnamen auf der Landkarte (Fondamento, OFL; im Bau aus app/src/main/res/font kopiert)
+# 62g: Handschrift der Ortsnamen auf der Landkarte (Fondamento, OFL; daten/fondamento.ttf, eingecheckt, 870.9)
 static func hand() -> Font:
 	if _hand == null:
 		var roh := FileAccess.get_file_as_bytes("res://daten/fondamento.ttf")

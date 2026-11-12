@@ -52,6 +52,38 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 187 · 1078 G4, Abschluss 1076 (Perikles, `9fa7b2211`; 12.11., 21:29)
+
+- **1078 greift, 1076 greift.** G4 in `DESIGN-ABNAHME.md` G, „Prüfer: ja“, damit Teil der Prüfung vor dem Versand (783 W1): deckt Chef 20:42 (nur der Prüfgegenstand, Rest geschnitten) und 20:54 (Kamera, nicht die Standardsicht); „etwa dreimal, bis 15 s“ bleibt Vorschlag Sokrates (Herkunft 1076). `LISTE-BAUEN-TESTEN.md` 3 verweist auf G4, kein eigener Wortlaut mehr. Zweiter Ort gesucht (`dreimal`, `15 s`, `Standardsicht`, `Kurzvideo`, `Grundansicht` in docs, tools): nur CLAUDE.md 9 (Kurzfassung) und `meldung.sh` (Wächter); „Kurzvideo 5–15 s … Grundansicht“ steht nur noch in `alt/LISTE-UMZUG-348.md` (seit 10.11. Archiv), „Grundansicht“ in `LISTE-UMZUG-348.md` gilt für Vergleichsbilder, nicht für Filme.
+- Nicht geprüft: ein echter Film nach G4 (keiner seit 21:13).
+
+## Lauf 186 · 1076 Filmlänge (Perikles, Doppelpack 421, `54289ed83`, `c523f37c4`; 12.11., 21:0x)
+
+- **1076 greift beim Wächter, Lücke 1078** (`warte 1076 1078`): `meldung.sh --probe --film` mit Probefilmen: 21 s und 25 s halten an mit Hinweis 1076; 10 s und 20,6 s laufen weiter (ganze Sekunden, „über 20 s“); 25 s mit „Chef will langen Film“ läuft. `ffprobe` liegt in der Sitzung. Regeltext CLAUDE.md 9 und `LISTE-BAUEN-TESTEN.md` 3 gegen Chef 20:42 und 20:54 (`ARBEIT-PROJEKT.md` Zu 1076): beide Chefworte haben einen Ort; „etwa dreimal, bis 15 s“ ist Vorschlag Sokrates, so gekennzeichnet. Keine widersprechende Längenangabe in ROLLE-, LISTE-, DESIGN-ABNAHME; „bis 50 MB“ aus CLAUDE.md gestrichen, hält weiter im Werkzeug.
+- **D186.1 → 1078 (Perikles, Klasse 2):** die Prüfung vor dem Versand (783 W1, `DESIGN-ABNAHME.md` 11) prüft nur Punkte mit „Prüfer: ja“ und Auflagen zu derselben Vorlage; die Kamera (Chef 20:54) und „nur der Prüfgegenstand“ gelten für jeden Film, stehen aber nur in `LISTE-BAUEN-TESTEN.md` 3, nicht in G. Ohne Punkt G4 wiederholt sich der Fund des Chefs beim nächsten Film eines anderen Vorgangs.
+- Nicht geprüft: ein echter Film über 20 s (keiner seit 20:58); Filmzweig mit `main` zusammengeführt erst am nächsten Film.
+
+## Lauf 185 · 1042 `probelauf.py` cd-Kette (Perikles, `6c3a1513c`; 12.11., 16:0x)
+
+- **1042 greift** (`greift 1042 185`): Spikes Push 15:45 (`5b6906b79` auf `claude/tom-1040-1-wendeschritt`, ändert `godot.yml`) im Klon nachgestellt, `push_lauf` alt gegen neu: `cd …/godot && …; cd .. && git push` alt „Film“ (Arbeitskopie außerhalb des Repos), neu keine Probe (Arbeitskopie richtig); ebenso relatives `cd godot; cd ..` und drei cd nacheinander. Gegenprobe gleicher Befehl auf `claude/tom-348-x`: neu Probe 1040.1 mit Film, zählt also weiter. Zweigfilter `godot.yml` (`tom-348-**`, `jerry-348-**`, `build-**`) im Commit unverändert; GitHub: 0 Läufe auf dem Zweig, die gestrichene Zeile war falsch.
+- Grenze (kein Vorgang, selten): ein `cd` in einer Unterschale gilt jetzt weiter; `(cd godot && …); cd tools && git push` ergibt `godot/tools` statt `tools` (alt richtig), dann zählt der Haken wie vor 1042 einen Film zu viel.
+
+## Lauf 184 · 1019 Neustart-Haken nimmt Ford aus (Perikles, Doppelpack 421, `57f798597`; 12.11., 08:1x)
+
+- **1019 greift im Haken, Wirkung offen** (`warte 1019 13.11. 08:00`): `neustart-haken.py prompt` mit Probeprotokollen: erste Nachricht „Ford“ 250 Tsd. still, 450 Tsd. Erinnerung; „Tom“ 250 Tsd. Erinnerung; „Ford 2“ und „Ford-Wache“ wie Ford (Wortgrenze am Bindestrich, unschädlich). Der Prompt-Haken liest `/home/user/bornim-main/tools/`, wirkt also nach dem nächsten `notiz.sh` des laufenden Ford ohne Neustart. Fords Sitzung `…765JvmMM81VAZ94ovn` (von Hand 07:26): erste Nachricht „Ford“, `name()` erkennt sie; 264 Tsd. `used_tokens` um 08:15. Sie bindet zudem `bornim-kaufmodelle` ein, dort galt 400 Tsd. schon nach 818. `LISTE-BETRIEB.md` 61 nennt das Wort „Ford“ als erste Nachricht beim Selbstneustart.
+- Nicht geprüft: echter Selbstneustart; am 13.11. ab 08:00 im Protokoll `ARBEIT-BETRIEB.md` jeden „Start Ford (selbst)“ seit 08:12 gegen `used_tokens` (unter 400 Tsd. → Vorgang an Perikles) und die Tiefe des dann laufenden Ford (12.11. Tiefe 0 um 07:26).
+
+## Lauf 183 · 1011 Nachprüfung 1010: nur Laufzusagen von Sokrates überspringen (Perikles, Doppelpack 421, `afa2141f4`; 12.11., 04:1x)
+
+- **1011 greift, 1010 greift** (`greift 1011 183`, `greift 1010 183`): `laufzusage()` gegen alle 46 Köpfe „<Nr>, Läufe frei“ im echten Archiv: 40 von Sokrates nach 480.1 übersprungen, 6 Chefantworten zählen (264.1 ×5 „Chef an Perikles/Sokrates … → **ja (Nutzer)**“, 510a 03.11., 13:02 „Chef an Sokrates“); `antworten()` liefert 510a und 264.1, 861 und 988 nicht; `beantwortet()` leer, `--stand` läuft; Commit-Prüfung nutzt dieselbe Funktion (`commit-pruefung.py` 307).
+- Nicht geprüft: echter Commit mit neuer Laufzusage zu einer offenen Vorlage. Restfall ohne Beleg: eine Laufzusage von Sokrates, deren Anlass „Chef an …“ wörtlich nennt, zählte als Chefantwort (im Archiv kein Fall).
+
+## Lauf 182 · 1010 `startbar.antworten()` ohne „Läufe frei“-Köpfe (Perikles, Doppelpack 421, `8da3952f4`; 12.11., 03:0x)
+
+- **1010 greift mit Lücke** (`warte 1010 1011`): Laufzusage „- **861, Läufe frei** (12.11., 03:00, Sokrates nach 480.1)“ zählt nicht mehr, `beantwortet()` auf dem echten Archiv leer, `--stand` läuft; Commit-Prüfung nutzt dieselbe Funktion (`commit-pruefung.py` 307).
+- **D182.1 (Klasse 2, Perikles, Vorgang 1011):** die Regel überspringt jeden Kopf „<Nr>, Läufe frei“, gleich wer antwortet. Von 22 solchen Köpfen mit Schlusswort enden 6 auf „→ **ja (Nutzer)**“ (Chef an Sokrates oder Perikles: 264.1 ×5, 510a); 510a (03.11., 13:02) beantwortete `entscheiden/510a-zweiter-lauf.md`. Probe: derselbe Kopf mit „Chef an Sokrates … → **ja (Nutzer)**“ ergibt `{}`, 383.3 hielte nicht an. Vorschlag: nur Köpfe mit Schlusswort „(Sokrates)**“ überspringen.
+- Nicht geprüft: echter Commit mit neuer Laufzusage zu einer offenen Vorlage (nur Funktion im Klon).
+
 ## Lauf 181 · 982 Startsperre-Haken Aufwand, Nachprüfung 981 (Perikles, Doppelpack 421, `7431ee44c`; 11.11., 19:0x)
 
 - **982 greift** (`greift 982 181`): Haken im Klon mit echtem Eingabe-JSON: Tom ohne `effort` und mit „medium“ Exit 2 „Aufwand fehlt (982)“, mit „high“ weiter zur Startsperre (750 A, Exit 2 wie vorher), Helfer ohne Rolle Exit 0; `aufwand()` 14.11., 19:59 hält an, 20:00 und 15.11. frei. Stichtag liest er aus `lauf.py` (ein Ort). Alle 8 Sitzungen seit 18:18 zeigen in `get_session` `effort_level` „high“: Selbstneustart Ford 18:26 (vorher „medium“, Lauf 180), Neustarts über Ford Sokrates 18:22, Spike 18:22 und 18:48, Tuffy 18:25, Jerry 18:28, START Homer und Diogenes 19:04. Regeltexte `LISTE-BETRIEB.md` 13, 45, 61 und `LISTE-RELEASE-NEUSTART.md` 2 nennen den Aufwand.
