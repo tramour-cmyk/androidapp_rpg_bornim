@@ -390,3 +390,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 15:00 12.11.: Startsperre 15:00 Start Tom, Tuffy (lauf.py)
 - 15:00 12.11.: Marke Archiv session_01Hmoj79GnLFqxJnZ3kPVf75 (lauf.py)
 - 15:00 12.11.: Marke Archiv session_01Hmoj75jovTr8zStqpmnEsx (lauf.py)
+- 15:05 12.11.: Start-Meldung Jerry 14:59 „Start Tom 842“ (7696371e0 auf claude/jerry-1037-werte, 1037 gebaut): geprüft, Tom …76marbMeLGds3T3ePv (842) und Tuffy …7A5QW3nspwoDNRPehg (1036, Chef-Fund 14:48 Brandflasche) gestartet; archiviert und gebucht: Tom 1030 …79GnLFqxJnZ3kPVf75 (21,30 $), Tuffy 1031 …75jovTr8zStqpmnEsx (2,00 $). Perikles: nichts Startbares (Stub-Fehlalarm beendet).
