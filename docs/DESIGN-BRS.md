@@ -109,7 +109,7 @@ Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit, Wil
 
   Das Volk darf einen Wert auf 9 heben und auf 2 senken (933 A, ersetzt Entscheidung 78), damit sein Abzug immer greift. Leute in der Welt reagieren auf das Volk (Entscheidung 71).
   **Sechstes Volk: Aschgeborene** (432, Chef 01.11., 09:41; Werte 432.2, 02.11., 16:34): Mensch mit aschgrauer Strähne und goldenem Ring um die Iris; wählbar ab dem Bau nach dem Meilenstein Kapitel 1; vor dem Bau in Simulation 444 mit Völkern messen.
-- **Herkunft, freiwillig** (Entscheidung 68, 69): Sie verteilt die Punkte vor, gibt zwei bis drei Startfertigkeiten und passende Ausrüstung; ein Satz bei der Erschaffung sagt, wohin sie lenkt. Die Punkte kann man ändern. Wer keine will, ist **Wanderer** und verteilt selbst; er wählt zwei Startfertigkeiten. Jede Startfertigkeit beginnt bei **10** (Startwert, Vorschlag).
+- **Herkunft, freiwillig** (Entscheidung 68, 69): Sie verteilt die Punkte vor, gibt zwei bis drei Startfertigkeiten und passende Ausrüstung; ein Satz bei der Erschaffung sagt, wohin sie lenkt. Die Punkte kann man ändern. Wer keine will, ist **Wanderer** und verteilt selbst; er wählt zwei Startfertigkeiten. Jede Startfertigkeit beginnt bei **10** (Startwert, Vorschlag). Zauberlehrling: vorverteilt Verstand +3, Wille +3 (1050a A, Chef 12.11., 20:02; vorher Wille +5, Verstand +1; Bau Jerry 1066, Satz der Erschaffung Homer 1067).
 
 | Herkunft | Startfertigkeiten | führt meist zu |
 | --- | --- | --- |

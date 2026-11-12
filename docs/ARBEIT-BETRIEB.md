@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten buchen ohne Satz des Chefs, dauerhaft; alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss: `--ohne 506.2:Tuffy nur auf Chef-Wort --ohne M?:Planfehler Klasse als Vorgang (893) --ohne 492:hängt an 870.4 (Tom), Spike ohne Arbeit beendet --ohne 771:erledigt --ohne 901:gebaut` (771/901 entfallen, sobald Diogenes/Perikles den Stand setzen). Tom hat Wecker 08:38 (Lauf 338): `WEITER Tom` nicht ausführen, solange er läuft. Nachfolger: Ford – Betriebsleiter
 
-**Nächste freie Vorgangsnummer: 1063** (zuletzt 1062 Jerry 12.11. 18:00:43 5a9e) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 1076** (zuletzt 1075 Jerry 12.11. 19:50:15 b8e8) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -421,3 +421,23 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 17:18 12.11.: Startsperre 17:18 Start Jerry (Neustart-Meldung fe03fe5db, Nachfolger „Jerry – 1055: Build 280 auf main, Sammelbuild 281 Kampf“, von Hand)
 - 17:42 12.11.: Startsperre 17:42 Start Tom (Neustart-Meldung 03c7a78ee, Nachfolger „Tom – 758: Sitzfilm vorlegen, dann 882.1 alt rendern (12.11.)“, von Hand)
 - 17:56 12.11.: Startsperre 17:56 Start Sokrates (Neustart-Meldung 65f1db092, Nachfolger „Sokrates – 1048: Ring und offene Fragen“, von Hand)
+- 18:04 12.11.: Startsperre 18:04 Start Homer (lauf.py)
+- 18:04 12.11.: Marke Archiv session_01Hmoj77nTECTS8x8kwyj7ab (lauf.py)
+- 18:04 12.11.: Marke Start-fehlt Homer 12.11.-16:48 (lauf.py)
+- 18:25 12.11.: Startsperre 18:25 Start Tuffy (Neustart-Meldung c22b46180, Nachfolger „Tuffy – 1041: Platztausch im selben Takt“, von Hand)
+- 18:27 12.11.: Startsperre 18:27 Start Sokrates (Neustart-Meldung 69b869a4e, Nachfolger „Sokrates – 1048: Ring und offene Fragen“, von Hand)
+- 18:42 12.11.: Startsperre 18:42 Start Jerry (Neustart-Meldung 855adb61d, Nachfolger „Jerry – 1029: probekampf_1020 schwankt, Build 280 auf main, dann 281“, von Hand)
+- 19:00 12.11.: Startsperre 19:00 Start Tuffy (Neustart-Meldung 6b1f173bb, Nachfolger „Tuffy – 1034: ein Probekampf für alles“, von Hand)
+- 19:04 12.11.: Startsperre 19:04 Start Tom, Spike (lauf.py)
+- 19:04 12.11.: Marke Archiv session_01Hmoj79pyaMDLNugEQfUhrD (lauf.py)
+- 19:04 12.11.: Marke Start-fehlt Homer 12.11.-18:04 (lauf.py)
+- 19:04 12.11.: Marke Start-fehlt Spike 12.11.-17:06 (lauf.py)
+- 19:04 12.11.: Marke Archiv session_01Hmoj75RkU4dWvyaMvQyaE4 (lauf.py)
+- 20:05 12.11.: Startsperre 20:05 Start Homer (lauf.py)
+- 20:30 12.11.: Startsperre 20:30 Start Sokrates (Neustart-Meldung 378920f8c, Nachfolger „Sokrates – 760: Chefrunde und offene Fragen“, von Hand)
+- 20:50 12.11.: Startsperre 20:50 Start Homer, Perikles, Spike, Tuffy (lauf.py)
+- 20:50 12.11.: Marke Archiv session_01Hmoj78Ma2oqrpA3BFf8Ktx (lauf.py)
+- 20:50 12.11.: Marke Archiv session_01Hmoj77FQvSoLtm2q28ecYk (lauf.py)
+- 20:50 12.11.: Marke Archiv session_01Hmoj76TjZZB8xfGsLpG4q8 (lauf.py)
+- 20:50 12.11.: Marke Archiv session_01Hmoj761D8ZDmMbL8YHbGzf (lauf.py)
+- 20:52 12.11.: Startsperre 20:52 Start Homer (Neustart-Meldung 24c19fdf5, Nachfolger „Homer – 1074: zweiter Knopf im Gespräch (dann 766 Rollenspiegel, 13.11.)“, von Hand)

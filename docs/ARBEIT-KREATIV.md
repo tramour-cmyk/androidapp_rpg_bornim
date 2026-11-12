@@ -2,9 +2,9 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `06465b7c1` (12.11., 11:36)
+**Gelesen bis:** `1745cb5e4` (12.11., 20:05)
 
-**Übergabe (12.11., 16:51, `session_01Hmoj75rDsp7Ru9i6tUeydE`):** erledigt: Pflege (Übergabe gekürzt, Offenes als Zu 976 und Zu 870.9 in die Zeilen). Davor (16:34): 1047 (Verband `[807.verband.*]`, kurze Rast `[870.15.rast]`, `[870.15.zustaende]` nach 1038 A, R1; fremd geprüft); 1026 (`[1026.grundwert.auf]`, `[870.14.wert.kopf]`, `[870.15.held]` nach 644a F); Zu 976 (`[870.14.ding.guete]` nach 976a A). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
+**Übergabe (12.11., 20:51, `session_01Hmoj76oFZoFEBnGQRKReMr`, Neustart-Haken):** erledigt: 1069 (Ringtexte `[1069.*]` in `STORY-BRS-KAMPF.md`, fremd geprüft, an Jerry als Zu 1068, Handbuchsatz an Sokrates als Zu 1048); 1067 (Satz „Zu Magier oder Kriegsmagier.“ und `[954.1.herkunft.zauberlehrling]` nennen keinen Grundwert, passen zu Verstand 3, Wille 3 unverändert; Folge Schwächen sehen ab Start an Jerry als Zu 1066). Davor (18:15): 1057 (`[1057.ansage.*]`, an Jerry als Zu 1049); (16:51): Pflege; 1047; 1026; Zu 976. Nachfolger: Homer – 1074: zweiter Knopf im Gespräch (dann 766 Rollenspiegel, 13.11.).
 
 ## Zeilen
 
