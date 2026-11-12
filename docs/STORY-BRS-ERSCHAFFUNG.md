@@ -27,7 +27,7 @@ Homer 11.11.; Vorgang 954.1 für den Bau 954 (Tom): Gedrückthalten auf Grundwer
 
 - `[954.1.herkunft.wachsoldat]` Du hast Wache gestanden: mit Schild, Einhandwaffe und Rüstung stehst du vorn und hältst viel aus. / EN: You stood watch: with shield, weapon and armor you hold the front and take a beating.
 - `[954.1.herkunft.jaegerkind]` Du bist im Wald groß geworden: du triffst aus der Ferne und gerätst selten in einen Hinterhalt. / EN: You grew up in the woods: you strike from afar and rarely walk into an ambush.
-- `[954.1.herkunft.zauberlehrling]` Du hast bei einem Magier gelernt: deine ersten Zauber kannst du schon, doch ohne Rüstung trifft dich jeder Schlag hart. / EN: You learned under a mage: you already know your first spells, but without armor every blow hits you hard.
+- `[954.1.herkunft.zauberlehrling]` Du bist bei einem Zauberkundigen in die Lehre gegangen: deine ersten Zauber kannst du schon, doch ohne Rüstung trifft dich jeder Schlag hart. / EN: You apprenticed under a spellcaster: you already know your first spells, but without armor every blow hits you hard.
 - `[954.1.herkunft.klosterschueler]` Im Kloster hast du heilen gelernt: mit Wundsegen schließt du Wunden, deine und die deiner Gefährten. / EN: You learned to heal in the cloister: with Woundmend you close wounds, your own and your companions'.
 - `[954.1.herkunft.kraeutersammler]` Du kennst die Kräuter am Wegrand: du findest mehr davon und holst beim Brauen mehr heraus. / EN: You know the herbs by the wayside: you find more of them and get more out of every brew.
 - `[954.1.herkunft.schmiedelehrling]` Am Amboss bist du stark geworden: Hammer und Hitze haben dich gehärtet, du schlägst kräftig zu. / EN: You grew strong at the anvil: hammer and heat have hardened you, and you hit hard.
@@ -38,7 +38,7 @@ Homer 11.11.; Vorgang 954.1 für den Bau 954 (Tom): Gedrückthalten auf Grundwer
 
 Vor dem Doppelpunkt steht der Name: er ist der Kopf der Blase, nicht Teil des Satzes; der Satz beginnt im Bau groß („Große Schwerter, Äxte …“). Bei den Völkern dagegen gehört das Merkmal zum Satz (Kopf ist das Volk).
 
-Mit Wirkung im Umzugszweig: Waffen außer Wurfwaffen, alle Rüstungen, Ausweichen, Evokation, Schutzmagie, Heilmagie, Handeln, Kräuterkunde, Alchemie, Kochen. Ohne (heute mit `[954.1.spaeter]`): Wurfwaffen (keine Waffe gehört dazu), Schleichen, Spähen, Schlösser knacken, Fallen entschärfen, Illusion, Beschwörung, Tiere beruhigen, Überreden, Einschüchtern, Angeln, Jagd, Schmieden, Lederarbeit, Runenkunde, Heilkunde (Überreden, Heilkunde mit 842, Einschüchtern mit 841).
+Mit Wirkung im Umzugszweig: Waffen außer Wurfwaffen, alle Rüstungen, Ausweichen, Evokation, Schutzmagie, Heilmagie, Handeln, Kräuterkunde, Alchemie, Kochen. Ohne (heute mit `[954.1.spaeter]`): Wurfwaffen (keine Waffe gehört dazu), Schleichen, Spähen, Schlösser knacken, Fallen entschärfen, Illusion, Beschwörung, Tiere beruhigen, Überreden, Einschüchtern, Angeln, Jagd, Schmieden, Schneidern, Runenkunde, Heilkunde (Überreden, Heilkunde mit 842, Einschüchtern mit 841).
 
 **Waffen**
 - `[954.1.fert.einhaender]` Einhänder: Schwerter, Äxte und andere Waffen für eine Hand; die zweite bleibt frei für einen Schild. / EN: Swords, axes and other one-handed weapons; your other hand stays free for a shield.
@@ -84,7 +84,7 @@ Mit Wirkung im Umzugszweig: Waffen außer Wurfwaffen, alle Rüstungen, Ausweiche
 
 **Handwerk**
 - `[954.1.fert.schmieden]` Schmieden: Waffen und Rüstung aus Metall fertigen und flicken, auch Dietriche. / EN: Make and mend metal weapons and armor, lockpicks too.
-- `[954.1.fert.leder]` Lederarbeit: gerben, schneidern, Leder und Stoff flicken, für leichte Rüstung, Taschen und Köcher. / EN: Tan, tailor and mend leather and cloth, for light armor, bags and quivers.
+- `[954.1.fert.leder]` Schneidern: gerben, nähen, Leder und Stoff flicken, für leichte Rüstung, Roben, Taschen und Köcher. / EN: Tailoring: tan, sew and mend leather and cloth, for light armor, robes, bags and quivers.
 - `[954.1.fert.alchemie]` Alchemie: wer sich auf Tränke versteht, bekommt beim Brauen öfter einen zweiten dazu. / EN: If you know your potions, a brew more often yields a second one.
 - `[954.1.fert.kochen]` Kochen: was du isst, stärkt dich mehr. / EN: What you eat does you more good.
 - `[954.1.fert.runen]` Runenkunde: Runen und Verzauberungen auf deine Ausrüstung legen. / EN: Lay runes and enchantments on your gear.

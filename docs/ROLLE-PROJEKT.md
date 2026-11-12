@@ -83,7 +83,8 @@ Montags meldest du die Zahlen von Diogenes unverändert mit Link, eine Zeile je 
 - **818, 09.11., 23:08:** Vorschlag Sokrates 22:48 (per Telegram um ein Chefwort bitten) nicht genommen: der Chef sagte 22:27 „kann ich ihnen auch nicht helfen“. Gegenargument: eine Zeile mit Kaufmodellen bleibt liegen; zählt, aber sie wartet sichtbar auf 391, und eine Sitzung mit Repo nimmt sie selbst. `WEITER` in lauf.py nicht gebaut: lauf.py sieht eingebundene Repos nicht; die Sitzung bleibt selbst offen (Haken), Ford startet daneben nichts, weil die Rolle belegt ist.
 - **M?-Entscheid 11.11., 11:15** (824, 844, 845, 836, 909, alle M): Git, Stand vor „Perikles: 969 M“.
 - **M?-Entscheid 11.11., 15:37 (190.8):** 965 M (Werkzeugfehler mit Fund wie 940: Sperre 779 sperrt bei Jerry alle 106 Zeilen über Allerweltswörter, gegen 779 „nur, was sich überschneidet“; Chef 14:56 „hat jeder einen Job?“). Gegenargument „mehr Arbeit vor dem Test“: 620.1 B bleibt, nur die Überdeckung fällt. 966 M (Prüfregel `DESIGN-BRS.md` 3, Abnahme 1.2; Sokrates hat mit Vorentscheid A entschieden, 966.1, 966.2). 967 M (Wochenziel Zeile 4, 653 Halt der Waffen: Schild im Körper ist sichtbarer Fehler am Helden im Kampf; die Sperre 620.1 B bleibt). 969 M, wartet auf 968 (Chef 15:49 will Regelzahlen nachschlagen, um sie zu beeinflussen; dient Abnahme 2.5 „Zielwert mit dem Chef festlegen“; erzeugt, kein Handtext). B1-Namen (Chef 15:51): keine neue Regel, Satz in `LISTE-UMZUG-BRS.md` „Zwei Testbuilds“.
-- **M?-Entscheid 11.11., 13:48 (190.8):** 935 M (Kampf: Wurfmittel werden verkauft und empfohlen, wirken im MARS nicht, technischer Fehler wie 677; Abnahme 2.3). 939 M (Kampfklang, Abnahme 4.7 und 2.11; gehört zum Kampf im Wochenziel). 936, 937, 938 M nach Abnahme 4.6, 4.7, 2.11 („wie alt“), ohne Kampfbezug: „ruht, Kampf zuerst (338.1)“. 940 M (Werkzeugfehler mit Fund: doppelte Nummern 934/935 am 11.11.; „die Nummer bleibt fest“). 941 M, 942 K→M 14:03, 957 M 14:08 (Lücken aus 927: lauter Fehlalarm weckt den Chef für nichts). Gegenargument „mehr Muss für Jerry hinter Sperre 620.1 B“: M ordnet nur, die Sperre bleibt, drei der fünf ruhen; 940–957 nehmen keinem Team Kampfarbeit.
+- **M?-Entscheid 12.11., 02:08 (190.8, Abgleich alt 620.2c):** 997, 998, 999, 1000, 1001, 1003, 1004 M: alles Kampf, je ein alter Fund des Chefs, der in Godot fehlt (Abnahme 2.11 „mindestens so wie alt“); 999 dazu Wochenziel „Held sieht ordentlich aus“ (653), 1000 Abnahme 2.3 „Ansage harter Schläge“, 1004 Abnahme 2.3 (BRS ohne Klassen, E 1), 1003 Direktive Klang. Gegenargument „Jerry hat 33 ungetestete Muss, Sperre 620.1 B“: M ordnet nur, die Sperre bleibt; findet der Chef es zuerst, zählt es gegen uns (Haltung 7). 1002 Siegerpose bleibt K (Schmuck, nichts Kaputtes).
+- **M?-Entscheid 11.11., 13:48** (935–942, 957, alle M; 936–938 ruhen): Git, Stand vor „Perikles: M?-Entscheid 997–1004“.
 
 - **Ein Text an einem Ort:** Doppelungen kosten Token und laufen auseinander; nichts Aufgabenrelevantes verlieren.
 - **Rückfragen als Holschuld:** wiederholte Fragen verdeckten das Neue; die Chefsache ist der eine Ort.
@@ -92,6 +93,8 @@ Montags meldest du die Zahlen von Diogenes unverändert mit Link, eine Zeile je 
 - **Ford-2-Lauf wie Fords Lauf** (Ford 2 entfällt, 650.1): eine Regel mit Kriterium. Eine offene Frage des Chefs darf beim Archivieren nicht verloren gehen; seit 261.5 überträgt Ford sie vorher an die neuere Sitzung (ÜBERTRAGE), statt die alte offen zu lassen.
 
 ## Lehren
+
+- Einstellung und Freigabe am Ergebnis prüfen (`get_session`, App), auf jedem Weg (16.10., 99g; 11.11., Fehler 341: Hoch nur als Variable, App „Mittel“; 982).
 
 - Probe nie in einer `cp -r`-Kopie von `bornim-main`: das ist ein Worktree, die Kopie teilt Index und Zweig, ein Commit dort landet auf `main` (09.11., 774: Prüfliste t271 und Archivzeile „Probe 774“ kurz auf `main`, zurückgenommen); Kopie mit `git clone`.
 
@@ -103,6 +106,5 @@ Montags meldest du die Zahlen von Diogenes unverändert mit Link, eine Zeile je 
 - Befunde selbst abholen, nichts vorschlagen, was schon da ist: vor jeder Antwort Prüfbericht und `git log` (15.10., 65.11).
 - Beim Umbau von der alten Datei ausgehen, jede Übernahme dreifach prüfen: schon da? präziser? gebraucht? (15.10., 98; 21.10., D41.1: beim Kürzen gingen drei Regeln verloren).
 - „Je Schritt Prüfung“ heißt: den nächsten Schritt erst nach dem Befund bauen; eine Erlaubnis des Chefs hebt die Reihenfolge nicht auf (21.10., 274).
-- Stand einer Freigabe nur eintragen, wenn geprüft (16.10., 99g).
 - Eine Schieflage, die ich selbst ändern kann, wird verteilt, nicht als Risiko gemeldet (03.11., Fehler 341: Jerry 38 von 45 Sitzungen; Chef: „Dafür habe ich einen Betriebsleiter und einen Berater und einen Revisor.“).
 - Was ich selbst entscheiden kann, entscheide ich; was beim Chef liegt, geht nur als Chefsache mit Vorgang, nie als „wartet auf dein Ja“ in Chat oder Telegram (09.11., 715: Rollenspiegel-Schritte; Chef 09:49/09:52: „ansonsten würdet ihr alle davon ausgehen, dass ich nichts anderes tue, als eure Sitzungen durchzulesen“).
