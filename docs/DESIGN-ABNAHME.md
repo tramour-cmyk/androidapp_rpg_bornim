@@ -22,6 +22,7 @@ Gilt für jede Probe, jedes Bild und jeden Film zu Figuren, Bewegung und Kampfor
 | G1 | Ausschnitt so, dass jede Figur ganz im Bild ist | 385.1 (28.10.) | ja |
 | G2 | Keine fremden Bilder an den Schnitten | Prüferbefund (d) zu 406, kein Chefwort | Maß |
 | G3 | Text der Vorlage im generischen Maskulinum („Held“, nie „Heldin“) | 348.12f (28.10.), 408 (29.10.) | ja |
+| G4 | Film zeigt nur den Prüfgegenstand, etwa dreimal hintereinander, bis 15 s; Kamera so, dass man ihn gut sieht, nicht die Standardsicht | 1076 (Chef 12.11., 20:42 zu 1039, 20:54 zu 758); 1078 | ja |
 
 ## Ansicht
 

@@ -443,10 +443,41 @@ Gelesen in: Sim.
 |---|---|---|---|---|---|---|---|
 | Wachsoldat | Schild, Mittlere Rüstung, Einhänder | kraft 3; zaehigkeit 3 | gewandtheit 1; wille 1; wahrnehmung 1 | Einhänder | Mittlere Rüstung | ja | – |
 | Jägerkind | Bogen, Wurfwaffen, Spähen | gewandtheit 3; wahrnehmung 3 | zaehigkeit 2; kraft 1 | Bogen | Leichte Rüstung | nein | – |
-| Zauberlehrling | Evokation, Schutzmagie | wille 5; verstand 1 | zaehigkeit 2; gewandtheit 1 | Stumpfe Waffen | keine | nein | Bannschild, Funkenpfeil |
 | Klosterschüler | Heilmagie, Heilkunde, Kräutersammeln | wille 3; zaehigkeit 1; verstand 2 | kraft 2; zaehigkeit 1 | Stumpfe Waffen | Leichte Rüstung | nein | Wundsegen |
 | Kräutersammler | Kräutersammeln, Alchemie, Spähen | verstand 3; wahrnehmung 3 | gewandtheit 2; zaehigkeit 1 | Dolche | Leichte Rüstung | nein | – |
 | Herumtreiber | Schleichen, Spähen, Dolche | gewandtheit 4; wahrnehmung 2 | zaehigkeit 2; kraft 1 | Dolche | Leichte Rüstung | nein | – |
+
+### herkuenfte.Zauberlehrling
+
+Gelesen in: `regeln/brs_kampf.gd:20`, Sim.
+
+| Wert | heute | Formel, Erläuterung | wirkt in |
+|---|---|---|---|
+| `fertigkeiten` | Evokation, Schutzmagie | – | `regeln/brs_held.gd:217`, `regeln/brs_held.gd:227`, +3, Sim. |
+| `waffe` | Stumpfe Waffen | – | `regeln/brs_held.gd:509`, `regeln/brs_held.gd:514`, +5, Sim. |
+| `ruestung` | keine | – | `regeln/brs_held.gd:509`, `regeln/brs_held.gd:514`, +6, Sim. |
+| `schild` | nein | – | `regeln/brs_held.gd:509`, `regeln/brs_held.gd:515`, +6, Sim. |
+| `zauber` | Bannschild, Funkenpfeil | – | `regeln/brs_held.gd:498`, `regeln/brs_held.gd:511`, +4, Sim. |
+
+- **1066:** 1050a A (Chef 12.11., 20:02): Verstand 3, Wille 3 statt Wille 5, Verstand 1
+
+#### herkuenfte.Zauberlehrling.plus
+
+Gelesen in: `regeln/brs_held.gd:123`, `regeln/brs_held.gd:144`, +2, Sim.
+
+| Wert | heute | Formel, Erläuterung | wirkt in |
+|---|---|---|---|
+| `verstand` | 3 | – | `regeln/brs_held.gd:199`, `regeln/brs_held.gd:286`, +1, Sim. |
+| `wille` | 3 | – | `regeln/brs_held.gd:199`, `regeln/brs_held.gd:272`, +3, Sim. |
+
+#### herkuenfte.Zauberlehrling.plus_variante
+
+Gelesen in: `regeln/brs_held.gd:123`, `regeln/brs_kampf.gd:68`, +1, Sim.
+
+| Wert | heute | Formel, Erläuterung | wirkt in |
+|---|---|---|---|
+| `zaehigkeit` | 2 | – | `regeln/brs_held.gd:199`, `regeln/brs_held.gd:271`, +3, Sim. |
+| `gewandtheit` | 1 | – | `regeln/brs_held.gd:199`, `regeln/brs_held.gd:286`, +2, Sim. |
 
 ### herkuenfte.Schmiedelehrling
 
@@ -567,7 +598,7 @@ Herkunft: Packs.kt guard: 2 Woelfe, 55 %, -1 auf W20, 1W4 gegen 2W6+1 des Leitwo
 | `koerper` | Wolf | – | `regeln/brs.gd:49`, `regeln/mars.gd:764` |
 | `leben_anteil` | 1 | – | `regeln/brs.gd:56` |
 | `angreifbar` | nein | – | `regeln/brs.gd:58`, `regeln/mars.gd:361` |
-| `erfahrung_anteil` | 0,25 | vorlaeufig (870.5): wie alt Packs.kt xpShare 0,25 je Wolf der Leibwache; Werte-Vorlage an den Chef vor B1 | `regeln/lohn.gd:34` |
+| `erfahrung_anteil` | 0,25 | vorlaeufig (870.5): wie alt Packs.kt xpShare 0,25 je Wolf der Leibwache; Werte-Vorlage an den Chef vor B1 | `regeln/lohn.gd:37` |
 
 #### merkmale.rudel.Jungwolf
 
@@ -584,7 +615,7 @@ Gelesen in: Sim.
 | `koerper` | Wolf | – | `regeln/brs.gd:49`, `regeln/mars.gd:764` |
 | `leben_anteil` | 0,5 | – | `regeln/brs.gd:56` |
 | `angreifbar` | ja | – | `regeln/brs.gd:58`, `regeln/mars.gd:361` |
-| `erfahrung_anteil` | 0,3 | vorlaeufig (870.5): wie alt Packs.kt xpShare 0,3 je Jungwolf; Werte-Vorlage an den Chef vor B1 | `regeln/lohn.gd:34` |
+| `erfahrung_anteil` | 0,3 | vorlaeufig (870.5): wie alt Packs.kt xpShare 0,3 je Jungwolf; Werte-Vorlage an den Chef vor B1 | `regeln/lohn.gd:37` |
 
 ### merkmale.umreissen
 
@@ -621,8 +652,8 @@ Gelesen in: `regeln/mars.gd:487`, `regeln/mars.gd:2505`, +1, Sim.
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
 | `punkte_variante` | ja | gerechnet mit 21 Punkten (Entscheidung 77), also den Herkuenften mit plus_variante | Sim. |
-| `startgold` | 20 | alt: 15 bis 25 Gold, 1 bis 3 Heiltraenke je Klasse; hier Mittel | `skripte/spiel.gd:1412`, Sim. |
-| `start_heiltraenke` | 2 | – | `skripte/spiel.gd:1413`, Sim. |
+| `startgold` | 20 | alt: 15 bis 25 Gold, 1 bis 3 Heiltraenke je Klasse; hier Mittel | `skripte/spiel.gd:1430`, Sim. |
+| `start_heiltraenke` | 2 | – | `skripte/spiel.gd:1431`, Sim. |
 | `verkauf_anteil` | 0,5 | alt: Haendler zahlt den halben Ladenpreis (Game.kt sellPrice) | Sim. |
 | `dorf_alle_kaempfe` | 8 | A: der Held geht alle 8 Kaempfe ins Dorf, frueher, sobald ein Stueck 'Beschaedigt' ist (Warnung, N 11); dort verkaufen, reparieren, Traenke kaufen | Sim. |
 
@@ -755,7 +786,7 @@ Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `ding` | Langschwert | – | `skripte/spiel.gd:822`, `skripte/spiel.gd:830`, +9, Sim. |
+| `ding` | Langschwert | – | `skripte/spiel.gd:837`, `skripte/spiel.gd:845`, +9, Sim. |
 | `preis` | 15 | – | Sim. |
 | `material` | Metall | – | Sim. |
 | `rang` | Geselle | – | Sim. |
@@ -766,7 +797,7 @@ Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `ding` | Kurzbogen | – | `skripte/spiel.gd:822`, `skripte/spiel.gd:830`, +9, Sim. |
+| `ding` | Kurzbogen | – | `skripte/spiel.gd:837`, `skripte/spiel.gd:845`, +9, Sim. |
 | `preis` | 25 | – | Sim. |
 | `material` | Holz | – | Sim. |
 | `rang` | Geselle | – | Sim. |
@@ -777,7 +808,7 @@ Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `ding` | Dolch | – | `skripte/spiel.gd:822`, `skripte/spiel.gd:830`, +9, Sim. |
+| `ding` | Dolch | – | `skripte/spiel.gd:837`, `skripte/spiel.gd:845`, +9, Sim. |
 | `preis` | 2 | – | Sim. |
 | `material` | Metall | – | Sim. |
 | `rang` | Anfänger | – | Sim. |
@@ -788,7 +819,7 @@ Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `ding` | Streitkolben | – | `skripte/spiel.gd:822`, `skripte/spiel.gd:830`, +9, Sim. |
+| `ding` | Streitkolben | – | `skripte/spiel.gd:837`, `skripte/spiel.gd:845`, +9, Sim. |
 | `preis` | 5 | – | Sim. |
 | `material` | Metall | – | Sim. |
 | `rang` | Anfänger | – | Sim. |
@@ -799,7 +830,7 @@ Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `ding` | Kettenhemd | – | `skripte/spiel.gd:822`, `skripte/spiel.gd:830`, +9, Sim. |
+| `ding` | Kettenhemd | – | `skripte/spiel.gd:837`, `skripte/spiel.gd:845`, +9, Sim. |
 | `preis` | 50 | – | Sim. |
 | `material` | Metall | – | Sim. |
 | `rang` | Geselle | – | Sim. |
@@ -808,7 +839,7 @@ Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `ding` | Lederrüstung | – | `skripte/spiel.gd:822`, `skripte/spiel.gd:830`, +9, Sim. |
+| `ding` | Lederrüstung | – | `skripte/spiel.gd:837`, `skripte/spiel.gd:845`, +9, Sim. |
 | `preis` | 10 | – | Sim. |
 | `material` | Leder | – | Sim. |
 | `rang` | Anfänger | – | Sim. |
@@ -819,7 +850,7 @@ Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `ding` | Schild | – | `skripte/spiel.gd:822`, `skripte/spiel.gd:830`, +9, Sim. |
+| `ding` | Schild | – | `skripte/spiel.gd:837`, `skripte/spiel.gd:845`, +9, Sim. |
 | `preis` | 10 | – | Sim. |
 | `material` | Metall | – | Sim. |
 | `rang` | Geselle | – | Sim. |
@@ -1048,7 +1079,7 @@ Gelesen in: Sim.
 | `hinterhalt_min` | 0,4 | – | `regeln/brs_held.gd:383` |
 | `sinne_ab` | 3 | A: Monster bemerken den Helden aus bemerken_felder, je Punkt Gewandtheit ueber sinne_ab ein Fuenftelfeld spaeter (abgerundet, Gewandtheit 8: ein Feld), mindestens bemerken_min (alt je zwei Punkte Mod(GES) ein Feld); Hinterhalt je Punkt Wahrnehmung ueber sinne_ab 7,5 % seltener, hoechstens bis 40 %; unter sinne_ab (Volk senkt bis 2, 933) je Punkt 7,5 % haeufiger, Bemerken bleibt durch das Abrunden gleich (alt 15 % je Punkt Mod(WEI)) | `regeln/brs_held.gd:377`, `regeln/brs_held.gd:383` |
 | `wissen_verstand_ab` | 6 | 870d Vorentscheid Sokrates (11.11., 02:00): Schwaechen und Staerken der Gegner vorher sehen ab Verstand 6 (alt INT 12) | `regeln/brs_held.gd:372`, `regeln/mars.gd:2403` |
-| `leiden_zaehigkeit_ab` | 5 | A: Gift und Blutung aus einem Kampf klingen je Punkt Zaehigkeit ueber 5 eine Runde frueher ab (alt Mod(KON)) | `skripte/spiel.gd:696` |
+| `leiden_zaehigkeit_ab` | 5 | A: Gift und Blutung aus einem Kampf klingen je Punkt Zaehigkeit ueber 5 eine Runde frueher ab (alt Mod(KON)) | `skripte/spiel.gd:710` |
 
 ### welt.heilung
 
