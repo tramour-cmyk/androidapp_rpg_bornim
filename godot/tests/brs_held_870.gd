@@ -51,6 +51,22 @@ func _lauf() -> void:
 	pruefe("952 D: Evokation Schaden aus Verstand", BrsKampf.zauber_grundwert("Evokation"), "verstand")
 	pruefe("870d: Schwaechen ab Verstand 6", [BrsHeld.neu("", "Zauberlehrling").kennt_schwaechen(), BrsHeld.neu("", "Wachsoldat").kennt_schwaechen()],
 		[BrsHeld.neu("", "Zauberlehrling").wert("verstand") >= 6, BrsHeld.neu("", "Wachsoldat").wert("verstand") >= 6])
+	# 989 (Homer 1008, nach 952 D): Grundwerttexte folgen werte.json; kritisch ohne Zahl bei jedem Grundwert, der laut „kritisch“ zählt,
+	# Zauberschaden der Evokation beim Verstand, Heilmagie beim Willen, nichts Wirkungsloses
+	var sprache_vor := Sprache.aktiv()
+	Sprache.lang = "de"     # die Wörter unten sind deutsch; nur für die Prüfung, ohne Speichern
+	var krit_aus := {}
+	for gr in W["waffen"]: if W["waffen"][gr] is Dictionary and W["waffen"][gr].get("kritisch") != null: krit_aus[String(W["waffen"][gr]["kritisch"])] = true
+	for sc in W["schulen"]: if W["schulen"][sc] is Dictionary and W["schulen"][sc].get("kritisch") != null: krit_aus[String(W["schulen"][sc]["kritisch"])] = true
+	for g in BrsHeld.grundwerte():
+		var txt := " ".join(Menue.erklaerung(w, String(g)))
+		pruefe("989: %s nennt Kritische Treffer genau dann, wenn kritisch daran hängt" % g, txt.contains("Kritische Treffer"), krit_aus.has(String(g)))
+		pruefe("989: %s ohne Prozent beim kritischen Treffer" % g, txt.contains("Kritische Treffer:"), false)
+		for alt in ["Stärke deiner Zauber", "Flächenwirkungen", "Furcht und Zauber", "Krankheit", "Spähen", "Wissen:"]:
+			pruefe("989: %s ohne „%s“" % [g, alt], txt.contains(alt), false)
+	pruefe("989: Verstand Schaden mit Evokation", [" ".join(Menue.erklaerung(w, "verstand")).contains("Evokation"), BrsKampf.zauber_grundwert("Evokation")], [true, "verstand"])
+	pruefe("989: Wille Heilmagie", [" ".join(Menue.erklaerung(w, "wille")).contains("Heilmagie"), BrsKampf.zauber_grundwert("Heilmagie")], [true, "wille"])
+	Sprache.lang = sprache_vor
 	pruefe("jeder darf alles tragen", w.kann_tragen({"uid": 1, "base": "plate", "rarity": "COMMON", "ilvl": 1, "plus": 0, "rolls": []}), true)
 	# Zusatzeigenschaft auf einen Grundwert wirkt, im Kapitel gedeckelt (Kapitel 1: +1)
 	var zaeh := w.wert("zaehigkeit")

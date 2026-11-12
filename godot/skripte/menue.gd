@@ -378,32 +378,38 @@ func gruppen_kopf(gr: String, geuebt: int, alle: int, offen: bool) -> Control:
 	return k
 
 # 870.4 ([870.14.wert.…], STORY-BRS-HELD.md): was ein Grundwert bringt, mit den Zahlen der Regelwerte. Bauregel: nur Zeilen, deren
-# Wirkung im Code steht (Kraft: Tragen und Aufbrechen fehlen; Verstand: Wissen und Handwerk fehlen; gemeldet an Homer). Fremdprüfung
-# Homer 14:15: Gewandtheit „Flächenwirkungen“ und Wille „Furcht und Zauber“ ohne Wirkung, gestrichen; Zähigkeit „Krankheit“ und
-# Wahrnehmung „Spähen“ warten auf den Wortlaut von Homer
+# Wirkung im Code steht. 989 (Homer 1008, nach 952 D): kritisch je Waffengruppe und Schule (werte.json „kritisch“) ohne Zahl, die
+# Aussicht mit der Hauptwaffe zeigen die Kampfwerte; Zauberschaden Evokation aus Verstand, Heilmagie aus Wille. Ruhen ohne Wirkung:
+# Gewandtheit „Flächenwirkungen“, Wille „Furcht und Zauber“, Verstand „Wissen“ (kennt_schwaechen ruft nur der Test) und „Handwerk“;
+# 963: Zähigkeit ohne Krankheit, Wahrnehmung nur Kraut (Laden.kraut_chance)
 const WERT_KOPF := ["Wert %d", "Value %d"]
 const WERT_TEXT := {
 	"kraft": [["Schaden mit Nahkampfwaffen und Fäusten, außer Dolchen.", "Damage with melee weapons and fists, except daggers."]],
 	"gewandtheit": [["Schaden mit Dolchen, Bögen und Wurfwaffen.", "Damage with daggers, bows and throwing weapons."],
 		["Wer ausweicht, ist schwerer zu treffen: +%d je Punkt.", "When you dodge, you are harder to hit: +%d per point.", "ausweichen"],
-		["Kritische Treffer: %d %% Aussicht, anderthalbfacher Schaden.", "Critical hits: %d%% chance, half again as much damage.", "krit"],
+		["Kritische Treffer (anderthalbfacher Schaden) mit Nahkampfwaffen und Fäusten, außer Dolchen; die Waffenfertigkeit zählt mit.",
+			"Critical hits (half again as much damage) with melee weapons and fists, except daggers; weapon skill counts as well."],
 		["Wer im Kampf zuerst handelt, und die Aussicht zu fliehen.", "Who acts first in combat, and your chance to flee."]],
 	"zaehigkeit": [["Leben: +%d je Punkt.", "Life: +%d per point.", "leben"],
 		["Ausdauer, zusammen mit Wille.", "Stamina, together with Will."],
-		["Abwehr gegen Gift und Krankheit.", "Resisting poison and disease."]],
-	"verstand": [],
+		["Abwehr gegen Gift, Betäubung und Blendung.", "Resisting poison, stunning and blinding."]],
+	"verstand": [["Schaden mit Evokation.", "Damage with Evocation."]],
 	"wille": [["Mana: +%d je Punkt.", "Mana: +%d per point.", "mana"],
-		["Stärke deiner Zauber.", "The strength of your spells."],
+		["Heilung und Schaden mit Heilmagie.", "Healing and damage with Healing Magic."],
+		["Kritische Treffer (anderthalbfacher Schaden) mit Evokation; die Fertigkeit zählt mit.",
+			"Critical hits (half again as much damage) with Evocation; the skill counts as well."],
 		["Ausdauer, zusammen mit Zähigkeit.", "Stamina, together with Toughness."]],
 	"wahrnehmung": [["Treffen im Fernkampf: +%d %% je Punkt.", "Ranged accuracy: +%d%% per point.", "fern"],
+		["Kritische Treffer (anderthalbfacher Schaden) mit Dolchen, Bögen, Armbrüsten und Wurfwaffen; die Waffenfertigkeit zählt mit.",
+			"Critical hits (half again as much damage) with daggers, bows, crossbows and throwing weapons; weapon skill counts as well."],
 		["Hinterhalte bemerken.", "Noticing ambushes."],
-		["Hilft dem Spähen, Verstecktes und Fallen zu finden, und dem Kräutersammeln.", "Helps Scouting find hidden things and traps, and helps Foraging."]],
+		["Aussicht auf ein Kraut mehr beim Sammeln.", "A chance of an extra herb when foraging."]],
 }
 
 static func erklaerung(h: BrsHeld, g: String) -> Array:
 	var i := 0 if Sprache.aktiv() == "de" else 1
 	var W := BrsHeld.lade()
-	var zahl := {"ausweichen": int(W["kampf"]["ausweichen_je_gewandtheit"]), "krit": h.krit_prozent(), "leben": int(W["held"]["leben_je_zaehigkeit"]),
+	var zahl := {"ausweichen": int(W["kampf"]["ausweichen_je_gewandtheit"]), "leben": int(W["held"]["leben_je_zaehigkeit"]),
 		"mana": int(W["held"]["mana_je_wille"]), "fern": int(W["kampf"]["fernkampf_treffer_je_wahrnehmung"])}
 	var out := [WERT_KOPF[i] % h.wert(g)]
 	for t in WERT_TEXT.get(g, []):
