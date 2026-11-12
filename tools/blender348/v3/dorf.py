@@ -1224,9 +1224,102 @@ def fuss_verdeckt(p):
         if hm > 4.0: break
         if ch(int(math.floor(x + sd * ZUR_KAMERA[0])), int(math.floor(y + sd * ZUR_KAMERA[1]))) in HAUS: return True
     return False
+# 831 (Chef 11.11., 16:19 „831 wie Sokrates“): Baeume aus dem freien Stylized Nature MegaKit (Quaternius, CC0 1.0) im Wald:
+# Abgestorben 3 und 5, Kiefer 5; Laubbaum und Verdreht nicht. Ganze Signatur wie unsere Baeume (DESIGN-STIL 302): eigene Materialien
+# laub_kiefer (Blattkarten mit Deckkraft, glTF MASK; gebiet.gd: Krone mit Tusche nach Licht, Durchsicht) und rinde_tot, rinde_kiefer
+# (Rinde: Durchsicht); Eckfarben dunkel bis hell nach Normale und Hoehe wie oak_crown und pine_col; Bilder getoent wie Probe 831
+# (tools/godot/baeume_831.py): Farbe aus unserer Palette, Zeichnung aus dem Bausatz. Groesse wie dort auf unsere Baeume verkleinert.
+KIT_BAUM = {'DeadTree_3': 0.4, 'DeadTree_5': 0.4, 'Pine_5': 0.6}
+KIT_MAT = {'Bark_DeadTree': 'rinde_tot', 'Bark_NormalTree': 'rinde_kiefer', 'Leaves_Pine': 'laub_kiefer'}
+KIT_BILD = {'rinde_tot': ('Bark_DeadTree.png', (50, 46, 42)), 'rinde_kiefer': ('Bark_NormalTree.png', (54, 45, 35)),
+            'laub_kiefer': ('Leaf_Pine_C.png', (88, 151, 105))}
+def kit_ordner():
+    import glob
+    return glob.glob(glob.escape(os.path.expanduser(os.environ.get('CC0', '~/cc0'))) + '/stylized-nature-megakit/glTF')[0]
+def kit_bild(name):
+    """getoentes Bild des Bausatzes nach TEX/<name>.png: Mittelwert unserer Farbe, Zeichnung (Helligkeit) aus dem Bausatz,
+    Deckkraft wie dort (Blattkarten); einmal je Lauf"""
+    ziel = os.path.join(OUT, 'tex', name + '.png')
+    if name in KIT_FERTIG: return
+    datei, col = KIT_BILD[name]
+    c = np.asarray(Image.open(os.path.join(kit_ordner(), datei)).convert('RGBA')).astype(np.float32)
+    lum = c[..., :3] @ np.array([0.2126, 0.7152, 0.0722], np.float32)
+    m = c[..., 3] > 128
+    rel = np.clip(lum / max(1e-3, float(lum[m].mean())), 0.0, 3.0)
+    if name.startswith('laub'): rel = np.clip(1.0 + (rel - 1.0) * 1.8, 0.3, 1.7)   # Zeichnung kraeftiger wie unser Laubbild
+    out = c.copy()
+    out[..., :3] = np.clip(np.array(col, np.float32)[None, None, :] * rel[..., None], 0, 255)
+    if not name.startswith('laub'): out[..., 3] = 255
+    os.makedirs(os.path.dirname(ziel), exist_ok=True)
+    Image.fromarray(out.astype(np.uint8), 'RGBA').save(ziel)
+    KIT_FERTIG.add(name)
+KIT_FERTIG = set()
+KIT_NETZ = {}
+KIT_ANTEIL = {'DeadTree_3': 0.25, 'DeadTree_5': 0.25}   # abgestorbene haben 5.700 Flaechen (unsere Eiche 744): auf etwa 1.500 vereinfacht
+def kit_netz(name):
+    """Flaechen eines Bausatzbaums (cm, Fussmitte im Ursprung): [(Material, [(Ecke, Normale, UV)], rund)], Hoehe; einmal je Lauf"""
+    if name in KIT_NETZ: return KIT_NETZ[name]
+    vor = set(bpy.data.objects)
+    bpy.ops.import_scene.gltf(filepath=kit_ordner() + '/' + name + '.gltf')
+    neu = [o for o in bpy.data.objects if o not in vor and o.type == 'MESH']
+    dg = bpy.context.evaluated_depsgraph_get()
+    if name in KIT_ANTEIL:
+        for o in neu:
+            d = o.modifiers.new('einfach', 'DECIMATE'); d.ratio = KIT_ANTEIL[name]; d.delimit = {'UV'}
+        dg.update()
+    roh = []
+    for o in neu:
+        oe = o.evaluated_get(dg); me = oe.to_mesh()
+        W = Matrix.Scale(100.0, 4) @ o.matrix_world; Wn = W.to_3x3().inverted().transposed()
+        uvl = me.uv_layers.active.data if me.uv_layers.active else None
+        cn = me.corner_normals
+        for poly in me.polygons:
+            kn = o.data.materials[poly.material_index].name if o.data.materials else ''
+            mat = next((v for k, v in KIT_MAT.items() if kn.startswith(k)), 'rinde_tot')
+            ecken = [(W @ me.vertices[me.loops[li].vertex_index].co, (Wn @ Vector(cn[li].vector)).normalized(),
+                      tuple(uvl[li].uv) if uvl else (0.0, 0.0)) for li in poly.loop_indices]
+            roh.append((mat, ecken, poly.use_smooth))
+        oe.to_mesh_clear()
+    for o in [o for o in bpy.data.objects if o not in vor]: bpy.data.objects.remove(o, do_unlink=True)
+    pts = [q for _, e, _ in roh for q, _, _ in e]
+    lo = Vector([min(q[k] for q in pts) for k in range(3)]); hi = Vector([max(q[k] for q in pts) for k in range(3)])
+    fuss = Vector(((lo.x + hi.x) / 2, (lo.y + hi.y) / 2, lo.z))
+    KIT_NETZ[name] = ([(m, [(q - fuss, n, uv) for q, n, uv in e], sm) for m, e, sm in roh], hi.z - lo.z)
+    print('KIT831', name, len(roh), 'Flaechen', round(hi.z - lo.z), 'cm')
+    return KIT_NETZ[name]
+def kit_baum(name, p, dreh):
+    """Baum des Bausatzes mit Fussmitte auf p (cm), um dreh gedreht, Groesse KIT_BAUM; Bausatz-UV mit eigenem Material je Teil"""
+    flaechen, hoch = kit_netz(name)
+    s = KIT_BAUM[name]; z1 = hoch * s
+    R = Matrix.Rotation(dreh, 3, 'Z')
+    for mat, ecken, rund in flaechen:
+        kit_bild(mat)
+        pts, cols, uvs = [], [], []
+        for q0, n0, uv in ecken:
+            q = p + R @ (q0 * s); n = R @ n0; pts.append(q); uvs.append(uv)
+            if mat == 'laub_kiefer':   # wie pine_col: Licht oben und rechts, dunkel innen und unten
+                lit = max(0.0, n.z) * 0.55 + 0.45 * max(0.0, n.x * 0.55 - n.y * 0.7)
+                cols.append(mixc((0.05, 0.075, 0.07), (0.2, 0.26, 0.24), min(1.0, lit * (0.75 + 0.35 * ss(p.z, p.z + z1, q.z)))))
+            else:                      # Rinde wie tree: am Fuss dunkler
+                cols.append(sc(W1, 0.7 + 0.3 * ss(0, 60, q.z - p.z)))
+        with use(mat):
+            add_face(DORF, pts, W1, uvs)
+            DORF.C[len(DORF.C) - len(pts):] = cols
+        if rund: DORF.S.add(len(DORF.F) - 1)
+def kit_wahl(c, r):
+    """831: welcher Bausatzbaum auf einer Baumkachel im Wald steht (None: unserer). Im Tiefen Flüsterwald mehr abgestorbene"""
+    if KARTE not in ('forest', 'deep_forest'): return None
+    tot = 0.16 if KARTE == 'deep_forest' else 0.12
+    x = h1(c, r, 831)
+    if x < tot: return 'DeadTree_3' if h1(c, r, 832) < 0.5 else 'DeadTree_5'
+    if x < tot + 0.12 and not dach_davor(c, r): return 'Pine_5'
+    return None
 STAMM = {}                                                      # 348.6 Dinge: Stamm je Baumkachel (Felsen daneben, nicht darin)
 def tree(c, r):
     p = trocken(tile_c(c, r) + Vector((rnd.uniform(-20, 20), rnd.uniform(-20, 20), 0)), rad=1.0); STAMM[(c, r)] = p   # Runde 10b/c: Stamm vor dem Wasser las sich als darin (0,6 reichte nicht)
+    kit = kit_wahl(c, r)
+    if kit:
+        n0 = len(DORF.F); kit_baum(kit, p, h1(c, r, 833) * 6.283); print('BAUM831', kit, c, r, len(DORF.F) - n0, 'Flaechen'); return
     if h1(c, r, 77) < 0.3 and not dach_davor(c, r):
         spruce(DORF, p, 85 + 15 * h1(c, r, 78), c * 37 + r); return     # Lauf 16: nicht hoeher als die Eichen
     g = 0.9 + 0.25 * h1(c, r, 79)
@@ -1851,6 +1944,9 @@ def material(name):
     if os.path.exists(path):
         im = bpy.data.images.load(path); tn = nt.nodes.new('ShaderNodeTexImage'); tn.image = im
         nt.links.new(tn.outputs['Color'], bsdf.inputs['Base Color'])
+        if name in KIT_BILD and name.startswith('laub'):   # 831 Blattkarten: Deckkraft gerundet = glTF MASK (Schwelle 0,5)
+            rd = nt.nodes.new('ShaderNodeMath'); rd.operation = 'ROUND'
+            nt.links.new(tn.outputs['Alpha'], rd.inputs[0]); nt.links.new(rd.outputs[0], bsdf.inputs['Alpha'])
     return m
 def build(P, name):
     me = bpy.data.meshes.new(name); me.from_pydata([tuple(v * 0.01) for v in P.V], [], P.F)   # Modellregel 1: Ausgabe in Metern
