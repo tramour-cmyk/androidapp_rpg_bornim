@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 968 | Von Sokrates (Chef 11.11., 15:49, „jetzt“ 11.11., 15:49): Sammelbuild 277 testen, nach Freigabe PR #196 zusammenführen | Tom | M | wartet, PR #196 rot (919) | 988 | – | – | E Technik | 20,52 $ |
+| 968 | Von Sokrates (Chef 11.11., 15:49, „jetzt“ 11.11., 15:49): Sammelbuild 277 testen, nach Freigabe PR #196 zusammenführen | Tom | M | in Arbeit, 988 in PR #196 (d3e9069a4), Lauf läuft | 988 | – | – | E Technik | 20,52 $ |
 | 825 | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635, 542, 543, 632; Jerry 593, 547, 597), Prüfliste ansehen/t<n>, build <n> --mit für jede Nummer (774) | Tom | M | gebaut, Geprüft an: Lauf 42793721837, t274 beim Chef | – | – | – | E Technik | 8,33 $ |
 | 697 | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | Tom | M | in Arbeit, erster Messlauf ohne Wert (nicht importiert) | 782 | claude/tom-697-drehteller | – | E Figuren | – |
 | 870.7 | Von Sokrates (870, Umzug BRS Schritt 6): Laden, Vergleich und Gegenstandsfenster nach BRS-Werten, Bild vor B2 (644.4); LISTE-UMZUG-BRS.md 4 | Tom | M | gebaut, Geprüft an: a01b8283b; Bild passt (Chef 19:57) | – | claude/tom-870-7-laden | – | E Oberfläche | 13,85 $ |
@@ -270,7 +270,7 @@
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
-| 1008 | Von Tuffy (952 D): Erklärtexte der Grundwerte im Menü nach 952 D: Gewandtheit nennt „Kritische Treffer“ (gilt nur noch im Nahkampf, Dolch und Fernkampf nach Wahrnehmung, Zauber nach Wille), Wille „Stärke deiner Zauber“ (Schaden jetzt Verstand, Heilung Wille), Verstand ohne Zeile (menue.gd WERT_TEXT, [870.14.wert.*]) | Homer | M? | startbar | – | – | – | E Oberfläche | – |
+| 1008 | Von Tuffy (952 D): Erklärtexte der Grundwerte im Menü nach 952 D: Gewandtheit nennt „Kritische Treffer“ (gilt nur noch im Nahkampf, Dolch und Fernkampf nach Wahrnehmung, Zauber nach Wille), Wille „Stärke deiner Zauber“ (Schaden jetzt Verstand, Heilung Wille), Verstand ohne Zeile (menue.gd WERT_TEXT, [870.14.wert.*]) | Homer | M? | erledigt | – | – | – | E Oberfläche | – |
 | 870.12 | Von Sokrates (870, Umzug BRS): Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 neu fassen; nach Abnahme 868, 534, 467, 469, 644.1, 644.2, 644.4, 649.1, 811, 296, 344 schließen; LISTE-UMZUG-BRS.md 4 Schritt 9 | Perikles | M | wartet, 2.3 und 2.17 neu gefasst, Schließen nach Abnahme | 870.13 | – | – | B Abläufe | – |
 | 882.2 | 882 Werkzeuge ohne Kotlin: tools/t logik auf Godot-Logiksatz samt Kerntest-Marke, check-env, setup-session, probelauf, story.sh, startbar, Probe-Abläufe, vorschau.yml, Regeltexte; LISTE-UMZUG-BRS.md 8 | Perikles | M | startbar | 882.1 | – | – | B Werkzeuge | – |
 | 870.10 | Von Sokrates (870, Umzug BRS Schritt 8): Kotlin-Bau aus (android.yml), mit 870.9; LISTE-UMZUG-BRS.md 4 | Perikles | M | wartet | 870.9, 882.2 | – | – | B Werkzeuge | – |

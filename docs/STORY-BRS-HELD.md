@@ -10,33 +10,35 @@ Homer 10.11.; Texte für Schritt 4 und 5 des Umzugs (`LISTE-UMZUG-BRS.md`; Vorg�
 
 `[870.14.wert.kraft]` Kraft / Strength
 - Schaden mit Nahkampfwaffen und Fäusten, außer Dolchen. / EN: Damage with melee weapons and fists, except daggers.
-- Wie viel du tragen kannst. / EN: How much you can carry.
-- Truhen und Türen aufbrechen. / EN: Forcing chests and doors.
+- ruht (Bauregel, Tom 11.11.): „Wie viel du tragen kannst.“ / “How much you can carry.”; „Truhen und Türen aufbrechen.“ / “Forcing chests and doors.”; kommen dazu, sobald sie wirken.
 
 `[870.14.wert.gewandtheit]` Gewandtheit / Agility
 - Schaden mit Dolchen, Bögen und Wurfwaffen. / EN: Damage with daggers, bows and throwing weapons.
 - Wer ausweicht, ist schwerer zu treffen: +%d je Punkt. / EN: When you dodge, you are harder to hit: +%d per point.
-- Kritische Treffer: %d %% Aussicht, anderthalbfacher Schaden. / EN: Critical hits: %d%% chance, half again as much damage.
+- Kritische Treffer (anderthalbfacher Schaden) mit Nahkampfwaffen und Fäusten, außer Dolchen; die Waffenfertigkeit zählt mit. / EN: Critical hits (half again as much damage) with melee weapons and fists, except daggers; weapon skill counts as well. (1008, nach 952 D; ohne Zahl, die Aussicht mit der Hauptwaffe zeigen die Kampfwerte `[870.14.kw.krit]`)
 - Wer im Kampf zuerst handelt, und die Aussicht zu fliehen. / EN: Who acts first in combat, and your chance to flee.
-- Abwehr gegen Flächenwirkungen wie Feuer. / EN: Resisting area effects such as fire.
+- ruht (Bauregel, 1008): „Abwehr gegen Flächenwirkungen wie Feuer.“ / “Resisting area effects such as fire.”; keine Abwehrprobe rechnet mit Gewandtheit (`mars.gd` `_inflict` nur Zähigkeit). Nicht bauen, bis sie wirkt.
 
 `[870.14.wert.zaehigkeit]` Zähigkeit / Toughness
 - Leben: +%d je Punkt. / EN: Life: +%d per point.
 - Ausdauer, zusammen mit Wille. / EN: Stamina, together with Will.
-- Abwehr gegen Gift. / EN: Resisting poison. (963: Krankheit gibt es in Kapitel 1 nicht; „und Krankheit“ / “and disease” kommt dazu, sobald es sie gibt)
+- Abwehr gegen Gift, Betäubung und Blendung. / EN: Resisting poison, stunning and blinding. (1008: Abwehrproben mit Zähigkeit gegen Gift, Betäubung, Blindheit, `mars.gd` `_inflict`; 963: Krankheit gibt es in Kapitel 1 nicht; „und Krankheit“ / “and disease” kommt dazu, sobald es sie gibt)
 
 `[870.14.wert.verstand]` Verstand / Wits
-- Wissen: Schwächen und Stärken der Gegner vorher erkennen (nur wenn 870.14 a so entschieden, unten). / EN: Lore: spotting a foe's weaknesses and strengths beforehand.
-- Handwerk und Alchemie gelingen besser. / EN: Crafting and alchemy go better.
+- Schaden mit Evokation. / EN: Damage with Evocation. (1008, nach 952 D; Illusion und Beschwörung kommen dazu, sobald es Zauber dieser Schulen gibt)
+- Wissen: ab Wert %d Schwächen und Stärken der Gegner vorher erkennen. / EN: Lore: from value %d, spotting a foe's weaknesses and strengths beforehand. (1008: 870d, %d = `welt` „wissen_verstand_ab“; erst bauen, wenn `BrsHeld.kennt_schwaechen` im Spiel wirkt, heute ruft es nur der Test)
+- ruht (Bauregel, 1008): „Handwerk und Alchemie gelingen besser.“ / “Crafting and alchemy go better.”; Brauen hängt an der Fertigkeit Alchemie, nicht am Verstand. Kommt dazu, sobald der Verstand dort wirkt.
 
 `[870.14.wert.wille]` Wille / Will
 - Mana: +%d je Punkt. / EN: Mana: +%d per point.
-- Stärke deiner Zauber. / EN: The strength of your spells.
+- Heilung und Schaden mit Heilmagie. / EN: Healing and damage with Healing Magic. (1008, nach 952 D; Schutzmagie und Beistand hängen nicht am Willen)
+- Kritische Treffer (anderthalbfacher Schaden) mit Evokation; die Fertigkeit zählt mit. / EN: Critical hits (half again as much damage) with Evocation; the skill counts as well. (1008; Heil- und Schutzmagie treffen nie kritisch; Illusion und Beschwörung wie beim Verstand)
 - Ausdauer, zusammen mit Zähigkeit. / EN: Stamina, together with Toughness.
-- Abwehr gegen Furcht und Zauber. / EN: Resisting fear and spells.
+- ruht (Bauregel, 1008): „Abwehr gegen Furcht und Zauber.“ / “Resisting fear and spells.”; keine Probe rechnet mit Wille. Nicht bauen, bis sie wirkt.
 
 `[870.14.wert.wahrnehmung]` Wahrnehmung / Perception
 - Treffen im Fernkampf: +%d %% je Punkt. / EN: Ranged accuracy: +%d%% per point.
+- Kritische Treffer (anderthalbfacher Schaden) mit Dolchen, Bögen, Armbrüsten und Wurfwaffen; die Waffenfertigkeit zählt mit. / EN: Critical hits (half again as much damage) with daggers, bows, crossbows and throwing weapons; weapon skill counts as well. (1008, nach 952 D)
 - Hinterhalte bemerken. / EN: Noticing ambushes.
 - Aussicht auf ein Kraut mehr beim Sammeln. / EN: A chance of an extra herb when foraging. (963: nur das wirkt, `laden.gd` `kraut_chance`; „Hilft dem Spähen, Verstecktes und Fallen zu finden.“ / “Helps Scouting find hidden things and traps.” kommt als eigene Zeile davor, sobald Spähen wirkt)
 
