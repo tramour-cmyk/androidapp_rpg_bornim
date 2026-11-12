@@ -159,6 +159,15 @@ jobs:
             cp "$s/textures/fabric_rgba.png" "$s/textures/fabric_normal.png" "$s/textures/noise_rgba.png" $f/textures/
           else echo "Effekte: Surface Shaders nicht da"; fi
           echo "Effekte: $(ls $d/effects $d/pack3_effects 2>/dev/null | grep -cE '\.tscn$') Szenen, Fahne $(ls godot/addons/reeboo_surfaces/shaders 2>/dev/null | tr '\n' ' ')"
+          # 1036 (Tuffy; Chef 12.11., 17:04 „woher die Effekte?“): Status Effects VFX v1.0 (gekauft 623) in denselben Ordner; gleicher Kern
+          # wie R7 (LISTE-BESTAND), darum nur, was noch fehlt (cp -n); Lizenz wie oben. Combat VFX Mega (R1) nur für den Film kampf=1036.
+          s=$(find "$KAUF/anhang/stufe1" -maxdepth 4 -type d -path '*Status_Effects_VFX_v1*/addons/reeboo_vfx' 2>/dev/null | head -1)
+          if [ -n "$s" ]; then mkdir -p $d && cp -rn "$s/." $d/ && rm -f $d/README.md $d/LICENSE.txt
+            echo "Zustände: $(ls $d/status_effects 2>/dev/null | grep -E '\.tscn$' | tr '\n' ' ')"; else echo "Zustände: Status Effects nicht da"; fi
+          if [ "${{ github.event.inputs.kampf }}" = "1036" ]; then
+            s=$(find "$KAUF/anhang/stufe1" -maxdepth 4 -type d -path '*Combat_VFX_Mega*/addons/reeboo_combat' 2>/dev/null | head -1)
+            [ -n "$s" ] && { cp -r "$s" godot/addons/ && rm -rf godot/addons/reeboo_combat/demo* && echo "R1: $(find godot/addons/reeboo_combat -name '*.tscn' | wc -l) Szenen"; } || echo "R1: nicht da"
+          fi
       - uses: actions/setup-python@v5
         id: py
         with:
@@ -921,10 +930,10 @@ jobs:
             grep -E "^==|^  |^ÜBER|^SOLLBILD" $B/sollbild784.log || true
             ls -l $B; exit 0
           fi
-          # 1036 (Tuffy; Chef 12.11., 14:48 „da sieht man kein Brennen“): kampf=1036 je Zustand Held und ein Wolf, dann das Aufflackern
+          # 1036 (Tuffy; Chef 12.11., 14:48 „da sieht man kein Brennen“; 17:04): kampf=1036 je Zustand Held und ein Wolf, erst Paket, dann eigen verstärkt, dann das Aufflackern
           if [ "${{ github.event.inputs.kampf }}" = "1036" ]; then
             film 1036-zustaende zustand_1036
-            grep -E "^(Zustand|Aufflackern|Tafel|ZUSTAND1036|FEHLER)" $B/1036-zustaende.log || true
+            grep -E "^(Zustand|Paket|Aufflackern|Tafel|ZUSTAND1036|FEHLER)|SCRIPT ERROR" $B/1036-zustaende.log || true
             ls -l $B; exit 0
           fi
           if [ "${{ github.event.inputs.kampf }}" = "4531" ]; then

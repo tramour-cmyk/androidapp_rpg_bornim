@@ -3,7 +3,9 @@
 # und ein Wolf PHASE_MS lang (nur gezeigt, nicht gerechnet), dann flackert je Schadenszustand einmal der Schaden der Runde auf.
 # Ohne Bild (Test im Bau): je Zustand zeichnet die Tafel etwas (Ecken > 0; Bluten nur mit Blut an), der betäubte Wolf schwankt
 # und steht nach dem Ende wieder an seinem Platz, das Aufflackern kommt; Exit = Zahl der Fehler. Mit Bild (Film, kampf=1036 in
-# godot.yml): dieselbe Folge, oben der Name des Zustands.
+# godot.yml): dieselbe Folge, oben der Name des Zustands; 17:04 (Chef: „woher die Effekte?“) je Zustand zuerst der Effekt aus dem
+# Paket (Status Effects VFX, sonst Stylized VFX oder Combat VFX Mega; wo keiner passt, steht „Paket: keiner“), dann eigen
+# verstärkt (zustandsbild.gd KRAFT), der Chef wählt. Die Pakete liegen nur im Bau unter godot/addons (Lizenz: nie ins Repo).
 # Aufruf: im Ordner godot --headless --fixed-fps 30 -s res://tests/zustand_1036.gd (braucht daten/ und kampf/daten/ wie im Bau)
 extends SceneTree
 
@@ -12,6 +14,21 @@ const Mars = preload("res://regeln/mars.gd")
 const Signatur = preload("res://kampf/signatur.gd")
 const ZUST := ["BURN", "POISON", "BLEED", "STUN", "SLOW", "WEAK", "BLIND", "DRUNK"]
 const FPS := 30.0
+## je Zustand, wo im Paket gesucht wird: [Ordner, Wörter im Dateinamen]; je Eintrag gilt der erste Treffer, gezeigt werden
+## höchstens zwei verschiedene nacheinander (Paketnamen: LISTE-EFFEKTE.md „Zustände im Kampf“; Brennend hat Status Effects
+## nicht, Betäubt dort Shocked oder Confused, dazu stun_stars aus R7)
+const VX := "res://addons/reeboo_vfx/"
+const CB := "res://addons/reeboo_combat/"
+const PAKET := {
+	"BURN": [[VX + "status_effects", ["burn", "fire", "ignite"]], [VX + "effects", ["burning", "burn"]], [CB, ["burn", "aura_fire", "fire_aura"]]],
+	"POISON": [[VX + "status_effects", ["poison"]]],
+	"BLEED": [[VX + "status_effects", ["bleed"]]],
+	"STUN": [[VX + "effects", ["stun"]], [VX + "status_effects", ["stun", "shock", "daze", "confus"]]],
+	"SLOW": [[VX + "status_effects", ["chill", "slow", "frost", "frozen"]]],
+	"WEAK": [[VX + "status_effects", ["weak"]]],
+	"BLIND": [[VX + "status_effects", ["blind", "curse"]]],
+	"DRUNK": [[VX + "status_effects", ["drunk", "dizz", "confus"]]],
+}
 
 var kf
 var fehler := 0
@@ -74,10 +91,14 @@ func _lauf() -> void:
 	var platz: Vector3 = fig_w.model.position
 	var blut: int = kf.blood_level()
 	var max_us := 0
+	if film:
+		_paket_liste()
 	for st in ZUST:
+		if film:
+			await _paket(st, [kf.figures["hero"], fig_w], phase)
 		kf.shown["status"] = {wolf: {st: 3}, "hero": {st: 3}}
 		if schild:
-			schild.text = String(Mars.STATUS[st][0][0])
+			schild.text = String(Mars.STATUS[st][0][0]) + (" · eigen" if film else "")
 		var ecken := 0
 		var schwankt := 0.0
 		for i in phase:
@@ -122,6 +143,89 @@ func _lauf() -> void:
 	print("Tafel höchstens %d µs je Bild" % max_us)
 	print("ZUSTAND1036 %d Fehler" % fehler)
 	quit(fehler)
+
+
+## alle Szenen unter dir (rekursiv), Pfade
+func _szenen(dir: String) -> Array:
+	var aus := []
+	var d := DirAccess.open(dir)
+	if d == null:
+		return aus
+	for f in d.get_files():
+		var n := f.trim_suffix(".remap")
+		if n.ends_with(".tscn"):
+			aus.append(dir.path_join(n))
+	for sub in d.get_directories():
+		if not sub.begins_with("demo"):
+			aus.append_array(_szenen(dir.path_join(sub)))
+	return aus
+
+
+func _paket_liste() -> void:
+	for dir in [VX + "status_effects", CB]:
+		var n := []
+		for p in _szenen(dir):
+			n.append(p.get_file().get_basename())
+		print("Paket %s: %s" % [dir, ", ".join(PackedStringArray(n)) if not n.is_empty() else "nicht da"])
+
+
+func _paket_pfade(st: String) -> Array:
+	var aus := []
+	for such in PAKET.get(st, []):
+		var alle := _szenen(String(such[0]))
+		var treffer := ""
+		for wort in such[1]:
+			for p in alle:
+				if treffer == "" and String(wort) in String(p).get_file().to_lower():
+					treffer = String(p)
+		if treffer != "" and not treffer in aus and aus.size() < 2:
+			aus.append(treffer)
+	return aus
+
+
+## Film: der Effekt aus dem Paket an Held und Wolf, phase Bilder lang; Tiere nach ihrer Größe (das Paket misst für 1,8 m)
+func _paket(st: String, figs: Array, phase: int) -> void:
+	kf.shown["status"] = {}
+	var pfade := _paket_pfade(st)
+	print("Zustand %s Paket: %s" % [st, ", ".join(PackedStringArray(pfade)) if not pfade.is_empty() else "keiner"])
+	if pfade.is_empty():
+		if schild:
+			schild.text = String(Mars.STATUS[st][0][0]) + " · Paket: keiner"
+		await _bilder(int(FPS * 1.2))
+		return
+	for pfad in pfade:
+		await _paket_zeigen(st, String(pfad), figs, phase)
+
+
+func _paket_zeigen(st: String, pfad: String, figs: Array, phase: int) -> void:
+	if schild:
+		schild.text = String(Mars.STATUS[st][0][0]) + " · Paket: " + pfad.get_file().get_basename()
+	var r = load(pfad)
+	if not (r is PackedScene):
+		print("FEHLER Paket %s lädt nicht" % pfad)
+		await _bilder(int(FPS * 1.2))
+		return
+	var fxs := []
+	for fig in figs:
+		var fx: Node = (r as PackedScene).instantiate()
+		if "loop" in fx:
+			fx.set("loop", true)
+		fig.add_child(fx)
+		if fx is Node3D:
+			(fx as Node3D).position = Vector3.ZERO
+			if fig.fighter.monster != null:
+				var box: AABB = kf.ui._koerper_kasten(fig)
+				var gr := maxf(box.size.y, maxf(box.size.x, box.size.z) * 0.8)
+				(fx as Node3D).scale = Vector3.ONE * clampf(gr / 1.8, 0.7, 2.0)
+		fxs.append(fx)
+	await _bilder(phase)
+	for fx in fxs:
+		if is_instance_valid(fx) and fx.has_method("stop"):
+			fx.call("stop")
+	await _bilder(int(FPS * 0.5))
+	for fx in fxs:
+		if is_instance_valid(fx):
+			fx.queue_free()
 
 
 func _schild_anlegen() -> void:

@@ -12,3 +12,5 @@ addons/reeboo_vfx/
 addons/weather_fx/
 # 814 (Spike): REEBOO Stylized VFX v2.0, Pack 3 und Surface Shaders (gekauft), Lizenz verbietet Weitergabe; im Bau aus bornim-kaufmodelle stufe1 (godot.yml)
 addons/reeboo_surfaces/
+# 1036 (Tuffy): Combat VFX Mega (REEBOO, gekauft), nur im Film kampf=1036 aus stufe1 (godot.yml), Lizenz verbietet Weitergabe
+addons/reeboo_combat/
