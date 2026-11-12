@@ -686,6 +686,9 @@ func _arm_kauf(gleich := false) -> void:
 			schild_faust.knick = knick_quat
 			schild_faust.achse = knick_achse
 			schild_faust.hand = knick_knochen
+			schild_faust.anim = anim
+			if OS.get_environment("TIEF1014") != "":
+				schild_faust.tief_grad = float(OS.get_environment("TIEF1014"))
 	if anim:
 		_idle()
 
@@ -3389,10 +3392,25 @@ class SchildFaust extends SkeletonModifier3D:
 	var hand := -1
 	var knick := Quaternion.IDENTITY     # im Raum der Hand, um das Handgelenk (figur.gd _hold)
 	var achse := Vector3.ZERO     # Achse des Knicks im Raum der Hand (schild_406 misst damit weitere Winkel)
+	var anim: AnimationPlayer     # 1014: wo die tiefe Parade gerade steht
+	var oberarm := -2
+	var tief_grad := TIEF_GRAD
 	func _process_modification_with_delta(_delta: float) -> void:
 		var sk := get_skeleton()
 		if sk == null:
 			return
+		# 1014 (schild_406 Wachsoldat, Lauf 365 und 370, am Rechner mit Kaufmodellen Seed 1, 3 und 5): in SS_ParryLow schneidet der
+		# untere Rand des Kaufschilds bei 0,57–0,60 s bis 8 cm ins linke Knie, in SS_SwordAttack1 bei 0,60 s bis 7 cm; dort den linken
+		# Oberarm um TIEF_GRAD abspreizen, weich ein und aus
+		if oberarm == -2:
+			oberarm = sk.find_bone("upperarm_l")
+		if oberarm >= 0 and anim != null and TIEF_KNIE.has(anim.current_animation):
+			var mb: Array = TIEF_KNIE[anim.current_animation]
+			var w := clampf(1.0 - absf(anim.current_animation_position - mb[0]) / mb[1], 0.0, 1.0)
+			if w > 0.0:
+				var pg := sk.get_bone_global_pose(sk.get_bone_parent(oberarm))
+				var ax := (pg.basis.inverse() * Vector3.BACK).normalized()
+				sk.set_bone_pose_rotation(oberarm, Quaternion(ax, deg_to_rad(tief_grad * w * w * (3.0 - 2.0 * w))) * sk.get_bone_pose_rotation(oberarm))
 		if hand >= 0 and knick != Quaternion.IDENTITY:
 			sk.set_bone_pose_rotation(hand, sk.get_bone_pose_rotation(hand) * knick)
 		if glieder.is_empty():
@@ -3412,6 +3430,9 @@ class SchildFaust extends SkeletonModifier3D:
 			sk.set_bone_pose_rotation(b, Quaternion(achse, deg_to_rad(FAUST_GRAD)) * sk.get_bone_pose_rotation(b))
 
 var schild_faust: SchildFaust
+const TIEF_GRAD := 12.0     # 1014: Abspreizen des linken Oberarms in der tiefen Parade (Grad, schild_406 je Wert gemessen)
+## 1014: [Zeit in der Bewegung, an der der Schildrand am tiefsten im Knie stand; Zeit je Seite bis ohne Abspreizen] (s)
+const TIEF_KNIE := {"SS_ParryLow": [0.59, 0.15], "SS_SwordAttack1": [0.61, 0.12]}
 
 func _guard(on: bool) -> void:
 	var sk := _find(model, "Skeleton3D") as Skeleton3D
