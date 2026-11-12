@@ -324,6 +324,7 @@ class Fighter:
 	## 399.2a: the leader this one follows (a young wolf its wolf, Packs.kt); it flees when the leader falls
 	var follows := ""
 	var fled := false
+	var verjagt := false     # 841: vor dem Kampf eingeschüchtert und geflohen (lohn.gd: keine Beute von ihm)
 	## 478: was er nach dem BRS ist (brs_kampf.gd held, gegner)
 	var b := {}
 	## 478: seine Leben nach dem SRD beim Umrechnen (Maßstab für alles, was noch in Würfeln des SRD rechnet)
@@ -1114,12 +1115,17 @@ static func can_fight(party: Array) -> bool:
 	return not party.is_empty() and party[0].hp > 0
 
 
-func start(react: Callable = Callable()) -> Array:
+func start(react: Callable = Callable(), verjagen := false) -> Array:
 	# never play a fight without its hero: the foes would wait for a target forever (the old game ran out of memory)
 	if not lead().standing():
 		started = true
 		outcome = "LOST"
 		return _take_log()
+	if verjagen and spaeher_zum_verjagen() != null:
+		_einschuechtern()
+		if outcome != "ONGOING":
+			started = true
+			return _take_log()
 	_opening()
 	_skip_to_choice(react)
 	return _take_log()
@@ -1148,6 +1154,51 @@ func _smoke_bundle() -> void:
 
 func foes_of_kind(id: String) -> Array:
 	return fighters().filter(func(f): return f.side == "FOES" and f.monster != null and str(f.monster.id) == id)
+
+
+## 841 (807 A, 807a A; STORY-K1-FERTIGKEITEN.md „Einschüchtern: Goblin-Späher“): zu Kampfbeginn steht neben „Kämpfen“ die Wahl,
+## den Späher zu verjagen, wenn unter den Gegnern ein Goblin-Späher ist, nie gegen Krogg, Grak. Der erste stehende Späher, sonst null.
+func spaeher_zum_verjagen():
+	if started or outcome != "ONGOING" or not foes_of_kind(KROGG).is_empty() or not foes_of_kind(GRAK).is_empty():
+		return null
+	for f in all:
+		if f.side == "FOES" and f.standing() and f.monster != null and str(f.monster.id) == SCOUT and not f.called_in:
+			return f
+	return null
+
+
+## 841: Chance in Prozent (werte.json „proben“ „_einschuechtern“): einschuechtern_basis + einschuechtern_je_punkt × Einschüchtern
+## + je_stufe × (eigene Stufe − Stufe des Spähers), begrenzt auf min bis max
+func einschuechtern_chance(h: Fighter, s: Fighter) -> float:
+	var P := _proben()
+	var c := float(P.get("einschuechtern_basis", 35)) + float(P.get("einschuechtern_je_punkt", 1.0)) * float(h.b.get("fert", {}).get("Einschüchtern", 0)) \
+			+ float(P.get("je_stufe", 5)) * float(int(h.b.get("stufe", 1)) - int(s.b.get("stufe", 1)))
+	return clampf(c, float(P.get("min", 5)), float(P.get("max", 95)))
+
+
+## 841: gelingt es, flieht der Späher (Erfahrung wie für einen Sieg über ihn, lohn.gd zählt ihn mit; keine Beute von ihm); war er allein,
+## ist der Kampf gewonnen, sonst beginnt er ohne ihn. Misslingt es, beginnt der Kampf mit allen. Der Versuch übt Einschüchtern
+## (Kampfuebung hört „INTIMIDATE“), gelungen oder nicht.
+const MSG841_JA := [["Der Späher starrt dich an. Dann reißt er aus und ist fort.", "The scout stares at you. Then he bolts and is gone."],     # [807.spaeher.ja]
+	["Der Späher weicht zurück, Schritt um Schritt, und rennt.", "The scout backs away, step by step, and runs."],
+	["Ein Blick in dein Gesicht genügt. Der Späher lässt den Bogen sinken und flieht.", "One look at your face is enough. The scout lowers his bow and flees."]]
+const MSG841_NEIN := [["Der Späher bleckt die Zähne. Er bleibt.", "The scout bares his teeth. He stays."],     # [807.spaeher.nein]
+	["Ein kehliges Lachen. Der Goblin legt einen Pfeil auf.", "A throaty laugh. The goblin nocks an arrow."],
+	["Er duckt sich, aber er flieht nicht.", "He crouches, but he doesn't run."]]
+func _einschuechtern() -> void:
+	var h := lead()
+	var s = spaeher_zum_verjagen()
+	var gelingt: bool = dice.next_int(0, 100) < roundi(einschuechtern_chance(h, s))
+	_say("", h.id, s.id, 0, null, false, false, "INTIMIDATE")
+	if not gelingt:
+		_say(words.pick(MSG841_NEIN)[lang], s.id, h.id)
+		return
+	s.fled = true
+	s.verjagt = true
+	intents.erase(s.id)
+	_say(words.pick(MSG841_JA)[lang], null, s.id, 0, null, false, false, "FOE_FLEES")
+	if not all.any(func(x): return x.side == "FOES" and x.standing()):
+		outcome = "WON"
 
 
 ## 534 (alt Battle.init, Perks.cowChance): wer Charisma hat, schüchtert zu Kampfbeginn einen gewöhnlichen Gegner ein (8 % je

@@ -64,7 +64,8 @@ static func reward(mars, stand: Dictionary, dice, gebiet := "", gear := []) -> D
 	var r := Brs.gib_erfahrung(h, roh, "kampf", gebiet, bool(sieg.boss))
 	var nachher := int(h["stufe"])
 	# Gold und Gegenstände vom Anführer (dem wertvollsten Gegner), wie bisher
-	var foes: Array = mars.all.filter(func(f): return f.side == "FOES" and f.monster != null and not f.called_in)
+	# 841: ein verjagter Späher bringt Erfahrung wie ein Sieg über ihn, aber keine Beute (STORY-K1-FERTIGKEITEN.md)
+	var foes: Array = mars.all.filter(func(f): return f.side == "FOES" and f.monster != null and not f.called_in and not f.get("verjagt"))
 	var gold := 0
 	var items: Array = []
 	if not foes.is_empty() and not kein_lohn:

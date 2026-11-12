@@ -618,7 +618,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	# Einzelstueck (Beute.kampfbeute). [m]: der MARS des Kampfs (kampfort.gd _done)
 	var beute := func(m) -> Array:
 		var w := KotlinZufall.new(randi())
-		var besiegt: Array = m.all.filter(func(f): return f.side == "FOES" and f.monster != null and not f.called_in).map(func(f): return String(f.monster.get("id", "")))
+		var besiegt: Array = m.all.filter(func(f): return f.side == "FOES" and f.monster != null and not f.called_in and not f.get("verjagt")).map(func(f): return String(f.monster.get("id", "")))
 		var st: Dictionary = BrsHeld.daten()["seltenheiten"]
 		return Beute.kampfbeute(hw, w, besiegt, zustand.neue_uid).map(func(g): return {"gear": g, "name": Beute.name(g), "rarity": Sprache.t(st[String(g["rarity"])]["name"])})
 	var k0 := Time.get_ticks_msec()
@@ -626,6 +626,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	if Testmodus.ist_an(): lage["eroeffnung"] = Testmodus.eroeffnung   # 399.2 (Jerry): Eröffnung aus dem Reiter Test
 	if eroeffnung != "": lage["eroeffnung"] = eroeffnung   # 490: Ueberfall, Held zuerst (Opening) vom Monster auf der Karte
 	lage["blende"] = true   # 402 (Jerry): die Blende vor dem Kampf wie alt, auch im Probekampf
+	lage["verjagen"] = true   # 841: mit einem Goblin-Späher „Kämpfen“ oder „Verjag den Späher“ zu Beginn (Kampfort.tor), auch im Probekampf
 	if nr > 0: lage["nr"] = nr   # 494 (Prüfer 512b): im Kampf dasselbe Fell wie das Monster auf der Karte (Streuner.nr)
 	if probe.is_empty(): lage["aussehen"] = zustand.aussehen   # 403 (Jerry): der Held im Kampf wie im Dorf (HeldFigur)
 	if probe.is_empty(): lage["leiden"] = zustand.leiden.duplicate()   # 532 (Jerry): Zustände aus dem letzten Kampf (GameState.ailments)

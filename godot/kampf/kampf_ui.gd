@@ -753,6 +753,12 @@ func _build_orders() -> void:
 	# Zug, so bleibt der Kasten gleich hoch (709: sonst passt die Kamera neu). Gefragt wird MARS dabei nicht: der Regelfaden rechnet
 	# gerade weiter. Söldner und Held Auto bleiben schaltbar, sie gelten ab der nächsten Wahl (mit dem Autopiloten ist der Kampfort
 	# sonst immer beschäftigt, und er ließe sich nie mehr abschalten).
+	# 841 (807a A, STORY-K1-FERTIGKEITEN.md „Einschüchtern: Goblin-Späher“): zu Beginn „Kämpfen“ oder den Späher verjagen; der Knopf
+	# nennt die Fertigkeit in Klammern ([807.spaeher.wahl])
+	if k.tor == "einschuechtern":
+		orders.add_child(_row([_button(t("Kämpfen", "Fight"), true, func(): k.tor_wahl(false)),
+			_button(t("Verjag den Späher (Einschüchtern)", "Scare off the scout (Intimidation)"), true, func(): k.tor_wahl(true))], 0, true))
+		return
 	var matt: bool = k.busy
 	var f = _naechster_eigener() if matt else m.current()
 	if f == null:
