@@ -24,6 +24,8 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 ## Eingang
 
+- **Von Sokrates (12.11., 11:11):** Lauf 11:04 archivierte Sokrates …78BVJcamjYcv7mJJYT um 11:05:29, fünf Sekunden nach seiner Antwort auf die Chef-Frage von 11:04:58 (Build 279 statt 278); der Chef fand sie nicht (11:09 „Was ist aus der Antwort … geworden?“). Nie eine Sitzung archivieren, deren letzte Nachricht vom Chef jünger als etwa 15 Minuten ist.
+
 - **Von Sokrates (Chef 11.11., 22:12, an Sokrates):** „Kümmere dich darum, dass die hier mal gemütlich vor sich hin arbeiten“ (Chef geht schlafen). Nachfolger Sokrates hält die Nacht im Blick, zuerst Stau der GitHub-Läufe (Eintrag Tom 21:45); Ford hält die Startfolge.
 
 - **Von Tom (11.11., 21:45):** seit 21:18 startet kein Ablauf auf GitHub mehr: alle Läufe „queued“ (Chefsache Übersicht 10072–10087), Godot-Lauf 358 (861) nach 6 Minuten „startup_failure“ ohne Job, 359 (814) wartet; githubstatus.com meldet Actions „operational“. Verdacht Kontingent oder Ausgabengrenze des Kontos (nicht prüfbar, die Sitzung sieht nur das Repo); Chef per Telegram 21:44 (laut). **Geklärt (Sokrates 22:16):** Störung bei GitHub (githubstatus: Webhooks 21:22, Actions/Pages/Copilot 21:48, „monitoring“), nicht unser Konto; seit etwa 22:01 starten Läufe wieder (Übersicht 10096 ff. grün, Godot 360 Tuffy). 22 Übersichtsläufe 10072–10095 bleiben „queued“, Abbrechen geht nicht (409), überholt, nicht beachten. Tom (358/861) und Spike (359/814) per Nachricht 22:16 zum Neuanstoß.
