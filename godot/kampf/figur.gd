@@ -1493,8 +1493,46 @@ func glide_to(p: Vector3, eigener_zug := false) -> void:
 	if weg.has("Gehen") and not down:
 		_walk_home()
 		return
+	if _held_wechsel():
+		return
 	var t := create_tween()
 	t.tween_property(self, "position", p, GLIDE_S).set_trans(Tween.TRANS_SINE)
+
+
+## 950 (Chef 11.11., 13:44, t276: im Probekampf gleitet der Platztausch von Held und Söldner): ein Mensch geht an den neuen Platz,
+## den Blick beim Gegner; nach vorn mit Schritten vorwärts, nach hinten rückwärts wie nach dem Angriff (_back_home), je im Tempo
+## seiner Schritte (Füße stehen), um die anderen herum (_detour). Alt (SkirmishScreen 1108: Schrittbild während des Gleitens) gleich.
+func _held_wechsel() -> bool:
+	if fighter.monster != null or anim == null or down or model == null:
+		return false
+	var d := home - position
+	d.y = 0.0
+	var way := d.length()
+	if way < 0.05:
+		return false
+	if d.dot(kampfort.facing(fighter.side == "FOES")) < 0.0:
+		var zurueck := _gang_ss("Zurück")
+		var v := _held_mps(zurueck if zurueck != "Zurück" else "Gehen") if kauf else WALK_MPS
+		if zurueck == "Zurück" and not anim.has_animation("Gehen"):
+			return false
+		_back_home(way / maxf(v, 0.1), null)
+		return true
+	var nm := _gang_ss("Gehen")
+	if not anim.has_animation(nm):
+		return false
+	var via := _detour(position, home)
+	var lang := position.distance_to(via) + via.distance_to(home) if via != position else way
+	var dauer := lang / maxf(_held_mps(nm) if kauf else WALK_MPS, 0.1)
+	anim.play(nm, 0.12, 1.0)
+	tween = create_tween()
+	if via != position:
+		var b1 := position.distance_to(via) / lang * dauer
+		tween.tween_property(self, "position", via, b1)
+		tween.tween_property(self, "position", home, dauer - b1)
+	else:
+		tween.tween_property(self, "position", home, dauer)
+	tween.tween_callback(func(): _face(); _idle())
+	return true
 
 
 func _weg() -> Dictionary:
