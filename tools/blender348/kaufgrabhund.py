@@ -3,12 +3,12 @@
 # Ghul, 348.12c; Regeln bleiben die des Ghuls, Monsters.kt ghoul):
 #   1 Schulter 90–100 cm, Rücken etwa auf Hüfthöhe des Helden; jeder schlank, mittel oder kräftig (hier je Haut eine Statur)
 #   2 Riesenhund auf vier Beinen, tiefe Brust, schmale Hüften, schwere Mähne über Hals und Schultern
-#   3 schwarze Mähne über nackter fahler Haut; langer Fang mit gebleckten Zähnen; Augen matt, auch wo das Modell leuchtet
+#   3 schwarze Mähne über nackter fahler Haut; langer Fang mit gebleckten Zähnen; Augen klar gelb oder rot (995, ersetzt „matt“)
 #   4 Haut leichenfahl, grabgrau oder graublau, Mähne schwarz; drei Tiere auf einen Blick verschieden (Mähne lang, kurz oder
 #     zerrupft, Narben)
 #   5 Kopf gesenkt, lautlos, lauernd (Stehen = idleAggressive des Kaufs: Kopf tief, gemessen in KOPF)
 # Bemalung wie bei den anderen Kauftieren: aus dem Kaufbild nur die Helligkeit, Farben und Narben sind unsere; das Leuchtbild (ILLUM)
-# bleibt weg, die Augen werden dort matt gemalt. Mähne und Schwanzhaar sind im Kauf Haarkarten mit Durchsicht: Bild mit Alpha
+# bleibt weg, die Augen malt male_auge (995). Mähne und Schwanzhaar sind im Kauf Haarkarten mit Durchsicht: Bild mit Alpha
 # (BARGHEST_HAIR_Transparency), im glTF „MASK“; figur.gd gibt dem Stoff „schnitt“ (toon.gdshader schneidet dort aus).
 # Bewegungen unter unseren Namen (figur.gd, wie die Riesenspinne: eigene Häute in ghoul-info.json), Wurzelweg aus den _RM-Dateien;
 # im Kauf fehlt das Ausweichen (aus dem Gehen mit seitlichem Weg, wie kaufspinne.py).
@@ -46,8 +46,17 @@ HAEUTE = {
 STATUR = {'schlank': (0.90, 0.91), 'mittel': (1.0, 0.95), 'kraeftig': (1.12, 0.99)}     # (Dicke, Schulter m)
 MAEHNE_SCHWARZ = 0x141210
 NARBE, NARBE_RAND = 0xC2AEA2, 0x3A2A26
-# 506 (Chef 10.11., 12:25: „eigentlich keine Augen“): Augen matt, aber milchig hell wie tote Augen (vorher 2E2822, fast schwarz)
-MAUL, ZAHN, AUGE = 0x3E1E1C, 0xA8987A, 0xA49C88     # Zahnfleisch dunkel, Zähne vergilbt, Augen matt und trüb
+MAUL, ZAHN = 0x3E1E1C, 0xA8987A     # Zahnfleisch dunkel, Zähne vergilbt
+# 995 (Chef 11.11., 20:58, Film 744: „klar erkennbare Augen in einer klaren Farbe, rot oder gelb“; ersetzt „Augen matt“ aus 506 und
+# Liste 3): das Auge ist im Kauf eine eigene runde UV-Insel (Mitte, Halbmesser im Bild, gemessen an den UV der Augenflächen). Iris in
+# klarer Farbe mit Schlitzpupille, dunkler Rand; eigener Stoff „Auge“, den figur.gd leicht von selbst leuchten lässt (im Schatten lesbar)
+AUGE_MITTE, AUGE_R = (0.480, 0.902), 0.086
+IRIS = {'gelb': 0xF0B818, 'rot': 0xD8281C}
+AUGE_FARBE = os.environ.get('AUGE', 'gelb')
+PUPILLE, AUGE_RAND = 0x080606, 0x120C0A
+# 995 („Nasenrücken und Ohren lesbarer“): Nasenspiegel schwarz, Nasenrücken als dunklere Kante zu den Seiten des Fangs, Ohren innen
+# dunkel; Lage im Kaufnetz (Ruhelage, Kopf −Y), gemessen: Schnauze vorn y −1,58, Stirnabsatz y −1,42, Ohren über z 1,30 bei |x| ab 0,17
+NASE, FANG_SEITE, OHR_INNEN = 0x161210, 0x2C2420, 0x1E1614
 
 # unser Name <- Kaufdatei (ohne „BARGHEST@“)
 NAMEN = [('Stehen', 'idleAggressive'), ('Lefzen', 'idleBreathe'), ('Umsehen', 'idleLookAround'), ('Gehen', 'walk'),
@@ -164,21 +173,101 @@ def bemale(koerper, tex_dir, haut):
     gelb = np.clip((np.minimum(a[..., 0], a[..., 1]) - a[..., 2] * 1.6 - 0.05) * 6, 0, 1) * (lum > 0.35)
     b = b * (1 - rot[..., None]) + np.array(lin(MAUL)) * (0.5 + 0.6 * t) * rot[..., None]
     b = b * (1 - gelb[..., None]) + np.array(lin(ZAHN)) * (0.6 + 0.4 * t) * gelb[..., None]
-    # Augen matt (Liste 3): wo das Leuchtbild des Kaufs hell ist
-    il = bild(os.path.join(tex_dir, 'BARGHEST_ILLUM.jpg'), TEX).max(2)
-    aug = np.clip((il - 0.15) * 4, 0, 1)[..., None]
-    b = b * (1 - aug) + np.array(lin(AUGE)) * aug
     b = male_lage(b, koerper, maehne_fn(koerper), lin(MAEHNE_SCHWARZ), 0.95, 2.5)
+    # 995 Kopf lesbar: Seiten des Fangs dunkler (der Nasenrücken bleibt hell und steht als Kante), Nasenspiegel schwarz, Ohren dunkel
+    b = male_lage(b, koerper, fang_fn, lin(FANG_SEITE), 0.6, 2.0)
+    b = male_lage(b, koerper, ohr_fn, lin(OHR_INNEN), 0.75, 1.5)
+    b = male_lage(b, koerper, nase_fn, lin(NASE), 0.95, 1.0)
     # Haut fleckig wie Leichenhaut, nicht glatt
     b *= (0.9 + 0.18 * rauschen(48, 1.0)[..., None])
     fn, n = narben_fn(koerper, haut['narben'])
     if n:
         b = male_lage(b, koerper, fn, lin(NARBE_RAND), 0.7, 1.4)
         b = male_lage(b, koerper, lambda X, grob=False: np.clip(fn(X, grob) * 1.6 - 0.6, 0, 1), lin(NARBE), 0.9, 0.6)
-    print('BEMALUNG %s: Mähne %.1f %%, Maul %.1f %%, Zähne %.1f %%, Auge %.2f %%, Narben %d Striche' % (
+    b, aug = male_auge(b)
+    print('BEMALUNG %s: Mähne %.1f %%, Maul %.1f %%, Zähne %.1f %%, Auge %.2f %% (%s), Narben %d Striche' % (
         haut['haut'], 100 * float((m[..., 0] > 0.5)[bel].mean()), 100 * float((rot > 0.5)[bel].mean()),
-        100 * float((gelb > 0.5)[bel].mean()), 100 * float((aug[..., 0] > 0.5)[bel].mean()), n))
+        100 * float((gelb > 0.5)[bel].mean()), 100 * float(aug.mean()), AUGE_FARBE, n))
     return np.clip(srgb(b), 0, 1)
+
+
+def male_auge(b):
+    """995: die runde Augeninsel des Kaufs neu: Iris in klarer Farbe (innen heller), senkrechte Schlitzpupille, dunkler Ring, außen
+    die Lidhöhle dunkel. Gibt das Bild und die Maske der Insel (Bildpunkte) zurück."""
+    k = b.shape[0]
+    y, x = np.mgrid[0:k, 0:k].astype(np.float32) + 0.5
+    dx = (x / k - AUGE_MITTE[0]) / AUGE_R
+    dy = (y / k - AUGE_MITTE[1]) / AUGE_R
+    r = np.sqrt(dx * dx + dy * dy)
+    insel = r < 1.0
+    iris = np.array(lin(IRIS[AUGE_FARBE]))
+    c = iris * (1.15 - 0.45 * np.clip(r / 0.6, 0, 1))[..., None]          # innen heller, zum Rand satter
+    ring = np.clip((r - 0.50) / 0.08, 0, 1)[..., None]
+    c = c * (1 - ring) + np.array(lin(AUGE_RAND)) * ring
+    breite = 0.10 * np.clip(1.0 - (dy / 0.46) ** 2, 0, 1)
+    pup = np.clip((breite - np.abs(dx)) / 0.03, 0, 1)[..., None]
+    c = c * (1 - pup) + np.array(lin(PUPILLE)) * pup
+    b = np.where(insel[..., None], c, b)
+    return b, insel
+
+
+def _profil(koerper):
+    """Halbe Breite des Kopfes je Länge (Kaufnetz, Ruhelage) als Stützstellen für fang_fn."""
+    Pk = np.array([(koerper.matrix_world @ v.co)[:] for v in koerper.data.vertices])
+    w = gewicht_feld(koerper, ('Head',))
+    H = Pk[w > 0.5]
+    ys = np.arange(H[:, 1].min(), -1.30, 0.02)
+    xm = np.array([np.abs(H[np.abs(H[:, 1] - y) < 0.02][:, 0]).max() if (np.abs(H[:, 1] - y) < 0.02).any() else 0.1 for y in ys])
+    return ys, np.maximum(xm, 0.03)
+
+
+PROFIL = None
+
+
+def fang_fn(X, grob=False):
+    """Seiten des Fangs (Stirnabsatz bis Nasenspitze): je weiter außen, desto dunkler; der Rücken (|x| klein) bleibt hell."""
+    ys, xm = PROFIL
+    y = X[:, 1]
+    rel = np.abs(X[:, 0]) / np.interp(y, ys, xm)
+    w = np.clip((rel - 0.38) / 0.30, 0, 1) * np.clip((-1.36 - y) / 0.05, 0, 1) * np.clip((X[:, 2] - 0.80) / 0.05, 0, 1)
+    return np.clip(w * (3.0 if grob else 1.0), 0, 1)
+
+
+def ohr_fn(X, grob=False):
+    """Ohren: über z 1,30 außen am Kopf (|x| ab 0,17) zwischen y −1,28 und −1,06; nach vorn (Innenseite) dunkler."""
+    w = np.clip((X[:, 2] - 1.29) / 0.04, 0, 1) * np.clip((np.abs(X[:, 0]) - 0.16) / 0.03, 0, 1) \
+        * np.clip((X[:, 1] + 1.29) / 0.03, 0, 1) * np.clip((-1.05 - X[:, 1]) / 0.03, 0, 1)
+    w = w * (0.55 + 0.45 * np.clip((-1.13 - X[:, 1]) / 0.08, 0, 1))
+    return np.clip(w * (3.0 if grob else 1.0), 0, 1)
+
+
+def nase_fn(X, grob=False):
+    """Nasenspiegel: vorn an der Schnauze (y unter −1,515), obere Hälfte."""
+    w = np.clip((-1.515 - X[:, 1]) / 0.025, 0, 1) * np.clip((X[:, 2] - 0.875) / 0.03, 0, 1)
+    return np.clip(w * (3.0 if grob else 1.0), 0, 1)
+
+
+def auge_stoff(koerper, mat):
+    """995: Flächen der Augeninsel (alle UV im Kreis) bekommen einen eigenen Stoff „Auge“ (selbes Bild); figur.gd lässt ihn leuchten."""
+    auge = mat.copy()
+    auge.name = 'Auge'
+    koerper.data.materials.append(auge)
+    i = len(koerper.data.materials) - 1
+    uv = koerper.data.uv_layers.active.data
+    n = 0
+    for p in koerper.data.polygons:
+        drin = True
+        for li in p.loop_indices:
+            u, v = uv[li].uv
+            if ((u - AUGE_MITTE[0]) ** 2 + ((1 - v) - AUGE_MITTE[1]) ** 2) > (AUGE_R * 1.02) ** 2:
+                drin = False
+                break
+        if drin:
+            p.material_index = i
+            n += 1
+    print('AUGE %d Flächen, Farbe %s' % (n, AUGE_FARBE))
+    if n == 0:
+        sys.exit('Augeninsel nicht gefunden (AUGE_MITTE, AUGE_R)')
 
 
 def haar_bild(tex_dir):
@@ -386,8 +475,11 @@ def baue(haut_name):
     schwanz = next(o for n, o in netze.items() if 'TAIL' in n)
     INFO = {'statur': haut['statur'], 'maehne': haut['maehne']}
     # ------------------------------------------------ Bemalen (Kaufnetz, Ruhelage: Narben im Raum)
+    global PROFIL
+    PROFIL = _profil(koerper)
     png = speichere(bemale(koerper, tex_dir, haut), haut_name)
     material(koerper, png, 'Grabhund')
+    auge_stoff(koerper, koerper.data.materials[0])
     hp = speichere(haar_bild(tex_dir), 'haar', jpg=False)
     material(maehne, hp, 'Haar', schnitt=True)
     material(schwanz, hp, 'Haar', schnitt=True)
