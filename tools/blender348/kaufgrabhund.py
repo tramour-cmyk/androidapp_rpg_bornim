@@ -57,6 +57,9 @@ PUPILLE, AUGE_RAND = 0x080606, 0x120C0A
 # 995 („Nasenrücken und Ohren lesbarer“): Nasenspiegel schwarz, Nasenrücken als dunklere Kante zu den Seiten des Fangs, Ohren innen
 # dunkel; Lage im Kaufnetz (Ruhelage, Kopf −Y), gemessen: Schnauze vorn y −1,58, Stirnabsatz y −1,42, Ohren über z 1,30 bei |x| ab 0,17
 NASE, FANG_SEITE, OHR_INNEN = 0x161210, 0x2C2420, 0x1E1614
+AUGE_HOEHLE = 0x140E0C
+ERDE = 0x1E1A16     # 995: Läufe und Bauch zum Boden hin
+AO_TIEFE = 0.55     # Anteil des Kauf-AO an der Helligkeit (0 aus)
 
 # unser Name <- Kaufdatei (ohne „BARGHEST@“)
 NAMEN = [('Stehen', 'idleAggressive'), ('Lefzen', 'idleBreathe'), ('Umsehen', 'idleLookAround'), ('Gehen', 'walk'),
@@ -175,7 +178,15 @@ def bemale(koerper, tex_dir, haut):
     b = b * (1 - gelb[..., None]) + np.array(lin(ZAHN)) * (0.6 + 0.4 * t) * gelb[..., None]
     b = male_lage(b, koerper, maehne_fn(koerper), lin(MAEHNE_SCHWARZ), 0.95, 2.5)
     # 995 Kopf lesbar: Seiten des Fangs dunkler (der Nasenrücken bleibt hell und steht als Kante), Nasenspiegel schwarz, Ohren dunkel
-    b = male_lage(b, koerper, fang_fn, lin(FANG_SEITE), 0.6, 2.0)
+    # 995: Falten und Senken aus dem Schattenbild des Kaufs (AO) tiefer, damit der Körper Form zeigt statt flach und durchscheinend
+    ao = bild(os.path.join(tex_dir, 'BARGHEST_AO.jpg'), TEX).mean(2)[..., None]
+    b *= (1.0 - AO_TIEFE) + AO_TIEFE * ao
+    # 995 („wirkt durch seine Farbe unstrukturiert, wie halb transparent“): Hell-Dunkel von oben nach unten, Bauch und Läufe zum
+    # Boden hin dunkel wie von Grabeserde, die Pfoten fast schwarz; oben bleibt die fahle Haut
+    b = male_lage(b, koerper, unten_fn(koerper), lin(ERDE), 0.85, 3.0)
+    b = male_lage(b, koerper, ruecken_fn, lin(FANG_SEITE), 0.55, 1.5)
+    b = male_lage(b, koerper, fang_fn, lin(FANG_SEITE), 0.85, 2.0)
+    b = male_lage(b, koerper, hoehle_fn, lin(AUGE_HOEHLE), 0.9, 1.5)
     b = male_lage(b, koerper, ohr_fn, lin(OHR_INNEN), 0.75, 1.5)
     b = male_lage(b, koerper, nase_fn, lin(NASE), 0.95, 1.0)
     # Haut fleckig wie Leichenhaut, nicht glatt
@@ -229,8 +240,61 @@ def fang_fn(X, grob=False):
     ys, xm = PROFIL
     y = X[:, 1]
     rel = np.abs(X[:, 0]) / np.interp(y, ys, xm)
-    w = np.clip((rel - 0.38) / 0.30, 0, 1) * np.clip((-1.36 - y) / 0.05, 0, 1) * np.clip((X[:, 2] - 0.80) / 0.05, 0, 1)
+    w = np.clip((rel - 0.30) / 0.25, 0, 1) * np.clip((-1.36 - y) / 0.05, 0, 1) * np.clip((X[:, 2] - 0.80) / 0.05, 0, 1)
     return np.clip(w * (3.0 if grob else 1.0), 0, 1)
+
+
+def unten_fn(koerper):
+    """Gewicht nach der Höhe im Kaufnetz (Ruhelage): ab gut halber Körperhöhe abwärts zunehmend, an den Pfoten voll; der Kopf
+    bleibt aus (er hat seine eigene Zeichnung)."""
+    Pk = np.array([(koerper.matrix_world @ v.co)[:] for v in koerper.data.vertices])
+    lo, hi = Pk.min(0), Pk.max(0)
+    H = hi[2] - lo[2]
+
+    def fn(X, grob=False):
+        h = (X[:, 2] - lo[2]) / H
+        kopf = np.clip((h - 0.5) / 0.1, 0, 1) * np.clip((-1.2 - X[:, 1]) / 0.1, 0, 1)
+        w = np.clip((0.60 - h) / 0.45, 0, 1) ** 1.1 * (1 - kopf)
+        return np.clip(w * (1.5 if grob else 1.0), 0, 1)
+    return fn
+
+
+def ruecken_fn(X, grob=False):
+    """Kante des Nasenrückens: schmaler dunkler Strich beidseits des hellen Rückens (relative Breite um 0,24) von der Nasenspitze
+    bis zum Stirnabsatz; so steht der Rücken als helle Linie zwischen zwei Kanten."""
+    ys, xm = PROFIL
+    rel = np.abs(X[:, 0]) / np.interp(X[:, 1], ys, xm)
+    w = np.clip(1.0 - np.abs(rel - 0.24) / 0.08, 0, 1) * np.clip((-1.38 - X[:, 1]) / 0.04, 0, 1) * np.clip((X[:, 1] + 1.53) / 0.02, 0, 1)
+    return np.clip(w * (3.0 if grob else 1.0), 0, 1)
+
+
+AUGEN = None     # Mitten der beiden Augen (Kaufnetz, Ruhelage), aus den Flächen der Augeninsel
+
+
+def hoehle_fn(X, grob=False):
+    """Augenhöhle: dunkler Hof um jedes Auge (wie die tiefen Höhlen des alten Ghuls, Doll.kt ghoulFace), länglich zur Schnauze hin;
+    die helle Iris steht davor, das Auge wird auch klein im Kampfort lesbar."""
+    w = np.zeros(len(X))
+    for m in AUGEN:
+        d = X - m
+        r = np.sqrt((d[:, 0] / 0.05) ** 2 + (d[:, 1] / 0.075) ** 2 + (d[:, 2] / 0.055) ** 2)
+        w = np.maximum(w, np.clip((1.0 - r) / 0.35, 0, 1))
+    return np.clip(w * (3.0 if grob else 1.0), 0, 1)
+
+
+def augen_mitten(koerper):
+    uv = koerper.data.uv_layers.active.data
+    M = koerper.matrix_world
+    P = []
+    for p in koerper.data.polygons:
+        if all(((uv[li].uv[0] - AUGE_MITTE[0]) ** 2 + ((1 - uv[li].uv[1]) - AUGE_MITTE[1]) ** 2) <= (AUGE_R * 1.02) ** 2 for li in p.loop_indices):
+            P.append((M @ p.center)[:])
+    P = np.array(P)
+    if not len(P):
+        sys.exit('Augeninsel nicht gefunden (AUGE_MITTE, AUGE_R)')
+    m = [P[P[:, 0] > 0].mean(0), P[P[:, 0] < 0].mean(0)]
+    print('AUGEN Mitten %s' % [np.round(x, 3).tolist() for x in m])
+    return m
 
 
 def ohr_fn(X, grob=False):
@@ -245,6 +309,58 @@ def nase_fn(X, grob=False):
     """Nasenspiegel: vorn an der Schnauze (y unter −1,515), obere Hälfte."""
     w = np.clip((-1.515 - X[:, 1]) / 0.025, 0, 1) * np.clip((X[:, 2] - 0.875) / 0.03, 0, 1)
     return np.clip(w * (3.0 if grob else 1.0), 0, 1)
+
+
+KOPF_ANTEIL = float(os.environ.get('KOPF_ANTEIL', '0.65'))     # 995: Anteil des Kopfes an den Dreiecken des Körpers
+
+
+def kopf_dreiecke(o, gname=None):
+    """Dreiecke, deren Ecken alle überwiegend am Kopfknochen hängen."""
+    w = gewicht_feld(o, ('Head',))
+    return int(sum(len(p.vertices) - 2 for p in o.data.polygons if all(w[v] > 0.5 for v in p.vertices)))
+
+
+def kopf_gruppe(o):
+    """Gewicht des Kopfknochens je Ecke als Gruppe „Kopf“ (weich zum Hals hin)."""
+    w = gewicht_feld(o, ('Head',))
+    g = o.vertex_groups.new(name='Kopf')
+    for i, x in enumerate(w):
+        if x > 0.01:
+            g.add([i], float(min(1.0, x)), 'REPLACE')
+    print('KOPF %d von %d Ecken geschont' % (int((w > 0.5).sum()), len(w)))
+    return g.name
+
+
+def kopf_gruppe(o):
+    """Gewicht des Kopfknochens je Ecke als Gruppe „Kopf“ (weich zum Hals hin)."""
+    w = gewicht_feld(o, ('Head',))
+    g = o.vertex_groups.new(name='Kopf')
+    for i, x in enumerate(w):
+        if x > 0.01:
+            g.add([i], float(min(1.0, x)), 'REPLACE')
+    print('KOPF %d von %d Ecken geschont' % (int((w > 0.5).sum()), len(w)))
+    return g.name
+
+
+def naht_gruppe(o):
+    """Ecken auf UV-Nähten (Kante, deren zwei Flächen dort verschiedene UV haben) und offenen Rändern: Gruppe „Naht“, Gewicht 1."""
+    bm = bmesh.new(); bm.from_mesh(o.data)
+    uv = bm.loops.layers.uv.active
+    ecken = set()
+    for e in bm.edges:
+        if len(e.link_faces) != 2:
+            ecken.update(v.index for v in e.verts); continue
+        f0, f1 = e.link_faces
+        for v in e.verts:
+            a = next(l[uv].uv for l in f0.loops if l.vert == v)
+            b = next(l[uv].uv for l in f1.loops if l.vert == v)
+            if (a - b).length > 1e-5:
+                ecken.update(x.index for x in e.verts); break
+    bm.free()
+    g = o.vertex_groups.new(name='Naht')
+    g.add(sorted(ecken), 1.0, 'REPLACE')
+    print('NAHT %d von %d Ecken geschützt' % (len(ecken), len(o.data.vertices)))
+    return g.name
 
 
 def auge_stoff(koerper, mat):
@@ -477,6 +593,8 @@ def baue(haut_name):
     # ------------------------------------------------ Bemalen (Kaufnetz, Ruhelage: Narben im Raum)
     global PROFIL
     PROFIL = _profil(koerper)
+    global AUGEN
+    AUGEN = augen_mitten(koerper)
     png = speichere(bemale(koerper, tex_dir, haut), haut_name)
     material(koerper, png, 'Grabhund')
     auge_stoff(koerper, koerper.data.materials[0])
@@ -487,10 +605,26 @@ def baue(haut_name):
     haar_formen(schwanz, koerper, 'zerrupft' if haut['maehne'] == 'zerrupft' else 'mittel', SCHWANZ_DREIECKE, 'Schwanz')
     vorher = tris([koerper])
     if vorher > KOERPER_DREIECKE:
-        mod = koerper.modifiers.new('weniger', 'DECIMATE')
-        mod.ratio = KOERPER_DREIECKE / vorher
+        # 995 (Probebild 14:19: Nasenrücken verwaschen, „wie halb transparent“): das Ausdünnen in einem Zug zog das Bild quer über
+        # den Fang (am vollen Netz gestochen scharf). Jetzt zwei Züge mit eigenem Anteil: erst nur der Kopf (Gruppe „Kopf“) auf
+        # KOPF_ANTEIL der Dreiecke, dann nur der Rest (Gruppe umgekehrt) bis KOERPER_DREIECKE; eine Gruppe begrenzt das Ausdünnen in
+        # Blender auf ihre Ecken
+        gname = kopf_gruppe(koerper)
+        kopf_vorher = kopf_dreiecke(koerper, gname)
+        ziel_kopf = int(KOERPER_DREIECKE * KOPF_ANTEIL)
         bpy.context.view_layer.objects.active = koerper
-        bpy.ops.object.modifier_apply(modifier=mod.name)
+        for inv, ziel in ((False, vorher - max(0, kopf_vorher - ziel_kopf)), (True, KOERPER_DREIECKE)):
+            jetzt = tris([koerper])
+            if jetzt <= ziel:
+                continue
+            mod = koerper.modifiers.new('weniger', 'DECIMATE')
+            mod.ratio = ziel / jetzt
+            mod.vertex_group = gname
+            mod.invert_vertex_group = inv
+            bpy.ops.object.modifier_apply(modifier=mod.name)
+            print('DREIECKE Zug %s: %d -> %d (Ziel %d)' % ('Rest' if inv else 'Kopf', jetzt, tris([koerper]), ziel))
+        koerper.vertex_groups.remove(koerper.vertex_groups[gname])
+        print('DREIECKE Kopf %d -> %d' % (kopf_vorher, kopf_dreiecke(koerper)))
     print('DREIECKE Körper %d -> %d' % (vorher, tris([koerper])))
     dicke, schulter = STATUR[haut['statur']]
     statur(rig, [koerper, maehne], dicke)
