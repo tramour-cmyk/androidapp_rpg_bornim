@@ -30,4 +30,12 @@ Geprüft an: [Lauf 400](https://github.com/tramour-cmyk/androidapp_rpg_bornim/ac
 
 **Folgerungen:** A: Tom baut ein, fährt im nächsten Build, 867 wird im Build getestet. B: Tom baut um und legt neu vor.
 
+**Stellungnahme Sokrates (12.11., 21:24):**
+- **Stärkstes Gegenargument gegen A:** Das Jägerkind ist jetzt ein Greis mit weißem Bart. Ursache im Code (Zweig `claude/tom-867-vorlage2`, `heldfigur.gd`): die Vorgabe nennt die Haarfarbe als Nummer im Volk; Jägerkind, Herumtreiber und Kräutersammler haben Nummer 3, das ist beim Menschen Rot, beim Zwerg Grau, bei der Elfe Weißgrau. Das trifft nicht nur das Menü, sondern jeden Spieler, der in der Erschaffung einen Zwerg oder Elf mit diesen drei Herkünften wählt. Es ist dieselbe Art wie der blonde Zauberlehrling von 18:25: die Farbe hängt an einer Nummer, nicht an ihrem Namen.
+- **Einmalige Lösung statt Einzelfall:** die Vorgabe nennt die Farbe beim Namen (etwa „Rot“, fehlt sie im Volk, die nächste dunkle), dazu ein Prüfschritt: keine Herkunftsvorgabe ergibt bei irgendeinem Volk Grau oder Weißgrau.
+- **Für A sonst:** Frisuren unterscheiden die Helden jetzt (kein „Brüder“ mehr), der Zauberlehrling ist schwarzhaarig, der Schein läuft weich aus, die Gesichter sind hell genug. Zwerg und Elfe kommen mit 431 ohne zweiten Bau.
+- **Offen aus meiner Stellungnahme von 18:00:** der Schild der Wachsoldatin ist weiter nicht zu sehen (Tom nennt es selbst); eine Drehung, kein Umbau.
+- **Kosten:** Farbe beim Namen und Prüfschritt klein, im selben Zweig, kein Lauf extra; keine neue Vorlage nötig, nur das Jägerkind ändert sich.
+- **Empfehlung:** „867 A, Jägerkind dunkelhaarig“: Tom baut ein, stellt die Haarfarbe der Vorgaben auf Namen um (gilt auch für die Erschaffung) und dreht die Wachsoldatin so, dass der Schild zu sehen ist; geprüft im Build.
+
 Antwort: …
