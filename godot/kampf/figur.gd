@@ -1102,7 +1102,40 @@ func _idle() -> void:
 		var z := RandomNumberGenerator.new()
 		z.seed = hash("%s/%s/%d" % [fighter.id, grund, _schleifen])
 		_schleifen += 1
-		anim.seek(z.randf() * lang, true)
+		anim.seek(_versatz_frei(grund, lang, z.randf() * lang), true)
+
+
+## 1006 (skelett_506 Lauf 361, 365: Stehen bei 0,38 und 0,42 s): der Zufall des Versatzes traf beim neuen Anfang der Schleife fast
+## die Stelle eines anderen Skeletts (Schleife 1,03 s, Abstand 0,04 s, also im Gleichklang). Liegt [t0] näher als VERSATZ_MIN der
+## Schleife an der Stelle eines anderen, der dieselbe Grundschleife gleich lang spielt, dann in Zwölfteln weiter zur ersten freien
+## Stelle (keine frei: die mit dem größten Abstand)
+const VERSATZ_MIN := 0.15
+func _versatz_frei(grund: String, lang: float, t0: float) -> float:
+	if kampfort == null or lang <= 0.0:
+		return t0
+	var stellen: Array[float] = []
+	for o in kampfort.figures.values():
+		if o == self or o.down or o.anim == null or o.anim.current_animation != grund:
+			continue
+		if not o.anim.has_animation(grund) or absf(o.anim.get_animation(grund).length - lang) > 0.01:
+			continue
+		stellen.append(o.anim.current_animation_position)
+	if stellen.is_empty():
+		return t0
+	var best := t0
+	var best_d := -1.0
+	for k in 12:
+		var t := fposmod(t0 + lang * k / 12.0, lang)
+		var d := lang
+		for s in stellen:
+			var u := absf(t - s)
+			d = minf(d, minf(u, lang - u))
+		if d >= VERSATZ_MIN * lang:
+			return t
+		if d > best_d:
+			best_d = d
+			best = t
+	return best
 
 
 # Prüfer Runde 25: Blick und Rumpf wurden nur bei der Ansage gerichtet; rückte das Ziel danach auf seinen Platz, sah der Wolf
