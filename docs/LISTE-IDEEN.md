@@ -95,6 +95,7 @@ Zuletzt verworfen (Chef 09.11., 11:21, 743 „alle verwerfen“): Spiel-Engine G
 
 ### Kampf
 
+- **Feueraura des Zauberkundigen** (Chef 12.11., 20:52, an Sokrates, zu 1036): „Aurafire würde ich jetzt nicht nehmen als Brennendeffekt, sondern eher als Angriffsverteidigung. Sozusagen, dass der Magier sich selbst entzündet und Gegner, die an ihm dran stehen, verbrannt werden … so einen brennenden Ring um sich machen oder brennende Haut.“ Effekt `aura_fire` (Combat Mega, gekauft); Zauber mit Homer (Name, Text) und Jerry (Werte 444); passt zu Schulen in `DESIGN-BRS.md`.
 - **Kritische Treffer der Gegner** (Sokrates zu 870.6a 3 A, 11.11.): heute treffen Gegner nie kritisch; mit Werten je Gegner im Bestiarium (Wolf, Grak) dürfen Kämpfe plötzlich kippen (Chef 12:56); nach dem Meilenstein, mit Sim 444.
 
 - **Zugleiste aus MARS auch im klassischen Kampf** (Chef 20.10., 07:20, Wortlaut: „Allgemein: Zugleiste aus Mars auch im alten Kampf?“): Sokrates nachgesehen (`Battle.kt`): klassisch einmal Initiative zu Beginn, dann streng Held, Gegner, Held, Gegner; Rudel und Begleiter handeln im Zug des Anführers. Pro: gleiches Bild in beiden Systemen (212), Hinterhalt und „Gegner schneller“ sichtbar. Contra: die Leiste zeigt nur den ständigen Wechsel, also nichts Neues, und kostet Platz auf dem kleinen Schirm; Arbeit an einem Bildschirm, den MARS ablösen könnte. Empfehlung Sokrates: noch nicht; erst wenn der klassische Kampf mehrere Helden oder wechselnde Reihenfolge bekommt. → **noch nicht** (Chef 07:22: „Ok, noch nicht“).
