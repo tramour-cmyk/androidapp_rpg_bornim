@@ -1,5 +1,5 @@
 # Tom und Jerry · Build 278 · 0.348.373 · Sammelbuild nach Build 277 · PR #197
-Ganzes Spiel · Tom (635, 785.19, 814, 856, 870.7, 870.9, 926, 933, 951, 954, 963, 964, 967, 977, 984.1, 989, 990, 991, 994, 1009), Jerry (595, 744, 806, 824, 836, 840, 909, 923, 935, 939, 950, 952, 959, 960, 971, 983, 986, 992, 993, 997, 998, 999, 1001, 1003, 1004, 1006, 1007, 1013; 988 und 1006 mit Build 277 auf `main`, hier zum Ansehen) · Entwurf 12.11., 06:05 · APK folgt
+Ganzes Spiel · Tom (635, 785.19, 814, 856, 870.7, 870.9, 926, 933, 951, 954, 963, 964, 967, 977, 984.1, 989, 990, 991, 994, 1009, 1017), Jerry (595, 744, 806, 824, 836, 840, 909, 923, 935, 939, 950, 952, 959, 960, 971, 983, 986, 992, 993, 997, 998, 999, 1001, 1003, 1004, 1006, 1007, 1013; 988 und 1006 mit Build 277 auf `main`, hier zum Ansehen) · Entwurf 12.11., 06:05 · APK folgt
 Gegengelesen: Sokrates 12.11., 06:10
 
 Ein Weg: über Build 277 installieren, Hauptmenü, „Weiter“ mit deinem Spielstand aus Build 277; erst Dorf am Tag (A), dann Wald und Kampf (B), zurück ins Dorf am Abend (C), dann Probekämpfe und Sprünge im Reiter „Test“ (D), zuletzt ein neues Spiel für die Erschaffung (E). Den Reiter „Test“ gibt es nur im Testmodus: im Hauptmenü siebenmal aufs Firmenzeichen tippen. Was nicht passt, reicht als Nummer (z. B. 278.5) mit einem Wort.
@@ -7,8 +7,6 @@ Ein Weg: über Build 277 installieren, Hauptmenü, „Weiter“ mit deinem Spiel
 Verglichen (alt gegen neu): Gegenstandsfenster und Laden (870.7, 926) gegen das Bild, das passte (Chef 11.11., 19:57); Rückfrage „Überspringen?“ (856) gegen das Bild von 19:58; Testmenü (991) gegen Build 277.
 
 Im Bau geprüft: Spielstand „Weiter“ nimmt immer den neuesten Platz (`spielstand_test`, 1009); Karten, Texte, Intro und Kartenblätter kommen aus der Godot-Quelle statt aus Kotlin, gleich dem alten Export (`karten_regeln`, 870.9); Lauf schneller ohne weggelassene Prüfung (909); Heiltrank ein Wert an einer Stelle, heilt weiter 14 (923); leichte Ziele üben höchstens ein Zehntel (971, Simulation 444); Metall sperrt Evokation, Illusion, Beschwörung (`handlungen_870`, 964); Schild nicht mehr in der Faust (`halt_653`, 967); Grimmzahn mit Ruhebewegung (`ruhe_977`), Monster der Karte ebenso (`ruhe_1007`); kein Bildsprung im Kampf (`kamera_992`); Hinweis „Schwerer Hieb“ ohne „Decken“ (`decken_1004`); Heldin keucht mit Frauenstimme (`keuchen_1003`); Schildprüfung nach der Herkunft, der Klosterschüler ohne Schild (`schild_406`, 1013).
-
-Bekannt, nicht melden: die Erklärsätze beim Gedrückthalten in der Erschaffung (278.36) stehen noch auf dem alten Stand (Wille „stärkere Zauber“, Gewandtheit ohne Nahkampf); das Angleichen an die Heldenseite ist Vorgang 1015 (Homer).
 
 ## A · Dorf am Tag
 
@@ -69,9 +67,9 @@ Bekannt, nicht melden: die Erklärsätze beim Gedrückthalten in der Erschaffung
 | # | Team | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|---|
 | 278.35 | Tom | 870.9 | Hauptmenü → neues Spiel, Intro ansehen | Intro und Bilder wie in Build 277 | Intro fehlt oder ohne Bild |
-| 278.36 | Tom | 954 | in der Erschaffung je einen Grundwert, ein Volk, eine Herkunft und eine Fertigkeit gedrückt halten | ein Satz, was es bewirkt, in einem Fenster | nichts passiert |
+| 278.36 | Tom | 954, 1017 | in der Erschaffung je einen Grundwert, ein Volk, eine Herkunft und eine Fertigkeit gedrückt halten | ein Satz, was es bewirkt, in einem Fenster; Verstand „Mehr Schaden mit Evokation.“, Wille mit Heilmagie und kritisch mit Evokation, Gewandtheit auch kritisch im Nahkampf, nirgends „Wurfwaffen“ | nichts passiert; Wille „stärkere Zauber“; Verstand „Wissen“ |
 | 278.37 | Tom | 933 | Volk „Zwerg“ wählen, Gewandtheit mit „−“ auf 3 senken | danach steht Gewandtheit auf 2; der Text sagt ehrlich „beginnt bei 3“ | Wert bleibt bei 3 stehen |
 | 278.38 | Tom | 984.1 | bei den Fertigkeiten nachsehen | Illusion und Beschwörung matt, nicht wählbar wie Bergbau | wählbar |
 | 278.39 | Jerry | 959 | Herkunft „Schmiedelehrling“ ansehen | dabei Stumpfe Waffen neben Schmieden und Bergbau | nur Schmieden und Bergbau |
 | 278.40 | Jerry | 952 | einen neuen Helden fertig erschaffen, Tasche → „Held“ | kritischer Treffer als Anfänger nahe 0 % (nicht 7 %) | 7 % schon zu Beginn |
-| 278.41 | Tom | 963, 989 | Tasche → „Held“, jeden Grundwert gedrückt halten | nur Wirkungen, die es gibt: Zähigkeit „Abwehr gegen Gift, Betäubung und Blendung“, Wahrnehmung kritisch mit Dolch, Bogen, Armbrust, Wurf, Verstand „Schaden mit Evokation“, Wille Heilung und kritisch mit Evokation; je Waffe und Zauber die Aussicht auf kritisch | „Stärke deiner Zauber“, „Flächenwirkungen“, „Furcht und Zauber“, Krankheit, Spähen |
+| 278.41 | Tom | 963, 989, 1017 | Tasche → „Held“, jeden Grundwert gedrückt halten | nur Wirkungen, die es gibt: Zähigkeit „Abwehr gegen Gift, Betäubung und Blendung“, Wahrnehmung kritisch mit Dolch, Bogen, Armbrust (ohne Wurfwaffen), Verstand „Schaden mit Evokation“, Wille Heilung und kritisch mit Evokation; je Waffe und Zauber die Aussicht auf kritisch | „Stärke deiner Zauber“, „Flächenwirkungen“, „Furcht und Zauber“, Krankheit, Spähen |
