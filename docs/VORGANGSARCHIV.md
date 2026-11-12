@@ -4,7 +4,7 @@ Was der Chef entschieden hat, neueste oben (99g.1). Je Vorgang: Nummer, Datum, E
 
 - **1044, Standpose der Frauen** (12.11., 16:08, Chef an Sokrates: „Die Damen posen im Stand sozusagen, wenn es keine Kampfpose sein soll, jetzt am Beispiel Lyra, bitte machen.“): außerhalb des Kampfs ruhige Standpose mit geschlossenen Beinen, zuerst Lyra, dann alle Frauen; Pakete zuerst sichten; Tom → **ja (Nutzer; Votum Sokrates 15:21)**
 
-- **1038, Zahlen für Überreden und Verband** (12.11., 16:06, Vorentscheid Sokrates auf Zahlen Jerry 1037, 783 W5; Chefsache `billigen/1038-ueberreden-verband.md`): Überreden 35 % + 1 je Punkt, Pim ohne Abzug; Verband 5 + 0,2 Leben je Punkt Heilkunde, 8 Gold, nur außerhalb des Kampfs; `7696371e0` → **Vorentscheid**
+- **1038, Zahlen für Überreden und Verband** (12.11., 16:06, Vorentscheid Sokrates auf Zahlen Jerry 1037, 783 W5; Chefsache `billigen/1038-ueberreden-verband.md`): Überreden 35 % + 1 je Punkt, Pim ohne Abzug; Verband 5 + 0,2 Leben je Punkt Heilkunde, 8 Gold, nur außerhalb des Kampfs; `7696371e0` → **Vorentscheid** · zurück 12.11. (Chef 16:12: „um Lebenspunkte zu heilen nicht, sondern er muss Wunden heilen“; neu `entscheiden/1038-verband.md`)
 
 - **264, eigener Bauserver: VM aus, Anmeldung bleibt** (12.11., 16:00, Chef an Sokrates: „Zu Vorgang 264, ja, ich werde nur die VM ausschalten heute Abend.“; Chefsache `entscheiden/264-bauserver.md` in Git): gebaut wird bei GitHub; Runner `proxmox-bornim` bleibt angemeldet, GitHub meldet ihn nach 14 Tagen ohne Verbindung selbst ab; Bauplan bleibt auf `claude/perikles-264-runner`; wieder an, wenn das Repo privat wird oder GitHub einen Arbeitstag nicht baut → **A ohne Abmelden (Nutzer; Votum Sokrates A)**
 
