@@ -145,7 +145,17 @@ Quelle: der alte Kotlin-Code (`core`, `app`), abgeglichen mit `LISTE-ABGLEICH-AL
 
 **Stärkstes Gegenargument zur neuen Ordnung:** Ein Sammelbuild mit 45 Punkten ist schwer zu testen, und die Funde aus t280 kämen mit einem kleineren Build schneller. **Entkräftet:** beide Teams stehen unter Sperre, bis getestet ist; ein Build löst beide, die Prüfliste stellt den Kampf nach oben, du kannst nach dem Kampfteil abbrechen und den Rest später prüfen.
 
-**Danach** (nach deinem „Kampf passt“): Durchspielen (492, 496, 505, 507, 506), dann die Referenzszene (620.4 A). **Stärkstes Gegenargument:** das Durchspielen, Ziel der Vorwoche, rückt eine weitere Woche nach hinten; Höhle, Nebel und Kampforte der Höhle ruhen. **Entkräftet:** du hast den Kampf vor alles gestellt; der größte Teil von Kapitel 1 ist Kampf; ein Durchspiel mit diesem Kampf brächte dieselben Funde wieder (Wiederholquote 6 in t268 und t269, Sokrates).
+**Große Punkte danach, in dieser Reihenfolge** (1061, Perikles 12.11., 17:4x, auf Chef 17:42 „erst einen Umzug fertig machen, dass wir 431 wieder als Thema grundsätzlich anfassen“):
+1. **Umzug BRS fertig** (läuft neben dem Kampf): 882.1 Tom, 882.2 und 870.10 Perikles (Kotlin-Bau aus), 870.13 Tom (Aufräumen, SRD-Hinweis raus).
+2. **Kampf passt** (Wochenziel oben, t281).
+3. **431 Körper je Volk im Helden** (Tom, gleich nach 870.10): zuerst Aufwand vorlegen (Kleidung und Rüstung auf fünf Körpern, Völker im Umriss deutlich verschieden), bauen erst nach deinem Ja. Vor jedem weiteren Figurenfeinschliff (372, 397, 513, 1044 ausgenommen), weil Kleidung und Rüstung sonst zweimal angepasst werden.
+4. **Kapitel 1 durchspielbar** (Stufe 2): 492 Höhle, 505 Nebel und Sichtfeld, 494 übrige Gegner, 507 Kampforte Höhle, 506 Untote, 495 Zufallsspieler, 496 Durchspiel-Build. Läuft mit 3 nebeneinander (Spike und Jerry), sobald der Kampf passt.
+5. **Was der Spieler tun kann nach BRS** (2.6–2.9): Lehrmeister, Handlung je Herkunft, Schleichen, Spähen, Truhen (515), Rast und Tragkraft, Ernten (568).
+6. **Welt lebendig wie alt** (2.11): Leute, Dinge, Innenräume, Nacht, Kleinleben (614, 637–640, 665, 509), Klang je Ort und Monster (598, 517, 936–938).
+7. **Ausgleich gemessen** (2.5): Kapitelsimulation, jede Herkunft schafft die Bosse (1050, 38).
+8. **Aussehen fertig:** Tusche nach Licht (348.13, 348.13b, 302.1), Held im Feinschliff (372), Ruhebewegungen (397); danach Store (622 AAB, 142).
+
+**Stärkstes Gegenargument:** 431 vor dem Durchspielen schiebt Höhle und Nebel weiter, Ziel seit 03.11. **Entkräftet:** 431 ist Figurenarbeit bei Tom, Höhle und Nebel laufen bei Spike und Jerry daneben; der Held ist, womit sich der Spieler identifiziert (Chef 17:38), und jeder Figurenfeinschliff vor 431 wäre doppelte Arbeit.
 
 **Mit diesem Wochenziel entschieden (Perikles):** M? der Prüferbefunde 725–742 → K, meine ruhen; 515 Truhen und 568 Ernten → M (Abnahme 2.8, 3.4), ruhen bis „Kampf passt“; Reifes aus `LISTE-IDEEN.md` holt diese Woche keiner (nichts Neues); „Verwerfen?“ als eine Chefsache (743).
 
