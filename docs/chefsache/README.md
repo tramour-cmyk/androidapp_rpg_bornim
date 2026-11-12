@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [867](entscheiden/867-menuehelden.md) | **Muss** | G Stil | 12.11., 21:16 | Neue Vorlage der vier Helden im Hauptmenü: Frisur der Herkunft, Zauberlehrling schwarzhaarig, Blond entgelbt, Schein weich ins Schwarz, Gesichter im Licht. Passt das? | Tom |
 
 ## Zu billigen
 
@@ -117,7 +121,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 852 | K | Von Homer (432a A, Chef 10.11., 12:05): Aschgeborene bauen: Modell Mensch mit aschgrauer S | ruht |
 | 860 | M | Von Sokrates (Chef 10.11., 13:07, t274.10 „Ja“): Chronik (Hauptauftrag, Aufträge, Bisher g | wartet auf Test/Build (gebaut) |
 | 861 | M | Von Sokrates (Chef 10.11., 13:12, Bild t274.14): Umhang des Kämpfers im Kampf rechts am Rü | ruht |
-| 867 | M | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die | in Arbeit bei Spike |
+| 867 | M | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die | Chef (Datei in der Chefsache) |
 | 882.1 | M | Von Perikles (882, Umzug BRS Schritt 8): mit 870.9 auch godot-kampf.yml 41 (exportIntro) a | startbar |
 | 964 | M | Von Tom (Zu 870.4, Homer 14:15): Metall sperrt Evokation, Illusion, Beschwörung im Kampf; | wartet auf Test (Build) |
 | 966.2 | M | Von Sokrates (966 A neu, Chef 11.11., 15:58): Kochen und Alchemie mit Ring wie Knacken (DE | wartet auf 870 (wartet) |
@@ -151,7 +155,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1073 | M? | Von Sokrates (Chef 12.11., 20:38): Bilder der Dinge in Tasche und Laden nach unserer Signa | startbar |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 22045 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 133, Muss 117, startbar 6
+**Jerry** – offen 134, Muss 118, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -288,6 +292,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1072 | M | Von Sokrates (Chef 12.11., 20:09, zu 1036; Wiederholfund 09.11. und 10.11.): hinterer Wolf | Sperre 620.1 B: 31 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1036 |
 | 1075 | M? | Von Jerry (1029): Kampftests mit derselben Schleife wie probekampf_1020 (go_on auch beim S | startbar |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 32682 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 1036.1 | M | Von Tuffy (1036, Chef 12.11., 20:52): neue Vorlage Zustände: jeder Zustand des Codes (auch | Sperre 620.1 B: 31 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1036 |
 
 **Perikles** – offen 16, Muss 15, startbar 0
 
