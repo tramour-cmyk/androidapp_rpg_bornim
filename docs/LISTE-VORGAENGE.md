@@ -336,7 +336,7 @@
 | 930 | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerry, Ideen Homer, Regeln gegenlesen Perikles oder Diogenes (Chef 11.11., 12:28) | Sokrates | M | wartet, Befund 930.4 eingearbeitet | 930.3 | – | – | E Kampf | 19,74 $ |
 | 985 | Systemlösung? Nebel: 2 frühere Vorgänge (505, 502), neu 785.7; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Oberfläche | – |
 | 644a.5 | Von Tuffy (644a.1): an welchem Grundwert hängen Rüstung, Ausweichen, Schild, Armbrust und die übrigen Fertigkeiten beim Wachsen durch Üben? Gebaut: nur Waffengruppen und Schulen, 10 Punkte je +1; Regelwerk 2 und 13 nachziehen | Sokrates | M | startbar | – | – | – | E Kampf | – |
-| 1082 | Von Spike zu 1022: Läufe frei, ein Bildlauf Randbilder (gezählter Lauf war ein abgebrochener Start am Rechner, 22:00) | Sokrates | M | startbar | – | – | – | E Welt | – |
+| 1082 | Von Spike zu 1022: Läufe frei, ein Bildlauf Randbilder (gezählter Lauf war ein abgebrochener Start am Rechner, 22:00) | Sokrates | M | erledigt | – | – | – | E Welt | – |
 | 1083 | Von Tom (492): 492, Läufe frei? Der eine Lauf seit 08.11. ging an eine Testschleife ohne Bild (Haken zählte sie), Bildreihe Höhle für G1 Lager fehlt | Sokrates | M | startbar | – | – | – | E Technik | – |
 | 843 | D126.1 (Diogenes, 838): START ohne Sitzung 14 von 39 (09.11., 19:04 bis 10.11., 11:08), keiner mit --ohne; 3 ohne Grund (22:44 Spike, 10:25 Jerry, Perikles) | Ford | M | startbar | – | – | – | B Steuerung | 12,41 $ |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +1054,72 $ |
