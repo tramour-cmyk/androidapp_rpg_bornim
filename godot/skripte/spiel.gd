@@ -585,8 +585,13 @@ func tageszeit() -> String:   # Kampfort.tageszeit: tag, abend, nacht
 const KAMPF_TASCHE := ["potion", "greater_potion", "superior_potion", "remedy", "alchemist_fire", "holy_water"]
 
 func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroeffnung := "", nr := 0) -> String:
-	var hw := held_werte() if probe.is_empty() else Testmodus.probeheld(String(probe[0]), int(probe[1]))
-	var soeldner = null if probe.is_empty() else Testmodus.probeheld(String(probe[0]), int(probe[1]))
+	# 1020.2 B: Held, Söldner, Leben, Tasche und Tageszeit des Probekampfs nach der Wahl im Reiter Test (Testmodus.probe_aufbau)
+	var pa: Dictionary = {} if probe.is_empty() else Testmodus.probe_aufbau(String(probe[0]), int(probe[1]))
+	var hw: BrsHeld = held_werte() if probe.is_empty() else pa["held"]
+	var soeldner = null if probe.is_empty() else pa["soeldner"]
+	var mars_s = load("res://regeln/mars.gd")
+	mars_s.test_gegnerzug = "" if probe.is_empty() else Testmodus.probe_zug     # 1020.2 C: nur im Probekampf, nie im Spiel
+	mars_s.test_ausweichen = false if probe.is_empty() else Testmodus.probe_ausweichen
 	var erg := {"ende": "", "tp": {}, "lohn": {}, "rest": {}, "held": null}
 	# 532 (Durchspielregel 488): die ganze Tasche in den Kampf; danach wird nur weggenommen, was verbraucht ist
 	var tasche := {}
@@ -624,6 +629,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	if probe.is_empty(): lage["leiden"] = zustand.leiden.duplicate()   # 532 (Jerry): Zustände aus dem letzten Kampf (GameState.ailments)
 	if probe.is_empty(): lage["betrunken"] = zustand.betrunken()   # 532 Metrausch wie alt (Battle.drunk): betrunken aus der Schenke in den Kampf
 	if probe.is_empty(): lage["tasche"] = tasche   # 532: die ganze Tasche (aufruf.gd starte)
+	else: lage["tasche"] = pa["tasche"]   # 1020.2 B: Tasche nach der Wahl im Reiter
 	if probe.is_empty(): lage["rauch"] = zustand.anzahl(Geschichte.SMOKE_BUNDLE)   # 494 (Jerry, D4.1): Morwens Rauchbündel gegen Krogg
 	if probe.is_empty(): lage["flaggen"] = zustand.flaggen   # 836: Hinweise einmal je Spielstand (Kampfort.flaggen, nicht kopiert)
 	if probe.is_empty(): lage["brs"] = zustand.brs   # 478 (Jerry): der Held nach BRS, wenn der Kampf nach BRS rechnet (brs_kampf.gd)
@@ -633,7 +639,12 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	if probe.is_empty(): lage["gebiet"] = String(BrsHeld.welt().get("gebiet", {}).get(karte.id, ""))
 	# 493 (Jerry): Kampfort im Wald nach dem, was um den Helden steht (wie alt BattleScene.spotFor); im Testmodus wählbar
 	lage["platz"] = Testmodus.kampfort if Testmodus.ist_an() and Testmodus.kampfort != "" else load("res://kampf/kampfort.gd").platz_fuer(karte, held.kachel)
-	var gestartet: bool = aufruf.starte(gegner, hw, soeldner, "wald", tageszeit(), zustand.anzahl("potion") if probe.is_empty() else 2, -1, -1, -1, beute, lage)
+	var zeit := tageszeit() if probe.is_empty() or String(pa["zeit"]) == "" else String(pa["zeit"])   # 1020.2 B: Tageszeit nach Wahl
+	var gestartet: bool = aufruf.starte(gegner, hw, soeldner, "wald", zeit, zustand.anzahl("potion") if probe.is_empty() else 2, -1, -1, -1, beute, lage)
+	# 1020.2 B: nach dem Probekampf „Nochmal“ mit derselben Wahl (Kampfort.again_fn, wie kampf/probe.gd) und „Zurück zum Testmenü“
+	if gestartet and not probe.is_empty() and aufruf.kampf != null:
+		aufruf.kampf.again_fn = func(): aufruf._fertig("AGAIN")
+		aufruf.kampf.zurueck_text = ["Zurück zum Testmenü", "Back to test menu"]
 	if probe.is_empty(): zustand.satt = false   # 399.1: Battle.wellFed endet mit dem Kampfbeginn (der Kampfort gibt +1, 399.2)
 	# 471: welche Fertigkeiten der Held im Kampf benutzt, hoert Kampfuebung mit (wie der Kampfort); gutgeschrieben am Kampfende
 	var uebung: Kampfuebung = null
@@ -669,6 +680,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	if probe.is_empty() and bool(erg.get("rauch", false)) and zustand.anzahl(Geschichte.SMOKE_BUNDLE) > 0: zustand.weg(Geschichte.SMOKE_BUNDLE, 1)   # 494: geworfen
 	var lohn: Dictionary = erg["lohn"]
 	var ende := [String(erg["ende"])]
+	if ende[0] == "AGAIN": return ende[0]   # 1020.2 B: die Blende bleibt schwarz, test_tat startet denselben Probekampf neu
 	klang("nach_kampf", [ende[0] == "WON", karte])   # 399.3 (Jerry): Sieg mit sieg_, sonst Ortsmusik nach 10 s
 	if ende[0] == "NONE" or not probe.is_empty():
 		held.setze(zurueck, "DOWN"); kamera.springe(); await abblenden(0.0)
@@ -1256,7 +1268,11 @@ func test_tat(was: String, mit: Array) -> void:
 		"kampf", "probe":
 			if not ResourceLoader.exists("res://kampf/kampfort.gd"): return
 			await abblenden(1.0)
-			await kampf_im_wald(held.kachel, String(mit[0]), [] if was == "kampf" else [String(mit[1]), int(mit[2])])
+			var ende := await kampf_im_wald(held.kachel, String(mit[0]), [] if was == "kampf" else [String(mit[1]), int(mit[2])])
+			while ende == "AGAIN" and was == "probe":   # 1020.2 B: „Nochmal“ mit derselben Wahl
+				ende = await kampf_im_wald(held.kachel, String(mit[0]), [String(mit[1]), int(mit[2])])
+			# 1020.2 B: aus dem Reiter gestartet, führt „Zurück zum Testmenü“ dorthin (Tests rufen ohne das vierte Feld)
+			if was == "probe" and mit.size() > 3 and bool(mit[3]) and ende != "NONE": oeffne_menue("test")
 
 # 399.1 Schwarzblende mit Worten wie alt (Ortsblende, 24.1): auf der stehenden Blende Name und Satz, dann steigt der Ort auf;
 # [von] leer beim Spielbeginn, [erster] beim ersten Besuch. Ohne daten/intro.json wie bisher nur die Blende

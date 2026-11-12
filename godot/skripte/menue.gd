@@ -1524,7 +1524,7 @@ func system() -> void:
 	luecke(4)
 	gruppe(t.call("Kampf", "Combat"))
 	var blut := ["Aus", "Dezent", "Deutlich"] if de else ["Off", "Subtle", "Strong"]
-	var tempo := ["Ruhig", "Normal", "Schnell"] if de else ["Calm", "Normal", "Fast"]
+	var tempo := ["Ruhig", "Normal", "Schnell", "Sehr schnell"] if de else ["Calm", "Normal", "Fast", "Very fast"]   # 1020.2 C: das vierte nur im Testmodus
 	zeichenreihe([z_.call(t.call("Blut", "Blood"), blut[Bedienung.blut], t.call("Wie viel Blut Treffer zeigen. Antippen wechselt: Aus, Dezent, Deutlich.",
 			"How much blood hits show. Tap to change: off, subtle, strong."), spar.call(func(): Bedienung.blut = (Bedienung.blut + 1) % 3), Bedienung.blut > 0, "BLOOD"),
 		z_.call(t.call("Tempo", "Pace"), tempo[Bedienung.tempo], t.call("Wie schnell Züge und Zeilen im Kampf ablaufen. Antippen wechselt: Ruhig, Normal, Schnell.",

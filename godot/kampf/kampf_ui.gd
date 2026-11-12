@@ -716,7 +716,8 @@ func _build_orders() -> void:
 		# SkirmishScreen: beide gleich breit (Prüfer: „Nochmal“ breiter als „Zurück“)
 		# 399.2: aus dem Spiel (aufruf.gd) gibt es kein „Nochmal“, nur zurück in die Welt
 		if k.again_fn.is_valid():
-			orders.add_child(_row([_button(t("Nochmal", "Again"), true, func(): k.again()), _button(t("Zurück", "Back"), true, func(): k.finish())], 0, true))
+			var zt: Array = k.zurueck_text if k.zurueck_text.size() == 2 else ["Zurück", "Back"]     # 1020.2 B: „Zurück zum Testmenü“
+			orders.add_child(_row([_button(t("Nochmal", "Again"), true, func(): k.again()), _button(t(String(zt[0]), String(zt[1])), true, func(): k.finish())], 0, true))
 		else:
 			orders.add_child(_row([_button(t("Zurück", "Back"), true, func(): k.finish())], 0, true))
 		return
