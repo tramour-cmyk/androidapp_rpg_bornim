@@ -85,6 +85,8 @@ const SKELETT_KITS := ["schwert", "schild", "speer"]
 ## zombie (Lumpen, Leichenhemd, rostiges Kettenhemd), Krallen statt Waffe. Der Grabhund (kaufgrabhund.py, ersetzt den Ghul) hat
 ## eigene Häute in ghoul-info.json wie die Riesenspinne (eigene_haut)
 const WIEDERGAENGER := "zombie"
+## 995 Grabhund: Selbstleuchten der Augen (Anteil der gemalten Farbe), hell genug für den Schatten, ohne Lichthof
+const AUGE_GLUT := 0.7
 const WIEDERGAENGER_KITS := ["lumpen", "hemd", "kette"]
 ## Zweibeiner (Gerüst mit Waffen und Kits in <art>-info.json): Goblin, Späher, Grak, Krogg, Skelett, Wiedergänger
 const ZWEI := [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG, SKELETT, WIEDERGAENGER]
@@ -999,6 +1001,9 @@ func _paint(n: Node) -> void:
 			# 506 Grabhund (kaufgrabhund.py): Mähne und Schwanzhaar sind Haarkarten mit Durchsicht (glTF „MASK“); toon.gdshader schneidet aus
 			if src is BaseMaterial3D and (src as BaseMaterial3D).transparency == BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR:
 				m.set_shader_parameter("schnitt", (src as BaseMaterial3D).alpha_scissor_threshold)
+			# 995 (Chef 11.11., 20:58: „klar erkennbare Augen in einer klaren Farbe“): Stoff „Auge“ (kaufgrabhund.py) leuchtet leicht
+			if src != null and src.resource_name == "Auge":
+				m.set_shader_parameter("glow_tex", float(OS.get_environment("AUGE_GLUT")) if OS.has_environment("AUGE_GLUT") else AUGE_GLUT)
 			mi.set_surface_override_material(i, m)
 			mats.append(m)
 	for c in n.get_children():
