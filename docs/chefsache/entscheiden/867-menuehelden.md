@@ -36,4 +36,6 @@ Geprüft an: [Lauf 43246874141](https://github.com/tramour-cmyk/androidapp_rpg_b
 - **Kosten:** A eine Zeile Einbau, weicher Schein, Licht aufs Gesicht, Wachsoldatin so gedreht, dass der Schild zu sehen ist; alles im Umzugszweig, kein Lauf extra. B dasselbe plus deine Wahl. C nichts, aber das alte Bild bleibt Wochen.
 - **Empfehlung:** „867 A“, beim Einbau dazu Gesicht des Zauberlehrlings ins Licht und den Schild der Wachsoldatin sichtbar; Zwerg und Elfe kommen mit 431.
 
+**Nachtrag Sokrates (12.11., 18:25), Fund des Chefs 18:23:** „Der zweite von links und der zweite von rechts, also die 2 in der Mitte, schauen wieder aus von der Gesichtsform wie Brüder. 100%.“ Ursache im Code: `hauptmenue_helden.gd` `wahl()` nimmt nicht den Kopf der Herkunft (`HeldFigur.vorgabe`, 870.4), sondern für alle Männer dieselbe erste Frisur und gar keine Gesichtsform, also den gekauften Grundkopf. Zauberlehrling und Jägerkind haben darum dasselbe Gesicht; nur der Zwerg bekommt einen Bart. In der Erschaffung haben sie verschiedene Köpfe (hager mit Schnurrbart gegen schmal mit Zopf). „Dieselben Figuren wie in der Erschaffung“ stimmt also nicht. A heißt damit zusätzlich: Köpfe aus `HeldFigur.vorgabe` je Herkunft und Geschlecht. Wie verschieden die vier Gesichtsformen überhaupt sind, löst erst „Köpfe A“ (431, nach dem Umzug).
+
 Antwort:
