@@ -12,11 +12,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 ## Zu billigen
 
-Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers.
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [644a](billigen/644a-truhe-hoehle.md) | **Muss** | E Kampf | 12.11., 08:31 | Die fünf Waffen der Truhe vor Krogg bekommen Stufe 3, damit der Held sie im Kampf gegen Krogg tragen kann; sonst gilt 644a unverändert | Sokrates |
+Nichts offen.
 
 ## Anzusehen
 
