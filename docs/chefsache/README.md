@@ -306,7 +306,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1060 | M | Von Tom (Chef 12.11., 17:34 „Wieso dauern denn jetzt die Runs wieder so lange?“, Lauf 4324 | startbar |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 30631 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 14, Muss 13, startbar 1
+**Perikles** – offen 13, Muss 12, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -323,7 +323,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 896 | M | Von Jerry (870.5): Wächter meldet „TP“ als SRD-Begriff (886), Homer 870.14 und DESIGN-BRS | wartet auf Test/Build (gebaut) |
 | 919 | M | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): Regeln nachziehen: Testbitte auch bei rot | wartet auf 918 (startbar) |
 | 1019 | M | Von Sokrates (zu 1016): Ford startet sich am Neustart-Haken (200 Tsd., 383 A) neu statt be | Termin 13.11. 08:00 |
-| 1061 | M | Von Tom (Chef 12.11., 17:42): nach dem Umzug die großen relevanten Punkte sichten und ordn | startbar |
 
 **Diogenes** – offen 8, Muss 7, startbar 0
 
