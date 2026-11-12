@@ -111,6 +111,7 @@ static func ecke_dp(_vp: Viewport) -> float:
 ## alles ein schwarzes Band, so hoch wie die Kamera des Handys (Rand, 399.4, Ebene 119 über dem Kampf); der Kampf kannte es nicht
 ## und zeichnete die Zugleiste darunter. Dieselbe Höhe wie das Band (beim Start der Welt), sonst die sichere Fläche jetzt.
 var turns_top := 0.0     # Oberkante der Zugleiste (Test zugleiste_552)
+var turns_bottom := 0.0     # 997: Unterkante der Zugleiste
 func rand_oben() -> float:
 	return Rand.beim_start if Rand.beim_start >= 0.0 else Rand.oben(get_viewport())
 
@@ -1095,6 +1096,7 @@ func _draw_overlay() -> void:
 		lose_rect = Rect2()
 	else:
 		_draw_turns(sr)
+		_draw_bewegungen()
 		_draw_switches(sr)
 	# the roll over the one struck (RollTag)
 	var age := Time.get_ticks_msec() - roll_at
@@ -1964,6 +1966,39 @@ func _draw_turns(sr: Rect2) -> void:
 		var tc: Color = BRIGHT if now else (DIM if next else (TEXT if hero else WARN))
 		overlay.draw_string(font, Vector2(x + 7 * dp, y + h * 0.74), label, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, tc)
 		x += w + 3 * dp
+	turns_bottom = y + h
+
+
+## 997 (233, 288, 333; alt SkirmishScreen.kt 1315): nur im Testmodus unter der Zugleiste je Figur, die nicht ruht, „Name: Bewegung“,
+## die Fassung steht im Namen der Bewegung (Bibliothek „paket/…“ und Nummer), damit der Chef sie ablesen und weitergeben kann
+const RUHE_997 := ["", "Stehen", "Hocke", "Ruhelage"]
+func bewegungen() -> Array:
+	var out := []
+	for id in kampfort.figures:
+		var fig = kampfort.figures[id]
+		if not fig.visible or fig.anim == null or kampfort.shown.hp.get(id, fig.fighter.hp) <= 0:
+			continue
+		var a := String(fig.anim.current_animation)
+		if a in RUHE_997 or a in Figur.RUHE_GESTEN or "idle" in a.to_lower():
+			continue
+		out.append("%s: %s" % [fig.fighter.name(lang), a])
+	return out
+
+func _draw_bewegungen() -> void:
+	if not Testmodus.ist_an():
+		return
+	var lines := bewegungen()
+	if lines.is_empty():
+		return
+	var fs := sp(12)
+	var lh := fs * 1.3
+	var w := 0.0
+	for l in lines:
+		w = maxf(w, font.get_string_size(l, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x)
+	var r := Rect2(6 * dp, turns_bottom + 6 * dp, w + 12 * dp, lh * lines.size() + 4 * dp)
+	overlay.draw_rect(r, Color(0, 0, 0, 0.7))
+	for i in lines.size():
+		overlay.draw_string(font, Vector2(r.position.x + 6 * dp, r.position.y + 2 * dp + lh * (i + 0.78)), lines[i], HORIZONTAL_ALIGNMENT_LEFT, -1, fs, TEXT)
 
 
 ## Schalter unten rechts in der Szene: Raster (3×3-Gitter) und Würfel (fünf Augen), je 40 dp.
