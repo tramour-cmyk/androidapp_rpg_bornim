@@ -1,5 +1,7 @@
 # 1022 · Kartenrand weich ins Dunkel, vorher/nachher · Tom (Spike) · 12.11., 23:42
 
+[Bild von 12.11., 23:43](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/12-2343-1022-Spike.png) (eingetragen von meldung.sh, Spike)
+
 E Welt · Zweig `claude/spike-1022-kartenrand` · auf dem Bauserver mit Kaufmodellen, wie im Spiel
 
 Geprüft an: [Lauf 43310392064](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43310392064), [Commit 88c0b35](https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/88c0b353c)
