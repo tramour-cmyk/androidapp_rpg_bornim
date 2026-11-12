@@ -80,7 +80,7 @@
 | 689 | Dorf, Urteil Chef 25.10., 12:11 (aus 348.6, offen geblieben): Büsche über Dachfirsten, Laternenpfahl am Steg, Lichtstreifen nachts, Korn wie Gestrüppwiese, Schatten ohne Werfer, Flimmern, Südrand ohne Abschluss; erst prüfen, was in Godot heute noch gilt (zurückgeholt 675) | Tom | K | ruht, nach dem Durchspielen (488) | – | – | – | E Welt | – |
 | 613.2 | Zwischensequenzen: Bewegung sichtbar wie alt (Kerzenflackern, atmendes Licht, Staub im Strahl) und Fackelzug fehlt (Chef 08.11., 21:58 zu 613: „gesehen habe ich nichts“) | Tom | M | ruht, Kampf zuerst (338.1) | – | – | – | E Oberfläche | – |
 | 713 | Von Homer (586.1): Erklärfenster beim Gedrückthalten (menue.gd:1561) noch mit Goldrand und 14-sp-Kopf, gegen 549a (ohne Kasten) und 586a (Titel 22 sp) | Tom | K | ruht, Kampf zuerst (338.1) | – | – | – | E Oberfläche | – |
-| 757 | Schenke: neuer Tisch 7/2 (aus 604) wirkt als 1:1-Kopie des Tischs vor der Theke, gleiche Sachen darauf; eigener Tisch mit anderem Gedeck (Chef 09.11., 14:29) | Tom | M | in Arbeit, Lauf Bilder (8f335437c) | – | – | – | E Welt | – |
+| 757 | Schenke: neuer Tisch 7/2 (aus 604) wirkt als 1:1-Kopie des Tischs vor der Theke, gleiche Sachen darauf; eigener Tisch mit anderem Gedeck (Chef 09.11., 14:29) | Tom | M | in Arbeit, Lauf Bilder (8f335437c) | – | – | – | E Welt | 17,81 $ |
 | 758 | Borin soll in der Schenke am Tisch sitzen wie in der alten Fassung, nicht seitlich daneben stehen (Chef 09.11., 14:29) | Tom | M | in Arbeit, Lauf Film (920a030e7) | – | – | – | E Welt | 0,39 $ |
 | 764 | Heldenreiter zeigt aktive Zustände (betrunken usw.) mit Erklärung; Tippen auf die Leiste öffnet nur das Menü, eine Erklärung gibt es nirgends (Chef 09.11., 14:49) | Tom | M | gebaut, Geprüft an: 20bc52549, fährt im nächsten Build | – | claude/tom-764-zustaende | – | E Oberfläche | – |
 | 769 | Wochentermin 13.11.: Rollenspiegel Tom (rollenspiegel.sh Tom) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Tom | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
@@ -254,7 +254,6 @@
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
-| 1047 | Von Sokrates (1038 A, R1, Chef 12.11., 16:24): Texte Verband (stillt Blutung) und kurze Rast (nur Ausdauer, kein Leben) prüfen und anpassen, deutsch und englisch | Homer | M | erledigt | – | – | – | G Story | – |
 | Pflege | von Werkzeug (340.3, 12.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Homer | K | startbar | – | – | – | B Abläufe | – |
 | 870.12 | Von Sokrates (870, Umzug BRS): Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 neu fassen; nach Abnahme 868, 534, 467, 469, 644.1, 644.2, 644.4, 649.1, 811, 296, 344 schließen; LISTE-UMZUG-BRS.md 4 Schritt 9 | Perikles | M | wartet, 2.3 und 2.17 neu gefasst, Schließen nach Abnahme | 870.13 | – | – | B Abläufe | – |
 | 882.2 | 882 Werkzeuge ohne Kotlin: tools/t logik auf Godot-Logiksatz samt Kerntest-Marke, check-env, setup-session, probelauf, story.sh, startbar, Probe-Abläufe, vorschau.yml, Regeltexte; LISTE-UMZUG-BRS.md 8 | Perikles | M | startbar | 882.1 | – | – | B Werkzeuge | – |
@@ -277,7 +276,6 @@
 | 768 | Wochentermin 13.11.: Rollenspiegel Diogenes (rollenspiegel.sh Diogenes) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Diogenes | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 790 | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab 200 Tsd., Chef 09.11., 18:05) | Diogenes | M | startbar | 16.11. 18:07 | – | – | Q QM | – |
 | 905 | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zählen, wie viele wegen der Form zurückkommen (Liste „Vorlage an den Chef“), nicht je Build | Diogenes | M | startbar | 16.11. | – | – | Q QM | – |
-| 1020 | Testmenü für schnelle Tests: letzte Prüflisten auswerten, Vorschläge (Voreinstellungen Kampf, kein neuer Spielstand, kein Intro, kein Weg zu Altik; Chef 12.11., 07:55) | Sokrates | M | erledigt | – | – | – | E Oberfläche | – |
 | 887 | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus (dontAsk von auto aus abgelehnt; default mit Erlaubnisliste) (Chef 10.11., 16:25) · „jetzt“ 10.11., 16:25 | Sokrates | M | ruht, 887a zurückgestellt (Chef 16:53) | – | – | – | B Werkzeuge | – |
 | 870 | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen, Bau Tom und Jerry, Rest ruht (Chef 10.11., 14:03) | Sokrates | M | wartet, Vorgänge 870.2–870.16 angelegt | 870.13 | – | – | E Kampf | 80,19 $ |
 | 780 | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für unsere gekauften Protofactor-Animsets und Janpec, die KI-Sitzungen mit Skripten bearbeiten? (aus 623.1) | Sokrates | M | wartet, Protofactor ja 10.11., 04:48; offen Janpec | 23.11. | – | – | M Veröffentlichung | – |
@@ -338,7 +336,7 @@
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 767 | Wochentermin 13.11.: Rollenspiegel Ford (rollenspiegel.sh Ford) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Ford | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 906 | lauf.py startet Zusatzentwickler auf Zeilen, deren Zweig Umzugsdateien berührt (492 am 11.11., 08:04: claude/tom-492-durchspiel ändert spiel.gd; Grundsatz 5 LISTE-UMZUG-BRS, Zu 870.4 Sokrates 01:57); Sperre nach geänderten Dateien prüfen (von Spike) | Ford | M? | startbar | – | – | – | B Steuerung | – |
-| Pflege | von Werkzeug (340.3, 12.11.): 66455 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 12.11.): 66807 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
