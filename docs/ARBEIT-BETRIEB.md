@@ -393,3 +393,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 15:31 12.11.: Startsperre 15:31 Start Spike (lauf.py; Jerry-START „Pflege“ Kür nicht ausgeführt)
 - 15:31 12.11.: Marke Archiv session_01Hmoj76DJtggtnNPKMMxpU6 (lauf.py)
 - 15:31 12.11.: Marke Archiv session_01Hmoj784tSBD77EZUv1K4o1 (lauf.py)
+- 15:35 12.11.: Neustart-Meldung Tom 14:30 (1b05fb189 auf main, Nachfolger „Tom – 1022: Kartenrand aller Gebietskarten“): Tom 842 …76marbMeLGds3T3ePv lief noch (working) und hat keinen Weckruf, deshalb weder gestartet noch archiviert; Nachfolger beim nächsten Lauf, sobald 842 ruht. Gestartet: Spike …75iGtq9c9Q8reRo233 (1040.1 Leute drehen im Stehen, Chef-Fund 15:13); archiviert und gebucht: Spike 756 …784tSBD77EZUv1K4o1 (8,97 $). Offene Weckrufe nur bei Tuffy 1036 (1036, 1039, 1040): Tuffy nicht anfassen. Vor Archivieren `list_triggers` geprüft.
