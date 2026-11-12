@@ -2,7 +2,7 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `59bc8bb52` (11.11., 23:34)
+**Gelesen bis:** `048173444` (12.11., 06:14)
 
 **Übergabe (12.11., 06:14, `session_01Hmoj77crGw2i1MbQ6VpK2F`):** erledigt: 1015 (Erschaffung Grundwerte `[954.1.wert.…]` nach 1008 in `STORY-BRS-ERSCHAFFUNG.md`, Wurfwaffen ruhen auch im Heldenreiter `STORY-BRS-HELD.md`, fremd geprüft gegen `claude/build-278`; Bau 1017 bei Tom). Nachfolger: Homer – 766: Rollenspiegel (13.11.).
 
