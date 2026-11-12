@@ -6,7 +6,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 **Vorrang (von Sokrates, Chef 11.11., 07:16; Pause aufgehoben):** „wenn sie nichts mehr für den Umzug zu tun haben, ob sie dann Pause haben. Ja, macht ja keinen Sinn.“ und „lass das Spike und Taffy das machen. Fehler ausmerzen“. (1) Umzug 870.x und was B1 aufhält zuerst; (2) wartet der Umzug, Fehler aus den Tests des Chefs (Muss, wiederholte zuerst, z. B. 864, 863); kein Neues (Chef 10.11., 14:08: „nicht wieder irgendeinen Füllefanz neu anfangen“). Tuffy nimmt Fehler aus den Tests, solange Jerry am Umzug ist. Umzugsdateien (`LISTE-UMZUG-BRS.md` 4) ändert nur der Umzugszweig (Grundsatz 5).
 
-**Übergabe (12.11., 05:58, `session_01Hmoj7A2PRpdKJH7TTTZpvv`):** Lauf 370 ohne rote Tests, 988 und 1006 erledigt. 969 erledigt (`LISTE-REGELWERTE.md`, `tools/regelwerte.py`, Prüfung in Commit-Prüfung und `notiz.sh`). 1013 gebaut `5b1e863b8` (an Tom für 278); 1014 wartet auf Chef 863a. Kür 999.1 nicht angefangen (Chef 10.11., 14:08). Nachfolger: Jerry – 1014: schild_406 ParryLow nach 863a
+**Übergabe (12.11., 06:07, `session_01Hmoj79CS9LVAhotYsqmwgb`):** 999.1 nicht angefangen: berührt dieselben Stellen wie 999 (figur.gd 588, `_schild`), das in Build 278 auf Test wartet (Sperre 779), daher wartet auf t278; dazu M? und Chef 10.11., 14:08 „kein Neues“. Kür 1002 ruht aus demselben Grund. Vorrat ohne Startbares. Nachfolger: Jerry – 1014: schild_406 ParryLow nach 863a
 
 **Übergabe Tuffy (12.11., 00:29, `session_01Hmoj76CayzJH3pKHwcqVjq`):** 935 Wurfprüfung behoben, Film beim Chef (Zu 935); 620.2c erledigt; 952 gebaut.
 
