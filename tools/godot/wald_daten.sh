@@ -9,7 +9,7 @@ R=/home/user/androidapp_rpg_bornim; B=~/bl/bin/python
 mkdir -p $O
 for p in medieval-village-megakit stylized-nature-megakit fantasy-props-megakit; do [ -d ~/cc0/$p ] || PAKETE=$p bash $R/tools/blender348/v3/cc0_laden.sh ~/cc0; done
 cd $R
-[ -f $O/karten.json ] || ./gradlew -p core exportMaps -Pout=$O/karten.json -q
+cp godot/daten/karten.json $O/karten.json   # 882.1: seit 870.9 eingecheckt (tools/karten/karten.py), kein Gradle
 export KARTEN=$O/karten.json
 for s in tex held3 rig dorf; do [ -f $O/.$s ] || { OUT=$O $B -I tools/blender348/v3/$s.py > $O/$s.log 2>&1 && touch $O/.$s; } || { tail -30 $O/$s.log; exit 1; }; done
 for g in forest deep_forest; do [ -f $O/.$g ] || { OUT=$O KARTE=$g $B -I tools/blender348/v3/dorf.py > $O/$g.log 2>&1 && touch $O/.$g; } || { tail -30 $O/$g.log; exit 1; }; done
@@ -34,6 +34,5 @@ for k in leder kappe helm; do cp $O/goblin-$k.glb $K/goblin-$k.bin; done; cp $O/
 for k in kapuze kappe fell; do cp $O/goblin_archer-$k.glb $K/goblin_archer-$k.bin; done; cp $O/goblin_archer-info.json $K/
 for k in kappe schild fell; do cp $O/kobold-$k.glb $K/kobold-$k.bin; done; cp $O/kobold-info.json $K/
 for t in gras erde halme; do cp $O/tex/$t.png $K/$t.bild; done
-./gradlew -p core exportTexts -Pout=$D/texte.json -q
-./gradlew -p core exportHero -Pout=$D/held.json -q
+# 882.1: texte.json und held.json kommen mit godot/daten aus dem Repository (870.9)
 (cd $G && ~/godot/godot --headless --import --path . > $A/import.log 2>&1 || true)

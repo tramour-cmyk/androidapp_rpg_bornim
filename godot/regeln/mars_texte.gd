@@ -1,4 +1,4 @@
-# 348.7: erzeugt von tools/godot/mars_texte.py aus Skirmish.kt (Msg72, Msg130, Msg301, Msg279); nicht von Hand ändern.
+# 348.7: Kampfzeilen von MARS (einst aus Skirmish.kt Msg72, Msg130, Msg301, Msg279); seit 882.1 Quelle hier, Wortlaute nur über Homer.
 # Ein Text ist [de, en]; eine Zeile in mehreren Fassungen ist eine Liste davon (279).
 
 # Msg72
