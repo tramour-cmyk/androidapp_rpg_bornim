@@ -78,8 +78,8 @@ func _steht(f) -> bool:
 func _one(foe: String, s: int) -> Array:
 	seed(s)
 	var p = Probe.new()
-	p.hero_cls = "FIGHTER"
-	p.merc_cls = "CLERIC"
+	p.hero_cls = OS.get_environment("HERO") if OS.get_environment("HERO") != "" else "FIGHTER"
+	p.merc_cls = OS.get_environment("MERC") if OS.get_environment("MERC") != "" else "CLERIC"
 	p.foe = foe
 	root.add_child(p)
 	await process_frame
