@@ -57,6 +57,8 @@ alt_verweise=$(git grep -l -P "(?<![\w-])($altnamen)\.md" origin/main -- CLAUDE.
 # Wächter Bilder Chefsache (108, D15.4): höchstens 60 KB je Datei, höchstens 3 Bilder je Punkt; Größeres über Telegram.
 gross=$(git ls-tree -r -l origin/main docs/chefsache/ 2>/dev/null | awk '$4>61440 && $5 !~ /\.md$/ {print $5}')
 [ -n "$gross" ] && echo "Warnung (108): Datei über 60 KB in docs/chefsache/: $(echo $gross). Verkleinern (800 px, JPG/WebP) oder über Telegram (--datei), Verlauf bleibt."
+# Regelwerte (969): die Seite folgt werte.json und dem Spielcode auf main; nach dem Mischen eines Builds neu erzeugen.
+[ -f "$wt/tools/regelwerte.py" ] && ! python3 "$wt/tools/regelwerte.py" --pruefen > /dev/null 2>&1 && echo "Warnung (969): docs/LISTE-REGELWERTE.md veraltet (werte.json oder Spielcode auf main geändert); Team Jerry: python3 tools/regelwerte.py in $wt, committen."
 # Wächter Umbau 98 (15.10.) und 117 (16.10.): die alten Vorrats-, Rollen- und Listennamen dürfen nicht zurückkommen.
 altvoll='ARBEIT-OFFEN|ARBEIT-SELBST|ARBEIT-FORD|ROLLE-BERATER|ROLLE-FORD|ROLLE-ENTWICKLER|ROLLE-TESTER|ROLLE-TEAM|ARBEIT-ABLAEUFE|ARBEIT-UMGEBUNG|STORY-K1-W|STORY-K1|LISTE-THEMEN|DESIGN-ZWISCHENBILD|LISTE-KAPITEL1'
 alt98=$(git ls-tree --name-only origin/main docs/ 2>/dev/null | grep -E "^docs/($altvoll)\.md$")
