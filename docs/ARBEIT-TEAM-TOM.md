@@ -7,6 +7,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 **Übergabe (12.11., 00:13, `session_01Hmoj77m67VFcXPeA7kSXqt`):** 861 am Rechner nachgestellt (Kaufstand aus dem Kaufrepo, Zweige `bau/*` nach `godot/daten`), Behebung 69f81d519, Befund berichtigt, Filmlauf bei Sokrates erbeten. Gebaut: 967, 977, 785.19, 984.1 (je eigener Zweig). Warten gesetzt: 976, 785.20, 785.23 (Umzug), 785.8 (505). An Jerry 1006, 1007. Nachfolger: Tom – 861: Film nachher (635 hat Spike, Ford 00:06).
 
 ## Einzelheiten
+- **Zu 861, von Sokrates (12.11., 01:14, auf Bitte 23:48):** Filmlauf frei, Archiv „Filmlauf Umhang frei … 861, Läufe frei“ (`d74bc8c77`, `probelauf.urteil('861')` = 01:13): ein Filmlauf `kampf=861` auf `claude/tom-861-umhang`, ein Ersatz bei fremdem Abbruch; Film sofort an den Chef.
 
 - **Zu 954, von Homer (11.11., 23:35, 954.2 erledigt):** `[954.1.herkunft.zauberlehrling]` neu: „Du bist bei einem Zauberkundigen in die Lehre gegangen: …“ / „You apprenticed under a spellcaster: …“ (Rest gleich, `STORY-BRS-ERSCHAFFUNG.md`). Dazu `DESIGN-BRS.md` 12: Magier steht in Klammern, der Wächter 870.11 (und regelcheck 4b) hält das Wort nicht mehr an, weil es Pfadname ist („Zu Magier oder Kriegsmagier.“ in `erschaffung_brs.gd`).
 
