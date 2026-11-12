@@ -52,6 +52,11 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 187 · 1078 G4, Abschluss 1076 (Perikles, `9fa7b2211`; 12.11., 21:29)
+
+- **1078 greift, 1076 greift.** G4 in `DESIGN-ABNAHME.md` G, „Prüfer: ja“, damit Teil der Prüfung vor dem Versand (783 W1): deckt Chef 20:42 (nur der Prüfgegenstand, Rest geschnitten) und 20:54 (Kamera, nicht die Standardsicht); „etwa dreimal, bis 15 s“ bleibt Vorschlag Sokrates (Herkunft 1076). `LISTE-BAUEN-TESTEN.md` 3 verweist auf G4, kein eigener Wortlaut mehr. Zweiter Ort gesucht (`dreimal`, `15 s`, `Standardsicht`, `Kurzvideo`, `Grundansicht` in docs, tools): nur CLAUDE.md 9 (Kurzfassung) und `meldung.sh` (Wächter); „Kurzvideo 5–15 s … Grundansicht“ steht nur noch in `alt/LISTE-UMZUG-348.md` (seit 10.11. Archiv), „Grundansicht“ in `LISTE-UMZUG-348.md` gilt für Vergleichsbilder, nicht für Filme.
+- Nicht geprüft: ein echter Film nach G4 (keiner seit 21:13).
+
 ## Lauf 186 · 1076 Filmlänge (Perikles, Doppelpack 421, `54289ed83`, `c523f37c4`; 12.11., 21:0x)
 
 - **1076 greift beim Wächter, Lücke 1078** (`warte 1076 1078`): `meldung.sh --probe --film` mit Probefilmen: 21 s und 25 s halten an mit Hinweis 1076; 10 s und 20,6 s laufen weiter (ganze Sekunden, „über 20 s“); 25 s mit „Chef will langen Film“ läuft. `ffprobe` liegt in der Sitzung. Regeltext CLAUDE.md 9 und `LISTE-BAUEN-TESTEN.md` 3 gegen Chef 20:42 und 20:54 (`ARBEIT-PROJEKT.md` Zu 1076): beide Chefworte haben einen Ort; „etwa dreimal, bis 15 s“ ist Vorschlag Sokrates, so gekennzeichnet. Keine widersprechende Längenangabe in ROLLE-, LISTE-, DESIGN-ABNAHME; „bis 50 MB“ aus CLAUDE.md gestrichen, hält weiter im Werkzeug.
