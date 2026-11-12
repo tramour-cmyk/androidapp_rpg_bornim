@@ -13,7 +13,10 @@ func pruefe(ok: bool, was: String) -> void:
 
 func _initialize() -> void: _lauf.call_deferred()
 
+var platz1_vorher := false
+
 func _lauf() -> void:
+	platz1_vorher = FileAccess.file_exists(Spielstand.datei(1))
 	if FileAccess.file_exists(Pruefliste.DATEI):
 		var echt := Pruefliste.liste()
 		print("PRUEFLISTE1020 im Bau: Build %d, %d Zeilen" % [int(echt.get("build", 0)), Pruefliste.zeilen().size()])
@@ -58,5 +61,7 @@ func _lauf() -> void:
 				var felder := (ms[0] as Node).find_children("*", "LineEdit", true, false)
 				pruefe(felder.size() == 1 and (felder[0] as LineEdit).text == "kein Staub", "Wortfeld der aufgeklappten Zeile fehlt")
 	for n in ["9999.1", "9999.2", "9999.3"]: Pruefliste.setze(n, "")
+	# das Probespiel ohne Hauptmenü speichert in Platz 1; nicht liegen lassen (probekampf_1020 lief danach anders)
+	if not platz1_vorher: Spielstand.loesche(1)
 	print("PRUEFLISTE1020 %d Fehler" % fehler)
 	quit(1 if fehler > 0 else 0)

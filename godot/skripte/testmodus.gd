@@ -21,7 +21,7 @@ static func lade() -> void:
 	var c := ConfigFile.new()
 	if c.load(DATEI) != OK: return
 	an = bool(c.get_value("test", "an", false))
-	if an: _schalter_laden(c)
+	if an and DisplayServer.get_name() != "headless": _schalter_laden(c)   # Tests ohne Fenster laufen immer mit den Grundwerten
 
 static func umschalten() -> void:
 	lade()
@@ -41,8 +41,8 @@ static func _schalter() -> Dictionary:
 		"gras_kit": GrasBausatz.an, "lichtschaechte": KampfEffekte.an, "zoom": Kamera.test_kacheln, "schnell_herkunft": schnell_herkunft,
 		"eroeffnung": eroeffnung, "kampfort": kampfort, "probe_gegner": probe_gegner, "probe_stufe": probe_stufe}
 
-static func schalter_speichern() -> void:
-	if not an: return
+static func schalter_speichern(auch_ohne_fenster := false) -> void:
+	if not an or (DisplayServer.get_name() == "headless" and not auch_ohne_fenster): return   # Tests schreiben nichts in test.cfg
 	var c := ConfigFile.new()
 	c.load(DATEI)
 	var d := _schalter()

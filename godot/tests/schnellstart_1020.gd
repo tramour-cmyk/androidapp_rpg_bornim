@@ -52,7 +52,7 @@ func _lauf() -> void:
 	Testmodus.an = true
 	Herde.beachten_nicht = true
 	Held.schnell = 3.0
-	Testmodus.schalter_speichern()
+	Testmodus.schalter_speichern(true)
 	Herde.beachten_nicht = false
 	Held.schnell = 1.0
 	var c := ConfigFile.new()
@@ -60,8 +60,7 @@ func _lauf() -> void:
 	var an_vorher = c.get_value("test", "an", false)
 	c.set_value("test", "an", true)
 	c.save(Testmodus.DATEI)
-	Testmodus.geladen = false
-	Testmodus.lade()
+	Testmodus._schalter_laden(c)   # wie lade() am Gerät (ohne Fenster lädt lade() die Schalter nicht)
 	pruefe(Herde.beachten_nicht and Held.schnell > 1.0, "Schalter nach Neustart nicht wieder da")
 	c.load(Testmodus.DATEI)
 	c.set_value("test", "an", an_vorher)
@@ -73,5 +72,6 @@ func _lauf() -> void:
 	# 1020.1 E: Uhrzeit springt auf die nächste Zeit der Liste
 	pruefe(Testmodus.UHRZEITEN.has(20 * 60 + 30) and Testmodus.UHRZEITEN.has(10 * 60), "Uhrzeiten ohne 10 oder 20:30")
 	for n in [Testmodus.TESTPLATZ, Testmodus.LAGEPLATZ]: Spielstand.loesche(n)
+	for n in range(1, Spielstand.PLAETZE + 1): Spielstand.loesche(n)   # nichts für die folgenden Tests liegen lassen
 	print("SCHNELLSTART1020 %d Fehler" % fehler)
 	quit(1 if fehler > 0 else 0)
