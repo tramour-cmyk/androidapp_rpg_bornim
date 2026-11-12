@@ -12,7 +12,12 @@ const VFX := "res://addons/reeboo_vfx/"
 const FLAGGE := "res://addons/reeboo_surfaces/shaders/cloth_flag.gdshader"
 const ORTE := ["village", "inn", "shop"]   # Szene 1; Wald und Hoehle kommen mit Szene 3 (623.8 A)
 const RAUCH_K := 0.45                      # Kaminrauch des Pakets auf unseren Massstab (Haus gut 4 m, Rauch bisher 0,45-m-Flocken)
-const STAUB_K := 0.5                       # Fussstaub: der Held ist 1,8 m, die Vorlage fuer groessere Figuren
+# 814 (Fund t277.5, t277.12: „Ich finde das Staubwölkchen einfach nicht“), Lauf 362 gemessen: der Staub stösst bei jedem Schritt aus
+# (Vorlage autoplay, auto_free), war aber nicht zu sehen: Wölkchen 0,16-0,25 m (STAUB_K 0,5) bei Kamera 9 m, höchstens 34 % deckend,
+# grau wie die Erde und um 20 % dunkler (daempfe 0,8). Jetzt in der Grösse der Vorlage (0,32-0,5 m), anderthalbmal so deckend (gut die
+# Hälfte), am Tag in ihrer Helligkeit; abends wie bisher 40 % dunkler
+const STAUB_K := 1.0
+const STAUB_DECK := 1.5
 const FEDER_K := 0.35                      # Huhn statt Mensch
 const FACKEL_K := 0.6
 
@@ -104,8 +109,8 @@ static func nach_tusche(fx: Node) -> void:
 			m.render_priority = 1
 			gi.material_override = m
 
-## Leitbild 1: Farben der Vorlage entsaettigt und dunkler (Faktor auf den Farbverlauf: Saettigung s, Helligkeit v)
-static func daempfe(fx: Node, s: float, v: float) -> void:
+## Leitbild 1: Farben der Vorlage entsaettigt und dunkler (Faktor auf den Farbverlauf: Saettigung s, Helligkeit v, Deckung a)
+static func daempfe(fx: Node, s: float, v: float, a := 1.0) -> void:
 	for p in fx.find_children("*", "GPUParticles3D", true, false):
 		var pm := (p as GPUParticles3D).process_material as ParticleProcessMaterial
 		var gt := pm.color_ramp as GradientTexture1D
@@ -113,7 +118,7 @@ static func daempfe(fx: Node, s: float, v: float) -> void:
 		var g := gt.gradient.duplicate() as Gradient
 		for i in g.get_point_count():
 			var c := g.get_color(i)
-			g.set_color(i, Color.from_hsv(c.h, c.s * s, c.v * v, c.a))
+			g.set_color(i, Color.from_hsv(c.h, c.s * s, c.v * v, clampf(c.a * a, 0.0, 1.0)))
 		var nt := gt.duplicate() as GradientTexture1D
 		nt.gradient = g
 		pm.color_ramp = nt
@@ -355,7 +360,7 @@ func tritt(held: Node3D) -> void:
 	var p := h.global_position + rechts * 0.1 * tritt_seite
 	if not erde(p): return
 	var fx := setze("effects/footstep_dust.tscn", Vector3(p.x, 0.02, p.z), STAUB_K * (1.3 if cur.begins_with("Rennen") else 1.0))
-	if fx: daempfe(fx, 0.7, 0.8 - 0.4 * nacht_k)
+	if fx: daempfe(fx, 0.8, 1.0 - 0.4 * nacht_k, STAUB_DECK)
 
 func erde(p: Vector3) -> bool:
 	var img := Gebiet.maske_bild(gebiet.karte.id)

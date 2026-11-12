@@ -485,6 +485,12 @@ func frei_fuer_mich(t: Vector2i, held_da := false) -> bool:
 # zu Kachel weitergeht, stand bisher ein Bild lang (Stehen 0,25 s angespielt, dann Gehen 0,18 s an zufaelliger Stelle: Sprung je
 # Kachel). Jetzt entscheidet sie erst, ob sie weitergeht; nur wer stehen bleibt, blendet in die Pause
 func _process(dt: float) -> void:
+	# 814 (Chef 11.11., 16:14: „der Held steht direkt beim Hühnchen. Da passiert halt einfach wieder nichts“): auch unterwegs; vorher
+	# prüfte nur ein stehendes Tier die Flucht, ein Huhn auf seinem Streifgang (langsam, gut die Hälfte der Zeit) floh nie. MapHen
+	# prüft jedes Bild (near < SHY); das Tier bricht den Schritt ab, fliehe() wählt die Kachel weg vom Helden
+	if ziel.x >= 0 and not flucht and kann_fliehen() and held_abstand() < FLUCHT_NAH:
+		ziel = Vector2i(-1, -1)
+		weg.clear()
 	if ziel.x >= 0:
 		laufe(dt)
 		return
@@ -554,8 +560,11 @@ func held_abstand() -> float:
 	return Vector2(held.position.x - position.x, held.position.z - position.z).length() / Karte.TS
 
 # 591 (MapHen.at FLEE): true, wenn das Tier jetzt eine Kachel weiter vom Helden weg rennt (ziel gesetzt)
+func kann_fliehen() -> bool:
+	return daten.has("tier") and String(daten["tier"]) in FLIEHEN and not still and da and not drinnen
+
 func fliehe() -> bool:
-	if not daten.has("tier") or not String(daten["tier"]) in FLIEHEN or still or not da or drinnen:
+	if not kann_fliehen():
 		return false
 	var a := held_abstand()
 	if not flucht and a >= FLUCHT_NAH: return false
@@ -567,14 +576,19 @@ func fliehe() -> bool:
 		ruhe_bis = -1.0
 		return false
 	var n := flucht_kachel()
-	if n.x < 0:
-		# eingeklemmt (MapHen stuck: „alert“): bleibt stehen, bis der Weg frei ist oder der Held geht
-		if flucht: warte = 0.3
-		return false
+	# 814: aufgeschreckt ist es immer, auch eingeklemmt (MapHen: FLEE schon bei near < SHY, stuck zeigt „alert“); vorher blieb ein
+	# Huhn in der Ecke am Stall (Bäume, Wasser, das zweite Huhn, die Leine) ohne Laut, Federn und Haltung einfach stehen
 	if not flucht:
 		flucht = true
 		if String(daten["tier"]) == "huhn" and DorfEffekte.jetzt: DorfEffekte.jetzt.federn(global_position)   # 814 Federn (R4)
-		tempo_jetzt = maxf(tempo_jetzt, flucht_tempo() * 0.6)   # aufgeschreckt: gleich mit Schwung
+	if n.x < 0:
+		# eingeklemmt (MapHen stuck: „alert“): steht wachsam mit erhobenem Kopf, bis der Weg frei ist oder der Held geht
+		warte = 0.3
+		if pause != "Stehen":
+			pause = "Stehen"
+			ruhe_bis = -1.0
+		return false
+	if ziel.x < 0 and tempo_jetzt < flucht_tempo() * 0.6: tempo_jetzt = flucht_tempo() * 0.6   # aufgeschreckt: gleich mit Schwung
 	ziel = n
 	weg.clear()
 	return true
