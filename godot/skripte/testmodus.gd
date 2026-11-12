@@ -21,13 +21,49 @@ static func lade() -> void:
 	var c := ConfigFile.new()
 	if c.load(DATEI) != OK: return
 	an = bool(c.get_value("test", "an", false))
+	if an: _schalter_laden(c)
 
 static func umschalten() -> void:
 	lade()
 	an = not an
 	var c := ConfigFile.new()
+	c.load(DATEI)
 	c.set_value("test", "an", an)
+	if not an and c.has_section("schalter"): c.erase_section("schalter")   # 1020.1 E: aus heißt alles wieder auf Anfang beim nächsten Start
 	c.save(DATEI)
+
+# 1020.1 E (Chef 12.11., 08:09; Vorlage 1020 E): die Schalter des Reiters bleiben über einen Neustart der App, bis der Testmodus aus ist.
+# Gespeichert nach jedem Antippen im Reiter (reiter() baut nach jedem Tippen neu); Tiere nicht (Modelle am Ort, kein Schalter)
+static func _schalter() -> Dictionary:
+	var Mars = load("res://regeln/mars.gd")
+	return {"bildrate": bildrate, "standort": standort, "klang": klang, "unsterblich": Mars.held_unsterblich, "schnell": Held.schnell > 1.0,
+		"beachten_nicht": Herde.beachten_nicht, "alles_sichtbar": alles_sichtbar, "krit": Mars.held_immer_krit, "ohne_rettung": Mars.gegner_ohne_rettung,
+		"gras_kit": GrasBausatz.an, "lichtschaechte": KampfEffekte.an, "zoom": Kamera.test_kacheln, "schnell_herkunft": schnell_herkunft,
+		"eroeffnung": eroeffnung, "kampfort": kampfort, "probe_gegner": probe_gegner, "probe_stufe": probe_stufe}
+
+static func schalter_speichern() -> void:
+	if not an: return
+	var c := ConfigFile.new()
+	c.load(DATEI)
+	var d := _schalter()
+	for k in d: c.set_value("schalter", k, d[k])
+	c.save(DATEI)
+
+static func _schalter_laden(c: ConfigFile) -> void:
+	if not c.has_section("schalter"): return
+	var g := func(k: String, v): return c.get_value("schalter", k, v)
+	var Mars = load("res://regeln/mars.gd")
+	bildrate = bool(g.call("bildrate", false)); standort = bool(g.call("standort", false)); klang = bool(g.call("klang", false))
+	Mars.held_unsterblich = bool(g.call("unsterblich", false))
+	Held.schnell = 3.0 if bool(g.call("schnell", false)) else 1.0
+	Herde.beachten_nicht = bool(g.call("beachten_nicht", false))
+	alles_sichtbar = bool(g.call("alles_sichtbar", false))
+	Mars.held_immer_krit = bool(g.call("krit", false)); Mars.gegner_ohne_rettung = bool(g.call("ohne_rettung", false))
+	GrasBausatz.an = bool(g.call("gras_kit", GrasBausatz.an)); KampfEffekte.an = bool(g.call("lichtschaechte", KampfEffekte.an))
+	Kamera.test_kacheln = float(g.call("zoom", 0.0))
+	schnell_herkunft = String(g.call("schnell_herkunft", schnell_herkunft))
+	eroeffnung = String(g.call("eroeffnung", eroeffnung)); kampfort = String(g.call("kampfort", kampfort))
+	probe_gegner = String(g.call("probe_gegner", probe_gegner)); probe_stufe = int(g.call("probe_stufe", probe_stufe))
 
 static func ist_an() -> bool:
 	lade()
@@ -48,6 +84,7 @@ const HERKUENFTE := ["Wachsoldat", "Zauberlehrling", "Herumtreiber", "Klostersch
 
 static var waffen_auf := false
 # 1020.1 A: Schnellstart und Lage merken je auf einem eigenen Platz hinter den vier des Spielers (Spielstand.PLAETZE), nie auf seinem
+const UHRZEITEN := [8 * 60, 10 * 60, 12 * 60, 19 * 60, 20 * 60 + 30, 21 * 60, 23 * 60]   # 1020.1 E: Zeiten der Prüflisten
 const TESTPLATZ := 9
 const LAGEPLATZ := 8
 static var schnell_herkunft := "Wachsoldat"
@@ -165,6 +202,7 @@ static func name_von(base: String) -> String:
 # wie im Menü „System“ (zeichenknopf.gd): Name, Wert in Gold, Antippen tut es, Gedrückthalten erklärt; Listen (Waffen, Gegner) bleiben
 # Knöpfe mit dem Namen, weil der Name dort der Inhalt ist
 static func reiter(m: Menue) -> void:
+	schalter_speichern()   # 1020.1 E: nach jedem Antippen (der Reiter baut danach neu)
 	var de := Sprache.aktiv() == "de"
 	var t := func(d: String, e: String) -> String: return d if de else e
 	var an_aus := func(b: bool) -> String: return t.call("an", "on") if b else t.call("aus", "off")
@@ -251,10 +289,15 @@ static func reiter(m: Menue) -> void:
 				paar.append([(name_von(w) if w != "" else t.call("Ohne Waffe", "No weapon")) + (" ²" if zwei else ""), func(): waffe(hw, z, w); waffen_auf = false; m.baue()])
 			reihe.call(paar)
 	m.gruppe(t.call("Welt", "World"))
-	m.zeichenreihe([zk.call(t.call("Uhrzeit", "Time"), "%02d:%02d" % [z.minuten / 60, z.minuten % 60], t.call("Stellt die Uhr drei Stunden vor.", "Moves the clock three hours on."),
+	# 1020.1 E (Vorlage 1020 E: die Listen wollen 10:00, 20:30, „nach 18 Uhr“): die Uhr direkt auf die nächste Zeit der Liste
+	m.zeichenreihe([zk.call(t.call("Uhrzeit", "Time"), "%02d:%02d" % [z.minuten / 60, z.minuten % 60], t.call("Stellt die Uhr auf die nächste dieser Zeiten: 8, 10, 12, 19, 20:30, 21, 23 Uhr.",
+			"Sets the clock to the next of these times: 8, 10, 12, 19, 20:30, 21, 23 o'clock."),
 			func():
-				var alle_ := z.minuten + 3 * 60   # Game.cheatTime
-				z.tag += alle_ / (24 * 60); z.minuten = alle_ % (24 * 60), "CLOCK"),
+				var naechste := -1
+				for u in UHRZEITEN:
+					if u > z.minuten: naechste = u; break
+				if naechste < 0: z.tag += 1; naechste = UHRZEITEN[0]
+				z.minuten = naechste, "CLOCK"),
 		zk.call(t.call("Kartenzoom", "Map zoom"), zoom_name(t), t.call("Wie viele Kacheln die Karte quer zeigt, in vier Stufen wie alt; „Bedienung“ heißt wie unter System, Bedienung.",
 			"How many tiles the map shows across, in four steps as before; “Controls” means as set under System, Controls."), func():
 				Kamera.test_kacheln = ZOOM_KACHELN[(ZOOM_KACHELN.find(Kamera.test_kacheln) + 1) % ZOOM_KACHELN.size()]

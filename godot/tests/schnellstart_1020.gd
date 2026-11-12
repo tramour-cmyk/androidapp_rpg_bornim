@@ -47,6 +47,31 @@ func _lauf() -> void:
 	spiel.zustand.setze("kampf_hinweis_reihe")
 	spiel.test_tat("einmaliges", [])
 	pruefe(not spiel.zustand.has("eingebung_POUNCE") and not spiel.zustand.has("kampf_hinweis_reihe"), "Einmaliges nicht zurückgesetzt")
+	# 1020.1 E: Schalter bleiben über einen Neustart (neu geladen aus user://test.cfg), solange der Testmodus an ist
+	var war := Testmodus.an
+	Testmodus.an = true
+	Herde.beachten_nicht = true
+	Held.schnell = 3.0
+	Testmodus.schalter_speichern()
+	Herde.beachten_nicht = false
+	Held.schnell = 1.0
+	var c := ConfigFile.new()
+	c.load(Testmodus.DATEI)
+	var an_vorher = c.get_value("test", "an", false)
+	c.set_value("test", "an", true)
+	c.save(Testmodus.DATEI)
+	Testmodus.geladen = false
+	Testmodus.lade()
+	pruefe(Herde.beachten_nicht and Held.schnell > 1.0, "Schalter nach Neustart nicht wieder da")
+	c.load(Testmodus.DATEI)
+	c.set_value("test", "an", an_vorher)
+	if c.has_section("schalter"): c.erase_section("schalter")
+	c.save(Testmodus.DATEI)
+	Testmodus.an = war
+	Herde.beachten_nicht = false
+	Held.schnell = 1.0
+	# 1020.1 E: Uhrzeit springt auf die nächste Zeit der Liste
+	pruefe(Testmodus.UHRZEITEN.has(20 * 60 + 30) and Testmodus.UHRZEITEN.has(10 * 60), "Uhrzeiten ohne 10 oder 20:30")
 	for n in [Testmodus.TESTPLATZ, Testmodus.LAGEPLATZ]: Spielstand.loesche(n)
 	print("SCHNELLSTART1020 %d Fehler" % fehler)
 	quit(1 if fehler > 0 else 0)
