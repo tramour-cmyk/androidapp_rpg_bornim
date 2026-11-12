@@ -136,7 +136,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 814 | M | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staub im Licht, Fußstaub, Fahne, Wind, | wartet auf Test/Build (gebaut) |
 | 831 | M | Bildtafel Bäume: vier Arten aus Stylized Nature MegaKit frei (gewöhnlich, abgestorben, Kie | wartet auf Test (Build 280) |
 | 839 | K | Von Homer (817): Erklärtexte der Grundwerte im Reiter Held nach BRS einbauen, Texte STORY- | ruht |
-| 842 | M | Von Sokrates (807a A, Chef 10.11., 11:01): Pim überreden und Verband nach STORY-K1-FERTIGK | wartet auf Test/Build (gebaut) |
+| 842 | M | Von Sokrates (807a A, Chef 10.11., 11:01): Pim überreden und Verband nach STORY-K1-FERTIGK | Chef (Datei in der Chefsache) |
 | 852 | K | Von Homer (432a A, Chef 10.11., 12:05): Aschgeborene bauen: Modell Mensch mit aschgrauer S | ruht |
 | 856 | M | Von Sokrates (Chef 10.11., 12:51, Fund t274, Bild): Zwischensequenz: Rückfrage „Überspring | wartet auf Test (Build 280) |
 | 860 | M | Von Sokrates (Chef 10.11., 13:07, t274.10 „Ja“): Chronik (Hauptauftrag, Aufträge, Bisher g | wartet auf Test/Build (gebaut) |
