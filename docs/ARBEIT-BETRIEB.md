@@ -343,3 +343,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:04 12.11.: Startsperre 07:04 Start Perikles (lauf.py)
 - 07:04 12.11.: Marke Archiv session_01Hmoj75W8e6YMkpd4gxoni7 (lauf.py)
 - 07:04 12.11.: Nachfolger-Warnung Jerry (Übergabe 12.11., 06:07) (lauf.py)
+- 07:21 12.11.: Startsperre 07:21 Start Tom (Neustart-Meldung d21503672, Nachfolger „Tom – 1012: Build 278 rote Tests und Testbitte“)
