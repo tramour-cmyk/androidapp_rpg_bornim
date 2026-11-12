@@ -14,6 +14,10 @@ func _lauf() -> void:
 	var herkunft := OS.get_environment("HERKUNFT") if OS.get_environment("HERKUNFT") != "" else "Klosterschüler"
 	Testmodus.probe_zug = ""; Testmodus.probe_ausweichen = true
 	Mars.test_erzwungen.clear()
+	if OS.get_environment("FILM") == "" or DisplayServer.get_name() == "headless":
+		# wie wolf_mess_438: ohne Fenster sonst 2340 × 936 quer, _im_bild verwarf jeden Schritt (1043)
+		DisplayServer.window_set_size(Vector2i(1080, 2340))
+		root.size = Vector2i(1080, 2340)
 	var spiel = load("res://spiel.tscn").instantiate()
 	root.add_child(spiel)
 	for i in 5: await process_frame

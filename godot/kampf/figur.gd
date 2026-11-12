@@ -4504,8 +4504,81 @@ func dodge(after_ms: int, nm := "") -> void:
 			tween.tween_callback(_nach_ausweichen)
 			return
 	_reichweite_merken("Ausweichen")
+	# 1043 (Chef 12.11., 15:52, t278.33: „davon hab ich nix gesehen. Da weicht nichts“; Archiv „1043a B“): Held und Söldner wichen
+	# 0,46 s auf der Stelle aus, der Fuß wanderte nicht; jetzt ein Schritt weg vom Angreifer, dann zurück an den Platz
+	if fighter.monster == null and not down and not lunging() and _ausweichen_schritt():
+		return
 	_play("Ausweichen", 0.05)
 	get_tree().create_timer(0.45).timeout.connect(_idle_wenn_frei)
+
+
+## 1043: Held und Söldner (ohne Wurzelweg) weichen mit der Bewegung „Ausweichen“ einen raschen Schritt zurück, gerade oder schräg, wo
+## der Rumpf frei bleibt und die Figur im Bild; nach der Bewegung kurz stehen, dann zurück an den Platz (_walk_home); false, wenn
+## nirgends Platz ist (dann wie bisher auf der Stelle)
+const AUSWEICH_SCHRITT_M := 0.7    # Modellmeter (× Größe): ein großer Schritt, deutlich mehr als die Neigung am Ort
+const AUSWEICH_SCHRITT_S := 0.28   # s für den Schritt: rasch los, sanft auslaufen
+const AUSWEICH_STEHEN_S := 0.35    # s stehen bleiben, bevor er zurückgeht (sonst wirkt es wie ein Zucken)
+func _ausweichen_schritt() -> bool:
+	var nm := "Ausweichen" if anim and anim.has_animation("Ausweichen") else String(ALIAS.get("Ausweichen", ""))
+	if nm == "" or anim == null or not anim.has_animation(nm):
+		return false
+	var g0 := minf(_rumpf_luft(position, rotation.y), PLATZ_LUFT)
+	var fz := Vector3(basis.z.x, 0.0, basis.z.z).normalized()
+	var blick := Vector3(sin(rotation.y), 0.0, cos(rotation.y))
+	var weit := AUSWEICH_SCHRITT_M * _scale()
+	# reihum schräg links, schräg rechts zurück (mindestens drei Varianten, DESIGN-LEITBILD 2), gerade nur, wenn beide nicht gehen
+	var seiten: Array = [35.0, -35.0, 0.0, 60.0, -60.0] if (ausweich_nr + hash(String(fighter.id))) % 2 == 0 else [-35.0, 35.0, 0.0, -60.0, 60.0]
+	# Held und Söldner stehen am Rand des Bilds (der Kasten aus _im_bild war schon am Platz draußen): der Schritt darf nur nicht
+	# weiter hinaus führen als jetzt (Mitte der Figur, Rand 8 % der Breite) und nicht in einen anderen (Luft ≥ 0 oder nicht enger)
+	var sr: Rect2 = kampfort.scene_rect()
+	var rand := func(q: Vector3) -> float:
+		var sp: Vector2 = kampfort.screen_of(q)
+		return minf(minf(sp.x, sr.size.x - sp.x), sr.size.y - sp.y)
+	var r0: float = minf(rand.call(position), 0.08 * sr.size.x)
+	var luft0 := minf(g0, 0.0)
+	for w in seiten:
+		var ziel := position - fz.rotated(Vector3.UP, deg_to_rad(w)) * weit
+		var frei := true
+		for i in range(1, 6):
+			var p := position.lerp(ziel, i / 5.0)
+			if _rumpf_luft(p, rotation.y) < luft0 or float(rand.call(p)) < r0:
+				frei = false
+				break
+		if not frei:
+			continue
+		bahn = [ziel]
+		_play(nm, 0.05)
+		var l: float = anim.get_animation(nm).length
+		tween = create_tween()
+		tween.tween_property(self, "position", ziel, AUSWEICH_SCHRITT_S).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+		tween.tween_interval(maxf(0.0, l - AUSWEICH_SCHRITT_S))
+		tween.tween_callback(_idle)     # sonst stand er in der letzten Haltung des Ausweichens still
+		tween.tween_interval(AUSWEICH_STEHEN_S)
+		tween.tween_callback(_schritt_heim)
+		if OS.get_environment("SCHAU_MESS") != "":
+			print("Ausweichen %s Schritt %.0f°, %.2f m" % [fighter.id, w, weit])
+		return true
+	return false
+
+
+## 1043: nach dem Ausweichschritt vorwärts zurück an den Platz, das Gesicht zum Gegner (wie _back_home, nur vorwärts: der Platz liegt
+## vor ihm); mit Schild im Gang des Schildsatzes
+const AUSWEICH_HEIM_S := 0.7
+func _schritt_heim() -> void:
+	if down:
+		return
+	var way := Vector2(home.x - position.x, home.z - position.z).length()
+	if way < 0.05:
+		position = home
+		_idle()
+		return
+	var g := _gang_ss("Gehen")
+	if anim and anim.has_animation(g):
+		anim.play(g, 0.12, clampf(way / AUSWEICH_HEIM_S / (_held_mps(g) if kauf else WALK_MPS), 1.0, WALK_MAX))
+	bahn = [home]
+	tween = create_tween()
+	tween.tween_property(self, "position", home, AUSWEICH_HEIM_S).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_callback(func(): bahn = []; _face(); _idle())
 
 
 ## 988 (wolf_mess_438 Lauf 369, CLERIC ohne Schild nach BRS, Bild 1330: Ausweichen auf der Stelle, die Brust neigt sich 11 px über
