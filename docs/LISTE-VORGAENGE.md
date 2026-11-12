@@ -286,7 +286,7 @@
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
 | 644.5 | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noch aus den Katalogen (keine alten Datenwege), Seiten auffindbar für den Chef, Stichprobe im Spiel (Chef 08.11., 14:30) | Diogenes | M | startbar | 644.1, 644.2, 644.4, 649.2, 649.3 | – | – | Q QM | – |
-| 768 | Wochentermin 13.11.: Rollenspiegel Diogenes (rollenspiegel.sh Diogenes) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Diogenes | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
+| 768 | Wochentermin 13.11.: Rollenspiegel Diogenes (rollenspiegel.sh Diogenes) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Diogenes | M | erledigt | – | – | – | B Abläufe | – |
 | 790 | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab 200 Tsd., Chef 09.11., 18:05) | Diogenes | M | startbar | 16.11. 18:07 | – | – | Q QM | – |
 | 905 | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zählen, wie viele wegen der Form zurückkommen (Liste „Vorlage an den Chef“), nicht je Build | Diogenes | M | startbar | 16.11. | – | – | Q QM | – |
 | Spiegel | von Werkzeug (340.3, Rollenspiegel Woche 13.11.): `tools/rollenspiegel.sh Sokrates` zeigt die Fragen; Antwort mit `--antwort` anhängen, committen, pushen | Sokrates | M | startbar | – | – | – | B Abläufe | – |
