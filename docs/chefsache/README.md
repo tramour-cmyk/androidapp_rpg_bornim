@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [867](entscheiden/867-menuehelden.md) | **Muss** | G Stil | 12.11., 17:20 | Das Hauptmenü zeigt die Figuren des Spiels selbst: Wachsoldatin (Mensch), Zauberlehrling (Mensch), Jägerkind (Zwerg), Klosterschülerin (Elf). Sind es diese vier? | Tom |
 | [1048](entscheiden/1048-ring.md) | M? | E Kampf | 12.11., 16:41 | Heute kommt der Ring nur bei Grak, der Spinne und beim Decken; Wölfe, Grimmzahn und Krogg greifen ohne Ring an. Vorschlag: Ring bei jedem großen Schlag der Gegner, dazu ein Ring beim eigenen Angriff, der nur belohnt. | Sokrates |
 
 ## Zu billigen
@@ -25,6 +26,7 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [756](ansehen/756-merkmale.md) | Merkmale der Ausrüstung: Güte und Zustand am Bild | – | 12.11., 14:21 |
+| [757](ansehen/757-schenkentisch.md) | Schenke: jeder Tisch mit eigenem Gedeck | Tom | 12.11., 17:20 |
 | [842](ansehen/842-knopf.md) | Pim heimschicken und Verband: Knopf im Gespräch, Bild des Verbands | – | 12.11., 15:30 |
 | [995](ansehen/995-grabhund.md) | Grabhund: Augen, Kopf und Körper lesbar | – | 12.11., 14:35 |
 
@@ -51,7 +53,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 | 1057 | M | Von Jerry (1049): Ansage des Grundangriffs je Art ohne eigene (heute alle „Stich“): Krogg | startbar |
 
-**Tom** – offen 113, Muss 93, startbar 7
+**Tom** – offen 113, Muss 93, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -124,7 +126,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 689 | K | Dorf, Urteil Chef 25.10., 12:11 (aus 348.6, offen geblieben): Büsche über Dachfirsten, Lat | ruht |
 | 613.2 | M | Zwischensequenzen: Bewegung sichtbar wie alt (Kerzenflackern, atmendes Licht, Staub im Str | ruht |
 | 713 | K | Von Homer (586.1): Erklärfenster beim Gedrückthalten (menue.gd:1561) noch mit Goldrand und | ruht |
-| 757 | M | Schenke: neuer Tisch 7/2 (aus 604) wirkt als 1:1-Kopie des Tischs vor der Theke, gleiche S | startbar |
+| 757 | M | Schenke: neuer Tisch 7/2 (aus 604) wirkt als 1:1-Kopie des Tischs vor der Theke, gleiche S | Chef (Datei in der Chefsache) |
 | 758 | M | Borin soll in der Schenke am Tisch sitzen wie in der alten Fassung, nicht seitlich daneben | startbar |
 | 764 | M | Heldenreiter zeigt aktive Zustände (betrunken usw.) mit Erklärung; Tippen auf die Leiste ö | wartet auf Test/Build (gebaut) |
 | 769 | M | Wochentermin 13.11.: Rollenspiegel Tom (rollenspiegel.sh Tom) (719); deckt 02.–13.11., Woc | Termin 13.11. 08:00 |
@@ -137,7 +139,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 852 | K | Von Homer (432a A, Chef 10.11., 12:05): Aschgeborene bauen: Modell Mensch mit aschgrauer S | ruht |
 | 860 | M | Von Sokrates (Chef 10.11., 13:07, t274.10 „Ja“): Chronik (Hauptauftrag, Aufträge, Bisher g | wartet auf Test/Build (gebaut) |
 | 861 | M | Von Sokrates (Chef 10.11., 13:12, Bild t274.14): Umhang des Kämpfers im Kampf rechts am Rü | ruht |
-| 867 | M | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die | startbar |
+| 867 | M | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die | Chef (Datei in der Chefsache) |
 | 882.1 | M | Von Perikles (882, Umzug BRS Schritt 8): mit 870.9 auch godot-kampf.yml 41 (exportIntro) a | startbar |
 | 964 | M | Von Tom (Zu 870.4, Homer 14:15): Metall sperrt Evokation, Illusion, Beschwörung im Kampf; | wartet auf Test (Build) |
 | 966.2 | M | Von Sokrates (966 A neu, Chef 11.11., 15:58): Kochen und Alchemie mit Ring wie Knacken (DE | wartet auf 870 (wartet) |
