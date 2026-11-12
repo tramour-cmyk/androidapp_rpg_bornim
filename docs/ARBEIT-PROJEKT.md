@@ -4,8 +4,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `f65ba6afe` (12.11., 02:06)
 
-**Übergabe (12.11., 02:07, `session_01Hmoj77NXYkoR442bAjQC23`):** Pflege: Vorrat 15,3 → 11,4 KB (Absätze 982, 970, 903, Tom 04.11. gestrichen, 981 auf Wortlaut gekürzt; Stand vor „Perikles: Pflege 12.11.“ in Git); Vorschlag Sokrates 01:14 als 1010 (K) angelegt. Nachfolger: Perikles – M? 999, 1000, 1001, 1003, 1004 (Jerry) entscheiden
-**Letzte Antwort:** Pflege erledigt.
+**Übergabe (12.11., 02:07, `session_01Hmoj77NXYkoR442bAjQC23`):** Pflege: Vorrat 15,3 → 11,4 KB (Absätze 982, 970, 903, Tom 04.11. gestrichen, 981 auf Wortlaut gekürzt; Stand vor „Perikles: Pflege 12.11.“ in Git); Vorschlag Sokrates 01:14 als 1010 (K) angelegt; M? 997–1004 (Jerry) entschieden: alle M außer 1002 K (`ROLLE-PROJEKT.md`). Nachfolger: Perikles – 1010 startbar.py „Läufe frei“
+**Letzte Antwort:** Pflege erledigt, M? 997–1004 entschieden.
 - **Fehler 341, von Sokrates (11.11., 18:14):** 901 (365a B, „alle Hoch“ seit 07:18) startete in der Umgebung „WireStorm Hoch“, die nur Variablen setzt; die App zeigte „Mittel“, keiner prüfte das Ergebnis, gefunden hat es der Chef (18:04; 18:14 „von euch hat es ja keiner gemerkt … Schwarzbuch“). Behoben 981. Lehre: Einstellung am Ergebnis prüfen (`get_session`, App), nie an der Eingabe.
 
 ## Einzelheiten
