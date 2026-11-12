@@ -1075,7 +1075,7 @@ func _knopf_gewaehlt(nr := 0) -> void:
 		var p: Dictionary = k["probe"]
 		var fert := String(p["fert"])
 		var fs := zustand.fertigkeiten_stand()
-		var chance := Geschichte.probe_chance(fert, BrsFertigkeit.wert(fs, fert) if not fs.is_empty() else 0, String(p["gegen"]))
+		var chance := Geschichte.probe_chance(fert, BrsFertigkeit.wert(fs, fert) if not fs.is_empty() else 0, String(p["gegen"]), held_werte().stufe)   # 1084
 		var wurf: float = float(probe_wurf.call()) if probe_wurf.is_valid() else randf()
 		zustand.uebe(fert)   # 471: jeder Versuch uebt, gelungen oder nicht (1037)
 		auf = zustand.fert_notiz()

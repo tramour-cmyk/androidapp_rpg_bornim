@@ -25,10 +25,19 @@ func texte(bef: Array) -> Array:
 func _lauf() -> void:
 	Sprache.setze("de")
 	# Chance aus werte.json „proben“: 35 + 1 je Punkt Ueberreden, Pim 0, begrenzt 5–95
-	pruefe(Geschichte.probe_chance("Überreden", 0, "Pim") == 35, "Chance ohne Überreden 35 (%d)" % Geschichte.probe_chance("Überreden", 0, "Pim"))
-	pruefe(Geschichte.probe_chance("Überreden", 10, "Pim") == 45, "Chance Überreden 10: 45")
-	pruefe(Geschichte.probe_chance("Überreden", 24, "Pim") == 59, "Chance Überreden 24: 59")
-	pruefe(Geschichte.probe_chance("Überreden", 100, "Pim") == 95, "Chance gedeckelt 95")
+	# Zahlen aus werte.json „proben“ (1037, 1051 A; Werte Jerry), nicht fest im Test
+	var pw: Dictionary = BrsHeld.lade().get("proben", {})
+	for w in [0, 10, 24]:
+		var soll := clampi(roundi(float(pw.get("ueberreden_basis", 0)) + float(pw.get("ueberreden_je_punkt", 0)) * w), int(pw.get("min", 5)), int(pw.get("max", 95)))
+		pruefe(Geschichte.probe_chance("Überreden", w, "Pim") == soll, "Chance Überreden %d: %d (%d)" % [w, soll, Geschichte.probe_chance("Überreden", w, "Pim")])
+	pruefe(Geschichte.probe_chance("Überreden", 1000, "Pim") == int(pw.get("max", 95)), "Chance gedeckelt")
+	# 1084: mit „ueberreden_stufe“ (Pim 1, werte.json auf claude/tuffy-1084) 5 je Stufe des Helden ueber 1; ohne Eintrag kein Stufenteil
+	var pr: Dictionary = BrsHeld.lade().get("proben", {})
+	if (pr.get("ueberreden_stufe", {}) as Dictionary).has("Pim"):
+		var d := Geschichte.probe_chance("Überreden", 10, "Pim", 3) - Geschichte.probe_chance("Überreden", 10, "Pim", 1)
+		pruefe(d == roundi(2 * float(pr.get("je_stufe", 0))), "Stufe 3 gegen Pim (Stufe 1): +%d" % d)
+	else:
+		pruefe(Geschichte.probe_chance("Überreden", 10, "Pim", 3) == Geschichte.probe_chance("Überreden", 10, "Pim", 1), "ohne ueberreden_stufe kein Stufenteil")
 
 	# tagsueber: nach [504.pim.vor] der Knopf mit der Fertigkeit; nachts, nach Versuch oder Erfolg heute keiner
 	var z := Zustand.new()

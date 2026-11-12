@@ -266,10 +266,14 @@ static func pim_probe(k: Skript, s: Zustand) -> void:
 static func frueh_heim(id: String, s: Zustand) -> bool: return id == "pim" and s.has(pim_heute(s))
 
 ## Chance einer Probe im Gespraech in Prozent (werte.json „proben“ <fert>_basis, _je_punkt, _gegen; begrenzt auf min bis max)
-static func probe_chance(fert: String, wert: int, gegen: String) -> int:
+## 1084 (Vorentscheid Sokrates 12.11., 23:08; 1051 A): + je_stufe x (Heldenstufe - Stufe der Figur, werte.json „<fert>_stufe“); ohne Eintrag
+## zaehlt die Figur so hoch wie der Held (kein Stufenteil)
+static func probe_chance(fert: String, wert: int, gegen: String, held_stufe := 1) -> int:
 	var p: Dictionary = BrsHeld.lade().get("proben", {})
 	var n := fert.to_lower().replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("ß", "ss")
 	var c := float(p.get(n + "_basis", 0)) + float(p.get(n + "_je_punkt", 0)) * wert - float((p.get(n + "_gegen", {}) as Dictionary).get(gegen, 0))
+	var st: Dictionary = p.get(n + "_stufe", {})
+	if st.has(gegen): c += float(p.get("je_stufe", 0)) * (held_stufe - int(st[gegen]))
 	return clampi(roundi(c), int(p.get("min", 5)), int(p.get("max", 95)))
 
 static func sichtbar(id: String, s: Zustand) -> bool:
