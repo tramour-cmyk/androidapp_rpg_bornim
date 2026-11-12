@@ -336,7 +336,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 56, Muss 42, startbar 32
+**Sokrates** – offen 54, Muss 40, startbar 30
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -393,8 +393,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 644a.4 | M | Vorentscheid: Waffen der Truhe in der Blutzahnhöhle (cave_3) Stufe 3 statt 4, sonst vor Kr | startbar |
 | 644a.5 | M | Von Tuffy (644a.1): an welchem Grundwert hängen Rüstung, Ausweichen, Schild, Armbrust und | startbar |
 | 1051 | M | Von Jerry (841): Vorentscheid Werte Einschüchtern (Goblin-Späher verjagen): einschuechtern | startbar |
-| 1048 | M | Ring öfter im Kampf (Chef 12.11., 14:59: „ein bisschen mehr Ring … mehr Einfluss … bei der | startbar |
-| 1050a | M | Rückfrage Zauberlehrling: Punkte der Herkunft nach 952 D (Wille 5, Verstand 1) neu verteil | startbar |
 | 1065 | M | Von Jerry (621 A, 1043): 1043 Lauf frei? Filmlauf 396 (kampf=1043) zeigte kein Ausweichen: | startbar |
 ## Lücken
 
