@@ -45,7 +45,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
-**Tom** – offen 130, Muss 109, startbar 1
+**Tom** – offen 129, Muss 109, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -177,7 +177,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 644a.2 | M | Von Sokrates (644a A, D, F; Chef 12.11., 08:21): Mindeststufe zum Anlegen (Laden „Nicht tr | wartet auf Test (Build 280) |
 | 1022 | M | Von Sokrates (Chef 12.11., 08:26; Wiederholfund t268): Kartenrand aller Gebietskarten wie | Termin 12.11. 15:20 |
 | 1023 | K | Hühner wie alt: fliehen verlässlich, Federn sichtbar, auffliegen (aus 814, t278.3; Chef 12 | ruht |
-| Pflege | K | von Werkzeug (340.3, 12.11.): 16512 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 1035 | M | Von Sokrates (Chef 12.11., 14:39): Startbildschirm mit eigenem Zeichen statt Godot (boot_s | wartet auf Test/Build (gebaut) |
 
 **Jerry** – offen 141, Muss 128, startbar 3
