@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 968 | Von Sokrates (Chef 11.11., 15:49, „jetzt“ 11.11., 15:49): Sammelbuild 277 testen, nach Freigabe PR #196 zusammenführen | Tom | M | in Arbeit, 988 in PR #196 (d3e9069a4), Lauf läuft | 988 | – | – | E Technik | 20,52 $ |
+| 968 | Von Sokrates (Chef 11.11., 15:49, „jetzt“ 11.11., 15:49): Sammelbuild 277 testen, nach Freigabe PR #196 zusammenführen | Tom | M | wartet, Lauf 365 auf PR #196 (d3e9069a4) | 988 | – | – | E Technik | 20,52 $ |
 | 825 | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635, 542, 543, 632; Jerry 593, 547, 597), Prüfliste ansehen/t<n>, build <n> --mit für jede Nummer (774) | Tom | M | gebaut, Geprüft an: Lauf 42793721837, t274 beim Chef | – | – | – | E Technik | 8,33 $ |
 | 697 | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | Tom | M | in Arbeit, erster Messlauf ohne Wert (nicht importiert) | 782 | claude/tom-697-drehteller | – | E Figuren | – |
 | 870.7 | Von Sokrates (870, Umzug BRS Schritt 6): Laden, Vergleich und Gegenstandsfenster nach BRS-Werten, Bild vor B2 (644.4); LISTE-UMZUG-BRS.md 4 | Tom | M | gebaut, Geprüft an: a01b8283b; Bild passt (Chef 19:57) | – | claude/tom-870-7-laden | – | E Oberfläche | 13,85 $ |
