@@ -13,7 +13,7 @@ on:
         description: "Kampfort-Filme: ja (453 r3, 453.1 Vergleich), 461 (Grundstand-Film Kampfort), 4531 (Heldenatem Feld 2 gegen neu), 2963 (Siegerposen), 784 (Sollbild Wolfsrudel, eine Runde) oder 656 (Umhang: Film; mit film=nein Bilder vorher/nachher), 935 (Wurf Brandflasche und Weihwasser)"
         default: ""
       dorf:
-        description: "Dorf-Film Grundstand (461.1): ja"
+        description: "Dorf-Film Grundstand (461.1): ja; 10401 = Lyra in der Höhle schaut dem gehenden Helden nach (Wendeschritte, Spike)"
         default: ""
       schild:
         description: "Schildfilm 406 (Jerry, Schlussfilm): ja"
@@ -626,6 +626,7 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/tragen_644a.gd 2>&1 | grep -E "^FALSCH|TRAGEN644A|SCRIPT ERROR"   # 644a.2 Mindeststufe, Gaben, Laden ohne Grundwert, Meldung (Spike)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/tresen_4167.gd 2>&1 | grep -E "FEHLER|TRESEN|SCRIPT ERROR"   # 416.7
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/wende_4168.gd 2>&1 | grep -E "FEHLER|WENDE|RUTSCHEN|ohne gebaute|SCRIPT ERROR"   # 416.8 Wenden mit Schritten
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/wendeschritt_10401.gd 2>&1 | grep -E "FEHLER|WENDESCHRITT|SCRIPT ERROR"   # 1040.1 Leute folgen dem gehenden Helden mit Wendeschritten (Spike)
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/ausruestung_522.gd 2>&1 | grep -E "^(gut|FEHLER|AUSRUESTUNG522|ohne)|SCRIPT ERROR"   # 522 Figur nach Ausruestungswechsel
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/waffen_522.gd 2>&1 | grep -E "^FALSCH|^bekannt|WAFFEN522|SCRIPT ERROR"   # 522 jede baubare Waffe am Helden, Dolch nicht als Schild (Tom)
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/waffe_948.gd 2>&1 | grep -E "^  |WAFFE948|SCRIPT ERROR"   # 948 B jede Klinge 3 cm an der Wurzel, 1 cm dick; Dolch in der Hand je Herkunft (Jerry)
@@ -846,6 +847,15 @@ jobs:
           cd godot
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
           sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
+          # 1040.1 (Spike; Chef 12.11., 15:13 Lyra „dreht sich … wie auf dem Drehteller“): dorf=10401 nur der Film Lyra in der Höhle
+          if [ "${{ github.event.inputs.dorf }}" = "10401" ]; then
+            timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" \
+              ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/wenden10401.avi --fixed-fps 30 \
+              -s res://tests/film_wenden_10401.gd > $GITHUB_WORKSPACE/bilder/grundstand/wenden10401.log 2>&1 || true
+            grep -E "SCRIPT ERROR|^FILM10401" $GITHUB_WORKSPACE/bilder/grundstand/wenden10401.log | cut -c1-300 || true
+            ffmpeg -loglevel error -y -i $RUNNER_TEMP/wenden10401.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $GITHUB_WORKSPACE/bilder/grundstand/wenden10401.mp4 || true
+            ls -l $GITHUB_WORKSPACE/bilder/grundstand; exit 0
+          fi
           timeout 1200 xvfb-run -a -s "-screen 0 540x1170x24" \
             ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/dorf461.avi --fixed-fps 30 \
             -s res://tests/film_dorf_461.gd -- --dorffilm > $GITHUB_WORKSPACE/bilder/grundstand/dorf461.log 2>&1 || true
