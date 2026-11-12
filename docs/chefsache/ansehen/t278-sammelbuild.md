@@ -1,5 +1,6 @@
 # Tom und Jerry · Build 278 · Sammelbuild nach Build 277 · PR #197
 Ganzes Spiel · Tom (635, 785.19, 814, 856, 870.7, 870.9, 926, 933, 951, 954, 963, 964, 967, 977, 984.1, 989, 990, 991, 994, 1009), Jerry (595, 744, 806, 824, 836, 840, 909, 923, 935, 939, 950, 952, 959, 960, 971, 983, 986, 992, 993, 997, 998, 999, 1001, 1003, 1004, 1006, 1007, 1013; 988 und 1006 mit Build 277 auf `main`, hier zum Ansehen) · Entwurf 12.11., 06:05 · APK folgt
+Gegengelesen: Sokrates 12.11., 06:10
 
 Ein Weg: über Build 277 installieren, Hauptmenü, „Weiter“ mit deinem Spielstand aus Build 277; erst Dorf am Tag (A), dann Wald und Kampf (B), zurück ins Dorf am Abend (C), dann Probekämpfe und Sprünge im Reiter „Test“ (D), zuletzt ein neues Spiel für die Erschaffung (E). Den Reiter „Test“ gibt es nur im Testmodus: im Hauptmenü siebenmal aufs Firmenzeichen tippen. Was nicht passt, reicht als Nummer (z. B. 278.5) mit einem Wort.
 
