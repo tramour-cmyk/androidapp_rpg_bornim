@@ -4,15 +4,15 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
-
-## Zu billigen
-
-Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [1038](billigen/1038-ueberreden-verband.md) | **Muss** | E Kampf | 12.11., 16:06 | Überreden gelingt anfangs zu 45 %, an der Rangdecke zu 59 %; ein Verband heilt anfangs 7 Leben und kostet 8 Gold, nur außerhalb des Kampfs | Sokrates |
+| [1038](entscheiden/1038-verband.md) | **Muss** | G Balance | 12.11., 16:18 | Der Verband stillt Blutung statt nur Leben zu heilen; die kurze Rast gibt kein Leben mehr, damit man Verband, Trank oder Essen dabeihaben muss | Sokrates |
+
+## Zu billigen
+
+Nichts offen.
 
 ## Anzusehen
 
@@ -326,7 +326,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 54, Muss 39, startbar 30
+**Sokrates** – offen 55, Muss 40, startbar 30
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -383,6 +383,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 985 | K | Systemlösung? Nebel: 2 frühere Vorgänge (505, 502), neu 785.7; einmal grundsätzlich lösen? | startbar |
 | 644a.4 | M | Vorentscheid: Waffen der Truhe in der Blutzahnhöhle (cave_3) Stufe 3 statt 4, sonst vor Kr | startbar |
 | 644a.5 | M | Von Tuffy (644a.1): an welchem Grundwert hängen Rüstung, Ausweichen, Schild, Armbrust und | startbar |
+| 1038 | M | Von Jerry (1037): Vorentscheid zu vorläufigen Werten Überreden (35 + 1 je Punkt, Pim 0) un | Chef (Datei in der Chefsache) |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 16046 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
 ## Lücken
 
