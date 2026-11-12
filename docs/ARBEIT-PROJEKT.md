@@ -2,10 +2,10 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `4a16267dc` (12.11., 16:51)
+**Gelesen bis:** `d71ce75dd` (12.11., 20:04)
 
-**Übergabe (12.11., 16:5x, `session_01Hmoj77FQvSoLtm2q28ecYk`):** 1052: Wochenziel ohne Umhang neu geordnet (Build 280 auf `main`, Sammelbuild 281, Paket „Kampf zeigt, was geschieht“, Tom übernimmt); 1055 Sammelbuild 281 an Jerry (wartet auf 1029); Jerry-Vorrang 1055, 1039, 1043, 1025, 1032, 1036, 1031, 1041, 1034; M?: 1041 → M, 1044 → M (Chef „bitte machen“); 870.2/870.3 an Jerry. 17:05 (Sokrates, Chef zu 1036): CLAUDE.md Zusammenarbeit 9 „bei Animiertem nur Film, Standbild nur zum Selbstprüfen“ (ersetzt „Standbild höchstens dazu“). Nachfolger: keiner
-**Letzte Antwort:** 1052: Wochenziel ohne Umhang, Sammelbuild 281 (1055) gleich nach 280.
+**Übergabe (12.11., 20:04, `session_01Hmoj77FQvSoLtm2q28ecYk`):** 1052 Wochenziel ohne Umhang, 1055 Sammelbuild 281 an Jerry; 1061 große Punkte im Projektplan (431 erster bei Tom nach 870.10); CLAUDE.md „bei Animiertem nur Film“; Chef 20:01 zu 867: neue Vorlage (Archiv, Zu 867 Tom), Nachricht brach nach „Und“ ab, Rest erfragt; 1050a A (Archiv; 1066 Jerry, 1067 Homer, 1050a Sokrates `DESIGN-BRS.md`). Nachfolger: keiner
+**Letzte Antwort:** 1048: Jerry hat noch nicht gerechnet; Rechnung kommt erst nach deiner Antwort auf 1048 und nach 1039 (Film bei dir); 867: was folgt nach „Und“?
 - **Fehler 341, von Sokrates (11.11., 18:14):** 901 (365a B, „alle Hoch“ seit 07:18) startete in der Umgebung „WireStorm Hoch“, die nur Variablen setzt; die App zeigte „Mittel“, keiner prüfte das Ergebnis, gefunden hat es der Chef (18:04; 18:14 „von euch hat es ja keiner gemerkt … Schwarzbuch“). Behoben 981. Lehre: Einstellung am Ergebnis prüfen (`get_session`, App), nie an der Eingabe.
 
 ## Einzelheiten
