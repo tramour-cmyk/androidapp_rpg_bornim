@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [1020](entscheiden/1020-testmenue.md) | **Muss** | E Oberfläche | 12.11., 08:01 | fünf Teile: Schnellstart ohne Intro und Erschaffung mit Lage merken und zurückholen, Probekampf mit freier Ausrüstung und „Nochmal“, Kampfgeschehen erzwingen, Prüfliste im Spiel, Kleinigkeiten; Empfehlung A, B, E jetzt, C und D danach | Sokrates |
 | [264](entscheiden/264-bauserver.md) | **Muss** | B Abläufe | 12.11., 01:12 | Abschalten und bei GitHub abmelden, der Bauplan bleibt im Repo; wieder einschalten, wenn das Repo privat wird oder GitHub einen ganzen Arbeitstag nicht baut | Sokrates |
 | [644a](entscheiden/644a-mindeststufe.md) | **Muss** | E Kampf | 11.11., 22:02 | Mindeststufe zum Tragen bauen, wie im Regelwerk vorgesehen; ein Stück ab Stufe 4 trägt die doppelte Zusatzeigenschaft (Leben +10 statt +5) statt mehr Grundschaden; Funde höchstens eine Stufe über dem Helden; Deckel streichen, Menge an der Quelle steuern; Grundwert +1 durch Üben, Zahl aus der Rechnung | Sokrates |
 
@@ -345,11 +346,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 54, Muss 39, startbar 28
+**Sokrates** – offen 54, Muss 39, startbar 27
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1020 | M | Testmenü für schnelle Tests: letzte Prüflisten auswerten, Vorschläge (Voreinstellungen Kam | startbar |
+| 1020 | M | Testmenü für schnelle Tests: letzte Prüflisten auswerten, Vorschläge (Voreinstellungen Kam | Chef (Datei in der Chefsache) |
 | 887 | M | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus (dontAsk von | ruht |
 | 870 | M | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen, Bau Tom u | wartet auf 870.13 (wartet) |
 | 780 | M | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für uns | Termin 23.11. |
