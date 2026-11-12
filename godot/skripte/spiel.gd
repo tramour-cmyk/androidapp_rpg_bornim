@@ -584,14 +584,17 @@ func tageszeit() -> String:   # Kampfort.tageszeit: tag, abend, nacht
 ## Tasche des Kampforts
 const KAMPF_TASCHE := ["potion", "greater_potion", "superior_potion", "remedy", "alchemist_fire", "holy_water"]
 
-func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroeffnung := "", nr := 0) -> String:
+## 1034: [spielprobe] Probekampf aus dem Reiter Test mit dem Spielhelden: alles zählt wie im Spiel (ohne [probe]), dazu der Söldner
+## der Wahl, Gegnerzug, Ausweichen und „Nochmal“; nach „Nochmal“ ist der Lohn gutgeschrieben und es kommt "AGAIN" zurück
+func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroeffnung := "", nr := 0, spielprobe := false) -> String:
 	# 1020.2 B: Held, Söldner, Leben, Tasche und Tageszeit des Probekampfs nach der Wahl im Reiter Test (Testmodus.probe_aufbau)
-	var pa: Dictionary = {} if probe.is_empty() else Testmodus.probe_aufbau(String(probe[0]), int(probe[1]))
+	var pa: Dictionary = {} if probe.is_empty() else Testmodus.probe_aufbau(String(probe[0]), int(probe[1]), zustand.name)
 	var hw: BrsHeld = held_werte() if probe.is_empty() else pa["held"]
-	var soeldner = null if probe.is_empty() else pa["soeldner"]
+	var soeldner = (Testmodus.probe_soeldner_fuer(hw) if spielprobe else null) if probe.is_empty() else pa["soeldner"]
+	var probekampf := spielprobe or not probe.is_empty()
 	var mars_s = load("res://regeln/mars.gd")
-	mars_s.test_gegnerzug = "" if probe.is_empty() else Testmodus.probe_zug     # 1020.2 C: nur im Probekampf, nie im Spiel
-	mars_s.test_ausweichen = false if probe.is_empty() else Testmodus.probe_ausweichen
+	mars_s.test_gegnerzug = Testmodus.probe_zug if probekampf else ""     # 1020.2 C: nur im Probekampf, nie im Spiel
+	mars_s.test_ausweichen = Testmodus.probe_ausweichen if probekampf else false
 	var erg := {"ende": "", "tp": {}, "lohn": {}, "rest": {}, "held": null}
 	# 532 (Durchspielregel 488): die ganze Tasche in den Kampf; danach wird nur weggenommen, was verbraucht ist
 	var tasche := {}
@@ -647,6 +650,16 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	if gestartet and not probe.is_empty() and aufruf.kampf != null:
 		aufruf.kampf.again_fn = func(): aufruf._fertig("AGAIN")
 		aufruf.kampf.zurueck_text = ["Zurück zum Testmenü", "Back to test menu"]
+		aufruf.kampf.ohne_folgen = true   # 1034 (Chef 12.11., 15:04): Siegfenster „ohne Folgen“, keine Geschichtsgegenstände als Beute
+	# 1034: mit dem Spielhelden zählt der Ausgang wie im Spiel, „Nochmal“ schreibt ihn gut und startet neu (nach einer Niederlage nicht:
+	# der Held erwacht wie im Spiel an einem sicheren Ort)
+	if gestartet and spielprobe and aufruf.kampf != null:
+		var kf = aufruf.kampf
+		kf.again_fn = func():
+			erg["nochmal"] = true
+			aufruf._fertig(String(kf.mars.outcome))
+		kf.again_nicht_nach_niederlage = true
+		kf.zurueck_text = ["Zurück zum Testmenü", "Back to test menu"]
 	if probe.is_empty(): zustand.satt = false   # 399.1: Battle.wellFed endet mit dem Kampfbeginn (der Kampfort gibt +1, 399.2)
 	# 471: welche Fertigkeiten der Held im Kampf benutzt, hoert Kampfuebung mit (wie der Kampfort); gutgeschrieben am Kampfende
 	var uebung: Kampfuebung = null
@@ -683,7 +696,8 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	var lohn: Dictionary = erg["lohn"]
 	var ende := [String(erg["ende"])]
 	if ende[0] == "AGAIN": return ende[0]   # 1020.2 B: die Blende bleibt schwarz, test_tat startet denselben Probekampf neu
-	klang("nach_kampf", [ende[0] == "WON", karte])   # 399.3 (Jerry): Sieg mit sieg_, sonst Ortsmusik nach 10 s
+	var nochmal: bool = bool(erg.get("nochmal", false)) and ende[0] != "LOST"   # 1034: Spielheld, „Nochmal“
+	if not nochmal: klang("nach_kampf", [ende[0] == "WON", karte])   # 399.3 (Jerry): Sieg mit sieg_, sonst Ortsmusik nach 10 s
 	if ende[0] == "NONE" or not probe.is_empty():
 		held.setze(zurueck, "DOWN"); kamera.springe(); await abblenden(0.0)
 		return ende[0]
@@ -722,6 +736,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 		# 870.5 (Jerry, lohn.gd): neuer Stand der Heldenstufe nach BRS (Grenze und weiche Grenze rechnet Brs.gib_erfahrung); Stufe hoeher heilt ganz
 		if lohn.get("stand") is Dictionary and not (lohn["stand"] as Dictionary).is_empty(): zustand.brs_stufe = (lohn["stand"] as Dictionary).duplicate(true)
 		stufe_abgleichen()
+	if nochmal: return "AGAIN"   # 1034: gutgeschrieben; die Blende bleibt schwarz, test_tat startet denselben Probekampf neu
 	held.setze(zurueck, blick_nach)
 	kamera.springe()
 	await abblenden(0.0)
@@ -1287,9 +1302,12 @@ func test_tat(was: String, mit: Array) -> void:
 		"kampf", "probe":
 			if not ResourceLoader.exists("res://kampf/kampfort.gd"): return
 			await abblenden(1.0)
-			var ende := await kampf_im_wald(held.kachel, String(mit[0]), [] if was == "kampf" else [String(mit[1]), int(mit[2])])
+			# 1034: Probekampf mit dem Spielhelden (mit[4] „spiel“) wie ein Kampf im Spiel, mit Söldner und „Nochmal“
+			var spielheld: bool = was == "probe" and mit.size() > 4 and String(mit[4]) == "spiel"
+			var pr: Array = [] if was == "kampf" or spielheld else [String(mit[1]), int(mit[2])]
+			var ende := await kampf_im_wald(held.kachel, String(mit[0]), pr, "", 0, spielheld)
 			while ende == "AGAIN" and was == "probe":   # 1020.2 B: „Nochmal“ mit derselben Wahl
-				ende = await kampf_im_wald(held.kachel, String(mit[0]), [String(mit[1]), int(mit[2])])
+				ende = await kampf_im_wald(held.kachel, String(mit[0]), pr, "", 0, spielheld)
 			# 1020.2 B: aus dem Reiter gestartet, führt „Zurück zum Testmenü“ dorthin (Tests rufen ohne das vierte Feld)
 			if was == "probe" and mit.size() > 3 and bool(mit[3]) and ende != "NONE": oeffne_menue("test")
 
