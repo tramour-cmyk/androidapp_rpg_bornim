@@ -5,7 +5,8 @@ extends SceneTree
 #  2. kein Weg ins Offene: jede Gasse, in der ein begehbarer Rand liegt (Weg, Wiese, Ausgang), hat in ihr oder daneben einen Baum
 #     5 bis 6 Kacheln draussen, wo der Wald zugeht (MapEdge.CLOSE, RING);
 #  3. jede Seite traegt den ganzen Ring (ein Baum 6 Kacheln draussen; vorher fehlten im Norden und Westen die Reihen 5 und 6);
-#  4. ins Dunkel: jedes Netz des Gebiets laeuft hinter dem Rand aus (rand_karte an, toon, boden, wasser mit rand_licht).
+#  4. ins Dunkel: jedes Netz des Gebiets laeuft hinter dem Rand aus (rand_karte an, toon, boden, wasser, halm mit rand_licht);
+#  5. weich: der Verlauf ist im Bild lang genug und endet vor Boden und Wasser (RAND_HELL, RAND_WEICH).
 # Braucht godot/daten wie im Bau. Aufruf: im Ordner godot mit -s res://tests/rand_1022.gd; massgeblich ist die Zeile RAND1022.
 
 const CLOSE := 5   # MapEdge.CLOSE
@@ -15,12 +16,23 @@ func pruefe(ok: bool, was: String) -> void:
 	if not ok: print("FEHLER " + was)
 	if not ok: fehler += 1
 
+func _zahl(code: String, name: String) -> float:
+	var i := code.find("const float %s = " % name)
+	if i < 0: return -1.0
+	var a := i + ("const float %s = " % name).length()
+	return float(code.substr(a, code.find(";", a) - a))
+
 func _initialize() -> void:
 	_lauf.call_deferred()
 
 func _lauf() -> void:
-	for sh in ["toon", "boden", "wasser"]:
-		pruefe((load("res://shader/%s.gdshader" % sh) as Shader).code.contains("rand_licht("), "%s.gdshader dunkelt hinter dem Rand ab" % sh)
+	for sh in ["toon", "boden", "wasser", "halm"]:
+		var code := (load("res://shader/%s.gdshader" % sh) as Shader).code
+		pruefe(code.contains("rand_licht("), "%s.gdshader dunkelt hinter dem Rand ab" % sh)
+		# 5. weich (Chef 20:07 „sanfter Übergang und dann dunkel“): im Bild gemessen, mindestens 3,4 Kacheln Bildhoehe Verlauf (alt; Build 280
+		#    hatte 1,6), schwarz in Blickrichtung (Bildhoehe halb, 30 Grad) vor dem Ende von Boden und Wasser (dorf.py AUS 12 Kacheln)
+		var hell := _zahl(code, "RAND_HELL"); var weich := _zahl(code, "RAND_WEICH")
+		pruefe(weich >= 3.4 and (hell + weich) / 0.5 <= 12.0, "%s.gdshader Verlauf %.1f + %.1f Kacheln im Bild" % [sh, hell, weich])
 	var spiel = load("res://spiel.tscn").instantiate()
 	root.add_child(spiel)
 	for i in 5: await process_frame

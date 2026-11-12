@@ -126,7 +126,7 @@ func inseln_setzen(inseln: PackedVector4Array) -> void:
 
 # 1022 Kartenrand (Chef 12.11., 08:26; alt MapEdge, 27m; ersetzt 490 baue_dunkel, das nur den Waldboden abdunkelte und nur im Wald):
 # hinter dem Waldring (dorf.py, sechs Reihen auf jeder Seite) laeuft alles ins Dunkel, Boden, Wasser, Baeume, im Dorf wie im Wald
-# (toon, boden, wasser: rand_licht). Grundrisse haben keinen Rand (ringsum schwarz)
+# (toon, boden, wasser, halm: rand_licht, im Bild gemessen). Grundrisse haben keinen Rand (ringsum schwarz)
 func rand_karte() -> Vector3:
 	if info.get("innen", false): return Vector3.ZERO
 	return Vector3(karte.breite * Karte.TS, karte.hoehe * Karte.TS, 1.0)
@@ -667,6 +667,7 @@ func halm_netz(xf: Array[Transform3D], cu: Array[Color], tex: String, korn: floa
 	var m := ShaderMaterial.new(); m.shader = korn_shader() if korn > 0.5 else load("res://shader/halm.gdshader")
 	m.set_shader_parameter("tex", bild(tex))
 	m.set_shader_parameter("korn", korn)
+	m.set_shader_parameter("rand_karte", rand_karte())   # 1022: Halme hinter dem Rand ins Dunkel wie der Boden
 	m.set_shader_parameter("inseln", insel_liste)
 	m.set_shader_parameter("inseln_n", insel_liste.size())
 	mmi.material_override = m
