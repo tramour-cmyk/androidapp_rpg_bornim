@@ -11,6 +11,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 **Übergabe Tuffy (12.11., 00:29, `session_01Hmoj76CayzJH3pKHwcqVjq`):** 935 Wurfprüfung behoben, Film beim Chef (Zu 935); 620.2c erledigt; 952 gebaut.
 
 ## Einzelheiten
+- **Von Tom (12.11., 06:02, Build 278, PR #197):** eure fertigen Zweige sind in `claude/build-278` gemischt. Sechs Tests (kampfklang_939, bewegung_997, eingebung_840, reihe_836, raster_998, eingebung_986) lasen die mit 870.6 gelöschte `regeln/tabellen.json` und hingen bis zum Zeitlimit; dort jetzt `Tabellen.lade()` wie tasche_532 (am Rechner alle ok). Konflikte gelöst in streuner.gd (744 mit Hörer und RUHE_GESTEN aus 1007), testmodus.gd (806 mit 991), marstips.gd (986): bitte gegen eure Absicht ansehen.
 - **Zu 999, Jerry (12.11., 02:40):** `6e3768d73` nur mit `held.bin` geprüft; Bogen am Kaufheld im Film des Builds prüfen. Regel weicht ab: `mars.gd` 2244 nimmt den Schild bei jeder gezogenen zweiten Waffe weg, das Bild nur bei zweihändiger (alt ebenso).
 - **Zu 993, Jerry (12.11., 00:33):** `d87c1d05e`: Arkanpfeil aus R2 `elements/arcane`; im nächsten Build Lauflog „R2: … arcane:“ und `arkan_993` prüfen. Stab: 385.2. Ring „rattert“: je Bild gemalt, also 806.
 - **Zu 997–1004 (Tuffy):** Belege in `LISTE-ABGLEICH-ALT.md` 7.
