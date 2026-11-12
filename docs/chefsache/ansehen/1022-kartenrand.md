@@ -1,5 +1,7 @@
 # 1022 · Kartenrand weich ins Dunkel, vorher/nachher · Tom (Spike) · 12.11., 23:42
 
+[Bild von 12.11., 23:44](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/12-2344-1022-Spike.png) (eingetragen von meldung.sh, Spike)
+
 [Bild von 12.11., 23:43](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/12-2343-1022-Spike-2.png) (eingetragen von meldung.sh, Spike)
 
 [Bild von 12.11., 23:43](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/12-2343-1022-Spike.png) (eingetragen von meldung.sh, Spike)
