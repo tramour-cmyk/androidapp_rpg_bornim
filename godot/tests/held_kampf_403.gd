@@ -70,7 +70,9 @@ func _run() -> void:
 		_check((schild != null) == soll_schild, "%s: Schild nur, wenn die Herkunft einen trägt (%s: %s, %s)" % [k, hk, "ja" if soll_schild else "nein", "da" if schild else "keiner"])
 		# kein zweiter Schild oder Waffe auf dem Rücken (Unterwegs-Ausrüstung von HeldFigur.bewaffne; Chef 29.10.: Fehler)
 		var teile: Array = fig.model.find_children("*", "BoneAttachment3D", true, false).filter(func(n): return not String(n.name).begins_with("Haar_"))
-		_check(teile.size() == (1 if hat_waffe else 0) + (1 if schild else 0), "%s: nur Hand und Arm tragen (%d Anhänge)" % [k, teile.size()])
+		# 999: auch der Bogen hängt an der Hand (links), nicht nur eine Nahkampfwaffe (vorher ohne Fernwaffe in der Hand)
+		var in_hand: bool = fig.fighter.hero.has("main")
+		_check(teile.size() == (1 if in_hand else 0) + (1 if schild else 0), "%s: nur Hand und Arm tragen (%d Anhänge)" % [k, teile.size()])
 		# Kampf zu Ende auf Autopilot
 		var kf = p.fight
 		kf.mars.find("merc").auto = true

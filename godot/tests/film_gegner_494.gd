@@ -79,6 +79,10 @@ func _gegner(g: String) -> void:
 	var p = Probe.new()
 	p.hero_cls = "FIGHTER"
 	p.merc_cls = "CLERIC"
+	# 595 (Chef 05.11., 19:2x: „Riesenegel – … Schurke schlägt beim Angriff darüber (der Egel ist ja am Boden)“): mit NR=595 kämpft
+	# neben dem Helden mit Schwert und Schild ein Söldner mit Kurzschwert ohne Schild (Probe ROGUE), vorn wie der Held
+	if nr == "595":
+		p.merc_cls = "ROGUE"
 	p.foe = g
 	root.add_child(p)
 	await process_frame
@@ -101,7 +105,12 @@ func _gegner(g: String) -> void:
 		feinde[0]._model_path() if not feinde.is_empty() else "-"])
 	var von: Vector3 = kf.cam.global_position - kf._ground(0, 0)
 	von.y = 0.0
-	von = von.normalized().rotated(Vector3.UP, deg_to_rad(25.0))     # etwas von der Seite: Körper der Vierbeiner lang im Bild
+	# etwas von der Seite: Körper der Vierbeiner lang im Bild; 595 (Chef 11.11., 20:11: „zusätzlich aus einer zweiten Kamera halb
+	# links“): KAMERA_DREH in Grad statt 25
+	var dreh := float(OS.get_environment("KAMERA_DREH")) if OS.get_environment("KAMERA_DREH") != "" else 25.0
+	von = von.normalized().rotated(Vector3.UP, deg_to_rad(dreh))
+	# 595 (Chef 11.11., 20:58: vorher und nachher je Tier direkt nacheinander): Bild, mit dem dieser Gegner beginnt (zum Schneiden)
+	print("Film 494 %s: ab Bild %d" % [g, Engine.get_process_frames()])
 	var cam := Camera3D.new()
 	kf.add_child(cam)
 	cam.fov = 40.0
@@ -127,7 +136,7 @@ func _gegner(g: String) -> void:
 		return
 	if lb:
 		lb.text = nr + " · " + String(Probe.FOES[g])
-		lz.text = "Ruhe, von nah"
+		lz.text = "Ruhe, von nah" + (" · " + OS.get_environment("ZEILE") if OS.get_environment("ZEILE") != "" else "")     # 744: vorher/nachher
 	await _blende(0.0)
 	if bilder != "":
 		await _knips(bilder + "/%s-%s-nah.png" % [nr, g])
@@ -138,13 +147,25 @@ func _gegner(g: String) -> void:
 		kf.cam.make_current()
 		if kf.ui != null:
 			kf.ui.visible = true
-	await create_timer(4.0 if bilder == "" else 0.5).timeout
+	# 744: RUHE_S verlängert die Ruhe von nah (Ruhebewegungen kommen alle 3–7 s), DAUER_MS=0 lässt den Kampf aus
+	await create_timer((float(OS.get_environment("RUHE_S")) if OS.get_environment("RUHE_S") != "" else 4.0) if bilder == "" else 0.5).timeout
 	for f in verborgen:
 		f.visible = true
 	# Teil 2: Kampf auf Autopilot, Echtzeit
 	if lz:     # 506 (Helfer: Zeile verkehrt herum): die Helden kämpfen gegen den Gegner, nicht umgekehrt
-		lz.text = "Kämpfer und Kleriker gegen %s · Autopilot, Echtzeit" % String(Probe.FOES[g])
+		lz.text = ("Schwert und Schild, Kurzschwert gegen %s · Autopilot, Echtzeit" if nr == "595" else "Kämpfer und Kleriker gegen %s · Autopilot, Echtzeit") % String(Probe.FOES[g])
+		if OS.get_environment("ZEILE") != "":
+			lz.text += " · " + OS.get_environment("ZEILE")
 	kf.mars.find("merc").auto = true
+	# 595 (Lauf 42719583920: die Spinne stand nach dem ersten Biss 14 s still): der Autopilot schaltet bei angesagter starker Absicht
+	# ab (mars.gd autopilot_blocked, im Spiel richtig: der Spieler entscheidet); im Film handelt der Held selbst wie der Söldner
+	kf.mars.find("hero").auto = true
+	# 595 (Riesenegel fiel im Film nach 2 s, bevor er einmal angriff): im Film halten die Gegner bis zum Ende aus, damit ihre Bewegungen
+	# zu sehen sind (nur der Film; die Regeln bleiben)
+	for f in kf.mars.all:
+		if f.side == "FOES":
+			f.max_hp = maxi(f.max_hp, 60)
+			f.hp = f.max_hp
 	kf.mars.set_autopilot(true)
 	if not kf.busy:
 		kf.go_on()
@@ -152,11 +173,20 @@ func _gegner(g: String) -> void:
 	var dauer := int(OS.get_environment("DAUER_MS")) if OS.get_environment("DAUER_MS") != "" else DAUER_MS
 	if bilder != "":
 		dauer = 2000
-	while n < dauer * 30 / 1000 and kf.mars.outcome == "ONGOING":
+	# 595 (Lauf 42719583920: „Riesenegel: Kampf WON nach 0,0 s“): MARS rechnet voraus, der Ausgang steht fest, während die Züge noch
+	# spielen; gefilmt wird, bis der letzte Zug gespielt ist
+	while n < dauer * 30 / 1000 and (kf.mars.outcome == "ONGOING" or kf.busy or kf.playing):
 		await process_frame
 		n += 1
 		if bilder != "":
 			continue     # Probebild: Spielkamera bleibt, wie der Spieler den Kampf sieht
+		# 595 (Chef 11.11., 20:11: „die Riesenspinne hat mich nicht einmal angegriffen“): im Film zielt die Spinne auf den Helden (nur
+		# der Film, wie die Lebenspunkte oben)
+		if nr == "595":
+			for fid in kf.mars.intents:
+				var fo = kf.mars.by_id(fid)
+				if fo != null and fo.monster != null and kf.mars.art_of(fo.monster) == kf.mars.SPIDER and kf.mars.by_id("hero") != null:
+					kf.mars.intents[fid][1] = ["hero"]
 		var stehen: Array = kf.figures.values().filter(func(f): return f.visible and f.dead_at < 0)
 		if not stehen.is_empty():
 			_auf(cam, kf, stehen, von, hfov, 1.6, 0.05)

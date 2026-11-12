@@ -49,6 +49,7 @@ vec3 rand_boden(vec3 w, vec3 blick) {
 	if (w.y <= 0.0 || blick.y > -0.05) return w;
 	return w + blick * (w.y / -blick.y);
 }
+uniform float schnitt = 0.0;       // 831 Blattkarten der Bausatz-Baeume (glTF MASK): Bildpunkte unter dieser Deckkraft des Bildes weg, auch im Schatten
 varying vec3 wpos;
 varying float v_eisen;
 varying float v_kette;
@@ -100,7 +101,9 @@ void fragment() {
 #else
 	if (loch > 0.5 && !IN_SHADOW_PASS) discard;
 #endif
-	ALBEDO = texture(tex, UV).rgb * COLOR.rgb;
+	vec4 bild_px = texture(tex, UV);
+	if (schnitt > 0.0 && bild_px.a < schnitt) discard;
+	ALBEDO = bild_px.rgb * COLOR.rgb;
 	if (toen_hell > 0.0) {   // 376.1: Zeichnung des Bildes, Farbe des Tons, dazu ein Teil der Farbschwankung des Bildes (toen_farbe)
 		float hl = dot(ALBEDO, vec3(0.2126, 0.7152, 0.0722));
 		vec3 rel = (ALBEDO / max(hl, 0.001)) / max(toen_bild / toen_hell, vec3(0.001));

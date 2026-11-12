@@ -1,0 +1,5250 @@
+{
+  "version": 1,
+  "uhr": {
+    "blende_ms": 1400,
+    "halten_ms": 5800,
+    "schritt_ms": 7200,
+    "text_ein_ms": 700,
+    "text_aus_ms": 500,
+    "ende_ms": 1200
+  },
+  "vorspann": {
+    "ein_ms": 400,
+    "firma_ms": 2000,
+    "aus_ms": 600,
+    "firma_ende_ms": 3000,
+    "name_ms": 3700,
+    "menue_ms": 5300,
+    "ende_ms": 5700,
+    "praesentiert": {"de":"präsentiert","en":"presents"}
+  },
+  "blende": {
+    "arten": {
+      "FULL": {"ein_ms":400,"mind_ms":1900,"aus_ms":300,"schleier_aus_ms":600},
+      "NAME": {"ein_ms":200,"mind_ms":800,"aus_ms":250,"schleier_aus_ms":500},
+      "BLINK": {"ein_ms":0,"mind_ms":0,"aus_ms":0,"schleier_aus_ms":500}
+    },
+    "lesen_ms": 1000,
+    "lesen_je_zeichen_ms": 40,
+    "dorf": ["village","inn","shop","elder","temple"],
+    "orte": {
+      "village": [
+        {
+          "de": "Du betrittst Bornim. Rauch hängt über den Dächern.",
+          "en": "You enter Bornim. Smoke hangs over the rooftops."
+        },
+        {
+          "de": "Bornim. Für eine Weile bist du hier sicher.",
+          "en": "Bornim. For a while, you are safe here."
+        },
+        {
+          "de": "Du kehrst nach Bornim zurück. Niemand fragt, woher das Blut an deinem Mantel stammt.",
+          "en": "You return to Bornim. No one asks where the blood on your cloak came from."
+        },
+        {
+          "de": "Die Gassen von Bornim riechen nach Herdfeuer und nassem Stroh.",
+          "en": "The lanes of Bornim smell of hearth smoke and wet straw."
+        },
+        {
+          "de": "Fensterläden klappern im Wind. Bornim hat dich wieder.",
+          "en": "Shutters rattle in the wind. Bornim has you back."
+        },
+        {
+          "de": "Bornim schläft. Nur hinter wenigen Fenstern brennt noch Licht.",
+          "en": "Bornim sleeps. Only a few windows still hold a light.",
+          "nacht": true
+        }
+      ],
+      "forest": [
+        {
+          "de": "Du betrittst den Flüsterwald. Die Bäume rücken dichter zusammen.",
+          "en": "You enter the Whisperwood. The trees close in."
+        },
+        {
+          "de": "Der Flüsterwald. Hier wispert der Wind, oder etwas anderes.",
+          "en": "The Whisperwood. The wind whispers here, or something else does."
+        },
+        {
+          "de": "Hinter dir verklingt das Dorf. Vor dir liegt der Flüsterwald.",
+          "en": "The village fades behind you. Ahead lies the Whisperwood."
+        },
+        {
+          "de": "Du folgst dem Pfad in den Flüsterwald. Bleib auf dem Weg.",
+          "en": "You follow the path into the Whisperwood. Stay on the path."
+        },
+        {
+          "de": "Moos dämpft deine Schritte. Der Flüsterwald hört zu.",
+          "en": "Moss muffles your steps. The Whisperwood is listening."
+        }
+      ],
+      "deep_forest": [
+        {
+          "de": "Du dringst tiefer in den Wald vor. Das Licht wird grau.",
+          "en": "You push deeper into the woods. The light turns gray."
+        },
+        {"de":"Kein Vogel singt mehr.","en":"No bird sings anymore."},
+        {
+          "de": "Diesen Pfad hat lange kein Mensch betreten.",
+          "en": "No one has walked this path in a long time."
+        },
+        {
+          "de": "Zwischen den Wurzeln liegen abgenagte Knochen.",
+          "en": "Gnawed bones lie among the roots."
+        },
+        {
+          "de": "Die Kronen schließen sich über dir. Der Tag bleibt draußen.",
+          "en": "The canopy closes above you. The day stays outside."
+        }
+      ],
+      "cave": [
+        {
+          "de": "Du betrittst die Blutzahnhöhle. Es riecht nach Rauch und Aas.",
+          "en": "You enter the Bloodfang Cave. It smells of smoke and carrion."
+        },
+        {
+          "de": "Kalter Stein, tropfendes Wasser. Die Höhle verschluckt das Licht.",
+          "en": "Cold stone, dripping water. The cave swallows the light."
+        },
+        {
+          "de": "Der Eingang der Blutzahnhöhle gähnt wie ein Maul.",
+          "en": "The entrance of the Bloodfang Cave gapes like a maw."
+        },
+        {
+          "de": "Irgendwo in der Tiefe schlägt Metall auf Stein.",
+          "en": "Somewhere in the depths, metal strikes stone."
+        },
+        {
+          "de": "Hinter dir schrumpft der Himmel zu einem fahlen Fleck.",
+          "en": "Behind you, the sky shrinks to a pale smudge."
+        }
+      ],
+      "elder": [
+        {"de":"Du suchst Aldric, den Ältesten, auf.","en":"You call on Aldric, the Elder."},
+        {"de":"Aldric blickt von seinem Pult auf.","en":"Aldric looks up from his desk."},
+        {
+          "de": "Kerzenwachs und alte Bücher: das Haus des Ältesten.",
+          "en": "Candle wax and old books: the Elder's house."
+        },
+        {
+          "de": "Aldric stützt sich auf seinen Stock, als du eintrittst.",
+          "en": "Aldric leans on his staff as you step in."
+        },
+        {
+          "de": "Du klopfst und trittst ein. Im Herd glimmt noch Glut.",
+          "en": "You knock and step inside. Embers still glow in the hearth."
+        }
+      ],
+      "shop": [
+        {"de":"Du suchst Thessa in ihrem Kramladen auf.","en":"You call on Thessa in her store."},
+        {"de":"Es riecht nach Leder, Öl und Staub.","en":"It smells of leather, oil and dust."},
+        {
+          "de": "Die Türglocke schlägt an. Thessa sieht von ihrer Ware auf.",
+          "en": "The bell above the door rings. Thessa looks up from her wares."
+        },
+        {
+          "de": "Zwischen Kisten und Regalen wartet Thessa auf Kundschaft.",
+          "en": "Between crates and shelves, Thessa waits for customers."
+        },
+        {
+          "de": "Du trittst in Thessas Laden. Hier hat alles seinen Preis.",
+          "en": "You step into Thessa's store. Everything here has its price."
+        }
+      ],
+      "inn": [
+        {
+          "de": "Du betrittst den Schlafenden Greif. Wärme und Bierdunst schlagen dir entgegen.",
+          "en": "You enter the Sleeping Griffin. Warmth and the reek of ale wash over you."
+        },
+        {
+          "de": "Die Gespräche verstummen kurz, als du eintrittst.",
+          "en": "Talk falls silent for a moment as you step in."
+        },
+        {"de":"Am Herd knackt das Feuer.","en":"The fire crackles in the hearth."},
+        {
+          "de": "Du suchst Zuflucht im Schlafenden Greif.",
+          "en": "You seek shelter in the Sleeping Griffin."
+        },
+        {"de":"Es riecht nach Eintopf und nassem Holz.","en":"It smells of stew and wet wood."}
+      ],
+      "temple": [
+        {
+          "de": "Du betrittst den Tempel des Morgenlichts. Kerzen flackern vor dem Altar.",
+          "en": "You enter the Temple of the Dawnlight. Candles flicker before the altar."
+        },
+        {"de":"Stille umfängt dich.","en":"Silence enfolds you."},
+        {"de":"Kühler Stein, warmes Kerzenlicht.","en":"Cool stone, warm candlelight."},
+        {"de":"Deine Schritte hallen zwischen den Bänken.","en":"Your steps echo between the pews."},
+        {
+          "de": "Du suchst Trost im Tempel des Morgenlichts.",
+          "en": "You seek comfort in the Temple of the Dawnlight."
+        },
+        {
+          "de": "Der Altar wirkt leer, seit das Sonnenamulett fehlt.",
+          "en": "The altar has looked bare since the Sun Amulet went missing.",
+          "braucht": "quest_started",
+          "ohne": "lyra_rescued"
+        }
+      ]
+    }
+  },
+  "kampfblende": {
+    "arten": {
+      "FIGHT": {"ein_ms":350,"mind_ms":1700,"aus_ms":300,"schleier_aus_ms":450},
+      "FIGHT_SHORT": {"ein_ms":200,"mind_ms":650,"aus_ms":200,"schleier_aus_ms":350},
+      "AMBUSH": {"ein_ms":0,"mind_ms":1200,"aus_ms":250,"schleier_aus_ms":300},
+      "BOSS": {"ein_ms":500,"mind_ms":2800,"aus_ms":400,"schleier_aus_ms":600}
+    },
+    "lesen_ms": 1000,
+    "lesen_je_zeichen_ms": 40,
+    "eroeffnungen": {
+      "AMBUSH": [
+        {"de":"Ein Hinterhalt!","en":"An ambush!"},
+        {"de":"Zu spät hörst du das Rascheln.","en":"Too late, you hear the rustle."},
+        {"de":"Etwas hat auf dich gewartet.","en":"Something was waiting for you."},
+        {"de":"Ein Schatten löst sich aus dem Dunkel.","en":"A shadow breaks away from the dark."},
+        {"de":"Du bist in einen Hinterhalt geraten.","en":"You have walked into an ambush."},
+        {
+          "de": "Du spürst den Blick, bevor du ihn siehst.",
+          "en": "You feel the stare before you see it."
+        },
+        {"de":"Es war die ganze Zeit hinter dir.","en":"It was behind you all along."},
+        {"de":"Die Stille war eine Falle.","en":"The silence was a trap."},
+        {"de":"Kein Laut. Dann ist es da.","en":"Not a sound. Then it is there."},
+        {"de":"Zu nah, um noch auszuweichen.","en":"Too close to dodge."},
+        {
+          "de": "Ein Geräusch in deinem Rücken. Du drehst dich zu langsam um.",
+          "en": "A sound at your back. You turn too slowly."
+        }
+      ],
+      "HERO_FIRST": [
+        {"de":"Es hat dich nicht kommen sehen.","en":"It never saw you coming."},
+        {"de":"Lautlos schließt du auf. Jetzt!","en":"Silently, you close in. Now!"},
+        {"de":"Dein Gegner ahnt nichts.","en":"Your foe suspects nothing."},
+        {
+          "de": "Du greifst an, bevor dein Gegner sich umdreht.",
+          "en": "You strike before your foe can turn."
+        },
+        {"de":"Du schlägst zuerst zu.","en":"You strike first."},
+        {"de":"Du siehst es zuerst.","en":"You see it first."},
+        {"de":"Es ist abgelenkt. Ein Fehler.","en":"It is distracted. A mistake."},
+        {"de":"Ein Atemzug Vorsprung. Nutze ihn.","en":"One breath ahead. Use it."},
+        {"de":"Es kehrt dir den Rücken zu.","en":"Its back is turned to you."},
+        {"de":"Noch hat es dich nicht gehört.","en":"It has not heard you yet."},
+        {"de":"Du bist schneller.","en":"You are faster."}
+      ],
+      "NORMAL": [
+        {"de":"Etwas stellt sich dir in den Weg.","en":"Something blocks your way."},
+        {"de":"Es hat dich bemerkt.","en":"It has noticed you."},
+        {"de":"Kein Ausweg. Zieh die Waffe.","en":"No way out. Draw your weapon."},
+        {
+          "de": "Ihr seht euch an. Dann bricht es los.",
+          "en": "You stare at each other. Then it begins."
+        },
+        {"de":"Ein Kampf steht bevor.","en":"A fight is coming."},
+        {"de":"Kein Zurück mehr.","en":"No turning back now."},
+        {"de":"Es hebt den Kopf. Es hat dich gesehen.","en":"It raises its head. It has seen you."},
+        {"de":"Jetzt gilt es.","en":"This is it."},
+        {"de":"Dein Herz schlägt schneller.","en":"Your heart beats faster."},
+        {"de":"Der Weg ist versperrt.","en":"The way is barred."},
+        {"de":"Es lässt dich nicht vorbei.","en":"It will not let you pass."}
+      ],
+      "PACK": [
+        {"de":"Du bist umzingelt.","en":"You are surrounded."},
+        {"de":"Sie kommen von allen Seiten.","en":"They come from every side."},
+        {"de":"Einer allein wäre kein Problem.","en":"One alone would be no trouble."},
+        {"de":"Sie ziehen den Kreis enger.","en":"They draw the circle tighter."},
+        {
+          "de": "Mehr Augen im Dunkel, als dir lieb ist.",
+          "en": "More eyes in the dark than you would like."
+        },
+        {"de":"Wo einer ist, sind andere.","en":"Where there is one, there are others."},
+        {
+          "de": "Sie verteilen sich. Keiner will der Erste sein.",
+          "en": "They spread out. No one wants to go first."
+        },
+        {"de":"Zu viele für einen Fehler.","en":"Too many to risk a single mistake."},
+        {"de":"Sie warten, bis einer losschlägt.","en":"They wait for one of them to strike first."},
+        {"de":"Sie schneiden dir den Rückweg ab.","en":"They cut off your way back."},
+        {"de":"Ein Ruf, dann antworten andere.","en":"One call, and others answer."}
+      ]
+    },
+    "gegner": {
+      "goblin": [
+        {
+          "de": "Gelbe Augen, schiefe Zähne, schartiges Eisen.",
+          "en": "Yellow eyes, crooked teeth, notched iron."
+        },
+        {
+          "de": "Der Goblin kreischt und stürzt auf dich zu.",
+          "en": "The goblin shrieks and rushes at you."
+        },
+        {"de":"Es stinkt nach Rauch und ranzigem Fett.","en":"It reeks of smoke and rancid fat."},
+        {
+          "de": "Er grinst. Ihm fehlt die Hälfte seiner Zähne.",
+          "en": "He grins. Half his teeth are missing."
+        },
+        {"de":"Klein, flink und voller Hass.","en":"Small, quick and full of hate."}
+      ],
+      "goblin_archer": [
+        {"de":"Ein Pfeil zischt an deinem Ohr vorbei.","en":"An arrow hisses past your ear."},
+        {
+          "de": "Er hat dich schon lange beobachtet.",
+          "en": "He has been watching you for a long time."
+        },
+        {"de":"Irgendwo spannt sich eine Bogensehne.","en":"Somewhere, a bowstring draws taut."},
+        {
+          "de": "Leise wie ein Schatten, tödlich aus der Ferne.",
+          "en": "Quiet as a shadow, deadly from afar."
+        },
+        {
+          "de": "Er ist allein, oder will dich das glauben lassen.",
+          "en": "He is alone, or wants you to believe so."
+        }
+      ],
+      "goblin_shaman": [
+        {"de":"Knochen klappern an seinem Stab.","en":"Bones rattle on his staff."},
+        {"de":"Er malt ein Zeichen in die Luft.","en":"He traces a sign in the air."},
+        {
+          "de": "Aus seinen Beuteln kriecht beißender Rauch.",
+          "en": "Acrid smoke creeps from his pouches."
+        },
+        {
+          "de": "Er murmelt Worte, die nicht für Menschenohren gemacht sind.",
+          "en": "He mutters words not made for human ears."
+        },
+        {
+          "de": "Seine Augen glimmen, als er die Hände hebt.",
+          "en": "His eyes smolder as he raises his hands."
+        }
+      ],
+      "wolf": [
+        {"de":"Ein tiefes Knurren aus dem Dunkel.","en":"A deep growl from the dark."},
+        {"de":"Gelbe Augen im Halbdunkel.","en":"Yellow eyes in the gloom."},
+        {"de":"Speichel tropft von seinen Lefzen.","en":"Drool drips from his jowls."},
+        {"de":"Ausgehungert und ohne Furcht.","en":"Starved and without fear."},
+        {"de":"Er hat deine Witterung aufgenommen.","en":"He has caught your scent."}
+      ],
+      "giant_rat": [
+        {"de":"Ein Quieken, dann scharrende Krallen.","en":"A squeal, then scrabbling claws."},
+        {"de":"Fett, räudig und so groß wie ein Hund.","en":"Fat, mangy and as big as a dog."},
+        {
+          "de": "Ihr nackter Schwanz peitscht durch den Dreck.",
+          "en": "Its naked tail lashes through the dirt."
+        },
+        {"de":"Rote Augen, gelbe Nagezähne.","en":"Red eyes, yellow gnawing teeth."},
+        {
+          "de": "Sie riecht dein Blut, bevor sie dich sieht.",
+          "en": "It smells your blood before it sees you."
+        }
+      ],
+      "giant_spider": [
+        {
+          "de": "Fäden kleben an deinem Gesicht. Zu spät.",
+          "en": "Threads cling to your face. Too late."
+        },
+        {"de":"Acht Augen glänzen über dir.","en":"Eight eyes glisten above you."},
+        {
+          "de": "Ihre Beine tasten nach dir, lautlos und schnell.",
+          "en": "Its legs reach for you, silent and fast."
+        },
+        {
+          "de": "In einem Netz, dick wie ein Tau, regt sich etwas.",
+          "en": "In a web as thick as rope, something stirs."
+        },
+        {"de":"Gift glänzt an ihren Kieferklauen.","en":"Venom glistens on its fangs."}
+      ],
+      "skeleton": [
+        {
+          "de": "Knochen klappern. Etwas Totes erhebt sich.",
+          "en": "Bones rattle. Something dead rises."
+        },
+        {
+          "de": "In leeren Augenhöhlen glimmt ein kaltes Licht.",
+          "en": "A cold light glimmers in empty sockets."
+        },
+        {"de":"Rostiges Eisen in knöchernen Händen.","en":"Rusted iron in bony hands."},
+        {"de":"Es kennt keinen Schmerz und keine Gnade.","en":"It knows no pain and no mercy."},
+        {"de":"Der Tod hat es nicht behalten wollen.","en":"Death did not care to keep it."}
+      ],
+      "zombie": [
+        {
+          "de": "Erde rieselt von ihm. Man hat ihn begraben, und es hat nicht gehalten.",
+          "en": "Earth trickles off him. They buried him, and it did not hold."
+        },
+        {
+          "de": "Lange Finger, schwarze Nägel, ein Grinsen ohne Lippen.",
+          "en": "Long fingers, black nails, a grin without lips."
+        },
+        {
+          "de": "Er kriecht auf dich zu, dann richtet er sich auf.",
+          "en": "He crawls toward you, then rises to his feet."
+        },
+        {
+          "de": "Was einmal ein Mensch war, will zurück zu den Lebenden.",
+          "en": "What was once a man wants to return to the living."
+        },
+        {"de":"Der Gestank erreicht dich vor ihm.","en":"The stench reaches you before he does."}
+      ],
+      "boar": [
+        {"de":"Borsten gesträubt, die Hauer gesenkt.","en":"Bristles raised, tusks lowered."},
+        {"de":"Es schnaubt und scharrt mit den Hufen.","en":"It snorts and paws the ground."},
+        {"de":"Schwer, wütend und nicht aufzuhalten.","en":"Heavy, furious and unstoppable."},
+        {
+          "de": "Blut klebt an seinen Hauern. Nicht seines.",
+          "en": "Blood clings to its tusks. Not its own."
+        },
+        {
+          "de": "Es bricht durchs Unterholz, direkt auf dich zu.",
+          "en": "It crashes through the undergrowth, straight at you."
+        }
+      ],
+      "stirge": [
+        {
+          "de": "Ein Sirren, dann ein Stich wie von einer glühenden Nadel.",
+          "en": "A whine, then a sting like a red-hot needle."
+        },
+        {
+          "de": "Ledrige Flügel, ein Rüssel wie ein Dorn.",
+          "en": "Leathery wings, a proboscis like a thorn."
+        },
+        {"de":"Sie hat Blut gerochen. Deins.","en":"It has smelled blood. Yours."},
+        {
+          "de": "Ihr Rüssel ist noch rot vom letzten Opfer.",
+          "en": "Its proboscis is still red from its last victim."
+        },
+        {"de":"Klein, flatternd und unersättlich.","en":"Small, fluttering and insatiable."}
+      ],
+      "giant_centipede": [
+        {"de":"Zu viele Beine, viel zu schnell.","en":"Too many legs, far too fast."},
+        {"de":"Sein Panzer glänzt wie nasses Öl.","en":"Its shell gleams like wet oil."},
+        {
+          "de": "Er windet sich aus einer Ritze, länger als dein Arm.",
+          "en": "Longer than your arm, it wriggles out of a crack."
+        },
+        {"de":"Gift tropft von seinen Kieferzangen.","en":"Venom drips from its mandibles."},
+        {
+          "de": "Ein Rascheln unter dem Laub, dann schnellt er hervor.",
+          "en": "A rustle under the leaves, then it lunges."
+        }
+      ],
+      "kobold": [
+        {
+          "de": "Schuppen, Zähne und ein Speer, fast so groß wie er selbst.",
+          "en": "Scales, teeth and a spear almost as tall as he is."
+        },
+        {
+          "de": "Er zischt etwas in einer Sprache aus Knurren und Klicken.",
+          "en": "He hisses something in a tongue of growls and clicks."
+        },
+        {
+          "de": "Wo ein Kobold ist, ist eine Falle nicht weit.",
+          "en": "Where there is a kobold, a trap is never far."
+        },
+        {
+          "de": "Klein und feige, doch seine Speerspitze ist scharf.",
+          "en": "Small and cowardly, but his spearhead is sharp."
+        },
+        {"de":"Seine Augen glühen rot im Halbdunkel.","en":"His eyes glow red in the gloom."}
+      ],
+      "giant_bat": [
+        {"de":"Flügel schlagen dir ins Gesicht.","en":"Wings beat against your face."},
+        {
+          "de": "Ein schriller Schrei, den du mehr spürst als hörst.",
+          "en": "A shrill cry you feel more than hear."
+        },
+        {"de":"Sie stürzt aus der Dunkelheit herab.","en":"It swoops down out of the darkness."},
+        {
+          "de": "Flügel so breit wie ein Mann groß, Zähne wie Nadeln.",
+          "en": "Wings as wide as a man is tall, teeth like needles."
+        },
+        {"de":"Sie sieht dich nicht. Sie hört dich.","en":"It does not see you. It hears you."}
+      ],
+      "ghoul": [
+        {
+          "de": "Ein Hund, groß wie ein Kalb. Kein Laut kommt aus seiner Kehle.",
+          "en": "A hound as big as a calf. No sound leaves its throat."
+        },
+        {
+          "de": "Unter der schwarzen Mähne ist seine Haut fahl wie die eines Toten.",
+          "en": "Beneath the black mane, its skin is pale as a corpse's."
+        },
+        {
+          "de": "Er riecht nach frisch aufgewühlter Grabeserde.",
+          "en": "It smells of freshly turned grave earth."
+        },
+        {
+          "de": "Wer ihn sieht, sagt man, dem ist der Tod schon nah.",
+          "en": "Whoever sees it, they say, is already marked for death."
+        },
+        {
+          "de": "Er senkt den Kopf, die Krallen graben sich in den Boden.",
+          "en": "It lowers its head; its claws dig into the ground."
+        }
+      ],
+      "ochre_jelly": [
+        {
+          "de": "Der Boden bewegt sich. Es ist kein Boden.",
+          "en": "The floor moves. It is not the floor."
+        },
+        {
+          "de": "Eine gelbe Masse kriecht auf dich zu, der Stein darunter zischt.",
+          "en": "A yellow mass creeps toward you; the stone beneath it hisses."
+        },
+        {"de":"Knochen schwimmen in ihrem Inneren.","en":"Bones float inside it."},
+        {
+          "de": "Es riecht nach Säure und verdautem Fleisch.",
+          "en": "It smells of acid and digested flesh."
+        },
+        {
+          "de": "Sie hat keine Augen und findet dich trotzdem.",
+          "en": "It has no eyes, and finds you all the same."
+        }
+      ],
+      "bugbear": [
+        {
+          "de": "Sein Morgenstern ist schwarz von altem Blut.",
+          "en": "His morningstar is black with old blood."
+        },
+        {"de":"Der Boden bebt unter seinen Schritten.","en":"The ground shakes under his steps."},
+        {
+          "de": "Krogg lacht. Es klingt wie Steinschlag.",
+          "en": "Krogg laughs. It sounds like a rockfall."
+        },
+        {
+          "de": "„Noch einer“, brummt Krogg und hebt den Morgenstern.",
+          "en": "“Another one,” Krogg grunts and raises his morningstar."
+        },
+        {"de":"Er füllt den ganzen Weg aus.","en":"He fills the whole path."}
+      ],
+      "hobgoblin_captain": [
+        {
+          "de": "Hauptmann Grak erwartet dich in seiner Halle.",
+          "en": "Captain Grak awaits you in his hall."
+        },
+        {"de":"Graks Kriegsaxt fängt das Feuerlicht.","en":"Grak's war axe catches the firelight."},
+        {
+          "de": "Die Goblins weichen zurück, als er vortritt.",
+          "en": "The goblins fall back as he steps forward."
+        },
+        {
+          "de": "Aus dieser Halle ist lange niemand lebend hinausgegangen.",
+          "en": "No one has left this hall alive in a long time."
+        },
+        {
+          "de": "„Du kommst wegen der Priesterin?“ Grak grinst.",
+          "en": "“You've come for the priestess?” Grak grins."
+        }
+      ],
+      "dire_wolf": [
+        {"de":"Narben ziehen sich über seine Schnauze.","en":"Scars run across his muzzle."},
+        {
+          "de": "Das Rudel verstummt. Grimmzahn tritt vor.",
+          "en": "The pack falls silent. Grimfang steps forward."
+        },
+        {
+          "de": "Größer als jeder Wolf, den du je gesehen hast.",
+          "en": "Bigger than any wolf you have ever seen."
+        },
+        {
+          "de": "Ein Heulen, dann Stille. Er hat dich gefunden.",
+          "en": "A howl, then silence. He has found you."
+        },
+        {
+          "de": "Grimmzahn umkreist dich. Er hat Zeit.",
+          "en": "Grimfang circles you. He is in no hurry."
+        }
+      ]
+    }
+  },
+  "intro": {
+    "saetze": [
+      {
+        "de": "Drei Tage nach Norden. Die Straße ist leer, nur der Mond geht mit.",
+        "en": "Three days north. The road is empty; only the moon walks with you."
+      },
+      {
+        "de": "Hinter der Brücke ein paar Lichter. Bornim. Ein Bett für eine Nacht, mehr willst du nicht.",
+        "en": "Beyond the bridge, a few lights. Bornim. A bed for one night, that's all you want."
+      },
+      {
+        "de": "Der Platz schläft. Nur am Tempel wandern Fackeln. Eine späte Andacht, denkst du.",
+        "en": "The square is asleep. Only at the temple do torches wander. A late service, you think."
+      },
+      {
+        "de": "Im »Schlafenden Greif« brennt noch Licht. Die Wirtin fragt nicht viel.",
+        "en": "A light still burns at the Sleeping Griffin. The innkeeper doesn't ask many questions."
+      },
+      {
+        "de": "Irgendwo schlägt eine Glocke. Du hörst sie nicht.",
+        "en": "Somewhere a bell is ringing. You do not hear it."
+      }
+    ],
+    "schwarz": 4
+  },
+  "tempel": {
+    "saetze": [
+      {
+        "de": "Der Tempel ist voll. Tagelang war er kalt und leer.",
+        "en": "The temple is full. For days it stood cold and empty."
+      },
+      {
+        "de": "Aldric gibt Lyra das Amulett. Sie hält es lange, als könnte es zerbrechen.",
+        "en": "Aldric gives Lyra the amulet. She holds it for a long time, as if it might break."
+      },
+      {
+        "de": "Osric hält die Kerze ruhig. Lyra betet in Worten, die älter sind als der Tempel selbst.",
+        "en": "Osric holds the candle steady. Lyra prays in words older than the temple itself."
+      },
+      {
+        "de": "Das erste Licht des Tages fällt durchs Fenster. Das Amulett fängt es auf.",
+        "en": "The first light of day falls through the window. The amulet catches it."
+      },
+      {
+        "de": "Bornim atmet auf. Nur Lyra sieht noch lange ins Grau hinaus.",
+        "en": "Bornim breathes again. Only Lyra keeps looking out into the gray for a long time."
+      }
+    ],
+    "schwarz": -1
+  },
+  "klang": {
+    "bilder": [
+      {"wind":0.22,"fluss":0.0,"zirp_von":1800,"zirp_bis":4200,"grille":0.24},
+      {"wind":0.12,"fluss":0.22,"zirp_von":2600,"zirp_bis":5200,"grille":0.18},
+      {"wind":0.16,"fluss":0.05,"zirp_von":3500,"zirp_bis":7000,"grille":0.14},
+      {"wind":0.12,"fluss":0.0,"zirp_von":3500,"zirp_bis":7000,"grille":0.14},
+      {"wind":0.0,"fluss":0.0,"zirp_von":0,"zirp_bis":0,"grille":0.0}
+    ],
+    "start_ms": 1500,
+    "glocke": 0.12,
+    "glocke_ein_ms": 2500,
+    "musik": 0.4,
+    "nacht": [
+      {"ms":2433,"klang":"far_shout","pegel":0.1},
+      {"ms":3520,"klang":"far_shout","pegel":0.08},
+      {"ms":4643,"klang":"far_shout","pegel":0.09},
+      {"ms":5403,"klang":"far_scream","pegel":0.12}
+    ]
+  },
+  "leben": {
+    "bild": 2,
+    "w": 1080.0,
+    "h": 1200.0,
+    "f": 1080.0,
+    "takt_ms": 40,
+    "fackel": [true,true,false,true,true],
+    "box": [-80.0,-120.0,80.0,40.0],
+    "slot_x": [120.0,300.0,480.0,660.0,840.0],
+    "slot_y": 636.5,
+    "pfuetze": [
+      [787.8456,726.06525], [785.6229,724.3501], [773.65955,722.9204], [756.162,721.9253],
+      [738.8069,721.37897], [725.0967,721.17725], [714.4401,721.1553], [703.30457,721.1672],
+      [688.6033,721.1553], [670.7336,721.17725], [653.8723,721.37897], [643.2829,721.9253],
+      [641.67615,722.9204], [647.27893,724.3501], [654.99335,726.06525], [659.91626,727.8165],
+      [660.806,729.3338], [660.912,730.4224], [665.38916,731.0318], [677.22943,731.259],
+      [694.9123,731.2838], [713.5417,731.2703], [728.4343,731.2838], [738.35626,731.259],
+      [745.9928,731.0318], [755.296,730.4224], [767.7302,729.3338], [780.4288,727.8165],
+      [787.8456,726.06525]
+    ],
+    "pfuetze_y0": 719.1554,
+    "pfuetze_y1": 733.6023,
+    "bahn": [
+      [
+        [
+          825.2422, 621.3947, 0.8025454, 0, 835.4988, 553.2466, 54.171814, 825.2422, 621.3947,
+          130.01236, 835.4988
+        ],
+        [
+          872.9339, 623.0328, 0.8239579, 0, 883.90894, 552.2507, 55.617157, 872.9339, 623.0328,
+          133.48119, 883.90894
+        ],
+        [
+          879.70557, 626.1368, 0.86453295, 0, 892.81616, 553.61975, 58.355972, 879.70557, 626.1368,
+          140.05434, 892.81616
+        ],
+        [
+          926.7687, 627.8912, 0.8874665, 0, 938.94916, 551.8131, 59.90399, 926.7687, 627.8912,
+          143.76958, 938.94916
+        ],
+        [
+          942.58514, 631.00946, 0.9282284, 0, 955.70105, 551.4789, 62.65542, 942.58514, 631.00946,
+          150.373, 955.70105
+        ]
+      ],
+      [
+        [
+          823.9658, 621.2792, 0.8010352, 0, 834.203, 553.2593, 54.069878, 823.9658, 621.2792,
+          129.7677, 834.203
+        ],
+        [
+          871.53125, 622.911, 0.82236606, 0, 882.4851, 552.2656, 55.509712, 871.53125, 622.911,
+          133.2233, 882.4851
+        ],
+        [
+          878.2202, 626.0027, 0.8627806, 0, 891.30426, 553.6327, 58.23769, 878.2202, 626.0027,
+          139.77046, 891.30426
+        ],
+        [
+          925.1461, 627.74994, 0.8856201, 0, 937.3013, 551.83014, 59.779358, 925.1461, 627.74994,
+          143.47046, 937.3013
+        ],
+        [
+          940.8539, 630.855, 0.9262087, 0, 953.9412, 551.4974, 62.519085, 940.8539, 630.855,
+          150.0458, 953.9412
+        ]
+      ],
+      [
+        [
+          822.6941, 621.1641, 0.7995307, 0, 832.9121, 553.272, 53.968315, 822.6941, 621.1641,
+          129.52397, 832.9121
+        ],
+        [
+          870.13403, 622.7897, 0.82078046, 0, 881.06683, 552.2806, 55.40268, 870.13403, 622.7897,
+          132.96643, 881.06683
+        ],
+        [
+          876.7409, 625.8692, 0.86103535, 0, 889.7985, 553.64557, 58.119884, 876.7409, 625.8692,
+          139.48772, 889.7985
+        ],
+        [
+          923.53033, 627.60925, 0.88378125, 0, 935.6603, 551.8471, 59.655235, 923.53033, 627.60925,
+          143.17256, 935.6603
+        ],
+        [939.13,630.7011,0.9241976,0,952.1889,551.51587,62.38334,939.13,630.7011,149.72002,952.1889]
+      ],
+      [
+        [
+          821.4271, 621.04944, 0.7980317, 0, 831.626, 553.28455, 53.86714, 821.4271, 621.04944,
+          129.28113, 831.626
+        ],
+        [
+          868.7422, 622.6689, 0.8192008, 0, 879.65393, 552.2954, 55.296055, 868.7422, 622.6689,
+          132.71053, 879.65393
+        ],
+        [
+          875.2677, 625.7362, 0.8592972, 0, 888.2989, 553.6584, 58.002563, 875.2677, 625.7362,
+          139.20615, 888.2989
+        ],
+        [
+          921.9213, 627.4692, 0.8819503, 0, 934.0261, 551.864, 59.531647, 921.9213, 627.4692,
+          142.87595, 934.0261
+        ],
+        [
+          937.4138, 630.548, 0.92219555, 0, 950.44446, 551.53424, 62.2482, 937.4138, 630.548,
+          149.39568, 950.44446
+        ]
+      ],
+      [
+        [
+          820.165, 620.9352, 0.7965384, 0, 830.3447, 553.2971, 53.766346, 820.165, 620.9352,
+          129.03923, 830.3447
+        ],
+        [
+          867.35565, 622.54846, 0.81762725, 0, 878.24646, 552.31024, 55.189835, 867.35565, 622.54846,
+          132.45561, 878.24646
+        ],
+        [
+          873.8003, 625.6038, 0.85756606, 0, 886.8053, 553.67114, 57.88571, 873.8003, 625.6038,
+          138.92569, 886.8053
+        ],
+        [
+          920.31885, 627.3297, 0.88012666, 0, 932.39856, 551.88086, 59.408546, 920.31885, 627.3297,
+          142.58052, 932.39856
+        ],
+        [
+          935.70496, 630.39545, 0.920202, 0, 948.7074, 551.55255, 62.113632, 935.70496, 630.39545,
+          149.07272, 948.7074
+        ]
+      ],
+      [
+        [
+          818.9076, 620.8214, 0.79505074, 0, 829.06836, 553.30963, 53.665924, 818.9076, 620.8214,
+          128.79822, 829.06836
+        ],
+        [
+          865.9746, 622.4286, 0.8160599, 0, 876.8445, 552.32495, 55.08404, 865.9746, 622.4286,
+          132.2017, 876.8445
+        ],
+        [
+          872.33887, 625.4719, 0.8558419, 0, 885.31775, 553.6839, 57.76933, 872.33887, 625.4719,
+          138.6464, 885.31775
+        ],
+        [
+          918.7231, 627.1908, 0.8783108, 0, 930.77795, 551.8976, 59.285973, 918.7231, 627.1908,
+          142.28635, 930.77795
+        ],
+        [
+          934.0034, 630.2436, 0.91821706, 0, 946.97784, 551.57074, 61.979652, 934.0034, 630.2436,
+          148.75116, 946.97784
+        ]
+      ],
+      [
+        [
+          817.65466, 620.708, 0.79356843, 0, 827.7965, 553.32214, 53.56587, 817.65466, 620.708,
+          128.55809, 827.7965
+        ],
+        [
+          864.59863, 622.30914, 0.81449836, 0, 875.44775, 552.33966, 54.978638, 864.59863, 622.30914,
+          131.94873, 875.44775
+        ],
+        [
+          870.88324, 625.3405, 0.8541246, 0, 883.83606, 553.69653, 57.65341, 870.88324, 625.3405,
+          138.3682, 883.83606
+        ],
+        [
+          917.1338, 627.0524, 0.8765021, 0, 929.1638, 551.91425, 59.163895, 917.1338, 627.0524,
+          141.99335, 929.1638
+        ],
+        [
+          932.3092, 630.0924, 0.9162405, 0, 945.2557, 551.5889, 61.846237, 932.3092, 630.0924,
+          148.43095, 945.2557
+        ]
+      ],
+      [
+        [
+          816.4066, 620.59503, 0.7920918, 0, 826.52954, 553.33453, 53.466194, 816.4066, 620.59503,
+          128.31886, 826.52954
+        ],
+        [
+          863.22797, 622.1901, 0.8129428, 0, 874.0564, 552.35425, 54.873634, 863.22797, 622.1901,
+          131.69673, 874.0564
+        ],
+        [
+          869.4335, 625.2097, 0.8524142, 0, 882.36035, 553.70917, 57.537956, 869.4335, 625.2097,
+          138.0911, 882.36035
+        ],
+        [
+          915.5511, 626.9146, 0.874701, 0, 927.5564, 551.9309, 59.04232, 915.5511, 626.9146,
+          141.70157, 927.5564
+        ],
+        [
+          930.6224, 629.9419, 0.91427267, 0, 943.541, 551.607, 61.71341, 930.6224, 629.9419,
+          148.11218, 943.541
+        ]
+      ],
+      [
+        [
+          815.1632, 620.4825, 0.7906207, 0, 825.26733, 553.3469, 53.366898, 815.1632, 620.4825,
+          128.08055, 825.26733
+        ],
+        [
+          861.8626, 622.0716, 0.81139326, 0, 872.6704, 552.36884, 54.769043, 861.8626, 622.0716,
+          131.44571, 872.6704
+        ],
+        [
+          867.98956, 625.07935, 0.8507107, 0, 880.8906, 553.72174, 57.422974, 867.98956, 625.07935,
+          137.81512, 880.8906
+        ],
+        [
+          913.9749, 626.7774, 0.87290734, 0, 925.95557, 551.94745, 58.921246, 913.9749, 626.7774,
+          141.41098, 925.95557
+        ],
+        [
+          928.9426, 629.79193, 0.91231304, 0, 941.8336, 551.62494, 61.58113, 928.9426, 629.79193,
+          147.79472, 941.8336
+        ]
+      ],
+      [
+        [
+          813.9242, 620.37036, 0.78915477, 0, 824.0096, 553.35925, 53.267952, 813.9242, 620.37036,
+          127.84307, 824.0096
+        ],
+        [
+          860.5024, 621.9535, 0.8098495, 0, 871.28955, 552.38336, 54.664845, 860.5024, 621.9535,
+          131.19562, 871.28955
+        ],
+        [
+          866.5513, 624.9496, 0.84901386, 0, 879.42664, 553.73425, 57.308434, 866.5513, 624.9496,
+          137.54025, 879.42664
+        ],
+        [
+          912.4051, 626.64075, 0.871121, 0, 924.3612, 551.9639, 58.800667, 912.4051, 626.64075,
+          141.1216, 924.3612
+        ],
+        [
+          927.27014, 629.6427, 0.91036195, 0, 940.13354, 551.6429, 61.449432, 927.27014, 629.6427,
+          147.47864, 940.13354
+        ]
+      ],
+      [
+        [
+          812.68994, 620.2586, 0.7876945, 0, 822.7567, 553.3716, 53.16938, 812.68994, 620.2586,
+          127.606514, 822.7567
+        ],
+        [
+          859.14734, 621.8358, 0.80831164, 0, 869.91406, 552.3978, 54.561035, 859.14734, 621.8358,
+          130.94649, 869.91406
+        ],
+        [
+          865.1188, 624.82025, 0.84732383, 0, 877.96844, 553.74677, 57.194355, 865.1188, 624.82025,
+          137.26646, 877.96844
+        ],
+        [
+          910.8418, 626.50464, 0.8693419, 0, 922.77344, 551.98035, 58.680576, 910.8418, 626.50464,
+          140.83339, 922.77344
+        ],
+        [
+          925.6048, 629.4941, 0.9084192, 0, 938.4408, 551.6607, 61.3183, 925.6048, 629.4941,
+          147.16391, 938.4408
+        ]
+      ],
+      [
+        [
+          811.4602, 620.14734, 0.7862397, 0, 821.5084, 553.3838, 53.071175, 811.4602, 620.14734,
+          127.37083, 821.5084
+        ],
+        [
+          857.7974, 621.7186, 0.8067797, 0, 868.54376, 552.41223, 54.457626, 857.7974, 621.7186,
+          130.6983, 868.54376
+        ],
+        [
+          863.692, 624.6915, 0.8456406, 0, 876.51624, 553.75916, 57.080738, 863.692, 624.6915,
+          136.99377, 876.51624
+        ],
+        [
+          909.2848, 626.36914, 0.8675701, 0, 921.1922, 551.99664, 58.56098, 909.2848, 626.36914,
+          140.54636, 921.1922
+        ],
+        [
+          923.94653, 629.34607, 0.90648466, 0, 936.7551, 551.67847, 61.187714, 923.94653, 629.34607,
+          146.85052, 936.7551
+        ]
+      ],
+      [
+        [
+          810.23505, 620.03644, 0.7847901, 0, 820.26465, 553.396, 52.973335, 810.23505, 620.03644,
+          127.136, 820.26465
+        ],
+        [
+          856.4527, 621.60187, 0.80525357, 0, 867.17865, 552.4266, 54.354614, 856.4527, 621.60187,
+          130.45108, 867.17865
+        ],
+        [
+          862.2709, 624.56323, 0.8439639, 0, 875.0696, 553.77155, 56.96756, 862.2709, 624.56323,
+          136.72215, 875.0696
+        ],
+        [
+          907.73413, 626.23413, 0.86580545, 0, 919.6173, 552.01294, 58.44187, 907.73413, 626.23413,
+          140.26048, 919.6173
+        ],
+        [
+          922.2953, 629.1987, 0.9045584, 0, 935.0767, 551.69617, 61.057693, 922.2953, 629.1987,
+          146.53847, 935.0767
+        ]
+      ],
+      [
+        [
+          809.0143, 619.92596, 0.7833459, 0, 819.02545, 553.40814, 52.875847, 809.0143, 619.92596,
+          126.90203, 819.02545
+        ],
+        [
+          855.1128, 621.4856, 0.80373293, 0, 865.81854, 552.4409, 54.251976, 855.1128, 621.4856,
+          130.20474, 865.81854
+        ],
+        [
+          860.85535, 624.4355, 0.84229386, 0, 873.6287, 553.7839, 56.854836, 860.85535, 624.4355,
+          136.45161, 873.6287
+        ],
+        [
+          906.1897, 626.0997, 0.8640479, 0, 918.0488, 552.0292, 58.323235, 906.1897, 626.0997,
+          139.97577, 918.0488
+        ],
+        [
+          920.6511, 629.052, 0.9026403, 0, 933.40546, 551.71375, 60.92822, 920.6511, 629.052,
+          146.22772, 933.40546
+        ]
+      ],
+      [
+        [
+          807.79816, 619.8159, 0.781907, 0, 817.79095, 553.4202, 52.77872, 807.79816, 619.8159,
+          126.66894, 817.79095
+        ],
+        [
+          853.7782, 621.3697, 0.8022183, 0, 864.4638, 552.45514, 54.149734, 853.7782, 621.3697,
+          129.95937, 864.4638
+        ],
+        [
+          859.44543, 624.3082, 0.84063053, 0, 872.1936, 553.79614, 56.74256, 859.44543, 624.3082,
+          136.18214, 872.1936
+        ],
+        [
+          904.6517, 625.96576, 0.8622977, 0, 916.4867, 552.0453, 58.205097, 904.6517, 625.96576,
+          139.69223, 916.4867
+        ],
+        [
+          919.0139, 628.9059, 0.90073025, 0, 931.7412, 551.7313, 60.799294, 919.0139, 628.9059,
+          145.9183, 931.7412
+        ]
+      ],
+      [
+        [
+          806.5864, 619.70624, 0.78047335, 0, 816.56085, 553.4323, 52.68195, 806.5864, 619.70624,
+          126.436676, 816.56085
+        ],
+        [
+          852.44867, 621.2543, 0.8007094, 0, 863.11414, 552.4693, 54.047882, 852.44867, 621.2543,
+          129.71492, 863.11414
+        ],
+        [
+          858.0411, 624.1815, 0.83897364, 0, 870.7641, 553.80835, 56.630722, 858.0411, 624.1815,
+          135.91374, 870.7641
+        ],
+        [
+          903.11975, 625.8324, 0.86055434, 0, 914.9309, 552.0614, 58.087418, 903.11975, 625.8324,
+          139.4098, 914.9309
+        ],
+        [
+          917.3834, 628.7604, 0.8988282, 0, 930.0839, 551.7488, 60.670906, 917.3834, 628.7604,
+          145.61017, 930.0839
+        ]
+      ],
+      [
+        [
+          805.379, 619.5969, 0.7790449, 0, 815.3352, 553.44434, 52.585533, 805.379, 619.5969,
+          126.20528, 815.3352
+        ],
+        [
+          851.1239, 621.1393, 0.799206, 0, 861.7694, 552.48346, 53.946407, 851.1239, 621.1393,
+          129.47137, 861.7694
+        ],
+        [
+          856.64233, 624.05524, 0.8373235, 0, 869.34033, 553.82056, 56.519337, 856.64233, 624.05524,
+          135.64641, 869.34033
+        ],
+        [
+          901.5941, 625.6996, 0.85881823, 0, 913.3815, 552.0774, 57.97023, 901.5941, 625.6996,
+          139.12856, 913.3815
+        ],
+        [
+          915.76013, 628.6155, 0.89693445, 0, 928.43384, 551.7661, 60.543076, 915.76013, 628.6155,
+          145.30338, 928.43384
+        ]
+      ],
+      [
+        [
+          805.1064, 619.571, 0.7787055, 0, 815.0582, 553.4472, 52.562622, 805.1064, 619.571,
+          126.15029, 815.0582
+        ],
+        [
+          849.8042, 621.02466, 0.7977083, 0, 860.4297, 552.49756, 53.845306, 849.8042, 621.02466,
+          129.22874, 860.4297
+        ],
+        [
+          855.2489, 623.9295, 0.8356796, 0, 867.922, 553.8327, 56.408375, 855.2489, 623.9295,
+          135.3801, 867.922
+        ],
+        [
+          900.0745, 625.5673, 0.8570889, 0, 911.83813, 552.0934, 57.8535, 900.0745, 625.5673,
+          138.8484, 911.83813
+        ],
+        [
+          914.14343, 628.4712, 0.8950484, 0, 926.7904, 551.78345, 60.415764, 914.14343, 628.4712,
+          144.99783, 926.7904
+        ]
+      ],
+      [
+        [
+          803.6803, 619.46826, 0.7773632, 0, 813.615, 553.4585, 52.472015, 803.6803, 619.46826,
+          125.93284, 813.615
+        ],
+        [
+          848.48956, 620.9105, 0.7962162, 0, 859.09515, 552.5116, 53.7446, 848.48956, 620.9105,
+          128.98703, 859.09515
+        ],
+        [
+          853.861, 623.8042, 0.83404213, 0, 866.5093, 553.8448, 56.297848, 853.861, 623.8042,
+          135.11482, 866.5093
+        ],
+        [
+          898.5611, 625.43555, 0.85536665, 0, 910.301, 552.10925, 57.737244, 898.5611, 625.43555,
+          138.5694, 910.301
+        ],
+        [
+          912.5335, 628.3275, 0.8931703, 0, 925.154, 551.8007, 60.288998, 912.5335, 628.3275,
+          144.69359, 925.154
+        ]
+      ],
+      [
+        [
+          802.25903, 619.36597, 0.7760255, 0, 812.17664, 553.4697, 52.38172, 802.25903, 619.36597,
+          125.716125, 812.17664
+        ],
+        [
+          847.1797, 620.7968, 0.79472965, 0, 857.7655, 552.5256, 53.64425, 847.1797, 620.7968,
+          128.7462, 857.7655
+        ],
+        [
+          852.4786, 623.67944, 0.8324112, 0, 865.1021, 553.8568, 56.187756, 852.4786, 623.67944,
+          134.85062, 865.1021
+        ],
+        [
+          897.0537, 625.3043, 0.8536513, 0, 908.77014, 552.12506, 57.62146, 897.0537, 625.3043,
+          138.2915, 908.77014
+        ],
+        [
+          910.9304, 628.18445, 0.89130014, 0, 923.52454, 551.8179, 60.162758, 910.9304, 628.18445,
+          144.39062, 923.52454
+        ]
+      ],
+      [
+        [
+          800.84265, 619.264, 0.7746923, 0, 810.74316, 553.48096, 52.29173, 800.84265, 619.264,
+          125.50015, 810.74316
+        ],
+        [
+          845.87463, 620.68353, 0.7932486, 0, 856.4408, 552.5395, 53.54428, 845.87463, 620.68353,
+          128.50627, 856.4408
+        ],
+        [
+          851.1015, 623.5552, 0.8307865, 0, 863.7004, 553.8688, 56.078094, 851.1015, 623.5552,
+          134.58742, 863.7004
+        ],
+        [
+          895.55237, 625.17365, 0.8519428, 0, 907.24536, 552.1408, 57.506138, 895.55237, 625.17365,
+          138.01472, 907.24536
+        ],
+        [
+          909.33405, 628.042, 0.8894378, 0, 921.9018, 551.83496, 60.03705, 909.33405, 628.042,
+          144.08893, 921.9018
+        ]
+      ],
+      [
+        [
+          799.43115, 619.16235, 0.77336377, 0, 809.31476, 553.4921, 52.202057, 799.43115, 619.16235,
+          125.284935, 809.31476
+        ],
+        [
+          844.5746, 620.5706, 0.79177314, 0, 855.121, 552.55334, 53.444687, 844.5746, 620.5706,
+          128.26726, 855.121
+        ],
+        [
+          849.7298, 623.4314, 0.8291682, 0, 862.3041, 553.88074, 55.968853, 849.7298, 623.4314,
+          134.32526, 862.3041
+        ],
+        [
+          894.05707, 625.04346, 0.8502411, 0, 905.7266, 552.15656, 57.391273, 894.05707, 625.04346,
+          137.73906, 905.7266
+        ],
+        [
+          907.7442, 627.9001, 0.8875831, 0, 920.28577, 551.852, 59.911858, 907.7442, 627.9001,
+          143.78845, 920.28577
+        ]
+      ],
+      [
+        [
+          798.02454, 619.06104, 0.7720398, 0, 807.89124, 553.5033, 52.112686, 798.02454, 619.06104,
+          125.07044, 807.89124
+        ],
+        [
+          843.2793, 620.4582, 0.7903031, 0, 853.80615, 552.5672, 53.34546, 843.2793, 620.4582,
+          128.0291, 853.80615
+        ],
+        [
+          848.36346, 623.30804, 0.82755625, 0, 860.9133, 553.89264, 55.860046, 848.36346, 623.30804,
+          134.06412, 860.9133
+        ],
+        [892.5677,624.9138,0.8485462,0,904.214,552.1722,57.27687,892.5677,624.9138,137.4645,904.214],
+        [
+          906.16113, 627.75885, 0.88573635, 0, 918.67664, 551.86896, 59.7872, 906.16113, 627.75885,
+          143.48929, 918.67664
+        ]
+      ],
+      [
+        [
+          796.6227, 618.9601, 0.7707203, 0, 806.4725, 553.5144, 52.023617, 796.6227, 618.9601,
+          124.85669, 806.4725
+        ],
+        [
+          841.9888, 620.3461, 0.7888385, 0, 852.4961, 552.581, 53.2466, 841.9888, 620.3461,
+          127.79184, 852.4961
+        ],
+        [
+          847.0024, 623.1852, 0.8259505, 0, 859.52795, 553.9045, 55.751656, 847.0024, 623.1852,
+          133.80397, 859.52795
+        ],
+        [
+          891.0842, 624.78467, 0.8468581, 0, 902.7074, 552.18774, 57.162918, 891.0842, 624.78467,
+          137.19101, 902.7074
+        ],
+        [
+          904.58466, 627.61816, 0.88389724, 0, 917.0741, 551.8858, 59.663063, 904.58466, 627.61816,
+          143.19136, 917.0741
+        ]
+      ],
+      [
+        [
+          797.52057, 619.00745, 0.77133876, 0, 807.3783, 553.5092, 52.065365, 797.52057, 619.00745,
+          124.95688, 807.3783
+        ],
+        [
+          840.7031, 620.2345, 0.78737944, 0, 851.19104, 552.5947, 53.148113, 840.7031, 620.2345,
+          127.55547, 851.19104
+        ],
+        [
+          845.64655, 623.06287, 0.8243509, 0, 858.1478, 553.9163, 55.643684, 845.64655, 623.06287,
+          133.54485, 858.1478
+        ],
+        [
+          889.60657, 624.656, 0.8451765, 0, 901.20667, 552.20325, 57.049416, 889.60657, 624.656,
+          136.9186, 901.20667
+        ],
+        [
+          903.01447, 627.478, 0.8820654, 0, 915.478, 551.90265, 59.539413, 903.01447, 627.478,
+          142.89459, 915.478
+        ]
+      ],
+      [
+        [
+          795.75, 618.92365, 0.77024376, 0, 805.59375, 553.5184, 51.991455, 795.75, 618.92365,
+          124.77949, 805.59375
+        ],
+        [
+          839.4221, 620.1233, 0.7859257, 0, 849.8907, 552.6084, 53.04998, 839.4221, 620.1233,
+          127.31996, 849.8907
+        ],
+        [
+          844.29614, 622.941, 0.82275766, 0, 856.7732, 553.92804, 55.53614, 844.29614, 622.941,
+          133.28674, 856.7732
+        ],
+        [
+          888.135, 624.5279, 0.84350187, 0, 899.71204, 552.2187, 56.93638, 888.135, 624.5279,
+          136.64731, 899.71204
+        ],
+        [
+          901.45105, 627.3385, 0.8802415, 0, 913.88885, 551.9194, 59.416306, 901.45105, 627.3385,
+          142.59914, 913.88885
+        ]
+      ],
+      [
+        [
+          793.98444, 618.8401, 0.76915175, 0, 803.8142, 553.5276, 51.91774, 793.98444, 618.8401,
+          124.602585, 803.8142
+        ],
+        [
+          838.1459, 620.0125, 0.78447723, 0, 848.5951, 552.622, 52.952213, 838.1459, 620.0125,
+          127.08531, 848.5951
+        ],
+        [
+          842.9507, 622.8195, 0.82117045, 0, 855.40375, 553.93976, 55.42901, 842.9507, 622.8195,
+          133.02962, 855.40375
+        ],
+        [
+          886.669, 624.40027, 0.8418336, 0, 898.22314, 552.2341, 56.82377, 886.669, 624.40027,
+          136.37704, 898.22314
+        ],
+        [
+          899.894, 627.1995, 0.87842506, 0, 912.30615, 551.93604, 59.293694, 899.894, 627.1995,
+          142.30486, 912.30615
+        ]
+      ],
+      [
+        [
+          792.2238, 618.75684, 0.76806283, 0, 802.0397, 553.53674, 51.844242, 792.2238, 618.75684,
+          124.42618, 802.0397
+        ],
+        [
+          836.8744, 619.9021, 0.7830342, 0, 847.30444, 552.63556, 52.854813, 836.8744, 619.9021,
+          126.85155, 847.30444
+        ],
+        [
+          841.61053, 622.6986, 0.8195893, 0, 854.0396, 553.9514, 55.32228, 841.61053, 622.6986,
+          132.77347, 854.0396
+        ],
+        [
+          885.20886, 624.2732, 0.84017205, 0, 896.74023, 552.2494, 56.711617, 885.20886, 624.2732,
+          136.10786, 896.74023
+        ],
+        [
+          898.3432, 627.0611, 0.87661594, 0, 910.7298, 551.95264, 59.171574, 898.3432, 627.0611,
+          142.01178, 910.7298
+        ]
+      ],
+      [
+        [
+          790.46826, 618.67377, 0.7669771, 0, 800.27026, 553.5459, 51.770954, 790.46826, 618.67377,
+          124.25029, 800.27026
+        ],
+        [
+          835.6074, 619.7921, 0.7815964, 0, 846.0183, 552.6491, 52.757755, 835.6074, 619.7921,
+          126.61862, 846.0183
+        ],
+        [
+          840.2756, 622.5781, 0.8180144, 0, 852.6808, 553.9631, 55.21597, 840.2756, 622.5781,
+          132.51833, 852.6808
+        ],
+        [
+          883.75464, 624.14655, 0.838517, 0, 895.2633, 552.2647, 56.5999, 883.75464, 624.14655,
+          135.83975, 895.2633
+        ],
+        [
+          896.7989, 626.9233, 0.8748144, 0, 909.16003, 551.9692, 59.04997, 896.7989, 626.9233,
+          141.71992, 909.16003
+        ]
+      ],
+      [
+        [
+          788.7176, 618.59094, 0.7658943, 0, 798.50574, 553.555, 51.69787, 788.7176, 618.59094,
+          124.074875, 798.50574
+        ],
+        [
+          834.3452, 619.68256, 0.7801639, 0, 844.73694, 552.66254, 52.661057, 834.3452, 619.68256,
+          126.38654, 844.73694
+        ],
+        [
+          838.9457, 622.45807, 0.81644535, 0, 851.327, 553.9746, 55.11006, 838.9457, 622.45807,
+          132.26414, 851.327
+        ],
+        [
+          882.3059, 624.02045, 0.8368685, 0, 893.792, 552.2799, 56.48862, 882.3059, 624.02045,
+          135.5727, 893.792
+        ],
+        [
+          895.2611, 626.7861, 0.87302035, 0, 907.59686, 551.98566, 58.92887, 895.2611, 626.7861,
+          141.42929, 907.59686
+        ]
+      ],
+      [
+        [
+          786.9718, 618.5083, 0.7648147, 0, 796.7461, 553.5641, 51.624992, 786.9718, 618.5083,
+          123.89997, 796.7461
+        ],
+        [
+          833.08765, 619.57336, 0.77873665, 0, 843.46045, 552.67596, 52.564728, 833.08765, 619.57336,
+          126.15534, 843.46045
+        ],
+        [
+          837.621, 622.3385, 0.81488246, 0, 849.97864, 553.98615, 55.00457, 837.621, 622.3385,
+          132.01096, 849.97864
+        ],
+        [
+          880.86304, 623.89484, 0.83522654, 0, 892.32654, 552.29504, 56.377792, 880.86304, 623.89484,
+          135.3067, 892.32654
+        ],
+        [
+          893.7294, 626.64935, 0.8712334, 0, 906.03986, 552.0021, 58.80825, 893.7294, 626.64935,
+          141.13982, 906.03986
+        ]
+      ],
+      [
+        [
+          787.99664, 618.54456, 0.7652882, 0, 797.777, 553.5601, 51.65695, 787.99664, 618.54456,
+          123.976685, 797.777
+        ],
+        [
+          831.8346, 619.46454, 0.7773146, 0, 842.18835, 552.68933, 52.468735, 831.8346, 619.46454,
+          125.924965, 842.18835
+        ],
+        [
+          836.30115, 622.2194, 0.8133254, 0, 848.63525, 553.9977, 54.899467, 836.30115, 622.2194,
+          131.75871, 848.63525
+        ],
+        [
+          879.42566, 623.7697, 0.83359087, 0, 890.86676, 552.3101, 56.267384, 879.42566, 623.7697,
+          135.04172, 890.86676
+        ],
+        [
+          892.20386, 626.51324, 0.86945385, 0, 904.48926, 552.01843, 58.688133, 892.20386, 626.51324,
+          140.85153, 904.48926
+        ]
+      ],
+      [
+        [
+          786.0011, 618.48444, 0.76450235, 0, 795.7715, 553.5667, 51.603912, 786.0011, 618.48444,
+          123.84938, 795.7715
+        ],
+        [
+          830.5861, 619.3562, 0.7758977, 0, 840.9211, 552.7027, 52.373096, 830.5861, 619.3562,
+          125.69543, 840.9211
+        ],
+        [
+          834.98645, 622.1007, 0.8117743, 0, 847.297, 554.0091, 54.79477, 834.98645, 622.1007,
+          131.50745, 847.297
+        ],
+        [
+          877.994, 623.6451, 0.83196163, 0, 889.4127, 552.32513, 56.15741, 877.994, 623.6451,
+          134.77779, 889.4127
+        ],
+        [
+          890.6848, 626.3777, 0.86768174, 0, 902.9451, 552.03467, 58.568516, 890.6848, 626.3777,
+          140.56444, 902.9451
+        ]
+      ],
+      [
+        [
+          784.00977, 618.42444, 0.76371807, 0, 793.77, 553.5733, 51.550972, 784.00977, 618.42444,
+          123.72233, 793.77
+        ],
+        [
+          829.3422, 619.24817, 0.77448606, 0, 839.6584, 552.71594, 52.27781, 829.3422, 619.24817,
+          125.466736, 839.6584
+        ],
+        [
+          833.67664, 621.98254, 0.8102291, 0, 845.9638, 554.0205, 54.690468, 833.67664, 621.98254,
+          131.25713, 845.9638
+        ],
+        [
+          876.568, 623.52094, 0.8303388, 0, 887.9644, 552.34015, 56.047867, 876.568, 623.52094,
+          134.51488, 887.9644
+        ],
+        [
+          889.1717, 626.2426, 0.86591655, 0, 901.4071, 552.0509, 58.449364, 889.1717, 626.2426,
+          140.27847, 901.4071
+        ]
+      ],
+      [
+        [
+          782.0224, 618.36456, 0.76293546, 0, 791.7727, 553.5799, 51.498146, 782.0224, 618.36456,
+          123.59554, 791.7727
+        ],
+        [
+          828.1029, 619.14056, 0.7730796, 0, 838.4003, 552.7292, 52.182873, 828.1029, 619.14056,
+          125.23889, 838.4003
+        ],
+        [
+          832.3721, 621.8648, 0.80868995, 0, 844.63586, 554.03186, 54.58657, 832.3721, 621.8648,
+          131.00777, 844.63586
+        ],
+        [
+          875.14746, 623.3973, 0.82872224, 0, 886.5216, 552.35504, 55.93875, 875.14746, 623.3973,
+          134.253, 886.5216
+        ],
+        [
+          887.66486, 626.10815, 0.86415863, 0, 899.8754, 552.067, 58.330708, 887.66486, 626.10815,
+          139.9937, 899.8754
+        ]
+      ],
+      [
+        [
+          780.039, 618.3048, 0.76215434, 0, 789.77936, 553.5865, 51.445415, 780.039, 618.3048,
+          123.469, 789.77936
+        ],
+        [
+          826.8679, 619.0334, 0.771678, 0, 837.14667, 552.7424, 52.088264, 826.8679, 619.0334,
+          125.011826, 837.14667
+        ],
+        [
+          831.07227, 621.7475, 0.8071565, 0, 843.3128, 554.0432, 54.483067, 831.07227, 621.7475,
+          130.75935, 843.3128
+        ],
+        [
+          873.73236, 623.27405, 0.82711184, 0, 885.0845, 552.3699, 55.830048, 873.73236, 623.27405,
+          133.99211, 885.0845
+        ],
+        [
+          886.1641, 625.9742, 0.86240786, 0, 898.35, 552.08307, 58.212532, 886.1641, 625.9742,
+          139.71007, 898.35
+        ]
+      ],
+      [
+        [
+          778.0598, 618.2452, 0.7613749, 0, 787.79016, 553.593, 51.3928, 778.0598, 618.2452,
+          123.34273, 787.79016
+        ],
+        [
+          824.2501, 618.84204, 0.76917744, 0, 834.49554, 552.76587, 51.919476, 824.2501, 618.84204,
+          124.60674, 834.49554
+        ],
+        [
+          829.77734, 621.6306, 0.80562884, 0, 841.99475, 554.05444, 54.379944, 829.77734, 621.6306,
+          130.51187, 841.99475
+        ],
+        [
+          872.3229, 623.15137, 0.82550794, 0, 883.653, 552.3847, 55.721786, 872.3229, 623.15137,
+          133.73228, 883.653
+        ],
+        [
+          884.6694, 625.8408, 0.8606642, 0, 896.83057, 552.0991, 58.094833, 884.6694, 625.8408,
+          139.4276, 896.83057
+        ]
+      ],
+      [
+        [
+          776.08453, 618.18567, 0.76059693, 0, 785.80493, 553.5996, 51.340294, 776.08453, 618.18567,
+          123.216705, 785.80493
+        ],
+        [
+          822.8088, 618.7419, 0.7678677, 0, 833.03674, 552.7782, 51.83107, 822.8088, 618.7419,
+          124.39457, 833.03674
+        ],
+        [
+          828.4874, 621.51416, 0.804107, 0, 840.68176, 554.0657, 54.27722, 828.4874, 621.51416,
+          130.26534, 840.68176
+        ],
+        [
+          870.9188, 623.0291, 0.82391, 0, 882.2269, 552.3994, 55.613926, 870.9188, 623.0291,
+          133.47342, 882.2269
+        ],
+        [
+          883.18066, 625.70795, 0.8589274, 0, 895.3173, 552.11505, 57.9776, 883.18066, 625.70795,
+          139.14624, 895.3173
+        ]
+      ],
+      [
+        [
+          777.181, 618.20917, 0.7609045, 0, 786.9054, 553.597, 51.361053, 777.181, 618.20917,
+          123.26653, 786.9054
+        ],
+        [
+          821.3723, 618.642, 0.76656234, 0, 831.5829, 552.79047, 51.74296, 821.3723, 618.642,
+          124.183105, 831.5829
+        ],
+        [
+          827.2024, 621.3982, 0.80259085, 0, 839.37366, 554.0769, 54.17488, 827.2024, 621.3982,
+          130.01971, 839.37366
+        ],
+        [
+          869.52014, 622.90735, 0.8223184, 0, 880.8064, 552.4141, 55.50649, 869.52014, 622.90735,
+          133.21558, 880.8064
+        ],
+        [
+          881.6981, 625.5756, 0.8571979, 0, 893.8103, 552.1309, 57.860855, 881.6981, 625.5756,
+          138.86606, 893.8103
+        ]
+      ],
+      [
+        [
+          775.08704, 618.1759, 0.7604695, 0, 784.80585, 553.60065, 51.331696, 775.08704, 618.1759,
+          123.19606, 784.80585
+        ],
+        [
+          819.9408, 618.5425, 0.7652615, 0, 830.13403, 552.80273, 51.65515, 819.9408, 618.5425,
+          123.97236, 830.13403
+        ],
+        [
+          825.9221, 621.28265, 0.8010804, 0, 838.07043, 554.088, 54.07293, 825.9221, 621.28265,
+          129.77502, 838.07043
+        ],
+        [
+          868.12695, 622.7861, 0.820733, 0, 879.3915, 552.4287, 55.399475, 868.12695, 622.7861,
+          132.95874, 879.3915
+        ],
+        [
+          880.2213, 625.44385, 0.855475, 0, 892.3092, 552.1467, 57.744564, 880.2213, 625.44385,
+          138.58696, 892.3092
+        ]
+      ],
+      [
+        [
+          772.99567, 618.1427, 0.76003504, 0, 782.7089, 553.6043, 51.302364, 772.99567, 618.1427,
+          123.12568, 782.7089
+        ],
+        [
+          818.51416, 618.44336, 0.7639651, 0, 828.6902, 552.8149, 51.567642, 818.51416, 618.44336,
+          123.762344, 828.6902
+        ],
+        [
+          824.64667, 621.16754, 0.79957575, 0, 836.7722, 554.0991, 53.97136, 824.64667, 621.16754,
+          129.53127, 836.7722
+        ],
+        [
+          866.739, 622.6652, 0.8191535, 0, 877.9819, 552.4433, 55.292862, 866.739, 622.6652,
+          132.70287, 877.9819
+        ],
+        [
+          878.75055, 625.31256, 0.8537592, 0, 890.8142, 552.1625, 57.62875, 878.75055, 625.31256,
+          138.30899, 890.8142
+        ]
+      ],
+      [
+        [
+          770.9065, 618.1095, 0.759601, 0, 780.61426, 553.608, 51.273067, 770.9065, 618.1095,
+          123.05536, 780.61426
+        ],
+        [
+          817.0923, 618.3445, 0.762673, 0, 827.2511, 552.8271, 51.48043, 817.0923, 618.3445,
+          123.55303, 827.2511
+        ],
+        [
+          823.376, 621.05286, 0.79807657, 0, 835.47876, 554.11017, 53.870167, 823.376, 621.05286,
+          129.2884, 835.47876
+        ],
+        [
+          865.35645, 622.54486, 0.81758016, 0, 876.57776, 552.4578, 55.18666, 865.35645, 622.54486,
+          132.44798, 876.57776
+        ],
+        [
+          877.2857, 625.1819, 0.8520504, 0, 889.3252, 552.17816, 57.513405, 877.2857, 625.1819,
+          138.03217, 889.3252
+        ]
+      ],
+      [
+        [
+          768.81995, 618.0763, 0.75916743, 0, 778.5221, 553.61163, 51.243805, 768.81995, 618.0763,
+          122.98513, 778.5221
+        ],
+        [
+          812.8684, 618.089, 0.7593331, 0, 822.9827, 552.85846, 51.254982, 812.8684, 618.089,
+          123.011955, 822.9827
+        ],
+        [
+          822.1101, 620.9386, 0.79658306, 0, 834.1902, 554.1212, 53.769356, 822.1101, 620.9386,
+          129.04645, 834.1902
+        ],
+        [
+          863.9792, 622.425, 0.81601286, 0, 875.17896, 552.4723, 55.08087, 863.9792, 622.425,
+          132.19409, 875.17896
+        ],
+        [
+          875.82666, 625.05164, 0.85034823, 0, 887.84204, 552.1938, 57.398506, 875.82666, 625.05164,
+          137.75641, 887.84204
+        ]
+      ],
+      [
+        [
+          766.7357, 618.0432, 0.7587344, 0, 776.4324, 553.61523, 51.21457, 766.7357, 618.0432,
+          122.91497, 776.4324
+        ],
+        [
+          811.104, 618.0078, 0.7582718, 0, 821.20416, 552.86847, 51.183346, 811.104, 618.0078,
+          122.840034, 821.20416
+        ],
+        [
+          820.8489, 620.82477, 0.7950952, 0, 832.9065, 554.1322, 53.66893, 820.8489, 620.82477,
+          128.80542, 832.9065
+        ],
+        [
+          862.6072, 622.30554, 0.8144516, 0, 873.7855, 552.4867, 54.975483, 862.6072, 622.30554,
+          131.94116, 873.7855
+        ],
+        [
+          874.3734, 624.92194, 0.8486529, 0, 886.36487, 552.20935, 57.284073, 874.3734, 624.92194,
+          137.48177, 886.36487
+        ]
+      ],
+      [
+        [
+          764.6538, 618.0101, 0.7583019, 0, 774.3449, 553.6189, 51.18538, 764.6538, 618.0101,
+          122.84491, 774.3449
+        ],
+        [
+          809.3443, 617.9268, 0.7572134, 0, 819.43036, 552.8784, 51.111908, 809.3443, 617.9268,
+          122.66857, 819.43036
+        ],
+        [
+          819.5925, 620.71136, 0.79361296, 0, 831.6276, 554.1431, 53.56887, 819.5925, 620.71136,
+          128.56529, 831.6276
+        ],
+        [
+          861.2405, 622.1866, 0.81289625, 0, 872.39746, 552.50104, 54.870495, 861.2405, 622.1866,
+          131.6892, 872.39746
+        ],
+        [
+          872.92596, 624.7928, 0.8469643, 0, 884.89355, 552.22485, 57.170094, 872.92596, 624.7928,
+          137.20822, 884.89355
+        ]
+      ],
+      [
+        [
+          765.76434, 618.0199, 0.75843, 0, 775.4571, 553.6178, 51.194023, 765.76434, 618.0199,
+          122.86566, 775.4571
+        ],
+        [
+          807.58954, 617.84607, 0.7561582, 0, 817.6615, 552.8883, 51.04068, 807.58954, 617.84607,
+          122.49762, 817.6615
+        ],
+        [
+          818.3406, 620.5984, 0.79213595, 0, 830.35333, 554.15405, 53.469177, 818.3406, 620.5984,
+          128.32603, 830.35333
+        ],
+        [
+          859.8789, 622.06805, 0.8113468, 0, 871.01465, 552.5153, 54.765915, 859.8789, 622.06805,
+          131.43819, 871.01465
+        ],
+        [
+          871.48425, 624.6641, 0.8452825, 0, 883.4281, 552.2403, 57.05657, 871.48425, 624.6641,
+          136.93576, 883.4281
+        ]
+      ],
+      [
+        [
+          763.69995, 618.0151, 0.7583673, 0, 773.39185, 553.61835, 51.189796, 763.69995, 618.0151,
+          122.8555, 773.39185
+        ],
+        [
+          805.8397, 617.76556, 0.7551058, 0, 815.8978, 552.89825, 50.96964, 805.8397, 617.76556,
+          122.32713, 815.8978
+        ],
+        [
+          817.0935, 620.48584, 0.7906647, 0, 829.0839, 554.1649, 53.369865, 817.0935, 620.48584,
+          128.08768, 829.0839
+        ],
+        [
+          858.52246, 621.94995, 0.80980325, 0, 869.6371, 552.52954, 54.66172, 858.52246, 621.94995,
+          131.18813, 869.6371
+        ],
+        [
+          870.0482, 624.53595, 0.8436072, 0, 881.96844, 552.2557, 56.94348, 870.0482, 624.53595,
+          136.66435, 881.96844
+        ]
+      ],
+      [
+        [
+          761.636, 618.0103, 0.7583046, 0, 771.32715, 553.6189, 51.185562, 761.636, 618.0103,
+          122.845345, 771.32715
+        ],
+        [
+          804.0947, 617.6853, 0.75405616, 0, 814.1388, 552.9081, 50.898796, 804.0947, 617.6853,
+          122.1571, 814.1388
+        ],
+        [
+          815.8511, 620.3737, 0.7891988, 0, 827.8192, 554.1757, 53.27092, 815.8511, 620.3737,
+          127.85021, 827.8192
+        ],
+        [
+          857.1714, 621.83234, 0.8082657, 0, 868.26483, 552.54376, 54.557934, 857.1714, 621.83234,
+          130.93904, 868.26483
+        ],
+        [
+          868.61804, 624.4083, 0.8419387, 0, 880.51465, 552.271, 56.830864, 868.61804, 624.4083,
+          136.39407, 880.51465
+        ]
+      ],
+      [
+        [
+          759.5725, 618.0055, 0.7582419, 0, 769.2628, 553.6194, 51.181328, 759.5725, 618.0055,
+          122.83519, 769.2628
+        ],
+        [
+          802.3547, 617.6052, 0.7530096, 0, 812.38477, 552.91797, 50.828148, 802.3547, 617.6052,
+          121.98756, 812.38477
+        ],
+        [
+          814.61304, 620.26196, 0.7877383, 0, 826.5591, 554.1865, 53.172333, 814.61304, 620.26196,
+          127.61361, 826.5591
+        ],
+        [
+          855.8253, 621.71515, 0.80673385, 0, 866.8977, 552.55786, 54.454536, 855.8253, 621.71515,
+          130.69089, 866.8977
+        ],
+        [
+          867.1934, 624.2812, 0.8402767, 0, 879.0665, 552.28625, 56.71868, 867.1934, 624.2812,
+          136.12483, 879.0665
+        ]
+      ],
+      [
+        [
+          757.50903, 618.00073, 0.7581791, 0, 767.19855, 553.61993, 51.177094, 757.50903, 618.00073,
+          122.82502, 767.19855
+        ],
+        [
+          797.35266, 617.4063, 0.75040966, 0, 807.34814, 552.9424, 50.652657, 797.35266, 617.4063,
+          121.56637, 807.34814
+        ],
+        [
+          813.3797, 620.15063, 0.7862832, 0, 825.3037, 554.1972, 53.074116, 813.3797, 620.15063,
+          127.37788, 825.3037
+        ],
+        [
+          854.48425, 621.5984, 0.8052077, 0, 865.53577, 552.57196, 54.351524, 854.48425, 621.5984,
+          130.44365, 865.53577
+        ],
+        [
+          865.7743, 624.15454, 0.8386212, 0, 877.624, 552.30145, 56.60693, 865.7743, 624.15454,
+          135.85663, 877.624
+        ]
+      ],
+      [
+        [
+          755.4461, 617.9959, 0.7581164, 0, 765.1348, 553.6205, 51.17286, 755.4461, 617.9959,
+          122.814865, 765.1348
+        ],
+        [
+          795.3865, 617.3485, 0.74965405, 0, 805.3718, 552.9495, 50.601646, 795.3865, 617.3485,
+          121.44396, 805.3718
+        ],
+        [
+          812.15094, 620.0398, 0.78483355, 0, 824.0529, 554.20795, 52.976265, 812.15094, 620.0398,
+          127.143036, 824.0529
+        ],
+        [853.1484,621.4821,0.8036876,0,864.179,552.586,54.24891,853.1484,621.4821,130.19739,864.179],
+        [
+          864.36084, 624.0284, 0.83697224, 0, 876.18726, 552.3166, 56.495625, 864.36084, 624.0284,
+          135.58951, 876.18726
+        ]
+      ],
+      [
+        [
+          753.38354, 617.9911, 0.7580538, 0, 763.07153, 553.621, 51.16863, 753.38354, 617.9911,
+          122.80471, 763.07153
+        ],
+        [
+          793.4242, 617.29083, 0.7488999, 0, 803.39954, 552.9566, 50.55074, 793.4242, 617.29083,
+          121.32178, 803.39954
+        ],
+        [
+          810.92664, 619.92926, 0.7833891, 0, 822.80676, 554.21857, 52.878765, 810.92664, 619.92926,
+          126.909035, 822.80676
+        ],
+        [
+          851.8174, 621.3662, 0.80217296, 0, 862.8273, 552.6, 54.146675, 851.8174, 621.3662,
+          129.95201, 862.8273
+        ],
+        [
+          862.953, 623.9027, 0.8353299, 0, 874.7562, 552.33167, 56.384773, 862.953, 623.9027,
+          135.32344, 874.7562
+        ]
+      ],
+      [
+        [
+          754.45233, 617.98676, 0.7579971, 0, 764.1395, 553.62146, 51.164803, 754.45233, 617.98676,
+          122.795525, 764.1395
+        ],
+        [
+          791.4659, 617.2333, 0.7481473, 0, 801.43115, 552.9637, 50.499947, 791.4659, 617.2333,
+          121.19987, 801.43115
+        ],
+        [
+          809.7068, 619.81915, 0.78195, 0, 821.56506, 554.2292, 52.781628, 809.7068, 619.81915,
+          126.6759, 821.56506
+        ],
+        [
+          850.4915, 621.2508, 0.8006641, 0, 861.48065, 552.6139, 54.044827, 850.4915, 621.2508,
+          129.70758, 861.48065
+        ],
+        [
+          861.55054, 623.7776, 0.8336938, 0, 873.3306, 552.3467, 56.27433, 861.55054, 623.7776,
+          135.0584, 873.3306
+        ]
+      ],
+      [
+        [
+          752.5415, 618.01056, 0.7583082, 0, 762.23267, 553.61884, 51.1858, 752.5415, 618.01056,
+          122.845924, 762.23267
+        ],
+        [
+          789.5114, 617.1758, 0.7473962, 0, 799.4668, 552.97076, 50.44924, 789.5114, 617.1758,
+          121.07818, 799.4668
+        ],
+        [
+          808.4916, 619.7095, 0.78051627, 0, 820.32806, 554.2398, 52.684853, 808.4916, 619.7095,
+          126.443634, 820.32806
+        ],
+        [
+          849.17065, 621.1358, 0.79916096, 0, 860.13916, 552.62775, 53.943363, 849.17065, 621.1358,
+          129.46407, 860.13916
+        ],
+        [
+          860.1537, 623.6529, 0.83206415, 0, 871.91077, 552.36163, 56.16433, 860.1537, 623.6529,
+          134.79439, 871.91077
+        ]
+      ],
+      [
+        [
+          750.629, 618.03436, 0.7586194, 0, 760.3242, 553.6162, 51.20681, 750.629, 618.03436,
+          122.89635, 760.3242
+        ],
+        [
+          787.561, 617.11847, 0.7466466, 0, 797.50635, 552.9778, 50.398643, 787.561, 617.11847,
+          120.95674, 797.50635
+        ],
+        [
+          807.28064, 619.6002, 0.7790877, 0, 819.0955, 554.25037, 52.588425, 807.28064, 619.6002,
+          126.21221, 819.0955
+        ],
+        [
+          847.8547, 621.02124, 0.7976634, 0, 858.8026, 552.64154, 53.842278, 847.8547, 621.02124,
+          129.22147, 858.8026
+        ],
+        [
+          858.7622, 623.52875, 0.830441, 0, 870.49634, 552.3765, 56.05477, 858.7622, 623.52875,
+          134.53145, 870.49634
+        ]
+      ],
+      [
+        [
+          748.71497, 618.0582, 0.758931, 0, 758.4141, 553.6136, 51.22784, 748.71497, 618.0582,
+          122.94682, 758.4141
+        ],
+        [
+          785.6145, 617.0612, 0.7458985, 0, 795.54987, 552.9848, 50.348145, 785.6145, 617.0612,
+          120.835556, 795.54987
+        ],
+        [
+          806.0742, 619.49133, 0.77766436, 0, 817.86743, 554.26086, 52.492344, 806.0742, 619.49133,
+          125.98163, 817.86743
+        ],
+        [
+          846.5436, 620.9071, 0.79617137, 0, 857.47107, 552.65533, 53.74157, 846.5436, 620.9071,
+          128.97977, 857.47107
+        ],
+        [
+          857.37616, 623.405, 0.828824, 0, 869.08746, 552.3914, 55.945618, 857.37616, 623.405,
+          134.26949, 869.08746
+        ]
+      ],
+      [
+        [
+          746.7994, 618.0821, 0.7592428, 0, 756.5025, 553.61096, 51.248886, 746.7994, 618.0821,
+          122.99733, 756.5025
+        ],
+        [
+          780.1558, 616.929, 0.7441703, 0, 790.0682, 553.0011, 50.231495, 780.1558, 616.929,
+          120.55559, 790.0682
+        ],
+        [
+          805.50885, 619.458, 0.77722853, 0, 817.29553, 554.26404, 52.46293, 805.50885, 619.458,
+          125.911026, 817.29553
+        ],
+        [
+          845.2375, 620.7934, 0.7946851, 0, 856.14453, 552.669, 53.641243, 845.2375, 620.7934,
+          128.73898, 856.14453
+        ],
+        [855.9955,623.2818,0.8272133,0,867.684,552.4062,55.8369,855.9955,623.2818,134.00856,867.684]
+      ],
+      [
+        [
+          744.8822, 618.10596, 0.7595548, 0, 754.5893, 553.60834, 51.26995, 744.8822, 618.10596,
+          123.047874, 754.5893
+        ],
+        [
+          778.10645, 616.8972, 0.7437541, 0, 788.01324, 553.005, 50.2034, 778.10645, 616.8972,
+          120.48816, 788.01324
+        ],
+        [
+          804.0847, 619.3557, 0.7758913, 0, 815.8511, 554.2739, 52.37266, 804.0847, 619.3557,
+          125.6944, 815.8511
+        ],
+        [
+          843.9362, 620.6801, 0.7932043, 0, 854.823, 552.6827, 53.541286, 843.9362, 620.6801,
+          128.4991, 854.823
+        ],
+        [
+          854.62024, 623.15906, 0.8256089, 0, 866.2861, 552.4209, 55.7286, 854.62024, 623.15906,
+          133.74864, 866.2861
+        ]
+      ],
+      [
+        [
+          742.96344, 618.1298, 0.7598671, 0, 752.67456, 553.6057, 51.29103, 742.96344, 618.1298,
+          123.09847, 752.67456
+        ],
+        [
+          776.0594, 616.8654, 0.74333864, 0, 785.96063, 553.0089, 50.175354, 776.0594, 616.8654,
+          120.42085, 785.96063
+        ],
+        [
+          802.6654, 619.2537, 0.7745586, 0, 814.4116, 554.28375, 52.282707, 802.6654, 619.2537,
+          125.47849, 814.4116
+        ],
+        [
+          842.6398, 620.56726, 0.79172885, 0, 853.5062, 552.6963, 53.4417, 842.6398, 620.56726,
+          128.26007, 853.5062
+        ],
+        [
+          853.25024, 623.0368, 0.82401067, 0, 864.89355, 552.4356, 55.620724, 853.25024, 623.0368,
+          133.48973, 864.89355
+        ]
+      ],
+      [
+        [
+          742.53406, 618.138, 0.7599737, 0, 752.2465, 553.6048, 51.298225, 742.53406, 618.138,
+          123.11574, 752.2465
+        ],
+        [
+          774.0144, 616.8336, 0.74292344, 0, 783.9101, 553.0128, 50.14733, 774.0144, 616.8336,
+          120.3536, 783.9101
+        ],
+        [
+          801.2512, 619.1521, 0.77323043, 0, 812.9772, 554.2936, 52.193054, 801.2512, 619.1521,
+          125.26333, 812.9772
+        ],
+        [
+          841.3482, 620.45483, 0.7902591, 0, 852.1945, 552.70984, 53.34249, 841.3482, 620.45483,
+          128.02197, 852.1945
+        ],
+        [
+          851.8855, 622.91504, 0.8224186, 0, 863.5063, 552.4502, 55.513252, 851.8855, 622.91504,
+          133.23181, 863.5063
+        ]
+      ],
+      [
+        [
+          740.7363, 618.1758, 0.7604679, 0, 750.4551, 553.60065, 51.33158, 740.7363, 618.1758,
+          123.19579, 750.4551
+        ],
+        [
+          771.9718, 616.80194, 0.7425087, 0, 781.86206, 553.0167, 50.11934, 771.9718, 616.80194,
+          120.28641, 781.86206
+        ],
+        [
+          799.8416, 619.0509, 0.7719069, 0, 811.5476, 554.30334, 52.10372, 799.8416, 619.0509,
+          125.04892, 811.5476
+        ],
+        [
+          840.0613, 620.3428, 0.78879464, 0, 850.8876, 552.7234, 53.243637, 840.0613, 620.3428,
+          127.78473, 850.8876
+        ],
+        [
+          850.5261, 622.7937, 0.8208328, 0, 862.1245, 552.4648, 55.406216, 850.5261, 622.7937,
+          132.97491, 862.1245
+        ]
+      ],
+      [
+        [
+          738.93616, 618.2136, 0.76096267, 0, 748.66125, 553.5965, 51.364983, 738.93616, 618.2136,
+          123.275955, 748.66125
+        ],
+        [
+          769.9314, 616.77026, 0.7420945, 0, 779.8161, 553.0206, 50.091377, 769.9314, 616.77026,
+          120.219315, 779.8161
+        ],
+        [
+          798.4369, 618.94995, 0.7705879, 0, 810.1229, 554.31305, 52.014687, 798.4369, 618.94995,
+          124.835236, 810.1229
+        ],
+        [
+          838.7792, 620.2312, 0.7873357, 0, 849.58545, 552.7368, 53.145157, 838.7792, 620.2312,
+          127.54838, 849.58545
+        ],
+        [
+          849.17194, 622.67285, 0.819253, 0, 860.748, 552.47925, 55.29958, 849.17194, 622.67285,
+          132.719, 860.748
+        ]
+      ],
+      [
+        [
+          737.13385, 618.2515, 0.7614581, 0, 746.86523, 553.59235, 51.398426, 737.13385, 618.2515,
+          123.35622, 746.86523
+        ],
+        [
+          767.8934, 616.7386, 0.74168074, 0, 777.7726, 553.0245, 50.06345, 767.8934, 616.7386,
+          120.15228, 777.7726
+        ],
+        [
+          799.1106, 618.9713, 0.7708672, 0, 810.8008, 554.311, 52.03354, 799.1106, 618.9713,
+          124.88049, 810.8008
+        ],
+        [
+          837.50195, 620.12, 0.78588206, 0, 848.2882, 552.75024, 53.04704, 837.50195, 620.12,
+          127.3129, 848.2882
+        ],
+        [
+          847.8229, 622.5525, 0.8176792, 0, 859.3767, 552.4937, 55.193344, 847.8229, 622.5525,
+          132.46404, 859.3767
+        ]
+      ],
+      [
+        [
+          735.329, 618.2895, 0.76195425, 0, 745.0668, 553.58813, 51.43191, 735.329, 618.2895,
+          123.436584, 745.0668
+        ],
+        [
+          762.30524, 616.6794, 0.7409071, 0, 772.1741, 553.0318, 50.011223, 762.30524, 616.6794,
+          120.02695, 772.1741
+        ],
+        [
+          797.33875, 618.8877, 0.7697734, 0, 809.0124, 554.3191, 51.95971, 797.33875, 618.8877,
+          124.70329, 809.0124
+        ],
+        [
+          836.22925, 620.0092, 0.78443384, 0, 846.9956, 552.7636, 52.949284, 836.22925, 620.0092,
+          127.078285, 846.9956
+        ],
+        [
+          846.47925, 622.43256, 0.8161116, 0, 858.01086, 552.5081, 55.08754, 846.47925, 622.43256,
+          132.21008, 858.01086
+        ]
+      ],
+      [
+        [
+          733.52185, 618.3275, 0.762451, 0, 743.266, 553.584, 51.465443, 733.52185, 618.3275,
+          123.51707, 743.266
+        ],
+        [
+          760.28894, 616.6748, 0.74084723, 0, 770.15704, 553.03235, 50.007187, 760.28894, 616.6748,
+          120.01725, 770.15704
+        ],
+        [
+          795.57196, 618.80426, 0.76868284, 0, 807.229, 554.32715, 51.886093, 795.57196, 618.80426,
+          124.52662, 807.229
+        ],
+        [
+          834.9613, 619.8988, 0.7829909, 0, 845.7079, 552.7769, 52.851883, 834.9613, 619.8988,
+          126.84452, 845.7079
+        ],
+        [
+          845.1405, 622.31305, 0.81454986, 0, 856.65, 552.52246, 54.982117, 845.1405, 622.31305,
+          131.95708, 856.65
+        ]
+      ],
+      [
+        [
+          731.71246, 618.36554, 0.76294833, 0, 741.4629, 553.5798, 51.499016, 731.71246, 618.36554,
+          123.59763, 741.4629
+        ],
+        [
+          758.27295, 616.6702, 0.74078727, 0, 768.14026, 553.0329, 50.00314, 758.27295, 616.6702,
+          120.00754, 768.14026
+        ],
+        [
+          793.8102, 618.72107, 0.7675953, 0, 805.4508, 554.33514, 51.812683, 793.8102, 618.72107,
+          124.35044, 805.4508
+        ],
+        [
+          833.69806, 619.7888, 0.7815533, 0, 844.4249, 552.79016, 52.75485, 833.69806, 619.7888,
+          126.61164, 844.4249
+        ],
+        [
+          843.8069, 622.19403, 0.8129941, 0, 855.29456, 552.53674, 54.877106, 843.8069, 622.19403,
+          131.70505, 855.29456
+        ]
+      ],
+      [
+        [
+          729.9005, 618.4036, 0.7634464, 0, 739.65735, 553.5756, 51.53263, 729.9005, 618.4036,
+          123.678314, 739.65735
+        ],
+        [
+          756.2572, 616.66565, 0.7407274, 0, 766.12366, 553.03345, 49.999107, 756.2572, 616.66565,
+          119.99785, 766.12366
+        ],
+        [
+          792.0534, 618.63806, 0.7665108, 0, 803.6775, 554.34314, 51.73948, 792.0534, 618.63806,
+          124.17474, 803.6775
+        ],
+        [
+          832.4394, 619.67926, 0.780121, 0, 843.14655, 552.8034, 52.65817, 832.4394, 619.67926,
+          126.37961, 843.14655
+        ],
+        [
+          842.4784, 622.0755, 0.81144434, 0, 853.94415, 552.55096, 54.77249, 842.4784, 622.0755,
+          131.454, 853.94415
+        ]
+      ],
+      [
+        [
+          728.0863, 618.4418, 0.7639451, 0, 737.8495, 553.5714, 51.56629, 728.0863, 618.4418,
+          123.75911, 737.8495
+        ],
+        [
+          754.2418, 616.6611, 0.74066764, 0, 764.10754, 553.034, 49.995064, 754.2418, 616.6611,
+          119.98816, 764.10754
+        ],
+        [
+          790.30164, 618.55536, 0.7654294, 0, 801.90936, 554.35114, 51.66648, 790.30164, 618.55536,
+          123.99956, 801.90936
+        ],
+        [
+          831.1853, 619.57007, 0.77869385, 0, 841.8728, 552.8165, 52.561832, 831.1853, 619.57007,
+          126.1484, 841.8728
+        ],
+        [
+          841.155, 621.9574, 0.80990046, 0, 852.5989, 552.5651, 54.66828, 841.155, 621.9574,
+          131.20387, 852.5989
+        ]
+      ],
+      [
+        [726.2698,618.48,0.7644444,0,736.03937,553.5672,51.6,726.2698,618.48,123.84,736.03937],
+        [
+          752.22687, 616.6565, 0.7406078, 0, 762.09174, 553.0346, 49.991028, 752.22687, 616.6565,
+          119.97847, 762.09174
+        ],
+        [
+          788.5548, 618.47284, 0.76435107, 0, 800.1461, 554.3591, 51.593697, 788.5548, 618.47284,
+          123.82487, 800.1461
+        ],
+        [
+          829.93585, 619.4613, 0.77727205, 0, 840.6039, 552.82965, 52.465862, 829.93585, 619.4613,
+          125.91807, 840.6039
+        ],
+        [
+          839.83655, 621.8397, 0.80836236, 0, 851.2588, 552.5792, 54.564457, 839.83655, 621.8397,
+          130.9547, 851.2588
+        ]
+      ],
+      [
+        [
+          724.4508, 618.51825, 0.76494443, 0, 734.2268, 553.563, 51.63375, 724.4508, 618.51825,
+          123.921, 734.2268
+        ],
+        [
+          750.2122, 616.6519, 0.740548, 0, 760.0763, 553.03516, 49.98699, 750.2122, 616.6519,
+          119.96878, 760.0763
+        ],
+        [
+          789.25305, 618.48596, 0.76452214, 0, 800.847, 554.35785, 51.605244, 789.25305, 618.48596,
+          123.852585, 800.847
+        ],
+        [
+          828.6909, 619.3529, 0.77585536, 0, 839.3396, 552.8427, 52.370235, 828.6909, 619.3529,
+          125.68857, 839.3396
+        ],
+        [
+          838.52325, 621.72253, 0.8068303, 0, 849.92377, 552.5933, 54.461044, 838.52325, 621.72253,
+          130.70651, 849.92377
+        ]
+      ],
+      [
+        [
+          722.6295, 618.5565, 0.76544505, 0, 732.41187, 553.5588, 51.667545, 722.6295, 618.5565,
+          124.002106, 732.41187
+        ],
+        [
+          744.81665, 616.6685, 0.740765, 0, 754.68365, 553.0331, 50.001633, 744.81665, 616.6685,
+          120.00392, 754.68365
+        ],
+        [
+          787.2582, 618.42596, 0.76373786, 0, 798.84033, 554.36365, 51.552303, 787.2582, 618.42596,
+          123.72553, 798.84033
+        ],
+        [
+          827.45056, 619.24493, 0.7744438, 0, 838.07983, 552.8558, 52.274956, 827.45056, 619.24493,
+          125.4599, 838.07983
+        ],
+        [
+          837.2149, 621.6058, 0.805304, 0, 848.5939, 552.6073, 54.358017, 837.2149, 621.6058,
+          130.45924, 848.5939
+        ]
+      ],
+      [
+        [
+          720.8057, 618.5949, 0.7659464, 0, 730.5945, 553.55457, 51.701378, 720.8057, 618.5949,
+          124.08331, 730.5945
+        ],
+        [
+          742.9452, 616.6912, 0.741062, 0, 752.81616, 553.03033, 50.021683, 742.9452, 616.6912,
+          120.05204, 752.81616
+        ],
+        [
+          785.2674, 618.3661, 0.7629551, 0, 796.83765, 554.3694, 51.499474, 785.2674, 618.3661,
+          123.598724, 796.83765
+        ],
+        [
+          826.2146, 619.1373, 0.7730373, 0, 836.8246, 552.8687, 52.180016, 826.2146, 619.1373,
+          125.23204, 836.8246
+        ],
+        [
+          835.91125, 621.4894, 0.8037832, 0, 847.26874, 552.6213, 54.255363, 835.91125, 621.4894,
+          130.21288, 847.26874
+        ]
+      ],
+      [
+        [
+          718.97955, 618.6333, 0.7664484, 1, 728.7748, 553.55035, 51.735268, 718.97955, 618.6333,
+          124.16464, 728.7748
+        ],
+        [
+          741.0724, 616.714, 0.74135923, 0, 750.94727, 553.0275, 50.041748, 741.0724, 616.714,
+          120.10019, 750.94727
+        ],
+        [
+          783.28076, 618.30634, 0.76217407, 0, 794.8391, 554.3752, 51.446747, 783.28076, 618.30634,
+          123.4722, 794.8391
+        ],
+        [
+          823.88715, 618.9527, 0.77062386, 0, 834.464, 552.891, 52.017113, 823.88715, 618.9527,
+          124.841064, 834.464
+        ],
+        [
+          834.6128, 621.37354, 0.8022684, 0, 845.94885, 552.6352, 54.153114, 834.6128, 621.37354,
+          129.96748, 845.94885
+        ]
+      ],
+      [
+        [
+          717.1511, 618.67175, 0.76695096, 1, 726.95276, 553.5461, 51.76919, 717.1511, 618.67175,
+          124.246056, 726.95276
+        ],
+        [
+          739.1981, 616.73676, 0.7416567, 0, 749.07697, 553.0247, 50.061825, 739.1981, 616.73676,
+          120.148384, 749.07697
+        ],
+        [
+          781.2981, 618.2467, 0.7613945, 0, 792.8446, 554.3809, 51.394127, 781.2981, 618.2467,
+          123.34591, 792.8446
+        ],
+        [
+          822.4437, 618.8522, 0.7693092, 0, 833.00244, 552.90314, 51.928375, 822.4437, 618.8522,
+          124.62809, 833.00244
+        ],
+        [
+          833.3192, 621.25806, 0.8007592, 0, 844.6339, 552.64905, 54.051247, 833.3192, 621.25806,
+          129.72299, 844.6339
+        ]
+      ],
+      [
+        [
+          715.3202, 618.71027, 0.76745427, 1, 725.12823, 553.5419, 51.80316, 715.3202, 618.71027,
+          124.3276, 725.12823
+        ],
+        [
+          737.3223, 616.7595, 0.7419545, 0, 747.20514, 553.0219, 50.081932, 737.3223, 616.7595,
+          120.19663, 747.20514
+        ],
+        [
+          779.3195, 618.1872, 0.7606166, 0, 790.85425, 554.38666, 51.34162, 779.3195, 618.1872,
+          123.219894, 790.85425
+        ],
+        [
+          821.00525, 618.75195, 0.767999, 0, 831.546, 552.9152, 51.839935, 821.00525, 618.75195,
+          124.41584, 831.546
+        ],
+        [
+          832.0303, 621.14307, 0.79925555, 0, 843.3237, 552.66284, 53.94975, 832.0303, 621.14307,
+          129.4794, 843.3237
+        ]
+      ],
+      [
+        [
+          713.4868, 618.7488, 0.7679582, 1, 723.30133, 553.53766, 51.83718, 713.4868, 618.7488,
+          124.40923, 723.30133
+        ],
+        [
+          735.44495, 616.7823, 0.74225247, 0, 745.3318, 553.0191, 50.102043, 735.44495, 616.7823,
+          120.2449, 745.3318
+        ],
+        [
+          777.345, 618.1278, 0.75984025, 0, 788.8679, 554.3924, 51.289215, 777.345, 618.1278,
+          123.094124, 788.8679
+        ],
+        [
+          819.57166, 618.65204, 0.76669335, 0, 830.09454, 552.92725, 51.7518, 819.57166, 618.65204,
+          124.20432, 830.09454
+        ],
+        [
+          830.7463, 621.02844, 0.7977577, 0, 842.01855, 552.6766, 53.84864, 830.7463, 621.02844,
+          129.23674, 842.01855
+        ]
+      ],
+      [
+        [
+          711.6512, 618.7874, 0.7684628, 1, 721.4721, 553.5334, 51.87124, 711.6512, 618.7874,
+          124.490974, 721.4721
+        ],
+        [
+          733.56616, 616.8051, 0.7425507, 0, 743.4569, 553.0163, 50.12217, 733.56616, 616.8051,
+          120.29321, 743.4569
+        ],
+        [
+          778.0343, 618.1324, 0.75990045, 0, 789.55817, 554.39197, 51.29328, 778.0343, 618.1324,
+          123.103874, 789.55817
+        ],
+        [
+          818.1429, 618.5525, 0.76539207, 0, 828.64795, 552.9393, 51.663963, 818.1429, 618.5525,
+          123.99351, 828.64795
+        ],
+        [
+          829.46716, 620.9143, 0.7962655, 0, 840.7184, 552.6903, 53.74792, 829.46716, 620.9143,
+          128.99501, 840.7184
+        ]
+      ],
+      [
+        [
+          709.813, 618.82605, 0.76896805, 1, 719.6404, 553.5291, 51.905342, 709.813, 618.82605,
+          124.57282, 719.6404
+        ],
+        [
+          730.1201, 616.8568, 0.74322623, 0, 740.0199, 553.00995, 50.16777, 730.1201, 616.8568,
+          120.40265, 740.0199
+        ],
+        [
+          775.94275, 618.0992, 0.7594666, 0, 787.4601, 554.39514, 51.263992, 775.94275, 618.0992,
+          123.033585, 787.4601
+        ],
+        [
+          816.719, 618.45325, 0.7640951, 0, 827.2062, 552.95123, 51.576424, 816.719, 618.45325,
+          123.78341, 827.2062
+        ],
+        [
+          828.1926, 620.80054, 0.7947786, 0, 839.42285, 552.7039, 53.647552, 828.1926, 620.80054,
+          128.75414, 839.42285
+        ]
+      ],
+      [
+        [
+          707.9724, 618.86475, 0.769474, 1, 717.8063, 553.5249, 51.9395, 707.9724, 618.86475,
+          124.65479, 717.8063
+        ],
+        [
+          728.3542, 616.89294, 0.7436988, 0, 738.26025, 553.0055, 50.19967, 728.3542, 616.89294,
+          120.4792, 738.26025
+        ],
+        [
+          773.8535, 618.06604, 0.75903326, 0, 785.36426, 554.3983, 51.23475, 773.8535, 618.06604,
+          122.96339, 785.36426
+        ],
+        [
+          815.2999, 618.35443, 0.76280266, 0, 825.7694, 552.96313, 51.489178, 815.2999, 618.35443,
+          123.57403, 825.7694
+        ],
+        [
+          826.923, 620.68726, 0.79329747, 0, 838.1323, 552.7175, 53.54758, 826.923, 620.68726,
+          128.51419, 838.1323
+        ]
+      ],
+      [
+        [
+          706.1295, 618.9035, 0.7699806, 1, 715.96985, 553.5206, 51.973694, 706.1295, 618.9035,
+          124.736855, 715.96985
+        ],
+        [
+          726.5859, 616.92914, 0.74417204, 0, 736.4983, 553.00104, 50.231613, 726.5859, 616.92914,
+          120.55587, 736.4983
+        ],
+        [
+          771.7668, 618.03296, 0.75860035, 0, 783.27094, 554.40155, 51.205524, 771.7668, 618.03296,
+          122.89326, 783.27094
+        ],
+        [
+          811.3105, 618.12396, 0.7597906, 0, 821.73865, 552.9909, 51.285866, 811.3105, 618.12396,
+          123.086075, 821.73865
+        ],
+        [
+          825.65814, 620.5744, 0.79182196, 0, 836.84656, 552.7311, 53.447983, 825.65814, 620.5744,
+          128.27515, 836.84656
+        ]
+      ],
+      [
+        [
+          704.28406, 618.9423, 0.7704879, 1, 714.13086, 553.51636, 52.007935, 704.28406, 618.9423,
+          124.81904, 714.13086
+        ],
+        [
+          724.81537, 616.9654, 0.7446459, 0, 734.7341, 552.9966, 50.263603, 724.81537, 616.9654,
+          120.63264, 734.7341
+        ],
+        [
+          769.6823, 617.9999, 0.75816804, 0, 781.17993, 554.4047, 51.176342, 769.6823, 617.9999,
+          122.82322, 781.17993
+        ],
+        [
+          809.547, 618.04266, 0.75872797, 0, 819.9606, 553.00073, 51.21414, 809.547, 618.04266,
+          122.91393, 819.9606
+        ],
+        [
+          824.39777, 620.4619, 0.79035157, 0, 835.5654, 552.74457, 53.34873, 824.39777, 620.4619,
+          128.03696, 835.5654
+        ]
+      ],
+      [
+        [
+          702.43616, 618.9812, 0.77099586, 1, 712.2894, 553.5121, 52.04222, 702.43616, 618.9812,
+          124.90133, 712.2894
+        ],
+        [
+          723.0427, 617.0017, 0.7451203, 0, 732.9677, 552.9921, 50.295624, 723.0427, 617.0017,
+          120.70949, 732.9677
+        ],
+        [
+          767.6004, 617.9668, 0.75773615, 0, 779.09143, 554.4079, 51.147186, 767.6004, 617.9668,
+          122.75326, 779.09143
+        ],
+        [
+          807.7886, 617.9616, 0.75766844, 0, 818.1876, 553.0105, 51.142624, 807.7886, 617.9616,
+          122.74229, 818.1876
+        ],
+        [
+          823.1423, 620.34985, 0.7888869, 0, 834.2893, 552.758, 53.24987, 823.1423, 620.34985,
+          127.79968, 834.2893
+        ]
+      ],
+      [
+        [
+          700.58594, 619.0201, 0.77150446, 1, 710.44574, 553.5078, 52.076553, 700.58594, 619.0201,
+          124.98372, 710.44574
+        ],
+        [
+          721.26764, 617.038, 0.7455954, 0, 731.199, 552.9877, 50.32769, 721.26764, 617.038,
+          120.78645, 731.199
+        ],
+        [
+          765.5208, 617.93384, 0.75730485, 0, 777.0054, 554.4111, 51.118073, 765.5208, 617.93384,
+          122.68338, 777.0054
+        ],
+        [
+          806.03503, 617.8808, 0.7566118, 0, 816.41956, 553.02026, 51.071304, 806.03503, 617.8808,
+          122.57112, 816.41956
+        ],
+        [
+          821.89136, 620.2382, 0.7874276, 0, 833.01776, 552.7714, 53.151363, 821.89136, 620.2382,
+          127.56327, 833.01776
+        ]
+      ],
+      [
+        [
+          698.73315, 619.0591, 0.7720137, 1, 708.5995, 553.5035, 52.110924, 698.73315, 619.0591,
+          125.06622, 708.5995
+        ],
+        [
+          719.4905, 617.0744, 0.746071, 1, 729.4281, 552.9832, 50.359787, 719.4905, 617.0744,
+          120.863495, 729.4281
+        ],
+        [
+          766.1699, 617.93005, 0.7572556, 0, 777.6537, 554.41144, 51.114754, 766.1699, 617.93005,
+          122.67541, 777.6537
+        ],
+        [
+          804.2864, 617.8002, 0.7555582, 0, 814.65643, 553.02997, 51.000175, 804.2864, 617.8002,
+          122.40043, 814.65643
+        ],
+        [
+          820.645, 620.127, 0.78597367, 0, 831.75085, 552.7848, 53.053223, 820.645, 620.127,
+          127.327736, 831.75085
+        ]
+      ],
+      [
+        [
+          696.87805, 619.0981, 0.7725237, 1, 706.7509, 553.4992, 52.145348, 696.87805, 619.0981,
+          125.148834, 706.7509
+        ],
+        [
+          717.7108, 617.11084, 0.74654716, 1, 727.65485, 552.9787, 50.391937, 717.7108, 617.11084,
+          120.94064, 727.65485
+        ],
+        [
+          764.10876, 617.9253, 0.757193, 0, 775.59155, 554.4119, 51.110535, 764.10876, 617.9253,
+          122.665276, 775.59155
+        ],
+        [
+          802.5425, 617.7198, 0.75450736, 0, 812.89813, 553.0397, 50.929245, 802.5425, 617.7198,
+          122.230194, 812.89813
+        ],
+        [
+          819.4033, 620.0162, 0.78452504, 0, 830.48865, 552.79803, 52.95544, 819.4033, 620.0162,
+          127.093056, 830.48865
+        ]
+      ],
+      [
+        [
+          695.0204, 619.13715, 0.7730343, 1, 704.8998, 553.49493, 52.179817, 695.0204, 619.13715,
+          125.23156, 704.8998
+        ],
+        [
+          715.929, 617.14734, 0.74702406, 1, 725.8794, 552.97424, 50.42412, 715.929, 617.14734,
+          121.0179, 725.8794
+        ],
+        [
+          762.048, 617.9205, 0.75713044, 0, 773.52985, 554.41235, 51.106304, 762.048, 617.9205,
+          122.65513, 773.52985
+        ],
+        [
+          800.80347, 617.63965, 0.7534596, 0, 811.14465, 553.0493, 50.85852, 800.80347, 617.63965,
+          122.06045, 811.14465
+        ],
+        [
+          818.16626, 619.90576, 0.7830819, 0, 829.2312, 552.8113, 52.85803, 818.16626, 619.90576,
+          126.85926, 829.2312
+        ]
+      ],
+      [
+        [
+          693.1603, 619.1763, 0.7735456, 1, 703.04614, 553.4906, 52.214325, 693.1603, 619.1763,
+          125.314384, 703.04614
+        ],
+        [
+          714.145, 617.18384, 0.7475015, 1, 724.1017, 552.9697, 50.45635, 714.145, 617.18384,
+          121.09524, 724.1017
+        ],
+        [
+          759.9874, 617.9157, 0.757068, 0, 771.4684, 554.41284, 51.10209, 759.9874, 617.9157,
+          122.64501, 771.4684
+        ],
+        [
+          796.1275, 617.46277, 0.75114757, 0, 806.437, 553.0707, 50.702465, 796.1275, 617.46277,
+          121.68591, 806.437
+        ],
+        [
+          816.9336, 619.7958, 0.78164387, 0, 827.9782, 552.8245, 52.76096, 816.9336, 619.7958,
+          126.626305, 827.9782
+        ]
+      ],
+      [
+        [
+          691.2978, 619.2154, 0.7740575, 1, 701.19025, 553.4863, 52.248882, 691.2978, 619.2154,
+          125.397316, 701.19025
+        ],
+        [
+          712.3586, 617.22046, 0.7479796, 1, 722.32166, 552.9653, 50.48862, 712.3586, 617.22046,
+          121.17269, 722.32166
+        ],
+        [
+          757.92737, 617.9109, 0.75700545, 0, 769.40735, 554.4133, 51.09787, 757.92737, 617.9109,
+          122.63488, 769.40735
+        ],
+        [
+          794.16064, 617.40485, 0.7503905, 0, 804.4597, 553.07764, 50.65136, 794.16064, 617.40485,
+          121.56326, 804.4597
+        ],
+        [
+          815.7055, 619.68616, 0.7802112, 0, 826.72986, 552.83765, 52.664257, 815.7055, 619.68616,
+          126.39421, 826.72986
+        ]
+      ],
+      [
+        [
+          689.43274, 619.25464, 0.7745702, 1, 699.3318, 553.482, 52.28349, 689.43274, 619.25464,
+          125.48038, 699.3318
+        ],
+        [
+          710.5698, 617.2571, 0.7484583, 1, 720.5393, 552.96075, 50.52094, 710.5698, 617.2571,
+          121.250244, 720.5393
+        ],
+        [
+          755.86755, 617.9061, 0.75694287, 0, 767.34656, 554.41376, 51.093647, 755.86755, 617.9061,
+          122.62475, 767.34656
+        ],
+        [
+          792.19763, 617.34705, 0.74963486, 0, 802.4863, 553.0846, 50.600357, 792.19763, 617.34705,
+          121.44085, 802.4863
+        ],
+        [
+          814.48193, 619.57697, 0.77878374, 0, 825.48615, 552.85077, 52.5679, 814.48193, 619.57697,
+          126.16297, 825.48615
+        ]
+      ],
+      [
+        [
+          687.5652, 619.2939, 0.77508354, 1, 697.47076, 553.47766, 52.318142, 687.5652, 619.2939,
+          125.56354, 697.47076
+        ],
+        [
+          708.779, 617.2937, 0.74893755, 1, 718.7548, 552.95624, 50.553284, 708.779, 617.2937,
+          121.32789, 718.7548
+        ],
+        [
+          753.808, 617.90137, 0.75688046, 0, 765.28613, 554.41425, 51.08943, 753.808, 617.90137,
+          122.61463, 765.28613
+        ],
+        [
+          790.23865, 617.28937, 0.7488808, 0, 800.517, 553.09155, 50.549454, 790.23865, 617.28937,
+          121.31869, 800.517
+        ],
+        [
+          813.2628, 619.46814, 0.7773616, 0, 824.24695, 552.86383, 52.471905, 813.2628, 619.46814,
+          125.93257, 824.24695
+        ]
+      ],
+      [
+        [
+          685.6953, 619.3332, 0.7755976, 1, 695.6075, 553.4733, 52.352837, 685.6953, 619.3332,
+          125.646805, 695.6075
+        ],
+        [
+          706.9857, 617.33044, 0.74941754, 1, 716.96796, 552.9517, 50.585686, 706.9857, 617.33044,
+          121.40564, 716.96796
+        ],
+        [
+          754.38934, 617.8896, 0.7567269, 0, 765.8651, 554.41534, 51.079067, 754.38934, 617.8896,
+          122.58976, 765.8651
+        ],
+        [
+          788.2837, 617.2318, 0.74812824, 0, 798.55176, 553.0985, 50.49865, 788.2837, 617.2318,
+          121.19677, 798.55176
+        ],
+        [
+          812.0481, 619.35974, 0.77594453, 0, 823.0122, 552.87683, 52.376255, 812.0481, 619.35974,
+          125.70301, 823.0122
+        ]
+      ],
+      [
+        [
+          683.8228, 619.37256, 0.77611226, 1, 693.7415, 553.469, 52.38758, 683.8228, 619.37256,
+          125.73019, 693.7415
+        ],
+        [
+          705.19006, 617.3672, 0.749898, 1, 715.1787, 552.9472, 50.61812, 705.19006, 617.3672,
+          121.483475, 715.1787
+        ],
+        [
+          752.4817, 617.9133, 0.7570369, 0, 763.9621, 554.4131, 51.09999, 752.4817, 617.9133,
+          122.639984, 763.9621
+        ],
+        [
+          786.3324, 617.1744, 0.74737716, 0, 796.59015, 553.10547, 50.44796, 786.3324, 617.1744,
+          121.075096, 796.59015
+        ],
+        [
+          810.9034, 619.2807, 0.77491105, 0, 821.8529, 552.8863, 52.306496, 810.9034, 619.2807,
+          125.53559, 821.8529
+        ]
+      ],
+      [
+        [
+          681.9479, 619.412, 0.77662766, 1, 691.87317, 553.46466, 52.42237, 681.9479, 619.412,
+          125.81368, 691.87317
+        ],
+        [
+          703.39233, 617.404, 0.75037915, 1, 713.3874, 552.9427, 50.650597, 703.39233, 617.404,
+          121.561424, 713.3874
+        ],
+        [
+          750.5724, 617.9371, 0.7573471, 0, 762.05756, 554.41077, 51.12093, 750.5724, 617.9371,
+          122.69023, 762.05756
+        ],
+        [
+          784.38525, 617.117, 0.7466276, 0, 794.6327, 553.11237, 50.397366, 784.38525, 617.117,
+          120.953674, 794.6327
+        ],
+        [
+          809.4741, 619.179, 0.77358174, 0, 820.4049, 552.8985, 52.21677, 809.4741, 619.179,
+          125.320244, 820.4049
+        ]
+      ],
+      [
+        [
+          680.07056, 619.4515, 0.7771437, 1, 690.00244, 553.4603, 52.4572, 680.07056, 619.4515,
+          125.897285, 690.00244
+        ],
+        [
+          701.5921, 617.44086, 0.7508609, 1, 711.59357, 552.9382, 50.683113, 701.5921, 617.44086,
+          121.639465, 711.59357
+        ],
+        [
+          748.6615, 617.9608, 0.7576576, 0, 760.15137, 554.4085, 51.14189, 748.6615, 617.9608,
+          122.74053, 760.15137
+        ],
+        [
+          779.32294, 617.0027, 0.745133, 0, 789.54987, 553.12616, 50.29648, 779.32294, 617.0027,
+          120.71155, 789.54987
+        ],
+        [
+          808.0499, 619.07764, 0.772257, 0, 818.9619, 552.9107, 52.127346, 808.0499, 619.07764,
+          125.10563, 818.9619
+        ]
+      ],
+      [
+        [
+          678.19055, 619.491, 0.7776605, 1, 688.1291, 553.456, 52.49208, 678.19055, 619.491,
+          125.980995, 688.1291
+        ],
+        [
+          699.78973, 617.4778, 0.7513433, 1, 709.7976, 552.9336, 50.71567, 699.78973, 617.4778,
+          121.71761, 709.7976
+        ],
+        [
+          746.7491, 617.98456, 0.7579683, 0, 758.24365, 554.4062, 51.16286, 746.7491, 617.98456,
+          122.79086, 758.24365
+        ],
+        [
+          777.2712, 616.97076, 0.7447159, 0, 787.49243, 553.13, 50.268322, 777.2712, 616.97076,
+          120.643974, 787.49243
+        ],
+        [
+          806.6306, 618.9767, 0.7709367, 0, 817.5239, 552.9228, 52.03823, 806.6306, 618.9767,
+          124.891754, 817.5239
+        ]
+      ],
+      [
+        [
+          676.3082, 619.53064, 0.7781779, 1, 686.2533, 553.45166, 52.527008, 676.3082, 619.53064,
+          126.06482, 686.2533
+        ],
+        [
+          697.98486, 617.5147, 0.7518263, 1, 707.99927, 552.9291, 50.748276, 697.98486, 617.5147,
+          121.79586, 707.99927
+        ],
+        [
+          744.83514, 618.00836, 0.7582793, 0, 756.3344, 554.40393, 51.183853, 744.83514, 618.00836,
+          122.84125, 756.3344
+        ],
+        [
+          775.22186, 616.9389, 0.7442992, 0, 785.4374, 553.13385, 50.240192, 775.22186, 616.9389,
+          120.57647, 785.4374
+        ],
+        [
+          805.21606, 618.876, 0.769621, 0, 816.0908, 552.9349, 51.949417, 805.21606, 618.876,
+          124.678604, 816.0908
+        ]
+      ],
+      [
+        [
+          674.4232, 619.57025, 0.77869606, 1, 684.375, 553.44727, 52.56198, 674.4232, 619.57025,
+          126.14876, 684.375
+        ],
+        [
+          696.17773, 617.5517, 0.7523099, 1, 706.19855, 552.9245, 50.780922, 696.17773, 617.5517,
+          121.874214, 706.19855
+        ],
+        [
+          742.91943, 618.03217, 0.75859064, 0, 754.42346, 554.4016, 51.204865, 742.91943, 618.03217,
+          122.891685, 754.42346
+        ],
+        [
+          773.1747, 616.90704, 0.7438829, 0, 783.3845, 553.1377, 50.212097, 773.1747, 616.90704,
+          120.50903, 783.3845
+        ],
+        [
+          803.8064, 618.7757, 0.7683098, 0, 814.6626, 552.9469, 51.86091, 803.8064, 618.7757,
+          124.46619, 814.6626
+        ]
+      ],
+      [
+        [
+          672.53577, 619.6099, 0.77921486, 1, 682.49414, 553.44293, 52.597008, 672.53577, 619.6099,
+          126.23281, 682.49414
+        ],
+        [
+          694.3684, 617.58875, 0.75279415, 1, 704.3956, 552.92, 50.813606, 694.3684, 617.58875,
+          121.95265, 704.3956
+        ],
+        [
+          742.2472, 618.03906, 0.75868064, 0, 753.75256, 554.40094, 51.210945, 742.2472, 618.03906,
+          122.906265, 753.75256
+        ],
+        [
+          771.13, 616.87524, 0.7434672, 0, 781.3341, 553.14154, 50.184036, 771.13, 616.87524,
+          120.44169, 781.3341
+        ],
+        [
+          803.08386, 618.7165, 0.7675361, 0, 813.9292, 552.95404, 51.808693, 803.08386, 618.7165,
+          124.34085, 813.9292
+        ]
+      ],
+      [
+        [
+          670.6459, 619.64966, 0.7797344, 1, 680.6109, 553.43854, 52.632072, 670.6459, 619.64966,
+          126.31697, 680.6109
+        ],
+        [
+          692.5565, 617.62585, 0.75327903, 1, 702.5902, 552.9154, 50.846336, 692.5565, 617.62585,
+          122.0312, 702.5902
+        ],
+        [
+          740.4524, 618.0767, 0.75917315, 0, 751.9652, 554.3973, 51.244186, 740.4524, 618.0767,
+          122.986046, 751.9652
+        ],
+        [
+          769.0875, 616.84344, 0.7430519, 0, 779.2859, 553.1453, 50.156006, 769.0875, 616.84344,
+          120.374405, 779.2859
+        ],
+        [
+          801.3142, 618.63354, 0.76645184, 0, 812.14417, 552.964, 51.7355, 801.3142, 618.63354,
+          124.1652, 812.14417
+        ]
+      ],
+      [
+        [
+          668.75336, 619.68945, 0.7802546, 1, 678.72504, 553.43414, 52.667187, 668.75336, 619.68945,
+          126.401245, 678.72504
+        ],
+        [
+          690.74243, 617.66296, 0.7537645, 1, 700.7826, 552.9108, 50.879105, 690.74243, 617.66296,
+          122.10985, 700.7826
+        ],
+        [
+          738.65515, 618.11444, 0.75966626, 0, 750.1755, 554.3937, 51.277473, 738.65515, 618.11444,
+          123.06593, 750.1755
+        ],
+        [
+          767.04724, 616.8117, 0.74263704, 0, 777.23987, 553.1492, 50.128, 767.04724, 616.8117,
+          120.3072, 777.23987
+        ],
+        [
+          799.5493, 618.55084, 0.76537055, 0, 810.364, 552.9739, 51.66251, 799.5493, 618.55084,
+          123.99003, 810.364
+        ]
+      ],
+      [
+        [
+          666.85834, 619.7293, 0.7807755, 1, 676.8366, 553.42975, 52.702343, 666.85834, 619.7293,
+          126.48563, 676.8366
+        ],
+        [
+          688.926, 617.7002, 0.75425065, 1, 698.97266, 552.90625, 50.911915, 688.926, 617.7002,
+          122.1886, 698.97266
+        ],
+        [736.8556,618.1522,0.76016,0,748.38336,554.39,51.3108,736.8556,618.1522,123.14592,748.38336],
+        [
+          761.90265, 616.7654, 0.7420313, 0, 772.08704, 553.1548, 50.087112, 761.90265, 616.7654,
+          120.20906, 772.08704
+        ],
+        [
+          797.78955, 618.4684, 0.7642924, 0, 808.58905, 552.9838, 51.589737, 797.78955, 618.4684,
+          123.81537, 808.58905
+        ]
+      ],
+      [
+        [
+          664.9609, 619.7692, 0.7812971, 1, 674.9458, 553.4254, 52.73755, 664.9609, 619.7692,
+          126.57013, 674.9458
+        ],
+        [
+          687.10724, 617.7374, 0.7547374, 1, 697.1603, 552.9017, 50.94477, 687.10724, 617.7374,
+          122.267456, 697.1603
+        ],
+        [
+          735.0538, 618.19006, 0.76065445, 0, 746.5891, 554.38635, 51.344177, 735.0538, 618.19006,
+          123.22601, 746.5891
+        ],
+        [
+          759.8831, 616.7608, 0.74197125, 0, 770.06665, 553.15533, 50.08306, 759.8831, 616.7608,
+          120.19934, 770.06665
+        ],
+        [
+          796.0348, 618.3861, 0.7632173, 0, 806.81903, 552.99365, 51.517166, 796.0348, 618.3861,
+          123.6412, 806.81903
+        ]
+      ],
+      [
+        [
+          663.0608, 619.8092, 0.78181934, 1, 673.0524, 553.421, 52.772804, 663.0608, 619.8092,
+          126.65474, 673.0524
+        ],
+        [
+          685.286, 617.7747, 0.75522476, 1, 695.34564, 552.8971, 50.977673, 685.286, 617.7747,
+          122.34641, 695.34564
+        ],
+        [
+          733.2495, 618.2279, 0.76114947, 0, 744.7923, 554.3827, 51.377586, 733.2495, 618.2279,
+          123.30621, 744.7923
+        ],
+        [
+          757.8642, 616.7562, 0.74191123, 0, 768.0469, 553.1559, 50.07901, 757.8642, 616.7562,
+          120.18961, 768.0469
+        ],
+        [
+          794.28485, 618.3041, 0.762145, 0, 805.05396, 553.0035, 51.444786, 794.28485, 618.3041,
+          123.46749, 805.05396
+        ]
+      ],
+      [
+        [
+          661.1581, 619.8492, 0.7823424, 1, 671.15643, 553.41656, 52.808113, 661.1581, 619.8492,
+          126.73947, 671.15643
+        ],
+        [
+          683.4626, 617.812, 0.75571275, 1, 693.5287, 552.8925, 51.01061, 683.4626, 617.812,
+          122.42547, 693.5287
+        ],
+        [
+          731.4429, 618.26587, 0.76164514, 0, 742.9932, 554.3791, 51.41105, 731.4429, 618.26587,
+          123.38651, 742.9932
+        ],
+        [
+          755.8455, 616.7516, 0.7418512, 0, 766.0274, 553.15643, 50.07496, 755.8455, 616.7516,
+          120.17989, 766.0274
+        ],
+        [
+          792.5399, 618.2223, 0.7610759, 0, 803.2939, 553.0133, 51.372627, 792.5399, 618.2223,
+          123.2943, 803.2939
+        ]
+      ],
+      [
+        [
+          659.253, 619.8893, 0.78286606, 1, 669.25806, 553.4122, 52.84346, 659.253, 619.8893,
+          126.8243, 669.25806
+        ],
+        [
+          681.6367, 617.8494, 0.75620145, 1, 691.70935, 552.88794, 51.043594, 681.6367, 617.8494,
+          122.50463, 691.70935
+        ],
+        [
+          729.63403, 618.30383, 0.7621415, 0, 741.1919, 554.3754, 51.44455, 729.63403, 618.30383,
+          123.46693, 741.1919
+        ],
+        [753.8269,616.747,0.7417911,0,764.008,553.157,50.0709,753.8269,616.747,120.17016,764.008],
+        [
+          791.59814, 618.17334, 0.7604361, 0, 802.34314, 553.0192, 51.329437, 791.59814, 618.17334,
+          123.19065, 802.34314
+        ]
+      ],
+      [
+        [
+          657.3452, 619.9294, 0.78339046, 1, 667.35693, 553.4078, 52.878857, 657.3452, 619.9294,
+          126.90925, 667.35693
+        ],
+        [
+          679.8085, 617.88684, 0.7566907, 1, 689.8876, 552.8833, 51.076622, 679.8085, 617.88684,
+          122.58389, 689.8876
+        ],
+        [
+          727.8227, 618.34186, 0.7626385, 0, 739.3881, 554.3717, 51.4781, 727.8227, 618.34186,
+          123.54743, 739.3881
+        ],
+        [
+          751.80896, 616.74243, 0.7417311, 0, 761.9892, 553.15753, 50.06685, 751.80896, 616.74243,
+          120.16044, 761.9892
+        ],
+        [
+          789.61145, 618.114, 0.75966007, 0, 800.34546, 553.0263, 51.277054, 789.61145, 618.114,
+          123.064926, 800.34546
+        ]
+      ],
+      [
+        [
+          655.43494, 619.96954, 0.7839155, 1, 665.45337, 553.4034, 52.9143, 655.43494, 619.96954,
+          126.994316, 665.45337
+        ],
+        [
+          677.97797, 617.9243, 0.7571806, 1, 688.0636, 552.8787, 51.10969, 677.97797, 617.9243,
+          122.66325, 688.0636
+        ],
+        [
+          726.00903, 618.3799, 0.76313615, 0, 737.582, 554.36804, 51.51169, 726.00903, 618.3799,
+          123.62805, 737.582
+        ],
+        [
+          749.79114, 616.73785, 0.74167114, 0, 759.9706, 553.1581, 50.062805, 749.79114, 616.73785,
+          120.15073, 759.9706
+        ],
+        [
+          787.629, 618.05475, 0.75888574, 0, 798.35205, 553.03345, 51.224785, 787.629, 618.05475,
+          122.93949, 798.35205
+        ]
+      ],
+      [
+        [
+          653.52216, 620.00977, 0.78444135, 1, 663.54736, 553.3989, 52.949787, 653.52216, 620.00977,
+          127.0795, 663.54736
+        ],
+        [
+          676.14496, 617.96185, 0.7576711, 1, 686.2371, 552.8741, 51.1428, 676.14496, 617.96185,
+          122.74272, 686.2371
+        ],
+        [
+          724.19305, 618.418, 0.7636344, 0, 735.77356, 554.3644, 51.545322, 724.19305, 618.418,
+          123.70877, 735.77356
+        ],
+        [
+          744.8623, 616.7616, 0.7419819, 0, 755.046, 553.1552, 50.08378, 744.8623, 616.7616,
+          120.201065, 755.046
+        ],
+        [
+          785.6505, 617.99567, 0.75811297, 0, 796.3627, 553.0405, 51.17263, 785.6505, 617.99567,
+          122.8143, 796.3627
+        ]
+      ],
+      [
+        [
+          651.6067, 620.05005, 0.78496784, 1, 661.6386, 553.3945, 52.98533, 651.6067, 620.05005,
+          127.16479, 661.6386
+        ],
+        [
+          674.3097, 617.9994, 0.75816226, 1, 684.40845, 552.8695, 51.175953, 674.3097, 617.9994,
+          122.82229, 684.40845
+        ],
+        [
+          722.37463, 618.4562, 0.76413333, 0, 733.9627, 554.3607, 51.579002, 722.37463, 618.4562,
+          123.789604, 733.9627
+        ],
+        [
+          742.9881, 616.7844, 0.74228007, 0, 753.1759, 553.15247, 50.103905, 742.9881, 616.7844,
+          120.249374, 753.1759
+        ],
+        [
+          783.67596, 617.93665, 0.7573417, 0, 794.3772, 553.0476, 51.120564, 783.67596, 617.93665,
+          122.689354, 794.3772
+        ]
+      ],
+      [
+        [
+          649.68884, 620.0904, 0.78549504, 1, 659.7275, 553.3901, 53.02092, 649.68884, 620.0904,
+          127.2502, 659.7275
+        ],
+        [
+          672.472, 618.03705, 0.75865406, 1, 682.5773, 552.86487, 51.209152, 672.472, 618.03705,
+          122.90196, 682.5773
+        ],
+        [
+          720.55396, 618.49445, 0.76463294, 0, 732.1496, 554.357, 51.612724, 720.55396, 618.49445,
+          123.87054, 732.1496
+        ],
+        [
+          741.1122, 616.80725, 0.74257827, 0, 751.3041, 553.1497, 50.124035, 741.1122, 616.80725,
+          120.29768, 751.3041
+        ],
+        [
+          781.7055, 617.87775, 0.75657207, 0, 792.3959, 553.0547, 51.06861, 781.7055, 617.87775,
+          122.56467, 792.3959
+        ]
+      ],
+      [
+        [
+          647.7682, 620.13074, 0.78602296, 1, 657.8136, 553.3856, 53.05655, 647.7682, 620.13074,
+          127.335724, 657.8136
+        ],
+        [
+          670.63184, 618.0747, 0.7591466, 1, 680.74365, 552.8602, 51.242393, 670.63184, 618.0747,
+          122.98174, 680.74365
+        ],
+        [
+          718.7308, 618.5327, 0.7651332, 1, 730.334, 554.35333, 51.64649, 718.7308, 618.5327,
+          123.95158, 730.334
+        ],
+        [
+          739.2348, 616.8301, 0.74287677, 0, 749.4308, 553.147, 50.14418, 739.2348, 616.8301,
+          120.34604, 749.4308
+        ],
+        [779.739,617.819,0.7558039,0,790.4185,553.0617,51.016766,779.739,617.819,122.44023,790.4185]
+      ],
+      [
+        [
+          645.8451, 620.1712, 0.78655165, 1, 655.8972, 553.38116, 53.09224, 645.8451, 620.1712,
+          127.42137, 655.8972
+        ],
+        [
+          668.7894, 618.1124, 0.7596396, 1, 678.90784, 552.8556, 51.275673, 668.7894, 618.1124,
+          123.061615, 678.90784
+        ],
+        [
+          716.90515, 618.571, 0.7656341, 1, 728.516, 554.3496, 51.680305, 716.90515, 618.571,
+          124.03273, 728.516
+        ],
+        [
+          737.35596, 616.8529, 0.74317545, 0, 747.556, 553.1442, 50.164345, 737.35596, 616.8529,
+          120.394424, 747.556
+        ],
+        [
+          778.64954, 617.7834, 0.7553386, 0, 789.32245, 553.066, 50.98535, 778.64954, 617.7834,
+          122.36485, 789.32245
+        ]
+      ],
+      [
+        [
+          643.91943, 620.2117, 0.78708094, 1, 653.9783, 553.3767, 53.127968, 643.91943, 620.2117,
+          127.50711, 653.9783
+        ],
+        [
+          666.9445, 618.1502, 0.7601334, 1, 677.06946, 552.85095, 51.309002, 666.9445, 618.1502,
+          123.14161, 677.06946
+        ],
+        [
+          715.07733, 618.6094, 0.76613563, 1, 726.69574, 554.34595, 51.714157, 715.07733, 618.6094,
+          124.113976, 726.69574
+        ],
+        [
+          735.4756, 616.8758, 0.7434745, 0, 745.67975, 553.1415, 50.18453, 735.4756, 616.8758,
+          120.44287, 745.67975
+        ],
+        [
+          776.57025, 617.7506, 0.75490993, 0, 787.2371, 553.06995, 50.95642, 776.57025, 617.7506,
+          122.29541, 787.2371
+        ]
+      ],
+      [
+        [
+          641.991, 620.25226, 0.78761107, 1, 652.0567, 553.37225, 53.163746, 641.991, 620.25226,
+          127.59299, 652.0567
+        ],
+        [
+          665.09717, 618.18805, 0.76062775, 1, 675.22876, 552.8463, 51.342373, 665.09717, 618.18805,
+          123.221695, 675.22876
+        ],
+        [
+          713.24695, 618.6478, 0.76663786, 1, 724.873, 554.3422, 51.748055, 713.24695, 618.6478,
+          124.19533, 724.873
+        ],
+        [
+          733.5935, 616.8987, 0.7437737, 0, 743.8018, 553.1387, 50.204727, 733.5935, 616.8987,
+          120.49134, 743.8018
+        ],
+        [
+          774.49316, 617.71783, 0.7544818, 0, 785.15405, 553.07385, 50.92752, 774.49316, 617.71783,
+          122.22604, 785.15405
+        ]
+      ],
+      [
+        [
+          640.06006, 620.29285, 0.78814185, 1, 650.1325, 553.3678, 53.19957, 640.06006, 620.29285,
+          127.67898, 650.1325
+        ],
+        [
+          663.24756, 618.2259, 0.76112276, 1, 673.38574, 552.8416, 51.375786, 663.24756, 618.2259,
+          123.30189, 673.38574
+        ],
+        [
+          711.4142, 618.6863, 0.7671407, 1, 723.04785, 554.3385, 51.781998, 711.4142, 618.6863,
+          124.276794, 723.04785
+        ],
+        [
+          730.38086, 616.9517, 0.7444672, 0, 740.5987, 553.13226, 50.25154, 730.38086, 616.9517,
+          120.60369, 740.5987
+        ],
+        [
+          772.4186, 617.6851, 0.75405407, 0, 783.07336, 553.07776, 50.89865, 772.4186, 617.6851,
+          122.15675, 783.07336
+        ]
+      ],
+      [
+        [
+          638.1266, 620.3335, 0.7886733, 1, 648.2059, 553.36334, 53.235443, 638.1266, 620.3335,
+          127.76507, 648.2059
+        ],
+        [
+          661.39545, 618.2638, 0.76161844, 1, 671.54016, 552.837, 51.40925, 661.39545, 618.2638,
+          123.38219, 671.54016
+        ],
+        [
+          709.5791, 618.7248, 0.7676442, 1, 721.22046, 554.3348, 51.815987, 709.5791, 618.7248,
+          124.35837, 721.22046
+        ],
+        [
+          728.6122, 616.98804, 0.74494135, 0, 738.8365, 553.1279, 50.283543, 728.6122, 616.98804,
+          120.680504, 738.8365
+        ],
+        [
+          770.34644, 617.65247, 0.75362694, 0, 780.9952, 553.0817, 50.86982, 770.34644, 617.65247,
+          122.08756, 780.9952
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          659.5409, 618.30176, 0.7621147, 1, 669.69226, 552.83234, 51.44274, 659.5409, 618.30176,
+          123.462585, 669.69226
+        ],
+        [
+          707.7415, 618.76337, 0.7681484, 1, 719.3905, 554.33105, 51.85002, 707.7415, 618.76337,
+          124.44005, 719.3905
+        ],
+        [
+          726.84106, 617.02435, 0.7454162, 0, 737.0719, 553.12354, 50.315598, 726.84106, 617.02435,
+          120.75743, 737.0719
+        ],
+        [
+          768.2763, 617.6198, 0.7532002, 0, 778.91907, 553.08563, 50.84101, 768.2763, 617.6198,
+          122.018425, 778.91907
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          657.684, 618.3398, 0.7626116, 1, 667.842, 552.82764, 51.476288, 657.684, 618.3398,
+          123.54308, 667.842
+        ],
+        [
+          705.90155, 618.802, 0.76865333, 1, 717.55817, 554.32733, 51.8841, 705.90155, 618.802,
+          124.52184, 717.55817
+        ],
+        [
+          725.06775, 617.0607, 0.7458916, 0, 735.30505, 553.11914, 50.34768, 725.06775, 617.0607,
+          120.834435, 735.30505
+        ],
+        [
+          766.2088, 617.5872, 0.75277394, 0, 776.8455, 553.08954, 50.81224, 766.2088, 617.5872,
+          121.94939, 776.8455
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          655.82465, 618.37787, 0.76310927, 1, 665.98926, 552.82294, 51.509872, 655.82465, 618.37787,
+          123.6237, 665.98926
+        ],
+        [
+          704.0592, 618.84064, 0.7691588, 1, 715.7235, 554.3236, 51.918217, 704.0592, 618.84064,
+          124.60373, 715.7235
+        ],
+        [
+          723.29224, 617.0971, 0.74636763, 0, 733.53613, 553.11475, 50.379814, 723.29224, 617.0971,
+          120.91156, 733.53613
+        ],
+        [
+          765.04846, 617.56714, 0.7525114, 0, 775.6814, 553.0919, 50.794518, 765.04846, 617.56714,
+          121.906845, 775.6814
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          653.96295, 618.41595, 0.7636075, 1, 664.1342, 552.8183, 51.543503, 653.96295, 618.41595,
+          123.704414, 664.1342
+        ],
+        [
+          702.2144, 618.8794, 0.76966506, 1, 713.88635, 554.3199, 51.95239, 702.2144, 618.8794,
+          124.68574, 713.88635
+        ],
+        [
+          721.5144, 617.1336, 0.74684423, 0, 731.76483, 553.11035, 50.411987, 721.5144, 617.1336,
+          120.98876, 731.76483
+        ],
+        [
+          763.00024, 617.5624, 0.75244963, 0, 773.6324, 553.0925, 50.79035, 763.00024, 617.5624,
+          121.89684, 773.6324
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          652.0987, 618.45416, 0.76410645, 1, 662.2766, 552.8136, 51.577183, 652.0987, 618.45416,
+          123.78524, 662.2766
+        ],
+        [
+          700.36725, 618.91815, 0.7701718, 1, 712.0469, 554.31616, 51.986603, 700.36725, 618.91815,
+          124.76784, 712.0469
+        ],
+        [
+          719.7344, 617.1701, 0.7473215, 1, 729.9914, 553.10596, 50.4442, 719.7344, 617.1701,
+          121.06608, 729.9914
+        ],
+        [
+          760.9525, 617.5577, 0.7523879, 0, 771.58374, 553.0931, 50.78618, 760.9525, 617.5577,
+          121.88683, 771.58374
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [650.232,618.4924,0.764606,1,660.4165,552.8089,51.6109,650.232,618.4924,123.86617,660.4165],
+        [
+          698.5175, 618.957, 0.7706794, 1, 710.2049, 554.3124, 52.02086, 698.5175, 618.957,
+          124.85007, 710.2049
+        ],
+        [
+          717.95197, 617.20667, 0.7477993, 1, 728.2155, 553.10156, 50.476448, 717.95197, 617.20667,
+          121.143486, 728.2155
+        ],
+        [
+          758.9049, 617.553, 0.7523261, 0, 769.5353, 553.0936, 50.782013, 758.9049, 617.553,
+          121.87683, 769.5353
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          648.363, 618.53064, 0.7651062, 1, 658.5542, 552.8042, 51.64467, 648.363, 618.53064,
+          123.947205, 658.5542
+        ],
+        [
+          696.6654, 618.99585, 0.7711876, 1, 708.3604, 554.30865, 52.05516, 696.6654, 618.99585,
+          124.93239, 708.3604
+        ],
+        [
+          716.1673, 617.2432, 0.7482778, 1, 726.4374, 553.09717, 50.50875, 716.1673, 617.2432,
+          121.221, 726.4374
+        ],
+        [
+          756.85785, 617.5482, 0.7522644, 0, 767.4873, 553.09424, 50.777847, 756.85785, 617.5482,
+          121.86683, 767.4873
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          646.4914, 618.569, 0.76560706, 1, 656.68933, 552.79944, 51.678474, 646.4914, 618.569,
+          124.02834, 656.68933
+        ],
+        [
+          694.8109, 619.0348, 0.7716964, 1, 706.5137, 554.3049, 52.089508, 694.8109, 619.0348,
+          125.01482, 706.5137
+        ],
+        [
+          714.3804, 617.2799, 0.7487568, 1, 724.6571, 553.0927, 50.541084, 714.3804, 617.2799,
+          121.2986, 724.6571
+        ],
+        [
+          754.8111, 617.5435, 0.75220263, 0, 765.4397, 553.0948, 50.773674, 754.8111, 617.5435,
+          121.85683, 765.4397
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          644.6174, 618.6073, 0.7661086, 1, 654.8219, 552.79474, 51.712326, 644.6174, 618.6073,
+          124.10959, 654.8219
+        ],
+        [
+          692.95386, 619.0737, 0.77220595, 1, 704.66437, 554.30115, 52.1239, 692.95386, 619.0737,
+          125.09736, 704.66437
+        ],
+        [
+          712.5912, 617.3166, 0.7492365, 1, 722.8744, 553.0883, 50.573467, 712.5912, 617.3166,
+          121.37632, 722.8744
+        ],
+        [
+          752.76447, 617.53876, 0.75214094, 0, 763.3922, 553.09534, 50.769516, 752.76447, 617.53876,
+          121.84683, 763.3922
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          642.74097, 618.64575, 0.76661074, 1, 652.9523, 552.79004, 51.746223, 642.74097, 618.64575,
+          124.19094, 652.9523
+        ],
+        [
+          691.09436, 619.1128, 0.77271616, 1, 702.8126, 554.29736, 52.15834, 691.09436, 619.1128,
+          125.18002, 702.8126
+        ],
+        [
+          710.79956, 617.35333, 0.74971676, 1, 721.0895, 553.08386, 50.60588, 710.79956, 617.35333,
+          121.45412, 721.0895
+        ],
+        [
+          751.6124, 617.5354, 0.75209665, 0, 762.23956, 553.09576, 50.766525, 751.6124, 617.5354,
+          121.83965, 762.23956
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          640.86206, 618.6842, 0.76711357, 1, 651.07996, 552.7853, 51.780167, 640.86206, 618.6842,
+          124.2724, 651.07996
+        ],
+        [
+          689.23254, 619.15186, 0.77322704, 1, 700.9585, 554.2936, 52.192825, 689.23254, 619.15186,
+          125.26278, 700.9585
+        ],
+        [
+          709.00586, 617.39014, 0.7501977, 1, 719.3023, 553.0794, 50.638344, 709.00586, 617.39014,
+          121.53203, 719.3023
+        ],
+        [
+          749.71533, 617.55884, 0.7524028, 0, 760.34674, 553.09296, 50.787193, 749.71533, 617.55884,
+          121.88925, 760.34674
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          638.98065, 618.7227, 0.7676171, 1, 649.2053, 552.7806, 51.814156, 638.98065, 618.7227,
+          124.353966, 649.2053
+        ],
+        [
+          687.3681, 619.191, 0.7737386, 1, 699.1018, 554.2898, 52.227356, 687.3681, 619.191,
+          125.34566, 699.1018
+        ],
+        [
+          707.20966, 617.42694, 0.7506792, 1, 717.5127, 553.075, 50.670845, 707.20966, 617.42694,
+          121.61003, 717.5127
+        ],
+        [
+          747.8166, 617.5823, 0.75270927, 0, 758.4524, 553.09015, 50.807877, 747.8166, 617.5823,
+          121.9389, 758.4524
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          637.09686, 618.7613, 0.76812124, 1, 647.32825, 552.7758, 51.848183, 637.09686, 618.7613,
+          124.43564, 647.32825
+        ],
+        [
+          685.5012, 619.23016, 0.77425086, 1, 697.24274, 554.286, 52.261932, 685.5012, 619.23016,
+          125.42864, 697.24274
+        ],
+        [
+          705.41125, 617.46387, 0.7511614, 1, 715.7209, 553.07056, 50.703392, 705.41125, 617.46387,
+          121.68815, 715.7209
+        ],
+        [
+          745.9163, 617.6057, 0.75301594, 0, 756.55646, 553.08734, 50.828575, 745.9163, 617.6057,
+          121.98858, 756.55646
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          635.2105, 618.79987, 0.76862603, 1, 645.4486, 552.77106, 51.88226, 635.2105, 618.79987,
+          124.51742, 645.4486
+        ],
+        [
+          683.63196, 619.2694, 0.77476376, 1, 695.3813, 554.2822, 52.296555, 683.63196, 619.2694,
+          125.511734, 695.3813
+        ],
+        [
+          703.61053, 617.5008, 0.75164413, 1, 713.9269, 553.0661, 50.735977, 703.61053, 617.5008,
+          121.76635, 713.9269
+        ],
+        [
+          744.0145, 617.6292, 0.7533229, 0, 754.65894, 553.0845, 50.849293, 744.0145, 617.6292,
+          122.03831, 754.65894
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          633.32166, 618.83856, 0.76913154, 1, 643.56647, 552.7663, 51.91638, 633.32166, 618.83856,
+          124.59931, 643.56647
+        ],
+        [
+          681.76013, 619.3087, 0.7752774, 1, 693.5172, 554.27844, 52.331223, 681.76013, 619.3087,
+          125.59493, 693.5172
+        ],
+        [
+          701.80743, 617.5378, 0.7521275, 1, 712.1304, 553.06165, 50.768612, 701.80743, 617.5378,
+          121.844666, 712.1304
+        ],
+        [
+          742.111, 617.6527, 0.7536301, 0, 752.7598, 553.08167, 50.87003, 742.111, 617.6527,
+          122.08807, 752.7598
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          631.4304, 618.87726, 0.7696377, 1, 641.682, 552.76154, 51.950546, 631.4304, 618.87726,
+          124.681305, 641.682
+        ],
+        [
+          679.8858, 619.3481, 0.77579165, 1, 691.6507, 554.27466, 52.365932, 679.8858, 619.3481,
+          125.678246, 691.6507
+        ],
+        [
+          700.002, 617.57477, 0.7526116, 1, 710.3316, 553.0572, 50.801277, 700.002, 617.57477,
+          121.92307, 710.3316
+        ],
+        [
+          740.20605, 617.6762, 0.75393754, 0, 750.85925, 553.07886, 50.890785, 740.20605, 617.6762,
+          122.13788, 750.85925
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          629.5366, 618.9161, 0.7701445, 1, 639.7949, 552.7568, 51.984753, 629.5366, 618.9161,
+          124.76341, 639.7949
+        ],
+        [
+          678.0091, 619.38745, 0.77630657, 1, 689.7818, 554.2709, 52.400696, 678.0091, 619.38745,
+          125.761665, 689.7818
+        ],
+        [
+          698.1944, 617.6119, 0.7530962, 1, 708.53064, 553.0527, 50.833992, 698.1944, 617.6119,
+          122.00159, 708.53064
+        ],
+        [
+          738.7311, 617.6963, 0.75419986, 0, 749.38794, 553.0764, 50.908493, 738.7311, 617.6963,
+          122.180374, 749.38794
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          627.64044, 618.9549, 0.770652, 1, 637.9055, 552.752, 52.019012, 627.64044, 618.9549,
+          124.84562, 637.9055
+        ],
+        [
+          676.1298, 619.4269, 0.7768222, 1, 687.91034, 554.267, 52.4355, 676.1298, 619.4269,
+          125.8452, 687.91034
+        ],
+        [
+          696.38434, 617.649, 0.75358146, 1, 706.72723, 553.0482, 50.866753, 696.38434, 617.649,
+          122.08019, 706.72723
+        ],
+        [
+          736.94464, 617.7335, 0.75468653, 0, 747.6084, 553.07196, 50.941345, 736.94464, 617.7335,
+          122.25922, 747.6084
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          674.24817, 619.4664, 0.7773385, 1, 686.0365, 554.26324, 52.47035, 674.24817, 619.4664,
+          125.92884, 686.0365
+        ],
+        [
+          694.572, 617.68616, 0.75406736, 1, 704.92163, 553.0437, 50.899544, 694.572, 617.68616,
+          122.158905, 704.92163
+        ],
+        [
+          735.15576, 617.7708, 0.75517386, 0, 745.8264, 553.0675, 50.974236, 735.15576, 617.7708,
+          122.338165, 745.8264
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          672.36383, 619.506, 0.7778556, 1, 684.16003, 554.2594, 52.505253, 672.36383, 619.506,
+          126.0126, 684.16003
+        ],
+        [
+          692.75726, 617.7234, 0.75455385, 1, 703.1135, 553.03925, 50.93238, 692.75726, 617.7234,
+          122.237724, 703.1135
+        ],
+        [
+          733.3646, 617.8081, 0.7556618, 0, 744.0421, 553.06305, 51.00717, 733.3646, 617.8081,
+          122.417206, 744.0421
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          670.477, 619.54553, 0.77837324, 1, 682.281, 554.2556, 52.5402, 670.477, 619.54553,
+          126.096466, 682.281
+        ],
+        [
+          690.9402, 617.7606, 0.755041, 1, 701.3031, 553.0347, 50.965267, 690.9402, 617.7606,
+          122.31664, 701.3031
+        ],
+        [
+          731.5712, 617.8455, 0.75615036, 0, 742.2556, 553.05853, 51.040154, 731.5712, 617.8455,
+          122.49636, 742.2556
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          668.58777, 619.5852, 0.7788916, 1, 680.39966, 554.2518, 52.575188, 668.58777, 619.5852,
+          126.18045, 680.39966
+        ],
+        [
+          689.12085, 617.798, 0.7555287, 1, 699.4905, 553.0303, 50.998184, 689.12085, 617.798,
+          122.39565, 699.4905
+        ],
+        [
+          729.7754, 617.88293, 0.75663954, 0, 740.4667, 553.0541, 51.073166, 729.7754, 617.88293,
+          122.57561, 740.4667
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          666.696, 619.62494, 0.7794107, 1, 678.51575, 554.2479, 52.61022, 666.696, 619.62494,
+          126.264534, 678.51575
+        ],
+        [
+          687.2991, 617.8353, 0.75601715, 1, 697.6754, 553.02576, 51.03116, 687.2991, 617.8353,
+          122.47478, 697.6754
+        ],
+        [
+          727.9772, 617.9204, 0.7571294, 0, 738.6754, 553.04956, 51.106236, 727.9772, 617.9204,
+          122.65496, 738.6754
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          664.8016, 619.6647, 0.7799305, 1, 676.6293, 554.24414, 52.64531, 664.8016, 619.6647,
+          126.34874, 676.6293
+        ],
+        [
+          685.475, 617.87274, 0.7565062, 1, 695.858, 553.02124, 51.064167, 685.475, 617.87274,
+          122.554, 695.858
+        ],
+        [
+          726.1769, 617.95795, 0.75761986, 0, 736.882, 553.04504, 51.139343, 726.1769, 617.95795,
+          122.73442, 736.882
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          662.9048, 619.70447, 0.78045094, 1, 674.74036, 554.2403, 52.68044, 662.9048, 619.70447,
+          126.43306, 674.74036
+        ],
+        [
+          683.64856, 617.91016, 0.75699586, 1, 694.0383, 553.0167, 51.097218, 683.64856, 617.91016,
+          122.63332, 694.0383
+        ],
+        [
+          724.374, 617.9955, 0.75811094, 0, 735.0862, 553.0405, 51.172493, 724.374, 617.9955,
+          122.81397, 735.0862
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          661.0054, 619.7444, 0.7809721, 1, 672.8488, 554.23645, 52.71562, 661.0054, 619.7444,
+          126.51749, 672.8488
+        ],
+        [
+          681.8197, 617.9477, 0.75748616, 1, 692.2162, 553.0122, 51.130314, 681.8197, 617.9477,
+          122.71275, 692.2162
+        ],
+        [
+          722.5689, 618.0331, 0.75860274, 0, 733.28796, 553.036, 51.205685, 722.5689, 618.0331,
+          122.89365, 733.28796
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          659.1034, 619.7843, 0.78149396, 1, 670.9548, 554.2326, 52.750843, 659.1034, 619.7843,
+          126.60203, 670.9548
+        ],
+        [
+          679.98846, 617.9852, 0.75797707, 1, 690.39166, 553.0077, 51.163452, 679.98846, 617.9852,
+          122.79228, 690.39166
+        ],
+        [
+          720.7615, 618.0708, 0.7590951, 0, 731.48755, 553.0315, 51.23892, 720.7615, 618.0708,
+          122.973404, 731.48755
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          657.19904, 619.8243, 0.7820165, 1, 669.05835, 554.2287, 52.786114, 657.19904, 619.8243,
+          126.686676, 669.05835
+        ],
+        [
+          678.1549, 618.0228, 0.7584686, 1, 688.56494, 553.0031, 51.196632, 678.1549, 618.0228,
+          122.87192, 688.56494
+        ],
+        [
+          718.95166, 618.1085, 0.7595881, 1, 729.68463, 553.027, 51.272198, 718.95166, 618.1085,
+          123.053276, 729.68463
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          655.292, 619.8643, 0.7825398, 1, 667.1592, 554.22485, 52.821434, 655.292, 619.8643,
+          126.77145, 667.1592
+        ],
+        [
+          676.319, 618.0605, 0.75896084, 1, 686.73566, 552.9986, 51.229855, 676.319, 618.0605,
+          122.95166, 686.73566
+        ],
+        [
+          717.1395, 618.14624, 0.76008177, 1, 727.87946, 553.02246, 51.30552, 717.1395, 618.14624,
+          123.13325, 727.87946
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          653.38245, 619.90436, 0.78306377, 1, 665.2576, 554.221, 52.856804, 653.38245, 619.90436,
+          126.85633, 665.2576
+        ],
+        [
+          674.48065, 618.0982, 0.7594537, 1, 684.9042, 552.994, 51.263123, 674.48065, 618.0982,
+          123.031494, 684.9042
+        ],
+        [
+          715.3251, 618.1841, 0.76057607, 1, 726.072, 553.0179, 51.338882, 715.3251, 618.1841,
+          123.213326, 726.072
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          651.4703, 619.9445, 0.7835884, 1, 663.3534, 554.2171, 52.89222, 651.4703, 619.9445,
+          126.94132, 663.3534
+        ],
+        [
+          672.6399, 618.136, 0.7599472, 1, 683.0701, 552.9895, 51.296436, 672.6399, 618.136,
+          123.11144, 683.0701
+        ],
+        [
+          713.5081, 618.2219, 0.761071, 1, 724.2621, 553.01337, 51.37229, 713.5081, 618.2219,
+          123.2935, 724.2621
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          649.55554, 619.9847, 0.78411376, 1, 661.44666, 554.21326, 52.927677, 649.55554, 619.9847,
+          127.02643, 661.44666
+        ],
+        [
+          670.79675, 618.17377, 0.7604413, 1, 681.23376, 552.9849, 51.32979, 670.79675, 618.17377,
+          123.19149, 681.23376
+        ],
+        [
+          711.68896, 618.2598, 0.76156664, 1, 722.4499, 553.0088, 51.405746, 711.68896, 618.2598,
+          123.373795, 722.4499
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          647.63837, 620.02496, 0.78463984, 1, 659.5374, 554.20935, 52.96319, 647.63837, 620.02496,
+          127.11166, 659.5374
+        ],
+        [
+          668.9513, 618.2116, 0.7609361, 1, 679.39514, 552.98035, 51.363182, 668.9513, 618.2116,
+          123.271645, 679.39514
+        ],
+        [
+          709.8673, 618.2978, 0.76206285, 1, 720.63525, 553.0043, 51.43924, 709.8673, 618.2978,
+          123.45418, 720.63525
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          645.7185, 620.06525, 0.7851666, 1, 657.62555, 554.20544, 52.998745, 645.7185, 620.06525,
+          127.19699, 657.62555
+        ],
+        [
+          667.10333, 618.2495, 0.7614315, 1, 677.55396, 552.97577, 51.39662, 667.10333, 618.2495,
+          123.3519, 677.55396
+        ],
+        [
+          708.0433, 618.3358, 0.7625598, 1, 718.81824, 552.9997, 51.472786, 708.0433, 618.3358,
+          123.53468, 718.81824
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          643.796, 620.1056, 0.7856941, 1, 655.71106, 554.2016, 53.034355, 643.796, 620.1056,
+          127.28245, 655.71106
+        ],
+        [
+          665.2529, 618.2875, 0.76192755, 1, 675.7104, 552.9712, 51.430107, 665.2529, 618.2875,
+          123.43227, 675.7104
+        ],
+        [706.217,618.3739,0.7630573,1,716.999,552.9951,51.506367,706.217,618.3739,123.61528,716.999]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [641.8711,620.146,0.7862223,1,653.7941,554.1977,53.07,641.8711,620.146,127.36801,653.7941],
+        [
+          663.40027, 618.32544, 0.7624243, 1, 673.8645, 552.9666, 51.46364, 663.40027, 618.32544,
+          123.51273, 673.8645
+        ],
+        [
+          704.3882, 618.412, 0.76355547, 1, 715.17725, 552.99054, 51.539993, 704.3882, 618.412,
+          123.69599, 715.17725
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          639.9435, 620.18646, 0.78675115, 1, 651.8746, 554.1938, 53.105705, 639.9435, 620.18646,
+          127.45369, 651.8746
+        ],
+        [
+          661.54504, 618.3635, 0.76292163, 1, 672.0162, 552.96204, 51.49721, 661.54504, 618.3635,
+          123.5933, 672.0162
+        ],
+        [
+          702.557, 618.45013, 0.76405436, 1, 713.3531, 552.98596, 51.57367, 702.557, 618.45013,
+          123.7768, 713.3531
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          638.01324, 620.227, 0.7872808, 1, 649.95233, 554.1899, 53.141453, 638.01324, 620.227,
+          127.53949, 649.95233
+        ],
+        [
+          659.68744, 618.4016, 0.7634197, 1, 670.1654, 552.95746, 51.53083, 659.68744, 618.4016,
+          123.67399, 670.1654
+        ],
+        [
+          700.7235, 618.48834, 0.7645538, 1, 711.5267, 552.9814, 51.607376, 700.7235, 618.48834,
+          123.85771, 711.5267
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [
+          657.8275, 618.43976, 0.7639183, 1, 668.31226, 552.9529, 51.564484, 657.8275, 618.43976,
+          123.75476, 668.31226
+        ],
+        [
+          698.8876, 618.5266, 0.7650539, 1, 709.6978, 552.9768, 51.641136, 698.8876, 618.5266,
+          123.938736, 709.6978
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [
+          655.96497, 618.47797, 0.7644176, 1, 666.45667, 552.94824, 51.59819, 655.96497, 618.47797,
+          123.83565, 666.45667
+        ],
+        [
+          697.0492, 618.56494, 0.7655547, 1, 707.86646, 552.9722, 51.674942, 697.0492, 618.56494,
+          124.01987, 707.86646
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [
+          654.1002, 618.5162, 0.76491755, 1, 664.5987, 552.94366, 51.631935, 654.1002, 618.5162,
+          123.91664, 664.5987
+        ],
+        [
+          695.2085, 618.6033, 0.7660562, 1, 706.0329, 552.9676, 51.70879, 695.2085, 618.6033,
+          124.1011, 706.0329
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [
+          652.23285, 618.5545, 0.7654182, 1, 662.7382, 552.939, 51.665726, 652.23285, 618.5545,
+          123.99774, 662.7382
+        ],
+        [
+          693.36536, 618.6417, 0.7665583, 1, 704.1968, 552.963, 51.742687, 693.36536, 618.6417,
+          124.18244, 704.1968
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [
+          650.36304, 618.59283, 0.76591945, 1, 660.87524, 552.9344, 51.699562, 650.36304, 618.59283,
+          124.07895, 660.87524
+        ],
+        [
+          691.51984, 618.6802, 0.767061, 1, 702.3584, 552.9584, 51.77662, 691.51984, 618.6802,
+          124.263885, 702.3584
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [648.4909,618.6312,0.7664214,1,659.01,552.92975,51.73344,648.4909,618.6312,124.16026,659.01],
+        [
+          689.6718, 618.7187, 0.7675645, 1, 700.5175, 552.95374, 51.8106, 689.6718, 618.7187,
+          124.34545, 700.5175
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [
+          646.61615, 618.6697, 0.76692396, 1, 657.1422, 552.9251, 51.767365, 646.61615, 618.6697,
+          124.24168, 657.1422
+        ],
+        [
+          687.8213, 618.75726, 0.7680686, 1, 698.67413, 552.94916, 51.84463, 687.8213, 618.75726,
+          124.42711, 698.67413
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [644.739,618.7082,0.76742727,1,655.272,552.9205,51.80134,644.739,618.7082,124.32321,655.272],
+        [
+          685.96857, 618.79584, 0.76857334, 1, 696.8285, 552.9445, 51.8787, 685.96857, 618.79584,
+          124.50888, 696.8285
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [
+          642.8595, 618.7467, 0.7679311, 1, 653.39935, 552.91583, 51.83535, 642.8595, 618.7467,
+          124.40484, 653.39935
+        ],
+        [
+          684.1132, 618.83453, 0.76907873, 1, 694.9803, 552.9399, 51.912815, 684.1132, 618.83453,
+          124.59076, 694.9803
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [
+          640.97736, 618.78534, 0.7684357, 1, 651.5242, 552.9112, 51.869415, 640.97736, 618.78534,
+          124.48659, 651.5242
+        ],
+        [
+          682.25543, 618.8732, 0.76958483, 1, 693.12964, 552.93524, 51.946976, 682.25543, 618.8732,
+          124.672745, 693.12964
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [
+          639.0928, 618.824, 0.7689409, 1, 649.6465, 552.9065, 51.90352, 639.0928, 618.824,
+          124.568436, 649.6465
+        ],
+        [
+          680.3953, 618.912, 0.77009153, 1, 691.27673, 552.93054, 51.98118, 680.3953, 618.912,
+          124.75483, 691.27673
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [
+          637.2058, 618.8627, 0.7694468, 1, 647.7665, 552.90186, 51.93766, 637.2058, 618.8627,
+          124.65038, 647.7665
+        ],
+        [
+          678.53265, 618.9508, 0.770599, 1, 689.4212, 552.9259, 52.015434, 678.53265, 618.9508,
+          124.837036, 689.4212
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [
+          635.3163, 618.9014, 0.76995337, 1, 645.8839, 552.89716, 51.971848, 635.3163, 618.9014,
+          124.732445, 645.8839
+        ],
+        [
+          676.6675, 618.9897, 0.7711071, 1, 687.56323, 552.92126, 52.04973, 676.6675, 618.9897,
+          124.91934, 687.56323
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [
+          633.42426, 618.94025, 0.77046067, 1, 643.99884, 552.8925, 52.006096, 633.42426, 618.94025,
+          124.81462, 643.99884
+        ],
+        [
+          674.80005, 619.0286, 0.7716158, 1, 685.70294, 552.91656, 52.08407, 674.80005, 619.0286,
+          125.00176, 685.70294
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [
+          631.52985, 618.97906, 0.7709685, 1, 642.1114, 552.8878, 52.04037, 631.52985, 618.97906,
+          124.8969, 642.1114
+        ],
+        [
+          672.93, 619.06757, 0.77212524, 1, 683.8401, 552.91187, 52.118454, 672.93, 619.06757,
+          125.08429, 683.8401
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [
+          629.6328, 619.018, 0.7714771, 1, 640.2213, 552.8831, 52.074703, 629.6328, 619.018,
+          124.979294, 640.2213
+        ],
+        [
+          671.05743, 619.1066, 0.77263534, 1, 681.9748, 552.9072, 52.152885, 671.05743, 619.1066,
+          125.16692, 681.9748
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [
+          627.7334, 619.05695, 0.7719863, 1, 638.32886, 552.8784, 52.109077, 627.7334, 619.05695,
+          125.06178, 638.32886
+        ],
+        [
+          669.18256, 619.1457, 0.7731461, 1, 680.1071, 552.9025, 52.187363, 669.18256, 619.1457,
+          125.24967, 680.1071
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          667.30505, 619.1848, 0.77365756, 1, 678.2368, 552.8978, 52.221886, 667.30505, 619.1848,
+          125.33253, 678.2368
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          665.4252, 619.224, 0.7741696, 1, 676.36426, 552.8931, 52.256454, 665.4252, 619.224,
+          125.41548, 676.36426
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          663.5428, 619.2632, 0.77468246, 1, 674.489, 552.8884, 52.291065, 663.5428, 619.2632,
+          125.498566, 674.489
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          661.6578, 619.3025, 0.77519596, 1, 672.6113, 552.8837, 52.32573, 661.6578, 619.3025,
+          125.58175, 672.6113
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          659.77045, 619.3418, 0.7757101, 1, 670.73126, 552.87897, 52.360435, 659.77045, 619.3418,
+          125.66504, 670.73126
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          657.8805, 619.3812, 0.776225, 1, 668.8485, 552.87427, 52.395184, 657.8805, 619.3812,
+          125.74844, 668.8485
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          655.98804, 619.42065, 0.7767405, 1, 666.9634, 552.8695, 52.429985, 655.98804, 619.42065,
+          125.83196, 666.9634
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          654.09314, 619.46014, 0.7772567, 1, 665.0758, 552.8648, 52.46483, 654.09314, 619.46014,
+          125.91559, 665.0758
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          652.1956, 619.4997, 0.7777736, 1, 663.18555, 552.86005, 52.499718, 652.1956, 619.4997,
+          125.99933, 663.18555
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          650.2956, 619.5393, 0.7782913, 1, 661.29285, 552.8553, 52.53466, 650.2956, 619.5393,
+          126.08318, 661.29285
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          648.3931, 619.5789, 0.7788095, 1, 659.3977, 552.8505, 52.56964, 648.3931, 619.5789,
+          126.16714, 659.3977
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          646.48804, 619.61865, 0.77932847, 1, 657.5, 552.84576, 52.604675, 646.48804, 619.61865,
+          126.25121, 657.5
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          644.5805, 619.6584, 0.77984816, 1, 655.5998, 552.841, 52.639748, 644.5805, 619.6584,
+          126.335396, 655.5998
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          642.67035, 619.6982, 0.7803685, 1, 653.69696, 552.83624, 52.674873, 642.67035, 619.6982,
+          126.41969, 653.69696
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          640.75757, 619.73804, 0.7808895, 1, 651.79156, 552.8314, 52.710045, 640.75757, 619.73804,
+          126.504105, 651.79156
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          638.8424, 619.77795, 0.7814113, 1, 649.8837, 552.82666, 52.745262, 638.8424, 619.77795,
+          126.58863, 649.8837
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          636.92456, 619.81793, 0.7819337, 1, 647.97327, 552.82184, 52.78053, 636.92456, 619.81793,
+          126.67326, 647.97327
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          635.00415, 619.858, 0.78245693, 1, 646.06024, 552.817, 52.81584, 635.00415, 619.858,
+          126.75802, 646.06024
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          634.16797, 619.87537, 0.7826847, 1, 645.2273, 552.81494, 52.831215, 634.16797, 619.87537,
+          126.79492, 645.2273
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          634.16797, 619.87537, 0.7826847, 1, 645.2273, 552.81494, 52.831215, 634.16797, 619.87537,
+          126.79492, 645.2273
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          634.16797, 619.87537, 0.7826847, 1, 645.2273, 552.81494, 52.831215, 634.16797, 619.87537,
+          126.79492, 645.2273
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          634.16797, 619.87537, 0.7826847, 1, 645.2273, 552.81494, 52.831215, 634.16797, 619.87537,
+          126.79492, 645.2273
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          634.16797, 619.87537, 0.7826847, 1, 645.2273, 552.81494, 52.831215, 634.16797, 619.87537,
+          126.79492, 645.2273
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          634.16797, 619.87537, 0.7826847, 1, 645.2273, 552.81494, 52.831215, 634.16797, 619.87537,
+          126.79492, 645.2273
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          634.16797, 619.87537, 0.7826847, 1, 645.2273, 552.81494, 52.831215, 634.16797, 619.87537,
+          126.79492, 645.2273
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          634.16797, 619.87537, 0.7826847, 1, 645.2273, 552.81494, 52.831215, 634.16797, 619.87537,
+          126.79492, 645.2273
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          634.16797, 619.87537, 0.7826847, 1, 645.2273, 552.81494, 52.831215, 634.16797, 619.87537,
+          126.79492, 645.2273
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          634.16797, 619.87537, 0.7826847, 1, 645.2273, 552.81494, 52.831215, 634.16797, 619.87537,
+          126.79492, 645.2273
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          634.16797, 619.87537, 0.7826847, 1, 645.2273, 552.81494, 52.831215, 634.16797, 619.87537,
+          126.79492, 645.2273
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          634.16797, 619.87537, 0.7826847, 1, 645.2273, 552.81494, 52.831215, 634.16797, 619.87537,
+          126.79492, 645.2273
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          634.16797, 619.87537, 0.7826847, 1, 645.2273, 552.81494, 52.831215, 634.16797, 619.87537,
+          126.79492, 645.2273
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          634.16797, 619.87537, 0.7826847, 1, 645.2273, 552.81494, 52.831215, 634.16797, 619.87537,
+          126.79492, 645.2273
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          634.16797, 619.87537, 0.7826847, 1, 645.2273, 552.81494, 52.831215, 634.16797, 619.87537,
+          126.79492, 645.2273
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          634.16797, 619.87537, 0.7826847, 1, 645.2273, 552.81494, 52.831215, 634.16797, 619.87537,
+          126.79492, 645.2273
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          634.16797, 619.87537, 0.7826847, 1, 645.2273, 552.81494, 52.831215, 634.16797, 619.87537,
+          126.79492, 645.2273
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          634.16797, 619.87537, 0.7826847, 1, 645.2273, 552.81494, 52.831215, 634.16797, 619.87537,
+          126.79492, 645.2273
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          634.16797, 619.87537, 0.7826847, 1, 645.2273, 552.81494, 52.831215, 634.16797, 619.87537,
+          126.79492, 645.2273
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          634.16797, 619.87537, 0.7826847, 1, 645.2273, 552.81494, 52.831215, 634.16797, 619.87537,
+          126.79492, 645.2273
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          634.16797, 619.87537, 0.7826847, 1, 645.2273, 552.81494, 52.831215, 634.16797, 619.87537,
+          126.79492, 645.2273
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          634.16797, 619.87537, 0.7826847, 1, 645.2273, 552.81494, 52.831215, 634.16797, 619.87537,
+          126.79492, 645.2273
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          634.16797, 619.87537, 0.7826847, 1, 645.2273, 552.81494, 52.831215, 634.16797, 619.87537,
+          126.79492, 645.2273
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          634.16797, 619.87537, 0.7826847, 1, 645.2273, 552.81494, 52.831215, 634.16797, 619.87537,
+          126.79492, 645.2273
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          634.16797, 619.87537, 0.7826847, 1, 645.2273, 552.81494, 52.831215, 634.16797, 619.87537,
+          126.79492, 645.2273
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          634.16797, 619.87537, 0.7826847, 1, 645.2273, 552.81494, 52.831215, 634.16797, 619.87537,
+          126.79492, 645.2273
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          634.16797, 619.87537, 0.7826847, 1, 645.2273, 552.81494, 52.831215, 634.16797, 619.87537,
+          126.79492, 645.2273
+        ]
+      ],
+      [
+        [
+          637.9298, 620.33765, 0.7887274, 1, 648.0097, 553.36285, 53.239098, 637.9298, 620.33765,
+          127.773834, 648.0097
+        ],
+        [
+          626.81464, 618.9718, 0.770873, 1, 637.08264, 552.74994, 52.033928, 626.81464, 618.9718,
+          124.881424, 637.08264
+        ],
+        [
+          637.1728, 620.2446, 0.7875114, 1, 649.11536, 554.1882, 53.15702, 637.1728, 620.2446,
+          127.57685, 649.11536
+        ],
+        [627.54,619.0609,0.77203816,1,638.1362,552.8779,52.11258,627.54,619.0609,125.07018,638.1362],
+        [
+          634.16797, 619.87537, 0.7826847, 1, 645.2273, 552.81494, 52.831215, 634.16797, 619.87537,
+          126.79492, 645.2273
+        ]
+      ]
+    ]
+  }
+}

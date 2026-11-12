@@ -323,6 +323,9 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 				var tex: Texture2D = null
 				if src is BaseMaterial3D: tex = (src as BaseMaterial3D).albedo_texture
 				m.set_shader_parameter("tex", mip(tex) if tex else bild("weiss"))
+				# 831: Blattkarten der Bausatz-Baeume (glTF MASK) wie dort ausgeschnitten, vor der Durchsicht (kette nimmt schnitt mit)
+				if src is BaseMaterial3D and (src as BaseMaterial3D).transparency == BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR:
+					m.set_shader_parameter("schnitt", (src as BaseMaterial3D).alpha_scissor_threshold)
 				if src and String(src.resource_name).begins_with("laub"):
 					m.set_shader_parameter("sway", 1.0)
 					if g and not busch: g.durchsicht(m, 2 if nadel else (1 if krone else 0))   # Busch kniehoch: keine Durchsicht (ersetzte sonst den Shader mit Schablone)
@@ -385,7 +388,7 @@ static func kette(m: ShaderMaterial, sh: Array) -> ShaderMaterial:
 		var d := ShaderMaterial.new()
 		d.shader = sh[i]
 		d.render_priority = i
-		for k in ["tex", "sway", "cut_ab", "kontur", "licht_dir", "glow", "glow_col", "rand_karte"]:
+		for k in ["tex", "sway", "cut_ab", "kontur", "licht_dir", "glow", "glow_col", "rand_karte", "schnitt"]:
 			if m.get_shader_parameter(k) != null: d.set_shader_parameter(k, m.get_shader_parameter(k))
 		if m.get_shader_parameter("kontur"): Licht.nach_licht.append(d)
 		vor.next_pass = d
@@ -661,7 +664,7 @@ func halm_netz(xf: Array[Transform3D], cu: Array[Color], tex: String, korn: floa
 	var mmi := MultiMeshInstance3D.new()
 	mmi.multimesh = mm
 	mmi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	var m := ShaderMaterial.new(); m.shader = load("res://shader/halm.gdshader")
+	var m := ShaderMaterial.new(); m.shader = korn_shader() if korn > 0.5 else load("res://shader/halm.gdshader")
 	m.set_shader_parameter("tex", bild(tex))
 	m.set_shader_parameter("korn", korn)
 	m.set_shader_parameter("inseln", insel_liste)
@@ -671,6 +674,17 @@ func halm_netz(xf: Array[Transform3D], cu: Array[Color], tex: String, korn: floa
 	add_child(mmi)
 	letztes_netz = mmi
 	return m
+
+# 612 (Chef 07.11., t268: „Im Weizenfeld wächst sehr viel Wackelgras durch“): Gras und Korn schrieben keine Tiefe (halm.gdshader,
+# sonst Tusche an jedem Halm); das Gras der Wiese hinter dem Feld, in der Schraegsicht vom Korn verdeckt, malte sich je nach
+# Reihenfolge ueber das Korn. Das Korn schreibt jetzt Tiefe (Gras dahinter faellt im Tiefentest weg, auch das Gras-Kit) und
+# markiert Schablone 1 wie die Blueten: keine Tusche auf dem Korn, hinter dem Umriss ohnehin keine (tusche.gdshader hinten_ab)
+static var _korn: Shader
+static func korn_shader() -> Shader:
+	if _korn == null:
+		_korn = Shader.new()
+		_korn.code = (load("res://shader/halm.gdshader") as Shader).code.replace("depth_draw_never;", "depth_draw_opaque;\nstencil_mode write, compare_always, 1;")
+	return _korn
 
 static var _punkt: ImageTexture
 static func punkt_mat(leuchtet: bool) -> StandardMaterial3D:

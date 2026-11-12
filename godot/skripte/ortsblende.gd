@@ -1,7 +1,7 @@
 class_name Ortsblende
 extends Control
 # 399.1 Schwarzblende zwischen Orten wie alt (24.1, InterludeUi.kt MapVeil und InterludeVeil, InterludeClock.kt, Interlude.kt):
-# beim Spielbeginn und beim ersten Besuch der Name des Orts gesperrt, Zierleiste, darunter ein Satz (661: worte_spalte); sonst nur der Name; eine Tuer
+# der Name des Orts gesperrt, Zierleiste, darunter ein Satz (661: worte_spalte); nur bei haeufigen Wechseln der Name allein (951); eine Tuer
 # im Dorf blinzelt nur. Die Worte kommen, stehen, bis sie zu lesen sind (Tippen beendet frueher), gehen, dann steigt der Ort aus
 # dem Schwarz. In Godot ist alles schon gezeichnet, wenn die Blende kommt: ohne Ladebalken und Spruch (267.1). Zeiten und Saetze
 # aus core: intro.json „blende“ (IntroExport.kt).
@@ -37,12 +37,27 @@ static func schwarz() -> ColorRect:
 static func lese_ms(zeichen: int, d: Dictionary) -> float:
 	return float(d.get("lesen_ms", 1000)) + float(d.get("lesen_je_zeichen_ms", 40)) * zeichen
 
-# InterludeClock.kindFor: FULL beim Spielbeginn ([von] leer) und beim ersten Besuch, BLINK von Tuer zu Tuer im Dorf, sonst NAME
-static func art_fuer(von: String, nach: String, erster: bool) -> String:
+# 951 (Fund t276, Chef 11.11., 13:44: Flüsterwald zeigte nur den Namen; DESIGN-BLENDE 6): Name und Satz bei jedem Besuch, nur bei
+# haeufigen Wechseln (der Ort schon [HAEUFIG_AB]-mal unter den letzten [HAEUFIG_FENSTER] betretenen, etwa zum fuenften Mal) nur der
+# Name; BLINK von Tuer zu Tuer im Dorf; derselbe Ort neu (Test „ort_neu“) nur der Name. Alt (InterludeClock.kindFor) zeigte ab dem
+# zweiten Besuch immer nur den Namen. [vorher] die zuletzt betretenen Orte, neuester hinten (ohne: [besuche])
+const HAEUFIG_FENSTER := 8
+const HAEUFIG_AB := 4
+static var besuche: Array = []
+
+static func art_fuer(von: String, nach: String, erster: bool, vorher = null) -> String:
 	var dorf: Array = daten().get("dorf", [])
 	if von == "" or erster: return "FULL"
 	if von in dorf and nach in dorf: return "BLINK"
-	return "NAME"
+	if von == nach: return "NAME"
+	var l: Array = besuche if vorher == null else vorher
+	if l.slice(-HAEUFIG_FENSTER).count(nach) >= HAEUFIG_AB: return "NAME"
+	return "FULL"
+
+## 951: [nach] betreten, fuer die Zaehlung der haeufigen Wechsel
+static func merke(nach: String) -> void:
+	besuche.append(nach)
+	if besuche.size() > HAEUFIG_FENSTER: besuche = besuche.slice(-HAEUFIG_FENSTER)
 
 # Interlude.placeLines: was beim Betreten von [karte] passt; nachts kommen die eigenen Saetze der Nacht doppelt ins Los
 static func saetze(karte: String, z: Zustand, nacht: bool) -> Array:
