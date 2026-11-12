@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **Build 277 auf `main`** (Tom und Jerry; t277 freigegeben „mit den Ergänzungen“, Chef 11.11., 20:54; PR #196, Lauf 370 grün): Sammelbuild nach Build 276. Tom 581, 635, 636, 680, 814, 875, 964; Jerry 532, 536, 751, 784, 806, 811, 863, 868, 870.6, 876, 910, 935, 945, 948, 958; dazu die roten Tests behoben (988, 1006). Durchgefallen und zurück an die Teams: 277.5 und 277.12 Fußstaub, Fackel (814), 277.7 Ruckeln, 277.10 Wurf der Brandflasche, 277.14 Platztausch der Ratten, 277.16 Lyra (635); Funde 990–994.
+
 - **Build 276 (B1) auf `main`** (Tom und Jerry; t276 freigegeben, Chef 11.11., 13:44; PR #195, Lauf 350 grün): Umzug auf das BRS, Held und Kampf. 870.4 Held nach BRS mit Herkunft Wanderer; 870.8 Spielstände Version 2 (alte laden nicht, Hinweis und Löschen); 870.5 Kampf nach BRS; 864 Gegner springen nicht mehr auf ihre Plätze; 904 Autopilot des Zauberlehrlings; 944 keine Würfeltexte in Tasche und Laden; 922 Tests nach BRS-Leben. Nicht dabei, im nächsten Build: 945, 751, 964.
 
 - **Kauf-Cache je Block auf `main`** (854, Jerry; Chef 11.11., 09:42 „854b B“, ohne Gerätetest): die gebauten Kaufmodelle liegen je Block (Figur, Dorf, Klassen, Kampf) im Kaufrepo und werden nur neu gebaut, wenn sich ihre Eingaben ändern; Lauf 349: alle vier Treffer, Modelle in 19 s, Lauf 43 statt 103 Minuten. „Leute bauen“ (11,5 min) ist noch nicht im Cache.
