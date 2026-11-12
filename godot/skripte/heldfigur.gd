@@ -30,7 +30,7 @@ const HERKUNFT_VORGABE := {
 	"WACHSOLDAT": KAEMPFER_KOPF, "SCHMIEDELEHRLING": KAEMPFER_KOPF, "WANDERER": KAEMPFER_KOPF,
 	"KLOSTERSCHUELER": {"form": "rund", "frisur": "Hair_Balding", "bart": "Hair_Beard", "haarfarbe": 2, "haut": 2},
 	"HERUMTREIBER": SCHURKEN_KOPF, "JAEGERKIND": SCHURKEN_KOPF, "KRAEUTERSAMMLER": SCHURKEN_KOPF,
-	"ZAUBERLEHRLING": {"form": "hager", "frisur": "Hair_SlickBack", "bart": "Hair_Moustache", "haarfarbe": 1, "haut": 3},
+	"ZAUBERLEHRLING": {"form": "hager", "frisur": "Hair_SlickBack", "bart": "Hair_Moustache", "haarfarbe": 2, "haut": 3},
 }
 # 870.4: Volk nach BRS -> Koerper und Farben der Figur (held.json voelker, held_klassen.py; Kennungen der Modelle bleiben)
 const VOLK_MODELL := {"Mensch": "HUMAN", "Elf": "ELF", "Zwerg": "DWARF", "Hügelvolk": "HALFLING", "Orkblütiger": "HALF_ORC"}

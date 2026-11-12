@@ -13,6 +13,17 @@ const HELDEN := [
 	{"herkunft": "Jägerkind", "volk": "Zwerg", "geschlecht": "m", "x": 0.44, "dreh": -6.0},
 	{"herkunft": "Klosterschüler", "volk": "Elf", "geschlecht": "w", "x": 1.32, "dreh": -18.0},
 ]
+# Schein: Mitte (0,5/0,86) im Bild, Halbachsen waagrecht 0,5, nach oben 0,86, nach unten 0,14; warm in der Mitte, aussen schwarz
+const SCHEIN := """shader_type canvas_item;
+uniform vec3 farbe : source_color = vec3(0.30, 0.20, 0.10);
+void fragment() {
+	vec2 d = UV - vec2(0.5, 0.86);
+	d.x /= 0.5;
+	d.y /= (d.y < 0.0) ? 0.86 : 0.14;
+	float r = length(d);
+	COLOR = vec4(farbe * (1.0 - smoothstep(0.0, 1.0, r)), 1.0);
+}
+"""
 const BILD_HOEHE := 2.3        # Meter, die das Bild hoch zeigt (Stab, Hut), Fuesse unten mit Rand
 var _v: SubViewport
 var _bilder := 0
@@ -20,19 +31,17 @@ var figuren: Array[Node3D] = []
 
 func _init(breite_dp := 330.0) -> void:
 	custom_minimum_size = Vector2(breite_dp, breite_dp * 0.625) * DP   # Seitenverhaeltnis des alten Bilds (600 x 375)
-	var licht := TextureRect.new()   # Lichtkegel: warmer Schein am Boden, nach aussen ins Schwarz
-	var g := Gradient.new()
-	g.set_color(0, Color(0.28, 0.19, 0.10))
-	g.set_color(1, Color(0, 0, 0))
-	var gt := GradientTexture2D.new()
-	gt.gradient = g
-	gt.fill = GradientTexture2D.FILL_RADIAL
-	gt.fill_from = Vector2(0.5, 0.82)
-	gt.fill_to = Vector2(0.5, 0.0)
-	licht.texture = gt
+	# 867 (Chef 12.11., 20:01: „mit einem vernünftigen Licht“; Vorlage 18:00: der Schein endete unten und seitlich mit harter Kante):
+	# Schein als Ellipse um die Fuesse, nach allen Seiten weich ins Schwarz (kein Rand des Bilds sichtbar)
+	var licht := ColorRect.new()
+	var sh := Shader.new()
+	sh.code = SCHEIN
+	var sm := ShaderMaterial.new()
+	sm.shader = sh
+	licht.material = sm
+	licht.color = Color(0, 0, 0)
 	licht.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	licht.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	licht.stretch_mode = TextureRect.STRETCH_SCALE
+	licht.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(licht)
 	var c := SubViewportContainer.new()
 	c.stretch = true
@@ -54,6 +63,15 @@ func _init(breite_dp := 330.0) -> void:
 	sonne.light_color = Color(1.0, 0.9, 0.76)
 	sonne.rotation_degrees = Vector3(-38, -18, 0)
 	v.add_child(sonne)
+	# 867 (Chef 20:01; 292.3 „Gesichter erkennbar“): Lampe vorn oben, wie der Lichtkegel von oben, hellt die Gesichter auf; das dunkle
+	# Gesicht des Zauberlehrlings lag in der ersten Vorlage fast ganz im Schatten
+	var lampe := OmniLight3D.new()
+	lampe.light_color = Color(1.0, 0.86, 0.66)
+	lampe.light_energy = 1.6
+	lampe.omni_range = 6.0
+	lampe.omni_attenuation = 1.2
+	lampe.position = Vector3(0, 2.5, 2.2)
+	v.add_child(lampe)
 	var kam := Camera3D.new()
 	kam.fov = 26.0
 	kam.position = Vector3(0, BILD_HOEHE / 2.0 - 0.08, BILD_HOEHE / 2.0 / tan(deg_to_rad(kam.fov) / 2.0))
@@ -85,8 +103,8 @@ static func wahl(h: Dictionary) -> Dictionary:
 	b.ausstatten()
 	var g := String(h["geschlecht"])
 	var a := {"geschlecht": g}
-	var fr := HeldFigur.frisuren(g)
-	if not fr.is_empty() and String(fr[0]) != "": a["frisur"] = fr[0]
+	# Frisur, Bart, Haar- und Hautfarbe der Herkunft wie in der Erschaffung (HeldFigur.vorgabe); 867 Chef 18:23: mit derselben ersten
+	# Frisur fuer alle Maenner sahen Zauberlehrling und Jaegerkind aus „wie Brüder“
 	var bt := HeldFigur.baerte(g)
 	if g == "m" and String(h["volk"]) == "Zwerg" and bt.size() > 1: a["bart"] = bt[1]
 	return {"herkunft": String(h["herkunft"]), "volk": HeldFigur.volk_modell(String(h["volk"])), "aussehen": a, "ausruestung": b.ausruestung}
