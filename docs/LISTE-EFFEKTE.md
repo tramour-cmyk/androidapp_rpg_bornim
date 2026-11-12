@@ -59,7 +59,8 @@ Vorgang 623, Sokrates, angelegt 07.11. (Chef 07.11., 17:2x). Hier steht **je Anl
 | Ort | Effekt (Vorschlag) | Quelle | Stand |
 |---|---|---|---|
 | Dorf | Kaminrauch, Fackeln, Fahne im Wind, Hühner flattern (591) | R7 chimney_smoke, torch_flame, R11 Flag, R4 Feather Burst | Vorschlag; eingebaut `skripte/dorfeffekte.gd` (814, Zweig `claude/tom-814-dorfeffekte`), dazu R7 footstep_dust auf Erdwegen |
-| Schenke, Häuser innen | Staub im Licht, Kerzen (eigene Flamme bleibt) | R7 dust_motes | Vorschlag (590); Schenke und Laden eingebaut `skripte/dorfeffekte.gd` (814) |
+| Schenke, Häuser innen | Kerzen (eigene Flamme bleibt); **kein Staub im Licht** | – | Staub in Innenräumen gestrichen (990, Chef 12.11., 08:34: „sieht eher aus wie ein Mückenschwarm … lassen wir echt komplett in Innenräumen raus“) |
+| draußen: dunkler Wald, Teich, Kampfort | Licht schimmert durch, Teilchen wie Staub oder Mückenschwarm | R7 dust_motes | Idee des Chefs (12.11., 08:34): „vielleicht … draußen in Kampfszenen oder … in der Nähe eines Teichs oder … im dunklen Wald, dass da Licht durchschimmert“; noch kein Vorgang |
 | Tempel | Glühende Runen, Licht der Wiederkehr | R11 Glowing Runes, R7 | Vorschlag |
 | Flüsterwald | Blätter im Wind, Gras weicht aus, Glühwürmchen (eigen, 514) | R8, R9 | Vorschlag |
 | Tiefer Wald, Morwens Hütte | Nebel, Geisterlichter, Rauch der Hütte | R8 fog, R4 Spirit Wisps, R7 | Vorschlag |

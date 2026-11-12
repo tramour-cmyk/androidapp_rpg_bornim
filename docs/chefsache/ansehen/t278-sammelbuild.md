@@ -83,3 +83,4 @@ Im Bau geprüft: Spielstand „Weiter“ nimmt immer den neuesten Platz (`spiels
 - Außer der Reihe (Chef 08:26, Bild Dorf Nord): Kartenrand offen, Wald nicht dicht → 1022 (Tom)
 - Außer der Reihe (Chef 08:28, Bild Dorf Süd): Beet nicht bis zum Zaun; „wo haben die denn einen Stall?“ (es gibt keinen, Hühner am Heuhaufen) → Zu 612 (Tom)
 - 278.3 ✗ zurückgestellt (Chef 12.11., 08:31: „ich höre ein Gackern, aber die Hühnchen machen eher wie eine Katze, die machen, was sie wollen. Manchmal laufen sie ein bisschen weg, manchmal nicht. Federnfliegen sehe ich jetzt wieder gar nicht … Wegflattern tun sie ja noch weniger … lasst es mit den Hühnern. Stellt es zurück“) → 1023 (Tom, ruht)
+- 278.4 ✗ weglassen (Chef 12.11., 08:34, zwei Bilder Kramladen: Staub „sieht eher aus wie ein Mückenschwarm … lassen wir echt komplett in Innenräumen raus“) → Zu 990 (Tom); 278.17 entfällt
