@@ -1133,6 +1133,17 @@ jobs:
           VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --wendebild=$GITHUB_WORKSPACE/bilder/wende4168/probebild.png 2>&1 | grep -E "SCRIPT ERROR|^WENDE|^BILD|^LEUTE" | cut -c1-400 || true
           ls -l $GITHUB_WORKSPACE/bilder/wende4168
+      # 1022 Kartenrand (Chef 12.11., 13:41 „1022 ja“): je Gebietskarte vom Rand aus nach Norden, Westen, Osten, Süden, Tag, mit
+      # Kaufmodellen wie im Build; nur bei „1022 Randbilder“ im Commit oder von Hand auf einem Zweig mit 1022
+      - name: Randbilder (1022)
+        if: ${{ !cancelled() && (contains(github.event.head_commit.message, '1022 Randbilder') || (github.event_name == 'workflow_dispatch' && contains(github.ref, '1022'))) }}
+        continue-on-error: true
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/bilder/rand1022
+          cd godot
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -s res://tests/rand_bild_1022.gd -- --rand=$GITHUB_WORKSPACE/bilder/rand1022 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^BILD" | cut -c1-400 || true
+          ls -l $GITHUB_WORKSPACE/bilder/rand1022
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}     # 453: Filme auch nach rotem Prüfschritt; nie mit bild=nein
         with:

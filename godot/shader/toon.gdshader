@@ -41,6 +41,14 @@ float rand_licht(vec3 w) {
 	float u = clamp(1.0 - d / 3.4, 0.0, 1.0);
 	return u * u * (3.0 - 2.0 * u);
 }
+// 1022 (Chef 12.11., 13:41 „1022 ja“: Sueden und Osten liefen als harte schwarze Wand mit gezackter Kronenkante): ein Baum
+// hinter dem Rand zur Kamera hin verdeckt hellen Boden weiter innen; sein Dunkel richtet sich darum nach dem Bodenpunkt, den er im
+// Bild verdeckt (Strahl der Kamera, orthogonal: entlang der Blickrichtung, bis zur Hoehe 0), nicht nach seinem eigenen Ort. So
+// schliesst jede Krone im Bild nahtlos an den Boden an, auf allen vier Seiten und bei jedem Gieren der Kamera
+vec3 rand_boden(vec3 w, vec3 blick) {
+	if (w.y <= 0.0 || blick.y > -0.05) return w;
+	return w + blick * (w.y / -blick.y);
+}
 varying vec3 wpos;
 varying float v_eisen;
 varying float v_kette;
@@ -115,7 +123,7 @@ void fragment() {
 	SPECULAR = 0.0;      // kein Glanz aus der Umgebung (sonst Plastik)
 	METALLIC = 0.0;
 	EMISSION = glow_col * glow;
-	float rl = rand_licht(wpos);
+	float rl = rand_licht(rand_boden(wpos, -INV_VIEW_MATRIX[2].xyz));
 	ALBEDO *= rl; EMISSION *= rl;
 	v_hinten = (rueckseite > 1.5 && !FRONT_FACING) ? 1.0 : 0.0;
 	if (rueckseite > 0.5 && rueckseite < 1.5 && !FRONT_FACING) {
