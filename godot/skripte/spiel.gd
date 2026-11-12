@@ -1212,6 +1212,7 @@ func ortsworte(von: String, erster: bool) -> void:
 		await abblenden(0.0)
 		return
 	var a := Ortsblende.art_fuer(von, karte.id, erster)
+	Ortsblende.merke(karte.id)
 	var satz = null
 	if a == "FULL":
 		var z := RandomNumberGenerator.new()
