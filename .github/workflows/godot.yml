@@ -1223,13 +1223,15 @@ jobs:
         continue-on-error: true
         run: |
           R=$GITHUB_WORKSPACE/bilder/rand1022; mkdir -p $R/nachher $R/vorher
+          export RAND_NUR=1,4,5
           knipse() {
             (cd $1 && VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
               ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -s res://tests/rand_bild_1022.gd -- --rand=$2 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^BILD" | cut -c1-400 || true)
           }
           knipse godot $R/nachher
           A=$RUNNER_TEMP/vorher1022; mkdir -p $A
-          git fetch -q --depth=1 origin claude/build-280 && git archive FETCH_HEAD tools/blender348 godot/shader godot/skripte/gebiet.gd | tar -x -C $A
+          # 1022 Rest (Sokrates 12.11., 23:50: neue Bilder nur Schlagbaum und Fluss, RAND_NUR oben): vorher = Stand der Bilder 23:42 statt Build 280
+          git fetch -q --depth=1 origin 519704595612a6ee866f100bdafc6f2406c023a7 && git archive FETCH_HEAD tools/blender348 godot/shader godot/skripte/gebiet.gd | tar -x -C $A
           export OUT=$A/out KARTEN=$GITHUB_WORKSPACE/godot/daten/karten.json
           bl/bin/python -I $A/tools/blender348/v3/tex.py > $A/tex.log 2>&1 || { tail -20 $A/tex.log; exit 1; }
           for g in village forest deep_forest; do KARTE=$g bl/bin/python -I $A/tools/blender348/v3/dorf.py > $A/dorf-$g.log 2>&1 || { tail -20 $A/dorf-$g.log; exit 1; }; grep -h "GLB OK" $A/dorf-$g.log || true; done

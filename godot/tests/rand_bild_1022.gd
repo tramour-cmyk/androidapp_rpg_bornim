@@ -31,7 +31,9 @@ func _lauf() -> void:
 	var spiel = load("res://spiel.tscn").instantiate()
 	root.add_child(spiel)
 	for i in 5: await process_frame
+	var nur := OS.get_environment("RAND_NUR")   # 1022 Rest: nur diese Stellen (Nummern vorn im Namen, mit Komma), leer = alle
 	for o in ORTE:
+		if nur != "" and not (String(o[3]).get_slice("_", 0) in nur.split(",")): continue
 		if spiel.karte.id != o[0]:
 			spiel.betrete(o[0], o[1], o[2])
 			await create_timer(1.5).timeout

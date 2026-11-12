@@ -49,6 +49,10 @@ void fragment() {
 	// alt: duenne Streifen (|sin| > 0,985 und Rauschen), 45 % zum Glanz; hier wandernd
 	float s = abs(sin(p.y * 6.0 + vnoise(vec2(p.x * 1.4 - flow, p.y * 1.4)) * 6.0));
 	float glint = smoothstep(0.985, 0.997, s) * smoothstep(0.68, 0.8, vnoise(vec2(p.x * 1.1 - flow * 1.5, p.y * 1.1)));   // Helfer: Wellenlinien zu grell und zu viele
+	// Rest (2) (Sokrates 12.11., 23:50): mal rand_licht blieben die Linien bis fast schwarz zu sehen (das Verhaeltnis zum Wasser bleibt);
+	// sie verloeschen darum vor dem Wasser, ganz weg, wo das Wasser noch halb hell ist
+	float rl = rand_licht(wpos, INV_VIEW_MATRIX);
+	glint *= smoothstep(0.5, 0.95, rl);
 	col = mix(col, glint_c, glint * 0.3 * (1.0 - 0.4 * night));   // nachts matter (Helfer: harte helle Striche; ganz ohne flach wie ein nasser Weg)
 	col = col * mix(1.0, 0.4, night) + vec3(0.006, 0.012, 0.024) * night;   // Runde 4 (2): nachts heller als die Wiese; dunkler
 	col *= 1.0 + night * (n - 0.5) * 0.7;   // Runde 3 (2): nachts flach: Stroemung als hellere und dunklere Zuege
@@ -75,5 +79,5 @@ void fragment() {
 		float ufer = smoothstep(0.5, 1.1, w);   // Runde 5 (4): 0,6..0,86 begann 8 px unter dem Nordufer mit harter Kante; weiter auslaufen
 		col += add * funkeln * smoothstep(0.52, 0.7, w) * night + mond * 0.22 * spur * (0.12 + 0.88 * funkeln) * ufer * night;
 	}
-	ALBEDO = col * rand_licht(wpos, INV_VIEW_MATRIX);
+	ALBEDO = col * rl;
 }
