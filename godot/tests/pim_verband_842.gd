@@ -151,6 +151,7 @@ func _lauf() -> void:
 	pruefe(t5 == "Du bist unverletzt." and v.anzahl("bandage") == 1, "voll ohne Blutung: [807.verband.voll], bleibt (%s)" % t5)
 
 	# Textkasten: der Knopf steht unter der Zeile, erst nach dem Schreiben tippbar, und schliesst die Zeile
+	root.size = Vector2i(1080, 2340)   # Handy hochkant wie am Geraet (842: Wahl und Nicht jetzt muessen hineinpassen)
 	var ui := Steuerung.new()
 	root.add_child(ui)
 	await process_frame
@@ -164,14 +165,18 @@ func _lauf() -> void:
 	pruefe(ui.knopf_bereit() and ui.text_knopf.modulate.a == 1.0, "Knopf steht, wenn die Zeile ganz steht")
 	# 842 zurueck (Chef 20:31/20:33): neben der Wahl rechts „Nicht jetzt“ links (Homer [1074.zweit]); Tippen auf den Text schaltet nicht weiter
 	var auf := ui.text_knopf.find_children("Text", "Label", true, false).map(func(l): return (l as Label).text)
+	auf.sort()
 	pruefe(auf == ["NICHT JETZT", "SCHICK PIM HEIM (ÜBERREDEN)"], "Aufschriften in Versalien, Nicht jetzt links, Wahl rechts: %s" % str(auf))
 	var aus_ := [0]
 	ui.knopf_aus.connect(func(): aus_[0] += 1)
 	ui.weiter()
 	await process_frame
 	pruefe(ui.textfeld.visible and ui.knopf_bereit() and gewaehlt[0] == 0, "Weitertippen bei Wahl und Nicht jetzt: Zeile bleibt")
-	var nein_k: Control = ui.text_knopf.get_child(0).get_child(0)
-	pruefe(nein_k.has_meta("links") and bool(nein_k.get_meta("links")), "Nicht jetzt steht links mit ‹")
+	var links_ := ui.text_knopf.find_children("*", "PanelContainer", true, false).filter(func(k): return k.has_meta("links") and bool(k.get_meta("links")))
+	pruefe(links_.size() == 1 and (links_[0] as Control).find_child("Text", true, false).text == "NICHT JETZT", "Nicht jetzt steht links mit ‹")
+	var kasten := ui.textfeld.get_global_rect()
+	var sicht := ui.textfeld.get_viewport().get_visible_rect()
+	pruefe(sicht.encloses(kasten), "Textkasten mit beiden Knöpfen bleibt im Bild: %s in %s" % [kasten, sicht])
 	var gel := [0]
 	ui.gelesen.connect(func(): gel[0] += 1)
 	ui.schliesse_text()

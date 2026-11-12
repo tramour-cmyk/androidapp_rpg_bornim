@@ -481,9 +481,16 @@ func naechste() -> void:
 		# weiter wie beim Weitertippen. Solange beide stehen, schaltet Tippen auf den Text nicht weiter (_tipp_text)
 		var nein := Spielstaende.knopf("neben", Sprache.t({"de": "Nicht jetzt", "en": "Not now"}), func(): if knopf_bereit(): knopf_aus.emit(), true)
 		var kn := Spielstaende.knopf("haupt", knopf_text, func(): if knopf_bereit(): knopf_im_text.emit())
-		var reihe := Spielstaende.knopfzeile(nein, kn)
-		reihe.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		text_knopf.add_child(reihe)
+		# die Wahl rechts, „Nicht jetzt“ links darunter: nebeneinander passen sie nicht immer (Vorlage 22:43: Pims Wahl und „Nicht
+		# jetzt“ in einer Reihe schoben den Kasten rechts aus dem Bild); immer gleich, damit jede Wahl gleich aussieht
+		var spalten := VBoxContainer.new()
+		spalten.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		spalten.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		kn.size_flags_horizontal = Control.SIZE_SHRINK_END
+		nein.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		spalten.add_child(kn)
+		spalten.add_child(nein)
+		text_knopf.add_child(spalten)
 	text_knopf.visible = knopf_text != ""
 	text_knopf.modulate.a = 0.0
 	textfeld.visible = true
