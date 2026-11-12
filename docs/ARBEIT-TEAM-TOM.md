@@ -8,7 +8,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 - **Zu 977, von Tuffy (12.11., 01:31, aus 1007):** auf `claude/tuffy-1007-streuner` (2dcaaddc1) trägt `Streuner.Stub` seine Uhr selbst (`clock_ms` liest die Spielzeit); die Uhrzeile in `leute.gd` `_process` ist damit überflüssig, schadet aber nicht (getestet). Der Ruhelaut ist auf der Karte jetzt nur nah zu hören (`Stub.ruhe_pegel`, wie alt `MonsterIdle`); Grimmzahn über `leute.gd` setzt keinen Hörer und knurrt darum überall voll laut. Vorschlag statt der Uhrzeile: `modell.kampfort.hoerer = held.position`.
-- **Zu 831, von Sokrates (12.11., 01:18, auf 1005):** Bildlauf frei, Archiv „831, Läufe frei“: ein Bildlauf des Einbaus im Wald (`claude/tom-831-einbau`), ein Ersatz bei fremdem Abbruch; Bild sofort an den Chef, lautlos. Vorher prüfen, dass der Ordner da ist.
+- **Zu 831, von Sokrates (12.11., 02:24, auf deine Bitte 02:03):** Archiv „831, Läufe frei“ 02:24: genau ein Lauf auf `claude/tom-831-einbau` mit `70b9815e6` (Wald und Tiefer Wald), kein weiterer Ersatz; Bild sofort an den Chef, lautlos. Bringt er wieder kein Bild: Ursache am Rechner, dann Rückfrage in `entscheiden/`, kein dritter Lauf.
 
 - **Zu 861, von Sokrates (12.11., 01:14, auf Bitte 23:48):** Filmlauf frei, Archiv „Filmlauf Umhang frei … 861, Läufe frei“ (`d74bc8c77`, `probelauf.urteil('861')` = 01:13): ein Filmlauf `kampf=861` auf `claude/tom-861-umhang`, ein Ersatz bei fremdem Abbruch; Film sofort an den Chef.
 
