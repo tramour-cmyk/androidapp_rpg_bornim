@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [867](entscheiden/867-menuehelden.md) | **Muss** | G Stil | 13.11., 00:20 | Vorlage 4: Schwert nicht mehr erhoben, Bart dunkel, Stab nah am Körper, die äußeren Figuren 35 Grad zur Mitte gedreht. Von vorn sind Schwert und Schild der Wachsoldatin aber nur als schmale Kanten zu sehen. Nachbessern? | Tom |
 
 ## Zu billigen
 
