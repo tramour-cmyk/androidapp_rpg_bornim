@@ -1995,51 +1995,55 @@ func _free_foe_spot(back := false):
 	return free[0] if not free.is_empty() else null
 
 
+## 1049 (Sokrates 12.11.: jede Art ohne eigenen Zweig fiel auf „Stich“ zurück): die Absichten je Art stehen in werte.json
+## „absichten“ „je_art“ als Liste [Kennung, Anzahl, Bedingung?] (Kennung = I_<KENNUNG>), eine Zeichenkette verweist auf eine andere
+## Art, „_sonst“ gilt für den Rest. Gewürfelt wird nur, wenn mehr als eine Absicht in Frage kommt (wie bisher). Die erzwungenen Züge
+## des Probekampfs (1020.2 C) bleiben hier.
 func _pick_intent(foe: Fighter) -> Dictionary:
 	var id := art_of(foe.monster)
-	if id == RAT or id == BAT or id == "ghoul":     # 535; 506 Grabhund
-		return I_BITE
-	if id == "zombie":     # 506 Wiedergänger
-		return I_CLAW
-	if id == SHAMAN:     # 535: Heilen, Fluch, Feuerstoß des Schamanen fehlen noch (Ansagen über Homer); bis dahin kämpft er wie ein Goblin
-		id = CALLED
-	if id == WOLF or id == DIRE_WOLF:
-		if test_gegnerzug == "pounce":     # 1020.2 C
-			test_gegnerzug = ""
-			test_erzwungen.append("pounce")
-			return I_POUNCE
-		var others := all.filter(func(x): return x.side == "FOES" and x.standing() and wolfig(x.monster)).size()
-		var circling := intents.values().any(func(p): return p[0].effect == "CIRCLE")
-		var can := [I_POUNCE, I_POUNCE]
-		# 986 (3): die Leibwache ist nicht angreifbar, sagt also kein Einkreisen an ([986.circle] „Den treffen“)
-		if others >= 2 and not circling and chosen and foe.angreifbar():
-			can.append(I_CIRCLE)
-		return dice.pick(can)
-	if id == SPIDER:
-		return dice.pick([I_VENOM, I_WEB])
-	if id == SCOUT:
-		return I_AIM if foe.hidden else dice.pick([I_AIM, I_AIM, I_SHADOW])
-	var lineup := not _covered().is_empty()
-	var plain: Dictionary = I_SLASH if id == CALLED else I_STAB
-	if id == CALLED:
-		var can2 := [plain, plain]
-		if lineup:
-			can2.append(I_FLANK)
-		return dice.pick(can2)
-	if id != GRAK:
-		return plain
-	if test_gegnerzug == "heavy":     # 1020.2 C
+	if (id == WOLF or id == DIRE_WOLF) and test_gegnerzug == "pounce":     # 1020.2 C
+		test_gegnerzug = ""
+		test_erzwungen.append("pounce")
+		return I_POUNCE
+	if id == GRAK and test_gegnerzug == "heavy":     # 1020.2 C
 		test_gegnerzug = ""
 		test_erzwungen.append("heavy")
 		return I_HEAVY
-	var can3 := [I_HEAVY, I_HEAVY]
-	if lineup:
-		can3.append(I_BREAKTHROUGH)
-	if called < CALL_MAX and _free_foe_spot() != null:
-		can3.append(I_CALL)
-	if foe.hp * 2 < foe.max_hp:
-		can3.append(I_GATHER)
-	return dice.pick(can3)
+	var T: Dictionary = BrsKampf.w().get("absichten", {}).get("je_art", {})
+	var e = T.get(id, T.get("_sonst", [["stab", 1]]))
+	for i in 4:     # Verweis auf eine andere Art (Schamane wie Goblin)
+		if e is String:
+			e = T.get(e, T.get("_sonst", [["stab", 1]]))
+	var can := []
+	for x in e:
+		if (x as Array).size() > 2 and not _absicht_gilt(foe, String(x[2])):
+			continue
+		var a = get("I_" + String(x[0]).to_upper())
+		if a == null:
+			continue
+		for n in int(x[1]):
+			can.append(a)
+	if can.is_empty():
+		return I_STAB
+	return can[0] if can.size() == 1 else dice.pick(can)
+
+
+## 1049: Bedingungen der Absichtstabelle (werte.json „absichten“ „_bedingungen“)
+func _absicht_gilt(foe: Fighter, b: String) -> bool:
+	match b:
+		"rudel":     # zwei Wölfe stehen, keiner kreist schon, der Held hat gewählt; die Leibwache (nicht angreifbar) kreist nicht (986 (3))
+			var others := all.filter(func(x): return x.side == "FOES" and x.standing() and wolfig(x.monster)).size()
+			var circling := intents.values().any(func(p): return p[0].effect == "CIRCLE")
+			return others >= 2 and not circling and chosen and foe.angreifbar()
+		"reihe":
+			return not _covered().is_empty()
+		"nicht_versteckt":
+			return not foe.hidden
+		"ruf":
+			return called < CALL_MAX and _free_foe_spot() != null
+		"halbes_leben":
+			return foe.hp * 2 < foe.max_hp
+	return false
 
 
 func _say_announce(foe: Fighter) -> void:

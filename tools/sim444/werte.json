@@ -417,6 +417,25 @@
     "nicht_waehlbar": ["Bergbau", "Illusion", "Beschwörung"],
     "_nicht_waehlbar": "984.1 (Chef 11.11., 20:12 „984 A“): Illusion und Beschwörung in Kapitel 1 nicht zur Wahl wie Bergbau (461c)"
   },
+  "absichten": {
+    "_quelle": "1049 (Sokrates 12.11.): was jede Art im MARS ansagt, als Tabelle statt Zweigen in mars.gd _pick_intent; je Eintrag [Absicht, Anzahl im Los, Bedingung]; gewuerfelt nur bei mehr als einer Absicht; Stand gleich dem Code vor 1049 (Test absicht_1049); Namen neuer Absichten von Homer (1057)",
+    "_bedingungen": "rudel: zwei Woelfe stehen, keiner kreist schon, der Held hat gewaehlt, angreifbar; reihe: ein Gegner deckt einen anderen; nicht_versteckt: der Spaeher steht nicht im Schatten; ruf: Grak hat noch keinen gerufen und es ist ein Platz frei; halbes_leben: unter der Haelfte des Lebens",
+    "je_art": {
+      "giant_rat": [["bite", 1]],
+      "giant_bat": [["bite", 1]],
+      "ghoul": [["bite", 1]],
+      "zombie": [["claw", 1]],
+      "wolf": [["pounce", 2], ["circle", 1, "rudel"]],
+      "dire_wolf": "wolf",
+      "giant_spider": [["venom", 1], ["web", 1]],
+      "goblin_archer": [["aim", 1], ["aim", 1, "nicht_versteckt"], ["shadow", 1, "nicht_versteckt"]],
+      "goblin": [["slash", 2], ["flank", 1, "reihe"]],
+      "goblin_shaman": "goblin",
+      "hobgoblin_captain": [["heavy", 2], ["breakthrough", 1, "reihe"], ["call", 1, "ruf"], ["gather", 1, "halbes_leben"]],
+      "_sonst": [["stab", 1]]
+    }
+  },
+
   "kampftraenke": {
     "_quelle": "481.1 (Jerry 02.11.): Vorschlag Sokrates (Zu 481, Chat 18:58): Kampftraenke mit Preis, je ein Zug, Wirkung nach Kraeuterkunde statt Sperre; seit 876 (857a A, Chef 10.11.) nach Alchemie; Chef 18:55 'zwei Runden unverwundbar'. Alle Zahlen A",
     "wirkung_grund": 0.5,
