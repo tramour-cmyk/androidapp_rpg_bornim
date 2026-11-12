@@ -682,6 +682,7 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/tritte_560.gd 2>&1 | tee tritte560.log | grep -E "FALSCH|TRITTE560|SCRIPT ERROR"; grep -q "^TRITTE560 gut" tritte560.log   # 560 Tritte auf der Karte nicht gebremst (Tom)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/position_518.gd 2>&1 | tee position518.log | grep -E "FEHLER|POSITION518|SCRIPT ERROR"; grep -q "^POSITION518 0 Fehler" position518.log   # 518 Shader setzen POSITION immer
           timeout 300 ~/godot/godot --headless --path . -s res://tests/wald_491.gd 2>&1 | tee wald491.log | grep -E "FEHLER|WALD491|SCRIPT ERROR"; grep -q "^WALD491 0 Fehler" wald491.log   # 491
+          timeout 200 ~/godot/godot --headless --path . -s res://tests/speicher_1021.gd 2>&1 | grep -E "SPEICHER|FEHLER|SCRIPT ERROR" || true   # 1021 Messung: häuft sich der Fußstaub (Speicher knapp, Chef 13:44); zeigt nur
           # 909: auf die Messungen nebenher warten, Ausgabe zeigen; rot wie eine eigene Zeile (wait in && || löst die Falle nicht aus)
           while read pid n; do wait $pid && rc=0 || rc=$?; echo "── nebenher $n"; cat $NEBEN/$n.log; [ $rc -eq 0 ] || { echo "$STUFE tests/$n.gd: nebenher, Ende $rc" >> $ROT; echo "::error::918 rot ($STUFE) tests/$n.gd"; }; done < $NEBEN/pids
           # 918: Ende; rot.txt geht mit den Bildern ins Artefakt (bornim-godot-bilder) und steht hier im Protokoll
