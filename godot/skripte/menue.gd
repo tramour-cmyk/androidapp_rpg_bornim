@@ -1586,7 +1586,32 @@ func gruppe(w: String) -> void:
 	luecke(10)
 
 # SignRow: die Zeichen gleichmaessig ueber die Breite verteilt (Arrangement.SpaceEvenly), oben buendig
+# 1027 (Chef 12.11., 11:42, Build 279: Reiter „Test“ breiter als der Schirm): eine Reihe, die breiter wird als der Schirm innerhalb des
+# Rands (fünf Zeichen à 80 dp), zog den ganzen Reiter mit (die Rolle waechst mit ihrem Inhalt); sie bricht jetzt in weitere Reihen um
 func zeichenreihe(zeichen: Array) -> void:
+	var r := _zeichen_hbox(zeichen)
+	inhalt.add_child(r)   # erst im Baum kennen die Zeichen ihre Breite (Zeichenknopf._ready)
+	var frei := innen_breite()
+	if r.get_combined_minimum_size().x > frei and zeichen.size() > 1:
+		inhalt.remove_child(r)
+		for zk in zeichen: r.remove_child(zk)
+		r.free()
+		var reihe: Array = []
+		var breit := 0.0
+		for zk in zeichen:
+			var w: float = (zk as Control).get_combined_minimum_size().x
+			if not reihe.is_empty() and breit + w > frei:
+				inhalt.add_child(_zeichen_hbox(reihe)); luecke(10)
+				reihe = []; breit = 0.0
+			reihe.append(zk); breit += w
+		inhalt.add_child(_zeichen_hbox(reihe))
+	luecke(10)
+
+## Breite innerhalb des Seitenrands (24 dp je Seite, wie in _ready)
+func innen_breite() -> float:
+	return get_viewport_rect().size.x - 48 * DP
+
+func _zeichen_hbox(zeichen: Array) -> HBoxContainer:
 	var r := HBoxContainer.new()
 	r.add_theme_constant_override("separation", 0)
 	r.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -1597,8 +1622,7 @@ func zeichenreihe(zeichen: Array) -> void:
 		r.add_child(zk)
 	var l2 := Control.new(); l2.size_flags_horizontal = Control.SIZE_EXPAND_FILL; l2.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	r.add_child(l2)
-	inhalt.add_child(r)
-	luecke(10)
+	return r
 
 # MenuExplainWindow: das Fenster des Gedrueckthaltens liegt ueber dem unteren Teil des Menues, ueber „Schließen“; darunter bewegt sich
 # nichts. Oben ein Schatten, dann schwarz, darin erhaben mit Goldrand: Name als Ueberschrift, der Satz; Antippen schliesst es.
