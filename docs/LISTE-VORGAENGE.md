@@ -251,7 +251,7 @@
 | 1046 | Von Sokrates (1038 A, R1, Chef 12.11., 16:24): Verband stillt Blutung (plus kleiner Teil Leben nach Heilkunde, nur außerhalb des Kampfs); kurze Rast gibt nur Ausdauer, kein Leben; Simulation 444: Kapitel 1 ohne Grinden durchspielbar? | Jerry | M | startbar | – | – | – | G Balance | – |
 | 1049 | Von Sokrates (Befund 12.11.): Gegner ohne eigene Ansage fallen auf „Stich“ zurück (mars.gd _pick_intent), auch Krogg mit Morgenstern, Ockerschleim, Wildschwein, Kobold, Skelett, Hundertfüßer, Blutegel; Absicht je Art (Name, stark, Ring) als Tabelle in werte.json statt Zweigen im Code, Namen Homer | Jerry | M | gebaut, Geprüft an: 66e7bbf5f, Ansagen nach 1057 | – | – | – | E Kampf | – |
 | 1054 | Von Tom (Hinweis 12.11., 16:40): tests/mars_regeln.gd nach dem Umzug veraltet (massstab, _penalty, atk), SCRIPT ERROR rot werten | Jerry | M | gebaut, Geprüft an: 6741261ba, fährt im nächsten Build | – | claude/jerry-mars-regeln-test | – | E Kampf | – |
-| Pflege | von Werkzeug (340.3, 12.11.): 29642 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 12.11.): 29633 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
