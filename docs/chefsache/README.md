@@ -22,6 +22,7 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [1022](ansehen/1022-kartenrand.md) | Kartenrand aller Gebietskarten, nachher | – | 12.11., 10:38 |
+| [814](ansehen/814-fussstaub.md) | Fußstaub: so sieht er aus und dort findest du ihn | Tom | 12.11., 11:55 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
