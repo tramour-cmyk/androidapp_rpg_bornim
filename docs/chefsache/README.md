@@ -180,7 +180,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 644a.2 | M | Von Sokrates (644a A, D, F; Chef 12.11., 08:21): Mindeststufe zum Anlegen (Laden „Nicht tr | startbar |
 | 1022 | M | Von Sokrates (Chef 12.11., 08:26, Bild Dorf Tag 1 13:39; Wiederholfund t268): Kartenrand a | Chef (Datei in der Chefsache) |
 | 1023 | K | Hühner wie alt: fliehen verlässlich, Federn sichtbar, auffliegen (aus 814, t278.3; Chef 12 | ruht |
-| Pflege | K | von Werkzeug (340.3, 12.11.): 20162 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 12.11.): 20694 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 138, Muss 125, startbar 2
 
@@ -323,7 +323,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 644a.1 | M | Von Sokrates (644a A mit Spanne, D, F; Chef 12.11., 08:21): erst Rechnung (Spannen je Stuf | wartet auf Test/Build (gebaut) |
 | 1024 | M | Von Sokrates (Chef 12.11., 09:04, Bild Wolfskampf Build 278): Schalterreihe am rechten Ran | startbar |
 | 644b | M | Von Tuffy (644a.1, Rechnung): Deckel trotz Zahlen weg, und Schutzwert mit halbem Gewicht w | Chef (Datei in der Chefsache) |
-| Pflege | K | von Werkzeug (340.3, 12.11.): 18671 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 12.11.): 21580 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 13, Muss 12, startbar 0
 
@@ -413,9 +413,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 930 | M | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (wartet) |
 | 985 | K | Systemlösung? Nebel: 2 frühere Vorgänge (505, 502), neu 785.7; einmal grundsätzlich lösen? | startbar |
 | 644a.4 | M | Vorentscheid: Waffen der Truhe in der Blutzahnhöhle (cave_3) Stufe 3 statt 4, sonst vor Kr | startbar |
-| Pflege | K | von Werkzeug (340.3, 12.11.): 15335 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 644a.5 | M | Von Tuffy (644a.1): an welchem Grundwert hängen Rüstung, Ausweichen, Schild, Armbrust und | startbar |
 | 935 | M | Von Tuffy (870.6): Wurfmittel im MARS nicht zu benutzen (Brandflasche, Weihwasser): Wurf m | startbar |
+| Pflege | K | von Werkzeug (340.3, 12.11.): 15994 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
