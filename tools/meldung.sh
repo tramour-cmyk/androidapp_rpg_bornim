@@ -36,6 +36,12 @@ if [ -n "$art" ] && [ ! -f "$bild" ]; then echo "meldung: Bild $bild fehlt" >&2;
 if [ "$art" = video ]; then  # 381: Telegram nimmt über die Bot-Schnittstelle höchstens 50 MB
   case "${bild,,}" in *.mp4) ;; *) echo "meldung: Film als MP4 (H.264), nichts gesendet (381)" >&2; exit 2 ;; esac
   [ "$(stat -c %s "$bild")" -le 52428800 ] || { echo "meldung: Film über 50 MB, nichts gesendet (kürzer oder kleiner rechnen; 381)" >&2; exit 2; }
+  # 1076 (Chef 12.11., 20:42: „einen fast einminütigen Film …, um einen Ring zu sehen, der nach 6 Sekunden vorbei ist“): nur der
+  # Prüfgegenstand, etwa dreimal hintereinander, höchstens etwa 15 s; über 20 s hält an (Ausnahme „Chef will langen Film“ im Text)
+  dauer=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$bild" 2>/dev/null | cut -d. -f1)
+  if [ -n "$dauer" ] && [ "$dauer" -gt 20 ] && ! printf '%s' "${rest[*]}" | grep -q 'Chef will langen Film'; then
+    echo "meldung: Film $dauer s, nichts gesendet; nur den Prüfgegenstand schneiden, etwa dreimal hintereinander, höchstens etwa 15 s (1076)" >&2; exit 2
+  fi
 fi
 # 457 (Chef 01.11., 11:49: „unsere Signatur muss sich wiederfinden“): Bild oder Film einer Probe nie „ohne Toon/Tusche“
 if [ -n "$art" ] && ! printf '%s' "${rest[*]}" | grep -q 'Chef erlaubt ohne Signatur' && fehlt=$(python3 -c 'import sys; sys.path.insert(0, sys.argv[1]); import importlib; m = importlib.import_module("commit-pruefung"); r = m.ohne_signatur(sys.argv[2]); print(r or ""); sys.exit(0 if r else 1)' "$(dirname "$(realpath "$0")")" "${rest[*]}" 2>/dev/null); then

@@ -109,7 +109,7 @@ Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit, Wil
 
   Das Volk darf einen Wert auf 9 heben und auf 2 senken (933 A, ersetzt Entscheidung 78), damit sein Abzug immer greift. Leute in der Welt reagieren auf das Volk (Entscheidung 71).
   **Sechstes Volk: Aschgeborene** (432, Chef 01.11., 09:41; Werte 432.2, 02.11., 16:34): Mensch mit aschgrauer Strähne und goldenem Ring um die Iris; wählbar ab dem Bau nach dem Meilenstein Kapitel 1; vor dem Bau in Simulation 444 mit Völkern messen.
-- **Herkunft, freiwillig** (Entscheidung 68, 69): Sie verteilt die Punkte vor, gibt zwei bis drei Startfertigkeiten und passende Ausrüstung; ein Satz bei der Erschaffung sagt, wohin sie lenkt. Die Punkte kann man ändern. Wer keine will, ist **Wanderer** und verteilt selbst; er wählt zwei Startfertigkeiten. Jede Startfertigkeit beginnt bei **10** (Startwert, Vorschlag).
+- **Herkunft, freiwillig** (Entscheidung 68, 69): Sie verteilt die Punkte vor, gibt zwei bis drei Startfertigkeiten und passende Ausrüstung; ein Satz bei der Erschaffung sagt, wohin sie lenkt. Die Punkte kann man ändern. Wer keine will, ist **Wanderer** und verteilt selbst; er wählt zwei Startfertigkeiten. Jede Startfertigkeit beginnt bei **10** (Startwert, Vorschlag). Zauberlehrling: vorverteilt Verstand +3, Wille +3 (1050a A, Chef 12.11., 20:02; vorher Wille +5, Verstand +1; Bau Jerry 1066, Satz der Erschaffung Homer 1067).
 
 | Herkunft | Startfertigkeiten | führt meist zu |
 | --- | --- | --- |
@@ -251,7 +251,7 @@ Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, abe
 | Runenmeister | Runenkunde | Bergbau | Verzauberungen, Runen auf Ausrüstung |
 | Feldkoch | Kochen | Angeln oder Jagd | Mahlzeiten mit kleinem Bonus |
 
-**Heilkunde** steht in der Gruppe Handwerk (Entscheidung 59: Verbände, Wunden versorgen), ist aber keine eigene Meisterschaft; über Meister hinaus steigt sie nur im Pfad Heiler.
+**Heilkunde** steht in der Gruppe Handwerk (Entscheidung 59: Verbände, Wunden versorgen), ist aber keine eigene Meisterschaft; über Meister hinaus steigt sie nur im Pfad Heiler. **Verband** (1038 A, Chef 12.11., 16:24, „fürs Erste“): stillt Blutung, gibt nach Heilkunde etwas Leben, nur außerhalb des Kampfs; kaufen bei Osric und Thessa; herstellen mit dem Rezeptbuch aus Heilkräutern und Leinen am Lagerfeuer ab Anfänger, mit Spinnseide stärker; später schließt er Wunden (72c). **Kurze Rast** gibt nur Ausdauer, kein Leben (1038 R1).
 
 ## 7. Kampf
 
@@ -328,7 +328,7 @@ Seltenheit und Güte sind getrennt: ein gewöhnliches Schwert kann meisterhaft g
 - **Mindeststufe:** ein Stück der Stufe n legt erst ein Held der Stufe n an; Getragenes bleibt angelegt (alte Spielstände, Testmenü). Gewöhnliche Stücke haben die Stufe ihrer Grundform aus dem Katalog.
 - **Stärke:** die Stufe hebt nur die Zusatzeigenschaften, in Schritten von drei Stufen, als **Spanne**; gewürfelt beim Fund, am Stück steht die Zahl, die wirkt. Startwerte (Rechnung 644.2): Stufe 1–3 Leben und Mana +4 bis +6, kritisch +2 bis +4 %, Zauberschaden +8 bis +12 %, Abwehrprobe +4 bis +6 %, Schutzwert +1; Stufe 4–6 doppelt (Leben +8 bis +12 …, Schutzwert +2), 7–9 dreifach, 10–12 vierfach, danach alle drei Stufen ein Schritt. Grundwert je Stück immer +1; Schaden und Schutz der Grundform hebt nur die Güte.
 - **Funde:** Beute in der Stufe des stärksten Gegners, höchstens Heldenstufe +1; Gaben ebenso; Händler nur, was der Held tragen kann; Einzelstücke mit Stufe aus dem Katalog (Homer prüft gegen die Geschichte).
-- **Kein Deckel:** was am Stück steht, wirkt. Grundwerte würfeln als Zusatzeigenschaft mit halbem Gewicht; Händler verkaufen in Kapitel 1 keine Stücke mit Grundwert; vorher rechnet Jerry den schlimmsten und üblichen Fall (über +3 üblich: Zahlen an den Chef).
+- **Kein Deckel:** was am Stück steht, wirkt. Grundwerte und Schutzwert würfeln als Zusatzeigenschaft mit halbem Gewicht (Schutzwert 644b A, Chef 12.11., 13:40, nach Rechnung 644a.1: üblich Grundwert +3 bis +4, Schutzwert +1 bis +2); Händler verkaufen in Kapitel 1 keine Stücke mit Grundwert.
 
 **Seltenheit:**
 
