@@ -219,7 +219,7 @@ func _statuses() -> void:
 	b.start()
 	b.act(["wait"])
 	var bled: Array = heard.filter(func(e): return "verliert Blut" in e.text)
-	_check_s("Blutung schadet", str(bled.map(func(e): return e.damage)), str([maxi(1, roundi(2 * b.massstab(b.by_id("f0"))))]))     # 870.5: im Maß des BRS
+	_check_s("Blutung schadet", str(bled.map(func(e): return e.damage)), str([b._anteil(b.by_id("f0"), float(b._zw().get("schaden_anteil", {}).get("BLEED", 0.08)))]))     # 870.6: Anteil am vollen Leben (werte.json „zustaende“), massstab gibt es nicht mehr
 	_check_s("Blutung zählt herunter", str(b.by_id("f0").status), str({"BLEED": 2}))
 	_check_s("Zeichen im Ereignis", str(bled[0].status.get("f0", {})), str({"BLEED": 2}))
 	# bleeding to death ends the fight
@@ -369,9 +369,9 @@ func _pack_flees() -> void:
 	var Aufruf = load("res://kampf/aufruf.gd")
 	var foes: Array = Aufruf.rudel(monsters, Wuerfel.new(3))
 	var cubs := foes.filter(func(f): return f.follows == "wolf1")
-	if foes[0].id != "wolf1" or cubs.size() < 1 or cubs.size() > 2 or cubs.any(func(c): return int(c.monster.atk) != int(foes[0].monster.atk) - 1):
+	if foes[0].id != "wolf1" or cubs.size() < 1 or cubs.size() > 2 or cubs.any(func(c): return String(c.monster.get("rudel", "")) != "Jungwolf" or String(c.monster.get("anfuehrer", "")) != "wolf"):
 		failed += 1
-		print("FEHLER Rudel: Aufstellung %s" % [foes.map(func(f): return [f.id, f.follows, f.monster.atk, f.max_hp])])
+		print("FEHLER Rudel: Aufstellung %s" % [foes.map(func(f): return [f.id, f.follows, f.monster.get("rudel", ""), f.max_hp])])
 		return
 	var sheet: Dictionary = tables.probe.FIGHTER.hero.hero.duplicate(true)
 	var skills := {}
