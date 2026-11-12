@@ -163,7 +163,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1055 | M | Von Perikles (1052, Sokrates 16:47): Sammelbuild 281 gleich nach PR #199 auf main: alle fe | Termin 12.11. 23:35 |
+| 1055 | M | Von Perikles (1052, Sokrates 16:47): Sammelbuild 281 gleich nach PR #199 auf main: alle fe | Termin 12.11. 23:48 |
 | 1039 | M | Von Sokrates (Chef 12.11., 15:04, Build 280, Probekampf Grak, Schwerer Hieb): innerer Ring | wartet auf Test (Build 281) |
 | 1068 | M | Von Perikles (1048 A, H, D, Chef 12.11., 20:05): Ring bei jedem großen Schlag der Gegner ( | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1039 |
 | 1043 | M | Von Sokrates (Chef 12.11., 15:52, Fund t278.33 Build 280, zu 988): MARS-Probekampf Wölfe, | Termin 13.11. 00:00 |
