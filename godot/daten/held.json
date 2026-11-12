@@ -1,0 +1,3114 @@
+{
+  "version": 1,
+  "regeln": {
+    "max_stufe": 20,
+    "max_wert": 20,
+    "ep_fuer_stufe": [
+      0, 0, 150, 450, 1350, 3250, 7000, 11500, 17000, 24000, 32000, 42500, 50000, 60000, 70000,
+      82500, 97500, 112500, 132500, 152500, 177500
+    ],
+    "standard": [15,14,13,12,10,8],
+    "vorschlag": [15,14,12,10,10,8],
+    "attributstufen": [4,8,12,16,19],
+    "punktkauf": 24,
+    "punktkauf_min": 8,
+    "punktkauf_max": 15,
+    "zauberpunkte": [0,4,6,14,17,27,32,38,44,57,64,73,73,83,83,94,94,107,114,123,133],
+    "deckel": {
+      "STR": 0,
+      "DEX": 0,
+      "CON": 0,
+      "INT": 0,
+      "WIS": 0,
+      "CHA": 0,
+      "ALL_STATS": 0,
+      "AC": 0,
+      "ATTACK": 0,
+      "DAMAGE": 1,
+      "SPELL": 0,
+      "FIRE": 1,
+      "RADIANT": 1
+    }
+  },
+  "voelker": {
+    "HUMAN": {
+      "name": {"de":"Mensch","en":"Human"},
+      "bonus": {"STR":1,"DEX":1,"CON":1,"INT":1,"WIS":1,"CHA":1},
+      "text": {
+        "de": "Anpassungsfähig und ehrgeizig. Menschen sind in allem ein wenig begabt.",
+        "en": "Adaptable and ambitious. Humans have a little talent for everything."
+      },
+      "merkmal": {"de":"Vielseitig: +1 auf alle Attribute.","en":"Versatile: +1 to all ability scores."},
+      "haut": [
+        {"name":{"de":"Hell","en":"Fair"},"rgb":"eacbae"},
+        {"name":{"de":"Warm","en":"Warm"},"rgb":"d4a27c"},
+        {"name":{"de":"Oliv","en":"Olive"},"rgb":"a8764f"},
+        {"name":{"de":"Dunkel","en":"Dark"},"rgb":"6e4632"}
+      ],
+      "haar": [
+        {"name":{"de":"Braun","en":"Brown"},"rgb":"5e3c26"},
+        {"name":{"de":"Blond","en":"Blond"},"rgb":"b8975e"},
+        {"name":{"de":"Schwarz","en":"Black"},"rgb":"262220"},
+        {"name":{"de":"Rot","en":"Red"},"rgb":"8a3e22"}
+      ]
+    },
+    "ELF": {
+      "name": {"de":"Elf","en":"Elf"},
+      "bonus": {"DEX":2,"INT":1},
+      "text": {
+        "de": "Anmutig und wachsam, mit scharfen Sinnen und einem langen Gedächtnis.",
+        "en": "Graceful and watchful, with keen senses and a long memory."
+      },
+      "merkmal": {
+        "de": "Scharfe Sinne: +2 auf Initiative und Flucht.",
+        "en": "Keen Senses: +2 to initiative and fleeing."
+      },
+      "haut": [
+        {"name":{"de":"Blass","en":"Pale"},"rgb":"eeddcc"},
+        {"name":{"de":"Hell","en":"Fair"},"rgb":"e0be9e"},
+        {"name":{"de":"Kupfer","en":"Copper"},"rgb":"c08a64"},
+        {"name":{"de":"Bronze","en":"Bronze"},"rgb":"93664a"}
+      ],
+      "haar": [
+        {"name":{"de":"Silberblond","en":"Silver blond"},"rgb":"d8cba0"},
+        {"name":{"de":"Kupfer","en":"Copper"},"rgb":"9a4e2a"},
+        {"name":{"de":"Schwarz","en":"Black"},"rgb":"2a2420"},
+        {"name":{"de":"Weißgrau","en":"White"},"rgb":"c8c4bc"}
+      ]
+    },
+    "DWARF": {
+      "name": {"de":"Zwerg","en":"Dwarf"},
+      "bonus": {"CON":2,"STR":1},
+      "text": {
+        "de": "Zäh wie der Fels, aus dem ihre Hallen gehauen sind.",
+        "en": "Tough as the rock their halls are carved from."
+      },
+      "merkmal": {
+        "de": "Zwergische Widerstandskraft: halber Giftschaden.",
+        "en": "Dwarven Resilience: half poison damage."
+      },
+      "haut": [
+        {"name":{"de":"Rosig","en":"Ruddy"},"rgb":"e2b094"},
+        {"name":{"de":"Gebräunt","en":"Tanned"},"rgb":"c48864"},
+        {"name":{"de":"Braun","en":"Brown"},"rgb":"996246"},
+        {"name":{"de":"Dunkel","en":"Dark"},"rgb":"6a4432"}
+      ],
+      "haar": [
+        {"name":{"de":"Rot","en":"Red"},"rgb":"9a4422"},
+        {"name":{"de":"Braun","en":"Brown"},"rgb":"5a3a24"},
+        {"name":{"de":"Schwarz","en":"Black"},"rgb":"262220"},
+        {"name":{"de":"Grau","en":"Gray"},"rgb":"8c8882"}
+      ]
+    },
+    "HALFLING": {
+      "name": {"de":"Halbling","en":"Halfling"},
+      "bonus": {"DEX":2,"CHA":1},
+      "text": {
+        "de": "Klein, flink und unverschämt vom Glück verfolgt.",
+        "en": "Small, nimble and outrageously lucky."
+      },
+      "merkmal": {
+        "de": "Glückspilz: Eine gewürfelte 1 beim Angriff wird neu gewürfelt.",
+        "en": "Lucky: a natural 1 on an attack roll is rerolled."
+      },
+      "haut": [
+        {"name":{"de":"Hell","en":"Fair"},"rgb":"eacaa8"},
+        {"name":{"de":"Rotwangig","en":"Rosy"},"rgb":"d8a47e"},
+        {"name":{"de":"Gebräunt","en":"Tanned"},"rgb":"b07a55"},
+        {"name":{"de":"Dunkel","en":"Dark"},"rgb":"84573a"}
+      ],
+      "haar": [
+        {"name":{"de":"Braun","en":"Brown"},"rgb":"5e3c26"},
+        {"name":{"de":"Blond","en":"Blond"},"rgb":"b8975e"},
+        {"name":{"de":"Schwarz","en":"Black"},"rgb":"262220"},
+        {"name":{"de":"Rot","en":"Red"},"rgb":"8a3e22"}
+      ]
+    },
+    "HALF_ORC": {
+      "name": {"de":"Halbork","en":"Half-Orc"},
+      "bonus": {"STR":2,"CON":1},
+      "text": {
+        "de": "Stark und unbeugsam. Was sie umwirft, muss erst einmal kommen.",
+        "en": "Strong and unyielding. Whatever knocks them down has yet to arrive."
+      },
+      "merkmal": {
+        "de": "Unerbittlich: Einmal pro Kampf bleibst du mit 1 TP stehen.",
+        "en": "Relentless Endurance: once per battle you stay up at 1 HP."
+      },
+      "haut": [
+        {"name":{"de":"Graugrün","en":"Gray-green"},"rgb":"8e9682"},
+        {"name":{"de":"Oliv","en":"Olive"},"rgb":"7a8066"},
+        {"name":{"de":"Aschgrau","en":"Ash"},"rgb":"86857c"},
+        {"name":{"de":"Moosgrün","en":"Moss"},"rgb":"646b56"}
+      ],
+      "haar": [
+        {"name":{"de":"Schwarz","en":"Black"},"rgb":"24221f"},
+        {"name":{"de":"Dunkelbraun","en":"Dark brown"},"rgb":"3e2c20"},
+        {"name":{"de":"Grau","en":"Gray"},"rgb":"6e6c66"},
+        {"name":{"de":"Rostbraun","en":"Rust"},"rgb":"6a3a22"}
+      ]
+    }
+  },
+  "attribute": {
+    "STR": {"kurz":{"de":"STÄ","en":"STR"},"name":{"de":"Stärke","en":"Strength"}},
+    "DEX": {"kurz":{"de":"GES","en":"DEX"},"name":{"de":"Geschicklichkeit","en":"Dexterity"}},
+    "CON": {"kurz":{"de":"KON","en":"CON"},"name":{"de":"Konstitution","en":"Constitution"}},
+    "INT": {"kurz":{"de":"INT","en":"INT"},"name":{"de":"Intelligenz","en":"Intelligence"}},
+    "WIS": {"kurz":{"de":"WEI","en":"WIS"},"name":{"de":"Weisheit","en":"Wisdom"}},
+    "CHA": {"kurz":{"de":"CHA","en":"CHA"},"name":{"de":"Charisma","en":"Charisma"}}
+  },
+  "ruestungsarten": {
+    "LIGHT": {"de":"leicht","en":"light"},
+    "MEDIUM": {"de":"mittel","en":"medium"},
+    "HEAVY": {"de":"schwer","en":"heavy"}
+  },
+  "zustaende": {
+    "POISON": {"kurz":{"de":"Gift","en":"Psn"},"farbe":"6fb83a"},
+    "BURN": {"kurz":{"de":"Brand","en":"Brn"},"farbe":"e8701a"},
+    "BLEED": {"kurz":{"de":"Blut","en":"Bld"},"farbe":"c8283a"},
+    "STUN": {"kurz":{"de":"Betäubt","en":"Stun"},"farbe":"e0b020"},
+    "SLOW": {"kurz":{"de":"Langsam","en":"Slow"},"farbe":"4a90d8"},
+    "WEAK": {"kurz":{"de":"Schwach","en":"Weak"},"farbe":"8a58c8"},
+    "BLIND": {"kurz":{"de":"Blind","en":"Blind"},"farbe":"6a6a7a"},
+    "DRUNK": {"kurz":{"de":"Betrunken","en":"Drunk"},"farbe":"c89a3a"}
+  },
+  "klassen": {
+    "FIGHTER": {
+      "name": {"de":"Kämpfer","en":"Fighter"},
+      "trefferwuerfel": 10,
+      "haupt": "STR",
+      "reihenfolge": ["STR","CON","DEX","WIS","CHA","INT"],
+      "ruestung": ["LIGHT","MEDIUM","HEAVY"],
+      "schilde": true,
+      "waffen": null,
+      "start": ["longsword","chain_shirt","round_shield","potion","potion"],
+      "startgold": 15,
+      "zauberer": false,
+      "text": {
+        "de": "Meister von Waffe und Rüstung. Robust, verlässlich und schwer zu Fall zu bringen.",
+        "en": "Master of weapon and armor. Sturdy, reliable and hard to bring down."
+      }
+    },
+    "WIZARD": {
+      "name": {"de":"Magier","en":"Wizard"},
+      "trefferwuerfel": 6,
+      "haupt": "INT",
+      "reihenfolge": ["INT","CON","DEX","WIS","CHA","STR"],
+      "ruestung": [],
+      "schilde": false,
+      "waffen": ["dagger","quarterstaff","light_crossbow","wand","staff"],
+      "start": ["quarterstaff","robe","potion","potion","potion"],
+      "startgold": 20,
+      "zauberer": true,
+      "text": {
+        "de": "Gelehrter der arkanen Künste. Zerbrechlich, aber mit verheerenden Zaubern.",
+        "en": "Scholar of the arcane arts. Fragile, but armed with devastating spells."
+      }
+    },
+    "ROGUE": {
+      "name": {"de":"Schurke","en":"Rogue"},
+      "trefferwuerfel": 8,
+      "haupt": "DEX",
+      "reihenfolge": ["DEX","CON","WIS","INT","CHA","STR"],
+      "ruestung": ["LIGHT"],
+      "schilde": false,
+      "waffen": [
+        "dagger",
+        "shortsword",
+        "rapier",
+        "longsword",
+        "scimitar",
+        "handaxe",
+        "mace",
+        "spear",
+        "quarterstaff",
+        "shortbow",
+        "light_crossbow"
+      ],
+      "start": ["shortsword","leather","potion","potion"],
+      "startgold": 25,
+      "zauberer": false,
+      "text": {
+        "de": "Flink und gerissen. Trifft dort, wo es am meisten wehtut.",
+        "en": "Quick and cunning. Strikes where it hurts the most."
+      }
+    },
+    "CLERIC": {
+      "name": {"de":"Kleriker","en":"Cleric"},
+      "trefferwuerfel": 8,
+      "haupt": "WIS",
+      "reihenfolge": ["WIS","CON","STR","DEX","CHA","INT"],
+      "ruestung": ["LIGHT","MEDIUM"],
+      "schilde": true,
+      "waffen": ["dagger","handaxe","mace","spear","quarterstaff","light_crossbow","shortbow","wand","staff"],
+      "start": ["quarterstaff","chain_shirt","shield","potion"],
+      "startgold": 15,
+      "zauberer": true,
+      "text": {
+        "de": "Diener der Götter. Heilt Verbündete und straft Untote mit heiligem Licht.",
+        "en": "Servant of the gods. Heals allies and smites the undead with holy light."
+      }
+    }
+  },
+  "erklaerung": {
+    "STR": {
+      "-5": {
+        "de": [
+          "• Treffer und Schaden mit Nahkampfwaffen (außer Finesse-Waffen, wenn GES höher ist).",
+          "• Rettungswurf gegen Umwerfen, z. B. durch Wölfe.",
+          "• Wurfgeschosse (Alchemistenfeuer, Weihwasser): +0 Schaden."
+        ],
+        "en": [
+          "• Attack and damage rolls with melee weapons (except finesse weapons if DEX is higher).",
+          "• Saving throw against being knocked prone, e.g. by wolves.",
+          "• Thrown flasks (alchemist's fire, holy water): +0 damage."
+        ]
+      },
+      "-4": {
+        "de": [
+          "• Treffer und Schaden mit Nahkampfwaffen (außer Finesse-Waffen, wenn GES höher ist).",
+          "• Rettungswurf gegen Umwerfen, z. B. durch Wölfe.",
+          "• Wurfgeschosse (Alchemistenfeuer, Weihwasser): +0 Schaden."
+        ],
+        "en": [
+          "• Attack and damage rolls with melee weapons (except finesse weapons if DEX is higher).",
+          "• Saving throw against being knocked prone, e.g. by wolves.",
+          "• Thrown flasks (alchemist's fire, holy water): +0 damage."
+        ]
+      },
+      "-3": {
+        "de": [
+          "• Treffer und Schaden mit Nahkampfwaffen (außer Finesse-Waffen, wenn GES höher ist).",
+          "• Rettungswurf gegen Umwerfen, z. B. durch Wölfe.",
+          "• Wurfgeschosse (Alchemistenfeuer, Weihwasser): +0 Schaden."
+        ],
+        "en": [
+          "• Attack and damage rolls with melee weapons (except finesse weapons if DEX is higher).",
+          "• Saving throw against being knocked prone, e.g. by wolves.",
+          "• Thrown flasks (alchemist's fire, holy water): +0 damage."
+        ]
+      },
+      "-2": {
+        "de": [
+          "• Treffer und Schaden mit Nahkampfwaffen (außer Finesse-Waffen, wenn GES höher ist).",
+          "• Rettungswurf gegen Umwerfen, z. B. durch Wölfe.",
+          "• Wurfgeschosse (Alchemistenfeuer, Weihwasser): +0 Schaden."
+        ],
+        "en": [
+          "• Attack and damage rolls with melee weapons (except finesse weapons if DEX is higher).",
+          "• Saving throw against being knocked prone, e.g. by wolves.",
+          "• Thrown flasks (alchemist's fire, holy water): +0 damage."
+        ]
+      },
+      "-1": {
+        "de": [
+          "• Treffer und Schaden mit Nahkampfwaffen (außer Finesse-Waffen, wenn GES höher ist).",
+          "• Rettungswurf gegen Umwerfen, z. B. durch Wölfe.",
+          "• Wurfgeschosse (Alchemistenfeuer, Weihwasser): +0 Schaden."
+        ],
+        "en": [
+          "• Attack and damage rolls with melee weapons (except finesse weapons if DEX is higher).",
+          "• Saving throw against being knocked prone, e.g. by wolves.",
+          "• Thrown flasks (alchemist's fire, holy water): +0 damage."
+        ]
+      },
+      "0": {
+        "de": [
+          "• Treffer und Schaden mit Nahkampfwaffen (außer Finesse-Waffen, wenn GES höher ist).",
+          "• Rettungswurf gegen Umwerfen, z. B. durch Wölfe.",
+          "• Wurfgeschosse (Alchemistenfeuer, Weihwasser): +0 Schaden."
+        ],
+        "en": [
+          "• Attack and damage rolls with melee weapons (except finesse weapons if DEX is higher).",
+          "• Saving throw against being knocked prone, e.g. by wolves.",
+          "• Thrown flasks (alchemist's fire, holy water): +0 damage."
+        ]
+      },
+      "1": {
+        "de": [
+          "• Treffer und Schaden mit Nahkampfwaffen (außer Finesse-Waffen, wenn GES höher ist).",
+          "• Rettungswurf gegen Umwerfen, z. B. durch Wölfe.",
+          "• Wurfgeschosse (Alchemistenfeuer, Weihwasser): +1 Schaden."
+        ],
+        "en": [
+          "• Attack and damage rolls with melee weapons (except finesse weapons if DEX is higher).",
+          "• Saving throw against being knocked prone, e.g. by wolves.",
+          "• Thrown flasks (alchemist's fire, holy water): +1 damage."
+        ]
+      },
+      "2": {
+        "de": [
+          "• Treffer und Schaden mit Nahkampfwaffen (außer Finesse-Waffen, wenn GES höher ist).",
+          "• Rettungswurf gegen Umwerfen, z. B. durch Wölfe.",
+          "• Wurfgeschosse (Alchemistenfeuer, Weihwasser): +2 Schaden."
+        ],
+        "en": [
+          "• Attack and damage rolls with melee weapons (except finesse weapons if DEX is higher).",
+          "• Saving throw against being knocked prone, e.g. by wolves.",
+          "• Thrown flasks (alchemist's fire, holy water): +2 damage."
+        ]
+      },
+      "3": {
+        "de": [
+          "• Treffer und Schaden mit Nahkampfwaffen (außer Finesse-Waffen, wenn GES höher ist).",
+          "• Rettungswurf gegen Umwerfen, z. B. durch Wölfe.",
+          "• Wurfgeschosse (Alchemistenfeuer, Weihwasser): +3 Schaden."
+        ],
+        "en": [
+          "• Attack and damage rolls with melee weapons (except finesse weapons if DEX is higher).",
+          "• Saving throw against being knocked prone, e.g. by wolves.",
+          "• Thrown flasks (alchemist's fire, holy water): +3 damage."
+        ]
+      },
+      "4": {
+        "de": [
+          "• Treffer und Schaden mit Nahkampfwaffen (außer Finesse-Waffen, wenn GES höher ist).",
+          "• Rettungswurf gegen Umwerfen, z. B. durch Wölfe.",
+          "• Wurfgeschosse (Alchemistenfeuer, Weihwasser): +4 Schaden."
+        ],
+        "en": [
+          "• Attack and damage rolls with melee weapons (except finesse weapons if DEX is higher).",
+          "• Saving throw against being knocked prone, e.g. by wolves.",
+          "• Thrown flasks (alchemist's fire, holy water): +4 damage."
+        ]
+      },
+      "5": {
+        "de": [
+          "• Treffer und Schaden mit Nahkampfwaffen (außer Finesse-Waffen, wenn GES höher ist).",
+          "• Rettungswurf gegen Umwerfen, z. B. durch Wölfe.",
+          "• Wurfgeschosse (Alchemistenfeuer, Weihwasser): +5 Schaden."
+        ],
+        "en": [
+          "• Attack and damage rolls with melee weapons (except finesse weapons if DEX is higher).",
+          "• Saving throw against being knocked prone, e.g. by wolves.",
+          "• Thrown flasks (alchemist's fire, holy water): +5 damage."
+        ]
+      },
+      "6": {
+        "de": [
+          "• Treffer und Schaden mit Nahkampfwaffen (außer Finesse-Waffen, wenn GES höher ist).",
+          "• Rettungswurf gegen Umwerfen, z. B. durch Wölfe.",
+          "• Wurfgeschosse (Alchemistenfeuer, Weihwasser): +6 Schaden."
+        ],
+        "en": [
+          "• Attack and damage rolls with melee weapons (except finesse weapons if DEX is higher).",
+          "• Saving throw against being knocked prone, e.g. by wolves.",
+          "• Thrown flasks (alchemist's fire, holy water): +6 damage."
+        ]
+      },
+      "7": {
+        "de": [
+          "• Treffer und Schaden mit Nahkampfwaffen (außer Finesse-Waffen, wenn GES höher ist).",
+          "• Rettungswurf gegen Umwerfen, z. B. durch Wölfe.",
+          "• Wurfgeschosse (Alchemistenfeuer, Weihwasser): +7 Schaden."
+        ],
+        "en": [
+          "• Attack and damage rolls with melee weapons (except finesse weapons if DEX is higher).",
+          "• Saving throw against being knocked prone, e.g. by wolves.",
+          "• Thrown flasks (alchemist's fire, holy water): +7 damage."
+        ]
+      },
+      "8": {
+        "de": [
+          "• Treffer und Schaden mit Nahkampfwaffen (außer Finesse-Waffen, wenn GES höher ist).",
+          "• Rettungswurf gegen Umwerfen, z. B. durch Wölfe.",
+          "• Wurfgeschosse (Alchemistenfeuer, Weihwasser): +8 Schaden."
+        ],
+        "en": [
+          "• Attack and damage rolls with melee weapons (except finesse weapons if DEX is higher).",
+          "• Saving throw against being knocked prone, e.g. by wolves.",
+          "• Thrown flasks (alchemist's fire, holy water): +8 damage."
+        ]
+      },
+      "9": {
+        "de": [
+          "• Treffer und Schaden mit Nahkampfwaffen (außer Finesse-Waffen, wenn GES höher ist).",
+          "• Rettungswurf gegen Umwerfen, z. B. durch Wölfe.",
+          "• Wurfgeschosse (Alchemistenfeuer, Weihwasser): +9 Schaden."
+        ],
+        "en": [
+          "• Attack and damage rolls with melee weapons (except finesse weapons if DEX is higher).",
+          "• Saving throw against being knocked prone, e.g. by wolves.",
+          "• Thrown flasks (alchemist's fire, holy water): +9 damage."
+        ]
+      },
+      "10": {
+        "de": [
+          "• Treffer und Schaden mit Nahkampfwaffen (außer Finesse-Waffen, wenn GES höher ist).",
+          "• Rettungswurf gegen Umwerfen, z. B. durch Wölfe.",
+          "• Wurfgeschosse (Alchemistenfeuer, Weihwasser): +10 Schaden."
+        ],
+        "en": [
+          "• Attack and damage rolls with melee weapons (except finesse weapons if DEX is higher).",
+          "• Saving throw against being knocked prone, e.g. by wolves.",
+          "• Thrown flasks (alchemist's fire, holy water): +10 damage."
+        ]
+      }
+    },
+    "DEX": {
+      "-5": {
+        "de": [
+          "• Rüstungsklasse ohne, mit leichter und (bis +2) mittlerer Rüstung.",
+          "• Treffer und Schaden mit Fernkampf- und Finesse-Waffen.",
+          "• Initiative und Fluchtchance; Rettungswurf gegen Netze.",
+          "• Schleichen: Jagende Monster bemerken dich erst ab 4 Feldern (normal 4)."
+        ],
+        "en": [
+          "• Armor Class without armor, with light and (up to +2) medium armor.",
+          "• Attack and damage rolls with ranged and finesse weapons.",
+          "• Initiative and chance to flee; saving throw against webs.",
+          "• Stealth: hunting monsters only notice you within 4 tiles (normally 4)."
+        ]
+      },
+      "-4": {
+        "de": [
+          "• Rüstungsklasse ohne, mit leichter und (bis +2) mittlerer Rüstung.",
+          "• Treffer und Schaden mit Fernkampf- und Finesse-Waffen.",
+          "• Initiative und Fluchtchance; Rettungswurf gegen Netze.",
+          "• Schleichen: Jagende Monster bemerken dich erst ab 4 Feldern (normal 4)."
+        ],
+        "en": [
+          "• Armor Class without armor, with light and (up to +2) medium armor.",
+          "• Attack and damage rolls with ranged and finesse weapons.",
+          "• Initiative and chance to flee; saving throw against webs.",
+          "• Stealth: hunting monsters only notice you within 4 tiles (normally 4)."
+        ]
+      },
+      "-3": {
+        "de": [
+          "• Rüstungsklasse ohne, mit leichter und (bis +2) mittlerer Rüstung.",
+          "• Treffer und Schaden mit Fernkampf- und Finesse-Waffen.",
+          "• Initiative und Fluchtchance; Rettungswurf gegen Netze.",
+          "• Schleichen: Jagende Monster bemerken dich erst ab 4 Feldern (normal 4)."
+        ],
+        "en": [
+          "• Armor Class without armor, with light and (up to +2) medium armor.",
+          "• Attack and damage rolls with ranged and finesse weapons.",
+          "• Initiative and chance to flee; saving throw against webs.",
+          "• Stealth: hunting monsters only notice you within 4 tiles (normally 4)."
+        ]
+      },
+      "-2": {
+        "de": [
+          "• Rüstungsklasse ohne, mit leichter und (bis +2) mittlerer Rüstung.",
+          "• Treffer und Schaden mit Fernkampf- und Finesse-Waffen.",
+          "• Initiative und Fluchtchance; Rettungswurf gegen Netze.",
+          "• Schleichen: Jagende Monster bemerken dich erst ab 4 Feldern (normal 4)."
+        ],
+        "en": [
+          "• Armor Class without armor, with light and (up to +2) medium armor.",
+          "• Attack and damage rolls with ranged and finesse weapons.",
+          "• Initiative and chance to flee; saving throw against webs.",
+          "• Stealth: hunting monsters only notice you within 4 tiles (normally 4)."
+        ]
+      },
+      "-1": {
+        "de": [
+          "• Rüstungsklasse ohne, mit leichter und (bis +2) mittlerer Rüstung.",
+          "• Treffer und Schaden mit Fernkampf- und Finesse-Waffen.",
+          "• Initiative und Fluchtchance; Rettungswurf gegen Netze.",
+          "• Schleichen: Jagende Monster bemerken dich erst ab 4 Feldern (normal 4)."
+        ],
+        "en": [
+          "• Armor Class without armor, with light and (up to +2) medium armor.",
+          "• Attack and damage rolls with ranged and finesse weapons.",
+          "• Initiative and chance to flee; saving throw against webs.",
+          "• Stealth: hunting monsters only notice you within 4 tiles (normally 4)."
+        ]
+      },
+      "0": {
+        "de": [
+          "• Rüstungsklasse ohne, mit leichter und (bis +2) mittlerer Rüstung.",
+          "• Treffer und Schaden mit Fernkampf- und Finesse-Waffen.",
+          "• Initiative und Fluchtchance; Rettungswurf gegen Netze.",
+          "• Schleichen: Jagende Monster bemerken dich erst ab 4 Feldern (normal 4)."
+        ],
+        "en": [
+          "• Armor Class without armor, with light and (up to +2) medium armor.",
+          "• Attack and damage rolls with ranged and finesse weapons.",
+          "• Initiative and chance to flee; saving throw against webs.",
+          "• Stealth: hunting monsters only notice you within 4 tiles (normally 4)."
+        ]
+      },
+      "1": {
+        "de": [
+          "• Rüstungsklasse ohne, mit leichter und (bis +2) mittlerer Rüstung.",
+          "• Treffer und Schaden mit Fernkampf- und Finesse-Waffen.",
+          "• Initiative und Fluchtchance; Rettungswurf gegen Netze.",
+          "• Schleichen: Jagende Monster bemerken dich erst ab 4 Feldern (normal 4)."
+        ],
+        "en": [
+          "• Armor Class without armor, with light and (up to +2) medium armor.",
+          "• Attack and damage rolls with ranged and finesse weapons.",
+          "• Initiative and chance to flee; saving throw against webs.",
+          "• Stealth: hunting monsters only notice you within 4 tiles (normally 4)."
+        ]
+      },
+      "2": {
+        "de": [
+          "• Rüstungsklasse ohne, mit leichter und (bis +2) mittlerer Rüstung.",
+          "• Treffer und Schaden mit Fernkampf- und Finesse-Waffen.",
+          "• Initiative und Fluchtchance; Rettungswurf gegen Netze.",
+          "• Schleichen: Jagende Monster bemerken dich erst ab 3 Feldern (normal 4)."
+        ],
+        "en": [
+          "• Armor Class without armor, with light and (up to +2) medium armor.",
+          "• Attack and damage rolls with ranged and finesse weapons.",
+          "• Initiative and chance to flee; saving throw against webs.",
+          "• Stealth: hunting monsters only notice you within 3 tiles (normally 4)."
+        ]
+      },
+      "3": {
+        "de": [
+          "• Rüstungsklasse ohne, mit leichter und (bis +2) mittlerer Rüstung.",
+          "• Treffer und Schaden mit Fernkampf- und Finesse-Waffen.",
+          "• Initiative und Fluchtchance; Rettungswurf gegen Netze.",
+          "• Schleichen: Jagende Monster bemerken dich erst ab 3 Feldern (normal 4)."
+        ],
+        "en": [
+          "• Armor Class without armor, with light and (up to +2) medium armor.",
+          "• Attack and damage rolls with ranged and finesse weapons.",
+          "• Initiative and chance to flee; saving throw against webs.",
+          "• Stealth: hunting monsters only notice you within 3 tiles (normally 4)."
+        ]
+      },
+      "4": {
+        "de": [
+          "• Rüstungsklasse ohne, mit leichter und (bis +2) mittlerer Rüstung.",
+          "• Treffer und Schaden mit Fernkampf- und Finesse-Waffen.",
+          "• Initiative und Fluchtchance; Rettungswurf gegen Netze.",
+          "• Schleichen: Jagende Monster bemerken dich erst ab 2 Feldern (normal 4)."
+        ],
+        "en": [
+          "• Armor Class without armor, with light and (up to +2) medium armor.",
+          "• Attack and damage rolls with ranged and finesse weapons.",
+          "• Initiative and chance to flee; saving throw against webs.",
+          "• Stealth: hunting monsters only notice you within 2 tiles (normally 4)."
+        ]
+      },
+      "5": {
+        "de": [
+          "• Rüstungsklasse ohne, mit leichter und (bis +2) mittlerer Rüstung.",
+          "• Treffer und Schaden mit Fernkampf- und Finesse-Waffen.",
+          "• Initiative und Fluchtchance; Rettungswurf gegen Netze.",
+          "• Schleichen: Jagende Monster bemerken dich erst ab 2 Feldern (normal 4)."
+        ],
+        "en": [
+          "• Armor Class without armor, with light and (up to +2) medium armor.",
+          "• Attack and damage rolls with ranged and finesse weapons.",
+          "• Initiative and chance to flee; saving throw against webs.",
+          "• Stealth: hunting monsters only notice you within 2 tiles (normally 4)."
+        ]
+      },
+      "6": {
+        "de": [
+          "• Rüstungsklasse ohne, mit leichter und (bis +2) mittlerer Rüstung.",
+          "• Treffer und Schaden mit Fernkampf- und Finesse-Waffen.",
+          "• Initiative und Fluchtchance; Rettungswurf gegen Netze.",
+          "• Schleichen: Jagende Monster bemerken dich erst ab 2 Feldern (normal 4)."
+        ],
+        "en": [
+          "• Armor Class without armor, with light and (up to +2) medium armor.",
+          "• Attack and damage rolls with ranged and finesse weapons.",
+          "• Initiative and chance to flee; saving throw against webs.",
+          "• Stealth: hunting monsters only notice you within 2 tiles (normally 4)."
+        ]
+      },
+      "7": {
+        "de": [
+          "• Rüstungsklasse ohne, mit leichter und (bis +2) mittlerer Rüstung.",
+          "• Treffer und Schaden mit Fernkampf- und Finesse-Waffen.",
+          "• Initiative und Fluchtchance; Rettungswurf gegen Netze.",
+          "• Schleichen: Jagende Monster bemerken dich erst ab 2 Feldern (normal 4)."
+        ],
+        "en": [
+          "• Armor Class without armor, with light and (up to +2) medium armor.",
+          "• Attack and damage rolls with ranged and finesse weapons.",
+          "• Initiative and chance to flee; saving throw against webs.",
+          "• Stealth: hunting monsters only notice you within 2 tiles (normally 4)."
+        ]
+      },
+      "8": {
+        "de": [
+          "• Rüstungsklasse ohne, mit leichter und (bis +2) mittlerer Rüstung.",
+          "• Treffer und Schaden mit Fernkampf- und Finesse-Waffen.",
+          "• Initiative und Fluchtchance; Rettungswurf gegen Netze.",
+          "• Schleichen: Jagende Monster bemerken dich erst ab 2 Feldern (normal 4)."
+        ],
+        "en": [
+          "• Armor Class without armor, with light and (up to +2) medium armor.",
+          "• Attack and damage rolls with ranged and finesse weapons.",
+          "• Initiative and chance to flee; saving throw against webs.",
+          "• Stealth: hunting monsters only notice you within 2 tiles (normally 4)."
+        ]
+      },
+      "9": {
+        "de": [
+          "• Rüstungsklasse ohne, mit leichter und (bis +2) mittlerer Rüstung.",
+          "• Treffer und Schaden mit Fernkampf- und Finesse-Waffen.",
+          "• Initiative und Fluchtchance; Rettungswurf gegen Netze.",
+          "• Schleichen: Jagende Monster bemerken dich erst ab 2 Feldern (normal 4)."
+        ],
+        "en": [
+          "• Armor Class without armor, with light and (up to +2) medium armor.",
+          "• Attack and damage rolls with ranged and finesse weapons.",
+          "• Initiative and chance to flee; saving throw against webs.",
+          "• Stealth: hunting monsters only notice you within 2 tiles (normally 4)."
+        ]
+      },
+      "10": {
+        "de": [
+          "• Rüstungsklasse ohne, mit leichter und (bis +2) mittlerer Rüstung.",
+          "• Treffer und Schaden mit Fernkampf- und Finesse-Waffen.",
+          "• Initiative und Fluchtchance; Rettungswurf gegen Netze.",
+          "• Schleichen: Jagende Monster bemerken dich erst ab 2 Feldern (normal 4)."
+        ],
+        "en": [
+          "• Armor Class without armor, with light and (up to +2) medium armor.",
+          "• Attack and damage rolls with ranged and finesse weapons.",
+          "• Initiative and chance to flee; saving throw against webs.",
+          "• Stealth: hunting monsters only notice you within 2 tiles (normally 4)."
+        ]
+      }
+    },
+    "CON": {
+      "-5": {
+        "de": [
+          "• Trefferpunkte pro Stufe.",
+          "• Rettungswürfe gegen Gift, Lähmung und ähnliche Zustände.",
+          "• Gift und Blutung klingen nach dem Kampf 0 Runden schneller ab.",
+          "• Mahlzeiten heilen +0 TP."
+        ],
+        "en": [
+          "• Hit points per level.",
+          "• Saving throws against poison, paralysis and similar conditions.",
+          "• Poison and bleeding wear off 0 rounds sooner after a fight.",
+          "• Meals heal +0 HP."
+        ]
+      },
+      "-4": {
+        "de": [
+          "• Trefferpunkte pro Stufe.",
+          "• Rettungswürfe gegen Gift, Lähmung und ähnliche Zustände.",
+          "• Gift und Blutung klingen nach dem Kampf 0 Runden schneller ab.",
+          "• Mahlzeiten heilen +0 TP."
+        ],
+        "en": [
+          "• Hit points per level.",
+          "• Saving throws against poison, paralysis and similar conditions.",
+          "• Poison and bleeding wear off 0 rounds sooner after a fight.",
+          "• Meals heal +0 HP."
+        ]
+      },
+      "-3": {
+        "de": [
+          "• Trefferpunkte pro Stufe.",
+          "• Rettungswürfe gegen Gift, Lähmung und ähnliche Zustände.",
+          "• Gift und Blutung klingen nach dem Kampf 0 Runden schneller ab.",
+          "• Mahlzeiten heilen +0 TP."
+        ],
+        "en": [
+          "• Hit points per level.",
+          "• Saving throws against poison, paralysis and similar conditions.",
+          "• Poison and bleeding wear off 0 rounds sooner after a fight.",
+          "• Meals heal +0 HP."
+        ]
+      },
+      "-2": {
+        "de": [
+          "• Trefferpunkte pro Stufe.",
+          "• Rettungswürfe gegen Gift, Lähmung und ähnliche Zustände.",
+          "• Gift und Blutung klingen nach dem Kampf 0 Runden schneller ab.",
+          "• Mahlzeiten heilen +0 TP."
+        ],
+        "en": [
+          "• Hit points per level.",
+          "• Saving throws against poison, paralysis and similar conditions.",
+          "• Poison and bleeding wear off 0 rounds sooner after a fight.",
+          "• Meals heal +0 HP."
+        ]
+      },
+      "-1": {
+        "de": [
+          "• Trefferpunkte pro Stufe.",
+          "• Rettungswürfe gegen Gift, Lähmung und ähnliche Zustände.",
+          "• Gift und Blutung klingen nach dem Kampf 0 Runden schneller ab.",
+          "• Mahlzeiten heilen +0 TP."
+        ],
+        "en": [
+          "• Hit points per level.",
+          "• Saving throws against poison, paralysis and similar conditions.",
+          "• Poison and bleeding wear off 0 rounds sooner after a fight.",
+          "• Meals heal +0 HP."
+        ]
+      },
+      "0": {
+        "de": [
+          "• Trefferpunkte pro Stufe.",
+          "• Rettungswürfe gegen Gift, Lähmung und ähnliche Zustände.",
+          "• Gift und Blutung klingen nach dem Kampf 0 Runden schneller ab.",
+          "• Mahlzeiten heilen +0 TP."
+        ],
+        "en": [
+          "• Hit points per level.",
+          "• Saving throws against poison, paralysis and similar conditions.",
+          "• Poison and bleeding wear off 0 rounds sooner after a fight.",
+          "• Meals heal +0 HP."
+        ]
+      },
+      "1": {
+        "de": [
+          "• Trefferpunkte pro Stufe.",
+          "• Rettungswürfe gegen Gift, Lähmung und ähnliche Zustände.",
+          "• Gift und Blutung klingen nach dem Kampf 1 Runden schneller ab.",
+          "• Mahlzeiten heilen +1 TP."
+        ],
+        "en": [
+          "• Hit points per level.",
+          "• Saving throws against poison, paralysis and similar conditions.",
+          "• Poison and bleeding wear off 1 rounds sooner after a fight.",
+          "• Meals heal +1 HP."
+        ]
+      },
+      "2": {
+        "de": [
+          "• Trefferpunkte pro Stufe.",
+          "• Rettungswürfe gegen Gift, Lähmung und ähnliche Zustände.",
+          "• Gift und Blutung klingen nach dem Kampf 2 Runden schneller ab.",
+          "• Mahlzeiten heilen +2 TP."
+        ],
+        "en": [
+          "• Hit points per level.",
+          "• Saving throws against poison, paralysis and similar conditions.",
+          "• Poison and bleeding wear off 2 rounds sooner after a fight.",
+          "• Meals heal +2 HP."
+        ]
+      },
+      "3": {
+        "de": [
+          "• Trefferpunkte pro Stufe.",
+          "• Rettungswürfe gegen Gift, Lähmung und ähnliche Zustände.",
+          "• Gift und Blutung klingen nach dem Kampf 3 Runden schneller ab.",
+          "• Mahlzeiten heilen +3 TP."
+        ],
+        "en": [
+          "• Hit points per level.",
+          "• Saving throws against poison, paralysis and similar conditions.",
+          "• Poison and bleeding wear off 3 rounds sooner after a fight.",
+          "• Meals heal +3 HP."
+        ]
+      },
+      "4": {
+        "de": [
+          "• Trefferpunkte pro Stufe.",
+          "• Rettungswürfe gegen Gift, Lähmung und ähnliche Zustände.",
+          "• Gift und Blutung klingen nach dem Kampf 4 Runden schneller ab.",
+          "• Mahlzeiten heilen +4 TP."
+        ],
+        "en": [
+          "• Hit points per level.",
+          "• Saving throws against poison, paralysis and similar conditions.",
+          "• Poison and bleeding wear off 4 rounds sooner after a fight.",
+          "• Meals heal +4 HP."
+        ]
+      },
+      "5": {
+        "de": [
+          "• Trefferpunkte pro Stufe.",
+          "• Rettungswürfe gegen Gift, Lähmung und ähnliche Zustände.",
+          "• Gift und Blutung klingen nach dem Kampf 5 Runden schneller ab.",
+          "• Mahlzeiten heilen +5 TP."
+        ],
+        "en": [
+          "• Hit points per level.",
+          "• Saving throws against poison, paralysis and similar conditions.",
+          "• Poison and bleeding wear off 5 rounds sooner after a fight.",
+          "• Meals heal +5 HP."
+        ]
+      },
+      "6": {
+        "de": [
+          "• Trefferpunkte pro Stufe.",
+          "• Rettungswürfe gegen Gift, Lähmung und ähnliche Zustände.",
+          "• Gift und Blutung klingen nach dem Kampf 6 Runden schneller ab.",
+          "• Mahlzeiten heilen +6 TP."
+        ],
+        "en": [
+          "• Hit points per level.",
+          "• Saving throws against poison, paralysis and similar conditions.",
+          "• Poison and bleeding wear off 6 rounds sooner after a fight.",
+          "• Meals heal +6 HP."
+        ]
+      },
+      "7": {
+        "de": [
+          "• Trefferpunkte pro Stufe.",
+          "• Rettungswürfe gegen Gift, Lähmung und ähnliche Zustände.",
+          "• Gift und Blutung klingen nach dem Kampf 7 Runden schneller ab.",
+          "• Mahlzeiten heilen +7 TP."
+        ],
+        "en": [
+          "• Hit points per level.",
+          "• Saving throws against poison, paralysis and similar conditions.",
+          "• Poison and bleeding wear off 7 rounds sooner after a fight.",
+          "• Meals heal +7 HP."
+        ]
+      },
+      "8": {
+        "de": [
+          "• Trefferpunkte pro Stufe.",
+          "• Rettungswürfe gegen Gift, Lähmung und ähnliche Zustände.",
+          "• Gift und Blutung klingen nach dem Kampf 8 Runden schneller ab.",
+          "• Mahlzeiten heilen +8 TP."
+        ],
+        "en": [
+          "• Hit points per level.",
+          "• Saving throws against poison, paralysis and similar conditions.",
+          "• Poison and bleeding wear off 8 rounds sooner after a fight.",
+          "• Meals heal +8 HP."
+        ]
+      },
+      "9": {
+        "de": [
+          "• Trefferpunkte pro Stufe.",
+          "• Rettungswürfe gegen Gift, Lähmung und ähnliche Zustände.",
+          "• Gift und Blutung klingen nach dem Kampf 9 Runden schneller ab.",
+          "• Mahlzeiten heilen +9 TP."
+        ],
+        "en": [
+          "• Hit points per level.",
+          "• Saving throws against poison, paralysis and similar conditions.",
+          "• Poison and bleeding wear off 9 rounds sooner after a fight.",
+          "• Meals heal +9 HP."
+        ]
+      },
+      "10": {
+        "de": [
+          "• Trefferpunkte pro Stufe.",
+          "• Rettungswürfe gegen Gift, Lähmung und ähnliche Zustände.",
+          "• Gift und Blutung klingen nach dem Kampf 10 Runden schneller ab.",
+          "• Mahlzeiten heilen +10 TP."
+        ],
+        "en": [
+          "• Hit points per level.",
+          "• Saving throws against poison, paralysis and similar conditions.",
+          "• Poison and bleeding wear off 10 rounds sooner after a fight.",
+          "• Meals heal +10 HP."
+        ]
+      }
+    },
+    "INT": {
+      "-5": {
+        "de": [
+          "• Wissen: Ab INT 12 erkennst du Schwächen und Resistenzen deiner Gegner.",
+          "• Alchemie: 0 % Chance auf einen zusätzlichen Trank beim Brauen.",
+          "• Lernen: +0 % Erfahrung."
+        ],
+        "en": [
+          "• Knowledge: At INT 12 or higher, you recognize your foes' weaknesses and resistances.",
+          "• Alchemy: 0 % chance of an extra potion when brewing.",
+          "• Learning: +0 % experience."
+        ]
+      },
+      "-4": {
+        "de": [
+          "• Wissen: Ab INT 12 erkennst du Schwächen und Resistenzen deiner Gegner.",
+          "• Alchemie: 0 % Chance auf einen zusätzlichen Trank beim Brauen.",
+          "• Lernen: +0 % Erfahrung."
+        ],
+        "en": [
+          "• Knowledge: At INT 12 or higher, you recognize your foes' weaknesses and resistances.",
+          "• Alchemy: 0 % chance of an extra potion when brewing.",
+          "• Learning: +0 % experience."
+        ]
+      },
+      "-3": {
+        "de": [
+          "• Wissen: Ab INT 12 erkennst du Schwächen und Resistenzen deiner Gegner.",
+          "• Alchemie: 0 % Chance auf einen zusätzlichen Trank beim Brauen.",
+          "• Lernen: +0 % Erfahrung."
+        ],
+        "en": [
+          "• Knowledge: At INT 12 or higher, you recognize your foes' weaknesses and resistances.",
+          "• Alchemy: 0 % chance of an extra potion when brewing.",
+          "• Learning: +0 % experience."
+        ]
+      },
+      "-2": {
+        "de": [
+          "• Wissen: Ab INT 12 erkennst du Schwächen und Resistenzen deiner Gegner.",
+          "• Alchemie: 0 % Chance auf einen zusätzlichen Trank beim Brauen.",
+          "• Lernen: +0 % Erfahrung."
+        ],
+        "en": [
+          "• Knowledge: At INT 12 or higher, you recognize your foes' weaknesses and resistances.",
+          "• Alchemy: 0 % chance of an extra potion when brewing.",
+          "• Learning: +0 % experience."
+        ]
+      },
+      "-1": {
+        "de": [
+          "• Wissen: Ab INT 12 erkennst du Schwächen und Resistenzen deiner Gegner.",
+          "• Alchemie: 0 % Chance auf einen zusätzlichen Trank beim Brauen.",
+          "• Lernen: +0 % Erfahrung."
+        ],
+        "en": [
+          "• Knowledge: At INT 12 or higher, you recognize your foes' weaknesses and resistances.",
+          "• Alchemy: 0 % chance of an extra potion when brewing.",
+          "• Learning: +0 % experience."
+        ]
+      },
+      "0": {
+        "de": [
+          "• Wissen: Ab INT 12 erkennst du Schwächen und Resistenzen deiner Gegner.",
+          "• Alchemie: 0 % Chance auf einen zusätzlichen Trank beim Brauen.",
+          "• Lernen: +0 % Erfahrung."
+        ],
+        "en": [
+          "• Knowledge: At INT 12 or higher, you recognize your foes' weaknesses and resistances.",
+          "• Alchemy: 0 % chance of an extra potion when brewing.",
+          "• Learning: +0 % experience."
+        ]
+      },
+      "1": {
+        "de": [
+          "• Wissen: Du erkennst Schwächen und Resistenzen deiner Gegner.",
+          "• Alchemie: 10 % Chance auf einen zusätzlichen Trank beim Brauen.",
+          "• Lernen: +3 % Erfahrung."
+        ],
+        "en": [
+          "• Knowledge: You recognize your foes' weaknesses and resistances.",
+          "• Alchemy: 10 % chance of an extra potion when brewing.",
+          "• Learning: +3 % experience."
+        ]
+      },
+      "2": {
+        "de": [
+          "• Wissen: Du erkennst Schwächen und Resistenzen deiner Gegner.",
+          "• Alchemie: 20 % Chance auf einen zusätzlichen Trank beim Brauen.",
+          "• Lernen: +6 % Erfahrung."
+        ],
+        "en": [
+          "• Knowledge: You recognize your foes' weaknesses and resistances.",
+          "• Alchemy: 20 % chance of an extra potion when brewing.",
+          "• Learning: +6 % experience."
+        ]
+      },
+      "3": {
+        "de": [
+          "• Wissen: Du erkennst Schwächen und Resistenzen deiner Gegner.",
+          "• Alchemie: 30 % Chance auf einen zusätzlichen Trank beim Brauen.",
+          "• Lernen: +9 % Erfahrung."
+        ],
+        "en": [
+          "• Knowledge: You recognize your foes' weaknesses and resistances.",
+          "• Alchemy: 30 % chance of an extra potion when brewing.",
+          "• Learning: +9 % experience."
+        ]
+      },
+      "4": {
+        "de": [
+          "• Wissen: Du erkennst Schwächen und Resistenzen deiner Gegner.",
+          "• Alchemie: 40 % Chance auf einen zusätzlichen Trank beim Brauen.",
+          "• Lernen: +12 % Erfahrung."
+        ],
+        "en": [
+          "• Knowledge: You recognize your foes' weaknesses and resistances.",
+          "• Alchemy: 40 % chance of an extra potion when brewing.",
+          "• Learning: +12 % experience."
+        ]
+      },
+      "5": {
+        "de": [
+          "• Wissen: Du erkennst Schwächen und Resistenzen deiner Gegner.",
+          "• Alchemie: 50 % Chance auf einen zusätzlichen Trank beim Brauen.",
+          "• Lernen: +15 % Erfahrung."
+        ],
+        "en": [
+          "• Knowledge: You recognize your foes' weaknesses and resistances.",
+          "• Alchemy: 50 % chance of an extra potion when brewing.",
+          "• Learning: +15 % experience."
+        ]
+      },
+      "6": {
+        "de": [
+          "• Wissen: Du erkennst Schwächen und Resistenzen deiner Gegner.",
+          "• Alchemie: 60 % Chance auf einen zusätzlichen Trank beim Brauen.",
+          "• Lernen: +18 % Erfahrung."
+        ],
+        "en": [
+          "• Knowledge: You recognize your foes' weaknesses and resistances.",
+          "• Alchemy: 60 % chance of an extra potion when brewing.",
+          "• Learning: +18 % experience."
+        ]
+      },
+      "7": {
+        "de": [
+          "• Wissen: Du erkennst Schwächen und Resistenzen deiner Gegner.",
+          "• Alchemie: 70 % Chance auf einen zusätzlichen Trank beim Brauen.",
+          "• Lernen: +21 % Erfahrung."
+        ],
+        "en": [
+          "• Knowledge: You recognize your foes' weaknesses and resistances.",
+          "• Alchemy: 70 % chance of an extra potion when brewing.",
+          "• Learning: +21 % experience."
+        ]
+      },
+      "8": {
+        "de": [
+          "• Wissen: Du erkennst Schwächen und Resistenzen deiner Gegner.",
+          "• Alchemie: 80 % Chance auf einen zusätzlichen Trank beim Brauen.",
+          "• Lernen: +24 % Erfahrung."
+        ],
+        "en": [
+          "• Knowledge: You recognize your foes' weaknesses and resistances.",
+          "• Alchemy: 80 % chance of an extra potion when brewing.",
+          "• Learning: +24 % experience."
+        ]
+      },
+      "9": {
+        "de": [
+          "• Wissen: Du erkennst Schwächen und Resistenzen deiner Gegner.",
+          "• Alchemie: 90 % Chance auf einen zusätzlichen Trank beim Brauen.",
+          "• Lernen: +27 % Erfahrung."
+        ],
+        "en": [
+          "• Knowledge: You recognize your foes' weaknesses and resistances.",
+          "• Alchemy: 90 % chance of an extra potion when brewing.",
+          "• Learning: +27 % experience."
+        ]
+      },
+      "10": {
+        "de": [
+          "• Wissen: Du erkennst Schwächen und Resistenzen deiner Gegner.",
+          "• Alchemie: 100 % Chance auf einen zusätzlichen Trank beim Brauen.",
+          "• Lernen: +30 % Erfahrung."
+        ],
+        "en": [
+          "• Knowledge: You recognize your foes' weaknesses and resistances.",
+          "• Alchemy: 100 % chance of an extra potion when brewing.",
+          "• Learning: +30 % experience."
+        ]
+      }
+    },
+    "WIS": {
+      "-5": {
+        "de": [
+          "• Rettungswurf gegen Flüche.",
+          "• Wahrnehmung: +0,0 Felder Sicht im Nebel, 0 % seltener Hinterhalte.",
+          "• Kräuterkunde: 0 % Chance auf ein zusätzliches Kraut beim Pflücken."
+        ],
+        "en": [
+          "• Saving throw against curses.",
+          "• Perception: +0.0 tiles of sight in the fog, 0 % fewer ambushes.",
+          "• Herb lore: 0 % chance of an extra herb when picking."
+        ]
+      },
+      "-4": {
+        "de": [
+          "• Rettungswurf gegen Flüche.",
+          "• Wahrnehmung: +0,0 Felder Sicht im Nebel, 0 % seltener Hinterhalte.",
+          "• Kräuterkunde: 0 % Chance auf ein zusätzliches Kraut beim Pflücken."
+        ],
+        "en": [
+          "• Saving throw against curses.",
+          "• Perception: +0.0 tiles of sight in the fog, 0 % fewer ambushes.",
+          "• Herb lore: 0 % chance of an extra herb when picking."
+        ]
+      },
+      "-3": {
+        "de": [
+          "• Rettungswurf gegen Flüche.",
+          "• Wahrnehmung: +0,0 Felder Sicht im Nebel, 0 % seltener Hinterhalte.",
+          "• Kräuterkunde: 0 % Chance auf ein zusätzliches Kraut beim Pflücken."
+        ],
+        "en": [
+          "• Saving throw against curses.",
+          "• Perception: +0.0 tiles of sight in the fog, 0 % fewer ambushes.",
+          "• Herb lore: 0 % chance of an extra herb when picking."
+        ]
+      },
+      "-2": {
+        "de": [
+          "• Rettungswurf gegen Flüche.",
+          "• Wahrnehmung: +0,0 Felder Sicht im Nebel, 0 % seltener Hinterhalte.",
+          "• Kräuterkunde: 0 % Chance auf ein zusätzliches Kraut beim Pflücken."
+        ],
+        "en": [
+          "• Saving throw against curses.",
+          "• Perception: +0.0 tiles of sight in the fog, 0 % fewer ambushes.",
+          "• Herb lore: 0 % chance of an extra herb when picking."
+        ]
+      },
+      "-1": {
+        "de": [
+          "• Rettungswurf gegen Flüche.",
+          "• Wahrnehmung: +0,0 Felder Sicht im Nebel, 0 % seltener Hinterhalte.",
+          "• Kräuterkunde: 0 % Chance auf ein zusätzliches Kraut beim Pflücken."
+        ],
+        "en": [
+          "• Saving throw against curses.",
+          "• Perception: +0.0 tiles of sight in the fog, 0 % fewer ambushes.",
+          "• Herb lore: 0 % chance of an extra herb when picking."
+        ]
+      },
+      "0": {
+        "de": [
+          "• Rettungswurf gegen Flüche.",
+          "• Wahrnehmung: +0,0 Felder Sicht im Nebel, 0 % seltener Hinterhalte.",
+          "• Kräuterkunde: 0 % Chance auf ein zusätzliches Kraut beim Pflücken."
+        ],
+        "en": [
+          "• Saving throw against curses.",
+          "• Perception: +0.0 tiles of sight in the fog, 0 % fewer ambushes.",
+          "• Herb lore: 0 % chance of an extra herb when picking."
+        ]
+      },
+      "1": {
+        "de": [
+          "• Rettungswurf gegen Flüche.",
+          "• Wahrnehmung: +0,5 Felder Sicht im Nebel, 15 % seltener Hinterhalte.",
+          "• Kräuterkunde: 15 % Chance auf ein zusätzliches Kraut beim Pflücken."
+        ],
+        "en": [
+          "• Saving throw against curses.",
+          "• Perception: +0.5 tiles of sight in the fog, 15 % fewer ambushes.",
+          "• Herb lore: 15 % chance of an extra herb when picking."
+        ]
+      },
+      "2": {
+        "de": [
+          "• Rettungswurf gegen Flüche.",
+          "• Wahrnehmung: +1,0 Felder Sicht im Nebel, 30 % seltener Hinterhalte.",
+          "• Kräuterkunde: 30 % Chance auf ein zusätzliches Kraut beim Pflücken."
+        ],
+        "en": [
+          "• Saving throw against curses.",
+          "• Perception: +1.0 tiles of sight in the fog, 30 % fewer ambushes.",
+          "• Herb lore: 30 % chance of an extra herb when picking."
+        ]
+      },
+      "3": {
+        "de": [
+          "• Rettungswurf gegen Flüche.",
+          "• Wahrnehmung: +1,5 Felder Sicht im Nebel, 45 % seltener Hinterhalte.",
+          "• Kräuterkunde: 45 % Chance auf ein zusätzliches Kraut beim Pflücken."
+        ],
+        "en": [
+          "• Saving throw against curses.",
+          "• Perception: +1.5 tiles of sight in the fog, 45 % fewer ambushes.",
+          "• Herb lore: 45 % chance of an extra herb when picking."
+        ]
+      },
+      "4": {
+        "de": [
+          "• Rettungswurf gegen Flüche.",
+          "• Wahrnehmung: +2,0 Felder Sicht im Nebel, 60 % seltener Hinterhalte.",
+          "• Kräuterkunde: 60 % Chance auf ein zusätzliches Kraut beim Pflücken."
+        ],
+        "en": [
+          "• Saving throw against curses.",
+          "• Perception: +2.0 tiles of sight in the fog, 60 % fewer ambushes.",
+          "• Herb lore: 60 % chance of an extra herb when picking."
+        ]
+      },
+      "5": {
+        "de": [
+          "• Rettungswurf gegen Flüche.",
+          "• Wahrnehmung: +2,5 Felder Sicht im Nebel, 60 % seltener Hinterhalte.",
+          "• Kräuterkunde: 75 % Chance auf ein zusätzliches Kraut beim Pflücken."
+        ],
+        "en": [
+          "• Saving throw against curses.",
+          "• Perception: +2.5 tiles of sight in the fog, 60 % fewer ambushes.",
+          "• Herb lore: 75 % chance of an extra herb when picking."
+        ]
+      },
+      "6": {
+        "de": [
+          "• Rettungswurf gegen Flüche.",
+          "• Wahrnehmung: +3,0 Felder Sicht im Nebel, 60 % seltener Hinterhalte.",
+          "• Kräuterkunde: 90 % Chance auf ein zusätzliches Kraut beim Pflücken."
+        ],
+        "en": [
+          "• Saving throw against curses.",
+          "• Perception: +3.0 tiles of sight in the fog, 60 % fewer ambushes.",
+          "• Herb lore: 90 % chance of an extra herb when picking."
+        ]
+      },
+      "7": {
+        "de": [
+          "• Rettungswurf gegen Flüche.",
+          "• Wahrnehmung: +3,5 Felder Sicht im Nebel, 60 % seltener Hinterhalte.",
+          "• Kräuterkunde: 105 % Chance auf ein zusätzliches Kraut beim Pflücken."
+        ],
+        "en": [
+          "• Saving throw against curses.",
+          "• Perception: +3.5 tiles of sight in the fog, 60 % fewer ambushes.",
+          "• Herb lore: 105 % chance of an extra herb when picking."
+        ]
+      },
+      "8": {
+        "de": [
+          "• Rettungswurf gegen Flüche.",
+          "• Wahrnehmung: +4,0 Felder Sicht im Nebel, 60 % seltener Hinterhalte.",
+          "• Kräuterkunde: 120 % Chance auf ein zusätzliches Kraut beim Pflücken."
+        ],
+        "en": [
+          "• Saving throw against curses.",
+          "• Perception: +4.0 tiles of sight in the fog, 60 % fewer ambushes.",
+          "• Herb lore: 120 % chance of an extra herb when picking."
+        ]
+      },
+      "9": {
+        "de": [
+          "• Rettungswurf gegen Flüche.",
+          "• Wahrnehmung: +4,5 Felder Sicht im Nebel, 60 % seltener Hinterhalte.",
+          "• Kräuterkunde: 135 % Chance auf ein zusätzliches Kraut beim Pflücken."
+        ],
+        "en": [
+          "• Saving throw against curses.",
+          "• Perception: +4.5 tiles of sight in the fog, 60 % fewer ambushes.",
+          "• Herb lore: 135 % chance of an extra herb when picking."
+        ]
+      },
+      "10": {
+        "de": [
+          "• Rettungswurf gegen Flüche.",
+          "• Wahrnehmung: +5,0 Felder Sicht im Nebel, 60 % seltener Hinterhalte.",
+          "• Kräuterkunde: 150 % Chance auf ein zusätzliches Kraut beim Pflücken."
+        ],
+        "en": [
+          "• Saving throw against curses.",
+          "• Perception: +5.0 tiles of sight in the fog, 60 % fewer ambushes.",
+          "• Herb lore: 150 % chance of an extra herb when picking."
+        ]
+      }
+    },
+    "CHA": {
+      "-5": {
+        "de": [
+          "• Handeln: 20 % teurer einkaufen und 20 % billiger verkaufen.",
+          "• Auftreten: 0 % Chance, dass ein normaler Gegner eingeschüchtert zögert und seine erste Runde verliert."
+        ],
+        "en": [
+          "• Trading: buy for 20% more and sell for 20% less.",
+          "• Presence: 0 % chance that an ordinary foe hesitates, cowed, and loses its first round."
+        ]
+      },
+      "-4": {
+        "de": [
+          "• Handeln: 20 % teurer einkaufen und 20 % billiger verkaufen.",
+          "• Auftreten: 0 % Chance, dass ein normaler Gegner eingeschüchtert zögert und seine erste Runde verliert."
+        ],
+        "en": [
+          "• Trading: buy for 20% more and sell for 20% less.",
+          "• Presence: 0 % chance that an ordinary foe hesitates, cowed, and loses its first round."
+        ]
+      },
+      "-3": {
+        "de": [
+          "• Handeln: 15 % teurer einkaufen und 15 % billiger verkaufen.",
+          "• Auftreten: 0 % Chance, dass ein normaler Gegner eingeschüchtert zögert und seine erste Runde verliert."
+        ],
+        "en": [
+          "• Trading: buy for 15% more and sell for 15% less.",
+          "• Presence: 0 % chance that an ordinary foe hesitates, cowed, and loses its first round."
+        ]
+      },
+      "-2": {
+        "de": [
+          "• Handeln: 10 % teurer einkaufen und 10 % billiger verkaufen.",
+          "• Auftreten: 0 % Chance, dass ein normaler Gegner eingeschüchtert zögert und seine erste Runde verliert."
+        ],
+        "en": [
+          "• Trading: buy for 10% more and sell for 10% less.",
+          "• Presence: 0 % chance that an ordinary foe hesitates, cowed, and loses its first round."
+        ]
+      },
+      "-1": {
+        "de": [
+          "• Handeln: 5 % teurer einkaufen und 5 % billiger verkaufen.",
+          "• Auftreten: 0 % Chance, dass ein normaler Gegner eingeschüchtert zögert und seine erste Runde verliert."
+        ],
+        "en": [
+          "• Trading: buy for 5% more and sell for 5% less.",
+          "• Presence: 0 % chance that an ordinary foe hesitates, cowed, and loses its first round."
+        ]
+      },
+      "0": {
+        "de": [
+          "• Handeln: 0 % günstiger einkaufen und 0 % teurer verkaufen.",
+          "• Auftreten: 0 % Chance, dass ein normaler Gegner eingeschüchtert zögert und seine erste Runde verliert."
+        ],
+        "en": [
+          "• Trading: buy for 0% less and sell for 0% more.",
+          "• Presence: 0 % chance that an ordinary foe hesitates, cowed, and loses its first round."
+        ]
+      },
+      "1": {
+        "de": [
+          "• Handeln: 5 % günstiger einkaufen und 5 % teurer verkaufen.",
+          "• Auftreten: 8 % Chance, dass ein normaler Gegner eingeschüchtert zögert und seine erste Runde verliert."
+        ],
+        "en": [
+          "• Trading: buy for 5% less and sell for 5% more.",
+          "• Presence: 8 % chance that an ordinary foe hesitates, cowed, and loses its first round."
+        ]
+      },
+      "2": {
+        "de": [
+          "• Handeln: 10 % günstiger einkaufen und 10 % teurer verkaufen.",
+          "• Auftreten: 16 % Chance, dass ein normaler Gegner eingeschüchtert zögert und seine erste Runde verliert."
+        ],
+        "en": [
+          "• Trading: buy for 10% less and sell for 10% more.",
+          "• Presence: 16 % chance that an ordinary foe hesitates, cowed, and loses its first round."
+        ]
+      },
+      "3": {
+        "de": [
+          "• Handeln: 15 % günstiger einkaufen und 15 % teurer verkaufen.",
+          "• Auftreten: 24 % Chance, dass ein normaler Gegner eingeschüchtert zögert und seine erste Runde verliert."
+        ],
+        "en": [
+          "• Trading: buy for 15% less and sell for 15% more.",
+          "• Presence: 24 % chance that an ordinary foe hesitates, cowed, and loses its first round."
+        ]
+      },
+      "4": {
+        "de": [
+          "• Handeln: 20 % günstiger einkaufen und 20 % teurer verkaufen.",
+          "• Auftreten: 32 % Chance, dass ein normaler Gegner eingeschüchtert zögert und seine erste Runde verliert."
+        ],
+        "en": [
+          "• Trading: buy for 20% less and sell for 20% more.",
+          "• Presence: 32 % chance that an ordinary foe hesitates, cowed, and loses its first round."
+        ]
+      },
+      "5": {
+        "de": [
+          "• Handeln: 20 % günstiger einkaufen und 20 % teurer verkaufen.",
+          "• Auftreten: 40 % Chance, dass ein normaler Gegner eingeschüchtert zögert und seine erste Runde verliert."
+        ],
+        "en": [
+          "• Trading: buy for 20% less and sell for 20% more.",
+          "• Presence: 40 % chance that an ordinary foe hesitates, cowed, and loses its first round."
+        ]
+      },
+      "6": {
+        "de": [
+          "• Handeln: 20 % günstiger einkaufen und 20 % teurer verkaufen.",
+          "• Auftreten: 48 % Chance, dass ein normaler Gegner eingeschüchtert zögert und seine erste Runde verliert."
+        ],
+        "en": [
+          "• Trading: buy for 20% less and sell for 20% more.",
+          "• Presence: 48 % chance that an ordinary foe hesitates, cowed, and loses its first round."
+        ]
+      },
+      "7": {
+        "de": [
+          "• Handeln: 20 % günstiger einkaufen und 20 % teurer verkaufen.",
+          "• Auftreten: 56 % Chance, dass ein normaler Gegner eingeschüchtert zögert und seine erste Runde verliert."
+        ],
+        "en": [
+          "• Trading: buy for 20% less and sell for 20% more.",
+          "• Presence: 56 % chance that an ordinary foe hesitates, cowed, and loses its first round."
+        ]
+      },
+      "8": {
+        "de": [
+          "• Handeln: 20 % günstiger einkaufen und 20 % teurer verkaufen.",
+          "• Auftreten: 64 % Chance, dass ein normaler Gegner eingeschüchtert zögert und seine erste Runde verliert."
+        ],
+        "en": [
+          "• Trading: buy for 20% less and sell for 20% more.",
+          "• Presence: 64 % chance that an ordinary foe hesitates, cowed, and loses its first round."
+        ]
+      },
+      "9": {
+        "de": [
+          "• Handeln: 20 % günstiger einkaufen und 20 % teurer verkaufen.",
+          "• Auftreten: 72 % Chance, dass ein normaler Gegner eingeschüchtert zögert und seine erste Runde verliert."
+        ],
+        "en": [
+          "• Trading: buy for 20% less and sell for 20% more.",
+          "• Presence: 72 % chance that an ordinary foe hesitates, cowed, and loses its first round."
+        ]
+      },
+      "10": {
+        "de": [
+          "• Handeln: 20 % günstiger einkaufen und 20 % teurer verkaufen.",
+          "• Auftreten: 80 % Chance, dass ein normaler Gegner eingeschüchtert zögert und seine erste Runde verliert."
+        ],
+        "en": [
+          "• Trading: buy for 20% less and sell for 20% more.",
+          "• Presence: 80 % chance that an ordinary foe hesitates, cowed, and loses its first round."
+        ]
+      }
+    }
+  },
+  "erklaerung_klasse": {
+    "WIZARD:INT": {
+      "de": ["• Magier: Zauberangriff und Zauber-Schwierigkeitsgrad."],
+      "en": ["• Wizard: spell attack and spell save DC."]
+    },
+    "CLERIC:WIS": {
+      "de": ["• Kleriker: Zauberangriff, Zauber-SG, Heilung und Spirituelle Waffe."],
+      "en": ["• Cleric: spell attack, spell save DC, healing and Spiritual Weapon."]
+    }
+  },
+  "faehigkeiten": {
+    "FIGHTING_STYLE": {
+      "klasse": "FIGHTER",
+      "stufe": 1,
+      "name": {"de":"Kampfstil: Verteidigung","en":"Fighting Style: Defense"},
+      "text": {"de":"+1 RK, solange du Rüstung trägst.","en":"+1 AC while wearing armor."},
+      "mars": false,
+      "kosten": "PASSIVE"
+    },
+    "SECOND_WIND": {
+      "klasse": "FIGHTER",
+      "stufe": 1,
+      "name": {"de":"Zweiter Atem","en":"Second Wind"},
+      "text": {
+        "de": "Heilt 1W10 + Stufe TP. Einmal pro Kampf.",
+        "en": "Heals 1d10 + level HP. Once per battle."
+      },
+      "mars": false,
+      "kosten": "PER_BATTLE"
+    },
+    "ACTION_SURGE": {
+      "klasse": "FIGHTER",
+      "stufe": 2,
+      "name": {"de":"Tatendrang","en":"Action Surge"},
+      "text": {
+        "de": "Eine zusätzliche Angriffsaktion: Du greifst gleich noch einmal an, ab Stufe 5 (Zusätzlicher Angriff) mit zwei weiteren Schlägen. Einmal je langer Rast.",
+        "en": "One more Attack action: you attack again at once, from level 5 (Extra Attack) with two more blows. Once per long rest."
+      },
+      "mars": false,
+      "kosten": "PER_REST"
+    },
+    "IMPROVED_CRITICAL": {
+      "klasse": "FIGHTER",
+      "stufe": 3,
+      "name": {"de":"Verbesserter kritischer Treffer","en":"Improved Critical"},
+      "text": {"de":"Kritische Treffer schon bei einer 19 oder 20.","en":"Critical hits on a 19 or 20."},
+      "mars": false,
+      "kosten": "PASSIVE"
+    },
+    "EXTRA_ATTACK": {
+      "klasse": "FIGHTER",
+      "stufe": 5,
+      "name": {"de":"Zusätzlicher Angriff","en":"Extra Attack"},
+      "text": {
+        "de": "Deine Angriffsaktion besteht aus zwei Angriffen.",
+        "en": "Your Attack action consists of two attacks."
+      },
+      "mars": false,
+      "kosten": "PASSIVE"
+    },
+    "FIRE_BOLT": {
+      "klasse": "WIZARD",
+      "stufe": 1,
+      "name": {"de":"Feuerpfeil","en":"Fire Bolt"},
+      "text": {
+        "de": "Zaubertrick. Zauberangriff, 1W10 Feuerschaden (+1W10 auf Stufe 5, 11 und 17).",
+        "en": "Cantrip. Spell attack, 1d10 fire damage (+1d10 at levels 5, 11 and 17)."
+      },
+      "mars": false,
+      "kosten": "NONE"
+    },
+    "MAGIC_MISSILE": {
+      "klasse": "WIZARD",
+      "stufe": 1,
+      "name": {"de":"Magisches Geschoss","en":"Magic Missile"},
+      "text": {
+        "de": "Drei Geschosse treffen automatisch, je 1W4+1 Energieschaden.",
+        "en": "Three darts hit automatically, 1d4+1 force damage each."
+      },
+      "mars": false,
+      "kosten": "SPELL_POINTS"
+    },
+    "BURNING_HANDS": {
+      "klasse": "WIZARD",
+      "stufe": 1,
+      "name": {"de":"Brennende Hände","en":"Burning Hands"},
+      "text": {
+        "de": "3W6 Feuerschaden auf eine Reihe, GES-Rettungswurf halbiert.",
+        "en": "3d6 fire damage to one row, DEX save for half."
+      },
+      "mars": true,
+      "kosten": "SPELL_POINTS"
+    },
+    "MAGE_ARMOR": {
+      "klasse": "WIZARD",
+      "stufe": 1,
+      "name": {"de":"Magierrüstung","en":"Mage Armor"},
+      "text": {
+        "de": "Ohne Rüstung wird deine RK 13 + GES-Mod, 8 Stunden lang, auch in den folgenden Kämpfen.",
+        "en": "Without armor your AC becomes 13 + DEX mod for 8 hours, in the fights that follow as well."
+      },
+      "mars": false,
+      "kosten": "SPELL_POINTS"
+    },
+    "SCORCHING_RAY": {
+      "klasse": "WIZARD",
+      "stufe": 3,
+      "name": {"de":"Sengender Strahl","en":"Scorching Ray"},
+      "text": {
+        "de": "Drei Strahlen, je ein Zauberangriff mit 2W6 Feuerschaden.",
+        "en": "Three rays, each a spell attack for 2d6 fire damage."
+      },
+      "mars": false,
+      "kosten": "SPELL_POINTS"
+    },
+    "FIREBALL": {
+      "klasse": "WIZARD",
+      "stufe": 5,
+      "name": {"de":"Feuerball","en":"Fireball"},
+      "text": {
+        "de": "8W6 Feuerschaden, GES-Rettungswurf halbiert. Verjagt Rudel und Späher des Gegners, die ihren Rettungswurf nicht schaffen. Einmal pro Kampf.",
+        "en": "8d6 fire damage, DEX save for half. Drives off the foe's pack and scouts that fail their save. Once per battle."
+      },
+      "mars": false,
+      "kosten": "SPELL_POINTS"
+    },
+    "SNEAK_ATTACK": {
+      "klasse": "ROGUE",
+      "stufe": 1,
+      "name": {"de":"Hinterhältiger Angriff","en":"Sneak Attack"},
+      "text": {
+        "de": "Dein erster Treffer im Kampf und Treffer mit Vorteil verursachen zusätzlich (Stufe/2)W6 Schaden.",
+        "en": "Your first hit in a battle and hits with advantage deal an extra (level/2)d6 damage."
+      },
+      "mars": false,
+      "kosten": "PASSIVE"
+    },
+    "FEINT": {
+      "klasse": "ROGUE",
+      "stufe": 1,
+      "name": {"de":"Finte","en":"Feint"},
+      "text": {
+        "de": "Angriff mit Vorteil – löst Hinterhältigen Angriff aus. Zweimal pro Kampf.",
+        "en": "Attack with advantage, triggering Sneak Attack. Twice per battle."
+      },
+      "mars": false,
+      "kosten": "PER_BATTLE"
+    },
+    "CUNNING_ACTION": {
+      "klasse": "ROGUE",
+      "stufe": 2,
+      "name": {"de":"Raffinierte Aktion","en":"Cunning Action"},
+      "text": {
+        "de": "Die Flucht gelingt immer (außer vor Bossen).",
+        "en": "Fleeing always succeeds (except from bosses)."
+      },
+      "mars": false,
+      "kosten": "PASSIVE"
+    },
+    "UNCANNY_DODGE": {
+      "klasse": "ROGUE",
+      "stufe": 3,
+      "name": {"de":"Unglaubliches Ausweichen","en":"Uncanny Dodge"},
+      "text": {
+        "de": "Der erste Treffer gegen dich in jedem Kampf macht nur halben Schaden, ab Stufe 5 in jeder Runde.",
+        "en": "The first hit against you in each battle deals only half damage; from level 5 on, the first hit in each round."
+      },
+      "mars": false,
+      "kosten": "PASSIVE"
+    },
+    "SACRED_FLAME": {
+      "klasse": "CLERIC",
+      "stufe": 1,
+      "name": {"de":"Heilige Flamme","en":"Sacred Flame"},
+      "text": {
+        "de": "Zaubertrick. GES-Rettungswurf oder 1W8 gleißender Schaden (+1W8 auf Stufe 5, 11 und 17).",
+        "en": "Cantrip. DEX save or 1d8 radiant damage (+1d8 at levels 5, 11 and 17)."
+      },
+      "mars": false,
+      "kosten": "NONE"
+    },
+    "CURE_WOUNDS": {
+      "klasse": "CLERIC",
+      "stufe": 1,
+      "name": {"de":"Wunden heilen","en":"Cure Wounds"},
+      "text": {
+        "de": "Heilt 1W8 + WEI-Mod TP (+1W8 pro 2 Stufen).",
+        "en": "Heals 1d8 + WIS mod HP (+1d8 per 2 levels)."
+      },
+      "mars": false,
+      "kosten": "SPELL_POINTS"
+    },
+    "BLESS": {
+      "klasse": "CLERIC",
+      "stufe": 1,
+      "name": {"de":"Segnen","en":"Bless"},
+      "text": {
+        "de": "Für diesen Kampf +1W4 auf deine Angriffswürfe.",
+        "en": "+1d4 to your attack rolls for this battle."
+      },
+      "mars": false,
+      "kosten": "SPELL_POINTS"
+    },
+    "TURN_UNDEAD": {
+      "klasse": "CLERIC",
+      "stufe": 2,
+      "name": {"de":"Untote vertreiben","en":"Turn Undead"},
+      "text": {
+        "de": "Ein Untoter muss einen WEI-Rettungswurf bestehen oder flieht. Ab Stufe 5 zerfallen schwache Untote (Herausforderungsgrad ½ oder weniger) stattdessen zu Staub. Einmal pro Kampf.",
+        "en": "An undead must succeed on a WIS save or flee. From level 5, weak undead (challenge rating 1/2 or lower) crumble to dust instead. Once per battle."
+      },
+      "mars": false,
+      "kosten": "PER_BATTLE"
+    },
+    "SPIRITUAL_WEAPON": {
+      "klasse": "CLERIC",
+      "stufe": 3,
+      "name": {"de":"Spirituelle Waffe","en":"Spiritual Weapon"},
+      "text": {
+        "de": "Eine schwebende Waffe greift jede Runde zusätzlich an (1W8 + WEI-Mod).",
+        "en": "A floating weapon attacks every round as well (1d8 + WIS mod)."
+      },
+      "mars": false,
+      "kosten": "SPELL_POINTS"
+    },
+    "SPIRIT_GUARDIANS": {
+      "klasse": "CLERIC",
+      "stufe": 5,
+      "name": {"de":"Geisterwächter","en":"Spirit Guardians"},
+      "text": {
+        "de": "Geister umkreisen dich: jede Runde 3W8 gleißender Schaden, WEI-Rettungswurf halbiert.",
+        "en": "Spirits circle you: 3d8 radiant damage each round, WIS save for half."
+      },
+      "mars": false,
+      "kosten": "SPELL_POINTS"
+    }
+  },
+  "grundformen": {
+    "hood": {
+      "de": "Kapuze",
+      "en": "Hood",
+      "geschlecht": "F",
+      "slot": "HEAD",
+      "art": "ARMOR",
+      "preis": 2,
+      "ab_stufe": 1,
+      "gewicht": "CLOTH",
+      "ruestung": 0,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "circlet": {
+      "de": "Stirnreif",
+      "en": "Circlet",
+      "geschlecht": "M",
+      "slot": "HEAD",
+      "art": "ARMOR",
+      "preis": 15,
+      "ab_stufe": 2,
+      "gewicht": "CLOTH",
+      "ruestung": 0,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "leather_cap": {
+      "de": "Lederkappe",
+      "en": "Leather Cap",
+      "geschlecht": "F",
+      "slot": "HEAD",
+      "art": "ARMOR",
+      "preis": 5,
+      "ab_stufe": 1,
+      "gewicht": "LIGHT",
+      "ruestung": 0,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "helmet": {
+      "de": "Helm",
+      "en": "Helmet",
+      "geschlecht": "M",
+      "slot": "HEAD",
+      "art": "ARMOR",
+      "preis": 15,
+      "ab_stufe": 2,
+      "gewicht": "MEDIUM",
+      "ruestung": 0,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "great_helm": {
+      "de": "Topfhelm",
+      "en": "Great Helm",
+      "geschlecht": "M",
+      "slot": "HEAD",
+      "art": "ARMOR",
+      "preis": 40,
+      "ab_stufe": 4,
+      "gewicht": "HEAVY",
+      "ruestung": 0,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "robe": {
+      "de": "Robe",
+      "en": "Robe",
+      "geschlecht": "F",
+      "slot": "CHEST",
+      "art": "ARMOR",
+      "preis": 5,
+      "ab_stufe": 1,
+      "gewicht": "CLOTH",
+      "ruestung": 0,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "leather": {
+      "de": "Lederrüstung",
+      "en": "Leather Armor",
+      "geschlecht": "F",
+      "slot": "CHEST",
+      "art": "ARMOR",
+      "preis": 10,
+      "ab_stufe": 1,
+      "gewicht": "LIGHT",
+      "ruestung": 11,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "studded_leather": {
+      "de": "Nietenleder",
+      "en": "Studded Leather",
+      "geschlecht": "N",
+      "slot": "CHEST",
+      "art": "ARMOR",
+      "preis": 45,
+      "ab_stufe": 2,
+      "gewicht": "LIGHT",
+      "ruestung": 12,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "chain_shirt": {
+      "de": "Kettenhemd",
+      "en": "Chain Shirt",
+      "geschlecht": "N",
+      "slot": "CHEST",
+      "art": "ARMOR",
+      "preis": 50,
+      "ab_stufe": 1,
+      "gewicht": "MEDIUM",
+      "ruestung": 13,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "scale_mail": {
+      "de": "Schuppenpanzer",
+      "en": "Scale Mail",
+      "geschlecht": "M",
+      "slot": "CHEST",
+      "art": "ARMOR",
+      "preis": 50,
+      "ab_stufe": 2,
+      "gewicht": "MEDIUM",
+      "ruestung": 14,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "breastplate": {
+      "de": "Brustplatte",
+      "en": "Breastplate",
+      "geschlecht": "F",
+      "slot": "CHEST",
+      "art": "ARMOR",
+      "preis": 400,
+      "ab_stufe": 4,
+      "gewicht": "MEDIUM",
+      "ruestung": 14,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "half_plate": {
+      "de": "Halbplatte",
+      "en": "Half Plate",
+      "geschlecht": "F",
+      "slot": "CHEST",
+      "art": "ARMOR",
+      "preis": 750,
+      "ab_stufe": 6,
+      "gewicht": "MEDIUM",
+      "ruestung": 15,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "chain_mail": {
+      "de": "Kettenpanzer",
+      "en": "Chain Mail",
+      "geschlecht": "M",
+      "slot": "CHEST",
+      "art": "ARMOR",
+      "preis": 75,
+      "ab_stufe": 2,
+      "gewicht": "HEAVY",
+      "ruestung": 16,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "splint": {
+      "de": "Schienenpanzer",
+      "en": "Splint Armor",
+      "geschlecht": "M",
+      "slot": "CHEST",
+      "art": "ARMOR",
+      "preis": 200,
+      "ab_stufe": 4,
+      "gewicht": "HEAVY",
+      "ruestung": 17,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "plate": {
+      "de": "Plattenpanzer",
+      "en": "Plate Armor",
+      "geschlecht": "M",
+      "slot": "CHEST",
+      "art": "ARMOR",
+      "preis": 1500,
+      "ab_stufe": 7,
+      "gewicht": "HEAVY",
+      "ruestung": 18,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "wraps": {
+      "de": "Armwickel",
+      "en": "Arm Wraps",
+      "geschlecht": "P",
+      "slot": "ARMS",
+      "art": "ARMOR",
+      "preis": 2,
+      "ab_stufe": 1,
+      "gewicht": "CLOTH",
+      "ruestung": 0,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "gloves": {
+      "de": "Lederhandschuhe",
+      "en": "Leather Gloves",
+      "geschlecht": "P",
+      "slot": "ARMS",
+      "art": "ARMOR",
+      "preis": 5,
+      "ab_stufe": 1,
+      "gewicht": "LIGHT",
+      "ruestung": 0,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "bracers": {
+      "de": "Armschienen",
+      "en": "Bracers",
+      "geschlecht": "P",
+      "slot": "ARMS",
+      "art": "ARMOR",
+      "preis": 20,
+      "ab_stufe": 2,
+      "gewicht": "MEDIUM",
+      "ruestung": 0,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "gauntlets": {
+      "de": "Panzerhandschuhe",
+      "en": "Gauntlets",
+      "geschlecht": "P",
+      "slot": "ARMS",
+      "art": "ARMOR",
+      "preis": 40,
+      "ab_stufe": 3,
+      "gewicht": "HEAVY",
+      "ruestung": 0,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "leggings": {
+      "de": "Beinkleider",
+      "en": "Leggings",
+      "geschlecht": "P",
+      "slot": "LEGS",
+      "art": "ARMOR",
+      "preis": 2,
+      "ab_stufe": 1,
+      "gewicht": "CLOTH",
+      "ruestung": 0,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "boots": {
+      "de": "Lederstiefel",
+      "en": "Leather Boots",
+      "geschlecht": "P",
+      "slot": "LEGS",
+      "art": "ARMOR",
+      "preis": 5,
+      "ab_stufe": 1,
+      "gewicht": "LIGHT",
+      "ruestung": 0,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "chain_leggings": {
+      "de": "Kettenbeinlinge",
+      "en": "Chain Leggings",
+      "geschlecht": "P",
+      "slot": "LEGS",
+      "art": "ARMOR",
+      "preis": 20,
+      "ab_stufe": 2,
+      "gewicht": "MEDIUM",
+      "ruestung": 0,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "greaves": {
+      "de": "Beinschienen",
+      "en": "Greaves",
+      "geschlecht": "P",
+      "slot": "LEGS",
+      "art": "ARMOR",
+      "preis": 40,
+      "ab_stufe": 3,
+      "gewicht": "HEAVY",
+      "ruestung": 0,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "cloak": {
+      "de": "Umhang",
+      "en": "Cloak",
+      "geschlecht": "M",
+      "slot": "CLOAK",
+      "art": "ARMOR",
+      "preis": 5,
+      "ab_stufe": 1,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "mantle": {
+      "de": "Mantel",
+      "en": "Mantle",
+      "geschlecht": "M",
+      "slot": "CLOAK",
+      "art": "ARMOR",
+      "preis": 30,
+      "ab_stufe": 3,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "amulet": {
+      "de": "Amulett",
+      "en": "Amulet",
+      "geschlecht": "N",
+      "slot": "AMULET",
+      "art": "JEWELRY",
+      "preis": 25,
+      "ab_stufe": 1,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "talisman": {
+      "de": "Talisman",
+      "en": "Talisman",
+      "geschlecht": "M",
+      "slot": "AMULET",
+      "art": "JEWELRY",
+      "preis": 60,
+      "ab_stufe": 3,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "ring": {
+      "de": "Ring",
+      "en": "Ring",
+      "geschlecht": "M",
+      "slot": "RING",
+      "art": "JEWELRY",
+      "preis": 25,
+      "ab_stufe": 1,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "signet": {
+      "de": "Siegelring",
+      "en": "Signet Ring",
+      "geschlecht": "M",
+      "slot": "RING",
+      "art": "JEWELRY",
+      "preis": 60,
+      "ab_stufe": 3,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "dagger": {
+      "de": "Dolch",
+      "en": "Dagger",
+      "geschlecht": "M",
+      "slot": "MAIN_HAND",
+      "art": "WEAPON",
+      "preis": 2,
+      "ab_stufe": 1,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": [1,4,0],
+      "schadensart": "PIERCING",
+      "finesse": true,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "shortsword": {
+      "de": "Kurzschwert",
+      "en": "Shortsword",
+      "geschlecht": "N",
+      "slot": "MAIN_HAND",
+      "art": "WEAPON",
+      "preis": 10,
+      "ab_stufe": 1,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": [1,6,0],
+      "schadensart": "PIERCING",
+      "finesse": true,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "scimitar": {
+      "de": "Krummsäbel",
+      "en": "Scimitar",
+      "geschlecht": "M",
+      "slot": "MAIN_HAND",
+      "art": "WEAPON",
+      "preis": 25,
+      "ab_stufe": 1,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": [1,6,0],
+      "schadensart": "SLASHING",
+      "finesse": true,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "handaxe": {
+      "de": "Handbeil",
+      "en": "Handaxe",
+      "geschlecht": "N",
+      "slot": "MAIN_HAND",
+      "art": "WEAPON",
+      "preis": 5,
+      "ab_stufe": 1,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": [1,6,0],
+      "schadensart": "SLASHING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "mace": {
+      "de": "Streitkolben",
+      "en": "Mace",
+      "geschlecht": "M",
+      "slot": "MAIN_HAND",
+      "art": "WEAPON",
+      "preis": 5,
+      "ab_stufe": 1,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": [1,6,0],
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "spear": {
+      "de": "Speer",
+      "en": "Spear",
+      "geschlecht": "M",
+      "slot": "MAIN_HAND",
+      "art": "WEAPON",
+      "preis": 1,
+      "ab_stufe": 1,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": [1,6,0],
+      "schadensart": "PIERCING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": [1,8,0],
+      "reichweite": true
+    },
+    "quarterstaff": {
+      "de": "Kampfstab",
+      "en": "Quarterstaff",
+      "geschlecht": "M",
+      "slot": "MAIN_HAND",
+      "art": "WEAPON",
+      "preis": 1,
+      "ab_stufe": 1,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": [1,6,0],
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": [1,8,0],
+      "reichweite": false
+    },
+    "rapier": {
+      "de": "Rapier",
+      "en": "Rapier",
+      "geschlecht": "N",
+      "slot": "MAIN_HAND",
+      "art": "WEAPON",
+      "preis": 25,
+      "ab_stufe": 2,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": [1,8,0],
+      "schadensart": "PIERCING",
+      "finesse": true,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "longsword": {
+      "de": "Langschwert",
+      "en": "Longsword",
+      "geschlecht": "N",
+      "slot": "MAIN_HAND",
+      "art": "WEAPON",
+      "preis": 15,
+      "ab_stufe": 1,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": [1,8,0],
+      "schadensart": "SLASHING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": [1,10,0],
+      "reichweite": false
+    },
+    "battleaxe": {
+      "de": "Streitaxt",
+      "en": "Battleaxe",
+      "geschlecht": "F",
+      "slot": "MAIN_HAND",
+      "art": "WEAPON",
+      "preis": 10,
+      "ab_stufe": 1,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": [1,8,0],
+      "schadensart": "SLASHING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": [1,10,0],
+      "reichweite": false
+    },
+    "morningstar": {
+      "de": "Morgenstern",
+      "en": "Morningstar",
+      "geschlecht": "M",
+      "slot": "MAIN_HAND",
+      "art": "WEAPON",
+      "preis": 15,
+      "ab_stufe": 3,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": [1,8,0],
+      "schadensart": "PIERCING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "warhammer": {
+      "de": "Kriegshammer",
+      "en": "Warhammer",
+      "geschlecht": "M",
+      "slot": "MAIN_HAND",
+      "art": "WEAPON",
+      "preis": 15,
+      "ab_stufe": 2,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": [1,8,0],
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": [1,10,0],
+      "reichweite": false
+    },
+    "wand": {
+      "de": "Zauberstab",
+      "en": "Wand",
+      "geschlecht": "M",
+      "slot": "MAIN_HAND",
+      "art": "WEAPON",
+      "preis": 30,
+      "ab_stufe": 2,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": [1,4,0],
+      "schadensart": "FORCE",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 1,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "greatsword": {
+      "de": "Zweihänder",
+      "en": "Greatsword",
+      "geschlecht": "M",
+      "slot": "MAIN_HAND",
+      "art": "WEAPON",
+      "preis": 50,
+      "ab_stufe": 3,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": [2,6,0],
+      "schadensart": "SLASHING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": true,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "greataxe": {
+      "de": "Großaxt",
+      "en": "Greataxe",
+      "geschlecht": "F",
+      "slot": "MAIN_HAND",
+      "art": "WEAPON",
+      "preis": 30,
+      "ab_stufe": 3,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": [1,12,0],
+      "schadensart": "SLASHING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": true,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "maul": {
+      "de": "Zweihandhammer",
+      "en": "Maul",
+      "geschlecht": "M",
+      "slot": "MAIN_HAND",
+      "art": "WEAPON",
+      "preis": 10,
+      "ab_stufe": 4,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": [2,6,0],
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": true,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "halberd": {
+      "de": "Hellebarde",
+      "en": "Halberd",
+      "geschlecht": "F",
+      "slot": "MAIN_HAND",
+      "art": "WEAPON",
+      "preis": 20,
+      "ab_stufe": 2,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": [1,10,0],
+      "schadensart": "SLASHING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": true,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": true
+    },
+    "staff": {
+      "de": "Magierstab",
+      "en": "Arcane Staff",
+      "geschlecht": "M",
+      "slot": "MAIN_HAND",
+      "art": "WEAPON",
+      "preis": 40,
+      "ab_stufe": 2,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": [1,6,0],
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": true,
+      "fokus": 2,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "shortbow": {
+      "de": "Kurzbogen",
+      "en": "Shortbow",
+      "geschlecht": "M",
+      "slot": "MAIN_HAND",
+      "art": "WEAPON",
+      "preis": 25,
+      "ab_stufe": 1,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": [1,6,0],
+      "schadensart": "PIERCING",
+      "finesse": false,
+      "fern": true,
+      "zweihaendig": true,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "longbow": {
+      "de": "Langbogen",
+      "en": "Longbow",
+      "geschlecht": "M",
+      "slot": "MAIN_HAND",
+      "art": "WEAPON",
+      "preis": 50,
+      "ab_stufe": 3,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": [1,8,0],
+      "schadensart": "PIERCING",
+      "finesse": false,
+      "fern": true,
+      "zweihaendig": true,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "light_crossbow": {
+      "de": "Armbrust",
+      "en": "Light Crossbow",
+      "geschlecht": "F",
+      "slot": "MAIN_HAND",
+      "art": "WEAPON",
+      "preis": 25,
+      "ab_stufe": 2,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": [1,8,0],
+      "schadensart": "PIERCING",
+      "finesse": false,
+      "fern": true,
+      "zweihaendig": true,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "shield": {
+      "de": "Schild",
+      "en": "Shield",
+      "geschlecht": "M",
+      "slot": "OFF_HAND",
+      "art": "SHIELD",
+      "preis": 10,
+      "ab_stufe": 1,
+      "gewicht": "NONE",
+      "ruestung": 2,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "round_shield": {
+      "de": "Rundschild",
+      "en": "Round Shield",
+      "geschlecht": "M",
+      "slot": "OFF_HAND",
+      "art": "SHIELD",
+      "preis": 10,
+      "ab_stufe": 1,
+      "gewicht": "NONE",
+      "ruestung": 2,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "tower_shield": {
+      "de": "Turmschild",
+      "en": "Tower Shield",
+      "geschlecht": "M",
+      "slot": "OFF_HAND",
+      "art": "SHIELD",
+      "preis": 60,
+      "ab_stufe": 5,
+      "gewicht": "NONE",
+      "ruestung": 3,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "torch": {
+      "de": "Fackel",
+      "en": "Torch",
+      "geschlecht": "F",
+      "slot": "OFF_HAND",
+      "art": "LIGHT",
+      "preis": 2,
+      "ab_stufe": 1,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 0,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "orb": {
+      "de": "Zauberkugel",
+      "en": "Orb",
+      "geschlecht": "F",
+      "slot": "OFF_HAND",
+      "art": "FOCUS",
+      "preis": 20,
+      "ab_stufe": 1,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 1,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "tome": {
+      "de": "Foliant",
+      "en": "Tome",
+      "geschlecht": "M",
+      "slot": "OFF_HAND",
+      "art": "FOCUS",
+      "preis": 25,
+      "ab_stufe": 2,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 1,
+      "vielseitig": null,
+      "reichweite": false
+    },
+    "holy_symbol": {
+      "de": "Heiligensymbol",
+      "en": "Holy Symbol",
+      "geschlecht": "N",
+      "slot": "OFF_HAND",
+      "art": "FOCUS",
+      "preis": 5,
+      "ab_stufe": 1,
+      "gewicht": "NONE",
+      "ruestung": 0,
+      "schaden": null,
+      "schadensart": "BLUDGEONING",
+      "finesse": false,
+      "fern": false,
+      "zweihaendig": false,
+      "fokus": 1,
+      "vielseitig": null,
+      "reichweite": false
+    }
+  },
+  "affixe": [
+    "STR",
+    "DEX",
+    "CON",
+    "INT",
+    "WIS",
+    "CHA",
+    "ALL_STATS",
+    "AC",
+    "ATTACK",
+    "DAMAGE",
+    "SPELL",
+    "HP",
+    "SP",
+    "CRIT",
+    "FIRE",
+    "RADIANT",
+    "LIFESTEAL",
+    "RESIST",
+    "GOLD_FIND",
+    "MAGIC_FIND",
+    "XP",
+    "POISON_HIT",
+    "BLEED_HIT",
+    "STUN_HIT",
+    "TENACITY"
+  ],
+  "grundform_reihe": [
+    "hood",
+    "circlet",
+    "leather_cap",
+    "helmet",
+    "great_helm",
+    "robe",
+    "leather",
+    "studded_leather",
+    "chain_shirt",
+    "scale_mail",
+    "breastplate",
+    "half_plate",
+    "chain_mail",
+    "splint",
+    "plate",
+    "wraps",
+    "gloves",
+    "bracers",
+    "gauntlets",
+    "leggings",
+    "boots",
+    "chain_leggings",
+    "greaves",
+    "cloak",
+    "mantle",
+    "amulet",
+    "talisman",
+    "ring",
+    "signet",
+    "dagger",
+    "shortsword",
+    "scimitar",
+    "handaxe",
+    "mace",
+    "spear",
+    "quarterstaff",
+    "rapier",
+    "longsword",
+    "battleaxe",
+    "morningstar",
+    "warhammer",
+    "wand",
+    "greatsword",
+    "greataxe",
+    "maul",
+    "halberd",
+    "staff",
+    "shortbow",
+    "longbow",
+    "light_crossbow",
+    "shield",
+    "round_shield",
+    "tower_shield",
+    "torch",
+    "orb",
+    "tome",
+    "holy_symbol"
+  ],
+  "seltenheiten": {
+    "COMMON": {"name":{"de":"gewöhnlich","en":"common"},"affixe":0},
+    "UNCOMMON": {"name":{"de":"ungewöhnlich","en":"uncommon"},"affixe":1},
+    "RARE": {"name":{"de":"selten","en":"rare"},"affixe":2},
+    "VERY_RARE": {"name":{"de":"sehr selten","en":"very rare"},"affixe":3},
+    "EPIC": {"name":{"de":"episch","en":"epic"},"affixe":4},
+    "DIVINE": {"name":{"de":"göttlich","en":"divine"},"affixe":5}
+  },
+  "affixdaten": {
+    "STR": {
+      "name": {"de":"Stärke","en":"Strength"},
+      "vor_de": "Kräftig",
+      "vor_en": "Mighty",
+      "nach_de": "der Bärenkraft",
+      "nach_en": "of the Bear",
+      "prozent": false
+    },
+    "DEX": {
+      "name": {"de":"Geschicklichkeit","en":"Dexterity"},
+      "vor_de": "Flink",
+      "vor_en": "Swift",
+      "nach_de": "des Fuchses",
+      "nach_en": "of the Fox",
+      "prozent": false
+    },
+    "CON": {
+      "name": {"de":"Konstitution","en":"Constitution"},
+      "vor_de": "Robust",
+      "vor_en": "Sturdy",
+      "nach_de": "des Berges",
+      "nach_en": "of the Mountain",
+      "prozent": false
+    },
+    "INT": {
+      "name": {"de":"Intelligenz","en":"Intelligence"},
+      "vor_de": "Klug",
+      "vor_en": "Clever",
+      "nach_de": "des Gelehrten",
+      "nach_en": "of the Scholar",
+      "prozent": false
+    },
+    "WIS": {
+      "name": {"de":"Weisheit","en":"Wisdom"},
+      "vor_de": "Weis",
+      "vor_en": "Wise",
+      "nach_de": "der Eule",
+      "nach_en": "of the Owl",
+      "prozent": false
+    },
+    "CHA": {
+      "name": {"de":"Charisma","en":"Charisma"},
+      "vor_de": "Edl",
+      "vor_en": "Noble",
+      "nach_de": "des Königs",
+      "nach_en": "of the King",
+      "prozent": false
+    },
+    "ALL_STATS": {
+      "name": {"de":"alle Attribute","en":"all abilities"},
+      "vor_de": "Erhaben",
+      "vor_en": "Exalted",
+      "nach_de": "der Vollkommenheit",
+      "nach_en": "of Perfection",
+      "prozent": false
+    },
+    "AC": {
+      "name": {"de":"Rüstungsklasse","en":"Armor Class"},
+      "vor_de": "Schützend",
+      "vor_en": "Warding",
+      "nach_de": "der Bastion",
+      "nach_en": "of the Bastion",
+      "prozent": false
+    },
+    "ATTACK": {
+      "name": {"de":"Angriff","en":"Attack"},
+      "vor_de": "Präzis",
+      "vor_en": "Precise",
+      "nach_de": "der Präzision",
+      "nach_en": "of Precision",
+      "prozent": false
+    },
+    "DAMAGE": {
+      "name": {"de":"Schaden","en":"Damage"},
+      "vor_de": "Grausam",
+      "vor_en": "Brutal",
+      "nach_de": "des Gemetzels",
+      "nach_en": "of Slaughter",
+      "prozent": false
+    },
+    "SPELL": {
+      "name": {"de":"Zauberkraft","en":"Spell power"},
+      "vor_de": "Arkan",
+      "vor_en": "Arcane",
+      "nach_de": "der Magie",
+      "nach_en": "of Sorcery",
+      "prozent": false
+    },
+    "HP": {
+      "name": {"de":"Trefferpunkte","en":"Hit points"},
+      "vor_de": "Vital",
+      "vor_en": "Vital",
+      "nach_de": "des Lebens",
+      "nach_en": "of Life",
+      "prozent": false
+    },
+    "SP": {
+      "name": {"de":"Zauberpunkte","en":"Spell points"},
+      "vor_de": "Mystisch",
+      "vor_en": "Mystic",
+      "nach_de": "der Sterne",
+      "nach_en": "of the Stars",
+      "prozent": false
+    },
+    "CRIT": {
+      "name": {"de":"Kritischer Bereich","en":"Critical range"},
+      "vor_de": "Tödlich",
+      "vor_en": "Deadly",
+      "nach_de": "des Henkers",
+      "nach_en": "of the Executioner",
+      "prozent": false
+    },
+    "FIRE": {
+      "name": {"de":"Feuerschaden","en":"Fire damage"},
+      "vor_de": "Flammend",
+      "vor_en": "Flaming",
+      "nach_de": "der Glut",
+      "nach_en": "of Embers",
+      "prozent": false
+    },
+    "RADIANT": {
+      "name": {"de":"Gleißender Schaden","en":"Radiant damage"},
+      "vor_de": "Heilig",
+      "vor_en": "Holy",
+      "nach_de": "der Dämmerung",
+      "nach_en": "of Dawn",
+      "prozent": false
+    },
+    "LIFESTEAL": {
+      "name": {"de":"Lebensraub","en":"Life steal"},
+      "vor_de": "Blutdürstig",
+      "vor_en": "Bloodthirsty",
+      "nach_de": "des Vampirs",
+      "nach_en": "of the Vampire",
+      "prozent": true
+    },
+    "RESIST": {
+      "name": {"de":"Schadensreduktion","en":"Damage reduction"},
+      "vor_de": "Gehärtet",
+      "vor_en": "Hardened",
+      "nach_de": "des Steins",
+      "nach_en": "of Stone",
+      "prozent": false
+    },
+    "GOLD_FIND": {
+      "name": {"de":"Goldfund","en":"Gold find"},
+      "vor_de": "Gierig",
+      "vor_en": "Greedy",
+      "nach_de": "des Händlers",
+      "nach_en": "of the Merchant",
+      "prozent": true
+    },
+    "MAGIC_FIND": {
+      "name": {"de":"Magiefund","en":"Magic find"},
+      "vor_de": "Glücklich",
+      "vor_en": "Lucky",
+      "nach_de": "des Glücks",
+      "nach_en": "of Fortune",
+      "prozent": true
+    },
+    "XP": {
+      "name": {"de":"Erfahrung","en":"Experience"},
+      "vor_de": "Lehrreich",
+      "vor_en": "Studious",
+      "nach_de": "des Lernens",
+      "nach_en": "of Learning",
+      "prozent": true
+    },
+    "POISON_HIT": {
+      "name": {"de":"Giftchance","en":"Poison chance"},
+      "vor_de": "Giftig",
+      "vor_en": "Venomous",
+      "nach_de": "der Viper",
+      "nach_en": "of the Viper",
+      "prozent": true
+    },
+    "BLEED_HIT": {
+      "name": {"de":"Blutungschance","en":"Bleed chance"},
+      "vor_de": "Reißend",
+      "vor_en": "Serrated",
+      "nach_de": "der Wunden",
+      "nach_en": "of Wounds",
+      "prozent": true
+    },
+    "STUN_HIT": {
+      "name": {"de":"Betäubungschance","en":"Stun chance"},
+      "vor_de": "Betäubend",
+      "vor_en": "Stunning",
+      "nach_de": "des Donners",
+      "nach_en": "of Thunder",
+      "prozent": true
+    },
+    "TENACITY": {
+      "name": {"de":"Standhaftigkeit","en":"Tenacity"},
+      "vor_de": "Standhaft",
+      "vor_en": "Steadfast",
+      "nach_de": "des Ankers",
+      "nach_en": "of the Anchor",
+      "prozent": true
+    }
+  },
+  "vorsilbe_fuer": {"holy_symbol:SPELL":{"de":"Geweiht","en":"Hallowed"}},
+  "endungen": {"M":"er","F":"e","N":"es","P":"e"},
+  "namen": {
+    "episch1": [
+      {"de":"Sturm","en":"Storm"}, {"de":"Schatten","en":"Shadow"}, {"de":"Seelen","en":"Soul"},
+      {"de":"Drachen","en":"Dragon"}, {"de":"Blut","en":"Blood"}, {"de":"Frost","en":"Frost"},
+      {"de":"Donner","en":"Thunder"}, {"de":"Aschen","en":"Ash"}, {"de":"Eisen","en":"Iron"},
+      {"de":"Sternen","en":"Star"}, {"de":"Nacht","en":"Night"}, {"de":"Greifen","en":"Griffin"}
+    ],
+    "episch2": [
+      {"de":"wache","en":"ward"}, {"de":"brecher","en":"breaker"}, {"de":"fang","en":"fang"},
+      {"de":"ruf","en":"call"}, {"de":"zorn","en":"wrath"}, {"de":"hüter","en":"keeper"},
+      {"de":"biss","en":"bite"}, {"de":"schwur","en":"oath"}, {"de":"glanz","en":"gleam"},
+      {"de":"schneide","en":"edge"}, {"de":"herz","en":"heart"}, {"de":"sang","en":"song"}
+    ],
+    "goetter": [
+      {"de":"des Morgenlichts","en":"of the Dawnlight"},
+      {"de":"der Ewigen Flamme","en":"of the Eternal Flame"},
+      {"de":"des Sturmvaters","en":"of the Stormfather"},
+      {"de":"der Sternenmutter","en":"of the Star Mother"},
+      {"de":"des Eisernen Richters","en":"of the Iron Judge"},
+      {"de":"der Stillen Jägerin","en":"of the Silent Huntress"}
+    ]
+  },
+  "plaetze": {
+    "HEAD": {"de":"Kopf","en":"Head"},
+    "CHEST": {"de":"Oberkörper","en":"Chest"},
+    "ARMS": {"de":"Arme","en":"Arms"},
+    "LEGS": {"de":"Beine","en":"Legs"},
+    "CLOAK": {"de":"Umhang","en":"Cloak"},
+    "AMULET": {"de":"Amulett","en":"Amulet"},
+    "RING": {"de":"Ring","en":"Ring"},
+    "MAIN_HAND": {"de":"Haupthand","en":"Main hand"},
+    "OFF_HAND": {"de":"Nebenhand","en":"Off-hand"}
+  },
+  "schadensarten": {
+    "SLASHING": {"de":"Hieb","en":"slashing"},
+    "PIERCING": {"de":"Stich","en":"piercing"},
+    "BLUDGEONING": {"de":"Wucht","en":"bludgeoning"},
+    "FIRE": {"de":"Feuer","en":"fire"},
+    "FORCE": {"de":"Energie","en":"force"},
+    "RADIANT": {"de":"gleißend","en":"radiant"},
+    "POISON": {"de":"Gift","en":"poison"},
+    "ACID": {"de":"Säure","en":"acid"}
+  }
+}

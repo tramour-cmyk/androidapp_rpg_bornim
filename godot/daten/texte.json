@@ -1,0 +1,882 @@
+{
+  "version": 1,
+  "ui": {
+    "presents": {"de":"präsentiert","en":"presents"},
+    "title": {"de":"Chroniken von Bornim","en":"Chronicles of Bornim"},
+    "subtitle": {"de":"Kapitel 1: Der Blutzahn-Stamm","en":"Chapter 1: The Bloodfang Tribe"},
+    "newGame": {"de":"Neues Spiel","en":"New Game"},
+    "continueGame": {"de":"Fortsetzen","en":"Continue"},
+    "language": {"de":"Sprache: Deutsch","en":"Language: English"},
+    "musicOn": {"de":"Musik: An","en":"Music: On"},
+    "musicOff": {"de":"Musik: Aus","en":"Music: Off"},
+    "sfxOn": {"de":"Effekte: An","en":"Sound FX: On"},
+    "sfxOff": {"de":"Effekte: Aus","en":"Sound FX: Off"},
+    "stepsOn": {"de":"Schritte: An","en":"Footsteps: On"},
+    "stepsOff": {"de":"Schritte: Aus","en":"Footsteps: Off"},
+    "controlsTouch": {"de":"Steuerung: Touch","en":"Controls: Touch"},
+    "controlsClassic": {"de":"Steuerung: Steuerkreuz","en":"Controls: D-pad"},
+    "actionRight": {"de":"Aktionstaste: rechts","en":"Action button: right"},
+    "actionLeft": {"de":"Aktionstaste: links","en":"Action button: left"},
+    "hapticsOn": {"de":"Vibration: An","en":"Vibration: On"},
+    "hapticsOff": {"de":"Vibration: Aus","en":"Vibration: Off"},
+    "confirmOn": {"de":"Sicherheitsabfragen: An","en":"Confirmations: On"},
+    "confirmOff": {"de":"Sicherheitsabfragen: Aus","en":"Confirmations: Off"},
+    "confirmHint": {
+      "de": "Fragt nach, bevor du etwas wegwirfst oder alle gewöhnlichen Gegenstände verkaufst. Ein neues Spiel über einen vorhandenen Spielstand fragt immer nach.",
+      "en": "Asks before you discard something or sell all common items. Starting a new game over an existing save always asks."
+    },
+    "touchHint": {
+      "de": "Ziehen zum Laufen (weit ziehen = rennen), Tippen zum Hinlaufen. Tippe auf Personen oder Truhen, um sie direkt anzusprechen oder zu öffnen.",
+      "en": "Drag to walk (drag far to run), tap to walk there. Tap people or chests to talk to them or open them right away."
+    },
+    "about": {"de":"Über das Spiel","en":"About"},
+    "back": {"de":"Zurück","en":"Back"},
+    "next": {"de":"Weiter","en":"Next"},
+    "start": {"de":"Abenteuer beginnen","en":"Begin adventure"},
+    "yourName": {"de":"Name deines Helden","en":"Your hero's name"},
+    "chooseRace": {"de":"Wähle dein Volk","en":"Choose your race"},
+    "chooseClass": {"de":"Wähle deine Klasse","en":"Choose your class"},
+    "summary": {"de":"Dein Held","en":"Your hero"},
+    "defaultName": {"de":"Alrik","en":"Alric"},
+    "menu": {"de":"Menü","en":"Menu"},
+    "hero": {"de":"Held","en":"Hero"},
+    "bag": {"de":"Tasche","en":"Bag"},
+    "equipment": {"de":"Ausrüstung","en":"Equipment"},
+    "gearShort": {"de":"Ausrüst.","en":"Gear"},
+    "system": {"de":"System","en":"System"},
+    "save": {"de":"Speichern","en":"Save"},
+    "saved": {"de":"Spielstand gespeichert.","en":"Game saved."},
+    "toMenu": {"de":"Zum Hauptmenü","en":"Main menu"},
+    "close": {"de":"Schließen","en":"Close"},
+    "quest": {"de":"Auftrag","en":"Quest"},
+    "level": {"de":"Stufe","en":"Level"},
+    "xp": {"de":"EP","en":"XP"},
+    "hp": {"de":"TP","en":"HP"},
+    "sp": {"de":"ZP","en":"SP"},
+    "ac": {"de":"RK","en":"AC"},
+    "gold": {"de":"Gold","en":"Gold"},
+    "proficiency": {"de":"Übungsbonus","en":"Proficiency Bonus"},
+    "attack": {"de":"Angriff","en":"Attack"},
+    "damage": {"de":"Schaden","en":"Damage"},
+    "points": {"de":"Attributspunkte: {0}","en":"Ability points: {0}"},
+    "raise": {"de":"+","en":"+"},
+    "skills": {"de":"Fähigkeiten","en":"Skills"},
+    "passive": {"de":"passiv","en":"passive"},
+    "unlimited": {"de":"∞","en":"∞"},
+    "fromLevel": {"de":"ab Stufe {0}","en":"from level {0}"},
+    "traits": {"de":"Merkmal","en":"Trait"},
+    "hitDie": {"de":"Trefferwürfel","en":"Hit Die"},
+    "primary": {"de":"Hauptattribut","en":"Primary ability"},
+    "armorProf": {"de":"Rüstung","en":"Armor"},
+    "use": {"de":"Benutzen","en":"Use"},
+    "equip": {"de":"Anlegen","en":"Equip"},
+    "unequip": {"de":"Ablegen","en":"Unequip"},
+    "equipped": {"de":"angelegt","en":"equipped"},
+    "empty": {"de":"— leer —","en":"— empty —"},
+    "nothing": {"de":"Nichts","en":"Nothing"},
+    "cannotEquipArmor": {
+      "de": "Mit dieser Rüstung bist du nicht vertraut.",
+      "en": "You are not proficient with this armor."
+    },
+    "cannotUseHere": {"de":"Das kannst du hier nicht benutzen.","en":"You can't use that here."},
+    "alreadyFull": {"de":"Deine TP sind bereits voll.","en":"Your HP is already full."},
+    "onlyUndead": {"de":"nur gegen Untote","en":"undead only"},
+    "fight": {"de":"Kampf","en":"Fight"},
+    "flee": {"de":"Flucht","en":"Run"},
+    "whatWillDo": {"de":"Was wird {0} tun?","en":"What will {0} do?"},
+    "cost": {"de":"Kosten","en":"Cost"},
+    "usesLeft": {"de":"{0}/{1}","en":"{0}/{1}"},
+    "shop": {"de":"Laden","en":"Shop"},
+    "buy": {"de":"Kaufen","en":"Buy"},
+    "sell": {"de":"Verkaufen","en":"Sell"},
+    "price": {"de":"{0} G","en":"{0} G"},
+    "notEnoughGold": {"de":"Du hast nicht genug Gold.","en":"You don't have enough gold."},
+    "bought": {"de":"{0} gekauft.","en":"Bought {0}."},
+    "sold": {"de":"{0} verkauft.","en":"Sold {0}."},
+    "cannotSell": {"de":"Das kann nicht verkauft werden.","en":"That can't be sold."},
+    "nothingHere": {"de":"Hier ist nichts.","en":"There's nothing here."},
+    "chestEmpty": {"de":"Die Truhe ist leer.","en":"The chest is empty."},
+    "found": {"de":"Erhalten: {0}!","en":"Received: {0}!"},
+    "foundGold": {"de":"Erhalten: {0} Gold!","en":"Received: {0} gold!"},
+    "aboutText": {
+      "de": "Ein Fantasy-Rollenspiel in Kapiteln. Erkunde das Dorf Bornim und das Land darum, stelle dich Wölfen, Goblins und Schlimmerem im rundenbasierten Kampf, sammle Beute in sechs Seltenheitsstufen und schreibe mit deinem Helden die Chroniken von Bornim fort.\n\nRegeln, Klassen, Völker, Zauber und Monster sind vereinfacht und basieren auf dem System Reference Document 5.1 (SRD 5.1) von Wizards of the Coast LLC, verfügbar unter https://dnd.wizards.com/resources/systems-reference-document. Das SRD 5.1 ist lizenziert unter der Creative Commons Namensnennung 4.0 International (https://creativecommons.org/licenses/by/4.0/legalcode).\n\nGeschichte, Orte und Figuren sind eigene Erfindungen.",
+      "en": "A fantasy role-playing game told in chapters. Explore the village of Bornim and the land around it, face wolves, goblins and worse in turn-based battle, gather loot of six rarity tiers and continue the Chronicles of Bornim with your hero.\n\nRules, classes, races, spells and monsters are simplified and based on the System Reference Document 5.1 (SRD 5.1) by Wizards of the Coast LLC, available at https://dnd.wizards.com/resources/systems-reference-document. The SRD 5.1 is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/legalcode).\n\nThe story, places and characters are original."
+    }
+  },
+  "rast": {
+    "ask": {"de":"Rasten?","en":"Rest?"},
+    "tavern": {"de":"Schänke","en":"Inn"},
+    "room": {"de":"Zimmer","en":"Room"},
+    "short": {"de":"Kurze Rast · 1 Stunde","en":"Short rest · 1 hour"},
+    "long": {"de":"Lange Rast · 8 Stunden","en":"Long rest · 8 hours"},
+    "shortDoes": {
+      "de": "Ausdauer voll, ein Viertel der TP zurück",
+      "en": "Full stamina, regain a quarter of your HP"
+    },
+    "longDoes": {
+      "de": "TP, ZP und Ausdauer voll, Zustände geheilt",
+      "en": "HP, SP and stamina full, conditions cured"
+    },
+    "longDone": {"de":"Heute hast du schon lange gerastet.","en":"You have already had a long rest today."},
+    "meadBuy": {"de":"Met · {0} Gold","en":"Mead · {0} gold"},
+    "meadDoes": {"de":"Ausdauer voll; zu viel macht betrunken","en":"Stamina full; too much makes you drunk"},
+    "roomBuy": {"de":"Zimmer · {0} Gold","en":"Room · {0} gold"},
+    "roomDoes": {
+      "de": "Ein Bett oben unter dem Dach: lange Rast",
+      "en": "A bed upstairs under the roof: long rest"
+    },
+    "leave": {"de":"Weiter","en":"Continue"},
+    "hourGone": {"de":"Eine Stunde vergeht.","en":"An hour passes."},
+    "hoursGone": {"de":"Acht Stunden vergehen.","en":"Eight hours pass."},
+    "shortRested": {
+      "de": "Eine Stunde Ruhe. Die Ausdauer ist voll, +{0} TP.",
+      "en": "An hour of rest. Your stamina is full, +{0} HP."
+    },
+    "longRested": {
+      "de": "Acht Stunden Schlaf. TP, ZP und Ausdauer sind voll.",
+      "en": "Eight hours of sleep. HP, SP and stamina are full."
+    },
+    "roomRested": {
+      "de": "Du steigst die Treppe hinauf und schläfst acht Stunden. TP, ZP und Ausdauer sind voll.",
+      "en": "You climb the stairs and sleep for eight hours. HP, SP and stamina are full."
+    },
+    "meadDrunk": {"de":"Der Met wärmt. Die Ausdauer ist voll.","en":"The mead warms you. Your stamina is full."},
+    "drunkNow": {
+      "de": "Ein Met zu viel. Du bist betrunken bis zur nächsten Rast.",
+      "en": "One mead too many. You are drunk until your next rest."
+    },
+    "rowenaMead": {
+      "de": "Rowena: „Ein Met wärmt die Beine. Nach dem vierten findest du die Tür aber nicht mehr.“",
+      "en": "Rowena: “A mead warms the legs. After the fourth, though, you won't find the door.”"
+    },
+    "rowenaRoom": {
+      "de": "Rowena: „Oben ist ein Zimmer frei. Frische Laken, und keiner schnarcht durch die Wand. Meistens.“",
+      "en": "Rowena: “There's a room free upstairs. Fresh sheets, and nobody snores through the wall. Mostly.”"
+    },
+    "rowenaEnough": {
+      "de": "Rowena: „Genug für heute, {name}. Geh schlafen, die Treppe ist links.“",
+      "en": "Rowena: “Enough for today, {name}. Go to bed, the stairs are on the left.”"
+    },
+    "meatSell": {"de":"Fleisch verkaufen · {0} Gold","en":"Sell meat · {0} gold"},
+    "meatThanks": {
+      "de": "Rowena: „Ehrlicher Preis für ehrliche Ware. Komm wieder, wenn du mehr erlegst.“",
+      "en": "Rowena: “An honest price for honest goods. Come back when you've hunted more.”"
+    },
+    "noGold": {"de":"Dafür reicht dein Gold nicht.","en":"You don't have enough gold for that."},
+    "staminaDrunk": {
+      "de": "{0} trinkt den Ausdauertrank. Bis zur nächsten Rast reicht der Atem doppelt so lange.",
+      "en": "{0} drinks the stamina draught. Until the next rest, your stamina lasts twice as long."
+    },
+    "staminaAlready": {
+      "de": "Der Ausdauertrank wirkt noch bis zur nächsten Rast.",
+      "en": "The stamina draught lasts until your next rest."
+    },
+    "sparkFaded": {"de":"Dein Funke ist verglommen.","en":"Your spark has faded."},
+    "roasted": {
+      "de": "Du brätst {0}× Fleisch über dem Feuer. Es duftet herrlich!",
+      "en": "You roast {0}× meat over the fire. It smells wonderful!"
+    }
+  },
+  "laden": {
+    "brewed": {"de":"Morwen braut dir: {0}.","en":"Morwen brews for you: {0}."},
+    "brewedTwo": {
+      "de": "Mit deinem Wissen holt ihr zwei Tränke heraus: 2× {0}.",
+      "en": "With your know-how you get two potions out of it: 2× {0}."
+    },
+    "missing": {"de":"Dafür fehlen dir Zutaten oder Gold.","en":"You lack ingredients or gold for that."}
+  },
+  "benutzen": {
+    "cured": {"de":"{0} fühlt sich wieder gesund.","en":"{0} feels healthy again."},
+    "ate": {
+      "de": "{0} isst {1}, heilt {2} TP und fühlt sich gestärkt für den nächsten Kampf.",
+      "en": "{0} eats {1}, recovers {2} HP and feels fortified for the next fight."
+    },
+    "alreadyFed": {
+      "de": "{0} ist noch satt von der letzten Mahlzeit.",
+      "en": "{0} is still full from the last meal."
+    },
+    "sparkDrunk": {
+      "de": "Du trinkst das Fläschchen. Ein Funke steigt auf und bleibt über deinem Kopf stehen.",
+      "en": "You drain the vial. A spark rises and settles above your head."
+    },
+    "sparkAlready": {"de":"Dein Funke leuchtet noch.","en":"Your spark is still glowing."},
+    "sparkOut": {"de":"Löschen","en":"Put out"},
+    "sparkGone": {"de":"Der Funke verglimmt. Weg ist weg.","en":"The spark fades. Gone is gone."},
+    "torchLit": {"de":"Du zündest die Fackel an.","en":"You light the torch."},
+    "torchSnuffed": {
+      "de": "Du drückst die Fackel aus. Das Dunkel rückt heran.",
+      "en": "You snuff out the torch. The dark closes in."
+    },
+    "healed": {"de":"{0} heilt {1} TP.","en":"{0} recovers {1} HP."}
+  },
+  "chronik": [
+    {
+      "id": "greif",
+      "neben": false,
+      "titel": {"de":"Ein Fremder im Greif","en":"A Stranger at the Griffin"},
+      "text": {
+        "de": "In der Nacht, in der {name} im Gasthaus »Zum Schlafenden Greif« schlief, kamen die Goblins bis in den Tempel. Sie verschleppten Schwester Lyra und raubten das Sonnenamulett, das Bornim seit hundert Jahren vor der Finsternis schützt. Am Morgen schickte die Wirtin Rowena den Fremden zum Ältesten.",
+        "en": "On the night {name} slept at the Sleeping Griffin inn, the goblins came as far as the temple. They carried off Sister Lyra and stole the Sun Amulet, which has shielded Bornim from the darkness for a hundred years. In the morning Rowena, the innkeeper, sent the stranger to the Elder."
+      }
+    },
+    {
+      "id": "auftrag",
+      "neben": false,
+      "titel": {"de":"Der Auftrag","en":"The Quest"},
+      "text": {
+        "de": "Ältester Aldric erzählte vom Blutzahn-Stamm in der Höhle am Nordende des Flüsterwalds. Früher waren diese Goblins feige, nun führt sie ein Hobgoblin namens Grak an. Aldric bat {name}, Lyra und das Amulett zurückzubringen, und gab Tränke und Gold mit auf den Weg.",
+        "en": "Elder Aldric told of the Bloodfang tribe in the cave at the north end of the Whisperwood. These goblins used to be cowards; now a hobgoblin named Grak leads them. Aldric asked {name} to bring back Lyra and the amulet, and gave potions and gold for the road."
+      }
+    },
+    {
+      "id": "schlagbaum",
+      "neben": false,
+      "titel": {"de":"Der Schlagbaum hebt sich","en":"The Barrier Lifts"},
+      "text": {
+        "de": "Auf Weisung des Ältesten löste Wache Jorin das Seil, und der Schlagbaum am Nordweg schwang nach oben. Seit dem Überfall hatte er niemanden mehr nach Norden gelassen.",
+        "en": "At the Elder's word, Jorin the guard untied the rope, and the barrier on the north road swung up. Since the raid he had let no one go north."
+      }
+    },
+    {
+      "id": "garrick",
+      "neben": false,
+      "titel": {"de":"Am Feuer des Jägers","en":"At the Hunter's Fire"},
+      "text": {
+        "de": "Im Flüsterwald traf {name} auf Garrick, einen Jäger aus Bornim, der an seinem Feuer die Biester mit der Fackel fernhält. Er riet, auf dem Weg zu bleiben, und erzählte von Graks Schergen.",
+        "en": "In the Whisperwood {name} met Garrick, a hunter from Bornim who keeps the beasts at bay with a torch by his fire. He advised staying on the path and told of Grak's henchmen."
+      }
+    },
+    {
+      "id": "hoehle",
+      "neben": false,
+      "titel": {"de":"Die Blutzahnhöhle","en":"The Bloodfang Cave"},
+      "text": {
+        "de": "Am Nordende des Waldes warnte ein Schild der Goblins jeden, der weitergeht. {name} ging weiter. Aus der Tiefe kamen Moder, tropfendes Wasser und ein Lachen.",
+        "en": "At the north end of the woods a goblin sign warned off anyone going further. {name} went on. From the depths came rot, dripping water and laughter."
+      }
+    },
+    {
+      "id": "krogg",
+      "neben": false,
+      "titel": {"de":"Kroggs Schlüssel","en":"Krogg's Key"},
+      "text": {
+        "de": "Im Ostflügel der Höhle bewachte der Grottenschrat Krogg den Schlüssel zu Graks Halle. {name} besiegte ihn und nahm den rostigen Schlüssel von seinem Gürtel.",
+        "en": "In the east wing of the cave the bugbear Krogg guarded the key to Grak's hall. {name} defeated him and took the rusty key from his belt."
+      }
+    },
+    {
+      "id": "gitter",
+      "neben": false,
+      "titel": {"de":"Das Gitter","en":"The Gate"},
+      "text": {
+        "de": "Mit Kroggs Schlüssel öffnete {name} das Gitter in der Mitte der Höhle. Dahinter lag der Gang zu Graks Halle.",
+        "en": "With Krogg's key {name} opened the gate in the middle of the cave. Behind it lay the passage to Grak's hall."
+      }
+    },
+    {
+      "id": "grak",
+      "neben": false,
+      "titel": {"de":"Graks Fall","en":"Grak's Fall"},
+      "text": {
+        "de": "Grak prahlte, ein Prophet zahle ihm Gold für jede Seele, und die Priesterin gehöre schon ihm. {name} besiegte den Hobgoblin. Bei ihm lagen das Sonnenamulett und ein versiegelter Brief.",
+        "en": "Grak boasted that a prophet paid him gold for every soul, and that the priestess was already his. {name} defeated the hobgoblin. Beside him lay the Sun Amulet and a sealed letter."
+      }
+    },
+    {
+      "id": "lyra",
+      "neben": false,
+      "titel": {"de":"Lyra ist frei","en":"Lyra Is Free"},
+      "text": {
+        "de": "In Graks Halle fand {name} Schwester Lyra, Priesterin des Morgenlichts. Sie sollte mit dem Amulett zu einem »Grauen Propheten« gebracht werden. Lyra kehrte sofort in den Tempel zurück.",
+        "en": "In Grak's hall {name} found Sister Lyra, priestess of the Dawnlight. She was to be taken to a “Gray Prophet” along with the amulet. Lyra went straight back to the temple."
+      }
+    },
+    {
+      "id": "brief",
+      "neben": false,
+      "titel": {"de":"Der Brief mit dem grauen Auge","en":"The Letter with the Gray Eye"},
+      "text": {
+        "de": "{name} brachte das Amulett zu Aldric. Der Brief trug ein graues Auge als Siegel und forderte Amulett und Priesterin, denn der Tag der Asche nahe. Aldric hielt den Grauen Propheten bisher für ein Märchen, um Kinder zu erschrecken; nun gab er {name} den Ring seines Vaters.",
+        "en": "{name} brought the amulet to Aldric. The letter bore a gray eye as its seal and demanded the amulet and the priestess, for the Day of Ash was near. Until then Aldric had taken the Gray Prophet for a tale to frighten children; now he gave {name} his father's ring."
+      }
+    },
+    {
+      "id": "grimmzahn",
+      "neben": true,
+      "titel": {"de":"Grimmzahn","en":"Grimfang"},
+      "text": {
+        "de": "Tief im Flüsterwald warnte die Kräuterfrau Morwen vor Grimmzahn, einem Leitwolf, groß wie ein Pony. {name} stellte ihn im Norden des Tiefen Waldes. Seitdem ist es dort ruhiger.",
+        "en": "Deep in the Whisperwood, Morwen the Herbalist warned of Grimfang, a pack leader as big as a pony. {name} tracked him down in the north of the Deep Whisperwood. It has been quieter there since."
+      }
+    },
+    {
+      "id": "auge",
+      "neben": true,
+      "titel": {"de":"Das offene Auge","en":"The Open Eye"},
+      "text": {
+        "de": "Jorin hatte nachts ein Feuer am Steinkreis gesehen, den selbst Goblins meiden. {name} fand nur kalte Asche, Stiefelspuren nach Norden und einen grauen Fetzen Tuch mit einem eingestickten offenen Auge. Jorin wollte es dem Ältesten bringen.",
+        "en": "At night Jorin had seen a fire at the standing stones, which even goblins avoid. {name} found only cold ash, boot prints heading north and a gray scrap of cloth with an open eye stitched into it. Jorin meant to take it to the Elder."
+      }
+    }
+  ],
+  "chronik_auftraege": [
+    {
+      "id": "rauch",
+      "titel": {"de":"Rauch gegen Krogg","en":"Smoke against Krogg"},
+      "text": {
+        "de": "Garrick riet {name}, vor dem Kampf gegen Krogg die Kräuterfrau Morwen im Tiefen Flüsterwald aufzusuchen. Sie kenne ein Mittel gegen den ersten Hieb eines Grottenschrats.",
+        "en": "Garrick advised {name} to seek out Morwen the Herbalist in the Deep Whisperwood before fighting Krogg. He said she knew a way to blunt a bugbear's first blow."
+      }
+    },
+    {
+      "id": "lager",
+      "titel": {"de":"Das Lager im Süden","en":"The Camp in the South"},
+      "text": {
+        "de": "Lyra erinnerte sich, dass Graks Leute von einem Lager im Süden sprachen, in das sie Gefangene brachten. Wer dort festgehalten wird und wer das Lager führt, weiß niemand in Bornim.",
+        "en": "Lyra remembered that Grak's men spoke of a camp in the south where they took prisoners. Who is held there and who runs the camp, no one in Bornim knows."
+      }
+    }
+  ],
+  "dinge": {
+    "potion": {
+      "name": {"de":"Heiltrank","en":"Potion of Healing"},
+      "info": {
+        "de": "Ein klassischer roter Heiltrank. Wirkt sofort, auch im Kampf.",
+        "en": "A classic red healing potion. Works at once, also in battle."
+      },
+      "preis": 25,
+      "art": "POTION",
+      "heilt": [2,4,2],
+      "seltenheit": "COMMON",
+      "kurz": {"de":"heilt 2W4+2","en":"heals 2d4+2"}
+    },
+    "greater_potion": {
+      "name": {"de":"Großer Heiltrank","en":"Potion of Greater Healing"},
+      "info": {
+        "de": "Doppelt so stark wie der einfache Heiltrank. Wirkt sofort, auch im Kampf.",
+        "en": "Twice as strong as the plain healing potion. Works at once, also in battle."
+      },
+      "preis": 75,
+      "art": "POTION",
+      "heilt": [4,4,4],
+      "seltenheit": "UNCOMMON",
+      "kurz": {"de":"heilt 4W4+4","en":"heals 4d4+4"}
+    },
+    "superior_potion": {
+      "name": {"de":"Überragender Heiltrank","en":"Potion of Superior Healing"},
+      "info": {
+        "de": "Ein seltenes Elixier für schwere Wunden. Wirkt sofort, auch im Kampf.",
+        "en": "A rare elixir for grave wounds. Works at once, also in battle."
+      },
+      "preis": 200,
+      "art": "POTION",
+      "heilt": [8,4,8],
+      "seltenheit": "RARE",
+      "kurz": {"de":"heilt 8W4+8","en":"heals 8d4+8"}
+    },
+    "remedy": {
+      "name": {"de":"Kräutertrank","en":"Herbal Remedy"},
+      "info": {
+        "de": "Heilt alle Zustände: Vergiftung, Brand, Blutung, Betäubung, Flüche. Auch mit vollen TP trinkbar.",
+        "en": "Cures every condition: poison, burning, bleeding, stun, curses. Can be drunk even at full HP."
+      },
+      "preis": 20,
+      "art": "POTION",
+      "heilt": [1,4,0],
+      "heilt_leiden": true,
+      "seltenheit": "COMMON",
+      "kurz": {"de":"heilt 1W4","en":"heals 1d4"}
+    },
+    "stamina_potion": {
+      "name": {"de":"Ausdauertrank","en":"Stamina Draught"},
+      "info": {
+        "de": "Bis zur nächsten Rast reicht der Atem beim Rennen doppelt so lange. Nicht im Kampf.",
+        "en": "Until the next rest, your breath for running lasts twice as long. Not in battle."
+      },
+      "preis": 25,
+      "art": "TONIC",
+      "seltenheit": "COMMON"
+    },
+    "spark_potion": {
+      "name": {"de":"Leuchtfunke","en":"Lightspark"},
+      "info": {
+        "de": "Ein Fläschchen, von Morwen gebraut. Getrunken steigt ein Funke auf und leuchtet über dir bis zur nächsten Rast. Im Dunkeln siehst du weiter, aber Monster bemerken dich früher. Nicht im Kampf.",
+        "en": "A flask brewed by Morwen. Drink it, and a spark rises to glow above you until your next rest. In the dark you see further, but monsters notice you sooner. Not in battle."
+      },
+      "preis": 25,
+      "art": "TONIC",
+      "seltenheit": "COMMON"
+    },
+    "alchemist_fire": {
+      "name": {"de":"Alchemistenfeuer","en":"Alchemist's Fire"},
+      "info": {
+        "de": "Wurfgeschoss, trifft immer und setzt den Gegner in Brand.",
+        "en": "Thrown, always hits and sets the foe on fire."
+      },
+      "preis": 30,
+      "art": "BOMB",
+      "seltenheit": "COMMON",
+      "kurz": {"de":"2W6 Feuer","en":"2d6 fire"}
+    },
+    "holy_water": {
+      "name": {"de":"Weihwasser","en":"Holy Water"},
+      "info": {
+        "de": "Wurfgeschoss, trifft immer. Wirkt nur gegen Untote: 2W6 gleißender Schaden.",
+        "en": "Thrown, always hits. Only harms undead: 2d6 radiant damage."
+      },
+      "preis": 25,
+      "art": "BOMB",
+      "seltenheit": "COMMON",
+      "kurz": {"de":"2W6 gleißend","en":"2d6 radiant"}
+    },
+    "raw_meat": {
+      "name": {"de":"Rohes Fleisch","en":"Raw Meat"},
+      "info": {
+        "de": "Am Lagerfeuer lässt es sich braten. Oder man verkauft es.",
+        "en": "Can be roasted at a campfire. Or sold."
+      },
+      "preis": 6,
+      "art": "INGREDIENT",
+      "seltenheit": "COMMON"
+    },
+    "roast_meat": {
+      "name": {"de":"Gebratenes Fleisch","en":"Roast Meat"},
+      "info": {
+        "de": "Stärkt für den nächsten Kampf: +1 auf Angriffe und Schaden.",
+        "en": "Fortifies for the next fight: +1 to attacks and damage."
+      },
+      "preis": 16,
+      "art": "FOOD",
+      "heilt": [2,4,2],
+      "seltenheit": "COMMON",
+      "kurz": {"de":"heilt 2W4+2","en":"heals 2d4+2"}
+    },
+    "herbs": {
+      "name": {"de":"Heilkräuter","en":"Healing Herbs"},
+      "info": {
+        "de": "Wachsen auf Blumenwiesen in der Wildnis. Morwen braut daraus Tränke.",
+        "en": "Grow in wild flower meadows. Morwen brews potions from them."
+      },
+      "preis": 8,
+      "art": "INGREDIENT",
+      "seltenheit": "COMMON"
+    },
+    "wolf_pelt": {
+      "name": {"de":"Wolfsfell","en":"Wolf Pelt"},
+      "info": {
+        "de": "Ein dichtes graues Fell. Händler zahlen gut dafür.",
+        "en": "A thick gray pelt. Traders pay well for it."
+      },
+      "preis": 24,
+      "art": "INGREDIENT",
+      "seltenheit": "COMMON"
+    },
+    "boar_tusk": {
+      "name": {"de":"Keilerhauer","en":"Boar Tusk"},
+      "info": {
+        "de": "Ein gebogener Hauer. Händler zahlen gut dafür.",
+        "en": "A curved tusk. Traders pay well for it."
+      },
+      "preis": 20,
+      "art": "INGREDIENT",
+      "seltenheit": "COMMON"
+    },
+    "spider_gland": {
+      "name": {"de":"Giftdrüse","en":"Venom Gland"},
+      "info": {
+        "de": "Aus einer Riesenspinne. Morwen kann daraus Alchemistenfeuer mischen.",
+        "en": "From a giant spider. Morwen can mix alchemist's fire from it."
+      },
+      "preis": 30,
+      "art": "INGREDIENT",
+      "seltenheit": "COMMON"
+    },
+    "bat_wing": {
+      "name": {"de":"Fledermausflügel","en":"Bat Wing"},
+      "info": {
+        "de": "Ledrig und zäh. Eine Zutat für starke Heiltränke.",
+        "en": "Leathery and tough. An ingredient for strong healing potions."
+      },
+      "preis": 16,
+      "art": "INGREDIENT",
+      "seltenheit": "COMMON"
+    },
+    "gwenna_ring": {
+      "name": {"de":"Gwennas Ring","en":"Gwenna's Ring"},
+      "info": {
+        "de": "Ein schmaler Ring aus angelaufenem Silber. Gwenna wartet am Fluss darauf.",
+        "en": "A slim ring of tarnished silver. Gwenna is waiting for it by the river."
+      },
+      "preis": 0,
+      "art": "KEY",
+      "seltenheit": "COMMON"
+    },
+    "grey_rag": {
+      "name": {"de":"Grauer Fetzen","en":"Gray Rag"},
+      "info": {
+        "de": "Grobes graues Tuch, ein offenes Auge hineingestickt. Jorin will es sehen.",
+        "en": "Coarse gray cloth, an open eye stitched into it. Jorin wants to see it."
+      },
+      "preis": 0,
+      "art": "KEY",
+      "seltenheit": "COMMON"
+    },
+    "smoke_bundle": {
+      "name": {"de":"Rauchbündel","en":"Smoke Bundle"},
+      "info": {
+        "de": "Ein Bündel beißender Kräuter von Morwen. Krogg vor die Füße werfen: Der Rauch nimmt ihm den ersten Hieb. Nur im Kampf.",
+        "en": "A bundle of acrid herbs from Morwen. Throw it at Krogg's feet: the smoke takes away his first blow. Only in battle."
+      },
+      "preis": 0,
+      "art": "KEY",
+      "seltenheit": "COMMON"
+    },
+    "rusty_key": {
+      "name": {"de":"Rostiger Schlüssel","en":"Rusty Key"},
+      "info": {"de":"Er gehörte Krogg dem Grobian.","en":"It belonged to Krogg the Brute."},
+      "preis": 0,
+      "art": "KEY",
+      "seltenheit": "COMMON"
+    },
+    "grak_key": {
+      "name": {"de":"Graks Schlüssel","en":"Grak's Key"},
+      "info": {
+        "de": "Ein kleiner, blanker Schlüssel. Er passt nicht zu den Türen.",
+        "en": "A small, bright key. It fits none of the doors."
+      },
+      "preis": 0,
+      "art": "KEY",
+      "seltenheit": "COMMON"
+    },
+    "sun_amulet": {
+      "name": {"de":"Sonnenamulett","en":"Sun Amulet"},
+      "info": {
+        "de": "Das heilige Amulett aus dem Tempel von Bornim. Es ist warm.",
+        "en": "The holy amulet of the Bornim temple. It feels warm."
+      },
+      "preis": 0,
+      "art": "KEY",
+      "seltenheit": "DIVINE"
+    },
+    "prophet_letter": {
+      "name": {"de":"Versiegelter Brief","en":"Sealed Letter"},
+      "info": {"de":"Gezeichnet mit einem grauen Auge.","en":"Marked with a gray eye."},
+      "preis": 0,
+      "art": "KEY",
+      "seltenheit": "COMMON"
+    }
+  },
+  "rezepte": [
+    {"ergebnis":"potion","gold":5,"zutaten":{"herbs":2}},
+    {"ergebnis":"remedy","gold":2,"zutaten":{"herbs":2}},
+    {"ergebnis":"greater_potion","gold":15,"zutaten":{"herbs":3,"bat_wing":1}},
+    {"ergebnis":"alchemist_fire","gold":5,"zutaten":{"spider_gland":1}}
+  ],
+  "einzelstuecke": {
+    "ring_protection": {
+      "name": {"de":"Ring des Ältesten","en":"Elder's Ring"},
+      "seltenheit": {"de":"selten","en":"rare"},
+      "grundform": "ring",
+      "rarity": "RARE",
+      "plus": 0,
+      "rolls": [["AC",1],["HP",6]]
+    },
+    "gauntlets_ogre": {
+      "name": {"de":"Handschuhe der Ogerkraft","en":"Gauntlets of Ogre Power"},
+      "seltenheit": {"de":"selten","en":"rare"},
+      "grundform": "gloves",
+      "rarity": "RARE",
+      "plus": 0,
+      "rolls": [["STR",1],["DAMAGE",1]]
+    },
+    "greataxe_grak": {
+      "name": {"de":"Graks Kriegsaxt","en":"Grak's War Axe"},
+      "seltenheit": {"de":"selten","en":"rare"},
+      "grundform": "greataxe",
+      "rarity": "RARE",
+      "plus": 1,
+      "rolls": [["STR",1],["DAMAGE",2]]
+    },
+    "longsword_oakford": {
+      "name": {"de":"Klinge von Bornim","en":"Blade of Bornim"},
+      "seltenheit": {"de":"selten","en":"rare"},
+      "grundform": "longsword",
+      "rarity": "RARE",
+      "plus": 1,
+      "rolls": [["STR",1],["RADIANT",2]]
+    },
+    "staff_of_embers": {
+      "name": {"de":"Glutstab","en":"Staff of Embers"},
+      "seltenheit": {"de":"selten","en":"rare"},
+      "grundform": "staff",
+      "rarity": "RARE",
+      "plus": 1,
+      "rolls": [["INT",1],["FIRE",2]]
+    },
+    "rapier_whisper": {
+      "name": {"de":"Flüsterklinge","en":"Whisperblade"},
+      "seltenheit": {"de":"selten","en":"rare"},
+      "grundform": "rapier",
+      "rarity": "RARE",
+      "plus": 1,
+      "rolls": [["DEX",1],["CRIT",1]]
+    },
+    "mace_of_dawn": {
+      "name": {"de":"Morgenröte","en":"Dawnbringer"},
+      "seltenheit": {"de":"selten","en":"rare"},
+      "grundform": "mace",
+      "rarity": "RARE",
+      "plus": 1,
+      "rolls": [["WIS",1],["RADIANT",2]]
+    },
+    "amulet_grimfang": {
+      "name": {"de":"Grimmzahns Fang","en":"Grimfang's Tooth"},
+      "seltenheit": {"de":"selten","en":"rare"},
+      "grundform": "amulet",
+      "rarity": "RARE",
+      "plus": 0,
+      "rolls": [["DEX",1],["BLEED_HIT",15],["HP",6]]
+    },
+    "cloak_protection": {
+      "name": {"de":"Umhang des Schutzes","en":"Cloak of Protection"},
+      "seltenheit": {"de":"selten","en":"rare"},
+      "grundform": "cloak",
+      "rarity": "RARE",
+      "plus": 0,
+      "rolls": [["AC",1],["RESIST",1]]
+    },
+    "cloak_thessa": {
+      "name": {"de":"Thessas Pelzumhang","en":"Thessa's Fur Cloak"},
+      "seltenheit": {"de":"ungewöhnlich","en":"uncommon"},
+      "grundform": "cloak",
+      "rarity": "UNCOMMON",
+      "plus": 0,
+      "rolls": [["RESIST",1]]
+    },
+    "dagger_borin": {
+      "name": {"de":"Borins Hauerdolch","en":"Borin's Tusk Dagger"},
+      "seltenheit": {"de":"ungewöhnlich","en":"uncommon"},
+      "grundform": "dagger",
+      "rarity": "UNCOMMON",
+      "plus": 0,
+      "rolls": [["BLEED_HIT",10]]
+    }
+  },
+  "auftraege": [
+    {
+      "id": "pelts",
+      "geber": "thessa",
+      "geber_name": {"de":"Thessa","en":"Thessa"},
+      "titel": {"de":"Felle für den Winter","en":"Pelts for the winter"},
+      "aushang": {
+        "de": "Suche drei Wolfsfelle, dicht und ohne Löcher. Der Winter kommt früh dieses Jahr. Bezahlung bei Thessa im Kramladen.",
+        "en": "Wanted: three wolf pelts, thick and whole. Winter comes early this year. Payment from Thessa at the general store."
+      },
+      "lohn": {"de":"60 Gold, ein Pelzumhang","en":"60 gold, a fur cloak"},
+      "ding": "wolf_pelt",
+      "anzahl": 3,
+      "gold": 60,
+      "gaben": [{"ding":"cloak_thessa","anzahl":1}],
+      "bringen": {
+        "de": "Drei Wolfsfelle, wie am Brett verlangt. Dicht und ohne Löcher.",
+        "en": "Three wolf pelts, as the board asked. Thick and whole."
+      },
+      "dank": {
+        "de": "Drei. Gut. Die Felle riechen noch nach Blut – das wäscht sich aus. Hier, dein Lohn. Und den Umhang hab ich aus dem letzten Winter. Der hält warm.",
+        "en": "Three. Good. They still smell of blood – that washes out. Here, your pay. And this cloak is from last winter. It keeps you warm."
+      }
+    },
+    {
+      "id": "ring",
+      "geber": "gwenna",
+      "geber_name": {"de":"Gwenna","en":"Gwenna"},
+      "titel": {"de":"Gwennas Ring","en":"Gwenna's ring"},
+      "aushang": {
+        "de": "Mein Mann trug meinen Ring, als die Goblins ihn in ihre Höhle schleppten. Er kam nicht zurück. Bringt mir wenigstens den Ring. – Gwenna, am Fluss",
+        "en": "My husband wore my ring when the goblins dragged him into their cave. He did not come back. At least bring me the ring. – Gwenna, by the river"
+      },
+      "lohn": {"de":"40 Gold, ein Heiltrank","en":"40 gold, a Potion of Healing"},
+      "ding": "gwenna_ring",
+      "anzahl": 1,
+      "gold": 40,
+      "gaben": [{"ding":"potion","anzahl":1}],
+      "bringen": {
+        "de": "Gwenna? Ich war in der Höhle. Ich habe deinen Ring gefunden.",
+        "en": "Gwenna? I've been in the cave. I found your ring."
+      },
+      "dank": {
+        "de": "Das ist er. Er ist kalt … Danke. Mehr kann ich dir nicht geben.",
+        "en": "That's the one. It's cold… Thank you. It's all I can give you."
+      }
+    },
+    {
+      "id": "tusks",
+      "geber": "borin",
+      "geber_name": {"de":"Borin","en":"Borin"},
+      "titel": {"de":"Hauer für den Schmied","en":"Tusks for the smith"},
+      "aushang": {
+        "de": "Brauche drei Keilerhauer für Griffschalen. Keine Splitter. Borin, in der Schänke.",
+        "en": "Need three boar tusks for handle scales. No splinters. Borin, at the inn."
+      },
+      "lohn": {"de":"50 Gold, ein Hauerdolch","en":"50 gold, a tusk dagger"},
+      "ding": "boar_tusk",
+      "anzahl": 3,
+      "gold": 50,
+      "gaben": [{"ding":"dagger_borin","anzahl":1}],
+      "bringen": {
+        "de": "Drei Keilerhauer, für deine Griffschalen.",
+        "en": "Three boar tusks, for your handle scales."
+      },
+      "dank": {
+        "de": "Hm. Ordentlich gebrochen, nicht geschnitten. Damit lässt sich arbeiten. Nimm. Und den hier – Griffschalen aus Hauer, wie die, die ich jetzt mache.",
+        "en": "Hm. Broken clean, not sawn. I can work with these. Take this. And this one – grip plates of tusk, like the ones I'm making now."
+      }
+    },
+    {
+      "id": "glands",
+      "geber": "morwen",
+      "geber_name": {"de":"Morwen","en":"Morwen"},
+      "titel": {"de":"Gift gegen Gift","en":"Venom for venom"},
+      "aushang": {
+        "de": "Drei Giftdrüsen von Riesenspinnen, ganz, nicht zerquetscht. Ich zahle in Gold und Tränken. Wer mich sucht, findet mich tief im Wald am Feuer. – Morwen",
+        "en": "Three venom glands from giant spiders, whole, not crushed. I pay in gold and potions. Whoever looks for me finds me deep in the woods by the fire. – Morwen"
+      },
+      "lohn": {"de":"50 Gold, zwei Kräutertränke","en":"50 gold, two herbal remedies"},
+      "ding": "spider_gland",
+      "anzahl": 3,
+      "gold": 50,
+      "gaben": [{"ding":"remedy","anzahl":2}],
+      "bringen": {
+        "de": "Deine Giftdrüsen, Morwen. Drei Stück, ganz.",
+        "en": "Your venom glands, Morwen. Three, whole."
+      },
+      "dank": {
+        "de": "Drei, und keine geplatzt. Du hast ruhige Hände. Hier – und trink nicht alles auf einmal.",
+        "en": "Three, and none burst. You have steady hands. Here – and don't drink it all at once."
+      },
+      "nach": "krogg_defeated"
+    },
+    {
+      "id": "stones",
+      "geber": "jorin",
+      "geber_name": {"de":"Wache Jorin","en":"Guard Jorin"},
+      "titel": {"de":"Feuer am Steinkreis","en":"Fire at the standing stones"},
+      "aushang": {
+        "de": "Nachts brennt ein Feuer am Steinkreis im Süden des Flüsterwaldes. Goblins sind es nicht, die meiden die Steine. Sieh nach und bring mir, was du findest. Ich darf den Schlagbaum nicht verlassen. – Jorin, Wache",
+        "en": "At night a fire burns at the standing stones in the south of the Whisperwood. It isn't goblins; they shun the stones. Go and look, and bring me what you find. I'm not allowed to leave the barrier. – Jorin, guard"
+      },
+      "lohn": {"de":"ein Kopfschutz aus der Wachstube","en":"headgear from the guardroom"},
+      "ding": "grey_rag",
+      "anzahl": 1,
+      "gold": 0,
+      "gaben": [{"ding":"@gear:UNCOMMON:HEAD","anzahl":1}],
+      "bringen": {
+        "de": "Am Steinkreis war niemand mehr. Nur kalte Asche, Spuren nach Norden – und das hier.",
+        "en": "There was no one left at the standing stones. Only cold ash, tracks heading north – and this."
+      },
+      "dank": {
+        "de": "Ein offenes Auge … So ein Zeichen habe ich noch nie gesehen. Das geht an den Ältesten. Nimm das aus der Wachstube, auf deinem Kopf nützt es mehr als im Regal.",
+        "en": "An open eye… I've never seen a sign like that. This goes to the Elder. Take this from the guardroom; it's more use on your head than on the shelf."
+      },
+      "nach": "krogg_defeated"
+    }
+  ],
+  "anleitung": {
+    "titel": {"de":"Anleitung","en":"Guide"},
+    "zeichen": {"de":"Anleitung","en":"Guide"},
+    "hinweis": {
+      "de": "Wie das Spiel geht: Regeln, Bildschirme, Fähigkeiten.",
+      "en": "How the game works: rules, screens, abilities."
+    },
+    "teile": [
+      {
+        "de": "Die Regeln folgen dem System Reference Document 5.1 (SRD 5.1), vereinfacht. Hier steht, was du zum Spielen brauchst; den Rest findest du beim Spielen.",
+        "en": "The rules follow the System Reference Document 5.1 (SRD 5.1), simplified. Here is what you need to play; the rest you find by playing."
+      },
+      {
+        "de": "**Unterwegs.** Laufen, Ansprechen und Untersuchen erklärt der Hinweis beim Erwachen; einstellen kannst du es unter System, Bedienung. Der Aktionsknopf zeigt, was vor dir zu tun ist: sprechen, öffnen, lesen, rasten, betreten. Im hohen Gras und in der Höhle lauern Monster, die dich aus dem Hinterhalt anfallen; auf den Wegen bist du sicherer. Andere Monster siehst du: manche wandern nur umher, manche lauern still an ihrem Platz, und Jäger folgen dir, bis du ihnen davonläufst oder einen sicheren Ort wie Garricks Feuer erreichst. Wer von hinten auf ein Monster trifft, schlägt zuerst; wen ein Monster von hinten erwischt, der wird überrascht. Wer rennt, wird früher gehört. Besiegte Monster kommen nach einer Weile wieder.",
+        "en": "**On the road.** Walking, talking and examining are explained by the hint when you wake; you can change them under System, Handling. The action button shows what there is to do ahead of you: talk, open, read, rest, enter. In tall grass and in the cave, monsters lurk and ambush you; on the paths you are safer. Other monsters you can see: some just roam, some lurk still in their place, and hunters follow you until you outrun them or reach a safe place such as Garrick's fire. Whoever comes upon a monster from behind strikes first; whoever a monster catches from behind is taken by surprise. Running makes you heard sooner. Defeated monsters come back after a while."
+      },
+      {
+        "de": "**Die Leiste oben.** TP sind deine Trefferpunkte: grün, gelb, dann rot. ZP sind Zauberpunkte, nur bei Magier und Kleriker. EP sind Erfahrungspunkte bis zur nächsten Stufe. Rechts stehen Tag und Uhrzeit. Darunter kleine Zeichen: Zustände wie Gift oder Blut, „Satt“ nach einer Mahlzeit, „Schutz“ für die Magierrüstung und ★, wenn du Punkte verteilen kannst. Der goldene Balken am rechten Rand ist deine Ausdauer beim Rennen; er erscheint nur, wenn sie nicht voll ist. Ein Tipp auf die Leiste öffnet das Menü, das Kartenzeichen die Karte.",
+        "en": "**The bar at the top.** HP are your hit points: green, yellow, then red. SP are spell points, for wizard and cleric only. XP are experience points toward the next level. On the right: day and time. Below, small signs: conditions such as Psn or Bld, “Fed” after a meal, “Ward” for mage armor, and ★ when you have points to spend. The golden bar on the right edge is your stamina for running; it shows only when it is not full. A tap on the bar opens the menu, the map sign the map."
+      },
+      {
+        "de": "**Kampf.** Du und der Gegner ziehen abwechselnd; wer zuerst dran ist, entscheidet ein Wurf, in den deine Geschicklichkeit eingeht. In deinem Zug wählst du eins: **Angriff** mit der Waffe. **Fähigkeiten**: Zauber und Künste deiner Klasse. **Tasche**: Tränke und Wurfgeschosse. **Abwehr**: Angriffe auf dich haben Nachteil, und verfehlt dich der Gegner, hat dein nächster Angriff Vorteil. **Flucht**: gelingt nicht immer und kostet dann den Zug; vor Bossen gibt es keine. **Zug beenden**: du wartest ab.",
+        "en": "**Battle.** You and the foe take turns; a roll that counts your dexterity decides who goes first. On your turn you choose one: **Attack** with your weapon. **Abilities**: your class's spells and skills. **Bag**: potions and things to throw. **Defend**: attacks on you have disadvantage, and if the foe misses, your next attack has advantage. **Run**: does not always work and then costs the turn; there is no fleeing from bosses. **End turn**: you wait."
+      },
+      {
+        "de": "**Würfe.** Ein Angriff würfelt mit dem zwanzigseitigen Würfel und zählt deinen Bonus dazu; erreicht die Summe die Rüstungsklasse (RK) des Gegners, trifft der Angriff. Vorteil heißt: zwei Würfel, der bessere zählt; Nachteil: der schlechtere. Eine 20 ist ein kritischer Treffer mit doppelten Schadenswürfeln; Hiebwaffen lassen dann bluten, Wuchtwaffen können betäuben. Eine 1 geht immer daneben. Das Würfelzeichen unten links schaltet die Anzeige der Würfe ein und aus.",
+        "en": "**Rolls.** An attack rolls the twenty-sided die and adds your bonus; if the total reaches the foe's armor class (AC), the attack hits. Advantage means two dice, the better one counts; disadvantage, the worse. A 20 is a critical hit with double damage dice; slashing weapons then make the foe bleed, bludgeoning weapons may stun. A 1 always misses. The dice sign at the bottom left turns the display of rolls on and off."
+      },
+      {
+        "de": "**Zwei Waffen.** Trägst du in der Nebenhand eine Waffe statt Schild oder Fackel, schlägt sie bei jedem Angriff von selbst mit, ohne deinen Attributsbonus auf den Schaden. Du gibst dafür die RK des Schildes auf.",
+        "en": "**Two weapons.** If you carry a weapon in your off hand instead of a shield or torch, it strikes along with every attack, without your ability bonus to damage. In return you give up the shield's AC."
+      },
+      {
+        "de": "**Zustände.** Gift, Brand und Blutung kosten jede Runde TP; Blutung halbiert dazu die Heilung. Betäubt verliert eine Runde. Verlangsamt und Geschwächt senken Treffen, RK oder Schaden; Geblendet und Betrunken geben Nachteil. Gift, Blutung und Schwäche bleiben nach dem Kampf; Gift und Blutung kosten auf dem Weg weiter TP, aber nie bis unter 1. Ein Kräutertrank, eine lange Rast oder Bruder Osric heilen sie. Betrunken vergeht mit jeder Rast.",
+        "en": "**Conditions.** Poison, burning and bleeding cost HP every round; bleeding also halves healing. Stunned loses a round. Slowed and weakened lower hitting, AC or damage; blinded and drunk give disadvantage. Poison, bleeding and weakness stay after the fight; poison and bleeding go on costing HP along the way, but never below 1. An herbal remedy, a long rest or Brother Osric cures them. Drunkenness passes with any rest."
+      },
+      {
+        "de": "**Rudel.** Manche Gegner kommen nicht allein; die anderen kämpfen mit. Fällt der Anführer, fliehen sie.",
+        "en": "**Packs.** Some foes do not come alone; the others fight along. When the leader falls, they flee."
+      },
+      {
+        "de": "**Wenn du fällst.** Sinken deine TP auf null, ist es nicht vorbei: du erwachst Stunden später dort, wo du zuletzt gerastet hast oder geheilt wurdest, ganz geheilt, ohne Gold zu verlieren. Nur der Kampf ist verloren, und die Zeit.",
+        "en": "**If you fall.** If your HP drop to zero, it is not over: you wake hours later where you last rested or were healed, fully healed, without losing any gold. Only the fight is lost, and the time."
+      },
+      {
+        "de": "**Rasten.** Am Lagerfeuer wählst du: **kurze Rast** (eine Stunde): Ausdauer voll und ein Viertel der TP zurück. **Lange Rast** (acht Stunden, einmal am Tag): TP, ZP und Ausdauer voll, Zustände geheilt, alle Fähigkeiten wieder bereit. Ein Zimmer in der Schänke ist eine lange Rast für 5 Gold; Bruder Osric im Tempel heilt umsonst. In der Höhle kannst du nicht rasten.",
+        "en": "**Resting.** At a campfire you choose: **short rest** (one hour): stamina full and a quarter of your HP back. **Long rest** (eight hours, once a day): HP, SP and stamina full, conditions cured, all abilities ready again. A room at the inn is a long rest for 5 gold; Brother Osric in the temple heals for free. You cannot rest in the cave."
+      },
+      {
+        "de": "**Dunkel.** Nachts und in der Höhle siehst du weniger weit. Eine Fackel in der Nebenhand leuchtet weiter, nimmt aber den Platz des Schildes. Ein Leuchtfunke leuchtet bis zur nächsten Rast, macht dich im Dunkeln aber früher sichtbar. Die Fackel verrät dich nicht, der Leuchtfunke schon. Wald und Höhle decken sich erst auf, wenn du hinsiehst.",
+        "en": "**Dark.** At night and in the cave you see less far. A torch in your off hand lights farther, but takes the shield's place. A lightspark shines until your next rest, but makes you seen sooner in the dark. The torch does not give you away; the lightspark does. Woods and cave reveal themselves only where you look."
+      },
+      {
+        "de": "**Dein Held.** Sechs Attribute: Stärke für Nahkampf, Geschicklichkeit für RK, Fernkampf, Flucht und leises Gehen, Konstitution für TP und Ausdauer, Intelligenz für Magierzauber, Weisheit für Klerikerzauber und Sicht, Charisma für Preise und Gegner, die zögern. Im Reiter Held erklärt jedes Attribut beim Antippen, was es bringt. EP gibt es für Kämpfe. Jede Stufe bringt mehr TP und füllt TP und ZP auf; auf Stufe 2, 3 und 5 kommen Fähigkeiten dazu, auf Stufe 5 auch Treffsicherheit; auf Stufe 4 verteilst du zwei Attributspunkte. In Kapitel 1 ist Stufe 6 das Höchste.",
+        "en": "**Your hero.** Six abilities: strength for melee, dexterity for AC, ranged attacks, fleeing and moving quietly, constitution for HP and stamina, intelligence for wizard spells, wisdom for cleric spells and sight, charisma for prices and foes who hesitate. In the Hero tab every ability explains on a tap what it does. XP come from fights. Each level brings more HP and refills HP and SP; levels 2, 3 and 5 bring new abilities, level 5 also accuracy; at level 4 you spend two ability points. In chapter 1, level 6 is the highest."
+      },
+      {
+        "de": "**Fähigkeiten.** Manche gelten immer (passiv), manche einmal je Kampf, manche einmal je langer Rast, Zauber kosten ZP. Zaubertricks kosten nichts (∞). In der Liste im Kampf steht hinter jeder Fähigkeit, was sie kostet; Gesperrtes ist grau, Passives steht nicht darin.",
+        "en": "**Abilities.** Some always apply (passive), some once per fight, some once per long rest; spells cost SP. Cantrips cost nothing (∞). In the battle list each ability shows its cost; what is locked is gray, passive ones are not listed."
+      },
+      {
+        "de": "**Kämpfer.** Kampfstil: Verteidigung: +1 RK in Rüstung. Zweiter Atem: heilt dich einmal je Kampf. Ab Stufe 2 Tatendrang: zwei volle Angriffe in einem Zug, einmal je langer Rast. Ab Stufe 3 kritisch schon bei 19. Ab Stufe 5 zwei Angriffe bei jedem Angriff.",
+        "en": "**Fighter.** Fighting Style: Defense: +1 AC in armor. Second Wind: heals you once per fight. From level 2 Action Surge: two full attacks in one turn, once per long rest. From level 3 a critical hit on 19 as well. From level 5 two attacks with every attack.",
+        "nur": "FIGHTER"
+      },
+      {
+        "de": "**Magier.** Feuerpfeil, ein Zaubertrick: Feuer, kann in Brand setzen, kostet nichts. Magisches Geschoss trifft immer. Magierrüstung gibt RK 13 plus Geschicklichkeit für acht Stunden, nur ohne Rüstung. Ab Stufe 3 Sengender Strahl: drei Strahlen. Ab Stufe 5 Feuerball, einmal je Kampf: großer Schaden, verjagt oft ein ganzes Rudel.",
+        "en": "**Wizard.** Fire Bolt, a cantrip: fire, may set ablaze, costs nothing. Magic Missile always hits. Mage Armor gives AC 13 plus dexterity for eight hours, only without armor. From level 3 Scorching Ray: three rays. From level 5 Fireball, once per fight: great damage, often drives off a whole pack.",
+        "nur": "WIZARD"
+      },
+      {
+        "de": "**Schurke.** Hinterhältiger Angriff: mehr Schaden beim ersten Treffer im Kampf und bei Vorteil, mit Finesse-Waffe, Fernwaffe oder ohne Waffe. Finte, zweimal je Kampf: ein Angriff mit Vorteil. Ab Stufe 2 Raffinierte Aktion: Flucht gelingt immer, außer vor Bossen. Ab Stufe 3 Unglaubliches Ausweichen: der erste Treffer zählt nur halb, ab Stufe 5 jede Runde.",
+        "en": "**Rogue.** Sneak Attack: more damage on the first hit of a fight and with advantage, with a finesse weapon, a ranged weapon or unarmed. Feint, twice per fight: an attack with advantage. From level 2 Cunning Action: fleeing always works, except from bosses. From level 3 Uncanny Dodge: the first hit counts only half, from level 5 every round.",
+        "nur": "ROGUE"
+      },
+      {
+        "de": "**Kleriker.** Heilige Flamme, ein Zaubertrick: Licht, kann blenden, kostet nichts. Wunden heilen. Segnen: Bonus auf Angriffe für den ganzen Kampf. Ab Stufe 2 Untote vertreiben, einmal je Kampf. Ab Stufe 3 Spirituelle Waffe: schlägt jede Runde mit. Ab Stufe 5 Geisterwächter: trifft jede Runde.",
+        "en": "**Cleric.** Sacred Flame, a cantrip: light, may blind, costs nothing. Cure Wounds. Bless: a bonus to attacks for the whole fight. From level 2 Turn Undead, once per fight. From level 3 Spiritual Weapon: strikes along every round. From level 5 Spirit Guardians: hits every round.",
+        "nur": "CLERIC"
+      },
+      {
+        "de": "**Tränke und Wurfgeschosse.** Ein Trank im Kampf kostet den Zug. Heiltränke heilen, die großen mehr; Kräutertränke heilen wenig, nehmen aber Gift und andere Zustände. Alchemistenfeuer trifft immer und setzt in Brand; Weihwasser trifft nur Untote, die dafür hart.",
+        "en": "**Potions and things to throw.** A potion in battle costs your turn. Healing potions heal, the greater ones more; herbal remedies heal little but take away poison and other conditions. Alchemist's fire always hits and sets ablaze; holy water hits only the undead, but hard."
+      },
+      {
+        "de": "**Das Menü.** **Held**: Werte, Attribute, Fähigkeiten; hier verteilst du Punkte. **Tasche**: Vorräte benutzen, Ausrüstung anlegen, eine Waffe in die Nebenhand nehmen, Dinge wegwerfen. **Ausrüstung**: was du trägst, Platz für Platz, und deine Kampfwerte. **Karte**: Landkarte, Gebietskarte und Grundriss; Aufträge, Leute und Dienste lassen sich einblenden. **Chronik**: deine Aufträge mit Stand und was bisher geschah. **System**: Speichern, Sprache und Einstellungen; ein langer Druck erklärt jedes Zeichen.",
+        "en": "**The menu.** **Hero**: stats, ability scores, abilities; here you spend points. **Bag**: use supplies, put on gear, take a weapon into your off hand, throw things away. **Equipment**: what you wear, slot by slot, and your battle stats. **Map**: land map, area map and floor plan; quests, people and services can be shown. **Chronicle**: your quests with their progress and what has happened so far. **System**: saving, language and settings; a long press explains each sign."
+      },
+      {
+        "de": "**Handel und Aufträge.** Bei Thessa im Laden kaufst und verkaufst du; nach einigen Siegen hat sie neue Ware. Morwen braut dir aus Kräutern Tränke; Kräuter pflückst du, wenn du über Blumenwiesen im Wald läufst. Mit Charisma kaufst du billiger und verkaufst teurer. Am Anschlagbrett vor der Schänke hängen Aufträge; nimm an, was dir gefällt, und bring dem Auftraggeber, was er sucht.",
+        "en": "**Trade and jobs.** At Thessa's store you buy and sell; after some victories she has new wares. Morwen brews potions from herbs; you pick herbs by walking over flower meadows in the woods. With charisma you buy cheaper and sell for more. The notice board before the inn holds jobs; take what you like and bring the one who asked what they seek."
+      },
+      {
+        "de": "**Speichern.** Das Spiel speichert von selbst, wenn du einen Ort betrittst oder verlässt, rastest, fällst, einen Auftrag annimmst oder das Spiel verlässt. Unter System kannst du jederzeit selbst speichern. Im Hauptmenü gibt es vier Plätze für Helden.",
+        "en": "**Saving.** The game saves by itself when you enter or leave a place, rest, fall, take a job or leave the game. Under System you can save yourself at any time. The main menu has four slots for heroes."
+      }
+    ]
+  }
+}
