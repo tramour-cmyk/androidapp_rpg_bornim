@@ -24,7 +24,6 @@ Nichts offen.
 | [831](ansehen/831-wald.md) | Bäume aus dem Nature MegaKit im Wald, Spielbild | Tom | 12.11., 03:18 |
 | [833](ansehen/833-kampfschirm.md) | Unterer Kampfschirm ohne Kasten im Kasten | Jerry | 11.11., 23:46 |
 | [935](ansehen/935-wurf.md) | Wurfmittel im Kampf: Flasche im Bogen geworfen | Tuffy | 12.11., 00:16 |
-| [991](ansehen/991-testmenue-zustand.md) | Testmenü: jeder Schalter zeigt seinen Zustand am Zeichen | Tom | 11.11., 21:16 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
