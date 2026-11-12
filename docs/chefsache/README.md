@@ -22,13 +22,14 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 3, Muss 1, startbar 0
+**Homer** – offen 4, Muss 1, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
+| Pflege | K | von Werkzeug (340.3, 12.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 
 **Tom** – offen 115, Muss 93, startbar 6
 
@@ -148,7 +149,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1044 | M | Von Sokrates (Chef 12.11., 16:08): Frauen stehen außerhalb des Kampfs wie eine Dame, Beine | startbar |
 | 1045 | M | Von Tuffy (Lauf 43235660324, Zweig ohne Spielstand-Änderung): spielstand_test rot, „FEHLER | startbar |
 | 1073 | M? | Von Sokrates (Chef 12.11., 20:38): Bilder der Dinge in Tasche und Laden nach unserer Signa | startbar |
-| Pflege | K | von Werkzeug (340.3, 12.11.): 20722 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 12.11.): 21780 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 133, Muss 117, startbar 8
 
