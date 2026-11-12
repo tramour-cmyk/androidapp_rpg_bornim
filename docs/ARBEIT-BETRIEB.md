@@ -350,3 +350,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:20 12.11.: Marke Archiv session_01Hmoj79B6X93sR9q3p1JjCA (lauf.py)
 - 07:22 12.11.: Startsperre 07:22 Start Sokrates (lauf.py, Zeile von Hand nachgetragen: --sperre schrieb sie nicht)
 - 07:30 12.11.: Ford-Start von Hand (Vorgang 1016): Uhr „Ford-Lauf“ neu auf Sitzung …765JvmMM81VAZ94ovn, alter Ford …7A2D1aaNLiWrXiyDk2 archiviert (Kosten 1,33 $ gebucht, lauf.py); Lauf: nichts startbar, Tom/Jerry/Perikles belegt
+- 07:30 12.11.: Satz des Chefs erhalten (Archivieren in Fords Sitzung …765JvmMM81VAZ94ovn erlaubt, Chef im Chat)
