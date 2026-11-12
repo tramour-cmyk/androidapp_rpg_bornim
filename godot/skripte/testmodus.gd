@@ -76,7 +76,7 @@ static func ist_an() -> bool:
 # da war, wieder (Absturzbericht, Blende „bereit nach“, Teleport Wald und Hoehle, Kartenzoom, Monster beachten mich nicht, Bosse
 # zuruecksetzen, Kampfhilfen, Monster neben den Helden holen), dazu fuers Durchspielen: Stationen von Kapitel 1 mit passendem Stand,
 # Held unsterblich, Gehen dreifach, Truhen und Kraeuter zuruecksetzen, Merker der Geschichte. Noch nicht wie alt: Regen (Godot hat keinen),
-# Sichtlinie (erst mit dem Nebel 505), Varianten Elite und Schimmernd (MARS kennt sie noch nicht, 390), „Letztes Ende der App“ (Android).
+# Sichtlinie (erst mit dem Nebel 505), Varianten Elite und Schimmernd (MARS kennt sie noch nicht, 390). „Letztes Ende der App“ seit 1021.
 
 const STUFEN_PROBE := [3, 5, 6, 8, 11]          # Skirmish.PROBE_LEVEL und die Stufen aus 259
 const NEBENHAND := ["", "shield", "round_shield", "dagger"]   # cheatOffHand
@@ -494,10 +494,13 @@ static func monster_namen() -> Dictionary:
 static func absturz(m: Menue, t: Callable) -> void:
 	var b := Messung.bericht(Messung.voriges_protokoll())
 	var jetzt := Messung.fehler(1000)
+	var ende := Messung.ende_text(Messung.letztes_ende(), Sprache.aktiv() == "de")   # 1021 wie alt „Letztes Ende der App“ (TestTab.kt CrashBox)
+	m.zeile(t.call("Letztes Ende der App: ", "Last app exit: ") + ende.get_slice("\n", 0), 13, Stil.TEXT)
 	m.zeile(t.call("Letzter Lauf: ", "Last run: ") + (String(b["datei"]).trim_prefix("godot").trim_suffix(".log").replace("T", " ") + t.call(", Fehler: ", ", errors: ") + str(b["fehler"].size()) if not b.is_empty() else "–")
 		+ t.call("  ·  seit Start: ", "  ·  since start: ") + str(jetzt.size()), 13, Stil.TEXT)
-	if b.is_empty() and jetzt.is_empty(): return
-	var text: String = t.call("Voriger Lauf (%s), Fehler:\n", "Previous run (%s), errors:\n") % (b.get("datei", "–")) + "\n".join(PackedStringArray(b.get("fehler", [])))
+	if b.is_empty() and jetzt.is_empty() and ende == "–": return
+	var text: String = t.call("Ende laut System:\n", "End according to the system:\n") + ende + "\n\n"
+	text += t.call("Voriger Lauf (%s), Fehler:\n", "Previous run (%s), errors:\n") % (b.get("datei", "–")) + "\n".join(PackedStringArray(b.get("fehler", [])))
 	text += t.call("\n\nVoriger Lauf, Ende:\n", "\n\nPrevious run, end:\n") + String(b.get("ende", "–"))
 	text += t.call("\n\nSeit Start, Fehler:\n", "\n\nSince start, errors:\n") + "\n".join(PackedStringArray(jetzt))
 	var r := HBoxContainer.new()
