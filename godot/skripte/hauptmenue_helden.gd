@@ -9,14 +9,18 @@ extends Control
 const DP := AktionsKnopf.DP
 # 867 (Chef 12.11., 21:55 „867 Haltungen A“; 21:40 „pro Char eine andere Haltung, in der Waffe und Schild gesehen werden“): je Held eine
 # eigene ruhige Stehhaltung mit der Waffe in der Hand (haltung: Datei daten/menue-<haltung>.bin aus den Protofactor-Saetzen, godot.yml
-# „Hauptmenübild (867)“; leer: „Stehen“ der UAL mit dem Wanderstab aufgestuetzt, tragen.gd stab), die aeusseren 30 Grad zur Mitte, die
-# inneren 10, der Kopf zum Spieler (kopf: Anteil der Drehung, den Hals und Kopf zurueckdrehen)
+# „Hauptmenübild (867)“; leer: „Stehen“ der UAL mit dem Wanderstab aufgestuetzt, tragen.gd stab), die aeusseren 35 Grad zur Mitte, die
+# inneren 25, der Kopf zum Spieler (kopf: Anteil der Drehung, den Hals und Kopf zurueckdrehen)
 const HELDEN := [
 	# Sokrates 23:13 (Vorlage 3 „nicht so“): Klosterschuelerin stand fast frontal -> aussen 35 Grad, der Kopf dreht weniger zurueck;
 	# Zauberlehrling hielt den Stab am ausgestreckten Arm -> Arm 22 Grad an den Koerper (arm)
-	{"herkunft": "Wachsoldat", "volk": "Mensch", "geschlecht": "w", "x": -1.32, "dreh": 35.0, "haltung": "schildwache", "kopf": 0.4},
-	{"herkunft": "Zauberlehrling", "volk": "Mensch", "geschlecht": "m", "x": -0.44, "dreh": 12.0, "haltung": "zauberer", "kopf": 0.5, "arm": 22.0},
-	{"herkunft": "Jägerkind", "volk": "Zwerg", "geschlecht": "m", "x": 0.44, "dreh": -12.0, "haltung": "bogen", "kopf": 0.5},
+	# Sokrates 13.11., 00:25 („B mit Mitte“, Vorlage 4: Schwert und Schild der Wachsoldatin von vorn nur Kanten; die inneren standen
+	# frontal in einer Reihe): Wachsoldatin stuetzt beide Haende auf das Schwert, die Spitze am Boden (stuetzen, Muster 292.3), der
+	# Schild lehnt mit der Flaeche zum Spieler an ihrem Bein; die inneren 25 Grad zur Mitte (12 Grad waren gegen die Blickrichtung der
+	# Kamera nur 7, aussen 35 Grad sind 20: jetzt alle vier etwa 20 Grad, im Bogen), der Kopf zurueck bis etwa 5 Grad vor dem Spieler
+	{"herkunft": "Wachsoldat", "volk": "Mensch", "geschlecht": "w", "x": -1.32, "dreh": 35.0, "haltung": "schildwache", "kopf": 0.4, "stuetzen": true},
+	{"herkunft": "Zauberlehrling", "volk": "Mensch", "geschlecht": "m", "x": -0.44, "dreh": 25.0, "haltung": "zauberer", "kopf": 0.6, "arm": 22.0},
+	{"herkunft": "Jägerkind", "volk": "Zwerg", "geschlecht": "m", "x": 0.44, "dreh": -25.0, "haltung": "bogen", "kopf": 0.6},
 	{"herkunft": "Klosterschüler", "volk": "Elf", "geschlecht": "w", "x": 1.32, "dreh": -35.0, "haltung": "", "kopf": 0.4},
 ]
 # Schein: Mitte (0,5/0,86) im Bild, Halbachsen waagrecht 0,5, nach oben 0,86, nach unten 0,14; warm in der Mitte, aussen schwarz
@@ -96,7 +100,8 @@ func _init(breite_dp := 330.0) -> void:
 			(mt as ShaderMaterial).set_shader_parameter("metall", 1.0)
 			(mt as ShaderMaterial).set_shader_parameter("licht_dir", Basis.from_euler(sonne.rotation).z)
 		var anim := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
-		var hl := haltung(m, w, String(h["haltung"]), float(h.get("arm", 0.0))) if anim else ""
+		var stuetzt := bool(h.get("stuetzen", false))
+		var hl := haltung(m, w, String(h["haltung"]), float(h.get("arm", 0.0)), not stuetzt) if anim else ""
 		if anim and hl == "":
 			Gebiet.bewegungen(anim, ["Stehen"])
 			hl = "Stehen" if anim.has_animation("Stehen") else ""
@@ -104,6 +109,10 @@ func _init(breite_dp := 330.0) -> void:
 			anim.play(hl)
 			anim.seek(anim.get_animation(hl).length * (0.15 + 0.2 * figuren.size()), true)   # nicht im Gleichtakt (C3)
 		var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
+		if sk and stuetzt:
+			var st := schwert_stuetzen(m, sk, w.get("ausruestung", {}))
+			st.kamera = kam.position   # die Welt des Bilds beginnt am Ursprung
+
 		if sk and float(h.get("kopf", 0.0)) > 0.0:
 			var kd := KopfDrehen.new()
 			kd.grad = -float(h["dreh"]) * float(h["kopf"])
@@ -114,7 +123,7 @@ func _init(breite_dp := 330.0) -> void:
 ## 867: die Haltung n aus daten/menue-<n>.bin (Protofactor-Satz auf dem Geruest der UAL, zauber385.py) auf die Figur m wie
 ## HeldFigur.bewegungen (nur Drehungen, Becken im Verhaeltnis der Beckenhoehe); die Waffe in die Faust wie die Paketbewegungen
 ## (tragen.gd _paket), der Schild an den linken Arm (schildarm); ohne Datei leer (dann „Stehen“)
-static func haltung(m: Node3D, w: Dictionary, n: String, arm := 0.0) -> String:
+static func haltung(m: Node3D, w: Dictionary, n: String, arm := 0.0, waffen := true) -> String:
 	var datei := "res://daten/menue-%s.bin" % n
 	if n == "" or not FileAccess.file_exists(datei): return ""
 	var sc := Gebiet.lade_glb(datei)
@@ -151,8 +160,180 @@ static func haltung(m: Node3D, w: Dictionary, n: String, arm := 0.0) -> String:
 		an_.grad = arm
 		an_.seite = hoehere_hand(sk, ap, name_)
 		sk.add_child(an_)
-	waffen_in_die_hand(m, sk, ap, w.get("ausruestung", {}), name_)
+	if waffen: waffen_in_die_hand(m, sk, ap, w.get("ausruestung", {}), name_)
 	return name_
+
+## 867 (Sokrates 13.11., 00:25 „B mit Mitte“; Muster 292.3 „stützt beide Hände auf das Schwert“): die Waffe senkrecht vor der Figur, die
+## Spitze am Boden, beide Faeuste uebereinander am Griff (SchwertStuetzen); der Schild lehnt am Bein, die Flaeche zum
+## Spieler, links neben ihr. Was bewaffne() auf den Ruecken gestellt hat, weg. Im Bestand gibt es keine solche Haltung (Protokoll „Hauptmenübild (867)“:
+## alle Idle-Bewegungen der Protofactor-Saetze): die Beine aus der Haltung, die Arme gestellt
+static func schwert_stuetzen(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> SchwertStuetzen:
+	var neben = aus.get("OFF_HAND")
+	var schild := HeldFigur._modell(neben) if neben is Dictionary and String(Beute.grundform(String(neben.get("base", ""))).get("art", "")) == "SHIELD" else ""
+	var waffe := HeldFigur._modell(aus.get("MAIN_HAND"))
+	for alt in sk.find_children("Ruecken*", "", false, false): alt.free()
+	for alt in m.get_children():
+		if String(alt.name).contains("Getragen"): alt.free()
+	for alt in sk.get_children():
+		if alt is Tragen: alt.free()
+	var st := SchwertStuetzen.new()
+	st.modell = m
+	st.faeuste = {"r": HeldFigur.faust(sk, "r"), "l": HeldFigur.faust(sk, "l")}
+	for p in [[waffe, "waffe"], [schild, "schild"]]:
+		if String(p[0]) == "": continue
+		var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % p[0])
+		if d == null: continue
+		d.name = "Getragen"
+		d.top_level = true
+		m.add_child(d)
+		Gebiet.male(d, null, 2, [])
+		if p[1] == "waffe":
+			st.waffe = d; st.halt = Halt.gegenstand(String(p[0]))
+		else:
+			st.schild = d; st.schild_halt = Halt.gegenstand(String(p[0]))
+	sk.add_child(st)
+	print("MENU867 Stuetzen: Waffe %s, Schild %s" % [waffe, schild])
+	return st
+
+## 867: beide Faeuste uebereinander am Griff der senkrecht vor der Figur stehenden Waffe (Spitze am Boden), der Schild lehnt am Bein.
+## Arme mit den zwei Knochen von Tragen (_arm, Ellbogen nach hinten aussen), Finger um den Griff (_faust_zu); fehl_r, fehl_l: so weit
+## liegt die Faust neben ihrem Ziel (m, Arm zu kurz), spitze_hoehe: Spitze ueber dem Boden (m); fuer den Pruefschritt
+class SchwertStuetzen extends Tragen:
+	const VOR := 0.24          # m: Griff vor der Mitte zwischen den Schultern
+	const SPITZE_VOR := 0.10   # m: die Spitze steht weiter vorn als der Griff, das Schwert lehnt zur Figur
+	# m ueber dem Griff (Ursprung des Modells, Halt) zum Knauf hin: die rechte Faust um den Knauf, die linke darauf. Tiefer am Griff
+	# reichen die Arme nicht (stuetzen_867 an der UAL: Schulter 1,40 m, Arm 0,55 m und Faust 0,11 m; am Griff 0,07 fehlten 13 cm)
+	const FAUST_AUF := {"r": 0.12, "l": 0.20}
+	const REICHWEITE := 0.97   # Anteil des gestreckten Arms; reicht er nicht, ruecken Griff und Spitze zur Schulter hin
+	const NAH := 0.012         # m: so weit darf eine Faust nach dem Stellen neben ihrem Ziel liegen
+	# Schild links neben der Figur (zur Mitte des Bilds): rechts aussen laege er aus dem Bild (Wachsoldatin bei x -1,32, der Rand des
+	# Bilds bei etwa -1,74, der Schild 0,6 m breit); die Flaeche zum Spieler, oben zum Bein hin geneigt, lehnt an
+	# stuetzen_867 --proben an der UAL: 0,34/0,10/15 Grad lag 2 cm am Oberschenkel, 0,38/0,18 im Unterschenkel; 0,42/0,10/10 Grad
+	# 9 cm vom Unterschenkelknochen (Schild an der Wade), im Menue bis x -0,67 (der Zauberlehrling ab etwa -0,69)
+	var schild_seite := 0.42
+	var schild_vor := 0.10
+	var schild_neig := 10.0
+	var schild: Node3D
+	var schild_halt := {}
+	var faeuste := {}               # Seite -> HeldFigur.faust
+	var zum_spieler := Vector3.BACK # Welt: Kamera; die Flaeche des Schilds zeigt dahin (HauptmenueHelden setzt die Lage der Kamera)
+	var kamera := Vector3.INF
+	var wahlen := {"r": {}, "l": {}}   # Beugerichtung der Finger je Hand (Tragen.beuge_wahl gilt fuer eine Hand)
+	var fehl_r := 0.0
+	var fehl_l := 0.0
+	var spitze_hoehe := 0.0
+	var gerueckt := 0
+	var protokoll := false
+
+	# wie Tragen._arm, aber die Hand fest gedreht: Kleinfinger -> Zeigefinger laengs d (zum Knauf), Handgelenk -> Knoechel waagrecht von
+	# der Schulter weg (die Finger umfassen den Griff von vorn, das Handgelenk liegt dahinter). Mit der kleinsten Drehung von _arm lag
+	# das Handgelenk an der UAL hinter dem Griff und die Faust 4 bis 7 cm neben dem Ziel (stuetzen_867)
+	func _arm_stuetzen(sk: Skeleton3D, iu: int, il: int, ih: int, P: Vector3, d: Vector3, vc: Vector3, oc: Vector3, ac: Vector3) -> void:
+		var A := sk.get_bone_global_pose(iu).origin
+		var weg := P - A
+		weg -= d * weg.dot(d)
+		var kd := weg.normalized() if weg.length() > 1e-3 else vc
+		var a := achse.normalized()
+		var g := griff - a * griff.dot(a)
+		if g.length() < 1e-4: return
+		g = g.normalized()
+		var hand := Basis(a, g, a.cross(g))
+		var welt := Basis(d, kd, d.cross(kd))
+		var Hd := welt * hand.inverse()
+		var W := P - Hd * griff
+		var l1 := sk.get_bone_rest(il).origin.length()
+		var l2 := sk.get_bone_rest(ih).origin.length()
+		var pol := (-vc * 0.6 + ac * 0.5 - oc * 0.4).normalized()
+		var dv := W - A
+		var dist := clampf(dv.length(), absf(l1 - l2) + 0.01, (l1 + l2) * 0.995)
+		var dir := dv.normalized()
+		var ca := clampf((l1 * l1 + dist * dist - l2 * l2) / (2.0 * l1 * dist), -1.0, 1.0)
+		var q := pol - dir * pol.dot(dir)
+		q = q.normalized() if q.length() > 1e-4 else oc.cross(dir).normalized()
+		var E := A + dir * (l1 * ca) + q * (l1 * sqrt(maxf(0.0, 1.0 - ca * ca)))
+		_zeige(sk, iu, il, E)
+		_zeige(sk, il, ih, A + dir * dist)
+		var hp := sk.get_bone_global_pose(il).basis.orthonormalized()
+		sk.set_bone_pose_rotation(ih, (hp.inverse() * Hd.orthonormalized()).get_rotation_quaternion())
+
+	func _process_modification() -> void:
+		var sk := get_skeleton()
+		if sk == null or modell == null or faeuste.size() < 2: return
+		var G := sk.global_transform
+		var Gi := G.affine_inverse()
+		var ms := mass()
+		var fuss := modell.global_position
+		var vorn_w := modell.global_basis.z; vorn_w.y = 0.0; vorn_w = vorn_w.normalized()
+		var links_w := modell.global_basis.x; links_w.y = 0.0; links_w = links_w.normalized()
+		var kn := {}
+		var S := {}
+		var reich := {}
+		for s in ["r", "l"]:
+			kn[s] = [sk.find_bone("upperarm_" + s), sk.find_bone("lowerarm_" + s), sk.find_bone("hand_" + s)]
+			if (kn[s] as Array).min() < 0 or (faeuste[s] as Dictionary).is_empty(): return
+			S[s] = G * sk.get_bone_global_pose(kn[s][0]).origin
+			var l1 := (G.basis * sk.get_bone_rest(kn[s][1]).origin).length()
+			var l2 := (G.basis * sk.get_bone_rest(kn[s][2]).origin).length()
+			reich[s] = (l1 + l2) * REICHWEITE + 0.5 * (G.basis * (faeuste[s]["griff"] as Vector3)).length()
+		# vorn nach den Schultern (die Haltung dreht die Brust gegen die Fuesse)
+		var quer: Vector3 = S["l"] - S["r"]; quer.y = 0.0
+		var fwd := quer.cross(Vector3.UP).normalized() if quer.length() > 0.01 else vorn_w
+		if fwd.dot(vorn_w) < 0.0: fwd = -fwd
+		var mitte_s: Vector3 = (S["l"] + S["r"]) * 0.5
+		var basis_ := Vector3(mitte_s.x, fuss.y, mitte_s.z) + fwd * VOR * ms
+		var L := float(halt.get("laenge", 0.75)) * ms
+		var sv := SPITZE_VOR * ms
+		var griff_w := Vector3.ZERO
+		var dw := Vector3.DOWN
+		gerueckt = 0
+		for k in 12:
+			griff_w = basis_ + Vector3.UP * sqrt(maxf(0.0, L * L - sv * sv))
+			dw = (basis_ + fwd * sv - griff_w).normalized()   # zur Spitze, nach unten
+			var weit := ""
+			for s in ["r", "l"]:
+				if (S[s] as Vector3).distance_to(griff_w - dw * float(FAUST_AUF[s]) * ms) > float(reich[s]): weit = s
+			if weit == "": break
+			var sh: Vector3 = S[weit]
+			basis_ = basis_.lerp(Vector3(sh.x, fuss.y, sh.z), 0.1)
+			gerueckt += 1
+		var vc := (Gi.basis * fwd).normalized()
+		var oc := (Gi.basis * Vector3.UP).normalized()
+		var lc := (Gi.basis * quer.normalized()).normalized()
+		# stellen, messen; liegt eine Faust mehr als NAH neben dem Ziel (Arm zu kurz), ruecken Griff und Spitze zu ihrer Schulter
+		for runde in 10:
+			var dk := (Gi.basis * -dw).normalized()   # Kleinfinger -> Zeigefinger zum Knauf: die Klinge verlaesst die Faust unten
+			for s in ["r", "l"]:
+				var f: Dictionary = faeuste[s]
+				seite = s; griff = f["griff"]; achse = f["achse"]
+				beuge_wahl = wahlen[s]
+				var ziel_w: Vector3 = griff_w - dw * float(FAUST_AUF[s]) * ms
+				_arm_stuetzen(sk, kn[s][0], kn[s][1], kn[s][2], Gi * ziel_w, dk, vc, oc, -lc if s == "r" else lc)
+				_faust_zu(sk, kn[s][2], dk)
+				var ist := G * (sk.get_bone_global_pose(kn[s][2]) * griff)
+				if s == "r": fehl_r = ist.distance_to(ziel_w)
+				else: fehl_l = ist.distance_to(ziel_w)
+			if protokoll: print("STUETZEN runde %d fehl r %.3f l %.3f, Schulter-Ziel r %.3f l %.3f, reich r %.3f l %.3f" % [runde, fehl_r, fehl_l, (S["r"] as Vector3).distance_to(griff_w - dw * float(FAUST_AUF["r"]) * ms), (S["l"] as Vector3).distance_to(griff_w - dw * float(FAUST_AUF["l"]) * ms), reich["r"], reich["l"]])
+			if maxf(fehl_r, fehl_l) <= NAH * ms: break
+			var sh: Vector3 = S["r" if fehl_r > fehl_l else "l"]
+			var weg := Vector3(sh.x, fuss.y, sh.z) - basis_
+			basis_ += weg.normalized() * minf(weg.length() * 0.5, maxf(fehl_r, fehl_l) * 2.0)
+			griff_w = basis_ + Vector3.UP * sqrt(maxf(0.0, L * L - sv * sv))
+			dw = (basis_ + fwd * sv - griff_w).normalized()
+			gerueckt += 1
+		if waffe:
+			_stelle(quer.normalized(), dw, griff_w)   # Schneide zur Seite, die Flaeche der Klinge nach vorn
+			spitze_hoehe = (griff_w + dw * L).y - fuss.y
+		if schild:
+			var nw := deg_to_rad(schild_neig)
+			var auf := (Vector3.UP * cos(nw) - links_w * sin(nw)).normalized()   # links neben der Figur: oben nach rechts, zum Bein
+			var unten_ := float(schild_halt.get("unten", 0.28)) * ms
+			var mitte := fuss + links_w * schild_seite * ms + vorn_w * schild_vor * ms + auf * (unten_ + 0.01 * ms)
+			var zs := (kamera - mitte) if kamera != Vector3.INF else zum_spieler
+			zs.y = 0.0
+			var fl := zs - auf * zs.dot(auf)
+			fl = fl.normalized() if fl.length() > 1e-3 else vorn_w
+			var ziel := Transform3D(Basis(auf.cross(fl), auf, fl).scaled(Vector3.ONE * ms), mitte)
+			schild.global_transform = ziel * (Halt.griff_rahmen(schild_halt).affine_inverse() if not schild_halt.is_empty() else Transform3D.IDENTITY)
 
 ## 867: Waffe und Schild wie in der Haltung gehalten: was bewaffne() auf den Ruecken oder als Wanderstab gestellt hat, weg; die Waffe in
 ## die Hand, die in der Haltung hoeher steht (Stab des Zauberers), der Bogen links, der Schild an den linken Arm

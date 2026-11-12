@@ -25,8 +25,9 @@ func _initialize() -> void:
 	var haltungen := {}
 	for h in HauptmenueHelden.HELDEN:
 		haltungen[String(h["haltung"])] = true
-		pruefe(absf(float(h["dreh"])) >= (25.0 if absf(float(h["x"])) > 1.0 else 0.0), "%s: aussen 25 bis 35 Grad zur Mitte" % h["herkunft"])
+		pruefe(absf(float(h["dreh"])) >= (25.0 if absf(float(h["x"])) > 1.0 else 20.0), "%s: aussen 25 bis 35 Grad, innen ab 20 Grad zur Mitte (Sokrates 13.11., 00:25: alle im Bogen)" % h["herkunft"])
 		pruefe(absf(float(h["dreh"])) <= 35.0 and signf(float(h["dreh"])) == -signf(float(h["x"])), "%s: zur Mitte gedreht" % h["herkunft"])
 	pruefe(haltungen.size() == HauptmenueHelden.HELDEN.size(), "jede Haltung nur einmal")
+	pruefe(HauptmenueHelden.HELDEN.any(func(h): return h.get("stuetzen", false) and h["herkunft"] == "Wachsoldat"), "Wachsoldatin stuetzt die Haende auf das Schwert (Sokrates 13.11., 00:25)")
 	print("MENUEHELDEN867 %d Fehler" % fehler)
 	quit(1 if fehler else 0)

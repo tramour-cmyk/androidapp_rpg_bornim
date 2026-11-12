@@ -44,6 +44,9 @@ func _lauf() -> void:
 	for h in HauptmenueHelden.HELDEN:
 		var w := HauptmenueHelden.wahl(h)
 		print("MENU867 %s: Ausruestung %s" % [h["herkunft"], (w["ausruestung"] as Dictionary).keys().map(func(p): return "%s=%s" % [p, str(w["ausruestung"][p].get("base", "?")) if w["ausruestung"][p] is Dictionary else str(w["ausruestung"][p])])])
+	for st in neu.find_children("*", "SkeletonModifier3D", true, false):
+		if st is HauptmenueHelden.SchwertStuetzen:
+			print("MENU867 Stuetzen: Faust rechts %.1f cm neben dem Ziel, links %.1f cm, Spitze %.1f cm ueber dem Boden, %d-mal zur Schulter gerueckt" % [st.fehl_r * 100.0, st.fehl_l * 100.0, st.spitze_hoehe * 100.0, st.gerueckt])
 	await knips("867_nachher")
 	await ausschnitt(neu, "867_helden")
 	# 867 Haltungen A (Sokrates: „Haltungen in allen Blickrichtungen prüfen“): jeder Held um sich selbst gedreht, die Waffe bleibt in
