@@ -28,6 +28,19 @@ Bedingung: tagsüber, Pim ist draußen; die Wahl erscheint im Gespräch mit Pim 
 
 `[807.pim.dank]` (einmalig: Pims Mutter beim nächsten Klopfen nach dem ersten Erfolg, statt `[504.tuer.pim]`; Ruf steigt) Pim kam heim, ganz zahm. Was du ihm auch gesagt hast: danke, {name}. / EN: Pim came home, meek as a lamb. Whatever you told him: thank you, {name}.
 
+### Pim heimschicken für Gold (1085)
+
+Vorentscheid Sokrates 12.11., 22:33 (Nacht 1077; Chef 20:31 „weder ein Abbrechen, noch ein Gib PIM 5 Goldstücke“; Chefsache `billigen/1085-pim-gold.md`), Bau 1086 Tom nach 842. Dritter Knopf neben `[807.pim.wahl]` und `[1074.zweit]`, gleiche Bedingung (tagsüber, nach `[504.pim.vor]`), nur wenn der Held mindestens 5 Gold hat (sonst fehlt der Knopf, kein eigener Text). Vorschlag Anordnung (Bau Tom): beide Wahlen rechts untereinander mit „›“, Überreden oben, „‹ Nicht jetzt“ links wie in 1074. Gelingt immer, kostet 5 Gold, übt keine Fertigkeit, kein Ruf; Pim geht für diesen Tag heim, am nächsten Tag steht er wieder draußen und die Wahl kommt wieder. Nach misslungenem Überreden fehlen an diesem Tag beide Knöpfe (1074: „nach einem Versuch erst am nächsten Tag wieder“); nur so ist Gold die sichere Wahl statt der Rückfall nach einem Fehlschlag. Ohne Klammer, weil keine Fertigkeit dahintersteht; der Preis steht als Platzhalter {0} = 5 im Knopf (wie „Met · {0} Gold“).
+
+`[1085.pim.wahl]` (Knopf im Gespräch) Gib Pim {0} Gold / EN: Give Pim {0} gold
+
+`[1085.pim.gold]` (Pim nimmt das Gold und geht heim; drei Wortlaute nach 504)
+1. Echtes Gold? Für mich? · Erzähler: Pim beißt auf jede Münze, wie er es bei Thessa gesehen hat, und rennt heim. — EN: Real gold? For me? · Narrator: Pim bites every coin, the way he's seen it done at Thessa's, and runs home.
+2. Dafür geh ich heim. Aber morgen komm ich wieder! / Sag's nicht Mama. — EN: Okay, for that I'll go home. But I'm coming back tomorrow! / Don't tell Mom.
+3. Davon spar ich auf eine Brandflasche! · Erzähler: Er rennt los, die Faust fest um die Münzen. — EN: I'm saving this for a firebottle! · Narrator: He runs off, his fist clenched tight around the coins.
+
+`[1085.pim.dank]` (einmalig: Pims Mutter beim nächsten Klopfen nach dem ersten Heimschicken für Gold, statt `[504.tuer.pim]`; kein Ruf. Unabhängig davon kommt `[807.pim.dank]` mit Ruf weiter nach dem ersten Erfolg beim Überreden; liegen beide an, zuerst `[807.pim.dank]`, das andere beim Klopfen danach) Pim kam heim, Gold in der Faust. Woher, sagt er nicht, aber ich kann es mir denken. / Danke, {name}. Nur lernt er so nie, wann man heimkommt. — EN: Pim came home with gold in his fist. He won't say where it's from, but I can guess. / Thank you, {name}. But this way he'll never learn when to come home.
+
 ## Einschüchtern: Goblin-Späher
 
 Bedingung: Kampfanfang, unter den Gegnern ein Goblin-Späher; die Wahl steht neben „Kämpfen“ wie Tiere beruhigen bei Tieren. Gelingt es, flieht der Späher, Erfahrung wie für einen Sieg über ihn; sind andere Goblins dabei, beginnt der Kampf ohne ihn. Misslingt es, beginnt der Kampf mit allen. Nie gegen Krogg, Grak (807 A).

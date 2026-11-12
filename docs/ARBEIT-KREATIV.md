@@ -2,9 +2,9 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `aabdcfa28` (12.11., 21:21)
+**Gelesen bis:** `31e551e90` (12.11., 22:40)
 
-**Übergabe (12.11., 21:21, `session_01Hmoj78UrLAkBg1ViZsEzSS`):** erledigt: Pflege (Übergabe gekürzt); davor heute 1074, 1069, 1067, 1057, 1047, 1026 (Einzelheiten im Git-Verlauf). Nachfolger: Homer – 766: Rollenspiegel (13.11., 08:00).
+**Übergabe (12.11., 22:40, `session_01Hmoj76v6LAGkEfvoHHV8ot`):** erledigt: 1085 (Pim für Gold, `STORY-K1-FERTIGKEITEN.md`, fremd geprüft); davor heute 1074, 1069, 1067, 1057, 1047, 1026 (Einzelheiten im Git-Verlauf). Nachfolger: Homer – 766: Rollenspiegel (13.11., 08:00).
 
 ## Zeilen
 
