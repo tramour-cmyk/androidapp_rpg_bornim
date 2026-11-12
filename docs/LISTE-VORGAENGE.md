@@ -271,6 +271,7 @@
 | 1007 | Von Tom (977): Monster der Karte (streuner.gd) mit Streuner.Stub, dessen clock_ms bei 0 bleibt: figur._ruhebewegung wartet ewig, im Stehen keine Ruhegeste (aus dem Code, nicht nachgestellt; Grimmzahn behoben in leute.gd b9d089eae) | Jerry | M | zu testen | – | claude/tuffy-1007-streuner | 278 | E Figuren | 3,52 $ |
 | 1013 | Von Jerry (988, Lauf 370 auf main): schild_406 erwartet im Kampf beim CLERIC einen Schild, nach BRS trägt der Klosterschüler keinen (wie held_kampf_403 vor 988); FEHLER ohne Abbruch | Jerry | M | zu testen | – | claude/jerry-1013-schild-406 | 278 | Q QS | – |
 | 1014 | Von Jerry (1013, Lauf 365 und 370): schild_406 FIGHTER SS_ParryLow: Körper bis 0,071 m im Schild (untere Kante, 1–2 Messbilder); Ursache nur mit Kaufmodellen am Rechner nachstellbar | Jerry | M | startbar | – | – | – | E Kampf | – |
+| Pflege | von Werkzeug (340.3, 12.11.): 16307 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
@@ -352,7 +353,7 @@
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 767 | Wochentermin 13.11.: Rollenspiegel Ford (rollenspiegel.sh Ford) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Ford | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 906 | lauf.py startet Zusatzentwickler auf Zeilen, deren Zweig Umzugsdateien berührt (492 am 11.11., 08:04: claude/tom-492-durchspiel ändert spiel.gd; Grundsatz 5 LISTE-UMZUG-BRS, Zu 870.4 Sokrates 01:57); Sperre nach geänderten Dateien prüfen (von Spike) | Ford | M? | startbar | – | – | – | B Steuerung | – |
-| Pflege | von Werkzeug (340.3, 12.11.): 58992 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 12.11.): 59813 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
