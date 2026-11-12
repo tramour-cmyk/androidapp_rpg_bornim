@@ -260,14 +260,18 @@ def jahr_von(tag, monat):
     d = datetime.date(h.year, monat, tag)
     return d if d >= h - datetime.timedelta(days=183) else datetime.date(h.year + 1, monat, tag)
 
+def laufzusage(z):
+    """Archivkopf „- **<Nr>, Läufe frei**“, den Sokrates nach 480.1 gab (1011); mit „Chef an“ oder „(Nutzer“ ist es eine Chefantwort."""
+    return bool(re.match(r"- \*\*[^*]*, Läufe frei\*\*", z)) and "Sokrates" in z and not re.search(r"Chef an |\(Nutzer", z)
+
 def antworten(text=None):
     """Vorgangsarchiv → {Dateikürzel (348.13a → 34813a): (Nr., Zeit der jüngsten Antwort des Chefs)}; Vorentscheide (→ **Vorentscheid**)
-    und Laufzusagen nach 480.1 („- **<Nr>, Läufe frei**“, 1010) zählen nicht."""
+    und Laufzusagen von Sokrates nach 480.1 (laufzusage, 1010, 1011) zählen nicht."""
     antwort = {}
     for z in (lesen("VORGANGSARCHIV.md") if text is None else text).splitlines():
         m = re.match(r"- \*\*([0-9A-Za-z][0-9A-Za-z.]*?)(?:,|\*\*| )", z)
         t = ZEIT.search(z)
-        if not m or not t or z.rstrip().endswith("**Vorentscheid**") or re.match(r"- \*\*[^*]*, Läufe frei\*\*", z): continue
+        if not m or not t or z.rstrip().endswith("**Vorentscheid**") or laufzusage(z): continue
         k = m.group(1).replace(".", "").lower()
         try: w = _zeit(t)
         except ValueError: continue
