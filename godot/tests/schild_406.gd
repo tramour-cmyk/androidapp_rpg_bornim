@@ -691,20 +691,35 @@ func _run() -> void:
 		for v in VARIANTEN:
 			var_k.append([-INF, Vector3.ZERO]); var_s.append([-INF, Vector3.ZERO])
 		var n := 0
+		var diag_vorher := ""
+		var diag_jetzt := ""
 		var dauer := int(OS.get_environment("DAUER_MS")) if OS.get_environment("DAUER_MS") != "" else DAUER_MS
 		while n < (dauer * 30 / 1000 if film else 6000):
 			await process_frame
 			n += 1
 			if fig.visible and not fig.down:
 				var b := String(fig.anim.current_animation)
+				if b != diag_jetzt:
+					diag_vorher = "%s (Bild %d)" % [diag_jetzt, n]
+					diag_jetzt = b
 				var e: Array = tief.get(b, [-INF, Vector3.ZERO, 0])
-				if n % 3 == 0:
+				if n % 3 == 0 or OS.get_environment("DIAG1014") != "":
 					var t := _netz_tiefe(sm, _haut_ecken(sk))
 					if t[0] > e[0]:
 						e[0] = t[0]
 						e[1] = t[1]
 					if t[0] > NETZ_M:
 						e[2] += 1
+						if OS.get_environment("DIAG1014") != "":
+							var wp: Vector3 = sm.global_transform * (t[1] / 100.0)
+							var nb := ""
+							var nd := INF
+							for bi in sk.get_bone_count():
+								var bp: Vector3 = sk.global_transform * sk.get_bone_global_pose(bi).origin
+								if bp.distance_to(wp) < nd:
+									nd = bp.distance_to(wp)
+									nb = sk.get_bone_name(bi)
+							print("DIAG1014 Bild %d %s bei %.3f/%.3f s, vorher %s, %.3f m, Stelle %s, nächster Knochen %s (%.2f m), Welt %s" % [n, b, fig.anim.current_animation_position, fig.anim.current_animation_length, diag_vorher, t[0], t[1], nb, nd, sk.global_transform.affine_inverse() * wp])
 				if n % 6 == 3:
 					faust.an = true
 				if n % 6 == 0:

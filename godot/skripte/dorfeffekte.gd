@@ -69,8 +69,8 @@ func baue() -> void:
 		baue_kaminrauch()
 		baue_schlagbaum()
 		baue_schenkenfackel()
-	if gebiet.info.get("innen", false):
-		baue_staub()
+	# 990 (Chef 12.11., 08:34, t278.4: „sieht eher aus wie ein Mückenschwarm … lassen wir echt komplett in Innenräumen raus“): kein
+	# Staub im Licht mehr in Innenräumen; baue_staub bleibt im Bestand (LISTE-EFFEKTE), aufgerufen wird es nicht
 	sammle_laub(gebiet)
 	nacht(nacht_k)
 

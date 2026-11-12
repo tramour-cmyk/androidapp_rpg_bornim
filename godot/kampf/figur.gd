@@ -686,6 +686,9 @@ func _arm_kauf(gleich := false) -> void:
 			schild_faust.knick = knick_quat
 			schild_faust.achse = knick_achse
 			schild_faust.hand = knick_knochen
+			schild_faust.anim = anim
+			if OS.get_environment("TIEF1014") != "":
+				schild_faust.tief_grad = float(OS.get_environment("TIEF1014"))
 	if anim:
 		_idle()
 
@@ -2529,7 +2532,9 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 		tween.tween_interval(bl)
 	var t_back := 0.0
 	var ende := start + dir * jump
-	if weg.has("Ausweichen zurück") and anim.has_animation("Ausweichen zurück"):
+	# 863: der Rücksprung der Quelle (Ratte: dodgeBackwards, 1,6 m) nur, wenn sein Weg frei ist, sonst rückwärts im Gang (unten, mit
+	# der Prüfung von 717 C)
+	if weg.has("Ausweichen zurück") and anim.has_animation("Ausweichen zurück") and _satz_frei(ende, b, "Ausweichen zurück", other):
 		var hb: float = anim.get_animation("Ausweichen zurück").length
 		tween.tween_callback(func(): _play("Ausweichen zurück", 0.1))
 		tween.tween_method(func(x: float): position = _weg_at(ende, b, "Ausweichen zurück", x), 0.0, hb, hb)
@@ -3387,10 +3392,25 @@ class SchildFaust extends SkeletonModifier3D:
 	var hand := -1
 	var knick := Quaternion.IDENTITY     # im Raum der Hand, um das Handgelenk (figur.gd _hold)
 	var achse := Vector3.ZERO     # Achse des Knicks im Raum der Hand (schild_406 misst damit weitere Winkel)
+	var anim: AnimationPlayer     # 1014: wo die tiefe Parade gerade steht
+	var oberarm := -2
+	var tief_grad := TIEF_GRAD
 	func _process_modification_with_delta(_delta: float) -> void:
 		var sk := get_skeleton()
 		if sk == null:
 			return
+		# 1014 (schild_406 Wachsoldat, Lauf 365 und 370, am Rechner mit Kaufmodellen Seed 1, 3 und 5): in SS_ParryLow schneidet der
+		# untere Rand des Kaufschilds bei 0,57–0,60 s bis 8 cm ins linke Knie, in SS_SwordAttack1 bei 0,60 s bis 7 cm; dort den linken
+		# Oberarm um TIEF_GRAD abspreizen, weich ein und aus
+		if oberarm == -2:
+			oberarm = sk.find_bone("upperarm_l")
+		if oberarm >= 0 and anim != null and TIEF_KNIE.has(anim.current_animation):
+			var mb: Array = TIEF_KNIE[anim.current_animation]
+			var w := clampf(1.0 - absf(anim.current_animation_position - mb[0]) / mb[1], 0.0, 1.0)
+			if w > 0.0:
+				var pg := sk.get_bone_global_pose(sk.get_bone_parent(oberarm))
+				var ax := (pg.basis.inverse() * Vector3.BACK).normalized()
+				sk.set_bone_pose_rotation(oberarm, Quaternion(ax, deg_to_rad(tief_grad * w * w * (3.0 - 2.0 * w))) * sk.get_bone_pose_rotation(oberarm))
 		if hand >= 0 and knick != Quaternion.IDENTITY:
 			sk.set_bone_pose_rotation(hand, sk.get_bone_pose_rotation(hand) * knick)
 		if glieder.is_empty():
@@ -3410,6 +3430,9 @@ class SchildFaust extends SkeletonModifier3D:
 			sk.set_bone_pose_rotation(b, Quaternion(achse, deg_to_rad(FAUST_GRAD)) * sk.get_bone_pose_rotation(b))
 
 var schild_faust: SchildFaust
+const TIEF_GRAD := 12.0     # 1014: Abspreizen des linken Oberarms in der tiefen Parade (Grad, schild_406 je Wert gemessen)
+## 1014: [Zeit in der Bewegung, an der der Schildrand am tiefsten im Knie stand; Zeit je Seite bis ohne Abspreizen] (s)
+const TIEF_KNIE := {"SS_ParryLow": [0.59, 0.15], "SS_SwordAttack1": [0.61, 0.12]}
 
 func _guard(on: bool) -> void:
 	var sk := _find(model, "Skeleton3D") as Skeleton3D
@@ -4205,8 +4228,33 @@ func dodge(after_ms: int, nm := "") -> void:
 			return
 	if nm == "" and weg.has("Ausweichen links"):
 		nm = _ausweich_seite()
+	var selbst := nm == ""
 	if nm == "":
 		nm = "Ausweichen zurück" if weg.has("Ausweichen zurück") and randf() < 0.5 else "Ausweichen"
+	# 863 (Chef 11.11., 20:45, t277.14: „ging dann … links ein bisschen zurück und steht jetzt neben der anderen … oder halb auf ihr
+	# rauf“; nachgestellt ruhe_863 HERO=CLERIC MERC=FIGHTER, Seed 1, Build 277 mit Kaufratte: Ratte 1 wich mit „Ausweichen links“
+	# 14 cm neben Ratte 3 und blieb nach 703 A dort stehen): nur ein Satz, dessen Weg frei ist; sonst ein anderer, sonst rasch
+	# rückwärts im Gang, sonst am Ort
+	var am_ort := false
+	if selbst and weg.has(nm) and anim and anim.has_animation(nm) and not down and not lunging() and not _satz_frei(position, basis, nm):
+		var frei := ""
+		for n2 in ["Ausweichen", "Ausweichen links", "Ausweichen zurück"]:
+			if n2 != nm and weg.has(n2) and anim.has_animation(n2) and _satz_frei(position, basis, n2):
+				frei = n2
+				break
+		if frei != "":
+			nm = frei
+		elif weg.has("Rennen") and weg.has("Gehen") and not flieht and _ausweichen_rueckwaerts():
+			return
+		else:
+			am_ort = true
+	if am_ort:
+		_play(nm, 0.05)
+		bahn = []
+		tween = create_tween()
+		tween.tween_interval(anim.get_animation(nm).length)
+		tween.tween_callback(_nach_ausweichen)
+		return
 	if weg.has(nm) and anim and anim.has_animation(nm) and not down and not lunging():
 		# 348.12: Graks Ausweichen (Seitenlauf der UAL Pro) beginnt mitten im Schritt; aus dem Stehen weicher hinein
 		_play(nm, 0.2 if _zweibeiner() else 0.05)
@@ -4363,6 +4411,20 @@ const ABSETZEN := 0.6
 
 var ausweich_nr := 0     # 593: zählt das Ausweichen, jedes dritte rückwärts
 const AUSWEICH_RUECK_TEMPO := 1.8     # 593: rückwärts im Gang so rasch wie der Satz (546: Gehen × 1,8), nie als Schlaftablette
+
+
+## 863: geht der Wurzelweg [nm] von [o] mit [b] frei? Rumpf an fünf Punkten des Wegs nicht enger als jetzt (höchstens PLATZ_LUFT
+## verlangt, wie _ausweichen_rueckwaerts) und im Bild; [skip] zählt nicht (das Ziel des Bisses)
+func _satz_frei(o: Vector3, b: Basis, nm: String, skip = null) -> bool:
+	var yaw := atan2(b.z.x, b.z.z)
+	var blick := Vector3(sin(yaw), 0.0, cos(yaw))
+	var g0 := minf(_rumpf_luft(o, yaw, skip), PLATZ_LUFT)
+	var bl: float = (weg[nm].size() - 1) / weg_fps
+	for i in range(1, 6):
+		var p := _weg_at(o, b, nm, bl * i / 5.0)
+		if _rumpf_luft(p, yaw, skip) < g0 or not _im_bild(p, blick):
+			return false
+	return true
 
 
 ## 593: geht der Wurzelweg der Bewegung [nm] frei (Abstand zu den anderen wie _ausweich_seite) und bleibt im Bild?

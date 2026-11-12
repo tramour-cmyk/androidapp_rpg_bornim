@@ -6,7 +6,9 @@ Homer 10.11.; Texte für Schritt 4 und 5 des Umzugs (`LISTE-UMZUG-BRS.md`; Vorg�
 
 **Bauregel (wie 817):** nur Zeilen bauen, deren Wirkung im Code steht; fehlt eine, entfällt ihre Zeile, und Tom schreibt es in den Vorrat Homer. Platzhalter %d aus den Regelwerten (`werte.json`).
 
-`[870.14.wert.kopf]` Wert %d / EN: Value %d (Grundwert 2–9 (933); in Kapitel 1 fest, 870a 4)
+`[870.14.wert.kopf]` Wert %d / EN: Value %d (Endwert wie `BrsHeld.wert`: verteilt mit Volk 2–9 (933), dazu Üben (644a F, ersetzt „in Kapitel 1 fest“, 870a 4) und Ausrüstung)
+
+`[1026.grundwert.auf]` Meldung, wenn ein Grundwert durch Üben steigt: {Grundwert} ↑ {Wert} / EN: {attribute} ↑ {value}, etwa „Kraft ↑ 5“ / “Strength ↑ 5” (Homer 12.11., 1026; gebaut 644a.2 Tom, `spiel.gd` `grundwerte_notiz`). Wert wie `[870.14.wert.kopf]`; Name nach `[870.14.wert.…]`. Steht hinter den Fertigkeiten derselben Notiz, getrennt wie dort („Einhänder ↑ 12  ·  Kraft ↑ 5“): erst die Ursache, dann die Folge; dazu der Aufstiegsklang. Kein Wort wie „gestiegen“: dasselbe Zeichen wie bei Fertigkeiten (`[423.fert.wachsen]`) und beim Ruf (`[447.4.ruf.auf]`), der Klang zeigt das Seltene (in Kapitel 1 etwa einmal beim Hauptwert, 644a F). Gegenargument: in 1,8 s neben zwei Fertigkeiten leicht zu übersehen; dann eigene Zeile darunter, nicht mehr Worte.
 
 `[870.14.wert.kraft]` Kraft / Strength
 - Schaden mit Nahkampfwaffen und Fäusten, außer Dolchen. / EN: Damage with melee weapons and fists, except daggers.
@@ -64,7 +66,7 @@ Homer 10.11.; Texte für Schritt 4 und 5 des Umzugs (`LISTE-UMZUG-BRS.md`; Vorg�
   - `[870.14.ding.zweihand]` Braucht beide Hände: kein Schild dazu. / EN: Needs both hands: no shield with it.
   - `[870.14.ding.stufe]` Erst ab Heldenstufe %d. / EN: Only from Hero Level %d.
 - „Ungeübt: kein Fertigkeitsbonus“ wird: `[870.14.ding.neu]` (Fertigkeit noch 0) Noch nie benutzt: du fängst bei null an. / EN: Never used: you start from nothing.
-- `[870.14.ding.guete]` (statt „Angriff +%d“ der alten Verbesserung) Güte: Normal / Gut / Meisterhaft. EN: Quality: Standard / Fine / Masterwork.
+- `[870.14.ding.guete]` (statt „Angriff +%d“ der alten Verbesserung) Güte: Schlecht / Normal / Gut / Meisterhaft. EN: Quality: Poor / Common / Fine / Masterwork. (976a A, Chef 11.11., 20:13; ersetzt Normal / Gut / Meisterhaft, EN Standard / Fine / Masterwork, heute noch in `beute.gd` `GUETE_DE`, `GUETE_EN`.) Am Ding steht nur, was von Normal abweicht, wie gebaut (`beute.gd` 404); „Common“ am Ding verwechselt man sonst mit der Seltenheit „common“ („Sell common items“).
 - `[870.14.ding.grundwert]` (statt „Finesse: trifft mit GES oder STÄ“, „Fernkampf: trifft mit GES“) Schaden mit %s / EN: Damage with %s (Kraft oder Gewandtheit nach `werte.json`); Armbrust: `[870.14.ding.armbrust]` Schaden ohne Grundwert. / EN: Damage without an attribute.
 - Rüstung: nur „Schutzwert %d“ (ohne „+ GES (max 2)“ und ohne „Obergrenze“-Zeilen). „Vielseitig, mit beiden Händen“ samt Würfeltext, „Als %s kannst du das nicht tragen“ (Vergleich), „Zauberkraft +%d“ und „Zauberkraft nützt nur Zauberwirkern“ entfallen (Zauberkraft steht nicht in der Liste 11).
 - Zusatzeigenschaften nur nach `DESIGN-BRS.md` 11: „+%d Kraft“ usw., „+%d Schutzwert“, „+%d Leben“, „+%d Mana“, „+%d %% kritisch“, „+%d %% Zauberschaden“, „+%d %% Abwehrprobe“; EN „+%d Strength“, „+%d Protection“, „+%d Life“, „+%d Mana“, „+%d%% critical“, „+%d%% spell damage“, „+%d%% resistance roll“.

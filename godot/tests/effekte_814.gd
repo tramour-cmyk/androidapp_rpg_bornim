@@ -82,13 +82,13 @@ func _lauf() -> void:
 	g.gras_neu()
 	await warte(3)
 	pruefe(g.effekte != null, "wieder an")
-	# Schenke und Laden: Staub im Licht
+	# Schenke und Laden: kein Staub im Licht (990)
 	for ort in ["inn", "shop"]:
 		spiel.betrete(ort, Vector2i(4, 6), "UP")
 		await warte(10)
 		var e: DorfEffekte = spiel.gebiet.effekte
 		var staub := 0
 		if e: staub = e.get_children().filter(func(c): return String(c.scene_file_path).ends_with("dust_motes.tscn")).size()
-		pruefe(staub >= 1 and staub <= 3, "%s: Staub im Licht, %d Schwaerme" % [ort, staub])
+		pruefe(staub == 0, "%s: Staub im Licht in Innenräumen (990: entfällt), %d Schwaerme" % [ort, staub])
 	print("EFFEKTE814 %d Fehler" % fehler)
 	quit(1 if fehler else 0)

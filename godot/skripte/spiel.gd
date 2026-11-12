@@ -74,6 +74,13 @@ func _ready() -> void:
 		add_child(Helligkeit.schicht())
 		starte(nw)
 		return
+	# 1021 (Chef 12.11., 08:09): hat Android das Spiel im Hintergrund beendet, gleich im Spielstand weiter, ohne Vorspann und Hauptmenue
+	var fp := Fortsetzen.offen() if OS.get_cmdline_user_args().is_empty() and DisplayServer.get_name() != "headless" else 0
+	if fp > 0:
+		Fortsetzen.vergiss()
+		add_child(Helligkeit.schicht())
+		starte({"platz": fp, "laden": true})
+		return
 	if OS.get_cmdline_user_args().is_empty() and DisplayServer.get_name() != "headless":
 		var ebene := CanvasLayer.new()   # 399.1 (Test 130: Probeknoepfe und Windrose lagen ueber dem Menue): eigene Ebene ueber allem
 		ebene.layer = 50
@@ -89,6 +96,7 @@ func _ready() -> void:
 	betrete(START, START_KACHEL, "DOWN")
 	bilder()
 	staub_bild()
+	pruefliste_bild()
 	gang_film()
 	leute_blatt()
 	held_film()
@@ -137,7 +145,9 @@ func starte(w: Dictionary) -> void:
 	werte.voll()
 	# 399.1 wie alt (69, GameViewModel.newGame): einmal die Ankunft bei Nacht, dann erwacht der Held neben dem Bett der Schenke
 	# (Story.START), wo Rowena ihn weckt; vorher begann das neue Spiel am Brunnen
-	await zwischenbild("intro")
+	# 1020.1 A (Chef 12.11., 07:55: „das 50. Mal die Intro-Szene überspringen“): Schnellstart im Testmodus ohne Intro, schon erwacht
+	if w.get("schnell", false): zustand.setze(Geschichte.INTRO_DONE)
+	else: await zwischenbild("intro")
 	blende.color.a = 1.0
 	klang("verhuelle", [true])
 	betrete(String(Rast.START["karte"]), Vector2i(int(Rast.START["x"]), int(Rast.START["y"])), String(Rast.START["blick"]))
@@ -231,7 +241,14 @@ func _notification(what: int) -> void:   # 399: auch beim Verlassen der App (alt
 	if what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_WM_CLOSE_REQUEST:
 		speichere()
 		spiel_seit = -1   # 529: im Hintergrund zaehlt nichts (alt pausePlayClock)
-	if what == NOTIFICATION_APPLICATION_RESUMED and spiel_seit < 0: spiel_seit = Time.get_ticks_msec()
+		# 1021: beendet Android das Spiel im Hintergrund, geht es beim naechsten Start gleich hier weiter (fortsetzen.gd)
+		if what == NOTIFICATION_APPLICATION_PAUSED and held and karte and not OS.get_cmdline_user_args().size():
+			Fortsetzen.merke(Spielstand.platz)
+		elif what == NOTIFICATION_WM_CLOSE_REQUEST:
+			Fortsetzen.vergiss()
+	if what == NOTIFICATION_APPLICATION_RESUMED:
+		Fortsetzen.vergiss()   # 1021: die App lief weiter, nichts fortzusetzen
+		if spiel_seit < 0: spiel_seit = Time.get_ticks_msec()
 	# 416.1: Android-Zurück schliesst das oberste Fenster (zurueck.gd); ohne Fenster nichts (vorher beendete es das Spiel)
 	if what == NOTIFICATION_WM_GO_BACK_REQUEST: Zurueck.taste(get_tree())
 	# Build 145 (Tests mit spiel.tscn brachen beim Beenden ab, „corrupted size vs. prev_size“): die statische Uhr der Leute hielt eine
@@ -569,8 +586,13 @@ func tageszeit() -> String:   # Kampfort.tageszeit: tag, abend, nacht
 const KAMPF_TASCHE := ["potion", "greater_potion", "superior_potion", "remedy", "alchemist_fire", "holy_water"]
 
 func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroeffnung := "", nr := 0) -> String:
-	var hw := held_werte() if probe.is_empty() else Testmodus.probeheld(String(probe[0]), int(probe[1]))
-	var soeldner = null if probe.is_empty() else Testmodus.probeheld(String(probe[0]), int(probe[1]))
+	# 1020.2 B: Held, Söldner, Leben, Tasche und Tageszeit des Probekampfs nach der Wahl im Reiter Test (Testmodus.probe_aufbau)
+	var pa: Dictionary = {} if probe.is_empty() else Testmodus.probe_aufbau(String(probe[0]), int(probe[1]))
+	var hw: BrsHeld = held_werte() if probe.is_empty() else pa["held"]
+	var soeldner = null if probe.is_empty() else pa["soeldner"]
+	var mars_s = load("res://regeln/mars.gd")
+	mars_s.test_gegnerzug = "" if probe.is_empty() else Testmodus.probe_zug     # 1020.2 C: nur im Probekampf, nie im Spiel
+	mars_s.test_ausweichen = false if probe.is_empty() else Testmodus.probe_ausweichen
 	var erg := {"ende": "", "tp": {}, "lohn": {}, "rest": {}, "held": null}
 	# 532 (Durchspielregel 488): die ganze Tasche in den Kampf; danach wird nur weggenommen, was verbraucht ist
 	var tasche := {}
@@ -592,12 +614,14 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	# 399.2a (Chef 14:19 „a“): Wolf mit 1–2 Jungwölfen wie im alten Spiel
 	klang("verhuelle", [true])   # 402 (Jerry): unter der Blende vor dem Kampf schweigt alles; sie bringt den Klang des Kampfbeginns
 	klang("spiele_szene", ["BATTLE"])   # 399.3 (Jerry): Kampfmusik wie alt (300 ms), nach der Blende
-	# 399.2 (Jerry 3b9fb3116): Ausruestung als Beute nach einem Sieg wie Battle.finishWin (Loot.drops, einmal je Kampf, Gebietsstufe)
-	var beute := func() -> Array:
+	# 399.2 (Jerry 3b9fb3116): Ausruestung als Beute nach einem Sieg wie Battle.finishWin (Loot.drops, einmal je Kampf). 644a A: in der
+	# Stufe des staerksten besiegten Gegners, hoechstens Heldenstufe + 1 (statt der Gebietsstufe, 543); 633: mit Boss Bossbeute und sein
+	# Einzelstueck (Beute.kampfbeute). [m]: der MARS des Kampfs (kampfort.gd _done)
+	var beute := func(m) -> Array:
 		var w := KotlinZufall.new(randi())
-		var ilvl := int(karte.daten.get("stufe", 1))   # 543 Battle.finishWin: Stufe des Gebiets, in dem gekaempft wird (Tiefer Wald 2, Hoehle 3)
+		var besiegt: Array = m.all.filter(func(f): return f.side == "FOES" and f.monster != null and not f.called_in).map(func(f): return String(f.monster.get("id", "")))
 		var st: Dictionary = BrsHeld.daten()["seltenheiten"]
-		return Beute.beute(hw, w, ilvl, false, false, zustand.neue_uid).map(func(g): return {"gear": g, "name": Beute.name(g), "rarity": Sprache.t(st[String(g["rarity"])]["name"])})
+		return Beute.kampfbeute(hw, w, besiegt, zustand.neue_uid).map(func(g): return {"gear": g, "name": Beute.name(g), "rarity": Sprache.t(st[String(g["rarity"])]["name"])})
 	var k0 := Time.get_ticks_msec()
 	var lage := {"atemlos": zustand.atemlos, "satt": zustand.satt} if probe.is_empty() else {}   # 399.2 (Jerry): wie der Held kommt
 	if Testmodus.ist_an(): lage["eroeffnung"] = Testmodus.eroeffnung   # 399.2 (Jerry): Eröffnung aus dem Reiter Test
@@ -608,6 +632,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	if probe.is_empty(): lage["leiden"] = zustand.leiden.duplicate()   # 532 (Jerry): Zustände aus dem letzten Kampf (GameState.ailments)
 	if probe.is_empty(): lage["betrunken"] = zustand.betrunken()   # 532 Metrausch wie alt (Battle.drunk): betrunken aus der Schenke in den Kampf
 	if probe.is_empty(): lage["tasche"] = tasche   # 532: die ganze Tasche (aufruf.gd starte)
+	else: lage["tasche"] = pa["tasche"]   # 1020.2 B: Tasche nach der Wahl im Reiter
 	if probe.is_empty(): lage["rauch"] = zustand.anzahl(Geschichte.SMOKE_BUNDLE)   # 494 (Jerry, D4.1): Morwens Rauchbündel gegen Krogg
 	if probe.is_empty(): lage["flaggen"] = zustand.flaggen   # 836: Hinweise einmal je Spielstand (Kampfort.flaggen, nicht kopiert)
 	if probe.is_empty(): lage["brs"] = zustand.brs   # 478 (Jerry): der Held nach BRS, wenn der Kampf nach BRS rechnet (brs_kampf.gd)
@@ -617,7 +642,12 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	if probe.is_empty(): lage["gebiet"] = String(BrsHeld.welt().get("gebiet", {}).get(karte.id, ""))
 	# 493 (Jerry): Kampfort im Wald nach dem, was um den Helden steht (wie alt BattleScene.spotFor); im Testmodus wählbar
 	lage["platz"] = Testmodus.kampfort if Testmodus.ist_an() and Testmodus.kampfort != "" else load("res://kampf/kampfort.gd").platz_fuer(karte, held.kachel)
-	var gestartet: bool = aufruf.starte(gegner, hw, soeldner, "wald", tageszeit(), zustand.anzahl("potion") if probe.is_empty() else 2, -1, -1, -1, beute, lage)
+	var zeit := tageszeit() if probe.is_empty() or String(pa["zeit"]) == "" else String(pa["zeit"])   # 1020.2 B: Tageszeit nach Wahl
+	var gestartet: bool = aufruf.starte(gegner, hw, soeldner, "wald", zeit, zustand.anzahl("potion") if probe.is_empty() else 2, -1, -1, -1, beute, lage)
+	# 1020.2 B: nach dem Probekampf „Nochmal“ mit derselben Wahl (Kampfort.again_fn, wie kampf/probe.gd) und „Zurück zum Testmenü“
+	if gestartet and not probe.is_empty() and aufruf.kampf != null:
+		aufruf.kampf.again_fn = func(): aufruf._fertig("AGAIN")
+		aufruf.kampf.zurueck_text = ["Zurück zum Testmenü", "Back to test menu"]
 	if probe.is_empty(): zustand.satt = false   # 399.1: Battle.wellFed endet mit dem Kampfbeginn (der Kampfort gibt +1, 399.2)
 	# 471: welche Fertigkeiten der Held im Kampf benutzt, hoert Kampfuebung mit (wie der Kampfort); gutgeschrieben am Kampfende
 	var uebung: Kampfuebung = null
@@ -653,6 +683,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	if probe.is_empty() and bool(erg.get("rauch", false)) and zustand.anzahl(Geschichte.SMOKE_BUNDLE) > 0: zustand.weg(Geschichte.SMOKE_BUNDLE, 1)   # 494: geworfen
 	var lohn: Dictionary = erg["lohn"]
 	var ende := [String(erg["ende"])]
+	if ende[0] == "AGAIN": return ende[0]   # 1020.2 B: die Blende bleibt schwarz, test_tat startet denselben Probekampf neu
 	klang("nach_kampf", [ende[0] == "WON", karte])   # 399.3 (Jerry): Sieg mit sieg_, sonst Ortsmusik nach 10 s
 	if ende[0] == "NONE" or not probe.is_empty():
 		held.setze(zurueck, "DOWN"); kamera.springe(); await abblenden(0.0)
@@ -683,6 +714,7 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 		return ende[0]
 	hw.leben = clampi(tp_nach, 1, hw.max_leben())
 	if ende[0] == "WON": zustand.siege += 1   # 399.1: GameState.battlesWon (System „Siege“, Thessas Ware); zaehlte bisher nie
+	grundwert_gestiegen = false   # 644a F (Homer 1026): ein Kampf ohne Uebung spielt den Aufstiegsklang des vorigen nicht noch einmal
 	var gestiegen := fertigkeiten_nach_kampf(uebung, ende[0]) if uebung != null else ""   # 471
 	if not lohn.is_empty():
 		zustand.gold += int(lohn.get("gold", 0))
@@ -695,17 +727,31 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	kamera.springe()
 	await abblenden(0.0)
 	if gestiegen != "": ui.kurz(gestiegen)   # 471: „Bogen ↑ 12“, wenn die Welt wieder zu sehen ist
+	if grundwert_gestiegen: klang("effekt", ["level_up"])   # 644a F: ein Grundwert gestiegen, gemeldet wie ein Aufstieg
 	return ende[0]
 
 # 471: Uebung aus dem Kampf gutschreiben (nur nach einem Sieg), Bewaehrungsprobe; die Erfahrung der Fertigkeiten geht in die Heldenstufe
 # nach BRS (zustand.brs_stufe, Stufe wie der Held, bis 472 ihn fuehrt). Gibt die Notiz „Bogen ↑ 12“ zurueck oder leer.
+# 644a F: ist dabei ein Grundwert durchs Ueben gestiegen (BrsHeld.uebungs_plus), steht er dahinter wie eine Fertigkeit
+# („Gewandtheit ↑ 6“, Wert wie im Heldenreiter) und grundwert_gestiegen ist wahr (Klang wie ein Aufstieg)
+var grundwert_gestiegen := false
 func fertigkeiten_nach_kampf(u: Kampfuebung, ende: String) -> String:
+	grundwert_gestiegen = false
 	var s := zustand.fertigkeiten_stand()
 	if s.is_empty(): return ""
+	var vorher: Dictionary = (s.get("werte", {}) as Dictionary).duplicate()
 	var ev := u.gutschreiben(ende, s, zustand.stufe_brs())
 	zustand.spiegle()
 	stufe_abgleichen()   # 870.4: die Erfahrung der Fertigkeiten kann die Heldenstufe heben
-	return Kampfuebung.notiz(ev)
+	var t := Kampfuebung.notiz(ev)
+	var gw := grundwerte_notiz(vorher)
+	grundwert_gestiegen = gw != ""
+	return gw if t == "" else (t if gw == "" else t + "  ·  " + gw)
+
+## 644a F: „Kraft ↑ 5“ je Grundwert, der seit [vorher] (Geuebtes vor dem Kampf) durchs Ueben gestiegen ist, sonst leer
+func grundwerte_notiz(vorher: Dictionary) -> String:
+	var hw := held_werte()
+	return "  ·  ".join(hw.grundwerte_gestiegen(vorher).map(func(g): return "%s ↑ %d" % [Sprache.t(ErschaffungBrs.GRUNDWERT[String(g)]), hw.wert(String(g))]))
 
 # ---------------------------------------------------------------- 490 Kampf mit einem Monster der Karte (Game.engage, startBattle, endBattle)
 # Die Welt ruht im Kampf; danach steht der Held, wo er stand, mit seinem Blick; das Monster ist nach dem Sieg fort (herde.gd)
@@ -984,22 +1030,24 @@ func weiter() -> void:
 		spricht_mit = ""
 	if held: _steht_auf(held.kachel)
 
-# 542 Uniques.make: das Einzelstueck, Stufe wie maxOf(areaLevel, hero.level); zurueck „Name (Seltenheit)“. 870.6: Grundform,
+# 542 Uniques.make: das Einzelstueck, Stufe aus dem Gegenstandskatalog (644a A, DESIGN-BRS.md 11 „Funde“; vorher maxOf(areaLevel,
+# hero.level)); zurueck „Name (Seltenheit)“. 870.6: Grundform,
 # Seltenheit, Guete und Zusatzeigenschaften nach dem BRS aus den Regelwerten (werte.json „gegenstaende“ „einzelstuecke“), Name aus dem
 # Gegenstandskatalog (Beute.name)
 static func einzelstueck(id: String) -> bool: return Beute.einzelstueck(id).has("grundform")
 
 func einzel_gabe(id: String) -> String:
-	var g := Beute.einzel(id, zustand.neue_uid(), maxi(int(karte.daten.get("stufe", 1)), held_werte().stufe))
+	var g := Beute.einzel(id, zustand.neue_uid(), Katalog.stufe(id))
 	zustand.ausruestung_dazu(g)
 	return "%s (%s)" % [Beute.name(g), Sprache.t(BrsHeld.daten()["seltenheiten"][String(g["rarity"])]["name"])]
 
-# Loot.generate mit Mindestseltenheit (rarityFor special, floor) und Platz, Stufe wie maxOf(areaLevel, hero.level)
+# Loot.generate mit Mindestseltenheit (rarityFor special, floor) und Platz, Stufe wie maxOf(areaLevel, hero.level), hoechstens
+# Heldenstufe + 1 (644a A, Beute.gabe_stufe)
 func gear_gabe(was: String) -> String:
 	var t := was.trim_prefix("@gear:").split(":")
 	var hw := held_werte()
 	var w := KotlinZufall.new(randi())
-	var ilvl := maxi(int(karte.daten.get("stufe", 1)), hw.stufe)
+	var ilvl := Beute.gabe_stufe(int(karte.daten.get("stufe", 1)), hw.stufe)
 	var g := Beute.erzeuge(w, zustand.neue_uid(), ilvl, Beute.seltenheit_fuer(hw, w, ilvl, true, t[0]), hw, t[1] if t.size() > 1 else "", true)   # 870.6: nach seinen Fertigkeiten, besonderer Fund
 	zustand.ausruestung_dazu(g)
 	return "%s (%s)" % [Beute.name(g), Sprache.t(BrsHeld.daten()["seltenheiten"][String(g["rarity"])]["name"])]
@@ -1139,6 +1187,35 @@ func test_tat(was: String, mit: Array) -> void:
 			KampfEffekte.an = not KampfEffekte.an
 		"kampfmessen":   # 806: der nächste Kampf misst Bild-, Grafik- und Zeichenzeit je Baustein (Bausteine806)
 			Bausteine806.naechster = not Bausteine806.naechster
+		"lage_merken":   # 1020.1 A: die Lage jetzt in den Lageplatz (Testmodus.LAGEPLATZ), der eigene Platz bleibt
+			var eigen := Spielstand.platz
+			buche_spielzeit()
+			Spielstand.platz = Testmodus.LAGEPLATZ
+			Spielstand.speichere(zustand, held_werte(), platz())
+			Spielstand.platz = eigen
+			ui.kurz(Sprache.t({"de": "Lage gemerkt.", "en": "Situation saved."}))
+		"lage_zurueck":   # 1020.1 A: zurück in die gemerkte Lage; gespeichert wird weiter in den eigenen Platz
+			var eigen2 := Spielstand.platz
+			var stand := Spielstand.lade(Testmodus.LAGEPLATZ)
+			if stand.is_empty():
+				ui.kurz(Sprache.t({"de": "Noch keine Lage gemerkt.", "en": "No situation saved yet."}))
+				return
+			await abblenden(1.0)
+			var von2 := karte.id
+			zustand = Zustand.aus_daten(stand["zustand"])
+			werte = BrsHeld.aus_spiel_daten(stand["held"])
+			stufe_abgleichen()
+			var o: Dictionary = stand["ort"]
+			betrete(String(o["karte"]), Vector2i(int(o["x"]), int(o["y"])), String(o["blick"]))
+			Spielstand.platz = eigen2
+			await ortsworte(von2, false)
+			ui.kurz(Sprache.t({"de": "Gemerkte Lage.", "en": "Saved situation."}))
+		"einmaliges":   # 1020.1 A: Eingebungen, Kampfhinweise und Ortssätze wie beim ersten Mal
+			for f in zustand.flaggen.keys():
+				if String(f).begins_with("eingebung_") or String(f).begins_with("kampf_hinweis_"): zustand.flaggen.erase(f)
+			Ortsblende.besuche.clear()
+			Ortsblende.letzter.clear()
+			ui.kurz(Sprache.t({"de": "Eingebungen, Kampfhinweise und Ortssätze wie beim ersten Mal.", "en": "Insights, fight hints and place lines as the first time."}))
 		"teleport":
 			await abblenden(1.0)
 			var von := karte.id
@@ -1211,7 +1288,11 @@ func test_tat(was: String, mit: Array) -> void:
 		"kampf", "probe":
 			if not ResourceLoader.exists("res://kampf/kampfort.gd"): return
 			await abblenden(1.0)
-			await kampf_im_wald(held.kachel, String(mit[0]), [] if was == "kampf" else [String(mit[1]), int(mit[2])])
+			var ende := await kampf_im_wald(held.kachel, String(mit[0]), [] if was == "kampf" else [String(mit[1]), int(mit[2])])
+			while ende == "AGAIN" and was == "probe":   # 1020.2 B: „Nochmal“ mit derselben Wahl
+				ende = await kampf_im_wald(held.kachel, String(mit[0]), [String(mit[1]), int(mit[2])])
+			# 1020.2 B: aus dem Reiter gestartet, führt „Zurück zum Testmenü“ dorthin (Tests rufen ohne das vierte Feld)
+			if was == "probe" and mit.size() > 3 and bool(mit[3]) and ende != "NONE": oeffne_menue("test")
 
 # 399.1 Schwarzblende mit Worten wie alt (Ortsblende, 24.1): auf der stehenden Blende Name und Satz, dann steigt der Ort auf;
 # [von] leer beim Spielbeginn, [erster] beim ersten Besuch. Ohne daten/intro.json wie bisher nur die Blende
@@ -1582,6 +1663,8 @@ func _kampf_messe() -> void:
 		e.add_child(kampf_mess)
 	kampf_mess.get_parent().visible = an
 	if an and Engine.get_process_frames() % 15 == 0: kampf_mess.text = bs.stand if bs != null else Messung.kampf_zeile()
+	# 1024 (Chef 12.11., 09:04: Ansage über der Bildrate-Zeile): der Kampfschirm hält die Zeile frei
+	if kampf and kampf.get("ui") != null: kampf.ui.frei_halten = [kampf_mess.get_global_rect()] if an and kampf_mess.text != "" else []
 
 # ---------------------------------------------------------------- Standbilder am Rechner (Vergleich alt/neu)
 func bilder() -> void:
@@ -1727,6 +1810,34 @@ func staub_bild() -> void:
 			await get_tree().create_timer(0.12).timeout
 			await knips(dir + "/gross_%d.png" % int(k))
 		print("STAUB Kaminrauch ", fx.kamine.size(), " Teile ", fx.get_children().filter(func(c): return String(c.scene_file_path).contains("chimney")).size())
+	get_tree().quit()
+
+# 1020.1: --pruefbild=<ordner> zeigt den Reiter „Test“ mit der Prüfliste des Builds: zwei Zeilen beantwortet (passt, falsch mit
+# Wort), die dritte aufgeklappt; ein Bild zugeklappt (oben), eines aufgeklappt (Zeile offen). Nur am Rechner (eigene Ablage user://)
+func pruefliste_bild() -> void:
+	var dir := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--pruefbild="): dir = a.substr(12)
+	if dir == "": return
+	DirAccess.make_dir_recursive_absolute(dir)
+	Testmodus.an = true
+	Testmodus.geladen = true
+	Sprache.setze("de")
+	var zl := Pruefliste.zeilen()
+	if zl.size() >= 3:
+		Pruefliste.setze(String(zl[0]["nr"]), "✓")
+		Pruefliste.setze(String(zl[1]["nr"]), "✗ kein Staub")
+		Pruefliste.setze(String(zl[2]["nr"]), "")
+	await get_tree().create_timer(1.0).timeout
+	oeffne_menue("test")
+	await get_tree().create_timer(1.5).timeout
+	await knips(dir + "/pruefliste.png")
+	if zl.size() >= 3:
+		Pruefliste.offen = String(zl[1]["nr"])
+		var m = get_tree().root.find_children("*", "Menue", true, false)
+		if not m.is_empty(): m[0].baue()
+		await get_tree().create_timer(1.0).timeout
+		await knips(dir + "/pruefliste_offen.png")
 	get_tree().quit()
 
 # 348.6 Leute: --gang=<ordner> stellt die Leute nebeneinander auf den Platz, seitlich zur Kamera, und legt je 0,1 s

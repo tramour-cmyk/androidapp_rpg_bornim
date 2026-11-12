@@ -51,6 +51,7 @@ var ring_t0 := 0
 var roll_shown = null
 var roll_at := 0
 var sign_rects := []      # Ansagen dieses Bildes, damit der Würfelkasten ihnen ausweicht
+var frei_halten := []     # 1024: Anzeigen über dem Kampfort (Bildrate im Testmodus, spiel.gd), auf die keine Ansage darf
 var sign_of := {}         # Ansage je Gegner in diesem Bild; Lebensbalken und Zustände hängen an ihr
 var balken_of := {}       # 438: Messung (tests/wolf_mess_438.gd): Ort der Lebensleiste je Gegner in diesem Bild
 var sign_wahl := {}       # 438: Platz der Ansage im letzten Bild je Gegner [Platz, mit Strich, Höhe]
@@ -716,7 +717,8 @@ func _build_orders() -> void:
 		# SkirmishScreen: beide gleich breit (Prüfer: „Nochmal“ breiter als „Zurück“)
 		# 399.2: aus dem Spiel (aufruf.gd) gibt es kein „Nochmal“, nur zurück in die Welt
 		if k.again_fn.is_valid():
-			orders.add_child(_row([_button(t("Nochmal", "Again"), true, func(): k.again()), _button(t("Zurück", "Back"), true, func(): k.finish())], 0, true))
+			var zt: Array = k.zurueck_text if k.zurueck_text.size() == 2 else ["Zurück", "Back"]     # 1020.2 B: „Zurück zum Testmenü“
+			orders.add_child(_row([_button(t("Nochmal", "Again"), true, func(): k.again()), _button(t(String(zt[0]), String(zt[1])), true, func(): k.finish())], 0, true))
 		else:
 			orders.add_child(_row([_button(t("Zurück", "Back"), true, func(): k.finish())], 0, true))
 		return
@@ -1919,6 +1921,10 @@ func _draw_intents(sr: Rect2) -> void:
 		# Prüfstufe: 2 frei von fremden Körpern samt Strich, 1 nur der Schild frei von Körpern, 0 wie alt (SkirmishScreen layOut):
 		# nur nie auf einer anderen Ansage, einem Namen oder einer Leiste
 		var clash := func(r: Rect2, mode: int) -> bool:
+			# 1024 (Chef 12.11., 09:04: „Ansage ! Anspringen“ über der Bildrate-Zeile): nie auf einer Anzeige über dem Kampfort
+			for fr in frei_halten:
+				if r.intersects((fr as Rect2).grow(2 * dp)):
+					return true
 			for o in placed:
 				if r.intersects(Rect2(o.x, o.y, o.w, o.h).grow(2 * dp)):
 					return true
@@ -2188,7 +2194,11 @@ func _draw_switches(sr: Rect2) -> void:
 		lose_rect = Rect2()
 		return
 	var s := 40 * dp
-	var y := sr.size.y - 4 * dp - 44 * dp
+	# 1024 (Chef 12.11., 09:04, Wolfskampf Build 278: Schalterreihe halb vom Kasten verdeckt; schalter_1024): seit 992 ist die Szene
+	# die der zuletzt gepassten Kastenhöhe, die Kamera passt erst nach dem Zug neu (709); wächst der Kasten im Zug, standen die Schalter
+	# bis zu seinem Zuwachs darunter. Sie stehen über dem Kasten, wie er jetzt ist
+	var unten := minf(sr.size.y, overlay.get_viewport_rect().size.y - panel_height())
+	var y := unten - 4 * dp - 44 * dp
 	grid_rect = Rect2(sr.size.x - 4 * dp - 44 * dp, y, 48 * dp, 48 * dp)
 	dice_rect = Rect2(sr.size.x - 52 * dp - 48 * dp, y, 48 * dp, 48 * dp)
 	var g := Rect2(grid_rect.position + Vector2(4, 4) * dp, Vector2(s, s))
