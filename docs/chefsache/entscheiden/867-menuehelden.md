@@ -1,5 +1,5 @@
 # 867 · Hauptmenü: diese vier Helden des Spiels statt der vier Kotlin-Figuren?
-Tom · 12.11., 17:20 · G Stil · Zweig `claude/tom-867-menuehelden`, eine Probe (621 A)
+Tom · 12.11., 18:28 (Haarfarbe entschieden, Archiv; A/B/C offen) · G Stil · Zweig `claude/tom-867-menuehelden`, eine Probe (621 A)
 Kurz: Das Hauptmenü zeigt die Figuren des Spiels selbst: Wachsoldatin (Mensch), Zauberlehrling (Mensch), Jägerkind (Zwerg), Klosterschülerin (Elf). Sind es diese vier?
 
 Geprüft an: [Lauf 43246874141](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43246874141), [Commit 2a5ae20](https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/2a5ae20a9e41a08ce489c9d696dc3e2dd30f1601), Hauptmenü am Bauserver mit den gekauften Figuren wie im Spiel
