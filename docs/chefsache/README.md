@@ -19,6 +19,7 @@ Nichts offen.
 | [1036](ansehen/1036-zustaende.md) | Zustände an den Figuren: Paket oder eigen | – | 12.11., 18:22 |
 | [1039](ansehen/1039-ring.md) | Zielring beim Schweren Hieb lesbar | – | 12.11., 18:22 |
 | [756](ansehen/756-merkmale.md) | Merkmale der Ausrüstung: Güte und Zustand am Bild | – | 12.11., 14:21 |
+| [758](ansehen/758-sitzen.md) | Borin sitzt in der Schenke am Tisch | – | 12.11., 20:13 |
 | [842](ansehen/842-knopf.md) | Pim heimschicken und Verband: Knopf im Gespräch, Bild des Verbands | – | 12.11., 15:30 |
 | [995](ansehen/995-grabhund.md) | Grabhund: Augen, Kopf und Körper lesbar | – | 12.11., 14:35 |
 
@@ -402,7 +403,7 @@ Format (Muster: „So geht's“ unten): t280-nachtrag.md: Zeile 2 ist keine Bere
 
 Beantwortet, Datei noch da (383.3: der Absender löscht sofort): ansehen/t280-nachtrag.md (Antwort t280, 12.11., 15:52)
 
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/1036-zustaende.md, ansehen/1039-ring.md
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/1036-zustaende.md, ansehen/1039-ring.md, ansehen/758-sitzen.md
 
 ## So geht's
 
