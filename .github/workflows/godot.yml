@@ -159,6 +159,16 @@ jobs:
             cp "$s/textures/fabric_rgba.png" "$s/textures/fabric_normal.png" "$s/textures/noise_rgba.png" $f/textures/
           else echo "Effekte: Surface Shaders nicht da"; fi
           echo "Effekte: $(ls $d/effects $d/pack3_effects 2>/dev/null | grep -cE '\.tscn$') Szenen, Fahne $(ls godot/addons/reeboo_surfaces/shaders 2>/dev/null | tr '\n' ' ')"
+      # 993 (Jerry; Chef 11.11., 20:47: Arkanpfeil „sieht überhaupt nicht gut aus“): R2 Stylized Projectiles (gekauft 623) für den
+      # Arkanpfeil (kampf_ui.gd ARKAN_R2, Element arcane), ganzes Paket ohne Vorführung, wie die Probe 623.5. Lizenz verbietet die
+      # Weitergabe: nie ins Repo (godot/.gitignore), nur in den Bau. Fehlt es, malt zauber.gd wie bisher; arkan_993 prüft mit ARKAN_R2=1.
+      - name: Geschosse R2 (993, privat)
+        run: |
+          s=$(find "$KAUF/anhang/stufe1" -maxdepth 6 -type d -path '*addons/reeboo_projectiles' -not -path '*/demo*' 2>/dev/null | head -1)
+          if [ -n "$s" ]; then d=godot/addons/reeboo_projectiles; mkdir -p $d && cp -r "$s/." $d/ && rm -rf $d/demo* $d/README* $d/LICENSE*
+            echo "R2: $(ls $d | tr '\n' ' ') | Elemente: $(ls $d/elements 2>/dev/null | tr '\n' ' ') | arcane: $(ls $d/elements/arcane 2>/dev/null | tr '\n' ' ')"
+            [ -f $d/elements/arcane/arcane_projectile.tscn ] && echo "ARKAN_R2=1" >> "$GITHUB_ENV"
+          else echo "R2: nicht da ($(find "$KAUF/anhang/stufe1" -maxdepth 2 -iname '*projectile*' 2>/dev/null | head -3 | tr '\n' ' '))"; fi
       - uses: actions/setup-python@v5
         id: py
         with:
@@ -549,6 +559,7 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/klang_test.gd 2>&1 | grep -E "^(gut|FALSCH)|KLANG|SCRIPT ERROR"   # 399.3
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/parade_seite_662.gd 2>&1 | grep -E "PARADE662|FEHLER|SCRIPT ERROR"   # 662 Parade nach der Seite des Angreifers (Jerry)
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/todesschrei_2963.gd 2>&1 | grep -E "^(ok|FEHLER|Todesschrei 296.3)|SCRIPT ERROR"   # 296.3 Todesschrei auch bei Zauber- und Zustandstod (Jerry)
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/arkan_993.gd 2>&1 | grep -E "^(Arkan 993|  |FEHLER|ARKAN993)|SCRIPT ERROR"   # 993 Arkanpfeil aus R2 (Jerry)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_473.gd 2>&1 | grep -E "FALSCH|BRS473|SCRIPT ERROR"   # 473 Monsterwerte BRS wie sim444
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/brs_kampf_478.gd 2>&1 | grep -E "^(ok|FALSCH)|BRS478|SCRIPT ERROR"   # 478 Kampf nach BRS wie sim444
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/handlungen_870.gd 2>&1 | grep -E "^(ok|FALSCH)|HANDLUNGEN870|SCRIPT ERROR"   # 870.5 Kampfhandlungen an Fertigkeiten
