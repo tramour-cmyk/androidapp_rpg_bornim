@@ -37,14 +37,13 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 3, startbar 2
+**Homer** – offen 4, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
-| 1067 | M | Von Perikles (1050a A, Chef 12.11., 20:02): passt der Satz der Erschaffung zum Zauberlehrl | startbar |
 | 1069 | M | Von Perikles (1048 A, D, Chef 12.11., 20:05): Ansagen der großen Schläge mit Ring anpassen | startbar |
 
 **Tom** – offen 114, Muss 93, startbar 5
