@@ -26,6 +26,7 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [1022](ansehen/1022-kartenrand.md) | Kartenrand aus der Spielansicht, vorher/nachher | – | 12.11., 17:58 |
 | [756](ansehen/756-merkmale.md) | Merkmale der Ausrüstung: Güte und Zustand am Bild | – | 12.11., 14:21 |
 | [842](ansehen/842-knopf.md) | Pim heimschicken und Verband: Knopf im Gespräch, Bild des Verbands | – | 12.11., 15:30 |
 | [995](ansehen/995-grabhund.md) | Grabhund: Augen, Kopf und Körper lesbar | – | 12.11., 14:35 |
