@@ -90,12 +90,33 @@ static func zusatz_fuer(id: String, seltenheit: String = "COMMON") -> Array:
 	if stufe_von(seltenheit) >= stufe_von(String(r_()["zusatz"]["SKILL"]["ab_seltenheit"])): l.append("SKILL")
 	return l
 
-## Wert einer Zusatzeigenschaft nach der Gegenstandsstufe (werte.json „zusatz“: „wert“, ab „wert2_ab_stufe“ das Doppelte)
-static func zusatz_wert(a: String, stufe: int) -> int:
+## 644a A mit Spanne (DESIGN-BRS.md 11 „Gegenstandsstufe“): Schritt der Gegenstandsstufe, 1–3 eins, 4–6 zwei, 7–9 drei … (werte.json
+## „zusatz_schritt_stufen“)
+static func schritt(stufe: int) -> int: return (maxi(stufe, 1) - 1) / int(r_().get("zusatz_schritt_stufen", 3)) + 1
+
+## kleinster und groesster Wert einer Zusatzeigenschaft auf [stufe] (werte.json „zusatz“): „spanne“ [von, bis] mal Schritt (Leben, Mana,
+## kritisch, Zauberschaden, Abwehrprobe); „je_schritt“: „wert“ mal Schritt (Schutzwert); sonst „wert“, ab „wert2_ab_stufe“ das Doppelte
+## (Fertigkeit, ab episch); Grundwerte immer „wert“ (+1)
+static func zusatz_spanne(a: String, stufe: int) -> Array:
 	var z: Dictionary = r_()["zusatz"].get(a, {})
+	if z.has("spanne"): return [int(z["spanne"][0]) * schritt(stufe), int(z["spanne"][1]) * schritt(stufe)]
 	var n := int(z.get("wert", 0))
-	if z.has("wert2_ab_stufe") and stufe >= int(z["wert2_ab_stufe"]): n *= 2
-	return n
+	if bool(z.get("je_schritt", false)): n *= schritt(stufe)
+	elif z.has("wert2_ab_stufe") and stufe >= int(z["wert2_ab_stufe"]): n *= 2
+	return [n, n]
+
+## Wert einer Zusatzeigenschaft nach der Gegenstandsstufe, in der Spanne gewuerfelt mit [w] (ohne Wuerfel die Mitte); am Stueck steht
+## die Zahl, die wirkt
+static func zusatz_wert(a: String, stufe: int, w = null) -> int:
+	var sp := zusatz_spanne(a, stufe)
+	if int(sp[0]) == int(sp[1]): return int(sp[0])
+	if w == null: return (int(sp[0]) + int(sp[1])) / 2
+	return w.next_int(int(sp[0]), int(sp[1]) + 1)
+
+## 644a D: Grundwerte wuerfeln als Zusatzeigenschaft mit „grundwert_gewicht“ (halb) gegenueber den uebrigen
+static func zusatz_gewicht(a: String) -> int:
+	var gw := int(r_().get("zusatz_gewicht", 2))
+	return maxi(1, roundi(gw * float(r_().get("grundwert_gewicht", 1.0)))) if r_()["zusatz"].get(a, {}).has("grundwert") else gw
 
 static func zusatz_prozent(a: String) -> bool: return bool(r_()["zusatz"].get(a, {}).get("prozent", false))
 
@@ -145,10 +166,10 @@ static func wuerfle(uid: int, id: String, stufe: int, seltenheit: String, w, gue
 	var erlaubt := zusatz_fuer(id, seltenheit)
 	var rolls: Array = []
 	while rolls.size() < zusatzzahl(seltenheit) and not erlaubt.is_empty():
-		var a: String = w.pick(erlaubt)
+		var a: String = w.weighted(erlaubt.map(func(x): return [x, zusatz_gewicht(String(x))]))     # 644a D: Grundwerte halb
 		erlaubt.erase(a)
 		if a == "SKILL": rolls.append([a, zusatz_wert(a, stufe), _skill_fuer(id, w)])
-		else: rolls.append([a, zusatz_wert(a, stufe)])
+		else: rolls.append([a, zusatz_wert(a, stufe, w)])     # 644a: in der Spanne der Stufe
 	return {"uid": uid, "base": id, "rarity": seltenheit, "ilvl": stufe, "guete": guete, "rolls": rolls, "unique": null, "name_seed": w.d(10000)}
 
 # Loot.drops: was ein besiegtes Monster fallen laesst; [neue_uid] gibt die Kennung (GameState.nextUid)
@@ -166,6 +187,28 @@ static func beute(hw: BrsHeld, w, stufe: int, boss: bool, elite: bool, neue_uid:
 		var g := erzeuge(w, 0, stufe, String(f[0]), hw, "", bool(f[1]))
 		g["uid"] = neue_uid.call()
 		out.append(g)
+	return out
+
+# ---------------------------------------------------------------- Beute eines Kampfs (644a A, 633)
+## Stufe der Beute: die des staerksten Gegners, hoechstens Heldenstufe + „beute_stufe_ueber_held“ (DESIGN-BRS.md 11 „Funde“)
+static func beute_stufe(gegner: Array, heldenstufe: int) -> int:
+	var s := 1
+	for id in gegner: s = maxi(s, int(Brs.monster(String(id)).get("stufe", 1)))
+	return mini(s, maxi(heldenstufe, 1) + int(r_().get("beute_stufe_ueber_held", 1)))
+
+## was ein gewonnener Kampf gegen [gegner] (Kennungen der besiegten Gegner) bringt: Loot.drops in der Beutestufe, als Bosskampf, wenn ein
+## Boss dabei ist (633: Battle.finishWin boss), dazu je Gegnerart ihr Einzelstueck (werte.json „monsterregeln“ „einzelstueck“:
+## [[Kennung, Chance]], wie alt Monsters.kt loot; Stufe aus dem Gegenstandskatalog)
+static func kampfbeute(hw: BrsHeld, w, gegner: Array, neue_uid: Callable) -> Array:
+	var boss := gegner.any(func(id): return bool(Brs.monster(String(id)).get("boss", false)))
+	var out := beute(hw, w, beute_stufe(gegner, hw.stufe), boss, false, neue_uid)
+	var mr: Dictionary = BrsHeld.lade().get("monsterregeln", {})
+	var arten := {}
+	for id in gegner: arten[String(id)] = true
+	for id in arten:
+		for e in mr.get(id, {}).get("einzelstueck", []):
+			if einzelstueck(String(e[0])).has("grundform") and w.chance(float(e[1])):
+				out.append(einzel(String(e[0]), neue_uid.call(), Katalog.stufe(String(e[0]))))
 	return out
 
 # generate zieht die Grundform vor der Kennung
