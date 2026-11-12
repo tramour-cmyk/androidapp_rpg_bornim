@@ -29,6 +29,13 @@ func _lauf() -> void:
 		var p: float = st.ruhe_pegel(Vector3(ts * z[0] * 0.5, 0, ts * z[0] * 0.5))
 		pruefe(absf(p - float(z[1])) < 0.01, "Ruhelaut %d Kacheln: %.2f statt %.2f" % [z[0], p, z[1]])
 
+	# 1012 (Lauf 373, wald_490): nach einer Ruhegeste fragt figur._idle -> _versatz_frei (1006) die Figuren des Kampforts ab; der
+	# Ersatz hatte keine, das Skript brach ab
+	var fz = Streuner.Figur.new()
+	fz.kampfort = st
+	pruefe(absf(float(fz._versatz_frei("Stehen", 1.0, 0.5)) - 0.5) < 0.001, "Versatz der Grundschleife mit dem Kampfort-Ersatz bricht ab")
+	fz.free()
+
 	var s: Streuner = null
 	if Streuner.da("wolf"):
 		s = Streuner.aus_daten({"art": "wolf", "kachel": Vector2i(10, 10), "heim": Vector2i(10, 10), "blick": Vector2i(0, 1), "nr": 1},

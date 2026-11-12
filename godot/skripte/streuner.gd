@@ -161,6 +161,9 @@ class Stub:
 	var clock_ms: float:
 		get: return float(Time.get_ticks_msec())
 	var hoerer := Vector3.INF      # wo der Held steht (herde.gd je Bild), INF: keiner
+	# 1012 (Lauf 373, wald_490 „Invalid access 'figures' on Stub“): figur._versatz_frei (1006) zählt die anderen Figuren des Kampforts;
+	# seit 1007 die Uhr läuft, endet eine Ruhegeste der Karte in _idle und fragt danach. Außerhalb des Kampfs keine anderen
+	var figures := {}
 	var k
 	func _init(kf) -> void: k = kf
 	## Anteil des Ruhelauts an der Stelle wo (figur.gd _ruhebewegung): Kacheln wie alt quer und laengs gezaehlt
