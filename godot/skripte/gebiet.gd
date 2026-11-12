@@ -19,6 +19,9 @@ var halm_mmi: MultiMeshInstance3D       # 804: unser Gras, aus, solange das Gras
 var kit_gras: Array[MultiMeshInstance3D] = []
 var kit_stellen: Array[Vector3] = []
 var kit_art := PackedByteArray()
+var effekte: DorfEffekte             # 814 Effekte Szene 1 (Kaminrauch, Fackeln, Staub, Fahne, Wind, Federn), nach DorfEffekte.an
+var bereit := false                   # 814: aufgebaut (gras_neu darf die Effekte schalten)
+var insel_ohne := PackedVector4Array()   # 814: Lichtinseln ohne die der Effekte (Fackel der Schenke)
 
 # 804: Gras und Blumen des Kits an den Stellen unseres Grases, unser Gras dann aus; nach GrasBausatz.an (Grafikstufe 698, Testmenue)
 func gras_neu() -> void:
@@ -27,6 +30,10 @@ func gras_neu() -> void:
 	for m in kit_gras: m.visible = GrasBausatz.an
 	if halm_mmi: halm_mmi.visible = kit_gras.is_empty() or not GrasBausatz.an
 	if held and GrasBausatz.an and not kit_gras.is_empty(): GrasBausatz.schieber(held)
+	# 814: bis zum Ende des Umzugs schaltet „Gras“ im Testmenue auch die Effekte der Szene 1 (Bilder/s mit und ohne Pakete);
+	# spiel.gd und testmodus.gd aendert bis dahin nur der Umzug (LISTE-UMZUG-BRS 2.5), danach ein eigener Schalter
+	DorfEffekte.an = GrasBausatz.an
+	if bereit: effekte_neu()
 var insel_liste := PackedVector4Array()
 var lampen: Array[OmniLight3D] = []
 var raumlicht: Raumlicht   # 399.5 Grundriss
@@ -45,7 +52,15 @@ var glut: Array[ShaderMaterial] = []  # 490 Glut im Feuer
 func _init(k: Karte) -> void:
 	karte = k
 	Licht.nach_licht.clear()
+	mip_aufraeumen()
 	name = "Gebiet_" + k.id
+
+# 680 (Chef 08.11., 16:16: Wald -> Dorf -> Schenke immer zaeher, dann Absturz): die Vorlage des Heilkrauts haengt nicht im Baum und
+# ging beim Ortswechsel nicht mit; sie hielt ihr Netz samt Bildern der ganzen Karte fest (sprung_680: je Runde Wald, Dorf, Schenke
+# rund 100 MB mehr Speicher). Jetzt mit dem Gebiet frei
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_PREDELETE and kraut_netz and is_instance_valid(kraut_netz) and kraut_netz.get_parent() == null:
+		kraut_netz.free()
 
 func _ready() -> void:
 	var stamm := "res://daten/" + datei(karte.id)
@@ -79,6 +94,36 @@ func _ready() -> void:
 	else: baue_lampen()
 	baue_leben()
 	if String(karte.daten.get("art", "")) == "FOREST": baue_dunkel()
+	insel_ohne = insel_liste
+	bereit = true
+	effekte_neu()
+
+# 814: Effekte der Szene 1 nach DorfEffekte.an (Grafikstufe 698, Testmenue); aus: unser Rauch und die Lichtinseln wie vorher
+func effekte_neu() -> void:
+	var soll := DorfEffekte.aktiv() and DorfEffekte.fuer(karte.id)
+	if soll and effekte == null:
+		effekte = DorfEffekte.new(self)
+		add_child(effekte)
+		effekte.nacht_k = nacht_jetzt
+		effekte.baue()
+	elif not soll and effekte:
+		effekte.queue_free()
+		effekte = null
+		for r in rauch: r.visible = true
+		inseln_setzen(insel_ohne)
+
+## 814: eine Lichtinsel dazu (Boden, Gras, Wasser malen sie selbst, BODEN_SCHICHT)
+func insel_dazu(i: Vector4) -> void:
+	var neu := insel_liste.duplicate()
+	neu.append(i)
+	inseln_setzen(neu.slice(0, 64))
+
+func inseln_setzen(inseln: PackedVector4Array) -> void:
+	insel_liste = inseln
+	for m in [boden, halme, wasser, korn_mat]:
+		if m:
+			m.set_shader_parameter("inseln", inseln)
+			m.set_shader_parameter("inseln_n", inseln.size())
 
 # 490 Kartenrand (Orte und Welt W19, alt MapEdge): hinter dem Waldring laeuft der Wald ins Dunkel; ab 3 Kacheln vor dem Rand
 # weich dunkler, ab 12 schwarz (liegt knapp ueber dem Boden, Baeume des Rings stehen darin)
@@ -228,17 +273,30 @@ static func bild(name: String) -> ImageTexture:
 	texcache[name] = t
 	return t
 
+# 680 (Chef 08.11., 16:16: Wald -> Dorf -> Schenke immer zaeher, dann Absturz ohne Fehlerzeile): mip legte jedes Bild unter dem
+# Bildobjekt des glTF ab, das bei jedem Laden neu ist, und hielt beide fuer immer fest; je Ortswechsel blieben Karte, Held und Leute
+# im Speicher (sprung_680: je Runde Wald, Dorf, Schenke rund 105 MB mehr). Jetzt nur schwach gemerkt: dasselbe Bild in mehreren
+# Materialien eines Ladens bleibt eins, mit dem Ort geht es
+static var mipcache := {}   # Kennung des glTF-Bilds -> WeakRef auf das Bild mit Mipmaps
+
 static func mip(t: Texture2D) -> Texture2D:
 	# Bilder aus dem glTF bekommen Mipmaps (sonst flimmern Muster in der Ferne)
 	if t == null: return null
-	if texcache.has(t): return texcache[t]
+	var id := t.get_instance_id()
+	if mipcache.has(id):
+		var alt = (mipcache[id] as WeakRef).get_ref()
+		if alt: return alt
 	var img := t.get_image()
 	if img == null: return t
 	if img.is_compressed(): img.decompress()
 	if not img.has_mipmaps(): img.generate_mipmaps()
 	var r := ImageTexture.create_from_image(img)
-	texcache[t] = r
+	mipcache[id] = weakref(r)
 	return r
+
+static func mip_aufraeumen() -> void:   # 680: Eintraege, deren Bild schon frei ist
+	for id in mipcache.keys():
+		if (mipcache[id] as WeakRef).get_ref() == null: mipcache.erase(id)
 
 # Schablone (Stencil) fuer die Tusche wie Probe Build 12: 1 = Blueten (ohne Linie, sonst schwarze Kaefer) und Buesche (eigene Linie), 2 = Held (feinere Linie)
 static var markiert := {}
@@ -287,6 +345,9 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 				var tex: Texture2D = null
 				if src is BaseMaterial3D: tex = (src as BaseMaterial3D).albedo_texture
 				m.set_shader_parameter("tex", mip(tex) if tex else bild("weiss"))
+				# 831: Blattkarten der Bausatz-Baeume (glTF MASK) wie dort ausgeschnitten, vor der Durchsicht (kette nimmt schnitt mit)
+				if src is BaseMaterial3D and (src as BaseMaterial3D).transparency == BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR:
+					m.set_shader_parameter("schnitt", (src as BaseMaterial3D).alpha_scissor_threshold)
 				if src and String(src.resource_name).begins_with("laub"):
 					m.set_shader_parameter("sway", 1.0)
 					if g and not busch: g.durchsicht(m, 2 if nadel else (1 if krone else 0))   # Busch kniehoch: keine Durchsicht (ersetzte sonst den Shader mit Schablone)
@@ -301,7 +362,10 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 			mi.set_surface_override_material(i, m)
 	for c in n.get_children(): male(c, g, mark, aus)
 
+var nacht_jetzt := 0.0
 func nacht(k: float) -> void:
+	nacht_jetzt = k
+	if effekte: effekte.nacht(k)
 	if raumlicht: raumlicht.nacht(k)
 	# 348.9: nachts wie alt geeicht (Laternen, Fenster, Lichtinseln am Boden kleiner; alt p90 46)
 	for o in lampen: o.light_energy = 1.4 * k   # 348.6: alt nur ein kleiner Hof um die Laterne (Helfer: neu 4-mal zu hell, zu weit)
@@ -346,7 +410,7 @@ static func kette(m: ShaderMaterial, sh: Array) -> ShaderMaterial:
 		var d := ShaderMaterial.new()
 		d.shader = sh[i]
 		d.render_priority = i
-		for k in ["tex", "sway", "cut_ab", "kontur", "licht_dir", "glow", "glow_col"]:
+		for k in ["tex", "sway", "cut_ab", "kontur", "licht_dir", "glow", "glow_col", "schnitt"]:
 			if m.get_shader_parameter(k) != null: d.set_shader_parameter(k, m.get_shader_parameter(k))
 		if m.get_shader_parameter("kontur"): Licht.nach_licht.append(d)
 		vor.next_pass = d
@@ -622,7 +686,7 @@ func halm_netz(xf: Array[Transform3D], cu: Array[Color], tex: String, korn: floa
 	var mmi := MultiMeshInstance3D.new()
 	mmi.multimesh = mm
 	mmi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	var m := ShaderMaterial.new(); m.shader = load("res://shader/halm.gdshader")
+	var m := ShaderMaterial.new(); m.shader = korn_shader() if korn > 0.5 else load("res://shader/halm.gdshader")
 	m.set_shader_parameter("tex", bild(tex))
 	m.set_shader_parameter("korn", korn)
 	m.set_shader_parameter("inseln", insel_liste)
@@ -632,6 +696,17 @@ func halm_netz(xf: Array[Transform3D], cu: Array[Color], tex: String, korn: floa
 	add_child(mmi)
 	letztes_netz = mmi
 	return m
+
+# 612 (Chef 07.11., t268: „Im Weizenfeld wächst sehr viel Wackelgras durch“): Gras und Korn schrieben keine Tiefe (halm.gdshader,
+# sonst Tusche an jedem Halm); das Gras der Wiese hinter dem Feld, in der Schraegsicht vom Korn verdeckt, malte sich je nach
+# Reihenfolge ueber das Korn. Das Korn schreibt jetzt Tiefe (Gras dahinter faellt im Tiefentest weg, auch das Gras-Kit) und
+# markiert Schablone 1 wie die Blueten: keine Tusche auf dem Korn, hinter dem Umriss ohnehin keine (tusche.gdshader hinten_ab)
+static var _korn: Shader
+static func korn_shader() -> Shader:
+	if _korn == null:
+		_korn = Shader.new()
+		_korn.code = (load("res://shader/halm.gdshader") as Shader).code.replace("depth_draw_never;", "depth_draw_opaque;\nstencil_mode write, compare_always, 1;")
+	return _korn
 
 static var _punkt: ImageTexture
 static func punkt_mat(leuchtet: bool) -> StandardMaterial3D:

@@ -76,8 +76,11 @@ func _lauf() -> void:
 	pruefe(name_ != null, "Name der Kappe ohne Zeichen davor fehlt: %s" % [texte(l.inhalt)])
 	var u = Vergleich.von(hw, dolch).urteil()
 	var urteile := alle(l.inhalt, Label, []).filter(func(x): return x.name == "Urteil")
+	var uk = Vergleich.von(hw, kappe).urteil()     # 870.6: die Kappe kann mit ihrer Zusatzeigenschaft selbst ein Urteil tragen
+	var soll := (1 if uk == 1 or uk == -1 else 0) + (1 if u == 1 or u == -1 else 0)
+	if soll > 0 and urteile.size() != soll: pruefe(false, "Urteile %d statt %d (Kappe %s, Dolch %s)" % [urteile.size(), soll, uk, u])
 	if u == 1 or u == -1:
-		pruefe(urteile.size() == 1, "Urteil fehlt (%s)" % u)
+		urteile = urteile.slice(urteile.size() - 1)
 		if urteile.size() == 1:
 			pruefe(urteile[0].text == ("▲" if u == 1 else "▼"), "Zeichen falsch: %s" % urteile[0].text)
 			pruefe(farbe(urteile[0]) == (LadenSchirm.AUF if u == 1 else Stil.WARN), "Zeichen nicht grün/rot")

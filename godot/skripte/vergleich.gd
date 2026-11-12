@@ -5,7 +5,9 @@ extends RefCounted
 # Abschrift). 870.4 (LISTE-UMZUG-BRS.md Schritt 4): nach BRS-Werten: Schutzwert, Schaden als Zahl, Leben, Mana, Kritisch in Prozent, die
 # Grundwerte, dazu die Eigenschaften mit eigener Zeile; Feinschliff 870.7.
 
-const EIGENE := ["CRIT", "FIRE", "RADIANT", "LIFESTEAL", "RESIST", "POISON_HIT", "BLEED_HIT", "STUN_HIT", "TENACITY", "GOLD_FIND", "MAGIC_FIND", "XP"]
+# 870.6: nur noch Zusatzeigenschaften nach DESIGN-BRS.md 11 mit eigener Zeile (Leben, Mana, Schutzwert, kritisch stehen schon oben);
+# Magiefund bleibt, bis Sokrates entscheidet (DESIGN-BRS.md 13)
+const EIGENE := ["SPELL", "TENACITY", "MAGIC_FIND"]
 
 var ersetzt: Array = []
 var zeilen: Array = []        # {wort, vorher, nachher, besser (1, -1, 0), notiz (fehlt oder Satz darunter)}

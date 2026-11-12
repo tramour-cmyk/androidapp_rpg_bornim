@@ -79,6 +79,13 @@ func _lauf() -> void:
 	Spielstand.speichere(z, hw, {"karte": "village", "x": 1, "y": 1, "blick": "UP"})
 	var l := Spielstand.liste()
 	if Spielstand.letzter() != 3 or l[1].size() != 0 or String(l[2]["held"]["name"]) != "Tor" or Spielstand.frei() != 2: fehler += 1; print("FEHLER Plaetze %d %d" % [Spielstand.letzter(), Spielstand.frei()])
+	# 1009 (Lauf 366 „FEHLER Plaetze 1 2“): zwei Speicherungen in derselben Millisekunde; „Weiter“ nimmt trotzdem die spätere
+	var gleich := 0
+	for i in 30:
+		Spielstand.platz = 1; Spielstand.speichere(z, hw, {"karte": "village", "x": 1, "y": 1, "blick": "UP"})
+		Spielstand.platz = 3; Spielstand.speichere(z, hw, {"karte": "village", "x": 1, "y": 1, "blick": "UP"})
+		if Spielstand.letzter() != 3: gleich += 1
+	if gleich > 0: fehler += 1; print("FEHLER 1009 gleiche Millisekunde: %d von 30 mal Platz 1 statt 3" % gleich)
 	Spielstand.loesche(3)
 	if Spielstand.letzter() != 1: fehler += 1; print("FEHLER Loeschen")
 	print("Plaetze: letzter %d, frei %d" % [Spielstand.letzter(), Spielstand.frei()])

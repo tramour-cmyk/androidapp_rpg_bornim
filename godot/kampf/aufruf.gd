@@ -1,6 +1,6 @@
 # 399.2 (Spielfassung, Perikles 28.10., 12:4x; Chef 12:34 „Ich habe jetzt keinen funktionstüchtigen Kampf“): der Kampfort aus einem
 # Aufruf, ohne Probe-Schalter. Die Welt hängt einen Knoten mit diesem Skript ein und ruft starte(): Gegnergruppe (Schlüssel wie
-# probe.gd FOES), der Held als Toms BrsHeld (oder ein fertiges MARS-Blatt wie tabellen.json „probe“), Söldner wahlweise, Kampfort,
+# probe.gd FOES), der Held als Toms BrsHeld (oder ein fertiges MARS-Blatt wie Tabellen.probe()), Söldner wahlweise, Kampfort,
 # Tageszeit, Tränke, wahlweise die Beute (Callable, gibt die Ausrüstung eines Siegs als [{gear, name, rarity}] wie Loot.drops,
 # Toms skripte/beute.gd; sie steht im Endfeld und in lohn.gear). Am Ende kommt das Signal ende(ergebnis, tp, lohn): ergebnis WON, LOST, FLED (NONE: ohne LP kein Kampf), tp die
 # Trefferpunkte je Kämpfer der Gruppe („hero“, „merc“), lohn wie regeln/lohn.gd nach einem Sieg; danach entfernt sich der Knoten.
@@ -100,13 +100,9 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 			m.en = "Grimfang the Alpha"
 		elif foe == "GRIMM":     # 533: seine Leibwache wie alt (Packs.kt guard)
 			m = m.duplicate(true)
-			var fuehrer: Dictionary = monsters.get("dire_wolf", m)
-			m.atk = int(fuehrer.atk) + int(LEIBWACHE.atk_shift)
-			m.dmg = LEIBWACHE.dmg
 			m.chance = float(Brs.begleiter("Leibwache", "dire_wolf").get("chance", LEIBWACHE.chance))     # 870.3: werte.json
 			m.rudel = "Leibwache"     # 870.3: Werte nach BRS aus werte.json „merkmale“ „rudel“ (brs_kampf.gd gegner)
 			m.anfuehrer = "dire_wolf"
-			m.xp = 0     # lohn.gd zählt sie als Begleiter des Leitwolfs (werte.json „erfahrung_anteil“), nicht einzeln
 			m.flee = LEIBWACHE.flee
 		elif ART.has(foe) and monsters.has(ART[foe]):
 			# 535 (Abgleich 512, Sokrates: „Ratten und Fledermäuse als Wölfe, Schamane ohne Heilen“): Werte, Name, Lohn und Regeln
@@ -134,12 +130,12 @@ const ART := {"RATS": Mars.RAT, "BATS": Mars.BAT, "KOBOLDS": Mars.KOBOLD, "SHAMA
 ## (Packs.kt cubs): vorn der Wolf, dazu 1–2 Jungwölfe, halb so groß (scale 0,55), Biss 1W3, Angriff −1; neu, weil MARS
 ## Trefferpunkte braucht: halb so viele wie ein Wolf; sie folgen dem Wolf und fliehen, wenn er fällt (mars.gd follows);
 ## Erfahrung nach BRS über lohn.gd (Wolf, je Jungwolf werte.json „erfahrung_anteil“)
-const JUNGWOLF := {"de": "Jungwolf", "en": "Young wolf", "scale": 0.55, "atk_shift": -1, "dmg": [1, 3, 0], "hp_share": 0.5, "chance": 0.5,
+const JUNGWOLF := {"de": "Jungwolf", "en": "Young wolf", "scale": 0.55, "hp_share": 0.5, "chance": 0.5,
 	"flee": ["Mit eingezogenem Schwanz fliehen die Jungwölfe ins Unterholz!", "Tails tucked, the young wolves flee into the undergrowth!"]}
 
 ## 533 (alt Packs.kt guard): Grimmzahns Leibwache, zwei Wölfe; Biss 1W4, Angriff eins unter Grimmzahn, beißt zu 55 % je Runde;
 ## fällt er, verschwinden sie heulend. Größe (alt 0,78) bleibt, bis der Chef Grimmzahn neu sieht (Chef 04.11., 00:33, 00:39).
-const LEIBWACHE := {"atk_shift": -1, "dmg": [1, 4, 0], "chance": 0.55,
+const LEIBWACHE := {"chance": 0.55,
 	"flee": ["Ihr Leitwolf ist gefallen – die Wölfe verschwinden heulend im Wald!", "Their alpha has fallen – the wolves vanish howling into the forest!"]}
 
 static func rudel(monsters: Dictionary, dice) -> Array:
@@ -149,9 +145,6 @@ static func rudel(monsters: Dictionary, dice) -> Array:
 	jung.de = JUNGWOLF.de
 	jung.en = JUNGWOLF.en
 	jung.scale = JUNGWOLF.scale
-	jung.atk = int(wolf.atk) + int(JUNGWOLF.atk_shift)
-	jung.dmg = JUNGWOLF.dmg
-	jung.xp = 0     # lohn.gd zählt sie als Begleiter des Wolfs (werte.json „erfahrung_anteil“), nicht einzeln
 	jung.flee = JUNGWOLF.flee
 	jung.chance = float(Brs.begleiter("Jungwolf", "wolf").get("chance", JUNGWOLF.chance))     # 399.2b (Chef 28.10., 15:32): 50 % je Runde (Packs.kt cubs); 870.3: werte.json
 	jung.rudel = "Jungwolf"     # 870.3: Werte nach BRS aus werte.json „merkmale“ „rudel“ (brs_kampf.gd gegner)
@@ -175,7 +168,7 @@ static func ersatzwaffe(h):
 			continue
 		var d: Dictionary = h.grundform(id)
 		if String(d["art"]) == "WEAPON" and bool(d["fern"]) == fern:
-			return {"uid": -1 - i, "base": id, "rarity": "COMMON", "ilvl": 1, "plus": 0, "rolls": [], "unique": false}
+			return {"uid": -1 - i, "base": id, "rarity": "COMMON", "ilvl": 1, "guete": 0, "rolls": [], "unique": false}
 	return null
 
 
@@ -186,10 +179,9 @@ static func blatt(h, zweite = null) -> Dictionary:
 	return {"name": h.name, "race": HeldFigur.volk_modell(h.volk), "herkunft": h.herkunft, "level": h.stufe,
 		"sp": h.mana, "sp_max": h.max_mana(), "skills": [], "main": _waffe(h, h.waffe()), "second": _waffe(h, zweite) if zweite != null else null,
 		"off": _waffe(h, h.nebenwaffe()) if h.nebenwaffe() != null else null,
-		"tenacity": mini(h.bonus("TENACITY"), 60), "schild": String(schild["base"]) if schild != null else "",   # 406: Modell in der Hand (figur.gd)
-		"hits": {"POISON": h.bonus("POISON_HIT"), "BLEED": h.bonus("BLEED_HIT"), "STUN": h.bonus("STUN_HIT")},
-		# 534 (alt Hero.lifeSteal, damageReduction): Lebensraub, Schadensminderung der Ausrüstung für mars.gd
-		"lifesteal": mini(h.bonus("LIFESTEAL"), 30), "reduction": h.bonus("RESIST"),
+		"schild": String(schild["base"]) if schild != null else "",   # 406: Modell in der Hand (figur.gd)
+		# 870.6: Lebensraub, Schadensminderung, Standhaftigkeit, Gift-/Blutungs-/Betäubungschance der alten Ausrüstung entfallen
+		# (nicht in der Liste DESIGN-BRS.md 11); was die Ausrüstung nach BRS gibt, steht im Kampfblatt „brs“ („zusatz“)
 		"brs_ruestung": h.ruestung(), "brs": h.mein_kampfblatt()}
 
 
@@ -207,7 +199,7 @@ static func _waffe(h, w) -> Dictionary:
 ## "blende": die schwarze Blende vor dem Kampf, 402; "rauch": Morwens Rauchbündel im Gepäck, gegen Krogg, 494; übrig danach
 ## kampf.mars.smoke; "stand": Heldenstufe nach BRS (Brs.neuer_stand), "gebiet": Gebiet für den Erfahrungstopf, 870.5} (399.2)
 func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := "tag", traenke := 2, held_tp := -1, soeldner_tp := -1, seed := -1, beute := Callable(), lage := {}) -> bool:
-	tabellen = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	tabellen = Tabellen.lade()
 	var dice = Wuerfel.new(null if seed < 0 else seed + 1)
 	var skills := {}
 	for s in tabellen.skills:
@@ -247,11 +239,21 @@ func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := 
 	kampf.tempo_knopf = true     # 600: Knopf im Kampfort schaltet es weiter
 	kampf.tageszeit = tageszeit
 	kampf.ort = ort
+	if lage.get("flaggen") is Dictionary: kampf.flaggen = lage.flaggen     # 836: dasselbe Dictionary wie Zustand.flaggen, nicht kopiert
 	kampf.platz = String(lage.get("platz", "lichtung"))     # 493: Kampfort im Wald nach der Kachel (Kampfort.platz_fuer)
 	# 870.5: Lohn nach BRS (lohn.gd): Heldenstufe aus lage „stand“ (Zustand.stufe_brs, Brs.neuer_stand), ohne ihn am Anfang der
 	# Stufe des Helden; Erfahrungstopf nach lage „gebiet“ (werte.json „Wald“, „Tiefer Wald“, „Höhle“; "" ohne Topf)
 	var stand: Dictionary = lage.get("stand", {})
-	if not kampf.setup(party, foes, tabellen, {"potion": traenke}, _fertig, seed, {"stand": stand, "gebiet": String(lage.get("gebiet", "")), "beute": beute, "atemlos": bool(lage.get("atemlos", false)), "satt": bool(lage.get("satt", false)), "eroeffnung": String(lage.get("eroeffnung", "NORMAL")), "blende": bool(lage.get("blende", false)), "rauch": int(lage.get("rauch", 0))}):
+	# 532, 935 (Durchspielregel 488): die ganze Tasche (lage „tasche“: Ding -> Anzahl), nur was man im Kampf trinkt oder wirft
+	# (tabellen.json „kind“ POTION, BOMB),
+	# sonst nur Heiltränke; übrig danach kampf.mars.potions
+	var tasche: Dictionary = {"potion": traenke}
+	if lage.has("tasche"):
+		tasche = {}
+		for id in lage.tasche:
+			if int(lage.tasche[id]) > 0 and tabellen.items.any(func(it): return String(it.id) == String(id) and String(it.get("kind", "")) in ["POTION", "BOMB"]):
+				tasche[String(id)] = int(lage.tasche[id])
+	if not kampf.setup(party, foes, tabellen, tasche, _fertig, seed, {"stand": stand, "gebiet": String(lage.get("gebiet", "")), "beute": beute, "atemlos": bool(lage.get("atemlos", false)), "satt": bool(lage.get("satt", false)), "eroeffnung": String(lage.get("eroeffnung", "NORMAL")), "blende": bool(lage.get("blende", false)), "rauch": int(lage.get("rauch", 0))}):
 		kampf.free()
 		kampf = null
 		_fertig.call_deferred("NONE")
@@ -277,10 +279,10 @@ func _kaempfer(id: String, x, tp: int, platz: Vector2i, skills: Dictionary):
 
 
 ## 532 (alt Battle.kt init, GameState.ailments): die Zustände, die der Held aus dem letzten Kampf mitbringt; nur, was MARS kennt
-## (Metrausch DRUNK fehlt in MARS, Zu 532)
+## (Metrausch DRUNK kommt nur über „betrunken“, bis zur Rast, nicht als Zug-Zähler; 958)
 static func leiden_auf(f, leiden: Dictionary) -> void:
 	for st in leiden:
-		if Mars.STATUS.has(String(st)) and int(leiden[st]) > 0:
+		if String(st) != "DRUNK" and Mars.STATUS.has(String(st)) and int(leiden[st]) > 0:
 			f.status[String(st)] = int(leiden[st])
 
 
@@ -306,8 +308,6 @@ func _fertig(ergebnis: String) -> void:
 		for f in kampf.mars.fighters():
 			if f.side == "PARTY":
 				tp[f.id] = f.hp
-				if kampf.mars.brs and f.srd_hp > 0:     # 478: zurück in die Leben der Welt im selben Anteil (870.4: dieselbe Zahl)
-					tp[f.id] = clampi(roundi(float(f.hp) * f.srd_hp / maxf(1.0, f.max_hp)), 1 if f.hp > 0 else 0, f.srd_hp)
 				f.sp = Mars.sp_nach(f)     # 870.5: Mana zurück in die Welt (870.4: dieselbe Zahl)
 		lohn = kampf.reward
 	ende.emit(ergebnis, tp, lohn)

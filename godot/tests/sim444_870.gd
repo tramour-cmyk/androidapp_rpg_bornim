@@ -39,7 +39,7 @@ func _lauf() -> void:
 	var n := int(OS.get_environment("N")) if OS.get_environment("N") != "" else 200
 	var ring := Mars.GOOD if OS.get_environment("RING") == "gut" else Mars.NONE
 	var nur := OS.get_environment("NUR")
-	var tab: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	var tab: Dictionary = Tabellen.lade()
 	var skills := {}
 	for s in tab.skills:
 		skills[s.id] = s

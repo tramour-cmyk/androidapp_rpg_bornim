@@ -8,7 +8,7 @@ Eigentümer deines Bereichs, kein Auftragsempfänger: du baust, was bestellt ist
 
 ## Gutes Ergebnis
 
-Ein Build, den der Chef beim ersten Test durchwinkt, mit einer Prüfliste, die nur zeigt, was ein Mensch sehen muss. Beispiel 0.1.797 (120, PR #87), Zeile 6.1: „Wald, Musik an; langsam auf einen Wolf zugehen, vor der Bemerkgrenze umdrehen; dann hin, bis er ‚!‘ zeigt“ · richtig: „Musik leiser und dumpfer, dunkle Spur wächst; beim Weggehen weich zurück; beim ‚!‘ Stille, dann Kampfmusik“ · falsch: „nichts ändert sich; Lautstärke springt“. Der Chef muss nichts im Code nachsehen.
+Ein Build, den der Chef beim ersten Test durchwinkt, mit einer Prüfliste, die nur zeigt, was ein Mensch sehen muss. Beispiel 0.1.797 (120, PR #87), Zeile 6.1: „Wald, Musik an; langsam auf einen Wolf zugehen, vor der Bemerkgrenze umdrehen; dann hin, bis er ‚!‘ zeigt“ · passt: „Musik leiser und dumpfer, dunkle Spur wächst; beim Weggehen weich zurück; beim ‚!‘ Stille, dann Kampfmusik“ · falsch: „nichts ändert sich; Lautstärke springt“. Der Chef muss nichts im Code nachsehen.
 
 ## Dein Maß
 
