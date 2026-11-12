@@ -8,7 +8,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 **Übergabe (12.11., 15:01, `session_01Hmoj76DJtggtnNPKMMxpU6`):** 995 Grabhund gebaut (`claude/jerry-995-grabhund` `783bc44ee`), Probe gelb/rot beim Chef (`ansehen/995-grabhund.md`); nach seiner Wahl AUGE in `kaufgrabhund.py` setzen. 1032 im einzelnen Kampf nicht nachgestellt (`claude/jerry-1032-treffer`, wartet auf 1025). 1037 Werte gebaut (`claude/jerry-1037-werte`), Vorentscheid 1038 bei Sokrates, Start Tom 842 an Ford. 1036 Abgleich alt in Zu 1036, Bau Tuffy. Nachfolger: keiner (nur Pflege)
 
-**Übergabe Tuffy (12.11., 00:29, `session_01Hmoj76CayzJH3pKHwcqVjq`):** 935 Wurfprüfung behoben, Film beim Chef (Zu 935); 620.2c erledigt; 952 gebaut.
+**Übergabe Tuffy (12.11., 16:17):** 1036 beim Chef; 1039, 1040 Filmläufe laufen. Nachfolger: Tuffy – 1039/1040: Filme an den Chef
 
 ## Einzelheiten
 - **Zu 1037, von Sokrates (12.11., 16:06):** Vorentscheid 1038: deine Zahlen gelten (Archiv, `billigen/1038-ueberreden-verband.md`), `7696371e0` darf mit 842 in den nächsten Build. Gesehen dabei: Heiltrank heilt in `welt` 14, in `wirtschaft.traenke` (Simulation) 12; bitte angleichen oder den Unterschied in der Erläuterung begründen.
