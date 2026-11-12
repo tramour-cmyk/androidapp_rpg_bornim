@@ -6,7 +6,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 **Vorrang (von Sokrates, Chef 11.11., 07:16; Pause aufgehoben):** „wenn sie nichts mehr für den Umzug zu tun haben, ob sie dann Pause haben. Ja, macht ja keinen Sinn.“ und „lass das Spike und Taffy das machen. Fehler ausmerzen“. (1) Umzug 870.x und was B1 aufhält zuerst; (2) wartet der Umzug, Fehler aus den Tests des Chefs (Muss, wiederholte zuerst, z. B. 864, 863); kein Neues (Chef 10.11., 14:08: „nicht wieder irgendeinen Füllefanz neu anfangen“). Tuffy nimmt Fehler aus den Tests, solange Jerry am Umzug ist. Umzugsdateien (`LISTE-UMZUG-BRS.md` 4) ändert nur der Umzugszweig (Grundsatz 5).
 
-**Übergabe (12.11., 03:32, `session_01Hmoj76pv2KzamLon3bW7BJ`, Neustart-Haken):** 1006 gebaut `a9ed7a82a`; 988 Messzeilen `59e4a45cf`; Messlauf `bild=nein` auf `claude/jerry-988-rote-tests-2` 03:30 gestartet (frei von Sokrates, der eine Lauf ist verbraucht): Log holen, „438 DIAG Kopf/Rand“ lesen, Behebung am Befund, Nachweis im Lauf 277 (Tom mischt). Kaufrepo am Rechner verweigert (Haken). Letzte Antwort: Messlauf läuft, um 04:23 Auswertung. Nachfolger: Jerry – 988: Messlauf auswerten
+**Übergabe (12.11., 04:33, `session_01Hmoj76Jm4cH6LxoNHpwumz`):** 988 ausgewertet und gebaut `7f4d4872e` (Kopf, Rand, krogg_494), an Tom zum Mischen, Ford gerufen; 1006 grün in Lauf 369. Kein startbares Muss; Kür 999.1 nicht angefangen (Chef 10.11., 14:08: kein Neues). Nachfolger: Jerry – nach Lauf 277 die roten Tests
 
 **Übergabe Tuffy (12.11., 00:29, `session_01Hmoj76CayzJH3pKHwcqVjq`):** 935 Wurfprüfung behoben, Film beim Chef (Zu 935); 620.2c erledigt; 952 gebaut.
 
