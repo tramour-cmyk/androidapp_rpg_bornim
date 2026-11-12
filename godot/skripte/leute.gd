@@ -278,7 +278,9 @@ func _ready() -> void:
 		rotation.y = blick
 		if anim and anim.has_animation("Stehen"): anim.play("Stehen")
 		return
-	if not daten.has("datei") and baue_kauf(p): return
+	if not daten.has("datei") and baue_kauf(p):
+		setze_sitzen()
+		return
 	modell = Gebiet.lade_glb(datei)
 	add_child(modell)
 	Gebiet.male(modell, null, 2, mats)
@@ -311,6 +313,68 @@ func _ready() -> void:
 	position = karte.kachel_pos(kachel)
 	blick = {"UP": PI, "DOWN": 0.0, "LEFT": -PI / 2, "RIGHT": PI / 2}.get(String(daten.get("blick", "DOWN")), 0.0)
 	rotation.y = blick
+	setze_sitzen()
+
+# 758 A (Chef 09.11., 20:45, Archiv „758 A“; alt MapFolk.kt 103 sits, WorldScreen.kt 1088 dem Tisch zugewandt): Merkmal „sitzt“ je
+# Person (leute.json: sitz_cm Hoehe des Hockers, zum_tisch_cm aus der Kachelmitte zum Tisch, raum.py setzt Hocker und Krug dorthin).
+# Wer es hat, sitzt mit der Bewegung „Sitzen“ auf dem Hocker, Blick wie in der Karte (zum Tisch), steht nicht auf, weicht nicht und
+# dreht sich nicht; schaut er her oder spricht er (wende_zu), wendet er nur den Kopf zum Helden (KopfDreher). Ohne „Sitzen“ (Figur
+# ohne Kaufkoerper) steht er wie bisher.
+const SITZ_BECKEN := 0.08                # m: Beckenknochen ueber der Sitzflaeche
+var sitzt := {}
+var kopf_dreher: KopfDreher
+
+func setze_sitzen() -> void:
+	var st: Dictionary = HeldFigur.person_daten(String(daten.get("id", ""))).get("sitzt", {})
+	if st.is_empty() or anim == null or not anim.has_animation("Sitzen") or kachel != Vector2i(int(daten["x"]), int(daten["y"])): return
+	var sk := Gebiet.finde(modell, "Skeleton3D") as Skeleton3D
+	var b := sk.find_bone("pelvis") if sk else -1
+	if b < 0: return
+	sitzt = st
+	anim.get_animation("Sitzen").loop_mode = Animation.LOOP_LINEAR
+	anim.play("Sitzen")
+	anim.seek(zufall.randf() * anim.get_animation("Sitzen").length, true)
+	var vor := Vector3(sin(rotation.y), 0, cos(rotation.y))
+	var sitz := karte.kachel_pos(kachel) + vor * float(st.get("zum_tisch_cm", 0)) / 100.0
+	position = sitz
+	var becken := to_local(sk.to_global(sk.get_bone_global_pose(b).origin))   # Leute-Knoten: Figur steht auf y 0
+	position = sitz + Vector3(0, float(st.get("sitz_cm", 45)) / 100.0 + SITZ_BECKEN - becken.y, 0) - global_basis * Vector3(becken.x, 0, becken.z)
+	kopf_dreher = KopfDreher.new()
+	kopf_dreher.vor = vor
+	sk.add_child(kopf_dreher)
+
+func sitzen(dt: float) -> void:
+	var s := schaut_her(dt)
+	var zu := zugewandt_bis > 0 and Time.get_ticks_msec() < zugewandt_bis
+	if zugewandt_bis > 0 and not zu: zugewandt_bis = 0
+	kopf_dreher.ziel = held.global_position + Vector3(0, 1.5, 0) if held and (s or zu) else Vector3.INF
+	if anim.current_animation != "Sitzen": anim.play("Sitzen", 0.3)
+
+## 758: dreht nur Hals und Kopf zum Ziel (hoechstens 70 Grad zur Seite), weich hin und zurueck; Vector3.INF: geradeaus
+class KopfDreher extends SkeletonModifier3D:
+	const HOECHSTENS := 70.0
+	const TEMPO := 3.0                   # 1/s
+	var ziel := Vector3.INF
+	var vor := Vector3.BACK              # Blick des Koerpers in der Welt (sitzt still)
+	var winkel := 0.0                    # rad, jetzt
+	func _process_modification() -> void:
+		var sk := get_skeleton()
+		var h := sk.find_bone("Head")
+		if h < 0: return
+		var soll := 0.0
+		var kopf := sk.global_transform * sk.get_bone_global_pose(h)
+		if ziel != Vector3.INF:   # Winkel um die Hochachse von vor nach hin (positiv: von +z nach +x)
+			var hin := ziel - kopf.origin
+			soll = clampf(atan2(vor.z * hin.x - vor.x * hin.z, vor.x * hin.x + vor.z * hin.z), -deg_to_rad(HOECHSTENS), deg_to_rad(HOECHSTENS))
+		winkel = move_toward(winkel, soll, TEMPO * get_process_delta_time())
+		if absf(winkel) < 0.001: return
+		var kette := ["neck_01", "Head"].map(func(n): return sk.find_bone(n)).filter(func(i): return i >= 0)
+		for i in kette:   # je Knochen die Haelfte um die Hochachse der Welt
+			var g := sk.get_bone_global_pose(i)
+			var auf := sk.global_basis.inverse() * Vector3.UP
+			var n := Basis(auf.normalized(), winkel / kette.size()) * g.basis.orthonormalized()
+			var pg := sk.get_bone_global_pose(sk.get_bone_parent(i))
+			sk.set_bone_pose_rotation(i, (pg.basis.orthonormalized().inverse() * n).get_rotation_quaternion())
 
 # 475: die Person auf dem Kaufkoerper mit eigenem Gesicht (heldfigur.gd person); false ohne Kaufdateien
 func baue_kauf(info_datei: String) -> bool:
@@ -440,7 +504,7 @@ func sperrt(p: Vector3) -> bool:
 # 348.6 Ausweichen wie alt (Game.makeWay, 92; Chef 16:12: „man kann ja auch noch keine NPCs oder Tiere … schieben“): wer vom Helden
 # geschoben wird, tritt zur Seite (links oder rechts des Wegs, sonst voran) und bleibt dort einen Moment (alt 4 s), bevor der Tag
 # weitergeht; Wachen auf ihrer Runde nicht (alt: patrol). Tiere auch.
-func weicht() -> bool: return da and not drinnen and not daten.has("runde")
+func weicht() -> bool: return da and not drinnen and not daten.has("runde") and sitzt.is_empty()   # 758: wer sitzt, steht nicht auf
 
 func weiche(d: Vector2i) -> bool:
 	# 416.2 (Chef 31.10.: „Platzwechsel statt nur Schieben“; 02.11., 10:52, Build 146: „Ziege wird geschoben, kein Platztausch“):
@@ -484,6 +548,9 @@ func frei_fuer_mich(t: Vector2i, held_da := false) -> bool:
 # zu Kachel weitergeht, stand bisher ein Bild lang (Stehen 0,25 s angespielt, dann Gehen 0,18 s an zufaelliger Stelle: Sprung je
 # Kachel). Jetzt entscheidet sie erst, ob sie weitergeht; nur wer stehen bleibt, blendet in die Pause
 func _process(dt: float) -> void:
+	if not sitzt.is_empty():
+		sitzen(dt)
+		return
 	if ziel.x >= 0:
 		laufe(dt)
 		return
