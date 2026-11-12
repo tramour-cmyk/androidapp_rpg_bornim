@@ -1,5 +1,7 @@
 # 1022 · Kartenrand aus der Spielansicht, vorher/nachher · Tom (Spike) · 12.11., 17:58
 
+[Bild von 12.11., 17:59](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/12-1759-1022-Spike-2.png) (eingetragen von meldung.sh, Spike)
+
 [Bild von 12.11., 17:59](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/12-1759-1022-Spike.png) (eingetragen von meldung.sh, Spike)
 
 E Welt · Zweig `claude/tom-1022-kartenrand` · auf dem Bauserver mit Kaufmodellen, wie im Spiel
