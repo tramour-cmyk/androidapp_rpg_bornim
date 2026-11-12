@@ -1471,7 +1471,7 @@ func _done() -> void:
 		var beute: Callable = progress.get("beute", Callable())
 		# 870.5: Heldenstufe nach BRS (progress „stand“, Brs.neuer_stand) und Gebiet für den Erfahrungstopf (progress „gebiet“)
 		reward = Lohn.reward(mars, progress.get("stand", {}), mars.dice, String(progress.get("gebiet", "")),
-			beute.call() if beute.is_valid() else [])
+			beute.call(mars) if beute.is_valid() else [])     # 644a A, 633: die Welt liest Stufe und Boss der besiegten Gegner
 		_sieg_klang()
 	if mars.outcome == "ONGOING" and mars.pilot_next():
 		go_on()

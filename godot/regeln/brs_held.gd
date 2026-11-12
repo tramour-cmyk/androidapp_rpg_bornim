@@ -153,9 +153,40 @@ func frei_ziel() -> String:
 		if int(verteilt[g]) > int(verteilt[best]): best = g
 	return best
 
-## Endwert: verteilt plus Volk (das Volk hebt hoechstens bis volk_max und senkt nie unter volk_min; in Kapitel 1 fest, 870a 4), dazu
-## was die Ausruestung gibt (870.4: Zusatzeigenschaft des Grundwerts und „alle Grundwerte“, im Kapitel gedeckelt wie bisher)
-func wert(g: String) -> int: return grundwert(g) + ausruestungs_bonus(g)
+## Endwert: verteilt plus Volk (das Volk hebt hoechstens bis volk_max und senkt nie unter volk_min), dazu was Ueben gibt (644a F, ersetzt
+## 870a 4 „in Kapitel 1 fest“) und was die Ausruestung gibt (870.4: Zusatzeigenschaft des Grundwerts und „alle Grundwerte“, Deckel nach
+## werte.json „deckel“)
+func wert(g: String) -> int: return grundwert(g) + uebungs_plus(g) + ausruestungs_bonus(g)
+
+## 644a F (Chef 12.11., 08:21): an welchem Grundwert eine Fertigkeit haengt: werte.json „ueben“ „grundwert_von“, sonst „grundwert“ ihrer
+## Waffengruppe oder Schule („waffen“, „schulen“); "" an keinem
+static func grundwert_der_fertigkeit(f: String) -> String:
+	var W_ := lade()
+	var gv = W_.get("ueben", {}).get("grundwert_von", {}).get(f)
+	if gv != null: return String(gv)
+	for blk in ["waffen", "schulen"]:
+		var d = W_.get(blk, {}).get(f)
+		if d is Dictionary and d.get("grundwert") != null: return String(d["grundwert"])
+	return ""
+
+## 644a F: Punkte, die die Fertigkeiten an [g] seit dem Start gewonnen haben (geuebt ueber dem Startwert; „Fertigkeit +n“ der
+## Ausruestung zaehlt nicht); [geuebt_] statt des Geuebten dieses Helden
+func geuebte_punkte(g: String, geuebt_ = null) -> int:
+	var ge: Dictionary = geuebt if geuebt_ == null else geuebt_
+	var start := fertigkeiten()
+	var n := 0
+	for f in ge:
+		if grundwert_der_fertigkeit(String(f)) == g: n += maxi(0, int(ge[f]) - int(start.get(String(f), 0)))
+	return n
+
+## 644a F: was Ueben dem Grundwert [g] gibt: +1 je „ueben“ „grundwert_punkte“ gewonnene Punkte
+func uebungs_plus(g: String, geuebt_ = null) -> int:
+	var n := int(lade().get("ueben", {}).get("grundwert_punkte", 0))
+	return geuebte_punkte(g, geuebt_) / n if n > 0 else 0
+
+## 644a F (fuer die Meldung „Grundwert gestiegen“, 644a.2 Tom): die Grundwerte, die durch Ueben hoeher sind als mit [geuebt_vorher]
+func grundwerte_gestiegen(geuebt_vorher: Dictionary) -> Array:
+	return grundwerte().filter(func(g): return uebungs_plus(String(g)) > uebungs_plus(String(g), geuebt_vorher))
 
 func grundwert(g: String) -> int:
 	var v := int(verteilt.get(g, unten()))

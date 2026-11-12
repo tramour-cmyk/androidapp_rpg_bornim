@@ -613,12 +613,14 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	# 399.2a (Chef 14:19 „a“): Wolf mit 1–2 Jungwölfen wie im alten Spiel
 	klang("verhuelle", [true])   # 402 (Jerry): unter der Blende vor dem Kampf schweigt alles; sie bringt den Klang des Kampfbeginns
 	klang("spiele_szene", ["BATTLE"])   # 399.3 (Jerry): Kampfmusik wie alt (300 ms), nach der Blende
-	# 399.2 (Jerry 3b9fb3116): Ausruestung als Beute nach einem Sieg wie Battle.finishWin (Loot.drops, einmal je Kampf, Gebietsstufe)
-	var beute := func() -> Array:
+	# 399.2 (Jerry 3b9fb3116): Ausruestung als Beute nach einem Sieg wie Battle.finishWin (Loot.drops, einmal je Kampf). 644a A: in der
+	# Stufe des staerksten besiegten Gegners, hoechstens Heldenstufe + 1 (statt der Gebietsstufe, 543); 633: mit Boss Bossbeute und sein
+	# Einzelstueck (Beute.kampfbeute). [m]: der MARS des Kampfs (kampfort.gd _done)
+	var beute := func(m) -> Array:
 		var w := KotlinZufall.new(randi())
-		var ilvl := int(karte.daten.get("stufe", 1))   # 543 Battle.finishWin: Stufe des Gebiets, in dem gekaempft wird (Tiefer Wald 2, Hoehle 3)
+		var besiegt: Array = m.all.filter(func(f): return f.side == "FOES" and f.monster != null and not f.called_in).map(func(f): return String(f.monster.get("id", "")))
 		var st: Dictionary = BrsHeld.daten()["seltenheiten"]
-		return Beute.beute(hw, w, ilvl, false, false, zustand.neue_uid).map(func(g): return {"gear": g, "name": Beute.name(g), "rarity": Sprache.t(st[String(g["rarity"])]["name"])})
+		return Beute.kampfbeute(hw, w, besiegt, zustand.neue_uid).map(func(g): return {"gear": g, "name": Beute.name(g), "rarity": Sprache.t(st[String(g["rarity"])]["name"])})
 	var k0 := Time.get_ticks_msec()
 	var lage := {"atemlos": zustand.atemlos, "satt": zustand.satt} if probe.is_empty() else {}   # 399.2 (Jerry): wie der Held kommt
 	if Testmodus.ist_an(): lage["eroeffnung"] = Testmodus.eroeffnung   # 399.2 (Jerry): Eröffnung aus dem Reiter Test
