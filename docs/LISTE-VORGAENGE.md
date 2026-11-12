@@ -139,7 +139,7 @@
 | 644a.2 | Von Sokrates (644a A, D, F; Chef 12.11., 08:21): Mindeststufe zum Anlegen (Laden „Nicht tragbar“, Getragenes bleibt), Gaben höchstens Heldenstufe +1, Stufen der Einzelstücke, Laden in Kapitel 1 ohne Stücke mit Grundwert, Meldung „Grundwert gestiegen“; nach 644a.1 | Tom | M | zu testen | – | claude/tom-644a-tragen | 280 | E Kampf | 7,59 $ |
 | 1022 | Von Sokrates (Chef 12.11., 08:26, Bild Dorf Tag 1 13:39; Wiederholfund t268): Kartenrand aller Gebietskarten wie alt 27m: Wald dicht mehrere Baumreihen über den Rand, ins Dunkel auslaufend; Wege enden nicht offen ins Feld; eine Regel im Kartenbau für Dorf, Wald, Tiefer Wald, Test | Tom | M | startbar, 1022 ja (Chef 13:41) | – | – | – | E Welt | 10,10 $ |
 | 1023 | Hühner wie alt: fliehen verlässlich, Federn sichtbar, auffliegen (aus 814, t278.3; Chef 12.11., 08:31 zurückgestellt), samt Hühnerstall-Frage | Tom | K | ruht, zurückgestellt (Chef 12.11., 08:31) | – | – | – | E Welt | – |
-| Pflege | von Werkzeug (340.3, 12.11.): 15010 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | erledigt | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 12.11.): 17380 Bytes (Grenze 15000), Erledigtes streichen; Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Tom | K | startbar | – | – | – | B Abläufe | – |
 | 1029 | Von Tom (Build 280, Lauf 380): schalter_1024 rot, WOLVES Seed 1: in 1 von 2202 Bildern Ansage auf der Bildrate-Zeile (tiefster Schalter 0 px) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 1025 | Von Sokrates (Chef 12.11., 10:25–10:28, Bilder Probekampf Wölfe, Build 278): zwei Kämpfe zugleich (Probekampf, dann Rudel der Karte ohne Kampfort über der Karte); nach „ganzer Bericht“ Kampfort schwarz, Bilder/s 7–8; Namen Wolf 1–3 gegen Jungwolf; nie zwei Kämpfe zugleich, Karte ruht im Kampf | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 1020.2 | Von Sokrates (1020 B, dann C): Probekampf-Baukasten mit „Nochmal“, Kampfgeschehen erzwingen (Chef 12.11., 08:09) · „jetzt“ 12.11., 08:09 | Jerry | M | zu testen | – | claude/jerry-1020-probekampf | 280 | E Kampf | 9,97 $ |
@@ -274,8 +274,8 @@
 | 1014 | Von Jerry (1013, Lauf 365 und 370): schild_406 FIGHTER SS_ParryLow: Körper bis 0,071 m im Schild (untere Kante, 1–2 Messbilder); Ursache nur mit Kaufmodellen am Rechner nachstellbar | Jerry | M | zu testen | – | claude/jerry-1014-parrylow | 280 | E Kampf | – |
 | 644a.1 | Von Sokrates (644a A mit Spanne, D, F; Chef 12.11., 08:21): erst Rechnung (Spannen je Stufe, schlimmster und üblicher Fall ohne Deckel, Punkte fürs Üben), dann bauen: Beutestufe mit 633, Stufenschritte als Spanne, Deckel weg, Grundwert-Gewicht halb, Wachsen durch Üben | Jerry | M | zu testen | – | claude/jerry-644a-stufe | 280 | E Kampf | – |
 | 1024 | Von Sokrates (Chef 12.11., 09:04, Bild Wolfskampf Build 278): Schalterreihe am rechten Rand (Kreuz, Schwert, Tempo, Würfel, Raster) vom unteren Kasten halb verdeckt; Ansage „! Anspringen“ liegt über der Bildrate-Anzeige; nichts darf Anzeigen oder Schalter verdecken | Jerry | M | zu testen | – | claude/jerry-1024-schalter | 280 | E Kampf | – |
-| Pflege | von Werkzeug (340.3, 12.11.): 21627 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 644b.1 | Von Sokrates (644b A, Chef 12.11., 13:40): Deckel streichen für Grundwerte und Schutzwert; Schutzwert würfelt beim Fund wie die Grundwerte mit halbem Gewicht; im nächsten Build mit 644a.1 | Jerry | M | startbar | – | – | – | E Kampf | – |
+| Pflege | von Werkzeug (340.3, 12.11.): 22355 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
@@ -353,13 +353,13 @@
 | 985 | Systemlösung? Nebel: 2 frühere Vorgänge (505, 502), neu 785.7; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Oberfläche | – |
 | 644a.4 | Vorentscheid: Waffen der Truhe in der Blutzahnhöhle (cave_3) Stufe 3 statt 4, sonst vor Krogg nicht tragbar (Homer 644a.3) | Sokrates | M | startbar | – | – | – | E Kampf | – |
 | 644a.5 | Von Tuffy (644a.1): an welchem Grundwert hängen Rüstung, Ausweichen, Schild, Armbrust und die übrigen Fertigkeiten beim Wachsen durch Üben? Gebaut: nur Waffengruppen und Schulen, 10 Punkte je +1; Regelwerk 2 und 13 nachziehen | Sokrates | M | startbar | – | – | – | E Kampf | – |
-| Pflege | von Werkzeug (340.3, 12.11.): 15834 Bytes (Grenze 15000), Erledigtes streichen | Sokrates | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 12.11.): 16511 Bytes (Grenze 15000), Erledigtes streichen | Sokrates | K | startbar | – | – | – | B Abläufe | – |
 | 843 | D126.1 (Diogenes, 838): START ohne Sitzung 14 von 39 (09.11., 19:04 bis 10.11., 11:08), keiner mit --ohne; 3 ohne Grund (22:44 Spike, 10:25 Jerry, Perikles) | Ford | M | startbar | – | – | – | B Steuerung | 12,41 $ |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +1017,14 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 767 | Wochentermin 13.11.: Rollenspiegel Ford (rollenspiegel.sh Ford) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Ford | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 906 | lauf.py startet Zusatzentwickler auf Zeilen, deren Zweig Umzugsdateien berührt (492 am 11.11., 08:04: claude/tom-492-durchspiel ändert spiel.gd; Grundsatz 5 LISTE-UMZUG-BRS, Zu 870.4 Sokrates 01:57); Sperre nach geänderten Dateien prüfen (von Spike) | Ford | M? | startbar | – | – | – | B Steuerung | – |
-| Pflege | von Werkzeug (340.3, 12.11.): 61141 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 12.11.): 61795 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
