@@ -180,7 +180,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1035 | M | Von Sokrates (Chef 12.11., 14:39): Startbildschirm mit eigenem Zeichen statt Godot (boot_s | wartet auf Test/Build (gebaut) |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 15057 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 141, Muss 128, startbar 2
+**Jerry** – offen 141, Muss 128, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -322,7 +322,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1031 | M | Von Sokrates (Chef 12.11., 14:08, Build 280, MARS-Probekampf Wölfe, Wachsoldat): „ganzer B | wartet auf Test/Build (gebaut) |
 | 1032 | M | Von Sokrates (Chef 12.11., 14:08, Build 280, MARS-Probekampf Wölfe, Held und Söldner Wachs | wartet auf 1025 (startbar) |
 | 1034 | M | Von Sokrates (Chef 12.11., 14:38, Idee 14:34, zu 1020.2): ein Probekampf für alles: Held „ | Sperre 620.1 B: 41 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1020.2 |
-| 1036 | M | Von Sokrates (Chef 12.11., 14:48, Build 280, Probekampf Brandflasche): sichtbare Zustände | startbar |
+| 1036 | M | Von Sokrates (Chef 12.11., 14:48, Build 280, Probekampf Brandflasche): sichtbare Zustände | in Arbeit bei Tuffy |
 | 1037 | M | Von Tom (842, 807 A): Werte in werte.json für Überreden ohne Grundwert (Chance aus Fertigk | wartet auf Test/Build (gebaut) |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 26333 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
