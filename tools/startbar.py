@@ -261,12 +261,13 @@ def jahr_von(tag, monat):
     return d if d >= h - datetime.timedelta(days=183) else datetime.date(h.year + 1, monat, tag)
 
 def antworten(text=None):
-    """Vorgangsarchiv → {Dateikürzel (348.13a → 34813a): (Nr., Zeit der jüngsten Antwort des Chefs)}; Vorentscheide (→ **Vorentscheid**) zählen nicht."""
+    """Vorgangsarchiv → {Dateikürzel (348.13a → 34813a): (Nr., Zeit der jüngsten Antwort des Chefs)}; Vorentscheide (→ **Vorentscheid**)
+    und Laufzusagen nach 480.1 („- **<Nr>, Läufe frei**“, 1010) zählen nicht."""
     antwort = {}
     for z in (lesen("VORGANGSARCHIV.md") if text is None else text).splitlines():
         m = re.match(r"- \*\*([0-9A-Za-z][0-9A-Za-z.]*?)(?:,|\*\*| )", z)
         t = ZEIT.search(z)
-        if not m or not t or z.rstrip().endswith("**Vorentscheid**"): continue
+        if not m or not t or z.rstrip().endswith("**Vorentscheid**") or re.match(r"- \*\*[^*]*, Läufe frei\*\*", z): continue
         k = m.group(1).replace(".", "").lower()
         try: w = _zeit(t)
         except ValueError: continue

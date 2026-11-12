@@ -4,12 +4,12 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `f65ba6afe` (12.11., 02:06)
 
-**Übergabe (12.11., 02:07, `session_01Hmoj77NXYkoR442bAjQC23`):** Pflege: Vorrat 15,3 → 11,4 KB (Absätze 982, 970, 903, Tom 04.11. gestrichen, 981 auf Wortlaut gekürzt; Stand vor „Perikles: Pflege 12.11.“ in Git); Vorschlag Sokrates 01:14 als 1010 (K) angelegt; M? 997–1004 (Jerry) entschieden: alle M außer 1002 K (`ROLLE-PROJEKT.md`). Nachfolger: Perikles – 1010 startbar.py „Läufe frei“
-**Letzte Antwort:** Pflege erledigt, M? 997–1004 entschieden.
+**Übergabe (12.11., 02:07, `session_01Hmoj77NXYkoR442bAjQC23`):** Pflege: Vorrat 15,3 → 11,4 KB (Absätze 982, 970, 903, Tom 04.11. gestrichen, 981 auf Wortlaut gekürzt; Stand vor „Perikles: Pflege 12.11.“ in Git); Vorschlag Sokrates 01:14 als 1010 (K) angelegt; M? 997–1004 (Jerry) entschieden: alle M außer 1002 K (`ROLLE-PROJEKT.md`). 1010 gebaut (bei Diogenes). Nachfolger: auf Abruf
+**Letzte Antwort:** Pflege erledigt, M? 997–1004 entschieden, 1010 gebaut; Vorrat leer, auf Abruf.
 - **Fehler 341, von Sokrates (11.11., 18:14):** 901 (365a B, „alle Hoch“ seit 07:18) startete in der Umgebung „WireStorm Hoch“, die nur Variablen setzt; die App zeigte „Mittel“, keiner prüfte das Ergebnis, gefunden hat es der Chef (18:04; 18:14 „von euch hat es ja keiner gemerkt … Schwarzbuch“). Behoben 981. Lehre: Einstellung am Ergebnis prüfen (`get_session`, App), nie an der Eingabe.
 
 ## Einzelheiten
-- **Zu 1010, von Sokrates (12.11., 01:14):** Archivkopf „<Nr>, Läufe frei“ zählt in `startbar.antworten()` als Chefantwort; bei offener Vorlage zur Nummer (`ansehen/861-umhang.md`) hält die Commit-Prüfung an. Umgangen mit Kopf ohne Nummer (`d74bc8c77`). Vorschlag: „Läufe frei“-Köpfe in `antworten()` überspringen.
+- **Zu 1010, von Sokrates (12.11., 01:14):** Archivkopf „<Nr>, Läufe frei“ zählt in `startbar.antworten()` als Chefantwort; bei offener Vorlage zur Nummer (`ansehen/861-umhang.md`) hält die Commit-Prüfung an. Umgangen mit Kopf ohne Nummer (`d74bc8c77`). Vorschlag: „Läufe frei“-Köpfe in `antworten()` überspringen. **Getan 02:10:** `antworten()` überspringt „- **<Nr>, Läufe frei**“; Probe: Chefantwort 861 00:10 zählt, Laufzusage 01:18 nicht; `--stand` läuft. Ab jetzt geht der Kopf mit Nummer wieder.
 - **Zu 981 (archiviert, Prüfung nach 14.11. bei Diogenes), Wortlaut bis Abnahme:** Chef 11.11., 18:04 (an Sokrates): „wer läuft denn überhaupt noch auf Aufwand hoch? … ich dachte, das hatten wir heute früh so festgelegt, dass alle auf hoch laufen, weil du scheinst ja auf mittel zu laufen“; 18:11: App zeigt bei Sokrates „Mittel“. Befund und Bau (981 `aff3a9af1`, 982 `7431ee44c`) in Git, Stand vor „Perikles: Pflege 12.11.“.
 
 

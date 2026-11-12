@@ -283,7 +283,7 @@
 | 896 | Von Jerry (870.5): Wächter meldet „TP“ als SRD-Begriff (886), Homer 870.14 und DESIGN-BRS 12 lassen TP in Meldungen stehen; Widerspruch klären | Perikles | M | gebaut, Geprüft an: de7ccc403 | – | – | – | E Technik | 0,53 $ |
 | 919 | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): Regeln nachziehen: Testbitte auch bei rot mit Liste „bekannt, nicht melden“, keine bei rotem Start- oder Absturztest; main nur grün und vom Chef getestet; vor jedem Lauf ganzer Testsatz am Rechner (sobald Jerrys Vorgang steht) | Perikles | M | wartet, 9, 10, 13 gebaut; Rechner-Testsatz in 5 nach 918 (2) | 918 | – | – | B Abläufe | – |
 | Pflege | von Werkzeug (340.3, 12.11.): 15318 Bytes (Grenze 15000), Erledigtes streichen | Perikles | K | startbar | – | – | – | B Abläufe | – |
-| 1010 | Von Sokrates (12.11., 01:14): startbar.antworten() zählt Archivkopf „<Nr>, Läufe frei“ als Chefantwort, Commit-Prüfung hält dann an; solche Köpfe überspringen | Perikles | K | startbar | – | – | – | B Abläufe | – |
+| 1010 | Von Sokrates (12.11., 01:14): startbar.antworten() zählt Archivkopf „<Nr>, Läufe frei“ als Chefantwort, Commit-Prüfung hält dann an; solche Köpfe überspringen | Perikles | K | erledigt | – | – | – | B Abläufe | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
