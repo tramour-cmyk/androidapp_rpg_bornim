@@ -22,7 +22,7 @@ Jede Stufenleiter des Spiels steht hier mit ihren Stufen, wovon sie abhängt und
 | Was | Wofür | Stufen | Wovon es abhängt | Abschnitt |
 | --- | --- | --- | --- | --- |
 | Heldenstufe | Leben, Größenordnung im Kampf, Zugang zu Gebieten | 1, 2, 3 …; jedes Kapitel setzt eine Grenze (weich, bis zwei darüber) | Erfahrung aus Kampf, Quests, Story und Fertigkeitsaufstiegen. Bis zur nächsten Stufe 100 × jetzige Stufe; Sieg 10 × Gegnerstufe² (Boss × 3; Held höher um d: × (1 − d/9), ab 9 null; Gegner höher um d: × (1 + d/10), höchstens × 2); Topf je Gebiet 10 × Stufe² je Art, leer 10 %; je 5 Fertigkeitspunkte 20 × Heldenstufe, höchstens 40 % einer Stufe; Bewährungsprobe 25 × Heldenstufe; über der Kapitelgrenze ein Viertel (Regelwerte `erfahrung`, Seite 969) | 4 |
-| Grundwerte (6) | Begabung: Kraft, Gewandtheit, Zähigkeit, Verstand, Wille, Wahrnehmung | Start 3 bis 8 | in Kapitel 1 fest (870a 4 A); ab Kapitel 2 mit den Fertigkeiten, **Formel offen**; Ausrüstung gibt Zusatzeigenschaften (heute gedeckelt: höchstens + Kapitelnummer je Grundwert, Chef 21:01 dagegen, 644a) | 2 |
+| Grundwerte (6) | Begabung: Kraft, Gewandtheit, Zähigkeit, Verstand, Wille, Wahrnehmung | Start 3 bis 8 | wächst durch Üben: +1, sobald die Fertigkeiten an diesem Grundwert zusammen eine feste Zahl Punkte gewonnen haben, in Kapitel 1 etwa einmal beim Hauptwert (644a F, Chef 12.11., 08:21; ersetzt 870a 4 A; Zahl rechnet Jerry); Ausrüstung gibt Zusatzeigenschaften ohne Deckel, die Menge steuert die Häufigkeit beim Fund (644a D) | 2 |
 | Fertigkeiten (37) | Können im Einzelnen, auch Sammeln wie Kräutersammeln und Handwerk wie Schmieden | Wert 0 bis 100 in vier Rängen: Anfänger, Geselle, Meister, Großmeister; bei 100 fertig | durch Tun bis zur Rangdecke; der nächste Rang braucht eine Prüfung (Entwurf F) | 3 |
 | Pfad oder Meisterschaft | Rolle des Helden: ein Pfad (Kampf und Lebensweg, mit Auflagen), dazu beliebig viele Meisterschaften (Handwerk, ohne Auflagen) | Anwärter → Eingeweihter → Titel → hoher Titel | Lehrmeister: Zusage, dann Weihe, Titelprüfung, Hohe Prüfung (Entwurf F, Namen 466) | 5, 6 |
 
@@ -324,6 +324,12 @@ Seltenheit und Güte sind getrennt: ein gewöhnliches Schwert kann meisterhaft g
 
 **Zusatzeigenschaften** (870a 6 A): nur aus dieser Liste: Grundwert +1, Schutzwert +1 oder +2, Leben +5, Mana +5, kritisch +3 %, Zauberschaden +10 %, Abwehrprobe +5 %; Fertigkeit +1/+2 nur ab episch (644 C1). Namensfarbe je Seltenheit bleibt. Zahlen 444; Abnutzung und Zustand kommen nach dem Umzug als eigener Vorgang.
 
+**Gegenstandsstufe** (644a A mit Spanne, D, Chef 12.11., 08:21):
+- **Mindeststufe:** ein Stück der Stufe n legt erst ein Held der Stufe n an; Getragenes bleibt angelegt (alte Spielstände, Testmenü). Gewöhnliche Stücke haben die Stufe ihrer Grundform aus dem Katalog.
+- **Stärke:** die Stufe hebt nur die Zusatzeigenschaften, in Schritten von drei Stufen, als **Spanne**; gewürfelt beim Fund, am Stück steht die Zahl, die wirkt. Startwerte (Rechnung 644.2): Stufe 1–3 Leben und Mana +4 bis +6, kritisch +2 bis +4 %, Zauberschaden +8 bis +12 %, Abwehrprobe +4 bis +6 %, Schutzwert +1; Stufe 4–6 doppelt (Leben +8 bis +12 …, Schutzwert +2), 7–9 dreifach, 10–12 vierfach, danach alle drei Stufen ein Schritt. Grundwert je Stück immer +1; Schaden und Schutz der Grundform hebt nur die Güte.
+- **Funde:** Beute in der Stufe des stärksten Gegners, höchstens Heldenstufe +1; Gaben ebenso; Händler nur, was der Held tragen kann; Einzelstücke mit Stufe aus dem Katalog (Homer prüft gegen die Geschichte).
+- **Kein Deckel:** was am Stück steht, wirkt. Grundwerte würfeln als Zusatzeigenschaft mit halbem Gewicht; Händler verkaufen in Kapitel 1 keine Stücke mit Grundwert; vorher rechnet Jerry den schlimmsten und üblichen Fall (über +3 üblich: Zahlen an den Chef).
+
 **Seltenheit:**
 
 | Seltenheit | Zusatzeigenschaften | woran man sie erkennt | in Kapitel 1 |
@@ -335,7 +341,7 @@ Seltenheit und Güte sind getrennt: ein gewöhnliches Schwert kann meisterhaft g
 | episch | 4 | sichtbarer Effekt statt Färbung (458.3, 415) | nur als Einzelstück mit Geschichte |
 | göttlich | 5 | sichtbarer Effekt | nein |
 
-- **Zusatzeigenschaften** werden je Platz aus einer erlaubten Liste gewürfelt und sind gedeckelt (Regelwerte); bei Einzelstücken stehen sie fest im Katalog. Sie nennen nur BRS-Werte (Grundwerte, Schutzwert, Mana, Fertigkeiten …), keine Altwerte.
+- **Zusatzeigenschaften** werden je Platz aus einer erlaubten Liste gewürfelt, ohne Deckel (644a D); bei Einzelstücken stehen sie fest im Katalog. Sie nennen nur BRS-Werte (Grundwerte, Schutzwert, Mana, Fertigkeiten …), keine Altwerte.
 - **„Fertigkeit +1“ oder „+2“** (eine Fertigkeit, solange das Stück getragen wird) gibt es nur ab episch. Der Preis ist die Seltenheit; ein Nachteil am selben Stück darf sein, muss nicht (644 C1, Chef 08.11., 14:32). Flüche nur bei Einzelstücken mit Geschichte (Homer).
 - **Mindeststufe je Seltenheit:** episch erst ab einer Gegenstandsstufe, göttlich ab einer höheren (Regelwerte).
 - **Seltenheitsdecke je Kapitel** (644 C2): in Kapitel 1 als Beute höchstens ungewöhnlich, Bosse und besondere Funde höchstens selten; spätere Kapitel heben die Decke Schritt für Schritt (heutiger Code, Startwert; Regelwerte).
@@ -373,7 +379,7 @@ Folklore-Wesen (Goblin, Kobold, Skelett, Zombie, Ghul) und Tiere behalten ihre N
 - Monsterwerte Kapitel 1 sind entschieden (427, Chef 02.11.: `LISTE-BESTIARIUM.md` „Werte 2.0“); Krogg und Grimmzahn nachgemessen, Werte wie im Bestiarium gelten endgültig (427.1, Chef 02.11., 20:22; ersetzt „offen nur Krogg und Grimmzahn, nachmessen mit Überfall, Rudel, Umreißen“), mit zwei Bedingungen: Hinweis auf Morwens Rauch spätestens nach der ersten Niederlage gegen Krogg, Krogg erst abnehmen, wenn der Rauch im Spiel zu bekommen ist; offen nur die Herkünfte (481).
 - Profil (Entwurf C) ist entschieden (Entscheidung 76); offen bleibt nur die Reihenfolge der Bausteine über Taten und Chronik hinaus.
 - Umfang der Prüfungsquests beim Lehrmeister.
-- Wie die Grundwerte ab Kapitel 2 wachsen (in Kapitel 1 nicht, 870a 4 A); Haupt- und Nebenwert für Spähen, Tiere beruhigen, Schneidern.
+- Zahl der Punkte, ab der ein Grundwert durch Üben wächst (644a F, Jerry 644.2); Haupt- und Nebenwert für Spähen, Tiere beruhigen, Schneidern.
 - Rufstufen, Gefährten ohne Klassen, Niederlage, Reparaturverlust, Abnutzungsrate.
 - Ruf und Lehrmeister (Abschnitt 9, D54.5).
 - Übrige Zahlen (Abschnitt 4: Helden, Übung, Erfahrung): gemessen mit Simulation 444, dann zum Chef.
