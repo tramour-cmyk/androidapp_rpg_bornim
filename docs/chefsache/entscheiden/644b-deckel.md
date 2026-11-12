@@ -47,4 +47,11 @@ Geprüft an: [d0307b2c6](https://github.com/tramour-cmyk/androidapp_rpg_bornim/c
 - Gezählt sind nur Waffengruppen und Schulen, weil nur sie im Regelwerk ihren Grundwert nennen. Mit Rüstung an Zähigkeit und Ausweichen an Gewandtheit kämen Schütze und Späher auf 16 bis 18 Punkte bei Gewandtheit, der Krieger auf 8 bei Zähigkeit.
 </details>
 
+**Stellungnahme Sokrates (12.11., 11:08):**
+- **Stärkstes Gegenargument gegen A:** A behandelt das Anzeichen, nicht die Ursache. Der Schutzwert ist ohne Deckel nicht stärker, weil er zu oft fällt, sondern weil er je Stück mehr gibt: Grundwert immer +1, Schutzwert ab Stufe 4 +2 (Regelwerk 11, „Stufe 4–6 doppelt“), und +2 Schutzwert hilft dem Schützen mehr als +2 Gewandtheit (64 gegen 51 %). Halbes Gewicht macht diese Stücke nur seltener; wer eines findet, hat denselben Sprung. Und die Vorlage zielt auf die Spitze, während das größere Loch unten liegt: der Magier schlägt Krogg in keinem Weg in mehr als der Hälfte der Kämpfe (36 bis 49 %); das ist der Befund aus 952 und 984 (Zauberlehrling fällt zurück) und kommt durch keinen der fünf Wege in Ordnung.
+- **Für A trotzdem, ehrlich:** die Ursache zu beheben hieße, den Schutzwert in Kapitel 1 nicht zu verdoppeln, also C, und C senkt den üblichen Schutzwert unter heute und schwächt den Magier weiter. A ist die mildeste Stellschraube, die dein Wort vom 11.11., 21:01 („dann darfst du halt nicht so viele Gegenstände geben“) schon vorsieht; beim Grundwert ist derselbe Weg gebaut.
+- **Widerspruch zu Entschiedenem:** keiner bei A und B. C bricht „Stufe 4–6 doppelt“ (644a, Regelwerk 11); D und E brechen 644a D („Deckel weg“). Ob die Zahlen die Frage auslösen mussten: mit Ausrüstung allein liegt der übliche Fall bei +3, erst das Üben (644a F, gleichzeitig entschieden) hebt Schütze und Späher auf +4. Die Bedingung ist erfüllt, aber knapp und nur durch F; die Vorlage sagt das richtig.
+- **Kosten:** A eine Zeile und eine Zahl bei Jerry, eine Zeile Regelwerk bei mir; B nichts; C eine Ausnahme in Code und Regelwerk. Die Frage selbst hält 644a.1 und 633 an (beide gebaut, warten auf den gemeinsamen Build): jeder Tag ohne Antwort ist ein Tag ohne Bossbeute im Test.
+- **Empfehlung:** „644b A“, und den Magier gegen Krogg nicht über den Deckel, sondern als eigene Balancevorlage nachziehen (liegt bei mir, Zu 952 und 984).
+
 Antwort: …

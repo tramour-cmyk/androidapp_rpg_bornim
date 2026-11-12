@@ -182,22 +182,22 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1023 | K | Hühner wie alt: fliehen verlässlich, Federn sichtbar, auffliegen (aus 814, t278.3; Chef 12 | ruht |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 20694 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 138, Muss 125, startbar 2
+**Jerry** – offen 138, Muss 125, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 992 | M | Von Sokrates (Chef 11.11., 20:29, Test 277, wiederholt zu 709): Kampf: Bildschirm springt | wartet auf Test (Build 278) |
-| 1025 | M | Von Sokrates (Chef 12.11., 10:25–10:28, Bilder Probekampf Wölfe, Build 278): zwei Kämpfe z | Sperre 620.1 B: 40 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
+| 1025 | M | Von Sokrates (Chef 12.11., 10:25–10:28, Bilder Probekampf Wölfe, Build 278): zwei Kämpfe z | Sperre 620.1 B: 41 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
 | 1020.2 | M | Von Sokrates (1020 B, dann C): Probekampf-Baukasten mit „Nochmal“, Kampfgeschehen erzwinge | wartet auf Test (Build 279) |
-| 1018 | M | Von Tom (1012, Lauf 373 Build 278, PR #197): rote Tests nach dem Mischen: bewegung_997 (FE | Sperre 620.1 B: 40 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
+| 1018 | M | Von Tom (1012, Lauf 373 Build 278, PR #197): rote Tests nach dem Mischen: bewegung_997 (FE | Sperre 620.1 B: 41 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
 | 900 | M | Von Tom (870.4, B1; „jetzt“ 10.11., 22:24, Nachtauftrag Chef): Lauf 335 rot an wolf_mess_4 | wartet auf Test/Build (gebaut) |
 | 870.2 | M | Von Sokrates (870, Umzug BRS Schritt 2): Schnittstelle Held ↔ Kampf: BrsHeld.kampfblatt() | wartet auf Test/Build (gebaut) |
 | 870.3 | M | Von Sokrates (870, Umzug BRS Schritt 3): Daten: werte.json einzige Quelle (Jungwolf, Leibw | wartet auf Test/Build (gebaut) |
-| 709.1 | M | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar (aus 709 abgetrennt, Chef 10.11., | Sperre 620.1 B: 40 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
+| 709.1 | M | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar (aus 709 abgetrennt, Chef 10.11., | Sperre 620.1 B: 41 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
 | 506.2 | M | Grabhund-Biss reicht sichtbar bis zum Helden, nicht nur knapp an den Schild (von Sokrates, | wartet auf 709.1 (startbar) |
 | 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | wartet auf Test (Build) |
 | 642 | M | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 | ruht |
-| 705 | M | Zauberlehrling Stufe 1 gewinnt gegen Wolf und Rudel selten (BRS 2–30 %, Messung anspringen | Sperre 620.1 B: 40 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1020.2 (mars.gd) |
+| 705 | M | Zauberlehrling Stufe 1 gewinnt gegen Wolf und Rudel selten (BRS 2–30 %, Messung anspringen | Sperre 620.1 B: 41 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1020.2 (mars.gd) |
 | 806 | M | Kampforte mit den Effektpaketen schöner: Gras und Blumen aus R9, Boden, Staub; Bilder/s ni | wartet auf Test t278 (Chef) |
 | 595 | M | Kampfbewegungen der Kaufgegner: Spinne mehr Angriffe, Egel und Schnecke schneller, Treffhö | wartet auf Test (Build 278) |
 | 616 | M | Kampf: Gegner weichen nach dem Angriff rückwärts zurück statt vorwärts zu laufen (Chef 07. | wartet auf Test/Build (gebaut) |
@@ -246,37 +246,37 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 644.2 | M | Gegenstandskatalog: Zahlen nach 469 in 444 (Tempo, Parieren, Durchschlag, Güte, Stufe), C1 | ruht |
 | 681 | M | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | ruht |
 | 744 | M | Karte: Streuner und Leute bewegen sich natürlich, verweilen mit Ruhebewegung statt Roboter | wartet auf Test (Build 278) |
-| 760 | M | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht | Sperre 620.1 B: 40 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
+| 760 | M | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht | Sperre 620.1 B: 41 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
 | 770 | M | Wochentermin 13.11.: Rollenspiegel Jerry (rollenspiegel.sh Jerry) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 | 784 | M | Kampf-Sollbild „Wolfsrudel, eine Runde“: wer geht wohin, Höchstdauer je Handlung, Ausweich | wartet auf Test (Build) |
 | 802 | K | Rest 211.14 (Kür, Tuffy): Held und Söldner gehen beim Wechsel statt 0,4 s zu gleiten (figu | ruht |
 | 803 | K | Rest 211.14 (Kür, Tuffy): Gegner durch Antippen der Figur als Ziel wählen | ruht |
 | 811 | K | Von Perikles (800, 650.2 C1): Kommentar in godot/regeln/brs_kampf.gd Zeile 3 nennt DESIGN- | wartet auf Test (Build) |
 | 824 | M | Kampf: Schurke ohne Schild geht beim Angriff kurz 3,4–3,8 m/s in „Gehen“ (Bewegung höchste | wartet auf Test (Build 278) |
-| 833 | M | Unterer Kampfschirm nach Signatur: kein Kasten im Kasten (Bericht, Leiste, Befehle), Knöpf | Sperre 620.1 B: 40 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1020.2 (kampf_ui.gd) |
+| 833 | M | Unterer Kampfschirm nach Signatur: kein Kasten im Kasten (Bericht, Leiste, Befehle), Knöpf | Sperre 620.1 B: 41 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1020.2 (kampf_ui.gd) |
 | 836 | M | Von Homer (830): Hinweis „Nahkampf erreicht nur die vordere Reihe.“ steht in jedem Kampf, | wartet auf Test (Build 278) |
 | 840 | M | Von Sokrates (830 A, Chef 10.11., 11:00): Eingebung beim ersten Auftreten nach 210 B in Go | wartet auf Test (Build 278) |
-| 841 | M | Von Sokrates (807a A, Chef 10.11., 11:01): Goblin-Späher einschüchtern nach STORY-K1-FERTI | Sperre 620.1 B: 40 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 983 (goblin) |
-| 844 | M | Kampf: Goblins und Kobolde haben keine Angriffsbewegung (nur Gehen, Stehen), gleiten im St | Sperre 620.1 B: 40 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 709 |
-| 845 | M | Kampf: Krogg steht 0,65 m hinter seinem Platz, beim Planen des Helden liest seine Lage den | Sperre 620.1 B: 40 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 709 |
+| 841 | M | Von Sokrates (807a A, Chef 10.11., 11:01): Goblin-Späher einschüchtern nach STORY-K1-FERTI | Sperre 620.1 B: 41 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 983 (goblin) |
+| 844 | M | Kampf: Goblins und Kobolde haben keine Angriffsbewegung (nur Gehen, Stehen), gleiten im St | Sperre 620.1 B: 41 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 709 |
+| 845 | M | Kampf: Krogg steht 0,65 m hinter seinem Platz, beim Planen des Helden liest seine Lage den | Sperre 620.1 B: 41 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 709 |
 | 863 | M | Von Sokrates (Chef 10.11., 13:19, t274.15): Ratte aus der hinteren Reihe tapst zum Angriff | wartet auf Test (Build 279) |
-| 872 | M | Kampf auf Halt 653 umstellen: Waffen und Schilde der Gegner und des Helden im Kampfort mit | Sperre 620.1 B: 40 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 595 |
+| 872 | M | Kampf auf Halt 653 umstellen: Waffen und Schilde der Gegner und des Helden im Kampfort mit | Sperre 620.1 B: 41 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 595 |
 | 876 | M | Von Homer (857a A, Chef 10.11., 13:35): Simulation 444 Kräuterkunde → Kräutersammeln, Tran | wartet auf Test (Build) |
 | 904 | M | Von Tom (870.4, B1): sim444_870 am Rechner (97a32cfe2): SCRIPT ERROR mars.gd:903 _erwartet | wartet auf Test/Build (gebaut) |
 | 909 | M | Von Sokrates (Chef 11.11., 08:52, zu 854): Lauf schneller: Schritt „Skripte prüfen“ (24 mi | wartet auf Test (Build 278) |
 | 910 | M | Von Jerry (B1, Lauf 338): atem_4531 rot, Held atmet in Ruhe 3,0 cm und 3,3° statt höchsten | wartet auf Test (Build) |
-| 918 | M | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): godot.yml lässt alle Tests durchlaufen, sa | Sperre 620.1 B: 40 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 910 |
+| 918 | M | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): godot.yml lässt alle Tests durchlaufen, sa | Sperre 620.1 B: 41 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 910 |
 | 923 | M | Von Tom/Sokrates (t276 gegengelesen): Heiltrank in tools/sim444/werte.json doppelt, welt.h | wartet auf Test (Build 278) |
-| 931 | M | Von 784 A (Chef 11.11., 12:15): Wolf vorn – „Anspringen!“ steht, während er sich duckt (ke | Sperre 620.1 B: 40 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
-| 932 | M | Von 784 A (Chef 11.11., 12:15/12:09): Angriff des Helden höchstens 2,4 s – rennt zum Ziel, | Sperre 620.1 B: 40 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 784 |
+| 931 | M | Von 784 A (Chef 11.11., 12:15): Wolf vorn – „Anspringen!“ steht, während er sich duckt (ke | Sperre 620.1 B: 41 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
+| 932 | M | Von 784 A (Chef 11.11., 12:15/12:09): Angriff des Helden höchstens 2,4 s – rennt zum Ziel, | Sperre 620.1 B: 41 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 784 |
 | 935 | M | Von Tuffy (870.6): Wurfmittel im MARS nicht zu benutzen (Brandflasche, Weihwasser): Wurf m | wartet auf Sokrates |
 | 938 | M | Von Tom (786): Klang bei Handel, Rast und Gaben wie alt: Münzen beim Kaufen, Verkaufen, Zu | ruht |
 | 939 | M | Von Tom (786): Kampfklang wie alt: Ring (schwerer Schwung beim Öffnen, Block bei gut und p | wartet auf Test (Build 278) |
 | 936 | M | Von Tom (786): Musik an der Bemerkgrenze wie alt: nahe einem Monster leiser und dunkler mi | ruht |
 | 937 | M | Von Tom (786): Ruhelaute der Monster auf der Karte wie alt: schnüffeln, grunzen, klappern, | ruht |
-| 946 | M | Fund t276 (Chef-Bild 11.11., 13:29): Ansage „! Anspringen“ des dritten Wolfs liegt oben un | Sperre 620.1 B: 40 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolfs) |
+| 946 | M | Fund t276 (Chef-Bild 11.11., 13:29): Ansage „! Anspringen“ des dritten Wolfs liegt oben un | Sperre 620.1 B: 41 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolfs) |
 | 947 | M | Fund t276.12 (Chef 11.11., 13:36): MARS-Probekampf stellt dem Helden einen Söldner gleiche | wartet auf Test/Build (gebaut) |
-| 949 | M | Fund t276.13 (Chef 11.11., 13:44): perfekter Ring gegen Grak – Kampftext „greift an, schlä | Sperre 620.1 B: 40 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 633 (grak) |
+| 949 | M | Fund t276.13 (Chef 11.11., 13:44): perfekter Ring gegen Grak – Kampftext „greift an, schlä | Sperre 620.1 B: 41 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 633 (grak) |
 | 950 | M | Fund t276 (Chef 11.11., 13:44): MARS-Probekampf, Platztausch im Team (Held und Söldner) gl | wartet auf Test (Build 278) |
 | 952 | M | Von Sokrates (Chef 11.11., 13:53, Erschaffung Mensch): kritisch 7 % schon als Anfänger („k | wartet auf Test (Build 278) |
 | 956 | M | Von 870.6a A (Chef 11.11., 13:55): Gift, Brand, Blutung als Anteil am vollen Leben mit dem | wartet auf Test t278 (Chef) |
@@ -290,7 +290,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 954a.11 | M | Von Perikles (954a.2): Jagd: Tiere geben öfter Fell, Fleisch, Hauer (tabellen.json), Auftr | wartet auf 870 (wartet) |
 | 954a.13 | M | Von Perikles (954a.2, D): Volksmerkmal Glückskind (Hügelvolk) wirkt nur im alten Kampf kla | wartet auf 870 (wartet) |
 | 971 | M | Von Sokrates (966, Chef 11.11., 15:58): werte.json ueben.leicht_min 0,2 → 0,1 (leichte Zie | wartet auf Test (Build 278) |
-| 973 | M | Von Sokrates (930a A, Chef 11.11., 16:09): nach einem Tod bleiben die übrigen Gegner stehe | Sperre 620.1 B: 40 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
+| 973 | M | Von Sokrates (930a A, Chef 11.11., 16:09): nach einem Tod bleiben die übrigen Gegner stehe | Sperre 620.1 B: 41 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
 | 980 | M | Von Tom (968, Lauf 43051633587): Kaufskripte unter tools/blender348 nehmen glob()[0]; lieg | wartet auf Test/Build (gebaut) |
 | 983 | M | Kampf: Goblin geht nach Umstellen der Reihe nicht an seinen Platz, Skriptfehler „Gehen“ in | wartet auf Test (Build 278) |
 | 785.9 | M | Von Spike (785): MARS-Probekampf im Systemmenü mit Regelseite (Reihen, Ansagen, Ring, Perf | wartet auf 870.13 (wartet) |
@@ -306,13 +306,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 987 | M | Von Spike (870.9, Lauf 354): krogg_494 schwankt (am Rechner 2 von 5 rot, Rauch 0 erster Sc | wartet auf Test/Build (gebaut) |
 | 986 | M? | Von Homer (840): Eingebungen nach BRS bauen wie den Wolfssprung, Texte und Bauhinweise in | wartet auf Test (Build 278) |
 | 993 | M | Von Sokrates (Chef 11.11., 20:47, Test 277, Probekampf Zauberlehrling): Arkanpfeil „sieht | wartet auf Test (Build 278) |
-| 995 | M | Von Sokrates (Chef 11.11., 20:58, Film 744): Grabhund wirkt durch seine Farbe unstrukturie | Sperre 620.1 B: 40 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 744 |
+| 995 | M | Von Sokrates (Chef 11.11., 20:58, Film 744): Grabhund wirkt durch seine Farbe unstrukturie | Sperre 620.1 B: 41 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 744 |
 | 997 | M | Von Tuffy (620.2c, wie 233, 288): Testkampf zeigt Name der laufenden Bewegung und ihre Fas | wartet auf Test (Build 278) |
 | 998 | M | Von Tuffy (620.2c, wie 229.3): Kampfraster kräftiger wie beschlossen: alt Gold 0,9, 2 dp, | wartet auf Test (Build 278) |
 | 999 | M | Von Tuffy (620.2c, wie 268, 72.10a.11): Waffenwechsel im Kampf sichtbar: Fernwaffe nie in | wartet auf Test (Build 278) |
 | 999.1 | M? | Von 999: Fackel im Kampf in der Nebenhand wie alt (268), Modell aus held.gd baue_fackel (T | wartet auf Test t278 (Chef) |
 | 999.2 | M? | Von 999: Armbrust als Waffenmodell im Kampf (Ersatzwaffe der Probehelden, light_crossbow); | ruht |
-| 1000 | M | Von Tuffy (620.2c, wie 310): Grak hält nach der Ansage „Schwerer Hieb“ die ausholende Halt | Sperre 620.1 B: 40 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 633 (grak) |
+| 1000 | M | Von Tuffy (620.2c, wie 310): Grak hält nach der Ansage „Schwerer Hieb“ die ausholende Halt | Sperre 620.1 B: 41 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 633 (grak) |
 | 1001 | M | Von Tuffy (620.2c, wie 260): Würfel- und Rasterschalter verschwinden während des Rings wie | wartet auf Test (Build 278) |
 | 1002 | K | Von Tuffy (620.2c, wie 296.3): Siegerpose im Kampf fehlt (nur Film film_sieger_2963.gd; Pr | ruht |
 | 1003 | M | Von Tuffy (620.2c, zu 95): Heldin keucht im Kampf mit Männerstimme: spiel.gd 1502 gibt kla | wartet auf Test (Build 278) |
@@ -321,7 +321,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1013 | M | Von Jerry (988, Lauf 370 auf main): schild_406 erwartet im Kampf beim CLERIC einen Schild, | wartet auf Test (Build 278) |
 | 1014 | M | Von Jerry (1013, Lauf 365 und 370): schild_406 FIGHTER SS_ParryLow: Körper bis 0,071 m im | wartet auf Test/Build (gebaut) |
 | 644a.1 | M | Von Sokrates (644a A mit Spanne, D, F; Chef 12.11., 08:21): erst Rechnung (Spannen je Stuf | wartet auf Test/Build (gebaut) |
-| 1024 | M | Von Sokrates (Chef 12.11., 09:04, Bild Wolfskampf Build 278): Schalterreihe am rechten Ran | startbar |
+| 1024 | M | Von Sokrates (Chef 12.11., 09:04, Bild Wolfskampf Build 278): Schalterreihe am rechten Ran | wartet auf Test/Build (gebaut) |
 | 644b | M | Von Tuffy (644a.1, Rechnung): Deckel trotz Zahlen weg, und Schutzwert mit halbem Gewicht w | Chef (Datei in der Chefsache) |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 21580 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
