@@ -440,3 +440,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:50 12.11.: Marke Archiv session_01Hmoj77FQvSoLtm2q28ecYk (lauf.py)
 - 20:50 12.11.: Marke Archiv session_01Hmoj76TjZZB8xfGsLpG4q8 (lauf.py)
 - 20:50 12.11.: Marke Archiv session_01Hmoj761D8ZDmMbL8YHbGzf (lauf.py)
+- 20:52 12.11.: Startsperre 20:52 Start Homer (Neustart-Meldung 24c19fdf5, Nachfolger „Homer – 1074: zweiter Knopf im Gespräch (dann 766 Rollenspiegel, 13.11.)“, von Hand)
