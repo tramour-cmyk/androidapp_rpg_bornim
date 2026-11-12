@@ -514,7 +514,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 446 | Wächter Lizenzhinweis SRD: `regelcheck` meldet, solange SRD-Abgeleitetes im Spiel ist; Hinweis fällt erst bei leerer Inventur (Chef 01.11., 09:41, 413a) | B Werkzeuge | M | 2,86 $ | Perikles | erledigt |
 | 449 | Commit-Haken weist gekaufte Rohdateien ab (aus 416.4a, 01.11.) | B Werkzeuge | M | 5,10 $ | Perikles | erledigt |
 | 450 | Jedes Blatt in der Chefsache mit Link auf Bild und Film; `meldung.sh` trägt ihn selbst ein (Chef 01.11., 10:55) | B Werkzeuge | M | 0,78 $ | Perikles | erledigt |
-| 448 | Tagesbericht mit Zahlen statt Ampeln (Chef 01.11., 10:46) | B Abläufe | M | 49,64 $ | Sokrates | erledigt |
+| 448 | Tagesbericht mit Zahlen statt Ampeln (Chef 01.11., 10:46) | B Abläufe | M | 55,44 $ | Sokrates | erledigt |
 | 448.1 | Erster Tagesbericht jetzt, mit Zahlen und den Meilensteinen (Chef 01.11., 10:59, „jetzt“) | B Abläufe | M | – | Perikles | erledigt |
 | 448.2 | Tagesbericht dauerhaft mit Werkzeug, ersetzt Stand zum Marktstart (Chef 01.11., 11:09) | B Werkzeuge | M | 5,10 $ | Perikles | erledigt |
 | 455 | Ausrüstung am Modell als Baukasten (Netz × Material × Zeichen), nur sichtbare Plätze mit Netz (Chef 01.11., 11:15) | E Figuren | M | – | Sokrates | erledigt |

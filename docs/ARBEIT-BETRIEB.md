@@ -387,3 +387,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 14:05 12.11.: Startsperre 14:05 (lauf.py; Perikles-START ohne Auftrag nicht ausgeführt, nichts gestartet)
 - 14:24 12.11.: Startsperre 14:24 Start Perikles, Tuffy (lauf.py)
 - 14:24 12.11.: Marke Archiv session_01Hmoj79xewvr4yXDaxRRApX (lauf.py)
+- 14:28 12.11.: Start-Meldung Tom 14:24 „Start Perikles 1033“ (f7278a318, auf main; 1033 Perikles-Muss „passt“ statt „richtig“ in den Prüflisten): geprüft, Perikles …78GqGrL8ULmt1No1zc mit echtem Auftrag 1033 gestartet (statt leerem Nachfolger „Ford ruft“); Tuffy …75jovTr8zStqpmnEsx (1031, Chef-Fund 14:08 ganzer Bericht ohne Farben). Archiviert und gebucht: Perikles 448 …7A2JDffJnrk5Dagztc (5,80 $), Tuffy 644a.1 …79xewvr4yXDaxRRApX (16,19 $).
