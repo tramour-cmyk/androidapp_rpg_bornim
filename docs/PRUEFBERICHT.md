@@ -52,6 +52,11 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 183 · 1011 Nachprüfung 1010: nur Laufzusagen von Sokrates überspringen (Perikles, Doppelpack 421, `afa2141f4`; 12.11., 04:1x)
+
+- **1011 greift, 1010 greift** (`greift 1011 183`, `greift 1010 183`): `laufzusage()` gegen alle 46 Köpfe „<Nr>, Läufe frei“ im echten Archiv: 40 von Sokrates nach 480.1 übersprungen, 6 Chefantworten zählen (264.1 ×5 „Chef an Perikles/Sokrates … → **ja (Nutzer)**“, 510a 03.11., 13:02 „Chef an Sokrates“); `antworten()` liefert 510a und 264.1, 861 und 988 nicht; `beantwortet()` leer, `--stand` läuft; Commit-Prüfung nutzt dieselbe Funktion (`commit-pruefung.py` 307).
+- Nicht geprüft: echter Commit mit neuer Laufzusage zu einer offenen Vorlage. Restfall ohne Beleg: eine Laufzusage von Sokrates, deren Anlass „Chef an …“ wörtlich nennt, zählte als Chefantwort (im Archiv kein Fall).
+
 ## Lauf 182 · 1010 `startbar.antworten()` ohne „Läufe frei“-Köpfe (Perikles, Doppelpack 421, `8da3952f4`; 12.11., 03:0x)
 
 - **1010 greift mit Lücke** (`warte 1010 1011`): Laufzusage „- **861, Läufe frei** (12.11., 03:00, Sokrates nach 480.1)“ zählt nicht mehr, `beantwortet()` auf dem echten Archiv leer, `--stand` läuft; Commit-Prüfung nutzt dieselbe Funktion (`commit-pruefung.py` 307).
