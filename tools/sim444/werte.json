@@ -70,7 +70,11 @@
     "_initiative": "Reihenfolge nach je_punkt x Gewandtheit + je_stufe x Stufe + Zufall 0 bis initiative_streuung; ausser Atem minus initiative_atemlos",
     "initiative_streuung": 100,
     "initiative_atemlos": 25,
-    "_flucht": "Gewandtheit des Helden gegen die des schnellsten stehenden Gegners (Stufe dazu); betrunken mit Ungunst (merkmale umreissen)"
+    "_flucht": "Gewandtheit des Helden gegen die des schnellsten stehenden Gegners (Stufe dazu); betrunken mit Ungunst (merkmale umreissen)",
+    "_ueberreden": "1037 (807 A, Pim heimschicken; vorlaeufig A, Jerry, Vorentscheid Sokrates): Ueberreden hat keinen Grundwert, also Chance = ueberreden_basis + ueberreden_je_punkt x Fertigkeitswert Ueberreden - Gegenwert der Figur (ueberreden_gegen, sonst 0), begrenzt auf min bis max; ohne Fertigkeit 35 %, Startwert 10 = 45 %, Kapitel-1-Decke 24 = 59 %; Uebung je Versuch wie ueben uebung_je_benutzung, gelungen oder nicht",
+    "ueberreden_basis": 35,
+    "ueberreden_je_punkt": 1.0,
+    "ueberreden_gegen": {"Pim": 0}
   },
 
   "gegenwirkung": {
@@ -278,8 +282,8 @@
     "_dorf": "A: der Held geht alle 8 Kaempfe ins Dorf, frueher, sobald ein Stueck 'Beschaedigt' ist (Warnung, N 11); dort verkaufen, reparieren, Traenke kaufen",
 
     "preise": {
-      "_quelle": "Ladenpreise alt (Katalog 458 'alt'); Teile ohne alten Preis A",
-      "Heiltrank": 25, "Großer Heiltrank": 75, "Alchemistenfeuer": 30, "Weihwasser": 25,
+      "_quelle": "Ladenpreise alt (Katalog 458 'alt'); Teile ohne alten Preis A; Verband 1037 A",
+      "Heiltrank": 25, "Großer Heiltrank": 75, "Verband": 8, "Alchemistenfeuer": 30, "Weihwasser": 25,
       "Fleisch": 6, "Wolfsfell": 24, "Hauer": 20, "Spinnendrüse": 30, "Fledermausflügel": 16,
       "Fell klein": 8, "Zähne": 10, "Schwarte": 12, "Giftdrüse": 20, "Panzerplatten": 10,
       "Spinnseide": 20, "Knochen": 4, "Säure": 20
@@ -470,6 +474,8 @@
     "_quelle": "870.4 (Tom 11.11., LISTE-UMZUG-BRS.md Schritt 4): die Welt nach dem BRS statt nach dem SRD (Heldwerte entfallen). Alle Zahlen A als Uebergang, so gewaehlt, dass sich wenig aendert (Leben nach BRS sind auf Stufe 1 etwa doppelt so gross wie die alten TP); Vorentscheid Sokrates erbeten (783 W5), Messung 444, Vorlage an den Chef vor B1",
     "heilung": {"potion": 14, "greater_potion": 28, "superior_potion": 56, "remedy": 5, "roast_meat": 14},
     "_heilung": "A: Leben fest statt Wuerfel, je das Doppelte des alten Mittels (Heiltrank alt 2W4+2 = 7); gilt in der Welt und im Kampf",
+    "verband": {"grund": 5, "je_heilkunde": 0.2, "uebung": 1},
+    "_verband": "1037 (807 A, Verband aus der Tasche nur ausserhalb des Kampfs; vorlaeufig A, Jerry, Vorentscheid Sokrates): heilt grund + je_heilkunde x Heilkunde Leben, gerundet (ohne Heilkunde 5, Startwert 10 = 7, Decke Kapitel 1 24 = 10, Geselle 49 = 15, Grossmeister 100 = 25; Heiltrank 14 fuer 25 Gold); Uebung je Anlegen, nur wenn Leben fehlen; Preis wirtschaft preise Verband",
     "essen_je_kochen": 0.2,
     "_essen": "A: eine Mahlzeit heilt dazu 0,2 Leben je Punkt Kochen (alt: Modifikator Konstitution)",
     "ausdauer": {"sekunden": 6, "je_punkt": 0.5, "mitte": 10, "je_zwei_stufen": 1, "min": 2, "schwer_kraft": 7},

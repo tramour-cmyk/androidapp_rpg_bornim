@@ -2,7 +2,7 @@
 
 Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (458). Ändern nur in der Datendatei, dann das Werkzeug laufen lassen und beides committen. Werte „alt“ stammen aus der alten Fassung (SRD) und gelten nicht für das Bornimer Rollenspielsystem; „–“ heißt noch offen. Wer füllt: Jerry Stufe, Preis, Zustand, Beute (458.2); Tom Netz, Modell, Läden (458.3); Homer Namen und Texte (458.4).
 
-**Stand:** 95 Gegenstände, davon 66 vollständig; Waffen 21, Schilde 3, Rüstung 25, Schmuck 4, Zauberfokus 3, Licht 1, Einzelstücke 15, Tränke 6, Wurfgeschosse 2, Nahrung 1, Rohstoffe 7, Handlungsgegenstände 7.
+**Stand:** 96 Gegenstände, davon 66 vollständig; Waffen 21, Schilde 3, Rüstung 25, Schmuck 4, Zauberfokus 3, Licht 1, Einzelstücke 15, Tränke 6, Wurfgeschosse 2, Nahrung 1, Rohstoffe 7, Werkzeug 1, Handlungsgegenstände 7.
 
 ## Nach Art
 
@@ -100,14 +100,14 @@ Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (
 | `ring_protection` | Ring des Ältesten (ring) | finger | 6 | 0 | keins: nur Bild im Inventar (455) | Handlung | – |
 | `gauntlets_ogre` | Kroggs Pranken (gloves) | arme | 4 | 0 | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren) | Beute Krogg | – |
 | `greataxe_grak` | Graks Kriegsaxt (greataxe) | beide_haende | 6 | 0 | unser Netz (waffen.py, Jerry) | Beute Grak | – |
-| `longsword_oakford` | Klinge von Bornim (longsword) | haupthand | 4 | 0 | – | Fund | netz, modell |
-| `staff_of_embers` | Glutstab (staff) | beide_haende | 4 | 0 | – | Fund | netz, modell |
-| `rapier_whisper` | Flüsterklinge (dagger) | haupthand | 4 | 0 | unser Netz (waffen.py, Jerry) | Fund | – |
-| `mace_of_dawn` | Morgenröte (mace) | haupthand | 4 | 0 | – | Fund | netz, modell |
-| `greatsword_nameless` | Die Namenlose (greatsword) | beide_haende | 4 | 0 | – | Fund Truhe in der Blutzahnhöhle (cave_3, 870.14) | netz, modell |
-| `spear_wolf` | Wolfsspieß (spear) | haupthand | 4 | 0 | – | Fund Truhe in der Blutzahnhöhle (cave_3, 870.14) | netz, modell |
-| `longbow_blackyew` | Schwarzeibe (longbow) | beide_haende | 4 | 0 | – | Fund Truhe in der Blutzahnhöhle (cave_3, 870.14) | netz, modell |
-| `crossbow_nightwatch` | Nachtwache (light_crossbow) | beide_haende | 4 | 0 | – | Fund Truhe in der Blutzahnhöhle (cave_3, 870.14) | netz, modell |
+| `longsword_oakford` | Klinge von Bornim (longsword) | haupthand | 3 | 0 | – | Fund | netz, modell |
+| `staff_of_embers` | Glutstab (staff) | beide_haende | 3 | 0 | – | Fund | netz, modell |
+| `rapier_whisper` | Flüsterklinge (dagger) | haupthand | 3 | 0 | unser Netz (waffen.py, Jerry) | Fund | – |
+| `mace_of_dawn` | Morgenröte (mace) | haupthand | 3 | 0 | – | Fund | netz, modell |
+| `greatsword_nameless` | Die Namenlose (greatsword) | beide_haende | 3 | 0 | – | Fund Truhe in der Blutzahnhöhle (cave_3, 870.14) | netz, modell |
+| `spear_wolf` | Wolfsspieß (spear) | haupthand | 3 | 0 | – | Fund Truhe in der Blutzahnhöhle (cave_3, 870.14) | netz, modell |
+| `longbow_blackyew` | Schwarzeibe (longbow) | beide_haende | 3 | 0 | – | Fund Truhe in der Blutzahnhöhle (cave_3, 870.14) | netz, modell |
+| `crossbow_nightwatch` | Nachtwache (light_crossbow) | beide_haende | 3 | 0 | – | Fund Truhe in der Blutzahnhöhle (cave_3, 870.14) | netz, modell |
 | `amulet_grimfang` | Grimmzahns Fang (amulet) | hals | 5 | 0 | keins: nur Bild im Inventar (455) | Beute Grimmzahn | – |
 | `cloak_protection` | Wehrmantel (cloak) | umhang | 4 | 0 | unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1) | Beute Riesenspinne | – |
 | `cloak_thessa` | Thessas Pelzumhang (cloak) | umhang | 1 | 0 | unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1) | Handlung Thessa, Auftrag Felle für den Winter (356.2) | text |
@@ -149,6 +149,12 @@ Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (
 | `spider_silk` | Spinnseide | – | 1 | 20 | – | Beute Riesenspinne (870.6; Feuer verbrennt sie, LISTE-BESTIARIUM.md) | text |
 | `bat_wing` | Fledermausflügel | – | 1 | 16 | – | Beute Riesenfledermaus | – |
 
+### Werkzeug (1)
+
+| Kennung | Name | Platz | Stufe | Preis | Modell | Bezug | offen |
+|---|---|---|---|---|---|---|---|
+| `bandage` | Verband | – | 1 | 8 | – | Laden Osric; Laden Thessa | netz, modell |
+
 ### Handlungsgegenstände (7)
 
 | Kennung | Name | Platz | Stufe | Preis | Modell | Bezug | offen |
@@ -165,8 +171,9 @@ Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (
 
 ### Laden
 
-- **Thessa:** Kapuze, Stirnreif, Lederkappe, Helm, Topfhelm, Robe, Lederrüstung, Nietenleder, Kettenhemd, Schuppenpanzer, Brustplatte, Halbplatte, Kettenpanzer, Schienenpanzer, Plattenpanzer, Armwickel, Lederhandschuhe, Armschienen, Panzerhandschuhe, Beinkleider, Lederstiefel, Kettenbeinlinge, Beinschienen, Umhang, Mantel, Dolch, Kurzschwert, Krummsäbel, Handbeil, Streitkolben, Speer, Kampfstab, Rapier, Langschwert, Streitaxt, Morgenstern, Kriegshammer, Zauberstab, Zweihänder, Großaxt, Zweihandhammer, Hellebarde, Magierstab, Kurzbogen, Langbogen, Armbrust, Amulett, Talisman, Ring, Siegelring, Schild, Rundschild, Turmschild, Fackel, Zauberkugel, Foliant, Heiligensymbol, Heiltrank, Großer Heiltrank, Überragender Heiltrank, Kräutertrank, Ausdauertrank, Leuchtfunke, Alchemistenfeuer, Weihwasser
+- **Thessa:** Kapuze, Stirnreif, Lederkappe, Helm, Topfhelm, Robe, Lederrüstung, Nietenleder, Kettenhemd, Schuppenpanzer, Brustplatte, Halbplatte, Kettenpanzer, Schienenpanzer, Plattenpanzer, Armwickel, Lederhandschuhe, Armschienen, Panzerhandschuhe, Beinkleider, Lederstiefel, Kettenbeinlinge, Beinschienen, Umhang, Mantel, Dolch, Kurzschwert, Krummsäbel, Handbeil, Streitkolben, Speer, Kampfstab, Rapier, Langschwert, Streitaxt, Morgenstern, Kriegshammer, Zauberstab, Zweihänder, Großaxt, Zweihandhammer, Hellebarde, Magierstab, Kurzbogen, Langbogen, Armbrust, Amulett, Talisman, Ring, Siegelring, Schild, Rundschild, Turmschild, Fackel, Zauberkugel, Foliant, Heiligensymbol, Heiltrank, Großer Heiltrank, Überragender Heiltrank, Kräutertrank, Verband, Ausdauertrank, Leuchtfunke, Alchemistenfeuer, Weihwasser
 - **Morwen:** Heiltrank, Großer Heiltrank, Kräutertrank, Ausdauertrank, Weihwasser
+- **Osric:** Verband
 
 ### Beute
 
