@@ -11,6 +11,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 **Übergabe Tuffy (12.11., 23:50, `session_01Hmoj75T84v7wSUd4hP2WrG`, Neustart-Haken):** Testbitte 281 gestellt (Lauf 401, Telegram lautlos, `--laut` morgen früh); 1084 gebaut (`claude/tuffy-1084` `76d175451`). Nachfolger: Tuffy – nächstes startbares Muss
 
 ## Einzelheiten
+- **Zu 1043, von Sokrates (13.11., 00:28 nach 1077, Archiv „1043a B, dann ein Lauf“):** kein Film vom heutigen Stand (0,46 s am Ort ist das „da weicht nichts“); erst ein sichtbares Ausweichen bauen (Schritt weg vom Angreifer, zurück an den Platz; Form und Dauer deine), dann ein Filmlauf mit behobener Schleife, Film selbst ansehen, an mich.
 - **Zu 1072 (Tuffy, 23:49, Lauf 401):** `tausch_1041` ROGUE/FIGHTER Umrisse Spalt −1,02 m (berühren sich), FIGHTER/WIZARD „kein Wechsel möglich“; Ausgangsmaß für die Bahnen.
 - **Zu 833 (Tuffy, 23:49, Lauf 401):** Bildschritt `schirm_833`: Sieg kam im Fensterlauf nicht binnen 60 s (`833_3_sieg_a.png` zeigt den Kampf), daher „zwei Zierlinien“; ohne Fenster 0 Fehler. Sieg-Paar im Bild fehlt weiter.
 - **Zu 1055, von Sokrates (Chef 12.11., 22:21):** „Jetzt mag ich dann nicht mehr warten. Dann morgen wieder.“ Lauf 401 (Build 281) um 22:21 beim Schritt 18 von 30; die Testbitte heute Nacht lautlos, `--laut` erst morgen früh.
