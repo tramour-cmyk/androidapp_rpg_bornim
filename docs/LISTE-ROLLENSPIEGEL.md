@@ -167,3 +167,17 @@ Ist-Soll-Abgleich jeder Rolle (340, Chef 23.10., 09:46). **Wann:** freitags am E
 8. Am meisten gekostet und am wenigsten gebracht hat 842 mit zwei Runden (Chef 20:48 „nö, passt nicht“): der zweite Knopf `[1074.zweit]` und Osrics Angebotssatz `[504.osric.verband]` hätten im ersten Text zu 807a stehen müssen, weil ich die Wahl im Gespräch nicht gegen den Knopfbaustein im Code gelesen habe.
 9. Unklar ist, ob ein Wochentermin wie 766 (08:00) in einer Nachtsitzung vor der Uhrzeit erledigt werden darf; die Commit-Prüfung sperrt schon eine Uhrzeit nach jetzt im Nachfolger. Streichen würde ich nichts; fehlen würde ein Prüfschritt „Wahl im Gespräch hat zwei Knöpfe und sagt, was sie bietet“ in `STORY-REGELN.md`.
 10. Lob mit Vorbehalt: kein Team wartet, Fremdprüfung sitzt, aber 842 kam zweimal zum Chef zurück, weil meine Texte den Knopf nicht mitdachten. Schritte: (a) jede Wahl im Gespräch gegen `skript.gd` lesen, bevor der Text fertig ist; (b) `[830.sprung]` als Chefsache-Datei stellen; (c) Kotlin-Stellen in `DESIGN-STIL.md` auf Godot umstellen.
+
+### Team Jerry (13.11., 00:28, Sitzung „Jerry – 1043: Ausweichen-Film (12.11., 22:04)“)
+
+0. Angekündigt (02.11.) drei Schritte: (a) Messung durch die Spielkamera, (b) Ursache zuerst am Rechner, (c) „ohne Befund“ nur nach Prüferbild. (b) heute gemacht (Seed 7 nachgestellt, 338458c53), (a) halb: 1043 maß Fuß und Kopf, am Rechner ohne Bild aber 0 px; 2 von 3 halb, 1 ganz.
+1. Halb: „vor dem Lauf am Rechner prüfen, dass ein Wolf den Helden angreift“ (Sokrates 22:03) habe ich nur ohne Bild und ohne Seed 7 geprüft; Lauf 404 brach darum an einer Zeitgrenze ab, die nur im Filmmodus greift.
+2. Etwa 85 % Chef (1043, 833, 1039-Umfeld), 10 % Betrieb (Vorrat, Stände), 5 % andere Rollen; richtig so.
+3. Rückläufer, Ziel 0: in dieser Sitzung keiner neu; 1043 hat drei Filmläufe ohne Film verbraucht (389, 396, 404), alle wegen Fehlern in meiner Testschleife.
+4. Vorgelegt 1043a (Wege A/B/C mit Kosten und Gegenargument, an Sokrates nach 1077); nicht fremd gegengelesen, weil nachts nur Sokrates da war und er selbst entscheidet.
+5. Zurückweisen würde der Chef: drei Läufe für einen Film, den er nie gesehen hat (1043); der Testfehler war jedes Mal meiner.
+6. Nichts verschwiegen; add_repo bornim-kaufmodelle wurde in dieser Sitzung abgelehnt, im Chat gemeldet; wald_490 rot in Lauf 404 als fremd zu 1018 (Tom) vermerkt.
+7. Der Chef wartet auf den Ausweichfilm seit 12.11., 15:52; ich warte auf 1043a (Sokrates). Kürzer: Filmschleifen nach Bildern statt Uhrzeit messen, mit dem Seed des Bauservers am Rechner nachstellen.
+8. Lauf 404 (über 80 Minuten, Kauf-Cache verfehlt) für 32 s Film ohne Ausweichen.
+9. Fehlt: „Jeder Filmtest begrenzt nach Bildern, nie nach Uhrzeit (--write-movie läuft langsamer als Echtzeit)“; streichen würde ich nichts.
+10. Ernste Ansage: dreimal derselbe Fehlertyp (Testschleife, nicht Spiel) kostet Läufe und Chefzeit. Schritte: (a) Filmtests am Rechner mit Seed und FILM=1 ohne Bild bis zum Ende durchlaufen lassen, (b) Grenzen nach Bildern, (c) Prüfzeile im Test, die abbricht, wenn der Prüfgegenstand nicht vorkam.
