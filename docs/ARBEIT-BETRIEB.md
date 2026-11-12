@@ -410,3 +410,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:28 12.11.: Startsperre 16:28 Start Tuffy (Neustart-Meldung e1d8b4b1b nachgeholt, alter Tuffy ruht, keine Weckrufe mehr auf ihm; Nachfolger „Tuffy – 1039/1040: Filme an den Chef“)
 - 16:32 12.11.: Startsperre 16:32 Start Spike (lauf.py)
 - 16:32 12.11.: Marke Start-fehlt Spike 12.11.-15:31 (lauf.py)
+- 16:44 12.11.: Startsperre 16:44 Start Tom (Neustart-Meldung 2f87b121d, Nachfolger „Tom – 757: Läufe 757, 758, 867 ansehen und vorlegen (12.11.)“, von Hand)
