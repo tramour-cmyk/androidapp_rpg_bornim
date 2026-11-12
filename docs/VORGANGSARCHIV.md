@@ -4,6 +4,8 @@ Was der Chef entschieden hat, neueste oben (99g.1). Je Vorgang: Nummer, Datum, E
 
 - **1022, Kartenrand zurück** (12.11., 20:07, Chef an Sokrates zu den Bildern 17:59: „So sollte das aussehen, ernsthaft? … Dachte, das sollte irgendwie so ein sanfter Übergang werden und dann dunkel.“; `ansehen/1022-kartenrand.md` in Git): harte schwarze Kante statt Verlauf; Tom neu, sanfter Übergang ins Dunkel → **zurück (Nutzer)**
 
+- **1048, Ring öfter** (12.11., 20:05, Chef an Perikles: „1048 A, H, D“; `entscheiden/1048-ring.md` in Git): Ring bei jedem großen Schlag der Gegner (A), diese Schläge härter, gut = heutiger Schaden (H), Ring beim eigenen Angriff, nur perfekt zählt (D); erst Rechnung, Bau nach 1039; Jerry 1068, Homer 1069, Sokrates Regelseite 930 → **A, H, D (Nutzer; Votum Sokrates)**
+
 - **1050a, Zauberlehrling Verstand 3, Wille 3** (12.11., 20:02, Chef an Perikles: „Vorgang 1050a Ich wähle A.“; `entscheiden/1050a-zauberlehrling.md` in Git): Herkunft Zauberlehrling plus Verstand 3, Wille 3 statt Wille 5, Verstand 1; Jerry 1066 (`werte.json`), Homer 1067 (Satz der Erschaffung), Sokrates `DESIGN-BRS.md` → **A (Nutzer; Votum Sokrates)**
 
 - **867, neue Vorlage statt A, B, C** (12.11., 20:01, Chef an Perikles: „Nehme ich alles nicht, sondern ich will, dass meine Ergänzungen von 18:25 Uhr und 18:27 Uhr eingebaut werden. Und eine neue Vorlage und das dann gleich mit einem vernünftigen. Licht. Wie sich das gehört.“; `entscheiden/867-menuehelden.md` in Git): Nachträge 18:25 (Frisur der Herkunft) und 18:27 (Haar schwarz) einbauen, neue Vorlage mit richtigem Licht; Tom → **neue Vorlage (Nutzer)**
