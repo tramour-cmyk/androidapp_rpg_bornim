@@ -8,7 +8,7 @@ Was der Chef entschieden hat, neueste oben (99g.1). Je Vorgang: Nummer, Datum, E
 
 - **1023, Hühner zurückgestellt** (12.11., 08:31, Chef an Sokrates zu t278.3: „lasst es mit den Hühnern. Stellt es zurück, weil ich habe keine Lust mehr. Wenn ihr nicht in der Lage seid, das mit den Hühnern hinzukriegen“): keine Arbeit mehr an Flucht, Federn, Auffliegen der Hühner und am Hühnerstall; Vorlage irgendwann → **zurückgestellt (Nutzer)**
 
-- **644a, Truhe der Blutzahnhöhle Stufe 3** (12.11., 08:31, Vorentscheid Sokrates nach Befund Homer 644a.3; Chefsache `billigen/644a-truhe-hoehle.md`): die fünf Truhenwaffen vor Krogg Stufe 3 statt 4, damit sie im Kampf gegen Krogg tragbar sind; keine Zusatzeigenschaften betroffen; Tom mit 644a.2 → **Vorentscheid**
+- **644a, Truhe der Blutzahnhöhle Stufe 3** (12.11., 08:31, Vorentscheid Sokrates nach Befund Homer 644a.3; Chefsache `billigen/644a-truhe-hoehle.md`): die fünf Truhenwaffen vor Krogg Stufe 3 statt 4, damit sie im Kampf gegen Krogg tragbar sind; keine Zusatzeigenschaften betroffen; Tom mit 644a.2 → **Vorentscheid** · gebilligt 12.11. (Chef 08:59)
 
 - **644a A mit Spanne, D, F, Gegenstandsstufe** (12.11., 08:21, Chef an Sokrates: „644a, A mit Spanne, D, F.“; davor 08:16 „Warum kann man nicht einfach sagen, vorher war es plus 5 und auf Stufe 4 kann es sein zwischen plus 10 und plus 15 … Wenn wir das einfach wieder ändern können“; Chefsache `entscheiden/644a-mindeststufe.md` in Git): Mindeststufe zum Tragen; Stufe hebt Zusatzeigenschaften als Spanne in Dreierschritten; Funde höchstens +1; Deckel weg; Grundwert +1 durch Üben (ersetzt 870a 4 A); Regelwerk 11; 644a.1 Jerry, .2 Tom, .3 Homer → **A mit Spanne, D, F (Nutzer; Votum Sokrates A, D, F)**
 
