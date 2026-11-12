@@ -2188,7 +2188,11 @@ func _draw_switches(sr: Rect2) -> void:
 		lose_rect = Rect2()
 		return
 	var s := 40 * dp
-	var y := sr.size.y - 4 * dp - 44 * dp
+	# 1024 (Chef 12.11., 09:04, Wolfskampf Build 278: Schalterreihe halb vom Kasten verdeckt; schalter_1024): seit 992 ist die Szene
+	# die der zuletzt gepassten Kastenhöhe, die Kamera passt erst nach dem Zug neu (709); wächst der Kasten im Zug, standen die Schalter
+	# bis zu seinem Zuwachs darunter. Sie stehen über dem Kasten, wie er jetzt ist
+	var unten := minf(sr.size.y, overlay.get_viewport_rect().size.y - panel_height())
+	var y := unten - 4 * dp - 44 * dp
 	grid_rect = Rect2(sr.size.x - 4 * dp - 44 * dp, y, 48 * dp, 48 * dp)
 	dice_rect = Rect2(sr.size.x - 52 * dp - 48 * dp, y, 48 * dp, 48 * dp)
 	var g := Rect2(grid_rect.position + Vector2(4, 4) * dp, Vector2(s, s))
