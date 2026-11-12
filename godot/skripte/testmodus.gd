@@ -219,6 +219,33 @@ static func stufe_setzen(hw: BrsHeld, z: Zustand, ziel: int) -> void:
 	hw.stufe = t
 	heile(hw)
 
+# 644a.2 (Sokrates 12.11., 12:24, Gegenlesen t280: 280.5 ohne Weg, der Grundwert steigt erst nach etwa 10 Fertigkeitspunkten):
+# die Fertigkeit der Waffe in der Hand bis kurz vor den nächsten Grundwert, die Übung bis kurz vor den nächsten Punkt; der nächste
+# Sieg mit dieser Waffe hebt den Grundwert („Kraft ↑ 5“, Klang wie ein Aufstieg). Gibt [Grundwert, gewonnen, je] oder [] ohne BRS-Held
+static func uebung_stand(hw: BrsHeld) -> Array:
+	var g := hw.grundwert_der_fertigkeit(hw.waffengruppe())
+	var n := int(BrsHeld.lade().get("ueben", {}).get("grundwert_punkte", 0))
+	if g == "" or n <= 0: return []
+	return [g, hw.geuebte_punkte(g) % n, n]
+
+static func vor_grundwert(hw: BrsHeld, z: Zustand) -> String:
+	var st := uebung_stand(hw)
+	var s := z.fertigkeiten_stand()
+	if st.is_empty() or s.is_empty(): return ""
+	var f := hw.waffengruppe()
+	var fehlt: int = (int(st[2]) - 1) - int(st[1])
+	if not s["bekannt"].has(f): s["bekannt"].append(f)
+	var w := BrsFertigkeit.wert(s, f) + maxi(fehlt, 0)
+	s["werte"][f] = w
+	for d in BrsFertigkeit.decken():   # die Decke des Rangs über dem neuen Wert, sonst übt der nächste Sieg nichts mehr
+		if d > w:
+			s["decke"][f] = maxi(BrsFertigkeit.decke(s, f), d)
+			break
+	s["uebung"][f] = BrsFertigkeit.bedarf(w) * 0.999
+	z.spiegle()
+	hw.geuebt = s["werte"]
+	return String(st[0])
+
 static func heile(hw: BrsHeld) -> void:   # Hero.restoreFully
 	hw.voll()
 
@@ -325,7 +352,13 @@ static func reiter(m: Menue) -> void:
 			func(): waffen_auf = not waffen_auf, "SWORD", "", true),
 		zk.call(t.call("Andere Hand", "Other hand"), name_von(nb) if nb != "" else t.call("leer", "empty"),
 			t.call("Wechselt die andere Hand: leer, Schild, Rundschild, Dolch.", "Cycles the other hand: empty, shield, round shield, dagger."),
-			func(): waffe(hw, z, NEBENHAND[(maxi(NEBENHAND.find(nb), 0) + 1) % NEBENHAND.size()] if NEBENHAND.has(nb) else "", true), "SHIELD")])
+			func(): waffe(hw, z, NEBENHAND[(maxi(NEBENHAND.find(nb), 0) + 1) % NEBENHAND.size()] if NEBENHAND.has(nb) else "", true), "SHIELD")]
+		+ ([] if uebung_stand(hw).is_empty() else [zk.call(t.call("Übung", "Practice"), "%s %d/%d" % [Sprache.t(ErschaffungBrs.GRUNDWERT[String(uebung_stand(hw)[0])]), uebung_stand(hw)[1], uebung_stand(hw)[2]],
+			t.call("Die Fertigkeit der Waffe in der Hand übt bis kurz vor den nächsten Punkt am Grundwert; der nächste Sieg mit dieser Waffe hebt ihn („Kraft ↑ 5“).",
+				"The skill of the weapon in hand practises to just before the next point of its base value; the next win with this weapon raises it (“Strength ↑ 5”)."),
+			func():
+				var g := vor_grundwert(hw, z)
+				if g != "": m.meldung(t.call("Nächster Sieg mit dieser Waffe: %s steigt.", "Next win with this weapon: %s rises.") % Sprache.t(ErschaffungBrs.GRUNDWERT[g])), "", "↑")]))
 	var Mars = load("res://regeln/mars.gd")
 	m.zeichenreihe([zk.call(t.call("Unsterblich", "Immortal"), an_aus.call(Mars.held_unsterblich), t.call("Im Kampf fällt der Held nie unter 1 Trefferpunkt; zum Durchspielen.",
 			"In a fight the hero never drops below 1 hit point; for playing through."), func(): Mars.held_unsterblich = not Mars.held_unsterblich, "", "∞", Mars.held_unsterblich),

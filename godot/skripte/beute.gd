@@ -11,7 +11,7 @@ extends RefCounted
 const PLAETZE := ["HEAD", "CHEST", "ARMS", "LEGS", "CLOAK", "AMULET", "RING", "MAIN_HAND", "OFF_HAND"]   # GearSlot.entries
 const SELTENHEIT := ["COMMON", "UNCOMMON", "RARE", "VERY_RARE", "EPIC", "DIVINE"]
 const GUETE_DE := ["Normal", "Gut", "Meisterhaft"]                 # [870.14.namen] Güte
-const GUETE_EN := ["Standard", "Fine", "Masterwork"]
+const GUETE_EN := ["Common", "Fine", "Masterwork"]   # [870.14.ding.guete] (976a A); „Schlecht / Poor“ fehlt noch (Werte guete_faktor, Gewichte)
 const SCHADENSART := {"schnitt": ["Schnitt", "Slash"], "stich": ["Stich", "Pierce"], "wucht": ["Wucht", "Crush"], "feuer": ["Feuer", "Fire"],
 	"gift": ["Gift", "Poison"], "saeure": ["Säure", "Acid"], "licht": ["Licht", "Light"]}     # [870.14.namen], in Listen gross
 

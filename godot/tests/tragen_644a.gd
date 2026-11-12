@@ -106,4 +106,12 @@ func _gaben() -> void:
 	s["werte"]["Einhänder"] = int(vorher.get("Einhänder", 10)) + n
 	var t: String = spiel.grundwerte_notiz(vorher)
 	pruefe(t == "Kraft ↑ %d" % spiel.held_werte().wert("kraft"), "Meldung „%s“" % t)
+	# 644a.2 (Sokrates 12.11., 12:24, 280.5 ohne Weg): Reiter „Test“, „Übung“ bis kurz vor den Grundwert, der nächste Sieg hebt ihn
+	var hw2: BrsHeld = spiel.held_werte()
+	var grund := Testmodus.vor_grundwert(hw2, z)
+	var vor2: Dictionary = (s["werte"] as Dictionary).duplicate()
+	pruefe(grund != "" and spiel.grundwerte_notiz(vor2) == "", "Übung: noch kein Anstieg (%s, „%s“)" % [grund, spiel.grundwerte_notiz(vor2)])
+	BrsFertigkeit.uebe(s, z.stufe_brs(), hw2.waffengruppe(), hw2.stufe)
+	var t2: String = spiel.grundwerte_notiz(vor2)
+	pruefe(grund != "" and t2.begins_with(Sprache.t(ErschaffungBrs.GRUNDWERT[grund]) + " ↑"), "Übung: ein Sieg hebt %s („%s“)" % [grund, t2])
 	spiel.free()
