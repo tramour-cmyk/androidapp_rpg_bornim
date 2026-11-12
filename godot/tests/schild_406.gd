@@ -576,7 +576,11 @@ func _run() -> void:
 		var kf = p.fight
 		var fig = kf.figures.get("hero")
 		var schild: Node = fig.model.find_child("Schild", true, false) if fig else null
-		_check(schild != null, "%s: Schild in der Hand im Kampf" % k)
+		# 1013 (wie 988 in held_kampf_403): die Probehelden sind seit 870.6 Helden nach BRS der Herkunft; Schild nur, wenn die
+		# Herkunft einen trägt (werte.json „herkuenfte“: Wachsoldat ja, Klosterschüler nein)
+		var hk: String = String(load("res://regeln/brs_kampf.gd").KLASSE_HERKUNFT.get(k, "Wanderer"))
+		var soll_schild := bool(Brs.lade()["herkuenfte"].get(hk, {}).get("schild", false))
+		_check((schild != null) == soll_schild, "%s: Schild in der Hand im Kampf nur, wenn die Herkunft einen trägt (%s: %s, %s)" % [k, hk, "ja" if soll_schild else "nein", "da" if schild else "keiner"])
 		if schild == null:
 			continue
 		var d := _dreiecke(schild)
