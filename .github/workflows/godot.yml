@@ -671,6 +671,7 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/erklaerung_954.gd 2>&1 | grep -E "FALSCH|ERKLAERUNG954|SCRIPT ERROR"   # 954 Gedrückthalten erklärt in der Erschaffung
           set -o pipefail; timeout 180 ~/godot/godot --headless --path . -s res://tests/pruefliste_1020.gd 2>&1 | grep -E "FEHLER|PRUEFLISTE1020|SCRIPT ERROR"   # 1020.1 Prüfliste im Reiter „Test“
           set -o pipefail; timeout 180 ~/godot/godot --headless --path . -s res://tests/breite_1027.gd 2>&1 | grep -E "FALSCH|BREITE1027|SCRIPT ERROR"   # 1027 jeder Reiter passt auf den Schirm
+          set -o pipefail; timeout 180 ~/godot/godot --headless --path . -s res://tests/rollstand_1030.gd 2>&1 | grep -E "FALSCH|ROLL1030|SCRIPT ERROR"   # 1030 Reiter „Test“ behält die Stelle, Prüfliste einklappbar
           set -o pipefail; timeout 200 ~/godot/godot --headless --path . -s res://tests/schnellstart_1020.gd 2>&1 | grep -E "FEHLER|SCHNELLSTART1020|SCRIPT ERROR"   # 1020.1 A Schnellstart, Lage merken/zurück
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/fortsetzen_1021.gd 2>&1 | grep -E "FEHLER|FORTSETZEN1021|SCRIPT ERROR"   # 1021 nach Ende im Hintergrund gleich weiter
           timeout 120 ~/godot/godot --headless --path . -s res://tests/testmenue_470.gd 2>&1 | grep -E "FEHLER|TESTMENUE470"   # 470a B: Erschaffung BRS nur im Testmenue
