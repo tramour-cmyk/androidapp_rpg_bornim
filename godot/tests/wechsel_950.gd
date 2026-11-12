@@ -69,6 +69,7 @@ func _lauf() -> void:
 				mess[id][2] += 1
 				if not gang:
 					mess[id][3] += 1
+					print("ohne Gehen %s Bild %d: %s, %.2f m/s, am Platz %s" % [id, i, a, v, g.position.is_equal_approx(g.home)])
 		nah = minf(nah, Vector2(figs.hero.position.x - figs.merc.position.x, figs.hero.position.z - figs.merc.position.z).length())
 	var fehler := 0
 	for id in mess:

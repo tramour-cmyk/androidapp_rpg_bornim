@@ -30,6 +30,13 @@ func _lauf() -> void:
 		var an2 := Animation.new(); an2.length = 5.0; lib2.add_animation("Stich", an2)
 		ap.add_animation_library("ual", lib2)
 		fig.anim = ap
+	# 1018 (Lauf 373): mit Kaufmodellen hat der Held einen Spieler, aber weder „Hieb_2“ noch „ual/Stich“; play() lief ins Leere
+	for ln in [["", "Hieb_2"], ["ual", "Stich"]]:
+		if not fig.anim.has_animation(ln[0] + ("/" if ln[0] != "" else "") + ln[1]):
+			if not fig.anim.has_animation_library(ln[0]):
+				fig.anim.add_animation_library(ln[0], AnimationLibrary.new())
+			var an3 := Animation.new(); an3.length = 5.0
+			fig.anim.get_animation_library(ln[0]).add_animation(ln[1], an3)
 	for id in k.figures:
 		var g = k.figures[id]
 		if g.anim != null and g.anim.has_animation("Stehen"): g.anim.play("Stehen")
