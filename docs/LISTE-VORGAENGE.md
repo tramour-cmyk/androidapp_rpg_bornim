@@ -126,7 +126,7 @@
 | 1045 | Von Tuffy (Lauf 43235660324, Zweig ohne Spielstand-Änderung): spielstand_test rot, „FEHLER Plaetze 1 2“ (erwartet letzter 3); auf claude/tom-1022 grün | Tom | M | startbar | – | – | – | E Technik | – |
 | 1073 | Von Sokrates (Chef 12.11., 20:38): Bilder der Dinge in Tasche und Laden nach unserer Signatur statt der Kotlin-Zeichnungen (ThingArtExport, 399.1); zuerst Probe mit 4 Stücken: Heiltrank, Schwert, Verband, Hut | Tom | M? | startbar | – | – | – | G Stil | 1,52 $ |
 | 1079 | Prüfschritt ziege_4162 einmal rot: „von (-1, 0) tauscht die Ziege mit dem Helden den Platz“ (Lauf 43289694128 auf claude/tom-867-vorlage2; Build 280 grün); Ursache nachstellen | Tom | M | startbar | – | – | – | B Werkzeuge | – |
-| Pflege | von Werkzeug (340.3, 12.11.): 20347 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 12.11.): 20798 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
 | 1055 | Von Perikles (1052, Sokrates 16:47): Sammelbuild 281 gleich nach PR #199 auf main: alle fertigen Zweige beider Teams, Prüfliste Kampf zuerst (Wochenziel 2), gegengelesen vor Baustart (1020.1); löst Sperre 620.1 B nach dem Test | Jerry | M | in Arbeit, bei Tuffy; Lauf 281 läuft (PR #200) | – | claude/build-281 | – | B Steuerung | 10,97 $ |
 | 1039 | Von Sokrates (Chef 12.11., 15:04, Build 280, Probekampf Grak, Schwerer Hieb): innerer Ring kaum zu sehen, man erkennt nicht, wann man tippen muss; Ring lesbar machen (Zielring kräftig, Signatur gold) | Jerry | M | zu testen | – | claude/jerry-1039-ring | 281 | E Kampf | 18,72 $ |
 | 1068 | Von Perikles (1048 A, H, D, Chef 12.11., 20:05): Ring bei jedem großen Schlag der Gegner (Anspringen, Schwerer Hieb, Durchbrechen, Netz, Gift sammeln, Prankenhieb Krogg), diese Schläge härter (gut = heutiger Schaden), Ring beim eigenen Angriff nur für perfekt; erst Rechnung 444 und Probekampf, Zahl bei Durchfall an den Chef, dann Bau | Jerry | M | startbar | 1039 | – | – | E Kampf | – |
@@ -348,7 +348,7 @@
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 767 | Wochentermin 13.11.: Rollenspiegel Ford (rollenspiegel.sh Ford) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Ford | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 906 | lauf.py startet Zusatzentwickler auf Zeilen, deren Zweig Umzugsdateien berührt (492 am 11.11., 08:04: claude/tom-492-durchspiel ändert spiel.gd; Grundsatz 5 LISTE-UMZUG-BRS, Zu 870.4 Sokrates 01:57); Sperre nach geänderten Dateien prüfen (von Spike) | Ford | M? | startbar | – | – | – | B Steuerung | – |
-| Pflege | von Werkzeug (340.3, 12.11.): 67590 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 12.11.): 67771 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
