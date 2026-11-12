@@ -920,9 +920,10 @@ jobs:
             grep -E "^==|^  |^ÜBER|^SOLLBILD" $B/sollbild784.log || true
             ls -l $B; exit 0
           fi
-          # 1039 (Tuffy; Chef 12.11., 15:04 „den inneren Ring zu sehen“): kampf=1039 eine Runde Wolfsrudel wie 784, der Held tippt den Ring
+          # 1039 (Tuffy; Chef 12.11., 15:04 „den inneren Ring zu sehen“): kampf=1039 zwei Runden gegen Grak wie beim Chef (Schwerer Hieb mit Ring;
+          # Lauf 383 mit Wölfen: Anspringen hat keinen Ring, im ganzen Film kein Ring), der Held tippt den Ring
           if [ "${{ github.event.inputs.kampf }}" = "1039" ]; then
-            film 1039-ring sollbild_784 RUNDEN=1
+            film 1039-ring sollbild_784 RUNDEN=2 GEGNER=GRAK
             ls -l $B; exit 0
           fi
           if [ "${{ github.event.inputs.kampf }}" = "4531" ]; then

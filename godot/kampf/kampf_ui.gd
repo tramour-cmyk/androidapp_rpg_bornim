@@ -87,6 +87,9 @@ func t(de: String, en: String) -> String:
 ## 551: Halbmesser der unteren Bildschirmecken in dp wie alt DeviceInfo.cornerDp() (Display.getRoundedCorner, unten links
 ## und rechts, das größere), über das Plugin AndroidRuntime; ohne Gerät, vor Android 12 oder ohne Antwort 13 dp wie bisher.
 static var ecke := -1.0
+# 1039 (Lauf 383): Uhr für Ring und Würfelzeile; im Spiel die echte Zeit. Im Film (--write-movie, 6 % Echtzeit) setzt der Film eine
+# Uhr nach Bildern, sonst lief der große Ring in 4 Bildern zu und die Würfelzeile stand 0,3 s statt 2,5 s
+var uhr: Callable = Time.get_ticks_msec
 static func ecke_dp(_vp: Viewport) -> float:
 	if ecke >= 0.0:
 		return ecke
@@ -909,7 +912,7 @@ var tip_nr := 0
 # ---------------------------------------------------------------- ring, rolls, verdict
 func ring_open(target_id: String, _intent: Dictionary) -> void:
 	ring_target = target_id
-	ring_t0 = Time.get_ticks_msec()
+	ring_t0 = uhr.call()
 	pick = "main"
 
 
@@ -930,7 +933,7 @@ func ring_verdict(r: String) -> void:
 func show_roll(e: Dictionary) -> void:
 	if e.roll != null and e.target != null:
 		roll_shown = [e.target, e.roll, e.actor]
-		roll_at = Time.get_ticks_msec()
+		roll_at = uhr.call()
 
 
 # ---------------------------------------------------------------- drawing over the scene
@@ -1180,7 +1183,7 @@ func _draw_overlay() -> void:
 		_draw_turns(sr)
 		_draw_switches(sr)
 	# the roll over the one struck (RollTag)
-	var age := Time.get_ticks_msec() - roll_at
+	var age := int(uhr.call()) - roll_at
 	if dice_on and roll_shown != null and age < ROLL_MS + ROLL_FADE_MS and k.figures.has(roll_shown[0]):
 		_roll_tag(sr, k.figures[roll_shown[0]], roll_shown[1], roll_shown[2], 1.0 - clampf(float(age - ROLL_MS) / ROLL_FADE_MS, 0, 1))
 	# the ring: a large ring closing on a small one round the one attacked (RingAround)
@@ -1188,12 +1191,12 @@ func _draw_overlay() -> void:
 		var fig = k.figures[ring_target]
 		var h := _tall(fig)
 		var c2 := _foot(fig) - Vector2(0, h * 0.45)
-		var p3 := clampf(float(Time.get_ticks_msec() - ring_t0) / k.RING_MS, 0.0, 1.3)
+		var p3 := clampf(float(uhr.call() - ring_t0) / k.RING_MS, 0.0, 1.3)
 		var r0 := h * 0.55
 		# 1039 (Chef 12.11., 15:04, Build 280: „tat ich mich ganz schwer, den inneren Ring zu sehen. Also wann ich überhaupt den Ring
 		# drücken muss“): der Zielring kräftig in Gold mit schwarzem Rand (alt 1,5 dp, Gold 55 %, ging vor Gras und Figur unter);
 		# im Fenster für „Gut“ leuchtet er auf, am hellsten im Fenster für „Perfekt“ (kampfort.gd GOOD_MS, PERFECT_MS)
-		var off_ms := absf(float(Time.get_ticks_msec() - ring_t0) - k.RING_MS)
+		var off_ms := absf(float(uhr.call() - ring_t0) - k.RING_MS)
 		var jetzt := clampf(1.0 - (off_ms - k.PERFECT_MS) / float(k.GOOD_MS - k.PERFECT_MS), 0.0, 1.0)
 		var wi := (3.0 + 1.5 * jetzt) * dp
 		overlay.draw_arc(c2, r0, 0, TAU, 64, Color(0, 0, 0, 0.6), wi + 2.5 * dp, true)
