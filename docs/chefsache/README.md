@@ -30,7 +30,7 @@ Nichts offen.
 |---|---|---|---|---|---|
 | 1 | [0.348.373](ansehen/t278-sammelbuild.md) | [Build 278](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43159433416/artifacts/13919514537) | Sammelbuild nach Build 277 | Tom und Jerry | 12.11., 07:52 |
 | 2 | [0.348.377](ansehen/t279-testmenue.md) | [Build 279](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43184730118/artifacts/13931060982) | Nachtrag zu 278: Prüfliste im Spiel, Schnellstart, Probekampf-Baukasten, Fortsetzen | Tom und Jerry | 12.11., 10:28 |
-| 3 | [0.348.379](ansehen/t280-nachtrag.md) | [Build 280](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/199) | Nachtrag zu 279: Reiter „Test“ passt auf den Schirm, Bäume im Wald, Dorf Süd, Stufen der Ausrüstung | Tom und Jerry | 12.11., 12:20 |
+| 3 | [0.348.379](ansehen/t280-nachtrag.md) | [Build 280](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43208884654/artifacts/13942508968) | Nachtrag zu 279: Reiter „Test“ passt auf den Schirm, Bäume im Wald, Dorf Süd, Stufen der Ausrüstung | Tom und Jerry | 12.11., 13:10 |
 
 ## Zu tun
 
@@ -184,11 +184,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1022 | M | Von Sokrates (Chef 12.11., 08:26, Bild Dorf Tag 1 13:39; Wiederholfund t268): Kartenrand a | Chef (Datei in der Chefsache) |
 | 1023 | K | Hühner wie alt: fliehen verlässlich, Federn sichtbar, auffliegen (aus 814, t278.3; Chef 12 | ruht |
 
-**Jerry** – offen 138, Muss 125, startbar 1
+**Jerry** – offen 139, Muss 126, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 992 | M | Von Sokrates (Chef 11.11., 20:29, Test 277, wiederholt zu 709): Kampf: Bildschirm springt | wartet auf Test (Build 278) |
+| 1029 | M | Von Tom (Build 280, Lauf 380): schalter_1024 rot, WOLVES Seed 1: in 1 von 2202 Bildern Ans | Sperre 620.1 B: 41 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1024 |
 | 1025 | M | Von Sokrates (Chef 12.11., 10:25–10:28, Bilder Probekampf Wölfe, Build 278): zwei Kämpfe z | Sperre 620.1 B: 41 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
 | 1020.2 | M | Von Sokrates (1020 B, dann C): Probekampf-Baukasten mit „Nochmal“, Kampfgeschehen erzwinge | wartet auf Test (Build 279) |
 | 1018 | M | Von Tom (1012, Lauf 373 Build 278, PR #197): rote Tests nach dem Mischen: bewegung_997 (FE | Sperre 620.1 B: 41 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
