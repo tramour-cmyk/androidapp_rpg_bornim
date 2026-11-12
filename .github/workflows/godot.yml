@@ -607,6 +607,7 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/laden_503.gd 2>&1 | grep -E "FEHLER|LADEN503|SCRIPT ERROR"   # 503 Knopf und Rueckfrage wie alt
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/spielstaende_529.gd 2>&1 | grep -E "FEHLER|SPIELSTAENDE529|SCRIPT ERROR"   # 529 Heldenbild, Spielzeit, Ortszeit
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/spielstand_test.gd 2>&1 | grep -E "FEHLER|SPIELSTAND|870.8|SCRIPT ERROR"   # 399, 870.8 Spielstand Version 2, alter laedt nicht
+          set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/fortsetzen_1021.gd 2>&1 | grep -E "FEHLER|FORTSETZEN1021|im Spiel|Pause|SCRIPT ERROR"   # 1021 nach dem Ende im Hintergrund gleich weiter
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/rast_557.gd 2>&1 | grep -E "FEHLER|RAST557|SCRIPT ERROR"   # 557 Stil B eingeschaltet, Rast als Rastfeld
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/laden_525.gd 2>&1 | grep -E "FEHLER|LADEN525|SCRIPT ERROR"   # 525 Brauen, Rueckkauf, Fleisch an der Theke
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/laden_582.gd 2>&1 | grep -E "FEHLER|LADEN582|SCRIPT ERROR"   # 582 Laden wie alt: Kurzangabe, Seltenheit, Platz, ▲/▼

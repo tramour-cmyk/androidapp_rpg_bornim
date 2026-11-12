@@ -72,3 +72,31 @@ static func frei() -> int:
 
 static func loesche(n: int) -> void:
 	if FileAccess.file_exists(datei(n)): DirAccess.remove_absolute(ProjectSettings.globalize_path(datei(n)))
+
+# 1021 (Chef 12.11., 08:09: „dann fängt es wieder von vorne an das Spiel, weil ich den Fokus weggemacht habe“; 08:14: „manchmal …
+# und manchmal nicht“): gespeichert wird beim Pausieren schon (spiel.gd, 399); Android beendet die App aber im Hintergrund, wenn der
+# Speicher knapp wird oder das Akkusparen zugreift, und der neue Start lief ueber Vorspann und Hauptmenue. Alt (MainActivity.kt 54)
+# liess nur den Vorspann weg, das Hauptmenue blieb. Jetzt: wer das Spiel im Spiel verlaesst, hinterlaesst eine Marke; kommt die App nicht
+# zurueck (RESUMED loescht sie), sondern startet neu, geht sie ohne Vorspann und Hauptmenue gleich in diesen Stand. Hat der Spieler sie
+# selbst beendet (aus den letzten Apps gewischt, in den Einstellungen gestoppt; Ende laut System, Messung.letztes_ende), wie bisher.
+const HINTERGRUND := "user://hintergrund.json"
+const NUTZER_ENDE := [10, 11]         # ApplicationExitInfo.REASON_USER_REQUESTED, REASON_USER_STOPPED
+
+static func merke_hintergrund() -> void:
+	var f := FileAccess.open(HINTERGRUND, FileAccess.WRITE)
+	if f: f.store_string(JSON.stringify({"platz": platz, "zeit": int(Time.get_unix_time_from_system() * 1000.0)}))
+
+static func vergiss_hintergrund() -> void:
+	if FileAccess.file_exists(HINTERGRUND): DirAccess.remove_absolute(ProjectSettings.globalize_path(HINTERGRUND))
+
+## Beim Start einmal: der Platz, in den das Spiel gleich weitergeht, sonst 0. Die Marke ist danach weg, so fuehrt ein Absturz beim Laden
+## nicht in eine Schleife. ende: Messung.letztes_ende() ({} am Rechner oder vor Android 11: dann gilt die Marke allein)
+static func fortsetzen(ende: Dictionary) -> int:
+	if not FileAccess.file_exists(HINTERGRUND): return 0
+	var h = JSON.parse_string(FileAccess.get_file_as_string(HINTERGRUND))
+	vergiss_hintergrund()
+	if not h is Dictionary: return 0
+	var p := int(h.get("platz", 0))
+	if p < 1 or p > PLAETZE or lade(p).is_empty(): return 0
+	if not ende.is_empty() and int(ende.get("zeit", 0)) >= int(h.get("zeit", 0)) and int(ende.get("grund", 0)) in NUTZER_ENDE: return 0
+	return p

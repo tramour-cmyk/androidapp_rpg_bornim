@@ -75,6 +75,7 @@ func _ready() -> void:
 		starte(nw)
 		return
 	if OS.get_cmdline_user_args().is_empty() and DisplayServer.get_name() != "headless":
+		if weiter_nach_hintergrund(): return   # 1021
 		var ebene := CanvasLayer.new()   # 399.1 (Test 130: Probeknoepfe und Windrose lagen ueber dem Menue): eigene Ebene ueber allem
 		ebene.layer = 50
 		add_child(ebene)
@@ -105,6 +106,16 @@ func _ready() -> void:
 	gluehen_bilder()
 	robe_bilder()
 	if FigurenProbe.an(): add_child(FigurenProbe.new(self))   # 376.1 Probeblatt Quaternius-Figuren (figurenprobe.gd)
+
+# 1021: hat Android die App im Hintergrund beendet, geht der neue Start ohne Vorspann und Hauptmenue gleich in den Stand (spielstand.gd
+# fortsetzen); sonst false und es geht weiter wie bisher. Eigene Funktion fuer tests/fortsetzen_1021.gd
+func weiter_nach_hintergrund() -> bool:
+	var p := Spielstand.fortsetzen(Messung.letztes_ende())
+	if p == 0: return false
+	print("1021 nach dem Ende im Hintergrund gleich weiter in Platz %d" % p)
+	add_child(Helligkeit.schicht())
+	starte({"laden": true, "platz": p})
+	return true
 
 # 399: Spielbeginn aus dem Hauptmenue: geladen an den gespeicherten Ort, sonst ein neues Spiel mit frischem Zustand (Test 139: das neue
 # Spiel begann dort, wo das vorige stand; seit 3b17961e9 nach der Ankunft im Bett der Schenke). Eigene Funktion fuer tests/neues_spiel_399.gd
@@ -214,8 +225,10 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	speichere()   # 399: wie alt beim Kartenwechsel
 	Messung.geladen(id, (Time.get_ticks_usec() - t0) / 1000.0)
 
+func im_spiel() -> bool: return is_instance_valid(held) and karte != null and OS.get_cmdline_user_args().is_empty()
+
 func speichere() -> void:
-	if held and karte and not OS.get_cmdline_user_args().size():
+	if im_spiel():
 		buche_spielzeit()
 		Spielstand.speichere(zustand, held_werte(), platz())
 
@@ -230,7 +243,11 @@ func _notification(what: int) -> void:   # 399: auch beim Verlassen der App (alt
 	if what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_WM_CLOSE_REQUEST:
 		speichere()
 		spiel_seit = -1   # 529: im Hintergrund zaehlt nichts (alt pausePlayClock)
-	if what == NOTIFICATION_APPLICATION_RESUMED and spiel_seit < 0: spiel_seit = Time.get_ticks_msec()
+		# 1021: im Spiel verlassen: endet die App jetzt im Hintergrund, geht der naechste Start gleich hierher weiter
+		if what == NOTIFICATION_APPLICATION_PAUSED and im_spiel(): Spielstand.merke_hintergrund()
+	if what == NOTIFICATION_APPLICATION_RESUMED:
+		Spielstand.vergiss_hintergrund()   # 1021: die App lebt noch, nichts fortzusetzen
+		if spiel_seit < 0: spiel_seit = Time.get_ticks_msec()
 	# 416.1: Android-Zurück schliesst das oberste Fenster (zurueck.gd); ohne Fenster nichts (vorher beendete es das Spiel)
 	if what == NOTIFICATION_WM_GO_BACK_REQUEST: Zurueck.taste(get_tree())
 	# Build 145 (Tests mit spiel.tscn brachen beim Beenden ab, „corrupted size vs. prev_size“): die statische Uhr der Leute hielt eine

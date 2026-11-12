@@ -132,3 +132,51 @@ static func zeilen(vp: Viewport = null) -> Array:
 	z.append("Letzte Fehlermeldungen: " + ("keine" if fe.is_empty() else ""))
 	for x in fe: z.append("  " + x)
 	return z
+
+# 1021 wie alt CrashLog.exitReason (Kotlin, 30.1): warum Android den vorigen Lauf beendet hat (ApplicationExitInfo, ab Android 11),
+# ueber AndroidRuntime und JavaClassWrapper wie stil.gd. {"grund": Zahl, "text", "zeit": ms, "pss_mb", "rss_mb", "wichtigkeit"}; am Rechner,
+# vor Android 11 oder ohne Antwort {}. Einmal je Lauf gefragt (die Antwort aendert sich erst mit dem naechsten Ende).
+const ENDE_TEXT := {3: ["Speicher knapp, vom System beendet", "low memory, ended by the system"], 4: ["Absturz", "crash"],
+	5: ["Absturz in nativem Code", "native crash"], 6: ["reagierte nicht (ANR)", "not responding (ANR)"], 2: ["vom System beendet (Signal)", "ended by the system (signal)"],
+	9: ["zu viel Verbrauch", "excessive resource usage"], 10: ["vom Nutzer beendet", "ended by the user"], 11: ["vom Nutzer gestoppt", "stopped by the user"],
+	1: ["selbst beendet", "exited itself"], 12: ["Abhängigkeit beendet", "dependency died"], 8: ["Berechtigung geändert", "permission changed"],
+	7: ["Start fehlgeschlagen", "initialization failure"], 13: ["anderer Grund (vom System)", "other (system)"], 14: ["eingefroren und beendet", "frozen and ended"],
+	15: ["App aktiviert oder deaktiviert", "app enabled or disabled"], 16: ["App aktualisiert", "app updated"]}
+static var _ende = null
+
+static func letztes_ende() -> Dictionary:
+	if _ende == null: _ende = _frage_ende()
+	return _ende
+
+static func _frage_ende() -> Dictionary:
+	if OS.get_name() != "Android" or not Engine.has_singleton("AndroidRuntime"): return {}
+	var v := int(OS.get_version().get_slice(".", 0))
+	if v > 0 and v < 11: return {}
+	var rt = Engine.get_singleton("AndroidRuntime")
+	var ctx = rt.getApplicationContext() if rt else null
+	var am = ctx.getSystemService("activity") if ctx else null
+	if am == null: return {}
+	var liste = am.getHistoricalProcessExitReasons(ctx.getPackageName(), 0, 1)
+	var info = null
+	if liste is Array: info = liste[0] if liste.size() > 0 else null
+	elif liste is Object and liste != null and int(liste.size()) > 0:
+		var a = liste.toArray()
+		info = a[0] if a is Array and a.size() > 0 else null
+	if info == null: return {}
+	var e := {"grund": int(info.getReason()), "zeit": int(info.getTimestamp()), "pss_mb": int(info.getPss()) / 1024, "rss_mb": int(info.getRss()) / 1024,
+		"wichtigkeit": int(info.getImportance()), "signal": int(info.getStatus())}
+	var b = info.getDescription()
+	e["beschreibung"] = String(b) if b is String else ""
+	print("1021 Ende laut System: ", e)
+	return e
+
+## Eine Zeile wie alt: „12.11. 08:14: Speicher knapp, vom System beendet“, dazu Beschreibung und Speicher beim Ende; ohne Antwort „–“
+static func ende_text(e: Dictionary, de := true) -> String:
+	if e.is_empty(): return "–"
+	var g := int(e["grund"])
+	var w: String = ENDE_TEXT[g][0 if de else 1] if ENDE_TEXT.has(g) else ("anderer Grund (%d)" % g if de else "other (%d)" % g)
+	if g == 2: w += " %d" % int(e.get("signal", 0))
+	var d := Time.get_datetime_dict_from_unix_time(int(e["zeit"]) / 1000 + int(Time.get_time_zone_from_system().get("bias", 0)) * 60)
+	var s := "%02d.%02d. %02d:%02d: %s" % [d["day"], d["month"], d["hour"], d["minute"], w]
+	if String(e.get("beschreibung", "")) != "": s += "\n" + String(e["beschreibung"])
+	return s + ("\nSpeicher beim Ende: PSS %d MB, RSS %d MB, Wichtigkeit %d" if de else "\nMemory at end: PSS %d MB, RSS %d MB, importance %d") % [int(e["pss_mb"]), int(e["rss_mb"]), int(e["wichtigkeit"])]
