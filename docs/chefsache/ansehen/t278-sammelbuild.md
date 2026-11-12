@@ -87,3 +87,4 @@ Im Bau geprüft: Spielstand „Weiter“ nimmt immer den neuesten Platz (`spiels
 - 278.5 ✓ (Chef 12.11., 08:36)
 - 278.6 ✓ (Chef 12.11., 08:49)
 - 278.7 ✓ (Chef 12.11., 09:00)
+- Außer der Reihe (Chef 09:01, Log aus dem Reiter „Test“): voriger Lauf endete ohne Absturzspur, zuletzt Warnungen „RGBFloat … converting to RGBHalf“ aus Fußstaub und Federn je Schritt; seit Start nur `figures on Stub` (bekannt) → Zu 1021, 814 (Tom)
