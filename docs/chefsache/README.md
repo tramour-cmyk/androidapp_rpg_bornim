@@ -4,11 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [1038](entscheiden/1038-verband.md) | **Muss** | G Balance | 12.11., 16:18 | Der Verband stillt Blutung statt nur Leben zu heilen; die kurze Rast gibt kein Leben mehr, damit man Verband, Trank oder Essen dabeihaben muss | Sokrates |
+Nichts offen.
 
 ## Zu billigen
 
@@ -40,13 +36,14 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 3, Muss 1, startbar 0
+**Homer** – offen 4, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
+| 1047 | M | Von Sokrates (1038 A, R1, Chef 12.11., 16:24): Texte Verband (stillt Blutung) und kurze Ra | startbar |
 
 **Tom** – offen 113, Muss 92, startbar 6
 
@@ -166,7 +163,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1044 | M? | Von Sokrates (Chef 12.11., 16:08): Frauen stehen außerhalb des Kampfs wie eine Dame, Beine | startbar |
 | 1045 | M | Von Tuffy (Lauf 43235660324, Zweig ohne Spielstand-Änderung): spielstand_test rot, „FEHLER | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1022 |
 
-**Jerry** – offen 124, Muss 111, startbar 5
+**Jerry** – offen 125, Muss 112, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -294,6 +291,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1041 | M? | Von Sokrates (Chef 12.11., 15:16, Build 280, 278.24 bestanden): Platztausch ungleich, der | startbar |
 | 1043 | M | Von Sokrates (Chef 12.11., 15:52, Fund t278.33 Build 280, zu 988): MARS-Probekampf Wölfe, | Sperre 620.1 B: 25 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolfe) |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 30519 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| 1046 | M | Von Sokrates (1038 A, R1, Chef 12.11., 16:24): Verband stillt Blutung (plus kleiner Teil L | startbar |
 
 **Perikles** – offen 13, Muss 12, startbar 0
 
@@ -326,7 +324,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 55, Muss 40, startbar 30
+**Sokrates** – offen 54, Muss 39, startbar 30
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -383,7 +381,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 985 | K | Systemlösung? Nebel: 2 frühere Vorgänge (505, 502), neu 785.7; einmal grundsätzlich lösen? | startbar |
 | 644a.4 | M | Vorentscheid: Waffen der Truhe in der Blutzahnhöhle (cave_3) Stufe 3 statt 4, sonst vor Kr | startbar |
 | 644a.5 | M | Von Tuffy (644a.1): an welchem Grundwert hängen Rüstung, Ausweichen, Schild, Armbrust und | startbar |
-| 1038 | M | Von Jerry (1037): Vorentscheid zu vorläufigen Werten Überreden (35 + 1 je Punkt, Pim 0) un | Chef (Datei in der Chefsache) |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 16046 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
 ## Lücken
 
