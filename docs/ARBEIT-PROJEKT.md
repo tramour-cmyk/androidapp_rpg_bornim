@@ -2,10 +2,10 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `e844f13b9` (12.11., 04:04)
+**Gelesen bis:** `109293e0f` (12.11., 07:09)
 
-**Übergabe (12.11., 04:07, `session_01Hmoj75W8e6YMkpd4gxoni7`):** 1011 gebaut (`afa2141f4`): `startbar.laufzusage()` überspringt nur „<Nr>, Läufe frei“ mit „Sokrates“ ohne „Chef an“/„(Nutzer“; Probe am Archiv: 42 von 48 übersprungen, 264.1 (5×) und 510a zählen als Chefantwort; `--stand` läuft. Nachprüfung steht bei Diogenes (Zu 1010, 1011). Nachfolger: auf Abruf
-**Letzte Antwort:** 1011 gebaut; Vorrat leer, auf Abruf.
+**Übergabe (12.11., 07:10, `session_01Hmoj79nhucTfp4jACfXVtR`):** 1016: Startangaben in der Vorlage und `LISTE-BETRIEB.md` „Tiefe“ korrigiert (Voll → „WireStorm Hoch“, Modell nach Startzuordnung, Aufwand Hoch); Ford-Wache als Ersatz geprüft (Tiefe 4, brächte nur einen Neustart); Telegram 07:09 laut an den Chef. Ford stand 07:05 bei 115 Tsd. Token, Tiefe 6. Nach dem Start: neuer Ford auf Tiefe 0, Aufwand Hoch prüfen (`get_session`, Fehler 341), Antwort ins Archiv, Datei löschen, 1016 fertig. Nachfolger: Perikles – 1016 schließen (wartet auf Chef)
+**Letzte Antwort:** 1016 beim Chef: Ford heute vor 08:30 von Hand starten.
 - **Fehler 341, von Sokrates (11.11., 18:14):** 901 (365a B, „alle Hoch“ seit 07:18) startete in der Umgebung „WireStorm Hoch“, die nur Variablen setzt; die App zeigte „Mittel“, keiner prüfte das Ergebnis, gefunden hat es der Chef (18:04; 18:14 „von euch hat es ja keiner gemerkt … Schwarzbuch“). Behoben 981. Lehre: Einstellung am Ergebnis prüfen (`get_session`, App), nie an der Eingabe.
 
 ## Einzelheiten
