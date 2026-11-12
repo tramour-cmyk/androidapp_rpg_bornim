@@ -172,7 +172,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 994 | M | Von Sokrates (Chef 11.11., 20:54, Test 277.18): Klangzeile zeigt beim neuen Spiel ständig | wartet auf Test/Build (gebaut) |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 16383 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 132, Muss 114, startbar 10
+**Jerry** – offen 132, Muss 114, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -293,7 +293,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 785.18 | M | Von Spike (785): Stufenaufstieg im Endfeld des Kampfes hervorgehoben (alt eigenes Feld „St | wartet auf 870.13 (wartet) |
 | 987 | M | Von Spike (870.9, Lauf 354): krogg_494 schwankt (am Rechner 2 von 5 rot, Rauch 0 erster Sc | wartet auf Test/Build (gebaut) |
 | 988 | M | Von Tom (968, Lauf 43060687068): rote Tests in Build 277: held_kampf_403 (Kleriker ohne Sc | wartet auf Test/Build (gebaut) |
-| 986 | M? | Von Homer (840): Eingebungen nach BRS bauen wie den Wolfssprung, Texte und Bauhinweise in | startbar |
+| 986 | M? | Von Homer (840): Eingebungen nach BRS bauen wie den Wolfssprung, Texte und Bauhinweise in | wartet auf Test/Build (gebaut) |
 | 993 | M | Von Sokrates (Chef 11.11., 20:47, Test 277, Probekampf Zauberlehrling): Arkanpfeil „sieht | wartet auf Test/Build (gebaut) |
 | 995 | M | Von Sokrates (Chef 11.11., 20:58, Film 744): Grabhund wirkt durch seine Farbe unstrukturie | Sperre 620.1 B: 32 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 744 |
 | 997 | M? | Von Tuffy (620.2c, wie 233, 288): Testkampf zeigt Name der laufenden Bewegung und ihre Fas | startbar |
