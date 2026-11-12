@@ -312,3 +312,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:09 12.11.: Startsperre 01:09 Start Jerry (Neustart-Meldung 01:08, dfcf43604; Nachfolger "Jerry – 986: Eingebungen nach BRS"; Hoch, effort high)
 - 01:10 12.11.: Neustart Jerry (dfcf43604): Nachfolger …7934La69YC63snTQki "Jerry – 986: Eingebungen nach BRS" (Hoch, effort high); Jerry alt …76SsibYiY9PE3GyCjT (5,45 $ auf 863) archiviert und gebucht.
 - 01:16 12.11.: Startsperre 01:16 Start Sokrates (Neustart-Meldung 01:15, 1fdd4068f; Nachfolger "Sokrates – Nacht: Betrieb im Blick, morgens Lagebild"; Hoch, effort high)
+- 01:17 12.11.: Neustart Sokrates (1fdd4068f): Nachfolger …79B6X93sR9q3p1JjCA "Sokrates – Nacht: Betrieb im Blick, morgens Lagebild" (Hoch, effort high); Lagebild-Weckruf 06:50 auf die neue Sitzung gelegt (trig_012yyTjZLeDjZ2VXg5iQ6voU, alter war schon weg); Sokrates alt …7A85jPRofFXEkjKRGe (7,06 $ auf 264, 996, 861, 814, 833, 595) archiviert und gebucht.
