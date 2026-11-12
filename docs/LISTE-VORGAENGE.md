@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 1012 | Von Tom (968): Sammelbuild 278 von main nach dem Zusammenführen von 277, alle fertigen Zweige beider Teams (Tom 635, 814, 977, 1009; Jerry laut startbar.py 41 warten), Prüfliste ansehen/t278, build 278 --mit | Tom | M | in Arbeit, Lauf zu 5152a7d14 läuft | – | claude/build-278 | – | E Technik | 2,64 $ |
+| 1012 | Von Tom (968): Sammelbuild 278 von main nach dem Zusammenführen von 277, alle fertigen Zweige beider Teams (Tom 635, 814, 977, 1009; Jerry laut startbar.py 41 warten), Prüfliste ansehen/t278, build 278 --mit | Tom | M | zu testen, APK Lauf 373; Nachträge Build 279 | – | claude/build-278 | – | E Technik | 2,64 $ |
 | 825 | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635, 542, 543, 632; Jerry 593, 547, 597), Prüfliste ansehen/t<n>, build <n> --mit für jede Nummer (774) | Tom | M | gebaut, Geprüft an: Lauf 42793721837, t274 beim Chef | – | – | – | E Technik | 8,33 $ |
 | 697 | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | Tom | M | in Arbeit, erster Messlauf ohne Wert (nicht importiert) | 782 | claude/tom-697-drehteller | – | E Figuren | – |
 | 870.7 | Von Sokrates (870, Umzug BRS Schritt 6): Laden, Vergleich und Gegenstandsfenster nach BRS-Werten, Bild vor B2 (644.4); LISTE-UMZUG-BRS.md 4 | Tom | M | zu testen | – | claude/tom-870-7-laden | 278 | E Oberfläche | 13,85 $ |
