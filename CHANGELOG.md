@@ -4,6 +4,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **Pim heimschicken und Verband** (Tom, 842; 807 A, 807a A): im Gespräch mit Pim tagsüber der Knopf „Schick Pim heim (Überreden)“ unter seiner Zeile; Probe auf Überreden, jeder Versuch übt; gelingt es, geht Pim für den Tag heim, die Mutter dankt einmal beim Klopfen. Verband aus der Tasche heilt außerhalb des Kampfs nach Heilkunde und übt sie; bei Thessa und bei Osric („Kaufen“ unter der Heilung). Test `pim_verband_842`. Zweig `claude/tom-842-pim-verband` (Bild beim Chef).
 - **Ganzer Kampfbericht in Farbe** (Tuffy, 1031; Chef 12.11., 14:08, Build 280: „ist alles nur weiß“): „▴ ganzer Bericht“ zeigt die Zeilen in denselben Farben wie die Zeilen über dem Kampfort, jede hell wie die neueste (wie alt): Eingebung in Gold, „n Schaden“ hervorgehoben. Test `bericht_1031`. Zweig `claude/tuffy-1031-berichtfarben` (auf Build 280).
 - **Regelwerte zum Nachschlagen** (Jerry, 969; Chef 11.11., 15:49): `docs/LISTE-REGELWERTE.md`, erzeugt von `tools/regelwerte.py` aus `tools/sim444/werte.json`: je Block die Regel als Satz aus `DESIGN-BRS.md`, Formel und Erläuterung, heutige Zahl und wo das Spiel sie liest. Die Commit-Prüfung hält eine veraltete Seite an, `notiz.sh` warnt.
 
