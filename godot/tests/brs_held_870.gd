@@ -101,7 +101,7 @@ func _lauf() -> void:
 		var vor := h.leben
 		var s := Menue.benutze(z, h, "potion", func(a, b_): return 0)
 		pruefe("Heiltrank Welt, fehlen %d" % fehlt, [h.leben - vor, s.contains(" %d " % mini(fehlt, trank)) or s.contains(" %d " % mini(fehlt, trank))], [mini(fehlt, trank), true])
-	var tab: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	var tab: Dictionary = Tabellen.lade()     # 870.3: tabellen.json ist weg, die Kampftabellen kommen aus Tabellen (werte.json)
 	var skills := {}
 	for sk in tab.skills: skills[sk.id] = sk
 	var monsters := {}

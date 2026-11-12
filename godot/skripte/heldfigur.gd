@@ -196,6 +196,9 @@ static func baue(w: Dictionary, mats: Array) -> Node3D:
 	kapuze(m, t["kapuze"])
 	if t["kapuze"]: a["frisur"] = ""   # langes Haar unter der Kapuze verborgen (Archiv 376.1)
 	var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
+	if sk == null:   # 680: Datei ohne Skelett (verschluesselt ohne Schluessel, beschaedigt): nichts liegen lassen, alte Figur
+		m.free()
+		return null
 	if "--ohneheben" not in OS.get_cmdline_user_args(): sk.add_child(FigurenProbe.KopfHeben.new())   # UAL senkt den Kopf (Helfer 20:2x)
 	Gebiet.male(m, null, 2, mats)
 	for x in mats:   # 463: Kleidung geschlossen (Innenseiten und Aermel verlieren in der Tiefe; toon.gdshader rueck, nach)

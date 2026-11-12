@@ -1,6 +1,6 @@
 # 403: der Held je Klasse auf dem Kaufkörper im Kampfort (figur.gd _kaufheld, _arm_kauf). Ohne Bild: je Klasse kommt der
 # Kaufheld (nicht held.bin), hat Stehen, Gehen und die Kampfbewegungen, die Waffe sitzt im Faustloch der rechten Hand, der Schild an
-# der linken; der Kampf läuft auf Autopilot zu Ende ohne Skriptfehler. Ohne Kaufdateien (daten/held_<KLASSE>.bin,
+# der linken, wenn die Herkunft nach dem BRS einen trägt; der Kampf läuft auf Autopilot zu Ende ohne Skriptfehler. Ohne Kaufdateien (daten/held_<KLASSE>.bin,
 # kampf-bewegungen.bin) meldet er „ohne Kauf“ und endet mit 0.
 # Run: godot --headless --path godot -s res://tests/held_kampf_403.gd   (exit code 0 = alles richtig)
 extends SceneTree
@@ -64,7 +64,10 @@ func _run() -> void:
 				var oben: float = (waffe.global_transform.basis.y.normalized()).dot(Vector3.UP)
 				_check(absf(oben) > 0.8, "%s: Stab in Ruhe senkrecht (%.2f)" % [k, oben])
 		var schild: Node = fig.model.find_child("Schild", true, false)
-		_check((schild != null) == (k in ["FIGHTER", "CLERIC"]), "%s: Schild nur bei Kämpfer und Kleriker (%s)" % [k, "da" if schild else "keiner"])
+		# 988: nach dem BRS trägt nur eine Herkunft mit Schild einen (werte.json „herkuenfte“: Wachsoldat ja, Klosterschüler nein, 870.6)
+		var hk: String = String(load("res://regeln/brs_kampf.gd").KLASSE_HERKUNFT[k])
+		var soll_schild := bool(Brs.lade()["herkuenfte"][hk].get("schild", false))
+		_check((schild != null) == soll_schild, "%s: Schild nur, wenn die Herkunft einen trägt (%s: %s, %s)" % [k, hk, "ja" if soll_schild else "nein", "da" if schild else "keiner"])
 		# kein zweiter Schild oder Waffe auf dem Rücken (Unterwegs-Ausrüstung von HeldFigur.bewaffne; Chef 29.10.: Fehler)
 		var teile: Array = fig.model.find_children("*", "BoneAttachment3D", true, false).filter(func(n): return not String(n.name).begins_with("Haar_"))
 		_check(teile.size() == (1 if hat_waffe else 0) + (1 if schild else 0), "%s: nur Hand und Arm tragen (%d Anhänge)" % [k, teile.size()])

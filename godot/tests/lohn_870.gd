@@ -12,7 +12,7 @@ var fehler := 0
 
 
 func _init() -> void:
-	tables = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	tables = Tabellen.lade()
 	_modell_d()
 	_lohn()
 	_rudel()

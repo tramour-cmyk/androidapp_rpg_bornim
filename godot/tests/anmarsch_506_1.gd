@@ -39,7 +39,7 @@ func _lauf() -> void:
 	DisplayServer.window_set_size(Vector2i(1080, 2340))
 	root.size = Vector2i(1080, 2340)
 	await process_frame
-	tables = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	tables = Tabellen.lade()
 	for a in AUFSTELLUNGEN:
 		await _aufstellung("WIEDERGAENGER3", a[0], a[1], true)
 		await _aufstellung("GOBLINS", a[0], a[1], false)

@@ -190,7 +190,7 @@ DOCS = os.path.join(ZUG, "..")
 TEAMS = ("Tom", "Jerry", "Spike", "Tuffy", "Homer", "Perikles", "Sokrates", "Diogenes", "Ford")
 
 def formfehler():
-    """Testdateien in ansehen/ mit t<Build>-Namen: Team in Zeile 1, Bereichszeile („E Kampf · Team · TT.MM.“) als Zeile 2, Tabelle mit Spalten # | Nr. | Wo und wie | Richtig | Falsch."""
+    """Testdateien in ansehen/ mit t<Build>-Namen: Team in Zeile 1, Bereichszeile („E Kampf · Team · TT.MM.“) als Zeile 2, Tabelle mit Spalten # | Nr. | Wo und wie | Passt | Falsch (1033; alte Listen „Richtig“)."""
     pfad = os.path.join(ZUG, "ansehen")
     fehler = []
     for o in ("entscheiden", "ansehen", "billigen", "tun"):  # D77.2: ohne Absender bleibt „Wer“ leer, jetzt gemeldet
@@ -215,7 +215,7 @@ def formfehler():
         kopf, meta = (z + ["", ""])[:2]
         if any(re.sub(r" \d+$", "", t.strip()) not in TEAMS for t in re.split(r" und | \+ |/|, ", kopf.lstrip("# ").split(" · ")[0])): fehler.append(f"{n}: Zeile 1 beginnt nicht mit dem Team")
         if not re.match(r"[A-Z] \w+ · ", meta): fehler.append(f"{n}: Zeile 2 ist keine Bereichszeile")
-        if not re.search(r"^\|\s*#\s*\|(\s*Team\s*\|)?\s*Nr\.\s*\|\s*Wo und wie\s*\|\s*Richtig\s*\|\s*Falsch\s*\|", text, re.M): fehler.append(f"{n}: Tabelle `# | Nr. | Wo und wie | Richtig | Falsch` fehlt")
+        if not re.search(r"^\|\s*#\s*\|(\s*Team\s*\|)?\s*Nr\.\s*\|\s*Wo und wie\s*\|\s*(?:Passt|Richtig)\s*\|\s*Falsch\s*\|", text, re.M): fehler.append(f"{n}: Tabelle `# | Nr. | Wo und wie | Passt | Falsch` fehlt")
         else:  # 317: gemeinsamer Build bündelt mindestens 3 Vorgänge, keine Obergrenze (Chef 07.11., 20:5x), weniger nur auf „jetzt“ des Chefs
             zeilen = [[c.strip() for c in x.strip("|").split("|")] for x in z if x.startswith("|") and not re.match(r"\|[\s|:-]*$", x)]
             sp = zeilen[0].index("Nr.") if zeilen and "Nr." in zeilen[0] else 1

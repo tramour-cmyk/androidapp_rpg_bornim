@@ -12,6 +12,7 @@ static var geladen := false
 static var an := false                  # prefs KEY_TEST
 static var bildrate := false            # FrameMeter.on: Bilder je Sekunde ueber der Welt
 static var standort := false            # PlaceMeter.on: Karte und Kachel des Helden ueber der Welt
+static var klang := false               # 636 A (Chef 09.11., 06:55): die letzten Effekte ueber der Welt (klang.gd protokoll_zeilen)
 
 static func lade() -> void:
 	if geladen: return
@@ -65,7 +66,9 @@ const MERKER := [["intro_done", "Erwacht", "Woke up"], ["quest_started", "Auftra
 # 555 Stationen von Kapitel 1: Name, Karte, Person (oder Kachel und Blick), Merker bis dahin (Index in MERKER, ausschliesslich)
 const STATIONEN := [["Garrick", "forest", "garrick", 3], ["Morwen", "deep_forest", "morwen", 5], ["Grimmzahn", "deep_forest", "grimfang", 7],
 	["Höhle", "forest", [Vector2i(10, 1), "UP"], 8], ["Krogg", "cave", "krogg", 9], ["Grak", "cave", [Vector2i(10, 7), "UP"], 11],
-	["Lyra", "cave", "lyra_cave", 12]]
+	["Lyra", "cave", "lyra_cave", 12], ["Tempel", "temple", "lyra_temple", 14]]
+# 635 (Chef, t274.13: „Lyra steht erst nach der Befreiung im Tempel; Sprung im Reiter ‚Test‘ nötig“): Station „Tempel“ = Lyra befreit
+# und fort aus der Höhle, Amulett in der Tasche, vor Aldric; der Held steht neben Lyra im Tempel
 
 ## 555 (Chef 04.11., 11:52, t257 251.1: „wenn ich auf eine Spinne klicke, dann kommt die nicht“): die Spinne hat noch kein Modell
 ## (Streuner.da), der Kampf zeigte statt ihrer einen zweiten Wolf; ebenso Fledermaeuse. Nur Gruppen, deren Monster ein Modell haben;
@@ -82,7 +85,7 @@ static func feinde(alle := false) -> Dictionary:
 static var _gruppe_da := {}
 static func gruppe_da(g: String) -> bool:
 	if _gruppe_da.has(g): return _gruppe_da[g]
-	var tab: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	var tab: Dictionary = Tabellen.lade()
 	var monsters := {}
 	for m in tab.monsters: monsters[m.id] = m
 	var ja := true
@@ -130,7 +133,7 @@ static func vorraete(hw: BrsHeld, z: Zustand, n := 10) -> void:
 	if z.anzahl(Geschichte.SMOKE_BUNDLE) == 0: z.dazu(Geschichte.SMOKE_BUNDLE, 1)
 
 static func schlicht(z: Zustand, hw: BrsHeld, base: String) -> Dictionary:   # Gear(0, base, COMMON, level)
-	return {"uid": z.neue_uid(), "base": base, "rarity": "COMMON", "ilvl": hw.stufe, "plus": 0, "rolls": [], "unique": null, "name_seed": 0}
+	return {"uid": z.neue_uid(), "base": base, "rarity": "COMMON", "ilvl": hw.stufe, "guete": 0, "rolls": [], "unique": null, "name_seed": 0}
 
 # Game.cheatWeapon / cheatOffHand: was die Hand hielt, kommt in die Tasche
 static func waffe(hw: BrsHeld, z: Zustand, base: String, neben := false) -> void:
@@ -182,7 +185,9 @@ static func reiter(m: Menue) -> void:
 	m.zeichenreihe([zk.call(t.call("Bildrate", "Frame rate"), an_aus.call(bildrate), t.call("Zeigt über der Welt die Bilder je Sekunde.", "Shows frames per second over the world."),
 			func(): bildrate = not bildrate, "FPS", "", bildrate),
 		zk.call(t.call("Standort", "Position"), an_aus.call(standort), t.call("Zeigt über der Welt Karte und Kachel des Helden.", "Shows the hero's map and tile over the world."),
-			func(): standort = not standort, "PIN", "", standort)])
+			func(): standort = not standort, "PIN", "", standort),
+		zk.call(t.call("Klang", "Sound"), an_aus.call(klang), t.call("Zeigt über der Welt die letzten Geräusche: spielt, verklungen, abgebrochen oder nicht gestartet.", "Shows the latest sounds over the world: playing, finished, cut off or not started."),
+			func(): klang = not klang, "SOUND", "", klang)])
 	m.geraet_box()
 	m.luecke(6)
 	m.gruppe(t.call("Held · Stufe %d", "Hero · level %d") % hw.stufe)   # 425 (Pruefer 01.11.): die Stufe einmal, nicht unter „+1“
@@ -274,6 +279,9 @@ static func reiter(m: Menue) -> void:
 	if GrasBausatz.da():   # 804: Gras des Kits oder unser altes, gleich am Ort; Bilder/s vorher und nachher unter „Messen“
 		welt2.append(zk.call(t.call("Gras", "Grass"), null, t.call("Gras und Blumen aus Grass & Wind oder unser altes Gras, gleich hier am Ort.",
 			"Grass and flowers from Grass & Wind or our old grass, right here."), func(): m.test.emit("gras", []), "", "G"))
+	if KampfEffekte.da():   # 806: Bodennebel und Lichtschächte im Kampfort an oder aus, gilt ab dem nächsten Kampf (Bilder/s vorher und nachher)
+		welt2.append(zk.call(t.call("Kampfnebel", "Battle mist"), null, t.call("Bodennebel und Lichtschächte im Kampfort an oder aus; gilt ab dem nächsten Kampf.",
+			"Ground mist and light shafts at the battle place on or off; from the next battle on."), func(): m.test.emit("kampfeffekte", []), "", "N"))
 	m.zeichenreihe(welt2)
 	m.gruppe("Teleport")
 	var orte := [[t.call("Dorf", "Village"), "village", 11, 7, "DOWN", "HOME", ""], [t.call("Wald", "Forest"), "forest", 10, 20, "UP", "", "W"],
@@ -345,7 +353,7 @@ static func reiter(m: Menue) -> void:
 		m.zeichenreihe(sel.slice(i, i + 4).map(func(r): return zk.call(gross_anfang(Sprache.t(st[r]["name"])), null,
 			t.call("Erzeugt ein Stück dieser Seltenheit auf der Stufe des Helden.", "Creates an item of this rarity at the hero's level."),
 			func():   # Game.cheatLoot
-				var g := z.ausruestung_dazu(Beute.erzeuge(KotlinZufall.new(randi()), z.neue_uid(), hw.stufe, String(r), ""))
+				var g := z.ausruestung_dazu(Beute.erzeuge(KotlinZufall.new(randi()), z.neue_uid(), hw.stufe, String(r), hw))   # 870.6: nach seinen Fertigkeiten
 				m.meldung(t.call("Erhalten: ", "Received: ") + Beute.name(g)), "GEM")))
 
 # cheatChapterEnd: ein begehbares Feld neben Aldric im Haus des Aeltesten, mit Blick zu ihm: [Kachel, Blick]; [] ohne Aldric
@@ -399,7 +407,7 @@ static func station(name_: String, z: Zustand) -> Array:
 
 # 555: die Monster der Karte, die es im Spiel gibt (Streuner.da), mit Namen aus den Regeln
 static func monster_namen() -> Dictionary:
-	var tab = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json")) if FileAccess.file_exists("res://regeln/tabellen.json") else null
+	var tab = Tabellen.lade()     # 870.6: nach BRS (regeln/tabellen.gd)
 	if not tab is Dictionary: return {}
 	var namen := {}
 	for mo in tab["monsters"]: namen[String(mo["id"])] = String(mo["de"] if Sprache.aktiv() == "de" else mo["en"])

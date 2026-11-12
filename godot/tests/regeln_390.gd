@@ -138,8 +138,8 @@ func _talente() -> void:
 	_check("Handeln 50 verkauft", Laden.sell_price(probeheld({}, {"Handeln": 50}), 100), roundi(100 * (1.0 + 50 * float(wl["handeln_je_punkt"]))))
 	_check("mindestens 1", Laden.buy_price(probeheld({}, {"Handeln": 100}), 1), 1)
 	_check("Alchemie 10 braut", Laden.brau_chance(probeheld({}, {"Alchemie": 10})), 10 * float(wl["brauen_je_alchemie"]))
-	_check("Kräuter", Laden.kraut_chance(probeheld({"wahrnehmung": 5}, {"Kräuterkunde": 10})),
-		10 * float(wl["kraut_je_kraeuterkunde"]) + 2 * float(wl["kraut_je_wahrnehmung"]))
+	_check("Kräuter", Laden.kraut_chance(probeheld({"wahrnehmung": 5}, {"Kräutersammeln": 10})),
+		10 * float(wl["kraut_je_kraeutersammeln"]) + 2 * float(wl["kraut_je_wahrnehmung"]))
 	_check("Kochen 10", Laden.essen_bonus(probeheld({}, {"Kochen": 10})), roundi(10 * float(wl["essen_je_kochen"])))
 	_check("Gewandtheit 3 bemerkt", probeheld({"gewandtheit": 3}).bemerkt_aus(), int(wl["bemerken_felder"]))
 	_check("Gewandtheit 8 bemerkt", probeheld({"gewandtheit": 8}).bemerkt_aus(), int(wl["bemerken_felder"]) - 1)

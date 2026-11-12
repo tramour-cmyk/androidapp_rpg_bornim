@@ -27,10 +27,11 @@ const SMOKE_BUNDLE := "smoke_bundle"
 const CLASS_WEAPON := "@class_weapon"
 ## 632, 870.4 (STORY-BRS-HELD.md „Die Truhe in der Blutzahnhöhle“): die Truhe cave_3 gibt die Waffe zur stärksten Waffenfertigkeit
 ## des Helden, eine Magieschule darüber den Glutstab oder Morgenröte; bei Gleichstand gewinnt, was in TRUHE_FOLGE zuerst kommt.
-## Gruppen ohne eigenes Stück (Zweihänder, Stangenwaffen, Bogen, Armbrust, Wurfwaffen; Stücke 870.6) geben die nächststärkere mit Stück.
+## Gruppen ohne eigenes Stück (870.6: nur noch Wurfwaffen, bis es eine Grundform gibt) geben die nächststärkere mit Stück.
 const TRUHE_FOLGE := ["Einhänder", "Zweihänder", "Stangenwaffen", "Stumpfe Waffen", "Dolche", "Bogen", "Armbrust", "Wurfwaffen",
 	"Evokation", "Heilmagie", "Schutzmagie", "Illusion", "Beschwörung"]
 const TRUHE_STUECK := {"Einhänder": "longsword_oakford", "Dolche": "rapier_whisper", "Stumpfe Waffen": "mace_of_dawn",
+	"Zweihänder": "greatsword_nameless", "Stangenwaffen": "spear_wolf", "Bogen": "longbow_blackyew", "Armbrust": "crossbow_nightwatch",   # 870.6
 	"Heilmagie": "mace_of_dawn", "Schutzmagie": "mace_of_dawn", "Evokation": "staff_of_embers", "Illusion": "staff_of_embers",
 	"Beschwörung": "staff_of_embers"}
 static func truhen_waffe(fert: Dictionary) -> String:

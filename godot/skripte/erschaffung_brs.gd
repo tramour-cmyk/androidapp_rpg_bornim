@@ -66,7 +66,7 @@ const FERT := {"Einhänder": "One-handed", "Zweihänder": "Two-handed", "Stangen
 	"Schleichen": "Stealth", "Spähen": "Scouting", "Schlösser knacken": "Lockpicking", "Fallen entschärfen": "Disarming Traps",
 	"Evokation": "Evocation", "Schutzmagie": "Warding", "Heilmagie": "Healing Magic", "Illusion": "Illusion", "Beschwörung": "Summoning",
 	"Tiere beruhigen": "Calming Beasts", "Überreden": "Persuasion", "Einschüchtern": "Intimidation", "Handeln": "Haggling",
-	"Kräuterkunde": "Herbalism", "Bergbau": "Mining", "Angeln": "Fishing", "Jagd": "Hunting", "Schmieden": "Smithing",
+	"Kräutersammeln": "Foraging", "Bergbau": "Mining", "Angeln": "Fishing", "Jagd": "Hunting", "Schmieden": "Smithing",
 	"Lederarbeit": "Leatherwork", "Alchemie": "Alchemy", "Kochen": "Cooking", "Runenkunde": "Runecraft", "Heilkunde": "Medicine"}
 
 var name_ := ""

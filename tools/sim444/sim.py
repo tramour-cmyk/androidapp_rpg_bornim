@@ -20,7 +20,7 @@ Zwei Teile:
      Reparatur (Handwerker oder selbst), Traenken (kaufen, brauen, trinken) und Tiere beruhigen;
      Zahlen im Block "wirtschaft". Nur dieser Teil: --nur-wirtschaft.
   6. Traenke im Bosskampf (481.1): je Herkunft und Boss Siegquote ohne Traenke, mit Heiltraenken,
-     mit Kampftraenken (Steinhaut, Berserkertrank, Alchemistenfeuer; Wirkung nach Kraeuterkunde);
+     mit Kampftraenken (Steinhaut, Berserkertrank, Alchemistenfeuer; Wirkung nach Alchemie, 857a);
      Zahlen im Block "kampftraenke". Nur dieser Teil: --nur-traenke.
 """
 import argparse
@@ -265,7 +265,7 @@ def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False, beutel=
     rud_n = 0
     if rud:
         rud_n = rng.randint(*rud["anzahl"]) if isinstance(rud["anzahl"], list) else rud["anzahl"]
-    # 481.1: Kampftraenke (werte.json "kampftraenke"), Wirkung nach Kraeuterkunde
+    # 481.1: Kampftraenke (werte.json "kampftraenke"), Wirkung nach Alchemie (857a)
     tb = wirt if wirt is not None else beutel
     kt = W.get("kampftraenke", {})
     wirkung = beutel.wirkung if beutel is not None else 1.0
@@ -547,19 +547,19 @@ def matrix(W, herkunft, fert_bei, kaempfe, rng, variante=False):
 
 # ---------------------------------------------------------------- Teil 6: Traenke im Bosskampf (481.1)
 
-def wirkung_von(W, kraeuterkunde):
+def wirkung_von(W, alchemie):
     kt = W["kampftraenke"]
-    return min(kt["wirkung_max"], kt["wirkung_grund"] + kt["wirkung_je_kraeuterkunde"] * kraeuterkunde)
+    return min(kt["wirkung_max"], kt["wirkung_grund"] + kt["wirkung_je_alchemie"] * alchemie)
 
 
 class Beutel:
     """Traenke fuer einen Kampf; gleiche Schnittstelle fuer Heiltraenke wie Wirt."""
 
-    def __init__(self, W, heiltraenke, satz, kraeuterkunde):
+    def __init__(self, W, heiltraenke, satz, alchemie):
         self.W = W
         self.n = {"Heiltrank": heiltraenke}
         self.n.update(satz)
-        self.wirkung = wirkung_von(W, kraeuterkunde)
+        self.wirkung = wirkung_von(W, alchemie)
 
     def hat(self, name):
         return self.n.get(name, 0) > 0
@@ -586,18 +586,18 @@ def satz_preis(W):
 
 def traenke_boss(W, herkunft, fert_bei, kaempfe, rng):
     """Je Boss auf seiner Stufe: Siegquote ohne Traenke, mit Heiltraenken, mit Kampftraenken
-    (Kraeuterkunde wie gerechnet) und mit Kraeuterkunde an der Decke (nur wer damit beginnt)."""
+    (Alchemie wie gerechnet) und mit Alchemie an der Decke (nur wer damit beginnt)."""
     kt = W["kampftraenke"]
     out = {}
-    hat_kk = "Kräuterkunde" in W["herkuenfte"][herkunft]["fertigkeiten"]
+    hat_al = "Alchemie" in W["herkuenfte"][herkunft]["fertigkeiten"]
     for name, mon in ohne_info(W["monster"]).items():
         if not mon.get("boss"):
             continue
         h = held_auf_stufe(W, herkunft, mon["stufe"], fert_bei.get(mon["stufe"]) or fert_bei[max(fert_bei)])
-        kk = h.f("Kräuterkunde")
-        faelle = {"ohne": None, "heil": (kt["heiltraenke"], {}, kk), "kampf": (kt["heiltraenke"], kt["satz"], kk)}
-        if hat_kk:
-            faelle["kampf_decke"] = (kt["heiltraenke"], kt["satz"], max(kk, kt["kraeuterkunde_decke"]))
+        al = h.f("Alchemie")
+        faelle = {"ohne": None, "heil": (kt["heiltraenke"], {}, al), "kampf": (kt["heiltraenke"], kt["satz"], al)}
+        if hat_al:
+            faelle["kampf_decke"] = (kt["heiltraenke"], kt["satz"], max(al, kt["alchemie_decke"]))
         for fall, b in faelle.items():
             siege = 0
             for _ in range(kaempfe):
@@ -605,7 +605,7 @@ def traenke_boss(W, herkunft, fert_bei, kaempfe, rng):
                 if kampf(W, h, mon, rng, beutel=beutel)["sieg"]:
                     siege += 1
             out[(name, fall)] = siege / kaempfe
-        out[(name, "kk")] = kk
+        out[(name, "al")] = al
     return out
 
 
@@ -618,9 +618,9 @@ def bericht_traenke(W, tr, kaempfe, proben=None):
     a(f"Held auf der Stufe des Bosses, Fertigkeiten aus Abschnitt 1 (18 Punkte); je Fall {kaempfe} Kämpfe; Sieg in %. "
       f"„ohne“ wie Abschnitt 2; „Heil“: {kt['heiltraenke']} Heiltränke; „Kampf“: dazu "
       + ", ".join(f"{n} {name}" for name, n in kt["satz"].items())
-      + f" (Beutel {satz_preis(W)} Gold), Wirkung nach Kräuterkunde wie gerechnet; „Kampf, KK {kt['kraeuterkunde_decke']}“: nur wer mit Kräuterkunde beginnt, geübt bis zur Decke von Kapitel 1.")
+      + f" (Beutel {satz_preis(W)} Gold), Wirkung nach Alchemie wie gerechnet; „Kampf, Alch. {kt['alchemie_decke']}“: nur wer mit Alchemie beginnt, geübt bis zur Decke von Kapitel 1.")
     a("")
-    a(f"- **Wirkung** = {kt['wirkung_grund']} + {kt['wirkung_je_kraeuterkunde']} × Kräuterkunde, höchstens {kt['wirkung_max']} "
+    a(f"- **Wirkung** = {kt['wirkung_grund']} + {kt['wirkung_je_alchemie']} × Alchemie, höchstens {kt['wirkung_max']} "
       f"(ohne 0,5, Startwert 10 = 1, 24 = 1,7). Steinhaut: {kt['Steinhaut']['runden']} Runden Schaden × (1 − {kt['Steinhaut']['schutz']} × Wirkung), bei 2 unverwundbar; "
       f"Berserkertrank: {kt['Berserkertrank']['runden']} Angriffe mit Waffenschaden × (1 + {kt['Berserkertrank']['schaden_plus']} × Wirkung), nicht für Zauberer; "
       f"Alchemistenfeuer: geworfen, Grundschaden {kt['Alchemistenfeuer']['schaden']} × Wirkung, Feuer. Jeder Trank kostet einen Zug. Alle Zahlen Annahmen (`werte.json` „kampftraenke“).")
@@ -630,7 +630,7 @@ def bericht_traenke(W, tr, kaempfe, proben=None):
     for b in bosse:
         a(f"**{b}**")
         a("")
-        a(f"| Herkunft | Kräuterkunde | ohne | Heil | Kampf | Kampf, KK {kt['kraeuterkunde_decke']} |")
+        a(f"| Herkunft | Alchemie | ohne | Heil | Kampf | Kampf, Alch. {kt['alchemie_decke']} |")
         a("|---|---|---|---|---|---|")
         zaehl = {"ohne": 0, "heil": 0, "kampf": 0}
         for hk in hks:
@@ -644,19 +644,19 @@ def bericht_traenke(W, tr, kaempfe, proben=None):
             for f in zaehl:
                 if t[(b, f)] >= 0.5:
                     zaehl[f] += 1
-            a(f"| {hk} | {t[(b, 'kk')]} | {z('ohne')} | {z('heil')} | {z('kampf')} | {z('kampf_decke')} |")
+            a(f"| {hk} | {t[(b, 'al')]} | {z('ohne')} | {z('heil')} | {z('kampf')} | {z('kampf_decke')} |")
         a(f"| ab 50 % | | {zaehl['ohne']} | {zaehl['heil']} | {zaehl['kampf']} | |")
         a("")
     if proben:
         a("### 6b. Kräutersammler mit anderem Beutel")
         a("")
-        a("Sieg in %, je 2 Heiltränke dazu; Kräuterkunde gesetzt. Preis des Beutels in Gold.")
+        a("Sieg in %, je 2 Heiltränke dazu; Alchemie gesetzt. Preis des Beutels in Gold.")
         a("")
-        a("| Kräuterkunde | Beutel | Gold | " + " | ".join(bosse) + " |")
+        a("| Alchemie | Beutel | Gold | " + " | ".join(bosse) + " |")
         a("|---|---|---|" + "---|" * len(bosse))
-        for (kk, satzname), werte in proben.items():
+        for (al, satzname), werte in proben.items():
             zellen = [f"**{round(100 * werte[b])}**" if werte[b] >= 0.5 else str(round(100 * werte[b])) for b in bosse]
-            a(f"| {kk} | {satzname} | {werte['preis']} | " + " | ".join(zellen) + " |")
+            a(f"| {al} | {satzname} | {werte['preis']} | " + " | ".join(zellen) + " |")
         a("")
     return "\n".join(zeilen) + "\n"
 
@@ -665,7 +665,7 @@ def traenke_proben(W, fert_bei, kaempfe, rng, herkunft="Kräutersammler"):
     kt = W["kampftraenke"]
     preise = W["wirtschaft"]["preise"]
     out = {}
-    for kk in kt["proben_kraeuterkunde"]:
+    for al in kt["proben_alchemie"]:
         for satzname, satz in kt["proben"].items():
             r = {"preis": kt["heiltraenke"] * preise["Heiltrank"]
                  + sum(n * kt[t].get("preis", preise.get(t, 0)) for t, n in satz.items())}
@@ -673,10 +673,10 @@ def traenke_proben(W, fert_bei, kaempfe, rng, herkunft="Kräutersammler"):
                 if not mon.get("boss"):
                     continue
                 h = held_auf_stufe(W, herkunft, mon["stufe"], fert_bei.get(mon["stufe"]) or fert_bei[max(fert_bei)])
-                siege = sum(kampf(W, h, mon, rng, beutel=Beutel(W, kt["heiltraenke"], dict(satz), kk))["sieg"]
+                siege = sum(kampf(W, h, mon, rng, beutel=Beutel(W, kt["heiltraenke"], dict(satz), al))["sieg"]
                             for _ in range(kaempfe))
                 r[name] = siege / kaempfe
-            out[(kk, satzname)] = r
+            out[(al, satzname)] = r
     return out
 
 
@@ -1006,9 +1006,9 @@ def pruefen(W):
         ist("Reparatur Streitkolben selbst (Schmieden 10, Anfaenger)", k, 1, tol=0.001)
         ist("Reparatur Kettenhemd selbst erst als Geselle", 1 if reparatur_kosten(W, hs, "Mittlere Rüstung", 100)[1] is None else 0, 1, tol=0)
     if "kampftraenke" in W:   # 481.1
-        ist("Trankwirkung ohne Kraeuterkunde", wirkung_von(W, 0), 0.5, tol=0.001)
-        ist("Trankwirkung Kraeuterkunde 10", wirkung_von(W, 10), 1.0, tol=0.001)
-        ist("Trankwirkung Kraeuterkunde 40 (Deckel)", wirkung_von(W, 40), 2.0, tol=0.001)
+        ist("Trankwirkung ohne Alchemie", wirkung_von(W, 0), 0.5, tol=0.001)
+        ist("Trankwirkung Alchemie 10", wirkung_von(W, 10), 1.0, tol=0.001)
+        ist("Trankwirkung Alchemie 40 (Deckel)", wirkung_von(W, 40), 2.0, tol=0.001)
     print("Ergebnis:", "in Ordnung" if fehler == 0 else f"{fehler} Fehler")
     return fehler
 

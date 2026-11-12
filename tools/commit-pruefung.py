@@ -364,7 +364,7 @@ def main():
             for zl in re.findall(r"(?m)^\|\s*\d+\.\d+[a-z]?\s*\|.*$", git("show", ":" + p)):
                 rf = " ".join(zl.rstrip().rstrip("|").split("|")[-2:])
                 rf = re.sub(r"(?i)Lizenzen der Engine", "", rf)  # 847 (D128.1): Menüeintrag als Bedienelement ist kein Lizenzlesen
-                if re.search(r"(?i:Lizenz|Urheber)|\bMIT\b|\bCC0\b|\bCC BY\b", rf):  # 846 (D127.1): nur Richtig/Falsch, der Weg darf über „Lizenzen“ führen
+                if re.search(r"(?i:Lizenz|Urheber)|\bMIT\b|\bCC0\b|\bCC BY\b", rf):  # 846 (D127.1): nur Passt/Falsch (1033, alt Richtig), der Weg darf über „Lizenzen“ führen
                     stop.append("%s: Prüfzeile verlangt Lizenzlesen (%s); gehört als Test unter „Im Bau geprüft“ (832, LISTE-CHECK-BUILD-TEST.md 9)" % (p, zl.split("|")[1].strip()))
     for s, p in dat:  # 866 (Chef 10.11., 13:34, t274: 7 von 18 Prüfzeilen fehlerhaft): neue Prüfliste nur gegengelesen
         if not (s == "A" and re.match(r"docs/chefsache/ansehen/t\d+-[^/]+\.md$", p)): continue
@@ -407,6 +407,9 @@ def main():
     if any(p in ("tools/gegenstaende/gegenstaende.json", "docs/LISTE-GEGENSTAENDE.md", "tools/gegenstaende.py") for s, p in dat if s != "D"):
         r = subprocess.run([sys.executable, "tools/gegenstaende.py", "--pruefen"], capture_output=True, text=True)
         if r.returncode: stop.append("Gegenstandskatalog (458, D56.4): " + (r.stdout.strip().replace("\n", "; ") or "Prüfung fehlgeschlagen"))
+    if any(p in ("tools/sim444/werte.json", "docs/LISTE-REGELWERTE.md", "tools/regelwerte.py") for s, p in dat if s != "D"):
+        r = subprocess.run([sys.executable, "tools/regelwerte.py", "--pruefen"], capture_output=True, text=True)
+        if r.returncode: stop.append("Regelwerte (969): " + (r.stdout.strip().replace("\n", "; ") or "Prüfung fehlgeschlagen"))
     for w in warn: print("Commit-Prüfung Warnung: " + w, file=sys.stderr)
     for s in stop: print("Commit-Prüfung HÄLT AN: " + s, file=sys.stderr)
     return 1 if stop else 0

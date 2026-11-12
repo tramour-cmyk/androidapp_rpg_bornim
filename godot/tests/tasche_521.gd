@@ -69,7 +69,7 @@ func _lauf() -> void:
 	m.waehle("MAIN_HAND")
 	await process_frame
 	var w := " | ".join(texte(m))
-	pruefe(w.contains(Beute.name(schwert)) and w.contains(Beute.name(gross)) and w.contains("Hieb"), "Wechselschirm Haupthand: beide Waffen mit Angabe")
+	pruefe(w.contains(Beute.name(schwert)) and w.contains(Beute.name(gross)) and w.contains("Schnitt"), "Wechselschirm Haupthand: beide Waffen mit Angabe")
 	m.waehle("HEAD")
 	await process_frame
 	w = " | ".join(texte(m))

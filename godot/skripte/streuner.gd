@@ -79,7 +79,7 @@ static func aus_daten(d: Dictionary, k: Karte) -> Streuner:
 ## Kampffigur dieses Monsters (wie aufruf.gd gegner die erste), oder null, wenn es keine Gruppe oder kein Modell gibt
 static func kaempfer(monster: String, nummer: int):
 	if not GRUPPE.has(monster): return null
-	var tab: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	var tab: Dictionary = Tabellen.lade()
 	var monsters := {}
 	for m in tab.monsters: monsters[m.id] = m
 	var fs: Array = AufrufS.gegner(String(GRUPPE[monster]), monsters, Wuerfel.new(null))
