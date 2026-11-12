@@ -172,7 +172,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 994 | M | Von Sokrates (Chef 11.11., 20:54, Test 277.18): Klangzeile zeigt beim neuen Spiel ständig | wartet auf Test/Build (gebaut) |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 16383 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 132, Muss 114, startbar 9
+**Jerry** – offen 132, Muss 114, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -296,7 +296,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 986 | M? | Von Homer (840): Eingebungen nach BRS bauen wie den Wolfssprung, Texte und Bauhinweise in | wartet auf Test/Build (gebaut) |
 | 993 | M | Von Sokrates (Chef 11.11., 20:47, Test 277, Probekampf Zauberlehrling): Arkanpfeil „sieht | wartet auf Test/Build (gebaut) |
 | 995 | M | Von Sokrates (Chef 11.11., 20:58, Film 744): Grabhund wirkt durch seine Farbe unstrukturie | Sperre 620.1 B: 32 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 744 |
-| 997 | M? | Von Tuffy (620.2c, wie 233, 288): Testkampf zeigt Name der laufenden Bewegung und ihre Fas | startbar |
+| 997 | M? | Von Tuffy (620.2c, wie 233, 288): Testkampf zeigt Name der laufenden Bewegung und ihre Fas | wartet auf Test/Build (gebaut) |
 | 998 | M? | Von Tuffy (620.2c, wie 229.3): Kampfraster kräftiger wie beschlossen: alt Gold 0,9, 2 dp, | startbar |
 | 999 | M? | Von Tuffy (620.2c, wie 268, 72.10a.11): Waffenwechsel im Kampf sichtbar: Fernwaffe nie in | startbar |
 | 1000 | M? | Von Tuffy (620.2c, wie 310): Grak hält nach der Ansage „Schwerer Hieb“ die ausholende Halt | startbar |
