@@ -26,7 +26,7 @@ Nichts offen.
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [–](ansehen/t281-kampf.md) | [Build 281](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/200) | Kampf: Zielring, ein Probekampf für alles, Zustände aus dem Paket, Goblin-Späher, Grabhund, Grimmzahn tritt | Tom und Jerry | 12.11., 21:05 |
+| 1 | [0.348.401](ansehen/t281-kampf.md) | [Build 281](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/200) | Kampf: Zielring, ein Probekampf für alles, Zustände aus dem Paket, Goblin-Späher, Grabhund, Grimmzahn tritt | Tom und Jerry | 12.11., 21:05 |
 
 ## Zu tun
 
@@ -166,7 +166,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | Pflege | K | von Werkzeug (340.3, 12.11.): 20798 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 1081 | M? | Von Sokrates (Chef 12.11., 21:28): Zoom nach außen begrenzen auf 10,2 Kacheln Breite (heut | startbar |
 
-**Jerry** – offen 133, Muss 118, startbar 2
+**Jerry** – offen 132, Muss 118, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -300,7 +300,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1062 | M? | Von Sokrates (654, aus 1059): Filmlauf zeigt nur das Hauptmenü, dritter Fund gleicher Ursa | wartet auf Test/Build (gebaut) |
 | 1066 | M | Von Perikles (1050a A, Chef 12.11., 20:02): Herkunft Zauberlehrling plus Verstand 3, Wille | wartet auf Test (Build 281) |
 | 1072 | M | Von Sokrates (Chef 12.11., 20:09, zu 1036; Wiederholfund 09.11. und 10.11.): hinterer Wolf | Sperre 620.1 B: 33 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1036 |
-| 1075 | M? | Von Jerry (1029): Kampftests mit derselben Schleife wie probekampf_1020 (go_on auch beim S | startbar |
 | 1036.1 | M | Von Tuffy (1036, Chef 12.11., 20:52): neue Vorlage Zustände: jeder Zustand des Codes (auch | Sperre 620.1 B: 33 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1036 |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 32682 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
@@ -396,12 +395,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1051 | M | Von Jerry (841): Vorentscheid Werte Einschüchtern (Goblin-Späher verjagen): einschuechtern | startbar |
 | 1065 | M | Von Jerry (621 A, 1043): 1043 Lauf frei? Filmlauf 396 (kampf=1043) zeigte kein Ausweichen: | startbar |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 15366 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
-## Lücken
-
-Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
-
-Format (Muster: „So geht's“ unten): t281-kampf.md: Version 0.1.<Laufnummer> (Godot 0.348.<Laufnummer>) fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
-
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.

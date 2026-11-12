@@ -1,4 +1,4 @@
-# Tom und Jerry · Build 281 · Kampf: Zielring, ein Probekampf für alles, Zustände aus dem Paket, Goblin-Späher, Grabhund, Grimmzahn tritt · PR #200
+# Tom und Jerry · Build 281 · 0.348.401 · Kampf: Zielring, ein Probekampf für alles, Zustände aus dem Paket, Goblin-Späher, Grabhund, Grimmzahn tritt · PR #200
 E Kampf · Jerry (1039, 1040, 995, 841, 872, 833, 1049, 1054, 1060), Tuffy (1031, 1034, 1041, 1036, 1066), Tom (984.1, 1030, 1040.1) · 12.11., 21:05 · APK nach dem Lauf
 
 Noch nicht in 281, bitte nicht melden: Ausweichen im Probekampf (1043, Film wartet), Geschwächt, Geblendet, Betrunken und die übrigen Zustände (1036, Vorlage der übrigen am Morgen), zwei Kämpfe zugleich nach einem Probekampf im Wald (1025; Probekämpfe im Dorf starten), Platztausch (1041 ist im Build, aber das Paar Stab hinten, Schild und Schwert vorn ist nicht geprüft; kommt geprüft mit den Bahnen durch die Lücke, 1072), Grabhunde in gleicher Pose und Augen gemischt gelb und rot (zu 995), Ring bei den großen Schlägen der Gegner (1068). Dorf und Oberfläche kommen gleich danach als Build 282 (1056).
