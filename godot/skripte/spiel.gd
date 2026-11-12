@@ -40,6 +40,12 @@ var herde: Herde                                 # 490 Monster auf der Karte (he
 var im_kampf := false                            # 490: vom Angriff bis zurueck auf der Karte
 var kraut_tag := -1                              # 490 Heilkraeuter: fuer welchen Tag sie stehen (Game.herbDay)
 
+## 1062: ein Film (--write-movie) des Spiels ohne Argument hinter „--“ zeigte nur das Hauptmenü (399); so ein Lauf bricht ab
+const FILM_OHNE_ZIEL := "1062: Film ohne Argument hinter „--“ zeigt nur das Hauptmenü; im Aufruf „-- --<was>“ anhängen"
+static func film_ohne_ziel(user_args: PackedStringArray, film_pfad: String) -> bool:
+	return film_pfad != "" and user_args.is_empty()
+
+
 func _ready() -> void:
 	licht = Licht.new()
 	add_child(licht)
@@ -82,6 +88,13 @@ func _ready() -> void:
 		starte({"platz": fp, "laden": true})
 		return
 	if OS.get_cmdline_user_args().is_empty() and DisplayServer.get_name() != "headless":
+		# 1062 (Sokrates 12.11., 18:00; Läufe 384, 389 und 814: der ganze Film zeigte nur das Hauptmenü): ein Film des Spiels ohne
+		# Argument hinter „--“ bricht gleich mit Fehler ab, statt einen Lauf mit dem Hauptmenü zu verbrauchen
+		if film_ohne_ziel(OS.get_cmdline_user_args(), Engine.get_write_movie_path()):
+			push_error(FILM_OHNE_ZIEL)
+			print("FEHLER " + FILM_OHNE_ZIEL)
+			get_tree().quit(1)
+			return
 		var ebene := CanvasLayer.new()   # 399.1 (Test 130: Probeknoepfe und Windrose lagen ueber dem Menue): eigene Ebene ueber allem
 		ebene.layer = 50
 		add_child(ebene)
