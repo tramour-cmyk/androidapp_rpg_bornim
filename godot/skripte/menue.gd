@@ -779,8 +779,7 @@ static func tragen_hinweise(hw: BrsHeld, g: Dictionary) -> Array:
 	var r: Array = []
 	if BrsHeld.metall(String(g["base"])):
 		r.append(["Metall: Evokation, Illusion und Beschwörung wirken darin nicht." if de else "Metal: Evocation, Illusion and Summoning will not work in it.", false])
-	if BrsHeld.ruestung_von(String(g["base"])) == "Schwere Rüstung" and String(b["slot"]) == "CHEST":
-		r.append(["Schwere Rüstung: darin kannst du nicht schleichen." if de else "Heavy armor: you cannot sneak in it.", false])
+	# [870.14.ding.klirrt] „Schwere Rüstung: darin kannst du nicht schleichen.“ ruht, bis Schleichen im Spiel wirkt (Homer, 963)
 	if Beute.ist_waffe(b) and bool(b.get("zweihaendig", false)):
 		r.append(["Braucht beide Hände: kein Schild dazu." if de else "Needs both hands: no shield with it.", false])
 	var f := BrsHeld.fertigkeit_von(String(g["base"]))
@@ -805,8 +804,6 @@ static func stueck_zeilen_von(hw: BrsHeld, g: Dictionary) -> Array:
 	z_.append(bild)
 	# 524 (Abgleich 512, Chef 23:26 „besser machen“, alt ist die Untergrenze): Reihenfolge und Inhalt wie GearDetails alt (GearUi.kt 156–243)
 	# Gear.kindLine: Seltenheit und Art, wenn der Name sie nicht schon sagt
-	var plus := int(g.get("plus", 0))
-	var plus_t := (" +%d" % plus) if plus > 0 else ""
 	var selten := Sprache.t(d["seltenheiten"][String(g["rarity"])]["name"])
 	var gezeigt := Beute.name(g)
 	var art := String(b[sp])
@@ -814,13 +811,12 @@ static func stueck_zeilen_von(hw: BrsHeld, g: Dictionary) -> Array:
 	var art_zeile := ""
 	if not (hat_art and gezeigt.containsn(selten)):
 		var gross := selten.left(1).to_upper() + selten.substr(1)
-		art_zeile = gross + plus_t if hat_art else ((gross + String(d["endungen"][String(b["geschlecht"])]) + " " + art + plus_t) if de else (gross + " " + art + plus_t))
+		art_zeile = gross if hat_art else ((gross + String(d["endungen"][String(b["geschlecht"])]) + " " + art) if de else (gross + " " + art))
 	if art_zeile != "": z_.append(Stil.txt(art_zeile, 14, farbe_von.call(g)))
 	# Gear.wearLine · Stufe · Gewicht; beidhaendige Waffe fett in Rot (ein Schild muss herunter)
 	var waffe := Beute.ist_waffe(b)
 	var wo := String(d["plaetze"][String(b["slot"])][sp])
 	if waffe and zweihaendig.call(g): wo = "Beide Hände" if de else "Both hands"
-	elif b.get("vielseitig") != null: wo = "Vielseitig: eine oder beide Hände" if de else "Versatile: one or both hands"
 	elif waffe: wo = "Haupt- oder Nebenhand" if de else "Main or off hand"
 	wo += (" · Stufe " if de else " · Level ") + str(int(g["ilvl"]))
 	var gewicht := String(b.get("gewicht", "NONE"))
@@ -839,25 +835,18 @@ static func stueck_zeilen_von(hw: BrsHeld, g: Dictionary) -> Array:
 			var el := Stil.txt(("Ersetzt: " if de else "Replaces: ") + ", ".join(PackedStringArray(v.ersetzt.map(func(x): return Beute.name(x)))), 13, Stil.WARN if anderer else Stil.DIM)
 			z_.append(fett.call(el) if anderer else el)
 		z_.append(fett.call(Stil.txt(v.satz(), 14, {1: GRUEN, -1: Stil.WARN}.get(v.urteil(), Stil.TEXT))))
-	# Grundzahlen: Schaden je Griff, Angriff, Eigenschaften der Waffe; RK der Ruestung mit GES; Schild; Zauberkraft
-	if b.get("schaden") != null:
-		# 944 (t276.5): Schaden als Zahl nach dem BRS ([870.14.ding.schaden]), ohne Würfel und ohne „vielseitig“ (entfällt, Homer 870.14)
+	# Grundzahlen (870.7, [870.14.ding.…]): Schaden mit Guete und Schadensart, ohne Würfel (944) und ohne „vielseitig“ (Homer 870.14),
+	# der Grundwert im Schaden statt Finesse/Fernkampf; Schutzwert mit Guete ohne Gewandtheit; Guete statt „Angriff +n“; Fertigkeit
+	if Beute.ist_waffe(b):
 		z_.append(fett.call(Stil.txt(schaden_text(g, de), 16)))
-		if plus > 0: z_.append(fett.call(Stil.txt("%s +%d" % [Sprache.u("attack"), plus], 15)))
-		var zuege: Array = []
-		if bool(b.get("finesse", false)): zuege.append("Finesse")
-		if bool(b.get("fern", false)): zuege.append("Fernkampf" if de else "Ranged")
-		if not zuege.is_empty(): z_.append(Stil.txt(" · ".join(PackedStringArray(zuege)), 13, Stil.DIM))
-	# 870.4 ([870.14.ding.…]): Schutzwert nach BRS ohne Gewandtheit, Zauberkraft entfaellt
-	if (String(b["slot"]) == "CHEST" and int(b.get("ruestung", 0)) > 0) or String(b["art"]) == "SHIELD":
-		z_.append(fett.call(Stil.txt("%s %d" % [("Schutzwert" if de else "Protection"), BrsHeld.schutzwert_von(String(g["base"]))], 16)))
-	# Eigenschaften (Affix.line), blau wie alt
+		z_.append(Stil.txt(grundwert_text(g, de), 13, Stil.DIM))
+	elif hat_kennwert(g):
+		z_.append(fett.call(Stil.txt(("Schutzwert %d" if de else "Protection %d") % Beute.schutzwert(g), 16)))
+	if hat_kennwert(g): z_.append(Stil.txt(guete_text(g, de), 14, Stil.TEXT))
+	if fertigkeit_text(g, de) != "": z_.append(Stil.txt(fertigkeit_text(g, de), 13, Stil.DIM))
+	# Zusatzeigenschaften (870.7: Wortlaut Beute.zusatz_text, STORY-BRS-HELD.md), blau wie alt
 	for r in g["rolls"]:
-		var a := String(r[0]); var w := int(r[1])
-		var ad: Dictionary = d["affixdaten"][a]
-		var t := ("+%d %% kritisch" % w if de else "+%d%% critical" % w) if a == "CRIT" else \
-			"+%d%s %s" % [w, "%" if bool(ad["prozent"]) else "", Sprache.t(ad["name"])]
-		z_.append(Stil.txt(t, 16, Color(SELTEN["RARE"])))
+		z_.append(Stil.txt(Beute.zusatz_text(r), 16, Color(SELTEN["RARE"])))
 	# Warnungen
 	for t in Menue.tragen_hinweise(hw, g): z_.append(Stil.txt(t[0], 15 if t[1] else 13, Stil.WARN if t[1] else Stil.DIM))
 	# Vergleich: alles, was sich aendert, Getragenes neben dem Neuen, Gewinn gruen, Verlust rot, Hinweise darunter
@@ -1089,17 +1078,9 @@ func _waehle_b(platz: String) -> void:
 static func listen_zeile_b(g: Dictionary) -> String:
 	var t := Beute.listen_zeile(g)
 	if Beute.kennwert(g) != "" or g.get("rolls", []).is_empty(): return t
-	var d := BrsHeld.daten()
-	var de := Sprache.aktiv() == "de"
 	var teile: Array = []
-	for r in g["rolls"]:
-		var a := String(r[0]); var w := int(r[1])
-		var ad: Dictionary = d["affixdaten"].get(a, {})
-		if d["attribute"].has(a): teile.append("+%d %s" % [w, Sprache.t(d["attribute"][a]["kurz"])])
-		elif a == "AC": teile.append(("+%d Schutzwert" if de else "+%d Protection") % w)
-		elif a == "ALL_STATS": teile.append(("+%d alle" if de else "+%d all") % w)
-		elif a == "CRIT": teile.append(("+%d %% krit." if de else "+%d%% crit") % w)   # 870.4: kritisch in Prozent
-		elif not ad.is_empty(): teile.append("+%d%s %s" % [w, "%" if bool(ad["prozent"]) else "", Sprache.t(ad["name"])])
+	for r in g["rolls"]:     # 870.7: Zusatzeigenschaften nach dem BRS im Wortlaut des Fensters (Beute.zusatz_text)
+		teile.append(Beute.zusatz_text(r))
 		if teile.size() == 2: break
 	var k := " · ".join(PackedStringArray(teile)) + (" …" if g["rolls"].size() > 2 else "")
 	return k if t == "" else t + " · " + k
@@ -1292,18 +1273,14 @@ static func stueck_zeilen_b(hw: BrsHeld, g: Dictionary) -> Array:
 	kv.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	# Pruefer 07:46 (557a B): der Name stand mittig neben dem Bild 29 px tiefer als jeder Titel; oben wie der Kopf jedes Fensters
 	kv.size_flags_vertical = Control.SIZE_SHRINK_BEGIN if Spielstaende.vorlage2 else Control.SIZE_SHRINK_CENTER
-	var plus := int(g.get("plus", 0))
-	# 557 Runde 5 (Chef 19:23: „die plus x beim Gegenstand mit zum Namen dazu packen“): „Kettenpanzer +3“ in der Namenszeile, mit festem
-	# Leerzeichen, damit es mit dem letzten Wort umbricht (Bild 4: „+3“ stand allein unter dem Namen)
-	var nl: Label = fett.call(satz.call(Beute.name(g) + (("\u00a0+%d" % plus) if Spielstaende.vorlage2 and plus > 0 else ""), 19, farbe))
+	# 870.7: kein „+n“ mehr am Namen (557 Runde 5); die Guete steht unten bei den Grundzahlen ([870.14.ding.guete])
+	var nl: Label = fett.call(satz.call(Beute.name(g), 19, farbe))
 	kv.add_child(nl)
 	var selten := Testmodus.gross_anfang(Sprache.t(d["seltenheiten"][String(g["rarity"])]["name"]))
 	var art := String(b[sp])
-	var art_z := selten + ((String(d["endungen"][String(b["geschlecht"])]) if de else "") + " " + art if not Beute.name(g).containsn(art) else "") + ((" +%d" % plus) if plus > 0 else "")
+	var art_z := selten + ((String(d["endungen"][String(b["geschlecht"])]) if de else "") + " " + art if not Beute.name(g).containsn(art) else "")
 	if Spielstaende.vorlage2 and Beute.name(g).containsn(art) and Beute.name(g).containsn(selten):   # Pruefer 17:12: „Göttlicher Ring …“, darunter
-		art_z = ("+%d" % plus) if plus > 0 else ""   # noch einmal „Göttlich“: was der Name sagt, steht nicht doppelt da (wie stueck_zeilen, 524)
-	if Spielstaende.vorlage2 and plus > 0:   # 557 Runde 5: „+x“ steht schon am Namen
-		art_z = art_z.trim_suffix(" +%d" % plus).trim_suffix("+%d" % plus).strip_edges()
+		art_z = ""   # noch einmal „Göttlich“: was der Name sagt, steht nicht doppelt da (wie stueck_zeilen, 524)
 	if art_z != "": kv.add_child(satz.call(art_z, 13, Color(farbe, 0.8)))
 	kopf.add_child(kv)
 	z_.append(kopf)
@@ -1333,7 +1310,6 @@ static func stueck_zeilen_b(hw: BrsHeld, g: Dictionary) -> Array:
 	var zwei := waffe and bool(b["zweihaendig"])
 	var wo := String(d["plaetze"][String(b["slot"])][sp])
 	if zwei: wo = "Beide Hände" if de else "Both hands"
-	elif b.get("vielseitig") != null: wo = "Vielseitig: eine oder beide Hände" if de else "Versatile: one or both hands"
 	elif waffe: wo = "Haupt- oder Nebenhand" if de else "Main or off hand"
 	wo += (" · Stufe " if de else " · Level ") + str(int(g["ilvl"]))
 	var gewicht := String(b.get("gewicht", "NONE"))
@@ -1343,30 +1319,27 @@ static func stueck_zeilen_b(hw: BrsHeld, g: Dictionary) -> Array:
 	if String(b["art"]) == "LIGHT":
 		z_.append(satz.call("Pech und Werg auf einem Stock. In der Nebenhand, statt eines Schilds. Im Dunkeln siehst du weiter als mit einem Leuchtfunken. Brennt, solange du sie trägst." if de else
 			"Pitch and tow on a stick. Held in the off hand, instead of a shield. In the dark you see further than with a Lightspark. Burns as long as you carry it.", 14, Stil.TEXT))
-	if b.get("schaden") != null:
-		z_.append(fett.call(satz.call(schaden_text(g, de), 16, Stil.TEXT)))     # 944 (t276.5): ohne Würfel
-		if plus > 0: z_.append(fett.call(satz.call("%s +%d" % [Sprache.u("attack"), plus], 15, Stil.TEXT)))
-		# 870.4 ([870.14.ding.grundwert], [870.14.ding.armbrust]): der Grundwert im Schaden nach werte.json „waffen“
-		var gw = BrsHeld.lade()["waffen"].get(BrsHeld.fertigkeit_von(String(g["base"])), {}).get("grundwert")
-		if gw == null: z_.append(satz.call("Schaden ohne Grundwert." if de else "Damage without an attribute.", 13, Stil.DIM))
-		else: z_.append(satz.call(("Schaden mit %s" if de else "Damage with %s") % ErschaffungBrs.tx(ErschaffungBrs.GRUNDWERT.get(String(gw), {"de": gw, "en": gw})), 13, Stil.DIM))
-	if (String(b["slot"]) == "CHEST" and int(b.get("ruestung", 0)) > 0) or String(b["art"]) == "SHIELD":   # 870.4: Schutzwert nach BRS
-		z_.append(fett.call(satz.call("%s %d" % [("Schutzwert" if de else "Protection"), BrsHeld.schutzwert_von(String(g["base"]))], 16, Stil.TEXT)))
+	# 870.7 ([870.14.ding.…]): wie stueck_zeilen_von: Schaden mit Guete (944: ohne Würfel), Grundwert, Schutzwert mit Guete, Guete, Fertigkeit
+	if waffe:
+		z_.append(fett.call(satz.call(schaden_text(g, de), 16, Stil.TEXT)))
+		z_.append(satz.call(grundwert_text(g, de), 13, Stil.DIM))
+	elif hat_kennwert(g):
+		z_.append(fett.call(satz.call(("Schutzwert %d" if de else "Protection %d") % Beute.schutzwert(g), 16, Stil.TEXT)))
+	if hat_kennwert(g): z_.append(satz.call(guete_text(g, de), 14, Stil.TEXT))
+	if fertigkeit_text(g, de) != "": z_.append(satz.call(fertigkeit_text(g, de), 13, Stil.DIM))
 	# Boni: wirksam in Gold; was die Obergrenze ganz oder zum Teil schluckt, matt mit dem, was wirkt
 	if not g.get("rolls", []).is_empty():
 		z_.append(Spielstaende.linie())
 		var wk := Vergleich.wirkung(hw, g) if hw.kann_tragen(g) else {}
 		for r in g["rolls"]:
 			var a := String(r[0]); var w := int(r[1])
-			var ad: Dictionary = d["affixdaten"][a]
-			var t := ("+%d %% kritisch" % w if de else "+%d%% critical" % w) if a == "CRIT" else \
-				"+%d%s %s" % [w, "%" if bool(ad["prozent"]) else "", Sprache.t(ad["name"])]
-			var e: Array = wk.get(a, [w, w])
+			var t := Beute.zusatz_text(r)     # 870.7: Wortlaut STORY-BRS-HELD.md
+			var e: Array = wk.get(a, [w, w]) if a != "SKILL" else [w, w]     # Fertigkeit +n hat keine Obergrenze (BrsHeld.fertigkeit_bonus)
 			if e.size() > 2 and int(e[1]) != int(e[2]):   # alle Attribute: je Attribut verschieden viel (Helfer 14:18: „wirkt nur teils“ sagte zu wenig)
 				z_.append(satz.call(t + (" – wirkt +%d bis +%d (Obergrenze)" if de else " – gives +%d to +%d (limit)") % [int(e[1]), int(e[2])], 15, Stil.DIM))
 			elif int(e[1]) == 0: z_.append(satz.call(t + (" – wirkt nicht (Obergrenze)" if de else " – no effect (limit)"), 15, Stil.DIM))
 			elif int(e[1]) < w:
-				var pz := "%" if bool(ad["prozent"]) else ""
+				var pz := "%" if Beute.zusatz_prozent(a) else ""
 				z_.append(satz.call(t + (" – wirkt +%d%s (Obergrenze)" if de else " – gives +%d%s (limit)") % [int(e[1]), pz], 15, Stil.DIM))
 			else: z_.append(satz.call(t, 16, Stil.BRIGHT))
 	# Warnungen (870.4: Tragen nach BRS)
@@ -1945,8 +1918,31 @@ func chronik() -> void:
 
 ## 944 (Chef 11.11., 13:22, t276.5): [870.14.ding.schaden] „Schaden %d · %s“, Grundschaden der Waffengruppe (werte.json „waffen“,
 ## wie BrsHeld.schaden und mars.gd _brs_waffe), Schadensart wie bisher; nie ein Würfel
+# 870.7 ([870.14.ding.schaden]): Schaden der Waffe mit ihrer Guete und der Schadensart aus den Regelwerten (Beute.schaden,
+# Beute.schadensart); ohne Schadensart nur die Zahl
 static func schaden_text(g: Dictionary, de: bool) -> String:
+	var art: Array = Beute.SCHADENSART.get(Beute.schadensart(g), ["", ""])
+	var n := Beute.schaden(g)
+	if String(art[0]) == "": return ("Schaden %d" if de else "Damage %d") % n
+	return ("Schaden %d · %s" if de else "Damage %d · %s") % [n, art[0 if de else 1]]
+
+# 870.7 ([870.14.ding.guete], statt „Angriff +%d“): Guete jedes Stuecks, dessen Zahl sie aendert (Waffe, Brustruestung, Schild)
+static func guete_text(g: Dictionary, de: bool) -> String:
+	return ("Güte: %s" if de else "Quality: %s") % Beute.guete_name(Beute.guete_von(g), "de" if de else "en")
+
+# 870.7 ([870.14.ding.fertigkeit]): die Fertigkeit, die das Stueck braucht (Waffe, Ruestung, Schild), "" sonst
+static func fertigkeit_text(g: Dictionary, de: bool) -> String:
+	var f := BrsHeld.fertigkeit_von(String(g["base"]))
+	if f == "": return ""
+	return ("Fertigkeit: %s" if de else "Skill: %s") % (f if de else String(ErschaffungBrs.FERT.get(f, f)))
+
+# 870.4 ([870.14.ding.grundwert], [870.14.ding.armbrust]): der Grundwert im Schaden nach werte.json „waffen“
+static func grundwert_text(g: Dictionary, de: bool) -> String:
+	var gw = BrsHeld.lade()["waffen"].get(BrsHeld.fertigkeit_von(String(g["base"])), {}).get("grundwert")
+	if gw == null: return "Schaden ohne Grundwert." if de else "Damage without an attribute."
+	return ("Schaden mit %s" if de else "Damage with %s") % ErschaffungBrs.tx(ErschaffungBrs.GRUNDWERT.get(String(gw), {"de": gw, "en": gw}))
+
+# 870.7: Stueck mit einer Zahl, die die Guete aendert (Beute.kennwert)
+static func hat_kennwert(g: Dictionary) -> bool:
 	var b := Beute.grundform(String(g["base"]))
-	var wd: Dictionary = BrsHeld.lade()["waffen"].get(BrsHeld.fertigkeit_von(String(g["base"])), {})
-	var art := Sprache.t(BrsHeld.daten()["schadensarten"].get(String(b.get("schadensart", "")), {"de": "", "en": ""}))
-	return ("Schaden %d · %s" if de else "Damage %d · %s") % [int(wd.get("schaden", 0)), art]
+	return Beute.ist_waffe(b) or (String(b["slot"]) == "CHEST" and int(b.get("ruestung", 0)) > 0) or String(b["art"]) == "SHIELD"

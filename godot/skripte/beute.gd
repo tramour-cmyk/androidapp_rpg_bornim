@@ -111,7 +111,9 @@ static func zusatz_text(r: Array, sprache: String = "") -> String:
 	if sprache == "": sprache = Sprache.aktiv()
 	var de := sprache == "de"
 	var a := String(r[0]); var n := int(r[1])
-	if a == "SKILL": return "+%d %s" % [n, String(r[2]) if r.size() > 2 else ""]
+	if a == "SKILL":     # 870.7: der Name der Fertigkeit in der verlangten Sprache (ErschaffungBrs.FERT)
+		var f := String(r[2]) if r.size() > 2 else ""
+		return "+%d %s" % [n, f if de else String(ErschaffungBrs.FERT.get(f, f))]
 	var namen := {"CRIT": ["kritisch", "critical"], "SPELL": ["Zauberschaden", "spell damage"], "TENACITY": ["Abwehrprobe", "resistance roll"]}
 	var nm = d_()["affixdaten"].get(a, {}).get("name", a)
 	var wort: String = (namen[a][0 if de else 1]) if namen.has(a) else (String(nm.get(sprache, nm.get("de", a))) if nm is Dictionary else String(nm))     # in der verlangten Sprache
