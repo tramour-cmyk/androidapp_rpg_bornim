@@ -442,7 +442,8 @@ func weiter() -> void:
 	naechste()
 
 func _process(dt: float) -> void:
-	if weiter_zeichen != null: weiter_zeichen.visible = not schreibt()   # ▼ erst, wenn der Text ganz steht (alt DialogDraft.kt 65)
+	# ▼ erst, wenn der Text ganz steht (alt DialogDraft.kt 65); 842: nicht, solange Wahl und „Nicht jetzt“ stehen (Tippen schaltet dann nicht weiter)
+	if weiter_zeichen != null: weiter_zeichen.visible = not schreibt() and not knopf_bereit()
 	if text_knopf != null: text_knopf.modulate.a = 0.0 if schreibt() else 1.0   # 842: Platz von Anfang an, nichts springt
 	if not schreibt(): return
 	schreib_ms += dt * 1000.0

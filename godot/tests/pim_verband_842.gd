@@ -181,6 +181,7 @@ func _lauf() -> void:
 	ui.weiter()
 	await process_frame
 	pruefe(ui.textfeld.visible and ui.knopf_bereit() and gewaehlt[0] == 0, "Weitertippen bei Wahl und Nicht jetzt: Zeile bleibt")
+	pruefe(not ui.weiter_zeichen.visible, "kein ▼, solange Wahl und Nicht jetzt stehen")
 	var links_ := ui.text_knopf.find_children("*", "PanelContainer", true, false).filter(func(k): return k.has_meta("links") and bool(k.get_meta("links")))
 	pruefe(links_.size() == 1 and (links_[0] as Control).find_child("Text", true, false).text == "NICHT JETZT", "Nicht jetzt steht links mit ‹")
 	var kasten := ui.textfeld.get_global_rect()
