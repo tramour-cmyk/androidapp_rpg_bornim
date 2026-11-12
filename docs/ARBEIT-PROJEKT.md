@@ -4,8 +4,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `217e2efbe` (12.11., 08:16)
 
-**Übergabe (12.11., 08:17, `session_01Hmoj7A2JDffJnrk5Dagztc`):** 448 Tagesbericht 12.11. (gegengelesen, 14 Befunde eingearbeitet, Telegram laut 08:16); Projektplan 2.3 und 4.8 auf „in Arbeit“. 1019 M und gebaut (`57f798597`, Neustart-Haken nimmt Ford bis 400 Tsd. aus), Prüfzeile Diogenes, Auftrag an Ford. Nachfolger: Perikles – (Ford ruft)
-**Letzte Antwort:** 448 Tagesbericht 12.11.: Build 278 testen, 644a und 264 entscheiden, Bild der Nutzung.
+**Übergabe (12.11., 14:29, `session_01Hmoj78GqGrL8ULmt1No1zc`):** 1033 erledigt (`5b7d71186`): Vorlage der Prüflisten Spalte „Passt“ statt „Richtig“ (`LISTE-CHECK-BUILD-TEST.md` 9, 10; Beispiel `ROLLE-ENTWICKLUNG.md`), `zug-index.py` nimmt beide; `tools/pruefliste.py` liest beide seit Tom `5c8d9dc5e` (Zweig 1030), auf `main` mit dem nächsten Build. Nachfolger: keiner
+**Letzte Antwort:** 1033: Prüflisten-Vorlage „Passt“ statt „Richtig“.
 - **Fehler 341, von Sokrates (11.11., 18:14):** 901 (365a B, „alle Hoch“ seit 07:18) startete in der Umgebung „WireStorm Hoch“, die nur Variablen setzt; die App zeigte „Mittel“, keiner prüfte das Ergebnis, gefunden hat es der Chef (18:04; 18:14 „von euch hat es ja keiner gemerkt … Schwarzbuch“). Behoben 981. Lehre: Einstellung am Ergebnis prüfen (`get_session`, App), nie an der Eingabe.
 
 ## Einzelheiten
