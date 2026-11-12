@@ -26,7 +26,7 @@ Was der Chef entschieden hat, neueste oben (99g.1). Je Vorgang: Nummer, Datum, E
 
 - **1022, Kartenrand neu vorlegen** (12.11., 17:00, Chef an Sokrates zum Bildpaar 15:39: „nochmal vorlegen und diesmal sinnvolle Bilder von innen auf den Kartenrand nach außen machen, weil nur dann sieht man, ob das was gebracht hat oder nicht“; `ansehen/1022-kartenrand.md` in Git): Bilder in der Spielansicht, Karte gedreht, Blick vom Helden über den Rand nach außen, an seinen Fundstellen; Tom → **neu vorlegen (Nutzer)**
 
-- **1056, nächster Build halbiert nach Thema** (12.11., 16:54, Vorentscheid Sokrates auf Chef 16:53: „können wir den nächsten Build dann nicht doch taktisch halbieren“; Chefsache `billigen/1056-build-halbiert.md`): nach 280 erst Build 281 Kampf (Wochenziel), gleich danach 282 Dorf und Oberfläche auf 281; Internes fährt in 281 ohne Prüfzeile; danach wieder 317; Perikles mit 1052 → **Vorentscheid**
+- **1056, nächster Build halbiert nach Thema** (12.11., 16:54, Vorentscheid Sokrates auf Chef 16:53: „können wir den nächsten Build dann nicht doch taktisch halbieren“; Chefsache `billigen/1056-build-halbiert.md`): nach 280 erst Build 281 Kampf (Wochenziel), gleich danach 282 Dorf und Oberfläche auf 281; Internes fährt in 281 ohne Prüfzeile; danach wieder 317; Perikles mit 1052 → **Vorentscheid** · gebilligt 12.11. (Chef 18:30)
 
 - **1038 A, R1, Verband stillt Blutung, kurze Rast ohne Leben** (12.11., 16:24, Chef an Sokrates: „1038 A, R1 fürs Erste“; Chefsache `entscheiden/1038-verband.md` in Git): Verband stillt Blutung, kaufen jetzt, herstellen mit dem Rezeptbuch (Heilkräuter und Leinen, Spinnseide stärker); kurze Rast nur Ausdauer; 1046 Jerry (mit Rechnung), 1047 Homer, Zu 842 Tom → **A, R1 vorläufig (Nutzer; Votum Sokrates)**
 
