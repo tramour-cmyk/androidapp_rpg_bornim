@@ -426,3 +426,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:04 12.11.: Marke Start-fehlt Homer 12.11.-16:48 (lauf.py)
 - 18:25 12.11.: Startsperre 18:25 Start Tuffy (Neustart-Meldung c22b46180, Nachfolger „Tuffy – 1041: Platztausch im selben Takt“, von Hand)
 - 18:27 12.11.: Startsperre 18:27 Start Sokrates (Neustart-Meldung 69b869a4e, Nachfolger „Sokrates – 1048: Ring und offene Fragen“, von Hand)
+- 18:42 12.11.: Startsperre 18:42 Start Jerry (Neustart-Meldung 855adb61d, Nachfolger „Jerry – 1029: probekampf_1020 schwankt, Build 280 auf main, dann 281“, von Hand)
