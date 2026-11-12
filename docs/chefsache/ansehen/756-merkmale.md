@@ -1,4 +1,7 @@
 # 756 · Merkmale der Ausrüstung: Güte und Zustand am Bild · Team Tom (Spike) · 12.11., 14:21
+
+[Bild von 12.11., 14:22](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/12-1422-756-Spike.png) (eingetragen von meldung.sh, Spike)
+
 E Oberfläche
 
 Geprüft an: [Commit 5fc8653df](https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/5fc8653df) (Bildlauf am Rechner, Test `merkmale_bild_756`)
