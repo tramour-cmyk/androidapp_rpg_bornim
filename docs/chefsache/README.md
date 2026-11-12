@@ -25,7 +25,6 @@ Nichts offen.
 |---|---|---|---|
 | [831](ansehen/831-wald.md) | Bäume aus dem Nature MegaKit im Wald, Spielbild | Tom | 12.11., 03:18 |
 | [833](ansehen/833-kampfschirm.md) | Unterer Kampfschirm ohne Kasten im Kasten | Jerry | 11.11., 23:46 |
-| [861](ansehen/861-umhang.md) | Umhangbuckel im Kampf: Ursache gefunden, Behebung gebaut | Tom | 11.11., 23:48 |
 | [935](ansehen/935-wurf.md) | Wurfmittel im Kampf: Flasche im Bogen geworfen | Tuffy | 12.11., 00:16 |
 | [991](ansehen/991-testmenue-zustand.md) | Testmenü: jeder Schalter zeigt seinen Zustand am Zeichen | Tom | 11.11., 21:16 |
 
@@ -142,7 +141,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 852 | K | Von Homer (432a A, Chef 10.11., 12:05): Aschgeborene bauen: Modell Mensch mit aschgrauer S | ruht |
 | 856 | M | Von Sokrates (Chef 10.11., 12:51, Fund t274, Bild): Zwischensequenz: Rückfrage „Überspring | wartet auf Test (Build 278) |
 | 860 | M | Von Sokrates (Chef 10.11., 13:07, t274.10 „Ja“): Chronik (Hauptauftrag, Aufträge, Bisher g | Sperre 620.1 B: 23 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.7 |
-| 861 | M | Von Sokrates (Chef 10.11., 13:12, Bild t274.14): Umhang des Kämpfers im Kampf rechts am Rü | Chef (Datei in der Chefsache) |
+| 861 | M | Von Sokrates (Chef 10.11., 13:12, Bild t274.14): Umhang des Kämpfers im Kampf rechts am Rü | ruht |
 | 867 | M | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die | Sperre 620.1 B: 23 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.9 |
 | 882.1 | M | Von Perikles (882, Umzug BRS Schritt 8): mit 870.9 auch godot-kampf.yml 41 (exportIntro) a | Sperre 620.1 B: 23 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.9 |
 | 926 | M | Von Jerry (870.6): Gegenstandsfenster im Menü ohne Würfel (menue.gd 754, 843–847, 1351 wue | wartet auf Test (Build 278) |
@@ -350,7 +349,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 53, Muss 38, startbar 28
+**Sokrates** – offen 53, Muss 38, startbar 27
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -401,7 +400,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 782 | M | Von Tom (697): ein Lauf am Rechner frei? Der erste (17:38) brach vor dem Zeichnen ab (Proj | startbar |
 | 827 | M | Stärkstes Modell nur für festgefahrene Vorgänge (zwei Rückläufer oder über 30 $), ab 14.11 | startbar |
 | 850 | K | Systemlösung? Halt: 7 frühere Vorgänge (244, 321.1, 488, 793, 662 …), neu 849; einmal grun | startbar |
-| 862 | K | Systemlösung? Umhang: 6 frühere Vorgänge (58, 488, 463, 463.1, 656 …), neu 861; einmal gru | startbar |
+| 862 | K | Systemlösung? Umhang: 6 frühere Vorgänge (58, 488, 463, 463.1, 656 …), neu 861; einmal gru | ruht |
 | 869 | K | Systemlösung? Rüstung: 2 frühere Vorgänge (49, 817), neu 868; einmal grundsätzlich lösen? | startbar |
 | 930 | M | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (wartet) |
 | 985 | K | Systemlösung? Nebel: 2 frühere Vorgänge (505, 502), neu 785.7; einmal grundsätzlich lösen? | startbar |
