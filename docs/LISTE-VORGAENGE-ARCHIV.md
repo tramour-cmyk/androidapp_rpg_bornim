@@ -1113,4 +1113,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 1006 | Von Tom (861): skelett_506 „Skelette im Gleichklang“ (Stehen 0,51/0,55/0,81) rot auch auf claude/tom-861-umhang ohne a1ab43c8d (Lauf 361, c30ad98fd, Stand main 21:21); Verdacht 595 damit widerlegt, wohl auch main | Q QS | M | – | Jerry | erledigt |
 | 1015 | Von Tom (1012, Sokrates Gegenlesen t278): Erklärtexte der Erschaffung (erschaffung_brs.gd 79–86, [954.1.…]) stehen vor 1008: Wille „stärkere Zauber“, Gewandtheit „kritische Treffer“ ohne Nahkampf; angleichen an STORY-BRS-HELD.md 1008 | G Story | M | – | Homer | erledigt |
 | 863a | Rückfrage: 863 nachstellen mit Kaufratte am Rechner (Kaufrepo freigeben) oder Messlauf am Bauserver (Jerry 12.11., 01:07) | E Kampf | M | – | Jerry | erledigt |
-| 1016 | Von Ford (12.11., 06:10, Regel 110 Tiefe): Ford von Hand in claude.ai/code starten, sobald der Ford auf Tiefe 6 ans Ende kommt | B Abläufe | M | – | Perikles | erledigt |
+| 1016 | Von Ford (12.11., 06:10, Regel 110 Tiefe): Ford von Hand in claude.ai/code starten, sobald der Ford auf Tiefe 6 ans Ende kommt | B Abläufe | M | 2,08 $ | Perikles | erledigt |
