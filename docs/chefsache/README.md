@@ -403,6 +403,8 @@ Format (Muster: „So geht's“ unten): t280-nachtrag.md: Zeile 2 ist keine Bere
 
 Beantwortet, Datei noch da (383.3: der Absender löscht sofort): ansehen/t280-nachtrag.md (Antwort t280, 12.11., 15:52)
 
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/1036-zustaende.md
+
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
