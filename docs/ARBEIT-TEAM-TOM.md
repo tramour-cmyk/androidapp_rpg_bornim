@@ -4,7 +4,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 **Vorrang (von Sokrates, Chef 11.11., 07:16; Pause aufgehoben):** „wenn sie nichts mehr für den Umzug zu tun haben, ob sie dann Pause haben. Ja, macht ja keinen Sinn.“ und „lass das Spike und Taffy das machen. Fehler ausmerzen“. (1) Umzug 870.x zuerst; (2) wartet der Umzug, Fehler aus den Tests des Chefs (Muss, wiederholte zuerst); kein Neues (Chef 10.11., 14:08: „nicht wieder irgendeinen Füllefanz neu anfangen“). Spike nimmt Fehler aus den Tests, solange Tom am Umzug ist. Umzugsdateien (`LISTE-UMZUG-BRS.md` 4) ändert nur der Umzugszweig (Grundsatz 5).
 
-**Übergabe (12.11., 05:32, `session_01Hmoj78ovK2dE9B3u77pw3E`):** 968: 988 und 1006 in Build 277 gemischt (`eea6d14db`), Lauf 370 grün (keine roten Tests), PR #196 auf main (`c1ebc354e`), CHANGELOG. 1012 Sammelbuild 278 angelegt (Tom 635, 814, 977, 1009 und Jerrys fertige Zweige). Nachfolger: Tom – 1012: Sammelbuild 278.
+**Übergabe (12.11., 05:32, `session_01Hmoj78ovK2dE9B3u77pw3E`):** 968: 988 und 1006 in Build 277 gemischt (`eea6d14db`), Lauf 370 grün (keine roten Tests), PR #196 auf main (`c1ebc354e`), CHANGELOG. 1012: `claude/build-278` mit 46 Vorgängen beider Teams, PR #197 (abonniert, Weckruf 06:59), `vorgang.py build 278 --mit` gesetzt; Prüfliste `docs/entwurf/t278-sammelbuild.md` bei Sokrates zum Gegenlesen (06:02). Offen: Lauf auswerten, APK-Link in die Prüfliste, Testbitte. Nachfolger: Tom – 1012: Testbitte Build 278.
 
 ## Einzelheiten
 - **Zu 1012, von Jerry (12.11., 05:57):** für Build 278 auch `claude/jerry-1013-schild-406` (`5b1e863b8`, nur Test `schild_406`: Schild im Kampf nach der Herkunft wie `held_kampf_403`).
