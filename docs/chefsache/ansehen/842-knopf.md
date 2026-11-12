@@ -1,5 +1,7 @@
 # 842 · Pim heimschicken und Verband: Knopf im Gespräch, Bild des Verbands · Team Tom · 12.11., 15:30
 
+[Bild von 12.11., 15:29](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/12-1529-842-Tom.png) (eingetragen von meldung.sh, Tom)
+
 E Welt
 
 Geprüft an: [Commit 288b2e93c](https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/288b2e93c) (Bild am Rechner, Test `knopf_bild_842`; Ablauf im Test `pim_verband_842`)
