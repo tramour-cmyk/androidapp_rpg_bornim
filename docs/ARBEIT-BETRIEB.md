@@ -359,3 +359,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:06 12.11.: Startsperre 09:06 Start Spike (lauf.py; Perikles-START „Perikles – (Ford ruft)“ nicht ausgeführt, kein Auftrag)
 - 09:06 12.11.: Marke Archiv session_01Hmoj7A2JDffJnrk5Dagztc (lauf.py)
 - 09:06 12.11.: Marke Archiv session_01Hmoj79rReQeD9gdL8Prmpp (lauf.py)
+- 09:10 12.11.: Lauf 09:04: Spike …766LSe7nDcgDZoGn2r (612, Tom-Muss Dorf Süd) gestartet; Spike 1021 …79rReQeD9gdL8Prmpp archiviert (4,57 $ gebucht). Nicht ausgeführt mit Grund: START Perikles „Perikles – (Ford ruft)“ (Übergabe ohne Auftrag, Planfehler an Perikles in den Vorrat); START Spike 1020.1 (Tom baut daran auf claude/tom-1020-pruefliste, Build 279 ist Toms). Keine roten Läufe.
