@@ -12,7 +12,7 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [1085](billigen/1085-pim-gold.md) | **Muss** | G Story | 12.11., 22:33 | Pim lässt sich auch für 5 Gold heimschicken, sicher, aber ohne Übung und ohne Ruf | Sokrates |
+| [1085](billigen/1085-pim-gold.md) | – | G Story | 12.11., 22:33 | Pim lässt sich auch für 5 Gold heimschicken, sicher, aber ohne Übung und ohne Ruf | Sokrates |
 
 ## Anzusehen
 
