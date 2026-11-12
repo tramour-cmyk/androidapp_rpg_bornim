@@ -73,7 +73,7 @@ def lies(text, quelle=''):
                 abschnitt = {'titel': '', 'zeilen': []}
                 aus['abschnitte'].append(abschnitt)
             abschnitt['zeilen'].append({'nr': nr, 'team': d.get('team', ''), 'vorgang': d.get('nr.', d.get('nr', '')),
-                                        'wo': d.get('wo und wie', ''), 'richtig': d.get('richtig', ''), 'falsch': d.get('falsch', '')})
+                                        'wo': d.get('wo und wie', ''), 'richtig': d.get('passt', d.get('richtig', '')), 'falsch': d.get('falsch', '')})
             continue
         # im Spiel nur, was beim Prüfen hilft: der Weg und was bekannt ist (nicht Teamliste, „Verglichen“, „Im Bau geprüft“)
         if not aus['abschnitte'] and re.match(r'(Rot|Bekannt|Ein Weg|Dazu bekannt)', z.strip()):

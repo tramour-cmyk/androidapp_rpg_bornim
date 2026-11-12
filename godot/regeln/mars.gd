@@ -324,6 +324,7 @@ class Fighter:
 	## 399.2a: the leader this one follows (a young wolf its wolf, Packs.kt); it flees when the leader falls
 	var follows := ""
 	var fled := false
+	var verjagt := false     # 841: vor dem Kampf eingeschüchtert und geflohen (lohn.gd: keine Beute von ihm)
 	## 478: was er nach dem BRS ist (brs_kampf.gd held, gegner)
 	var b := {}
 	## 478: seine Leben nach dem SRD beim Umrechnen (Maßstab für alles, was noch in Würfeln des SRD rechnet)
@@ -1114,12 +1115,17 @@ static func can_fight(party: Array) -> bool:
 	return not party.is_empty() and party[0].hp > 0
 
 
-func start(react: Callable = Callable()) -> Array:
+func start(react: Callable = Callable(), verjagen := false) -> Array:
 	# never play a fight without its hero: the foes would wait for a target forever (the old game ran out of memory)
 	if not lead().standing():
 		started = true
 		outcome = "LOST"
 		return _take_log()
+	if verjagen and spaeher_zum_verjagen() != null:
+		_einschuechtern()
+		if outcome != "ONGOING":
+			started = true
+			return _take_log()
 	_opening()
 	_skip_to_choice(react)
 	return _take_log()
@@ -1148,6 +1154,51 @@ func _smoke_bundle() -> void:
 
 func foes_of_kind(id: String) -> Array:
 	return fighters().filter(func(f): return f.side == "FOES" and f.monster != null and str(f.monster.id) == id)
+
+
+## 841 (807 A, 807a A; STORY-K1-FERTIGKEITEN.md „Einschüchtern: Goblin-Späher“): zu Kampfbeginn steht neben „Kämpfen“ die Wahl,
+## den Späher zu verjagen, wenn unter den Gegnern ein Goblin-Späher ist, nie gegen Krogg, Grak. Der erste stehende Späher, sonst null.
+func spaeher_zum_verjagen():
+	if started or outcome != "ONGOING" or not foes_of_kind(KROGG).is_empty() or not foes_of_kind(GRAK).is_empty():
+		return null
+	for f in all:
+		if f.side == "FOES" and f.standing() and f.monster != null and str(f.monster.id) == SCOUT and not f.called_in:
+			return f
+	return null
+
+
+## 841: Chance in Prozent (werte.json „proben“ „_einschuechtern“): einschuechtern_basis + einschuechtern_je_punkt × Einschüchtern
+## + je_stufe × (eigene Stufe − Stufe des Spähers), begrenzt auf min bis max
+func einschuechtern_chance(h: Fighter, s: Fighter) -> float:
+	var P := _proben()
+	var c := float(P.get("einschuechtern_basis", 35)) + float(P.get("einschuechtern_je_punkt", 1.0)) * float(h.b.get("fert", {}).get("Einschüchtern", 0)) \
+			+ float(P.get("je_stufe", 5)) * float(int(h.b.get("stufe", 1)) - int(s.b.get("stufe", 1)))
+	return clampf(c, float(P.get("min", 5)), float(P.get("max", 95)))
+
+
+## 841: gelingt es, flieht der Späher (Erfahrung wie für einen Sieg über ihn, lohn.gd zählt ihn mit; keine Beute von ihm); war er allein,
+## ist der Kampf gewonnen, sonst beginnt er ohne ihn. Misslingt es, beginnt der Kampf mit allen. Der Versuch übt Einschüchtern
+## (Kampfuebung hört „INTIMIDATE“), gelungen oder nicht.
+const MSG841_JA := [["Der Späher starrt dich an. Dann reißt er aus und ist fort.", "The scout stares at you. Then he bolts and is gone."],     # [807.spaeher.ja]
+	["Der Späher weicht zurück, Schritt um Schritt, und rennt.", "The scout backs away, step by step, and runs."],
+	["Ein Blick in dein Gesicht genügt. Der Späher lässt den Bogen sinken und flieht.", "One look at your face is enough. The scout lowers his bow and flees."]]
+const MSG841_NEIN := [["Der Späher bleckt die Zähne. Er bleibt.", "The scout bares his teeth. He stays."],     # [807.spaeher.nein]
+	["Ein kehliges Lachen. Der Goblin legt einen Pfeil auf.", "A throaty laugh. The goblin nocks an arrow."],
+	["Er duckt sich, aber er flieht nicht.", "He crouches, but he doesn't run."]]
+func _einschuechtern() -> void:
+	var h := lead()
+	var s = spaeher_zum_verjagen()
+	var gelingt: bool = dice.next_int(0, 100) < roundi(einschuechtern_chance(h, s))
+	_say("", h.id, s.id, 0, null, false, false, "INTIMIDATE")
+	if not gelingt:
+		_say(words.pick(MSG841_NEIN)[lang], s.id, h.id)
+		return
+	s.fled = true
+	s.verjagt = true
+	intents.erase(s.id)
+	_say(words.pick(MSG841_JA)[lang], null, s.id, 0, null, false, false, "FOE_FLEES")
+	if not all.any(func(x): return x.side == "FOES" and x.standing()):
+		outcome = "WON"
 
 
 ## 534 (alt Battle.init, Perks.cowChance): wer Charisma hat, schüchtert zu Kampfbeginn einen gewöhnlichen Gegner ein (8 % je
@@ -1995,51 +2046,55 @@ func _free_foe_spot(back := false):
 	return free[0] if not free.is_empty() else null
 
 
+## 1049 (Sokrates 12.11.: jede Art ohne eigenen Zweig fiel auf „Stich“ zurück): die Absichten je Art stehen in werte.json
+## „absichten“ „je_art“ als Liste [Kennung, Anzahl, Bedingung?] (Kennung = I_<KENNUNG>), eine Zeichenkette verweist auf eine andere
+## Art, „_sonst“ gilt für den Rest. Gewürfelt wird nur, wenn mehr als eine Absicht in Frage kommt (wie bisher). Die erzwungenen Züge
+## des Probekampfs (1020.2 C) bleiben hier.
 func _pick_intent(foe: Fighter) -> Dictionary:
 	var id := art_of(foe.monster)
-	if id == RAT or id == BAT or id == "ghoul":     # 535; 506 Grabhund
-		return I_BITE
-	if id == "zombie":     # 506 Wiedergänger
-		return I_CLAW
-	if id == SHAMAN:     # 535: Heilen, Fluch, Feuerstoß des Schamanen fehlen noch (Ansagen über Homer); bis dahin kämpft er wie ein Goblin
-		id = CALLED
-	if id == WOLF or id == DIRE_WOLF:
-		if test_gegnerzug == "pounce":     # 1020.2 C
-			test_gegnerzug = ""
-			test_erzwungen.append("pounce")
-			return I_POUNCE
-		var others := all.filter(func(x): return x.side == "FOES" and x.standing() and wolfig(x.monster)).size()
-		var circling := intents.values().any(func(p): return p[0].effect == "CIRCLE")
-		var can := [I_POUNCE, I_POUNCE]
-		# 986 (3): die Leibwache ist nicht angreifbar, sagt also kein Einkreisen an ([986.circle] „Den treffen“)
-		if others >= 2 and not circling and chosen and foe.angreifbar():
-			can.append(I_CIRCLE)
-		return dice.pick(can)
-	if id == SPIDER:
-		return dice.pick([I_VENOM, I_WEB])
-	if id == SCOUT:
-		return I_AIM if foe.hidden else dice.pick([I_AIM, I_AIM, I_SHADOW])
-	var lineup := not _covered().is_empty()
-	var plain: Dictionary = I_SLASH if id == CALLED else I_STAB
-	if id == CALLED:
-		var can2 := [plain, plain]
-		if lineup:
-			can2.append(I_FLANK)
-		return dice.pick(can2)
-	if id != GRAK:
-		return plain
-	if test_gegnerzug == "heavy":     # 1020.2 C
+	if (id == WOLF or id == DIRE_WOLF) and test_gegnerzug == "pounce":     # 1020.2 C
+		test_gegnerzug = ""
+		test_erzwungen.append("pounce")
+		return I_POUNCE
+	if id == GRAK and test_gegnerzug == "heavy":     # 1020.2 C
 		test_gegnerzug = ""
 		test_erzwungen.append("heavy")
 		return I_HEAVY
-	var can3 := [I_HEAVY, I_HEAVY]
-	if lineup:
-		can3.append(I_BREAKTHROUGH)
-	if called < CALL_MAX and _free_foe_spot() != null:
-		can3.append(I_CALL)
-	if foe.hp * 2 < foe.max_hp:
-		can3.append(I_GATHER)
-	return dice.pick(can3)
+	var T: Dictionary = BrsKampf.w().get("absichten", {}).get("je_art", {})
+	var e = T.get(id, T.get("_sonst", [["stab", 1]]))
+	for i in 4:     # Verweis auf eine andere Art (Schamane wie Goblin)
+		if e is String:
+			e = T.get(e, T.get("_sonst", [["stab", 1]]))
+	var can := []
+	for x in e:
+		if (x as Array).size() > 2 and not _absicht_gilt(foe, String(x[2])):
+			continue
+		var a = get("I_" + String(x[0]).to_upper())
+		if a == null:
+			continue
+		for n in int(x[1]):
+			can.append(a)
+	if can.is_empty():
+		return I_STAB
+	return can[0] if can.size() == 1 else dice.pick(can)
+
+
+## 1049: Bedingungen der Absichtstabelle (werte.json „absichten“ „_bedingungen“)
+func _absicht_gilt(foe: Fighter, b: String) -> bool:
+	match b:
+		"rudel":     # zwei Wölfe stehen, keiner kreist schon, der Held hat gewählt; die Leibwache (nicht angreifbar) kreist nicht (986 (3))
+			var others := all.filter(func(x): return x.side == "FOES" and x.standing() and wolfig(x.monster)).size()
+			var circling := intents.values().any(func(p): return p[0].effect == "CIRCLE")
+			return others >= 2 and not circling and chosen and foe.angreifbar()
+		"reihe":
+			return not _covered().is_empty()
+		"nicht_versteckt":
+			return not foe.hidden
+		"ruf":
+			return called < CALL_MAX and _free_foe_spot() != null
+		"halbes_leben":
+			return foe.hp * 2 < foe.max_hp
+	return false
 
 
 func _say_announce(foe: Fighter) -> void:
