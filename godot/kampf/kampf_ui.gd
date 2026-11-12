@@ -222,7 +222,9 @@ func _ready() -> void:
 	full_log.visible = false
 	full_log.mouse_filter = Control.MOUSE_FILTER_STOP
 	full_log.gui_input.connect(_full_log_input)
+	Zurueck.melde(full_log, func(): _show_full_log(false))     # 833 A, 549a: Android-Zurück schließt den Bericht (nur offen)
 	root.add_child(full_log)
+	_stil_833()
 	# 836 (Homer 830): einmal je Spielstand, nicht in jedem Kampf (seen_rows setzte niemand); Proben ohne Spielstand je Kampf
 	if not kampfort.flaggen.has(HINWEIS_REIHE):
 		log_line(t("Nahkampf erreicht nur die vordere Reihe.", "Melee reaches only the front row."))
@@ -415,6 +417,9 @@ func _show_full_log(on: bool) -> void:
 	if not on:
 		return
 	full_log_opened_ms = Time.get_ticks_msec()
+	if _a833():
+		_bericht_833()
+		return
 	var v := VBoxContainer.new()
 	v.mouse_filter = Control.MOUSE_FILTER_PASS
 	full_log.add_child(v)
@@ -451,6 +456,57 @@ func _show_full_log(on: bool) -> void:
 		sc.scroll_vertical = int(sc.get_v_scroll_bar().max_value)
 
 
+## 833 A (Chef 12.11., 07:32: „833 passt“, mit dem ganzen Bericht ohne Goldrand): der ganze Bericht als Fenster ohne Kasten (549a):
+## schwarz und deckend, Seitenrand 24 dp, oben „KAMPFBERICHT“ (Titel der Schirme) mit der Zierlinie, die Zeilen in den Farben der
+## Kampfzeilen (1031), rollend, darunter eine schlichte Linie und links „‹ ZURÜCK“; Android-Zurück und Tippen neben die Spalte schließen
+## auch, Tippen in den Bericht nicht (526), Wischen blättert
+const BERICHT_RAND_DP := 24.0
+
+func _bericht_833() -> void:
+	var rand := MarginContainer.new()
+	rand.mouse_filter = Control.MOUSE_FILTER_PASS
+	for s in ["left", "right"]:
+		rand.add_theme_constant_override("margin_" + s, int(BERICHT_RAND_DP * dp))
+	rand.add_theme_constant_override("margin_top", int(12 * dp))
+	rand.add_theme_constant_override("margin_bottom", int(12 * dp))
+	full_log.add_child(rand)
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", int(10 * dp))
+	v.mouse_filter = Control.MOUSE_FILTER_PASS
+	rand.add_child(v)
+	var h := Stil.zeile(t("Kampfbericht", "Battle log").to_upper(), Stil.TITEL_SP, GOLD, 3.0)
+	h.name = "Titel"
+	h.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	h.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	h.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	v.add_child(h)
+	v.add_child(Spielstaende.zier())
+	var sc := ScrollContainer.new()
+	sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	sc.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
+	sc.mouse_filter = Control.MOUSE_FILTER_PASS
+	v.add_child(sc)
+	var r := RichTextLabel.new()
+	r.fit_content = true
+	r.scroll_active = false
+	r.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	r.mouse_filter = Control.MOUSE_FILTER_PASS
+	r.add_theme_color_override("default_color", TEXT)
+	r.add_theme_font_override("normal_font", font)
+	r.add_theme_font_size_override("normal_font_size", sp(15 * 0.95))
+	r.bbcode_enabled = true
+	r.text = bericht_bbcode()
+	sc.add_child(r)
+	v.add_child(Spielstaende.linie())
+	v.add_child(Spielstaende.knopfzeile(Spielstaende.knopf("neben", t("Zurück", "Back"), func(): _show_full_log(false), true), null))
+	# newest at the bottom, as in the small log
+	await get_tree().process_frame
+	await get_tree().process_frame
+	if is_instance_valid(sc):
+		sc.scroll_vertical = int(sc.get_v_scroll_bar().max_value)
+
+
 ## Druck merken, beim Loslassen nah am Druck schließen; Maus und Finger kommen am Handy doppelt (emulate_mouse_from_touch),
 ## darum zählt der Druck, der den Bericht geöffnet hat, nicht als Schließen (250 ms).
 func _full_log_input(ev) -> void:
@@ -464,8 +520,12 @@ func _full_log_input(ev) -> void:
 	elif up and full_log_press != Vector2.INF:
 		var far: bool = ev.position.distance_to(full_log_press) > 12.0 * dp
 		full_log_press = Vector2.INF
-		if not far:
+		if not far and (not _a833() or _neben_spalte(ev.position.x)):
 			_show_full_log(false)
+
+## 833 A: x (im Bericht) liegt neben der Spalte, im Seitenrand
+func _neben_spalte(x: float) -> bool:
+	return x < BERICHT_RAND_DP * dp or x > full_log.size.x - BERICHT_RAND_DP * dp
 
 
 # ---------------------------------------------------------------- party boxes and orders
@@ -505,6 +565,11 @@ func _stil_833() -> void:
 	zier_833.visible = a and not ende     # eine Zierlinie je Schirm: am Ende steht sie unter dem Titel
 	for l in linie_833:
 		l.visible = a
+	# 833 A (Chef 12.11., 07:32): das kleine Erklärfenster und der ganze Bericht ohne Goldrand (549a)
+	if tip:
+		tip.add_theme_stylebox_override("normal", _box(Color.BLACK, Color(0, 0, 0, 0) if a else GOLD, 8 if not a else 10, 6 if not a else 8, 1.0))
+	if full_log:
+		full_log.add_theme_stylebox_override("panel", _box(Color.BLACK, Color(0, 0, 0, 0) if a else GOLD, 0 if a else 10, 0 if a else 10, 1.0))
 
 ## 833 A: Tipp auf einen ausgegrauten Knopf, während ein anderer zieht
 func _wer_zieht() -> void:
@@ -695,7 +760,7 @@ func _row(items: Array, fs_cap := 0, even := false) -> HBoxContainer:
 	var fs := mini(_row_size(items), fs_cap) if fs_cap > 0 else _row_size(items)
 	var ws := _text_widths(items, fs)
 	if _a833():
-		# 833 A: passt die Zeile mit 13 sp nicht, wird erst die Sperrung enger (2 sp bis 0,6 sp), nie die Schrift kleiner
+		# 833 A: passt die Zeile mit 13 sp nicht, wird erst die Sperrung enger (2 sp bis 0,6 sp), dann erst die Schrift kleiner (_row_size)
 		var sperr := 2.0
 		while sperr > 0.6 and _summe_833(items, fs, sperr) > _innen_833(items.size()):
 			sperr -= 0.2
@@ -744,9 +809,14 @@ func _innen_833(n: int) -> float:
 
 ## Die größte Schrift (höchstens 13 sp), mit der alle Aufschriften der Zeile passen, wenn jeder Knopf nach seiner Aufschrift breit ist.
 func _row_size(items: Array) -> int:
-	if _a833():     # 833 A: 15 sp wie die Knöpfe der Schirme, nie unter 13 sp (549a „Schrift“)
+	if _a833():     # 833 A: 15 sp wie die Knöpfe der Schirme, bis 13 sp (549a „Schrift“); dann wird in _row die Sperrung enger
+		var innen := _innen_833(items.size())
 		var f := sp(15)
-		while f > sp(13) and _summe_833(items, f, 2.0) > _innen_833(items.size()):
+		while f > sp(13) and _summe_833(items, f, 2.0) > innen:
+			f -= 1
+		# fünf Knöpfe unten (Söldner oder Held Krieger mit „Decken“) passen auf 1080 px auch mit der engsten Sperrung nicht in
+		# 13 sp: erst dann kleiner, wie heute bis 9 dp, sonst wird der Kasten breiter als der Bildschirm (Bild am Rechner 12.11.)
+		while f > int(9 * dp) and _summe_833(items, f, 0.6) > innen:
 			f -= 1
 		return f
 	var inner := get_viewport().get_visible_rect().size.x - 2 * (8 + 10) * dp - 6 * dp * (items.size() - 1)
