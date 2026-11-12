@@ -93,6 +93,8 @@ Montags meldest du die Zahlen von Diogenes unverändert mit Link, eine Zeile je 
 
 ## Lehren
 
+- Einstellung und Freigabe am Ergebnis prüfen (`get_session`, App), auf jedem Weg (16.10., 99g; 11.11., Fehler 341: Hoch nur als Variable, App „Mittel“; 982).
+
 - Probe nie in einer `cp -r`-Kopie von `bornim-main`: das ist ein Worktree, die Kopie teilt Index und Zweig, ein Commit dort landet auf `main` (09.11., 774: Prüfliste t271 und Archivzeile „Probe 774“ kurz auf `main`, zurückgenommen); Kopie mit `git clone`.
 
 - Ein „greift“ von Diogenes im Bereich B schließt den Vorgang (724 A); was danach noch zu zählen ist, wird ein eigener Vorgang bei ihm, nicht ein „wartet auf“ an meiner Zeile (09.11., 657: ich setzte „wartet auf t275“, obwohl er „erledigt setzen“ schrieb; Chef 15:28 „ihr arbeitet leicht aneinander vorbei“).
@@ -103,6 +105,5 @@ Montags meldest du die Zahlen von Diogenes unverändert mit Link, eine Zeile je 
 - Befunde selbst abholen, nichts vorschlagen, was schon da ist: vor jeder Antwort Prüfbericht und `git log` (15.10., 65.11).
 - Beim Umbau von der alten Datei ausgehen, jede Übernahme dreifach prüfen: schon da? präziser? gebraucht? (15.10., 98; 21.10., D41.1: beim Kürzen gingen drei Regeln verloren).
 - „Je Schritt Prüfung“ heißt: den nächsten Schritt erst nach dem Befund bauen; eine Erlaubnis des Chefs hebt die Reihenfolge nicht auf (21.10., 274).
-- Stand einer Freigabe nur eintragen, wenn geprüft (16.10., 99g).
 - Eine Schieflage, die ich selbst ändern kann, wird verteilt, nicht als Risiko gemeldet (03.11., Fehler 341: Jerry 38 von 45 Sitzungen; Chef: „Dafür habe ich einen Betriebsleiter und einen Berater und einen Revisor.“).
 - Was ich selbst entscheiden kann, entscheide ich; was beim Chef liegt, geht nur als Chefsache mit Vorgang, nie als „wartet auf dein Ja“ in Chat oder Telegram (09.11., 715: Rollenspiegel-Schritte; Chef 09:49/09:52: „ansonsten würdet ihr alle davon ausgehen, dass ich nichts anderes tue, als eure Sitzungen durchzulesen“).
