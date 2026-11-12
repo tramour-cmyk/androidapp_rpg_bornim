@@ -166,7 +166,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | Pflege | K | von Werkzeug (340.3, 12.11.): 20798 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 1081 | M? | Von Sokrates (Chef 12.11., 21:28): Zoom nach außen begrenzen auf 10,2 Kacheln Breite (heut | startbar |
 
-**Jerry** – offen 134, Muss 118, startbar 4
+**Jerry** – offen 134, Muss 118, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -297,7 +297,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1054 | M | Von Tom (Hinweis 12.11., 16:40): tests/mars_regeln.gd nach dem Umzug veraltet (massstab, _ | wartet auf Test (Build 281) |
 | 1058 | M? | Von Sokrates (1050a): Simulation 444 rechnet Herkünfte ohne plus_variante (6 statt 9 Punkt | wartet auf Test/Build (gebaut) |
 | 1060 | M | Von Tom (Chef 12.11., 17:34 „Wieso dauern denn jetzt die Runs wieder so lange?“, Lauf 4324 | wartet auf Test (Build 281) |
-| 1062 | M? | Von Sokrates (654, aus 1059): Filmlauf zeigt nur das Hauptmenü, dritter Fund gleicher Ursa | startbar |
+| 1062 | M? | Von Sokrates (654, aus 1059): Filmlauf zeigt nur das Hauptmenü, dritter Fund gleicher Ursa | in Arbeit bei Tuffy |
 | 1066 | M | Von Perikles (1050a A, Chef 12.11., 20:02): Herkunft Zauberlehrling plus Verstand 3, Wille | wartet auf Test (Build 281) |
 | 1071 | M? | Von Sokrates (Chef 12.11., 20:09, Film 1036; Wiederholfund 09.11., 21:15 und 10.11., 19:29 | startbar |
 | 1072 | M | Von Sokrates (Chef 12.11., 20:09, zu 1036; Wiederholfund 09.11. und 10.11.): hinterer Wolf | Sperre 620.1 B: 32 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1036 |
@@ -305,7 +305,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1036.1 | M | Von Tuffy (1036, Chef 12.11., 20:52): neue Vorlage Zustände: jeder Zustand des Codes (auch | Sperre 620.1 B: 32 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1036 |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 32682 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 16, Muss 15, startbar 0
+**Perikles** – offen 14, Muss 13, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -323,16 +323,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 919 | M | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): Regeln nachziehen: Testbitte auch bei rot | wartet auf 918 (startbar) |
 | 1019 | M | Von Sokrates (zu 1016): Ford startet sich am Neustart-Haken (200 Tsd., 383 A) neu statt be | Termin 13.11. 08:00 |
 | 1070 | M | Getestete Prüfliste sofort aus der Chefsache, nicht erst beim Zusammenführen (Chef 12.11., | wartet auf Test t281 (Chef) |
-| 1076 | M | Film zeigt nur den Prüfgegenstand, etwa dreimal, höchstens etwa 15 s (Chef 12.11., 20:42 z | wartet auf Diogenes (greift?) |
-| 1078 | M | D186.1 (Diogenes, zu 1076): Kamera auf den Prüfgegenstand (Chef 12.11., 20:54) und nur der | wartet auf Diogenes (greift?) |
 
-**Diogenes** – offen 11, Muss 9, startbar 3
+**Diogenes** – offen 9, Muss 7, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
-| 1076 | M | Film zeigt nur den Prüfgegenstand, etwa dreimal, höchstens etwa 15 s (Chef 12.11., 20:42 z | startbar |
-| 1078 | M | D186.1 (Diogenes, zu 1076): Kamera auf den Prüfgegenstand (Chef 12.11., 20:54) und nur der | startbar |
 | 461b | M | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Termin 16.11. |
 | 348.9 | M | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | ruht |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
