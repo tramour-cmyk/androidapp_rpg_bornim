@@ -50,7 +50,6 @@ Zuletzt verworfen (Chef 09.11., 11:21, 743 „alle verwerfen“): Spiel-Engine G
 
 - **Fähigkeiten für alle, Weihwasser wie im Witcher** (Chef 10.11., 14:09–14:14, an Sokrates, zu 870, „nicht als Leitlinie …, sondern als Idee“): „ein Kleriker sollte das halt können“; drei Schluck Weihwasser, Wirkung an der Stufe; „allgemein gültig“ auch für Zweihänder, Einhänder. Einordnung Sokrates: als Kampftrank (wie Steinhaut, 481) mit Wirkung nach Heilmagie, für jeden kaufbar; passt zu 870a Frage 3 A. Gegenargument: jede Handlung „für alle“ verwässert, was eine Fertigkeit besonders macht.
 
-- **Hinterer Wolf durch die Lücke statt außen herum** (Chef 09.11., 21:15, an Sokrates, t272.6 bestanden, „Nur als Idee.“: „warum der Wolf beim Wolfsrudel aus der hinteren Reihe immer außen rumläuft, statt in der Mitte durch. Da ist ja eine Riesenlücke. Also eigentlich könnte er doch auch anstatt außen rumzulaufen, durch die Mitte laufen.“): prüfen, ob die Wegwahl (figur.gd _detour) die Lücke zwischen den vorderen Wölfen nutzen kann; Vorschlag mit Standbild (Jerry; aus Vorrat Jerry, 10.11.). → Urteil Homer.
 - **Eigener Name für Fertigkeit 100 ohne Boni** (Chef 09.11., 20:43, an Sokrates, zu 762: „was hältst du denn für die Idee, Großmeister? Okay, 75 bis 99. Und wenn einer wirklich die 100 schafft, also 100 netto und nicht 100 durch irgendwelche Gegenstände … oder Ausrüstung … 100 ist halt so ein richtiger Meilenstein. Dass der einen eigenen Namen verdient.“): BRS heute Großmeister 75–100, „bei 100 ist die Fertigkeit fertig“; 100 erst in Kapitel 6–7 erreichbar (BRS Kapiteltabelle). Sokrates: dafür, aber als Auszeichnung neben dem Rang, nicht als fünfter Rang (Prüfungen und Kapitelgrenzen rechnen mit vier Rängen); Name von Homer (Vorschläge etwa „Vollendet“, „Legende“), Großmeister dann 75–99. Gegen: kein Spieler sieht es vor Kapitel 6. Regel ändert der Chef im BRS, Wortlaut Homer. → Urteil Homer.
 
 ### Welt
@@ -82,6 +81,8 @@ Zuletzt verworfen (Chef 09.11., 11:21, 743 „alle verwerfen“): Spiel-Engine G
 
 ### Figuren
 
+- **Borin trinkt und isst am Tisch** (Chef 12.11., 20:54, an Sokrates, zu 758, Kür): „schön, wenn mal Borin irgendwann so weit kriegen, wie in der Kotlin-Version, dass er dann mal sein Bierchen trinkt oder was isst oder sonst was treibt. Aber gut, das ist dann von mir als Kür.“ Abwechseln mit Trinken, Essen, Umschauen (758 A, Teil „nicht in dieser Runde“); Vorbild alt.
+
 - **Katze im Gasthaus** (Chef 28.10., 16:24, aus 395a): wie im alten Spiel (`MapCat.kt`: schläft am Herd, setzt sich auf, streckt sich); Farbe egal; Quaternius hat keine; die Siamkatze von MadeCG (RenderHub) gefällt dem Chef „eh nicht so gut“. Erst nach Leuten, Dorf und Klang. Vorschlag Chef 16:31: [Kurilian Bobtail](https://www.renderhub.com/nyilonelycompany/kurilian-bobtail-cat), 18 $ statt 30 $ (Aktion bis etwa 31.10.), Extended Use, 23 Bewegungen (Namen nicht auf der Seite), 23.234 Dreiecke (Regel: höchstens 6000, also stark ausdünnen), 4K-Texturen. → **reif, zu W21** (Katze fehlt im Kleinleben): Aktion abgelaufen; Modell wählt und kauft der Chef, dann Tom.
 
 - **Feinschliff aller Figuren und Animationen** (Chef 23.10., 12:54: „genereller Merker für Figuren- und Animationsfeintuning (alle Monster!!! Und Helden)“): Griff, Haltung und Ablauf bei allen Monstern und Helden prüfen und glätten, möglichst zusammen mit der Tusche für Figuren (302.1). Erster Fall: Grak, schwerer Hieb (320, Bilder in Git vor 12:54): im Ausholen Arme vor dem Gesicht, Hände nicht wie beim Holzspalten, Stiel in der Szene zu flach, Doppelblatt im Seitenblick, Schurz kantig, kein Schatten beim Vorspringen. Bau Jerry (Monster) und Tom (Helden). → **später:** Projektplan, Gegner: „Feinarbeit danach“, also nach 2.13 (alle Gegner im Spiel); dann zusammen mit 52.
@@ -96,6 +97,7 @@ Zuletzt verworfen (Chef 09.11., 11:21, 743 „alle verwerfen“): Spiel-Engine G
 
 ### Kampf
 
+- **Feueraura des Zauberkundigen** (Chef 12.11., 20:52, an Sokrates, zu 1036): „Aurafire würde ich jetzt nicht nehmen als Brennendeffekt, sondern eher als Angriffsverteidigung. Sozusagen, dass der Magier sich selbst entzündet und Gegner, die an ihm dran stehen, verbrannt werden … so einen brennenden Ring um sich machen oder brennende Haut.“ Effekt `aura_fire` (Combat Mega, gekauft); Zauber mit Homer (Name, Text) und Jerry (Werte 444); passt zu Schulen in `DESIGN-BRS.md`.
 - **Kritische Treffer der Gegner** (Sokrates zu 870.6a 3 A, 11.11.): heute treffen Gegner nie kritisch; mit Werten je Gegner im Bestiarium (Wolf, Grak) dürfen Kämpfe plötzlich kippen (Chef 12:56); nach dem Meilenstein, mit Sim 444.
 
 - **Zugleiste aus MARS auch im klassischen Kampf** (Chef 20.10., 07:20, Wortlaut: „Allgemein: Zugleiste aus Mars auch im alten Kampf?“): Sokrates nachgesehen (`Battle.kt`): klassisch einmal Initiative zu Beginn, dann streng Held, Gegner, Held, Gegner; Rudel und Begleiter handeln im Zug des Anführers. Pro: gleiches Bild in beiden Systemen (212), Hinterhalt und „Gegner schneller“ sichtbar. Contra: die Leiste zeigt nur den ständigen Wechsel, also nichts Neues, und kostet Platz auf dem kleinen Schirm; Arbeit an einem Bildschirm, den MARS ablösen könnte. Empfehlung Sokrates: noch nicht; erst wenn der klassische Kampf mehrere Helden oder wechselnde Reihenfolge bekommt. → **noch nicht** (Chef 07:22: „Ok, noch nicht“).
@@ -120,6 +122,7 @@ Zuletzt verworfen (Chef 09.11., 11:21, 743 „alle verwerfen“): Spiel-Engine G
 - **Musik in Schichten** (Idee 10): nähert sich ein Jäger, schleicht eine dunkle Spur in die Musik, bevor der Kampf beginnt; Stille bewusst einsetzen. → **später:** nach dem Meilenstein; Musik (28) und Raumklang (119) sind fertig.
 
 ### Oberfläche
+
 
 - **Zoom in Innenräumen nach Bildschirmbreite** (Chef 11.11., 13:44, an Sokrates, beim Test t276): „eine ganz schöne Sache wäre Zoom in Innenräumen, dass der Zoom sich automatisch so einstellt, dass die Bildschirmbreite optimal ausgenutzt ist … sinnvoller Zoom … bei Innenansichten.“ Sokrates: passt zu 590 (Innenräume, Tom); Gegenargument: kleine Räume wirken dann riesig, große winzig; Weg: Raumbreite füllen, aber mit Grenzen nach oben und unten.
 

@@ -2,6 +2,14 @@
 
 **Festgesetzt** (Homer, 10.11.; Chef 10.11., 11:01: „807a A“): Texte wortgetreu bauen; jeder Knopf nennt die Fertigkeit in Klammern. Vorgang 807 A (Chef 09.11., 22:26: Pim überreden, Goblin-Späher einschüchtern, Verband). Bau: 842 Tom (Pim, Verband), 841 Jerry (Einschüchtern, wie Tiere beruhigen 3.6, `[423.tiere]`). Zeilen, die man wiederholt hört, in drei Wortlauten nach 504 (`STORY-VARIANTEN-K1.md` „Regeln für den Bau“); einmalige Zeilen und Knöpfe einfach. „ / “ trennt zwei Sprechblasen derselben Figur, „· Erzähler:“ leitet einen erzählten Satz ein (im Bau `narrate`). Keine Zahlen außer dem Platzhalter; ob es gelingt, entscheidet die Probe auf die Fertigkeit (BRS); die Zeilen nennen sie nicht, nur der Knopf.
 
+## Zweiter Knopf bei jeder Wahl im Gespräch (1074)
+
+Chef 12.11., 20:48 (842 zurück): neben jedem Knopf einer Wahl im Gespräch ein sichtbarer zweiter Knopf, Baustein `Skript.knopf` (Bau 842 Tom). Er steht links mit „‹“, die Wahl rechts mit „›“, wie Abbrechen und Benutzen in der Tasche. Antippen lässt die Wahl aus, das Gespräch geht weiter wie bisher beim Weitertippen (bei Osric folgt vor Lyras Rettung noch `[504.osric.bitte]`); die Wahl bleibt fürs nächste Mal (bei Pim: nach einem Versuch erst am nächsten Tag wieder). Solange die zwei Knöpfe stehen, überspringt ein Tippen auf den Text sie nicht, damit keiner eine Wahl aus Versehen verliert.
+
+`[1074.zweit]` (zweiter Knopf, für jede Wahl derselbe; heute Pim neben `[807.pim.wahl]`, Osric neben „Kaufen“) Nicht jetzt / EN: Not now
+
+Warum nicht „Weiter“: mit „‹“ links widerspricht es sich, und es sagt nicht, ob die Wahl damit genommen ist oder nicht. „Abbrechen“ klingt nach Menü, nicht nach Gespräch.
+
 ## Überreden: Pim heimschicken
 
 Bedingung: tagsüber, Pim ist draußen; die Wahl erscheint im Gespräch mit Pim nach seiner Zeile `[504.pim.vor]`. Misslingt es, kann man es am nächsten Tag wieder versuchen. Gelingt es, dankt die Mutter beim nächsten Klopfen, Ruf steigt (807 A, 3.3).
@@ -19,6 +27,19 @@ Bedingung: tagsüber, Pim ist draußen; die Wahl erscheint im Gespräch mit Pim 
 3. Du klingst wie Mama. · Erzähler: Er verschränkt die Arme und rührt sich nicht. — EN: You sound like Mom. · Narrator: He folds his arms and doesn't budge.
 
 `[807.pim.dank]` (einmalig: Pims Mutter beim nächsten Klopfen nach dem ersten Erfolg, statt `[504.tuer.pim]`; Ruf steigt) Pim kam heim, ganz zahm. Was du ihm auch gesagt hast: danke, {name}. / EN: Pim came home, meek as a lamb. Whatever you told him: thank you, {name}.
+
+### Pim heimschicken für Gold (1085)
+
+Vorentscheid Sokrates 12.11., 22:33 (Nacht 1077; Chef 20:31 „weder ein Abbrechen, noch ein Gib PIM 5 Goldstücke“; Chefsache `billigen/1085-pim-gold.md`), Bau 1086 Tom nach 842. Dritter Knopf neben `[807.pim.wahl]` und `[1074.zweit]`, gleiche Bedingung (tagsüber, nach `[504.pim.vor]`), nur wenn der Held mindestens 5 Gold hat (sonst fehlt der Knopf, kein eigener Text). Vorschlag Anordnung (Bau Tom): beide Wahlen rechts untereinander mit „›“, Überreden oben, „‹ Nicht jetzt“ links wie in 1074. Gelingt immer, kostet 5 Gold, übt keine Fertigkeit, kein Ruf; Pim geht für diesen Tag heim, am nächsten Tag steht er wieder draußen und die Wahl kommt wieder. Nach misslungenem Überreden fehlen an diesem Tag beide Knöpfe (1074: „nach einem Versuch erst am nächsten Tag wieder“); nur so ist Gold die sichere Wahl statt der Rückfall nach einem Fehlschlag. Ohne Klammer, weil keine Fertigkeit dahintersteht; der Preis steht als Platzhalter {0} = 5 im Knopf (wie „Met · {0} Gold“).
+
+`[1085.pim.wahl]` (Knopf im Gespräch) Gib Pim {0} Gold / EN: Give Pim {0} gold
+
+`[1085.pim.gold]` (Pim nimmt das Gold und geht heim; drei Wortlaute nach 504)
+1. Echtes Gold? Für mich? · Erzähler: Pim beißt auf jede Münze, wie er es bei Thessa gesehen hat, und rennt heim. — EN: Real gold? For me? · Narrator: Pim bites every coin, the way he's seen it done at Thessa's, and runs home.
+2. Dafür geh ich heim. Aber morgen komm ich wieder! / Sag's nicht Mama. — EN: Okay, for that I'll go home. But I'm coming back tomorrow! / Don't tell Mom.
+3. Davon spar ich auf eine Brandflasche! · Erzähler: Er rennt los, die Faust fest um die Münzen. — EN: I'm saving this for a firebottle! · Narrator: He runs off, his fist clenched tight around the coins.
+
+`[1085.pim.dank]` (einmalig: Pims Mutter beim nächsten Klopfen nach dem ersten Heimschicken für Gold, statt `[504.tuer.pim]`; kein Ruf. Unabhängig davon kommt `[807.pim.dank]` mit Ruf weiter nach dem ersten Erfolg beim Überreden; liegen beide an, zuerst `[807.pim.dank]`, das andere beim Klopfen danach) Pim kam heim, Gold in der Faust. Woher, sagt er nicht, aber ich kann es mir denken. / Danke, {name}. Nur lernt er so nie, wann man heimkommt. — EN: Pim came home with gold in his fist. He won't say where it's from, but I can guess. / Thank you, {name}. But this way he'll never learn when to come home.
 
 ## Einschüchtern: Goblin-Späher
 
@@ -38,20 +59,25 @@ Bedingung: Kampfanfang, unter den Gegnern ein Goblin-Späher; die Wahl steht neb
 
 ## Heilkunde: Verband
 
-Gegenstand in der Tasche, zu kaufen bei Osric und Thessa (807 A); anlegen nur außerhalb des Kampfs, heilt etwas, je Rang in Heilkunde mehr; Anlegen übt Heilkunde. `{0}` = zurückgewonnene Trefferpunkte, Form wie die übrigen Heilmeldungen (`STORY-SPIEL.md`).
+Gegenstand in der Tasche, zu kaufen bei Osric und Thessa (807 A); anlegen nur außerhalb des Kampfs; stillt Blutung und gibt etwas Leben, je Punkt Heilkunde mehr (1038 A, Chef 12.11., 16:24); ob Blutung die Heilung des Verbands noch halbiert, legt Jerry fest (1046); Anlegen übt Heilkunde. `{0}` = tatsächlich zurückgewonnene Trefferpunkte, Form wie die übrigen Heilmeldungen (`STORY-SPIEL.md`); ist `{0}` null, entfällt „ +{0} TP“ / „ +{0} HP“. Texte angepasst an 1038 A (Homer 12.11., 1047).
 
 `[807.verband.name]` Verband / EN: Bandage
 
-`[807.verband.text]` (Beschreibung in Tasche und Laden) Saubere Leinenstreifen, fest gerollt. Außerhalb des Kampfs anlegen; wer Heilkunde versteht, holt mehr heraus. / EN: Clean strips of linen, tightly rolled. Apply outside of combat; the more you know of Medicine, the more it mends.
+`[807.verband.text]` (Beschreibung in Tasche und Laden) Saubere Leinenstreifen, fest gerollt. Stillt Blutung; wer Heilkunde versteht, holt mehr heraus. Nur außerhalb des Kampfs. / EN: Clean strips of linen, tightly rolled. Stops bleeding; the more you know of Medicine, the more it mends. Outside of combat only.
 
-`[807.verband.an]` (angelegt)
+`[807.verband.an]` (angelegt, der Held blutete nicht)
 1. Du ziehst den Verband fest. +{0} TP. — EN: You pull the bandage tight. +{0} HP.
 2. Du wäschst die Wunde aus und wickelst den Verband darum. +{0} TP. — EN: You wash out the wound and wrap the bandage around it. +{0} HP.
-3. Ein fester Knoten, und das Blut steht. +{0} TP. — EN: One firm knot, and the bleeding stops. +{0} HP.
+3. Du verbindest die Wunde und prüfst, ob der Verband sitzt. +{0} TP. — EN: You bind the wound and check that the bandage holds. +{0} HP.
+
+`[807.verband.blut]` (angelegt, die Blutung ist gestillt)
+1. Ein fester Knoten, und das Blut steht. +{0} TP. — EN: One firm knot, and the blood stops. +{0} HP.
+2. Du presst den Verband auf die Wunde. Sie blutet nicht mehr. +{0} TP. — EN: You press the bandage onto the wound. It bleeds no more. +{0} HP.
+3. Lage um Lage, straff gewickelt. Die Blutung hört auf. +{0} TP. — EN: Layer on layer, wrapped tight. The bleeding stops. +{0} HP.
 
 `[807.verband.kampf]` (im Kampf gewählt) Im Kampf bleibt keine Zeit für einen Verband. / EN: There's no time for a bandage in combat.
 
-`[807.verband.voll]` (Trefferpunkte voll) Du bist unverletzt. / EN: You are unhurt.
+`[807.verband.voll]` (Leben voll und keine Blutung; der Verband bleibt in der Tasche) Du bist unverletzt. / EN: You are unhurt.
 
 ## Kochen und Alchemie mit Ring (972, Homer 11.11.)
 

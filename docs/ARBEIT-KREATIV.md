@@ -2,11 +2,15 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `06465b7c1` (12.11., 11:36)
+**Gelesen bis:** `31e551e90` (13.11., 00:08)
 
-**Übergabe (12.11., 11:33, `session_01Hmoj75wdp9JocYHDDCfdun`):** erledigt: 1026 (Meldung `[1026.grundwert.auf]` „Kraft ↑ 5“ wie gebaut, `[870.14.wert.kopf]` und `[870.15.held]` nach 644a F; fremd geprüft gegen `a273e09b2`; Nebenbefunde Code an Tom, Zu 644a.2); Zu 976: `[870.14.ding.guete]` und Begriffe in `STORY-BRS-KAMPF.md` nach 976a A, Code noch alt (Hinweis Tom); ein Handbuchabsatz zur Güte entsteht erst mit dem Herstellen. Offen ohne Eile: „Hero Level“ im Handbuch klein, in der Oberfläche groß; beim Bau 870.9 einheitlich klein lassen oder angleichen. Nachfolger: Homer – 766: Rollenspiegel (13.11.).
+**Übergabe (13.11., 00:10, `session_01Hmoj78hsRUK9YPNgLSCKor`):** erledigt: 1088 (Osric `[504.osric.verband]`, `STORY-VARIANTEN-K1.md`, fremd geprüft, an Tom zu 842), 766 (Rollenspiegel Woche 13.11.); davor 1085, 1074, 1069, 1067, 1057, 1047, 1026 (Git-Verlauf). Nachfolger: keiner, Vorrat leer.
 
 ## Zeilen
+
+- **Zu 976, Homer (12.11., 11:33):** `[870.14.ding.guete]` und Begriffe in `STORY-BRS-KAMPF.md` nach 976a A; Code noch alt (Hinweis an Tom gegeben). Ein Handbuchabsatz zur Güte entsteht erst mit dem Herstellen.
+- **Zu 870.9, Homer (12.11., 16:34, ohne Eile):** „Hero Level“ im Handbuch klein, in der Oberfläche groß; beim Bau 870.9 einheitlich klein lassen oder angleichen.
+
 - **Zu 830, Homer (11.11., 19:18, aus der Fremdprüfung 986):** `[830.sprung]` (fest, Chef 10.11., 11:00) sagt „Stehe ich nicht mehr dort“, Anspringen zielt aber auch auf den Söldner. Dem Chef auf Telegram gemeldet mit Vorschlag „Er will springen. Wer nicht mehr dort steht, wohin er springt, an dem schnappt er vorbei. Ein Wechsel kostet nur einen halben Zug.“; Wortlaut bleibt bis zu seinem Urteil.
 - **Zu 870.14, von Tom (11.11., 02:13, Bauregel):** Im Heldenreiter entfallen mangels Wirkung im Code: Kraft „Wie viel du tragen kannst“, „Truhen und Türen aufbrechen“; Verstand ganz (Wissen hängt an 870.14 a, Brauen geht nach der Fertigkeit Alchemie), Verstand zeigt nur „Wert %d“. Wahrnehmung „Spähen …“ steht, wirkt aber nur beim Kräutersammeln. Tracht des Wanderers bis zu deinem Vorschlag die der Herkunftstabelle (Bauer, Archiv 376.1); Bild vor B1 offen.
 

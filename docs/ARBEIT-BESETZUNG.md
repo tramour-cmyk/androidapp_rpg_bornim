@@ -2,14 +2,12 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 12.11., 12:06 (lauf.py)
+**Stand:** 13.11., 00:04 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
-| Ford | [Ford](https://claude.ai/code/session_01Hmoj765JvmMM81VAZ94ovn) | Betrieb | – | 12.11., 07:26 |
-| Diogenes | [Diogenes – 1019 (12.11., 08:13)](https://claude.ai/code/session_01Hmoj75ZfDj3Zzs82FM18nF) | 1019 | – | 12.11., 08:14 |
-| Tuffy | [Tuffy – 644a.1 (12.11., 10:05)](https://claude.ai/code/session_01Hmoj79xewvr4yXDaxRRApX) | 644a.1 | – | 12.11., 10:06 |
-| Tom | [Tom – 814: Fußstaub sichtbar (12.11., 11:06)](https://claude.ai/code/session_01Hmoj76RSQPRph1aFEc31hY) | 814 | – | 12.11., 11:05 |
-| Spike | [Spike – 644a.2 (12.11., 11:04)](https://claude.ai/code/session_01Hmoj77hd1skjBoRKtk6Sz7) | 644a.2 | – | 12.11., 11:05 |
-| Sokrates | [Sokrates – Stellungnahme (12.11., 11:04)](https://claude.ai/code/session_01Hmoj76oRjGDjaHKeRYBhmv) | Betrieb | – | 12.11., 11:05 |
-| Homer | [Homer – 1026 (12.11., 11:26)](https://claude.ai/code/session_01Hmoj75wdp9JocYHDDCfdun) | 1026 | – | 12.11., 11:26 |
+| Tuffy | [Tuffy – 1055: Testbitte Build 281 (12.11., 21:59)](https://claude.ai/code/session_01Hmoj75T84v7wSUd4hP2WrG) | 1055 | – | 12.11., 21:58 |
+| Jerry | [Jerry – 1043 (12.11., 22:04)](https://claude.ai/code/session_01Hmoj75trtVAizJUSkhAXHy) | 1043 | – | 12.11., 22:04 |
+| Sokrates | [Sokrates – 1077: Nachtführung und Chefrunde Build 281 (12.11., 23:47)](https://claude.ai/code/session_01Hmoj77sPsoMJLJimABaUc5) | 1077 | – | 12.11., 23:46 |
+| Ford | [Ford – Betriebsleiter (12.11., 23:51)](https://claude.ai/code/session_01Hmoj78SjLo9HXycxxu7G2K) | Betrieb | – | 12.11., 23:50 |
+| Tom | [Tom – 492, 867, 1044: Läufe auswerten, 842 Bild (12.11., 23:53)](https://claude.ai/code/session_01Hmoj78XaJCMm9RthHwfaWP) | 492 | – | 12.11., 23:53 |
