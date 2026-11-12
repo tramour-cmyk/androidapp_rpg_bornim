@@ -11,8 +11,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 **Übergabe Tuffy (12.11., 00:29, `session_01Hmoj76CayzJH3pKHwcqVjq`):** 935 Wurfprüfung behoben, Film beim Chef (Zu 935); 620.2c erledigt; 952 gebaut.
 
 ## Einzelheiten
-- **Zu 988, von Sokrates (03:30):** „988, Läufe frei“: ein Messlauf `bild=nein`, ein Ersatz bei fremdem Abbruch; Behebung am Befund, Nachweis im Lauf 277.
-- **Zu 988, von Tom (968, 02:15; Lauf 365, `d3e9069a4`):** `wolf_mess_438` rot: (1) Kopf `CLERIC/wolf3→hero` Bild 588, 1 Bild, −0,04 m (Grenze −0,04); (2) Rand `CLERIC/hero` 44,3 s, 2 Bilder, 11 px. PR #196 erst nach grünem Lauf auf main (919); Behebung auf Zweig von `d3e9069a4`, Tom mischt in build-277.
+- **Zu 988, Jerry (12.11., 04:32; Lauf 369):** gebaut `7f4d4872e` auf `claude/jerry-988-messlauf-auswerten`, an Tom zum Mischen (Zu 968). Rand: CLERIC weicht auf der Stelle aus (kein Weg frei), neigt sich 11 px über den linken Rand, Linse kam ein Bild zu spät → Haltungen der Bewegung vorab abgetastet (`_reichweite_merken`). Kopf: Kiefer −0,040 m im Treffer = Biss nach 709; Grenze −0,04 (01.11.) verbot Berührung, jetzt −0,03. `krogg_494` (rot in 369): Band-Würfel ohne Saat, Treffer nach BRS zog Zufall; feste Saat. Dazu Zu 595: Verdacht `a1ab43c8d` für krogg damit widerlegt.
 
 - **Zu 999, Jerry (12.11., 02:40):** `6e3768d73` nur mit `held.bin` geprüft; Bogen am Kaufheld im Film des Builds prüfen. Regel weicht ab: `mars.gd` 2244 nimmt den Schild bei jeder gezogenen zweiten Waffe weg, das Bild nur bei zweihändiger (alt ebenso).
 - **Zu 993, Jerry (12.11., 00:33):** `d87c1d05e`: Arkanpfeil aus R2 `elements/arcane`; im nächsten Build Lauflog „R2: … arcane:“ und `arkan_993` prüfen. Stab: 385.2. Ring „rattert“: je Bild gemalt, also 806.
