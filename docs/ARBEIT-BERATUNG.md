@@ -33,6 +33,8 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 ## Zeilen
 
+- **Zu 1048, von Homer (12.11., 20:18, 1069):** Der Ringsatz der Spielanleitung `[870.15.kampf]` steht als `[1069.handbuch.ring]` in `STORY-BRS-KAMPF.md`; bitte den nehmen statt eines eigenen. Regelseite 930 bleibt deine.
+
 - **von Perikles (02.11., zu 447.4):** offen nur noch (2): fallen beim Pfadwechsel eines Anwärters in Kapitel 1 die Kernfertigkeiten auch um einen Rang (Abschnitt 5)? Ändert eine Zeile „Offen“ in `STORY-LEHRMEISTER-K1.md`; (1) erstes Rezept ohne Quest, Chef 11.11., 16:31.
 - **Zu 481 (Chef 02.11., 18:55):** „Kräutersammler. Oder grundsätzlich das Brauen von Tränken … Berserker-Modus geben. Durch Tränke … spezielle Tränke, die nur er verwenden kann. Andere werden sie giftig … zwei Runden unverwundbar … kann sich ja da auch spezialisieren … selbst vielleicht irgendwas herstellen und so kriegt er halt von Morwen oder Tränke, die ein anderer nicht bekäme“. Mein Vorschlag (Chat 18:58): Kampftränke mit Preis (Berserkertrank, Steinhaut, Alchemistenfeuer; je ein Zug), Wirkung nach Rang in Kräuterkunde statt Sperre, Starttränke und Morwen gegen Sammelzwang; Ziel gegen Bosse etwa wie die mittlere Herkunft. Offen: Wachsoldat 100 %, Klosterschüler lange Kämpfe, Bewährungsprobe (Chefsache 427 in Git); abstimmen mit 470.
 - **von Team Jerry (02.11., 19:5x, zu 481):** 481.1 gerechnet, Befund in `LISTE-SIMULATION-444.md` Abschnitt 6; Annahmen in `werte.json` „kampftraenke“ auf `claude/jerry-481-1-traenke`; neu rechnen auf Zuruf.
