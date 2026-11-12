@@ -2,6 +2,10 @@
 
 Was der Chef entschieden hat, neueste oben (99g.1). Je Vorgang: Nummer, Datum, Entscheidung, *Leitlinien*, Antwort des Chefs und wessen Empfehlung („Nutzer“ = Chef). **Neue Einträge ab 21.10. höchstens etwa 250 Zeichen** (274): Wortlaut des Chefs, soweit er die Entscheidung trägt, steht hier; Begründung in der Rollendatei dessen, der empfiehlt (`CLAUDE.md` „Jeder Text an einem Ort“); Anlass und langer Wortlaut nur in der Chefsache-Datei und „Zu ‹Nr›“, nach dem Löschen in Git. Ältere Einträge bleiben. Einträge werden nicht geändert, außer dem Anhang „→ ersetzt durch <Nr., Datum>“ am alten Eintrag, wenn ein neuer ihn ablöst (461b); was gilt, steht in den DESIGN-Dateien je Thema (461d: Punkte mit Kennung in `DESIGN-STIL.md`, `DESIGN-KAMPF.md`, `DESIGN-ABNAHME.md`), das Archiv ist Verlauf; wer einen Punkt aus der Chefsache entscheiden lässt, trägt ihn hier oben ein und löscht im selben Schritt die Datei in `docs/chefsache/`. Nur Text: Bilder und Hörproben der Einträge bis 16.10. stehen in den [alten Beschlüssen](https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM) (abgelöst 16.10.); Dateinamen in älteren Einträgen sind die damaligen.
 
+- **1043, Läufe frei** (12.11., 18:00, Sokrates nach 621 A, Bitte Jerry 1059; Lauf 389 zeigte das Hauptmenü, behoben `b5147063c`): genau ein Filmlauf `kampf=1043` auf `claude/jerry-1043-ausweichen`, ein Ersatz bei fremdem Abbruch; Film selbst ansehen, dann sofort an den Chef, nur Film.
+
+- **431, Kleiderschrank** (12.11., 17:53, Chef an Sokrates: „Ja, so machen wir das mit dem Kleiderschrank“; Vorschlag im Chat 17:51): Kleidung je Fach einmal auf dem Grundkörper, Statur und Volk per Skript, Haut darunter weg, Prüfung `pruef_flecken.py`; Kauf erst danach je leerem Fach; Tom nach dem Umzug; 461 unverändert → **ja (Nutzer; Votum Sokrates)**
+
 - **757, Schenke: jeder Tisch mit eigenem Gedeck** (12.11., 17:33, Chef an Tom: „Vorgang 757 passt.“; Chefsache `ansehen/757-schenkentisch.md` in Git): Gedeck je Tisch, drei Sätze der Reihe nach; fährt im nächsten Build → **passt (Nutzer)**
 
 - **1039, Läufe frei** (12.11., 17:10, Sokrates nach 621 A, aus 1053 unten): genau ein Filmlauf, ein Ersatz bei fremdem Abbruch.
