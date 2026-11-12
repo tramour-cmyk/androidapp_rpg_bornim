@@ -1003,8 +1003,9 @@ func _tall(fig) -> float:
 ## 17:00 ebenso die Zielringe): nicht mehr über alles gemalt, sondern als flaches Band am Boden in der Welt (_ringe_bauen), so
 ## verdecken Beine und Körper davor den Ring wie in BattleScene (CamRing); Breite [w] in Bildpunkten wie bisher, mit dunklem Rand
 var _ring_liste := []
-func _ground_ring(p: Vector3, r: float, c: Color, w: float) -> void:
-	_ring_liste.append([p, r, c, w])
+const RASTER_GRUND := Color(0, 0, 0, 0.18)     # 998: Fläche im Ring (alt 0,18)
+func _ground_ring(p: Vector3, r: float, c: Color, w: float, grund := Color(0, 0, 0, 0)) -> void:
+	_ring_liste.append([p, r, c, w, grund])
 
 
 var _ringe: MeshInstance3D
@@ -1031,6 +1032,8 @@ func _ringe_bauen() -> void:
 	for e in _ring_liste:
 		var mdp: float = kampfort.m_per_dp(e[0])
 		var w: float = float(e[3]) / dp * mdp
+		if e[4].a > 0.0:     # 998: Grund als volle Scheibe bis an den Ring
+			_band(e[0], float(e[1]) * 0.5, float(e[1]), e[4], RING_HOCH - 0.002)
 		_band(e[0], float(e[1]), w + 2.0 * mdp, Color(0, 0, 0, 0.5), RING_HOCH)
 		_band(e[0], float(e[1]), w, e[2], RING_HOCH + 0.002)
 	_ring_mesh.surface_end()
@@ -1081,7 +1084,9 @@ func _draw_overlay() -> void:
 			for row in [Mars.FRONT, Mars.BACK]:
 				for slot in [0, 1]:
 					var ab: Vector2 = k._stand(side == "FOES", row == Mars.BACK, slot, false)
-					_ground_ring(k._ground(ab.x, ab.y), 0.45, Color(GOLD, 0.5), 1.5 * dp)
+					# 998 (229.3, Chef 20.10. „Raster schwer erkennbar“; alt SkirmishScreen.kt 1882): dunkler Grund unter einer
+					# kräftigen Goldlinie, auf Gras wie auf Stein zu sehen
+					_ground_ring(k._ground(ab.x, ab.y), 0.45, Color(GOLD, 0.9), 2.0 * dp, RASTER_GRUND)
 	_ringe_bauen()     # 561
 	# triangles before the feet of those a foe aims at (CamAim)
 	var aimed_at := {}

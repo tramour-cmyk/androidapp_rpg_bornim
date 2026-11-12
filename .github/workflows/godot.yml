@@ -538,6 +538,7 @@ jobs:
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/ansage_597.gd 2>&1 | grep -E "ANSAGE597|FEHLER|SCRIPT ERROR"   # 597 t268.21 Ansage der Wölfe im Bild
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/tempo_600.gd 2>&1 | grep -E "TEMPO600|SCRIPT ERROR"   # 600 Tempoknopf im Kampfort
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/bewegung_997.gd 2>&1 | grep -E "BEWEGUNG997|SCRIPT ERROR"   # 997 Testkampf: laufende Bewegung und Fassung je Figur
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/raster_998.gd 2>&1 | grep -E "RASTER998|SCRIPT ERROR"   # 998 Kampfraster kräftiger wie 229.3
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/titel_585.gd 2>&1 | grep -E "TITEL585|SCRIPT ERROR"   # 585 Titel ausgewogen umgebrochen
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/sterben_596.gd 2>&1 | grep -E "STERBEN596|SCRIPT ERROR"   # 596 Sterben gespiegelt
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/pfeil_601.gd 2>&1 | grep -E "PFEIL601|SCRIPT ERROR"   # 601 Pfeil auch beim Ducken
