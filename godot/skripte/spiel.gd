@@ -74,6 +74,13 @@ func _ready() -> void:
 		add_child(Helligkeit.schicht())
 		starte(nw)
 		return
+	# 1021 (Chef 12.11., 08:09): hat Android das Spiel im Hintergrund beendet, gleich im Spielstand weiter, ohne Vorspann und Hauptmenue
+	var fp := Fortsetzen.offen() if OS.get_cmdline_user_args().is_empty() and DisplayServer.get_name() != "headless" else 0
+	if fp > 0:
+		Fortsetzen.vergiss()
+		add_child(Helligkeit.schicht())
+		starte({"platz": fp, "laden": true})
+		return
 	if OS.get_cmdline_user_args().is_empty() and DisplayServer.get_name() != "headless":
 		var ebene := CanvasLayer.new()   # 399.1 (Test 130: Probeknoepfe und Windrose lagen ueber dem Menue): eigene Ebene ueber allem
 		ebene.layer = 50
@@ -230,7 +237,14 @@ func _notification(what: int) -> void:   # 399: auch beim Verlassen der App (alt
 	if what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_WM_CLOSE_REQUEST:
 		speichere()
 		spiel_seit = -1   # 529: im Hintergrund zaehlt nichts (alt pausePlayClock)
-	if what == NOTIFICATION_APPLICATION_RESUMED and spiel_seit < 0: spiel_seit = Time.get_ticks_msec()
+		# 1021: beendet Android das Spiel im Hintergrund, geht es beim naechsten Start gleich hier weiter (fortsetzen.gd)
+		if what == NOTIFICATION_APPLICATION_PAUSED and held and karte and not OS.get_cmdline_user_args().size():
+			Fortsetzen.merke(Spielstand.platz)
+		elif what == NOTIFICATION_WM_CLOSE_REQUEST:
+			Fortsetzen.vergiss()
+	if what == NOTIFICATION_APPLICATION_RESUMED:
+		Fortsetzen.vergiss()   # 1021: die App lief weiter, nichts fortzusetzen
+		if spiel_seit < 0: spiel_seit = Time.get_ticks_msec()
 	# 416.1: Android-Zurück schliesst das oberste Fenster (zurueck.gd); ohne Fenster nichts (vorher beendete es das Spiel)
 	if what == NOTIFICATION_WM_GO_BACK_REQUEST: Zurueck.taste(get_tree())
 	# Build 145 (Tests mit spiel.tscn brachen beim Beenden ab, „corrupted size vs. prev_size“): die statische Uhr der Leute hielt eine
