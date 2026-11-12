@@ -87,6 +87,7 @@ static func alle(k: Karte, h: Node3D) -> Array:
 		if datei != "res://daten/leute/%s.bin" % d["id"]:
 			dd = d.duplicate()
 			dd["datei"] = datei
+			dd["person"] = String(d.get("aussehen", ""))   # 635 (t277.16): auch der Kaufkoerper nach dem Aussehen (heldfigur.gd person)
 		var l := Leute.new(k, dd, h)
 		r.append(l)
 	return r
@@ -278,7 +279,7 @@ func _ready() -> void:
 		rotation.y = blick
 		if anim and anim.has_animation("Stehen"): anim.play("Stehen")
 		return
-	if not daten.has("datei") and baue_kauf(p): return
+	if (not daten.has("datei") or daten.has("person")) and baue_kauf(p): return   # 635: Lyra (lyra_temple, lyra_cave) als Person „lyra“
 	modell = Gebiet.lade_glb(datei)
 	add_child(modell)
 	Gebiet.male(modell, null, 2, mats)
@@ -314,7 +315,7 @@ func _ready() -> void:
 
 # 475: die Person auf dem Kaufkoerper mit eigenem Gesicht (heldfigur.gd person); false ohne Kaufdateien
 func baue_kauf(info_datei: String) -> bool:
-	var m := HeldFigur.person(String(daten["id"]), mats)
+	var m := HeldFigur.person(String(daten.get("person", daten["id"])), mats)
 	if m == null: return false
 	modell = m
 	add_child(modell)
