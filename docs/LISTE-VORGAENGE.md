@@ -140,7 +140,6 @@
 | 1022 | Von Sokrates (Chef 12.11., 08:26; Wiederholfund t268): Kartenrand aller Gebietskarten wie alt 27m, Wald dicht ins Dunkel, Wege enden nicht offen; Süden und Osten weich (Chef 13:41 „1022 ja“) | Tom | M | in Arbeit, Bildlauf 14:10 | 12.11. 15:20 | claude/tom-1022-kartenrand | – | E Welt | 10,10 $ |
 | 1023 | Hühner wie alt: fliehen verlässlich, Federn sichtbar, auffliegen (aus 814, t278.3; Chef 12.11., 08:31 zurückgestellt), samt Hühnerstall-Frage | Tom | K | ruht, zurückgestellt (Chef 12.11., 08:31) | – | – | – | E Welt | – |
 | 1035 | Von Sokrates (Chef 12.11., 14:39): Startbildschirm mit eigenem Zeichen statt Godot (boot_splash), schwarz-gold, Bestand zuerst (Firmenzeichen des Hauptmenüs) | Tom | M | gebaut, Geprüft an: 9dd1b9db6, fährt im nächsten Build | – | claude/tom-1035-startbild | – | E Welt | – |
-| Pflege | von Werkzeug (340.3, 12.11.): 15057 Bytes (Grenze 15000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
 | 1040.1 | Von Tuffy (1040, Chef 12.11., 15:13 Lyra „dreht sich genauso bescheuert, ohne Schritte“): Leute drehen im Stehen ohne Schritte, wenn sie dem gehenden Helden folgen | Tom | M | startbar | – | – | – | E Figuren | – |
 | 1029 | Von Tom (Build 280, Lauf 380): schalter_1024 rot, WOLVES Seed 1: in 1 von 2202 Bildern Ansage auf der Bildrate-Zeile (tiefster Schalter 0 px) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 1025 | Von Sokrates (Chef 12.11., 10:25–10:28, Bilder Probekampf Wölfe, Build 278): zwei Kämpfe zugleich (Probekampf, dann Rudel der Karte ohne Kampfort über der Karte); nach „ganzer Bericht“ Kampfort schwarz, Bilder/s 7–8; Namen Wolf 1–3 gegen Jungwolf; nie zwei Kämpfe zugleich, Karte ruht im Kampf | Jerry | M | startbar | – | – | – | E Kampf | – |
@@ -282,10 +281,10 @@
 | 1034 | Von Sokrates (Chef 12.11., 14:38, Idee 14:34, zu 1020.2): ein Probekampf für alles: Held „Spielheld“ (zählt im Spielstand) oder „Testheld“ (wie MARS-Probekampf), Söldner für beide, Gegner als Knöpfe, „Kampf beschwören“ entfällt | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 1036 | Von Sokrates (Chef 12.11., 14:48, Build 280, Probekampf Brandflasche): sichtbare Zustände an Figuren fehlen (kein Brennen nach dem Wurf); alle sichtbaren Zustandseffekte wie in der Kotlin-Fassung (Abgleich alt) | Jerry | M | in Arbeit, bei Tuffy | – | – | – | E Kampf | – |
 | 1037 | Von Tom (842, 807 A): Werte in werte.json für Überreden ohne Grundwert (Chance aus Fertigkeitswert, Pim heimschicken) und Verband (Heilung je Rang Heilkunde, Preis bei Osric und Thessa, Stufe im Katalog); Zahlen vorläufig wie proben, Vorentscheid Sokrates (783 W5) | Jerry | M | gebaut, Geprüft an: 7696371e0 | – | – | – | E Kampf | – |
-| Pflege | von Werkzeug (340.3, 12.11.): 26333 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 1039 | Von Sokrates (Chef 12.11., 15:04, Build 280, Probekampf Grak, Schwerer Hieb): innerer Ring kaum zu sehen, man erkennt nicht, wann man tippen muss; Ring lesbar machen (Zielring kräftig, Signatur gold) | Jerry | M | in Arbeit, bei Tuffy | – | – | – | E Kampf | – |
 | 1040 | Von Sokrates (Chef 12.11., 15:12, Build 280, 278.21 Grimmzahn; Wiederholfund „Drehen auf der Stelle“ t268): Figur dreht sich im Stehen zum Helden wie eine Plastikpuppe, ohne Schritte; Drehen auf der Stelle mit Tritt- oder Wendeschritten im Baustein 744, für alle Figuren | Jerry | M | in Arbeit, bei Tuffy | – | – | – | E Figuren | – |
 | 1041 | Von Sokrates (Chef 12.11., 15:16, Build 280, 278.24 bestanden): Platztausch ungleich, der nach hinten Gehende hastet in eckigem Bogen, der andere schreitet gemessen zwei Schritte vor; beide im selben Takt und runden Bogen | Jerry | M? | startbar | – | – | – | E Kampf | – |
+| Pflege | von Werkzeug (340.3, 12.11.): 28221 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 766 | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Homer | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
@@ -370,7 +369,7 @@
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 767 | Wochentermin 13.11.: Rollenspiegel Ford (rollenspiegel.sh Ford) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Ford | M | startbar | 13.11. 08:00 | – | – | B Abläufe | – |
 | 906 | lauf.py startet Zusatzentwickler auf Zeilen, deren Zweig Umzugsdateien berührt (492 am 11.11., 08:04: claude/tom-492-durchspiel ändert spiel.gd; Grundsatz 5 LISTE-UMZUG-BRS, Zu 870.4 Sokrates 01:57); Sperre nach geänderten Dateien prüfen (von Spike) | Ford | M? | startbar | – | – | – | B Steuerung | – |
-| Pflege | von Werkzeug (340.3, 12.11.): 62189 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 12.11.): 62224 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
