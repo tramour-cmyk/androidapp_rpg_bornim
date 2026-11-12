@@ -1513,12 +1513,17 @@ func _held_wechsel() -> bool:
 	var way := d.length()
 	if way < 0.05:
 		return false
-	if d.dot(kampfort.facing(fighter.side == "FOES")) < 0.0:
-		var zurueck := _gang_ss("Zurück")
-		var v := _held_mps(zurueck if zurueck != "Zurück" else "Gehen") if kauf else WALK_MPS
-		if zurueck == "Zurück" and not anim.has_animation("Gehen"):
-			return false
-		_back_home(way / maxf(v, 0.1), null)
+	var rueck := d.dot(kampfort.facing(fighter.side == "FOES")) < 0.0
+	if _wechsel_mps(not rueck) <= 0.0:
+		return false
+	var partner = _tausch_partner()
+	if partner != null and _tausch_bogen(partner, rueck):
+		return true
+	if rueck:
+		# 1041: die Zeit für den Weg, den _back_home geht (mit Umweg), nicht für die Gerade; sonst eilt er den Umweg entlang
+		var via0 := _detour(position, home)
+		var lang0 := position.distance_to(via0) + via0.distance_to(home) if via0 != position else way
+		_back_home(lang0 / _wechsel_mps(false), null)
 		return true
 	var nm := _gang_ss("Gehen")
 	if not anim.has_animation(nm):
@@ -1536,6 +1541,117 @@ func _held_wechsel() -> bool:
 		tween.tween_property(self, "position", home, dauer)
 	tween.tween_callback(func(): _face(); _idle())
 	return true
+
+
+## 1041: Tempo (m/s) der Schritte beim Platzwechsel, vorwärts oder rückwärts; 0, wenn die Figur keine Gehbewegung dafür hat
+func _wechsel_mps(vor: bool) -> float:
+	if fighter == null or fighter.monster != null or anim == null or down or model == null:
+		return 0.0
+	var nm := _gang_ss("Gehen") if vor else _gang_ss("Zurück")
+	if nm == "Zurück":
+		nm = "Gehen"
+	if not anim.has_animation(nm):
+		return 0.0
+	return maxf(_held_mps(nm) if kauf else WALK_MPS, 0.1)
+
+
+## 1041: wer aus meiner Gruppe auf meinem neuen Platz steht und meinen alten bekommt (oder seinen neuen Platz noch nicht kennt,
+## glide_to ruft beide im selben Bild nacheinander)
+func _tausch_partner():
+	for o in kampfort.figures.values():
+		if o == self or o.fighter == null or o.fighter.monster != null or not o.visible or o.down or o.fighter.side != fighter.side:
+			continue
+		var an_ziel := Vector2(o.position.x - home.x, o.position.z - home.z).length() < 0.3
+		var zu_mir := Vector2(o.home.x - position.x, o.home.z - position.z).length() < 0.3
+		var noch_da := Vector2(o.home.x - home.x, o.home.z - home.z).length() < 0.3
+		if an_ziel and (zu_mir or noch_da):
+			return o
+	return null
+
+
+## 1041 (Chef 12.11., 15:16, Build 280: „das Jägerkind ist wie von der Tarantel gestochen … in einem Bogen rumgegangen und der
+## Söldner hat halt einfach zwei Schrittchen nach vorne gemacht, ganz gemessen“; Ursache: _back_home bekam die Zeit der Geraden für
+## den längeren Umweg über eine Ecke, im Gehtempo, der andere ging im langsamen Schritt mit Schild): beim Platztausch zweier aus
+## einer Gruppe gehen beide zugleich los und kommen zugleich an, im Tempo des Langsameren, jeder auf einem runden Bogen zu seiner
+## Rechten (so weichen sie einander aus, BOGEN_H je Seite), den Blick beim Gegner, die Schritte im Tempo des Wegs. Beide rechnen
+## denselben Bogen; nur wenn auf keiner Seite Platz vor den anderen ist, wie vorher (_detour)
+const BOGEN_H := 0.35
+const BOGEN_N := 24
+const BOGEN_LUFT := 0.3
+const BOGEN_ENGER := 0.15
+const WECHSEL_LANGSAM := 0.5     # langsamer als halbes Schritttempo laufen die Schritte nicht (die Füße rutschten)
+func _tausch_bogen(o, rueck: bool) -> bool:
+	var v := minf(_wechsel_mps(not rueck), o._wechsel_mps(rueck))
+	if v <= 0.0:
+		return false
+	# gemeinsame Richtung: vom Platz dessen, der nach hinten geht, zum Platz dessen, der nach vorn geht
+	var vorn: Vector3 = position if rueck else home
+	var hinten: Vector3 = home if rueck else position
+	var ab := Vector3(hinten.x - vorn.x, 0.0, hinten.z - vorn.z)
+	if ab.length() < 0.05:
+		return false
+	var quer := Vector3(-ab.z, 0.0, ab.x).normalized()
+	# Platz zu den anderen (außer uns beiden); steht einer schon knapp am Platz vorn (ein Wolf im Nahkampf, tausch_1041: Gerade
+	# −0,28, ein Bogen am Ende −0,40), zählt nur, dass der Bogen nicht viel enger wird als die Gerade
+	var gerade := _bogen_luft([vorn, hinten], o) - BOGEN_ENGER
+	var beste := []
+	var beste_luft := -INF
+	for sg in [1.0, -1.0]:
+		var hin := _bogen(vorn, hinten, quer * sg)        # wer nach hinten geht
+		var her := _bogen(hinten, vorn, -quer * sg)       # wer nach vorn geht, auf der anderen Seite
+		var luft := minf(_bogen_luft(hin, o), _bogen_luft(her, o))
+		if luft > beste_luft:
+			beste_luft = luft
+			beste = hin if rueck else her
+		if luft >= minf(BOGEN_LUFT, gerade):
+			break
+	if beste_luft < minf(BOGEN_LUFT, gerade):
+		if OS.get_environment("SCHAU_1041") != "":
+			print("1041 %s: Bogen ohne Platz (Luft %.2f, Gerade %.2f), wie vorher" % [fighter.id, beste_luft, gerade])
+		return false
+	var lang := 0.0
+	for i in range(1, beste.size()):
+		lang += Vector2(beste[i].x - beste[i - 1].x, beste[i].z - beste[i - 1].z).length()
+	var dauer := lang / v
+	var nm := _gang_ss("Gehen") if not rueck else _gang_ss("Zurück")
+	if nm == "Zurück":
+		nm = "Gehen"
+	var takt := clampf(v / _wechsel_mps(not rueck), WECHSEL_LANGSAM, WALK_MAX)
+	_dreh_ab()
+	if rueck and nm == "Gehen":
+		_guard(true)
+		anim.play(nm, 0.12, -takt)
+	else:
+		anim.play(nm, 0.12, takt)
+	if OS.get_environment("SCHAU_1041") != "":
+		print("1041 %s %s: %.2f m in %.2f s, %.2f m/s, Takt %.2f, Luft %.2f" % [fighter.id, "zurück" if rueck else "vor", lang, dauer, v, takt, beste_luft])
+	tween = create_tween()
+	for i in range(1, beste.size()):
+		var st := Vector2(beste[i].x - beste[i - 1].x, beste[i].z - beste[i - 1].z).length()
+		tween.tween_property(self, "position", beste[i], dauer * st / maxf(lang, 0.01))
+	tween.tween_callback(func(): _guard(false); _face(); _idle())
+	return true
+
+
+## 1041: Punkte eines runden Bogens von a nach b, in der Mitte um [seite] (Länge BOGEN_H) zur Seite
+func _bogen(a: Vector3, b: Vector3, seite: Vector3) -> Array:
+	var out := []
+	for i in BOGEN_N + 1:
+		var s := float(i) / BOGEN_N
+		# sin²: an Start und Ziel tangential (erst nach hinten oder vorn, dann zur Seite), in der Mitte am weitesten
+		out.append(a.lerp(b, s) + Vector3(seite.x, 0.0, seite.z) * BOGEN_H * pow(sin(PI * s), 2.0))
+	return out
+
+
+## 1041: kleinste Luft des Bogens zu allen anderen außer mir und dem Tauschpartner
+func _bogen_luft(pts: Array, o) -> float:
+	var g := INF
+	for f in kampfort.figures.values():
+		if f == self or f == o or not f.visible or f.down:
+			continue
+		for i in range(1, pts.size()):
+			g = minf(g, f.strecke_luft(pts[i - 1], pts[i]) - own_r())
+	return g
 
 
 func _weg() -> Dictionary:
