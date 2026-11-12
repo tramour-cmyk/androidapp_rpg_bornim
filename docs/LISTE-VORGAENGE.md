@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x) · „jetzt“ 12.11., 17:37 | Tom | M | startbar, erst Aufwand vorlegen | – | claude/tom-431-voelker | – | E Figuren | 50,10 $ |
+| 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x; nach dem Umzug, Chef 12.11., 17:42) | Tom | M | wartet, nach dem Umzug, Vorrang Perikles | 870.10 | claude/tom-431-voelker | – | E Figuren | 50,10 $ |
 | 1030 | Von Sokrates (Chef 12.11., 13:53, Build 280, Rückläufer zu 1020.1): Reiter „Test“ springt nach jedem Schalter (Bildrate, Uhrzeit) ganz nach oben; Prüfliste nicht einklappbar, ewig scrollen bis zu den Schaltern | Tom | M | gebaut, Geprüft an: da07f9811, fährt im nächsten Build | – | claude/tom-1030-testreiter | – | E Technik | 25,76 $ |
 | 825 | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635, 542, 543, 632; Jerry 593, 547, 597), Prüfliste ansehen/t<n>, build <n> --mit für jede Nummer (774) | Tom | M | gebaut, Geprüft an: Lauf 42793721837, t274 beim Chef | – | – | – | E Technik | 8,33 $ |
 | 697 | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | Tom | M | in Arbeit, erster Messlauf ohne Wert (nicht importiert) | 782 | claude/tom-697-drehteller | – | E Figuren | – |
@@ -271,6 +271,7 @@
 | 896 | Von Jerry (870.5): Wächter meldet „TP“ als SRD-Begriff (886), Homer 870.14 und DESIGN-BRS 12 lassen TP in Meldungen stehen; Widerspruch klären | Perikles | M | gebaut, Geprüft an: de7ccc403 | – | – | – | E Technik | 0,53 $ |
 | 919 | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): Regeln nachziehen: Testbitte auch bei rot mit Liste „bekannt, nicht melden“, keine bei rotem Start- oder Absturztest; main nur grün und vom Chef getestet; vor jedem Lauf ganzer Testsatz am Rechner (sobald Jerrys Vorgang steht) | Perikles | M | wartet, 9, 10, 13 gebaut; Rechner-Testsatz in 5 nach 918 (2) | 918 | – | – | B Abläufe | – |
 | 1019 | Von Sokrates (zu 1016): Ford startet sich am Neustart-Haken (200 Tsd., 383 A) neu statt bei 400 Tsd. (185, LISTE-BETRIEB); Tiefe 0 bis 6 in 21 h, Handstart täglich; Ford im Haken auf 400 Tsd. ausnehmen | Perikles | M | gebaut, Geprüft an: 57f798597 | 13.11. 08:00 | – | – | B Abläufe | 1,45 $ |
+| 1061 | Von Tom (Chef 12.11., 17:42): nach dem Umzug die großen relevanten Punkte sichten und ordnen, darunter 431 Körper je Volk im Helden („was wir sonst noch an großen Punkten haben, die relevant sind“) | Perikles | M | startbar | – | – | – | B Abläufe | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
