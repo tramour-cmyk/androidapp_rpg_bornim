@@ -1025,10 +1025,11 @@ jobs:
           grep -E "SCRIPT ERROR|^Film|^Signatur|FEHLER" $B/film.log | head -16 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/fm510.avi -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast $B/510-fledermaus.mp4 || true
           ls -l $B
+      # 831: beide Waldschritte auch von Hand auf claude/tom-831-… (Bäume aus dem Nature MegaKit im Spielbild)
       # 490 Flüsterwald: aus Sicht des Helden (Ankunft, Feuer, Teich, Kraeuter, Hoehle, Rand, Monster mit „!“, nachts Feuer und Ankunft),
       # mit Kaufheld wie im Build; nur bei „490 Waldbilder“ im Commit oder von Hand auf dem Zweig claude/spike-490-…
       - name: Waldbilder (490)
-        if: contains(github.event.head_commit.message, '490 Waldbilder') || (github.event_name == 'workflow_dispatch' && contains(github.ref, 'spike-490'))
+        if: contains(github.event.head_commit.message, '490 Waldbilder') || (github.event_name == 'workflow_dispatch' && (contains(github.ref, 'spike-490') || contains(github.ref, 'tom-831')))
         continue-on-error: true
         run: |
           mkdir -p $GITHUB_WORKSPACE/bilder/wald490
@@ -1039,7 +1040,7 @@ jobs:
       # 491 Tiefer Flüsterwald: Ankunft, Weg zwischen den Baeumen, Morwen mit Huette, Grimmzahn, nachts Morwen und Grimmzahn; nur bei
       # „491 Tiefwaldbilder“ im Commit oder von Hand auf dem Zweig claude/spike-491-…
       - name: Tiefwaldbilder (491)
-        if: contains(github.event.head_commit.message, '491 Tiefwaldbilder') || (github.event_name == 'workflow_dispatch' && contains(github.ref, 'spike-491'))
+        if: contains(github.event.head_commit.message, '491 Tiefwaldbilder') || (github.event_name == 'workflow_dispatch' && (contains(github.ref, 'spike-491') || contains(github.ref, 'tom-831')))
         continue-on-error: true
         run: |
           mkdir -p $GITHUB_WORKSPACE/bilder/tiefwald491
