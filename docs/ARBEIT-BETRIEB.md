@@ -363,3 +363,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:05 12.11.: Marke Archiv session_01Hmoj766LSe7nDcgDZoGn2r (lauf.py)
 - 10:05 12.11.: Marke Archiv session_01Hmoj77GZt45MJ7mkLqnBfm (lauf.py)
 - 10:09 12.11.: Lauf 10:04: Spike …78uJWKigZFnt8v3NJj (1022 Kartenrand) und Tuffy …79xewvr4yXDaxRRApX (644a.1 Rechnung Beutestufe) gestartet; Spike 612 (7,09 $) und Tuffy 1020.2 (9,97 $) archiviert, gebucht. Ausgeschlossen mit Grund: 814 (Tom arbeitet, Zu 814 08:55), 644a.2 (folgt auf 644a.1), 1020.1 (Tom), Perikles-START „Perikles – (Ford ruft)“ ohne Auftrag (zweiter Lauf, Nachricht an Perikles).
+- 10:25 12.11.: Startsperre 10:25 Start Spike (Neustart-Meldung 55901b2ed, Nachfolger „Spike – 1022: Kartenrand, Test und Bildpaar“)
