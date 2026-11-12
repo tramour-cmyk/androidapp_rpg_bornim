@@ -61,8 +61,13 @@ func _lauf() -> void:
 ## die Helden allein, doppelt so gross (Gesichter, Haende, Waffen)
 func ausschnitt(neu: Control, n: String) -> void:
 	await RenderingServer.frame_post_draw
-	var r := Rect2i(neu.get_global_rect())
-	var img := root.get_texture().get_image().get_region(r)
+	# Lauf 403: get_global_rect ist im Mass der Leinwand (Fensterstreckung), das Bild im Mass des Fensters: umrechnen
+	var bild := root.get_texture().get_image()
+	var mass := Vector2(bild.get_size()) / root.get_visible_rect().size
+	var g := neu.get_global_rect()
+	var r := Rect2i(Vector2i(g.position * mass), Vector2i(g.size * mass)).intersection(Rect2i(Vector2i.ZERO, bild.get_size()))
+	print("MENU867 Ausschnitt %s (Mass %s)" % [r, mass])
+	var img := bild.get_region(r)
 	img.resize(img.get_width() * 2, img.get_height() * 2, Image.INTERPOLATE_LANCZOS)
 	img.save_png(aus + "/" + n + ".png")
 	print("BILD ", aus + "/" + n + ".png")
