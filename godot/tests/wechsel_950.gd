@@ -63,13 +63,16 @@ func _lauf() -> void:
 			if v > 0.05:
 				var a: String = g.anim.current_animation if g.anim else ""
 				var gang: bool = a.contains("Walk") or a.contains("Gehen") or a.contains("Run") or a.contains("Rennen")
+				# 1018 (Lauf 373, mit Kaufmodellen nachgestellt: je Figur genau ein Bild „ohne Gehen“, das letzte, am Platz angekommen):
+				# im selben Bild, in dem der Tween den letzten Schritt setzt, ruft er _idle; das Ankunftsbild zählt nicht als Gleiten
+				if g.position.is_equal_approx(g.home) and not gang:
+					continue
 				var schritt: float = g._held_mps(a) * absf(g.anim.get_playing_speed()) if gang else 0.0
 				mess[id][0] = maxf(mess[id][0], v / maxf(schritt, 0.01) if gang else INF)
 				mess[id][1] += v * dt
 				mess[id][2] += 1
 				if not gang:
 					mess[id][3] += 1
-					print("ohne Gehen %s Bild %d: %s, %.2f m/s, am Platz %s" % [id, i, a, v, g.position.is_equal_approx(g.home)])
 		nah = minf(nah, Vector2(figs.hero.position.x - figs.merc.position.x, figs.hero.position.z - figs.merc.position.z).length())
 	var fehler := 0
 	for id in mess:

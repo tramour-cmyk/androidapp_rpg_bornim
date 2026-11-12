@@ -69,13 +69,21 @@ func _lauf() -> void:
 		var flug = null
 		var naechst := INF
 		var start_fehler := INF
+		# 1018 (Lauf 373, am Rechner mit Kaufheld und Paket nachgestellt: Treffer 0,14 m): das Geschoss startet zwischen zwei Bildern
+		# an der Stabspitze, der Stab schwingt im Zauber weiter; gemessen wird der Abstand zum Weg der Spitze vom Bild davor bis danach
+		var vor_hand = by.cast_point()
 		while kf.clock_ms < bis:
 			await process_frame
 			if flug == null and ui.arkan_fluege.size() > n0:
 				flug = ui.arkan_fluege[n0]
 				var hand = by.cast_point()
 				if hand != null:
-					start_fehler = (hand as Vector3).distance_to(flug[1])
+					var a: Vector3 = vor_hand if vor_hand != null else hand
+					var ab: Vector3 = (hand as Vector3) - a
+					var u: float = clampf((flug[1] - a).dot(ab) / ab.length_squared(), 0.0, 1.0) if ab.length_squared() > 1e-8 else 0.0
+					start_fehler = (a + ab * u).distance_to(flug[1])
+			elif flug == null:
+				vor_hand = by.cast_point()
 			if flug != null and is_instance_valid(flug[0]) and flug[0] is Node3D:
 				naechst = minf(naechst, (flug[0] as Node3D).global_position.distance_to(flug[2]))
 		if flug == null:
