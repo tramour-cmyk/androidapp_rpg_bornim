@@ -16,7 +16,6 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [1036](ansehen/1036-zustaende.md) | Zustände an den Figuren: Paket oder eigen | – | 12.11., 18:22 |
 | [758](ansehen/758-sitzen.md) | Borin sitzt in der Schenke am Tisch | – | 12.11., 20:13 |
 
 ## Zu tun
@@ -156,7 +155,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1073 | M? | Von Sokrates (Chef 12.11., 20:38): Bilder der Dinge in Tasche und Laden nach unserer Signa | startbar |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 20722 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 133, Muss 117, startbar 7
+**Jerry** – offen 133, Muss 117, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -166,7 +165,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1043 | M | Von Sokrates (Chef 12.11., 15:52, Fund t278.33 Build 280, zu 988): MARS-Probekampf Wölfe, | wartet auf 1065 (startbar) |
 | 1025 | M | Von Sokrates (Chef 12.11., 10:25–10:28, Bilder Probekampf Wölfe, Build 278): zwei Kämpfe z | Sperre 620.1 B: 29 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1018 (wolf) |
 | 1032 | M | Von Sokrates (Chef 12.11., 14:08, Build 280, MARS-Probekampf Wölfe, Held und Söldner Wachs | wartet auf 1025 (startbar) |
-| 1036 | M | Von Sokrates (Chef 12.11., 14:48, Build 280, Probekampf Brandflasche): sichtbare Zustände | Chef (Datei in der Chefsache) |
+| 1036 | M | Von Sokrates (Chef 12.11., 14:48, Build 280, Probekampf Brandflasche): sichtbare Zustände | startbar |
 | 1031 | M | Von Sokrates (Chef 12.11., 14:08, Build 280, MARS-Probekampf Wölfe, Wachsoldat): „ganzer B | wartet auf Test/Build (gebaut) |
 | 1041 | M | Von Sokrates (Chef 12.11., 15:16, Build 280, 278.24 bestanden): Platztausch ungleich, der | wartet auf Test/Build (gebaut) |
 | 1034 | M | Von Sokrates (Chef 12.11., 14:38, Idee 14:34, zu 1020.2): ein Probekampf für alles: Held „ | wartet auf Test/Build (gebaut) |
@@ -388,7 +387,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/1036-zustaende.md, ansehen/758-sitzen.md
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/758-sitzen.md
 
 ## So geht's
 
