@@ -72,6 +72,8 @@ var ui
 var figures := {}          # id -> Figur
 var fx_zahl := {}          # 494: wie oft je Art ein Effekt flog (Test spinne_494: Netz statt Pfeil)
 var shown := {}            # the last message played: hp, places, intents, queue, sp
+## 1032: jede Meldung, wenn sie zu spielen beginnt (Messungen ohne Bild, tests/treffer_1032.gd)
+signal meldung(e: Dictionary)
 ## 296.2: the hero's experience before the fight, how far above the place he stands, the level cap (null: chapter's)
 var progress := {}
 var verhuellt := false     # 402: die Blende vor dem Kampf steht noch (Kampfblende.gd)
@@ -1120,6 +1122,7 @@ func _process(_dt: float) -> void:
 
 func _play_say(e: Dictionary) -> void:
 	var before: Dictionary = shown.hp
+	meldung.emit(e)
 	if OS.get_environment("DBGPL") != "" and absf(clock_ms / 1000.0 - float(OS.get_environment("DBGPL"))) < 4.0:
 		print("PL %.1f actor %s cue %s text %s places %s" % [clock_ms / 1000.0, e.actor, e.cue, String(e.text).left(50), e.places])
 	shown = e
