@@ -8,7 +8,11 @@ Nichts offen.
 
 ## Zu billigen
 
-Nichts offen.
+Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers.
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [1038](billigen/1038-ueberreden-verband.md) | **Muss** | E Kampf | 12.11., 16:06 | Überreden gelingt anfangs zu 45 %, an der Rangdecke zu 59 %; ein Verband heilt anfangs 7 Leben und kostet 8 Gold, nur außerhalb des Kampfs | Sokrates |
 
 ## Anzusehen
 
@@ -286,7 +290,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1040 | M | Von Sokrates (Chef 12.11., 15:12, Build 280, 278.21 Grimmzahn; Wiederholfund „Drehen auf d | in Arbeit bei Tuffy |
 | 1041 | M? | Von Sokrates (Chef 12.11., 15:16, Build 280, 278.24 bestanden): Platztausch ungleich, der | startbar |
 | 1043 | M | Von Sokrates (Chef 12.11., 15:52, Fund t278.33 Build 280, zu 988): MARS-Probekampf Wölfe, | Sperre 620.1 B: 20 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolfe) |
-| Pflege | K | von Werkzeug (340.3, 12.11.): 30181 Bytes (Grenze 15000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 12.11.): 30519 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 14, Muss 12, startbar 0
 
@@ -321,7 +325,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 55, Muss 40, startbar 31
+**Sokrates** – offen 54, Muss 39, startbar 30
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -378,8 +382,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 985 | K | Systemlösung? Nebel: 2 frühere Vorgänge (505, 502), neu 785.7; einmal grundsätzlich lösen? | startbar |
 | 644a.4 | M | Vorentscheid: Waffen der Truhe in der Blutzahnhöhle (cave_3) Stufe 3 statt 4, sonst vor Kr | startbar |
 | 644a.5 | M | Von Tuffy (644a.1): an welchem Grundwert hängen Rüstung, Ausweichen, Schild, Armbrust und | startbar |
-| 1038 | M | Von Jerry (1037): Vorentscheid zu vorläufigen Werten Überreden (35 + 1 je Punkt, Pim 0) un | startbar |
-| Pflege | K | von Werkzeug (340.3, 12.11.): 17690 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
+| Pflege | K | von Werkzeug (340.3, 12.11.): 16046 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
