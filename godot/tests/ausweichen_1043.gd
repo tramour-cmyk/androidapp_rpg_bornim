@@ -38,7 +38,12 @@ func _lauf() -> void:
 		if k.mars.outcome != "ONGOING" and not k.busy and not k.playing and k.beats.is_empty():
 			break
 		if not k.busy and not k.playing and k.beats.is_empty() and k.mars.outcome == "ONGOING":
-			if k.mars.pilot_next() or k.mars.set_autopilot(true): k.go_on()
+			# 1029: der Söldner „selbst“ bekommt einen Befehl; go_on allein hielt sofort wieder bei ihm, kein Wolf kam zum Zug (Lauf 396)
+			k.mars.set_autopilot(true)
+			if k.mars.pilot_next(): k.go_on()
+			else:
+				var ts: Array = k.mars.targets(k.mars.current())
+				k.order(["attack", ts[0].id] if not ts.is_empty() else ["wait"])
 		if erzwungen_ms < 0.0 and Mars.test_erzwungen.has("ausweichen"):
 			erzwungen_ms = k.clock_ms
 			print("%.2f s Regel: Ausweichen verbraucht" % (k.clock_ms / 1000.0))
