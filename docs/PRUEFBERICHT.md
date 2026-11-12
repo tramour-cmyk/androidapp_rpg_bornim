@@ -52,6 +52,12 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 186 · 1076 Filmlänge (Perikles, Doppelpack 421, `54289ed83`, `c523f37c4`; 12.11., 21:0x)
+
+- **1076 greift beim Wächter, Lücke 1078** (`warte 1076 1078`): `meldung.sh --probe --film` mit Probefilmen: 21 s und 25 s halten an mit Hinweis 1076; 10 s und 20,6 s laufen weiter (ganze Sekunden, „über 20 s“); 25 s mit „Chef will langen Film“ läuft. `ffprobe` liegt in der Sitzung. Regeltext CLAUDE.md 9 und `LISTE-BAUEN-TESTEN.md` 3 gegen Chef 20:42 und 20:54 (`ARBEIT-PROJEKT.md` Zu 1076): beide Chefworte haben einen Ort; „etwa dreimal, bis 15 s“ ist Vorschlag Sokrates, so gekennzeichnet. Keine widersprechende Längenangabe in ROLLE-, LISTE-, DESIGN-ABNAHME; „bis 50 MB“ aus CLAUDE.md gestrichen, hält weiter im Werkzeug.
+- **D186.1 → 1078 (Perikles, Klasse 2):** die Prüfung vor dem Versand (783 W1, `DESIGN-ABNAHME.md` 11) prüft nur Punkte mit „Prüfer: ja“ und Auflagen zu derselben Vorlage; die Kamera (Chef 20:54) und „nur der Prüfgegenstand“ gelten für jeden Film, stehen aber nur in `LISTE-BAUEN-TESTEN.md` 3, nicht in G. Ohne Punkt G4 wiederholt sich der Fund des Chefs beim nächsten Film eines anderen Vorgangs.
+- Nicht geprüft: ein echter Film über 20 s (keiner seit 20:58); Filmzweig mit `main` zusammengeführt erst am nächsten Film.
+
 ## Lauf 185 · 1042 `probelauf.py` cd-Kette (Perikles, `6c3a1513c`; 12.11., 16:0x)
 
 - **1042 greift** (`greift 1042 185`): Spikes Push 15:45 (`5b6906b79` auf `claude/tom-1040-1-wendeschritt`, ändert `godot.yml`) im Klon nachgestellt, `push_lauf` alt gegen neu: `cd …/godot && …; cd .. && git push` alt „Film“ (Arbeitskopie außerhalb des Repos), neu keine Probe (Arbeitskopie richtig); ebenso relatives `cd godot; cd ..` und drei cd nacheinander. Gegenprobe gleicher Befehl auf `claude/tom-348-x`: neu Probe 1040.1 mit Film, zählt also weiter. Zweigfilter `godot.yml` (`tom-348-**`, `jerry-348-**`, `build-**`) im Commit unverändert; GitHub: 0 Läufe auf dem Zweig, die gestrichene Zeile war falsch.
