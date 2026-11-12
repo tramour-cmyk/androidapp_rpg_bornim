@@ -994,13 +994,26 @@ for r in range(NR):
     for c in range(NC):
         z = ch(c, r)
         if z in MOEBEL: MOEBEL[z](c, r)
-if SCHENKE and ch(8, 4) == 'k':   # Borins Hocker und sein Hammer an der Tischkante (alt 55.2)
-    P = part('Ding_' + stueck(8, 4))
-    p = mitte(8, 4)
-    stelle(P, 'Stool', p + Vector((0, 4, 0)), 0, 0.9)
-    q0 = p + Vector((-44, -30, 0)); q1 = p + Vector((-52, -6, 70))
-    zylinder(P, q0, 2.5, (q1 - q0).length, 6, lambda p_, n_: sc(DUNKEL, 0.9), 'holz', achse=q1 - q0)
-    box(P, (q0.x - 10, q0.y - 7, 0), (q0.x + 10, q0.y + 7, 13), lin(0x4a4a4e), 'weiss')
+# 758 A (Chef 09.11., 20:45): wer in leute.json „sitzt“, bekommt auf seiner Kachel einen Hocker in seiner Sitzhoehe, zum Tisch vor ihm
+# geschoben, und einen Krug auf die Tischkante vor sich (alt MapFolk.kt 103 sits, 162-206 Krug); leute.gd setzt die Figur darauf
+LEUTE = json.load(open(ROOT + '/tools/blender348/v3/leute.json'))
+for n in K.get('leute', []):
+    st = LEUTE.get(n['id'], LEUTE.get(n.get('aussehen', ''), {})).get('sitzt')
+    if not st: continue
+    c, r = int(n['x']), int(n['y'])
+    d = {'LEFT': Vector((-1, 0, 0)), 'RIGHT': Vector((1, 0, 0)), 'UP': Vector((0, 1, 0)), 'DOWN': Vector((0, -1, 0))}[n.get('blick', 'DOWN')]
+    P = part('Ding_' + stueck(c, r))
+    p = mitte(c, r) + d * st.get('zum_tisch_cm', 0)
+    ms = masse('Stool')
+    stelle(P, 'Stool', p, 0, (0.9, 0.9, st['sitz_cm'] / ms.z))
+    tc, tr = c + int(d.x), r - int(d.y)
+    if ch(tc, tr) == 'Y':   # Krug auf der Platte, eine Handbreit hinter der Kante zu ihm
+        rand = mitte(tc, tr) - d * (TS / 2 - 7)
+        stelle(P, 'Mug', rand + d * 16 + Vector((-d.y, d.x, 0)) * 8 + Vector((0, 0, 76.0)), 200)
+    if n['id'] == 'borin':   # sein Hammer an der Tischkante (alt 55.2), neben dem Hocker zum Tisch hin
+        q0 = p + d * 30 + Vector((-d.y, d.x, 0)) * 30; q1 = p + d * 38 + Vector((-d.y, d.x, 0)) * 6 + Vector((0, 0, 70))
+        zylinder(P, q0, 2.5, (q1 - q0).length, 6, lambda p_, n_: sc(DUNKEL, 0.9), 'holz', achse=q1 - q0)
+        box(P, (q0.x - 10, q0.y - 7, 0), (q0.x + 10, q0.y + 7, 13), lin(0x4a4a4e), 'weiss')
 print('LICHTER', len(LICHTER), 'TEILE', len(PARTS), 'BAUSATZ', len(KITC))
 
 # ---------------------------------------------------------------- Netze, Ausgabe wie dorf.py
