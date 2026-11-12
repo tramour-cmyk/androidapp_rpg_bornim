@@ -35,10 +35,37 @@ const MSG870_GEGEN_SCHLEIM := ["Der Schleim teilt sich.", "The slime splits in t
 ## [870.14.kraft.schoepfen]
 const MSG870_KRAFT := ["{0} schöpft Kraft: +{1} TP.", "{0} draws strength: +{1} HP."]
 ## 840 (830 A, Chef 10.11., 11:00; 210 B): Eingebung des Helden beim ersten Auftreten einer Ansage, einmal je Spielstand (gesehen),
-## im Kampfbericht direkt nach der Ansage; Wortlaut STORY-SPIEL.md. Zuerst nur der Wolfssprung [830.sprung]; die übrigen 210T-Eingebungen
-## erst, wenn Homer sie gegen die Regeln nach BRS gelesen hat
+## im Kampfbericht direkt nach der Ansage; Wolfssprung [830.sprung]. 986 (Homer, STORY-BRS-KAMPF.md „Eingebungen der Ansagen (986)“):
+## heavy, call, shadow im Wortlaut [210T.*.eingebung] (STORY-SPIEL.md), die übrigen [986.*]; bite und claw ohne Eingebung.
+## Knurren hat keine Ansage (_say_announce): seine Eingebung steht nach der ersten Zeile MSG399_GROWLS (_foe_turn)
 const EINGEBUNG := {"pounce": ["Er will springen. Stehe ich nicht mehr dort, wohin er springt, schnappt er ins Leere. Wechsel, und mir bleibt noch ein halber Zug.",
-	"It means to leap. If I no longer stand where it leaps, it snaps at nothing. Switch, and I still have half a turn."]}
+	"It means to leap. If I no longer stand where it leaps, it snaps at nothing. Switch, and I still have half a turn."],
+	"heavy": ["Er holt zu weit aus. Treffe ich ihn jetzt hart, kommt er aus dem Tritt.",     # [210T.heavy.eingebung]
+		"He winds up too far. If I hit him hard now, he loses his footing."],
+	"call": ["Er ruft Hilfe. Die halte ich nicht auf, aber ihn kann ich treffen, solange er brüllt.",     # [210T.call.eingebung]
+		"He calls for help. That I cannot stop, but I can hit him while he roars."],
+	"shadow": ["Er sucht das Dunkel. Ein Kratzer jetzt, und er bleibt sichtbar.",     # [210T.shadow.eingebung]
+		"He seeks the dark. A scratch now, and he stays in sight."],
+	"stab": ["Nur ein Stich. Meist lohnt mein eigener Schlag mehr als die Abwehr.",     # [986.stab]
+		"Just a stab. My own blow is usually worth more than a Defend."],
+	"slash": ["Nur ein Hieb. Meist lohnt mein eigener Schlag mehr als die Abwehr.",     # [986.hieb]
+		"Just a slash. My own blow is usually worth more than a Defend."],
+	"flank": ["Er will hintenrum. Ein Kratzer hält ihn auf, ein Wechsel der Reihe auch.",     # [986.flank]
+		"He means to go around. A scratch stops him, and so does switching rows."],
+	"circle": ["Der da ruft das Rudel zusammen. Den treffen, egal wie leicht.",     # [986.circle]
+		"That one calls the pack together. Hit it, however lightly."],
+	"growl": ["Der hier hält sich zurück. Erst den Leitwolf treffen.",     # [986.growl]
+		"This one holds back. Hit the lead wolf first."],
+	"web": ["Das Netz fliegt langsam. Nur wer den Moment genau trifft, bleibt frei.",     # [986.web]
+		"The web flies slowly. Only perfect timing keeps you free."],
+	"gather": ["Er holt Luft. Jetzt nachsetzen, sonst kommt er wieder zu Kräften.",     # [986.gather]
+		"He is catching his breath. Press now, or he regains his strength."],
+	"breakthrough": ["Er will durch die Reihe. Tritt der Bedrohte vorher selbst nach vorn, bleibt Grak nur ein einfacher Schlag.",     # [986.breakthrough]
+		"He means to break the line. If the threatened one steps forward first, Grak is left with a plain blow."],
+	"venom": ["Gegen den Giftbiss hilft kein Ring. Treffe ich sie vorher hart, versiegt das Gift.",     # [986.venom]
+		"No ring helps against the venom bite. If I hit her hard first, the venom dries up."],
+	"aim": ["Er legt an. Geht der Anvisierte in Abwehr, duckt er sich, und der Pfeil geht vorbei.",     # [986.aim]
+		"He takes aim. If the one in his sights Defends, the arrow flies past."]}
 const GESEHEN_EINGEBUNG := "eingebung_"     # + Ansage, Flagge im Spielstand (Zustand.flaggen über Kampfort.flaggen, 836)
 ## 836, 840: Flaggen des Spielstands (dasselbe Dictionary wie Zustand.flaggen; Proben leer, je Kampf neu)
 var gesehen := {}
@@ -227,7 +254,7 @@ var I_POUNCE := _intent("pounce", "Anspringen", "Pounce", "STRIKE", null, false,
 var I_GROWL := _intent("growl", "Knurren", "Growl", "WAIT", null, false, false, false, "GROWL")
 var I_CIRCLE := _intent("circle", "Einkreisen", "Circle", "GATHER", null, false, false, false, "CIRCLE", true)
 var I_VENOM := _intent("venom", "Gift sammeln", "Gather venom", "STRIKE", [2, 6, 0], true, false, true)
-var I_WEB := _intent("web", "Netz werfen", "Cast web", "STRIKE", null, false, true, false, "WEB")
+var I_WEB := _intent("web", "Netz werfen", "Throw web", "STRIKE", null, false, true, false, "WEB")     # 986 (4): EN wie [870.14.ansage.web]
 var I_AIM := _intent("aim", "Anlegen", "Take aim", "STRIKE", [1, 6, 0], false, false, false, "AIM")
 var I_SHADOW := _intent("shadow", "In den Schatten", "Into the shadows", "GATHER", null, false, false, false, "SHADOW", true)
 var I_BREAKTHROUGH := _intent("breakthrough", "Durchbrechen", "Break through", "STRIKE", [1, 6, 0], false, true, true, "BREAKTHROUGH")
@@ -1583,6 +1610,7 @@ func _foe_turn(foe: Fighter, react: Callable) -> void:
 	foe.hidden = false
 	if intent.effect == "GROWL":     # 399.2b: knurrt nur (Homer [399.2b.knurrt])
 		_say(fmt(pick("MSG399_GROWLS"), lang, [foe.name(lang)]), foe.id, null, 0, null, false, false, "GROWLS")
+		_eingebung("growl")     # 986 (1): Knurren hat keine Ansage im Bericht
 		announce(foe)
 		_say_announce(foe)
 		return
@@ -1892,7 +1920,8 @@ func _pick_intent(foe: Fighter) -> Dictionary:
 		var others := all.filter(func(x): return x.side == "FOES" and x.standing() and wolfig(x.monster)).size()
 		var circling := intents.values().any(func(p): return p[0].effect == "CIRCLE")
 		var can := [I_POUNCE, I_POUNCE]
-		if others >= 2 and not circling and chosen:
+		# 986 (3): die Leibwache ist nicht angreifbar, sagt also kein Einkreisen an ([986.circle] „Den treffen“)
+		if others >= 2 and not circling and chosen and foe.angreifbar():
 			can.append(I_CIRCLE)
 		return dice.pick(can)
 	if id == SPIDER:
@@ -1933,10 +1962,15 @@ func _say_announce(foe: Fighter) -> void:
 	var key := "MSG130_SIGN_" + str(intent.id).to_upper()
 	if TX.has(key):
 		_say(fmt(pick(key), lang, [foe.name(lang), "", target]), foe.id)
-	var nr := GESEHEN_EINGEBUNG + str(intent.id)
-	if EINGEBUNG.has(str(intent.id)) and not gesehen.has(nr):     # 840: einmal je Spielstand, gleich nach der ersten Ansage
+	_eingebung(str(intent.id))
+
+
+## 840, 986: Eingebung des Helden zu einer Ansage, einmal je Spielstand, gleich nach ihrer ersten Zeile im Bericht
+func _eingebung(id: String) -> void:
+	var nr := GESEHEN_EINGEBUNG + id
+	if EINGEBUNG.has(id) and not gesehen.has(nr):
 		gesehen[nr] = true
-		_say(EINGEBUNG[str(intent.id)][lang], null, null, 0, null, false, false, "EINGEBUNG")
+		_say(EINGEBUNG[id][lang], null, null, 0, null, false, false, "EINGEBUNG")
 
 
 func _summon(by: Fighter) -> void:
@@ -1971,6 +2005,7 @@ func _summon(by: Fighter) -> void:
 	order.insert(order.find(by) + 1, g)
 	_say(fmt(X.MSG72_ANSWERS, lang, [[m.de, m.en][lang]]), g.id)
 	announce(g)
+	_say_announce(g)     # 986 (2): auch der Gerufene sagt im Bericht an (und bringt so seine Eingebung)
 
 
 func _hurt(t: Fighter, full: int, by: String, text: String, roll = null, wound := false) -> void:
@@ -2233,6 +2268,7 @@ func _gegenwirkung(f: Fighter, t: Fighter, typ) -> void:
 		order.insert(order.find(t) + 1, g)
 		_say(MSG870_GEGEN_SCHLEIM[lang], t.id, g.id)
 		announce(g)
+		_say_announce(g)     # 986 (2): auch der abgespaltene Schleim sagt im Bericht an
 
 
 ## 870.5: Beistand: Prozentpunkte auf die eigene Trefferchance, solange er wirkt
