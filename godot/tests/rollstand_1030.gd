@@ -42,6 +42,16 @@ func _lauf() -> void:
 			_pruefe("%s, %s" % [schalter, fall], absi(int(spur[-1]) - vor) <= 2 and spur.min() >= vor - 2, "vorher %d, danach %s" % [vor, spur])
 	Pruefliste.offen = ""
 	if hat_liste:
+		# Chef 14:17 (Build 280): unter „N · Neu in Build 280“ nur 280.1–280.3, dann „Zurück“: jede Zeile steht im Reiter, und
+		# die Rolle reicht bis unter die letzte
+		m.baue()
+		for i in 3: await process_frame
+		var alle_t := " | ".join(m.inhalt.find_children("*", "Label", true, false).map(func(l): return String(l.text)))
+		var fehlen := Pruefliste.zeilen().filter(func(z): return not alle_t.contains(String(z["nr"]) + "  "))
+		_pruefe("Alle Zeilen der Prüfliste im Reiter", fehlen.is_empty(), "fehlen %s" % [fehlen.map(func(z): return z["nr"])])
+		m.rolle.scroll_vertical = 100000
+		for i in 2: await process_frame
+		_pruefe("Rolle reicht bis ans Ende", m.rolle.scroll_vertical + m.rolle.size.y >= m.inhalt.size.y - 2, "Rollstand %d + %.0f von %.0f" % [m.rolle.scroll_vertical, m.rolle.size.y, m.inhalt.size.y])
 		# eingeklappt: nur der Kopf der Prüfliste, die Schalter darunter rücken nach oben
 		Pruefliste.zu = false
 		m.baue()

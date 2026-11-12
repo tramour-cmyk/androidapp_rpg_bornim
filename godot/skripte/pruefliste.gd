@@ -180,7 +180,8 @@ static func _zeile(m: Menue, t: Callable, z: Dictionary) -> void:
 	if String(z.get("team", "")) != "": kopf.append(String(z["team"]))
 	if String(z.get("vorgang", "")) != "": kopf.append(t.call("Vorgang ", "Item ") + String(z["vorgang"]))
 	if not kopf.is_empty(): m.zeile(" · ".join(kopf), 13, Stil.DIM)
-	m.zeile(t.call("Richtig: ", "Right: ") + String(z.get("richtig", "")), 15, Stil.TEXT)
+	# 1030 (Chef 14:20: „Es gibt ja kein richtig, sondern passt“): wie der Knopf
+	m.zeile(t.call("Passt: ", "Right: ") + String(z.get("richtig", "")), 15, Stil.TEXT)
 	m.zeile(t.call("Falsch: ", "Wrong: ") + String(z.get("falsch", "")), 15, Stil.DIM)
 	m.luecke(6)
 	# „Passt“ springt zur nächsten offenen Zeile; „Falsch“ bleibt hier und öffnet das Feld für ein Wort
