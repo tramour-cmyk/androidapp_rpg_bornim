@@ -550,6 +550,7 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/sterben_596.gd 2>&1 | grep -E "STERBEN596|SCRIPT ERROR"   # 596 Sterben gespiegelt
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/pfeil_601.gd 2>&1 | grep -E "PFEIL601|SCRIPT ERROR"   # 601 Pfeil auch beim Ducken
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/am_zug_565.gd 2>&1 | grep -E "^(FEHLER|AMZUG565)|SCRIPT ERROR"   # 565 A Kasten am Zug
+          set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/schirm_833.gd 2>&1 | grep -E "^(FEHLER|SCHIRM833|Gegnerzug)|SCRIPT ERROR"   # 833 Vorschlag A unterer Kampfschirm
           set -o pipefail; SEEDS=4 timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/leiste_751.gd 2>&1 | grep -E "^  |LEISTE751"   # 751 A Knöpfe matt, „<Name> ist dran“, Zugleiste, kein verratener Ausgang (Jerry)
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/auto_945.gd 2>&1 | grep -E "^  Seed|AUTO945|SCRIPT ERROR"   # 945 Held und Söldner Auto bleiben abschaltbar (Jerry)
           set -o pipefail; timeout 400 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/wechsel_950.gd 2>&1 | grep -E "^(FEHLER|WECHSEL950|hero|merc|Abstand|Mira)|SCRIPT ERROR"   # 950 Platztausch mit Schritten
@@ -800,6 +801,24 @@ jobs:
           NEBEL_806=0 PLATZ=lichtung VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 400 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . res://kampf/probe.tscn --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --bild=$GITHUB_WORKSPACE/bilder/kampforte/lichtung-ohne-nebel.png 2>&1 | grep -E "SCRIPT ERROR" | cut -c1-300 || true
           ls -l $GITHUB_WORKSPACE/bilder/kampforte
+      # 833 (Jerry): unterer Kampfschirm heute und Vorschlag A im Rudelkampf (Mira am Zug, ein Wolf zieht mit Tipp, Sieg), nur bei „833“
+      - name: Kampfschirm 833
+        if: ${{ !cancelled() && (contains(github.event.head_commit.message, '833') || (github.event_name == 'workflow_dispatch' && contains(github.ref, '833'))) }}
+        continue-on-error: true
+        run: |
+          sudo apt-get install -y -q mesa-vulkan-drivers xvfb > /dev/null
+          mkdir -p $GITHUB_WORKSPACE/bilder/schirm833
+          cd godot
+          BILD833_AUS=$GITHUB_WORKSPACE/bilder/schirm833 VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 1080x2340 -s res://tests/schirm_833_bild.gd 2>&1 | grep -E "^(FEHLER|SCHIRM833|Gegnerzug|BILD)|SCRIPT ERROR" | cut -c1-300 || true
+          ls -l $GITHUB_WORKSPACE/bilder/schirm833
+      # 833: eigenes Artefakt, auch mit bild=nein (Lauf 363: Bilder gemacht, das Sammelartefakt fiel mit bild=nein weg)
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() && (contains(github.event.head_commit.message, '833') || (github.event_name == 'workflow_dispatch' && contains(github.ref, '833'))) }}
+        with:
+          name: schirm833
+          path: bilder/schirm833/
+          if-no-files-found: ignore
       # 499 (Chef 03.11., 07:14): Held im Drehteller mit Grundausruestung je Klasse, Abstand Waffe-Faust und Schild-Ruecken, Bilder
       # 499 Probebild (511; Chef 08.11., 12:41 „Und wie bewegen die sich dann mit beim Gehen?“): mit film=nein Drehteller je Klasse
       # (Stehen) und je Held ein Streifen aus dem Gehfilm (tests/drehteller_film_499.gd, dieselbe Szene); ohne film=nein der Gehfilm
