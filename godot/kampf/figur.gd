@@ -1228,11 +1228,15 @@ func _ruhebewegung() -> void:
 	_play(wahl, RUHE_BLENDE)
 	anim.set_blend_time(wahl, grund, RUHE_BLENDE)
 	anim.queue(grund)
-	if RUHE_LAUT.has(wahl) and now - ruhe_laut_ms >= RUHE_LAUT_ABSTAND_MS:
+	# 1007: auf der Karte nur nah zu hören (Streuner.Stub.ruhe_pegel wie alt MonsterIdle.volume); stumm zählt nicht als Laut
+	var pegel: float = float(RUHE_LAUT.get(wahl, [0, 0.0])[1])
+	if pegel > 0.0 and kampfort != null and kampfort.has_method("ruhe_pegel"):
+		pegel *= float(kampfort.ruhe_pegel(global_position))
+	if RUHE_LAUT.has(wahl) and pegel > 0.0 and now - ruhe_laut_ms >= RUHE_LAUT_ABSTAND_MS:
 		var klang = get_node_or_null("/root/Klang")
 		if klang != null:
 			ruhe_laut_ms = now
-			klang.effekt("idle_wolf", float(RUHE_LAUT[wahl][1]), 1.0, int(RUHE_LAUT[wahl][0]))
+			klang.effekt("idle_wolf", pegel, 1.0, int(RUHE_LAUT[wahl][0]))
 
 
 ## 249 (wie im alten MARS): der Getroffene zittert seitlich am Schirm, 4 dp, in 450 ms abklingend.
