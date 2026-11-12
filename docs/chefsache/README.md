@@ -294,7 +294,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1046 | M | Von Sokrates (1038 A, R1, Chef 12.11., 16:24): Verband stillt Blutung (plus kleiner Teil L | wartet auf Test/Build (gebaut) |
 | 1049 | M | Von Sokrates (Befund 12.11.): Gegner ohne eigene Ansage fallen auf „Stich“ zurück (mars.gd | wartet auf Test (Build 281) |
 | 1054 | M | Von Tom (Hinweis 12.11., 16:40): tests/mars_regeln.gd nach dem Umzug veraltet (massstab, _ | wartet auf Test (Build 281) |
-| 1058 | M? | Von Sokrates (1050a): Simulation 444 rechnet Herkünfte ohne plus_variante (variante=False | in Arbeit bei Tuffy |
+| 1058 | M? | Von Sokrates (1050a): Simulation 444 rechnet Herkünfte ohne plus_variante (6 statt 9 Punkt | wartet auf Test/Build (gebaut) |
 | 1060 | M | Von Tom (Chef 12.11., 17:34 „Wieso dauern denn jetzt die Runs wieder so lange?“, Lauf 4324 | wartet auf Test (Build 281) |
 | 1062 | M? | Von Sokrates (654, aus 1059): Filmlauf zeigt nur das Hauptmenü, dritter Fund gleicher Ursa | startbar |
 | 1066 | M | Von Perikles (1050a A, Chef 12.11., 20:02): Herkunft Zauberlehrling plus Verstand 3, Wille | wartet auf Test (Build 281) |
