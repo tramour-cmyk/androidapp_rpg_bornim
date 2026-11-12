@@ -2,10 +2,10 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `f65ba6afe` (12.11., 02:06)
+**Gelesen bis:** `e844f13b9` (12.11., 04:04)
 
-**Übergabe (12.11., 02:07, `session_01Hmoj77NXYkoR442bAjQC23`):** Pflege: Vorrat 15,3 → 11,4 KB (Absätze 982, 970, 903, Tom 04.11. gestrichen, 981 auf Wortlaut gekürzt; Stand vor „Perikles: Pflege 12.11.“ in Git); Vorschlag Sokrates 01:14 als 1010 (K) angelegt; M? 997–1004 (Jerry) entschieden: alle M außer 1002 K (`ROLLE-PROJEKT.md`). 1010 gebaut (bei Diogenes). Nachfolger: auf Abruf
-**Letzte Antwort:** Pflege erledigt, M? 997–1004 entschieden, 1010 gebaut; Vorrat leer, auf Abruf.
+**Übergabe (12.11., 04:07, `session_01Hmoj75W8e6YMkpd4gxoni7`):** 1011 gebaut (`afa2141f4`): `startbar.laufzusage()` überspringt nur „<Nr>, Läufe frei“ mit „Sokrates“ ohne „Chef an“/„(Nutzer“; Probe am Archiv: 42 von 48 übersprungen, 264.1 (5×) und 510a zählen als Chefantwort; `--stand` läuft. Nachprüfung steht bei Diogenes (Zu 1010, 1011). Nachfolger: auf Abruf
+**Letzte Antwort:** 1011 gebaut; Vorrat leer, auf Abruf.
 - **Fehler 341, von Sokrates (11.11., 18:14):** 901 (365a B, „alle Hoch“ seit 07:18) startete in der Umgebung „WireStorm Hoch“, die nur Variablen setzt; die App zeigte „Mittel“, keiner prüfte das Ergebnis, gefunden hat es der Chef (18:04; 18:14 „von euch hat es ja keiner gemerkt … Schwarzbuch“). Behoben 981. Lehre: Einstellung am Ergebnis prüfen (`get_session`, App), nie an der Eingabe.
 
 ## Einzelheiten
