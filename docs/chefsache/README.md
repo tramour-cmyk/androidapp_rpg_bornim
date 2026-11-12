@@ -44,7 +44,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 
-**Tom** – offen 124, Muss 105, startbar 2
+**Tom** – offen 124, Muss 105, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -129,7 +129,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 698 | M | Grafikstufen im Systemmenü mit Effekten (Niedrig/Mittel/Hoch, Automatisch per Leistungstes | wartet auf 623 (startbar) |
 | 816 | M | Effekte Szene 1 Dorf am Abend nach LISTE-EFFEKTE (Reihenfolge 623.8): gedämpft, Bilder/s n | wartet auf 698 (startbar) |
 | 814 | M | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staub im Licht, Fußstaub, Fahne, Wind, | wartet auf Test/Build (gebaut) |
-| 831 | M | Bildtafel Bäume: vier Arten aus Stylized Nature MegaKit frei (gewöhnlich, abgestorben, Kie | startbar |
+| 831 | M | Bildtafel Bäume: vier Arten aus Stylized Nature MegaKit frei (gewöhnlich, abgestorben, Kie | Chef (Datei in der Chefsache) |
 | 839 | K | Von Homer (817): Erklärtexte der Grundwerte im Reiter Held nach BRS einbauen, Texte STORY- | ruht |
 | 842 | M | Von Sokrates (807a A, Chef 10.11., 11:01): Pim überreden und Verband nach STORY-K1-FERTIGK | Sperre 620.1 B: 23 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 870.7 |
 | 852 | K | Von Homer (432a A, Chef 10.11., 12:05): Aschgeborene bauen: Modell Mensch mit aschgrauer S | ruht |
