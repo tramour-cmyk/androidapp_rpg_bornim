@@ -97,7 +97,8 @@ def gewinn(start, ende, zuordnung):
 # ---------------------------------------------------------------- Teil 2: Beute ohne Deckel
 
 class Beute:
-    def __init__(self, W, formen, halb):
+    def __init__(self, W, formen, halb, schutz_halb=False):
+        self.schutz_halb = schutz_halb
         self.W = W
         self.G = W["gegenstaende"]
         self.formen = formen
@@ -140,7 +141,7 @@ class Beute:
         l = list(self.erlaubt(fid))
         out = []
         while len(out) < n and l:
-            gw = [1 if (self.halb and a in AFFIX.values()) else 2 for a in l]
+            gw = [1 if (self.halb and a in AFFIX.values()) or (self.schutz_halb and a == "AC") else 2 for a in l]
             a = rng.choices(l, gw)[0]
             l.remove(a)
             out.append(a)
@@ -255,8 +256,8 @@ def main():
     z.append("| --- | --- | --- | --- | --- | --- |")
     ausr_halb = {}
     schutz_halb = {}
-    for halb in (False, True):
-        B = Beute(W, formen, halb)
+    for halb in (False, True, "schutz"):
+        B = Beute(W, formen, bool(halb), halb == "schutz")
         for name, (hk, haupt, ds) in ergebnisse.items():
             h_l, b_l, s_l = [], [], []
             for d in ds:
@@ -264,7 +265,7 @@ def main():
                 h_l.append(bestes(B, d["held"], st, AFFIX[haupt]))
                 b_l.append(max(bestes(B, d["held"], st, AFFIX[g]) for g in GW))
                 s_l.append(bestes(B, d["held"], st, "AC"))
-            if halb:
+            if halb is True:
                 ausr_halb[name] = h_l
                 schutz_halb[name] = s_l
             held = ds[0]["held"]
@@ -272,7 +273,7 @@ def main():
             schl_b = max(schlimmst(B, held, AFFIX[g]) for g in GW)
             schl_s = schlimmst(B, held, "AC", 2)
             fmt = lambda xs, s: "%d / %d / %d / %d" % (statistics.median(xs), q(xs, 0.9), q(xs, 0.99), s)
-            z.append("| %s | %s | %s %s | %s | %s | %d |" % (name, "halb" if halb else "voll", haupt, fmt(h_l, schl_h), fmt(b_l, schl_b),
+            z.append("| %s | %s | %s %s | %s | %s | %d |" % (name, {False: "voll", True: "halb", "schutz": "halb, Schutzwert auch"}[halb], haupt, fmt(h_l, schl_h), fmt(b_l, schl_b),
                                                         fmt(s_l, schl_s), statistics.median(len(d["siege"]) for d in ds)))
     z.append("")
     z.append("Heute (mit Deckel, Kapitel 1): Grundwert höchstens +1, Schutzwert höchstens +2.\n")
