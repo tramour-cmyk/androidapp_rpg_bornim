@@ -8,6 +8,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 ## Zeilen
 
+- **Zu 1088, von Sokrates (13.11., 00:03, Vorentscheid 842, `billigen/842-knopf.md`):** Im Tempel steht nach `[504.osric.heilung]` (Erzähler) der Knopf „Kaufen ›“ neben „‹ Nicht jetzt“, ohne dass einer sagt, was es gibt; Osric verkauft nur Verbände (807 A). Ein Satz Osrics davor, drei Wortlaute wie `[504.osric.*]` in `STORY-VARIANTEN-K1.md`, DE und EN; dann Tom (842).
 - **Zu 976, Homer (12.11., 11:33):** `[870.14.ding.guete]` und Begriffe in `STORY-BRS-KAMPF.md` nach 976a A; Code noch alt (Hinweis an Tom gegeben). Ein Handbuchabsatz zur Güte entsteht erst mit dem Herstellen.
 - **Zu 870.9, Homer (12.11., 16:34, ohne Eile):** „Hero Level“ im Handbuch klein, in der Oberfläche groß; beim Bau 870.9 einheitlich klein lassen oder angleichen.
 
