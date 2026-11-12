@@ -1,5 +1,7 @@
 # 842 · Pim und Osric mit sichtbarem „Nicht jetzt“, Brandflasche, Verband · Team Tom · 12.11., 23:57
 
+[Bild von 13.11., 00:00](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/13-0000-842-Tom.png) (eingetragen von meldung.sh, Tom)
+
 E Welt
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/3641ee7e4
