@@ -39,7 +39,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 766 | M | Wochentermin 13.11.: Rollenspiegel Homer (rollenspiegel.sh Homer) (719); deckt 02.–13.11., | Termin 13.11. 08:00 |
 | 1085 | M | Von Sokrates (1077 Nacht, Chef 12.11., 20:31 „weder ein Abbrechen, noch ein Gib PIM 5 Gold | startbar |
 
-**Tom** – offen 118, Muss 95, startbar 8
+**Tom** – offen 115, Muss 92, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -48,7 +48,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 825 | M | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635 | wartet auf Test/Build (gebaut) |
 | 697 | M | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | wartet auf 782 (startbar) |
 | 870.13 | M | Von Sokrates (870, Umzug BRS Schritt 9): Aufräumen, Hinweis SRD 5.1 · CC BY 4.0 raus (Spie | wartet auf 870.10 (wartet) |
-| 492 | M | Blutzahnhöhle begehbar mit Krogg, Grak, Lyra (Orte O8; Wochenziel 03.11., 488; von Jerry a | wartet auf 1083 (startbar) |
+| 492 | M | Blutzahnhöhle begehbar mit Krogg, Grak, Lyra (Orte O8; Wochenziel 03.11., 488; von Jerry a | Sperre 620.1 B: 16 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1030 (spiel.gd) |
 | 521 | M | Build 249, Ausrüstung: Wechselschirm eines Platzes wie alt (Bild, Art und Wert, ▲/▼, „nich | wartet auf Test/Build (gebaut) |
 | 569 | M | Baumkronen ohne erkennbare Tuschelinie, „ein einziger Brei“ (Chef 04.11., 19:44, Bild 558 | ruht |
 | 568 | M | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | ruht |
@@ -92,9 +92,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 348.1 | M | Vergleichsbild Gebietskarte alt/neu, 64 (heute) und 128 je Kachel (Chef 24.10., 16:51, „je | ruht |
 | 348.2 | M | Tusche nach Licht auch am Helden, Innenlinien an Bäumen: zweites Vergleichsbild jetzt (Che | ruht |
 | 531a | M | Rückfrage: Bewegungspaket „Campfire“ für Garrick und Rast kaufen? (Chef 04.11., 19:27) | ruht |
-| 431c | M | Rückfrage: Völker Runde 4 am Tor angehalten, neue Läufe frei? | ruht |
-| 431d | M | Rückfrage: Völker Lauf 3 am Tor angehalten (B1 Elf, C3, G3, A1/A3 Grak, A2), neue Läufe fr | ruht |
-| 431e | M | Rückfrage: Gesicht des Helden im Dorflicht fast weiß, Hauteichung nach Messung? | ruht |
 | 632 | M | Truhe der Höhle (cave_3, 4/14) gibt „@class_weapon“ statt der Waffe der Klasse wie alt (St | wartet auf Test/Build (gebaut) |
 | 637 | M | Anschlagbrett: frischer blasser Zettel, solange ein ungelesener Auftrag hängt (A/MapTownIs | ruht |
 | 638 | M | Kleinleben wie alt: Dorfhund, Katze in der Schenke, sichtbare Vögel, fallende Blätter im W | ruht |
@@ -332,7 +329,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 52, Muss 38, startbar 28
+**Sokrates** – offen 51, Muss 37, startbar 27
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -387,7 +384,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 930 | M | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (wartet) |
 | 985 | K | Systemlösung? Nebel: 2 frühere Vorgänge (505, 502), neu 785.7; einmal grundsätzlich lösen? | startbar |
 | 644a.5 | M | Von Tuffy (644a.1): an welchem Grundwert hängen Rüstung, Ausweichen, Schild, Armbrust und | startbar |
-| 1083 | M | Von Tom (492): 492, Läufe frei? Der eine Lauf seit 08.11. ging an eine Testschleife ohne B | startbar |
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
