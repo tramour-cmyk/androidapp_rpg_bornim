@@ -554,7 +554,12 @@ func _plain(c: Color) -> ImageTexture:
 ## The scene above the orders, in viewport pixels.
 func scene_rect() -> Rect2:
 	var vs := get_viewport().get_visible_rect().size
+	# 992 (kamera_992, Wölfe Zug 2: der Kasten war ein Bild lang 1207 statt 849 px hoch, bevor er sich neu ordnete; _rand_kamera nahm
+	# die Linse darum für die halbe Szene zurück, 4 % in einem Bild, und kam langsam wieder): die Szene ist die, für die die Kamera
+	# zuletzt gepasst wurde (kampf_ui.fitted_h), nicht der Kasten in diesem Augenblick
 	var below: float = ui.panel_height() if ui else vs.y * 0.33
+	if ui and ui.fitted_h > 0.0 and ui.panel:
+		below = ui.fitted_h - ui.panel.offset_bottom
 	return Rect2(0, 0, vs.x, maxf(vs.y - below, vs.y * 0.4))
 
 
@@ -598,6 +603,13 @@ func _fit_camera() -> void:
 			var platz := _spot_pos(fig.fighter, shown.places[fig.fighter.id])
 			fig.snap_to(fig.position + platz - fig.home)
 			fig.home = platz
+	# 992 (Chef 11.11., 20:29, Test 277: „der Bildschirm springt am Anfang zwei, dreimal … das Bild zuckt einfach ab und zu“; kamera_992:
+	# Linse ein Bild lang auf Grundstellung, dann zurück, weil hier cam.size gesetzt wurde, während _rand_kamera sie zurückgenommen hatte
+	# oder ein Schlag heranzoomte): die Linse bleibt im selben Bild, wo sie war, nur um die neue Grundstellung
+	if not hit.is_empty():
+		_hit_camera()
+	elif rand_z < 1.0:
+		_rand_anwenden()
 
 
 ## 249: Zoom und Ruck des Schlags in [hit] wie im alten MARS: in 110 ms (tödlich 220) heran, so lange der Halt dauert
@@ -631,7 +643,7 @@ func _hit_camera() -> void:
 		hit["pivot"] = _pivot(_near_of(on.position), 1.0 + (0.10 if kill else Wucht.zoom(w)) + 0.03)
 	var p: Vector2 = hit.pivot
 	var z0: float = hit.get("z0", 1.0)
-	if z0 > 1.0001 and el < t_in:     # 438: vom Stand des vorigen Schlags weich zum neuen
+	if absf(z0 - 1.0) > 0.0001 and el < t_in:     # 438: vom Stand des vorigen Schlags weich zum neuen (992: auch aus dem Rückzug von _rand_kamera)
 		var s := _soft(el / t_in)
 		z = lerpf(z0, z, s)
 		p = (hit.p0 as Vector2).lerp(p, s)
@@ -717,10 +729,18 @@ func _rand_kamera() -> void:
 	rand_z = lerpf(rand_z, need, RAND_RAUS if need < rand_z else RAND_REIN)
 	if absf(rand_z - 1.0) < 0.001:
 		rand_z = 1.0
+	_rand_anwenden()
+
+
+## 992: die Linse nach rand_z um die Mitte der Szene (aus _rand_kamera und _fit_camera); rand_p ist diese Mitte (ein Schlag beginnt dort)
+var rand_p := Vector2.ZERO
+func _rand_anwenden() -> void:
+	var vs := get_viewport().get_visible_rect().size
+	var c := scene_rect().size / 2.0
 	var per := base_size / vs.y
-	var p := Vector2(base_off.x + (c.x - vs.x / 2.0) * per, base_off.y - (c.y - vs.y / 2.0) * per)
+	rand_p = Vector2(base_off.x + (c.x - vs.x / 2.0) * per, base_off.y - (c.y - vs.y / 2.0) * per)
 	cam.size = base_size / rand_z
-	cam.frustum_offset = p + (base_off - p) / rand_z
+	cam.frustum_offset = rand_p + (base_off - rand_p) / rand_z
 
 
 ## 348.7 (Helfer Lauf 126: Heldin am Rand angeschnitten): die Mitte des Zooms so nah an [p] wie möglich, aber so, dass bei
@@ -1245,7 +1265,10 @@ func _play_say(e: Dictionary) -> void:
 			if Wucht.jolt_dp(w) > 0.0:
 				# 438 (Prüfer Film 08:18: Kamera zoomt 0:38 ruckartig): kam der Schlag, während der vorige noch heranrückte,
 				# sprang die Linse auf Grundstellung und von dort neu heran; jetzt beginnt er, wo die Linse gerade steht
-				hit = {"by": actor, "on": target, "w": w, "t0": clock_ms, "z0": cam_z, "p0": cam_p}
+				# 992 (kamera_992: hatte _rand_kamera die Linse zurückgenommen, sprang sie beim Schlag in einem Bild auf Grundstellung): von dort
+				var z0_: float = cam_z if not hit.is_empty() or rand_z >= 1.0 else rand_z
+				var p0_: Vector2 = cam_p if not hit.is_empty() or rand_z >= 1.0 else rand_p
+				hit = {"by": actor, "on": target, "w": w, "t0": clock_ms, "z0": z0_, "p0": p0_}
 			if wound:
 				ui.bleed(actor, target, w == Wucht.CRIT or (w == Wucht.KILL and crit), gore, tg.monster.id if tg.monster != null else ""))
 	# 399.2 (Chef 28.10., 16:10: „wenn nur noch zwei Wölfe da sind und die dann in einer Linie stehen, dann läuft der hintere Wolf

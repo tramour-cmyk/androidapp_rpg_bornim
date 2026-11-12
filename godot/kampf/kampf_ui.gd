@@ -2020,6 +2020,10 @@ func panel_passt() -> void:
 	backdrop.size = Vector2(vs2.x, panel_height())
 	if kampfort.busy and kampfort.zuege > 0:     # beim Aufbau (vor dem ersten Zug) gleich, wie bisher
 		return
+	# 992 (kamera_992: nach dem letzten Treffer wuchs der Kasten um eine Zeile, 849 → 881 px, die Kamera passte neu, der Boden rückte
+	# 0,32 m, 47 px in einem Bild): ist der Kampf aus, bleibt die Kamera, wo sie ist
+	if kampfort.mars != null and kampfort.mars.outcome != "ONGOING" and fitted_h > 0.0:
+		return
 	if absf(panel.size.y - fitted_h) > 1.0:
 		# 864 (beam_864, Wölfe): wer gerade noch geht, folgt einer festen Bahn; rückte der Boden dabei, sprang er danach 0,65 m. Darum
 		# erst, wenn alle stehen (höchstens 2 s warten)
