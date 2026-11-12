@@ -49,6 +49,20 @@ func _lauf() -> void:
 	# Fussstaub: Erde vor dem Schlagbaum (Strasse „==“ ist Erde in der Bodenmaske)
 	pruefe(fx.erde(g.karte.kachel_pos(Vector2i(17, 6))), "Erdweg bei (17, 6) ist Erde")
 	pruefe(not fx.erde(g.karte.kachel_pos(Vector2i(16, 14))), "Dorfplatz (16, 14) ist keine Erde (Pflaster)")
+	# dritter Fund t278.2 (unsichtbar): Ausblendung am Boden hoechstens 5 cm, ohne Funken, Puffs gross, deckend und lang genug
+	var fs := fx.fussstaub(g.karte.kachel_pos(Vector2i(17, 6)) + Vector3(0, 0.02, 0), false)
+	pruefe(fs != null, "Fussstaub gesetzt")
+	if fs:
+		var puffs := fs.get_node_or_null("Puffs") as GPUParticles3D
+		var mat := puffs.material_override as ShaderMaterial if puffs else null
+		pruefe(fs.get_node_or_null("Specks") == null, "Fussstaub ohne Funken")
+		pruefe(mat != null and float(mat.get_shader_parameter("proximity_fade")) <= 0.05, "Fussstaub: Ausblendung am Boden hoechstens 5 cm")
+		pruefe(puffs != null and puffs.lifetime >= 1.0, "Fussstaub lebt mindestens 1 s: %.2f" % (puffs.lifetime if puffs else 0.0))
+		var pm := puffs.process_material as ParticleProcessMaterial if puffs else null
+		pruefe(pm != null and pm.scale_max >= 0.8, "Fussstaub: Puffs bis mindestens 0,8 m: %.2f" % (pm.scale_max if pm else 0.0))
+		var hoch := 0.0
+		if pm: for i in pm.color_ramp.gradient.get_point_count(): hoch = maxf(hoch, pm.color_ramp.gradient.get_color(i).a)
+		pruefe(hoch >= 0.8, "Fussstaub: am dichtesten mindestens 80 %% deckend: %.2f" % hoch)
 	var vor := fx.get_child_count()
 	fx.federn(g.karte.kachel_pos(Vector2i(10, 28)))
 	await warte(2)

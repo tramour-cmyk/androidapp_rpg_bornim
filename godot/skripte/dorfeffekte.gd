@@ -12,12 +12,9 @@ const VFX := "res://addons/reeboo_vfx/"
 const FLAGGE := "res://addons/reeboo_surfaces/shaders/cloth_flag.gdshader"
 const ORTE := ["village", "inn", "shop"]   # Szene 1; Wald und Hoehle kommen mit Szene 3 (623.8 A)
 const RAUCH_K := 0.45                      # Kaminrauch des Pakets auf unseren Massstab (Haus gut 4 m, Rauch bisher 0,45-m-Flocken)
-# 814 (Fund t277.5, t277.12: „Ich finde das Staubwölkchen einfach nicht“), Lauf 362 gemessen: der Staub stösst bei jedem Schritt aus
-# (Vorlage autoplay, auto_free), war aber nicht zu sehen: Wölkchen 0,16-0,25 m (STAUB_K 0,5) bei Kamera 9 m, höchstens 34 % deckend,
-# grau wie die Erde und um 20 % dunkler (daempfe 0,8). Jetzt in der Grösse der Vorlage (0,32-0,5 m), anderthalbmal so deckend (gut die
-# Hälfte), am Tag in ihrer Helligkeit; abends wie bisher 40 % dunkler
-const STAUB_K := 1.0
-const STAUB_DECK := 1.5
+# 814 Fussstaub: Groesse und Deckung der Vorlage (R7 footstep_dust) auf unser Bild, Begruendung bei fussstaub()
+const STAUB_K := 1.8
+const STAUB_DECK := 2.8
 const FEDER_K := 0.35                      # Huhn statt Mensch
 const FACKEL_K := 0.6
 
@@ -359,25 +356,32 @@ func tritt(held: Node3D) -> void:
 	var rechts := h.global_basis.x.normalized()
 	var p := h.global_position + rechts * 0.1 * tritt_seite
 	if not erde(p): return
-	var k := float(OS.get_environment("STAUB_GROESSE")) if OS.get_environment("STAUB_GROESSE") != "" else STAUB_K
-	var fx := setze("effects/footstep_dust.tscn", Vector3(p.x, 0.02, p.z), k * (1.3 if cur.begins_with("Rennen") else 1.0))
-	if fx: daempfe(fx, 0.8, 1.0 - 0.4 * nacht_k, STAUB_DECK)
-	if fx: nah_am_boden(fx)
+	fussstaub(Vector3(p.x, 0.02, p.z), cur.begins_with("Rennen"))
 
-## 814 (dritter Fund t278.2, am Rechner nachgestellt: die Woelkchen entstanden, waren aber unsichtbar, auch vierfach gross): der Shader
-## der Vorlage blendet aus, was naeher als 0,25 m vor dem Boden dahinter liegt (proximity_fade, weiche Teilchen). Von oben gesehen liegt
-## der Boden kaum hinter dem Staub, die Woelkchen 0,1 m ueber der Erde verschwanden ganz. Nur noch die letzten STAUB_NAH m (die Kante,
-## wo das Viereck den Boden schneidet); jede Wolke hat ihr eigenes Material (nach_tusche)
-const STAUB_NAH := 0.04
+## 814 (dritter Fund t278.2, „ich sehe diese Wölkchen wieder nicht“): am Rechner in Echtzeitschritten nachgestellt (--fixed-fps 30; ohne
+## das laeuft das Spiel dort mit einem Bild je 1,5 s, eine 0,7-s-Wolke lebt dann ein Bild). Zwei Ursachen: (1) der Shader der Vorlage
+## blendet aus, was naeher als 0,25 m vor dem Boden dahinter liegt (proximity_fade); von schraeg oben liegt der Boden kaum 0,15 m hinter
+## den Woelkchen, sie verschwanden ganz; jetzt nur die letzten STAUB_NAH m an der Schnittkante. (2) Auch ohne Ausblendung nur ein Hauch:
+## Puffs 13-50 cm, hoechstens die Haelfte deckend und das nur 0,1 s, 0,7 s Leben, beige wie der Erdweg. Jetzt groesser (STAUB_K),
+## deckender (STAUB_DECK), heller als die Erde (STAUB_HELL) und laenger (STAUB_LEBEN); abends weiter um 0,4 dunkler. Ohne die Funken
+## der Vorlage (Specks, additiv hell): in dieser Groesse lasen sie sich als weisse Kuegelchen
+const STAUB_NAH := 0.03
+const STAUB_LEBEN := 1.5
+const STAUB_HELL := 1.05
+func fussstaub(at: Vector3, rennen: bool) -> Node3D:
+	var fx := setze("effects/footstep_dust.tscn", at, STAUB_K * (1.3 if rennen else 1.0), ["Specks"])
+	if fx == null: return null
+	daempfe(fx, 0.8, STAUB_HELL * (1.0 - 0.4 * nacht_k), STAUB_DECK)
+	nah_am_boden(fx)
+	for p in fx.find_children("*", "GPUParticles3D", true, false):
+		(p as GPUParticles3D).lifetime *= STAUB_LEBEN
+	return fx
+
 static func nah_am_boden(fx: Node) -> void:
 	for gi in fx.find_children("*", "GeometryInstance3D", true, false):
 		var m = (gi as GeometryInstance3D).material_override
 		if m is ShaderMaterial and (m as ShaderMaterial).shader and (m as ShaderMaterial).shader.get_shader_uniform_list().any(func(u): return u.name == "proximity_fade"):
-			(m as ShaderMaterial).set_shader_parameter("proximity_fade", float(OS.get_environment("STAUB_FADE")) if OS.get_environment("STAUB_FADE") != "" else STAUB_NAH)
-			(m as ShaderMaterial).set_shader_parameter("alpha_scale", float(OS.get_environment("STAUB_ALPHA")) if OS.get_environment("STAUB_ALPHA") != "" else 1.0)
-			if OS.get_environment("STAUB_VORGABE") != "":
-				for kv in [["noise_scale", 1.0], ["erosion_edge", 0.06], ["edge_color", Color(0, 0, 0, 0)], ["noise_scroll", Vector2.ZERO], ["ring_width", 0.15]]:
-					(m as ShaderMaterial).set_shader_parameter(kv[0], kv[1])
+			(m as ShaderMaterial).set_shader_parameter("proximity_fade", STAUB_NAH)
 
 func erde(p: Vector3) -> bool:
 	var img := Gebiet.maske_bild(gebiet.karte.id)

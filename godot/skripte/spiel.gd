@@ -1685,6 +1685,17 @@ func staub_bild() -> void:
 	await get_tree().create_timer(1.5).timeout
 	var fx = gebiet.effekte
 	print("STAUB erde am Helden ", fx.erde(held.global_position) if fx else "ohne Effekte", " Paket ", fx.szene("effects/footstep_dust.tscn") != null if fx else false)
+	if fx and OS.get_environment("STAUB_STILL") != "":   # eine Wolke neben dem stehenden Helden, in Zeitlupe, Bilder in festen Abstaenden
+		var at: Vector3 = held.global_position + Vector3(0.5, 0.02, -0.5)
+		fx.fussstaub(at, false)
+		var t0 := Time.get_ticks_msec()
+		print("STAUB Wolke am Bild ", kamera.get_viewport().get_camera_3d().unproject_position(at))
+		for i in 6:
+			await get_tree().create_timer(0.06).timeout
+			await knips(dir + "/still_%d.png" % i)
+			print("STAUB still %d nach %d ms" % [i, Time.get_ticks_msec() - t0])
+		get_tree().quit()
+		return
 	held.geh_zu(held.position + Vector3(0, 0, -2.0 * Karte.TS))
 	for i in 8:
 		await get_tree().create_timer(0.15).timeout
