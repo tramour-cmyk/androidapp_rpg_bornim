@@ -21,7 +21,7 @@ Nichts offen.
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.348.373](ansehen/t278-sammelbuild.md) | [Build 278](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43159433416/artifacts/13919514537) | Sammelbuild nach Build 277 | Tom und Jerry | 12.11., 07:52 |
-| 2 | [0.348.377](ansehen/t279-testmenue.md) | [Build 279](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/198) | Version folgt | Tom und Jerry | 12.11., 09:38 |
+| 2 | [0.348.377](ansehen/t279-testmenue.md) | [Build 279](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43184730118/artifacts/13931060982) | Nachtrag zu 278: Prüfliste im Spiel, Schnellstart, Probekampf-Baukasten, Fortsetzen | Tom und Jerry | 12.11., 10:28 |
 
 ## Zu tun
 
@@ -179,8 +179,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1020.2 | M | Von Sokrates (1020 B, dann C): Probekampf-Baukasten mit „Nochmal“, Kampfgeschehen erzwinge | wartet auf Test (Build 279) |
 | 992 | M | Von Sokrates (Chef 11.11., 20:29, Test 277, wiederholt zu 709): Kampf: Bildschirm springt | wartet auf Test (Build 278) |
+| 1025 | M | Von Sokrates (Chef 12.11., 10:25–10:27, Bilder Probekampf Wölfe, Build 278): nach „ganzer | Sperre 620.1 B: 38 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
+| 1020.2 | M | Von Sokrates (1020 B, dann C): Probekampf-Baukasten mit „Nochmal“, Kampfgeschehen erzwinge | wartet auf Test (Build 279) |
 | 1018 | M | Von Tom (1012, Lauf 373 Build 278, PR #197): rote Tests nach dem Mischen: bewegung_997 (FE | Sperre 620.1 B: 38 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
 | 900 | M | Von Tom (870.4, B1; „jetzt“ 10.11., 22:24, Nachtauftrag Chef): Lauf 335 rot an wolf_mess_4 | wartet auf Test/Build (gebaut) |
 | 870.2 | M | Von Sokrates (870, Umzug BRS Schritt 2): Schnittstelle Held ↔ Kampf: BrsHeld.kampfblatt() | wartet auf Test/Build (gebaut) |
@@ -316,7 +317,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1024 | M | Von Sokrates (Chef 12.11., 09:04, Bild Wolfskampf Build 278): Schalterreihe am rechten Ran | startbar |
 | 644b | M | Von Tuffy (644a.1, Rechnung): Deckel trotz Zahlen weg? Hauptwert üblich +4 bei Schütze, Sp | in Arbeit bei Tuffy |
 | Pflege | K | von Werkzeug (340.3, 12.11.): 18671 Bytes (Grenze 15000), Erledigtes streichen | startbar |
-| 1025 | M | Von Sokrates (Chef 12.11., 10:25, Bild Probekampf Wölfe, Build 278): „ganzer Bericht“ geöf | Sperre 620.1 B: 38 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 900 (wolf) |
 
 **Perikles** – offen 13, Muss 12, startbar 0
 
