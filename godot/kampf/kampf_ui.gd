@@ -1968,6 +1968,15 @@ func _draw_turns(sr: Rect2) -> void:
 
 ## Schalter unten rechts in der Szene: Raster (3×3-Gitter) und Würfel (fünf Augen), je 40 dp.
 func _draw_switches(sr: Rect2) -> void:
+	# 1001 (alt 229.1, 260, SkirmishScreen.kt 1330: „away while the ring wants a tap anywhere or a tip is shown“): Raster, Würfel, Tempo
+	# und die Prüfknöpfe sind weg, solange der Ring auf ein Tippen wartet, ein Hinweis oder das Urteil des Rings steht
+	if kampfort.ring_open or ring_target != "" or tip.visible or verdict.visible:
+		grid_rect = Rect2()
+		dice_rect = Rect2()
+		tempo_rect = Rect2()
+		win_rect = Rect2()
+		lose_rect = Rect2()
+		return
 	var s := 40 * dp
 	var y := sr.size.y - 4 * dp - 44 * dp
 	grid_rect = Rect2(sr.size.x - 4 * dp - 44 * dp, y, 48 * dp, 48 * dp)
