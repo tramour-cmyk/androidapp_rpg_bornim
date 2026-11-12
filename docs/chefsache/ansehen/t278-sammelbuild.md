@@ -86,3 +86,4 @@ Im Bau geprüft: Spielstand „Weiter“ nimmt immer den neuesten Platz (`spiels
 - 278.4 ✗ weglassen (Chef 12.11., 08:34, zwei Bilder Kramladen: Staub „sieht eher aus wie ein Mückenschwarm … lassen wir echt komplett in Innenräumen raus“) → Zu 990 (Tom); 278.17 entfällt
 - 278.5 ✓ (Chef 12.11., 08:36)
 - 278.6 ✓ (Chef 12.11., 08:49)
+- 278.7 ✓ (Chef 12.11., 09:00)
