@@ -400,3 +400,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 15:56 12.11.: Marke Archiv session_01Hmoj761eAvyDy1MgdXkna1 (lauf.py)
 - 15:56 12.11.: Marke Archiv session_01Hmoj78GqGrL8ULmt1No1zc (lauf.py)
 - 16:00 12.11.: Startsperre 16:00 Start Sokrates (Neustart-Meldung a30746f, Nachfolger „Sokrates – Ring und offene Fragen“; lauf.py startet Sokrates nicht, von Hand)
+- 16:03 12.11.: Neustart-Meldung Sokrates (a30746f, auf main): Nachfolger …76LefYhJVf6wTSuzko „Sokrates – Ring und offene Fragen“ von Hand gestartet (lauf.py startet Sokrates nicht); Sokrates …76oRjGDjaHKeRYBhmv archiviert (26,77 $ auf 644b, 1022, 1028, 1012, 1030, 280 gebucht, „Kosten auf“ der Übergabe). Kein Weckruf auf ihm.
