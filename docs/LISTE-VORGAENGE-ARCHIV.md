@@ -1190,3 +1190,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 1050a | Rückfrage Zauberlehrling: Punkte der Herkunft nach 952 D (Wille 5, Verstand 1) neu verteilen? (aus 1050, Chef 11.11., 20:00 „Verstand als Grundwert da ganz entscheidend“) | G Balance | M | – | Sokrates | erledigt |
 | 1074 | Von Sokrates (Chef 12.11., 20:48, 842 zurück): Text für den sichtbaren zweiten Knopf neben einer Wahl im Gespräch (Pim „Schick Pim heim“, Osric „Kaufen“), etwa „Weiter“ oder „Lass ihn“; für Tom 842 | G Story | M | 2,15 $ | Homer | erledigt |
 | 1077 | Von Tuffy (1055): Prüfliste Build 281 Kampf gegenlesen (docs/entwurf/t281-kampf.md, 12 Punkte), Zeile „Gegengelesen“, nach chefsache/ansehen/ verschieben; erst dann baut 281 | B Abläufe | M | – | Sokrates | erledigt |
+| 1080 | Von Spike (Lauf 400): ziege_4162 einmal rot ohne Dorfänderung (Lauf 399 grün); Test misst mit Echtzeit 6 s, wohl wackelig | Q QS | M? | – | Tom | erledigt, doppelt zu 1079 |
