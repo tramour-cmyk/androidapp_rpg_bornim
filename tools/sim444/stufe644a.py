@@ -364,10 +364,11 @@ def main():
             z.append("| %s | %s | %s |" % (name, bn, " | ".join(zellen)))
     z.append("")
     # 6. je Durchgang: eine Ausrüstung, Siegquote gegen Krogg und Grak
-    z.append("## 6. Je Durchgang: eine Ausrüstung (je Platz ein Stück), damit gegen Krogg und Grak (je Durchgang %d Kämpfe)\n" % a.je)
-    z.append("Wege: heute = Deckel (+1, Schutzwert +2), ohne Üben; B = ohne Deckel, Schutzwert je Stück +1 (Stufe 1–3) bzw. +2 (4–6), "
+    z.append("## 6. Je Durchgang: eine Ausrüstung (je Platz ein Stück), damit gegen die Bosse (%d Durchgänge je Kampfstil, je Durchgang %d Kämpfe)\n" % (a.durch, a.je))
+    z.append("Wege: heute = Deckel (+1, Schutzwert +2), mit Üben; B = ohne Deckel, Schutzwert je Stück +1 (Stufe 1–3) bzw. +2 (4–6), "
              "mit Üben; A = ohne Deckel, Schutzwert je Stück immer +1, mit Üben; H = wie B, Schutzwert würfelt mit halbem Gewicht. "
-             "Zellen: Siegquote über alle Durchgänge / im besten Zehntel der Durchgänge; dahinter Hauptwert und Schutzwert üblich (Median).\n")
+             "Zellen: Siegquote über alle Durchgänge / Anteil der Durchgänge, die mindestens 95 % der Kämpfe gewinnen; dahinter Hauptwert "
+             "und Schutzwert üblich (Median); nach dem Strichpunkt der höchste Wert.\n")
     z.append("| Kampfstil | Boss | heute | B | A | H |")
     z.append("| --- | --- | --- | --- | --- | --- |")
     BH = Beute(W, formen, True)
@@ -381,11 +382,11 @@ def main():
             hb, sb = ausstatten(BH, d["held"], st, haupt)
             ha, sa = ausstatten(BH, d["held"], st, haupt, True)
             hh, shh = ausstatten(BS, d["held"], funde(W, BS, d, rng), haupt)
-            wege["heute"].append((min(hb, 1), min(sb, 2)))
+            wege["heute"].append((min(hb, 1) + ue, min(sb, 2)))     # Üben (644a F) wirkt auch mit Deckel
             wege["B"].append((hb + ue, sb))
             wege["A"].append((ha + ue, sa))
             wege["H"].append((hh + ue, shh))
-        for bn in ("Krogg", "Grak"):
+        for bn in ("Krogg", "Grimmzahn", "Grak"):
             mon = bosse[bn]
             zellen = []
             for weg in ("heute", "B", "A", "H"):
@@ -396,7 +397,9 @@ def main():
                     h.extra_schutz = schutz
                     quoten.append(sum(1 for _ in range(a.je) if sim.kampf(W, h, mon, rng)["sieg"]) / a.je)
                 hm = statistics.median(x[0] for x in wege[weg]); sm = statistics.median(x[1] for x in wege[weg])
-                zellen.append("%.0f / %.0f %% (+%d/+%d)" % (100 * statistics.mean(quoten), 100 * q(quoten, 0.9), hm, sm))
+                hx = max(x[0] for x in wege[weg]); sx = max(x[1] for x in wege[weg])
+                zellen.append("%.0f %% / %.0f %% (+%d/+%d; %d/%d)" % (100 * statistics.mean(quoten), 100 * sum(1 for x in quoten if x >= 0.95) / len(quoten),
+                                                                  hm, sm, hx, sx))
             z.append("| %s | %s | %s |" % (name, bn, " | ".join(zellen)))
     z.append("")
     sim.held_abzug = _abzug
