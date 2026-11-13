@@ -795,6 +795,7 @@ jobs:
           timeout 300 ~/godot/godot --headless --path . -s res://tests/nebel_505.gd 2>&1 | tee nebel505.log | grep -E "FEHLER|NEBEL505|SCRIPT ERROR"; grep -q "^NEBEL505 0 Fehler" nebel505.log   # 505
           timeout 120 ~/godot/godot --headless --path . -s res://tests/kartennebel_505.gd 2>&1 | tee kartennebel505.log | grep -E "FEHLER|KARTENNEBEL505|SCRIPT ERROR"; grep -q "^KARTENNEBEL505 0 Fehler" kartennebel505.log   # 505 Karte im Menü
           timeout 120 ~/godot/godot --headless --path . -s res://tests/rauch_1160.gd 2>&1 | tee rauch1160.log | grep -E "FEHLER|RAUCH1160|SCRIPT ERROR"; grep -q "^RAUCH1160 0 Fehler" rauch1160.log   # 1160 Rauch nach Niederlage gegen Krogg (Tom)
+          timeout 300 ~/godot/godot --headless --path . -s res://tests/tuer_495.gd 2>&1 | tee tuer495.log | grep -E "FEHLER|TUER495|SCRIPT ERROR"; grep -q "^TUER495 0 Fehler" tuer495.log   # 495 zweimal der Knopf an der Tuer
           # 909: auf die Messungen nebenher warten, Ausgabe zeigen; rot wie eine eigene Zeile (wait in && || löst die Falle nicht aus)
           while read pid n; do wait $pid && rc=0 || rc=$?; echo "── nebenher $n"; cat $NEBEN/$n.log; [ $rc -eq 0 ] || { echo "$STUFE tests/$n.gd: nebenher, Ende $rc" >> $ROT; echo "::error::918 rot ($STUFE) tests/$n.gd"; }; done < $NEBEN/pids
           # 918: Ende; rot.txt geht mit den Bildern ins Artefakt (bornim-godot-bilder) und steht hier im Protokoll
@@ -804,6 +805,17 @@ jobs:
           echo "ROT: keine"
       # fester Schluessel ueber alle Laeufe, sonst lehnt Android das Update ab (348.5, Build 9). 399.1a (Chef 28.10., 14:41): der Cache
       # eines Zweigs galt nur dort (Build 130 bekam einen neuen); jetzt nur lesen, angelegt wird er auf main (godot-schluessel.yml)
+      # 495 (Abnahme 2.2): ein Zufallsspieler spielt Kapitel 1 bis „chapter1_done“ und meldet, wo er haengt; zwei Saaten zugleich
+      # (Herkunft nach Saat), je hoechstens 9 Minuten; nur zur Auskunft, faerbt den Bau nicht (kein Prüfpunkt „ohne dich“).
+      # Nur bei „495 Zufall“ im Commit oder von Hand auf einem Zweig mit 495
+      - name: Zufallsspieler (495)
+        if: ${{ !cancelled() && (contains(github.event.head_commit.message, '495 Zufall') || (github.event_name == 'workflow_dispatch' && contains(github.ref, '495'))) }}
+        continue-on-error: true
+        run: |
+          cd godot
+          for s in 4 1; do (timeout 600 ~/godot/godot --headless --path . -s res://tests/zufallsspieler_495.gd -- --saat=$s --sekunden=540 > $RUNNER_TEMP/zufall-$s.log 2>&1 || true) & done; wait
+          for s in 4 1; do echo "── Saat $s"; grep -E "^ZUFALLSSPIELER|SCRIPT ERROR" $RUNNER_TEMP/zufall-$s.log | uniq -c | cut -c1-900 | head -40; done
+          mkdir -p $GITHUB_WORKSPACE/bilder/zufall495 && cp $RUNNER_TEMP/zufall-*.log $GITHUB_WORKSPACE/bilder/zufall495/ || true
       - uses: actions/cache/restore@v4
         if: ${{ !cancelled() }}     # 918
         with:
