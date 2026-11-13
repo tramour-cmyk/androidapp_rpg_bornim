@@ -79,3 +79,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:04 14.11.: Marke Archiv session_01Hmoj78AKcmYZYcEtyFxx5V (lauf.py)
 - 00:04 14.11.: Marke Archiv session_01Hmoj79QJ2L8FTAiLRqDERR (lauf.py)
 - 00:04 14.11.: Nachfolger-Warnung Diogenes (Übergabe 13.11., 23:19) (lauf.py)
+- 00:05 14.11.: Lauf 00:03: Spike (1040.1) `…76xVCXk2y824rYD6Rk` und Perikles (echter Nachfolger 1098, 1019, 1100, 1125, von Hand wegen Parserfehler 1239, Mittel) `…76yL3LGXZZZ4orHsL5` gestartet; Vorgängerinnen `…78AKcm…` (8,47 $ auf 1230) und `…79QJ2L…` (7,48 $ auf 542) archiviert; Commit-Prüfung hielt an Zeile 827 (Termin heute 20 Uhr), Zeile von Hand auf HEAD zurückgesetzt, danach neuer Vorgang an Perikles (Ford)
