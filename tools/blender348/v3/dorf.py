@@ -12,7 +12,7 @@ OUT = os.environ.get('OUT', os.path.join(os.path.dirname(os.path.abspath(__file_
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../..'))
 os.makedirs(OUT, exist_ok=True)
 TS = 116.0
-# 348.6: Karte aus dem Export von core (./gradlew -p core exportMaps -Pout=...; MapExport.kt), nicht mehr aus Story.kt gelesen
+# 348.6: Karte aus godot/daten/karten.json (früher Export aus core, MapExport.kt; seit 870.9 Godot-Quelle)
 KARTEN = json.load(open(os.environ.get('KARTEN', ROOT + '/godot/daten/karten.json')))
 K = KARTEN['karten'][os.environ.get('KARTE', 'village')]
 KARTE = os.environ.get('KARTE', 'village')
