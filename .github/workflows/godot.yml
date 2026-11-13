@@ -345,7 +345,8 @@ jobs:
         if: env.KAUF_KAMPF != 'treffer'
         run: |
           python3 tools/godot/kauf_cache.py merke vor_kampf   # 854: Block kampf
-          # 399.1 (Chef 28.10., 12:34): Kampf im selben Spiel wie das Dorf; Modelle wie godot-kampf.yml (Jerry), Held und Gras aus „Modelle bauen“
+          # 399.1 (Chef 28.10., 12:34): Kampf im selben Spiel wie das Dorf; Modelle wie godot-kampf.yml (Jerry), Gras aus „Modelle bauen“
+          # (tex.py); den Helden legt „Held in den Kampfort“ danach dazu (1114)
           export OUT=$RUNNER_TEMP/out
           bau() { n=$1; shift; l=$RUNNER_TEMP/k-$n-$(echo "$@" | tr -c "a-z_\n" -).log; env "$@" bl/bin/python -I tools/blender348/$n > $l 2>&1 || { tail -40 $l; exit 1; }; }
           bau wolf.py; bau wolf.py ART=dire_wolf; bau kampfort_wald.py; bau waffen.py; bau ratte.py
@@ -355,7 +356,6 @@ jobs:
           for o in waldrand teich baum felsen steinkreis; do bau kampfort_wald.py SPOT=$o; done   # 493 Kampforte im Wald wie alt
           for a in goblin goblin_archer goblin_shaman kobold; do bau goblin.py ART=$a V3=tools/blender348/v3_kampf; done   # v3_kampf/LIESMICH.md
           D=godot/kampf/daten; mkdir -p $D
-          cp $OUT/held.glb $D/held.bin
           for f in grau dunkel rost asche; do cp $OUT/wolf-$f.glb $D/wolf-$f.bin; done; cp $OUT/wolf-info.json $D/
           for f in schwarz schimmer; do cp $OUT/dire_wolf-$f.glb $D/dire_wolf-$f.bin; done; cp $OUT/dire_wolf-info.json $D/
           for f in braun grau schwarz; do cp $OUT/giant_rat-$f.glb $D/giant_rat-$f.bin; done; cp $OUT/giant_rat-info.json $D/
@@ -459,9 +459,19 @@ jobs:
               $RUNNER_TEMP/krogg/krogg-gestalt-info.json $D/bugbear-info.json
             echo kampf/daten/bugbear-krogg.bin >> $D/kauf.txt
           fi
-          grep -q '^RUHE aus' rig.log && echo kampf/daten/held.bin >> $D/kauf.txt || true   # 397: Held mit Pro-Ruhe
           ls -l $D | wc -l
           python3 tools/godot/kauf_cache.py merke kampf
+      # 1114 (Diogenes D191.4): vom Block figur brauchte der Kampfort nur den Helden; der kommt hier nach dem Block kampf (außerhalb
+      # seiner Marken, in keinem Block) aus godot/daten/held.bin, gebaut oder geholt, gleich dem früheren $RUNNER_TEMP/out/held.glb.
+      # So baut eine Änderung an held3, rig oder leute.json die Monster nicht mehr neu (11–21 Minuten)
+      - name: Held in den Kampfort (1114)
+        run: |
+          D=godot/kampf/daten; mkdir -p $D; touch $D/kauf.txt godot/daten/kauf.txt
+          [ -s godot/daten/held.bin ] || { echo "FEHLER 1114: godot/daten/held.bin fehlt (Block figur weder gebaut noch geholt)"; exit 1; }
+          cp godot/daten/held.bin $D/held.bin
+          # 397: Held mit Pro-Ruhe ist ein Kaufmodell; dann steht daten/held.bin in daten/kauf.txt (Modelle bauen oder geholt mit figur)
+          if grep -qx daten/held.bin godot/daten/kauf.txt; then grep -qx kampf/daten/held.bin $D/kauf.txt || echo kampf/daten/held.bin >> $D/kauf.txt; fi
+          echo "Held im Kampfort: $(stat -c %s $D/held.bin) Bytes, $(grep -cx kampf/daten/held.bin $D/kauf.txt) Zeile in kampf/daten/kauf.txt"
       # 348.12i (Chef 26.10., 19:41, „348.12i B“): gekaufte Modelle nur verschluesselt ins APK, Schluessel je Lauf neu, steht nur im
       # Programm (schluessel.gd), nie im Protokoll. Wer ein Kaufmodell nach godot/daten legt, traegt den Pfad in godot/daten/kauf.txt ein.
       # Erste Kaufmodelle im Spiel: die Dorftiere (Geraetetest, sonst fehlen sie)

@@ -18,7 +18,8 @@ KAUF = os.environ.get('KAUF', '/home/user/bornim-kaufmodelle')
 RT = os.environ.get('RUNNER_TEMP', '/home/user/rt')
 # 854 (Tom 10.11., 14:55): „Leute bauen“ wie auf dem Bauserver vor „Kampfort bauen“ (daten/leute, daten/waffen; Kampfort liest
 # daten/waffen, die Kaufschilde ersetzen dort shield und round_shield)
-SCHRITTE = ['Karten und Texte', 'CC0-Pakete', 'Modelle bauen', 'Held je Klasse', 'Leute bauen', 'Kampfort bauen']
+SCHRITTE = ['Karten und Texte', 'CC0-Pakete', 'Modelle bauen', 'Held je Klasse', 'Leute bauen', 'Kampfort bauen',
+            'Held in den Kampfort']   # 1114
 
 def laden():
     # Anhänge der Version stufe1 über die API (der Zugang kommt vom Proxy der Sitzung), dann entpacken wie kauf_laden.sh
@@ -87,6 +88,7 @@ def cache(mit_laden):
         subprocess.run(kc + ['holen'], cwd=REPO, check=True)
     if os.environ['KAUF_KAMPF'] != 'treffer':
         schritte(['Kampfort bauen'])
+    schritte(['Held in den Kampfort'])   # 1114: nach dem Block kampf, auch wenn er traf
     if os.environ['KAUF_ALLES'] != 'treffer':
         subprocess.run(kc + ['ablegen'], cwd=REPO, check=True)
 

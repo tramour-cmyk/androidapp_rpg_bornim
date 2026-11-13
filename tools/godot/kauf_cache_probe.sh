@@ -2,8 +2,10 @@
 # 854 (Kennung je Block): Probe von kauf_cache.py am Rechner, ohne Kaufrepo und ohne Blender. Eine Kopie des Repos (nur godot.yml,
 # tools/blender348, kauf_cache.py, ein karten.json) und ein nacktes git-Repo als Kaufrepo; die Bauschritte schreiben nur Platzhalter
 # zwischen den Marken wie godot.yml. Prüft: erster Lauf baut alles und legt vier Zweige ab; zweiter Lauf trifft alles und holt
-# dieselben Dateien; eine Änderung an raum.py baut nur dorf neu (und nennt raum.py), eine an kauftier.py nur kampf (figur wird für
-# kampf neu gebaut, aber nicht geholt), eine an held_klassen.py nur klassen. 1101: eine Datei über der Teilgröße (hier 1 MB statt 45,
+# dieselben Dateien; eine Änderung an raum.py baut nur dorf neu (und nennt raum.py), eine an kauftier.py nur kampf (figur geholt,
+# 1114), eine an held_klassen.py nur klassen. 1114: rig.py, held3.py, leute.json bauen kampf nicht neu, tex.py und v3_kampf schon;
+# der Held liegt nach jedem Lauf in kampf/daten (Schritt „Held in den Kampfort“), aber in keinem Zweig bau/kampf-…; setzt ein Aufruf
+# von goblin.py im Schritt nicht V3=…/v3_kampf, gehören v3/held3.py und v3/rig.py wieder zu kampf. 1101: eine Datei über der Teilgröße (hier 1 MB statt 45,
 # Kaufrepo lehnt wie GitHub (GH001) jede Datei darüber ab) geht in Teilen über mehrere Stücke und kommt beim Holen ganz zurück, ohne
 # Teile in godot/daten; misslingt dorf, steht kein halber Zweig bau/dorf-…, und kampf wird trotzdem abgelegt.
 # 1111: NEU=1 (cache=neu) baut trotz Treffer alles, überschreibt nichts, vergleich prüft die vorher abgelegten Zweige gegen den Bau
@@ -54,6 +56,10 @@ lauf() {   # ein Lauf wie godot.yml: pruefen, Teile nach den Schaltern, Leute, h
     [ -n "${HALB:-}" ] && $KC halb $HALB "Probe 1112" > /dev/null
     $KC merke kampf
   fi
+  local K=$R/godot/kampf/daten; mkdir -p $K; touch $K/kauf.txt $R/godot/daten/kauf.txt   # 1114 wie godot.yml
+  [ -s $R/godot/daten/held.bin ] || { echo "FALSCH 1114: held.bin fehlt"; fehler=$((fehler+1)); }
+  cp $R/godot/daten/held.bin $K/held.bin
+  if grep -qx daten/held.bin $R/godot/daten/kauf.txt; then grep -qx kampf/daten/held.bin $K/kauf.txt || echo kampf/daten/held.bin >> $K/kauf.txt; fi
   if [ "$KAUF_ALLES" = bauen ]; then $KC ablegen > $RUNNER_TEMP/ablegen.log || ABLEGEN=$?; fi
   VERGLEICH=-; if [ -n "${KAUF_GEGENPROBE:-}" ]; then (cd $R && $KC vergleich > $RUNNER_TEMP/vergleich.log) && VERGLEICH=0 || VERGLEICH=$?; fi
   return 0
@@ -87,8 +93,11 @@ pruefe '[ "$(inhalt)" = "held eins dorf drei klassen eins kampf eins " ]' "dorf 
 
 echo "# 854 Probe" >> $R/tools/blender348/kauftier.py
 lauf vier
-pruefe '[ "$KAUF_KAMPF" = bauen ] && [ "$KAUF_DORF" = treffer ] && [ "$KAUF_KLASSEN" = treffer ] && [ "$KAUF_FIGUR_BAUEN" = ja ]' "kauftier.py: nur kampf baut, figur dafür neu"
-pruefe '[ "$(inhalt)" = "held vier dorf drei klassen eins kampf vier " ]' "kampf neu, figur neu gebaut statt geholt ($(inhalt))"
+pruefe '[ "$KAUF_KAMPF" = bauen ] && [ "$KAUF_DORF" = treffer ] && [ "$KAUF_KLASSEN" = treffer ] && [ "$KAUF_FIGUR_BAUEN" = nein ]' "1114: kauftier.py: nur kampf baut, figur nicht"
+pruefe '[ "$(inhalt)" = "held eins dorf drei klassen eins kampf vier " ]' "1114: kampf neu, figur geholt ($(inhalt))"
+pruefe 'cmp -s $R/godot/daten/held.bin $R/godot/kampf/daten/held.bin && [ $(grep -cx kampf/daten/held.bin $R/godot/kampf/daten/kauf.txt) = 1 ]' "1114: Held im Kampfort wie daten/held.bin, einmal in kampf/daten/kauf.txt"
+kk=$($KC kennung kampf | cut -d' ' -f2)
+pruefe '! git --git-dir=$T/kauf.git ls-tree -r --name-only bau/kampf-$kk | grep -q held' "1114: kein Held im Zweig bau/kampf-$kk"
 
 echo "# 854 Probe" >> $R/tools/blender348/v3/held_klassen.py
 lauf fuenf
@@ -96,7 +105,23 @@ pruefe '[ "$KAUF_KLASSEN" = bauen ] && [ "$KAUF_KAMPF" = treffer ] && [ "$KAUF_D
 
 echo "# 854 Probe" >> $R/tools/blender348/v3/rig.py
 lauf sechs
-pruefe '[ "$KAUF_FIGUR" = bauen ] && [ "$KAUF_KLASSEN" = bauen ] && [ "$KAUF_KAMPF" = bauen ] && [ "$KAUF_DORF" = treffer ]' "rig.py: figur, klassen, kampf bauen, dorf trifft"
+pruefe '[ "$KAUF_FIGUR" = bauen ] && [ "$KAUF_KLASSEN" = bauen ] && [ "$KAUF_KAMPF" = treffer ] && [ "$KAUF_DORF" = treffer ]' "1114: rig.py: figur, klassen bauen, kampf und dorf treffen"
+pruefe '[ "$(cat $R/godot/kampf/daten/held.bin)" = "held sechs" ]' "1114: neuer Held im Kampfort ($(cat $R/godot/kampf/daten/held.bin))"
+
+# 1114: held3.py und leute.json (Gestalt der Leute) bauen den Kampfort nicht neu, tex.py (Gras) und v3_kampf (Goblins) schon
+echo "# 1114 Probe" >> $R/tools/blender348/v3/held3.py
+python3 -c "import json,sys; d=json.load(open(sys.argv[1])); d['probe1114']={'haut':'112233'}; json.dump(d,open(sys.argv[1],'w'),ensure_ascii=False,indent=1)" $R/tools/blender348/v3/leute.json
+lauf held
+pruefe '[ "$KAUF_FIGUR" = bauen ] && [ "$KAUF_KAMPF" = treffer ]' "1114: held3.py und leute.json: figur baut, kampf trifft"
+for f in v3/tex.py v3_kampf/held3.py; do
+  vor=$($KC kennung kampf | cut -d' ' -f2); echo "# 1114 Probe" >> $R/tools/blender348/$f
+  pruefe '[ "$($KC kennung kampf | cut -d" " -f2)" != "$vor" ]' "1114: $f gehört zu kampf"
+done
+cp $R/.github/workflows/godot.yml $T/godot.yml
+sed -i 's|bau goblin.py ART=$a V3=tools/blender348/v3_kampf|bau goblin.py ART=$a|' $R/.github/workflows/godot.yml
+pruefe '$KC eingaben kampf | grep -qx tools/blender348/v3/held3.py && $KC eingaben kampf | grep -qx tools/blender348/v3/rig.py' "1114: goblin.py ohne V3=…/v3_kampf liest v3/held3.py und v3/rig.py"
+cp $T/godot.yml $R/.github/workflows/godot.yml
+pruefe '! $KC eingaben kampf | grep -q "v3/\(held3\|rig\|geruest\|leute\)"' "1114: mit V3=…/v3_kampf nicht"
 
 # 1101: Kaufrepo lehnt Dateien über 1,1 MB ab wie GitHub über 100 MB; mit der Datei „abweisen“ auch jeden Zweig bau/dorf-…
 cat > $T/kauf.git/hooks/pre-receive <<'HAKEN'
