@@ -1623,7 +1623,7 @@ jobs:
           cd godot
           BILD1091_AUS=$A VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 \
-            -s res://tests/ausgang_bild_1091.gd 2>&1 | grep -E "SCRIPT ERROR|^AUSGANGBILD1091|^BILD" | cut -c1-400 || true
+            -s res://tests/ausgang_bild_1091.gd -- --bild=1091 2>&1 | grep -E "SCRIPT ERROR|^AUSGANGBILD1091|^BILD" | cut -c1-400 || true   # 285: ohne „--“ Hauptmenü
           cd $A && [ -f 1091_mittag.png ] && [ -f 1091_nacht.png ] && { convert 1091_mittag.png 1091_nacht.png +append 1091_mittag_nacht.png || true; }; ls -l $A
       # 1119 (283.1 ungetestet; Chef 13.11., 16:28 Aussehen als Film statt Handy): Fußstaub am Mittag, gehen und rennen
       # (tests/film_staub_1119.gd), bei „1119 Film“ im Commit

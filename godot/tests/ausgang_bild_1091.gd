@@ -3,6 +3,7 @@ extends SceneTree
 # mittags oder 22 Uhr abends“): Bild aus dem Lauf, Höhlengang zum Ausgang, der Held am Beginn des Gangs mit Blick hinaus, mittags
 # und um 22 Uhr. Braucht die Kaufmodelle (im Lauf der APK, Schritt „Ausgangsbild (1091)“); mit Fenster (xvfb-run), PNG nach
 # BILD1091_AUS: 1091_mittag, 1091_nacht (das Zusammensetzen macht der Schritt). Massgeblich ist die Zeile AUSGANGBILD1091.
+# Aufruf mit einem Argument hinter „--“ (-- --bild=1091): ohne startet spiel.gd das Hauptmenü (Lauf 464: beide Bilder Hauptmenü).
 
 func _initialize() -> void: _lauf.call_deferred()
 
@@ -17,6 +18,7 @@ func _lauf() -> void:
 	if spiel.herde:
 		spiel.herde.aus = true
 		spiel.herde.process_mode = Node.PROCESS_MODE_DISABLED
+	await create_timer(1.5).timeout   # 285 (Lauf 464): die Blende nach dem Betreten läuft in Sekunden, nicht in Bildern (wie rand_bild_1022)
 	for n in ["mess", "oben", "leiste", "textfeld"]:
 		var k = spiel.ui.get(n)
 		if k: k.visible = false
@@ -31,7 +33,7 @@ func _lauf() -> void:
 		spiel.zustand.minuten = int(z[2])
 		spiel.licht.stelle(z[1]); spiel._nacht(z[1])
 		spiel.kamera.springe()
-		for i in 60: await process_frame
+		await create_timer(1.2).timeout
 		for n in ["textfeld"]:
 			var k = spiel.ui.get(n)
 			if k: k.visible = false
