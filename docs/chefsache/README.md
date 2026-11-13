@@ -39,7 +39,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 
-**Tom** – offen 114, Muss 90, startbar 3
+**Tom** – offen 113, Muss 90, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -156,7 +156,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1119 | M | Von Sokrates (Chef 13.11., 10:14 und 10:20, t282.4 ✓): Fußstaub einen Tick zurück und nach | wartet auf Test (Build 283) |
 | 1120 | M | Von Sokrates (Chef 13.11., 10:32, t282.15 ✓): Knöpfe im Gespräch auf eine Höhe, ‹ Nicht je | wartet auf Test (Build 283) |
 | 1131 | M | Von Sokrates (1129): Sammelbuild-Automatik 774 seit 10.11. stumm, weil 825 „Sammelbuild … | Sperre 620.1 B: 21 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 825 |
-| Pflege | K | von Werkzeug (340.3, 13.11.): 17013 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
 
 **Jerry** – offen 133, Muss 119, startbar 2
 
@@ -319,7 +318,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1125 | M | D195.1 von Diogenes (1100.1): Ford-Lauf nach 1100 nicht billiger: Uhrläufe 9 Schritte wie | Termin 13.11. 13:15 |
 | Pflege | K | von Werkzeug (340.3, 13.11.): 15006 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Diogenes** – offen 11, Muss 9, startbar 3
+**Diogenes** – offen 12, Muss 9, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -334,6 +333,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 | 1098.1 | M | Von Sokrates (Chef 13.11., 09:18, 1098 A, vorher D): nach Fords erstem Neustart über Probe | Termin 14.11. |
 | 790.1 | K | Von Perikles (1129.1 P5): 790 Zwischenzahl jetzt: seit 383 A 106 statt 29 Sitzungen am Tag | startbar |
+| Pflege | K | von Werkzeug (340.3, 13.11.): 16019 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Sokrates** – offen 51, Muss 37, startbar 28
 
