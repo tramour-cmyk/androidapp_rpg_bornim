@@ -157,11 +157,20 @@ def lies(text, quelle=''):
     return aus
 
 
+def ohne_lage(d):
+    """1185 (Perikles, 1183): Nummern der Handyzeilen ohne Lage, deren Weg nicht mit „Weiter“ beginnt"""
+    return [z['nr'] for a in d.get('abschnitte', []) for z in a.get('zeilen', [])
+            if z.get('art', '').strip().lower().startswith('handy') and not z.get('lage')
+            and not schlicht(z.get('wo', '')).lstrip('„"').lower().startswith('weiter')]
+
+
 def main():
     if '--pruefe' in sys.argv:   # 1178: Zeile im Prüfschritt; rot, wenn der Bau ohne seine gegengelesene Prüfliste gebaut ist
         d = json.load(open(sys.argv[sys.argv.index('--pruefe') + 1], encoding='utf-8'))
         if d.get('fehlt'):
             print('PRUEFLISTE fehlt: %s (1178)' % d['fehlt']); sys.exit(1)
+        for nr in ohne_lage(d):   # 1185 (1183): nur Warnung, der Bau bleibt grün
+            print('WARNUNG Prüfliste %s: Handyzeile ohne Eintrag in „## Lagen“, Weg beginnt nicht mit „Weiter“ (LISTE-CHECK-BUILD-TEST 10, 1183)' % nr)
         print('PRUEFLISTE Build %d aus %s' % (d.get('build', 0), d.get('quelle') or 'keiner Datei')); return
     args = [a for i, a in enumerate(sys.argv[1:], 1) if a != '--build' and sys.argv[i - 1] != '--build']
     if not args:
