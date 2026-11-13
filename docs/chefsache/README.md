@@ -44,7 +44,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1129.3 | M | Von Sokrates (1129 alle ja, Chef 13.11., 13:59): Werkzeuge zu Punkten 1, 2, 6; Wächter für | startbar |
+| 1129.3 | M | Von Sokrates (1129 alle ja, Chef 13.11., 13:59): Werkzeuge zu Punkten 1 und 6 (Punkt 2 mac | startbar |
 | 756.1 | M | Zeichen für Schlecht: Chef 13.11., 13:45 „756.1 voller Punkt wie in 3, aber etwas heller ( | wartet auf Test (Build 284) |
 | 1122 | M | Von Sokrates (1109 D, Chef 13.11., 10:56): Prüfliste-Test pruefliste_1020 nur noch auf cla | wartet auf Test t283 (Chef) |
 | 1104 | M | Von Sokrates (Chef 13.11., 09:09, Fund t281.11): Höhle lässt sich nicht betreten, Station | wartet auf Test (Build 282) |
@@ -160,11 +160,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1128.2 | M | Von Sokrates (1128 A, Chef 13.11., 13:36): Werkzeuge nach 1128 A: Laufnachweis ohne Testau | wartet auf Test/Build (gebaut) |
 | 1137.2 | M | Von Sokrates (1137, Chef 13.11., 14:03): Wächter Vollzug: Archiveintrag mit Folgevorgängen | startbar |
 
-**Jerry** – offen 135, Muss 120, startbar 3
+**Jerry** – offen 135, Muss 120, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1138 | M | Sammelbuild: alle fertigen Zweige beider Teams (Tom 542, 632, 964, 967, 1009; Jerry 1041, | startbar |
+| 1138 | M | Sammelbuild: alle fertigen Zweige beider Teams (Tom 542, 632, 964, 967, 1009; Jerry 1041, | wartet auf Test t284 (Chef) |
 | 1111 | M | D191.1 von Diogenes (1109): cache=neu wirkt nicht mehr: seit 1f4e21a81 übergeht pruefen ke | wartet auf Test t283 (Chef) |
 | 1112 | M | D191.2 von Diogenes (1109): Block mit geduldetem Fehler wird abgelegt (FEHLER 494/506, LEU | wartet auf Test t283 (Chef) |
 | 1113 | M | D191.3 von Diogenes (1109): Kaufrepo 524 MB, 21 Zweige bau/* in drei Tagen, nie gelöscht; | wartet auf Test (Build 283) |
@@ -300,10 +300,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1136 | M | D203.1 von Diogenes (1128.3, Lauf 427 Build 283): 4 Bautests der 30 ohne Laufnachweis: 101 | Sperre 620.1 B: 31 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 904 |
 | Pflege | K | von Werkzeug (340.3, 13.11.): 15108 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 20, Muss 17, startbar 3
+**Perikles** – offen 22, Muss 19, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 1129.5 | M | Von Sokrates (1129 Punkt 2, Chef 13.11., 14:11: Teams gesperrt): Sperre 620.1 B in startba | startbar |
 | 1129.2 | M | Von Sokrates (1129 alle ja, Chef 13.11., 13:59): Regeln zu Punkten 1, 3, 4, 5, 7, 8; Pflic | startbar |
 | 1129.1 | M | Von Sokrates (1129, Chef 13.11., 12:53 „mit Pericles zusammen“): blinde Flecken in Abläufe | wartet auf Diogenes (greift?) |
 | 1098 | M | D189.1 von Diogenes (zu 1019): Haken greift (4 Ford-Selbstneustarts seit 12.11. bei 416–88 | Termin 14.11. |
@@ -323,6 +324,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | Termin 14.11. |
 | 1125 | M | D195.1 von Diogenes (1100.1): Ford-Lauf nach 1100 nicht billiger: Uhrläufe 9 Schritte wie | Termin 14.11. |
 | 1137.1 | M | Von Sokrates (1137, Chef 13.11., 14:03): Regel Vollzugsmeldung je Entscheid: Folgeauftrag | startbar |
+| 1139 | M | Von Jerry (1138): startbar.sammelbuild_faellig zählt Punkte mit „wartet auf t<n>“ oder Dio | startbar |
 | Pflege | K | von Werkzeug (340.3, 13.11.): 15448 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Diogenes** – offen 24, Muss 22, startbar 13
