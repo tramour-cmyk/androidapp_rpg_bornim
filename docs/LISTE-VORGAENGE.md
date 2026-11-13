@@ -276,7 +276,7 @@
 | 1116 | Von Diogenes (1109): Geldwert der Vorberechnung: Bauserver kostet nichts (öffentliches Repo), Ersparnis ist Wartezeit; was kostet eine Stunde Warten auf einen Lauf in Sitzungen | Perikles | K | erledigt, überholt: Chef 10:56 „1109 A bis D“ ohne Geldwert | – | – | – | B Werkzeuge | – |
 | 1117 | D192.1 von Diogenes (zu 1110): Zeile 391 (Sokrates) trägt noch Stand „Chefwort in der Sitzung wirkt (22:47)“, seit 1099/1110 überholt; Stand und Titel nachziehen oder schließen | Perikles | M | erledigt | – | – | – | B Abläufe | – |
 | Pflege | von Werkzeug (340.3, 13.11.): 16221 Bytes (Grenze 15000), Erledigtes streichen | Perikles | K | startbar | – | – | – | B Abläufe | – |
-| 1125 | D195.1 von Diogenes (1100.1): Ford-Lauf nach 1100 nicht billiger: Uhrläufe 9 Schritte wie vorher (8), LEERLAUF nie erreicht (Bremse-Warnung jede Stunde); Kosten je Schritt wachsen mit dem Verlauf (0,02 $ bei 160 Tsd., 0,04 $ bei 390 Tsd.) | Perikles | M? | startbar | – | – | – | B Abläufe | – |
+| 1125 | D195.1 von Diogenes (1100.1): Ford-Lauf nach 1100 nicht billiger: Uhrläufe 9 Schritte wie vorher (8), LEERLAUF nie erreicht (Bremse-Warnung jede Stunde); Kosten je Schritt wachsen mit dem Verlauf (0,02 $ bei 160 Tsd., 0,04 $ bei 390 Tsd.) | Perikles | M | gebaut, Geprüft an: 377a1a533 | – | – | – | B Abläufe | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
