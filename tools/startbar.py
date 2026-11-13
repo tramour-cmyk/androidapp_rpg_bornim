@@ -185,7 +185,13 @@ def sammelbuild_faellig():
     (Gleichstand: Tom). (Titel, Bereich, Besitzer) oder None."""
     zs = zeilen_liste()
     offen = lambda d: d["wort"] not in (None, "erledigt", "verworfen", "aufgeteilt")
-    if any(offen(d) and d["titel"].startswith("Sammelbuild") for d in zs):
+    # 1131 (Sokrates 1129): eine Sammelbuild-Zeile, deren Build schon getestet ist (Vorgangsarchiv „tn, Build n getestet“), hält
+    # die Automatik nicht mehr an (825 stand nach t274 noch auf „gebaut“, 10.11. bis 13.11. kein Sammelbuild)
+    getestet = set(re.findall(r"^- \*\*t(\d+), Build \1 getestet", lesen("VORGANGSARCHIV.md"), re.M))
+    def build_getestet(d):
+        nrn = [str(d.get("build") or "")] + re.findall(r"\bt(\d+)\b", str(d.get("stand") or "") + " " + str(d.get("warte") or ""))
+        return any(n.strip() in getestet for n in nrn if n.strip().isdigit())
+    if any(offen(d) and d["titel"].startswith("Sammelbuild") and not build_getestet(d) for d in zs):
         return None
     fertig = [d for d in zs if d["besitzer"] in ("Tom", "Jerry") and d["wort"] in ("gebaut", "zu testen")
               and d.get("build") in ("", "–", "-", None) and not d.get("bereich", "").startswith("B ")]
