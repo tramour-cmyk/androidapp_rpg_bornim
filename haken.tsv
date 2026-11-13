@@ -37,3 +37,4 @@
 2026-11-13 14:52:19	commit-pruefung	VORGANGSARCHIV.md: Test t282 eingetragen, Prüfliste noch in der Chefsache (docs/chefsache/ansehen/t282-hoehle.md); im selben Commit `git rm` (1070, LISTE-CHECK-BUILD-TEST.md 11)	main
 2026-11-13 14:53:02	probelauf	621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für 1025 schon 1 Probelauf seit Beginn der Zählung. Kein weiterer Lauf: jetzt vorlegen, was da ist, auch ein Messlauf (	claude/jerry-1025-zwei-kaempfe
 2026-11-13 14:59:09	probelauf	621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für 697 schon 1 Probelauf seit deinem Urteil 2026-11-09 18:09:00. Kein weiterer Lauf: jetzt vorlegen, was da ist, auch 	HEAD
+2026-11-13 14:59:14	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	HEAD
