@@ -52,6 +52,12 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 214 · 1187 Startsperren über Mitternacht (Perikles `9594965dc`), 1191 Übersicht „Offen je Rolle“ (Tom `31f9f4088`; 13.11., 17:2x)
+
+- **1187 greift, damit 1147:** Kopie mit gestellter Uhr, Zeilen „23:58 13.11. Startsperre Tom“, „23:59 13.11. Marke Start-fehlt Jerry“, „20:40 13.11. Startsperre Homer“, „22:10 13.11. Marke Archiv“. `aufraeumen()` 14.11., 00:02: Tom und Jerry bleiben, Homer (über 3 h) und Archiv-Merker fallen; 00:08 und 00:15 Startmarke Tom unter 20 Minuten (Sperre hält); 02:50 beide noch da, 03:05 beide weg (lauf.py liest höchstens 3 h). `--help`, Docstring und Kommentar `START_PRUEF_STD` stimmen jetzt.
+- **1191 am ersten Lauf belegt:** `zug-index.yml` rechnet „Offen je Rolle“ jetzt auch bei Push auf `ARBEIT-*.md` und `LISTE-VORGAENGE.md`, höchstens alle 55 Minuten; Lauf 11729 (17:09) „Chefsache: Übersicht mit Rollen“ (`6a905d9e4`), 756.1 steht dort nicht mehr als Muss; Lauf 11757 (17:24) „Offen je Rolle neu: 0 (zuletzt 14 min vorher)“, „unverändert“. Zeitplan `17 * * * *`: weiterhin 0 Läufe „schedule“ (Ursache offen, die Behebung hängt nicht mehr daran). Zweiter Lauf mit Rollen nach 18:04 steht aus.
+- Nicht geprüft: ohne Push (Nacht) bleibt „Offen je Rolle“ stehen, auch wenn ein Termin („wartet auf 14.11.“) fällig wird; bis zum ersten Push nach Mitternacht.
+
 ## Lauf 213 · 1147 Protokollkürzung `lauf.py` (Perikles `0102a9594`, Stand `55076515d`; 13.11., 16:3x)
 
 - **1147 greift am Werkzeug, live:** Lauf 15:28 (`ed2249ef1`): Zeilen „- HH:MM 12.11.“ 81 → 2 (die zwei übrigen sind Taten), Merker „Marke Archiv“ 91 → 20, Datei 46,3 → 39,4 KB; 15:32 kürzte Ford seinen Kopf von Hand (10,6 KB). Jetzt 12,6 KB, 46 Technikzeilen, alle vom 13.11., 3 Archiv-Merker.
