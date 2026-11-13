@@ -52,6 +52,11 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 211 · 1178 Prüfliste im Bau nur `ansehen/t<n>` (Tom `7d89c654d`, `6ac308364`, `3e6676425` auf `claude/tom-1178-pruefliste`; 13.11., 16:0x)
+
+- **Am Werkzeug ohne Befund.** `--build 282/283/284` (heute keine `ansehen/t28…` auf `main`): „fehlt“, `--pruefe` Exit 1; Klon mit eigenem `main` und `ansehen/t999-a.md`: `GITHUB_HEAD_REF=claude/build-999` nimmt genau diese (11 Zeilen), `--pruefe` Exit 0; Build 1000 nur mit `entwurf/t1000-b.md`: fehlt, Exit 1 (kein Entwurf mehr im Bau); Teamzweig wie bisher die neueste. Arbeitskopie bleibt ungeflacht. Prüfschritt steht in „Skripte pruefen“ unter `set +e` mit Falle 918: rot, die übrigen Tests laufen weiter. Regel 8/9 (1179) verlangt die Liste in `ansehen/` vor dem Push, passt.
+- Greift erst am ersten Lauf auf `claude/build-…` mit 1178: Zeile „PRUEFLISTE Build n aus docs/chefsache/ansehen/t<n>-…“ → `greift 1178 <Lauf>`; 1178 wartet auf t285.
+
 ## Lauf 210 · 1171 Art Kleinkram in den Werkzeugen (Tom `83335228d`; 13.11., 16:0x)
 
 - **Greift am Werkzeug.** Klon von `main`, Probeliste t997 (t284 plus 997.80 Kleinkram ohne Link, 997.81 mit Link auf den Zweig `bilder`): `pruefliste.py` 11 Zeilen (beide Kleinkram aus dem Reiter), Commit-Prüfung hält nur an 997.80, `zug-index` meldet nur 997.80 als Formfehler.
