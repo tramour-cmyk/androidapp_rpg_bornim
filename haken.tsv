@@ -70,3 +70,4 @@
 2026-11-13 17:09:01	commit-pruefung	docs/ARBEIT-TEAM-TOM.md hat 31883 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-13 17:09:26	commit-pruefung	docs/ARBEIT-TEAM-TOM.md hat 31617 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-13 17:09:38	commit-pruefung	docs/ARBEIT-TEAM-TOM.md hat 31432 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
+2026-11-13 17:15:14	commit-pruefung	docs/chefsache/ansehen/1120-knoepfe.md gelöscht, „Was du tust“ geht verloren (am Bild „passt“ oder sagen, was nicht stimmt.); im selben Commit `docs/chefsache/tun/<nr>-<stichwort>.md` anlegen (Aufbau 	main
