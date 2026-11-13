@@ -32,8 +32,14 @@ const MSG870_SCHWACH := ["{0} ist verwundbar gegen {1}!", "{0} is vulnerable to 
 const MSG870_STARK := ["{1} richtet bei {0} wenig aus.", "{1} does little against {0}."]
 const MSG870_IMMUN := ["{1} prallt an {0} ab.", "{1} has no effect on {0}."]
 ## 870.5 (870a 8 A): Gegenwirkungen beim ersten Mal (Homer STORY-BRS-HELD.md [870.14.gegen.*])
-const MSG870_GEGEN_WOLF := ["Die Wölfe weichen vor dem Feuer zurück, dann sind sie zwischen den Bäumen fort. Kein Fell, keine Erfahrung.",
-	"The wolves shy from the fire, then they are gone among the trees. No pelt, no experience."]
+## 915 (Homer, STORY-BRS-KAMPF.md „Wolf vor dem Feuer“, 705a B): [915.wolf.flucht] jedes Mal, Einzahl, wenn nur einer flieht; gleich
+## danach [915.wolf.erstmals] einmal je Spielstand (Flagge GESEHEN_GEGEN_WOLF in gesehen, wie die Eingebungen 840)
+const MSG915_FLUCHT := [["Die Wölfe weichen vor dem Feuer zurück, dann sind sie zwischen den Bäumen fort.",
+	"The wolves shy from the fire, then they are gone among the trees."],
+	["Der Wolf weicht vor dem Feuer zurück, dann ist er zwischen den Bäumen fort.", "The wolf shies from the fire, then it is gone among the trees."]]
+const MSG915_ERSTMALS := ["Feuer verjagt Wölfe, sobald ihr Leitwolf halb tot ist, und mit ihnen gehen Beute und Erfahrung.",
+	"Fire drives wolves off once their leader is half dead, and with them go loot and experience."]
+const GESEHEN_GEGEN_WOLF := "gegen_wolf"
 const MSG870_GEGEN_SCHWEIN := ["Das Feuer macht {0} rasend.", "The fire drives {0} into a frenzy."]
 const MSG870_GEGEN_SPINNE := ["Die Seide der Spinne verbrennt zu Asche.", "The spider's silk burns to ash."]     # [870.14.gegen.spinne]
 const MSG870_GEGEN_FLUEGER := ["{0} wittert dein Blut und saugt gieriger.", "{0} smells your blood and feeds more greedily."]
@@ -324,6 +330,7 @@ class Fighter:
 	## 399.2a: the leader this one follows (a young wolf its wolf, Packs.kt); it flees when the leader falls
 	var follows := ""
 	var fled := false
+	var vor_feuer := false     # 915: vor dem Feuer geflohen (870c 3 A): bringt weder Beute noch Erfahrung (lohn.gd, spiel.gd beute)
 	var verjagt := false     # 841: vor dem Kampf eingeschüchtert und geflohen (lohn.gd: keine Beute von ihm)
 	## 478: was er nach dem BRS ist (brs_kampf.gd held, gegner)
 	var b := {}
@@ -947,14 +954,27 @@ func _auto_order(f: Fighter) -> Array:
 		return ["use", "H_KRAFT", f.id]
 	if friend != null and "Z_WUND" in can and blocked(f, "Z_WUND") == null and friend in aim_at(f, "Z_WUND"):
 		return ["use", "Z_WUND", friend.id]
+	var foes := feinde(f)
+	# 705a B (Chef 11.11., 09:42): gegen Wölfe geht der Autopilot auf den vollen Lohn wie ein umsichtiger Spieler: kein Feuer (es
+	# verjagt das Rudel samt Beute und Erfahrung, 870c 3 A), nur in Not (unter halbem Leben) das sichere Mittel
+	var scheu := f.hp * 2 >= f.max_hp and foes.any(func(x): return x.monster != null and art_of(x.monster) == WOLF)
+	# 705 (Sokrates 10.11., 11:47, Chef „829 A, ein Zauberer zaubert“): ein Flächenzauber auf eine Reihe mit zwei stehenden Gegnern,
+	# mit derselben Rücklage für Wundsegen
+	for c in ["Z_GLUT", "Z_FAECHER"]:
+		if c in can and blocked(f, c) == null and not (scheu and _feuer(c)) \
+				and (f.b.is_empty() or not "Z_WUND" in can or (int(f.sp) - int(skills[c].amount)) * 2 >= f.max_sp):
+			var reihe = _reihe_fuer(c, foes)
+			if reihe != null:
+				return ["use", c, reihe.id]
 	var cantrip = null
 	for c in ["Z_FUNKEN", "Z_ARKAN", "Z_GLEISS"]:     # 870.5: solange das Mana reicht
-		if c in can and blocked(f, c) == null:
+		if c in can and blocked(f, c) == null and not (scheu and _feuer(c)):
 			cantrip = c
 			break
-	var foes := feinde(f)
 	if cantrip != null and not foes.is_empty():
-		var ziel = _min_hp(foes)
+		var ziel = _anfuehrer(foes)     # 705: fällt der Anführer, flieht sein Gefolge (399.2a); in Not treibt Feuer auf ihn das Rudel fort
+		if ziel == null:
+			ziel = _min_hp(foes)
 		# 705 (Sokrates 10.11., 23:16, wie 444 Teil 6): ein Zauber nur, wenn er mehr bringt als die Waffe, und das Mana für die Heilung bleibt
 		var bleibt: int = int(f.sp) - int(skills[cantrip].amount)
 		var heil_vorrat: bool = f.b.is_empty() or not "Z_WUND" in can or bleibt * 2 >= f.max_sp     # die Hälfte bleibt für Wundsegen
@@ -963,8 +983,39 @@ func _auto_order(f: Fighter) -> Array:
 			return ["use", cantrip, ziel.id]
 	if can_draw(f) and f.place.x == FRONT and f.weapon() != null and f.weapon().ranged and f.spare() != null and not f.spare().ranged:
 		return ["draw"]
-	var t = _min_hp(targets(f))
+	var t = _anfuehrer(targets(f))     # 705: wie beim Zauber zuerst der Anführer
+	if t == null:
+		t = _min_hp(targets(f))
 	return ["attack", t.id] if t != null else ["wait"]
+
+
+## 705: ob Zauber [c] Feuer ist (werte.json „zauber“ „typ“); ohne BRS nach dem alten Zauber (Funkenpfeil, Flammenfächer, Glutkugel)
+func _feuer(c: String) -> bool:
+	if BrsKampf.an():
+		return _typ(BrsKampf.w()["zauber"].get(ZAUBER.get(c, ""), {})) == "feuer"
+	return c in ["Z_FUNKEN", "Z_FAECHER", "Z_GLUT", "Z_STRAHLEN"]
+
+
+## 705: ein Gegner in der Reihe, die Zauber [c] mit mindestens zwei stehenden Gegnern trifft (Flammenfächer die vordere, solange dort
+## einer steht, wie use; Glutkugel die vollere), sonst null
+func _reihe_fuer(c: String, foes: Array):
+	var reihen: Array = [FRONT] if c == "Z_FAECHER" and foes.any(func(x): return x.place.x == FRONT) else [FRONT, BACK]
+	var best = null
+	var n_best := 1
+	for r in reihen:
+		var in_reihe := foes.filter(func(x): return x.place.x == r)
+		if in_reihe.size() > n_best:
+			n_best = in_reihe.size()
+			best = _min_hp(in_reihe)
+	return best
+
+
+## 705: der Anführer unter [list], dem noch ein Stehender folgt (Leitwolf mit Jungwölfen), sonst null
+func _anfuehrer(list: Array):
+	for x in list:
+		if x.follows == "" and all.any(func(y): return y.side == x.side and y.standing() and y.follows == x.id):
+			return x
+	return null
 
 
 ## 705: erwarteter Schaden je Zug nach dem BRS (Trefferchance × Schaden nach Fertigkeit und Schwäche, minus Rüstung), ohne Würfel
@@ -2440,18 +2491,25 @@ func _gegenwirkung(f: Fighter, t: Fighter, typ) -> void:
 	var ty := String(typ)
 	if art == WOLF and ty == "feuer":
 		# 870c 3 A: Feuer vertreibt das Rudel erst, wenn sein Leitwolf (dem t folgt, sonst t selbst) unter halbem Leben ist
+		# 915 (Prüfer zu 705): fiel der Leitwolf, ist sein Rudel schon nach 399.2a fort (_pack_flees); wer noch im Griff steht, bleibt,
+		# sonst kamen zwei Fluchtzeilen und kein Lohn, obwohl der Leitwolf erlegt war
 		var leit = by_id(t.follows) if t.follows != "" else t
-		if leit != null and leit.standing() and leit.hp * 2 >= leit.max_hp:
+		if leit == null or not leit.standing() or leit.hp * 2 >= leit.max_hp:
 			return
 		var rudel := all.filter(func(x): return x.side == "FOES" and x.standing() and x.monster != null and art_of(x.monster) == WOLF)
 		var erst := true
 		for x in rudel:     # eine Zeile für alle, jeder läuft (wie _pack_flees)
 			x.fled = true
+			x.vor_feuer = true
 			intents.erase(x.id)
-			_say(MSG870_GEGEN_WOLF[lang] if erst else "", null, x.id, 0, null, false, false, "FOE_FLEES")
+			_say(MSG915_FLUCHT[1 if rudel.size() == 1 else 0][lang] if erst else "", null, x.id, 0, null, false, false, "FOE_FLEES")
 			erst = false
+		if not gesehen.has(GESEHEN_GEGEN_WOLF):
+			gesehen[GESEHEN_GEGEN_WOLF] = true
+			_say(MSG915_ERSTMALS[lang])
+		# 915: ohne Lohn nur, wenn keiner erlegt wurde; neben anderen Gegnern (Grimmzahn) bringen die Geflohenen nichts, der Rest zählt
 		if not all.any(func(x): return x.side == "FOES" and x.standing()):
-			kein_lohn = true     # nur, wenn das Rudel allein war (Grimmzahn bleibt und zählt)
+			kein_lohn = all.all(func(x): return x.side != "FOES" or x.called_in or x.vor_feuer)
 			outcome = "WON"
 	elif art == "giant_spider" and ty == "feuer" and not t.seide_weg:
 		t.seide_weg = true

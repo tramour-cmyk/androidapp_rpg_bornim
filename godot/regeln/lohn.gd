@@ -24,6 +24,8 @@ const PROBE := ["Probekampf ohne Folgen: nichts davon geht in den Spielstand.", 
 const ECHT := ["Ein echter Kampf brächte: {0}", "A real fight would bring: {0}"]
 const ECHT_EP := ["{0} EP", "{0} XP"]
 const ECHT_GOLD := ["{0} Gold", "{0} gold"]
+## 915 (Homer [915.lohn.vertrieben], 705a B): jedes Mal, wenn das Feuer das Rudel verjagt hat und danach kein Gegner mehr stand
+const VERTRIEBEN := ["Vor dem Feuer geflohen: keine Beute, keine Erfahrung.", "Fled from the fire: no loot, no experience."]
 const RESTORED := ["Leben und Mana von {0} sind wieder voll.", "{0}'s life and mana are full again."]     # [870.14.lohn.voll]
 
 
@@ -34,7 +36,7 @@ static func erfahrung_des_siegs(mars, stufe: int) -> Dictionary:
 	var menge := 0.0
 	var boss := false
 	for f in mars.all:
-		if f.side != "FOES" or f.monster == null or f.called_in:
+		if f.side != "FOES" or f.monster == null or f.called_in or f.get("vor_feuer"):     # 915: vor dem Feuer geflohen bringt nichts
 			continue
 		var m: Dictionary = f.monster
 		if m.has("rudel"):
@@ -75,7 +77,7 @@ static func reward(mars, stand: Dictionary, dice, gebiet := "", gear := [], prob
 	var nachher := int(h["stufe"])
 	# Gold und Gegenstände vom Anführer (dem wertvollsten Gegner), wie bisher
 	# 841: ein verjagter Späher bringt Erfahrung wie ein Sieg über ihn, aber keine Beute (STORY-K1-FERTIGKEITEN.md)
-	var foes: Array = mars.all.filter(func(f): return f.side == "FOES" and f.monster != null and not f.called_in and not f.get("verjagt"))
+	var foes: Array = mars.all.filter(func(f): return f.side == "FOES" and f.monster != null and not f.called_in and not f.get("verjagt") and not f.get("vor_feuer"))     # 915
 	var gold := 0
 	var items: Array = []
 	if not foes.is_empty() and not kein_lohn:
@@ -109,6 +111,8 @@ static func reward(mars, stand: Dictionary, dice, gebiet := "", gear := [], prob
 			lines.append(_f(GEAR_LOOT, lang, [g.name, g.rarity]))
 		return {"xp": earned, "gold": gold, "items": items, "gear": gear.map(func(g): return g.gear), "level": nachher,
 			"levels": nachher - vorher, "stand": h, "lines": lines, "grau": grau}
+	if kein_lohn and mars.all.any(func(f): return f.get("vor_feuer")):
+		lines.append(VERTRIEBEN[lang])
 	if earned > 0:
 		lines.append(_f(GAIN_XP, lang, [name, earned]))
 	if roh > 0.0 and vorher >= Brs.hoechste_stufe():
