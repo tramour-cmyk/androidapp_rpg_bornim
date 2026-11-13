@@ -1579,6 +1579,18 @@ jobs:
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 \
             -s res://tests/kartennebel_bild_505.gd 2>&1 | grep -E "SCRIPT ERROR|^KARTENNEBELBILD505|^BILD" | cut -c1-400 || true
           cd $A && [ -f 505_wald.png ] && [ -f 505_dorf.png ] && convert 505_wald.png 505_dorf.png +append 505_wald_dorf.png; ls -l $A
+      # 1091 (Chef 13.11., 15:53, 15:57): Höhlengang zum Ausgang, mittags und 22 Uhr nebeneinander (tests/ausgang_bild_1091.gd),
+      # bei „1091 Bild“ im Commit; ImageMagick aus „Bildwerkzeuge (1212)“, sonst nur die beiden Einzelbilder
+      - name: Ausgangsbild (1091)
+        if: ${{ !cancelled() && contains(github.event.head_commit.message, '1091 Bild') }}
+        continue-on-error: true
+        run: |
+          A=$GITHUB_WORKSPACE/bilder/ausgang1091; mkdir -p $A
+          cd godot
+          BILD1091_AUS=$A VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 \
+            -s res://tests/ausgang_bild_1091.gd 2>&1 | grep -E "SCRIPT ERROR|^AUSGANGBILD1091|^BILD" | cut -c1-400 || true
+          cd $A && [ -f 1091_mittag.png ] && [ -f 1091_nacht.png ] && { convert 1091_mittag.png 1091_nacht.png +append 1091_mittag_nacht.png || true; }; ls -l $A
       # 1119 (283.1 ungetestet; Chef 13.11., 16:28 Aussehen als Film statt Handy): Fußstaub am Mittag, gehen und rennen
       # (tests/film_staub_1119.gd), bei „1119 Film“ im Commit
       - name: Staubfilm (1119)
