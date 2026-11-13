@@ -2,7 +2,7 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 13.11., 17:22 (lauf.py)
+**Stand:** 13.11., 17:24 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
@@ -15,3 +15,4 @@
 | Sokrates | [Sokrates – 284: Gegenlesen Prüfliste, 1137 Vollzug (15.11.) (13.11., 17:22)](https://claude.ai/code/session_01Hmoj79Zj3seKZK2Aa4SGeC) | 284 | – | 13.11., 17:21 |
 | Diogenes | [Diogenes – 1191 (13.11., 17:22)](https://claude.ai/code/session_01Hmoj75jL9b9DF5Kf8a99Zk) | 1191 | – | 13.11., 17:22 |
 | Perikles | [Perikles – 1192 (13.11., 17:22)](https://claude.ai/code/session_01Hmoj76K5AsxSSKgmX5MEC4) | 1192 | – | 13.11., 17:22 |
+| Jerry | [Jerry – 709.1: Wolfsbiss in den Schild (13.11., 17:24)](https://claude.ai/code/session_01Hmoj76LaTS3jY9wUdbYVmp) | 709.1 | – | 13.11., 17:23 |
