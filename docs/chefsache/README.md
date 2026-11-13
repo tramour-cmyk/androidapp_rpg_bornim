@@ -21,7 +21,6 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [1036.1](ansehen/10361-zustaende.md) | Zustände: alle Effekte der Pakete je Zustand | – | 13.11., 13:34 |
-| [1120](ansehen/1120-knoepfe.md) | „Nicht jetzt“ auf einer Höhe mit der Wahl (Pim, Osric) | – | 13.11., 16:40 |
 
 ## Zu tun
 
