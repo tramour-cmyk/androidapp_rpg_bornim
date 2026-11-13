@@ -335,7 +335,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 251.3 | Logo B abheben: drei Varianten ohne offenes C, goldener Kern bleibt (Chef 21.10., 20:03; an Sokrates 20:29) | M Markt | M | –; +4,83 $ | Sokrates | erledigt |
 | 90 | Tagesrückblick (ersetzt durch Tagesbericht 247) | B Steuerung | K |  | Perikles | ersetzt |
 | 280.1 | Texte Kapitel 1 aus 280: Tipp beim Aufwachen, Chronik Krogg | G Story | M | – | Team Tom | erledigt |
-| 282 | Copyright im Startbildschirm nur „© BornWire TCS 2026“, ohne „/rahasof“ (Chef 21.10.) | E Oberfläche | M | 10,12 $ | Tom | erledigt |
+| 282 | Copyright im Startbildschirm nur „© BornWire TCS 2026“, ohne „/rahasof“ (Chef 21.10.) | E Oberfläche | M | 14,32 $ | Tom | erledigt |
 | 283 | Grasbüschel vor den Füßen im hohen Gras weg (Chef 21.10., A) | E Welt | M | – | Tom | erledigt |
 | 288 | Testmodus im klassischen Kampf zeigt die Angriffsversion nicht an, wie in MARS (Chef 21.10., 19:59) | E Kampf | M? | – | Jerry | erledigt |
 | 251.1 | Geschäftspapiere mit Logo: Briefkopf, Rechnung, Anschreiben, Quittung Tester; Logo groß/klein für Web, Brief, PDF (Chef 20.10.) | M Markt | K | –; +4,61 $ | Homer | erledigt |
