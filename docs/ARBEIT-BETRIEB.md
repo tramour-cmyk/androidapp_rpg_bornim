@@ -129,3 +129,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:11 13.11.: Startsperre 21:11 Start Diogenes, Spike (lauf.py)
 - 21:11 13.11.: Marke Start-fehlt Diogenes 13.11.-20:04 (lauf.py)
 - 21:11 13.11.: Marke Archiv session_01Hmoj75Ua972r7RW38NGDkm (lauf.py)
+- 21:11 13.11.: Lauf 21:11: Diogenes (1221) `…793z8sMWYVXpXFxWN6` und Spike (542) `…79QJ2L8FTAiLRqDERR` gestartet; Spike-Sitzung 1073 `…75Ua972r7RW38NGDkm` archiviert (9,90 $ auf 1073, Frage liegt als entscheiden/1073.md); Auftrag Diogenes 1221 (Perikles, ef95b0418); Ausschluss 882.2 entfällt (Ford)
