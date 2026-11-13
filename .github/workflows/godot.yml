@@ -853,6 +853,14 @@ jobs:
           name: ${{ env.APK_NAME }}
           path: bornim-godot.apk
       # Standbilder mit dem Mobile-Renderer (Vulkan in Software, lavapipe) zum Pruefen und fuer das Vergleichsbild
+      # 1212 (Lauf 450: „convert: command not found“, „ffmpeg: command not found“, das Abbild des Bauservers hat beide nicht mehr):
+      # Bilder zusammensetzen (convert, montage) und Filme umwandeln (ffmpeg) brauchen beide; einmal vor allen Bild- und Filmschritten
+      - name: Bildwerkzeuge (1212)
+        if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}
+        continue-on-error: true
+        run: |
+          command -v convert > /dev/null && command -v ffmpeg > /dev/null || { sudo apt-get update -qq > /dev/null; sudo apt-get install -y -qq imagemagick ffmpeg > /dev/null; }
+          convert -version | head -1; ffmpeg -version | head -1
       - name: Standbilder
         if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}     # Messlauf ohne Bild zählt nicht als Probelauf (Perikles 02.11., 19:5x); 918 auch nach rot
         continue-on-error: true
