@@ -1,7 +1,7 @@
 extends SceneTree
 # 1141 (Chef 13.11., 14:36: Goblins, Schamane fallen „wie Playmobil-Figuren … alle auf die gleiche Seite“; 596 galt nur für Modelle
 # mit „Tod“, die Goblins hatten keinen und kippten steif um 80°): jeder Körper im Kampf (jedes Modell in kampf/daten mit „Stehen“)
-# hat eine Sterbebewegung „Tod“; die Goblins (goblin.py, alle vier Arten, je Kit) haben drei (Tod, Tod2, Tod3), die am Ende liegen
+# hat eine Sterbebewegung „Tod“; die Goblins (goblin.py, alle vier Arten, je Kit) haben vier (Tod, Tod2, Tod3, Tod4; r3: seitlich nach links und nach rechts, statt gespiegelt), die am Ende liegen
 # (Wurzel um mehr als 70° gekippt) und verschieden enden (vornüber, rücklings, seitlich: je zwei mehr als 60° auseinander). Ohne Bild, Sekunden.
 # Aufruf: im Ordner godot mit -s res://tests/tod_1141.gd   (Exit 0 = gut; ohne gebaute Modelle FALSCH, damit der Bau nicht still grün ist)
 
@@ -38,7 +38,7 @@ func _pruefe() -> void:
 			continue
 		koerper += 1
 		var goblin := GOBLINS.any(func(g): return String(n).begins_with(g))
-		var soll: Array = ["Tod", "Tod2", "Tod3"] if goblin else ["Tod"]
+		var soll: Array = ["Tod", "Tod2", "Tod3", "Tod4"] if goblin else ["Tod"]
 		var enden := []
 		for t in soll:
 			if not ap.has_animation(t):
@@ -55,13 +55,14 @@ func _pruefe() -> void:
 			print("TOD1141 %s %s %s: %.2f s, am Ende um %.0f° gekippt" % ["ok" if gut else "FALSCH", n, t, ap.get_animation(t).length, grad])
 			if not gut:
 				f += 1
-		# drei verschiedene Lagen (vornüber, rücklings, seitlich): je zwei liegen um mehr als 60° auseinander
-		if goblin and enden.size() == 3:
-			for i in 3:
-				var w := rad_to_deg((enden[i] as Quaternion).angle_to(enden[(i + 1) % 3]))
-				if w < 60.0:
-					print("TOD1141 FALSCH %s: %s und %s enden fast gleich (%.0f°)" % [n, soll[i], soll[(i + 1) % 3], w])
-					f += 1
+		# vier verschiedene Lagen (vornüber, rücklings, seitlich links und rechts): je zwei liegen um mehr als 60° auseinander
+		if goblin and enden.size() == soll.size():
+			for i in soll.size():
+				for j in range(i + 1, soll.size()):
+					var w := rad_to_deg((enden[i] as Quaternion).angle_to(enden[j]))
+					if w < 60.0:
+						print("TOD1141 FALSCH %s: %s und %s enden fast gleich (%.0f°)" % [n, soll[i], soll[j], w])
+						f += 1
 		sz.free()
 	if koerper < MINDESTENS:
 		print("TOD1141 FALSCH nur %d Körper in %s (gebaut?)" % [koerper, DATEN])

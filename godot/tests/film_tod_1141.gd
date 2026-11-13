@@ -11,8 +11,10 @@ const Probe = preload("res://kampf/probe.gd")
 const Signatur = preload("res://kampf/signatur.gd")
 const FORMAT := Vector2(1080, 2340)
 const BLENDE_BILDER := 6
-## je Tod: welche Sterbebewegung (Tod, Tod2, Tod3) und ob gespiegelt
-const FOLGE := [[0, false], [1, true], [2, false]]
+## je Tod: welche Sterbebewegung (Tod, Tod2, Tod3, Tod4) und ob gespiegelt. r3 (Chef 13.11., 17:16: vornüber abgenommen; „nur seitlich
+## und rücklings“): rücklings, seitlich zu beiden Seiten; gespiegelt wird ein Bewaffneter nicht mehr (die Waffe wechselte die Hand)
+const FOLGE := [[1, false], [2, false], [3, false]]
+const NAMEN := ["vornüber", "rücklings", "seitlich", "seitlich zur anderen Seite"]
 
 var schwarz: ColorRect
 var lb: Label
@@ -117,7 +119,7 @@ func _gegner(g: String) -> void:
 		var alle: int = 1
 		for j in range(2, 5):
 			if fig.anim and fig.anim.has_animation("Tod%d" % j): alle += 1
-		if alle < 3:
+		if alle < 4:
 			print("FEHLER 1141: %s hat %d Sterbebewegungen (%s)" % [fig.fighter.id, alle, fig._model_path()])
 			fehler += 1
 		# von vorn halb seitlich (aus Richtung der Helden, 30° gedreht) und von oben (35°): vornüber fällt er auf die Kamera zu,
@@ -139,7 +141,7 @@ func _gegner(g: String) -> void:
 			print("Film 1141 %s: ab Bild %d" % [g, Engine.get_process_frames()])
 		var welche: int = FOLGE[k][0] % alle
 		lb.text = "1141 · " + String(Probe.FOES[g])
-		lz.text = "%s, Sterbebewegung %d von %d%s" % [fig.fighter.monster.de, welche + 1, alle, ", gespiegelt" if FOLGE[k][1] else ""]
+		lz.text = "%s, %s" % [fig.fighter.monster.de, NAMEN[welche]]
 		await _blende(0.0)
 		await create_timer(0.6).timeout
 		seed(_seed_fuer(welche, alle, FOLGE[k][1]))

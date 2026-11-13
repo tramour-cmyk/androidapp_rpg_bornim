@@ -4682,7 +4682,10 @@ func die() -> void:
 				if anim.has_animation("Tod%d" % i): alle.append("Tod%d" % i)
 			nm = alle[randi() % alle.size()]
 			tod_name = nm
-			if randf() < 0.5: sterbe_spiegeln()
+			# 1141 r3 (Chef 13.11., 17:16: „Speer links, dann beginnt das Sterben und dann ist der Speer aber rechts“): die Spiegelung
+			# tauscht links und rechts, also auch die Hand mit Waffe oder Schild; wer etwas hält, wird nicht gespiegelt (die Goblins
+			# fallen dafür mit Tod3 und Tod4 zu beiden Seiten)
+			if randf() < 0.5 and not _haelt_etwas(): sterbe_spiegeln()
 			_waffe_faellt()
 		anim.play(nm, TOD_BLEND)
 	else:
@@ -4703,6 +4706,16 @@ func die() -> void:
 		t.tween_method(_fade_out, IM_SCHATTEN if schatten_an else 0.0, 1.0, FADE_MS / 1000.0)     # 566: blass im Schatten bleibt blass
 		await t.finished
 		visible = false
+
+
+## 1141 r3: trägt die Figur etwas an einem Knochen (Waffe, Schild, im Modell gebackene Waffe von Grak und Krogg)
+func _haelt_etwas() -> bool:
+	if model == null:
+		return false
+	for at in model.find_children("*", "BoneAttachment3D", true, false):
+		if String(at.get_meta("was", "")) != "":
+			return true
+	return false
 
 
 ## 1141 r2 (Chef 13.11., 16:17: „Waffen sonst wo“): im Fall lässt der Tote los; die Waffe (nicht der Schild am Arm, nicht die im
