@@ -276,7 +276,7 @@
 | 1116 | Von Diogenes (1109): Geldwert der Vorberechnung: Bauserver kostet nichts (öffentliches Repo), Ersparnis ist Wartezeit; was kostet eine Stunde Warten auf einen Lauf in Sitzungen | Perikles | M? | startbar | – | – | – | B Werkzeuge | – |
 | 1117 | D192.1 von Diogenes (zu 1110): Zeile 391 (Sokrates) trägt noch Stand „Chefwort in der Sitzung wirkt (22:47)“, seit 1099/1110 überholt; Stand und Titel nachziehen oder schließen | Perikles | M? | startbar | – | – | – | B Abläufe | – |
 | 1121 | Von Sokrates (t282, 13.11., 10:44): Commit-Prüfung 774 hält t<N> an, wenn Automatik B einen Punkt ohne Rückmeldung auf „zu testen“ ohne Build setzt (1040.1); Automatik und Prüfung widersprechen sich | Perikles | M | gebaut, Geprüft an: f31ce0409 | – | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 13.11.): 15334 Bytes (Grenze 15000), Erledigtes streichen | Perikles | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 13.11.): 15334 Bytes (Grenze 15000), Erledigtes streichen | Perikles | K | erledigt | – | – | – | B Abläufe | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
