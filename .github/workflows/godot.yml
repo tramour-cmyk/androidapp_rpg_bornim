@@ -269,6 +269,13 @@ jobs:
           # 406 (Tuffy): Tempo, Griff und Kontaktzeiten der Bewegungen aus Sword & Shield (figur.gd kampf_info); nur Zahlen
           cp $RUNNER_TEMP/klassen/kampf-bewegungen.json $D/
           ls -l $D/held_*.bin $D/haare.bin $D/haare_w.bin $D/bewegungen.bin $D/kampf-bewegungen.bin
+          # 867 (Vorentscheid Sokrates 13.11., 03:14, Vorlage 6 passt): die Haltungen der Menuehelden (zauber385.py aus den gekauften
+          # Protofactor-Saetzen auf das Geruest der UAL, wie im Pruefschritt „Hauptmenübild (867)“) ins Spiel, gekauft (kauf.txt)
+          P=$(find ${KAUF:-/kein} -path '*Unreal-Godot*' -name UAL1.glb 2>/dev/null | sort | head -1)
+          for hm in "zauberer:Humanoid@IdleWizard.fbx" "bogen:Humanoid@IdleBreatheBow.fbx"; do n=${hm%%:*}; q=$(find ${KAUF:-/kein} -name "${hm#*:}" 2>/dev/null | head -1)
+            [ -n "$q" ] && [ -n "$P" ] && QUELLE="$q" ZIEL="$P" NAME="Menue_$n" OUT=$RUNNER_TEMP/menue-$n.glb BECKEN=bein bl/bin/python -I tools/blender348/v3/zauber385.py > menue-$n.log 2>&1 \
+              && cp $RUNNER_TEMP/menue-$n.glb $D/menue-$n.bin && echo daten/menue-$n.bin >> $D/kauf.txt && echo "MENU867 Haltung $n im Spiel" || echo "MENU867 Haltung $n fehlt"
+          done
           # 656 (Chef 08.11., 14:52, Beule unter dem Schwertarm): der Kämpfer noch einmal wie vorher (UMHANG_ARM=1, Umhang mit den
           # Armgewichten) für den Vergleich vorher/nachher im Schritt „Umhang 656“; nur von Hand mit kampf=656
           if [ "${{ github.event.inputs.kampf }}" = "656" ]; then
@@ -564,6 +571,7 @@ jobs:
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/tritt_1040.gd 2>&1 | grep -E "^(TRITT1040|Tritt|FEHLER)|SCRIPT ERROR"   # 1040 Monster der Geschichte tritt beim Wenden, auch wenn es dem Helden folgt
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/zustand_1036.gd 2>&1 | grep -E "^(ZUSTAND1036|Zustand|Aufflackern|Tafel|FEHLER)|SCRIPT ERROR"   # 1036 Zustände an den Figuren wie alt (Brennen, Gift …)
           timeout 300 ~/godot/godot --headless --path . -s res://tests/held_klassen_376.gd 2>&1 | grep -E "HELDKLASSEN|FALSCH|SCRIPT ERROR"   # 376.1
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/menuehelden_867.gd 2>&1 | tee menue867.log | grep -E "FEHLER|MENUEHELDEN867|SCRIPT ERROR"; grep -q "^MENUEHELDEN867 0 Fehler" menue867.log   # 867 Haarfarben der Vorgaben, Haltungen (Tom)
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . -s res://tests/held_kampf_403.gd 2>&1 | grep -E "^(ok|FEHLER|Held 403)|SCRIPT ERROR"   # 403 (Jerry)
           # 824: Held ohne Schild geht nach dem Hieb rückwärts im Schritttempo heim (nicht 3,8 m/s mit 1,6-facher Bewegung)
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/angriff_824.gd 2>&1 | grep -E "^(ANGRIFF824|FEHLER|MASS)|SCRIPT ERROR"   # 824 (Jerry)
@@ -1358,6 +1366,37 @@ jobs:
           git diff --no-index --stat godot/shader $A/spiel/shader | tail -1 || true
           knipse $A/spiel $R/vorher
           ls -l $R/nachher $R/vorher
+      # 867 (Chef 10.11., 13:48): Hauptmenü mit den Helden des Spiels statt der vier Kotlin-Figuren, Bild vorher/nachher, nur von Hand
+      # auf claude/tom-867-…
+      - name: Hauptmenübild (867)
+        if: ${{ !cancelled() && github.event_name == 'workflow_dispatch' && contains(github.ref, 'tom-867') }}
+        continue-on-error: true
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/bilder/menue867
+          # 867 Haltungen A (Chef 12.11., 21:55): je Held eine ruhige Stehhaltung aus den gekauften Protofactor-Saetzen auf das Geruest der
+          # UAL (zauber385.py wie die SS_-Bewegungen in held_kampf.py), daten/menue-<haltung>.bin (gekauft, kauf.txt). Ruhig heisst ohne
+          # Kampfhaltung, Umsehen, Zielen, Hocken, Wurzelweg (_RM); von den uebrigen der kuerzeste Name. Alle Kandidaten stehen im Protokoll.
+          P=$(find ${KAUF:-/kein} -path '*Unreal-Godot*' -name UAL1.glb 2>/dev/null | sort | head -1)
+          echo "MENU867 UAL $P"
+          find ${KAUF:-/kein} -name 'Humanoid@*Idle*.fbx' 2>/dev/null | sed "s|.*/||" | sort | tr '\n' ' ' | cut -c1-3000; echo
+          ruhig() { find ${KAUF:-/kein} -name "$1" 2>/dev/null | grep -iE "${2:-.}" | awk -v ex="${3:-combat|look|aim|draw|crouch|_rm|nobow|without|ready|hit|injur}" '{ n=$0; sub(/.*\//, "", n); if (tolower(n) ~ ex) next; print length(n), $0 }' | sort -n | head -1 | cut -d' ' -f2-; }
+          for n in schildwache zauberer bogen; do
+            case $n in
+              # Sokrates 23:13: IdleBreathe aus Sword & Shield hebt das Schwert (Kampfhaltung); Stehen aus 1 Handed Melee, Schwert gesenkt
+              schildwache) f=$(ruhig 'Humanoid@Idle1hMelee.fbx'); [ -n "$f" ] || f=$(ruhig 'Humanoid@Idle*S&S.fbx');;
+              zauberer) f=$(ruhig 'Humanoid@IdleWizard.fbx');;
+              bogen) f=$(ruhig 'Humanoid@Idle*Bow*.fbx'); [ -n "$f" ] || f=$(ruhig 'Humanoid@*Idle*.fbx' 'bow');;
+            esac
+            [ -n "$f" ] && [ -n "$P" ] || { echo "MENU867 FEHLT $n"; continue; }
+            QUELLE="$f" ZIEL="$P" NAME="Menue_$n" OUT=$RUNNER_TEMP/menue-$n.glb BECKEN=bein bl/bin/python -I tools/blender348/v3/zauber385.py > menue-$n.log 2>&1 \
+              && cp $RUNNER_TEMP/menue-$n.glb godot/daten/menue-$n.bin && echo "MENU867 HALTUNG $n aus ${f#$KAUF/} $(grep -E '^(ZAUBER385|ABWEICHUNG)' menue-$n.log | tr '\n' ' ')" \
+              || { echo "MENU867 FEHLER $n"; tail -20 menue-$n.log; }
+          done
+          cd godot
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 \
+            -s res://tests/hauptmenue_bild_867.gd -- --aus=$GITHUB_WORKSPACE/bilder/menue867 2>&1 | grep -E "SCRIPT ERROR|^BILD|^MENU867" | cut -c1-400 || true
+          ls -l $GITHUB_WORKSPACE/bilder/menue867
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}     # 453: Filme auch nach rotem Prüfschritt; nie mit bild=nein
         with:
