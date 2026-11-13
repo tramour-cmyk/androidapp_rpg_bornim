@@ -31,6 +31,8 @@ Aus dem Lauf nicht gekommen, folgt im nächsten Build: Bild Wald Ost (284.2, bli
 
 Aus 283 ungetestet und hier wieder dabei: 283.1, .2, .14 bis .16, .18 (284.2b, 284.2c, 284.7j bis 284.7m); aus 283.5 und 283.10 als Film statt am Handy: 284.2d (Pim), 284.2f (Lyras Robe). Am Bild abgenommen, nicht in dieser Liste: 756.1 Tasche mit vier Güten (Chef 16:50, darin auch 283.9), 764 „Betrunken“ im Heldenreiter (16:50, statt 283.8), 1120 Knöpfe bei Pim und Osric (16:52, Beschriftung rechts am Pfeil 17:13; statt 283.4 und 283.7).
 
+**Stand 13.11., 20:23 (Sokrates, aus Telegram und Chat):** Bilder und Filme erledigt: ✓ 284.1, 2d, 2g, 3a, 6, 6b, 7a, 7b, 7d, 7e, 7f, 7k, 7l, 7m, 7q · ✗ 284.2, 2f, 7c, 7p (Einzelheiten unten unter „Ergebnis“). Noch offen für dich: **Film 284.7n** (Grak, auf Telegram 20:08) und **am Handy** 284.2c, 2e, 3b, 4a, 4b, 4, 5, 6a, 7, 7g, 7j, 7o. Nicht von dir: 284.2a und 2b (Filme fehlen, kommen mit Build 285), 284.7i bis 284.11 (Diogenes).
+
 Ein Weg: die APK aus dem Lauf über Build 283 installieren, App starten, Hauptmenü, „Weiter“ mit deinem Spielstand; Reiter „Test“ wie in 283. Bilder und Filme einzeln auf Telegram, je Stück „t284.<Punkt>:“, 👍 passt oder 👎 falsch. Dann am Handy: der Zoom im Dorf (284.2c), zweimal auf eine Tür (284.2e), der Knopf „Lage herstellen“ (284.3b), Krogg und der Rauch (284.4a, 284.4b), die Aufträge im Dorf (284.4), Zauber unter Metall (284.5), Grak einmal (284.6a), Probekampf allein (284.7), Met in der Schenke (284.7g), Ring bei den Wölfen (284.7j), zuletzt Feuer gegen Wölfe (284.7o); der Rest ohne dich.
 
 Verglichen (alt gegen neu): vom Bauenden gegen die alte Fassung: Kartenrand von Dorf Nord am Schlagbaum, Dorf Süd hinter der Brücke, Wald Süd und Ost, Tiefer Wald West; Tasche und Fenster zum Gegenstand; Anschlagbrett und die Gespräche mit Jorin, Gwenna und Aldric; Probekampf im Reiter „Test“.
@@ -106,6 +108,22 @@ Im Bau geprüft: kein Baum auf einem Weg am Rand, Wald daneben (`rand_1022`, all
 
 ## Ergebnis
 
+- 284.1 ✓ (👍 Telegram 20:07 auf 3971 und 3972, Dorf Nord und Süd)
+- 284.2 ✗ Wald Süd: grüner Querstrich über dem Weg, Weg zu gerade, Rand nicht franzig (Chef 20:08, Zu 1022); Tiefer Wald West ebenso, Weg noch gerader (Chef 20:11); neu 1218 Brücke Dorf Süd schwebt
 - 284.2d ✓ (Chef 20:06: „Vom Inhalt her ist alles richtig“; Rest: Pim läuft im Halbbogen in Zeitlupe an, Zu 1086)
 - 284.2f ✗ Rock wirkt gestreift statt gefaltet (Chef 20:06, Zu 1092); Drehen im Stand gehört zu 1040.1
-- 284.2 ✗ Wald Süd: grüner Querstrich über dem Weg, Weg zu gerade, Rand nicht franzig (Chef 20:08, Zu 1022); Tiefer Wald West ebenso, Weg noch gerader (Chef 20:11); neu 1218 Brücke Dorf Süd schwebt
+- 284.2g ✓ (👍 Telegram 20:02 auf 3979)
+- 284.3a ✓ (👍 Telegram 20:09 auf 3975)
+- 284.6 ✓ (👍 Telegram 20:02 auf 3976)
+- 284.6b ✓ (👍 Telegram 20:02 auf 3977)
+- 284.7a ✓ (👍 Telegram)
+- 284.7b ✓ (👍 Telegram)
+- 284.7c ✗ erster Wolfsangriff zu kurz, trifft nicht; zweiter vom Helden verdeckt (Chef 20:12, Zu 709)
+- 284.7d ✓ (👍 Telegram; Platz und Bahn erst mit 1072)
+- 284.7e ✓ (👍 Telegram, Chef 20:17; im Film hinterer Wolf außen herum = 1072, Held taumelt ohne Anspringen = 1032)
+- 284.7f ✓ (Chef 20:19: „der passt soweit“; Text sagte dreimal, im Film einer)
+- 284.7k ✓ (👍 Telegram)
+- 284.7l ✓ (👍 Telegram)
+- 284.7m ✓ (👍 Telegram 20:02 auf 3978)
+- 284.7p ✗ nicht beurteilbar, im Film sieht man keine Berührung (Chef 20:13, Zu 709)
+- 284.7q ✓ (👍 Telegram)
