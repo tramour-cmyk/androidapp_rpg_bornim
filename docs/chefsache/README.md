@@ -229,7 +229,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 844 | M | Kampf: Goblins und Kobolde haben keine Angriffsbewegung (nur Gehen, Stehen), gleiten im St | Sperre 620.1 B: 27 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 709 |
 | 845 | M | Kampf: Krogg steht 0,65 m hinter seinem Platz, beim Planen des Helden liest seine Lage den | Sperre 620.1 B: 27 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 709 |
 | 876 | M | Von Homer (857a A, Chef 10.11., 13:35): Simulation 444 Kräuterkunde → Kräutersammeln, Tran | wartet auf 1135 (startbar) |
-| 904 | M | Von Tom (870.4, B1): sim444_870 am Rechner (97a32cfe2): SCRIPT ERROR mars.gd:903 _erwartet | wartet auf Diogenes |
+| 904 | M | Von Tom (870.4, B1): sim444_870 am Rechner (97a32cfe2): SCRIPT ERROR mars.gd:903 _erwartet | wartet auf 1136 (startbar) |
 | 918 | M | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): godot.yml lässt alle Tests durchlaufen, sa | startbar |
 | 923 | M | Von Tom/Sokrates (t276 gegengelesen): Heiltrank in tools/sim444/werte.json doppelt, welt.h | wartet auf 1135 (startbar) |
 | 931 | M | Von 784 A (Chef 11.11., 12:15): Wolf vorn – „Anspringen!“ steht, während er sich duckt (ke | Sperre 620.1 B: 27 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 784 |
@@ -268,15 +268,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1000 | M | Von Tuffy (620.2c, wie 310): Grak hält nach der Ansage „Schwerer Hieb“ die ausholende Halt | Sperre 620.1 B: 27 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 904 (grak) |
 | 1002 | K | Von Tuffy (620.2c, wie 296.3): Siegerpose im Kampf fehlt (nur Film film_sieger_2963.gd; Pr | ruht |
 | 1003 | M | Von Tuffy (620.2c, zu 95): Heldin keucht im Kampf mit Männerstimme: spiel.gd 1502 gibt kla | wartet auf Test t284 (Chef) |
-| 1013 | M | Von Jerry (988, Lauf 370 auf main): schild_406 erwartet im Kampf beim CLERIC einen Schild, | wartet auf Diogenes |
-| 1014 | M | Von Jerry (1013, Lauf 365 und 370): schild_406 FIGHTER SS_ParryLow: Körper bis 0,071 m im | wartet auf Diogenes |
+| 1013 | M | Von Jerry (988, Lauf 370 auf main): schild_406 erwartet im Kampf beim CLERIC einen Schild, | wartet auf 1136 (startbar) |
+| 1014 | M | Von Jerry (1013, Lauf 365 und 370): schild_406 FIGHTER SS_ParryLow: Körper bis 0,071 m im | wartet auf 1136 (startbar) |
 | 644a.1 | M | Von Sokrates (644a A mit Spanne, D, F; Chef 12.11., 08:21): erst Rechnung (Spannen je Stuf | wartet auf 1135 (startbar) |
 | 644b.1 | M | Von Sokrates (644b A, Chef 12.11., 13:40): Deckel streichen für Grundwerte und Schutzwert; | Sperre 620.1 B: 27 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 644a.1 |
 | 1037 | M | Von Tom (842, 807 A): Werte in werte.json für Überreden ohne Grundwert (Chance aus Fertigk | wartet auf Test t284 (Chef) |
 | 1049 | M | Von Sokrates (Befund 12.11.): Gegner ohne eigene Ansage fallen auf „Stich“ zurück (mars.gd | wartet auf 1135 (startbar) |
-| 1054 | M | Von Tom (Hinweis 12.11., 16:40): tests/mars_regeln.gd nach dem Umzug veraltet (massstab, _ | wartet auf Diogenes |
+| 1054 | M | Von Tom (Hinweis 12.11., 16:40): tests/mars_regeln.gd nach dem Umzug veraltet (massstab, _ | wartet auf 1136 (startbar) |
 | 1058 | M? | Von Sokrates (1050a): Simulation 444 rechnet Herkünfte ohne plus_variante (6 statt 9 Punkt | wartet auf Test (Build) |
-| 1060 | M | Von Tom (Chef 12.11., 17:34 „Wieso dauern denn jetzt die Runs wieder so lange?“, Lauf 4324 | wartet auf Diogenes |
+| 1060 | M | Von Tom (Chef 12.11., 17:34 „Wieso dauern denn jetzt die Runs wieder so lange?“, Lauf 4324 | Termin 13.11. 16:00 |
 | 1062 | M? | Von Sokrates (654, aus 1059): Filmlauf zeigt nur das Hauptmenü, dritter Fund gleicher Ursa | wartet auf Test (Build) |
 | 1072 | M | Von Sokrates (Chef 12.11., 20:09, zu 1036; Wiederholfund 09.11. und 10.11.): hinterer Wolf | startbar |
 | 1036.1 | M | Von Tuffy (1036, Chef 12.11., 20:52): neue Vorlage Zustände, jeder Zustand des Codes mit a | Chef (Datei in der Chefsache) |
@@ -300,7 +300,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 |---|---|---|---|
 | 1129.5 | M | Von Sokrates (1129 Punkt 2, Chef 13.11., 14:11: Teams gesperrt): Sperre 620.1 B in startba | startbar |
 | 1129.2 | M | Von Sokrates (1129 alle ja, Chef 13.11., 13:59): Regeln zu Punkten 1, 3, 4, 5, 7, 8; Pflic | startbar |
-| 1129.1 | M | Von Sokrates (1129, Chef 13.11., 12:53 „mit Pericles zusammen“): blinde Flecken in Abläufe | wartet auf Diogenes (greift?) |
+| 1129.1 | M | Von Sokrates (1129, Chef 13.11., 12:53 „mit Pericles zusammen“): blinde Flecken in Abläufe | wartet auf 1133 (startbar) |
 | 1098 | M | D189.1 von Diogenes (zu 1019): Haken greift (4 Ford-Selbstneustarts seit 12.11. bei 416–88 | Termin 14.11. |
 | 870.12 | M | Von Sokrates (870, Umzug BRS): Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 | wartet auf 870.13 (wartet) |
 | 882.2 | M | 882 Werkzeuge ohne Kotlin: tools/t logik auf Godot-Logiksatz samt Kerntest-Marke, check-en | wartet auf 882.1 (in Arbeit) |
@@ -321,16 +321,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1139 | M | Von Jerry (1138): startbar.sammelbuild_faellig zählt Punkte mit „wartet auf t<n>“ oder Dio | startbar |
 | Pflege | K | von Werkzeug (340.3, 13.11.): 15448 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Diogenes** – offen 18, Muss 16, startbar 7
+**Diogenes** – offen 12, Muss 10, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 904 | M | Von Tom (870.4, B1): sim444_870 am Rechner (97a32cfe2): SCRIPT ERROR mars.gd:903 _erwartet | startbar |
-| 1013 | M | Von Jerry (988, Lauf 370 auf main): schild_406 erwartet im Kampf beim CLERIC einen Schild, | startbar |
-| 1014 | M | Von Jerry (1013, Lauf 365 und 370): schild_406 FIGHTER SS_ParryLow: Körper bis 0,071 m im | startbar |
-| 1054 | M | Von Tom (Hinweis 12.11., 16:40): tests/mars_regeln.gd nach dem Umzug veraltet (massstab, _ | startbar |
-| 1060 | M | Von Tom (Chef 12.11., 17:34 „Wieso dauern denn jetzt die Runs wieder so lange?“, Lauf 4324 | startbar |
-| 1129.1 | M | Von Sokrates (1129, Chef 13.11., 12:53 „mit Pericles zusammen“): blinde Flecken in Abläufe | startbar |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
 | 1133 | M | Von Perikles (1129.1, Doppelpack 421): vier Werkzeugpunkte P1–P4 der Systemprüfung prüfen, | Termin 14.11. |
 | 461b | M | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Termin 16.11. |
