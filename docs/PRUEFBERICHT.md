@@ -52,6 +52,10 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 198 · 1070 getestete Prüfliste im selben Commit wie „tN“ aus der Chefsache (Perikles `95e4f4bef`; 13.11., 11:5x)
+
+- **Greift:** beide Tests seit dem Bau: t281 (`67b8504be`, 09:10) und t282 (`94621abe7`, 10:44) löschen `ansehen/t28n-…` im selben Commit wie den Archiveintrag „tN getestet“; `chefsache/ansehen/` hält heute keine getestete Prüfliste mehr.
+
 ## Lauf 197 · 1124 Rolle im Wartefeld: Commit-Prüfung hält „Zu <Nr> … von <Rolle>“ an (Perikles `cf704c3ea`; 13.11., 11:5x)
 
 - **Greift:** in einer Kopie von `main` neue Zeile „Zu 483, von Diogenes“ in einem Vorrat → HÄLT AN mit Vorschlag `warte 483 D75`; nach dem `warte` im selben Stand durch; „von Sokrates“ geht durch. Fords Originalzeile (`5380d2eb1`, „Zu 1098, Ergebnis Probe D von Ford …“) passt auf beide Muster (Nummer und „von Ford“ im fetten Kopf), wäre also angehalten worden. Der Haken läuft in der Notizkopie (diese Sitzung hielt heute dreimal an der 15-KB-Grenze).
