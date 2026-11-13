@@ -1,4 +1,7 @@
 # 1072 · Sollen Plätze und Laufwege im Kampf für alle Figuren so aus dem Umriss von oben berechnet werden?
+
+[Bild von 13.11., 22:42](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/13-2242-1072-Jerry.png) (eingetragen von meldung.sh, Jerry)
+
 Jerry · 13.11., 22:41 · E Kampf · aus deinem Wort 12.11., 20:09–20:43 und 13.11., 21:39–21:51
 Kurz: Sechs Plätze je Seite und Bahnen je Tausch aus Ruhe-Umriss und Bewegungshülle von oben, eine Routine für alle Figuren.
 Beim Chef, weil: neue Richtung im Spielgefühl (Laufwege und Aufstellung aller Kämpfe)
