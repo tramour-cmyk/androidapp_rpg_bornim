@@ -18,6 +18,9 @@ const ORTE := [
 	["forest", Vector2i(10, 28), "DOWN", "7_wald_sued"],
 	["deep_forest", Vector2i(41, 30), "RIGHT", "8_tiefwald_ost"],
 	["deep_forest", Vector2i(35, 33), "DOWN", "9_tiefwald_sued"],
+	# 1022 Wege (Fund t282.5): auf dem Weg, Blick den Weg entlang über den Rand (Build 284)
+	["deep_forest", Vector2i(4, 18), "LEFT", "10_tiefwald_west_weg"],
+	["forest", Vector2i(15, 10), "RIGHT", "11_wald_ost_weg"],
 ]
 
 func _initialize() -> void:
