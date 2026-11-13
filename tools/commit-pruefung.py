@@ -304,6 +304,8 @@ def main():
             # 1159 (von Ford, zu 1148): Marke „Lauf läuft bis TT.MM., HH:MM“ im Vorrat trägt eine Zeit nach jetzt; Form und 12 h prüft lauf.py (1161)
             tz = re.sub(r"Lauf läuft bis \d\d\.\d\d\.,? \d\d:\d\d", "", tz)
         for m in re.finditer(r"(?<!\d)" + re.escape(heute).replace(r"\.", r"\.") + r",? (\d\d):(\d\d)(?!\d)", tz):
+            if re.search(r"\b(ab|bis|um|vor|nach|Termin|Stichtag|frühestens|spätestens|Zurücksetzung)\s*(\(|(Mo|Di|Mi|Do|Fr|Sa|So)\.?\s+)?$", tz[max(0, m.start() - 20):m.start()], re.I):
+                continue  # 1243 (Ford, Lauf 00:03): „ab 14.11., 20:00“ ist ein Termin, kein Zeitstempel
             if jetzt.replace(hour=int(m.group(1)), minute=int(m.group(2))) > jetzt + datetime.timedelta(minutes=5):
                 stop.append("%s: Uhrzeit %s:%s liegt nach jetzt (%s)" % (datei, m.group(1), m.group(2), jetzt.strftime("%H:%M"))); break
         mm = re.match(r"\| ([^|]+?) \| (M\?|M|K|–|-) \|", t)
