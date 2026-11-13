@@ -1255,3 +1255,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 1100.1 | Von Sokrates (Chef 13.11., 09:29, 1100 A mit 6): Ford-Lauf nach Perikles' Umbau gegenprüfen: Kosten und Schritte je Lauf vorher/nachher, kein Start und keine Warnung verloren (Zu 1100) | B Abläufe | M | – | Diogenes | erledigt |
 | 391 | Zweit-Repo dauerhaft in den Sitzungen, ohne Ablehnung (Chef 28.10., 09:21) | B Werkzeuge | M | 2,75 $ | Sokrates | erledigt, ersetzt durch 1110 (Archiv 13.11., 09:59) |
 | 1130 | Von Sokrates (Chef 12:51, 1128): Stellungnahme Prüfumfang in entscheiden/1128-pruefumfang.md, Zählung der 52 ungetesteten Muss prüfen | Q QM | M | 4,40 $ | Diogenes | erledigt |
+| 756.1a | Rückfrage zu 756.1: was an der Vorlage Schlecht nicht vernünftig war, Weg für die neue (Spike) | E Oberfläche | M | – | Tom | erledigt |
