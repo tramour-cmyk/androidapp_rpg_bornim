@@ -127,3 +127,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:05 13.11.: Startsperre 23:05 Start Diogenes (lauf.py)
 - 23:05 13.11.: Marke Archiv session_01Hmoj75tnffFfTRAMHuhTAy (lauf.py)
 - 23:05 13.11.: Nachfolger-Warnung Jerry (Übergabe 13.11., 22:44) (lauf.py)
+- 23:07 13.11.: Lauf 23:03: Diogenes (1237) `…783kjRUn2ac4Ks2Yhg` gestartet (Umgebung Mittel), Vorgängerin `…75tnffFfTRAMHuhTAy` archiviert (2,13 $ auf 1175); Starts Homer 1235 und Perikles (Parserfehler) mit --ohne verhindert, Vorgänge 1238, 1239 an Perikles; Ausschlussliste zusätzlich `--ohne "1235:…"` und `--ohne "Perikles:…"` bis dahin (Ford)
