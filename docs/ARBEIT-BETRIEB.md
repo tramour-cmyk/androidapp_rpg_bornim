@@ -107,3 +107,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:50 13.11.: Startsperre 18:50 Start Sokrates (Neustart cbbb7af87, Nachfolger „Sokrates – 1137: Vollzug prüfen (15.11.), bis dahin Chefrunde“; Ford)
 - 18:52 13.11.: Sokrates-Neustart (cbbb7af87): neue Sitzung `…767QhDiSiUsddouRMf` 18:50, Vorgängerin `…79btn43krqv5ayLUJh` archiviert (7,70 $ auf 1113, 1141, 1199, 1205; Ford)
 - 18:54 13.11.: Startsperre 18:54 Start Diogenes (Auftrag Diogenes 882.2 von Perikles, 471d99e2c; Ford)
+- 18:56 13.11.: Auftrag Diogenes 882.2 (Perikles): neue Sitzung `…7A3E2PMHWuw7NAvVF5`, Vorgängerin `…75jL9b9DF5Kf8a99Zk` archiviert (4,37 $ auf 1191; Ford)
