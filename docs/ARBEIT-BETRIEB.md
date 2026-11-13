@@ -342,5 +342,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:04 13.11.: Startsperre 09:04 Start Tom, Perikles (lauf.py)
 - 09:12 13.11.: Startsperre 09:12 Start Tom (Ford, Auftrag Sokrates 09:10 nach Chef-Test t281: 1104 eilt, dazu 1040.1; Hoch, effort high)
 - 09:15 13.11.: Startsperre 09:15 Start Sokrates (Ford, Neustart-Meldung 99de65ca4, Nachfolger „Sokrates – Chefrunde (13.11.)“; Chef wartet; Hoch, effort high)
+- 09:30 13.11.: Startsperre 09:30 Start Perikles (Ford, Auftrag Sokrates 09:30 nach Chef „1100 A mit 6“, Commit 9f65d917e; Hoch, effort high)
 - 09:04 13.11.: Marke Start-fehlt Perikles 13.11.-08:51 (lauf.py)
 - 09:04 13.11.: Marke Start-fehlt Tom 13.11.-07:14 (lauf.py)
