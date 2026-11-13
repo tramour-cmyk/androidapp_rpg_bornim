@@ -23,7 +23,7 @@ zum zweiten Mal meldet, also „wiederholt“ nach 620.1 A; Angefangenes ist kei
 Wächter 424: eine sonst startbare Zeile, die Regeln des alten Systems nennt, ruht. Exit 1 bei unlesbaren oder ungültigen Zeilen.
 Laufende Sitzungen kennt das Werkzeug nicht; die liest Ford aus list_sessions.
 """
-import os, re, sys, datetime
+import os, re, sys, datetime, subprocess
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import bereiche  # 651: feste Liste der Bereiche
 
@@ -185,7 +185,13 @@ def sammelbuild_faellig():
     (Gleichstand: Tom). (Titel, Bereich, Besitzer) oder None."""
     zs = zeilen_liste()
     offen = lambda d: d["wort"] not in (None, "erledigt", "verworfen", "aufgeteilt")
-    if any(offen(d) and d["titel"].startswith("Sammelbuild") for d in zs):
+    # 1131 (Sokrates 1129): eine Sammelbuild-Zeile, deren Build schon getestet ist (Vorgangsarchiv „tn, Build n getestet“), hält
+    # die Automatik nicht mehr an (825 stand nach t274 noch auf „gebaut“, 10.11. bis 13.11. kein Sammelbuild)
+    getestet = set(re.findall(r"^- \*\*t(\d+), Build \1 getestet", lesen("VORGANGSARCHIV.md"), re.M))
+    def build_getestet(d):
+        nrn = [str(d.get("build") or "")] + re.findall(r"\bt(\d+)\b", str(d.get("stand") or "") + " " + str(d.get("warte") or ""))
+        return any(n.strip() in getestet for n in nrn if n.strip().isdigit())
+    if any(offen(d) and d["titel"].startswith("Sammelbuild") and not build_getestet(d) for d in zs):
         return None
     fertig = [d for d in zs if d["besitzer"] in ("Tom", "Jerry") and d["wort"] in ("gebaut", "zu testen")
               and d.get("build") in ("", "–", "-", None) and not d.get("bereich", "").startswith("B ")]
@@ -761,6 +767,68 @@ def festgefahren(d):
     g = (["%d Rückläufer (%s)" % (len(b), ", ".join("t%d" % x for x in b))] if len(b) >= STARK_RUECK else []) + ([d["kosten"]] if k > STARK_KOSTEN else [])
     return ", ".join(g) or None
 
+# ---------------------------------------------------------------- 1137.2 Wächter Vollzug
+VOLLZUG_AB = datetime.date(2026, 11, 13)   # 1137 (Chef 13.11., 14:03): gilt für Einträge ab heute
+BIS = re.compile(r"\bbis (\d{1,2})\.(\d{1,2})\.,? (\d{1,2}):(\d\d)")
+NUMMER = re.compile(r"(?<![\w.])(\d{2,4}(?:\.\d+)?[a-z]?(?:\.\d+)?)(?![\w.])")
+
+
+def vollzug_gemeldet(nr, text=None):
+    """1137.1 (1): Vollzugsmeldung „Vollzug <Nr>: … Geprüft an: <Commit|Lauf>“ in einer Commit-Nachricht der letzten Woche, im
+    Protokoll, in einem Vorrat, im Tagesbericht oder im Vorgangsarchiv. Die Vorlage der Zeile („Geprüft an: <Commit>“ mit spitzen
+    Klammern) zählt nicht, sonst meldete der Auftragstext seinen eigenen Vollzug."""
+    if text is None:
+        text = vollzug_quelle()
+    for m in re.finditer(r"Vollzug\s+" + re.escape(nr) + r"\b([^\n]*)", text):
+        if re.search(r"Geprüft an:\s*[0-9A-Za-z]", m.group(1)):
+            return True
+    return False
+
+
+def vollzug_offen(archiv_text=None, jetzt=None):
+    """1137.2 (Chef 13.11., 14:03): Archiveinträge ab 13.11. mit Folgevorgängen und Stichtag („bis TT.MM., HH:MM“), deren
+    Stichtag vorbei ist und zu deren Folgevorgängen keine Vollzugsmeldung vorliegt. Liefert [(Empfehler, Nr., Stichtag, [offene Nr.])]."""
+    jetzt = jetzt or datetime.datetime.now()
+    nummern = {d["nr"] for d in zeilen_liste()}
+    erledigt = {d["nr"] for d in zeilen_liste() if d["wort"] in ("erledigt", "verworfen")}
+    gemeldet = None
+    aus = []
+    for z in (lesen("VORGANGSARCHIV.md") if archiv_text is None else archiv_text).splitlines():
+        m = re.match(r"- \*\*([0-9A-Za-z][0-9A-Za-z.]*?)(?:,|\*\*| )", z)
+        t = ZEIT.search(z)
+        b = BIS.search(z)
+        if not (m and t and b):
+            continue
+        try:
+            wann, stichtag = _zeit(t), _zeit(b)
+        except ValueError:
+            continue
+        if wann.date() < VOLLZUG_AB or stichtag > jetzt:
+            continue
+        folge = [n for n in dict.fromkeys(NUMMER.findall(z)) if n in nummern and n != m.group(1)]
+        if not folge:
+            continue
+        if gemeldet is None:   # Quellen einmal lesen
+            gemeldet = vollzug_quelle()
+        offen = [n for n in folge if n not in erledigt and not vollzug_gemeldet(n, gemeldet)]
+        if offen:
+            e = re.search(r"\((?:Nutzer; )?(?:Vorschlag|Votum|Vorentscheid) ([A-ZÄÖÜ][\wäöüß ]*?)(?:,|\)|$)", z)
+            aus.append((e.group(1).strip() if e else "Sokrates", m.group(1), stichtag, offen))
+    return aus
+
+
+def vollzug_quelle():
+    """Text, in dem vollzug_gemeldet sucht (Protokoll, Vorräte, Archiv, Tagesbericht, Commit-Nachrichten der letzten Woche)."""
+    text = "\n".join(lesen(d) for d in ["ARBEIT-BETRIEB.md", "VORGANGSARCHIV.md", "ARBEIT-TAGESBERICHT.md",
+                                        os.path.join("..", "CHANGELOG.md")] + list(VORRAT.values()))
+    try:
+        text += subprocess.run(["git", "-C", os.path.dirname(DOCS), "log", "--since=7 days", "--format=%B"],
+                               capture_output=True, text=True, timeout=20).stdout
+    except (OSError, subprocess.SubprocessError):
+        pass
+    return text
+
+
 def festgefahrene():
     return [(d, festgefahren(d)) for d in zeilen_liste() if festgefahren(d)]
 
@@ -835,6 +903,10 @@ def main():
                   "".join("; Sperre 620.1 B für %s (%d ungetestete Muss)" % (r, ungetestet(r)) for r in UEBERNAHME if ungetestet(r) >= GRENZE_UNGETESTET)))
         if "--loesen" not in sys.argv:
             for nr, wer, weg, st in loesen(False): print("  GELÖST %s (%s): wartet auf %s erfüllt (schreibt lauf.py --sperre)" % (nr, wer, ", ".join(weg)))
+        for wer, nr, stichtag, offen in vollzug_offen():  # 1137.2
+            print("  VOLLZUG FEHLT %s (%s): Stichtag %s vorbei, keine Vollzugsmeldung zu %s (Telegram „Vollzug <Nr>: was gilt, "
+                  "Geprüft an: <Commit>“; Fehlendes mit Ursache und neuem Termin an den Chef, 1137.1)"
+                  % (nr, wer, stichtag.strftime("%d.%m., %H:%M"), ", ".join(offen)))
         ff = festgefahrene()
         if ff: print("  Festgefahren (827 A; ab %s nächste Sitzung auf dem stärksten Modell): %s" % (STARK_AB.strftime("%d.%m., %H:%M"), "; ".join("%s %s: %s%s" % (d["nr"], d["besitzer"], g, " (gehabt)" if STARK_MARKE.search(d["titel"]) else "") for d, g in ff)))
         for nr, f in fehler: print("  UNLESBAR %s: %s" % (nr, f))

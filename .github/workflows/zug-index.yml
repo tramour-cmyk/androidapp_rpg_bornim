@@ -1,6 +1,8 @@
 name: Chefsache Übersicht
 
 # Schreibt docs/chefsache/README.md (Übersicht „Chefsache“, 108) aus den Dateien in docs/chefsache/ neu, sobald sich dort etwas ändert.
+# 1129 A 6 (Chef 13.11., 13:59): nur bei Änderung unter docs/chefsache/ (nicht mehr bei jedem Vorrat und jeder Vorgangszeile);
+# „Offen je Rolle“ und „Lücken“ (Vorräte, Vorgangsliste) einmal in der Stunde über den Zeitplan (ZUG_ROLLEN=1).
 # Keine Sitzung bearbeitet die README von Hand, darum gibt es keine Konflikte (D15.3). Pushes mit dem Actions-Schlüssel
 # starten keine weiteren Workflows, also auch keinen APK-Build.
 on:
@@ -9,8 +11,8 @@ on:
     paths:
       - "docs/chefsache/**"
       - "tools/zug-index.py"
-      - "docs/ARBEIT-*.md"  # D21.3: Lücken (wartet auf Chef ohne Datei)
-      - "docs/LISTE-VORGAENGE.md"  # Vorrang und Bereich (124, 126, 136)
+  schedule:  # 1129 A 6: Offen je Rolle, Lücken (D21.3), Vorrang und Bereich (124, 126, 136) stündlich
+    - cron: "17 * * * *"
   workflow_run:  # 298: Version 0.348.<Laufnummer> in Prüflisten nachtragen, sobald der Godot-Lauf beginnt (894)
     workflows: ["Godot (Umzug 348)"]
     types: [requested]
@@ -41,7 +43,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           for versuch in 1 2 3 4; do
             git pull -q --rebase origin main
-            python3 tools/zug-index.py
+            ZUG_ROLLEN=$([ "${{ github.event_name }}" = schedule ] || [ "${{ github.event_name }}" = workflow_dispatch ] && echo 1 || echo 0) python3 tools/zug-index.py
             git diff --quiet docs/chefsache/ && exit 0
             git commit -qm "Chefsache: Übersicht" docs/chefsache/
             git push -q origin HEAD:main && exit 0

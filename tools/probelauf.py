@@ -886,9 +886,15 @@ def vorlage_unvollstaendig(befehl, cwd, d=None):
     if d is not None:
         e = d.get("tool_input") or {}
         dateien = [f for f in (e.get("files") or []) if isinstance(f, dict)] + ([e] if e.get("path") else [])
+        wurzel = git("rev-parse", "--show-toplevel", cwd=cwd).stdout.strip() or cwd
         for f in dateien:
             o = vp.ordner_von(str(f.get("path", "")))
-            if o and (fehlt := vp.luecken(str(f.get("content") or ""), o)):
+            inhalt = str(f.get("content") or "")
+            fehlt = vp.luecken(inhalt, o) if o else []
+            if o and git("cat-file", "-e", "origin/main:" + str(f["path"]), cwd=wurzel).returncode != 0:  # 1129 A 1: neue Datei
+                fehlt += vp.tor(inhalt, str(f["path"]), wurzel)
+                _abk_warnung(f["path"], vp.warnungen(inhalt))
+            if fehlt:
                 befunde.append((f["path"], fehlt))
         return vp.meldung(befunde) if befunde else None
     m = GIT_SCHREIBT.search(befehl)
@@ -906,9 +912,26 @@ def vorlage_unvollstaendig(befehl, cwd, d=None):
     for p in sorted(set(pfade)):
         datei = os.path.join(wurzel, p)
         o = vp.ordner_von(p)
-        if o and os.path.isfile(datei) and (fehlt := vp.luecken(open(datei, encoding="utf-8").read(), o)):
+        if not (o and os.path.isfile(datei)):
+            continue
+        inhalt = open(datei, encoding="utf-8").read()
+        fehlt = vp.luecken(inhalt, o)
+        if git("cat-file", "-e", "origin/main:" + p, cwd=wurzel).returncode != 0:  # 1129 A 1: neue Datei
+            fehlt += vp.tor(inhalt, p, wurzel)
+            _abk_warnung(p, vp.warnungen(inhalt))
+        if fehlt:
             befunde.append((p, fehlt))
     return vp.meldung(befunde) if befunde else None
+
+
+WARNUNG = {"text": ""}
+
+
+def _abk_warnung(pfad, woerter):
+    """MUSTER.md Checkliste 9 (1129.3): Abkürzungen in einer neuen Vorlage nur als Hinweis, hält nicht an."""
+    if woerter:
+        WARNUNG["text"] += (f"Checkliste 9 (MUSTER.md): {pfad} enthält Abkürzungen ({', '.join(woerter)}); "
+                            "im Text an den Chef ausschreiben (Wortliste vorlage_pruefen.ABKUERZUNGEN). ")
 
 
 def anhalten(text):
@@ -1080,7 +1103,7 @@ def bereich_merken(pfade, befehl, sitzung, cwd="."):
 
 def hinweis_geben(text=""):
     """Zusatztext an die Sitzung (PreToolUse additionalContext): Zählstand 389, falls nötig Ungeprüftes 464.1, Liste je Bereich 822."""
-    text = " ".join(t for t in (text, ungeprueft_hinweis(), BEREICH["text"]) if t)
+    text = " ".join(t for t in (text, WARNUNG["text"].strip(), ungeprueft_hinweis(), BEREICH["text"]) if t)
     if text:
         print(json.dumps({"hookSpecificOutput": {"hookEventName": "PreToolUse", "additionalContext": text}}, ensure_ascii=False))
 
