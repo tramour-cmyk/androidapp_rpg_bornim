@@ -6,6 +6,10 @@
 # Aufruf: python3 tools/pruefliste.py AUS.json [DATEI.md]
 #   ohne DATEI: die Prüfliste mit der höchsten Nummer auf origin/main (docs/chefsache/ansehen, sonst docs/entwurf); holt main
 #   flach, wenn es fehlt. Keine Prüfliste: JSON mit leeren Abschnitten, das Spiel zeigt dann „keine Prüfliste im Bau“.
+# 1178 (Chef 13.11., 15:49, Test 283: im Spiel stand der alte Entwurf t283-leute, nicht die gegengelesene t283-dorf): auf
+#   claude/build-<n> (GITHUB_REF_NAME, GITHUB_HEAD_REF oder --build N) nur ansehen/t<n>-….md von origin/main, nie ein Entwurf und nie
+#   eine andere Nummer; fehlt sie, JSON mit „fehlt“ und leeren Abschnitten, Ende 0 (der Bau läuft weiter);
+#   `pruefliste.py --pruefe JSON` endet dann 1 (Zeile im Prüfschritt, der Bau wird rot, die APK entsteht trotzdem, 918).
 import json, os, re, subprocess, sys
 
 
@@ -28,6 +32,28 @@ def neueste_von_main():
     if beste is None:
         return None, ''
     return beste[1], _git('show', 'origin/main:' + beste[1]).stdout
+
+
+def eigene_nummer():
+    """1178: Buildnummer aus --build N oder dem Zweig claude/build-<n> des Laufs, sonst None (Teamzweig, von Hand)."""
+    if '--build' in sys.argv:
+        return int(sys.argv[sys.argv.index('--build') + 1])
+    for v in ('GITHUB_HEAD_REF', 'GITHUB_REF_NAME'):
+        m = re.fullmatch(r'claude/build-(\d+)', os.environ.get(v, ''))
+        if m:
+            return int(m.group(1))
+    return None
+
+
+def eigene_von_main(n):
+    """1178: nur docs/chefsache/ansehen/t<n>-….md auf origin/main (frisch geholt); zwei Dateien derselben Nummer: die zuletzt geänderte."""
+    _git('fetch', '-q', '--depth=1', 'origin', 'main:refs/remotes/origin/main')
+    r = _git('ls-tree', '--name-only', 'origin/main', 'docs/chefsache/ansehen/')
+    wege = [p for p in r.stdout.split() if re.match(r't%d-.*\.md$' % n, os.path.basename(p))]
+    if not wege:
+        return None, ''
+    wege.sort(key=lambda p: int(_git('log', '-1', '--format=%ct', 'origin/main', '--', p).stdout.strip() or 0))
+    return wege[-1], _git('show', 'origin/main:' + wege[-1]).stdout
 
 
 def schlicht(s):
@@ -84,14 +110,29 @@ def lies(text, quelle=''):
 
 
 def main():
-    if len(sys.argv) < 2:
-        sys.exit('Aufruf: pruefliste.py AUS.json [DATEI.md]')
-    if len(sys.argv) > 2:
-        quelle = sys.argv[2]
+    if '--pruefe' in sys.argv:   # 1178: Zeile im Prüfschritt; rot, wenn der Bau ohne seine gegengelesene Prüfliste gebaut ist
+        d = json.load(open(sys.argv[sys.argv.index('--pruefe') + 1], encoding='utf-8'))
+        if d.get('fehlt'):
+            print('PRUEFLISTE fehlt: %s (1178)' % d['fehlt']); sys.exit(1)
+        print('PRUEFLISTE Build %d aus %s' % (d.get('build', 0), d.get('quelle') or 'keiner Datei')); return
+    args = [a for i, a in enumerate(sys.argv[1:], 1) if a != '--build' and sys.argv[i - 1] != '--build']
+    if not args:
+        sys.exit('Aufruf: pruefliste.py AUS.json [DATEI.md] [--build N] | --pruefe AUS.json')
+    n = eigene_nummer()
+    fehlt = ''
+    if len(args) > 1:
+        quelle = args[1]
         text = open(quelle, encoding='utf-8').read()
+    elif n is not None:
+        quelle, text = eigene_von_main(n)
+        if not text:
+            fehlt = 'Build %d ohne docs/chefsache/ansehen/t%d-….md auf main; erst gegenlesen und verschieben, dann bauen' % (n, n)
     else:
         quelle, text = neueste_von_main()
-    aus = lies(text, quelle or '') if text else {'build': 0, 'titel': '', 'quelle': '', 'kopf': [], 'abschnitte': []}
+    aus = lies(text, quelle or '') if text else {'build': n or 0, 'titel': '', 'quelle': '', 'kopf': [], 'abschnitte': []}
+    if fehlt:
+        aus['fehlt'] = fehlt
+    sys.argv[1] = args[0]
     with open(sys.argv[1], 'w', encoding='utf-8') as f:
         json.dump(aus, f, ensure_ascii=False, indent=1)
     n = sum(len(a['zeilen']) for a in aus['abschnitte'])
