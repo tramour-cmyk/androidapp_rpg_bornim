@@ -340,5 +340,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:51 13.11.: Marke Archiv session_01Hmoj78PvRkTAsLPoGWG9we (lauf.py)
 - 08:51 13.11.: Marke Archiv session_01Hmoj78nYhWJDwpTUKcGeBd (lauf.py)
 - 09:04 13.11.: Startsperre 09:04 Start Tom, Perikles (lauf.py)
+- 09:12 13.11.: Startsperre 09:12 Start Tom (Ford, Auftrag Sokrates 09:10 nach Chef-Test t281: 1104 eilt, dazu 1040.1; Hoch, effort high)
 - 09:04 13.11.: Marke Start-fehlt Perikles 13.11.-08:51 (lauf.py)
 - 09:04 13.11.: Marke Start-fehlt Tom 13.11.-07:14 (lauf.py)
