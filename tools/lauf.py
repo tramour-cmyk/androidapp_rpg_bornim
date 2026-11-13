@@ -29,6 +29,7 @@ Ausgabe, Zeile für Zeile auszuführen:
   TAGESBERICHT-FEHLT TT.MM.: …                                      → Ford meldet laut eine Zeile an den Chef (448); die TAGESBERICHT-Zeile daneben startet Perikles erneut
   WÄCHTER <Nr> | <Rollen> | <session_id|-> | <Text>                  → Ford: meldung.sh --laut Ford "<Text>" und send_message <Text> an die Sitzung (383; einmal je „jetzt“, Marke schreibt --sperre; auch 559: „wartet auf Chef“ trotz neuerer Rückmeldung, einmal je Rückmeldung)
   AUSGESCHLOSSEN NR: Grund                                          → Ford hat die Zeile mit --ohne ausgeschlossen; Ford meldet Grund lautlos (190.2)
+  OHNE-ÜBERHOLT NR: Grund                                           → (1129.1 P1) der Ausschluss gilt nicht mehr (Nummer im Archiv, ruht, oder „in Arbeit“ ohne Sitzung seit 2 h): Ford streicht --ohne NR ab dem nächsten Lauf, auch in seiner Übergabe
   GELÖST <Nr> | <Rolle> | wartet auf … erfüllt | <session_id|->      → send_message „GELÖST <Nr>: wartet auf … erfüllt, startbar“ an die Sitzung (bei - nichts); --sperre hat die Zeile gesetzt (275.2), Notizen pushen
   (Bedeutung dieser Zeilen ist Fords Anleitung, LISTE-BETRIEB.md „Jeder Lauf“ 4 verweist hierher, 276)
 --ohne NR:Grund  (mehrfach) schließt die Zeile NR für diesen Lauf aus; lauf.py nimmt dann die nächste startbare Zeile derselben Rolle (190.2). Ohne Grund gilt es nicht.
@@ -616,6 +617,7 @@ def main():
     for name in nicht_da: marken.pop(name, None)  # (2) zählt nicht als Belegung
     # Starten
     for nr, grund in sorted(ausschluss.items()): ausgabe.append("AUSGESCHLOSSEN %s: %s" % (nr, grund))
+    ausgabe.extend(ohne_ueberholt(ausschluss, leb))
     sperren = []; neue_warnungen = []
     bekannt = warnungen_bekannt()
     def vorgaenger(r):
@@ -958,6 +960,24 @@ def waechter(je_rolle, marke_text):
             nr, ", ".join(rollen), sid, nr, berlin(d), std, ", ".join(rollen)))
         marken.append(marke)
     return aus, marken
+
+OHNE_ARBEIT_H = 2  # 1129.1 P1: „in Arbeit“ ohne Sitzung, die den Vorgang im Titel trägt und in dieser Zeit tätig war
+
+def ohne_ueberholt(ausschluss, leb):
+    """1129.1 P1 (13.11.: 8 von 12 Ausschlüssen überholt, 882.1 „Tom in Arbeit“ 13 h ohne Sitzung, 40 Muss hingen daran):
+    meldet je --ohne, das nicht mehr gilt, eine Zeile OHNE-ÜBERHOLT. Sonderzeilen (M?, Pflege, Spiegel) bleiben unbewertet."""
+    offen = {d["nr"]: d for d in startbar.zeilen_liste() if d["wort"] != "erledigt"}
+    aus = []
+    for nr, grund in sorted(ausschluss.items()):
+        if not re.fullmatch(r"[A-Za-z]?\d+[a-z]?(?:\.\d+[a-z]?)*", nr): continue
+        d = offen.get(nr)
+        if d is None: aus.append("OHNE-ÜBERHOLT %s: nicht mehr offen (Archiv oder erledigt)" % nr); continue
+        if d["wort"] == "ruht": aus.append("OHNE-ÜBERHOLT %s: ruht, startet ohnehin nicht" % nr); continue
+        if "in Arbeit" in grund:
+            tätig = [s for s in leb if nr in (nummer_aus_titel(s.get("title", "")) or "").split(",")
+                     and (JETZT - z(s["updated_at"])).total_seconds() < OHNE_ARBEIT_H * 3600]
+            if not tätig: aus.append("OHNE-ÜBERHOLT %s: „in Arbeit“, aber keine Sitzung mit %s im Titel seit %d h" % (nr, nr, OHNE_ARBEIT_H))
+    return aus
 
 def besetzung_schreiben(leb):
     p = os.path.join(DOCS, "ARBEIT-BESETZUNG.md"); t = lesen(p)
