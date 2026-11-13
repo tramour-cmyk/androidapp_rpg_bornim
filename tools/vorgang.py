@@ -191,7 +191,9 @@ def greift(nr, lauf, rolle=None):
     greift er nicht, bleibt die Zeile und die Lücke wird ein eigener Vorgang, auf den sie wartet (`warte NR NEU`)."""
     d = finden(nr, rolle)
     if not d.get("bereich", "").startswith("B "):
-        print("vorgang.py: %s ist nicht im Bereich B; „greift“ gilt nur für Werkzeug und Abläufe (724 A)" % nr); sys.exit(1)
+        # 1188 (d): 866, 896 waren Werkzeug unter „E Technik“, „greift“ prallte ab und die Zeile blieb offen
+        print("vorgang.py: %s ist nicht im Bereich B; „greift“ gilt nur für Werkzeug und Abläufe (724 A). Ist es Werkzeug oder Ablauf, "
+              "Vorgang an den Besitzer: Bereich auf B setzen (`vorgang.py setze %s bereich=B Werkzeuge`), dann greift; sonst wartet er auf den Test." % (nr, nr)); sys.exit(1)
     fertig(nr, rolle)
     d = finden(nr, rolle)
     ersetzen(d, dict(d, stand="erledigt, greift Lauf %s" % re.sub(r"^\s*Lauf\s*", "", lauf).strip()))

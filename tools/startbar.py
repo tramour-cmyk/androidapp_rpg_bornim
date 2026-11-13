@@ -188,12 +188,15 @@ def wochentermine_faellig(jetzt):
 URTEIL_TAGE = 14
 URTEIL_MAX = 15  # Nummern je Zeile (Titel höchstens 400 Zeichen); der Rest kommt am nächsten Montag
 SAMMEL = 25  # Commits, die mehr Zeilen der Liste ändern (Wochenziel, Klassen, Umschaltung), sind keine Bewegung der Zeile
-RUHIG = (None, "in Arbeit", "gebaut", "zu testen", "Dauer", "Idee", "erledigt", "aufgeteilt")  # wird nicht vorgelegt
+RUHIG = (None, "in Arbeit", "Dauer", "Idee", "erledigt", "aufgeteilt")  # wird nicht vorgelegt
 
 def _vorlegbar(d, jetzt):
     """1188: offene Zeile, die ein Urteil braucht: nicht in Arbeit oder fertig, nicht Ideen (Homer sonntags), nicht Pflege/Spiegel,
-    kein Datum in der Zukunft im Feld „wartet auf“ (schon geurteilt)."""
+    kein Datum in der Zukunft im Feld „wartet auf“ (schon geurteilt). „gebaut“ und „zu testen“ nur ohne Build (Sokrates 16:55: (d)
+    gebaut außerhalb von Bereich B, „greift“ schließt nur B, 866, 896; (e) „zu testen“ ohne Build schließt keiner, 1079, 1122);
+    mit Build wartet die Zeile auf den Test (test_vorbei, wenn er im Archiv steht)."""
     if d["besitzer"] == "Ideen" or d["nr"] in SONDER or d["wort"] in RUHIG: return False
+    if d["wort"] in ("gebaut", "zu testen") and str(d.get("build") or "").strip().isdigit(): return False
     return not any(art(w) == "datum" and datum_von(w) > jetzt for w in d.get("warte") or [])
 
 def ohne_bewegung(zs=None, jetzt=None):
