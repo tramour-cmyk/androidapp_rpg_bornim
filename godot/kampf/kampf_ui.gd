@@ -1177,6 +1177,7 @@ var tip_nr := 0
 func ring_open(target_id: String, _intent: Dictionary) -> void:
 	ring_target = target_id
 	ring_t0 = uhr.call()
+	ring_stand = -1
 	pick = "main"
 
 
@@ -1184,7 +1185,22 @@ func ring_close() -> void:
 	ring_target = ""
 
 
+## 1094 (Chef 13.11., Test 281: „der bleibt nicht mehr stehen, der läuft durch, wenn ich drücke … er sagt dann zwar, dass ich perfekt
+## gedrückt habe, aber er lief durch“): nach der Antwort zeichnet kampfort den Ring noch 0,3 s (_play_ring); seit 1039 läuft der große
+## Ring über den kleinen hinaus weiter. Beim Tippen (und wenn die Zeit um ist) bleibt er jetzt stehen, wo er war.
+var ring_stand := -1
+
+func ring_halt() -> void:
+	if ring_stand < 0:
+		ring_stand = int(uhr.call())
+
+## ms seit dem Aufgehen des Rings, wie gezeichnet: nach der Antwort fest
+func ring_ms_bild() -> float:
+	return float((ring_stand if ring_stand >= 0 else int(uhr.call())) - ring_t0)
+
+
 func ring_verdict(r: String) -> void:
+	ring_halt()
 	verdict.text = {"PERFECT": t("Perfekt: ausgewichen", "Perfect: dodged"), "GOOD": t("Gut: halber Schaden", "Good: half damage"),
 		"NONE": t("Verpasst", "Missed")}[r]
 	verdict.visible = true
@@ -1462,12 +1478,12 @@ func _draw_overlay() -> void:
 		var fig = k.figures[ring_target]
 		var h := _tall(fig)
 		var c2 := _foot(fig) - Vector2(0, h * 0.45)
-		var p3 := clampf(float(uhr.call() - ring_t0) / k.RING_MS, 0.0, 1.3)
+		var p3 := clampf(ring_ms_bild() / k.RING_MS, 0.0, 1.3)
 		var r0 := h * 0.55
 		# 1039 (Chef 12.11., 15:04, Build 280: „tat ich mich ganz schwer, den inneren Ring zu sehen. Also wann ich überhaupt den Ring
 		# drücken muss“): der Zielring kräftig in Gold mit schwarzem Rand (alt 1,5 dp, Gold 55 %, ging vor Gras und Figur unter);
 		# im Fenster für „Gut“ leuchtet er auf, am hellsten im Fenster für „Perfekt“ (kampfort.gd GOOD_MS, PERFECT_MS)
-		var off_ms := absf(float(uhr.call() - ring_t0) - k.RING_MS)
+		var off_ms := absf(ring_ms_bild() - k.RING_MS)
 		var jetzt := clampf(1.0 - (off_ms - k.PERFECT_MS) / float(k.GOOD_MS - k.PERFECT_MS), 0.0, 1.0)
 		var wi := (3.0 + 1.5 * jetzt) * dp
 		overlay.draw_arc(c2, r0, 0, TAU, 64, Color(0, 0, 0, 0.6), wi + 2.5 * dp, true)
