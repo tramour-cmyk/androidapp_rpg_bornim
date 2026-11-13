@@ -166,7 +166,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1226 | M | Von Jerry (709.1, 13.11., 21:11): Test rollstand_1030 rot in tools/t logik (FALSCH „Neu au | wartet auf Test (Build 285) |
 | 1234 | M? | Von Homer (Fremdprüfung 1232): Reste nach 870.15 auf main: „Grottenschrat“/„bugbear“ statt | startbar |
 
-**Jerry** – offen 116, Muss 49, startbar 11
+**Jerry** – offen 116, Muss 49, startbar 12
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -182,7 +182,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1072 | M | Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch im Heldenteam, Monster zu eins | Termin 13.11. 22:30 |
 | 506.2 | M | Grabhund-Biss reicht sichtbar bis zum Helden, nicht nur knapp an den Schild (von Sokrates, | wartet auf 709.1 (in Arbeit) |
 | 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | Termin 13.11. 23:00 |
-| 1222 | M | Von Chef (13.11., 20:40, Test t284.4b): Rauchbündel gegen Krogg ohne sichtbare Wirkung im | Sperre 620.1 B: 11 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 987 (krogg) |
+| 1222 | M | Von Chef (13.11., 20:40, Test t284.4b): Rauchbündel gegen Krogg ohne sichtbare Wirkung im | startbar |
 | 1223 | M | Von Chef (13.11., 20:59, Test t284.7o): Leitwolf im Kampf nicht erkennbar, alle heißen Wol | wartet auf Test/Build (gebaut) |
 | 642 | M | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 | ruht bis 23.11. |
 | 806 | M | Kampforte mit den Effektpaketen schöner: Gras und Blumen aus R9, Boden, Staub; Bilder/s ni | wartet auf Test t278 (Chef) |
