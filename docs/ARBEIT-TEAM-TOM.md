@@ -16,6 +16,21 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+
+
+
+
+
+
+
+
+
+- **Zu 1086, von Chef (Fund t282.9, Test Build 282, Automatik B):** „wie besprochen“: Pim bleibt nach dem Gold stehen (10:22): „Wenn ich Pim 5 Gold gebe, sagt der Text, er beißt … die Münzen … und er rennt heim. Fakt ist, er steht ja bei mir. Er rennt nicht heim. Also da passt Text wieder nicht zur Handlung. Genau, das muss angepasst werden.“ 10:23 (Bild: Pim steht hinter dem Helden, während die Mutter an der Tür „Pim kam heim, Gold in der Faust …“ sagt): „Der Beweis beim Türklopfen. Pim ist ja noch zu sehen, also er kann nicht zu Hause sein.“ Vorschlag Sokrates: Handlung an Text und Regel (1108 A) anpassen, nicht den Text: nach dem Gespräch rennt Pim sichtbar zu seiner Hütte und bleibt dort; dasselbe nach gelungenem Überreden prüfen.
+- **Zu 1044, von Chef (Fund t282.6, t282.18; 282.22 Lyra ✓):** „Wie besprochen“ = Rückbau bis auf Lyra (Chef 09:35), schon gebaut auf `claude/tom-1092-streifen`, fährt in 283.
+- **Zu 1022, von Chef (Fund t282.5, Test Build 282, Automatik B):** „Siehe Kommentar direkt an Socrates“: Weg am Schlagbaum (10:15, Bild): „warum endet der Weg jetzt und wird eine Feldwiese? Warum geht der Weg nicht grundsätzlich weiter und endet dann im Dunkel?“ Süden hinter der Brücke (10:16, Bild): „Der Weg endet mit einem Wald. Ich meine, der Übergang per se ist gut, aber es macht halt keinen Sinn, dass der Weg endet.“ Also: der weiche Übergang ins Dunkel bleibt; jeder Weg, der an den Rand führt, auf allen Gebietskarten, läuft durch den Wald weiter ins Dunkel, statt davor im Gras auszulaufen (Vorentscheid Sokrates 13.11., 01:07 zurück).
+- **Zu 764, von Chef (Fund t282.12, Test Build 282, Automatik B):** „Siehe bild bei Sokrates“ (10:25, `bilder/t282-764-zustand.jpg`; 10:26: „Status betrunken sieht ein bisschen arg komisch aus.“): Heldenreiter → Zustände: „Betrunken“ steht senkrecht, ein Buchstabe je Zeile, in einem schmalen goldenen Streifen, kein Zeichen; der Satz steht richtig. Soll: Zeichen und Name waagerecht in einer Zeile, der Satz daneben oder darunter.
+- **Zu 505, von Chef (Fund t282.3, Test Build 282, Automatik B):** „sichtöinie passt, Karte zeigt alles vom Dorf, ist aber alter spielstand“. Anmerkung Sokrates: die Karte des Dorfs hat mit Absicht keinen Nebel (wie alt; `MapSheetExport.kt` nur Wald, Test `MapSheetExportTest`), der Prüfpunkt war falsch geschrieben (Gegenlesen Sokrates). Nachtest im nächsten Build: Karte im Wald zeigt nur Gesehenes.
+- **Zu 492, von Chef (Fund t282.19 bis t282.21):** „wie besprochen“ = nicht getestet, Höhle in der APK aus Lauf 420 nicht begehbar (1104; Chef 09:23: Höhle erst mit neuer APK); 282.19 bis 282.21 und 282.23 (1040.1) in die nächste Prüfliste.
 - **Zu 1040.1, von Chef (Fund t281.11, Test Build 281, Automatik B):** Kann höhle nicht betreten, station höhle geht auch nicht
 - **Zu 1104 (Tom 13.11., 09:28):** Ursache 281: kein Höhlenmodell im Build (hoehle.py kam erst mit 492 in 282), 281.11 war unerreichbar (Prüflistenfehler); 1040.1 ist in 282 enthalten, Nachtest dort. Ursache 282, nachgestellt mit den Assets der APK aus Lauf 420: `lage["platz"]` fehlt in der Höhle, `kampf_im_wald` brach ab, nach jedem Höhlenkampf Welt schwarz. Fix 334cff53a auf `claude/build-282`, `hoehle_492` jetzt im Bau. Chef 09:23 per Telegram: 282 ohne 282.19 bis 282.21 testen, Höhle mit neuer APK.
 - **Chef 13.11., 07:12:** „Ihr dürft alle Repos einbinden, die ihr zum Arbeiten benötigt.“ (also `add_repo bornim-kaufmodelle` für 1092).
