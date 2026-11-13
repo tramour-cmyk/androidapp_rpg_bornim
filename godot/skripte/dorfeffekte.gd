@@ -368,13 +368,19 @@ func tritt(held: Node3D) -> void:
 const STAUB_NAH := 0.03
 const STAUB_LEBEN := 1.5
 const STAUB_HELL := 1.05
+## 1119 (Chef 13.11., 10:14, t282.4: „staubt es jetzt, als ob hier ein Traktor rumfahren würde … Nur einen Tick“; 10:20: „bei normalen
+## Gehen müsste es ja fast gar nicht stauben. Bei Rennen macht es eher Sinn“): nach Gang gestaffelt. Rennen die Wolke von 282 einen
+## Tick kleiner und duenner (STAUB_RENNEN), Gehen nur ein Hauch (STAUB_GEHEN: halb so gross, ein Drittel der Deckung, kurz)
+const STAUB_RENNEN := [1.3 * 0.85, 0.85, 1.0]   # Groesse, Deckung, Leben je mal STAUB_K, STAUB_DECK, STAUB_LEBEN
+const STAUB_GEHEN := [0.5, 0.35, 0.6]
 func fussstaub(at: Vector3, rennen: bool) -> Node3D:
-	var fx := setze("effects/footstep_dust.tscn", at, STAUB_K * (1.3 if rennen else 1.0), ["Specks"])
+	var st: Array = STAUB_RENNEN if rennen else STAUB_GEHEN
+	var fx := setze("effects/footstep_dust.tscn", at, STAUB_K * float(st[0]), ["Specks"])
 	if fx == null: return null
-	daempfe(fx, 0.8, STAUB_HELL * (1.0 - 0.4 * nacht_k), STAUB_DECK)
+	daempfe(fx, 0.8, STAUB_HELL * (1.0 - 0.4 * nacht_k), STAUB_DECK * float(st[1]))
 	nah_am_boden(fx)
 	for p in fx.find_children("*", "GPUParticles3D", true, false):
-		(p as GPUParticles3D).lifetime *= STAUB_LEBEN
+		(p as GPUParticles3D).lifetime *= STAUB_LEBEN * float(st[2])
 	return fx
 
 static func nah_am_boden(fx: Node) -> void:

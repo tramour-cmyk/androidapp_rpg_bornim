@@ -61,7 +61,7 @@ func _lauf() -> void:
 	pruefe(fx.erde(g.karte.kachel_pos(Vector2i(17, 6))), "Erdweg bei (17, 6) ist Erde")
 	pruefe(not fx.erde(g.karte.kachel_pos(Vector2i(16, 14))), "Dorfplatz (16, 14) ist keine Erde (Pflaster)")
 	# dritter Fund t278.2 (unsichtbar): Ausblendung am Boden hoechstens 5 cm, ohne Funken, Puffs gross, deckend und lang genug
-	var fs := fx.fussstaub(g.karte.kachel_pos(Vector2i(17, 6)) + Vector3(0, 0.02, 0), false)
+	var fs := fx.fussstaub(g.karte.kachel_pos(Vector2i(17, 6)) + Vector3(0, 0.02, 0), true)   # 1119: die volle Wolke nur noch beim Rennen
 	pruefe(fs != null, "Fussstaub gesetzt")
 	if fs:
 		var puffs := fs.get_node_or_null("Puffs") as GPUParticles3D
@@ -74,6 +74,13 @@ func _lauf() -> void:
 		var hoch := 0.0
 		if pm: for i in pm.color_ramp.gradient.get_point_count(): hoch = maxf(hoch, pm.color_ramp.gradient.get_color(i).a)
 		pruefe(hoch >= 0.8, "Fussstaub: am dichtesten mindestens 80 %% deckend: %.2f" % hoch)
+		# 1119 (Chef 13.11., 10:20: „bei normalen Gehen müsste es ja fast gar nicht stauben“): Gehen nur ein Hauch, nicht null
+		var fg := fx.fussstaub(g.karte.kachel_pos(Vector2i(17, 6)) + Vector3(0, 0.02, 0), false)
+		var pg := fg.get_node_or_null("Puffs") as GPUParticles3D if fg else null
+		var pmg := pg.process_material as ParticleProcessMaterial if pg else null
+		var hg := 0.0
+		if pmg: for i in pmg.color_ramp.gradient.get_point_count(): hg = maxf(hg, pmg.color_ramp.gradient.get_color(i).a)
+		pruefe(pmg != null and pmg.scale_max <= pm.scale_max * 0.5 and hg > 0.2 and hg <= hoch * 0.6 and pg.lifetime < puffs.lifetime, "Gehen: ein Hauch (Größe %.2f statt %.2f, Deckung %.2f statt %.2f)" % [pmg.scale_max if pmg else 0.0, pm.scale_max, hg, hoch])
 	var vor := fx.get_child_count()
 	fx.federn(g.karte.kachel_pos(Vector2i(10, 28)))
 	await warte(2)
