@@ -52,10 +52,17 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 212 · Behebungen 1183, 1177 (Perikles `46f2469a3`, `55076515d`; 13.11., 16:0x)
+
+- **1183 greift:** `LISTE-CHECK-BUILD-TEST.md` 10 „`## Lagen` … Pflicht für jede Zeile, deren Weg nicht mit „Weiter“ und dem Spielstand des Chefs beginnt (1020 D, 1183)“; die Warnung im Prüfschritt ist 1185 (Tom).
+- **1177 greift.** `lauf_laeuft`/`lauf_marke_falsch` mit untergeschobenem Vorrat, Marke heute +3 h: „(Spike, Render)“, „(Render, Spike)“, „(Spike)“ sperren Spike, nicht Tom, ohne Warnung; „(Render)“, „(Tuffy, Render)“, „(Spike, Tom)“ sperren das Team und warnen; ohne Klammer Team, ohne Warnung. Commit-Prüfung (1159) streicht nur Datum und Zeit, die Klammer stört dort nicht.
+
 ## Lauf 211 · 1178 Prüfliste im Bau nur `ansehen/t<n>` (Tom `7d89c654d`, `6ac308364`, `3e6676425` auf `claude/tom-1178-pruefliste`; 13.11., 16:0x)
 
 - **Am Werkzeug ohne Befund.** `--build 282/283/284` (heute keine `ansehen/t28…` auf `main`): „fehlt“, `--pruefe` Exit 1; Klon mit eigenem `main` und `ansehen/t999-a.md`: `GITHUB_HEAD_REF=claude/build-999` nimmt genau diese (11 Zeilen), `--pruefe` Exit 0; Build 1000 nur mit `entwurf/t1000-b.md`: fehlt, Exit 1 (kein Entwurf mehr im Bau); Teamzweig wie bisher die neueste. Arbeitskopie bleibt ungeflacht. Prüfschritt steht in „Skripte pruefen“ unter `set +e` mit Falle 918: rot, die übrigen Tests laufen weiter. Regel 8/9 (1179) verlangt die Liste in `ansehen/` vor dem Push, passt.
 - Greift erst am ersten Lauf auf `claude/build-…` mit 1178: Zeile „PRUEFLISTE Build n aus docs/chefsache/ansehen/t<n>-…“ → `greift 1178 <Lauf>`; 1178 wartet auf t285.
+- **1179 (Perikles `7d2cf4a2b`, Doppelpack 421) ohne Befund:** 8 „vor dem Push, der baut“, 9 „liegt gegengelesen in `ansehen/`, bevor der Push baut … Testbitte auf Telegram erst mit der APK“, 10 Zeile 2 „APK folgt“; „Testbitte nur mit Build“ (Chef 17.10.) bleibt für die Testbitte auf Telegram gewahrt; `zug-index` meldet „APK folgt“ nicht als Formfehler (Probeliste t997, Lauf 210). Prüfpunkt: erste Liste, die vor dem bauenden Push in `ansehen/` liegt; 1179 wartet auf t285.
+- **1181 greift:** `LISTE-GLOSSAR.md` 12 „testet Code vor `main` je Punkt in seiner Art, Kleinkram nicht (1173)“ (`93854efa8`); „jeden Code vor“ steht in keiner Regeldatei mehr.
 
 ## Lauf 210 · 1171 Art Kleinkram in den Werkzeugen (Tom `83335228d`; 13.11., 16:0x)
 
