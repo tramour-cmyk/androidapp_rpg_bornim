@@ -29,7 +29,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 
-**Tom** – offen 113, Muss 89, startbar 8
+**Tom** – offen 113, Muss 89, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -39,7 +39,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 825 | M | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635 | wartet auf Test/Build (gebaut) |
 | 697 | M | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | wartet auf 782 (startbar) |
 | 870.13 | M | Von Sokrates (870, Umzug BRS Schritt 9): Aufräumen, Hinweis SRD 5.1 · CC BY 4.0 raus (Spie | wartet auf 870.10 (wartet) |
-| 492 | M | Blutzahnhöhle begehbar mit Krogg, Grak, Lyra (Orte O8; Wochenziel 03.11., 488; von Jerry a | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1104 (spiel.gd) |
+| 492 | M | Blutzahnhöhle begehbar mit Krogg, Grak, Lyra (Orte O8; Wochenziel 03.11., 488; von Jerry a | Sperre 620.1 B: 14 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1104 (spiel.gd) |
 | 569 | M | Baumkronen ohne erkennbare Tuschelinie, „ein einziger Brei“ (Chef 04.11., 19:44, Bild 558 | ruht |
 | 568 | M | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | ruht |
 | 531 | M | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere | wartet auf 643 (ruht) |
@@ -130,10 +130,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 785.23 | M | Von Spike (785): Renntaste geht von selbst aus, wenn der Held steht oder außer Atem ist (W | wartet auf 870.13 (wartet) |
 | 785.24 | M | Von Spike (785): Laden: Vorräte mit Wirkungszeile in der Liste wie alt (ShopScreen.kt 226– | wartet auf 870.13 (wartet) |
 | 1009 | M | Von Tom (831, Lauf 366): spielstand_test rot „FEHLER Plaetze 1 2“ (letzter() gab Platz 1 s | wartet auf Test (Build) |
-| 1022 | M | Von Sokrates (Chef 12.11., 08:26; Wiederholfund t268): Kartenrand aller Gebietskarten wie | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1092 (gebiet.gd) |
+| 1022 | M | Von Sokrates (Chef 12.11., 08:26; Wiederholfund t268): Kartenrand aller Gebietskarten wie | Sperre 620.1 B: 14 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1092 (gebiet.gd) |
 | 1023 | K | Hühner wie alt: fliehen verlässlich, Federn sichtbar, auffliegen (aus 814, t278.3; Chef 12 | ruht |
 | 1040.1 | M | Von Tuffy (1040, Chef 12.11., 15:13 Lyra „dreht sich genauso bescheuert, ohne Schritte“): | startbar |
-| 1044 | M | Von Sokrates (Chef 12.11., 16:08): Frauen stehen außerhalb des Kampfs wie eine Dame, Beine | Sperre 620.1 B: 13 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1086 (leute.gd) |
+| 1044 | M | Von Sokrates (Chef 12.11., 16:08): Frauen stehen außerhalb des Kampfs wie eine Dame, Beine | Sperre 620.1 B: 14 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1086 (leute.gd) |
 | 1073 | M? | Von Sokrates (Chef 12.11., 20:38): Bilder der Dinge in Tasche und Laden nach unserer Signa | startbar |
 | 1079 | M | Prüfschritt ziege_4162 einmal rot: „von (-1, 0) tauscht die Ziege mit dem Helden den Platz | Termin 13.11. 12:00 |
 | 1081 | M? | Von Sokrates (Chef 12.11., 21:28): Zoom nach außen begrenzen auf 10,2 Kacheln Breite (heut | startbar |
@@ -144,7 +144,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1115 | M | D191.5 von Diogenes (1109): Leute bauen 9–11 min in jedem Lauf, nie abgelegt; prüfen, ob d | wartet auf 1114 (startbar) |
 | 1118 | M | Von Sokrates (Chef 13.11., 10:06, Test 282): Zoom nach innen geht zu weit (Bild nur Rocksa | startbar |
 | 1119 | M | Von Sokrates (Chef 13.11., 10:14 und 10:20, t282.4 ✓): Fußstaub einen Tick zurück und nach | wartet auf Test/Build (gebaut) |
-| 1120 | M | Von Sokrates (Chef 13.11., 10:32, t282.15 ✓): Knöpfe im Gespräch auf eine Höhe, ‹ Nicht je | startbar |
+| 1120 | M | Von Sokrates (Chef 13.11., 10:32, t282.15 ✓): Knöpfe im Gespräch auf eine Höhe, ‹ Nicht je | wartet auf Test/Build (gebaut) |
 | Pflege | K | von Werkzeug (340.3, 13.11.): 20960 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
 
 **Jerry** – offen 131, Muss 117, startbar 3
