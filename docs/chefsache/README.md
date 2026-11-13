@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [1189](entscheiden/1189-leichen.md) | **Muss** | B Abläufe | 13.11., 16:50 | Leichenprüfung alle 48 h durch Diogenes (Prüfer), Werkzeug-Hinweise vorweg, höchstens 10 $ je Lauf, nach zwei Wochen Rückstufung, wenn kaum noch Funde. | Sokrates |
 
 ## Zu billigen
 
@@ -17,9 +21,6 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [1036.1](ansehen/10361-zustaende.md) | Zustände: alle Effekte der Pakete je Zustand | – | 13.11., 13:34 |
-| [1120](ansehen/1120-knoepfe.md) | „Nicht jetzt“ auf einer Höhe mit der Wahl (Pim, Osric) | – | 13.11., 16:40 |
-| [756.1](ansehen/7561-schlecht.md) | Zeichen für Schlecht in der Tasche (roter Punkt, heller) | – | 13.11., 16:31 |
-| [764](ansehen/764-betrunken.md) | Zustand „Betrunken“ im Heldenreiter waagerecht | – | 13.11., 16:35 |
 
 ## Zu tun
 

@@ -1296,6 +1296,6 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 263 | Rolle für Finanzen und Geschäftszimmer? (Chef 20.10.) | B Steuerung | K | – | Sokrates | erledigt |
 | 167.6 | Morgenbericht mit Kennzahlen und Kostenbilanz (Chef 18.10.) | B Steuerung | K | 2,29 $ | Sokrates | erledigt, überholt durch 448 Tagesbericht (1186) |
 | 246 | Dokumente grundsätzlich ins Repo statt als Artefakt; Wochenplan aktualisiert (Chef 20.10.) | Q QM | K | –; +7,03 $ | Sokrates | erledigt |
-| 284 | Bis zum Durchspielen (26) am Kampf nur Fehlerbehebung, kein Feinschliff (Vorschlag Sokrates) | B Abläufe | K | 54,63 $ | Sokrates | erledigt, aufgegangen in 488 Durchspielregel (1186) |
+| 284 | Bis zum Durchspielen (26) am Kampf nur Fehlerbehebung, kein Feinschliff (Vorschlag Sokrates) | B Abläufe | K | 80,34 $ | Sokrates | erledigt, aufgegangen in 488 Durchspielregel (1186) |
 | 650 | docs aufräumen: 88 Dateien, Erledigtes nach docs/alt/, Zusammenlegen, Inhaltsverzeichnis neu (Chef 08.11., 13:24) | B Abläufe | K | – | Sokrates | erledigt |
 | 655 | Bilder: Ersteller sieht sein Bild selbst an, Regel 300 streichen statt neuer Vorprüfung (Chef 08.11., 14:51: „warum entsteht überhaupt das Falsche?“) | B Abläufe | K | 7,02 $ | Sokrates | erledigt |
