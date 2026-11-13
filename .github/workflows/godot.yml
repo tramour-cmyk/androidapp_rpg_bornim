@@ -719,6 +719,7 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/tritte_560.gd 2>&1 | tee tritte560.log | grep -E "FALSCH|TRITTE560|SCRIPT ERROR"; grep -q "^TRITTE560 gut" tritte560.log   # 560 Tritte auf der Karte nicht gebremst (Tom)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/position_518.gd 2>&1 | tee position518.log | grep -E "FEHLER|POSITION518|SCRIPT ERROR"; grep -q "^POSITION518 0 Fehler" position518.log   # 518 Shader setzen POSITION immer
           timeout 300 ~/godot/godot --headless --path . -s res://tests/wald_491.gd 2>&1 | tee wald491.log | grep -E "FEHLER|WALD491|SCRIPT ERROR"; grep -q "^WALD491 0 Fehler" wald491.log   # 491
+          timeout 300 ~/godot/godot --headless --path . -s res://tests/rand_1022.gd 2>&1 | tee rand1022.log | grep -E "FEHLER|RAND1022|^  |SCRIPT ERROR"; grep -q "^RAND1022 0 Fehler" rand1022.log   # 1022 Kartenrand: Wald dicht, Wege enden im Wald, ins Dunkel
           # 909: auf die Messungen nebenher warten, Ausgabe zeigen; rot wie eine eigene Zeile (wait in && || löst die Falle nicht aus)
           while read pid n; do wait $pid && rc=0 || rc=$?; echo "── nebenher $n"; cat $NEBEN/$n.log; [ $rc -eq 0 ] || { echo "$STUFE tests/$n.gd: nebenher, Ende $rc" >> $ROT; echo "::error::918 rot ($STUFE) tests/$n.gd"; }; done < $NEBEN/pids
           # 918: Ende; rot.txt geht mit den Bildern ins Artefakt (bornim-godot-bilder) und steht hier im Protokoll
@@ -1301,6 +1302,35 @@ jobs:
           grep -E "SCRIPT ERROR|^SITZ758 (Borin|kein|Ende)" $B/sitzen758.log | cut -c1-400 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/sitzen758.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/sitzen758.mp4 || true
           ls -l $B
+      # 1022 Kartenrand (Chef 12.11., 17:00 „sinnvolle Bilder von innen auf den Kartenrand nach außen“): Spielansicht, Blick vom Helden
+      # über den Rand nach außen, an den Fundstellen aus Build 280 und im Osten und Süden der Wälder (tests/rand_bild_1022.gd); nachher =
+      # dieser Stand, vorher = Stand von claude/build-280 (dessen Shader, gebiet.gd und die drei Gebietskarten aus dessen dorf.py, alles
+      # andere gleich). Nur bei „1022 Randbilder“ im Commit oder von Hand auf einem Zweig mit 1022
+      - name: Randbilder (1022)
+        if: ${{ !cancelled() && (contains(github.event.head_commit.message, '1022 Randbilder') || (github.event_name == 'workflow_dispatch' && contains(github.ref, '1022'))) }}
+        continue-on-error: true
+        run: |
+          R=$GITHUB_WORKSPACE/bilder/rand1022; mkdir -p $R/nachher $R/vorher
+          export RAND_NUR=1,4,5
+          knipse() {
+            (cd $1 && VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
+              ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -s res://tests/rand_bild_1022.gd -- --rand=$2 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^BILD" | cut -c1-400 || true)
+          }
+          knipse godot $R/nachher
+          A=$RUNNER_TEMP/vorher1022; mkdir -p $A
+          # 1022 Rest (Sokrates 12.11., 23:50: neue Bilder nur Schlagbaum und Fluss, RAND_NUR oben): vorher = Stand der Bilder 23:42 statt Build 280
+          git fetch -q --depth=1 origin 519704595612a6ee866f100bdafc6f2406c023a7 && git archive FETCH_HEAD tools/blender348 godot/shader godot/skripte/gebiet.gd | tar -x -C $A
+          export OUT=$A/out KARTEN=$GITHUB_WORKSPACE/godot/daten/karten.json
+          bl/bin/python -I $A/tools/blender348/v3/tex.py > $A/tex.log 2>&1 || { tail -20 $A/tex.log; exit 1; }
+          for g in village forest deep_forest; do KARTE=$g bl/bin/python -I $A/tools/blender348/v3/dorf.py > $A/dorf-$g.log 2>&1 || { tail -20 $A/dorf-$g.log; exit 1; }; grep -h "GLB OK" $A/dorf-$g.log || true; done
+          cp -a godot $A/spiel
+          cp $A/godot/shader/*.gdshader $A/spiel/shader/ && cp $A/godot/skripte/gebiet.gd $A/spiel/skripte/
+          D=$A/spiel/daten
+          cp $OUT/dorf.glb $D/dorf.bin && cp $OUT/dorf-info.json $D/ && cp $OUT/boden-maske.png $D/boden-maske.bild
+          for g in forest deep_forest; do cp $OUT/$g.glb $D/$g.bin && cp $OUT/$g-info.json $D/ && cp $OUT/$g-boden-maske.png $D/$g-boden-maske.bild; done
+          git diff --no-index --stat godot/shader $A/spiel/shader | tail -1 || true
+          knipse $A/spiel $R/vorher
+          ls -l $R/nachher $R/vorher
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}     # 453: Filme auch nach rotem Prüfschritt; nie mit bild=nein
         with:

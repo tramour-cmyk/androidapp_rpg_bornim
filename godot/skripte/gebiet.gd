@@ -93,7 +93,6 @@ func _ready() -> void:
 		add_child(raumlicht)
 	else: baue_lampen()
 	baue_leben()
-	if String(karte.daten.get("art", "")) == "FOREST": baue_dunkel()
 	insel_ohne = insel_liste
 	bereit = true
 	effekte_neu()
@@ -125,34 +124,12 @@ func inseln_setzen(inseln: PackedVector4Array) -> void:
 			m.set_shader_parameter("inseln", inseln)
 			m.set_shader_parameter("inseln_n", inseln.size())
 
-# 490 Kartenrand (Orte und Welt W19, alt MapEdge): hinter dem Waldring laeuft der Wald ins Dunkel; ab 3 Kacheln vor dem Rand
-# weich dunkler, ab 12 schwarz (liegt knapp ueber dem Boden, Baeume des Rings stehen darin)
-func baue_dunkel() -> void:
-	var ts := Karte.TS
-	var w := karte.breite * ts; var h := karte.hoehe * ts
-	var st := SurfaceTool.new()
-	st.begin(Mesh.PRIMITIVE_TRIANGLES)
-	var lagen := [[3.0, 0.0], [7.0, 0.7], [12.0, 1.0], [70.0, 1.0]]   # Kacheln ausserhalb, Deckung
-	for i in lagen.size() - 1:
-		var a: float = lagen[i][0] * ts; var b: float = lagen[i + 1][0] * ts
-		var ca := Color(0, 0, 0, lagen[i][1]); var cb := Color(0, 0, 0, lagen[i + 1][1])
-		var innen := [Vector3(-a, 0, -a), Vector3(w + a, 0, -a), Vector3(w + a, 0, h + a), Vector3(-a, 0, h + a)]
-		var aussen := [Vector3(-b, 0, -b), Vector3(w + b, 0, -b), Vector3(w + b, 0, h + b), Vector3(-b, 0, h + b)]
-		for k in 4:
-			var p0: Vector3 = innen[k]; var p1: Vector3 = innen[(k + 1) % 4]; var q0: Vector3 = aussen[k]; var q1: Vector3 = aussen[(k + 1) % 4]
-			for e in [[p0, ca], [q0, cb], [q1, cb], [p0, ca], [q1, cb], [p1, ca]]:
-				st.set_color(e[1]); st.add_vertex(e[0] + Vector3(0, 0.04, 0))
-	var mi := MeshInstance3D.new()
-	mi.mesh = st.commit()
-	var m := StandardMaterial3D.new()
-	m.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	m.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	m.vertex_color_use_as_albedo = true
-	m.cull_mode = BaseMaterial3D.CULL_DISABLED
-	mi.material_override = m
-	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	mi.name = "Dunkel"
-	add_child(mi)
+# 1022 Kartenrand (Chef 12.11., 08:26; alt MapEdge, 27m; ersetzt 490 baue_dunkel, das nur den Waldboden abdunkelte und nur im Wald):
+# hinter dem Waldring (dorf.py, sechs Reihen auf jeder Seite) laeuft alles ins Dunkel, Boden, Wasser, Baeume, im Dorf wie im Wald
+# (toon, boden, wasser, halm: rand_licht, im Bild gemessen). Grundrisse haben keinen Rand (ringsum schwarz)
+func rand_karte() -> Vector3:
+	if info.get("innen", false): return Vector3.ZERO
+	return Vector3(karte.breite * Karte.TS, karte.hoehe * Karte.TS, 1.0)
 
 # Blender-Datei je Karte; weitere Gebietskarten kommen nach der Bestandsliste (348.8)
 static func datei(id: String) -> String:
@@ -318,6 +295,7 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 		for i in mi.mesh.get_surface_count():
 			var src := mi.mesh.surface_get_material(i)
 			var m := ShaderMaterial.new()
+			if g: m.set_shader_parameter("rand_karte", g.rand_karte())   # 1022: vor durchsicht (kette nimmt ihn mit)
 			if g and nm.contains("Boden"):
 				m.shader = load("res://shader/boden.gdshader")
 				m.set_shader_parameter("maske", bild(maske(g.karte.id)))
@@ -410,7 +388,7 @@ static func kette(m: ShaderMaterial, sh: Array) -> ShaderMaterial:
 		var d := ShaderMaterial.new()
 		d.shader = sh[i]
 		d.render_priority = i
-		for k in ["tex", "sway", "cut_ab", "kontur", "licht_dir", "glow", "glow_col", "schnitt"]:
+		for k in ["tex", "sway", "cut_ab", "kontur", "licht_dir", "glow", "glow_col", "rand_karte", "schnitt"]:
 			if m.get_shader_parameter(k) != null: d.set_shader_parameter(k, m.get_shader_parameter(k))
 		if m.get_shader_parameter("kontur"): Licht.nach_licht.append(d)
 		vor.next_pass = d
@@ -689,6 +667,7 @@ func halm_netz(xf: Array[Transform3D], cu: Array[Color], tex: String, korn: floa
 	var m := ShaderMaterial.new(); m.shader = korn_shader() if korn > 0.5 else load("res://shader/halm.gdshader")
 	m.set_shader_parameter("tex", bild(tex))
 	m.set_shader_parameter("korn", korn)
+	m.set_shader_parameter("rand_karte", rand_karte())   # 1022: Halme hinter dem Rand ins Dunkel wie der Boden
 	m.set_shader_parameter("inseln", insel_liste)
 	m.set_shader_parameter("inseln_n", insel_liste.size())
 	mmi.material_override = m
