@@ -306,3 +306,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 03:03 13.11.: Marke Start-fehlt Spike 13.11.-02:04 (lauf.py)
 - 03:04 13.11.: Lauf 03:03 ohne Start (Spike-Start für Tom-Spiegel nicht ausgeführt, ab jetzt --ohne Spiegel); Stillstand Perikles ohne Vorgang ignoriert; Sokrates, Tom, Jerry, Tuffy laufen oder warten (Weckrufe: Sokrates 02:33 UTC, Tom 02:09/02:25/03:05 UTC).
 - 03:16 13.11.: Startsperre 03:16 Start Sokrates (Ford, Neustart-Meldung 26e22cf0b, Nachfolger „Sokrates – 1077: Nachtführung und Chefrunde Build 281“; Hoch, effort high)
+- 03:17 13.11.: Neustart Sokrates (26e22cf0b): Sokrates neu …76u5Yu31JvukatFmxM gestartet (Hoch, effort high), Nacht-Weckruf (02:33 UTC) neu gelegt; Sokrates alt …75o682WLs3Srkf9QbV um 03:17 archiviert, 5,01 $ auf 1077, 1044, 1090, 1043, 867 gebucht.
