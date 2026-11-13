@@ -45,6 +45,7 @@ func fight(monster: String, sieg_flagge: String = "") -> void: befehle.append({"
 func shop(waren: Array, brauen: bool = false) -> void: befehle.append({"art": "laden", "waren": waren, "brauen": brauen})
 func rest() -> void: befehle.append({"art": "rast"})
 func heal() -> void: befehle.append({"art": "heilen"})
+func ereignis(was: String) -> void: befehle.append({"art": "ereignis", "was": was})   # 1144: Klang und Regung zur nächsten Zeile (spiel.gd ereignis)
 func chapter_end() -> void: befehle.append({"art": "kapitelende"})
 func temple_scene() -> void: befehle.append({"art": "tempelszene"})
 func morning(ort: Dictionary) -> void: befehle.append({"art": "morgen", "ort": ort})

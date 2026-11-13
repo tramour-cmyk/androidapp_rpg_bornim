@@ -641,6 +641,22 @@ var kampf_mess: Label   # 211.14: Bildrate im Kampf (Testmodus „Bildrate“ od
 
 # 399.3 (Jerry): Musik und Klang ueber den Autoload Klang; ueber den Knoten statt den Namen, denn mit -s (skripte_pruefen,
 # Lauf 135) gibt es den Autoload noch nicht und spiel.gd liesse sich nicht laden
+# 1144 (Chef 13.11., 14:49: „Die Ketten fallen klirrend zu Boden. Da wäre vielleicht ein Geräusch nicht das Schlechteste … erst wenn der
+# Dialog rum ist … geht sie heraus und hat … keine Ketten mehr an, weil sie die Arme bewegt. Das könnte man … cleverer timen“): zur
+# Zeile der Ketten, kurz nach dem Schlüssel, der Klang (tools/klang/ketten.py) und Lyra frei (Haltung.befreie); dann spricht sie, geht erst
+# nach dem Gespräch (LYRA_RESCUED am Ende der Szene)
+const KETTEN_NACH := 0.45   # s: erst dreht sich der Schlüssel
+func ereignis(was: String) -> void:
+	if was != "ketten": return
+	var ly: Leute = null
+	for l in leute_liste():
+		if String(l.daten.get("id", "")) == "lyra_cave": ly = l
+	get_tree().create_timer(KETTEN_NACH).timeout.connect(func():
+		klang("effekt", ["chains", 0.9])
+		var sk := Gebiet.finde(ly, "Skeleton3D") if ly != null and is_instance_valid(ly) else null
+		var h := sk.get_node_or_null("Haltung") if sk != null else null
+		if h != null and h.has_method("befreie"): h.befreie())
+
 func klang(was: String, mit := []) -> void:
 	var k := get_node_or_null("/root/Klang")
 	if k: k.callv(was, mit)
@@ -1118,6 +1134,7 @@ func weiter() -> void:
 				return
 			"rast": Rast.heilen(zustand, held_werte(), platz())   # Cmd.Rest (Tempel): dazu der Wiederkehrort
 			"heilen": Rast.heilen(zustand, held_werte())
+			"ereignis": ereignis(String(c["was"]))
 			"laden":   # Cmd.OpenShop: Thessa oder Morwen; die Szene geht weiter, wenn der Laden zu ist
 				oeffne_laden(c["waren"], bool(c.get("brauen", false)), bool(c.get("nur_vorraete", false)))
 				return
