@@ -914,7 +914,9 @@ static func person_modell(id: String) -> String:
 
 # 1044: Personen mit Damenstand (Haltung.dame); Lyra (Vorentscheid Sokrates 13.11., 00:09), nach „Lyra passt“ (02:30) alle Frauen
 # ausserhalb des Kampfs aus leute.json (sex w): die Heldin nicht
-const DAMEN := ["lyra", "liska", "gwenna", "rowena", "thessa", "morwen"]
+# 1044 zurueck bis auf Lyra (Chef 13.11., 09:35: „Hände vorne, Quatsch. Macht vielleicht die Priesterin, aber alle anderen können doch
+# ganz normal stehen“): Damenstand nur Lyra; die anderen wieder normaler Stand mit Ruhebewegung (je Figur eigene folgt im Neubau)
+const DAMEN := ["lyra"]
 
 static func person(id: String, mats: Array) -> Node3D:
 	var mo := person_modell(id)
