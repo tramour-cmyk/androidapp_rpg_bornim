@@ -8,7 +8,7 @@ Je Rolle: oberstes startbares Muss und oberste startbare Kür (Kl. „M?“ zäh
 (--alle: jede Zeile); --stand: „offen n, Muss m, startbar s, gesperrt g“. „Pause bis <Zeit>“ oben im Vorrat sperrt die Rolle.
 Stand = ein Wort der Liste WORTE, dahinter nach Komma oder Doppelpunkt höchstens ein kurzer Zusatz; gerechnet wird nur mit dem Wort
 (und „in Arbeit bei Spike|Tuffy“, 433).
-**Automatik A „wartet auf“** (275.2): Feld mit Nummern, Rollen, Daten (TT.MM.[ HH:MM]) oder „Chef[ <Dateinummer>]“, mit Komma getrennt.
+**Automatik A „wartet auf“** (275.2): Feld mit Nummern, Rollen, Daten (TT.MM.[ HH:MM]) oder „Chef[ <Dateinummer>]“, mit Komma getrennt; „Chef Gespräch“ (1236) löst der Archiveintrag „- **<Nr>, Chef Gespräch …“.
 Erfüllt: Nummer erledigt (für die Sperre auch gebaut oder zu testen, 190.1; geschrieben wird nur bei erledigt, D80.3); Datum vorbei;
 Chefsache-Datei weg; t<Build> mit Archiveintrag.
 Eine Rolle erfüllt sich nie von selbst: die Zeile erscheint bei dieser Rolle als ihre Arbeit (Klasse der wartenden Zeile), bis die Rolle
@@ -473,6 +473,7 @@ NUMMER = re.compile(r"^D?\d+[A-Za-z0-9.]*$")
 def art(token):
     """rolle, chef, datum, nr oder None (ungültig)."""
     if token in WARTE_ROLLEN: return "rolle"
+    if token == "Chef Gespräch": return "gespraech"  # 1236: großes Vorhaben, Sokrates bündelt in der Chefrunde
     if re.fullmatch(r"Chef(?: [0-9][0-9a-z.]*)?", token): return "chef"
     if DATUM.match(token): return "datum"
     if re.fullmatch(r"t\d+", token): return "build"  # Test des Builds n: erfüllt mit dem Archiveintrag „- **t<n>“ (Antwort des Chefs)
@@ -496,6 +497,8 @@ def erfuellt(token, nr="", streng=False):
         return not chef_datei(teile[1] if len(teile) > 1 else nr)
     if a == "build":
         return re.search(r"(?m)^- \*\*" + token + r"\b", lesen("VORGANGSARCHIV.md")) is not None
+    if a == "gespraech":  # 1236: erfüllt mit dem Archiveintrag „- **<Nr>, Chef Gespräch …“ (Chef „los“ oder „anders“)
+        return bool(nr) and re.search(r"(?m)^- \*\*" + re.escape(nr) + r", Chef Gespräch\b", lesen("VORGANGSARCHIV.md")) is not None
     if a == "nr":
         for d in zeilen_liste():
             if d["nr"] == token: return d["wort"] == "erledigt" if streng else d["wort"] in ("erledigt", "gebaut", "zu testen")
@@ -591,6 +594,7 @@ def sperre(d):
     for t in offen:
         a = art(t)
         if a == "chef": return "Chef (Datei in der Chefsache)"
+        if a == "gespraech": return "Chef Gespräch (großes Vorhaben, Sokrates bündelt in der Chefrunde, 1236)"
     for t in offen:
         a = art(t)
         if a == "rolle": return "wartet auf " + t
