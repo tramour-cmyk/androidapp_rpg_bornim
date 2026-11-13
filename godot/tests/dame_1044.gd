@@ -5,13 +5,18 @@ extends SceneTree
 # „Damenstand (1044)“), im Ordner godot:
 #   xvfb-run -a godot --path . --resolution 540x1170 -s res://tests/dame_1044.gd -- --aus=<ordner> [--nur=lyra_temple,…]
 # Plaetze aus daten/karten.json (Leute mit Aussehen in leute.json, sex w), der Held auf einem freien Nachbarfeld, Kamera nah.
+# 1090 (Vorentscheid Sokrates 13.11., 02:46): --rock nimmt alle sieben mit Robe (dazu Aldric, Osric; ohne Thessa), je im Stehen
+# (Damenstand, wer in DAMEN ist) und im Gehen auf der Stelle (Luecke zwischen Saum und Schuh?), Bilder <id>_stehen, <id>_gehen
 
 const FRAUEN := [["village", "liska"], ["village", "gwenna"], ["inn", "rowena"], ["shop", "thessa"], ["deep_forest", "morwen"],
 	["temple", "lyra_temple"]]
+const ROBE := [["village", "liska"], ["village", "gwenna"], ["inn", "rowena"], ["deep_forest", "morwen"], ["temple", "lyra_temple"],
+	["elder", "aldric"], ["temple", "osric"]]
 const NACHBARN := [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(2, 0), Vector2i(-2, 0), Vector2i(1, -1), Vector2i(-1, -1), Vector2i(1, 1), Vector2i(-1, 1)]   # seitlich, nicht davor
 
 var aus := ""
 var nur: PackedStringArray = []
+var rock := false
 var spiel: Node
 
 
@@ -19,6 +24,7 @@ func _initialize() -> void:
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--aus="): aus = a.substr(6)
 		if a.begins_with("--nur="): nur = a.substr(6).split(",")
+		if a == "--rock": rock = true
 	_lauf.call_deferred()
 
 
@@ -54,7 +60,7 @@ func _lauf() -> void:
 	spiel.zustand.setze(Geschichte.LYRA_RESCUED)
 	spiel.zustand.minuten = 11 * 60
 	var fehlt := 0
-	for fr in FRAUEN:
+	for fr in (ROBE if rock else FRAUEN):
 		var kid: String = fr[0]; var id: String = fr[1]
 		if not nur.is_empty() and id not in nur: continue
 		var p := platz(kid, id)
@@ -86,6 +92,16 @@ func _lauf() -> void:
 		if haltung == null or not ("dame" in haltung):
 			print("DAME1044 FEHLER %s nicht da oder ohne Kaufkoerper (%s %s)" % [id, kid, p]); fehlt += 1; continue
 		print("DAME1044 %s %s an %s, Held %s, Bewegung %s, in DAMEN %s" % [id, kid, frau.kachel, hp, frau.anim.current_animation if frau.anim else "-", haltung.dame])
+		if rock:   # 1090: im Stand wie im Spiel, dann im Gehen auf der Stelle (mitten im Schritt)
+			await warte(0.6)
+			spiel.ui.textfeld.visible = false
+			await knips("%s_stehen" % id, frau)
+			if frau.anim and frau.anim.has_animation(frau.geh_anim):
+				frau.anim.play(frau.geh_anim)
+				await warte(0.9)
+				await knips("%s_gehen" % id, frau)
+				print("DAME1044 %s gehen (%s)" % [id, frau.geh_anim])
+			continue
 		for stand in [["vorher", false], ["nachher", true]]:
 			haltung.dame = stand[1]
 			haltung.dame_w = -1.0
