@@ -264,7 +264,9 @@ func _bilanz() -> void:
 			e[5] += 1
 		if t[5] > LUFT_M and t[7] <= LUFT_M:
 			e[4] += 1
-		if t[5] > LUFT_M:
+		# 709.1 (709c A): Wolf und Grimmzahn beißen den Helden mit Schild in den Schildrand; dort ist der Biss richtig
+		var am_schild_recht: bool = t[2] in ["wolf", "dire_wolf"] and t[7] <= LUFT_M
+		if t[5] > LUFT_M and not am_schild_recht:
 			e[1] += 1
 			if t[5] > e[2]:
 				e[3] = "%s %s → %s %.2f m (%s)" % [t[0], t[1], t[3], t[5], t[6]]

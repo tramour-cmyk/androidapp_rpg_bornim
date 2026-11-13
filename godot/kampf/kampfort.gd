@@ -1288,9 +1288,14 @@ func _play_say(e: Dictionary) -> void:
 		var art := ""
 		if target == id and across and actor != null and figures.has(actor):
 			art = "sprung" if figures[actor].letzter_sprung and lunge_ms > 0 else ("fern" if fx != null else "nah")
+			# 709.1 (709c A, Chef 11.11., 07:56): Wolf oder Grimmzahn beißt in den Schild; trifft er, taumelt der Held (schwerer Treffer),
+			# hält der Schild, stößt er ihn weg (Figur.ABWEHR „biss“)
+			var am = figures[actor].fighter.monster
+			if art == "nah" and am != null and Mars.wolfig(am) and figures[id].blockt():
+				art = "biss"
 		if e.hp[id] < was:
 			var mx: int = mars.find(id).max_hp if mars.find(id) != null else 1
-			figures[id].hurt(lands, e.hp[id] <= 0, (was - e.hp[id]) * 4 >= mx, art)
+			figures[id].hurt(lands, e.hp[id] <= 0, (was - e.hp[id]) * 4 >= mx or art == "biss", art)
 		elif target == id and _missed(e) and across and figures[id].blockt():
 			# 406.2: gelungene Abwehr nach der Seite des Angreifers, gegen tiefe Gegner tief
 			var af = figures.get(actor)

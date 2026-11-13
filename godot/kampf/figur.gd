@@ -2418,7 +2418,7 @@ func _turn_home() -> float:
 const ABWEHR_VOR := 0.1
 const BISSKETTE_JE := 2     # 595: jeder zweite unangesagte Biss der Spinne als Bisskette (reihum wie das Ausweichen, 593)
 var biss_nr := 0
-func _bite(other, leap: bool, weiter := 0.0) -> int:
+func _bite(other, leap: bool, weiter := 0.0, treffer := true) -> int:
 	# 717 C, 717.1 A (wolf_mess_438: um den Helden war kein Bissplatz frei, Wolf 1 stand dort abgesetzt, Wolf 3 biss durch ihn): wer
 	# abgesetzt steht, rückt jetzt in seine Reihe (Zurechtrücken im Zug der Gegner, F8), das Gesicht zum Helden
 	# 778 (Build 272, wolf_mess_438 Kleriker Bild 2829, nachgestellt am Rechner): Wolf 2 stand abgesetzt 4,9 m vom Ziel, ausserhalb der
@@ -2439,15 +2439,27 @@ func _bite(other, leap: bool, weiter := 0.0) -> int:
 	for r in rueckt:
 		r[0].position = r[0].home
 		r[0].bahn = []
-	var ms := _bite_plan(other, leap, weiter, t_warte)
+	var ms := _bite_plan(other, leap, weiter, t_warte, treffer)
 	for r in rueckt:
 		r[0].position = r[1]
 		r[0].bahn = r[2]
 	return ms
 
 
-func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
+## 709.1 (709c A, Chef 11.11., 07:56): Wolf und Grimmzahn gegen einen Helden mit Schild kommen gerade von vorn und beißen in die
+## Unterkante des Schilds; trifft der Biss, zerren sie zweimal daran (der Held taumelt, kampfort.gd), hält der Schild, stößt der Held
+## sie weg und sie prallen zurück. Ohne Schild beißen sie von vorn (höchstens 20° versetzt) in Unterarm oder Oberschenkel
+const ZERR_WEG := 0.09      # m (mal Größe): so weit reißt der Wolf je Zerren den Kopf zurück
+const ZERR_T := 0.11        # s je Ruck zurück (wieder vor: 1,4-mal so lang)
+const PRALL_WEG := 0.28     # m (mal Größe): so weit prallt er vom Schildstoß zurück
+const PRALL_T := 0.16
+const SCHILD_TIEF := 0.02   # so tief fassen die Zähne in den Schildrand
+func _bite_plan(other, leap: bool, weiter: float, t_warte: float, treffer := true) -> int:
 	var bleib717 := _bleib_717()
+	var wolf_art: bool = fighter.monster != null and Mars.wolfig(fighter.monster) and other.fighter.monster == null
+	var schild_biss: bool = wolf_art and not leap and other.has_method("blockt") and other.blockt()
+	if schild_biss:
+		weiter = 0.0     # auch abgewehrt: die Zähne am Schild, dann der Stoß (nicht VERFEHLT_M davor)
 	var flat := Vector3(other.position.x - position.x, 0.0, other.position.z - position.z)
 	if flat.length() < 0.01:
 		flat = basis.z
@@ -2482,12 +2494,16 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 		if not bb.is_empty():
 			var ziel: Array = other.koerper()
 			var hind: Array = other.schild_kapseln()
+			if schild_biss and not hind.is_empty():     # 709.1: Ziel ist der Schild, der Körper dahinter bleibt frei
+				ziel = hind
+				hind = other.koerper()
 			other.footprint()     # misst schild_unten (ohne Schild INF)
 			var unter_schild: bool = other.schild_unten < INF and hoehe_oben() < other.schild_unten
 			var teil := []     # bester freier Platz, an dem die Schnauze nicht ganz hinreicht: [Lücke, Platz, Richtung, Stand, t]
-			for w in [0.0, 20.0, -20.0, 40.0, -40.0, 60.0, -60.0]:
+			var winkel: Array = [0.0] if schild_biss else ([0.0, 20.0, -20.0] if wolf_art else [0.0, 20.0, -20.0, 40.0, -40.0, 60.0, -60.0])
+			for w in winkel:
 				var d2 := dir.rotated(Vector3.UP, deg_to_rad(w))
-				var pl: Array = hieb_plan(bb, ziel, other.position, d2, -BISS_TIEF, BISS_LUFT, hind)
+				var pl: Array = hieb_plan(bb, ziel, other.position, d2, -SCHILD_TIEF if schild_biss else -BISS_TIEF, BISS_LUFT, hind)
 				if OS.get_environment("SCHAU_709") != "":
 					print("709 Biss %s an %s, %.0f°: Stand %.2f (Schnauze %.2f, Körper %.2f), vorher %.2f" % [fighter.id, other.fighter.id, w, pl[0], pl[2], pl[3], stand])
 				if pl[2] <= 0.0:
@@ -2499,7 +2515,7 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 				# reicht die Schnauze nicht ganz hin, steht der Schild davor; er fährt bei der Abwehr (Ring) vor, also gleich ABWEHR_VOR
 				# Abstand (wolf_mess_438 Kleriker 71,9 s: Schild 9 cm im Wolf)
 				# 709 (treffen_709 Ratten: 8 cm vor dem Helden): wer unter dem Schild bleibt, dem stößt er nicht entgegen
-				var st2: float = float(pl[0]) + (ABWEHR_VOR if not unter_schild and (not voll or other.has_method("blockt") and other.blockt()) else 0.0)
+				var st2: float = float(pl[0]) + (ABWEHR_VOR if not schild_biss and not unter_schild and (not voll or other.has_method("blockt") and other.blockt()) else 0.0)
 				var s2 := Vector3(other.position.x, position.y, other.position.z) - d2 * st2
 				var l2 := _platz_luft(s2, d2, other)
 				var w2 := _weg_luft(position, s2, other) if s2.distance_to(position) > 0.15 else INF
@@ -2672,12 +2688,24 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 	var bl: float = anim.get_animation(nm).length if anim and anim.has_animation(nm) else 0.8
 	var b := Basis(Vector3.UP, atan2(dir.x, dir.z))
 	tween.tween_callback(func(): _play(nm, 0.08))
+	var ende := start + dir * jump
 	if nm == "Sprungbiss":
 		tween.tween_method(func(x: float): position = _weg_at(start, b, nm, x, k), 0.0, bl, bl)
+	elif schild_biss and biss_von != Vector3.INF:
+		var t0: float = clampf(biss_t, 0.0, bl)
+		tween.tween_interval(t0)
+		if treffer:     # 709.1: die Zähne im Schildrand, zweimal ruckartig zurück gezerrt
+			for i in 2:
+				tween.tween_property(self, "position", start - dir * ZERR_WEG * _scale(), ZERR_T).set_trans(Tween.TRANS_SINE)
+				tween.tween_property(self, "position", start, ZERR_T * 1.4).set_trans(Tween.TRANS_SINE)
+			tween.tween_interval(maxf(0.0, bl - t0 - ZERR_T * 4.8))
+		else:     # 709.1: der Schildstoß des Helden wirft ihn zurück
+			ende = start - dir * PRALL_WEG * _scale()
+			tween.tween_property(self, "position", ende, PRALL_T).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+			tween.tween_interval(maxf(0.0, bl - t0 - PRALL_T))
 	else:
 		tween.tween_interval(bl)
 	var t_back := 0.0
-	var ende := start + dir * jump
 	# 863: der Rücksprung der Quelle (Ratte: dodgeBackwards, 1,6 m) nur, wenn sein Weg frei ist, sonst rückwärts im Gang (unten, mit
 	# der Prüfung von 717 C)
 	if weg.has("Ausweichen zurück") and anim.has_animation("Ausweichen zurück") and _satz_frei(ende, b, "Ausweichen zurück", other):
@@ -3072,7 +3100,8 @@ func strike(other, e: Dictionary) -> int:
 		if leap:
 			pouncing = false
 		# 438 (wolf_mess_438: beim Verfehlen wich der Held aus, sein Schild fuhr bis 6 cm um die Schnauze): daneben bleibt der Wolf weiter weg
-		return _bite(other, leap, VERFEHLT_M if e.get("roll") != null and Mars.ist_angriff(e.roll) and not e.roll[4] else 0.0)
+		var daneben: bool = e.get("roll") != null and Mars.ist_angriff(e.roll) and not e.roll[4]
+		return _bite(other, leap, VERFEHLT_M if daneben else 0.0, not daneben)
 	var ms := BEAST_LUNGE_MS if fighter.monster != null else BLOW_MS
 	var to: Vector3 = other.position
 	var reach := (to - position) * (0.8 if leap else 0.6)
@@ -4273,7 +4302,8 @@ func _im_bild(p: Vector3, blick: Vector3) -> bool:
 ## mit Schild kämpft, wehrt einen Angriff ab, bevor er ankommt; der Schild trifft den Angriff im Aufschlag (Kontakt aus held_kampf.py).
 ## Gelungen: die Abwehr läuft aus. art: „sprung“ (Sprungbiss: schwere Abwehr), „fern“ (Pfeil, Zauber), sonst nah (Biss, Hieb).
 const ABWEHR := {"sprung": ["SS_BlockHeavy1", "SS_BlockHeavy2", "SS_BlockMedium1"], "fern": ["SS_BlockMedium1", "SS_ParryHigh1", "SS_BlockMedium2"],
-	"nah": ["SS_BlockLight", "SS_BlockMedium1", "SS_BlockMedium2", "SS_ParryLow"]}
+	"nah": ["SS_BlockLight", "SS_BlockMedium1", "SS_BlockMedium2", "SS_ParryLow"],
+	"biss": ["SS_ShieldAttack1", "SS_ShieldAttack2", "SS_ShieldAttack3"]}     # 709.1 (709c A): Wolf am Schild, der Held stößt ihn weg
 var abwehr_nr := 0
 
 var _abwehr_letzt := ""
@@ -4320,7 +4350,7 @@ func abwehr(lands_ms: int, art: String, von := Vector3.INF, gelungen := false, t
 	if not _ss():
 		return
 	var liste: Array = (ABWEHR.get(art, ABWEHR["nah"]) as Array).filter(func(x): return anim.has_animation(x))
-	if gelungen and von != Vector3.INF and art != "fern":
+	if gelungen and von != Vector3.INF and art != "fern" and art != "biss":
 		var pl := _parade_liste(von, art, tief).filter(func(x): return anim.has_animation(x))
 		if not pl.is_empty():
 			liste = pl
