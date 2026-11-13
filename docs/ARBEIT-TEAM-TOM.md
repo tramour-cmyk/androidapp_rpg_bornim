@@ -31,7 +31,18 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 ## Einzelheiten
 
 
+
+
+
+
+
+- **Zu 1108, von Chef (Fund t283.5, Test Build 283, Automatik B):** Spiel 283.4: „... rennt heim", steht aber noch neben mir...“; Spiel 283.5: „gab eh keinen Dank...“
+- **Zu 1092, von Chef (Fund t283.10, Test Build 283, Automatik B):** Spiel 283.6 (Lyra): „wie um Chat“; Osrics Robe ✓ (Spiel 283.3)
+- **Zu 1091, von Chef (Fund t283.12, Test Build 283, Automatik B):** Spiel 283.7: „siehe Chat“ (kein Tageslicht am Ausgang, mittags wie nachts gleich)
+- **Zu 1086, von Chef (Fund t283.5, Test Build 283, Automatik B):** Spiel 283.4: „... rennt heim", steht aber noch neben mir...“; Spiel 283.5: „gab eh keinen Dank...“
+- **Zu 1044, von Chef (Fund t283.3, Test Build 283, Automatik B):** Spiel 283.1: „scheint bei allen im Dorf nicht der Fall zu sein...“ (eigene Ruhebewegung je Person); Osric steht wie im Kampfstand (Chat 15:38, 15:42); Gwenna ✓ (Spiel 283.2); alle Leute drehen sich wieder wie auf dem Drehteller, keine Schritte (Chat 15:58, 1040.1)
 - **Zu 1040.1, von Chef (Fund t282.23, Test Build 282, Automatik B):** „da es etwas ruckelig ist, kann ich es nicht sicher sagen...“ Hinweis Sokrates: kein Fund am Wenden, sondern nicht beurteilbar (Höhle 45 Bilder/s, Bildrate offen beim Chef); nach 1128 A Bewegung als Film vorlegen (Lyra wendet mit Schritten, nah, etwa dreimal), nicht noch einmal am Handy.
+  - **Wiederholt, von Sokrates (Chef 13.11., 15:58, Build 283):** „Alle Figuren im Dorf haben sich wieder gedrillt wie am Hähnchenspieß. Also nichts mit Schritten irgendwie zu mir hin, sondern alle, ja, wie auf dem Drehteller.“ Damit eindeutig ✗ (vierter Anlauf: t281, t282, t283); der Bautest `wendeschritt_10401` war grün und fand es nicht. Erst am Rechner im Dorf nachstellen, wie der Chef es sieht (Held geht an Leuten vorbei), Test so ändern, dass er dort rot wird, dann bauen; Film.
 - **Zu 492, von Sokrates (13.11., 14:51):** 282.19–.21 ✓, 492 und 1104 erledigt: PR #201 (Höhle) darf auf `main`.
 - **Zu 1145, von Sokrates (Chef 13.11., 14:35, Bild Blutzahnhöhle: Bilder/s 45, Mittel 22,2 ms, 95 % unter 22,8 ms, 593 Zeichenaufrufe, 336k Dreiecke):** „Die Bildraten soweit passen ja, oder? Weil irgendwie fühlt sich's ein bisschen hackelig an, was aber eigentlich gar nicht sein kann. Oder doch?“ 14:45: „die Idee in der Höhle, dass die Fackel schuld ist … abgelegt und wieder angelegt, das macht keinen Unterschied.“ Kampf gegen Grak 16 Bilder/s (806 Jerry). 45 genau = 90 Hz halbiert (vsync); Anzeige misst samt Warten. Erst messen am Gerät (Bildschirmtakt, Grafikzeit; Schalter `--tuschelampen=0`, `--tuschealt`, Nebel, Schatten je einzeln), dann Weg zu 90 mit Kosten vorschlagen; nicht fest auf 60 (ungleich auf 90 Hz). Mit 698 (Grafikstufen) abstimmen.
 - **Zu 1155, von Sokrates (Chef 13.11., 15:12):** „wann kommt jetzt eigentlich mal das Wasserteich, Teich und Fluss und so mit der Textur, die wir ausgewählt haben aus dem Kaufpaket?“ 623.8 A (09.11.) nannte „Wald (Tom)“ als Szene 3, ein Vorgang fehlte bis jetzt. Inhalt `LISTE-EFFEKTE.md` Szene 3 (Wald-Teil) und Zeile „Bach, Fluss“; Teich klar nach 623.6 (Archiv 08.11., 17:02). Bilder/s nie schlechter (1145 zuerst messen). Kl. K wie 816; Vorrang Perikles.
