@@ -126,7 +126,9 @@ func _biss(g: String, klasse: String, treffer: bool) -> void:
 	await _blende(0.0)
 	await create_timer(0.5).timeout
 	# wie kampfort.gd beim Biss: Angreifer beißt, beim Aufschlag Treffer oder Abwehr des Ziels
-	var ms: int = wolf._bite(held, false, 0.0 if treffer else 0.3, treffer)
+	# Lauf 451: _bite gibt die Zeit vor Engine.time_scale (/ 0,42); kampfort.gd rechnet lands = ms * 0,42, der Film nahm sie roh, darum
+	# zuckte der Held 2,2 s nach dem Biss, als der Wolf schon zurück war
+	var ms: int = int(wolf._bite(held, false, 0.0 if treffer else 0.3, treffer) * 0.42)
 	var art := "biss" if held.blockt() else "nah"
 	if treffer:
 		held.hurt(ms, false, true, art)
@@ -135,11 +137,23 @@ func _biss(g: String, klasse: String, treffer: bool) -> void:
 	else:
 		held.dodge(ms)
 	var n := 0
+	var nah := INF     # Lauf 451: nächste Annäherung der Schnauze an den Helden, sie muss mit dem Biss zusammenfallen
+	var nah_ms := 0
 	while n * 1000 / 30 < ms + 2600:
 		await process_frame
 		n += 1
+		var sv: float = wolf._schnauze_vorn()     # die Schnauze (Kapseln der Bissteile) reicht im Biss vor den Rumpf
+		var dn := Vector2(wolf.position.x - held.position.x, wolf.position.z - held.position.z).length() - (sv if is_finite(sv) else 0.0)
+		if dn < nah:
+			nah = dn
+			nah_ms = n * 1000 / 30
 		if mess and abs(n * 1000 / 30 - ms) <= 17:
 			print("MESS 7091 %s %s %s: Schnauze %s, Biss bei %d ms" % [g, klasse, "Treffer" if treffer else "Abwehr", wolf.position, ms])
+	if mess:
+		print("MESS 7091 %s %s %s: am nächsten %.2f m bei %d ms, Biss bei %d ms, Versatz %d ms%s" % [g, klasse, "Treffer" if treffer else "Abwehr",
+				nah, nah_ms, ms, nah_ms - ms, "" if absi(nah_ms - ms) <= 250 else " FALSCH"])
+		if absi(nah_ms - ms) > 250:
+			fehler += 1
 	await _blende(1.0)
 	kf.queue_free()
 	p.queue_free()
