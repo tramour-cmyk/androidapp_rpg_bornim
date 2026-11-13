@@ -91,7 +91,8 @@ def stand_setzen(nr, stand, rolle=None):
     m = re.match(r"\s*wartet auf\s+(.+?)(?::\s*(.*))?$", stand)
     if m and not startbar.art(m.group(1).split(",")[0].strip()) is None:  # alte Gewohnheit „wartet auf 625: …“
         n["warte"] = warte_aus(m.group(1)); stand = "wartet" + ((", " + m.group(2)) if m.group(2) else "")
-    stand_pruefen(stand, nr)
+    if stand_pruefen(stand, nr) == "erledigt" and (sp := rest_sperre(nr, d)):   # 1153
+        sys.exit("vorgang.py: " + sp)
     n["stand"] = stand
     ersetzen(d, n)
     print("vorgang.py: %s (%s) Stand „%s“%s" % (nr, d["besitzer"], stand, (", wartet auf " + ", ".join(n["warte"])) if n["warte"] else ""))
@@ -112,7 +113,9 @@ def setzen(nr, paare, rolle=None):
         if k not in FELDER: sys.exit("vorgang.py: Feld „%s“ unbekannt (%s)" % (k, ", ".join(sorted(set(FELDER)))))
         k = FELDER[k]
         if k == "warte": n[k] = warte_aus(v)
-        elif k == "stand": stand_pruefen(v, nr); n[k] = v
+        elif k == "stand":
+            if stand_pruefen(v, nr) == "erledigt" and (sp := rest_sperre(nr, d)): sys.exit("vorgang.py: " + sp)   # 1153
+            n[k] = v
         elif k == "build": n[k] = v.lstrip("t") or "–"
         elif k == "bereich" and not bereiche.gueltig(v): sys.exit("vorgang.py: Bereich aus der festen Liste (651), Vorschlag „%s“:\n%s" % (bereiche.einordnen(v), bereiche.liste_text()))
         else: n[k] = v.strip() or "–"
@@ -161,12 +164,20 @@ def rest_offen(nr, d=None):
              (x["nr"].startswith(nr + ".") or re.search(r"\baus " + re.escape(nr) + r"(?![\w.]|\.\d)|\(" + re.escape(nr) + r"[,;)]", x["titel"]))]
     return [] if folge else funde
 
+def rest_sperre(nr, d=None):
+    """1143, 1153 (D205.4): Meldung, wenn nr wegen eines Rests ohne Folgevorgang nicht erledigt werden darf, sonst None. Gilt für
+    fertig, greift, bautest, stand/setze mit „erledigt“ und die Testauswertung build N."""
+    rest = rest_offen(nr, d)
+    if not rest or os.environ.get("VORGANG_REST_OK") == nr:
+        return None
+    return ("%s nicht erledigt (1143): Rest ohne Folgevorgang – %s. Erst `vorgang.py neu \"… (aus %s)\" …` anlegen "
+            "oder im Commit „Kein Folgevorgang, weil: …“ schreiben." % (nr, "; ".join("%s: „%s“" % f for f in rest), nr))
+
 def fertig(nr, rolle=None):
     d = finden(nr, rolle)
-    rest = rest_offen(nr, d)
-    if rest and os.environ.get("VORGANG_REST_OK") != nr:
-        print("vorgang.py: %s nicht erledigt (1143): Rest ohne Folgevorgang – %s. Erst `vorgang.py neu \"… (aus %s)\" …` anlegen "
-              "oder im Commit „Kein Folgevorgang, weil: …“ schreiben." % (nr, "; ".join("%s: „%s“" % f for f in rest), nr))
+    sperre = rest_sperre(nr, d)
+    if sperre:
+        print("vorgang.py: " + sperre)
         sys.exit(1)
     ersetzen(d, dict(d, stand="erledigt", warte=[]))
     wer = [x for x in startbar.zeilen_liste() if nr in x["warte"]]
@@ -459,8 +470,14 @@ def build_abschluss(n, datei=None, probe=False):
         else:
             neu_d = dict(d, stand="zu testen, ohne Rückmeldung t%s" % n, build="–"); was = "zu testen (keine Rückmeldung)"
         aus.append((d, neu_d, durch, was))
+    # 1153 (D205.4: 596 ging über die Testauswertung t268 zu, obwohl sein Commit einen Rest nannte): wer bestanden hat, aber einen
+    # Rest ohne Folgevorgang trägt, hält die Auswertung an (der Sammelbuild selbst nicht), bevor etwas geschrieben wird
+    sperren = [sp for d, neu_d, _, _ in aus if neu_d["stand"].startswith("erledigt, t%s bestanden" % n) and (sp := rest_sperre(d["nr"], d))]
     for d, neu_d, durch, was in aus:
         print("%s %s (%s): %s" % ("PROBE" if probe else "BUILD", d["nr"], d["besitzer"], was))
+    if sperren and not probe:
+        sys.exit("vorgang.py build %s: nichts geschrieben – %s" % (n, " | ".join(sperren)))
+    for sp in (sperren if probe else []): print("PROBE gesperrt: " + sp)
     if fremd: print("%s genannt, nicht in Build %s, bleibt: %s" % ("PROBE" if probe else "BUILD", n, ", ".join(fremd)))
     if probe: return
     for d, neu_d, durch, was in aus:
