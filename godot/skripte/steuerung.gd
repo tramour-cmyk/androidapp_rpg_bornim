@@ -601,6 +601,7 @@ func ring(an: bool) -> void:
 var standort := ""                       # 399.1 Testmodus „Standort anzeigen“ (PlaceMeter): Karte und Kachel, von spiel.gd
 
 func messe(times: Array) -> void:
+	if Engine.get_process_frames() % 15 == 0: Testmodus.leistung_anwenden(get_tree())   # 1145: Schalter „Messen ohne …“
 	if not mess.visible or Engine.get_process_frames() % 15 != 0 or times.is_empty(): return
 	if not ("--messen" in OS.get_cmdline_user_args() or Testmodus.bildrate):
 		mess.text = standort if Testmodus.standort else ""
@@ -618,6 +619,18 @@ func messe(times: Array) -> void:
 		Performance.get_monitor(Performance.RENDER_VIDEO_MEM_USED) / 1048576.0,
 		Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME),
 		int(Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME) / 1000.0)]
+	# 1145 (Chef 13.11., 14:35, Bilder/s 45 bei 90 Hz): Bildzeit samt Warten auf den Bildschirm ist nicht die Arbeit; Grafik und Rechnen
+	# je Bild (vom Grafiktreiber gemessen, 0 wo er es nicht kann), der Takt des Bildschirms und was im Testmenue zum Messen aus ist
+	var vp := get_viewport().get_viewport_rid()
+	RenderingServer.viewport_set_measure_render_time(vp, true)
+	var aus := []
+	if Testmodus.ohne_tusche: aus.append("Tusche")
+	if Testmodus.ohne_tuschelampen: aus.append("Tusche nach Lampen")
+	if Testmodus.ohne_nebel: aus.append("Nebel")
+	if Testmodus.ohne_schatten: aus.append("Schatten")
+	mess.text += "\nGrafikzeit %.1f ms, Rechenzeit %.1f ms je Bild, Bildschirm %.0f Hz%s" % [RenderingServer.viewport_get_measured_render_time_gpu(vp),
+		RenderingServer.viewport_get_measured_render_time_cpu(vp) + RenderingServer.get_frame_setup_time_cpu(), DisplayServer.screen_get_refresh_rate(),
+		(", aus: " + ", ".join(aus)) if not aus.is_empty() else ""]
 	if Testmodus.standort: mess.text += "\n" + standort
 	_klang_zeilen()
 
