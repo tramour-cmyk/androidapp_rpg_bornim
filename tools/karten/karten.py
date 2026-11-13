@@ -9,7 +9,7 @@
 #   python3 tools/karten/karten.py form DATEI …     schreibt JSON-Dateien in der lesbaren Form (godot/daten/*.json)
 #   python3 tools/karten/karten.py kanon DATEI      die kompakte Form (gleich dem alten Export, Kennung in kauf_cache.py)
 # Die Regeln, die eine Karte erfüllen muss (Kisten, Schilder, Ausgänge, Wege), prüft godot/tests/karten_regeln.gd.
-# Rechnung wie core/src/main/kotlin/de/bornim/core/art/MapEdge.kt und MapFlora.kt (Stand f32a789e6), geprüft gleich dem Export.
+# Rechnung wie MapEdge.kt und MapFlora.kt der Kotlin-Fassung (core/…/art, Stand f32a789e6), geprüft gleich dem Export.
 import json, os, sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
