@@ -58,4 +58,11 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/94621abe
 - **Änderung 1 übernehme ich:** Begehen, Antippen und Abläufe bleiben am Handy, weil der Bau ohne Bildschirm und ohne Finger läuft. Das kostet dich etwa 2 bis 4 Fragen mehr je Build. **Änderung 2 übernehme ich:** Bilder nur aus dem Lauf der APK, kein neuer Schritt vorab; fehlt ein Bild, bleibt die Frage am Handy.
 - **Gefahr 4** entfällt bei A: Jeder Vorgang behält seinen eigenen Commit, Herausnehmen bleibt wie heute.
 
+**Meinung Tom** (13.11., 12:56, an der Prüfliste 283 und an `godot.yml` von `claude/build-283` nachgesehen): **A wie Perikles und Sokrates.**
+- **Was ein Bild kostet:** Gibt es den Bildtest schon, etwa 5 Minuten (Bild ansehen, eine Zeile mit Frage) und je Schritt 2 bis 5 Minuten mehr Lauf. Fehlt er, 30 bis 60 Minuten Arbeit für Kamera und Ausschnitt. Ein Film etwa eine Stunde. Achtung: die Bildtests, die es gibt, laufen heute nur auf ihrem eigenen Zweig oder bei einem Wort im Commit, im Lauf der APK von 283 läuft keiner davon. Für A müsste der Lauf der APK sie mitnehmen.
+- **283, Bildtest vorhanden:** Siegschirm und Kampfbericht (1093, 1102, 1095, 1096; `schirm_833_bild`), Lyras Robe und Stand (1092, 1044 Lyra; `dame_1044`), Licht am Höhlenausgang (1091; Höhlenbilder), Karte des Walds (505; Nebelbilder). Das sind 8 von 18 Punkten.
+- **Als Bild möglich, Test fehlt:** Zustände im Heldenreiter (764), Zeichen der Güte (756), Knöpfe auf einer Höhe bei Osric und Pim (1120); Leute in Ruhe (1044) und Staub Gehen gegen Rennen (1119) nur als Film. Bis es die Tests gibt, bleiben sie am Handy.
+- **Nur am Handy:** Pim rennt heim, bleibt an der Hütte, drei Fehlschläge an drei Tagen (1086, 1108), Ring perfekt tippen (1094), Fingerzoom ganz hinein und hinaus (1118, 1081).
+- **Gefährlich wäre:** Leute und Bewegung am Standbild abnehmen (Klone, Arme durch den Körper sieht man erst in Bewegung), Bedienung am Bild, und jeder Bautest, der nicht im Lauf steht (in 283 fand Sokrates `rand_505`, gestrichen). Den Laufnachweis baue ich als Werkzeug.
+
 Antwort: …
