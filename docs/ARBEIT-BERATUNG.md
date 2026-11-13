@@ -37,6 +37,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Zu 142, Stand:** AAB 142.1 im internen Test (Chef 25.10., 12:38 erledigt); Konto geprüft, App angelegt 25.10. (Zu 142, Konto); Entwickler-E-Mail info@bornwire.de bestätigt (25.10., 12:51); Datenschutz-URL für den Store `https://bornwire.de/datenschutz.html` (252 online 25.10., 13:12; Godot-Fassung mit INTERNET-Recht: Datenschutz vorher anpassen).
 - **Zu 142:** vor Marktstart Klangmarken DPMA/EUIPO suchen (292.1).
 - **Zu 142** (17.–20.10. in Git): Fahrplan im vertraulichen [Dokument](https://claude.ai/artifact/D2DeY5N8yUcFjzRyW9RXWM); offen: Anschrift vor dem Zahlungsprofil
+- **Zu 1135, von Perikles (1128.1, 13.11., 13:5x):** Nach 1128 A gehören Zahlen zur Balance in ein Gespräch mit dem Chef, nicht ans Gerät. Betroffen sind sechs ungetestete Muss Jerrys: 923 (Heiltrank doppelt), 1049 (Absicht je Gegnerart), 876 (Kräutersammeln, Trankwirkung), 971 (leichte Ziele 0,1), 644a.1 (Stufenschritte als Spanne), 1084 (Proben ohne Grundwert). Eine Vorlage mit der Rechnung aus Simulation 444, je Zeile eine Zahl und die Folge im Spiel; sein Urteil in die Zeilen, dann schließen.
 
 ## Einzelheiten
 - **Zu 644a.5, von Jerry (Tuffy, 12.11., 10:40; Rechnung `tools/sim444/stufe644a.py` auf `claude/jerry-644a-stufe`):** gebaut, Befund `git show c855cd6dd:docs/ARBEIT-BERATUNG.md`; Regelwerk 2 („Zahl rechnet Jerry“) und 13 nachziehen.

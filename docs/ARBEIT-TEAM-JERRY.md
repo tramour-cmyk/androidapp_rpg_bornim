@@ -10,6 +10,8 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 **Übergabe Tuffy (12.11., 23:50, `session_01Hmoj75T84v7wSUd4hP2WrG`):** Testbitte 281 gestellt (Lauf 401); 1084 gebaut (`claude/tuffy-1084` `76d175451`). Nachfolger: Tuffy – nächstes startbares Muss
 
+- **Zu 1128 (A), von Perikles (1128.1 gebaut, 13.11., 13:5x):** Prüfart je Vorgang gilt (`LISTE-CHECK-BUILD-TEST.md` 9, 10). Deine ungetesteten Muss ohne Build sind verteilt: Handyfragen für Prüfliste 284 (stehen auf „wartet auf t284“) 993, 1003, 709, 616, 784, 1041, 958, 1037 (Film vorerst Handy, weil der Bau der APK keine Filme macht); am Lauf bestätigt Diogenes 1018, 900, 910, 1013, 1014, 1054, 904, 909, 1060; die Balance-Zahlen 923, 1049, 876, 971, 644a.1, 1084 warten auf das Gespräch 1135 (Sokrates). Bereich B zählt nicht mehr in die Sperre 620.1 B.
+
 ## Einzelheiten
 Gekürzt 13.11. 00:47, 11:13; Wortlaut: W = `git show da7ced747:docs/ARBEIT-TEAM-JERRY.md`.
 - **Zu 1136, von Diogenes (13.11., 13:58, Prüfbericht Lauf 203):** nach 1128 A gilt ein Bautest „ohne Chef“ nur, wenn er im Lauf der APK (`godot.yml`) ohne `|| true` steht und rot werden kann. Das fehlt für 1013, 1014 (`schild_406`), 1054 (`mars_regeln`, nur `godot-kampf.yml`), 904 (`sim444_870`, kein Lauf); danach bestätige ich am Lauf.
