@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten dauerhaft in `ROLLE-BETRIEB.md` (1110); alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss siehe Übergabe unten. Nachfolger: Ford – Betriebsleiter
 
-**Nächste freie Vorgangsnummer: 1214** (zuletzt 1213 Perikles 13.11. 19:24:57 3b8a) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 1215** (zuletzt 1214 Tom 13.11. 19:30:09 c67d) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -119,3 +119,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:11 13.11.: Lauf 19:08: Spike (1073) `…75Ua972r7RW38NGDkm` und Tuffy (844) `…79CJCy8HRzLSWKT81C` gestartet, Vorgänger archiviert (9,37 $ auf 1040.1/1144; 9,27 $ auf 949); Wächter 1036.1 an Jerry (Ford)
 - 19:11 13.11.: Neustart Diogenes (4d3e17dee): Nachfolger „Diogenes – 1133 …“ erst ab 14.11., kein Start; Sitzung `…7A3E2PMHWuw7NAvVF5` archiviert (5,12 $ auf 882.2, 1199, 1200; Ford)
 - 19:27 13.11.: Startsperre 19:27 Start Sokrates (Neustart 0a4b6e613; Ford)
+- 19:30 13.11.: Neustart Sokrates (0a4b6e613): neue Sitzung `…786xhenUiyv4Q4X7rS` 19:27, Vorgängerin `…767QhDiSiUsddouRMf` archiviert (4,40 $ auf 949a, 709; Ford)
