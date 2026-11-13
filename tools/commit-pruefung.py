@@ -3,7 +3,7 @@
 Hält an (Exit 1): Uhrzeit von heute mehr als 5 Minuten nach jetzt in einer neuen Zeile; gelöschte Chefsache-Datei ohne
 Änderung an VORGANGSARCHIV.md (Ausweg: BORNIM_ZURUECK=1 für zurückgezogene Fragen des Absenders); neue Tabellenzeile in einem Vorrat
 (275.2: Vorgänge nur in LISTE-VORGAENGE.md); neuer Formfehler der Liste (startbar.pruefen_liste); Archiveintrag „tN“ (Test des Chefs), solange
-Zeilen mit Build N „zu testen“ sind (Automatik B: erst vorgang.py build N); Vorrat über 15000 Bytes, den der Commit vergrößert
+Zeilen mit Build N „zu testen“ sind (Automatik B: erst vorgang.py build N); Vorrat über 30000 Bytes (1129 A 7), den der Commit vergrößert
 (Hinweis eines anderen mit „von <Absender>“ in jeder neuen Zeile ausgenommen, 400; ARBEIT-BETRIEB.md ausgenommen: Fords Startsperre muss dorthin, kürzen ist Fords Zeile); neue Antwort im Vorgangsarchiv, deren Vorlage
 in entscheiden/, ansehen/ oder billigen/ stehen bleibt (383.3: wer die Antwort einträgt, löscht die Datei im selben Commit; bleibt die
 Frage trotz Antwort offen, setzt er die Zeit in Zeile 1 oder 2 der Datei neu). Eine beantwortete Vorlage darf ohne Archivänderung weg.
@@ -424,8 +424,8 @@ def main():
             neu_b = len(git("show", ":" + p).encode()); alt = git("show", "HEAD:" + p)
             # Zusammenführen (559, 04.11.): gewachsen ist die Datei beim anderen, nicht in diesem Commit; Maß ist die größere Seite
             if git("rev-parse", "-q", "--verify", "MERGE_HEAD").strip(): alt = max(alt, git("show", "MERGE_HEAD:" + p), key=lambda x: len(x.encode()))
-            if neu_b > 15000 and neu_b > len(alt.encode()) and not fremd_hinweis(p):
-                stop.append("%s hat %d Bytes (über 15000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)" % (p, neu_b))
+            if neu_b > 30000 and neu_b > len(alt.encode()) and not fremd_hinweis(p):  # 30000: 1129 A 7 (Probe bis 20.11.), vorher 15000
+                stop.append("%s hat %d Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)" % (p, neu_b))
     for w in tun_und_inhalt(dat): stop.append(w)  # 890
     if os.environ.get("BORNIM_WARTET") != "1" and not git("rev-parse", "-q", "--verify", "MERGE_HEAD").strip():
         for w in rolle_geliefert(neu): stop.append(w)  # 1124

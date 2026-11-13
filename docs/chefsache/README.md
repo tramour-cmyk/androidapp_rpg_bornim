@@ -8,7 +8,11 @@ Nichts offen.
 
 ## Zu billigen
 
-Nichts offen.
+Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers.
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [1143](billigen/1143-rest.md) | **Muss** | B Abläufe | 13.11., 14:49 | Rest im Commit heißt Folgevorgang im selben Schritt, Wächter in vorgang.py fertig (1143 Tom) | Perikles |
 
 ## Anzusehen
 
@@ -22,8 +26,7 @@ Nichts offen.
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.348.425](ansehen/t282-hoehle.md) | [Build 282](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43394728258/artifacts/14029055635) | Nachtest Höhle: Blutzahnhöhle, Krogg, Gitter, Lyra | Tom | 13.11., 11:43 |
-| 2 | [0.348.427](ansehen/t283-dorf.md) | [Build 283](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43414494780/artifacts/14036878281) | Dorf und Kampf: Pim heim, Staub, Zoom, Leute in Ruhe, Zustände, Siegschirm | Tom und Jerry | 13.11., 13:45 |
+| 1 | [0.348.427](ansehen/t283-dorf.md) | [Build 283](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43414494780/artifacts/14036878281) | Dorf und Kampf: Pim heim, Staub, Zoom, Leute in Ruhe, Zustände, Siegschirm | Tom und Jerry | 13.11., 13:45 |
 
 ## Zu tun
 
