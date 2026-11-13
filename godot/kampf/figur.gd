@@ -1076,6 +1076,7 @@ func _play(name: String, blend := 0.15) -> void:
 ## 01.11.), beide Helden im Gleichtakt: in den Ruhebewegungen des Kampfs bleibt darum ihr erstes Bild stehen (_ohne_atem), das auch
 ## Anfang und Ende jeder Kampfbewegung ist, und nur die Schicht atmet.
 const ATEM_RUHE := ["Kampfstehen", "Stehen", "SS_IdleCombat"]
+const ATEM_WOLF_HOCH_M := 0.8     # 1166: Maß des Atems der Tiere (atem_tier.gd, am Kaufwolf abgenommen)
 var atem = null
 
 func _atem_an() -> void:
@@ -1085,11 +1086,19 @@ func _atem_an() -> void:
 	if fighter.monster != null:
 		# 453 r2: der Kaufwolf atmet als Schicht unter jeder Bewegung, je Wolf eigener Takt (atem_tier.gd)
 		var Tier = preload("res://kampf/atem_tier.gd")
+		# 1166 (453a B, Chef 02.11.: „gilt für alle Vierbeiner“): jedes Tier mit erkennbarem Rücken, nicht nur Wolfsknochen
 		if sk != null and Tier.passt(sk):
 			atem = Tier.new()
 			atem.name = "Atem"
+			atem.knochen_setzen(sk)
+			if atem.halten_name != Tier.HALTEN:     # nicht der Wolf: Heben nach der Größe (Wolf etwa 0,8 m hoch)
+				atem.groesse = clampf(float(mass.hoehe_m) / ATEM_WOLF_HOCH_M, 0.15, 2.0) if mass.has("hoehe_m") else clampf(_scale(), 0.15, 2.0)
 			atem.eigen(hash(String(fighter.id)))
 			sk.add_child(atem)
+			if OS.get_environment("SCHAU_1166") != "":
+				print("1166 Atem %s: Rippen %s, halten %s, von %s, Größe %.2f" % [fighter.id, atem.rippen_def, atem.halten_name, atem.von_name, atem.groesse])
+		elif OS.get_environment("SCHAU_1166") != "":
+			print("1166 Atem %s: kein Rücken (%s)" % [fighter.id, "kein Skelett" if sk == null else "%d Knochen" % sk.get_bone_count()])
 		return
 	if not kauf:
 		return
