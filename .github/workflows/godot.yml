@@ -1488,7 +1488,7 @@ jobs:
       # 1149 (aus 1140, 522): Dolch der Nebenhand am Körper, zwei Plätze zur Wahl (Gürtel, Kreuz), je vorn, links, hinten
       # (tests/dolch_bild_1149.gd); bei „1149 Bild“ im Commit
       - name: Dolchbild (1149)
-        if: ${{ !cancelled() && contains(github.event.head_commit.message, '1149 Bild') }}
+        if: ${{ !cancelled() && (contains(github.event.head_commit.message, '1149 Bild') || (github.event_name == 'workflow_dispatch' && contains(github.ref, 'tom-1149'))) }}
         continue-on-error: true
         run: |
           A=$GITHUB_WORKSPACE/bilder/dolch1149; mkdir -p $A
