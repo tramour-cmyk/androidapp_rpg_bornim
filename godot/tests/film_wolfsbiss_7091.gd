@@ -140,26 +140,33 @@ func _biss(g: String, klasse: String, treffer: bool) -> void:
 	var n := 0
 	var nah := INF     # Lauf 451: nächste Annäherung der Schnauze an den Helden, sie muss mit dem Biss zusammenfallen
 	var nah_ms := 0
-	while n * 1000 / 30 < ms + 2600:
+	# Chef 13.11., 20:13 (t284.7p „sieht man ja nicht im Film“): um den Biss (±0,5 s) läuft der Film auf ZEITLUPE (0,35) verlangsamt;
+	# die Uhr des Skripts zählt Spielzeit (t), nicht Bilder, damit Biss, Messung und Abschnitte gleich bleiben
+	var t := 0.0
+	var lupe := float(OS.get_environment("ZEITLUPE")) if OS.get_environment("ZEITLUPE") != "" else (1.0 if mess else 0.35)
+	while t < ms + 2600:
+		Engine.time_scale = lupe if absf(t - ms) < 500.0 else 1.0
 		await process_frame
-		n += 1
+		t += 1000.0 / 30.0 * Engine.time_scale
+		n = int(t * 30.0 / 1000.0)
 		var sv: float = wolf._schnauze_vorn()     # die Schnauze (Kapseln der Bissteile) reicht im Biss vor den Rumpf
 		var dn := Vector2(wolf.position.x - held.position.x, wolf.position.z - held.position.z).length() - (sv if is_finite(sv) else 0.0)
 		if dn < nah:
 			nah = dn
-			nah_ms = n * 1000 / 30
-		if mess and OS.get_environment("KURVE") != "" and n % 3 == 0 and n * 1000 / 30 <= ms + 900:     # 709.1 Messlauf: Verlauf je 0,1 s
+			nah_ms = int(t)
+		if mess and OS.get_environment("KURVE") != "" and n % 3 == 0 and t <= ms + 900:     # 709.1 Messlauf: Verlauf je 0,1 s
 			print("KURVE 7091 %s %s %s: %4d ms Rumpf %.2f m, Schnauze vor dem Rumpf %s, Bewegung %s %.2f s, Tempo %.2f" % [g, klasse,
-					"T" if treffer else "A", n * 1000 / 30, dn + (sv if is_finite(sv) else 0.0), "%.2f" % sv if is_finite(sv) else "keine Kapsel",
+					"T" if treffer else "A", int(t), dn + (sv if is_finite(sv) else 0.0), "%.2f" % sv if is_finite(sv) else "keine Kapsel",
 					wolf.anim.current_animation if wolf.anim else "-", wolf.anim.current_animation_position if wolf.anim else 0.0,
 					wolf.anim.get_playing_speed() if wolf.anim else 0.0])
-		if mess and abs(n * 1000 / 30 - ms) <= 17:
+		if mess and absf(t - ms) <= 17.0:
 			print("MESS 7091 %s %s %s: Schnauze %s, Biss bei %d ms" % [g, klasse, "Treffer" if treffer else "Abwehr", wolf.position, ms])
 	if mess:
 		print("MESS 7091 %s %s %s: am nächsten %.2f m bei %d ms, Biss bei %d ms, Versatz %d ms%s" % [g, klasse, "Treffer" if treffer else "Abwehr",
 				nah, nah_ms, ms, nah_ms - ms, "" if absi(nah_ms - ms) <= 250 else " FALSCH"])
 		if absi(nah_ms - ms) > 250:
 			fehler += 1
+	Engine.time_scale = 1.0
 	await _blende(1.0)
 	kf.queue_free()
 	p.queue_free()
