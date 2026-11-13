@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 1129.3 | Von Sokrates (1129 alle ja, Chef 13.11., 13:59): Werkzeuge zu Punkten 1 und 6 (Punkt 2 macht Perikles, 1129.5); Wächter für MUSTER-Checkliste 2, 7, 9; Vollzug auf Telegram (1137), Stichtag 15.11., 20:00 (Zu 1129.3) | Tom | M | in Arbeit | – | – | – | E Technik | – |
+| 1129.3 | Von Sokrates (1129 alle ja, Chef 13.11., 13:59): Werkzeuge zu Punkten 1 und 6 (Punkt 2 macht Perikles, 1129.5); Wächter für MUSTER-Checkliste 2, 7, 9; Vollzug auf Telegram (1137), Stichtag 15.11., 20:00 (Zu 1129.3) | Tom | M | gebaut, Geprüft an: 6b7641bfa | – | – | – | E Technik | – |
 | 756.1 | Zeichen für Schlecht: Chef 13.11., 13:45 „756.1 voller Punkt wie in 3, aber etwas heller (wie vorgeschlagen)“: Variante 3 einstellen, Rot etwa wie die Leiste (Kontrast 4,6), übrige drei entfernen, ohne neue Vorlage, fährt im nächsten Build · „jetzt“ 13.11., 13:09 | Tom | M | zu testen | – | claude/build-284 | 284 | E Oberfläche | – |
 | 1122 | Von Sokrates (1109 D, Chef 13.11., 10:56): Prüfliste-Test pruefliste_1020 nur noch auf claude/build-…, auf Teamzweigen aus (falsches Rot aus älterem Code gegen neueste Prüfliste) | Tom | M | zu testen | t283 | claude/tom-1122-pruefliste | 283 | B Werkzeuge | 7,04 $ |
 | 1104 | Von Sokrates (Chef 13.11., 09:09, Fund t281.11): Höhle lässt sich nicht betreten, Station „Höhle“ im Reiter „Test“ geht auch nicht; zuerst nachstellen, ob Build 282 (282.17 bis 282.22 Wald, Höhle, Lyra) dasselbe hat, bevor der Chef 282 testet | Tom | M | zu testen | – | claude/tom-1104-hoehlenkampf | 282 | E Welt | 4,53 $ |
