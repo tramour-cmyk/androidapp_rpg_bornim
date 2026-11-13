@@ -17,7 +17,6 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [1036.1](ansehen/10361-zustaende.md) | Zustände: alle Effekte der Pakete je Zustand | – | 13.11., 13:34 |
-| [1120](ansehen/1120-knoepfe.md) | Knöpfe im Gespräch: Beschriftung rechtsbündig am Pfeil | – | 13.11., 17:03 |
 | [1141](ansehen/1141-sterben.md) | Goblins fallen, wo sie stehen | – | 13.11., 17:10 |
 
 ## Zu tun
