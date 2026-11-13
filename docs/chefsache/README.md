@@ -4,11 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [1073](entscheiden/1073.md) | Kür | G Stil | 13.11., 20:02 | Zweite Probe der Gegenstandsbilder: Gold heller, Kräuter voller, Schild und Kappe unterscheidbar, Steine kräftiger. |  |
+Nichts offen.
 
 ## Zu billigen
 
@@ -21,8 +17,6 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [1036.1](ansehen/10361-zustaende.md) | Zustände: alle Effekte der Pakete je Zustand | – | 13.11., 13:34 |
-| [1162](ansehen/1162-steinkreis.md) | Steinkreis im Kampfort | – | 13.11., 20:25 |
-| [1166](ansehen/1166-atem-tiere.md) | Atem für alle Tiere | – | 13.11., 20:34 |
 
 ## Zu tun
 
@@ -404,9 +398,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): entscheiden/1073.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
-
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/10361-zustaende.md, ansehen/1166-atem-tiere.md
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/10361-zustaende.md
 
 ## So geht's
 
