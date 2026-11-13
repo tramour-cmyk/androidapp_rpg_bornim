@@ -27,6 +27,7 @@ Nichts offen.
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.348.425](ansehen/t282-hoehle.md) | [Build 282](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43394728258/artifacts/14029055635) | Nachtest Höhle: Blutzahnhöhle, Krogg, Gitter, Lyra | Tom | 13.11., 11:43 |
+| 2 | [0.348.427](ansehen/t283-dorf.md) | [Build 283](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/202) | Dorf und Kampf: Pim heim, Staub, Zoom, Leute in Ruhe, Zustände, Siegschirm | Tom und Jerry | 13.11., 12:55 |
 
 ## Zu tun
 
