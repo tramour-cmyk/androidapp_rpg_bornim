@@ -134,3 +134,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:25 13.11.: Marke Archiv session_01Hmoj75UMzRVVnYKUQ5sxF5 (lauf.py)
 - 21:26 13.11.: Start Homer 1229 (Jerry, c64477860): neue Sitzung `…79opdaF8aU7sFWvj1X` 21:25, alte `…75UMzRVVnYKUQ5sxF5` archiviert (1,22 $ auf 1176; Ford)
 - 21:36 13.11.: Startsperre 21:36 Start Sokrates (Neustart f0933cd29; Ford)
+- 21:38 13.11.: Neustart Sokrates (f0933cd29): neue Sitzung `…797jN7dteYW35dpYLZ` 21:37, Vorgängerin `…79ojfheg8dzo9KaZF9` archiviert (8,08 $ auf 1228, 1233, 1231, 1227; Ford)
