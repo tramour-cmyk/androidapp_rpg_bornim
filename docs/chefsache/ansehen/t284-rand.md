@@ -118,6 +118,10 @@ Im Bau geprüft: kein Baum auf einem Weg am Rand, Wald daneben (`rand_1022`, all
 - 284.4 ✗ nicht prüfbar, Fehler der Liste: Station „Krogg“ liegt vor Kroggs Kampf, Jorins Aushang hängt erst danach; weder „Krogg besiegen“ noch „alle Aufträge annehmen“ stand da (Chef 20:44–20:46, Zu 542); nach 285
 - 284.5 ✗ nicht prüfbar, Fehler der Liste: „Beute erzeugen“ ist zufällig, 30–40 Mal kein Kettenhemd (Chef 20:47); jede Metallrüstung zählt (Kettenpanzer), Ergebnis offen
 - 284.6a ✓ (Chef 20:53: „Bei Lyra … passt“); dazu: Graks beschworener Goblin gleitet statt zu laufen (= 844, Tuffy); Brennend vom Brandsatz wirkt laut Bericht (Chef 20:53 „das hat gepasst“), fällt kaum auf
+- 284.7 ✓ (Chef 20:55: „hat gepasst“)
+- 284.7g ✓ (Chef 20:57)
+- 284.7j ✓ Ring an sich (Chef 21:00: „der Ring per se funktioniert so, wie es sein soll“); aber beim Anspringen der Wölfe gibt es keinen Ring: „Geht nicht, weil bei Wölfen gibt es keinen Ring“ (= 1068, wartet auf 1072; Zeile der Liste war so nicht prüfbar)
+- 284.7o: Leitwolf nicht erkennbar, „Wolf 1, Wolf 2, Wolf 3“ (Chef 20:59), neu 1223 Jerry; Ergebnis offen
 - 284.2d ✓ (Chef 20:06: „Vom Inhalt her ist alles richtig“; Rest: Pim läuft im Halbbogen in Zeitlupe an, Zu 1086)
 - 284.2f ✗ Rock wirkt gestreift statt gefaltet (Chef 20:06, Zu 1092); Drehen im Stand gehört zu 1040.1
 - 284.2g ✓ (👍 Telegram 20:02 auf 3979)
