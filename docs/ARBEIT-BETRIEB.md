@@ -121,3 +121,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:27 13.11.: Startsperre 19:27 Start Sokrates (Neustart 0a4b6e613; Ford)
 - 19:30 13.11.: Neustart Sokrates (0a4b6e613): neue Sitzung `…786xhenUiyv4Q4X7rS` 19:27, Vorgängerin `…767QhDiSiUsddouRMf` archiviert (4,40 $ auf 949a, 709; Ford)
 - 19:33 13.11.: „Neustart Tom, be168045a“ nicht ausgeführt: Chef testet t284 (Testbitte 19:22, kein Ergebnis), Neustart während seines Tests nie (812, 865); Tom bleibt, meldet nach dem Ergebnis neu (Ford)
+- 19:55 13.11.: Startsperre 19:55 Start Sokrates (Neustart b8939f05e; Ford)
