@@ -36,3 +36,9 @@ Im Bau geprüft: Kartenrand je Gebietskarte (`rand_1022`), Nebel und Sicht (`neb
 | 282.21 | Tom | 492 | Station „Lyra“ (Grak ist besiegt, das Gitter steht offen), Lyra in Graks Halle ansprechen | die Ketten fallen, Lyra spricht, schenkt Weihwasser und heilt dich, dann geht sie zum Ausgang der Halle fort | Lyra bleibt nach dem Gespräch stehen |
 | 282.22 | Tom | 1044 | Station „Tempel“, Lyra neben dir ansehen, auch nah | Lyra steht wie eine Dame: Füße zusammen, Gewicht auf einem Bein, Hände vorn übereinander; kein dunkler Fleck zwischen den Schienbeinen | Kampfpose; Fleck im Rock |
 | 282.23 | Tom | 1040.1 | Station „Lyra“, in Graks Halle ein paar Schritte links und rechts an Lyra vorbeigehen, bevor du sie ansprichst | Lyra schaut dir nach und wendet sich mit kleinen Schritten zu dir | sie dreht sich im Stehen wie auf einem Teller, die Füße bleiben stehen |
+
+## Ergebnis
+
+Chef an Sokrates, laufend eingetragen.
+
+- 282.4 ✗ Staub jetzt zu stark (Chef 10:14): „jetzt ist sie fast überdeutlich. Für das, dass sie vorher nicht existent war, staubt es jetzt, als ob hier ein Traktor rumfahren würde. Also vielleicht können wir es wieder einen Ticken zurückdrehen. Nur einen Tick.“
