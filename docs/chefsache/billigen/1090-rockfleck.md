@@ -25,7 +25,7 @@ Geprüft an: [Lauf 411](https://github.com/tramour-cmyk/androidapp_rpg_bornim/ac
 
 **Folgerungen:** Tom baut die Zeile, die Kaufmodelle der Leute werden einmal neu gebaut (Bauserver etwa 40 Minuten), dann der Bildlauf; Bild an Sokrates bzw. morgens an dich.
 
-**Umgesetzt:** noch nichts.
+**Umgesetzt:** `eac82bc` auf `claude/tom-1090-rock`, Lauf 415, Bild Tom 04:07 (`ansehen/1090-rock.md` und Bilder `bilder/1090-rock.jpg`, `bilder/1090-lyra.jpg`, in Git). Gezeigt sind Liska, Gwenna, Rowena, Morwen, Lyra, Aldric und Osric, je im Stehen und im Gehen. **Sokrates 04:09: passt.** Die Flecken an Knien und Schienbeinen sind weg, und im Gehen geht zwischen Saum und Schuh keine Lücke auf. Fährt im nächsten Build. In den hellen Roben bleiben dunkle, fleckige Längsstreifen (Lyra, Osric, auch Rowenas Rock), die wie Schmutz wirken. Sie waren schon vor 1090 da (Lauf 414) und haben eine andere Ursache, darum läuft das als eigener Vorgang 1092 bei Tom: erst messen, dann Weg vorschlagen.
 
 **Rückbau:** sagst du „zurück“, kommt die Hose wieder (eine Zeile).
 
