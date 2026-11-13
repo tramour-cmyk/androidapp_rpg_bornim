@@ -283,6 +283,7 @@
 | 1070 | Getestete Prüfliste sofort aus der Chefsache, nicht erst beim Zusammenführen (Chef 12.11., 20:06; von Sokrates) | Perikles | M | gebaut, Geprüft an: 95e4f4bef | t281 | – | – | B Steuerung | 3,36 $ |
 | 1097 | Wochentermin 13.11.: Rollenspiegel Perikles (rollenspiegel.sh Perikles) (719) | Perikles | M | startbar | – | – | – | B Abläufe | – |
 | 1098 | D189.1 von Diogenes (zu 1019): Haken greift (4 Ford-Selbstneustarts seit 12.11. bei 416–889 Tsd.), Ziel nicht: Tiefe 4 nach 22 h (Handstart 12.11., 07:26), bei 400 Tsd. etwa alle 3–5 h ein Neustart, Tiefe 6 etwa 13.11. nachmittags; Handstart bleibt täglich | Perikles | M | startbar | – | – | – | B Abläufe | – |
+| 1099 | Von Tuffy (Chef 13.11., 07:12): jede Sitzung bindet benötigte Repos selbst mit add_repo ein, Regel in ROLLE-ENTWICKLUNG statt „nur auf Wort des Chefs“ (391) | Perikles | M | startbar | – | – | – | B Steuerung | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
