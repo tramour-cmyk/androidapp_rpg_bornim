@@ -770,7 +770,7 @@ def festgefahren(d):
 # ---------------------------------------------------------------- 1137.2 Wächter Vollzug
 VOLLZUG_AB = datetime.date(2026, 11, 13)   # 1137 (Chef 13.11., 14:03): gilt für Einträge ab heute
 BIS = re.compile(r"\bbis (\d{1,2})\.(\d{1,2})\.,? (\d{1,2}):(\d\d)")
-NUMMER = re.compile(r"(?<![\w.])(\d{2,4}(?:\.\d+)?[a-z]?(?:\.\d+)?)(?![\w.])")
+NUMMER = re.compile(r"(?<![\w.:])(\d{2,4}(?:\.\d+)?[a-z]?(?:\.\d+)?)(?![\w.:])")   # nicht 14 aus 14:03
 
 
 def vollzug_gemeldet(nr, text=None):
@@ -779,7 +779,7 @@ def vollzug_gemeldet(nr, text=None):
     Klammern) zählt nicht, sonst meldete der Auftragstext seinen eigenen Vollzug."""
     if text is None:
         text = vollzug_quelle()
-    for m in re.finditer(r"Vollzug\s+" + re.escape(nr) + r"\b([^\n]*)", text):
+    for m in re.finditer(r"Vollzug\s+" + re.escape(nr) + r"(?![.\w])([^\n]*)", text):   # 1137.2 (a): 1129.3 ist nicht 1129
         if re.search(r"Geprüft an:\s*[0-9A-Za-z]", m.group(1)):
             return True
     return False
@@ -789,8 +789,24 @@ def vollzug_offen(archiv_text=None, jetzt=None):
     """1137.2 (Chef 13.11., 14:03): Archiveinträge ab 13.11. mit Folgevorgängen und Stichtag („bis TT.MM., HH:MM“), deren
     Stichtag vorbei ist und zu deren Folgevorgängen keine Vollzugsmeldung vorliegt. Liefert [(Empfehler, Nr., Stichtag, [offene Nr.])]."""
     jetzt = jetzt or datetime.datetime.now()
-    nummern = {d["nr"] for d in zeilen_liste()}
-    erledigt = {d["nr"] for d in zeilen_liste() if d["wort"] in ("erledigt", "verworfen")}
+    nummern = {d["nr"] for d in zeilen_liste()} | set(archiv())
+    verworfen = {d["nr"] for d in zeilen_liste() if d["wort"] == "verworfen"}
+    termin = {}   # eigener Termin einer Zeile (wartet auf TT.MM.[ HH:MM])
+    for d in zeilen_liste():
+        for t in (d.get("warte") or []):
+            mt = re.match(r"(\d{1,2})\.(\d{1,2})\.(?:,? ?(\d{1,2}):(\d\d))?$", str(t).strip())
+            if mt:
+                try:
+                    j = jahr_von(int(mt.group(1)), int(mt.group(2)))
+                    termin[d["nr"]] = datetime.datetime(j.year, j.month, j.day, int(mt.group(3) or 23), int(mt.group(4) or 59))
+                except ValueError:
+                    pass
+    getestet = set(re.findall(r"^- \*\*t(\d+), Build \1 getestet", lesen("VORGANGSARCHIV.md"), re.M))
+    for d in zeilen_liste():   # wartet eine Zeile auf den Test eines Builds, der noch nicht getestet ist, ist sie nicht fällig
+        for t in (d.get("warte") or []):
+            mb = re.match(r"t(\d+)$", str(t).strip())
+            if mb and mb.group(1) not in getestet:
+                termin[d["nr"]] = datetime.datetime.max
     gemeldet = None
     aus = []
     for z in (lesen("VORGANGSARCHIV.md") if archiv_text is None else archiv_text).splitlines():
@@ -805,12 +821,20 @@ def vollzug_offen(archiv_text=None, jetzt=None):
             continue
         if wann.date() < VOLLZUG_AB or stichtag > jetzt:
             continue
-        folge = [n for n in dict.fromkeys(NUMMER.findall(z)) if n in nummern and n != m.group(1)]
+        folge = []
+        for n in dict.fromkeys(NUMMER.findall(z)):
+            if n not in nummern or n == m.group(1):
+                continue
+            # 1137.2 (b): ein Elternvorgang („zuerst 1128, 1129 bis …“) steht für seine Unternummern, auch erledigte; eine
+            # Unternummer mit eigenem späterem Termin (1129.4 Mo 16.11.) ist noch nicht fällig
+            kinder = sorted(k for k in nummern if k.startswith(n + ".") and not (k in termin and termin[k] > stichtag))
+            folge += kinder or [n]
+        folge = [n for n in dict.fromkeys(folge) if n not in verworfen]
         if not folge:
             continue
         if gemeldet is None:   # Quellen einmal lesen
             gemeldet = vollzug_quelle()
-        offen = [n for n in folge if n not in erledigt and not vollzug_gemeldet(n, gemeldet)]
+        offen = [n for n in folge if not vollzug_gemeldet(n, gemeldet)]
         if offen:
             e = re.search(r"\((?:Nutzer; )?(?:Vorschlag|Votum|Vorentscheid) ([A-ZÄÖÜ][\wäöüß ]*?)(?:,|\)|$)", z)
             aus.append((e.group(1).strip() if e else "Sokrates", m.group(1), stichtag, offen))
