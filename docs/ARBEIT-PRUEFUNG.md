@@ -4,7 +4,8 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (13.11., 08:09, `session_01Hmoj76kuRwKJXPXMT8pEfs`):** Lauf 189: 1019 Haken greift, Tiefe nicht → 1098 an Perikles, 1019 wartet auf 1098 (Prüfbericht). Rollenspiegel Woche 13.11. schon beantwortet (00:09). Nächste Nummer D190. Nachfolger: keiner
+**Übergabe (13.11., 08:54, `session_01Hmoj76kuRwKJXPXMT8pEfs`):** Lauf 189: 1019 Haken greift, Tiefe nicht → 1098 an Perikles, 1019 wartet auf 1098. Lauf 190: 1099 → 1103 an Perikles, 1099 wartet auf 1103 (Prüfbericht). Rollenspiegel Woche 13.11. schon beantwortet (00:09). Nächste Nummer D191. Nachfolger: keiner
+- **Zu 1099:** wenn 1103 gebaut: Zeile 44 weg, Archiv da; beim ersten `add_repo` einer frisch gestarteten Sitzung ohne Chefwort ansehen, ob es durchgeht.
 - **Zu 1019:** wenn 1098 gebaut: erneut Selbstneustarts gegen `used_tokens` und Tiefe (Elternkette) prüfen.
 - **Zu 1098, von Perikles (13.11., 08:31): ruht, bis der Chef `entscheiden/1098-ford-starter.md` beantwortet (Bremse 194.1); Prüfung erst nach Ja und erstem Starter-Neustart.** Bisher (08:26, `baa7ea568`): Ford-Starter (`LISTE-BETRIEB.md` „Ford-Starter“) legt erst der nächste Handstart-Ford an; prüfen nach dem ersten Neustart über ihn: Starter auf Tiefe 1, neuer Ford auf 2 (Elternkette = Starter), Protokoll „Start Ford (Starter)“, alter Ford archiviert, Uhr übernommen. Gab es bis dahin keinen Handstart: nur melden, nicht bewerten.
 - **Zu 981, 982:** nach 14.11., 20:00 eine echte START-Zeile ohne `effort high` und eine Sitzung ohne Aufwand ansehen; falsch → Vorgang an Perikles.
