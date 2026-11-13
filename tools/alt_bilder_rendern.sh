@@ -6,6 +6,8 @@
 # Skia gibt den Speicher der Szenen nicht frei (je Bild etwa 250 MB, auch nach GC; ein Lauf in einem Stück bricht nach etwa 75 Bildern
 # mit Exit 137 ab): gebaut wird einmal (installDist), dann läuft jeder Teil mit WEITER=1 WEITER_MB=7000; über 7000 MB endet der Lauf mit 3
 # und wird neu gestartet, fertige Bilder überspringt er (shot, bild512 in tools/preview).
+# Weiter nach einem Abbruch (neue Sitzung): VORHER=<ordner> mit <ordner>/<teil>/ (etwa alt/screens_teil aus dem Zweig bilder als
+# <ordner>/screens) legt die fertigen Bilder vor dem Start in build/screens, gerendert wird nur der Rest.
 set -x
 A=$(mkdir -p "${1:?ablage fehlt}" && cd "$1" && pwd); shift
 T=${*:-screens karte 512b leute}
@@ -14,6 +16,7 @@ P=$(cd "$(dirname "$0")/preview" && pwd); cd $P
 ../../gradlew -q --stop; pkill -f KotlinCompileDaemon
 L() {  # L <teil> [VAR=wert …]: ein Teil, mit Neustarts
     local t=$1; shift; rm -rf build/screens; : > $A/$t.log
+    if [ -d "$VORHER/$t" ]; then mkdir -p build/screens; cp -r "$VORHER/$t/." build/screens/; fi   # fertige Bilder eines abgebrochenen Laufs
     while :; do env "$@" WEITER=1 WEITER_MB=7000 JAVA_OPTS=-Xmx1500m build/install/preview/bin/preview >> $A/$t.log 2>&1; e=$?; [ $e -eq 3 ] || break; done
     echo $t exit $e
 }
