@@ -52,6 +52,12 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 213 · 1147 Protokollkürzung `lauf.py` (Perikles `0102a9594`, Stand `55076515d`; 13.11., 16:3x)
+
+- **1147 greift am Werkzeug, live:** Lauf 15:28 (`ed2249ef1`): Zeilen „- HH:MM 12.11.“ 81 → 2 (die zwei übrigen sind Taten), Merker „Marke Archiv“ 91 → 20, Datei 46,3 → 39,4 KB; 15:32 kürzte Ford seinen Kopf von Hand (10,6 KB). Jetzt 12,6 KB, 46 Technikzeilen, alle vom 13.11., 3 Archiv-Merker.
+- **Lücke D213.1 → 1187 (Perikles):** der Filter „nur heute“ läuft vor der Ausnahme „jüngste Startsperre je Rolle“ (P4a) und hebt sie über Mitternacht auf. Kopie mit gestellter Uhr: „- 23:58 13.11.: Startsperre 23:58 Start Tom“, `aufraeumen()` um 14.11., 00:02 → `startsperren()` um 00:08 leer. Damit sieht die Startprüfung 837 (5 Minuten bis 3 Stunden) einen gescheiterten Start kurz vor Mitternacht nicht, wenn der erste Lauf mit `--sperre` nach 0 Uhr weniger als 5 Minuten nach der Sperre kommt; die 20-Minuten-Sperre endet ebenso vorzeitig. Dazu stehen `--help` (Zeile 43), Docstring von `aufraeumen` und Kommentar `START_PRUEF_STD` noch auf „heute und gestern“. 1147 wartet auf 1187.
+- Nicht geprüft: Nachfolger-Warnung über Mitternacht (laut Kommentar schlimmstenfalls doppelt, nicht nachgestellt); Leser von „Marke Archiv“ (Merker nur je Sitzung, D40.2).
+
 ## Lauf 212 · Behebungen 1183, 1177 (Perikles `46f2469a3`, `55076515d`; 13.11., 16:0x)
 
 - **1183 greift:** `LISTE-CHECK-BUILD-TEST.md` 10 „`## Lagen` … Pflicht für jede Zeile, deren Weg nicht mit „Weiter“ und dem Spielstand des Chefs beginnt (1020 D, 1183)“; die Warnung im Prüfschritt ist 1185 (Tom).
