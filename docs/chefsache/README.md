@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [1128](entscheiden/1128-pruefumfang.md) | **Muss** | B Abläufe | 13.11., 11:52 | je Vorgang in der Prüfliste eine Art: Handy (Ablauf, Bedienung), Bild/Film (Aussehen) oder ohne dich (Regeln und Technik mit grünem Bautest) | Sokrates |
 
 ## Zu billigen
 
@@ -284,7 +288,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1126 | M | D196.1 von Diogenes (1113): aufraeumen löscht Blockzweige, die ein gleichzeitiger Lauf ein | Sperre 620.1 B: 32 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1113 |
 | 1127 | K | D196.2 von Diogenes (1111): weicht die Gegenprobe ab, meldet der Schritt zusätzlich „Ableg | startbar |
 
-**Perikles** – offen 19, Muss 16, startbar 1
+**Perikles** – offen 18, Muss 16, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -305,7 +309,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1019 | M | Von Sokrates (zu 1016): Ford startet sich am Neustart-Haken (200 Tsd., 383 A) neu statt be | Termin 14.11. |
 | 1070 | M | Getestete Prüfliste sofort aus der Chefsache, nicht erst beim Zusammenführen (Chef 12.11., | wartet auf Diogenes (greift?) |
 | 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | wartet auf Diogenes (greift?) |
-| Pflege | K | von Werkzeug (340.3, 13.11.): 16221 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 | 1125 | M | D195.1 von Diogenes (1100.1): Ford-Lauf nach 1100 nicht billiger: Uhrläufe 9 Schritte wie | wartet auf Diogenes (greift?) |
 
 **Diogenes** – offen 12, Muss 10, startbar 4
@@ -325,10 +328,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 | 1098.1 | M | Von Sokrates (Chef 13.11., 09:18, 1098 A, vorher D): nach Fords erstem Neustart über Probe | Termin 14.11. |
 
-**Sokrates** – offen 50, Muss 35, startbar 27
+**Sokrates** – offen 51, Muss 36, startbar 28
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 1128 | M | Prüfliste nur, wo der Gerätetest etwas finden kann: je Vorgang Gerät, Bild/Film oder ohne | startbar |
 | 887 | M | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus (dontAsk von | ruht |
 | 870 | M | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen, Bau Tom u | wartet auf 870.13 (wartet) |
 | 780 | M | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für uns | Termin 23.11. |
