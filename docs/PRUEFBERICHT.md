@@ -52,6 +52,12 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 189 · 1019 Ford-Neustart erst ab 400 Tsd., Wirkung (Perikles, `57f798597`; 13.11., 08:0x)
+
+- **Haken greift, Ziel nicht → D189.1 = 1098 (Perikles), 1019 wartet darauf.** Vier Selbstneustarts seit 12.11., 08:12, `used_tokens` des alten Ford: 888.569 · 415.734 · 424.993 · 434.089 (alle über 400 Tsd.). Tiefe über `parent_session_id`: Handstart 12.11., 07:26 (Tiefe 0) → laufender Ford Tiefe 4 nach 22 h (vorher 6 in 21 h); Handstart bleibt etwa täglich.
+- Nebenbei: Selbstneustart 16:30 ohne Protokollzeile „Start Ford (selbst)“ (nur Commit `ef757fc01` „Übergabe Ford (Selbstneustart, Kontext 831 Tsd.)“).
+- Nicht geprüft: Tiefe von der Schnittstelle selbst (`lineage.depth` zeigt `get_session` nicht; aus der Elternkette gezählt).
+
 ## Lauf 188 · 1087 Prüfliste „Passt“ (Tom, `47fd0c177` auf `claude/tom-1087-pruefliste`; 13.11., 00:0x)
 
 - **1087 greift.** Ursache im Spiel, nicht nur alter Zweig: `tools/pruefliste.py` von `main` liest `t281-kampf.md` mit 14 Zeilen, davon 0 mit „Passt“ (Spalte heißt seit 1033 „Passt“, Parser las nur „Richtig“); Build 281 zeigte im Reiter Test also leere Sollzeilen. Mit dem Zweig: t281 14 von 14, t280 (`docs/entwurf/t280-nachtrag.md`, Git) 48 von 48 wie vorher. `pruefliste_1020.gd` auf dem Zweig mit dem JSON aus t281: „Build 281, 14 Zeilen“, „PRUEFLISTE1020 0 Fehler“, Exit 0. Die übrigen Skriptfehler (`leben_basis`) nur am Rechner: `werte.json` kopiert erst die Action (`godot.yml` 71). `zug-index.py` nimmt beide Spaltennamen.
