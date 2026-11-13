@@ -165,7 +165,10 @@ NC, NR = C1 - C0 + 1, R1 - R0 + 1
 # unter den Kronen (alt endete er an einer Baumreihe, 27m.1), Baeche laufen gerade ins Dunkel (alt), ueber dem Hoehlenmund steigt Fels an.
 RAND_WEIT = 11                       # Baeume bis hier (Kacheln hinter dem Rand)
 RAND_E = 12                          # Bodenmaske so weit hinter dem Rand (wie AUS)
-BIEG = 2.4                           # so viele Kacheln biegt ein Weg bis Tiefe 7 zur Seite
+# 1022 (Chef 13.11., 10:15 und 10:16, Fund t282.5: „warum endet der Weg jetzt und wird eine Feldwiese? Warum geht der Weg nicht
+# grundsaetzlich weiter und endet dann im Dunkel?“; „Der Weg endet mit einem Wald … macht halt keinen Sinn, dass der Weg endet“):
+# jeder Weg ueber den Rand laeuft gerade weiter durch den Wald bis ins Dunkel (RAND_WEIT), kein Baum auf ihm, er biegt nicht ab
+BIEG = 0.0                           # vorher 2.4: der Weg bog bis Tiefe 7 zur Seite und verschwand hinter Kronen
 def rand_tiefe(c, r): return max(C0 - c, c - C1, R0 - r, r - R1)
 def ausgaenge_rand():
     """Wege ueber den Kartenrand: je Lauf benachbarter Wegkacheln auf einer Randzeile (Seite, u0, u1), u in Kacheln laengs des Rands"""
@@ -190,19 +193,19 @@ def ss_np(a, b, x):
     t = np.clip((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t)
 def bahn(seite, u0, u1, d):
     """Mitte und halbe Breite des Wegs hinter dem Rand bei Tiefe d (Zahl oder numpy): ab Tiefe 1 zur Kartenmitte hin gebogen,
-    schmaler; Staerke vergeht ab Tiefe 6,5 (verliert sich unter den Kronen)"""
+    schmaler; Staerke bleibt bis ins Dunkel (1022: vorher verging sie ab Tiefe 6,5 unter den Kronen)"""
     laenge = NC if seite in 'NS' else NR
     m = (u0 + u1) / 2.0
     sg = 1.0 if m < laenge / 2.0 else -1.0
     mitte = m + sg * BIEG * ss_np(1.0, 7.0, d)
     hb = ((u1 - u0) - 1) / 2.0 + 0.52
-    return mitte, hb * (1 - 0.25 * ss_np(2.0, 8.0, d)), 1 - ss_np(6.5, 9.5, d)
+    return mitte, hb * (1 - 0.25 * ss_np(2.0, 8.0, d)), 1 - ss_np(RAND_WEIT - 0.5, RAND_E, d)
 def im_gang(c, r, frei=0.9):
     """Kachel (c, r) hinter dem Rand liegt auf oder neben einem weiterlaufenden Weg (kein Baum)"""
     X, Y = c - C0 + 0.5, r - R0 + 0.5
     for seite, u0, u1 in AUSG:
         u, d = rand_lage(seite, X, Y)
-        if d <= 0 or d > 9.5: continue
+        if d <= 0 or d > RAND_E: continue                              # 1022: frei bis ins Dunkel (vorher 9,5)
         mi, hb, _ = bahn(seite, u0, u1, d)
         if abs(u - float(mi)) < float(hb) + frei: return True
     return False
@@ -1723,7 +1726,10 @@ for x, y, art in K.get('ring', []):                                         # Wa
         # Norden und Westen fehlten die Reihen 5 und 6, gerade die, in denen der Wald ueber einem Ausgang zugeht (MapEdge.CLOSE 5);
         # jetzt auf jeder Seite der ganze Ring wie alt (27m: sechs Reihen, dann dunkel, gebiet.gd rand_licht)
         if d > RING: continue
-        gen = rnd                                                           # 1022: ganzer Ring ringsum, auch ueber dem Weg (er endet im Wald)
+        gen = rnd                                                           # 1022: ganzer Ring ringsum
+        if im_gang(x, y, 0.35):                                             # 1022 (Chef 13.11.): ueber dem Weg kein Baum, er laeuft durch den Wald
+            for _ in range(4 if art == 'baum2' and d <= 2 else 2): gen.uniform(0, 1)   # Zufall wie outer_tree verbraucht, der Rest bleibt gleich
+            continue
         outer_tree(x, y, gen=gen); RING_BAUM.add((x, y))
         if art == 'baum2' and d <= 2:                                                      # dichter als innen: zweiter Baum, halbe Kachel versetzt (nur vorn: Dreiecke)
             p0 = tile_c(x, y); outer_tree(x, y, p0 + Vector((-TS / 2, TS / 2, 0)), gen=gen)

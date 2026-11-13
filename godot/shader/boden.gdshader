@@ -41,14 +41,12 @@ float vnoise(vec2 p) {
 }
 void fragment() {
 	vec4 m = texture(maske, (wpos.xz + rand_m) / (karte + 2.0 * rand_m));   // 505c: Maske reicht rand_m ueber den Rand (dorf.py RAND_E)
-	// 1022 (Chef: „Weg offen bis an den Bildrand“): die Maske setzt die Randkachel fort; Weg und Pflaster enden unter dem Wald, der
-	// ueber einem Ausgang 5 Kacheln draussen zugeht (MapEdge.CLOSE), der Boden dort im Schatten wie unter Baeumen
+	// 1022 (Chef: „Weg offen bis an den Bildrand“): die Maske setzt die Randkachel fort, der Boden draussen im Schatten wie unter Baeumen
 	if (rand_karte.z > 0.5) {
 		float aus = max(max(-wpos.x, wpos.x - karte.x), max(-wpos.z, wpos.z - karte.y)) / 1.16;
-		// Rest (1) (Sokrates 12.11., 23:50, Bilder 23:42): bei 3 bis 5 Kacheln stand der Weg noch hell vor den Kronen, die schon dunkel
-		// sind (ihr Dunkel richtet sich nach dem Boden weiter draussen, toon rand_boden); der Weg geht darum ab 1 Kachel ins Gras ueber
-		// und ist vor der Baumreihe Boden im Schatten wie die Wiese daneben
-		float zu = smoothstep(1.0, 3.5, aus + (vnoise(wpos.xz * 0.7) - 0.5) * 1.2);
+		// 1022 (Chef 13.11., 10:15, Fund t282.5: „warum endet der Weg jetzt und wird eine Feldwiese?“): der Weg laeuft gerade weiter
+		// durch den Wald (dorf.py BIEG 0, kein Baum auf ihm) und vergeht erst im Dunkel (RAND_WEIT 11), nicht mehr ab 1 Kachel
+		float zu = smoothstep(10.0, 12.0, aus + (vnoise(wpos.xz * 0.7) - 0.5) * 1.2);
 		m.r *= 1.0 - zu; m.g *= 1.0 - zu;
 		m.b = max(m.b, 0.6 * smoothstep(0.5, 3.0, aus));
 	}
