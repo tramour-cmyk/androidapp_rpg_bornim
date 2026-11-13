@@ -394,7 +394,7 @@ func _pack_flees() -> void:
 		var r: Dictionary = Lohn.reward(mars, {}, Wuerfel.new(1))     # 870.5: BRS, je Jungwolf 0,3 (werte.json)
 		var soll := roundi(Brs.erfahrung(int(hero.level()), "wolf") * (1.0 + 0.3 * cubs.size()))
 		ok = int(r.xp) == soll
-		ok = ok and names[0] == "Wolf" and (names[1] == "Jungwolf" if cubs.size() == 1 else names[1] == "Jungwolf 1")
+		ok = ok and names[0] == "Leitwolf" and (names[1] == "Jungwolf" if cubs.size() == 1 else names[1] == "Jungwolf 1")
 		print(("gleich" if ok else "FEHLER") + " Rudel: Wolf fällt, %d Jungwölfe fliehen, gewonnen, Erfahrung %d (soll %d), Namen %s" % [cubs.size(), int(r.xp), soll, names])
 	else:
 		print("FEHLER Rudel: Wolf steht %s, geflohen %s, Meldungen %d, Ausgang %s" % [wolf.standing(), cubs.map(func(c): return c.fled), flohen, mars.outcome])
