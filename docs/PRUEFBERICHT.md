@@ -52,6 +52,12 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 218 · 1184 Regel Kleinkram folgt Werkzeug (Perikles `5739b6920`), 1171 nach 1199/1208 (13.11., 20:1x)
+
+- **1184 greift:** `LISTE-CHECK-BUILD-TEST.md` 9 jetzt „in der Prüfliste nur als Zeile zur Kenntnis mit Art „Kleinkram“ und Link aufs Bild, nicht im Reiter „Test“ und nicht in der Zahl der Vorgänge“; deckt sich mit `pruefliste.py` 110 und `zug-index.py` 223 (Kleinkram aus `nrn`).
+- **1171 greift** (Nachprobe nach `aefe62940`, `8ba6fa07e`): Probe t284 plus 997.80 Kleinkram ohne Link, 997.81 mit Link: `pruefliste.py` 39 Zeilen, beide nicht im Reiter; Commit-Prüfung im Wegwerfklon hält als Entwurf in `docs/entwurf/` nur an 997.80 (Exit 1).
+- **1173:** Klang in t284 nur als „Film mit Ton“ (284.2g, 284.7b), keine Klang-Handyfrage; echte Kleinkram-Zeile mit Bildlink gibt es noch keine → wartet auf t285.
+
 ## Lauf 217 · 1199 am echten Entwurf t285 (13.11., 20:0x)
 
 - **Echter Stand belegt:** `docs/entwurf/t285-gang-messen.md` (Tom, 19:33, „APK folgt“, ohne „Gegengelesen:“): `pruefliste.py --build 285` → „fehlt … erst gegenlesen, dann bauen (1199)“, `--pruefe` Exit 1; `--build 284` liest weiter `ansehen/t284-rand.md` (39 Zeilen). Kein `claude/build-285` auf `origin`. Ohne Befund; 1199 wartet auf t285 (Lauf von 285: Quelle `docs/entwurf/…`, Datei erst mit Link nach `ansehen/`).
