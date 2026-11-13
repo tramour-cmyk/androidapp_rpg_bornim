@@ -82,3 +82,4 @@
 2026-11-13 17:42:38	commit-pruefung	docs/chefsache/ansehen/t284-rand.md: Laufnachweis fehlt (1128 A): rauch_1160 steht nicht im Bauablauf; tuer_495 steht nicht im Bauablauf; pim_rennt_1086 steht nicht im Bauablauf; lage_1156 steht nicht	main
 2026-11-13 17:43:50	commit-pruefung	LISTE-VORGAENGE.md: 1141: Zeile über 400 Zeichen (Einzelheiten als „Zu 1141“ in den Vorrat) (Form 275.2; vorgang.py schreibt nur Gültiges)	main
 2026-11-13 17:50:33	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	HEAD
+2026-11-13 17:50:37	probelauf	725 (D72): Ziel `cd $W/$d/godot` kann der Haken nicht auflösen; Figurenstand (513.1), Parse (464) und Zählung (621 A) liefen sonst im falschen Ordner und ließen durch. Ziel ausschreiben (`cd /home/use	HEAD
