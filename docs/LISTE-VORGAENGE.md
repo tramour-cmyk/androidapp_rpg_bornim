@@ -22,7 +22,7 @@
 | 569 | Baumkronen ohne erkennbare Tuschelinie, „ein einziger Brei“ (Chef 04.11., 19:44, Bild 558 Probe 4) | Tom | K | ruht, Kampf zuerst (338.1) | 16.11. | – | – | E Oberfläche | – |
 | 568 | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | Tom | K | ruht | 23.11. | – | – | E Oberfläche | – |
 | 531 | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere sichtbar mit der Fackel, Ruhebewegungen (Chef 03.11., 23:42) | Tom | M | in Arbeit, Ursachen nachgestellt (Zu 531) | 643 | claude/tom-531-film | – | E Oberfläche | 12,96 $ |
-| 542 | Aufträge: Jorins „Feuer am Steinkreis“ nicht abschließbar (Fetzen fehlt), Gwennas Ring am Brett ohne Höhle nicht findbar, Aldrics Ring als Ding statt Einzelstück (Abgleich 512, Sokrates 03.11., 23:4x) · zurück t284 | Tom | M | zu testen | – | claude/tom-542-testwolf | 285 | E Oberfläche | – |
+| 542 | Aufträge: Jorins „Feuer am Steinkreis“ nicht abschließbar (Fetzen fehlt), Gwennas Ring am Brett ohne Höhle nicht findbar, Aldrics Ring als Ding statt Einzelstück (Abgleich 512, Sokrates 03.11., 23:4x) · zurück t284 | Tom | M | zu testen | – | claude/tom-542-testwolf | 285 | E Oberfläche | 7,48 $ |
 | 515 | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 03.11., 16:07) | Tom | K | ruht | 870, 23.11. | – | – | E Welt | – |
 | 376.1 | Probeblatt Quaternius-Figuren mit Bewegungsraster als Film (Chef kaufte 27.10., 12:20) | Tom | K | ruht | 23.11. | claude/spike-376-1-tracht | – | E Figuren | 221,15 $ |
 | 455.1 | Probeblatt Baukasten: Roben, Umhänge, Stiefel je Netz × Material × Zeichen (Chef 01.11., 11:24) | Tom | K | ruht | 23.11. | claude/spike-455-1-baukasten | – | E Figuren | 30,05 $ |
@@ -277,6 +277,7 @@
 | 1238 | Von Ford (Lauf 23:05): 1235 steht für Homer startbar (Kür, nach dem Meilenstein), Homer sagt Zu 1235 (22:08) nicht baubar vor dem Meilenstein; lauf.py startet ihn sonst stündlich für nichts; Stand ruht oder Termin setzen; Abhilfe bis dahin --ohne 1235 | Perikles | M? | startbar | – | – | – | B Abläufe | – |
 | 1239 | Von Ford (Lauf 23:05): lauf.py liest den Beispielsatz „… (Aufwand hoch, weil …)“ in der Perikles-Übergabe als echten Nachfolger mit hoch und zerschneidet den Titel; Einzelheiten Zu 1239 | Perikles | M? | startbar | – | – | – | B Werkzeuge | – |
 | 1241 | D231.1 von Diogenes (aus 1236): ROLLE-ENTWICKLUNG „Großes Vorhaben“ verweist für Einzelheiten auf billigen/1236-gespraech.md, die beim Billigen gelöscht wird (chefsache/README „Zu billigen“); Ausnahmen (Fehlerbehebung, Tests ohne Spielcode, Chefwort binnen 3 Tagen) und „auch längst Beschlossenes“ stehen nur dort | Perikles | M | startbar | – | – | – | B Abläufe | – |
+| 1243 | Von Ford (Lauf 00:03): commit-pruefung.py hält an, wenn im Diff ein Termin mit heutigem Datum und späterer Uhrzeit steht (Zeile 827, Termin heute 20 Uhr); Termine sind keine Zeitstempel; Ausnahme wie bei „wartet auf“ | Perikles | M? | startbar | – | – | – | B Werkzeuge | – |
 | 1133 | Von Perikles (1129.1, Doppelpack 421): vier Werkzeugpunkte P1–P4 der Systemprüfung prüfen, Zu 1129.1 in ARBEIT-PRUEFUNG.md · „jetzt“ 13.11., 12:53 | Diogenes | M | startbar | 14.11. | – | – | Q QM | 10,99 $ |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | K | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | 23.11. | – | – | Q QS | – |
@@ -334,7 +335,7 @@
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1095,62 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 906 | lauf.py startet Zusatzentwickler auf Zeilen, deren Zweig Umzugsdateien berührt (492 am 11.11., 08:04: claude/tom-492-durchspiel ändert spiel.gd; Grundsatz 5 LISTE-UMZUG-BRS, Zu 870.4 Sokrates 01:57); Sperre nach geänderten Dateien prüfen (von Spike) | Ford | M? | startbar | – | – | – | B Steuerung | – |
-| Pflege | von Werkzeug (340.3, 13.11.): startbar.py: Jerry: PAUSE bis **Pause bis Entscheid des Chefs** (Halt  (Datum nicht lesbar) | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 14.11.): startbar.py: Jerry: PAUSE bis **Pause bis Entscheid des Chefs** (Halt  (Datum nicht lesbar) | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
