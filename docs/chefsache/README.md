@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [1098](entscheiden/1098-ford-starter.md) | **Muss** | B Abläufe | 13.11., 08:31 | ein kleiner Starter auf Tiefe 1 startet jeden neuen Ford; Ford bleibt so auf Tiefe 2, statt jeden Tag bis 6 zu sinken und dich um einen Handstart zu bitten | Perikles |
 | [1092](entscheiden/1092-streifen.md) | M? | E Figuren | 13.11., 09:12 | die gemalten Faltentäler der Stoffmalerei 558 laufen ins Schwarze; nur das Schwarz kappen und im nächsten Build prüfen, oder erst ein Bild vorher/nachher | Tom (Befund 08:50), Sokrates (Vorlage 09:12) |
 | [1100](entscheiden/1100-ford-lauf.md) | Kür | B Abläufe | 13.11., 08:36 | Ford kostet gemessen etwa 0,90 $ je Stunde (rund 22 $ am Tag); fünf Änderungen am Lauf sparen geschätzt ein Drittel bis die Hälfte | Perikles |
 
@@ -321,7 +320,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 919 | M | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): Regeln nachziehen: Testbitte auch bei rot | wartet auf 918 (startbar) |
 | 1019 | M | Von Sokrates (zu 1016): Ford startet sich am Neustart-Haken (200 Tsd., 383 A) neu statt be | wartet auf 1098 (wartet) |
 | 1070 | M | Getestete Prüfliste sofort aus der Chefsache, nicht erst beim Zusammenführen (Chef 12.11., | wartet auf Diogenes (greift?) |
-| 1098 | M | D189.1 von Diogenes (zu 1019): Haken greift (4 Ford-Selbstneustarts seit 12.11. bei 416–88 | Chef (Datei in der Chefsache) |
+| 1098 | M | D189.1 von Diogenes (zu 1019): Haken greift (4 Ford-Selbstneustarts seit 12.11. bei 416–88 | wartet auf Ford |
 | 1099 | M | Von Tuffy (Chef 13.11., 07:12): jede Sitzung bindet benötigte Repos selbst mit add_repo ei | wartet auf 1103 (startbar) |
 | 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | Chef (Datei in der Chefsache) |
 | 1103 | M | D190.1 von Diogenes (zu 1099): alte Bitte-Regel steht noch (ARBEIT-BETRIEB Zeile 44: Chef | startbar |
