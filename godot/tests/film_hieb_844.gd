@@ -156,6 +156,7 @@ func _angriff(g: String, k: int, treffer: bool) -> void:
 		while Engine.get_process_frames() < hieb_ab + 9:     # Ausholen (Hieb 0,30 s)
 			await process_frame
 		await _knips(bilder + "/844-%s-%d-aus.png" % [g, k + 1])
+		print("BILD 844 aus: %s bei %.2f s" % [gob.anim.current_animation, gob.anim.current_animation_position])
 	if bilder != "":
 		while Engine.get_process_frames() < auf - 3:
 			await process_frame

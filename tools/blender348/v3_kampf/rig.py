@@ -437,10 +437,11 @@ def hieb_keys(art):
         # Schamane, der Stab links, in der Mitte gefasst (goblin.py, figur.gd: der Fuß steht in Ruhe am Boden). Als Keule über die
         # Schulter (FoeArt: „struck with the staff like a club“) fuhr das untere Ende durch Bein und Hüfte (hieb_844: 13–18 cm im
         # eigenen Körper); darum ein Stoß: der Arm zieht zurück, der Schädel neigt sich etwas nach hinten, dann stößt er ihn 45° nach
-        # vorn oben zum Gegner (Handgelenk am Bau gesucht: die Hand dreht den Stab so, dass er nicht zur Seite kippt)
-        zur = {'pelvis-waist': (-4, 0, 8), 'belly-chest': (0, 0, 4), 'shL-upL': (20, 0, 0), 'elL-foL': (-20, 0, 0), 'foL-wrL': (-15, 0, 15),
+        # vorn oben zum Gegner (Handgelenk am Bau gesucht: die Hand dreht den Stab so, dass er nicht zur Seite kippt); die freie Hand
+        # nimmt er dabei zurück (Probebild: vorgestreckt stach sie dem Helden ins Gesicht)
+        zur = {'pelvis-waist': (-4, 0, 8), 'belly-chest': (0, 0, 4), 'shL-upL': (20, 0, 0), 'elL-foL': (-20, 0, 0), 'foL-wrL': (-15, 0, 15), 'shR-upR': (105, -15, 0), 'elR-foR': (-30, 0, 0),
                **beide('kneeS-calfS', (4, 0, 0))}
-        vor = {'pelvis-waist': (6, 0, -8), 'belly-chest': (2, 0, -4), 'shL-upL': (-45, 0, 0), 'elL-foL': (25, 0, 0), 'foL-wrL': (15, 30, -60),
+        vor = {'pelvis-waist': (6, 0, -8), 'belly-chest': (2, 0, -4), 'shL-upL': (-45, 0, 0), 'elL-foL': (25, 0, 0), 'foL-wrL': (15, 30, -60), 'shR-upR': (105, -15, 0), 'elR-foR': (-30, 0, 0),
                **beide('kneeS-calfS', (10, 0, 0))}
         return [(0.0, {}, {}, 0.0), (0.24, zur, {}, 0.0), (0.30, zur, {}, 0.0), (0.40, vor, {}, 0.0), (0.48, vor, {}, 0.0),
                 (0.72, {}, {}, 0.0)], 0.40, -20.0
