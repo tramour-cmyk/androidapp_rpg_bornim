@@ -29,7 +29,7 @@ KC="python3 $R/tools/godot/kauf_cache.py"
 lauf() {   # ein Lauf wie godot.yml: pruefen, Teile nach den Schaltern, Leute, holen, Kampfort, ablegen; $1 = Inhalt der Platzhalter
   export RUNNER_TEMP=$T/rt-$RANDOM; mkdir -p $RUNNER_TEMP
   ABLEGEN=0; unset KAUF_GEGENPROBE   # nur der Lauf mit NEU=1 setzt es (Bauserver: jeder Lauf frisch)
-  rm -rf $R/godot/daten/*.bin $R/godot/daten/leute $R/godot/kampf/daten/*; : > $R/godot/daten/kauf.txt
+  rm -rf $R/godot/daten/*.bin $R/godot/daten/leute $R/godot/daten/waffen $R/godot/kampf/daten/*; : > $R/godot/daten/kauf.txt
   local E=$RUNNER_TEMP/env; : > $E
   $KC pruefen --env $E ${NEU:+--neu} > $RUNNER_TEMP/pruefen.log || true
   set -a; . $E; set +a
@@ -46,7 +46,13 @@ lauf() {   # ein Lauf wie godot.yml: pruefen, Teile nach den Schaltern, Leute, h
     $KC merke vor_klassen; echo "klassen $1" > $R/godot/daten/held_WACHE_M.bin; echo daten/held_WACHE_M.bin >> $R/godot/daten/kauf.txt
     $KC merke klassen
   fi
-  mkdir -p $R/godot/daten/leute; echo leute > $R/godot/daten/leute/garrick.bin; echo daten/leute/garrick.bin >> $R/godot/daten/kauf.txt
+  $KC merke vor_leute   # 1115: Block leute wie godot.yml „Leute bauen“
+  if [ "$KAUF_LEUTE" != treffer ]; then
+    mkdir -p $R/godot/daten/leute $R/godot/daten/waffen; echo "leute $1" > $R/godot/daten/leute/garrick.bin
+    echo daten/leute/garrick.bin >> $R/godot/daten/kauf.txt; echo "waffe $1" > $R/godot/daten/waffen/dagger.bin
+  fi
+  $KC merke leute
+  mkdir -p $R/godot/daten/leute; cp $R/tools/blender348/v3/leute.json $R/godot/daten/leute/
   HOLEN=-; if [ "$KAUF_HOLEN" = ja ]; then
     for b in ${WEG:-}; do git --git-dir=$T/kauf.git update-ref -d refs/heads/bau/$b-$($KC kennung $b | cut -d' ' -f2); done   # 1126
     $KC holen > $RUNNER_TEMP/holen.log && HOLEN=0 || HOLEN=$?
@@ -64,11 +70,11 @@ lauf() {   # ein Lauf wie godot.yml: pruefen, Teile nach den Schaltern, Leute, h
   VERGLEICH=-; if [ -n "${KAUF_GEGENPROBE:-}" ]; then (cd $R && $KC vergleich > $RUNNER_TEMP/vergleich.log) && VERGLEICH=0 || VERGLEICH=$?; fi
   return 0
 }
-inhalt() { cat $R/godot/daten/held.bin $R/godot/daten/dorf.bin $R/godot/daten/held_WACHE_M.bin $R/godot/kampf/daten/wolf.bin 2>/dev/null | tr '\n' ' '; }
+inhalt() { cat $R/godot/daten/held.bin $R/godot/daten/dorf.bin $R/godot/daten/held_WACHE_M.bin $R/godot/daten/leute/garrick.bin $R/godot/daten/waffen/dagger.bin $R/godot/kampf/daten/wolf.bin 2>/dev/null | tr '\n' ' '; }
 
 lauf eins
 pruefe '[ "$KAUF_ALLES" = bauen ] && [ "$KAUF_FIGUR" = bauen ] && [ "$KAUF_DORF" = bauen ]' "erster Lauf baut alles"
-pruefe '[ $(git --git-dir=$T/kauf.git for-each-ref refs/heads/bau | wc -l) = 4 ]' "vier Zweige abgelegt"
+pruefe '[ $(git --git-dir=$T/kauf.git for-each-ref refs/heads/bau | wc -l) = 5 ]' "fünf Zweige abgelegt (1115: dazu leute)"
 eins=$(inhalt)
 
 lauf zwei
@@ -79,22 +85,22 @@ pruefe '[ $(grep -c . $R/godot/daten/kauf.txt) = 3 ]' "kauf.txt ohne Doppel ($(g
 
 zweige=$(git --git-dir=$T/kauf.git for-each-ref --format='%(refname) %(objectname)' refs/heads/bau)
 NEU=1 lauf eins
-pruefe '[ "$KAUF_ALLES" = bauen ] && [ "$KAUF_FIGUR_BAUEN" = ja ] && [ "$KAUF_HOLEN" = nein ] && [ "$KAUF_GEGENPROBE" = figur,dorf,klassen,kampf ]' "1111: cache=neu baut trotz Treffer alles ($KAUF_GEGENPROBE)"
-pruefe '[ $VERGLEICH = 0 ] && grep -q "Gegenprobe 4 Dateien, 0 abweichend (figur, dorf, klassen, kampf)" $RUNNER_TEMP/vergleich.log' "1111: Gegenprobe gegen den frischen Bau ($(tail -1 $RUNNER_TEMP/vergleich.log))"
+pruefe '[ "$KAUF_ALLES" = bauen ] && [ "$KAUF_FIGUR_BAUEN" = ja ] && [ "$KAUF_HOLEN" = nein ] && [ "$KAUF_GEGENPROBE" = figur,dorf,klassen,leute,kampf ]' "1111: cache=neu baut trotz Treffer alles ($KAUF_GEGENPROBE)"
+pruefe '[ $VERGLEICH = 0 ] && grep -q "Gegenprobe 6 Dateien, 0 abweichend (figur, dorf, klassen, leute, kampf)" $RUNNER_TEMP/vergleich.log' "1111: Gegenprobe gegen den frischen Bau ($(tail -1 $RUNNER_TEMP/vergleich.log))"
 pruefe '[ "$(git --git-dir=$T/kauf.git for-each-ref --format="%(refname) %(objectname)" refs/heads/bau)" = "$zweige" ]' "1111: kein Zweig überschrieben"
 NEU=1 lauf anders
-pruefe '[ $VERGLEICH = 1 ] && [ $(grep -c "weicht ab" $RUNNER_TEMP/vergleich.log) = 4 ]' "1111: anders gebaut, vier Dateien weichen ab ($(tail -1 $RUNNER_TEMP/vergleich.log))"
+pruefe '[ $VERGLEICH = 1 ] && [ $(grep -c "weicht ab" $RUNNER_TEMP/vergleich.log) = 6 ]' "1111: anders gebaut, sechs Dateien weichen ab ($(tail -1 $RUNNER_TEMP/vergleich.log))"
 
 echo "# 854 Probe" >> $R/tools/blender348/v3/raum.py
 lauf drei
 pruefe '[ "$KAUF_DORF" = bauen ] && [ "$KAUF_FIGUR" = treffer ] && [ "$KAUF_KLASSEN" = treffer ] && [ "$KAUF_KAMPF" = treffer ] && [ "$KAUF_FIGUR_BAUEN" = nein ]' "raum.py: nur dorf baut"
 pruefe 'grep -q "dorf .*raum.py" $RUNNER_TEMP/pruefen.log' "Schritt 7 nennt raum.py ($(grep 'dorf ' $RUNNER_TEMP/pruefen.log | cut -c1-120))"
-pruefe '[ "$(inhalt)" = "held eins dorf drei klassen eins kampf eins " ]' "dorf neu, der Rest geholt ($(inhalt))"
+pruefe '[ "$(inhalt)" = "held eins dorf drei klassen eins leute eins waffe eins kampf eins " ]' "dorf neu, der Rest geholt ($(inhalt))"
 
 echo "# 854 Probe" >> $R/tools/blender348/kauftier.py
 lauf vier
 pruefe '[ "$KAUF_KAMPF" = bauen ] && [ "$KAUF_DORF" = treffer ] && [ "$KAUF_KLASSEN" = treffer ] && [ "$KAUF_FIGUR_BAUEN" = nein ]' "1114: kauftier.py: nur kampf baut, figur nicht"
-pruefe '[ "$(inhalt)" = "held eins dorf drei klassen eins kampf vier " ]' "1114: kampf neu, figur geholt ($(inhalt))"
+pruefe '[ "$(inhalt)" = "held eins dorf drei klassen eins leute eins waffe eins kampf vier " ]' "1114: kampf neu, figur geholt ($(inhalt))"
 pruefe 'cmp -s $R/godot/daten/held.bin $R/godot/kampf/daten/held.bin && [ $(grep -cx kampf/daten/held.bin $R/godot/kampf/daten/kauf.txt) = 1 ]' "1114: Held im Kampfort wie daten/held.bin, einmal in kampf/daten/kauf.txt"
 kk=$($KC kennung kampf | cut -d' ' -f2)
 pruefe '! git --git-dir=$T/kauf.git ls-tree -r --name-only bau/kampf-$kk | grep -q held' "1114: kein Held im Zweig bau/kampf-$kk"
@@ -122,6 +128,26 @@ sed -i 's|bau goblin.py ART=$a V3=tools/blender348/v3_kampf|bau goblin.py ART=$a
 pruefe '$KC eingaben kampf | grep -qx tools/blender348/v3/held3.py && $KC eingaben kampf | grep -qx tools/blender348/v3/rig.py' "1114: goblin.py ohne V3=…/v3_kampf liest v3/held3.py und v3/rig.py"
 cp $T/godot.yml $R/.github/workflows/godot.yml
 pruefe '! $KC eingaben kampf | grep -q "v3/\(held3\|rig\|geruest\|leute\)"' "1114: mit V3=…/v3_kampf nicht"
+
+# 1115: Block leute. waffen.py baut nur leute neu; ein Feld in leute.json, das kein Skript liest, baut nichts neu; eine Person
+# mehr auf einer Karte (karten.json) baut leute neu, eine andere Änderung an karten.json nur dorf; leute.json liegt immer neben den Leuten
+lauf leute0
+pruefe '[ "$KAUF_LEUTE" = treffer ] && [ "$(cat $R/godot/daten/leute/garrick.bin)" = "leute held" ] && cmp -s $R/godot/daten/leute/leute.json $R/tools/blender348/v3/leute.json' "1115: leute geholt, leute.json daneben"
+pruefe 'grep -qx daten/leute/garrick.bin $R/godot/daten/kauf.txt' "1115: kauf.txt mit der Zeile der Leute"
+echo "# 1115 Probe" >> $R/tools/blender348/waffen.py
+lauf leute1
+pruefe '[ "$KAUF_LEUTE" = bauen ] && [ "$KAUF_FIGUR" = treffer ] && [ "$KAUF_DORF" = treffer ] && [ "$KAUF_KLASSEN" = treffer ]' "1115: waffen.py: leute baut, figur, dorf, klassen treffen (kampf $KAUF_KAMPF)"
+python3 -c "import json,sys; d=json.load(open(sys.argv[1])); p=[k for k in d if not k.startswith('_')][0]; d[p]['nur_godot_1115']=3; json.dump(d,open(sys.argv[1],'w'),ensure_ascii=False,indent=1)" $R/tools/blender348/v3/leute.json
+lauf leute2
+pruefe '[ "$KAUF_LEUTE" = treffer ] && [ "$KAUF_FIGUR" = treffer ]' "1115: Feld nur für Godot in leute.json baut keine Leute neu"
+pruefe 'grep -q nur_godot_1115 $R/godot/daten/leute/leute.json' "1115: neue leute.json trotzdem neben den Leuten"
+p=$(python3 -c "import json,sys; print([k for k in json.load(open(sys.argv[1])) if not k.startswith('_')][0])" $R/tools/blender348/v3/leute.json)
+echo '{"karten": {"village": {"leute": [{"id": "'$p'"}]}}}' > $R/godot/daten/karten.json
+pruefe '[ "$($KC pruefen 2>/dev/null | grep -c "^KAUF_LEUTE=bauen")" = 1 ]' "1115: eine Person mehr auf der Karte baut leute neu"
+lauf leute3
+echo '{"karten": {"village": {"leute": [{"id": "'$p'"}], "name": "anders"}}}' > $R/godot/daten/karten.json
+pruefe '[ "$($KC pruefen 2>/dev/null | grep -E "^KAUF_(LEUTE|DORF)=" | tr "\n" " ")" = "KAUF_DORF=bauen KAUF_LEUTE=treffer " ]' "1115: andere Änderung an karten.json baut nur dorf"
+lauf leute4
 
 # 1101: Kaufrepo lehnt Dateien über 1,1 MB ab wie GitHub über 100 MB; mit der Datei „abweisen“ auch jeden Zweig bau/dorf-…
 cat > $T/kauf.git/hooks/pre-receive <<'HAKEN'
@@ -178,7 +204,7 @@ vorher=$(git --git-dir=$T/kauf.git for-each-ref refs/heads/bau | wc -l)
 teil=$(git --git-dir=$T/kauf.git for-each-ref refs/heads/bau/teil | wc -l)
 (cd $R && $KC aufraeumen > $T/auf1.log)
 pruefe '[ $(git --git-dir=$T/kauf.git for-each-ref refs/heads/bau/teil | wc -l) = $teil ] && [ $teil -ge 1 ]' "1113: junge Zwischenzweige bleiben ($teil)"
-ok=1; for b in figur dorf klassen kampf; do
+ok=1; for b in figur dorf klassen leute kampf; do
   n=$(git --git-dir=$T/kauf.git for-each-ref "refs/heads/bau/$b-*" | wc -l); [ $n -le 3 ] || ok=0
   git --git-dir=$T/kauf.git rev-parse -q --verify refs/heads/bau/$b-$($KC kennung $b | cut -d' ' -f2) > /dev/null || ok=0
 done

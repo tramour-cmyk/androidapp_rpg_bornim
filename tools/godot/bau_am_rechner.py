@@ -5,7 +5,7 @@
 # Blender als Modul: python3 -m venv ~/bl && ~/bl/bin/pip install bpy==5.2.3 numpy pillow; ln -s ~/bl bl (im Repo, nicht committen).
 # Aufruf im Repo: python3 tools/godot/bau_am_rechner.py [--laden] [--cache] [Schritt-Anfang …]
 #   ohne Schritte: Karten und Texte, CC0, Modelle, Held je Klasse, Kampfort (am Rechner mit 4 Kernen etwa 35 Minuten)
-#   --cache (854): ohne Schritte erst Karten und Texte, dann je Block (figur, dorf, klassen, kampf) die gebauten Modelle aus dem
+#   --cache (854): ohne Schritte erst Karten und Texte, dann je Block (figur, dorf, klassen, leute, kampf) die gebauten Modelle aus dem
 #   Kaufrepo (kauf_cache.py, wenige Minuten); nur was fehlt --laden und Bau, danach ablegen, damit die nächste Sitzung nicht bei Null
 #   anfängt
 #   danach: cd godot && ~/godot/godot --headless --import --path . ; dann die Tests wie im Prüfschritt
@@ -82,7 +82,8 @@ def cache(mit_laden):
         schritte(['Modelle bauen'])
     if os.environ['KAUF_KLASSEN'] != 'treffer':
         schritte(['Held je Klasse'])
-    # Leute vor dem Holen (wie auf dem Bauserver): ihre Dateien liegen nicht im Cache, holen ersetzt danach die Kaufschilde
+    # Leute vor dem Holen (wie auf dem Bauserver): seit 1115 Block leute, der Schritt baut nur ohne Treffer (KAUF_LEUTE) und legt
+    # leute.json immer hin; holen bringt danach die Leute aus dem Cache und ersetzt die Kaufschilde
     schritte(['Leute bauen'])
     if os.environ['KAUF_HOLEN'] == 'ja':
         subprocess.run(kc + ['holen'], cwd=REPO, check=True)

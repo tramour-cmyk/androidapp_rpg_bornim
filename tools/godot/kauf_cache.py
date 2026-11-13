@@ -49,9 +49,15 @@ BLOECKE = {
     'dorf': dict(schritt='Modelle bauen', skripte=['v3/tex.py', 'v3/dorf.py', 'v3/raum.py'], braucht=[], kauf=False, karten=True,
                  marken=('figur', 'dorf')),
     'klassen': dict(schritt='Held je Klasse', skripte=None, braucht=['figur'], kauf=True, karten=False, marken=('vor_klassen', 'klassen')),
+    # 1115 (Diogenes D191.5: „Leute bauen“ 9–11 min in jedem Lauf, nie abgelegt): die Leute des Dorfs (held3 FIGUR=<id>, rig, je
+    # eigener OUT, also ohne figur) und die Waffen aus waffen.py. In die Kennung gehen nur die Personen-Ids, die der Schritt aus
+    # karten.json liest (leute_ids), nicht die ganze Karte. Vor kampf, weil kampf shield.bin und round_shield.bin ersetzt (WAFFEN).
+    'leute': dict(schritt='Leute bauen', skripte=['v3/held3.py', 'v3/rig.py', 'waffen.py'], braucht=[], kauf=True, karten=False,
+                  marken=('vor_leute', 'leute'), leute_ids=True),
     'kampf': dict(schritt='Kampfort bauen', skripte=None, braucht=[], kauf=True, karten=False, marken=('vor_kampf', 'kampf'),
                   dazu=['v3/tex.py']),
 }
+LEUTE_KARTEN = ('village', 'inn', 'shop', 'elder', 'temple', 'forest', 'deep_forest')   # wie der Schritt „Leute bauen“ (ids=…)
 # 1114 (Diogenes D191.4: in 34 Läufen baute kampf nie allein neu, immer mit figur): kampf braucht figur nicht mehr. Vom Block figur
 # nahm der Schritt nur held.glb (jetzt eigener Schritt danach) und rig.log (Zeile RUHE, jetzt aus godot/daten/kauf.txt); die
 # Texturen gras, erde, halme in $RUNNER_TEMP/out/tex macht tex.py (dazu), held3 und rig schreiben dort nichts. Dazu las die Suche in
@@ -71,12 +77,14 @@ def _nicht_gelesen(block, run):
     if any('V3=%s/v3_kampf' % BL not in z.split('#', 1)[0] for z in aufrufe):
         return {}
     return NICHT_GELESEN[block]
-# Auf dem Bauserver laufen „Leute bauen“ und „Dorftiere bauen“ (Tom) zwischen den Blöcken; deren Dateien bleiben draußen, sie bauen
-# bei jedem Lauf selbst. godot/daten/kauf.txt (Liste fürs Verschlüsseln) teilen sich alle: abgelegt werden nur die Zeilen, die ein
+# Auf dem Bauserver laufen „Leute bauen“ (seit 1115 Block leute) und „Dorftiere bauen“ (Tom) zwischen den Blöcken; die Dorftiere
+# bleiben draußen und bauen bei jedem Lauf selbst, Leute und Waffen nur im Block leute. godot/daten/kauf.txt (Liste fürs Verschlüsseln) teilen sich alle: abgelegt werden nur die Zeilen, die ein
 # Block zwischen seinen Marken anhängt (Datei ZUSATZ), beim Holen angehängt.
 # Ausnahme: die Kaufschilde (kampf, kaufschild.py) ersetzen daten/waffen/shield.bin und round_shield.bin aus „Leute bauen“; darum
 # holt der Bauserver erst nach den Dorftieren (Schritt vor „Kampfort bauen“).
 OHNE = ('godot/daten/leute/', 'godot/daten/tiere/', 'godot/daten/dorftiere/', 'godot/daten/kauf.txt')
+# 1115: was der Block leute selbst ablegt (Leute und alle Waffen); die übrigen Blöcke lassen es weiter draußen
+LEUTE_TEILE = ('godot/daten/leute/', 'godot/daten/waffen/')
 WAFFEN = ('godot/daten/waffen/shield.bin', 'godot/daten/waffen/round_shield.bin')
 LISTE = 'godot/daten/kauf.txt'
 ZUSATZ = 'KAUF_ZUSATZ'
@@ -238,6 +246,8 @@ def _liste_eingaben(block):
     caches = [json.dumps(s.get('with', {}), sort_keys=True) for s in _schritte() if 'actions/cache' in str(s.get('uses', ''))
               and str(s.get('with', {}).get('path', '')) in ('bl', '~/cc0')]
     z.append('caches %s' % hashlib.sha256('\n'.join(caches).encode()).hexdigest()[:16])
+    if b.get('leute_ids'):
+        z.append('leute-ids %s' % hashlib.sha256(' '.join(leute_ids()).encode()).hexdigest()[:16])
     if b['karten']:
         # 870.9: karten.json ist eingecheckt und lesbar gesetzt; die Kennung nimmt die kompakte Form (gleich dem alten Export aus core),
         # damit ein Umbruch oder Einzug allein kein neues Dorf baut
@@ -255,7 +265,7 @@ def _liste_eingaben(block):
 # und Kampfort neu, 80 statt 50 Minuten) baut sie nicht neu. In die Kennung gehen je Person nur die Felder, deren Name als Wort in
 # einem Skript des Blocks oder im Text seines Schritts steht, dazu alle Personen (auch ohne solches Feld); Felder mit „_“ vorn sind
 # Vermerke. Gilt für jeden Block: figur (held3.py liest die Person) geht in klassen und kampf ein, dorf liest mit 758 sitz_cm (raum.py).
-NUR_FELDER = ('figur', 'dorf', 'klassen', 'kampf')
+NUR_FELDER = ('figur', 'dorf', 'klassen', 'kampf', 'leute')
 
 
 def _leute_felder_hash(rel, ein, run):
@@ -269,6 +279,13 @@ def _leute_felder_hash(rel, ein, run):
             continue
         aus[pid] = {k: v for k, v in f.items() if not k.startswith('_') and k in worte} if isinstance(f, dict) else f
     return hashlib.sha256(json.dumps(aus, sort_keys=True, ensure_ascii=False, separators=(',', ':')).encode()).hexdigest()[:16]
+
+
+def leute_ids():
+    # dieselbe Auswahl wie der Schritt „Leute bauen“: jede Person der Karten, deren Id oder Aussehen leute.json kennt
+    k = json.load(open(os.path.join(REPO, 'godot/daten/karten.json'), encoding='utf-8'))['karten']
+    l = json.load(open(os.path.join(REPO, BL, 'v3/leute.json'), encoding='utf-8'))
+    return sorted({x for m in LEUTE_KARTEN for n in k.get(m, {}).get('leute', []) for x in (n['id'], n.get('aussehen', '')) if x in l})
 
 
 _kennungen = {}
@@ -560,14 +577,20 @@ def _block_dateien(block):
     if not (os.path.exists(_marke(von)) and os.path.exists(_marke(bis))):
         return None, None
     a, b = json.load(open(_marke(von))), json.load(open(_marke(bis)))
-    neu = sorted(p for p, w in b['stand'].items() if a['stand'].get(p) != w and not p.startswith(OHNE)
-                 and (not p.startswith('godot/daten/waffen/') or p in WAFFEN))
+    if block == 'leute':   # 1115: nur Leute und Waffen
+        neu = sorted(p for p, w in b['stand'].items() if a['stand'].get(p) != w and p.startswith(LEUTE_TEILE)
+                     and p != 'godot/daten/leute/leute.json')   # die Kopie von leute.json legt der Schritt immer neu hin
+    else:
+        neu = sorted(p for p, w in b['stand'].items() if a['stand'].get(p) != w and not p.startswith(OHNE)
+                     and (not p.startswith('godot/daten/waffen/') or p in WAFFEN))
     alt_liste = list(a['liste'])
     zusatz = []
     for z in b['liste']:
         if z in alt_liste:
             alt_liste.remove(z)
-        elif not z.startswith(('daten/leute/', 'daten/dorftiere/', 'daten/tiere/')):
+        elif block == 'leute' and z.startswith('daten/leute/'):
+            zusatz.append(z)
+        elif block != 'leute' and not z.startswith(('daten/leute/', 'daten/dorftiere/', 'daten/tiere/')):
             zusatz.append(z)
     return neu, zusatz
 
