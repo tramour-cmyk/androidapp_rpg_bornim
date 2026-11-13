@@ -93,7 +93,8 @@ jobs:
           GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
         run: |
           python3 -c "import yaml" 2> /dev/null || python3 -m pip install -q pyyaml   # vor setup-python: System-Python
-          python3 tools/godot/kauf_cache.py pruefen --env $GITHUB_ENV || true
+          # 1111 (Diogenes D191.1): cache=neu übergeht jeden Treffer, baut voll, vergleich prüft danach die vorher abgelegten Zweige
+          python3 tools/godot/kauf_cache.py pruefen --env $GITHUB_ENV $([ "${{ github.event.inputs.cache }}" = neu ] && echo --neu) || true
       # 804 (Chef 09.11., 21:12): Grass & Wind Kit v1.0.1 (REEBOO, gekauft, stufe1) fuers Gras im Dorf und Wald (skripte/grasbausatz.gd);
       # die Lizenz verbietet die Weitergabe der Dateien: nie ins Repo (godot/.gitignore), nie als Artefakt, nur in den Bau. Nur, was das
       # Spiel braucht (Netze, Vorlagen, Shader, Wind), ohne Editor-Plugin, Demo und Szenen; dazu das Autoload GrassWind und die globalen
@@ -256,7 +257,7 @@ jobs:
           printf 'daten/haare.bin\ndaten/haare_w.bin\ndaten/bewegungen.bin\n' >> $D/kauf.txt
           # 475 (Chef 03.11., 07:45/07:47): die Leute des Dorfs auf dem Kaufkoerper in ihrer Kleidung (held_klassen.py LEUTE_KAUF), Gesicht
           # je Person waehlt Godot (heldfigur.gd person, leute.json kauf); scheitert eine Person, bleibt ihre alte Figur
-          LEUTE_KAUF=alle OUT=$RUNNER_TEMP/out ZIEL=$RUNNER_TEMP/leutekauf Q=~/cc0 timeout 2400 bl/bin/python -I tools/blender348/v3/held_klassen.py > leutekauf.log 2>&1 || { echo "LEUTE KAUF abgebrochen"; tail -40 leutekauf.log; }
+          LEUTE_KAUF=alle OUT=$RUNNER_TEMP/out ZIEL=$RUNNER_TEMP/leutekauf Q=~/cc0 timeout 2400 bl/bin/python -I tools/blender348/v3/held_klassen.py > leutekauf.log 2>&1 || { echo "LEUTE KAUF abgebrochen"; tail -40 leutekauf.log; python3 tools/godot/kauf_cache.py halb klassen "475 LEUTE KAUF abgebrochen"; }   # 1112: dann nicht ablegen
           grep -E "^LEUTE|^KOPFTEIL|^KOPFSITZ|^KOPFFREI|^WANGE|^FEHLT|^KAUFKLEID OK|^OHNE" leutekauf.log | cut -c1-300 || true
           if [ -f $RUNNER_TEMP/leutekauf/leute-kauf.json ]; then
             for f in $RUNNER_TEMP/leutekauf/held_L_*.glb; do [ -f "$f" ] || continue; n=$(basename $f .glb); cp $f $D/$n.bin; echo daten/$n.bin >> $D/kauf.txt; done
@@ -389,13 +390,13 @@ jobs:
               grep -E "^(GLUT|FEHLT|GLB|MASS neu)" kaufgrimm.log | cut -c1-200 || true
               for f in schwarz schimmer; do cp $RUNNER_TEMP/kg/dire_wolf-$f.glb $D/dire_wolf-$f.bin; done; cp $RUNNER_TEMP/kg/dire_wolf-info.json $D/
               GRIMM_KAUF=1
-            else echo "FEHLER 494: Grimmzahn auf dem Kaufwolf nicht gebaut, der eigene bleibt"; tail -40 kaufgrimm.log; fi
+            else echo "FEHLER 494: Grimmzahn auf dem Kaufwolf nicht gebaut, der eigene bleibt"; tail -40 kaufgrimm.log; python3 tools/godot/kauf_cache.py halb kampf "494 Grimmzahn"; fi   # 1112
             # 494 (Wochenziel 03.11. Reihe 3): Gegner von Kapitel 1 aus dem Bestand, gekauft: Wildschwein (Janpec, kauftier.py wie die Dorftiere)
             # und Riesen-Hundertfüßer (MadeCG)
             # Riesenegel (Game Ready Studios) und Säureschnecke (Protofactor), Kauf 348.12c
             for t in keiler hundertfuesser egel schnecke; do
               # Lauf 229: brach ein Tier ab, fehlte der ganze Bau (kein Film); jetzt fehlt nur dieses Tier, der Rest baut weiter
-              TIER=$t KAUF=$KAUF OUT=$RUNNER_TEMP/kt timeout 900 bl/bin/python -I tools/blender348/kauftier.py > kauftier-$t.log 2>&1 || { echo "FEHLER 494: $t nicht gebaut"; tail -40 kauftier-$t.log; continue; }
+              TIER=$t KAUF=$KAUF OUT=$RUNNER_TEMP/kt timeout 900 bl/bin/python -I tools/blender348/kauftier.py > kauftier-$t.log 2>&1 || { echo "FEHLER 494: $t nicht gebaut"; tail -40 kauftier-$t.log; python3 tools/godot/kauf_cache.py halb kampf "494 $t"; continue; }   # 1112
               grep -E "AUSPACKEN|BEWEGUNG|MASS|TEMPO|FEHLT|FERTIG" kauftier-$t.log | cut -c1-200 || true
               for f in $RUNNER_TEMP/kt/kauf_$t-*.glb; do cp $f $D/$(basename $f .glb).bin; done; cp $RUNNER_TEMP/kt/kauf_$t-info.json $D/
             done
@@ -436,7 +437,7 @@ jobs:
               grep -E "^(DREIECKE gesamt|MASS neu|WEG|HIEB|AUGEN|SPEER|FEHLT)" skelett.log | cut -c1-200 || true
               for f in $RUNNER_TEMP/skelett/skeleton-*.glb; do cp $f $D/$(basename $f .glb).bin; echo kampf/daten/$(basename $f .glb).bin >> $D/kauf.txt; done
               cp $RUNNER_TEMP/skelett/skeleton-info.json $D/
-            else echo "FEHLER 506: Skelett nicht gebaut"; tail -40 skelett.log; fi
+            else echo "FEHLER 506: Skelett nicht gebaut"; tail -40 skelett.log; python3 tools/godot/kauf_cache.py halb kampf "506 Skelett"; fi   # 1112
           fi
           # 506 Wiedergänger (LISTE-FIGUREN „Wiedergänger“, ersetzt den Zombie, Kauf 348.12c A): RenderHub „Evil Undead“, drei Kits als
           # Hüllen aus dem Körper (Lumpen, Leichenhemd, rostiges Kettenhemd), Bewegungen aufs Gerüst des Körpers übertragen; nur mit
@@ -446,7 +447,7 @@ jobs:
               grep -E "^(DREIECKE gesamt|MASS|WEG|HIEB|KIT|NAEGEL|FEHLT)" untoter.log | cut -c1-200 || true
               for f in $RUNNER_TEMP/untoter/zombie-*.glb; do cp $f $D/$(basename $f .glb).bin; echo kampf/daten/$(basename $f .glb).bin >> $D/kauf.txt; done
               cp $RUNNER_TEMP/untoter/zombie-info.json $D/
-            else echo "FEHLER 506: Wiedergänger nicht gebaut"; tail -40 untoter.log; fi
+            else echo "FEHLER 506: Wiedergänger nicht gebaut"; tail -40 untoter.log; python3 tools/godot/kauf_cache.py halb kampf "506 Wiedergänger"; fi   # 1112
           fi
           # 506 Grabhund (LISTE-FIGUREN „Grabhund“, ersetzt den Ghul): Protofactor „Barghest“, drei Häute (fahl, grabgrau, graublau) mit
           # Mähne lang, kurz, zerrupft und Narben; Haarkarten mit Durchsicht (toon.gdshader schnitt)
@@ -455,7 +456,7 @@ jobs:
               grep -E "^(DREIECKE gesamt|MASS|WEG|BISS|HAAR|BEMALUNG|KOPF|FEHLT)" grabhund.log | cut -c1-200 || true
               for f in $RUNNER_TEMP/grabhund/ghoul-*.glb; do cp $f $D/$(basename $f .glb).bin; echo kampf/daten/$(basename $f .glb).bin >> $D/kauf.txt; done
               cp $RUNNER_TEMP/grabhund/ghoul-info.json $D/
-            else echo "FEHLER 506: Grabhund nicht gebaut"; tail -40 grabhund.log; fi
+            else echo "FEHLER 506: Grabhund nicht gebaut"; tail -40 grabhund.log; python3 tools/godot/kauf_cache.py halb kampf "506 Grabhund"; fi   # 1112
           fi
           # 494 Krogg-Figur (LISTE-FIGUREN „Krogg“): Superheld (CC0) mit dem Kopf des gekauften Janpec-Bären, Morgenstern aus dem Anker-
           # Paket (CC0, privat); nur mit Kaufpaketen, dann verschlüsselt; ohne bleibt der Platzhalterkörper (figur.gd)
@@ -474,15 +475,39 @@ jobs:
       # 348.12i (Chef 26.10., 19:41, „348.12i B“): gekaufte Modelle nur verschluesselt ins APK, Schluessel je Lauf neu, steht nur im
       # Programm (schluessel.gd), nie im Protokoll. Wer ein Kaufmodell nach godot/daten legt, traegt den Pfad in godot/daten/kauf.txt ein.
       # Erste Kaufmodelle im Spiel: die Dorftiere (Geraetetest, sonst fehlen sie)
+      # 1101 (Sokrates 13.11., 09:43; Chef 09:41 „warum dauern die Läufe wieder so lange“): misslingt das Ablegen eines Blocks, wird der
+      # Schritt rot (der Bau geht weiter, continue-on-error) und die Übersicht des Laufs sagt es; Lauf 420 blieb grün und der nächste
+      # baute wieder alles neu
       - name: Gebaute Kaufmodelle ablegen (854)
         if: env.KAUF_ALLES == 'bauen'
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
         run: |
           python3 -c "import yaml" 2> /dev/null || python3 -m pip install -q pyyaml   # 854 (Lauf 335: No module named 'yaml', nie abgelegt)
-          python3 tools/godot/kauf_cache.py ablegen || echo "Ablegen misslungen (Schreibrecht KAUF_TOKEN?), Bau geht weiter"
-          # 910: nach vollem Bau trotz Treffer zeigen, welche abgelegte Datei vom frisch gebauten Stand abweicht
-          if [ "${{ github.event.inputs.cache }}" = "neu" ]; then python3 tools/godot/kauf_cache.py vergleich || true; fi
+          ende=0; python3 tools/godot/kauf_cache.py ablegen > $RUNNER_TEMP/ablegen.log 2>&1 || ende=$?; cat $RUNNER_TEMP/ablegen.log
+          # 910, 1111: nach vollem Bau trotz Treffer (cache=neu) zeigen, welche vorher abgelegte Datei vom frisch gebauten Stand abweicht;
+          # eine Abweichung macht den Schritt rot (dann deckt die Kennung eine Eingabe nicht)
+          if [ -n "${KAUF_GEGENPROBE:-}" ]; then
+            python3 tools/godot/kauf_cache.py vergleich > $RUNNER_TEMP/vergleich.log 2>&1 || { echo "::error::Kauf-Cache: Gegenprobe weicht ab (1111)"; ende=1; }
+            cat $RUNNER_TEMP/vergleich.log
+            { echo "### Kauf-Cache: Gegenprobe (1111)"; grep -E "^KAUF-CACHE" $RUNNER_TEMP/vergleich.log | tail -25; } >> $GITHUB_STEP_SUMMARY
+          fi
+          if [ $ende != 0 ]; then
+            echo "::error::Kauf-Cache: Ablegen misslungen, der nächste Lauf baut diese Blöcke wieder neu (Zeilen KAUF-CACHE oben)"
+            { echo "### Kauf-Cache: Ablegen misslungen (1101)"; grep -E "^(::warning::)?KAUF-CACHE" $RUNNER_TEMP/ablegen.log | sed 's/^::warning:://'; } >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+      # 1113 (Diogenes D191.3): je Block bleiben die neuesten 3 Zweige und der eigene, alte Zwischenzweige bau/teil/* gehen weg;
+      # nur der Bauserver darf im Kaufrepo löschen. Misslingt es, wird der Schritt rot, der Bau geht weiter
+      - name: Kauf-Cache aufraeumen (1113)
+        if: env.KAUF_ALLES == 'bauen'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
+        run: |
+          python3 -c "import yaml" 2> /dev/null || python3 -m pip install -q pyyaml
+          python3 tools/godot/kauf_cache.py aufraeumen
       - name: Kaufmodelle verschluesseln (348.12i)
         run: |
           K=$(openssl rand -hex 32)
