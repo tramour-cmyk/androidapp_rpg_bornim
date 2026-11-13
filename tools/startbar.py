@@ -916,7 +916,7 @@ def loesen(schreiben=False):
 # 827 A, Bau 828 (Chef 10.11., 07:10): „festgefahren“ = zwei Rückläufer des Chefs oder über 30 $ Kosten; jede weitere Sitzung zu so
 # einem Vorgang startet lauf.py ab STARK_AB einmal auf STARK_MODELL (Marke „stärkstes Modell TT.MM.“ am Titel); Auswertung nach drei Vorgängen (Sokrates).
 # Rückläufer = Marke „zurück t<n>[, t<m>…]“ im Titel: setzt vorgang.py build <n> bei ✗; Funde außerhalb einer Prüfliste von Hand (Build des Chefs).
-STARK_AB = datetime.datetime(2026, 11, 14, 20, 0)  # Berliner Zeit
+STARK_AB = datetime.datetime(2099, 1, 1, 0, 0)  # Berliner Zeit; aus (Chef 13.11., 22:08: „wir nehmen kein neues Modell Fable“, statt dessen Aufwand hoch je Aufgabe, 827.1)
 STARK_MODELL = "fable"
 STARK_KOSTEN = 30.0
 STARK_RUECK = 2
