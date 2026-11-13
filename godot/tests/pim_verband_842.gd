@@ -220,6 +220,11 @@ func _lauf() -> void:
 	var auf := ui.text_knopf.find_children("Text", "Label", true, false).map(func(l): return (l as Label).text)
 	auf.sort()
 	pruefe(auf == ["NICHT JETZT", "SCHICK PIM HEIM (ÜBERREDEN)"], "Aufschriften in Versalien, Nicht jetzt links, Wahl rechts: %s" % str(auf))
+	# 1120 (Chef 13.11., 10:32, Osric: „Kann man die Auswahl nicht auf gleiche Höhe stellen?“): beide Knöpfe in einer Reihe, gleich hoch
+	var reihe := ui.text_knopf.find_child("Reihe", true, false) as HBoxContainer
+	var kn2: Array = reihe.get_children().filter(func(c): return c is PanelContainer) if reihe else []
+	pruefe(kn2.size() == 2 and absf(kn2[0].global_position.y - kn2[1].global_position.y) < 1.0, "Nicht jetzt und Wahl auf einer Höhe (%s)" % [kn2.map(func(k): return k.global_position.y)])
+	pruefe(kn2.size() == 2 and kn2[0].global_position.x < kn2[1].global_position.x, "Nicht jetzt links, Wahl rechts")
 	var aus_ := [0]
 	ui.knopf_aus.connect(func(): aus_[0] += 1)
 	ui.weiter()
@@ -309,7 +314,8 @@ func _lauf() -> void:
 			spiel.ui.knopf_aus.emit(); await process_frame
 			while spiel.ui.spricht(): spiel.ui.weiter(); spiel.ui.weiter(); await process_frame
 			continue
-		pruefe(spiel.knopf_offen.size() == 2 and aufs == ["SCHICK PIM HEIM (ÜBERREDEN)", "GIB PIM 5 GOLD", "NICHT JETZT"], "Gold %d: Überreden, Gold, Nicht jetzt %s" % [gold, str(aufs)])
+		# 1120: die untere Wahl (Gold) steht neben „Nicht jetzt“ in einer Reihe, darum in der Baumfolge dahinter
+		pruefe(spiel.knopf_offen.size() == 2 and aufs == ["SCHICK PIM HEIM (ÜBERREDEN)", "NICHT JETZT", "GIB PIM 5 GOLD"], "Gold %d: Überreden, Nicht jetzt, Gold %s" % [gold, str(aufs)])
 		var u0 := float(sz.fertigkeiten_stand()["uebung"].get("Überreden", 0.0)) + BrsFertigkeit.wert(sz.fertigkeiten_stand(), "Überreden") * 1000.0
 		spiel.ui.knopf_im_text.emit(1)
 		await process_frame
