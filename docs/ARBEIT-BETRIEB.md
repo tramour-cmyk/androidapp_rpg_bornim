@@ -77,3 +77,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 15:35 13.11.: Startsperre 15:35 Start Diogenes (Ford, Neustart-Meldung 49f93a1b7, Nachfolger „Diogenes – 1153: Wächter Rest auf allen Wegen zum Schließen“; Hoch, effort high)
 - 15:49 13.11.: Startsperre 15:49 Start Homer (lauf.py)
 - 15:51 13.11.: Startsperre 15:51 Start Diogenes (Ford, Neustart-Meldung 2bdea001a, Nachfolger „Diogenes – 1156: Lage herstellen in der Prüfliste (Spike 14070d8ca)“; Hoch, effort high)
+- 15:54 13.11.: Startsperre 15:54 Start Perikles (lauf.py)
+- 15:54 13.11.: Marke Start-fehlt Perikles 13.11.-15:34 (lauf.py)
