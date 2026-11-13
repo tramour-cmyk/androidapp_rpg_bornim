@@ -18,7 +18,10 @@ const HELDEN := [
 	# frontal in einer Reihe): Wachsoldatin stuetzt beide Haende auf das Schwert, die Spitze am Boden (stuetzen, Muster 292.3), der
 	# Schild lehnt mit der Flaeche zum Spieler an ihrem Bein; die inneren 25 Grad zur Mitte (12 Grad waren gegen die Blickrichtung der
 	# Kamera nur 7, aussen 35 Grad sind 20: jetzt alle vier etwa 20 Grad, im Bogen), der Kopf zurueck bis etwa 5 Grad vor dem Spieler
-	{"herkunft": "Wachsoldat", "volk": "Mensch", "geschlecht": "w", "x": -1.32, "dreh": 35.0, "haltung": "schildwache", "kopf": 0.4, "stuetzen": true},
+	# Sokrates 13.11., 02:06 („867, Vorlage 5 B“): die Faeuste auf dem Knauf reicht die gekaufte Figur nicht (Arm 0,515 m, Knauf
+	# 0,54 bis 0,58 m von der Schulter; am Rechner nachgestellt, auch mit dem Griff naeher am Koerper und tiefer gefasst nicht) ->
+	# Ersatz wie entschieden: Schwert gesenkt in der rechten Hand (senken, HandSenken), Schild am linken Arm, Flaeche schraeg zum Spieler
+	{"herkunft": "Wachsoldat", "volk": "Mensch", "geschlecht": "w", "x": -1.32, "dreh": 35.0, "haltung": "", "kopf": 0.4, "senken": true},
 	{"herkunft": "Zauberlehrling", "volk": "Mensch", "geschlecht": "m", "x": -0.44, "dreh": 25.0, "haltung": "zauberer", "kopf": 0.6, "arm": 22.0},
 	{"herkunft": "Jägerkind", "volk": "Zwerg", "geschlecht": "m", "x": 0.44, "dreh": -25.0, "haltung": "bogen", "kopf": 0.6},
 	{"herkunft": "Klosterschüler", "volk": "Elf", "geschlecht": "w", "x": 1.32, "dreh": -35.0, "haltung": "", "kopf": 0.4},
@@ -109,6 +112,14 @@ func _init(breite_dp := 330.0) -> void:
 			anim.play(hl)
 			anim.seek(anim.get_animation(hl).length * (0.15 + 0.2 * figuren.size()), true)   # nicht im Gleichtakt (C3)
 		var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
+		if sk and anim and bool(h.get("senken", false)) and hl != "":
+			var hs := HandSenken.new()
+			hs.name = "HandSenken"
+			sk.add_child(hs)   # vor den Tragen: die Waffe folgt der gesenkten Hand
+			var hd := HandSenken.new()
+			hd.name = "SchildDrehen"; hd.seite = "l"; hd.um_unterarm = true; hd.grad = float(h.get("schild_dreh", 60.0))
+			sk.add_child(hd)
+			waffen_in_die_hand(m, sk, anim, w.get("ausruestung", {}), hl, "r")
 		if sk and stuetzt:
 			var st := schwert_stuetzen(m, sk, w.get("ausruestung", {}))
 			st.kamera = kam.position   # die Welt des Bilds beginnt am Ursprung
@@ -337,7 +348,7 @@ class SchwertStuetzen extends Tragen:
 
 ## 867: Waffe und Schild wie in der Haltung gehalten: was bewaffne() auf den Ruecken oder als Wanderstab gestellt hat, weg; die Waffe in
 ## die Hand, die in der Haltung hoeher steht (Stab des Zauberers), der Bogen links, der Schild an den linken Arm
-static func waffen_in_die_hand(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, aus: Dictionary, bew: String) -> void:
+static func waffen_in_die_hand(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, aus: Dictionary, bew: String, seite_fest := "") -> void:
 	var neben = aus.get("OFF_HAND")
 	var schild := HeldFigur._modell(neben) if neben is Dictionary and String(Beute.grundform(String(neben.get("base", ""))).get("art", "")) == "SHIELD" else ""
 	var waffe := HeldFigur._modell(aus.get("MAIN_HAND"))
@@ -347,7 +358,7 @@ static func waffen_in_die_hand(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, a
 	for alt in sk.get_children():
 		if alt is Tragen: alt.free()
 	var bogen := waffe in Tragen.GANG_BOGEN
-	var seite := "l" if bogen else hoehere_hand(sk, ap, bew)
+	var seite := "l" if bogen else (seite_fest if seite_fest != "" else hoehere_hand(sk, ap, bew))
 	var paare := []
 	if waffe != "": paare.append([waffe, "bogen" if bogen else "einhand", seite])
 	if schild != "": paare.append([schild, "schildarm", "l"])
@@ -364,6 +375,27 @@ static func waffen_in_die_hand(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, a
 		t.schild_abspreiz = 0.0; t.schwert_abspreiz = 0.0   # die Haltung fuehrt den Arm
 		sk.add_child(t)
 	print("MENU867 Haltung %s: Waffe %s in %s, Schild %s" % [bew, waffe, seite, schild])
+
+## 867 (Sokrates 02:06): die Waffenhand nach der Bewegung um grad Grad abgesenkt (um die Schulterachse), die Klinge zeigt schraeg zum
+## Boden statt nach vorn; vor Tragen im Skelett, damit die Waffe der Hand folgt
+class HandSenken extends SkeletonModifier3D:
+	var seite := "r"
+	var grad := 65.0
+	var um_unterarm := false   # links: die Schildhand um den Unterarm, die Flaeche des Schilds schraeg zum Spieler
+	func _process_modification() -> void:
+		var sk := get_skeleton()
+		if sk == null: return
+		var ih := sk.find_bone("hand_" + seite)
+		var il := sk.find_bone("lowerarm_" + seite)
+		var ul := sk.find_bone("upperarm_l"); var ur := sk.find_bone("upperarm_r")
+		if ih < 0 or il < 0 or ul < 0 or ur < 0: return
+		var quer := sk.get_bone_global_pose(ul).origin - sk.get_bone_global_pose(ur).origin
+		if um_unterarm: quer = sk.get_bone_global_pose(ih).origin - sk.get_bone_global_pose(il).origin   # Hand um den Unterarm gedreht
+		if quer.length() < 1e-4: return
+		var r := Basis(quer.normalized(), deg_to_rad(grad))
+		var g := sk.get_bone_global_pose(ih).basis.orthonormalized()
+		var pa := sk.get_bone_global_pose(il).basis.orthonormalized()
+		sk.set_bone_pose_rotation(ih, (pa.inverse() * (r * g)).get_rotation_quaternion())
 
 ## die Hand, die in der Haltung (Mitte der Bewegung) hoeher steht: r oder l
 static func hoehere_hand(sk: Skeleton3D, ap: AnimationPlayer, bew: String) -> String:
