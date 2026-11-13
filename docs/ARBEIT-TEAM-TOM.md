@@ -19,6 +19,9 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+
+- **Zu 1040.1, von Chef (Fund t282.23, Test Build 282, Automatik B):** „da es etwas ruckelig ist, kann ich es nicht sicher sagen...“ Hinweis Sokrates: kein Fund am Wenden, sondern nicht beurteilbar (Höhle 45 Bilder/s, Bildrate offen beim Chef); nach 1128 A Bewegung als Film vorlegen (Lyra wendet mit Schritten, nah, etwa dreimal), nicht noch einmal am Handy.
+- **Zu 492, von Sokrates (13.11., 14:51):** 282.19–.21 ✓, 492 und 1104 erledigt: PR #201 (Höhle) darf auf `main`.
 - **Zu 1022, von Chef (Fund t282.5, Test Build 282, Automatik B):** Weg am Schlagbaum (10:15, Bild): „warum endet der Weg jetzt und wird eine Feldwiese? Warum geht der Weg nicht grundsätzlich weiter und endet dann im Dunkel?“ Süden hinter der Brücke (10:16, Bild): „Der Weg endet mit einem Wald. Ich meine, der Übergang per se ist gut, aber es macht halt keinen Sinn, dass der Weg endet.“ **Tom 13:08:** gebaut `4eb527972` (Ursache und Lösung im Commit: Shader ließ den Weg ab 1 Kachel vergehen, `dorf.py` bog ihn ab und setzte Ringbäume darauf); am Rechner `dorf.py` aller drei Gebietskarten gebaut (bpy 5.2.3), auf keinem Randweg ein Baum, daneben Wald; kein Bild gesehen.
 - **Zu 505, von Chef (Fund t282.3):** „sichtöinie passt, Karte zeigt alles vom Dorf, ist aber alter spielstand“. Die Karte des Dorfs hat mit Absicht keinen Nebel (wie alt). Nachtest 283.18 über Schnellstart (Wald, unerkundet). Höhlenausgang weich: 1091, 283.12.
 - **Zu 1079 (Tom, 13.11., 03:41):** `ziege_4162` rot auch auf `claude/spike-1022-kartenrand` (Lauf 43326236234) und 867 (Lauf 413), grün auf 492 (Lauf 412) und am Rechner mit Kaufziege; misst mit Wanduhr (6 s) neben anderen Tests. Filter „^Seite“ (37a123be3) fährt in 283, Protokoll im Lauf 427 ansehen; älter: `git show 2b398d08e:docs/ARBEIT-TEAM-TOM.md`.
