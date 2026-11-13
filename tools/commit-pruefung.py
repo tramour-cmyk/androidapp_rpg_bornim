@@ -387,6 +387,21 @@ def main():
         kopf = (inhalt.splitlines() or [""])[0].split("·")[0]
         if team in ("Tom", "Jerry") and re.search(r"\b(%s|%s)\b" % (team, {"Tom": "Spike", "Jerry": "Tuffy"}[team]), kopf):
             stop.append("%s: gegengelesen vom eigenen Team (%s, Zeile 1: %s); eine Sitzung außerhalb des Teams liest gegen (881)" % (p, gl.group(1), kopf.strip("# ").strip()))
+    for s, p in dat:  # 1128.2 (1128 A, Chef 13.11., 13:36): Laufnachweis; jeder Test unter „Im Bau geprüft“/„Ohne dich“ steht im Lauf
+        # der APK (godot.yml von claude/build-<n>) und kann dort rot werden (ohne `|| true`, continue-on-error, Bedingung; Diogenes 12:59)
+        m = re.match(r"docs/chefsache/ansehen/t(\d+)-[^/]+\.md$", p)
+        if not (s == "A" and m): continue
+        import tempfile
+        with tempfile.NamedTemporaryFile("w", suffix=".md", delete=False, encoding="utf-8") as f:
+            f.write(git("show", ":" + p)); tmp = f.name
+        r = subprocess.run([sys.executable, "tools/laufnachweis.py", tmp, "--ref", "origin/claude/build-" + m.group(1)], capture_output=True, text=True)
+        os.unlink(tmp)
+        nein = [re.sub(r"\s+", " ", z.strip()[5:]) for z in r.stdout.splitlines() if z.strip().startswith("NEIN ")]
+        if r.returncode == 1:
+            stop.append("%s: Laufnachweis fehlt (1128 A): %s; als Prüffrage am Handy oder Test ohne `|| true` in den Lauf der APK "
+                        "(`python3 tools/laufnachweis.py %s`)" % (p, "; ".join(nein), p))
+        elif r.returncode:
+            warn.append("%s: Laufnachweis nicht geprüft (%s)" % (p, (r.stderr or r.stdout).strip()[:200]))
     for s, p in dat:  # 512.1 (Chef 03.11., 23:28, „Kümmer du dich um 512.“): neue Prüfliste nennt, was alt gegen neu verglichen ist
         if not (s == "A" and re.match(r"docs/chefsache/ansehen/t\d+-[^/]+\.md$", p)):
             continue
