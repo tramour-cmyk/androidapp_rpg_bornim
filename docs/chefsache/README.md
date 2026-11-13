@@ -283,7 +283,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1123 | M | Von Sokrates (1109 C, Chef 13.11., 10:56): Prüfungen auf zwei Bauserver teilen (zweiter La | wartet auf 1115 (startbar) |
 | Pflege | K | von Werkzeug (340.3, 13.11.): 17094 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 20, Muss 15, startbar 4
+**Perikles** – offen 20, Muss 15, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -305,10 +305,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | wartet auf Diogenes (greift?) |
 | 1116 | M? | Von Diogenes (1109): Geldwert der Vorberechnung: Bauserver kostet nichts (öffentliches Rep | startbar |
 | 1117 | M? | D192.1 von Diogenes (zu 1110): Zeile 391 (Sokrates) trägt noch Stand „Chefwort in der Sitz | startbar |
-| 1121 | M | Von Sokrates (t282, 13.11., 10:44): Commit-Prüfung 774 hält t<N> an, wenn Automatik B eine | startbar |
+| 1121 | M | Von Sokrates (t282, 13.11., 10:44): Commit-Prüfung 774 hält t<N> an, wenn Automatik B eine | wartet auf Diogenes (greift?) |
 | Pflege | K | von Werkzeug (340.3, 13.11.): 15334 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Diogenes** – offen 11, Muss 9, startbar 3
+**Diogenes** – offen 12, Muss 10, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -321,6 +321,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1100.1 | M | Von Sokrates (Chef 13.11., 09:29, 1100 A mit 6): Ford-Lauf nach Perikles' Umbau gegenprüfe | startbar |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
 | 1070 | M | Getestete Prüfliste sofort aus der Chefsache, nicht erst beim Zusammenführen (Chef 12.11., | startbar |
+| 1121 | M | Von Sokrates (t282, 13.11., 10:44): Commit-Prüfung 774 hält t<N> an, wenn Automatik B eine | startbar |
 | 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | startbar |
 | 1098.1 | M | Von Sokrates (Chef 13.11., 09:18, 1098 A, vorher D): nach Fords erstem Neustart über Probe | wartet auf 1098 (wartet) |
 
