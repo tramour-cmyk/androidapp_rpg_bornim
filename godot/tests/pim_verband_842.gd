@@ -225,6 +225,9 @@ func _lauf() -> void:
 	var kn2: Array = reihe.get_children().filter(func(c): return c is PanelContainer) if reihe else []
 	pruefe(kn2.size() == 2 and absf(kn2[0].global_position.y - kn2[1].global_position.y) < 1.0, "Nicht jetzt und Wahl auf einer Höhe (%s)" % [kn2.map(func(k): return k.global_position.y)])
 	pruefe(kn2.size() == 2 and kn2[0].global_position.x < kn2[1].global_position.x, "Nicht jetzt links, Wahl rechts")
+	# 1120 (Chef 16:52): die Aufschrift der Wahl rechtsbündig am Pfeil ›
+	var tw = kn2[1].find_child("Text", true, false) if kn2.size() == 2 else null
+	pruefe(tw is Label and (tw as Label).horizontal_alignment == HORIZONTAL_ALIGNMENT_RIGHT, "Wahl rechtsbündig am Pfeil (1120)")
 	var aus_ := [0]
 	ui.knopf_aus.connect(func(): aus_[0] += 1)
 	ui.weiter()
