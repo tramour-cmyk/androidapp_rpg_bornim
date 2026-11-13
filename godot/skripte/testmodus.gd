@@ -481,6 +481,25 @@ static func reiter(m: Menue) -> void:
 			func():   # Game.cheatLoot
 				var g := z.ausruestung_dazu(Beute.erzeuge(KotlinZufall.new(randi()), z.neue_uid(), hw.stufe, String(r), hw))   # 870.6: nach seinen Fertigkeiten
 				m.meldung(t.call("Erhalten: ", "Received: ") + Beute.name(g)), "GEM")))
+	# 756.1: Schlecht gibt es im Spiel erst mit 976 (Herstellen); fuer die Prüfliste je Güte ein Stück, damit alle vier Zeichen
+	# nebeneinander in der Tasche liegen (Schlecht roter Punkt, Normal keins, Gut ein Goldpunkt, Meisterhaft zwei)
+	m.zeichenreihe([zk.call(t.call("Vier Güten", "Four qualities"), null,
+		t.call("Legt je ein Stück Schlecht, Normal, Gut und Meisterhaft auf der Stufe des Helden in die Tasche.",
+			"Puts one item each of Poor, Common, Fine and Masterwork at the hero's level into the bag."),
+		func():
+			vier_gueten(z, hw)
+			m.meldung(t.call("Erhalten: vier Stücke, je Güte eins", "Received: four items, one per quality")), "GEM")])
+
+## 756.1: dieselbe Waffe viermal, Güte Schlecht, Normal, Gut, Meisterhaft (-1 bis 2), in die Tasche; gibt die vier Stücke zurück
+static func vier_gueten(z: Zustand, hw: BrsHeld) -> Array:
+	var b0 := Beute.erzeuge(KotlinZufall.new(randi()), z.neue_uid(), hw.stufe, "COMMON", hw, "MAIN_HAND")
+	var aus: Array = []
+	for gu in [-1, 0, 1, 2]:
+		var b: Dictionary = b0.duplicate(true)
+		b["uid"] = z.neue_uid()
+		b["guete"] = gu
+		aus.append(z.ausruestung_dazu(b))
+	return aus
 
 # 1020.2 B (Chef 12.11., 08:09): der Probekampf als Baukasten. 1034 (Chef 12.11., 14:34–14:38): ein Probekampf für alles, mit dem
 # Spielhelden (zählt im Spielstand) oder dem Testhelden (Spielstand unberührt; Herkunft, Volk, Stufe, Waffe, Leben, Tasche nur für ihn);
