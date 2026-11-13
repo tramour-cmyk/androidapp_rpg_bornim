@@ -1485,6 +1485,18 @@ jobs:
             -s res://tests/dame_1044.gd -- --aus=$A 2>&1 | grep -E "SCRIPT ERROR|^DAME1044|^BILD" | cut -c1-400 || true
           cd $A && for n in liska gwenna rowena thessa morwen lyra_temple; do [ -f ${n}_nachher.png ] && montage ${n}_vorher.png ${n}_nachher.png -tile 2x -geometry +2+2 -background black p_$n.png; done; \
             ls p_*.png > /dev/null 2>&1 && montage p_*.png -tile 3x -geometry +4+4 -background black alle.png; ls -l $A
+      # 1149 (aus 1140, 522): Dolch der Nebenhand am Körper, zwei Plätze zur Wahl (Gürtel, Kreuz), je vorn, links, hinten
+      # (tests/dolch_bild_1149.gd); bei „1149 Bild“ im Commit
+      - name: Dolchbild (1149)
+        if: ${{ !cancelled() && contains(github.event.head_commit.message, '1149 Bild') }}
+        continue-on-error: true
+        run: |
+          A=$GITHUB_WORKSPACE/bilder/dolch1149; mkdir -p $A
+          cd godot
+          BILD1149_AUS=$A VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 \
+            -s res://tests/dolch_bild_1149.gd 2>&1 | grep -E "SCRIPT ERROR|^DOLCH1149|^BILD" | cut -c1-400 || true
+          ls -l $A
       # 1040.1 (Fund t282.23: „da es etwas ruckelig ist, kann ich es nicht sicher sagen“; Sokrates: nach 1128 A als Film): Lyra wendet
       # mit Schritten, nah (tests/film_wenden_10401.gd wie dorf=10401), im Lauf der APK bei „1040.1 Film“ im Commit
       - name: Wendefilm (1040.1)
