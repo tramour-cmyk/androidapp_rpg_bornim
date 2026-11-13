@@ -62,7 +62,7 @@ const EINGEBUNG := {"pounce": ["Er will springen. Stehe ich nicht mehr dort, woh
 	"circle": ["Der da ruft das Rudel zusammen. Den treffen, egal wie leicht.",     # [986.circle]
 		"That one calls the pack together. Hit it, however lightly."],
 	"growl": ["Der hier hält sich zurück. Erst den Leitwolf treffen.",     # [986.growl]
-		"This one holds back. Hit the lead wolf first."],
+		"This one holds back. Hit the pack leader first."],
 	"web": ["Das Netz fliegt langsam. Nur wer den Moment genau trifft, bleibt frei.",     # [986.web]
 		"The web flies slowly. Only perfect timing keeps you free."],
 	"gather": ["Er holt Luft. Jetzt nachsetzen, sonst kommt er wieder zu Kräften.",     # [986.gather]
