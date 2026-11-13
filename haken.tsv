@@ -142,3 +142,4 @@
 2026-11-13 22:17:49	commit-pruefung	VORGANGSARCHIV.md: Telegram-Nachricht 4006 steht schon im Archiv; eine andere Sitzung hat das Urteil eingetragen, deinen Eintrag weglassen (1228)	main
 2026-11-13 22:21:59	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 30023 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-13 22:28:33	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 31369 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
+2026-11-13 22:41:16	commit-pruefung	docs/chefsache/entscheiden/1072-plaetze-bahnen.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	HEAD
