@@ -209,3 +209,17 @@ Ist-Soll-Abgleich jeder Rolle (340, Chef 23.10., 09:46). **Wann:** freitags am E
 8. Am meisten gekostet und am wenigsten gebracht: `probelauf.py` viermal repariert (929, 943, 961, 1042) und `startbar.antworten()` zweimal (1010, 1011), jeweils am nächsten Einzelfall statt an allen echten Aufrufen des Vortags.
 9. Unklar: wann ein Werkzeugvorgang M ist, wenn er keinen Fund des Chefs hat (ich setze ihn meist M); streichen würde ich die Größenwarnung für ARBEIT-BETRIEB in `notiz.sh`, solange das Protokoll darin steht (sie rauscht bei jedem Start, 340.3 nein); fehlt: nichts.
 10. Ernste Ansage: rund 460 Commits auf Werkzeuge in einer Woche, in der Kapitel 1 das Ziel ist, und ein Fund des Chefs (981), den ich am Ergebnis hätte sehen müssen. Schritte: (1) Werkzeugvorgang ohne Fund des Chefs nur noch K, außer er blockiert ein Team; (2) jede Reparatur an allen echten Aufrufen des Vortags probieren, höchstens eine Reparatur je Werkzeug und Tag; (3) montags im Wochenziel Kosten je Rolle mit einem Sparvorschlag.
+
+### Ford (13.11., 05:07)
+
+0. Letzte Woche angekündigt: Antworten der Vorwoche liegen nur für die Sitzung vom 02.11. vor (has_more-Filter, Archivieren); heute Nacht (Sitzung 12.11., 23:51 bis 05:07) archiviert Ford alle fälligen Sitzungen und bucht Kosten, `archive_session` ging durch (eine Ablehnung beim ersten Versuch 23:51, zweiter Versuch ging). Erfüllt.
+1. Rollendatei: Kosten nicht in einem Zug auf alle Vorgänge verteilt (Tom 23:53 erst 2,41 $ je Vorgang, dann Kommaliste nachgebucht); `Betrieb`-Kostenzeile bei Perikles Spiegel nicht von `lauf.py` gefunden, von Hand eingetragen (Commit-Warnung). Archiviert habe ich Sokrates 03:41 bei updated_at 03:40:54, also unter 60 s nach dem letzten Ereignis (Rest 0,37 $ nachgebucht).
+2. Etwa 100 % Betrieb (Neustarts Tom ×6, Sokrates ×4, Jerry ×2, Starts Homer, Diogenes, Perikles); richtig so, aber Toms und Sokrates' Neustarts alle 15 bis 70 Minuten in dieser Nacht kosten je 5 bis 7 $.
+3. Kennzahl: Läufe ohne Nacharbeit; Ist heute Nacht: 2 Nacharbeiten (Kosten Betrieb von Hand, Sokrates 03:41 zu früh archiviert) bei 9 Läufen und 12 Neustarts.
+4. Dem Chef nichts vorgelegt; nachts nur eine lautlose Telegram-Meldung (Vorentscheid-Bremse 05:07).
+5. Zurückweisen würde der Chef: 23 Warnungen „gebaut ohne Build“ aus `lauf.py` (Abgleich) habe ich nur als Zeile im Protokoll gemeldet, nicht an die Besitzer in den Vorrat geschrieben.
+6. `lauf.py` gibt jede Stunde den Spike-Start für den Tom-Spiegel aus; das hätte ich Perikles melden müssen (der Spiegel gehört dem Besitzer selbst); ich habe ihn nur mit `--ohne Spiegel` unterdrückt.
+7. Auf mich warteten die Neustart-Meldungen von Tom, Sokrates, Jerry (jeweils unter 3 Minuten bearbeitet). Ich wartete auf die Leerlaufzeit von 60 s der alten Sitzungen (je 1 bis 2 Minuten).
+8. Am meisten gekostet und am wenigsten gebracht: Toms Neustart-Haken alle 20 Minuten in der Nacht (00:10, 00:25, 00:48 und weitere).
+9. Unklar: `lauf.py --kosten` mit Zeile „Betrieb“ nach `--aufraeumen`; fehlt: ein fester Schlüssel für Betriebskosten ohne Vorgang. Streichen: der Spike-Start für fremde Spiegelzeilen.
+10. Lob, ein Satz: Alle Neustarts nach Prüfung des Commits, keine Doppelstarts, Kosten gebucht; Schritte: (a) Spiegel-Zeilen in `lauf.py` vom Spike-Start ausnehmen, (b) Betriebskosten-Zeile festschreiben, (c) 60-Sekunden-Regel vor `archive_session` im Werkzeug prüfen lassen. Keinen davon beginnen, bevor der Chef Ja sagt.
