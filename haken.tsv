@@ -155,3 +155,4 @@
 2026-11-13 23:38:55	commit-pruefung	docs/chefsache/entscheiden/1072-gesamtbild.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
 2026-11-13 23:38:55	commit-pruefung	docs/chefsache/entscheiden/1072-gesamtbild.md: Uhrzeit 23:45 liegt nach jetzt (23:38)	main
 2026-11-13 23:39:21	commit-pruefung	docs/chefsache/entscheiden/1072-gesamtbild.md: Chef hat 1072 beantwortet (13.11., 23:39), die Vorlage bleibt stehen; im selben Commit löschen (383.3), bleibt die Frage offen: Zeit in Zeile 1 oder 2 de	main
+2026-11-13 23:40:19	probelauf	621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für 1091 schon 1 Probelauf seit Beginn der Zählung. Kein weiterer Lauf: jetzt vorlegen, was da ist, auch ein Messlauf (	claude/tom-1091-aufnahmen
