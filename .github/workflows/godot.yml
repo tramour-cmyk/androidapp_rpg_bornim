@@ -1562,6 +1562,18 @@ jobs:
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 360x540 \
             -s res://tests/halt_bild_653.gd -- --aus=$A --koerper=KLOSTER_M,KLOSTER_W,WALD_M,WALD_W --art=schild --hinten=ja 2>&1 | grep -E "SCRIPT ERROR|^BILD|^FEHLT|^OHNE" | cut -c1-400 || true
           cd $A && for t in KLOSTER WALD; do [ -f 653_${t}_M.png ] && [ -f 653_${t}_W.png ] && convert 653_${t}_M.png 653_${t}_W.png -append 967_${t}.png; done; ls -l $A
+      # 505 (284.7m; Sokrates 13.11., 17:33 „505, Läufe frei“): Menü → Karte im Flüsterwald nach einem Stück Weg ab Garrick, nur das
+      # Gesehene, daneben das Dorf ohne Nebel (tests/kartennebel_bild_505.gd); bei „505 Bild“ im Commit
+      - name: Kartenbild (505)
+        if: ${{ !cancelled() && contains(github.event.head_commit.message, '505 Bild') }}
+        continue-on-error: true
+        run: |
+          A=$GITHUB_WORKSPACE/bilder/karte505; mkdir -p $A
+          cd godot
+          BILD505_AUS=$A VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 \
+            -s res://tests/kartennebel_bild_505.gd 2>&1 | grep -E "SCRIPT ERROR|^KARTENNEBELBILD505|^BILD" | cut -c1-400 || true
+          cd $A && [ -f 505_wald.png ] && [ -f 505_dorf.png ] && convert 505_wald.png 505_dorf.png +append 505_wald_dorf.png; ls -l $A
       # 1119 (283.1 ungetestet; Chef 13.11., 16:28 Aussehen als Film statt Handy): Fußstaub am Mittag, gehen und rennen
       # (tests/film_staub_1119.gd), bei „1119 Film“ im Commit
       - name: Staubfilm (1119)
