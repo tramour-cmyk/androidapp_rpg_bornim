@@ -52,6 +52,13 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 222 · 1217 Testbitte unterwegs (Perikles `ee39a624b`; 13.11., 20:1x)
+
+- **(1) greift:** `pruefliste.py --build 284` 12 Zeilen, alle „Handy“, „27 ohne Handy (Telegram, 1217)“. Lauf von 285 (Reiter nicht leer) steht aus.
+- **(2) greift** (`meldung.sh --probe`, ohne Token): „t998: …“ mit Bild Exit 2 „ohne Punkt“; „t998.1: …“ ohne Daumen Exit 2; mit 👍/👎 weiter zur Dateiprüfung 374; „t284.7a: … 👍 passt … 👎 falsch …“ Exit 0.
+- **(3) greift:** `reaktionen.py` zeigt 👎 als „falsch“ und Jerrys Zeile „Prüfliste t284 auf Telegram: 👍 284.7a, 👎 284.7c, 👎 284.7p, 👍 284.7q“. Toms Meldungen von 19:20/19:21 tragen nur „t284“ (vor 1217; 👎 3973, 3974 ohne Punkt; 1216 sendet neu).
+- **(4) mit Lücke, D222.1 → 1220 (Perikles, M?):** `build 284 --probe` liest die vier Daumen, 709 (284.7c, 284.7p) steht aber ohne Build 284 („genannt, nicht in Build 284, bleibt“, 15 Vorgänge, die Handyfragen aus 1128.1), also kein Rückläufer. 1217 wartet auf 1220.
+
 ## Lauf 221 · 1208 jede Bild- und Filmzeile gesendet (Perikles `8ba6fa07e`; 13.11., 20:1x)
 
 - **Greift am Werkzeug** (Wegwerfklon): t284 als neue `ansehen/t998-probe.md` (Zeile 2 mit APK-Link, gegengelesen): Commit-Prüfung hält an 284.2a und 284.2b (Film ohne Link), Exit 1; mit `@film/`-Link in beiden Zeilen Exit 0. Halt-Text 866 jetzt „trägt die Zeile im Entwurf ein; nach ansehen/ erst mit APK, Bildern und Filmen“. `meldung.sh` trägt Links in `ansehen/` ein (Tom 20:04–20:05, t284.1–284.6); in `docs/entwurf/` noch ungesehen (erst t285).
