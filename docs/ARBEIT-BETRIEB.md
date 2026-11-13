@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten dauerhaft in `ROLLE-BETRIEB.md` (1110); alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss siehe Übergabe unten. Nachfolger: Ford – Betriebsleiter
 
-**Nächste freie Vorgangsnummer: 1229** (zuletzt 1228 Perikles 13.11. 21:18:00 f0da) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 1232** (zuletzt 1231 Sokrates 13.11. 21:26:12 6930) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -40,6 +40,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
+- 21:11 13.11.: Lauf 21:11: Diogenes (1221) `…793z8sMWYVXpXFxWN6` und Spike (542) `…79QJ2L8FTAiLRqDERR` gestartet; Spike-Sitzung 1073 `…75Ua972r7RW38NGDkm` archiviert (9,90 $ auf 1073, Frage liegt als entscheiden/1073.md); Auftrag Diogenes 1221 (Perikles, ef95b0418); Ausschluss 882.2 entfällt (Ford)
 - 21:09 13.11.: Neustart Tom (d95c5f814): neue Sitzung `…79V5GMGr3APPAiYHqT` 21:08, Vorgängerin `…7845pb9Xd1sUtoWyjh` archiviert (38,20 $ auf 284, 1149; Ford)
 - 21:07 13.11.: Lauf 21:03: Perikles (1221) `…79PfKha1ofQ8tTivdv` gestartet; sonst NICHTS (Tom, Jerry, Tuffy belegt; Diogenes, Homer nichts Startbares; Spike kein zweites Muss bei Tom; Ford)
 - 21:05 13.11.: Neustart Sokrates (09def5d11): neue Sitzung `…79ojfheg8dzo9KaZF9` 21:04, Vorgängerin `…786drvmMKdc5ZKSe8v` archiviert (11,49 $ auf 1216, 1217, 1218, 1222, 1223; Ford)
@@ -129,4 +130,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:11 13.11.: Startsperre 21:11 Start Diogenes, Spike (lauf.py)
 - 21:11 13.11.: Marke Start-fehlt Diogenes 13.11.-20:04 (lauf.py)
 - 21:11 13.11.: Marke Archiv session_01Hmoj75Ua972r7RW38NGDkm (lauf.py)
-- 21:11 13.11.: Lauf 21:11: Diogenes (1221) `…793z8sMWYVXpXFxWN6` und Spike (542) `…79QJ2L8FTAiLRqDERR` gestartet; Spike-Sitzung 1073 `…75Ua972r7RW38NGDkm` archiviert (9,90 $ auf 1073, Frage liegt als entscheiden/1073.md); Auftrag Diogenes 1221 (Perikles, ef95b0418); Ausschluss 882.2 entfällt (Ford)
+- 21:25 13.11.: Startsperre 21:25 Start Homer (lauf.py)
+- 21:25 13.11.: Marke Archiv session_01Hmoj75UMzRVVnYKUQ5sxF5 (lauf.py)
+- 21:26 13.11.: Start Homer 1229 (Jerry, c64477860): neue Sitzung `…79opdaF8aU7sFWvj1X` 21:25, alte `…75UMzRVVnYKUQ5sxF5` archiviert (1,22 $ auf 1176; Ford)
