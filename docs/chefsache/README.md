@@ -25,6 +25,7 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [1036.1](ansehen/10361-zustaende.md) | Zustände: alle Effekte der Pakete je Zustand | – | 13.11., 13:34 |
+| [844](ansehen/844-schlagen.md) | Goblins, Kobolde, Schamanen schlagen zu | – | 13.11., 22:47 |
 
 ## Zu tun
 
@@ -391,7 +392,7 @@ Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
 Format (Muster: „So geht's“ unten): entscheiden/1072-plaetze-bahnen.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
 
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/10361-zustaende.md
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/10361-zustaende.md, ansehen/844-schlagen.md
 
 ## So geht's
 
