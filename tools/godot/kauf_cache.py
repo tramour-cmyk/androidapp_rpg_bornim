@@ -40,7 +40,7 @@ FORMAT = b'format 3'   # 3: je Block ein Zweig, mit EINGABEN
 BLOECKE = {
     'figur': dict(schritt='Modelle bauen', skripte=['v3/tex.py', 'v3/held3.py', 'v3/rig.py'], braucht=[], kauf=True, karten=False,
                   marken=('start', 'figur')),
-    'dorf': dict(schritt='Modelle bauen', skripte=['v3/tex.py', 'v3/dorf.py', 'v3/raum.py'], braucht=[], kauf=False, karten=True,
+    'dorf': dict(schritt='Modelle bauen', skripte=['v3/tex.py', 'v3/dorf.py', 'v3/raum.py', 'v3/hoehle.py'], braucht=[], kauf=False, karten=True,
                  marken=('figur', 'dorf')),
     'klassen': dict(schritt='Held je Klasse', skripte=None, braucht=['figur'], kauf=True, karten=False, marken=('vor_klassen', 'klassen')),
     'kampf': dict(schritt='Kampfort bauen', skripte=None, braucht=['figur'], kauf=True, karten=False, marken=('vor_kampf', 'kampf')),

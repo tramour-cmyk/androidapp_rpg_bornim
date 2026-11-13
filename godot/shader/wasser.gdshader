@@ -7,6 +7,7 @@ stencil_mode write, compare_always, 1;
 uniform float night = 0.0;
 uniform sampler2D maske : filter_linear, repeat_disable;
 uniform vec2 karte = vec2(41.76, 37.12);   // Kartengroesse in Metern
+uniform float rand_m = 0.0;                 // 505c: so viele Meter reicht die Maske ueber den Kartenrand (<maske>-rand)
 uniform vec3 rim : source_color = vec3(0.165, 0.227, 0.235);     // WATER_S 0x2A3A3C
 uniform vec3 deep : source_color = vec3(0.055, 0.102, 0.118);    // WATER_D 0x0E1A1E
 uniform vec3 glint_c : source_color = vec3(0.478, 0.557, 0.565); // GLINT 0x7A8E90
@@ -42,7 +43,7 @@ float vnoise(vec2 p) {
 }
 void fragment() {
 	vec2 p = wpos.xz;
-	float w = texture(maske, p / karte).a;
+	float w = texture(maske, (p + rand_m) / (karte + 2.0 * rand_m)).a;   // 505c: Maske reicht rand_m ueber den Rand
 	float flow = TIME * 0.45;
 	float n = vnoise(vec2(p.x * 0.8 - flow, p.y * 2.2)) * 0.6 + vnoise(vec2(p.x * 2.5 - flow * 2.0, p.y * 6.0)) * 0.4;
 	vec3 col = mix(rim, deep, clamp((w - 0.5) * 2.2 + (n - 0.5) * 0.25, 0.0, 1.0));

@@ -42,7 +42,18 @@ func _lauf() -> void:
 		pruefe(k.find_child("Embers", true, false) == null, "Kaminrauch ohne Glut")
 		break
 	pruefe(fx.fackeln.size() == 3, "drei Fackeln (Schlagbaum 2, Schenke 1): %d" % fx.fackeln.size())
-	pruefe(fx.fackeln.all(func(f): return f["brennt"] and (f["licht"] as OmniLight3D).visible), "Fackeln brennen am Abend (nacht %.2f)" % fx.nacht_k)
+	var nb: Nebel = spiel.nebel
+	for f in fx.fackeln:
+		var o: OmniLight3D = f["licht"]
+		var t: Vector2i = g.karte.pos_kachel(o.global_position)
+		print("        Fackel %s brennt %s, Licht sichtbar %s, Nebel %s" % [t, f["brennt"], o.visible, str(nb.nebel(t.x, t.y)) if nb and nb.an else "aus"])
+	pruefe(fx.fackeln.all(func(f): return f["brennt"]), "Fackeln brennen am Abend (nacht %.2f)" % fx.nacht_k)
+	# 505: ein Licht auf nie gesehener Kachel bleibt aus, bis der Held dort war (nebel.gd dinge_zeigen); mit „alles sichtbar“ alle
+	Testmodus.alles_sichtbar = true
+	if nb: nb.dinge_zeigen()
+	pruefe(fx.fackeln.all(func(f): return (f["licht"] as OmniLight3D).visible), "Fackeln leuchten (alles sichtbar)")
+	Testmodus.alles_sichtbar = false
+	if nb: nb.dinge_zeigen()
 	pruefe(fx.stoffe.size() == 1, "eine Fahne: %d" % fx.stoffe.size())
 	pruefe(g.insel_liste.size() == g.insel_ohne.size() + 1, "Lichtinsel der Schenkenfackel: %d -> %d" % [g.insel_ohne.size(), g.insel_liste.size()])
 	pruefe(fx.laub.size() > 0, "Laub im Wind: %d Materialien" % fx.laub.size())
@@ -67,6 +78,13 @@ func _lauf() -> void:
 	fx.federn(g.karte.kachel_pos(Vector2i(10, 28)))
 	await warte(2)
 	pruefe(fx.get_child_count() == vor + 1, "Federn beim Huhn")
+	# 492/505: Abend nach dem Tag ueber spiel._nacht (wie die Uhr): Fackeln auf nie gesehenen Kacheln bleiben unter dem Nebel aus
+	if nb and nb.an:
+		spiel._nacht(0.0)
+		spiel._nacht(0.75)
+		var soll := fx.fackeln.map(func(f): return (f["licht"] as OmniLight3D).visible)
+		nb.dinge_zeigen()
+		pruefe(soll == fx.fackeln.map(func(f): return (f["licht"] as OmniLight3D).visible), "Abend: Fackeln unter dem Nebel bleiben aus (505) %s" % [soll])
 	# Tag: Fackeln kalt
 	g.nacht(0.0)
 	pruefe(fx.fackeln.all(func(f): return not f["brennt"] and not (f["fx"] as Node3D).visible), "am Tag brennen die Fackeln nicht")

@@ -97,7 +97,9 @@ func tusche_flaeche(sh: Shader, breite: float, dick: float) -> MeshInstance3D:
 	q.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	var m := ShaderMaterial.new()
 	m.shader = sh
-	m.render_priority = 127   # zuletzt, auch nach der Flamme (held.gd, 100), die sich mit Schablone 1 ausnimmt
+	# zuletzt, auch nach der Flamme (held.gd, 100), die sich mit Schablone 1 ausnimmt; 126, weil der Nebel (nebel.gd, 127) danach
+	# kommen muss (505 Prüfer Lauf 2: die Linie am Teichufer lag über dem schwarzen Nebel)
+	m.render_priority = 126
 	m.set_shader_parameter("px", breite)
 	m.set_shader_parameter("dick", dick)
 	tusche_mats.append(m)
@@ -140,9 +142,80 @@ func folge(k: float) -> void:
 	gieren = lerpf(gieren, gieren_ziel, minf(1.0, k * 1.6))
 	rotation_degrees = Vector3(neigung, gieren, 0)
 	var auf := ziel.position + Vector3(0, 0.9 if nah else 0.0, 0)
-	blickpunkt = auf if blickpunkt == Vector3.INF else blickpunkt.lerp(auf, k)
-	position = blickpunkt + global_basis.z * 40.0
 	size = lerpf(size, zoom, k)
+	if rand_weit > 0.0: auf = am_rand(auf)   # 505c Kartenrand
+	blickpunkt = auf if blickpunkt == Vector3.INF else blickpunkt.lerp(auf, k)   # 615 um den Helden
+	position = blickpunkt + global_basis.z * 40.0
+
+# ---------------------------------------------------------------- 505c (3) Kartenrand (Chef 04.11., 14:01: „den Zoom … mitsteuern, dass halt
+# dann nicht ewig weit rausgeguckt werden kann, wo nichts ist“; Zu 505 (Rand)): was die Kamera am Boden sieht, bleibt in der Karte samt
+# Randwald (rand_weit Meter, dort ist es dann schwarz, nebel.gdshader); der Held bleibt im Bild (RAND_HELD vom Bildrand). Geht beides
+# nicht (Ecke der Karte, schraeger Blick), wird der Ausschnitt kleiner. Grundriss: rand_weit 0, wie bisher.
+var rand_karte := Rect2()             # Karte in Metern (x, z)
+var rand_weit := 0.0                  # Randwald in Metern
+const RAND_HELD := 1.4                # Held mindestens so weit (m, Bildmass) vom Bildrand
+var rand_klein := false               # zuletzt verkleinert (Test, Bildlauf)
+
+func rand(karte_m: Rect2, weit: float) -> void:
+	rand_karte = karte_m
+	rand_weit = weit
+
+## Blickpunkt (auf, Hoehe bleibt) so verschoben und size so verkleinert, dass der Ausschnitt am Boden im Rand bleibt
+func am_rand(auf: Vector3) -> Vector3:
+	var th := deg_to_rad(-neigung)
+	if th < 0.2: return auf          # flach (Probeblaetter): kein Boden-Ausschnitt
+	var r := Vector2(global_basis.x.x, global_basis.x.z).normalized()
+	var f := Vector2(-global_basis.z.x, -global_basis.z.z).normalized()
+	var g0 := Vector2(auf.x, auf.z) + f * (auf.y / tan(th))   # Bildmitte am Boden
+	var held := Vector2(ziel.position.x, ziel.position.z)
+	var s := size
+	var g = ausschnitt(g0, held, s, r, f, th)
+	rand_klein = false
+	if g == null:
+		var lo := s * 0.3; var hi := s
+		for i in 14:
+			var mid := (lo + hi) * 0.5
+			if ausschnitt(g0, held, mid, r, f, th) == null: hi = mid
+			else: lo = mid
+		s = lo
+		size = s
+		rand_klein = true
+		g = ausschnitt(g0, held, s, r, f, th)
+		if g == null: return auf
+	var d: Vector2 = g - g0
+	return auf + Vector3(d.x, 0, d.y)
+
+## halbe Masse des Ausschnitts am Boden: quer (Bildbreite) und laengs (Bildhoehe / sin Neigung)
+func ausschnitt_halb(s: float, th: float) -> Vector2:
+	var vp := get_viewport().get_visible_rect().size if is_inside_tree() else Vector2(540, 1170)
+	var asp := vp.y / maxf(vp.x, 1.0)
+	return Vector2(s * 0.5, s * asp * 0.5 / sin(th))
+
+## naechster Punkt zu g0, an dem der Ausschnitt (Groesse s) ganz in Karte samt Rand liegt und der Held im Bild ist; sonst null
+func ausschnitt(g0: Vector2, held: Vector2, s: float, r: Vector2, f: Vector2, th: float) -> Variant:
+	var h := ausschnitt_halb(s, th)
+	var ex := absf(r.x) * h.x + absf(f.x) * h.y
+	var ez := absf(r.y) * h.x + absf(f.y) * h.y
+	var lo := rand_karte.position - Vector2(rand_weit, rand_weit) + Vector2(ex, ez)
+	var hi := rand_karte.end + Vector2(rand_weit, rand_weit) - Vector2(ex, ez)
+	if lo.x > hi.x or lo.y > hi.y: return null
+	# der Held im Bild: Mitte in einem gedrehten Rechteck um ihn (quer h.x, laengs h.y, je abzueglich RAND_HELD)
+	var qa := h.x - RAND_HELD; var qb := h.y - RAND_HELD / sin(th)
+	if qa <= 0.0 or qb <= 0.0: return null
+	var poly := PackedVector2Array([held + r * qa + f * qb, held - r * qa + f * qb, held - r * qa - f * qb, held + r * qa - f * qb])
+	if lo.is_equal_approx(hi): return lo if poly_hat(poly, lo) else null
+	var schnitt := Geometry2D.intersect_polygons(poly, PackedVector2Array([lo, Vector2(hi.x, lo.y), hi, Vector2(lo.x, hi.y)]))
+	if schnitt.is_empty() or (schnitt[0] as PackedVector2Array).size() < 3: return null
+	poly = schnitt[0]
+	if Geometry2D.is_point_in_polygon(g0, poly): return g0
+	var best := poly[0]; var bd := INF
+	for i in poly.size():
+		var q := Geometry2D.get_closest_point_to_segment(g0, poly[i], poly[(i + 1) % poly.size()])
+		var dd := q.distance_squared_to(g0)
+		if dd < bd: bd = dd; best = q
+	return best
+
+func poly_hat(poly: PackedVector2Array, p: Vector2) -> bool: return Geometry2D.is_point_in_polygon(p, poly)
 
 func springe() -> void:
 	gieren = gieren_ziel
