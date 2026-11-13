@@ -1,5 +1,7 @@
 # 492 · Blutzahnhöhle in Fassung B, acht Stellen · Tom · 13.11., 03:29
 
+[Bild von 13.11., 03:30](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/13-0330-492-Tom.png) (eingetragen von meldung.sh, Tom)
+
 E Technik · Zweig `claude/tom-492-durchspiel` · auf dem Bauserver mit den gekauften Figuren, wie im Spiel
 
 Geprüft an: [Lauf 412](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43341811945) (alle Prüftests grün), [Commit c063de7](https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/c063de736)
