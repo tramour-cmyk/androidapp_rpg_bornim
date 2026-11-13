@@ -43,7 +43,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 
-**Tom** – offen 115, Muss 92, startbar 7
+**Tom** – offen 116, Muss 92, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -162,6 +162,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1081 | M? | Von Sokrates (Chef 12.11., 21:28): Zoom nach außen begrenzen auf 10,2 Kacheln Breite (heut | startbar |
 | 1086 | M | Von Sokrates (1077 Nacht, zu 842): Pim zweiter Weg „Gib Pim 5 Gold“ bauen nach Homers Text | wartet auf Test/Build (gebaut) |
 | 1090 | M? | Von Sokrates (zu 1044, Nacht 1077): Beine stoßen durch Röcke (Lyra: dunkler Fleck zwischen | startbar |
+| Pflege | K | von Werkzeug (340.3, 13.11.): 15697 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 132, Muss 119, startbar 0
 
