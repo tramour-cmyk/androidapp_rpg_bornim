@@ -96,10 +96,10 @@ func stufe_brs() -> Dictionary:
 ## 471: eine Taetigkeit ausserhalb des Kampfs (Kraeuter pfluecken, Handeln im Laden) uebt [f] einmal, Ziel der eigenen Stufe; die
 ## Ereignisse sammeln sich fuer die naechste Notiz (fert_notiz)
 var fert_ev: Array = []
-func uebe(f: String) -> void:
+func uebe(f: String, menge := -1.0) -> void:   # 842: menge < 0 wie BrsFertigkeit.uebe (Uebung je Benutzung)
 	var s := fertigkeiten_stand()
 	if s.is_empty(): return
-	fert_ev.append_array(BrsFertigkeit.uebe(s, stufe_brs(), f, stufe()))
+	fert_ev.append_array(BrsFertigkeit.uebe(s, stufe_brs(), f, stufe(), menge))
 	spiegle()
 
 ## 471: die geuebten Werte auch in brs.fertigkeiten (Heldenreiter 762 liest dort), nur Bekanntes

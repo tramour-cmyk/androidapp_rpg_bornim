@@ -70,9 +70,12 @@ func _ready() -> void:
 	ui.leiste.menue.connect(func(): oeffne_menue("held" if ui.leiste.zustaende_da else ""))
 	ui.leiste.karte.connect(func(): oeffne_menue("karte"))   # 528 (86.2)
 	ui.gelesen.connect(weiter)
+	ui.knopf_im_text.connect(_knopf_gewaehlt)   # 842
+	ui.knopf_aus.connect(_knopf_ausgelassen)   # 842 „Nicht jetzt“
 	ui.gewaehlt.connect(_rast_wahl)
 	licht.nacht_geaendert.connect(_nacht)
 	Leute.uhr = func(): return zustand.minuten   # 390 Tagesablauf
+	Leute.frueh_heim = func(id: String) -> bool: return Geschichte.frueh_heim(id, zustand)   # 842: Pim nach dem Heimschicken
 	Rand.beim_start = Rand.oben(get_viewport())
 	add_child(Rand.band(Rand.beim_start))   # 399.4: schwarz, was die Kamera des Handys verdeckt
 	# 399: Hauptmenue und Erschaffung zuerst, ausser bei Probelaeufen am Rechner (--bilder, --figuren …, Tests ohne Fenster)
@@ -268,7 +271,7 @@ func _notification(what: int) -> void:   # 399: auch beim Verlassen der App (alt
 	if what == NOTIFICATION_WM_GO_BACK_REQUEST: Zurueck.taste(get_tree())
 	# Build 145 (Tests mit spiel.tscn brachen beim Beenden ab, „corrupted size vs. prev_size“): die statische Uhr der Leute hielt eine
 	# Funktion auf dieses Spiel, Godot raeumt statische Variablen erst nach den Knoten ab; beim Verlassen des Baums loesen
-	if what == NOTIFICATION_EXIT_TREE: Leute.uhr = Callable()
+	if what == NOTIFICATION_EXIT_TREE: Leute.uhr = Callable(); Leute.frueh_heim = Callable()
 
 func _nacht(k: float) -> void:
 	kamera.nacht = k   # 348.13b: Tusche nach Laterne, Fenster, Fackel
@@ -439,8 +442,16 @@ func _aktion() -> void:
 			# 611 (Chef 07.11., 268.8: „Klopfen sollte deutlicher sein“): man hoert es klopfen wie alt (Game.kt 1024: Sound.KNOCK, 215.1,
 			# drei Aufnahmen knock_1–3); in Godot fehlte der Klang ganz
 			klang("effekt", ["knock"])
+			var dankt := karte.id == "village" and z == Geschichte.PIMS_TUER and Geschichte.pim_dankt(zustand)   # 842 [807.pim.dank], einmal
 			var anders := Geschichte.klopfen(karte.id, z, zustand)   # 540: nach Kapitel 1 sagt 12/5 etwas anderes
+			if dankt:
+				zustand.setze(Geschichte.PIM_DANK)
+				anders = {"de": String(anders["de"]).replace("{name}", zustand.name), "en": String(anders["en"]).replace("{name}", zustand.name)}
 			var gesagt: Array = [{"text": anders}] if not anders.is_empty() else variiere(a["klopfen"]["nacht" if nachts else "tag"])   # 504.1 Varianten
+			# 1086 [1085.pim.dank]: nach dem ersten Heimschicken fuer Gold dankt die Mutter einmal, ohne Ruf; nach [807.pim.dank], wenn beide anliegen
+			if not dankt and karte.id == "village" and z == Geschichte.PIMS_TUER and Geschichte.pim_gold_dankt(zustand):
+				zustand.setze(Geschichte.PIM_GOLD_DANK)
+				gesagt = Geschichte.PIM_GOLD_DANK_TEXT.map(func(t): return {"text": {"de": String(t["de"]).replace("{name}", zustand.name), "en": String(t["en"]).replace("{name}", zustand.name)}})
 			ui.sage(zeilen(Geschichte.klopf_sprecher(karte.id, z, gesagt)))   # 629.1 mit dem Namen der Stimme
 			zustand.setze("heard_%d_%d" % [z.x, z.y])   # 399.1 Karte: wer hier wohnt (MapPeople.heard)
 		return
@@ -1005,6 +1016,8 @@ func weiter() -> void:
 			"sagen":
 				var e := {"text": Sprache.t(c["text"]).replace("{name}", zustand.name)}
 				if c.has("wer"): e["wer"] = Sprache.t(c["wer"]).replace("{name}", zustand.name)
+				knopf_offen = _knopf_danach()   # 842: Knoepfe (Probe, Kaufen, 1086 Gold) stehen unter der letzten Zeile davor
+				if not knopf_offen.is_empty(): e["knopf"] = knopf_offen.map(func(k): return Sprache.t(k["knopf"]))
 				zeige(e)
 				return
 			"flagge":
@@ -1026,6 +1039,7 @@ func weiter() -> void:
 				zeige({"text": Sprache.u("found", [Sprache.ding(String(c["ding"]), int(c["anzahl"]))])})
 				return
 			"nehmen": zustand.weg(String(c["ding"]), int(c["anzahl"]))
+			"zahlen": zustand.gold = maxi(0, zustand.gold - int(c["anzahl"]))   # 1086: Gold geben ohne eigene Zeile (Pim)
 			"gold":
 				zustand.gold += int(c["anzahl"])
 				zeige({"text": Sprache.u("foundGold", [int(c["anzahl"])])})
@@ -1033,7 +1047,7 @@ func weiter() -> void:
 			"rast": Rast.heilen(zustand, held_werte(), platz())   # Cmd.Rest (Tempel): dazu der Wiederkehrort
 			"heilen": Rast.heilen(zustand, held_werte())
 			"laden":   # Cmd.OpenShop: Thessa oder Morwen; die Szene geht weiter, wenn der Laden zu ist
-				oeffne_laden(c["waren"], bool(c.get("brauen", false)))
+				oeffne_laden(c["waren"], bool(c.get("brauen", false)), bool(c.get("nur_vorraete", false)))
 				return
 			"kampf":   # 491 Cmd.Fight (Game.startBattle aus der Szene): Sieg setzt die Flagge, die Szene geht weiter; sonst endet sie
 				if Streuner.GRUPPE.has(String(c["monster"])) and ResourceLoader.exists("res://kampf/kampfort.gd"):
@@ -1060,6 +1074,47 @@ func weiter() -> void:
 		Ruf.gehoert(zustand, spricht_mit, true)
 		spricht_mit = ""
 	if held: _steht_auf(held.kachel)
+
+# 842 (807 A): folgt nach dieser Zeile (nur Buchfuehrung „variante“ dazwischen) ein Knopf (Skript.knopf, Skript.probe), kommt er aus der
+# Szene und unter die Zeile; wer weitertippt, laesst ihn aus
+var knopf_offen: Array = []   # 1086: alle Knoepfe hintereinander (Pim: Ueberreden, Gold)
+var probe_wurf := Callable()   # Tests: fester Wurf 0–1; sonst randf()
+func _knopf_danach() -> Array:
+	var r: Array = []
+	var i := 0
+	while i < szene.size():
+		var a := String(szene[i]["art"])
+		if a == "variante":
+			i += 1; continue
+		if a != "knopf": break
+		r.append(szene[i])
+		szene.remove_at(i)
+	return r
+
+# 842 „Nicht jetzt“ (Homer [1074.zweit]): die Wahl faellt weg, das Gespraech laeuft weiter wie beim Weitertippen
+func _knopf_ausgelassen() -> void:
+	if knopf_offen.is_empty(): return
+	knopf_offen = []
+	ui.naechste()
+
+func _knopf_gewaehlt(nr := 0) -> void:
+	if knopf_offen.is_empty() or nr < 0 or nr >= knopf_offen.size(): return
+	var k: Dictionary = knopf_offen[nr]
+	knopf_offen = []
+	var bef: Array = k.get("dann", [])
+	var auf := ""
+	if k.has("probe"):
+		var p: Dictionary = k["probe"]
+		var fert := String(p["fert"])
+		var fs := zustand.fertigkeiten_stand()
+		var chance := Geschichte.probe_chance(fert, BrsFertigkeit.wert(fs, fert) if not fs.is_empty() else 0, String(p["gegen"]), held_werte().stufe)   # 1084
+		var wurf: float = float(probe_wurf.call()) if probe_wurf.is_valid() else randf()
+		zustand.uebe(fert)   # 471: jeder Versuch uebt, gelungen oder nicht (1037)
+		auf = zustand.fert_notiz()
+		bef = p["ja"] if wurf * 100.0 < chance else p["nein"]
+	for i in range(bef.size() - 1, -1, -1): szene.push_front(bef[i])
+	ui.schliesse_text()   # die Szene geht mit dem Gewaehlten weiter (gelesen -> weiter)
+	if auf != "": ui.kurz(auf)
 
 # 542 Uniques.make: das Einzelstueck, Stufe aus dem Gegenstandskatalog (644a A, DESIGN-BRS.md 11 „Funde“; vorher maxOf(areaLevel,
 # hero.level)); zurueck „Name (Seltenheit)“. 870.6: Grundform,
@@ -1582,8 +1637,9 @@ func raste(art: String) -> void:
 # Verkaeufliches aus der Tasche verkaufen, die letzten fuenf Verkaeufe zurueckkaufen, bei Morwen brauen; Ausruestung bei Thessa
 # kaufen (Tragbares zuerst, 59.2), ueberall verkaufen (Seltenes zuerst), Gewoehnliches auf einmal.
 # 416.3 (Chef 31.10.): bildschirmfuellend wie alt (ladenschirm.gd, ShopScreen.kt); zu: die Szene geht weiter (Game.advance)
-func oeffne_laden(waren: Array, brauen: bool) -> void:
+func oeffne_laden(waren: Array, brauen: bool, nur_vorraete := false) -> void:
 	laden = Laden.new(waren, brauen)
+	laden.nur_vorraete = nur_vorraete   # 842: Osric verkauft nur Verbände
 	held.halt()
 	held.richtung = Vector3.ZERO
 	var ebene := CanvasLayer.new()
