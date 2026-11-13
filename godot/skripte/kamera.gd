@@ -128,8 +128,10 @@ func fern_neu() -> void:
 	if test_kacheln > 0.0: fern = test_kacheln * Karte.TS   # 555 Testmenue „Kartenzoom“ wie alt MapZoom.levels (Kacheln quer)
 	if not nah and is_equal_approx(zoom, war): zoom = fern
 
+# 1118 (Chef 13.11., 10:06, Test 282: „eine Mindeststufe festlegen“): mit zwei Fingern nur bis NAH, der Held bleibt von Kopf bis Fuss
+# im Bild (vorher NAH * 0,8; naeher nur ueber den Reiter „Test“, test_kacheln)
 func kneifen(faktor: float) -> void:
-	zoom = clampf(zoom * faktor, NAH * 0.8, FERN * 1.6)
+	zoom = clampf(zoom * faktor, NAH, FERN * 1.6)
 	nah = zoom < (NAH + FERN) * 0.5
 
 # 615 (Chef 07.11., t268: „Kamerabewegungen (Zoom/Drehung) um den Avatar als Fixpunkt. Bisher läuft die Kamera gerne aus dem Bild“):
