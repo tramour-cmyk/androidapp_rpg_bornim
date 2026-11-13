@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [1109](entscheiden/1109-vorberechnung.md) | **Muss** | B Werkzeuge | 13.11., 10:00 | die Vorberechnung trägt und spart etwa 65 von 115 Minuten je Lauf, hat aber drei stille Lücken; dazu zwei Wege, Läufe weiter zu kürzen, und einer gegen falsches Rot | Diogenes |
 
 ## Zu billigen
 
@@ -33,7 +37,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 
-**Tom** – offen 117, Muss 92, startbar 6
+**Tom** – offen 118, Muss 92, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -154,8 +158,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1092 | M | Von Sokrates (zu 1090, Nacht 1077): dunkle, fleckige Längsstreifen in hellen Roben und Röc | wartet auf Test/Build (gebaut) |
 | 1108 | M | Von Sokrates (Chef 13.11., 09:38, 1108 A): Pim nur einmal heimschicken, Überreden höchsten | wartet auf Test/Build (gebaut) |
 | Pflege | K | von Werkzeug (340.3, 13.11.): 15616 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
+| 1115 | M? | D191.5 von Diogenes (1109): Leute bauen 9–11 min in jedem Lauf, nie abgelegt; prüfen, ob d | startbar |
 
-**Jerry** – offen 128, Muss 115, startbar 3
+**Jerry** – offen 132, Muss 115, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -287,8 +292,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1096 | M | Von Sokrates (Chef 13.11., 07:55, Test 281, zu 1034): Siegfenster Probekampf mit Testheld | wartet auf Test/Build (gebaut) |
 | 1101 | M | Von Tom (854, Lauf 420): kauf_cache.py ablegen scheitert an godot/daten/deep_forest.bin 12 | wartet auf Diogenes (greift?) |
 | 1102 | M | Von Sokrates (Chef 13.11., 08:49, Test 281.14, zu 833, vgl. 1093): Kampfbericht deckt den | wartet auf Test/Build (gebaut) |
+| 1111 | M? | D191.1 von Diogenes (1109): cache=neu wirkt nicht mehr: seit 1f4e21a81 übergeht pruefen ke | startbar |
+| 1112 | M? | D191.2 von Diogenes (1109): Block mit geduldetem Fehler wird abgelegt (FEHLER 494/506, LEU | startbar |
+| 1113 | M? | D191.3 von Diogenes (1109): Kaufrepo 524 MB, 21 Zweige bau/* in drei Tagen, nie gelöscht; | startbar |
+| 1114 | M? | D191.4 von Diogenes (1109): Kampfort hängt am Block figur (nur held.glb, Gras, rig.log); j | startbar |
 
-**Perikles** – offen 19, Muss 17, startbar 0
+**Perikles** – offen 20, Muss 17, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -311,12 +320,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | wartet auf Diogenes (greift?) |
 | 1103 | M | D190.1 von Diogenes (zu 1099): alte Bitte-Regel steht noch (ARBEIT-BETRIEB Zeile 44: Chef | wartet auf Diogenes (greift?) |
 | 1110 | M | Von Sokrates (Chef 13.11., 09:51/09:55): Chef-Erlaubnisse wörtlich in die Rollendateien, w | wartet auf Diogenes (greift?) |
+| 1116 | M? | Von Diogenes (1109): Geldwert der Vorberechnung: Bauserver kostet nichts (öffentliches Rep | startbar |
 
-**Diogenes** – offen 17, Muss 14, startbar 9
+**Diogenes** – offen 17, Muss 14, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1109 | M | Von Sokrates (Chef 13.11., 09:44/09:45, „das ist wichtig“): Querprüfung Vorberechnung 854/ | startbar |
+| 1109 | M | Von Sokrates (Chef 13.11., 09:44/09:45, „das ist wichtig“): Querprüfung Vorberechnung 854/ | Chef (Datei in der Chefsache) |
 | 461b | M | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Termin 16.11. |
 | 348.9 | M | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | ruht |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
