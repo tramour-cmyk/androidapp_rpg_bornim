@@ -32,6 +32,6 @@ Geprüft an: [Commit 2b96d46](https://github.com/tramour-cmyk/androidapp_rpg_bor
 - **Ungeprüfte Alternative D:** ein geplanter Auftrag, der bei jedem Auslösen eine frische Sitzung anlegt (`create_trigger` mit neuer Sitzung je Auslösen), statt einer schlafenden Starter-Sitzung. Ob so eine Sitzung flach liegt (Tiefe 0 oder 1) und Modell und Umgebung von Ford bekommt, weiß keiner von uns; nicht raten. Eine Probe kostet einen Auftrag und eine kurze Sitzung; Ford liest danach `get_session` (lineage) der neuen Sitzung.
 - **Widerspruch zu Entschiedenem:** keiner. Eine zweite Sitzung mit „Ford“ im Namen gibt es schon (Wache, 443a); der Starter ist ein Werkzeug, kein zweiter Ford.
 - **Kosten:** A klein (eine dünne Sitzung, wenige Weckrufe am Tag); D eine Probe, danach nichts Schlafendes; B am teuersten (etwa doppelter Ford).
-- **Empfehlung:** „1098 A, vorher D prüfen“: Ford probiert beim nächsten Selbstneustart einmal D; liegt die neue Sitzung flach und läuft auf sonnet und „Hoch“, gilt D statt Starter, sonst A wie oben. Diogenes prüft die Tiefe nach dem ersten Neustart.
+- **Empfehlung:** „1098 A, vorher D prüfen“: Ford probiert beim nächsten Selbstneustart einmal D; liegt die neue Sitzung flach und läuft mit Fords Modell und Umgebung „Hoch“, gilt D statt Starter, sonst A wie oben. Diogenes prüft die Tiefe nach dem ersten Neustart.
 
 Antwort: …
