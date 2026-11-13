@@ -126,3 +126,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:59 13.11.: Startsperre 20:59 Start Jerry (Neustart 0a23bf21f nach Begründung: t284-Punkte 7a–f, k, l, p, q vom Chef beantwortet, nur 7n offen; Nachfolger „Jerry – 709.1: Bissplan an die Kapseln angleichen“; Ford)
 - 21:01 13.11.: Neustart Jerry (0a23bf21f): neue Sitzung `…76yF68cGVE8dBiecQT` 20:59, Vorgängerin `…7972hfEsxURwGCfPMq` archiviert (36,09 $ auf 709.1, 1162, 1166; Ford)
 - 21:04 13.11.: Startsperre 21:04 Start Sokrates (Neustart 09def5d11; Ford)
+- 21:05 13.11.: Neustart Sokrates (09def5d11): neue Sitzung `…79ojfheg8dzo9KaZF9` 21:04, Vorgängerin `…786drvmMKdc5ZKSe8v` archiviert (11,49 $ auf 1216, 1217, 1218, 1222, 1223; Ford)
