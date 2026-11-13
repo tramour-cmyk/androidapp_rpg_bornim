@@ -118,3 +118,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:06 13.11.: Marke Archiv session_01Hmoj775LSuDcmmCzsqUie1 (lauf.py)
 - 19:11 13.11.: Lauf 19:08: Spike (1073) `…75Ua972r7RW38NGDkm` und Tuffy (844) `…79CJCy8HRzLSWKT81C` gestartet, Vorgänger archiviert (9,37 $ auf 1040.1/1144; 9,27 $ auf 949); Wächter 1036.1 an Jerry (Ford)
 - 19:11 13.11.: Neustart Diogenes (4d3e17dee): Nachfolger „Diogenes – 1133 …“ erst ab 14.11., kein Start; Sitzung `…7A3E2PMHWuw7NAvVF5` archiviert (5,12 $ auf 882.2, 1199, 1200; Ford)
+- 19:27 13.11.: Startsperre 19:27 Start Sokrates (Neustart 0a4b6e613; Ford)
