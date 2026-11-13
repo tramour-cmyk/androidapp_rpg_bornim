@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 1122 | Von Sokrates (1109 D, Chef 13.11., 10:56): Prüfliste-Test pruefliste_1020 nur noch auf claude/build-…, auf Teamzweigen aus (falsches Rot aus älterem Code gegen neueste Prüfliste) | Tom | M | gebaut, Geprüft an: 3ff3626be | – | claude/tom-1122-pruefliste | – | B Werkzeuge | – |
+| 1122 | Von Sokrates (1109 D, Chef 13.11., 10:56): Prüfliste-Test pruefliste_1020 nur noch auf claude/build-…, auf Teamzweigen aus (falsches Rot aus älterem Code gegen neueste Prüfliste) | Tom | M | gebaut, Geprüft an: 3ff3626be | t283 | claude/tom-1122-pruefliste | – | B Werkzeuge | – |
 | 1104 | Von Sokrates (Chef 13.11., 09:09, Fund t281.11): Höhle lässt sich nicht betreten, Station „Höhle“ im Reiter „Test“ geht auch nicht; zuerst nachstellen, ob Build 282 (282.17 bis 282.22 Wald, Höhle, Lyra) dasselbe hat, bevor der Chef 282 testet | Tom | M | zu testen, ohne Rückmeldung t282 | – | claude/tom-1104-hoehlenkampf | – | E Welt | 4,53 $ |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x; nach dem Umzug, Chef 12.11., 17:42) | Tom | M | wartet, nach dem Umzug erster großer Punkt Tom (1061): erst Aufwand vorlegen | 870.10 | claude/tom-431-voelker | – | E Figuren | 50,10 $ |
 | 825 | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635, 542, 543, 632; Jerry 593, 547, 597), Prüfliste ansehen/t<n>, build <n> --mit für jede Nummer (774) | Tom | M | gebaut, Geprüft an: Lauf 42793721837, t274 beim Chef | – | – | – | E Technik | 8,33 $ |

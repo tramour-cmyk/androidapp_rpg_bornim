@@ -52,6 +52,12 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 194 · 1122 Prüflisten-Test nur auf claude/build-… (Tom, `3ff3626be` auf `claude/tom-1122-pruefliste`; 13.11., 11:4x)
+
+- **Richtig gebaut:** einzige Stelle mit `pruefliste_1020` in allen 16 Workflows ist `godot.yml` Zeile 705; Bedingung unter `bash -e` nachgestellt: `claude/build-283` führt den Test aus, ein Fehlschlag bricht den Schritt weiter ab (Exit 1); `claude/tom-348-x` schreibt „aus“ und läuft weiter. `pruefliste.py` (Daten fürs Spiel) läuft weiter auf jedem Zweig, nur der Test ist aus; `workflow_dispatch` auf einem Buildzweig führt ihn aus.
+- **Nicht geprüft (wartet auf t283):** kein echter Lauf, der Zweig löst `godot.yml` nicht aus und steckt in keinem Build. Prüfen: Lauf auf `claude/build-283` mit Zeile „PRUEFLISTE1020 im Bau: Build 283“; nach `main` ein Lauf auf `claude/tom-348-…`/`jerry-348-…` mit „PRUEFLISTE1020 aus“.
+- **Rest, kein Befund:** ein Neubau von Build n, wenn schon `entwurf/t<n+1>` auf `main` liegt, prüft gegen die neuere Liste; der Test vergleicht keine Buildnummer, rot nur bei geändertem Listenaufbau.
+
 ## Lauf 193 · 1121 Commit-Prüfung 774 und „ohne Rückmeldung tN“ (Perikles, `f31ce0409`; 13.11., 11:0x)
 
 - **Greift:** nachgestellt auf `94621abe7^` mit `vorgang.py build 282`: alte Bedingung meldet 1040.1 als lose (Halt), neue keine; ausgenommen wird nur der Stand, den `vorgang.py` Zeile 409 selbst schreibt („zu testen, ohne Rückmeldung tN“), jede andere lose Zeile hält weiter an.
