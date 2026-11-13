@@ -22,6 +22,16 @@ func variante(s: Zustand, marke: String, wer: Dictionary, erste: Array) -> void:
 		befehle.append(c)
 	befehle.append({"art": "variante", "marke": marke, "wahl": i})
 
+## 1160: wie variante, aber mit allen Wortlauten hier (Marken ohne Eintrag in Varianten.V, etwa [427.2a.morwen.rauch]);
+## wortlaute: je Wortlaut Sprechblasen [de, en]; erster beim ersten Mal, danach nie zweimal derselbe hintereinander
+func variante_eigen(s: Zustand, marke: String, wer: Dictionary, wortlaute: Array) -> void:
+	var i := Skript.wahl(s, marke, wortlaute.size())
+	for b in wortlaute[i]:
+		var c := {"art": "sagen", "text": {"de": String(b[0]), "en": String(b[1])}, "marke": marke}
+		if not wer.is_empty(): c["wer"] = wer
+		befehle.append(c)
+	befehle.append({"art": "variante", "marke": marke, "wahl": i})
+
 static func wahl(s: Zustand, marke: String, anzahl: int) -> int:
 	var v: Array = s.varianten.get(marke, [0, -1]) if s else [0, -1]
 	var n := int(v[0])
@@ -34,6 +44,7 @@ static func wahl(s: Zustand, marke: String, anzahl: int) -> int:
 	z.seed = hash("%s|%d" % [marke, n])
 	return int(frei[z.randi_range(0, frei.size() - 1)])
 func flag(f: String) -> void: befehle.append({"art": "flagge", "flagge": f})
+func unflag(f: String) -> void: befehle.append({"art": "flagge_weg", "flagge": f})   # 1160: Morwens neues Bündel ist gegeben
 func give(ding: String, anzahl: int = 1) -> void: befehle.append({"art": "geben", "ding": ding, "anzahl": anzahl})
 func take(ding: String, anzahl: int = 1) -> void: befehle.append({"art": "nehmen", "ding": ding, "anzahl": anzahl})
 func gold(n: int) -> void: befehle.append({"art": "gold", "anzahl": n})

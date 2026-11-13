@@ -724,7 +724,17 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 				if String(a["ziel"]["karte"]) == String(wk["karte"]): tuer = vor_tuer(alle, String(wk["karte"]), a)
 			held.setze(tuer, "DOWN")
 		kamera.springe(); await abblenden(0.0)
-		ui.sage(zeilen(variiere([{"text": {"de": "Du erwachst an einem sicheren Ort … Der Heimweg hat Stunden gedauert.", "en": "You wake up somewhere safe… The way home took hours."}}])))
+		var erwachen := variiere([{"text": {"de": "Du erwachst an einem sicheren Ort … Der Heimweg hat Stunden gedauert.", "en": "You wake up somewhere safe… The way home took hours."}}])
+		# 1160 (427.1, 427.2, 427.2a): gegen Krogg verloren: zweite Zeile mit dem Hinweis auf Morwens Rauch; mit Rauch: neues Bündel fällig
+		if gegner == "KROGG" and not zustand.has(Geschichte.KROGG_DEFEATED):
+			var mit_rauch := bool(erg.get("rauch", false))
+			if mit_rauch: zustand.setze(Geschichte.SMOKE_DUE)
+			var kn := Geschichte.krogg_niederlage(zustand, mit_rauch)
+			var wi := Skript.wahl(zustand, String(kn[0]), (kn[1] as Array).size())
+			var kv: Array = zustand.varianten.get(String(kn[0]), [0, -1])
+			zustand.varianten[String(kn[0])] = [int(kv[0]) + 1, wi]
+			erwachen.append({"text": {"de": String(kn[1][wi][0]), "en": String(kn[1][wi][1])}})
+		ui.sage(zeilen(erwachen))
 		return ende[0]
 	hw.leben = clampi(tp_nach, 1, hw.max_leben())
 	if ende[0] == "WON": zustand.siege += 1   # 399.1: GameState.battlesWon (System „Siege“, Thessas Ware); zaehlte bisher nie
@@ -995,6 +1005,8 @@ func weiter() -> void:
 				zustand.setze(String(c["flagge"]))
 				if String(c["flagge"]) == Geschichte.BARRIER_OPEN: klang("effekt", ["door"])   # 636 Game.kt SetFlag: Schlagbaum auf mit Türgeräusch
 				flaggen_neu()
+			"flagge_weg":   # 1160: Morwens neues Bündel (Geschichte.SMOKE_DUE)
+				zustand.flaggen.erase(String(c["flagge"]))
 			"variante":   # 504.1: Wortlaut gehoert (Skript.variante)
 				var vm := String(c["marke"])
 				var vv: Array = zustand.varianten.get(vm, [0, -1])
