@@ -169,6 +169,7 @@ RAND_E = 12                          # Bodenmaske so weit hinter dem Rand (wie A
 # grundsaetzlich weiter und endet dann im Dunkel?“; „Der Weg endet mit einem Wald … macht halt keinen Sinn, dass der Weg endet“):
 # jeder Weg ueber den Rand laeuft gerade weiter durch den Wald bis ins Dunkel (RAND_WEIT), kein Baum auf ihm, er biegt nicht ab
 BIEG = 0.0                           # vorher 2.4: der Weg bog bis Tiefe 7 zur Seite und verschwand hinter Kronen
+MAEANDER = 0.34                      # 1022 (Chef 13.11., 20:08): Weg hinter dem Rand geschwungen, nicht als Lineal
 def rand_tiefe(c, r): return max(C0 - c, c - C1, R0 - r, r - R1)
 def ausgaenge_rand():
     """Wege ueber den Kartenrand: je Lauf benachbarter Wegkacheln auf einer Randzeile (Seite, u0, u1), u in Kacheln laengs des Rands"""
@@ -197,7 +198,11 @@ def bahn(seite, u0, u1, d):
     laenge = NC if seite in 'NS' else NR
     m = (u0 + u1) / 2.0
     sg = 1.0 if m < laenge / 2.0 else -1.0
-    mitte = m + sg * BIEG * ss_np(1.0, 7.0, d)
+    # 1022 (Chef 13.11., 20:08: „die gerade Linie ist gottlos. Also ein bisschen verwurstelter … mit ein bisschen franzigeren Rand“;
+    # 20:11 Tiefer Wald West „noch gerader“): ab einer halben Kachel hinter dem Rand schwingt der Weg sanft hin und her (bis 0,45
+    # Kacheln, Welle rund 5 Kacheln, je Ausgang eigene Lage), am Rand selbst liegt er genau auf dem Weg der Karte
+    ph = 6.283 * ((u0 * 0.618 + (0.37 if seite in 'NS' else 0.71)) % 1.0)
+    mitte = m + sg * BIEG * ss_np(1.0, 7.0, d) + MAEANDER * ss_np(0.5, 2.5, d) * (np.sin(d * 1.15 + ph) + 0.35 * np.sin(d * 2.7 + 2.0 * ph))
     hb = ((u1 - u0) - 1) / 2.0 + 0.52
     return mitte, hb * (1 - 0.25 * ss_np(2.0, 8.0, d)), 1 - ss_np(RAND_WEIT - 0.5, RAND_E, d)
 def im_gang(c, r, frei=0.9):
@@ -2280,8 +2285,10 @@ if KARTE in ('village', 'forest', 'deep_forest'):
     for seite_, u0_, u1_ in AUSG:
         u_, d_ = rand_lage(seite_, EX, EY)
         mi_, hb_, st_ = bahn(seite_, u0_, u1_, d_)
-        wob_ = (vnp(d_ * 1.3, u0_ * 3.0 + 0.5, 612) - 0.5) * 0.3
-        w_ = (1 - ss_np(hb_ - 0.06 + wob_, hb_ + 0.06 + wob_, np.abs(u_ - mi_))) * st_ * (d_ > -0.5)
+        # 1022 (Chef 20:08: „franzigeren Rand. Haben wir ja sonst auch so gemacht“): zum langsamen Wackeln ein feines Ausfransen laengs
+        # und quer (Rauschen 4,5 je Kachel), Uebergang breiter
+        wob_ = (vnp(d_ * 1.3, u0_ * 3.0 + 0.5, 612) - 0.5) * 0.3 + (vnp(d_ * 4.5, u_ * 4.5, 613) - 0.5) * 0.28
+        w_ = (1 - ss_np(hb_ - 0.1 + wob_, hb_ + 0.1 + wob_, np.abs(u_ - mi_))) * st_ * (d_ > -0.5)
         weg_ = np.maximum(weg_, w_)
     baum_ = np.zeros((NR + 2 * RAND_E, NC + 2 * RAND_E), np.float32)
     for (x, y) in RING_BAUM:
@@ -2292,6 +2299,9 @@ if KARTE in ('village', 'forest', 'deep_forest'):
     schatten_ = np.asarray(Image.fromarray((baum_ * 255).astype(np.uint8)).resize((EMW, EMH), Image.NEAREST).filter(ImageFilter.GaussianBlur(12))).astype(np.float32) / 255
     aussen_ = ~innen_
     rmask[..., 0] = np.where(aussen_, np.clip(np.maximum.reduce([kahl, ufer_, feld_, weg_]), 0, 1), rmask[..., 0])
+    # 1022 (Chef 20:08: „so ein grüner Querstrich über den Weg“): innen läuft der Weg der Karte zur Randkante hin aus (die Maske kennt
+    # draußen keinen Weg), draußen setzt die Bahn erst an; im letzten halben Streifen innen trägt darum auch die Bahn den Weg
+    rmask[..., 0] = np.where(innen_ & (tiefe_ > -0.6), np.maximum(rmask[..., 0], weg_), rmask[..., 0])
     rmask[..., 1] = np.where(aussen_, 0.0, rmask[..., 1])
     rmask[..., 2] = np.where(aussen_, np.clip(np.maximum(schatten_ * 0.6 * (1 - weg_ * 0.6), ss_np(0.3, 0.5, rmask[..., 3]) * 0.95), 0, 1), rmask[..., 2])
     RANDMASKE = MASKE[:-len('-maske.png')] + '-rand.png'
