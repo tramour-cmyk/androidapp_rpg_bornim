@@ -318,6 +318,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 06:04 13.11.: Marke Archiv session_01Hmoj78CkDSPDMASL6K5Kd8 (lauf.py)
 - 07:05 13.11.: Startsperre 07:05 Start Sokrates (Ford, Neustart-Meldung bde5bf823, Nachfolger „Sokrates – 1077: Chefrunde Morgenliste (13.11.)“; Hoch, effort high)
 - 07:14 13.11.: Startsperre 07:14 Start Tom (Ford, Neustart-Meldung 0bee2c50f, Nachfolger „Tom – 282: Lauf 420 auswerten, Testbitte; 1092 messen (13.11.)“; Hoch, effort high)
+- 08:18 13.11.: Startsperre 08:18 Start Perikles (Ford, Neustart-Meldung 320c3030b, Nachfolger „Perikles – 1098: Ford-Tiefe beim Selbstneustart“; Hoch, effort high)
 - 07:04 13.11.: Startsperre 07:04 Start Jerry (lauf.py)
 - 07:04 13.11.: Marke Archiv-Warnung session_01Hmoj79qGhEdjuvdUYbpj3h (lauf.py)
 - 07:04 13.11.: Marke Archiv session_01Hmoj7A1dnZnLGSEWvQkYYP (lauf.py)
@@ -329,3 +330,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:04 13.11.: Marke Tagesbericht 13.11. (lauf.py)
 - 08:04 13.11.: Marke Nachhalten 13.11. (lauf.py)
 - 08:04 13.11.: Marke Start-fehlt Jerry 13.11.-07:14 (lauf.py)
+- 08:18 13.11.: Marke Archiv session_01Hmoj78o1EcVNksEbvzKHga (lauf.py)
+- 08:18 13.11.: Marke Start-fehlt Spike 13.11.-08:04 (lauf.py)

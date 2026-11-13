@@ -2,7 +2,7 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 13.11., 07:14 (lauf.py)
+**Stand:** 13.11., 08:18 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
@@ -10,3 +10,6 @@
 | Ford | [Ford – Betriebsleiter (13.11., 05:09)](https://claude.ai/code/session_01Hmoj78Qg516rLn1yGt11hL) | Betrieb | – | 13.11., 05:08 |
 | Sokrates | [Sokrates – 1077: Chefrunde Morgenliste (13.11., 07:05)](https://claude.ai/code/session_01Hmoj78nYhWJDwpTUKcGeBd) | 1077 | – | 13.11., 07:04 |
 | Tom | [Tom – 282: Lauf 420 auswerten, Testbitte; 1092 messen (13.11., 07:14)](https://claude.ai/code/session_01Hmoj76DxLjntP1yUVCeUtK) | 282 | – | 13.11., 07:14 |
+| Jerry | [Jerry – 1095, 1096: Zeile „ist dran“ weg, Siegfenster Probekampf (13.11., 08:05)](https://claude.ai/code/session_01Hmoj78PvRkTAsLPoGWG9we) | 1095 | – | 13.11., 08:05 |
+| Diogenes | [Diogenes – 1019 (13.11., 08:05)](https://claude.ai/code/session_01Hmoj76kuRwKJXPXMT8pEfs) | 1019 | – | 13.11., 08:05 |
+| Perikles | [Perikles – 1098: Ford-Tiefe beim Selbstneustart (13.11., 08:18)](https://claude.ai/code/session_01Hmoj77zQKUjPmYUPWfjxqQ) | 1098 | – | 13.11., 08:17 |
