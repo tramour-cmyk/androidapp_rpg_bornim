@@ -186,10 +186,12 @@ def jetzt():
 
 
 def testlauf(lauf, befehl, cwd):
-    """390a (Chef 28.10., 10:26): Testprogramm aus godot/tests/ ist kein Probelauf, wenn eng: `--headless`, kein xvfb-run,
-    `-s res://tests/….gd`, und die Testdatei enthält keinen Bildbefehl. Datei nicht gefunden: zählt als Bildlauf."""
+    """390a (Chef 28.10., 10:26): Testprogramm aus godot/tests/ ist kein Probelauf, wenn `-s res://tests/….gd` läuft, kein Film
+    geschrieben wird und die Testdatei keinen Bildbefehl enthält. Datei nicht gefunden: zählt als Bildlauf.
+    1146 (von Jerry, 1025): `xvfb-run` zählt nicht mehr dagegen — ein Test, der nur einen Bildschirm braucht, aber kein Bild
+    ablegt, zeigt dem Chef nichts (zweikampf_1025 und welt_548 verbrauchten je die eine Probe aus 621 A)."""
     s = TEST_SKRIPT.search(lauf)
-    if "--headless" not in lauf or "xvfb-run" in lauf or "--write-movie" in lauf or not s:
+    if "--write-movie" in lauf or not s:
         return False
     p = re.search(r"--path[=\s]+(\S+)", lauf)
     pfad = os.path.expanduser(p.group(1).strip("\"'")) if p else "."
