@@ -37,7 +37,7 @@ def testname(tok):
     tok = tok.strip()
     tok = re.sub(r'^(res://)?(godot/)?tests/', '', tok)
     tok = re.sub(r'\.gd$', '', tok)
-    return tok if re.fullmatch(r'[a-z][a-z0-9_]*_[0-9][0-9a-z_]*', tok) else None
+    return tok if re.fullmatch(r'[a-z][a-z0-9]*(?:_[a-z0-9]+)+', tok) else None
 
 
 def namen_aus_pruefliste(text):
