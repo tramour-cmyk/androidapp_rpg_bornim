@@ -71,6 +71,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 15:28 13.11.: Startsperre 15:28 Start Diogenes (lauf.py)
 - 15:34 13.11.: Startsperre 15:34 Start Perikles (lauf.py)
 - 15:41 13.11.: Startsperre 15:41 Start Tuffy (Ford, Neustart-Meldung d1cca12c2, Nachfolger „Tuffy – 949 Film an den Chef, dann nächstes startbares Muss“; Hoch, effort high)
+- 15:44 13.11.: Startsperre 15:44 Start Diogenes (Ford, Neustart-Meldung 5297518b1, Nachfolger „Diogenes – 1159: Marke „Lauf läuft bis“ an der Commit-Prüfung (1148)“; Hoch, effort high)
 - 15:34 13.11.: Marke Archiv session_01Hmoj77SjZb1gmYXPgTr429 (lauf.py)
 - 15:37 13.11.: Startsperre 15:37 Start Ford (selbst, Neustart-Haken 423 Tsd., kein Starter; Hoch)
 - 15:35 13.11.: Startsperre 15:35 Start Diogenes (Ford, Neustart-Meldung 49f93a1b7, Nachfolger „Diogenes – 1153: Wächter Rest auf allen Wegen zum Schließen“; Hoch, effort high)
