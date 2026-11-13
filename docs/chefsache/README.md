@@ -288,7 +288,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1101 | M | Von Tom (854, Lauf 420): kauf_cache.py ablegen scheitert an godot/daten/deep_forest.bin 12 | wartet auf Diogenes (greift?) |
 | 1102 | M | Von Sokrates (Chef 13.11., 08:49, Test 281.14, zu 833, vgl. 1093): Kampfbericht deckt den | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 19, Muss 16, startbar 2
+**Perikles** – offen 20, Muss 17, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -311,6 +311,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | wartet auf Diogenes (greift?) |
 | 1103 | M | D190.1 von Diogenes (zu 1099): alte Bitte-Regel steht noch (ARBEIT-BETRIEB Zeile 44: Chef | startbar |
 | Pflege | K | von Werkzeug (340.3, 13.11.): 15744 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
+| 1110 | M | Von Sokrates (Chef 13.11., 09:51: „Können das die anderen auch mal so machen wie er?“): Re | startbar |
 
 **Diogenes** – offen 14, Muss 11, startbar 6
 
