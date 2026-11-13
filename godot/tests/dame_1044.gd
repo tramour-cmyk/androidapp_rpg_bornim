@@ -23,8 +23,9 @@ func knips(n: String, lyra: Node3D = null) -> void:
 	await RenderingServer.frame_post_draw
 	var img := root.get_texture().get_image()
 	if lyra:
-		var cam := root.get_camera_3d()
-		var o := cam.unproject_position(lyra.global_position + Vector3.UP * 0.85)
+		var cam: Camera3D = spiel.kamera
+		var o := cam.unproject_position(lyra.global_position + Vector3.UP * 0.85) * float(img.get_width()) / cam.get_viewport().get_visible_rect().size.x
+		print("DAME1044 Lyra im Bild %s (Fenster %s, Bild %d)" % [o, cam.get_viewport().get_visible_rect().size, img.get_width()])
 		var b := int(img.get_width() * 0.62); var h := int(b * 1.35)
 		var r := Rect2i(clampi(int(o.x) - b / 2, 0, img.get_width() - b), clampi(int(o.y) - h / 2, 0, img.get_height() - h), b, h)
 		img = img.get_region(r)
@@ -51,7 +52,7 @@ func _lauf() -> void:
 	spiel.zustand.minuten = 11 * 60
 	var lyra: Node3D = null
 	var haltung = null
-	for ansicht in [["spiel", Vector2i(4, 4)], ["nah", Vector2i(5, 4)]]:
+	for ansicht in [["spiel", Vector2i(4, 4)], ["nah", Vector2i(7, 2)]]:
 		spiel.betrete("temple", ansicht[1], "UP")
 		await warte(2.0)
 		spiel.ui.mess.visible = false
@@ -76,6 +77,7 @@ func _lauf() -> void:
 			await warte(0.6)
 			spiel.ui.textfeld.visible = false
 			messe("%s %s" % [ansicht[0], stand[0]], lyra.modell)
+			if stand[1]: print("DAME1044 %s im Modifikator: Fuesse %.2f, Haende %.2f Hueftbreiten auseinander" % [ansicht[0], haltung.dame_mass.x, haltung.dame_mass.y])
 			await knips("%s_%s" % [ansicht[0], stand[0]], lyra if ansicht[0] == "nah" else null)
 	print("DAME1044 fertig")
 	quit(0)

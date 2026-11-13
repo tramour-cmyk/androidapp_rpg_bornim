@@ -961,6 +961,7 @@ class Haltung extends SkeletonModifier3D:
 	var dame := false
 	var anim: AnimationPlayer
 	var dame_w := -1.0
+	var dame_mass := Vector2.ZERO   # Fuesse, Handgelenke auseinander in Hueftbreiten nach dem letzten _dame (dame_1044; ausserhalb der Modifikation zeigt das Skelett wieder die Bewegung)
 	var _dame_t := 0
 	func _drehe(sk: Skeleton3D, i: int, r: Basis) -> void:
 		var g := sk.get_bone_global_pose(i)
@@ -1021,8 +1022,8 @@ class Haltung extends SkeletonModifier3D:
 		_drehe(sk, b["spine_01"], Basis(vorn, -kipp * 0.5))
 		# Fuesse zusammen unter dem Koerper: rechts Standbein knapp rechts der Mitte, links locker daneben, etwas vor, Ferse leicht hoch
 		var mitte: Vector3 = ziel_p; mitte.y = boden
-		var zl: Vector3 = mitte + links * (0.28 * breite) + vorn * (0.06 * bein)
-		zl.y = boden + 0.025 * bein
+		var zl: Vector3 = mitte + links * (0.28 * breite) + vorn * (0.025 * bein)
+		zl.y = boden + 0.01 * bein
 		var zf := [zl, mitte - links * (0.22 * breite)]
 		for s in 2:
 			var e := "_l" if s == 0 else "_r"
@@ -1045,6 +1046,8 @@ class Haltung extends SkeletonModifier3D:
 				var hd: Vector3 = g.call("middle_01" + e) - g.call("hand" + e)
 				var soll_d := (-aussen * 0.85 - Vector3.UP * 0.35 + vorn * 0.1).normalized()
 				_drehe(sk, b["hand" + e], Basis(Quaternion.IDENTITY.slerp(Quaternion(hd.normalized(), soll_d), w)))
+		var fl: Vector3 = g.call("foot_l"); var fr: Vector3 = g.call("foot_r")
+		dame_mass = Vector2(Vector2(fl.x - fr.x, fl.z - fr.z).length() / breite, (g.call("hand_l") - g.call("hand_r")).length() / breite)
 
 	func _richte(sk: Skeleton3D, i: int, von: Vector3, nach: Vector3) -> void:
 		if von.length() < 1e-5 or nach.length() < 1e-5: return
