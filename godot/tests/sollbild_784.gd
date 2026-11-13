@@ -6,7 +6,8 @@
 # (nur mit STRENG=1; sonst 0, solange der Kampf nicht hängt).
 # Aufruf: im Ordner godot mit --headless --fixed-fps 30 -s res://tests/sollbild_784.gd
 #   (SEED=7, KLASSE=FIGHTER, SOELDNER=CLERIC, GEGNER=WOLVES, RUNDEN=2, STRENG=1, ZEILEN=1 für jede Meldung;
-#   949: RING=PERFECT trifft den Ring perfekt statt gut, ZUG=heavy erzwingt Graks Schweren Hieb wie der Reiter Test)
+#   949: RING=PERFECT trifft den Ring perfekt statt gut, ZUG=heavy erzwingt Graks Schweren Hieb wie der Reiter Test,
+#   BREMSE_MS=500 je Bild echte Wartezeit wie im Film)
 extends SceneTree
 
 const Probe = preload("res://kampf/probe.gd")
@@ -72,7 +73,8 @@ func _lauf() -> void:
 			quit(1)
 			return
 		_uhr_anlegen()
-		kf.ui.uhr = func() -> int: return int(Engine.get_process_frames() * 1000.0 / FPS)     # 1039: Ring nach Filmzeit
+	# 1039: Ring nach Filmzeit; 949 (Lauf 438): auch ohne Bild, damit ein Lauf mit BREMSE_MS den Film (6 % Echtzeit) nachstellt
+	kf.ui.uhr = func() -> int: return int(Engine.get_process_frames() * 1000.0 / FPS)
 	while kf.verhuellt:
 		await process_frame
 	# im Film sieht man die Knöpfe einen Augenblick, bevor der Spieler tippt (zählt nicht zur Runde)
@@ -83,9 +85,12 @@ func _lauf() -> void:
 	var zuletzt_am_zug := ""
 	var n := 0
 	print("Filmversatz %.2f s" % (Engine.get_process_frames() / FPS))     # 949: Zeit 0 der Liste im Film (zum Schneiden)
+	var bremse := int(_env("BREMSE_MS", "0"))     # 949: je Bild so viele ms echte Zeit, stellt den Film (6 % Echtzeit) ohne Bild nach
 	while n < int(FPS) * 300:
 		await process_frame
 		n += 1
+		if bremse > 0:
+			OS.delay_msec(bremse)
 		if _env("ZUG", "") != "" and Mars.test_gegnerzug == "":     # 949: jede Ansage Graks ein Schwerer Hieb
 			Mars.test_gegnerzug = _env("ZUG", "")
 		t = n / FPS
