@@ -39,3 +39,4 @@
 2026-11-13 14:59:09	probelauf	621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für 697 schon 1 Probelauf seit deinem Urteil 2026-11-09 18:09:00. Kein weiterer Lauf: jetzt vorlegen, was da ist, auch 	HEAD
 2026-11-13 14:59:14	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	HEAD
 2026-11-13 14:59:23	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	main
+2026-11-13 15:00:11	commit-pruefung	LISTE-VORGAENGE.md: 1128.2: Zeile über 400 Zeichen (Einzelheiten als „Zu 1128.2“ in den Vorrat) (Form 275.2; vorgang.py schreibt nur Gültiges)	main
