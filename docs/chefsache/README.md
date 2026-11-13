@@ -327,18 +327,17 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 919 | M | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): Regeln nachziehen: Testbitte auch bei rot | wartet auf 918 (startbar) |
 | 1019 | M | Von Sokrates (zu 1016): Ford startet sich am Neustart-Haken (200 Tsd., 383 A) neu statt be | wartet auf Diogenes (greift?) |
 | 1070 | M | Getestete Prüfliste sofort aus der Chefsache, nicht erst beim Zusammenführen (Chef 12.11., | wartet auf Test t281 (Chef) |
-| 1098 | M | D189.1 von Diogenes (zu 1019): Haken greift (4 Ford-Selbstneustarts seit 12.11. bei 416–88 | wartet auf Diogenes (greift?) |
+| 1098 | M | D189.1 von Diogenes (zu 1019): Haken greift (4 Ford-Selbstneustarts seit 12.11. bei 416–88 | Termin 14.11. 08:00 |
 | 1099 | M | Von Tuffy (Chef 13.11., 07:12): jede Sitzung bindet benötigte Repos selbst mit add_repo ei | wartet auf Diogenes |
 | Pflege | K | von Werkzeug (340.3, 13.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabe | startbar |
 | 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | startbar |
 
-**Diogenes** – offen 10, Muss 9, startbar 3
+**Diogenes** – offen 9, Muss 8, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
 | 1019 | M | Von Sokrates (zu 1016): Ford startet sich am Neustart-Haken (200 Tsd., 383 A) neu statt be | startbar |
-| 1098 | M | D189.1 von Diogenes (zu 1019): Haken greift (4 Ford-Selbstneustarts seit 12.11. bei 416–88 | startbar |
 | 1099 | M | Von Tuffy (Chef 13.11., 07:12): jede Sitzung bindet benötigte Repos selbst mit add_repo ei | startbar |
 | 461b | M | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Termin 16.11. |
 | 348.9 | M | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | ruht |
