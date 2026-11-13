@@ -283,10 +283,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1123 | M | Von Sokrates (1109 C, Chef 13.11., 10:56): Prüfungen auf zwei Bauserver teilen (zweiter La | wartet auf 1115 (startbar) |
 | Pflege | K | von Werkzeug (340.3, 13.11.): 17094 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 19, Muss 14, startbar 3
+**Perikles** – offen 20, Muss 15, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 1124 | M | Von Sokrates (Chef 13.11., 11:30): Rollendatei geändert, laufende Sitzung liest sie nicht | startbar |
 | 870.12 | M | Von Sokrates (870, Umzug BRS): Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 | wartet auf 870.13 (wartet) |
 | 882.2 | M | 882 Werkzeuge ohne Kotlin: tools/t logik auf Godot-Logiksatz samt Kerntest-Marke, check-en | wartet auf 882.1 (in Arbeit) |
 | 870.10 | M | Von Sokrates (870, Umzug BRS Schritt 8): Kotlin-Bau aus (android.yml), mit 870.9; LISTE-UM | wartet auf 882.2 (startbar) |
