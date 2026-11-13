@@ -52,6 +52,11 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 217 · 1199 am echten Entwurf t285 (13.11., 20:0x)
+
+- **Echter Stand belegt:** `docs/entwurf/t285-gang-messen.md` (Tom, 19:33, „APK folgt“, ohne „Gegengelesen:“): `pruefliste.py --build 285` → „fehlt … erst gegenlesen, dann bauen (1199)“, `--pruefe` Exit 1; `--build 284` liest weiter `ansehen/t284-rand.md` (39 Zeilen). Kein `claude/build-285` auf `origin`. Ohne Befund; 1199 wartet auf t285 (Lauf von 285: Quelle `docs/entwurf/…`, Datei erst mit Link nach `ansehen/`).
+- Nebenbei: `pruefliste.py --help` schreibt eine Datei `--help` (erstes Argument ist die Ausgabe); nicht befundet, kein Ablauf ruft es so.
+
 ## Lauf 216 · 1199 Prüfliste erst mit APK nach `ansehen/` (Perikles `aefe62940`), 1200 Filmlauf ohne Rückfrage (`f33f53ee5`); Doppelpack 421 (13.11., 19:0x)
 
 - **1199 am Werkzeug belegt** (Wegwerfkopie mit eigenem `origin`): Entwurf `t285` ohne „Gegengelesen:“ → `fehlt`; mit Zeile → Quelle `docs/entwurf/t285-probe.md`, 1 Abschnitt; Verschieben nach `ansehen/` mit „APK folgt“ hält an (auch als `git mv`). Echte Stände: `--build 284` liest `ansehen/t284-rand.md` (bleibt dort laut Sokrates für Toms Neulauf), `--build 285` meldet „ohne gegengelesene Prüfliste“. Regeltext `LISTE-CHECK-BUILD-TEST.md` 8–10 folgt dem Wortlaut 18:30.
