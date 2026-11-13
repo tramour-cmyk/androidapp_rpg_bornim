@@ -83,7 +83,7 @@ jobs:
           echo "KAUF=$RUNNER_TEMP/kauf" >> $GITHUB_ENV
           bash tools/blender348/kauf_laden.sh $RUNNER_TEMP/kauf
       # 854 (Chef 10.11., 12:34; 11.11., 08:52 Kennung je Block): gebaute Modelle aus dem Kaufrepo, je Block ein Zweig bau/<block>-<Kennung>
-      # (figur, dorf, klassen, kampf; Kennung nur über die Dateien, die der Block liest, tools/godot/kauf_cache.py); ein Treffer überspringt
+      # (figur, dorf, klassen, leute, kampf; Kennung nur über die Dateien, die der Block liest, tools/godot/kauf_cache.py); ein Treffer überspringt
       # seinen Teil, die Dateien kommen vor „Kampfort bauen“ (die Kaufschilde ersetzen dort Waffen aus „Leute bauen“); was fehlt, wird
       # gebaut und abgelegt. Diese Zeilen nennen je Block treffer oder bauen und was sich geändert hat. Nicht bei kampf=656 (baut den
       # Helden vorher dazu). KAUF_TOKEN braucht dafür Schreibrecht (Contents) aufs Kaufrepo.
@@ -289,33 +289,39 @@ jobs:
           python3 tools/godot/kauf_cache.py merke klassen
       - name: Leute bauen (Dorf)
         run: |
-          # 348.6 Leute: jede Person des Dorfs, die leute.json kennt, als Figur (held3 FIGUR=<id>, rig), 4 zugleich
-          ids=$(python3 -c "import json; k=json.load(open('godot/daten/karten.json'))['karten']; l=json.load(open('tools/blender348/v3/leute.json')); print(' '.join(sorted({n['id'] if n['id'] in l else n['aussehen'] for m in ('village', 'inn', 'shop', 'elder', 'temple', 'forest', 'deep_forest', 'cave') for n in k[m]['leute'] if n['id'] in l or n.get('aussehen') in l})))")   # 399.1: auch die Leute der Grundrisse; 492 Lyra (lyra_temple, lyra_cave) als Figur „lyra“ (leute.gd)
-          echo "Leute: $ids"
-          bau() { o=$RUNNER_TEMP/leute/$1; mkdir -p $o
-            for s in held3 rig; do OUT=$o FIGUR=$1 bl/bin/python -I tools/blender348/v3/$s.py > $o/$s.log 2>&1 || { echo "$1 $s"; tail -30 $o/$s.log; return 1; }; done; }
-          export -f bau
-          echo $ids | tr ' ' '\n' | xargs -P 4 -I{} bash -c 'bau {}'
-          D=godot/daten/leute; mkdir -p $D
-          for i in $ids; do cp $RUNNER_TEMP/leute/$i/held.glb $D/$i.bin && cp $RUNNER_TEMP/leute/$i/held-info.json $D/$i-info.json; done
-          cp tools/blender348/v3/leute.json $D/   # 134.3 Ruf: Mann, Frau, Kind (ruf.gd stimme)
-          for i in $ids; do grep -q '^RUHE aus' $RUNNER_TEMP/leute/$i/rig.log && echo daten/leute/$i.bin >> godot/daten/kauf.txt || true; done   # 397
-          for i in $ids; do grep -h '^WENDE aus\|^BEWEGUNG Drehen' $RUNNER_TEMP/leute/$i/rig.log | sed "s/^/$i: /" | cut -c1-400 || true; done   # 416.8 Wenden mit Schritten (geruest.py)
-          ls -l $D
-          # 348.6 Leute Runde 4b: was die Leute tragen (leute.json "traegt"), aus Jerrys waffen.py (Waffen = Bereich Jerry);
-          # liegt das Skript noch nicht in diesem Zweig, von seinem Zweig claude/jerry-348-kampf; fehlt eine Waffe, traegt sie keiner
-          W=tools/blender348/waffen.py
-          [ -f $W ] || { git fetch -q --depth 1 origin claude/jerry-348-kampf && git show FETCH_HEAD:$W > $RUNNER_TEMP/waffen.py && W=$RUNNER_TEMP/waffen.py; } || true
-          dinge=$(python3 -c "import json; l=json.load(open('tools/blender348/v3/leute.json')); print(' '.join(sorted({v['traegt'] for k, v in l.items() if k != '_liesmich' and v.get('traegt')})))")
-          dinge="$dinge longsword shield shortsword quarterstaff round_shield"   # 376.1 Grundausruestung der vier Klassen (heldfigur.gd, auf dem Ruecken)
-          # 522 (Chef 04.11., 11:55: „die alte Bewaffnung … war weg, aber die neue ist nicht sichtbar“): jede Waffe, die waffen.py bauen
-          # kann, auch fuer den Helden; Streitkolben, Kriegshammer und die uebrigen haben noch kein Modell (458.3)
-          dinge="$dinge dagger scimitar handaxe shortbow"
-          mkdir -p godot/daten/waffen
-          for w in $dinge; do
-            OUT=$RUNNER_TEMP/waffen WAFFE=$w bl/bin/python -I $W > $RUNNER_TEMP/waffe-$w.log 2>&1 && cp $RUNNER_TEMP/waffen/$w.glb godot/daten/waffen/$w.bin || echo "keine Waffe $w"
-          done
-          ls -l godot/daten/waffen
+          # 1115 (Diogenes D191.5: 9–11 min in jedem Lauf, nie abgelegt): Block leute (Leute und Waffen, kauf_cache.py); ein Treffer
+          # überspringt den Bau, „Gebaute Kaufmodelle holen“ legt die Dateien hin
+          python3 tools/godot/kauf_cache.py merke vor_leute
+          if [ "${KAUF_LEUTE:-bauen}" != treffer ]; then
+            # 348.6 Leute: jede Person des Dorfs, die leute.json kennt, als Figur (held3 FIGUR=<id>, rig), 4 zugleich
+            ids=$(python3 -c "import json; k=json.load(open('godot/daten/karten.json'))['karten']; l=json.load(open('tools/blender348/v3/leute.json')); print(' '.join(sorted({n['id'] if n['id'] in l else n['aussehen'] for m in ('village', 'inn', 'shop', 'elder', 'temple', 'forest', 'deep_forest', 'cave') for n in k[m]['leute'] if n['id'] in l or n.get('aussehen') in l})))")   # 399.1: auch die Leute der Grundrisse; 492 Lyra (lyra_temple, lyra_cave) als Figur „lyra“ (leute.gd)
+            echo "Leute: $ids"
+            bau() { o=$RUNNER_TEMP/leute/$1; mkdir -p $o
+              for s in held3 rig; do OUT=$o FIGUR=$1 bl/bin/python -I tools/blender348/v3/$s.py > $o/$s.log 2>&1 || { echo "$1 $s"; tail -30 $o/$s.log; return 1; }; done; }
+            export -f bau
+            echo $ids | tr ' ' '\n' | xargs -P 4 -I{} bash -c 'bau {}'
+            D=godot/daten/leute; mkdir -p $D
+            for i in $ids; do cp $RUNNER_TEMP/leute/$i/held.glb $D/$i.bin && cp $RUNNER_TEMP/leute/$i/held-info.json $D/$i-info.json; done
+            for i in $ids; do grep -q '^RUHE aus' $RUNNER_TEMP/leute/$i/rig.log && echo daten/leute/$i.bin >> godot/daten/kauf.txt || true; done   # 397
+            for i in $ids; do grep -h '^WENDE aus\|^BEWEGUNG Drehen' $RUNNER_TEMP/leute/$i/rig.log | sed "s/^/$i: /" | cut -c1-400 || true; done   # 416.8 Wenden mit Schritten (geruest.py)
+            ls -l $D
+            # 348.6 Leute Runde 4b: was die Leute tragen (leute.json "traegt"), aus Jerrys waffen.py (Waffen = Bereich Jerry);
+            # liegt das Skript noch nicht in diesem Zweig, von seinem Zweig claude/jerry-348-kampf; fehlt eine Waffe, traegt sie keiner
+            W=tools/blender348/waffen.py
+            [ -f $W ] || { git fetch -q --depth 1 origin claude/jerry-348-kampf && git show FETCH_HEAD:$W > $RUNNER_TEMP/waffen.py && W=$RUNNER_TEMP/waffen.py; } || true
+            dinge=$(python3 -c "import json; l=json.load(open('tools/blender348/v3/leute.json')); print(' '.join(sorted({v['traegt'] for k, v in l.items() if k != '_liesmich' and v.get('traegt')})))")
+            dinge="$dinge longsword shield shortsword quarterstaff round_shield"   # 376.1 Grundausruestung der vier Klassen (heldfigur.gd, auf dem Ruecken)
+            # 522 (Chef 04.11., 11:55: „die alte Bewaffnung … war weg, aber die neue ist nicht sichtbar“): jede Waffe, die waffen.py bauen
+            # kann, auch fuer den Helden; Streitkolben, Kriegshammer und die uebrigen haben noch kein Modell (458.3)
+            dinge="$dinge dagger scimitar handaxe shortbow"
+            mkdir -p godot/daten/waffen
+            for w in $dinge; do
+              OUT=$RUNNER_TEMP/waffen WAFFE=$w bl/bin/python -I $W > $RUNNER_TEMP/waffe-$w.log 2>&1 && cp $RUNNER_TEMP/waffen/$w.glb godot/daten/waffen/$w.bin || echo "keine Waffe $w"
+            done
+            ls -l godot/daten/waffen
+          fi
+          python3 tools/godot/kauf_cache.py merke leute
+          mkdir -p godot/daten/leute && cp tools/blender348/v3/leute.json godot/daten/leute/   # 134.3 Ruf: Mann, Frau, Kind (ruf.gd stimme); immer, auch bei Treffer
           # 348.6 Tiere zum Anschauen (Chef 16:52): Jerrys Modelle godot/tiere/<name>.glb (+ <name>-info.json), Knopf „Tiere“
           if ls godot/tiere/*.glb > /dev/null 2>&1; then
             mkdir -p godot/daten/tiere
@@ -356,7 +362,8 @@ jobs:
         if: env.KAUF_KAMPF != 'treffer'
         run: |
           python3 tools/godot/kauf_cache.py merke vor_kampf   # 854: Block kampf
-          # 399.1 (Chef 28.10., 12:34): Kampf im selben Spiel wie das Dorf; Modelle wie godot-kampf.yml (Jerry), Held und Gras aus „Modelle bauen“
+          # 399.1 (Chef 28.10., 12:34): Kampf im selben Spiel wie das Dorf; Modelle wie godot-kampf.yml (Jerry), Gras aus „Modelle bauen“
+          # (tex.py); den Helden legt „Held in den Kampfort“ danach dazu (1114)
           export OUT=$RUNNER_TEMP/out
           bau() { n=$1; shift; l=$RUNNER_TEMP/k-$n-$(echo "$@" | tr -c "a-z_\n" -).log; env "$@" bl/bin/python -I tools/blender348/$n > $l 2>&1 || { tail -40 $l; exit 1; }; }
           bau wolf.py; bau wolf.py ART=dire_wolf; bau kampfort_wald.py; bau waffen.py; bau ratte.py
@@ -366,7 +373,6 @@ jobs:
           for o in waldrand teich baum felsen steinkreis; do bau kampfort_wald.py SPOT=$o; done   # 493 Kampforte im Wald wie alt
           for a in goblin goblin_archer goblin_shaman kobold; do bau goblin.py ART=$a V3=tools/blender348/v3_kampf; done   # v3_kampf/LIESMICH.md
           D=godot/kampf/daten; mkdir -p $D
-          cp $OUT/held.glb $D/held.bin
           for f in grau dunkel rost asche; do cp $OUT/wolf-$f.glb $D/wolf-$f.bin; done; cp $OUT/wolf-info.json $D/
           for f in schwarz schimmer; do cp $OUT/dire_wolf-$f.glb $D/dire_wolf-$f.bin; done; cp $OUT/dire_wolf-info.json $D/
           for f in braun grau schwarz; do cp $OUT/giant_rat-$f.glb $D/giant_rat-$f.bin; done; cp $OUT/giant_rat-info.json $D/
@@ -470,9 +476,19 @@ jobs:
               $RUNNER_TEMP/krogg/krogg-gestalt-info.json $D/bugbear-info.json
             echo kampf/daten/bugbear-krogg.bin >> $D/kauf.txt
           fi
-          grep -q '^RUHE aus' rig.log && echo kampf/daten/held.bin >> $D/kauf.txt || true   # 397: Held mit Pro-Ruhe
           ls -l $D | wc -l
           python3 tools/godot/kauf_cache.py merke kampf
+      # 1114 (Diogenes D191.4): vom Block figur brauchte der Kampfort nur den Helden; der kommt hier nach dem Block kampf (außerhalb
+      # seiner Marken, in keinem Block) aus godot/daten/held.bin, gebaut oder geholt, gleich dem früheren $RUNNER_TEMP/out/held.glb.
+      # So baut eine Änderung an held3, rig oder leute.json die Monster nicht mehr neu (11–21 Minuten)
+      - name: Held in den Kampfort (1114)
+        run: |
+          D=godot/kampf/daten; mkdir -p $D; touch $D/kauf.txt godot/daten/kauf.txt
+          [ -s godot/daten/held.bin ] || { echo "FEHLER 1114: godot/daten/held.bin fehlt (Block figur weder gebaut noch geholt)"; exit 1; }
+          cp godot/daten/held.bin $D/held.bin
+          # 397: Held mit Pro-Ruhe ist ein Kaufmodell; dann steht daten/held.bin in daten/kauf.txt (Modelle bauen oder geholt mit figur)
+          if grep -qx daten/held.bin godot/daten/kauf.txt; then grep -qx kampf/daten/held.bin $D/kauf.txt || echo kampf/daten/held.bin >> $D/kauf.txt; fi
+          echo "Held im Kampfort: $(stat -c %s $D/held.bin) Bytes, $(grep -cx kampf/daten/held.bin $D/kauf.txt) Zeile in kampf/daten/kauf.txt"
       # 348.12i (Chef 26.10., 19:41, „348.12i B“): gekaufte Modelle nur verschluesselt ins APK, Schluessel je Lauf neu, steht nur im
       # Programm (schluessel.gd), nie im Protokoll. Wer ein Kaufmodell nach godot/daten legt, traegt den Pfad in godot/daten/kauf.txt ein.
       # Erste Kaufmodelle im Spiel: die Dorftiere (Geraetetest, sonst fehlen sie)
