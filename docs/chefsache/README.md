@@ -283,7 +283,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1123 | M | Von Sokrates (1109 C, Chef 13.11., 10:56): Prüfungen auf zwei Bauserver teilen (zweiter La | wartet auf 1115 (startbar) |
 | Pflege | K | von Werkzeug (340.3, 13.11.): 17094 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 19, Muss 15, startbar 2
+**Perikles** – offen 18, Muss 14, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -305,9 +305,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | wartet auf Diogenes (greift?) |
 | 1116 | M? | Von Diogenes (1109): Geldwert der Vorberechnung: Bauserver kostet nichts (öffentliches Rep | startbar |
 | 1117 | M? | D192.1 von Diogenes (zu 1110): Zeile 391 (Sokrates) trägt noch Stand „Chefwort in der Sitz | startbar |
-| 1121 | M | Von Sokrates (t282, 13.11., 10:44): Commit-Prüfung 774 hält t<N> an, wenn Automatik B eine | wartet auf Diogenes (greift?) |
 
-**Diogenes** – offen 13, Muss 11, startbar 5
+**Diogenes** – offen 12, Muss 10, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -321,7 +320,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1122 | M | Von Sokrates (1109 D, Chef 13.11., 10:56): Prüfliste-Test pruefliste_1020 nur noch auf cla | startbar |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
 | 1070 | M | Getestete Prüfliste sofort aus der Chefsache, nicht erst beim Zusammenführen (Chef 12.11., | startbar |
-| 1121 | M | Von Sokrates (t282, 13.11., 10:44): Commit-Prüfung 774 hält t<N> an, wenn Automatik B eine | startbar |
 | 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | startbar |
 | 1098.1 | M | Von Sokrates (Chef 13.11., 09:18, 1098 A, vorher D): nach Fords erstem Neustart über Probe | wartet auf 1098 (wartet) |
 
