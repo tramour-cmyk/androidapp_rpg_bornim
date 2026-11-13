@@ -356,6 +356,7 @@ Seltenheit und Güte sind getrennt: ein gewöhnliches Schwert kann meisterhaft g
 - **Drei Wege:** beim NPC-Handwerker reparieren lassen (Gold, mit gutem Ruf günstiger; er kann nur bis zu seiner eigenen Stufe), selbst reparieren (Material, Werkort, Rang), Notreparatur unterwegs mit Reparaturset (nur teilweise).
 - **Vier Ränge** bestimmen, was der Held selbst reparieren kann: Anfänger (Werkzeug, einfache Waffen, Leder, Stoff), Geselle (Metallwaffen, mittlere Rüstung, Schilde, Bögen), Meister (schwere Rüstung, Meisterwerke), Großmeister (magische Gegenstände, mit Runenkunde).
 - **„Alles reparieren“** mit einem Tippen.
+- **Aussehen:** Spuren an Trachten (Schmutz, Abnutzung) folgen dem Zustand; bis die Abnutzung gebaut ist (Projektplan 3.5), fest „Benutzt“; Falten und Schatten immer voll (558, Chef 04.11., 15:46). Stoff wie Probe 5, keine Vorlage mehr zu Roben oder Stoff (558, 22:21).
 
 ## 12. Namen
 
