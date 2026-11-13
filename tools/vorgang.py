@@ -142,34 +142,55 @@ REST = re.compile(r"noch nicht(?! (?:hat|haben|kennt|gibt|liegt|da ist))|braucht
 # Abläufe); gibt es keinen, der jüngste überhaupt.
 NOTIZ = re.compile(r"^(docs/|CHANGELOG\.md$|CLAUDE\.md$)")
 
+# 1237 (D228.1, Diogenes): DOCS (bornim-main) kennt nur main, meldungen, reaktionen; Baucommits auf claude/build-<n> und den
+# Teamzweigen liegen im Code-Klon daneben (androidapp_rpg_bornim, BORNIM_CODE), darum beide lesen
+def _repos():
+    haupt = os.path.dirname(os.path.dirname(os.path.abspath(DOCS)))
+    out = [DOCS]
+    for c in [os.environ.get("BORNIM_CODE", ""), os.path.join(haupt, "androidapp_rpg_bornim")]:
+        if c and os.path.isdir(os.path.join(c, ".git")) and os.path.realpath(c) != os.path.realpath(os.path.dirname(os.path.abspath(DOCS))):
+            out.append(c)
+    return out
+
+def _commits(nr):
+    """[(Kurzhash, „<Kurzhash>\n<Nachricht>“, Dateien)] der Commits mit der Nummer vorn im Betreff, neueste zuerst, ohne Doppelte."""
+    stuecke, gesehen = [], set()
+    for repo in _repos():
+        try:
+            r = subprocess.run(["git", "-C", repo, "log", "--all", "-n", "40", "-E", "--format=%x1e%h%x1d%ct%n%B%x1f", "--name-only",
+                                "--grep", "^" + nr.replace(".", "\\.") + "([:, ]|$)"], capture_output=True, text=True, timeout=30).stdout
+        except (OSError, subprocess.SubprocessError):
+            continue
+        for teil in r.split("\x1e")[1:]:
+            text, _, namen = teil.partition("\x1f")
+            kopf, _, rest = text.partition("\n")
+            h, _, zeit = kopf.partition("\x1d")
+            betreff = (rest.split("\n") + [""])[0]
+            if h in gesehen or not re.match(re.escape(nr) + r"([:, ]|$)", betreff):   # nur Commits mit der Nummer vorn im Betreff
+                continue
+            gesehen.add(h)
+            stuecke.append((int(zeit or 0), h, (h + "\n" + rest).strip("\n"), [n for n in namen.split("\n") if n.strip()]))
+    stuecke.sort(key=lambda x: -x[0])
+    return [(h, t, d) for _, h, t, d in stuecke]
+
+def bau_commits(nr):
+    """Alle Commits der Nummer, die mehr als Notizen ändern (1237: ein späterer ohne Rest verdeckt den früheren mit Rest nicht)."""
+    return [t for _, t, d in _commits(nr) if any(not NOTIZ.match(n) for n in d)]
+
 def bau_commit(nr):
     """„<Kurzhash>\n<Nachricht>“ des maßgeblichen Commits der Nummer (1175), "" ohne Commit."""
-    try:
-        r = subprocess.run(["git", "-C", DOCS, "log", "--all", "-n", "40", "-E", "--format=%x1e%h%n%B%x1f", "--name-only",
-                            "--grep", "^" + nr.replace(".", "\\.") + "([:, ]|$)"], capture_output=True, text=True, timeout=30).stdout
-    except (OSError, subprocess.SubprocessError):
+    alle = _commits(nr)
+    if not alle:
         return ""
-    stuecke = []
-    for teil in r.split("\x1e")[1:]:
-        text, _, namen = teil.partition("\x1f")
-        dateien = [n for n in namen.split("\n") if n.strip()]
-        text = text.strip("\n")
-        betreff = (text.split("\n") + [""])[1]
-        if not re.match(re.escape(nr) + r"([:, ]|$)", betreff):   # nur Commits mit der Nummer vorn im Betreff (--grep trifft jede Zeile)
-            continue
-        stuecke.append((text, dateien))
-    if not stuecke:
-        return ""
-    for text, dateien in stuecke:
-        if any(not NOTIZ.match(n) for n in dateien):
-            return text
-    return stuecke[0][0]
+    code = bau_commits(nr)
+    return code[0] if code else alle[0][1]
 
 def rest_offen(nr, d=None):
     """[(Quelle, Satz)] der Reste ohne Folgevorgang, leer = fertig darf."""
     funde = []
-    r = bau_commit(nr)
-    if r.strip():
+    for r in (bau_commits(nr) or [bau_commit(nr)]):   # 1237: jeder Code-Commit der Nummer, nicht nur der jüngste
+        if not r.strip():
+            continue
         kopf, _, text = r.partition("\n")
         if re.search(r"Kein Folgevorgang, weil:\s*\S", text):
             text = ""
