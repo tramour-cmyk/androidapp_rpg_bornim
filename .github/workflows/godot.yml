@@ -1594,6 +1594,22 @@ jobs:
           grep -E "SCRIPT ERROR|^FILM1086" $B/pim1086.log | cut -c1-300 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/pim1086.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/pim1086.mp4 || true
           ls -l $B
+      # 1092 (Chef 13.11., 15:58: „warum muss ich den Rock von der Frau in der APK anschauen … sondern einfach einen Film“): Lyras
+      # Robe im Tempel nah, gedreht und im Gehen, Renderer wie am Handy (mobile); tests/film_robe_1092.gd bei „1092 Film“ im Commit
+      - name: Robenfilm (1092)
+        if: ${{ !cancelled() && contains(github.event.head_commit.message, '1092 Film') }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/robe1092; mkdir -p $B
+          cd godot
+          command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
+          sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 \
+            --write-movie $RUNNER_TEMP/robe1092.avi --fixed-fps 30 -s res://tests/film_robe_1092.gd > $B/robe1092.log 2>&1 || true
+          grep -E "SCRIPT ERROR|^FILM1092" $B/robe1092.log | cut -c1-300 || true
+          ffmpeg -loglevel error -y -i $RUNNER_TEMP/robe1092.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast $B/robe1092.mp4 || true
+          ls -l $B
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}     # 453: Filme auch nach rotem Prüfschritt; nie mit bild=nein
         with:
