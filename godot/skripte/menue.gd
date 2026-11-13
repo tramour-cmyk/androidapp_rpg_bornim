@@ -1113,6 +1113,8 @@ func _wechsel_zeile_b(g: Dictionary, platz: String, zu: Callable, de: bool) -> C
 	elif u == -1: wort = "schlechter" if de else "worse"
 	elif u == 0: wort = "gemischt" if de else "mixed"
 	if wort != "": unten += " · " + wort
+	# 521 (Chef 03.11., 23:23, „nicht tragbar“ matt mit dem Grund; seit 644a A die Mindeststufe): wie die Zeile der Tasche
+	if not ok: unten += " · " + ("nicht tragbar" if de else "can't wear")
 	var ul := Stil.zeile(unten, 13, Stil.DIM if ok else Color(Stil.DIM, 0.6))
 	ul.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	ul.custom_minimum_size.x = 60 * DP
