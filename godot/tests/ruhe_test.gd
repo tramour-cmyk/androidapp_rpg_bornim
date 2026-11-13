@@ -32,6 +32,24 @@ func _init() -> void:
 	if gesehen.size() != 2 or gesehen.has("Stehen_3"): fehler += 1; print("FEHLER Ruhe: %s" % gesehen.keys())
 	var nur := spieler(["Stehen"])
 	if Gebiet.ruhe_naechste(nur, "Stehen", z)[0] != "Stehen": fehler += 1; print("FEHLER ohne Kauf")
-	ap.free(); nur.free()
+	# 1044 zurueck (Chef 13.11., 09:35): je Person eigene Ruhebewegungen, keine zwei gleich, nie Muede, jede kommt vor
+	var alle := spieler(["Stehen", "Stehen_2", "Stehen_3", "Gesten", "Ruhe_Tresen", "Ruhe_Trinken", "Ruhe_Weinen", "Ruhe_Greifen"])
+	var mengen := {}
+	for id in HeldFigur.RUHE_JE:
+		var l: Array = HeldFigur.ruhe_von(id)
+		var sortiert: Array = l.slice(1); sortiert.sort()
+		var k := ",".join(PackedStringArray(sortiert))
+		if mengen.has(k): fehler += 1; print("FEHLER %s und %s haben dieselben Ruhebewegungen %s" % [id, mengen[k], k])
+		mengen[k] = id
+		if l[0] != "Stehen" or l.has("Stehen_3"): fehler += 1; print("FEHLER %s: %s" % [id, l])
+		var seen := {}
+		jetzt = "Stehen"
+		for i in 200:
+			var r := Gebiet.ruhe_naechste(alle, jetzt, z, l)
+			jetzt = String(r[0]); seen[jetzt] = true
+		for n in l:
+			if not seen.has(n): fehler += 1; print("FEHLER %s: %s kommt nie" % [id, n])
+		if seen.size() != l.size(): fehler += 1; print("FEHLER %s: fremde Ruhe %s" % [id, seen.keys()])
+	ap.free(); nur.free(); alle.free()
 	print("RUHE %d Fehler" % fehler)
 	quit(1 if fehler else 0)

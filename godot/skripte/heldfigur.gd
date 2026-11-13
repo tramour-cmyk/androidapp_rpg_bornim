@@ -917,6 +917,22 @@ static func person_modell(id: String) -> String:
 # 1044 zurueck bis auf Lyra (Chef 13.11., 09:35: „Hände vorne, Quatsch. Macht vielleicht die Priesterin, aber alle anderen können doch
 # ganz normal stehen“): Damenstand nur Lyra; die anderen wieder normaler Stand mit Ruhebewegung (je Figur eigene folgt im Neubau)
 const DAMEN := ["lyra"]
+# 1044 zurueck (Sokrates nach Chef 09:35: „je Figur eine eigene, passend zum Wesen in LISTE-FIGUREN … keine zwei gleich“): neben
+# Stehen (Idle_Loop mit eigenem Atem, Gebiet.atem_an) die Ruhebewegungen je Person aus der UAL Pro (held_klassen.py BEWEGUNGEN):
+# Stehen_2 Umsehen, Gesten Reden, Ruhe_Tresen (Counter_Idle_Loop, die Haende auf dem Tresen), Ruhe_Trinken (Drink), Ruhe_Weinen
+# (Crying), Ruhe_Greifen (Interact). Alt (MapFolk.kt 424-490): eigene Schleifen hatten nur Garrick (Haende am Feuer waermen, in den
+# Wald spaehen) und Rowena hinter dem Tresen (wischen, einschenken), alle anderen ruhten gleich; uebernommen: Garrick spaeht und greift
+# zum Feuer, Rowena und Thessa stehen am Tresen (karten.json: beide hinter der Tresenreihe K); besser: jede Person eine eigene Auswahl.
+# Aldric wuerdevoll, besorgt: umsehen, reden. Osric sanft, Hand wie zum Segen: greifen, umsehen. Jorin Wache: umsehen. Thessa
+# geschaeftstuechtig: Tresen, reden, greifen. Borin Becher: trinken. Garrick wortkarg am Feuer: umsehen, greifen, trinken. Morwen
+# verschlossen, Kraeuter: greifen. Gwenna trauernd: weinen, umsehen. Pim neugierig: greifen, reden, umsehen. Bram bodenstaendig:
+# greifen, trinken. Liska klatschfreudig: reden. Lyra (Damenstand) wie bisher
+const RUHE_JE := {"aldric": ["Stehen_2", "Gesten"], "rowena": ["Ruhe_Tresen", "Gesten"], "osric": ["Ruhe_Greifen", "Stehen_2"],
+	"jorin": ["Stehen_2"], "thessa": ["Ruhe_Tresen", "Gesten", "Ruhe_Greifen"], "borin": ["Ruhe_Trinken"],
+	"garrick": ["Stehen_2", "Ruhe_Greifen", "Ruhe_Trinken"], "morwen": ["Ruhe_Greifen"], "gwenna": ["Ruhe_Weinen", "Stehen_2"],
+	"pim": ["Ruhe_Greifen", "Gesten", "Stehen_2"], "bram": ["Ruhe_Greifen", "Ruhe_Trinken"], "liska": ["Gesten"]}
+static func ruhe_von(id: String) -> Array:
+	return ["Stehen"] + RUHE_JE.get(id, Gebiet.RUHE.slice(1))
 
 static func person(id: String, mats: Array) -> Node3D:
 	var mo := person_modell(id)
