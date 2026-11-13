@@ -8,6 +8,13 @@ func _initialize() -> void: _lauf.call_deferred()
 
 func _bild(n: String) -> void:
 	for i in 40: await process_frame
+	# 1212 (t284, 284.3a: der Teller drehte, das Bild zeigte den Helden von rechts, die Fackel verdeckt): stehend, von vorn etwas zur
+	# linken Seite gedreht (rund 30 Grad), so dass Gesicht und Fackelhand zu sehen sind
+	for d in root.find_children("*", "SubViewportContainer", true, false):
+		if not d is Drehteller: continue
+		d.dreht = false
+		if d.teller: d.teller.rotation.y = -0.5
+	for i in 4: await process_frame
 	await RenderingServer.frame_post_draw
 	var aus := OS.get_environment("BILD1140_AUS")
 	if aus == "": aus = OS.get_user_data_dir()

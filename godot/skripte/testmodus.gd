@@ -99,6 +99,34 @@ static var probe_stufe := 3
 static var merker_auf := false
 static var bericht_auf := false
 static var alles_sichtbar := false      # 555 wie alt Game.seeAll; wirkt mit dem Nebel (505, nebel.gd)
+# 1145 (Chef 13.11., 14:35: Hoehle „fühlt sich ein bisschen hackelig an“, Bilder/s 45 bei 90 Hz): am Geraet messen, was die Zeit
+# frisst; je Teil einzeln aus, nicht gespeichert (nach dem Neustart wieder alles an)
+static var ohne_tusche := false
+static var ohne_tuschelampen := false
+static var ohne_nebel := false
+static var ohne_schatten := false
+static var _leistung_war := false
+
+## 1145: die Schalter „Messen ohne …“ auf Kamera (Tusche, Tuschelampen, Nebel) und alle Lichter (Schatten) anwenden; laeuft nur,
+## solange einer aus ist, und einmal danach zum Zuruecksetzen
+static func leistung_anwenden(tree: SceneTree) -> void:
+	var aus := ohne_tusche or ohne_tuschelampen or ohne_nebel or ohne_schatten
+	if not aus and not _leistung_war: return
+	_leistung_war = aus
+	var args := OS.get_cmdline_user_args()
+	var kam := tree.root.get_viewport().get_camera_3d()
+	if kam is Kamera:
+		var k := kam as Kamera
+		k.lampen_an = not ohne_tuschelampen and not "--tuschelampen=0" in args
+		for c in k.get_children():
+			if not (c is MeshInstance3D and (c as MeshInstance3D).material_override is ShaderMaterial): continue
+			var m := (c as MeshInstance3D).material_override as ShaderMaterial
+			if m in k.tusche_mats: (c as MeshInstance3D).visible = not ohne_tusche and not "--ohnetusche" in args
+			elif m.shader and m.shader.resource_path.ends_with("nebel.gdshader"): (c as MeshInstance3D).visible = not ohne_nebel
+	for n in tree.root.find_children("*", "Light3D", true, false):
+		var l := n as Light3D
+		if not l.has_meta("schatten_1145"): l.set_meta("schatten_1145", l.shadow_enabled)
+		l.shadow_enabled = bool(l.get_meta("schatten_1145")) and not ohne_schatten
 const ZOOM_KACHELN := [0.0, 5.6, 6.75, 8.4, 10.5]   # 555 wie alt MapZoom.levels (Kacheln quer); 0 = wie unter Bedienung „Karte“
 
 # 555 Merker der Geschichte in der Folge von Kapitel 1 (Geschichte.gd), mit kurzem Namen zum Ansehen und Setzen
@@ -166,6 +194,9 @@ static var probe_herkunft := "Wachsoldat"
 static var probe_volk := "Mensch"
 static var probe_waffe := "*"           # Grundform, "" ohne Waffe, "*" wie die Herkunft
 static var probe_neben := "*"           # NEBENHAND oder "*"
+# 964 (Fund t284.5, Chef 13.11., 20:47: „Beute erzeugen“ gab 30–40 Mal kein Kettenhemd): Brustrüstung der Lage („ruestung=chain_shirt“),
+# "*" wie die Herkunft, "" ohne; nur über die Prüfliste, im Reiter kein eigener Knopf
+static var probe_ruestung := "*"
 static var probe_soeldner := ""         # "*" wie der Held, "" keiner, sonst Herkunft; 947 (Chef 11.11., t276.12): keiner wie in Kapitel 1 (168 D: Söldner ab K3)
 static var probe_tasche := "zwei"
 static var probe_leben := "voll"
@@ -223,7 +254,14 @@ static func probe_ausstatten(h: BrsHeld) -> void:
 			var g: Dictionary = neu.call(probe_neben)
 			if Beute.ist_waffe(Beute.grundform(probe_neben)): h.anlegen_nebenhand(g)
 			else: h.anlegen(g)
+	if probe_ruestung != "*":
+		h.ablegen("CHEST")
+		if probe_ruestung != "": h.anlegen(neu.call(probe_ruestung))
 	h.voll()
+
+## 964: Grundformen, die als Brustrüstung angelegt werden (für „ruestung=“ der Lage)
+static func brustruestungen() -> Array:
+	return Beute.grundformen().filter(func(id): var b := Beute.grundform(String(id)); return String(b["art"]) == "ARMOR" and String(b["slot"]) == "CHEST")
 
 static func probe_waffen() -> Array:
 	var alle: Array = ["*", ""]
@@ -328,6 +366,13 @@ static func reiter(m: Menue) -> void:
 			func(): standort = not standort, "PIN", "", standort),
 		zk.call(t.call("Klang", "Sound"), an_aus.call(klang), t.call("Zeigt über der Welt die letzten Geräusche: spielt, verklungen, abgebrochen oder nicht gestartet.", "Shows the latest sounds over the world: playing, finished, cut off or not started."),
 			func(): klang = not klang, "SOUND", "", klang)])
+	# 1145: messen, was die Bildzeit frisst; mit „Bildrate“ zeigt die Welt dazu Grafik- und Rechenzeit je Bild und den Bildschirmtakt
+	var mess_satz: String = t.call("Nur zum Messen mit „Bildrate“: schaltet diesen Teil des Bildes ab, bis du ihn wieder anschaltest oder das Spiel neu startest.",
+		"For measuring with “Frame rate” only: turns this part of the picture off until you turn it on again or restart the game.")
+	m.zeichenreihe([zk.call(t.call("Tusche", "Ink"), an_aus.call(not ohne_tusche), mess_satz, func(): ohne_tusche = not ohne_tusche, "", "✒", not ohne_tusche),
+		zk.call(t.call("Tusche nach Lampen", "Ink by lamps"), an_aus.call(not ohne_tuschelampen), mess_satz, func(): ohne_tuschelampen = not ohne_tuschelampen, "", "✒", not ohne_tuschelampen),
+		zk.call(t.call("Nebel", "Fog"), an_aus.call(not ohne_nebel), mess_satz, func(): ohne_nebel = not ohne_nebel, "", "▒", not ohne_nebel),
+		zk.call(t.call("Schatten", "Shadows"), an_aus.call(not ohne_schatten), mess_satz, func(): ohne_schatten = not ohne_schatten, "", "◐", not ohne_schatten)])
 	m.geraet_box()
 	m.luecke(6)
 	m.gruppe(t.call("Held · Stufe %d", "Hero · level %d") % hw.stufe)   # 425 (Pruefer 01.11.): die Stufe einmal, nicht unter „+1“
@@ -591,7 +636,7 @@ const LAGE_TASCHEN := ["zwei", "keine", "voll"]
 const LAGE_LEBEN := ["voll", "halb", "knapp"]
 const LAGE_EROEFFNUNGEN := ["NORMAL", "AMBUSHED", "HERO_FIRST"]
 const LAGE_SCHLUESSEL := ["station", "ort", "uhr", "merker", "stufe", "vorraete", "einmaliges", "probe", "held", "herkunft", "volk", "pstufe",
-	"waffe", "neben", "soeldner", "tasche", "leben", "zeit", "zug", "ausweichen", "eroeffnung", "kampfort", "ruhig"]   # 542: ruhig = Monster beachten nicht
+	"waffe", "neben", "ruestung", "soeldner", "tasche", "leben", "zeit", "zug", "ausweichen", "eroeffnung", "kampfort", "ruhig"]   # 542: ruhig = Monster beachten nicht
 
 ## Minuten seit Mitternacht aus „HH:MM“ (oder „HH“), -1 bei falscher Form
 static func lage_uhr(s: String) -> int:
@@ -623,11 +668,16 @@ static func lage_fehler(l: Dictionary) -> Array:
 	for k in ["stufe", "pstufe"]:
 		if l.has(k) and not String(l[k]).is_valid_int(): f.append("%s=%s keine Zahl" % [k, l[k]])
 	in_.call("probe", feinde(true).keys())
+	# 1180 (D209.2 Diogenes): der Reiter Probekampf bietet nur Gruppen mit Modell (feinde(), 555); ohne Modell startete die Lage den
+	# Kampf mit einem falschen Monster und galt doch als herstellbar
+	if l.has("probe") and feinde(true).has(String(l["probe"])) and not gruppe_da(String(l["probe"])):
+		f.append("probe=%s: Gruppe ohne Modell (%s), im Reiter Probekampf nicht wählbar" % [l["probe"], feinde(true)[String(l["probe"])]])
 	in_.call("held", PROBE_HELDEN)
 	in_.call("herkunft", BrsHeld.herkuenfte())
 	in_.call("volk", BrsHeld.voelker())
 	in_.call("waffe", probe_waffen())
 	in_.call("neben", ["*"] + NEBENHAND)
+	in_.call("ruestung", ["*", ""] + brustruestungen())
 	in_.call("soeldner", ["*", ""] + BrsHeld.herkuenfte())
 	in_.call("tasche", LAGE_TASCHEN)
 	in_.call("leben", LAGE_LEBEN)
@@ -647,6 +697,7 @@ static func lage_probe(l: Dictionary) -> Array:
 	if l.has("pstufe"): probe_stufe = int(l["pstufe"])
 	probe_waffe = String(l.get("waffe", "*"))
 	probe_neben = String(l.get("neben", "*"))
+	probe_ruestung = String(l.get("ruestung", "*"))
 	probe_soeldner = String(l.get("soeldner", ""))
 	probe_tasche = String(l.get("tasche", "zwei"))
 	probe_leben = String(l.get("leben", "voll"))

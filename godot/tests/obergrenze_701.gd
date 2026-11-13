@@ -21,6 +21,18 @@ func texte(zeilen: Array) -> Array:
 func _lauf() -> void:
 	Sprache.lade()
 	if Sprache.aktiv() != "de": Sprache.wechsle()
+	# 644b A (Chef 12.11., 13:40): kein Deckel mehr in werte.json; dann steht nirgends „Obergrenze“. Die Anzeige aus 701 bleibt für den
+	# Fall, dass ein Deckel zurückkommt: geprüft mit dem alten Deckel, nur in diesem Test eingesetzt
+	var deckel_jetzt = BrsHeld.lade().get("gegenstaende", {}).get("deckel", {})
+	pruefe(deckel_jetzt is Dictionary and deckel_jetzt.is_empty(), "644b: werte.json ohne Deckel (%s)" % [deckel_jetzt])
+	for klasse in ["Wachsoldat", "Zauberlehrling"]:
+		var z0 := Zustand.new()
+		var h0 := BrsHeld.fuer_spiel("Thora", "Mensch", klasse, z0.neue_uid)
+		h0.anlegen({"uid": z0.neue_uid.call(), "base": "amulet", "rarity": "RARE", "ilvl": 1, "plus": 0, "rolls": [["ALL_STATS", 1]], "unique": null, "name_seed": 0})
+		var r0 := z0.ausruestung_dazu({"uid": 0, "base": "ring", "rarity": "RARE", "ilvl": 1, "plus": 0, "rolls": [["ALL_STATS", 1]], "unique": null, "name_seed": 0})
+		var o0 := texte(Menue.stueck_zeilen_b(h0, r0) + Menue.stueck_zeilen_von(h0, r0)).filter(func(t): return t.contains("Obergrenze"))
+		pruefe(o0.is_empty(), "%s ohne Deckel: kein „Obergrenze“ (%s)" % [klasse, str(o0)])
+	BrsHeld.lade()["gegenstaende"]["deckel"] = {"STR": [1, 0], "DEX": [1, 0], "CON": [1, 0], "INT": [1, 0], "WIS": [1, 0], "CHA": [1, 0], "AC": [1, 1]}
 	for klasse in ["Wachsoldat", "Zauberlehrling"]:
 		var z := Zustand.new()
 		var hw := BrsHeld.fuer_spiel("Thora", "Mensch", klasse, z.neue_uid)

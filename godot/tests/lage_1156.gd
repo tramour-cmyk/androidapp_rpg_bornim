@@ -52,6 +52,16 @@ func _lauf() -> void:
 		Testmodus.lage_probe({"probe": g})   # Rest wieder wie vorgegeben
 		pruefe(Testmodus.probe_tasche == "zwei" and Testmodus.probe_zug == "" and not Testmodus.probe_ausweichen and Testmodus.probe_waffe == "*", "Vorgaben nicht zurück")
 		Testmodus.eroeffnung = "NORMAL"
+		# 964 (Fund t284.5): Zauberlehrling im Kettenhemd über die Lage; Metall sperrt dann Evokation, Illusion, Beschwörung
+		var lr := {"probe": g, "held": "test", "herkunft": "Zauberlehrling", "ruestung": "chain_shirt"}
+		pruefe(Testmodus.lage_fehler(lr).is_empty(), "Lage mit ruestung abgelehnt: %s" % [Testmodus.lage_fehler(lr)])
+		pruefe(not Testmodus.lage_fehler({"probe": g, "ruestung": "longsword"}).is_empty(), "ruestung=longsword angenommen")
+		Testmodus.lage_probe(lr)
+		var hr: BrsHeld = Testmodus.probe_aufbau("Zauberlehrling", 3)["held"]
+		var br = hr.ding("CHEST")
+		pruefe(br is Dictionary and String(br["base"]) == "chain_shirt" and BrsHeld.metall("chain_shirt"), "Lage ruestung: Brust %s" % [br])
+		Testmodus.lage_probe({"probe": g})
+		pruefe(Testmodus.probe_ruestung == "*", "ruestung nicht zurück")
 		pruefe(Testmodus.lage_text({"station": "Garrick", "uhr": "20:30", "probe": g}, true) == "Station Garrick · 20:30 Uhr · Probekampf " + String(fs[g]),
 			"lage_text: %s" % Testmodus.lage_text({"station": "Garrick", "uhr": "20:30", "probe": g}, true))
 	pruefe(Testmodus.lage_probe({"uhr": "10:00"}).is_empty(), "lage_probe ohne probe nicht leer")

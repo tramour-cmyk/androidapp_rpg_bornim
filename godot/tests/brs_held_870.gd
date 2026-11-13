@@ -68,12 +68,12 @@ func _lauf() -> void:
 	pruefe("989: Wille Heilmagie", [" ".join(Menue.erklaerung(w, "wille")).contains("Heilmagie"), BrsKampf.zauber_grundwert("Heilmagie")], [true, "wille"])
 	Sprache.lang = sprache_vor
 	pruefe("jeder darf alles tragen", w.kann_tragen({"uid": 1, "base": "plate", "rarity": "COMMON", "ilvl": 1, "plus": 0, "rolls": []}), true)
-	# Zusatzeigenschaft auf einen Grundwert wirkt, im Kapitel gedeckelt (Kapitel 1: +1)
+	# Zusatzeigenschaft auf einen Grundwert wirkt ganz (644b A, Chef 12.11.: kein Deckel mehr; vorher im Kapitel 1 nur +1)
 	var zaeh := w.wert("zaehigkeit")
 	var leben := w.max_leben()
 	w.anlegen({"uid": 9, "base": "ring", "rarity": "RARE", "ilvl": 3, "plus": 0, "rolls": [["CON", 2]], "unique": null})
-	pruefe("Ring +2 Zaehigkeit wirkt +1 (Kapitel 1)", [w.wert("zaehigkeit"), w.ausruestung_gedeckelt("zaehigkeit")], [zaeh + 1, true])
-	pruefe("Leben mit dem Ring", w.max_leben(), leben + int(hd["leben_je_zaehigkeit"]))
+	pruefe("Ring +2 Zaehigkeit wirkt +2 (ohne Deckel)", [w.wert("zaehigkeit"), w.ausruestung_gedeckelt("zaehigkeit")], [zaeh + 2, false])
+	pruefe("Leben mit dem Ring", w.max_leben(), leben + 2 * int(hd["leben_je_zaehigkeit"]))
 	# Leben der Welt = Leben im Kampf (kein Umrechnen mehr), Blatt ohne Klasse, mit Kampfblatt nach BRS
 	var b := AufrufS.blatt(w, AufrufS.ersatzwaffe(w))
 	pruefe("Blatt ohne Klasse", b.has("cls"), false)

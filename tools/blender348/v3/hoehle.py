@@ -689,7 +689,11 @@ def ausgang():
     # Lauf 1 (Pruefer: Lichtfleck ohne Quelle, Ausgang nicht zu sehen): Licht mit Schatten (faellt nicht durch den Fels in andere
     # Raeume), dazu draussen hell der Ausblick: Himmel_… leuchtet tags (gebiet.gd), nachts nur schwach
     # Abgleich (alt EXIT 3,4 Kacheln; Pruefer Lauf 2: Weisse Waende in Teich und Westfluegel): Reichweite wie alt, Kegel enger
-    LICHTER.append(dict(art='tageslicht', pos=[x, ty(NR + AUSSEN - 1), 300], ziel=[x, ty(NR - 2), 0], kraft=0.8, reich=6.5, winkel=26))
+    # 1091 (Chef 13.11., 15:53: „einen hellen Ausgang sehe ich de facto mal auf jeden Fall nicht. So ein Hauch von Licht vorne.“):
+    # das Licht stand drei Kacheln draussen und reichte nur bis zur Zeile NR - 3 (gerechnet am Boden mittags 0,41 an der
+    # Ausgangskachel, zwei Kacheln hinein 0,03); jetzt wie alt (EXIT 3,4 Kacheln um die Ausgangskachel): eine Kachel draussen,
+    # weiter und breiter, bis in die erste Zeile des Raums vor dem Gang (Test tageslicht_1091)
+    LICHTER.append(dict(art='tageslicht', pos=[x, ty(NR + 1), 300], ziel=[x, ty(NR - 3), 0], kraft=1.2, reich=9.0, winkel=40))
     # Ausblick am Ende des Gangs (alt MapEdge: draussen bleibt es hell): Lauf 2 stand er mit dem Ruecken zur Kamera (unsichtbar)
     # Lauf 1 (Pruefer: grosse hellgruene Flaeche ohne Quelle): kein stehender Ausblick mehr; draussen liegt der Boden im Tageslicht
     # (alt: goldener Boden am Ausgang, EXIT FFF4D8), eine Handbreit ueber dem Grund, leuchtet von selbst, nach aussen heller
@@ -701,8 +705,9 @@ def ausgang():
                     x0 = tx(c) + TS * i / 4; x1 = x0 + TS / 4; y0 = ty(r) - TS * j / 4; y1 = y0 - TS / 4
                     q = [Vector((x0, y1, 1.2)), Vector((x1, y1, 1.2)), Vector((x1, y0, 1.2)), Vector((x0, y0, 1.2))]
                     # 505 (Pruefer 16:01: „hart umrandetes Rechteck mit fleckigem Muster, wie eine kaputte Textur“): ohne Rauschen, nach
-                    # aussen gleichmaessig heller, zu den Seiten weich ins Dunkel (keine Kante an den Waenden des Gangs)
-                    add_face(H, q, lambda p, n: sc(mixc(lin(0x8A7A50), lin(0xFFF4D8), mund_naehe(p)), (0.012 + 0.07 * mund_naehe(p) ** 1.5)
+                    # aussen gleichmaessig heller, zu den Seiten weich ins Dunkel (keine Kante an den Waenden des Gangs); 1091 (Chef 13.11.,
+                    # 15:57: „identisch … egal ob 12 Uhr mittags oder 22 Uhr abends“): tags hell wie Boden im Tageslicht (0,08 -> 0,34)
+                    add_face(H, q, lambda p, n: sc(mixc(lin(0x8A7A50), lin(0xFFF4D8), mund_naehe(p)), (0.02 + 0.32 * mund_naehe(p) ** 1.5)
                                                   * (1.0 - ss(0.35, 1.0, abs(p.x - x) / (TS * len(MUND) / 2)))), 'weiss')
     P = part('Ding_' + stueck(MUND[0], NR - 1))
     for k in range(40 * len(MUND)):                                                           # Laub, vom Wind hereingeweht (alt 40 je Kachel)

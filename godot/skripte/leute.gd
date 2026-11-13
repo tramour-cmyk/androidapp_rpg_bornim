@@ -769,6 +769,11 @@ func streife() -> void:
 		warte = zufall.randf_range(tp[0], tp[1])
 		pause = "Fressen" if anim and anim.has_animation("Fressen") and zufall.randf() < tp[2] else "Stehen"
 		ruhe_bis = -1.0
+	# 1212 (Lauf 450, ziege_4162: die Ziege trat von selbst auf die Kachel vor dem Helden und wurde danach doch geschoben; 416.2
+	# „Ziege wird geschoben, kein Platztausch“): steht der Held hoechstens zwei Kacheln weit, tritt niemand von selbst los; kommt er
+	# heran, tauscht sie mit ihm den Platz (weiche)
+	var h0 := held_kachel()
+	if absi(h0.x - kachel.x) + absi(h0.y - kachel.y) <= 2: return
 	# 591: nach der Flucht weiter weg als sonst: Schritt fuer Schritt heim (MapHen IDLE: „far from home it goes back first“)
 	if absi(kachel.x - heim.x) + absi(kachel.y - heim.y) > streifen_n:
 		var h := Vector2i(signi(heim.x - kachel.x), signi(heim.y - kachel.y))

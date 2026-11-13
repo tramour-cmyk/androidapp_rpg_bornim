@@ -20,7 +20,8 @@ Schreiben (Chef 27.10., 15:20: nur über dieses Werkzeug; danach committen und p
   vorgang.py bautest NR LAUF           Diogenes bestätigt „ohne dich“ am Lauf der APK (Laufnachweis, grün): „erledigt, Bautest Lauf N“ (1128 A)
   vorgang.py build N --mit NR,NR …     Testbuild N trägt diese Vorgänge: Build N, Stand „zu testen“
   vorgang.py build N [--datei PFAD] [--probe]   Automatik B nach dem Test des Chefs: liest die Prüfliste ansehen/tN-….md (auch gelöscht,
-                                       aus Git) mit Abschnitt „## Ergebnis“ („- N.k ✓“, „- N.k ✗ <Fund>“, „- Rest ✓“) oder Spalte „Chef“;
+                                       aus Git) mit Abschnitt „## Ergebnis“ („- N.k ✓“, „- N.k ✗ <Fund>“, „- Rest ✓“) oder Spalte „Chef“,
+                                       dazu 👍/👎 des Chefs auf „tN.k:“-Meldungen für Punkte ohne Ergebnis (1217; „Rest ✓“ gilt danach);
                                        je Vorgang mit Build N: alle Punkte ✓ → erledigt; ein ✗ → startbar mit dem Fund (Absatz „Zu NR, von Chef
                                        (Fund tN.k …)“ beim Besitzer); ohne Rückmeldung → „zu testen“ ohne Build (in die nächste Prüfliste).
                                        Genannte Nummern ohne Build N bleiben unverändert (D80.1). Erst danach den Archiveintrag tN
@@ -400,8 +401,8 @@ def nummern(zelle):
         elif re.fullmatch(r"\s*D?\d+[a-z0-9.]*\s*", teil): aus.append(teil.strip())
     return aus
 
-def ergebnisse(n, text):
-    """{Testnummer: (Vorgänge, Ergebnis ✓|✗|None, Fund)}."""
+def ergebnisse(n, text, telegram=False):
+    """{Testnummer: (Vorgänge, Ergebnis ✓|✗|None, Fund)}; telegram: 👍/👎 vor „Rest“ (1217)."""
     punkte = {}
     for kopf, zs in startbar.tabellen(text):
         if "Nr." not in kopf: continue
@@ -424,6 +425,7 @@ def ergebnisse(n, text):
             if k.lower() == "rest": rest = e; continue
             if k in punkte: punkte[k][1:] = [e, f.strip(" :–-")]
             else: punkte.setdefault("Nr " + k, [[k], e, f.strip(" :–-")])
+    if telegram: telegram_ergebnisse(n, text, punkte)
     if rest:
         for k, v in punkte.items():
             if v[1] is None: v[1] = rest
@@ -446,9 +448,35 @@ def zu_absatz(besitzer, nr, kopf, text):
     else: t += "\n\n" + zeile
     schreiben(datei, t + "\n")
 
+def falsch_spalte(n, text):
+    """1217: {Testnummer: Text der Spalte „Falsch“} für den Fund aus einem 👎."""
+    aus = {}
+    for kopf, zs in startbar.tabellen(text):
+        if "Falsch" not in kopf: continue
+        i = kopf.index("Falsch")
+        for _, t in zs:
+            m0 = re.match(r"(%s\.\d+[a-z]?)(?![0-9a-z.])" % n, t[0])
+            if m0 and i < len(t): aus[m0.group(1)] = re.sub(r"\*\*|`", "", t[i]).strip()
+    return aus
+
+def telegram_ergebnisse(n, text, punkte):
+    """1217 (Chef 13.11., 20:01: „Däumchen hoch …, wenn es passt … Däumchen runter“): 👍/👎 auf „t<n>.<Punkt>:“-Meldungen als ✓/✗
+    der Punkte ohne Ergebnis; ein Ergebnis im Abschnitt „## Ergebnis“ oder in der Spalte „Chef“ geht vor."""
+    try:
+        import reaktionen
+        tg = reaktionen.pruefpunkte(n)
+    except Exception as e:
+        print("vorgang.py: Telegram nicht gelesen (%s), nur die Prüfliste" % str(e)[:80]); return
+    fs = falsch_spalte(n, text)
+    for k, (e, mid, wann) in sorted(tg.items()):
+        if k not in punkte or punkte[k][1] is not None: continue
+        wo = "%s auf Telegram, %s, Nachricht %s" % ("👎" if e == "✗" else "👍", wann[11:], mid)
+        punkte[k][1:] = [e, ("nicht bestanden (%s); Zeile „Falsch“: %s; was der Chef dazu schrieb, geht vor" % (wo, fs.get(k) or "ohne Text")) if e == "✗" else wo]
+        print("vorgang.py: %s %s aus Telegram (Nachricht %s)" % (k, e, mid))
+
 def build_abschluss(n, datei=None, probe=False):
     pfad, text = pruefliste(n, datei)
-    punkte = ergebnisse(n, text)
+    punkte = ergebnisse(n, text, telegram=True)
     if not any(v[1] for v in punkte.values()):
         sys.exit("vorgang.py: Prüfliste %s ohne Ergebnis (Abschnitt „## Ergebnis“ mit „- %s.k ✓|✗ <Fund>“ und „- Rest ✓“, oder Spalte „Chef“)" % (pfad, n))
     je = {}
@@ -458,7 +486,13 @@ def build_abschluss(n, datei=None, probe=False):
     # D80.1: nur die Vorgänge des Builds (Feld Build = N, eingetragen mit build N --mit); in der Prüfliste genannte Nummern ohne Build N
     # bleiben, wie sie sind (Hinweis unten), sonst fielen startbare Zeilen anderer Arbeit aus der Rechnung
     betroffen = [d for d in zs if d.get("build") == str(n) and d["wort"] != "erledigt"]
-    fremd = sorted({d["nr"] for d in zs if d["nr"] in je and d.get("build") != str(n) and d["wort"] != "erledigt"})
+    # 1220 (D222.1: 👎 auf 284.7c, 284.7p trafen 709 nicht, 15 Punkte ohne Build 284): ein genannter Vorgang „gebaut“ oder „zu testen“
+    # ohne Build-Nummer wartet auf genau diesen Test und zählt mit; andere (startbar, in Arbeit, anderer Build) bleiben wie in D80.1
+    nach = [d for d in zs if d["nr"] in je and not re.fullmatch(r"\d+", str(d.get("build") or "")) and d["wort"] in ("gebaut", "zu testen")
+            and d not in betroffen]
+    if nach: print("%s nachgezogen in Build %s (gebaut/zu testen ohne Build, 1220): %s" % ("PROBE" if probe else "BUILD", n, ", ".join(d["nr"] for d in nach)))
+    betroffen += nach
+    fremd = sorted({d["nr"] for d in zs if d["nr"] in je and d not in betroffen and d["wort"] != "erledigt"})
     if not betroffen: sys.exit("vorgang.py: kein Vorgang mit Build %s in der Liste; erst vorgang.py build %s --mit <Nr,…>%s" % (n, n, ("; in der Prüfliste genannt: " + ", ".join(fremd)) if fremd else ""))
     aus = []
     for d in betroffen:

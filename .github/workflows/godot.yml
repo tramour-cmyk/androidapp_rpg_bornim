@@ -287,6 +287,14 @@ jobs:
             ls -l $RUNNER_TEMP/klassen_alt/held_*.glb || true
           fi
           python3 tools/godot/kauf_cache.py merke klassen
+      - name: Kauf-Cache leute nochmal (1194)
+        if: env.KAUF_LEUTE != 'treffer'
+        env:
+          GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
+        run: |
+          # 1194: legte ein gleichzeitiger Lauf den Block inzwischen ab, holen statt bauen (Lauf 442 baute 43 min, was 438 schon abgelegt hatte)
+          python3 -c "import yaml" 2> /dev/null || python3 -m pip install -q pyyaml
+          python3 tools/godot/kauf_cache.py nochmal leute --env $GITHUB_ENV || true
       - name: Leute bauen (Dorf)
         run: |
           # 1115 (Diogenes D191.5: 9–11 min in jedem Lauf, nie abgelegt): Block leute (Leute und Waffen, kauf_cache.py); ein Treffer
@@ -358,6 +366,14 @@ jobs:
         run: |
           python3 -c "import yaml" 2> /dev/null || python3 -m pip install -q pyyaml   # 854: nach setup-python ohne yaml (Lauf 335)
           python3 tools/godot/kauf_cache.py holen
+      - name: Kauf-Cache kampf nochmal (1194)
+        if: env.KAUF_KAMPF != 'treffer'
+        env:
+          GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
+        run: |
+          # 1194: legte ein gleichzeitiger Lauf den Block inzwischen ab, holen statt bauen (Lauf 442 baute 43 min, was 438 schon abgelegt hatte)
+          python3 -c "import yaml" 2> /dev/null || python3 -m pip install -q pyyaml
+          python3 tools/godot/kauf_cache.py nochmal kampf --env $GITHUB_ENV || true
       - name: Kampfort bauen (Jerry 348.7, 399.1)
         if: env.KAUF_KAMPF != 'treffer'
         run: |
@@ -613,6 +629,7 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/raster_998.gd 2>&1 | grep -E "RASTER998|SCRIPT ERROR"   # 998 Kampfraster kräftiger wie 229.3
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/titel_585.gd 2>&1 | grep -E "TITEL585|SCRIPT ERROR"   # 585 Titel ausgewogen umgebrochen
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/sterben_596.gd 2>&1 | grep -E "STERBEN596|SCRIPT ERROR"   # 596 Sterben gespiegelt
+          set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/tod_1141.gd 2>&1 | grep -E "TOD1141|SCRIPT ERROR"   # 1141 jeder Gegnerkörper hat „Tod“, Goblins drei, liegend und verschieden
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/pfeil_601.gd 2>&1 | grep -E "PFEIL601|SCRIPT ERROR"   # 601 Pfeil auch beim Ducken
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/am_zug_565.gd 2>&1 | grep -E "^(FEHLER|AMZUG565)|SCRIPT ERROR"   # 565 A Kasten am Zug
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/schirm_833.gd 2>&1 | grep -E "^(FEHLER|SCHIRM833|Gegnerzug)|SCRIPT ERROR"   # 833 Vorschlag A unterer Kampfschirm
@@ -622,6 +639,7 @@ jobs:
           set -o pipefail; timeout 400 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/tausch_1041.gd 2>&1 | grep -E "^(FEHLER|TAUSCH1041|hero:|merc:|Abstand)|SCRIPT ERROR"   # 1041 Platztausch im selben Takt (Jägerkind/Wachsoldat); Umriss und Paar des Chefs mit 1072 (Bahnen), 1106
           nebenher zustaende_563 'set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/zustaende_563.gd 2>&1 | grep -E "^(ZUSTAND563|Zustand|Leiste)|SCRIPT ERROR"'   # 563 A Zustände ohne Überlappen
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/tritt_1040.gd 2>&1 | grep -E "^(TRITT1040|Tritt|FEHLER)|SCRIPT ERROR"   # 1040 Monster der Geschichte tritt beim Wenden, auch wenn es dem Helden folgt
+          GEGNER=GRAK,KROGG,SKELETONS,BOARS,GRABHUNDE,GOBLINS timeout 400 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/tod_lage_1141.gd 2>&1 | grep -E "^TODLAGE1141|SCRIPT ERROR" | cut -c1-260 || true   # 1141.1 Messung: fallen sie um die Füße? (meldet nur)
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/zustand_1036.gd 2>&1 | grep -E "^(ZUSTAND1036|Zustand|Aufflackern|Tafel|FEHLER)|SCRIPT ERROR"   # 1036 Zustände an den Figuren wie alt (Brennen, Gift …)
           timeout 300 ~/godot/godot --headless --path . -s res://tests/held_klassen_376.gd 2>&1 | grep -E "HELDKLASSEN|FALSCH|SCRIPT ERROR"   # 376.1
           timeout 120 ~/godot/godot --headless --path . -s res://tests/menuehelden_867.gd 2>&1 | tee menue867.log | grep -E "FEHLER|MENUEHELDEN867|SCRIPT ERROR"; grep -q "^MENUEHELDEN867 0 Fehler" menue867.log   # 867 Haarfarben der Vorgaben, Haltungen (Tom)
@@ -630,6 +648,7 @@ jobs:
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/angriff_824.gd 2>&1 | grep -E "^(ANGRIFF824|FEHLER|MASS)|SCRIPT ERROR"   # 824 (Jerry)
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4531.gd 2>&1 | grep -E "^(ok|FEHLER|Held|Söldner|nach|in den|im Kampf|Atem 453)|SCRIPT ERROR"   # 453.1 (Tuffy)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/atem_rechnung_4531.gd 2>&1 | grep -E "^(ok|FEHLER|Anstrengung|Atemrechnung)|SCRIPT ERROR"   # 453.1 Feld 2 (Tuffy)
+          set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/atem_tiere_1166.gd 2>&1 | grep -E "^FEHLER|ATEMTIERE1166|SCRIPT ERROR"   # 1166 Atem für alle Tiere mit Rücken
           # 406 b (Jerry): Schild im Kampf, auch linke Schulter und Oberarm gegen den Schild; 1136 (1128 A Laufnachweis): haelt an
           # (Lauf 427: „SCHILD 406 gut“, Ende 0), traegt 1013 und 1014
           nebenher schild_406 'timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/schild_406.gd 2>&1 | grep -E "^(ok|FEHLER|  |SCHILD|Schild|Kampf )|SCRIPT ERROR"'
@@ -644,9 +663,9 @@ jobs:
           timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/ausweichen_593.gd 2>&1 | grep -E "^(ok|FEHLER|  |AUSWEICHEN593)|SCRIPT ERROR" || true
           # 864 (Jerry): kein Sprung der Gegner auf ihre Plätze, wenn der Held an den Zug kommt; meldet, hält noch nicht an
           GEGNER=BATS,GRABHUNDE,WOLVES,RATS timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/beam_864.gd 2>&1 | grep -E "^(  Sprung|Kampf |BEAM864)|SCRIPT ERROR" || true
-          set -o pipefail; GEGNER=WOLVES,KOBOLDS,RATS,GRABHUNDE timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/kamera_992.gd 2>&1 | grep -E "^(  Sprung|  Boden|KAMERA992)|SCRIPT ERROR"   # 992 kein Sprung der Kamera (wiederholt zu 709)
+          set -o pipefail; SCHAU_1166=1 GEGNER=WOLVES,KOBOLDS,RATS,GRABHUNDE timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/kamera_992.gd 2>&1 | grep -E "^(  Sprung|  Boden|KAMERA992|1166 Atem)|SCRIPT ERROR"   # 992 kein Sprung der Kamera (wiederholt zu 709)
           # 784 A (Jerry): Kampftakt Wolfsrudel gegen DESIGN-KAMPF F9; meldet, hält erst nach dem ersten grünen Film an den Chef an (dann STRENG=1)
-          timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/sollbild_784.gd 2>&1 | grep -E "^(ÜBER|MISST|== |  Zug|  Held wartet|SOLLBILD784)|SCRIPT ERROR" || true
+          SCHAU_932=1 timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/sollbild_784.gd 2>&1 | grep -E "^(ÜBER|MISST|== |  Zug|  Held wartet|SOLLBILD784|932 Held)|SCRIPT ERROR" || true   # 932: Zug des Helden zerlegt
           # 546, 703 A (Jerry): Wölfe weichen rasch aus und bleiben danach stehen; meldet, hält noch nicht an
           timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/ausweichen_546.gd 2>&1 | grep -E "^(ok|FEHLER|AUSWEICHEN_546)|SCRIPT ERROR" || true
           # 415 r3 (Jerry): Strahlenprobe ohne Bild, Stabspitze hinter dem Körper (F6), Strahl durch eine Figur (E3), Richtung (F2); meldet nur
@@ -767,6 +786,7 @@ jobs:
           if [[ "$GITHUB_REF_NAME" == claude/build-* ]]; then set -o pipefail; timeout 180 ~/godot/godot --headless --path . -s res://tests/pruefliste_1020.gd 2>&1 | grep -E "FEHLER|PRUEFLISTE1020|SCRIPT ERROR"; else echo "PRUEFLISTE1020 aus (Teamzweig $GITHUB_REF_NAME, 1122)"; fi   # 1020.1 Prüfliste im Reiter „Test“
           python3 ../tools/pruefliste.py --pruefe daten/pruefliste.json   # 1178 der Bau trägt seine gegengelesene Prüfliste ansehen/t<n> (Tom)
           if [[ "$GITHUB_REF_NAME" == claude/build-* ]]; then set -o pipefail; timeout 240 ~/godot/godot --headless --path . -s res://tests/lage_1156.gd 2>&1 | grep -E "FEHLER|LAGE1156|SCRIPT ERROR"; else echo "LAGE1156 aus (Teamzweig $GITHUB_REF_NAME, 1122)"; fi   # 1156 Knopf „Lage herstellen“, jede Lage der Prüfliste herstellbar
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/lage_modell_1180.gd 2>&1 | tee lagemodell1180.log | grep -E "FEHLER|^1180|LAGEMODELL1180|SCRIPT ERROR"; grep -q "^LAGEMODELL1180 gut" lagemodell1180.log   # 1180 Lage nur mit Gruppe, die ein Modell hat (Tom)
           set -o pipefail; timeout 180 ~/godot/godot --headless --path . -s res://tests/breite_1027.gd 2>&1 | grep -E "FALSCH|BREITE1027|SCRIPT ERROR"   # 1027 jeder Reiter passt auf den Schirm
           set -o pipefail; timeout 180 ~/godot/godot --headless --path . -s res://tests/rollstand_1030.gd 2>&1 | grep -E "FALSCH|ROLL1030|SCRIPT ERROR"   # 1030 Reiter „Test“ behält die Stelle, Prüfliste einklappbar
           set -o pipefail; timeout 180 ~/godot/godot --headless --path . -s res://tests/zustaende_764.gd 2>&1 | grep -E "FEHLER|ZUSTAENDE764|SCRIPT ERROR"   # 764 Zustände im Heldenreiter mit Erklärung
@@ -803,6 +823,9 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/kartennebel_505.gd 2>&1 | tee kartennebel505.log | grep -E "FEHLER|KARTENNEBEL505|SCRIPT ERROR"; grep -q "^KARTENNEBEL505 0 Fehler" kartennebel505.log   # 505 Karte im Menü
           timeout 120 ~/godot/godot --headless --path . -s res://tests/rauch_1160.gd 2>&1 | tee rauch1160.log | grep -E "FEHLER|RAUCH1160|SCRIPT ERROR"; grep -q "^RAUCH1160 0 Fehler" rauch1160.log   # 1160 Rauch nach Niederlage gegen Krogg (Tom)
           timeout 300 ~/godot/godot --headless --path . -s res://tests/tuer_495.gd 2>&1 | tee tuer495.log | grep -E "FEHLER|TUER495|SCRIPT ERROR"; grep -q "^TUER495 0 Fehler" tuer495.log   # 495 zweimal der Knopf an der Tuer
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/tageslicht_1091.gd 2>&1 | tee tageslicht1091.log | grep -E "FEHLER|^1091|TAGESLICHT1091|SCRIPT ERROR"; grep -q "^TAGESLICHT1091 gut" tageslicht1091.log   # 1091 Tageslicht des Hoehlenausgangs reicht wie alt in den Gang (Tom)
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/messen_1145.gd 2>&1 | tee messen1145.log | grep -E "FEHLER|^1145|MESSEN1145|SCRIPT ERROR"; grep -q "^MESSEN1145 gut" messen1145.log   # 1145 Testmenue: Tusche, Nebel, Schatten zum Messen aus und an (Tom)
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/waffe_innen_1168.gd 2>&1 | tee waffeinnen1168.log | grep -E "FEHLER|^1168|WAFFEINNEN1168|SCRIPT ERROR"; grep -q "^WAFFEINNEN1168 gut" waffeinnen1168.log   # 1168 innen keine Waffe an der Figur (Tom)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/lyra_ketten_1144.gd 2>&1 | tee lyraketten1144.log | grep -E "FEHLER|LYRAKETTEN1144|SCRIPT ERROR"; grep -q "^LYRAKETTEN1144 0 Fehler" lyraketten1144.log   # 1144 Ketten: Klang und Lyra frei zur Zeile
           # 909: auf die Messungen nebenher warten, Ausgabe zeigen; rot wie eine eigene Zeile (wait in && || löst die Falle nicht aus)
           while read pid n; do wait $pid && rc=0 || rc=$?; echo "── nebenher $n"; cat $NEBEN/$n.log; [ $rc -eq 0 ] || { echo "$STUFE tests/$n.gd: nebenher, Ende $rc" >> $ROT; echo "::error::918 rot ($STUFE) tests/$n.gd"; }; done < $NEBEN/pids
@@ -854,6 +877,14 @@ jobs:
           name: ${{ env.APK_NAME }}
           path: bornim-godot.apk
       # Standbilder mit dem Mobile-Renderer (Vulkan in Software, lavapipe) zum Pruefen und fuer das Vergleichsbild
+      # 1212 (Lauf 450: „convert: command not found“, „ffmpeg: command not found“, das Abbild des Bauservers hat beide nicht mehr):
+      # Bilder zusammensetzen (convert, montage) und Filme umwandeln (ffmpeg) brauchen beide; einmal vor allen Bild- und Filmschritten
+      - name: Bildwerkzeuge (1212)
+        if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}
+        continue-on-error: true
+        run: |
+          command -v convert > /dev/null && command -v ffmpeg > /dev/null || { sudo apt-get update -qq > /dev/null; sudo apt-get install -y -qq imagemagick ffmpeg > /dev/null; }
+          convert -version | head -1; ffmpeg -version | head -1
       - name: Standbilder
         if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}     # Messlauf ohne Bild zählt nicht als Probelauf (Perikles 02.11., 19:5x); 918 auch nach rot
         continue-on-error: true
@@ -1463,7 +1494,7 @@ jobs:
         continue-on-error: true
         run: |
           R=$GITHUB_WORKSPACE/bilder/rand1022; mkdir -p $R/nachher $R/vorher
-          # 284 (Fund t282.5, Wege enden): nur die Stellen mit einem Weg über den Rand; vorher = Build 283
+          # 284 (Fund t282.5, Wege enden): nur die Stellen mit einem Weg über den Rand; vorher = Build 284 (seit 285)
           export RAND_NUR=1,2,7,10,11
           knipse() {
             (cd $1 && VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
@@ -1471,8 +1502,8 @@ jobs:
           }
           knipse godot $R/nachher
           A=$RUNNER_TEMP/vorher1022; mkdir -p $A
-          # vorher = Stand von Build 283 (a1765242c, vor 4eb527972); bis 283: Stand der Bilder 23:42 (519704595)
-          git fetch -q --depth=1 origin a1765242cb1dae1f69c23670d731bbfc3b52f9c8 && git archive FETCH_HEAD tools/blender348 godot/shader godot/skripte/gebiet.gd | tar -x -C $A
+          # vorher = Stand von Build 284 (985649df3, getestet t284; 285: 1022.1 Randwege, 1218 Steg); 284: Build 283 (a1765242c)
+          git fetch -q --depth=1 origin 985649df3fbf524f585cfd445f0dc3671e1918f2 && git archive FETCH_HEAD tools/blender348 godot/shader godot/skripte/gebiet.gd | tar -x -C $A
           export OUT=$A/out KARTEN=$GITHUB_WORKSPACE/godot/daten/karten.json
           bl/bin/python -I $A/tools/blender348/v3/tex.py > $A/tex.log 2>&1 || { tail -20 $A/tex.log; exit 1; }
           for g in village forest deep_forest; do KARTE=$g bl/bin/python -I $A/tools/blender348/v3/dorf.py > $A/dorf-$g.log 2>&1 || { tail -20 $A/dorf-$g.log; exit 1; }; grep -h "GLB OK" $A/dorf-$g.log || true; done
@@ -1579,6 +1610,18 @@ jobs:
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 \
             -s res://tests/kartennebel_bild_505.gd 2>&1 | grep -E "SCRIPT ERROR|^KARTENNEBELBILD505|^BILD" | cut -c1-400 || true
           cd $A && [ -f 505_wald.png ] && [ -f 505_dorf.png ] && convert 505_wald.png 505_dorf.png +append 505_wald_dorf.png; ls -l $A
+      # 1091 (Chef 13.11., 15:53, 15:57): Höhlengang zum Ausgang, mittags und 22 Uhr nebeneinander (tests/ausgang_bild_1091.gd),
+      # bei „1091 Bild“ im Commit; ImageMagick aus „Bildwerkzeuge (1212)“, sonst nur die beiden Einzelbilder
+      - name: Ausgangsbild (1091)
+        if: ${{ !cancelled() && contains(github.event.head_commit.message, '1091 Bild') }}
+        continue-on-error: true
+        run: |
+          A=$GITHUB_WORKSPACE/bilder/ausgang1091; mkdir -p $A
+          cd godot
+          BILD1091_AUS=$A VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 \
+            -s res://tests/ausgang_bild_1091.gd 2>&1 | grep -E "SCRIPT ERROR|^AUSGANGBILD1091|^BILD" | cut -c1-400 || true
+          cd $A && [ -f 1091_mittag.png ] && [ -f 1091_nacht.png ] && { convert 1091_mittag.png 1091_nacht.png +append 1091_mittag_nacht.png || true; }; ls -l $A
       # 1119 (283.1 ungetestet; Chef 13.11., 16:28 Aussehen als Film statt Handy): Fußstaub am Mittag, gehen und rennen
       # (tests/film_staub_1119.gd), bei „1119 Film“ im Commit
       - name: Staubfilm (1119)
