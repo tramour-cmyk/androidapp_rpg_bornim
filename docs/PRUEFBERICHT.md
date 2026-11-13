@@ -52,6 +52,13 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 216 · 1199 Prüfliste erst mit APK nach `ansehen/` (Perikles `aefe62940`), 1200 Filmlauf ohne Rückfrage (`f33f53ee5`); Doppelpack 421 (13.11., 19:0x)
+
+- **1199 am Werkzeug belegt** (Wegwerfkopie mit eigenem `origin`): Entwurf `t285` ohne „Gegengelesen:“ → `fehlt`; mit Zeile → Quelle `docs/entwurf/t285-probe.md`, 1 Abschnitt; Verschieben nach `ansehen/` mit „APK folgt“ hält an (auch als `git mv`). Echte Stände: `--build 284` liest `ansehen/t284-rand.md` (bleibt dort laut Sokrates für Toms Neulauf), `--build 285` meldet „ohne gegengelesene Prüfliste“. Regeltext `LISTE-CHECK-BUILD-TEST.md` 8–10 folgt dem Wortlaut 18:30.
+- **D216.1 → 1208 (Perikles):** Zeile 2 mit APK-Link und eine Zeile Art Film „Film folgt“: Commit-Prüfung Exit 0. Regel 9 (und Chef 18:30 „Bildtest gar nicht fertig“) verlangt jedes Bild und jeden Film gesendet; das Werkzeug prüft nur irgendeinen Link in Zeile 2. Dazu Halt-Text 866 in `commit-pruefung.py`: Gegenleser „trägt die Zeile ein und verschiebt“, nach 1199 verschiebt er nicht mehr.
+- **1200 ohne Befund:** `LISTE-BAUEN-TESTEN.md` 4 legt Freigaben neuer Läufe zu Sokrates (wie Archiv 1053, 505, 756), keine Datei 949a in `entscheiden/`. Greift an der nächsten echten Bitte eines Teams nach einem Filmlauf (Termin 16.11.).
+- Nicht geprüft: echter Sammelbuild 285 (Lauf zeigt Quelle `docs/entwurf/…`, Datei erst mit Link nach `ansehen/`).
+
 ## Lauf 215 · 882.2 Werkzeuge ohne Kotlin, Doppelpack 421 (Perikles `471d99e2c`; 13.11., 18:5x)
 
 - **Logiksatz am Rechner grün:** neue Sitzung, `tools/t logik` 153 gut, 0 rot, 158 s, kein WACKELIG (auch `eingebung_840` nebeneinander grün), Marke `kerntest-ok` 18:58 gesetzt. 18 sperrende Tests aus `godot.yml` fehlen in `logik.txt` (Kaufmodelle oder über 16 s laut Kopf der Liste), wie geplant.
