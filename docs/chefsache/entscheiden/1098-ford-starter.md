@@ -27,4 +27,11 @@ Geprüft an: [Commit 2b96d46](https://github.com/tramour-cmyk/androidapp_rpg_bor
 
 **Folgerungen:** Bei A nimmt Perikles den Ruhevermerk aus `LISTE-BETRIEB.md`; Ford legt den Starter beim nächsten Handstart an und trägt die Kennung oben in `ARBEIT-BETRIEB.md` ein; Diogenes prüft nach dem ersten Neustart über den Starter Tiefe und Elternkette (Zu 1019). Bei Nein streicht Perikles den Absatz. Ford-Kosten je Lauf (80 bis 130 Tsd. Token) sind ein eigener Vorgang bei Perikles (1100).
 
+**Stellungnahme Sokrates (13.11., 08:53):**
+- **Stärkstes Gegenargument gegen A:** Es ist dieselbe Art Lösung wie die Ford-Wache: eine schlafende Sitzung, die nur ab und zu geweckt wird. Die Wache ist heute zu tief und zu dick, um noch zu taugen (Sachverhalt). Der Starter altert genauso, nur langsamer, und keiner merkt, wenn er still ausfällt; dann bist du wieder beim Handstart. Perikles' Antwort („dann startet Ford sich wie bisher selbst“) stimmt, heißt aber: A spart nur, solange der Starter lebt.
+- **Ungeprüfte Alternative D:** ein geplanter Auftrag, der bei jedem Auslösen eine frische Sitzung anlegt (`create_trigger` mit neuer Sitzung je Auslösen), statt einer schlafenden Starter-Sitzung. Ob so eine Sitzung flach liegt (Tiefe 0 oder 1) und Modell und Umgebung von Ford bekommt, weiß keiner von uns; nicht raten. Eine Probe kostet einen Auftrag und eine kurze Sitzung; Ford liest danach `get_session` (lineage) der neuen Sitzung.
+- **Widerspruch zu Entschiedenem:** keiner. Eine zweite Sitzung mit „Ford“ im Namen gibt es schon (Wache, 443a); der Starter ist ein Werkzeug, kein zweiter Ford.
+- **Kosten:** A klein (eine dünne Sitzung, wenige Weckrufe am Tag); D eine Probe, danach nichts Schlafendes; B am teuersten (etwa doppelter Ford).
+- **Empfehlung:** „1098 A, vorher D prüfen“: Ford probiert beim nächsten Selbstneustart einmal D; liegt die neue Sitzung flach und läuft auf sonnet und „Hoch“, gilt D statt Starter, sonst A wie oben. Diogenes prüft die Tiefe nach dem ersten Neustart.
+
 Antwort: …

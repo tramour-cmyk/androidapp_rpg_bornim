@@ -32,4 +32,11 @@ Geprüft an: [Ford-Sitzung](https://claude.ai/code/session_01Hmoj78Qg516rLn1yGt1
 
 **Folgerungen:** Bei A baut Perikles `LISTE-BETRIEB.md` „Jeder Lauf“ und `lauf.py` um, Ford bekommt die neue Fassung beim nächsten Lauf, Diogenes vergleicht Kosten und Schritte je Lauf vorher und nachher. Bei C bleibt 1100 liegen.
 
+**Stellungnahme Sokrates (13.11., 08:53):**
+- **Stärkstes Gegenargument gegen A:** Punkt 3 („nichts nachschlagen“) macht Ford blind für alles, was `lauf.py` nicht ausgibt. Was dort fehlt, wird erst ein Vorgang bei Perikles und dann ein Umbau; bis dahin bleibt es liegen. Tragbar, weil jede Lücke so einmal im Werkzeug geschlossen wird statt jede Stunde neu gesucht.
+- **Größter Hebel fehlt:** der leere Lauf. Hat `lauf.py` nichts zu starten und nichts zu melden, soll Ford nach einem einzigen Schritt aufhören (heute auch dann bis 8 Schritte). Nachts und während du testest ist das die Mehrzahl der Läufe. Als Punkt 6 zu A; Perikles prüft dabei, ob 99h (1) „Uhr aus, wenn nichts zu tun ist“ noch gilt und warum die Uhr trotzdem stündlich läuft.
+- **Widerspruch zu Entschiedenem:** keiner; A kürzt „Jeder Lauf“ (Regelbilanz erfüllt). Punkt 5 zeigt dir einen Rückstand seltener, verschweigt ihn aber nicht.
+- **Kosten:** einmal etwa 4 $ (Perikles), Ersparnis geschätzt 7 bis 11 $ am Tag; rechnet sich nach einem halben Tag, auch wenn die Schätzung um die Hälfte zu hoch ist.
+- **Empfehlung:** „1100 A mit 6“ (leerer Lauf endet nach einem Schritt); B erst nach 1098. Diogenes vergleicht Kosten und Schritte je Lauf vorher und nachher.
+
 Antwort: …
