@@ -122,8 +122,8 @@
 | 1118 | Von Sokrates (Chef 13.11., 10:06, Test 282): Zoom nach innen geht zu weit (Bild nur Rocksaum und Schuhe); Mindeststufe festlegen, Vorschlag: nächster Zoom zeigt den Helden ganz | Tom | M | zu testen | – | claude/tom-1118-zoom | 283 | E Technik | 1,68 $ |
 | 1119 | Von Sokrates (Chef 13.11., 10:14 und 10:20, t282.4 ✓): Fußstaub einen Tick zurück und nach Gang staffeln, Gehen nur ein Hauch, Rennen die Wolke von heute etwas kleiner | Tom | M | zu testen | – | claude/tom-1119-staub | 283 | E Welt | 1,68 $ |
 | 1120 | Von Sokrates (Chef 13.11., 10:32, t282.15 ✓): Knöpfe im Gespräch auf eine Höhe, ‹ Nicht jetzt links neben der Wahl rechts (1074), bei Pim neben der unteren | Tom | M | zu testen | – | claude/tom-1120-knoepfe | 283 | E Oberfläche | 1,68 $ |
-| Pflege | von Werkzeug (340.3, 13.11.): 17013 Bytes (Grenze 15000), Erledigtes streichen; Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Tom | K | startbar | – | – | – | B Abläufe | – |
 | 1131 | Von Sokrates (1129): Sammelbuild-Automatik 774 seit 10.11. stumm, weil 825 „Sammelbuild … t274“ noch „gebaut“ steht (t274 getestet 10.11., 13:34); 825 abschließen, sammelbuild_faellig() soll Sammelbuild-Zeilen mit getestetem Build nicht zählen | Tom | M | startbar | – | – | – | E Technik | – |
+| Pflege | von Werkzeug (340.3, 13.11.): 17013 Bytes (Grenze 15000), Erledigtes streichen; Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Tom | K | startbar | – | – | – | B Abläufe | – |
 | 1111 | D191.1 von Diogenes (1109): cache=neu wirkt nicht mehr: seit 1f4e21a81 übergeht pruefen keine Treffer, vergleich prüft nur Geholtes gegen sich selbst; keine Gegenprobe in 34 Läufen | Jerry | M | zu testen | t283 | claude/jerry-1111-cache | 283 | B Werkzeuge | 5,95 $ |
 | 1112 | D191.2 von Diogenes (1109): Block mit geduldetem Fehler wird abgelegt (FEHLER 494/506, LEUTE KAUF abgebrochen), danach als Treffer ausgeliefert, bis sich eine Eingabe ändert | Jerry | M | zu testen | t283 | claude/jerry-1111-cache | 283 | B Werkzeuge | – |
 | 1113 | D191.3 von Diogenes (1109): Kaufrepo 524 MB, 21 Zweige bau/* in drei Tagen, nie gelöscht; je Änderung an Leuten oder Held etwa 300 MB dazu; Aufräumen (z. B. je Block die neuesten 3) über den Bauserver | Jerry | M | zu testen | 1126 | claude/jerry-1111-cache | 283 | B Werkzeuge | – |
@@ -275,6 +275,7 @@
 | 1019 | Von Sokrates (zu 1016): Ford startet sich am Neustart-Haken (200 Tsd., 383 A) neu statt bei 400 Tsd. (185, LISTE-BETRIEB); Tiefe 0 bis 6 in 21 h, Handstart täglich; Ford im Haken auf 400 Tsd. ausnehmen | Perikles | M | gebaut, Geprüft an: 57f798597 | 14.11. | – | – | B Abläufe | 4,13 $ |
 | 1100 | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf.py, notiz.sh und gelesene Dateien messen und kürzen | Perikles | K | gebaut, Geprüft an: 70a4467fe | 1125, 13.11. 13:15 | – | – | B Abläufe | 9,86 $ |
 | 1125 | D195.1 von Diogenes (1100.1): Ford-Lauf nach 1100 nicht billiger: Uhrläufe 9 Schritte wie vorher (8), LEERLAUF nie erreicht (Bremse-Warnung jede Stunde); Kosten je Schritt wachsen mit dem Verlauf (0,02 $ bei 160 Tsd., 0,04 $ bei 390 Tsd.) | Perikles | M | gebaut, Geprüft an: 377a1a533 | 13.11. 13:15 | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 13.11.): 15006 Bytes (Grenze 15000), Erledigtes streichen | Perikles | K | startbar | – | – | – | B Abläufe | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
@@ -282,7 +283,6 @@
 | 790 | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab 200 Tsd., Chef 09.11., 18:05) | Diogenes | M | startbar | 16.11. 18:07 | – | – | Q QM | – |
 | 905 | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zählen, wie viele wegen der Form zurückkommen (Liste „Vorlage an den Chef“), nicht je Build | Diogenes | M | startbar | 16.11. | – | – | Q QM | – |
 | 1098.1 | Von Sokrates (Chef 13.11., 09:18, 1098 A, vorher D): nach Fords erstem Neustart über Probe D bzw. Starter Tiefe, Elternkette, Modell, Umgebung der neuen Sitzung prüfen (Zu 1098) | Diogenes | M | startbar | 14.11. | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 13.11.): 15762 Bytes (Grenze 15000), Erledigtes streichen | Diogenes | K | erledigt | – | – | – | B Abläufe | – |
 | 1129 | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schneller, einfacher, ohne Qualitätsverlust gingen (Art 1110 Rechte, 1128 Prüffragen; Chef 13.11., 12:53) · „jetzt“ 13.11., 12:53 | Sokrates | M | startbar | – | – | – | B Abläufe | 1,85 $ |
 | 1128 | Prüfliste nur, wo der Gerätetest etwas finden kann: je Vorgang Gerät, Bild/Film oder ohne Chef (Chef 13.11., 11:49: „Warum muss ich denn das immer testen?“) | Sokrates | M | startbar | – | – | – | B Abläufe | 4,10 $ |
 | 887 | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus (dontAsk von auto aus abgelehnt; default mit Erlaubnisliste) (Chef 10.11., 16:25) · „jetzt“ 10.11., 16:25 | Sokrates | M | ruht, 887a zurückgestellt (Chef 16:53) | – | – | – | B Werkzeuge | – |
@@ -338,7 +338,7 @@
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 54,69 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1069,86 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 906 | lauf.py startet Zusatzentwickler auf Zeilen, deren Zweig Umzugsdateien berührt (492 am 11.11., 08:04: claude/tom-492-durchspiel ändert spiel.gd; Grundsatz 5 LISTE-UMZUG-BRS, Zu 870.4 Sokrates 01:57); Sperre nach geänderten Dateien prüfen (von Spike) | Ford | M? | startbar | – | – | – | B Steuerung | – |
-| Pflege | von Werkzeug (340.3, 13.11.): 57725 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 13.11.): 58101 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
