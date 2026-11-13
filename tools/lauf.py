@@ -274,13 +274,20 @@ def lauf_laeuft(rolle):
         wer = m.group(5)
         if wer and wer != rolle: continue
         if not wer and rolle in startbar.ZUSATZ: continue
-        try: bis = JETZT.replace(day=int(m.group(1)), month=int(m.group(2)), hour=int(m.group(3)), minute=int(m.group(4)), second=0, microsecond=0)
+        try: bis = marke_bis(m)
         except ValueError: continue
         if JETZT <= bis <= JETZT + datetime.timedelta(hours=12): return m.group(0)
     return None
 
 # 1161 (D206.1): „Uhr“ nach der Zeit ist erlaubt, sonst galt „(Spike)“ nicht und die Marke traf das Team
 LAUF_MARKE = r"Lauf läuft bis (\d\d)\.(\d\d)\.,? (\d\d):(\d\d)(?: Uhr)?(?:\s*\((\w+)\))?"
+
+def marke_bis(m):
+    """Zeit der Marke; über den Jahreswechsel (D206: 31.12. mit „bis 01.01.“) ins nächste bzw. vorige Jahr. ValueError bei unmöglichem Datum."""
+    bis = JETZT.replace(day=int(m.group(1)), month=int(m.group(2)), hour=int(m.group(3)), minute=int(m.group(4)), second=0, microsecond=0)
+    if bis < JETZT - datetime.timedelta(days=180): bis = bis.replace(year=bis.year + 1)
+    elif bis > JETZT + datetime.timedelta(days=180): bis = bis.replace(year=bis.year - 1)
+    return bis
 
 def lauf_marke_falsch(rolle):
     """1161 (D206.1): Marke, die nicht zählt (ohne Datum, Zeit unlesbar, über 12 h voraus), als Warnung statt still;
@@ -292,7 +299,7 @@ def lauf_marke_falsch(rolle):
         m = re.match(LAUF_MARKE, kopf[a.start():])
         stueck = kopf[a.start():a.start() + 40].split("\n")[0]
         if not m: falsch.append((stueck, "ohne Datum oder Zeit in der Form TT.MM., HH:MM")); continue
-        try: bis = JETZT.replace(day=int(m.group(1)), month=int(m.group(2)), hour=int(m.group(3)), minute=int(m.group(4)), second=0, microsecond=0)
+        try: bis = marke_bis(m)
         except ValueError: falsch.append((stueck, "Datum oder Zeit unmöglich")); continue
         if bis > JETZT + datetime.timedelta(hours=12): falsch.append((m.group(0), "über 12 h voraus"))
     return falsch
