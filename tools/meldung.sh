@@ -78,6 +78,14 @@ still=true; [ $laut = 1 ] && still=false
 if [ -n "$art" ]; then
   nr=$(printf '%s' "${text#⚠ }" | sed -nE '1s/^[[:space:]]*\[?([A-Za-z]?[0-9]+[a-z]?(\.[0-9]+[a-z]?)*)[]:( ].*/\1/p')
   if [ -z "$nr" ]; then echo "meldung: Bild ohne Vorgangsnummer am Textanfang („348.7: …“), nichts gesendet (363)" >&2; exit 2; fi
+  # 1217 (Chef 13.11., 20:01: „ein Däumchen hoch machen, wenn es passt … Däumchen runter“): Bild und Film zu einer Prüfliste je Punkt
+  # eine Nachricht „t<n>.<Punkt>: …“ mit „👍 passt: …“ und „👎 falsch: …“; eine Reaktion auf „t284“ allein ist mehrdeutig
+  if [ "$art" != document ] && [[ "$nr" =~ ^[tT][0-9]+$ ]]; then
+    echo "meldung: Bild oder Film zu $nr ohne Punkt, nichts gesendet; je Prüfpunkt eine Nachricht „$nr.<Punkt>: …“ (1217)" >&2; exit 2
+  fi
+  if [ "$art" != document ] && [[ "$nr" =~ ^[tT][0-9]+\. ]] && ! { printf '%s' "$text" | grep -q '👍' && printf '%s' "$text" | grep -q '👎'; }; then
+    echo "meldung: $nr ohne „👍 passt: …“ und „👎 falsch: …“ aus der Zeile, nichts gesendet (1217)" >&2; exit 2
+  fi
   # 374 (373 Punkt 2, 228): Bilder an den Chef nur mit Datei docs/chefsache/ansehen/<Nummer ohne Punkt>-….md; auch die Vorlage
   # entscheiden/<Nr>.md (Tom 13.11.) und der Entwurf einer Prüfliste docs/entwurf/t<n>-….md, die erst mit den Bildern nach ansehen/ darf (1199, 1208)
   docs="$(dirname "$(realpath "$0")")/../docs"

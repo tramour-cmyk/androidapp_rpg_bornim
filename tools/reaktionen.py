@@ -8,7 +8,9 @@
 
 Zuordnung: meldung.sh schreibt die Telegram-Kennung jeder Meldung als fünfte Spalte in meldungen.tsv (Zweig „meldungen“).
 Eine Reaktion auf eine Meldung mit genau einem Vorgang ist eindeutig; mit mehreren steht „mehrdeutig“ dabei.
-Bedeutung (Chef 15:00): 👍 = gebilligt, passt; ✅ = erledigt. Den Archiveintrag mit Wortlaut „👍 (Telegram, HH:MM)“
+Bedeutung (Chef 15:00): 👍 = gebilligt, passt; ✅ = erledigt; 👎 = falsch (1217, Chef 13.11., 20:01).
+Prüfpunkte (1217): eine Meldung „t<n>.<Punkt>: …“ (meldung.sh) ist ein Punkt der Prüfliste t<n>; 👍/👎 darauf liest
+vorgang.py build <n> als ✓/✗ (pruefpunkte()); offen stehen sie je Build in einer Zeile, bis das Archiv „t<n> getestet“ trägt. Den Archiveintrag mit Wortlaut „👍 (Telegram, HH:MM)“
 und „Nachricht <Kennung>“ schreibt der Absender der Meldung; bis dahin zeigt notiz.sh die Reaktion als offen,
 ohne Zeitgrenze (Sokrates 17:03: eine Anzeige allein trug 21 Minuten nichts ein). Das Werkzeug schreibt nichts nach docs/.
 Ohne TELEGRAM_BOT_TOKEN oder ohne Netz: still nichts (notiz.sh ruft es bei jedem Aufruf).
@@ -109,6 +111,35 @@ def archiv_text():
     except OSError: return ""
 
 
+PUNKT = __import__("re").compile(r"t(\d+)\.(\d+[a-z]?(?:\.\d+[a-z]?)*)$")
+
+
+def urteil(emo):
+    """1217: 👎 falsch vor 👍 passt; sonst None (❤, ✅ und andere zählen nicht als Prüfergebnis)."""
+    return "✗" if "👎" in emo else "✓" if "👍" in emo else None
+
+
+def pruefpunkte(n):
+    """1217: {„284.2a“: (✓|✗, Nachricht, Zeit)} aus der jüngsten Reaktion je Meldung „t<n>.<Punkt>:“; mehrere Meldungen zu einem
+    Punkt: ein 👎 auf irgendeine macht ihn falsch. Ohne Netz oder Zweig: {}."""
+    try:
+        _, alt = zweig_lesen(ZWEIG, "reaktionen.tsv")
+        kennung = meldungen_je_kennung()
+    except Exception:
+        return {}
+    letzte = {}
+    for z in (l.split("\t") for l in alt.splitlines() if l):
+        if len(z) >= 8 and z[2] == "reaktion": letzte[z[4]] = z
+    aus = {}
+    for mid, z in sorted(letzte.items(), key=lambda kv: kv[1][1]):
+        m = PUNKT.match(kennung.get(mid, ("", "", ""))[1])
+        e = urteil(z[3])
+        if not m or int(m.group(1)) != int(n) or not e: continue
+        k = "%s.%s" % (m.group(1), m.group(2))
+        if k not in aus or e == "✗" or aus[k][0] != "✗": aus[k] = (e, mid, z[1])
+    return aus
+
+
 def zeigen(minuten):
     """Zuordnung beim Zeigen aus meldungen.tsv (auch für früher ohne Zuordnung abgelegte Zeilen).
     Offen bleibt ein 👍/✅ auf eine zugeordnete Meldung, bis ein Archiveintrag „Nachricht <Kennung>“ nennt, ohne Zeitgrenze."""
@@ -126,6 +157,8 @@ def zeigen(minuten):
     for mid, z in letzte.items():
         if mid not in kennung or z[3] == "(zurückgenommen)": continue
         if re.search(r"(Nachricht|Telegram)\s+%s\b" % re.escape(mid), archiv): continue
+        m = PUNKT.match(kennung[mid][1])
+        if m and re.search(r"\*\*t%s\b[^*]*getestet" % m.group(1), archiv): continue   # 1217: Build ausgewertet
         offen.append(z)
     neu = [z for z in zeilen if z[1] >= grenze and z not in offen]
     if not offen and not neu: return
@@ -137,13 +170,20 @@ def zeigen(minuten):
         return "Nachricht %s, ohne Zuordnung" % mid if mid else ""
     if offen:
         print("Telegram, offen (658; der Absender der Meldung trägt ins Vorgangsarchiv ein, mit „Nachricht <Kennung>“, dann ist es weg):")
+        punkte = {}
         for z in sorted(offen, key=lambda z: z[1]):
             mwann, nrn, name = kennung[z[4]]
-            sinn = "erledigt" if "✅" in z[3] else "gebilligt" if "👍" in z[3] else "Reaktion"
+            m = PUNKT.match(nrn)
+            if m:   # 1217: Prüfpunkte je Build und Absender in einer Zeile
+                punkte.setdefault((name, m.group(1)), []).append("%s %s.%s" % (z[3], m.group(1), m.group(2)))
+                continue
+            sinn = "erledigt" if "✅" in z[3] else "falsch" if "👎" in z[3] else "gebilligt" if "👍" in z[3] else "Reaktion"
             tag = "%s.%s., %s" % (z[1][8:10], z[1][5:7], z[1][11:])
             print("  → %s: %s %s %s = %s, Nachricht %s" % (name, tag, z[3], bezug(z[4]), sinn, z[4]))
+        for (name, n), ps in sorted(punkte.items()):
+            print("  → %s: Prüfliste t%s auf Telegram (👍 passt, 👎 falsch; vorgang.py build %s liest sie): %s" % (name, n, n, ", ".join(ps)))
     if neu:
-        print("Telegram vom Chef (letzte %d Minuten; 👍 gebilligt, ✅ erledigt):" % minuten)
+        print("Telegram vom Chef (letzte %d Minuten; 👍 gebilligt, 👎 falsch, ✅ erledigt):" % minuten)
         for z in neu:
             if z[2] == "reaktion": print("  %s %s auf %s" % (z[1][11:], z[3], bezug(z[4])))
             else:

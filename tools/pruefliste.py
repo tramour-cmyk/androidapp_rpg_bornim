@@ -2,7 +2,7 @@
 # 1020.1 (Chef 12.11., 08:09, „jetzt“; Vorlage 1020 D Stufe 1): die laufende Prüfliste kommt beim Bau ins Spiel, der Reiter „Test“
 # zeigt sie Zeile für Zeile (testmodus.gd, pruefliste.gd). Liest eine Prüfliste `t<n>-….md` (Aufbau LISTE-CHECK-BUILD-TEST.md 10) und
 # schreibt sie als JSON: Build, Kopfzeile, Sätze vor der ersten Tabelle, Abschnitte mit Zeilen (Nummer, Team, Vorgang, Wo und wie,
-# Art (ab 284, 1128 A), Richtig, Falsch).
+# Art (ab 284, 1128 A), Richtig, Falsch). Mit Spalte „Art“ nur Zeilen „Handy“ (1217); die übrigen zählt „ohne_handy“.
 # Aufruf: python3 tools/pruefliste.py AUS.json [DATEI.md]
 #   ohne DATEI: die Prüfliste mit der höchsten Nummer auf origin/main (docs/chefsache/ansehen, sonst docs/entwurf); holt main
 #   flach, wenn es fehlt. Keine Prüfliste: JSON mit leeren Abschnitten, das Spiel zeigt dann „keine Prüfliste im Bau“.
@@ -107,7 +107,10 @@ def lies(text, quelle=''):
             nr = d.get('#', c[0])
             if not re.fullmatch(r'\d+\.\d+[a-z]?', nr):   # 1178: auch 284.2a (fehlten im Reiter „Test“)
                 continue
-            if d.get('art', '').strip().lower().startswith('kleinkram'):   # 1171 (1173 A, Chef 13.11., 15:40): nur Bild auf Telegram, nicht im Reiter „Test“
+            # 1217 (Chef 13.11., 20:01: „in die APK … nur Fragen rein, die ich in APK klären muss. Und die anderen als Einzelvorlagen“):
+            # mit Spalte „Art“ nur Zeilen „Handy“; Bild, Film, Gespräch, ohne dich, Kleinkram (1171) gehen einzeln auf Telegram, 👍/👎
+            if 'art' in d and not d['art'].strip().lower().startswith('handy'):
+                aus['ohne_handy'] = aus.get('ohne_handy', 0) + 1
                 continue
             if abschnitt is None:
                 abschnitt = {'titel': '', 'zeilen': []}
@@ -145,11 +148,13 @@ def main():
     aus = lies(text, quelle or '') if text else {'build': n or 0, 'titel': '', 'quelle': '', 'kopf': [], 'abschnitte': []}
     if fehlt:
         aus['fehlt'] = fehlt
+    aus['abschnitte'] = [a for a in aus['abschnitte'] if a['zeilen']]   # 1217: Ort nur mit Bildern und Filmen fällt im Reiter weg
     sys.argv[1] = args[0]
     with open(sys.argv[1], 'w', encoding='utf-8') as f:
         json.dump(aus, f, ensure_ascii=False, indent=1)
     n = sum(len(a['zeilen']) for a in aus['abschnitte'])
-    print('Prüfliste: %s, Build %d, %d Zeilen in %d Abschnitten' % (quelle or 'keine', aus['build'], n, len(aus['abschnitte'])))
+    print('Prüfliste: %s, Build %d, %d Zeilen in %d Abschnitten%s' % (quelle or 'keine', aus['build'], n, len(aus['abschnitte']),
+          ', %d ohne Handy (Telegram, 1217)' % aus['ohne_handy'] if aus.get('ohne_handy') else ''))
 
 
 if __name__ == '__main__':
