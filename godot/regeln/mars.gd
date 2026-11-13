@@ -1917,6 +1917,19 @@ func _perfect_answer(t: Fighter, foe: Fighter, info: Array) -> void:
 			art = "GEBET"
 		elif nah:
 			art = "SCHLAG"
+	# 949 (Chef 11.11., 13:44; wiederholt 13.11., 14:38: „es gab keinen Angriff, es gab den Ring. Und dann habe ich gekontert. Aber ich
+	# bin dem Angriff nicht ausgewichen“): die Antwort kam als Meldung des Helden, der Schlag des Gegners nie; Grak stand still, während
+	# „weicht dem Schlag aus“ in der Zeile stand. Jetzt zuerst der Schlag als eigene Meldung, daneben (der Ring hat ihn ausgehebelt, auch
+	# wenn der Wurf getroffen hätte): der Gegner schlägt sichtbar, der Held weicht sichtbar aus (kampfort.gd dodge), dann die Zeile
+	# und die Antwort. Ohne Antwort trägt der Schlag die Zeile selbst (wie bisher, nur jetzt auch sichtbar daneben). „EVADED“: der Held
+	# weicht aus, auch mit Schild (sonst pariert der Kampfort jeden Fehlschlag gegen einen Schildträger, die Zeile sagt aber „weicht aus“).
+	var vorbei := info.duplicate()
+	if vorbei.size() > 4:
+		vorbei[4] = false
+	if art == "":
+		_say(fmt(pick("MSG72_EVADES"), lang, [t.name(lang)]), foe.id, t.id, 0, vorbei, false, false, "EVADED")
+		return
+	_say("", foe.id, t.id, 0, vorbei, false, false, "EVADED")
 	match art:
 		"SCHLAG":
 			_say(fmt(X.MSG72_STRIKESBACK, lang, [t.name(lang), foe.name(lang)]), t.id, foe.id, 0, null, true)
@@ -1935,8 +1948,6 @@ func _perfect_answer(t: Fighter, foe: Fighter, info: Array) -> void:
 			casting = "FIRE_BOLT"
 			_brs_zauber(t, foe, BrsKampf.w()["zauber"]["Funkenpfeil"])
 			casting = null
-		_:
-			_say(fmt(pick("MSG72_EVADES"), lang, [t.name(lang)]), foe.id, t.id, 0, info)
 
 
 ## 1020.2 C: erzwungene Gegnerzüge aus dem Reiter Test, die nicht über die Ansage gehen. „reihe“: ein Nahkämpfer der hinteren Reihe

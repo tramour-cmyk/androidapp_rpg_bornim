@@ -5,7 +5,8 @@
 # Der Spieler: wählt sofort Angriff auf das erste Ziel, tippt den Ring auf den Schlag (RING_MS). Exit = Zahl der Überschreitungen
 # (nur mit STRENG=1; sonst 0, solange der Kampf nicht hängt).
 # Aufruf: im Ordner godot mit --headless --fixed-fps 30 -s res://tests/sollbild_784.gd
-#   (SEED=7, KLASSE=FIGHTER, SOELDNER=CLERIC, GEGNER=WOLVES, RUNDEN=2, STRENG=1, ZEILEN=1 für jede Meldung)
+#   (SEED=7, KLASSE=FIGHTER, SOELDNER=CLERIC, GEGNER=WOLVES, RUNDEN=2, STRENG=1, ZEILEN=1 für jede Meldung;
+#   949: RING=PERFECT trifft den Ring perfekt statt gut, ZUG=heavy erzwingt Graks Schweren Hieb wie der Reiter Test)
 extends SceneTree
 
 const Probe = preload("res://kampf/probe.gd")
@@ -81,9 +82,12 @@ func _lauf() -> void:
 	var ring_seit := -1
 	var zuletzt_am_zug := ""
 	var n := 0
+	print("Filmversatz %.2f s" % (Engine.get_process_frames() / FPS))     # 949: Zeit 0 der Liste im Film (zum Schneiden)
 	while n < int(FPS) * 300:
 		await process_frame
 		n += 1
+		if _env("ZUG", "") != "" and Mars.test_gegnerzug == "":     # 949: jede Ansage Graks ein Schwerer Hieb
+			Mars.test_gegnerzug = _env("ZUG", "")
 		t = n / FPS
 		if kf.mars.outcome != "ONGOING" and not kf.busy and not kf.playing and kf.beats.is_empty():
 			break
@@ -106,7 +110,7 @@ func _lauf() -> void:
 			if ring_seit < 0:
 				ring_seit = n
 			elif n - ring_seit >= int(kf.RING_MS / 1000.0 * FPS):
-				kf._answer_ring(Mars.GOOD)
+				kf._answer_ring(Mars.PERFECT if _env("RING", "") == "PERFECT" else Mars.GOOD)
 		else:
 			ring_seit = -1
 		if not kf.busy and not kf.playing and kf.beats.is_empty() and kf.mars.outcome == "ONGOING":
