@@ -58,3 +58,4 @@
 2026-11-13 15:50:44	commit-pruefung	docs/entwurf/t999-probe.md: Zeile 999.1 Art Kleinkram ohne Link aufs Bild (1173 A): Bild mit `meldung.sh --bild` an den Chef, Link „[Bild …](https://github.com/…/blob/bilder/…)“ in die Zeile; Kleinkra	main
 2026-11-13 15:52:25	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	HEAD
 2026-11-13 16:06:26	commit-pruefung	docs/chefsache/ansehen/1141-sterben.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
+2026-11-13 16:06:26	commit-pruefung	docs/chefsache/ansehen/1141-sterben.md ohne Bild, Film oder Frage; nur Stand gehört in die Vorgangsliste (`vorgang.py stand`), nicht zum Chef (890, Fall 663)	main
