@@ -110,6 +110,11 @@ Im Bau geprüft: kein Baum auf einem Weg am Rand, Wald daneben (`rand_1022`, all
 
 - 284.1 ✓ (👍 Telegram 20:07 auf 3971 und 3972, Dorf Nord und Süd)
 - 284.2 ✗ Wald Süd: grüner Querstrich über dem Weg, Weg zu gerade, Rand nicht franzig (Chef 20:08, Zu 1022); Tiefer Wald West ebenso, Weg noch gerader (Chef 20:11); neu 1218 Brücke Dorf Süd schwebt
+- 284.2c ✓ (Chef 20:33, am Handy mit Sokrates)
+- 284.2e ✓ (Chef 20:34: „ich bin auf jeden Fall drin … es hing jetzt nichts“; Hinweis: „mit dem schnellen Drücken einfach die Blende weggedrückt“)
+- 284.4a ✓ (Chef 20:37: „steht hier irgendwie Morwen bindet dir ein neues Bündel … nicht nur du erwachst“)
+- 284.3b ✓ (Chef 20:35: Lage 284.4a stellt Krogg her, „Ich stehe vor ihm“; „Zurück zum Testmenü“ nicht bestätigt)
+- 284.4b ✓ (Chef 20:41: „vom Morwen habe ich auf jeden Fall jetzt ein neues Bündel bekommen“); Fund: Rauchbündel ohne sichtbare Wirkung im Kampfbericht, neu 1222 Jerry
 - 284.2d ✓ (Chef 20:06: „Vom Inhalt her ist alles richtig“; Rest: Pim läuft im Halbbogen in Zeitlupe an, Zu 1086)
 - 284.2f ✗ Rock wirkt gestreift statt gefaltet (Chef 20:06, Zu 1092); Drehen im Stand gehört zu 1040.1
 - 284.2g ✓ (👍 Telegram 20:02 auf 3979)
