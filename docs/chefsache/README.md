@@ -4,11 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [1129](entscheiden/1129-blinde-flecken.md) | **Muss** | B Abläufe | 13.11., 13:12 | acht Änderungen nach Gewinn: Torprüfung vor jeder Vorlage, Sperre zählt nur Gebautes, formale Chefbindungen weg, Muss umstufen, Widersprüche bereinigen, weniger Werkzeug-Commits, Vorratsgrenze, Gegenlesen | Sokrates und Perikles |
+Nichts offen.
 
 ## Zu billigen
 
@@ -44,10 +40,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 
-**Tom** – offen 113, Muss 90, startbar 3
+**Tom** – offen 115, Muss 92, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 1129.3 | M | Von Sokrates (1129 alle ja, Chef 13.11., 13:59): Werkzeuge zu Punkten 1, 2, 6; Wächter für | startbar |
 | 756.1 | M | Zeichen für Schlecht: Chef 13.11., 13:45 „756.1 voller Punkt wie in 3, aber etwas heller ( | wartet auf Test (Build 284) |
 | 1122 | M | Von Sokrates (1109 D, Chef 13.11., 10:56): Prüfliste-Test pruefliste_1020 nur noch auf cla | wartet auf Test t283 (Chef) |
 | 1104 | M | Von Sokrates (Chef 13.11., 09:09, Fund t281.11): Höhle lässt sich nicht betreten, Station | wartet auf Test (Build 282) |
@@ -161,6 +158,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1120 | M | Von Sokrates (Chef 13.11., 10:32, t282.15 ✓): Knöpfe im Gespräch auf eine Höhe, ‹ Nicht je | wartet auf Test (Build 283) |
 | 1131 | M | Von Sokrates (1129): Sammelbuild-Automatik 774 seit 10.11. stumm, weil 825 „Sammelbuild … | startbar |
 | 1128.2 | M | Von Sokrates (1128 A, Chef 13.11., 13:36): Werkzeuge nach 1128 A: Laufnachweis ohne Testau | startbar |
+| 1137.2 | M | Von Sokrates (1137, Chef 13.11., 14:03): Wächter Vollzug: Archiveintrag mit Folgevorgängen | startbar |
 
 **Jerry** – offen 134, Muss 119, startbar 2
 
@@ -301,10 +299,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1136 | M | D203.1 von Diogenes (1128.3, Lauf 427 Build 283): 4 Bautests der 30 ohne Laufnachweis: 101 | Sperre 620.1 B: 31 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 904 |
 | Pflege | K | von Werkzeug (340.3, 13.11.): 15108 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 17, Muss 15, startbar 0
+**Perikles** – offen 19, Muss 17, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 1129.2 | M | Von Sokrates (1129 alle ja, Chef 13.11., 13:59): Regeln zu Punkten 1, 3, 4, 5, 7, 8; Pflic | startbar |
 | 1129.1 | M | Von Sokrates (1129, Chef 13.11., 12:53 „mit Pericles zusammen“): blinde Flecken in Abläufe | wartet auf Diogenes (greift?) |
 | 1098 | M | D189.1 von Diogenes (zu 1019): Haken greift (4 Ford-Selbstneustarts seit 12.11. bei 416–88 | Termin 14.11. |
 | 870.12 | M | Von Sokrates (870, Umzug BRS): Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 | wartet auf 870.13 (wartet) |
@@ -322,8 +321,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1019 | M | Von Sokrates (zu 1016): Ford startet sich am Neustart-Haken (200 Tsd., 383 A) neu statt be | Termin 14.11. |
 | 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | Termin 14.11. |
 | 1125 | M | D195.1 von Diogenes (1100.1): Ford-Lauf nach 1100 nicht billiger: Uhrläufe 9 Schritte wie | Termin 14.11. |
+| 1137.1 | M | Von Sokrates (1137, Chef 13.11., 14:03): Regel Vollzugsmeldung je Entscheid: Folgeauftrag | startbar |
 
-**Diogenes** – offen 22, Muss 21, startbar 12
+**Diogenes** – offen 23, Muss 22, startbar 12
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -349,12 +349,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 | 1098.1 | M | Von Sokrates (Chef 13.11., 09:18, 1098 A, vorher D): nach Fords erstem Neustart über Probe | Termin 14.11. |
 | 1128.3 | M | Von Sokrates (1128 A, Chef 13.11., 13:36): ab Build 283 Funde und Rückschritte je Prüfart | wartet auf Test t285 (Chef) |
+| 1129.4 | M | Von Sokrates (1129 alle ja, Chef 13.11., 13:59): 1129.2/.3 am laufenden Werkzeug prüfen; M | wartet auf 1129.2 (startbar) |
 
-**Sokrates** – offen 51, Muss 37, startbar 28
+**Sokrates** – offen 52, Muss 38, startbar 27
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1129 | M | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schneller, einf | startbar |
+| 1129 | M | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schneller, einf | wartet auf 1129.4 (startbar) |
 | 887 | M | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus (dontAsk von | ruht |
 | 870 | M | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen, Bau Tom u | wartet auf 870.13 (wartet) |
 | 780 | M | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für uns | Termin 23.11. |
@@ -405,6 +406,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 985 | K | Systemlösung? Nebel: 2 frühere Vorgänge (505, 502), neu 785.7; einmal grundsätzlich lösen? | startbar |
 | 644a.5 | M | Von Tuffy (644a.1): an welchem Grundwert hängen Rüstung, Ausweichen, Schild, Armbrust und | startbar |
 | 1135 | M | Von Perikles (1128 A, Liste Diogenes): Gespräch mit dem Chef über die Zahlen zur Balance d | startbar |
+| 1137 | M | Vollzugsmeldung je Entscheid (Chef 13.11., 14:00/14:03): Folgeaufträge melden Vollzug auf | Termin 15.11. 20:00 |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
