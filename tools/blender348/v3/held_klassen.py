@@ -617,6 +617,10 @@ def kaempfer(k, g, figur='', fuesse='', stiefel_bis=0.0, liste='trachten.json', 
         env['OUT'] = held3_tracht(figur, G['sex'], liste)
         env['KLEID_MEHR'] = ','.join(LEUTE_KLEID)
         env['KOPF_FREI'] = '1'   # 475 Lauf 2: unsere Kopfteile weg, bevor sie die Gesichtshaut wegnehmen (kauf_kleid.py)
+        # 1090 (Vorentscheid Sokrates 13.11., 02:46, „1090 A“): unter der Robe keine Hose, wie beim Helden im Zaubergewand (376.1,
+        # trachten.json „ohne“); gemessen an Lyra: die Hose lag bis 4 cm am Bein, die Robe 15 bis 30 cm aussen, im Stand stiess sie
+        # zwischen den Schienbeinen und an den Knien durch (dunkle Flecken, 1044)
+        if json.load(open(os.path.join(HIER, liste))).get(figur, {}).get('rock') == 'robe': ohne = ohne + ['pants']
     elif figur:
         env['OUT'] = held3_tracht(figur, G['sex'])
         ohne = json.load(open(os.path.join(HIER, 'trachten.json')))[figur].get('ohne', [])

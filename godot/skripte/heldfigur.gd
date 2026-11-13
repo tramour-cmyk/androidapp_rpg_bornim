@@ -912,6 +912,10 @@ static func person_modell(id: String) -> String:
 	if not FileAccess.file_exists("res://daten/held_%s.bin" % mo) or not FileAccess.file_exists("res://daten/bewegungen.bin"): return ""
 	return mo
 
+# 1044: Personen mit Damenstand (Haltung.dame); Lyra (Vorentscheid Sokrates 13.11., 00:09), nach „Lyra passt“ (02:30) alle Frauen
+# ausserhalb des Kampfs aus leute.json (sex w): die Heldin nicht
+const DAMEN := ["lyra", "liska", "gwenna", "rowena", "thessa", "morwen"]
+
 static func person(id: String, mats: Array) -> Node3D:
 	var mo := person_modell(id)
 	if mo == "": return null
@@ -940,6 +944,8 @@ static func person(id: String, mats: Array) -> Node3D:
 	h.gebeugt = float(p.get("gebeugt", 0.0))
 	h.kopf = Vector3(float(kh[0]), float(kh[1]), float(kh[2]))
 	h.kopf_gross = float(ka.get("kopf", 1.0))
+	h.dame = id in DAMEN   # 1044
+	h.anim = m.get_node_or_null("AnimationPlayer") as AnimationPlayer
 	sk.add_child(h)
 	return m
 
@@ -964,6 +970,16 @@ class Haltung extends SkeletonModifier3D:
 	var gebeugt := 0.0
 	var kopf := Vector3.ZERO
 	var kopf_gross := 1.0
+	# 1044 (Chef 12.11., 16:08; Vorentscheid Sokrates 13.11., 00:09, Weg 2): Frauen stehen ausserhalb des Kampfs wie eine Dame, nicht
+	# breitbeinig wie die UAL-Ruhe: Fuesse zusammen, Gewicht auf dem rechten Bein (Becken dorthin, linke Huefte sinkt, linkes Knie locker
+	# vor), aufrecht, Haende vorn uebereinander (rechte oben); das Atmen der Ruhe bleibt (nur Lage, keine eigene Zeit). Nur in „Stehen…“,
+	# beim Gehen blendet es in DAME_BLENDE s aus. Wer: DAMEN (hier statt in leute.json, das in die Kennung der Kaufmodelle geht, 854);
+	# anim setzt person()
+	var dame := false
+	var anim: AnimationPlayer
+	var dame_w := -1.0
+	var dame_mass := Vector2.ZERO   # Fuesse, Handgelenke auseinander in Hueftbreiten nach dem letzten _dame (dame_1044; ausserhalb der Modifikation zeigt das Skelett wieder die Bewegung)
+	var _dame_t := 0
 	func _drehe(sk: Skeleton3D, i: int, r: Basis) -> void:
 		var g := sk.get_bone_global_pose(i)
 		var pa := sk.get_bone_parent(i)
@@ -984,3 +1000,105 @@ class Haltung extends SkeletonModifier3D:
 				if i >= 0: _drehe(sk, i, Basis(Quaternion.IDENTITY.slerp(q, 0.5)))
 		var h := sk.find_bone("Head")
 		if h >= 0 and absf(kopf_gross - 1.0) > 0.001: sk.set_bone_pose_scale(h, Vector3.ONE * kopf_gross)
+		if dame: _dame(sk)
+
+	const DAME_BLENDE := 0.25   # s: so schnell wie die Ueberblendung Stehen/Gehen (Held.ueberblendung)
+	const DAME_KIPP := 4.0      # Grad: die freie (linke) Huefte sinkt, der Rumpf richtet sich zur Haelfte dagegen auf
+	func _dame(sk: Skeleton3D) -> void:
+		var jetzt := Time.get_ticks_msec()
+		var soll := 1.0 if anim == null or String(anim.current_animation).begins_with("Stehen") else 0.0
+		if dame_w < 0.0: dame_w = soll
+		else: dame_w = move_toward(dame_w, soll, clampf((jetzt - _dame_t) / 1000.0, 0.0, 0.1) / DAME_BLENDE)
+		_dame_t = jetzt
+		if dame_w < 0.01: return
+		var w := smoothstep(0.0, 1.0, dame_w)
+		var b := {}
+		for n in ["pelvis", "spine_01", "thigh_l", "thigh_r", "calf_l", "calf_r", "foot_l", "foot_r", "upperarm_l", "upperarm_r",
+				"lowerarm_l", "lowerarm_r", "hand_l", "hand_r", "middle_01_l", "middle_01_r", "spine_03"]:
+			b[n] = sk.find_bone(n)
+			if b[n] < 0 and not n.begins_with("middle"): return
+		var g := func(n: String) -> Vector3: return sk.get_bone_global_pose(b[n]).origin
+		var hl: Vector3 = g.call("thigh_l"); var hr: Vector3 = g.call("thigh_r")
+		var links := hl - hr; links.y = 0.0
+		var breite := links.length()
+		if breite < 0.001: return
+		links /= breite
+		# vorn nach den Zehen (Fuss -> Ballen), nicht nach den Hueften: bei Liska und Gwenna lag thigh_l rechts (Probebild 02:36, Haende
+		# landeten hinter dem Ruecken); nur ohne Ballen aus den Hueften (Figur blickt nach +Z, links +X)
+		var vorn := links.cross(Vector3.UP).normalized()
+		var zehen := Vector3.ZERO
+		for e in ["_l", "_r"]:
+			var ib := sk.find_bone("ball" + e)
+			if ib >= 0: zehen += sk.get_bone_global_pose(ib).origin - sk.get_bone_global_pose(b["foot" + e]).origin
+		zehen.y = 0.0
+		if zehen.length() > 0.001: vorn = zehen.normalized()
+		var kr: Vector3 = g.call("calf_r")
+		var bein: float = hr.distance_to(kr) + kr.distance_to(g.call("foot_r"))
+		var fuesse := [sk.get_bone_global_pose(b["foot_l"]), sk.get_bone_global_pose(b["foot_r"])]
+		var boden: float = minf(fuesse[0].origin.y, fuesse[1].origin.y)
+		# Becken ueber das rechte Bein, linke Huefte sinkt; Rumpf halb zurueck (bleibt aufrecht)
+		var pg := sk.get_bone_global_pose(b["pelvis"])
+		var ziel_p := pg.origin - links * (0.32 * breite * w)
+		var pa := sk.get_bone_parent(b["pelvis"])
+		sk.set_bone_pose_position(b["pelvis"], (sk.get_bone_global_pose(pa).affine_inverse() * ziel_p) if pa >= 0 else ziel_p)
+		var kipp := deg_to_rad(DAME_KIPP) * w
+		if (Basis(vorn, kipp) * links).y > 0.0: kipp = -kipp   # so, dass die linke Seite sinkt
+		_drehe(sk, b["pelvis"], Basis(vorn, kipp))
+		_drehe(sk, b["spine_01"], Basis(vorn, -kipp * 0.5))
+		# Fuesse zusammen unter dem Koerper: rechts Standbein knapp rechts der Mitte, links locker daneben, etwas vor, Ferse leicht hoch
+		var mitte: Vector3 = ziel_p; mitte.y = boden
+		var zl: Vector3 = mitte + links * (0.28 * breite) + vorn * (0.025 * bein)
+		zl.y = boden + 0.01 * bein
+		var zf := [zl, mitte - links * (0.22 * breite)]
+		for s in 2:
+			var e := "_l" if s == 0 else "_r"
+			var f0: Vector3 = fuesse[s].origin
+			var z: Vector3 = f0.lerp(zf[s], w)
+			z.y = f0.y + (zf[s].y - boden) * w
+			_zwei(sk, b["thigh" + e], b["calf" + e], b["foot" + e], z, vorn)
+			_setze_global(sk, b["foot" + e], fuesse[s].basis)   # Fuss bleibt flach wie in der Bewegung
+		# Haende vorn uebereinander unter dem Bauch: Handgelenke vor der Huefte, Finger zur Mitte, rechte Hand ueber der linken
+		var oben: Vector3 = g.call("spine_03")
+		var rumpf := maxf(0.05, oben.y - ziel_p.y)
+		var bauch := ziel_p + Vector3.UP * (0.08 * rumpf)
+		var zh := [bauch + links * (0.42 * breite) + vorn * (0.75 * breite), bauch - links * (0.36 * breite) + vorn * (0.85 * breite) + Vector3.UP * (0.06 * rumpf)]
+		for s in 2:
+			var e := "_l" if s == 0 else "_r"
+			var aussen := links if s == 0 else -links
+			var h0: Vector3 = g.call("hand" + e)
+			_zwei(sk, b["upperarm" + e], b["lowerarm" + e], b["hand" + e], h0.lerp(zh[s], w), aussen * 1.0 - vorn * 0.6 - Vector3.UP * 0.4)
+			if b["middle_01" + e] >= 0:
+				var hd: Vector3 = g.call("middle_01" + e) - g.call("hand" + e)
+				var soll_d := (-aussen * 0.85 - Vector3.UP * 0.35 + vorn * 0.1).normalized()
+				_drehe(sk, b["hand" + e], Basis(Quaternion.IDENTITY.slerp(Quaternion(hd.normalized(), soll_d), w)))
+		var fl: Vector3 = g.call("foot_l"); var fr: Vector3 = g.call("foot_r")
+		dame_mass = Vector2(Vector2(fl.x - fr.x, fl.z - fr.z).length() / breite, (g.call("hand_l") - g.call("hand_r")).length() / breite)
+
+	func _richte(sk: Skeleton3D, i: int, von: Vector3, nach: Vector3) -> void:
+		if von.length() < 1e-5 or nach.length() < 1e-5: return
+		_drehe(sk, i, Basis(Quaternion(von.normalized(), nach.normalized())))
+
+	func _setze_global(sk: Skeleton3D, i: int, basis: Basis) -> void:
+		var pa := sk.get_bone_parent(i)
+		var pg := sk.get_bone_global_pose(pa) if pa >= 0 else Transform3D.IDENTITY
+		sk.set_bone_pose_rotation(i, (pg.basis.orthonormalized().inverse() * basis.orthonormalized()).get_rotation_quaternion())
+
+	# zwei Knochen (Oberarm/Unterarm, Oberschenkel/Unterschenkel) so, dass das Ende c auf ziel liegt; das Mittelgelenk zur Seite pol
+	func _zwei(sk: Skeleton3D, a: int, m: int, c: int, ziel: Vector3, pol: Vector3) -> void:
+		var pa := sk.get_bone_global_pose(a).origin
+		var pm := sk.get_bone_global_pose(m).origin
+		var pc := sk.get_bone_global_pose(c).origin
+		var la := pa.distance_to(pm); var lb := pm.distance_to(pc)
+		var d := ziel - pa
+		if d.length() < 1e-4 or la < 1e-4 or lb < 1e-4: return
+		var dl := clampf(d.length(), absf(la - lb) + 1e-4, (la + lb) * 0.999)
+		var dn := d.normalized()
+		var ca := clampf((la * la + dl * dl - lb * lb) / (2.0 * la * dl), -1.0, 1.0)
+		var pn := pol - dn * pol.dot(dn)
+		if pn.length() < 1e-4: pn = (pm - pa) - dn * (pm - pa).dot(dn)
+		pn = pn.normalized()
+		var neu_m := pa + dn * (ca * la) + pn * (sqrt(1.0 - ca * ca) * la)
+		_richte(sk, a, pm - pa, neu_m - pa)
+		var pm2 := sk.get_bone_global_pose(m).origin
+		var pc2 := sk.get_bone_global_pose(c).origin
+		_richte(sk, m, pc2 - pm2, pa + dn * dl - pm2)
