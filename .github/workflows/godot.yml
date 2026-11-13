@@ -802,6 +802,14 @@ jobs:
           echo "ROT: keine"
       # fester Schluessel ueber alle Laeufe, sonst lehnt Android das Update ab (348.5, Build 9). 399.1a (Chef 28.10., 14:41): der Cache
       # eines Zweigs galt nur dort (Build 130 bekam einen neuen); jetzt nur lesen, angelegt wird er auf main (godot-schluessel.yml)
+      # 1044 (Fund t283.3, Osric im Kampfstand?): Messlauf, nur von Hand auf einem Zweig mit 1044; je Person Ruhebewegungen vorhanden,
+      # Armwinkel und Fußabstand je Bewegung (tests/stand_leute_1044.gd); nur Auskunft
+      - name: Stand der Leute (1044, Messung)
+        if: ${{ !cancelled() && github.event_name == 'workflow_dispatch' && contains(github.ref, '1044') }}
+        continue-on-error: true
+        run: |
+          cd godot
+          timeout 300 ~/godot/godot --headless --path . -s res://tests/stand_leute_1044.gd 2>&1 | grep -E "STAND1044|FEHLER|SCRIPT ERROR" | cut -c1-400
       - uses: actions/cache/restore@v4
         if: ${{ !cancelled() }}     # 918
         with:
