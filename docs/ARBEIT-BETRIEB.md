@@ -385,3 +385,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:38 13.11.: Marke Archiv session_01Hmoj783GT8HqsUa9oPkwbz (lauf.py)
 - 11:38 13.11.: Marke Archiv session_01Hmoj75ViqKifXCifqcMLwp (lauf.py)
 - 11:38 13.11.: Marke Archiv session_01Hmoj79CkF3dd8LaaHJrqyb (lauf.py)
+- 11:40 13.11.: Gestartet Tom 1040.1 `…76bi2dhnXLC43LUzuG`, Jerry 1036.1 `…776UuCBT9zDUv51f75`, Diogenes 1122 `…78EvBobSYTXdaNQzkv`, Perikles 1117 `…77qhBTDyiHKVfoKnXo`, Spike 756 `…78Rf6zNyPd2bCm6EA8`; archiviert Tom, Jerry, Diogenes, Perikles, Spike (alt). Kosten gebucht: 282 2,14 $, 1109 13,43 $, 1103 6,47 $, 1111 5,95 $ Schätzung (17 Min., ohne Zahl im Datensatz und ohne result-Ereignis), Spike-Stummel 11:11 ohne Kosten
