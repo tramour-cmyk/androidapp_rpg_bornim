@@ -1485,6 +1485,18 @@ jobs:
             -s res://tests/dame_1044.gd -- --aus=$A 2>&1 | grep -E "SCRIPT ERROR|^DAME1044|^BILD" | cut -c1-400 || true
           cd $A && for n in liska gwenna rowena thessa morwen lyra_temple; do [ -f ${n}_nachher.png ] && montage ${n}_vorher.png ${n}_nachher.png -tile 2x -geometry +2+2 -background black p_$n.png; done; \
             ls p_*.png > /dev/null 2>&1 && montage p_*.png -tile 3x -geometry +4+4 -background black alle.png; ls -l $A
+      # 1140 (Chef 13.11., 14:26 Fackel im Menü Ausrüstung nicht am Helden; 16:28 Aussehen als Bild statt Handy): Reiter Ausrüstung,
+      # links mit Fackel in der Nebenhand, rechts ohne, in einem Bild (tests/ausruestung_bild_1140.gd); bei „1140 Bild“ im Commit
+      - name: Ausrüstungsbild (1140)
+        if: ${{ !cancelled() && contains(github.event.head_commit.message, '1140 Bild') }}
+        continue-on-error: true
+        run: |
+          A=$GITHUB_WORKSPACE/bilder/fackel1140; mkdir -p $A
+          cd godot
+          BILD1140_AUS=$A VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 1080x2340 \
+            -s res://tests/ausruestung_bild_1140.gd 2>&1 | grep -E "SCRIPT ERROR|^AUSRUESTUNG1140|^BILD" | cut -c1-400 || true
+          cd $A && [ -f 1140_mit.png ] && [ -f 1140_ohne.png ] && convert 1140_mit.png 1140_ohne.png +append -resize 50% 1140_mit_ohne.png; ls -l $A
       # 1040.1 (Fund t282.23: „da es etwas ruckelig ist, kann ich es nicht sicher sagen“; Sokrates: nach 1128 A als Film): Lyra wendet
       # mit Schritten, nah (tests/film_wenden_10401.gd wie dorf=10401), im Lauf der APK bei „1040.1 Film“ im Commit
       - name: Wendefilm (1040.1)
