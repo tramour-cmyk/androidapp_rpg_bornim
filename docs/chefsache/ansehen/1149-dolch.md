@@ -1,4 +1,7 @@
 # 1149 · Dolch der zweiten Hand am Körper: Bild Gürtel gegen Kreuz
+
+[Bild von 13.11., 18:55](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/13-1855-1149-Tom.png) (eingetragen von meldung.sh, Tom)
+
 Tom · 13.11., 18:56 · E Figuren · Bild zur Frage [1149](../entscheiden/1149.md)
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43468464537
