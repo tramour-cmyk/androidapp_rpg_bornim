@@ -40,7 +40,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 
-**Tom** – offen 115, Muss 92, startbar 5
+**Tom** – offen 115, Muss 92, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -56,7 +56,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 568 | M | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | ruht |
 | 531 | M | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere | wartet auf 643 (ruht) |
 | 542 | M | Aufträge: Jorins „Feuer am Steinkreis“ nicht abschließbar (Fetzen fehlt), Gwennas Ring am | wartet auf Test t284 (Chef) |
-| 495 | M | Zufallsspieler spielt Kapitel 1 in Godot durch (Abnahme 2.2; Wochenziel 03.11., 488) | Sperre 620.1 B: 18 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 492 |
+| 495 | M | Zufallsspieler spielt Kapitel 1 in Godot durch (Abnahme 2.2; Wochenziel 03.11., 488) | Sperre 620.1 B: 19 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 492 |
 | 505 | M | Bau Nebel des Krieges und Sichtfeld des Helden (Archiv 502; Welt W24, W25) · zurück t282 | wartet auf Test (Build 283) |
 | 515 | M | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 0 | wartet auf 870 (wartet) |
 | 376.1 | M | Probeblatt Quaternius-Figuren mit Bewegungsraster als Film (Chef kaufte 27.10., 12:20) | ruht |
@@ -133,8 +133,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 785.4 | M | Von Spike (785): Gegenstandsfenster nennt bei Fernwaffen „Fernkampf“ wie alt (GearUi.kt 19 | wartet auf 870.13 (wartet) |
 | 785.5 | M | Von Spike (785): Kampfwerte im Reiter Ausrüstung mit Zeile für die Nebenhandwaffe wie alt | wartet auf 870.13 (wartet) |
 | 785.6 | M | Von Spike (785): Kampfwerte zeigen Lebensraub, Widerstand, Goldfund, EP-Bonus der getragen | wartet auf 870.13 (wartet) |
-| 785.7 | M | Von Spike (785): Karte im Menü: Wald, Tiefer Wald, Höhle als Kartenblatt mit Nebel, Höhlen | Sperre 620.1 B: 18 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 505 |
-| 785.8 | M | Von Spike (785): Karte im Menü: Lagerfeuer-Marken und Zielmarke eines Auftrags wie alt (Me | Sperre 620.1 B: 18 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 505 |
+| 785.7 | M | Von Spike (785): Karte im Menü: Wald, Tiefer Wald, Höhle als Kartenblatt mit Nebel, Höhlen | Sperre 620.1 B: 19 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 505 |
+| 785.8 | M | Von Spike (785): Karte im Menü: Lagerfeuer-Marken und Zielmarke eines Auftrags wie alt (Me | Sperre 620.1 B: 19 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 505 |
 | 785.20 | M | Von Spike (785): Klick-Klang auch auf Knöpfen im Stil 549a (PanelContainer: Spielstände, E | wartet auf 870.13 (wartet) |
 | 785.21 | M | Von Spike (785): Android-Zurück wie alt: in der Welt öffnet sie das Menü (WorldScreen.kt 1 | wartet auf 870.13 (wartet) |
 | 785.22 | M | Von Spike (785): Leiste zeigt den Zustand „Satt“ wie alt (WorldScreen.kt 2856–2872; zustan | wartet auf 870.13 (wartet) |
@@ -157,13 +157,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1119 | M | Von Sokrates (Chef 13.11., 10:14 und 10:20, t282.4 ✓): Fußstaub einen Tick zurück und nach | wartet auf Test (Build 283) |
 | 1120 | M | Von Sokrates (Chef 13.11., 10:32, t282.15 ✓): Knöpfe im Gespräch auf eine Höhe, ‹ Nicht je | wartet auf Test (Build 283) |
 | 1131 | M | Von Sokrates (1129): Sammelbuild-Automatik 774 seit 10.11. stumm, weil 825 „Sammelbuild … | startbar |
-| 1128.2 | M | Von Sokrates (1128 A, Chef 13.11., 13:36): Werkzeuge nach 1128 A: Laufnachweis ohne Testau | startbar |
+| 1128.2 | M | Von Sokrates (1128 A, Chef 13.11., 13:36): Werkzeuge nach 1128 A: Laufnachweis ohne Testau | wartet auf Test/Build (gebaut) |
 | 1137.2 | M | Von Sokrates (1137, Chef 13.11., 14:03): Wächter Vollzug: Archiveintrag mit Folgevorgängen | startbar |
 
-**Jerry** – offen 134, Muss 119, startbar 2
+**Jerry** – offen 135, Muss 120, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 1138 | M | Sammelbuild: alle fertigen Zweige beider Teams (Tom 542, 632, 964, 967, 1009; Jerry 1041, | startbar |
 | 1111 | M | D191.1 von Diogenes (1109): cache=neu wirkt nicht mehr: seit 1f4e21a81 übergeht pruefen ke | wartet auf Test t283 (Chef) |
 | 1112 | M | D191.2 von Diogenes (1109): Block mit geduldetem Fehler wird abgelegt (FEHLER 494/506, LEU | wartet auf Test t283 (Chef) |
 | 1113 | M | D191.3 von Diogenes (1109): Kaufrepo 524 MB, 21 Zweige bau/* in drei Tagen, nie gelöscht; | wartet auf Test (Build 283) |
