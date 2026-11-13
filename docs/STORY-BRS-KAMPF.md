@@ -25,9 +25,14 @@ Nur Ergebnis und Trefferchance; der Wurf von 1 bis 100 erscheint nicht (868: „
 
 `[870.14.kopf.mana]` hinter dem Leben: „  Mana %d/%d“ / EN: “  Mana %d/%d” (statt „ZP“/„SP“).
 
+## Namen im Kampf (`kampf/aufruf.gd` `rudel`)
+
+- `[1229.leitwolf]` (Anführer des Rudels von der Gebietskarte, `wolf1` in `rudel`, Gruppe `RUDEL` aus `streuner.gd`; heute „Wolf“) Leitwolf / EN: Pack leader (Name wie `[130.3.wolf.leit]` in `STORY-SPIEL.md`, Chronik „a pack leader“, `[954a.4.tiere.leitwolf]`). Gilt überall, wo der Kampf diese Figur beim Namen nennt (`Fighter.name()`: Kopf, Ziel, Zugzeile, Kampfbericht; auch die Überschrift der Blende, `kampfblende.gd` nimmt die vordere Figur); ohne Nummer, er ist der einzige im Rudel. Bleiben „Wolf“: die Art (Textauswahl der Blende `[24.gegner.wolf.*]`, Bestiarium und Wissen, Lohn, Klang), Grimmzahns Leibwache (er ist ihr Leitwolf), die Probe `WOLVES` (drei Wölfe ohne Anführer) und der Satz „flieht nur einer“ in `[915.wolf.flucht]` (spricht von der Art). Mit dem Bau: `[986.growl]` EN „Hit the lead wolf first.“ → „Hit the pack leader first.“ (`mars.gd` 65; ein Wort je Sache, Regel (6)); Test `mars_regeln.gd` 397 erwartet heute „Wolf“. Homer 13.11. zu 1223 (Chef 13.11., 20:59: „Leitwolf nicht erkennbar“); fremd geprüft 13.11., 21:31, gegen main `14541f298`, 6 Punkte eingearbeitet.
+
 ## Meldungen (ersetzen gleichnamige Konstanten)
 
 - `[870.14.nosp]` MSG72_NOSP: Nicht genug Mana. / EN: Not enough mana.
+- `[1232.rauch.krogg]` (statt MSG72_MISSES, wenn Morwens Rauch Kroggs ersten Schlag nimmt, `mars.gd` „smoke_spent“, auch den Überraschungsschlag; einmal je Kampf; {0} = Krogg) {0} hat beißenden Rauch in den Augen. Sein Hieb geht ins Leere. / EN: {0} has stinging smoke in his eyes. His blow swings at empty air. Nimmt Morwens Worte auf (`[D4.1.morwen.krogg]` „Der Rauch beißt in den Augen, und sein Hieb geht ins Leere.“), damit der Spieler sieht, dass ihr Bündel gewirkt hat. Homer 13.11. zu 1222.
 - `[870.14.norest]` MSG72_NOREST (Handlung kommt erst nach dem Langen Ausruhen zurück): Erst nach dem Langen Ausruhen wieder. / EN: Not again until a Long Rest.
 - `[870.14.norest.kurz]` (kommt schon nach der Kurzen Erholung zurück): Erst nach einer Erholung wieder. / EN: Not again until a respite.
 - `[870.14.flamesback]` MSG72_FLAMESBACK: {0} weicht aus und schleudert {1} einen Funkenpfeil entgegen. / EN: {0} dodges and hurls a spark bolt back at {1}.
@@ -151,7 +156,7 @@ Bleiben im Wortlaut von `STORY-SPIEL.md` „Ansagen erklärt“: `[210T.heavy.ei
 - `[986.hieb]` (ersetzt `[210T.hieb.eingebung]`, Ansage `slash`; Grund wie oben) Nur ein Hieb. Meist lohnt mein eigener Schlag mehr als die Abwehr. / EN: Just a slash. My own blow is usually worth more than a Defend.
 - `[986.flank]` (ersetzt `[210T.flank.eingebung]`: EN nach Regel (6) „switch rows“) Er will hintenrum. Ein Kratzer hält ihn auf, ein Wechsel der Reihe auch. / EN: He means to go around. A scratch stops him, and so does switching rows.
 - `[986.circle]` (ersetzt `[210T.circle.eingebung]`: einkreisen kann jeder Wolf, nicht nur der Leitwolf) Der da ruft das Rudel zusammen. Den treffen, egal wie leicht. / EN: That one calls the pack together. Hit it, however lightly.
-- `[986.growl]` (ersetzt `[210T.growl.eingebung]`: auch die Leibwache knurrt; „Erst der Große“ ließ sich doppelt lesen) Der hier hält sich zurück. Erst den Leitwolf treffen. / EN: This one holds back. Hit the lead wolf first.
+- `[986.growl]` (ersetzt `[210T.growl.eingebung]`: auch die Leibwache knurrt; „Erst der Große“ ließ sich doppelt lesen) Der hier hält sich zurück. Erst den Leitwolf treffen. / EN: This one holds back. Hit the pack leader first. (bis 13.11. „lead wolf“, 1229)
 - `[986.web]` (ersetzt `[210T.web.eingebung]`: nur perfekt hält frei) Das Netz fliegt langsam. Nur wer den Moment genau trifft, bleibt frei. / EN: The web flies slowly. Only perfect timing keeps you free.
 - `[986.gather]` (ersetzt `[210T.gather.eingebung]`: er heilt einen guten Teil, nicht alles, `[870.14.ansage.gather]`) Er holt Luft. Jetzt nachsetzen, sonst kommt er wieder zu Kräften. / EN: He is catching his breath. Press now, or he regains his strength.
 - `[986.breakthrough]` (ersetzt `[210T.breakthrough.eingebung]`: steht der Bedrohte vorn, schlägt Grak trotzdem zu, nur einfach, `MSG72_BRACED`) Er will durch die Reihe. Tritt der Bedrohte vorher selbst nach vorn, bleibt Grak nur ein einfacher Schlag. / EN: He means to break the line. If the threatened one steps forward first, Grak is left with a plain blow.
