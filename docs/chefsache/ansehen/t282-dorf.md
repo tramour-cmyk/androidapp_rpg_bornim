@@ -42,3 +42,4 @@ Im Bau geprüft: Kartenrand je Gebietskarte (`rand_1022`), Nebel und Sicht (`neb
 Chef an Sokrates, laufend eingetragen.
 
 - 282.4 ✗ Staub jetzt zu stark (Chef 10:14): „jetzt ist sie fast überdeutlich. Für das, dass sie vorher nicht existent war, staubt es jetzt, als ob hier ein Traktor rumfahren würde. Also vielleicht können wir es wieder einen Ticken zurückdrehen. Nur einen Tick.“
+- 282.5 ✗ Weg am Schlagbaum (Chef 10:15, Bild): „warum endet der Weg jetzt und wird eine Feldwiese? Warum geht der Weg nicht grundsätzlich weiter und endet dann im Dunkel?“ Der Weg zum Flüsterwald läuft unter den Bäumen weiter und geht mit dem Rand ins Dunkel, statt davor im Gras auszulaufen (Vorentscheid Sokrates 13.11., 01:07 damit zurück).
