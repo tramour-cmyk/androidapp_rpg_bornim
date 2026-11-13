@@ -52,3 +52,4 @@
 2026-11-13 15:31:24	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/tuffy-1142-grak-einmal
 2026-11-13 15:36:52	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/tom-882-1-ohne-gradle
 2026-11-13 15:37:03	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/tom-495-zufallsspieler-2
+2026-11-13 15:40:48	commit-pruefung	docs/ROLLE-ENTWICKLUNG.md: 13114 Bytes, Obergrenze 13100, Commit fügt 19 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
