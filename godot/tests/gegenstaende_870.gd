@@ -73,10 +73,11 @@ func _funde() -> void:
 	pruefe(Beute.zusatz_text(["TENACITY", 5], "de") == "+5 % Abwehrprobe", "Abwehrprobe: %s" % Beute.zusatz_text(["TENACITY", 5], "de"))
 	pruefe(Beute.zusatz_text(["STR", 1], "de") == "+1 Kraft", "Kraft: %s" % Beute.zusatz_text(["STR", 1], "de"))
 	pruefe(Beute.zusatz_text(["HP", 5], "de") == "+5 Leben", "Leben: %s" % Beute.zusatz_text(["HP", 5], "de"))
-	# Anzeige ohne Würfel: Schaden als Zahl mit Schadensart, Güte in der Listenzeile
+	# Anzeige ohne Würfel: Schaden als Zahl mit Schadensart; 1190 (Chef 13.11., 16:50): Güte nicht in der Listenzeile, nur im Fenster
 	var schwert := {"uid": 1, "base": "longsword", "rarity": "COMMON", "ilvl": 1, "guete": 2, "rolls": [], "unique": null, "name_seed": 0}
 	pruefe(Beute.kennwert(schwert, "de") == "Schaden 8 · Schnitt", "Kennwert meisterhaftes Langschwert: %s" % Beute.kennwert(schwert, "de"))
-	pruefe(Beute.listen_zeile(schwert, "de").contains("Meisterhaft"), "Listenzeile nennt die Güte: %s" % Beute.listen_zeile(schwert, "de"))
+	pruefe(not Beute.listen_zeile(schwert, "de").contains("Meisterhaft") and not Beute.listen_zeile(schwert, "en").contains("Masterwork"), "Listenzeile ohne Gütewort: %s" % Beute.listen_zeile(schwert, "de"))
+	pruefe(Menue.guete_text(schwert, true) == "Güte: Meisterhaft", "Fenster nennt die Güte: %s" % Menue.guete_text(schwert, true))
 
 func _held(stufe := 1) -> BrsHeld:
 	var h := BrsHeld.fuer_spiel("Probe", "Mensch", "Wachsoldat")
