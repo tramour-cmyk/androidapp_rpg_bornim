@@ -41,7 +41,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 
-**Tom** – offen 114, Muss 92, startbar 6
+**Tom** – offen 114, Muss 92, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -116,7 +116,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 758 | M | Borin soll in der Schenke am Tisch sitzen wie in der alten Fassung, nicht seitlich daneben | wartet auf Test/Build (gebaut) |
 | 764 | M | Heldenreiter zeigt aktive Zustände (betrunken usw.) mit Erklärung; Tippen auf die Leiste ö | wartet auf Test/Build (gebaut) |
 | 769 | M | Wochentermin 13.11.: Rollenspiegel Tom (rollenspiegel.sh Tom) (719); deckt 02.–13.11., Woc | Termin 13.11. 08:00 |
-| 756 | M | Gegenstände: wie Seltenheit, Abnutzung und übrige Merkmale bei anlegbarer Ausrüstung angez | Sperre 620.1 B: 18 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1030 (baeume_831.gd.uid) |
+| 756 | M | Gegenstände: wie Seltenheit, Abnutzung und übrige Merkmale bei anlegbarer Ausrüstung angez | Sperre 620.1 B: 19 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1030 (baeume_831.gd.uid) |
 | 698 | M | Grafikstufen im Systemmenü mit Effekten (Niedrig/Mittel/Hoch, Automatisch per Leistungstes | wartet auf 623 (startbar) |
 | 816 | M | Effekte Szene 1 Dorf am Abend nach LISTE-EFFEKTE (Reihenfolge 623.8): gedämpft, Bilder/s n | wartet auf 698 (startbar) |
 | 814 | M | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staub im Licht, Fußstaub, Fahne, Wind, | wartet auf Test/Build (gebaut) |
@@ -125,7 +125,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 852 | K | Von Homer (432a A, Chef 10.11., 12:05): Aschgeborene bauen: Modell Mensch mit aschgrauer S | ruht |
 | 860 | M | Von Sokrates (Chef 10.11., 13:07, t274.10 „Ja“): Chronik (Hauptauftrag, Aufträge, Bisher g | wartet auf Test/Build (gebaut) |
 | 861 | M | Von Sokrates (Chef 10.11., 13:12, Bild t274.14): Umhang des Kämpfers im Kampf rechts am Rü | ruht |
-| 867 | M | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die | wartet auf Sokrates |
+| 867 | M | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die | startbar |
 | 882.1 | M | Von Perikles (882, Umzug BRS Schritt 8): mit 870.9 auch godot-kampf.yml 41 (exportIntro) a | startbar |
 | 964 | M | Von Tom (Zu 870.4, Homer 14:15): Metall sperrt Evokation, Illusion, Beschwörung im Kampf; | wartet auf Test (Build) |
 | 966.2 | M | Von Sokrates (966 A neu, Chef 11.11., 15:58): Kochen und Alchemie mit Ring wie Knacken (DE | wartet auf 870 (wartet) |
@@ -150,7 +150,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 785.24 | M | Von Spike (785): Laden: Vorräte mit Wirkungszeile in der Liste wie alt (ShopScreen.kt 226– | wartet auf 870.13 (wartet) |
 | 984.1 | M | Von Sokrates (984 A, Chef 11.11., 20:12): Illusion und Beschwörung in Kapitel 1 bei der Er | wartet auf Test (Build 281) |
 | 1009 | M | Von Tom (831, Lauf 366): spielstand_test rot „FEHLER Plaetze 1 2“ (letzter() gab Platz 1 s | wartet auf Test (Build) |
-| 1022 | M | Von Sokrates (Chef 12.11., 08:26; Wiederholfund t268): Kartenrand aller Gebietskarten wie | wartet auf Sokrates |
+| 1022 | M | Von Sokrates (Chef 12.11., 08:26; Wiederholfund t268): Kartenrand aller Gebietskarten wie | wartet auf Test/Build (gebaut) |
 | 1023 | K | Hühner wie alt: fliehen verlässlich, Federn sichtbar, auffliegen (aus 814, t278.3; Chef 12 | ruht |
 | 1035 | M | Von Sokrates (Chef 12.11., 14:39): Startbildschirm mit eigenem Zeichen statt Godot (boot_s | wartet auf Test/Build (gebaut) |
 | 1040.1 | M | Von Tuffy (1040, Chef 12.11., 15:13 Lyra „dreht sich genauso bescheuert, ohne Schritte“): | wartet auf Test (Build 281) |
@@ -328,7 +328,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 53, Muss 39, startbar 29
+**Sokrates** – offen 51, Muss 37, startbar 27
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -383,8 +383,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 930 | M | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (wartet) |
 | 985 | K | Systemlösung? Nebel: 2 frühere Vorgänge (505, 502), neu 785.7; einmal grundsätzlich lösen? | startbar |
 | 644a.5 | M | Von Tuffy (644a.1): an welchem Grundwert hängen Rüstung, Ausweichen, Schild, Armbrust und | startbar |
-| 867 | M | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die | startbar |
-| 1022 | M | Von Sokrates (Chef 12.11., 08:26; Wiederholfund t268): Kartenrand aller Gebietskarten wie | startbar |
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
