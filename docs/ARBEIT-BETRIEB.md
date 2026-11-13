@@ -370,3 +370,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:04 13.11.: Marke Start-fehlt Homer 13.11.-09:41 (lauf.py)
 - 10:04 13.11.: Marke Start-fehlt Spike 13.11.-09:40 (lauf.py)
 - 10:04 13.11.: Marke Start-fehlt Tuffy 13.11.-09:40 (lauf.py)
+- 10:58 13.11.: Startsperre 10:58 Start Jerry, Diogenes, Perikles, Spike (lauf.py)
+- 10:58 13.11.: Marke Start-fehlt Tuffy 13.11.-10:04 (lauf.py)
+- 10:58 13.11.: Marke Archiv session_01Hmoj78DdYVvVkuejug4vVj (lauf.py)
