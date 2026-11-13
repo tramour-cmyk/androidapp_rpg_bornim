@@ -1,4 +1,7 @@
 # 1072 · Sollen Plätze und Laufwege im Kampf aus dem Umriss von oben berechnet werden, mit Plätzen am Gegner und Bahnen von jedem Stand?
+
+[Bild von 13.11., 23:33](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/13-2333-1072-Jerry.png) (eingetragen von meldung.sh, Jerry)
+
 Jerry · 13.11., 23:32 · E Kampf · aus deinem Wort 12.11., 20:09–20:43, 13.11., 21:39–21:51 und 23:20–23:24
 Kurz: Startplätze, dazu Plätze am Gegner (Kontakt und ein Hops dahinter) aus beiden Umrissen; Bahnen von jedem Stand, Platzmachen als Gehschritt; in drei Schritten mit Messung.
 Beim Chef, weil: neue Richtung im Spielgefühl (Laufwege und Aufstellung aller Kämpfe)
