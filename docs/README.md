@@ -5,7 +5,7 @@ Inhaltsverzeichnis: jede Zeile sagt in einem Satz, was in der Datei steht und wo
 ## Für den Chef
 
 - [Chefsache](chefsache/): alles, was du entscheiden, ansehen oder testen sollst; jeder Punkt eine Datei, beantwortet heißt weg.
-- [Projektplan](PROJEKTPLAN.md): der Fahrplan bis Kapitel 1 fertig ist, Schritt für Schritt, und wie weit jeder Schritt ist; ganz oben das Ziel dieser Woche.
+- [Projektplan](PROJEKTPLAN.md): oben die Meilensteine des ganzen Projekts (Kapitel 1 bis 7, Marktstart) mit offenen Vorgängen und die Teilprojekte bis Kapitel 1 fertig; darunter die Abnahmeliste und das Ziel dieser Woche.
 - [Abnahme](DESIGN-ABNAHME.md): die Liste zum Schluss, woran wir Kapitel 1 als fertig erkennen. Der Projektplan sagt, wie weit wir sind; die Abnahme sagt, wann es reicht.
 - [Tagesbericht](ARBEIT-TAGESBERICHT.md): jeden Morgen zehn Zeilen, was sich getan hat, wer hinterherhinkt und was als Nächstes kommt.
 - [Vorgangsarchiv](VORGANGSARCHIV.md): alles, was du entschieden hast, neueste oben; zum Nachschlagen, nicht zum Lesen von vorn.
