@@ -4,11 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [1109](entscheiden/1109-vorberechnung.md) | **Muss** | B Werkzeuge | 13.11., 10:00 | die Vorberechnung trägt und spart etwa 65 von 115 Minuten je Lauf, hat aber drei stille Lücken; dazu zwei Wege, Läufe weiter zu kürzen, und einer gegen falsches Rot | Diogenes |
+Nichts offen.
 
 ## Zu billigen
 
@@ -33,10 +29,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 
-**Tom** – offen 112, Muss 87, startbar 12
+**Tom** – offen 113, Muss 89, startbar 12
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 1122 | M | Von Sokrates (1109 D, Chef 13.11., 10:56): Prüfliste-Test pruefliste_1020 nur noch auf cla | startbar |
 | 1104 | M | Von Sokrates (Chef 13.11., 09:09, Fund t281.11): Höhle lässt sich nicht betreten, Station | wartet auf Test (Build) |
 | 431 | M | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, da | wartet auf 870.10 (wartet) |
 | 825 | M | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635 | wartet auf Test/Build (gebaut) |
@@ -145,15 +142,18 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1092 | M | Von Sokrates (zu 1090, Nacht 1077): dunkle, fleckige Längsstreifen in hellen Roben und Röc | wartet auf Test/Build (gebaut) |
 | 1108 | M | Von Sokrates (Chef 13.11., 09:38, 1108 A): Pim nur einmal heimschicken, Überreden höchsten | wartet auf Test/Build (gebaut) |
 | Pflege | K | von Werkzeug (340.3, 13.11.): 15616 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
-| 1115 | M? | D191.5 von Diogenes (1109): Leute bauen 9–11 min in jedem Lauf, nie abgelegt; prüfen, ob d | startbar |
+| 1115 | M | D191.5 von Diogenes (1109): Leute bauen 9–11 min in jedem Lauf, nie abgelegt; prüfen, ob d | wartet auf 1114 (startbar) |
 | 1118 | M | Von Sokrates (Chef 13.11., 10:06, Test 282): Zoom nach innen geht zu weit (Bild nur Rocksa | startbar |
 | 1119 | M | Von Sokrates (Chef 13.11., 10:14 und 10:20, t282.4 ✓): Fußstaub einen Tick zurück und nach | startbar |
 | 1120 | M | Von Sokrates (Chef 13.11., 10:32, t282.15 ✓): Knöpfe im Gespräch auf eine Höhe, ‹ Nicht je | startbar |
 
-**Jerry** – offen 129, Muss 112, startbar 6
+**Jerry** – offen 130, Muss 117, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 1111 | M | D191.1 von Diogenes (1109): cache=neu wirkt nicht mehr: seit 1f4e21a81 übergeht pruefen ke | startbar |
+| 1112 | M | D191.2 von Diogenes (1109): Block mit geduldetem Fehler wird abgelegt (FEHLER 494/506, LEU | startbar |
+| 1113 | M | D191.3 von Diogenes (1109): Kaufrepo 524 MB, 21 Zweige bau/* in drei Tagen, nie gelöscht; | startbar |
 | 1068 | M | Von Perikles (1048 A, H, D, Chef 12.11., 20:05): Ring bei jedem großen Schlag der Gegner ( | startbar |
 | 1043 | M | Von Sokrates (Chef 12.11., 15:52, Fund t278.33 Build 280, zu 988): MARS-Probekampf Wölfe, | wartet auf 760 (startbar) |
 | 1025 | M | Von Sokrates (Chef 12.11., 10:25–10:28, Bilder Probekampf Wölfe, Build 278): zwei Kämpfe z | Sperre 620.1 B: 29 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1018 (wolf) |
@@ -279,10 +279,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1096 | M | Von Sokrates (Chef 13.11., 07:55, Test 281, zu 1034): Siegfenster Probekampf mit Testheld | wartet auf Test/Build (gebaut) |
 | 1101 | M | Von Tom (854, Lauf 420): kauf_cache.py ablegen scheitert an godot/daten/deep_forest.bin 12 | wartet auf Diogenes (greift?) |
 | 1102 | M | Von Sokrates (Chef 13.11., 08:49, Test 281.14, zu 833, vgl. 1093): Kampfbericht deckt den | wartet auf Test/Build (gebaut) |
-| 1111 | M? | D191.1 von Diogenes (1109): cache=neu wirkt nicht mehr: seit 1f4e21a81 übergeht pruefen ke | startbar |
-| 1112 | M? | D191.2 von Diogenes (1109): Block mit geduldetem Fehler wird abgelegt (FEHLER 494/506, LEU | startbar |
-| 1113 | M? | D191.3 von Diogenes (1109): Kaufrepo 524 MB, 21 Zweige bau/* in drei Tagen, nie gelöscht; | startbar |
-| 1114 | M? | D191.4 von Diogenes (1109): Kampfort hängt am Block figur (nur held.glb, Gras, rig.log); j | startbar |
+| 1114 | M | D191.4 von Diogenes (1109): Kampfort hängt am Block figur (nur held.glb, Gras, rig.log); j | wartet auf 1111 (startbar) |
+| 1123 | M | Von Sokrates (1109 C, Chef 13.11., 10:56): Prüfungen auf zwei Bauserver teilen (zweiter La | wartet auf 1115 (startbar) |
 
 **Perikles** – offen 19, Muss 15, startbar 3
 
@@ -308,11 +306,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1117 | M? | D192.1 von Diogenes (zu 1110): Zeile 391 (Sokrates) trägt noch Stand „Chefwort in der Sitz | startbar |
 | 1121 | M | Von Sokrates (t282, 13.11., 10:44): Commit-Prüfung 774 hält t<N> an, wenn Automatik B eine | startbar |
 
-**Diogenes** – offen 14, Muss 11, startbar 5
+**Diogenes** – offen 13, Muss 10, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1109 | M | Von Sokrates (Chef 13.11., 09:44/09:45, „das ist wichtig“): Querprüfung Vorberechnung 854/ | Chef (Datei in der Chefsache) |
 | 461b | M | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Termin 16.11. |
 | 348.9 | M | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | ruht |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
