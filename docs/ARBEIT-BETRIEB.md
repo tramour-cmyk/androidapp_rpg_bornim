@@ -105,3 +105,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:25 13.11.: Marke Archiv session_01Hmoj78DPuPfsVVtyNnBuAu (lauf.py)
 - 18:25 13.11.: Marke Archiv session_01Hmoj76K5AsxSSKgmX5MEC4 (lauf.py)
 - 18:50 13.11.: Startsperre 18:50 Start Sokrates (Neustart cbbb7af87, Nachfolger „Sokrates – 1137: Vollzug prüfen (15.11.), bis dahin Chefrunde“; Ford)
+- 18:52 13.11.: Sokrates-Neustart (cbbb7af87): neue Sitzung `…767QhDiSiUsddouRMf` 18:50, Vorgängerin `…79btn43krqv5ayLUJh` archiviert (7,70 $ auf 1113, 1141, 1199, 1205; Ford)
