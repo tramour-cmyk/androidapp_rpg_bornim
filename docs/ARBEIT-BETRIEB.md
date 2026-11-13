@@ -303,3 +303,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 02:07 13.11.: Startsperre 02:07 Start Sokrates (Ford, Neustart-Meldung ee732f182, Nachfolger „Sokrates – 1077: Nachtführung und Chefrunde Build 281“; Hoch, effort high)
 - 02:08 13.11.: Neustart Sokrates (ee732f182): Sokrates neu …75o682WLs3Srkf9QbV gestartet (Hoch, effort high), Nacht-Weckruf (01:27 UTC) neu gelegt; Sokrates alt …76eLnuWxHiPnnC7PmA um 02:08 archiviert, 4,50 $ auf 1077, 1043, 1022, 867 gebucht.
 - 03:01 13.11.: Startsperre 03:01 Start Jerry (Ford, Neustart-Meldung 1f7255068, Nachfolger „Jerry – 1043: Ausweichen im Sprung, ein Filmlauf“; Hoch, effort high)
+- 03:02 13.11.: Neustart Jerry (1f7255068): Jerry neu …79qGhEdjuvdUYbpj3h gestartet (Hoch, effort high); Jerry alt …75judUX8HRX2kg7wjJ um 03:02 archiviert, 5,54 $ auf 1043 gebucht.
