@@ -52,6 +52,16 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 195 · 1100.1 Ford-Lauf vorher/nachher (Perikles `70a4467fe`, Ford ab 10:03; 13.11., 11:4x)
+
+- **Grundlage:** alle 41 Züge der Ford-Sitzungen `…78Qg516rLn1yGt11hL` (05:11–11:08) und `…799ZkNaijAJMrQQjx9` (11:12–11:43), je Zug Kosten, Schritte, Verlauf (result-Ereignisse).
+- **Kosten:** 05:09–09:20 4,57 $ in 18 Zügen, 165 Schritte (1,09 $/h, deckt sich mit Sokrates 4,58 $); 10:03–11:43 5,38 $ in 13 Zügen, 164 Schritte (3,2 $/h). Darin Probe D 11:01 (0,70 $), Ford-Neustart 11:08 und 11:12 (1,61 $), fünf Starts 11:40 (0,69 $).
+- **Schritte je Uhrlauf:** vorher 07:04 8, 08:06 18, 09:04 8; nachher 10:05 9, 11:15 9 (11:40 32 mit fünf Starts und Archivierungen). Kein Uhrlauf endete nach einem Schritt (LEERLAUF), die Bremse-Warnung kommt jede Stunde. Kosten je Schritt: 0,02 $ bei 160 Tsd. Verlauf (07:04, 11:15), 0,04 $ bei 390 Tsd. (10:05).
+- **Marke:** „Abgleich ganz 13.11.“ einmal, 09:40; danach keine weitere.
+- **Starts:** nach 10:03 jede Startsperre mit Sitzung oder WEITER, außer Spike 10:58 (Warnung 11:11, gestartet 11:12) und Tuffy 10:04 (Ford ließ ihn aus, Sperre stand, Warnung 10:58; derselbe Ablauf wie Hinweis Lauf 127). Keine Warnung verloren: jeder fehlende Start hat seine Marke „Start-fehlt“. Nebenbei: 09:40 schrieb `lauf.py` Vorentscheid-Marken doppelt (1044, 1022 je dreimal, 1090 zweimal).
+- **Befund:** D195.1 → 1125 (Perikles): 1100 spart messbar nichts; 1100 wartet darauf.
+- **Nicht geprüft:** Telegram-Warnungen selbst (nur die Marken im Protokoll).
+
 ## Lauf 194 · 1122 Prüflisten-Test nur auf claude/build-… (Tom, `3ff3626be` auf `claude/tom-1122-pruefliste`; 13.11., 11:4x)
 
 - **Richtig gebaut:** einzige Stelle mit `pruefliste_1020` in allen 16 Workflows ist `godot.yml` Zeile 705; Bedingung unter `bash -e` nachgestellt: `claude/build-283` führt den Test aus, ein Fehlschlag bricht den Schritt weiter ab (Exit 1); `claude/tom-348-x` schreibt „aus“ und läuft weiter. `pruefliste.py` (Daten fürs Spiel) läuft weiter auf jedem Zweig, nur der Test ist aus; `workflow_dispatch` auf einem Buildzweig führt ihn aus.
